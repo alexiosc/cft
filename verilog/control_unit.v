@@ -15,7 +15,7 @@
 `include "reset.v"
 `include "clock.v"
 `include "constant_store.v"
-`include "register_PR.v"
+//`include "register_PR.v"
 `include "skip_unit.v"
 `include "alu.v"
 `include "rom.v"
@@ -55,7 +55,7 @@ module microrom (uaddr, control_out, reset);
 
    // We output an idle microcode pattern when reset is active.
    wire [23:0] idle;
-   assign idle = 24'b111111100000000000000000;
+   assign idle = 24'b111111111010100000000000;
 
    buffer_244 rstbuf0 (reset, reset, idle[7:4], idle[3:0], control_out[7:4], control_out[3:0]);
    buffer_244 rstbuf1 (reset, reset, idle[15:12], idle[11:8], control_out[15:12], control_out[11:8]);
@@ -101,26 +101,26 @@ endmodule // ucounter
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-module agl (pr, r, offset, oe, a);
-   input [5:0]  pr;
-   input 	r;
-   input [9:0] 	offset;
-   input 	oe;
-
-   wire [5:0] 	pr;
-   wire 	r;
-   wire [9:0] 	offset;
+module agl (pc, r, offset, oe, a);
+   input [15:0]  pc;
+   input 	 r;
+   input [9:0] 	 offset;
+   input 	 oe;
+   
+   wire [15:0] 	 pc;
+   wire 	 r;
+   wire [9:0] 	 offset;
 
    output [15:0] a0, a;
    output [5:0]  p;		// The page.
 
    // Zero page handling.
-   and(p[0], pr[0], r);
-   and(p[1], pr[1], r);
-   and(p[2], pr[2], r);
-   and(p[3], pr[3], r);
-   and(p[4], pr[4], r);
-   and(p[5], pr[5], r);
+   and(p[0], pc[10], r);
+   and(p[1], pc[11], r);
+   and(p[2], pc[12], r);
+   and(p[3], pc[13], r);
+   and(p[4], pc[14], r);
+   and(p[5], pc[15], r);
 
    // Concatenate the page and ir field.
    assign a0 = {p, offset};
@@ -131,67 +131,6 @@ module agl (pr, r, offset, oe, a);
 
 endmodule // agl
 
-
-///////////////////////////////////////////////////////////////////////////////
-//
-// FUNCTION: The PR register.
-//
-// Notes: PR (page register) is an 8-bit register that performs two tasks.
-//
-//   1. It holds the current page (the 6 bits 15..10) used for
-//      current-page references, since literals can only be 10 bits
-//      long.
-//
-//   2. Its spare 2 bits extend the usable memory of the computer by
-//      four times, to 18 bits: 256 16-bit kWords.
-//
-// The PR is set when:
-//
-//   * Using OP2 SPG instruction: pr <- a
-//   * Using OP2 CPG instruction: pr[5:0] <- pc[15:10]
-//   * When w_pc latches:         pr[5:0] <- pc[15:10]
-//   * On page boundary & inc_pc: pr[5:0] <- pc[15:10]
-//
-// Please note that the PC is only 16 bits long, so the high-order 2
-// bits are for memory extension purposes only, and the four 64 kWord
-// memory areas are fairly segregated from each other. Since the PC
-// wraps around at 64k, it can't cross a 64k boundary without explicit
-// use of the OP2 SPG instruction.
-//
-// The PR may be implemented as a 14-bit register, giving access to 24 bits of
-// 16-bit memory (10 bits page offset, 6 bits page, 8 bits address extension)
-// -- that's an impressive 16 MWords, or 32 MBytes. The extra bits come free,
-// since they'll have to be implemented as two separate D flip-flops anyway.
-//
-///////////////////////////////////////////////////////////////////////////////
-
-module __reg_pr (pc, update_pc, pg);
-   input [15:0]  pc;
-   input 	 update_pc;
-   
-   output [5:0]  pg;
-   
-   wire [15:0] 	 pc;
-
-   wire [5:0] 	 pg;
-
-   wire [1:0] 	 padding;
-   
-   flipflop_574 reg_pg ({2'b00, pc[15:10]}, {padding, pg[5:0]}, update_pc, 1'b0);
-   //flipflop_574 reg_ae (d[13:6], q[13:6], latch_whole, 1'b0);
-
-   // These buffers output the PR shifted right by 10 bits.
-   //
-   // Address space --------------------------------------------------------|
-   // 24 23 22|21 20 19 18|17 16 15 14|13 12 11 10|09 08 07 06 05 03 02 01 00
-   // |<------ Addr ext. ----->|  |<--- page --->|
-   //                                              |<---- page offset  ---->|
-   // 14 13 12|11 10 09 08|07 06 05 04|03 02 01 00
-
-   //buffer_244 buf_pg (oe, oe, q[13:10], q[17:14], bus[3:0], bus[7:4]);
-   //buffer_244 buf_ae (oe, oe, q[21:18], {dummy2, q[24:22]}, bus[11:8], {dummy3, bus[14:12]});
-endmodule // reg_pr
-  
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -219,8 +158,8 @@ endmodule // reg_pr
 ///////////////////////////////////////////////////////////////////////////////
 
 module unit_demux (r_unit, w_unit, clock_read, clock_write, clock_pulse, reset,
-		   w_dbus, w_mar, w_pc, w_ir, w_dr, w_a, w_pr,
-		   r_dbus, r_pc, r_agl, r_const, r_dr, r_a, r_pr,
+		   w_dbus, w_mar, w_pc, w_ir, w_dr, w_a,
+		   r_dbus, r_pc, r_agl, r_const, r_dr, r_a,
 		   r_add, r_and, r_or, r_xor, r_not, r_roll);
    input [3:0] r_unit;
    input [2:0] w_unit;
@@ -235,7 +174,6 @@ module unit_demux (r_unit, w_unit, clock_read, clock_write, clock_pulse, reset,
    output      w_ir;
    output      w_dr;
    output      w_a;
-   output      w_pr;
 
    output      r_dbus;
    output      r_pc;
@@ -243,7 +181,6 @@ module unit_demux (r_unit, w_unit, clock_read, clock_write, clock_pulse, reset,
    output      r_const;
    output      r_dr;
    output      r_a;
-   output      r_pr;
    output      r_add;
    output      r_and;
    output      r_or;
@@ -274,7 +211,7 @@ module unit_demux (r_unit, w_unit, clock_read, clock_write, clock_pulse, reset,
    or (w_ir, w_y[4], clock_pulse);	// 100 = IR
    or (w_dr, w_y[5], clock_pulse);	// 101 = DR
    or (w_a, w_y[6], clock_pulse);	// 110 = A
-   or (w_pr, w_y[7], clock_pulse);	// 111 = PR
+   //or (w_pr, w_y[7], clock_pulse);	// 111 = PR
 
 
    // Read-unit 4-to-16 decoder (always enabled)
@@ -294,7 +231,7 @@ module unit_demux (r_unit, w_unit, clock_read, clock_write, clock_pulse, reset,
    assign r_dr = r_y[4];	// 100 = IR
    assign r_a = r_y[5];		// 101 = A
    assign r_const = r_y[6];	// 110 = constant (OP decides between 0 and 1)
-   assign r_pr = r_y[7];	// 111 = PR
+   //assign r_pr = r_y[7];	// 111 = PR
 
    assign r_add = r_y[8];
    assign r_and = r_y[9];
@@ -358,7 +295,6 @@ module control_unit (abus, dbus, ibus,
    tri1 	 w_pc;		// Write to the PC
    tri1 	 w_dr;		// Write to the DR
    tri1 	 w_a;		// Write to the A
-   tri1 	 w_pr;		// Write to the PR
    tri1 	 w_mar;		// Write to the MAR
    
    tri0 [3:0] 	 read_unit;	// The unit to read from
@@ -370,7 +306,6 @@ module control_unit (abus, dbus, ibus,
    tri1 	 r_const;	// Constant store
    tri1 	 r_dr;		// Read the DR
    tri1          r_a;		// Read the Accumulator
-   tri1          r_pr;		// Read the Accumulator
    tri1 	 r_add;		// ALU ADD
    tri1 	 r_and;		// ALU AND
    tri1 	 r_or;		// ALU OR
@@ -390,7 +325,7 @@ module control_unit (abus, dbus, ibus,
    tri1 	 cll;		// Clear L
    tri1 	 cli;		// Clear I
    
-   tri1		 dab;		// -DAB: drive address bus
+   //tri1		 dab;		// -DAB: drive address bus
    tri1		 mem;		// -MEM: memory access
    tri1		 io;		// -IO: I/O access
    tri1		 r;		// -R: read data
@@ -483,7 +418,17 @@ module control_unit (abus, dbus, ibus,
    ///////////////////////////////////////////////////////////////////////////////
 
    // The MAR
-   rc_reg16 reg_mar (ibus, abus, , reset, w_mar, dab);
+   wire [15:0] mar_unbuf;
+   inc_reg16 reg_mar (ibus, abus, mar_unbuf, w_mar, dab, 1'b1, 1'b1, reset);
+
+   // The PC resets on /RESET, then decrements by one on /RST_HOLD.
+   wire [15:0] pc_unbuf;       // Unbuffered PC connection for the front panel.
+   inc_reg16 reg_pc (ibus, ibus, pc_unbuf, w_pc, r_pc, inc_pc, 1'b1, reset);
+
+   // The Accumulator
+   wire [15:0] a_unbuf;		// This goes to the ALU A port and front panel.
+   inc_reg16 reg_a (ibus, ibus, a_unbuf, w_a, r_a, inc_a, 1'b1, reset);
+
 
    // The IR
    rc_reg16 reg_ir (ibus, ir, , reset, w_ir & rst_hold, 1'b0);
@@ -492,21 +437,7 @@ module control_unit (abus, dbus, ibus,
    wire [15:0] dr_unbuf;
    rc_reg16 reg_dr (ibus, ibus, dr_unbuf, reset, w_dr, r_dr);
 
-   // The PC resets on /RESET, then decrements by one on /RST_HOLD.
-   wire [15:0] pc_panel;       // Unbuffered PC connection for the front panel.
-   inc_reg16 reg_pc (ibus, ibus, pc_panel, w_pc, r_pc, inc_pc, 1'b1, reset);
-
-   // The PR
-   wire [5:0] pr;
-   // TODO: Finish implementing and connecting.
-   // TODO: Simplify the PR, AE, and AGL.
-   //__reg_pr reg_pr (ibus, w_pc, pr);
-   reg_pr reg_pr (pc_panel, w_pc, inc_pc, ibus, w_pr, r_pr, ibus, pr);
-
-   // The Accumulator
-   wire [15:0] a_unbuf;		// This goes to the ALU A port and front panel.
-   inc_reg16 reg_a (ibus, ibus, a_unbuf, w_a, r_a, inc_a, 1'b1, reset);
-
+   
    // The L Register
    // TODO: Link these to the ALU.
    assign alu_l_in = l_unbuf;
@@ -522,7 +453,7 @@ module control_unit (abus, dbus, ibus,
    //
    ///////////////////////////////////////////////////////////////////////////////
 
-   agl unit_agl (pr[5:0], ir[10], ir[9:0], r_agl, ibus);
+   agl unit_agl (pc_unbuf, ir[10], ir[9:0], r_agl, ibus);
 
    ///////////////////////////////////////////////////////////////////////////////
    //
@@ -592,13 +523,15 @@ module control_unit (abus, dbus, ibus,
    assign cli = control[15];	// Clear I
    
    assign inc_pc = control[16];
-   assign dab = control[17];
-   assign mem = control[18];
-   assign io = control[19];
-   assign r = control[20];
-   assign w = control[21];
-   assign go_fetch = control[22];
-   assign halt = control[23];
+   //assign dab = control[17];
+   assign mem = control[19];
+   assign io = control[20];
+   assign r = control[21];
+   assign w = control[22];
+   assign go_fetch = control[23];
+   //assign halt = control[23];
+
+   and #8 and_7408(dab, mem, io);
    
    // The microPC
    wire [3:0]	 upc;
@@ -610,7 +543,7 @@ module control_unit (abus, dbus, ibus,
 
    always @(upc) begin
       if (upc == 3) begin
-      $display("PC: %h  IR: %s %s %b %h  A: %h  PR: %h  DR: %h", pc_panel,
+      $display("PC: %h  IR: %s %s %b %h  A: %h  DR: %h", pc_unbuf,
 	       ir[15:12] == 0? "TRAP" :
 	       ir[15:12] == 1? "????" :
 	       ir[15:12] == 2? "LOAD" :
@@ -627,7 +560,7 @@ module control_unit (abus, dbus, ibus,
 	       ir[15:12] == 13? "OP2 " :
 	       ir[15:12] == 14? "???? " :
 	       ir[15:12] == 15? "LIA " : "????",
-	       ir[11] ? "I" : " ", ir[10] ? " " : "Z", ir[9:0], a_unbuf, pr, dr_unbuf);
+	       ir[11] ? "I" : " ", ir[10] ? " " : "Z", ir[9:0], a_unbuf, dr_unbuf);
 	 end
    end
 
@@ -642,8 +575,8 @@ module control_unit (abus, dbus, ibus,
 
    // Decode the signals in the microinstruction into individual signals to control units.
    unit_demux unit_demux (read_unit, write_unit, clock2, clock, clock14, reset,
-			  w_dbus, w_mar, w_pc, w_ir, w_dr, w_a, w_pr,
-			  r_dbus, r_pc, r_agl, r_const, r_dr, r_a, r_pr,
+			  w_dbus, w_mar, w_pc, w_ir, w_dr, w_a,
+			  r_dbus, r_pc, r_agl, r_const, r_dr, r_a,
 			  r_add, r_and, r_or, r_xor, r_not, r_roll);
 
    // TODO: move this elsewhere.

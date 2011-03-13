@@ -43,25 +43,25 @@ int main(int argc, char **argv)
 			if ((hx & (1<<15)) == 0) add(buf2, "cli");
 			if ((hx & (1<<16)) == 0) add(buf2, "pc++");
 
-			if ((hx & (1<<17)) == 0) add(buf2, "dab");
-			if ((hx & (1<<18)) == 0) add(buf2, "mem");
-			if ((hx & (1<<19)) == 0) add(buf2, "io");
-			if ((hx & (1<<20)) == 0) {
+			/*if ((hx & (1<<17)) == 0) add(buf2, "dab");*/
+			if ((hx & (1<<19)) == 0) add(buf2, "mem");
+			if ((hx & (1<<20)) == 0) add(buf2, "io");
+			if ((hx & (1<<21)) == 0) {
 				strcpy(col, "?green4?");
 				add(buf2, "r");
 			}
-			if ((hx & (1<<21)) == 0) {
+			if ((hx & (1<<22)) == 0) {
 				strcpy(col, "?orange4?");
 				add(buf2, "w");
 			}
 
 			add(buf2, skip_unit[(hx >> 7) & 15]);
 
-			if ((hx & (1<<22)) == 0) {
+			if ((hx & (1<<23)) == 0) {
 				strcpy(col, "?cyan4?");
 				add(buf2, "end");
 			}
-			if ((hx & (1<<23)) == 0) add(buf2, "halt");
+			/*if ((hx & (1<<23)) == 0) add(buf2, "halt");*/
 			
 			if (!buf2[0]) add(buf2, "?red4?wait");
 			printf("%s%s\n", col, buf2);

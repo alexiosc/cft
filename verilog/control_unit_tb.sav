@@ -1,11 +1,12 @@
-[timestart] 4006390000
+[timestart] 0
 [size] 1720 1059
 [pos] 0 0
-*-24.191149 4109530000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-23.473770 17810000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] control_unit_tb.
 [treeopen] control_unit_tb.control_unit.
 [treeopen] control_unit_tb.control_unit.reg_l.
 [treeopen] control_unit_tb.control_unit.reg_pc.
+[treeopen] control_unit_tb.control_unit.unit_agl.
 @200
 -Clock
 @28
@@ -46,10 +47,9 @@ control_unit_tb.control_unit.ibus[15:0]
 +{MAR} control_unit_tb.control_unit.reg_mar.d[15:0]
 +{IR} control_unit_tb.control_unit.reg_ir.qc[15:0]
 +{PC} control_unit_tb.control_unit.reg_pc.q_unbuf[15:0]
-+{PR} control_unit_tb.control_unit.reg_pr.pr_unbuf[5:0]
 +{AGL} control_unit_tb.control_unit.unit_agl.a0[15:0]
 @4022
-^>1 /home/alexios/PROJECTS/EXPERIMENTAL/CPUS/ssm/verilog/filters/disasm
+^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/disasm
 +{IR} control_unit_tb.control_unit.reg_ir.qc[15:0]
 @28
 control_unit_tb.control_unit.ir[15:0]
@@ -99,6 +99,10 @@ control_unit_tb.control_unit.ir[15:0]
 -group_end
 @22
 +{DR} control_unit_tb.control_unit.reg_dr.qc[15:0]
+@28
+control_unit_tb.control_unit.mem
+control_unit_tb.control_unit.io
+control_unit_tb.control_unit.dab
 @200
 -
 -Flags
@@ -111,12 +115,12 @@ control_unit_tb.control_unit.ir[15:0]
 -
 -Control  Unit
 @2022
-^1 /home/alexios/PROJECTS/EXPERIMENTAL/CPUS/ssm/verilog/filters/upc
+^1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/upc
 control_unit_tb.control_unit.upc[3:0]
 @22
 control_unit_tb.control_unit.uaddr[11:0]
 @c04022
-^>2 /home/alexios/PROJECTS/EXPERIMENTAL/CPUS/ssm/verilog/filters/control
+^>2 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/control
 control_unit_tb.control_unit.control[23:0]
 @28
 (0)control_unit_tb.control_unit.control[23:0]
@@ -153,21 +157,16 @@ control_unit_tb.control_unit.w
 @200
 -
 -Others
+@23
+control_unit_tb.control_unit.unit_agl.p[5:0]
 @22
-control_unit_tb.control_unit.reg_pc.d[15:0]
+control_unit_tb.control_unit.unit_agl.a0[15:0]
+control_unit_tb.control_unit.unit_agl.a[15:0]
 @28
-control_unit_tb.control_unit.reg_pc.latch
+control_unit_tb.control_unit.unit_agl.oe
 @22
-control_unit_tb.control_unit.reg_pc.q_unbuf[15:0]
+control_unit_tb.control_unit.unit_agl.offset[9:0]
 @28
-control_unit_tb.control_unit.reg_pc.xlatch
-control_unit_tb.control_unit.reg_pc.counter0.count_down
-control_unit_tb.control_unit.reg_pc.counter0.count_up
-control_unit_tb.control_unit.reg_pc.counter1.count_down
-control_unit_tb.control_unit.reg_pc.counter1.count_up
-control_unit_tb.control_unit.reg_pc.counter2.count_down
-control_unit_tb.control_unit.reg_pc.counter2.count_up
-control_unit_tb.control_unit.reg_pc.counter3.count_down
-control_unit_tb.control_unit.reg_pc.counter3.count_up
+control_unit_tb.control_unit.unit_agl.r
 [pattern_trace] 1
 [pattern_trace] 0

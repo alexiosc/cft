@@ -59,7 +59,7 @@ signal r_pc           = ....................0011; // Read from PC
 signal r_dr           = ....................0100; // Read from DR
 signal r_a            = ....................0101; // Read from the Accumulator
 signal r_cs           = ....................0110; // Read from the Constant Store
-signal r_pr           = ....................0111; // Read from the PR
+//signal r_pr         = ....................0111; // Read from the PR
 signal alu_add        = ....................1000; // Read from the Adder unit
 signal alu_and        = ....................1001; // Read from the AND unit
 signal alu_or         = ....................1010; // Read from the OR unit
@@ -75,7 +75,7 @@ signal w_pc           = .................011....; // Write to the PC
 signal w_ir           = .................100....; // Write to the IR
 signal w_dr           = .................101....; // Write to the DR
 signal w_a            = .................110....; // Write to the Accumulator
-signal w_pr           = .................111....; // Write to the PR
+//signal w_pr         = .................111....; // Write to the PR
 
 signal if9            = .............0111.......; // SKIP = IR[9]
 signal if8            = .............0110.......; // SKIP = IR[8]
@@ -94,13 +94,14 @@ signal cpi            = .........1..............; // Complement I flag
 signal /cli           = ........1...............; // Clear I flag
 signal /pc++          = .......1................; // Step the PC
 
-signal /dab           = ......1.................; // Drive Address bus
-signal /mem           = .....1..................; // Memory access
-signal /io            = ....1...................; // Input/Output enable
-signal /R             = ...1....................; // Memory read
-signal /W             = ..1.....................; // Memory write
-signal /END           = .1......................; // Reset microprogram, go to fetch state.
-signal /HALT          = 1.......................; // Halt the clock
+//signal spare1       = ......1.................; // Drive Address bus
+//signal spare2       = .....1..................; // Drive Address bus
+signal /mem           = ....1...................; // Memory access
+signal /io            = ...1....................; // Input/Output enable
+signal /R             = ..1.....................; // Memory read
+signal /W             = .1......................; // Memory write
+signal /END           = 1.......................; // Reset microprogram, go to fetch state.
+//signal /HALT          = 1.......................; // Halt the clock
 
 // ALU ops:
 //
@@ -182,7 +183,7 @@ signal /HALT          = 1.......................; // Halt the clock
 // This macro defines a memory read cycle, i.e. steps 2 to 4 above.
 #define _MEMREAD(_areg, _dreg) \
     w_mar, r_##_areg; \
-    /DAB, /MEM, /R; \
+    /MEM, /R; \
     w_##_dreg, r_dbus, hold
     //-/DAB, -/MEM, -/IO, -/R, -/W
     
@@ -193,7 +194,7 @@ signal /HALT          = 1.......................; // Halt the clock
 
 // This macro deselects the memory and terminates memory access. Needed between memory read cycles.
 #define _DESEL \
-    -/DAB, -/MEM, -/IO, -/R, -/W	   // 5. Deselect I/O and memory.
+    -/MEM, -/IO, -/R, -/W	   // 5. Deselect I/O and memory.
 
 
 // To write to RAM:
@@ -242,9 +243,9 @@ signal /HALT          = 1.......................; // Halt the clock
 
 #define _MEMWRITE(_areg, _dreg) \
      w_mar, r_##_areg; \
-    /dab, /mem, /w; \
-    w_dbus, r_##_dreg, /dab, /mem, /w; \
-    r_##_dreg, /dab, /mem
+    /mem, /w; \
+    w_dbus, r_##_dreg, /mem, /w; \
+    r_##_dreg, /mem
 
 /*
     w_mar, r_##_areg; \
@@ -622,16 +623,16 @@ start IRQ=X, RST=1, OP=LI, I=X, SKIP=X;
 start IRQ=X, RST=1, OP=OUT, I=0, SKIP=X;
       _FETCH_IR;		// Fetch the instruction and operand.
       w_mar, r_agl;
-      /dab, /io, /w;
-      w_dbus, r_a, /dab, /io, /w;
-      w_dbus, r_a, /dab, /io, /end;;
+      /io, /w;
+      w_dbus, r_a, /io, /w;
+      w_dbus, r_a, /io, /end;;
 
 start IRQ=X, RST=1, OP=OUT, I=1, SKIP=X;
       _FETCH_LITERAL;		// Fetch the instruction and operand.
       w_mar, r_dr;		// Indirection.
-      /dab, /io, /w;
-      w_dbus, r_a, /dab, /io, /w;
-      w_dbus, r_a, /dab, /io, /end;
+      /io, /w;
+      w_dbus, r_a, /io, /w;
+      w_dbus, r_a, /io, /end;
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -660,7 +661,6 @@ start IRQ=X, RST=1, OP=OUT, I=1, SKIP=X;
 // RBR = OP1  '-------001		; <L,A> <- <L,A> << 1
 // RNL = OP1  '-------110		; <L,A> <- <L,A> >> 4
 // RNR = OP1  '-------101		; <L,A> <- <L,A> << 4
-// HALT = OP1 '------1---		; if3: Stop clock.
 //
 // (*) The final /end is necessary when the computer comes out of the
 // HALT state.
@@ -672,8 +672,7 @@ start IRQ=X, RST=1, OP=OP1, I=X, SKIP=1;
       w_a, alu_not, if6;	// 4. If bit 7: complement A
       /inc_a, if5;		// 5. If bit 6: increment A
       cpl, ifroll;		// 6. If bit 5: complement L
-      w_a, alu_roll, if3;	// 7. If roll: well, roll.
-      /halt;			// 8. If bit 3: halt.
+      w_a, alu_roll;		// 7. If roll: well, roll.
       /end;			// (*)
 
 start IRQ=X, RST=1, OP=OP1, I=X, SKIP=0;
@@ -684,7 +683,6 @@ start IRQ=X, RST=1, OP=OP1, I=X, SKIP=0;
       if5;			// 5. If bit 6: increment A
       ifroll;			// 6. If bit 5: complement L
       if3;			// 7. If roll: well, roll.
-      /end;			// End one cycle early if not HALTing.
       /end;			// (*)
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -729,9 +727,9 @@ start IRQ=X, RST=1, OP=OP1, I=X, SKIP=0;
 
 start IRQ=X, RST=1, OP=OP2, I=X, SKIP=1;
       _FETCH_IR, if9;		// 1. Fetch the instruction and operand.
-      w_a, r_pr, if8;		// 2. If bit 9: A <= PR
-      w_pr, r_a, if7;		// 3. If bit 8: PR <= A
-      w_pc, r_pc, ifbranch;     // 4. If bit 7: PR <= PC (note: PC <- PC)
+      if8;		// 2. If bit 9: A <= PR
+      if7;		// 3. If bit 8: PR <= A
+      ifbranch;     // 4. If bit 7: PR <= PC (note: PC <- PC)
       /pc++, if6;		// 5. If branching: branch (if needed)
       w_a, r_cs, if5;		// 6. If bit 6: A <= 0
       /cli, if4;		// 7. If bit 5: I <= 0
