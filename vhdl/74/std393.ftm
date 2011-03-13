@@ -1,0 +1,194 @@
+<!DOCTYPE FTML SYSTEM "ftml.dtd">
+<FTML><HEAD><TITLE>FMF Timing for std393 Parts</TITLE>
+<BODY>
+<REVISION.HISTORY>
+version: |  author:  | mod date: | changes made:
+  V1.0    R. Munden    02 Feb 10   Initial release
+</REVISION.HISTORY>
+<TIMESCALE>1ns</TIMESCALE>
+<MODEL>std393
+<FMFTIME>
+N74F393D<SOURCE>Philips Semiconductors 853-0295 94977 1988 Nov 01</SOURCE>
+N74F393N<SOURCE>Philips Semiconductors 853-0295 94977 1988 Nov 01</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V-5.5V, CL=50pF, Ta=0 to +70 Celsius</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLR Q0 (4:6:9) (4:6:9)) 
+    (IOPATH CLK Q0 (3.5:5.5:9) (5:7:10.5)) 
+    (IOPATH CLK Q1 (4.5:7:13) (7:9.5:13)) 
+    (IOPATH CLK Q2 (7:10:15) (9:11.5:15.5)) 
+    (IOPATH CLK Q3 (10:12.5:17) (11.5:14:17.5)) 
+  ))
+  (TIMINGCHECK
+    (RECOVERY CLR CLK (3:3:3)) 
+    (WIDTH (posedge CLR) (4.5:4.5:4.5)) 
+    (WIDTH (posedge CLK) (5:5:5)) 
+    (WIDTH (negedge CLK) (4:4:4)) 
+    (PERIOD (posedge CLK) (10:10:10)) 
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+MM74HC393M<SOURCE>Fairchild Semiconductor DS005337 February 1999</SOURCE>
+MM74HC393MTC<SOURCE>Fairchild Semiconductor DS005337 February 1999</SOURCE>
+MM74HC393N<SOURCE>Fairchild Semiconductor DS005337 February 1999</SOURCE>
+MM74HC393PJ<SOURCE>Fairchild Semiconductor DS005337 February 1999</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<COMMENT>Min values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLR Q0 (9:18:41) (9:18:41)) 
+    (IOPATH CLK Q0 (7:15:30) (7:15:30)) 
+    (IOPATH CLK Q1 (11:23:47) (11:23:47)) 
+    (IOPATH CLK Q2 (15:30:60) (15:30:60)) 
+    (IOPATH CLK Q3 (17:35:72) (17:35:72)) 
+  ))
+  (TIMINGCHECK
+    (RECOVERY CLR CLK (5:5:5)) 
+    (WIDTH (posedge CLR) (16:16:16)) 
+    (WIDTH (posedge CLK) (16:16:16)) 
+    (WIDTH (negedge CLK) (16:16:16)) 
+    (PERIOD (posedge CLK) (33.3:33.3:33.3)) 
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74HC393D<SOURCE>Texas Instruments SCLS143B-Revised May 1997</SOURCE>
+SN74HC393DB<SOURCE>Texas Instruments SCLS143B-Revised May 1997</SOURCE>
+SN74HC393N<SOURCE>Texas Instruments SCLS143B-Revised May 1997</SOURCE>
+SN74HC393NS<SOURCE>Texas Instruments SCLS143B-Revised May 1997</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<COMMENT>Min values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLR Q0 (8:17:41) (8:17:41)) 
+    (IOPATH CLK Q0 (7:15:30) (7:15:30)) 
+    (IOPATH CLK Q1 (11:22:47) (11:22:47)) 
+    (IOPATH CLK Q2 (14:28:60) (14:28:60)) 
+    (IOPATH CLK Q3 (16:32:72) (16:32:72)) 
+  ))
+  (TIMINGCHECK
+    (RECOVERY CLR CLK (5:5:5)) 
+    (WIDTH (posedge CLR) (20:20:20)) 
+    (WIDTH (posedge CLK) (20:20:20)) 
+    (WIDTH (negedge CLK) (20:20:20)) 
+    (PERIOD (posedge CLK) (40:40:40)) 
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+DM74LS393M<SOURCE>Fairchild Semiconductor DS006434 March 2000</SOURCE>
+DM74LS393N<SOURCE>Fairchild Semiconductor DS006434 March 2000</SOURCE>
+SN74LS393D<SOURCE>Texas Instruments SDLS107-Revised March 1988</SOURCE>
+SN74LS393N<SOURCE>Texas Instruments SDLS107-Revised March 1988</SOURCE>
+SN74LS393NS<SOURCE>Texas Instruments SDLS107-Revised March 1988</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=15pF, Ta=+25 Celsius</COMMENT>
+<COMMENT>Min values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLR Q0 (12:24:39) (12:24:39)) 
+    (IOPATH CLK Q0 (6:12:20) (6:13:20)) 
+    (IOPATH CLK Q1 (6:12:20) (6:13:20)) 
+    (IOPATH CLK Q2 (20:40:60) (20:40:60)) 
+    (IOPATH CLK Q3 (20:40:60) (20:40:60)) 
+  ))
+  (TIMINGCHECK
+    (RECOVERY CLR CLK (25:25:25)) 
+    (WIDTH (posedge CLR) (20:20:20)) 
+    (WIDTH (posedge CLK) (20:20:20)) 
+    (WIDTH (negedge CLK) (20:20:20)) 
+    (PERIOD (posedge CLK) (40:40:40)) 
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+74LV393D_3V3<SOURCE>Philips Semiconductors 853-1936 19545 1998 Jun 10</SOURCE>
+74LV393DB_3V3<SOURCE>Philips Semiconductors 853-1936 19545 1998 Jun 10</SOURCE>
+74LV393N_3V3<SOURCE>Philips Semiconductors 853-1936 19545 1998 Jun 10</SOURCE>
+74LV393PW_3V3<SOURCE>Philips Semiconductors 853-1936 19545 1998 Jun 10</SOURCE>
+<COMMENT>The Values listed are for VCC=3.0V-3.6V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<COMMENT>Min values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLR Q0 (6:13:26) (6:13:26)) 
+    (IOPATH CLK Q0 (7:14:29) (7:14:29)) 
+    (IOPATH CLK Q1 (9:19:39) (9:19:39)) 
+    (IOPATH CLK Q2 (11:24:49) (11:24:49)) 
+    (IOPATH CLK Q3 (13:29:59) (13:29:59)) 
+  ))
+  (TIMINGCHECK
+    (RECOVERY CLR CLK (5:5:5)) 
+    (WIDTH (posedge CLR) (20:20:20)) 
+    (WIDTH (posedge CLK) (20:20:20)) 
+    (WIDTH (negedge CLK) (20:20:20)) 
+    (PERIOD (posedge CLK) (41.7:41.7:41.7)) 
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74LV393AD_5V<SOURCE>Texas Instruments SCLS457 February 2001</SOURCE>
+SN74LV393ADB_5V<SOURCE>Texas Instruments SCLS457 February 2001</SOURCE>
+SN74LV393ADGV_5V<SOURCE>Texas Instruments SCLS457 February 2001</SOURCE>
+SN74LV393ANS_5V<SOURCE>Texas Instruments SCLS457 February 2001</SOURCE>
+SN74LV393APW_5V<SOURCE>Texas Instruments SCLS457 February 2001</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V-5.5V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<COMMENT>Min values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLR Q0 (1:5.2:11.5) (1:5.2:11.5)) 
+    (IOPATH CLK Q0 (1:4.9:12) (1:4.9:12)) 
+    (IOPATH CLK Q1 (1:5.6:13.5) (1:5.6:13.5)) 
+    (IOPATH CLK Q2 (1:6.2:15) (1:6.2:15)) 
+    (IOPATH CLK Q3 (1:6.6:16.5) (1:6.6:16.5)) 
+  ))
+  (TIMINGCHECK
+    (RECOVERY CLR CLK (4:4:4)) 
+    (WIDTH (posedge CLR) (5:5:5)) 
+    (WIDTH (posedge CLK) (5:5:5)) 
+    (WIDTH (negedge CLK) (5:5:5)) 
+    (PERIOD (posedge CLK) (13.3:13.3:13.3)) 
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74LV393AD_3V3<SOURCE>Texas Instruments SCLS457 February 2001</SOURCE>
+SN74LV393ADB_3V3<SOURCE>Texas Instruments SCLS457 February 2001</SOURCE>
+SN74LV393ADGV_3V3<SOURCE>Texas Instruments SCLS457 February 2001</SOURCE>
+SN74LV393ANS_3V3<SOURCE>Texas Instruments SCLS457 February 2001</SOURCE>
+SN74LV393APW_3V3<SOURCE>Texas Instruments SCLS457 February 2001</SOURCE>
+<COMMENT>The Values listed are for VCC=3.0V-3.6V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<COMMENT>Min values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLR Q0 (1:6.8:18) (1:6.8:18)) 
+    (IOPATH CLK Q0 (1:6.7:19) (1:6.7:19)) 
+    (IOPATH CLK Q1 (1:7.8:22) (1:7.8:22)) 
+    (IOPATH CLK Q2 (1:8.7:24.5) (1:8.7:24.5)) 
+    (IOPATH CLK Q3 (1:9.5:26.5) (1:9.5:26.5.)) 
+  ))
+  (TIMINGCHECK
+    (RECOVERY CLR CLK (5:5:5)) 
+    (WIDTH (posedge CLR) (5:5:5)) 
+    (WIDTH (posedge CLK) (5:5:5)) 
+    (WIDTH (negedge CLK) (5:5:5)) 
+    (PERIOD (posedge CLK) (28.6:28.6:28.6)) 
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+74VHC393M_3V3<SOURCE>Fairchild Semiconductor DS011571 March 1999</SOURCE>
+74VHC393MTC_3V3<SOURCE>Fairchild Semiconductor DS011571 March 1999</SOURCE>
+74VHC393N_3V3<SOURCE>Fairchild Semiconductor DS011571 March 1999</SOURCE>
+74VHC393SJ_3V3<SOURCE>Fairchild Semiconductor DS011571 March 1999</SOURCE>
+<COMMENT>The Values listed are for VCC=3.0V-3.6V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<COMMENT>Min values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLR Q0 (1:10.4:18) (1:10.4:18)) 
+    (IOPATH CLK Q0 (1:11.1:19) (1:11.1:19)) 
+    (IOPATH CLK Q1 (1:12.7:22) (1:12.7:22)) 
+    (IOPATH CLK Q2 (1:14.2:24.5) (1:14.2:24.5)) 
+    (IOPATH CLK Q3 (1:15.5:26.5) (1:15.5:26.5)) 
+  ))
+  (TIMINGCHECK
+    (RECOVERY CLR CLK (5:5:5)) 
+    (WIDTH (posedge CLR) (5:5:5)) 
+    (WIDTH (posedge CLK) (5:5:5)) 
+    (WIDTH (negedge CLK) (5:5:5)) 
+    (PERIOD (posedge CLK) (10:10:10)) 
+  )
+</TIMING></FMFTIME>
+</BODY></FTML>

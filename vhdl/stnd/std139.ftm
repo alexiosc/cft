@@ -1,0 +1,52 @@
+<!DOCTYPE FTML SYSTEM "ftml.dtd">
+<FTML><HEAD><TITLE>FMF Timing for STD139 Parts</TITLE>
+<REVISION.HISTORY>
+version: |  author:  | mod date: | changes made:
+  V1.0     R. Munden   98 MAR 27   Initial release
+</REVISION.HISTORY>
+</HEAD>
+<BODY>
+<TIMESCALE>1ns</TIMESCALE>
+<MODEL>STD139
+<FMFTIME>
+74ACT139MTC<SOURCE>Fairchild Semiconductor data sheet February 1993</SOURCE>
+74ACT139PC<SOURCE>Fairchild Semiconductor data sheet February 1993</SOURCE>
+74ACT139SC<SOURCE>Fairchild Semiconductor data sheet February 1993</SOURCE>
+74ACT139SJ<SOURCE>Fairchild Semiconductor data sheet February 1993</SOURCE>
+MC74ACT139D<SOURCE>Motorola FACT Data, DL138 REV 3</SOURCE>
+MC74ACT139N<SOURCE>Motorola FACT Data, DL138 REV 3</SOURCE>
+<COMMENT>The Values listed are for VCC=5V +/-5%, CL=50pF, Ta=25 Celsius</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+     (IOPATH A Y0Neg (1.5:6:8.5) (1.5:6:9.5))
+     (IOPATH GNeg Y0Neg (2.5:7:10) (2.0:7:9.5))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+IDT74FCT139CTL<SOURCE>Integrated Device Technology data sheet September 1996</SOURCE>
+IDT74FCT139CTP<SOURCE>Integrated Device Technology data sheet September 1996</SOURCE>
+IDT74FCT139CTQ<SOURCE>Integrated Device Technology data sheet September 1996</SOURCE>
+IDT74FCT139CTSO<SOURCE>Integrated Device Technology data sheet September 1996</SOURCE>
+<COMMENT>The Values listed are for VCC=5V +/-5%, CL=50pF, Ta=0 to 70 Celsius</COMMENT>
+<COMMENT>Typical values not provided were derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+     (IOPATH A Y0Neg (1.5:3:5) (1.5:3:5))
+     (IOPATH GNeg Y0Neg (1.5:3:4.8) (1.5:3:4.8))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+QS74FCT139CTP<SOURCE>Quality Semiconductor data sheet MDSL-00004-02</SOURCE>
+QS74FCT139CTSO<SOURCE>Quality Semiconductor data sheet MDSL-00004-02</SOURCE>
+QS74FCT139CTS1<SOURCE>Quality Semiconductor data sheet MDSL-00004-02</SOURCE>
+QS74FCT139CTQ<SOURCE>Quality Semiconductor data sheet MDSL-00004-02</SOURCE>
+QS74FCT139CTH<SOURCE>Quality Semiconductor data sheet MDSL-00004-02</SOURCE>
+<COMMENT>The Values listed are for VCC=5V +/-5%, CL=50pF, Ta=0 to 70 Celsius</COMMENT>
+<COMMENT>Typical values not provided were derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+     (IOPATH A Y0Neg (1.5:3:5) (1.5:3:5))
+     (IOPATH GNeg Y0Neg (1.5:3:5) (1.5:3:5))
+  ))
+</TIMING></FMFTIME>
+</BODY></FTML>

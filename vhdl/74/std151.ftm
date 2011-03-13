@@ -1,0 +1,321 @@
+<!DOCTYPE FTML SYSTEM "ftml.dtd">
+<FTML><HEAD><TITLE>FMF Timing for std151 Parts</TITLE>
+<BODY>
+<REVISION.HISTORY>
+version: |  author:  | mod date: | changes made:
+  V1.0    R. Munden    01 Feb 03   Initial release
+</REVISION.HISTORY>
+<TIMESCALE>1ns</TIMESCALE>
+<MODEL>std151
+<FMFTIME>
+74AC151MTC_3V3<SOURCE>Fairchild Semiconductor DS009927 Revised November 1999</SOURCE>
+74AC151PC_3V3<SOURCE>Fairchild Semiconductor DS009927 Revised November 1999</SOURCE>
+74AC151SC_3V3<SOURCE>Fairchild Semiconductor DS009927 Revised November 1999</SOURCE>
+74AC151SJ_3V3<SOURCE>Fairchild Semiconductor DS009927 Revised November 1999</SOURCE>
+<COMMENT>The values listed are for VCC=3 to 3.6V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (3:11.5:20) (2.5:12:20))
+    (IOPATH D0 Y (2:9.5:15.5) (2:9.5:16))
+    (IOPATH GNeg Y (2:8:14) (1.5:8.5:14))
+    (IOPATH A W (3:11.5:20) (2.5:12:20))
+    (IOPATH D0 W (2:9.5:15.5) (2:9.5:16))
+    (IOPATH GNeg W (2:8:14) (1.5:8.5:14))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74AC151MTC_5V<SOURCE>Fairchild Semiconductor DS009927 Revised November 1999</SOURCE>
+74AC151PC_5V<SOURCE>Fairchild Semiconductor DS009927 Revised November 1999</SOURCE>
+74AC151SC_5V<SOURCE>Fairchild Semiconductor DS009927 Revised November 1999</SOURCE>
+74AC151SJ_5V<SOURCE>Fairchild Semiconductor DS009927 Revised November 1999</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (2:8.5:15) (1.5:8.5:15))
+    (IOPATH D0 Y (1.5:7:11) (1.5:7:12))
+    (IOPATH GNeg Y (1.5:6:11) (1.5:6.5:11))
+    (IOPATH A W (2:8.5:15) (1.5:8.5:15))
+    (IOPATH D0 W (1.5:7:11) (1.5:7:12))
+    (IOPATH GNeg W (1.5:6:11) (1.5:6.5:11))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+CD74AC151E_3V3<SOURCE>Texas Instruments SCHS236A-Revised May 2000</SOURCE>
+CD74AC151M96_3V3<SOURCE>Texas Instruments SCHS236A-Revised May 2000</SOURCE>
+<COMMENT>The values listed are for VCC=3 to 3.6V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<COMMENT>Typical values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (6.6:18:23.2) (6.6:18:23.2))
+    (IOPATH D0 Y (4.9:11:17.1) (4.9:11:17.1))
+    (IOPATH GNeg Y (4.4:10.2:15.5) (4.4:10.2:15.5))
+    (IOPATH A W (7.1:18.3:24.9) (7.1:18.3:24.9))
+    (IOPATH D0 W (5.4:12.3:19) (5.4:12.3:19))
+    (IOPATH GNeg W (4.9:11.1:17.2) (4.9:11.1:17.2))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+CD74AC151E_5V<SOURCE>Texas Instruments SCHS236A-Revised May 2000</SOURCE>
+CD74AC151M96_5V<SOURCE>Texas Instruments SCHS236A-Revised May 2000</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<COMMENT>Typical values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (4.7:11:16.5) (4.7:11:16.5))
+    (IOPATH D0 Y (3.5:8.1:12.3) (3.5:8.1:12.3))
+    (IOPATH GNeg Y (3.1:7.4:11.1) (3.1:7.4:11.1))
+    (IOPATH A W (5.1:12:17.8) (5.1:12:17.8))
+    (IOPATH D0 W (3.8:8.5:13.5) (3.8:8.5:13.5))
+    (IOPATH GNeg W (3.5:8.2:12.3) (3.5:8.2:12.3))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74ACT151MTC<SOURCE>Fairchild Semiconductor DS009927 Revised November 1999</SOURCE>
+74ACT151PC<SOURCE>Fairchild Semiconductor DS009927 Revised November 1999</SOURCE>
+74ACT151SC<SOURCE>Fairchild Semiconductor DS009927 Revised November 1999</SOURCE>
+74ACT151SJ<SOURCE>Fairchild Semiconductor DS009927 Revised November 1999</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (3:12.5:17) (3:12.5:16.5))
+    (IOPATH D0 Y (3:7.5:12.5) (3:8:13.5))
+    (IOPATH GNeg Y (2.5:6:10) (2.5:6:9.5))
+    (IOPATH A W (3:12.5:16.5) (3.5:12.5:18.5))
+    (IOPATH D0 W (3:8:13) (3:8:14))
+    (IOPATH GNeg W (2.5:6.5:10.5) (3:7.5:12.5))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+DM74ALS151M<SOURCE>Fairchild Semiconductor DS006203 Revised February 2000</SOURCE>
+DM74ALS151N<SOURCE>Fairchild Semiconductor DS006203 Revised February 2000</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=0 to 70C</COMMENT>
+<COMMENT>Typical values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (4:12:18) (8:16:24))
+    (IOPATH D0 Y (3:6.6:10) (5:10:15))
+    (IOPATH GNeg Y (4:12:18) (4:12:19))
+    (IOPATH A W (7:16:24) (7:16:23))
+    (IOPATH D0 W (3:10:15) (4:10:15))
+    (IOPATH GNeg W (5:12.6:19) (5:15.6:23))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+N74ALS151D<SOURCE>Philips Semiconductor 853-1022 01670 1991 Feb 08</SOURCE>
+N74ALS151N<SOURCE>Philips Semiconductor 853-1022 01670 1991 Feb 08</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=0 to 70C</COMMENT>
+<COMMENT>Typical values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (5:10:15) (7:10.6:16))
+    (IOPATH D0 Y (3:8:12) (5:8:12))
+    (IOPATH GNeg Y (4:8:12) (4:8:12))
+    (IOPATH A W (5:10:15) (5:10.6:16))
+    (IOPATH D0 W (3:10:15) (5:10:15))
+    (IOPATH GNeg W (4:8:12) (5:9:14))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74ALS151D<SOURCE>Texas Instruments SDAS205A-Revised December 1994</SOURCE>
+SN74ALS151N<SOURCE>Texas Instruments SDAS205A-Revised December 1994</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=0 to 70C</COMMENT>
+<COMMENT>Typical values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (4:12:18) (8:16:24))
+    (IOPATH D0 Y (3:6.6:10) (5:10:15))
+    (IOPATH GNeg Y (4:13:18) (4:13:19))
+    (IOPATH A W (7:16:24) (7:15.6:23))
+    (IOPATH D0 W (3:10:15) (4:10:15))
+    (IOPATH GNeg W (5:12.6:19) (5:15.6:23))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74AS151D<SOURCE>Texas Instruments SDAS205A-Revised December 1994</SOURCE>
+SN74AS151N<SOURCE>Texas Instruments SDAS205A-Revised December 1994</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=0 to 70C</COMMENT>
+<COMMENT>Typical values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (4.5:10:14.5) (4.5:10:15))
+    (IOPATH D0 Y (3:7:10.5) (3:7.6:11))
+    (IOPATH GNeg Y (4.5:9:14) (3:7.6:11))
+    (IOPATH A W (4:8:12) (4:8:12))
+    (IOPATH D0 W (2:4.3:6.5) (1:3:4.5))
+    (IOPATH GNeg W (1.5:4:6) (3:6.6:10))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74F151APC<SOURCE>Fairchild Semiconductor DS009481 Revised September 2000</SOURCE>
+74F151ASC<SOURCE>Fairchild Semiconductor DS009481 Revised September 2000</SOURCE>
+74F151ASJ<SOURCE>Fairchild Semiconductor DS009481 Revised September 2000</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=0 to 70C</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (4.5:7.5:12) (4:6.2:9))
+    (IOPATH D0 Y (2.5:4.8:7.5) (3.7:5.5:7.5))
+    (IOPATH GNeg Y (4:7:10.5) (3:5.3:7.5))
+    (IOPATH A W (3.5:6.2:9.5) (3.2:5.2:7.5))
+    (IOPATH D0 W (3:4.8:7) (1.5:2.5:5))
+    (IOPATH GNeg W (3:4.7:7) (2.5:4.4:6))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74F151BD<SOURCE>Texas Instruments SDFS023A-Revised October 1993</SOURCE>
+SN74F151BN<SOURCE>Texas Instruments SDFS023A-Revised October 1993</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=0 to 70C</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (4:6:12) (3.6:5.6:9))
+    (IOPATH D0 Y (2.5:3.7:7.5) (2.6:4.2:7.5))
+    (IOPATH GNeg Y (3.8:5.3:10.5) (3:4.5:7.5))
+    (IOPATH A W (3.5:5.2:9.5) (2.7:4.3:7.5))
+    (IOPATH D0 W (2.3:3.6:7) (1:1.9:5))
+    (IOPATH GNeg W (3:4.1:7) (2.5:3.5:6))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+MM74HC151M<SOURCE>Fairchild Semiconductor DS005313 Revised February 1999</SOURCE>
+MM74HC151MTC<SOURCE>Fairchild Semiconductor DS005313 Revised February 1999</SOURCE>
+MM74HC151N<SOURCE>Fairchild Semiconductor DS005313 Revised February 1999</SOURCE>
+MM74HC151SJ<SOURCE>Fairchild Semiconductor DS005313 Revised February 1999</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<COMMENT>Minimum values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (15:31:51) (15:31:51))
+    (IOPATH D0 Y (14:27:49) (14:27:49))
+    (IOPATH GNeg Y (10:21:35) (10:21:35))
+    (IOPATH A W (16:32:51) (16:32:51))
+    (IOPATH D0 W (15:29:46) (15:29:46))
+    (IOPATH GNeg W (10:20:32) (10:20:32))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74HC151D<SOURCE>Philips Semiconductor Product Specification December 1990</SOURCE>
+74HC151DB<SOURCE>Philips Semiconductor Product Specification December 1990</SOURCE>
+74HC151N<SOURCE>Philips Semiconductor Product Specification December 1990</SOURCE>
+74HC151PW<SOURCE>Philips Semiconductor Product Specification December 1990</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<COMMENT>Minimum values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (11:22:46) (11:22:46))
+    (IOPATH D0 Y (10:19:34) (10:19:34))
+    (IOPATH GNeg Y (7:15:31) (7:15:31))
+    (IOPATH A W (11:22:51) (11:22:51))
+    (IOPATH D0 W (10:21:46) (10:21:46))
+    (IOPATH GNeg W (8:17:36) (8:17:36))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+CD74HC151E<SOURCE>Texas Instruments SCHS150A-Revised May 2000</SOURCE>
+CD74HC151M<SOURCE>Texas Instruments SCHS150A-Revised May 2000</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<COMMENT>Minimum and typical values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (9:18:46) (9:18:46))
+    (IOPATH D0 Y (8:17:43) (8:17:43))
+    (IOPATH GNeg Y (10:20:35) (10:20:35))
+    (IOPATH A W (10:20:51) (10:20:51))
+    (IOPATH D0 W (9:18:46) (9:18:46))
+    (IOPATH GNeg W (11:22:36) (11:22:36))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74HC151D<SOURCE>Texas Instruments SCLS110C-Revised May 1997</SOURCE>
+SN74HC151N<SOURCE>Texas Instruments SCLS110C-Revised May 1997</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<COMMENT>Minimum values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (15:30:63) (15:30:63))
+    (IOPATH D0 Y (11:23:49) (11:23:49))
+    (IOPATH GNeg Y (7:15:32) (7:15:32))
+    (IOPATH A W (15:30:63) (15:30:63))
+    (IOPATH D0 W (11:23:49) (11:23:49))
+    (IOPATH GNeg W (7:15:32) (7:15:32))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74HCT151D<SOURCE>Philips Semiconductor Product Specification December 1990</SOURCE>
+74HCT151DB<SOURCE>Philips Semiconductor Product Specification December 1990</SOURCE>
+74HCT151N<SOURCE>Philips Semiconductor Product Specification December 1990</SOURCE>
+74HCT151PW<SOURCE>Philips Semiconductor Product Specification December 1990</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<COMMENT>Minimum values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (11:23:51) (11:23:51))
+    (IOPATH D0 Y (11:22:48) (11:22:48))
+    (IOPATH GNeg Y (8:16:36) (8:16:36))
+    (IOPATH A W (12:25:54) (12:25:54))
+    (IOPATH D0 W (11:22:48) (11:22:48))
+    (IOPATH GNeg W (10:21:45) (10:21:45))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+CD74HCT151E<SOURCE>Texas Instruments SCHS150A-Revised May 2000</SOURCE>
+CD74HCT151M<SOURCE>Texas Instruments SCHS150A-Revised May 2000</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<COMMENT>Minimum and typical values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (17:34:51) (17:34:51))
+    (IOPATH D0 Y (16:32:48) (16:32:48))
+    (IOPATH GNeg Y (12:24:36) (12:24:36))
+    (IOPATH A W (18:36:54) (18:36:54))
+    (IOPATH D0 W (15:30:45) (15:30:45))
+    (IOPATH GNeg W (15:30:46) (15:30:46))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+DM74LS151M<SOURCE>Fairchild Semiconductor DS006392 Revised March 2000</SOURCE>
+DM74LS151N<SOURCE>Fairchild Semiconductor DS006392 Revised March 2000</SOURCE>
+DM74LS151SJ<SOURCE>Fairchild Semiconductor DS006392 Revised March 2000</SOURCE>
+SN74LS151D<SOURCE>Texas Instruments SDLS054-Revised March 1988</SOURCE>
+SN74LS151N<SOURCE>Texas Instruments SDLS054-Revised March 1988</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<COMMENT>Minimum values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (14:27:43) (9:18:30))
+    (IOPATH D0 Y (10:20:32) (8:16:26))
+    (IOPATH GNeg Y (13:26:42) (10:20:32))
+    (IOPATH A W (7:14:23) (10:20:32))
+    (IOPATH D0 W (6:13:21) (6:12:20))
+    (IOPATH GNeg W (7:15:24) (9:18:30))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74LVQ151SC<SOURCE>Fairchild Semiconductor DS011351 Revised May 1998</SOURCE>
+74LVQ151SJ<SOURCE>Fairchild Semiconductor DS011351 Revised May 1998</SOURCE>
+<COMMENT>The values listed are for VCC=3 to 3.6V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (3:11.5:20) (2.5:12:20))
+    (IOPATH D0 Y (2:9.5:15.5) (2:9.5:16))
+    (IOPATH GNeg Y (2:8:14) (1.5:8.5:14))
+    (IOPATH A W (3:11.5:20) (2.5:12:20))
+    (IOPATH D0 W (2:9.5:15.5) (2:9.5:16))
+    (IOPATH GNeg W (2:8:14) (1.5:8.5:14))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+DM74S151N<SOURCE>Fairchild Semiconductor DS006468 Revised April 2000</SOURCE>
+SN74S151D<SOURCE>Texas Instruments SDLS054-Revised March 1988</SOURCE>
+SN74S151N<SOURCE>Texas Instruments SDLS054-Revised March 1988</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<COMMENT>Minimum values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (6:12:18) (6:12:18))
+    (IOPATH D0 Y (4:8:12) (4:8:12))
+    (IOPATH GNeg Y (5:11:16.5) (6:12:18))
+    (IOPATH A W (5:10:15) (4:9:13.5))
+    (IOPATH D0 W (2:4.5:7) (2:4.5:7))
+    (IOPATH GNeg W (4:9:13) (4:8.5:12))
+  ))
+</TIMING></FMFTIME>
+</BODY></FTML>

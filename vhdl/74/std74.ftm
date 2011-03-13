@@ -1,0 +1,847 @@
+<!DOCTYPE FTML SYSTEM "ftml.dtd">
+<FTML><HEAD><TITLE>FMF Timing for STD74</TITLE>
+<REVISION.HISTORY>
+version: |  author:  | mod date: | changes made:
+  V1.0     R. Munden   97 AUG 13   Initial release
+  V1.1      fixftm     97 NOV 30   Modified to work with mk_sdf 1.15
+  V1.2     R. Munden   98 MAY 19   Added 4 new part numbers
+  V1.3     R. Munden   98 AUG 27   Added 3 new part numbers
+  V1.4     R. Munden   02 MAY 07   Added 9 new part numbers, updated TI AHC part
+  V1.5     S.Gmitrovic 05 Jun 28   Added 6 new part number, updated LVC and AHCT parts
+</REVISION.HISTORY>
+</HEAD>
+<BODY>
+<TIMESCALE>1ns</TIME SPEC>
+<MODEL>STD74
+<FMFTIME>
+SN7474D<SOURCE>Texas Instruments SDLS119-Revised March 1988</SOURCE>
+SN7474N<SOURCE>Texas Instruments SDLS119-Revised March 1988</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=15pF, Ta=+25 Celsius</COMMENT>
+<COMMENT>Values not provided were derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLRNeg Q (6:13:25) (10:20:40))
+    (IOPATH PRENeg Q (6:13:25) (10:20:40))
+    (IOPATH CLK Q (7:14:25) (10:20:40))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (20:20:20))
+    (HOLD D CLK (5:5:5))
+    (WIDTH (posedge CLK) (30:30:30))
+    (WIDTH (negedge CLK) (37:37:37))
+    (WIDTH (negedge CLRNeg) (30:30:30))
+    (WIDTH (negedge PRENeg) (30:30:30))
+    (PERIOD (posedge CLK) (40:40:70))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74AC11074D<SOURCE>Texas Instruments SCAS499A-Revised April 1996</SOURCE>
+SN74AC11074N<SOURCE>Texas Instruments SCAS499A-Revised April 1996</SOURCE>
+SN74AC11074PW<SOURCE>Texas Instruments SCAS499A-Revised April 1996</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, Ta=+25 Celsius</COMMENT>
+<COMMENT>Values not provided were derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLRNeg Q (1.5:4.2:6.6) (1.5:4.7:8.2))
+    (IOPATH PRENeg Q (1.5:4.2:6.6) (1.5:4.7:8.2))
+    (IOPATH CLK Q (1.5:5.4:7.5) (1.5:5:6.9))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (3.5:3.5:3.5))
+    (HOLD D CLK (0:0:0))
+    (WIDTH (posedge CLK) (4:4:4))
+    (WIDTH (negedge CLK) (4:4:4))
+    (WIDTH (negedge CLRNeg) (4:4:4))
+    (WIDTH (negedge PRENeg) (4:4:4))
+    (PERIOD (posedge CLK) (7:7:8))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74ACT11074D<SOURCE>Texas Instruments SCAS498A-Revised April 1996</SOURCE>
+SN74ACT11074DB<SOURCE>Texas Instruments SCAS498A-Revised April 1996</SOURCE>
+SN74ACT11074N<SOURCE>Texas Instruments SCAS498A-Revised April 1996</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, Ta=+25 Celsius</COMMENT>
+<COMMENT>Values not provided were derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLRNeg Q (1.5:5.7:8.9) (1.5:6.6:11.3))
+    (IOPATH PRENeg Q (1.5:5.7:8.9) (1.5:6.6:11.3))
+    (IOPATH CLK Q (1.5:6:8.5) (1.5:5:8))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (4.5:4.5:4.5))
+    (HOLD D CLK (0:0:0))
+    (WIDTH (posedge CLK) (5:5:5))
+    (WIDTH (negedge CLK) (5:5:5))
+    (WIDTH (negedge CLRNeg) (5:5:5))
+    (WIDTH (negedge PRENeg) (5:5:5))
+    (PERIOD (posedge CLK) (8:8:10))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+MC74AC74D<SOURCE>Motorola FACT Data DL138 Rev 3</SOURCE>
+MC74AC74N<SOURCE>Motorola FACT Data DL138 Rev 3</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLRNeg Q (3.5:6.0:9.0) (3.0:8.0:9.5))
+    (IOPATH PRENeg Q (3.5:6.0:9.0) (3.0:8.0:9.5))
+    (IOPATH CLK Q (3.5:6.0:10.0) (2.5:6.0:10.0))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (3.0:3.0:3.0))
+    (HOLD D CLK (0.0:0.0:0.0))
+    (WIDTH (posedge CLK) (4.5:4.5:4.5))
+    (WIDTH (negedge CLK) (4.5:4.5:4.5))
+    (WIDTH (negedge CLRNeg) (4.5:4.5:4.5))
+    (WIDTH (negedge PRENeg) (4.5:4.5:4.5))
+    (PERIOD (posedge CLK) (7.1:7.1:7.1))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+74AC74SC<SOURCE>National Semiconductor February 1993</SOURCE>
+74AC74SJ<SOURCE>National Semiconductor February 1993</SOURCE>
+74AC74MTC<SOURCE>National Semiconductor February 1993</SOURCE>
+74AC74PC<SOURCE>National Semiconductor February 1993</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLRNeg Q (2.5:6.0:9.0) (3.0:8.0:9.5))
+    (IOPATH PRENeg Q (2.5:6.0:9.0) (3.0:8.0:9.5))
+    (IOPATH CLK Q (3.5:6.0:10.0) (2.5:6.0:10.0))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (1.0:3.0:3.0))
+    (HOLD D CLK (0.5:0.5:0.5))
+    (WIDTH (posedge CLK) (2.5:4.5:4.5))
+    (WIDTH (negedge CLK) (2.5:4.5:4.5))
+    (WIDTH (negedge CLRNeg) (2.5:4.5:4.5))
+    (WIDTH (negedge PRENeg) (2.5:4.5:4.5))
+    (PERIOD (posedge CLK) (6.3:6.3:7.1))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74AC74D<SOURCE>Texas Instruments SCAS521C-Revised September 1996</SOURCE>
+SN74AC74DB<SOURCE>Texas Instruments SCAS521C-Revised September 1996</SOURCE>
+SN74AC74N<SOURCE>Texas Instruments SCAS521C-Revised September 1996</SOURCE>
+SN74AC74PW<SOURCE>Texas Instruments SCAS521C-Revised September 1996</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, Ta=+25 Celsius</COMMENT>
+<COMMENT>Values not provided were derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLRNeg Q (2.5:6:9) (3:8:9.5))
+    (IOPATH PRENeg Q (2.5:6:9) (3:8:9.5))
+    (IOPATH CLK Q (3.5:6:10) (2.5:6:10))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (3:3:3))
+    (HOLD D CLK (.5:.5:.5))
+    (WIDTH (posedge CLK) (4.5:4.5:4.5))
+    (WIDTH (negedge CLK) (4.5:4.5:4.5))
+    (WIDTH (negedge CLRNeg) (4.5:4.5:4.5))
+    (WIDTH (negedge PRENeg) (4.5:4.5:4.5))
+    (PERIOD (posedge CLK) (6.3:7.2:7.2))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+MC74ACT74D<SOURCE>Motorola FACT Data DL138 Rev 3</SOURCE>
+MC74ACT74N<SOURCE>Motorola FACT Data DL138 Rev 3</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLRNeg Q (3.0:5.5:9.5) (3.0:6.0:10.0))
+    (IOPATH PRENeg Q (3.0:5.5:9.5) (3.0:6.0:10.0))
+    (IOPATH CLK Q (4.0:7.5:11.0) (3.5:6.0:10.0))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (3.0:3.0:3.0))
+    (HOLD D CLK (1.0:1.0:1.0))
+    (WIDTH (posedge CLK) (5.0:5.0:5.0))
+    (WIDTH (negedge CLK) (5.0:5.0:5.0))
+    (WIDTH (negedge CLRNeg) (5.0:5.0:5.0))
+    (WIDTH (negedge PRENeg) (5.0:5.0:5.0))
+    (PERIOD (posedge CLK) (6.9:6.9:6.9))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+74ACT74SC<SOURCE>National Semiconductor February 1993</SOURCE>
+74ACT74SJ<SOURCE>National Semiconductor February 1993</SOURCE>
+74ACT74MTC<SOURCE>National Semiconductor February 1993</SOURCE>
+74ACT74PC<SOURCE>National Semiconductor February 1993</SOURCE>
+SN74ACT74D<SOURCE>Texas Instruments SCAS520C-Revised September 1996</SOURCE>
+SN74ACT74DB<SOURCE>Texas Instruments SCAS520C-Revised September 1996</SOURCE>
+SN74ACT4N<SOURCE>Texas Instruments SCAS520C-Revised September 1996</SOURCE>
+SN74ACT74PW<SOURCE>Texas Instruments SCAS520C-Revised September 1996</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, Ta=+25 Celsius</COMMENT>
+<COMMENT>Values not provided were derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLRNeg Q (3:0.5:9.5) (3:6:10))
+    (IOPATH PRENeg Q (3:0.5:9.5) (3:6:10))
+    (IOPATH CLK Q (4:7.5:11) (3.5:6:10))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (3:3:3))
+    (HOLD D CLK (1:1:1))
+    (WIDTH (posedge CLK) (5:5:5))
+    (WIDTH (negedge CLK) (5:5:5))
+    (WIDTH (negedge CLRNeg) (5:5:5))
+    (WIDTH (negedge PRENeg) (5:5:5))
+    (PERIOD (posedge CLK) (4.8:6.9:6.9))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+74ACTQ74SC<SOURCE>National Semiconductor March 1993</SOURCE>
+74ACTQ74SJ<SOURCE>National Semiconductor March 1993</SOURCE>
+74ACTQ74PC<SOURCE>National Semiconductor March 1993</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLRNeg Q (3.0:7.0:8.5) (3.0:7.0:8.5))
+    (IOPATH PRENeg Q (3.0:7.0:8.5) (3.0:7.0:8.5))
+    (IOPATH CLK Q (3.0:6.5:8.0) (3.0:6.5:8.0))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (1.0:3.0:3.0))
+    (HOLD D CLK (0.0:1.5:1.5))
+    (WIDTH (posedge CLK) (3.0:4.0:4.0))
+    (WIDTH (negedge CLK) (3.0:4.0:4.0))
+    (WIDTH (negedge CLRNeg) (3.0:4.0:4.0))
+    (WIDTH (negedge PRENeg) (3.0:4.0:4.0))
+    (PERIOD (posedge CLK) (5.0:5.0:6.9))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+74AHC74D_3V3<SOURCE>Phillips Semiconductors datasheet 1999 Sep 23</SOURCE>
+74AHC74PW_3V3<SOURCE>Phillips Semiconductors datasheet 1999 Sep 23</SOURCE>
+<COMMENT>The Values listed are for VCC=3V to 3.3V, CL=50pF, Ta=-40 to 85 Celsius</COMMENT>
+<COMMENT>Values not provided were derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLRNeg Q (1:7.7:18) (1:7.7:18))
+    (IOPATH PRENeg Q (1:7.7:18) (1:7.7:18))
+    (IOPATH CLK Q (1:7.4:17.5) (1:7.4:17.5))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (7))
+    (HOLD D CLK (.5))
+    (WIDTH (posedge CLK) (7))
+    (WIDTH (negedge CLK) (7))
+    (WIDTH (negedge CLRNeg) (7))
+    (WIDTH (negedge PRENeg) (7))
+    (PERIOD (posedge CLK) (22.2))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+74AHC74D_5V<SOURCE>Phillips Semiconductors datasheet 1999 Sep 23</SOURCE>
+74AHC74PW_5V<SOURCE>Phillips Semiconductors datasheet 1999 Sep 23</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=-40 to 85 Celsius</COMMENT>
+<COMMENT>Values not provided were derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLRNeg Q (1:5.3:11) (1:5.3:11))
+    (IOPATH PRENeg Q (1:5.3:11) (1:5.3:11))
+    (IOPATH CLK Q (1:5.2:10.5) (1:5.2:10.5))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (5))
+    (HOLD D CLK (.5))
+    (WIDTH (posedge CLK) (5))
+    (WIDTH (negedge CLK) (5))
+    (WIDTH (negedge CLRNeg) (5))
+    (WIDTH (negedge PRENeg) (5))
+    (PERIOD (posedge CLK) (13.3))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74AHC74D_3V3<SOURCE>Texas Instruments SCLS255H-Revised March 2002</SOURCE>
+SN74AHC74DB_3V3<SOURCE>Texas Instruments SCLS255H-Revised March 2002</SOURCE>
+SN74AHC74DGV_3V3<SOURCE>Texas Instruments SCLS255H-Revised March 2002</SOURCE>
+SN74AHC74N_3V3<SOURCE>Texas Instruments SCLS255H-Revised March 2002</SOURCE>
+SN74AHC74NS_3V3<SOURCE>Texas Instruments SCLS255H-Revised March 2002</SOURCE>
+SN74AHC74PW_3V3<SOURCE>Texas Instruments SCLS255H-Revised March 2002</SOURCE>
+<COMMENT>The Values listed are for VCC=3V to 3.3V, CL=50pF, Ta=-40 to 85 Celsius</COMMENT>
+<COMMENT>Values not provided were derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLRNeg Q (1:10.1:18) (1:10.1:18))
+    (IOPATH PRENeg Q (1:10.1:18) (1:10.1:18))
+    (IOPATH CLK Q (1:9.2:17.5) (1:9.2:17.5))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (7))
+    (HOLD D CLK (.5))
+    (WIDTH (posedge CLK) (7))
+    (WIDTH (negedge CLK) (7))
+    (WIDTH (negedge CLRNeg) (7))
+    (WIDTH (negedge PRENeg) (7))
+    (PERIOD (posedge CLK) (22.2))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74AHC74D_5V<SOURCE>Texas Instruments SCLS255H-Revised March 2002</SOURCE>
+SN74AHC74DB_5V<SOURCE>Texas Instruments SCLS255H-Revised March 2002</SOURCE>
+SN74AHC74DGV_5V<SOURCE>Texas Instruments SCLS255H-Revised March 2002</SOURCE>
+SN74AHC74N_5V<SOURCE>Texas Instruments SCLS255H-Revised March 2002</SOURCE>
+SN74AHC74NS_5V<SOURCE>Texas Instruments SCLS255H-Revised March 2002</SOURCE>
+SN74AHC74PW_5V<SOURCE>Texas Instruments SCLS255H-Revised March 2002</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=-40 to 85 Celsius</COMMENT>
+<COMMENT>Values not provided were derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLRNeg Q (1:6.3:11) (1:6.3:11))
+    (IOPATH PRENeg Q (1:6.3:11) (1:6.3:11))
+    (IOPATH CLK Q (1:6.1:10.5) (1:6.1:10.5))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (5))
+    (HOLD D CLK (.5))
+    (WIDTH (posedge CLK) (5))
+    (WIDTH (negedge CLK) (5))
+    (WIDTH (negedge CLRNeg) (5))
+    (WIDTH (negedge PRENeg) (5))
+    (PERIOD (posedge CLK) (13.3))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74AHCT74RGY<SOURCE>Texas Instruments SCLS263N-Revised July 2003</SOURCE>
+SN74AHCT74N<SOURCE>Texas Instruments SCLS263N-Revised July 2003</SOURCE>
+SN74AHCT74D<SOURCE>Texas Instruments SCLS263N-Revised July 2003</SOURCE>
+SN74AHCT74NS<SOURCE>Texas Instruments SCLS263N-Revised July 2003</SOURCE>
+SN74AHCT74PW<SOURCE>Texas Instruments SCLS263N-Revised July 2003</SOURCE>
+SN74AHCT74DB<SOURCE>Texas Instruments SCLS263N-Revised July 2003</SOURCE>
+SN74AHCT74DGV<SOURCE>Texas Instruments SCLS263N-Revised July 2003</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<COMMENT>Values not provided were derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLRNeg Q (4.0:8.1:11.4) (4.0:8.1:11.4))
+    (IOPATH PRENeg Q (4.0:8.1:11.4) (4.0:8.1:11.4))
+    (IOPATH CLK Q (3.1:6.3:8.8) (3.1:6.3:8.8))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (5:5:5))
+    (RECOVERY PRENeg CLK (3.5:3.5:3.5))
+    (RECOVERY CLRNeg CLK (3.5:3.5:3.5))
+    (HOLD D CLK (0:0:0))
+    (WIDTH (posedge CLK) (5:5:5))
+    (WIDTH (negedge CLK) (5:5:5))
+    (WIDTH (negedge CLRNeg) (5:5:5))
+    (WIDTH (negedge PRENeg) (5:5:5))
+    (PERIOD (posedge CLK) (7.1:12.5:12.5))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+DM74ALS74AM<SOURCE>Fairchild Semiconductor February 1998</SOURCE>
+DM74ALS74AN<SOURCE>Fairchild Semiconductor February 1998</SOURCE>
+DM74ALS74ASJ<SOURCE>Fairchild Semiconductor February 1998</SOURCE>
+SN74ALS74AD<SOURCE>Texas Instruments SDAS143C-Revised August 1995</SOURCE>
+SN74ALS74AN<SOURCE>Texas Instruments SDAS143C-Revised August 1995</SOURCE>
+SN74ALS74ANS<SOURCE>Texas Instruments SDAS143C-Revised August 1995</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<COMMENT>Values not provided were derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLRNeg Q (3:6:13) (5:10:15))
+    (IOPATH PRENeg Q (3:6:13) (5:10:15))
+    (IOPATH CLK Q (5:10:16) (5:11:18))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (15:15:15))
+    (HOLD D CLK (0:0:0))
+    (WIDTH (posedge CLK) (14.5:14.5:14.5))
+    (WIDTH (negedge CLK) (14.5:14.5:14.5))
+    (WIDTH (negedge CLRNeg) (15:15:15))
+    (WIDTH (negedge PRENeg) (15:15:15))
+    (PERIOD (posedge CLK) (30:30:30))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74AS74D<SOURCE>Texas Instruments SDAS143C-Revised August 1995</SOURCE>
+SN74AS74N<SOURCE>Texas Instruments SDAS143C-Revised August 1995</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<COMMENT>Values not provided were derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLRNeg Q (2:4:7.5) (2.5:5:10.5))
+    (IOPATH PRENeg Q (2:4:7.5) (2.5:5:10.5))
+    (IOPATH CLK Q (3:6:8) (3:6:9))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (4.5:4.5:4.5))
+    (HOLD D CLK (0:0:0))
+    (WIDTH (posedge CLK) (4:4:4))
+    (WIDTH (negedge CLK) (5.5:5.5:5.5))
+    (WIDTH (negedge CLRNeg) (4:4:4))
+    (WIDTH (negedge PRENeg) (4:4:4))
+    (PERIOD (posedge CLK) (9.5:9.5:9.5))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+74F74DC<SOURCE>National Semiconductor December 1994</SOURCE>
+74F74SC<SOURCE>National Semiconductor December 1994</SOURCE>
+74F74SJ<SOURCE>National Semiconductor December 1994</SOURCE>
+74F74PC<SOURCE>National Semiconductor December 1994</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLRNeg Q (3.2:4.6:6.1) (3.5:7.0:9.0))
+    (IOPATH PRENeg Q (3.2:4.6:6.1) (3.5:7.0:9.0))
+    (IOPATH CLK Q (3.8:5.3:6.8) (4.4:6.2:8.0))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (2.0:2.0:2.0))
+    (HOLD D CLK (1.0:1.0:1.0))
+    (WIDTH (posedge CLK) (4.0:4.0:4.0))
+    (WIDTH (negedge CLK) (5.0:5.0:5.0))
+    (WIDTH (negedge CLRNeg) (4.0:4.0:4.0))
+    (WIDTH (negedge PRENeg) (4.0:4.0:4.0))
+    (PERIOD (posedge CLK) (8.0:8.0:10))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74F74D<SOURCE>Texas Instruments SDFS046A-Revised October 1993</SOURCE>
+SN74F74N<SOURCE>Texas Instruments SDFS046A-Revised October 1993</SOURCE>
+SN74F74NS<SOURCE>Texas Instruments SDFS046A-Revised October 1993</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, Ta=+25 Celsius</COMMENT>
+<COMMENT>Values not provided were derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLRNeg Q (2.4:4.2:6.1) (2.7:6.5:9))
+    (IOPATH PRENeg Q (2.4:4.2:6.1) (2.7:6.5:9))
+    (IOPATH CLK Q (3:4.9:6.8) (3.6:5.8:9))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (3:3:3))
+    (HOLD D CLK (1:1:1))
+    (WIDTH (posedge CLK) (4:4:4))
+    (WIDTH (negedge CLK) (5:5:5))
+    (WIDTH (negedge CLRNeg) (4:4:4))
+    (WIDTH (negedge PRENeg) (4:4:4))
+    (PERIOD (posedge CLK) (6.9:6.9:10))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+MC74F74D<SOURCE>Motorola Fast and LS TTL Data, DL121/D REV 5, Q2/92</SOURCE>
+MC74F74J<SOURCE>Motorola Fast and LS TTL Data, DL121/D REV 5, Q2/92</SOURCE>
+MC74F74N<SOURCE>Motorola Fast and LS TTL Data, DL121/D REV 5, Q2/92</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, Ta=+25 Celsius</COMMENT>
+<COMMENT>Values not provided were derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLRNeg Q (2.5:4.2:6.1) (3.5:6.5:9))
+    (IOPATH PRENeg Q (2.5:4.2:6.1) (3.5:6.5:9))
+    (IOPATH CLK Q (3.8:4.9:6.8) (4.4:5.8:8))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (3:3:3))
+    (HOLD D CLK (1:1:1))
+    (WIDTH (posedge CLK) (4:4:4))
+    (WIDTH (negedge CLK) (5:5:5))
+    (WIDTH (negedge CLRNeg) (4:4:4))
+    (WIDTH (negedge PRENeg) (4:4:4))
+    (PERIOD (posedge CLK) (6.9:6.9:10))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74HC74D<SOURCE>Texas Instruments SCLS049B-Revised May 1997</SOURCE>
+SN74HC74DB<SOURCE>Texas Instruments SCLS049B-Revised May 1997</SOURCE>
+SN74HC74N<SOURCE>Texas Instruments SCLS049B-Revised May 1997</SOURCE>
+SN74HC74NS<SOURCE>Texas Instruments SCLS049B-Revised May 1997</SOURCE>
+SN74HC74PW<SOURCE>Texas Instruments SCLS049B-Revised May 1997</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<COMMENT>Values not provided were derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLRNeg Q (10:20:46) (10:20:46))
+    (IOPATH PRENeg Q (10:20:46) (10:20:46))
+    (IOPATH CLK Q (10:20:35) (10:20:35))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (20:20:20))
+    (HOLD D CLK (0:0:0))
+    (WIDTH (posedge CLK) (16:16:16))
+    (WIDTH (negedge CLK) (14:14:14))
+    (WIDTH (negedge CLRNeg) (20:20:20))
+    (WIDTH (negedge PRENeg) (20:20:20))
+    (PERIOD (posedge CLK) (8.7:11.1:11.1))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74HCT74D<SOURCE>Texas Instruments SCLS169B-Revised May 1997</SOURCE>
+SN74HCT74N<SOURCE>Texas Instruments SCLS169B-Revised May 1997</SOURCE>
+SN74HCT74PW<SOURCE>Texas Instruments SCLS169B-Revised May 1997</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<COMMENT>Values not provided were derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLRNeg Q (10:21:35) (10:21:35))
+    (IOPATH PRENeg Q (10:21:35) (10:21:35))
+    (IOPATH CLK Q (10:20:28) (10:20:28))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (12:12:12))
+    (HOLD D CLK (0:0:0))
+    (WIDTH (posedge CLK) (18:18:18))
+    (WIDTH (negedge CLK) (18:18:18))
+    (WIDTH (negedge CLRNeg) (14:14:14))
+    (WIDTH (negedge PRENeg) (14:14:14))
+    (PERIOD (posedge CLK) (37:37:37))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+74LCX74M<SOURCE>National Semiconductor December 1996</SOURCE>
+74LCX74SJ<SOURCE>National Semiconductor December 1996</SOURCE>
+74LCX74MTC<SOURCE>National Semiconductor December 1996</SOURCE>
+TC74LCX74F<SOURCE>Toshiba Low Voltage Data Book 1996</SOURCE>
+TC74LCX74FN<SOURCE>Toshiba Low Voltage Data Book 1996</SOURCE>
+TC74LCX74FS<SOURCE>Toshiba Low Voltage Data Book 1996</SOURCE>
+<COMMENT>The Values listed are for VCC=3.3V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<COMMENT>Typ values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLRNeg Q (1.5:5:7) (1.5:5:7))
+    (IOPATH PRENeg Q (1.5:5:7) (1.5:5:7))
+    (IOPATH CLK Q (1.5:5:7) (1.5:5:7))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (2.5:2.5:2.5))
+    (HOLD D CLK (1.5:1.5:1.5))
+    (WIDTH (posedge CLK) (3.3:3.3:3.3))
+    (WIDTH (negedge CLK) (3.3:3.3:3.3))
+    (WIDTH (negedge CLRNeg) (3.3:3.3:3.3))
+    (WIDTH (negedge PRENeg) (3.3:3.3:3.3))
+    (PERIOD (posedge CLK) (6.7:6.7:6.7))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74LS74AD<SOURCE>Motorola Fast and LS TTL Data, DL121/D REV 5, Q2/92</SOURCE>
+SN74LS74AJ<SOURCE>Motorola Fast and LS TTL Data, DL121/D REV 5, Q2/92</SOURCE>
+SN74LS74AN<SOURCE>Motorola Fast and LS TTL Data, DL121/D REV 5, Q2/92</SOURCE>
+SN74LS74AD<SOURCE>Texas Instruments SDLS119-Revised March 1988</SOURCE>
+SN74LS74AN<SOURCE>Texas Instruments SDLS119-Revised March 1988</SOURCE>
+SN74LS74ANS<SOURCE>Texas Instruments SDLS119-Revised March 1988</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=15pF, Ta=+25 Celsius</COMMENT>
+<COMMENT>Values not provided were derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLRNeg Q (6:13:26) (12:25:40))
+    (IOPATH PRENeg Q (6:13:26) (12:25:40))
+    (IOPATH CLK Q (6:13:26) (12:25:40))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (20:20:20))
+    (HOLD D CLK (5:5:5))
+    (WIDTH (posedge CLK) (25:25:25))
+    (WIDTH (negedge CLK) (25:25:25))
+    (WIDTH (negedge CLRNeg) (25:25:25))
+    (WIDTH (negedge PRENeg) (25:25:25))
+    (PERIOD (posedge CLK) (33:33:40))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74LV74D<SOURCE>Texas Instruments SCLS189C-Revised April 1996</SOURCE>
+SN74LV74DB<SOURCE>Texas Instruments SCLS189C-Revised April 1996</SOURCE>
+SN74LV74PW<SOURCE>Texas Instruments SCLS189C-Revised April 1996</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<COMMENT>Values not provided were derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLRNeg Q (6:11:19) (6:11:19))
+    (IOPATH PRENeg Q (6:11:19) (6:11:19))
+    (IOPATH CLK Q (5:10:17) (5:10:17))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (6:6:6))
+    (HOLD D CLK (3:3:3))
+    (WIDTH (posedge CLK) (15:15:15))
+    (WIDTH (negedge CLK) (15:15:15))
+    (WIDTH (negedge CLRNeg) (15:15:15))
+    (WIDTH (negedge PRENeg) (15:15:15))
+    (PERIOD (posedge CLK) (10:10:14))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74LVC74ARGY_1V8<SOURCE>Texas Instruments SCAS287S-Revised May 2005</SOURCE>
+SN74LVC74AD_1V8<SOURCE>Texas Instruments SCAS287S-Revised May 2005</SOURCE>
+SN74LVC74ANS_1V8<SOURCE>Texas Instruments SCAS287S-Revised May 2005</SOURCE>
+SN74LVC74ADB_1V8<SOURCE>Texas Instruments SCAS287S-Revised May 2005</SOURCE>
+SN74LVC74APW_1V8<SOURCE>Texas Instruments SCAS287S-Revised May 2005</SOURCE>
+<COMMENT>The Values listed are for VCC=1.8V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<COMMENT>Values not provided were derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLRNeg Q (1:4:6.9) (1:4:6.9))
+    (IOPATH PRENeg Q (1:4:6.9) (1:4:6.9))
+    (IOPATH CLK Q (1:4:7.1) (1:4:7.1))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (3.6:3.6:3.6))
+    (RECOVERY PRENeg CLK (2.7:2.7:2.7))
+    (RECOVERY CLRNeg CLK (2.7:2.7:2.7))
+    (HOLD D CLK (1:1:1))
+    (WIDTH (posedge CLK) (4.1:4.1:4.1))
+    (WIDTH (negedge CLK) (4.1:4.1:4.1))
+    (WIDTH (negedge CLRNeg) (4.1:4.1:4.1))
+    (WIDTH (negedge PRENeg) (4.1:4.1:4.1))
+    (PERIOD (posedge CLK) (12.05:12.05:12.05))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74LVC74ARGY_2V5<SOURCE>Texas Instruments SCAS287S-Revised May 2005</SOURCE>
+SN74LVC74AD_2V5<SOURCE>Texas Instruments SCAS287S-Revised May 2005</SOURCE>
+SN74LVC74ANS_2V5<SOURCE>Texas Instruments SCAS287S-Revised May 2005</SOURCE>
+SN74LVC74ADB_2V5<SOURCE>Texas Instruments SCAS287S-Revised May 2005</SOURCE>
+SN74LVC74APW_2V5<SOURCE>Texas Instruments SCAS287S-Revised May 2005</SOURCE>
+<COMMENT>The Values listed are for VCC=2.5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<COMMENT>Values not provided were derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLRNeg Q (1:2.8:4.6) (1:2.8:4.6))
+    (IOPATH PRENeg Q (1:2.8:4.6) (1:2.8:4.6))
+    (IOPATH CLK Q (1:2.7:4.4) (1:2.7:4.4))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (2.3:2.3:2.3))
+    (RECOVERY PRENeg CLK (1.9:1.9:1.9))
+    (RECOVERY CLRNeg CLK (1.9:1.9:1.9))
+    (HOLD D CLK (1:1:1))
+    (WIDTH (posedge CLK) (3.3:3.3:3.3))
+    (WIDTH (negedge CLK) (3.3:3.3:3.3))
+    (WIDTH (negedge CLRNeg) (3.3:3.3:3.3))
+    (WIDTH (negedge PRENeg) (3.3:3.3:3.3))
+    (PERIOD (posedge CLK) (12.05:12.05:12.05))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74LVC74ARGY_2V7<SOURCE>Texas Instruments SCAS287S-Revised May 2005</SOURCE>
+SN74LVC74AD_2V7<SOURCE>Texas Instruments SCAS287S-Revised May 2005</SOURCE>
+SN74LVC74ANS_2V7<SOURCE>Texas Instruments SCAS287S-Revised May 2005</SOURCE>
+SN74LVC74ADB_2V7<SOURCE>Texas Instruments SCAS287S-Revised May 2005</SOURCE>
+SN74LVC74APW_2V7<SOURCE>Texas Instruments SCAS287S-Revised May 2005</SOURCE>
+<COMMENT>The Values listed are for VCC=2.7V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<COMMENT>Values not provided were derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLRNeg Q (1:3.7:6.4) (1:3.7:6.4))
+    (IOPATH PRENeg Q (1:3.7:6.4) (1:3.7:6.4))
+    (IOPATH CLK Q (1:3.5:6) (1:3.5:6))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (3.4:3.4:3.4))
+    (RECOVERY PRENeg CLK (2.2:2.2:2.2))
+    (RECOVERY CLRNeg CLK (2.2:2.2:2.2))
+    (HOLD D CLK (1:1:1))
+    (WIDTH (posedge CLK) (3.3:3.3:3.3))
+    (WIDTH (negedge CLK) (3.3:3.3:3.3))
+    (WIDTH (negedge CLRNeg) (3.3:3.3:3.3))
+    (WIDTH (negedge PRENeg) (3.3:3.3:3.3))
+    (PERIOD (posedge CLK) (12.05:12.05:12.05))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74LVC74ARGY_3V3<SOURCE>Texas Instruments SCAS287S-Revised May 2005</SOURCE>
+SN74LVC74AD_3V3<SOURCE>Texas Instruments SCAS287S-Revised May 2005</SOURCE>
+SN74LVC74ANS_3V3<SOURCE>Texas Instruments SCAS287S-Revised May 2005</SOURCE>
+SN74LVC74ADB_3V3<SOURCE>Texas Instruments SCAS287S-Revised May 2005</SOURCE>
+SN74LVC74APW_3V3<SOURCE>Texas Instruments SCAS287S-Revised May 2005</SOURCE>
+<COMMENT>The Values listed are for VCC=3.3V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<COMMENT>Values not provided were derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLRNeg Q (1:3:5.4) (1:3:5.4))
+    (IOPATH PRENeg Q (1:3:5.4) (1:3:5.4))
+    (IOPATH CLK Q (1:3:5.2) (1:3:5.2))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (3:3:3))
+    (RECOVERY PRENeg CLK (2:2:2))
+    (RECOVERY CLRNeg CLK (2:2:2))
+    (HOLD D CLK (0:0:0))
+    (WIDTH (posedge CLK) (3.3:3.3:3.3))
+    (WIDTH (negedge CLK) (3.3:3.3:3.3))
+    (WIDTH (negedge CLRNeg) (3.3:3.3:3.3))
+    (WIDTH (negedge PRENeg) (3.3:3.3:3.3))
+    (PERIOD (posedge CLK) (6.67:6.67:6.67))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+74LVQ74SC<SOURCE>National Semiconductor October 1996</SOURCE>
+74LVQ74SJ<SOURCE>National Semiconductor October 1996</SOURCE>
+<COMMENT>The Values listed are for VCC=3.3V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLRNeg Q (3.5:8.0:12.0) (4.0:10.5:12.0))
+    (IOPATH PRENeg Q (3.5:8.0:12.0) (4.0:10.5:12.0))
+    (IOPATH CLK Q (4.5:8.0:13.5) (3.5:8.0:14.0))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (1.5:4:4))
+    (HOLD D CLK (0:0:0.5))
+    (WIDTH (posedge CLK) (3.0:3.0:5.5))
+    (WIDTH (negedge CLK) (3.0:3.0:5.5))
+    (WIDTH (negedge CLRNeg) (3.0:3.0:5.5))
+    (WIDTH (negedge PRENeg) (3.0:3.0:5.5))
+    (PERIOD (posedge CLK) (8:10:10))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+74LVX74M<SOURCE>National Semiconductor January 1996</SOURCE>
+74LVX74SJ<SOURCE>National Semiconductor January 1996</SOURCE>
+74LVX74MTC<SOURCE>National Semiconductor January 1996</SOURCE>
+<COMMENT>The Values listed are for VCC=3.3V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<COMMENT>Values not provided were derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLRNeg Q (4.5:9.1:13.6) (4.5:9.1:13.6))
+    (IOPATH PRENeg Q (4.5:9.1:13.6) (4.5:9.1:13.6))
+    (IOPATH CLK Q (4.1:8.2:13.2) (4.1:8.2:13.2))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (5.5:5.5:5.5))
+    (HOLD D CLK (0.5:0.5:0.5))
+    (WIDTH (posedge CLK) (6.0:6.0:6.0))
+    (WIDTH (negedge CLK) (6.0:6.0:6.0))
+    (WIDTH (negedge CLRNeg) (6.0:6.0:6.0))
+    (WIDTH (negedge PRENeg) (6.0:6.0:6.0))
+    (PERIOD (posedge CLK) (11.8:11.8:16.7))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74S74D<SOURCE>Texas Instruments SDLS119-Revised March 1988</SOURCE>
+SN74S74N<SOURCE>Texas Instruments SDLS119-Revised March 1988</SOURCE>
+SN74S74NS<SOURCE>Texas Instruments SDLS119-Revised March 1988</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=15pF, Ta=+25 Celsius</COMMENT>
+<COMMENT>Values not provided were derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLRNeg Q (2:4:6) (4:9:13.5))
+    (IOPATH PRENeg Q (2:4:6) (4:9:13.5))
+    (IOPATH CLK Q (3:6:9) (3:6:9))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (3:3:3))
+    (HOLD D CLK (2:2:2))
+    (WIDTH (posedge CLK) (6:6:6))
+    (WIDTH (negedge CLK) (7.3:7.3:7.3))
+    (WIDTH (negedge CLRNeg) (7:7:7))
+    (WIDTH (negedge PRENeg) (7:7:7))
+    (PERIOD (posedge CLK) (9:9:13))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+74VHC74M<SOURCE>National Semiconductor October 1996</SOURCE>
+74VHC74SJ<SOURCE>National Semiconductor October 1996</SOURCE>
+74VHC74MTC<SOURCE>National Semiconductor October 1996</SOURCE>
+74VHC74N<SOURCE>National Semiconductor October 1996</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<COMMENT>Min values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLRNeg Q (4:6.3:9.7) (4:6.3:9.7))
+    (IOPATH PRENeg Q (4:6.3:9.7) (4:6.3:9.7))
+    (IOPATH CLK Q (3:6.1:9.3) (3:6.1:9.3))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (6:6:6))
+    (HOLD D CLK (0.5:0.5:0.5))
+    (WIDTH (posedge CLK) (5:5:5))
+    (WIDTH (negedge CLK) (5:5:5))
+    (WIDTH (negedge CLRNeg) (5:5:5))
+    (WIDTH (negedge PRENeg) (5:5:5))
+    (PERIOD (posedge CLK) (8.7:8.7:11.1))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+TC74VHC74AF<SOURCE>Toshiba Very High Speed CMOS Logic 1997</SOURCE>
+TC74VHC74AFN<SOURCE>Toshiba Very High Speed CMOS Logic 1997</SOURCE>
+TC74VHC74AFS<SOURCE>Toshiba Very High Speed CMOS Logic 1997</SOURCE>
+TC74VHC74AFT<SOURCE>Toshiba Very High Speed CMOS Logic 1997</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<COMMENT>Min values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLRNeg Q (4:8.1:11.4) (4:8.1:11.4))
+    (IOPATH PRENeg Q (4:8.1:11.4) (4:8.1:11.4))
+    (IOPATH CLK Q (3:6.3:8.8) (3:6.3:8.8))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (5:5:5))
+    (HOLD D CLK (0:0:0))
+    (WIDTH (posedge CLK) (5:5:5))
+    (WIDTH (negedge CLK) (5:5:5))
+    (WIDTH (negedge CLRNeg) (5:5:5))
+    (WIDTH (negedge PRENeg) (5:5:5))
+    (PERIOD (posedge CLK) (7.2:7.2:7.2))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+CD74HC74E_2V<SOURCE>Texas Instruments SCHS124D -Revised September 2003</SOURCE>
+CD74HC74M_2V<SOURCE>Texas Instruments SCHS124D -Revised September 2003</SOURCE>
+<COMMENT>The Values listed are for VCC=2V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<COMMENT>Values not provided were derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLRNeg Q (67:133:200) (67:133:200))
+    (IOPATH PRENeg Q (67:133:200) (67:133:200))
+    (IOPATH CLK Q (60:120:175) (60:120:175))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (60:60:60))
+    (RECOVERY CLRNeg CLK (30:30:30))
+    (RECOVERY PRENeg CLK (30:30:30))
+    (HOLD D CLK (3:3:3))
+    (WIDTH (posedge CLK) (80:80:80))
+    (WIDTH (negedge CLK) (80:80:80))
+    (WIDTH (negedge CLRNeg) (80:80:80))
+    (WIDTH (negedge PRENeg) (80:80:80))
+    (PERIOD (posedge CLK) (167:167:167))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+CD74HC74E_4V5<SOURCE>Texas Instruments SCHS124D -Revised September 2003</SOURCE>
+CD74HC74M_4V5<SOURCE>Texas Instruments SCHS124D -Revised September 2003</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<COMMENT>Values not provided were derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLRNeg Q (13:26:40) (13:26:40))
+    (IOPATH PRENeg Q (13:26:40) (13:26:40))
+    (IOPATH CLK Q (12:24:35) (12:24:35))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (12:12:12))
+    (RECOVERY CLRNeg CLK (6:6:6))
+    (RECOVERY PRENeg CLK (6:6:6))
+    (HOLD D CLK (3:3:3))
+    (WIDTH (posedge CLK) (16:16:16))
+    (WIDTH (negedge CLK) (16:16:16))
+    (WIDTH (negedge CLRNeg) (16:16:16))
+    (WIDTH (negedge PRENeg) (16:16:16))
+    (PERIOD (posedge CLK) (33.33:33.33:33.33))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+CD74HC74E_6V<SOURCE>Texas Instruments SCHS124D -Revised September 2003</SOURCE>
+CD74HC74M_6V<SOURCE>Texas Instruments SCHS124D -Revised September 2003</SOURCE>
+<COMMENT>The Values listed are for VCC=6V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<COMMENT>Values not provided were derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLRNeg Q (11:22:34) (11:22:34))
+    (IOPATH PRENeg Q (11:22:34) (11:22:34))
+    (IOPATH CLK Q (10:20:30) (10:20:30))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (10:10:10))
+    (RECOVERY CLRNeg CLK (5:5:5))
+    (RECOVERY PRENeg CLK (5:5:5))
+    (HOLD D CLK (3:3:3))
+    (WIDTH (posedge CLK) (14:14:14))
+    (WIDTH (negedge CLK) (14:14:14))
+    (WIDTH (negedge CLRNeg) (14:14:14))
+    (WIDTH (negedge PRENeg) (14:14:14))
+    (PERIOD (posedge CLK) (28.57:28.57:28.57))
+  )
+</TIMING></FMFTIME>
+</BODY></FTML>

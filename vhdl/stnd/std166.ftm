@@ -1,0 +1,238 @@
+<!DOCTYPE FTML SYSTEM "ftml.dtd">
+<FTML><HEAD><TITLE>FMF Timing for std166 Parts</TITLE>
+<BODY>
+<REVISION.HISTORY>
+version: |  author:  | mod date: | changes made:
+  V1.0    R. Munden    01 Aug 07   Initial release
+</REVISION.HISTORY>
+<TIMESCALE>1ns</TIMESCALE>
+<MODEL>std166
+<FMFTIME>
+SN74ALS166D<SOURCE>Texas Instruments SDAS156D-Revised August 2000</SOURCE>
+SN74ALS166DB<SOURCE>Texas Instruments SDAS156D-Revised August 2000</SOURCE>
+SN74ALS166N<SOURCE>Texas Instruments SDAS156D-Revised August 2000</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V-5.5V, CL=50pF, Ta=0 to +70 Celsius</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLK Q (2:7:12) (2:9:13))
+    (IOPATH CLRNeg Q (4:9:14) (4:9:14))
+  ))
+  (TIMINGCHECK
+    (SETUP CLRNeg CLK (11:11:11))
+    (SETUP SH CLK (16:16:16))
+    (SETUP DA CLK (7:7:7))
+    (SETUP SER CLK (0:0:0))
+    (SETUP CLKINH CLK (0:0:0))
+    (HOLD SER CLK (0:0:0))
+    (HOLD DA CLK (3:3:3))
+    (HOLD SH CLK (0:0:0))
+    (HOLD CLKINH CLK (0:0:0))
+    (WIDTH (posedge CLK) (10:10:10))
+    (WIDTH (negedge CLRNeg) (9:9:9))
+    (PERIOD (posedge CLK) (23:23:23))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+N74F166D<SOURCE>Philips Semiconductors Data Sheet Feb. 14, 1991</SOURCE>
+N74F166N<SOURCE>Philips Semiconductors Data Sheet Feb. 14, 1991</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, Ta=0 to +70 Celsius</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLK Q (5:7.5:12) (3.5:6:9))
+    (IOPATH CLRNeg Q (4:6.5:9.5) (4:6.5:9.5))
+  ))
+  (TIMINGCHECK
+    (SETUP CLRNeg CLK (4.5:4.5:4.5))
+    (SETUP SH CLK (4:4:4))
+    (SETUP DA CLK (4:4:4))
+    (SETUP SER CLK (4:4:4))
+    (SETUP CLKINH CLK (4:4:4))
+    (HOLD SER CLK (1:1:1))
+    (HOLD DA CLK (1:1:1))
+    (HOLD SH CLK (0:0:0))
+    (HOLD CLKINH CLK (0:0:0))
+    (WIDTH (posedge CLK) (5:5:5))
+    (WIDTH (negedge CLRNeg) (4:4:4))
+    (PERIOD (posedge CLK) (10:10:10))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+74HC166D<SOURCE>Philips Semiconductors Data Sheet 1990</SOURCE>
+74HC166DB<SOURCE>Philips Semiconductors Data Sheet 1990</SOURCE>
+74HC166N<SOURCE>Philips Semiconductors Data Sheet 1990</SOURCE>
+74HC166PW<SOURCE>Philips Semiconductors Data Sheet 1990</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<COMMENT>Typical values are at Ta=25C</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLK Q (9:18:38) (9:18:38))
+    (IOPATH CLRNeg Q (8:17:40) (8:17:40))
+  ))
+  (TIMINGCHECK
+    (SETUP CLRNeg CLK (0:0:0))
+    (SETUP SH CLK (25:25:25))
+    (SETUP DA CLK (20:20:20))
+    (SETUP SER CLK (0:0:0))
+    (SETUP CLKINH CLK (20:20:20))
+    (HOLD SER CLK (0:0:0))
+    (HOLD DA CLK (2:2:2))
+    (HOLD SH CLK (0:0:0))
+    (HOLD CLKINH CLK (2:2:2))
+    (WIDTH (posedge CLK) (20:20:20))
+    (WIDTH (negedge CLRNeg) (25:25:25))
+    (PERIOD (posedge CLK) (42:42:42))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74HC166D<SOURCE>Texas Instruments SCLS117B-Revised May 1997</SOURCE>
+SN74HC166N<SOURCE>Texas Instruments SCLS117B-Revised May 1997</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<COMMENT>Typical values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLK Q (7:15:38) (7:15:38))
+    (IOPATH CLRNeg Q (9:18:30) (9:18:30))
+  ))
+  (TIMINGCHECK
+    (SETUP CLRNeg CLK (10:10:10))
+    (SETUP SH CLK (36:36:36))
+    (SETUP DA CLK (20:20:20))
+    (SETUP SER CLK (20:20:20))
+    (SETUP CLKINH CLK (25:25:25))
+    (HOLD SER CLK (5:5:5))
+    (HOLD DA CLK (5:5:5))
+    (HOLD SH CLK (0:0:0))
+    (HOLD CLKINH CLK (0:0:0))
+    (WIDTH (posedge CLK) (20:20:20))
+    (WIDTH (negedge CLRNeg) (25:25:25))
+    (PERIOD (posedge CLK) (40:40:40))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+74HCT166D<SOURCE>Philips Semiconductors Data Sheet 1990</SOURCE>
+74HCT166DB<SOURCE>Philips Semiconductors Data Sheet 1990</SOURCE>
+74HCT166N<SOURCE>Philips Semiconductors Data Sheet 1990</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLK Q (11:23:50) (11:23:50))
+    (IOPATH CLRNeg Q (11:22:50) (11:22:50))
+  ))
+  (TIMINGCHECK
+    (SETUP CLRNeg CLK (0:0:0))
+    (SETUP SH CLK (38:38:38))
+    (SETUP DA CLK (20:20:20))
+    (SETUP SER CLK (0:0:0))
+    (SETUP CLKINH CLK (20:20:20))
+    (HOLD SER CLK (0:0:0))
+    (HOLD DA CLK (0:0:0))
+    (HOLD SH CLK (0:0:0))
+    (HOLD CLKINH CLK (0:0:0))
+    (WIDTH (posedge CLK) (25:25:25))
+    (WIDTH (negedge CLRNeg) (31:31:31))
+    (PERIOD (posedge CLK) (50:50:50))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+DM74LS166M<SOURCE>Fairchild Semiconductor data sheet March 2000</SOURCE>
+DM74LS166N<SOURCE>Fairchild Semiconductor data sheet March 2000</SOURCE>
+DM74LS166WM<SOURCE>Fairchild Semiconductor data sheet March 2000</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=15pF, Ta=+25 Celsius</COMMENT>
+<COMMENT>Typ values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLK Q (8:16:35) (8:16:35))
+    (IOPATH CLRNeg Q (6:12:30) (6:12:30))
+  ))
+  (TIMINGCHECK
+    (SETUP CLRNeg CLK (0:0:0))
+    (SETUP SH CLK (30:30:30))
+    (SETUP DA CLK (20:20:20))
+    (SETUP SER CLK (20:20:20))
+    (SETUP CLKINH CLK (0:0:0))
+    (HOLD SER CLK (0:0:0))
+    (HOLD DA CLK (0:0:0))
+    (HOLD SH CLK (0:0:0))
+    (HOLD CLKINH CLK (0:0:0))
+    (WIDTH (posedge CLK) (20:20:20))
+    (WIDTH (negedge CLRNeg) (20:20:20))
+    (PERIOD (posedge CLK) (40:40:40))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74LS166AD<SOURCE>Texas Instruments SDLS119-Revised March 1988</SOURCE>
+SN74LS166AN<SOURCE>Texas Instruments SDLS119-Revised March 1988</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=15pF, Ta=+25 Celsius</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLK Q (5:11:20) (7:14:25))
+    (IOPATH CLRNeg Q (9:19:30) (9:19:30))
+  ))
+  (TIMINGCHECK
+    (SETUP CLRNeg CLK (0:0:0))
+    (SETUP SH CLK (30:30:30))
+    (SETUP DA CLK (20:20:20))
+    (SETUP SER CLK (30:30:30))
+    (SETUP CLKINH CLK (0:0:0))
+    (HOLD SER CLK (0:0:0))
+    (HOLD DA CLK (0:0:0))
+    (HOLD SH CLK (0:0:0))
+    (HOLD CLKINH CLK (0:0:0))
+    (WIDTH (posedge CLK) (25:25:25))
+    (WIDTH (negedge CLRNeg) (20:20:20))
+    (PERIOD (posedge CLK) (40:40:40))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74LV166AD_3V3<SOURCE>Texas Instruments SCLS456-Revised February 2001</SOURCE>
+SN74LV166ADB_3V3<SOURCE>Texas Instruments SCLS456-Revised February 2001</SOURCE>
+SN74LV166ADGV_3V3<SOURCE>Texas Instruments SCLS456-Revised February 2001</SOURCE>
+SN74LV166APW_3V3<SOURCE>Texas Instruments SCLS456-Revised February 2001</SOURCE>
+<COMMENT>The Values listed are for VCC=3.0 to 3.6V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLK Q (1:8.3:21.5) (1:8.3:21.5))
+    (IOPATH CLRNeg Q (1:7.9:18.5) (1:7.9:18.5))
+  ))
+  (TIMINGCHECK
+    (SETUP CLRNeg CLK (4:4:4))
+    (SETUP SH CLK (6:6:6))
+    (SETUP DA CLK (6:6:6))
+    (SETUP SER CLK (6:6:6))
+    (SETUP CLKINH CLK (5:5:5))
+    (HOLD SER CLK (0:0:0))
+    (HOLD DA CLK (0:0:0))
+    (HOLD SH CLK (0:0:0))
+    (HOLD CLKINH CLK (0:0:0))
+    (WIDTH (posedge CLK) (7:7:7))
+    (WIDTH (negedge CLRNeg) (7:7:7))
+    (PERIOD (posedge CLK) (20:20:20))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74LV166AD_5V<SOURCE>Texas Instruments SCLS456-Revised February 2001</SOURCE>
+SN74LV166ADB_5V<SOURCE>Texas Instruments SCLS456-Revised February 2001</SOURCE>
+SN74LV166ADGV_5V<SOURCE>Texas Instruments SCLS456-Revised February 2001</SOURCE>
+SN74LV166APW_5V<SOURCE>Texas Instruments SCLS456-Revised February 2001</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V-5.5V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLK Q (1:6.1:13.5) (1:6.1:13.5))
+    (IOPATH CLRNeg Q (1:5.7:12) (1:5.7:12))
+  ))
+  (TIMINGCHECK
+    (SETUP CLRNeg CLK (3.5:3.5:3.5))
+    (SETUP SH CLK (4:4:4))
+    (SETUP DA CLK (4.5:4.5:4.5))
+    (SETUP SER CLK (4:4:4))
+    (SETUP CLKINH CLK (3.5:3.5:3.5))
+    (HOLD SER CLK (1:1:1))
+    (HOLD DA CLK (1:1:1))
+    (HOLD SH CLK (0:0:0))
+    (HOLD CLKINH CLK (0:0:0))
+    (WIDTH (posedge CLK) (4:4:4))
+    (WIDTH (negedge CLRNeg) (5:5:5))
+    (PERIOD (posedge CLK) (12:12:12))
+  )
+</TIMING></FMFTIME>
+</BODY></FTML>

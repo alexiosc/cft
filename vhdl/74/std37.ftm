@@ -1,0 +1,50 @@
+<!DOCTYPE FTML SYSTEM "ftml.dtd">
+<FTML><HEAD><TITLE>FMF Timing for std37 Parts</TITLE>
+<BODY>
+<REVISION.HISTORY>
+version: |  author:  | mod date: | changes made:
+  V1.0    R. Munden    00 Dec 30   Initial release
+</REVISION.HISTORY>
+<TIMESCALE>1ns</TIMESCALE>
+<MODEL>std37
+<FMFTIME>
+SN7437N<SOURCE>Texas Instruments SDLS103-Revised March 1988</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=45pF, Ta=+25 Celsius</COMMENT>
+<COMMENT>Typical values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A YNeg (6:13:22) (4:8:15))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74ALS37AD<SOURCE>Texas Instruments SDAS195A-Revised December 1994</SOURCE>
+SN74ALS37AN<SOURCE>Texas Instruments SDAS195A-Revised December 1994</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=0 to 70C</COMMENT>
+<COMMENT>Typical values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A YNeg (2:4:8) (2:4:7))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74F37PC<SOURCE>Fairchild Semiconductor DS009464 Revised September 2000</SOURCE>
+74F37SC<SOURCE>Fairchild Semiconductor DS009464 Revised September 2000</SOURCE>
+74F37SJ<SOURCE>Fairchild Semiconductor DS009464 Revised September 2000</SOURCE>
+SN74F37D<SOURCE>Texas Instruments SDFS014-Revised April 1989</SOURCE>
+SN74F37N<SOURCE>Texas Instruments SDFS014-Revised April 1989</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=0 to 70C</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A YNeg (1.5:3.2:6.5) (1.0:2.4:5.0))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+N74F37D<SOURCE>Philips Semiconductor 853-0051 99679 May 24, 1990</SOURCE>
+N74F37N<SOURCE>Philips Semiconductor 853-0051 99679 May 24, 1990</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=0 to 70C</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A YNeg (2.5:3.5:6.5) (1.5:2.5:5.0))
+  ))
+</TIMING></FMFTIME>
+</BODY></FTML>

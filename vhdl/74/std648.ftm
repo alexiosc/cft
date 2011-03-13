@@ -1,0 +1,191 @@
+<!DOCTYPE FTML SYSTEM "ftml.dtd">
+<FTML><HEAD><TITLE>FMF Timing for std648 Parts</TITLE>
+<BODY>
+<REVISION.HISTORY>
+version: |  author:  | mod date: | changes made:
+  V1.0    R. Munden    02 Jan 01   Initial release
+</REVISION.HISTORY>
+<TIMESCALE>1ns</TIMESCALE>
+<MODEL>std648
+<FMFTIME>
+74AC648SC_3V3<SOURCE>Fairchild Semiconductor DS010133 Revised August 2000</SOURCE>
+74AC648SPC_3V3<SOURCE>Fairchild Semiconductor DS010133 Revised August 2000</SOURCE>
+<COMMENT>The values listed are for VCC=3 to 3.6V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A B (1.5:6:11) (1.5:5.5:10)) 
+    (IOPATH SAB A (1.5:7.5:14) (1.5:7.5:14)) 
+    (IOPATH CLKAB B (1.5:10:17) (1.5:8.5:14.5)) 
+    (IOPATH DIR A () () (1.5:7:15) (1:6:14) (1:7:13.5) (1.5:6.5:14.5))
+    (IOPATH OENEG A () () (1:7:12.5) (1:6.5:11.5) (1:7.5:13) (1:7:12.5))
+  ))
+  (TIMINGCHECK
+    (SETUP A CLKAB (3.5:3.5:3.5)) 
+    (SETUP B CLKBA (3.5:3.5:3.5)) 
+    (HOLD A CLKAB (0:0:0)) 
+    (HOLD B CLKBA (0:0:0)) 
+    (WIDTH (posedge CLKAB) (4:4:4)) 
+    (WIDTH (posedge CLKBA) (4:4:4)) 
+    (WIDTH (negedge CLKAB) (4:4:4)) 
+    (WIDTH (negedge CLKBA) (4:4:4)) 
+    (PERIOD (posedge CLKAB) (8:8:8)) 
+    (PERIOD (posedge CLKBA) (8:8:8)) 
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+74AC648SC_5V<SOURCE>Fairchild Semiconductor DS010133 Revised August 2000</SOURCE>
+74AC648SPC_5V<SOURCE>Fairchild Semiconductor DS010133 Revised August 2000</SOURCE>
+<COMMENT>The values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A B (1:4:7.5) (1:3.5:8)) 
+    (IOPATH SAB A (1.5:5.5:10) (1.5:5.5:10.5)) 
+    (IOPATH CLKAB B (1.5:7:12) (1.5:6:11.5)) 
+    (IOPATH DIR A () () (1.5:7:15) (1:4.5:10.5) (1:5.5:10) (1:4.5:10.5))
+    (IOPATH OENEG A () () (1:5.5:10) (1:5:9) (1:6:11) (1:5:9))
+  ))
+  (TIMINGCHECK
+    (SETUP A CLKAB (2:2:2)) 
+    (SETUP B CLKBA (2:2:2)) 
+    (HOLD A CLKAB (1:1:1)) 
+    (HOLD B CLKBA (1:1:1)) 
+    (WIDTH (posedge CLKAB) (3:3:3)) 
+    (WIDTH (posedge CLKBA) (3:3:3)) 
+    (WIDTH (negedge CLKAB) (3:3:3)) 
+    (WIDTH (negedge CLKBA) (3:3:3)) 
+    (PERIOD (posedge CLKAB) (6:6:6)) 
+    (PERIOD (posedge CLKBA) (6:6:6)) 
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74ALS648ADW<SOURCE>Texas Instruments SDAS039F-Revised January 1995</SOURCE>
+SN74ALS648ANT<SOURCE>Texas Instruments SDAS039F-Revised January 1995</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=0 to 70C</COMMENT>
+<COMMENT>Typical values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A B (2:12:17) (2:6:10)) 
+    (IOPATH SAB A (5:26:39) (4:14:22)) 
+    (IOPATH CLKAB B (7:22:33) (5:14:20)) 
+    (IOPATH DIR A () () (2:10:15) (2:18:27) (1:10:14) (3:12:19))
+    (IOPATH OENEG A () () (2:10:15) (2:14:22) (1:6:10) (4:14:22))
+  ))
+  (TIMINGCHECK
+    (SETUP A CLKAB (10:10:10)) 
+    (SETUP B CLKBA (10:10:10)) 
+    (HOLD A CLKAB (0:0:0)) 
+    (HOLD B CLKBA (0:0:0)) 
+    (WIDTH (posedge CLKAB) (12.5:12.5:12.5)) 
+    (WIDTH (posedge CLKBA) (12.5:12.5:12.5)) 
+    (WIDTH (negedge CLKAB) (12.5:12.5:12.5)) 
+    (WIDTH (negedge CLKBA) (12.5:12.5:12.5)) 
+    (PERIOD (posedge CLKAB) (25:25:25)) 
+    (PERIOD (posedge CLKBA) (25:25:25)) 
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+DM74AS648NT<SOURCE>Fairchild Semiconductor DS006324 Revised March 2000</SOURCE>
+DM74AS648WM<SOURCE>Fairchild Semiconductor DS006324 Revised March 2000</SOURCE>
+SN74AS648DW<SOURCE>Texas Instruments SDAS039F-Revised January 1995</SOURCE>
+SN74AS648NT<SOURCE>Texas Instruments SDAS039F-Revised January 1995</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=0 to 70C</COMMENT>
+<COMMENT>Typical values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A B (2:5:8) (1:4:7)) 
+    (IOPATH SAB A (2:7:11) (2:6:9)) 
+    (IOPATH CLKAB B (2:6:8.5) (2:6:9)) 
+    (IOPATH DIR A () () (2:6:10) (3:10:16) (2:6:10) (3:12:18))
+    (IOPATH OENEG A () () (2:6:9) (2:6:9) (2:6:9) (3:10:15))
+  ))
+  (TIMINGCHECK
+    (SETUP A CLKAB (6:6:6)) 
+    (SETUP B CLKBA (6:6:6)) 
+    (HOLD A CLKAB (0:0:0)) 
+    (HOLD B CLKBA (0:0:0)) 
+    (WIDTH (posedge CLKAB) (5:5:5)) 
+    (WIDTH (posedge CLKBA) (5:5:5)) 
+    (WIDTH (negedge CLKAB) (6:6:6)) 
+    (WIDTH (negedge CLKBA) (6:6:6)) 
+    (PERIOD (posedge CLKAB) (11.1:11.1:11.1)) 
+    (PERIOD (posedge CLKBA) (11.1:11.1:11.1)) 
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+74F648SC<SOURCE>Fairchild Semiconductor DS009580 October 2000</SOURCE>
+74F648SPC<SOURCE>Fairchild Semiconductor DS009580 October 2000</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=0 to 70C</COMMENT>
+<COMMENT>Typical values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A B (2:6:9) (1:5:8)) 
+    (IOPATH SAB A (2:6:9.5) (2:6:9)) 
+    (IOPATH CLKAB B (2:5:8) (2:6:9)) 
+    (IOPATH DIR A () () (2:8:11.5) (2:10:15) (1:6:9.5) (2:10:14))
+    (IOPATH OENEG A () () (2:6:9.5) (2:6:9) (1:6:8.5) (2:8:12.5))
+  ))
+  (TIMINGCHECK
+    (SETUP A CLKAB (5:5:5)) 
+    (SETUP B CLKBA (5:5:5)) 
+    (HOLD A CLKAB (2:2:2)) 
+    (HOLD B CLKBA (2:2:2)) 
+    (WIDTH (posedge CLKAB) (5:5:5)) 
+    (WIDTH (posedge CLKBA) (5:5:5)) 
+    (WIDTH (negedge CLKAB) (5:5:5)) 
+    (WIDTH (negedge CLKBA) (5:5:5)) 
+    (PERIOD (posedge CLKAB) (11.1:11.1:11.1)) 
+    (PERIOD (posedge CLKBA) (11.1:11.1:11.1)) 
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+N74F648AD<SOURCE>Philips Semiconductors 853-1124 00515 1990 Sep 25</SOURCE>
+N74F648AN<SOURCE>Philips Semiconductors 853-1124 00515 1990 Sep 25</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=0 to 70C</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A B (2:4.5:8.5) (4:6:9.5)) 
+    (IOPATH SAB A (3.5:7:11.5) (4.5:7:10)) 
+    (IOPATH CLKAB B (4.5:7:10.5) (4.5:7.5:10.5)) 
+    (IOPATH DIR A () () (3.5:5:9) (2:4:8) (2:5:9) (3.5:6.5:10))
+    (IOPATH OENEG A () () (4:6.5:10) (3.5:6.5:11) (3:5.5:9) (4:6.5:11.5))
+  ))
+  (TIMINGCHECK
+    (SETUP A CLKAB (4.5:4.5:4.5)) 
+    (SETUP B CLKBA (4.5:4.5:4.5)) 
+    (HOLD A CLKAB (0:0:0)) 
+    (HOLD B CLKBA (0:0:0)) 
+    (WIDTH (posedge CLKAB) (4:4:4)) 
+    (WIDTH (posedge CLKBA) (4:4:4)) 
+    (WIDTH (negedge CLKAB) (4:4:4)) 
+    (WIDTH (negedge CLKBA) (4:4:4)) 
+    (PERIOD (posedge CLKAB) (7.4:7.4:7.4)) 
+    (PERIOD (posedge CLKBA) (7.4:7.4:7.4)) 
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74LS648DW<SOURCE>Texas Instruments SDLS190-Revised March 1988</SOURCE>
+SN74LS648NT<SOURCE>Texas Instruments SDLS190-Revised March 1988</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=45pF, Ta=+25 Celsius</COMMENT>
+<COMMENT>Min values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A B (6:12:18) (7:15:25)) 
+    (IOPATH SAB A (18:37:55) (12:24:40)) 
+    (IOPATH CLKAB B (7:15:25) (12:24:40)) 
+    (IOPATH DIR A () () (9:19:30) (11:23:40) (12:24:35) (15:30:45))
+    (IOPATH OENEG A () () (11:22:35) (15:30:50) (14:28:45) (18:37:55))
+  ))
+  (TIMINGCHECK
+    (SETUP A CLKAB (15:15:15)) 
+    (SETUP B CLKBA (15:15:15)) 
+    (HOLD A CLKAB (0:0:0)) 
+    (HOLD B CLKBA (0:0:0)) 
+    (WIDTH (posedge CLKAB) (15:15:15)) 
+    (WIDTH (posedge CLKBA) (15:15:15)) 
+    (WIDTH (negedge CLKAB) (30:30:30)) 
+    (WIDTH (negedge CLKBA) (30:30:30)) 
+    (PERIOD (posedge CLKAB) (45:45:45)) 
+    (PERIOD (posedge CLKBA) (45:45:45)) 
+  )
+</TIMING></FMFTIME>
+</BODY></FTML>

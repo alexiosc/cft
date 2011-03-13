@@ -1,0 +1,358 @@
+<!DOCTYPE FTML SYSTEM "ftml.dtd">
+<FTML><HEAD><TITLE>FMF Timing for std164 Parts</TITLE>
+<BODY>
+<REVISION.HISTORY>
+version: |  author:  | mod date: | changes made:
+  V1.0    R. Munden    01 Aug 25   Initial release
+</REVISION.HISTORY>
+<TIMESCALE>1ns</TIMESCALE>
+<MODEL>std164
+<FMFTIME>
+74AHC164D_3V3<SOURCE>Philips Semiconductors Data Sheet 2000 Aug 15</SOURCE>
+74AHC164PW_3V3<SOURCE>Philips Semiconductors Data Sheet 2000 Aug 15</SOURCE>
+<COMMENT>The Values listed are for VCC=3.0V-3.6V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<COMMENT>Typical values are at Ta=25C</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLOCK Q0 (1:9.3:18.5) (1:9.3:18.5))
+    (IOPATH CLNeg Q0 (1:7.6:18.5) (1:7.6:18.5))
+  ))
+  (TIMINGCHECK
+    (SETUP DA CLOCK (6:6:6))
+    (SETUP CLNeg CLOCK (2.5:2.5:2.5))
+    (HOLD DA CLOCK (1.5:1.5:1.5))
+    (WIDTH (posedge CLOCK) (5:5:5))
+    (WIDTH (negedge CLNeg) (5:5:5))
+    (PERIOD (posedge CLOCK) (22.2:22.2:22.2))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+74AHC164D_5V<SOURCE>Philips Semiconductors Data Sheet 2000 Aug 15</SOURCE>
+74AHC164PW_5V<SOURCE>Philips Semiconductors Data Sheet 2000 Aug 15</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V-5.5V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<COMMENT>Typical values are at Ta=25C</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLOCK Q0 (1:6.4:12.5) (1:6.4:12.5))
+    (IOPATH CLNeg Q0 (1:5.8:12) (1:5.8:12))
+  ))
+  (TIMINGCHECK
+    (SETUP DA CLOCK (4.5:4.5:4.5))
+    (SETUP CLNeg CLOCK (2.5:2.5:2.5))
+    (HOLD DA CLOCK (2:2:2))
+    (WIDTH (posedge CLOCK) (5:5:5))
+    (WIDTH (negedge CLNeg) (5:5:5))
+    (PERIOD (posedge CLOCK) (13.3:13.3:13.3))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+74AHCT164D<SOURCE>Philips Semiconductors Data Sheet 2000 Aug 15</SOURCE>
+74AHCT164PW<SOURCE>Philips Semiconductors Data Sheet 2000 Aug 15</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V-5.5V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<COMMENT>Typical values are at Ta=25C</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLOCK Q0 (1:4.9:12.5) (1:4.9:12.5))
+    (IOPATH CLNeg Q0 (1:5:12) (1:5:12))
+  ))
+  (TIMINGCHECK
+    (SETUP DA CLOCK (4.5:4.5:4.5))
+    (SETUP CLNeg CLOCK (2.5:2.5:2.5))
+    (HOLD DA CLOCK (2:2:2))
+    (WIDTH (posedge CLOCK) (5:5:5))
+    (WIDTH (negedge CLNeg) (5:5:5))
+    (PERIOD (posedge CLOCK) (13.3:13.3:13.3))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74ALS164D<SOURCE>Texas Instruments SDAS159D-Revised December 1994</SOURCE>
+SN74ALS164N<SOURCE>Texas Instruments SDAS159D-Revised December 1994</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V-5.5V, CL=50pF, Ta=0 to +70 Celsius</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLOCK Q0 (4:9:16) (5:11:17))
+    (IOPATH CLNeg Q0 (6:15:20) (6:15:20))
+  ))
+  (TIMINGCHECK
+    (SETUP DA CLOCK (6:6:6))
+    (SETUP CLNeg CLOCK (8:8:8))
+    (HOLD DA CLOCK (2:2:2))
+    (WIDTH (posedge CLOCK) (10:10:10))
+    (WIDTH (negedge CLNeg) (16:16:16))
+    (PERIOD (posedge CLOCK) (20:20:20))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+MM74C164M<SOURCE>Fairchild Semiconductor DS005896 February 1999</SOURCE>
+MM74C164N<SOURCE>Fairchild Semiconductor DS005896 February 1999</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<COMMENT>Min values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLOCK Q0 (100:230:310) (100:230:310))
+    (IOPATH CLNeg Q0 (140:280:380) (140:280:380))
+  ))
+  (TIMINGCHECK
+    (SETUP DA CLOCK (200:200:200))
+    (SETUP CLNeg CLOCK (0:0:0))
+    (HOLD DA CLOCK (0:0:0))
+    (WIDTH (posedge CLOCK) (500:500:500))
+    (WIDTH (negedge CLNeg) (250:250:250))
+    (PERIOD (posedge CLOCK) (500:500:500))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+74F164D<SOURCE>Philips Semiconductors 853-0348 25264 2000 Dec 18</SOURCE>
+74F164N<SOURCE>Philips Semiconductors 853-0348 25264 2000 Dec 18</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V-5.5V, CL=50pF, Ta=0 to +70 Celsius</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLOCK Q0 (2.5:5:9) (5:7:11))
+    (IOPATH CLNeg Q0 (5.5:7.5:11.5) (5.5:7.5:11.5))
+  ))
+  (TIMINGCHECK
+    (SETUP DA CLOCK (7:7:7))
+    (SETUP CLNeg CLOCK (7:7:7))
+    (HOLD DA CLOCK (2:2:2))
+    (WIDTH (posedge CLOCK) (7:7:7))
+    (WIDTH (negedge CLNeg) (7:7:7))
+    (PERIOD (posedge CLOCK) (12.5:12.5:12.5))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+74F164APC<SOURCE>Fairchild Semiconductor DS010613 October 2000</SOURCE>
+74F164ASC<SOURCE>Fairchild Semiconductor DS010613 October 2000</SOURCE>
+74F164ASJ<SOURCE>Fairchild Semiconductor DS010613 October 2000</SOURCE>
+<COMMENT>The Values listed are for VCC=5.0V, CL=50pF, Ta=0 to +70 Celsius</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLOCK Q0 (3:4.8:7.5) (3.5:5:8))
+    (IOPATH CLNeg Q0 (5:7:10.5) (5:7:10.5))
+  ))
+  (TIMINGCHECK
+    (SETUP DA CLOCK (4.5:4.5:4.5))
+    (SETUP CLNeg CLOCK (5:5:5))
+    (HOLD DA CLOCK (1:1:1))
+    (WIDTH (posedge CLOCK) (7:7:7))
+    (WIDTH (negedge CLNeg) (4:4:4))
+    (PERIOD (posedge CLOCK) (12.5:12.5:12.5))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+MM74HC164M<SOURCE>Fairchild Semiconductor DS005315 February 1999</SOURCE>
+MM74HC164N<SOURCE>Fairchild Semiconductor DS005315 February 1999</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLOCK Q0 (6:13:44) (6:13:44))
+    (IOPATH CLNeg Q0 (14:28:51) (14:28:51))
+  ))
+  (TIMINGCHECK
+    (SETUP DA CLOCK (25:25:25))
+    (SETUP CLNeg CLOCK (0:0:0))
+    (HOLD DA CLOCK (5:5:5))
+    (WIDTH (posedge CLOCK) (20:20:20))
+    (WIDTH (negedge CLNeg) (20:20:20))
+    (PERIOD (posedge CLOCK) (48:48:48))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74HC164D<SOURCE>Texas Instruments SCLS115B-Revised May 1997</SOURCE>
+SN74HC164N<SOURCE>Texas Instruments SCLS115B-Revised May 1997</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLOCK Q0 (12:23:44) (12:23:44))
+    (IOPATH CLNeg Q0 (14:28:51) (14:28:51))
+  ))
+  (TIMINGCHECK
+    (SETUP DA CLOCK (25:25:25))
+    (SETUP CLNeg CLOCK (25:25:25))
+    (HOLD DA CLOCK (5:5:5))
+    (WIDTH (posedge CLOCK) (20:20:20))
+    (WIDTH (negedge CLNeg) (25:25:25))
+    (PERIOD (posedge CLOCK) (40:40:40))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+MM74HCT164M<SOURCE>Fairchild Semiconductor DS005765 February 1999</SOURCE>
+MM74HCT164N<SOURCE>Fairchild Semiconductor DS005765 February 1999</SOURCE>
+MM74HCT164SJ<SOURCE>Fairchild Semiconductor DS005765 February 1999</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V-5.5V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<COMMENT>Min values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLOCK Q0 (10:20:38) (10:20:38))
+    (IOPATH CLNeg Q0 (13:26:51) (13:26:51))
+  ))
+  (TIMINGCHECK
+    (SETUP DA CLOCK (19:19:19))
+    (SETUP CLNeg CLOCK (10:10:10))
+    (HOLD DA CLOCK (5:5:5))
+    (WIDTH (posedge CLOCK) (22:22:22))
+    (WIDTH (negedge CLNeg) (22:22:22))
+    (PERIOD (posedge CLOCK) (40:40:40))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+DM74LS164M<SOURCE>Fairchild Semiconductor DS006398 April 2000</SOURCE>
+DM74LS164N<SOURCE>Fairchild Semiconductor DS006398 April 2000</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=15pF, Ta=+25 Celsius</COMMENT>
+<COMMENT>Typ values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLOCK Q0 (9:17:27) (10:21:32))
+    (IOPATH CLNeg Q0 (12:24:36) (12:24:36))
+  ))
+  (TIMINGCHECK
+    (SETUP DA CLOCK (17:17:17))
+    (SETUP CLNeg CLOCK (30:30:30))
+    (HOLD DA CLOCK (5:5:5))
+    (WIDTH (posedge CLOCK) (20:20:20))
+    (WIDTH (negedge CLNeg) (20:20:20))
+    (PERIOD (posedge CLOCK) (40:40:40))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74LS164D<SOURCE>Texas Instruments Revised March 1988</SOURCE>
+SN74LS164N<SOURCE>Texas Instruments Revised March 1988</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=15pF, Ta=+25 Celsius</COMMENT>
+<COMMENT>Min values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLOCK Q0 (9:17:27) (10:21:32))
+    (IOPATH CLNeg Q0 (12:24:36) (12:24:36))
+  ))
+  (TIMINGCHECK
+    (SETUP DA CLOCK (15:15:15))
+    (SETUP CLNeg CLOCK (20:20:20))
+    (HOLD DA CLOCK (5:5:5))
+    (WIDTH (posedge CLOCK) (20:20:20))
+    (WIDTH (negedge CLNeg) (20:20:20))
+    (PERIOD (posedge CLOCK) (40:40:40))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+74LV164D_3V3<SOURCE>Philips Semiconductors 853-1961 19349 1998 May 07</SOURCE>
+74LV164DB_3V3<SOURCE>Philips Semiconductors 853-1961 19349 1998 May 07</SOURCE>
+74LV164N_3V3<SOURCE>Philips Semiconductors 853-1961 19349 1998 May 07</SOURCE>
+74LV164PW_3V3<SOURCE>Philips Semiconductors 853-1961 19349 1998 May 07</SOURCE>
+<COMMENT>The Values listed are for VCC=3.0 to 3.6V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<COMMENT>Min values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLOCK Q0 (7:14:23) (7:14:23))
+    (IOPATH CLNeg Q0 (7:14:23) (7:14:23))
+  ))
+  (TIMINGCHECK
+    (SETUP DA CLOCK (13:13:13))
+    (SETUP CLNeg CLOCK (11:11:11))
+    (HOLD DA CLOCK (5:5:5))
+    (WIDTH (posedge CLOCK) (20:20:20))
+    (WIDTH (negedge CLNeg) (20:20:20))
+    (PERIOD (posedge CLOCK) (42:42:42))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+74LV164D_5V<SOURCE>Philips Semiconductors 853-1961 19349 1998 May 07</SOURCE>
+74LV164DB_5V<SOURCE>Philips Semiconductors 853-1961 19349 1998 May 07</SOURCE>
+74LV164N_5V<SOURCE>Philips Semiconductors 853-1961 19349 1998 May 07</SOURCE>
+74LV164PW_5V<SOURCE>Philips Semiconductors 853-1961 19349 1998 May 07</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V-5.5V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<COMMENT>Min values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLOCK Q0 (6:12:19) (6:12:19))
+    (IOPATH CLNeg Q0 (6:12:19) (6:12:19))
+  ))
+  (TIMINGCHECK
+    (SETUP DA CLOCK (9:9:9))
+    (SETUP CLNeg CLOCK (8:8:8))
+    (HOLD DA CLOCK (5:5:5))
+    (WIDTH (posedge CLOCK) (13:13:13))
+    (WIDTH (negedge CLNeg) (13:13:13))
+    (PERIOD (posedge CLOCK) (28:28:28))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74LV164AD_3V3<SOURCE>Texas Instruments SCLS403D-Revised January 2001</SOURCE>
+SN74LV164ADB_3V3<SOURCE>Texas Instruments SCLS403D-Revised January 2001</SOURCE>
+SN74LV164ADGV_3V3<SOURCE>Texas Instruments SCLS403D-Revised January 2001</SOURCE>
+SN74LV164APW_3V3<SOURCE>Texas Instruments SCLS403D-Revised January 2001</SOURCE>
+<COMMENT>The Values listed are for VCC=3.0 to 3.6V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLOCK Q0 (1:8.3:18.5) (1:8.3:18.5))
+    (IOPATH CLNeg Q0 (1:7.9:18.5) (1:7.9:18.5))
+  ))
+  (TIMINGCHECK
+    (SETUP DA CLOCK (6:6:6))
+    (SETUP CLNeg CLOCK (2.5:2.5:2.5))
+    (HOLD DA CLOCK (0:0:0))
+    (WIDTH (posedge CLOCK) (5:5:5))
+    (WIDTH (negedge CLNeg) (5:5:5))
+    (PERIOD (posedge CLOCK) (15.4:15.4:15.4))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74LV164AD_5V<SOURCE>Texas Instruments SCLS403D-Revised January 2001</SOURCE>
+SN74LV164ADB_5V<SOURCE>Texas Instruments SCLS403D-Revised January 2001</SOURCE>
+SN74LV164ADGV_5V<SOURCE>Texas Instruments SCLS403D-Revised January 2001</SOURCE>
+SN74LV164APW_5V<SOURCE>Texas Instruments SCLS403D-Revised January 2001</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V-5.5V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLOCK Q0 (1:6:12.5) (1:6:12.5))
+    (IOPATH CLNeg Q0 (1:5.8:12.5) (1:5.8:12.5))
+  ))
+  (TIMINGCHECK
+    (SETUP DA CLOCK (4.5:4.5:4.5))
+    (SETUP CLNeg CLOCK (2.5:2.5:2.5))
+    (HOLD DA CLOCK (1:1:1))
+    (WIDTH (posedge CLOCK) (5:5:5))
+    (WIDTH (negedge CLNeg) (5:5:5))
+    (PERIOD (posedge CLOCK) (13.3:13.3:13.3))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+74VHC164M_3V3<SOURCE>Fairchild Semiconductor DS011636 April 1999</SOURCE>
+74VHC164MTC_3V3<SOURCE>Fairchild Semiconductor DS011636 April 1999</SOURCE>
+74VHC164N_3V3<SOURCE>Fairchild Semiconductor DS011636 April 1999</SOURCE>
+74VHC164SJ_3V3<SOURCE>Fairchild Semiconductor DS011636 April 1999</SOURCE>
+<COMMENT>The Values listed are for VCC=3.0 to 3.6V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLOCK Q0 (1:10.9:18.5) (1:10.9:18.5))
+    (IOPATH CLNeg Q0 (1:10.8:18.5) (1:10.8:18.5))
+  ))
+  (TIMINGCHECK
+    (SETUP DA CLOCK (6:6:6))
+    (SETUP CLNeg CLOCK (2.5:2.5:2.5))
+    (HOLD DA CLOCK (0:0:0))
+    (WIDTH (posedge CLOCK) (5:5:5))
+    (WIDTH (negedge CLNeg) (5:5:5))
+    (PERIOD (posedge CLOCK) (22.2:22.2:22.2))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+74VHC164M_5V<SOURCE>Fairchild Semiconductor DS011636 April 1999</SOURCE>
+74VHC164MTC_5V<SOURCE>Fairchild Semiconductor DS011636 April 1999</SOURCE>
+74VHC164N_5V<SOURCE>Fairchild Semiconductor DS011636 April 1999</SOURCE>
+74VHC164SJ_5V<SOURCE>Fairchild Semiconductor DS011636 April 1999</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V-5.5V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<COMMENT></COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLOCK Q0 (1:7.3:12.5) (1:7.3:12.5))
+    (IOPATH CLNeg Q0 (1:6.7:12) (1:6.7:12))
+  ))
+  (TIMINGCHECK
+    (SETUP DA CLOCK (4.5:4.5:4.5))
+    (SETUP CLNeg CLOCK (2.5:2.5:2.5))
+    (HOLD DA CLOCK (1:1:1))
+    (WIDTH (posedge CLOCK) (5:5:5))
+    (WIDTH (negedge CLNeg) (5:5:5))
+    (PERIOD (posedge CLOCK) (13.3:13.3:13.3))
+  )
+</TIMING></FMFTIME>
+</BODY></FTML>

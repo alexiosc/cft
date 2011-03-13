@@ -1,0 +1,270 @@
+<!DOCTYPE FTML SYSTEM "ftml.dtd">
+<FTML><HEAD><TITLE>FMF Timing for std165 Parts</TITLE>
+<BODY>
+<REVISION.HISTORY>
+version: |  author:  | mod date: | changes made:
+  V1.0    R. Munden    01 Sep 03   Initial release
+</REVISION.HISTORY>
+<TIMESCALE>1ns</TIMESCALE>
+<MODEL>std165
+<FMFTIME>
+DM74ALS165M<SOURCE>Fairchild Semiconductor DS006712 February 2000</SOURCE>
+DM74ALS165N<SOURCE>Fairchild Semiconductor DS006712 February 2000</SOURCE>
+SN74ALS165D<SOURCE>Texas Instruments SDAS157B-Revised December 1994</SOURCE>
+SN74ALS165N<SOURCE>Texas Instruments SDAS157B-Revised December 1994</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLK Q (3:7:13) (3:9:14))
+    (IOPATH SH Q (4:13:20) (4:14:22))
+    (IOPATH DH Q (3:7:13) (3:9:18))
+    (IOPATH DH QNeg (2:8:15) (3:9:16))
+  ))
+  (TIMINGCHECK
+    (SETUP (COND negedge CLKINH) CLK (11:11:11))
+    (SETUP (COND posedge CLKINH) CLK (11:11:11))
+    (SETUP DA SH (10:10:10))
+    (SETUP SH CLK (10:10:10))
+    (SETUP SER CLK (10:10:10))
+    (HOLD SER CLK (4:4:4))
+    (HOLD DA SH (4:4:4))
+    (WIDTH (posedge CLK) (11:11:11))
+    (WIDTH (negedge SH) (12:12:12))
+    (PERIOD (posedge CLK) (22.2:22.2:22.2))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+MM74C165N<SOURCE>Fairchild Semiconductor DS005897 January 1999</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<COMMENT>Min values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLK Q (100:200:400) (100:200:400))
+    (IOPATH SH Q (100:200:400) (100:200:400))
+    (IOPATH DH Q (100:200:400) (100:200:400))
+    (IOPATH DH QNeg (100:200:400) (100:200:400))
+  ))
+  (TIMINGCHECK
+    (SETUP (COND negedge CLKINH) CLK (150:150:150))
+    (SETUP (COND posedge CLKINH) CLK (150:150:150))
+    (SETUP DA SH (150:150:150))
+    (SETUP SH CLK ())
+    (SETUP SER CLK (50:50:50))
+    (HOLD SER CLK (50:50:50))
+    (HOLD DA SH (50:50:50))
+    (WIDTH (posedge CLK) (200:200:200))
+    (WIDTH (negedge SH) (180:180:180))
+    (PERIOD (posedge CLK) (400:400:400))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+MM74HC165M<SOURCE>Fairchild Semiconductor DS005316 February 1999</SOURCE>
+MM74HC165MTC<SOURCE>Fairchild Semiconductor DS005316 February 1999</SOURCE>
+MM74HC165N<SOURCE>Fairchild Semiconductor DS005316 February 1999</SOURCE>
+MM74HC165SJ<SOURCE>Fairchild Semiconductor DS005316 February 1999</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<COMMENT>Min values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLK Q (10:21:38) (10:21:38))
+    (IOPATH SH Q (10:21:44) (10:21:44))
+    (IOPATH DH Q (10:21:38) (10:21:38))
+    (IOPATH DH QNeg (10:21:38) (10:21:38))
+  ))
+  (TIMINGCHECK
+    (SETUP (COND negedge CLKINH) CLK (25:25:25))
+    (SETUP (COND posedge CLKINH) CLK (25:25:25))
+    (SETUP DA SH (25:25:25))
+    (SETUP SH CLK (25:25:25))
+    (SETUP SER CLK (25:25:25))
+    (HOLD SER CLK (0:0:0))
+    (HOLD DA SH (0:0:0))
+    (WIDTH (posedge CLK) (20:20:20))
+    (WIDTH (negedge SH) (20:20:20))
+    (PERIOD (posedge CLK) (48:48:48))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+74HC165D<SOURCE>Philips Semiconductors Product Specification December 1990</SOURCE>
+74HC165DB<SOURCE>Philips Semiconductors Product Specification December 1990</SOURCE>
+74HC165N<SOURCE>Philips Semiconductors Product Specification December 1990</SOURCE>
+74HC165PW<SOURCE>Philips Semiconductors Product Specification December 1990</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<COMMENT>Min values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLK Q (10:19:41) (10:19:41))
+    (IOPATH SH Q (9:18:41) (9:18:41))
+    (IOPATH DH Q (7:13:30) (7:13:30))
+    (IOPATH DH QNeg (7:13:30) (7:13:30))
+  ))
+  (TIMINGCHECK
+    (SETUP (COND negedge CLKINH) CLK (20:20:20))
+    (SETUP (COND posedge CLKINH) CLK (20:20:20))
+    (SETUP DA SH (20:20:20))
+    (SETUP SH CLK (25:25:25))
+    (SETUP SER CLK (20:20:20))
+    (HOLD SER CLK (5:5:5))
+    (HOLD DA SH (5:5:5))
+    (WIDTH (posedge CLK) (20:20:20))
+    (WIDTH (negedge SH) (20:20:20))
+    (PERIOD (posedge CLK) (42:42:42))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+DM74LS165M<SOURCE>Fairchild Semiconductor DS006399 March 2000</SOURCE>
+DM74LS165N<SOURCE>Fairchild Semiconductor DS006399 March 2000</SOURCE>
+DM74LS165WM<SOURCE>Fairchild Semiconductor DS006399 March 2000</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=15pF, Ta=25 Celsius</COMMENT>
+<COMMENT>Min and typ values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLK Q (13:26:40) (13:26:40))
+    (IOPATH SH Q (10:21:35) (10:21:35))
+    (IOPATH DH Q (7:13:25) (12:24:30))
+    (IOPATH DH QNeg (10:19:30) (8:17:25))
+  ))
+  (TIMINGCHECK
+    (SETUP (COND negedge CLKINH) CLK (30:30:30))
+    (SETUP (COND posedge CLKINH) CLK (30:30:30))
+    (SETUP DA SH (10:10:10))
+    (SETUP SH CLK (45:45:45))
+    (SETUP SER CLK (20:20:20))
+    (HOLD SER CLK (0:0:0))
+    (HOLD DA SH (0:0:0))
+    (WIDTH (posedge CLK) (25:25:25))
+    (WIDTH (negedge SH) (15:15:15))
+    (PERIOD (posedge CLK) (40:40:40))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74LS165AD<SOURCE>Texas Instruments SDLS062B-Revised January 2000</SOURCE>
+SN74LS165AN<SOURCE>Texas Instruments SDLS062B-Revised January 2000</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=15pF, Ta=25 Celsius</COMMENT>
+<COMMENT>Min values are derived</COMMENT>
+<COMMENT></COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLK Q (7:14:25) (8:16:25))
+    (IOPATH SH Q (10:21:35) (13:26:35))
+    (IOPATH DH Q (7:13:25) (12:24:30))
+    (IOPATH DH QNeg (9:19:30) (8:17:25))
+  ))
+  (TIMINGCHECK
+    (SETUP (COND negedge CLKINH) CLK (30:30:30))
+    (SETUP (COND posedge CLKINH) CLK (30:30:30))
+    (SETUP DA SH (10:10:10))
+    (SETUP SH CLK (45:45:45))
+    (SETUP SER CLK (20:20:20))
+    (HOLD SER CLK (0:0:0))
+    (HOLD DA SH (0:0:0))
+    (WIDTH (posedge CLK) (25:25:25))
+    (WIDTH (negedge SH) (25:25:25))
+    (PERIOD (posedge CLK) (40:40:40))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+74LV165D_3V3<SOURCE>Philips Semiconductors 853-1915 19349 1998 May 07</SOURCE>
+74LV165DB_3V3<SOURCE>Philips Semiconductors 853-1915 19349 1998 May 07</SOURCE>
+74LV165N_3V3<SOURCE>Philips Semiconductors 853-1915 19349 1998 May 07</SOURCE>
+74LV165PW_3V3<SOURCE>Philips Semiconductors 853-1915 19349 1998 May 07</SOURCE>
+<COMMENT>The Values listed are for VCC=3.0 to 3.6V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<COMMENT>Min values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLK Q (11:22:36) (11:22:36))
+    (IOPATH SH Q (10:20:33) (10:20:33))
+    (IOPATH DH Q (8:17:27) (8:17:27))
+    (IOPATH DH QNeg (8:17:27) (8:17:27))
+  ))
+  (TIMINGCHECK
+    (SETUP (COND negedge CLKINH) CLK (13:13:13))
+    (SETUP (COND posedge CLKINH) CLK (13:13:13))
+    (SETUP DA SH (13:13:13))
+    (SETUP SH CLK (17:17:17))
+    (SETUP SER CLK (13:13:13))
+    (HOLD SER CLK (13:13:13))
+    (HOLD DA SH (13:13:13))
+    (WIDTH (posedge CLK) (20:20:20))
+    (WIDTH (negedge SH) (20:20:20))
+    (PERIOD (posedge CLK) (42:42:42))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+74LV165D_5V<SOURCE>Philips Semiconductors 853-1915 19349 1998 May 07</SOURCE>
+74LV165DB_5V<SOURCE>Philips Semiconductors 853-1915 19349 1998 May 07</SOURCE>
+74LV165N_5V<SOURCE>Philips Semiconductors 853-1915 19349 1998 May 07</SOURCE>
+74LV165PW_5V<SOURCE>Philips Semiconductors 853-1915 19349 1998 May 07</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V-5.5V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<COMMENT>Min values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLK Q (7:15:24) (7:15:24))
+    (IOPATH SH Q (7:14:22) (7:14:22))
+    (IOPATH DH Q (5:11:18) (5:11:18))
+    (IOPATH DH QNeg (5:11:18) (5:11:18))
+  ))
+  (TIMINGCHECK
+    (SETUP (COND negedge CLKINH) CLK (9:9:9))
+    (SETUP (COND posedge CLKINH) CLK (9:9:9))
+    (SETUP DA SH (9:9:9))
+    (SETUP SH CLK (12:12:12))
+    (SETUP SER CLK (9:9:9))
+    (HOLD SER CLK (9:9:9))
+    (HOLD DA SH (9:9:9))
+    (WIDTH (posedge CLK) (15:15:15))
+    (WIDTH (negedge SH) (15:15:15))
+    (PERIOD (posedge CLK) (28:28:28))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74LV165AD_3V3<SOURCE>Texas Instruments SCLS402D-Revised January 2001</SOURCE>
+SN74LV165ADB_3V3<SOURCE>Texas Instruments SCLS402D-Revised January 2001</SOURCE>
+SN74LV165APW_3V3<SOURCE>Texas Instruments SCLS402D-Revised January 2001</SOURCE>
+<COMMENT>The Values listed are for VCC=3.0 to 3.6V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLK Q (1:10.9:21.5) (1:10.9:21.5))
+    (IOPATH SH Q (1:11.3:22) (1:11.3:22))
+    (IOPATH DH Q (1:11.1:20) (1:11.1:20))
+    (IOPATH DH QNeg (1:11.1:20) (1:11.1:20))
+  ))
+  (TIMINGCHECK
+    (SETUP (COND negedge CLKINH) CLK (5:5:5))
+    (SETUP (COND posedge CLKINH) CLK (5:5:5))
+    (SETUP DA SH (8.5:8.5:8.5))
+    (SETUP SH CLK (6:6:6))
+    (SETUP SER CLK (6:6:6))
+    (HOLD SER CLK (0:0:0))
+    (HOLD DA SH (.5:.5:.5))
+    (WIDTH (posedge CLK) (7:7:7))
+    (WIDTH (negedge SH) (9:9:9))
+    (PERIOD (posedge CLK) (18.2:18.2:18.2))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74LV165AD_5V<SOURCE>Texas Instruments SCLS402D-Revised January 2001</SOURCE>
+SN74LV165ADB_5V<SOURCE>Texas Instruments SCLS402D-Revised January 2001</SOURCE>
+SN74LV165APW_5V<SOURCE>Texas Instruments SCLS402D-Revised January 2001</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V-5.5V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLK Q (1:7.7:13.5) (1:7.7:13.5))
+    (IOPATH SH Q (1:7.7:13.5) (1:7.7:13.5))
+    (IOPATH DH Q (1:7.6:12.5) (1:7.6:12.5))
+    (IOPATH DH QNeg (1:7.6:12.5) (1:7.6:12.5))
+  ))
+  (TIMINGCHECK
+    (SETUP (COND negedge CLKINH) CLK (3.5:3.5:3.5))
+    (SETUP (COND posedge CLKINH) CLK (3.5:3.5:3.5))
+    (SETUP DA SH (5:5:5))
+    (SETUP SH CLK (4:4:4))
+    (SETUP SER CLK (4:4:4))
+    (HOLD SER CLK (.5:.5:.5))
+    (HOLD DA SH (1:1:1))
+    (WIDTH (posedge CLK) (4:4:4))
+    (WIDTH (negedge SH) (6:6:6))
+    (PERIOD (posedge CLK) (11.8:11.8:11.8))
+  )
+</TIMING></FMFTIME>
+</BODY></FTML>

@@ -1,0 +1,67 @@
+<!DOCTYPE FTML SYSTEM "ftml.dtd">
+<FTML><HEAD><TITLE>FMF Timing for std09 Parts</TITLE>
+<BODY>
+<REVISION.HISTORY>
+version: |  author:  | mod date: | changes made:
+  V1.0    R. Munden    00 Nov 23   Initial release
+</REVISION.HISTORY>
+<TIMESCALE>1ns</TIMESCALE>
+<MODEL>std09
+<FMFTIME>
+SN7409N<SOURCE>Texas Instruments SDLS034-Revised March 1988</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=15pF, Ta=25C</COMMENT>
+<COMMENT>Minimum values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH B Y (11:21:32) (8:16:24))
+    (IOPATH A Y (11:21:32) (8:16:24))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+DM74ALS09M<SOURCE>Fairchild Semiconductor DS006179 February 2000</SOURCE>
+DM74ALS09N<SOURCE>Fairchild Semiconductor DS006179 February 2000</SOURCE>
+SN74ALS09D<SOURCE>Texas Instruments SDAS084B-Revised December 1994</SOURCE>
+SN74ALS09N<SOURCE>Texas Instruments SDAS084B-Revised December 1994</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5 to 5.5V, CL=50pF, Ta=0 to 70 Celsius</COMMENT>
+<COMMENT>Typical values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH B Y (23:40:54) (5:10:15))
+    (IOPATH A Y (23:40:54) (5:10:15))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+DM74LS09M<SOURCE>Fairchild Semiconductor DS006348 March 2000</SOURCE>
+DM74LS09N<SOURCE>Fairchild Semiconductor DS006348 March 2000</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=15pF, Ta=25C</COMMENT>
+<COMMENT>Typical values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH B Y (5:12:20) (4:10:15))
+    (IOPATH A Y (5:12:20) (4:10:15))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74LS09D<SOURCE>Texas Instruments SDLS034-Revised March 1988</SOURCE>
+SN74LS09N<SOURCE>Texas Instruments SDLS034-Revised March 1988</SOURCE>
+SN74LS09NS<SOURCE>Texas Instruments SDLS034-Revised March 1988</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=15pF, Ta=25C</COMMENT>
+<COMMENT>Minimum values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH B Y (10:20:35) (8:17:35))
+    (IOPATH A Y (10:20:35) (8:17:35))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74S09D<SOURCE>Texas Instruments SDLS034-Revised March 1988</SOURCE>
+SN74S09N<SOURCE>Texas Instruments SDLS034-Revised March 1988</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=15pF, Ta=25C</COMMENT>
+<COMMENT>Minimum values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH B Y (3.5:6.5:10) (3.5:6.5:10))
+    (IOPATH A Y (3.5:6.5:10) (3.5:6.5:10))
+  ))
+</TIMING></FMFTIME>
+</BODY></FTML>

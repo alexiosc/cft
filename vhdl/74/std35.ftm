@@ -1,0 +1,20 @@
+<!DOCTYPE FTML SYSTEM "ftml.dtd">
+<FTML><HEAD><TITLE>FMF Timing for std35 Parts</TITLE>
+<BODY>
+<REVISION.HISTORY>
+version: |  author:  | mod date: | changes made:
+  V1.0    R. Munden    00 Dec 29   Initial release
+</REVISION.HISTORY>
+<TIMESCALE>1ns</TIMESCALE>
+<MODEL>std35
+<FMFTIME>
+SN74ALS35AD<SOURCE>Texas Instruments SDAS011C-Revised December 1994</SOURCE>
+SN74ALS35AN<SOURCE>Texas Instruments SDAS011C-Revised December 1994</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=0 to 70C</COMMENT>
+<COMMENT>Typical values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (20:40:50) (2:7:14))
+  ))
+</TIMING></FMFTIME>
+</BODY></FTML>

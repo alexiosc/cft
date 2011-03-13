@@ -1,0 +1,29 @@
+<!DOCTYPE FTML SYSTEM "ftml.dtd">
+<FTML><HEAD><TITLE>FMF Timing for STD86 Parts</TITLE>
+<REVISION.HISTORY>
+version: |  author:  | mod date: | changes made:
+  V1.0     R. Munden   98 SEP 10   Initial release
+</REVISION.HISTORY>
+</HEAD>
+<BODY>
+<TIMESCALE>1ns</TIMESCALE>
+<MODEL>STD86
+<FMFTIME>
+MC74AC86D<SOURCE>Motorola FACT Data DL138 Rev 3</SOURCE>
+MC74AC86N<SOURCE>Motorola FACT Data DL138 Rev 3</SOURCE>
+<COMMENT> The values listed are for VCC=5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+     (IOPATH A Y (1.5:4.5:8.5) (1.5:4.5:8.5))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+MC74ACT86D<SOURCE>Motorola FACT Data DL138 Rev 3</SOURCE>
+MC74ACT86N<SOURCE>Motorola FACT Data DL138 Rev 3</SOURCE>
+<COMMENT> The values listed are for VCC=5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+     (IOPATH A Y (1.5:8.5:9.5) (1.5:7.0:9.5))
+  ))
+</TIMING></FMFTIME>
+</BODY></FTML>

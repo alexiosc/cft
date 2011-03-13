@@ -1,0 +1,106 @@
+<!DOCTYPE FTML SYSTEM "ftml.dtd">
+<FTML><HEAD><TITLE>FMF Timing for STD154 Parts</TITLE>
+<BODY>
+<REVISION.HISTORY>
+version: |  author:      | mod date: | changes made:
+  1.0     M.Milanovic      05 Sep 23   Initial version
+</REVISION.HISTORY>
+<TIMESCALE>1ns</TIMESCALE>
+<MODEL>std154
+<FMFTIME>
+74HC154N_2V<SOURCE>Philips Semiconductors, 2004 Oct 12</SOURCE>
+74HC154D_2V<SOURCE>Philips Semiconductors, 2004 Oct 12</SOURCE>
+74HC154DB_2V<SOURCE>Philips Semiconductors, 2004 Oct 12</SOURCE>
+74HC154PW_2V<SOURCE>Philips Semiconductors, 2004 Oct 12</SOURCE>
+74HC154BQ_2V<SOURCE>Philips Semiconductors, 2004 Oct 12</SOURCE>
+<COMMENT>The values listed are for GND=0V;tr=tf=6ns;CL=50pF;Tamb=25C;VCC=2.0V</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH E0Neg Y0Neg (10:39:150) (10:39:150))
+    (IOPATH A0    Y0Neg (9:36:150) (9:36:150))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74HC154N_4V5<SOURCE>Philips Semiconductors, 2004 Oct 12</SOURCE>
+74HC154D_4V5<SOURCE>Philips Semiconductors, 2004 Oct 12</SOURCE>
+74HC154DB_4V5<SOURCE>Philips Semiconductors, 2004 Oct 12</SOURCE>
+74HC154PW_4V5<SOURCE>Philips Semiconductors, 2004 Oct 12</SOURCE>
+74HC154BQ_4V5<SOURCE>Philips Semiconductors, 2004 Oct 12</SOURCE>
+<COMMENT>The values listed are for GND=0V;tr=tf=6ns;CL=50pF;Tamb=25C;VCC=4.5V</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH E0Neg Y0Neg (7:14:30) (7:14:30))
+    (IOPATH A0    Y0Neg (6:13:30) (6:13:30))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74HC154N_6V<SOURCE>Philips Semiconductors, 2004 Oct 12</SOURCE>
+74HC154D_6V<SOURCE>Philips Semiconductors, 2004 Oct 12</SOURCE>
+74HC154DB_6V<SOURCE>Philips Semiconductors, 2004 Oct 12</SOURCE>
+74HC154PW_6V<SOURCE>Philips Semiconductors, 2004 Oct 12</SOURCE>
+74HC154BQ_6V<SOURCE>Philips Semiconductors, 2004 Oct 12</SOURCE>
+<COMMENT>The values listed are for GND=0V;tr=tf=6ns;CL=50pF;Tamb=25C;VCC=6.0V</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH E0Neg Y0Neg (5:11:26) (5:11:26))
+    (IOPATH A0    Y0Neg (4:10:26) (4:10:26))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74HCT154N<SOURCE>Philips Semiconductors, 2004 Oct 12</SOURCE>
+74HCT154D<SOURCE>Philips Semiconductors, 2004 Oct 12</SOURCE>
+74HCT154DB<SOURCE>Philips Semiconductors, 2004 Oct 12</SOURCE>
+74HCT154PW<SOURCE>Philips Semiconductors, 2004 Oct 12</SOURCE>
+74HCT154BQ<SOURCE>Philips Semiconductors, 2004 Oct 12</SOURCE>
+<COMMENT>The values listed are for GND=0V;tr=tf=6ns;CL=50pF;Tamb=25C;VCC=4.5V</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH E0Neg Y0Neg (7:15:32) (7:15:32))
+    (IOPATH A0    Y0Neg (8:16:35) (8:16:35))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+MM74HC154WM_5V<SOURCE>Fairchild Semiconductor, February 1999</SOURCE>
+MM74HC154MTC_5V<SOURCE>Fairchild Semiconductor, February 1999</SOURCE>
+MM74HC154N_5V<SOURCE>Fairchild Semiconductor, February 1999</SOURCE>
+<COMMENT>The values listed are for VCC=5V;TA=25C;CL=15pF;tr=tf=6ns</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH E0Neg Y0Neg (11:21:32) (11:21:32))
+    (IOPATH A0    Y0Neg (11:21:32) (11:21:32))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+MM74HC154WM_2V<SOURCE>Fairchild Semiconductor, February 1999</SOURCE>
+MM74HC154MTC_2V<SOURCE>Fairchild Semiconductor, February 1999</SOURCE>
+MM74HC154N_2V<SOURCE>Fairchild Semiconductor, February 1999</SOURCE>
+<COMMENT>The values listed are for CL=50pF;tr=tf=6ns;TA=25C;VCC=2.0V</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH E0Neg Y0Neg (25:63:160) (25:63:160))
+    (IOPATH A0    Y0Neg (25:63:160) (25:63:160))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+MM74HC154WM_4V5<SOURCE>Fairchild Semiconductor, February 1999</SOURCE>
+MM74HC154MTC_4V5<SOURCE>Fairchild Semiconductor, February 1999</SOURCE>
+MM74HC154N_4V5<SOURCE>Fairchild Semiconductor, February 1999</SOURCE>
+<COMMENT>The values listed are for CL=50pF;tr=tf=6ns;TA=25C;VCC=4.5V</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH E0Neg Y0Neg (12:24:36) (12:24:36))
+    (IOPATH A0    Y0Neg (12:24:36) (12:24:36))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+MM74HC154WM_6V<SOURCE>Fairchild Semiconductor, February 1999</SOURCE>
+MM74HC154MTC_6V<SOURCE>Fairchild Semiconductor, February 1999</SOURCE>
+MM74HC154N_6V<SOURCE>Fairchild Semiconductor, February 1999</SOURCE>
+<COMMENT>The values listed are for CL=50pF;tr=tf=6ns;TA=25C;VCC=6.0V</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH E0Neg Y0Neg (10:20:30) (10:20:30))
+    (IOPATH A0    Y0Neg (10:20:30) (10:20:30))
+  ))
+</TIMING></FMFTIME>
+</BODY></FTML>

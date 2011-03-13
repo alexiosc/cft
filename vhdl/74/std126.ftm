@@ -1,0 +1,391 @@
+<!DOCTYPE FTML SYSTEM "ftml.dtd">
+<FTML><HEAD><TITLE>FMF Timing for std126 Parts</TITLE>
+<BODY>
+<REVISION.HISTORY>
+version: |  author:  | mod date: | changes made:
+  V1.0    R. Munden    01 Jan 14   Initial release
+</REVISION.HISTORY>
+<TIMESCALE>1ns</TIMESCALE>
+<MODEL>std126
+<FMFTIME>
+74ABT126D<SOURCE>Philips Semiconductor 853-1607 18887 1998 Jan 16</SOURCE>
+74ABT126DB<SOURCE>Philips Semiconductor 853-1607 18887 1998 Jan 16</SOURCE>
+74ABT126N<SOURCE>Philips Semiconductor 853-1607 18887 1998 Jan 16</SOURCE>
+74ABT126PW<SOURCE>Philips Semiconductor 853-1607 18887 1998 Jan 16</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (1.0:2.9:4.4) (1.0:3.0:4.6))
+    (IOPATH OE Y () () (1.0:2.9:5.5) (1.9:3.2:6.5) (1.0:4.2:5.8) (1.9:4.4:6.5))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74ABT126D<SOURCE>Texas Instruments SCBS183D-Revised January 1999</SOURCE>
+SN74ABT126DB<SOURCE>Texas Instruments SCBS183D-Revised January 1999</SOURCE>
+SN74ABT126N<SOURCE>Texas Instruments SCBS183D-Revised January 1999</SOURCE>
+SN74ABT126PW<SOURCE>Texas Instruments SCBS183D-Revised January 1999</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (1.0:2.9:6.3) (1.0:2.5:5.7))
+    (IOPATH OE Y () () (1.0:3.0:6.7) (1.0:4.4:6.5) (1.0:3.0:6.8) (1.0:4.4:6.5))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74AHC126D_3V3<SOURCE>Philips Semiconductor Product Specification 1999 Sep 20</SOURCE>
+74AHC126PW_3V3<SOURCE>Philips Semiconductor Product Specification 1999 Sep 20</SOURCE>
+<COMMENT>The Values listed are for VCC=3.0V to 3.6V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (1.0:6.7:13.0) (1.0:6.7:13.0))
+    (IOPATH OE Y () () (1.0:9.4:15.0) (1.0:7.6:13.0) (1.0:9.4:15.0) (1.0:7.6:13.0))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74AHC126D_5V<SOURCE>Philips Semiconductor Product Specification 1999 Sep 20</SOURCE>
+74AHC126PW_5V<SOURCE>Philips Semiconductor Product Specification 1999 Sep 20</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (1:4.7:8.5) (1:4.7:8.5))
+    (IOPATH OE Y () () (1:6.7:10) (1:5.1:8.7) (1:6.7:10) (1:5.1:8.7))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74AHCT126D<SOURCE>Philips Semiconductor Product Specification 1999 Sep 20</SOURCE>
+74AHCT126PW<SOURCE>Philips Semiconductor Product Specification 1999 Sep 20</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (1:4.3:8.5) (1:4.3:8.5))
+    (IOPATH OE Y () () (1:6.9:10) (1:4.7:8) (1:6.9:10) (1:4.7:8))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74AHC126D_3V3<SOURCE>Texas Instruments SCLS257J-Revised January 2000</SOURCE>
+SN74AHC126DB_3V3<SOURCE>Texas Instruments SCLS257J-Revised January 2000</SOURCE>
+SN74AHC126DGV_3V3<SOURCE>Texas Instruments SCLS257J-Revised January 2000</SOURCE>
+SN74AHC126N_3V3<SOURCE>Texas Instruments SCLS257J-Revised January 2000</SOURCE>
+SN74AHC126PW_3V3<SOURCE>Texas Instruments SCLS257J-Revised January 2000</SOURCE>
+<COMMENT>The Values listed are for VCC=3.0V to 3.6V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (1:8.1:13) (1:8.1:13))
+    (IOPATH OE Y () () (1:9.5:15) (1:7.9:13) (1:9.5:15) (1:7.9:13))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74AHC126D_5V<SOURCE>Texas Instruments SCLS257J-Revised January 2000</SOURCE>
+SN74AHC126DB_5V<SOURCE>Texas Instruments SCLS257J-Revised January 2000</SOURCE>
+SN74AHC126DGV_5V<SOURCE>Texas Instruments SCLS257J-Revised January 2000</SOURCE>
+SN74AHC126N_5V<SOURCE>Texas Instruments SCLS257J-Revised January 2000</SOURCE>
+SN74AHC126PW_5V<SOURCE>Texas Instruments SCLS257J-Revised January 2000</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (1:5.3:8.5) (1:5.3:8.5))
+    (IOPATH OE Y () () (1:6.1:10) (1:5.1:8) (1:6.1:10) (1:5.1:8))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74AHCT126D<SOURCE>Texas Instruments SCLS265M-Revised January 2000</SOURCE>
+SN74AHCT126DB<SOURCE>Texas Instruments SCLS265M-Revised January 2000</SOURCE>
+SN74AHCT126DGV<SOURCE>Texas Instruments SCLS265M-Revised January 2000</SOURCE>
+SN74AHCT126N<SOURCE>Texas Instruments SCLS265M-Revised January 2000</SOURCE>
+SN74AHCT126PW<SOURCE>Texas Instruments SCLS265M-Revised January 2000</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (1:5.3:8.5) (1:5.3:8.5))
+    (IOPATH OE Y () () (1:6.1:10) (1:5.1:8) (1:6.1:10) (1:5.1:8))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74AHC1G126GW_3V3<SOURCE>Philips Semiconductor Product Specification 1999 Sep 20</SOURCE>
+<COMMENT>The Values listed are for VCC=3.0V to 3.6V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (1:6.3:13) (1:6.3:13))
+    (IOPATH OE Y () () (1:9:15) (1:7:13) (1:9:15) (1:7:13))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74AHC1G126GW_5V<SOURCE>Philips Semiconductor Product Specification 1999 Sep 20</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (1:4.7:8.5) (1:4.7:8.5))
+    (IOPATH OE Y () () (1:6.1:10) (1:5.4:9) (1:6.1:10) (1:5.4:9))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74AHCT1G126GW<SOURCE>Philips Semiconductor Product Specification 1999 Sep 20</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (1:4.7:8.5) (1:4.7:8.5))
+    (IOPATH OE Y () () (1:5.7:10) (1:4.8:9) (1:5.7:10) (1:4.8:9))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74AHC1G126DBV_3V3<SOURCE>Texas Instruments SCLS379D-Revised January 2000</SOURCE>
+SN74AHC1G126DCK_3V3<SOURCE>Texas Instruments SCLS379D-Revised January 2000</SOURCE>
+<COMMENT>The Values listed are for VCC=3.0V to 3.6V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (1:8.1:13) (1:8.1:13))
+    (IOPATH OE Y () () (1:9.5:15) (1:7.9:13) (1:9.5:15) (1:7.9:13))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74AHC1G126DBV_5V<SOURCE>Texas Instruments SCLS379D-Revised January 2000</SOURCE>
+SN74AHC1G126DCK_5V<SOURCE>Texas Instruments SCLS379D-Revised January 2000</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (1:5.3:8.5) (1:5.3:8.5))
+    (IOPATH OE Y () () (1:6.1:10) (1:5.1:8) (1:6.1:10) (1:5.1:8))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74ALVC126D_2V5<SOURCE>Texas Instruments SCES111E-Revised February 1999</SOURCE>
+SN74ALVC126DGV_2V5<SOURCE>Texas Instruments SCES111E-Revised February 1999</SOURCE>
+SN74ALVC126NS_2V5<SOURCE>Texas Instruments SCES111E-Revised February 1999</SOURCE>
+SN74ALVC126PW_2V5<SOURCE>Texas Instruments SCES111E-Revised February 1999</SOURCE>
+<COMMENT>The Values listed are for VCC=2.3V to 2.7V, CL=30pF, Ta=-40 to 85C</COMMENT>
+<COMMENT>Typical values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (1:2.2:3.4) (1:2.2:3.4))
+    (IOPATH OE Y () () (1:2.2:3.3) (1:2.3:3.8) (1:2.2:3.3) (1:2.3:3.8))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74ALVC126D_5V<SOURCE>Texas Instruments SCES111E-Revised February 1999</SOURCE>
+SN74ALVC126DGV_5V<SOURCE>Texas Instruments SCES111E-Revised February 1999</SOURCE>
+SN74ALVC126NS_5V<SOURCE>Texas Instruments SCES111E-Revised February 1999</SOURCE>
+SN74ALVC126PW_5V<SOURCE>Texas Instruments SCES111E-Revised February 1999</SOURCE>
+<COMMENT>The Values listed are for VCC=3.0V to 3.6V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<COMMENT>Typical values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (1.1:2.1:3.1) (1.1:2.1:3.1))
+    (IOPATH OE Y () () (1:2.3:3.7) (1:2.1:3.3) (1:2.3:3.7) (1:2.1:3.3))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74BCT126AD<SOURCE>Texas Instruments SCBS252A-Revised April 1994</SOURCE>
+SN74BCT126AN<SOURCE>Texas Instruments SCBS252A-Revised April 1994</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=0 to 70C</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (1.5:3.6:6.3) (2.7:5.3:7.4))
+    (IOPATH OE Y () () (3.4:6.5:10.7) (2.6:4.8:7.9) (3.2:6.6:10) (3.7:6.4:10))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+N74F126D<SOURCE>Philips Semiconductor 853-0341 96146 March 28, 1989</SOURCE>
+N74F126N<SOURCE>Philips Semiconductor 853-0341 96146 March 28, 1989</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=0 to 70C</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (2:4:7) (3:5.5:8.5))
+    (IOPATH OE Y () () (3:5.5:8) (3.5:6:8.5) (2:4.5:7.5) (3.5:6:8.5))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74F126D<SOURCE>Texas Instruments SDFS017A-Revised October 1993</SOURCE>
+SN74F126N<SOURCE>Texas Instruments SDFS017A-Revised October 1993</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=0 to 70C</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (2:4:7) (2.8:5.5:8.5))
+    (IOPATH OE Y () () (3:5.5:8) (3.3:6:8.5) (2:4.5:7.5) (3.5:6:8.5))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+MM74HC126M<SOURCE>Fairchild Semiconductor DS005308 Revised February 1999</SOURCE>
+MM74HC126MTC<SOURCE>Fairchild Semiconductor DS005308 Revised February 1999</SOURCE>
+MM74HC126N<SOURCE>Fairchild Semiconductor DS005308 Revised February 1999</SOURCE>
+MM74HC126SJ<SOURCE>Fairchild Semiconductor DS005308 Revised February 1999</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (7:14:25) (7:14:25))
+    (IOPATH OE Y () () (7:14:31) (7:14:31) (7:14:31) (7:14:31))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74HC126D<SOURCE>Philips Semiconductor Product Specification December 1990</SOURCE>
+74HC126DB<SOURCE>Philips Semiconductor Product Specification December 1990</SOURCE>
+74HC126N<SOURCE>Philips Semiconductor Product Specification December 1990</SOURCE>
+74HC126PW<SOURCE>Philips Semiconductor Product Specification December 1990</SOURCE>
+CD74HC126D<SOURCE>Texas Instruments SCHS144A-Revised May 2000</SOURCE>
+CD74HC126N<SOURCE>Texas Instruments SCHS144A-Revised May 2000</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (6:11:25) (6:11:25))
+    (IOPATH OE Y () () (8:15:31) (8:15:31) (8:15:31) (8:15:31))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74HCT126D<SOURCE>Philips Semiconductor Product Specification December 1990</SOURCE>
+74HCT126DB<SOURCE>Philips Semiconductor Product Specification December 1990</SOURCE>
+74HCT126N<SOURCE>Philips Semiconductor Product Specification December 1990</SOURCE>
+74HCT126PW<SOURCE>Philips Semiconductor Product Specification December 1990</SOURCE>
+CD74HCT126D<SOURCE>Texas Instruments SCHS144A-Revised May 2000</SOURCE>
+CD74HCT126N<SOURCE>Texas Instruments SCHS144A-Revised May 2000</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (7:14:30) (7:14:30))
+    (IOPATH OE Y () () (9:18:35) (7:13:31) (9:18:35) (7:13:31))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74HC126D<SOURCE>Texas Instruments SCLS103C-Revised February 1999</SOURCE>
+SN74HC126DB<SOURCE>Texas Instruments SCLS103C-Revised February 1999</SOURCE>
+SN74HC126N<SOURCE>Texas Instruments SCLS103C-Revised February 1999</SOURCE>
+SN74HC126NS<SOURCE>Texas Instruments SCLS103C-Revised February 1999</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (7:14:30) (7:14:30))
+    (IOPATH OE Y () () (9:17:30) (8:16:30) (9:17:30) (8:16:30))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74HC1G126GW<SOURCE>Philips Semiconductor Product Specification 1997 Nov 24</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (5:10:25) (5:10:25))
+    (IOPATH OE Y () () (6:12:31) (5:10:31) (6:12:31) (5:10:31))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74HCT1G126GW<SOURCE>Philips Semiconductor Product Specification 1997 Nov 24</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (6:11:30) (6:11:30))
+    (IOPATH OE Y () () (6:12:31) (5:10:35) (6:12:31) (5:10:35))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+DM74LS126AM<SOURCE>Fairchild Semiconductor DS006388 Revised March 2000</SOURCE>
+DM74LS126AN<SOURCE>Fairchild Semiconductor DS006388 Revised March 2000</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<COMMENT>Minimum and typical values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (5:10:15) (6:12:18))
+    (IOPATH OE Y () () (8:16:25) (10:20:30) (8:16:25) (10:20:30))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74LS126AD<SOURCE>Texas Instruments SDLS044-Revised March 1988</SOURCE>
+SN74LS126AN<SOURCE>Texas Instruments SDLS044-Revised March 1988</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<COMMENT>Minimum values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (5:9:15) (4:8:18))
+    (IOPATH OE Y () () (8:16:25) (8:16:25) (8:16:25) (10:21:35))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74LV126D_3V3<SOURCE>Philips Semiconductor 853-1902 19290 1998 Apr 28</SOURCE>
+74LV126DB_3V3<SOURCE>Philips Semiconductor 853-1902 19290 1998 Apr 28</SOURCE>
+74LV126N_3V3<SOURCE>Philips Semiconductor 853-1902 19290 1998 Apr 28</SOURCE>
+74LV126PW_3V3<SOURCE>Philips Semiconductor 853-1902 19290 1998 Apr 28</SOURCE>
+<COMMENT>The Values listed are for VCC=3.0V to 3.6V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<COMMENT>Minimum values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (5:10:14) (5:10:14))
+    (IOPATH OE Y () () (7:14:20) (7:14:18) (7:14:20) (7:14:18))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74LV126D_5V<SOURCE>Philips Semiconductor 853-1902 19290 1998 Apr 28</SOURCE>
+74LV126DB_5V<SOURCE>Philips Semiconductor 853-1902 19290 1998 Apr 28</SOURCE>
+74LV126N_5V<SOURCE>Philips Semiconductor 853-1902 19290 1998 Apr 28</SOURCE>
+74LV126PW_5V<SOURCE>Philips Semiconductor 853-1902 19290 1998 Apr 28</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<COMMENT>Minimum values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (4:8:12) (4:8:12))
+    (IOPATH OE Y () () (6:12:17) (5:10:15) (6:12:17) (5:10:15))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74LV126AD_3V3<SOURCE>Texas Instruments SCES131D-Revised May 2000</SOURCE>
+SN74LV126ADB_3V3<SOURCE>Texas Instruments SCES131D-Revised May 2000</SOURCE>
+SN74LV126ADGV_3V3<SOURCE>Texas Instruments SCES131D-Revised May 2000</SOURCE>
+SN74LV126APW_3V3<SOURCE>Texas Instruments SCES131D-Revised May 2000</SOURCE>
+<COMMENT>The Values listed are for VCC=3.0V to 3.6V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (1:6.4:13) (1:6.4:13))
+    (IOPATH OE Y () () (1:6.1:15) (1:6.6:13) (1:6.1:15) (1:6.6:13))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74LV126AD_5V<SOURCE>Texas Instruments SCES131D-Revised May 2000</SOURCE>
+SN74LV126ADB_5V<SOURCE>Texas Instruments SCES131D-Revised May 2000</SOURCE>
+SN74LV126ADGV_5V<SOURCE>Texas Instruments SCES131D-Revised May 2000</SOURCE>
+SN74LV126APW_5V<SOURCE>Texas Instruments SCES131D-Revised May 2000</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (1:4.6:8.5) (1:4.6:8.5))
+    (IOPATH OE Y () () (1:4.3:10) (1:4.6:8) (1:4.3:10) (1:4.6:8))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74LVC126AD_3V3<SOURCE>Texas Instruments SCAS339H-Revised October 1998</SOURCE>
+SN74LVC126ADB_3V3<SOURCE>Texas Instruments SCAS339H-Revised October 1998</SOURCE>
+SN74LVC126ADGV_3V3<SOURCE>Texas Instruments SCAS339H-Revised October 1998</SOURCE>
+SN74LVC126APW_3V3<SOURCE>Texas Instruments SCAS339H-Revised October 1998</SOURCE>
+<COMMENT>The Values listed are for VCC=3.0V to 3.6V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<COMMENT>Typical values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (1:2.4:4.7) (1:2.4:4.7))
+    (IOPATH OE Y () () (1.3:3:6) (1:2.9:5.7) (1.3:3:6) (1:2.9:5.7))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74LVC1G126GW_3V3<SOURCE>Philips Semiconductor Product Specification 2000 Dec 22</SOURCE>
+<COMMENT>The Values listed are for VCC=3.0V to 3.6V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (.5:2:4.5) (.5:2:4.5))
+    (IOPATH OE Y () () (.5:3:5.5) (.5:2.1:5.3) (.5:3:5.5) (.5:2.1:5.3))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74LVT126D<SOURCE>Philips Semiconductor 853-1822 18991 1998 Feb 19</SOURCE>
+74LVT126DB<SOURCE>Philips Semiconductor 853-1822 18991 1998 Feb 19</SOURCE>
+74LVT126PW<SOURCE>Philips Semiconductor 853-1822 18991 1998 Feb 19</SOURCE>
+<COMMENT>The Values listed are for VCC=3.0V to 3.6V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (1:2.3:3.8) (1:2.4:3.9))
+    (IOPATH OE Y () () (1.3:3.6:5.5) (1:3.6:5.4) (1:2.2:3.8) (1.1:3.6:5.2))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+NC7SZ126M_3V3<SOURCE>Fairchild Semiconductor DS012171 Revised June 2000</SOURCE>
+NC7SZ126P_3V3<SOURCE>Fairchild Semiconductor DS012171 Revised June 2000</SOURCE>
+<COMMENT>The Values listed are for VCC=3.0V to 3.6V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (1.5:3.2:6) (1.5:3.2:6))
+    (IOPATH OE Y () () (1:3.5:6) (1.5:3.2:6) (1:3.5:6) (1.5:3.2:6))
+  ))
+</TIMING></FMFTIME>
+</BODY></FTML>

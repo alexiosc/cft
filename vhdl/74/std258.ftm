@@ -1,0 +1,26 @@
+<!DOCTYPE FTML SYSTEM "ftml.dtd">
+<FTML><HEAD><TITLE>FMF Timing for STD258 Parts</TITLE>
+<REVISION.HISTORY>
+version: |  author:  | mod date: | changes made:
+  V1.0     R. Munden   98 MAY 07   Initial release
+</REVISION.HISTORY>
+</HEAD>
+<BODY>
+<TIMESCALE>1ns</TIMESCALE>
+<MODEL>STD258
+<FMFTIME>
+74ACT258MTC<SOURCE>National Semiconductor FACT Advanced CMOS logic Databook 1993</SOURCE>
+74ACT258PC<SOURCE>National Semiconductor FACT Advanced CMOS logic Databook 1993</SOURCE>
+74ACT258SC<SOURCE>National Semiconductor FACT Advanced CMOS logic Databook 1993</SOURCE>
+74ACT258SJ<SOURCE>National Semiconductor FACT Advanced CMOS logic Databook 1993</SOURCE>
+MC74ACT258D<SOURCE>Motorola FACT Data DL138 Rev 3</SOURCE>
+MC74ACT258N<SOURCE>Motorola FACT Data DL138 Rev 3</SOURCE>
+<COMMENT> The values listed are for VCC=5V, Ta=+25 Celsius</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+     (IOPATH A Y (2.0:6.5:8.5) (2.0:5.5:7.5))
+     (IOPATH SEL Y (3.0:7.5:10.5) (1.5:7.0:9.5))
+     (IOPATH OENeg Y () () (2.0:6.0:8.0) (2.0:6.5:8.5) (1.5:7.0:9.0) (2.0:6.5:8.5))
+  ))
+</TIMING></FMFTIME>
+</BODY></FTML>

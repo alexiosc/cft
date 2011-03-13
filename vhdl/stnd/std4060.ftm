@@ -1,0 +1,124 @@
+<!DOCTYPE FTML SYSTEM "ftml.dtd">
+<FTML><HEAD><TITLE>FMF Timing for STD4060</TITLE>
+<BODY>
+<REVISION.HISTORY>
+version: |    author:   |  mod date: | changes made:
+  V1.0    DJ.Tanasijevic  05 Aug 05   Initial release
+</REVISION.HISTORY>
+<TIMESCALE>1ns</TIMESCALE>
+<MODEL>std4060
+<FMFTIME>
+SN74HC4060N_2V0<SOURCE>Texas Instruments SCLS161D, Revised September 2003</SOURCE>
+SN74HC4060D_2V0<SOURCE>Texas Instruments SCLS161D, Revised September 2003</SOURCE>
+SN74HC4060NS_2V0<SOURCE>Texas Instruments SCLS161D, Revised September 2003</SOURCE>
+SN74HC4060DB_2V0<SOURCE>Texas Instruments SCLS161D, Revised September 2003</SOURCE>
+SN74HC4060PW_2V0<SOURCE>Texas Instruments SCLS161D, Revised September 2003</SOURCE>
+<COMMENT>The values listed are for VCC = 2V, CL = 50pF, Ta = -40 to 85 Celsius</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLKI QD (120:240:615) (120:240:615))
+    (IOPATH CLR QD (58:116:175) (33:66:175))
+  ))
+  (TIMINGCHECK
+    (SETUP CLR CLKI (200:200:200))
+    (WIDTH (posedge CLKI) (115:115:115))
+    (WIDTH (negedge CLKI) (115:115:115))
+    (WIDTH (posedge CLR) (115:115:115))
+    (PERIOD CLKI (233:233:233))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74HC4060N_4V5<SOURCE>Texas Instruments SCLS161D, Revised September 2003</SOURCE>
+SN74HC4060D_4V5<SOURCE>Texas Instruments SCLS161D, Revised September 2003</SOURCE>
+SN74HC4060NS_4V5<SOURCE>Texas Instruments SCLS161D, Revised September 2003</SOURCE>
+SN74HC4060DB_4V5<SOURCE>Texas Instruments SCLS161D, Revised September 2003</SOURCE>
+SN74HC4060PW_4V5<SOURCE>Texas Instruments SCLS161D, Revised September 2003</SOURCE>
+<COMMENT>The values listed are for VCC = 4.5V, CL = 50pF, Ta = -40 to 85 Celsius</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLKI QD (29:58:123) (29:58:123))
+    (IOPATH CLR QD (9:18:35) (9:18:35))
+  ))
+  (TIMINGCHECK
+    (SETUP CLR CLKI (40:40:40))
+    (WIDTH (posedge CLKI) (23:23:23))
+    (WIDTH (negedge CLKI) (23:23:23))
+    (WIDTH (posedge CLR) (23:23:23))
+    (PERIOD CLKI (45:45:45))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74HC4060N_6V0<SOURCE>Texas Instruments SCLS161D, Revised September 2003</SOURCE>
+SN74HC4060D_6V0<SOURCE>Texas Instruments SCLS161D, Revised September 2003</SOURCE>
+SN74HC4060NS_6V0<SOURCE>Texas Instruments SCLS161D, Revised September 2003</SOURCE>
+SN74HC4060DB_6V0<SOURCE>Texas Instruments SCLS161D, Revised September 2003</SOURCE>
+SN74HC4060PW_6V0<SOURCE>Texas Instruments SCLS161D, Revised September 2003</SOURCE>
+<COMMENT>The values listed are for VCC = 6V, CL = 50pF, Ta = -40 to 85 Celsius</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLKI QD (21:42:105) (21:42:105))
+    (IOPATH CLR QD (7:14:30) (7:14:30))
+  ))
+  (TIMINGCHECK
+    (SETUP CLR CLKI (34:34:34))
+    (WIDTH (posedge CLKI) (20:20:20))
+    (WIDTH (negedge CLKI) (20:20:20))
+    (WIDTH (posedge CLR) (20:20:20))
+    (PERIOD CLKI (40:40:40))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+SN54HC4060J_2V0<SOURCE>Texas Instruments SCLS161D, Revised September 2003</SOURCE>
+SN54HC4060W_2V0<SOURCE>Texas Instruments SCLS161D, Revised September 2003</SOURCE>
+SN54HC4060FK_2V0<SOURCE>Texas Instruments SCLS161D, Revised September 2003</SOURCE>
+<COMMENT>The values listed are for VCC = 2V, CL = 50pF, Ta = -55 to 125 Celsius</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLKI QD (120:240:735) (120:240:735))
+    (IOPATH CLR QD (33:66:210) (33:66:210))
+  ))
+  (TIMINGCHECK
+    (SETUP CLR CLKI (240:240:240))
+    (WIDTH (posedge CLKI) (135:135:135))
+    (WIDTH (negedge CLKI) (135:135:135))
+    (WIDTH (posedge CLR) (135:135:135))
+    (PERIOD CLKI (270:270:270))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+SN54HC4060J_4V5<SOURCE>Texas Instruments SCLS161D, Revised September 2003</SOURCE>
+SN54HC4060W_4V5<SOURCE>Texas Instruments SCLS161D, Revised September 2003</SOURCE>
+SN54HC4060FK_4V5<SOURCE>Texas Instruments SCLS161D, Revised September 2003</SOURCE>
+<COMMENT>The values listed are for VCC = 4.5V, CL = 50pF, Ta = -55 to 125 Celsius</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLKI QD (29:58:147) (29:58:147))
+    (IOPATH CLR QD (9:18:42) (9:18:42))
+  ))
+  (TIMINGCHECK
+    (SETUP CLR CLKI (48:48:48))
+    (WIDTH (posedge CLKI) (27:27:27))
+    (WIDTH (negedge CLKI) (27:27:27))
+    (WIDTH (posedge CLR) (27:27:27))
+    (PERIOD CLKI (53:53:53))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+SN54HC4060J_6V0<SOURCE>Texas Instruments SCLS161D, Revised September 2003</SOURCE>
+SN54HC4060W_6V0<SOURCE>Texas Instruments SCLS161D, Revised September 2003</SOURCE>
+SN54HC4060FK_6V0<SOURCE>Texas Instruments SCLS161D, Revised September 2003</SOURCE>
+<COMMENT>The values listed are for VCC = 6V, CL = 50pF, Ta = -55 to 125 Celsius</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLKI QD (21:42:125) (21:42:125))
+    (IOPATH CLR QD (7:14:36) (7:14:36))
+  ))
+  (TIMINGCHECK
+    (SETUP CLR CLKI (41:41:41))
+    (WIDTH (posedge CLKI) (23:23:23))
+    (WIDTH (negedge CLKI) (23:23:23))
+    (WIDTH (posedge CLR) (23:23:23))
+    (PERIOD CLKI (45:45:45))
+  )
+</TIMING></FMFTIME>
+</BODY></FTML>

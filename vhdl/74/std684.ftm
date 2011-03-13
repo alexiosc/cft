@@ -1,0 +1,25 @@
+<!DOCTYPE FTML SYSTEM "ftml.dtd">
+<FTML><HEAD><TITLE>FMF Timing for std684 Parts</TITLE>
+<BODY>
+<REVISION.HISTORY>
+version: |  author:  | mod date: | changes made:
+  V1.0    R. Munden    00 Oct 31   Initial release
+</REVISION.HISTORY>
+<TIMESCALE>1ns</TIMESCALE>
+<MODEL>std684
+<FMFTIME>
+SN74LS684DW<SOURCE>ON Semiconductor SN74LS682/D August 2000-Rev 7</SOURCE>
+SN74LS684N<SOURCE>ON Semiconductor SN74LS682/D August 2000-Rev 7</SOURCE>
+SN74LS684DW<SOURCE>Texas Instruments SDLS008-Revised March 1988</SOURCE>
+SN74LS684N<SOURCE>Texas Instruments SDLS008-Revised March 1988</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=45pF, Ta=25 Celsius</COMMENT>
+<COMMENT>Minimum values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH B0 AGTBNeg (12:24:30) (10:20:30))
+    (IOPATH B0 AEQBNeg (8:16:25) (8:15:25))
+    (IOPATH A0 AGTBNeg (11:22:30) (8:17:30))
+    (IOPATH A0 AEQBNeg (8:15:25) (8:17:25))
+  ))
+</TIMING></FMFTIME>
+</BODY></FTML>

@@ -1,0 +1,155 @@
+<!DOCTYPE FTML SYSTEM "ftml.dtd">
+<FTML><HEAD><TITLE>FMF Timing for std30 Parts</TITLE>
+<BODY>
+<REVISION.HISTORY>
+version: |  author:  | mod date: | changes made:
+  V1.0    R. Munden    00 Dec 21   Initial release
+</REVISION.HISTORY>
+<TIMESCALE>1ns</TIMESCALE>
+<MODEL>std30
+<FMFTIME>
+74AHC30D_3V3<SOURCE>Philips Semiconductor Product Specification 1999 Nov 30</SOURCE>
+74AHC30PW_3V3<SOURCE>Philips Semiconductor Product Specification 1999 Nov 30</SOURCE>
+<COMMENT>The Values listed are for VCC=3.0V to 3.6V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<COMMENT>Minimum values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A YNeg (1.0:6.7:14.5) (1.0:6.7:14.5))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74AHC30D_5V<SOURCE>Philips Semiconductor Product Specification 1999 Nov 30</SOURCE>
+74AHC30PW_5V<SOURCE>Philips Semiconductor Product Specification 1999 Nov 30</SOURCE>
+<COMMENT>The Values listed are for VCC=3.0V to 3.6V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<COMMENT>Minimum values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A YNeg (1.0:4.9:9.5) (1.0:4.9:9.5))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74AHCT30D<SOURCE>Philips Semiconductor Product Specification 1999 Nov 30</SOURCE>
+74AHCT30PW<SOURCE>Philips Semiconductor Product Specification 1999 Nov 30</SOURCE>
+<COMMENT>The Values listed are for VCC=3.0V to 3.6V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<COMMENT>Minimum values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A YNeg (1.0:4.7:9.5) (1.0:4.7:9.5))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+DM74ALS30AM<SOURCE>Fairchild Semiconductor DS006189 Revised February 2000</SOURCE>
+DM74ALS30AN<SOURCE>Fairchild Semiconductor DS006189 Revised February 2000</SOURCE>
+DM74ALS30ASJ<SOURCE>Fairchild Semiconductor DS006189 Revised February 2000</SOURCE>
+SN74ALS30AD<SOURCE>Texas Instruments SDAS010C-Revised November 2000</SOURCE>
+SN74ALS30AN<SOURCE>Texas Instruments SDAS010C-Revised November 2000</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=0 to 70C</COMMENT>
+<COMMENT>Typical values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A YNeg (3:6:10) (3:6:12))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+DM74AS30M<SOURCE>Fairchild Semiconductor DS006279 Revised March 2000</SOURCE>
+DM74AS30N<SOURCE>Fairchild Semiconductor DS006279 Revised March 2000</SOURCE>
+SN74AS30D<SOURCE>Texas Instruments SDAS010C-Revised November 2000</SOURCE>
+SN74AS30N<SOURCE>Texas Instruments SDAS010C-Revised November 2000</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=0 to 70C</COMMENT>
+<COMMENT>Typical values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A YNeg (1:3:5) (1:3:4.5))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74F30PC<SOURCE>Fairchild Semiconductor DS009560 Revised October 2000</SOURCE>
+74F30SC<SOURCE>Fairchild Semiconductor DS009560 Revised October 2000</SOURCE>
+74F30SJ<SOURCE>Fairchild Semiconductor DS009560 Revised October 2000</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=0 to 70C</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A YNeg (1.0:3.7:5.5) (1.5:2.8:5.5))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+N74F30D<SOURCE>Philips Semiconductor 853 0050 95941 March 3, 1989</SOURCE>
+N74F30N<SOURCE>Philips Semiconductor 853 0050 95941 March 3, 1989</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=0 to 70C</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A YNeg (1.5:3.5:5.5) (1.0:3.0:5.0))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74F30D<SOURCE>Texas Instruments SDFS043A-Revised October 1993</SOURCE>
+SN74F30N<SOURCE>Texas Instruments SDFS043A-Revised October 1993</SOURCE>
+SN74F30NS<SOURCE>Texas Instruments SDFS043A-Revised October 1993</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=0 to 70C</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A YNeg (1:3.1:5.5) (1:2.6:5))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74HC30D<SOURCE>Philips Semiconductor Product Specification December 1990</SOURCE>
+74HC30DB<SOURCE>Philips Semiconductor Product Specification December 1990</SOURCE>
+74HC30N<SOURCE>Philips Semiconductor Product Specification December 1990</SOURCE>
+74HC30PW<SOURCE>Philips Semiconductor Product Specification December 1990</SOURCE>
+CD74HC30D<SOURCE>Texas Instruments SCHS121A-Revised May 2000</SOURCE>
+CD74HC30N<SOURCE>Texas Instruments SCHS121A-Revised May 2000</SOURCE>
+CD74HC30NS<SOURCE>Texas Instruments SCHS121A-Revised May 2000</SOURCE>
+CD74HC30PW<SOURCE>Texas Instruments SCHS121A-Revised May 2000</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<COMMENT>Minimum values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A YNeg (7:15:33) (7:15:33))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74HCT30D<SOURCE>Philips Semiconductor Product Specification December 1990</SOURCE>
+74HCT30DB<SOURCE>Philips Semiconductor Product Specification December 1990</SOURCE>
+74HCT30N<SOURCE>Philips Semiconductor Product Specification December 1990</SOURCE>
+74HCT30PW<SOURCE>Philips Semiconductor Product Specification December 1990</SOURCE>
+CD74HCT30D<SOURCE>Texas Instruments SCHS121A-Revised May 2000</SOURCE>
+CD74HCT30N<SOURCE>Texas Instruments SCHS121A-Revised May 2000</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<COMMENT>Minimum values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A YNeg (8:16:35) (8:16:35))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+DM74LS30M<SOURCE>Fairchild Semiconductor DS006360 Revised March 2000</SOURCE>
+DM74LS30N<SOURCE>Fairchild Semiconductor DS006360 Revised March 2000</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=15pF, Ta=+25 Celsius</COMMENT>
+<COMMENT>Typical values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A YNeg (4:8:12) (4:8:15))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74LS30D<SOURCE>Texas Instruments SDLS099-Revised March 1988</SOURCE>
+SN74LS30N<SOURCE>Texas Instruments SDLS099-Revised March 1988</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=15pF, Ta=+25 Celsius</COMMENT>
+<COMMENT>Typical values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A YNeg (4:8:15) (6:13:20))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+DM74S30N<SOURCE>Fairchild Semiconductor DS006451 Revised April 2000</SOURCE>
+SN74S30D<SOURCE>Texas Instruments SDLS099-Revised March 1988</SOURCE>
+SN74S30N<SOURCE>Texas Instruments SDLS099-Revised March 1988</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=15pF, Ta=+25 Celsius</COMMENT>
+<COMMENT>Typical values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A YNeg (2:4:6) (2:4.5:7))
+  ))
+</TIMING></FMFTIME>
+</BODY></FTML>

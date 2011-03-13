@@ -1,0 +1,329 @@
+<!DOCTYPE FTML SYSTEM "ftml.dtd">
+<FTML><HEAD><TITLE>FMF Timing for STD16334 Parts</TITLE>
+<REVISION.HISTORY>
+version: |        author:     | mod date: | changes made:
+  V1.0    R. Munden            02 OCT 12   initial release
+</REVISION.HISTORY>
+</HEAD>
+<BODY>
+<TIMESCALE>1ns</TIMESCALE>
+<MODEL>STD16334
+<FMFTIME>
+74ALVC162334ADGG_2V5<SOURCE>Philips Semiconductors 2000 Jun 20</SOURCE>
+<COMMENT> Values are for VCC = 2.3V to 2.7V, CL = 30pF, TA =-40C to +80C </COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (1:3.5:5.0) (1:3.5:5.0))
+    (IOPATH LENeg Y (1.3:3.5:5.0) (1.3:3.5:5.0))
+    (IOPATH CLK Y (1.4:3.7:5.4) (1.4:3.7:5.4))
+    (IOPATH OENeg Y () () (1.0:2.8:4.5) (1.4:3.5:5) (1.0:2.8:4.5) (1.4:3.5:5))
+  ))
+  (TIMINGCHECK
+    (SETUP (COND CLK == 1 A) LENeg (1.5))
+    (SETUP (COND CLK == 0 A) LENeg (1.5))
+    (SETUP A CLK (1.0))
+    (HOLD A CLK (.4))
+    (HOLD A LENeg (1.4))
+    (WIDTH (negedge LENeg) (3.3))
+    (WIDTH (posedge CLK) (3.3))
+    (PERIOD (posedge CLK) (6.67))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+74ALVC162334ADGG_3V3<SOURCE>Philips Semiconductors 2000 Jun 20</SOURCE>
+<COMMENT> Values are for VCC = 3.0V to 3.6V, CL = 50pF, TA =-40C to +80C </COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (1:2.8:4.3) (1:2.8:4.3))
+    (IOPATH LENeg Y (1.3:2.8:4.4) (1.3:2.8:4.4))
+    (IOPATH CLK Y (1.3:3.2:4.9) (1.3:4:3.2:4.9))
+    (IOPATH OENeg Y () () (1.3:2.4:4.8) (1.1:2.4:4.5) (1.3:2.4:4.8) (1.1:2.4:4.5))
+  ))
+  (TIMINGCHECK
+    (SETUP (COND CLK == 1 A) LENeg (1.5))
+    (SETUP (COND CLK == 0 A) LENeg (1.5))
+    (SETUP A CLK (1))
+    (HOLD A CLK (.9))
+    (HOLD A LENeg (1.4))
+    (WIDTH (negedge LENeg) (2))
+    (WIDTH (posedge CLK) (2))
+    (PERIOD (posedge CLK) (6.67))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74ALVC162334DL_2V5<SOURCE>Texas Instruments SCES127C-Revised February 1999</SOURCE>
+SN74ALVC162334DGG_2V5<SOURCE>Texas Instruments SCES127C-Revised February 1999</SOURCE>
+SN74ALVC162334DGV_2V5<SOURCE>Texas Instruments SCES127C-Revised February 1999</SOURCE>
+<COMMENT> Values are for VCC = 2.48V to 2.52V, TA =-40C to +80C </COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A Y (1.0:2.7:4.4) (1.0:2.7:4.4))
+    (IOPATH LENeg Y (1.0:3.4:5.8) (1.0:3.4:5.8))
+    (IOPATH CLK Y (1.0:3.1:5.2) (1.0:3.1:5.2))
+    (IOPATH OENeg Y () () (1.0:2.8:4.7) (1.1:3.7:6.4) (1.0:2.8:4.7) (1.1:3.7:6.4))
+))
+(TIMINGCHECK
+    (SETUP A CLK (1.4))
+    (SETUP (COND CLK == 1 A) LENeg (1.2))
+    (SETUP (COND CLK == 0 A) LENeg (1.4))
+    (HOLD A CLK (0.9))
+    (HOLD A LENeg (1.1))
+    (WIDTH (posedge CLK) (3.3))
+    (WIDTH (negedge LENeg) (3.3))
+    (PERIOD (posedge CLK) (6.67))
+)
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74ALVC162334DL_2V7<SOURCE>Texas Instruments SCES127C-Revised February 1999</SOURCE>
+SN74ALVC162334DGG_2V7<SOURCE>Texas Instruments SCES127C-Revised February 1999</SOURCE>
+SN74ALVC162334DGV_2V7<SOURCE>Texas Instruments SCES127C-Revised February 1999</SOURCE>
+<COMMENT> Values are for VCC = 2.7V, TA =-40C to +80C </COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (1.0:3.4:4.5) (1.0:3.4:4.5))
+    (IOPATH LENeg Y (1.0:4.6:6.1) (1.0:4.6:6.1))
+    (IOPATH CLK Y (1.0:4.1:5.5) (1.0:4.1:5.5))
+    (IOPATH OENeg Y () () (1.0:3.9:5.1) (1.0:4.9:6.4) (1.0:3.9:5.1) (1.0:4.9:6.4))
+  ))
+  (TIMINGCHECK
+    (SETUP A CLK (1.7))
+    (SETUP (COND CLK == 1 A) LENeg (1.6))
+    (SETUP (COND CLK == 0 A) LENeg (1.5))
+    (HOLD A CLK (0.9))
+    (HOLD A LENeg (1.1))
+    (WIDTH (posedge CLK) (3.3))
+    (WIDTH (negedge LENeg) (3.3))
+    (PERIOD (posedge CLK) (6.6))
+)
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74ALVC162334DL_3V3<SOURCE>Texas Instruments SCES127C-Revised February 1999</SOURCE>
+SN74ALVC162334DGG_3V3<SOURCE>Texas Instruments SCES127C-Revised February 1999</SOURCE>
+SN74ALVC162334DGV_3V3<SOURCE>Texas Instruments SCES127C-Revised February 1999</SOURCE>
+<COMMENT> Values are for VCC = 3.0V to 3.6V, TA =-40C to +80C </COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (1.1:2.5:3.9) (1.1:2.5:3.9))
+    (IOPATH LENeg Y (1.3:3.1:5.0) (1.3:3.1:5.0))
+    (IOPATH CLK Y (1.0:2.9:4.9) (1.0:2.9:4.9))
+    (IOPATH OENeg Y () () (1.7:3.4:5.0) (1.1:3.2:5.4) (1.7:3.4:5.1) (1.1:3.2:5.4))
+  ))
+  (TIMINGCHECK
+    (SETUP A CLK (1.5))
+    (SETUP (COND CLK == 1 A) LENeg (1.3))
+    (SETUP (COND CLK == 0 A) LENeg (1.2))
+    (HOLD A CLK (0.9))
+    (HOLD A LENeg (1.1))
+    (WIDTH (posedge CLK) (3.3))
+    (WIDTH (negedge LENeg) (3.3))
+    (PERIOD (posedge CLK) (6.6))
+)
+</TIMING></FMFTIME>
+<FMFTIME>
+74ALVC16334ADGG_2V5<SOURCE>Philips Semiconductors 853-2196 23314 2000 Mar 14</SOURCE>
+<COMMENT> Values are for VCC = 2.3V to 2.7V, CL = 30pF, TA =-40C to +80C </COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (1:2.4:4.2) (1:2.4:4.2))
+    (IOPATH LENeg Y (1.3:2.8:4.5) (1.3:2.8:4.5))
+    (IOPATH CLK Y (1.4:2.8:5.0) (1.4:2.8:5.0))
+    (IOPATH OENeg Y () () (1.4:2.0:4.5) (1.4:2.2:4) (1.4:2.0:4.5) (1.4:2.2:4))
+  ))
+  (TIMINGCHECK
+    (SETUP (COND CLK == 1 A) LENeg (1.5))
+    (SETUP (COND CLK == 0 A) LENeg (1.5))
+    (SETUP A CLK (1.0))
+    (HOLD A CLK (.6))
+    (HOLD A LENeg (1.4))
+    (WIDTH (negedge LENeg) (2.0))
+    (WIDTH (posedge CLK) (2.0))
+    (PERIOD (posedge CLK) (6.67))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+74ALVC16334ADGG_3V3<SOURCE>Philips Semiconductors 853-2196 23314 2000 Mar 14</SOURCE>
+<COMMENT> Values are for VCC = 3.0V to 3.6V, CL = 50pF, TA =-40C to +80C </COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (1:2.3:3.6) (1:2.3:3.6))
+    (IOPATH LENeg Y (1.3:2.6:4.2) (1.3:2.6:4.2))
+    (IOPATH CLK Y (1.3:2.5:4.2) (1.3:2.5:4.2))
+    (IOPATH OENeg Y () () (1.3:2.8:4.3) (1.1:2.3:4.4) (1.3:2.8:4.3) (1.1:2.3:4.4))
+  ))
+  (TIMINGCHECK
+    (SETUP (COND CLK == 1 A) LENeg (1.5))
+    (SETUP (COND CLK == 0 A) LENeg (1.5))
+    (SETUP A CLK (1))
+    (HOLD A CLK (.9))
+    (HOLD A LENeg (1.4))
+    (WIDTH (negedge LENeg) (2))
+    (WIDTH (posedge CLK) (2))
+    (PERIOD (posedge CLK) (6.67))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+IDT74ALVC162334PA_2V5<SOURCE>Integrated Device Tecnology DSC-4687/2 Revised April 1999</SOURCE>
+IDT74ALVC162334PV_2V5<SOURCE>Integrated Device Tecnology DSC-4687/2 Revised April 1999</SOURCE>
+IDT74ALVC162334PF_2V5<SOURCE>Integrated Device Tecnology DSC-4687/2 Revised April 1999</SOURCE>
+PI74ALVC162334A48_2V5<SOURCE>Pericom Semiconductor PS8313 08/04/98</SOURCE>
+PI74ALVC162334K48_2V5<SOURCE>Pericom Semiconductor PS8313 08/04/98</SOURCE>
+PI74ALVC162334V48_2V5<SOURCE>Pericom Semiconductor PS8313 08/04/98</SOURCE>
+<COMMENT> Values are for VCC = 2.48V to 2.52V, TA =-40C to +80C </COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A Y (1.0:2.7:4.4) (1.0:2.7:4.4))
+    (IOPATH LENeg Y (1.1:3.4:5.8) (1.1:3.4:5.8))
+    (IOPATH CLK Y (1.0:3.1:5.2) (1.0:3.1:5.2))
+    (IOPATH OENeg Y () () (1.0:2.8:4.7) (1.1:3.7:6.4) (1.0:2.8:4.7) (1.1:3.7:6.4))
+))
+(TIMINGCHECK
+    (SETUP A CLK (1.4))
+    (SETUP (COND CLK == 1 A) LENeg (1.2))
+    (SETUP (COND CLK == 0 A) LENeg (1.4))
+    (HOLD A CLK (0.9))
+    (HOLD A LENeg (1.1))
+    (WIDTH (posedge CLK) (3.3))
+    (WIDTH (negedge LENeg) (3.3))
+    (PERIOD (posedge CLK) (6.6))
+)
+</TIMING></FMFTIME>
+<FMFTIME>
+IDT74ALVC162334PA_2V7<SOURCE>Integrated Device Tecnology DSC-4687/2 Revised April 1999</SOURCE>
+IDT74ALVC162334PV_2V7<SOURCE>Integrated Device Tecnology DSC-4687/2 Revised April 1999</SOURCE>
+IDT74ALVC162334PF_2V7<SOURCE>Integrated Device Tecnology DSC-4687/2 Revised April 1999</SOURCE>
+PI74ALVC162334A48_2V7<SOURCE>Pericom Semiconductor PS8313 08/04/98</SOURCE>
+PI74ALVC162334K48_2V7<SOURCE>Pericom Semiconductor PS8313 08/04/98</SOURCE>
+PI74ALVC162334V48_2V7<SOURCE>Pericom Semiconductor PS8313 08/04/98</SOURCE>
+<COMMENT> Values are for VCC = 2.7V, TA =-40C to +80C </COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (1.0:3.4:4.5) (1.0:3.4:4.5))
+    (IOPATH LENeg Y (1.0:4.6:6.0) (1.0:4.6:6.0))
+    (IOPATH CLK Y (1.0:4.1:5.4) (1.0:4.1:5.4))
+    (IOPATH OENeg Y () () (1.0:3.9:5.1) (1.0:4.9:6.4) (1.0:3.9:5.1) (1.0:4.9:6.4))
+  ))
+  (TIMINGCHECK
+    (SETUP A CLK (1.7))
+    (SETUP (COND CLK == 1 A) LENeg (1.6))
+    (SETUP (COND CLK == 0 A) LENeg (1.5))
+    (HOLD A CLK (0.9))
+    (HOLD A LENeg (1.1))
+    (WIDTH (posedge CLK) (3.3))
+    (WIDTH (negedge LENeg) (3.3))
+    (PERIOD (posedge CLK) (6.6))
+)
+</TIMING></FMFTIME>
+<FMFTIME>
+IDT74ALVC162334PA_3V3<SOURCE>Integrated Device Tecnology DSC-4687/2 Revised April 1999</SOURCE>
+IDT74ALVC162334PV_3V3<SOURCE>Integrated Device Tecnology DSC-4687/2 Revised April 1999</SOURCE>
+IDT74ALVC162334PF_3V3<SOURCE>Integrated Device Tecnology DSC-4687/2 Revised April 1999</SOURCE>
+PI74ALVC162334A48_3V3<SOURCE>Pericom Semiconductor PS8313 08/04/98</SOURCE>
+PI74ALVC162334K48_3V3<SOURCE>Pericom Semiconductor PS8313 08/04/98</SOURCE>
+PI74ALVC162334V48_3V3<SOURCE>Pericom Semiconductor PS8313 08/04/98</SOURCE>
+<COMMENT> Values are for VCC = 3.0V to 3.6V, TA =-40C to +80C </COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (1.1:2.5:3.9) (1.1:2.5:3.9))
+    (IOPATH LENeg Y (1.3:3.1:5.0) (1.3:3.1:5.0))
+    (IOPATH CLK Y (1.0:2.9:4.9) (1.0:2.9:4.9))
+    (IOPATH OENeg Y () () (1.7:3.4:5.0) (1.1:3.2:5.4) (1.7:3.4:5.0) (1.1:3.2:5.4))
+  ))
+  (TIMINGCHECK
+    (SETUP A CLK (1.5))
+    (SETUP (COND CLK == 1 A) LENeg (1.3))
+    (SETUP (COND CLK == 0 A) LENeg (1.2))
+    (HOLD A CLK (0.9))
+    (HOLD A LENeg (1.1))
+    (WIDTH (posedge CLK) (3.3))
+    (WIDTH (negedge LENeg) (3.3))
+    (PERIOD (posedge CLK) (6.6))
+)
+</TIMING></FMFTIME>
+IDT74ALVC16334PA_2V5<SOURCE>Integrated Device Tecnology DSC-4623/2 Revised March 1999</SOURCE>
+IDT74ALVC16334PF_2V5<SOURCE>Integrated Device Tecnology DSC-4623/2 Revised March 1999</SOURCE>
+IDT74ALVC16334PV_2V5<SOURCE>Integrated Device Tecnology DSC-4623/2 Revised March 1999</SOURCE>
+<COMMENT> Values are for VCC = 2.3V to 2.7V, TA =-40C to +80C </COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A Y (1.0:2.7:3.7) (1.0:2.7:3.7))
+    (IOPATH LENeg Y (1.1:3.4:4.8) (1.1:3.4:4.8))
+    (IOPATH CLK Y (1.0:3.1:4.4) (1.0:3.1:4.4))
+    (IOPATH OENeg Y () () (1.0:2.8:4.1) (1.0:3.7:5.4) (1.0:2.8:4.1) (1.0:3.7:5.4))
+))
+(TIMINGCHECK
+    (SETUP A CLK (1.4))
+    (SETUP (COND CLK == 1 A) LENeg (1.2))
+    (SETUP (COND CLK == 0 A) LENeg (1.4))
+    (HOLD A CLK (0.9))
+    (HOLD A LENeg (1.2))
+    (WIDTH (posedge CLK) (3.3))
+    (WIDTH (negedge LENeg) (3.3))
+    (PERIOD (posedge CLK) (6.6))
+)
+</TIMING></FMFTIME>
+<FMFTIME>
+IDT74ALVC16334PA_3V3<SOURCE>Integrated Device Tecnology DSC-4623/2 Revised March 1999</SOURCE>
+IDT74ALVC16334PF_3V3<SOURCE>Integrated Device Tecnology DSC-4623/2 Revised March 1999</SOURCE>
+IDT74ALVC16334PV_3V3<SOURCE>Integrated Device Tecnology DSC-4623/2 Revised March 1999</SOURCE>
+<COMMENT> Values are for VCC = 3.0V to 3.6V, TA =-40C to +80C </COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (1.1:2.2:3.3) (1.1:2.2:3.3))
+    (IOPATH LENeg Y (1.3:3.1:4.4) (1.3:3.1:4.4))
+    (IOPATH CLK Y (1.0:2.6:4.1) (1.0:2.6:4.1))
+    (IOPATH OENeg Y () () (1.7:3.4:4.4) (1.1:3.2:4.6) (1.7:3.4:4.4) (1.1:3.2:4.6))
+  ))
+  (TIMINGCHECK
+    (SETUP A CLK (1.5))
+    (SETUP (COND CLK == 1 A) LENeg (1.3))
+    (SETUP (COND CLK == 0 A) LENeg (1.2))
+    (HOLD A CLK (0.9))
+    (HOLD A LENeg (1.1))
+    (WIDTH (posedge CLK) (3.3))
+    (WIDTH (negedge LENeg) (3.3))
+    (PERIOD (posedge CLK) (6.6))
+)
+</TIMING></FMFTIME>
+<FMFTIME>
+74AVC16334ADGG_2V5<SOURCE>Philips Semiconductors 853-2212 24282 2000 Aug 03</SOURCE>
+<COMMENT> Values are for VCC = 2.3V to 2.7V, CL = 30pF, TA =-40C to +80C </COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (.8:1.7:3.0) (.8:1.7:3.0))
+    (IOPATH LENeg Y (1:2.0:3.3) (1:2.0:3.3))
+    (IOPATH CLK Y (.8:1.7:3.0) (.8:1.7:3.0))
+    (IOPATH OENeg Y () () (.9:2.0:3.9) (1:2.2:3.8) (.9:2.0:3.9) (1:2.2:3.8))
+  ))
+  (TIMINGCHECK
+    (SETUP (COND CLK == 1 A) LENeg (.5))
+    (SETUP (COND CLK == 0 A) LENeg (.5))
+    (SETUP A CLK (.1))
+    (HOLD A CLK (.6))
+    (HOLD A LENeg (.4))
+    (WIDTH (negedge LENeg) (1.2))
+    (WIDTH (posedge CLK) (1.2))
+    (PERIOD (posedge CLK) (2.5))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+74AVC16334ADGG_3V3<SOURCE>Philips Semiconductors 853-2212 24282 2000 Aug 03</SOURCE>
+<COMMENT> Values are for VCC = 3.0V to 3.6V, CL = 30pF, TA =-40C to +80C </COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (.7:1.5:2.6) (.7:1.5:2.6))
+    (IOPATH LENeg Y (.7:1.6:3.2) (.7:1.6:3.2))
+    (IOPATH CLK Y (.7:1.6:2.8) (.7:1.6:2.8))
+    (IOPATH OENeg Y () () (1:2.1:3.7) (.7:1.7:3.4) (1:2.1:3.7) (.7:1.7:3.4))
+  ))
+  (TIMINGCHECK
+    (SETUP (COND CLK == 1 A) LENeg (.4))
+    (SETUP (COND CLK == 0 A) LENeg (.4))
+    (SETUP A CLK (.2))
+    (HOLD A CLK (.6))
+    (HOLD A LENeg (.4))
+    (WIDTH (negedge LENeg) (1))
+    (WIDTH (posedge CLK) (1))
+    (PERIOD (posedge CLK) (2))
+  )
+</TIMING></FMFTIME>
+</BODY></FTML>

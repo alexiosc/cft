@@ -1,0 +1,69 @@
+<!DOCTYPE FTML SYSTEM "ftml.dtd">
+<FTML><HEAD><TITLE>FMF Timing for STD544 Parts</TITLE>
+<REVISION.HISTORY>
+version: |  author:  | mod date: | changes made:
+  V1.0     R. Munden   98 SEP 18   Initial release
+</REVISION.HISTORY>
+</HEAD>
+<BODY>
+<TIMESCALE>1ns</TIMESCALE>
+<MODEL>STD544
+<FMFTIME>
+74ABT544D<SOURCE>Philips Semiconductors Product Specification June 1,1993</SOURCE>
+74ABT544DB<SOURCE>Philips Semiconductors Product Specification June 1,1993</SOURCE>
+74ABT544N<SOURCE>Philips Semiconductors Product Specification June 1,1993</SOURCE>
+<COMMENT> The values listed are for VCC=5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+     (IOPATH A B (1.1:3.6:5.1) (1.4:3.9:5.4))
+     (IOPATH B A (1.1:3.6:5.1) (1.4:3.9:5.4))
+     (IOPATH LEBANeg A (1.6:4.1:5.6) (2.1:4.6:6.1))
+     (IOPATH LEABNeg B (1.6:4.1:5.6) (2.1:4.6:6.1))
+     (IOPATH OEBANeg A () () (1.0:5.5:7.0) (1.4:3.9:5.4) (2.5:5.9:7.4) (2.5:5.0:6.5))
+     (IOPATH OEABNeg B () () (1.0:5.5:7.0) (1.4:3.9:5.4) (2.5:5.9:7.4) (2.5:5.0:6.5))
+     (IOPATH CEBANeg A () () (1.0:5.5:7.0) (1.4:3.9:5.4) (2.5:5.9:7.4) (2.5:5.0:6.5))
+     (IOPATH CEABNeg B () () (1.0:5.5:7.0) (1.4:3.9:5.4) (2.5:5.9:7.4) (2.5:5.0:6.5))
+  ))
+  (TIMINGCHECK
+    (SETUP A LEABNeg (3.0))
+    (SETUP B LEBANeg (3.0))
+    (SETUP A CEABNeg (3.0))
+    (SETUP B CEBANeg (3.0))
+    (HOLD A LEABNeg (0.5))
+    (HOLD B LEBANeg (0.5))
+    (HOLD A CEABNeg (0.5))
+    (HOLD B CEBANeg (0.5))
+    (WIDTH  (negedge LEBANeg) (3.5))
+    (WIDTH  (negedge LEABNeg) (3.5))
+ )
+</TIMING></FMFTIME>
+<FMFTIME>
+74ACTQ544PC<SOURCE>National Semiconductor March 1993</SOURCE>
+74ACTQ544SC<SOURCE>National Semiconductor March 1993</SOURCE>
+<COMMENT> The values listed are for VCC=5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<COMMENT> Setup and hold not provided for CEABNeg & CEBANeg </COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+     (IOPATH A B (1.5:5.5:7.5) (1.5:5.5:7.5))
+     (IOPATH B A (1.5:5.5:7.5) (1.5:5.5:7.5))
+     (IOPATH LEBANeg A (1.5:6.5:8.5) (1.5:6.5:8.5))
+     (IOPATH LEABNeg B (1.5:6.5:8.5) (1.5:6.5:8.5))
+     (IOPATH OEBANeg A () () (1.0:5.5:7.5) (1.5:8.0:10.0) (1.0:5.5:7.5) (1.5:8.0:10.0))
+     (IOPATH OEABNeg B () () (1.0:5.5:7.5) (1.5:8.0:10.0) (1.0:5.5:7.5) (1.5:8.0:10.0))
+     (IOPATH CEBANeg A () () (1.0:5.5:7.5) (1.5:8.0:10.0) (1.0:5.5:7.5) (1.5:8.0:10.0))
+     (IOPATH CEABNeg B () () (1.0:5.5:7.5) (1.5:8.0:10.0) (1.0:5.5:7.5) (1.5:8.0:10.0))
+  ))
+  (TIMINGCHECK
+    (SETUP A LEABNeg (3.0))
+    (SETUP B LEBANeg (3.0))
+    (SETUP A CEABNeg (3.0))
+    (SETUP B CEBANeg (3.0))
+    (HOLD A LEABNeg (1.5))
+    (HOLD B CEBANeg (1.5))
+    (HOLD A CEABNeg (1.5))
+    (HOLD B LEBANeg (1.5))
+    (WIDTH  (negedge LEBANeg) (4.0))
+    (WIDTH  (negedge LEABNeg) (4.0))
+ )
+</TIMING></FMFTIME>
+</BODY></FTML>
