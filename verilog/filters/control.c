@@ -43,7 +43,8 @@ int main(int argc, char **argv)
 			if ((hx & (1<<15)) == 0) add(buf2, "cli");
 			if ((hx & (1<<16)) == 0) add(buf2, "pc++");
 
-			/*if ((hx & (1<<17)) == 0) add(buf2, "dab");*/
+			if ((hx & (1<<17)) == 0) add(buf2, "dr++");
+			if ((hx & (1<<18)) == 0) add(buf2, "dr--");
 			if ((hx & (1<<19)) == 0) add(buf2, "mem");
 			if ((hx & (1<<20)) == 0) add(buf2, "io");
 			if ((hx & (1<<21)) == 0) {

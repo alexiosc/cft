@@ -15,7 +15,7 @@
 `timescale 1ns/10ps
 
 module clock_generator (clock, clock2, clock3, clock4, halt, reset);
-   parameter cp = 1000;
+   parameter cp = 2000;
 
    input halt, reset;
    output clock, clock2, clock3, clock4;

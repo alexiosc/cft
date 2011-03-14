@@ -34,7 +34,7 @@ RBL = OP1  '-------010		; <L,A> <- <L,A> >> 1
 RBR = OP1  '-------001		; <L,A> <- <L,A> << 1
 RNL = OP1  '-------110		; <L,A> <- <L,A> >> 4
 RNR = OP1  '-------101		; <L,A> <- <L,A> << 4
-HALT = OP1 '------1---		; Stop clock.
+; HALT = OP1 '------1---		; Stop clock.
 
 NEG = NOT INC			; Negate A, in twos complement
 
@@ -62,8 +62,9 @@ SPA = SNN SNZ			; Skip on positive A
 CONSOLE = 0100
 PRINTC = OUT CONSOLE 1		; Print out a character
 PRINTD = OUT CONSOLE 2		; Print out a decimal number in A
-SYSTEM = 0000
-TESTIN = IN SYSTEM 1
+PANEL = 0000
+HALT = OUT PANEL 1
+TESTIN = IN PANEL 2
 
 &0666:
 	JMP [3ff]
@@ -143,7 +144,14 @@ ydec:	NEG			; A = x-y already. Get y-x:  y-x = -(x-y)
 
 retx:	LOAD x			; print out x and finish.
 end:	PRINTD
+	LOAD R 0		; Load address at 0
+	STORE R f0		; Store at 00f0.
+	LOAD R [f0]		; Autoincrement test.
+	LOAD R [f0]		; Autoincrement test.
+	LOAD R [f0]		; Autoincrement test.
+	LOAD R [f0]		; Autoincrement test.
 	HALT
+tight:	JMP tight
 
 
 prnl_d:

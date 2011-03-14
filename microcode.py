@@ -464,12 +464,12 @@ class MicrocodeAssembler(object):
         self.totalconds = sum(self.condwidths.values())
         self.romsize = 1 << self.totalconds
         self.totalsigs = max(len(bin(x)) for x in self.signals.values()) - 2
-        self.numroms = (self.totalsigs + 8) // 8
+        self.numroms = (self.totalsigs + 7) // 8
 
         if self.options.stats:
             slackbits = 0
             usedbits = 0
-            x = self.maxuaddr
+            x = max(0, self.maxuaddr - 1)
             while x:
                 usedbits += 1
                 x = x >> 1

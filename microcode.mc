@@ -29,6 +29,7 @@ cond IRQ:1;                   // IRQ request
 cond OP:4;                    // The opcode field of the IR.
 cond I:1;                     // The indirection field of the IR.
 cond SKIP:1;                  // The skip flag from the skip logic.
+cond INC:1;		      // The IR points to an autoincrement location.
 
 // The uaddr field of the address is mandatory. This just sets its width.
 cond uaddr:4;
@@ -59,15 +60,15 @@ signal r_pc           = ....................0011; // Read from PC
 signal r_dr           = ....................0100; // Read from DR
 signal r_a            = ....................0101; // Read from the Accumulator
 signal r_cs           = ....................0110; // Read from the Constant Store
-//signal r_pr         = ....................0111; // Read from the PR
+//signal r_spare7     = ....................0111; //   ** RESERVED
 signal alu_add        = ....................1000; // Read from the Adder unit
 signal alu_and        = ....................1001; // Read from the AND unit
 signal alu_or         = ....................1010; // Read from the OR unit
 signal alu_xor        = ....................1011; // Read from the XOR unit
 signal alu_not        = ....................1100; // Read from the NOT unit
 signal alu_roll       = ....................1101; // Read from the ROLL unit (roll op controlled by IR)
-signal r_spare14      = ....................1110; //   ** RESERVED
-signal r_spare15      = ....................1111; //   ** RESERVED
+//signal r_spare14    = ....................1110; //   ** RESERVED
+//signal r_spare15    = ....................1111; //   ** RESERVED
 
 signal w_dbus         = .................001....; // Write to the data bus
 signal w_mar          = .................010....; // Write to the MAR
@@ -75,7 +76,7 @@ signal w_pc           = .................011....; // Write to the PC
 signal w_ir           = .................100....; // Write to the IR
 signal w_dr           = .................101....; // Write to the DR
 signal w_a            = .................110....; // Write to the Accumulator
-//signal w_pr         = .................111....; // Write to the PR
+//signal w_spare7     = .................111....; //   * RESERVED
 
 signal if9            = .............0111.......; // SKIP = IR[9]
 signal if8            = .............0110.......; // SKIP = IR[8]
@@ -94,8 +95,8 @@ signal cpi            = .........1..............; // Complement I flag
 signal /cli           = ........1...............; // Clear I flag
 signal /pc++          = .......1................; // Step the PC
 
-//signal spare1       = ......1.................; // Drive Address bus
-//signal spare2       = .....1..................; // Drive Address bus
+signal /inc_dr        = ......1.................; // Increment DR (for autoincrement mode)
+signal /dec_dr        = .....1..................; // Decrement DR (for POP instruction)
 signal /mem           = ....1...................; // Memory access
 signal /io            = ...1....................; // Input/Output enable
 signal /R             = ..1.....................; // Memory read
@@ -306,6 +307,7 @@ signal /END           = 1.......................; // Reset microprogram, go to f
 	_DESEL; \
 	_MEMREAD(DR, DR)
 
+
 ///////////////////////////////////////////////////////////////////////////////
 //
 // The Microcode itself.
@@ -324,7 +326,7 @@ signal /END           = 1.......................; // Reset microprogram, go to f
 // Assumption: the steps that fetch the IR from memory are identical for both
 // direct (I=0) and indirect mode (I=1).
 
-start IRQ=X, RST=1, OP=XXXX, I=X, SKIP=X;
+start IRQ=X, RST=1, OP=XXXX, I=X, SKIP=X, INC=X;
       _FETCH_IR;		// Just fetch an instruction.
 
 
@@ -337,7 +339,7 @@ start IRQ=X, RST=1, OP=XXXX, I=X, SKIP=X;
 // The reset sequence is little more than a fetch sequence, but we pad
 // it with a few NOPs.
 
-start IRQ=X, RST=0, OP=XXXX, I=X, SKIP=X;
+start IRQ=X, RST=0, OP=XXXX, I=X, SKIP=X, INC=X;
       w_pc, r_cs, /cli, /end;
       hold;
       hold;
@@ -352,16 +354,31 @@ start IRQ=X, RST=0, OP=XXXX, I=X, SKIP=X;
 ///////////////////////////////////////////////////////////////////////////////
 
 // LITERAL MODE INSTRUCTION: agl used for I=0, direct mode for I=1.
-start IRQ=X, RST=1, OP=LOAD, I=0, SKIP=X;
+start IRQ=X, RST=1, OP=LOAD, I=0, SKIP=X, INC=X;
       _FETCH_IR;		// Fetch the instruction and operand.
-      _DESEL;			// Prepare for the next memory read.
+      //_DESEL;			// Prepare for the next memory read.
       _MEMREAD(agl, A);		// A <- mem[agl].
       _DESEL, /end;	 // The fetch cycle begins with a memory read.
 
+// Indirect mode.
+start IRQ=X, RST=1, OP=LOAD, I=1, SKIP=X, INC=0;
+      _FETCH_LITERAL;		// Fetch the address and operand.
+      //_DESEL;			// Prepare for the next memory read.
+      _MEMREAD(DR, A);		// A <- mem[DR].
+      _DESEL, /end;	 // The fetch cycle begins with a memory read.
+      /end;		 // Pad the rest of the microprogram with /ends.
+      /end;		 // When the autoincrement version below asserts /end,
+      /end;		 // Control will momentarily be passed back here, and
+      /end;		 // /end must stay asserted.
+      /end;
+      /end;
 
-start IRQ=X, RST=1, OP=LOAD, I=1, SKIP=X;
-      _FETCH_LITERAL;		// Fetch the instruction and operand.
-      _DESEL;			// Prepare for the next memory read.
+// Autoindex mode
+start IRQ=X, RST=1, OP=LOAD, I=1, SKIP=X, INC=1;
+      _FETCH_LITERAL, /inc_dr;	  // Fetch the address and operand (autoindex)
+      /mem, /w;			  // The MAR hasn't changed. Write DR back.
+      w_dbus, r_dr, /mem, /w;     // mem[mar] <- ++dr
+      r_dr, /mem;		  // End of autoincrement write. Proceed with LOAD.
       _MEMREAD(DR, A);		// A <- mem[DR].
       _DESEL, /end;	 // The fetch cycle begins with a memory read.
 
@@ -374,12 +391,12 @@ start IRQ=X, RST=1, OP=LOAD, I=1, SKIP=X;
 ///////////////////////////////////////////////////////////////////////////////
 
 // LITERAL MODE INSTRUCTION: agl used for I=0, direct mode for I=1.
-start IRQ=X, RST=1, OP=STORE, I=0, SKIP=X;
+start IRQ=X, RST=1, OP=STORE, I=0, SKIP=X, INC=X;
       _FETCH_IR;		// Fetch the instruction and operand.
       _MEMWRITE(agl, a);	// mem[agl] <- DR
       _DESEL, /end;		// The fetch cycle begins with a memory read.
 
-start IRQ=X, RST=1, OP=STORE, I=1, SKIP=X;
+start IRQ=X, RST=1, OP=STORE, I=1, SKIP=X, INC=X;
       _FETCH_INDIRECT;		// Fetch the instruction and operand.
       _MEMWRITE(dr, a);		// mem[A] <- DR
       _DESEL, /end;		// The fetch cycle begins with a memory read.
@@ -393,7 +410,7 @@ start IRQ=X, RST=1, OP=STORE, I=1, SKIP=X;
 ///////////////////////////////////////////////////////////////////////////////
 
 // LITERAL MODE INSTRUCTION: agl used for I=0, direct mode for I=1.
-//start IRQ=X, RST=1, OP=LOAD, I=0, SKIP=X;
+//start IRQ=X, RST=1, OP=LOAD, I=0, SKIP=X, INC=X;
 //      _FETCH_IR;		// Fetch the instruction and operand.
 //      _DESEL;			// Prepare for the next memory read.
 //      r_agl;
@@ -404,7 +421,7 @@ start IRQ=X, RST=1, OP=STORE, I=1, SKIP=X;
 //      _DESEL, /end;		// The fetch cycle begins with a memory read.
 
 
-//start IRQ=X, RST=1, OP=LOAD, I=1, SKIP=X;
+//start IRQ=X, RST=1, OP=LOAD, I=1, SKIP=X, INC=X;
 //      _FETCH;			// Fetch the instruction and operand.
 //      _DESEL;			// Prepare for the next memory read.
 //      MAR <- DR, /DAB, /IO, /R; // Select I/O space, prepare to read.
@@ -421,7 +438,7 @@ start IRQ=X, RST=1, OP=STORE, I=1, SKIP=X;
 ///////////////////////////////////////////////////////////////////////////////
 
 // LITERAL MODE INSTRUCTION: agl used for I=0, direct mode for I=1.
-//start IRQ=X, RST=1, OP=STORE, I=0, SKIP=X;
+//start IRQ=X, RST=1, OP=STORE, I=0, SKIP=X, INC=X;
 //      _FETCH_IR;		// Fetch the instruction and operand.
 //      _DESEL;			// Prepare for the next memory read.
 //      MAR <- agl, /DAB, /IO, /W;// Select I/O space, prepare to write.
@@ -429,7 +446,7 @@ start IRQ=X, RST=1, OP=STORE, I=1, SKIP=X;
 //      DBUS <- A, hold;
 //      _DESEL, /end;		// The fetch cycle begins with a memory read.
 
-//start IRQ=X, RST=1, OP=STORE, I=1, SKIP=X;
+//start IRQ=X, RST=1, OP=STORE, I=1, SKIP=X, INC=X;
 //      _FETCH;			// Fetch the instruction and operand.
 //      _DESEL;			// Prepare for the next memory read.
 //      MAR <- DR, /DAB, /IO, /W; // Select I/O space, prepare to write.
@@ -452,11 +469,11 @@ start IRQ=X, RST=1, OP=STORE, I=1, SKIP=X;
 // We use a register for the output of the ALU to ensure the result is stable
 // before sticking it back into A.
 
-start IRQ=X, RST=1, OP=ADD, I=0, SKIP=X;
+start IRQ=X, RST=1, OP=ADD, I=0, SKIP=X, INC=X;
       _FETCH_DIRECT;		// Fetch the instruction and operand.
       w_a, alu_add, /end;	// Latch A from ALU result register.
  
-start IRQ=X, RST=1, OP=ADD, I=1, SKIP=X;
+start IRQ=X, RST=1, OP=ADD, I=1, SKIP=X, INC=X;
       _FETCH_INDIRECT;		// Fetch the instruction and operand.
       w_a, alu_add, /end;	// Latch A from ALU result register.
 
@@ -468,11 +485,11 @@ start IRQ=X, RST=1, OP=ADD, I=1, SKIP=X;
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-start IRQ=X, RST=1, OP=AND, I=0, SKIP=X;
+start IRQ=X, RST=1, OP=AND, I=0, SKIP=X, INC=X;
       _FETCH_DIRECT;	       // Fetch the instruction and operand.
       w_a, alu_and, /end;      // Latch A from ALU result register.
 
-start IRQ=X, RST=1, OP=AND, I=1, SKIP=X;
+start IRQ=X, RST=1, OP=AND, I=1, SKIP=X, INC=X;
       _FETCH_INDIRECT;		// Fetch the instruction and operand.
       w_a, alu_and, /end;	// Latch A from ALU result register.
 
@@ -483,11 +500,11 @@ start IRQ=X, RST=1, OP=AND, I=1, SKIP=X;
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-start IRQ=X, RST=1, OP=OR, I=0, SKIP=X;
+start IRQ=X, RST=1, OP=OR, I=0, SKIP=X, INC=X;
       _FETCH_DIRECT;	       // Fetch the instruction and operand.
       w_a, alu_or, /end;       // Latch A from ALU result register.
 
-start IRQ=X, RST=1, OP=OR, I=1, SKIP=X;
+start IRQ=X, RST=1, OP=OR, I=1, SKIP=X, INC=X;
       _FETCH_INDIRECT;		// Fetch the instruction and operand.
       w_a, alu_or, /end;	// Latch A from ALU result register.
 
@@ -499,11 +516,11 @@ start IRQ=X, RST=1, OP=OR, I=1, SKIP=X;
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-start IRQ=X, RST=1, OP=XOR, I=0, SKIP=X;
+start IRQ=X, RST=1, OP=XOR, I=0, SKIP=X, INC=X;
       _FETCH_DIRECT;		// Fetch the instruction and operand.
       w_a, alu_xor, /end;	// Latch A from ALU result register.
 
-start IRQ=X, RST=1, OP=XOR, I=1, SKIP=X;
+start IRQ=X, RST=1, OP=XOR, I=1, SKIP=X, INC=X;
       _FETCH_INDIRECT;		// Fetch the instruction and operand.
       w_a, alu_xor, /end;	// Latch A from ALU result register.
 
@@ -527,7 +544,7 @@ start IRQ=X, RST=1, OP=XOR, I=1, SKIP=X;
 
 // LITERAL MODE INSTRUCTION: agl used for I=0, direct mode for I=1.
 
-start IRQ=X, RST=1, OP=JMP, I=0, SKIP=X;
+start IRQ=X, RST=1, OP=JMP, I=0, SKIP=X, INC=X;
       _FETCH_IR;	 // Fetch the instruction and operand. That's
 	    	         // all we need.
       w_pc, r_agl, /end;	 // Set the PC from AGL(<PR,IR.operand>)
@@ -536,7 +553,7 @@ start IRQ=X, RST=1, OP=JMP, I=0, SKIP=X;
 // value stored in mem[operand]. This is all the indirection we need here (one
 // less indirection step than normal).
 
-start IRQ=X, RST=1, OP=JMP, I=1, SKIP=X;
+start IRQ=X, RST=1, OP=JMP, I=1, SKIP=X, INC=X;
       _FETCH_LITERAL;	// Fetch the instruction and operand.
       w_pc, r_dr, /end;	// Set the PC from DR.
 
@@ -551,7 +568,7 @@ start IRQ=X, RST=1, OP=JMP, I=1, SKIP=X;
 // The JSR instruction saves the current PC to memory location 0001
 // and performs a jump to the specified address.
 
-start IRQ=X, RST=1, OP=JSR, I=0, SKIP=X;
+start IRQ=X, RST=1, OP=JSR, I=0, SKIP=X, INC=X;
       _FETCH_IR;		// Fetch the instruction and operand. That's
 				// all we need.
       _MEMWRITE(cs, PC);	// Store PC at location 0001.
@@ -561,7 +578,7 @@ start IRQ=X, RST=1, OP=JSR, I=0, SKIP=X;
 // value stored in mem[operand]. This is all the indirection we need here (one
 // less indirection step than normal).
 
-start IRQ=X, RST=1, OP=JSR, I=1, SKIP=X;
+start IRQ=X, RST=1, OP=JSR, I=1, SKIP=X, INC=X;
       _FETCH_INDIRECT;		// Fetch the instruction and operand.
       _DESEL;                   // Deselect memory before writing.
       _MEMWRITE(cs, PC);	// Store PC at location 0001.
@@ -578,7 +595,7 @@ start IRQ=X, RST=1, OP=JSR, I=1, SKIP=X;
 // The TRAP instruction saves the current PC to memory location 0000
 // and performs a jump to the specified address.
 
-start IRQ=X, RST=1, OP=TRAP, I=0, SKIP=X;
+start IRQ=X, RST=1, OP=TRAP, I=0, SKIP=X, INC=X;
       _FETCH_IR;		// Fetch the instruction and operand. That's
 				// all we need.
       /cli, _MEMWRITE(cs, pc);	// Store PC at location 0001.
@@ -588,7 +605,7 @@ start IRQ=X, RST=1, OP=TRAP, I=0, SKIP=X;
 // value stored in mem[operand]. This is all the indirection we need here (one
 // less indirection step than normal).
 
-start IRQ=X, RST=1, OP=TRAP, I=1, SKIP=X;
+start IRQ=X, RST=1, OP=TRAP, I=1, SKIP=X, INC=X;
       _FETCH_LITERAL;		// Fetch the instruction and operand.
       /cli; //_DESEL;           // Clear interrupts (implicit memory deselection)
       _MEMWRITE(cs, pc);	// Store PC at location 0001.
@@ -606,7 +623,7 @@ start IRQ=X, RST=1, OP=TRAP, I=1, SKIP=X;
 // but loads the Accumulator with its result, not the PC. The indirection bit
 // is ignored for this, but the R flag is honoured.
 
-start IRQ=X, RST=1, OP=LI, I=X, SKIP=X;
+start IRQ=X, RST=1, OP=LI, I=X, SKIP=X, INC=X;
       _FETCH_IR;		// Fetch the instruction and operand. That's
 				// all we need.
       w_a, r_agl, /end; 	// A <- AGL(<PR,IR.operand>)
@@ -620,14 +637,14 @@ start IRQ=X, RST=1, OP=LI, I=X, SKIP=X;
 ///////////////////////////////////////////////////////////////////////////////
 
 // LITERAL MODE INSTRUCTION: agl used for I=0, direct mode for I=1.
-start IRQ=X, RST=1, OP=OUT, I=0, SKIP=X;
+start IRQ=X, RST=1, OP=OUT, I=0, SKIP=X, INC=X;
       _FETCH_IR;		// Fetch the instruction and operand.
       w_mar, r_agl;
       /io, /w;
       w_dbus, r_a, /io, /w;
       w_dbus, r_a, /io, /end;;
 
-start IRQ=X, RST=1, OP=OUT, I=1, SKIP=X;
+start IRQ=X, RST=1, OP=OUT, I=1, SKIP=X, INC=X;
       _FETCH_LITERAL;		// Fetch the instruction and operand.
       w_mar, r_dr;		// Indirection.
       /io, /w;
@@ -665,7 +682,7 @@ start IRQ=X, RST=1, OP=OUT, I=1, SKIP=X;
 // (*) The final /end is necessary when the computer comes out of the
 // HALT state.
 
-start IRQ=X, RST=1, OP=OP1, I=X, SKIP=1;
+start IRQ=X, RST=1, OP=OP1, I=X, SKIP=1, INC=X;
       _FETCH_IR, if9;		// 1. Fetch the instruction and operand.
       w_a, r_cs, if8;		// 2. If bit 9: clear A
       /cll, if7;		// 3. If bit 8: clear L
@@ -675,7 +692,7 @@ start IRQ=X, RST=1, OP=OP1, I=X, SKIP=1;
       w_a, alu_roll;		// 7. If roll: well, roll.
       /end;			// (*)
 
-start IRQ=X, RST=1, OP=OP1, I=X, SKIP=0;
+start IRQ=X, RST=1, OP=OP1, I=X, SKIP=0, INC=X;
       _FETCH_IR, if9;		// 1. Fetch the instruction and operand.
       if8;			// 2. If bit 9: clear A
       if7;			// 3. If bit 8: clear L
@@ -725,7 +742,7 @@ start IRQ=X, RST=1, OP=OP1, I=X, SKIP=0;
 // microinstruction, feed the SKIP field, so SKIP handles both
 // microinstruction skips and machine code branches.
 
-start IRQ=X, RST=1, OP=OP2, I=X, SKIP=1;
+start IRQ=X, RST=1, OP=OP2, I=X, SKIP=1, INC=X;
       _FETCH_IR, if9;		// 1. Fetch the instruction and operand.
       if8;		// 2. If bit 9: A <= PR
       if7;		// 3. If bit 8: PR <= A
@@ -736,7 +753,7 @@ start IRQ=X, RST=1, OP=OP2, I=X, SKIP=1;
       cpi, /end;		// 8. If bit 4: I <= !I
       /end;			// (*)
 
-start IRQ=X, RST=1, OP=OP2, I=X, SKIP=0;
+start IRQ=X, RST=1, OP=OP2, I=X, SKIP=0, INC=X;
       _FETCH_IR, if9;		// 1. Fetch the instruction and operand.
       if8;			// 2. If bit 9: A <= PR
       if7;			// 3. If bit 8: PR <= A

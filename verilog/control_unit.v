@@ -33,12 +33,12 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 module microrom (uaddr, control_out, reset);
-   input [11:0]  uaddr;		// The microcode ROM address (8k)
+   input [12:0]  uaddr;		// The microcode ROM address (8k)
    input 	 reset;		// /RESET
 
    output [23:0] control_out;
 
-   wire [11:0] 	 uaddr;
+   wire [12:0] 	 uaddr;
    wire [23:0] 	 control_out;
 
    reg 		 ce;
@@ -49,9 +49,9 @@ module microrom (uaddr, control_out, reset);
       oe = 0;			// Output permanently enabled
    end
 
-   rom #(12, 70, "../microcode-00.list") rom0 (uaddr, control_out[7:0], ce, ~reset);
-   rom #(12, 70, "../microcode-01.list") rom1 (uaddr, control_out[15:8], ce, ~reset);
-   rom #(12, 70, "../microcode-02.list") rom2 (uaddr, control_out[23:16], ce, ~reset);
+   rom #(13, 70, "../microcode-00.list") rom0 (uaddr, control_out[7:0], ce, ~reset);
+   rom #(13, 70, "../microcode-01.list") rom1 (uaddr, control_out[15:8], ce, ~reset);
+   rom #(13, 70, "../microcode-02.list") rom2 (uaddr, control_out[23:16], ce, ~reset);
 
    // We output an idle microcode pattern when reset is active.
    wire [23:0] idle;
@@ -131,6 +131,46 @@ module agl (pc, r, offset, oe, a);
 
 endmodule // agl
 
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// FUNCTION: The Auto-Increment Logic
+//
+// This is simple, but it's a separate module to keep the control unit
+// as simple as possible.
+//
+// Page 0 has 1023 'registers'. Of these, we wouldn't mind having 64
+// autoincrement ones. To do this, we partially decode MAR and ensure
+// it matches the pattern 16'b000000001XXXXXXX, which makes addresses
+// 128-255 autoincrement.
+//
+// We can do this with two 74xxx ICs.
+//
+///////////////////////////////////////////////////////////////////////////////
+
+module ail (mar, clock, clear, reset, autoinc);
+   input [15:0] mar;
+   input 	clock;
+   input 	clear;
+   input 	reset;		// Active high.
+   output 	autoinc;	// Active low.
+
+   // Evaluate mar[15:8] == 0 using two ICs (1x 7402, one 7408).
+   nor #10 nor_74hct02a (x0, mar[15], mar[14]);
+   nor #10 nor_74hct02b (x1, mar[13], mar[12]);
+   nor #10 nor_74hct02c (x2, mar[11], mar[10]);
+   nor #10 nor_74hct02d (x3, mar[9], mar[8]);
+
+   and #10 and_74hct08a (y0, x0, x1);
+   and #10 and_74hct08b (y1, x2, x3);
+
+   and #10 and_74hct08c (hizero, y0, y1); // hizero is active high.
+   and #10 and_74hct08d (j, hizero, mar[7]); // autoinc is active high.
+
+   flipflop_112 ff (j, 0, clock, clear, reset, autoinc, ,
+		    0, 0, clock, 1'b1, 1'b1, , );
+
+endmodule // ail
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -331,9 +371,17 @@ module control_unit (abus, dbus, ibus,
    tri1		 r;		// -R: read data
    tri1		 w;		// -W: read data
    tri1          go_fetch; 	// -END: go back to fetch cycle.
-   tri0          halt;		// HALT: stop the clock.
 
-   wire [11:0] 	 uaddr;		// The microROM address.
+   // This is output by the temporary debug I/O unit. In a real implementation,
+   // the front panel I/O unit would contain a flip-flop to control the clock,
+   // and that would contain this signal.
+   tri1          halt;		// HALT: stop the clock.
+
+   // Autoincrement: this control signal is 0 when the MAR incicates
+   // an auto-increment location.
+   wire          autoinc;
+
+   wire [12:0] 	 uaddr;		// The microROM address.
    wire [23:0] 	 control;	// Control signals from the microROM.
 
    ///////////////////////////////////////////////////////////////////////////////
@@ -419,7 +467,7 @@ module control_unit (abus, dbus, ibus,
 
    // The MAR
    wire [15:0] mar_unbuf;
-   inc_reg16 reg_mar (ibus, abus, mar_unbuf, w_mar, dab, 1'b1, 1'b1, reset);
+   rc_reg16 reg_mar (ibus, abus, mar_unbuf, reset, w_mar, dab);
 
    // The PC resets on /RESET, then decrements by one on /RST_HOLD.
    wire [15:0] pc_unbuf;       // Unbuffered PC connection for the front panel.
@@ -435,7 +483,7 @@ module control_unit (abus, dbus, ibus,
 
    // The DR
    wire [15:0] dr_unbuf;
-   rc_reg16 reg_dr (ibus, ibus, dr_unbuf, reset, w_dr, r_dr);
+   inc_reg16 reg_dr (ibus, ibus, dr_unbuf, w_dr, r_dr, inc_dr, dec_dr, reset);
 
    
    // The L Register
@@ -454,6 +502,15 @@ module control_unit (abus, dbus, ibus,
    ///////////////////////////////////////////////////////////////////////////////
 
    agl unit_agl (pc_unbuf, ir[10], ir[9:0], r_agl, ibus);
+
+   ///////////////////////////////////////////////////////////////////////////////
+   //
+   // AUTOINCREMENT LOGIC
+   //
+   ///////////////////////////////////////////////////////////////////////////////
+
+   ail unit_ail (mar_unbuf, clock, reset, go_fetch, autoinc);
+   
 
    ///////////////////////////////////////////////////////////////////////////////
    //
@@ -523,7 +580,8 @@ module control_unit (abus, dbus, ibus,
    assign cli = control[15];	// Clear I
    
    assign inc_pc = control[16];
-   //assign dab = control[17];
+   assign inc_dr = control[17];
+   assign dec_dr = control[18];
    assign mem = control[19];
    assign io = control[20];
    assign r = control[21];
@@ -537,9 +595,8 @@ module control_unit (abus, dbus, ibus,
    wire [3:0]	 upc;
    ucounter reg_upc (clock, rst_hold, go_fetch, upc);
 
-   // The MicroROM.
-   assign uaddr = {rst_hold, 1'b0, ir[15:12], ir[11], skip, upc}; // indirection (bit 11 of IR)
-   //assign uaddr = {1'b0, 1'b0, 4'b0, 1'b0, 1'b0, upc}; // indirection (bit 11 of IR)
+   // The MicroROM address vector.
+   assign uaddr = {rst_hold, 1'b0, ir[15:12], ir[11], skip, autoinc, upc};
 
    always @(upc) begin
       if (upc == 3) begin
@@ -583,7 +640,7 @@ module control_unit (abus, dbus, ibus,
    memory memory (abus, dbus, mem, r, w);
    
    // TODO: move this elsewhere.
-   debug_io debug_io (abus, dbus, io, r, w);
+   debug_io debug_io (abus, dbus, io, r, w, halt);
    
 
 endmodule
@@ -643,7 +700,7 @@ endmodule
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-module debug_io (abus, dbus, io, r, w);
+module debug_io (abus, dbus, io, r, w, halt);
 
    input [15:0] abus;
    inout [15:0] dbus;
@@ -652,11 +709,15 @@ module debug_io (abus, dbus, io, r, w);
    input 	r;		// /R: latch data FROM memory.
    input 	w;		// /W: latch data TO memory.
 
+   output 	halt;		// Debugging only.
+
    wire [17:0] 	a;
    wire [15:0] 	dbus;
    wire 	mem;
    wire 	r;
    wire 	w;
+
+   reg 		halt;
 
    assign a[17:16] = 2'b00;	// Force high order bits to zero.
    assign a[15:0] = abus[15:0];	// Connect the low order bits to the abus.
@@ -670,10 +731,19 @@ module debug_io (abus, dbus, io, r, w);
    wire [7:0] 	x;
 
    wire [9:0] 	addr = abus & 'h3ff;
+
+   initial begin
+      halt = 1;
+   end
+   
    // Debugging.
    always @(posedge w, posedge io) begin
       if (!w || !io) begin
-	 if (addr == 'h101) begin
+	 if (addr == 'h001) begin
+	    $display("*** HALTING");
+	    halt <= 1'b0;
+	 end
+	 else if (addr == 'h101) begin
 	    //$display("*** PRINT CHAR: '%s'", dbus[7:0]);
 	    $display("CONSOLE: %s", dbus[7:0]);
 	 end

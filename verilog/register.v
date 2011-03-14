@@ -87,7 +87,7 @@ module inc_reg16 (d, q, q_unbuf, latch, oe, inc, dec, reset);
 
    wire [15:0] 	 q_unreg;
 
-   not (clear, reset);
+   nor #10 nor_74hct02_8 (clear, reset, reset);
    
    // The register is latched. This creates timing problems, so we need to load
    // data on the rising edge of load. To this end, we have a rising edge
@@ -97,13 +97,13 @@ module inc_reg16 (d, q, q_unbuf, latch, oe, inc, dec, reset);
    // gates with 8 to 10ns propagation delay, and the pulse width is around 40
    // to 50ns.
    wire 	xload;
-   nor #10 nor_74hct00_1 (latch0, latch, latch); // inverted
-   nor #10 nor_74hct00_2 (latch1, latch0, latch0);
-   nor #10 nor_74hct00_3 (latch2, latch1, latch1); // inverted
-   nor #10 nor_74hct00_4 (latch3, latch2, latch2);
-   nor #10 nor_74hct00_5 (latch4, latch3, latch3); // inverted
-   nor #10 nor_74hct00_6 (xlatch0, latch, latch0);
-   nor #10 nor_74hct00_6 (xlatch, xlatch0, xlatch0);
+   nor #10 nor_74hct02_1 (latch0, latch, latch); // inverted
+   nor #10 nor_74hct02_2 (latch1, latch0, latch0);
+   //nor #10 nor_74hct02_3 (latch2, latch1, latch1); // inverted
+   //nor #10 nor_74hct02_4 (latch3, latch2, latch2);
+   //nor #10 nor_74hct02_5 (latch4, latch3, latch3); // inverted
+   nor #10 nor_74hct02_6 (xlatch0, latch, latch0);
+   nor #10 nor_74hct02_7 (xlatch, xlatch0, xlatch0);
 
    counter_193 counter0 (clear, xlatch, d[3:0],   inc, dec, q_unbuf[3:0],   c0, b0);
    counter_193 counter1 (clear, xlatch, d[7:4],   c0, b0,    q_unbuf[7:4],   c1, b1);
@@ -192,14 +192,24 @@ module reg_L (d, latch, clear, toggle1, toggle2, clock, reset, q, nq);
    output nq;
 
    wire   j0, k0, ff_reset;
+
+   // Not-d.
+   nor nor_74hct02_a (nd, d, d);
    
-   not inverter_7404 (nd, d);
+   // Edge detection.
+   nor nor_74hct02a (toggle4, toggle3, toggle3);
+   nor nor_74hct02b (toggle, toggle3, toggle4);
+
+   // J/K/Tooggle logic.
    and and_7408a (j0, d, latch);
    and and_7408b (k0, nd, latch);
    and and_7408c (ff_reset, reset, clear);
-   or or_7432a (toggle, toggle1, toggle2);
+   or or_7432a (toggle3, toggle1, toggle2);
+
+   // J/K FF interface.
    or or_7432b (j, j0, toggle);
    or or_7432c (k, k0, toggle);
+
    // The other half of this '112 is used in reg_I.
    flipflop_112 ff (j, k, clock, 1'b1, ff_reset, q, nq, 0, 0, 1, 1, 1, ,);
 
@@ -240,7 +250,10 @@ module reg_I (clear, toggle, clock, reset, q, nq);
    output q;
    output nq;
 
+   // The other three AND gates are in reg_L
    and and_7408d (ff_reset, reset, clear);
+
+   // The other half of the FF is i reg_L.
    flipflop_112 ff (toggle, toggle, clock, 1'b1, ff_reset, q, nq, 0, 0, 1, 1, 1, ,);
 endmodule // reg_I
 

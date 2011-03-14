@@ -32,7 +32,10 @@ module control_unit_tb();
 
       #5002 reset = 1;
 
-      #9000000 $finish;      // Terminate simulation
+      //#100000 reset = 0;
+      //#200 reset = 1;
+
+      #10000000 $finish;      // Terminate simulation
    end
 
    // Connect DUT to test bench
