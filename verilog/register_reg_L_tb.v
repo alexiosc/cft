@@ -18,7 +18,7 @@ module register_reg_L_tb();
       $display ("time\t d latch toggle1 toggle2 clock clear reset q nq");
       $monitor ("%g\t  %b %b %b %b %b %b b %b %b %b", 
 		$time, d, latch, toggle1, toggle2, clock, clear, reset, q, nq);
-      $dumpfile ("register_reg_L_tb.vcd");
+      $dumpfile ("vcd/register_reg_L_tb.vcd");
       $dumpvars (0, register_reg_L_tb);
 
       d = 0;
@@ -26,23 +26,25 @@ module register_reg_L_tb();
       clock = 0;
       clear = 1;
       reset = 1;
+      toggle1 = 0;
+      toggle2 = 0;
 
       #100 reset = 0;
       #100 reset = 1;
 
-      #100 toggle1 = 1;
+      #200 toggle1 = 1;
       #100 toggle1 = 0;
 
-      #100 toggle2 = 1;
+      #200 toggle2 = 1;
       #100 toggle2 = 0;
 
-      #100 toggle1 = 1;
+      #200 toggle1 = 1;
       #100 toggle1 = 0;
 
-      #100 toggle2 = 1;
+      #200 toggle2 = 1;
       #100 toggle2 = 0;
 
-      #100 d = 1;
+      #300 d = 1;
       #100 latch = 1;
       #100 latch = 0;
 
@@ -82,7 +84,7 @@ module register_reg_L_tb();
    end // initial begin
 
    always begin
-      #63 clock = ~clock;
+      #31 clock = ~clock;
    end
 
    reg_L register (d, latch, clear, toggle1, toggle2, clock, reset, q, nq);

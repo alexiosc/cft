@@ -1,5 +1,5 @@
-`timescale 1ns/10ps
 `include "alu.v"
+`timescale 1ns/10ps
 
 module alu_roll_tb();
    reg [15:0] a;
@@ -14,7 +14,7 @@ module alu_roll_tb();
    
    // Initialize all variables
    initial begin        
-      $dumpfile ("alu_roll_tb.vcd");
+      $dumpfile ("vcd/alu_roll_tb.vcd");
       $display ("time\t EN OP LA                LY");	
       $monitor ("%g\t   %b  %b %b%b               %b%b", 
 		$time, enable, op, l, a, y, l_out);

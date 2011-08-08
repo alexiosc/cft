@@ -1,5 +1,5 @@
-`timescale 1ns/10ps
 `include "buffer.v"
+`timescale 1ns/10ps
 
 module buffer_245_tb();
    reg 	      dir, en;
@@ -16,7 +16,7 @@ module buffer_245_tb();
 
    // Initialize all variables
    initial begin        
-      $dumpfile ("buffer_245_tb.vcd");
+      $dumpfile ("vcd/buffer_245_tb.vcd");
       $dumpvars (0, buffer_245_tb);
       $display ("time\t en dir a        aw       b        bw");	
       $monitor ("%g\t  %b   %b %b %b %b %b", 

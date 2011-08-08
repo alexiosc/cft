@@ -16,13 +16,14 @@ module alu_tb();
    reg reset;
 
    wire [15:0] y;
+   wire l_in, add_l_out, roll_l_out, l_latch;
    
    // Initialize all variables
    initial begin        
       $display ("time\t clk la                b                +&|^!> roll +>ly                ");
       $monitor ("%g\t   %b  %b%b %b %b%b%b%b%b%b  %b  %b%b%b%b",
 		$time, clock, l_in, a, b, e_add, e_and, e_or, e_xor, e_not, e_roll, rollop, l_latch, add_l_out, roll_l_out, y);
-      $dumpfile ("alu_tb.vcd");
+      $dumpfile ("vcd/alu_tb.vcd");
       $dumpvars (0, alu_tb);
 
       clock = 0;

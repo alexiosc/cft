@@ -1,5 +1,6 @@
-`timescale 1ns/10ps
 `include "rom.v"
+
+`timescale 1ns/10ps
 
 module rom_tb();
 
@@ -18,7 +19,7 @@ module rom_tb();
    initial begin        
       //$display ("time\t oe ce a            d");	
       //$monitor ("%g\t %b %b %b %b", $time, oe, ce, a, d);
-      $dumpfile ("out.vcd");
+      $dumpfile ("vcd/out.vcd");
       $dumpvars (0, rom_tb);
 
       oe = 1;

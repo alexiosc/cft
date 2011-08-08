@@ -1,3 +1,6 @@
+`ifndef ram_v
+`define ram_v
+
 `timescale 1ns/10ps
 
 module sram (a, d, ce, we, oe);
@@ -23,6 +26,7 @@ module sram (a, d, ce, we, oe);
 
    initial begin
       $readmemb(bin_fname, mem); // Read the memory image.
+      $display("BOM:%dkx8 SRAM", 1<<(bits - 10));
    end
 
    assign #access_time d = (oe | ce) ? {8{1'bz}} : mem[a];
@@ -41,3 +45,7 @@ module sram (a, d, ce, we, oe);
    end
 
 endmodule // End of Module counter
+
+`endif //  `ifndef ram_v
+
+// End of file.

@@ -133,6 +133,9 @@
 
 `include "mux.v"
 
+`timescale 1ns/1ps
+
+
 module skip_unit(sel, data, f_zero, f_neg, f_l, enable, skip);
    input [3:0] sel;
    input [9:0] data;
@@ -147,6 +150,8 @@ module skip_unit(sel, data, f_zero, f_neg, f_l, enable, skip);
    wire        ya, yb;
 
    tri0        skip; // PULL DOWN skip.
+
+   wire        sn, sz, sl, sx;
         
    assign ia = { data[5:3], 1'b0 };
    assign ib = data[9:6];

@@ -1,5 +1,5 @@
-`timescale 1ns/10ps
 `include "alu_181.v"
+`timescale 1ns/10ps
 
 module alu_181_tb();
 
@@ -12,7 +12,7 @@ module alu_181_tb();
    
    // Initialize all variables
    initial begin        
-      $dumpfile ("alu_181_tb.vcd");
+      $dumpfile ("vcd/alu_181_tb.vcd");
       $display ("time\t A    B    S    CNb M F    AEB X Y CN4b");	
       $monitor ("%g\t %b %b %b   %b %b %b %b", 
 		$time, A, B, S, CNb, M, F, AEB, X, Y, CN4b);

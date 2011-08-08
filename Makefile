@@ -1,54 +1,23 @@
-#GHDL = ghdl -a --ieee=synopsys $<
-GHDL = ghdl -a $<
+#/usr/bin/make
 
-MODS = \
-	utils.o \
-	utils_body.o \
-	\
-	register_74x175.o register_74x175_tb.o \
-	\
-	counter.o counter_tb.o \
-	counter_74x561.o counter_74x561_tb.o \
-	\
-	bv_arithmetic.o \
-	bv_arithmetic_body.o \
-	bv_arithmetic_tb.o \
-	\
-	utils.o \
-	\
-	ssm.o ssm_tb.o \
+VERILOG = verilog
+SUBDIRS = microcode $(VERILOG) testing
 
-all:	$(MODS)
+.PHONY: all all-subdirs clean clean-subdirs subdirs $(SUBDIRS) \
+	test
 
+all:	$(SUBDIRS)
+	for a in $(SUBDIRS); do $(MAKE) -C $$a $@; done
 
 clean:
-	rm -f *.o $(MODS) *~ *.cf $(MODS:.o=) *.vcd
+	for a in $(SUBDIRS); do $(MAKE) -C $$a $@; done
 
-test:	 	ssm.o
-		ghdl -e ssm_tb
-		ghdl -r ssm_tb --vcd=ssm.vcd
-		gtkwave ssm.vcd
+test:	$(SUBDIRS)
+	cp asm/build/test2-00.list verilog/img/a-00.list
+	cp asm/build/test2-01.list verilog/img/a-01.list
+	cd $(VERILOG); ./cft_tb.o
 
-
-test_counter:	counter.o counter_tb.o
-		ghdl -e counter_tb
-		ghdl -r counter_tb --vcd=counter.vcd
-		gtkwave counter.vcd
-
-test_counter_74x561:	counter_74x561.o counter_74x561_tb.o
-		ghdl -e counter_74x561_tb
-		ghdl -r counter_74x561_tb --vcd=counter_74x561.vcd
-		gtkwave counter_74x561.vcd
-
-test_register:	register.o register_tb.o
-		ghdl -e register_tb
-		ghdl -r register_tb --vcd=register.vcd
-		gtkwave register.vcd
-
-%_tb.o: %_tb.vhdl %.vhdl
-	$(GHDL) $<
-
-%.o: %.vhdl
-	$(GHDL) $<
+$(SUBDIRS):
+	$(MAKE) -C $@
 
 # End of file.

@@ -10,6 +10,8 @@
 `include "counter.v"
 `include "flipflop.v"
 
+`timescale 1ns/1ps
+
 
 module simple_reg16 (d, q, latch, oe);
    input [15:0] d;		// Data
@@ -87,6 +89,8 @@ module inc_reg16 (d, q, q_unbuf, latch, oe, inc, dec, reset);
 
    wire [15:0] 	 q_unreg;
 
+   wire 	 clear;
+
    nor #10 nor_74hct02_8 (clear, reset, reset);
    
    // The register is latched. This creates timing problems, so we need to load
@@ -96,7 +100,8 @@ module inc_reg16 (d, q, q_unbuf, latch, oe, inc, dec, reset);
    // should be more than the worst-case minimum time at 5V. We use six NAND
    // gates with 8 to 10ns propagation delay, and the pulse width is around 40
    // to 50ns.
-   wire 	xload;
+   wire 	 xload, latch0, latch1, latch2, latch3, latch4;
+   wire 	 xlatch, xlatch0;
    nor #10 nor_74hct02_1 (latch0, latch, latch); // inverted
    nor #10 nor_74hct02_2 (latch1, latch0, latch0);
    //nor #10 nor_74hct02_3 (latch2, latch1, latch1); // inverted
@@ -105,6 +110,8 @@ module inc_reg16 (d, q, q_unbuf, latch, oe, inc, dec, reset);
    nor #10 nor_74hct02_6 (xlatch0, latch, latch0);
    nor #10 nor_74hct02_7 (xlatch, xlatch0, xlatch0);
 
+   wire 	 c0, c1, c2, c3, b0, b1, b2, b3;
+   
    counter_193 counter0 (clear, xlatch, d[3:0],   inc, dec, q_unbuf[3:0],   c0, b0);
    counter_193 counter1 (clear, xlatch, d[7:4],   c0, b0,    q_unbuf[7:4],   c1, b1);
    counter_193 counter2 (clear, xlatch, d[11:8],  c1, b1,    q_unbuf[11:8],  c2, b2);
@@ -191,20 +198,26 @@ module reg_L (d, latch, clear, toggle1, toggle2, clock, reset, q, nq);
    output q;
    output nq;
 
-   wire   j0, k0, ff_reset;
+   tri0   d;
+   wire   j, k, nd, j0, k0, ff_reset;
+   wire   toggle, toggle1, toggle2, toggle3, toggle4;
 
    // Not-d.
    nor nor_74hct02_a (nd, d, d);
    
    // Edge detection.
-   nor nor_74hct02a (toggle4, toggle3, toggle3);
-   nor nor_74hct02b (toggle, toggle3, toggle4);
+   //nor nor_74hct02a (toggle4, toggle3, toggle3);
+   //nor nor_74hct02b (toggle, toggle3, toggle4);
+
+   initial begin
+      $display("TODO: Reinstate edge detection for toggle circuit, otherwise CU toggles L twice.");
+   end
 
    // J/K/Tooggle logic.
    and and_7408a (j0, d, latch);
    and and_7408b (k0, nd, latch);
    and and_7408c (ff_reset, reset, clear);
-   or or_7432a (toggle3, toggle1, toggle2);
+   or or_7432a (toggle, toggle1, toggle2);
 
    // J/K FF interface.
    or or_7432b (j, j0, toggle);
@@ -240,10 +253,10 @@ endmodule // reg_L
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-module reg_I (clear, toggle, clock, reset, q, nq);
+module reg_I (clear, set, clock, reset, q, nq);
    input clear;			// Active LOW.
    input latch;
-   input toggle;
+   input set;			// Active LOW.
    input clock;			// Clocks on NEGATIVE edge.
    input reset;			// Active LOW.
 
@@ -251,10 +264,12 @@ module reg_I (clear, toggle, clock, reset, q, nq);
    output nq;
 
    // The other three AND gates are in reg_L
+   wire   ff_reset;
+   
    and and_7408d (ff_reset, reset, clear);
 
    // The other half of the FF is i reg_L.
-   flipflop_112 ff (toggle, toggle, clock, 1'b1, ff_reset, q, nq, 0, 0, 1, 1, 1, ,);
+   flipflop_112 ff (0, 0, clock, set, ff_reset, q, nq, 0, 0, 1, 1, 1, ,);
 endmodule // reg_I
 
 // End of file.

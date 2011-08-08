@@ -1,5 +1,5 @@
-`timescale 1ns/10ps
 `include "ram.v"
+`timescale 1ns/10ps
 
 module ram_tb();
 
@@ -23,7 +23,7 @@ module ram_tb();
    initial begin        
       $display ("time\t oe ce a            d");	
       $monitor ("%g\t %b %b %b %b %b %b", $time, oe, we, ce, a, d, d_write);
-      $dumpfile ("ram_tb.vcd");
+      $dumpfile ("vcd/ram_tb.vcd");
       $dumpvars (0, ram_tb);
 
       d_write = 8'bzzzzzzzz;
@@ -39,11 +39,11 @@ module ram_tb();
       #0 we = 1;
 
       #100 a = 0;
-      #200 a = 1;
-      #300 a = 2;
-      #400 a = 3;
-      #500 a = 4;
-      #600 a = 5;
+      #100 a = 1;
+      #100 a = 2;
+      #100 a = 3;
+      #100 a = 4;
+      #100 a = 5;
 
       // Write some data.
 

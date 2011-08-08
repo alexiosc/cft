@@ -21,7 +21,7 @@ module counter_193_tb();
       $display ("time\t clear load c_up c_dn p               q               carry borrow");	
       $monitor ("%g\t %b %b %b %b %b %b %b %b", 
 		$time, clear, load, count_up, count_down, p, q, carry, borrow);
-      $dumpfile ("counter_193_tb.vcd");
+      $dumpfile ("vcd/counter_193_tb.vcd");
       $dumpvars (0, counter_193_tb);
 
       clear = 0;       // initial value of clock

@@ -1,7 +1,7 @@
 CC	=	gcc
 CFLAGS	=	-Wall -pedantic -O3 -s
 
-all:	control disasm
+all:	control disasm uaddr
 
 #control:	control.c
 

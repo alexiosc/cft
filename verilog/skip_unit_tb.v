@@ -1,5 +1,7 @@
-`timescale 1ns/10ps
 `include "skip_unit.v"
+
+`timescale 1ns/10ps
+
 
 module skip_unit_tb();
    reg [9:0]  ir;
@@ -13,7 +15,7 @@ module skip_unit_tb();
    
    // Initialize all variables
    initial begin        
-      $dumpfile ("skip_unit_tb.vcd");
+      $dumpfile ("vcd/skip_unit_tb.vcd");
       $display ("time\t IR[9:0]    SEL  Z N L SKIP");
       $monitor ("%g\t   %b        %b   %b %b %b %b",
 		$time, ir, sel, z, n, l, skip);

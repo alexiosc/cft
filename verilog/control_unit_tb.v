@@ -24,7 +24,7 @@ module control_unit_tb();
    //assign dbus = dbus_write;
 
    initial begin
-      $dumpfile ("control_unit_tb.vcd");
+      $dumpfile ("vcd/control_unit_tb.vcd");
       $dumpvars (0, control_unit);
 
       reset = 0;

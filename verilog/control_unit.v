@@ -2,25 +2,21 @@
 //
 // Function: CFT0 CPU Control Unit
 //
-// Dataset: 
-//
 ///////////////////////////////////////////////////////////////////////////////
 
-`timescale 1ns/10ps
 `include "counter.v"
 `include "buffer.v"
 `include "demux.v"
 `include "flipflop.v"
 `include "register.v"
-`include "reset.v"
-`include "clock.v"
 `include "constant_store.v"
 //`include "register_PR.v"
 `include "skip_unit.v"
 `include "alu.v"
+`include "int.v"
 `include "rom.v"
-`include "ram.v"
 
+`timescale 1ns/10ps
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -44,18 +40,25 @@ module microrom (uaddr, control_out, reset);
    reg 		 ce;
    reg 		 oe;
 
+   wire 	 nreset;
+
    initial begin
       ce = 0;			// Chip permanently selected
       oe = 0;			// Output permanently enabled
    end
 
-   rom #(13, 70, "../microcode-00.list") rom0 (uaddr, control_out[7:0], ce, ~reset);
-   rom #(13, 70, "../microcode-01.list") rom1 (uaddr, control_out[15:8], ce, ~reset);
-   rom #(13, 70, "../microcode-02.list") rom2 (uaddr, control_out[23:16], ce, ~reset);
+   not #10 mynot (nreset, reset);
+   rom #(13, 70, "../microcode/microcode-00.list") rom0 (uaddr, control_out[7:0], ce, nreset);
+   rom #(13, 70, "../microcode/microcode-01.list") rom1 (uaddr, control_out[15:8], ce, nreset);
+   rom #(13, 70, "../microcode/microcode-02.list") rom2 (uaddr, control_out[23:16], ce, nreset);
 
-   // We output an idle microcode pattern when reset is active.
+   // We output an idle microcode pattern when reset is active. This is for the
+   // Verilog emulator only; on actual hardware, the control lines would be
+   // tied up or down, and the reset signal would cause the ROM outputs to go
+   // to Z.
    wire [23:0] idle;
-   assign idle = 24'b111111111010100000000000;
+   //assign idle = 24'b111111111111111100000000;
+   assign idle = 24'b1111111111111111111111;
 
    buffer_244 rstbuf0 (reset, reset, idle[7:4], idle[3:0], control_out[7:4], control_out[3:0]);
    buffer_244 rstbuf1 (reset, reset, idle[15:12], idle[11:8], control_out[15:12], control_out[11:8]);
@@ -115,12 +118,17 @@ module agl (pc, r, offset, oe, a);
    output [5:0]  p;		// The page.
 
    // Zero page handling.
-   and(p[0], pc[10], r);
-   and(p[1], pc[11], r);
-   and(p[2], pc[12], r);
-   and(p[3], pc[13], r);
-   and(p[4], pc[14], r);
-   and(p[5], pc[15], r);
+   initial begin
+      $display("BOM: 74x08");
+      $display("BOM: 74x08");
+   end
+
+   and #10 and_7408_1a (p[0], pc[10], r);
+   and #10 and_7408_1b (p[1], pc[11], r);
+   and #10 and_7408_1c (p[2], pc[12], r);
+   and #10 and_7408_1d (p[3], pc[13], r);
+   and #10 and_7408_2a (p[4], pc[14], r);
+   and #10 and_7408_2b (p[5], pc[15], r);
 
    // Concatenate the page and ir field.
    assign a0 = {p, offset};
@@ -134,26 +142,37 @@ endmodule // agl
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-// FUNCTION: The Auto-Increment Logic
+// FUNCTION: The Auto-Index Logic
 //
 // This is simple, but it's a separate module to keep the control unit
 // as simple as possible.
 //
-// Page 0 has 1023 'registers'. Of these, we wouldn't mind having 64
-// autoincrement ones. To do this, we partially decode MAR and ensure
+// Page 0 has 1023 'registers'. Of these, we wouldn't mind having 128
+// autoindex ones. To do this, we partially decode MAR and ensure
 // it matches the pattern 16'b000000001XXXXXXX, which makes addresses
-// 128-255 autoincrement.
+// 128-255 autoindex.
 //
 // We can do this with two 74xxx ICs.
 //
+// The direction of indexing (increment or decrement) is controlled by
+// a System Device registers #0 and #1. OUT SYSDEV 0 sets
+// autoincrement. OUT SYSDEV 1 sets autodecrement.
+//
 ///////////////////////////////////////////////////////////////////////////////
 
-module ail (mar, clock, clear, reset, autoinc);
+module ail (mar, clock, clear, reset, autoindex);
    input [15:0] mar;
    input 	clock;
    input 	clear;
    input 	reset;		// Active high.
-   output 	autoinc;	// Active low.
+   output 	autoindex;	// Active low.
+
+   wire 	x0, x1, x2, x3, y0, y1, hizero, j;
+
+   initial begin
+      $display("BOM: 74hct02");
+      $display("BOM: 74hct08");
+   end
 
    // Evaluate mar[15:8] == 0 using two ICs (1x 7402, one 7408).
    nor #10 nor_74hct02a (x0, mar[15], mar[14]);
@@ -165,10 +184,14 @@ module ail (mar, clock, clear, reset, autoinc);
    and #10 and_74hct08b (y1, x2, x3);
 
    and #10 and_74hct08c (hizero, y0, y1); // hizero is active high.
-   and #10 and_74hct08d (j, hizero, mar[7]); // autoinc is active high.
+   and #10 and_74hct08d (j, hizero, mar[7]); // autoindex is active high.
 
-   flipflop_112 ff (j, 0, clock, clear, reset, autoinc, ,
-		    0, 0, clock, 1'b1, 1'b1, , );
+   // set_autoinc & reset is used *ONLY* for Verilog. For a real circuit, no
+   // gate should be installed, and the initial autoinc/autodec mode is
+   // undefined. Programs are expected to set one or the other.
+   
+   flipflop_112 ff (j, 0, clock, clear, reset, autoindex, ,
+		    0, 0, 0, 1, 1, , );
 
 endmodule // ail
 
@@ -197,28 +220,32 @@ endmodule // ail
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-module unit_demux (r_unit, w_unit, clock_read, clock_write, clock_pulse, reset,
-		   w_dbus, w_mar, w_pc, w_ir, w_dr, w_a,
-		   r_dbus, r_pc, r_agl, r_const, r_dr, r_a,
+module unit_demux (r_unit, w_unit, clock14,
+		   busbusy, reset, guardpulse,
+		   //w_dbus,
+		   w_mar, w_pc, w_ir, w_dr, w_a,
+		   //r_dbus,
+		   r_pc, r_agl, r_cs1, r_cs2, r_dr, r_a,
 		   r_add, r_and, r_or, r_xor, r_not, r_roll);
    input [3:0] r_unit;
    input [2:0] w_unit;
-   input       clock_read;
-   input       clock_write;
-   input       clock_pulse;
+   input       clock14;
+   input       busbusy;
    input       reset;
+   input       guardpulse;
 
-   output      w_dbus;
+   //output      w_dbus;
    output      w_mar;
    output      w_pc;
    output      w_ir;
    output      w_dr;
    output      w_a;
 
-   output      r_dbus;
+   //output      r_dbus;
    output      r_pc;
    output      r_agl;
-   output      r_const;
+   output      r_cs1;
+   output      r_cs2;
    output      r_dr;
    output      r_a;
    output      r_add;
@@ -235,43 +262,60 @@ module unit_demux (r_unit, w_unit, clock_read, clock_write, clock_pulse, reset,
    wire [7:0]  w_y0;
    wire [7:0]  r_y0, r_y1;
 
-   // Write-unit decoder (always enabled)
-   demux_138 w_demux (1, 0, 0, w_unit, w_y0);
-   //flipflop_175 wff0 (w_y0[3:0], w_y[3:0], , clock_write, reset);
-   //flipflop_175 wff1 (w_y0[7:4], w_y[7:4], , clock_write, reset);
-   // TODO: fix choice of FF here.
-   //flipflop_574 w_reg (w_y0, w_y, clock_write, ~reset);
+   initial begin
+      $display("BOM: 74x32");
+      $display("BOM: 74x32");
+   end
+
+   // Write-unit decoder. Enabled when clock14 = 0.
+   demux_138 w_demux (1, 0, clock14, w_unit, w_y0);
    assign w_y = w_y0;
- 
 
    // w_y[0] = no write unit
-   or (w_dbus, w_y[1], clock_pulse);	// 001 = DBUS
-   or (w_mar, w_y[2], clock_pulse);	// 010 = MAR
-   or (w_pc, w_y[3], clock_pulse);	// 011 = PC
-   or (w_ir, w_y[4], clock_pulse);	// 100 = IR
-   or (w_dr, w_y[5], clock_pulse);	// 101 = DR
-   or (w_a, w_y[6], clock_pulse);	// 110 = A
-   //or (w_pr, w_y[7], clock_pulse);	// 111 = PR
-
+   //assign w_dbus = w_y[1];
+   assign w_mar = w_y[2];
+   assign w_pc = w_y[3];
+   assign w_ir = w_y[4];
+   assign w_dr = w_y[5];
+   assign w_a = w_y[6];
+   // w_y[7] is unused.
+   
+   //or #10 or_7432_1a (w_dbus, w_y[1], clock14);	// 001 = DBUS
+   //or #10 or_7432_1b (w_mar, w_y[2], clock14);	// 010 = MAR
+   //or #10 or_7432_1c (w_pc, w_y[3], clock14);	// 011 = PC
+   //or #10 or_7432_1d (w_ir, w_y[4], clock14);	// 100 = IR
+   //or #10 or_7432_2a (w_dr, w_y[5], clock14);	// 101 = DR
+   //or #10 or_7432_2b (w_a, w_y[6], clock14);	// 110 = A
+   ////or (w_pr, w_y[7], clock14);	// 111 = PR
 
    // Read-unit 4-to-16 decoder (always enabled)
-   demux_138 r_demux0 (1, 0, r_unit[3], r_unit[2:0], r_y0);
+   demux_138 r_demux0 (1, r_unit[3], 0, r_unit[2:0], r_y0);
    demux_138 r_demux1 (r_unit[3], 0, 0, r_unit[2:0], r_y1);
    
-   //flipflop_574 r_reg (r_y0, r_y, clock_read, ~reset);
-   ////flipflop_175 rff0 (r_y0[3:0], r_y[3:0], , clock_read, reset);
-   ////flipflop_175 rff1 (r_y0[7:4], r_y[7:4], , clock_read, reset);
-
    assign r_y = {r_y1, r_y0};
 
+
+   // The Constant Store and Address Generation Logic seem to be
+   // causing problems with bus contention. We'll OR their enable
+   // lines with the guardpulse to make sure they let go of the bus in
+   // time. For now, the remaining units don't seem to cause bus
+   // contentions, so we'll leave them as they are.
+
+   or #20 or_7432_2c (r_agl, r_y[2], guardpulse);
+   or #20 or_7432_2d (r_cs1, r_y[6], guardpulse);
+   or #20 or_7432_3a (r_cs2, r_y[7], guardpulse);
+   //assign r_agl = r_y[2];	// 010 = AGL
+   //assign r_cs1 = r_y[6];	// 110 = constant source 1
+   //assign r_cs2 = r_y[7];	// 111 = constant source 2
+
    // r_y[0] = no read unit
-   assign r_dbus = r_y[1];	// 001 = DBUS
-   assign r_agl = r_y[2];	// 010 = AGL
+   //assign r_dbus = r_y[1];	// 001 = DBUS
+   //assign r_agl = r_y[2];	// 010 = AGL
    assign r_pc = r_y[3];	// 011 = PC
    assign r_dr = r_y[4];	// 100 = IR
    assign r_a = r_y[5];		// 101 = A
-   assign r_const = r_y[6];	// 110 = constant (OP decides between 0 and 1)
-   //assign r_pr = r_y[7];	// 111 = PR
+   //assign r_cs1 = r_y[6];	// 110 = constant source 1
+   //assign r_cs2 = r_y[7];	// 111 = constant source 2
 
    assign r_add = r_y[8];
    assign r_and = r_y[9];
@@ -285,6 +329,40 @@ endmodule // unit_demux
 
 ///////////////////////////////////////////////////////////////////////////////
 //
+// FUNCTION: The flag unit.
+//
+///////////////////////////////////////////////////////////////////////////////
+
+module flag_unit (a, n, z);
+   input [15:0] a;
+   output 	n;
+   output 	z;
+
+   wire [15:0] 	a;
+   tri0 	n;
+   tri0 	z;
+
+   // The easy one.
+   assign n = a[15];	// Twos complement: A[15] == 1 => A < 0
+
+   wire z0, z1, z2, z3;
+
+   initial begin
+      $display("BOM: 4072");
+      $display("BOM: 7425");
+   end
+   
+   or #10 zf_or_4072_1a (z3, a[15], a[14], a[13], a[12]);
+   or #10 zf_or_4072_1b (z2, a[11], a[10], a[9], a[8]);
+   or #10 zf_or_4072_2a (z1, a[7], a[6], a[5], a[4]);
+   or #10 zf_or_4072_2b (z0, a[3], a[2], a[1], a[0]);
+   nor #10 zf_nor_7425a (z, z3, z2, z1, z0);
+
+endmodule // flag_unit
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
 // FUNCTION: Control Unit
 //
 // NOTES: read and interpret microcode that will be used to drive other CPU
@@ -293,17 +371,23 @@ endmodule // unit_demux
 ///////////////////////////////////////////////////////////////////////////////
 
 module control_unit (abus, dbus, ibus,
-		     reset,
-		     clock, clock2, clock3, clock4,
-		     mem, io, r, w, halt);
+		     reset, rst_hold, irq,
+		     clock, __clock2, __clock3, __clock4, clock14, guardpulse,
+		     mem, io, r, w, halt,
+		     iospace_region);
    inout [15:0]  dbus;
    inout [15:0]  ibus;
    input 	 reset;		// -RESET: active low reset signal
+   input 	 rst_hold;	// Long reset pulse to allow hardware to settle.
+   input 	 irq;           // active low interrupt request signal
 
-   output 	 clock;
-   output 	 clock2;	// Phase 2 of the clock.
-   output 	 clock3;	// Phase 3 of the clock.
-   output 	 clock4;	// Phase 4 of the clock.
+   input  	 clock;
+   input  	 __clock2;	// Phase 2 of the clock.
+   input  	 __clock3;	// Phase 3 of the clock.
+   input  	 __clock4;	// Phase 4 of the clock.
+   input  	 clock14;
+   input  	 guardpulse;
+
    output [15:0] abus;
    output        mem;
    output        io;
@@ -311,21 +395,25 @@ module control_unit (abus, dbus, ibus,
    output        w;
    output 	 halt;
 
-   wire 	 clock14;
-
-   assign clock14 = clock | clock4;
+   output [7:0]  iospace_region;
 
    wire [15:0] 	 dbus;
    //reg  [15:0]   dbus_write;	// Driver for writing data to the dbus.
    
    wire [15:0] 	 ibus;
    //wire [15:0]   ibus_write;	// Driver for writing data to the ibus.
-   wire 	 clock;
    wire 	 reset;
 
    wire [15:0] 	 abus;
 
    wire [15:0] 	 ir;
+
+   // Unbuffered values from the registers used to control/drive units other
+   // than the ibus, and also for the front panel.
+   wire [15:0] pc_unbuf;
+   wire [15:0] mar_unbuf;
+   wire [15:0] a_unbuf;
+   wire [15:0] dr_unbuf;
    
    // ACTIVE-HIGH LINES ARE PULLED DOWN
    tri0 [2:0] 	 write_unit;	// The unit to write to
@@ -336,6 +424,7 @@ module control_unit (abus, dbus, ibus,
    tri1 	 w_dr;		// Write to the DR
    tri1 	 w_a;		// Write to the A
    tri1 	 w_mar;		// Write to the MAR
+   tri1 	 w_ir;		// Write to the IR.
    
    tri0 [3:0] 	 read_unit;	// The unit to read from
 
@@ -343,7 +432,8 @@ module control_unit (abus, dbus, ibus,
    tri1 	 r_dbus;	// Read from the data bus
    tri1 	 r_pc;		// Read the PC
    tri1 	 r_agl;		// Address generation logic
-   tri1 	 r_const;	// Constant store
+   tri1 	 r_cs1;	// Constant store (bank 1)
+   tri1 	 r_cs2;	// Constant store (bank 2)
    tri1 	 r_dr;		// Read the DR
    tri1          r_a;		// Read the Accumulator
    tri1 	 r_add;		// ALU ADD
@@ -355,8 +445,11 @@ module control_unit (abus, dbus, ibus,
 
    tri1 	 inc_a;		// Increment A
    tri0 	 cpl;		// Complelent L
-   tri0 	 cpi;		// Complement I
    tri1          inc_pc;	// Increment PC
+
+   tri1 	 inc_dr;
+   //tri1          dec_dr; // Reserved signal.
+   
 
    tri0          l_out;		// L output from the ALU
    tri0          l_latch; 	// Clock in L output from the ALU
@@ -364,13 +457,14 @@ module control_unit (abus, dbus, ibus,
    // ACTIVE-LOW LINES ARE PULLED UP
    tri1 	 cll;		// Clear L
    tri1 	 cli;		// Clear I
+   tri1 	 sti;		// Set I
    
    //tri1		 dab;		// -DAB: drive address bus
    tri1		 mem;		// -MEM: memory access
    tri1		 io;		// -IO: I/O access
    tri1		 r;		// -R: read data
    tri1		 w;		// -W: read data
-   tri1          go_fetch; 	// -END: go back to fetch cycle.
+   tri1          iend; 	// -END: go back to fetch cycle.
 
    // This is output by the temporary debug I/O unit. In a real implementation,
    // the front panel I/O unit would contain a flip-flop to control the clock,
@@ -379,52 +473,15 @@ module control_unit (abus, dbus, ibus,
 
    // Autoincrement: this control signal is 0 when the MAR incicates
    // an auto-increment location.
-   wire          autoinc;
+   wire          autoindex;
 
    wire [12:0] 	 uaddr;		// The microROM address.
    wire [23:0] 	 control;	// Control signals from the microROM.
 
-   ///////////////////////////////////////////////////////////////////////////////
-   //
-   // Clock generation
-   //
-   // For experimentation, we have a three phase clock (0°, 90°, 180°,
-   // 270°). Some of these clocks may go away later.
-   //
-   // The clock generator has a reset signal. It only counts when reset is
-   // inactive.
-   //
-   // The parameter is the period (in ns) of the clock. 1,000 ns = 1 μs =
-   // 1/(1MHz).
-   //
-   ///////////////////////////////////////////////////////////////////////////////
+   // These are part of the system device
 
-   clock_generator #(1000) clock_generator (clock, clock2, clock3, clock4, halt, rst_hold);
-
-
-   ///////////////////////////////////////////////////////////////////////////////
-   //
-   // Reset logic
-   //
-   ///////////////////////////////////////////////////////////////////////////////
-
-   // reset rst_hold go_fetch => IR.rst
-   // ---------------------------------
-   //   0       X        X          1
-   //   1       1        1          1
-   //   1       1        0          0
-   //
-   // IR.rst = rst_hold AND ~go_fetch
-
-   // We use a 74x161 counter to perform reset sequencing.
-
-   wire 	 rst_hold, resetting, ir_rst;
-
-   //nand (neg_go_fetch, go_fetch, go_fetch);
-   //nand (ir_rst, rst_hold, neg_go_fetch);
-     
-   reset_logic #(10000) reset_logic (clock, reset, rst_hold);
-   //flipflop_112h reset_ff (1'b0, 1'b0, clock, rst_hold, go_fetch, ir_rst,);
+   wire 	 mode_autoinc;	// Active low.
+   wire 	 mode_autodec;	// Active low.
 
    ///////////////////////////////////////////////////////////////////////////////
    //
@@ -432,30 +489,15 @@ module control_unit (abus, dbus, ibus,
    //
    ///////////////////////////////////////////////////////////////////////////////
 
-   // This allows the bus to be bi-directional by simulating a tri-state bus
-   // with a bus driver. We use dbus_write (the tri-state bus-driver) to put
-   // values on the bus, or just read the dbus wires to perform a bus read.
-   //assign dbus = dbus_write;
-   //assign ibus = ibus_write;
+   // TODO: Turn buscon into 74xxx gates.
+   wire 	 buscon, guardpulse;
+   //assign #120 guardpulse = clock3 & clock4;
+   and #10 (buscon, mem, io, r, w);
 
-/* -----\/----- EXCLUDED -----\/-----
-   initial begin
-      dbus_write = {16{1'bz}};
-      //ibus_write = {16{1'bz}};
-   end
- -----/\----- EXCLUDED -----/\----- */
-
-   // Connect the dbus and ibus when mem is enabled.
-   //assign ibus = r_dbus == 1'b0 ? dbus : {16{1'bz}};
-   // port a = ibus
-   // port b = dbus
-   //
-   // w_dbus r_dbus dir en
-   // --------------------
-   wire buscon;
-   and (buscon, mem, r, w);
    buffer_245 idbuf0(r, buscon, ibus[7:0], dbus[7:0]);
    buffer_245 idbuf1(r, buscon, ibus[15:8], dbus[15:8]);
+   //buffer_245 idbuf0(r, buscon | guardpulse, ibus[7:0], dbus[7:0]);
+   //buffer_245 idbuf1(r, buscon | guardpulse, ibus[15:8], dbus[15:8]);
 
 
 
@@ -466,34 +508,42 @@ module control_unit (abus, dbus, ibus,
    ///////////////////////////////////////////////////////////////////////////////
 
    // The MAR
-   wire [15:0] mar_unbuf;
    rc_reg16 reg_mar (ibus, abus, mar_unbuf, reset, w_mar, dab);
 
    // The PC resets on /RESET, then decrements by one on /RST_HOLD.
-   wire [15:0] pc_unbuf;       // Unbuffered PC connection for the front panel.
    inc_reg16 reg_pc (ibus, ibus, pc_unbuf, w_pc, r_pc, inc_pc, 1'b1, reset);
 
    // The Accumulator
-   wire [15:0] a_unbuf;		// This goes to the ALU A port and front panel.
    inc_reg16 reg_a (ibus, ibus, a_unbuf, w_a, r_a, inc_a, 1'b1, reset);
 
-
    // The IR
-   rc_reg16 reg_ir (ibus, ir, , reset, w_ir & rst_hold, 1'b0);
+   //wire ir_and_reset;
+   //and #10 and_7408a (ir_and_reset, w_ir, rst_hold);
+   rc_reg16 reg_ir (ibus, ir, , reset, w_ir /*ir_and_reset*/, 1'b0);
 
    // The DR
-   wire [15:0] dr_unbuf;
-   inc_reg16 reg_dr (ibus, ibus, dr_unbuf, w_dr, r_dr, inc_dr, dec_dr, reset);
+   //
+   inc_reg16 reg_dr (ibus, ibus, dr_unbuf, w_dr, r_dr, inc_dr, 1, reset);
 
-   
    // The L Register
-   // TODO: Link these to the ALU.
+   wire l_unbuf;
+   
    assign alu_l_in = l_unbuf;
    reg_L reg_l (alu_l_out, alu_l_latch, cll, cpl, alu_l_toggle, clock14, reset, l_unbuf, );
 
    // The I Register
-   reg_I reg_i (cli, cpi, clock, reset, i_in, );
-   
+   wire i_flag;
+   reg_I reg_i (cli, sti, clock, reset, , i_flag); 
+
+
+   ///////////////////////////////////////////////////////////////////////////////
+   //
+   // Interrupt logic
+   //
+   ///////////////////////////////////////////////////////////////////////////////
+
+   wire int_out;
+   int_unit int (clock14, upc, iend, cli, i_flag, irq, reset, int_out);
 
    ///////////////////////////////////////////////////////////////////////////////
    //
@@ -505,23 +555,86 @@ module control_unit (abus, dbus, ibus,
 
    ///////////////////////////////////////////////////////////////////////////////
    //
+   // THE I/O SPACE DECODER
+   //
+   ///////////////////////////////////////////////////////////////////////////////
+
+   // The decoder's aim is twofold. Originally, it was meant to decode
+   // the SYSTEM device so that system flags may be accessed. It
+   // splits the least significant 10 bits of the address into eight
+   // 7-bit regions. The control lines for these regions will be
+   // exported on the bus, simplifying interfacing.
+   //
+   // The most significant 6 bits [15:10] are ignored, which is
+   // customary for CFT I/O: we partially decode the A bus because,
+   // essentially, all I/O should be zero-page-addressed.
+
+   //demux_138 iospace_demux (1, 0, 0, mar_unbuf[9:7], iospace_region);
+
+   ///////////////////////////////////////////////////////////////////////////////
+   //
+   // THE SYSTEM I/O DEVICE
+   //
+   ///////////////////////////////////////////////////////////////////////////////
+
+   // The System Device controls the CPU. It owns I/O addresses 0 to
+   // 7, which it uses as follows:
+   // 
+   // 0 000 -> 00010XX000: Autoindex = Increment
+   // 1 001 -> 00010X0001: Autoindex = Decrement
+   // 2 002 -> 00010XX010: 
+   // 3 003 -> 00010XX011: 
+   // 4 004 -> 00010XX100:
+   // 5 005 -> 00010XX101:
+   // 6 006 -> 00010XX110:
+   // 7 007 -> 00010XX111:
+
+   // DECODING:
+   //
+   // BITS:
+   // 15  14  13  12  11  10  09  08  07  06  05  04  03  02  01  00
+   // ****** IGNORED *******  ** IOR0 **   
+   //  X   X   X   X   X   X   0   0   0   1   0   X   X  D2  D1  D0
+   //
+   // Ignoring bits 10:15 which aren't really used for I/O, this
+   // partially decodes I/O addresses 00010XX011 where XXX are don't
+   // care bits and AAA are the actual device addresses.
+   //
+   // As such, the 32 I/O addresses 0x040 to 0x05b are used by the
+   // system (i.e. the CPU). They contain 4 copies of the same eight
+   // addresses.
+
+   //wire [7:0] sysdev;
+   //demux_138 sysdev_demux (mar_unbuf[6], mar_unbuf[5], iospace_region[0],
+   //			   mar_unbuf[2:0], sysdev);
+   //wire       set_autoinc;
+   //wire       set_autodec;
+
+   // The autoinc/autodec flipflop is in the autoincrement logic module.
+   //assign set_autoinc = sysdev[0]; // Active low
+   //assign set_autodec = sysdev[1]; // Active low
+     
+
+   ///////////////////////////////////////////////////////////////////////////////
+   //
    // AUTOINCREMENT LOGIC
    //
    ///////////////////////////////////////////////////////////////////////////////
 
-   ail unit_ail (mar_unbuf, clock, reset, go_fetch, autoinc);
-   
+   //ail unit_ail (mar_unbuf, clock, reset, iend, autoindex,
+   //		 set_autoinc, set_autodec, mode_autoinc, mode_autodec);
+   ail unit_ail (mar_unbuf, clock, reset, iend, autoindex);
+      
 
    ///////////////////////////////////////////////////////////////////////////////
    //
    // THE CONSTANT STORE
    //
    ///////////////////////////////////////////////////////////////////////////////
+   
+   constant_store unit_ct (rst_hold, int_out, r_cs1, r_cs2, ibus);
 
-   assign cs0 = 1'b0;
-   assign cs1 = ir[12];
-   constant_store unit_ct (r_const & rst_hold, rst_hold, {cs1, cs0}, ibus);
-
+   
    ///////////////////////////////////////////////////////////////////////////////
    //
    // THE FLAG UNIT
@@ -530,17 +643,9 @@ module control_unit (abus, dbus, ibus,
    //
    ///////////////////////////////////////////////////////////////////////////////
 
-   tri0        flag_n, flag_z;
+   wire flag_n, flag_z;
+   flag_unit flag_unit (a_unbuf, flag_n, flag_z);
 
-   // The easy one.
-   assign flag_n = a_unbuf[15];	// Twos complement: A[15] == 1 => A < 0
-
-   wire flag_z0, flag_z1, flag_z2, flag_z3;
-   or zf_or_4072_1a (flag_z3, a_unbuf[15], a_unbuf[14], a_unbuf[13], a_unbuf[12]);
-   or zf_or_4072_1b (flag_z2, a_unbuf[11], a_unbuf[10], a_unbuf[9], a_unbuf[8]);
-   or zf_or_4072_2a (flag_z1, a_unbuf[7], a_unbuf[6], a_unbuf[5], a_unbuf[4]);
-   or zf_or_4072_2b (flag_z0, a_unbuf[3], a_unbuf[2], a_unbuf[1], a_unbuf[0]);
-   nor zf_nor_7425a (flag_z, flag_z3, flag_z2, flag_z1, flag_z0);
    
    ///////////////////////////////////////////////////////////////////////////////
    //
@@ -554,7 +659,11 @@ module control_unit (abus, dbus, ibus,
    wire [2:0] rollop = ir[2:0];	// The least significant 3 bits of the IR
 				// select the roll op.
 
-   // TODO: Fix this.
+   wire alu_l_in;
+   wire alu_l_out;
+   wire alu_l_toggle;
+   wire alu_l_latch;
+
    alu alu (a_unbuf, dr_unbuf, clock14,
 	    r_add, r_and, r_or, r_xor, r_not, r_roll, rollop,
 	    alu_l_in, alu_l_toggle, alu_l_out, alu_l_latch,
@@ -564,6 +673,10 @@ module control_unit (abus, dbus, ibus,
    ///////////////////////////////////////////////////////////////////////////////
    //
    // Sequencing
+   //
+   // This is build around a microcode ROM addressed by a vector of various
+   // signals around the CPU. The microcode ROM outputs control signals that
+   // drive CPU units and can also change the microcode address.
    //
    ///////////////////////////////////////////////////////////////////////////////
 
@@ -576,31 +689,38 @@ module control_unit (abus, dbus, ibus,
    assign inc_a = control[11];
    assign cpl = control[12];	// Complement L
    assign cll = control[13];	// Clear L
-   assign cpi = control[14];	// Complement I
+   assign sti = control[14];	// Set I
    assign cli = control[15];	// Clear I
    
    assign inc_pc = control[16];
    assign inc_dr = control[17];
-   assign dec_dr = control[18];
-   assign mem = control[19];
-   assign io = control[20];
-   assign r = control[21];
-   assign w = control[22];
-   assign go_fetch = control[23];
+   //assign dec_dr = control[18];
+   assign mem = control[19];	// Active low
+   assign io = control[20];	// Active low
+   assign r = control[21];	// Active low
+   assign w = control[22];	// Active low
+   assign iend = control[23];	// Active low
+   
    //assign halt = control[23];
 
-   and #8 and_7408(dab, mem, io);
+   wire 	  dab;
+   and #8 and_7408c(dab, mem, io);
    
    // The microPC
-   wire [3:0]	 upc;
-   ucounter reg_upc (clock, rst_hold, go_fetch, upc);
+   wire [3:0] 	  upc;
+   ucounter reg_upc (clock, rst_hold, iend, upc);
 
    // The MicroROM address vector.
-   assign uaddr = {rst_hold, 1'b0, ir[15:12], ir[11], skip, autoinc, upc};
+   assign uaddr = {rst_hold, int_out, ir[15:12], ir[11], skip, autoindex, upc};
 
+   // The MicroROM itself.
+   microrom microrom (uaddr, control, reset);
+
+   // Debugging.
+`ifndef DISABLE_CU_DEBUGGING
    always @(upc) begin
       if (upc == 3) begin
-      $display("PC: %h  IR: %s %s %b %h  A: %h  DR: %h", pc_unbuf,
+      $display("PC: %h  IR: %s %s %b %h  L: %b  A: %h  DR: %h AINC: %d", pc_unbuf,
 	       ir[15:12] == 0? "TRAP" :
 	       ir[15:12] == 1? "????" :
 	       ir[15:12] == 2? "LOAD" :
@@ -617,145 +737,29 @@ module control_unit (abus, dbus, ibus,
 	       ir[15:12] == 13? "OP2 " :
 	       ir[15:12] == 14? "???? " :
 	       ir[15:12] == 15? "LIA " : "????",
-	       ir[11] ? "I" : " ", ir[10] ? " " : "Z", ir[9:0], a_unbuf, dr_unbuf);
+	       ir[11] ? "I" : " ", ir[10] ? " " : "Z", ir[9:0], l_unbuf, a_unbuf, dr_unbuf, 
+	       mode_autoinc);
 	 end
-   end
-
-   microrom microrom (uaddr, control, reset);
-
+   end // always @ (upc)
+`endif
+   
    // The skip unit, plus registering of the SKIP signal.
-   skip_unit skip_unit (skipctl, ir[9:0], flag_z, flag_n, l_unbuf, ~rst_hold, skip0);
+   wire skip0, skip;
    wire [2:0] 	 dummy;
+   wire 	 nrst_hold;
+
+   not #10 my_not(nrst_hold, rst_hold);
+   
+   skip_unit skip_unit (skipctl, ir[9:0], flag_z, flag_n, l_unbuf, nrst_hold, skip0);
    flipflop_175 skip_reg ({3'b0, skip0}, {dummy, skip}, , clock, reset);
 
-   //flipflop_174 skip_reg (skip0, skip, clock, rst_hold);
-
    // Decode the signals in the microinstruction into individual signals to control units.
-   unit_demux unit_demux (read_unit, write_unit, clock2, clock, clock14, reset,
-			  w_dbus, w_mar, w_pc, w_ir, w_dr, w_a,
-			  r_dbus, r_pc, r_agl, r_const, r_dr, r_a,
+   unit_demux unit_demux (read_unit, write_unit, clock14, buscon, reset, guardpulse,
+			  /*w_dbus,*/ w_mar, w_pc, w_ir, w_dr, w_a,
+			  /*r_dbus,*/ r_pc, r_agl, r_cs1, r_cs2, r_dr, r_a,
 			  r_add, r_and, r_or, r_xor, r_not, r_roll);
 
-   // TODO: move this elsewhere.
-   memory memory (abus, dbus, mem, r, w);
-   
-   // TODO: move this elsewhere.
-   debug_io debug_io (abus, dbus, io, r, w, halt);
-   
-
 endmodule
-   
-
-///////////////////////////////////////////////////////////////////////////////
-//
-// FUNCTION: An array of SRAMs to the tune of 262,144 16-bit words.
-//
-// NOTE: combines two 8-bit SRAMs. We preload a ram image to simplify
-// simulation.
-//
-///////////////////////////////////////////////////////////////////////////////
-
-module memory (abus, dbus, mem, r, w);
-
-   input [15:0] abus;
-   inout [15:0] dbus;
-
-   input 	mem;		// /MEM: cpu wants to talk to RAM.
-   input 	r;		// /R: latch data FROM memory.
-   input 	w;		// /W: latch data TO memory.
-
-   wire [17:0] 	a;
-   wire [15:0] 	dbus;
-   wire 	mem;
-   wire 	r;
-   wire 	w;
-
-   assign a[17:16] = 2'b00;	// Force high order bits to zero.
-   assign a[15:0] = abus[15:0];	// Connect the low order bits to the abus.
-
-   // CPU /W -->  SRAM /WE
-   // CPU /R -->  SRAM /OE
-   // TODO: change the file.
-   // REMOVE THIS!!!
-   //assign dbus = (mem || r) ? 16'bzzzzzzzzzzzzzzzz : 16'hffff;
-   //assign dbus = (mem || r) ? 16'bzzzzzzzzzzzzzzzz : a;
-   wire [7:0] 	x;
-
-   // Debugging.
-   always @(posedge w, posedge mem) begin
-      if (!w || !mem) begin
-	 $display("sram[", abus, "] <- ", dbus);
-      end
-   end
-   
-   sram #(18, 55, "../a-00.list", "lo") sram_lo (a, dbus[7:0], mem, w, r);
-   sram #(18, 55, "../a-01.list", "hi") sram_hi (a, dbus[15:8], mem, w, r);
-endmodule
-   
-   
-
-///////////////////////////////////////////////////////////////////////////////
-//
-// FUNCTION: Simulate some I/O for debugging purposes.
-//
-///////////////////////////////////////////////////////////////////////////////
-
-module debug_io (abus, dbus, io, r, w, halt);
-
-   input [15:0] abus;
-   inout [15:0] dbus;
-
-   input 	io;		// /MEM: cpu wants to talk to RAM.
-   input 	r;		// /R: latch data FROM memory.
-   input 	w;		// /W: latch data TO memory.
-
-   output 	halt;		// Debugging only.
-
-   wire [17:0] 	a;
-   wire [15:0] 	dbus;
-   wire 	mem;
-   wire 	r;
-   wire 	w;
-
-   reg 		halt;
-
-   assign a[17:16] = 2'b00;	// Force high order bits to zero.
-   assign a[15:0] = abus[15:0];	// Connect the low order bits to the abus.
-
-   // CPU /W -->  SRAM /WE
-   // CPU /R -->  SRAM /OE
-   // TODO: change the file.
-   // REMOVE THIS!!!
-   //assign dbus = (mem || r) ? 16'bzzzzzzzzzzzzzzzz : 16'hffff;
-   //assign dbus = (mem || r) ? 16'bzzzzzzzzzzzzzzzz : a;
-   wire [7:0] 	x;
-
-   wire [9:0] 	addr = abus & 'h3ff;
-
-   initial begin
-      halt = 1;
-   end
-   
-   // Debugging.
-   always @(posedge w, posedge io) begin
-      if (!w || !io) begin
-	 if (addr == 'h001) begin
-	    $display("*** HALTING");
-	    halt <= 1'b0;
-	 end
-	 else if (addr == 'h101) begin
-	    //$display("*** PRINT CHAR: '%s'", dbus[7:0]);
-	    $display("CONSOLE: %s", dbus[7:0]);
-	 end
-	 else if (addr == 'h102) begin
-	    $display("CONSOLE: %d", dbus);
-	    //$display("*** PRINT INT: %d (%x, %b)", dbus, dbus, dbus);
-	 end
-	 else $display("io[%h] <- %h", addr, dbus);
-      end
-   end
-endmodule
-   
    
 
 // End of file.

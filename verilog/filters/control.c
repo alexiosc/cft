@@ -1,11 +1,12 @@
 #include <stdio.h>
 #include <string.h>
 
-char *to_unit[] = {
-	"", "dbus=", "mar=", "pc=", "ir=", "dr=", "a=", "pr="
+char *to_unit[8] = {
+	"", "dbus=", "mar=", "pc=", "ir=", "dr=", "a=", "b="
 };
-char *from_unit[] = {
-	"", "dbus", "agl", "pc", "dr", "a", "cs", "pr", "add", "and", "or", "xor", "not", "roll"
+char *from_unit[16] = {
+	"", "dbus", "agl", "pc", "dr", "a", "cs1", "cs2", "add", "and", "or", "xor", "not", "roll",
+	"?", "?"
 };
 char *skip_unit[] = {
 	"", "if3", "if4", "if5", "if6", "if7", "if8", "if9", /* 0-7 */
@@ -39,12 +40,12 @@ int main(int argc, char **argv)
 			if ((hx & (1<<11)) == 0) add(buf2, "a++");
 			if (hx & (1<<12)) add(buf2, "cpl");
 			if ((hx & (1<<13)) == 0) add(buf2, "cll");
-			if (hx & (1<<14)) add(buf2, "cpi");
+			if ((hx & (1<<14)) == 0) add(buf2, "sti");
 			if ((hx & (1<<15)) == 0) add(buf2, "cli");
 			if ((hx & (1<<16)) == 0) add(buf2, "pc++");
 
-			if ((hx & (1<<17)) == 0) add(buf2, "dr++");
-			if ((hx & (1<<18)) == 0) add(buf2, "dr--");
+			if ((hx & (1<<17)) == 0) add(buf2, "inc_dr");
+			/*if ((hx & (1<<18)) == 0) add(buf2, "dr--");*/
 			if ((hx & (1<<19)) == 0) add(buf2, "mem");
 			if ((hx & (1<<20)) == 0) add(buf2, "io");
 			if ((hx & (1<<21)) == 0) {

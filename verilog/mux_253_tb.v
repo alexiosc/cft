@@ -1,5 +1,5 @@
-`timescale 1ns/10ps
 `include "mux.v"
+`timescale 1ns/10ps
 
 module mux_253_tb();
 
@@ -15,7 +15,7 @@ module mux_253_tb();
       $display ("time\t oe1 sel i1  y1   oe2 sel i2   y2");
       $monitor ("%g\t %b  %b  %b  %b   %b  %b  %b   %b",
 		$time, oe1, sel, i1, y1, oe2, sel, i2, y2);
-      $dumpfile ("mux_253_tb.vcd");
+      $dumpfile ("vcd/mux_253_tb.vcd");
       $dumpvars (0, mux_253_tb);
 
       oe1 = 1;

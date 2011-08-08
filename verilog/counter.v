@@ -42,6 +42,9 @@ module counter_161 (
    reg [3:0] 	q;
    reg		tc;
 
+   initial begin
+      $display("BOM: 74x161");
+   end
 
    // Note: propagation delays are for 74ACT161 running at 5V.
 
@@ -110,6 +113,10 @@ module counter_193 (clear, load, p, count_up, count_down, q, carry, borrow);
    reg [3:0] 	q;
    wire 	carry;
    wire 	borrow;
+
+   initial begin
+      $display("BOM: 74x193");
+   end
 
    always @ (posedge clear, negedge load, posedge count_up, posedge count_down) begin
       if (clear == 1) begin

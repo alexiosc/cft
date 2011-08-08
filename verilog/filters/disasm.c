@@ -97,7 +97,7 @@ int main(int argc, char **argv)
 				}
 				if (hx & 0x040) strcat(buf2, "CLA2 ");
 				if (hx & 0x020) strcat(buf2, "CLI ");
-				if (hx & 0x010) strcat(buf2, "CPI ");
+				if (hx & 0x010) strcat(buf2, "STI ");
 			} else {
 				sprintf(buf2, "%s%s%s %03x",
 					instr[opcode],

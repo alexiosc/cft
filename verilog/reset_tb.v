@@ -1,5 +1,6 @@
-`timescale 1ns/10ps
 `include "reset.v"
+
+`timescale 1ns/10ps
 
 module reset_logic_tb();
 
@@ -12,7 +13,7 @@ module reset_logic_tb();
       $display ("time\t clk reset resetting");	
       $monitor ("%g\t %b   %b     %b", 
 		$time, clk, reset, resetting);
-      $dumpfile ("reset_tb.vcd");
+      $dumpfile ("vcd/reset_tb.vcd");
       $dumpvars (0, reset_logic_tb);
 
       clk = 1'b0;

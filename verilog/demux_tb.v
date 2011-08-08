@@ -1,5 +1,5 @@
-`timescale 1ns/10ps
 `include "demux.v"
+`timescale 1ns/10ps
 
 module demux_138_tb();
 
@@ -15,7 +15,7 @@ module demux_138_tb();
       $display ("time\t g1 g2a g2b a y");	
       $monitor ("%g\t %b %b %b %b %b", 
 		$time, g1, g2a, g2b, a, y);
-      $dumpfile ("demux_tb.vcd");
+      $dumpfile ("vcd/demux_tb.vcd");
       $dumpvars (0, demux_138_tb);
 
       g1 = 0;

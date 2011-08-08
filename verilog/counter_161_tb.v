@@ -1,5 +1,8 @@
-`timescale 1ns/10ps
+`ifndef counter_161_v
+`define counter_161_v
+
 `include "counter.v"
+`timescale 1ns/10ps
 
 module counter_161_tb();
 
@@ -14,12 +17,14 @@ module counter_161_tb();
    wire [15:0] q;
    wire       tc;
 
+   wire       tc_out0, tc_out1, tc_out2;
+
    // Initialize all variables
    initial begin        
       $display ("time\t cp mr cet cep pe  p   q    tc");	
       $monitor ("%g\t %b %b %b %b %b %b %b %b", 
 		$time, cp, mr, cet, cep, pe, p, q, tc);
-      $dumpfile ("counter_161_tb.vcd");
+      $dumpfile ("vcd/counter_161_tb.vcd");
       $dumpvars (0, counter_161_tb);
 
       cp = 0;       // initial value of clock
@@ -56,4 +61,8 @@ module counter_161_tb();
    //not u1 (cet_in2, tc_out1);
    //not u2 (cet_in3, tc_out2);
 
-endmodule
+endmodule // counter_161_tb
+
+`endif //  `ifndef counter_161_v
+
+// End of file.

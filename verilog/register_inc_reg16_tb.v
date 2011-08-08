@@ -19,7 +19,7 @@ module register_inc_reg16_tb();
       $display ("time\t oe latch inc rst d q");
       $monitor ("%g\t  %b     %b   %b   %b %b               %b", 
 		$time, oe, latch, inc, reset, d, q);
-      $dumpfile ("register_inc_reg16_tb.vcd");
+      $dumpfile ("vcd/register_inc_reg16_tb.vcd");
       $dumpvars (0, register_inc_reg16_tb);
 
       d = 16'bzzzzzzzzzzzzzzzz;

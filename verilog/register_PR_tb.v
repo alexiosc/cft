@@ -22,7 +22,7 @@ module register_PR_tb();
       //$display ("time\t d latch toggle1 toggle2 clock clear reset q nq");
       //$monitor ("%g\t  %b %b %b %b %b %b b %b %b %b", 
       //	$time, d, latch, toggle1, toggle2, clock, clear, reset, q, nq);
-      $dumpfile ("register_PR_tb.vcd");
+      $dumpfile ("vcd/register_PR_tb.vcd");
       $dumpvars (0, register_PR_tb);
 
       pc_in = 0;

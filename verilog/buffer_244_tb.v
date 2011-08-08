@@ -1,5 +1,5 @@
-`timescale 1ns/10ps
 `include "buffer.v"
+`timescale 1ns/10ps
 
 module buffer_244_tb();
    reg 	      oe1, oe2;
@@ -14,7 +14,7 @@ module buffer_244_tb();
       $display ("time\t oe1 a1 y1 oe2 a2 y2");	
       $monitor ("%g\t %b %b %b %b %b %b", 
 		$time, oe1, a1, y1, oe2, a2, y2);
-      $dumpfile ("buffer_244_tb.vcd");
+      $dumpfile ("vcd/buffer_244_tb.vcd");
       $dumpvars (0, buffer_244_tb);
 
       oe1 = 1;

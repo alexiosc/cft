@@ -1,4 +1,3 @@
-`timescale 1ns/10ps
 `ifndef alu_v
 `define alu_v
 
@@ -6,6 +5,8 @@
 `include "mux.v"
 `include "demux.v"
 `include "flipflop.v"
+
+`timescale 1ns/10ps
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -67,6 +68,8 @@ module alu_roll_unit(a, l, enable, op, y, l_out);
    wire  	 l1, r1, l4, r4;
 
    wire [15:0] 	 y;
+
+   wire 	 x0, x3, x4, x7;
 
    // Decode. This is how signals aren derived:
    //
@@ -147,6 +150,13 @@ module alu_and_unit(a, b, enable, y);
    input 	 enable;
    output [15:0] y, y0;
 
+   initial begin
+      $display("BOM: 74x08");
+      $display("BOM: 74x08");
+      $display("BOM: 74x08");
+      $display("BOM: 74x08");
+   end
+
    and and_7408_4d (y0[15], a[15], b[15]);
    and and_7408_4c (y0[14], a[14], b[14]);
    and and_7408_4b (y0[13], a[13], b[13]);
@@ -187,6 +197,13 @@ module alu_or_unit(a, b, enable, y);
    input 	 enable;
    output [15:0] y, y0;
 
+   initial begin
+      $display("BOM: 74x32");
+      $display("BOM: 74x32");
+      $display("BOM: 74x32");
+      $display("BOM: 74x32");
+   end
+
    or or_7432_4d (y0[15], a[15], b[15]);
    or or_7432_4c (y0[14], a[14], b[14]);
    or or_7432_4b (y0[13], a[13], b[13]);
@@ -226,6 +243,13 @@ module alu_xor_unit(a, b, enable, y);
    input [15:0]  a, b;
    input 	 enable;
    output [15:0] y, y0;
+
+   initial begin
+      $display("BOM: 74x86");
+      $display("BOM: 74x86");
+      $display("BOM: 74x86");
+      $display("BOM: 74x86");
+   end
 
    xor xor_7486_4d (y0[15], a[15], b[15]);
    xor xor_7486_4c (y0[14], a[14], b[14]);
@@ -268,6 +292,10 @@ module adder_83(a, b, cin, s, cout);
    output [3:0] s;
    output 	cout;
 
+   initial begin
+      $display("BOM: 74x83");
+   end
+
    assign #delay {cout, s} = a + b + cin;
 endmodule // alu_83
 
@@ -284,6 +312,8 @@ module alu_add_unit(a, b, enable, y, l_out);
    
    output [15:0] y, y0;
    output 	 l_out;
+
+   wire 	 c0, c1, c2, c3;
 
    adder_83 add0(a[3:0],   b[3:0],   1'b0, y0[3:0],   c0);
    adder_83 add1(a[7:4],   b[7:4],   c0,   y0[7:4],   c1);
@@ -334,14 +364,21 @@ module alu (a, b,
 
    wire 	 oe;		// Active low: control tri-stating of y.
 
+   // Wires for internal logic.
+   wire 	 oe1, oe2;
+
    // Output enable using one 4073 (triple 3-input AND)
    and and_4073a (oe1, e_add, e_and, e_or);
    and and_4073b (oe2, e_xor, e_not, e_roll);
    and and_4073c (oe, oe1, oe1, oe2);
 
+   initial begin
+      $display("BOM: 74x73/4073");
+   end
+
    // L Latch: only applies to ADD and ROLL.
-   assign l_latch = e_roll;
-   //nand nor_xxxxa (l_latch, e_add, e_roll);
+   //assign l_latch = e_roll;
+   nand nor_xxxxa (l_latch, e_roll, e_roll);
 
    // The ALU units.
    alu_add_unit add_unit(a, b, e_add, y, add_l_out);

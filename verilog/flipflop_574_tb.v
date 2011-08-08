@@ -1,5 +1,5 @@
-`timescale 1ns/10ps
 `include "flipflop.v"
+`timescale 1ns/10ps
 
 module flipflop_574_tb();
 
@@ -15,7 +15,7 @@ module flipflop_574_tb();
       $display ("time\t oe clk d        q");	
       $monitor ("%g\t %b %b %b %b", 
 		$time, oe, clk, d, q);
-      $dumpfile ("out.vcd");
+      $dumpfile ("vcd/out.vcd");
       $dumpvars (0, flipflop_574_tb);
 
       oe = 1;

@@ -1,3 +1,12 @@
+///////////////////////////////////////////////////////////////////////////////
+//
+// FUNCTION: ROM
+//
+///////////////////////////////////////////////////////////////////////////////
+
+`ifndef rom_v
+`define rom_v
+
 `timescale 1ns/10ps
 
 module rom (a, d, ce, oe);
@@ -21,8 +30,13 @@ module rom (a, d, ce, oe);
 
    initial begin
       $readmemb(bin_fname, mem); // Read the memory image.
+      $display("BOM:%d kbit EEPROM", 1<<(bits - 7));
    end
 
    assign #access_time d = (oe | ce) ? {8{1'bz}} : mem[a];
 
-endmodule // End of Module counter
+endmodule // rom
+
+`endif //  `ifndef rom_v
+
+// End of file.

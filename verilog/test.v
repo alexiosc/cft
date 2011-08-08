@@ -1,54 +1,70 @@
+`include "flipflop.v"
+`include "clock.v"
+
 `timescale 1ns/10ps
 
 module test();
 
-   reg d, inc;
-   wire d1, d2, d3, pulse1, pulse2, pulse;
-   
+   reg rawclk;
+
+   reg reset;
+   reg halt;
+   reg run;
+      
 initial begin
      
-     $display ("time\t d pulse");
-     $monitor ("%g\t  %b %b %b %b", 
-      	       $time, d, pulse1, pulse2, pulse);
-     $dumpfile ("test.vcd");
+     //$display ("time\t d pulse");
+     //$monitor ("%g\t  %b %b %b %b", 
+     // 	       $time, d, pulse1, pulse2, pulse);
+     $dumpfile ("vcd/test.vcd");
      $dumpvars (0, test);
 
-   d = 0;
-   inc = 0;
-
-   #400 inc = 1;
-   #5000 inc = 0;
+   rawclk = 0;
+   reset = 0;
+   halt = 1;
+   run = 0;
+   #50 reset = 1;
+   #5000 halt = 0;
+   #250 halt = 1;
+   #5000 run = 1;
+   #250 run = 0;
 
    #10000 $finish;
      
   end // initial begin
 
    always begin
-     #500 d = ~d;
+      #125 rawclk = ~rawclk;
    end
 
-   // Detect the rising edge.
-   nand #8 u1 (d1, d, d);
-   nand #8 u2 (pulse1, d, d1);
-
-   // Detect the falling edge.
-   nand #8 u3 (d2, d1, d1);
-   nand #8 u4 (pulse2, d2, d1);
-
-   // Combine the two edge detectors.
-   nand #8 u5 (pulse3, pulse1, pulse2);
-
-   // Only pulse when inc is high.
-   nand #8 u6 (pulse4, inc, pulse3);
-   nand #8 u7 (pulse, pulse4, pulse4);
-
-
-   nand #10 ua (e1, d, d);
-   nand #10 ub (e2, e1, e1);
-   nand #10 uc (e3, e2, e2);
-   nand #10 ud (e4, e3, e3);
-   nand #10 ue (e5, e4, e4);
-   nand #10 uf (test2, d, e5);
+   wire myclock, myclock2, myclock3, myclock4;
    
+   assign myclock4 = qn1;
+   assign myclock3 = qn2;
+   assign myclock2 = q1;
+   assign myclock = q2;
 
+   // The first FF: The run-clock FF is cleared by the /RESET signal,
+   // and set by the /HALT signal.  The second FF produces clk and
+   // nclk, complementary clocks at 0° and 180°, and obviously divides
+   // the clock by two.
+   wire clk, nclk;
+   flipflop_112 ff1 (run, 0, rawclk, reset, halt, clken, nclken,
+		    1, 1, rawclk, 1, reset, clk, nclk);
+
+   wire clken, nclken, clk1, nclk1;
+   nand and_7408a (clk1, clk, clken);
+   nand and_7408b (nclk1, nclk, clken);
+   
+   // Clock divider and phase generator.
+   wire q1, q2, qn1, qn2;
+   flipflop_112 ff2 (1, 1, clk1, 1, reset, q1, qn1,
+		    1, 1, nclk1, 1, reset, q2, qn2);
+
+   wire myclock14;
+   nand nand_7408c (myclock14, myclock2, myclock3);
+
+   wire gc, gc2, gc3, gc4, gc14, gp;
+   clock_generator cgen (halt, 0, 0, reset, gc, gc2, gc3, gc4, gc14, gp);
+   
 endmodule // tritest

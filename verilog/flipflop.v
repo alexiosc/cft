@@ -41,6 +41,10 @@ module flipflop_112 (j1, k1, clk1, set1, rst1, q1, qn1,
    wire   q1, qn1;
    wire   q2, qn2;
 
+   initial begin
+      $display("BOM: 74x112");
+   end
+
    flipflop_112h flipflop_112h1 (j1, k1, clk1, set1, rst1, q1, qn1);
    flipflop_112h flipflop_112h2 (j2, k2, clk2, set2, rst2, q2, qn2);
 endmodule
@@ -52,11 +56,6 @@ module flipflop_112h (j, k, clk, set, rst, q, qn);
 
    wire j, k, clk, set, rst;
    reg 	q, qn;
-
-   // initial begin
-   //    q <= $random;
-   //    qn <= $random;
-   // end
 
    always @ (set, rst, negedge clk) begin
       case ({set, rst})
@@ -120,6 +119,10 @@ module flipflop_174 (d, q, clk, rst);
  	
    reg [5:0] 	q;
 
+   initial begin
+      $display("BOM: 74x174");
+   end
+
    always @ (rst, posedge clk)
      begin
 	if (rst == 1'b0) begin
@@ -165,6 +168,10 @@ module flipflop_175 (d, q, nq, clk, rst);
    reg [3:0] 	q;
    reg [3:0] 	nq;
 
+   initial begin
+      $display("BOM: 74x175");
+   end
+
    always @ (rst, posedge clk)
      begin
 	if (rst == 1'b0) begin
@@ -181,6 +188,7 @@ endmodule // End of Module counter
 ///////////////////////////////////////////////////////////////////////////////
 //
 // Function: 74x574 8-bit synchronous D flip-flop
+//           74x273 8-bit synchronous D flip-flop
 //
 // Dataset: 
 //
@@ -205,6 +213,7 @@ module flipflop_574 (d, q, clk, oe);
 
    initial begin
       q0 <= $random;
+      $display("BOM: 74x574");
    end
 
    always @ (posedge clk)
@@ -234,6 +243,7 @@ module flipflop_564 (d, q, clk, oe);
 
    initial begin
       q0 <= $random;
+      $display("BOM: 74x564");
    end
 
    always @ (posedge clk)

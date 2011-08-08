@@ -1,44 +1,45 @@
-`timescale 1ns/10ps
 `include "constant_store.v"
+
+`timescale 1ns/10ps
 
 module constant_store_tb();
 
 // Declare inputs as regs and outputs as wires
-   reg         oe;
-   reg         rst;
-   reg [1:0]   cs;
+   reg         in_rst;
+   reg         in_int;
+   reg 	       r_cs1;
+   reg 	       r_cs2;
    wire [15:0] q;
-   
+
+   integer     i;
+
    // Initialize all variables
    initial begin        
-      $display ("time\t rst oe cs q");	
-      $monitor ("%g\t %b   %b  %b %b", 
-		$time, rst, oe, cs, q);
+      //$display ("time\t rst oe cs q");	
+      //$monitor ("%g\t %b   %b  %b %b", $time, rst, oe, cs, q);
 
-      $dumpfile ("constant_store_tb.vcd");
+      $dumpfile ("vcd/constant_store_tb.vcd");
       $dumpvars (0, constant_store_tb);
 
-      oe = 1;
-      rst = 1;
-      cs = 2'b00;
+      in_rst = 1;
+      in_int = 1;
+      r_cs1 = 1;
+      r_cs2 = 1;
 
-      #200 oe = 0;
-      #200 cs = 2'b00;
-      #200 cs = 2'b01;
-      #200 cs = 2'b10;
-      #200 cs = 2'b11;
-
-      #200 rst = 0;
-      #200 oe = 0;
-      #200 cs = 2'b00;
-      #200 cs = 2'b01;
-      #200 cs = 2'b10;
-      #200 cs = 2'b11;
+      #200 in_rst = 0;
+      for (i = 0; i < 16; i = i + 1) begin
+	 #200 begin
+	    in_rst = i & 8 ? 1 : 0;
+	    in_int = i & 4 ? 1 : 0;
+	    r_cs2 = i & 2 ? 1 : 0;
+	    r_cs1 = i & 1;
+	 end
+      end
       
-      #1000 $finish;      // Terminate simulation
+      #500 $finish;      // Terminate simulation
    end
    
    // Connect DUT to test bench
-   constant_store constant_store (oe, rst, cs, q);
+   constant_store constant_store (in_rst, in_int, r_cs1, r_cs2, q);
 
 endmodule

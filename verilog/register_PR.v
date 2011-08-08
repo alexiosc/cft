@@ -76,6 +76,7 @@ module reg_pr (pc_in, w_pc, inc_pc, pr_in, w_pr, oe, pr_out, pr_unbuf);
    // Method B (w_pr = 0):
    // A   15 14 13 12 11 10 09 08 07 06 05 03 02 01 00
    // PR                              5  4  3  2  1  0
+   wire 	 sel;
    mux_257 src_mux_1 (sel, {2'b00, pc_in[15:14]}, {2'b00, pr_in[5:4]}, 0, {_pad, pgbus[5:4]});
    mux_257 src_mux_0 (sel, pc_in[13:10], pr_in[3:0], 0, pgbus[3:0]);
 
@@ -87,6 +88,7 @@ module reg_pr (pc_in, w_pc, inc_pc, pr_in, w_pr, oe, pr_out, pr_unbuf);
    // typical delay. Use all four of them, plus the spare one from the latch
    // encoder: 50ns delay.
 
+   wire 	 sel0, sel1, sel2, sel3;
    nand #10 nand_74hct00_1 (sel0, w_pr, w_pr); // !w_pr
    nand #10 nand_74hct00_2 (sel1, sel0, sel0);
    nand #10 nand_74hct00_3 (sel2, sel1, sel1); // !w_pr

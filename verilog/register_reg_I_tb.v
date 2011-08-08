@@ -16,7 +16,7 @@ module register_reg_I_tb();
       $display ("time\t clear toggle clock reset q nq");
       $monitor ("%g\t  %b %b %b %b %b %b", 
 		$time, clear, toggle, clock, reset, q, nq);
-      $dumpfile ("register_reg_I_tb.vcd");
+      $dumpfile ("vcd/register_reg_I_tb.vcd");
       $dumpvars (0, register_reg_I_tb);
 
       clear = 0;
