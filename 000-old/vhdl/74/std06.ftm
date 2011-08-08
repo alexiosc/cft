@@ -1,0 +1,25 @@
+<!DOCTYPE FTML SYSTEM "ftml.dtd">
+<FTML><HEAD><TITLE>FMF Timing for STD06 Parts</TITLE>
+<REVISION.HISTORY>
+version: |  author:  | mod date: | changes made:
+  V1.0     R. Munden   98 MAY 08   Initial release
+</REVISION.HISTORY>
+</HEAD>
+<BODY>
+<TIMESCALE>1ns</TIMESCALE>
+<MODEL>STD06
+<FMFTIME>
+DM7406M<SOURCE>Fairchild Semiconductor data sheet March 1998</SOURCE>
+DM7406N<SOURCE>Fairchild Semiconductor data sheet March 1998</SOURCE>
+SN7406D<SOURCE>Texas Instruments SDLS031-Revised March 1988</SOURCE>
+SN7406N<SOURCE>Texas Instruments SDLS031-Revised March 1988</SOURCE>
+SN7406NS<SOURCE>Texas Instruments SDLS031-Revised March 1988</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=15pF, Ta=+25 Celsius</COMMENT>
+<COMMENT>Min values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A YNeg (3:10:15) (5:15:23))
+  ))
+</TIMING></FMFTIME>
+</BODY></FTML>
+

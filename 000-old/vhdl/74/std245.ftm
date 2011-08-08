@@ -1,0 +1,880 @@
+<!DOCTYPE FTML SYSTEM "ftml.dtd">
+<FTML><HEAD><TITLE>FMF Timing for STD245 Parts</TITLE>
+<REVISION.HISTORY>
+version: |  author:  | mod date: | changes made:
+  V1.0     R. Munden   97 OCT 27   Initial release
+  V1.1     R. Munden   97 NOV 04   corrected empty values
+  V1.2     R. Munden   97 NOV 17   Added 8 new part numbers
+  V1.3      fixftm     97 NOV 30   Modified to work with mk_sdf 1.15
+  V1.4     R. Munden   97 DEC 05   Added 5 new part numbers
+  V1.5     R. Munden   98 AUG 25   Added 18 new part numbers
+  V1.6     R. Munden   99 NOV 26   Added 8 new part numbers
+  V1.7     R. Munden   01 JUL 22   Added 7 new part numbers
+  V1.8     R. Munden   02 SEP 21   Added 48 new part timings
+  V1.9     R. Munden   04 MAY 22   Added 9 new part timings
+  V1.10    R. Munden   05 MAR 19   Added 25 new part timings
+  V1.11    R. Munden   05 MAR 31   Added 15 new part timings
+  V1.12   D.Vukicevic  05 JUL 07   Added 3 new part timings
+  V1.13   S.Gmitrovic  05 JUL 12   updated AVCA164245 part to new datasheet
+  V1.14   S.Gmitrovic  05 AUG 04   Added 12 new part timings
+</REVISION.HISTORY>
+</HEAD>
+<BODY>
+<TIMESCALE>1ns</TIMESCALE>
+<MODEL>STD245
+<FMFTIME>
+SN74ABT162245DGG<SOURCE>Texas Instruments SCBS239D-Revised January 1997</SOURCE>
+SN74ABT162245DL<SOURCE>Texas Instruments SCBS239D-Revised January 1997</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, TA=25C</COMMENT>
+<COMMENT>No vendor data for DIR paths so ENeg values used</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A B (1:2.2:3.4) (1:2.3:3.7))
+    (IOPATH B A (1:2.7:4.1) (1.5:3.1:4.6))
+    (IOPATH ENeg A () () (1:3.7:5.1) (1.5:4.1:6) (2:4.5:6.1) (1.5:4.3:6.1))
+    (IOPATH ENeg B () () (1.5:3.3:4.7) (1:3.6:5.2) (2:4.4:5.8) (1:3.7:5.4))
+    (IOPATH DIR A () () (1:3.7:5.1) (1.5:4.1:6) (2:4.5:6.1) (1.5:4.3:6.1))
+    (IOPATH DIR B () () (1.5:3.3:4.7) (1:3.6:5.2) (2:4.4:5.8) (1:3.7:5.4))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74ABT16245CSSC<SOURCE>National Semiconductor August 1996</SOURCE>
+74ABT16245CMTD<SOURCE>National Semiconductor August 1996</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, TA=25C</COMMENT>
+<COMMENT>No vendor data for DIR paths so ENeg values used</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A B (1:2.4:3.9) (1:2.8:3.9))
+    (IOPATH B A (1:2.4:3.9) (1:2.8:3.9))
+    (IOPATH ENeg A () () (1:3.7:6.9) (1.5:3.6:6.3) (1.3:4.6:6.9) (1.5:3.7:6.3))
+    (IOPATH ENeg B () () (1:3.7:6.9) (1.5:3.6:6.3) (1.3:4.6:6.9) (1.5:3.7:6.3))
+    (IOPATH DIR A () () (1:3.7:6.9) (1.5:3.6:6.3) (1.3:4.6:6.9) (1.5:3.7:6.3))
+    (IOPATH DIR B () () (1:3.7:6.9) (1.5:3.6:6.3) (1.3:4.6:6.9) (1.5:3.7:6.3))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74ABT16245BDL<SOURCE>Philips Semiconductors Data Handbook IC23 1996</SOURCE>
+74ABT16245BDDG<SOURCE>Philips Semiconductors Data Handbook IC23 1996</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, TA=25C</COMMENT>
+<COMMENT>No vendor data for DIR paths so ENeg values used</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A B (1:2.0:3.2) (1:2.3:3.5))
+    (IOPATH B A (1:2.0:3.2) (1:2.3:3.5))
+    (IOPATH ENeg A () () (1.5:3.2:4.4) (1.0:3.1:4.4) (1.7:3.5:4.9) (1.7:4.0:5.2))
+    (IOPATH ENeg B () () (1.5:3.2:4.4) (1.0:3.1:4.4) (1.7:3.5:4.9) (1.7:4.0:5.2))
+    (IOPATH DIR A () () (1.5:3.2:4.4) (1.0:3.1:4.4) (1.7:3.5:4.9) (1.7:4.0:5.2))
+    (IOPATH DIR B () () (1.5:3.2:4.4) (1.0:3.1:4.4) (1.7:3.5:4.9) (1.7:4.0:5.2))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74ABT16245ADGG<SOURCE>Texas Instruments SCBS300C-Revised May 1997</SOURCE>
+SN74ABT16245ADL<SOURCE>Texas Instruments SCBS300C-Revised May 1997</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, TA=25C</COMMENT>
+<COMMENT>No vendor data for DIR paths so ENeg values used</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A B (1:2.2:3.4) (1:2.3:3.7))
+    (IOPATH B A (1:2.2:3.4) (1:2.3:3.7))
+    (IOPATH ENeg A () () (1.5:3.3:4.7) (1:3.6:5.2) (2:4.4:5.8) (1:3.7:5.4))
+    (IOPATH ENeg B () () (1.5:3.3:4.7) (1:3.6:5.2) (2:4.4:5.8) (1:3.7:5.4))
+    (IOPATH DIR A () () (1.5:3.3:4.7) (1:3.6:5.2) (2:4.4:5.8) (1:3.7:5.4))
+    (IOPATH DIR B () () (1.5:3.3:4.7) (1:3.6:5.2) (2:4.4:5.8) (1:3.7:5.4))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74ABT245CSC<SOURCE>National Semiconductor March 1996</SOURCE>
+74ABT245CSJ<SOURCE>National Semiconductor March 1996</SOURCE>
+74ABT245CMSA<SOURCE>National Semiconductor March 1996</SOURCE>
+74ABT245CMSA<SOURCE>National Semiconductor March 1996</SOURCE>
+74ABT245CPC<SOURCE>National Semiconductor March 1996</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, TA=25C</COMMENT>
+<COMMENT>No vendor data for DIR paths so ENeg values used</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A B (1:2.1:3.6) (1:2.4:3.6))
+    (IOPATH B A (1:2.1:3.6) (1:2.4:3.6))
+    (IOPATH ENeg A () () (1.0:3.3:5.6) (1.5:3.2:6.0) (1.0:3.6:6.1) (1.5:3.7:6.0))
+    (IOPATH ENeg B () () (1.0:3.3:5.6) (1.5:3.2:6.0) (1.0:3.6:6.1) (1.5:3.7:6.0))
+    (IOPATH DIR A () () (1.0:3.3:5.6) (1.5:3.2:6.0) (1.0:3.6:6.1) (1.5:3.7:6.0))
+    (IOPATH DIR B () () (1.0:3.3:5.6) (1.5:3.2:6.0) (1.0:3.6:6.1) (1.5:3.7:6.0))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74ABT245D<SOURCE>Philips Semiconductors Data Handbook IC23 1996</SOURCE>
+74ABT245DB<SOURCE>Philips Semiconductors Data Handbook IC23 1996</SOURCE>
+74ABT245N<SOURCE>Philips Semiconductors Data Handbook IC23 1996</SOURCE>
+74ABT245PW<SOURCE>Philips Semiconductors Data Handbook IC23 1996</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, TA=25C</COMMENT>
+<COMMENT>No vendor data for DIR paths so ENeg values used</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A B (1:2.9:4.1) (1:2.9:4.2))
+    (IOPATH B A (1:2.9:4.1) (1:2.9:4.2))
+    (IOPATH ENeg A () () (1.0:3.0:5.8) (1.3:3.6:4.8) (1.0:4.7:6.2) (2.3:4.0:5.8))
+    (IOPATH ENeg B () () (1.0:3.0:5.8) (1.3:3.6:4.8) (1.0:4.7:6.2) (2.3:4.0:5.8))
+    (IOPATH DIR A () () (1.0:3.0:5.8) (1.3:3.6:4.8) (1.0:4.7:6.2) (2.3:4.0:5.8))
+    (IOPATH DIR B () () (1.0:3.0:5.8) (1.3:3.6:4.8) (1.0:4.7:6.2) (2.3:4.0:5.8))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74ABT245BDG<SOURCE>Texas Instruments SCBS081H-Revised May 1997</SOURCE>
+SN74ABT245BDW<SOURCE>Texas Instruments SCBS081H-Revised May 1997</SOURCE>
+SN74ABT245BN<SOURCE>Texas Instruments SCBS081H-Revised May 1997</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, TA=25C</COMMENT>
+<COMMENT>No vendor data for DIR paths so ENeg values used</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A B (1:2.0:3.2) (1:2.6:3.5))
+    (IOPATH B A (1:2.0:3.2) (1:2.6:3.5))
+    (IOPATH ENeg A () () (1.5:3.0:4.0) (2:3.5:4.5) (2.2:4.4:5.4) (1.9:4.0:5.3))
+    (IOPATH ENeg B () () (1.5:3.0:4.0) (2:3.5:4.5) (2.2:4.4:5.4) (1.9:4.0:5.3))
+    (IOPATH DIR A () () (1.5:3.0:4.0) (2:3.5:4.5) (2.2:4.4:5.4) (1.9:4.0:5.3))
+    (IOPATH DIR B () () (1.5:3.0:4.0) (2:3.5:4.5) (2.2:4.4:5.4) (1.9:4.0:5.3))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74AC245MSA_3V3<SOURCE>Fairchild Semiconductor DS009944 November 1999</SOURCE>
+74AC245MTC_3V3<SOURCE>Fairchild Semiconductor DS009944 November 1999</SOURCE>
+74AC245PC_3V3<SOURCE>Fairchild Semiconductor DS009944 November 1999</SOURCE>
+74AC245SC_3V3<SOURCE>Fairchild Semiconductor DS009944 November 1999</SOURCE>
+74AC245SJ_3V3<SOURCE>Fairchild Semiconductor DS009944 November 1999</SOURCE>
+MC74AC245DT_3V3<SOURCE>On Semiconductor MC74AC245/D Rev 5, May 2001</SOURCE>
+MC74AC245DW_3V3<SOURCE>On Semiconductor MC74AC245/D Rev 5, May 2001</SOURCE>
+MC74AC245M_3V3<SOURCE>On Semiconductor MC74AC245/D Rev 5, May 2001</SOURCE>
+MC74AC245N_3V3<SOURCE>On Semiconductor MC74AC245/D Rev 5, May 2001</SOURCE>
+<COMMENT>The Values listed are for VCC=3.3V, CL=50pF, TA=-40C to 85C</COMMENT>
+<COMMENT>No vendor data for DIR paths so ENeg values used</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A B (1.0:5.0:8.0) (1.0:5.0:9.0))
+    (IOPATH B A (1.0:5.0:8.0) (1.0:5.0:9.0))
+    (IOPATH ENeg A () () (1.5:7.0:13.0) (2.0:7.0:12.5) (1.0:6.5:12.5) (2.0:7.0:13.5))
+    (IOPATH ENeg B () () (1.5:7.0:13.0) (2.0:7.0:12.5) (1.0:6.5:12.5) (2.0:7.0:13.5))
+    (IOPATH DIR A () () (1.5:7.0:13.0) (2.0:7.0:12.5) (1.0:6.5:12.5) (2.0:7.0:13.5))
+    (IOPATH DIR B () () (1.5:7.0:13.0) (2.0:7.0:12.5) (1.0:6.5:12.5) (2.0:7.0:13.5))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74AC245MSA_5V<SOURCE>Fairchild Semiconductor DS009944 November 1999</SOURCE>
+74AC245MTC_5V<SOURCE>Fairchild Semiconductor DS009944 November 1999</SOURCE>
+74AC245PC_5V<SOURCE>Fairchild Semiconductor DS009944 November 1999</SOURCE>
+74AC245SC_5V<SOURCE>Fairchild Semiconductor DS009944 November 1999</SOURCE>
+74AC245SJ_5V<SOURCE>Fairchild Semiconductor DS009944 November 1999</SOURCE>
+MC74AC245DT_5V<SOURCE>On Semiconductor MC74AC245/D Rev 5, May 2001</SOURCE>
+MC74AC245DW_5V<SOURCE>On Semiconductor MC74AC245/D Rev 5, May 2001</SOURCE>
+MC74AC245M_5V<SOURCE>On Semiconductor MC74AC245/D Rev 5, May 2001</SOURCE>
+MC74AC245N_5V<SOURCE>On Semiconductor MC74AC245/D Rev 5, May 2001</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, TA=-40C to 85C</COMMENT>
+<COMMENT>No vendor data for DIR paths so ENeg values used</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A B (1.0:3.5:7.0) (1.0:3.5:7.0))
+    (IOPATH B A (1.0:3.5:7.0) (1.0:3.5:7.0))
+    (IOPATH ENeg A () () (1.0:5.5:10.0) (1.0:5.0:9.0) (1.0:5.5:10.0) (1.0:5.5:9.5))
+    (IOPATH ENeg B () () (1.0:5.5:10.0) (1.0:5.0:9.0) (1.0:5.5:10.0) (1.0:5.5:9.5))
+    (IOPATH DIR A () () (1.0:5.5:10.0) (1.0:5.0:9.0) (1.0:5.5:10.0) (1.0:5.5:9.5))
+    (IOPATH DIR B () () (1.0:5.5:10.0) (1.0:5.0:9.0) (1.0:5.5:10.0) (1.0:5.5:9.5))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74ACT16245DGG<SOURCE>Texas Instruments SCAS097B-Revised April 1996</SOURCE>
+74ACT16245DL<SOURCE>Texas Instruments SCAS097B-Revised April 1996</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, TA=25C</COMMENT>
+<COMMENT>No vendor data for DIR paths so ENeg values used</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A B (3.2:6.9:9.3) (2.6:6.4:9.2))
+    (IOPATH B A (3.2:6.9:9.3) (2.6:6.4:9.2))
+    (IOPATH ENeg A () () (5.5:8.5:10.8) (2.7:6.4:9.1) (5.8:9.2:11.6) (3.4:7.4:10.5))
+    (IOPATH ENeg B () () (5.5:8.5:10.8) (2.7:6.4:9.1) (5.8:9.2:11.6) (3.4:7.4:10.5))
+    (IOPATH DIR A () () (5.5:8.5:10.8) (2.7:6.4:9.1) (5.8:9.2:11.6) (3.4:7.4:10.5))
+    (IOPATH DIR B () () (5.5:8.5:10.8) (2.7:6.4:9.1) (5.8:9.2:11.6) (3.4:7.4:10.5))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74ACTQ16245SSC<SOURCE>National Semiconductor April 1993</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, TA=25C</COMMENT>
+<COMMENT>No vendor data for DIR paths so ENeg values used</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A B (3.2:5.7:8.4) (2.6:5.1:7.9))
+    (IOPATH B A (3.2:5.7:8.4) (2.6:5.1:7.9))
+    (IOPATH ENeg A () () (2.0:5.2:8.2) (3.7:6.4:9.4) (2.2:5.4:8.7) (4.1:7.4:10.5))
+    (IOPATH ENeg B () () (2.0:5.2:8.2) (3.7:6.4:9.4) (2.2:5.4:8.7) (4.1:7.4:10.5))
+    (IOPATH DIR A () () (2.0:5.2:8.2) (3.7:6.4:9.4) (2.2:5.4:8.7) (4.1:7.4:10.5))
+    (IOPATH DIR B () () (2.0:5.2:8.2) (3.7:6.4:9.4) (2.2:5.4:8.7) (4.1:7.4:10.5))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74ACTQ245SC<SOURCE>Fairchild Semiconductor November 1999</SOURCE>
+74ACTQ245SJ<SOURCE>Fairchild Semiconductor November 1999</SOURCE>
+74ACTQ245QSC<SOURCE>Fairchild Semiconductor November 1999</SOURCE>
+74ACTQ245MSA<SOURCE>Fairchild Semiconductor November 1999</SOURCE>
+74ACTQ245MTC<SOURCE>Fairchild Semiconductor November 1999</SOURCE>
+74ACTQ245PC<SOURCE>Fairchild Semiconductor November 1999</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, TA=25C</COMMENT>
+<COMMENT>No vendor data for DIR paths so ENeg values used</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A B (1.5:5.5:7.0) (1.5:5.5:7.0))
+    (IOPATH B A (1.5:5.5:7.0) (1.5:5.5:7.0))
+    (IOPATH ENeg A () () (1.0:8.0:10.0) (2.0:7.0:9.0) (1.0:8.0:10.0) (2.0:7.0:9.0))
+    (IOPATH ENeg B () () (1.0:8.0:10.0) (2.0:7.0:9.0) (1.0:8.0:10.0) (2.0:7.0:9.0))
+    (IOPATH DIR A () () (1.0:8.0:10.0) (2.0:7.0:9.0) (1.0:8.0:10.0) (2.0:7.0:9.0))
+    (IOPATH DIR B () () (1.0:8.0:10.0) (2.0:7.0:9.0) (1.0:8.0:10.0) (2.0:7.0:9.0))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+MC74ACT245D<SOURCE>On Semiconductor April 1996</SOURCE>
+MC74ACT245SD<SOURCE>On Semiconductor April 1996</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, TA=25C</COMMENT>
+<COMMENT>No vendor data for DIR paths so ENeg values used</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A B (1.5:4.0:7.5) (1.5:4.0:8.0))
+    (IOPATH B A (1.5:4.0:7.5) (1.5:4.0:8.0))
+    (IOPATH ENeg A () () (2.0:5.0:10.0) (1.5:5.0:10.0) (1.5:5.5:10.0) (1.5:5.5:10.0))
+    (IOPATH ENeg B () () (2.0:5.0:10.0) (1.5:5.0:10.0) (1.5:5.5:10.0) (1.5:5.5:10.0))
+    (IOPATH DIR A () () (2.0:5.0:10.0) (1.5:5.0:10.0) (1.5:5.5:10.0) (1.5:5.5:10.0))
+    (IOPATH DIR B () () (2.0:5.0:10.0) (1.5:5.0:10.0) (1.5:5.5:10.0) (1.5:5.5:10.0))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74ACT245MSA<SOURCE>Fairchild Semiconductor DS009944 November 1999</SOURCE>
+74ACT245MTC<SOURCE>Fairchild Semiconductor DS009944 November 1999</SOURCE>
+74ACT245PC<SOURCE>Fairchild Semiconductor DS009944 November 1999</SOURCE>
+74ACT245SC<SOURCE>Fairchild Semiconductor DS009944 November 1999</SOURCE>
+74ACT245SJ<SOURCE>Fairchild Semiconductor DS009944 November 1999</SOURCE>
+MC74ACT245DT<SOURCE>On Semiconductor MC74AC245/D Rev 5, May 2001</SOURCE>
+MC74ACT245DW<SOURCE>On Semiconductor MC74AC245/D Rev 5, May 2001</SOURCE>
+MC74ACT245M<SOURCE>On Semiconductor MC74AC245/D Rev 5, May 2001</SOURCE>
+MC74ACT245N<SOURCE>On Semiconductor MC74AC245/D Rev 5, May 2001</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, TA=-40C to 85C</COMMENT>
+<COMMENT>No vendor data for DIR paths so ENeg values used</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A B (1.5:4.0:8.0) (1.5:4.0:9.0))
+    (IOPATH B A (1.5:4.0:8.0) (1.5:4.0:9.0))
+    (IOPATH ENeg A () () (1.5:5.0:11.0) (1.5:5.0:11.0) (1.0:5.5:11.0) (1.5:5.5:12.0))
+    (IOPATH ENeg B () () (1.5:5.0:11.0) (1.5:5.0:11.0) (1.0:5.5:11.0) (1.5:5.5:12.0))
+    (IOPATH DIR A () () (1.5:5.0:11.0) (1.5:5.0:11.0) (1.0:5.5:11.0) (1.5:5.5:12.0))
+    (IOPATH DIR B () () (1.5:5.0:11.0) (1.5:5.0:11.0) (1.0:5.5:11.0) (1.5:5.5:12.0))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+CD74ACT245E<SOURCE>Texas Instruments SCHS245-Revised September 1998</SOURCE>
+CD74ACT245M<SOURCE>Texas Instruments SCHS245-Revised September 1998</SOURCE>
+CD74ACT245M96<SOURCE>Texas Instruments SCHS245-Revised September 1998</SOURCE>
+CD74ACT245SM96<SOURCE>Texas Instruments SCHS245-Revised September 1998</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, TA=-40C to 85C</COMMENT>
+<COMMENT>No vendor data for DIR paths so ENeg values used</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A B (2.7:5.2:9.1) (2.7:5.2:9.1))
+    (IOPATH B A (2.7:5.2:9.1) (2.7:5.2:9.1))
+    (IOPATH ENeg A () () (3.7:7.0:12.7) (3.8:7.6:13.1) (3.7:7.0:12.7) (3.8:7.6:13.1))
+    (IOPATH ENeg B () () (3.7:7.0:12.7) (3.8:7.6:13.1) (3.7:7.0:12.7) (3.8:7.6:13.1))
+    (IOPATH DIR A () () (3.7:7.0:12.7) (3.8:7.6:13.1) (3.7:7.0:12.7) (3.8:7.6:13.1))
+    (IOPATH DIR B () () (3.7:7.0:12.7) (3.8:7.6:13.1) (3.7:7.0:12.7) (3.8:7.6:13.1))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+DM74ALS245AMSA<SOURCE>Fairchild Semiconductor data sheet February 1998</SOURCE>
+DM74ALS245AN<SOURCE>Fairchild Semiconductor data sheet February 1998</SOURCE>
+DM74ALS245ASJ<SOURCE>Fairchild Semiconductor data sheet February 1998</SOURCE>
+DM74ALS245AWM<SOURCE>Fairchild Semiconductor data sheet February 1998</SOURCE>
+SN74ALS245ADB<SOURCE>Texas Instruments SDAS272-Revised November 1994</SOURCE>
+SN74ALS245ADW<SOURCE>Texas Instruments SDAS272-Revised November 1994</SOURCE>
+SN74ALS245AN<SOURCE>Texas Instruments SDAS272-Revised November 1994</SOURCE>
+SN74ALS245ANS<SOURCE>Texas Instruments SDAS272-Revised November 1994</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, TA=0C to +70C</COMMENT>
+<COMMENT>No vendor data for DIR paths so ENeg values used</COMMENT>
+<COMMENT>Typ values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A B (3.0:6.0:10.0) (3.0:6.0:10.0))
+    (IOPATH B A (3.0:6.0:10.0) (3.0:6.0:10.0))
+    (IOPATH ENeg A () () (4.0:8.0:15) (5.0:10:20) (2.0:5.0:10) (5.0:10:20))
+    (IOPATH ENeg B () () (4.0:8.0:15) (5.0:10:20) (2.0:5.0:10) (5.0:10:20))
+    (IOPATH DIR A () () (4.0:8.0:15) (5.0:10:20) (2.0:5.0:10) (5.0:10:20))
+    (IOPATH DIR B () () (4.0:8.0:15) (5.0:10:20) (2.0:5.0:10) (5.0:10:20))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74AVCA164245G_A1V5_B1V5<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+SN74AVCA164245K_A1V5_B1V5<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+SN74AVCA164245V_A1V5_B1V5<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+74AVCA164245ZQL_A1V5_B1V5<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+<COMMENT>The Values listed are for VCCA=1.4V to 1.6V, VCCB=1.4V to 1.6V, TA=-40C to +85C</COMMENT>
+<COMMENT>No vendor data for DIR paths so ENeg values used</COMMENT>
+<COMMENT>Typ values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A B (1.7:3.4:6.7) (1.7:3.4:6.7))
+    (IOPATH B A (1.8:3.6:6.8) (1.8:3.6:6.8))
+    (IOPATH ENeg A () () (2.1:4.2:7.0) (2.6:5.2:8.4) (2.1:4.2:7.0) (2.6:5.2:8.4))
+    (IOPATH ENeg B () () (2.1:4.2:7.1) (2.7:5.4:8.6) (2.1:4.2:7.1) (2.7:5.4:8.6))
+    (IOPATH DIR A () () (2.1:4.2:7.0) (2.6:5.2:8.4) (2.1:4.2:7.0) (2.6:5.2:8.4))
+    (IOPATH DIR B () () (2.1:4.2:7.1) (2.7:5.4:8.6) (2.1:4.2:7.1) (2.7:5.4:8.6))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74AVCA164245G_A1V5_B1V8<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+SN74AVCA164245K_A1V5_B1V8<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+SN74AVCA164245V_A1V5_B1V8<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+74AVCA164245ZQL_A1V5_B1V8<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+<COMMENT>The Values listed are for VCCA=1.4V to 1.6V, VCCB=1.65V to 1.95V, TA=-40C to +85C</COMMENT>
+<COMMENT>No vendor data for DIR paths so ENeg values used</COMMENT>
+<COMMENT>Typ values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A B (1.9:3.8:6.3) (1.9:3.8:6.3))
+    (IOPATH B A (2.2:4.4:7.4) (2.2:4.4:7.4))
+    (IOPATH ENeg A () () (2.5:5.0:7.0) (2.7:5.4:8.2) (2.5:5.0:7.0) (2.7:5.4:8.2))
+    (IOPATH ENeg B () () (2.5:5.0:7.1) (3.2:6.4:10.2) (2.5:5.0:7.1) (3.2:6.4:10.2))
+    (IOPATH DIR A () () (2.5:5.0:7.0) (2.7:5.4:8.2) (2.5:5.0:7.0) (2.7:5.4:8.2))
+    (IOPATH DIR B () () (2.5:5.0:7.1) (3.2:6.4:10.2) (2.5:5.0:7.1) (3.2:6.4:10.2))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74AVCA164245G_A1V5_B2V5<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+SN74AVCA164245K_A1V5_B2V5<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+SN74AVCA164245V_A1V5_B2V5<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+74AVCA164245ZQL_A1V5_B2V5<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+<COMMENT>The Values listed are for VCCA=1.4V to 1.6V, VCCB=2.3V to 2.7V, TA=-40C to +85C</COMMENT>
+<COMMENT>No vendor data for DIR paths so ENeg values used</COMMENT>
+<COMMENT>Typ values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A B (1.8:3.6:5.5) (1.8:3.6:5.5))
+    (IOPATH B A (2.1:4.2:7.6) (2.1:4.2:7.6))
+    (IOPATH ENeg A () () (1.7:3.4:5.3) (2.3:4.6:6.3) (1.7:3.4:5.3) (2.3:4.6:6.3))
+    (IOPATH ENeg B () () (2.1:4.2:6.5) (3.2:6.4:10.8) (2.1:4.2:6.5) (3.2:6.4:10.8))
+    (IOPATH DIR A () () (1.7:3.4:5.3) (2.3:4.6:6.3) (1.7:3.4:5.3) (2.3:4.6:6.3))
+    (IOPATH DIR B () () (2.1:4.2:6.5) (3.2:6.4:10.8) (2.1:4.2:6.5) (3.2:6.4:10.8))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74AVCA164245G_A1V5_B3V3<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+SN74AVCA164245K_A1V5_B3V3<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+SN74AVCA164245V_A1V5_B3V3<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+74AVCA164245ZQL_A1V5_B3V3<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+<COMMENT>The Values listed are for VCCA=1.4V to 1.6V, VCCB=3.0V to 3.6V, TA=-40C to +85C</COMMENT>
+<COMMENT>No vendor data for DIR paths so ENeg values used</COMMENT>
+<COMMENT>Typ values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A B (1.7:3.4:5.8) (1.7:3.4:5.8))
+    (IOPATH B A (2.1:4.2:7.3) (2.1:4.2:7.3))
+    (IOPATH ENeg A () () (2.0:4.0:6.1) (2.1:4.2:5.6) (2.0:4.0:6.1) (2.1:4.2:5.6))
+    (IOPATH ENeg B () () (2.1:4.2:6.4) (3.2:6.4:10.7) (2.1:4.2:6.4) (3.2:6.4:10.7))
+    (IOPATH DIR A () () (2.0:4.0:6.1) (2.1:4.2:5.6) (2.0:4.0:6.1) (2.1:4.2:5.6))
+    (IOPATH DIR B () () (2.1:4.2:6.4) (3.2:6.4:10.7) (2.1:4.2:6.4) (3.2:6.4:10.7))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74AVCA164245G_A1V8_B1V5<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+SN74AVCA164245K_A1V8_B1V5<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+SN74AVCA164245V_A1V8_B1V5<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+74AVCA164245ZQL_A1V8_B1V5<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+<COMMENT>The Values listed are for VCCA=1.65V to 1.95V, VCCB=1.4V to 1.6V, TA=-40C to +85C</COMMENT>
+<COMMENT>No vendor data for DIR paths so ENeg values used</COMMENT>
+<COMMENT>Typ values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A B (1.7:3.4:6.4) (1.7:3.4:6.4))
+    (IOPATH B A (1.4:2.8:5.5) (1.4:2.8:5.5))
+    (IOPATH ENeg A () () (2.1:4.2:6.4) (2.5:5.0:8.0) (2.1:4.2:6.4) (2.5:5.0:8.0))
+    (IOPATH ENeg B () () (2.1:4.2:6.6) (1.8:3.6:6.7) (2.1:4.2:6.6) (1.8:3.6:6.7))
+    (IOPATH DIR A () () (2.1:4.2:6.4) (2.5:5.0:8.0) (2.1:4.2:6.4) (2.5:5.0:8.0))
+    (IOPATH DIR B () () (2.1:4.2:6.6) (1.8:3.6:6.7) (2.1:4.2:6.6) (1.8:3.6:6.7))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74AVCA164245G_A1V8_B1V8<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+SN74AVCA164245K_A1V8_B1V8<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+SN74AVCA164245V_A1V8_B1V8<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+74AVCA164245ZQL_A1V8_B1V8<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+<COMMENT>The Values listed are for VCCA=1.65V to 1.95V, VCCB=1.65V to 1.95V, TA=-40C to +85C</COMMENT>
+<COMMENT>No vendor data for DIR paths so ENeg values used</COMMENT>
+<COMMENT>Typ values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A B (1.8:3.6:6.0) (1.8:3.6:6.0))
+    (IOPATH B A (1.8:3.6:6.0) (1.8:3.6:6.0))
+    (IOPATH ENeg A () () (2.5:5.0:6.4) (2.7:5.4:7.8) (2.5:5.0:6.4) (2.7:5.4:7.8))
+    (IOPATH ENeg B () () (2.5:5.0:6.4) (2.7:5.4:7.8) (2.5:5.0:6.4) (2.7:5.4:7.8))
+    (IOPATH DIR A () () (2.5:5.0:6.4) (2.7:5.4:7.8) (2.5:5.0:6.4) (2.7:5.4:7.8))
+    (IOPATH DIR B () () (2.5:5.0:6.4) (2.7:5.4:7.8) (2.5:5.0:6.4) (2.7:5.4:7.8))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74AVCA164245G_A1V8_B2V5<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+SN74AVCA164245K_A1V8_B2V5<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+SN74AVCA164245V_A1V8_B2V5<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+74AVCA164245ZQL_A1V8_B2V5<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+<COMMENT>The Values listed are for VCCA=1.65V to 1.95V, VCCB=2.3V to 2.7V, TA=-40C to +85C</COMMENT>
+<COMMENT>No vendor data for DIR paths so ENeg values used</COMMENT>
+<COMMENT>Typ values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A B (1.7:3.4:4.7) (1.7:3.4:4.7))
+    (IOPATH B A (1.8:3.6:5.8) (1.8:3.6:5.8))
+    (IOPATH ENeg A () () (1.5:3.0:4.5) (2.2:4.4:5.8) (1.5:3.0:4.5) (2.2:4.4:5.8))
+    (IOPATH ENeg B () () (2.0:4.0:5.5) (2.7:5.4:8.1) (2.0:4.0:5.5) (2.7:5.4:8.1))
+    (IOPATH DIR A () () (1.5:3.0:4.5) (2.2:4.4:5.8) (1.5:3.0:4.5) (2.2:4.4:5.8))
+    (IOPATH DIR B () () (2.0:4.0:5.5) (2.7:5.4:8.1) (2.0:4.0:5.5) (2.7:5.4:8.1))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74AVCA164245G_A1V8_B3V3<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+SN74AVCA164245K_A1V8_B3V3<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+SN74AVCA164245V_A1V8_B3V3<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+74AVCA164245ZQL_A1V8_B3V3<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+<COMMENT>The Values listed are for VCCA=1.65V to 1.95V, VCCB=3.0V to 3.6V, TA=-40C to +85C</COMMENT>
+<COMMENT>No vendor data for DIR paths so ENeg values used</COMMENT>
+<COMMENT>Typ values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A B (1.6:3.2:4.3) (1.6:3.2:4.3))
+    (IOPATH B A (1.8:3.6:5.5) (1.8:3.6:5.5))
+    (IOPATH ENeg A () () (1.8:3.6:5.0) (2.0:4.0:5.1) (1.8:3.6:5.0) (2.0:4.0:5.1))
+    (IOPATH ENeg B () () (2.0:4.0:5.5) (2.7:5.4:8.1) (2.0:4.0:5.5) (2.7:5.4:8.1))
+    (IOPATH DIR A () () (1.8:3.6:5.0) (2.0:4.0:5.1) (1.8:3.6:5.0) (2.0:4.0:5.1))
+    (IOPATH DIR B () () (2.0:4.0:5.5) (2.7:5.4:8.1) (2.0:4.0:5.5) (2.7:5.4:8.1))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74AVCA164245G_A2V5_B1V5<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+SN74AVCA164245K_A2V5_B1V5<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+SN74AVCA164245V_A2V5_B1V5<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+74AVCA164245ZQL_A2V5_B1V5<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+<COMMENT>The Values listed are for VCCA=2.3V to 2.7V, VCCB=1.4V to 1.6V, TA=-40C to +85C</COMMENT>
+<COMMENT>No vendor data for DIR paths so ENeg values used</COMMENT>
+<COMMENT>Typ values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A B (1.6:3.2:6.0) (1.6:3.2:6.0))
+    (IOPATH B A (1.3:2.6:4.6) (1.3:2.6:4.6))
+    (IOPATH ENeg A () () (2.0:4.0:5.7) (2.6:5.2:7.4) (2.0:4.0:5.7) (2.6:5.2:7.4))
+    (IOPATH ENeg B () () (0.9:3.0:4.5) (1.2:2.4:4.1) (0.9:3.0:4.5) (1.2:2.4:4.1))
+    (IOPATH DIR A () () (2.0:4.0:5.7) (2.6:5.2:7.4) (2.0:4.0:5.7) (2.6:5.2:7.4))
+    (IOPATH DIR B () () (0.9:3.0:4.5) (1.2:2.4:4.1) (0.9:3.0:4.5) (1.2:2.4:4.1))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74AVCA164245G_A2V5_B1V8<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+SN74AVCA164245K_A2V5_B1V8<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+SN74AVCA164245V_A2V5_B1V8<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+74AVCA164245ZQL_A2V5_B1V8<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+<COMMENT>The Values listed are for VCCA=2.3V to 2.7V, VCCB=1.65V to 1.95V, TA=-40C to +85C</COMMENT>
+<COMMENT>No vendor data for DIR paths so ENeg values used</COMMENT>
+<COMMENT>Typ values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A B (1.8:3.6:5.6) (1.8:3.6:5.6))
+    (IOPATH B A (1.7:3.4:4.4) (1.7:3.4:4.4))
+    (IOPATH ENeg A () () (2.3:4.6:5.7) (2.7:5.4:7.2) (2.3:4.6:5.7) (2.7:5.4:7.2))
+    (IOPATH ENeg B () () (1.7:3.4:4.5) (2.2:4.4:5.1) (1.7:3.4:4.5) (2.2:4.4:5.1))
+    (IOPATH DIR A () () (2.3:4.6:5.7) (2.7:5.4:7.2) (2.3:4.6:5.7) (2.7:5.4:7.2))
+    (IOPATH DIR B () () (1.7:3.4:4.5) (2.2:4.4:5.1) (1.7:3.4:4.5) (2.2:4.4:5.1))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74AVCA164245G_A2V5_B2V5<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+SN74AVCA164245K_A2V5_B2V5<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+SN74AVCA164245V_A2V5_B2V5<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+74AVCA164245ZQL_A2V5_B2V5<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+<COMMENT>The Values listed are for VCCA=2.3V to 2.7V, VCCB=2.3V to 2.7V, TA=-40C to +85C</COMMENT>
+<COMMENT>No vendor data for DIR paths so ENeg values used</COMMENT>
+<COMMENT>Typ values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A B (1.5:3.0:4.0) (1.5:3.0:4.0))
+    (IOPATH B A (1.5:3.0:4.0) (1.5:3.0:4.0))
+    (IOPATH ENeg A () () (1.4:2.8:3.7) (2.2:4.4:5.3) (1.4:2.8:3.7) (2.2:4.4:5.3))
+    (IOPATH ENeg B () () (1.4:2.8:3.7) (2.2:4.4:5.3) (1.4:2.8:3.7) (2.2:4.4:5.3))
+    (IOPATH DIR A () () (1.4:2.8:3.7) (2.2:4.4:5.3) (1.4:2.8:3.7) (2.2:4.4:5.3))
+    (IOPATH DIR B () () (1.4:2.8:3.7) (2.2:4.4:5.3) (1.4:2.8:3.7) (2.2:4.4:5.3))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74AVCA164245G_A2V5_B3V3<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+SN74AVCA164245K_A2V5_B3V3<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+SN74AVCA164245V_A2V5_B3V3<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+74AVCA164245ZQL_A2V5_B3V3<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+<COMMENT>The Values listed are for VCCA=2.3V to 2.7V, VCCB=3.0V to 3.6V, TA=-40C to +85C</COMMENT>
+<COMMENT>No vendor data for DIR paths so ENeg values used</COMMENT>
+<COMMENT>Typ values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A B (1.4:2.8:3.4) (1.4:2.8:3.4))
+    (IOPATH B A (1.4:2.8:3.7) (1.4:2.8:3.7))
+    (IOPATH ENeg A () () (1.6:3.2:4.0) (2.0:4.0:4.5) (1.6:3.2:4.0) (2.0:4.0:4.5))
+    (IOPATH ENeg B () () (1.4:2.8:3.7) (2.2:4.4:5.3) (1.4:2.8:3.7) (2.2:4.4:5.3))
+    (IOPATH DIR A () () (1.6:3.2:4.0) (2.0:4.0:4.5) (1.6:3.2:4.0) (2.0:4.0:4.5))
+    (IOPATH DIR B () () (1.4:2.8:3.7) (2.2:4.4:5.3) (1.4:2.8:3.7) (2.2:4.4:5.3))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74AVCA164245G_A3V3_B1V5<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+SN74AVCA164245K_A3V3_B1V5<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+SN74AVCA164245V_A3V3_B1V5<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+74AVCA164245ZQL_A3V3_B1V5<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+<COMMENT>The Values listed are for VCCA=3.0V to 3.6V, VCCB=1.4V to 1.6V, TA=-40C to +85C</COMMENT>
+<COMMENT>No vendor data for DIR paths so ENeg values used</COMMENT>
+<COMMENT>Typ values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A B (1.5:3.0:5.9) (1.5:3.0:5.9))
+    (IOPATH B A (1.3:2.6:4.5) (1.3:2.6:4.5))
+    (IOPATH ENeg A () () (1.2:3.4:5.4) (2.5:5.0:7.0) (1.2:3.4:5.4) (2.5:5.0:7.0))
+    (IOPATH ENeg B () () (1.2:3.4:5.4) (0.8:1.6:2.6) (1.2:3.4:5.4) (0.8:1.6:2.6))
+    (IOPATH DIR A () () (1.2:3.4:5.4) (2.5:5.0:7.0) (1.2:3.4:5.4) (2.5:5.0:7.0))
+    (IOPATH DIR B () () (1.2:3.4:5.4) (0.8:1.6:2.6) (1.2:3.4:5.4) (0.8:1.6:2.6))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74AVCA164245G_A3V3_B1V8<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+SN74AVCA164245K_A3V3_B1V8<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+SN74AVCA164245V_A3V3_B1V8<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+74AVCA164245ZQL_A3V3_B1V8<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+<COMMENT>The Values listed are for VCCA=3.0V to 3.6V, VCCB=1.65V to 1.95V, TA=-40C to +85C</COMMENT>
+<COMMENT>No vendor data for DIR paths so ENeg values used</COMMENT>
+<COMMENT>Typ values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A B (1.7:3.4:5.4) (1.7:3.4:5.4))
+    (IOPATH B A (1.6:3.2:3.8) (1.6:3.2:3.8))
+    (IOPATH ENeg A () () (2.2:4.4:5.2) (2.6:5.2:6.9) (2.2:4.4:5.2) (2.6:5.2:6.9))
+    (IOPATH ENeg B () () (1.7:3.4:4.4) (1.9:3.6:4.0) (1.7:3.4:4.4) (1.9:3.6:4.0))
+    (IOPATH DIR A () () (2.2:4.4:5.2) (2.6:5.2:6.9) (2.2:4.4:5.2) (2.6:5.2:6.9))
+    (IOPATH DIR B () () (1.7:3.4:4.4) (1.9:3.6:4.0) (1.7:3.4:4.4) (1.9:3.6:4.0))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74AVCA164245G_A3V3_B2V5<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+SN74AVCA164245K_A3V3_B2V5<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+SN74AVCA164245V_A3V3_B2V5<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+74AVCA164245ZQL_A3V3_B2V5<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+<COMMENT>The Values listed are for VCCA=3.0V to 3.6V, VCCB=2.3V to 2.7V, TA=-40C to +85C</COMMENT>
+<COMMENT>No vendor data for DIR paths so ENeg values used</COMMENT>
+<COMMENT>Typ values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A B (1.5:3.0:3.7) (1.5:3.0:3.7))
+    (IOPATH B A (1.5:3.0:3.3) (1.5:3.0:3.3))
+    (IOPATH ENeg A () () (1.2:2.4:3.3) (2.1:4.2:5.0) (1.2:2.4:3.3) (2.1:4.2:5.0))
+    (IOPATH ENeg B () () (1.5:3.0:3.6) (2:3.6:4.1) (1.5:3.0:3.6) (2:3.6:4.1))
+    (IOPATH DIR A () () (1.2:2.4:3.3) (2.1:4.2:5.0) (1.2:2.4:3.3) (2.1:4.2:5.0))
+    (IOPATH DIR B () () (1.5:3.0:3.6) (2:3.6:4.1) (1.5:3.0:3.6) (2:3.6:4.1))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74AVCA164245G_A3V3_B3V3<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+SN74AVCA164245K_A3V3_B3V3<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+SN74AVCA164245V_A3V3_B3V3<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+74AVCA164245ZQL_A3V3_B3V3<SOURCE>Texas Instruments SCES395B-Revised February 2005</SOURCE>
+<COMMENT>The Values listed are for VCCA=3.0V to 3.6V, VCCB=3.0V to 3.6V, TA=-40C to +85C</COMMENT>
+<COMMENT>No vendor data for DIR paths so ENeg values used</COMMENT>
+<COMMENT>Typ values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A B (1.4:2.8:3.1) (1.4:2.8:3.1))
+    (IOPATH B A (1.4:2.8:3.1) (1.4:2.8:3.1))
+    (IOPATH ENeg A () () (1.5:2.8:3.6) (1.9:3.4:4.1) (1.5:2.8:3.6) (1.9:3.4:4.1))
+    (IOPATH ENeg B () () (1.5:2.8:3.6) (1.9:3.4:4.1) (1.5:2.8:3.6) (1.9:3.4:4.1))
+    (IOPATH DIR A () () (1.5:2.8:3.6) (1.9:3.4:4.1) (1.5:2.8:3.6) (1.9:3.4:4.1))
+    (IOPATH DIR B () () (1.5:2.8:3.6) (1.9:3.4:4.1) (1.5:2.8:3.6) (1.9:3.4:4.1))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74F245MSA<SOURCE>Fairchild Semiconductor data sheet February 1998</SOURCE>
+74F245MTC<SOURCE>Fairchild Semiconductor data sheet February 1998</SOURCE>
+74F245PC<SOURCE>Fairchild Semiconductor data sheet February 1998</SOURCE>
+74F245SC<SOURCE>Fairchild Semiconductor data sheet February 1998</SOURCE>
+74F245SJ<SOURCE>Fairchild Semiconductor data sheet February 1998</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, TA=25C</COMMENT>
+<COMMENT>No vendor data for DIR paths so ENeg values used</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A B (2.5:4.2:6.0) (2.5:4.2:6.0))
+    (IOPATH B A (2.5:4.2:6.0) (2.5:4.2:6.0))
+    (IOPATH ENeg A () () (2.0:5.0:6.5) (3.0:5.3:7.0) (2.0:5.0:6.5) (3.5:6.0:8.0))
+    (IOPATH ENeg B () () (2.0:5.0:6.5) (3.0:5.3:7.0) (2.0:5.0:6.5) (3.5:6.0:8.0))
+    (IOPATH DIR A () () (2.0:5.0:6.5) (3.0:5.3:7.0) (2.0:5.0:6.5) (3.5:6.0:8.0))
+    (IOPATH DIR B () () (2.0:5.0:6.5) (3.0:5.3:7.0) (2.0:5.0:6.5) (3.5:6.0:8.0))
+  ))
+</TIMING></FMFTIME>
+MC74F245DW<SOURCE>Motorola Fast and LS TTL Data, DL121/D REV 5, Q2/92</SOURCE>
+MC74F245N<SOURCE>Motorola Fast and LS TTL Data, DL121/D REV 5, Q2/92</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, TA=25C</COMMENT>
+<COMMENT>No vendor data for DIR paths so ENeg values used</COMMENT>
+<COMMENT>Typ values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A B (2.5:4.2:6.0) (2.5:4.2:6.0))
+    (IOPATH B A (2.5:4.2:6.0) (2.5:4.2:6.0))
+    (IOPATH ENeg A () () (2.0:5.0:6.5) (3.0:5.3:7.0) (2.5:5.0:6.5) (3.5:6.0:8.0))
+    (IOPATH ENeg B () () (2.0:5.0:6.5) (3.0:5.3:7.0) (2.5:5.0:6.5) (3.5:6.0:8.0))
+    (IOPATH DIR A () () (2.0:5.0:6.5) (3.0:5.3:7.0) (2.5:5.0:6.5) (3.5:6.0:8.0))
+    (IOPATH DIR B () () (2.0:5.0:6.5) (3.0:5.3:7.0) (2.5:5.0:6.5) (3.5:6.0:8.0))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74F245DB<SOURCE>Texas Instruments SDFS010A-Revised October 1993</SOURCE>
+SN74F245DW<SOURCE>Texas Instruments SDFS010A-Revised October 1993</SOURCE>
+SN74F245N<SOURCE>Texas Instruments SDFS010A-Revised October 1993</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, TA=25C</COMMENT>
+<COMMENT>No vendor data for DIR paths so ENeg values used</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A B (1.7:3.8:6.0) (1.7:4.2:6.0))
+    (IOPATH B A (1.7:3.8:6.0) (1.7:4.2:6.0))
+    (IOPATH ENeg A () () (1.2:4.6:6.5) (2.2:4.9:7.0) (2.2:4.6:6.5) (2.7:5.6:8.0))
+    (IOPATH ENeg B () () (1.2:4.6:6.5) (2.2:4.9:7.0) (2.2:4.6:6.5) (2.7:5.6:8.0))
+    (IOPATH DIR A () () (1.2:4.6:6.5) (2.2:4.9:7.0) (2.2:4.6:6.5) (2.7:5.6:8.0))
+    (IOPATH DIR B () () (1.2:4.6:6.5) (2.2:4.9:7.0) (2.2:4.6:6.5) (2.7:5.6:8.0))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74LCX16245G_2V5<SOURCE>Fairchild Semiconductor DS012001 June 2002</SOURCE>
+74LCX16245MEA_2V5<SOURCE>Fairchild Semiconductor DS012001 June 2002</SOURCE>
+74LCX16245MTD_2V5<SOURCE>Fairchild Semiconductor DS012001 June 2002</SOURCE>
+MC74LCX16245DT_2V5<SOURCE>ON Semiconductor MC74LCX16245/D Rev. 3 January 2001</SOURCE>
+<COMMENT>The Values listed are for VCC=2.3V to 2.7V, CL=30pF, TA=-40C to +85C</COMMENT>
+<COMMENT>No vendor data for DIR paths so ENeg values used</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A B (1.5:3.6:5.4) (1.5:3.6:5.4))
+    (IOPATH B A (1.5:3.6:5.4) (1.5:3.6:5.4))
+    (IOPATH ENeg A () () (1.5:5.1:7.7) (1.5:5.7:8.5) (1.5:5.1:7.7) (1.5:5.7:8.5))
+    (IOPATH ENeg B () () (1.5:5.1:7.7) (1.5:5.7:8.5) (1.5:5.1:7.7) (1.5:5.7:8.5))
+    (IOPATH DIR A () () (1.5:5.1:7.7) (1.5:5.7:8.5) (1.5:5.1:7.7) (1.5:5.7:8.5))
+    (IOPATH DIR B () () (1.5:5.1:7.7) (1.5:5.7:8.5) (1.5:5.1:7.7) (1.5:5.7:8.5))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74LCX16245G_3V3<SOURCE>Fairchild Semiconductor DS012001 June 2002</SOURCE>
+74LCX16245MEA_3V3<SOURCE>Fairchild Semiconductor DS012001 June 2002</SOURCE>
+74LCX16245MTD_3V3<SOURCE>Fairchild Semiconductor DS012001 June 2002</SOURCE>
+74LCX16245T_3V3<SOURCE>STMicroelectronics Datasheet July 2003</SOURCE>
+MC74LCX16245DT_3V3<SOURCE>ON Semiconductor MC74LCX16245/D Rev. 3 January 2001</SOURCE>
+<COMMENT>The Values listed are for VCC=3.0 to 3.6V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<COMMENT>No vendor data for DIR paths so ENeg values used</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A B (1.5:3.0:4.5) (1.5:3.0:4.5))
+    (IOPATH B A (1.5:3.0:4.5) (1.5:3.0:4.5))
+    (IOPATH ENeg A () () (1.5:4.2:6.4) (1.5:4.3:6.5) (1.5:4.2:6.4) (1.5:4.3:6.5))
+    (IOPATH ENeg B () () (1.5:4.2:6.4) (1.5:4.3:6.5) (1.5:4.2:6.4) (1.5:4.3:6.5))
+    (IOPATH DIR A () () (1.5:4.2:6.4) (1.5:4.3:6.5) (1.5:4.2:6.4) (1.5:4.3:6.5))
+    (IOPATH DIR B () () (1.5:4.2:6.4) (1.5:4.3:6.5) (1.5:4.2:6.4) (1.5:4.3:6.5))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74LVC16245ADGG_3V3<SOURCE>Philips Semiconductors Product Specification 2003 Nov 25</SOURCE>
+74LVC16245ADL_3V3<SOURCE>Philips Semiconductors Product Specification 2003 Nov 25</SOURCE>
+74LVC16245AEV_3V3<SOURCE>Philips Semiconductors Product Specification 2003 Nov 25</SOURCE>
+<COMMENT>The Values listed are for VCC=3.0 to 3.6V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<COMMENT>No vendor data for DIR paths so ENeg values used</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A B (1.0:2.7:4.5) (1.0:2.7:4.5))
+    (IOPATH B A (1.0:2.7:4.5) (1.0:2.7:4.5))
+    (IOPATH ENeg A () () (1.5:3.2:5.6) (1.0:2.8:5.5) (1.5:3.2:5.6) (1.0:2.8:5.5))
+    (IOPATH ENeg B () () (1.5:3.2:5.6) (1.0:2.8:5.5) (1.5:3.2:5.6) (1.0:2.8:5.5))
+    (IOPATH DIR A () () (1.5:3.2:5.6) (1.0:2.8:5.5) (1.5:3.2:5.6) (1.0:2.8:5.5))
+    (IOPATH DIR B () () (1.5:3.2:5.6) (1.0:2.8:5.5) (1.5:3.2:5.6) (1.0:2.8:5.5))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74LVC16245ADGG_1V8<SOURCE>Texas Instruments SCES062N-Revised December 2003</SOURCE>
+SN74LVC16245ADGV_1V8<SOURCE>Texas Instruments SCES062N-Revised December 2003</SOURCE>
+SN74LVC16245ADL_1V8<SOURCE>Texas Instruments SCES062N-Revised December 2003</SOURCE>
+SN74LVC16245AZQL_1V8<SOURCE>Texas Instruments SCES062N-Revised December 2003</SOURCE>
+<COMMENT>The Values listed are for VCC=1.65 to 1.95V, CL=30pF, Ta=-40 to +85 Celsius</COMMENT>
+<COMMENT>No vendor data for DIR paths so ENeg values used</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A B (1.5:4.6:7.1) (1.5:4.6:7.1))
+    (IOPATH B A (1.5:4.6:7.1) (1.5:4.6:7.1))
+    (IOPATH ENeg A () () (1.5:8.0:11.9) (1.5:6.0:8.9) (1.5:8.0:11.9) (1.5:6.0:8.9))
+    (IOPATH ENeg B () () (1.5:8.0:11.9) (1.5:6.0:8.9) (1.5:8.0:11.9) (1.5:6.0:8.9))
+    (IOPATH DIR A () () (1.5:8.0:11.9) (1.5:6.0:8.9) (1.5:8.0:11.9) (1.5:6.0:8.9))
+    (IOPATH DIR B () () (1.5:8.0:11.9) (1.5:6.0:8.9) (1.5:8.0:11.9) (1.5:6.0:8.9))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74LVC16245ADGG_2V5<SOURCE>Texas Instruments SCES062N-Revised December 2003</SOURCE>
+SN74LVC16245ADGV_2V5<SOURCE>Texas Instruments SCES062N-Revised December 2003</SOURCE>
+SN74LVC16245ADL_2V5<SOURCE>Texas Instruments SCES062N-Revised December 2003</SOURCE>
+SN74LVC16245AZQL_2V5<SOURCE>Texas Instruments SCES062N-Revised December 2003</SOURCE>
+<COMMENT>The Values listed are for VCC=2.3 to 2.7V, CL=30pF, Ta=-40 to +85 Celsius</COMMENT>
+<COMMENT>No vendor data for DIR paths so ENeg values used</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A B (1.0:3.0:4.5) (1.0:3.0:4.5))
+    (IOPATH B A (1.0:3.0:4.5) (1.0:3.0:4.5))
+    (IOPATH ENeg A () () (1.0:4.6:6.8) (1.0:3.2:5.6) (1.0:4.6:6.8) (1.0:3.2:5.6))
+    (IOPATH ENeg B () () (1.0:4.6:6.8) (1.0:3.2:5.6) (1.0:4.6:6.8) (1.0:3.2:5.6))
+    (IOPATH DIR A () () (1.0:4.6:6.8) (1.0:3.2:5.6) (1.0:4.6:6.8) (1.0:3.2:5.6))
+    (IOPATH DIR B () () (1.0:4.6:6.8) (1.0:3.2:5.6) (1.0:4.6:6.8) (1.0:3.2:5.6))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74LVC16245ADGG_3V3<SOURCE>Texas Instruments SCES062N-Revised December 2003</SOURCE>
+SN74LVC16245ADGV_3V3<SOURCE>Texas Instruments SCES062N-Revised December 2003</SOURCE>
+SN74LVC16245ADL_3V3<SOURCE>Texas Instruments SCES062N-Revised December 2003</SOURCE>
+SN74LVC16245AZQL_3V3<SOURCE>Texas Instruments SCES062N-Revised December 2003</SOURCE>
+<COMMENT>The Values listed are for VCC=3.0 to 3.6V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<COMMENT>No vendor data for DIR paths so ENeg values used</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A B (1.0:2.6:4.0) (1.0:2.6:4.0))
+    (IOPATH B A (1.0:2.6:4.0) (1.0:2.6:4.0))
+    (IOPATH ENeg A () () (1.5:4.4:6.6) (1.5:3.2:5.5) (1.5:4.4:6.6) (1.5:3.2:5.5))
+    (IOPATH ENeg B () () (1.5:4.4:6.6) (1.5:3.2:5.5) (1.5:4.4:6.6) (1.5:3.2:5.5))
+    (IOPATH DIR A () () (1.5:4.4:6.6) (1.5:3.2:5.5) (1.5:4.4:6.6) (1.5:3.2:5.5))
+    (IOPATH DIR B () () (1.5:4.4:6.6) (1.5:3.2:5.5) (1.5:4.4:6.6) (1.5:3.2:5.5))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74LVT245BDB<SOURCE>Texas Instruments SCES004D-Revised April 2000</SOURCE>
+SN74LVT245BDW<SOURCE>Texas Instruments SCES004D-Revised April 2000</SOURCE>
+SN74LVT245BPW<SOURCE>Texas Instruments SCES004D-Revised April 2000</SOURCE>
+<COMMENT>The Values listed are for VCC=3.0 to 3.6V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<COMMENT>No vendor data for DIR paths so ENeg values used</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A B (1.1:2.3:3.7) (1.1:2.3:3.7))
+    (IOPATH B A (1.1:2.3:3.7) (1.1:2.3:3.7))
+    (IOPATH ENeg A () () (2.1:3.4:5.3) (1.2:3.2:5.7) (2.1:3.5:6.2) (1.6:3.4:5.7))
+    (IOPATH ENeg B () () (2.1:3.4:5.3) (1.2:3.2:5.7) (2.1:3.5:6.2) (1.6:3.4:5.7))
+    (IOPATH DIR A () () (2.1:3.4:5.3) (1.2:3.2:5.7) (2.1:3.5:6.2) (1.6:3.4:5.7))
+    (IOPATH DIR B () () (2.1:3.4:5.3) (1.2:3.2:5.7) (2.1:3.5:6.2) (1.6:3.4:5.7))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74LVT245MSA<SOURCE>Fairchild Semiconductor DS500203 November 2000</SOURCE>
+74LVT245MTC<SOURCE>Fairchild Semiconductor DS500203 November 2000</SOURCE>
+74LVT245SJ<SOURCE>Fairchild Semiconductor DS500203 November 2000</SOURCE>
+74LVT245WM<SOURCE>Fairchild Semiconductor DS500203 November 2000</SOURCE>
+<COMMENT>The Values listed are for VCC=3.0 to 3.6V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<COMMENT>No vendor data for DIR paths so ENeg values used</COMMENT>
+<COMMENT>Typ values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A B (1.2:2.3:3.6) (1.2:2.3:3.5))
+    (IOPATH B A (1.2:2.3:3.6) (1.2:2.3:3.5))
+    (IOPATH ENeg A () () (2.0:3.4:5.0) (1.3:3.2:5.5) (2.0:3.5:5.9) (1.7:3.4:5.7))
+    (IOPATH ENeg B () () (2.0:3.4:5.0) (1.3:3.2:5.5) (2.0:3.5:5.9) (1.7:3.4:5.7))
+    (IOPATH DIR A () () (2.0:3.4:5.0) (1.3:3.2:5.5) (2.0:3.5:5.9) (1.7:3.4:5.7))
+    (IOPATH DIR B () () (2.0:3.4:5.0) (1.3:3.2:5.5) (2.0:3.5:5.9) (1.7:3.4:5.7))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74ABT16245DGG<SOURCE>Texas Instruments SCBS084B-D3712, January 1991-Revised December 1992</SOURCE>
+SN74ABT16245DL<SOURCE>Texas Instruments SCBS084B-D3712, January 1991-Revised December 1992</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5 to 5.5V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<COMMENT>No vendor data for DIR paths so ENeg values used</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A B (1:2.5:3.9) (1:2.7:4.5))
+    (IOPATH B A (1:2.5:3.9) (1:2.7:4.5))
+    (IOPATH ENeg A () () (1.4:3.3:5.2) (1:3.2:5.4) (1.3:3.4:5.5) (1:4.1:7.2))
+    (IOPATH ENeg B () () (1.4:3.3:5.2) (1:3.2:5.4) (1.3:3.4:5.5) (1:4.1:7.2))
+    (IOPATH DIR A () () (1.4:3.3:5.2) (1:3.2:5.4) (1.3:3.4:5.5) (1:4.1:7.2))
+    (IOPATH DIR B () () (1.4:3.3:5.2) (1:3.2:5.4) (1.3:3.4:5.5) (1:4.1:7.2))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+IDT74FCT3245SO<SOURCE>IDT - Integrated Device Technology - Datasheet - DSC2650/11, November 2000</SOURCE>
+IDT74FCT3245PY<SOURCE>IDT - Integrated Device Technology - Datasheet - DSC2650/11, November 2000</SOURCE>
+IDT74FCT3245Q<SOURCE>IDT - Integrated Device Technology - Datasheet - DSC2650/11, November 2000</SOURCE>
+IDT74FCT3245QG<SOURCE>IDT - Integrated Device Technology - Datasheet - DSC2650/11, November 2000</SOURCE>
+IDT74FCT3245PG<SOURCE>IDT - Integrated Device Technology - Datasheet - DSC2650/11, November 2000</SOURCE>
+<COMMENT>The Values listed are for VCC=3.0 to 3.6V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A B (1.5:4.2:7) (1.5:4.2:7))
+    (IOPATH B A (1.5:4.2:7) (1.5:4.2:7))
+    (IOPATH ENeg A () () (1.5:4.5:7.5) (1.5:5.5:9.5) (1.5:4.5:7.5) (1.5:5.5:9.5))
+    (IOPATH ENeg B () () (1.5:4.5:7.5) (1.5:5.5:9.5) (1.5:4.5:7.5) (1.5:5.5:9.5))
+    (IOPATH DIR A () () (1.5:4.5:7.5) (1.5:5.5:9.5) (1.5:4.5:7.5) (1.5:5.5:9.5))
+    (IOPATH DIR B () () (1.5:4.5:7.5) (1.5:5.5:9.5) (1.5:4.5:7.5) (1.5:5.5:9.5))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+IDT74FCT3245ASO<SOURCE>IDT - Integrated Device Technology - Datasheet - DSC2650/11, November 2000</SOURCE>
+IDT74FCT3245APY<SOURCE>IDT - Integrated Device Technology - Datasheet - DSC2650/11, November 2000</SOURCE>
+IDT74FCT3245AQ<SOURCE>IDT - Integrated Device Technology - Datasheet - DSC2650/11, November 2000</SOURCE>
+IDT74FCT3245AQG<SOURCE>IDT - Integrated Device Technology - Datasheet - DSC2650/11, November 2000</SOURCE>
+IDT74FCT3245APG<SOURCE>IDT - Integrated Device Technology - Datasheet - DSC2650/11, November 2000</SOURCE>
+<COMMENT>The Values listed are for VCC=3.0 to 3.6V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A B (1.5:3:4.6) (1.5:3:4.6))
+    (IOPATH B A (1.5:3:4.6) (1.5:3:4.6))
+    (IOPATH ENeg A () () (1.5:3.2:5) (1.5:3.8:6.2) (1.5:3.2:5) (1.5:3.8:6.2))
+    (IOPATH ENeg B () () (1.5:3.2:5) (1.5:3.8:6.2) (1.5:3.2:5) (1.5:3.8:6.2))
+    (IOPATH DIR A () () (1.5:3.2:5) (1.5:3.8:6.2) (1.5:3.2:5) (1.5:3.8:6.2))
+    (IOPATH DIR B () () (1.5:3.2:5) (1.5:3.8:6.2) (1.5:3.2:5) (1.5:3.8:6.2))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74ALVC164245DL_A2V5_B3V3<SOURCE>Texas Instruments SCAS416O-Revised September 2004</SOURCE>
+SN74ALVC164245DGG_A2V5_B3V3<SOURCE>Texas Instruments SCAS416O-Revised September 2004</SOURCE>
+SN74ALVC164245K_A2V5_B3V3<SOURCE>Texas Instruments SCAS416O-Revised September 2004</SOURCE>
+SN74ALVC164245ZQL_A2V5_B3V3<SOURCE>Texas Instruments SCAS416O-Revised September 2004</SOURCE>
+<COMMENT>The Values listed are for VCCA=2.3V to 2.7V, VCCB=3.0V to 3.6V, TA=-40C to +85C</COMMENT>
+<COMMENT>No vendor data for DIR paths so ENeg values used</COMMENT>
+<COMMENT>Min, Typ values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A B (2.5:5:7.6) (2.5:5:7.6))
+    (IOPATH B A (2.5:5:7.6) (2.5:5:7.6))
+    (IOPATH ENeg A () () (3.1:6.2:9.3) (4.1:8.2:12.3) (3.1:6.2:9.3) (4.1:8.2:12.3))
+    (IOPATH ENeg B () () (3.5:7:10.5) (3.8:7.6:11.5) (3.5:7:10.5) (3.8:7.6:11.5))
+    (IOPATH DIR A () () (3.1:6.2:9.3) (4.1:8.2:12.3) (3.1:6.2:9.3) (4.1:8.2:12.3))
+    (IOPATH DIR B () () (3.5:7:10.5) (3.8:7.6:11.5) (3.5:7:10.5) (3.8:7.6:11.5))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74ALVC164245DL_A2V7_B5V<SOURCE>Texas Instruments SCAS416O-Revised September 2004</SOURCE>
+SN74ALVC164245DGG_A2V7_B5V<SOURCE>Texas Instruments SCAS416O-Revised September 2004</SOURCE>
+SN74ALVC164245K_A2V7_B5V<SOURCE>Texas Instruments SCAS416O-Revised September 2004</SOURCE>
+SN74ALVC164245ZQL_A2V7_B5V<SOURCE>Texas Instruments SCAS416O-Revised September 2004</SOURCE>
+<COMMENT>The Values listed are for VCCA=2.7V, VCCB=4.5V to 5.5V, TA=-40C to +85C</COMMENT>
+<COMMENT>No vendor data for DIR paths so ENeg values used</COMMENT>
+<COMMENT>Min, Typ values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A B (2:4:5.9) (2:4:5.9))
+    (IOPATH B A (2.2:4.4:6.7) (2.2:4.4:6.7))
+    (IOPATH ENeg A () () (3:6:9) (3.4:6.8:10.2) (3:6:9) (3.4:6.8:10.2))
+    (IOPATH ENeg B () () (3:6.1:9.2) (3.1:6.2:9.3) (3:6.1:9.2) (3.1:6.2:9.3))
+    (IOPATH DIR A () ()  (3:6:9) (3.4:6.8:10.2) (3:6:9) (3.4:6.8:10.2))
+    (IOPATH DIR B () () (3:6.1:9.2) (3.1:6.2:9.3) (3:6.1:9.2) (3.1:6.2:9.3))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74ALVC164245DL_A3V3_B5V<SOURCE>Texas Instruments SCAS416O-Revised September 2004</SOURCE>
+SN74ALVC164245DGG_A3V3_B5V<SOURCE>Texas Instruments SCAS416O-Revised September 2004</SOURCE>
+SN74ALVC164245K_A3V3_B5V<SOURCE>Texas Instruments SCAS416O-Revised September 2004</SOURCE>
+SN74ALVC164245ZQL_A3V3_B5V<SOURCE>Texas Instruments SCAS416O-Revised September 2004</SOURCE>
+<COMMENT>The Values listed are for VCCA=3.0V to 3.6V, VCCB=4.5V to 5.5V, TA=-40C to +85C</COMMENT>
+<COMMENT>No vendor data for DIR paths so ENeg values used</COMMENT>
+<COMMENT>Typ values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A B (1:3.4:5.8) (1:3.4:5.8))
+    (IOPATH B A (1.2:4.1:5.8) (1.2:4.1:5.8))
+    (IOPATH ENeg A () () (2.9:5.7:8.6) (2:5.5:9.1) (2.9:5.7:8.6) (2:5.5:9.1))
+    (IOPATH ENeg B () () (2.1:5.8:9.5) (1:5:8.9) (2.1:5.8:9.5) (1:5:8.9))
+    (IOPATH DIR A () () (2.9:5.7:8.6) (2:5.5:9.1) (2.9:5.7:8.6) (2:5.5:9.1))
+    (IOPATH DIR B () () (2.1:5.8:9.5) (1:5:8.9) (2.1:5.8:9.5) (1:5:8.9))
+  ))
+</TIMING></FMFTIME>
+</BODY></FTML>

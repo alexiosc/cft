@@ -1,0 +1,103 @@
+<!DOCTYPE FTML SYSTEM "ftml.dtd">
+<FTML><HEAD><TITLE>FMF Timing for std573 Parts</TITLE>
+<BODY>
+<REVISION.HISTORY>
+version: |  author:  | mod date: | changes made:
+  V1.0    R. Munden    00 Jun 29   Initial release
+</REVISION.HISTORY>
+<TIMESCALE>1ns</TIMESCALE>
+<MODEL>std573
+<FMFTIME>
+74ACT573MTC<SOURCE>Fairchild Semiconductor DS009973 Revised October 1999</SOURCE>
+74ACT573PC<SOURCE>Fairchild Semiconductor DS009973 Revised October 1999</SOURCE>
+74ACT573SC<SOURCE>Fairchild Semiconductor DS009973 Revised October 1999</SOURCE>
+74ACT573SJ<SOURCE>Fairchild Semiconductor DS009973 Revised October 1999</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=-40 to 85 Celsius</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH LE Q (2.5:6.0:12.0) (2.0:5.5:10.5))
+    (IOPATH D Q (2.0:6.0:12.0) (2.0:6.0:12.0))
+    (IOPATH OENeg Q () () (1.0:5.0:9.5) (1.5:5.5:11.0) (1.5:6.5:12.5) (1.5:5.5:10.5))
+  ))
+  (TIMINGCHECK
+    (SETUP D LE (3.5:3.5:3.5))
+    (HOLD D LE (0:0:0))
+    (WIDTH (posedge LE) (4.0:4.0:4.0))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+CD74ACT573DW<SOURCE>Texas Instruments SCHS291 1998</SOURCE>
+CD74ACT573N<SOURCE>Texas Instruments SCHS291 1998</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=-40 to 85 Celsius</COMMENT>
+<COMMENT>Typ values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH LE Q (3.2:6.4:11.4) (3.2:6.4:11.4))
+    (IOPATH D Q (2.7:5.4:9.4) (2.7:5.4:9.4))
+    (IOPATH OENeg Q () () (3.2:6.4:11.4) (3.5:7.0:12.3) (3.2:6.4:11.4) (3.5:7.0:12.3))
+  ))
+  (TIMINGCHECK
+    (SETUP D LE (2.0:2.0:2.0))
+    (HOLD D LE (2.6:2.6:2.6))
+    (WIDTH (posedge LE) (3.5:3.5:3.5))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+MC74ACT573DT<SOURCE>ON Semiconductor FACT Data Rev 3</SOURCE>
+MC74ACT573DW<SOURCE>ON Semiconductor FACT Data Rev 3</SOURCE>
+MC74ACT573N<SOURCE>ON Semiconductor FACT Data Rev 3</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=-40 to 85 Celsius</COMMENT>
+<COMMENT>Typ values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH LE Q (2.5:6.0:12.0) (2.0:5.0:10.5))
+    (IOPATH D Q (2.0:5.3:12.0) (2.0:5.3:12.0))
+    (IOPATH OENeg Q () () (1.0:4.3:9.5) (1.5:5.0:11.0) (1.5:5.5:12.5) (1.5:4.8:10.5))
+  ))
+  (TIMINGCHECK
+    (SETUP D LE (3.5:3.5:3.5))
+    (HOLD D LE (0:0:0))
+    (WIDTH (posedge LE) (4.0:4.0:4.0))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74ACT573DB<SOURCE>Texas Instruments SCAS538C-Revised January 2000</SOURCE>
+SN74ACT573DW<SOURCE>Texas Instruments SCAS538C-Revised January 2000</SOURCE>
+SN74ACT573N<SOURCE>Texas Instruments SCAS538C-Revised January 2000</SOURCE>
+SN74ACT573PW<SOURCE>Texas Instruments SCAS538C-Revised January 2000</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=-40 to 85 Celsius</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH LE Q (2.5:6.0:12.0) (2.0:5.5:10.5))
+    (IOPATH D Q (2.0:6.0:12.0) (2.0:6.0:12.0))
+    (IOPATH OENeg Q () () (1.0:5.0:9.5) (1.5:5.5:11.0) (1.5:6.5:12.5) (1.5:5.5:10.5))
+  ))
+  (TIMINGCHECK
+    (SETUP D LE (3.5:3.5:3.5))
+    (HOLD D LE (0:0:0))
+    (WIDTH (posedge LE) (4.0:4.0:4.0))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+DM74ALS573BWM<SOURCE>Fairchild Semiconductor DS006226 Revised February 2000</SOURCE>
+DM74ALS573BSJ<SOURCE>Fairchild Semiconductor DS006226 Revised February 2000</SOURCE>
+DM74ALS573BN<SOURCE>Fairchild Semiconductor DS006226 Revised February 2000</SOURCE>
+SN74ALS573CDB<SOURCE>Texas Instruments SDAS048D-Revised January 1995</SOURCE>
+SN74ALS573CDW<SOURCE>Texas Instruments SDAS048D-Revised January 1995</SOURCE>
+SN74ALS573CN<SOURCE>Texas Instruments SDAS048D-Revised January 1995</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=-40 to 85 Celsius</COMMENT>
+<COMMENT>Typ values are derived</COMMENT>
+<COMMENT></COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH LE Q (6:12:20) (6:12:19))
+    (IOPATH D Q (2:7:14) (2:7:14))
+    (IOPATH OENeg Q () () (1:8:15) (3:9:18) (1:5:10) (4:9:18))
+  ))
+  (TIMINGCHECK
+    (SETUP D LE (10:10:10))
+    (HOLD D LE (7:7:7))
+    (WIDTH (posedge LE) (10:10:10))
+  )
+</TIMING></FMFTIME>
+</BODY></FTML>

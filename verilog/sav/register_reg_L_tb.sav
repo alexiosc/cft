@@ -1,0 +1,36 @@
+[timestart] 0
+[size] 1318 931
+[pos] -1 -1
+*-22.499716 15530000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] register_reg_L_tb.
+[treeopen] register_reg_L_tb.register.
+@28
+register_reg_L_tb.clock
+register_reg_L_tb.reset
+register_reg_L_tb.clear
+@200
+-
+@28
+register_reg_L_tb.d
+register_reg_L_tb.latch
+register_reg_L_tb.toggle1
+register_reg_L_tb.toggle2
+@200
+-
+@28
+register_reg_L_tb.q
+register_reg_L_tb.nq
+@200
+-
+@28
+register_reg_L_tb.register.toggle1
+register_reg_L_tb.register.toggle2
+@200
+-
+@29
+register_reg_L_tb.clock
+@28
+register_reg_L_tb.register.toggle
+register_reg_L_tb.q
+[pattern_trace] 1
+[pattern_trace] 0

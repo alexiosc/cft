@@ -1,0 +1,226 @@
+<!DOCTYPE FTML SYSTEM "ftml.dtd">
+<FTML><HEAD><TITLE>FMF Timing for STD07 Parts</TITLE>
+<REVISION.HISTORY>
+version: |  author:  | mod date: | changes made:
+  V1.0     R. Munden   00 JUN 14   Initial release
+  V1.1     R. Munden   02 SEP 14   Added 12 part numbers
+  V1.2     R. Munden   02 NOV 27   Added 16 part numbers
+  V1.3     R. Munden   04 MAR 24   Added 4 part numbers
+</REVISION.HISTORY>
+</HEAD>
+<BODY>
+<TIMESCALE>1ns</TIMESCALE>
+<MODEL>STD07
+<FMFTIME>
+DM7407M<SOURCE>Fairchild Semiconductor DS006497 Revised July 2001</SOURCE>
+DM7407N<SOURCE>Fairchild Semiconductor DS006497 Revised July 2001</SOURCE>
+SN7407D<SOURCE>Texas Instruments SDLS032F-Revised January 2004</SOURCE>
+SN7407N<SOURCE>Texas Instruments SDLS032F-Revised January 2004</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=15pF, Ta=0 to 70 Celsius</COMMENT>
+<COMMENT>Min values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A Y (3:6:10) (10:20:30))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74AUC1G07DB_1V2<SOURCE>Texas Instruments SCES373H-Revised October 2002</SOURCE>
+SN74AUC1G07DCK_1V2<SOURCE>Texas Instruments SCES373H-Revised October 2002</SOURCE>
+SN74AUC1G07YEA_1V2<SOURCE>Texas Instruments SCES373H-Revised October 2002</SOURCE>
+SN74AUC1G07YZA_1V2<SOURCE>Texas Instruments SCES373H-Revised October 2002</SOURCE>
+<COMMENT>The Values listed are for VCC=1.1V to 1.3V, CL=15pF, Ta=-40 to +85 Celsius</COMMENT>
+<COMMENT>Typ values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A Y (.3:2.2:3.3) (.3:2.2:3.3))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74AUC1G07DB_1V5<SOURCE>Texas Instruments SCES373H-Revised October 2002</SOURCE>
+SN74AUC1G07DCK_1V5<SOURCE>Texas Instruments SCES373H-Revised October 2002</SOURCE>
+SN74AUC1G07YEA_1V5<SOURCE>Texas Instruments SCES373H-Revised October 2002</SOURCE>
+SN74AUC1G07YZA_1V5<SOURCE>Texas Instruments SCES373H-Revised October 2002</SOURCE>
+<COMMENT>The Values listed are for VCC=1.4V to 1.6V, CL=15pF, Ta=-40 to +85 Celsius</COMMENT>
+<COMMENT>Typ values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A Y (.2:1.2:2.4) (.2:1.2:2.4))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74AUC1G07DB_1V8<SOURCE>Texas Instruments SCES373H-Revised October 2002</SOURCE>
+SN74AUC1G07DCK_1V8<SOURCE>Texas Instruments SCES373H-Revised October 2002</SOURCE>
+SN74AUC1G07YEA_1V8<SOURCE>Texas Instruments SCES373H-Revised October 2002</SOURCE>
+SN74AUC1G07YZA_1V8<SOURCE>Texas Instruments SCES373H-Revised October 2002</SOURCE>
+<COMMENT>The Values listed are for VCC=1.65V to 1.95V, CL=30pF, Ta=-40 to +85 Celsius</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A Y (.8:1.9:2.5) (.8:1.9:2.5))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74AUC1G07DB_2V5<SOURCE>Texas Instruments SCES373H-Revised October 2002</SOURCE>
+SN74AUC1G07DCK_2V5<SOURCE>Texas Instruments SCES373H-Revised October 2002</SOURCE>
+SN74AUC1G07YEA_2V5<SOURCE>Texas Instruments SCES373H-Revised October 2002</SOURCE>
+SN74AUC1G07YZA_2V5<SOURCE>Texas Instruments SCES373H-Revised October 2002</SOURCE>
+<COMMENT>The Values listed are for VCC=2.3V to 2.7V, CL=30pF, Ta=-40 to +85 Celsius</COMMENT>
+<COMMENT>Typ values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A Y (.2:1.0:1.8) (.2:1.0:1.8))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74LVC07AD_1V8<SOURCE>Philips Semiconductors data sheet 2000 Mar 07</SOURCE>
+74LVC07APW_1V8<SOURCE>Philips Semiconductors data sheet 2000 Mar 07</SOURCE>
+<COMMENT>The Values listed are for VCC=1.65V to 1.95V, CL=30pF, Ta=-40 to +85 Celsius</COMMENT>
+<COMMENT>Min and Max values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A Y (0.5:2.4:3.3) (0.5:2.4:3.3))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74LVC07AD_2V5<SOURCE>Philips Semiconductors data sheet 2000 Mar 07</SOURCE>
+74LVC07APW_2V5<SOURCE>Philips Semiconductors data sheet 2000 Mar 07</SOURCE>
+<COMMENT>The Values listed are for VCC=2.3V to 2.7V, CL=30pF, Ta=-40 to +85 Celsius</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A Y (0.5:1.6:2.8) (0.5:1.6:2.8))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74LVC07AD_3V3<SOURCE>Philips Semiconductors data sheet 2000 Mar 07</SOURCE>
+74LVC07APW_3V3<SOURCE>Philips Semiconductors data sheet 2000 Mar 07</SOURCE>
+<COMMENT>The Values listed are for VCC=3.0V to 3.6V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A Y (0.5:2.2:3.6) (0.5:2.2:3.6))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74LVC07AD_5V<SOURCE>Philips Semiconductors data sheet 2000 Mar 07</SOURCE>
+74LVC07APW_5V<SOURCE>Philips Semiconductors data sheet 2000 Mar 07</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A Y (0.5:1.6:2.6) (0.5:1.6:2.6))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74LVC07AD_1V8<SOURCE>Texas Instruments SCAS595H-Revised February 2000</SOURCE>
+SN74LVC07ADB_1V8<SOURCE>Texas Instruments SCAS595H-Revised February 2000</SOURCE>
+SN74LVC07ADGV_1V8<SOURCE>Texas Instruments SCAS595H-Revised February 2000</SOURCE>
+SN74LVC07APW_1V8<SOURCE>Texas Instruments SCAS595H-Revised February 2000</SOURCE>
+<COMMENT>The Values listed are for VCC=1.65V to 1.95V, CL=30pF, Ta=-40 to +85 Celsius</COMMENT>
+<COMMENT>Typ values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A Y (1:2.5:3.5) (1:2.5:3.5))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74LVC07AD_2V5<SOURCE>Texas Instruments SCAS595H-Revised February 2000</SOURCE>
+SN74LVC07ADB_2V5<SOURCE>Texas Instruments SCAS595H-Revised February 2000</SOURCE>
+SN74LVC07ADGV_2V5<SOURCE>Texas Instruments SCAS595H-Revised February 2000</SOURCE>
+SN74LVC07APW_2V5<SOURCE>Texas Instruments SCAS595H-Revised February 2000</SOURCE>
+<COMMENT>The Values listed are for VCC=2.3V to 2.7V, CL=30pF, Ta=-40 to +85 Celsius</COMMENT>
+<COMMENT>Typ values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A Y (1:1.6:2.8) (1:1.6:2.8))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74LVC07AD_3V3<SOURCE>Texas Instruments SCAS595H-Revised February 2000</SOURCE>
+SN74LVC07ADB_3V3<SOURCE>Texas Instruments SCAS595H-Revised February 2000</SOURCE>
+SN74LVC07ADGV_3V3<SOURCE>Texas Instruments SCAS595H-Revised February 2000</SOURCE>
+SN74LVC07APW_3V3<SOURCE>Texas Instruments SCAS595H-Revised February 2000</SOURCE>
+<COMMENT>The Values listed are for VCC=3.0V to 3.6V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<COMMENT>Typ values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A Y (1:2.2:2.9) (1:2.2:2.9))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74LVC07AD_5V<SOURCE>Texas Instruments SCAS595H-Revised February 2000</SOURCE>
+SN74LVC07ADB_5V<SOURCE>Texas Instruments SCAS595H-Revised February 2000</SOURCE>
+SN74LVC07ADGV_5V<SOURCE>Texas Instruments SCAS595H-Revised February 2000</SOURCE>
+SN74LVC07APW_5V<SOURCE>Texas Instruments SCAS595H-Revised February 2000</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<COMMENT>Typ values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A Y (1:1.6:2.6) (1:1.6:2.6))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74LVC1G07DBV_1V8<SOURCE>Texas Instruments SCES296H-Revised April 2002</SOURCE>
+SN74LVC1G07DCK_1V8<SOURCE>Texas Instruments SCES296H-Revised April 2002</SOURCE>
+<COMMENT>The Values listed are for VCC=1.65V to 1.95V, CL=30pF, Ta=-40 to +85 Celsius</COMMENT>
+<COMMENT>Typ values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A Y (2.4:4.8:8.3) (2.4:4.8:8.3))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74LVC1G07DBV_2V5<SOURCE>Texas Instruments SCES296H-Revised April 2002</SOURCE>
+SN74LVC1G07DCK_2V5<SOURCE>Texas Instruments SCES296H-Revised April 2002</SOURCE>
+<COMMENT>The Values listed are for VCC=2.3V to 2.7V, CL=30pF, Ta=-40 to +85 Celsius</COMMENT>
+<COMMENT>Typ values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A Y (1.0:2.3:5.5) (1.0:2.3:5.5))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74LVC1G07DBV_3V3<SOURCE>Texas Instruments SCES296H-Revised April 2002</SOURCE>
+SN74LVC1G07DCK_3V3<SOURCE>Texas Instruments SCES296H-Revised April 2002</SOURCE>
+<COMMENT>The Values listed are for VCC=3.0V to 3.6V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<COMMENT>Typ values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A Y (1.5:3.0:4.2) (1.5:3.0:4.2))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74LVC1G07DBV_5V<SOURCE>Texas Instruments SCES296H-Revised April 2002</SOURCE>
+SN74LVC1G07DCK_5V<SOURCE>Texas Instruments SCES296H-Revised April 2002</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<COMMENT>Typ values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A Y (1.0:2.1:3.5) (1.0:2.1:3.5))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74LVC1G07GW_1V8<SOURCE>Philips Semiconductors data sheet 2001 Apr 06</SOURCE>
+<COMMENT>The Values listed are for VCC=1.65V to 1.95V, CL=30pF, Ta=-40 to +85 Celsius</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A Y (1.0:2.6:6.7) (1.0:2.6:6.7))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74LVC1G07GW_2V5<SOURCE>Philips Semiconductors data sheet 2001 Apr 06</SOURCE>
+<COMMENT>The Values listed are for VCC=2.3V to 2.7V, CL=30pF, Ta=-40 to +85 Celsius</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A Y (.5:1.7:5.5) (.5:1.7:5.5))
+<FMFTIME>
+74LVC1G07GW_3V3<SOURCE>Philips Semiconductors data sheet 2001 Apr 06</SOURCE>
+<COMMENT>The Values listed are for VCC=3.0V to 3.6V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A Y (.5:2.2:4.2) (.5:2.2:4.2))
+<FMFTIME>
+74LVC1G07GW_5V<SOURCE>Philips Semiconductors data sheet 2001 Apr 06</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A Y (.5:1.6:3.5) (.5:1.6:3.5))
+  ))
+</TIMING></FMFTIME>
+</BODY></FTML>

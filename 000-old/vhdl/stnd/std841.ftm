@@ -1,0 +1,61 @@
+<!DOCTYPE FTML SYSTEM "ftml.dtd">
+<FTML><HEAD><TITLE>FMF Timing for std841 Parts</TITLE>
+<BODY>
+<REVISION.HISTORY>
+version: |  author:  | mod date: | changes made:
+  V1.0    R. Munden    00 Oct 28   Initial release
+</REVISION.HISTORY>
+<TIMESCALE>1ns</TIMESCALE>
+<MODEL>std841
+<FMFTIME>
+SN74ALS841DW<SOURCE>Texas Instruments SDAS059C-Revised January 1995</SOURCE>
+SN74ALS841NT<SOURCE>Texas Instruments SDAS059C-Revised January 1995</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5 to 5.5V, CL=50pF, Ta=0 to 70 Celsius</COMMENT>
+<COMMENT>Typical values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH LE Q (7:14:21) (8:16:26))
+    (IOPATH D Q (2:7:13) (2:7:13))
+    (IOPATH OENeg Q () () (2:6:12) (2:6:12) (2:5:10) (2:6:12))
+  ))
+  (TIMINGCHECK
+    (SETUP D LE (10:10:10))
+    (HOLD D LE (5:5:5))
+    (WIDTH (posedge LE) (20:20:20))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74ALS29841DW<SOURCE>Texas Instruments SDAS149A-Revised January 1995</SOURCE>
+SN74ALS29841NT<SOURCE>Texas Instruments SDAS149A-Revised January 1995</SOURCE>
+<COMMENT>The Values listed are for VCC=4.75 to 5.25V, CL=50pF, Ta=0 to 70 Celsius</COMMENT>
+<COMMENT>Min and Typical values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH LE Q (2:6:12) (2:6:12))
+    (IOPATH D Q (2:5:9.5) (2:5:9.5))
+    (IOPATH OENeg Q () () (2:6:12) (2:7:14) (2:8:15) (2:7:14))
+  ))
+  (TIMINGCHECK
+    (SETUP D LE (2.5:2.5:2.5))
+    (HOLD D LE (4.5:4.5:4.5))
+    (WIDTH (posedge LE) (6:6:6))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74ABT16841DL<SOURCE>Texas Instruments SCBS222C-Revised May 1997</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5 to 5.5V, CL=50pF, Ta=-40 to 85 Celsius</COMMENT>
+<COMMENT></COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH LE Q (1.1:3.2:5.0) (1.6:3.4:5.0))
+    (IOPATH D Q (1.1:3.2:5.0) (1.6:3.5:5.1))
+    (IOPATH OENeg Q () () (1.9:4.4:7.1) (1.2:3.2:5.7) (2.2:4.1:6.5) (1.7:3.6:5.6)
+)
+  ))
+  (TIMINGCHECK
+    (SETUP D LE (1:1:1))
+    (HOLD D LE (2:2:2))
+    (WIDTH (posedge LE) (4:4:4))
+  )
+</TIMING></FMFTIME>
+</BODY></FTML>

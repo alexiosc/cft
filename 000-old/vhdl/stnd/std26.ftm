@@ -1,0 +1,49 @@
+<!DOCTYPE FTML SYSTEM "ftml.dtd">
+<FTML><HEAD><TITLE>FMF Timing for STD26 Parts</TITLE>
+<REVISION.HISTORY>
+version: |  author:  | mod date: | changes made:
+  V1.0     R. Munden   97 JUL 29   Initial release
+  V1.1     R. Munden   97 NOV 20   Added 2 new part numbers
+  V1.2      fixftm     97 NOV 30   Modified to work with mk_sdf 1.15
+</REVISION.HISTORY>
+</HEAD>
+<BODY>
+<TIMESCALE>1ns</TIMESCALE>
+<MODEL>STD26
+<FMFTIME>
+DM7426N<SOURCE>National Semiconductor June 1989</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=15pF, Ta=+25 Celsius</COMMENT>
+<COMMENT>Min and Typ values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH B YNeg (6:12:24) (4:9:17))
+    (IOPATH A YNeg (6:12:24) (4:9:17))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+DM74LS26MX<SOURCE>National Semiconductor May 1992</SOURCE>
+DM74LS26N<SOURCE>National Semiconductor May 1992</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<COMMENT>Min and Typ values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH B YNeg (10:20:40) (5:10:20))
+    (IOPATH A YNeg (10:20:40) (5:10:20))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74LS26D<SOURCE>Motorola Fast and LS TTL Data, DL121/D REV 5, Q2/92</SOURCE>
+SN74LS26J<SOURCE>Motorola Fast and LS TTL Data, DL121/D REV 5, Q2/92</SOURCE>
+SN74LS26N<SOURCE>Motorola Fast and LS TTL Data, DL121/D REV 5, Q2/92</SOURCE>
+SN74LS26D<SOURCE>Texas Instruments SDLS087-Revised March 1988</SOURCE>
+SN74LS26N<SOURCE>Texas Instruments SDLS087-Revised March 1988</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, Ta=+25 Celsius</COMMENT>
+<COMMENT>Min values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH B YNeg (8:17:32) (7:15:28))
+    (IOPATH A YNeg (8:17:32) (7:15:28))
+  ))
+</TIMING></FMFTIME>
+</BODY></FTML>
+

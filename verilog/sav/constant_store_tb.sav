@@ -1,0 +1,17 @@
+[timestart] 0
+[size] 1045 796
+[pos] 0 75
+*-20.148731 3156000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] constant_store_tb.
+[treeopen] constant_store_tb.constant_store.
+@28
+constant_store_tb.constant_store.in_rst
+constant_store_tb.constant_store.in_int
+@29
+constant_store_tb.constant_store.r_cs2
+@28
+constant_store_tb.constant_store.r_cs1
+@22
+constant_store_tb.constant_store.q[15:0]
+[pattern_trace] 1
+[pattern_trace] 0

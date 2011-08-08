@@ -1,0 +1,132 @@
+<!DOCTYPE FTML SYSTEM "ftml.dtd">
+<FTML><HEAD><TITLE>FMF Timing for STD38 Parts</TITLE>
+<REVISION.HISTORY>
+version: |  author:  | mod date: | changes made:
+  V1.0     R. Munden   97 AUG 04   Initial release
+  V1.1      fixftm     97 NOV 30   Modified to work with mk_sdf 1.15
+  V1.2     R. Munden   98 MAY 18   Added 5 new part numbers
+  V1.3     R. Munden   98 AUG 26   Added 4 new part numbers
+</REVISION.HISTORY>
+</HEAD>
+<BODY>
+<TIMESCALE>1ns</TIMESCALE>
+<MODEL>STD38
+<FMFTIME>
+DM7438SC<SOURCE>National Semiconductor June 1989</SOURCE>
+DM7438SJ<SOURCE>National Semiconductor June 1989</SOURCE>
+SN7438D<SOURCE>Texas Instruments SDLS105-Revised March 1988</SOURCE>
+SN7438N<SOURCE>Texas Instruments SDLS105-Revised March 1988</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, Ta=+25, Cl=45pF, Celsius</COMMENT>
+<COMMENT>Min values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH B YNeg (7:14:22) (5:11:18))
+    (IOPATH A YNeg (7:14:22) (5:11:18))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+DM74ALS38AM<SOURCE>Fairchild Semiconductor data sheet February 1998</SOURCE>
+DM74ALS38AN<SOURCE>Fairchild Semiconductor data sheet February 1998</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=0 to +70 Celsius</COMMENT>
+<COMMENT>Typ values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH B YNeg (10:22:33) (2:9:12))
+    (IOPATH A YNeg (10:22:33) (2:9:12))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74ALS38BD<SOURCE>Texas Instruments SDAS196B-Revised December 1994</SOURCE>
+SN74ALS38BN<SOURCE>Texas Instruments SDAS196B-Revised December 1994</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=0 to +70 Celsius</COMMENT>
+<COMMENT>Typ values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH B YNeg (10:22:33) (1:9:12))
+    (IOPATH A YNeg (10:22:33) (1:9:12))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74F38PC<SOURCE>Fairchild Semiconductor data sheet February 1998</SOURCE>
+74F38SC<SOURCE>Fairchild Semiconductor data sheet February 1998</SOURCE>
+74F38SJ<SOURCE>Fairchild Semiconductor data sheet February 1998</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, Ta=+25, CL=50pF, Celsius</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH B YNeg (6.5:9.7:12.5) (1.5:2.1:5.0))
+    (IOPATH A YNeg (6.5:9.7:12.5) (1.5:2.1:5.0))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74F38D<SOURCE>Motorola Fast and LS TTL Data, DL121/D REV 5, Q2/92</SOURCE>
+SN74F38J<SOURCE>Motorola Fast and LS TTL Data, DL121/D REV 5, Q2/92</SOURCE>
+SN74F38N<SOURCE>Motorola Fast and LS TTL Data, DL121/D REV 5, Q2/92</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, Ta=+25, CL=50pF, Celsius</COMMENT>
+<COMMENT>Typ values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH B YNeg (7.5:9:12.5) (1:3:5.0))
+    (IOPATH A YNeg (7.5:9:12.5) (1:3:5.0))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+N74F38D<SOURCE>Philips Semiconductors FAST Products, October 4, 1990</SOURCE>
+N74F38N<SOURCE>Philips Semiconductors FAST Products, October 4, 1990</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, Ta=+25, CL=50pF, Celsius</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH B YNeg (7.5:10.0:12.5) (1.5:3.0:5.0))
+    (IOPATH A YNeg (7.5:10.0:12.5) (1.5:3.0:5.0))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74LS38D<SOURCE>Motorola Fast and LS TTL Data, DL121/D REV 5, Q2/92</SOURCE>
+SN74LS38J<SOURCE>Motorola Fast and LS TTL Data, DL121/D REV 5, Q2/92</SOURCE>
+SN74LS38N<SOURCE>Motorola Fast and LS TTL Data, DL121/D REV 5, Q2/92</SOURCE>
+SN74LS38D<SOURCE>Texas Instruments SDLS105-Revised March 1988</SOURCE>
+SN74LS38N<SOURCE>Texas Instruments SDLS105-Revised March 1988</SOURCE>
+SN74LS38NS<SOURCE>Texas Instruments SDLS105-Revised March 1988</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, Ta=+25, CL=45pF, Celsius</COMMENT>
+<COMMENT>Min values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH B YNeg (10:20:32) (9:18:28))
+    (IOPATH A YNeg (10:20:32) (9:18:28))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+DM74LS38M<SOURCE>National Semiconductor June 1989</SOURCE>
+DM74LS38N<SOURCE>National Semiconductor June 1989</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, Ta=+25, CL=45pF, Celsius</COMMENT>
+<COMMENT>Min and Typ values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH B YNeg (7:14:22) (7:14:22))
+    (IOPATH A YNeg (7:14:22) (7:14:22))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74S38D<SOURCE>Texas Instruments SDLS105-Revised March 1988</SOURCE>
+SN74S38N<SOURCE>Texas Instruments SDLS105-Revised March 1988</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<COMMENT>Min values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH B YNeg (3:6.5:10) (3:6.5:10))
+    (IOPATH A YNeg (3:6.5:10) (3:6.5:10))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74F38D<SOURCE>Motorola Fast and LS TTL Data, DL121/D REV 5, Q2/92</SOURCE>
+SN74F38N<SOURCE>Motorola Fast and LS TTL Data, DL121/D REV 5, Q2/92</SOURCE>
+SN74F38J<SOURCE>Motorola Fast and LS TTL Data, DL121/D REV 5, Q2/92</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, Ta=0 to +70 Celsius</COMMENT>
+<COMMENT>Typ values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH B YNeg (2.4:4:6) (1.5:3:5.3))
+    (IOPATH A YNeg (2.4:4:6) (1.5:3:5.3))
+  ))
+</TIMING></FMFTIME>
+</BODY></FTML>
+

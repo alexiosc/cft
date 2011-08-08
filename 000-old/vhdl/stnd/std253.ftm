@@ -1,0 +1,52 @@
+<!DOCTYPE FTML SYSTEM "ftml.dtd">
+<FTML><HEAD><TITLE>FMF Timing for std253 Parts</TITLE>
+<BODY>
+<REVISION.HISTORY>
+version: |  author:  | mod date: | changes made:
+  V1.0    R. Munden    99 Dec 27   Initial release
+</REVISION.HISTORY>
+<TIMESCALE>1ns</TIMESCALE>
+<MODEL>std253
+<FMFTIME>
+N74F253D<SOURCE>Philips Semiconductors IC15 Data Handbook 1988 Nov 29</SOURCE>
+N74F253N<SOURCE>Philips Semiconductors IC15 Data Handbook 1988 Nov 29</SOURCE>
+<COMMENT>The values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=0 to 70 Celsius</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH S0 Y (4.5:7.5:11.0) (4.5:8.5:12.0))
+    (IOPATH I0 Y (3.0:45.0.5:7.5) (3.0:5.0:8.0))
+    (IOPATH OENeg Y () () (1.5:3.0:6.0) (3.0:6.5:9.0) (2.0:3.5:6.0) (3.0:6.5:9.0)
+)
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74AC253PC<SOURCE>Fairchild Semiconductor DS00946 November 1999</SOURCE>
+74AC253SC<SOURCE>Fairchild Semiconductor DS00946 November 1999</SOURCE>
+74AC253SJ<SOURCE>Fairchild Semiconductor DS00946 November 1999</SOURCE>
+MC74AC253D<SOURCE>On Semiconductor data sheet 1999 December</SOURCE>
+MC74AC253N<SOURCE>On Semiconductor data sheet 1999 December</SOURCE>
+<COMMENT>The values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=-40 to 85 Celsius</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH S0 Y (1.5:6.5:12.5) (1.5:7.0:13.0))
+    (IOPATH I0 Y (1.5:5.5:11.5) (1.5:5.5:11.0))
+    (IOPATH OENeg Y () () (1.0:4.0:7.5) (1.0:3.5:6.5) (1.5:5.0:8.5) (1.0:3.5:7.0)
+)
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74ACT253PC<SOURCE>Fairchild Semiconductor DS00946 November 1999</SOURCE>
+74ACT253SC<SOURCE>Fairchild Semiconductor DS00946 November 1999</SOURCE>
+74ACT253SJ<SOURCE>Fairchild Semiconductor DS00946 November 1999</SOURCE>
+MC74ACT253D<SOURCE>On Semiconductor data sheet 1999 December</SOURCE>
+MC74ACT253N<SOURCE>On Semiconductor data sheet 1999 December</SOURCE>
+<COMMENT>The values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=-40 to 85 Celsius</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH S0 Y (2.0:7.0:13.0) (2.5:7.5:14.5))
+    (IOPATH I0 Y (2.0:5.5:11.0) (3.0:6.5:12.5))
+    (IOPATH OENeg Y () () (2.0:4.5:8.5) (1.5:4.5:8.5) (2.5:6.0:10.0) (1.5:5.0:9.0
+))
+  ))
+</TIMING></FMFTIME>
+</BODY></FTML>

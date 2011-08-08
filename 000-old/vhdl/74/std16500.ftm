@@ -1,0 +1,57 @@
+<!DOCTYPE FTML SYSTEM "ftml.dtd">
+<FTML><HEAD><TITLE>FMF Timing for STD16500 Parts</TITLE>
+<REVISION.HISTORY>
+version: |  author:  | mod date: | changes made:
+  V1.0     R. Munden   98 APR 03   Initial release
+</REVISION.HISTORY>
+</HEAD>
+<BODY>
+<TIMESCALE>1ns</TIMESCALE>
+<MODEL>STD16500
+<FMFTIME>
+SN74ABT16500BDGG<SOURCE>Texas Instruments SCBS057G-Revised May 1997</SOURCE>
+SN74ABT16500BDL<SOURCE>Texas Instruments SCBS057G-Revised May 1997</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, TA=25C</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+     (IOPATH A B (1:2.5:3.6) (1:3.2:4.5))
+     (IOPATH LEAB B (1:3.2:4.5) (1:3.4:4.5))
+     (IOPATH CLKABNeg B (1:3.5:4.7) (1:3.5:4.7))
+     (IOPATH OEAB B () () (1.4:3.4:4.7) (1.4:3.4:4.6) (1.5:4.5:5.7) (1.5:3.8:4.7))
+  ))
+  (TIMINGCHECK
+    (WIDTH (posedge LEBA) (2.5:2.5:2.5))
+    (WIDTH (posedge LEAB) (2.5:2.5:2.5))
+    (WIDTH (posedge CLKABNeg) (3:3:3))
+    (WIDTH (negedge CLKABNeg) (3:3:3))
+    (SETUP A CLKABNeg (3:3:3))
+    (SETUP (COND CLKABNeg == 1 A) LEAB (1:1:1))
+    (SETUP (COND CLKABNeg == 0 A) LEAB (2.5:2.5:2.5))
+    (HOLD A CLKABNeg (0:0:0))
+    (HOLD B LEAB (2:2:2))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74ABT162500DGG<SOURCE>Texas Instruments SCBS242D-Revised May 1997</SOURCE>
+SN74ABT162500DL<SOURCE>Texas Instruments SCBS242D-Revised May 1997</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, TA=25C</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+     (IOPATH A B (1.5:2.6:4.0) (2:3.4:5.2))
+     (IOPATH LEAB B (2:3.3:4.8) (2:3.8:5.2))
+     (IOPATH CLKABNeg B (1.5:3.7:4.9) (1.5:3.8:5.2))
+     (IOPATH OEAB B () () (1.5:3.8:5.3) (1.5:3.4:4.6) (2.0:4.5:5.7) (2.0:3.8:4.7))
+  ))
+  (TIMINGCHECK
+    (WIDTH (posedge LEBA) (2.5:2.5:2.5))
+    (WIDTH (posedge LEAB) (2.5:2.5:2.5))
+    (WIDTH (posedge CLKABNeg) (3:3:3))
+    (WIDTH (negedge CLKABNeg) (3:3:3))
+    (SETUP A CLKABNeg (3.3:3.3:3.3))
+    (SETUP (COND CLKABNeg == 1 A) LEAB (1:1:1))
+    (SETUP (COND CLKABNeg == 0 A) LEAB (2.5:2.5:2.5))
+    (HOLD A CLKABNeg (0:0:0))
+    (HOLD B LEAB (2:2:2))
+  )
+</TIMING></FMFTIME>
+</BODY></FTML>

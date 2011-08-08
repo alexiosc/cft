@@ -1,0 +1,24 @@
+<!DOCTYPE FTML SYSTEM "ftml.dtd">
+<FTML><HEAD><TITLE>FMF Timing for STD1005 Parts</TITLE>
+<REVISION.HISTORY>
+version: |  author:  | mod date: | changes made:
+  V1.0     R. Munden   99 OCT 24   Initial release
+</REVISION.HISTORY>
+</HEAD>
+<BODY>
+<TIMESCALE>1ns</TIMESCALE>
+<MODEL>STD1005
+<FMFTIME>
+DM74ALS1005M<SOURCE>Fairchild Semiconductor February 1998</SOURCE>
+DM74ALS1005N<SOURCE>Fairchild Semiconductor February 1998</SOURCE>
+SN74ALS1005D<SOURCE>Texas Instruments SDAS240A-Revised January 1995</SOURCE>
+SN74ALS1005N<SOURCE>Texas Instruments SDAS240A-Revised January 1995</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V-5.5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<COMMENT>Typ values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A YNeg (5:15:30) (2:5:10))
+  ))
+</TIMING></FMFTIME>
+</BODY></FTML>
+

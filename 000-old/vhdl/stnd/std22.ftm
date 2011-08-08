@@ -1,0 +1,41 @@
+<!DOCTYPE FTML SYSTEM "ftml.dtd">
+<FTML><HEAD><TITLE>FMF Timing for std22 Parts</TITLE>
+<BODY>
+<REVISION.HISTORY>
+version: |  author:  | mod date: | changes made:
+  V1.0    R. Munden    00 Dec 12   Initial release
+</REVISION.HISTORY>
+<TIMESCALE>1ns</TIMESCALE>
+<MODEL>std22
+<FMFTIME>
+SN5422J<SOURCE>Texas Instruments Revised March 1988</SOURCE>
+SN5422W<SOURCE>Texas Instruments Revised March 1988</SOURCE>
+SN7422N<SOURCE>Texas Instruments Revised March 1988</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=15pF, Ta=25C</COMMENT>
+<COMMENT>Minimum values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A YNeg (25:35:45) (4:8:15))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74LS22D<SOURCE>Texas Instruments SDLS080-Revised March 1988</SOURCE>
+SN74LS22N<SOURCE>Texas Instruments SDLS080-Revised March 1988</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=15pF, Ta=25C</COMMENT>
+<COMMENT>Minimum values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A YNeg (8:17:32) (7:15:28))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74S22D<SOURCE>Texas Instruments SDLS080-Revised March 1988</SOURCE>
+SN74S22N<SOURCE>Texas Instruments SDLS080-Revised March 1988</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=15pF, Ta=25C</COMMENT>
+<COMMENT>Minimum values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A YNeg (2:5:7.5) (2:4.5:7))
+  ))
+</TIMING></FMFTIME>
+</BODY></FTML>

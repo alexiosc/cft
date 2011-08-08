@@ -1,0 +1,239 @@
+[timestart] 0
+[size] 1912 1173
+[pos] 0 0
+*-26.431446 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] cft_tb.
+[treeopen] cft_tb.cft.
+[treeopen] cft_tb.cft.clock_generator.ff2.
+[treeopen] cft_tb.cft.control_unit.
+[treeopen] cft_tb.cft.control_unit.reg_upc.
+[treeopen] cft_tb.cft.memory.
+@200
+-Clock
+@28
+cft_tb.cft.clock_generator.halt
+cft_tb.cft.control_unit.clock
+cft_tb.cft.clock_generator.clock3
+cft_tb.cft.clock_generator.clock4
+cft_tb.cft.control_unit.clock14
+cft_tb.cft.control_unit.guardpulse
+@200
+-
+-Reset & Int
+@28
+cft_tb.cft.reset_logic.reset_out
+cft_tb.cft.control_unit.irq
+cft_tb.cft.control_unit.cli
+cft_tb.cft.control_unit.i_flag
+cft_tb.cft.control_unit.int_out
+@200
+-
+-
+-Buses
+@22
+cft_tb.cft.abus[15:0]
+@c00022
+cft_tb.cft.ibus[15:0]
+@28
+(0)cft_tb.cft.ibus[15:0]
+(1)cft_tb.cft.ibus[15:0]
+(2)cft_tb.cft.ibus[15:0]
+(3)cft_tb.cft.ibus[15:0]
+(4)cft_tb.cft.ibus[15:0]
+(5)cft_tb.cft.ibus[15:0]
+(6)cft_tb.cft.ibus[15:0]
+(7)cft_tb.cft.ibus[15:0]
+(8)cft_tb.cft.ibus[15:0]
+(9)cft_tb.cft.ibus[15:0]
+(10)cft_tb.cft.ibus[15:0]
+(11)cft_tb.cft.ibus[15:0]
+(12)cft_tb.cft.ibus[15:0]
+(13)cft_tb.cft.ibus[15:0]
+(14)cft_tb.cft.ibus[15:0]
+(15)cft_tb.cft.ibus[15:0]
+@1401200
+-group_end
+@c00022
+cft_tb.cft.dbus[15:0]
+@28
+(0)cft_tb.cft.dbus[15:0]
+(1)cft_tb.cft.dbus[15:0]
+(2)cft_tb.cft.dbus[15:0]
+(3)cft_tb.cft.dbus[15:0]
+(4)cft_tb.cft.dbus[15:0]
+(5)cft_tb.cft.dbus[15:0]
+(6)cft_tb.cft.dbus[15:0]
+(7)cft_tb.cft.dbus[15:0]
+(8)cft_tb.cft.dbus[15:0]
+(9)cft_tb.cft.dbus[15:0]
+(10)cft_tb.cft.dbus[15:0]
+(11)cft_tb.cft.dbus[15:0]
+(12)cft_tb.cft.dbus[15:0]
+(13)cft_tb.cft.dbus[15:0]
+(14)cft_tb.cft.dbus[15:0]
+(15)cft_tb.cft.dbus[15:0]
+@1401200
+-group_end
+@28
+cft_tb.cft.control_unit.unit_demux.busbusy
+cft_tb.cft.control_unit.buscon
+cft_tb.cft.control_unit.guardpulse
+cft_tb.cft.control_unit.r_a
+cft_tb.cft.control_unit.r_add
+cft_tb.cft.control_unit.r_agl
+cft_tb.cft.control_unit.r_and
+cft_tb.cft.control_unit.r_dr
+cft_tb.cft.control_unit.r_not
+cft_tb.cft.control_unit.r_or
+cft_tb.cft.control_unit.r_pc
+cft_tb.cft.control_unit.r_roll
+cft_tb.cft.control_unit.r_xor
+cft_tb.cft.control_unit.mem
+cft_tb.cft.control_unit.w
+@29
+cft_tb.cft.control_unit.r
+@200
+-
+-Registers
+@22
++{PC} cft_tb.cft.control_unit.pc_unbuf[15:0]
+@c04022
+^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/disasm
++{IR} cft_tb.cft.control_unit.ir[15:0]
+@28
+(0)cft_tb.cft.control_unit.ir[15:0]
+(1)cft_tb.cft.control_unit.ir[15:0]
+(2)cft_tb.cft.control_unit.ir[15:0]
+(3)cft_tb.cft.control_unit.ir[15:0]
+(4)cft_tb.cft.control_unit.ir[15:0]
+(5)cft_tb.cft.control_unit.ir[15:0]
+(6)cft_tb.cft.control_unit.ir[15:0]
+(7)cft_tb.cft.control_unit.ir[15:0]
+(8)cft_tb.cft.control_unit.ir[15:0]
+(9)cft_tb.cft.control_unit.ir[15:0]
+(10)cft_tb.cft.control_unit.ir[15:0]
+(11)cft_tb.cft.control_unit.ir[15:0]
+(12)cft_tb.cft.control_unit.ir[15:0]
+(13)cft_tb.cft.control_unit.ir[15:0]
+(14)cft_tb.cft.control_unit.ir[15:0]
+(15)cft_tb.cft.control_unit.ir[15:0]
+@1401200
+-group_end
+@22
++{MAR} cft_tb.cft.control_unit.mar_unbuf[15:0]
+@28
++{L} cft_tb.cft.control_unit.l_unbuf
++{I Flag} cft_tb.cft.control_unit.i_flag
+@22
++{A} cft_tb.cft.control_unit.a_unbuf[15:0]
++{DR} cft_tb.cft.control_unit.dr_unbuf[15:0]
+@200
+-
+-System Device
+@28
+cft_tb.cft.control_unit.mode_autoinc
+@200
+-
+-Microcode
+@2022
+^1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/upc
+cft_tb.cft.control_unit.upc[3:0]
+@c00022
++{L} cft_tb.cft.control_unit.uaddr[12:0]
+@28
+(0)cft_tb.cft.control_unit.uaddr[12:0]
+(1)cft_tb.cft.control_unit.uaddr[12:0]
+(2)cft_tb.cft.control_unit.uaddr[12:0]
+(3)cft_tb.cft.control_unit.uaddr[12:0]
+(4)cft_tb.cft.control_unit.uaddr[12:0]
+(5)cft_tb.cft.control_unit.uaddr[12:0]
+(6)cft_tb.cft.control_unit.uaddr[12:0]
+(7)cft_tb.cft.control_unit.uaddr[12:0]
+(8)cft_tb.cft.control_unit.uaddr[12:0]
+(9)cft_tb.cft.control_unit.uaddr[12:0]
+(10)cft_tb.cft.control_unit.uaddr[12:0]
+(11)cft_tb.cft.control_unit.uaddr[12:0]
+(12)cft_tb.cft.control_unit.uaddr[12:0]
+@1401200
+-group_end
+@c04022
+^>2 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/uaddr
+cft_tb.cft.control_unit.uaddr[12:0]
+@28
+(0)cft_tb.cft.control_unit.uaddr[12:0]
+(1)cft_tb.cft.control_unit.uaddr[12:0]
+(2)cft_tb.cft.control_unit.uaddr[12:0]
+(3)cft_tb.cft.control_unit.uaddr[12:0]
+(4)cft_tb.cft.control_unit.uaddr[12:0]
+(5)cft_tb.cft.control_unit.uaddr[12:0]
+(6)cft_tb.cft.control_unit.uaddr[12:0]
+(7)cft_tb.cft.control_unit.uaddr[12:0]
+(8)cft_tb.cft.control_unit.uaddr[12:0]
+(9)cft_tb.cft.control_unit.uaddr[12:0]
+(10)cft_tb.cft.control_unit.uaddr[12:0]
+(11)cft_tb.cft.control_unit.uaddr[12:0]
+(12)cft_tb.cft.control_unit.uaddr[12:0]
+@1401200
+-group_end
+@c04022
+^>3 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/control
+cft_tb.cft.control_unit.control[23:0]
+@28
+(0)cft_tb.cft.control_unit.control[23:0]
+(1)cft_tb.cft.control_unit.control[23:0]
+(2)cft_tb.cft.control_unit.control[23:0]
+(3)cft_tb.cft.control_unit.control[23:0]
+(4)cft_tb.cft.control_unit.control[23:0]
+(5)cft_tb.cft.control_unit.control[23:0]
+(6)cft_tb.cft.control_unit.control[23:0]
+(7)cft_tb.cft.control_unit.control[23:0]
+(8)cft_tb.cft.control_unit.control[23:0]
+(9)cft_tb.cft.control_unit.control[23:0]
+(10)cft_tb.cft.control_unit.control[23:0]
+(11)cft_tb.cft.control_unit.control[23:0]
+(12)cft_tb.cft.control_unit.control[23:0]
+(13)cft_tb.cft.control_unit.control[23:0]
+(14)cft_tb.cft.control_unit.control[23:0]
+(15)cft_tb.cft.control_unit.control[23:0]
+(16)cft_tb.cft.control_unit.control[23:0]
+(17)cft_tb.cft.control_unit.control[23:0]
+(18)cft_tb.cft.control_unit.control[23:0]
+(19)cft_tb.cft.control_unit.control[23:0]
+(20)cft_tb.cft.control_unit.control[23:0]
+(21)cft_tb.cft.control_unit.control[23:0]
+(22)cft_tb.cft.control_unit.control[23:0]
+(23)cft_tb.cft.control_unit.control[23:0]
+@1401200
+-group_end
+@28
+cft_tb.cft.control_unit.w_a
+cft_tb.cft.control_unit.r_agl
+cft_tb.cft.control_unit.w_mar
+cft_tb.cft.control_unit.w_ir
+@200
+-
+-Memory & I/O
+@28
+cft_tb.cft.memory.mem
+cft_tb.cft.control_unit.io
+cft_tb.cft.memory.r
+cft_tb.cft.memory.w
+cft_tb.cft.memory.we
+@200
+-
+-Misc
+@28
+cft_tb.cft.control_unit.reg_upc.counter.cep
+cft_tb.cft.control_unit.reg_upc.counter.cet
+cft_tb.cft.control_unit.reg_upc.counter.cp
+cft_tb.cft.control_unit.reg_upc.counter.mr
+@22
+cft_tb.cft.control_unit.reg_upc.counter.p[3:0]
+@28
+cft_tb.cft.control_unit.reg_upc.counter.pe
+@22
+cft_tb.cft.control_unit.reg_upc.counter.q[3:0]
+@28
+cft_tb.cft.control_unit.reg_upc.counter.tc
+[pattern_trace] 1
+[pattern_trace] 0

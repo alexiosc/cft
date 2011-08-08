@@ -1,0 +1,52 @@
+<!DOCTYPE FTML SYSTEM "ftml.dtd">
+<FTML><HEAD><TITLE>FMF Timing for std15 Parts</TITLE>
+<BODY>
+<REVISION.HISTORY>
+version: |  author:  | mod date: | changes made:
+  V1.0    R. Munden    00 Nov 25   Initial release
+</REVISION.HISTORY>
+<TIMESCALE>1ns</TIMESCALE>
+<MODEL>std15
+<FMFTIME>
+SN74ALS15AD<SOURCE>Texas Instruments Revised May 1986</SOURCE>
+SN74ALS15AN<SOURCE>Texas Instruments Revised May 1986</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=0C to 70C</COMMENT>
+<COMMENT>Typical values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (20:35:45) (6:12:20))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+DM74LS15M<SOURCE>National Semiconductor 400044 1989</SOURCE>
+DM74LS15N<SOURCE>National Semiconductor 400044 1989</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=15pF, Ta=25C</COMMENT>
+<COMMENT>Minimum and typical values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (5:10:20) (4:7:14))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74LS15D<SOURCE>Motorola DL121/D Rev 5 Q2/92</SOURCE>
+SN74LS15N<SOURCE>Motorola DL121/D Rev 5 Q2/92</SOURCE>
+SN74LS15D<SOURCE>Texas Instruments Revised March 1988</SOURCE>
+SN74LS15N<SOURCE>Texas Instruments Revised March 1988</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=15pF, Ta=25C</COMMENT>
+<COMMENT>Minimum values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (10:20:35) (8:17:35))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74S15D<SOURCE>Texas Instruments Revised March 1988</SOURCE>
+SN74S15N<SOURCE>Texas Instruments Revised March 1988</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=15pF, Ta=25C</COMMENT>
+<COMMENT>Minimum values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (3:5.5:8.5) (3:6:9))
+  ))
+</TIMING></FMFTIME>
+</BODY></FTML>

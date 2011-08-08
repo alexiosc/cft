@@ -1,0 +1,321 @@
+<!DOCTYPE FTML SYSTEM "ftml.dtd">
+<FTML><HEAD><TITLE>FMF Timing for STD125 Parts</TITLE>
+<REVISION.HISTORY>
+version: |  author:         | mod date: | changes made:
+  V1.0     R. Munden          97 SEP 12   Initial release
+  V1.1      fixftm            97 NOV 30   Modified to work with mk_sdf 1.15
+  V1.2     R. Munden          98 AUG 25   Added 11 new part numbers
+  V1.3     R. Munden          02 OCT 22   Added 27 new part numbers
+  V1.4     D. Stanojkovic     07 MAY 15   Added 10 new part numbers
+  V1.5     D. Stanojkovic     07 JUN 12   Added 7 new part numbers
+  V1.6     R. Munden          10 APR 29   Added 10 new part numbers
+</REVISION.HISTORY>
+</HEAD>
+<BODY>
+<TIMESCALE>1ns</TIMESCALE>
+<MODEL>STD125
+<FMFTIME>
+74ABT125N<SOURCE>Philips Semiconductors 853-1606 16522 March 1996</SOURCE>
+74ABT125D<SOURCE>Philips Semiconductors 853-1606 16522 March 1996</SOURCE>
+74ABT125DB<SOURCE>Philips Semiconductors 853-1606 16522 March 1996</SOURCE>
+74ABT125PW<SOURCE>Philips Semiconductors 853-1606 16522 March 1996</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A Y (1:2.8:4.1) (1.0:3.1:4.6))
+    (IOPATH OENeg Y () () (1.5:2.8:5.0) (1.0:3.2:5.0) (1.0:4.1:5.4) (1.0:4.2:6.2))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74ABT125DB<SOURCE>Texas Instruments SCBS182E-Revised February 1997</SOURCE>
+SN74ABT125D<SOURCE>Texas Instruments SCBS182E-Revised February 1997</SOURCE>
+SN74ABT125N<SOURCE>Texas Instruments SCBS182E-Revised February 1997</SOURCE>
+SN74ABT125PW<SOURCE>Texas Instruments SCBS182E-Revised February 1997</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A Y (1:3.2:4.6) (1:2.5:4.6))
+    (IOPATH OENeg Y () () (1:3.3:5.3) (1:3.6:5) (1:3.8:5.4) (1:2.5:6.2))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+MC74AC125D<SOURCE>Motorola FACT Data, DL138 REV 3</SOURCE>
+MC74AC125N<SOURCE>Motorola FACT Data, DL138 REV 3</SOURCE>
+74AC125SC<SOURCE>National Semiconductor Data Sheet March 1993</SOURCE>
+74AC125SJ<SOURCE>National Semiconductor Data Sheet March 1993</SOURCE>
+74AC125MTC<SOURCE>National Semiconductor Data Sheet March 1993</SOURCE>
+74AC125PC<SOURCE>National Semiconductor Data Sheet March 1993</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A Y (1:5.5:7.0) (1:5.0:7.0))
+    (IOPATH OENeg Y () () (1:6.5:9) (1:5:7) (1:6.5:9.0) (1:5.5:8.0))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+MC74ACT125D<SOURCE>Motorola FACT Data, DL138 REV 3</SOURCE>
+MC74ACT125N<SOURCE>Motorola FACT Data, DL138 REV 3</SOURCE>
+74ACT125SC<SOURCE>National Semiconductor Data Sheet March 1993</SOURCE>
+74ACT125SJ<SOURCE>National Semiconductor Data Sheet March 1993</SOURCE>
+74ACT125MTC<SOURCE>National Semiconductor Data Sheet March 1993</SOURCE>
+74ACT125PC<SOURCE>National Semiconductor Data Sheet March 1993</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A Y (1:6.5:9.0) (1:7.0:9.0))
+    (IOPATH OENeg Y () () (1:7.5:10) (1:6:8.5) (1:7.0:9.5) (1:7.0:9.5))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74AHC125D_3V3<SOURCE>Philips Semiconductors Product Specification 1999 Sep 27</SOURCE>
+74AHC125PW_3V3<SOURCE>Philips Semiconductors Product Specification 1999 Sep 27</SOURCE>
+<COMMENT>The Values listed are for VCC=3.0V to 3.6V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A Y (1.0:6.2:13.0) (1.0:6.2:13.0))
+    (IOPATH OENeg Y () () (1:9.6:15.0) (1:6.8:13.0) (1:9.6:15.0) (1:6.8:13.0))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74AHC125D_5V<SOURCE>Philips Semiconductors Product Specification 1999 Sep 27</SOURCE>
+74AHC125PW_5V<SOURCE>Philips Semiconductors Product Specification 1999 Sep 27</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A Y (1.0:4.3:8.5) (1.0:4.3:8.5))
+    (IOPATH OENeg Y () () (1:6.8:10.0) (1:4.7:8.0) (1:6.8:10.0) (1:4.7:8.0))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74AHC125D_3V3<SOURCE>Texas Instruments SCLS265I-Revised September 2002</SOURCE>
+SN74AHC125DB_3V3<SOURCE>Texas Instruments SCLS265I-Revised September 2002</SOURCE>
+SN74AHC125DGV_3V3<SOURCE>Texas Instruments SCLS265I-Revised September 2002</SOURCE>
+SN74AHC125N_3V3<SOURCE>Texas Instruments SCLS265I-Revised September 2002</SOURCE>
+SN74AHC125NS_3V3<SOURCE>Texas Instruments SCLS265I-Revised September 2002</SOURCE>
+SN74AHC125PW_3V3<SOURCE>Texas Instruments SCLS265I-Revised September 2002</SOURCE>
+SN74AHC125RGY_3V3<SOURCE>Texas Instruments SCLS265I-Revised September 2002</SOURCE>
+<COMMENT>The Values listed are for VCC=3.0V to 3.6V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A Y (1.0:8.1:13.0) (1.0:8.1:13.0))
+    (IOPATH OENeg Y () () (1:9.5:15.0) (1:7.9:13.0) (1:9.5:15.0) (1:7.9:13.0))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74AHC125D_5V<SOURCE>Texas Instruments SCLS265I-Revised September 2002</SOURCE>
+SN74AHC125DB_5V<SOURCE>Texas Instruments SCLS265I-Revised September 2002</SOURCE>
+SN74AHC125DGV_5V<SOURCE>Texas Instruments SCLS265I-Revised September 2002</SOURCE>
+SN74AHC125N_5V<SOURCE>Texas Instruments SCLS265I-Revised September 2002</SOURCE>
+SN74AHC125NS_5V<SOURCE>Texas Instruments SCLS265I-Revised September 2002</SOURCE>
+SN74AHC125PW_5V<SOURCE>Texas Instruments SCLS265I-Revised September 2002</SOURCE>
+SN74AHC125RGY_5V<SOURCE>Texas Instruments SCLS265I-Revised September 2002</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A Y (1.0:5.3:8.5) (1.0:5.3:8.5))
+    (IOPATH OENeg Y () () (1:6.1:10.0) (1:5.1:8.0) (1:6.1:10.0) (1:5.1:8.0))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74AHCT125D<SOURCE>Philips Semiconductors Product Specification 1999 Sep 27</SOURCE>
+74AHCT125PW<SOURCE>Philips Semiconductors Product Specification 1999 Sep 27</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A Y (1.0:4.3:8.5) (1.0:4.3:8.5))
+    (IOPATH OENeg Y () () (1:6.5:10.0) (1:4.9:8.3) (1:6.5:10.0) (1:4.9:8.3))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74AHCT125D<SOURCE>Texas Instruments SCLS264N-Revised September 2002</SOURCE>
+SN74AHCT125DB<SOURCE>Texas Instruments SCLS264N-Revised September 2002</SOURCE>
+SN74AHCT125DGV<SOURCE>Texas Instruments SCLS264N-Revised September 2002</SOURCE>
+SN74AHCT125N<SOURCE>Texas Instruments SCLS264N-Revised September 2002</SOURCE>
+SN74AHCT125NS<SOURCE>Texas Instruments SCLS264N-Revised September 2002</SOURCE>
+SN74AHCT125PW<SOURCE>Texas Instruments SCLS264N-Revised September 2002</SOURCE>
+SN74AHCT125RGY<SOURCE>Texas Instruments SCLS264N-Revised September 2002</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A Y (1.0:5.3:8.5) (1.0:5.3:8.5))
+    (IOPATH OENeg Y () () (1:6.1:10.0) (1:5.1:8.0) (1:6.1:10.0) (1:5.1:8.0))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74HC125D<SOURCE>Texas Instruments SCLS104B-Revised May 1997</SOURCE>
+SN74HC125DB<SOURCE>Texas Instruments SCLS104B-Revised May 1997</SOURCE>
+SN74HC125N<SOURCE>Texas Instruments SCLS104B-Revised May 1997</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<COMMENT>Min values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A Y (7:14:24) (7:14:24))
+    (IOPATH OENeg Y () () (7:15:24) (7:14:24) (7:14:24) (7:15:24))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74LS125ADW<SOURCE>Motorola Fast and LS TTL Data, DL121/D REV 5, Q2/92</SOURCE>
+SN74LS125AJ<SOURCE>Motorola Fast and LS TTL Data, DL121/D REV 5, Q2/92</SOURCE>
+SN74LS125AN<SOURCE>Motorola Fast and LS TTL Data, DL121/D REV 5, Q2/92</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=45pF, Ta=+25 Celsius</COMMENT>
+<COMMENT>Min values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A Y (4:9:15) (3:7:18))
+    (IOPATH OENeg Y () () (5:10:20) (6:12:20) (5:10:20) (7:15:25))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74F125PC<SOURCE>Fairchild Semicondutor Datasheet March 1998</SOURCE>
+74F125SC<SOURCE>Fairchild Semicondutor Datasheet March 1998</SOURCE>
+74F125SJ<SOURCE>Fairchild Semicondutor Datasheet March 1998</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A Y (2.0:4.0:6.0) (3.0:4.6:7.5))
+    (IOPATH OENeg Y () () (1.5:4.0:6.0) (3.5:4.7:7.5) (1.5:3.9:5.5) (3.5:5.3:8.0))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+MC74F125DW<SOURCE>Motorola Fast and LS TTL Data, DL121/D REV 5, Q2/92</SOURCE>
+MC74F125N<SOURCE>Motorola Fast and LS TTL Data, DL121/D REV 5, Q2/92</SOURCE>
+MC74F125J<SOURCE>Motorola Fast and LS TTL Data, DL121/D REV 5, Q2/92</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, Ta=0 to +70 Celsius</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A Y (1.5:4.0:6.0) (3.0:5.5:7.5))
+    (IOPATH OENeg Y () () (1.5:3.5:5.5) (3.0:5.5:7.5) (1.5:3.5:5.0) (3.0:6.0:8.0))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+N74F125D<SOURCE>Philips Semiconductors IC15 Data Handbook August 1992</SOURCE>
+N74F125N<SOURCE>Philips Semiconductors IC15 Data Handbook August 1992</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A Y (2.0:4.0:6.0) (3.0:5.5:7.5))
+    (IOPATH OENeg Y () () (1.5:3.5:5.5) (3.5:5.5:7.5) (1.5:3.5:5.0) (4.0:6.0:8.0))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74F125D<SOURCE>Texas Instruments SDFS016A-Revised October 1993</SOURCE>
+SN74F125N<SOURCE>Texas Instruments SDFS016A-Revised October 1993</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A Y (1.2:3.6:6.0) (2.2:5.1:7.5))
+    (IOPATH OENeg Y () () (1.0:3.1:5.5) (2.7:5.1:7.5) (1.0:3.1:5.0) (3.2:5.6:8.0))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74LV125D<SOURCE>Philips Semiconductors IC24 Data Handbook February 1997</SOURCE>
+74LV125DB<SOURCE>Philips Semiconductors IC24 Data Handbook February 1997</SOURCE>
+74LV125N<SOURCE>Philips Semiconductors IC24 Data Handbook February 1997</SOURCE>
+74LV125PW<SOURCE>Philips Semiconductors IC24 Data Handbook February 1997</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V-5.5V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<COMMENT>Min values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A Y (4:8:12) (4:8:12))
+    (IOPATH OENeg Y () () (5:11:17) (5:11:15) (5:11:15) (5:11:17))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74HCT125N_4V5<SOURCE>Texas Instruments SCLS069E-November 1998-Revised August 2003</SOURCE>
+SN74HCT125D_4V5<SOURCE>Texas Instruments SCLS069E-November 1998-Revised August 2003</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<COMMENT>Min values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A Y (7:15:33) (7:15:33))
+    (IOPATH OENeg Y () () (7:15:33) (8:18:35) (7:15:33) (8:18:35))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74HCT125N_5V5<SOURCE>Texas Instruments SCLS069E-November 1998-Revised August 2003</SOURCE>
+SN74HCT125D_5V5<SOURCE>Texas Instruments SCLS069E-November 1998-Revised August 2003</SOURCE>
+<COMMENT>The Values listed are for VCC=5.5V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<COMMENT>Min values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A Y (5:12:30) (5:12:30))
+    (IOPATH OENeg Y () () (5:13:30) (7:15:31) (5:13:30) (7:15:31))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN54HCT125J_4V5<SOURCE>Texas Instruments SCLS069E-November 1998-Revised August 2003</SOURCE>
+SN54HCT125W_4V5<SOURCE>Texas Instruments SCLS069E-November 1998-Revised August 2003</SOURCE>
+SN54HCT125FK_4V5<SOURCE>Texas Instruments SCLS069E-November 1998-Revised August 2003</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V, CL=50pF, Ta=-55 to 125C</COMMENT>
+<COMMENT>Min values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A Y (6:15:39) (6:15:39))
+    (IOPATH OENeg Y () () (6:15:39) (8:18:42) (6:15:39) (8:18:42))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN54HCT125J_5V5<SOURCE>Texas Instruments SCLS069E-November 1998-Revised August 2003</SOURCE>
+SN54HCT125W_5V5<SOURCE>Texas Instruments SCLS069E-November 1998-Revised August 2003</SOURCE>
+SN54HCT125FK_5V5<SOURCE>Texas Instruments SCLS069E-November 1998-Revised August 2003</SOURCE>
+<COMMENT>The Values listed are for VCC=5.5V, CL=50pF, Ta=-55 to 125C</COMMENT>
+<COMMENT>Min values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A Y (4:12:35) (4:12:35))
+    (IOPATH OENeg Y () () (4:13:35) (6:15:38) (4:13:35) (6:15:38))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74BCT125AN<SOURCE>Texas Instruments SCBS032F - September 1998 - Revised March 2003</SOURCE>
+SN74BCT125AD<SOURCE>Texas Instruments SCBS032F - September 1998 - Revised March 2003</SOURCE>
+SN74BCT125ANS<SOURCE>Texas Instruments SCBS032F - September 1998 - Revised March 2003</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=0 to +70 Celsius</COMMENT>
+<COMMENT>Typ values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A Y (1.6:3.6:5.7) (2.7:5.2:7.7))
+    (IOPATH OENeg Y () () (2.8:5.7:8.6) (3.4:6.8:10.3) (3:6:8.9) (5:8.4:11.7))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN54BCT125AJ<SOURCE>Texas Instruments SCBS032F - September 1998 - Revised March 2003</SOURCE>
+SNJ54BCT125AJ<SOURCE>Texas Instruments SCBS032F - September 1998 - Revised March 2003</SOURCE>
+SNJ54BCT125AW<SOURCE>Texas Instruments SCBS032F - September 1998 - Revised March 2003</SOURCE>
+SNJ54BCT125AFK<SOURCE>Texas Instruments SCBS032F - September 1998 - Revised March 2003</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=-55 to +125 Celsius</COMMENT>
+<COMMENT>Typ values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A Y (1.6:3.8:6) (2.7:5.4:8))
+    (IOPATH OENeg Y () () (2.8:6.4:9.9) (3.4:7.2:11.1) (3:6.2:9.4) (5:8.9:12.8))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74LVC125AD_2V7<SOURCE>Texas Instruments SCAS290O-Revised August 2005</SOURCE>
+SN74LVC125ADB_2V7<SOURCE>Texas Instruments SCAS290O-Revised August 2005</SOURCE>
+SN74LVC125ANS_2V7<SOURCE>Texas Instruments SCAS290O-Revised August 2005</SOURCE>
+SN74LVC125APW_2V7<SOURCE>Texas Instruments SCAS290O-Revised August 2005</SOURCE>
+SN74LVC125ARGY_2V7<SOURCE>Texas Instruments SCAS290O-Revised August 2005</SOURCE>
+<COMMENT>The Values listed are for VCC=2.7V, CL=50pF, Ta=-40 to 125C</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A Y (1.0:3.0:7.0) (1.0:3.0:7.0))
+    (IOPATH OENeg Y () () (1:2.5:6.5) (1:3.3:8.5) (1:2.5:6.5) (1:3.3:8.5))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74LVC125AD_3V3<SOURCE>Texas Instruments SCAS290O-Revised August 2005</SOURCE>
+SN74LVC125ADB_3V3<SOURCE>Texas Instruments SCAS290O-Revised August 2005</SOURCE>
+SN74LVC125ANS_3V3<SOURCE>Texas Instruments SCAS290O-Revised August 2005</SOURCE>
+SN74LVC125APW_3V3<SOURCE>Texas Instruments SCAS290O-Revised August 2005</SOURCE>
+SN74LVC125ARGY_3V3<SOURCE>Texas Instruments SCAS290O-Revised August 2005</SOURCE>
+<COMMENT>The Values listed are for VCC=3.0V to 3.6V, CL=50pF, Ta=-40 to 125C</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A Y (1.0:2.5:6.0) (1.0:2.5:6.0))
+    (IOPATH OENeg Y () () (1:2.4:6.0) (1:2.4:7.0) (1:2.4:6.0) (1:2.4:7.0))
+  ))
+</TIMING></FMFTIME>
+</BODY></FTML>
+

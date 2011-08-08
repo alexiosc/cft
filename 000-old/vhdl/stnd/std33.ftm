@@ -1,0 +1,43 @@
+<!DOCTYPE FTML SYSTEM "ftml.dtd">
+<FTML><HEAD><TITLE>FMF Timing for std33 Parts</TITLE>
+<BODY>
+<REVISION.HISTORY>
+version: |  author:  | mod date: | changes made:
+  V1.0    R. Munden    00 Dec 23   Initial release
+</REVISION.HISTORY>
+<TIMESCALE>1ns</TIMESCALE>
+<MODEL>std33
+<FMFTIME>
+SN74ALS33AD<SOURCE>Texas Instruments SDAS034B-Revised December 1994</SOURCE>
+SN74ALS33AN<SOURCE>Texas Instruments SDAS034B-Revised December 1994</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=0 to 70C</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH B YNeg (10:18:33) (2:7:12))
+    (IOPATH A YNeg (10:18:33) (2:7:12))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+DM74LS33M<SOURCE>Fairchild Semiconductor DS010170 Revised March 2000</SOURCE>
+DM74LS33N<SOURCE>Fairchild Semiconductor DS010170 Revised March 2000</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=15pF, Ta=+25 Celsius</COMMENT>
+<COMMENT>Minimum and typical values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH B YNeg (7:15:22) (7:15:22))
+    (IOPATH A YNeg (7:15:22) (7:15:22))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74LS33D<SOURCE>Texas Instruments SDLS101-Revised March 1988</SOURCE>
+SN74LS33N<SOURCE>Texas Instruments SDLS101-Revised March 1988</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=15pF, Ta=+25 Celsius</COMMENT>
+<COMMENT>Typical values are derived</COMMENT>
+<COMMENT></COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH B YNeg (10:20:32) (9:18:28))
+    (IOPATH A YNeg (10:20:32) (9:18:28))
+  ))
+</TIMING></FMFTIME>
+</BODY></FTML>

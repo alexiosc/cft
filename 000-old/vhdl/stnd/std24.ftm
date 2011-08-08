@@ -1,0 +1,21 @@
+<!DOCTYPE FTML SYSTEM "ftml.dtd">
+<FTML><HEAD><TITLE>FMF Timing for std24 Parts</TITLE>
+<BODY>
+<REVISION.HISTORY>
+version: |  author:  | mod date: | changes made:
+  V1.0    R. Munden    00 Dec 14   Initial release
+</REVISION.HISTORY>
+<TIMESCALE>1ns</TIMESCALE>
+<MODEL>std24
+<FMFTIME>
+SN74LS24AD<SOURCE>Texas Instruments SDLS138-Revised March 1988</SOURCE>
+SN74LS24AJ<SOURCE>Texas Instruments SDLS138-Revised March 1988</SOURCE>
+SN74LS24AN<SOURCE>Texas Instruments SDLS138-Revised March 1988</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=15pF, Ta=25C</COMMENT>
+<COMMENT>Minimum values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A YNeg (7:13:20) (12:25:40))
+  ))
+</TIMING></FMFTIME>
+</BODY></FTML>

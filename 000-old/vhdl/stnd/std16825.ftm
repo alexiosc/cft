@@ -1,0 +1,38 @@
+<!DOCTYPE FTML SYSTEM "ftml.dtd">
+<FTML><HEAD><TITLE>FMF Timing for std16825 Parts</TITLE>
+<BODY>
+<REVISION.HISTORY>
+version: |  author:  | mod date: | changes made:
+  V1.0    R. Munden    02 Jan 23   Initial release
+</REVISION.HISTORY>
+<TIMESCALE>1ns</TIMESCALE>
+<MODEL>std16825
+<FMFTIME>
+74ABT16825ADGG<SOURCE>Philips Semiconductors 853-1804 19018 1998 Feb 25</SOURCE>
+74ABT16825ADL<SOURCE>Philips Semiconductors 853-1804 19018 1998 Feb 25</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5-5.5V, CL=50pF, Ta=-40 to 85 Celsius</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (1:1.8:2.8) (.6:1.4:2.3)) 
+    (IOPATH OE1Neg Y () () (1.6:2.5:3.7) (1:2.9:4.8) (2:3.3:5.2) (1:2.9:5))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74ABT16825DL<SOURCE>Texas Instruments SCBS218D-Revised October 2000</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5-5.5V, CL=50pF, Ta=-40 to 85 Celsius</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (1:1.9:3.9) (1:2.1:4.4)) 
+    (IOPATH OE1Neg Y () () (1.6:3.7:6.6) (1:2.8:6.1) (2.4:4.5:6.9) (1:2.8:6))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74ACT16825DL<SOURCE>Texas Instruments SCAS155B-Revised April 1996</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5-5.5V, CL=50pF, Ta=-40 to 85 Celsius</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A Y (4.1:7.5:10.5) (3.1:7.5:10.3)) 
+    (IOPATH OE1Neg Y () () (5.5:8.5:10.6) (3.3:7.9:11) (5.7:9:11.5) (4.1:9.5:13.2))
+  ))
+</TIMING></FMFTIME>
+</BODY></FTML>

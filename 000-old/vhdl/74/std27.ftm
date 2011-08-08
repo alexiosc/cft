@@ -1,0 +1,217 @@
+<!DOCTYPE FTML SYSTEM "ftml.dtd">
+<FTML><HEAD><TITLE>FMF Timing for std27 Parts</TITLE>
+<BODY>
+<REVISION.HISTORY>
+version: |  author:  | mod date: | changes made:
+  V1.0    R. Munden    00 Dec 16   Initial release
+</REVISION.HISTORY>
+<TIMESCALE>1ns</TIMESCALE>
+<MODEL>std27
+<FMFTIME>
+DM74ALS27M<SOURCE>Fairchild Semiconductor DS006187 Revised February 2000</SOURCE>
+DM74ALS27N<SOURCE>Fairchild Semiconductor DS006187 Revised February 2000</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=0 to 70C</COMMENT>
+<COMMENT>Typical values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A YNeg (4:10:15) (3:6:9))
+    (IOPATH B YNeg (4:10:15) (3:6:9))
+    (IOPATH C YNeg (4:10:15) (3:6:9))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74ALS27D<SOURCE>Philips Semiconductor 853-1162 01670 1991 Feb 08</SOURCE>
+74ALS27N<SOURCE>Philips Semiconductor 853-1162 01670 1991 Feb 08</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=0 to 70C</COMMENT>
+<COMMENT>Typical values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A YNeg (2:8:15) (2:5:9))
+    (IOPATH B YNeg (2:8:15) (2:5:9))
+    (IOPATH C YNeg (2:8:15) (2:5:9))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74ALS27AD<SOURCE>Texas Instruments SDAS112B-Revised December 1994</SOURCE>
+SN74ALS27AN<SOURCE>Texas Instruments SDAS112B-Revised December 1994</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=0 to 70C</COMMENT>
+<COMMENT>Typical values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A YNeg (3:7:15) (1:5:9))
+    (IOPATH B YNeg (3:7:15) (1:5:9))
+    (IOPATH C YNeg (3:7:15) (1:5:9))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+DM74AS27M<SOURCE>Fairchild Semiconductor DS006278 Revised March 2000</SOURCE>
+DM74AS27N<SOURCE>Fairchild Semiconductor DS006278 Revised March 2000</SOURCE>
+SN74AS27D<SOURCE>Texas Instruments SDAS112B-Revised December 1994</SOURCE>
+SN74AS27N<SOURCE>Texas Instruments SDAS112B-Revised December 1994</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=0 to 70C</COMMENT>
+<COMMENT>Typical values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A YNeg (1:3:5.5) (1:3:4.5))
+    (IOPATH B YNeg (1:3:5.5) (1:3:4.5))
+    (IOPATH C YNeg (1:3:5.5) (1:3:4.5))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74F27PC<SOURCE>Fairchild Semiconductor DS009539 Revised October 2000</SOURCE>
+74F27SC<SOURCE>Fairchild Semiconductor DS009539 Revised October 2000</SOURCE>
+74F27SJ<SOURCE>Fairchild Semiconductor DS009539 Revised October 2000</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=0 to 70C</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A YNeg (1.5:3.8:6.5) (1.0:2.6:4.5))
+    (IOPATH B YNeg (1.5:3.8:6.5) (1.0:2.6:4.5))
+    (IOPATH C YNeg (1.5:3.8:6.5) (1.0:2.6:4.5))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+N74F27D<SOURCE>Philips Semiconductor 853 0049 01638 February 5, 1991</SOURCE>
+N74F27N<SOURCE>Philips Semiconductor 853 0049 01638 February 5, 1991</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=0 to 70C</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A YNeg (1.5:3.5:5.5) (1.0:2.5:4.5))
+    (IOPATH B YNeg (1.5:3.5:5.5) (1.0:2.5:4.5))
+    (IOPATH C YNeg (1.5:3.5:5.5) (1.0:2.5:4.5))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74F27D<SOURCE>Texas Instruments SDFS042A-Revised October 1993</SOURCE>
+SN74F27N<SOURCE>Texas Instruments SDFS042A-Revised October 1993</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=0 to 70C</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A YNeg (1:3.1:5.5) (1:2.1:4.5))
+    (IOPATH B YNeg (1:3.1:5.5) (1:2.1:4.5))
+    (IOPATH C YNeg (1:3.1:5.5) (1:2.1:4.5))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74HC27D<SOURCE>Philips Semiconductor Product Specification December 1990</SOURCE>
+74HC27DB<SOURCE>Philips Semiconductor Product Specification December 1990</SOURCE>
+74HC27N<SOURCE>Philips Semiconductor Product Specification December 1990</SOURCE>
+74HC27PW<SOURCE>Philips Semiconductor Product Specification December 1990</SOURCE>
+SN74HC27D<SOURCE>Texas Instruments SCLS088B-Revised May 1999</SOURCE>
+SN74HC27N<SOURCE>Texas Instruments SCLS088B-Revised May 1999</SOURCE>
+SN74HC27NS<SOURCE>Texas Instruments SCLS088B-Revised May 1999</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<COMMENT>Minimum values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A YNeg (5:10:23) (5:10:23))
+    (IOPATH B YNeg (5:10:23) (5:10:23))
+    (IOPATH C YNeg (5:10:23) (5:10:23))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74HCT27D<SOURCE>Philips Semiconductor Product Specification December 1990</SOURCE>
+74HCT27DB<SOURCE>Philips Semiconductor Product Specification December 1990</SOURCE>
+74HCT27N<SOURCE>Philips Semiconductor Product Specification December 1990</SOURCE>
+74HCT27PW<SOURCE>Philips Semiconductor Product Specification December 1990</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<COMMENT>Minimum values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A YNeg (6:12:26) (6:12:26))
+    (IOPATH B YNeg (6:12:26) (6:12:26))
+    (IOPATH C YNeg (6:12:26) (6:12:26))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+DM74LS27M<SOURCE>Fairchild Semiconductor DS006359 Revised March 2000</SOURCE>
+DM74LS27N<SOURCE>Fairchild Semiconductor DS006359 Revised March 2000</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=15pF, Ta=+25 Celsius</COMMENT>
+<COMMENT>Typical values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A YNeg (3:8:13) (3:6:10))
+    (IOPATH B YNeg (3:8:13) (3:6:10))
+    (IOPATH C YNeg (3:8:13) (3:6:10))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74LS27D<SOURCE>Texas Instruments SDLS089-Revised March 1988</SOURCE>
+SN74LS27N<SOURCE>Texas Instruments SDLS089-Revised March 1988</SOURCE>
+SN74LS27NS<SOURCE>Texas Instruments SDLS089-Revised March 1988</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=15pF, Ta=+25 Celsius</COMMENT>
+<COMMENT>Typical values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A YNeg (5:10:15) (3:7:11))
+    (IOPATH B YNeg (5:10:15) (3:7:11))
+    (IOPATH C YNeg (5:10:15) (3:7:11))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74LV27D_3V3<SOURCE>Philips Semiconductor 853-1896 19258 1998 Apr 20</SOURCE>
+74LV27DB_3V3<SOURCE>Philips Semiconductor 853-1896 19258 1998 Apr 20</SOURCE>
+74LV27N_3V3<SOURCE>Philips Semiconductor 853-1896 19258 1998 Apr 20</SOURCE>
+74LV27PW_3V3<SOURCE>Philips Semiconductor 853-1896 19258 1998 Apr 20</SOURCE>
+<COMMENT>The Values listed are for VCC=3.0V to 3.6V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<COMMENT>Minimum values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A YNeg (5:10:13) (5:10:13))
+    (IOPATH B YNeg (5:10:13) (5:10:13))
+    (IOPATH C YNeg (5:10:13) (5:10:13))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74LV27D_5V<SOURCE>Philips Semiconductor 853-1896 19258 1998 Apr 20</SOURCE>
+74LV27DB_5V<SOURCE>Philips Semiconductor 853-1896 19258 1998 Apr 20</SOURCE>
+74LV27N_5V<SOURCE>Philips Semiconductor 853-1896 19258 1998 Apr 20</SOURCE>
+74LV27PW_5V<SOURCE>Philips Semiconductor 853-1896 19258 1998 Apr 20</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<COMMENT>Minimum values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A YNeg (4:8:11) (4:8:11))
+    (IOPATH B YNeg (4:8:11) (4:8:11))
+    (IOPATH C YNeg (4:8:11) (4:8:11))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74LVC27D<SOURCE>Philips Semiconductor 853-2056 19309 1998 Apr 28</SOURCE>
+74LVC27DB<SOURCE>Philips Semiconductor 853-2056 19309 1998 Apr 28</SOURCE>
+74LVC27PW<SOURCE>Philips Semiconductor 853-2056 19309 1998 Apr 28</SOURCE>
+<COMMENT>The Values listed are for VCC=3.0V to 3.6V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<COMMENT>Minimum values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A YNeg (1.0:3.4:5.9) (1.0:3.4:5.9))
+    (IOPATH B YNeg (1.0:3.4:5.9) (1.0:3.4:5.9))
+    (IOPATH C YNeg (1.0:3.4:5.9) (1.0:3.4:5.9))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74VHC27M_3V3<SOURCE>Fairchild Semiconductor DS011682 Revised April 1999</SOURCE>
+74VHC27MTC_3V3<SOURCE>Fairchild Semiconductor DS011682 Revised April 1999</SOURCE>
+74VHC27N_3V3<SOURCE>Fairchild Semiconductor DS011682 Revised April 1999</SOURCE>
+74VHC27SJ_3V3<SOURCE>Fairchild Semiconductor DS011682 Revised April 1999</SOURCE>
+<COMMENT>The Values listed are for VCC=3.0V to 3.6V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A YNeg (1.0:8.7:14.0) (1.0:8.7:14.0))
+    (IOPATH B YNeg (1.0:8.7:14.0) (1.0:8.7:14.0))
+    (IOPATH C YNeg (1.0:8.7:14.0) (1.0:8.7:14.0))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74VHC27M_5V<SOURCE>Fairchild Semiconductor DS011682 Revised April 1999</SOURCE>
+74VHC27MTC_5V<SOURCE>Fairchild Semiconductor DS011682 Revised April 1999</SOURCE>
+74VHC27N_5V<SOURCE>Fairchild Semiconductor DS011682 Revised April 1999</SOURCE>
+74VHC27SJ_5V<SOURCE>Fairchild Semiconductor DS011682 Revised April 1999</SOURCE>
+<COMMENT>The Values listed are for VCC=3.0V to 3.6V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A YNeg (1.0:5.6:9.0) (1.0:5.6:9.0))
+    (IOPATH B YNeg (1.0:5.6:9.0) (1.0:5.6:9.0))
+    (IOPATH C YNeg (1.0:5.6:9.0) (1.0:5.6:9.0))
+  ))
+</TIMING></FMFTIME>
+</BODY></FTML>

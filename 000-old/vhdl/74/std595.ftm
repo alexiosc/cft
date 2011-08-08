@@ -1,0 +1,332 @@
+<!DOCTYPE FTML SYSTEM "ftml.dtd">
+<FTML><HEAD><TITLE>FMF Timing for STD595 Parts</TITLE>
+<REVISION.HISTORY>
+version: |  author:  | mod date: | changes made:
+  V1.0     B.Bizic     01 JUN 09   Initial release
+  V1.1     R. Munden   01 JUN 13   Added 27 new partnumbers
+  V1.2     R. Munden   02 OCT 20   Added 6 new partnumbers
+</REVISION.HISTORY></HEAD>
+<BODY>
+<TIMESCALE>1ns</TIMESCALE>
+<MODEL>STD595
+<FMFTIME>
+74AHC595D_3V3<SOURCE>Philips Semiconductors 2000 Mar 15</SOURCE>
+74AHC595PW_3V3<SOURCE>Philips Semiconductors 2000 Mar 15</SOURCE>
+<COMMENT>The Values listed are for VCC=3.0V to 3.6V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH RCK QA (1:7.7:17) (1:7.7:17))
+    (IOPATH SCK QHSER (1:7.7:18.5) (1:7.7:18.5))
+    (IOPATH SCLRNeg QHSER (1:7.4:17.2) (1:7.4:17.2))
+    (IOPATH GNeg QA () () (1:8.7:16.2) (1:7.4:17) (1:8.7:16.2) (1:7.4:17)
+)
+  ))
+  (TIMINGCHECK
+    (SETUP SER SCK (3.5))
+    (SETUP SCK RCK (8.5))
+    (SETUP SCLRNeg RCK (9))
+    (HOLD SER SCK (1.5))
+    (HOLD SCK RCK (0))
+    (HOLD SCLRNeg RCK (3.0))
+    (WIDTH (negedge SCLRNeg) (5))
+    (WIDTH (posedge SCK) (5))
+    (WIDTH (posedge RCK) (5))
+    (PERIOD (posedge SCK) (16.7))
+    (PERIOD (posedge RCK) (16.7))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+74AHC595D_5V<SOURCE>Philips Semiconductors 2000 Mar 15</SOURCE>
+74AHC595PW_5V<SOURCE>Philips Semiconductors 2000 Mar 15</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH RCK QA (1:5.5:10.5) (1:5.5:10.5))
+    (IOPATH SCK QHSER (1:5.4:11.4) (1:5.4:11.4))
+    (IOPATH SCLRNeg QHSER (1:5.6:11.1) (1:5.6:11.1))
+    (IOPATH GNeg QA () () (1:5.8:11) (1:5.3:12) (1:5.8:11) (1:5.3:12))
+  ))
+  (TIMINGCHECK
+    (SETUP SER SCK (3))
+    (SETUP SCK RCK (5))
+    (SETUP SCLRNeg RCK (2.5))
+    (HOLD SER SCK (2))
+    (HOLD SCK RCK (0))
+    (HOLD SCLRNeg RCK (0))
+    (WIDTH (negedge SCLRNeg) (5))
+    (WIDTH (posedge SCK) (5))
+    (WIDTH (posedge RCK) (5))
+    (PERIOD (posedge SCK) (9.1))
+    (PERIOD (posedge RCK) (9.1))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74AHC595D_3V3<SOURCE>Texas Instruments SCLS373E-Revised January 2000</SOURCE>
+SN74AHC595DB_3V3<SOURCE>Texas Instruments SCLS373E-Revised January 2000</SOURCE>
+SN74AHC595N_3V3<SOURCE>Texas Instruments SCLS373E-Revised January 2000</SOURCE>
+SN74AHC595PW_3V3<SOURCE>Texas Instruments SCLS373E-Revised January 2000</SOURCE>
+<COMMENT>The Values listed are for VCC=3.0V to 3.6V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH RCK QA (1:7.9:17) (1:7.9:17))
+    (IOPATH SCK QHSER (1:9.2:18.5) (1:9.2:18.5))
+    (IOPATH SCLRNeg QHSER (1:9:17.2) (1:9:17.2))
+    (IOPATH GNeg QA () () (1:9.3:16.2) (1:7.8:17) (1:8.1:16.2) (1:9.6:17)
+)
+  ))
+  (TIMINGCHECK
+    (SETUP SER SCK (3.5:3.5:3.5))
+    (SETUP SCK RCK (8.5:8.5:8.5))
+    (SETUP SCLRNeg RCK (9:9:9))
+    (HOLD SER SCK (1.5:1.5:1.5))
+    (HOLD SCK RCK (0:0:0))
+    (HOLD SCLRNeg RCK (0:0:0))
+    (WIDTH (negedge SCLRNeg) (5:5:5))
+    (WIDTH (posedge SCK) (5:5:5))
+    (WIDTH (posedge RCK) (5:5:5))
+    (PERIOD (posedge SCK) (20:20:20))
+    (PERIOD (posedge RCK) (20:20:20))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74AHC595D_5V<SOURCE>Texas Instruments SCLS373E-Revised January 2000</SOURCE>
+SN74AHC595DB_5V<SOURCE>Texas Instruments SCLS373E-Revised January 2000</SOURCE>
+SN74AHC595N_5V<SOURCE>Texas Instruments SCLS373E-Revised January 2000</SOURCE>
+SN74AHC595PW_5V<SOURCE>Texas Instruments SCLS373E-Revised January 2000</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH RCK QA (1:5.6:10.5) (1:5.6:10.5))
+    (IOPATH SCK QHSER (1:6.4:11.4) (1:6.4:11.4))
+    (IOPATH SCLRNeg QHSER (1:6.4:11.1) (1:6.4:11.1))
+    (IOPATH GNeg QA () () (1:3.4:11) (1:5.7:12) (1:3.5:11) (4:6.8:12))
+  ))
+  (TIMINGCHECK
+    (SETUP SER SCK (3:3:3))
+    (SETUP SCK RCK (5:5:5))
+    (SETUP SCLRNeg RCK (5:5:5))
+    (HOLD SER SCK (2:2:2))
+    (HOLD SCK RCK (0:0:0))
+    (HOLD SCLRNeg RCK (0:0:0))
+    (WIDTH (negedge SCLRNeg) (5:5:5))
+    (WIDTH (posedge SCK) (5:5:5))
+    (WIDTH (posedge RCK) (5:5:5))
+    (PERIOD (posedge SCK) (11.8:11.8:11.8))
+    (PERIOD (posedge RCK) (11.8:11.8:11.8))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+74AHCT595D<SOURCE>Philips Semiconductors 2000 Mar 15</SOURCE>
+74AHCT595PW<SOURCE>Philips Semiconductors 2000 Mar 15</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH RCK QA (1:5.3:10.5) (1:5.3:10.5))
+    (IOPATH SCK QHSER (1:5.2:11.0) (1:5.2:11.0))
+    (IOPATH SCLRNeg QHSER (1:5.8:11.5) (1:5.8:11.5))
+    (IOPATH GNeg QA () () (1:5.8:11) (1:6.2:13) (1:5.8:11) (1:6.2:13))
+  ))
+  (TIMINGCHECK
+    (SETUP SER SCK (3))
+    (SETUP SCK RCK (5))
+    (SETUP SCLRNeg RCK (3))
+    (HOLD SER SCK (2))
+    (HOLD SCK RCK (0))
+    (HOLD SCLRNeg RCK (0))
+    (WIDTH (negedge SCLRNeg) (5))
+    (WIDTH (posedge SCK) (5))
+    (WIDTH (posedge RCK) (5))
+    (PERIOD (posedge SCK) (9.1))
+    (PERIOD (posedge RCK) (9.1))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74AHCT595D<SOURCE>Texas Instruments SCLS374H-Revised January 2001</SOURCE>
+SN74AHCT595DB<SOURCE>Texas Instruments SCLS374H-Revised January 2001</SOURCE>
+SN74AHCT595N<SOURCE>Texas Instruments SCLS374H-Revised January 2001</SOURCE>
+SN74AHCT595NS<SOURCE>Texas Instruments SCLS374H-Revised January 2001</SOURCE>
+SN74AHCT595PW<SOURCE>Texas Instruments SCLS374H-Revised January 2001</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH RCK QA (1:5.6:10.5) (1:5.6:10.5))
+    (IOPATH SCK QHSER (1:6.4:11.4) (1:6.4:11.4))
+    (IOPATH SCLRNeg QHSER (1:6.4:11.1) (1:6.4:11.1))
+    (IOPATH GNeg QA () () (1:3.4:11) (1:5.7:12) (1:3.5:11) (1:6.8:12))
+  ))
+  (TIMINGCHECK
+    (SETUP SER SCK (3:3:3))
+    (SETUP SCK RCK (5:5:5))
+    (SETUP SCLRNeg RCK (5:5:5))
+    (HOLD SER SCK (2:2:2))
+    (HOLD SCK RCK (0:0:0))
+    (HOLD SCLRNeg RCK (0:0:0))
+    (WIDTH (negedge SCLRNeg) (5:5:5))
+    (WIDTH (posedge SCK) (5.5:5.5:5.5))
+    (WIDTH (posedge RCK) (5.5:5.5:5.5))
+    (PERIOD (posedge SCK) (11.8:11.8:11.8))
+    (PERIOD (posedge RCK) (11.8:11.8:11.8))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+MM74HC595M<SOURCE>Fairchild Semiconductor DS005342 Revised February 1999</SOURCE>
+MM74HC595MTC<SOURCE>Fairchild Semiconductor DS005342 Revised February 1999</SOURCE>
+MM74HC595MW<SOURCE>Fairchild Semiconductor DS005342 Revised February 1999</SOURCE>
+MM74HC595N<SOURCE>Fairchild Semiconductor DS005342 Revised February 1999</SOURCE>
+MM74HC595SJ<SOURCE>Fairchild Semiconductor DS005342 Revised February 1999</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<COMMENT>Minimum values are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH RCK QA (15:21:44) (15:21:44))
+    (IOPATH SCK QHSER (7:14:53) (7:14:53))
+    (IOPATH SCLRNeg QHSER (15:30:44) (15:30:44))
+    (IOPATH GNeg QA () () (8:15:44) (8:15:44) (8:15:44) (8:15:44))
+  ))
+  (TIMINGCHECK
+    (SETUP SER SCK (25:25:25))
+    (SETUP SCK RCK (25:25:25))
+    (SETUP SCLRNeg RCK (0:0:0))
+    (HOLD SER SCK (5:5:5))
+    (HOLD SCK RCK (0:0:0))
+    (HOLD SCLRNeg RCK (0:0:0))
+    (WIDTH (negedge SCLRNeg) (20:20:20))
+    (WIDTH (posedge SCK) (20:20:20))
+    (WIDTH (posedge RCK) (0:0:0))
+    (PERIOD (posedge SCK) (42:42:42))
+    (PERIOD (posedge RCK) (42:42:42))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74HC595D<SOURCE>Texas Instruments SCLS041C-Revised June 2000</SOURCE>
+SN74HC595DW<SOURCE>Texas Instruments SCLS041C-Revised June 2000</SOURCE>
+SN74HC595N<SOURCE>Texas Instruments SCLS041C-Revised June 2000</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH RCK QA (8:17:37) (8:17:37))
+    (IOPATH SCK QHSER (8:17:40) (8:17:40))
+    (IOPATH SCLRNeg QHSER (9:18:44) (9:18:44))
+    (IOPATH GNeg QA () () (11:23:50) (7:15:37) (11:23:50) (7:15:37))
+  ))
+  (TIMINGCHECK
+    (SETUP SER SCK (25:25:25))
+    (SETUP SCK RCK (19:19:19))
+    (SETUP SCLRNeg RCK (13:13:13))
+    (HOLD SER SCK (0:0:0))
+    (HOLD SCK RCK (0:0:0))
+    (HOLD SCLRNeg RCK (0:0:0))
+    (WIDTH (negedge SCLRNeg) (20:20:20))
+    (WIDTH (posedge SCK) (20:20:20))
+    (WIDTH (posedge RCK) (20:20:20))
+    (PERIOD (posedge SCK) (40:40:40))
+    (PERIOD (posedge RCK) (40:40:40))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74LV595AD_3V3<SOURCE>Texas Instruments SCLS414F-Revised January 2001</SOURCE>
+SN74LV595ADB_3V3<SOURCE>Texas Instruments SCLS414F-Revised January 2001</SOURCE>
+SN74LV595APW_3V3<SOURCE>Texas Instruments SCLS414F-Revised January 2001</SOURCE>
+<COMMENT>The Values listed are for VCC=3.0V to 3.6V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH RCK QA (1:7.9:17) (1:7.9:17))
+    (IOPATH SCK QHSER (1:9.2:18.5) (1:9.2:18.5))
+    (IOPATH SCLRNeg QHSER (1:9:17.2) (1:9:17.2))
+    (IOPATH GNeg QA () () (1:9.3:16.2) (1:7.8:17) (1:8.1:16.2) (1:9.6:17))
+  ))
+  (TIMINGCHECK
+    (SETUP SER SCK (3.5:3.5:3.5))
+    (SETUP SCK RCK (8.5:8.5:8.5))
+    (SETUP SCLRNeg RCK (9:9:9))
+    (HOLD SER SCK (1.5:1.5:1.5))
+    (HOLD SCK RCK (0:0:0))
+    (HOLD SCLRNeg RCK (0:0:0))
+    (WIDTH (negedge SCLRNeg) (5:5:5))
+    (WIDTH (posedge SCK) (5.5:5.5:5.5))
+    (WIDTH (posedge RCK) (5.5:5.5:5.5))
+    (PERIOD (posedge SCK) (20:20:20))
+    (PERIOD (posedge RCK) (20:20:20))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74LV595AD_5V<SOURCE>Texas Instruments SCLS414F-Revised January 2001</SOURCE>
+SN74LV595ADB_5V<SOURCE>Texas Instruments SCLS414F-Revised January 2001</SOURCE>
+SN74LV595APW_5V<SOURCE>Texas Instruments SCLS414F-Revised January 2001</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=-40 to 85C</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH RCK QA (1:5.6:10.5) (1:5.6:10.5))
+    (IOPATH SCK QHSER (1:6.4:11.4) (1:6.4:11.4))
+    (IOPATH SCLRNeg QHSER (1:6.4:11.1) (1:6.4:11.1))
+    (IOPATH GNeg QA () () (1:3.4:11) (1:5.7:12) (1:3.5:11) (1:6.8:12))
+  ))
+  (TIMINGCHECK
+    (SETUP SER SCK (3:3:3))
+    (SETUP SCK RCK (5:5:5))
+    (SETUP SCLRNeg RCK (5:5:5))
+    (HOLD SER SCK (2:2:2))
+    (HOLD SCK RCK (0:0:0))
+    (HOLD SCLRNeg RCK (0:0:0))
+    (WIDTH (negedge SCLRNeg) (5.2:5.2:5.2))
+    (WIDTH (posedge SCK) (5:5:5))
+    (WIDTH (posedge RCK) (5:5:5))
+    (PERIOD (posedge SCK) (10.5:10.5:10.5))
+    (PERIOD (posedge RCK) (10.5:10.5:10.5))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+74VHC595M_5V<SOURCE>Fairchild Semiconductor DS01164 April 1999 </SOURCE>
+74VHC595SJ_5V<SOURCE>Fairchild Semiconductor DS01164 April 1999 </SOURCE>
+74VHC595MTC_5V<SOURCE>Fairchild Semiconductor DS01164 April 1999 </SOURCE>
+74VHC595N_5V<SOURCE>Fairchild Semiconductor DS01164 April 1999 </SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V to 5.5V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH RCK QA (1.0:6.9:10.5) (1.0:6.9:10.5))
+    (IOPATH SCK QHSER (1.0:7.7:11.4) (1.0:7.7:11.4))
+    (IOPATH SCLRNeg QHSER (1.0:7.4:11.1) (1.0:7.4:11.1))
+    (IOPATH GNeg QA () () (1.0:7.6:11.0) (1.0:8.3:12.0) (1.0:7.6:11.0) (1.0:8.3:12.0))
+))
+(TIMINGCHECK
+    (SETUP SER SCK (3.0:3.0:3.0))
+    (SETUP SCK RCK (5.0:5.0:5.0))
+    (SETUP SCLRNeg RCK (5.0:5.0:5.0))
+    (HOLD SER SCK (2.0:2.0:2.0))
+    (HOLD SCK RCK (0.0:0.0:0.0))
+    (HOLD SCLRNeg RCK (0.0:0.0:0.0))
+    (WIDTH (negedge SCLRNeg) (5.0:5.0:5.0))
+    (WIDTH (posedge SCK) (5.0:5.0:5.0))
+    (WIDTH (posedge RCK) (5.0:5.0:5.0))
+    (PERIOD (posedge SCK) (11.8))
+    (PERIOD (posedge RCK) (11.8))
+)
+</TIMING></FMFTIME>
+<FMFTIME>
+74VHC595M_3V3<SOURCE>Fairchild Semiconductor DS01164 April 1999 </SOURCE>
+74VHC595SJ_3V3<SOURCE>Fairchild Semiconductor DS01164 April 1999 </SOURCE>
+74VHC595MTC_3V3<SOURCE>Fairchild Semiconductor DS01164 April 1999 </SOURCE>
+74VHC595N_3V3<SOURCE>Fairchild Semiconductor DS01164 April 1999 </SOURCE>
+<COMMENT>The Values listed are for VCC=3.0V to 3.6V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH RCK QA (1.0:10.2:17.0) (1.0:10.2:17.0))
+    (IOPATH SCK QHSER (1.0:11.3:18.5) (1.0:11.3:18.5))
+    (IOPATH SCLRNeg QHSER (1.0:10.9:17.2) (1.0:10.9:17.2))
+    (IOPATH GNeg QA () () (1.0:12.1:16.2) (1.0:9.0:17.0) (1.0:12.1:16.2) (1.0:9.0:17.0))
+))
+(TIMINGCHECK
+    (SETUP SER SCK (3.5:3.5:3.5))
+    (SETUP SCK RCK (8.5:8.5:8.5))
+    (SETUP SCLRNeg RCK (9.0:9.0:9.0))
+    (HOLD SER SCK (1.5:1.5:1.5))
+    (HOLD SCK RCK (0.0:0.0:0.0))
+    (HOLD SCLRNeg RCK (0.0:0.0:0.0))
+    (WIDTH (negedge SCLRNeg) (5.0:5.0:5.0))
+    (WIDTH (posedge SCK) (5.0:5.0:5.0))
+    (WIDTH (posedge RCK) (5.0:5.0:5.0))
+    (PERIOD (posedge SCK) (20))
+    (PERIOD (posedge RCK) (20))
+)
+</TIMING></FMFTIME>
+</BODY></FTML>

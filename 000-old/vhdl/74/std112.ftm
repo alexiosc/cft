@@ -1,0 +1,58 @@
+<!DOCTYPE FTML SYSTEM "ftml.dtd">
+<FTML><HEAD><TITLE>FMF Timing for STD112 Parts</TITLE>
+<REVISION.HISTORY>
+version: |  author:  | mod date: | changes made:
+  V1.0     R. Munden   98 SEP 21   Initial release
+</REVISION.HISTORY>
+</HEAD>
+<BODY>
+<TIMESCALE>1ns</TIMESCALE>
+<MODEL>STD112
+<FMFTIME>
+74F112PC<SOURCE>Fairchild Semiconductor March 1998</SOURCE>
+74F112SC<SOURCE>Fairchild Semiconductor March 1998</SOURCE>
+74F112SJ<SOURCE>Fairchild Semiconductor March 1998</SOURCE>
+MC74F112D<SOURCE>Motorola Fast and LS TTL Data, DL121 REV 5</SOURCE>
+MC74F112N<SOURCE>Motorola Fast and LS TTL Data, DL121 REV 5</SOURCE>
+<COMMENT> The values listed are for VCC=5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+     (IOPATH CLK Q (2.0:5.0:6.5) (2.0:5.0:6.5))
+     (IOPATH PRENeg Q (2.0:4.5:6.5) (2.0:4.5:6.5))
+     (IOPATH CLRNeg Q (2.0:4.5:6.5) (2.0:4.5:6.5))
+  ))
+  (TIMINGCHECK
+    (SETUP J CLK (4.0))
+    (SETUP PRENeg CLK (4))
+    (HOLD J CLK (0.0))
+    (HOLD PRENeg CLK (0))
+    (WIDTH  (posedge CLK) (4.5))
+    (WIDTH  (negedge CLK) (4.5))
+    (WIDTH (negedge PRENeg) (4.5))
+    (WIDTH (negedge CLRNeg) (4.5))
+    (PERIOD (posedge CLK) (11.7))
+ )
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74F112D<SOURCE>Texas Instruments SDFS048A-Revised October 1993</SOURCE>
+SN74F112N<SOURCE>Texas Instruments SDFS048A-Revised October 1993</SOURCE>
+<COMMENT> The values listed are for VCC=5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+     (IOPATH CLK Q (1.2:4.6:6.5) (1.2:4.6:6.5))
+     (IOPATH PRENeg Q (1.2:4.1:6.5) (1.2:4.1:6.5))
+     (IOPATH CLRNeg Q (1.2:4.1:6.5) (1.2:4.1:6.5))
+  ))
+  (TIMINGCHECK
+    (SETUP J CLK (4.0))
+    (SETUP PRENeg CLK (4))
+    (HOLD J CLK (0.0))
+    (HOLD PRENeg CLK (0))
+    (WIDTH  (posedge CLK) (4.5))
+    (WIDTH  (negedge CLK) (4.5))
+    (WIDTH (negedge PRENeg) (4.5))
+    (WIDTH (negedge CLRNeg) (4.5))
+    (PERIOD (posedge CLK) (9.1))
+ )
+</TIMING></FMFTIME>
+</BODY></FTML>
