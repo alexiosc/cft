@@ -109,20 +109,18 @@ module int_unit (clock, upc, go_fetch, cli, i_flag, irq, reset, int_out);
    //   1     1        1
    wire        isig;
    wire        reset_and_cli;
+   wire        nint_out;
    
    or #10 or7432_a (isig, irq, i_flag);
-
-   wire        upc0;
-   or #10 or7432_b (upc0, upc[0], upc[1], upc[2], upc[3]);
 
    and #10 and7408_a (reset_and_cli, reset, cli);
 
    // The interrupt state machine.
 
-   wire        test1;
-   //                  J      K  \CLK       -SET -RESET          Q     -Q
-   flipflop_112 state (0,     0, clock,     isig, reset_and_cli, test1, ,
-		       test1, ~int_out, ~go_fetch, 1,    reset, ,       int_out);
+   wire        int_seen;
+   //                  J         K         \CLK       -SET -RESET          Q         -Q
+   flipflop_112 state (0,        0,        clock,     isig, reset_and_cli, int_seen, ,
+		       int_seen, nint_out, go_fetch, 1,     reset,         nint_out, int_out);
    
 
 endmodule // int_unit

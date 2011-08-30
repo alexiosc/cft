@@ -181,7 +181,7 @@ unit_roll()
 
 
 	/*
-	// Decode. This is how signals aren derived:
+	// Decode. This is how signals are derived:
 	//
 	//                        111 unused
 	// L4: RNL = OP1  '-------110		; <L,A> <- <L,A> >> 4

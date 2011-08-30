@@ -23,7 +23,7 @@ module int_tb();
       reset = 0;
       upc = 0;
       i_flag = 1;
-      go_fetch = 0;
+      go_fetch = 1;
       irq = 1;
       cli = 1;
 
@@ -56,8 +56,8 @@ module int_tb();
    end
 
    always begin
-      #2250 go_fetch = 1;
-      #250 go_fetch = 0;
+      #2250 go_fetch = 0;
+      #250 go_fetch = 1;
    end
 
    always begin

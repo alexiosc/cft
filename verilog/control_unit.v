@@ -147,7 +147,7 @@ endmodule // agl
 // This is simple, but it's a separate module to keep the control unit
 // as simple as possible.
 //
-// Page 0 has 1023 'registers'. Of these, we wouldn't mind having 128
+// Page 0 has 1024 'registers'. Of these, we wouldn't mind having 128
 // autoindex ones. To do this, we partially decode MAR and ensure
 // it matches the pattern 16'b000000001XXXXXXX, which makes addresses
 // 128-255 autoindex.
@@ -160,7 +160,7 @@ endmodule // agl
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-module ail (mar, clock, clear, reset, autoindex);
+module ail (mar, clock, reset, clear, autoindex);
    input [15:0] mar;
    input 	clock;
    input 	clear;
@@ -180,17 +180,14 @@ module ail (mar, clock, clear, reset, autoindex);
    nor #10 nor_74hct02c (x2, mar[11], mar[10]);
    nor #10 nor_74hct02d (x3, mar[9], mar[8]);
 
-   and #10 and_74hct08a (y0, x0, x1);
-   and #10 and_74hct08b (y1, x2, x3);
+   and #10 and_74hct21a (hizero, x0, x1, x2, x3);
 
-   and #10 and_74hct08c (hizero, y0, y1); // hizero is active high.
-   and #10 and_74hct08d (j, hizero, mar[7]); // autoindex is active high.
+   and #10 and_74hct21b (j, hizero, mar[7]); // autoindex is active high.
 
-   // set_autoinc & reset is used *ONLY* for Verilog. For a real circuit, no
-   // gate should be installed, and the initial autoinc/autodec mode is
-   // undefined. Programs are expected to set one or the other.
-   
-   flipflop_112 ff (j, 0, clock, clear, reset, autoindex, ,
+   // The AIL FF goes high on reset (set1 = reset), because this is
+   // the best way to give it a definite value for the sake of the
+   // Verilog simulator.
+   flipflop_112 ff (j, 0, clock, 1, reset, autoindex, ,
 		    0, 0, 0, 1, 1, , );
 
 endmodule // ail
@@ -480,8 +477,8 @@ module control_unit (abus, dbus, ibus,
 
    // These are part of the system device
 
-   wire 	 mode_autoinc;	// Active low.
-   wire 	 mode_autodec;	// Active low.
+   //wire 	 mode_autoinc;	// Active low.
+   //wire 	 mode_autodec;	// Active low.
 
    ///////////////////////////////////////////////////////////////////////////////
    //
@@ -510,7 +507,7 @@ module control_unit (abus, dbus, ibus,
    // The MAR
    rc_reg16 reg_mar (ibus, abus, mar_unbuf, reset, w_mar, dab);
 
-   // The PC resets on /RESET, then decrements by one on /RST_HOLD.
+   // The PC
    inc_reg16 reg_pc (ibus, ibus, pc_unbuf, w_pc, r_pc, inc_pc, 1'b1, reset);
 
    // The Accumulator
@@ -720,7 +717,7 @@ module control_unit (abus, dbus, ibus,
 `ifndef DISABLE_CU_DEBUGGING
    always @(upc) begin
       if (upc == 3) begin
-      $display("PC: %h  IR: %s %s %b %h  L: %b  A: %h  DR: %h AINC: %d", pc_unbuf,
+      $display("PC: %h  IR: %s %s %b %h  L: %b  A: %h  DR: %h", pc_unbuf,
 	       ir[15:12] == 0? "TRAP" :
 	       ir[15:12] == 1? "????" :
 	       ir[15:12] == 2? "LOAD" :
@@ -737,8 +734,7 @@ module control_unit (abus, dbus, ibus,
 	       ir[15:12] == 13? "OP2 " :
 	       ir[15:12] == 14? "???? " :
 	       ir[15:12] == 15? "LIA " : "????",
-	       ir[11] ? "I" : " ", ir[10] ? " " : "Z", ir[9:0], l_unbuf, a_unbuf, dr_unbuf, 
-	       mode_autoinc);
+	       ir[11] ? "I" : " ", ir[10] ? " " : "Z", ir[9:0], l_unbuf, a_unbuf, dr_unbuf);
 	 end
    end // always @ (upc)
 `endif

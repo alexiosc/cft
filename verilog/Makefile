@@ -4,7 +4,7 @@ SRC =		counter.v counter_161_tb.v \
 		mux.v mux_253_tb.v \
 		flipflop.v flipflop_112_tb.v flipflop_174_tb.v flipflop_574_tb.v flipflop_564_tb.v \
 		alu_181.v alu_181_tb.v \
-		alu.v alu_tb.v alu_roll_tb.v alu_add_tb.v \
+		alu.v alu_tb.v alu_tb2.v alu_roll_tb.v alu_add_tb.v \
 		skip_unit.v skip_unit_tb.v \
 		clock.v clock_tb.v \
 		rom.v rom_tb.v \
@@ -109,6 +109,10 @@ test_reg_I:	register_reg_I_tb.o register.o
 test_alu:	alu_tb.o alu.o
 		./alu_tb.o
 		$(GTKWAVE) $(VCDDIR)/alu_tb.vcd $(SAVDIR)/alu_tb.sav
+
+test_alu2:	alu_tb2.o alu.o
+		./alu_tb2.o
+		$(GTKWAVE) $(VCDDIR)/alu_tb2.vcd $(SAVDIR)/alu_tb2.sav
 
 test_int:	int_tb.o int.o
 		./int_tb.o

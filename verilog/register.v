@@ -213,7 +213,7 @@ module reg_L (d, latch, clear, toggle1, toggle2, clock, reset, q, nq);
       $display("TODO: Reinstate edge detection for toggle circuit, otherwise CU toggles L twice.");
    end
 
-   // J/K/Tooggle logic.
+   // J/K/Toggle logic.
    and and_7408a (j0, d, latch);
    and and_7408b (k0, nd, latch);
    and and_7408c (ff_reset, reset, clear);
