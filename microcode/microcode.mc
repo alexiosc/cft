@@ -85,14 +85,15 @@ signal r_dr           = ....................0100; // Read from DR
 signal r_a            = ....................0101; // Read from the Accumulator
 signal r_cs1          = ....................0110; // Read from the Constant Store (bank 1)
 signal r_cs2          = ....................0111; // Read from the Constant Store (bank 2)
-signal alu_add        = ....................1000; // Read from the Adder unit
-signal alu_and        = ....................1001; // Read from the AND unit
-signal alu_or         = ....................1010; // Read from the OR unit
-signal alu_xor        = ....................1011; // Read from the XOR unit
-signal alu_not        = ....................1100; // Read from the NOT unit
-signal alu_roll       = ....................1101; // Read from the ROLL unit (roll op controlled by IR)
-//signal r_spare14    = ....................1110; //   ** RESERVED
-//signal r_spare15    = ....................1111; //   ** RESERVED
+//
+signal alu_add        = ....................1000; // ALU: Read from the Adder unit
+signal alu_and        = ....................1001; // ALU: Read from the AND unit
+signal alu_or         = ....................1010; // ALU: Read from the OR unit
+signal alu_xor        = ....................1011; // ALU: Read from the XOR unit
+signal alu_roll       = ....................1100; // ALU: Read from the ROLL unit (roll op controlled by IR)
+signal alu_not        = ....................1101; // ALU: Read from the NOT unit
+//signal r_spare14    = ....................1110; // ALU:   ** RESERVED
+//signal r_spare15    = ....................1111; // ALU:   ** RESERVED
 
 field  W_UNIT         = _________________XXX____; // Write unit field
 //signal w_dbus       = .................001....; // Write to the data bus

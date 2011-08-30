@@ -43,7 +43,7 @@ module cft_tb();
       //#100000 reset = 0;
       //#200 reset = 1;
 
-      #100000000 begin
+      #1000000000 begin
 	 ->cft.memory.dump_core;
 	 $finish;      // Terminate simulation
       end

@@ -195,7 +195,7 @@ endmodule // End of Module counter
 ///////////////////////////////////////////////////////////////////////////////
 
 module flipflop_574 (d, q, clk, oe);
-   parameter propagation_delay = 2;
+   parameter propagation_delay = 7;
    
    input [7:0] d;		// Data
    input       clk;		// Clock

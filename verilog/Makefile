@@ -1,10 +1,10 @@
 SRC =		counter.v counter_161_tb.v \
 		buffer.v buffer_244_tb.v buffer_245_tb.v \
-		demux.v demux_tb.v \
+		demux.v demux_138_tb.v demux_139_tb.v \
 		mux.v mux_253_tb.v \
 		flipflop.v flipflop_112_tb.v flipflop_174_tb.v flipflop_574_tb.v flipflop_564_tb.v \
 		alu_181.v alu_181_tb.v \
-		alu.v alu_tb.v alu_tb2.v alu_roll_tb.v alu_add_tb.v \
+		alu.v alu_tb.v alu_roll_tb.v alu_add_tb.v \
 		skip_unit.v skip_unit_tb.v \
 		clock.v clock_tb.v \
 		rom.v rom_tb.v \
@@ -19,6 +19,7 @@ SRC =		counter.v counter_161_tb.v \
 		control_unit.v \
 		cft.v cft_tb.v cft_tb_testing.v \
 		test.v
+		# alu_tb2.v \
 
 #		Disused code:
 #		register_PR.v register_PR_tb.v
@@ -49,6 +50,10 @@ test_112:	flipflop_112_tb.o flipflop.o
 test_138:	demux_138_tb.o demux.o
 		./demux_138_tb.o
 		$(GTKWAVE) $(VCDDIR)/demux_138_tb.vcd $(SAVDIR)/demux_138_tb.sav
+
+test_139:	demux_139_tb.o demux.o
+		./demux_139_tb.o
+		$(GTKWAVE) $(VCDDIR)/demux_139_tb.vcd $(SAVDIR)/demux_139_tb.sav
 
 test_161:	counter_161_tb.o counter.o
 		./counter_161_tb.o
@@ -158,7 +163,7 @@ test_cu:	control_unit_tb.o control_unit.o test_rom.bin
 		$(GTKWAVE) $(VCDDIR)/control_unit_tb.vcd $(SAVDIR)/control_unit_tb.sav
 
 test:		$(OBJ)
-		( cd img; ../../tools/cftasm  ../../asm/testing.asm ../../asm/io.asm ../../asm/test2.asm )
+#		( cd img; ../../tools/cftasm  ../../asm/testing.asm ../../asm/io.asm ../../asm/test2.asm )
 		./cft_tb.o
 		$(GTKWAVE) $(VCDDIR)/cft_tb.vcd $(SAVDIR)/cft_tb.sav
 

@@ -341,7 +341,7 @@ endmodule // alu_add
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-module alu (a, b,
+module alu_v1 (a, b,
 	    clock,
 	    e_add, e_and, e_or, e_xor, e_not, e_roll, rollop,
 	    l_in, add_l_out, roll_l_out, l_latch,
@@ -415,37 +415,55 @@ endmodule // alu
 //     3x unary op ROMs: each calculates 6 bits of data
 //
 // Ops:
-//                          BROM      UROM
-//   OP     op    rollop    -OE  OP   -OE  OP
-// -------------------------------------------
-//   ADD    0100    XXX      0   00    1   XXX
-//   AND    0101    XXX      0   01    1   XXX
-//   OR     0110    XXX      0   10    1   XXX    
-//   XOR    0111    XXX      0   11    1   XXX
-// -------------------------------------------
-//   RBR    1000    001      1   XX    0   001
-//   RBL    1000    010      1   XX    0   000
-//   RNR    1000    101      1   XX    0   011
-//   RNL    1000    110      1   XX    0   010
-// -------------------------------------------
-//   NOT    10X1    XXX      1   XX    0   1XX
+//                                   BROM      UROM
+//   OP     aluop   (op)   rollop    -OE  OP   -OE  OP
+// ---------------------------------------------------
+//   ADD    1000    0100    XXX      0   00    1   XXX
+//   AND    1001    0101    XXX      0   01    1   XXX
+//   OR     1010    0110    XXX      0   10    1   XXX    
+//   XOR    1011    0111    XXX      0   11    1   XXX
+// ---------------------------------------------------
+//   RBR    1100    1000    001      1   XX    0   001
+//   RBL    1100    1000    010      1   XX    0   000
+//   RNR    1100    1000    101      1   XX    0   011
+//   RNL    1100    1000    110      1   XX    0   010
+// ---------------------------------------------------
+//   NOT    1101    10X1    XXX      1   XX    0   1XX
+// ---------------------------------------------------
+//   NOP    0XXX    0XXX    XXX      1   XX    1   XXX  (for reset and idling)
 //
-// binary_op = op[1:0]
-// unary_op = {op[0], rollop[2], rollop[0]}
+// Equations:
+//   alu_op = r_unit
+//   op = {r_unit[2], r_unit[3], r_unit[1:0]}
+//   binary_op = op[1:0]
+//   unary_op = {op[0], rollop[2], rollop[0]}
+//   boe = op[3]
+//   uoe = op[2]
+//
+// Thus:
+//   binary_op = aluop[1:0]
+//   uoe = NOT aluop[2]
+//   boe = aluop[2]
+//   OE = NOT aluop[3]
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-module rom_alu (a, b,
-		clock,
-		op, rollop,
+module rom_alu (in,
+		latch_a, latch_b,
+		clock, guardpulse, reset,
+		aluop, rollop,
 		l_in, add_l_out, roll_l_out, l_latch,
 		y);
    
-   input [15:0]  a, b;
-   
-   input 	 clock;		// Clock for latching ALU data.
+   input [15:0]  in;		// Ibus input
 
-   input [3:0] 	 op;		// Operation code.
+   input         latch_a;	// Lach Input to A port.
+   input         latch_b;	// Latch Input to B port.
+   input 	 clock;		// Clock for latching A register data.
+   input 	 guardpulse;	// Clock for latching A register data.
+   input 	 reset;		// Reset signal.
+
+   input [3:0] 	 aluop;		// Operation code.
    input [2:0] 	 rollop;	// The ROLL sub-operation (from the IR)
 
    input 	 l_in;		// Value of L.
@@ -459,25 +477,34 @@ module rom_alu (a, b,
    tri0          l_latch;
    tri0 	 roll_l_out;
 
-   wire 	 oe;		// Active low: control tri-stating of y.
-
-   wire [3:0] 	 op;
+   wire [15:0] 	 a, b;
+   
+   wire [3:0] 	 aluop;
    wire [2:0] 	 uop;
 
    wire [14:0] 	 ba0, ba1, ba2;
    wire [7:0] 	 bd0, bd1, bd2;
 
-   wire [16:0] 	 ua0, ua1, ua2;
+   wire [16:0] 	 ua0, ua1;
+   wire [15:0]   ua2;
    wire [7:0] 	 ud0, ud1, ud2;
    
-   wire          boe, uoe;
+   wire          boe, uoe, oe;
    tri0          co0, co1;
    wire [1:0]    pad_a, pad_b;
+   wire [7:0] 	 romsel, alusel;
 
    tri [15:0] 	 y0;
    
    initial begin
-      $display("BOM: 74x73/4073");
+      $display("BOM: 74x06");
+      $display("BOM: ALU Binary Op ROM");
+      $display("BOM: ALU Binary Op ROM");
+      $display("BOM: ALU Binary Op ROM");
+      $display("BOM: ALU Unary Op ROM 01");
+      $display("BOM: ALU Unary Op ROM 02");
+      $display("BOM: ALU Unary Op ROM 03");
+      $display("BOM: 74x574");
       $display("NB: l_out is pulled down.");
    end
 
@@ -485,11 +512,14 @@ module rom_alu (a, b,
    assign pad_b = 2'b00;
 
    // Wire the Binary ROMs
+   assign ba0 = {aluop[1:0], l_in, a[5:0], b[5:0]};
+   assign ba1 = {aluop[1:0], co0, a[11:6], b[11:6]};
+   assign ba2 = {aluop[1:0], co1, pad_a, a[15:12], pad_b, b[15:12]};
+   // Cascaded carry in/outs for ADD
+   assign co0 = bd0[6];
+   assign co1 = bd1[6];
 
-   assign ba0 = {op[1:0], l_in, a[5:0], b[5:0]};
-   assign ba1 = {op[1:0], co0, a[11:6], b[11:6]};
-   assign ba2 = {op[1:0], co1, pad_a, a[15:12], pad_b, b[15:12]};
-
+   // The unary ROMs
    assign ua0 = {uop, l_in, a[15], a[14], a[13], a[9], a[8], a[7], a[6], a[5], a[4], a[3], a[2], a[1], a[0]};
    assign ua1 = {uop, a[15], a[14], a[13], a[12], a[11], a[10], a[9], a[8], a[7], a[6], a[5], a[4], a[3], a[2]};
    assign ua2 = {uop, l_in, a[15], a[14], a[13], a[12], a[11], a[10], a[9], a[8], a[3], a[2], a[1], a[0]};
@@ -497,18 +527,28 @@ module rom_alu (a, b,
    // Net y0 is driven by two drivers (the two banks of ROMs).
    assign y0 = {bd2[3:0], bd1[5:0], bd0[5:0]};
    assign y0 = {ud2[3:0], ud1[5:0], ud0[5:0]};
-   
-   assign co0 = bd0[6];
-   assign co1 = bd1[6];
+
+   // Miscellaneous outputs from the ROMs (and the ALU)
    assign add_l_out = bd2[4];
    assign roll_l_out = ud2[4];
    assign l_latch = ud2[5];
 
-   assign uop = {op[0], rollop[2], rollop[0]};
+   assign uop = {aluop[0], rollop[2], rollop[0]};
 
-   assign boe = op[3];
-   assign uoe = op[2];
+   // Enable signals
+   //assign boe = aluop[3];
+   //assign #7 uoe = ~aluop[2];
+   //assign #7 oe = ~aluop[3];
 
+   // We use a '139 for logic (rather than discrete gates) because it
+   // avoids glitches.
+   //demux_139 ubsel (1'b0, {aluop[3], aluop[2]}, romsel,
+   //		    1'b0, {reset, aluop[3]}, alusel);
+   demux_138 ubsel (reset, guardpulse, 1'b0, {1'b0, aluop[3], aluop[2]}, romsel);
+   assign boe = romsel[2];
+   assign uoe = romsel[3];
+   //assign oe = alusel[3];
+   
    // Note: all three ROMs use the same signal.
    rom #(15, 70, "../microcode/alu-binary-00.list") romb0 (ba0, bd0, 1'b0, boe);
    rom #(15, 70, "../microcode/alu-binary-00.list") romb1 (ba1, bd1, 1'b0, boe);
@@ -517,13 +557,20 @@ module rom_alu (a, b,
    // The unary ROMs.
    rom #(17, 70, "../microcode/alu-unary-00.list") romu0 (ua0, ud0, 1'b0, uoe);
    rom #(17, 70, "../microcode/alu-unary-01.list") romu1 (ua1, ud1, 1'b0, uoe);
-   rom #(17, 70, "../microcode/alu-unary-02.list") romu2 (ua2, ud2, 1'b0, uoe);
+   rom #(16, 70, "../microcode/alu-unary-02.list") romu2 (ua2, ud2, 1'b0, uoe);
 
    // The ALU has a registered output because it updates the A
    // register, which is fed into it.
-   flipflop_574 reg_hi (y0[15:8], y[15:8], clock, boe & uoe);
-   flipflop_574 reg_lo (y0[7:0], y[7:0],   clock, boe & uoe);
+   //flipflop_574 reg_hi (y0[15:8], y[15:8], clock, oe);
+   //flipflop_574 reg_lo (y0[7:0], y[7:0],   clock, oe);
+   assign y=y0;
 
+   flipflop_574 rega_hi (in[15:8], a[15:8], latch_a, 1'b0);
+   flipflop_574 rega_lo (in[7:0], a[7:0],   latch_a, 1'b0);
+   
+   flipflop_574 regb_hi (in[15:8], b[15:8], latch_b, 1'b0);
+   flipflop_574 regb_lo (in[7:0], b[7:0],   latch_b, 1'b0);
+   
 endmodule // alu
 
 

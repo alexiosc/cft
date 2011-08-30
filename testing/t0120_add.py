@@ -48,10 +48,13 @@ class T2_Random_Add(testlib.BaseTest):
 
         self.assemble()
         sim = self.simulate()
-        #print sim
 
         exp = ''.join(exp)
         #print exp
+
+        #print sim
+        #print exp
+
         self.assertEqual(sim, exp, 'Not all checkpoints passed.')
 
 

@@ -117,7 +117,7 @@ module alu_tb();
       #10 clock = ~clock;
    end
 
-   alu alu (a, b, clock, e_add, e_and, e_or, e_xor, e_not, e_roll, rollop,
+   alu_v1 alu (a, b, clock, e_add, e_and, e_or, e_xor, e_not, e_roll, rollop,
 	    l_in, add_l_out, roll_l_out, l_latch, y);
 
    // The L register.

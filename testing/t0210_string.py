@@ -34,7 +34,7 @@ end:
 
 hello:  .str "Hello, world!" 0
 
-&fff0:	JMP [baddr]
+&fff0:	JMP I baddr
 baddr:  .word start
 """
 
@@ -65,7 +65,7 @@ end:    XOR R &11
 
 hello:  .strn "Hello, world!"
 
-&fff0:	JMP [baddr]
+&fff0:	JMP I baddr
 baddr:  .word start
 """
 

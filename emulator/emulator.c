@@ -264,7 +264,7 @@ unit_mem(int r, int w)
 		*/
 		/* Report attempts to write to the ROM */
 		if (cpu.mar >= 0xe000) {
-			fail("Attempt to write %04x to ROM at address %04x.\n", cpu.ibus, cpu.mar);
+			fail("Attempt to write %04x to ROM at address %04x.\n", cpu.dbus, cpu.mar);
 		}
 		cpu.mem[cpu.mar] = cpu.dbus;
 		iodebug("Wrote mem[%04x] <- %04x\n", cpu.mar, cpu.dbus);
@@ -456,11 +456,7 @@ decode_write_unit()
 {
 	if (!GET_W_UNIT(cpu.control)) return;
 
-	if (IS_W_DBUS(cpu.control)) {
-		cpu.dbus = cpu.ibus;
-		ucdebug("DBUS <- IBUS (%04x)\n", cpu.ibus);
-	}
-	else if (IS_W_MAR(cpu.control)) {
+	if (IS_W_MAR(cpu.control)) {
 		cpu.mar = cpu.ibus;
 		ucdebug("MAR <- IBUS (%04x)\n", cpu.ibus);
 	}
@@ -604,7 +600,7 @@ emulate()
 		uint32_t sti = IS_STI(cpu.control);
 		uint32_t cli = IS_CLI(cpu.control);
 		uint32_t pc_inc = IS_PC_INC(cpu.control);
-		uint32_t step_dr = IS_STEP_DR(cpu.control);
+		uint32_t step_dr = IS_INC_DR(cpu.control);
 		uint32_t mem = IS_MEM(cpu.control);
 		uint32_t io = IS_IO(cpu.control);
 		uint32_t r = IS_R(cpu.control);
@@ -631,10 +627,8 @@ emulate()
 		// Handle memory and I/O *READS*
 		sanity_check (mem && io, "MEM and IO selected at once. Microcode bug.\n");
 		sanity_check (r && w, "R and W selected at once. Microcode bug.\n");
-		if (r && IS_R_DBUS(cpu.control)) {
-			if (mem) cpu.dbus = unit_mem(r, w);
-			else if (io) cpu.dbus = unit_io(r, w);
-		}
+		if (r && mem) cpu.dbus = unit_mem(r, w);
+		else if (r && io) cpu.dbus = unit_io(r, w);
 
 		// Read from a unit.
 		decode_read_unit();
@@ -642,11 +636,15 @@ emulate()
 		// Write to a unit.
 		decode_write_unit();
 
-		// Handle memory and I/O *WRITES*
-		if (w && IS_W_DBUS(cpu.control)) {
-			if (mem) cpu.dbus = unit_mem(r, w);
-			else if (io) cpu.dbus = unit_io(r, w);
+		// Drive the data bus if needed
+		if (IS_W(cpu.control)) {
+			cpu.dbus = cpu.ibus;
+			ucdebug("*** DBUS <- IBUS (%04x)\n", cpu.ibus);
 		}
+
+		// Handle memory and I/O *WRITES*
+		if (w && mem) cpu.dbus = unit_mem(r, w);
+		else if (w && io) cpu.dbus = unit_io(r, w);
 
 		// Step the PC
 		if (pc_inc) {

@@ -217,16 +217,16 @@ endmodule // ail
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-module unit_demux (r_unit, w_unit, clock14,
+module unit_demux (r_unit, w_unit, clock,
 		   busbusy, reset, guardpulse,
 		   //w_dbus,
-		   w_mar, w_pc, w_ir, w_dr, w_a,
+		   w_mar, w_pc, w_ir, w_dr, w_a, w_alu,
 		   //r_dbus,
 		   r_pc, r_agl, r_cs1, r_cs2, r_dr, r_a,
-		   r_add, r_and, r_or, r_xor, r_not, r_roll);
+		   r_aluop);
    input [3:0] r_unit;
    input [2:0] w_unit;
-   input       clock14;
+   input       clock;
    input       busbusy;
    input       reset;
    input       guardpulse;
@@ -237,6 +237,7 @@ module unit_demux (r_unit, w_unit, clock14,
    output      w_ir;
    output      w_dr;
    output      w_a;
+   output      w_alu;
 
    //output      r_dbus;
    output      r_pc;
@@ -245,19 +246,22 @@ module unit_demux (r_unit, w_unit, clock14,
    output      r_cs2;
    output      r_dr;
    output      r_a;
-   output      r_add;
-   output      r_and;
-   output      r_or;
-   output      r_xor;
-   output      r_not;
-   output      r_roll;
+   //output      r_add;
+   //output      r_and;
+   //output      r_or;
+   //output      r_xor;
+   //output      r_not;
+   //output      r_roll;
+   output [3:0] r_aluop;
 
    // CAUTION: PULL UP ALL OUTPUTS OR SHORTS MAY OCCUR DURING RESET.
    tri1 [7:0]  w_y;
-   tri1 [15:0]  r_y;
+   //tri1 [15:0]  r_y;
+   tri1 [7:0]  r_y;
    
    wire [7:0]  w_y0;
-   wire [7:0]  r_y0, r_y1;
+   wire [7:0]  r_y0;
+   //wire [7:0]  r_y1;
 
    initial begin
       $display("BOM: 74x32");
@@ -265,7 +269,7 @@ module unit_demux (r_unit, w_unit, clock14,
    end
 
    // Write-unit decoder. Enabled when clock14 = 0.
-   demux_138 w_demux (1, 0, clock14, w_unit, w_y0);
+   demux_138 w_demux (1, 0, clock, w_unit, w_y0);
    assign w_y = w_y0;
 
    // w_y[0] = no write unit
@@ -275,21 +279,15 @@ module unit_demux (r_unit, w_unit, clock14,
    assign w_ir = w_y[4];
    assign w_dr = w_y[5];
    assign w_a = w_y[6];
-   // w_y[7] is unused.
+   assign w_alu = w_y[7];
    
-   //or #10 or_7432_1a (w_dbus, w_y[1], clock14);	// 001 = DBUS
-   //or #10 or_7432_1b (w_mar, w_y[2], clock14);	// 010 = MAR
-   //or #10 or_7432_1c (w_pc, w_y[3], clock14);	// 011 = PC
-   //or #10 or_7432_1d (w_ir, w_y[4], clock14);	// 100 = IR
-   //or #10 or_7432_2a (w_dr, w_y[5], clock14);	// 101 = DR
-   //or #10 or_7432_2b (w_a, w_y[6], clock14);	// 110 = A
-   ////or (w_pr, w_y[7], clock14);	// 111 = PR
-
    // Read-unit 4-to-16 decoder (always enabled)
    demux_138 r_demux0 (1, r_unit[3], 0, r_unit[2:0], r_y0);
-   demux_138 r_demux1 (r_unit[3], 0, 0, r_unit[2:0], r_y1);
+   // The v2 (ROM-based) ALU doesn't need decoded read enable signals
+   //demux_138 r_demux1 (r_unit[3], 0, 0, r_unit[2:0], r_y1);
    
-   assign r_y = {r_y1, r_y0};
+   //assign r_y = {r_y1, r_y0};
+   assign r_y = r_y0;		// Just use the register enables.
 
 
    // The Constant Store and Address Generation Logic seem to be
@@ -314,12 +312,14 @@ module unit_demux (r_unit, w_unit, clock14,
    //assign r_cs1 = r_y[6];	// 110 = constant source 1
    //assign r_cs2 = r_y[7];	// 111 = constant source 2
 
-   assign r_add = r_y[8];
-   assign r_and = r_y[9];
-   assign r_or = r_y[10];
-   assign r_xor = r_y[11];
-   assign r_not = r_y[12];
-   assign r_roll = r_y[13];
+   // The v2 (ROM-based) ALU doesn't need decoded read enables.
+   //assign r_add = r_y[8];
+   //assign r_and = r_y[9];
+   //assign r_or = r_y[10];
+   //assign r_xor = r_y[11];
+   //assign r_not = r_y[12];
+   //assign r_roll = r_y[13];
+   assign r_aluop = r_unit;
    
 endmodule // unit_demux
 
@@ -420,6 +420,7 @@ module control_unit (abus, dbus, ibus,
    tri1 	 w_pc;		// Write to the PC
    tri1 	 w_dr;		// Write to the DR
    tri1 	 w_a;		// Write to the A
+   tri1 	 w_alu;		// Write to the ALU B port
    tri1 	 w_mar;		// Write to the MAR
    tri1 	 w_ir;		// Write to the IR.
    
@@ -433,12 +434,13 @@ module control_unit (abus, dbus, ibus,
    tri1 	 r_cs2;	// Constant store (bank 2)
    tri1 	 r_dr;		// Read the DR
    tri1          r_a;		// Read the Accumulator
-   tri1 	 r_add;		// ALU ADD
-   tri1 	 r_and;		// ALU AND
-   tri1 	 r_or;		// ALU OR
-   tri1 	 r_xor;		// ALU XOR
-   tri1 	 r_not;		// ALU NOT
-   tri1 	 r_roll;	// ALU ROLL
+   tri1 [3:0]    r_aluop;       // The v2 (ROM-based) ALU operator field.
+   //tri1 	 r_add;		// ALU ADD
+   //tri1 	 r_and;		// ALU AND
+   //tri1 	 r_or;		// ALU OR
+   //tri1 	 r_xor;		// ALU XOR
+   //tri1 	 r_not;		// ALU NOT
+   //tri1 	 r_roll;	// ALU ROLL
 
    tri1 	 inc_a;		// Increment A
    tri0 	 cpl;		// Complelent L
@@ -648,8 +650,8 @@ module control_unit (abus, dbus, ibus,
    //
    // THE ALU
    //
-   // Its A port is the Accumulator. Its B port is the DR. Control signals are
-   // derived from the microinstruction.
+   // Its A port is the Accumulator. Its B port is inside the ALU. Control
+   // signals are derived from the microinstruction.
    //
    ///////////////////////////////////////////////////////////////////////////////
 
@@ -661,10 +663,11 @@ module control_unit (abus, dbus, ibus,
    wire alu_l_toggle;
    wire alu_l_latch;
 
-   alu alu (a_unbuf, dr_unbuf, clock14,
-	    r_add, r_and, r_or, r_xor, r_not, r_roll, rollop,
-	    alu_l_in, alu_l_toggle, alu_l_out, alu_l_latch,
-	    ibus);
+   rom_alu alu (ibus, w_a, w_alu,
+		clock, guardpulse, reset,
+		r_aluop, rollop,
+		alu_l_in, alu_l_toggle, alu_l_out, alu_l_latch,
+		ibus);
    
 
    ///////////////////////////////////////////////////////////////////////////////
@@ -751,9 +754,10 @@ module control_unit (abus, dbus, ibus,
 
    // Decode the signals in the microinstruction into individual signals to control units.
    unit_demux unit_demux (read_unit, write_unit, clock14, buscon, reset, guardpulse,
-			  /*w_dbus,*/ w_mar, w_pc, w_ir, w_dr, w_a,
+			  /*w_dbus,*/ w_mar, w_pc, w_ir, w_dr, w_a, w_alu,
 			  /*r_dbus,*/ r_pc, r_agl, r_cs1, r_cs2, r_dr, r_a,
-			  r_add, r_and, r_or, r_xor, r_not, r_roll);
+			  r_aluop); /* v2 ROM-based ALU */
+   			  //r_add, r_and, r_or, r_xor, r_not, r_roll); /* v1 discrete ALU */
 
 endmodule
    

@@ -101,6 +101,10 @@ char * ops[16];
 #define get_lo(x) ((x) & 0x3ff)
 #define get_hi(x) ((x) & 0xfc00)
 
+/* Convenience macros for memory access */
+#define IS_R_DBUS(x) (IS_R(x) && (IS_MEM(x) || IS_IO(x)))
+#define IS_W_DBUS(x) (IS_W(x) && (IS_MEM(x) || IS_IO(x)))
+
 // Implement the hardware's autoindex condition.
 #define is_autoindex(x) (((x) & 0xff80) == 0x0080)
 

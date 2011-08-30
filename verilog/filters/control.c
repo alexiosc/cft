@@ -5,7 +5,7 @@ char *to_unit[8] = {
 	"", "dbus=", "mar=", "pc=", "ir=", "dr=", "a=", "b="
 };
 char *from_unit[16] = {
-	"", "dbus", "agl", "pc", "dr", "a", "cs1", "cs2", "add", "and", "or", "xor", "not", "roll",
+	"", "", "agl", "pc", "dr", "a", "cs1", "cs2", "add", "and", "or", "xor", "roll", "not",
 	"?", "?"
 };
 char *skip_unit[] = {
@@ -36,6 +36,8 @@ int main(int argc, char **argv)
 
 			add(buf2, to_unit[(hx >> 4) & 7]);
 			strcat(buf2, from_unit[hx & 15]);
+			if ((hx & (1<<19)) == 0) add(buf2, "mem");
+			if ((hx & (1<<20)) == 0) add(buf2, "io");
 
 			if ((hx & (1<<11)) == 0) add(buf2, "a++");
 			if (hx & (1<<12)) add(buf2, "cpl");
@@ -46,8 +48,6 @@ int main(int argc, char **argv)
 
 			if ((hx & (1<<17)) == 0) add(buf2, "inc_dr");
 			/*if ((hx & (1<<18)) == 0) add(buf2, "dr--");*/
-			if ((hx & (1<<19)) == 0) add(buf2, "mem");
-			if ((hx & (1<<20)) == 0) add(buf2, "io");
 			if ((hx & (1<<21)) == 0) {
 				strcpy(col, "?green4?");
 				add(buf2, "r");

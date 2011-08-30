@@ -17,7 +17,7 @@ dep .depends:
 		$(CC) $(CFLAGS) -M *.c >.depends
 
 clean:
-		-rm -r *.o $(PROGRAMS) .depends .test
+		-rm -rf *.o $(PROGRAMS) .depends .test
 
 test:		$(PROGRAMS)
 		@mkdir .test 2>/dev/null || true

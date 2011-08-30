@@ -1,7 +1,7 @@
 [timestart] 0
-[size] 1667 758
-[pos] 57 142
-*-25.099123 184500000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[size] 1283 768
+[pos] 0 0
+*-26.021019 116186000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] alu_tb2.
 [treeopen] alu_tb2.alu.
 @24
@@ -41,17 +41,20 @@ alu_tb2.alu.rollop[2:0]
 (2)alu_tb2.alu.rollop[2:0]
 @1401200
 -group_end
-@c00029
+@c00028
 alu_tb2.alu.rollop[2:0]
 @28
 (0)alu_tb2.alu.rollop[2:0]
 (1)alu_tb2.alu.rollop[2:0]
 (2)alu_tb2.alu.rollop[2:0]
-@1401201
+@1401200
 -group_end
+@22
+alu_tb2.alu.romsel[3:0]
 @28
 alu_tb2.alu.boe
 alu_tb2.alu.uoe
+alu_tb2.alu.oe
 alu_tb2.alu.uop[2:0]
 @c00022
 alu_tb2.a[15:0]
@@ -72,7 +75,7 @@ alu_tb2.a[15:0]
 (13)alu_tb2.a[15:0]
 (14)alu_tb2.a[15:0]
 (15)alu_tb2.a[15:0]
-@1401202
+@1401200
 -group_end
 @c00022
 alu_tb2.b[15:0]
@@ -93,7 +96,7 @@ alu_tb2.b[15:0]
 (13)alu_tb2.b[15:0]
 (14)alu_tb2.b[15:0]
 (15)alu_tb2.b[15:0]
-@1401202
+@1401200
 -group_end
 @c00022
 alu_tb2.alu.y0[15:0]
@@ -114,7 +117,7 @@ alu_tb2.alu.y0[15:0]
 (13)alu_tb2.alu.y0[15:0]
 (14)alu_tb2.alu.y0[15:0]
 (15)alu_tb2.alu.y0[15:0]
-@1401202
+@1401200
 -group_end
 @28
 alu_tb2.add_l_out
@@ -223,5 +226,16 @@ alu_tb2.alu.ud1[7:0]
 alu_tb2.alu.ud2[7:0]
 @28
 alu_tb2.roll_l_out
+@29
+alu_tb2.alu.ubsel.a1[1:0]
+@28
+alu_tb2.alu.ubsel.a2[1:0]
+alu_tb2.alu.ubsel.g1
+alu_tb2.alu.ubsel.g2
+@22
+alu_tb2.alu.ubsel.y01[3:0]
+alu_tb2.alu.ubsel.y01[3:0]
+alu_tb2.alu.ubsel.y2[3:0]
+alu_tb2.alu.ubsel.y2[3:0]
 [pattern_trace] 1
 [pattern_trace] 0

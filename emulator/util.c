@@ -127,7 +127,7 @@ dump_ustate()
 	if(IS_STI(cpu.control)) printf("sti ");
 	if(IS_CLI(cpu.control)) printf("cli ");
 	if(IS_PC_INC(cpu.control)) printf("pc_inc ");
-	if(IS_STEP_DR(cpu.control)) printf("step_dr ");
+	if(IS_INC_DR(cpu.control)) printf("inc_dr ");
 	if(IS_MEM(cpu.control)) printf("mem ");
 	if(IS_IO(cpu.control)) printf("io ");
 	if(IS_R(cpu.control)) printf("r ");
