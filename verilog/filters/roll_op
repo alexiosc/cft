@@ -1,5 +1,0 @@
-# Filters for the roll op code.
-00 RBL (<<1)
-01 RBR (>>1)
-10 RNL (<<4)
-11 RNR (>>4)
