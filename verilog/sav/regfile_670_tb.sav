@@ -1,0 +1,24 @@
+[timestart] 1199000
+[size] 1882 874
+[pos] 2080 85
+*-19.055407 4630000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] regfile_670_tb.
+@200
+-Writing
+@28
+regfile_670_tb.regfile.we
+regfile_670_tb.regfile.wa[1:0]
+@22
+regfile_670_tb.regfile.d[3:0]
+@23
+regfile_670_tb.x[3:0]
+@200
+-
+-Reading
+@28
+regfile_670_tb.regfile.re
+regfile_670_tb.regfile.ra[1:0]
+@22
+regfile_670_tb.regfile.q[3:0]
+[pattern_trace] 1
+[pattern_trace] 0

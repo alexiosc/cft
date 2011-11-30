@@ -1,0 +1,22 @@
+[timestart] 0
+[size] 1481 820
+[pos] -1 -1
+*-17.288452 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] counter_193_tb.
+@28
+counter_193_tb.c0.clear
+@22
+counter_193_tb.c0.p[3:0]
+@28
+counter_193_tb.c0.load
+@29
+counter_193_tb.c0.count_up
+@28
+counter_193_tb.c0.count_down
+@22
+counter_193_tb.c0.q[3:0]
+@28
+counter_193_tb.c0.carry
+counter_193_tb.c0.borrow
+[pattern_trace] 1
+[pattern_trace] 0

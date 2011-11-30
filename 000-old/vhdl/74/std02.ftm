@@ -1,0 +1,195 @@
+<!DOCTYPE FTML SYSTEM "ftml.dtd">
+<FTML><HEAD><TITLE>FMF Timing for STD02 Parts</TITLE>
+<REVISION.HISTORY>
+version: |  author:  | mod date: | changes made:
+  V1.0     R. Munden   97 JUL 13   Initial release
+  V1.1      fixftm     97 NOV 30   Modified to work with mk_sdf 1.15
+  V1.2     R. Munden   98 AUG 24   Added 6 new part numbers
+</REVISION.HISTORY>
+</HEAD>
+<BODY>
+<TIMESCALE>1ns</TIMESCALE>
+<MODEL>STD02
+<FMFTIME>
+SN7402N<SOURCE>Texas Instruments SDLS027-Revised March 1988</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<COMMENT>Min values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH B YNeg (7:12:22) (5:8:15))
+    (IOPATH A YNeg (7:12:22) (5:8:15))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+MC74ACT02D<SOURCE>Motorola Fact Data, from WWW October 1997</SOURCE>
+MC74ACT02N<SOURCE>Motorola Fact Data, from WWW October 1997</SOURCE>
+74ACT02MTC<SOURCE>National Semicondutor Datasheet March 1993</SOURCE>
+74ACT02PC<SOURCE>National Semicondutor Datasheet March 1993</SOURCE>
+74ACT02SC<SOURCE>National Semicondutor Datasheet March 1993</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<COMMENT>Typ values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH B YNeg (1.5:6:8.5) (1.5:6.5:9.5))
+    (IOPATH A YNeg (1.5:6:8.5) (1.5:6.5:9.5))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+CD74ACT02E<SOURCE>Harris Semicondutor Answer FAX October 1997</SOURCE>
+CD74ACT02M<SOURCE>Harris Semicondutor Answer FAX October 1997</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<COMMENT>Typ values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH B YNeg (3.1:7:11.1) (3.1:7:11.1))
+    (IOPATH A YNeg (3.1:7:11.1) (3.1:7:11.1))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74ACTQ02PC<SOURCE>National Semicondutor Datasheet March 1993</SOURCE>
+74ACTQ02SC<SOURCE>National Semicondutor Datasheet March 1993</SOURCE>
+74ACTQ02SJ<SOURCE>National Semicondutor Datasheet March 1993</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<COMMENT>Typ values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH B YNeg (2.0:5:7.5) (2.0:5:7.5))
+    (IOPATH A YNeg (2.0:5:7.5) (2.0:5:7.5))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+DM74ALS02M<SOURCE>Fairchild Semiconductor data sheet February 1998</SOURCE>
+DM74ALS02N<SOURCE>Fairchild Semiconductor data sheet February 1998</SOURCE>
+DM74ALS02SJ<SOURCE>Fairchild Semiconductor data sheet February 1998</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V-5.5V, CL=50pF, Ta=0 to +70 Celsius</COMMENT>
+<COMMENT>Typ values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH B YNeg (3.0:6:12.0) (3.0:6:10.0))
+    (IOPATH A YNeg (3.0:6:12.0) (3.0:6:10.0))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74ALS02AD<SOURCE>Texas Instruments SDAS111B-Revised December 1994</SOURCE>
+SN74ALS02AN<SOURCE>Texas Instruments SDAS111B-Revised December 1994</SOURCE>
+SN74ALS02ANS<SOURCE>Texas Instruments SDAS111B-Revised December 1994</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V-5.5V, CL=50pF, Ta=0 to +70 Celsius</COMMENT>
+<COMMENT>Typ values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH B YNeg (1.0:6:12.0) (1.0:6:10.0))
+    (IOPATH A YNeg (1.0:6:12.0) (1.0:6:10.0))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74AS02D<SOURCE>Texas Instruments SDAS111B-Revised December 1994</SOURCE>
+SN74AS02N<SOURCE>Texas Instruments SDAS111B-Revised December 1994</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V-5.5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<COMMENT>Typ values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH B YNeg (1:3:4.5) (1:3:4.5))
+    (IOPATH A YNeg (1:3:4.5) (1:3:4.5))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74LCX02M<SOURCE>National Semicondutor Datasheet November 1996</SOURCE>
+74LCX02MTC<SOURCE>National Semicondutor Datasheet November 1996</SOURCE>
+74LCX02SJ<SOURCE>National Semicondutor Datasheet November 1996</SOURCE>
+<COMMENT>The Values listed are for VCC=3.0V-3.6V, Ta=-40 to +85 Celsius</COMMENT>
+<COMMENT>Typ values are derived</COMMENT>
+<COMMENT>Preliminary</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH B YNeg (1.5:3:5.2) (1.5:3:5.2))
+    (IOPATH A YNeg (1.5:3:5.2) (1.5:3:5.2))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74LS02D<SOURCE>Motorola Fast and LS TTL Data, DL121/D REV 5, Q2/92</SOURCE>
+SN74LS02J<SOURCE>Motorola Fast and LS TTL Data, DL121/D REV 5, Q2/92</SOURCE>
+SN74LS02N<SOURCE>Motorola Fast and LS TTL Data, DL121/D REV 5, Q2/92</SOURCE>
+SN74LS02D<SOURCE>Texas Instruments SDLS027-Revised March 1988</SOURCE>
+SN74LS02N<SOURCE>Texas Instruments SDLS027-Revised March 1988</SOURCE>
+SN74LS02NS<SOURCE>Texas Instruments SDLS027-Revised March 1988</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=15pF, Ta=+25 Celsius</COMMENT>
+<COMMENT>Min values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH B YNeg (5:10:15) (5:10:15))
+    (IOPATH A YNeg (5:10:15) (5:10:15))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74LVC02D<SOURCE>Philips Semiconductors IC24 Data Handbook 1997 Feb 03</SOURCE>
+74LVC02DB<SOURCE>Philips Semiconductors IC24 Data Handbook 1997 Feb 03</SOURCE>
+74LVC02PW<SOURCE>Philips Semiconductors IC24 Data Handbook 1997 Feb 03</SOURCE>
+<COMMENT>The Values listed are for VCC=3.0V-3.6V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH B YNeg (1.5:3.5:6.0) (1.5:3.5:6.0))
+    (IOPATH A YNeg (1.5:3.5:6.0) (1.5:3.5:6.0))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74LVC02AD<SOURCE>Texas Instruments SCAS280E-Revised August 1997</SOURCE>
+SN74LVC02ADB<SOURCE>Texas Instruments SCAS280E-Revised August 1997</SOURCE>
+SN74LVC02APW<SOURCE>Texas Instruments SCAS280E-Revised August 1997</SOURCE>
+SN74LVC02AFK<SOURCE>Texas Instruments SCAS280E-Revised August 1997</SOURCE>
+<COMMENT>The Values listed are for VCC=3.0V-3.6V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<COMMENT>Typ values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH B YNeg (1.0:2.2:4.4) (1.0:2.2:4.4))
+    (IOPATH A YNeg (1.0:2.2:4.4) (1.0:2.2:4.4))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74S02D<SOURCE>Texas Instruments SDLS027-Revised March 1988</SOURCE>
+SN74S02N<SOURCE>Texas Instruments SDLS027-Revised March 1988</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<COMMENT>Min and Max values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH B YNeg (2:5:7.5) (2:5:7.5))
+    (IOPATH A YNeg (2:5:7.5) (2:5:7.5))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74F02D<SOURCE>Texas Instruments SDFS036A-Revised March 1988</SOURCE>
+SN74F02N<SOURCE>Texas Instruments SDFS036A-Revised March 1988</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, Ta=0 to +70 Celsius</COMMENT>
+<COMMENT>Typ values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH B YNeg (1.7:3.3:6.5) (1.0:2.5:5.3))
+    (IOPATH A YNeg (1.7:3.3:6.5) (1.0:2.5:5.3))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74F02D<SOURCE>Motorola Fast and LS TTL Data, DL121/D REV 5, Q2/92</SOURCE>
+SN74F02N<SOURCE>Motorola Fast and LS TTL Data, DL121/D REV 5, Q2/92</SOURCE>
+SN74F02J<SOURCE>Motorola Fast and LS TTL Data, DL121/D REV 5, Q2/92</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, Ta=0 to +70 Celsius</COMMENT>
+<COMMENT>Typ values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH B YNeg (2.5:3.8:6.5) (1.5:2.8:5.3))
+    (IOPATH A YNeg (2.5:3.8:6.5) (1.5:2.8:5.3))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+74F02PC<SOURCE>National Semicondutor Datasheet December 1994</SOURCE>
+74F02SC<SOURCE>National Semicondutor Datasheet December 1994</SOURCE>
+74F02SJ<SOURCE>National Semicondutor Datasheet December 1994</SOURCE>
+74F02D<SOURCE>Philips Semiconductors FAST Products October 4, 1990</SOURCE>
+74F02N<SOURCE>Philips Semiconductors FAST Products October 4, 1990</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH B YNeg (2.5:4.4:5.5) (1.5:3.2:4.3))
+    (IOPATH A YNeg (2.5:4.4:5.5) (1.5:3.2:4.3))
+  ))
+</TIMING></FMFTIME>
+</BODY></FTML>
+

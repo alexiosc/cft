@@ -1,0 +1,24 @@
+\documentclass{article}
+\input tmp.inputs
+\pagestyle{empty}
+\begin{document}
+    \begin{pspicture}(-1,-1)(8,1)
+      \psset{linewidth=3\pslinewidth}
+      \psframe(0,0)(8,0.75)
+      \psset{linewidth=0.33\pslinewidth}
+      \psline{-}(2,-0.1)(2,0.75)
+      \psline{-}(2.5,-0.1)(2.5,0.75)
+      \psline{-}(3,-0.1)(3,0.75)
+      \rput[B](1,0.27){Opcode}
+      \rput[B](2.25,0.27){I}
+      \rput[B](2.75,0.27){R}
+      \rput[B](5.5,0.27){Operand}
+      \rput[tl](0,-0.1){\footnotesize 15}
+      \rput[tl](3.1,-0.1){\footnotesize 9}
+      \rput[tr](2.9,-0.1){\footnotesize 10}
+      \rput[tr](2.4,-0.1){\footnotesize 11}
+      \rput[tr](1.9,-0.1){\footnotesize 12}
+      \rput[tr](8,-0.1){\footnotesize 0}
+    \end{pspicture}
+  
+\end{document}

@@ -1,0 +1,246 @@
+<!DOCTYPE FTML SYSTEM "ftml.dtd">
+<FTML><HEAD><TITLE>FMF Timing for STD821</TITLE>
+<REVISION.HISTORY>
+version: |  author:  | mod date: | changes made:
+  V1.0     R. Munden   98 APR 06   Initial release
+</REVISION.HISTORY>
+</HEAD>
+<BODY>
+<MODEL>STD821
+<TIMESCALE>1ns</TIME SPEC>
+<FMFTIME>
+SN74ABT16821DGG<SOURCE>Texas Instruments SCBS216B-Revised January 1997</SOURCE>
+SN74ABT16821DL<SOURCE>Texas Instruments SCBS216B-Revised January 1997</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLK Q (1.3:3.7:5.1) (1.6:3.9:5.1))
+    (IOPATH OENeg Q () () (1.8:4.1:5.8) (1.1:3.2:4.7) (2.0:4.5:5.7) (1.6:3.8:5.0))
+   ))
+  (TIMINGCHECK
+    (WIDTH (posedge CLK) (3.3:3.3:3.3))
+    (WIDTH (negedge CLK) (3.3:3.3:3.3))
+    (SETUP D CLK (1.8:1.8:1.8))
+    (HOLD D CLK (1.3:1.3:1.3))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+74ABT16821ADL<SOURCE>Philips Semiconductors Product Spec 1995 Sep 28</SOURCE>
+74ABT16821ADGG<SOURCE>Philips Semiconductors Product Spec 1995 Sep 28</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLK Q (1.3:2.4:3.3) (1.1:2.0:2.6))
+    (IOPATH OENeg Q () () (1.3:2.3:3.1) (1.4:2.5:3.3) (1.6:3.2:4.1) (1.2:2.3:3.0))
+   ))
+  (TIMINGCHECK
+    (WIDTH (posedge CLK) (2.5:2.5:2.5))
+    (WIDTH (negedge CLK) (2.5:2.5:2.5))
+    (SETUP D CLK (1.8:1.8:1.8))
+    (HOLD D CLK (1.0:1.0:1.0))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+74F821SC<SOURCE>Fairchild Semiconductor data sheet February 1998</SOURCE>
+74F821SPC<SOURCE>Fairchild Semiconductor data sheet February 1998</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLK Q (2.0:6.4:9.5) (2.0:6.2:9.5))
+    (IOPATH OENeg Q () () (1.5:3.5:7.0) (2.0:5.8:10.5) (1.5:3.4:7.0) (2.0:6.3:10.5))
+   ))
+  (TIMINGCHECK
+    (WIDTH (posedge CLK) (5.0:5.0:5.0))
+    (WIDTH (negedge CLK) (5.0:5.0:5.0))
+    (SETUP D CLK (2.5:2.5:2.5))
+    (HOLD D CLK (2.5:2.5:2.5))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+N74F821D<SOURCE>Philips Semiconductors Product Spec 1996 Jan 05</SOURCE>
+N74F821N<SOURCE>Philips Semiconductors Product Spec 1996 Jan 05</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLK Q (4.0:6.5:8.5) (4.0:6.0:8.5))
+    (IOPATH OENeg Q () () (1.5:3.5:6.5) (2.0:4.5:8.0) (1.5:3.5:6.5) (3.0:5.0:8.0))
+   ))
+  (TIMINGCHECK
+    (WIDTH (posedge CLK) (3.5:3.5:3.5))
+    (WIDTH (negedge CLK) (3.5:3.5:3.5))
+    (SETUP D CLK (1.0:1.0:1.0))
+    (HOLD D CLK (2.0:2.0:2.0))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+IDT74FCT821ATP<SOURCE>IDT Data Sheet September 1996</SOURCE>
+IDT74FCT821ATL<SOURCE>IDT Data Sheet September 1996</SOURCE>
+IDT74FCT821ATSO<SOURCE>IDT Data Sheet September 1996</SOURCE>
+IDT74FCT821ATPY<SOURCE>IDT Data Sheet September 1996</SOURCE>
+IDT74FCT821ATQ<SOURCE>IDT Data Sheet September 1996</SOURCE>
+<COMMENT>Typical values not provided so Max/2 used, CL=50pF </COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLK Q (1.5:5.0:10.0) (1.5:5.0:10.0))
+    (IOPATH OENeg Q () () (1.5:4.0:8.0) (1.5:6.0:12.0) (1.5:4.0:8.0) (1.5:6.0:12.0))
+   ))
+  (TIMINGCHECK
+    (WIDTH (posedge CLK) (7.0:7.0:7.0))
+    (WIDTH (negedge CLK) (7.0:7.0:7.0))
+    (SETUP D CLK (4.0:4.0:4.0))
+    (HOLD D CLK (2.0:2.0:2.0))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+IDT74FCT821BTP<SOURCE>IDT Data Sheet September 1996</SOURCE>
+IDT74FCT821BTL<SOURCE>IDT Data Sheet September 1996</SOURCE>
+IDT74FCT821BTSO<SOURCE>IDT Data Sheet September 1996</SOURCE>
+IDT74FCT821BTPY<SOURCE>IDT Data Sheet September 1996</SOURCE>
+IDT74FCT821BTQ<SOURCE>IDT Data Sheet September 1996</SOURCE>
+<COMMENT>Typical values not provided so Max/2 used, CL=50pF </COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLK Q (1.5:3.8:7.5) (1.5:3.8:7.5))
+    (IOPATH OENeg Q () () (1.5:3.8:7.5) (1.5:4.0:8.0) (1.5:3.8:7.5) (1.5:4.0:8.0))
+   ))
+  (TIMINGCHECK
+    (WIDTH (posedge CLK) (6.0:6.0:6.0))
+    (WIDTH (negedge CLK) (6.0:6.0:6.0))
+    (SETUP D CLK (3.0:3.0:3.0))
+    (HOLD D CLK (1.5:1.5:1.5))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+IDT74FCT821BTP<SOURCE>IDT Data Sheet September 1996</SOURCE>
+IDT74FCT821BTL<SOURCE>IDT Data Sheet September 1996</SOURCE>
+IDT74FCT821BTSO<SOURCE>IDT Data Sheet September 1996</SOURCE>
+IDT74FCT821BTPY<SOURCE>IDT Data Sheet September 1996</SOURCE>
+IDT74FCT821BTQ<SOURCE>IDT Data Sheet September 1996</SOURCE>
+<COMMENT>Typical values not provided so Max/2 used, CL=50pF </COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLK Q (1.5:3.8:7.5) (1.5:3.8:7.5))
+    (IOPATH OENeg Q () () (1.5:3.8:7.5) (1.5:4.0:8.0) (1.5:3.8:7.5) (1.5:4.0:8.0))
+   ))
+  (TIMINGCHECK
+    (WIDTH (posedge CLK) (6.0:6.0:6.0))
+    (WIDTH (negedge CLK) (6.0:6.0:6.0))
+    (SETUP D CLK (3.0:3.0:3.0))
+    (HOLD D CLK (1.5:1.5:1.5))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+IDT74FCT821CTP<SOURCE>IDT Data Sheet September 1996</SOURCE>
+IDT74FCT821CTL<SOURCE>IDT Data Sheet September 1996</SOURCE>
+IDT74FCT821CTSO<SOURCE>IDT Data Sheet September 1996</SOURCE>
+IDT74FCT821CTPY<SOURCE>IDT Data Sheet September 1996</SOURCE>
+IDT74FCT821CTQ<SOURCE>IDT Data Sheet September 1996</SOURCE>
+<COMMENT>Typical values not provided so Max/2 used, CL=50pF </COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLK Q (1.5:3.0:6.0) (1.5:3.0:6.0))
+    (IOPATH OENeg Q () () (1.5:3.3:6.5) (1.5:3.5:7.0) (1.5:3.3:6.5) (1.5:3.5:7.0))
+   ))
+  (TIMINGCHECK
+    (WIDTH (posedge CLK) (6.0:6.0:6.0))
+    (WIDTH (negedge CLK) (6.0:6.0:6.0))
+    (SETUP D CLK (3.0:3.0:3.0))
+    (HOLD D CLK (1.5:1.5:1.5))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+IDT74FCT821DTP<SOURCE>IDT Data Sheet September 1996</SOURCE>
+IDT74FCT821DTL<SOURCE>IDT Data Sheet September 1996</SOURCE>
+IDT74FCT821DTSO<SOURCE>IDT Data Sheet September 1996</SOURCE>
+IDT74FCT821DTPY<SOURCE>IDT Data Sheet September 1996</SOURCE>
+IDT74FCT821DTQ<SOURCE>IDT Data Sheet September 1996</SOURCE>
+<COMMENT>Typical values not provided so Max/2 used, CL=50pF </COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLK Q (1.5:2.5:5.0) (1.5:2.5:5.0))
+    (IOPATH OENeg Q () () (1.5:2.0:4.0) (1.5:2.4:4.8) (1.5:2.0:4.0) (1.5:2.4:4.8))
+   ))
+  (TIMINGCHECK
+    (WIDTH (posedge CLK) (3.0:3.0:3.0))
+    (WIDTH (negedge CLK) (3.0:3.0:3.0))
+    (SETUP D CLK (2.0:2.0:2.0))
+    (HOLD D CLK (1.0:1.0:1.0))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+QS74FCT821ATH<SOURCE>Quality Semiconductor data sheet MDSL-00026-02</SOURCE>
+QS74FCT821ATP<SOURCE>Quality Semiconductor data sheet MDSL-00026-02</SOURCE>
+QS74FCT821ATQ<SOURCE>Quality Semiconductor data sheet MDSL-00026-02</SOURCE>
+QS74FCT821ATSO<SOURCE>Quality Semiconductor data sheet MDSL-00026-02</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<COMMENT>Min and Typ values not provided so Max/6 and Max/2 used, CL=50pF </COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLK Q (1.5:5.0:10.0) (1.5:5.0:10.0))
+    (IOPATH OENeg Q () () (1.5:4.5:9.0) (2.0:6.0:12.0) (1.5:4.5:9.0) (2.0:6.0:12.0))
+   ))
+  (TIMINGCHECK
+    (WIDTH (posedge CLK) (7.0:7.0:7.0))
+    (WIDTH (negedge CLK) (7.0:7.0:7.0))
+    (SETUP D CLK (4.0:4.0:4.0))
+    (HOLD D CLK (2.0:2.0:2.0))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+QS74FCT821BTH<SOURCE>Quality Semiconductor data sheet MDSL-00026-02</SOURCE>
+QS74FCT821BTP<SOURCE>Quality Semiconductor data sheet MDSL-00026-02</SOURCE>
+QS74FCT821BTQ<SOURCE>Quality Semiconductor data sheet MDSL-00026-02</SOURCE>
+QS74FCT821BTSO<SOURCE>Quality Semiconductor data sheet MDSL-00026-02</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<COMMENT>Min and Typ values not provided so Max/6 and Max/2 used, CL=50pF </COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLK Q (1.3:3.8:7.5) (1.3:3.8:7.5))
+    (IOPATH OENeg Q () () (1.3:3.8:7.5) (1.4:4.0:8.0) (1.3:3.8:7.5) (1.4:4.0:8.0))
+   ))
+  (TIMINGCHECK
+    (WIDTH (posedge CLK) (6.0:6.0:6.0))
+    (WIDTH (negedge CLK) (6.0:6.0:6.0))
+    (SETUP D CLK (3.0:3.0:3.0))
+    (HOLD D CLK (1.5:1.5:1.5))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+QS74FCT821CTH<SOURCE>Quality Semiconductor data sheet MDSL-00026-02</SOURCE>
+QS74FCT821CTP<SOURCE>Quality Semiconductor data sheet MDSL-00026-02</SOURCE>
+QS74FCT821CTQ<SOURCE>Quality Semiconductor data sheet MDSL-00026-02</SOURCE>
+QS74FCT821CTSO<SOURCE>Quality Semiconductor data sheet MDSL-00026-02</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<COMMENT>Min and Typ values not provided so Max/6 and Max/2 used, CL=50pF </COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLK Q (1.0:3.0:6.0) (1.0:3.0:6.0))
+    (IOPATH OENeg Q () () (1.1:3.3:6.5) (1.1:3.5:7.0) (1.1:3.3:6.5) (1.1:3.5:7.0))
+   ))
+  (TIMINGCHECK
+    (WIDTH (posedge CLK) (6.0:6.0:6.0))
+    (WIDTH (negedge CLK) (6.0:6.0:6.0))
+    (SETUP D CLK (3.0:3.0:3.0))
+    (HOLD D CLK (1.5:1.5:1.5))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+QS74FCT821DTH<SOURCE>Quality Semiconductor data sheet MDSL-00026-02</SOURCE>
+QS74FCT821DTP<SOURCE>Quality Semiconductor data sheet MDSL-00026-02</SOURCE>
+QS74FCT821DTQ<SOURCE>Quality Semiconductor data sheet MDSL-00026-02</SOURCE>
+QS74FCT821DTSO<SOURCE>Quality Semiconductor data sheet MDSL-00026-02</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<COMMENT>Min and Typ values not provided so Max/6 and Max/2 used, CL=50pF </COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLK Q (1.0:2.2:5.3) (1.0:2.2:5.3))
+    (IOPATH OENeg Q () () (1.1:3.3:6.5) (1.1:3.3:6.5) (1.1:3.3:6.5) (1.1:3.3:6.5))
+   ))
+  (TIMINGCHECK
+    (WIDTH (posedge CLK) (6.0:6.0:6.0))
+    (WIDTH (negedge CLK) (6.0:6.0:6.0))
+    (SETUP D CLK (3.0:3.0:3.0))
+    (HOLD D CLK (1.5:1.5:1.5))
+  )
+</TIMING></FMFTIME>
+</BODY></FTML>

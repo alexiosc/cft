@@ -1,0 +1,34 @@
+<!DOCTYPE FTML SYSTEM "ftml.dtd">
+<FTML><HEAD><TITLE>FMF Timing for STD175 Parts</TITLE>
+<REVISION.HISTORY>
+version: |  author:  | mod date: | changes made:
+  V1.0     R. Munden   98 OCT 22   Initial release
+</REVISION.HISTORY>
+</HEAD>
+<BODY>
+<TIMESCALE>1ns</TIMESCALE>
+<MODEL>STD175
+<FMFTIME>
+74ACT175MTC<SOURCE>Fairchild Semiconductor data sheet May 1998</SOURCE>
+74ACT175PC<SOURCE>Fairchild Semiconductor data sheet May 1998</SOURCE>
+74ACT175SC<SOURCE>Fairchild Semiconductor data sheet May 1998</SOURCE>
+74ACT175SJ<SOURCE>Fairchild Semiconductor data sheet May 1998</SOURCE>
+MC74ACT175D<SOURCE>Motorola Semiconductor DL138 Rev 3</SOURCE>
+MC74ACT175N<SOURCE>Motorola Semiconductor DL138 Rev 3</SOURCE>
+<COMMENT> The values listed are for VCC=5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+     (IOPATH CLK Q (2.0:6.0:10.0) (2.0:7.0:11.0))
+     (IOPATH CLRNeg Q (2.0:6.0:9.5) (2.0:5.5:9.5))
+  ))
+  (TIMINGCHECK
+    (SETUP D CLK (2.5))
+    (HOLD D CLK (1.0))
+    (WIDTH  (posedge CLK) (3.0))
+    (WIDTH  (negedge CLK) (3.0))
+    (WIDTH  (negedge CLRNeg) (3.0))
+    (PERIOD (posedge CLK) (5.7))
+    (RECOVERY CLRNeg CLK (0))
+ )
+</TIMING></FMFTIME>
+</BODY></FTML>

@@ -1,0 +1,508 @@
+<!DOCTYPE FTML SYSTEM "ftml.dtd">
+<FTML><HEAD><TITLE>FMF Timing for STD374 Parts</TITLE>
+<REVISION.HISTORY>
+version: |  author:  | mod date: | changes made:
+  V1.0     R. Munden   97 NOV 10   Initial release
+  V1.1     R. Munden   97 NOV 19   Added 32 new part numbers
+  V1.2     R. Munden   97 NOV 30   Modified to work with mk_sdf 1.15
+  V1.3     R. Munden   98 MAY 08   Added 10 new part numbers
+  V1.4     R. Munden   00 JAN 13   Added 8 new part numbers
+  V1.5     R. Munden   00 OCT 07   Added 9 new part numbers
+  V1.6     R. Munden   08 AUG 25   Added 9 new part numbers
+  V1.7     R. Munden   10 APR 28   Added 14 new part numbers
+</REVISION.HISTORY>
+</HEAD>
+<BODY>
+<TIMESCALE>1ns</TIMESCALE>
+<MODEL>STD374
+<FMFTIME>
+74ABT16374CMTC<SOURCE>National Semicondutor Datasheet September 1995</SOURCE>
+74ABT16374CSSC<SOURCE>National Semicondutor Datasheet September 1995</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<COMMENT>Typical values are derived at 2*min</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLK Q (1.8:3.6:6.2) (1.8:3.6:5.9))
+    (IOPATH OENeg Q () () (2.2:4.4:6.6) (1.2:2.4:5.6) (2.2:4.4:7.1) (1.6:3.2:5.3))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (1.1:1.1:1.1))
+    (HOLD D CLK (1.3:1.3:1.3))
+    (WIDTH (posedge CLK) (3.0:3.0:3.0))
+    (WIDTH (negedge CLK) (3.0:3.0:3.0))
+    (PERIOD (posedge CLK) (6.7:6.7:6.7))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+74ABT16374BDL<SOURCE>Philips Semiconductors Data Handbook IC23 1996</SOURCE>
+74ABT16374BGG<SOURCE>Philips Semiconductors Data Handbook IC23 1996</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLK Q (1.7:2.6:4.0) (1.4:2.2:3.4))
+    (IOPATH OENeg Q () () (1.7:2.6:4.0) (1.3:2.4:3.7) (1.9:3.1:4.6) (1.3:2.3:3.4))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (0.3:0.3:1.0))
+    (HOLD D CLK (0.0:0.0:1.0))
+    (WIDTH (posedge CLK) (1.2:1.2:2.8))
+    (WIDTH (negedge CLK) (1.5:1.5:2.8))
+    (PERIOD (posedge CLK) (5.56:5.56:3.9))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74ABT16374ADL<SOURCE>Texas Instruments SCBS205C-Revised May 1997</SOURCE>
+SN74ABT16374ADGG<SOURCE>Texas Instruments SCBS205C-Revised May 1997</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLK Q (1.8:4.3:5.7) (2.7:4.7:6.1))
+    (IOPATH OENeg Q () () (2.2:4.3:6.2) (1.2:3.4:4.8) (2.2:5.5:8.6) (1.6:3.5:4.9))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (1.1:1.1:1.1))
+    (HOLD D CLK (1.3:1.3:1.3))
+    (WIDTH (posedge CLK) (3.3:3.3:3.3))
+    (WIDTH (negedge CLK) (3.3:3.3:3.3))
+    (PERIOD (posedge CLK) (6.7:6.7:6.7))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+74ABT374CPC<SOURCE>National Semicondutor Datasheet September 1995</SOURCE>
+74ABT374CSC<SOURCE>National Semicondutor Datasheet September 1995</SOURCE>
+74ABT374CSJ<SOURCE>National Semicondutor Datasheet September 1995</SOURCE>
+74ABT374CMSA<SOURCE>National Semicondutor Datasheet September 1995</SOURCE>
+74ABT374CMTC<SOURCE>National Semicondutor Datasheet September 1995</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLK Q (2.0:3.2:5.0) (2.0:3.3:5.0))
+    (IOPATH OENeg Q () () (1.5:3.4:5.4) (1.5:3.1:5.3) (1.5:3.6:5.4) (1.5:3.1:5.3))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (1.5:1.5:1.5))
+    (HOLD D CLK (1.0:1.0:1.0))
+    (WIDTH (posedge CLK) (3.0:3.0:3.0))
+    (WIDTH (negedge CLK) (3.0:3.0:3.0))
+    (PERIOD (posedge CLK) (5:5:6.7))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+74ABT374AD<SOURCE>Philips Semiconductors Product Specification 1995 Sep 06</SOURCE>
+74ABT374ADB<SOURCE>Philips Semiconductors Product Specification 1995 Sep 06</SOURCE>
+74ABT374AN<SOURCE>Philips Semiconductors Product Specification 1995 Sep 06</SOURCE>
+74ABT374APW<SOURCE>Philips Semiconductors Product Specification 1995 Sep 06</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLK Q (1.7:3.4:4.5) (2.0:3.8:4.9))
+    (IOPATH OENeg Q () () (1.5:3.0:4.1) (1.2:3.5:4.5) (1.8:3.6:4.7) (2.2:4.3:5.4))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (0.6:0.6:1.5))
+    (HOLD D CLK (0.0:1.0:1.0))
+    (WIDTH (posedge CLK) (0.8:2.0:2.0))
+    (WIDTH (negedge CLK) (1.0:2.8:2.8))
+    (PERIOD (posedge CLK) (3.33:3.33:5.0))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+74ACTQ16374SSC<SOURCE>National Semicondutor Datasheet March 1993</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLK Q (3.1:5.3:7.9) (3.0:5.1:7.3))
+    (IOPATH OENeg Q () () (2.0:4.8:7.4) (2.5:4.7:7.4) (2.1:5.1:7.9) (3.0:5.4:8.0))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (0.7:0.7:3.0))
+    (HOLD D CLK (0.8:0.8:1.0))
+    (WIDTH (posedge CLK) (1.5:1.5:5.0))
+    (WIDTH (negedge CLK) (1.5:1.5:5.0))
+    (PERIOD (posedge CLK) (14.1:14.1:14.1))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+74ACTQ374PC<SOURCE>National Semicondutor Datasheet March 1993</SOURCE>
+74ACTQ374QSC<SOURCE>National Semicondutor Datasheet March 1993</SOURCE>
+74ACTQ374SC<SOURCE>National Semicondutor Datasheet March 1993</SOURCE>
+74ACTQ374SJ<SOURCE>National Semicondutor Datasheet March 1993</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLK Q (2.0:7.0:9.0) (2.0:7.0:9.0))
+    (IOPATH OENeg Q () () (1.0:8.0:10.0) (2.0:7.5:9.0) (1.0:8.0:10.0) (2.0:7.5:9.0))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (1.0:3.0:3.0))
+    (HOLD D CLK (1.0:1.0:1.5))
+    (WIDTH (posedge CLK) (2.0:2.0:4.0))
+    (WIDTH (negedge CLK) (2.0:2.0:4.0))
+    (PERIOD (posedge CLK) (11.8:11.8:11.8))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+74ACT16374DL<SOURCE>Texas Instruments SCAS124B-Revised April 1996</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLK Q (5.1:8.8:10.9) (5.3:8.8:10.9))
+    (IOPATH OENeg Q () () (4.9:7.2:9.1) (3.7:8.4:10.5) (5.4:7.9:9.8) (4.4:9.7:11.9))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (6.5:6.5:6.5))
+    (HOLD D CLK (1.0:1.0:1.0))
+    (WIDTH (posedge CLK) (7.5:7.5:7.5))
+    (WIDTH (negedge CLK) (4.5:4.5:4.5))
+    (PERIOD (posedge CLK) (15.4:15.4:15.4))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+74ACT374MSA<SOURCE>National Semiconductor June 1996</SOURCE>
+74ACT374MTC<SOURCE>National Semiconductor June 1996</SOURCE>
+74ACT374PC<SOURCE>National Semiconductor June 1996</SOURCE>
+74ACT374SC<SOURCE>National Semiconductor June 1996</SOURCE>
+74ACT374SJ<SOURCE>National Semiconductor June 1996</SOURCE>
+MC74ACT374DW<SOURCE>Motorola FACT Data DL138 Rev 3</SOURCE>
+MC74ACT374N<SOURCE>Motorola FACT Data DL138 Rev 3</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLK Q (2.0:8.5:10.0) (2.0:8.0:9.5))
+    (IOPATH OENeg Q () () (1.5:7.0:8.5) (2.0:8.0:9.5) (1.5:8.5:11.5) (1.5:8.0:9.0))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (5.0:5.0:5.0))
+    (HOLD D CLK (1.5:1.5:1.5))
+    (WIDTH (posedge CLK) (5.0:5.0:5.0))
+    (WIDTH (negedge CLK) (5.0:5.0:5.0))
+    (PERIOD (posedge CLK) (10.0:10.0:10.0))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+TC74ACT374FT<SOURCE>Toshiba TC74AC Series undated obtained on 98 MAY 08</SOURCE>
+TC74ACT374FW<SOURCE>Toshiba TC74AC Series undated obtained on 98 MAY 08</SOURCE>
+TC74ACT374P<SOURCE>Toshiba TC74AC Series undated obtained on 98 MAY 08</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<COMMENT>Min values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLK Q (2.0:6.1:9.6) (2.0:6.1:9.6))
+    (IOPATH OENeg Q () () (1.8:5.6:7.9) (2.0:6.2:10.1) (1.8:5.6:7.9) (2.0:6.2:10.1))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (3.0:3.0:3.0))
+    (HOLD D CLK (2.0:2.0:2.0))
+    (WIDTH (posedge CLK) (5.0:5.0:5.0))
+    (WIDTH (negedge CLK) (5.0:5.0:5.0))
+    (PERIOD (posedge CLK) (10.5:10.5:10.5))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+74AHC374D<SOURCE>Philips Semiconductors Product Specification 1999 Sep 28</SOURCE>
+74AHC374PW<SOURCE>Philips Semiconductors Product Specification 1999 Sep 28</SOURCE>
+74AHCT374D<SOURCE>Philips Semiconductors Product Specification 1999 Sep 28</SOURCE>
+74AHCT374PW<SOURCE>Philips Semiconductors Product Specification 1999 Sep 28</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5 to 5.5V, CL=50pF, Ta=-40 to 85 Celsius</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLK Q (1.0:5.7:11.5) (1.0:5.7:11.5))
+    (IOPATH OENeg Q () () (1.0:6.4:10.0) (1.0:5.2:11.0) (1.0:6.4:10.0) (1.0:5.2:11.0))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (3.0))
+    (HOLD D CLK (2.0))
+    (WIDTH (posedge CLK) (5.0))
+    (WIDTH (negedge CLK) (5.0))
+    (PERIOD (posedge CLK) (13))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74AHCT374DB<SOURCE>Texas Instruments SCLS241I-Revised November 1999</SOURCE>
+SN74AHCT374DW<SOURCE>Texas Instruments SCLS241I-Revised November 1999</SOURCE>
+SN74AHCT374N<SOURCE>Texas Instruments SCLS241I-Revised November 1999</SOURCE>
+SN74AHCT374PW<SOURCE>Texas Instruments SCLS241I-Revised November 1999</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5 to 5.5V, CL=50pF, Ta=-40 to 85 Celsius</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLK Q (1.0:6.4:11.5) (1.0:6.4:11.5))
+    (IOPATH OENeg Q () () (1.0:7.0:12.0) (1.0:7.3:12.5) (1.0:7.0:12.0) (1.0:7.3:12.5))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (2.5))
+    (HOLD D CLK (2.5))
+    (WIDTH (posedge CLK) (6.5))
+    (WIDTH (negedge CLK) (6.5))
+    (PERIOD (posedge CLK) (13))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+MM74HCT374MTC<SOURCE>Fairchild Semiconductor DS005367.prf February 1999</SOURCE>
+MM74HCT374N<SOURCE>Fairchild Semiconductor DS005367.prf February 1999</SOURCE>
+MM74HCT374SJ<SOURCE>Fairchild Semiconductor DS005367.prf February 1999</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5 to 5.5V, CL=50pF, Ta=-40 to 85 Celsius</COMMENT>
+<COMMENT>Minimum values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLK Q (11:22:45) (11:22:45))
+    (IOPATH OENeg Q () () (11:21:37) (11:21:37) (11:21:37) (11:21:37))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (25))
+    (HOLD D CLK (5))
+    (WIDTH (posedge CLK) (20))
+    (WIDTH (negedge CLK) (20))
+    (PERIOD (posedge CLK) (42))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+MC74HCT374ADT<SOURCE>ON Semiconductor MC74HCT374A/D Rev 8 March 2000</SOURCE>
+MC74HCT374ADW<SOURCE>ON Semiconductor MC74HCT374A/D Rev 8 March 2000</SOURCE>
+MC74HCT374AN<SOURCE>ON Semiconductor MC74HCT374A/D Rev 8 March 2000</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5 to 5.5V, CL=50pF, Ta=-40 to 85 Celsius</COMMENT>
+<COMMENT>Minimum and typical values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLK Q (10:20:39) (10:20:39))
+    (IOPATH OENeg Q () () (11:21:38) (11:21:38) (11:21:38) (11:21:38))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (15))
+    (HOLD D CLK (5))
+    (WIDTH (posedge CLK) (15))
+    (WIDTH (negedge CLK) (15))
+    (PERIOD (posedge CLK) (42))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74HCT374DB<SOURCE>Texas Instruments SCLS005B-Revised May 1997</SOURCE>
+SN74HCT374DW<SOURCE>Texas Instruments SCLS005B-Revised May 1997</SOURCE>
+SN74HCT374N<SOURCE>Texas Instruments SCLS005B-Revised May 1997</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5V, CL=50pF, Ta=-40 to 85 Celsius</COMMENT>
+<COMMENT>Minimum values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLK Q (15:30:45) (15:30:45))
+    (IOPATH OENeg Q () () (13:26:38) (12:23:38) (13:26:38) (12:23:38))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (25))
+    (HOLD D CLK (10))
+    (WIDTH (posedge CLK) (20))
+    (WIDTH (negedge CLK) (20))
+    (PERIOD (posedge CLK) (40))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74AVC374DGG_1V8<SOURCE>Texas Instruments SCES158H-Revised March 2005</SOURCE>
+SN74AVC374DGV_1V8<SOURCE>Texas Instruments SCES158H-Revised March 2005</SOURCE>
+SN74AVC374GQL_1V8<SOURCE>Texas Instruments SCES158H-Revised March 2005</SOURCE>
+<COMMENT>The Values listed are for VCC=1.65V to 1.95, CL=50pF, Ta=-40 to 85 Celsius</COMMENT>
+<COMMENT>Typical values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLK Q (1.2:4.8:6.7) (1.2:4.8:6.7))
+    (IOPATH OENeg Q () () (2.3:4.6:7.8) (1.6:3.2:6.7) (2.3:4.6:7.8) (1.6:3.2:6.7))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (1.9))
+    (HOLD D CLK (1.2))
+    (WIDTH (posedge CLK) (3.1))
+    (WIDTH (negedge CLK) (3.1))
+    (PERIOD (posedge CLK) (6.25))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74AVC374DGG_2V5<SOURCE>Texas Instruments SCES158H-Revised March 2005</SOURCE>
+SN74AVC374DGV_2V5<SOURCE>Texas Instruments SCES158H-Revised March 2005</SOURCE>
+SN74AVC374GQL_2V5<SOURCE>Texas Instruments SCES158H-Revised March 2005</SOURCE>
+<COMMENT>The Values listed are for VCC=2.3V to 2.7, CL=50pF, Ta=-40 to 85 Celsius</COMMENT>
+<COMMENT>Typical values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLK Q (0.8:2.1:4.1) (0.8:2.1:4.1))
+    (IOPATH OENeg Q () () (1.0:2.1:4.2) (0.9:2.2:4.3) (1.0:2.1:4.2) (0.9:2.2:4.3))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (1.4))
+    (HOLD D CLK (1.1))
+    (WIDTH (posedge CLK) (2.5))
+    (WIDTH (negedge CLK) (2.5))
+    (PERIOD (posedge CLK) (5))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74AVC374DGG_3V3<SOURCE>Texas Instruments SCES158H-Revised March 2005</SOURCE>
+SN74AVC374DGV_3V3<SOURCE>Texas Instruments SCES158H-Revised March 2005</SOURCE>
+SN74AVC374GQL_3V3<SOURCE>Texas Instruments SCES158H-Revised March 2005</SOURCE>
+<COMMENT>The Values listed are for VCC=3.0V to 3.6, CL=50pF, Ta=-40 to 85 Celsius</COMMENT>
+<COMMENT>Typical values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLK Q (0.7:1.6:3.3) (0.7:1.6:3.3))
+    (IOPATH OENeg Q () () (1.5:2.0:3.9) (0.7:2.0:3.4) (1.5:2.0:3.9) (0.7:2.0:3.4))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (1.4))
+    (HOLD D CLK (1.1))
+    (WIDTH (posedge CLK) (2.5))
+    (WIDTH (negedge CLK) (2.5))
+    (PERIOD (posedge CLK) (5))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+IDT74FCT16374ETE<SOURCE>IDT High Performance Logic Data Book 1997</SOURCE>
+IDT74FCT16374ETPA<SOURCE>IDT High Performance Logic Data Book 1997</SOURCE>
+IDT74FCT16374ETPF<SOURCE>IDT High Performance Logic Data Book 1997</SOURCE>
+IDT74FCT16374ETPV<SOURCE>IDT High Performance Logic Data Book 1997</SOURCE>
+<COMMENT>The Values listed are for CL=50pF</COMMENT>
+<COMMENT>Typical values are derived, period not provided by vendor</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLK Q (1.5:3.0:3.7) (1.5:3.0:3.7))
+    (IOPATH OENeg Q () () (1.5:3.0:3.6) (1.5:3.0:4.4) (1.5:3.0:3.6) (1.5:3.0:4.4))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (1.5:1.5:1.5))
+    (HOLD D CLK (0.0:0.0:0.0))
+    (WIDTH (posedge CLK) (3.0:3.0:3.0))
+    (WIDTH (negedge CLK) (3.0:3.0:3.0))
+    (PERIOD (posedge CLK) (6.0:6.0:6.0))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+CY74FCT374DTQC<SOURCE>Cypress Semiconductor Doc 7026-Revised March 1997</SOURCE>
+CY74FCT374DTSOC<SOURCE>Cypress Semiconductor Doc 7026-Revised March 1997</SOURCE>
+IDT74FCT374DTD<SOURCE>IDT High Performance Logic Data Book 1997</SOURCE>
+IDT74FCT374DTE<SOURCE>IDT High Performance Logic Data Book 1997</SOURCE>
+IDT74FCT374DTP<SOURCE>IDT High Performance Logic Data Book 1997</SOURCE>
+IDT74FCT374DTPG<SOURCE>IDT High Performance Logic Data Book 1997</SOURCE>
+IDT74FCT374DTPY<SOURCE>IDT High Performance Logic Data Book 1997</SOURCE>
+IDT74FCT374DTL<SOURCE>IDT High Performance Logic Data Book 1997</SOURCE>
+IDT74FCT374DTQ<SOURCE>IDT High Performance Logic Data Book 1997</SOURCE>
+IDT74FCT374DTSO<SOURCE>IDT High Performance Logic Data Book 1997</SOURCE>
+<COMMENT>The Values listed are for VCC=5V+/-5%, CL=50pF, Ta=0 - +70 Celsius</COMMENT>
+<COMMENT>Typical values are derived, period not provided by vendor</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLK Q (2.0:3.2:4.2) (2.0:3.2:4.2))
+    (IOPATH OENeg Q () () (1.5:3.0:4.0) (1.5:3.0:4.8) (1.5:3.0:4.0) (1.5:3.0:4.8))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (2.0:2.0:2.0))
+    (HOLD D CLK (1.5:1.5:1.5))
+    (WIDTH (posedge CLK) (3.0:3.0:3.0))
+    (WIDTH (negedge CLK) (3.0:3.0:3.0))
+    (PERIOD (posedge CLK) (6.0:6.0:6.0))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+QS74FCT374DTQ<SOURCE>Quality Semiconductor MDSL-00017-02</SOURCE>
+QS74FCT374DTSO<SOURCE>Quality Semiconductor MDSL-00017-02</SOURCE>
+<COMMENT>The Values listed are for VCC=5V+/-5%, CL=50pF, Ta=0 - +70 Celsius</COMMENT>
+<COMMENT>Typical values are derived, period not provided by vendor</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLK Q (1.5:3.0:4.5) (1.5:3.0:4.5))
+    (IOPATH OENeg Q () () (1.5:3.0:5.0) (1.5:3.0:5.5) (1.5:3.0:5.0) (1.5:3.0:5.5))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (1.5:1.5:1.5))
+    (HOLD D CLK (1.0:1.0:1.0))
+    (WIDTH (posedge CLK) (4.0:4.0:4.0))
+    (WIDTH (negedge CLK) (4.0:4.0:4.0))
+    (PERIOD (posedge CLK) (8.0:8.0:8.0))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+IDT74FCT374CTD<SOURCE>IDT High Performance Logic Data Book 1997</SOURCE>
+IDT74FCT374CTE<SOURCE>IDT High Performance Logic Data Book 1997</SOURCE>
+IDT74FCT374CTP<SOURCE>IDT High Performance Logic Data Book 1997</SOURCE>
+IDT74FCT374CTPG<SOURCE>IDT High Performance Logic Data Book 1997</SOURCE>
+IDT74FCT374CTPY<SOURCE>IDT High Performance Logic Data Book 1997</SOURCE>
+IDT74FCT374CTL<SOURCE>IDT High Performance Logic Data Book 1997</SOURCE>
+IDT74FCT374CTQ<SOURCE>IDT High Performance Logic Data Book 1997</SOURCE>
+IDT74FCT374CTSO<SOURCE>IDT High Performance Logic Data Book 1997</SOURCE>
+<COMMENT>The Values listed are for VCC=5V+/-5%, CL=50pF, Ta=0 - +70 Celsius</COMME
+NT>
+<COMMENT>Typical values are derived, period not provided by vendor</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLK Q (2.0:4.0:5.2) (2.0:4.0:5.2))
+    (IOPATH OENeg Q () () (1.5:3.0:5.0) (1.5:3.0:5.5) (1.5:3.0:5.0) (1.5:3.0:5.5))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (2.0:2.0:2.0))
+    (HOLD D CLK (1.5:1.5:1.5))
+    (WIDTH (posedge CLK) (5.0:5.0:5.0))
+    (WIDTH (negedge CLK) (5.0:5.0:5.0))
+    (PERIOD (posedge CLK) (10.0:10.0:10.0))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+QS74FCT374CTQ<SOURCE>Quality Semiconductor MDSL-00017-02</SOURCE>
+QS74FCT374CTSO<SOURCE>Quality Semiconductor MDSL-00017-02</SOURCE>
+<COMMENT>The Values listed are for VCC=5V+/-5%, CL=50pF, Ta=0 - +70 Celsius</COMME
+NT>
+<COMMENT>Typical values are derived, period not provided by vendor</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLK Q (2.0:4.0:5.2) (2.0:4.0:5.2))
+    (IOPATH OENeg Q () () (1.5:3.0:5.0) (1.5:3.0:5.5) (1.5:3.0:5.0) (1.5:3.0:5.5))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (1.5:1.5:1.5))
+    (HOLD D CLK (1.0:1.0:1.0))
+    (WIDTH (posedge CLK) (4.0:4.0:4.0))
+    (WIDTH (negedge CLK) (4.0:4.0:4.0))
+    (PERIOD (posedge CLK) (8.0:8.0:8.0))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74LVC374ADB_2V7<SOURCE>Texas Instruments SCAS296N-Revised May 2005</SOURCE>
+SN74LVC374ADGV_2V7<SOURCE>Texas Instruments SCAS296N-Revised May 2005</SOURCE>
+SN74LVC374ADW_2V7<SOURCE>Texas Instruments SCAS296N-Revised May 2005</SOURCE>
+SN74LVC374AN_2V7<SOURCE>Texas Instruments SCAS296N-Revised May 2005</SOURCE>
+SN74LVC374ANS_2V7<SOURCE>Texas Instruments SCAS296N-Revised May 2005</SOURCE>
+SN74LVC374APW_2V7<SOURCE>Texas Instruments SCAS296N-Revised May 2005</SOURCE>
+SN74LVC374ARGY_2V7<SOURCE>Texas Instruments SCAS296N-Revised May 2005</SOURCE>
+<COMMENT>The Values listed are for VCC=2.7V, CL=50pF, Ta=-40 to 85 Celsius</COMMENT>
+<COMMENT>Typical values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLK Q (1.5:4.0:8.1) (1.5:4.0:8.1))
+    (IOPATH OENeg Q () () (1.5:3.5:7.1) (1.5:4.4:8.5) (1.5:3.5:7.1) (1.5:4.4:8.5))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (2.0))
+    (HOLD D CLK (1.5))
+    (WIDTH (posedge CLK) (3.3))
+    (WIDTH (negedge CLK) (3.3))
+    (PERIOD (posedge CLK) (12.5))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74LVC374ADB_3V3<SOURCE>Texas Instruments SCAS296N-Revised May 2005</SOURCE>
+SN74LVC374ADGV_3V3<SOURCE>Texas Instruments SCAS296N-Revised May 2005</SOURCE>
+SN74LVC374ADW_3V3<SOURCE>Texas Instruments SCAS296N-Revised May 2005</SOURCE>
+SN74LVC374AN_3V3<SOURCE>Texas Instruments SCAS296N-Revised May 2005</SOURCE>
+SN74LVC374ANS_3V3<SOURCE>Texas Instruments SCAS296N-Revised May 2005</SOURCE>
+SN74LVC374APW_3V3<SOURCE>Texas Instruments SCAS296N-Revised May 2005</SOURCE>
+SN74LVC374ARGY_3V3<SOURCE>Texas Instruments SCAS296N-Revised May 2005</SOURCE>
+<COMMENT>The Values listed are for VCC=3.0V to 3.6, CL=50pF, Ta=-40 to 85 Celsius</COMMENT>
+<COMMENT>Typical values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH CLK Q (1.5:3.5:7.0) (1.5:3.5:7.0))
+    (IOPATH OENeg Q () () (1.5:3.2:6.5) (1.5:3.7:7.5) (1.5:3.2:6.5) (1.5:3.7:7.5))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (2.0))
+    (HOLD D CLK (1.5))
+    (WIDTH (posedge CLK) (3.3))
+    (WIDTH (negedge CLK) (3.3))
+    (PERIOD (posedge CLK) (10))
+  )
+</TIMING></FMFTIME>
+</BODY></FTML>
+

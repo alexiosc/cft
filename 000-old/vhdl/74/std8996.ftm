@@ -1,0 +1,45 @@
+<!DOCTYPE FTML SYSTEM "ftml.dtd">
+<FTML><HEAD><TITLE>FMF Timing for std8996 Parts</TITLE>
+<BODY>
+<REVISION.HISTORY>
+version: |  author:  | mod date: | changes made:
+  V1.0     R. Munden   04 Apr 17   Initial release
+</REVISION.HISTORY>
+<TIMESCALE>1ns</TIMESCALE>
+<MODEL>std8996
+<FMFTIME>
+SN74LVT8996DW<SOURCE>Texas Instruments SCBS686A Revised December 1999</SOURCE>
+SN74LVT8996PW<SOURCE>Texas Instruments SCBS686A Revised December 1999</SOURCE>
+<COMMENT>The Values listed are for VCC=3.0V to 3.6V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH PTCK STCK (1:6.2:9.6) (1:6.6:10)) 
+    (IOPATH PTRSTNeg STRSTNeg (1:5.6:8.4) (1:6:9)) 
+    (IOPATH BYPNeg CONNeg (1:5.4:8.2) (1:6.6:9.8)) 
+    (IOPATH BYPNeg STMS (2.5:8:12) (2.5:7.9:11.7)) 
+    (IOPATH PTCK CONNeg (3.5:13.9:20.6) (3.5:14.6:23)) 
+    (IOPATH PTCK PTDO (3:9.9:14.7) (3:10:15) (3:9.6:13.9) (4:9.8:14.5) (1.5:5.4:8.3) (4:9.8:14.5))
+    (IOPATH PTCK STMS (5.5:13.8:19.9) (5.5:12.4:19.1)) 
+    (IOPATH PTDI STDO (1:5.4:8.3) (1:5.9:8.6)) 
+    (IOPATH PTMS STMS (1:5.9:8.6) (1:6:8.8)) 
+    (IOPATH PTRSTNeg STMS (1:5.4:8.4) (1:6:9)) 
+    (IOPATH STDI PTDO (1:4.3:6.8) (1:3.9:7.8)) 
+    (IOPATH BYPNeg PTDO () () (1.5:6.6:10.1) (1.5:6:9) (1.5:5.3:8.3) (1.5:5.1:7.7))
+    (IOPATH BYPNeg STDO () () (1.5:5:7.4) (1.5:5.2:8.1) (1.5:4.9:7.3) (1.5:6.1:9.2))
+    (IOPATH PTCK STDO () () (3.5:8.3:13) (4:10.6:15.8) (3.5:11.3:16.9) (4:11:16.4))
+    (IOPATH PTRSTNeg PTDO () () (3.5:12.8:19.3) () (3.5:12.2:18.3) ()) 
+    (IOPATH PTRSTNeg STDO () () (4.5:13.9:20.6) () (4.5:12.1:18.2) ()) 
+  ))
+  (TIMINGCHECK
+    (SETUP PTDI PTCK (10.1:10.1:10.1)) 
+    (SETUP PTMS PTCK (10:10:10)) 
+    (SETUP A0 PTCK (10.2:10.2:10.2)) 
+    (HOLD PTDI PTCK (4:4:4)) 
+    (HOLD PTMS PTCK (4:4:4)) 
+    (HOLD A0 PTCK (4:4:4)) 
+    (WIDTH (posedge PTCK) (20:20:20)) 
+    (WIDTH (negedge PTCK) (12:12:12)) 
+    (WIDTH (negedge PTRSTNeg) (9:9:9)) 
+  )
+</TIMING></FMFTIME>
+</BODY></FTML>

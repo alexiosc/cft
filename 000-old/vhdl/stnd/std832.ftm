@@ -1,0 +1,32 @@
+<!DOCTYPE FTML SYSTEM "ftml.dtd">
+<FTML><HEAD><TITLE>FMF Timing for STD832 Parts</TITLE>
+<REVISION.HISTORY>
+version: |  author:  | mod date: | changes made:
+  V1.0     R. Munden   98 MAY 07   Initial release
+</REVISION.HISTORY>
+</HEAD>
+<BODY>
+<TIMESCALE>1ns</TIMESCALE>
+<MODEL>STD832
+<FMFTIME>
+SN74ALS832ADW<SOURCE>Texas Instruments SDAS017C-Revised January 1995</SOURCE>
+SN74ALS832AN<SOURCE>Texas Instruments SDAS017C-Revised January 1995</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5 to 5.5V, CL=50pF, Ta=0 to +70 Celsius</COMMENT>
+<COMMENT>Typ values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A Y (2:6:9) (1:5:8))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74AS832BDW<SOURCE>Texas Instruments SDAS017C-Revised January 1995</SOURCE>
+SN74AS832BN<SOURCE>Texas Instruments SDAS017C-Revised January 1995</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5 to 5.5V, CL=50pF, Ta=0 to +70 Celsius</COMMENT>
+<COMMENT>Typ values are derived</COMMENT>
+<TIMING>
+(DELAY (ABSOLUTE
+    (IOPATH A Y (1:4:6.3) (1:4:6.3))
+  ))
+</TIMING></FMFTIME>
+</BODY></FTML>
+

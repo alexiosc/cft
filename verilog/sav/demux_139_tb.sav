@@ -1,0 +1,32 @@
+[timestart] 0
+[size] 1408 668
+[pos] -365 -220
+*-18.789972 1316000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+@28
+demux_139_tb.g1
+demux_139_tb.a1[2:0]
+@800022
+demux_139_tb.y1[3:0]
+@28
+(0)demux_139_tb.y1[3:0]
+(1)demux_139_tb.y1[3:0]
+(2)demux_139_tb.y1[3:0]
+(3)demux_139_tb.y1[3:0]
+@1001200
+-group_end
+@200
+-
+@28
+demux_139_tb.g2
+demux_139_tb.a2[2:0]
+@800023
+demux_139_tb.y2[3:0]
+@29
+(0)demux_139_tb.y2[3:0]
+(1)demux_139_tb.y2[3:0]
+(2)demux_139_tb.y2[3:0]
+(3)demux_139_tb.y2[3:0]
+@1001201
+-group_end
+[pattern_trace] 1
+[pattern_trace] 0

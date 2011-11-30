@@ -1,0 +1,16 @@
+_x            0100  test-div3216.asm:4
+divd          0101  test-div3216.asm:5
+dvdr          0102  test-div3216.asm:6
+start         e000  test-div3216.asm:30
+_rom_div3216  e010  test-div3216.asm:56
+nextbit       e015  test-div3216.asm:64
+compare_high  e026  test-div3216.asm:86
+compare_low   e029  test-div3216.asm:94
+subtract      e02f  test-div3216.asm:103
+will_it_fit   e037  test-div3216.asm:117
+it_fits       e039  test-div3216.asm:121
+minus32       e046  test-div3216.asm:140
+mydivnb       e047  test-div3216.asm:141
+mydivna       e048  test-div3216.asm:142
+mydvdr        e049  test-div3216.asm:143
+reset         fff0  test-div3216.asm:23

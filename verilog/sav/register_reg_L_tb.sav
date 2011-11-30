@@ -1,0 +1,35 @@
+[timestart] 0
+[size] 1512 932
+[pos] 130 60
+*-22.830585 33000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] register_reg_L_tb.
+[treeopen] register_reg_L_tb.register.
+[treeopen] register_reg_L_tb.register.ff.
+@28
+register_reg_L_tb.clock
+register_reg_L_tb.reset
+register_reg_L_tb.clear
+@200
+-
+@29
+register_reg_L_tb.toggle
+@28
+register_reg_L_tb.latch
+register_reg_L_tb.d
+@200
+-
+@28
++{Value of L} register_reg_L_tb.q
+@200
+-
+-J-K FF
+@28
+register_reg_L_tb.register.ff.flipflop_112h1.clk
+register_reg_L_tb.register.ff.flipflop_112h1.rst
+register_reg_L_tb.register.ff.flipflop_112h1.set
+register_reg_L_tb.register.ff.flipflop_112h1.j
+register_reg_L_tb.register.ff.flipflop_112h1.k
+register_reg_L_tb.register.ff.flipflop_112h1.q
+register_reg_L_tb.register.ff.flipflop_112h1.qn
+[pattern_trace] 1
+[pattern_trace] 0

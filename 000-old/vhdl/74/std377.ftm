@@ -1,0 +1,179 @@
+<!DOCTYPE FTML SYSTEM "ftml.dtd">
+<FTML><HEAD><TITLE>FMF Timing for STD377 Parts</TITLE>
+<REVISION.HISTORY>
+version: |  author:  | mod date: | changes made:
+  V1.0     G. De Smet  97 JUL 11   Initial release
+  V1.1     G. De Smet  98 JAN 12   Changed MIN for MAX for all except: IOPATH
+  V1.2     R. Munden   98 MAY 19   Added 8 new part numbers
+  V1.3     R. Munden   08 AUG 26   Added 7 new part numbers
+</REVISION.HISTORY></HEAD>
+<BODY>
+<TIMESCALE>1ns</TIMESCALE>
+<MODEL>STD377
+<FMFTIME>
+74ABT377AD<SOURCE>Philips Semiconductors Product Specification 1997 Feb 26 </SOURCE>
+74ABT377ADB<SOURCE>Philips Semiconductors Product Specification 1997 Feb 26 </SOURCE>
+74ABT377AN<SOURCE>Philips Semiconductors Product Specification 1997 Feb 26 </SOURCE>
+74ABT377APW<SOURCE>Philips Semiconductors Product Specification 1997 Feb 26 </SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLK Q (1.8:3.1:4.0) (2.2:3.6:4.7))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (1.5:1.5:1.5))
+    (HOLD D CLK (1.0:1.0:1.0))
+    (SETUP GNEG CLK (2.0:2.0:2.0))
+    (HOLD GNEG CLK (1.0:1.0:1.0))
+    (WIDTH  (posedge CLK) (1.5:1.5:1.5))
+    (WIDTH  (negedge CLK) (2.0:2.0:2.0))
+    (PERIOD  (posedge CLK) (6.7:6.7:6.7))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74ABT377ADB<SOURCE>Texas Instruments SCBS156E-Revised January 1997</SOURCE>
+SN74ABT377ADW<SOURCE>Texas Instruments SCBS156E-Revised January 1997</SOURCE>
+SN74ABT377AN<SOURCE>Texas Instruments SCBS156E-Revised January 1997</SOURCE>
+SN74ABT377APW<SOURCE>Texas Instruments SCBS156E-Revised January 1997</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLK Q (2.2:4.5:6.0) (2.6:5.3:6.8))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (2.0:2.0:2.0))
+    (HOLD D CLK (1.8:1.8:1.8))
+    (SETUP GNEG CLK (3.0:3.0:3.0))
+    (HOLD GNEG CLK (1.2:1.2:1.2))
+    (WIDTH  (posedge CLK) (3.3:3.3:3.3))
+    (WIDTH  (negedge CLK) (3.3:3.3:3.3))
+    (PERIOD  (posedge CLK) (6.7:6.7:6.7))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+74ACT377SC<SOURCE> NATIONAL SEMICONDUCTOR FACT Advanced
+CMOS logic Databook 1989 </SOURCE>
+<COMMENT>The Values listed are for Ta=+25 Celsius</COMMENT>
+<COMMENT>The Values listed for SETUP Max, HOLD Max,
+WIDTH Max, PERIOD Max, are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLK Q (3.000:6.500:9.000) (3.500:7.000:10.000))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (0.500:2.500:4.500))
+    (HOLD D CLK (-3.000:-1.000:1.000))
+    (SETUP GNEG CLK (0.500:2.500:4.500))
+    (HOLD GNEG CLK (-3.000:-1.000:1.000))
+    (WIDTH  (posedge CLK) (0:2.000:4.000))
+    (WIDTH  (negedge CLK) (0:2.000:4.000))
+    (PERIOD  (posedge CLK) (4.762:5.714:7.143))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+MC74ACT377DW<SOURCE> MOTOROLA FACT DATA JULY 1990 </SOURCE>
+<COMMENT>The Values listed are for Ta=+25 Celsius</COMMENT>
+<COMMENT>The Values listed for DELAY Typ, SETUP Typ_Max, HOLD Typ_Max,
+WIDTH Typ_Max, PERIOD Typ_Max, are derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLK Q (3.000:6.000:9.000) (2.500:6.250:10.000))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (4.500:4.500:4.500))
+    (HOLD D CLK (1.000:1.000:1.000))
+    (SETUP GNEG CLK (4.500:4.500:4.500))
+    (HOLD GNEG CLK (1.000:1.000:1.000))
+    (WIDTH  (posedge CLK) (4.000:4.000:4.000))
+    (WIDTH  (negedge CLK) (4.000:4.000:4.000))
+    (PERIOD  (posedge CLK) (7.143:7.143:7.143))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+CY54FCT377ATQ<SOURCE>Texas Instruments SCCS023A-Revised October 2001</SOURCE>
+<COMMENT>The Values listed are for VCC=4.75V to 5.25V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLK Q (2.0:4.0:8.3) (2.0:4.0:8.3))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (2.0))
+    (HOLD D CLK (1.5))
+    (SETUP GNEG CLK (3.5))
+    (HOLD GNEG CLK (1.5))
+    (WIDTH  (posedge CLK) (7.0))
+    (WIDTH  (negedge CLK) (7.0))
+    (PERIOD  (posedge CLK) (14))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+CY54FCT377CTL<SOURCE>Texas Instruments SCCS023A-Revised October 2001</SOURCE>
+<COMMENT>The Values listed are for VCC=4.75V to 5.25V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLK Q (2.0:4.0:5.5) (2.0:4.0:5.5))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (2.0))
+    (HOLD D CLK (1.5))
+    (SETUP GNEG CLK (3.5))
+    (HOLD GNEG CLK (1.5))
+    (WIDTH  (posedge CLK) (7.0))
+    (WIDTH  (negedge CLK) (7.0))
+    (PERIOD  (posedge CLK) (14))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+CY74FCT377ATQ<SOURCE>Texas Instruments SCCS023A-Revised October 2001</SOURCE>
+CY74FCT377ATS<SOURCE>Texas Instruments SCCS023A-Revised October 2001</SOURCE>
+<COMMENT>The Values listed are for VCC=4.75V to 5.25V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLK Q (2.0:4.0:7.2) (2.0:4.0:7.2))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (2.0))
+    (HOLD D CLK (1.5))
+    (SETUP GNEG CLK (3.5))
+    (HOLD GNEG CLK (1.5))
+    (WIDTH  (posedge CLK) (6.0))
+    (WIDTH  (negedge CLK) (6.0))
+    (PERIOD  (posedge CLK) (12))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+CY74FCT377CTQ<SOURCE>Texas Instruments SCCS023A-Revised October 2001</SOURCE>
+CY74FCT377CTS<SOURCE>Texas Instruments SCCS023A-Revised October 2001</SOURCE>
+<COMMENT>The Values listed are for VCC=4.75V to 5.25V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLK Q (2.0:4.0:5.2) (2.0:4.0:5.2))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (2.0))
+    (HOLD D CLK (1.5))
+    (SETUP GNEG CLK (3.5))
+    (HOLD GNEG CLK (1.5))
+    (WIDTH  (posedge CLK) (6.0))
+    (WIDTH  (negedge CLK) (6.0))
+    (PERIOD  (posedge CLK) (12))
+  )
+</TIMING></FMFTIME>
+<FMFTIME>
+CY74FCT377TQ<SOURCE>Texas Instruments SCCS023A-Revised October 2001</SOURCE>
+<COMMENT>The Values listed are for VCC=4.75V to 5.25V, CL=50pF, Ta=-40 to +85 Celsius</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH CLK Q (2.0:6.0:13.0) (2.0:6.0:13.0))
+   ))
+  (TIMINGCHECK
+    (SETUP D CLK (2.0))
+    (HOLD D CLK (1.5))
+    (SETUP GNEG CLK (3.5))
+    (HOLD GNEG CLK (1.5))
+    (WIDTH  (posedge CLK) (6.0))
+    (WIDTH  (negedge CLK) (6.0))
+    (PERIOD  (posedge CLK) (12))
+  )
+</TIMING></FMFTIME>
+</BODY></FTML>

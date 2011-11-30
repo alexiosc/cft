@@ -1,0 +1,101 @@
+<!DOCTYPE FTML SYSTEM "ftml.dtd">
+<FTML><HEAD><TITLE>FMF Timing for std521 Parts</TITLE>
+<BODY>
+<REVISION.HISTORY>
+version: |  author:  | mod date: | changes made:
+  V1.0    R. Munden    99 Dec 30   Initial release
+</REVISION.HISTORY>
+<TIMESCALE>1ns</TIMESCALE>
+<MODEL>std521
+<FMFTIME>
+74F521MSA<SOURCE>Fairchild Semiconductor DS009545 August 1999</SOURCE>
+74F521PC<SOURCE>Fairchild Semiconductor DS009545 August 1999</SOURCE>
+74F521SC<SOURCE>Fairchild Semiconductor DS009545 August 1999</SOURCE>
+74F521SJ<SOURCE>Fairchild Semiconductor DS009545 August 1999</SOURCE>
+<COMMENT>The Values listed are for VCC=5V, CL=50pF, Ta=0 to 70 Celsius</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A0 ONeg (3.0:7.0:11.0) (4.0:7.0:11.0))
+    (IOPATH B0 ONeg (3.0:7.0:11.0) (4.0:7.0:11.0))
+    (IOPATH INeg ONeg (3.0:5.0:7.5) (3.5:6.5:10.0))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+N74F521D<SOURCE>Philips Semiconductors Product Specification 1990 May 15</SOURCE>
+N74F521N<SOURCE>Philips Semiconductors Product Specification 1990 May 15</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5 to 5.5V, CL=50pF, Ta=0 to 70 Celsius</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A0 ONeg (3.5:8.0:11.0) (2.5:8.0:10.5))
+    (IOPATH B0 ONeg (3.5:8.0:11.0) (2.5:8.0:10.5))
+    (IOPATH INeg ONeg (3.0:5.0:7.5) (3.5:6.5:8.0))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+SN74F521DW<SOURCE>Texas Instruments SDFS091-Revised October 1993</SOURCE>
+SN74F521N<SOURCE>Texas Instruments SDFS091-Revised October 1993</SOURCE>
+<COMMENT>The Values listed are for VCC=4.5 to 5.5V, CL=50pF, Ta=0 to 70 Celsius</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A0 ONeg (2.7:6.6:11.0) (3.2:6.6:11.0))
+    (IOPATH B0 ONeg (2.7:6.6:11.0) (3.2:6.6:11.0))
+    (IOPATH INeg ONeg (2.2:4.6:7.5) (2.7:6.1:10.0))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+IDT74FCT521TP<SOURCE>Integrated Device Technology DSC-2572/6 August 1999</SOURCE>
+IDT74FCT521TPY<SOURCE>Integrated Device Technology DSC-2572/6 August 1999</SOURCE>
+IDT74FCT521TQ<SOURCE>Integrated Device Technology DSC-2572/6 August 1999</SOURCE>
+IDT74FCT521TSO<SOURCE>Integrated Device Technology DSC-2572/6 August 1999</SOURCE>
+<COMMENT>The Values listed are for VCC=5V +/-5%, CL=50pF, Ta=-40 to 85 Celsius</COMMENT>
+<COMMENT>Typical values not provided were derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A0 ONeg (1.5:6.0:11.0) (1.5:6.0:11.0))
+    (IOPATH B0 ONeg (1.5:6.0:11.0) (1.5:6.0:11.0))
+    (IOPATH INeg ONeg (1.5:5.0:10.0) (1.5:5.0:10.0))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+IDT74FCT521ATP<SOURCE>Integrated Device Technology DSC-2572/6 August 1999</SOURCE>
+IDT74FCT521ATPY<SOURCE>Integrated Device Technology DSC-2572/6 August 1999</SOURCE>
+IDT74FCT521ATQ<SOURCE>Integrated Device Technology DSC-2572/6 August 1999</SOURCE>
+IDT74FCT521ATSO<SOURCE>Integrated Device Technology DSC-2572/6 August 1999</SOURCE>
+<COMMENT>The Values listed are for VCC=5V +/-5%, CL=50pF, Ta=-40 to 85 Celsius</COMMENT>
+<COMMENT>Typical values not provided were derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A0 ONeg (1.5:3.6:7.2) (1.5:3.6:7.2))
+    (IOPATH B0 ONeg (1.5:3.6:7.2) (1.5:3.6:7.2))
+    (IOPATH INeg ONeg (1.5:3.0:6.0) (1.5:3.0:6.0))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+IDT74FCT521BTP<SOURCE>Integrated Device Technology DSC-2572/6 August 1999</SOURCE>
+IDT74FCT521BTPY<SOURCE>Integrated Device Technology DSC-2572/6 August 1999</SOURCE>
+IDT74FCT521BTQ<SOURCE>Integrated Device Technology DSC-2572/6 August 1999</SOURCE>
+IDT74FCT521BTSO<SOURCE>Integrated Device Technology DSC-2572/6 August 1999</SOURCE>
+<COMMENT>The Values listed are for VCC=5V +/-5%, CL=50pF, Ta=-40 to 85 Celsius</COMMENT>
+<COMMENT>Typical values not provided were derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A0 ONeg (1.5:2.8:5.5) (1.5:2.8:5.5))
+    (IOPATH B0 ONeg (1.5:2.8:5.5) (1.5:2.8:5.5))
+    (IOPATH INeg ONeg (1.5:2.3:4.6) (1.5:2.3:4.6))
+  ))
+</TIMING></FMFTIME>
+<FMFTIME>
+IDT74FCT521CTP<SOURCE>Integrated Device Technology DSC-2572/6 August 1999</SOURCE>
+IDT74FCT521CTPY<SOURCE>Integrated Device Technology DSC-2572/6 August 1999</SOURCE>
+IDT74FCT521CTQ<SOURCE>Integrated Device Technology DSC-2572/6 August 1999</SOURCE>
+IDT74FCT521CTSO<SOURCE>Integrated Device Technology DSC-2572/6 August 1999</SOURCE>
+<COMMENT>The Values listed are for VCC=5V +/-5%, CL=50pF, Ta=-40 to 85 Celsius</COMMENT>
+<COMMENT>Typical values not provided were derived</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+    (IOPATH A0 ONeg (1.5:2.3:4.5) (1.5:2.3:4.5))
+    (IOPATH B0 ONeg (1.5:2.3:4.6) (1.5:2.3:4.6))
+    (IOPATH INeg ONeg (1.5:2.1:4.1) (1.5:2.1:4.1))
+  ))
+</TIMING></FMFTIME>
+</BODY></FTML>

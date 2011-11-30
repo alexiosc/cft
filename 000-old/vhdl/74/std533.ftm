@@ -1,0 +1,45 @@
+<!DOCTYPE FTML SYSTEM "ftml.dtd">
+<FTML><HEAD><TITLE>FMF Timing for STD533 Parts</TITLE>
+<REVISION.HISTORY>
+version: |  author:  | mod date: | changes made:
+  V1.0     R. Munden   98 SEP 09   Initial release
+</REVISION.HISTORY>
+</HEAD>
+<BODY>
+<TIMESCALE>1ns</TIMESCALE>
+<MODEL>STD533
+<FMFTIME>
+SN74ABT533DB<SOURCE>Texas Instruments SCBS186D-Revised January 1997</SOURCE>
+SN74ABT533DW<SOURCE>Texas Instruments SCBS186D-Revised January 1997</SOURCE>
+SN74ABT533N<SOURCE>Texas Instruments SCBS186D-Revised January 1997</SOURCE>
+SN74ABT533PW<SOURCE>Texas Instruments SCBS186D-Revised January 1997</SOURCE>
+<COMMENT> The values listed are for VCC=5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+     (IOPATH D QNeg (1.7:4.2:5.4) (2.6:4.9:6.3))
+     (IOPATH LE QNeg (2.7:4.9:6.2) (3.5:5.4:6.8))
+     (IOPATH OENeg QNeg () () (2.0:4.1:6.0) (1.6:3.7:4.8) (1.6:5.1:6.2) (2.4:4.2:6.2))
+  ))
+  (TIMINGCHECK
+    (SETUP D LE (2.1))
+    (HOLD D LE (2.1))
+    (WIDTH  (posedge LE) (3.3))
+ )
+</TIMING></FMFTIME>
+<FMFTIME>
+74ACTQ533PC<SOURCE>Fairchild Semicondutor Datasheet July 1998</SOURCE>
+74ACTQ533SC<SOURCE>Fairchild Semicondutor Datasheet July 1998</SOURCE>
+<COMMENT> The values listed are for VCC=5V, CL=50pF, Ta=+25 Celsius</COMMENT>
+<TIMING>
+  (DELAY (ABSOLUTE
+     (IOPATH D QNeg (2.0:6.0:8.0) (2.0:6.0:8.0))
+     (IOPATH LE QNeg (2.5:7.0:9.0) (2.5:7.0:9.0))
+     (IOPATH OENeg QNeg () () (1.0:8.0:10.0) (2.0:7.0:9.0) (1.0:8.0:10.0) (2.0:7.0:9.0))
+  ))
+  (TIMINGCHECK
+    (SETUP D LE (3.0))
+    (HOLD D LE (1.5))
+    (WIDTH  (posedge LE) (4.0))
+ )
+</TIMING></FMFTIME>
+</BODY></FTML>

@@ -1,0 +1,103 @@
+=Front Panel Notes=
+
+The front panel should probably have to be made first, probably using
+a temporary construction. This will:
+
+* Aggregate signals so that it'll be easier to attach logic analyser
+  or oscilloscope probes.
+
+* Provide debugging facilities.
+
+* Allow for early testing on a unit-by-unit basis.
+
+
+=Final Front Panel=
+
+Ideally, I'd like to display:
+
+* AC.
+* PC.
+* AR.
+* DR.
+* IR.
+* Output register for data.
+* AEXT.
+
+Also:
+
+* Power on.
+* Running.
+* Fetching.
+* Executing.
+* MEM.
+* I/O.
+* R.
+* W.
+* The 8 IRQ lines.
+* L.
+* Z.
+* N.
+* V.
+* I (IRQs allowed).
+* IRQ (IRQ in)
+* IRQS (IRQ being serviced).
+* Banking enabled.
+
+Microcode:
+
+* microaddress (includes uPC, part of IR, V, L, INTS, Reset).
+* Signal breakout (24 bits!).
+
+Switches:
+
+* S17: Power switch (key, 3 key removable positions, DP): off, on, panel
+  lock (most switches disabled, most lights off)
+
+* S1-16: 16 toggle switches for data
+
+* S19: Load address (switches -> PC, DR, AR)
+
+* S20 Load data (switches -> A)
+* S20 Load instruction (switches -> IR)
+
+* S21 Memory deposit
+* S21 Memory deposit + increment
+
+* S22 Memory read
+* S22 Memory read + increment
+
+* S23 I/O deposit
+* S23 I/O deposit + increment
+
+* S24 I/O read
+* S24 I/O read + increment
+
+* S28 Run
+* S28 Stop
+
+* S18 reset
+
+* S29 Step (stops at end of next fetch)
+* S29 Microstep
+
+* S30 Fast
+* S30 Slow
+
+* S31 Slow speed (slow/medium/fast)
+
+* S32 RAM/ROM (enable/disable ROM at high 32kW)
+
+* S25 Address: PC/AR
+
+* S26 Data: AC/IBUS/Output register
+
+* S27 MFD: IR/DR/uAddr
+
+* 
+
+=Functionality=
+
+* Calculate fetch signal (uPC == 2, but configurable with jumpers?)
+* Must contain its own address register
+* Input register (I/O-mapped)
+* Output register (I/O-mapped)

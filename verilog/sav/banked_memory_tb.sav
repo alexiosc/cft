@@ -1,0 +1,93 @@
+[timestart] 103690000
+[size] 1911 668
+[pos] 72 19
+*-21.600967 111510000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] banked_memory_tb.
+[treeopen] banked_memory_tb.banked_memory.
+@28
+banked_memory_tb.clk
+banked_memory_tb.reset
+banked_memory_tb.banked_memory.banken
+@22
+banked_memory_tb.banked_memory.defbank[7:0]
+banked_memory_tb.a[15:0]
+@c00022
+banked_memory_tb.banked_memory.ae[21:0]
+@28
+(0)banked_memory_tb.banked_memory.ae[21:0]
+(1)banked_memory_tb.banked_memory.ae[21:0]
+(2)banked_memory_tb.banked_memory.ae[21:0]
+(3)banked_memory_tb.banked_memory.ae[21:0]
+(4)banked_memory_tb.banked_memory.ae[21:0]
+(5)banked_memory_tb.banked_memory.ae[21:0]
+(6)banked_memory_tb.banked_memory.ae[21:0]
+(7)banked_memory_tb.banked_memory.ae[21:0]
+(8)banked_memory_tb.banked_memory.ae[21:0]
+(9)banked_memory_tb.banked_memory.ae[21:0]
+(10)banked_memory_tb.banked_memory.ae[21:0]
+(11)banked_memory_tb.banked_memory.ae[21:0]
+(12)banked_memory_tb.banked_memory.ae[21:0]
+(13)banked_memory_tb.banked_memory.ae[21:0]
+(14)banked_memory_tb.banked_memory.ae[21:0]
+(15)banked_memory_tb.banked_memory.ae[21:0]
+(16)banked_memory_tb.banked_memory.ae[21:0]
+(17)banked_memory_tb.banked_memory.ae[21:0]
+(18)banked_memory_tb.banked_memory.ae[21:0]
+(19)banked_memory_tb.banked_memory.ae[21:0]
+(20)banked_memory_tb.banked_memory.ae[21:0]
+(21)banked_memory_tb.banked_memory.ae[21:0]
+@1401200
+-group_end
+@22
+banked_memory_tb.d[15:0]
+@28
+banked_memory_tb.mem
+banked_memory_tb.io
+banked_memory_tb.r
+banked_memory_tb.w
+banked_memory_tb.banked_memory.ramen
+banked_memory_tb.banked_memory.romen
+@22
+banked_memory_tb.banked_memory.ramhi.a[18:0]
+@28
+banked_memory_tb.banked_memory.ramhi.ce
+banked_memory_tb.banked_memory.ramhi.oe
+@22
+banked_memory_tb.banked_memory.romlo.a[18:0]
+@c00023
+banked_memory_tb.dbus[15:0]
+@28
+(0)banked_memory_tb.dbus[15:0]
+(1)banked_memory_tb.dbus[15:0]
+(2)banked_memory_tb.dbus[15:0]
+(3)banked_memory_tb.dbus[15:0]
+(4)banked_memory_tb.dbus[15:0]
+(5)banked_memory_tb.dbus[15:0]
+(6)banked_memory_tb.dbus[15:0]
+(7)banked_memory_tb.dbus[15:0]
+(8)banked_memory_tb.dbus[15:0]
+(9)banked_memory_tb.dbus[15:0]
+(10)banked_memory_tb.dbus[15:0]
+(11)banked_memory_tb.dbus[15:0]
+(12)banked_memory_tb.dbus[15:0]
+(13)banked_memory_tb.dbus[15:0]
+(14)banked_memory_tb.dbus[15:0]
+(15)banked_memory_tb.dbus[15:0]
+@1401201
+-group_end
+@200
+-
+-BR Write
+@28
+banked_memory_tb.banked_memory.bankw0
+banked_memory_tb.banked_memory.bankw1
+@200
+-
+-BR Read
+@28
++{BR[3:0] Lo} banked_memory_tb.banked_memory.br0lo.re
++{BR[3:0] Hi} banked_memory_tb.banked_memory.br0hi.re
++{BR[7:4] Lo} banked_memory_tb.banked_memory.br1lo.re
++{BR[7:4] Hi} banked_memory_tb.banked_memory.br1hi.re
+[pattern_trace] 1
+[pattern_trace] 0

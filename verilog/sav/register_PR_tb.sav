@@ -1,0 +1,69 @@
+[timestart] 0
+[size] 1473 799
+[pos] 86 0
+*-23.746748 65860000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] register_PR_tb.
+[treeopen] register_PR_tb.reg_pr.
+@28
+register_PR_tb.w_pc
+register_PR_tb.inc_pc
+@c00022
+register_PR_tb.pc_in[15:0]
+@28
+(0)register_PR_tb.pc_in[15:0]
+(1)register_PR_tb.pc_in[15:0]
+(2)register_PR_tb.pc_in[15:0]
+(3)register_PR_tb.pc_in[15:0]
+(4)register_PR_tb.pc_in[15:0]
+(5)register_PR_tb.pc_in[15:0]
+(6)register_PR_tb.pc_in[15:0]
+(7)register_PR_tb.pc_in[15:0]
+(8)register_PR_tb.pc_in[15:0]
+(9)register_PR_tb.pc_in[15:0]
+(10)register_PR_tb.pc_in[15:0]
+(11)register_PR_tb.pc_in[15:0]
+(12)register_PR_tb.pc_in[15:0]
+(13)register_PR_tb.pc_in[15:0]
+(14)register_PR_tb.pc_in[15:0]
+(15)register_PR_tb.pc_in[15:0]
+@1401200
+-group_end
+@200
+-
+@28
+register_PR_tb.w_pr
+@22
+register_PR_tb.pr_in[15:0]
+@200
+-
+@28
+register_PR_tb.reg_pr.w_pr
+register_PR_tb.reg_pr.sel
+@29
+register_PR_tb.reg_pr.delay_sel
+@c00022
+register_PR_tb.reg_pr.pgbus[5:0]
+@28
+(0)register_PR_tb.reg_pr.pgbus[5:0]
+(1)register_PR_tb.reg_pr.pgbus[5:0]
+(2)register_PR_tb.reg_pr.pgbus[5:0]
+(3)register_PR_tb.reg_pr.pgbus[5:0]
+(4)register_PR_tb.reg_pr.pgbus[5:0]
+(5)register_PR_tb.reg_pr.pgbus[5:0]
+@1401200
+-group_end
+@28
+register_PR_tb.reg_pr.latch
+@22
+register_PR_tb.pr_unbuf[5:0]
+@200
+-
+@28
+register_PR_tb.oe
+@22
+register_PR_tb.pr_out[15:0]
+@28
+register_PR_tb.reg_pr.latch1
+register_PR_tb.reg_pr.latch
+[pattern_trace] 1
+[pattern_trace] 0
