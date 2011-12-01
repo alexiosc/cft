@@ -101,3 +101,50 @@ Switches:
 * Must contain its own address register
 * Input register (I/O-mapped)
 * Output register (I/O-mapped)
+
+=Clock Speeds=
+
+The panel gives us nine clock speeds:
+
+1. FAST
+2. SLOW 1
+3. SLOW 2
+
+A. DIVIDE 1:X
+B. DIVIDE 1:W
+C. DIVIDE 1:Z
+
+These are on two switches, so there are nine combinations.
+
+The slowest speeds should allow easy debugging of code and microcode
+respectively: around 100 Hz for code (i.e. around 6-14 instructions
+per second), and around 10 Hz for microcode (10 microinstructions per
+second).
+
+Slowing down is done using a 74LS292 divider. This provides a division
+by 2^n, where n is a five-bit binary number. The minimum divider is
+4. The clock phase generator divides the raw clock by 4, so for a 4MHz
+system clock we need 4MHz x 4 x 4 = 64MHz raw clock.
+
+==Optional==
+
+The 'RUN' light is a tri-colour LED. It should indicate the speed as follows:
+
+* Fastest speed (1A): green
+* Speeds (1B, 1C, 2A, 2B, 2C): yellow
+* Speeds (3A, 3B, 3C): red
+
+Alternatively, a red LED by the switches should light if running at
+anything other than the fastest speed.
+
+
+=Autorepeat=
+
+I want to use this for the Step and microStep switches for easier
+debugging. The truth table should be like this:
+
+______     _
+FPSTEP  Q  Q  555  
+-----------------------------------------------------------
+
+

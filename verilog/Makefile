@@ -20,7 +20,7 @@ SRC =		counter.v counter_161_tb.v \
 		int.v int_tb.v \
 		control_unit.v \
 		cft.v cft_tb.v cft_tb_testing.v \
-		test.v
+		test.v panel_autorepeat_tb.v
 
 #		Disused code:
 #		register_PR.v register_PR_tb.v
@@ -178,6 +178,10 @@ test_ram:	ram_tb.o ram.o test_rom.bin
 test_banked_memory:	memory.o ram.o demux.o comparator.o flipflop.o regfile.o mux.o banked_memory_tb.o
 		./banked_memory_tb.o
 		$(GTKWAVE) $(VCDDIR)/banked_memory_tb.vcd $(SAVDIR)/banked_memory_tb.sav
+
+test_panel_autorepeat:	panel_autorepeat_tb.o
+		./panel_autorepeat_tb.o
+		$(GTKWAVE) $(VCDDIR)/panel_autorepeat_tb.vcd $(SAVDIR)/panel_autorepeat_tb.sav
 
 test_rom.bin:	./make_test_rom.py
 		./make_test_rom.py
