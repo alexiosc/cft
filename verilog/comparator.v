@@ -42,6 +42,45 @@ module comparator_688 (a, b, en, equal);
    assign #20 equal = (en == 1'b0) ? ~(a == b) : 1'b1;
 endmodule // comparator_jk
 
+///////////////////////////////////////////////////////////////////////////////
+//
+// Function: 4-bit noninverting magnitude comparator with cascade inputs.
+//        +---+--+---+
+//     B3 |1  +--+ 16| VCC
+//   IA<B |2       15| A3
+//   IA=B |3       14| B2
+//   IA>B |4       13| A2
+//   OA>B |5  7485 12| A1
+//   OA=B |6       11| B1
+//   OA<B |7       10| A0
+//    GND |8        9| B0
+//        +----------+
+//
+///////////////////////////////////////////////////////////////////////////////
+
+module comparator_85 (a, b, ilt, ieq, igt, olt, oeq, ogt);
+   parameter delay = 20;
+   
+   input [3:0] a, b;
+   input       ilt, ieq, igt;
+
+   output      olt, oeq, ogt;
+
+   wire [4:0]  csl, csg;
+
+   initial begin
+      $display("BOM: 74x85");
+   end
+
+  assign csl = ~a + b + ilt;
+  assign olt = ~csl[4];
+  assign csg = a + ~b + igt;
+  assign ogt = ~csg[4];
+  assign oeq = ((a == b) && ieq);
+
+endmodule // comparator_85
+
+
 `endif //  `ifndef comparator_v
 
 // End of file.

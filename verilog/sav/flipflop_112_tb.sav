@@ -1,0 +1,16 @@
+[timestart] 0
+[size] 1008 600
+[pos] -1 -1
+*-18.845840 949000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+@28
+flipflop_112_tb.clk
+flipflop_112_tb.set
+flipflop_112_tb.rst
+flipflop_112_tb.j
+@29
+flipflop_112_tb.k
+@28
+flipflop_112_tb.q
+flipflop_112_tb.qn
+[pattern_trace] 1
+[pattern_trace] 0

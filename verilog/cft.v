@@ -46,7 +46,7 @@ module cft(abus, dbus,
 
    // Clock generator.
    clock_generator clock_generator (halt,
-				    0, // run (front panel)
+				    1'b1, // run (front panel)
 				    0, // step (front panel)
 				    reset,
 				    clock, clock2, clock3, clock4, clock14, guardpulse);

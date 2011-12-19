@@ -23,8 +23,8 @@
 //
 // FUNCTION: Microcode ROM
 //
-// NOTES: combines two 8kx8 ROMs into a single 8x16 ROM, permanently selected
-// and enabled, which will be used as the heart of the control unit.
+// NOTES: combines three 16kx8 ROMs into a single 16kx24 ROM, permanently
+// selected and enabled, which will be used as the heart of the control unit.
 //
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -376,14 +376,14 @@ endmodule // flag_unit
 ///////////////////////////////////////////////////////////////////////////////
 
 module control_unit (abus, dbus, ibus,
-		     reset, rst_hold, irq,
+		     reset, rst_hold_in, irq,
 		     clock, clock14, guardpulse,
 		     mem, io, r, w, halt,
 		     iospace_region);
    inout [15:0]  dbus;
    inout [15:0]  ibus;
    input 	 reset;		// -RESET: active low reset signal
-   input 	 rst_hold;	// Long reset pulse to allow hardware to settle.
+   input 	 rst_hold_in;	// Long reset pulse to allow hardware to settle.
    input 	 irq;           // active low interrupt request signal
 
    input  	 clock;
@@ -396,6 +396,7 @@ module control_unit (abus, dbus, ibus,
    output        r;
    output        w;
    output 	 halt;
+   output        iend;
 
    output [7:0]  iospace_region;
 
@@ -557,9 +558,15 @@ module control_unit (abus, dbus, ibus,
 
    ///////////////////////////////////////////////////////////////////////////////
    //
-   // Interrupt logic
+   // Interrupt & reset logic
    //
    ///////////////////////////////////////////////////////////////////////////////
+
+   tri1 	rst_hold;
+   wire 	aaa;
+   assign aaa = ~clock & iend;
+   //flipflop_112h ff_rst_hold (1'b0, 1'b0, 1'b0, rst_hold_in, aaa, , rst_hold);
+   assign rst_hold = rst_hold_in;
 
    wire int_out;
    int_unit int (clock14, upc, iend, cli, i_flag, irq, reset, int_out);
@@ -770,7 +777,7 @@ module control_unit (abus, dbus, ibus,
    not #10 my_not(nrst_hold, rst_hold);
    
    skip_unit skip_unit (skipctl, ir[9:0], flag_z, flag_n, l_unbuf, v_unbuf, nrst_hold, skip0);
-   flipflop_175 skip_reg ({3'b0, skip0}, {dummy, skip}, , clock, reset);
+   flipflop_175 skip_reg ({3'b0, skip0}, {dummy, skip}, , clock, rst_hold);
 
    // Decode the signals in the microinstruction into individual signals to control units.
    unit_demux unit_demux (read_unit, write_unit, clock14, buscon, reset, guardpulse,

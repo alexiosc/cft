@@ -1,0 +1,12 @@
+[timestart] 0
+[size] 1000 600
+[pos] -1 -1
+*-19.308640 142000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+@28
+vibrator_555_tb.q1
+vibrator_555_tb.nq1
+vibrator_555_tb.q2
+@29
+vibrator_555_tb.nq2
+[pattern_trace] 1
+[pattern_trace] 0

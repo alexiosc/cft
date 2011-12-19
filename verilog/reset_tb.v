@@ -22,7 +22,7 @@ module reset_logic_tb();
       #200 reset = 1'b0;
       #10 reset = 1'b1;
       
-      #1000 $finish;      // Terminate simulation
+      #5000 $finish;      // Terminate simulation
    end
 
    always begin

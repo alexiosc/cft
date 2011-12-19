@@ -79,6 +79,8 @@ module clock_generator (halt, run, step, reset,
    input run;			// RUN signal from the front panel.
    input step;			// STEP signal from the front panel (falling edge clocks).
    input reset;			// /RESET signal.
+
+   tri1  run;			// Pull up /RUN.
    
    output clock;
    output clock2;
@@ -102,7 +104,7 @@ module clock_generator (halt, run, step, reset,
    // nclk, complementary clocks at 0° and 180°, and obviously divides
    // the clock by two.
    wire clk, nclk, clken, nclken;
-   flipflop_112 ff1 (run, 0, rawclk, reset, halt, clken, nclken,
+   flipflop_112 ff1 (run, 0, rawclk, reset, 1'b1, clken, nclken,
 		    1, 1, rawclk, 1, reset, clk, nclk);
 
    // The clock source multiplexer.
@@ -162,5 +164,95 @@ module clock_generator (halt, run, step, reset,
 endmodule // clock_generator
 
    
+module clock_generator_v2 (clken, step, reset,
+			   clk, clk2, clk3, clk4, clk5, guard);
+   parameter cp = 250;
+
+   input clken;			// Active high CLKEN signal from the front panel.
+   input step;			// STEP signal from the front panel (falling edge clocks).
+   input reset;			// /RESET signal.
+
+   tri1  clken;			// Pull up /RUN.
+   
+   output clk;
+   output clk2;
+   output clk3;
+   output clk4;
+   output clk5;
+   output guard;
+
+   reg rawclk;
+
+   // Simulate the oscillator
+   initial begin
+      rawclk = 0;
+   end
+   always begin
+      #(cp / 2) rawclk = ~rawclk;
+   end
+
+   // The first FF: NOT USED! The front panel generates the CLKEN
+   // signal for us. (in hardware, the FF from the front panel
+   // circuitry might well be merged with this one).
+   wire _clk, _nclk;
+   //flipflop_112 ff1 (run, 0, rawclk, reset, 1'b1, clken, nclken,
+   //		    1, 1, rawclk, 1, reset, clk, nclk);
+   flipflop_112h ff1b (1, 1, rawclk, 1, reset, _clk, _nclk);
+
+   // The clock source multiplexer.
+   //
+   // SEL is CLKEN (MSB) and STEP (LSB), so that:
+   //
+   // CLKEN   STEP    SOURCE
+   // -----------------------------------------------------------
+   //   0      0      System halted (0, 1).
+   //   0      1      Single clock pulse from front panel (1, 0).
+   //   1      0      Full-speed crystal clock (clk, nclk)
+   //   1      1      Full-speed crystal clock (clk, nclk)
+   //
+   // Two complementary outputs are provided, routing clk and nclk to ff2 for
+   // clock division and phase generation. To keep the clocks in phase when
+   // stopped, we route appropriate signals in other states, too (shown in
+   // parentheses above).
+
+   wire _clk1, _nclk1;
+   mux_253 clockmux ({clken, step},	       // SEL
+		     {_clk, _clk, 1'b1, 1'b0},   // I1 (MSB-to-LSB)
+		     0,			       // OE1
+		     _clk1,		       // Y1
+		     {_nclk, _nclk, 1'b0, 1'b1}, // I2 (MSB-to-LSB)
+		     0,			       // OE2
+		     _nclk1);		       // Y2
+
+   // The second FF for frequency division and clock phase generation
+   wire q1, q2, qn1, qn2;
+   flipflop_112 ff2 (1, 1, _clk1, 1, reset, q1, qn1,
+		    1, 1, _nclk1, 1, reset, q2, qn2);
+   // Connect the clock phases.
+   assign clk = qn1;
+   assign clk2 = qn2;
+   assign clk3 = q1;
+   assign clk4 = q2;
+
+   wire nguarda, guardb, nguardc, guardd, nguarde, guardf, nguardg, guardh, nguardi;
+
+   wire myclk5;
+   nand #11 nand_7400a (clk5, clk2, clk3);
+
+   nand #11 nand_7400b (nguarda, clk3, clk4);
+   nand #11 nand_7400c (guardb, nguarda);
+   nand #11 nand_7400d (nguardc, guardb, guardb);
+
+   nand #11 nand_7400e (guardd, nguardc, nguardc);
+   nand #11 nand_7400f (nguarde, guardd, guardd);
+   nand #11 nand_7400g (guardf, nguarde, nguarde);
+   nand #11 nand_7400h (nguardg, guardf, guardf);
+
+   nand #11 nand_7400i (guardh, nguardg, nguardg);
+   nand #11 nand_7400j (nguardi, guardh, guardh);
+   nand #11 nand_7400k (guard, nguardi, nguardi);
+   //nand #11 nand_7400l (guard, guardj, guardj);
+
+endmodule // clock_generator
 `endif //  `ifndef clock_v
 // End of file.

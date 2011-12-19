@@ -24,9 +24,19 @@ module reset_logic (clock, reset_in, reset_out);
    output     reset_out;
 
    wire [4:0] dummy;
+   //reg 	      reset_out;
    wire       reset_out;
 
+   //initial begin
+   //   reset_out = 1'b1;
+   //end
+   //always @(posedge reset_in) begin
+   //   reset_out = 1'b0;
+   //   #1000 reset_out = 1'b1;
+   //end
+
    counter_161 div16 (reset_in, clock & ~reset_out, 1'b1, 1'b1, 1'b1, 4'b0, , reset_out);
+   //flipflop_112h ff_reset (1'b0, 1'b0, 1'b0, reset_in, reset_done, reset_out, );
    
 endmodule // reset_logic
 

@@ -57,6 +57,16 @@ module flipflop_112h (j, k, clk, set, rst, q, qn);
    wire j, k, clk, set, rst;
    reg 	q, qn;
 
+   initial begin
+      if (($random % 2) == 1) begin
+	 q <= 1;
+	 qn <= 0;
+      end else begin
+	 q <= 0;
+	 qn <= 1;
+      end
+   end
+
    always @ (set, rst, negedge clk) begin
       case ({set, rst})
 	2'b00:
@@ -95,6 +105,7 @@ module flipflop_112h (j, k, clk, set, rst, q, qn);
 	  end // case: 2'b11
       endcase // case ({set, rst})
    end
+
 endmodule // flipflop_jk
 
 

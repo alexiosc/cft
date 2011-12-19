@@ -140,11 +140,27 @@ anything other than the fastest speed.
 
 =Autorepeat=
 
-I want to use this for the Step and microStep switches for easier
+I want to use this for the Step (and microStep?) switches for easier
 debugging. The truth table should be like this:
 
-______     _
-FPSTEP  Q  Q  555  
------------------------------------------------------------
+=!SAFE=
+
+Controls that influence machine state should be locked out while the
+processor is running. These controls should also be locked out when
+the panel is locked.
 
 
+=Layout=
+
+There are 50 ICs on the front panel board at last count. They must be
+split into three or four groups:
+
+* The Control Bus-side board.
+* The Expansion Bus-side board.
+* The LED board (LED buffers)
+* The front panel board.
+
+However, to avoid transmission line effects for processor control
+signals, it may be best to put LED buffers on a board near the
+processor, and have the LED board simply host the lights. Note: this
+would add a large number of '540/541 ICs and 8-pin headers.

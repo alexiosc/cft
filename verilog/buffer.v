@@ -91,6 +91,29 @@ module buffer_245 (dir, en, a, b);
    assign b = (~en && dir) ? a : 8'bzzzzzzzz;
 endmodule // End of Module buffer
 
+///////////////////////////////////////////////////////////////////////////////
+//
+// Function: 74x125 4-bit tri-state buffer
+//
+///////////////////////////////////////////////////////////////////////////////
+
+module buffer_125q (a, oe, y);
+   parameter delay = 15;
+   
+   input        a, oe;
+   output       y;
+
+   wire 	a, oe, y;
+
+   initial begin
+      $display("BOM: 1/4 74x125");
+   end
+
+   assign #delay y = oe ? 1'bz : a;
+endmodule // End of Module buffer
+
+
+
 `endif //  `ifndef buffer_v
 
 // End of file.

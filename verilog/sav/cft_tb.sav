@@ -1,21 +1,24 @@
-[timestart] 108340000
+[timestart] 15320000
 [size] 1912 1074
 [pos] 0 0
-*-21.561152 115804000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-20.769722 22054000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] cft_tb.
 [treeopen] cft_tb.cft.
+[treeopen] cft_tb.cft.clock_generator.ff1.
 [treeopen] cft_tb.cft.clock_generator.ff2.
 [treeopen] cft_tb.cft.control_unit.
-[treeopen] cft_tb.cft.control_unit.alu.
 [treeopen] cft_tb.cft.control_unit.microrom.
 [treeopen] cft_tb.cft.control_unit.reg_l.
 [treeopen] cft_tb.cft.control_unit.reg_mar.
 [treeopen] cft_tb.cft.control_unit.reg_upc.
 [treeopen] cft_tb.cft.control_unit.unit_demux.
+[treeopen] cft_tb.cft.reset_logic.
 @200
 -Clock
 @28
+cft_tb.cft.clock_generator.run
 cft_tb.cft.clock_generator.halt
+cft_tb.cft.clock_generator.rawclk
 cft_tb.cft.control_unit.clock
 cft_tb.cft.clock_generator.clock3
 cft_tb.cft.clock_generator.clock4
@@ -26,6 +29,7 @@ cft_tb.cft.control_unit.guardpulse
 -Reset & Int
 @28
 cft_tb.cft.control_unit.reset
+cft_tb.cft.control_unit.rst_hold_in
 cft_tb.cft.reset_logic.reset_out
 cft_tb.cft.control_unit.irq
 cft_tb.cft.control_unit.cli
@@ -102,6 +106,7 @@ cft_tb.cft.dbus[15:0]
 -Registers
 @22
 +{PC} cft_tb.cft.control_unit.pc_unbuf[15:0]
++{AC} cft_tb.cft.control_unit.reg_a.q_unbuf[15:0]
 @c04022
 ^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/disasm
 +{IR} cft_tb.cft.control_unit.ir[15:0]
@@ -161,9 +166,6 @@ cft_tb.cft.control_unit.reg_mar.qc[15:0]
 @28
 cft_tb.cft.control_unit.reg_mar.reset
 +{I Flag} cft_tb.cft.control_unit.i_flag
-@22
-+{A} cft_tb.cft.control_unit.a_unbuf[15:0]
-@28
 cft_tb.cft.control_unit.w_a
 @22
 +{DR} cft_tb.cft.control_unit.dr_unbuf[15:0]
@@ -173,7 +175,6 @@ cft_tb.cft.control_unit.alu.add_v_out
 cft_tb.cft.control_unit.alu.nadd_v_out
 cft_tb.cft.control_unit.alu.boe
 cft_tb.cft.control_unit.clock14
-@29
 cft_tb.cft.control_unit.alu.fv
 @c00022
 cft_tb.cft.control_unit.alu.v_latches[7:0]
@@ -242,7 +243,9 @@ cft_tb.cft.memory.ramen
 cft_tb.cft.memory.romen
 cft_tb.cft.memory.mem
 cft_tb.cft.memory.io
+@29
 cft_tb.cft.memory.r
+@28
 cft_tb.cft.memory.w
 @200
 -
@@ -250,6 +253,8 @@ cft_tb.cft.memory.w
 @28
 cft_tb.cft.control_unit.microrom.nreset
 cft_tb.cft.control_unit.microrom.oe
+cft_tb.cft.control_unit.clock
+cft_tb.cft.control_unit.aaa
 @2022
 ^1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/upc
 cft_tb.cft.control_unit.upc[3:0]
@@ -349,6 +354,7 @@ cft_tb.cft.control_unit.microrom.control_out[23:0]
 @1401200
 -group_end
 @28
+cft_tb.cft.control_unit.inc_pc
 cft_tb.cft.control_unit.r_a
 cft_tb.cft.control_unit.r_agl
 @22
@@ -371,7 +377,7 @@ cft_tb.cft.control_unit.alu.ffv.q1
 cft_tb.cft.control_unit.alu.ffv.qn1
 cft_tb.cft.control_unit.alu.ffv.rst1
 cft_tb.cft.control_unit.alu.ffv.set1
-@800022
+@c00022
 cft_tb.cft.control_unit.alu.v_latches[7:0]
 @28
 (0)cft_tb.cft.control_unit.alu.v_latches[7:0]
@@ -382,7 +388,9 @@ cft_tb.cft.control_unit.alu.v_latches[7:0]
 (5)cft_tb.cft.control_unit.alu.v_latches[7:0]
 (6)cft_tb.cft.control_unit.alu.v_latches[7:0]
 (7)cft_tb.cft.control_unit.alu.v_latches[7:0]
-@1001200
+@1401200
 -group_end
+@28
+cft_tb.cft.control_unit.iend
 [pattern_trace] 1
 [pattern_trace] 0

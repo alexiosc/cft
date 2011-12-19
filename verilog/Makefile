@@ -1,26 +1,27 @@
 SRC =		counter.v counter_161_tb.v \
 		buffer.v buffer_244_tb.v buffer_245_tb.v \
+		vibrator.v vibrator_123_tb.v vibrator_555_tb.v \
 		demux.v demux_138_tb.v demux_139_tb.v \
 		mux.v mux_253_tb.v \
 		flipflop.v flipflop_112_tb.v flipflop_174_tb.v flipflop_574_tb.v flipflop_564_tb.v \
 		alu_181.v alu_181_tb.v \
 		alu.v alu_tb.v alu_roll_tb.v alu_add_tb.v \
 		skip_unit.v skip_unit_tb.v \
-		clock.v clock_tb.v \
+		clock.v clock_tb.v clock2_tb.v \
 		rom.v rom_tb.v \
 		ram.v ram_tb.v \
 		reset.v reset_tb.v \
 		memory.v banked_memory_tb.v \
 		io.v \
 		regfile.v regfile_670_tb.v \
-		comparator.v comparator_688_tb.v \
+		comparator.v comparator_688_tb.v comparator_85_tb.v \
 		register.v register_inc_reg16_tb.v register_reg_L_tb.v register_reg_I_tb.v \
 		\
 		constant_store.v constant_store_tb.v \
 		int.v int_tb.v \
 		control_unit.v \
 		cft.v cft_tb.v cft_tb_testing.v \
-		test.v panel_autorepeat_tb.v
+		panel.v panel_tb.v test.v panel_autorepeat_tb.v
 
 #		Disused code:
 #		register_PR.v register_PR_tb.v
@@ -107,6 +108,14 @@ test_245:	buffer_245_tb.o buffer.o
 		./buffer_245_tb.o
 		$(GTKWAVE) $(VCDDIR)/buffer_245_tb.vcd $(SAVDIR)/buffer_245_tb.sav
 
+test_123:	vibrator_123_tb.o buffer.o
+		./vibrator_123_tb.o
+		$(GTKWAVE) $(VCDDIR)/vibrator_123_tb.vcd $(SAVDIR)/vibrator_123_tb.sav
+
+test_555:	vibrator_555_tb.o buffer.o
+		./vibrator_555_tb.o
+		$(GTKWAVE) $(VCDDIR)/vibrator_555_tb.vcd $(SAVDIR)/vibrator_555_tb.sav
+
 test_670:	regfile_670_tb.o regfile.o
 		./regfile_670_tb.o
 		$(GTKWAVE) $(VCDDIR)/regfile_670_tb.vcd $(SAVDIR)/regfile_670_tb.sav
@@ -114,6 +123,10 @@ test_670:	regfile_670_tb.o regfile.o
 test_688:	comparator_688_tb.o comparator.o
 		./comparator_688_tb.o
 		$(GTKWAVE) $(VCDDIR)/comparator_688_tb.vcd $(SAVDIR)/comparator_688_tb.sav
+
+test_85:	comparator_85_tb.o comparator.o
+		./comparator_85_tb.o
+		$(GTKWAVE) $(VCDDIR)/comparator_85_tb.vcd $(SAVDIR)/comparator_85_tb.sav
 
 test_demux:	demux_tb.o demux.o test_rom.bin
 		./demux_tb.o
@@ -155,6 +168,10 @@ test_clock:	clock_tb.o clock.o
 		./clock_tb.o
 		$(GTKWAVE) $(VCDDIR)/clock_tb.vcd $(SAVDIR)/clock_tb.sav
 
+test_clock2:	clock2_tb.o clock.o
+		./clock2_tb.o
+		$(GTKWAVE) $(VCDDIR)/clock2_tb.vcd $(SAVDIR)/clock2_tb.sav
+
 test_roll:	alu_roll_tb.o alu.o
 		./alu_roll_tb.o
 		$(GTKWAVE) $(VCDDIR)/alu_roll_tb.vcd $(SAVDIR)/alu_roll_tb.sav
@@ -182,6 +199,10 @@ test_banked_memory:	memory.o ram.o demux.o comparator.o flipflop.o regfile.o mux
 test_panel_autorepeat:	panel_autorepeat_tb.o
 		./panel_autorepeat_tb.o
 		$(GTKWAVE) $(VCDDIR)/panel_autorepeat_tb.vcd $(SAVDIR)/panel_autorepeat_tb.sav
+
+test_panel:	panel.o panel_tb.o
+		./panel_tb.o
+		$(GTKWAVE) $(VCDDIR)/panel_tb.vcd $(SAVDIR)/panel_tb.sav
 
 test_rom.bin:	./make_test_rom.py
 		./make_test_rom.py
