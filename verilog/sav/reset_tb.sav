@@ -1,10 +1,17 @@
 [timestart] 0
-[size] 1000 600
-[pos] -1 -1
-*-19.537550 848000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[size] 1129 671
+[pos] 114 112
+*-18.060024 681000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] reset_logic_tb.
+[treeopen] reset_logic_tb.reset_logkc.
 @28
 reset_logic_tb.clk
 reset_logic_tb.reset
 reset_logic_tb.resetting
+@200
+-
+@22
+reset_logic_tb.reset_logkc.div16.p[3:0]
+reset_logic_tb.reset_logkc.div16.q[3:0]
 [pattern_trace] 1
 [pattern_trace] 0
