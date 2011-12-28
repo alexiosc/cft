@@ -7,6 +7,7 @@ The CFT Assembler, version 2.
 import os
 import re
 import sys
+import copy
 import array
 import doctest
 import optparse
@@ -93,8 +94,7 @@ _BUILTINS = """;;; CFT Assembler Built-ins
 
 .equ SBL CLL RBL                        ; Shift bit left
 .equ SBR CLL RBR                        ; Shift bit right
-.equ SNL CLL RNL                        ; Shift nybble left
-.equ SNR CLL RNR                        ; Shift nybble right
+
 
 """
 
@@ -187,8 +187,9 @@ class CFTAssembler(object):
     BUILTINS = _BUILTINS
 
     # Pass numbers.
-    PSN_SYMBOL_DISCOVERY = 0
-    PSN_ASSEMBLY = 1
+    PSN_MACRO_DISCOVERY = 0
+    PSN_SYMBOL_DISCOVERY = 1
+    PSN_ASSEMBLY = 2
     PSN_LAST_PASS = PSN_ASSEMBLY
 
     # All assembled instructions (not data) are XORred with this.
@@ -211,6 +212,10 @@ class CFTAssembler(object):
 
         # The symbol table.
         self.symbols = dict()
+
+        # The macro table and macro context stack
+        self.macros = dict()
+        self.ctx = list()
 
         # Filename and line numbers.
         self.filename = '<none>'
@@ -315,8 +320,10 @@ class CFTAssembler(object):
         * Pass 1: compile symbol table.
         * Pass 2: assemble code.
         """
-        for self.passnum in [self.PSN_SYMBOL_DISCOVERY,
-                        self.PSN_ASSEMBLY]:
+        for self.passnum in [
+            self.PSN_MACRO_DISCOVERY,
+            self.PSN_SYMBOL_DISCOVERY,
+            self.PSN_ASSEMBLY]:
 
             # First, parse the builtins.
             self.filename = '<builtins>'
@@ -333,7 +340,7 @@ class CFTAssembler(object):
                 self.assembly_pass(open(filename))
             
             # At the end of the first parse, print out the symbol table.
-            if self.passnum == 1:
+            if self.passnum == self.PSN_SYMBOL_DISCOVERY:
                 self.outmap()
                 self.outsym()
                 self.outxpm()
@@ -373,6 +380,12 @@ class CFTAssembler(object):
                         val = 0xdead
                     self.addSymbol(tokens[1], val)
                     continue
+                elif tokens[0] == '.macro':
+                    self.parseMacroDef(line, stuff)
+                    continue
+                elif tokens[0] == '.include':
+                    self.includeFile(line)
+                    continue
 
             # Is there a label or address?
             if len(tokens) > 1 and tokens[1] == ':':
@@ -388,6 +401,14 @@ class CFTAssembler(object):
             # We purposefully don't _continue_ after a successful label parse.
             # There may be an instruction on the same line as the label.
 
+
+            # Is this a macro call? If so, it should be the only thing on a
+            # line, and be invoked like macro() or macro(a,b,c,...).
+            x = re.findall('^\s*(\w+)\s*\((.+)\)\s*$', line)
+            if x:
+                self.assembleMacro(x[0])
+                continue
+
             # It must be an instruction, then. Only assemble after the symbol
             # discovery pass, otherwise some labels won't be defined.
             if tokens:
@@ -402,6 +423,122 @@ class CFTAssembler(object):
                 #sys.stderr.write('+++INC+++\n')
                 self.incaddr()
 
+
+    def includeFile(self, line):
+        """Include an .asm file."""
+        try:
+            fname = re.findall('^\.include\s+"(\S+?)"', line)[0]
+        except (TypeError, IndexError):
+            self.fail('syntax error parsing .include directive')
+
+        try:
+            f = open(fname)
+        except IOError, e:
+            self.fail(str(e))
+
+        # Parse the specified file.
+        if self.opts.debugging:
+            sys.stderr.write('D: %s:%d: include file %s\n' % \
+                                 (self.filename, self.linenum, fname))
+        fn, nl = self.filename, self.linenum
+        self.pushParseContext(fname, self.filename, self.linenum, None)
+        self.filename = fname
+        self.linenum = 1
+        self.assembly_pass(f)
+        self.popParseContext()
+        self.filename, self.linenum = fn, nl
+        if self.opts.debugging:
+            sys.stderr.write('D: %s:%d: end of included file %s\n' % \
+                                 (self.filename, self.linenum, fname))
+
+
+    def parseMacroDef(self, line, stuff):
+        """Parse a macro definition."""
+        
+        start = self.linenum
+
+        # Parse the macro definition
+        try:
+            name, arglist = re.findall('^\.macro\s+(\w+)\s*\((.+?)\)\s*', line)[0]
+            arglist = re.split('\s*,\s*', arglist)
+
+        except (TypeError, IndexError):
+            self.fail('syntax error parsing macro definition')
+
+        macrodef = []
+        for line in stuff:
+            orgline = line.rstrip().expandtabs()
+            self.linenum += 1
+
+            line = line.strip()
+
+            if line == '.end':
+                if self.passnum == self.PSN_MACRO_DISCOVERY:
+                    try:
+                        pf, pl = self.macros[name][:2]
+                        self.fail("macro '%s' previously defined in %s, line %d." % (name, pf, pl))
+                    except KeyError:
+                        # New macro. Store it.
+                        self.macros[name] = (self.filename, start, arglist, macrodef)
+                return
+            macrodef.append(line)
+
+        self.fail("Macro without .end (started on line %d)" % start)
+
+
+    def pushParseContext(self, macro, filename, linenum, mdef):
+        """Push a macro context onto the context stack.
+
+        This is used for error reporting."""
+        self.ctx.append((macro, filename, linenum, mdef))
+
+
+    def popParseContext(self):
+        """Pop a macro context from the context stack.
+
+        This is used for error reporting."""
+        try:
+            return self.ctx.pop()
+        except IndexError:
+            self.die('Attempted pop from empty context stack.')
+
+
+    def assembleMacro(self, match):
+        """Assemble a macro call.
+
+        Macro calls are assembled in all passes by temporarily reading input
+        from the macro definition, not the current file.
+        """
+        name, arglist = match
+        arglist = re.split('\s*,\s*', arglist)
+        try:
+            mf, mln, mal, mdef = self.macros[name]
+        except KeyError:
+            self.fail("undefined macro '%s'" % name)
+
+        if len(arglist) != len(mal):
+            self.fail("macro '%s' expects exactly %d arguments" % (name, len(mal)))
+
+        # Replace placeholders with actual arguments
+        mdef_inst = copy.copy(mdef)
+        for argname, argval in zip(mal, arglist):
+            for i, line in enumerate(mdef_inst):
+                mdef_inst[i] = line.replace('%' + argname, argval)
+
+        # Set us up to parse the macro definition.
+        if self.opts.debugging:
+            sys.stderr.write('D: %s:%d: execute macro %s, arglist: %s\n' % \
+                                 (self.filename, self.linenum, name, ', '.join(arglist)))
+        fn, nl = self.filename, self.linenum
+        self.pushParseContext(name, self.filename, self.linenum, self.macros[name])
+        self.filename = mf
+        self.linenum = mln
+        self.assembly_pass(mdef_inst)
+        self.popParseContext()
+        self.filename, self.linenum = fn, nl
+        if self.opts.debugging:
+            sys.stderr.write('D: %s:%d: end of macro %s, arglist: %s\n' % \
+                                 (self.filename, self.linenum, name, ', '.join(arglist)))
 
 
     def assembleDataDirective(self, tokens, orgline):
@@ -422,6 +559,8 @@ class CFTAssembler(object):
             self.assembleString(tokens, orgline)
         elif tokens[0] == '.strn':
             self.assembleString(tokens, orgline, neg=True)
+        elif tokens[0] == '.strp':
+            self.assemblePackedString(tokens, orgline)
         elif tokens[0] == '.fill':
             self.assembleFill(tokens, orgline)
         elif tokens[0].startswith('.'):
@@ -472,6 +611,84 @@ class CFTAssembler(object):
 
                 self.poke(val, poketype='S')
                 self.incaddr()
+
+        # Our caller will increment the address, so adjust here.
+        self.incaddr(-1)
+
+
+    def assemblePackedString(self, tokens, orgline):
+        """Assemble a packed string directive.
+
+        A packed string is a string in which bytes are
+        word-packed. Even characters of a string (including the first
+        one) use the least significant 8 bits of a word. Odd
+        characters use the most significant 8 bits.
+
+        The last character of a packed string has its 8th bit set.
+
+        This implies that packed strings may only contain standard
+        7-bit ASCII characters.
+        """
+        if self.passnum == self.PSN_ASSEMBLY:
+            self.logasm(None, msg='', orgline=orgline)
+            #print 'A: %04x:      ; %s' % (self.addr, orgline)
+
+        def _storechar(wordval):
+            if self.passnum == self.PSN_ASSEMBLY:
+                if wordval & 0x80:
+                    self.logasm(wordval, orgline='"%s" (U+%04x) | 0x80' % \
+                                    (chr(wordval & 0x7f), wordval & 0x7f))
+                elif wordval & 0x8000:
+                    self.logasm(wordval, orgline='"%s%s" (U+%04x U+%04x) | 0x8000' % \
+                                    (chr(wordval & 0x7f), chr((wordval & 0x7f00) >> 8),
+                                     wordval & 0x7f, (wordval & 0x7f00) >> 8))
+                else:
+                    self.logasm(wordval, orgline='"%s%s" (U+%04x U+%04x)' % \
+                                    (chr(wordval & 0x7f), chr((wordval & 0x7f00) >> 8),
+                                     wordval & 0x7f, (wordval & 0x7f00) >> 8))
+
+            self.poke(wordval, poketype='s')
+            self.incaddr()
+
+        tokens = tokens[1:]
+        numchars = 0
+        wordval = 0
+        for i, token in enumerate(tokens):
+            if token.startswith('"'):
+                # The lexer guarantees strings are enclosed in double
+                # quotes. Strip them.
+                chars = token[1:-1]
+            else:
+                # If it's not a string token, it should parse to an integer of sorts.
+                chars = [self.parseToken(token)]
+
+            for j, char in enumerate(chars):
+                try:
+                    val = ord(char)
+                except TypeError:
+                    # It's already an int.
+                    val = char
+                    char = unichr(char)
+                    if ord(char) not in xrange(128):
+                        self.fail("Packed strings can only contain 7-bit characters.")
+                if self.passnum == self.PSN_ASSEMBLY:
+                    char = isprint(char) and char or ' '
+
+                    # If this is the last character of the last token, set the
+                    # high bit.
+                    if ((i + 1) == len(tokens)) and ((j + 1) == len(chars)):
+                        val |= 0x80
+
+                if (numchars & 1) == 0:
+                    wordval = val
+                else:
+                    wordval = wordval | (val << 8)
+                    _storechar(wordval)
+                numchars += 1
+
+        # There may be a leftover character when we're done.
+        if (numchars & 1) != 0: # Note, numchars already increased: reverse semantics
+            _storechar(val)
 
         # Our caller will increment the address, so adjust here.
         self.incaddr(-1)
@@ -1022,6 +1239,9 @@ class CFTAssembler(object):
 
     def fail(self, msg):
         """Output an error message and fail."""
+        # Is there a macro context we should print out?
+        for (n, f, ln, mdef) in self.ctx:
+            self._msg("error: (in macro '%s' invoked in %s on line %d)" % (n, f, ln))
         self._msg('error: ' + msg)
         sys.exit(1)
 
