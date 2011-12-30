@@ -1,6 +1,6 @@
 #/usr/bin/make
 
-# This won't work with dash (bin/sh on many Debianoids)
+# This won't work with dash (/bin/sh on many Debianoids)
 SHELL = 	/bin/bash
 
 NAME = 		forth
