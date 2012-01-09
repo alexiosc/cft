@@ -1,9 +1,17 @@
+#!/usr/bin/makefile
+
 BASE = cft-panel-guide
 LATEX = xelatex -shell-escape
 VIEWER = okular
+GEN = ../generated
+EAGLE = ../eagle
 DEPS = figs/front-panel-1.jpg \
 	../../panel/front-panel-v2-small.jpg \
-	figs/front-panel-v2-terse-small.jpg
+	figs/front-panel-v2-terse-small.jpg \
+	$(GEN)/front-panel-bom-parts.tex \
+	$(GEN)/front-panel-bom-values.tex
+SCRIPTS = ../scripts
+BOM2TEX = $(SCRIPTS)/bom2tex.py
 
 .PHONY:		all clean veryclean view upload raster
 all: $(BASE).pdf $(DEPS)
@@ -39,5 +47,8 @@ figs/front-panel-1.jpg: eagle/front-panel.pdf
 		convert -quality 95 -verbose $$a `echo $$a | sed 's/ppm/jpg/'`; \
 		rm $$a; \
 	done
+
+$(GEN)/%-bom-parts.tex $(GEN)/%-bom-values.tex: $(EAGLE)/%.bomp $(EAGLE)/%.bomv $(BOM2TEX)
+	( cd $(GEN); $(BOM2TEX) $^ )
 
 # End of file.

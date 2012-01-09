@@ -1155,12 +1155,16 @@ if \A{} is neither negative, nor zero (thus positive).
 This is equivalent to {\tt OP2 SNA SZA}. It skips the next instruction
 if \A{} is less than or equal to zero (non-positive).
 
-\subsubsection{{\tt SBL}, {\tt SBR}, {\tt SNL}, {\tt SNR} — Bitwise shifts}
+\subsubsection{{\tt SBL}, {\tt SBR} — Bitwise shifts}
 
-The four bitwise shift macros are formed by combining {\tt OP1 CLL} with
+The two bitwise shift macros are formed by combining {\tt OP1 CLL} with
 the corresponding {\tt OP1} roll operations. They provide bitwise
 (unsigned arithmetic) shift operations which are fundamental in
 implementing multiplication and division, among others.
+
+Please note that there are no nybble-oriented shift operations because
+there is no way to clear the lower order three bits of \A{} with an
+{\tt OP1} instruction.
 
 \subsection{Common Tasks}
 

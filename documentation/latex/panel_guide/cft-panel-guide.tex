@@ -14,6 +14,7 @@
 \usepackage{eepic}
 \usepackage{fontspec}
 \usepackage[dvipdfm,a4paper,CJKbookmarks,bookmarks=true,bookmarksopen=true]{hyperref}
+\usepackage{longtable}
 \begin{psinputs}
 \usepackage{color}
 \usepackage{longtable}
@@ -77,6 +78,8 @@
 \newcommand{\ps}[1]{\textsf{#1}}
 \newcommand{\lt}[1]{\textsf{#1}}
 \newcommand{\sw}[1]{\textsf{#1}}
+
+\newcommand{\schpt}[1]{\textsf{#1}}
 
 \newcommand\bus[1]{{#1}}
 \newcommand\unit[1]{{#1}}
@@ -182,6 +185,9 @@
   \small
 
   {\bf 2011-12-19} Initial revision.
+
+  {\bf 2012-01-04} Listed briefly the signal connections between front
+  panel and processor boards.
 
   \vspace{5ex}
   
@@ -675,6 +681,36 @@ With the key switch in the \sw{PANEL} position, depress \sw{RESET} or
 be fitted and the \sw{ROM BNK}/\sw{RAM BNK} switch must be in the
 \sw{ROM BNK} position.
 
+\subsection{Debugging with the Front Panel}
+
+The front panel may be used to interrupt normal computer operation and
+inspect or modify its state for debugging purposes. The computer can
+then resume operation. The user should, however, be aware of a number
+of considerations when using the front panel to do this:
+
+\begin{itemize}
+\item Operating the \sw{STOP} switch halts the computer
+  mid-instruction. With a microprogram in execution, registers and
+  control units may change. If necessary, the \sw{uSTEP} switch should
+  be operated to complete the microprogram, that is until the
+  \lt{FETCH} light illuminates. After which, if desired, the
+  \sw{uSTEP} switch may be operated repeatedly until the \lt{EXECUTE}
+  light illuminates, at which point an instruction has just been
+  fetched and is about to be executed. It is safe to use the front
+  panel for macro-debugging at this point.
+\item Using the \sw{SET ADDR} switch modifies the \PC. When the
+  computer resumes operation, this will effectively jump to the
+  address set via the front panel. If this is not desired, the user
+  must note the value of the \PC and manually restore it before
+  continuing.
+\item Using the memory and I/O functions also cause the \MAR{} to
+  change. This is safe to do when using the {\sf STEP} switch, but not
+  mid-microprogram.
+\item Obviously, modifying the \IR{}, memory or I/O devices can have
+  side effects on the running of the computer, but this is a desired
+  feature of any control panel.
+\end{itemize}
+
 \section{Hardware Guide}
 
 The Front Panel comprises three distinct parts (though parts 2 and 3
@@ -687,13 +723,58 @@ may be implemented on the same physical board):
   their drivers, as well as the Multi-Function display logic. The LED
   banks are connected directly to the corresponding processor hardware
   (e.g. the register card) using 8 or 9-conductor flat cables.
-\item{The Front Panel Debounce and Switch Board} hosts the switches
+\item{\bf The Front Panel Debounce and Switch Board} hosts the switches
   and their debounce circuitry.
 \end{enumerate}
 
 The controller connects to the switch and LED boards via a
 daisy-chained 40-conductor ribbon cable.
 
+\begin{table*}[h!]
+  \caption{\label{tab-connectors}Connections between the front panel
+    and the processor.}
+  \centering
+  \begin{tabular}{llcll}
+    \noalign{\smallskip}\hline\noalign{\smallskip}
+    Function & Name & Conductors & From & To \\
+    \noalign{\smallskip}\hline\noalign{\smallskip}
+    Switch Register Low      & CON1  & 8 & Switch board & Front Panel Controller \\
+    Switch Register High     & CON2  & 8 & Switch board & Front Panel Controller \\
+    Memory Banking Status    & CON3  & 9 & Memory Banking board & Front Panel LED board \\
+    \A{} Low                 & CON4  & 8 & Register or ALU board & Front Panel LED board \\
+    \A{} High                & CON5  & 8 & Register or ALU board & Front Panel LED board \\
+    \PC{} Low                & CON6  & 8 & Register board & Front Panel LED board \\
+    \PC{} High               & CON7  & 8 & Register board & Front Panel LED board \\
+    \IR{} Low                & CON8  & 8 & Control board & Front Panel LED board \\
+    \IR{} High               & CON9  & 8 & Control board & Front Panel LED board \\
+    Microcode Vector Low     & CON10 & 8 & Control board & Front Panel LED board \\
+    Microcode Vector Medium  & CON11 & 8 & Control board & Front Panel LED board \\
+    Microcode Vector High    & CON12 & 8 & Control board & Front Panel LED board \\
+    Flags                    & CON13 & 5 & Control board \& ALU & Front Panel LED board \\
+    Output Register Low      & CON14 & 8 & Front Panel Controller & Front Panel LED board \\
+    Output Register High     & CON15 & 8 & Front Panel Controller & Front Panel LED board \\
+    \DR{} Low                & CON16 & 8 & Register board & Front Panel LED board \\
+    \DR{} High               & CON17 & 8 & Register board & Front Panel LED board \\
+    Microcode Address Low    & CON18 & 8 & Control board & Front Panel LED board \\
+    Microcode Address High   & CON19 & 7 & Control board & Front Panel LED board \\
+    Interrupt Flag Status    & CON20 & 8 & Interrupt Controller board & Front Panel LED board \\
+    Interrupt Enable Status  & CON21 & 8 & Interrupt Controller board & Front Panel LED board \\
+    Control switches 1       & CON22 & 8 & Switch board & Front Panel Controller \\
+    Control switches 2       & CON23 & 8 & Switch board & Front Panel Controller \\
+    Clock Control            & CON24 & 3 & Switch board & Clock Generator \\
+    Memory Banking Control   & CON25 & 2 & Switch board & Memory Banking board \\
+    Interrupt Control        & CON26 & 3 & Switch board & Interrupt Controller board \\
+    Reset In                 & CON27 & 1 & Switch board & Reset generator \\
+    Miscellaneous LEDs (×3)  & SV1   & 6 & Any required & Front Panel LED board \\
+    \noalign{\smallskip}\hline\noalign{\smallskip}
+  \end{tabular}
+\end{table*}
+
+
+\subsection{Connections}
+
+The front panel boards connect to the processor by means of numerous
+8-way connectors, shown in~\tcf{tab-connectors}.
 
 \section{Further reading}
 
@@ -703,6 +784,8 @@ following URL:
 \begin{center}
 \link{www.bedroomlan.org/hardware/cft}
 \end{center}
+
+\clearpage
 
 \begin{figure*}
 \centering
@@ -745,6 +828,52 @@ following URL:
 \includegraphics[width=0.95\textheight,angle=90]{figs/front-panel-7.jpg}\\
 \caption{\label{fig-schematic-front-panel-7}Schematic drawing of the front panel LED and switch boards (7 of 7).}
 \end{figure*}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% BILL OF MATERIALS (AUTOMATICALLY GENERATED)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+{
+  \onecolumn
+  \section{Bill of Materials}
+  \footnotesize
+  \begin{longtable}{r@{$\times\;$}p{0.25\textwidth}p{0.2\textwidth}ll}
+    \noalign{\smallskip}\hline\noalign{\smallskip}
+    {\bf Qty} & {\bf Description} & {\bf Parts} & {\bf Order No} & {\bf Notes}\\
+    \noalign{\smallskip}\hline\noalign{\smallskip}
+    %
+    \endhead
+    \noalign{\smallskip}\hline\noalign{\smallskip}
+    \endlastfoot
+    \input{../generated/front-panel-bom-values}
+  \end{longtable}
+  %\twocolumn
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% INDEX OF PARTS (AUTOMATICALLY GENERATED)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+{
+  %\onecolumn
+  \section{Part Index}
+  \footnotesize
+  \begin{longtable}{lllll}
+    \noalign{\smallskip}\hline\noalign{\smallskip}
+    {\bf Part} & {\bf Value} & {\bf Description} & {\bf Order No} & {\bf Notes}\\
+    \noalign{\smallskip}\hline\noalign{\smallskip}
+    %
+    \endhead
+    \noalign{\smallskip}\hline\noalign{\smallskip}
+    \endlastfoot
+    \input{../generated/front-panel-bom-parts}
+  \end{longtable}
+  \twocolumn
+}
 
 \end{document}
 
