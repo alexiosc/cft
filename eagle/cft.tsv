@@ -1,0 +1,52 @@
+Key	Order Code	Description Override	Notes
+5566-24			ATX mainboard power socket
+22-23-2051			Molex KK® series header
+22-23-2081			Molex KK® series header
+22-23-2091			Molex KK® series header
+C-EU025-024X044:100nF		100nF capacitor	
+C-EU025-024X044:22nF		22nF capacitor	
+C-EU025-024X044:1uF		1μF capacitor	
+CON40:		40 pin (2x20) 2.54mm pitch header	
+	asd	5mm red LED	
+LED-5MM-GREEN		5mm green LED	
+LED-5MM-AMBER		5mm amber/orange/yellow LED	
+LED-5MM-RED		5mm red LED	
+1N4148		1N4148 diode	Or any fast signal diode
+CPOL-EUE1.8-4:1uF		1μF Tantalum capacitor	
+CPOL-EUE2,5-6E:100uF		100uF Tantalum capacitor	
+CPOL-EUE2,5-6E:4.7uF		4.7μF Tantalum capacitor	
+CPOL-EUE2.5-7:10uF		10μF/10V Electrolytic capacitor	
+JP2E:		3-pin 2.54mm header	
+DUOLED-C		Common cathode tri-colour LED (red/green)	
+TRIM_EU-B90P:200k		200k linear ootentiometer/trimmer	
+R-EU_0207/10:180k		180kΩ resistor	
+R-EU_0207/10:1k		1kΩ resistor	
+74HC14N		Hex inverting Schmitt trigger	
+74LS123N		Dual retriggerable monostable multivibrator	
+LM555N		Timer	
+74HC04N		Hex inverter	
+74HC541N		Octal 3-state buffer	
+74HC540N		Octal 3-state inverting buffer	
+74HC138N		3-to-8 line Decoder	
+74HC85N		4-bit Magnitude Comparator	
+W237-4:		Wago 2x screw clamp	
+R-EU_0204/5:330k		330kΩ resistor	
+R-EU_0204/7:2.2k		2.2kΩ resistor	
+E4R:50k		50kΩ 8x bussed SIL resistor	
+8R-N:50k		50kΩ octal DIL resistor	
+G08R:10k		10kΩ octal bussed SIL resistor	
+G04R:10k		10kΩ 5x bussed SIL resistor	
+GE08R:180R		180Ω 8x bussed SIL resistor	
+GE09R:180R		180Ω 9x bussed SIL resistor	
+G05R:10k		10kΩ 5x bussed SIL resistor	
+G03R:2k2		2.2kΩ 3x bussed SIL resistor	
+8R-N:150R		150Ω 8x DIL resistor	
+255SB:		On-On or On-Off toggle switch	
+320-938:		Double-pole 3-position key switch	Make-before-break
+TL39PO		On-Off-On toggle switch	
+TL36PO		On-On toggle switch	
+TL49PO		On-Off-On toggle switch	
+TL37PO		Mom-Off-Mom toggle switch	
+TL47PO		Mom-Off-Mom toggle switch	
+SW_DIP-3:		3x dip switch or 2x3 pin header	
+MA03-2:3-pin-header		3x2 pin header	

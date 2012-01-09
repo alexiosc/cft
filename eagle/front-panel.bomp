@@ -1,0 +1,345 @@
+<b>Partlist exported from /home/alexios/eagle/CFT/front-panel.sch at 9 Jan 2012 13:11:30</b>
+<p>
+<table>
+<tr><td><b>Part</b></td><td><b>Value</b></td><td><b>Device</b></td><td><b>Package</b></td><td><b>Description</b></td><td><b>Order Code</b></td><td><b>Description Override</b></td><td><b>Notes</b></td></tr>
+<tr><td>ATXPWR</td><td>5566-24</td><td>5566-24</td><td>5566-24</td><td>Mini FIT connector 24 pol</td><td></td><td></td><td>ATX mainboard power socket</td></tr>
+<tr><td>AUXPWR</td><td></td><td>W237-4</td><td>W237-4</td><td>WAGO SCREW CLAMP</td><td></td><td>Wago 2x screw clamp</td><td></td></tr>
+<tr><td>C1</td><td>1uF</td><td>CPOL-EUE1.8-4</td><td>E1,8-4</td><td>POLARIZED CAPACITOR, European symbol</td><td></td><td>1μF Tantalum capacitor</td><td></td></tr>
+<tr><td>C2</td><td>1uF</td><td>CPOL-EUE1.8-4</td><td>E1,8-4</td><td>POLARIZED CAPACITOR, European symbol</td><td></td><td>1μF Tantalum capacitor</td><td></td></tr>
+<tr><td>C3</td><td>1uF</td><td>CPOL-EUE1.8-4</td><td>E1,8-4</td><td>POLARIZED CAPACITOR, European symbol</td><td></td><td>1μF Tantalum capacitor</td><td></td></tr>
+<tr><td>C4</td><td>1uF</td><td>CPOL-EUE1.8-4</td><td>E1,8-4</td><td>POLARIZED CAPACITOR, European symbol</td><td></td><td>1μF Tantalum capacitor</td><td></td></tr>
+<tr><td>C5</td><td>100uF</td><td>CPOL-EUE2,5-6E</td><td>E2,5-6E</td><td>POLARIZED CAPACITOR, European symbol</td><td></td><td>100uF Tantalum capacitor</td><td></td></tr>
+<tr><td>C6</td><td>22nF</td><td>C-EU025-024X044</td><td>C025-024X044</td><td>CAPACITOR, European symbol</td><td></td><td>22nF capacitor</td><td></td></tr>
+<tr><td>C7</td><td>4.7uF</td><td>CPOL-EUE2,5-6E</td><td>E2,5-6E</td><td>POLARIZED CAPACITOR, European symbol</td><td></td><td>4.7μF Tantalum capacitor</td><td></td></tr>
+<tr><td>C8</td><td>1uF</td><td>CPOL-EUE1.8-4</td><td>E1,8-4</td><td>POLARIZED CAPACITOR, European symbol</td><td></td><td>1μF Tantalum capacitor</td><td></td></tr>
+<tr><td>C9</td><td>1uF</td><td>CPOL-EUE1.8-4</td><td>E1,8-4</td><td>POLARIZED CAPACITOR, European symbol</td><td></td><td>1μF Tantalum capacitor</td><td></td></tr>
+<tr><td>C10</td><td>1uF</td><td>CPOL-EUE1.8-4</td><td>E1,8-4</td><td>POLARIZED CAPACITOR, European symbol</td><td></td><td>1μF Tantalum capacitor</td><td></td></tr>
+<tr><td>C11</td><td>1uF</td><td>CPOL-EUE1.8-4</td><td>E1,8-4</td><td>POLARIZED CAPACITOR, European symbol</td><td></td><td>1μF Tantalum capacitor</td><td></td></tr>
+<tr><td>C12</td><td>1uF</td><td>CPOL-EUE1.8-4</td><td>E1,8-4</td><td>POLARIZED CAPACITOR, European symbol</td><td></td><td>1μF Tantalum capacitor</td><td></td></tr>
+<tr><td>C13</td><td>1uF</td><td>CPOL-EUE1.8-4</td><td>E1,8-4</td><td>POLARIZED CAPACITOR, European symbol</td><td></td><td>1μF Tantalum capacitor</td><td></td></tr>
+<tr><td>C14</td><td>1uF</td><td>CPOL-EUE1.8-4</td><td>E1,8-4</td><td>POLARIZED CAPACITOR, European symbol</td><td></td><td>1μF Tantalum capacitor</td><td></td></tr>
+<tr><td>C15</td><td>1uF</td><td>CPOL-EUE1.8-4</td><td>E1,8-4</td><td>POLARIZED CAPACITOR, European symbol</td><td></td><td>1μF Tantalum capacitor</td><td></td></tr>
+<tr><td>C16</td><td>1uF</td><td>CPOL-EUE1.8-4</td><td>E1,8-4</td><td>POLARIZED CAPACITOR, European symbol</td><td></td><td>1μF Tantalum capacitor</td><td></td></tr>
+<tr><td>C17</td><td>1uF</td><td>CPOL-EUE1.8-4</td><td>E1,8-4</td><td>POLARIZED CAPACITOR, European symbol</td><td></td><td>1μF Tantalum capacitor</td><td></td></tr>
+<tr><td>C18</td><td>1uF</td><td>CPOL-EUE1.8-4</td><td>E1,8-4</td><td>POLARIZED CAPACITOR, European symbol</td><td></td><td>1μF Tantalum capacitor</td><td></td></tr>
+<tr><td>C19</td><td>1uF</td><td>CPOL-EUE1.8-4</td><td>E1,8-4</td><td>POLARIZED CAPACITOR, European symbol</td><td></td><td>1μF Tantalum capacitor</td><td></td></tr>
+<tr><td>C20</td><td>1uF</td><td>C-EU025-024X044</td><td>C025-024X044</td><td>CAPACITOR, European symbol</td><td></td><td>1μF capacitor</td><td></td></tr>
+<tr><td>C21</td><td>1uF</td><td>C-EU025-024X044</td><td>C025-024X044</td><td>CAPACITOR, European symbol</td><td></td><td>1μF capacitor</td><td></td></tr>
+<tr><td>C22</td><td>1uF</td><td>C-EU025-024X044</td><td>C025-024X044</td><td>CAPACITOR, European symbol</td><td></td><td>1μF capacitor</td><td></td></tr>
+<tr><td>C23</td><td>1uF</td><td>C-EU025-024X044</td><td>C025-024X044</td><td>CAPACITOR, European symbol</td><td></td><td>1μF capacitor</td><td></td></tr>
+<tr><td>C24</td><td>1uF</td><td>C-EU025-024X044</td><td>C025-024X044</td><td>CAPACITOR, European symbol</td><td></td><td>1μF capacitor</td><td></td></tr>
+<tr><td>C25</td><td>1uF</td><td>C-EU025-024X044</td><td>C025-024X044</td><td>CAPACITOR, European symbol</td><td></td><td>1μF capacitor</td><td></td></tr>
+<tr><td>C26</td><td>1uF</td><td>C-EU025-024X044</td><td>C025-024X044</td><td>CAPACITOR, European symbol</td><td></td><td>1μF capacitor</td><td></td></tr>
+<tr><td>C27</td><td>1uF</td><td>C-EU025-024X044</td><td>C025-024X044</td><td>CAPACITOR, European symbol</td><td></td><td>1μF capacitor</td><td></td></tr>
+<tr><td>C28</td><td>1uF</td><td>C-EU025-024X044</td><td>C025-024X044</td><td>CAPACITOR, European symbol</td><td></td><td>1μF capacitor</td><td></td></tr>
+<tr><td>C29</td><td>10uF</td><td>CPOL-EUE2.5-7</td><td>E2,5-7</td><td>POLARIZED CAPACITOR, European symbol</td><td></td><td>10μF/10V Electrolytic capacitor</td><td></td></tr>
+<tr><td>C30</td><td>100nF</td><td>C-EU025-024X044</td><td>C025-024X044</td><td>CAPACITOR, European symbol</td><td></td><td>100nF capacitor</td><td></td></tr>
+<tr><td>C31</td><td>100nF</td><td>C-EU025-024X044</td><td>C025-024X044</td><td>CAPACITOR, European symbol</td><td></td><td>100nF capacitor</td><td></td></tr>
+<tr><td>C32</td><td>100nF</td><td>C-EU025-024X044</td><td>C025-024X044</td><td>CAPACITOR, European symbol</td><td></td><td>100nF capacitor</td><td></td></tr>
+<tr><td>C33</td><td>100nF</td><td>C-EU025-024X044</td><td>C025-024X044</td><td>CAPACITOR, European symbol</td><td></td><td>100nF capacitor</td><td></td></tr>
+<tr><td>C34</td><td>100nF</td><td>C-EU025-024X044</td><td>C025-024X044</td><td>CAPACITOR, European symbol</td><td></td><td>100nF capacitor</td><td></td></tr>
+<tr><td>C35</td><td>100nF</td><td>C-EU025-024X044</td><td>C025-024X044</td><td>CAPACITOR, European symbol</td><td></td><td>100nF capacitor</td><td></td></tr>
+<tr><td>C36</td><td>100nF</td><td>C-EU025-024X044</td><td>C025-024X044</td><td>CAPACITOR, European symbol</td><td></td><td>100nF capacitor</td><td></td></tr>
+<tr><td>C37</td><td>100nF</td><td>C-EU025-024X044</td><td>C025-024X044</td><td>CAPACITOR, European symbol</td><td></td><td>100nF capacitor</td><td></td></tr>
+<tr><td>C38</td><td>100nF</td><td>C-EU025-024X044</td><td>C025-024X044</td><td>CAPACITOR, European symbol</td><td></td><td>100nF capacitor</td><td></td></tr>
+<tr><td>C39</td><td>100nF</td><td>C-EU025-024X044</td><td>C025-024X044</td><td>CAPACITOR, European symbol</td><td></td><td>100nF capacitor</td><td></td></tr>
+<tr><td>C40</td><td>100nF</td><td>C-EU025-024X044</td><td>C025-024X044</td><td>CAPACITOR, European symbol</td><td></td><td>100nF capacitor</td><td></td></tr>
+<tr><td>C41</td><td>100nF</td><td>C-EU025-024X044</td><td>C025-024X044</td><td>CAPACITOR, European symbol</td><td></td><td>100nF capacitor</td><td></td></tr>
+<tr><td>C42</td><td>100nF</td><td>C-EU025-024X044</td><td>C025-024X044</td><td>CAPACITOR, European symbol</td><td></td><td>100nF capacitor</td><td></td></tr>
+<tr><td>C43</td><td>100nF</td><td>C-EU025-024X044</td><td>C025-024X044</td><td>CAPACITOR, European symbol</td><td></td><td>100nF capacitor</td><td></td></tr>
+<tr><td>C44</td><td>100nF</td><td>C-EU025-024X044</td><td>C025-024X044</td><td>CAPACITOR, European symbol</td><td></td><td>100nF capacitor</td><td></td></tr>
+<tr><td>C45</td><td>100nF</td><td>C-EU025-024X044</td><td>C025-024X044</td><td>CAPACITOR, European symbol</td><td></td><td>100nF capacitor</td><td></td></tr>
+<tr><td>C46</td><td>100nF</td><td>C-EU025-024X044</td><td>C025-024X044</td><td>CAPACITOR, European symbol</td><td></td><td>100nF capacitor</td><td></td></tr>
+<tr><td>C47</td><td>100nF</td><td>C-EU025-024X044</td><td>C025-024X044</td><td>CAPACITOR, European symbol</td><td></td><td>100nF capacitor</td><td></td></tr>
+<tr><td>C48</td><td>100nF</td><td>C-EU025-024X044</td><td>C025-024X044</td><td>CAPACITOR, European symbol</td><td></td><td>100nF capacitor</td><td></td></tr>
+<tr><td>C49</td><td>100nF</td><td>C-EU025-024X044</td><td>C025-024X044</td><td>CAPACITOR, European symbol</td><td></td><td>100nF capacitor</td><td></td></tr>
+<tr><td>C50</td><td>100nF</td><td>C-EU025-024X044</td><td>C025-024X044</td><td>CAPACITOR, European symbol</td><td></td><td>100nF capacitor</td><td></td></tr>
+<tr><td>C51</td><td>100nF</td><td>C-EU025-024X044</td><td>C025-024X044</td><td>CAPACITOR, European symbol</td><td></td><td>100nF capacitor</td><td></td></tr>
+<tr><td>C52</td><td>100nF</td><td>C-EU025-024X044</td><td>C025-024X044</td><td>CAPACITOR, European symbol</td><td></td><td>100nF capacitor</td><td></td></tr>
+<tr><td>C53</td><td>100nF</td><td>C-EU025-024X044</td><td>C025-024X044</td><td>CAPACITOR, European symbol</td><td></td><td>100nF capacitor</td><td></td></tr>
+<tr><td>C54</td><td>100nF</td><td>C-EU025-024X044</td><td>C025-024X044</td><td>CAPACITOR, European symbol</td><td></td><td>100nF capacitor</td><td></td></tr>
+<tr><td>C55</td><td>100nF</td><td>C-EU025-024X044</td><td>C025-024X044</td><td>CAPACITOR, European symbol</td><td></td><td>100nF capacitor</td><td></td></tr>
+<tr><td>C56</td><td>100nF</td><td>C-EU025-024X044</td><td>C025-024X044</td><td>CAPACITOR, European symbol</td><td></td><td>100nF capacitor</td><td></td></tr>
+<tr><td>C57</td><td>100nF</td><td>C-EU025-024X044</td><td>C025-024X044</td><td>CAPACITOR, European symbol</td><td></td><td>100nF capacitor</td><td></td></tr>
+<tr><td>C58</td><td>100nF</td><td>C-EU025-024X044</td><td>C025-024X044</td><td>CAPACITOR, European symbol</td><td></td><td>100nF capacitor</td><td></td></tr>
+<tr><td>C59</td><td>100nF</td><td>C-EU025-024X044</td><td>C025-024X044</td><td>CAPACITOR, European symbol</td><td></td><td>100nF capacitor</td><td></td></tr>
+<tr><td>C60</td><td>100nF</td><td>C-EU025-024X044</td><td>C025-024X044</td><td>CAPACITOR, European symbol</td><td></td><td>100nF capacitor</td><td></td></tr>
+<tr><td>C61</td><td>100nF</td><td>C-EU025-024X044</td><td>C025-024X044</td><td>CAPACITOR, European symbol</td><td></td><td>100nF capacitor</td><td></td></tr>
+<tr><td>C62</td><td>100nF</td><td>C-EU025-024X044</td><td>C025-024X044</td><td>CAPACITOR, European symbol</td><td></td><td>100nF capacitor</td><td></td></tr>
+<tr><td>C63</td><td>100nF</td><td>C-EU025-024X044</td><td>C025-024X044</td><td>CAPACITOR, European symbol</td><td></td><td>100nF capacitor</td><td></td></tr>
+<tr><td>C64</td><td>100nF</td><td>C-EU025-024X044</td><td>C025-024X044</td><td>CAPACITOR, European symbol</td><td></td><td>100nF capacitor</td><td></td></tr>
+<tr><td>C65</td><td>100nF</td><td>C-EU025-024X044</td><td>C025-024X044</td><td>CAPACITOR, European symbol</td><td></td><td>100nF capacitor</td><td></td></tr>
+<tr><td>CON</td><td></td><td>CON40</td><td>CON40</td><td>CONNECTOR</td><td></td><td>40 pin (2x20) 2.54mm pitch header</td><td></td></tr>
+<tr><td>CON1</td><td>22-23-2081</td><td>22-23-2081</td><td>22-23-2081</td><td>.100" (2.54mm) Center Header - 8 Pin</td><td></td><td></td><td>Molex KK® series header</td></tr>
+<tr><td>CON2</td><td>22-23-2081</td><td>22-23-2081</td><td>22-23-2081</td><td>.100" (2.54mm) Center Header - 8 Pin</td><td></td><td></td><td>Molex KK® series header</td></tr>
+<tr><td>CON3</td><td>22-23-2081</td><td>22-23-2081</td><td>22-23-2081</td><td>.100" (2.54mm) Center Header - 8 Pin</td><td></td><td></td><td>Molex KK® series header</td></tr>
+<tr><td>CON4</td><td>22-23-2081</td><td>22-23-2081</td><td>22-23-2081</td><td>.100" (2.54mm) Center Header - 8 Pin</td><td></td><td></td><td>Molex KK® series header</td></tr>
+<tr><td>CON5</td><td>22-23-2091</td><td>22-23-2091</td><td>22-23-2091</td><td>.100" (2.54mm) Center Header - 9 Pin</td><td></td><td></td><td>Molex KK® series header</td></tr>
+<tr><td>CON6</td><td>22-23-2081</td><td>22-23-2081</td><td>22-23-2081</td><td>.100" (2.54mm) Center Header - 8 Pin</td><td></td><td></td><td>Molex KK® series header</td></tr>
+<tr><td>CON7</td><td>22-23-2081</td><td>22-23-2081</td><td>22-23-2081</td><td>.100" (2.54mm) Center Header - 8 Pin</td><td></td><td></td><td>Molex KK® series header</td></tr>
+<tr><td>CON8</td><td>22-23-2081</td><td>22-23-2081</td><td>22-23-2081</td><td>.100" (2.54mm) Center Header - 8 Pin</td><td></td><td></td><td>Molex KK® series header</td></tr>
+<tr><td>CON9</td><td>22-23-2081</td><td>22-23-2081</td><td>22-23-2081</td><td>.100" (2.54mm) Center Header - 8 Pin</td><td></td><td></td><td>Molex KK® series header</td></tr>
+<tr><td>CON10</td><td>22-23-2081</td><td>22-23-2081</td><td>22-23-2081</td><td>.100" (2.54mm) Center Header - 8 Pin</td><td></td><td></td><td>Molex KK® series header</td></tr>
+<tr><td>CON11</td><td>22-23-2081</td><td>22-23-2081</td><td>22-23-2081</td><td>.100" (2.54mm) Center Header - 8 Pin</td><td></td><td></td><td>Molex KK® series header</td></tr>
+<tr><td>CON12</td><td>22-23-2081</td><td>22-23-2081</td><td>22-23-2081</td><td>.100" (2.54mm) Center Header - 8 Pin</td><td></td><td></td><td>Molex KK® series header</td></tr>
+<tr><td>CON13</td><td>22-23-2051</td><td>22-23-2051</td><td>22-23-2051</td><td>.100" (2.54mm) Center Header - 5 Pin</td><td></td><td></td><td>Molex KK® series header</td></tr>
+<tr><td>CON14</td><td>22-23-2081</td><td>22-23-2081</td><td>22-23-2081</td><td>.100" (2.54mm) Center Header - 8 Pin</td><td></td><td></td><td>Molex KK® series header</td></tr>
+<tr><td>CON15</td><td>22-23-2081</td><td>22-23-2081</td><td>22-23-2081</td><td>.100" (2.54mm) Center Header - 8 Pin</td><td></td><td></td><td>Molex KK® series header</td></tr>
+<tr><td>CON16</td><td>22-23-2081</td><td>22-23-2081</td><td>22-23-2081</td><td>.100" (2.54mm) Center Header - 8 Pin</td><td></td><td></td><td>Molex KK® series header</td></tr>
+<tr><td>CON17</td><td>22-23-2081</td><td>22-23-2081</td><td>22-23-2081</td><td>.100" (2.54mm) Center Header - 8 Pin</td><td></td><td></td><td>Molex KK® series header</td></tr>
+<tr><td>CON18</td><td>22-23-2081</td><td>22-23-2081</td><td>22-23-2081</td><td>.100" (2.54mm) Center Header - 8 Pin</td><td></td><td></td><td>Molex KK® series header</td></tr>
+<tr><td>CON19</td><td>22-23-2081</td><td>22-23-2081</td><td>22-23-2081</td><td>.100" (2.54mm) Center Header - 8 Pin</td><td></td><td></td><td>Molex KK® series header</td></tr>
+<tr><td>CON20</td><td>22-23-2081</td><td>22-23-2081</td><td>22-23-2081</td><td>.100" (2.54mm) Center Header - 8 Pin</td><td></td><td></td><td>Molex KK® series header</td></tr>
+<tr><td>CON21</td><td>22-23-2081</td><td>22-23-2081</td><td>22-23-2081</td><td>.100" (2.54mm) Center Header - 8 Pin</td><td></td><td></td><td>Molex KK® series header</td></tr>
+<tr><td>D1</td><td>1N4148</td><td>1N4148DO35-7</td><td>DO35-7</td><td>DIODE</td><td></td><td>1N4148 diode</td><td>Or any fast signal diode</td></tr>
+<tr><td>D2</td><td>1N4148</td><td>1N4148DO35-7</td><td>DO35-7</td><td>DIODE</td><td></td><td>1N4148 diode</td><td>Or any fast signal diode</td></tr>
+<tr><td>D3</td><td>1N4148</td><td>1N4148DO35-7</td><td>DO35-7</td><td>DIODE</td><td></td><td>1N4148 diode</td><td>Or any fast signal diode</td></tr>
+<tr><td>IC1</td><td>74HC14N</td><td>74HC14N</td><td>DIL14</td><td>Hex schmitt trigger INVERTER</td><td></td><td>Hex inverting Schmitt trigger</td><td></td></tr>
+<tr><td>IC2</td><td>74LS123N</td><td>74LS123N</td><td>DIL16</td><td>Retriggerable monostable MULTIVIBRATOR</td><td></td><td>Dual retriggerable monostable multivibrator</td><td></td></tr>
+<tr><td>IC3</td><td>LM555N</td><td>LM555N</td><td>DIL08</td><td>TIMER</td><td></td><td>Timer</td><td></td></tr>
+<tr><td>IC4</td><td>74HC04N</td><td>74HC04N</td><td>DIL14</td><td>Hex INVERTER</td><td></td><td>Hex inverter</td><td></td></tr>
+<tr><td>IC5</td><td>74HCT00N</td><td>74HCT00N</td><td>DIL14</td><td>Quad 2-input NAND gate</td><td></td><td></td><td></td></tr>
+<tr><td>IC6</td><td>74HC14N</td><td>74HC14N</td><td>DIL14</td><td>Hex schmitt trigger INVERTER</td><td></td><td>Hex inverting Schmitt trigger</td><td></td></tr>
+<tr><td>IC7</td><td>74HC04N</td><td>74HC04N</td><td>DIL14</td><td>Hex INVERTER</td><td></td><td>Hex inverter</td><td></td></tr>
+<tr><td>IC8</td><td>74HC14N</td><td>74HC14N</td><td>DIL14</td><td>Hex schmitt trigger INVERTER</td><td></td><td>Hex inverting Schmitt trigger</td><td></td></tr>
+<tr><td>IC9</td><td>74HC04N</td><td>74HC04N</td><td>DIL14</td><td>Hex INVERTER</td><td></td><td>Hex inverter</td><td></td></tr>
+<tr><td>IC10</td><td>74HC01N</td><td>74HC01N</td><td>DIL14</td><td>Quad 2-input NAND gate, open collector</td><td></td><td></td><td></td></tr>
+<tr><td>IC11</td><td>74HC541N</td><td>74HC541N</td><td>DIL20</td><td>Octal BUFFER and LINE DRIVER, 3-state</td><td></td><td>Octal 3-state buffer</td><td></td></tr>
+<tr><td>IC12</td><td>74HC541N</td><td>74HC541N</td><td>DIL20</td><td>Octal BUFFER and LINE DRIVER, 3-state</td><td></td><td>Octal 3-state buffer</td><td></td></tr>
+<tr><td>IC13</td><td>74HC541N</td><td>74HC541N</td><td>DIL20</td><td>Octal BUFFER and LINE DRIVER, 3-state</td><td></td><td>Octal 3-state buffer</td><td></td></tr>
+<tr><td>IC14</td><td>74HC541N</td><td>74HC541N</td><td>DIL20</td><td>Octal BUFFER and LINE DRIVER, 3-state</td><td></td><td>Octal 3-state buffer</td><td></td></tr>
+<tr><td>IC15</td><td>74HC541N</td><td>74HC541N</td><td>DIL20</td><td>Octal BUFFER and LINE DRIVER, 3-state</td><td></td><td>Octal 3-state buffer</td><td></td></tr>
+<tr><td>IC16</td><td>74HC541N</td><td>74HC541N</td><td>DIL20</td><td>Octal BUFFER and LINE DRIVER, 3-state</td><td></td><td>Octal 3-state buffer</td><td></td></tr>
+<tr><td>IC17</td><td>74HC541N</td><td>74HC541N</td><td>DIL20</td><td>Octal BUFFER and LINE DRIVER, 3-state</td><td></td><td>Octal 3-state buffer</td><td></td></tr>
+<tr><td>IC18</td><td>74HC541N</td><td>74HC541N</td><td>DIL20</td><td>Octal BUFFER and LINE DRIVER, 3-state</td><td></td><td>Octal 3-state buffer</td><td></td></tr>
+<tr><td>IC19</td><td>74HC541N</td><td>74HC541N</td><td>DIL20</td><td>Octal BUFFER and LINE DRIVER, 3-state</td><td></td><td>Octal 3-state buffer</td><td></td></tr>
+<tr><td>IC20</td><td>74HC540N</td><td>74HC540N</td><td>DIL20</td><td>Octal BUFFER and LINE DRIVER, 3-state</td><td></td><td>Octal 3-state inverting buffer</td><td></td></tr>
+<tr><td>IC21</td><td>74HC540N</td><td>74HC540N</td><td>DIL20</td><td>Octal BUFFER and LINE DRIVER, 3-state</td><td></td><td>Octal 3-state inverting buffer</td><td></td></tr>
+<tr><td>IC22</td><td>74LS123N</td><td>74LS123N</td><td>DIL16</td><td>Retriggerable monostable MULTIVIBRATOR</td><td></td><td>Dual retriggerable monostable multivibrator</td><td></td></tr>
+<tr><td>IC23</td><td>74HC541N</td><td>74HC541N</td><td>DIL20</td><td>Octal BUFFER and LINE DRIVER, 3-state</td><td></td><td>Octal 3-state buffer</td><td></td></tr>
+<tr><td>IC24</td><td>74HC138N</td><td>74HC138N</td><td>DIL16</td><td>3-line to 8-line DECODER/DEMULTIPLEXER</td><td></td><td>3-to-8 line Decoder</td><td></td></tr>
+<tr><td>IC25</td><td>74HC541N</td><td>74HC541N</td><td>DIL20</td><td>Octal BUFFER and LINE DRIVER, 3-state</td><td></td><td>Octal 3-state buffer</td><td></td></tr>
+<tr><td>IC26</td><td>74HC541N</td><td>74HC541N</td><td>DIL20</td><td>Octal BUFFER and LINE DRIVER, 3-state</td><td></td><td>Octal 3-state buffer</td><td></td></tr>
+<tr><td>IC27</td><td>74HC541N</td><td>74HC541N</td><td>DIL20</td><td>Octal BUFFER and LINE DRIVER, 3-state</td><td></td><td>Octal 3-state buffer</td><td></td></tr>
+<tr><td>IC28</td><td>74HC541N</td><td>74HC541N</td><td>DIL20</td><td>Octal BUFFER and LINE DRIVER, 3-state</td><td></td><td>Octal 3-state buffer</td><td></td></tr>
+<tr><td>IC29</td><td>74HC541N</td><td>74HC541N</td><td>DIL20</td><td>Octal BUFFER and LINE DRIVER, 3-state</td><td></td><td>Octal 3-state buffer</td><td></td></tr>
+<tr><td>IC30</td><td>74HC541N</td><td>74HC541N</td><td>DIL20</td><td>Octal BUFFER and LINE DRIVER, 3-state</td><td></td><td>Octal 3-state buffer</td><td></td></tr>
+<tr><td>IC31</td><td>74HC85N</td><td>74HC85N</td><td>DIL16</td><td>4-bit magnitude COMPARATOR</td><td></td><td>4-bit Magnitude Comparator</td><td></td></tr>
+<tr><td>IC32</td><td>74LS123N</td><td>74LS123N</td><td>DIL16</td><td>Retriggerable monostable MULTIVIBRATOR</td><td></td><td>Dual retriggerable monostable multivibrator</td><td></td></tr>
+<tr><td>IC33</td><td>74LS123N</td><td>74LS123N</td><td>DIL16</td><td>Retriggerable monostable MULTIVIBRATOR</td><td></td><td>Dual retriggerable monostable multivibrator</td><td></td></tr>
+<tr><td>IC34</td><td>74LS123N</td><td>74LS123N</td><td>DIL16</td><td>Retriggerable monostable MULTIVIBRATOR</td><td></td><td>Dual retriggerable monostable multivibrator</td><td></td></tr>
+<tr><td>IC35</td><td>74LS123N</td><td>74LS123N</td><td>DIL16</td><td>Retriggerable monostable MULTIVIBRATOR</td><td></td><td>Dual retriggerable monostable multivibrator</td><td></td></tr>
+<tr><td>IC36</td><td>74HC540N</td><td>74HC540N</td><td>DIL20</td><td>Octal BUFFER and LINE DRIVER, 3-state</td><td></td><td>Octal 3-state inverting buffer</td><td></td></tr>
+<tr><td>JP1</td><td></td><td>JP2E</td><td>JP2</td><td>JUMPER</td><td></td><td>3-pin 2.54mm header</td><td></td></tr>
+<tr><td>JP2</td><td></td><td>JP2E</td><td>JP2</td><td>JUMPER</td><td></td><td>3-pin 2.54mm header</td><td></td></tr>
+<tr><td>JP3</td><td></td><td>JP2E</td><td>JP2</td><td>JUMPER</td><td></td><td>3-pin 2.54mm header</td><td></td></tr>
+<tr><td>JP4</td><td></td><td>JP2E</td><td>JP2</td><td>JUMPER</td><td></td><td>3-pin 2.54mm header</td><td></td></tr>
+<tr><td>JP5</td><td></td><td>JP2E</td><td>JP2</td><td>JUMPER</td><td></td><td>3-pin 2.54mm header</td><td></td></tr>
+<tr><td>LED1</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED2</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED3</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED4</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED5</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED6</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED7</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED8</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED9</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED10</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED11</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED12</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED13</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED14</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED15</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED16</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED17</td><td>LED-5MM-AMBER</td><td>LED-5MM-AMBER</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm amber/orange/yellow LED</td><td></td></tr>
+<tr><td>LED18</td><td>LED-5MM-AMBER</td><td>LED-5MM-AMBER</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm amber/orange/yellow LED</td><td></td></tr>
+<tr><td>LED19</td><td>LED-5MM-AMBER</td><td>LED-5MM-AMBER</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm amber/orange/yellow LED</td><td></td></tr>
+<tr><td>LED20</td><td>LED-5MM-AMBER</td><td>LED-5MM-AMBER</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm amber/orange/yellow LED</td><td></td></tr>
+<tr><td>LED21</td><td>LED-5MM-AMBER</td><td>LED-5MM-AMBER</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm amber/orange/yellow LED</td><td></td></tr>
+<tr><td>LED22</td><td>LED-5MM-AMBER</td><td>LED-5MM-AMBER</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm amber/orange/yellow LED</td><td></td></tr>
+<tr><td>LED23</td><td>LED-5MM-AMBER</td><td>LED-5MM-AMBER</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm amber/orange/yellow LED</td><td></td></tr>
+<tr><td>LED24</td><td>LED-5MM-AMBER</td><td>LED-5MM-AMBER</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm amber/orange/yellow LED</td><td></td></tr>
+<tr><td>LED25</td><td>LED-5MM-GREEN</td><td>LED-5MM-GREEN</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm green LED</td><td></td></tr>
+<tr><td>LED26</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED27</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED28</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED29</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED30</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED31</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED32</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED33</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED34</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED35</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED36</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED37</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED38</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED39</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED40</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED41</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED42</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED43</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED44</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED45</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED46</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED47</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED48</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED49</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED50</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED51</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED52</td><td>LED-5MM-AMBER</td><td>LED-5MM-AMBER</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm amber/orange/yellow LED</td><td></td></tr>
+<tr><td>LED53</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED54</td><td>LED-5MM-AMBER</td><td>LED-5MM-AMBER</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm amber/orange/yellow LED</td><td></td></tr>
+<tr><td>LED55</td><td>LED-5MM-AMBER</td><td>LED-5MM-AMBER</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm amber/orange/yellow LED</td><td></td></tr>
+<tr><td>LED56</td><td>LED-5MM-AMBER</td><td>LED-5MM-AMBER</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm amber/orange/yellow LED</td><td></td></tr>
+<tr><td>LED57</td><td>LED-5MM-AMBER</td><td>LED-5MM-AMBER</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm amber/orange/yellow LED</td><td></td></tr>
+<tr><td>LED58</td><td>LED-5MM-GREEN</td><td>LED-5MM-GREEN</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm green LED</td><td></td></tr>
+<tr><td>LED59</td><td>LED-5MM-GREEN</td><td>LED-5MM-GREEN</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm green LED</td><td></td></tr>
+<tr><td>LED60</td><td>LED-5MM-GREEN</td><td>LED-5MM-GREEN</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm green LED</td><td></td></tr>
+<tr><td>LED61</td><td>LED-5MM-GREEN</td><td>LED-5MM-GREEN</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm green LED</td><td></td></tr>
+<tr><td>LED62</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED63</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED64</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED65</td><td>LED-5MM-AMBER</td><td>LED-5MM-AMBER</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm amber/orange/yellow LED</td><td></td></tr>
+<tr><td>LED66</td><td>LED-5MM-AMBER</td><td>LED-5MM-AMBER</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm amber/orange/yellow LED</td><td></td></tr>
+<tr><td>LED67</td><td>LED-5MM-AMBER</td><td>LED-5MM-AMBER</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm amber/orange/yellow LED</td><td></td></tr>
+<tr><td>LED68</td><td>LED-5MM-AMBER</td><td>LED-5MM-AMBER</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm amber/orange/yellow LED</td><td></td></tr>
+<tr><td>LED69</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED70</td><td>LED-5MM-AMBER</td><td>LED-5MM-AMBER</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm amber/orange/yellow LED</td><td></td></tr>
+<tr><td>LED71</td><td>LED-5MM-AMBER</td><td>LED-5MM-AMBER</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm amber/orange/yellow LED</td><td></td></tr>
+<tr><td>LED72</td><td>LED-5MM-AMBER</td><td>LED-5MM-AMBER</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm amber/orange/yellow LED</td><td></td></tr>
+<tr><td>LED73</td><td>LED-5MM-AMBER</td><td>LED-5MM-AMBER</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm amber/orange/yellow LED</td><td></td></tr>
+<tr><td>LED74</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED75</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED76</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED77</td><td>LED-5MM-AMBER</td><td>LED-5MM-AMBER</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm amber/orange/yellow LED</td><td></td></tr>
+<tr><td>LED78</td><td>LED-5MM-AMBER</td><td>LED-5MM-AMBER</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm amber/orange/yellow LED</td><td></td></tr>
+<tr><td>LED79</td><td>LED-5MM-GREEN</td><td>LED-5MM-GREEN</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm green LED</td><td></td></tr>
+<tr><td>LED80</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED81</td><td>LED-5MM-AMBER</td><td>LED-5MM-AMBER</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm amber/orange/yellow LED</td><td></td></tr>
+<tr><td>LED82</td><td>LED-5MM-GREEN</td><td>LED-5MM-GREEN</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm green LED</td><td></td></tr>
+<tr><td>LED83</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED84</td><td>LED-5MM-AMBER</td><td>LED-5MM-AMBER</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm amber/orange/yellow LED</td><td></td></tr>
+<tr><td>LED85</td><td>LED-5MM-AMBER</td><td>LED-5MM-AMBER</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm amber/orange/yellow LED</td><td></td></tr>
+<tr><td>LED86</td><td>LED-5MM-AMBER</td><td>LED-5MM-AMBER</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm amber/orange/yellow LED</td><td></td></tr>
+<tr><td>LED87</td><td>LED-5MM-GREEN</td><td>LED-5MM-GREEN</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm green LED</td><td></td></tr>
+<tr><td>LED88</td><td>LED-5MM-GREEN</td><td>LED-5MM-GREEN</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm green LED</td><td></td></tr>
+<tr><td>LED89</td><td>LED-5MM-GREEN</td><td>LED-5MM-GREEN</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm green LED</td><td></td></tr>
+<tr><td>LED90</td><td>LED-5MM-GREEN</td><td>LED-5MM-GREEN</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm green LED</td><td></td></tr>
+<tr><td>LED91</td><td>LED-5MM-GREEN</td><td>LED-5MM-GREEN</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm green LED</td><td></td></tr>
+<tr><td>LED92</td><td>LED-5MM-GREEN</td><td>LED-5MM-GREEN</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm green LED</td><td></td></tr>
+<tr><td>LED93</td><td>LED-5MM-GREEN</td><td>LED-5MM-GREEN</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm green LED</td><td></td></tr>
+<tr><td>LED94</td><td>LED-5MM-GREEN</td><td>LED-5MM-GREEN</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm green LED</td><td></td></tr>
+<tr><td>LED95</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED96</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED97</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED98</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED99</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED100</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED101</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED102</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED103</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED104</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED105</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED106</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED107</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED108</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED109</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED110</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED5MM</td><td>5mm LED</td><td></td><td>5mm red LED</td><td></td></tr>
+<tr><td>LED111</td><td>DUOLED-C</td><td>DUOLED-C</td><td>DUOLED-C-5MM</td><td>Common cathode duo LED (tri-color).</td><td></td><td>Common cathode tri-colour LED (red/green)</td><td></td></tr>
+<tr><td>LED112</td><td>DUOLED-C</td><td>DUOLED-C</td><td>DUOLED-C-5MM</td><td>Common cathode duo LED (tri-color).</td><td></td><td>Common cathode tri-colour LED (red/green)</td><td></td></tr>
+<tr><td>LED113</td><td>DUOLED-C</td><td>DUOLED-C</td><td>DUOLED-C-5MM</td><td>Common cathode duo LED (tri-color).</td><td></td><td>Common cathode tri-colour LED (red/green)</td><td></td></tr>
+<tr><td>LED114</td><td>DUOLED-C</td><td>DUOLED-C</td><td>DUOLED-C-5MM</td><td>Common cathode duo LED (tri-color).</td><td></td><td>Common cathode tri-colour LED (red/green)</td><td></td></tr>
+<tr><td>LED115</td><td>DUOLED-C</td><td>DUOLED-C</td><td>DUOLED-C-5MM</td><td>Common cathode duo LED (tri-color).</td><td></td><td>Common cathode tri-colour LED (red/green)</td><td></td></tr>
+<tr><td>LED116</td><td>DUOLED-C</td><td>DUOLED-C</td><td>DUOLED-C-5MM</td><td>Common cathode duo LED (tri-color).</td><td></td><td>Common cathode tri-colour LED (red/green)</td><td></td></tr>
+<tr><td>LED117</td><td>DUOLED-C</td><td>DUOLED-C</td><td>DUOLED-C-5MM</td><td>Common cathode duo LED (tri-color).</td><td></td><td>Common cathode tri-colour LED (red/green)</td><td></td></tr>
+<tr><td>LED118</td><td>DUOLED-C</td><td>DUOLED-C</td><td>DUOLED-C-5MM</td><td>Common cathode duo LED (tri-color).</td><td></td><td>Common cathode tri-colour LED (red/green)</td><td></td></tr>
+<tr><td>LEDPWR</td><td></td><td>W237-4</td><td>W237-4</td><td>WAGO SCREW CLAMP</td><td></td><td>Wago 2x screw clamp</td><td></td></tr>
+<tr><td>R1</td><td>200k</td><td>TRIM_EU-B90P</td><td>SP19L</td><td>POTENTIOMETER</td><td></td><td>200k linear ootentiometer/trimmer</td><td></td></tr>
+<tr><td>R2</td><td>180k</td><td>R-EU_0207/10</td><td>0207/10</td><td>RESISTOR, European symbol</td><td></td><td>180kΩ resistor</td><td></td></tr>
+<tr><td>R3</td><td>1k</td><td>R-EU_0207/10</td><td>0207/10</td><td>RESISTOR, European symbol</td><td></td><td>1kΩ resistor</td><td></td></tr>
+<tr><td>R4</td><td>200k</td><td>TRIM_EU-B90P</td><td>SP19L</td><td>POTENTIOMETER</td><td></td><td>200k linear ootentiometer/trimmer</td><td></td></tr>
+<tr><td>R5</td><td>330k</td><td>R-EU_0204/5</td><td>0204/5</td><td>RESISTOR, European symbol</td><td></td><td>330kΩ resistor</td><td></td></tr>
+<tr><td>R6</td><td>2.2k</td><td>R-EU_0204/7</td><td>0204/7</td><td>RESISTOR, European symbol</td><td></td><td>2.2kΩ resistor</td><td></td></tr>
+<tr><td>R7</td><td>330k</td><td>R-EU_0204/5</td><td>0204/5</td><td>RESISTOR, European symbol</td><td></td><td>330kΩ resistor</td><td></td></tr>
+<tr><td>R8</td><td>330k</td><td>R-EU_0204/5</td><td>0204/5</td><td>RESISTOR, European symbol</td><td></td><td>330kΩ resistor</td><td></td></tr>
+<tr><td>R9</td><td>330k</td><td>R-EU_0204/5</td><td>0204/5</td><td>RESISTOR, European symbol</td><td></td><td>330kΩ resistor</td><td></td></tr>
+<tr><td>R10</td><td>330k</td><td>R-EU_0204/5</td><td>0204/5</td><td>RESISTOR, European symbol</td><td></td><td>330kΩ resistor</td><td></td></tr>
+<tr><td>R11</td><td>330k</td><td>R-EU_0204/5</td><td>0204/5</td><td>RESISTOR, European symbol</td><td></td><td>330kΩ resistor</td><td></td></tr>
+<tr><td>R12</td><td>330k</td><td>R-EU_0204/5</td><td>0204/5</td><td>RESISTOR, European symbol</td><td></td><td>330kΩ resistor</td><td></td></tr>
+<tr><td>R13</td><td>330k</td><td>R-EU_0204/5</td><td>0204/5</td><td>RESISTOR, European symbol</td><td></td><td>330kΩ resistor</td><td></td></tr>
+<tr><td>R14</td><td>330k</td><td>R-EU_0204/5</td><td>0204/5</td><td>RESISTOR, European symbol</td><td></td><td>330kΩ resistor</td><td></td></tr>
+<tr><td>RN1</td><td>50k</td><td>8R-N</td><td>DIL16</td><td>DIL RESISTOR</td><td></td><td>50kΩ octal DIL resistor</td><td></td></tr>
+<tr><td>RN2</td><td>10k</td><td>G08R</td><td>SIL9</td><td>SIL RESISTOR</td><td></td><td>10kΩ octal bussed SIL resistor</td><td></td></tr>
+<tr><td>RN3</td><td>50k</td><td>8R-N</td><td>DIL16</td><td>DIL RESISTOR</td><td></td><td>50kΩ octal DIL resistor</td><td></td></tr>
+<tr><td>RN4</td><td>10k</td><td>G08R</td><td>SIL9</td><td>SIL RESISTOR</td><td></td><td>10kΩ octal bussed SIL resistor</td><td></td></tr>
+<tr><td>RN5</td><td>10k</td><td>G04R</td><td>SIL5</td><td>SIL RESISTOR</td><td></td><td>10kΩ 5x bussed SIL resistor</td><td></td></tr>
+<tr><td>RN6</td><td>10k</td><td>G08R</td><td>SIL9</td><td>SIL RESISTOR</td><td></td><td>10kΩ octal bussed SIL resistor</td><td></td></tr>
+<tr><td>RN7</td><td>10k</td><td>G08R</td><td>SIL9</td><td>SIL RESISTOR</td><td></td><td>10kΩ octal bussed SIL resistor</td><td></td></tr>
+<tr><td>RN8</td><td>10k</td><td>G08R</td><td>SIL9</td><td>SIL RESISTOR</td><td></td><td>10kΩ octal bussed SIL resistor</td><td></td></tr>
+<tr><td>RN9</td><td>180R</td><td>GE08R</td><td>SIL9</td><td>SIL RESISTOR</td><td></td><td>180Ω 8x bussed SIL resistor</td><td></td></tr>
+<tr><td>RN10</td><td>180R</td><td>GE08R</td><td>SIL9</td><td>SIL RESISTOR</td><td></td><td>180Ω 8x bussed SIL resistor</td><td></td></tr>
+<tr><td>RN11</td><td>180R</td><td>GE09R</td><td>SIL10</td><td>SIL RESISTOR</td><td></td><td>180Ω 9x bussed SIL resistor</td><td></td></tr>
+<tr><td>RN12</td><td>10k</td><td>G08R</td><td>SIL9</td><td>SIL RESISTOR</td><td></td><td>10kΩ octal bussed SIL resistor</td><td></td></tr>
+<tr><td>RN13</td><td>10k</td><td>G08R</td><td>SIL9</td><td>SIL RESISTOR</td><td></td><td>10kΩ octal bussed SIL resistor</td><td></td></tr>
+<tr><td>RN14</td><td>180R</td><td>GE08R</td><td>SIL9</td><td>SIL RESISTOR</td><td></td><td>180Ω 8x bussed SIL resistor</td><td></td></tr>
+<tr><td>RN15</td><td>180R</td><td>GE08R</td><td>SIL9</td><td>SIL RESISTOR</td><td></td><td>180Ω 8x bussed SIL resistor</td><td></td></tr>
+<tr><td>RN16</td><td>10k</td><td>G08R</td><td>SIL9</td><td>SIL RESISTOR</td><td></td><td>10kΩ octal bussed SIL resistor</td><td></td></tr>
+<tr><td>RN17</td><td>10k</td><td>G08R</td><td>SIL9</td><td>SIL RESISTOR</td><td></td><td>10kΩ octal bussed SIL resistor</td><td></td></tr>
+<tr><td>RN18</td><td>180R</td><td>GE08R</td><td>SIL9</td><td>SIL RESISTOR</td><td></td><td>180Ω 8x bussed SIL resistor</td><td></td></tr>
+<tr><td>RN19</td><td>180R</td><td>GE08R</td><td>SIL9</td><td>SIL RESISTOR</td><td></td><td>180Ω 8x bussed SIL resistor</td><td></td></tr>
+<tr><td>RN20</td><td>10k</td><td>G08R</td><td>SIL9</td><td>SIL RESISTOR</td><td></td><td>10kΩ octal bussed SIL resistor</td><td></td></tr>
+<tr><td>RN21</td><td>10k</td><td>G08R</td><td>SIL9</td><td>SIL RESISTOR</td><td></td><td>10kΩ octal bussed SIL resistor</td><td></td></tr>
+<tr><td>RN22</td><td>10k</td><td>G08R</td><td>SIL9</td><td>SIL RESISTOR</td><td></td><td>10kΩ octal bussed SIL resistor</td><td></td></tr>
+<tr><td>RN23</td><td>180R</td><td>GE08R</td><td>SIL9</td><td>SIL RESISTOR</td><td></td><td>180Ω 8x bussed SIL resistor</td><td></td></tr>
+<tr><td>RN24</td><td>180R</td><td>GE08R</td><td>SIL9</td><td>SIL RESISTOR</td><td></td><td>180Ω 8x bussed SIL resistor</td><td></td></tr>
+<tr><td>RN25</td><td>180R</td><td>GE08R</td><td>SIL9</td><td>SIL RESISTOR</td><td></td><td>180Ω 8x bussed SIL resistor</td><td></td></tr>
+<tr><td>RN26</td><td>10k</td><td>G05R</td><td>SIL6</td><td>SIL RESISTOR</td><td></td><td>10kΩ 5x bussed SIL resistor</td><td></td></tr>
+<tr><td>RN27</td><td>180R</td><td>GE08R</td><td>SIL9</td><td>SIL RESISTOR</td><td></td><td>180Ω 8x bussed SIL resistor</td><td></td></tr>
+<tr><td>RN28</td><td>180R</td><td>GE08R</td><td>SIL9</td><td>SIL RESISTOR</td><td></td><td>180Ω 8x bussed SIL resistor</td><td></td></tr>
+<tr><td>RN29</td><td>10k</td><td>G08R</td><td>SIL9</td><td>SIL RESISTOR</td><td></td><td>10kΩ octal bussed SIL resistor</td><td></td></tr>
+<tr><td>RN30</td><td>10k</td><td>G08R</td><td>SIL9</td><td>SIL RESISTOR</td><td></td><td>10kΩ octal bussed SIL resistor</td><td></td></tr>
+<tr><td>RN31</td><td>10k</td><td>G08R</td><td>SIL9</td><td>SIL RESISTOR</td><td></td><td>10kΩ octal bussed SIL resistor</td><td></td></tr>
+<tr><td>RN32</td><td>10k</td><td>G08R</td><td>SIL9</td><td>SIL RESISTOR</td><td></td><td>10kΩ octal bussed SIL resistor</td><td></td></tr>
+<tr><td>RN33</td><td>2k2</td><td>G03R</td><td>SIL4</td><td>SIL RESISTOR</td><td></td><td>2.2kΩ 3x bussed SIL resistor</td><td></td></tr>
+<tr><td>RN34</td><td>10k</td><td>G08R</td><td>SIL9</td><td>SIL RESISTOR</td><td></td><td>10kΩ octal bussed SIL resistor</td><td></td></tr>
+<tr><td>RN35</td><td>10k</td><td>G08R</td><td>SIL9</td><td>SIL RESISTOR</td><td></td><td>10kΩ octal bussed SIL resistor</td><td></td></tr>
+<tr><td>RN36</td><td>180R</td><td>GE08R</td><td>SIL9</td><td>SIL RESISTOR</td><td></td><td>180Ω 8x bussed SIL resistor</td><td></td></tr>
+<tr><td>RN37</td><td>180R</td><td>GE08R</td><td>SIL9</td><td>SIL RESISTOR</td><td></td><td>180Ω 8x bussed SIL resistor</td><td></td></tr>
+<tr><td>RN38</td><td>150R</td><td>8R-N</td><td>DIL16</td><td>DIL RESISTOR</td><td></td><td>150Ω 8x DIL resistor</td><td></td></tr>
+<tr><td>RN39</td><td>150R</td><td>8R-N</td><td>DIL16</td><td>DIL RESISTOR</td><td></td><td>150Ω 8x DIL resistor</td><td></td></tr>
+<tr><td>RN40</td><td>10k</td><td>G08R</td><td>SIL9</td><td>SIL RESISTOR</td><td></td><td>10kΩ octal bussed SIL resistor</td><td></td></tr>
+<tr><td>S1</td><td>TL36PO</td><td>TL36PO</td><td>TL3XPO</td><td>TINY SWITCH ON - ON</td><td></td><td>On-On toggle switch</td><td></td></tr>
+<tr><td>S2</td><td>TL36PO</td><td>TL36PO</td><td>TL3XPO</td><td>TINY SWITCH ON - ON</td><td></td><td>On-On toggle switch</td><td></td></tr>
+<tr><td>S3</td><td>TL36PO</td><td>TL36PO</td><td>TL3XPO</td><td>TINY SWITCH ON - ON</td><td></td><td>On-On toggle switch</td><td></td></tr>
+<tr><td>S4</td><td>TL36PO</td><td>TL36PO</td><td>TL3XPO</td><td>TINY SWITCH ON - ON</td><td></td><td>On-On toggle switch</td><td></td></tr>
+<tr><td>S5</td><td>TL36PO</td><td>TL36PO</td><td>TL3XPO</td><td>TINY SWITCH ON - ON</td><td></td><td>On-On toggle switch</td><td></td></tr>
+<tr><td>S6</td><td>TL36PO</td><td>TL36PO</td><td>TL3XPO</td><td>TINY SWITCH ON - ON</td><td></td><td>On-On toggle switch</td><td></td></tr>
+<tr><td>S7</td><td>TL36PO</td><td>TL36PO</td><td>TL3XPO</td><td>TINY SWITCH ON - ON</td><td></td><td>On-On toggle switch</td><td></td></tr>
+<tr><td>S8</td><td>TL36PO</td><td>TL36PO</td><td>TL3XPO</td><td>TINY SWITCH ON - ON</td><td></td><td>On-On toggle switch</td><td></td></tr>
+<tr><td>S9</td><td>TL36PO</td><td>TL36PO</td><td>TL3XPO</td><td>TINY SWITCH ON - ON</td><td></td><td>On-On toggle switch</td><td></td></tr>
+<tr><td>S10</td><td>TL36PO</td><td>TL36PO</td><td>TL3XPO</td><td>TINY SWITCH ON - ON</td><td></td><td>On-On toggle switch</td><td></td></tr>
+<tr><td>S11</td><td>TL36PO</td><td>TL36PO</td><td>TL3XPO</td><td>TINY SWITCH ON - ON</td><td></td><td>On-On toggle switch</td><td></td></tr>
+<tr><td>S12</td><td>TL36PO</td><td>TL36PO</td><td>TL3XPO</td><td>TINY SWITCH ON - ON</td><td></td><td>On-On toggle switch</td><td></td></tr>
+<tr><td>S13</td><td>TL36PO</td><td>TL36PO</td><td>TL3XPO</td><td>TINY SWITCH ON - ON</td><td></td><td>On-On toggle switch</td><td></td></tr>
+<tr><td>S14</td><td>TL36PO</td><td>TL36PO</td><td>TL3XPO</td><td>TINY SWITCH ON - ON</td><td></td><td>On-On toggle switch</td><td></td></tr>
+<tr><td>S15</td><td>TL36PO</td><td>TL36PO</td><td>TL3XPO</td><td>TINY SWITCH ON - ON</td><td></td><td>On-On toggle switch</td><td></td></tr>
+<tr><td>S16</td><td>TL36PO</td><td>TL36PO</td><td>TL3XPO</td><td>TINY SWITCH ON - ON</td><td></td><td>On-On toggle switch</td><td></td></tr>
+<tr><td>S17</td><td></td><td>320-938</td><td>320-938</td><td>TOGGLE SWITCH</td><td></td><td>Double-pole 3-position key switch</td><td>Make-before-break</td></tr>
+<tr><td>S18</td><td>TL36PO</td><td>TL36PO</td><td>TL3XPO</td><td>TINY SWITCH ON - ON</td><td></td><td>On-On toggle switch</td><td></td></tr>
+<tr><td>S19</td><td>TL36PO</td><td>TL36PO</td><td>TL3XPO</td><td>TINY SWITCH ON - ON</td><td></td><td>On-On toggle switch</td><td></td></tr>
+<tr><td>S20</td><td>TL49PO</td><td>TL49PO</td><td>TL4XPO</td><td>TINY SWITCH ON OFF ON</td><td></td><td>On-Off-On toggle switch</td><td></td></tr>
+<tr><td>S21</td><td>TL37PO</td><td>TL37PO</td><td>TL3XPO</td><td>TINY SWITCH MOM OFF MOM</td><td></td><td>Mom-Off-Mom toggle switch</td><td></td></tr>
+<tr><td>S22</td><td>TL47PO</td><td>TL47PO</td><td>TL4XPO</td><td>TINY SWITCH MOM OFF MOM</td><td></td><td>Mom-Off-Mom toggle switch</td><td></td></tr>
+<tr><td>S23</td><td>TL37PO</td><td>TL37PO</td><td>TL3XPO</td><td>TINY SWITCH MOM OFF MOM</td><td></td><td>Mom-Off-Mom toggle switch</td><td></td></tr>
+<tr><td>S24</td><td>TL37PO</td><td>TL37PO</td><td>TL3XPO</td><td>TINY SWITCH MOM OFF MOM</td><td></td><td>Mom-Off-Mom toggle switch</td><td></td></tr>
+<tr><td>S25</td><td>TL47PO</td><td>TL47PO</td><td>TL4XPO</td><td>TINY SWITCH MOM OFF MOM</td><td></td><td>Mom-Off-Mom toggle switch</td><td></td></tr>
+<tr><td>S26</td><td>TL47PO</td><td>TL47PO</td><td>TL4XPO</td><td>TINY SWITCH MOM OFF MOM</td><td></td><td>Mom-Off-Mom toggle switch</td><td></td></tr>
+<tr><td>S27</td><td>TL47PO</td><td>TL47PO</td><td>TL4XPO</td><td>TINY SWITCH MOM OFF MOM</td><td></td><td>Mom-Off-Mom toggle switch</td><td></td></tr>
+<tr><td>S28</td><td>TL47PO</td><td>TL47PO</td><td>TL4XPO</td><td>TINY SWITCH MOM OFF MOM</td><td></td><td>Mom-Off-Mom toggle switch</td><td></td></tr>
+<tr><td>S29</td><td>TL49PO</td><td>TL49PO</td><td>TL4XPO</td><td>TINY SWITCH ON OFF ON</td><td></td><td>On-Off-On toggle switch</td><td></td></tr>
+<tr><td>S30</td><td>TL37PO</td><td>TL37PO</td><td>TL3XPO</td><td>TINY SWITCH MOM OFF MOM</td><td></td><td>Mom-Off-Mom toggle switch</td><td></td></tr>
+<tr><td>S31</td><td>TL37PO</td><td>TL37PO</td><td>TL3XPO</td><td>TINY SWITCH MOM OFF MOM</td><td></td><td>Mom-Off-Mom toggle switch</td><td></td></tr>
+<tr><td>SV1</td><td>3-pin-header</td><td>MA03-2</td><td>MA03-2</td><td>PIN HEADER</td><td></td><td>3x2 pin header</td><td></td></tr>
+<tr><td>SW1</td><td></td><td>SW_DIP-3</td><td>EDG-03</td><td>DIP SWITCH</td><td></td><td>3x dip switch or 2x3 pin header</td><td></td></tr>
+<tr><td>SWPWR</td><td></td><td>W237-4</td><td>W237-4</td><td>WAGO SCREW CLAMP</td><td></td><td>Wago 2x screw clamp</td><td></td></tr>
+</table>
