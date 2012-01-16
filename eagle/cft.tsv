@@ -1,52 +1,56 @@
 Key	Order Code	Description Override	Notes
-5566-24			ATX mainboard power socket
-22-23-2051			Molex KK® series header
-22-23-2081			Molex KK® series header
-22-23-2091			Molex KK® series header
-C-EU025-024X044:100nF		100nF capacitor	
-C-EU025-024X044:22nF		22nF capacitor	
-C-EU025-024X044:1uF		1μF capacitor	
+5566-24		Mini FIT 24 way socket	ATX mainboard power socket
+22-23-2051	Farnell 1462952	5x1 pin 2.54mm centre header	Molex KK® series header
+22-23-2081	Farnell 1756826	8x1 pin 2.54mm centre header	Molex KK® series header
+22-23-2091	Farnell 1756827	9x1 pin 2.54mm centre header	Molex KK® series header
+C-EU025-024X044:100nF	Farnell 1694337	100nF capacitor	
+C-EU025-024X044:22nF	Farnell 9411860	22nF capacitor	
+C-EU025-024X044:1uF	Farnell 3322210	1μF capacitor	
 CON40:		40 pin (2x20) 2.54mm pitch header	
 	asd	5mm red LED	
-LED-5MM-GREEN		5mm green LED	
-LED-5MM-AMBER		5mm amber/orange/yellow LED	
-LED-5MM-RED		5mm red LED	
-1N4148		1N4148 diode	Or any fast signal diode
-CPOL-EUE1.8-4:1uF		1μF Tantalum capacitor	
-CPOL-EUE2,5-6E:100uF		100uF Tantalum capacitor	
-CPOL-EUE2,5-6E:4.7uF		4.7μF Tantalum capacitor	
-CPOL-EUE2.5-7:10uF		10μF/10V Electrolytic capacitor	
+LED-5MM-GREEN	Farnell 1855549	5mm green LED	
+LED-5MM-AMBER	Farnell 1142581	5mm amber/orange/yellow LED	
+LED-5MM-RED	Farnell 1581217	5mm red LED	
+1N4148	Farnell 9565124	1N4148 diode	Or any fast signal diode
+CPOL-EUE1.8-4:1uF	Farnell 9708529	1μF Tantalum capacitor	
+CPOL-EUE2,5-6E:100uF	Farnell 1902882	100uF Electrolytic capacitor	
+CPOL-EUE2,5-6E:4.7uF	Farnell 1902916	4.7μF Electrolytic capacitor	
+CPOL-EUE2.5-7:10uF	Farnell 1902928	10μF/10V Electrolytic capacitor	
 JP2E:		3-pin 2.54mm header	
-DUOLED-C		Common cathode tri-colour LED (red/green)	
-TRIM_EU-B90P:200k		200k linear ootentiometer/trimmer	
-R-EU_0207/10:180k		180kΩ resistor	
-R-EU_0207/10:1k		1kΩ resistor	
-74HC14N		Hex inverting Schmitt trigger	
-74LS123N		Dual retriggerable monostable multivibrator	
-LM555N		Timer	
-74HC04N		Hex inverter	
-74HC541N		Octal 3-state buffer	
-74HC540N		Octal 3-state inverting buffer	
-74HC138N		3-to-8 line Decoder	
-74HC85N		4-bit Magnitude Comparator	
+DUOLED-C	Farnell 2001770	Common cathode tri-colour LED (red/green)	
+TRIM_EU-B90P:200k	Farnell 1689846	200k linear potentiometer/trimmer	
+R-EU_0207/10:180k	Farnell 9463410	180kΩ resistor	
+R-EU_0207/10:1k	Farnell 9339051	1kΩ resistor	
+74HC14N	Farnell 7455513	74HC14N Hex inverting Schmitt trigger	
+74LS123N	Farnell 1470902	74LS123N Dual retriggerable monostable multivibrator	
+LM555N	Farnell 1534493	LM555N Timer	
+74HC04N	Farnell 2374080	74HC04N Hex inverter	
+74HC541N	Farnell 1868634	74HC541N Octal 3-state buffer	
+74HC540N	Farnell 1868632	74HC540N Octal 3-state inverting buffer	
+74HC138N	Farnell 1826779	74HC138N 3-to-8 line Decoder	
+74HC85N	Farnell 1868642	74HC85N 4-bit Magnitude Comparator	
 W237-4:		Wago 2x screw clamp	
-R-EU_0204/5:330k		330kΩ resistor	
-R-EU_0204/7:2.2k		2.2kΩ resistor	
+R-EU_0204/5:330k	Farnell 9475923	330kΩ resistor	
+R-EU_0204/7:2.2k	Farnell 9339302	2.2kΩ resistor	
 E4R:50k		50kΩ 8x bussed SIL resistor	
-8R-N:50k		50kΩ octal DIL resistor	
-G08R:10k		10kΩ octal bussed SIL resistor	
+8R-N:50k	Farnell 9355987	50kΩ octal DIL resistor	
+G08R:10k	Farnell 1973130	10kΩ octal bussed SIL resistor	
 G04R:10k		10kΩ 5x bussed SIL resistor	
-GE08R:180R		180Ω 8x bussed SIL resistor	
-GE09R:180R		180Ω 9x bussed SIL resistor	
-G05R:10k		10kΩ 5x bussed SIL resistor	
-G03R:2k2		2.2kΩ 3x bussed SIL resistor	
-8R-N:150R		150Ω 8x DIL resistor	
+GE08R:150R	Farnell 9356843	180Ω 8x bussed SIL resistor	
+GE09R:150R	Farnell 9357157	180Ω 9x bussed SIL resistor	
+G05R:10k	Farnell 1602062	10kΩ 5x bussed SIL resistor	
+G03R:2k2	Farnell 1902599	2.2kΩ 3x bussed SIL resistor	
+8R-N:150R	Farnell 9355855	150Ω 8x DIL resistor	
 255SB:		On-On or On-Off toggle switch	
-320-938:		Double-pole 3-position key switch	Make-before-break
+320-938:	RS 219-5835 + RS 693-2284	Double-pole 3-position key switch	Make-before-break
 TL39PO		On-Off-On toggle switch	
-TL36PO		On-On toggle switch	
-TL49PO		On-Off-On toggle switch	
-TL37PO		Mom-Off-Mom toggle switch	
-TL47PO		Mom-Off-Mom toggle switch	
-SW_DIP-3:		3x dip switch or 2x3 pin header	
+TL36PO	Farnell 9473785, Farnell 9812229, Farnell 9473785	On-On toggle switch	Switch body and separate black/red actuators
+TL49PO	Farnell 9473807	On-Off-On toggle switch	Also add lever actuator
+TL37PO	Farnell 9473769	Mom-Off-Mom toggle switch	
+TL47PO	Farnell 9473815	Mom-Off-Mom toggle switch	
+SW_DIP-3:	Farnell 1522004	3x dip switch or 2x3 pin header	
 MA03-2:3-pin-header		3x2 pin header	
+74HCT00N	Farnell 2373749	74HCT00N Quad 2-input NAND gate	
+74HC01N		74HC01N Quad 2-input NAND gate, open drain	
+74HC03N	Farnell 1282849	74HC03N Quad 2-input NAND gate, open collector output	
+G06R:10k	Farnell 1973163	10kΩ 6x bussed SIL resistor	

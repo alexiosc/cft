@@ -2,24 +2,24 @@ EAGLE AutoRouter Statistics:
 
 Job           : /home/alexios/eagle/CFT/control_unit.brd
 
-Start at      : 04:52:45 (17 Nov 2011)
-End at        : 04:52:48 (17 Nov 2011)
-Elapsed time  : 00:00:03
+Start at      : 17:05:36 (15 Jan 2012)
+End at        : 17:05:52 (15 Jan 2012)
+Elapsed time  : 00:00:16
 
-Signals       :   132   RoutingGrid: 25 mil  Layers: 2
-Connections   :   359   predefined:  356 ( 252 Vias )
+Signals       :   131   RoutingGrid: 50 mil  Layers: 2
+Connections   :   371   predefined:  109 ( 0 Vias )
 
-Router memory :   260736
+Router memory :   69136
 
-Passname          :     Route Optimize1 Optimize2 Optimize3 Optimize4
+Passname          :    Busses     Route Optimize1 Optimize2 Optimize3 Optimize4
 
-Time per pass     :  00:00:01  00:00:00  00:00:01  00:00:01  00:00:00
-Number of Ripups  :         0         0         0         0         0
-max. Level        :         0         0         0         0         0
-max. Total        :         0         0         0         0         0
+Time per pass     :  00:00:01  00:00:04  00:00:03  00:00:03  00:00:03  00:00:02
+Number of Ripups  :         0         6         0         0         0         0
+max. Level        :         0         2         0         0         0         0
+max. Total        :         0         4         0         0         0         0
 
-Routed            :         1         2         2         2         2
-Vias              :         3         1         1         1         1
-Resolution        :    99.4 %    99.7 %    99.7 %    99.7 %    99.7 %
+Routed            :        11       127       128       128       128       128
+Vias              :         0       267       177       157       148       146
+Resolution        :    32.3 %    63.6 %    63.9 %    63.9 %    63.9 %    63.9 %
 
-Final             : 99.2% finished. Polygons may have fallen apart.
+Final             : 54.5% finished. Polygons may have fallen apart.

@@ -12,6 +12,8 @@ base=`echo $source | sed 's/\.pov$//'`
 #aa=+a0.3
 width=2048
 height=1536
+#width=800
+#height=600
 
 e3d_dir="/home/alexios/eagle/eagle3d/povray"
 

@@ -1,54 +1,53 @@
-<b>Partlist exported from /home/alexios/eagle/CFT/front-panel.sch at 9 Jan 2012 13:11:22</b>
+<b>Partlist exported from /home/alexios/eagle/CFT/front-panel.sch at 15 Jan 2012 13:56:48</b>
 <p>
 <table>
 <tr><td><b>Qty</b></td><td><b>Value</b></td><td><b>Device</b></td><td><b>Parts</b></td><td><b>Order Code</b></td><td><b>Description Override</b></td><td><b>Notes</b></td></tr>
-<tr><td>1</td><td></td><td>320-938</td><td>S17</td><td></td><td>Double-pole 3-position key switch</td><td>Make-before-break</td></tr>
-<tr><td>1</td><td></td><td>CON40</td><td>CON</td><td></td><td>40 pin (2x20) 2.54mm pitch header</td><td></td></tr>
+<tr><td>1</td><td></td><td>320-938</td><td>S17</td><td>RS 219-5835 + RS 693-2284</td><td>Double-pole 3-position key switch</td><td>Make-before-break</td></tr>
 <tr><td>5</td><td></td><td>JP2E</td><td>JP1, JP2, JP3, JP4, JP5</td><td></td><td>3-pin 2.54mm header</td><td></td></tr>
-<tr><td>1</td><td></td><td>SW_DIP-3</td><td>SW1</td><td></td><td>3x dip switch or 2x3 pin header</td><td></td></tr>
+<tr><td>1</td><td></td><td>SW_DIP-3</td><td>SW1</td><td>Farnell 1522004</td><td>3x dip switch or 2x3 pin header</td><td></td></tr>
 <tr><td>3</td><td></td><td>W237-4</td><td>AUXPWR, LEDPWR, SWPWR</td><td></td><td>Wago 2x screw clamp</td><td></td></tr>
-<tr><td>3</td><td>1N4148</td><td>1N4148DO35-7</td><td>D1, D2, D3</td><td></td><td>1N4148 diode</td><td>Or any fast signal diode</td></tr>
-<tr><td>1</td><td>1k</td><td>R-EU_0207/10</td><td>R3</td><td></td><td>1kΩ resistor</td><td></td></tr>
-<tr><td>9</td><td>1uF</td><td>C-EU025-024X044</td><td>C20, C21, C22, C23, C24, C25, C26, C27, C28</td><td></td><td>1μF capacitor</td><td></td></tr>
-<tr><td>16</td><td>1uF</td><td>CPOL-EUE1.8-4</td><td>C1, C2, C3, C4, C8, C9, C10, C11, C12, C13, C14, C15, C16, C17, C18, C19</td><td></td><td>1μF Tantalum capacitor</td><td></td></tr>
-<tr><td>1</td><td>2.2k</td><td>R-EU_0204/7</td><td>R6</td><td></td><td>2.2kΩ resistor</td><td></td></tr>
-<tr><td>1</td><td>2k2</td><td>G03R</td><td>RN33</td><td></td><td>2.2kΩ 3x bussed SIL resistor</td><td></td></tr>
+<tr><td>3</td><td>1N4148</td><td>1N4148DO35-7</td><td>D1, D2, D3</td><td>Farnell 9565124</td><td>1N4148 diode</td><td>Or any fast signal diode</td></tr>
+<tr><td>1</td><td>1k</td><td>R-EU_0207/10</td><td>R3</td><td>Farnell 9339051</td><td>1kΩ resistor</td><td></td></tr>
+<tr><td>9</td><td>1uF</td><td>C-EU025-024X044</td><td>C20, C21, C22, C23, C24, C25, C26, C27, C28</td><td>Farnell 3322210</td><td>1μF capacitor</td><td></td></tr>
+<tr><td>16</td><td>1uF</td><td>CPOL-EUE1.8-4</td><td>C1, C2, C3, C4, C8, C9, C10, C11, C12, C13, C14, C15, C16, C17, C18, C19</td><td>Farnell 9708529</td><td>1μF Tantalum capacitor</td><td></td></tr>
+<tr><td>1</td><td>2.2k</td><td>R-EU_0204/7</td><td>R6</td><td>Farnell 9339302</td><td>2.2kΩ resistor</td><td></td></tr>
+<tr><td>1</td><td>2k2</td><td>G03R</td><td>RN33</td><td>Farnell 1902599</td><td>2.2kΩ 3x bussed SIL resistor</td><td></td></tr>
 <tr><td>1</td><td>3-pin-header</td><td>MA03-2</td><td>SV1</td><td></td><td>3x2 pin header</td><td></td></tr>
-<tr><td>1</td><td>4.7uF</td><td>CPOL-EUE2,5-6E</td><td>C7</td><td></td><td>4.7μF Tantalum capacitor</td><td></td></tr>
-<tr><td>1</td><td>10k</td><td>G04R</td><td>RN5</td><td></td><td>10kΩ 5x bussed SIL resistor</td><td></td></tr>
-<tr><td>1</td><td>10k</td><td>G05R</td><td>RN26</td><td></td><td>10kΩ 5x bussed SIL resistor</td><td></td></tr>
-<tr><td>19</td><td>10k</td><td>G08R</td><td>RN2, RN4, RN6, RN7, RN8, RN12, RN13, RN16, RN17, RN20, RN21, RN22, RN29, RN30, RN31, RN32, RN34, RN35, RN40</td><td></td><td>10kΩ octal bussed SIL resistor</td><td></td></tr>
-<tr><td>1</td><td>10uF</td><td>CPOL-EUE2.5-7</td><td>C29</td><td></td><td>10μF/10V Electrolytic capacitor</td><td></td></tr>
-<tr><td>1</td><td>22-23-2051</td><td>22-23-2051</td><td>CON13</td><td></td><td></td><td>Molex KK® series header</td></tr>
-<tr><td>19</td><td>22-23-2081</td><td>22-23-2081</td><td>CON1, CON2, CON3, CON4, CON6, CON7, CON8, CON9, CON10, CON11, CON12, CON14, CON15, CON16, CON17, CON18, CON19, CON20, CON21</td><td></td><td></td><td>Molex KK® series header</td></tr>
-<tr><td>1</td><td>22-23-2091</td><td>22-23-2091</td><td>CON5</td><td></td><td></td><td>Molex KK® series header</td></tr>
-<tr><td>1</td><td>22nF</td><td>C-EU025-024X044</td><td>C6</td><td></td><td>22nF capacitor</td><td></td></tr>
-<tr><td>2</td><td>50k</td><td>8R-N</td><td>RN1, RN3</td><td></td><td>50kΩ octal DIL resistor</td><td></td></tr>
-<tr><td>1</td><td>74HC01N</td><td>74HC01N</td><td>IC10</td><td></td><td></td><td></td></tr>
-<tr><td>3</td><td>74HC04N</td><td>74HC04N</td><td>IC4, IC7, IC9</td><td></td><td>Hex inverter</td><td></td></tr>
-<tr><td>3</td><td>74HC14N</td><td>74HC14N</td><td>IC1, IC6, IC8</td><td></td><td>Hex inverting Schmitt trigger</td><td></td></tr>
-<tr><td>1</td><td>74HC85N</td><td>74HC85N</td><td>IC31</td><td></td><td>4-bit Magnitude Comparator</td><td></td></tr>
-<tr><td>1</td><td>74HC138N</td><td>74HC138N</td><td>IC24</td><td></td><td>3-to-8 line Decoder</td><td></td></tr>
-<tr><td>3</td><td>74HC540N</td><td>74HC540N</td><td>IC20, IC21, IC36</td><td></td><td>Octal 3-state inverting buffer</td><td></td></tr>
-<tr><td>16</td><td>74HC541N</td><td>74HC541N</td><td>IC11, IC12, IC13, IC14, IC15, IC16, IC17, IC18, IC19, IC23, IC25, IC26, IC27, IC28, IC29, IC30</td><td></td><td>Octal 3-state buffer</td><td></td></tr>
-<tr><td>1</td><td>74HCT00N</td><td>74HCT00N</td><td>IC5</td><td></td><td></td><td></td></tr>
-<tr><td>6</td><td>74LS123N</td><td>74LS123N</td><td>IC2, IC22, IC32, IC33, IC34, IC35</td><td></td><td>Dual retriggerable monostable multivibrator</td><td></td></tr>
-<tr><td>36</td><td>100nF</td><td>C-EU025-024X044</td><td>C30, C31, C32, C33, C34, C35, C36, C37, C38, C39, C40, C41, C42, C43, C44, C45, C46, C47, C48, C49, C50, C51, C52, C53, C54, C55, C56, C57, C58, C59, C60, C61, C62, C63, C64, C65</td><td></td><td>100nF capacitor</td><td></td></tr>
-<tr><td>1</td><td>100uF</td><td>CPOL-EUE2,5-6E</td><td>C5</td><td></td><td>100uF Tantalum capacitor</td><td></td></tr>
-<tr><td>2</td><td>150R</td><td>8R-N</td><td>RN38, RN39</td><td></td><td>150Ω 8x DIL resistor</td><td></td></tr>
-<tr><td>13</td><td>180R</td><td>GE08R</td><td>RN9, RN10, RN14, RN15, RN18, RN19, RN23, RN24, RN25, RN27, RN28, RN36, RN37</td><td></td><td>180Ω 8x bussed SIL resistor</td><td></td></tr>
-<tr><td>1</td><td>180R</td><td>GE09R</td><td>RN11</td><td></td><td>180Ω 9x bussed SIL resistor</td><td></td></tr>
-<tr><td>1</td><td>180k</td><td>R-EU_0207/10</td><td>R2</td><td></td><td>180kΩ resistor</td><td></td></tr>
-<tr><td>2</td><td>200k</td><td>TRIM_EU-B90P</td><td>R1, R4</td><td></td><td>200k linear ootentiometer/trimmer</td><td></td></tr>
-<tr><td>9</td><td>330k</td><td>R-EU_0204/5</td><td>R5, R7, R8, R9, R10, R11, R12, R13, R14</td><td></td><td>330kΩ resistor</td><td></td></tr>
-<tr><td>1</td><td>5566-24</td><td>5566-24</td><td>ATXPWR</td><td></td><td></td><td>ATX mainboard power socket</td></tr>
-<tr><td>8</td><td>DUOLED-C</td><td>DUOLED-C</td><td>LED111, LED112, LED113, LED114, LED115, LED116, LED117, LED118</td><td></td><td>Common cathode tri-colour LED (red/green)</td><td></td></tr>
-<tr><td>27</td><td>LED-5MM-AMBER</td><td>LED-5MM-AMBER</td><td>LED17, LED18, LED19, LED20, LED21, LED22, LED23, LED24, LED52, LED54, LED55, LED56, LED57, LED65, LED66, LED67, LED68, LED70, LED71, LED72, LED73, LED77, LED78, LED81, LED84, LED85, LED86</td><td></td><td>5mm amber/orange/yellow LED</td><td></td></tr>
-<tr><td>15</td><td>LED-5MM-GREEN</td><td>LED-5MM-GREEN</td><td>LED25, LED58, LED59, LED60, LED61, LED79, LED82, LED87, LED88, LED89, LED90, LED91, LED92, LED93, LED94</td><td></td><td>5mm green LED</td><td></td></tr>
-<tr><td>68</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED1, LED2, LED3, LED4, LED5, LED6, LED7, LED8, LED9, LED10, LED11, LED12, LED13, LED14, LED15, LED16, LED26, LED27, LED28, LED29, LED30, LED31, LED32, LED33, LED34, LED35, LED36, LED37, LED38, LED39, LED40, LED41, LED42, LED43, LED44, LED45, LED46, LED47, LED48, LED49, LED50, LED51, LED53, LED62, LED63, LED64, LED69, LED74, LED75, LED76, LED80, LED83, LED95, LED96, LED97, LED98, LED99, LED100, LED101, LED102, LED103, LED104, LED105, LED106, LED107, LED108, LED109, LED110</td><td></td><td>5mm red LED</td><td></td></tr>
-<tr><td>1</td><td>LM555N</td><td>LM555N</td><td>IC3</td><td></td><td>Timer</td><td></td></tr>
-<tr><td>18</td><td>TL36PO</td><td>TL36PO</td><td>S1, S2, S3, S4, S5, S6, S7, S8, S9, S10, S11, S12, S13, S14, S15, S16, S18, S19</td><td></td><td>On-On toggle switch</td><td></td></tr>
-<tr><td>5</td><td>TL37PO</td><td>TL37PO</td><td>S21, S23, S24, S30, S31</td><td></td><td>Mom-Off-Mom toggle switch</td><td></td></tr>
-<tr><td>5</td><td>TL47PO</td><td>TL47PO</td><td>S22, S25, S26, S27, S28</td><td></td><td>Mom-Off-Mom toggle switch</td><td></td></tr>
-<tr><td>2</td><td>TL49PO</td><td>TL49PO</td><td>S20, S29</td><td></td><td>On-Off-On toggle switch</td><td></td></tr>
+<tr><td>1</td><td>4.7uF</td><td>CPOL-EUE2,5-6E</td><td>C7</td><td>Farnell 1902916</td><td>4.7μF Electrolytic capacitor</td><td></td></tr>
+<tr><td>1</td><td>10k</td><td>G05R</td><td>RN26</td><td>Farnell 1602062</td><td>10kΩ 5x bussed SIL resistor</td><td></td></tr>
+<tr><td>1</td><td>10k</td><td>G06R</td><td>RN5</td><td>Farnell 1973163</td><td>10kΩ 6x bussed SIL resistor</td><td></td></tr>
+<tr><td>19</td><td>10k</td><td>G08R</td><td>RN2, RN4, RN6, RN7, RN8, RN12, RN13, RN16, RN17, RN20, RN21, RN22, RN29, RN30, RN31, RN32, RN34, RN35, RN40</td><td>Farnell 1973130</td><td>10kΩ octal bussed SIL resistor</td><td></td></tr>
+<tr><td>1</td><td>10uF</td><td>CPOL-EUE2.5-7</td><td>C29</td><td>Farnell 1902928</td><td>10μF/10V Electrolytic capacitor</td><td></td></tr>
+<tr><td>1</td><td>22-23-2051</td><td>22-23-2051</td><td>CON13</td><td>Farnell 1462952</td><td>5x1 pin 2.54mm centre header</td><td>Molex KK® series header</td></tr>
+<tr><td>21</td><td>22-23-2081</td><td>22-23-2081</td><td>CON1, CON2, CON3, CON4, CON6, CON7, CON8, CON9, CON10, CON11, CON12, CON14, CON15, CON16, CON17, CON18, CON19, CON20, CON21, CON22, CON23</td><td>Farnell 1756826</td><td>8x1 pin 2.54mm centre header</td><td>Molex KK® series header</td></tr>
+<tr><td>2</td><td>22-23-2091</td><td>22-23-2091</td><td>CON5, CON24</td><td>Farnell 1756827</td><td>9x1 pin 2.54mm centre header</td><td>Molex KK® series header</td></tr>
+<tr><td>1</td><td>22nF</td><td>C-EU025-024X044</td><td>C6</td><td>Farnell 9411860</td><td>22nF capacitor</td><td></td></tr>
+<tr><td>2</td><td>50k</td><td>8R-N</td><td>RN1, RN3</td><td>Farnell 9355987</td><td>50kΩ octal DIL resistor</td><td></td></tr>
+<tr><td>1</td><td>74HC03N</td><td>74HC03N</td><td>IC10</td><td>Farnell 1282849</td><td>74HC03N Quad 2-input NAND gate, open collector output</td><td></td></tr>
+<tr><td>3</td><td>74HC04N</td><td>74HC04N</td><td>IC4, IC7, IC9</td><td>Farnell 2374080</td><td>74HC04N Hex inverter</td><td></td></tr>
+<tr><td>3</td><td>74HC14N</td><td>74HC14N</td><td>IC1, IC6, IC8</td><td>Farnell 7455513</td><td>74HC14N Hex inverting Schmitt trigger</td><td></td></tr>
+<tr><td>1</td><td>74HC85N</td><td>74HC85N</td><td>IC31</td><td>Farnell 1868642</td><td>74HC85N 4-bit Magnitude Comparator</td><td></td></tr>
+<tr><td>1</td><td>74HC138N</td><td>74HC138N</td><td>IC24</td><td>Farnell 1826779</td><td>74HC138N 3-to-8 line Decoder</td><td></td></tr>
+<tr><td>3</td><td>74HC540N</td><td>74HC540N</td><td>IC20, IC21, IC36</td><td>Farnell 1868632</td><td>74HC540N Octal 3-state inverting buffer</td><td></td></tr>
+<tr><td>16</td><td>74HC541N</td><td>74HC541N</td><td>IC11, IC12, IC13, IC14, IC15, IC16, IC17, IC18, IC19, IC23, IC25, IC26, IC27, IC28, IC29, IC30</td><td>Farnell 1868634</td><td>74HC541N Octal 3-state buffer</td><td></td></tr>
+<tr><td>1</td><td>74HCT00N</td><td>74HCT00N</td><td>IC5</td><td>Farnell 2373749</td><td>74HCT00N Quad 2-input NAND gate</td><td></td></tr>
+<tr><td>6</td><td>74LS123N</td><td>74LS123N</td><td>IC2, IC22, IC32, IC33, IC34, IC35</td><td>Farnell 1470902</td><td>74LS123N Dual retriggerable monostable multivibrator</td><td></td></tr>
+<tr><td>36</td><td>100nF</td><td>C-EU025-024X044</td><td>C30, C31, C32, C33, C34, C35, C36, C37, C38, C39, C40, C41, C42, C43, C44, C45, C46, C47, C48, C49, C50, C51, C52, C53, C54, C55, C56, C57, C58, C59, C60, C61, C62, C63, C64, C65</td><td>Farnell 1694337</td><td>100nF capacitor</td><td></td></tr>
+<tr><td>1</td><td>100uF</td><td>CPOL-EUE2,5-6E</td><td>C5</td><td>Farnell 1902882</td><td>100uF Electrolytic capacitor</td><td></td></tr>
+<tr><td>2</td><td>150R</td><td>8R-N</td><td>RN38, RN39</td><td>Farnell 9355855</td><td>150Ω 8x DIL resistor</td><td></td></tr>
+<tr><td>13</td><td>150R</td><td>GE08R</td><td>RN9, RN10, RN14, RN15, RN18, RN19, RN23, RN24, RN25, RN27, RN28, RN36, RN37</td><td>Farnell 9356843</td><td>180Ω 8x bussed SIL resistor</td><td></td></tr>
+<tr><td>1</td><td>150R</td><td>GE09R</td><td>RN11</td><td>Farnell 9357157</td><td>180Ω 9x bussed SIL resistor</td><td></td></tr>
+<tr><td>1</td><td>180k</td><td>R-EU_0207/10</td><td>R2</td><td>Farnell 9463410</td><td>180kΩ resistor</td><td></td></tr>
+<tr><td>2</td><td>200k</td><td>TRIM_EU-B90P</td><td>R1, R4</td><td>Farnell 1689846</td><td>200k linear potentiometer/trimmer</td><td></td></tr>
+<tr><td>9</td><td>330k</td><td>R-EU_0204/5</td><td>R5, R7, R8, R9, R10, R11, R12, R13, R14</td><td>Farnell 9475923</td><td>330kΩ resistor</td><td></td></tr>
+<tr><td>1</td><td>5566-24</td><td>5566-24</td><td>ATXPWR</td><td></td><td>Mini FIT 24 way socket</td><td>ATX mainboard power socket</td></tr>
+<tr><td>8</td><td>DUOLED-C</td><td>DUOLED-C</td><td>LED111, LED112, LED113, LED114, LED115, LED116, LED117, LED118</td><td>Farnell 2001770</td><td>Common cathode tri-colour LED (red/green)</td><td></td></tr>
+<tr><td>27</td><td>LED-5MM-AMBER</td><td>LED-5MM-AMBER</td><td>LED17, LED18, LED19, LED20, LED21, LED22, LED23, LED24, LED52, LED54, LED55, LED56, LED57, LED65, LED66, LED67, LED68, LED70, LED71, LED72, LED73, LED77, LED78, LED81, LED84, LED85, LED86</td><td>Farnell 1142581</td><td>5mm amber/orange/yellow LED</td><td></td></tr>
+<tr><td>15</td><td>LED-5MM-GREEN</td><td>LED-5MM-GREEN</td><td>LED25, LED58, LED59, LED60, LED61, LED79, LED82, LED87, LED88, LED89, LED90, LED91, LED92, LED93, LED94</td><td>Farnell 1855549</td><td>5mm green LED</td><td></td></tr>
+<tr><td>68</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED1, LED2, LED3, LED4, LED5, LED6, LED7, LED8, LED9, LED10, LED11, LED12, LED13, LED14, LED15, LED16, LED26, LED27, LED28, LED29, LED30, LED31, LED32, LED33, LED34, LED35, LED36, LED37, LED38, LED39, LED40, LED41, LED42, LED43, LED44, LED45, LED46, LED47, LED48, LED49, LED50, LED51, LED53, LED62, LED63, LED64, LED69, LED74, LED75, LED76, LED80, LED83, LED95, LED96, LED97, LED98, LED99, LED100, LED101, LED102, LED103, LED104, LED105, LED106, LED107, LED108, LED109, LED110</td><td>Farnell 1581217</td><td>5mm red LED</td><td></td></tr>
+<tr><td>1</td><td>LM555N</td><td>LM555N</td><td>IC3</td><td>Farnell 1534493</td><td>LM555N Timer</td><td></td></tr>
+<tr><td>18</td><td>TL36PO</td><td>TL36PO</td><td>S1, S2, S3, S4, S5, S6, S7, S8, S9, S10, S11, S12, S13, S14, S15, S16, S18, S19</td><td>Farnell 9473785, Farnell 9812229, Farnell 9473785</td><td>On-On toggle switch</td><td>Switch body and separate black/red actuators</td></tr>
+<tr><td>5</td><td>TL37PO</td><td>TL37PO</td><td>S21, S23, S24, S30, S31</td><td>Farnell 9473769</td><td>Mom-Off-Mom toggle switch</td><td></td></tr>
+<tr><td>5</td><td>TL47PO</td><td>TL47PO</td><td>S22, S25, S26, S27, S28</td><td>Farnell 9473815</td><td>Mom-Off-Mom toggle switch</td><td></td></tr>
+<tr><td>2</td><td>TL49PO</td><td>TL49PO</td><td>S20, S29</td><td>Farnell 9473807</td><td>On-Off-On toggle switch</td><td>Also add lever actuator</td></tr>
 </table>
