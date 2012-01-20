@@ -54,3 +54,30 @@ MA03-2:3-pin-header		3x2 pin header
 74HC01N		74HC01N Quad 2-input NAND gate, open drain	
 74HC03N	Farnell 1282849	74HC03N Quad 2-input NAND gate, open collector output	
 G06R:10k	Farnell 1973163	10kΩ 6x bussed SIL resistor	
+HOLE	Ignore		
+TPPAD1-13	Ignore		
+SIGNATURESILK	Ignore		
+C-EUC0805:100nF		Capacitor	0805 package
+CPOL-EUE2.5-5:1uF		Electrolytic capacitor	Through hole
+74HC688DW		74HC688DW 8-bit magniture comparator	
+74HC21D		74HC21D Dual 4-input And gate	
+74HC138D		74HC138D 3-to-8 line decoder	
+74HC541DW		73HC541DW Octal 3-state buffer	
+74HCT574D		74HCT574D 8-bit D Flip Flop	
+74HC00D		74HC00D Quad 2-input Nand gate	
+74HC112D		74HC112D Dual J-K Flip Flop	
+74HC01D		74HC01D Quad 2-input Open Drain Nand gate	
+74LS123D		74LS123D Monostable Multivibrator	
+74HC08D		74HC08D Quad 2-input And gate	
+74HCT32D		74HCT32D Quad 2-input Or gate	Must be TTL compatible!
+74HCT541DW		74HCT541DW Octal 3-state buffer	Must be TTL compatible!
+74HC125D		74HC125D Quad bus buffer	
+FE08-1:		8x1 2.54mm female wirewrap header	Or other stackable
+FE06-1:		6x1 2.54mm female wirewrap header	Or other stackable
+R-EU_R0805:1k		1kΩ resistor	0805 package
+R-EU_R0805:4k7		4.7kΩ resistor	0805 package
+G08R:2k2		2.2kΩ octal bussed SIL resistor	
+G05R:2k2		2.2κΩ hex bussed SIL resistor	
+G07R:2k2		2.2kΩ 7x bussed SIL resistor	
+SW_DIP-8:		8-way DIP switch	Through hole
+VG96-3K:		96-pin (A+B+C) DIN-41612 Bauform ‘C’ plug	Right angle through hole
