@@ -40,7 +40,7 @@ int main(int argc, char **argv)
 			if ((hx & (1<<20)) == 0) add(buf2, "io");
 
 			if ((hx & (1<<11)) == 0) add(buf2, "a++");
-			if (hx & (1<<12)) add(buf2, "cpl");
+			if ((hx & (1<<12)) == 0) add(buf2, "cpl");
 			if ((hx & (1<<13)) == 0) add(buf2, "cll");
 			if ((hx & (1<<14)) == 0) add(buf2, "sti");
 			if ((hx & (1<<15)) == 0) add(buf2, "cli");

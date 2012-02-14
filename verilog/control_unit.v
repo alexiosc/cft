@@ -125,12 +125,12 @@ module agl (pc, r, offset, oe, a);
       $display("BOM: 74x08");
    end
 
-   and #10 and_7408_1a (p[0], pc[10], r);
-   and #10 and_7408_1b (p[1], pc[11], r);
-   and #10 and_7408_1c (p[2], pc[12], r);
-   and #10 and_7408_1d (p[3], pc[13], r);
-   and #10 and_7408_2a (p[4], pc[14], r);
-   and #10 and_7408_2b (p[5], pc[15], r);
+   and #10 and_7408_1a (p[0], pc[10], ~r);
+   and #10 and_7408_1b (p[1], pc[11], ~r);
+   and #10 and_7408_1c (p[2], pc[12], ~r);
+   and #10 and_7408_1d (p[3], pc[13], ~r);
+   and #10 and_7408_2a (p[4], pc[14], ~r);
+   and #10 and_7408_2b (p[5], pc[15], ~r);
 
    // Concatenate the page and ir field.
    assign a0 = {p, offset};
@@ -691,7 +691,7 @@ module control_unit (abus, dbus, ibus,
    wire alu_l_latch;
 
    rom_alu alu (ibus, w_a, w_alu,
-		clock, clock14, guardpulse, reset, rst_hold,
+		clock14, guardpulse, reset, rst_hold,
 		r_aluop, rollop,
 		alu_l_in, alu_l_toggle, alu_l_out, alu_l_latch, int_out,
 		ibus);
@@ -726,7 +726,7 @@ module control_unit (abus, dbus, ibus,
    assign io = control[20];	// Active low
    assign r = control[21];	// Active low
    assign w = control[22];	// Active low
-   assign iend = control[23];	// Active low
+   assign iend = control[23] & ifend;	// Active low (note: '&' performed by open collector)
    
    //assign halt = control[23];
 
@@ -775,8 +775,9 @@ module control_unit (abus, dbus, ibus,
    wire 	 nrst_hold;
 
    not #10 my_not(nrst_hold, rst_hold);
-   
-   skip_unit skip_unit (skipctl, ir[9:0], flag_z, flag_n, l_unbuf, v_unbuf, nrst_hold, skip0);
+
+   wire 	 ifend;
+   skip_unit skip_unit (skipctl, ir[9:0], flag_z, flag_n, l_unbuf, v_unbuf, nrst_hold, skip0, ifend);
    flipflop_175 skip_reg ({3'b0, skip0}, {dummy, skip}, , clock, rst_hold);
 
    // Decode the signals in the microinstruction into individual signals to control units.

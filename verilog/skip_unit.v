@@ -97,6 +97,45 @@
 //       ==        SKIP IF ((A != 0) AND (A >= 0))
 //       ==        SKIP IF A > 0
 //
+//
+//
+//
+//
+//
+//
+//
+// 2012-01-28: PROOF USING NAND GATES:
+//
+// SN = flag_n NAND data[0]
+// SZ = flag_z NAND data[1]
+// SL = flag_l NAND data[2]
+// D = data[3]
+// 
+// SKIP = (SN or SZ or SL) XNOR D
+//
+//    (NAND)                 (NAND)
+//    __ __ __   __ __ __    __ __ __
+// D  SN SZ SL   SN·SZ·SL  !(SN·SZ·SL)  SN+SZ+SL   !((SN+SZ+SL) ^ D)  COMMENT
+// -------------------------------------------------------------
+// 0  1  1  1        1          0    ==    0            1             NEVER SKIP (NOP)
+// 0  1  1  0        0          1    ==    1            0             SSL (skip if L set)
+// 0  1  0  1        0          1    ==    1            0             SZA (skip if A == 0)
+// 0  1  0  0        0          1    ==    1            0
+// 0  0  1  1        0          1    ==    1            0             SNA (skip if A < 0)
+// 0  0  1  0        0          1    ==    1            0
+// 0  0  0  1        0          1    ==    1            0             **1
+// 0  0  0  0        0          1    ==    1            0
+// 1  1  1  1        1          0    ==    0            0             ALWAYS SKIP (SKIP)
+// 1  1  1  0        0          1    ==    1            1             DON'T SKIP IF L set <==> SNN skip if L clear
+// 1  1  0  1        0          1    ==    1            1             DON'T SKIP IF A == 0 <==> SKIP IF A non-zero
+// 1  1  0  0        0          1    ==    1            1
+// 1  0  1  1        0          1    ==    1            1             DON'T SKIP IF A < 0 <==> SKIP IF A >= 0
+// 1  0  1  0        0          1    ==    1            1
+// 1  0  0  1        0          1    ==    1            1             **2
+// 1  0  0  0        0          1    ==    1            0
+//                                          \-- *** 0 = BRANCH! ***
+// 
+//
 // OP       FLAGS
 // m n z l  N Z L  nN zZ lL   /S  (Nn+zZ+lL)^m
 // ---------------------------------------------
@@ -132,16 +171,17 @@
 `define skip_unit_v
 
 `include "mux.v"
+`include "demux.v"
 
 `timescale 1ns/1ps
 
 
-module skip_unit(sel, data, f_zero, f_neg, f_l, f_v, enable, skip);
+module skip_unit(sel, data, f_zero, f_neg, f_l, f_v, enable, skip, ifend);
    input [3:0] sel;
    input [9:0] data;
    input       f_zero, f_neg, f_l, f_v, enable;
    
-   output      skip;
+   output      skip, ifend;
    
    wire        sig_op1_branch;
    wire        sig_op2_roll;
@@ -174,6 +214,32 @@ module skip_unit(sel, data, f_zero, f_neg, f_l, f_v, enable, skip);
    // We use three '253 muxes (two 74x253 ICs) to select the signals.
    mux_253 mux_ab (sel[1:0], ia, enable, ya, ib, 0, yb);
    mux_253 mux_c  (sel[3:2], ic, enable, skip, 4'b0000, 1, );
+
+   // The OP termination circuitry.
+   wire        if9e, if8e, if7e, if6e, if5e, if4e, if3e;
+   wire        if9z, if8z, if7z, if6z, if5z, if4z, if3z;
+
+   wire [7:0]  opif;
+   demux_138 optdemux (1, 0, sel[3], sel[2:0], opif);
+   
+   or #6 (if3z, data[3], data[2], data[1], data[0]);
+   or #6 (if4z, if3z, data[4]);
+   or #6 (if5z, if4z, data[5]);
+   or #6 (if6z, if5z, data[6]);
+   or #6 (if7z, if6z, data[7]);
+   or #6 (if8z, if7z, data[8]);
+   or #6 (if9z, if8z, data[9]);
+
+   or #6 (if3e, if3z, opif[1]);
+   or #6 (if4e, if4z, opif[2]);
+   or #6 (if5e, if5z, opif[3]);
+   or #6 (if6e, if6z, opif[4]);
+   or #6 (if7e, if7z, opif[5]);
+   or #6 (if8e, if8z, opif[6]);
+   or #6 (if9e, if9z, opif[7]);
+
+   and #10 (ifend, if3e, if4e, if5e, if6e, if7e, if8e, if9e);
+
 endmodule // skip_unit
 
 `endif //  `ifndef skip_unit_v

@@ -453,7 +453,7 @@ endmodule // alu
 
 module rom_alu (in,
 		latch_a, latch_b,
-		clock, clock14, guardpulse, reset, rsthold,
+		clock, guardpulse, reset, rsthold,
 		aluop, rollop,
 		l_in, add_l_out, roll_l_out, l_latch, ints,
 		y);
@@ -462,9 +462,8 @@ module rom_alu (in,
 
    input         latch_a;	// Lach Input to A port.
    input         latch_b;	// Latch Input to B port.
-   input 	 clock;		// Clock for latching A register data.
-   input 	 clock14;	// Clock for latching A register data.
-   input 	 guardpulse;	// Clock for latching A register data.
+   input 	 clock;	// Clock for latching A register data.
+   input 	 guardpulse;	// Guardpulse
    input 	 reset;		// Reset signal.
    input 	 rsthold;	// -RSTHOLD signal.
 
@@ -488,7 +487,8 @@ module rom_alu (in,
    wire [3:0] 	 aluop;
    wire [2:0] 	 uop;
 
-   wire [14:0] 	 ba0, ba1, ba2;
+   wire [14:0] 	 ba0, ba1;
+   wire [10:0] 	 ba2;
    wire [7:0] 	 bd0, bd1, bd2;
 
    wire [17:0] 	 ua0, ua1;
@@ -497,7 +497,8 @@ module rom_alu (in,
    
    wire          boe, uoe, oe;
    tri0          co0, co1;
-   wire [1:0]    pad_a, pad_b;
+   wire [1:0] 	 pad_a, pad_b;
+   wire          pad_c;
    wire [7:0] 	 romsel, alusel;
 
    tri1 	 add_v_out;
@@ -519,13 +520,10 @@ module rom_alu (in,
       $display("NB: l_out is pulled down.");
    end
 
-   assign pad_a = 2'b00;
-   assign pad_b = 2'b00;
-
    // Wire the Binary ROMs
    assign ba0 = {aluop[1:0], l_in, a[5:0], b[5:0]};
    assign ba1 = {aluop[1:0], co0, a[11:6], b[11:6]};
-   assign ba2 = {aluop[1:0], co1, pad_a, a[15:12], pad_b, b[15:12]};
+   assign ba2 = {aluop[1:0], co1, a[15:12], b[15:12]};
    // Cascaded carry in/outs for ADD
    assign co0 = bd0[6];
    assign co1 = bd1[6];
@@ -547,34 +545,23 @@ module rom_alu (in,
 
    assign uop = {aluop[0], rollop[2], rollop[0]};
 
-   // Enable signals
-   //assign boe = aluop[3];
-   //assign #7 uoe = ~aluop[2];
-   //assign #7 oe = ~aluop[3];
-
-   // We use a '139 for logic (rather than discrete gates) because it
+   // We use a '138 for logic (rather than discrete gates) because it
    // avoids glitches.
-   //demux_139 ubsel (1'b0, {aluop[3], aluop[2]}, romsel,
-   //		    1'b0, {reset, aluop[3]}, alusel);
    demux_138 ubsel (reset, guardpulse, 1'b0, {rsthold, aluop[3], aluop[2]}, romsel);
    assign boe = romsel[6];
    assign uoe = romsel[7];
-   //assign oe = alusel[3];
    
    // Note: all three ROMs use the same signal.
-   rom #(15, 70, "../microcode/alu-binary-00.list") romb0 (ba0, bd0, 1'b0, boe);
-   rom #(15, 70, "../microcode/alu-binary-00.list") romb1 (ba1, bd1, 1'b0, boe);
-   rom #(15, 70, "../microcode/alu-binary-00.list") romb2 (ba2, bd2, 1'b0, boe);
+   rom #(15, 70, "../microcode/alu-binary-6bit-00.list") romb0 (ba0, bd0, 1'b0, boe);
+   rom #(15, 70, "../microcode/alu-binary-6bit-00.list") romb1 (ba1, bd1, 1'b0, boe);
+   rom #(11, 70, "../microcode/alu-binary-4bit-00.list") romb2 (ba2, bd2, 1'b0, boe);
 
    // The unary ROMs (and constant store)
    rom #(18, 70, "../microcode/alu-unary-00.list") romu0 (ua0, ud0, 1'b0, uoe);
    rom #(18, 70, "../microcode/alu-unary-01.list") romu1 (ua1, ud1, 1'b0, uoe);
    rom #(17, 70, "../microcode/alu-unary-02.list") romu2 (ua2, ud2, 1'b0, uoe);
 
-   // The ALU has a registered output because it updates the A
-   // register, which is fed into it.
-   //flipflop_574 reg_hi (y0[15:8], y[15:8], clock, oe);
-   //flipflop_574 reg_lo (y0[7:0], y[7:0],   clock, oe);
+   // Placeholder (to allow registering of ALU output if necessary)
    assign y=y0;
 
    // The '& reset' bits are used to latch initial values to the flip
@@ -590,7 +577,7 @@ module rom_alu (in,
    wire v_out;
    wire fv;
    wire [7:0] v_latches;
-   demux_138 vlatch (1'b1, boe, clock14, {1'b0, aluop[1:0]}, v_latches);
+   demux_138 vlatch (1'b1, boe, clock, {1'b0, aluop[1:0]}, v_latches);
    wire [6:0] v_dummy;
    //flipflop_574 ffv ({ 7'd0, add_v_out}, { v_dummy, v_out}, v_latches[0], 1'b0);
 

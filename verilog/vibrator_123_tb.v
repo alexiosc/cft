@@ -20,6 +20,15 @@ module vibrator_123_tb();
       #100 clr = 0;
       #100 clr = 1;
 
+      #500 b = 0;
+      #5 b = 1;
+      #5 b = 0;
+      #5 b = 1;
+      #5 b = 0;
+      #5 b = 1;
+      #5 b = 0;
+      #5 b = 1;
+
       #200 $finish;      // Terminate simulation
    end
 

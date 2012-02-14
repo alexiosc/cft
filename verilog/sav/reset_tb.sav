@@ -1,17 +1,38 @@
+[*]
+[*] GTKWave Analyzer v3.3.29 (w)1999-2012 BSI
+[*] Mon Jan 16 18:23:15 2012
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/reset_tb.vcd"
+[dumpfile_mtime] "Mon Jan 16 18:23:12 2012"
+[dumpfile_size] 7284
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/reset_tb.sav"
 [timestart] 0
-[size] 1129 671
+[size] 1256 760
 [pos] 114 112
-*-18.060024 681000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-21.847065 5925000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] reset_logic_tb.
 [treeopen] reset_logic_tb.reset_logkc.
+[sst_width] 241
+[signals_width] 212
+[sst_expanded] 1
+[sst_vpaned_height] 206
 @28
 reset_logic_tb.clk
 reset_logic_tb.reset
 reset_logic_tb.resetting
 @200
 -
+@28
+reset_logic_tb.reset_logkc.rstc.borrow
+@29
+reset_logic_tb.reset_logkc.rstc.carry
+@28
+reset_logic_tb.reset_logkc.rstc.clear
+reset_logic_tb.reset_logkc.rstc.count_down
+reset_logic_tb.reset_logkc.rstc.count_up
+reset_logic_tb.reset_logkc.rstc.load
 @22
-reset_logic_tb.reset_logkc.div16.p[3:0]
-reset_logic_tb.reset_logkc.div16.q[3:0]
+reset_logic_tb.reset_logkc.rstc.p[3:0]
+reset_logic_tb.reset_logkc.rstc.q[3:0]
 [pattern_trace] 1
 [pattern_trace] 0

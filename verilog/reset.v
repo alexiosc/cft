@@ -35,7 +35,10 @@ module reset_logic (clock, reset_in, reset_out);
    //   #1000 reset_out = 1'b1;
    //end
 
-   counter_161 div16 (reset_in, clock, ~reset_out, 1'b1, 1'b1, 4'b0, , reset_out);
+   wire       carry;
+   counter_193 rstc (0, reset_in, 0, clock & carry, 1'b1, , carry, );
+   assign reset_out = ~carry;
+   //counter_161 div16 (reset_in, clock, ~reset_out, 1'b1, 1'b1, 4'b0, , reset_out);
    
 endmodule // reset_logic
 

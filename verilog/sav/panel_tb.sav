@@ -1,7 +1,7 @@
 [timestart] 0
 [size] 1912 1125
 [pos] -1 -1
-*-25.213150 91600000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-25.149469 21500000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] panel_tb.
 [treeopen] panel_tb.panel.
 @200
@@ -28,12 +28,13 @@ panel_tb.panel.stop
 panel_tb.panel.cont
 panel_tb.sw_step
 panel_tb.step
+@29
 panel_tb.panel.fprun
+@28
 panel_tb.panel.fpstop
 panel_tb.panel.isrun
 panel_tb.panel.isstop
 panel_tb.panel.fpstep
-@29
 panel_tb.panel.fetch
 @200
 -

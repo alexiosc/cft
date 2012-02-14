@@ -304,7 +304,103 @@ module flipflop_564 (d, q, clk, oe);
 
 endmodule // End of Module counter
 
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// Function: 74x74 D flip-flop
+//
+// Notes:
+//
+// From http://www.kingswood-consulting.co.uk/giicm/7450.html
+//
+// Dual D flip-flop with set and reset.
+//
+//       +---+--+---+           +---+---+----+----*---+---+
+// /1RST |1  +--+ 14| VCC       | D |CLK|/SET|/RST| Q |/Q |
+//    1D |2       13| /2RST     +===+===+====+====*===+===+
+//  1CLK |3       12| 2D        | X | X |  0 |  0 | 1 | 1 |
+// /1SET |4  7474 11| 2CLK      | X | X |  0 |  1 | 1 | 0 |
+//    1Q |5       10| /2SET     | X | X |  1 |  0 | 0 | 1 |
+//   /1Q |6        9| 2Q        | 0 | / |  1 |  1 | 0 | 1 |
+//   GND |7        8| /2Q       | 1 | / |  1 |  1 | 1 | 0 |
+//       +----------+           | X |!/ |  1 |  1 | - | - |
+//                              +---+---+----+----*---+---+
+//
+// From dataset:
+//
+//   HC  @ 5V, 15pF, data 14 ns, set 15ns, reset: 16ns.
+//   HCT @ 5V, 15pF, data 15 ns, set/reset: 18ns.
+//
+///////////////////////////////////////////////////////////////////////////////
+
+module flipflop_74 (d1, clk1, set1, rst1, q1, qn1,
+		    d2, clk2, set2, rst2, q2, qn2);
+   input  d1, clk1, set1, rst1;
+   input  d2, clk2, set2, rst2;
+   output q1, qn1;
+   output q2, qn2;
+
+   wire   d1, clk1, set1, rst1;
+   wire   d2, clk2, set2, rst2;
+   wire   q1, qn1;
+   wire   q2, qn2;
+
+   initial begin
+      $display("BOM: 74x74");
+   end
+
+   flipflop_74h flipflop_74h1 (d1, clk1, set1, rst1, q1, qn1);
+   flipflop_74h flipflop_74h2 (d2, clk2, set2, rst2, q2, qn2);
+endmodule // flipflop_74
+   
+
+module flipflop_74h (d, clk, set, rst, q, qn);
+   parameter delay1 = 15;	// For HCT
+   parameter delay2 = 18;
+   
+   input d, clk, set, rst;
+   output q, qn;
+
+   wire d, clk, set, rst;
+   reg 	q, qn;
+
+   initial begin
+      q <= 0;
+      qn <= 1;
+   end
+
+   always @(posedge clk) begin
+      if ({set, rst} == 2'b11) #delay1 begin
+	 q <= d;
+	 qn <= ~d;
+      end
+   end
+
+   always @ (set, rst) begin
+      case ({set, rst})
+	2'b00:
+	  #delay2 begin
+	     q <= 1;
+	     qn <= 1;
+	  end
+	2'b01:
+	  #delay2 begin
+	     q <= 1'b1;
+	     qn <= 1'b0;
+	  end
+	2'b10:
+	  #delay2 begin
+	     q <= 1'b0;
+	     qn <= 1'b1;
+	  end
+      endcase // case ({set, rst})
+   end // always @ (set, rst, posedge clk)
+endmodule // flipflop_74h
+
+
+
 `endif //  `ifndef flipflop_v
+
 
 // End of file.
 

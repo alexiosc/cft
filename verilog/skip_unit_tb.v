@@ -8,7 +8,7 @@ module skip_unit_tb();
    reg [3:0]  sel;
    reg 	      z, n, l;
 
-   wire       skip;
+   wire       skip, ifend;
    reg        test_branch;
    
    integer    i, j;
@@ -53,10 +53,10 @@ module skip_unit_tb();
 	 end
       end
 	
-      #10000 $finish;      // Terminate simulataaa   skip_unit_unit add_unit (a, b, enable, y, l);
+      #10000 $finish;      // Terminate simulation
    end
       
-   skip_unit foo(sel, ir, z, n, l, 1'b0, 0, skip);
+   skip_unit foo(sel, ir, z, n, l, 1'b0, 0, skip, ifend);
 
 endmodule // skip_unit_tb
 

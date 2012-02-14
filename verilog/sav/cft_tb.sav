@@ -1,7 +1,15 @@
-[timestart] 0
+[*]
+[*] GTKWave Analyzer v3.3.29 (w)1999-2012 BSI
+[*] Mon Jan 16 17:47:09 2012
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/cft_tb.vcd"
+[dumpfile_mtime] "Mon Jan 16 17:47:07 2012"
+[dumpfile_size] 262041
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/cft_tb.sav"
+[timestart] 25040000
 [size] 1912 1074
 [pos] 0 0
-*-23.769722 26804000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-21.358944 33910000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] cft_tb.
 [treeopen] cft_tb.cft.
 [treeopen] cft_tb.cft.clock_generator.ff1.
@@ -11,8 +19,13 @@
 [treeopen] cft_tb.cft.control_unit.reg_l.
 [treeopen] cft_tb.cft.control_unit.reg_mar.
 [treeopen] cft_tb.cft.control_unit.reg_upc.
+[treeopen] cft_tb.cft.control_unit.skip_unit.
 [treeopen] cft_tb.cft.control_unit.unit_demux.
 [treeopen] cft_tb.cft.reset_logic.
+[sst_width] 241
+[signals_width] 183
+[sst_expanded] 1
+[sst_vpaned_height] 317
 @200
 -Clock
 @28
@@ -107,10 +120,10 @@ cft_tb.cft.dbus[15:0]
 @22
 +{PC} cft_tb.cft.control_unit.pc_unbuf[15:0]
 +{AC} cft_tb.cft.control_unit.reg_a.q_unbuf[15:0]
-@c04022
+@c04023
 ^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/disasm
 +{IR} cft_tb.cft.control_unit.ir[15:0]
-@28
+@29
 (0)cft_tb.cft.control_unit.ir[15:0]
 (1)cft_tb.cft.control_unit.ir[15:0]
 (2)cft_tb.cft.control_unit.ir[15:0]
@@ -127,7 +140,7 @@ cft_tb.cft.dbus[15:0]
 (13)cft_tb.cft.control_unit.ir[15:0]
 (14)cft_tb.cft.control_unit.ir[15:0]
 (15)cft_tb.cft.control_unit.ir[15:0]
-@1401200
+@1401201
 -group_end
 @c00022
 +{IR} cft_tb.cft.control_unit.ir[15:0]
@@ -153,56 +166,7 @@ cft_tb.cft.dbus[15:0]
 @22
 +{MAR} cft_tb.cft.control_unit.mar_unbuf[15:0]
 @28
-cft_tb.cft.control_unit.w_mar
 +{L} cft_tb.cft.control_unit.l_unbuf
-@22
-cft_tb.cft.control_unit.reg_mar.d[15:0]
-@28
-cft_tb.cft.control_unit.reg_mar.load
-cft_tb.cft.control_unit.reg_mar.oe
-@22
-cft_tb.cft.control_unit.reg_mar.q[15:0]
-cft_tb.cft.control_unit.reg_mar.qc[15:0]
-@28
-cft_tb.cft.control_unit.reg_mar.reset
-+{I Flag} cft_tb.cft.control_unit.i_flag
-cft_tb.cft.control_unit.w_a
-@22
-+{DR} cft_tb.cft.control_unit.dr_unbuf[15:0]
-@28
-cft_tb.cft.control_unit.alu.add_l_out
-cft_tb.cft.control_unit.alu.add_v_out
-cft_tb.cft.control_unit.alu.nadd_v_out
-cft_tb.cft.control_unit.alu.boe
-cft_tb.cft.control_unit.clock14
-cft_tb.cft.control_unit.alu.fv
-@c00022
-cft_tb.cft.control_unit.alu.v_latches[7:0]
-@28
-(0)cft_tb.cft.control_unit.alu.v_latches[7:0]
-(1)cft_tb.cft.control_unit.alu.v_latches[7:0]
-(2)cft_tb.cft.control_unit.alu.v_latches[7:0]
-(3)cft_tb.cft.control_unit.alu.v_latches[7:0]
-(4)cft_tb.cft.control_unit.alu.v_latches[7:0]
-(5)cft_tb.cft.control_unit.alu.v_latches[7:0]
-(6)cft_tb.cft.control_unit.alu.v_latches[7:0]
-(7)cft_tb.cft.control_unit.alu.v_latches[7:0]
-@1401200
--group_end
-@22
-cft_tb.cft.control_unit.alu.bd2[7:0]
-@200
--
-@22
-cft_tb.cft.control_unit.reg_ir.d[15:0]
-@28
-cft_tb.cft.control_unit.reg_ir.load
-cft_tb.cft.control_unit.reg_ir.oe
-@22
-cft_tb.cft.control_unit.reg_ir.q[15:0]
-cft_tb.cft.control_unit.reg_ir.qc[15:0]
-@28
-cft_tb.cft.control_unit.reg_ir.reset
 @200
 -
 -Memory
@@ -243,9 +207,7 @@ cft_tb.cft.memory.ramen
 cft_tb.cft.memory.romen
 cft_tb.cft.memory.mem
 cft_tb.cft.memory.io
-@29
 cft_tb.cft.memory.r
-@28
 cft_tb.cft.memory.w
 @200
 -
@@ -392,5 +354,132 @@ cft_tb.cft.control_unit.alu.v_latches[7:0]
 -group_end
 @28
 cft_tb.cft.control_unit.iend
+@c04022
+^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/disasm
++{IR} cft_tb.cft.control_unit.ir[15:0]
+@28
+(0)cft_tb.cft.control_unit.ir[15:0]
+(1)cft_tb.cft.control_unit.ir[15:0]
+(2)cft_tb.cft.control_unit.ir[15:0]
+(3)cft_tb.cft.control_unit.ir[15:0]
+(4)cft_tb.cft.control_unit.ir[15:0]
+(5)cft_tb.cft.control_unit.ir[15:0]
+(6)cft_tb.cft.control_unit.ir[15:0]
+(7)cft_tb.cft.control_unit.ir[15:0]
+(8)cft_tb.cft.control_unit.ir[15:0]
+(9)cft_tb.cft.control_unit.ir[15:0]
+(10)cft_tb.cft.control_unit.ir[15:0]
+(11)cft_tb.cft.control_unit.ir[15:0]
+(12)cft_tb.cft.control_unit.ir[15:0]
+(13)cft_tb.cft.control_unit.ir[15:0]
+(14)cft_tb.cft.control_unit.ir[15:0]
+(15)cft_tb.cft.control_unit.ir[15:0]
+@1401200
+-group_end
+@c00022
++{IR} cft_tb.cft.control_unit.ir[15:0]
+@28
+(0)cft_tb.cft.control_unit.ir[15:0]
+(1)cft_tb.cft.control_unit.ir[15:0]
+(2)cft_tb.cft.control_unit.ir[15:0]
+(3)cft_tb.cft.control_unit.ir[15:0]
+(4)cft_tb.cft.control_unit.ir[15:0]
+(5)cft_tb.cft.control_unit.ir[15:0]
+(6)cft_tb.cft.control_unit.ir[15:0]
+(7)cft_tb.cft.control_unit.ir[15:0]
+(8)cft_tb.cft.control_unit.ir[15:0]
+(9)cft_tb.cft.control_unit.ir[15:0]
+(10)cft_tb.cft.control_unit.ir[15:0]
+(11)cft_tb.cft.control_unit.ir[15:0]
+(12)cft_tb.cft.control_unit.ir[15:0]
+(13)cft_tb.cft.control_unit.ir[15:0]
+(14)cft_tb.cft.control_unit.ir[15:0]
+(15)cft_tb.cft.control_unit.ir[15:0]
+@1401200
+-group_end
+@c04022
+^>3 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/control
+cft_tb.cft.control_unit.microrom.control_out[23:0]
+@4028
+^>3 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/control
+(0)cft_tb.cft.control_unit.microrom.control_out[23:0]
+^>3 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/control
+(1)cft_tb.cft.control_unit.microrom.control_out[23:0]
+^>3 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/control
+(2)cft_tb.cft.control_unit.microrom.control_out[23:0]
+^>3 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/control
+(3)cft_tb.cft.control_unit.microrom.control_out[23:0]
+^>3 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/control
+(4)cft_tb.cft.control_unit.microrom.control_out[23:0]
+^>3 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/control
+(5)cft_tb.cft.control_unit.microrom.control_out[23:0]
+^>3 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/control
+(6)cft_tb.cft.control_unit.microrom.control_out[23:0]
+^>3 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/control
+(7)cft_tb.cft.control_unit.microrom.control_out[23:0]
+^>3 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/control
+(8)cft_tb.cft.control_unit.microrom.control_out[23:0]
+^>3 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/control
+(9)cft_tb.cft.control_unit.microrom.control_out[23:0]
+^>3 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/control
+(10)cft_tb.cft.control_unit.microrom.control_out[23:0]
+^>3 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/control
+(11)cft_tb.cft.control_unit.microrom.control_out[23:0]
+^>3 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/control
+(12)cft_tb.cft.control_unit.microrom.control_out[23:0]
+^>3 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/control
+(13)cft_tb.cft.control_unit.microrom.control_out[23:0]
+^>3 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/control
+(14)cft_tb.cft.control_unit.microrom.control_out[23:0]
+^>3 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/control
+(15)cft_tb.cft.control_unit.microrom.control_out[23:0]
+^>3 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/control
+(16)cft_tb.cft.control_unit.microrom.control_out[23:0]
+^>3 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/control
+(17)cft_tb.cft.control_unit.microrom.control_out[23:0]
+^>3 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/control
+(18)cft_tb.cft.control_unit.microrom.control_out[23:0]
+^>3 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/control
+(19)cft_tb.cft.control_unit.microrom.control_out[23:0]
+^>3 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/control
+(20)cft_tb.cft.control_unit.microrom.control_out[23:0]
+^>3 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/control
+(21)cft_tb.cft.control_unit.microrom.control_out[23:0]
+^>3 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/control
+(22)cft_tb.cft.control_unit.microrom.control_out[23:0]
+^>3 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/control
+(23)cft_tb.cft.control_unit.microrom.control_out[23:0]
+@1401200
+-group_end
+@c00022
+cft_tb.cft.control_unit.skip_unit.sel[3:0]
+@28
+(0)cft_tb.cft.control_unit.skip_unit.sel[3:0]
+(1)cft_tb.cft.control_unit.skip_unit.sel[3:0]
+(2)cft_tb.cft.control_unit.skip_unit.sel[3:0]
+(3)cft_tb.cft.control_unit.skip_unit.sel[3:0]
+@1401200
+-group_end
+@c00022
+cft_tb.cft.control_unit.skip_unit.opif[7:0]
+@28
+(0)cft_tb.cft.control_unit.skip_unit.opif[7:0]
+(1)cft_tb.cft.control_unit.skip_unit.opif[7:0]
+(2)cft_tb.cft.control_unit.skip_unit.opif[7:0]
+(3)cft_tb.cft.control_unit.skip_unit.opif[7:0]
+(4)cft_tb.cft.control_unit.skip_unit.opif[7:0]
+(5)cft_tb.cft.control_unit.skip_unit.opif[7:0]
+(6)cft_tb.cft.control_unit.skip_unit.opif[7:0]
+(7)cft_tb.cft.control_unit.skip_unit.opif[7:0]
+@1401200
+-group_end
+@28
+cft_tb.cft.control_unit.skip_unit.if3e
+cft_tb.cft.control_unit.skip_unit.if4e
+cft_tb.cft.control_unit.skip_unit.if5e
+cft_tb.cft.control_unit.skip_unit.if6e
+cft_tb.cft.control_unit.skip_unit.if7e
+cft_tb.cft.control_unit.skip_unit.if8e
+cft_tb.cft.control_unit.skip_unit.if9e
 [pattern_trace] 1
 [pattern_trace] 0

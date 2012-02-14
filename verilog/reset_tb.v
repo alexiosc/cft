@@ -19,14 +19,14 @@ module reset_logic_tb();
       clk = 1'b0;
       reset = 1'b1;
 
-      #200 reset = 1'b0;
-      #10 reset = 1'b1;
+      #2000 reset = 1'b0;
+      #100 reset = 1'b1;
       
-      #5000 $finish;      // Terminate simulation
+      #50000 $finish;      // Terminate simulation
    end
 
    always begin
-      #15 clk = ~clk;
+      #125 clk = ~clk;
    end
    
    // Connect DUT to test bench

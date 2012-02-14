@@ -69,17 +69,19 @@ module panel_tb();
 	 #10000 sw_step = 1;
       end
 
+      /* 
       #20000 sw_cont = 0;
       #10000 sw_cont = 1;
+       */
       
       
-      /*
-
       //#4000 sw_start_mem = 0;
       //#50 sw_start_mem = 1;
 
       #1000 sw_dep_mem = 0;
       #1000 sw_dep_mem = 1;
+
+      /*
 
       #1000 sw_exam_mem = 0;
       #1000 sw_exam_mem = 1;

@@ -3,9 +3,9 @@ SRC =		counter.v counter_161_tb.v \
 		vibrator.v vibrator_123_tb.v vibrator_555_tb.v \
 		demux.v demux_138_tb.v demux_139_tb.v \
 		mux.v mux_253_tb.v \
-		flipflop.v flipflop_112_tb.v flipflop_174_tb.v flipflop_574_tb.v flipflop_564_tb.v \
-		alu_181.v alu_181_tb.v \
+		flipflop.v flipflop_112_tb.v flipflop_74_tb.v flipflop_174_tb.v flipflop_574_tb.v flipflop_564_tb.v \
 		alu.v alu_tb.v alu_roll_tb.v alu_add_tb.v \
+		alu_btb_add.v alu_btb_and.v \
 		skip_unit.v skip_unit_tb.v \
 		clock.v clock_tb.v clock2_tb.v \
 		rom.v rom_tb.v \
@@ -51,6 +51,10 @@ $(SUBDIRS):
 test_test:	test.o
 		./test.o
 		$(GTKWAVE) $(VCDDIR)/test.vcd $(SAVDIR)/test.sav
+
+test_74:	flipflop_74_tb.o flipflop.o
+		./flipflop_74_tb.o
+		$(GTKWAVE) $(VCDDIR)/flipflop_74_tb.vcd $(SAVDIR)/flipflop_74_tb.sav
 
 test_112:	flipflop_112_tb.o flipflop.o
 		./flipflop_112_tb.o
@@ -148,6 +152,10 @@ test_reg_I:	register_reg_I_tb.o register.o
 #		./register_PR_tb.o
 #		$(GTKWAVE) $(VCDDIR)/register_PR_tb.vcd $(SAVDIR)/register_PR_tb.sav
 
+test_alu_v1:	alu_tb_v1.o alu.o
+		./alu_tb_v1.o
+		$(GTKWAVE) $(VCDDIR)/alu_tb_v1.vcd $(SAVDIR)/alu_tb_v1.sav
+
 test_alu:	alu_tb.o alu.o
 		./alu_tb.o
 		$(GTKWAVE) $(VCDDIR)/alu_tb.vcd $(SAVDIR)/alu_tb.sav
@@ -219,5 +227,13 @@ test:		$(OBJ)
 		( cd img; ../../tools/cftasm --min-addr 32768 ../../asm/testing.asm ../../asm/io.asm ../../asm/test2.asm )
 		./cft_tb.o
 		$(GTKWAVE) $(VCDDIR)/cft_tb.vcd $(SAVDIR)/cft_tb.sav
+
+
+
+batch_test_alu_add:	alu_btb_add.o alu.o
+			./alu_btb_add.o
+
+batch_test_alu_and:	alu_btb_and.o alu.o
+			./alu_btb_and.o
 
 # End of file.

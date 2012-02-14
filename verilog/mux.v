@@ -13,8 +13,8 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-// Function: 74x253 8-to-1 line data selector/multiplexer with complementary
-// outputs and tri-state enable.
+// Function: 74x253 dual 4-to-1 line data selector/multiplexer with
+// tri-state enable.
 //
 // Notes:
 //
@@ -100,5 +100,36 @@ module mux_157 (sel, i1, i2, oe, y);
    assign #delay y = oe ? 1'bz : (sel == 0? i1 : i2);
 
 endmodule // mux_157
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// Function: 74x251 8-to-1 line data selector/multiplexer with
+// complementary outputs and tri-state enable.
+//
+// Notes:
+//
+///////////////////////////////////////////////////////////////////////////////
+
+module mux_251 (sel, d, y, w);
+   parameter delay = 20;
+
+   input [1:0] sel;		// The signal selector
+   input [7:0] d;		// 8 input lines
+   input       e;	        // Active low tri-state output enables.
+   output      y, w;
+
+   wire [1:0]  sel;
+   wire [7:0]  d;
+   wire        e, y, w;
+
+   initial begin
+      $display("BOM: 74x251");
+   end
+   
+   assign #delay y = e ? 8'bzzzzzzzz : d[sel];
+   assign #delay w = e ? 8'bzzzzzzzz : ~d[sel];
+
+endmodule // mux_253
+
 
 `endif //  `ifdef mux_v
