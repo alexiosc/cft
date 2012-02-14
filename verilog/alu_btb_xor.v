@@ -36,9 +36,12 @@ module alu_tb();
    localparam ALU_CS1  = 4'b110;
    localparam ALU_CS2  = 4'b111;
 
-   localparam testname = "ALU ADD";
+   localparam testname = "ALU XOR";
    localparam MAX = 1024;
    localparam MAX2 = MAX * MAX;
+   localparam DELTA = 21554;
+   //localparam DELTA = 1;
+   localparam MODULO = 65536;
 
    integer     i, j, a, b, y_correct, l_correct;
    integer     t;
@@ -73,21 +76,21 @@ module alu_tb();
 	    #63 w_a = 0;
 	    #63 w_a = 1;
 
-	    #250 runit = ALU_ADD;
+	    #250 runit = ALU_XOR;
 	    #250 begin
-	       y_correct = (a + b) % 65536;
-	       l_correct = (a + b) & 65536 ? 1 : 0;
+	       y_correct = (a ^ b) & 65535;
+	       l_correct = 0;
 
 	       if (y_correct != y) begin
-		  $display("%s: [fail] t=%d: %1d/%1d. %5d + %5d = %1d,%5d =? %1d,%5d",
-			   testname, t, i, j, a, b, alu_l_toggle, y, l_correct, y_correct);
-		  $display ("%s: [fail] Assertion failed (sum incorrect).", testname);
+		  $display("%s: [fail] t=%d: %1d/%1d. %5d XOR %5d = %5d =? %5d",
+			   testname, t, i, j, a, b, y, y_correct);
+		  $display ("%s: [fail] Assertion failed (result incorrect).", testname);
 		  #100 $finish;
 	       end
 	       if (l_correct != alu_l_toggle) begin
-		  $display("%s: [fail] t=%d: %1d/%1d. %5d + %5d = %1d,%5d =? %1d,%5d",
-			   testname, t, i, j, a, b, alu_l_toggle, y, l_correct, y_correct);
-		  $display ("%s: [fail] Assertion failed (carry out incorrect).", testname);
+		  $display("%s: [fail] t=%d: %1d/%1d. %5d XOR %5d = %5d =? %5d",
+			   testname, t, i, j, a, b, y, y_correct);
+		  $display ("%s: [fail] Assertion failed (carry out was set).", testname);
 		  #100 $finish;
 	       end
 
@@ -97,10 +100,11 @@ module alu_tb();
 	       	       
 	       runit = ALU_IDLE;
 	       
-	       a = (a + 21554) % 65535;
+	       a = (a + DELTA) % MODULO;
 	    end
 	 end
-	 b = (b + 21554) % 65535;
+	 b = (b + DELTA) % MODULO;
+	 
       end // for (i = 0; i < 10; i = i + 1)
 
       $display("%s: Pass.", testname);

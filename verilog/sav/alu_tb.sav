@@ -1,7 +1,7 @@
-[timestart] 126320000
+[timestart] 803690000
 [size] 1661 703
 [pos] 74 0
-*-22.653191 151680000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-22.653191 839860000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] alu_tb.
 [treeopen] alu_tb.alu.
 @28
@@ -22,25 +22,101 @@ alu_tb.w_b
 @200
 -
 -Test
-@24
-alu_tb.a[31:0]
 @22
+alu_tb.a[31:0]
 alu_tb.b[31:0]
-@420
 alu_tb.y_correct[31:0]
 @24
 alu_tb.t[31:0]
 @200
 -
 -ALU
-@24
+@c00022
 alu_tb.alu.a[15:0]
+@28
+(0)alu_tb.alu.a[15:0]
+(1)alu_tb.alu.a[15:0]
+(2)alu_tb.alu.a[15:0]
+(3)alu_tb.alu.a[15:0]
+(4)alu_tb.alu.a[15:0]
+(5)alu_tb.alu.a[15:0]
+(6)alu_tb.alu.a[15:0]
+(7)alu_tb.alu.a[15:0]
+(8)alu_tb.alu.a[15:0]
+(9)alu_tb.alu.a[15:0]
+(10)alu_tb.alu.a[15:0]
+(11)alu_tb.alu.a[15:0]
+(12)alu_tb.alu.a[15:0]
+(13)alu_tb.alu.a[15:0]
+(14)alu_tb.alu.a[15:0]
+(15)alu_tb.alu.a[15:0]
+@1401200
+-group_end
+@c00022
 alu_tb.alu.b[15:0]
+@28
+(0)alu_tb.alu.b[15:0]
+(1)alu_tb.alu.b[15:0]
+(2)alu_tb.alu.b[15:0]
+(3)alu_tb.alu.b[15:0]
+(4)alu_tb.alu.b[15:0]
+(5)alu_tb.alu.b[15:0]
+(6)alu_tb.alu.b[15:0]
+(7)alu_tb.alu.b[15:0]
+(8)alu_tb.alu.b[15:0]
+(9)alu_tb.alu.b[15:0]
+(10)alu_tb.alu.b[15:0]
+(11)alu_tb.alu.b[15:0]
+(12)alu_tb.alu.b[15:0]
+(13)alu_tb.alu.b[15:0]
+(14)alu_tb.alu.b[15:0]
+(15)alu_tb.alu.b[15:0]
+@1401200
+-group_end
+@c00022
 alu_tb.y[15:0]
 @28
-alu_tb.alu.co0
-alu_tb.alu.co1
-alu_tb.alu.add_l_out
-alu_tb.alu.add_v_out
+(0)alu_tb.y[15:0]
+(1)alu_tb.y[15:0]
+(2)alu_tb.y[15:0]
+(3)alu_tb.y[15:0]
+(4)alu_tb.y[15:0]
+(5)alu_tb.y[15:0]
+(6)alu_tb.y[15:0]
+(7)alu_tb.y[15:0]
+(8)alu_tb.y[15:0]
+(9)alu_tb.y[15:0]
+(10)alu_tb.y[15:0]
+(11)alu_tb.y[15:0]
+(12)alu_tb.y[15:0]
+(13)alu_tb.y[15:0]
+(14)alu_tb.y[15:0]
+(15)alu_tb.y[15:0]
+@1401200
+-group_end
+@200
+-
+@800022
+alu_tb.alu.ba0[14:0]
+@28
+(0)alu_tb.alu.ba0[14:0]
+(1)alu_tb.alu.ba0[14:0]
+@29
+(2)alu_tb.alu.ba0[14:0]
+@28
+(3)alu_tb.alu.ba0[14:0]
+(4)alu_tb.alu.ba0[14:0]
+(5)alu_tb.alu.ba0[14:0]
+(6)alu_tb.alu.ba0[14:0]
+(7)alu_tb.alu.ba0[14:0]
+(8)alu_tb.alu.ba0[14:0]
+(9)alu_tb.alu.ba0[14:0]
+(10)alu_tb.alu.ba0[14:0]
+(11)alu_tb.alu.ba0[14:0]
+(12)alu_tb.alu.ba0[14:0]
+(13)alu_tb.alu.ba0[14:0]
+(14)alu_tb.alu.ba0[14:0]
+@1001200
+-group_end
 [pattern_trace] 1
 [pattern_trace] 0

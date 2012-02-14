@@ -36,17 +36,15 @@ module alu_tb();
    localparam ALU_CS1  = 4'b110;
    localparam ALU_CS2  = 4'b111;
 
-   localparam testname = "ALU ADD";
-   localparam MAX = 1024;
-   localparam MAX2 = MAX * MAX;
+   localparam MAX = 16;
 
    integer     i, j, a, b, y_correct, l_correct;
    integer     t;
    
    // Initialize all variables
    initial begin        
-      //$dumpfile ("vcd/alu_tb.vcd");
-      //$dumpvars (0, alu_tb);
+      $dumpfile ("vcd/alu_tb.vcd");
+      $dumpvars (0, alu_tb);
 
       // Reset.
       reset = 0;
@@ -79,22 +77,21 @@ module alu_tb();
 	       l_correct = (a + b) & 65536 ? 1 : 0;
 
 	       if (y_correct != y) begin
-		  $display("%s: [fail] t=%d: %1d/%1d. %5d + %5d = %1d,%5d =? %1d,%5d",
-			   testname, t, i, j, a, b, alu_l_toggle, y, l_correct, y_correct);
-		  $display ("%s: [fail] Assertion failed (sum incorrect).", testname);
+		  $display("t=%d: %2d/%2d. %5d + %5d = %1d,%5d =? %1d,%5d",
+			   t, i, j, a, b, alu_l_toggle, y, l_correct, y_correct);
+		  $display ("Assertion failed (sum incorrect).");
 		  #100 $finish;
 	       end
 	       if (l_correct != alu_l_toggle) begin
-		  $display("%s: [fail] t=%d: %1d/%1d. %5d + %5d = %1d,%5d =? %1d,%5d",
-			   testname, t, i, j, a, b, alu_l_toggle, y, l_correct, y_correct);
-		  $display ("%s: [fail] Assertion failed (carry out incorrect).", testname);
+		  $display("t=%d: %2d/%2d. %5d + %5d = %1d,%5d =? %1d,%5d",
+			   t, i, j, a, b, alu_l_toggle, y, l_correct, y_correct);
+		  $display ("Assertion failed (carry out incorrect).");
 		  #100 $finish;
 	       end
 
 	       t = t + 1;
-	       if ((t % 4000) == 0) $display ("%s: [ok] Tests up to %1d (of %1d) successful (%1d%% done).",
-					      testname, t, MAX2, 100 * t / MAX2);
-	       	       
+	       if ((t % 2000) == 0) $display ("Tests up to %1d (of %1d) successful.", t, MAX * MAX);
+	       
 	       runit = ALU_IDLE;
 	       
 	       a = (a + 21554) % 65535;
@@ -103,7 +100,7 @@ module alu_tb();
 	 b = (b + 21554) % 65535;
       end // for (i = 0; i < 10; i = i + 1)
 
-      $display("%s: Pass.", testname);
+      $display("*** ADD: SUCCESS ***");
 
       #500 $finish;      // Terminate simulation
    end // initial begin

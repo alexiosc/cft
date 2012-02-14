@@ -5,7 +5,7 @@ SRC =		counter.v counter_161_tb.v \
 		mux.v mux_253_tb.v \
 		flipflop.v flipflop_112_tb.v flipflop_74_tb.v flipflop_174_tb.v flipflop_574_tb.v flipflop_564_tb.v \
 		alu.v alu_tb.v alu_roll_tb.v alu_add_tb.v \
-		alu_btb_add.v alu_btb_and.v \
+		alu_btb_add.v alu_btb_and.v alu_btb_or.v alu_btb_xor.v \
 		skip_unit.v skip_unit_tb.v \
 		clock.v clock_tb.v clock2_tb.v \
 		rom.v rom_tb.v \
@@ -35,7 +35,7 @@ VCDDIR	=	vcd
 
 SUBDIRS = 	img
 
-.PHONY: all all-subdirs subdirs $(SUBDIRS)
+.PHONY: all all-subdirs subdirs $(SUBDIRS) batch-test
 
 all: 	$(SUBDIRS) $(OBJ)
 
@@ -228,12 +228,21 @@ test:		$(OBJ)
 		./cft_tb.o
 		$(GTKWAVE) $(VCDDIR)/cft_tb.vcd $(SAVDIR)/cft_tb.sav
 
-
+batch_test:		batch_test_alu_add \
+			batch_test_alu_and \
+			batch_test_alu_or \
+			batch_test_alu_xor
 
 batch_test_alu_add:	alu_btb_add.o alu.o
 			./alu_btb_add.o
 
 batch_test_alu_and:	alu_btb_and.o alu.o
 			./alu_btb_and.o
+
+batch_test_alu_or:	alu_btb_or.o alu.o
+			./alu_btb_or.o
+
+batch_test_alu_xor:	alu_btb_xor.o alu.o
+			./alu_btb_xor.o
 
 # End of file.
