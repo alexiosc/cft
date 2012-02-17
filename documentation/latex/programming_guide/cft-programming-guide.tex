@@ -1,4 +1,7 @@
 \documentclass[11pt,a4paper,twocolumns]{article}
+\usepackage[table]{xcolor}
+\newcommand\zebra{\rowcolors{2}{gray!10}{white}}
+%\newcommand\zebra*[1]{\rowcolors{#1}{gray!10}{white}}
 \usepackage[all]{xy}
 \usepackage{pdftricks}
 \usepackage{epsfig}
@@ -148,6 +151,9 @@
   Register is now the Address Register (\AR). Various minor
   nomenclature changes and typographical errata.
 
+  {\bf 2012-01-23} The {\sf R} instuction field is now reversed
+  (microcode version 4).
+
   \vspace{5ex}
   
 \end{minipage}
@@ -284,6 +290,7 @@ level.
 
 \begin{figure}[bt]
   \centering
+  \zebra
   \begin{tabular}{cl}
     \hex{0000} & {\tt SUBRET} — return address for last {\tt JSR}.\\
     \hex{0001} & {\tt TRAPRET} — return address for last {\tt TRAP}\\
@@ -551,12 +558,12 @@ instruction contains four fields. From most to least significant, they are:
 \subsection{Page-Relative Limitations}
 \label{sec-pagerel}
 
-Unless the Register Mode (R) bit is enabled (field R in the
-instruction equal to 0), an instruction at address {\tt addr} may only
-access memory (and I/O) address between {\tt addr AND FC00} and {\tt
-  (ADDR AND FC00) OR 3FF}. This introduces a number of limitations and
-defines the programming style of CFT more than any other single
-aspect of the design.
+Unless the Register Mode (R) bit is set (field R in the instruction
+equal to {\sf 1}), an instruction at address {\tt addr} may only access
+memory (and I/O) address between {\tt addr AND FC00} and {\tt (ADDR
+  AND FC00) OR 3FF}. This introduces a number of limitations and
+defines the programming style of CFT more than any other single aspect
+of the design.
 
 There are four obvious solutions to the limitation:
 
@@ -596,7 +603,7 @@ significant bits of the \PC. Because of this, different I/O devices
 will be accessed depending on the location of the program in
 memory. There are two ways to avoid this: the primary one is to only
 use 10 bits of I/O space. Either the R field in all I/O instructions
-must be 0, or the hardware must decode only the 10 least significant
+must be {\sf 1}, or the hardware must decode only the 10 least significant
 address lines\footnote{Thus providing six don't care bits, which is 64
   copies of every I/O device, one for every page.}, or a combination
 of both. The secondary means of avoiding this issue is indirect
@@ -636,7 +643,7 @@ The addressing modes are as follows:
   \item Direct page-relative.
   \item Indirect register.
   \item Indirect page-relative.
-  \item Indirect autoindex.
+  \item Autoindex.
   \item Special.
 \end{itemize}
 
@@ -654,7 +661,7 @@ For example, executing the Load Immediate (LI R) instruction {\tt LI R
 
 When using applicable instructions with with R=1 and I=0, the value
 field in the instruction is used as the least significant 10 bits of a
-literal value. The most significant six bits of the \PC\  are used as the
+literal value. The six most significant bits of the \PC\ are used as the
 most significant six bits of that value. This allows addresses in the
 current page to be specified.
 
@@ -663,7 +670,7 @@ For example, executing the Load Address (LIA) instruction {\tt LIA
 
 \subsubsection{Direct Register Mode}
 
-When using applicable instructions with R=0 and I=0, the value field
+When using applicable instructions with R=1 and I=0, the value field
 in the instruction is used as the least significant 10 bits of a
 memory or I/O address. The most significant six bits are zero. This
 allows Page Zero registers and I/O devices to be addressed.
@@ -673,10 +680,11 @@ instruction will load the contents of address \hex{0010} into \A.
 
 \subsubsection{Direct Page-Relative Mode}
 
-When using applicable instructions with R=1 and I=0, the value field
-in the instruction is used to construct an address which is used
-directly to reference a value in memory or I/O space. This is the most
-commonly used addressing mode.
+When using applicable instructions with R=0 and I=0, the six most
+significant bits of the \PC{} and the ten least significant bits of
+the value field in the instruction are used to construct an address
+which is used directly to reference a value in memory or I/O
+space. This is the most commonly used addressing mode.
 
 For example, executing the Store instruction {\tt STORE 0010} at
 address \hex{8514} will write the contents of \A\  onto memory address
@@ -684,7 +692,7 @@ address \hex{8514} will write the contents of \A\  onto memory address
 
 \subsubsection{Indirect Register Mode}
 
-When using applicable instructions with R=0 and I=1, the value field
+When using applicable instructions with R=1 and I=1, the value field
 in the instruction is used to construct an address. The 16-bit value
 {\em at that address in memory\/} is used to reference memory or I/O
 space.
@@ -694,11 +702,13 @@ read into the \DR register a 16-bit value from memory location {\tt
   009A}. \A\  will then be loaded with the value of the address in
 memory stored in \DR.
 
-\subsubsection{Indirect Mode}
+\subsubsection{Indirect Page-Relative Mode}
 
-When using applicable instructions with R=1 and I=1, the value field
-in the instruction is used to construct an address. The 16-bit value
-at that address in memory is used to reference memory or I/O space.
+When using applicable instructions with R=0 and I=1, the six most
+significant bits of the \PC{} and the ten least significant bits of
+the value field in the instruction are used to construct an
+address. The 16-bit value at that address in memory is used to
+reference memory or I/O space.
 
 For example, executing the LOAD instruction {\tt LOAD I 009A} at
 address \hex{1234} will read into the Data Register a 16-bit value
@@ -707,11 +717,12 @@ in memory to be read into \A.
 
 \subsubsection{Autoindex Mode}
 
-Autoindex mode operates like indirect mode above, but the memory
-location indicated in the instruction field is incremented after being
-used. Autoindex mode cannot be selected directly. It is automatically
-enabled for addresses in the range \hex{0080}–\hex{00FF}. The value of the R
-field is immaterial, only the address is examined.
+Autoindex mode operates like Indirect Register Mode above, but the
+memory location indicated in the instruction field is {\em
+  incremented\/} after being used. Indirect Autoindex mode cannot be
+selected directly. It is automatically enabled for addresses in the
+range \hex{0080}–\hex{00FF}. The value of the R field is immaterial,
+only the resultant address is examined.
 
 For example, executing the LOAD instruction {\tt LOAD I R 009A} will
 read into the \DR register a 16-bit value from memory location
@@ -963,6 +974,7 @@ set bits trigger a particular minor operation. The table below
 outlines the possible operations that can be ORred together.
 
 \vspace{1em}\noindent\begin{center}
+\zebra
 \begin{tabular}{ll}
   Bitfield & {\tt OP1} Instruction \\\noalign{\smallskip}\hline\noalign{\smallskip}
   {\tt 1---------} & {\tt IFL} — Execute the rest only if \Lreg{} set.\\
@@ -1022,6 +1034,7 @@ following table lists the {\tt OP2} bitfield values that may be ORred
 together.
 
 \vspace{1em}\noindent\begin{center}
+\zebra
 \begin{tabular}{ll}
   Bitfield & {\tt OP2} Instruction \\\noalign{\smallskip}\hline\noalign{\smallskip}
   {\tt -----01---} & {\tt SNA} — Skip if \A{} negative (G1)\\
@@ -1057,6 +1070,7 @@ macro for this is {\tt SPA}). The full set of combinations to check
 the value of \Areg{} is as follows:
 
 \vspace{1em}\noindent\begin{center}
+\zebra
 \begin{tabular}{lll}
   Instruction & Macro & Semantics \\\noalign{\smallskip}\hline\noalign{\smallskip}
   {\tt SNA }     &           & Skip if $\mbox{A} < 0$ \\

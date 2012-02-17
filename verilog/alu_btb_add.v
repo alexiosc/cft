@@ -90,6 +90,19 @@ module alu_tb();
 		  $display ("%s: [fail] Assertion failed (carry out incorrect).", testname);
 		  #100 $finish;
 	       end
+	       if (alu_l_out) begin
+		  $display("%s: [fail] t=%d: %1d/%1d. %5d + %5d = %1d,%5d =? %1d,%5d",
+			   testname, t, i, j, a, b, alu_l_toggle, y, l_correct, y_correct);
+		  $display ("%s: [fail] Assertion failed (roll L out was set).", testname);
+		  #100 $finish;
+	       end
+	       if (alu_l_latch) begin
+		  $display("%s: [fail] t=%d: %1d/%1d. %5d + %5d = %1d,%5d =? %1d,%5d",
+			   testname, t, i, j, a, b, alu_l_toggle, y, l_correct, y_correct);
+		  $display ("%s: [fail] Assertion failed (roll L latch was set).", testname);
+		  #100 $finish;
+	       end
+
 
 	       t = t + 1;
 	       if ((t % 4000) == 0) $display ("%s: [ok] Tests up to %1d (of %1d) successful (%1d%% done).",
@@ -97,13 +110,13 @@ module alu_tb();
 	       	       
 	       runit = ALU_IDLE;
 	       
-	       a = (a + 21554) % 65535;
+	       a = (a + 21553) % 65535;
 	    end
 	 end
-	 b = (b + 21554) % 65535;
+	 b = (b + 21553) % 65535;
       end // for (i = 0; i < 10; i = i + 1)
 
-      $display("%s: Pass.", testname);
+      $display("%s: [ok] Pass.", testname);
 
       #500 $finish;      // Terminate simulation
    end // initial begin

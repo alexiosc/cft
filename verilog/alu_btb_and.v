@@ -30,11 +30,11 @@ module alu_tb();
    localparam ALU_OR  = 4'b1010;
    localparam ALU_XOR = 4'b1011;
    
-   localparam ALU_ROLL = 4'b100;
-   localparam ALU_NOT  = 4'b101;
+   localparam ALU_ROLL = 4'b1100;
+   localparam ALU_NOT  = 4'b1101;
    
-   localparam ALU_CS1  = 4'b110;
-   localparam ALU_CS2  = 4'b111;
+   localparam ALU_CS1  = 4'b1110;
+   localparam ALU_CS2  = 4'b1111;
 
    localparam testname = "ALU AND";
    localparam MAX = 1024;
@@ -97,13 +97,13 @@ module alu_tb();
 	       	       
 	       runit = ALU_IDLE;
 	       
-	       a = (a + 21554) % 65535;
+	       a = (a + 21553) % 65535;
 	    end
 	 end
-	 b = (b + 21554) % 65535;
+	 b = (b + 21553) % 65535;
       end // for (i = 0; i < 10; i = i + 1)
 
-      $display("%s: Pass.", testname);
+      $display("%s: [ok] Pass.", testname);
 
       #500 $finish;      // Terminate simulation
    end // initial begin

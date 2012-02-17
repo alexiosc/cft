@@ -30,11 +30,16 @@ module alu_tb();
    localparam ALU_OR  = 4'b1010;
    localparam ALU_XOR = 4'b1011;
    
-   localparam ALU_ROLL = 4'b100;
-   localparam ALU_NOT  = 4'b101;
+   localparam ALU_ROLL = 4'b1100;
+   localparam ALU_NOT  = 4'b1101;
    
-   localparam ALU_CS1  = 4'b110;
-   localparam ALU_CS2  = 4'b111;
+   localparam ALU_CS1  = 4'b1110;
+   localparam ALU_CS2  = 4'b1111;
+
+   localparam ALU_RBL  = 3'b010;
+   localparam ALU_RBR  = 3'b011;
+   localparam ALU_RNL  = 3'b110;
+   localparam ALU_RNR  = 3'b101;
 
    localparam MAX = 16;
 
@@ -71,7 +76,8 @@ module alu_tb();
 	    #63 w_a = 0;
 	    #63 w_a = 1;
 
-	    #250 runit = ALU_ADD;
+	    #250 runit = ALU_ROLL;
+	    rollop = 0;
 	    #250 begin
 	       y_correct = (a + b) % 65536;
 	       l_correct = (a + b) & 65536 ? 1 : 0;
@@ -94,10 +100,10 @@ module alu_tb();
 	       
 	       runit = ALU_IDLE;
 	       
-	       a = (a + 21554) % 65535;
+	       a = (a + 21553) % 65535;
 	    end
 	 end
-	 b = (b + 21554) % 65535;
+	 b = (b + 21553) % 65535;
       end // for (i = 0; i < 10; i = i + 1)
 
       $display("*** ADD: SUCCESS ***");

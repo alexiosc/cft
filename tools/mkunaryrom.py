@@ -195,13 +195,13 @@ class Unary(threading.Thread):
                         tt.put(addr, data)
             
                         if debug:
-                            print '%s <%d,%04x> %06x %s:%s %s%s' % \
-                                (opcodes[op], l, x,
+                            print '%s <%d,%04x> %06x %s:\033[0;32m%s\033[0m%s \033[0;32m%s\033[0m%s' % \
+                                (self.opcodes[op], l, x,
                                  addr,
                                  romtables.mybin(op,3),
-                                 romtables.mybin(a,16),
+                                 l, romtables.mybin(a,16),
                                  l_out,
-                                 romtables.mybin(x,17),
+                                 romtables.mybin(x,16),
                                  )
                         else:
                             tt.progress(dt=5)

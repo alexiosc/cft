@@ -81,3 +81,8 @@ G05R:2k2		2.2κΩ hex bussed SIL resistor
 G07R:2k2		2.2kΩ 7x bussed SIL resistor	
 SW_DIP-8:		8-way DIP switch	Through hole
 VG96-3K:		96-pin (A+B+C) DIN-41612 Bauform ‘C’ plug	Right angle through hole
+GE08R:330R		330Ω octal bussed SIL resistor	
+GE09R:330R		330Ω 9x bussed SIL resistor	
+8R-N:330R		330Ω octal DIL resistor	
+M48T02	Farnell 1224444		
+82C54	Farnell 1018175		

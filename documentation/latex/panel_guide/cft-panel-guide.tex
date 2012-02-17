@@ -1,7 +1,11 @@
 \documentclass[11pt,a4paper,twocolumns]{article}
+\usepackage[table]{xcolor}
+\newcommand\zebra{\rowcolors{2}{gray!10}{white}}
+\newcommand\zebrarow[1]{\rowcolors{#1}{gray!10}{white}}
 \usepackage[all]{xy}
 \usepackage{tikz-timing}[2009/07/28]
 \usetikztiminglibrary{either}[2009/07/28]
+\tikzset{timing/z/.style={black},}
 \usepackage{pdftricks}
 \usepackage{epsfig}
 \usepackage{lipsum}
@@ -9,25 +13,34 @@
 \usepackage{verbatim}
 \usepackage{geometry}
 \usepackage{graphicx}
+\usepackage{afterpage}
 \usepackage{color}
 \usepackage{epic}
 \usepackage{eepic}
 \usepackage{fontspec}
 \usepackage[dvipdfm,a4paper,CJKbookmarks,bookmarks=true,bookmarksopen=true]{hyperref}
+\usepackage{colortbl}
 \usepackage{longtable}
+\usepackage{array}
+%\usepackage{layout}
+\newcolumntype{P}[1]{>{\raggedright\arraybackslash}p{#1}}
+
 \begin{psinputs}
 \usepackage{color}
-\usepackage{longtable}
+
 \usepackage{pstcol}
 \usepackage{pstricks}
 \usepackage{pst-plot}
 \usepackage{pst-tree}
-\usepackage{pst-eps}
+\usepackage{pst-eps}a
 \usepackage{multido}
 \usepackage{pst-node}
 \usepackage{pst-eps}
 \end{psinputs}
 \definecolor{darkblue}{RGB}{0,0,128}
+\definecolor{caution}{RGB}{192,0,0}
+\def\oddrowcolor{}
+\def\evenrowcolor{}
 \hypersetup{
     pdftitle={CFT Minicomputer Front Panel Operations},
     pdfauthor={Alexios Chouchoulas},
@@ -74,12 +87,14 @@
 \newcommand\hyperemail[1]{\sf\href{mailto:#1}{#1}}
 \newcommand\link[1]{\sf\href{http://#1}{#1}}
 
+\newcommand{\asm}[1]{\texttt{#1}}
 \newcommand{\ns}[1]{$\overline{\mbox{\textsf{{#1}}}}$}
 \newcommand{\ps}[1]{\textsf{#1}}
 \newcommand{\lt}[1]{\textsf{#1}}
 \newcommand{\sw}[1]{\textsf{#1}}
 
 \newcommand{\schpt}[1]{\textsf{#1}}
+\newcommand{\farnell}[1]{#1}
 
 \newcommand\bus[1]{{#1}}
 \newcommand\unit[1]{{#1}}
@@ -92,7 +107,7 @@
 \newcommand\AC{\A}
 \newcommand\Lreg{\register{L}}
 \newcommand\Ireg{\register{I}}
-\newcommand\MAR{\register{MAR}}
+\newcommand\MAR{\register{AR}}
 \newcommand\DR{\register{DR}}
 \newcommand\PC{\register{PC}}
 \newcommand\IR{\register{IR}}
@@ -150,10 +165,123 @@
 \newcommand\FZERO{\ps{FZERO}}
 \newcommand\FNEG{\ps{FNEG}}
 \newcommand\RESET{\ns{RESET}}
+\newcommand\abbr[1]{#1}
+
+\newcommand\caution[1]{\textcolor{caution}{\bf{#1}}}
 
 \newcommand\NB{\textbf{Nota Bene:\ }}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% BILL OF MATERIALS (AUTOMATICALLY GENERATED)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand\bomv[1]{%
+  \footnotesize
+  \zebrarow{10}
+  \begin{longtable}{r%
+      %@{{\scriptsize(line \number\rownum)\ }}%
+      P{0.2\textwidth}P{0.2\textwidth}P{0.15\textwidth}P{0.2\textwidth}}
+    %
+    % First header
+    %
+    \hiderowcolors
+    \noalign{\smallskip}\hline\noalign{\smallskip}
+    {\bf Qty} & {\bf Description} & {\bf Parts} & {\bf Order No} & {\bf Notes} \\
+    \noalign{\smallskip}\hline\noalign{\smallskip}
+    \noalign{\global\rownum 0\relax}\showrowcolors
+    \endfirsthead
+    %
+    % Subsequent headers
+    %
+    \hiderowcolors
+    \multicolumn{5}{l}{\em Continued from previous page.}\\
+    \noalign{\smallskip\smallskip}\hline\noalign{\smallskip}
+    {\bf Qty} & {\bf Description} & {\bf Parts} & {\bf Order No} & {\bf Notes} \\
+    \noalign{\smallskip}\hline\noalign{\smallskip}
+    \noalign{\global\rownum 1\relax}\showrowcolors
+    \endhead
+    %
+    % Footer
+    %
+    \hiderowcolors
+    \noalign{\smallskip\smallskip}
+    \multicolumn{5}{l}{\em Continued on next page.}\\
+    \endfoot
+    %
+    % Last footer
+    %
+    \hiderowcolors
+    \noalign{\smallskip}\hline\noalign{\smallskip}
+    \endlastfoot
+    %
+    % Content
+    %
+    \showrowcolors
+    \input{../generated/#1-bom-values}
+  \end{longtable}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% INDEX OF PARTS (AUTOMATICALLY GENERATED)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand\bomp[1]{%
+  \footnotesize
+  \zebra
+  \begin{longtable}{P{0.15\textwidth}P{0.3\textwidth}P{0.2\textwidth}P{0.2\textwidth}}
+    %
+    % First header
+    %
+    \hiderowcolors
+    \noalign{\smallskip}\hline\noalign{\smallskip}
+    {\bf Part} & {\bf Description} & {\bf Order No} & {\bf Notes}\\
+    \noalign{\smallskip}\hline\noalign{\smallskip}
+    \noalign{\global\rownum 1\relax}\showrowcolors
+    \endfirsthead
+    %
+    % Subsequent headers
+    %
+    \hiderowcolors
+    \multicolumn{4}{l}{\em Continued from previous page.}\\
+    \noalign{\smallskip\smallskip}\hline\noalign{\smallskip}
+    {\bf Part} & {\bf Description} & {\bf Order No} & {\bf Notes}\\
+    \noalign{\smallskip}\hline\noalign{\smallskip}
+    \noalign{\global\rownum 1\relax}\showrowcolors
+    \endhead
+    %
+    % Footer
+    %
+    \hiderowcolors
+    \noalign{\smallskip\smallskip}
+    \multicolumn{4}{l}{\em Continued on next page.}\\
+    \endfoot
+    %
+    % Last footer
+    %
+    \hiderowcolors
+    \noalign{\smallskip}\hline\noalign{\smallskip}
+    \endlastfoot
+    %
+    % Content
+    %
+    \showrowcolors
+    \input{../generated/#1-bom-parts}
+  \end{longtable}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% DOCUMENT STARTS HERE
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \begin{document}
+%\layout
 \thispagestyle{empty}
 \pagestyle{plain}
 \twocolumn[
@@ -188,6 +316,18 @@
 
   {\bf 2012-01-04} Listed briefly the signal connections between front
   panel and processor boards.
+
+  {\bf 2012-01-09} Added revision B schematics, bill of materials and parts index.
+
+  {\bf 2012-01-15} Minor modifications to the schematics and matching
+  description. Added discussion on configuring and tuning the front
+  panel.
+
+  {\bf 2012-01-18} Added front panel controller and started section of the
+  front panel's theory of operation.
+
+  {\bf 2012-01-20} Added theory of operation of sequencer and system device and
+  updated rendered images of boards, schematics and bills of materials.
 
   \vspace{5ex}
   
@@ -302,7 +442,7 @@ red or orange for approximately one tenth of a second.
 
 \subsubsection{Miscellaneous Lights}
 
-Three green lights marked \lt{GEN2}–\lt{GEN0} are loacated at the right of the
+Three green lights marked \lt{GEN2}–\lt{GEN0} are located at the right of the
 topmost row. These are reserved for generic use. Hardware may indicate its
 status on any of them via physical two-wire connections.
 
@@ -380,7 +520,7 @@ these lights are as follows:
 These lights are pairwise mutually exclusive. The four combinations of them
 describe the nature of the memory or I/O access (memory read, memory write, I/O
 read, I/O write). Please note that these lights are, in essence, part of the
-micro-instruction as descibed below.
+micro-instruction as described below.
 
 \subsubsection{Instruction Register}
 
@@ -440,7 +580,7 @@ register lights and numbered in the same power-of-two convention as register
 display lights. Switches are grouped in four four-bit groups for easier
 reading.
 
-Push a switch up to set the corresonding bit. Push it down to clear it.
+Push a switch up to set the corresponding bit. Push it down to clear it.
 
 \subsubsection{Run Control}
 
@@ -644,7 +784,7 @@ position.
 
 Depress the \sw{RUN} or \sw{START} switch.
 
-The computer boots from ROM and begins execution.
+The computer boots from ROM address {\sf FFF0} and begins execution.
 
 You may now secure the front panel by turning the key switch to the
 \sw{ON} position.
@@ -711,7 +851,23 @@ of considerations when using the front panel to do this:
   feature of any control panel.
 \end{itemize}
 
-\section{Hardware Guide}
+\section{Hardware Description}
+
+\begin{figure*}
+\centering
+\includegraphics[width=0.8\textwidth]{figs/front-panel-controller-dip.jpg}\\
+\caption{\label{fig-rendered-fpc-dip}Rendered view of an assembled Front Panel
+  Controller board. This is the original, \abbr{DIP} attempt and is shown here for
+  historical reasons.}
+\end{figure*}
+
+\begin{figure*}
+\centering
+\includegraphics[width=0.8\textwidth]{figs/front-panel-controller-smd.jpg}\\
+\caption{\label{fig-rendered-fpc-smd}Rendered view of the \abbr{SMD} revision of the
+  Front Panel Controller board.}
+\end{figure*}
+
 
 The Front Panel comprises three distinct parts (though parts 2 and 3
 may be implemented on the same physical board):
@@ -727,13 +883,16 @@ may be implemented on the same physical board):
   and their debounce circuitry.
 \end{enumerate}
 
-The controller connects to the switch and LED boards via a
-daisy-chained 40-conductor ribbon cable.
+\subsection{Connectors}
 
-\begin{table*}[h!]
+The Front Panel Controller Card connects to the switch and LED boards
+via six 8-conductor cables.
+
+\begin{table*}[tb]
   \caption{\label{tab-connectors}Connections between the front panel
     and the processor.}
   \centering
+  \zebra
   \begin{tabular}{llcll}
     \noalign{\smallskip}\hline\noalign{\smallskip}
     Function & Name & Conductors & From & To \\
@@ -761,31 +920,382 @@ daisy-chained 40-conductor ribbon cable.
     Interrupt Enable Status  & CON21 & 8 & Interrupt Controller board & Front Panel LED board \\
     Control switches 1       & CON22 & 8 & Switch board & Front Panel Controller \\
     Control switches 2       & CON23 & 8 & Switch board & Front Panel Controller \\
-    Clock Control            & CON24 & 3 & Switch board & Clock Generator \\
-    Memory Banking Control   & CON25 & 2 & Switch board & Memory Banking board \\
-    Interrupt Control        & CON26 & 3 & Switch board & Interrupt Controller board \\
-    Reset In                 & CON27 & 1 & Switch board & Reset generator \\
+    Miscellaneous signals    & CON24 & 9 & Switch board & (various cards) \\
     Miscellaneous LEDs (×3)  & SV1   & 6 & Any required & Front Panel LED board \\
     \noalign{\smallskip}\hline\noalign{\smallskip}
   \end{tabular}
 \end{table*}
 
+\subsection{Front Panel Configuration}
+
+The front panel is configurable using jumpers and trimmers.
+
+\subsubsection{\sw{STEP} Autorepeat Tuning}
+
+The autorepeat delay and repeat rate may be modified by varying the
+trimmers \schpt{R1} (autorepeat delay) and \schpt{R4} (repeat
+rate). Please ensure that the autorepeat rate is not faster than the
+slowest CPU clock, otherwise the instruction stepping mechanism will
+break.
+
+\subsubsection{Fetch/Execute Decoder}
+
+The fetch/execute decoder is used to control the \lt{FETCH} and
+\lt{EXEC}. It also provides input to the Front Panel Controller so
+that instruction stepping stops immediately after a fetch cycle. Fetch
+decoding compares the least significant bits of the 4-bit μPC register
+(the high order bit is assumed to be 0, since no microcode ROM is
+expected to have an 8-step fetch cycle). The \abbr{DIP} switch block
+\schpt{SW1} encodes (in binary) the value of the μPC for the first
+step of the {\em Execute\/} cycle. For Microcodes up to version 3,
+this value is 3 ({\sf 011}).
+
+\subsubsection{Light Control Jumpers}
+
+A number of three-pin jumpers on the front panel control the behaviour
+of many banks of console lights depending on the position of the
+\sw{VERBOSE}/\sw{TERSE} switch. A jumper shunt may be placed across
+pins 1–2 to leave a bank on regardless of the setting of the switch,
+or across pins 2–3 to allow the bank to be turned off when the
+\sw{VERBOSE}/\sw{TERSE} switch is in the \sw{TERSE} position.
+
+If non-CMOS technology is used for the front panel LED buffers (e.g. 74LS541N
+instead of 74HC541N), removing the jumper shunt altogether disables the light
+bank. \caution{This setting can cause erratic behaviour and/or damage to CMOS
+  light buffers.}
+
+This is a list of light control jumpers:
+
+\begin{description}
+\item{\schpt{JP1}} — the Memory Banking display. 
+\item{\schpt{JP2}} — the Instruction Register display.
+\item{\schpt{JP3}} — the Microcode Vector display.
+\item{\schpt{JP4}} — the Flag display.
+\item{\schpt{JP5}} — the Interrupt Status display.
+\end{description}
 
 \subsection{Connections}
 
 The front panel boards connect to the processor by means of numerous
 8-way connectors, shown in~\tcf{tab-connectors}.
 
+
+\section{Theory of Operation}
+
+The front panel is an unexpectedly complex device with a number of
+interwoven parts, and merits some description.
+
+\subsection{Switches}
+
+In their most general form, front panel switches connect between ground and the
+input pin of a CMOS device. When switches are closed, they provide a logic 0 to
+the attached circuitry. When they are opened, they float — this necessitates a
+pull-up resistor for each switch to provide a logic 1. The pull-ups are placed
+nearest the IC inputs, especially in cases where the switches are connected via
+connectors that may malfunction or break.
+
+\subsection{Switch Lock-Out}
+
+Many switches can be secured against accidental or malicious operation. There
+are two mechanisms to provide this feature:
+
+\begin{itemize}
+  \item The \ns{LOCK} signal. This is at +0V when the panel is unlocked, and a
+    high-impedance line when the panel is locked.  The panel key switch
+    physically connects the \ns{LOCK} signal to ground when the panel is
+    unlocked, so the fan-out of this signal is not an issue.  Switches
+    connecting to this signal rather than ground will only register when the
+    \ns{LOCK} is at ground level, which will only happen when the key lock is
+    in the \sw{PANEL} position.  This is used by the asynchronous action
+    switches in the system, namely \sw{RUN}, \sw{STOP}, \sw{IFR1} and
+    \sw{IFR6}.
+
+  \item The \ns{SAFE} signal. This is generated by an open-drain NAND gate
+    which combines the \ns{SWINHIBIT} and \ns{LOCK} signals. \ns{SWINHIBIT} is
+    an input from the Front Panel Controller card, and is low when the system
+    is running. When either \ns{SWINHIBIT} or \ns{LOCK} are low, the open drain
+    NAND gate is in the high-Z state, effectively disconnecting \ns{SAFE} and
+    rendering useless those switches that use it. When both \ns{SWINHIBIT} and
+    \ns{LOCK} are high (inactive), the open drain NAND gate sinks current, and
+    any switches using \ns{SAFE} can be operated. This is used for switches
+    that should have no effect while the system is running, or the panel is
+    locked.
+\end{itemize}
+
+Please consult~\tcf{tab-swlockout} for a listing of front panel switches and
+how they are locked out.
+
+\subsection{Switch Debouncing}
+
+Switches are debounced using the fairly standard circuit illustrated
+in~\fcf{fig-switch-debounce}. The passive components smooth the effect of the
+switch bouncing and provide a fairly sluggish ramp up (or down). The Schmitt
+trigger inverter converts this to the appropriate logic value. The values of
+the resistors and capacitor may be changed to accommodate various types of
+switch pathology. This debouncer is purposefully slow, since the front panel is
+not meant to have sub-millisecond responses.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.85\columnwidth]{figs/debouncing.pdf}\\
+\caption{\label{fig-switch-debounce}Switch debouncing.}
+\end{figure}
+
+\begin{table*}[tb]
+  \caption{\label{tab-swlockout}Switch lock-out. Switches locked out with
+    \ns{SAFE} are enabled with the panel unlocked and the processor
+    stopped. Switches locked out with \ns{LOCK} are enable with the panel
+    unlocked.}  \centering
+  \zebra
+  \begin{tabular}{lp{0.4\textwidth}p{0.3\textwidth}}
+    \noalign{\smallskip}\hline\noalign{\smallskip}
+    Switch & Function & Lock out \\
+    \noalign{\smallskip}\hline\noalign{\smallskip}
+    \schpt{S1–S16} & Switch Register bits 0–15 & Not locked out. Read by software or actuation of other switches) \\
+    \schpt{S17} & Key switch & Not locked out. Provides lock-out mechanism to other switches. \\
+    \schpt{S18} & \sw{VERBOSE}\ /\ \sw{TERSE}       & Not locked out, only modifies front panel output.\\
+    \schpt{S19} & \sw{ROM HI}\ /\ \sw{RAM HI}       & \ns{SAFE}.\\
+    \schpt{S20} & \sw{FAST}\ /\ \sw{SLOW}\ /\ \sw{TEST} & \ns{SAFE}.\\
+    \schpt{S21} & \sw{uSTEP}\ /\ \sw{STEP}          & \ns{SAFE}.\\
+    \schpt{S22} & \sw{START}\ /\ \sw{RESET}         & \ns{LOCK}.\\
+    \schpt{S23} & \sw{LOAD ADDR}                & \ns{SAFE}.\\
+    \schpt{S24} & \sw{LOAD IR}\ /\ \sw{LOAD AC}      & \ns{SAFE}.\\
+    \schpt{S25} & \sw{MEMORY DEPOSIT}\ /\ \sw{MEMORY DEP NEXT} & \ns{SAFE}.\\
+    \schpt{S26} & \sw{MEMORY EXAMINE}\ /\ \sw{MEMORY EXAM NEXT} & \ns{SAFE}.\\
+    \schpt{S27} & \sw{I/O DEPOSIT}\ /\ \sw{I/O DEP NEXT} & \ns{SAFE}.\\
+    \schpt{S28} & \sw{I/O EXAMINE}\ /\ \sw{I/O EXAM NEXT} & \ns{SAFE}.\\
+    \schpt{S29} & \sw{OUTPUT REG}\ /\ \sw{DR}\ /\ \sw{uADDR VEC} & Not locked out, only modifies front panel output.\\
+    \schpt{S30} & \sw{RUN}\ /\ \sw{STOP}            & \ns{LOCK}.\\
+    \schpt{S31} & \sw{IFR6}\ /\ \sw{IFR1}           & \ns{LOCK}.\\
+    \noalign{\smallskip}\hline\noalign{\smallskip}
+  \end{tabular}
+\end{table*}
+
+
+\subsection{Sequencing}
+
+A simple sequencer based on two dual 74LS123 multivibrator chips is used to
+provide timing for the front panel's memory and I/O functionality. The
+waveforms are neither as accurate nor as fast as the ones generated by the
+control unit itself, but the front panel is a human interface device, so this
+is not a requirement. The waveforms {\em are\/} properly interlocked to allow
+read and write access to memory and I/O-space locations. 
+
+The sequencer starts when any of the ‘exam’ or ‘deposit’ switches are actuated,
+in either the normal or increment (‘next’) position. This includes eight
+functions: \sw{MEMORY DEPOSIT}, \sw{MEMORY DEP NEXT}, \sw{MEMORY EXAMINE},
+\sw{MEMORY EXAM NEXT}, \sw{INPUT/OUTPUT DEPOSIT}, \sw {INPUT/OUTPUT DEP NEXT},
+\sw{INPUT/OUTPUT EXAMINE} and \sw{INPUT/OUTPUT EXAM NEXT}.
+
+\begin{table*}[tb]
+  \caption{\label{tab-fpcycles}The internal wiring of the eight memory and I/O
+    switches (provided by four physical momentary switches with momentary up
+    and down positions).}  \centering
+
+  \zebra
+  \begin{tabular}{lccccc}
+    \noalign{\smallskip}\hline\noalign{\smallskip}
+    Switch & \ns{FPWMEM} & \ns{FPRMEM} & \ns{FPWIO} & \ns{FPRIO} & \ns{FPINCADDR} \\
+    \noalign{\smallskip}\hline\noalign{\smallskip}
+    \sw{MEMORY DEPOSIT} & Assert & & & & \\
+    \sw{MEMORY DEP NEXT} & Assert & & & & Assert \\
+    \sw{MEMORY EXAMINE} & & Assert & & & \\
+    \sw{MEMORY EXAM NEXT} & & Assert & & & Assert \\
+    \sw{INPUT/OUTPUT DEPOSIT} & & & Assert & & \\
+    \sw{INPUT/OUTPUT DEP NEXT} & & & Assert & & Assert \\
+    \sw{INPUT/OUTPUT EXAMINE} & & & & Assert & \\
+    \sw{INPUT/OUTPUT EXAM NEXT} & & & & Assert & Assert \\
+    \noalign{\smallskip}\hline\noalign{\smallskip}
+  \end{tabular}
+\end{table*}
+
+
+Depending on whether it was a \sw{MEMORY} or \sw{INPUT/OUTPUT} switch, whether
+it was a \sw{EXAMINE} (read) or \sw{DEPOSIT} (write) switch, and whether or not
+the \sw{NEXT} (increment address) function was selected, the sequencer connects
+its four outputs to appropriate bus lines to perform the requested cycle. 
+
+consists of a tri-state buffer and
+a pull-up resistor. The buffer's enable line is connected to the \ps{RUN}
+signal. When the processor is running, the buffer tri-states its output. The
+pull-up resistor ensures
+
+The raw sequencer outputs are shown in~\fcf{fig-panel-mc}. Please note that, in
+order to show the relationships of the timing rather than the widths of the
+pulses, the waveforms are not to scale.
+
+The sequencer starts on the falling edge of \ns{MCSTART}, obtained by ANDing
+the front panel signals \ns{FPWMEM}, \ns{FPRMEM}, \ns{FPWIO} and \ns{FPRIO}.
+
+Signals \ns{MC0} and \ns{MC1} are synchronised with the falling edge of
+\ns{MCSTART}. Signals \ns{MC2} and \ns{MC3} are synchronised with the rising
+edge of \ns{MC1}. This forms two separate sub-cycles in the waveform. The first
+sub-cycle is used to load the \MAR{} register with the current address stored
+in the \PC{} register. The second sub-cycle is responsible for the memory or
+I/O operation, and is also responsible for incrementing \PC{} if the
+\ns{FPINCADDR} signal has been asserted.
+
+When the sequencer is idle, all of its outputs are tri-stated to avoid
+contending with the control unit. The sequencer must not be started with the
+processor operating. To avoid this, a safety interlock is in place. The buffer
+lies between the output of the And gate and the \ps{MCSTART} signal. With the
+buffer tri-stated, the pull-up resistor pulls \ps{MCSTART} high, disabling the
+sequencer. When the buffer is enabled, the And gate is allowed to drive
+\ps{MCSTART} low, starting the sequencer.
+
+Please refer to~\fcf{fig-panel-mcw} for the write cycle waveform
+and~\fcf{fig-panel-mcr} for the read cycle waveform. Both apply to memory and
+I/O operations. \ns{INCPC} is only strobed if the respective switch was
+operated in the ‘next’ position, i.e.\ \ns{FPINCADDR} strobed. Control signals
+are tri-stated when \ns{MCSTART} is high, which implies that the front panel
+switch must be held active by the operator until the end of the cycle. This is
+not expected to be a problem, as the entire cycle typically lasts approximately
+180–900~ns.
+
+\begin{figure}[tb]
+\centering
+\begin{tikztimingtable}
+  %\ns{MCSTART} & 2H h e N(A0) 10L 11e H h \\
+  \ns{MCSTART} & 2H h e N(A0) 15L s l s l \\
+  \ns{MC0}     & 3H     N(A1) 4L  13H \\
+  \ns{MC1}     & 3H     N(A2) 6L  N(B2) 11H \\
+  \ns{MC2}     & 9H               N(B3) 8L 3H \\
+  \ps{MC3}     & 9H               N(B4) 5L 6H \\
+\extracode
+  \tablerules
+  \begin{pgfonlayer}{background}
+    \draw [help lines] (A0) -- (A2);
+    \draw [help lines] (B2) -- (B4);
+  \end{pgfonlayer}
+\end{tikztimingtable}
+\caption{\label{fig-panel-mc}Waveforms generated by the front panel
+  sequencer. The front panel controller connects these waveforms to different
+  control unit signals to allow read and write access to memory and I/O space
+  locations.}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\begin{tikztimingtable}
+  \ns{MCSTART}                & 2H h N(A0)     15L l           N(D0)   2H \\
+  \ns{WAR}                    & 2Z z   N(A1)     3L  12H               h 2Z \\
+  \ns{RPC}                    & 2Z z             5L  N(B2) 10H         h 2Z  \\
+  \ns{MEM}/\ns{IO}            & 2Z z         5H      7L 3H             h 2Z  \\
+  \ns{INCPC}                  & 2Z z         5H      7L 3H             h 2Z  \\
+  \ns{R}                      & 2Z z         5H      7L 3H             h 2Z  \\
+  \ns{WAC}                    & 2Z z   N(A2) 5H      N(B4) 4L 6H h N(D2) 2Z \\
+\extracode
+  \tablerules
+  \begin{pgfonlayer}{background}
+    \draw [help lines] (A0) -- (A2);
+    \draw [help lines] (B2) -- (B4);
+    \draw [help lines] (D0) -- (D2);
+  \end{pgfonlayer}
+\end{tikztimingtable}
+\caption{\label{fig-panel-mcr} Memory (or I/O) read cycle. \ns{INCPC} is only
+  strobed if \ns{FPINCADDR} has been asserted.}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\begin{tikztimingtable}
+  \ns{MCSTART}                & 2H h N(A0)     15L l           N(D0)   2H \\
+  \ns{WAR}                    & 2Z z   N(A1)     3L  12H               h 2Z \\
+  \ns{RPC}                    & 2Z z             5L  N(B2) 10H         h 2Z  \\
+  \ns{MEM}/\ns{IO}            & 2Z z         5H      7L 3H             h 2Z  \\
+  \ns{INCPC}                  & 2Z z         5H      7L 3H             h 2Z  \\
+  \ns{RAC}                    & 2Z z         5H      7L 3H             h 2Z  \\
+  \ns{W}                      & 2Z z   N(A2) 5H      N(B4) 4L 6H h N(D2) 2Z \\
+\extracode
+  \tablerules
+  \begin{pgfonlayer}{background}
+    \draw [help lines] (A0) -- (A2);
+    \draw [help lines] (B2) -- (B4);
+    \draw [help lines] (D0) -- (D2);
+  \end{pgfonlayer}
+\end{tikztimingtable}
+\caption{\label{fig-panel-mcw} Memory (or I/O) write cycle. \ns{INCPC} is only
+  strobed if \ns{FPINCADDR} has been asserted.}
+\end{figure}
+
+\subsection{The Front Panel System Device}
+
+The front panel contains a System Device: hardware attached to the computer's
+expansion bus and addressable by the processor by means of I/O
+operations. System devices occupy I/O space addresses between {\sf
+  0000–00FF}. The processor provides the convenient signal \ns{SYSDEV} on the
+bus, driven low when I/O addresses in this range are selected.
+
+The Front Panel Controller uses this to decode I/O space addresses {\sf
+  0008-000F} using a 74x688 comparator and two 74x138 demultiplexers (one for
+reading, one for writing). Of the total sixteen control lines, four are used to
+provide the following four CFT Assembly instructions:
+
+\begin{description}
+\item{{\asm{IN R \&8}}} reads 16 bits from the front panel Switch Register into the
+  Accumulator. This allows a program to read input from the panel operator.
+\item{\asm{IN R \&9}} reads 16 bits from the Front Panel Controller DIP
+  switches. This is used to provide a set of ‘turn-key’ settings to the
+  operating system, such as the address of a boot block, the base address of a
+  console, serial parameters, et cetera. The semantics of the DIP switches are
+  beyond the scope of this document.
+\item{\asm{OUT R \&8}} writes 16 bits from the Accumulator to the front panel
+  Output Register. This may be used to output dataa to the panel operator.
+\item{\asm{OUT R \&F}} this stops the computer, simulating the actuation of the
+  \sw{STOP} switch. The computer can only be resumed from the front panel.
+\end{description}
+
+Most normal peripherals attach themselves to the Address Bus and Data Bus,
+relying on the processor to connect the latter to the \IBUS{} when a memory or
+I/O operation is taking place. The Front Panel System Device attaches to the
+Address Bus and {\em \IBUS{}\/} instead. \caution{Note: this is a bug. It must
+  be fixed, or bus contention may occur.}
+
 \section{Further reading}
 
-For further information on the CFT computer, please consult the
-following URL:
+For further information on the CFT computer, please consult the following URL:
 
 \begin{center}
 \link{www.bedroomlan.org/hardware/cft}
 \end{center}
 
+
 \clearpage
+\appendix
+\onecolumn
+
+\section{Front Panel Assembly Construction}
+
+The following sections contain bills of materials, part indexes and schematics
+for the Front Panel Assembly which contains the lights and switches of the
+front panel.
+
+
+
+
+\subsection{Bill of Materials}
+
+This section provides a bill of materials for the front panel assembly. This
+is meant for personal reference, and is not exhaustive by any means.
+
+This project is not endorsed, funded or supported by Farnell or RS Components
+in any way.
+
+\bomv{front-panel}
+
+\subsection{Part Index}
+
+This section provides an index of parts used on the front panel. It is
+provided for reference only, and is not necessarily correct.
+
+This project is not endorsed, funded or supported by Farnell or RS Components
+in any way.
+
+\bomp{front-panel}
+
+\subsection{Schematics}
+
+The following pages contain the schematics of the Front Panel Assembly.
 
 \begin{figure*}
 \centering
@@ -829,51 +1339,67 @@ following URL:
 \caption{\label{fig-schematic-front-panel-7}Schematic drawing of the front panel LED and switch boards (7 of 7).}
 \end{figure*}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-% BILL OF MATERIALS (AUTOMATICALLY GENERATED)
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage
 
-{
-  \onecolumn
-  \section{Bill of Materials}
-  \footnotesize
-  \begin{longtable}{r@{$\times\;$}p{0.25\textwidth}p{0.2\textwidth}ll}
-    \noalign{\smallskip}\hline\noalign{\smallskip}
-    {\bf Qty} & {\bf Description} & {\bf Parts} & {\bf Order No} & {\bf Notes}\\
-    \noalign{\smallskip}\hline\noalign{\smallskip}
-    %
-    \endhead
-    \noalign{\smallskip}\hline\noalign{\smallskip}
-    \endlastfoot
-    \input{../generated/front-panel-bom-values}
-  \end{longtable}
-  %\twocolumn
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-% INDEX OF PARTS (AUTOMATICALLY GENERATED)
+% Controller
 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-{
-  %\onecolumn
-  \section{Part Index}
-  \footnotesize
-  \begin{longtable}{lllll}
-    \noalign{\smallskip}\hline\noalign{\smallskip}
-    {\bf Part} & {\bf Value} & {\bf Description} & {\bf Order No} & {\bf Notes}\\
-    \noalign{\smallskip}\hline\noalign{\smallskip}
-    %
-    \endhead
-    \noalign{\smallskip}\hline\noalign{\smallskip}
-    \endlastfoot
-    \input{../generated/front-panel-bom-parts}
-  \end{longtable}
-  \twocolumn
-}
+\section{Front Panel Controller}
+
+The following sections contain bills of materials, part indexes and schematics
+for the Front Panel Controller board which interfaces the Front Panel Assembly
+to the processor and computer at large.
+
+\subsection{Bill of Materials}
+
+This section provides a bill of materials for the front panel controller. This
+is meant for personal reference, and is not exhaustive by any means.
+
+This project is not endorsed, funded or supported by Farnell or RS Components
+in any way.
+
+\bomv{front-panel-controller}
+
+\subsection{Part Index}
+
+This section provides an index of parts used on the front panel controller. It is
+provided for reference only, and is not necessarily correct.
+
+This project is not endorsed, funded or supported by Farnell or RS Components
+in any way.
+
+\bomp{front-panel-controller}
+
+\subsection{Schematics}
+
+The following pages contain the schematics of the Front Panel Assembly.
+
+\begin{figure*}
+\centering
+\includegraphics[width=0.95\textheight,angle=90]{figs/front-panel-controller-1.jpg}\\
+\caption{\label{fig-schematic-front-panel-controller-1}Schematic drawing of the front panel Controller board (1 of 4).}
+\end{figure*}
+
+\begin{figure*}
+\centering
+\includegraphics[width=0.95\textheight,angle=90]{figs/front-panel-controller-2.jpg}\\
+\caption{\label{fig-schematic-front-panel-controller-2}Schematic drawing of the front panel Controller board (2 of 4).}
+\end{figure*}
+
+\begin{figure*}
+\centering
+\includegraphics[width=0.95\textheight,angle=90]{figs/front-panel-controller-3.jpg}\\
+\caption{\label{fig-schematic-front-panel-controller-3}Schematic drawing of the front panel Controller board (3 of 4).}
+\end{figure*}
+
+\begin{figure*}
+\centering
+\includegraphics[width=0.95\textheight,angle=90]{figs/front-panel-controller-4.jpg}\\
+\caption{\label{fig-schematic-front-panel-controller-4}Schematic drawing of the front panel Controller board (4 of 4).}
+\end{figure*}
+
+\clearpage
 
 \end{document}
 
@@ -881,8 +1407,10 @@ following URL:
 %%  LocalWords:  Neumann microprograms microprogram microinstructions Bauform
 %%  LocalWords:  et cetera kiloword KWord kilowords KWords Autoindex rp GND CLC
 %%  LocalWords:  SUBRET JSR TRAPRET ISRRET ISR autoindex th FC FFF tl RSTIN tri
-%%  LocalWords:  FFFF pagerel vlgrey linewidth fillstyle fillcolor de GPULSE
+%%  LocalWords:  FFFF pagerel vlgrey linewidth fillstyle fillcolor de GPULSE lp
 %%  LocalWords:  addr FFFE IOT LIA JMP bitwise ORred asm bitfield CLA DMA IRQ
-%%  LocalWords:  CLL RBL RBR RNL RNR NOP linearc SNA SZA SSL SNN SNZ
-%%  LocalWords:  SCL CLI STI SNP lll RET RTT SBL SBR SNL SNR TTY
-%%  LocalWords:  disjuncted conjuncted ANDed
+%%  LocalWords:  CLL RBL RBR RNL RNR NOP linearc SNA SZA SSL SNN SNZ LEDs
+%%  LocalWords:  SCL CLI STI SNP lll RET RTT SBL SBR SNL SNR TTY AEXT Debounce
+%%  LocalWords:  disjuncted conjuncted ANDed MWord MEM uSTEP DEP BNK Autorepeat
+%%  LocalWords:  microinstruction kWords IFR uADDR VEC kWord llcll SV SWINHIBIT
+%%  LocalWords:  ALU Microcodes CMOS HC Farnell swlockout Debouncing

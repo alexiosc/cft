@@ -119,6 +119,11 @@ char * ops[16];
 
 #define get_op(x) (((x) >> 12) & 0xf)
 #define get_i(x) (((x) & 0x800) != 0)
+/*
+ * Alexios (2012-01-23) the R flag has reversed semantics in microcode
+ * version 4, so we no longer need to toggle it. Code will work as
+ * expected now.
+ */
 #define get_r(x) (((x) & 0x400) == 0)
 #define get_lo(x) ((x) & 0x3ff)
 #define get_hi(x) ((x) & 0xfc00)

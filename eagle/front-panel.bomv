@@ -1,4 +1,4 @@
-<b>Partlist exported from /home/alexios/eagle/CFT/front-panel.sch at 15 Jan 2012 13:56:48</b>
+<b>Partlist exported from /home/alexios/eagle/CFT/front-panel.sch at 24 Jan 2012 20:04:28</b>
 <p>
 <table>
 <tr><td><b>Qty</b></td><td><b>Value</b></td><td><b>Device</b></td><td><b>Parts</b></td><td><b>Order Code</b></td><td><b>Description Override</b></td><td><b>Notes</b></td></tr>
@@ -34,11 +34,12 @@
 <tr><td>6</td><td>74LS123N</td><td>74LS123N</td><td>IC2, IC22, IC32, IC33, IC34, IC35</td><td>Farnell 1470902</td><td>74LS123N Dual retriggerable monostable multivibrator</td><td></td></tr>
 <tr><td>36</td><td>100nF</td><td>C-EU025-024X044</td><td>C30, C31, C32, C33, C34, C35, C36, C37, C38, C39, C40, C41, C42, C43, C44, C45, C46, C47, C48, C49, C50, C51, C52, C53, C54, C55, C56, C57, C58, C59, C60, C61, C62, C63, C64, C65</td><td>Farnell 1694337</td><td>100nF capacitor</td><td></td></tr>
 <tr><td>1</td><td>100uF</td><td>CPOL-EUE2,5-6E</td><td>C5</td><td>Farnell 1902882</td><td>100uF Electrolytic capacitor</td><td></td></tr>
-<tr><td>2</td><td>150R</td><td>8R-N</td><td>RN38, RN39</td><td>Farnell 9355855</td><td>150Ω 8x DIL resistor</td><td></td></tr>
-<tr><td>13</td><td>150R</td><td>GE08R</td><td>RN9, RN10, RN14, RN15, RN18, RN19, RN23, RN24, RN25, RN27, RN28, RN36, RN37</td><td>Farnell 9356843</td><td>180Ω 8x bussed SIL resistor</td><td></td></tr>
-<tr><td>1</td><td>150R</td><td>GE09R</td><td>RN11</td><td>Farnell 9357157</td><td>180Ω 9x bussed SIL resistor</td><td></td></tr>
+<tr><td>1</td><td>150R</td><td>GE08R</td><td>RN23</td><td>Farnell 9356843</td><td>180Ω 8x bussed SIL resistor</td><td></td></tr>
 <tr><td>1</td><td>180k</td><td>R-EU_0207/10</td><td>R2</td><td>Farnell 9463410</td><td>180kΩ resistor</td><td></td></tr>
 <tr><td>2</td><td>200k</td><td>TRIM_EU-B90P</td><td>R1, R4</td><td>Farnell 1689846</td><td>200k linear potentiometer/trimmer</td><td></td></tr>
+<tr><td>2</td><td>330R</td><td>8R-N</td><td>RN38, RN39</td><td></td><td>330Ω octal DIL resistor</td><td></td></tr>
+<tr><td>12</td><td>330R</td><td>GE08R</td><td>RN9, RN10, RN14, RN15, RN18, RN19, RN24, RN25, RN27, RN28, RN36, RN37</td><td></td><td>330Ω octal bussed SIL resistor</td><td></td></tr>
+<tr><td>1</td><td>330R</td><td>GE09R</td><td>RN11</td><td></td><td>330Ω 9x bussed SIL resistor</td><td></td></tr>
 <tr><td>9</td><td>330k</td><td>R-EU_0204/5</td><td>R5, R7, R8, R9, R10, R11, R12, R13, R14</td><td>Farnell 9475923</td><td>330kΩ resistor</td><td></td></tr>
 <tr><td>1</td><td>5566-24</td><td>5566-24</td><td>ATXPWR</td><td></td><td>Mini FIT 24 way socket</td><td>ATX mainboard power socket</td></tr>
 <tr><td>8</td><td>DUOLED-C</td><td>DUOLED-C</td><td>LED111, LED112, LED113, LED114, LED115, LED116, LED117, LED118</td><td>Farnell 2001770</td><td>Common cathode tri-colour LED (red/green)</td><td></td></tr>

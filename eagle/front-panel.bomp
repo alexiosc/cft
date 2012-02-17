@@ -1,4 +1,4 @@
-<b>Partlist exported from /home/alexios/eagle/CFT/front-panel.sch at 15 Jan 2012 13:56:42</b>
+<b>Partlist exported from /home/alexios/eagle/CFT/front-panel.sch at 24 Jan 2012 20:04:35</b>
 <p>
 <table>
 <tr><td><b>Part</b></td><td><b>Value</b></td><td><b>Device</b></td><td><b>Package</b></td><td><b>Description</b></td><td><b>Order Code</b></td><td><b>Description Override</b></td><td><b>Notes</b></td></tr>
@@ -278,26 +278,26 @@
 <tr><td>RN6</td><td>10k</td><td>G08R</td><td>SIL9</td><td>SIL RESISTOR</td><td>Farnell 1973130</td><td>10kΩ octal bussed SIL resistor</td><td></td></tr>
 <tr><td>RN7</td><td>10k</td><td>G08R</td><td>SIL9</td><td>SIL RESISTOR</td><td>Farnell 1973130</td><td>10kΩ octal bussed SIL resistor</td><td></td></tr>
 <tr><td>RN8</td><td>10k</td><td>G08R</td><td>SIL9</td><td>SIL RESISTOR</td><td>Farnell 1973130</td><td>10kΩ octal bussed SIL resistor</td><td></td></tr>
-<tr><td>RN9</td><td>150R</td><td>GE08R</td><td>SIL9</td><td>SIL RESISTOR</td><td>Farnell 9356843</td><td>180Ω 8x bussed SIL resistor</td><td></td></tr>
-<tr><td>RN10</td><td>150R</td><td>GE08R</td><td>SIL9</td><td>SIL RESISTOR</td><td>Farnell 9356843</td><td>180Ω 8x bussed SIL resistor</td><td></td></tr>
-<tr><td>RN11</td><td>150R</td><td>GE09R</td><td>SIL10</td><td>SIL RESISTOR</td><td>Farnell 9357157</td><td>180Ω 9x bussed SIL resistor</td><td></td></tr>
+<tr><td>RN9</td><td>330R</td><td>GE08R</td><td>SIL9</td><td>SIL RESISTOR</td><td></td><td>330Ω octal bussed SIL resistor</td><td></td></tr>
+<tr><td>RN10</td><td>330R</td><td>GE08R</td><td>SIL9</td><td>SIL RESISTOR</td><td></td><td>330Ω octal bussed SIL resistor</td><td></td></tr>
+<tr><td>RN11</td><td>330R</td><td>GE09R</td><td>SIL10</td><td>SIL RESISTOR</td><td></td><td>330Ω 9x bussed SIL resistor</td><td></td></tr>
 <tr><td>RN12</td><td>10k</td><td>G08R</td><td>SIL9</td><td>SIL RESISTOR</td><td>Farnell 1973130</td><td>10kΩ octal bussed SIL resistor</td><td></td></tr>
 <tr><td>RN13</td><td>10k</td><td>G08R</td><td>SIL9</td><td>SIL RESISTOR</td><td>Farnell 1973130</td><td>10kΩ octal bussed SIL resistor</td><td></td></tr>
-<tr><td>RN14</td><td>150R</td><td>GE08R</td><td>SIL9</td><td>SIL RESISTOR</td><td>Farnell 9356843</td><td>180Ω 8x bussed SIL resistor</td><td></td></tr>
-<tr><td>RN15</td><td>150R</td><td>GE08R</td><td>SIL9</td><td>SIL RESISTOR</td><td>Farnell 9356843</td><td>180Ω 8x bussed SIL resistor</td><td></td></tr>
+<tr><td>RN14</td><td>330R</td><td>GE08R</td><td>SIL9</td><td>SIL RESISTOR</td><td></td><td>330Ω octal bussed SIL resistor</td><td></td></tr>
+<tr><td>RN15</td><td>330R</td><td>GE08R</td><td>SIL9</td><td>SIL RESISTOR</td><td></td><td>330Ω octal bussed SIL resistor</td><td></td></tr>
 <tr><td>RN16</td><td>10k</td><td>G08R</td><td>SIL9</td><td>SIL RESISTOR</td><td>Farnell 1973130</td><td>10kΩ octal bussed SIL resistor</td><td></td></tr>
 <tr><td>RN17</td><td>10k</td><td>G08R</td><td>SIL9</td><td>SIL RESISTOR</td><td>Farnell 1973130</td><td>10kΩ octal bussed SIL resistor</td><td></td></tr>
-<tr><td>RN18</td><td>150R</td><td>GE08R</td><td>SIL9</td><td>SIL RESISTOR</td><td>Farnell 9356843</td><td>180Ω 8x bussed SIL resistor</td><td></td></tr>
-<tr><td>RN19</td><td>150R</td><td>GE08R</td><td>SIL9</td><td>SIL RESISTOR</td><td>Farnell 9356843</td><td>180Ω 8x bussed SIL resistor</td><td></td></tr>
+<tr><td>RN18</td><td>330R</td><td>GE08R</td><td>SIL9</td><td>SIL RESISTOR</td><td></td><td>330Ω octal bussed SIL resistor</td><td></td></tr>
+<tr><td>RN19</td><td>330R</td><td>GE08R</td><td>SIL9</td><td>SIL RESISTOR</td><td></td><td>330Ω octal bussed SIL resistor</td><td></td></tr>
 <tr><td>RN20</td><td>10k</td><td>G08R</td><td>SIL9</td><td>SIL RESISTOR</td><td>Farnell 1973130</td><td>10kΩ octal bussed SIL resistor</td><td></td></tr>
 <tr><td>RN21</td><td>10k</td><td>G08R</td><td>SIL9</td><td>SIL RESISTOR</td><td>Farnell 1973130</td><td>10kΩ octal bussed SIL resistor</td><td></td></tr>
 <tr><td>RN22</td><td>10k</td><td>G08R</td><td>SIL9</td><td>SIL RESISTOR</td><td>Farnell 1973130</td><td>10kΩ octal bussed SIL resistor</td><td></td></tr>
 <tr><td>RN23</td><td>150R</td><td>GE08R</td><td>SIL9</td><td>SIL RESISTOR</td><td>Farnell 9356843</td><td>180Ω 8x bussed SIL resistor</td><td></td></tr>
-<tr><td>RN24</td><td>150R</td><td>GE08R</td><td>SIL9</td><td>SIL RESISTOR</td><td>Farnell 9356843</td><td>180Ω 8x bussed SIL resistor</td><td></td></tr>
-<tr><td>RN25</td><td>150R</td><td>GE08R</td><td>SIL9</td><td>SIL RESISTOR</td><td>Farnell 9356843</td><td>180Ω 8x bussed SIL resistor</td><td></td></tr>
+<tr><td>RN24</td><td>330R</td><td>GE08R</td><td>SIL9</td><td>SIL RESISTOR</td><td></td><td>330Ω octal bussed SIL resistor</td><td></td></tr>
+<tr><td>RN25</td><td>330R</td><td>GE08R</td><td>SIL9</td><td>SIL RESISTOR</td><td></td><td>330Ω octal bussed SIL resistor</td><td></td></tr>
 <tr><td>RN26</td><td>10k</td><td>G05R</td><td>SIL6</td><td>SIL RESISTOR</td><td>Farnell 1602062</td><td>10kΩ 5x bussed SIL resistor</td><td></td></tr>
-<tr><td>RN27</td><td>150R</td><td>GE08R</td><td>SIL9</td><td>SIL RESISTOR</td><td>Farnell 9356843</td><td>180Ω 8x bussed SIL resistor</td><td></td></tr>
-<tr><td>RN28</td><td>150R</td><td>GE08R</td><td>SIL9</td><td>SIL RESISTOR</td><td>Farnell 9356843</td><td>180Ω 8x bussed SIL resistor</td><td></td></tr>
+<tr><td>RN27</td><td>330R</td><td>GE08R</td><td>SIL9</td><td>SIL RESISTOR</td><td></td><td>330Ω octal bussed SIL resistor</td><td></td></tr>
+<tr><td>RN28</td><td>330R</td><td>GE08R</td><td>SIL9</td><td>SIL RESISTOR</td><td></td><td>330Ω octal bussed SIL resistor</td><td></td></tr>
 <tr><td>RN29</td><td>10k</td><td>G08R</td><td>SIL9</td><td>SIL RESISTOR</td><td>Farnell 1973130</td><td>10kΩ octal bussed SIL resistor</td><td></td></tr>
 <tr><td>RN30</td><td>10k</td><td>G08R</td><td>SIL9</td><td>SIL RESISTOR</td><td>Farnell 1973130</td><td>10kΩ octal bussed SIL resistor</td><td></td></tr>
 <tr><td>RN31</td><td>10k</td><td>G08R</td><td>SIL9</td><td>SIL RESISTOR</td><td>Farnell 1973130</td><td>10kΩ octal bussed SIL resistor</td><td></td></tr>
@@ -305,10 +305,10 @@
 <tr><td>RN33</td><td>2k2</td><td>G03R</td><td>SIL4</td><td>SIL RESISTOR</td><td>Farnell 1902599</td><td>2.2kΩ 3x bussed SIL resistor</td><td></td></tr>
 <tr><td>RN34</td><td>10k</td><td>G08R</td><td>SIL9</td><td>SIL RESISTOR</td><td>Farnell 1973130</td><td>10kΩ octal bussed SIL resistor</td><td></td></tr>
 <tr><td>RN35</td><td>10k</td><td>G08R</td><td>SIL9</td><td>SIL RESISTOR</td><td>Farnell 1973130</td><td>10kΩ octal bussed SIL resistor</td><td></td></tr>
-<tr><td>RN36</td><td>150R</td><td>GE08R</td><td>SIL9</td><td>SIL RESISTOR</td><td>Farnell 9356843</td><td>180Ω 8x bussed SIL resistor</td><td></td></tr>
-<tr><td>RN37</td><td>150R</td><td>GE08R</td><td>SIL9</td><td>SIL RESISTOR</td><td>Farnell 9356843</td><td>180Ω 8x bussed SIL resistor</td><td></td></tr>
-<tr><td>RN38</td><td>150R</td><td>8R-N</td><td>DIL16</td><td>DIL RESISTOR</td><td>Farnell 9355855</td><td>150Ω 8x DIL resistor</td><td></td></tr>
-<tr><td>RN39</td><td>150R</td><td>8R-N</td><td>DIL16</td><td>DIL RESISTOR</td><td>Farnell 9355855</td><td>150Ω 8x DIL resistor</td><td></td></tr>
+<tr><td>RN36</td><td>330R</td><td>GE08R</td><td>SIL9</td><td>SIL RESISTOR</td><td></td><td>330Ω octal bussed SIL resistor</td><td></td></tr>
+<tr><td>RN37</td><td>330R</td><td>GE08R</td><td>SIL9</td><td>SIL RESISTOR</td><td></td><td>330Ω octal bussed SIL resistor</td><td></td></tr>
+<tr><td>RN38</td><td>330R</td><td>8R-N</td><td>DIL16</td><td>DIL RESISTOR</td><td></td><td>330Ω octal DIL resistor</td><td></td></tr>
+<tr><td>RN39</td><td>330R</td><td>8R-N</td><td>DIL16</td><td>DIL RESISTOR</td><td></td><td>330Ω octal DIL resistor</td><td></td></tr>
 <tr><td>RN40</td><td>10k</td><td>G08R</td><td>SIL9</td><td>SIL RESISTOR</td><td>Farnell 1973130</td><td>10kΩ octal bussed SIL resistor</td><td></td></tr>
 <tr><td>S1</td><td>TL36PO</td><td>TL36PO</td><td>TL3XPO</td><td>TINY SWITCH ON - ON</td><td>Farnell 9473785, Farnell 9812229, Farnell 9473785</td><td>On-On toggle switch</td><td>Switch body and separate black/red actuators</td></tr>
 <tr><td>S2</td><td>TL36PO</td><td>TL36PO</td><td>TL3XPO</td><td>TINY SWITCH ON - ON</td><td>Farnell 9473785, Farnell 9812229, Farnell 9473785</td><td>On-On toggle switch</td><td>Switch body and separate black/red actuators</td></tr>

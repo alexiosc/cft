@@ -27,6 +27,7 @@ class Binary(threading.Thread):
     
     * X (16 bits)
     * L_OUT (1 bit)
+    * V_OUT (1 bit)
 
     Slice inputs:
 
@@ -95,6 +96,64 @@ class Binary(threading.Thread):
                         data = tt.make_vector(tt.outputs, v_out=v_out, l_out=l_out, x=x)
                         tt.put(addr, data)
         
+                        if debug or op == self.XOR:
+                            print '%s %05x %d %s (%2d) %s %s (%2d) = %s (%2d) %s%s' % \
+                                (self.opcodes[op],
+                                 addr,
+                                 l_in,
+                                 romtables.mybin(a, 6), a,
+                                 self.syms[op],
+                                 romtables.mybin(b, 6), b,
+                                 romtables.mybin(x, 6), x,
+                                 "-L"[l_out],
+                                 "-V"[v_out],
+                                 )
+                        else:
+                            tt.progress(dt=5)
+
+
+
+
+class ShortBinary(Binary):
+    def run(self):
+        """
+        Run the thread.
+        """
+        tt = self.tt
+        for op in xrange(4):
+            for l_in in xrange(2):
+                for a in xrange(16):
+                    for b in xrange(16):
+
+                        l_out = l_in
+                        v_out = 0
+                        if op == self.ADD:
+                            x = (l_in & 1) + a + b 
+                            l_out = (x >> 4) & 1
+
+                            a2 = (a >> 3) & 1
+                            b2 = (b >> 3) & 1
+                            x2 = (x >> 3) & 1
+                            if a2 == b2 and a2 != x2:
+                                v_out = 1
+                        elif op == self.AND:
+                            x = a & b
+                        elif op == self.OR:
+                            x = a | b
+                        elif op == self.XOR:
+                            x = a ^ b
+                        else:
+                            raise RuntimeError("Should never happen")
+
+                        x = x & 0xf
+                        l_out = l_out & 1
+                        v_out = v_out & 1
+                    
+                        # Store it in the Function Table.
+                        addr = tt.make_vector(tt.inputs, op=op, l_in=l_in, a=a, b=b)
+                        data = tt.make_vector(tt.outputs, v_out=v_out, l_out=l_out, x=x, pad=0)
+                        tt.put(addr, data)
+        
                         if debug:
                             print '%s %05x %d %s (%2d) %s %s (%2d) = %s (%2d) %s%s' % \
                                 (self.opcodes[op],
@@ -117,37 +176,25 @@ class Binary(threading.Thread):
 debug = False
 #debug = True
 
-# The main Unary ROM, as per the documentation above.
+print "Generating 6-bit ROM"
+# The main Binary ROM, as per the documentation above.
 binaryROM = romtables.FunctionTable('op:2 l_in a:6 b:6', 'v_out l_out x:6', singleROM=True)
-
-#if debug:
-#    print "                    OP  ADDR (in)         DATA (out)"
-#    print "OP  <L,AAAA> addr   210:LFEDCBA9876543210 LFEDCBA9876543210"
-#    print "-----------------------------------------------------------"
-
-
-#ofs, slice = 0, 65536 // cpus
-#threads = list()
-#for i in xrange(cpus - 1):
-#    #print ofs, slice, ofs + slice - 1
-#    threads.append(Calculator(ofs, ofs + slice - 1))
-#    ofs += slice
-
-# The last thread calculates its slices plus the space left in the
-# modulo 65536//cpus.
-#threads.append(Calculator(ofs, 65535))
-#for thread in threads:
-#    thread.start()
-
-#for thread in threads:
-#    thread.join()
-
 Binary(binaryROM).run()
-
 binaryROM.report()
 print 'Writing Verilog files.'
-binaryROM.writeVerilog('alu-binary')
+binaryROM.writeVerilog('alu-binary-6bit')
 print 'Writing binary images.'
-binaryROM.writeBin('alu-binary')
+binaryROM.writeBin('alu-binary-6bit')
+
+
+print "Generating 4-bit ROM"
+# The short Binary ROM, as per the documentation above.
+shortBinaryROM = romtables.FunctionTable('op:2 l_in a:4 b:4', 'v_out l_out pad:2 x:4', singleROM=True)
+ShortBinary(shortBinaryROM).run()
+shortBinaryROM.report()
+print 'Writing Verilog files.'
+shortBinaryROM.writeVerilog('alu-binary-4bit')
+print 'Writing binary images.'
+shortBinaryROM.writeBin('alu-binary-4bit')
 
 # End of file.

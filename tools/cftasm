@@ -216,6 +216,7 @@ class CFTAssembler(object):
         # The macro table and macro context stack
         self.macros = dict()
         self.ctx = list()
+        self.mcallno = 0
 
         # Filename and line numbers.
         self.filename = '<none>'
@@ -336,6 +337,7 @@ class CFTAssembler(object):
             for filename in self.args:
                 self.filename = filename
                 self.linenum = 0
+                self.mcallno = 0
 
                 self.assembly_pass(open(filename))
             
@@ -519,8 +521,15 @@ class CFTAssembler(object):
         if len(arglist) != len(mal):
             self.fail("macro '%s' expects exactly %d arguments" % (name, len(mal)))
 
-        # Replace placeholders with actual arguments
+        # Copy the macro definition, because we'll be making changes
         mdef_inst = copy.copy(mdef)
+
+        # Add a unique serial number argument. Useful for namespacing labels.
+        self.mcallno += 1
+        for i, line in enumerate(mdef_inst):
+            mdef_inst[i] = line.replace('%_', str(self.mcallno))
+
+        # Replace placeholders with actual arguments
         for argname, argval in zip(mal, arglist):
             for i, line in enumerate(mdef_inst):
                 mdef_inst[i] = line.replace('%' + argname, argval)
@@ -749,7 +758,11 @@ class CFTAssembler(object):
         # Only assemble if we're on the assembly pass.
         if self.passnum == self.PSN_ASSEMBLY:
             # This will raise appropriate exceptions.
-            val = self.parseField(tokens) ^ self.R_FLAG
+
+            # Alexios (2012-01-23) the R flag has reversed semantics in
+            # microcode version 4, so we no longer need to toggle it. Code will
+            # work as expected now.
+            val = self.parseField(tokens) # ^ self.R_FLAG
             self.poke(val, poketype='I')
             self.logasm(val, orgline=orgline)
 

@@ -39,7 +39,7 @@ module alu_tb();
    localparam testname = "ALU XOR";
    localparam MAX = 1024;
    localparam MAX2 = MAX * MAX;
-   localparam DELTA = 21554;
+   localparam DELTA = 21553;
    //localparam DELTA = 1;
    localparam MODULO = 65536;
 
@@ -107,7 +107,7 @@ module alu_tb();
 	 
       end // for (i = 0; i < 10; i = i + 1)
 
-      $display("%s: Pass.", testname);
+      $display("%s: [ok] Pass.", testname);
 
       #500 $finish;      // Terminate simulation
    end // initial begin

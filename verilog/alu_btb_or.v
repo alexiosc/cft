@@ -97,13 +97,13 @@ module alu_tb();
 	       	       
 	       runit = ALU_IDLE;
 	       
-	       a = (a + 21554) % 65535;
+	       a = (a + 21553) % 65535;
 	    end
 	 end
-	 b = (b + 21554) % 65535;
+	 b = (b + 21553) % 65535;
       end // for (i = 0; i < 10; i = i + 1)
 
-      $display("%s: Pass.", testname);
+      $display("%s: [ok] Pass.", testname);
 
       #500 $finish;      // Terminate simulation
    end // initial begin

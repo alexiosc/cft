@@ -3,22 +3,22 @@
 
 // Define the opcodes for convenience.
 
-#define TRAP  0000
-#define IOT   0001
-#define LOAD  0010
+#define TRAP 0000
+#define IOT 0001
+#define LOAD 0010
 #define STORE 0011
-#define IN    0100
-#define OUT   0101
-#define JMP   0110
-#define JSR   0111
-#define ADD   1000
-#define AND   1001
-#define OR    1010
-#define XOR   1011
-#define OP1   1100
-#define OP2   1101
-#define INCM  1110
-#define LIA   1111
+#define IN 0100
+#define OUT 0101
+#define JMP 0110
+#define JSR 0111
+#define ADD 1000
+#define AND 1001
+#define OR 1010
+#define XOR 1011
+#define OP1 1100
+#define OP2 1101
+#define INCM 1110
+#define LIA 1111
 
 //              MODES
 // Instruction  Literal  Direct  Indirect  Autoindex    Special
@@ -116,11 +116,7 @@ signal if6            = .............0100.......; // SKIP = IR[6]
 signal if5            = .............0011.......; // SKIP = IR[5]
 signal if4            = .............0010.......; // SKIP = IR[4]
 signal if3            = .............0001.......; // SKIP = IR[3]
-signal ifv            = .............1010.......; // SKIP = V
-signal ifl            = .............1011.......; // SKIP = L
-signal ifzero         = .............1100.......; // SKIP = Z
-signal ifneg          = .............1101.......; // SKIP = N
-signal ifroll         = .............1110.......; // SKIP = roll_logic(IR[2:0])
+signal ifroll         = .............1011.......; // SKIP = roll_logic(IR[2:0])
 signal ifbranch       = .............1111.......; // SKIP = skip_logic(IR[3:0])
 
 signal /incac         = ............1...........; // Step the A counter.
@@ -432,14 +428,14 @@ start INT=1, RST=1, V=X, L=X, OP=LOAD, I=0, SKIP=X, INC=X;
       _DESEL, /end;	 // The fetch cycle begins with a memory read.
 
 // Indirect mode.
-start INT=1, RST=1, V=X, L=X, OP=LOAD, I=1, SKIP=X, INC=1;
+start INT=1, RST=1, V=X, L=X, OP=LOAD, I=1, SKIP=X, INC=0;
       _FETCH_LITERAL;		// Fetch the address and operand.
       //_DESEL;			// Prepare for the next memory read.
       _MEMREAD(dr, A);		// A <- mem[DR].
       _DESEL, /end;
 
 // FIXED: Autoindex mode
-start INT=1, RST=1, V=X, L=X, OP=LOAD, I=1, SKIP=X, INC=0;
+start INT=1, RST=1, V=X, L=X, OP=LOAD, I=1, SKIP=X, INC=1;
       _FETCH_IR;                // Fetch cycle
       _MEMREAD(agl, dr);        // DR <- mem[agl]
       //_DESEL;			// Deselect all memory signals and wait.
@@ -462,13 +458,13 @@ start INT=1, RST=1, V=X, L=X, OP=STORE, I=0, SKIP=X, INC=X;
       _DESEL, /end;		// The fetch cycle begins with a memory read.
 
 // Indirect mode.
-start INT=1, RST=1, V=X, L=X, OP=STORE, I=1, SKIP=X, INC=1;
+start INT=1, RST=1, V=X, L=X, OP=STORE, I=1, SKIP=X, INC=0;
       _FETCH_LITERAL;		// Fetch the instruction and operand.
       _MEMWRITE(dr, a);		// mem[DR] <- A
       _DESEL, /end;
 
 // FIXED: Autoindex mode
-start INT=1, RST=1, V=X, L=X, OP=STORE, I=1, SKIP=X, INC=0;
+start INT=1, RST=1, V=X, L=X, OP=STORE, I=1, SKIP=X, INC=1;
       _FETCH_IR;                // Fetch cycle
       _MEMREAD(agl, dr);        // DR <- mem[agl]
       //_DESEL;			// Deselect all memory signals and wait.
@@ -498,7 +494,7 @@ start INT=1, RST=1, V=X, L=X, OP=IOT, I=0, SKIP=X, INC=X;
 
 
 // Direct mode.
-start INT=1, RST=1, V=X, L=X, OP=IOT, I=1, SKIP=X, INC=1;
+start INT=1, RST=1, V=X, L=X, OP=IOT, I=1, SKIP=X, INC=0;
       _FETCH_LITERAL;		// Fetch the instruction and operand.
       w_mar, r_dr;		// Indirection.
       r_a, /io, /w;
@@ -510,7 +506,7 @@ start INT=1, RST=1, V=X, L=X, OP=IOT, I=1, SKIP=X, INC=1;
       /io, /r, /end;
 
 // FIXED: Autoindex mode.
-start INT=1, RST=1, V=X, L=X, OP=IOT, I=1, SKIP=X, INC=0;
+start INT=1, RST=1, V=X, L=X, OP=IOT, I=1, SKIP=X, INC=1;
       _FETCH_IR;                // Fetch cycle
       _MEMREAD(agl, dr);        // DR <- mem[agl]
       //_DESEL;			// Deselect all memory signals and wait.
@@ -541,14 +537,14 @@ start INT=1, RST=1, V=X, L=X, OP=IN, I=0, SKIP=X, INC=X;
       _DESEL, /end;	// Hold the address and data bus.
 
 // Direct mode. (I=1, one level of indirection)
-start INT=1, RST=1, V=X, L=X, OP=IN, I=1, SKIP=X, INC=1;
+start INT=1, RST=1, V=X, L=X, OP=IN, I=1, SKIP=X, INC=0;
       _FETCH_LITERAL;		// Fetch the instruction and operand.
       w_mar, r_agl;
       w_a, /io, /r;
       _DESEL, /end;	// Hold the address and data bus.
 
 // Autoindex mode.
-start INT=1, RST=1, V=X, L=X, OP=IN, I=1, SKIP=X, INC=1;
+start INT=1, RST=1, V=X, L=X, OP=IN, I=1, SKIP=X, INC=0;
       _FETCH_IR;                // Fetch cycle
       _MEMREAD(agl, dr);        // DR <- mem[agl]
       //_DESEL;			// Deselect all memory signals and wait.
@@ -576,14 +572,14 @@ start INT=1, RST=1, V=X, L=X, OP=OUT, I=0, SKIP=X, INC=X;
       r_a, /io, /end;
 
 // Direct mode.
-start INT=1, RST=1, V=X, L=X, OP=OUT, I=1, SKIP=X, INC=1;
+start INT=1, RST=1, V=X, L=X, OP=OUT, I=1, SKIP=X, INC=0;
       _FETCH_LITERAL;		// Fetch the instruction and operand.
       w_mar, r_dr;		// Indirection.
       r_a, /io, /w;
       r_a, /io, /end;
 
 // FIXED: Autoindex mode.
-start INT=1, RST=1, V=X, L=X, OP=OUT, I=1, SKIP=X, INC=0;
+start INT=1, RST=1, V=X, L=X, OP=OUT, I=1, SKIP=X, INC=1;
       _FETCH_IR;                // Fetch cycle
       _MEMREAD(agl, dr);        // DR <- mem[agl]
       //_DESEL;			// Deselect all memory signals and wait.
@@ -614,14 +610,14 @@ start INT=1, RST=1, V=X, L=X, OP=ADD, I=0, SKIP=X, INC=X;
       _MEMREAD(agl, alu);       // B <- mem[DR].
       w_a, alu_add, /end;	// A <- A + B.
  
-start INT=1, RST=1, V=X, L=X, OP=ADD, I=1, SKIP=X, INC=1;
+start INT=1, RST=1, V=X, L=X, OP=ADD, I=1, SKIP=X, INC=0;
       _FETCH_LITERAL;		// Fetch the address and operand.
       //_DESEL;			// Prepare for the next memory read.
       _MEMREAD(dr, alu);	// B <- mem[DR].
       w_a, alu_add, /end;	// A <- A + B.
 
 // FIXED: Autoincrement
-start INT=1, RST=1, V=X, L=X, OP=ADD, I=1, SKIP=X, INC=0;
+start INT=1, RST=1, V=X, L=X, OP=ADD, I=1, SKIP=X, INC=1;
       _FETCH_LITERAL;		// Fetch the address and operand.
       //_DESEL;			// Prepare for the next memory read.
       _MEMREAD(dr, alu);	// B <- mem[DR].
@@ -642,14 +638,14 @@ start INT=1, RST=1, V=X, L=X, OP=AND, I=0, SKIP=X, INC=X;
       _MEMREAD(agl, alu);       // B <- mem[DR].
       w_a, alu_and, /end;	// A <- A & B.
  
-start INT=1, RST=1, V=X, L=X, OP=AND, I=1, SKIP=X, INC=1;
+start INT=1, RST=1, V=X, L=X, OP=AND, I=1, SKIP=X, INC=0;
       _FETCH_LITERAL;		// Fetch the address and operand.
       //_DESEL;			// Prepare for the next memory read.
       _MEMREAD(dr, alu);	// B <- mem[DR].
       w_a, alu_and, /end;	// A <- A & B.
 
 // FIXED: Autoincrement
-start INT=1, RST=1, V=X, L=X, OP=AND, I=1, SKIP=X, INC=0;
+start INT=1, RST=1, V=X, L=X, OP=AND, I=1, SKIP=X, INC=1;
       _FETCH_LITERAL;		// Fetch the address and operand.
       //_DESEL;			// Prepare for the next memory read.
       _MEMREAD(dr, alu);	// B <- mem[DR].
@@ -669,14 +665,14 @@ start INT=1, RST=1, V=X, L=X, OP=OR, I=0, SKIP=X, INC=X;
       _MEMREAD(agl, alu);       // B <- mem[DR].
       w_a, alu_or, /end;	// A <- A | B.
  
-start INT=1, RST=1, V=X, L=X, OP=OR, I=1, SKIP=X, INC=1;
+start INT=1, RST=1, V=X, L=X, OP=OR, I=1, SKIP=X, INC=0;
       _FETCH_LITERAL;		// Fetch the address and operand.
       //_DESEL;			// Prepare for the next memory read.
       _MEMREAD(dr, alu);	// B <- mem[DR].
       w_a, alu_or, /end;	// A <- A | B.
 
 // FIXED: Autoincrement
-start INT=1, RST=1, V=X, L=X, OP=OR, I=1, SKIP=X, INC=0;
+start INT=1, RST=1, V=X, L=X, OP=OR, I=1, SKIP=X, INC=1;
       _FETCH_LITERAL;		// Fetch the address and operand.
       //_DESEL;			// Prepare for the next memory read.
       _MEMREAD(dr, alu);	// B <- mem[DR].
@@ -697,14 +693,14 @@ start INT=1, RST=1, V=X, L=X, OP=XOR, I=0, SKIP=X, INC=X;
       _MEMREAD(agl, alu);       // B <- mem[DR].
       w_a, alu_xor, /end;	// A <- A | B.
  
-start INT=1, RST=1, V=X, L=X, OP=XOR, I=1, SKIP=X, INC=1;
+start INT=1, RST=1, V=X, L=X, OP=XOR, I=1, SKIP=X, INC=0;
       _FETCH_LITERAL;		// Fetch the address and operand.
       //_DESEL;			// Prepare for the next memory read.
       _MEMREAD(dr, alu);	// B <- mem[DR].
       w_a, alu_xor, /end;	// A <- A | B.
 
 // FIXED: Autoincrement
-start INT=1, RST=1, V=X, L=X, OP=XOR, I=1, SKIP=X, INC=0;
+start INT=1, RST=1, V=X, L=X, OP=XOR, I=1, SKIP=X, INC=1;
       _FETCH_LITERAL;		// Fetch the address and operand.
       //_DESEL;			// Prepare for the next memory read.
       _MEMREAD(dr, alu);	// B <- mem[DR].
@@ -741,11 +737,11 @@ start INT=1, RST=1, V=X, L=X, OP=JMP, I=0, SKIP=X, INC=X;
 // value stored in mem[operand]. This is all the indirection we need here (one
 // less indirection step than normal).
 
-start INT=1, RST=1, V=X, L=X, OP=JMP, I=1, SKIP=X, INC=1;
+start INT=1, RST=1, V=X, L=X, OP=JMP, I=1, SKIP=X, INC=0;
       _FETCH_LITERAL;	// Fetch the instruction and operand.
       w_pc, r_dr, /end;	// Set the PC from DR.
 
-start INT=1, RST=1, V=X, L=X, OP=JMP, I=1, SKIP=X, INC=0;
+start INT=1, RST=1, V=X, L=X, OP=JMP, I=1, SKIP=X, INC=1;
       _FETCH_LITERAL;	        // Fetch the instruction and operand. Autoincrement.
       w_pc, r_dr;	        // Set the PC from DR.
       _AUTOINC;		        // Autoindex
@@ -771,13 +767,13 @@ start INT=1, RST=1, V=X, L=X, OP=JSR, I=0, SKIP=X, INC=X;
 // value stored in mem[operand]. This is all the indirection we need here (one
 // less indirection step than normal).
 
-start INT=1, RST=1, V=X, L=X, OP=JSR, I=1, SKIP=X, INC=1;
+start INT=1, RST=1, V=X, L=X, OP=JSR, I=1, SKIP=X, INC=0;
       _FETCH_LITERAL;		// Fetch the instruction and operand.
       _DESEL;                   // Deselect memory before writing.
       _MEMWRITE(cs1, PC);	// Store PC at location 0000.
       w_pc, r_dr, /end;		// Set the PC from DR.
 
-start INT=1, RST=1, V=X, L=X, OP=JSR, I=1, SKIP=X, INC=0;
+start INT=1, RST=1, V=X, L=X, OP=JSR, I=1, SKIP=X, INC=1;
       _FETCH_LITERAL;	        // Fetch the instruction and operand.
       _MEMWRITE(cs1, PC);	// Store PC at location 0000.
       w_pc, r_dr;
@@ -804,13 +800,13 @@ start INT=1, RST=1, V=X, L=X, OP=TRAP, I=0, SKIP=X, INC=X;
 // value stored in mem[operand]. This is all the indirection we need here (one
 // less indirection step than normal).
 
-start INT=1, RST=1, V=X, L=X, OP=TRAP, I=1, SKIP=X, INC=1;
+start INT=1, RST=1, V=X, L=X, OP=TRAP, I=1, SKIP=X, INC=0;
       _FETCH_LITERAL;		// Fetch the instruction and operand.
       //_DESEL;           // Clear interrupts (implicit memory deselection)
       _MEMWRITE(cs2, pc);	// Store PC at location 0001.
       w_pc, r_dr, /end;	        // Set the PC from DR.
 
-start INT=1, RST=1, V=X, L=X, OP=TRAP, I=1, SKIP=X, INC=0;
+start INT=1, RST=1, V=X, L=X, OP=TRAP, I=1, SKIP=X, INC=1;
       _FETCH_LITERAL;		// Fetch the instruction and operand.
       //_DESEL;           // Clear interrupts (implicit memory deselection)
       _MEMWRITE(cs2, pc);	// Store PC at location 0001.
@@ -894,7 +890,7 @@ start INT=1, RST=1, V=X, L=X, OP=LIA, I=X, SKIP=X, INC=X;
 //      /end \			// (*)
 //*/
 
-// And without (because they're multiline)
+// And withoug (because they're multiline)
 #define OP1COMMON_SKIP1 \
       w_a, r_cs1, if6; \
       /cll, if5; \
@@ -995,7 +991,7 @@ start INT=1, RST=1, V=X, L=X, OP=INCM, I=0, SKIP=X, INC=X;
       r_a, /mem, /w, /end;
 
 // Direct mode.
-start INT=1, RST=1, V=X, L=X, OP=INCM, I=1, SKIP=X, INC=1;
+start INT=1, RST=1, V=X, L=X, OP=INCM, I=1, SKIP=X, INC=0;
       _FETCH_LITERAL;		// Fetch the instruction and operand.
       w_mar, r_dr;		// Indirection.
 
@@ -1006,7 +1002,7 @@ start INT=1, RST=1, V=X, L=X, OP=INCM, I=1, SKIP=X, INC=1;
       r_a, /mem, /w, /end;
 
 // Autoindex mode.
-start INT=1, RST=1, V=X, L=X, OP=INCM, I=1, SKIP=X, INC=0;
+start INT=1, RST=1, V=X, L=X, OP=INCM, I=1, SKIP=X, INC=1;
       _FETCH_IR;                // Fetch cycle
       _MEMREAD(agl, dr);        // DR <- mem[agl]
       //_DESEL;			// Deselect all memory signals and wait.

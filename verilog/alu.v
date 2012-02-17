@@ -415,7 +415,7 @@ endmodule // alu
 //     3x unary op ROMs: each calculates 6 bits of data
 //
 // Ops:
-//                                   BROM      UROM
+//                         IR[2..0]  BROM      UROM
 //   OP     aluop   (op)   rollop    -OE  OP   -OE  OP
 // ---------------------------------------------------
 //   ADD    1000    0100    XXX      0   00    1   XXX
@@ -428,20 +428,20 @@ endmodule // alu
 //   RNR    1100    1000    101      1   XX    0   011
 //   RNL    1100    1000    110      1   XX    0   010
 // ---------------------------------------------------
-//   NOT    1101    10X1    XXX      1   XX    0   1XX
+//   NOT    1101    0101    XXX      1   XX    0   10X
 // ---------------------------------------------------
-//   CS1    1110            XXX      1   XX    0   1XX
-//   CS2    1111            XXX      1   XX    0   1XX
+//   CS1    1110    1110    XXX      1   XX    0   110
+//   CS2    1111    1111    XXX      1   XX    0   111
 // ---------------------------------------------------
 //   NOP    0XXX    0XXX    XXX      1   XX    1   XXX  (for reset and idling)
 //
 // Equations:
 //   alu_op = r_unit
 //   op = {r_unit[2], r_unit[3], r_unit[1:0]}
-//   binary_op = op[1:0]
-//   unary_op = {op[0], rollop[2], rollop[0]}
-//   boe = op[3]
-//   uoe = op[2]
+//   binary_op = runit[1:0]
+//   unary_op = runit[0] | runit[1] == 0 ? {1'b0, rollop[2], rollop[0]} : {1'b1, aluop[1:0]}
+//   boe = aluop == 10XX
+//   uoe = aluop == 11XX
 //
 // Thus:
 //   binary_op = aluop[1:0]
@@ -500,6 +500,7 @@ module rom_alu (in,
    wire [1:0] 	 pad_a, pad_b;
    wire          pad_c;
    wire [7:0] 	 romsel, alusel;
+   wire          aluop01;
 
    tri1 	 add_v_out;
 
@@ -529,11 +530,14 @@ module rom_alu (in,
    assign co1 = bd1[6];
 
    // The unary ROMs
-   assign ua0 = {uop, ints, l_in, a[15], a[14], a[13], a[9], a[8], a[7], a[6], a[5], a[4], a[3], a[2], a[1], a[0]};
-   assign ua1 = {uop, ints, a[15], a[14], a[13], a[12], a[11], a[10], a[9], a[8], a[7], a[6], a[5], a[4], a[3], a[2]}; 
-   assign ua2 = {uop, ints, l_in, a[15], a[14], a[13], a[12], a[11], a[10], a[9], a[8], a[3], a[2], a[1], a[0]};
+   //          17:15    14    13     12     11     10     9      8      7      6      5     4     3     2     1     0
+   assign ua0 = {uop, ints, l_in,  a[15], a[14], a[13], a[9],  a[8],  a[7],  a[6],  a[5], a[4], a[3], a[2], a[1], a[0]};
+   assign ua1 = {uop, ints, a[15], a[14], a[13], a[12], a[11], a[10], a[9],  a[8],  a[7], a[6], a[5], a[4], a[3], a[2]}; 
+   assign ua2 = {     uop,   ints, l_in,  a[15], a[14], a[13], a[12], a[11], a[10], a[9], a[8], a[3], a[2], a[1], a[0]};
 
-   // Net y0 is driven by two drivers (the two banks of ROMs).
+   // Net  y0 is  driven by one  of two  drivers (the two  banks of  ROMs). The
+   // active driver  is determined by which bank of ROMs  has its /OE asserted,
+   // and this is determined by the '138 driving the /UOE, /BOE signals.
    assign y0 = {bd2[3:0], bd1[5:0], bd0[5:0]};
    assign y0 = {ud2[3:0], ud1[5:0], ud0[5:0]};
 
@@ -543,7 +547,18 @@ module rom_alu (in,
    assign roll_l_out = ud2[4];
    assign l_latch = ud2[5];
 
-   assign uop = {aluop[0], rollop[2], rollop[0]};
+   // The UOP decoder.
+   //assign uop = aluop[0] | aluop[1] ? {1'b1, aluop[1:0]} : { 1'b0, rollop[2], rollop[0]};
+   or #10 aluop01_or (aluop01, aluop[0], aluop[1]);
+   mux_253 uopmux ({1'b0, aluop01}, // Signal selector (single-bit)
+		   {2'b0, aluop[0], rollop[0]}, // Input 1
+		   1'b0, // /G1 (always asserted)
+		   uop[0], // Output 1
+		   {2'b0, aluop[1], rollop[2]}, // Input 2
+		   1'b0, // /G2 (always asserted)
+		   uop[1] // Output 2
+		   );
+   assign uop[2] = aluop01;
 
    // We use a '138 for logic (rather than discrete gates) because it
    // avoids glitches.

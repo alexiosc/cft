@@ -7,12 +7,12 @@ progname = sys.argv[0]
 
 def die(msg):
     sys.stderr.write(("%s: %s" % (progname, msg)).rstrip() + '\n')
-    sys.exit(0)
+    sys.exit(1)
     
 
 if len(sys.argv) < 2:
     sys.stderr.write("Syntax:\n\t%s EAGLE-FILE-BASENAME\n\n" % progname)
-    sys.exit(0)
+    sys.exit(1)
 
 base = os.path.splitext(sys.argv[1])[0]
 bom_parts, bom_values = base + '.bomp', base + '.bomv'
@@ -42,6 +42,34 @@ if magic_cftdb not in parts:
 if magic_cftdb not in values:
     die("file %s doesn't seem to include the CFT BOM database fields" % bom_parts)
 
+# Ordering URLs
+def ordering(x):
+    retval = list()
+    try:
+        for partno in re.split('\s*[;,+]\s*', x):
+            house, ordercode = re.split('\s+', partno)
+            if house.lower() == 'farnell':
+                url = 'http://uk.farnell.com/jsp/search/productdetail.jsp?_dyncharset=UTF-8&' + \
+                    'searchTerms=' + ordercode + '&_D%3AsearchTerms=+&%2Fpf%2F' + \
+                    'search%2FTextSearchFormHandler.search=GO&_D%3A%2Fpf%2Fsearch%2F' + \
+                    'TextSearchFormHandler.search=+&s=&%2Fpf%2Fsearch%2FTextSearchFormHandler' + \
+                    '.suggestions=false&_D%3A%2Fpf%2Fsearch%2FTextSearchFormHandler.suggestions' + \
+                    '=+&%2Fpf%2Fsearch%2FTextSearchFormHandler.ref=globalsearch&_D%3A%2Fpf%2F' + \
+                    'search%2FTextSearchFormHandler.ref=+&_D%3ArohsVal=+&%2Fpf%2Fsearch%2FText' + \
+                    'SearchFormHandler.onlyRoHSProductsActive=true&_D%3A%2Fpf%2Fsearch%2FText' + \
+                    'SearchFormHandler.onlyRoHSProductsActive=+&_DARGS=%2Fjsp%2Fcommonfragments' + \
+                    '%2FglobalsearchE14.jsp'.replace('%', r'\%').replace('&', r'\&')
+                retval.append(r'\href{%s}{%s %s}' % (url, house, ordercode))
+            elif house.lower() == 'rs':
+                url = 'http://uk.rs-online.com/web/p/products/' + ordercode.replace('-', '') + '/'
+                retval.append(r'\href{%s}{%s %s}' % (url, house, ordercode))
+            else:
+                die("Unknown component house '%s'\n" % house)
+    
+        return ', '.join(retval)
+    except ValueError:
+        return x
+
 # Process Parts
 
 f = open(os.path.basename('%s-bom-parts.tex' % base), 'w')
@@ -50,26 +78,72 @@ try:
 except:
     die("parse error reading %s" % bom_parts)
 
-prefix0, suffix0, suffix1 = '', 0, 0
-for part in parts:
+prefix0, text0, suffix0, suffix1 = '', '', 0, 0
+dummy = '<tr>' + ('<td>ignore</td>' * 8) + '</tr>'
+
+not_output = False
+for part in parts + [dummy]:
     try:
-        part, value, code, package, desc, partno, descoverride, notes = re.findall('<td>(.*?)</td>', part)
+        part, value, code, package, desc, partno, descoverride, notes = re.findall('<td>(.*?)</td>', part.decode('utf-8'))
 
-        #x = re.findall('(.+?)(\d+)', part)
-        #if x:
-        #    prefix, suffix = x[0]
-        #    suffix = int(key1)
-        #else:
-        #    prefix = part
-        #    suffix = -999
+        text = ' & '.join([r'\schpt{%s}' % part, descoverride or desc,
+                           partno and ordering(partno) or '',
+                           notes and notes or '']) + ' \\\\\n'
 
-        f.write(' & '.join([r'\schpt{%s}' % part, value, descoverride or desc,
-                            partno and r'\farnell{%s}' % partno, notes]) + ' \\\\\n')
+        if '$' in part or 'ignore' in partno.lower():
+            continue
+
+        not_output = False
+        #print '-'*80
+        #print part
+
+        x = re.findall('(.+?)(\d+)', part)
+        if x:
+            prefix, suffix = x[0]
+            suffix = int(suffix)
+        else:
+            prefix = part
+            suffix = -999
+
+        if prefix == prefix0 and text.split(' & ')[1:] == text0.split(' & ')[1:] \
+                and suffix == suffix1 + 1:
+            #print '++++++', text.split(' & ')[1:]
+            suffix1 = suffix
+            not_output = True
+        else:
+            #print '------', text0
+            if text0:
+                if suffix1 == suffix0:
+                    f.write(text0.encode('utf-8'))
+                else:
+                    text0 = unicode(text0)
+                    f.write((u'\schpt{%s%s}–\schpt{%s%s} & %s' % \
+                                (prefix0, suffix0 > 0 and suffix0 or '',
+                                 prefix0, suffix1 > 0 and suffix1 or '',
+                                 u' & '.join(text0.split(' & ')[1:]))).encode('utf-8'))
+                         
+            prefix0 = prefix
+            text0 = text
+            suffix0 = suffix
+            suffix1 = suffix
 
     except IOError,e:
         die(str(e))
     except:
+        raise
         die("parse error reading %s" % bom_parts)
+
+print not_output
+if not_output:
+    if text0:
+        if suffix1 == suffix0:
+            f.write(text0.encode('utf-8'))
+        else:
+            text0 = unicode(text0)
+            f.write((u'\schpt{%s%s}–\schpt{%s%s} & %s' % \
+                        (prefix0, suffix0 > 0 and suffix0 or '',
+                         prefix0, suffix1 > 0 and suffix1 or '',
+                         u' & '.join(text0.split(' & ')[1:]))).encode('utf-8'))
         
 
 def parse_parts(parts):
@@ -122,8 +196,11 @@ for value in values:
     try:
         qty, value, device, parts, partno, descoverride, notes = re.findall('<td>(.*?)</td>',
                                                                             value.decode('utf8'))
-        partlist = ur'\raggedright ' + unicode(parse_parts(parts))
-        value = ur'\raggedright ' + (descoverride or value)
+        if 'ignore' in partno.lower():
+            continue
+
+        partlist = unicode(parse_parts(parts))
+        value = descoverride or value
 
         x = re.findall('(.+?)(\d+)', partlist)
         if x:
@@ -132,8 +209,9 @@ for value in values:
         else:
             key0 = partlist[:30]
 
-        out.append((int(qty), (key0, key1), u' & '.join([qty, value, partlist,
-                                partno and ur'\farnell{%s}' % partno, notes])
+        out.append((int(qty), (key0, key1), u' & '.join([qty + r'$\times$', value, partlist,
+                                                         partno and ordering(partno) or '', 
+                                                         notes and notes or ''])
                    .encode('utf-8')
                    .replace('_', r'\_')
                    + ' \\\\\n'))
@@ -145,6 +223,9 @@ for value in values:
         die("parse error reading %s" % bom_values)
 
 out.sort(lambda a, b: cmp(a[1], b[1]) or cmp(b[0], a[0]))
+#for i, x in enumerate(out):
+#    oddeven = i & 1 and r'\oddrowcolor' or '\evenrowcolor'
+#    f.write(oddeven + x[2])
 f.write(''.join(x[2] for x in out))
 
 

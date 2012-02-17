@@ -5,7 +5,7 @@ SRC =		counter.v counter_161_tb.v \
 		mux.v mux_253_tb.v \
 		flipflop.v flipflop_112_tb.v flipflop_74_tb.v flipflop_174_tb.v flipflop_574_tb.v flipflop_564_tb.v \
 		alu.v alu_tb.v alu_roll_tb.v alu_add_tb.v \
-		alu_btb_add.v alu_btb_and.v alu_btb_or.v alu_btb_xor.v \
+		alu_btb_add.v alu_btb_and.v alu_btb_or.v alu_btb_xor.v alu_btb_not.v alu_btb_roll.v alu_btb_cs.v \
 		skip_unit.v skip_unit_tb.v \
 		clock.v clock_tb.v clock2_tb.v \
 		rom.v rom_tb.v \
@@ -244,5 +244,14 @@ batch_test_alu_or:	alu_btb_or.o alu.o
 
 batch_test_alu_xor:	alu_btb_xor.o alu.o
 			./alu_btb_xor.o
+
+batch_test_alu_not:	alu_btb_not.o alu.o
+			./alu_btb_not.o
+
+batch_test_alu_roll:	alu_btb_roll.o alu.o
+			./alu_btb_roll.o
+
+batch_test_alu_cs:	alu_btb_cs.o alu.o
+			./alu_btb_cs.o
 
 # End of file.
