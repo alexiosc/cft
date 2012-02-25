@@ -3,7 +3,7 @@ Key	Order Code	Description Override	Notes
 22-23-2051	Farnell 1462952	5x1 pin 2.54mm centre header	Molex KK® series header
 22-23-2081	Farnell 1756826	8x1 pin 2.54mm centre header	Molex KK® series header
 22-23-2091	Farnell 1756827	9x1 pin 2.54mm centre header	Molex KK® series header
-C-EU025-024X044:100nF	Farnell 1694337	100nF capacitor	
+C-EU025-024X044:100nF	Farnell 1469310	100nF capacitor	
 C-EU025-024X044:22nF	Farnell 9411860	22nF capacitor	
 C-EU025-024X044:1uF	Farnell 3322210	1μF capacitor	
 CON40:		40 pin (2x20) 2.54mm pitch header	
@@ -86,3 +86,5 @@ GE09R:330R		330Ω 9x bussed SIL resistor
 8R-N:330R		330Ω octal DIL resistor	
 M48T02	Farnell 1224444		
 82C54	Farnell 1018175		
+AS6C4008	Farnell 1562896	4 MBit (512k x 8) Static RAM	
+29F040	Farnell 8749493 / Farnell 1565992	29x040 4 MBit (512k x 8) Flash RAM	
