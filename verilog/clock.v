@@ -14,6 +14,7 @@
 
 `include "flipflop.v"
 `include "mux.v"
+`include "vibrator.v"
 
 `timescale 1ns/10ps
 
@@ -71,7 +72,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 // TODO: This uses the old naming for the clocks.
-module clock_generator (halt, run, step, reset,
+module clock_generator_v1 (halt, run, step, reset,
 			clock, clock2, clock3, clock4, clock14, clock34);
    parameter cp = 250;
 
@@ -255,4 +256,106 @@ module clock_generator_v2 (clken, step, reset,
 
 endmodule // clock_generator
 `endif //  `ifndef clock_v
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// BASED ON DRAWN SCHEMATICS
+//
+///////////////////////////////////////////////////////////////////////////////
+
+module slow_clock_generator (slowclk, testclk);
+   output slowclk, testclk;
+   
+   // The two slow clocks are used for demonstration and debugging
+   // purposes. The slow clock runs at a frequency lower than 100Hz, the test
+   // clock at a frequency lower than 10Hz. The latter is meant for testing
+   // microcode.
+   
+   vibrator_555 #(30000, 30000) testclock_555 (testclk);
+   vibrator_555 #(3000, 3000) fastclock_555 (slowclk);
+endmodule // slow_clock_generator
+   
+
+module clock_generator (fpclken, fpustep,
+			   nreset,
+			   slowclk, testclk,
+			   fpfast, fpslow,
+			   clk1, clk2, clk3, clk4, clk5, nguard);
+   parameter rawclock_period = 63;
+
+   input fpclken, fpustep;	// Front panel run/step control
+   input fpfast, fpslow;	// Front panel clock speed control
+   input nreset;		// RESET#
+   input slowclk, testclk;	// slow clock 555 vibrators
+
+   output clk1, clk2, clk3, clk4, clk5, nguard;
+
+   // FPCLKEN is pulled up, so the clock will always run if the front panel is
+   // disconnected. FPUSTEP is pulled down to protect CMOS circuitry if the
+   // panel is disconnected. Likewise FPFAST and FPSLOW are pulled up and down
+   // respectively to select the fastest clock rate by default.
+   
+   tri1   fpclken;		// Pull up
+   tri0   fpustep;		// Pull down
+   tri1   fpfast;		// Pull up
+   tri0   fpslow;		// Pull down
+
+   // The crystal oscillator. Not really a 555, but it'll do for simulation
+   // purposes. Configured for a 50% duty cycle of 0.5 * rawclock_period.
+   wire   fastclk;
+   vibrator_555 #(rawclock_period / 2, rawclock_period / 2) xo (fastclk);
+
+   // Raw clock selector mux
+   wire   rawclk;
+   mux_253 raw_clock_mux ({fpslow, fpfast},
+			  {1'b0, testclk, fastclk, slowclk}, 0, rawclk,
+			  4'b0, 0,);
+   
+   // Divide by 2, generate two phases
+   wire   clkindiv2, nclkindiv2;
+   flipflop_112h ff_div2a (1, 1, rawclk, 1, nreset, clkindiv2, nclkindiv2);
+
+   // Clock Control (run/stop/step) mux
+   wire   clkdiv2, nclkdiv2;
+   mux_253 clock_ctrl_mux ({fpclken, fpustep},
+			   {clkindiv2,  clkindiv2,  2'b10}, 0, clkdiv2,
+			   {nclkindiv2, nclkindiv2, 2'b01}, 0, nclkdiv2);
+
+   // Divide by 2, generate four phases.
+   flipflop_112 ff_div2b (1, 1, clkdiv2,  1, nreset, clk3, clk1,
+			  1, 1, nclkdiv2, 1, nreset, clk4, clk2);
+
+   // Generate clk5
+   nand #7 gen_clk5 (clk5, clk3, clk2);
+
+   // Generate GUARD# using 10 NAND gates in series.
+   wire   nguarda, guardb, nguardc, guardd, nguarde, guardf, nguardg, guardh, nguardi, guardj;
+
+   // Where delays are #0, the delay has effectively been jumpered off. (easier
+   // to code in Verilog than adding/removing gates).
+   nand #7 nand_7400b (nguarda, clk3, clk4);
+   nand #7 nand_7400c (guardb, nguarda, nguarda);
+   nand #7 nand_7400d (nguardc, guardb, guardb);
+   nand #7 nand_7400e (guardd, nguardc, nguardc);
+   nand #7 nand_7400f (nguarde, guardd, guardd);
+   nand #7 nand_7400g (guardf, nguarde, nguarde);
+   nand #0 nand_7400h (nguardg, guardf, guardf);
+   nand #0 nand_7400i (guardh, nguardg, nguardg);
+   nand #0 nand_7400j (nguardi, guardh, guardh);
+   nand #0 nand_7400k (guardj, nguardi, nguardi);
+
+   // Set the delay 'jumper' to guardb (14ns), guardd (28ns), guardf (42ns),
+   // guardh (56ns) or guardj (70ns), so that the rising edge of GUARD# occurs
+   // between the rising edge of CLK5 and around 20ns before the rising edge of
+   // CLK.
+   
+   //assign nguard = guardb;
+   //assign nguard = guardd;
+   assign nguard = guardf;	// Looks appropriate for a 16MHz raw clock.
+   //assign nguard = guardh;
+   //assign nguard = guardj;
+      
+endmodule // clock_generator_v3
+
 // End of file.

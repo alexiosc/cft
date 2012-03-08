@@ -1,22 +1,52 @@
-[timestart] 13570000
-[size] 1242 758
-[pos] 133 0
-*-22.028387 14380000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[*]
+[*] GTKWave Analyzer v3.3.32 (w)1999-2012 BSI
+[*] Sun Mar  4 11:20:06 2012
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/clock_tb.vcd"
+[dumpfile_mtime] "Sun Mar  4 11:19:43 2012"
+[dumpfile_size] 15912864
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/clock_tb.sav"
+[timestart] 0
+[size] 1585 936
+[pos] 26 12
+*-18.488411 192000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] clock_tb.
+[treeopen] clock_tb.clock_generator.
+[sst_width] 245
+[signals_width] 274
+[sst_expanded] 1
+[sst_vpaned_height] 266
 @28
-clock_tb.reset
-clock_tb.halt
-clock_tb.run
-clock_tb.step
-clock_tb.rawclk
-clock_tb.clock
-clock_tb.clock2
-clock_tb.clock3
-clock_tb.clock4
-@29
-clock_tb.clock14
+clock_tb.nreset
+@200
+-
+-Front Panel
 @28
-clock_tb.cgen.clock34
-clock_tb.myclk34
+clock_tb.fpclken
+clock_tb.fpustep
+clock_tb.fpslow
+clock_tb.fpfast
+@200
+-
+-Slow clocks (555)
+@28
+clock_tb.slowclk
+clock_tb.testclk
+@200
+-
+-Clock Generator
+@28
+clock_tb.clock_generator.rawclk
+clock_tb.clock_generator.fastclk
+@200
+-
+-Outputs
+@28
+clock_tb.clk3
+clock_tb.clk1
+clock_tb.clk4
+clock_tb.clk2
+clock_tb.clk5
+clock_tb.nguard
 [pattern_trace] 1
 [pattern_trace] 0

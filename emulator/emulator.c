@@ -56,7 +56,16 @@ char * ops[16] = {
 mach_t mach_revisions[] = {
 	{
 		.code = "v0",
-		.name = "Preliminary testing hardware (64KW RAM, 8KW ROM)",
+		.name = "Preliminary testing hardware (64KW RAM)",
+		.image_start = 0x0000,
+		.image_size = 0x10000,
+		.have_paging = 0,
+		.have_intc = 0,
+	},
+
+	{
+		.code = "v1",
+		.name = "Early turnkey system (56KW RAM, 8KW ROM)",
 		.image_start = 0xe000,
 		.image_size = 0x2000,
 		.have_paging = 0,
@@ -78,6 +87,7 @@ char *log_name = "output";
 FILE *log_file = NULL;
 
 int verbose = 0;
+int sanity = 1;
 int debug_microcode = 0;
 int debug_io = 0;
 int debug_asm = 0;
@@ -116,8 +126,10 @@ reset_cpu()
 	cpu.v = 0;
         cpu.ustate.rst = 0;	/* 0 = -RESET is ACTIVE */
         cpu.ustate.int_ = 1;	/* 1 = -INT is not active */
-        cpu.ustate.inc = 0; 	/* Just being thorough: the reset vector doesn't autoindex */
+        cpu.ustate.inc = 1; 	/* Just being thorough: the reset vector doesn't autoindex */
 	cpu.ustate.uaddr = 0;	/* The uPC resets to 0 on power on/reset */
+	cpu.ustate.v = 0;
+	cpu.ustate.l = 0;
 
 	cpu.rst_hold = RST_HOLD; /* Set up reset pulse */
 }
@@ -141,7 +153,7 @@ unit_agl() {
 	 * If R flag is set, use high bits of PC for the high bits of the
 	 * address. Otherwise, use zeroes. Use the IR operand for the low bits.
 	 */
-	return (get_r(cpu.ir) ? 0 : get_hi(cpu.pc)) | (get_lo(cpu.ir));
+	return (get_r(cpu.ir) ? 0 : get_page(cpu.pc)) | (get_offset(cpu.ir));
 }
 
 
@@ -282,7 +294,7 @@ unit_mem(int r, int w)
 		}
 		*/
 		/* Report attempts to write to the ROM */
-		if (cpu.mar >= 0xe000) {
+		if (sanity && (cpu.mar >= 0xe000)) {
 			fail("Attempt to write %04x to ROM at address %04x.\n", cpu.dbus, cpu.mar);
 		}
 		cpu.mem[cpu.mar] = cpu.dbus;
@@ -331,7 +343,7 @@ handle_reset()
 static inline void
 decode_ifx()
 {
-	cpu.ustate.skip = 1;
+	cpu.ustate.skip = 0;
 	if (IS_IF9(cpu.control)) {
 		cpu.ustate.skip = (cpu.ir & 0x200) != 0;
 		skipdebug("IF9");
@@ -391,6 +403,9 @@ decode_ifx()
 		cpu.ustate.skip = (cpu.ir & 0xb) != 0;
 		skipdebug("IFROLL");
 	}
+
+	// Microcode version 4 assumes active-low semantics for SKIP. Invert here.
+	cpu.ustate.skip = !cpu.ustate.skip;
 }
 
 /*
@@ -490,7 +505,7 @@ decode_write_unit()
 		cpu.pc = cpu.ibus;
 		ucdebug("PC <- IBUS (%04x)\n", cpu.ibus);
 		// Sanity check
-		if (cpu.pc == 0) {
+		if (sanity && (cpu.pc == 0)) {
 			fail("PC at 0000. This is probably a CFT software error.\n");
 		}
 	}
@@ -498,7 +513,7 @@ decode_write_unit()
 		cpu.ir = cpu.ibus;
 		ucdebug("IR <- IBUS (%04x)\n", cpu.ibus);
 		// Also set the autoincrement bit.
-		cpu.ustate.inc = is_autoindex(unit_agl());
+		cpu.ustate.inc = ~is_autoindex(unit_agl());
 	}
 	else if (IS_W_DR(cpu.control)) {
 		cpu.dr = cpu.ibus;
@@ -577,7 +592,7 @@ emulate()
 		 *
 		 */
 		if (cpu.ustate.uaddr == 0) {
-			cpu.ustate.inc = 0;
+			cpu.ustate.inc = 1;
 		} else {
 			//cpu.ustate.inc |= is_autoindex(cpu.mar);
 			// Moved to IR latching code.
@@ -622,13 +637,13 @@ emulate()
 		cpu.control = microcode[cpu.upc];
 
 		// Decode the control vector from the uROM.
-		uint32_t inc_a = IS_INC_A(cpu.control);
+		uint32_t inc_a = IS_INCAC(cpu.control);
 		uint32_t cpl = IS_CPL(cpu.control);
 		uint32_t cll = IS_CLL(cpu.control);
 		uint32_t sti = IS_STI(cpu.control);
 		uint32_t cli = IS_CLI(cpu.control);
-		uint32_t pc_inc = IS_PC_INC(cpu.control);
-		uint32_t step_dr = IS_INC_DR(cpu.control);
+		uint32_t pc_inc = IS_INCPC(cpu.control);
+		uint32_t step_dr = IS_INCDR(cpu.control);
 		uint32_t mem = IS_MEM(cpu.control);
 		uint32_t io = IS_IO(cpu.control);
 		uint32_t r = IS_R(cpu.control);
@@ -679,7 +694,7 @@ emulate()
 			cpu.pc = (cpu.pc + 1) & 0xffff;
 			ucdebug("pc_inc: PC <- %04x\n", cpu.pc);
 			// Sanity check
-			if (cpu.pc == 0) {
+			if (sanity && (cpu.pc == 0)) {
 				fail("PC AT 0000, SHOULD NEVER HAPPEN\n");
 			}
 		}
@@ -715,6 +730,10 @@ emulate()
 			cpu.i = 1;
 			ucdebug("CLI: PC=%04x, I <- %d\n", cpu.pc, cpu.i);
 		}
+
+		// Update the CPU microcode state
+		cpu.ustate.l = cpu.l;
+		cpu.ustate.v = cpu.v;
 
 		// Next!
 		cpu.tick++;

@@ -39,6 +39,7 @@ enum {DUMMY_KEY=129
       ,KEY_DEBUG_ASM
       ,KEY_IMAGE_START
       ,KEY_IMAGE_SIZE
+      ,KEY_NO_SANITY
 };
 
 static struct argp_option options[] =
@@ -58,9 +59,9 @@ static struct argp_option options[] =
 	  "Set the address in memory where the image will be loaded (default: 0).", 0 },
 
 	{ "debug-microcode", KEY_DEBUG_MICROCODE, NULL, 0,
-	  "Print out microcode-level information (insane amounts of output)", 0 },
+	  "Print out microcode-level information (insane amounts of output).", 0 },
 	{ "debug-io", KEY_DEBUG_IO, NULL, 0,
-	  "Print out microcode-level information (insane amounts of output)", 0 },
+	  "Print out I/O debugging information.", 0 },
 	{ "debug-asm", KEY_DEBUG_ASM, NULL, 0,
 	  "Print out assembly instructions as they are executed.", 0 },
 	{ "pasm", 'p', "PASM-FILE", 0,
@@ -71,6 +72,8 @@ static struct argp_option options[] =
 	  0 },
 	{ "testing",     't',           NULL,            0,
 	  "Enable test/debug device and testing output.", 0 },
+	{ "no-sanity",   KEY_NO_SANITY,  NULL,            0,
+	  "Inhibit sanity checks meant to catch common bugs.", 0 },
 #if 0
 	{ "microcode",     'm',           NULL,            0,
 	  "Select microcode basename (cumulative)", 0 },
@@ -105,6 +108,7 @@ parse_opt (int key, char *arg, struct argp_state *state)
 	case ARGP_KEY_INIT:
 		/* Set up default values.  */
 		verbose = 0;
+		sanity = 1;
 		memimg_name = NULL;
 		memimg_file = NULL;
 		break;
@@ -183,6 +187,10 @@ parse_opt (int key, char *arg, struct argp_state *state)
 		} else if (mach.image_size < 0 || mach.image_start > 65535) {
 			argp_error (state, "Memory image size '%ld' is out of bounds (0-65535)", mach.image_size);
 		}
+		break;
+
+	case KEY_NO_SANITY:
+		sanity = 0;
 		break;
 
 	case 'M':

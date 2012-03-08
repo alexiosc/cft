@@ -1,35 +1,42 @@
+[*]
+[*] GTKWave Analyzer v3.3.32 (w)1999-2012 BSI
+[*] Sat Mar  3 22:02:32 2012
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/register_reg_L_tb.vcd"
+[dumpfile_mtime] "Sat Mar  3 22:00:57 2012"
+[dumpfile_size] 7641
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/register_reg_L_tb.sav"
 [timestart] 0
 [size] 1512 932
 [pos] 130 60
-*-22.830585 33000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-24.962034 93100000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] register_reg_L_tb.
-[treeopen] register_reg_L_tb.register.
-[treeopen] register_reg_L_tb.register.ff.
+[sst_width] 245
+[signals_width] 181
+[sst_expanded] 1
+[sst_vpaned_height] 264
 @28
-register_reg_L_tb.clock
-register_reg_L_tb.reset
-register_reg_L_tb.clear
-@200
--
-@29
-register_reg_L_tb.toggle
-@28
-register_reg_L_tb.latch
-register_reg_L_tb.d
+register_reg_L_tb.clk5
+register_reg_L_tb.nreset
 @200
 -
 @28
-+{Value of L} register_reg_L_tb.q
+register_reg_L_tb.ncpl
+register_reg_L_tb.ncll
 @200
 -
--J-K FF
 @28
-register_reg_L_tb.register.ff.flipflop_112h1.clk
-register_reg_L_tb.register.ff.flipflop_112h1.rst
-register_reg_L_tb.register.ff.flipflop_112h1.set
-register_reg_L_tb.register.ff.flipflop_112h1.j
-register_reg_L_tb.register.ff.flipflop_112h1.k
-register_reg_L_tb.register.ff.flipflop_112h1.q
-register_reg_L_tb.register.ff.flipflop_112h1.qn
+register_reg_L_tb.nfltadd
+@200
+-
+-Roll Output
+@28
+register_reg_L_tb.isroll
+register_reg_L_tb.roll16
+@200
+-
+-Output
+@28
+register_reg_L_tb.fl
 [pattern_trace] 1
 [pattern_trace] 0

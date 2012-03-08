@@ -124,9 +124,9 @@ char * ops[16];
  * version 4, so we no longer need to toggle it. Code will work as
  * expected now.
  */
-#define get_r(x) (((x) & 0x400) == 0)
-#define get_lo(x) ((x) & 0x3ff)
-#define get_hi(x) ((x) & 0xfc00)
+#define get_r(x) (((x) & 0x400) != 0)
+#define get_offset(x) ((x) & 0x3ff)
+#define get_page(x) ((x) & 0xfc00)
 
 /* Convenience macros for memory access */
 #define IS_R_DBUS(x) (IS_R(x) && (IS_MEM(x) || IS_IO(x)))
@@ -134,6 +134,9 @@ char * ops[16];
 
 // Implement the hardware's autoindex condition.
 #define is_autoindex(x) (((x) & 0xff80) == 0x0080)
+
+// An alias
+#define IS_W IS_WEN
 
 // Opcodes
 #define OP_TRAP  0x0
@@ -199,6 +202,7 @@ extern int debug_microcode;
 extern int debug_io;
 extern int debug_asm;
 extern int testing;
+extern int sanity;
 
 void emulate();
 

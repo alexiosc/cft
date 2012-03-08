@@ -8,6 +8,7 @@
 `include "flipflop.v"
 `include "regfile.v"
 `include "mux.v"
+`include "buffer.v"
 
 `timescale 1ns/10ps
 
@@ -20,7 +21,7 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-module memory (abus, dbus, mem, r, w, clock);
+module memory_v0 (abus, dbus, mem, r, w, clock);
 
    input [15:0] abus;
    inout [15:0] dbus;
@@ -360,5 +361,115 @@ endmodule
  
  
  */
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// BASED ON DRAWN SCHEMATICS
+//
+///////////////////////////////////////////////////////////////////////////////
+
+module bank_switch (nreset, nmem, nw, nsysdev, ab, db, nfpram, aext, banking);
+
+   input        nreset, nmem, nw, nfpram, nsysdev;
+   input [15:0] ab;
+   inout [15:0] db;
+
+   output [7:0] aext;
+   output 	banking;
+   
+   wire 	nreset, nmem, nw, nsysdev;
+   // Pull down AB for debugging (the real bus has bus-hold circuitry
+   // so the behaviour is similar but not identical)
+   tri0 [15:0] 	ab, db;
+
+   wire [7:0] 	aext;
+   wire 	banking;
+
+   // Bank write decoder
+   wire 	ab6nw, ab7nsysdev;
+   wire 	nbankw0, nbankw1;
+   wire [7:0] 	yw;
+   or #6 (ab6nw, ab[6], ab[7]);
+   or #6 (ab7nsysdev, nw, nsysdev);
+   demux_138 dec_w (ab[5], ab6nw, ab7nsysdev, ab[4:2], yw);
+   assign nbankw0 = yw[0];
+   assign nbankw1 = yw[1];
+
+   // RAM Bank selector (AB -> {AEXT,AB})
+   wire [7:0] 	yr;
+   wire 	nbankr0, nbankr1;
+   demux_138 banksel (1, nmem, 0, {2'b0, ab[15]}, yr);
+   assign nbankr0 = yr[0];
+   assign nbankr1 = yr[1];
+
+   // The 4x4 register files organised as a 2x2 array to get 8 8-bit registers.
+   wire [7:0] 	ae0;
+   // BR0--BR3
+   regfile_670 br0_lo (db[3:0], nbankr0, nbankw0, ab[14:13], ab[1:0], ae0[3:0]);
+   regfile_670 br0_hi (db[7:4], nbankr0, nbankw0, ab[14:13], ab[1:0], ae0[7:4]);
+   // BR4--BR7
+   regfile_670 br1_lo (db[3:0], nbankr1, nbankw1, ab[14:13], ab[1:0], ae0[3:0]);
+   regfile_670 br2_hi (db[7:4], nbankr1, nbankw1, ab[14:13], ab[1:0], ae0[7:4]);
+
+   // Reset logic
+   wire 	nbanking;
+   flipflop_112h rstff (0, 0, 0, nbankw1, nreset, banking, nbanking);
+   buffer_541 buflnr (banking, banking, {ab15nram, 5'b00000, ab[14:13]}, aext);
+   buffer_541 bufbnk (nbanking, nbanking, ae0, aext);
+
+   // Allow FPRAM# to work without a front panel attached. Without a
+   // front panel, it's assumed this is a turn-key machine, so it
+   // should always start with ROM enabled, hence FPRAM# is deasserted
+   // (pulled up).
+   tri1 	nfpram;
+   wire 	ab15nram;
+   and #6 (ab15nram, ab[15], nfpram);
+
+   // Note: front panel outputs are not modelled.
+
+endmodule // bank_switch
+
+
+module memory (aext, ab, db, nmem, nr, nw);
+   input [7:0]  aext;
+   input [15:0] ab;
+   inout [15:0] db;
+   input 	nmem, nr, nw;
+
+   wire [7:0] 	y;
+   wire 	nramen0, nramen1, nromen0, nromen1;
+   
+   demux_138 decoder(1, nmem, 0, {1'b0, aext[7:6]}, y);
+   assign nramen0 = y[0];
+   assign nramen1 = y[1];
+   assign nromen0 = y[2];
+   assign nromen1 = y[3];
+
+   // Simulate the ROM/ROM address jumpers.
+   wire 	nramen, nromen;
+   assign nramen = nramen0;
+   //assign nramen = nramen1;
+   assign nromen = nromen0;
+   //assign nromen = nromen1;
+
+   // And finally, the RAM and ROM.
+   wire [21:0] 	ae;
+   assign ae = {aext, ab[12:0]};
+   sram #(19, 55) ram_lo (ae[18:0], db[7:0], nramen, nw, nr);
+   sram #(19, 55) ram_hi (ae[18:0], db[15:8], nramen, nw, nr);
+
+   rom #(19, 70, "img/a-00.list") rom_lo (ae[18:0], db[7:0], nromen, nr);
+   rom #(19, 70, "img/a-01.list") rom_hi (ae[18:0], db[15:8], nromen, nr);
+
+   // Allow a memory image to be dumped, if requested.
+   event dump_core;
+   always @(dump_core) begin
+      $display("D: Dumping core...");
+      $writememh("img/core-00.list", ram_lo.mem); // Dump core (low)
+      $writememh("img/core-01.list", ram_hi.mem); // Dump core (high)
+   end
+endmodule // memory
+
    
 // End of file.

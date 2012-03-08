@@ -88,12 +88,11 @@ endmodule // counter_161
 //
 // Function: 74x193 4-bit synchronous presettable up/down counter
 //
-//
 ///////////////////////////////////////////////////////////////////////////////
 
 module counter_193 (clear, load, p, count_up, count_down, q, carry, borrow);
 
-   parameter delay = 50;	// ~50ns average for 74HC193 at 5V.
+   parameter delay = 45;	// approxmate maximum delay at 25°C, 5V.
    
    input        clear;		// active high, on rising edge
    input        load;		// active low, on falling edge
@@ -118,13 +117,13 @@ module counter_193 (clear, load, p, count_up, count_down, q, carry, borrow);
       $display("BOM: 74x193");
    end
 
-   always @ (posedge clear, negedge load, posedge count_up, posedge count_down) begin
+   always @ (clear, load) begin
       if (clear == 1) begin
 	 #delay q <= 4'b0000;
       end else if (load == 0) begin
 	 #delay q <= p;
       end
-   end // always @ (posedge clear, negedge load, posedge count_up, posedge count_down)
+   end
 
    always @(posedge count_up) begin
       if (clear == 0 && load == 1) #delay q <= q + 1;
@@ -139,6 +138,40 @@ module counter_193 (clear, load, p, count_up, count_down, q, carry, borrow);
    assign #delay carry = (q == 4'b1111 && count_up == 0) ? 1'b0 : 1'b1;
 endmodule // counter_193
 
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// Function: 74x590 8-bit counter. CAUTION: buggy implementation
+//
+///////////////////////////////////////////////////////////////////////////////
+
+module counter_590 (clk, ccken, cclr, rck, g, q, rco);
+   parameter delay = 16;
+		    
+   input clk, ccken, cclr, rck, g;
+   output [7:0] q;
+   output rco;
+
+   reg 	  [7:0] count;
+   reg    [7:0] oreg;
+
+   assign #delay q = g ? 8'bzzzzzzzz : oreg;
+   assign #delay rco = count == 0 ? 1'b0 : 1'b1;
+
+   always @(cclr) begin
+      if (cclr == 0) count = 0;
+   end
+
+   always @(posedge clk) begin
+      if (ccken == 1'b0 && cclr == 1'b1) begin
+	 #(delay + 2) count = (count + 1) & 255;
+      end
+   end
+
+   always @(posedge rck) begin
+      #delay oreg = count;
+   end
+endmodule // counter_590
 
 `endif //  `ifndef counter_v
 

@@ -2,26 +2,19 @@
 `include "clock.v"
 `include "register.v"
 
-`timescale 10ns/10ps
+`timescale 1ns/10ps
 module alu_tb();
 
-// Declare inputs as regs and outputs as wires
-   reg [15:0] ibus;
-   reg 	      w_a;
-   reg 	      w_b;
+   reg 	       nreset, nrsthold, nirqs;
+   reg [3:0]   runit;
+   reg [15:0]  ir, ibus, ac;
+   tri0 [15:0] ibus_real;
 
-   reg 	      l;
+   wire        clk1, clk2, clk3, clk4, clk5, nguard;
 
-   reg [3:0]  runit;
-   reg [2:0]  rollop;
+   reg 	       fl, nwalu;
 
-   wire       clk1, clk2, clk3, clk4, clk5, guard;
-
-   reg 	      reset, rsthold;
-
-   wire       alu_l_toggle, alu_l_out, alu_l_latch;
-
-   wire [15:0] y;
+   wire        nflstrobe, fv, nfltadd, roll16, isroll;
 
    localparam ALU_IDLE = 0;
 
@@ -41,87 +34,89 @@ module alu_tb();
    localparam ALU_RNL  = 3'b110;
    localparam ALU_RNR  = 3'b101;
 
-   localparam MAX = 16;
-
-   integer     i, j, a, b, y_correct, l_correct;
-   integer     t;
-   
    // Initialize all variables
    initial begin        
       $dumpfile ("vcd/alu_tb.vcd");
       $dumpvars (0, alu_tb);
 
-      // Reset.
-      reset = 0;
-      rsthold = 0;
+      // Reset
       runit = ALU_IDLE;
-      ibus = 0;
-      l = 0;
-      w_a = 1;
-      w_b = 1;
-      t = 0;
+      nirqs = 1;
+      nwalu = 1;
+      ir = 0;
+      ac = 0;
+      fl = 0;
+      ibus = 16'bzzzz_zzzz_zzzz_zzzz;
       
-      #500 reset = 1;
-      #1000 rsthold = 1;
+      nreset = 0;
+      #250 nrsthold = 0;
+      #500 nreset = 1;
+      #625 nrsthold = 1;
 
-      a = 0;
-      b = 0;
-      for (i = 0; i < MAX; i = i + 1) begin
-	 for (j = 0; j < MAX; j = j + 1) begin
-	    #250 ibus = b;
-	    #63 w_b = 0;
-	    #63 w_b = 1;
+      // Basic tests. Individual operations tested elsewhere.
+      #250 ac = 'h9999;
+      #250 ibus = 'hffff;
+      nwalu = 0;
+      #250 nwalu = 1;
+      #250 ibus = 16'bzzzz_zzzz_zzzz_zzzz;
 
-	    #250 ibus = a;
-	    #63 w_a = 0;
-	    #63 w_a = 1;
+      #250 runit = ALU_ADD;
+      #500 runit = ALU_IDLE;
 
-	    #250 runit = ALU_ROLL;
-	    rollop = 0;
-	    #250 begin
-	       y_correct = (a + b) % 65536;
-	       l_correct = (a + b) & 65536 ? 1 : 0;
+      #250 ac = 'h1234;
+      #250 ibus = 'h1111;
+      nwalu = 0;
+      #250 nwalu = 1;
+      #250 ibus = 16'bzzzz_zzzz_zzzz_zzzz;
 
-	       if (y_correct != y) begin
-		  $display("t=%d: %2d/%2d. %5d + %5d = %1d,%5d =? %1d,%5d",
-			   t, i, j, a, b, alu_l_toggle, y, l_correct, y_correct);
-		  $display ("Assertion failed (sum incorrect).");
-		  #100 $finish;
-	       end
-	       if (l_correct != alu_l_toggle) begin
-		  $display("t=%d: %2d/%2d. %5d + %5d = %1d,%5d =? %1d,%5d",
-			   t, i, j, a, b, alu_l_toggle, y, l_correct, y_correct);
-		  $display ("Assertion failed (carry out incorrect).");
-		  #100 $finish;
-	       end
+      #250 runit = ALU_ADD;
+      #500 runit = ALU_IDLE;
 
-	       t = t + 1;
-	       if ((t % 2000) == 0) $display ("Tests up to %1d (of %1d) successful.", t, MAX * MAX);
-	       
-	       runit = ALU_IDLE;
-	       
-	       a = (a + 21553) % 65535;
-	    end
-	 end
-	 b = (b + 21553) % 65535;
-      end // for (i = 0; i < 10; i = i + 1)
+      #250 runit = ALU_AND;
+      #250 runit = ALU_IDLE;
 
-      $display("*** ADD: SUCCESS ***");
+      #250 runit = ALU_OR;
+      #250 runit = ALU_IDLE;
 
-      #500 $finish;      // Terminate simulation
+      #250 runit = ALU_XOR;
+      #250 runit = ALU_IDLE;
+
+      #250 runit = ALU_NOT;
+      #250 runit = ALU_IDLE;
+
+      #250 runit = ALU_ROLL;
+      ir = ALU_RBR;
+      #250 runit = ALU_IDLE;
+
+      #250 runit = ALU_ROLL;
+      ir = ALU_RBL;
+      #250 runit = ALU_IDLE;
+
+      #250 runit = ALU_ROLL;
+      ir = ALU_RNR;
+      #250 runit = ALU_IDLE;
+
+      #250 runit = ALU_ROLL;
+      ir = ALU_RNL;
+      #250 runit = ALU_IDLE;
+      ir = 0;
+
+      #1000 $finish;      // Terminate simulation
    end // initial begin
 
-   clock_generator clock_generator (1, // halt (never)
-				    1, // run (always)
-				    0, // step (never)
-				    reset, // reset (never)
-				    clk1, clk2, clk3, clk4, clk5, guard);
-   rom_alu alu (ibus, w_a, w_b,
-		clk5,
-		1'b0, // Ignore /GUARD to simplify testing,
-		reset, rsthold,
-		runit, rollop,
-		l, alu_l_toggle, alu_l_out, alu_l_latch,
-		1, // /INTS always 1 for now,
-		y);
+   assign ibus_real = ibus;
+
+   clock_generator clock_generator (1'bz, 1'bz,
+				    nreset,
+				    0, 0,
+				    1'bz, 1'bz,
+				    clk1, clk2, clk3, clk4, clk5, nguard);
+
+   alu alu_unit(nreset, nrsthold, clk5, nguard, nirqs,
+		runit,
+		ir, ibus_real, ac,
+		fl,
+		nwalu,
+		nflstrobe, fv, nfltadd, roll16, isroll);
+
 endmodule

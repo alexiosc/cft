@@ -5,23 +5,18 @@
 `timescale 10ns/10ps
 module alu_tb();
 
-// Declare inputs as regs and outputs as wires
-   reg [15:0] ibus;
-   reg 	      w_a;
-   reg 	      w_b;
+   reg 	       nreset, nrsthold, nirqs;
+   reg [3:0]   runit;
+   reg [15:0]  ir, ibus;
+   wire [15:0] ac;
+   tri0 [15:0] ibus_real;
 
-   reg 	      l;
-
-   reg [3:0]  runit;
-   reg [2:0]  rollop;
-
-   wire       clk1, clk2, clk3, clk4, clk5, guard;
-
-   reg 	      reset, rsthold;
-
-   wire       alu_l_toggle, alu_l_out, alu_l_latch;
-
+   wire        clk1, clk2, clk3, clk4, clk5, nguard;
    wire [15:0] y;
+
+   reg 	       fl, nwalu;
+
+   wire        nflstrobe, fv, nfltadd, roll16, isroll;
 
    localparam ALU_IDLE = 0;
 
@@ -30,11 +25,11 @@ module alu_tb();
    localparam ALU_OR  = 4'b1010;
    localparam ALU_XOR = 4'b1011;
    
-   localparam ALU_ROLL = 4'b100;
-   localparam ALU_NOT  = 4'b101;
+   localparam ALU_ROLL = 4'b1100;
+   localparam ALU_NOT  = 4'b1101;
    
-   localparam ALU_CS1  = 4'b110;
-   localparam ALU_CS2  = 4'b111;
+   localparam ALU_CS1  = 4'b1110;
+   localparam ALU_CS2  = 4'b1111;
 
    localparam testname = "ALU XOR";
    localparam MAX = 1024;
@@ -51,35 +46,35 @@ module alu_tb();
       //$dumpfile ("vcd/alu_tb.vcd");
       //$dumpvars (0, alu_tb);
 
-      // Reset.
-      reset = 0;
-      rsthold = 0;
+      // Reset
       runit = ALU_IDLE;
-      ibus = 0;
-      l = 0;
-      w_a = 1;
-      w_b = 1;
-      t = 0;
+      nirqs = 1;
+      nwalu = 1;
+      ir = 0;
+      a = 0;
+      fl = 0;
+      ibus = 16'bzzzz_zzzz_zzzz_zzzz;
       
-      #500 reset = 1;
-      #1000 rsthold = 1;
+      nreset = 0;
+      #250 nrsthold = 0;
+      #500 nreset = 1;
+      #625 nrsthold = 1;
 
       a = 0;
       b = 0;
+      t = 0;
+
       for (i = 0; i < MAX; i = i + 1) begin
 	 for (j = 0; j < MAX; j = j + 1) begin
 	    #250 ibus = b;
-	    #63 w_b = 0;
-	    #63 w_b = 1;
-
-	    #250 ibus = a;
-	    #63 w_a = 0;
-	    #63 w_a = 1;
+	    nwalu = 0;
+	    #250 nwalu = 1;
+	    #250 ibus = 16'bzzzz_zzzz_zzzz_zzzz;
 
 	    #250 runit = ALU_XOR;
 	    #250 begin
 	       y_correct = (a ^ b) & 65535;
-	       l_correct = 0;
+	       l_correct = 1;
 
 	       if (y_correct != y) begin
 		  $display("%s: [fail] t=%d: %1d/%1d. %5d XOR %5d = %5d =? %5d",
@@ -87,10 +82,22 @@ module alu_tb();
 		  $display ("%s: [fail] Assertion failed (result incorrect).", testname);
 		  #100 $finish;
 	       end
-	       if (l_correct != alu_l_toggle) begin
+	       if (!nfltadd) begin
 		  $display("%s: [fail] t=%d: %1d/%1d. %5d XOR %5d = %5d =? %5d",
 			   testname, t, i, j, a, b, y, y_correct);
-		  $display ("%s: [fail] Assertion failed (carry out was set).", testname);
+		  $display ("%s: [fail] Assertion failed (carry out was asserted).", testname);
+		  #100 $finish;
+	       end
+	       if (isroll) begin
+		  $display("%s: [fail] t=%d: %1d/%1d. %5d + %5d = %1d,%5d =? %1d,%5d",
+			   testname, t, i, j, a, b, nfltadd, y, l_correct, y_correct);
+		  $display ("%s: [fail] Assertion failed (roll L out was set).", testname);
+		  #100 $finish;
+	       end
+	       if (roll16) begin
+		  $display("%s: [fail] t=%d: %1d/%1d. %5d + %5d = %1d,%5d =? %1d,%5d",
+			   testname, t, i, j, a, b, nfltadd, y, l_correct, y_correct);
+		  $display ("%s: [fail] Assertion failed (roll L latch was set).", testname);
 		  #100 $finish;
 	       end
 
@@ -112,6 +119,25 @@ module alu_tb();
       #500 $finish;      // Terminate simulation
    end // initial begin
 
+   assign ibus_real = ibus;
+   assign y = ibus_real;
+   assign ac = a;
+
+   clock_generator clock_generator (1'bz, 1'bz,
+				    nreset,
+				    0, 0,
+				    1'bz, 1'bz,
+				    clk1, clk2, clk3, clk4, clk5, nguard);
+
+   alu alu_unit(nreset, nrsthold, clk5, nguard, nirqs,
+		runit,
+		ir, ibus_real, ac,
+		fl,
+		nwalu,
+		nflstrobe, fv, nfltadd, roll16, isroll);
+
+/*
+
    clock_generator clock_generator (1, // halt (never)
 				    1, // run (always)
 				    0, // step (never)
@@ -125,4 +151,6 @@ module alu_tb();
 		l, alu_l_toggle, alu_l_out, alu_l_latch,
 		1, // /INTS always 1 for now,
 		y);
+ 
+ */
 endmodule

@@ -4,10 +4,10 @@ SRC =		counter.v counter_161_tb.v \
 		demux.v demux_138_tb.v demux_139_tb.v \
 		mux.v mux_253_tb.v \
 		flipflop.v flipflop_112_tb.v flipflop_74_tb.v flipflop_174_tb.v flipflop_574_tb.v flipflop_564_tb.v \
+		latch_373_tb.v flipflop_374_tb.v \
 		alu.v alu_tb.v alu_roll_tb.v alu_add_tb.v \
 		alu_btb_add.v alu_btb_and.v alu_btb_or.v alu_btb_xor.v alu_btb_not.v alu_btb_roll.v alu_btb_cs.v \
-		skip_unit.v skip_unit_tb.v \
-		clock.v clock_tb.v clock2_tb.v \
+		clock.v clock_tb.v \
 		rom.v rom_tb.v \
 		ram.v ram_tb.v \
 		reset.v reset_tb.v \
@@ -15,13 +15,18 @@ SRC =		counter.v counter_161_tb.v \
 		io.v \
 		regfile.v regfile_670_tb.v \
 		comparator.v comparator_688_tb.v comparator_85_tb.v \
-		register.v register_inc_reg16_tb.v register_reg_L_tb.v register_reg_I_tb.v \
 		\
+		skip_unit.v skip_unit_tb.v \
+		agl.v agl_tb.v \
 		constant_store.v constant_store_tb.v \
-		int.v int_tb.v \
-		control_unit.v \
+		int.v int_tb.v intc_tb.v \
+		sequencer.v unit_decoder.v \
+		ir.v \
+		databus.v \
+		addressing.v addressing_tb.v \
+		register.v register_tb.v register_reg_L_tb.v \
 		cft.v cft_tb.v cft_tb_testing.v \
-		panel.v panel_tb.v test.v panel_autorepeat_tb.v
+# panel.v panel_tb.v test.v panel_autorepeat_tb.v
 
 #		Disused code:
 #		register_PR.v register_PR_tb.v
@@ -80,6 +85,10 @@ test_181:	alu_181_tb.o alu.o
 		./alu_181_tb.o
 		$(GTKWAVE) $(VCDDIR)/alu_181_tb.vcd $(SAVDIR)/alu_181_tb.sav
 
+test_251:	mux_251_tb.o mux.o
+		./mux_251_tb.o
+		$(GTKWAVE) $(VCDDIR)/mux_251_tb.vcd $(SAVDIR)/mux_251_tb.sav
+
 test_253:	mux_253_tb.o mux.o
 		./mux_253_tb.o
 		$(GTKWAVE) $(VCDDIR)/mux_253_tb.vcd $(SAVDIR)/mux_253_tb.sav
@@ -92,9 +101,21 @@ test_193b:	counter_193b_tb.o counter.o
 		./counter_193b_tb.o
 		$(GTKWAVE) $(VCDDIR)/counter_193b_tb.vcd $(SAVDIR)/counter_193b_tb.sav
 
+test_590:	counter_590_tb.o counter.o
+		./counter_590_tb.o
+		$(GTKWAVE) $(VCDDIR)/counter_590_tb.vcd $(SAVDIR)/counter_590_tb.sav
+
 test_273:	flipflop_273_tb.o flipflop.o
 		./flipflop_273_tb.o
 		$(GTKWAVE) $(VCDDIR)/flipflop_273_tb.vcd $(SAVDIR)/flipflop_273_tb.sav
+
+test_373:	latch_373_tb.o flipflop.o
+		./latch_373_tb.o
+		$(GTKWAVE) $(VCDDIR)/latch_373_tb.vcd $(SAVDIR)/latch_373_tb.sav
+
+test_374:	flipflop_374_tb.o flipflop.o
+		./flipflop_374_tb.o
+		$(GTKWAVE) $(VCDDIR)/flipflop_374_tb.vcd $(SAVDIR)/flipflop_374_tb.sav
 
 test_574:	flipflop_574_tb.o flipflop.o
 		./flipflop_574_tb.o
@@ -140,13 +161,29 @@ test_inc_reg16:	register_inc_reg16_tb.o register.o
 		./register_inc_reg16_tb.o
 		$(GTKWAVE) $(VCDDIR)/register_inc_reg16_tb.vcd $(SAVDIR)/register_inc_reg16_tb.sav
 
-test_reg_L:	register_reg_L_tb.o register.o
+test_L test_l test_reg_L:	register_reg_L_tb.o register.o
 		./register_reg_L_tb.o
 		$(GTKWAVE) $(VCDDIR)/register_reg_L_tb.vcd $(SAVDIR)/register_reg_L_tb.sav
 
 test_reg_I:	register_reg_I_tb.o register.o
 		./register_reg_I_tb.o
 		$(GTKWAVE) $(VCDDIR)/register_reg_I_tb.vcd $(SAVDIR)/register_reg_I_tb.sav
+
+test_agl:	agl_tb.o agl.o
+		./agl_tb.o
+		$(GTKWAVE) $(VCDDIR)/agl_tb.vcd $(SAVDIR)/agl_tb.sav
+
+test_addr test_addressing: addressing_tb.o addressing.o
+		./addressing_tb.o
+		$(GTKWAVE) $(VCDDIR)/addressing_tb.vcd $(SAVDIR)/addressing_tb.sav
+
+test_db test_databus: databus_tb.o databus.o
+		./databus_tb.o
+		$(GTKWAVE) $(VCDDIR)/databus_tb.vcd $(SAVDIR)/databus_tb.sav
+
+test_pc test_dr test_ac test_reg: register.o register_tb.o
+		./register_tb.o
+		$(GTKWAVE) $(VCDDIR)/register_tb.vcd $(SAVDIR)/register_tb.sav
 
 #test_reg_PR:	register_PR_tb.o register_PR.o
 #		./register_PR_tb.o
@@ -168,17 +205,25 @@ test_int:	int_tb.o int.o
 		./int_tb.o
 		$(GTKWAVE) $(VCDDIR)/int_tb.vcd $(SAVDIR)/int_tb.sav
 
+test_intc:	intc_tb.o int.o addressing.o
+		./intc_tb.o
+		$(GTKWAVE) $(VCDDIR)/intc_tb.vcd $(SAVDIR)/intc_tb.sav
+
 test_reset:	reset_tb.o reset.o
 		./reset_tb.o
 		$(GTKWAVE) $(VCDDIR)/reset_tb.vcd $(SAVDIR)/reset_tb.sav
 
-test_clock:	clock_tb.o clock.o
-		./clock_tb.o
-		$(GTKWAVE) $(VCDDIR)/clock_tb.vcd $(SAVDIR)/clock_tb.sav
+test_clock1:	clock1_tb.o clock.o
+		./clock1_tb.o
+		$(GTKWAVE) $(VCDDIR)/clock1_tb.vcd $(SAVDIR)/clock1_tb.sav
 
 test_clock2:	clock2_tb.o clock.o
 		./clock2_tb.o
 		$(GTKWAVE) $(VCDDIR)/clock2_tb.vcd $(SAVDIR)/clock2_tb.sav
+
+test_clock:	clock_tb.o clock.o
+		./clock_tb.o
+		$(GTKWAVE) $(VCDDIR)/clock_tb.vcd $(SAVDIR)/clock_tb.sav
 
 test_roll:	alu_roll_tb.o alu.o
 		./alu_roll_tb.o

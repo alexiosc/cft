@@ -16,7 +16,7 @@ import testlib
 
 
 
-class Link(testlib.BaseTest):
+class Link(testlib.testBaseClass):
     def runTest(self):
         """Test L register essentials."""
         self.asm('&0000: .fill 65536 FAIL')

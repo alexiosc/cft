@@ -5,23 +5,18 @@
 `timescale 10ns/10ps
 module alu_tb();
 
-// Declare inputs as regs and outputs as wires
-   reg [15:0] ibus;
-   reg 	      w_a;
-   reg 	      w_b;
+   reg 	       nreset, nrsthold, nirqs;
+   reg [3:0]   runit;
+   reg [15:0]  ir, ibus;
+   reg [15:0]  ac;
+   tri0 [15:0] ibus_real;
 
-   reg 	      l, ints;
-
-   reg [3:0]  runit;
-   reg [2:0]  rollop;
-
-   wire       clk1, clk2, clk3, clk4, clk5, guard;
-
-   reg 	      reset, rsthold;
-
-   wire       alu_l_toggle, alu_l_out, alu_l_latch;
-
+   wire        clk1, clk2, clk3, clk4, clk5, nguard;
    wire [15:0] y;
+
+   reg 	       fl, nwalu;
+
+   wire        nflstrobe, fv, nfltadd, roll16, isroll;
 
    localparam ALU_IDLE = 0;
 
@@ -60,70 +55,69 @@ module alu_tb();
       $dumpvars (0, alu_tb);
        */
 
-      // Reset.
-      reset = 0;
-      rsthold = 0;
+      // Reset
       runit = ALU_IDLE;
-      ibus = 0;
-      a = 0;
-      l = 0;
-      t = 0;
-      w_a = 1;
-      w_b = 1;
-      rollop = 0;
+      nirqs = 1;
+      nwalu = 1;
+      ir = 0;
+      ac = 0;
+      fl = 0;
+      ibus = 16'bzzzz_zzzz_zzzz_zzzz;
       
-      #500 reset = 1;
-      #1000 rsthold = 1;
+      nreset = 0;
+      #250 nrsthold = 0;
+      #500 nreset = 1;
+      #625 nrsthold = 1;
 
+      ac = 0;
+      t = 0;
       for (k = 0 ; k < 4; k = k + 1) begin
 	 _k = k & 1 ? ALU_CS2 : ALU_CS1;
-	 ints = k & 2 ? 1'b1 : 1'b0;
+	 nirqs = k & 2 ? 1'b1 : 1'b0;
 
 	 for (i = 0; i < MAX; i = i + 1) begin
-	    for (j = 0; j < 2; j = l + 1) begin
-	       #250 ibus = a;
-	       l = j;
+	    for (j = 0; j < 2; j = j + 1) begin
+	       #250 ac = a;
+	       fl = j;
 	       _a = a;
-	       #63 w_a = 0;
-	       #63 w_a = 1;
 	       
 	       #250 runit = _k;
 	       #250 begin
 		  if (_k == ALU_CS1) begin
-		     y_correct = ints ? 0 : 2;
+		     y_correct = nirqs ? 0 : 2;
 		  end else if (_k == ALU_CS2) begin
-		     y_correct = ints ? 1 : 16'hfff8;
+		     y_correct = nirqs ? 1 : 16'hfff8;
 		  end
 		  else $finish;
 		  
 		  if (y_correct != y) begin
-		     $display("%s: [fail] t=%d. ints=%b, op=%b, uop=%b, <L,A>=<%b,%16b> => <%b,%16b> (%b)",
-			      testname, t, ints, _k, alu.uop, l, _a, alu_l_out, y, y_correct);
+		     $display("%s: [fail] t=%d. nirqs=%b, op=%b, uop=%b, <L,A>=<%b,%16b> => <%b,%16b> (%b)",
+			      testname, t, nirqs, _k, alu.uop, fl, _a, nfltadd, y, y_correct);
 		     $display ("%s: [fail] Assertion failed (result incorrect).", testname);
 		     #100 $finish;
 		  end
-		  if (alu_l_latch == 1) begin
-		     $display("%s: [fail] t=%d. ints=%b, op=%b, uop=%b, <L,A>=<%b,%16b> => <%b,%16b>",
-			      testname, t, ints, _k, alu.uop, l, _a, alu_l_out, y);
+		  if (isroll == 1) begin
+		     $display("%s: [fail] t=%d. nirqs=%b, op=%b, uop=%b, <L,A>=<%b,%16b> => <%b,%16b>",
+			      testname, t, nirqs, _k, alu.uop, fl, _a, nfltadd, y);
 		     $display ("%s: [fail] Assertion failed (L latch was set).", testname);
 		     #100 $finish;
 		  end
-		  if (alu_l_toggle != 0) begin
-		     $display("%s: [fail] t=%d. ints=%b, op=%b, uop=%b, <L,A>=<%b,%16b> => <%b,%16b>",
-			      testname, t, ints, _k, alu.uop, l, _a, alu_l_out, y);
-		     $display ("%s: [fail] Assertion failed (ADD carry out was set).", testname);
+		  if (roll16 == 1) begin
+		     $display("%s: [fail] t=%d. nirqs=%b, op=%b, uop=%b, <L,A>=<%b,%16b> => <%b,%16b>",
+			      testname, t, nirqs, _k, alu.uop, fl, _a, nfltadd, y);
+		     $display ("%s: [fail] Assertion failed (L ROLL data was set).", testname);
 		     #100 $finish;
 		  end
-		  if (l_correct != alu_l_out) begin
-		     $display("%s: [fail] t=%d. ints=%b, op=%b, uop=%b, <L,A>=<%b,%16b> => <%b,%16b>",
-			      testname, t, ints, _k, alu.uop, l, _a, alu_l_out, y);
-		     $display ("%s: [fail] Assertion failed (L incorrectly output).", testname);
+		  if (!nfltadd) begin
+		     $display("%s: [fail] t=%d. nirqs=%b, op=%b, uop=%b, <L,A>=<%b,%16b> => <%b,%16b>",
+			      testname, t, nirqs, _k, alu.uop, fl, _a, nfltadd, y);
+		     $display ("%s: [fail] Assertion failed (ADD carry out was set).", testname);
 		     #100 $finish;
 		  end
 
 		  /*
-		  $display("%s: [ok] %d. ints=%b, op=%b, uop=%b, <L,A>=<%b,%16b> => <%b,%16b>",
-			   testname, t, ints, _k, alu.uop, l, _a, alu_l_out, y);
+		  $display("%s: [ok] %d. nirqs=%b, op=%b, uop=%b, <L,A>=<%b,%16b> => <%b,%16b>",
+			   testname, t, nirqs, _k, alu.uop, fl, _a, nfltadd, y);
 		   */
 		  
 		  t = t + 1;
@@ -143,18 +137,21 @@ module alu_tb();
       #500 $finish;      // Terminate simulation
    end // initial begin
 
-   clock_generator clock_generator (1, // halt (never)
-				    1, // run (always)
-				    0, // step (never)
-				    reset, // reset (never)
-				    clk1, clk2, clk3, clk4, clk5, guard);
-   rom_alu alu (ibus, w_a, w_b,
-		clk5,
-		1'b0, // Ignore /GUARD to simplify testing,
-		reset, rsthold,
-		runit, rollop,
-		l, alu_l_toggle, alu_l_out, alu_l_latch,
-		ints,		// Selects constant source bank
-		y);
+   assign ibus_real = ibus;
+   assign y = ibus_real;
+
+   clock_generator clock_generator (1'bz, 1'bz,
+				    nreset,
+				    0, 0,
+				    1'bz, 1'bz,
+				    clk1, clk2, clk3, clk4, clk5, nguard);
+
+   alu alu (nreset, nrsthold, clk5, nguard, nirqs,
+		runit,
+		ir, ibus_real, ac,
+		fl,
+		nwalu,
+		nflstrobe, fv, nfltadd, roll16, isroll);
+
 endmodule
 

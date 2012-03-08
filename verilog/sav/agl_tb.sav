@@ -1,0 +1,22 @@
+[timestart] 13800600
+[size] 1723 675
+[pos] 72 93
+*-17.348795 14700000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] agl_tb.
+@22
+agl_tb.pc[15:0]
+agl_tb.ir[15:0]
+@23
+agl_tb.agl_unit.page[5:0]
+@22
+agl_tb.pagebase[15:0]
+@28
+agl_tb.ir10
+agl_tb.nend
+agl_tb.nragl
+@200
+-
+@22
+agl_tb.ibus[15:0]
+[pattern_trace] 1
+[pattern_trace] 0

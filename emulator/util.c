@@ -46,11 +46,11 @@ dump_state()
 	//printf("t:   %luus (uaddr %d)\n", cpu.tick, cpu.ustate.uaddr);
 	printf("IR:  %s%04x%s  (OP: %01x I: %01d R: %01d V: %03x) %s%s %s%s%03x%s",
 	       COL_WHI, cpu.ir, COL_NOR,
-	       get_op(cpu.ir), get_i(cpu.ir), get_r(cpu.ir), get_lo(cpu.ir),
+	       get_op(cpu.ir), get_i(cpu.ir), get_r(cpu.ir), get_offset(cpu.ir),
 	       COL_MAG, ops[get_op(cpu.ir)],
 	       get_i(cpu.ir)? "I ": "",
 	       get_r(cpu.ir)? "R ": "",
-	       get_lo(cpu.ir), COL_NOR);
+	       get_offset(cpu.ir), COL_NOR);
 	printf("\n");
 	printf("PC:  %s%04x%s  ", COL_WHI, cpu.pc, COL_NOR);
 	printf("MAR: %s%04x%s  ", COL_WHI, cpu.mar, COL_NOR);
@@ -124,13 +124,13 @@ dump_ustate()
 	if(IS_IF9(cpu.control)) printf("if9 ");
 	if(IS_IFROLL(cpu.control)) printf("ifroll ");
 	if(IS_IFBRANCH(cpu.control)) printf("ifbranch ");
-	if(IS_INC_A(cpu.control)) printf("inc_a ");
+	if(IS_INCAC(cpu.control)) printf("inc_ac ");
 	if(IS_CPL(cpu.control)) printf("cpl ");
 	if(IS_CLL(cpu.control)) printf("cll ");
 	if(IS_STI(cpu.control)) printf("sti ");
 	if(IS_CLI(cpu.control)) printf("cli ");
-	if(IS_PC_INC(cpu.control)) printf("pc_inc ");
-	if(IS_INC_DR(cpu.control)) printf("inc_dr ");
+	if(IS_INCPC(cpu.control)) printf("inc_pc ");
+	if(IS_INCDR(cpu.control)) printf("inc_dr ");
 	if(IS_MEM(cpu.control)) printf("mem ");
 	if(IS_IO(cpu.control)) printf("io ");
 	if(IS_R(cpu.control)) printf("r ");
@@ -202,7 +202,7 @@ dump_mini(word oldpc)
 		     buf0, COL_NOR COL_MAG, ops[get_op(cpu.ir)],
 		     get_i(cpu.ir)? "I ": "",
 		     get_r(cpu.ir)? "R ": "",
-		     get_lo(cpu.ir), COL_NOR,
+		     get_offset(cpu.ir), COL_NOR,
 		     buf1);
 	} else {
 		info("%s%s%-60.60s  %s\n",

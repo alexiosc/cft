@@ -1,6 +1,6 @@
 #!/usr/bin/python2.6
 
-import os, sys, unittest, optparse
+import os, sys, unittest, optparse, testlib
 
 def die(msg):
     sys.stderr.write(sys.argv[0] + ': ' + msg + '\n')
@@ -12,12 +12,23 @@ p = optparse.OptionParser()
 #             help='Print out assembled code')
 #p.add_option('-l', '--leave', action='store_true',
 #             help='Do not delete the test directory at the end of the test.')
+p.add_option('-f', '--framework', type='choice',
+             choices=['verilog', 'emulator'],
+             help='Choose emulator framework to test on.')
 
 opts, args = p.parse_args()
 
+try:
+    testlib.testBaseClass = dict(v=testlib.VerilogTest,
+                         e=testlib.EmulatorTest)[opts.framework[0]]
+except KeyError:
+    die("Unknown framework type '%s'" % opts.framework)
 
 if not args:
     die('specify the filenames of one or more Python test programs.')
+
+if not opts.framework:
+    die('specify the testing framework to use.')
 
 try:
     suite = unittest.TestSuite()

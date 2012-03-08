@@ -67,8 +67,8 @@ endmodule // End of Module buffer
 //
 // Function: 74x245 8-bit 3-state noninverting bus transceiver. 
 //
-// Notes: DIR=1 -> A -> B
-//        DIR=0 -> B <- A
+// Notes: DIR=1 -> B <--- A
+//        DIR=0 -> A <--- B
 //
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -87,8 +87,8 @@ module buffer_245 (dir, en, a, b);
       $display("BOM: 74x245");
    end
 
-   assign a = (~en && ~dir) ? b : 8'bzzzzzzzz;
-   assign b = (~en && dir) ? a : 8'bzzzzzzzz;
+   assign a = (!en && !dir) ? b : 8'bzzzzzzzz;
+   assign b = (!en && dir) ? a : 8'bzzzzzzzz;
 endmodule // End of Module buffer
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -113,6 +113,41 @@ module buffer_125q (a, oe, y);
 endmodule // End of Module buffer
 
 
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// Function: 74x541 8-bit 3-state non-inverting buffer/line driver.
+//
+///////////////////////////////////////////////////////////////////////////////
+
+module buffer_541 (oe1, oe2, a, y);
+   parameter delay = 10;
+   
+   input        oe1, oe2;	// /OE tri-state active-low enables
+   input [7:0] 	a;
+
+   output [7:0] y;
+
+   assign #delay y = oe1 || oe2 ? 8'bzzzzzzzz : a;
+endmodule // buffer_541
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// Function: 74x540 8-bit 3-state inverting buffer/line driver.
+//
+///////////////////////////////////////////////////////////////////////////////
+
+module buffer_540 (oe1, oe2, a, y);
+   parameter delay = 10;
+   
+   input        oe1, oe2;	// /OE tri-state active-low enables
+   input [7:0] 	a;
+
+   output [7:0] y;
+
+   assign #delay y = oe1 || oe2 ? 8'bzzzzzzzz : ~a;
+endmodule // buffer_540
 
 `endif //  `ifndef buffer_v
 

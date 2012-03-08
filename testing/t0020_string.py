@@ -71,20 +71,28 @@ baddr:  .word start
 """
 
 
-class NullTerminated(testlib.BaseTest):
+class NullTerminated(testlib.testBaseClass):
     def runTest(self):
         self.assemble(ASM1)
-        sim = self.simulate()
-        self.assertSim(sim, 'Mis-jump')
-        self.assertEqual(sim, 'Hello, world![ok]', 'Null-terminated string failure.')
+        try:
+            sim = self.simulate()
+            self.assertSim(sim, 'Mis-jump')
+            self.assertEqual(sim, 'Hello, world![ok]', 'Null-terminated string failure.')
+        except:
+            print sim
+            raise
 
 
-class NegTerminated(testlib.BaseTest):
+class NegTerminated(testlib.testBaseClass):
     def runTest(self):
         self.assemble(ASM2)
-        sim = self.simulate()
-        self.assertSim(sim, 'Mis-jump')
-        self.assertEqual(sim, 'Hello, world![ok]', 'Neg-terminated string failure.')
+        try:
+            sim = self.simulate()
+            self.assertSim(sim, 'Mis-jump')
+            self.assertEqual(sim, 'Hello, world![ok]', 'Neg-terminated string failure.')
+        except:
+            print sim
+            raise
 
 
 # End of file.

@@ -20,41 +20,6 @@ char *instr[] = {
 	"LI",
 };
 
-char *branch[] = {
-	"NOP ",			/* 0000 */
-	"L=1? ",		/* 0001 */
-	"A=0? ",		/* 0010 */
-	"A=0 | L=1? ",		/* 0011 */
-	"A<0? ",		/* 0100 */
-	"A<0 | L=1? ",		/* 0101 */
-	"A<=0? ",		/* 0110 */
-	"A<0 | L=1?",		/* 0111 */
-	"SKIP ",		/* 1000 */
-	"L=0? ",		/* 1001 */
-	"A!=0? ",		/* 1010 */
-	"A!=0 & L=0? ",		/* 1011 */
-	"A>=0? ",		/* 1100 */
-	"A>=0 & L=0? ",		/* 1101 */
-	"A>0? ",		/* 1110 */
-	"A>0 & L=0?"		/* 1111 */
-	"xNOP ",			/* 0000 */
-	"xL=1? ",		/* 0001 */
-	"xA=0? ",		/* 0010 */
-	"xA=0 | L=1? ",		/* 0011 */
-	"xA<0? ",		/* 0100 */
-	"xA<0 | L=1? ",		/* 0101 */
-	"xA<=0? ",		/* 0110 */
-	"xA<0 | L=1?",		/* 0111 */
-	"xSKIP ",		/* 1000 */
-	"xL=0? ",		/* 1001 */
-	"xA!=0? ",		/* 1010 */
-	"xA!=0 & L=0? ",		/* 1011 */
-	"xA>=0? ",		/* 1100 */
-	"xA>=0 & L=0? ",		/* 1101 */
-	"xA>0? ",		/* 1110 */
-	"xA>0 & L=0?"		/* 1111 */
-};
-
 char *roll[] = {
 	"",			/* 000 */
 	"RBR ",			/* 001 */
@@ -106,8 +71,14 @@ int main(int argc, char **argv)
 				/* Decode OP2 */
 				sprintf (buf2, "%s ", instr[opcode]);
 				if (hx & 0x01f) {
+					strcat(buf2, "skip:");
 					/* Decode braches. */
-					strcat(buf2, branch[hx & 0x1f]);
+					if (hx & 0x10) strcat(buf2, "!");
+					if (hx & 0x8) strcat(buf2, "N");
+					if (hx & 0x4) strcat(buf2, "Z");
+					if (hx & 0x2) strcat(buf2, "L");
+					if (hx & 0x1) strcat(buf2, "V");
+					strcat(buf2, "?");
 				}
 				if (hx & 0x080) strcat(buf2, "CLA ");
 				if (hx & 0x040) strcat(buf2, "CLI ");

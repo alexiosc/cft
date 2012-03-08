@@ -38,11 +38,11 @@ start:  LOAD datum
         SUCCESS
         HALT
 
-&fff0:	JMP [baddr]
+&fff0:	JMP I baddr
 baddr:  .word start
 """
 
-class DebuggingOutput(testlib.BaseTest):
+class DebuggingOutput(testlib.testBaseClass):
     def runTest(self):
         """Test debugging facilities"""
         self.assemble(ASM)

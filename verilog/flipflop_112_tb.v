@@ -45,7 +45,7 @@ module flipflop_112_tb();
    end
 
    always begin
-      #11 clk = ~clk;
+      #30 clk = ~clk;
    end
    
    // Connect DUT to test bench

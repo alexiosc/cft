@@ -76,5 +76,26 @@ module vibrator_555(q);
    end
 endmodule // vibrator_555
 
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// Function: Basic simulation of a crystal oscillator (50% duty cycle)
+//
+///////////////////////////////////////////////////////////////////////////////
+
+module vibrator_xo(q);
+   parameter period = 250;	// 4 MHz
+   output q;
+   reg q;
+
+   initial begin
+      q <= 0;
+   end
+
+   always begin
+      #(period/2) q <= ~q;
+   end
+endmodule // vibrator_xo
+
 `endif //  `ifndef
 // End of file.

@@ -1,0 +1,81 @@
+[timestart] 0
+[size] 1873 825
+[pos] 0 0
+*-27.249584 493410000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] intc_tb.
+[treeopen] intc_tb.intc_unit.
+@28
+intc_tb.nreset
+@22
+intc_tb.ab_real[15:0]
+@23
+intc_tb.db[15:0]
+@c00022
+intc_tb.db_real[15:0]
+@28
+(0)intc_tb.db_real[15:0]
+(1)intc_tb.db_real[15:0]
+(2)intc_tb.db_real[15:0]
+(3)intc_tb.db_real[15:0]
+(4)intc_tb.db_real[15:0]
+(5)intc_tb.db_real[15:0]
+(6)intc_tb.db_real[15:0]
+(7)intc_tb.db_real[15:0]
+(8)intc_tb.db_real[15:0]
+(9)intc_tb.db_real[15:0]
+(10)intc_tb.db_real[15:0]
+(11)intc_tb.db_real[15:0]
+(12)intc_tb.db_real[15:0]
+(13)intc_tb.db_real[15:0]
+(14)intc_tb.db_real[15:0]
+(15)intc_tb.db_real[15:0]
+@1401200
+-group_end
+@28
+intc_tb.intc_unit.nierw
+intc_tb.intc_unit.nisrr
+@200
+-
+-Control
+@28
+intc_tb.nmem
+intc_tb.nio
+intc_tb.nr
+intc_tb.nw
+@200
+-
+-IRQs
+@800022
+intc_tb.nirq_in[7:0]
+@28
+(0)intc_tb.nirq_in[7:0]
+(1)intc_tb.nirq_in[7:0]
+(2)intc_tb.nirq_in[7:0]
+(3)intc_tb.nirq_in[7:0]
+(4)intc_tb.nirq_in[7:0]
+(5)intc_tb.nirq_in[7:0]
+(6)intc_tb.nirq_in[7:0]
+(7)intc_tb.nirq_in[7:0]
+@c00022
+intc_tb.intc_unit.ien[7:0]
+@28
+(0)intc_tb.intc_unit.ien[7:0]
+(1)intc_tb.intc_unit.ien[7:0]
+(2)intc_tb.intc_unit.ien[7:0]
+(3)intc_tb.intc_unit.ien[7:0]
+(4)intc_tb.intc_unit.ien[7:0]
+(5)intc_tb.intc_unit.ien[7:0]
+(6)intc_tb.intc_unit.ien[7:0]
+(7)intc_tb.intc_unit.ien[7:0]
+@1401200
+-group_end
+@1001200
+-group_end
+@200
+-
+-Output
+@28
+intc_tb.intc_unit.ff_ierr.qn
+intc_tb.nirq
+[pattern_trace] 1
+[pattern_trace] 0

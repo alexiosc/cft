@@ -9,82 +9,86 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-module debug_io (abus, dbus, io, r, w, halt);
+module debug_io (ab, db, nio, nr, nw, nhalt);
 
-   input [15:0] abus;
-   inout [15:0] dbus;
+   input [15:0] ab;
+   inout [15:0] db;
 
-   input 	io;		// /IO: cpu wants to talk to I/O.
-   input 	r;		// /R: latch data FROM memory.
-   input 	w;		// /W: latch data TO memory.
+   input 	nio;		// IO#: cpu wants to talk to I/O.
+   input 	nr;		// R#: latch data FROM memory.
+   input 	nw;		// W#: latch data TO memory.
 
-   output 	halt;		// Debugging only.
+   output 	nhalt;		// Debugging only.
 
    wire [17:0] 	a;
-   wire [15:0] 	dbus;
-   wire 	mem;
-   wire 	r;
-   wire 	w;
+   wire [15:0] 	db;
+   wire 	nmem;
+   wire 	nr;
+   wire 	nw;
 
-   reg 		halt;
-   reg [15:0] 	dbus_write;
+   reg 		nhalt;
+   reg [15:0] 	db_write;
 
    assign a[17:16] = 2'b00;	// Force high order bits to zero.
-   assign a[15:0] = abus[15:0];	// Connect the low order bits to the abus.
+   assign a[15:0] = ab[15:0];	// Connect the low order bits to the ab.
 
-   assign dbus = (io || r) ? {16{1'bz}} : dbus_write;
+   assign db = (nio || nr) ? {16{1'bz}} : db_write;
 
    wire [7:0] 	x;
 
-   wire [9:0] 	addr = abus & 'h3ff;
+   wire [9:0] 	addr = ab & 'h3ff;
 
    initial begin
-      halt = 1;
-      dbus_write = 16'hbeef;
+      nhalt = 1;
+      db_write = 16'hbeef;
    end
 
    event assertion_failed;
    event halting;
 
    // Testing and debugging.
-   always @(posedge w) begin
-      if (!w || !io) begin
+   always @(posedge nw) begin
+      if (!nw || !nio) begin
 	 if (addr == 'h007) begin
 	    $display("D: *** HALTING ***");
 	    $display("D: TIME: %d ns", $time);
-	    halt <= 1'b0;
+	    nhalt <= 1'b0;
 	    -> halting;
 	 end
+	 else if (addr == 'h3f0) begin
+	    $display("T: PRINTA: %h (?)", ab);
+	 end
 	 else if (addr == 'h3f1) begin
-	    //$display("*** PRINT CHAR: '%s'", dbus[7:0]);
-	    if (dbus > 32) $display("D: PRINTC: %s", dbus[7:0]);
-	    else $display("D: PRINTU: %d", dbus);
+	    if (db > 32) $display("T: PRINTC: %s", db[7:0]);
+	    else $display("T: PRINTc: %d", db);
 	 end
 	 else if (addr == 'h3f2) begin
-	    $display("D: PRINTD: %d", dbus);
-	    //$display("*** PRINT INT: %d (%x, %b)", dbus, dbus, dbus);
+	    $display("T: PRINTD: %d", db); // Does this decode sign properly?
 	 end
 	 else if (addr == 'h3f3) begin
-	    $display("D: PRINTH: %h", dbus);
+	    $display("T: PRINTU: %d", db); // This may be wrong
 	 end
 	 else if (addr == 'h3f4) begin
-	    $display("D: PRINTB: %b", dbus);
+	    $display("T: PRINTH: %h", db);
 	 end
 	 else if (addr == 'h3f5) begin
-	    $display("D: PRINTU: 32");
+	    $display("T: PRINTB: %b", db);
 	 end
 	 else if (addr == 'h3f6) begin
-	    $display("D: PRINTU: 10");
+	    $display("T: PRINTc: 32");
+	 end
+	 else if (addr == 'h3f7) begin
+	    $display("T: PRINTc: 10");
 	 end
 	 else if (addr == 'h3fe) begin
-	    $display("D: ASSERT: TRUE");
+	    $display("T: ASSERT: TRUE");
 	 end
 	 else if (addr == 'h3ff) begin
-	    $display("D: ASSERT: FALSE");
+	    $display("T: ASSERT: FALSE");
 	    -> assertion_failed;
 	    -> halting;
 	 end
-	 else $display("io[%h] <- %h", addr, dbus);
+	 else $display("io[%h] <- %h", addr, db);
       end
    end
 endmodule // debug_io

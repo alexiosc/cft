@@ -1,15 +1,15 @@
-[timestart] 0
+[timestart] 2800
 [size] 1223 600
-[pos] -378 -169
-*-16.516663 255000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[pos] -1 -1
+*-14.251337 46000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 @28
 flipflop_112_tb.clk
 flipflop_112_tb.set
-flipflop_112_tb.rst
-flipflop_112_tb.j
 @29
-flipflop_112_tb.k
+flipflop_112_tb.rst
 @28
+flipflop_112_tb.j
+flipflop_112_tb.k
 flipflop_112_tb.q
 flipflop_112_tb.qn
 [pattern_trace] 1

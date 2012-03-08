@@ -11,28 +11,34 @@ import testlib
 
 
 ASM_WRAP = """
-&0000:	.fill 65536 LI 0
+&0000:	.fill 65535 LI 0
+&ffff:  LI 0
 &0000:	SUCCESS
         HALT
 """
 
 
-class T0_ShortPCWrap(testlib.BaseTest):
+class T0_ShortPCWrap(testlib.testBaseClass):
     def runTest(self):
         """PC wraps around correctly."""
         self.assemble(ASM_WRAP)
-        sim = self.simulate()
-        self.assertEqual(sim, '[ok]', 'Not all checkpoints passed.')
+        try:
+            sim = self.simulate()
+            self.assertEqual(sim, '[ok]', 'Not all checkpoints passed.')
+        except:
+            print sim
+            raise
 
 
 ASM_STEP = """
-&0000:	.fill 65536 FAIL
+&0000:	.fill 65535 FAIL
+&ffff:  LI 0
 &fff0:	.fill 13 LI 42
         SUCCESS
         HALT
 """
 
-class T1_TinyPCStep(testlib.BaseTest):
+class T1_TinyPCStep(testlib.testBaseClass):
     def runTest(self):
         """PC steps correctly."""
         self.assemble(ASM_STEP)
@@ -41,26 +47,33 @@ class T1_TinyPCStep(testlib.BaseTest):
 
 
 ASM_HEADER = """
-&0000:	.fill 65536 LI 0
+&0000:	.fill 65535 LI 0
+&ffff:  LI 0
 &ffee:	SUCCESS
         HALT
 """
 
 
-class T2_ShortPCStep(testlib.BaseTest):
+class T2_ShortPCStep(testlib.testBaseClass):
     def runTest(self):
         """Medium PC wrap-around test."""
         asm = ASM_HEADER
         expected = ''
-        for x in range(0x0000, 0x0100, 0x1000):
+        for x in range(0x0000, 0x1000, 0x100):
             expected += '%04x[ok]' % (x >> 12)
-            asm += '&%04x:  LI &%04x\n\tPRINTH\n\tSUCCESS\n\tHALT\n' % (x, x >> 12)
-        self.assemble(asm)
-        sim = self.simulate()
-        self.assertEqual(sim, expected, 'Not all checkpoints passed.')
+            asm += '&%04x:  LI &%04x\n\tPRINTH\n\tSUCCESS\n' % (x, x >> 12)
+        expected += '[ok]'
+        try:
+            self.assemble(asm)
+            sim = self.simulate()
+            self.assertEqual(sim, expected, 'Not all checkpoints passed.')
+        except:
+            print expected
+            print sim
+            raise
 
 
-class T3_LongPCStep(testlib.BaseTest):
+class T3_LongPCStep(testlib.testBaseClass):
     def runTest(self):
         """Long PC wrap-around test (all of memory)."""
         asm = ASM_HEADER

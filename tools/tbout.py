@@ -6,6 +6,7 @@ stream, ignoring machine state etc.
 
 import sys
 import time
+import re
 
 try:
     num = 0
@@ -17,8 +18,12 @@ try:
             sys.stderr.write('.')
             t0 = t
 
-        if not line.startswith('D:'):
+        # Strip colour directives
+        line = re.sub('\033\[.+?m', '', line)
+
+        if not line.startswith('D:') and not line.startswith('T:'):
             continue
+        
         tokens = line.split()[1:]
         cmd = tokens[0].rstrip(':')
         if cmd == 'PRINTC':
@@ -28,7 +33,7 @@ try:
         elif cmd == 'PRINTD':
             sys.stdout.write(tokens[1])
         elif cmd == 'PRINTH':
-            sys.stdout.write(hex(tokens[1])[2:])
+            sys.stdout.write(hex(int(tokens[1], 16))[2:])
         elif cmd == 'PRINTB':
             sys.stdout.write(bin(tokens[1])[2:])
         elif cmd == 'ASSERT':

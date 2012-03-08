@@ -21,7 +21,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 module mux_253 (sel, i1, oe1, y1, i2, oe2, y2);
-   parameter delay = 20;
+   parameter delay = 16;
 
    input [1:0] sel;		// The signal selector
    input [3:0] i1, i2;		// Input signals.
@@ -110,15 +110,15 @@ endmodule // mux_157
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-module mux_251 (sel, d, y, w);
+module mux_251 (sel, d, e, y, w);
    parameter delay = 20;
 
-   input [1:0] sel;		// The signal selector
+   input [2:0] sel;		// The signal selector
    input [7:0] d;		// 8 input lines
    input       e;	        // Active low tri-state output enables.
    output      y, w;
 
-   wire [1:0]  sel;
+   wire [2:0]  sel;
    wire [7:0]  d;
    wire        e, y, w;
 

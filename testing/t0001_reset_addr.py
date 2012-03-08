@@ -21,7 +21,7 @@ ASM = """
         HALT
 """
 
-class ResetAddress(testlib.BaseTest):
+class ResetAddress(testlib.testBaseClass):
     def runTest(self):
         self.assemble(ASM)
         self.assertSim(self.simulate(), 'Incorrect post-reset address.')

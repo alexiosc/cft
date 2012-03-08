@@ -172,11 +172,12 @@
 
 `include "mux.v"
 `include "demux.v"
+`include "flipflop.v"
 
 `timescale 1ns/1ps
 
 
-module skip_unit(sel, data, f_zero, f_neg, f_l, f_v, enable, skip, ifend);
+module skip_unit_v0(sel, data, f_zero, f_neg, f_l, f_v, enable, skip, ifend);
    input [3:0] sel;
    input [9:0] data;
    input       f_zero, f_neg, f_l, f_v, enable;
@@ -242,4 +243,76 @@ module skip_unit(sel, data, f_zero, f_neg, f_l, f_v, enable, skip, ifend);
 
 endmodule // skip_unit
 
+///////////////////////////////////////////////////////////////////////////////
+//
+// BASED ON DRAWN SCHEMATICS
+//
+///////////////////////////////////////////////////////////////////////////////
+
+module skip_unit(clk1, nreset,
+		 ir, opif, fneg, fzero, fl, fv,
+		 nskip);
+   
+   input        clk1, nreset;
+   input [15:0] ir;
+   input [3:0] 	opif;
+   input 	fneg, fzero, fl, fv;
+
+   output 	nskip;
+
+   wire 	clk1, nreset;
+   wire [15:0] 	ir;
+   wire [3:0] 	opif;
+   wire 	fneg, fzero, fl, fv;
+
+   wire 	nskip;
+
+   wire 	sv, sl, sz, sn;
+
+   // Flag (macrocode) skip logic, for branch instructions. This simultaneously
+   // detects if a branch instruction has been specified and if the branch
+   // should be taken.
+   and #6 (sv, fv, ir[0]);
+   and #6 (sl, fl, ir[1]);
+   and #6 (sz, fzero, ir[2]);
+   and #6 (sn, fneg, ir[3]);
+
+   // Second level of the gate tree
+   wire 	sa, sb, s;
+   or #6 (sa, sv, sl);
+   or #6 (sb, sz, sn);
+
+   // Third level of the gate tree
+   or #6 (s, sa, sb);
+
+   // The XOR gate allows us to negate the branch semantics when IR4 is set.
+   wire 	op1_branch;
+   xor #11 (op1_branch, s, ir[4]);
+
+   
+   // IR (microcode) skip logic for roll instructions.
+   wire 	b, op2_roll;
+   or #6 (b, ir[0], ir[1]);
+   or #6 (op2_roll, b, ir[2]);
+
+
+   // Condition multiplexing
+   tri1 	skipmuxlo, skipmuxhi, nopif3;
+   nand #6 (nopif3, opif[3], 1'b1); // Negation with NAND
+   mux_251 muxlo (opif[2:0], {ir[9:3], 1'b1}, opif[3], skipmuxlo, );
+   mux_251 muxhi (opif[2:0], {op1_branch, op2_roll, fneg, fzero, fl, fv, 2'b1}, nopif3, skipmuxhi, );
+
+   // Combine the outputs
+   wire 	skip0, skip1;
+   nand #6 (skip0, skipmuxlo, skipmuxhi);
+   nand #6 (skip1, skip0, 1'b1); // Negation with NAND
+
+   // Register SKIP# for the duration of this micro-instruction.
+   wire [3:0] 	nq;
+   flipflop_175 skipff ({3'b0, skip1}, , nq, clk1, nreset);
+   assign nskip = nq[0];
+
+endmodule // skip_unit
+
+     
 `endif //  `ifndef skip_unit_v

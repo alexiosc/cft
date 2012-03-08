@@ -81,10 +81,12 @@ except:
 prefix0, text0, suffix0, suffix1 = '', '', 0, 0
 dummy = '<tr>' + ('<td>ignore</td>' * 8) + '</tr>'
 
+packages = dict()
 not_output = False
 for part in parts + [dummy]:
     try:
         part, value, code, package, desc, partno, descoverride, notes = re.findall('<td>(.*?)</td>', part.decode('utf-8'))
+        packages[package] = packages.get(package, 0) + 1
 
         text = ' & '.join([r'\schpt{%s}' % part, descoverride or desc,
                            partno and ordering(partno) or '',
@@ -133,7 +135,11 @@ for part in parts + [dummy]:
         raise
         die("parse error reading %s" % bom_parts)
 
-print not_output
+for package, num in sorted(packages.items(), lambda a, b: cmp(a[1], b[1])):
+    if not re.match('(DI[LP]\d+|SO(IC)?\d+)', package):
+        continue
+    print "%(num)3dx %(package)s" % locals()
+    
 if not_output:
     if text0:
         if suffix1 == suffix0:

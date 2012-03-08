@@ -1,117 +1,129 @@
 `include "memory.v"
+`include "addressing.v"
 `timescale 1ns/10ps
 
 module banked_memory_tb();
 
-// Declare inputs as regs and outputs as wires
-   reg clk;
+   reg 	       nreset, nmem, nio, nw, nr, nfpram;
+   reg [15:0]  ab, db;
+   wire [15:0] db_real;
+   wire [7:0]  aext;
+   wire        nsysdev;
+   wire        banking;
 
-   reg [15:0] a, d;
-   wire [15:0] dbus;
-   reg 	      mem, io, r, w, reset; // All active low.
-
-   integer    i;
-   
-   // Link the 3-state bus and our register (d).
-   assign dbus = d;
+   integer     i;
    
    // Initialize all variables
    initial begin        
       $dumpfile ("vcd/banked_memory_tb.vcd");
       $dumpvars (0, banked_memory_tb);
 
-      clk = 0;
-      reset = 0;
-      mem = 1;
-      io = 1;
-      r = 1;
-      w = 1;
-      d = 0;
-      a = 0;
+      // Initialise
+      nreset = 0;
+      nmem = 1;
+      nio = 1;
+      nw = 1;
+      nr = 1;
+      nfpram = 1;
+      ab = 0;
+      db = 16'bzzzz_zzzz_zzzz_zzzz;
 
-      // Reset the memory.
-      #3000 reset = 1;
+      // Reset
+      #500 nreset = 1;
 
-      // Test addresses using the power-on banking.
-      for (i = 0; i < 65536; i = i + 2048) begin
-	 #500 a = i;
-	 #500 a = i + 2047;
+      // Test addresses using the dfeault banking scheme we just set up, with
+      // the FPRAM/FPROM switch in the turnkey position (FPROM, 1).
+      nfpram = 1;
+      nmem = 0;
+      #250 for (i = 0; i < 65536; i = i + 4096) begin
+	 #250 ab = i;
       end
+      #250 nmem = 1;
+      //ab = 16'bzzzz_zzzz_zzzz_zzzz;
 
-      #1000 reset = 0;
-      #3000 reset = 1;
-
-
-      // Check that writing to the bank registers sets -BANKEN.
-      for (i = 0; i < 8; i = i + 1) begin
-	 #200 io = 0;
-	 a = 'h20 + i; 	// Address the BANKi registers.
-	 #200 w = 0;
-	 
-	 #200 w = 1;
-	 #200 io = 1;
+      // Now do the same with the switch in the FPRAM position.
+      #1000 nfpram = 0;
+      nmem = 0;
+      #250 for (i = 0; i < 65536; i = i + 4096) begin
+	 #250 ab = i;
       end
+      #250 nmem = 1;
+      //ab = 16'bzzzz_zzzz_zzzz_zzzz;
 
+      // Reset
+      #500 nreset = 0;
+      #500 nreset = 1;
+      
+      // Check that writing to the bank registers sets BANKEN#.
+      #1000 for (i = 0; i < 8; i = i + 1) begin
+	 #250 nio = 0;
+	 ab = 'h20 + i; 	// Address the BANKi registers.
+	 db = 0;
+	 #250 nw = 0;
+	 #250 nw = 1;
+	 nio = 1;
+      end
+      //ab = 16'bzzzz_zzzz_zzzz_zzzz;
 
       // Test addresses using the all-zero banking scheme we just set up.
+      #1000 nmem = 0;
+      #250
       for (i = 0; i < 65536; i = i + 4096) begin
-	 #500 a = i;
+	 #250 ab = i;
       end
+      #250 nmem = 1;
+      //ab = 16'bzzzz_zzzz_zzzz_zzzz;
 
-      #1000 reset = 0;
-      #3000 reset = 1;
-
-      // Test addresses using the all-zero banking scheme we just set up.
-      for (i = 0; i < 65536; i = i + 4096) begin
-	 #500 a = i;
-      end
-
-      // Read data.
-      d = 16'bzzzzzzzzzzzzzzzz;
-      for (i = 0; i < 65536; i = i + 4096) begin
-	 #500 a = i;
-	 #100 mem = 0;
-	 #100 r = 0;
-	 #300 r = 1;
-	 #100 mem = 1;
-      end
-
-
+      // Reset
+      #500 nreset = 0;
+      #500 nreset = 1;
+      
       // Setup a banking scheme where the first 48kWords are RAM and the last 16kWords are ROM.
-      for (i = 0; i < 8; i = i + 1) begin
-	 #200 io = 0;
-	 a = 'h20 + i; 	// Address the BANKi registers.
-	 d = i < 6 ? i : 'h80 | (i - 6);
-	 #200 w = 0;
-	 
-	 #200 w = 1;
-	 #200 io = 1;
+      #1000 for (i = 0; i < 8; i = i + 1) begin
+	 #250 nio = 0;
+	 ab = 'h20 + i; 	// Address the BANKi registers.
+	 db = i < 6 ? i : 'h80 | (i - 6);
+	 #250 nw = 0;
+	 #250 nw = 1;
+	 nio = 1;
       end
-
-      // Test addresses using the all-zero banking scheme we just set up.
+      #250 db = 16'bzzzz_zzzz_zzzz_zzzz;
+      
+      // Test addresses
+      #1000 nmem = 0;
+      #250
       for (i = 0; i < 65536; i = i + 4096) begin
-	 #500 a = i;
+	 #250 ab = i;
       end
+      #250 nmem = 1;
+      //ab = 16'bzzzz_zzzz_zzzz_zzzz;
 
+      // Reset
+      #500 nreset = 0;
+      #500 nreset = 1;
+      
       // Read data.
-      d = 16'bzzzzzzzzzzzzzzzz;
+      #1000
+      db = 16'bzzzzzzzzzzzzzzzz;
       for (i = 0; i < 65536; i = i + 4096) begin
-	 #500 a = i;
-	 #100 mem = 0;
-	 #100 r = 0;
-	 #300 r = 1;
-	 #100 mem = 1;
+	 #250 ab = i | 16'h3f8;
+	 #250 nmem = 0;
+	 #250 nr = 0;
+	 #250 nr = 1;
+	 nmem = 1;
       end
+      db = 16'bzzzzzzzzzzzzzzzz;
 
-
-      #40000 $finish;      // Terminate simulation
+      #10000 $finish;      // Terminate simulation
    end
 
-   always begin
-      #250 clk = ~clk;
-   end
-   
-   // Connect the memory to the testbed.
-   banked_memory banked_memory (a, dbus, mem, io, r, w, reset, clk);
+   // Link the 3-state bus and our register (d).
+   assign db_real = db;
+
+   sysdev_demux sysdev_demux (ab, nio, nsysdev, , , );
+
+   bank_switch bs (nreset, nmem, nw, nsysdev, ab, db_real, nfpram, aext, banking);
+
+   memory mem (aext, ab, db_real, nmem, nr, nw);
 
 endmodule

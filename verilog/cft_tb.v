@@ -8,64 +8,49 @@ module cft_tb();
    wire [15:0] dbus;
    //reg [15:0]  dbus_write;
    wire [15:0] ibus;
-   wire	       clock;
-   wire        clock2;
-   wire        clock3;
-   wire        clock4;
 
-   reg 	       reset;
-   reg 	       irq;
+   reg 	       nreset;
+   reg [7:0]   nirq_in;
    
-   wire        mem;
-   wire        io;
-   wire        r;
-   wire        w;
-   wire        halt;
-
-   wire [7:0]  iospace_region;
-
-   wire [15:0] abus;
-
-   //assign dbus = dbus_write;
-
    initial begin
 `ifndef DISABLE_VCD
       $dumpfile ("vcd/cft_tb.vcd");
-      $dumpvars (0, cft);
+      $dumpvars (0, cft_tb);
 `endif
 
-      reset = 0;
-      irq = 1;
-      //dbus_write = {15{1'bz}};
+      nreset = 0;
+      nirq_in = 8'b1111_1111;
 
-      #5002 reset = 1;
-
-      //#100000 reset = 0;
-      //#200 reset = 1;
+      #5000 nreset = 1;
 
       #1000000 begin
-	 ->cft.memory.dump_core;
+	 ->cft.mem.dump_core;
 	 $finish;      // Terminate simulation
       end
    end // initial begin
 
    // Issue interrupts
+   /*
    always begin
-      #150000 irq = 0;
-      #1000 irq = 1;
+      #150000 nirq_in = 0;
+      #1000 nirq_in = 255;
    end
+    */
 
    always @(cft.debug_io.halting) begin
-      ->cft.memory.dump_core;
+      ->cft.mem.dump_core;
       #10000 $finish;      // Terminate simulation
    end
 
    // Connect DUT to test bench
-   cft cft(abus, dbus,
-	   reset, irq,
-	   clock, clock2, clock3, clock4,
-	   mem, io, r, w,
-	   halt, iospace_region);
+
+   inout nreset_real;
+   assign nreset_real = nreset;
+   cft cft(1, 0, 1, 0, 1, 1, 1,	// No front panel
+	   nreset_real,
+	   , , , , , , ,
+	   nirq_in,
+	   , , , , , );
 
 endmodule // cft_tb
 

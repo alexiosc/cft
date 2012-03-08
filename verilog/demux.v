@@ -12,9 +12,9 @@
 `define demux_v
 
 module demux_138 (g1, g2a, g2b, a, y);
-   parameter delay = 12;
-   parameter delay_g1 = 10.5;
-   parameter delay_g2 = 11;
+   parameter delay = 14;
+   parameter delay_g1 = 14;
+   parameter delay_g2 = 22;
 
    input        g1;		// Active high enable
    input        g2a;		// Active low enable 1

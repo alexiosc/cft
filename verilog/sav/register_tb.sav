@@ -1,0 +1,51 @@
+[*]
+[*] GTKWave Analyzer v3.3.32 (w)1999-2012 BSI
+[*] Sat Mar  3 12:30:02 2012
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/register_tb.vcd"
+[dumpfile_mtime] "Sat Mar  3 12:20:03 2012"
+[dumpfile_size] 5056343
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/register_tb.sav"
+[timestart] 40040000
+[size] 1473 840
+[pos] 150 146
+*-21.073109 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[sst_width] 245
+[signals_width] 226
+[sst_expanded] 1
+[sst_vpaned_height] 232
+@28
+register_tb.nreset
+register_tb.reset
+@200
+-
+-Control Signals
+@28
+register_tb.nwpc
+register_tb.nwdr
+register_tb.nwac
+register_tb.ninc
+register_tb.nrpc
+register_tb.nrdr
+register_tb.nrac
+@200
+-
+@23
+register_tb.ibus[15:0]
+@22
+register_tb.ibus_real[15:0]
+@200
+-
+@22
+register_tb.pc[15:0]
+register_tb.dr[15:0]
+register_tb.ac[15:0]
+@200
+-
+-AC Flags
+@28
+register_tb.fneg
+register_tb.fzero
+register_tb.ninccpl
+[pattern_trace] 1
+[pattern_trace] 0

@@ -16,7 +16,7 @@ import testlib
 
 
 
-class T2_Random_Add(testlib.BaseTest):
+class T2_Random_Add(testlib.testBaseClass):
     def _runTest(self, seed):
         """ADD fundamentals"""
         random.seed(seed);
@@ -40,22 +40,24 @@ class T2_Random_Add(testlib.BaseTest):
         self.asm('&0800:')
         self.asm('&0800:')
 
-        for x in xrange(1024):
+        for x in xrange(10):
             _add(random.randint(0,0x3ff), random.randint(0,0x3ff))
 
 
         self.asm('       HALT')
 
-        self.assemble()
-        sim = self.simulate()
+        try:
+            self.assemble()
+            sim = self.simulate()
 
-        exp = ''.join(exp)
-        #print exp
+            exp = ''.join(exp)
+            self.assertEqual(sim, exp, 'Some results failed.')
 
-        #print sim
-        #print exp
+        except:
+            print "Expected:", exp
+            print "Saw:     ", sim
+            raise
 
-        self.assertEqual(sim, exp, 'Not all checkpoints passed.')
 
 
 class T2_Random_Add1(T2_Random_Add):

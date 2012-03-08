@@ -1,40 +1,40 @@
 Key	Order Code	Description Override	Notes
 5566-24		Mini FIT 24 way socket	ATX mainboard power socket
 22-23-2051	Farnell 1462952	5x1 pin 2.54mm centre header	Molex KK® series header
-22-23-2081	Farnell 1756826	8x1 pin 2.54mm centre header	Molex KK® series header
+22-23-2081	Farnell 1756826 (£0.122@10) + Farnell 3991271 (£0.179@10)	8x1 pin 2.54mm centre header	Molex KK® series header
 22-23-2091	Farnell 1756827	9x1 pin 2.54mm centre header	Molex KK® series header
 C-EU025-024X044:100nF	Farnell 1469310	100nF capacitor	
 C-EU025-024X044:22nF	Farnell 9411860	22nF capacitor	
-C-EU025-024X044:1uF	Farnell 3322210	1μF capacitor	
+C-EU025-024X044:1uF	Farnell US 1600879 (£0.041@25), Farnell 3322210 (£0.148), RS 538-1578 (£0.292), Farnell 1100398 (£0.38)	1μF capacitor	
 CON40:		40 pin (2x20) 2.54mm pitch header	
 	asd	5mm red LED	
-LED-5MM-GREEN	Farnell 1855549	5mm green LED	
-LED-5MM-AMBER	Farnell 1142581	5mm amber/orange/yellow LED	
-LED-5MM-RED	Farnell 1581217	5mm red LED	
+LED-5MM-GREEN	RS 228-6004 (£0.042), Farnell 1855549 (£0.42)	5mm green LED	
+LED-5MM-AMBER	RS 228-6010 (£0.042), Farnell 1142581 (£0.21)	5mm amber/orange/yellow LED	
+LED-5MM-RED	RS 228-5988 (£0.042@5), Farnell 1581217 (£0.165)	5mm red LED	
 1N4148	Farnell 9565124	1N4148 diode	Or any fast signal diode
-CPOL-EUE1.8-4:1uF	Farnell 9708529	1μF Tantalum capacitor	
+CPOL-EUE1.8-4:1uF	Farnell 1236655 (£0.034)	1μF electrolytic capacitor	
 CPOL-EUE2,5-6E:100uF	Farnell 1902882	100uF Electrolytic capacitor	
 CPOL-EUE2,5-6E:4.7uF	Farnell 1902916	4.7μF Electrolytic capacitor	
 CPOL-EUE2.5-7:10uF	Farnell 1902928	10μF/10V Electrolytic capacitor	
-JP2E:		3-pin 2.54mm header	
+JP2E:	RS 251-8092 (£0.078@25)	3-pin 2.54mm header	
 DUOLED-C	Farnell 2001770	Common cathode tri-colour LED (red/green)	
 TRIM_EU-B90P:200k	Farnell 1689846	200k linear potentiometer/trimmer	
 R-EU_0207/10:180k	Farnell 9463410	180kΩ resistor	
 R-EU_0207/10:1k	Farnell 9339051	1kΩ resistor	
-74HC14N	Farnell 7455513	74HC14N Hex inverting Schmitt trigger	
+74HC14N	Farnell 7455513 (£0.133@10), RS 714-0899 (£0.164@20)	74HC14N Hex inverting Schmitt trigger	
 74LS123N	Farnell 1470902	74LS123N Dual retriggerable monostable multivibrator	
-LM555N	Farnell 1534493	LM555N Timer	
+LM555N	RS 534-3469 (£0.62), Farnell 1564692 (£0.52@10)	LM555N Timer	
 74HC04N	Farnell 2374080	74HC04N Hex inverter	
-74HC541N	Farnell 1868634	74HC541N Octal 3-state buffer	
+74HC541N	RS 714-0953 (£0.18@20), Farnell 1470755 (£0.25@10)	74HC541N Octal 3-state buffer	
 74HC540N	Farnell 1868632	74HC540N Octal 3-state inverting buffer	
-74HC138N	Farnell 1826779	74HC138N 3-to-8 line Decoder	
+74HC138N	Farnell US 1318508 (£0.172@10), RS 663-0036 (£0.267@10), Farnell 1826779 (£0.29)	74HC138N 3-to-8 line Decoder	
 74HC85N	Farnell 1868642	74HC85N 4-bit Magnitude Comparator	
 W237-4:		Wago 2x screw clamp	
 R-EU_0204/5:330k	Farnell 9475923	330kΩ resistor	
 R-EU_0204/7:2.2k	Farnell 9339302	2.2kΩ resistor	
 E4R:50k		50kΩ 8x bussed SIL resistor	
-8R-N:50k	Farnell 9355987	50kΩ octal DIL resistor	
-G08R:10k	Farnell 1973130	10kΩ octal bussed SIL resistor	
+8R-N:50k	RS 131-457 (£0.014@10), Farnell 9339558 (£0.011@50)	8×50kΩ resistor network	Uses 47kΩ discretes for prototyping.
+G08R:10k	Farnell 1973130 (£0.085@10)	8×10kΩ resistor network	
 G04R:10k		10kΩ 5x bussed SIL resistor	
 GE08R:150R	Farnell 9356843	180Ω 8x bussed SIL resistor	
 GE09R:150R	Farnell 9357157	180Ω 9x bussed SIL resistor	
@@ -44,7 +44,7 @@ G03R:2k2	Farnell 1902599	2.2kΩ 3x bussed SIL resistor
 255SB:		On-On or On-Off toggle switch	
 320-938:	RS 219-5835 + RS 693-2284	Double-pole 3-position key switch	Make-before-break
 TL39PO		On-Off-On toggle switch	
-TL36PO	Farnell 9473785, Farnell 9812229, Farnell 9473785	On-On toggle switch	Switch body and separate black/red actuators
+TL36PO		On-On toggle switch	Switch body and separate black/red actuators
 TL49PO	Farnell 9473807	On-Off-On toggle switch	Also add lever actuator
 TL37PO	Farnell 9473769	Mom-Off-Mom toggle switch	
 TL47PO	Farnell 9473815	Mom-Off-Mom toggle switch	
@@ -58,7 +58,7 @@ HOLE	Ignore
 TPPAD1-13	Ignore		
 SIGNATURESILK	Ignore		
 C-EUC0805:100nF		Capacitor	0805 package
-CPOL-EUE2.5-5:1uF		Electrolytic capacitor	Through hole
+CPOL-EUE2.5-5:1uF	Farnell 1236655 (£0.034)	1 μF electrolytic capacitor	Through hole
 74HC688DW		74HC688DW 8-bit magniture comparator	
 74HC21D		74HC21D Dual 4-input And gate	
 74HC138D		74HC138D 3-to-8 line decoder	
@@ -79,12 +79,72 @@ R-EU_R0805:4k7		4.7kΩ resistor	0805 package
 G08R:2k2		2.2kΩ octal bussed SIL resistor	
 G05R:2k2		2.2κΩ hex bussed SIL resistor	
 G07R:2k2		2.2kΩ 7x bussed SIL resistor	
-SW_DIP-8:		8-way DIP switch	Through hole
-VG96-3K:		96-pin (A+B+C) DIN-41612 Bauform ‘C’ plug	Right angle through hole
-GE08R:330R		330Ω octal bussed SIL resistor	
+SW_DIP-8:	RS 712-2576 (£0.50), Farnell 9471596 (£0.66)	8-way DIP switch	Through hole
+VG96-3K:	Farnell 1656159 (£1.84)	96-pin (A+B+C) DIN-41612 Bauform ‘C’ plug	Right angle through hole
+GE08R:330R	Farnell 1602072 (£0.041), RS 522-4289 (£0.31@25)	8×330Ω resistor network	
 GE09R:330R		330Ω 9x bussed SIL resistor	
-8R-N:330R		330Ω octal DIL resistor	
-M48T02	Farnell 1224444		
+8R-N:330R	RS 707-7622 (£0.014@10), Farnell 9339418 (£0.011@50)	330Ω octal DIL resistor	Discretes used for prototyping.
+M48T02	Farnell 1224444 (£13.14)	5V, 16 kbit (2k×8) NVRAM & RTC	
 82C54	Farnell 1018175		
-AS6C4008	Farnell 1562896	4 MBit (512k x 8) Static RAM	
-29F040	Farnell 8749493 / Farnell 1565992	29x040 4 MBit (512k x 8) Flash RAM	
+AS6C4008	Farnell 1562900 (£4.71)	4 MBit (512k x 8) Static RAM	
+29F040	Farnell 8749493 (£2.84) / Farnell 1565992	29x040 4 MBit (512k x 8) Flash RAM	
+C-EU025-024X044:0.1uF	Farnell US 1694337 (£0.019@100), RS 721-5240 (£0.051@50), Farnell 9411887 (£0.062)	0.1μF ceramic capacitor	
+1,6/0,8:	Ignore		
+74HC112N	RS 663-1893 (£0.219@10), Farnell 1749804 (£0.39)		
+74HC193N	Farnell 1470793 (£0.34), RS 527-372 (£0.29@25)		
+29F020	Farnell 8749493 (£2.84) / Farnell 1565992		Using 040 due to lack of availability.
+29F010	Farnell 1907092 (£1.58)	29x010 1 MBit (128k x 8) Flash RAM	May use '020 or '040 if not available.
+16.000MHz	RS 547-5487 (£1.43) Farnell 7942710 (£1.54)	16 MHz	May need to reduce frequency. 4 MHz: RS 547-5392. 10 MHz: 547-5421. 12 MHz: RS 547-5459
+3.6864MHz	RS 547-5386 (£1.53), Farnell 9510095 (£2.94)	3.6864 MHz oscillator	For RS-232 interfaces
+CPOL-EUB/3528-21R:10uF	Farnell 1902928 (£0.033), RS 440-6547 (£0.026@50)	10µF electrolytic capacitor	
+CPOL-EUE2.5-5:10uF	Farnell 1902928 (£0.033), RS 440-6547 (£0.026@50)	10 µF electrolytic capacitor	
+C-EU025-024X044:22pF	Farnell 9411674 (£0.035@25)	22 pF ceramic capacitor	
+F09VP:	Farnell 1099294 (£0.48@5)	DB9 female or 2×5-pin header	
+M09HP:	Farnell 1099289 (£0.48@5)	DB9 male or 2×5 pin header	
+IDE-CONNECTOR	RS 670-1825 (£0.972@5), Farnell 1099261 (£1.07)	2x20 pin shrouded header	IDE socket
+PINHD-2X20:	RS 670-1825 (£0.972@5), Farnell 1099261 (£1.07)	2×20-pin shrouded/keyed header	
+JP1E:	RS 251-8086 (£0.046@25)	2-pin 2.54mm header	
+1N5817-B	Farnell 1843507 (£0.023)	1N5817 Schottky barrier rectifier	
+R-EU_0204/7:47R	RS 131-097 (£0.014@10), Farnell 9339523 (£0.011@50)	47Ω resistor, 0.25W	
+R-EU_R0805:50k	RS 131-457 (£0.014@10), Farnell 9339558 (£0.011@50)	50kΩ resistor, 0.25W	Actually 47kΩ (cheaper)
+R-EU_0204/7:4k7	RS 131-334 (£0.014@10), Farnell 9339540 (£0.011@50)	47kΩ resistor, 0.25W	
+R-EU_0204/7:330R	RS 707-7622 (£0.014@10), Farnell 9339418 (£0.011@50)	330Ω resistor, 0.25W	
+R-EU_0204/7:470R	RS 131-211 (£0.014@10), Farnell 9339531 (£0.011@50)	470Ω resistor, 0.25W	
+R-EU_0204/7:100R	RS 131-132 (£0.014@10), Farnell 9339043 (£0.011@50)	100Ω resistor, 0.25W	
+R-EU_0204/7:1k	RS 131-255 (£0.014@10), Farnell 9339051 (£0.011@50)	1kΩ resistor, 0.25W	
+TRIM_EU-CT6:470R	Farnell 1227517 (£0.24)	470Ω linear potentiometer	
+TRIM_EU-CT6:4k7	Farnell 1227523 (£0.23)	4.7kΩ linear potentiometer	
+TAC_SWITCHPTH:	Farnell 1813689 (£0.185)	Tactile switch	
+R-EU_0204/7:1M	RS 131-615 (£0.014@10), Farnell 9339086 (£0.011@50)	1MΩ resistor 0.25W	
+R-EU_0204/7:10M	RS 135-667 (£0.014@10), Farnell 1186248 (£0.012@50)	10MΩ resistor, 0.25W	
+R-EU_0204/7:300k	RS 707-7864 (£0.015@10), Farnell 9341714 (£0.025@50)	300kΩ resistor, 0.25W	
+R-EU_0204/7:180k	RS 131-520 (£0.014@10), Farnell 9339264 (£0.011@50)	180kΩ resistor, 0.25W	
+G08R:4k7	Farnell US 1602072 (£0.036@10), RS 522-4289 (£0.31@25)	8×4.7kΩ resistor network	
+G03R:4k7	Farnell 9356347 (£0.24@5)	3×4.7kΩ resistor network	
+G05R:4k7	Farnell 1973120 (£0.065@10)	5×4.7kΩ resistor network	
+G06R:4k7	Farnell 1973129 (£0.085@10)	7×4.7kΩ resistor network	
+8R-N:10k	RS 707-7622 (£0.014@10), Farnell 9339418 (£0.011@50)	8×330Ω resistor, DIL packaged	Discretes used for protytping.
+G08R:330R	Farnell 9356975 (£0.30@5)	8×330Ω resistor network	
+74HC253N	Farnell 1753491 (£0.28), RS 709-3046 (£0.147@10)	74HC253 Dual 4:1 multiplexer, 3-state	
+74HC00N	RS 169-6012 (£0.26), Farnell 9590889 (£0.38)	74HC00 4× NAND gate	
+74HC08N	RS 709-2845 (£0.201@10), Farnell 9665803 (£0.22@10)	74HC08 4× AND gate	
+74HC05N	Farnell 1470855 (£0.54), RS 442-921 (£0.52)	74HC05 6× open drain inverter	
+74HC21N	Farnell 1740011 (£0.23), RS 709-2665 (£0.163@20)		
+74AC00N	Farnell 1607805 (£0.48), RS 709-2223 (£0.124@10)	74AC00 4× NAND gate	
+74HC574N	RS 714-0950 (£0.18@20), Farnell 380830 (£0.42@10)	74HC574 8-bit D Flip Flop bus driver	
+74HC688N	RS 709-2179 (£0.168@5), Farnell 9591672 (£0.67@10)	74HC688 8-bit magnitude/identity comparator	
+74HC670N	Farnell 1753519 (£1.31), Farnell 1753520 (£0.77)	74HC670 4×4-bit register file, 3-state	Cheaper order code is for SOIC (better stocks)
+74HC373N	RS 714-0922 (£0.182@20), Farnell 1607705 (£0.52@10)	74HC373 Octal D-type transparent latch, negative edge triggered	
+74HC374N	RS 714-0931 (£0.191@20), RS 169-6141 (£0.38), Farnell 380763 (£0.57), Farnell 380763 (£0.38@10)	74HC374 Octal D-type transparent latch, positive edge triggered	
+74HC273N	Farnell 9591397 (£0.34), RS 714-0925 (£0.175@20)		
+74HC245N	RS 714-0916 (£0.18@20), RS 169-6113 (£0.38), Farnell 380714 (£0.49)	74HC245 Octal bus transceiver, 3-state	
+MAX232	Farnell 1648737 (£0.73), RS 660-8613 (£0.68@5)	MAX-232 RS-232 transceiver	
+LM556N	Farnell 9488260 (£1.18), RS 536-0947 (£0.77@10)	LM556N Dual timer	May replace with 2×555 + 1×decoupling cap
+SC26C92C1N	Farnell 1294820 (£2.18), RS 821-756 (£5)	26C92 Dual UART	
+SIGNAL-RENAME	ignore		
+TPSPAD1-13	ignore		
+74HC590N	Farnell 1652001 (£0.52), RS 709-2523 (£0.236@5)	74HC590 8-bit registered binary counter	
+74HC08	Farnell 9665803 (£0.30), RS 709-2845 (£0.20@10), Farnell 9665803 (£0.22@10)	74HC08 4× AND gate	
+CRYSTALTC38H:32.768kHz	Farnell 1652573 (£0.098)	32.768 kHz crystal	
+74HC32N	RS 709-3021 (£0.201@10), Farnell 1739939 (£0.27@10)	74HC32 4× OR gate	
+74AC541N	RS 662-9837 (£0.382@5), Farnell 383685 (£0.69)	74AC541 Octal buffer, 3-state	

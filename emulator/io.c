@@ -288,9 +288,9 @@ word retval;
 			fprintf(log_file, "%c", dbus & 0xff);
 			fflush(log_file);
 			if ((dbus > 32) && (dbus < 127)) {
-				testdebug("PRINTC: '%c'\n", dbus);
+				testdebug("PRINTC: %c\n", dbus);
 			} else {
-				testdebug("PRINTU: %d\n", dbus);
+				testdebug("PRINTc: %d\n", dbus & 0xff);
 			}
 			break;
 		case 0x3f2:
@@ -299,11 +299,16 @@ word retval;
 			testdebug("PRINTD: %hd\n", dbus);
 			break;
 		case 0x3f3:
-			fprintf(log_file, "%hx", dbus);
+			fprintf(log_file, "%04hx", dbus);
 			fflush(log_file);
-			testdebug("PRINTH: %hx\n", dbus);
+			testdebug("PRINTU: %u\n", (uint16_t)dbus);
 			break;
 		case 0x3f4:
+			fprintf(log_file, "%04hx", dbus);
+			fflush(log_file);
+			testdebug("PRINTH: %04hx\n", dbus);
+			break;
+		case 0x3f5:
 		{
 			char s[17];
 			to_bin(cpu.a, s, 16);
@@ -312,20 +317,25 @@ word retval;
 			testdebug("PRINTB: %s\n", s);
 			break;
 		}
-		case 0x3f5:
-			fprintf(log_file, "%hu", dbus);
+		case 0x3f6:
+			fprintf(log_file, " ");
 			fflush(log_file);
-			testdebug("PRINTU: %u\n", dbus);
+			testdebug("PRINTc: 32\n", dbus);
 			break;
 		case 0x3f7:
+			fprintf(log_file, "\n");
+			fflush(log_file);
+			testdebug("PRINTc: 10\n", dbus);
+			break;
+		case 0x3f8:
 			debug_asm = 1;
 			iodebug("Enabling debugging trace\n");
 			break;
-		case 0x3f8:
+		case 0x3f9:
 			debug_asm = 0;
 			iodebug("Disabling debugging trace\n");
 			break;
-		case 0x3f9:
+		case 0x3fa:
 			fflush(stdout);
 			//dump();
 			//dumpmem(0x500, 8);
@@ -335,11 +345,11 @@ word retval;
 			dumpstack(0x600, 1);
 			printf(COL_NOR);
 			break;
-		case 0x3fa:
+		case 0x3fb:
 			// Store the high word of a 32-bit quanity for later printing.
 			_hword = dbus;
 			break;
-		case 0x3fb:
+		case 0x3fc:
 			fprintf(log_file, "%hu", (_hword << 16) | dbus);
 			fflush(log_file);
 			testdebug("PRINTL: %08x\n", (_hword << 16) | dbus);

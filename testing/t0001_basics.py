@@ -30,19 +30,19 @@ ASM3 = """
         .word 0x5678
 """
 
-class T1_ImagePresence(testlib.BaseTest):
+class T1_ImagePresence(testlib.testBaseClass):
     def runTest(self):
         """The binary image (a.bin) is created."""
         self.assemble(ASM1)
 
         fname = os.path.join(self._basedir, 'img', 'a.bin')
-        self.assertTrue(os.path.exists(fname), 'Memory image file not generated')
+        self.assertTrue(os.path.exists(fname), 'Memory image file not generated (%s)' % fname)
 
         mem = self.readbin()
         self.assertEqual(len(mem), 65536, 'Memory image incomplete (expecting 65,536 words)')
 
 
-class T2_ImageSize(testlib.BaseTest):
+class T2_ImageSize(testlib.testBaseClass):
     def runTest(self):
         """The binary image (a.bin) is the right size."""
         self.assemble(ASM1)
@@ -55,7 +55,7 @@ class T2_ImageSize(testlib.BaseTest):
 
 
 
-class T3_Fill1(testlib.BaseTest):
+class T3_Fill1(testlib.testBaseClass):
     def runTest(self):
         """The .fill directive works."""
         fname = os.path.join(self._basedir, 'img', 'a.bin')
@@ -74,7 +74,7 @@ class T3_Fill1(testlib.BaseTest):
         self.checkbin(expected, 'Expected 65,536 copies of 0x1234')
 
 
-class T3_Fill2(testlib.BaseTest):
+class T3_Fill2(testlib.testBaseClass):
     def runTest(self):
         """Stacking .fill directives."""
         self.assemble(ASM2)
@@ -90,7 +90,7 @@ class T3_Fill2(testlib.BaseTest):
         self.checkbin(expected, 'Expected 32,768 x 0x1234 + 32,768 x 0x5678')
 
 
-class T3_Fill3(testlib.BaseTest):
+class T3_Fill3(testlib.testBaseClass):
     def runTest(self):
         """Stacking .fill and .word directives."""
         self.assemble(ASM3)
@@ -106,7 +106,7 @@ class T3_Fill3(testlib.BaseTest):
         self.checkbin(expected, 'Expected 65535 x 0x1234 + 1 x 0x5678')
 
 
-class T4_Word1(testlib.BaseTest):
+class T4_Word1(testlib.testBaseClass):
     def runTest(self):
         """The .word directive works."""
         asm = list()
@@ -127,7 +127,7 @@ class T4_Word1(testlib.BaseTest):
         self.checkbin(expected, 'Expected 7 x 0x1234 + 65529 x 0x0000')
 
 
-class T4_Word_and_Fill1(testlib.BaseTest):
+class T4_Word_and_Fill1(testlib.testBaseClass):
     def runTest(self):
         """Overwrite .fill area with .word"""
         asm = list()
@@ -146,7 +146,7 @@ class T4_Word_and_Fill1(testlib.BaseTest):
         self.checkbin(expected, 'Expected 6 x 0x1234 + 65530 x 0x5678')
 
 
-class T4_Word_and_Fill2(testlib.BaseTest):
+class T4_Word_and_Fill2(testlib.testBaseClass):
     def runTest(self):
         """Overwrite .words with .fill"""
         asm = list()
@@ -164,7 +164,7 @@ class T4_Word_and_Fill2(testlib.BaseTest):
         self.checkbin(expected, 'Expected 65,536 x 0x5678')
 
 
-class T4_FillWrap(testlib.BaseTest):
+class T4_FillWrap(testlib.testBaseClass):
     def runTest(self):
         """Check if .fill wraps around"""
         asm = list()

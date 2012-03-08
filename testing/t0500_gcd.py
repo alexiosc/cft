@@ -27,9 +27,9 @@ loop:
 	SNZ			; if (y == 0)
 	JMP retx		;  ... return x
 
-	LOAD Y			; Calculate x - y
+	LOAD y			; Calculate x - y
 	NEG
-	ADD X
+	ADD x
 	SNN SNZ			; Skip if A > 0 (A >= 0 && a != 0)
 	JMP ydec		; if x > y
 
@@ -40,7 +40,7 @@ xdec:
 ydec:
 	NEG			; A = x-y already. Get y-x:  y-x = -(x-y)
 	STORE y
-	jmp loop
+	JMP loop
 
 retx:
 	LOAD x			; print out x and finish.
@@ -49,18 +49,22 @@ end:
         SUCCESS
         HALT
 
-&fff0:	JMP [baddr]
+&fff0:	JMP I baddr
 baddr:  .word gcd
 """
 
 
-class GCD(testlib.BaseTest):
+class GCD(testlib.testBaseClass):
     def runTest(self):
         """Algorithm test: Greatest Common Divisor"""
         self.assemble(ASM1)
-        sim = self.simulate()
-        self.assertSim(sim, 'Mis-jump')
-        self.assertEqual(sim, '21[ok]', 'GCD miscalculation.')
+        try:
+            sim = self.simulate()
+            self.assertSim(sim, 'Mis-jump')
+            self.assertEqual(sim, '21[ok]', 'GCD miscalculation.')
+        except:
+            print sim
+            raise
 
 
 # End of file.

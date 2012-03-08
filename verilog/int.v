@@ -8,6 +8,8 @@
 `define int_v
 
 `include "flipflop.v"
+`include "buffer.v"
+`include "demux.v"
 
 `timescale 1ns/10ps
 
@@ -85,7 +87,7 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-module int_unit (clock, upc, go_fetch, cli, i_flag, irq, reset, int_out);
+module int_unit_v0 (clock, upc, go_fetch, cli, i_flag, irq, reset, int_out);
 
    input clock;
    input [0:3] upc;		// the microPC
@@ -124,6 +126,115 @@ module int_unit (clock, upc, go_fetch, cli, i_flag, irq, reset, int_out);
    
 
 endmodule // int_unit
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// BASED ON DRAWN SCHEMATICS
+//
+///////////////////////////////////////////////////////////////////////////////
+
+// The Interrupt State Machine. This is handled by three J-K FFs designated
+// FFA, FFB, FFC. FFA registers the interrupt enable flag which is controlled
+// by the STI# and CLI# signals. FFB registers incoming interrupts, provided
+// they aren't masked by FFA (when CLI# has been asserted). FFB works
+// asynchronously, so interrupts are almost certain to arrive
+// mid-instruction. Its output is thus registered by a third FF, FFC, which is
+// synchronous with the rising edge of END#. The output is connected to the
+// IRQS# input to the microcode sequencer, so that new interrupts are only
+// noticed immediately before the beginning of a new instruction.
+//
+// Asserting CLI# masks further interrupts, but also resets the pending
+// interrupt output from FFB. This is picked up by FFC at the end of the
+// current instruction. In this way, since the default interrupt microprogram
+// asserts CLI#, it continues to run until the microprogram has completed,
+// interrupts have been masked, and control has transferred to the Interrupt
+// Service Routine. At that point IRQS# is deasserted and execution continues
+// within the ISR.
+//
+// NOTA BENE: CLI# must be asserted in the microprogram starting immediately
+// after the assertion of IRQS#. That is, the interrupt-handilng microprogram
+// MUST clear interrupts. If not, every assertion of END# thereafter will
+// toggle IRQS# instead.
+
+module intsm (nreset, nsti, ncli, nend, nirq, fint, firq, nirqs);
+   input  nreset, nsti, ncli, nend, nirq;
+   output fint, firq, nirqs;
+   
+   wire   nreset, nsti, ncli, nend;
+   tri1   nirq;
+   wire   fint, firq, nirqs;
+
+   wire   nreset_or_cli, nmasked_irq, nfint;
+
+   and #6 (nreset_or_cli, nreset, ncli);
+   or #6 (nmasked_irq, nfint, nirq);
+
+   flipflop_112h ffa (0, 0, 0, nsti, nreset_or_cli, fint, nfint);
+   flipflop_112h ffb (0, 0, 0, nmasked_irq, nreset_or_cli, firq, );
+   flipflop_112h ffc (firq, 1, nend, 1, nreset, , nirqs);
+   
+endmodule // intsm
+
+
+module intc (nreset, nsysdev, nr, nw, ab, db, nirq_in, nirq);
+   input nreset, nsysdev, nr, nw;
+
+   input [15:0] ab;
+   inout [15:0] db;
+   input [7:0] 	nirq_in;
+
+   output 	nirq;
+
+   wire 	nr, nreset, nsysdev, nw;
+
+   wire [15:0] ab, db;
+   wire [7:0]  nirq_in;
+   wire        nirq;
+
+   wire [7:0]  nirf;
+
+   // Address decoder
+   wire [7:0]  y;
+   wire        nierw, nisrr, ab56;
+   and #6 (ab56, ab[5], ab[6]);
+   demux_138 dec (ab[4], ab[7], nsysdev, {ab56, nr, nw}, y);
+   assign nierw = y[2];
+   assign nisrr = y[1];
+
+   // The Interrupt Status Register
+   buffer_540 buf_isr (nisrr, nisrr, nirf, db[7:0]);
+
+   // The Interrupt Enable Register
+   tri0 [7:0]  ien;
+   wire        nq;
+   flipflop_112h ff_ierr  (0, 0, 0, nierw, nreset, , nq);
+   flipflop_574 ff_ier (db[7:0], ien, nierw, nq);
+
+   // The Interrupt Registers
+   flipflop_112h ff_irq0 (1, 0, nirq_in[0], 1, ien[0], , nirf[0]);
+   flipflop_112h ff_irq1 (1, 0, nirq_in[1], 1, ien[1], , nirf[1]);
+   flipflop_112h ff_irq2 (1, 0, nirq_in[2], 1, ien[2], , nirf[2]);
+   flipflop_112h ff_irq3 (1, 0, nirq_in[3], 1, ien[3], , nirf[3]);
+   flipflop_112h ff_irq4 (1, 0, nirq_in[4], 1, ien[4], , nirf[4]);
+   flipflop_112h ff_irq5 (1, 0, nirq_in[5], 1, ien[5], , nirf[5]);
+   flipflop_112h ff_irq6 (1, 0, nirq_in[6], 1, ien[6], , nirf[6]);
+   flipflop_112h ff_irq7 (1, 0, nirq_in[7], 1, ien[7], , nirf[7]);
+
+   // IRQ# Generator. A tree of AND gates.
+   wire        nirfa, nirfb, nirfc, nirfd;
+   wire        nirfab, nirfcd;
+   
+   and #6 (nirfa, nirf[0], nirf[1]);
+   and #6 (nirfb, nirf[2], nirf[3]);
+   and #6 (nirfc, nirf[4], nirf[5]);
+   and #6 (nirfd, nirf[6], nirf[7]);
+
+   and #6 (nirfab, nirfa, nirfb);
+   and #6 (nirfcd, nirfc, nirfd);
+
+   and #6 (nirq, nirfab, nirfcd);
+endmodule
+   
 
 `endif //  `ifndef int_v
 

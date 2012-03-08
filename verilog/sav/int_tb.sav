@@ -1,58 +1,27 @@
-[*]
-[*] GTKWave Analyzer v3.3.29 (w)1999-2012 BSI
-[*] Mon Feb 13 09:27:09 2012
-[*]
-[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/int_tb.vcd"
-[dumpfile_mtime] "Mon Feb 13 09:27:04 2012"
-[dumpfile_size] 3927
-[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/int_tb.sav"
 [timestart] 0
-[size] 1424 863
-[pos] -1 -1
-*-26.244114 50000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[size] 1192 863
+[pos] 0 0
+*-26.403875 240600000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] int_tb.
-[treeopen] int_tb.int.
-[sst_width] 245
-[signals_width] 156
-[sst_expanded] 1
-[sst_vpaned_height] 240
+[treeopen] int_tb.int_unit.
 @28
-int_tb.clock
-int_tb.reset
-@22
-int_tb.upc[3:0]
-@28
-int_tb.go_fetch
+int_tb.nreset
+int_tb.nirq
+int_tb.nend
 @200
 -
 -IRQ Masking
 @28
-int_tb.cli
-int_tb.i_flag
-int_tb.int.isig
-int_tb.irq
+int_tb.nsti
+int_tb.ncli
+int_tb.int_unit.nreset_or_cli
 @200
 -
 -State
+@29
+int_tb.fint
 @28
-int_tb.int.state.clk1
-int_tb.int.state.j1
-int_tb.int.state.k1
-int_tb.int.state.set1
-int_tb.int.state.rst1
-+{q1 (seen IRQ)} int_tb.int.state.q1
-@200
--
-@28
-int_tb.int.state.j2
-int_tb.int.state.k2
-int_tb.int.state.set2
-int_tb.int.state.rst2
-+{q2 (go to ISR)} int_tb.int.state.q2
-@200
--
--
-@28
-int_tb.int_out
+int_tb.firq
+int_tb.nirqs
 [pattern_trace] 1
 [pattern_trace] 0

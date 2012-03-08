@@ -1,0 +1,194 @@
+Forth 83 Required Word Set
+
+http://forth.sourceforge.net/std/fst83/fst83-12.htm
+
+
+Nucleus layer 
+
+!  *  */  */MOD  +  +!  -  /  /MOD  0<  0=  0>  1+  1-  2+ 
+2-  2/  <  =  >  >R  ?DUP  @  ABS  AND  C!  C@  CMOVE 
+CMOVE>  COUNT  D+  D<  DEPTH  DNEGATE  DROP  DUP  EXECUTE 
+EXIT  FILL  I  J  MAX  MIN  MOD  NEGATE  NOT  OR  OVER  PICK 
+R>  R@  ROLL  ROT  SWAP  U<  UM*  UM/MOD  XOR 
+
+Device layer 
+
+BLOCK  BUFFER  CR  EMIT  EXPECT  FLUSH  KEY  SAVE-BUFFERS 
+SPACE  SPACES  TYPE  UPDATE 
+
+Interpreter layer 
+
+#  #>  #S  #TIB  '  (  -TRAILING  .  .(  <#  >BODY  >IN 
+ABORT  BASE  BLK  CONVERT  DECIMAL  DEFINITIONS  FIND 
+FORGET  FORTH  FORTH-83  HERE  HOLD  LOAD  PAD  QUIT  SIGN 
+SPAN  TIB  U.  WORD 
+
+Compiler layer 
+
++LOOP  ,  ."  :  ;  ABORT"  ALLOT  BEGIN  COMPILE  CONSTANT 
+CREATE  DO  DOES>  ELSE  IF  IMMEDIATE  LEAVE  LITERAL  LOOP 
+REPEAT  STATE  THEN  UNTIL  VARIABLE  VOCABULARY  WHILE
+[']  [COMPILE]  ]  
+
+
+
+Implementation Checklist
+
+PRIMITIVE        Notes
+-------------------------------------------------------------------------------
+_LIT		 basics (internal)
+EXIT		 basics
+DOCOL		 basics (internal)
+NEXT		 basics (internal)
+-------------------------------------------------------------------------------
+!		 memory
+@		 memory
++!		 memory
+ALLOT		 memory
+,		 memory
+FILL		 memory
+CMOVE		 memory
+COUNT		 memory
+-------------------------------------------------------------------------------
+DROP		 stack
+DUP		 stack
+?DUP		 stack
+SWAP		 stack
+R>		 stack
+R@		 stack
+OVER		 stack
+PICK		 stack
+R@		 stack (optional)
+I		 stack
+J		 stack
+ROT		 stack
+ROLL		 stack
+DEPTH		 stack
+-------------------------------------------------------------------------------
++		 arithmetic
+1+		 arithmetic
+2+		 arithmetic
+-		 arithmetic
+1-		 arithmetic
+2-		 arithmetic
+2/		 arithmetic
+2*		 arithmetic (optional)
+NEGATE		 arithmetic
+*		 arithmetic
+/		 arithmetic
+/MOD		 arithmetic
+MOD		 arithmetic
+ABS		 arithmetic
+-------------------------------------------------------------------------------
+AND		 logic
+OR		 logic
+XOR		 logic
+NOT		 logic
+-------------------------------------------------------------------------------
+=		 comparison
+<		 comparison
+>		 comparison
+0<		 comparison
+0=		 comparison
+0>		 comparison
+MAX		 comparison
+MIN		 comparison
+-------------------------------------------------------------------------------
+TIB		 interpreter
+'		 interpreter
+>BODY		 interpreter
+>IN		 interpreter (not implemented)
+>INPTR		 interpreter (cft, optional)
+INPTR		 interpreter (cft, optional)
+IN@+		 interpreter (cft, optional)
+FIND		 interpreter		 
+HERE		 interpreter
+PAD		 interpreter
+WORD		 interpreter
+EXECUTE		 interpreter
+EXPECT		 expect
+-------------------------------------------------------------------------------
+HALT		 io (cft, optional)
+-------------------------------------------------------------------------------
+EMIT		 tty
+CR		 tty
+SPACE		 tty
+SPACES		 tty
+TYPE		 tty
+KEY		 tty
+?KEY		 tty (optional)
+-------------------------------------------------------------------------------
+PRINTD           cftdebug (cft, optional)
+DUMP		 cftdebug (cft, optional)
+-------------------------------------------------------------------------------
+
+#		 
+#>		 
+#S		 
+#TIB		 
+(		 
+*/		 
+*/MOD		 
++LOOP		 
+-TRAILING	 
+.		 
+."		 
+.(		 
+:		 
+;		 
+<#		 
+<=""		 
+>R		 
+ABORT		 
+ABORT"		 
+BASE		 
+BEGIN		 
+BLK		 
+BLOCK		 
+BUFFER		 
+C!		 
+C@		 
+CMOVE>		 
+COMPILE		 
+CONSTANT	 
+CONVERT		 
+CREATE		 
+D+		 
+D<		 
+DECIMAL		 
+DEFINITIONS	 
+DNEGATE		 
+DO		 
+DOES>		 
+ELSE		 
+FLUSH		 
+FORGET		 
+FORTH		 
+FORTH-83	 
+HOLD		 
+I		 
+IF		 
+IMMEDIATE	 
+LEAVE		 
+LITERAL		 
+LOAD		 
+LOOP		 
+QUIT		 
+REPEAT		 
+SAVE-BUFFERS	 
+SIGN		 
+SPAN		 
+STATE		 
+THEN		 
+U.		 
+U<		 
+UM*		 
+UM/MOD		 
+UNTIL		 
+UPDATE		 
+VARIABLE	 
+VOCABULARY	 
+WHILE		 
+[']		 
+[COMPILE]	 
+]		 

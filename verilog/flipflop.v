@@ -31,6 +31,8 @@
 
 module flipflop_112 (j1, k1, clk1, set1, rst1, q1, qn1,
 		     j2, k2, clk2, set2, rst2, q2, qn2);
+   parameter delay = 18;
+   
    input  j1, k1, clk1, set1, rst1;
    input  j2, k2, clk2, set2, rst2;
    output q1, qn1;
@@ -45,12 +47,14 @@ module flipflop_112 (j1, k1, clk1, set1, rst1, q1, qn1,
       $display("BOM: 74x112");
    end
 
-   flipflop_112h flipflop_112h1 (j1, k1, clk1, set1, rst1, q1, qn1);
-   flipflop_112h flipflop_112h2 (j2, k2, clk2, set2, rst2, q2, qn2);
+   flipflop_112h #(delay) flipflop_112h1 (j1, k1, clk1, set1, rst1, q1, qn1);
+   flipflop_112h #(delay) flipflop_112h2 (j2, k2, clk2, set2, rst2, q2, qn2);
 endmodule
    
 
 module flipflop_112h (j, k, clk, set, rst, q, qn);
+   parameter delay = 18;
+
    input j, k, clk, set, rst;
    output q, qn;
 
@@ -71,16 +75,19 @@ module flipflop_112h (j, k, clk, set, rst, q, qn);
       case ({set, rst})
 	2'b00:
 	  begin
+	     #delay
 	     q <= 1'b0;
 	     qn <= 1'b0;
 	  end
 	2'b01:
 	  begin
+	     #delay
 	     q <= 1'b1;
 	     qn <= 1'b0;
 	  end
 	2'b10:
 	  begin
+	     #delay
 	     q <= 1'b0;
 	     qn <= 1'b1;
 	  end
@@ -89,14 +96,17 @@ module flipflop_112h (j, k, clk, set, rst, q, qn);
 	     if (clk == 0'b00) begin
 		case ({j, k})
 		  2'b01: begin
+		     #delay
 		     q <= 1'b0;
 		     qn <= 1'b1;
 		  end
 		  2'b10: begin
+		     #delay
 		     q <= 1'b1;
 		     qn <= 1'b0;
 		  end
 		  2'b11: begin
+		     #delay
 		     q <= ~q;
 		     qn <= ~qn;
 		  end
@@ -165,6 +175,8 @@ endmodule // End of Module counter
 ///////////////////////////////////////////////////////////////////////////////
 
 module flipflop_175 (d, q, nq, clk, rst);
+   parameter delay = 17;
+   
    input [3:0] d;		// Data
    input       clk;		// Clock (rising edge)
    input       rst;		// /RST (active low): output enable
@@ -186,11 +198,15 @@ module flipflop_175 (d, q, nq, clk, rst);
    always @ (rst, posedge clk)
      begin
 	if (rst == 1'b0) begin
-	   q <= 4'b0000;
-	   nq <= 4'b1111;
+	   #delay begin
+	      q <= 4'b0000;
+	      nq <= 4'b1111;
+	   end
 	end else begin
-	   q <= d;
-	   nq <= ~d;
+	   #delay begin
+	      q <= d;
+	      nq <= ~d;
+	   end
 	end
      end
 endmodule // End of Module counter
@@ -265,11 +281,11 @@ module flipflop_574 (d, q, clk, oe);
    end
 
    always @ (posedge clk)
-     begin : FF574
+     begin
 	q0 <= #propagation_delay d;
      end // FF574
 
-   assign q = (oe) ? 8'bzzzzzzzz : q0;
+   assign q = oe ? 8'bzzzzzzzz : q0;
 
 endmodule // End of Module counter
 
@@ -298,7 +314,7 @@ module flipflop_564 (d, q, clk, oe);
    always @ (posedge clk)
      begin : FF564
 	q0 <= #2 d;
-     end // FF574
+     end // FF564
 
    assign q = (oe) ? 8'bzzzzzzzz : ~q0;
 
@@ -398,9 +414,66 @@ module flipflop_74h (d, clk, set, rst, q, qn);
 endmodule // flipflop_74h
 
 
+///////////////////////////////////////////////////////////////////////////////
+//
+// 74HC373 8-bit 3-state latch
+//
+///////////////////////////////////////////////////////////////////////////////
+
+module latch_373 (d, oc, enc, q);
+   parameter delay = 14;
+   
+   input [7:0]  d;
+   input        oc, enc;
+
+   output [7:0] q;
+
+   wire [7:0] 	d;
+   wire 	oc, enc;
+
+   wire [7:0] 	q;
+   reg [7:0] 	q0;
+
+   always @(enc or d) begin
+     if (enc) begin
+       #(delay-2) q0 = d;
+     end
+   end
+
+   assign #delay q = oc ? 8'bzzzzzzzz : q0;
+endmodule // latch_373
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// 74HC374 8-bit D-flip-flop
+//
+///////////////////////////////////////////////////////////////////////////////
+
+module flipflop_374 (d, oc, clk, q);
+   parameter delay = 15;
+   
+   input [7:0]  d;
+   input        oc, clk;
+
+   output [7:0] q;
+
+   wire [7:0] 	d;
+   wire 	oc, clk;
+
+   wire [7:0] 	q;
+   reg [7:0] 	q0;
+
+   always @(posedge clk) begin
+      #(delay-2) q0 = d;
+   end
+
+   assign #delay q = oc ? 8'bzzzzzzzz : q0;
+
+endmodule // latch_373
+
 
 `endif //  `ifndef flipflop_v
 
 
 // End of file.
-

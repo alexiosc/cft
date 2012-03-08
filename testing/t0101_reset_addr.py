@@ -21,7 +21,7 @@ ASM = """
         HALT
 """
 
-class ResetAddress(testlib.BaseTest):
+class ResetAddress(testlib.testBaseClass):
     def runTest(self):
         """Check reset and PC initialisation"""
         self.assemble(ASM)

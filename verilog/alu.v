@@ -451,7 +451,7 @@ endmodule // alu
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-module rom_alu (in,
+module rom_alu_v0 (in,
 		latch_a, latch_b,
 		clock, guardpulse, reset, rsthold,
 		aluop, rollop,
@@ -607,6 +607,192 @@ module rom_alu (in,
 endmodule // alu
 
 
+
+
+
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// BASED ON DRAWN SCHEMATICS
+//
+///////////////////////////////////////////////////////////////////////////////
+
+module alu_decoder (nreset, nrsthold, nguard,
+		    runit, ir, ibus, ac, nwalu,
+		    nboe, nuoe, uop, b);
+
+   input         nreset, nrsthold, nguard;
+   input [3:0]   runit;
+   input [15:0]  ir, ibus, ac;
+   input 	 nwalu;
+
+   output 	 nboe, nuoe;
+   output [2:0]  uop;
+   output [15:0] b;
+
+   // ALU Port B Buffer (Port A is the AC)
+   flipflop_574 b_lo (ibus[7:0], b[7:0], nwalu, 0);
+   flipflop_574 b_hi (ibus[15:8], b[15:8], nwalu, 0);
+
+   // Unary operation decoder
+   or #6 (uop[2], runit[0], runit[1]);
+   mux_253 uop_mux ({1'b0, uop[2]},
+		    {2'b0, runit[0], ir[0]}, 0, uop[0],
+		    {2'b0, runit[1], ir[2]}, 0, uop[1]);
+
+   // ALU ROM Selector
+   wire [7:0] 	 y;
+   demux_138 rom_demux (nreset, /*nguard*/ 0, 0, {nrsthold, runit[3:2]}, y);
+   assign nuoe = y[7];
+   assign nboe = y[6];
+endmodule // alu_decoder
+
+
+// The ALU Binary operations section.
+module alu_binary (nreset, clk5,
+		   ibus,
+		   nboe, fl, ac, b, runit,
+		   nflstrobe, fv, nfltadd);
+
+   input 	nreset, clk5;
+   inout [15:0] ibus;
+   input [15:0] ac, b;
+   input 	nboe, fl;
+   input [3:0] 	runit;
+
+   output 	nflstrobe, fv, nfltadd;
+
+   wire 	nreset, clk5;
+   wire [15:0] 	ibus;
+   wire [15:0] 	ac, b;
+   wire 	nboe, fl;
+   wire [3:0] 	runit;
+   
+   wire 	nflstrobe, fv, nfltadd;
+
+   wire [14:0] 	ba0, ba1;
+   wire [10:0] 	ba2;
+   tri0 	co1, co2;
+   tri1         flatch, nalucpl, fvout;
+   wire [7:0] 	bd0, bd1, bd2;
+   
+   assign ba0 = {runit[1:0], fl, ac[5:0], b[5:0]};
+   assign ba1 = {runit[1:0], co1, ac[11:6], b[11:6]};
+   assign ba2 = {runit[1:0], co2, ac[15:12], b[15:12]};
+
+   // ROM Data buses
+   rom #(15, 70, "../microcode/alu-binary-6bit-00.list") romb0 (ba0, bd0, 1'b0, nboe);
+   rom #(15, 70, "../microcode/alu-binary-6bit-00.list") romb1 (ba1, bd1, 1'b0, nboe);
+   rom #(11, 70, "../microcode/alu-binary-4bit-00.list") romb2 (ba2, bd2, 1'b0, nboe);
+
+   // Outputs
+   assign ibus = {bd2[3:0], bd1[5:0], bd0[5:0]};
+   assign co1 = bd0[6];
+   assign co2 = bd1[6];
+   assign flatch = bd2[5];
+   assign nalucpl = bd2[6];
+   assign fvout = bd2[7];
+
+   // Post-processing and flags
+   and #6 (nflstrobe, clk5, flatch);
+   flipflop_74h ff1 (fvout, nflstrobe, 1, nreset, fv, );
+   flipflop_74h ff2 (nalucpl, clk5, 1, nreset, nfltadd, );
+
+endmodule // alu_binary
+
+
+// The ALU Unary Operations ROM
+module alu_unary (nreset, clk5,
+		  ibus,
+		  ac, uop, nuoe, fl, nirqs,
+		  roll16, isroll);
+
+   input 	nreset, clk5;
+   inout [15:0] ibus;
+   input [15:0] ac;
+   input [2:0] 	uop;
+   input 	nuoe, fl, nirqs;
+
+   output 	roll16, isroll;
+
+   wire 	nreset, clk5;
+   wire [15:0] 	ibus;
+   wire [15:0] 	ac;
+   wire [2:0] 	uop;
+   wire 	nuoe, fl, nirqs;
+   
+   tri0 	roll16, isroll;
+
+   wire [17:0] 	ua0, ua1;
+   wire [16:0]  ua2;
+   wire [7:0] 	ud0, ud1, ud2;
+
+   assign ua0 = { uop[2:0], nirqs, fl, ac[15:13], ac[9:0] };
+   assign ua1 = { uop[2:0], nirqs, ac[15:2]};
+   assign ua2 = { uop[2:0], nirqs, fl, ac[15:8], ac[3:0] };
+   
+   // The unary ROMs (and constant store)
+   rom #(18, 70, "../microcode/alu-unary-00.list") romu0 (ua0, ud0, 0, nuoe);
+   rom #(18, 70, "../microcode/alu-unary-01.list") romu1 (ua1, ud1, 0, nuoe);
+   rom #(17, 70, "../microcode/alu-unary-02.list") romu2 (ua2, ud2, 0, nuoe);
+
+   assign ibus = { ud2[3:0], ud1[5:0], ud0[5:0] };
+   assign roll16 = ud2[4];
+   assign isroll = ud2[5];
+
+endmodule // alu_unary
+
+
+module alu(nreset, nrsthold, clk5, nguard, nirqs,
+	   runit,
+	   ir, ibus, ac,
+	   fl,
+	   nwalu,
+	   nflstrobe, fv, nfltadd, roll16, isroll);
+
+   input nreset, nrsthold, clk5, nguard, nirqs, nwalu;
+   input [3:0] runit;
+   inout [15:0] ibus;
+   input [15:0] ir, ac;
+   input 	fl;
+
+   output 	nflstrobe, fv, nfltadd, roll16, isroll;
+
+   wire 	nreset, nrsthold, clk5, nguard, nirqs, nwalu;
+   wire [3:0] 	runit;
+   wire [15:0] 	ibus;
+   wire [15:0] 	ir, ac;
+   wire 	fl;
+   
+   wire 	nflstrobe, fv, nfltadd, roll16, isroll;
+
+   // Locals
+   wire 	nboe, nuoe;
+   wire [2:0] 	uop;
+   wire [15:0] 	b;
+
+   // The ALU unit decoder
+   alu_decoder decoder (nreset, nrsthold, nguard,
+			runit, ir, ibus, ac, nwalu,
+			nboe, nuoe, uop, b);
+
+   // Binary operations
+   alu_binary binary (nreset, clk5,
+		      ibus,
+		      nboe, fl, ac, b, runit,
+		      nflstrobe, fv, nfltadd);
+
+   // Unary operations and constant store.
+   alu_unary unary (nreset, clk5,
+		    ibus,
+		    ac, uop, nuoe, fl, nirqs,
+		    roll16, isroll);
+endmodule // alu
+
+   
 `endif //  `ifndef alu_v
 
 

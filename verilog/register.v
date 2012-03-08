@@ -9,57 +9,9 @@
 `include "buffer.v"
 `include "counter.v"
 `include "flipflop.v"
+`include "comparator.v"
 
 `timescale 1ns/1ps
-
-
-module simple_reg16 (d, q, latch, oe);
-   input [15:0] d;		// Data
-   input 	latch;		// Clock
-   input 	oe;		// /OE (active low): output enable
-   
-   output [15:0] q;		// Output
-   
-   wire [15:0] 	 d;
-   wire 	 latch;
-   wire 	 oe;
-   
-   wire [15:0] 	 q;
-
-   reg [15:0] 	 q_debug;
-
-   // Debugging
-   always @(posedge latch) begin
-      q_debug = d;
-   end
-   
-   flipflop_574 reg_low (d[7:0], q[7:0], latch, oe);
-   flipflop_574 reg_hi  (d[15:8], q[15:8], latch, oe);
-endmodule // End of Module counter
-
-
-module simple_reg8 (d, q, latch, oe);
-   input [7:0] d;		// Data
-   input 	latch;		// Clock
-   input 	oe;		// /OE (active low): output enable
-   
-   output [7:0] q;		// Output
-   
-   wire [7:0] 	 d;
-   wire 	 latch;
-   wire 	 oe;
-   
-   wire [7:0] 	 q;
-
-   reg [7:0] 	 q_debug;
-
-   // Debugging
-   always @(posedge latch) begin
-      q_debug = d;
-   end
-   
-   flipflop_574 reg_low (d, q, latch, oe);
-endmodule // End of Module counter
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -71,7 +23,7 @@ endmodule // End of Module counter
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-module inc_reg16 (d, q, q_unbuf, latch, oe, inc, dec, reset);
+module inc_reg16_v1 (d, q, q_unbuf, latch, oe, inc, dec, reset);
    input [15:0] d;
    input 	latch;		// Clocks in data on rising edge
    input 	oe;		// OE = 0: output enabled
@@ -195,7 +147,7 @@ endmodule // End of Module counter
 ///////////////////////////////////////////////////////////////////////////////
 
 // TODO: toggling L is done by open collector outputs now.
-module reg_L (d, latch, clear, toggle, clock, reset, q, nq);
+module reg_L_v0 (d, latch, clear, toggle, clock, reset, q, nq);
    input d;
    input latch;                 // Active HIGH.
    input clear;			// Active LOW.
@@ -280,5 +232,151 @@ module reg_I (clear, set, clock, reset, q, nq);
    flipflop_112 ff (0, 0, clock, set, ff_reset, q, nq, 0, 0, 1, 1, 1, ,);
 endmodule // reg_I
 
-// End of file.
 
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// BASED ON DRAWN SCHEMATICS
+//
+///////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// FUNCTION: A 16-bit register with increment control.
+//
+// NOTE: Implemented with four 74x193 4-bit counters and two 74x244 tri-state
+// buffers (the '193 doesn't tri-state its outputs).
+//
+///////////////////////////////////////////////////////////////////////////////
+
+module major_register (ibus, nread, nwrite, ninc, reset, regout, cout);
+   inout [15:0]  ibus;
+   input 	 nread, nwrite, ninc, reset;
+   
+   output [15:0] regout;
+   output 	 cout;
+
+   wire [15:0] 	 ibus;
+   wire  	 nread, nwrite, ninc, reset;
+
+   wire [15:0]	 regout;
+   wire 	 cout;
+
+   wire 	 co0, co1, co2;
+
+   // Four '193s provide the register and increment functionality.
+   counter_193 c0 (reset, nwrite, ibus[3:0],   ninc, 0, regout[3:0],   co0, );
+   counter_193 c1 (reset, nwrite, ibus[7:4],   co0,  0, regout[7:4],   co1, );
+   counter_193 c2 (reset, nwrite, ibus[11:8],  co1,  0, regout[11:8],  co2, );
+   counter_193 c3 (reset, nwrite, ibus[15:12], co2,  0, regout[15:12], cout, );
+
+   // Tri-state bufering
+   buffer_541 buf_lo (nread, nread, regout[7:0], ibus[7:0]);
+   buffer_541 buf_hi (nread, nread, regout[15:8], ibus[15:8]);
+
+   // The two front panel buffers are not modelled.
+
+endmodule // major_register
+
+
+module reg_pc (ibus, nrpc, nwpc, nincpc, reset, pc);
+   inout [15:0]  ibus;
+   input 	 nrpc, nwpc, nincpc, reset;
+   
+   output [15:0] pc;
+
+   wire [15:0] 	 ibus, pc;
+   wire 	 nrpc, nwpc, nincpc, reset;
+
+   // The register itself.
+   major_register register (ibus, nrpc, nwpc, nincpc, reset, pc,);   
+endmodule // reg_pc
+
+
+module reg_dr (ibus, nrdr, nwdr, nincdr, reset, dr);
+   inout [15:0]  ibus;
+   input 	 nrdr, nwdr, nincdr, reset;
+   
+   output [15:0] dr;
+
+   wire [15:0] 	 ibus, dr;
+   wire 	 nrdr, nwdr, nincdr, reset;
+
+   // The register itself.
+   major_register register (ibus, nrdr, nwdr, nincdr, reset, dr,);   
+endmodule // reg_dr
+
+
+module reg_ac (ibus, nrac, nwac, nincac, reset, ac, fneg, fzero, ninccpl);
+   inout [15:0]  ibus;
+   input 	 nrac, nwac, nincac, reset;
+   
+   output [15:0] ac;
+   output 	 fneg, fzero, ninccpl;
+
+   wire [15:0] 	 ibus, ac;
+   wire 	 nrac, nwac, nincac, reset;
+   wire 	 fneg, fzero, ninccpl;
+
+   // The register itself.
+   major_register register (ibus, nrac, nwac, nincac, reset, ac, ninccpl);
+
+   // The Zero Flag
+   wire 	 cmp0, nfzero;
+   comparator_688 comp_hi (ac[15:8], 0, 0, cmp0);
+   comparator_688 comp_lo (ac[7:0], 0, cmp0, nfzero);
+   not #6 not_fz (fzero, nfzero);
+
+   // The Negative Flag (is really simple)
+   assign fneg = ac[15];
+endmodule // reg_ac
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// FUNCTION: the L Register
+//
+///////////////////////////////////////////////////////////////////////////////
+
+// Behaviour:
+//
+// * Cleared on RESET# or CLL#.
+// * Toggled on CPL# or FLTADD# (carry out signal from AC)
+// * Set or cleared on ROLL instructions according to the 17th bit of
+//   the output.
+
+module reg_L (nreset, clk5, ncll, ncpl, nfltadd, isroll, roll16, fl);
+   
+   input nreset, clk5, ncll, ncpl, nfltadd, isroll, roll16;
+
+   output fl;
+
+   wire   nreset, clk5, ncll, ncpl, nfltadd, isroll, roll16;
+   wire   fl;
+
+   // Clear L on RESET# or CLL#.
+   wire   nlclr;
+   and #6 (nlclr, nreset, ncll);
+
+   // Roll data output (generates LJ and LK)
+   wire   nroll16, lj, lk;
+   and #6 (lj, roll16, isroll);
+   nand #6 (nroll16, 1, roll16);
+   and #6 (lk, nroll16, isroll);
+
+   // Toggles
+   wire   toggle;
+   nand #6 (toggle, ncpl, nfltadd);
+
+   // Flip Flop inputs
+   wire   j, k;
+   or #6 (j, toggle, lj);
+   or #6 (k, toggle, lk);
+
+   // The register itself
+   flipflop_112h reg_L (j, k, clk5, 1, nlclr, fl,);
+
+endmodule // reg_L
+
+
+// End of file.

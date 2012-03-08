@@ -135,8 +135,10 @@ signal /incdr         = ......1.................; // Inc/Dec DR (for autoinc/aut
 signal /mem           = ....1...................; // Memory access
 signal /io            = ...1....................; // Input/Output enable
 signal /R             = ..1.....................; // Memory read
-signal /W             = .1......................; // Memory write
+signal /WEN           = .1......................; // Memory write
 signal /END           = 1.......................; // Reset microprogram, go to fetch state.
+
+// Note: /W is /WEN AND CLK5 and is synthesised elsewhere.
 
 // ALU ops:
 //
@@ -220,7 +222,7 @@ signal /END           = 1.......................; // Reset microprogram, go to f
     w_mar, r_##_areg; \
     /MEM, /R; \
     w_##_dreg, hold
-    //-/DAB, -/MEM, -/IO, -/R, -/W
+    //-/DAB, -/MEM, -/IO, -/R, -/WEN
     
 
 // At the end of this macro, /DAB, and /MEM are still active. It's assumed that
@@ -229,7 +231,7 @@ signal /END           = 1.......................; // Reset microprogram, go to f
 
 // This macro deselects the memory and terminates memory access. Needed between memory read cycles.
 #define _DESEL \
-    -/MEM, -/IO, -/R, -/W	   // 5. Deselect I/O and memory.
+    -/MEM, -/IO, -/R, -/WEN	   // 5. Deselect I/O and memory.
 
 
 // To write to RAM:
@@ -272,13 +274,13 @@ signal /END           = 1.......................; // Reset microprogram, go to f
 // This macro implements steps 2 to 4, which are enough for the
 // microcode of the STORE instruction.
 //
-// MAR <- DR, /DAB, /MEM, /W    // 2. Select memory, enable writing. Latch to MAR.
-// /DAB, /MEM, /W		 // 3. Drive the address bus.
+// MAR <- DR, /DAB, /MEM, /WEN    // 2. Select memory, enable writing. Latch to MAR.
+// /DAB, /MEM, /WEN		 // 3. Drive the address bus.
 				// DBUS <- A, hold, /end	 // 4. Drive the data bus. End.
 
 #define _MEMWRITE(_areg, _dreg) \
     w_mar, r_##_areg; \
-    r_##_dreg, /mem, /w; \
+    r_##_dreg, /mem, /wen; \
     r_##_dreg, /mem
 
 
@@ -323,7 +325,7 @@ signal /END           = 1.......................; // Reset microprogram, go to f
 
 #define _AUTOINC \
 	r_agl, w_mar, /incdr; \
-        r_dr, /mem, /w;	\
+        r_dr, /mem, /wen;	\
         r_dr, /mem
 
 
@@ -488,7 +490,7 @@ start INT=1, RST=1, V=X, L=X, OP=STORE, I=1, SKIP=X, INC=0;
 start INT=1, RST=1, V=X, L=X, OP=IOT, I=0, SKIP=X, INC=X;
       _FETCH_IR;		// Fetch the instruction and operand.
       w_mar, r_agl;
-      r_a, /io, /w;
+      r_a, /io, /wen;
       r_a, /io;
       
       // The CPU may be inhibited here to get wait states.
@@ -501,7 +503,7 @@ start INT=1, RST=1, V=X, L=X, OP=IOT, I=0, SKIP=X, INC=X;
 start INT=1, RST=1, V=X, L=X, OP=IOT, I=1, SKIP=X, INC=1;
       _FETCH_LITERAL;		// Fetch the instruction and operand.
       w_mar, r_dr;		// Indirection.
-      r_a, /io, /w;
+      r_a, /io, /wen;
       r_a, /io;
 
       // The CPU may be inhibited here to get wait states.
@@ -515,7 +517,7 @@ start INT=1, RST=1, V=X, L=X, OP=IOT, I=1, SKIP=X, INC=0;
       _MEMREAD(agl, dr);        // DR <- mem[agl]
       //_DESEL;			// Deselect all memory signals and wait.
       w_mar, r_dr;		// Indirection: io[dr] <- A
-      r_a, /io, /w;
+      r_a, /io, /wen;
       r_a, /io;
 
       // The CPU may be inhibited here to get wait states.
@@ -572,14 +574,14 @@ start INT=1, RST=1, V=X, L=X, OP=IN, I=1, SKIP=X, INC=1;
 start INT=1, RST=1, V=X, L=X, OP=OUT, I=0, SKIP=X, INC=X;
       _FETCH_IR;		// Fetch the instruction and operand.
       w_mar, r_agl;
-      r_a, /io, /w;
+      r_a, /io, /wen;
       r_a, /io, /end;
 
 // Direct mode.
 start INT=1, RST=1, V=X, L=X, OP=OUT, I=1, SKIP=X, INC=1;
       _FETCH_LITERAL;		// Fetch the instruction and operand.
       w_mar, r_dr;		// Indirection.
-      r_a, /io, /w;
+      r_a, /io, /wen;
       r_a, /io, /end;
 
 // FIXED: Autoindex mode.
@@ -589,7 +591,7 @@ start INT=1, RST=1, V=X, L=X, OP=OUT, I=1, SKIP=X, INC=0;
       //_DESEL;			// Deselect all memory signals and wait.
 
       w_mar, r_dr;		// was: r_agl (why?)
-      r_a, /io, /w;
+      r_a, /io, /wen;
       r_a, /io;
 
       _AUTOINC;			// mem[agl] <- ++DR
@@ -895,7 +897,7 @@ start INT=1, RST=1, V=X, L=X, OP=LIA, I=X, SKIP=X, INC=X;
 //*/
 
 // And without (because they're multiline)
-#define OP1COMMON_SKIP1 \
+#define OP1COMMON_SKIP0 \
       w_a, r_cs1, if6; \
       /cll, if5; \
       w_a, alu_not, if4; \
@@ -904,7 +906,7 @@ start INT=1, RST=1, V=X, L=X, OP=LIA, I=X, SKIP=X, INC=X;
       w_a, alu_roll; \
       /end
 
-#define OP1COMMON_SKIP0 \
+#define OP1COMMON_SKIP1 \
       if6; \
       if5; \
       if4; \
@@ -914,13 +916,6 @@ start INT=1, RST=1, V=X, L=X, OP=LIA, I=X, SKIP=X, INC=X;
       /end \
 
 // V=1, L=1 (always executes all of instruction)
-start INT=1, RST=1, V=X, L=X, OP=OP1, I=X, SKIP=1, INC=X;
-      _FETCH_IR;
-      if9;		        // 1. Fetch the instruction and operand.
-      if8;			// 2. If bit 9: end if L=0 (handled below)
-      if7;			// 3. If bit 8: end if V=0 (handled below)
-      OP1COMMON_SKIP1;
-
 start INT=1, RST=1, V=X, L=X, OP=OP1, I=X, SKIP=0, INC=X;
       _FETCH_IR;
       if9;		        // 1. Fetch the instruction and operand.
@@ -928,16 +923,23 @@ start INT=1, RST=1, V=X, L=X, OP=OP1, I=X, SKIP=0, INC=X;
       if7;			// 3. If bit 8: end if V=0 (handled below)
       OP1COMMON_SKIP0;
 
+start INT=1, RST=1, V=X, L=X, OP=OP1, I=X, SKIP=1, INC=X;
+      _FETCH_IR;
+      if9;		        // 1. Fetch the instruction and operand.
+      if8;			// 2. If bit 9: end if L=0 (handled below)
+      if7;			// 3. If bit 8: end if V=0 (handled below)
+      OP1COMMON_SKIP1;
+
 
 // V=0, L=1 (stops if IFV [if8] is set)
-start INT=1, RST=1, V=0, L=1, OP=OP1, I=X, SKIP=1, INC=X;
+start INT=1, RST=1, V=0, L=1, OP=OP1, I=X, SKIP=0, INC=X;
       _FETCH_IR;
       if9;		        // 1. Fetch the instruction and operand.
       if8;			// 2. If bit 9: end if L=0 (handled below)
       /end, if7;	        // 3. If bit 8: end if V=0 (handled below)
       // Fall-through to the V=X, L=X case above.
 
-start INT=1, RST=1, V=0, L=1, OP=OP1, I=X, SKIP=0, INC=X;
+start INT=1, RST=1, V=0, L=1, OP=OP1, I=X, SKIP=1, INC=X;
       _FETCH_IR;
       if9;		        // 1. Fetch the instruction and operand.
       if8;			// 2. If bit 9: end if L=0 (handled below)
@@ -946,14 +948,14 @@ start INT=1, RST=1, V=0, L=1, OP=OP1, I=X, SKIP=0, INC=X;
 
 
 // V=1, L=0 (stops if IFL [if9] is set)
-start INT=1, RST=1, V=1, L=0, OP=OP1, I=X, SKIP=1, INC=X;
+start INT=1, RST=1, V=1, L=0, OP=OP1, I=X, SKIP=0, INC=X;
       _FETCH_IR;
       if9;		        // 1. Fetch the instruction and operand.
       /end, if8;	        // 2. If bit 9: end if L=0 (handled below)
       if7;			// 3. If bit 8: end if V=0 (handled below)
       // Fall-through to the V=X, L=X case above.
 
-start INT=1, RST=1, V=1, L=0, OP=OP1, I=X, SKIP=0, INC=X;
+start INT=1, RST=1, V=1, L=0, OP=OP1, I=X, SKIP=1, INC=X;
       _FETCH_IR;
       if9;		        // 1. Fetch the instruction and operand.
       if8;                      // 2. If bit 9: end if L=0 (handled below)
@@ -961,16 +963,15 @@ start INT=1, RST=1, V=1, L=0, OP=OP1, I=X, SKIP=0, INC=X;
       // Fall-through to the V=X, L=X case above.
 
 
-// V=0, L=0 (stops if IFL [if9] or IFV [if8] are set). There are /ends
-// in two places in case the microprogram is entered halfway through.
-start INT=1, RST=1, V=0, L=0, OP=OP1, I=X, SKIP=1, INC=X;
+// V=0, L=0 (stops if IFL [if9] or IFV [if8] are set).
+start INT=1, RST=1, V=0, L=0, OP=OP1, I=X, SKIP=0, INC=X;
       _FETCH_IR;
       if9;		        // 1. Fetch the instruction and operand.
       /end, if8;		// 2. If bit 9: end if L=0 (handled below)
       /end, if7;		// 3. If bit 8: end if V=0 (handled below)
       // Fall-through to the V=X, L=X case above.
 
-start INT=1, RST=1, V=0, L=0, OP=OP1, I=X, SKIP=0, INC=X;
+start INT=1, RST=1, V=0, L=0, OP=OP1, I=X, SKIP=1, INC=X;
       _FETCH_IR;
       if9;		        // 1. Fetch the instruction and operand.
       if8;			// 2. If bit 9: end if L=0 (handled below)
@@ -991,8 +992,8 @@ start INT=1, RST=1, V=X, L=X, OP=INCM, I=0, SKIP=X, INC=X;
       w_a, /mem, /r;
       /incac, /mem, /r;		// Increment A
 
-      r_a, /mem, /w;		// The MAR still has the same value.
-      r_a, /mem, /w, /end;
+      r_a, /mem, /wen;		// The MAR still has the same value.
+      r_a, /mem, /wen, /end;
 
 // Direct mode.
 start INT=1, RST=1, V=X, L=X, OP=INCM, I=1, SKIP=X, INC=1;
@@ -1002,8 +1003,8 @@ start INT=1, RST=1, V=X, L=X, OP=INCM, I=1, SKIP=X, INC=1;
       w_a, /mem, /r;
       /incac, /mem, /r;		// Increment A
 
-      r_a, /mem, /w;		// The MAR still has the same value.
-      r_a, /mem, /w, /end;
+      r_a, /mem, /wen;		// The MAR still has the same value.
+      r_a, /mem, /wen, /end;
 
 // Autoindex mode.
 start INT=1, RST=1, V=X, L=X, OP=INCM, I=1, SKIP=X, INC=0;
@@ -1015,8 +1016,8 @@ start INT=1, RST=1, V=X, L=X, OP=INCM, I=1, SKIP=X, INC=0;
       w_a, /mem, /r;
       /incac, /mem, /r;		// Increment A
 
-      r_a, /mem, /w;		// The MAR still has the same value.
-      r_a, /mem, /w;
+      r_a, /mem, /wen;		// The MAR still has the same value.
+      r_a, /mem, /wen;
 
       _AUTOINC;			// mem[agl] <- ++DR
       _DESEL, /end;	        // The fetch cycle begins with a memory read.
@@ -1063,7 +1064,7 @@ start INT=1, RST=1, V=X, L=X, OP=INCM, I=1, SKIP=X, INC=0;
 // microinstruction skips and machine code branches.
 
 // TODO: I think r_cs produces 0001 here, not 0000. Check it!
-start INT=1, RST=1, V=X, L=X, OP=OP2, I=X, SKIP=1, INC=X;
+start INT=1, RST=1, V=X, L=X, OP=OP2, I=X, SKIP=0, INC=X;
       _FETCH_IR;
       ifbranch;     // 4. If bit 7: PR <= PC (note: PC <- PC)
       /incpc, if7;		// 5. If branching: branch (if needed)
@@ -1072,7 +1073,7 @@ start INT=1, RST=1, V=X, L=X, OP=OP2, I=X, SKIP=1, INC=X;
       /sti, /end;		// 8. If bit 4: I <= 1
       /end;			// (*)
 
-start INT=1, RST=1, V=X, L=X, OP=OP2, I=X, SKIP=0, INC=X;
+start INT=1, RST=1, V=X, L=X, OP=OP2, I=X, SKIP=1, INC=X;
       _FETCH_IR;
       ifbranch;		        // 4. If bit 7: PR <= PC (note: PC <- PC)
       if7;		        // 5. If branching: branch (if needed)

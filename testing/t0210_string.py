@@ -70,7 +70,7 @@ baddr:  .word start
 """
 
 
-class NullTerminated(testlib.BaseTest):
+class NullTerminated(testlib.testBaseClass):
     def runTest(self):
         """Test null-terminated strings."""
         self.assemble(ASM1)
@@ -79,7 +79,7 @@ class NullTerminated(testlib.BaseTest):
         self.assertEqual(sim, 'Hello, world![ok]', 'Null-terminated string failure.')
 
 
-class NegTerminated(testlib.BaseTest):
+class NegTerminated(testlib.testBaseClass):
     def runTest(self):
         """Test negative-terminated strings."""
         self.assemble(ASM2)

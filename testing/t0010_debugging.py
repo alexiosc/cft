@@ -42,7 +42,7 @@ start:  LOAD datum
 baddr:  .word start
 """
 
-class DebuggingOutput(testlib.BaseTest):
+class DebuggingOutput(testlib.testBaseClass):
     def runTest(self):
         self.assemble(ASM)
         sim = self.simulate()

@@ -34,8 +34,8 @@
   {\tt 1011 I R aaaaaaaaaa (B000) } & {\tt XOR a}    & 7/10/14 & Bitwise exclusive Or. $\aeq\rega \,\mbox{XOR}\, \mem{\val}$ (\cf{sec-xor}) \\
   %
   {\tt 1100 - - 0000000000 (C000) } & {\tt OP1 NOP}  & 11\mkb  & No operation. {\tt OP1} discussion:~\cf{sec-op1} \\
-  {\tt 1100 - - 1--------- (C200) } & {\tt OP1 IFL}  & 11\mkb  & Execute remaining operation only if \Lreg{} set \\
-  {\tt 1100 - - -1-------- (C100) } & {\tt OP1 IFZ}  & 11\mkb  & Execute remaining operations rest only if \Vreg{} set\\
+  {\tt 1100 - - 1--------- (C200) } & {\tt OP1 IFL}  & 11\mkb  & Execute remaining operations only if \Lreg{} set \\
+  {\tt 1100 - - -1-------- (C100) } & {\tt OP1 IFZ}  & 11\mkb  & Execute remaining operations only if \Vreg{} set\\
   {\tt 1100 - - --1------- (C080) } & {\tt OP1 CLA}  & 11\mkb  & Clear \A. $\aeq0$ \cf{sec-cla2} \\
   {\tt 1100 - - ---1------ (C040) } & {\tt OP1 CLL}  & 11\mkb  & Clear \Lreg. $\regl\eq0$ \\
   {\tt 1100 - - ----1----- (C020) } & {\tt OP1 NOT}  & 11\mkb  & Invert/complement \A. $\aeq \,\mbox{NOT}\, \rega$ \\

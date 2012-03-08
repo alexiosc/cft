@@ -96,7 +96,7 @@ class Binary(threading.Thread):
                         data = tt.make_vector(tt.outputs, v_out=v_out, l_out=l_out, x=x)
                         tt.put(addr, data)
         
-                        if debug or op == self.XOR:
+                        if debug:
                             print '%s %05x %d %s (%2d) %s %s (%2d) = %s (%2d) %s%s' % \
                                 (self.opcodes[op],
                                  addr,
@@ -115,6 +115,13 @@ class Binary(threading.Thread):
 
 
 class ShortBinary(Binary):
+    """
+    This ROM is similar to the other two ROMs, except it outputs fewer
+    bits, and the L output is inverted so it can be fed to active-low
+    units. It also has a clock output to latch L and V flags on (this
+    strobes when addition is selected and should be ANDed with
+    something like CLK5.
+    """
     def run(self):
         """
         Run the thread.
@@ -127,7 +134,9 @@ class ShortBinary(Binary):
 
                         l_out = l_in
                         v_out = 0
+                        lvs = 1
                         if op == self.ADD:
+                            lvs = 0
                             x = (l_in & 1) + a + b 
                             l_out = (x >> 4) & 1
 
@@ -151,7 +160,7 @@ class ShortBinary(Binary):
                     
                         # Store it in the Function Table.
                         addr = tt.make_vector(tt.inputs, op=op, l_in=l_in, a=a, b=b)
-                        data = tt.make_vector(tt.outputs, v_out=v_out, l_out=l_out, x=x, pad=0)
+                        data = tt.make_vector(tt.outputs, v_out=v_out, lvs=lvs, l_out=~l_out, x=x, pad=0)
                         tt.put(addr, data)
         
                         if debug:
@@ -163,7 +172,8 @@ class ShortBinary(Binary):
                                  self.syms[op],
                                  romtables.mybin(b, 6), b,
                                  romtables.mybin(x, 6), x,
-                                 "-L"[l_out],
+                                 "S-"[lvs],
+                                 "L-"[l_out],
                                  "-V"[v_out],
                                  )
                         else:
@@ -189,7 +199,7 @@ binaryROM.writeBin('alu-binary-6bit')
 
 print "Generating 4-bit ROM"
 # The short Binary ROM, as per the documentation above.
-shortBinaryROM = romtables.FunctionTable('op:2 l_in a:4 b:4', 'v_out l_out pad:2 x:4', singleROM=True)
+shortBinaryROM = romtables.FunctionTable('op:2 l_in a:4 b:4', 'v_out l_out lvs pad:1 x:4', singleROM=True)
 ShortBinary(shortBinaryROM).run()
 shortBinaryROM.report()
 print 'Writing Verilog files.'
