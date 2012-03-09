@@ -12,7 +12,7 @@ ASMDIR = 	../asm
 ASMINCLUDES = 	$(ASMDIR)/io.asm $(ASMDIR)/debugging.asm $(ASMDIR)/testing.asm 
 SCRIPTDIR = 	scripts
 PRIMITIVEDIR = 	primitives
-TESTFLAGS +=	-t -p $(NAME).pasm -M $(NAME).map
+TESTFLAGS +=	-a v1 -t -p $(NAME).pasm -M $(NAME).map
 #TESTFLAGS +=	--debug-asm
 #TESTFLAGS +=	--debug-microcode
 
@@ -23,23 +23,9 @@ PRIMITIVES = 	$(GEN)primitives.asm
 PRIMTABLE = 	$(GEN)dwtable.asm
 
 SOURCES = \
-	macros.asm \
-	regs.asm \
-	forthregs.asm \
-	$(VECTABLE) \
 	forth.asm \
-	vectable.asm \
-	io.asm \
-	stack.asm \
-	strings.asm \
-	memory.asm \
-	dicts.asm \
-	numbers.asm \
-	math.asm \
-	pager.asm \
 	$(PRIMITIVES) \
-	isr.asm \
-	cpuvec.asm
+	cpuvec.asm \
 
 .PHONY: 	all clean mrproper test
 
@@ -63,7 +49,9 @@ $(VECTABLE):	$(SCRIPTDIR)/mkvectors.py vectable.asm
 
 $(PRIMTABLE) \
 $(PRIMITIVES):	$(SCRIPTDIR)/mkprimitives.py $(PRIMITIVEDIR)/[0-9]*.asm
+		chmod +wr $(PRIMITIVES) || true
 		$^ >$(PRIMITIVES)
+		chmod -w $(PRIMITIVES)
 
 test-%:		test-%.asm $(ASMINCLUDES)
 		$(ASM) $(ASMINCLUDES) --min-addr=$$[0xe000] $@.asm -o $@.bin

@@ -38,7 +38,7 @@ dw_%(label)s_head:
         .word dwn_%(label)-13s ; Pointer to word name (above)
         .word %(link)-17s ; Link to previous dictionary entry
 dw_%(label)s:
-        .word %(handler)-17s ; Code entry point: next instruction
+        %(handler)-17s ; Code entry point: next instruction
 dw_%(label)s_pfa:
 """
 
@@ -50,7 +50,7 @@ dw_%(label)s_head:
         .word dwn_%(label)-13s ; Pointer to word name (above)
         .word %(link)-17s ; Link to previous dictionary entry
 dw_%(label)s:
-        .word %(handler)-17s ; Code entry point: next instruction
+        %(handler)-17s ; Code entry point: next instruction
 dw_%(label)s_pfa:
 """
 
@@ -139,22 +139,27 @@ for source in sys.argv[1:]:
                     
                 alias = alias or name
                 names = names | set([name])
-                if 'FFL_DOCOL' in flags:
-                    handler = 'dw__DOCOL'
-                elif 'FFL_VARIABLE' in flags:
-                    handler = 'dw__VAR'
-                elif copyof:
-                    handler = '@dw_%s+1' % re.sub('[^A-Za-z0-9_]', '_', copyof.upper() or name)
-                else:
-                    handler = '@+1'
+                #label = re.sub('[^A-Za-z0-9_]', '_', alias.upper() or name)
+                label = re.sub('[^A-Za-z0-9_]', '_', alias or name)
 
-                label = re.sub('[^A-Za-z0-9_]', '_', alias.upper() or name)
+                if 'FFL_DOCOL' in flags:
+                    handler = 'CFA_doCOL'
+                elif 'FFL_VARIABLE' in flags:
+                    handler = 'CFA_doVAR'
+                elif copyof:
+                    #handler = '@dw_%s+1' % re.sub('[^A-Za-z0-9_]', '_', copyof.upper() or name)
+                    handler = '@dw_%s' % re.sub('[^A-Za-z0-9_]', '_', copyof or name)
+                else:
+                    #handler = 'JMP dw_%s_pfa' % label
+                    handler = '; None (code word -- fall through)'
+
                 # Start a new dictionary entry
                 if tty:
                     sys.stderr.write("\033[1m%s\033[0m " % name)
                 else:
                     sys.stderr.write("%s " % name)
-                namerep = name.upper().replace('"', '" 34 "')
+                #namerep = name.upper().replace('"', '" 34 "')
+                namerep = name.replace('"', '" 34 "')
                 namerep = re.sub('34 \"$', '34', namerep)
                 nametable.append(NAME % locals())
                 print ENTRY_NAMETABLE.strip('\n') % locals()
