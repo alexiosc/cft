@@ -44,7 +44,10 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-.equ 	MINUS1	R &7F
+.equ    PLUS1   R &7C
+.equ 	MINUS1	R &7D
+.equ 	MINUS2	R &7E
+.equ 	MINUS3	R &7F
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -137,7 +140,7 @@ vec_EXIT:	.word &dead	; Address of EXIT
 //   TMP0 = %stack
 //   L	
 .macro POP0 (stack)
-	DECM (%stack)		; %stack--
+	DECM (%stack)		; POP0(%stack): %stack--
 	STORE TMP0		; Store it elsewhere to avoid autoincrement.
 .end
 
@@ -171,6 +174,25 @@ vec_EXIT:	.word &dead	; Address of EXIT
 .macro SPEEK (stack)
 	LOAD %stack		; Find [%stack-1]
 	ADD MINUS1
+	STORE TMP0		; Store for indirection
+	LOAD I TMP0		; AC <- mem[%stack-1]
+.end
+	
+// Macro: SPEEKn (stack)
+//
+// Load the n-th-from-the-top value of a stack without popping.
+//
+// Warnings:
+//   No checks are performed.
+//   n must be 1, 2 or 3.
+//
+// Side effects:
+//   TMP0 = %stack - n
+//   AC = mem[TMP0]
+//   L	
+.macro SPEEKn (stack, n)
+	LOAD %stack		; Find [%stack-1]
+	ADD MINUS%n
 	STORE TMP0		; Store for indirection
 	LOAD I TMP0		; AC <- mem[%stack-1]
 .end
@@ -212,6 +234,122 @@ vec_EXIT:	.word &dead	; Address of EXIT
 .macro SPOKE0 (stack)
 	STORE I TMP0		; mem[%stack-1] <- AC
 .end
+
+	
+// Macro: SPOKEn (stack, n)
+//
+// Directly modify the top value of a stack.
+//
+// Warnings:
+//   No checks are performed.
+//   n must be 1, 2, or 3.
+//
+// Side effects:
+//   TMP0 = %stack - 1
+//   mem[TMP0] = AC
+//   TMP1 = AC
+//   L	
+.macro SPOKEn (stack, n)
+	STORE TMP1		; Keep a copy of AC
+	LOAD %stack		; Find [%stack-1]
+	ADD MINUS%n
+	STORE TMP0		; Store for indirection
+	LOAD TMP1		; Get initial AC again
+	STORE I TMP0		; mem[%stack-1] <- AC
+.end
+
+	
+// Macro: POP1PEEK1 (stack)
+//
+// Prepare for a Forth binary op. The op would pop two values, operate
+// on them, and push the result at the end. Instead, we pop one value,
+// and peek the other one. The TOP of the stack is returned in AC. The
+// second top-most value (first pushed) is in TMP1. TMP0 points to the
+// now-topmost value of the stack.
+//
+// Warnings:
+//   No checks are performed.
+//   This must be used in conjunction with POKE0().
+//
+// Side effects:
+//   TMP0 = %stack - 1
+//   AC = first pop() (actually the peek)
+//   TMP1 = second pop()
+//   L
+.macro POP1PEEK1 (stack)
+	LOAD %stack		; POP1PEEK1(%stack)
+	ADD MINUS2
+	STORE %stack		; %stack <- %stack - 2
+	STORE TMP0		; TMP0 <- %stack
+
+	LOAD I %stack		; second item (autoincrement)
+	STORE TMP1
+	LOAD I TMP0		; first item (no autoincrement)
+.end
+
+	
+
+// Macro: POP2 (stack)
+//
+// Prepare for a Forth binary op. The op would pop two values and push
+// nothing. The first value is in AC, the second in TMP0.
+//
+// Warnings:
+//   No checks are performed.
+//
+// Side effects:
+//   TMP0 = %stack - 1
+//   TMP2 = %stack - 2
+//   AC = first pop()
+//   TMP1 = second pop()
+//   L
+.macro POP2 (stack)
+	LOAD %stack		; POP1PEEK1(%stack)
+	ADD MINUS1
+	STORE TMP0		; TMP0 <- %stack-1
+
+	ADD MINUS1
+	STORE TMP2		; TMP2 <- %stack-1
+	STORE %stack
+
+	LOAD I TMP0
+	STORE TMP1
+
+	LOAD I TMP2
+.end
+
+	
+
+// Macro: POP2r (stack)
+//
+// Prepare for a Forth binary op. The op would pop two values and push
+// nothing. The first value is in TMP0, the second in AC. Useful for
+// indirection in Forth ( w a -- ) words.
+//
+// Warnings:
+//   No checks are performed.
+//
+// Side effects:
+//   TMP0 = %stack - 1
+//   TMP2 = %stack - 2
+//   TMP1 = first pop()
+//   AC = second pop()
+//   L
+.macro POP2r (stack)
+	LOAD %stack		; POP2(%stack)
+	ADD MINUS1
+	STORE TMP0		; TMP0 <- %stack-1
+
+	ADD MINUS1
+	STORE TMP2		; TMP2 <- %stack-1
+	STORE %stack
+
+	LOAD I TMP2
+	STORE TMP1
+
+	LOAD I TMP0
+.end
+
 	
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -228,11 +366,6 @@ vec_EXIT:	.word &dead	; Address of EXIT
 &e000:
 cold:
 	JSR init_constants
-
-	LOAD RP
-	PRINTH
-	LOAD SP
-	PRINTH
 
 	// IP sentinel/parachute/trampoline
 	LIA done
@@ -266,7 +399,13 @@ init_constants:
 	STORE I0
 
 	LOAD I I0
+	STORE PLUS1
+	LOAD I I0
 	STORE MINUS1
+	LOAD I I0
+	STORE MINUS2
+	LOAD I I0
+	STORE MINUS3
 	LOAD I I0
 	STORE SP
 	LOAD I I0
@@ -284,7 +423,10 @@ init_vector_loop:
 	JMP init_vector_loop	; Again.
 
 _init_table:
+	.word &0001	        ; PLUS1
 	.word &ffff	        ; MINUS1
+	.word &fffe	        ; MINUS2
+	.word &fffd	        ; MINUS3
 	.word &0400	        ; Initial data stack addr
 	.word &0500	        ; Initial return stack addr
 
@@ -341,6 +483,15 @@ _doCOL:
 	LOAD R 0		; Load the return address (PC+1 before JSR, i.e. the PFA)
 	STORE IP		; Save it as the new IP
 	MACRO_NEXT()
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// I/O SUBROUTINES
+//
+///////////////////////////////////////////////////////////////////////////////
+
+// TODO
 
 
 // According to http://www.offete.com/files/zeneForth.htm, the eForth

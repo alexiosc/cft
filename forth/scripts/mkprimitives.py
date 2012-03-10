@@ -32,7 +32,7 @@ NEWFILE = """
 ENTRY_LOCALNAME = """
         ;;   word %(name)s defined in %(source)s:%(linenum)d.
 //dwn_%(label)s:
-//        .strn "%(namerep)s"
+//        .strp "%(namerep)s"
 dw_%(label)s_head:
         .word %(flags)-17s ; Flags
         .word dwn_%(label)-13s ; Pointer to word name (above)
@@ -45,6 +45,8 @@ dw_%(label)s_pfa:
 
 ENTRY_NAMETABLE = """
         ;;   word %(name)s defined in %(source)s:%(linenum)d.
+//dwn_%(label)s:
+//        .strp "%(namerep)s"
 dw_%(label)s_head:
         .word %(flags)-17s ; Flags
         .word dwn_%(label)-13s ; Pointer to word name (above)
@@ -55,9 +57,8 @@ dw_%(label)s_pfa:
 """
 
 
-NAME = """dwn_%(label)s:\n\t\t.strn "%(namerep)s"
+NAME = """dwn_%(label)s:\n\t\t.strp "%(namerep)s"
 """
-
 
 FOOTER = """
 .equ __lastromlink %(link)s
@@ -148,7 +149,7 @@ for source in sys.argv[1:]:
                     handler = 'CFA_doVAR'
                 elif copyof:
                     #handler = '@dw_%s+1' % re.sub('[^A-Za-z0-9_]', '_', copyof.upper() or name)
-                    handler = '@dw_%s' % re.sub('[^A-Za-z0-9_]', '_', copyof or name)
+                    handler = 'JMP dw_%s' % re.sub('[^A-Za-z0-9_]', '_', copyof or name)
                 else:
                     #handler = 'JMP dw_%s_pfa' % label
                     handler = '; None (code word -- fall through)'

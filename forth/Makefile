@@ -2,6 +2,7 @@
 
 # This won't work with dash (/bin/sh on many Debianoids)
 SHELL = 	/bin/bash
+VIEWER =	display
 
 NAME = 		forth
 ROMSIZE = 	8192
@@ -43,6 +44,9 @@ mrproper:	clean
 
 test:		$(NAME).bin $(EMU)
 		$(EMU) $(TESTFLAGS) -vv --image-start=$$[0xe000] $(NAME)-rom.bin;
+
+view:		$(NAME).bin
+		$(VIEWER) $(NAME).xpm
 
 $(VECTABLE):	$(SCRIPTDIR)/mkvectors.py vectable.asm
 		$^ >$@
