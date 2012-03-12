@@ -14,14 +14,17 @@ HEADER = """
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-	;; System vector and trap table
+;; System vector and trap table
 
-&0100:
-vector_table:
 """
 
+CONSTHEAD = """
+;; Constant definitions
+"""
+
+
 EQUHEAD = """
-	;; Trap definitions for convenience
+;; Vector definitions for convenience
 """
 
 
@@ -30,23 +33,38 @@ FOOTER = """
 """
 
 
-PAT = r'\.word\s+_rom_(\w+)\s+;\s*(.+)\n'
+PATv = r'\.word\s+(\w+)\s+; vector: \s*(.+)\n'
+PATc = r'\.word\s+(.+)\s+; const: \s*(.+)\n'
 
 vectors = list()
+const = list()
 for source in sys.argv[1:]:
-    for vector in re.findall(PAT, open(source).read()):
+    data = open(source).read()
+    for vector in re.findall(PATv, data):
         vectors.append(vector)
+    for c in re.findall(PATc, data):
+        const.append(c)
 
 print HEADER
 
 for name, comment in vectors:
     name = 'v_' + name + ':'
-    print "%-15s .word  &beef ; %s" % (name, comment)
+    print "%-20s .word  &beef ; %s" % (name, comment)
+
+print CONSTHEAD
+
+for i, (name, comment) in enumerate(const):
+    equ = comment
+    print ".equ\t%-12s R @_const_table+%d" % (equ, i)
 
 print EQUHEAD
 
 for name, comment in vectors:
-    print "        .equ T_%-12s I R v_%s" % (name.upper(), name)
+    equ = name
+    #equ = name.replace('_trap', '')
+    equ = 'vec_' + equ
+    equ = equ.replace('vec__', 'vec_')
+    print ".equ\t%-20s I R v_%s" % (equ, name)
 
 print FOOTER.rstrip()
 

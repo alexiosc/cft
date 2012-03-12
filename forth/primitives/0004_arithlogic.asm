@@ -71,4 +71,71 @@
 	NEXT
 	
 	
+	;; word:  2+
+	;; alias: inc2
+	;; flags: FFL_PRIMITIVE ROM
+	;; notes: 2+ ( w -- w )
+	;;   Increment by two
+	SPEEK (SP)
+	ADD PLUS2
+	SPOKE0 (SP)
+	NEXT
+	
+	
+	;; word:  1-
+	;; alias: dec
+	;; flags: FFL_PRIMITIVE ROM
+	;; notes: 1- ( w -- w )
+	;;   Decrement by one
+	SPEEK (SP)
+	ADD MINUS1
+	SPOKE0 (SP)
+	NEXT
+	
+	
+	;; word:  2-
+	;; alias: dec2
+	;; flags: FFL_PRIMITIVE ROM
+	;; notes: 2- ( w -- w )
+	;;   Decrement by two
+	SPEEK (SP)
+	ADD MINUS2
+	SPOKE0 (SP)
+	NEXT
+	
+	
+	;; word:  2/
+	;; alias: 2div
+	;; flags: FFL_PRIMITIVE ROM
+	;; notes: 2/ ( w -- w )
+	;;   Shift right one bit.
+	SPEEK (SP)
+	SBR
+	SPOKE0 (SP)
+	NEXT
+	
+	
+	;; word:  NOT
+	;; flags: FFL_PRIMITIVE ROM
+	;; notes: NOT ( w -- w )
+	;;   Flip all bits in w, or negate in one's complement.
+	SPEEK (SP)
+	NOT
+	SPOKE0 (SP)
+	NEXT
+	
+	
+
+	;; word:  ABS
+	;; flags: FFL_PRIMITIVE ROM
+	;; notes: ABS ( w -- w )
+	;;   The absolute value of w
+	SPEEK (SP)
+	SNA			; Negative?
+	NEXT			; No.
+	NEG			; Negate it
+	SPOKE0 (SP)		; And store it back
+	NEXT
+	
+	
 // End of file.

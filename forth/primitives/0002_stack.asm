@@ -98,6 +98,15 @@
 	
 
 
+	;; word:  2DROP
+	;; flags: FFL_PRIMITIVE ROM
+	;; notes: 2DROP ( w1 w2 -- )
+	;;   Discard two items from the data stack.
+	DECMn (SP,2)
+	NEXT
+	
+
+
 	;; word:  DUP
 	;; flags: FFL_PRIMITIVE ROM
 	;; notes: DUP ( w -- w w )
@@ -138,6 +147,103 @@
 	SPEEKn (SP,2)		; Get item 2 on the data stack
 	PUSH (SP)		; And push it.
 	NEXT
+
+
+
+	;; word:  ?DUP
+	;; alias: if-dup
+	;; flags: FFL_PRIMITIVE ROM
+	;; notes: ?DUP ( w -- w w | 0 )
+	;;   If w is non-zero, duplicate it.
+	SPEEK (SP)		; Get top item of stack
+	SZA			; Zero?
+	NEXT			; No. Bail out.
+	PUSH (SP)		; Yes. Push w.
+	NEXT
+
+
+
+	;; word:  ROT
+	;; flags: FFL_PRIMITIVE ROM
+	;; notes: ROT ( w1 w2 w3 -- w2 w3 w1 )
+	;;   If w is non-zero, duplicate it.
+	LOAD SP			; SP -= 3
+	ADD MINUS3
+	STORE SP
+	STORE TMP0
+
+	LOAD I SP		; Peek at the three top values and store them.
+	STORE TMP1
+	LOAD I SP
+	STORE TMP2
+	LOAD I SP
+	STORE TMP3
+
+	LOAD SP			; SP -= 3
+	ADD MINUS3
+	STORE SP
+
+	LOAD TMP2		; [SP++] = w2
+	STORE I SP
+	LOAD TMP3		; [SP++] = w3
+	STORE I SP
+	LOAD TMP1		; [SP++] = w1
+	STORE I SP
+
+	NEXT
+
+	
+	;; word:  2DUP
+	;; flags: FFL_PRIMITIVE ROM
+	;; notes: 2DUP ( w1 w2 -- w1 w2 w1 w2 )
+	;;   Duplicate pair-wise the two top items on the stack.
+
+	LOAD SP			; SP -= 3
+	ADD MINUS2
+	STORE SP
+	STORE TMP0
+
+	LOAD I SP		; Peek at the two top values and store them.
+	STORE TMP1
+	LOAD I SP
+	STORE TMP2
+
+	LOAD TMP1
+	PUSH (SP)
+	LOAD TMP2
+	PUSH (SP)
+
+	NEXT
+
+	
+
+	;; word:  DEPTH
+	;; flags: FFL_PRIMITIVE ROM
+	;; notes: DEPTH ( -- n )
+	;;   Returns the number of elements on the stack (before
+	;;   execution of DEPTH).
+
+	LOAD SP0		; Bottom of stack
+	NEG
+	ADD SP			; Top - bottom
+	PUSH (SP)
+	
+
+	
+	;; word:  PICK
+	;; flags: FFL_PRIMITIVE ROM
+	;; notes: PICK ( +n -- w )
+	;;   Returns the nth-from-the top element on the stack. 0 PICK
+	;;   returns the top element.
+
+	SPEEK (SP)
+	INC
+	NOT
+	ADD SP
+	STORE TMP1		; TMP1 <- SP - (n + 1)
+	LOAD I TMP1
+	SPOKE (SP)
+
 
 
 // End of file.

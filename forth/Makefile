@@ -2,7 +2,7 @@
 
 # This won't work with dash (/bin/sh on many Debianoids)
 SHELL = 	/bin/bash
-VIEWER =	display
+VIEWER =	gwenview
 
 NAME = 		forth
 ROMSIZE = 	8192
@@ -19,21 +19,18 @@ TESTFLAGS +=	-a v1 -t -p $(NAME).pasm -M $(NAME).map
 
 GEN =		_generated_
 
-VECTABLE =	$(GEN)vectable.asm
+TABLES =	$(GEN)tables.asm
 PRIMITIVES = 	$(GEN)primitives.asm
 PRIMTABLE = 	$(GEN)dwtable.asm
 
-SOURCES = \
-	forth.asm \
-	$(PRIMITIVES) \
-	cpuvec.asm \
+SOURCES = $(glob *asm) $(PRIMITIVES) $(TABLES)
 
 .PHONY: 	all clean mrproper test
 
 all:		$(NAME).bin
 
 $(NAME).bin:	$(SOURCES) $(ASMINCLUDES) $(ASM)
-		$(ASM) $(ASMINCLUDES) $(SOURCES) $(ASMFLAGS) --min-addr=$$[0xe000]
+		$(ASM) $(NAME).asm $(ASMFLAGS) --min-addr=$$[0xe000]
 #		@rm $(NAME)-[0-9][0-9].list || true
 
 clean:
@@ -48,12 +45,14 @@ test:		$(NAME).bin $(EMU)
 view:		$(NAME).bin
 		$(VIEWER) $(NAME).xpm
 
-$(VECTABLE):	$(SCRIPTDIR)/mkvectors.py vectable.asm
+$(TABLES):	$(SCRIPTDIR)/mkvectors.py tables.asm
+		[ -e $(TABLES) ] && chmod +wr $(TABLES) || true
 		$^ >$@
+		chmod -w $(TABLES)
 
 $(PRIMTABLE) \
 $(PRIMITIVES):	$(SCRIPTDIR)/mkprimitives.py $(PRIMITIVEDIR)/[0-9]*.asm
-		chmod +wr $(PRIMITIVES) || true
+		[ -e $(PRIMITIVES) ] && chmod +wr $(PRIMITIVES) || true
 		$^ >$(PRIMITIVES)
 		chmod -w $(PRIMITIVES)
 

@@ -1,5 +1,10 @@
 // -*- asm -*-
 
+// The very basics
+.include "../asm/io.asm"
+.include "../asm/debugging.asm"
+.include "../asm/testing.asm"
+
 ///////////////////////////////////////////////////////////////////////////////
 //
 // CONFIGURATION
@@ -15,28 +20,19 @@
 //.equ    SPP     @TIBB-8		; Start of user stack
 //.equ    UPP     @EM-256		; Start of user area
 //.equ    NAMEE   @EM-256		; Start of user area
-	
 
-///////////////////////////////////////////////////////////////////////////////
-//
-// GENERIC REGISTERS
-//
-///////////////////////////////////////////////////////////////////////////////
 
-.equ	R0	R &000
-.equ	R1	R &001
-.equ	R2	R &002
-.equ	R3	R &003
+// Allocate general registers in page zero, between &00-%30 and
+// &80-&90 (auto-increment).
+.include "registers.asm"
 
-.equ    I0      R &080
-.equ    I1      R &081
-.equ    I2      R &082
-.equ    I3      R &083
+// Macros. We love'em.
+.include "macro_generic.asm"
+.include "macro_stack.asm"
 
-.equ    TMP3    R &00c
-.equ    TMP2    R &00d
-.equ	TMP1	R &00e
-.equ	TMP0	R &00f
+// OS services
+.include "trap_strings.asm"
+.include "trap_memory.asm"
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -44,10 +40,9 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-.equ    PLUS1   R &7C
-.equ 	MINUS1	R &7D
-.equ 	MINUS2	R &7E
-.equ 	MINUS3	R &7F
+// Base address of the constant table (which is added
+// automatically). Look in _generated_tables.asm.
+.equ _const_table &1e0
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -57,12 +52,18 @@
 
 // These are initialised at boot time to point to useful routines.
 
-&0200:
+&0200:				; Provisional address
 _vector_table:
-vec_NEXT:	.word &dead	; Address of NEXT
-vec_doLIST:	.word &dead	; Address of doLIST
-vec_doCOL:	.word &dead	; Address of doCOL
-vec_EXIT:	.word &dead	; Address of EXIT
+
+	// The constant, vector, etc tables
+	.include "_generated_tables.asm"
+	
+
+	
+//vec_NEXT:	.word &dead	; Address of NEXT
+//vec_doLIST:	.word &dead	; Address of doLIST
+//vec_doCOL:	.word &dead	; Address of doCOL
+//vec_EXIT:	.word &dead	; Address of EXIT
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -78,279 +79,48 @@ vec_EXIT:	.word &dead	; Address of EXIT
 //
 ///////////////////////////////////////////////////////////////////////////////
 
+// Note: these must be updated on context switches.
+
 .equ	IP0	R &090
 .equ    SP0     R &091
 .equ    RP0     R &092
-.equ    UP0     R &010
+.equ    CP0     R &093
 
-.equ 	IP 	IP0
-.equ 	SP 	SP0
-.equ 	RP 	RP0
+.equ    UP0     R &030
 
-.equ    UP      UP0
+// These registers form the user context (machine regs + user variables)
 
+.equ 	IP 	R IP0
+.equ 	SP 	R SP0
+.equ 	RP 	R RP0
+.equ 	CP 	R CP0
 
-///////////////////////////////////////////////////////////////////////////////
-//
-// GENERIC MACROS
-//
-///////////////////////////////////////////////////////////////////////////////
-
-// Macro: DECM (addr)
-//
-// Decrement the value at addr by one.
-//
-// Side effects:
-//   mem[addr]--
-//   AC = mem[addr]
-//   L
-.macro DECM (addr)
-	LOAD %addr
-	ADD MINUS1
-	STORE %addr
-.end
-
-///////////////////////////////////////////////////////////////////////////////
-//
-// STACK MACROS
-//
-///////////////////////////////////////////////////////////////////////////////
-
-// Please note: CFT stacks grow upwards.
-
-// Macro: PUSH(stack)
-//
-// Stack must be an autoincrement location.
-// Push AC onto the stack pointed to by stack. No checks are
-// performed.
-
-.macro PUSH (stack)
-	STORE I %stack		; mem[%stack++] <- AC
-.end
-
-// Macro: POP0 (stack)
-//
-// Decrement a stack pointer. Save a the location of the top item in TMP0.
-//
-// Warnings:
-//   No checks are performed.
-//
-// Side effects:
-//   %stack--
-//   TMP0 = %stack
-//   L	
-.macro POP0 (stack)
-	DECM (%stack)		; POP0(%stack): %stack--
-	STORE TMP0		; Store it elsewhere to avoid autoincrement.
-.end
-
-// Macro: POP (stack)
-//
-// Pop a value from a stack. Return it in AC.
-//
-// Warnings:
-//   No checks are performed.
-//
-// Side effects:
-//   %stack--
-//   TMP0 = %stack
-//   AC = mem[TMP0]
-.macro POP (stack)
-	POP0 (%stack)
-	LOAD I TMP0		; And load value from stack
-.end
-
-// Macro: SPEEK (stack)
-//
-// Load the top value of a stack without popping.
-//
-// Warnings:
-//   No checks are performed.
-//
-// Side effects:
-//   TMP0 = %stack - 1
-//   AC = mem[TMP0]
-//   L	
-.macro SPEEK (stack)
-	LOAD %stack		; Find [%stack-1]
-	ADD MINUS1
-	STORE TMP0		; Store for indirection
-	LOAD I TMP0		; AC <- mem[%stack-1]
-.end
+// The user area pointer. Note: because we make heavy use of page
+// zero, values from the UA are copied to P0 registers for faster
+// use.
 	
-// Macro: SPEEKn (stack)
-//
-// Load the n-th-from-the-top value of a stack without popping.
-//
-// Warnings:
-//   No checks are performed.
-//   n must be 1, 2 or 3.
-//
-// Side effects:
-//   TMP0 = %stack - n
-//   AC = mem[TMP0]
-//   L	
-.macro SPEEKn (stack, n)
-	LOAD %stack		; Find [%stack-1]
-	ADD MINUS%n
-	STORE TMP0		; Store for indirection
-	LOAD I TMP0		; AC <- mem[%stack-1]
-.end
+&0300:				; Provisional address
+USP0:	 .word	&beef			; User SP0
+URP0:	 .word	&beef			; User RP0
+UNP:	 .word	&beef			; User NP (start of user dictionary)
+UCP:	 .word	&beef			; User CP (first free word of user dictionary)
+UBASE:	 .word	&beef			; User BASE
 	
-// Macro: SPOKE (stack)
-//
-// Directly modify the top value of a stack.
-//
-// Warnings:
-//   No checks are performed.
-//
-// Side effects:
-//   TMP0 = %stack - 1
-//   mem[TMP0] = AC
-//   TMP1 = AC
-//   L	
-.macro SPOKE (stack)
-	STORE TMP1		; Keep a copy of AC
-	LOAD %stack		; Find [%stack-1]
-	ADD MINUS1
-	STORE TMP0		; Store for indirection
-	LOAD TMP1		; Get initial AC again
-	STORE I TMP0		; mem[%stack-1] <- AC
-.end
-
-// Macro: SPOKE0 (stack)
-//
-// Directly modify the top value of a stack.
-//
-// Preconditions:
-//
-//   MUST come after SPEEK(stack) and TMP0 MUST NOT be modified.
-//
-// Warnings:
-//   No checks are performed.
-//
-// Side effects:
-//   mem[TMP0] = AC
-.macro SPOKE0 (stack)
-	STORE I TMP0		; mem[%stack-1] <- AC
-.end
-
+UTKEY:	 .word	&beef			; User '?KEY (input source)
+UTEMIT:	 .word	&beef			; User 'EMIT (output destination)
+UTMP:	 .word	&beef			; User tmp
+UINBUF:	 .word	&beef			; User inbuf
+UTIB:	 .word	&beef			; User TIB
+UCTX:	 .word	&beef			; User context pointer (vocab search order)
+UCUR:	 .word	&beef			; User CURRENT
 	
-// Macro: SPOKEn (stack, n)
-//
-// Directly modify the top value of a stack.
-//
-// Warnings:
-//   No checks are performed.
-//   n must be 1, 2, or 3.
-//
-// Side effects:
-//   TMP0 = %stack - 1
-//   mem[TMP0] = AC
-//   TMP1 = AC
-//   L	
-.macro SPOKEn (stack, n)
-	STORE TMP1		; Keep a copy of AC
-	LOAD %stack		; Find [%stack-1]
-	ADD MINUS%n
-	STORE TMP0		; Store for indirection
-	LOAD TMP1		; Get initial AC again
-	STORE I TMP0		; mem[%stack-1] <- AC
-.end
+UTEXP:	 .word	&beef			; User 'EXPECT (lexer)
+UTOK:	 .word	&beef			; User 'PROMPT
 
-	
-// Macro: POP1PEEK1 (stack)
-//
-// Prepare for a Forth binary op. The op would pop two values, operate
-// on them, and push the result at the end. Instead, we pop one value,
-// and peek the other one. The TOP of the stack is returned in AC. The
-// second top-most value (first pushed) is in TMP1. TMP0 points to the
-// now-topmost value of the stack.
-//
-// Warnings:
-//   No checks are performed.
-//   This must be used in conjunction with POKE0().
-//
-// Side effects:
-//   TMP0 = %stack - 1
-//   AC = first pop() (actually the peek)
-//   TMP1 = second pop()
-//   L
-.macro POP1PEEK1 (stack)
-	LOAD %stack		; POP1PEEK1(%stack)
-	ADD MINUS2
-	STORE %stack		; %stack <- %stack - 2
-	STORE TMP0		; TMP0 <- %stack
+.equ    UP      R UP0
+.equ    NP      R UNP
+.equ    BASE    R UBASE
 
-	LOAD I %stack		; second item (autoincrement)
-	STORE TMP1
-	LOAD I TMP0		; first item (no autoincrement)
-.end
-
-	
-
-// Macro: POP2 (stack)
-//
-// Prepare for a Forth binary op. The op would pop two values and push
-// nothing. The first value is in AC, the second in TMP0.
-//
-// Warnings:
-//   No checks are performed.
-//
-// Side effects:
-//   TMP0 = %stack - 1
-//   TMP2 = %stack - 2
-//   AC = first pop()
-//   TMP1 = second pop()
-//   L
-.macro POP2 (stack)
-	LOAD %stack		; POP1PEEK1(%stack)
-	ADD MINUS1
-	STORE TMP0		; TMP0 <- %stack-1
-
-	ADD MINUS1
-	STORE TMP2		; TMP2 <- %stack-1
-	STORE %stack
-
-	LOAD I TMP0
-	STORE TMP1
-
-	LOAD I TMP2
-.end
-
-	
-
-// Macro: POP2r (stack)
-//
-// Prepare for a Forth binary op. The op would pop two values and push
-// nothing. The first value is in TMP0, the second in AC. Useful for
-// indirection in Forth ( w a -- ) words.
-//
-// Warnings:
-//   No checks are performed.
-//
-// Side effects:
-//   TMP0 = %stack - 1
-//   TMP2 = %stack - 2
-//   TMP1 = first pop()
-//   AC = second pop()
-//   L
-.macro POP2r (stack)
-	LOAD %stack		; POP2(%stack)
-	ADD MINUS1
-	STORE TMP0		; TMP0 <- %stack-1
-
-	ADD MINUS1
-	STORE TMP2		; TMP2 <- %stack-1
-	STORE %stack
-
-	LOAD I TMP2
-	STORE TMP1
-
-	LOAD I TMP0
-.end
-
-	
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -359,13 +129,16 @@ vec_EXIT:	.word &dead	; Address of EXIT
 ///////////////////////////////////////////////////////////////////////////////
 
 
+// Local assembly macros
+.equ DEC 	ADD MINUS1
+
 // CFT Code Fields are jump instructions
 .equ CFA_doLIST JMP I R vec_doLIST
-.equ CFA_doCOL JSR I R vec_doCOL
+.equ CFA_doCOL 	JSR I R vec_doCOL
 	
 &e000:
 cold:
-	JSR init_constants
+	JSR init_tables
 
 	// IP sentinel/parachute/trampoline
 	LIA done
@@ -381,62 +154,12 @@ done:
 	HALT
 
 _test:
-	.word dw_TEST_pfa
+	.word dw_COLD_pfa
 
 
-///////////////////////////////////////////////////////////////////////////////
-//
-// INITIALISATION SUBROUTINE
-//
-///////////////////////////////////////////////////////////////////////////////
+// Include the table initialisation code
+.include "tables.asm"
 
-// Initialises constants etc.
-init_constants:
-	//LIA _init_table
-	//STORE I0
-
-	LIA _init_table
-	STORE I0
-
-	LOAD I I0
-	STORE PLUS1
-	LOAD I I0
-	STORE MINUS1
-	LOAD I I0
-	STORE MINUS2
-	LOAD I I0
-	STORE MINUS3
-	LOAD I I0
-	STORE SP
-	LOAD I I0
-	STORE RP
-
-	// The rest initialises the vector table
-	LIA R _vector_table	; Equivalent to LI, but LIA for clarity
-	STORE I1
-	
-init_vector_loop:
-	LOAD I I0		; Autoindex
-	SNZ			; If AC==0:
-	RET
-	STORE I I1		; Also autoindex
-	JMP init_vector_loop	; Again.
-
-_init_table:
-	.word &0001	        ; PLUS1
-	.word &ffff	        ; MINUS1
-	.word &fffe	        ; MINUS2
-	.word &fffd	        ; MINUS3
-	.word &0400	        ; Initial data stack addr
-	.word &0500	        ; Initial return stack addr
-
-	;; Vector table values
-	.word _NEXT		; NEXT vector
-	.word _doLIST		; doLIST vector
-	.word _doCOL		; doCOL vector
-	.word _EXIT		; EXIT vector
-	
-	.word 0			; End.
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -485,42 +208,6 @@ _doCOL:
 	MACRO_NEXT()
 
 
-///////////////////////////////////////////////////////////////////////////////
-//
-// I/O SUBROUTINES
-//
-///////////////////////////////////////////////////////////////////////////////
-
-// TODO
-
-
-// According to http://www.offete.com/files/zeneForth.htm, the eForth
-// kernel makes do with 32 primitives:
-//
-// . BYE (we don't need this, there's nothing outside of the Forth system)
-// . ?rx (console input)
-// . tx! (console output)
-// . !io (serial I/O init)
-//
-// . doLIT (execute literal)
-// * doLIST (execute address list)
-// * next (step IP)
-// . ?branch (branch if zero)
-// . branch (always branch)
-// . EXECUTE (execute word)
-// * EXIT (end execution of colon definition)
-// . ! (store to memory)
-// . @ (load from memory)
-// [ C! (can't implement) ]
-// [ C@ (can't implement) ]
-//
-// RP@, RP!, R>, R@, >R
-//
-// SP@, SP!, DROP, DUP, SWAP, OVER
-//
-// 0<, AND, OR, XOR, UM+
-//
-// Of these, many are superfluous if we have an assembler.
 	
 	.equ FFL_IMMEDIATE &0001 ; Immediate word.
 	.equ FFL_CMPLONLY  &0002 ; Only used while compiling.
@@ -532,5 +219,35 @@ _doCOL:
 	.equ FFL_DOCOL     &2000 ; It's a colon definition.
 	.equ FFL_VARIABLE  &4000 ; It's a variable definition.
 	.equ FFL_CFT       &8000 ; CFT-specific primitive.
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// FORTH DICTIONARY
+//
+///////////////////////////////////////////////////////////////////////////////
+
+.include "_generated_primitives.asm"
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// THE PROCESSOR VECTORS
+//
+///////////////////////////////////////////////////////////////////////////////
+
+	;; Reset vector
+&fff0:
+__bootvec:
+	JMP I @+1
+	.word cold
+
+	;; ISR vector
+&fff8:
+__isrvec:
+	FAIL
+	HALT
+	//JMP I @+1
+	//.word isr
 
 // End of file.
