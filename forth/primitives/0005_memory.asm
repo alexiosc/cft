@@ -14,7 +14,7 @@
 	;; flags: FFL_PRIMITIVE ROM
 	;; notes: ! ( w a -- )
 	;;   Store w at address a.
-	POP2r (SP)		; w in AC, a in TMP1
+	POP2 (SP)		; w in AC, a in TMP1
 	STORE I TMP1
 	NEXT
 
@@ -50,7 +50,6 @@
 	ADD I TMP1		; AC <- AC + mem[w]
 	STORE I TMP1		; mem[w] <- AC
 	NEXT
-
 
 
 // End of file.

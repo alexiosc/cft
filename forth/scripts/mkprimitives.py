@@ -32,7 +32,7 @@ NEWFILE = """
 ENTRY_LOCALNAME = """
         ;;   word %(name)s defined in %(source)s:%(linenum)d.
 //dwn_%(label)s:
-//        .strp "%(namerep)s"
+//        .strp "%(namerep)s" 0
 dw_%(label)s_head:
         .word %(flags)-17s ; Flags
         .word dwn_%(label)-13s ; Pointer to word name (above)
@@ -46,7 +46,7 @@ dw_%(label)s_pfa:
 ENTRY_NAMETABLE = """
         ;;   word %(name)s defined in %(source)s:%(linenum)d.
 //dwn_%(label)s:
-//        .strp "%(namerep)s"
+//        .strp "%(namerep)s" 0
 dw_%(label)s_head:
         .word %(flags)-17s ; Flags
         .word dwn_%(label)-13s ; Pointer to word name (above)
@@ -57,7 +57,7 @@ dw_%(label)s_pfa:
 """
 
 
-NAME = """dwn_%(label)s:\n\t\t.strp "%(namerep)s"
+NAME = """dwn_%(label)s:\n\t\t.strp "%(namerep)s" 0
 """
 
 FOOTER = """
@@ -98,6 +98,7 @@ primnum = 0
 name, flags = None, -1
 handler = '@+1'
 names = set([])
+aliases = set([])
 nametable = list()
 print HEADER
 
@@ -107,14 +108,19 @@ def fail(msg, locals):
 
 
 vectable = []
+numfiles = 0
+numwords = 0
+numcopies = 0
 for source in sys.argv[1:]:
     print NEWFILE % locals()
     sys.stderr.write('(%s) ' % source)
+    numfiles += 1
     for i, line in enumerate(open(source)):
         linenum = i + 1
         print line.rstrip()
         x = re.findall(';+\s*word:\s*(\S+)', line)
         if x:
+            numwords += 1
             name = x[0]
             alias = None
             copyof = None
@@ -133,6 +139,8 @@ for source in sys.argv[1:]:
             if name:
                 if name in names:
                     fail("Primitive '%(name)s' already defined.", locals())
+                if alias in aliases:
+                    fail("Primitive alias '%(alias)s' already defined.", locals())
                 if re.match('[^A-Za-z0-9_-]', name) and not alias:
                     fail("Name '%(name)s' needs an alias.", locals())
                 if alias and re.match('[^A-Za-z0-9_-]', alias):
@@ -140,6 +148,7 @@ for source in sys.argv[1:]:
                     
                 alias = alias or name
                 names = names | set([name])
+                aliases = aliases | set([alias])
                 #label = re.sub('[^A-Za-z0-9_]', '_', alias.upper() or name)
                 label = re.sub('[^A-Za-z0-9_]', '_', alias or name)
 
@@ -150,6 +159,7 @@ for source in sys.argv[1:]:
                 elif copyof:
                     #handler = '@dw_%s+1' % re.sub('[^A-Za-z0-9_]', '_', copyof.upper() or name)
                     handler = 'JMP dw_%s' % re.sub('[^A-Za-z0-9_]', '_', copyof or name)
+                    numcopies += 1
                 else:
                     #handler = 'JMP dw_%s_pfa' % label
                     handler = '; None (code word -- fall through)'
@@ -162,6 +172,7 @@ for source in sys.argv[1:]:
                 #namerep = name.upper().replace('"', '" 34 "')
                 namerep = name.replace('"', '" 34 "')
                 namerep = re.sub('34 \"$', '34', namerep)
+                namerep = namerep.upper()
                 nametable.append(NAME % locals())
                 print ENTRY_NAMETABLE.strip('\n') % locals()
                 link = 'dw_%(label)s_head' % locals()
@@ -173,6 +184,11 @@ print FOOTER.rstrip() % locals()
 
 # Output all the strings together.
 print ''.join(nametable)
+sys.stderr.write('\nOutput:\n')
+sys.stderr.write('  Source files parsed: %5d\n' % numfiles)
+sys.stderr.write('  Words parsed:        %5d\n' % numwords)
+sys.stderr.write('  Of which copies:     %5d\n' % numcopies)
+sys.stderr.write('\n')
 
 
 # Output the word vector table

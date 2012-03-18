@@ -48,7 +48,7 @@ char * ops[16] = {
 	"XOR",
 	"OP1",
 	"OP2",
-	"???",			/* Unused */
+	"ISZ",
 	"LI"
 };
 
@@ -284,21 +284,21 @@ static inline word
 unit_mem(int r, int w)
 {
 	if (r) {
-		cpu.dbus = cpu.mem[cpu.mar];
-		iodebug("Read mem[%04x] == %04x\n", cpu.mar, cpu.dbus);
+		cpu.dbus = cpu.mem[cpu.ar];
+		iodebug("Read mem[%04x] == %04x\n", cpu.ar, cpu.dbus);
 	} else if (w) {
 		/*
-		if ((cpu.mar >= 0x100 && cpu.mar <= 0x110) && (cpu.dbus == 0)) {
+		if ((cpu.ar >= 0x100 && cpu.ar <= 0x110) && (cpu.dbus == 0)) {
 			dump();
 			exit();
 		}
 		*/
 		/* Report attempts to write to the ROM */
-		if (sanity && (cpu.mar >= 0xe000)) {
-			fail("Attempt to write %04x to ROM at address %04x.\n", cpu.dbus, cpu.mar);
+		if (sanity && (cpu.ar >= 0xe000)) {
+			fail("Attempt to write %04x to ROM at address %04x.\n", cpu.dbus, cpu.ar);
 		}
-		cpu.mem[cpu.mar] = cpu.dbus;
-		iodebug("Wrote mem[%04x] <- %04x\n", cpu.mar, cpu.dbus);
+		cpu.mem[cpu.ar] = cpu.dbus;
+		iodebug("Wrote mem[%04x] <- %04x\n", cpu.ar, cpu.dbus);
 	}
 	return cpu.dbus;
 }
@@ -308,8 +308,8 @@ unit_mem(int r, int w)
  * Simulates reset behaviour: CFT's reset circuitry contains a counter which,
  * when triggered using /RESET, holds the internal reset signal (/RST-HOLD)
  * active for a number of cycles. The rising edge of /RST-HOLD, at the end of
- * the count, has side effects in the hardware (e.g. MAR reads its value from
- * the IBUS, so both PC and MAR are initialised to 0xfff0.)
+ * the count, has side effects in the hardware (e.g. AR reads its value from
+ * the IBUS, so both PC and AR are initialised to 0xfff0.)
  */
 static inline void
 handle_reset()
@@ -321,9 +321,9 @@ handle_reset()
 		cpu.rst_hold = -1;
 		cpu.ustate.rst = 1;
 
-		/* In the hardware, the MAR assumes the value of the
+		/* In the hardware, the AR assumes the value of the
 		 * IBUS the moment RST_HOLD is cleared. */
-		cpu.mar = cpu.ibus;
+		cpu.ar = cpu.ibus;
 		
 		ucdebug("*** RST_HOLD cleared ***\n");
 	}
@@ -396,12 +396,23 @@ decode_ifx()
 		cpu.ustate.skip = sx ^ data[4];
 
 		ucdebug("BRANCH: A=%04x, DATA=%d%d%d%d%d\n", cpu.a, data[4], data[3], data[2], data[1], data[0]);
-		ucdebug("BRANCH: A=%04x, SV=%d, SL=%d, SN=%d, SZ=%d\n", cpu.a, sv, sl, sn, sz);
-		ucdebug("BRANCH: A=%04x,  V=%d,  L=%d,  N=%d,  Z=%d\n", cpu.a, cpu.v, cpu.l, cpu.n, cpu.z);
+		ucdebug("BRANCH: A=%04x, SV=%d, SL=%d, SZ=%d, SN=%d\n", cpu.a, sv, sl, sz, sn);
+		ucdebug("BRANCH: A=%04x,  V=%d,  L=%d,  Z=%d,  N=%d\n", cpu.a, cpu.v, cpu.l, cpu.z, cpu.n);
 		skipdebug("IFBRANCH");
 	} else if (IS_IFROLL(cpu.control)) {
 		cpu.ustate.skip = (cpu.ir & 0xb) != 0;
 		skipdebug("IFROLL");
+	} else if (IS_IFZERO(cpu.control)) {
+		cpu.ustate.skip = cpu.z != 0;
+	} else if (IS_IFL(cpu.control)) {
+		cpu.ustate.skip = cpu.l != 0;
+	} else if (IS_IFV(cpu.control)) {
+		cpu.ustate.skip = cpu.v != 0;
+	} else if (GET_OP_IF(cpu.control) == 0) {
+		// Idle branch unit.
+	} else {
+		fail("Emulator failure: OPIF value 0x%1x not implemented.\n",
+		     GET_OP_IF(cpu.control))
 	}
 
 	// Microcode version 4 assumes active-low semantics for SKIP. Invert here.
@@ -449,6 +460,7 @@ decode_read_unit()
 	else if (IS_ALU_ADD(cpu.control)) {
 		uint32_t sum = (uint32_t) cpu.a + (uint32_t) cpu.b;
 		cpu.ibus = (word)(sum & 0xffff);
+		fflush(stdout);
 		if (sum & 0x10000) cpu.l = !cpu.l;
 
 		//printf("*** %04x + %04x = %04x (%d %d %d)\n", cpu.a, cpu.b, cpu.ibus, BIT(cpu.a, 15), BIT(cpu.b, 15), BIT(cpu.ibus, 15));
@@ -497,9 +509,9 @@ decode_write_unit()
 {
 	if (!GET_W_UNIT(cpu.control)) return;
 
-	if (IS_W_MAR(cpu.control)) {
-		cpu.mar = cpu.ibus;
-		ucdebug("MAR <- IBUS (%04x)\n", cpu.ibus);
+	if (IS_W_AR(cpu.control)) {
+		cpu.ar = cpu.ibus;
+		ucdebug("AR <- IBUS (%04x)\n", cpu.ibus);
 	}
 	else if (IS_W_PC(cpu.control)) {
 		cpu.pc = cpu.ibus;
@@ -536,6 +548,9 @@ decode_write_unit()
 void
 emulate()
 {
+	/* Make stdout unbuffered. */
+	setvbuf(stdout, (char *)NULL, _IONBF, 0);
+
 	/* Read the source code, if available */
 	pasm_load();
 
@@ -550,7 +565,7 @@ emulate()
 		perror("Opening log file");
 		exit(1);
 	}
-
+	
 	/* Initialise I/O */
 	io_init();
 	
@@ -578,7 +593,7 @@ emulate()
 		 * The (active hgh) INC flag in the microcode vector must not
 		 * be de-asserted (cleared, 0) until the /end signal is
 		 * encountered. If this is NOT done, depending on the value of
-		 * MAR (which is modified during the execution of an autoindex
+		 * AR (which is modified during the execution of an autoindex
 		 * instruction), the INC signal can go low, and the microcode
 		 * will jump to an undefined (/end) instruction mid-execution.
 		 *
@@ -594,7 +609,7 @@ emulate()
 		if (cpu.ustate.uaddr == 0) {
 			cpu.ustate.inc = 1;
 		} else {
-			//cpu.ustate.inc |= is_autoindex(cpu.mar);
+			//cpu.ustate.inc |= is_autoindex(cpu.ar);
 			// Moved to IR latching code.
 		}
 

@@ -50,15 +50,15 @@ init_tables_end2:
 // Initialise the user area
 // TODO: Move this elsewhere
 
-	LOAD I I0
-	STORE SP
-	LOAD I I0
-	STORE RP
-	LOAD I I0
-	STORE NP
+	RMOV(UP, I I0)
+	RMOV(SP, I I0)
+	RMOV(RP, I I0)
+	RMOV(NP, I I0)
 	STORE CP		; At start, CP=NP.
-	LOAD I I0
-	STORE BASE
+	RMOV(TIB, I I0)
+	RMOV(LAST, I I0)
+	LI 10
+	STORE BASE		; BASE = 10 at boot time.
 
 	RET			; Done.
 
@@ -66,6 +66,8 @@ _init_table:
 	;; Constant table values
 	
 	.word &00FF	        ; const: BYTELO
+	.word &0FFF	        ; const: PLUS0FFF
+	.word &FFF0	        ; const: PLUSFFF0
 	.word &FF00	        ; const: BYTEHI
 	.word &0001	        ; const: PLUS1
 	.word &0002	        ; const: PLUS2
@@ -81,9 +83,11 @@ _init_table:
 
 	.word _trap_strpack	; vector: trap_strpack
 	.word _trap_strplen	; vector: trap_strplen
+	.word _trap_printps	; vector: trap_printps
+	.word _trap_strpcmp	; vector: trap_strpcmp
 	.word _trap_memcpy 	; vector: trap_memcpy
 	.word _trap_memrcpy 	; vector: trap_memcpy
-	
+
 	.word _NEXT		; vector: _NEXT
 	.word _doLIST		; vector: _doLIST
 	.word _doCOL		; vector: _doCOL
@@ -92,10 +96,12 @@ _init_table:
 	.word 0			; End.
 
 	;; Initialise user area
-	
-	.word &0400	        ; Initial data stack addr
-	.word &0500	        ; Initial return stack addr
-	.word &0600		; Start of user dictionary
-	.word 10		; Default BASE
+
+	.word &0400		; UP: Start of user area
+	.word &0400	        ; SP: Initial data stack addr
+	.word &0500	        ; RP: Initial return stack addr
+	.word &0700		; CP/NP: Start of user dictionary
+	.word &0600		; #TIB (256 bytes, also used as generic buffer)
+	.word __lastromlink	; Initial LAST
 
 // End of file.

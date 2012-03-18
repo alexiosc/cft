@@ -168,7 +168,9 @@ parse_opt (int key, char *arg, struct argp_state *state)
 				if (!strcmp(m->code, arg)) {
 					machp = m;
 					break;
-				}	
+				}
+				m++;
+				
 			}
 		}
 		break;

@@ -102,7 +102,7 @@
 	;; flags: FFL_PRIMITIVE ROM
 	;; notes: 2DROP ( w1 w2 -- )
 	;;   Discard two items from the data stack.
-	DECMn (SP,2)
+	LDECn (SP,2)
 	NEXT
 	
 
@@ -124,17 +124,14 @@
 	LOAD SP
 	ADD MINUS1
 	STORE TMP0		; Store for indirection
-	LOAD I TMP0		; AC <- mem[SP-1]
-	STORE TMP2		; Temporary copy
+	RMOV(TMP2, I TMP0)	; Temporary copy
 
 	LOAD SP
 	ADD MINUS2
 	STORE TMP1		; TMP1 <- SP-2
-	LOAD I TMP1		; AC <- mem[SP-2]
-	STORE I TMP0		; mem[SP-1] = mem[SP-2]
-
-	LOAD TMP2
-	STORE I TMP1		; mem[SP-2] = TMP2
+	
+	RMOV (I TMP0, I TMP1)	; mem[SP-1] = mem[SP-2]
+	RMOV(I TMP1, TMP2)	; mem[SP-2] = TMP2
 
 	NEXT
 	
@@ -156,7 +153,7 @@
 	;; notes: ?DUP ( w -- w w | 0 )
 	;;   If w is non-zero, duplicate it.
 	SPEEK (SP)		; Get top item of stack
-	SZA			; Zero?
+	SNZ			; Non-zero?
 	NEXT			; No. Bail out.
 	PUSH (SP)		; Yes. Push w.
 	NEXT
@@ -172,23 +169,17 @@
 	STORE SP
 	STORE TMP0
 
-	LOAD I SP		; Peek at the three top values and store them.
-	STORE TMP1
-	LOAD I SP
-	STORE TMP2
-	LOAD I SP
-	STORE TMP3
+	RMOV(TMP1, I SP)	; Peek at the three top values and store them.
+	RMOV(TMP2, I SP)
+	RMOV(TMP3, I SP)
 
 	LOAD SP			; SP -= 3
 	ADD MINUS3
 	STORE SP
 
-	LOAD TMP2		; [SP++] = w2
-	STORE I SP
-	LOAD TMP3		; [SP++] = w3
-	STORE I SP
-	LOAD TMP1		; [SP++] = w1
-	STORE I SP
+	RMOV(I SP, TMP2)	; [SP++] = w2
+	RMOV(I SP, TMP3)	; [SP++] = w3
+	RMOV(I SP, TMP1)	; [SP++] = w1
 
 	NEXT
 
@@ -203,15 +194,11 @@
 	STORE SP
 	STORE TMP0
 
-	LOAD I SP		; Peek at the two top values and store them.
-	STORE TMP1
-	LOAD I SP
-	STORE TMP2
+	RMOV(TMP1, I SP)	; Peek at the two top values and store them.
+	RMOV(TMP2, I SP)	; Peek at the two top values and store them.
 
-	LOAD TMP1
-	PUSH (SP)
-	LOAD TMP2
-	PUSH (SP)
+	RPUSH(SP, TMP1)
+	RPUSH(SP, TMP2)
 
 	NEXT
 
@@ -226,7 +213,7 @@
 	LOAD SP0		; Bottom of stack
 	NEG
 	ADD SP			; Top - bottom
-	PUSH (SP)
+	PUSH(SP)
 	
 
 	
@@ -236,13 +223,13 @@
 	;;   Returns the nth-from-the top element on the stack. 0 PICK
 	;;   returns the top element.
 
-	SPEEK (SP)
+	SPEEK(SP)
 	INC
 	NOT
 	ADD SP
 	STORE TMP1		; TMP1 <- SP - (n + 1)
 	LOAD I TMP1
-	SPOKE (SP)
+	SPOKE(SP)
 
 
 

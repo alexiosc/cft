@@ -45,13 +45,13 @@ _trap_strpack:
 _trap_strpack_loop:
 	LOAD I TI0		; Low byte
         STORE I TR0
-	PRINTC
+	//PRINTC
         SNZ			; Done?
         JMP _trap_strpack_end	; Yes
 
         LOAD I TI0		; High byte
         AND BYTELO		; Shift 8 bits left
-	PRINTC
+	//PRINTC
         RNL
         RNL
         SNZ			; Done?
@@ -122,5 +122,82 @@ _trap_strplen_end1:
 
 
 
+// TRAP: printps(s)
+//
+// Transmits a packed string to port &81.
+//
+// TODO: Make this work with a hardware serial port.
+//
+// Setup:
+//   ARGP points to start of argument block.
+//   [ARGP+00]: s address
+//	
+// Returns:
+//	
+// Side effects:
+_trap_printps:
+	ENTTRAP(TI0)
+
+	LOAD I TI0
+	STORE TI1		; s address
+	
+_trap_printps_loop:
+	LOAD I TI1		; Read characters
+        SNZ			; Done?
+        JMP _trap_printps_end	; Yes
+	STORE TR0		; No.
+	AND BYTELO
+	PUTCHAR			; Print it.
+
+	LOAD TR0
+	RNR
+	RNR
+	AND BYTELO		; No.
+	SNZ			; Are we done now?
+	JMP _trap_printps_end	; Yes
+	PUTCHAR			; Print it.
+
+	JMP _trap_printps_loop	; Loop again
+
+_trap_printps_end:
+	RETTRAP(2)
+	
+
+// TRAP: strpcmp(s)
+//
+// Compares two packed strings.
+//
+// Setup:
+//   ARGP points to start of argument block.
+//   [ARGP+00]: s1 address
+//   [ARGP+01]: s2 address
+//	
+// Returns:
+//	
+// Side effects:
+_trap_strpcmp:
+	ENTTRAP(TI2)
+
+	LOAD I TI2
+	STORE TI0		; s1 address
+	LOAD I TI2
+	STORE TI1		; s2 address
+	
+_trap_strpcmp_loop:
+	LOAD I TI0		; Read characters
+	STORE TR0
+	XOR I TI1		; Compare two characters
+	SZA			; Equal?
+	JMP _trap_strpcmp_end	; No.
+
+	LOAD TR0		; End of s1?
+	SNP
+	JMP _trap_strpcmp_loop
+
+	LI 0
+_trap_strpcmp_end:
+	RETTRAP(3)
+
+	
 // End of file.
 	

@@ -18,6 +18,21 @@
 	STORE I %stack		; mem[%stack++] <- AC
 .end
 
+
+	
+// Macro: RPUSH(stack)
+//
+// Stack must be an autoincrement location.
+// Push value of address src onto the stack pointed to by stack.
+// No checks are performed.
+
+.macro RPUSH (stack, src)
+	LOAD %src		; RPUSH(%stack,%src)
+	STORE I %stack		; mem[%stack++] <- AC
+.end
+
+
+	
 // Macro: POP0 (stack)
 //
 // Decrement a stack pointer. Save a the location of the top item in TMP0.
@@ -28,12 +43,15 @@
 // Side effects:
 //   %stack--
 //   TMP0 = %stack
-//   L	
+//   L
+	
 .macro POP0 (stack)
 	DECM (%stack)		; POP0(%stack): %stack--
 	STORE TMP0		; Store it elsewhere to avoid autoincrement.
 .end
 
+
+	
 // Macro: POP (stack)
 //
 // Pop a value from a stack. Return it in AC.
@@ -45,11 +63,35 @@
 //   %stack--
 //   TMP0 = %stack
 //   AC = mem[TMP0]
+	
 .macro POP (stack)
 	POP0 (%stack)
 	LOAD I TMP0		; And load value from stack
 .end
 
+
+	
+// Macro: RPOP (tgt, stack)
+//
+// Pop a value from a stack. Store it in tgt.
+//
+// Warnings:
+//   No checks are performed.
+//
+// Side effects:
+//   %stack--
+//   TMP0 = %stack
+//   AC = mem[TMP0]
+	
+.macro RPOP (tgt, stack)
+	;;                      ; POP(%tgt, %stack)
+	POP0 (%stack)
+	LOAD I TMP0		; And load value from stack
+	STORE %tgt
+.end
+
+
+	
 // Macro: SPEEK (stack)
 //
 // Load the top value of a stack without popping.
@@ -60,13 +102,16 @@
 // Side effects:
 //   TMP0 = %stack - 1
 //   AC = mem[TMP0]
-//   L	
+//   L
+	
 .macro SPEEK (stack)
 	LOAD %stack		; Find [%stack-1]
 	ADD MINUS1
 	STORE TMP0		; Store for indirection
 	LOAD I TMP0		; AC <- mem[%stack-1]
 .end
+
+
 	
 // Macro: SPEEKn (stack)
 //
@@ -79,13 +124,16 @@
 // Side effects:
 //   TMP0 = %stack - n
 //   AC = mem[TMP0]
-//   L	
+//   L
+	
 .macro SPEEKn (stack, n)
 	LOAD %stack		; Find [%stack-1]
 	ADD MINUS%n
 	STORE TMP0		; Store for indirection
 	LOAD I TMP0		; AC <- mem[%stack-1]
 .end
+
+
 	
 // Macro: SPOKE (stack)
 //
@@ -98,7 +146,8 @@
 //   TMP0 = %stack - 1
 //   mem[TMP0] = AC
 //   TMP1 = AC
-//   L	
+//   L
+	
 .macro SPOKE (stack)
 	STORE TMP1		; Keep a copy of AC
 	LOAD %stack		; Find [%stack-1]
@@ -108,6 +157,8 @@
 	STORE I TMP0		; mem[%stack-1] <- AC
 .end
 
+
+	
 // Macro: SPOKE0 (stack)
 //
 // Directly modify the top value of a stack.
@@ -121,9 +172,11 @@
 //
 // Side effects:
 //   mem[TMP0] = AC
+	
 .macro SPOKE0 (stack)
 	STORE I TMP0		; mem[%stack-1] <- AC
 .end
+
 
 	
 // Macro: SPOKEn (stack, n)
@@ -138,7 +191,8 @@
 //   TMP0 = %stack - 1
 //   mem[TMP0] = AC
 //   TMP1 = AC
-//   L	
+//   L
+	
 .macro SPOKEn (stack, n)
 	STORE TMP1		; Keep a copy of AC
 	LOAD %stack		; Find [%stack-1]
@@ -148,6 +202,7 @@
 	STORE I TMP0		; mem[%stack-1] <- AC
 .end
 
+	
 	
 // Macro: POP1PEEK1 (stack)
 //
@@ -166,6 +221,7 @@
 //   TMP1 = first pop()
 //   AC = second pop() (actually the peek)
 //   L
+	
 .macro POP1PEEK1 (stack)
 	POP (%stack)
 	STORE TMP2
@@ -236,7 +292,7 @@
 // Macro: POP2r (stack)
 //
 // Prepare for a Forth binary op. The op would pop two values and push
-// nothing. The first value is in TMP0, the second in AC. Useful for
+// nothing. The first value is in TMP1, the second in AC. Useful for
 // indirection in Forth ( w a -- ) words.
 //
 // Warnings:

@@ -29,10 +29,66 @@
 
 	NEXT
 	
+
+
 	;; word:  D+
+	;; alias: DPLUS
 	;; flags: FFL_PRIMITIVE ROM
 	;; notes: D+ ( d d -- d )
 	;;   Add two double-words
-	// TODO
+	;;   TODO: Popping four words like this is inefficient. Fix it.
+	POP (SP)		; a high
+	STORE TMP0
+	POP (SP)		; a low
+	STORE TMP1
+
+	POP (SP)		; b high
+	STORE TMP2
+	POP (SP)		; b low
+
+_dplus_work:
+	CLL
+	ADD TMP1		; a_lo + b_lo
+	STORE TMP1
+
+	LOAD TMP2		; b high
+	OP1 IFL INC		; propagate carry (increase if L)
+
+	ADD TMP0		; carry + b high + b low
+	STORE TMP0
+
+	LOAD TMP1
+	PUSH (SP)
+
+	LOAD TMP0
+	PUSH (SP)
+
+	NEXT
+	
+
+
+	;; word:  D-
+	;; alias: DMINUS
+	;; flags: FFL_PRIMITIVE ROM
+	;; notes: D- ( d d -- d )
+	;;   Subtract two double-words.
+	;;   TODO: Popping four words like this is inefficient. Fix it.
+	POP (SP)		; a high
+	STORE TMP0
+	POP (SP)		; a low
+	STORE TMP1
+
+	POP (SP)		; b high
+	STORE TMP2
+	POP (SP)		; b low
+	NEG
+	STORE TMP3
+
+	SCL			; Skip if L clear
+	ISZ TMP2		; Otherwise, increment high b
+
+	JMP _dplus_work
+
+
 	
 // End of file.

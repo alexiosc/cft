@@ -43,6 +43,7 @@
 // Base address of the constant table (which is added
 // automatically). Look in _generated_tables.asm.
 .equ _const_table &1e0
+.equ _maxlinelen 128
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -72,6 +73,20 @@ _vector_table:
 ///////////////////////////////////////////////////////////////////////////////
 
 .equ    NULL    &0000		; The null pointer
+.equ    TMPOUT  R &81		; Temporary (early development) tty out
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// OS REGISTERS
+//
+///////////////////////////////////////////////////////////////////////////////
+
+// These are provisional and should be replaced by (emulated)
+// UART registers
+.equ	ISR	R &0100		; Address of the ISR
+.equ	UISR	R &0101		; ISR user routines
+.equ	INPFR	R &0102		; Input Flag Register
+.equ	INPCH	R &0103		; Input CHaracter
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -85,8 +100,7 @@ _vector_table:
 .equ    SP0     R &091
 .equ    RP0     R &092
 .equ    CP0     R &093
-
-.equ    UP0     R &030
+.equ    TIBP0   R &094
 
 // These registers form the user context (machine regs + user variables)
 
@@ -94,32 +108,38 @@ _vector_table:
 .equ 	SP 	R SP0
 .equ 	RP 	R RP0
 .equ 	CP 	R CP0
+.equ 	TIBP 	R TIBP0
 
 // The user area pointer. Note: because we make heavy use of page
 // zero, values from the UA are copied to P0 registers for faster
 // use.
 	
 &0300:				; Provisional address
-USP0:	 .word	&beef			; User SP0
-URP0:	 .word	&beef			; User RP0
-UNP:	 .word	&beef			; User NP (start of user dictionary)
-UCP:	 .word	&beef			; User CP (first free word of user dictionary)
-UBASE:	 .word	&beef			; User BASE
+UP0:		.word   &beef			; User UP (start of user area)
+USP0:	 	.word	&beef			; User SP0
+URP0:	 	.word	&beef			; User RP0
+UNP:		.word	&beef			; User NP (start of user dictionary)
+UCP:		.word	&beef			; User CP (first free word of user dictionary)
+ULAST:	 	.word	&beef			; User LAST (first free word of user dictionary)
+UBASE:	 	.word	&beef			; User BASE
+UTIB:	 	.word	&beef			; User TIB (char count + terminal input buffer)
+
+// TODO	
+UTKEY:	 	.word	&beef			; User '?KEY (input source)
+UTEMIT:	 	.word	&beef			; User 'EMIT (output destination)
+UTMP:	 	.word	&beef			; User tmp
+UINBUF:	 	.word	&beef			; User inbuf
+UCTX:	 	.word	&beef			; User context pointer (vocab search order)
+UCUR:	 	.word	&beef			; User CURRENT
 	
-UTKEY:	 .word	&beef			; User '?KEY (input source)
-UTEMIT:	 .word	&beef			; User 'EMIT (output destination)
-UTMP:	 .word	&beef			; User tmp
-UINBUF:	 .word	&beef			; User inbuf
-UTIB:	 .word	&beef			; User TIB
-UCTX:	 .word	&beef			; User context pointer (vocab search order)
-UCUR:	 .word	&beef			; User CURRENT
-	
-UTEXP:	 .word	&beef			; User 'EXPECT (lexer)
-UTOK:	 .word	&beef			; User 'PROMPT
+UTEXP:		 .word	&beef			; User 'EXPECT (lexer)
+UTOK:		 .word	&beef			; User 'PROMPT
 
 .equ    UP      R UP0
 .equ    NP      R UNP
 .equ    BASE    R UBASE
+.equ	LAST    R ULAST
+.equ	TIB     R UTIB
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -131,6 +151,7 @@ UTOK:	 .word	&beef			; User 'PROMPT
 
 // Local assembly macros
 .equ DEC 	ADD MINUS1
+.equ PUTCHAR	OUT TMPOUT
 
 // CFT Code Fields are jump instructions
 .equ CFA_doLIST JMP I R vec_doLIST
@@ -139,22 +160,85 @@ UTOK:	 .word	&beef			; User 'PROMPT
 &e000:
 cold:
 	JSR init_tables
+	JSR init_isr
 
+	TRAP vec_trap_printps
+	.word @+1
+	.word bootstr
+
+	JSR printdict
+	JMP run
+
+foobar:	.word &1000
+
+bootstr:	.strp 10 10 27 "[0;33m" 27 "#3 CFT " 10 27 "#4 CFT " 10 10 27 "[0m16-bit Mini-Computer" 10 "CFT Booted." 10 "Available words:" 10 0
+str2:	.strp "This is another test" 0
+
+run:	
 	// IP sentinel/parachute/trampoline
-	LIA done
+	LIA _done
 	STORE IP
-	//PUSH (RP)
+	PUSH (RP)
 	
 	// Try out things
 	LOAD _test
 	PUSH (SP)
 	doLIST
 
-done:	
+done:
 	HALT
 
 _test:
 	.word dw_COLD_pfa
+_done:
+	.word dw_dot_done
+
+printdict:
+	// Print out dictionary
+	LI 0
+	STORE TMP3
+	
+	LIA ARG0
+	STORE ARGP
+	
+	LOAD LAST
+	STORE R0		; Save pointer
+
+printdict_loop:	
+	LOAD R0
+	SNZ
+	JMP printdict_end
+	
+	ADD PLUS1		; Skip over flags
+	STORE R1		; Store the string pointer
+	ADD PLUS1
+	STORE R0		; Store the link
+
+	LOAD I R1		; Indirection
+	STORE R2
+	TRAP vec_trap_printps
+	.word @R2^R
+	.word 0
+
+	ISZ TMP3
+	
+	LI 32
+	PUTCHAR
+
+	LOAD I R0
+	STORE R0
+	JMP printdict_loop
+
+printdict_end:
+	LI 10
+	PUTCHAR
+	LOAD TMP3
+	PRINTD
+	LI 10
+	PUTCHAR
+	PUTCHAR
+	PUTCHAR
+	RET
 
 
 // Include the table initialisation code
@@ -209,6 +293,11 @@ _doCOL:
 
 
 	
+	;; Input flags
+	.equ IFL_NEWCHAR   &0001 ; A new character was seen
+	.equ IFL_CTRLC     &8000 ; Ctrl-C has been pressed
+
+	;; Dictionary flags
 	.equ FFL_IMMEDIATE &0001 ; Immediate word.
 	.equ FFL_CMPLONLY  &0002 ; Only used while compiling.
 
@@ -219,6 +308,91 @@ _doCOL:
 	.equ FFL_DOCOL     &2000 ; It's a colon definition.
 	.equ FFL_VARIABLE  &4000 ; It's a variable definition.
 	.equ FFL_CFT       &8000 ; CFT-specific primitive.
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// ISR
+//
+///////////////////////////////////////////////////////////////////////////////
+
+// Interrupt structure
+//
+// The ISR (label isr) is the interrupt handler. It resides in ROM and
+// includes code to save and restore registers. Within, it calls the USR
+// routine which does all the dirty work.
+//
+// The default UISR is a single RET instruction. To save memory, it
+// shares a RET instruction with the init_isr routine.
+//
+// Both of these routines are vectored (registers ISR and UISR) and may be
+// changed to point to routines in RAM.
+
+
+// Subroutine to initialise the interrupt subsystem.
+init_isr:
+	LIA isr			; Set the ISR
+	STORE ISR
+
+	LIA uisr_default	; Set the default user ISR
+	STORE UISR
+
+	SEI			; Enable interrupts
+
+uisr_default:
+	RET
+
+
+// TODO: This routine is not reentrant! Use a small stack to save its
+// return address or the machine will hang if an interrupt is received
+// between the SEI and RTI instructions.
+
+// Interrupt Service Routine (ISR)
+isr:
+	;; ISR entry code
+	
+	STORE ISRABKP		; Save A
+	LOAD R 0		; Save &0000
+	STORE ISRR0BKP
+	LOAD R 1		; Save &0001
+	STORE ISRR1BKP
+
+// This code should be moved elsewhere.
+isr_tty0_loop:
+	IN TTY0 TTYPOLL		; Is there anything to input?
+	SNZ			; If zero:
+	JMP isr_done_tty0	;   No input. We're done.
+
+	LI IFL_NEWCHAR		; We have input. Set the IFL_NEWCHAR flag.
+	OR R INPFR
+	STORE R INPFR
+	
+	IN TTY0 TTYDATA		; Read data.
+	STORE R INPCH		; Store it for later
+	//PRINTC
+
+	;; TODO: move this elsewhere
+	;; Halt on ^C
+	LI 3
+	XOR R INPCH
+	SNZ
+	HALT
+
+	JMP isr_tty0_loop	; Read more characters
+
+isr_done_tty0:
+
+	;; Invoke user ISR
+	JSR I UISR
+
+	;; ISR exit code
+	LOAD ISRR1BKP		; Restore &0001
+	STORE R 1
+	LOAD ISRR0BKP		; Restore &0000
+	STORE R 0
+	LOAD ISRABKP		; Restore A
+	SEI			; Re-enable interrupts
+	RTI			; Return
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -245,9 +419,6 @@ __bootvec:
 	;; ISR vector
 &fff8:
 __isrvec:
-	FAIL
-	HALT
-	//JMP I @+1
-	//.word isr
+	JMP I ISR
 
 // End of file.

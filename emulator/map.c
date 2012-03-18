@@ -28,8 +28,8 @@ Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 #include "cftemu.h"
 
 
-/* This is about to get quite hairy, but modern machines can take a
- * dozen megs of allocated data. */
+/* This is about to get quite hairy, but modern machines have so much
+ * memory this will be a dawdle. */
 static char * _map[MEM_SIZE];
 
 char *map_name;

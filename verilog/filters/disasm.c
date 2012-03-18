@@ -16,7 +16,7 @@ char *instr[] = {
 	"XOR",
 	"?cyan4?OP1",
 	"?magenta4?OP2",
-	"?red4?XXX",
+	"ISN",
 	"LI",
 };
 

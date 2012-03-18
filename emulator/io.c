@@ -211,9 +211,10 @@ io_tick()
 word
 unit_io(int r, int w)
 {
-word addr = cpu.mar & 0x3ff;
-word dbus = cpu.dbus;
-word retval;
+	char c;
+	word addr = cpu.ar & 0x3ff;
+	word dbus = cpu.dbus;
+	word retval;
 	if(r) {
 		switch (addr) {
 		case IO_PANEL_SWITCHES:
@@ -255,6 +256,7 @@ word retval;
 		switch (addr) {
 		case IO_CLOCK_HALT:
 			cpu.halt = 1;
+			printf("\n\n\n");
 			dump_state();
 			dump_ustate();
 			info("*** HALTING ***\n");
@@ -263,9 +265,10 @@ word retval;
 		case 0x81:
 			fprintf(log_file, "%c", dbus & 0xff);
 			fflush(log_file);
-			//printf("**** OUT %d ****\n\r", dbus);
-			putchar(dbus & 0xff);
-			fflush(stdout);
+			/*printf("**** OUT %d ****\n\r", dbus);*/
+			c = dbus & 0xff;
+			write(1, &c, 1); //putchar(dbus & 0xff);
+			//fflush(stdout);
 			//debug_io = 0;
 			//debug_microcode = 0;
 			break;
@@ -287,8 +290,8 @@ word retval;
 		case 0x3f1:
 			fprintf(log_file, "%c", dbus & 0xff);
 			fflush(log_file);
-			if ((dbus > 32) && (dbus < 127)) {
-				testdebug("PRINTC: %c\n", dbus);
+			if (((dbus & 0xff) > 32) && ((dbus & 0xff) < 127)) {
+				testdebug("PRINTC: %c\n", dbus & 0xff);
 			} else {
 				testdebug("PRINTc: %d\n", dbus & 0xff);
 			}
@@ -341,8 +344,8 @@ word retval;
 			//dumpmem(0x500, 8);
 			//dumpmem(0x204, 20);
 			//dumpmem(0x860, 16);
-			dumpstack(0x500, 0);
-			dumpstack(0x600, 1);
+			dumpstack(0x400, 0);
+			dumpstack(0x500, 1);
 			printf(COL_NOR);
 			break;
 		case 0x3fb:

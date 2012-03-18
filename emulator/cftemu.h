@@ -31,7 +31,7 @@ Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
 
 #define PACKAGE "cftemu"
-#define VERSION "0.1"
+#define VERSION "0.3"
 
 
 #define MEM_SIZE 65536
@@ -72,7 +72,7 @@ typedef unsigned char bit;
 typedef struct {
 	word mem[MEM_SIZE];	/* the memory */
 
-	word mar;
+	word ar;
 	word pc;
 	word ir;
 	word dr;
@@ -130,7 +130,7 @@ char * ops[16];
 
 /* Convenience macros for memory access */
 #define IS_R_DBUS(x) (IS_R(x) && (IS_MEM(x) || IS_IO(x)))
-#define IS_W_DBUS(x) (IS_W(x) && (IS_MEM(x) || IS_IO(x)))
+#define IS_W_DBUS(x) (IS_WEN(x) && (IS_MEM(x) || IS_IO(x)))
 
 // Implement the hardware's autoindex condition.
 #define is_autoindex(x) (((x) & 0xff80) == 0x0080)
@@ -284,6 +284,9 @@ void dump();
 #define COL_GRE "\033[0;32;1m"
 #define COL_NOR "\033[0m"
 #define COL_UND "\033[4m"
+
+#define REG_IP 0x90
+#define REG_PFA 0x40
 
 
 

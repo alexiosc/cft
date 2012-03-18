@@ -71,6 +71,7 @@
 	NEXT
 	
 	
+
 	;; word:  2+
 	;; alias: inc2
 	;; flags: FFL_PRIMITIVE ROM
@@ -82,6 +83,7 @@
 	NEXT
 	
 	
+
 	;; word:  1-
 	;; alias: dec
 	;; flags: FFL_PRIMITIVE ROM
@@ -93,6 +95,7 @@
 	NEXT
 	
 	
+
 	;; word:  2-
 	;; alias: dec2
 	;; flags: FFL_PRIMITIVE ROM
@@ -104,17 +107,74 @@
 	NEXT
 	
 	
-	;; word:  2/
-	;; alias: 2div
-	;; flags: FFL_PRIMITIVE ROM
+
+	;; word:  >>1
+	;; alias: shl1
+	;; flags: FFL_PRIMITIVE ROM CFT
 	;; notes: 2/ ( w -- w )
-	;;   Shift right one bit.
+	;;   Shift right one bit. No sign extension.
 	SPEEK (SP)
 	SBR
 	SPOKE0 (SP)
 	NEXT
 	
 	
+
+	;; word:  2/
+	;; alias: 2div
+	;; flags: FFL_PRIMITIVE ROM
+	;; notes: 2/ ( w -- w )
+	;;   Shift right one bit with sign extension.
+	SPEEK (SP)
+
+	CLL			; Clear L
+	SNN			; Skip if non-negative
+	SEL			; Set L for sign extension
+	
+	RBR			; Roll 1 bit right, L becomes bit 15.
+
+	SPOKE0 (SP)
+	NEXT
+	
+	
+
+	;; word:  2*
+	;; alias: 2mul
+	;; flags: FFL_PRIMITIVE ROM CFT
+	;; notes: 2* ( u -- u ) 
+	;;   Shift left one bit.
+	SPEEK (SP)
+	SBL
+	SPOKE0 (SP)
+	NEXT
+	
+	
+
+	;; word:  16/
+	;; alias: 16div
+	;; flags: FFL_PRIMITIVE ROM CFT
+	;; notes: 16/ ( u -- u )
+	;;   Shift right four bits (one nybble). No sign extension.
+	SPEEK (SP)
+	RNR
+	AND PLUS0FFF		; Discard bits 12-15
+	SPOKE0 (SP)
+	NEXT
+	
+	
+
+	;; word:  16*
+	;; alias: 16mul
+	;; flags: FFL_PRIMITIVE ROM CFT
+	;; notes: 16* ( w -- w ) 
+	;;   Shift left four bits.
+	SPEEK (SP)
+	SBL
+	SPOKE0 (SP)
+	NEXT
+	
+	
+
 	;; word:  NOT
 	;; flags: FFL_PRIMITIVE ROM
 	;; notes: NOT ( w -- w )

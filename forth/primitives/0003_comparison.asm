@@ -16,8 +16,7 @@
 	;; flags: FFL_PRIMITIVE ROM
 	;; notes: TRUE ( -- f )
 	;;   Push TRUE
-	LOAD MINUS1
-	PUSH (SP)
+	RPUSH(SP, MINUS1)	; Push &ffff
 	NEXT
 
 
@@ -151,8 +150,7 @@ dw_MIN_push_AC:
 	PUSH (SP)
 	NEXT
 dw_MIN_push_tmp1:
-	LOAD TMP1
-	PUSH (SP)
+	RPUSH(SP, TMP1)
 	NEXT
 
 
@@ -176,15 +174,12 @@ dw_MIN_push_tmp1:
 	;; flags: FFL_PRIMITIVE ROM
 	;; notes: WITHIN ( u ul uh -- f )
 	;;   TRUE if ul <= u <= uh
-	POP (SP)
-	STORE TMP1		; uh
-	POP (SP)
-	STORE TMP2		; ul
-	SPEEK (SP)
-	STORE TMP3		; u
-
+	RPOP (TMP1, SP)		; uh
+	RPOP (TMP2, SP)		; ul
+	POP (SP)		; u
 	NEG
 	STORE TMP3		; TMP3 = -u
+	
 	ADD TMP1		; uh - u
 	SNN			; >=0? (i.e. u <= uh)
 	JMP dw_FALSE		; No. Push FALSE and exit.

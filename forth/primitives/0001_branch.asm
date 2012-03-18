@@ -8,8 +8,7 @@
 	;;   Branches to the address specified after it in an address list. That is,
 	;;   IP <- mem[IP]
 
-	LOAD I IP
-	STORE IP
+	RMOV(IP, I IP)		; IP = mem[IP++]
 	NEXT
 
 
@@ -26,8 +25,7 @@
 	JMP __branch_no		; No. Don't branch.
 
 __branch_yes:
-	LOAD I IP		; Yes.
-	STORE IP		; IP <- mem[IP++]
+	RMOV(IP, I IP)		; Yes. IP <- mem[IP++]
 	
 __branch_end:
 	NEXT
@@ -52,8 +50,7 @@ __branch_no:
 	ADD MINUS1		; Decrement by 1
 	SPOKE0 (RP)		; Store it back
 
-	LOAD I IP		; Take the branch.
-	STORE IP		; IP <- mem[IP++]
+	RMOV(IP, I IP)		; Take the branch. IP <- mem[IP++]
 
 __next_end:
 	NEXT

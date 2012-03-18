@@ -2,37 +2,66 @@
 //
 // Slightly more complex memory primitives than in core. Still in Assembly.
 
-	;; word:  CELL-
-	;; alias: cell-dec
-	;; copy:  dec
+	
+	;; word:  HERE
 	;; flags: FFL_PRIMITIVE ROM
-	;; notes: CELL- ( a -- a )
-	;;   Decrement memory address a by 1 cell.
+	;; notes: HERE ( -- a )
+	;;   Returns the address of the first available cell in the user dictionary.
+
+	RPUSH(SP, CP)
+	NEXT
 
 
 
-	;; word:  CELL+
-	;; alias: cell-inc
-	;; copy:  inc
+	;; word:  PAD
 	;; flags: FFL_PRIMITIVE ROM
-	;; notes: CELL+ ( a -- a )
-	;;   Increment memory address a by 1 cell.
+	;; notes: PAD ( -- a )
+	;;   Returns the address of the first available cell for scratch use.
+
+	LI 80
+	ADD CP
+	PUSH(SP)
+	NEXT
 
 
 
-	;; word:  CELLS
-	;; copy:  NOP
+	;; word:  TIB
 	;; flags: FFL_PRIMITIVE ROM
-	;; notes: CELLS ( n -- n )
-	;;   Converts number of words to number of cells. Identity on the CFT.
+	;; notes: TIB ( -- a )
+	;;   Return the address of the first character in the Terminal Input
+	;;   Buffer.
+
+	LOAD TIB
+	ADD PLUS1
+	PUSH (SP)
+	NEXT
 
 
 
-	;; word:  ALIGNED
-	;; copy:  NOP
+	;; word:  >IN
+	;; alias: tibptr
 	;; flags: FFL_PRIMITIVE ROM
-	;; notes: CELLS ( n -- n )
-	;;   Aligns address. A NOP on the CFT.
+	;; notes: >IN ( -- a )
+	;;   The address of the pointer to the current character in the
+	;;   terminal input buffer.
+
+	LIA TIBP
+	PUSH (SP)
+	NEXT
+
+
+
+	;; word:  @EXECUTE
+	;; alias: FETCH-EXECUTE
+	;; flags: FFL_PRIMITIVE ROM
+	;; notes: @EXECUTE ( a -- )
+	;;   If a is non-zero, assume it's a word address and execute it.
+
+	SPEEK (SP)
+	SNZ
+	NEXT
+	STORE TMP0
+	JMP I TMP0
 
 
 
@@ -73,11 +102,8 @@
 	STORE SP
 	STORE I1
 
-	LOAD I I1		; Load low cell
-	STORE I I0		; Store it at a (autoinc)
-
-	LOAD I I1		; Load low cell
-	STORE I I0		; Store it at a+1 (autoinc)
+	RMOV(I I0, I I1)	; Set both cells
+	RMOV(I I0, I I1)
 
 	NEXT
 
@@ -100,6 +126,6 @@
 
 	NEXT
 
-	
+
 
 // End of file.

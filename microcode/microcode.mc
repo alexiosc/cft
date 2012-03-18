@@ -17,7 +17,7 @@
 #define XOR   1011
 #define OP1   1100
 #define OP2   1101
-#define INCM  1110
+#define ISZ   1110
 #define LIA   1111
 
 //              MODES
@@ -37,6 +37,7 @@
 // XOR                       X       X         X
 // OP1                                                    X
 // OP2                                                    X
+// ISZ                       X       X         X
 // LIA             X
 // ----------------------------------------------------------------------------
 
@@ -65,12 +66,12 @@ cond uaddr:4;
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-// Register order: MAR, IR, A, DR, PC, dbus.
+// Register order: AR, IR, A, DR, PC, dbus.
 //
 // UNIT   LHS   RHS
 // ----------------
 // DBUS   001   001
-// MAR    010
+// AR    010
 // PC     011   011
 // IR     100
 // DR     101   100
@@ -101,7 +102,7 @@ signal r_cs2          = ....................1111; // ALU: Read from the Constant
 
 field  W_UNIT         = _________________XXX____; // Write unit field
 //signal w_dbus       = .................001....; // Write to the data bus
-signal w_mar          = .................010....; // Write to the MAR
+signal w_ar          = .................010....; // Write to the AR
 signal w_pc           = .................011....; // Write to the PC
 signal w_ir           = .................100....; // Write to the IR
 signal w_dr           = .................101....; // Write to the DR
@@ -189,10 +190,9 @@ signal /END           = 1.......................; // Reset microprogram, go to f
 // uSTEP  0.......... 1.......... 2.......... 3.......... 4...........  
 //         _____       _____       _____       _____       _____
 // CLK ___|     |_____|     |_____|     |_____|     |_____|     |_____
-//     ___       _____       _____       _____       _____       _____                                          
-// CLK2   |_____|     |_____|     |_____|     |_____|     |_____|     
+//     ___       _____       _____       _____       _____       _____                         // CLK2   |_____|     |_____|     |_____|     |_____|     |_____|     
 //
-// MAR XXXXX|<============ VALID ==============>|XXXXXXXXXXXXXXXXXXXXXXXXXXX
+// AR XXXXX|<============ VALID ==============>|XXXXXXXXXXXXXXXXXXXXXXXXXXX
 //
 // AB  ZZZZZ|<============ DRIVEN =============>|ZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 //     _____                                     ______________________
@@ -218,11 +218,21 @@ signal /END           = 1.......................; // Reset microprogram, go to f
 // it to also process the MR pulse, if it needs it.
 
 // This macro defines a memory read cycle, i.e. steps 2 to 4 above.
-#define _MEMREAD(_areg, _dreg) \
-    w_mar, r_##_areg; \
+
+// Three-cycle read (obsolete)
+#define _MEMREAD_3CYCLE(_areg, _dreg) \
+    w_ar, r_##_areg; \
     /MEM, /R; \
     w_##_dreg, hold
     //-/DAB, -/MEM, -/IO, -/R, -/WEN
+
+// Two-cycle read
+#define _MEMREAD_2CYCLE(_areg, _dreg) \
+    w_ar, r_##_areg; \
+    /MEM, /R, w_##_dreg
+    //-/DAB, -/MEM, -/IO, -/R, -/WEN
+
+#define _MEMREAD _MEMREAD_2CYCLE
     
 
 // At the end of this macro, /DAB, and /MEM are still active. It's assumed that
@@ -251,7 +261,7 @@ signal /END           = 1.......................; // Reset microprogram, go to f
 //     ___       _____       _____       _____       _____       _____
 // CLK2   |_____|     |_____|     |_____|     |_____|     |_____|     
 //
-// MAR XXXXX|<============ VALID ==============>|XXXXXXXXXXXXXXXXXXXXXXXXXXX
+// AR XXXXX|<============ VALID ==============>|XXXXXXXXXXXXXXXXXXXXXXXXXXX
 //
 // AB  ZZZZZ|<============ DRIVEN =============>|ZZZZZZZZZZZZZZZZZZZZZZZZZZZ
 //     _____                                     ______________________
@@ -274,14 +284,21 @@ signal /END           = 1.......................; // Reset microprogram, go to f
 // This macro implements steps 2 to 4, which are enough for the
 // microcode of the STORE instruction.
 //
-// MAR <- DR, /DAB, /MEM, /WEN    // 2. Select memory, enable writing. Latch to MAR.
+// AR <- DR, /DAB, /MEM, /WEN    // 2. Select memory, enable writing. Latch to AR.
 // /DAB, /MEM, /WEN		 // 3. Drive the address bus.
 				// DBUS <- A, hold, /end	 // 4. Drive the data bus. End.
 
-#define _MEMWRITE(_areg, _dreg) \
-    w_mar, r_##_areg; \
+#define _MEMWRITE_3CYCLE(_areg, _dreg) \
+    w_ar, r_##_areg; \
     r_##_dreg, /mem, /wen; \
     r_##_dreg, /mem
+
+// Note: second cycle not finished.
+#define _MEMWRITE_2CYCLE(_areg, _dreg) \
+    w_ar, r_##_areg; \
+    r_##_dreg, /mem, /wen
+
+#define _MEMWRITE _MEMWRITE_2CYCLE
 
 
 // The fetch cycle:
@@ -300,7 +317,7 @@ signal /END           = 1.......................; // Reset microprogram, go to f
 
 // This macro implements step 1. Useful for JMP-like instructions and literal
 // addressing. And of course as a basis for direct and indirect modes.
-
+// Note the second cycle is not complete! The caller can add flags to it.
 #define _FETCH_IR \
 	_MEMREAD(PC, IR), /incpc
 
@@ -309,7 +326,7 @@ signal /END           = 1.......................; // Reset microprogram, go to f
 //
 // 1. IR <- mem[PC]
 //    Deselect the memory, take the opportunity to step the PC.
-// 2. DR <- mem[<PR,IR.operand>]
+// 2. DR <- mem[IR.operand]
 
 #define _FETCH_DIRECT \
 	_FETCH_IR; \
@@ -323,10 +340,16 @@ signal /END           = 1.......................; // Reset microprogram, go to f
 // another macro (as long as it doesn't modify the DR), as the only
 // thing it does on its first microstep is to increase the DR.
 
-#define _AUTOINC \
-	r_agl, w_mar, /incdr; \
+#define _AUTOINC_3CYCLE \
+	r_agl, w_ar, /incdr; \
         r_dr, /mem, /wen;	\
         r_dr, /mem
+
+#define _AUTOINC_2CYCLE \
+	r_agl, w_ar, /incdr; \
+        r_dr, /mem, /wen
+
+#define _AUTOINC _AUTOINC_2CYCLE
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -489,43 +512,41 @@ start INT=1, RST=1, V=X, L=X, OP=STORE, I=1, SKIP=X, INC=0;
 // LITERAL MODE INSTRUCTION: agl used for I=0, direct mode for I=1.
 start INT=1, RST=1, V=X, L=X, OP=IOT, I=0, SKIP=X, INC=X;
       _FETCH_IR;		// Fetch the instruction and operand.
-      w_mar, r_agl;
+      w_ar, r_agl;
       r_a, /io, /wen;
-      r_a, /io;
+      //r_a, /io;               // 2-cycle I/O
       
       // The CPU may be inhibited here to get wait states.
 
-      w_a, /io, /r;
-      /io, /r, /end;
+      w_a, /io, /r, /end;
 
 
 // Direct mode.
 start INT=1, RST=1, V=X, L=X, OP=IOT, I=1, SKIP=X, INC=1;
       _FETCH_LITERAL;		// Fetch the instruction and operand.
-      w_mar, r_dr;		// Indirection.
+      w_ar, r_dr;		// Indirection.
       r_a, /io, /wen;
-      r_a, /io;
+      //r_a, /io;               // 2-cycle I/O
 
       // The CPU may be inhibited here to get wait states.
 
-      w_a, /io, /r;
-      /io, /r, /end;
+      w_a, /io, /r, /end;
 
 // FIXED: Autoindex mode.
 start INT=1, RST=1, V=X, L=X, OP=IOT, I=1, SKIP=X, INC=0;
       _FETCH_IR;                // Fetch cycle
       _MEMREAD(agl, dr);        // DR <- mem[agl]
       //_DESEL;			// Deselect all memory signals and wait.
-      w_mar, r_dr;		// Indirection: io[dr] <- A
+      w_ar, r_dr;		// Indirection: io[dr] <- A
       r_a, /io, /wen;
-      r_a, /io;
+      //r_a, /io;               // 2-cycle I/O
 
       // The CPU may be inhibited here to get wait states.
 
       w_a, /io, /r;
-      /io, /r;
-      _AUTOINC;			// mem[agl] <- ++DR
-      _DESEL, /end;	        // The fetch cycle begins with a memory read.
+      ///io, /r;                // 2-cycle I/O
+      _AUTOINC, /end;		// mem[agl] <- ++DR
+      //_DESEL, /end;	        // The fetch cycle begins with a memory read.
       
 
 
@@ -538,16 +559,16 @@ start INT=1, RST=1, V=X, L=X, OP=IOT, I=1, SKIP=X, INC=0;
 // LITERAL MODE INSTRUCTION: agl used for I=0, direct mode for I=1.
 start INT=1, RST=1, V=X, L=X, OP=IN, I=0, SKIP=X, INC=X;
       _FETCH_IR;		// Fetch the instruction and operand.
-      w_mar, r_agl;
-      w_a, /io, /r;
-      _DESEL, /end;	// Hold the address and data bus.
+      w_ar, r_agl;
+      w_a, /io, /r, /end;
+      //_DESEL, /end;	// Release the address and data bus.
 
 // Direct mode. (I=1, one level of indirection)
 start INT=1, RST=1, V=X, L=X, OP=IN, I=1, SKIP=X, INC=1;
       _FETCH_LITERAL;		// Fetch the instruction and operand.
-      w_mar, r_agl;
-      w_a, /io, /r;
-      _DESEL, /end;	// Hold the address and data bus.
+      w_ar, r_agl;
+      w_a, /io, /r, /end;
+      //_DESEL, /end;	// Hold the address and data bus.
 
 // Autoindex mode.
 start INT=1, RST=1, V=X, L=X, OP=IN, I=1, SKIP=X, INC=1;
@@ -555,12 +576,12 @@ start INT=1, RST=1, V=X, L=X, OP=IN, I=1, SKIP=X, INC=1;
       _MEMREAD(agl, dr);        // DR <- mem[agl]
       //_DESEL;			// Deselect all memory signals and wait.
 
-      w_mar, r_dr;
+      w_ar, r_dr;
       w_a, /io, /r;
-      ///io, /r;
+      ///io, /r;                // 2-cycle I/O
 
-      _AUTOINC;			// mem[agl] <- ++DR
-      _DESEL, /end;	        // The fetch cycle begins with a memory read.
+      _AUTOINC, /end;		// mem[agl] <- ++DR
+      //_DESEL, /end;	        // Release the address and data bus.
 
 
 
@@ -573,16 +594,16 @@ start INT=1, RST=1, V=X, L=X, OP=IN, I=1, SKIP=X, INC=1;
 // LITERAL MODE INSTRUCTION: agl used for I=0, direct mode for I=1.
 start INT=1, RST=1, V=X, L=X, OP=OUT, I=0, SKIP=X, INC=X;
       _FETCH_IR;		// Fetch the instruction and operand.
-      w_mar, r_agl;
-      r_a, /io, /wen;
-      r_a, /io, /end;
+      w_ar, r_agl;
+      r_a, /io, /wen, /end;	// 2-cycle I/O
+      //r_a, /io, /end;
 
 // Direct mode.
 start INT=1, RST=1, V=X, L=X, OP=OUT, I=1, SKIP=X, INC=1;
       _FETCH_LITERAL;		// Fetch the instruction and operand.
-      w_mar, r_dr;		// Indirection.
-      r_a, /io, /wen;
-      r_a, /io, /end;
+      w_ar, r_dr;		// Indirection.
+      r_a, /io, /wen, /end;	// 2-cycle I/O
+      //r_a, /io, /end;
 
 // FIXED: Autoindex mode.
 start INT=1, RST=1, V=X, L=X, OP=OUT, I=1, SKIP=X, INC=0;
@@ -590,12 +611,12 @@ start INT=1, RST=1, V=X, L=X, OP=OUT, I=1, SKIP=X, INC=0;
       _MEMREAD(agl, dr);        // DR <- mem[agl]
       //_DESEL;			// Deselect all memory signals and wait.
 
-      w_mar, r_dr;		// was: r_agl (why?)
-      r_a, /io, /wen;
-      r_a, /io;
+      w_ar, r_dr;		// was: r_agl (why?)
+      r_a, /io, /wen;		
+      //r_a, /io;               // 2-cycle I/O
 
-      _AUTOINC;			// mem[agl] <- ++DR
-      _DESEL, /end;	        // The fetch cycle begins with a memory read.
+      _AUTOINC, /end;	        // mem[agl] <- ++DR
+      //_DESEL, /end;	        // The fetch cycle begins with a memory read.
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -610,16 +631,22 @@ start INT=1, RST=1, V=X, L=X, OP=OUT, I=1, SKIP=X, INC=0;
 //
 // We use a register for the output of the ALU to ensure the result is stable
 // before sticking it back into A.
+//
+// Carry propagation through the 3 ALU ROMs can take up to 210ns for
+// 70ns ROMs, so we introduce a wait state.
+
 start INT=1, RST=1, V=X, L=X, OP=ADD, I=0, SKIP=X, INC=X;
       _FETCH_IR;		// Fetch the instruction and operand.
       //_DESEL;			// Prepare for the next memory read.
       _MEMREAD(agl, alu);       // B <- mem[DR].
+      //alu_add;                  // Start calculating (wait state)
       w_a, alu_add, /end;	// A <- A + B.
  
 start INT=1, RST=1, V=X, L=X, OP=ADD, I=1, SKIP=X, INC=1;
       _FETCH_LITERAL;		// Fetch the address and operand.
       //_DESEL;			// Prepare for the next memory read.
       _MEMREAD(dr, alu);	// B <- mem[DR].
+      //alu_add;                  // Start calculating (wait state)
       w_a, alu_add, /end;	// A <- A + B.
 
 // FIXED: Autoincrement
@@ -627,9 +654,10 @@ start INT=1, RST=1, V=X, L=X, OP=ADD, I=1, SKIP=X, INC=0;
       _FETCH_LITERAL;		// Fetch the address and operand.
       //_DESEL;			// Prepare for the next memory read.
       _MEMREAD(dr, alu);	// B <- mem[DR].
+      //alu_add;                  // Start calculating (wait state)
       w_a, alu_add;		// A <- A + B.
-      _AUTOINC;			// Autoindex
-      _DESEL, /end;	        // The fetch cycle begins with a memory read.
+      _AUTOINC, /end;		// Autoindex
+      //_DESEL, /end;	        // The fetch cycle begins with a memory read.
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -656,8 +684,8 @@ start INT=1, RST=1, V=X, L=X, OP=AND, I=1, SKIP=X, INC=0;
       //_DESEL;			// Prepare for the next memory read.
       _MEMREAD(dr, alu);	// B <- mem[DR].
       w_a, alu_and;		// A <- A & B.
-      _AUTOINC;			// Autoindex
-      _DESEL, /end;	        // The fetch cycle begins with a memory read.
+      _AUTOINC, /end;		// Autoindex
+      //_DESEL, /end;	        // The fetch cycle begins with a memory read.
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -683,8 +711,8 @@ start INT=1, RST=1, V=X, L=X, OP=OR, I=1, SKIP=X, INC=0;
       //_DESEL;			// Prepare for the next memory read.
       _MEMREAD(dr, alu);	// B <- mem[DR].
       w_a, alu_or;		// A <- A | B.
-      _AUTOINC;			// Autoindex
-      _DESEL, /end;	        // The fetch cycle begins with a memory read.
+      _AUTOINC, /end;		// Autoindex
+      //_DESEL, /end;	        // The fetch cycle begins with a memory read.
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -711,8 +739,8 @@ start INT=1, RST=1, V=X, L=X, OP=XOR, I=1, SKIP=X, INC=0;
       //_DESEL;			// Prepare for the next memory read.
       _MEMREAD(dr, alu);	// B <- mem[DR].
       w_a, alu_xor;		// A <- A | B.
-      _AUTOINC;			// Autoindex
-      _DESEL, /end;	        // The fetch cycle begins with a memory read.
+      _AUTOINC, /end;		// Autoindex
+      //_DESEL, /end;	        // The fetch cycle begins with a memory read.
 
 
 
@@ -737,21 +765,21 @@ start INT=1, RST=1, V=X, L=X, OP=XOR, I=1, SKIP=X, INC=0;
 start INT=1, RST=1, V=X, L=X, OP=JMP, I=0, SKIP=X, INC=X;
       _FETCH_IR;	 // Fetch the instruction and operand. That's
 	    	         // all we need.
-      w_pc, r_agl, /end;	 // Set the PC from AGL(<PR,IR.operand>)
+      w_pc, r_agl, /end; // Set the PC from AGL
 
 // The _FETCH macro fetches the IR and operand, and then loads into DR the
 // value stored in mem[operand]. This is all the indirection we need here (one
 // less indirection step than normal).
 
 start INT=1, RST=1, V=X, L=X, OP=JMP, I=1, SKIP=X, INC=1;
-      _FETCH_LITERAL;	// Fetch the instruction and operand.
-      w_pc, r_dr, /end;	// Set the PC from DR.
+      _FETCH_IR;		// Fetch the IR
+      _MEMREAD(agl, pc), /end;	// PC<-mem[AGL]
 
 start INT=1, RST=1, V=X, L=X, OP=JMP, I=1, SKIP=X, INC=0;
       _FETCH_LITERAL;	        // Fetch the instruction and operand. Autoincrement.
       w_pc, r_dr;	        // Set the PC from DR.
-      _AUTOINC;		        // Autoindex
-      _DESEL, /end;	        // The fetch cycle begins with a memory read.
+      _AUTOINC, /end;		// Autoindex
+      //_DESEL, /end;	        // The fetch cycle begins with a memory read.
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -767,24 +795,23 @@ start INT=1, RST=1, V=X, L=X, OP=JSR, I=0, SKIP=X, INC=X;
       _FETCH_IR;		// Fetch the instruction and operand. That's
 				// all we need.
       _MEMWRITE(cs1, PC);	// Store PC at location 0000.
-      w_pc, r_agl, /end;	// Set the PC from AGL(<PR,IR.operand>)
+      w_pc, r_agl, /end;	// Set the PC from AGL(IR.operand)
 
 // The _FETCH macro fetches the IR and operand, and then loads into DR the
 // value stored in mem[operand]. This is all the indirection we need here (one
 // less indirection step than normal).
 
 start INT=1, RST=1, V=X, L=X, OP=JSR, I=1, SKIP=X, INC=1;
-      _FETCH_LITERAL;		// Fetch the instruction and operand.
-      _DESEL;                   // Deselect memory before writing.
-      _MEMWRITE(cs1, PC);	// Store PC at location 0000.
-      w_pc, r_dr, /end;		// Set the PC from DR.
+      _FETCH_IR;		// Fetch the IR
+      _MEMWRITE(cs1, pc);	// store PC at location 0000.
+      _MEMREAD(agl, pc), /end;	// PC<-mem[AGL]
 
 start INT=1, RST=1, V=X, L=X, OP=JSR, I=1, SKIP=X, INC=0;
       _FETCH_LITERAL;	        // Fetch the instruction and operand.
       _MEMWRITE(cs1, PC);	// Store PC at location 0000.
       w_pc, r_dr;
-      _AUTOINC;		        // Autoindex
-      _DESEL, /end;	        // The fetch cycle begins with a memory read.
+      _AUTOINC, /end;	        // Autoindex
+      //_DESEL, /end;	        // The fetch cycle begins with a memory read.
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -800,7 +827,7 @@ start INT=1, RST=1, V=X, L=X, OP=TRAP, I=0, SKIP=X, INC=X;
       _FETCH_IR;		// Fetch the instruction and operand. That's
 				// all we need.
       _MEMWRITE(cs2, pc);	// Store PC at location 0001.
-      w_pc, r_agl, /end;	// Set the PC from AGL(<PR,IR.operand>)
+      w_pc, r_agl, /end;	// Set the PC from AGL(IR.operand)
 
 // The _FETCH macro fetches the IR and operand, and then loads into DR the
 // value stored in mem[operand]. This is all the indirection we need here (one
@@ -808,17 +835,14 @@ start INT=1, RST=1, V=X, L=X, OP=TRAP, I=0, SKIP=X, INC=X;
 
 start INT=1, RST=1, V=X, L=X, OP=TRAP, I=1, SKIP=X, INC=1;
       _FETCH_LITERAL;		// Fetch the instruction and operand.
-      //_DESEL;           // Clear interrupts (implicit memory deselection)
       _MEMWRITE(cs2, pc);	// Store PC at location 0001.
       w_pc, r_dr, /end;	        // Set the PC from DR.
 
 start INT=1, RST=1, V=X, L=X, OP=TRAP, I=1, SKIP=X, INC=0;
       _FETCH_LITERAL;		// Fetch the instruction and operand.
-      //_DESEL;           // Clear interrupts (implicit memory deselection)
       _MEMWRITE(cs2, pc);	// Store PC at location 0001.
       w_pc, r_dr;
-      _AUTOINC;		        // Autoindex
-      _DESEL, /end;	        // The fetch cycle begins with a memory read.
+      _AUTOINC, /end;	        // Autoindex
 
 
 
@@ -835,7 +859,7 @@ start INT=1, RST=1, V=X, L=X, OP=TRAP, I=1, SKIP=X, INC=0;
 start INT=1, RST=1, V=X, L=X, OP=LIA, I=X, SKIP=X, INC=X;
       _FETCH_IR;		// Fetch the instruction and operand. That's
 				// all we need.
-      w_a, r_agl, /end; 	// A <- AGL(<PR,IR.operand>)
+      w_a, r_agl, /end; 	// A <- AGL(IR.operand)
 
 
 
@@ -981,47 +1005,83 @@ start INT=1, RST=1, V=0, L=0, OP=OP1, I=X, SKIP=1, INC=X;
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-// INCM instruction: LOAD A, increment, STORE A.
+// ISZ instruction: LOAD A, increment, STORE A. Skip next instrction if A=0.
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-// LITERAL MODE INSTRUCTION: agl used for I=0, direct mode for I=1.
-start INT=1, RST=1, V=X, L=X, OP=INCM, I=0, SKIP=X, INC=X;
+// LITERAL MODE INSTRUCTION: agl used for I=0, direct mode for I=1, no skip
+start INT=1, RST=1, V=X, L=X, OP=ISZ, I=0, SKIP=1, INC=X;
       _FETCH_IR;		// Fetch the instruction and operand.
-      w_mar, r_agl;
+      w_ar, r_agl;
       w_a, /mem, /r;
-      /incac, /mem, /r;		// Increment A
+      /incac;                   // Increment A
 
-      r_a, /mem, /wen;		// The MAR still has the same value.
-      r_a, /mem, /wen, /end;
+      r_a, /mem, /wen, ifzero;	// Write it back. (AR is already setup)
+      /end;			// Don't skip.
+
+// Skip taken
+start INT=1, RST=1, V=X, L=X, OP=ISZ, I=0, SKIP=0, INC=X;
+      _FETCH_IR;		// Fetch the instruction and operand.
+      w_ar, r_agl;
+      w_a, /mem, /r;
+      /incac;                   // Increment A
+
+      r_a, /mem, /wen, ifzero;	// Write it back. (AR is already setup)
+      /incpc, /end;		// Skip.
+
+
 
 // Direct mode.
-start INT=1, RST=1, V=X, L=X, OP=INCM, I=1, SKIP=X, INC=1;
+start INT=1, RST=1, V=X, L=X, OP=ISZ, I=1, SKIP=1, INC=1;
       _FETCH_LITERAL;		// Fetch the instruction and operand.
-      w_mar, r_dr;		// Indirection.
+      w_ar, r_dr;		// Indirection.
 
       w_a, /mem, /r;
-      /incac, /mem, /r;		// Increment A
+      /incac;		        // Increment A
 
-      r_a, /mem, /wen;		// The MAR still has the same value.
-      r_a, /mem, /wen, /end;
+      r_a, /mem, /wen, ifzero;	// Write it back (AR is already setup)
+      /end;			// Don't skip.
+
+// Skip taken
+start INT=1, RST=1, V=X, L=X, OP=ISZ, I=1, SKIP=0, INC=1;
+      _FETCH_LITERAL;		// Fetch the instruction and operand.
+      w_ar, r_dr;		// Indirection.
+
+      w_a, /mem, /r;
+      /incac;		        // Increment A
+
+      r_a, /mem, /wen, ifzero;	// Write it back (AR is already setup)
+      /incpc, /end;		// Skip.
+
+
 
 // Autoindex mode.
-start INT=1, RST=1, V=X, L=X, OP=INCM, I=1, SKIP=X, INC=0;
+start INT=1, RST=1, V=X, L=X, OP=ISZ, I=1, SKIP=1, INC=0;
       _FETCH_IR;                // Fetch cycle
       _MEMREAD(agl, dr);        // DR <- mem[agl]
-      //_DESEL;			// Deselect all memory signals and wait.
-      w_mar, r_dr;		// Indirection: io[dr] <- A
+      w_ar, r_dr;		// Indirection: AR <- mem[AGL]
 
-      w_a, /mem, /r;
-      /incac, /mem, /r;		// Increment A
+      w_a, /mem, /r;		// AC <- mem[mem[AGL]]
+      /incac;          		// AC++
 
-      r_a, /mem, /wen;		// The MAR still has the same value.
-      r_a, /mem, /wen;
+      r_a, /mem, /wen;		// Write it back (AR is already setup)
 
-      _AUTOINC;			// mem[agl] <- ++DR
-      _DESEL, /end;	        // The fetch cycle begins with a memory read.
-      
+      _AUTOINC, ifzero; 	// mem[agl] <- ++DR
+      /end;			// Don't skip.
+
+// Skip taken.
+start INT=1, RST=1, V=X, L=X, OP=ISZ, I=1, SKIP=0, INC=0;
+      _FETCH_IR;                // Fetch cycle
+      _MEMREAD(agl, dr);        // DR <- mem[agl]
+      w_ar, r_dr;		// Indirection: AR <- mem[AGL]
+
+      w_a, /mem, /r;		// AC <- mem[mem[AGL]]
+      /incac;          		// AC++
+
+      r_a, /mem, /wen;		// Write it back (AR is already setup)
+
+      _AUTOINC, ifzero; 	// mem[agl] <- ++DR
+      /incpc, /end;		// Skip.
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1066,7 +1126,7 @@ start INT=1, RST=1, V=X, L=X, OP=INCM, I=1, SKIP=X, INC=0;
 // TODO: I think r_cs produces 0001 here, not 0000. Check it!
 start INT=1, RST=1, V=X, L=X, OP=OP2, I=X, SKIP=0, INC=X;
       _FETCH_IR;
-      ifbranch;     // 4. If bit 7: PR <= PC (note: PC <- PC)
+      ifbranch;
       /incpc, if7;		// 5. If branching: branch (if needed)
       w_a, r_cs1, if6;		// 6. If bit 6: A <= 0
       /cli, if5;		// 7. If bit 5: I <= 0

@@ -53,7 +53,7 @@ dump_state()
 	       get_offset(cpu.ir), COL_NOR);
 	printf("\n");
 	printf("PC:  %s%04x%s  ", COL_WHI, cpu.pc, COL_NOR);
-	printf("MAR: %s%04x%s  ", COL_WHI, cpu.mar, COL_NOR);
+	printf("MAR: %s%04x%s  ", COL_WHI, cpu.ar, COL_NOR);
 	printf("DR:  %s%04x%s  ", COL_WHI, cpu.dr, COL_NOR);
 	printf("\n");
 	printf("L,A: %s%d%04x%s  Flags: %s%s%s%s%s%s%s  ",
@@ -109,8 +109,8 @@ dump_ustate()
 	if(IS_ALU_XOR(cpu.control)) printf("alu_xor ");
 	if(IS_ALU_NOT(cpu.control)) printf("alu_not ");
 	if(IS_ALU_ROLL(cpu.control)) printf("alu_roll ");
-	if(IS_W_DBUS(cpu.control)) printf("w_dbus ");
-	if(IS_W_MAR(cpu.control)) printf("w_mar ");
+	if(IS_W_DBUS(cpu.control)) printf("(w_dbus) ");
+	if(IS_W_AR(cpu.control)) printf("w_ar ");
 	if(IS_W_PC(cpu.control)) printf("w_pc ");
 	if(IS_W_IR(cpu.control)) printf("w_ir ");
 	if(IS_W_DR(cpu.control)) printf("w_dr ");
@@ -122,6 +122,10 @@ dump_ustate()
 	if(IS_IF7(cpu.control)) printf("if7 ");
 	if(IS_IF8(cpu.control)) printf("if8 ");
 	if(IS_IF9(cpu.control)) printf("if9 ");
+	if(IS_IFV(cpu.control)) printf("ifv ");
+	if(IS_IFL(cpu.control)) printf("ifl ");
+	if(IS_IFZERO(cpu.control)) printf("ifzero ");
+	if(IS_IFNEG(cpu.control)) printf("ifneg ");
 	if(IS_IFROLL(cpu.control)) printf("ifroll ");
 	if(IS_IFBRANCH(cpu.control)) printf("ifbranch ");
 	if(IS_INCAC(cpu.control)) printf("inc_ac ");
@@ -134,7 +138,7 @@ dump_ustate()
 	if(IS_MEM(cpu.control)) printf("mem ");
 	if(IS_IO(cpu.control)) printf("io ");
 	if(IS_R(cpu.control)) printf("r ");
-	if(IS_W(cpu.control)) printf("w ");
+	if(IS_WEN(cpu.control)) printf("wen ");
 	if(IS_END(cpu.control)) printf("end ");
 	printf("\n");
 	printf("\n");
@@ -193,8 +197,8 @@ dump_mini(word oldpc)
 		 COL_NOR, a_changed? COL_YEL : "", cpu.a,
 		 COL_NOR, dr_changed? COL_YEL : "", cpu.dr,
 		 COL_NOR, cpu.irq ? "" : "IRQ",
-		 ip_changed? COL_YEL : "", cpu.mem[0x91], COL_NOR, map_get(cpu.mem[0x91]),
-		 pfa_changed? COL_YEL : "", cpu.mem[0x41], COL_NOR, map_get(cpu.mem[0x41])
+		 ip_changed? COL_YEL : "", cpu.mem[REG_IP], COL_NOR, map_get(cpu.mem[REG_IP]),
+		 pfa_changed? COL_YEL : "", cpu.mem[REG_PFA], COL_NOR, map_get(cpu.mem[REG_PFA])
 		);
 
 	if (source == NULL) {
@@ -239,16 +243,9 @@ dumpmem(word addr, int count)
 void
 dumpstack(word addr, int usemap)
 {
-	word sp = cpu.mem[addr];
-        word numel = sp - addr - 2;
-	word maxp = cpu.mem[addr + 1];
-        if ((numel > maxp) || (numel > 100)) printf(COL_RED);
-	else printf(COL_CYA);
-        if (sp == 0x208) exit(1);
-	printf("D: STACK %04x sp=%04x mp=%04x n=%-2hd |  ", addr, sp, maxp, numel);
-	++addr;
-	while (++addr < sp) {
-		word x = cpu.mem[addr];
+	int i;
+	for (i = addr; i < addr + 8; i++) {
+		word x = cpu.mem[i];
 		const char * loc = map_get(x);
 		printf("%04x ", x);
 		if (loc != NULL) printf("(%s)  ", loc);
