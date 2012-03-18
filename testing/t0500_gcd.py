@@ -57,14 +57,9 @@ baddr:  .word gcd
 class GCD(testlib.testBaseClass):
     def runTest(self):
         """Algorithm test: Greatest Common Divisor"""
-        self.assemble(ASM1)
-        try:
-            sim = self.simulate()
-            self.assertSim(sim, 'Mis-jump')
-            self.assertEqual(sim, '21[ok]', 'GCD miscalculation.')
-        except:
-            print sim
-            raise
+        self.clear()
+        self.asm(ASM1)
+        self.assertSim('21[ok]')
 
 
 # End of file.

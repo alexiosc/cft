@@ -76,7 +76,7 @@ class NullTerminated(testlib.testBaseClass):
         self.assemble(ASM1)
         try:
             sim = self.simulate()
-            self.assertSim(sim, 'Mis-jump')
+            self.assertNoFail(sim, 'Mis-jump')
             self.assertEqual(sim, 'Hello, world![ok]', 'Null-terminated string failure.')
         except:
             print sim
@@ -88,7 +88,7 @@ class NegTerminated(testlib.testBaseClass):
         self.assemble(ASM2)
         try:
             sim = self.simulate()
-            self.assertSim(sim, 'Mis-jump')
+            self.assertNoFail(sim, 'Mis-jump')
             self.assertEqual(sim, 'Hello, world![ok]', 'Neg-terminated string failure.')
         except:
             print sim

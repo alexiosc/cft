@@ -57,6 +57,13 @@ class BaseTest(unittest.TestCase):
                 os.system('rm -rf ' + self._basedir)
 
 
+    def clear(self):
+        """
+        Clear the assembly source code.
+        """
+        self._source = []
+
+
     def asm(self, line):
         """
         Add some code to the assembly source.
@@ -89,7 +96,10 @@ class BaseTest(unittest.TestCase):
             flags = self.CFTASMFLAGS
 
         cmd = 'cd %(basedir)s; %(asm)s %(flags)s %(debug)s -o %(out)s %(libs)s %(fname)s' % locals()
-        os.system(cmd)
+        self.asm_cmd = cmd
+        if os.system(cmd):
+            print "Assembly failed."
+            raise RuntimeError('Assembly step failed')
 
 
     def readbin(self, name='a.bin'):
@@ -160,6 +170,8 @@ class BaseTest(unittest.TestCase):
                 yield tokens[1]
             elif cmd == 'PRINTB':
                 yield tokens[1]
+            elif cmd == 'PRINTL':
+                yield tokens[1].lstrip('0') or '0'
             elif cmd == 'ASSERT':
                 if tokens[1] == 'TRUE':
                     sys.stderr.write('+')
@@ -185,7 +197,7 @@ class BaseTest(unittest.TestCase):
         return res
 
 
-    def assertSim(self, simout, msg):
+    def assertNoFail(self, simout, msg):
         """Ensure the simulator hasn't returned any failures."""
         self.assertFalse('[FAIL!]' in simout)
 
@@ -194,6 +206,18 @@ class BaseTest(unittest.TestCase):
         """Ensure the simulator output contains the specified substring."""
         self.assertTrue(substr in simout, msg)
 
+    def assertSim(self, expected):
+        """Assemble code (via .asm(), assert expected result. Report any errors."""
+        self.assemble()
+        try:
+            sim = self.simulate()
+            self.assertEqual(sim, expected, 'Unexpected output.')
+
+        except:
+            print "Expected: ", expected
+            print "Simulated:", sim
+            print "Command:  ", self.cmd
+            raise
 
 
 class VerilogTest(BaseTest):
@@ -256,8 +280,9 @@ class EmulatorTest(BaseTest):
         cmd = '%(emu)s --no-sanity -a v0 -t -l %(basedir)s/output -M %(basedir)s/a.map ' + \
             '-p %(basedir)s/a.pasm %(flags)s %(basedir)s/a.bin'
         cmd = cmd % locals()
+        self.cmd = cmd
         try:
-            return subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE).stdout
+            return subprocess.Popen(self.cmd, shell=True, stdout=subprocess.PIPE).stdout
         except:
             print cmd
             raise

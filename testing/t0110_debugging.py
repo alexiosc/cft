@@ -47,7 +47,7 @@ class DebuggingOutput(testlib.testBaseClass):
         """Test debugging facilities"""
         self.assemble(ASM)
         sim = self.simulate()
-        self.assertSim(sim, 'Mis-jump')
+        self.assertNoFail(sim, 'Mis-jump')
         self.assertEqual(sim, 'U 21845 5555 0101010101010101[ok]', 'Debugging output failure.')
 
 # End of file.

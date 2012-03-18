@@ -45,7 +45,7 @@ summary:
 			printf "  %-40.40s " $$a; \
 			if [ -r $$a ]; then \
 				if grep -q ^FAILED $$a; then \
-					echo 'Tested.'; \
+					echo 'Passed.'; \
 				else \
 					echo 'Tested, FAILED.'; \
 				fi \
@@ -61,7 +61,7 @@ summary:
 				if grep -q ^FAILED $$a; then \
 					echo 'Tested, FAILED.'; \
 				else \
-					echo 'Tested.'; \
+					echo 'Passed.'; \
 				fi \
 			else \
 				echo 'Missing.'; \

@@ -25,6 +25,6 @@ class ResetAddress(testlib.testBaseClass):
     def runTest(self):
         """Check reset and PC initialisation"""
         self.assemble(ASM)
-        self.assertSim(self.simulate(), 'Incorrect post-reset address.')
+        self.assertNoFail(self.simulate(), 'Incorrect post-reset address.')
 
 # End of file.

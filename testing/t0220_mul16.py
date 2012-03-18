@@ -78,25 +78,40 @@ mymulr:	  .word %(a)d
 mymulnd:  .word %(b)d
 """
 
-class Div16(testlib.testBaseClass):
+class UMul16(testlib.testBaseClass):
     def runTest(self):
-        """Algorithm test: 16-bit integer multiplication"""
+        """Algorithm test: 16-bit unsigned integer multiplication"""
 
         random.seed(0x11223399);
 
         def _mul(a,b):
-            self.assemble(code % dict(a=a, b=b))
-            try:
-                expected = '%d [ok]' % ((a * b) & 0xffff)
-                sim = self.simulate()
-                self.assertSim(sim, 'Mis-jump')
-                self.assertEqual(sim, expected, 'Multiplication miscalculated.')
-            except:
-                print "Expected:", expected
-                print "Saw:     ", sim
-                raise
+            self.clear()
+            self.asm(code % dict(a=a, b=b))
+            expected = '%d [ok]' % ((a * b) & 0xffff)
+            self.assertSim(expected)
 
-        for n in xrange(20):
+        for n in xrange(40):
             _mul(random.randint(0,0xffff), random.randint(0,0xffff))
+
+
+class Mul16(testlib.testBaseClass):
+    def runTest(self):
+        """Algorithm test: 16-bit signed integer multiplication"""
+
+        random.seed(0x11223399);
+
+        def _mul(a,b):
+            self.clear()
+            self.asm(code % dict(a=a, b=b))
+            expected = '%d [ok]' % ((a * b) & 0xffff)
+            self.assertSim(expected)
+
+        for n in xrange(10):
+            a = random.randint(0,0xffff)
+            b = random.randint(0,0xffff)
+            _mul(-a, b)
+            _mul(a, -b)
+            _mul(-a, -b)
+
 
 # End of file.

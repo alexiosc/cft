@@ -101,16 +101,8 @@ class Div16(testlib.testBaseClass):
         """Algorithm test: 16-bit integer division"""
         a = 65320
         b = 50
-        self.assemble(ASM1 % dict(a=a, b=b))
-        try:
-            expected = '%d %d [ok]' % (a // b, a % b)
-            sim = self.simulate()
-            self.assertSim(sim, 'Mis-jump')
-            self.assertEqual(sim, expected, 'Division miscalculated.')
-        except:
-            print "Expected:", expected
-            print "Saw:     ", sim
-            raise
+        self.asm(ASM1 % dict(a=a, b=b))
+        self.assertSim('%d %d [ok]' % (a // b, a % b))
 
 
 # End of file.
