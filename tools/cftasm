@@ -35,7 +35,7 @@ _BUILTINS = """;;; CFT Assembler Built-ins
 .equ XOR   0xB000
 .equ OP1   0xC000
 .equ OP2   0xD000
-.equ INCM  0xE000
+.equ ISZ   0xE000
 .equ LIA   0xF000
 
 ;;; 1.1.1. Instruction flags.
@@ -101,12 +101,14 @@ _BUILTINS = """;;; CFT Assembler Built-ins
 
 XPMHEAD = """/* XPM */
 static char * cfg_mem_xpm[] = {
-  "256 256 5 1",
+  "256 256 7 1",
   "  c #222222",
   "I c #FF5555",
   "S c #55FF55",
+  "s c #FFA555",
   "F c #55FFFF"
   "W c #4433FF",
+  "P c #000000",
 """
 
 XPMFOOT = """};
@@ -341,8 +343,8 @@ class CFTAssembler(object):
 
                 self.assembly_pass(open(filename))
             
-            # At the end of the first parse, print out the symbol table.
-            if self.passnum == self.PSN_SYMBOL_DISCOVERY:
+            # At the end of the last parse, print out the symbol table.
+            if self.passnum == self.PSN_ASSEMBLY:
                 self.outmap()
                 self.outsym()
                 self.outxpm()
@@ -376,10 +378,13 @@ class CFTAssembler(object):
                     if len(tokens) < 2:
                         self.fail('Value expected after .equ')
                     # Allow forward definitions: don't parse the token unless it's the last pass.
-                    if self.passnum == self.PSN_ASSEMBLY:
+                    # TODO: Verify this code and remove 'True or'.
+                    if True or self.passnum == self.PSN_ASSEMBLY:
                         val = self.parseField(tokens[2:], allbits=True)
+                        #print self.passnum, tokens[1], hex(val)
                     else:
                         val = 0xdead
+                        #print self.passnum, tokens[1], hex(val)
                     self.addSymbol(tokens[1], val)
                     continue
                 elif tokens[0] == '.macro':
@@ -406,7 +411,7 @@ class CFTAssembler(object):
 
             # Is this a macro call? If so, it should be the only thing on a
             # line, and be invoked like macro() or macro(a,b,c,...).
-            x = re.findall('^\s*(\w+)\s*\((.+)\)\s*$', line)
+            x = re.findall('^\s*(\w+)\s*\((.+)\)\s*$', ' '.join(tokens))
             if x:
                 self.assembleMacro(x[0])
                 continue
@@ -461,7 +466,7 @@ class CFTAssembler(object):
 
         # Parse the macro definition
         try:
-            name, arglist = re.findall('^\.macro\s+(\w+)\s*\((.+?)\)\s*', line)[0]
+            name, arglist = re.findall('^\.macro\s+(\w+)\s*\((.*?)\)\s*', line)[0]
             arglist = re.split('\s*,\s*', arglist)
 
         except (TypeError, IndexError):
@@ -472,9 +477,7 @@ class CFTAssembler(object):
             orgline = line.rstrip().expandtabs()
             self.linenum += 1
 
-            line = line.strip()
-
-            if line == '.end':
+            if line.strip() == '.end':
                 if self.passnum == self.PSN_MACRO_DISCOVERY:
                     try:
                         pf, pl = self.macros[name][:2]
@@ -512,7 +515,8 @@ class CFTAssembler(object):
         from the macro definition, not the current file.
         """
         name, arglist = match
-        arglist = re.split('\s*,\s*', arglist)
+        arglist = [x.strip() for x in re.split('\s*,\s*', arglist)]
+
         try:
             mf, mln, mal, mdef = self.macros[name]
         except KeyError:
@@ -572,6 +576,8 @@ class CFTAssembler(object):
             self.assemblePackedString(tokens, orgline)
         elif tokens[0] == '.fill':
             self.assembleFill(tokens, orgline)
+        elif tokens[0] == '.page':
+            self.assemblePage(tokens, orgline)
         elif tokens[0].startswith('.'):
             self.fail("Unknown assembler directive '%s'." % tokens[0])
 
@@ -626,17 +632,23 @@ class CFTAssembler(object):
 
 
     def assemblePackedString(self, tokens, orgline):
-        """Assemble a packed string directive.
+        """Assemble a packed null-terminated string directive.
 
-        A packed string is a string in which bytes are
+        A packed string is a string in which 8-bit bytes are
         word-packed. Even characters of a string (including the first
         one) use the least significant 8 bits of a word. Odd
         characters use the most significant 8 bits.
 
-        The last character of a packed string has its 8th bit set.
+        The string is terminated by the bit sequence 00000000. The
+        user is responsible for including this! Use something like:
 
-        This implies that packed strings may only contain standard
-        7-bit ASCII characters.
+        .strp "Spam, spam, spam and spam." 0
+
+        where the last '0' is the string terminator.
+
+        Packed strings can contain any byte-encoded character set
+        (including Unicode, encoded in UTF-8 or UTF-7). Even-sized
+        strings need an extra word for their terminating null.
         """
         if self.passnum == self.PSN_ASSEMBLY:
             self.logasm(None, msg='', orgline=orgline)
@@ -678,15 +690,15 @@ class CFTAssembler(object):
                     # It's already an int.
                     val = char
                     char = unichr(char)
-                    if ord(char) not in xrange(128):
-                        self.fail("Packed strings can only contain 7-bit characters.")
+                    #if ord(char) not in xrange(128):
+                    #    self.fail("Packed strings can only contain 7-bit characters.")
                 if self.passnum == self.PSN_ASSEMBLY:
                     char = isprint(char) and char or ' '
 
                     # If this is the last character of the last token, set the
                     # high bit.
-                    if ((i + 1) == len(tokens)) and ((j + 1) == len(chars)):
-                        val |= 0x80
+                    #if ((i + 1) == len(tokens)) and ((j + 1) == len(chars)):
+                    #    val |= 0x80
 
                 if (numchars & 1) == 0:
                     wordval = val
@@ -740,6 +752,66 @@ class CFTAssembler(object):
 
         for x in xrange(count):
             self.poke(word, poketype='F')
+            self.incaddr()
+
+        # Inhibit the next address increase.
+        self.jumped = True
+
+
+        
+    def assemblePage(self, tokens, orgline):
+        """Assemble a page directive.
+
+        Syntax: .page [WORD]
+
+        The .page directive automatically fills memory with WORD (which can be
+        any parseable assembler expression, and defaults to zero) until the end
+        of the current page is reached. This is useful for keeping code with
+        relative addressing in the same memory area.
+
+        Using .page allows code to run without rearranging during development.
+
+        If more than 16 words are filled as a result of .page, a message is
+        output during assembly. If more than 64 words are filled, a warning is
+        output. If more than 128 words are filled, an error is raised.
+        """
+        self.jumped = False
+
+        nextpage = (((self.addr >> 10) + 1) << 10)
+        count = nextpage - self.addr
+
+        # Already at the beginning of a page. Do nothing.
+        if count == 0:
+            return
+        elif count > 128:
+            if self.passnum == self.PSN_ASSEMBLY:
+                self.fail(".page generated %d words of slack space. Rearrange your code!" % count)
+        elif count > 64:
+            if self.passnum == self.PSN_ASSEMBLY:
+                self.warn(".page generated %d words of slack space." % count)
+
+        if self.passnum != self.PSN_ASSEMBLY:
+            # We use count - 1 because the caller will increment the address
+            # too.
+            self.incaddr(count - 1)
+            return
+        
+        # Assembly pass: do actual work.
+        word = 0
+        if len(tokens) >= 2:
+            try:
+                word = self.parseField(tokens[2:], allbits=True)
+                try:
+                    word = word.val
+                except AttributeError:
+                    pass
+            except Exception, e:
+                self.fail(str(e))
+
+        self.logasm(None, msg=' .fill &%04x &%04x ; %s' % (count, word, orgline))
+
+        for x in xrange(count):
+            self.poke(word, poketype='P')
             self.incaddr()
 
         # Inhibit the next address increase.
@@ -1050,8 +1122,11 @@ class CFTAssembler(object):
         """Print out the map file."""
         # Open the map output file.
         out = open(self.map_file, 'w')
-        
-        mapcmp = lambda a, b: cmp(a.val, b.val) or cmp(a.name, b.name)
+
+        def mapcmp(a,b):
+            return cmp(a.val, b.val) or cmp(a.filename, b.filename) or \
+                cmp(a.linenum, b.linenum) or cmp(a.name, b.name)
+
         labels = [ x for x in self.symbols.values() if isinstance(x, Label) ]
         if not labels:
             out.write('nothing  0000  <none>:0')
@@ -1254,7 +1329,10 @@ class CFTAssembler(object):
         """Output an error message and fail."""
         # Is there a macro context we should print out?
         for (n, f, ln, mdef) in self.ctx:
-            self._msg("error: (in macro '%s' invoked in %s on line %d)" % (n, f, ln))
+            if mdef:
+                self._msg("error: (in macro '%s' invoked in %s on line %d)" % (n, f, ln))
+            else:
+                self._msg("error: (in file '%s' included from %s on line %d)" % (n, f, ln))
         self._msg('error: ' + msg)
         sys.exit(1)
 
