@@ -216,7 +216,7 @@ class BaseTest(unittest.TestCase):
         except:
             print "Expected: ", expected
             print "Simulated:", sim
-            print "Command:  ", self.cmd
+            print "Command:\n          ", self.cmd
             raise
 
 

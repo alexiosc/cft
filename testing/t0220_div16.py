@@ -60,11 +60,11 @@ _rom_div16:
 	STORE TR2		; modulo = 0
 
 nextbit:
-	LOAD TR3		; Check loop iterations
-	SNA			; Done?
-	RTT			;   Yes. Return
-	INC
-	STORE TR3
+        ISZ TR3                 ; Increment and check if done.
+        JMP @+2
+        RTT
+
+        LOAD TR0
 
 	LOAD TR0		; Shift left <TR2,TR0> 32-bit value (<modulo,quotient>)
 	SBL
@@ -91,18 +91,19 @@ it_fits:
 	JMP nextbit
 	
 
-minus16:  .word -16
+minus16:  .word -17
 mydivn:	  .word %(a)d
 mydvdr:   .word %(b)d
 """
 
 class Div16(testlib.testBaseClass):
     def runTest(self):
-        """Algorithm test: 16-bit integer division"""
+        """Algorithm test: 16-bit unsigned division"""
         a = 65320
         b = 50
         self.asm(ASM1 % dict(a=a, b=b))
         self.assertSim('%d %d [ok]' % (a // b, a % b))
+
 
 
 # End of file.
