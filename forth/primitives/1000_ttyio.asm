@@ -108,11 +108,21 @@ _TYPE0_end:
 	POP (SP)
 	STORE I0		; address
 
-	TRAP vec_trap_printps
-	.word @I0^R		; Argument is in I0
-	.word 0			; Filler
+_typep0_loop:
+	LOAD I I0		; Read characters
+        SNZ			; Done?
+        NEXT			; Yes
+	STORE TMP0		; No.
+	GETLOCHAR()
+	PUTCHAR			; Print it.
 
-	NEXT
+	LOAD TMP0
+	GETHICHAR()
+	SNZ			; Are we done now?
+	NEXT			; Yes
+	PUTCHAR			; Print it.
+
+	JMP _typep0_loop	; Loop again
 
 
 

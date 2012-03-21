@@ -34,7 +34,7 @@ ENTRY_LOCALNAME = """
 //dwn_%(label)s:
 //        .strp "%(namerep)s" 0
 dw_%(label)s_head:
-        .word %(flags)-17s ; Flags
+        .word %(flags)-17s %(hash)d ; Flags & hash
         .word dwn_%(label)-13s ; Pointer to word name (above)
         .word %(link)-17s ; Link to previous dictionary entry
 dw_%(label)s:
@@ -48,7 +48,7 @@ ENTRY_NAMETABLE = """
 //dwn_%(label)s:
 //        .strp "%(namerep)s" 0
 dw_%(label)s_head:
-        .word %(flags)-17s ; Flags
+        .word %(flags)-17s %(hash)d ; Flags & hash
         .word dwn_%(label)-13s ; Pointer to word name (above)
         .word %(link)-17s ; Link to previous dictionary entry
 dw_%(label)s:
@@ -106,6 +106,8 @@ def fail(msg, locals):
     sys.stderr.write(("\n%(source)s:%(linenum)d:" + msg + "\n")  % locals)
     sys.exit(1)
 
+HASHBITS = 3
+hashes = [0] * (1 << HASHBITS)
 
 vectable = []
 numfiles = 0
@@ -145,6 +147,10 @@ for source in sys.argv[1:]:
                     fail("Name '%(name)s' needs an alias.", locals())
                 if alias and re.match('[^A-Za-z0-9_-]', alias):
                     fail("Alias '%(alias)s' is not a valid Assembly identifier." , locals())
+
+                # A simple 4-bit hash used to speed up dictionary searches.
+                hash = (len(name) ^ ord(name[0])) & ((1 << HASHBITS) - 1)
+                hashes[hash] = hashes[hash] + 1
                     
                 alias = alias or name
                 names = names | set([name])
@@ -188,6 +194,7 @@ sys.stderr.write('\nOutput:\n')
 sys.stderr.write('  Source files parsed: %5d\n' % numfiles)
 sys.stderr.write('  Words parsed:        %5d\n' % numwords)
 sys.stderr.write('  Of which copies:     %5d\n' % numcopies)
+sys.stderr.write('  Hash bucket counts:        (%s)\n' % (', '.join(str(x) for x in hashes),))
 sys.stderr.write('\n')
 
 

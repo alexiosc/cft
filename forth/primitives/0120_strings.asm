@@ -196,6 +196,32 @@ __pack_end:
 	NEXT
 
 
+	;; word:  2CHARS
+	;; flags: FFL_PRIMITIVE ROM CFT
+	;; notes: 2CHARS ( a -- a c2 c1 )
+	;;        Given an address a of a packed string cell, this splits the
+	;;        cell value at a into two bytes c2 (high, second character)
+	;;        and c1 (low, first character) and pushes them onto the stack
+	;;        in this order. Useful in processing packed strings. The
+	;;        address u is increased by one and also pushed onto the
+	;;        stack. A c1 or c2 value of 0 signifies the end of the string.
+
+	RPOP(TMP1, SP)		; address
+	ADD PLUS1
+	PUSH(SP)		; push the incremented address.
+
+	LOAD I TMP1		; Load character at TMP1
+	GETHICHAR()
+	PUSH(SP)		; Push the high character
+
+	LOAD I TMP1
+	GETLOCHAR()
+	PUSH(SP)		; Push the low character
+
+	NEXT
+	
+
+
 	;; word:  S@
 	;; alias: s-fetch
 	;; flags: FFL_PRIMITIVE ROM CFT

@@ -3,7 +3,7 @@
 ;; // rudimentary line editing and terminal buffering
 
 	;; TODO: Fix this
-//.page
+/.page
 	
 	;; word:  accept
 	;; flags: FFL_PRIMITIVE ROM CFT
@@ -151,7 +151,7 @@ __accept_end:
 	.word dw_doLIT		; 80
 	.word 128
 	.word dw_accept		; accept
-	//.word dw_DROP		; DROP // ignore the returned address
+	.word dw_DROP		; DROP // ignore the returned address
 
 	.word dw_EXIT		; EXIT
 	

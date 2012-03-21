@@ -26,6 +26,25 @@
 
 // We need quite a few macros on the CFT because of its simplicity
 
+
+	
+// Macro: LSET(tgt,literal)
+//
+// Set tgt with literal value.
+//
+// Warnings:
+//   %literal must be between &000 and &3ff.
+//
+// Side effects:
+//   mem[%tgt] = %literal
+//   AC = %literal
+.macro LSET(tgt, literal)
+	LI %literal		; LSET(%tgt, %literal)
+	STORE %tgt
+.end
+
+	
+
 // Macro: LINCn (addr, n)
 //
 // Increment the value at addr by n.
@@ -363,6 +382,55 @@
 
 
 
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// 32-BIT MACROS
+//
+///////////////////////////////////////////////////////////////////////////////
+
+
+	
+// Macro: INC32(regh, regl)
+//
+// Increment <regh,regl> by 1.
+//
+// Side effects:
+//   mem[%tgth]
+//   mem[%tgtl]
+//   AC
+//   L (as per roll instructions)
+.macro INC32(regh, regl)
+        LOAD %regl              ; INC32(%regh, %regl)
+        CLL INC                 ; Increment by 1. Set up for carry propagation.
+        STORE %regl
+        LOAD %regh
+        IFL INC                 ; Propagate carry.
+        STORE %regh
+.end
+
+	
+	
+// Macro: RNEG32(tgth, tgtl, srch, srcl)
+//
+// Take two's complement of the 32-bit value <srch,srcl>, store in <tgth,tgtl>.
+//
+// Side effects:
+//   mem[%tgth]
+//   mem[%tgtl]
+//   AC
+//   L (as per roll instructions)
+.macro RNEG32(tgth, tgtl, srch, srcl)
+        LOAD %srcl		; RNEG32(%tgth, %tgtl, %srch, %srcl)
+        OP1 CLL NOT INC         ; NEG with carry out
+        STORE %tgtl
+        LOAD %srch
+        XOR R MINUS1            ; Fast complementation
+        IFL INC                 ; Propagate the carry
+        STORE %tgth
+.end
+
 ///////////////////////////////////////////////////////////////////////////////
 //
 // PACKED STRING MACROS
@@ -411,6 +479,7 @@
 	AND BYTEHI		; AND &ff00
 .end
 
+	
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -431,4 +500,31 @@
 	LI %char		; PUTC(%char)
 	PUTCHAR
 .end
+
+
+
+	
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// DEBUGGING MACROS
+//
+///////////////////////////////////////////////////////////////////////////////
+
+// Macro: PRINT32 (hi,lo)
+//
+// Output the specified character.
+// Conditions:
+//   Prints out a 32-bit number in locations hi, lo.
+//
+// Side effects:
+//   AC = char
+.macro PRINT32(hi,lo)
+	LOAD %hi
+	PRINTHI
+	LOAD %lo
+	PRINTLO
+.end
+
+
 // End of file.

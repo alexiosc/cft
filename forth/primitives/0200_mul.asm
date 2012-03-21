@@ -9,10 +9,10 @@
 	;;   16-bit signed integer multiplication. CFT does multiplication in
 	;;   software. The algorithm is faster if w1 > w2.
 
-	POP2r(SP)		; POP -> TMP1, POP -> AC
-	STORE TMP2
+	RPOP(TMP15, SP)
+	RPOP(TMP14, SP)
 	JSR _umul16
-	RPUSH(SP, TMP3)
+	RPUSH(SP, TMP13)
 	NEXT
 
 	
@@ -20,35 +20,35 @@
 	;; 16-bit unsigned multiplication (works for signed too)
 	;;
 	;; Inputs:
-	;;   TMP1 smaller number
-	;;   TMP2 larger number
+	;;   TMP15 smaller number
+	;;   TMP14 larger number
 	;; 
 	;; Side effects:
 	;;   L
 	;;
 	;; Outputs:
-	;;   TMP3 product
+	;;   TMP13 product
 	
 _umul16:
 	LI 0
-	STORE TMP3		; TMP3 = product = 0
+	STORE TMP13		; TMP13 = product = 0
 
 _umul16_loop:
-	LOAD TMP1		; a == 0?
+	LOAD TMP15		; a == 0?
 	SNZ
 	RET			; Then we're done.
 
 	SBR			; L = A & 1, A = A >> 1
-	STORE TMP1
+	STORE TMP15
 	SSL			; L == 0?
 	JMP _umul16_noadd
 
-	RADD(TMP3, TMP3, TMP2)	; prod += b
+	RADD(TMP13, TMP13, TMP14) ; prod += b
 
 _umul16_noadd:
-	LOAD TMP2		; b <<= 1
+	LOAD TMP14		; b <<= 1
 	SBL
-	STORE TMP2
+	STORE TMP14
 
 	JMP _umul16_loop	; Loop again
 

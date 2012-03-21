@@ -52,7 +52,9 @@ init_tables_end2:
 
 	RMOV(UP, I I0)
 	RMOV(SP, I I0)
+	STORE R USP0		; At start SP0 = S0
 	RMOV(RP, I I0)
+	STORE R URP0		; At start, RP0 = RP
 	RMOV(NP, I I0)
 	STORE CP		; At start, CP=NP.
 	RMOV(TIB, I I0)
@@ -81,12 +83,12 @@ _init_table:
 
 	;; Vector table values
 
-	.word _trap_strpack	; vector: trap_strpack
-	.word _trap_strplen	; vector: trap_strplen
-	.word _trap_printps	; vector: trap_printps
-	.word _trap_strpcmp	; vector: trap_strpcmp
-	.word _trap_memcpy 	; vector: trap_memcpy
-	.word _trap_memrcpy 	; vector: trap_memcpy
+	//.xword _trap_strpack	; vector: trap_strpack
+	//.xword _trap_strplen	; vector: trap_strplen
+	//.xword _trap_printps	; vector: trap_printps
+	//.xword _trap_strpcmp	; vector: trap_strpcmp
+	//.xword _trap_memcpy 	; vector: trap_memcpy
+	//.xword _trap_memrcpy 	; vector: trap_memcpy
 
 	.word _NEXT		; vector: _NEXT
 	.word _doLIST		; vector: _doLIST

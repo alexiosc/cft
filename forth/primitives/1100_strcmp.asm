@@ -1,6 +1,8 @@
 ;; // -*- asm -*-
 ;; //
 ;; // Compare strings
+
+//.page
 	
 	;; word:  pstrcmp
 	;; flags: FFL_PRIMITIVE ROM

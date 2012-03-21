@@ -25,7 +25,7 @@ PRIMTABLE = 	$(GEN)dwtable.asm
 
 SOURCES = $(glob *asm) $(PRIMITIVES) $(TABLES)
 
-.PHONY: 	all clean mrproper test
+.PHONY: 	all clean mrproper test remote
 
 all:		$(NAME).bin
 
@@ -59,5 +59,15 @@ $(PRIMITIVES):	$(SCRIPTDIR)/mkprimitives.py $(PRIMITIVEDIR)/[0-9]*.asm
 test-%:		test-%.asm $(ASMINCLUDES)
 		$(ASM) $(ASMINCLUDES) --min-addr=$$[0xe000] $@.asm -o $@.bin
 		$(EMU) $(TESTFLAGS) -t -vv $@.bin -M $@.map -p $@.pasm
+
+remote:
+		xterm -name myTerm -bg black -fg gray70 -fn 7x14 \
+			-ah \
+			-e make remote-run &
+
+remote-run:
+		\rm -f output
+		mkfifo output
+		while true; do clear; cat output; done
 
 # End of file.

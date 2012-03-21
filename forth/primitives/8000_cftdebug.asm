@@ -3,7 +3,7 @@
 // CFT-specific test harness debugging
 
 	;; word:  PRINTA
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: FFL_PRIMITIVE ROM CFT
 	;; notes: PRINTD ( w -- )
 	;;   Prints out an address to the debugging interface.
 	POP (SP)
@@ -11,16 +11,16 @@
 	NEXT
 
 	;; word:  PRINTC
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: FFL_PRIMITIVE ROM CFT
 	;; notes: PRINTD ( c -- )
 	;;   Issues the PRINTC debugging instruction to the test harness,
 	;;   which should print out the character c.
 	POP (SP)
-	PRINTA
+	PRINTC
 	NEXT
 
 	;; word:  PRINTD
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: FFL_PRIMITIVE ROM CFT
 	;; notes: PRINTD ( w -- )
 	;;   Issues the PRINTD debugging instruction to the test harness,
 	;;   which should print out w as a signed integer.
@@ -29,7 +29,7 @@
 	NEXT
 
 	;; word:  PRINTU
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: FFL_PRIMITIVE ROM CFT
 	;; notes: PRINTU ( u -- )
 	;;   Issues the PRINTU debugging instruction to the test harness,
 	;;   which should print out u as an unsigned integer.
@@ -38,7 +38,7 @@
 	NEXT
 
 	;; word:  PRINTH
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: FFL_PRIMITIVE ROM CFT
 	;; notes: PRINTH ( w -- )
 	;;   Issues the PRINTH debugging instruction to the test harness,
 	;;   which should print out w in hex.
@@ -47,7 +47,7 @@
 	NEXT
 
 	;; word:  PRINTB
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: FFL_PRIMITIVE ROM CFT
 	;; notes: PRINTB ( w -- )
 	;;   Issues the PRINTB debugging instruction to the test harness,
 	;;   which should print out w in binary.
@@ -56,7 +56,7 @@
 	NEXT
 
 	;; word:  PRINTSP
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: FFL_PRIMITIVE ROM CFT
 	;; notes: PRINTSP ( -- )
 	;;   Issues the PRINTB debugging instruction to the test harness,
 	;;   which should print out a space (ASCII 32).
@@ -64,7 +64,7 @@
 	NEXT
 
 	;; word:  PRINTNL
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: FFL_PRIMITIVE ROM CFT
 	;; notes: PRINTNL ( -- )
 	;;   Issues the PRINTB debugging instruction to the test harness,
 	;;   which should print out a line feed character (ASCII 10).
@@ -72,21 +72,21 @@
 	NEXT
 
 	;; word:  DEBUGON
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: FFL_PRIMITIVE ROM CFT
 	;; notes: DUMP ( -- )
 	;;   Enables debug logging.
 	DEBUGON
 	NEXT
 	
 	;; word:  DEBUGOFF
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: FFL_PRIMITIVE ROM CFT
 	;; notes: DUMP ( -- )
 	;;   DISABLES debug logging.
 	DEBUGOFF
 	NEXT
 	
 	;; word:  DUMP
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: FFL_PRIMITIVE ROM CFT
 	;; notes: DUMP ( -- )
 	;;   Issues the DUMP debugging instruction to the test harness,
 	;;   which should dump the machine state.
@@ -94,7 +94,7 @@
 	NEXT
 	
 	;; word:  SUCCESS
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: FFL_PRIMITIVE ROM CFT
 	;; notes: SUCCESS ( -- )
 	;;   Issues the SUCCESS debugging instruction to the test harness,
 	;;   which should report a successful testing checkpoint.
@@ -102,11 +102,53 @@
 	NEXT
 	
 	;; word:  FAIL
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: FFL_PRIMITIVE ROM CFT
 	;; notes: FAIL ( -- )
 	;;   Issues the FAIL debugging instruction to the test harness,
 	;;   which should report a failed testing checkpoint.
 	FAIL
+	NEXT
+
+	;; word:  PRINT32
+	;; flags: FFL_PRIMITIVE ROM CFT
+	;; notes: PRINT32 ( d -- )
+	;;   Prints out a double unsigned number in hex.
+	RPOP(TMP1, SP)
+	RPOP(TMP2, SP)
+	PRINT32(TMP1,TMP2)
+	NEXT
+
+	;; word:  .s
+	;; alias: dot_stack
+	;; flags: FFL_PRIMITIVE ROM CFT
+	;; copy:  DUMPS
+	
+	;; notes: DUMPS ( -- )
+	;;   Prints out the current stack.
+	;; word:  DUMPS
+	;; flags: FFL_PRIMITIVE ROM CFT
+	;; notes: DUMPS ( -- )
+	;;   Prints out the current stack.
+	RMOV(I0, R USP0)
+
+	PUTC(10)
+	PUTC(10)
+	RSUB(TMP0, SP, R USP0)
+	PRINTD
+
+_dumps_loop:
+	LOAD I0
+	XOR SP
+	SNZ
+	JMP _dumps_done
+
+	LOAD I I0
+	PRINTH
+	JMP _dumps_loop
+
+_dumps_done:	
+	PUTC(10)
+	PUTC(10)
 	NEXT
 
 // End of file.

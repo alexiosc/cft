@@ -26,6 +26,12 @@
 .equ    TR3     R &00c
 
 // Forth word-local registers
+.equ    TMP15   R &010
+.equ    TMP14   R &011
+.equ    TMP13   R &012
+.equ    TMP12   R &013
+.equ    TMP11   R &014
+.equ    TMP10   R &015
 .equ    TMP9    R &016
 .equ    TMP8    R &017
 .equ    TMP7    R &018

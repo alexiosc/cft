@@ -29,7 +29,8 @@
 	;; notes: EXECUTE ( ca -- )
 	;;   Pop address from data stack and jump to it.
 
-	POP0 (RP)		; POP without STORE
+	POP(SP)			; POP without STORE
+	STORE TMP0
 	JMP I TMP0
 
 

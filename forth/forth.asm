@@ -31,8 +31,8 @@
 .include "macro_stack.asm"
 
 // OS services
-.include "trap_strings.asm"
-.include "trap_memory.asm"
+//.include "trap_strings.asm"
+//.include "trap_memory.asm"
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -162,17 +162,17 @@ cold:
 	JSR init_tables
 	JSR init_isr
 
-	TRAP vec_trap_printps
-	.word @+1
-	.word bootstr
+	//TRAP vec_trap_printps
+	//.word @+1
+	//.word bootstr
 
-	JSR printdict
+	//JSR printdict
 	JMP run
 
 foobar:	.word &1000
 
-bootstr:	.strp 10 10 27 "[0;33m" 27 "#3 CFT " 10 27 "#4 CFT " 10 10 27 "[0m16-bit Mini-Computer" 10 "CFT Booted." 10 "Available words:" 10 0
-str2:	.strp "This is another test" 0
+//bootstr:	.strp 10 10 27 "[0;33m" 27 "#3 CFT " 10 27 "#4 CFT " 10 10 27 "[0m16-bit Mini-Computer" 10 "CFT Booted." 10 "Available words:" 10 0
+//str2:	.strp "This is another test" 0
 
 run:	
 	// IP sentinel/parachute/trampoline
@@ -216,7 +216,7 @@ printdict_loop:
 
 	LOAD I R1		; Indirection
 	STORE R2
-	TRAP vec_trap_printps
+	//TRAP vec_trap_printps
 	.word @R2^R
 	.word 0
 
@@ -241,10 +241,6 @@ printdict_end:
 	RET
 
 
-// Include the table initialisation code
-.include "tables.asm"
-
-
 ///////////////////////////////////////////////////////////////////////////////
 //
 // INNER INTERPRETER
@@ -261,9 +257,12 @@ _inner_interpreter:
 // Assembler macro: NEXT ( -- ) Machine semantics: PC <- mem[mem[IP++]]
 .macro MACRO_NEXT()
 	LOAD I IP		; mem[IP++] contains the next pointer to jump to
+	//PRINTA
+	//JSR I printstack
 	STORE TMP0		; Save for dereferencing
 	JMP I TMP0		; Dereference and jump
 .end
+
 
 // doLIST ( a -- ) // Run an address list
 _doLIST:
@@ -297,11 +296,13 @@ _doCOL:
 	.equ IFL_NEWCHAR   &0001 ; A new character was seen
 	.equ IFL_CTRLC     &8000 ; Ctrl-C has been pressed
 
-	;; Dictionary flags
-	.equ FFL_IMMEDIATE &0001 ; Immediate word.
-	.equ FFL_CMPLONLY  &0002 ; Only used while compiling.
+	;; Dictionary flags. Basic flags MUST be below &400.
+	.equ FFL_HASHMASK  &0007 ; 3 bits of hash data
+	.equ FFL_IMMEDIATE &0010 ; Immediate word.
+	.equ FFL_CMPLONLY  &0020 ; Compile-only.
+	.equ FFL_RESERVED  &0040 ;   [the third standard Forth flag]
 
-	;; Forth dictionary flags (for the compiler's use only)
+	;; Forth dictionary flags (for the compiler's use only -- high bits)
 	.equ FFL_ROM       &4000 ; It's in the ROM.
 	.equ FFL_CPH       &0800 ; Code point handler (_DOCOL, etc).
 	.equ FFL_PRIMITIVE &1000 ; It's an assembly primitive.
@@ -393,6 +394,10 @@ isr_done_tty0:
 	LOAD ISRABKP		; Restore A
 	SEI			; Re-enable interrupts
 	RTI			; Return
+
+
+// Include the table initialisation code
+.include "tables.asm"
 
 
 ///////////////////////////////////////////////////////////////////////////////

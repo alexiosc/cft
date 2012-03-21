@@ -10,6 +10,7 @@
 	ADD MINUS2
 	STORE SP
 
+	CLL
 	LOAD I SP		; Low word
 	NEG			; negate low word. Sets L if necessary.
 	STORE TMP1
