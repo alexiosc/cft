@@ -89,6 +89,15 @@
 	
 
 
+	;; word:  RDROP
+	;; flags: FFL_PRIMITIVE ROM
+	;; notes: RDROP ( -- )
+	;;   Drops a value from the return stack.
+	POP(RP)
+	NEXT
+	
+
+
 	;; word:  DROP
 	;; flags: FFL_PRIMITIVE ROM
 	;; notes: DROP ( w -- )
@@ -210,7 +219,7 @@
 	;;   Returns the number of elements on the stack (before
 	;;   execution of DEPTH).
 
-	LOAD SP0		; Bottom of stack
+	LOAD SPBOT		; Bottom of stack
 	NEG
 	ADD SP			; Top - bottom
 	PUSH(SP)

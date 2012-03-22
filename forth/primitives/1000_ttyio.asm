@@ -40,7 +40,6 @@
 	;;   TODO: Define in terms of SPACE
 	POP(SP)
 	NEG
-	PRINTD
 	STORE TMP0
 _SPACES_loop:
 	PUTC(32)

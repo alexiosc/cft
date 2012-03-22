@@ -4,30 +4,6 @@
 	
 	
 
-	;; word:  ab
-	;; flags: DOCOL ROM CFT
-	;; notes: ab ( -- a b )
-	.word dw_doLIT
-	.word 12345
-	//.word dw_doLIT
-	//.word 0
-
-	.word dw_doLIT
-	.word -4
-	//.word dw_doLIT
-	//.word -1
-
-	.word dw_DUMPS
-
-	.word dw_DIV_MOD
-
-	.word dw_DUMPS
-	.word dw_HALT
-
-	.word dw_EXIT
-
-	
-	
 	;; word:  U/MOD
 	;; alias: U-DIV-MOD
 	;; flags: FFL_PRIMITIVE ROM CFT

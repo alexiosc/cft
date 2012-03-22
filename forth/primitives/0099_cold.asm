@@ -55,7 +55,7 @@ tokenloop_err:
 	.word dw_EMIT
 	.word dw_SPACE		; SPACE
 
-	.word dw_DUMPS
+	//.word dw_DUMPS
 
 	.word dw_branch		; go to tokenlop
 	.word tokenloop

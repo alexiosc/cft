@@ -52,9 +52,9 @@ init_tables_end2:
 
 	RMOV(UP, I I0)
 	RMOV(SP, I I0)
-	STORE R USP0		; At start SP0 = S0
+	STORE R USPBOT		; At start SP0 = S0
 	RMOV(RP, I I0)
-	STORE R URP0		; At start, RP0 = RP
+	STORE R URPBOT		; At start, RP0 = RP
 	RMOV(NP, I I0)
 	STORE CP		; At start, CP=NP.
 	RMOV(TIB, I I0)

@@ -118,38 +118,5 @@
 	PRINT32(TMP1,TMP2)
 	NEXT
 
-	;; word:  .s
-	;; alias: dot_stack
-	;; flags: FFL_PRIMITIVE ROM CFT
-	;; copy:  DUMPS
-	
-	;; notes: DUMPS ( -- )
-	;;   Prints out the current stack.
-	;; word:  DUMPS
-	;; flags: FFL_PRIMITIVE ROM CFT
-	;; notes: DUMPS ( -- )
-	;;   Prints out the current stack.
-	RMOV(I0, R USP0)
-
-	PUTC(10)
-	PUTC(10)
-	RSUB(TMP0, SP, R USP0)
-	PRINTD
-
-_dumps_loop:
-	LOAD I0
-	XOR SP
-	SNZ
-	JMP _dumps_done
-
-	LOAD I I0
-	PRINTH
-	JMP _dumps_loop
-
-_dumps_done:	
-	PUTC(10)
-	PUTC(10)
-	NEXT
-
 // End of file.
- 
+

@@ -1,6 +1,8 @@
 ;; // -*- asm -*-
 ;; //
 ;; // Convert case of strings
+
+.page
 	
 	;; word:  pstrupper
 	;; flags: FFL_PRIMITIVE ROM

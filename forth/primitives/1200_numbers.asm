@@ -17,24 +17,6 @@
 	LIA BASE
 	PUSH(SP)
 	NEXT
-	
-	;; word:  DECIMAL
-	;; flags: PRIMITIVE ROM
-	;; notes: DECIMAL ( -- )
-	;;   Set base 10.
-
-	LI 10
-	STORE BASE
-	NEXT
-	
-	;; word:  HEX
-	;; flags: PRIMITIVE ROM
-	;; notes: HEX ( -- )
-	;;   Set base 16.
-
-	LI 16
-	STORE BASE
-	NEXT
 
 
 	

@@ -116,8 +116,8 @@ _vector_table:
 	
 &0300:				; Provisional address
 UP0:		.word   &beef			; User UP (start of user area)
-USP0:	 	.word	&beef			; User SP0
-URP0:	 	.word	&beef			; User RP0
+USPBOT:	 	.word	&beef			; User SPBOT
+URPBOT:	 	.word	&beef			; User RPBOT
 UNP:		.word	&beef			; User NP (start of user dictionary)
 UCP:		.word	&beef			; User CP (first free word of user dictionary)
 ULAST:	 	.word	&beef			; User LAST (first free word of user dictionary)
@@ -137,6 +137,8 @@ UTEXP:		 .word	&beef			; User 'EXPECT (lexer)
 UTOK:		 .word	&beef			; User 'PROMPT
 
 .equ    UP      R UP0
+.equ    SPBOT   R USPBOT
+.equ    RPBOT   R URPBOT
 .equ    NP      R UNP
 .equ    BASE    R UBASE
 .equ	LAST    R ULAST
