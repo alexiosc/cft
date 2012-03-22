@@ -2,11 +2,18 @@
 //
 // Variables.
 
-	;; word:  doVAR
-	;; flags: FFL_PRIMITIVE ROM
-	;; notes: doVAR ( -- a )
-	;;   Allots w words on the dictionary, changes HERE accordingly.
-	
 
+	
+	;; word:  HLD
+	;; flags: DOCOL ROM
+	;; notes: HLD ( -- a )
+	;;        Returns the address of the HLD pointer.
+
+	.word dw_doLIT
+	.word UHLD
+	.word dw_EXIT
+
+
+	
 // End of file.
 

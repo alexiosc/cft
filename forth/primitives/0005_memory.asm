@@ -16,6 +16,7 @@
 	;;   Store w at address a.
 	POP2 (SP)		; w in AC, a in TMP1
 	STORE I TMP1
+	LOAD TMP1
 	NEXT
 
 

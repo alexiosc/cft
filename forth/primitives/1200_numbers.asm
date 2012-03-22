@@ -35,68 +35,8 @@
 	LI 16
 	STORE BASE
 	NEXT
-	
-	;; word:  __ab
-	;; flags: DOCOL ROM CFT
-	;; notes: baz ( a -- n )
-	;;   Push another test string.
-
-	.word dw_doLIT
-	.word 12345
-	.word dw_doLIT
-	.word 0
-
-	.word dw_doLIT
-	.word 4
-	/.word dw_doLIT
-	/.word 0
-
-	.word dw_DUMPS
-
-	/.word dw_UD_DIV_MOD
-	.word dw_UM_DIV_MOD
-	.word dw_PRINT32
-	.word dw_PRINT32
-
-	.word dw_DUMPS
-	/.word dw_HALT
-
-	.word dw_EXIT
 
 
-	;; word:  foo
-	;; flags: PRIMITIVE ROM CFT
-	;; notes: foo ( -- a )
-	;;   Push a test string.
-
-	LIA @+3
-	PUSH(SP)
-	NEXT
-	.strp "12345" 0
-	
-	;; word:  bar
-	;; flags: PRIMITIVE ROM CFT
-	;; notes: bar ( -- a )
-	;;   Push another test string.
-
-	LIA @+3
-	PUSH(SP)
-	NEXT
-	.strp "ABCD" 0
-	
-	;; word:  baz
-	;; flags: DOCOL ROM CFT
-	;; notes: baz ( a -- n )
-	;;   Push another test string.
-
-	.word dw_2CHARS		; 2CHARS
-	.word dw_BASE		; BASE
-	.word dw_fetch		; 
-
-	LIA @+3
-	PUSH(SP)
-	NEXT
-	.strp "abcdef" 0
 	
 	;; word:  $DIGIT?
 	;; alias: _isdigit

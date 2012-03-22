@@ -7,7 +7,7 @@
 	;; notes: FALSE ( -- f )
 	;;   Push FALSE
 	LI 0
-	PUSH (SP)
+	PUSH(SP)
 	NEXT
 
 
@@ -26,7 +26,7 @@
 	;; flags: FFL_PRIMITIVE ROM
 	;; notes: 0< ( n -- f )
 	;;   Push true if n is negative, false otherwise
-	SPEEK (SP)
+	POP(SP)
 	SNA			; Negative?
 	JMP dw_FALSE		; No. Push 0
 	JMP dw_TRUE		; Yes. Push 1
@@ -38,7 +38,7 @@
 	;; flags: FFL_PRIMITIVE ROM
 	;; notes: 0= ( n -- f )
 	;;   Push true if n is zero, false otherwise
-	SPEEK (SP)
+	POP(SP)
 	SZA			; Zero?
 	JMP dw_FALSE		; No. Push 0
 	JMP dw_TRUE		; Yes. Push 1
@@ -50,7 +50,7 @@
 	;; flags: FFL_PRIMITIVE ROM
 	;; notes: 0> ( n -- f )
 	;;   Push true if n is greter than zero, false otherwise
-	SPEEK (SP)
+	POP(SP)
 	SPA			; Greater than zero?
 	JMP dw_FALSE		; No. Push 0
 	JMP dw_TRUE		; Yes. Push 1
@@ -62,7 +62,7 @@
 	;; flags: FFL_PRIMITIVE ROM
 	;; notes: < ( w1 w2 -- f )
 	;;   Push true if w1 < w2, false otherwise.
-	POP1PEEK1 (SP)
+	POP2r(SP)
 
 	NEG
 	ADD TMP1		; Subtract
@@ -78,7 +78,7 @@
 	;; flags: FFL_PRIMITIVE ROM
 	;; notes: <= ( w1 w2 -- f )
 	;;   Push true if w1 <= w2, false otherwise.
-	POP1PEEK1 (SP)
+	POP2r(SP)
 
 	NEG
 	ADD TMP1		; Subtract
@@ -94,7 +94,7 @@
 	;; flags: FFL_PRIMITIVE ROM
 	;; notes: = ( w w -- f )
 	;;   Push true if n is negative, false otherwise
-	POP1PEEK1 (SP)
+	POP2r(SP)
 
 	XOR TMP1		; Compare
 	SZA			; A == 0? (equal?)
@@ -108,7 +108,7 @@
 	;; flags: FFL_PRIMITIVE ROM
 	;; notes: >= ( w1 w2 -- f )
 	;;   Push true if w1 >= w2, false otherwise.
-	POP1PEEK1 (SP)
+	POP2r(SP)
 
 	NEG
 	ADD TMP1		; Subtract
@@ -124,7 +124,7 @@
 	;; flags: FFL_PRIMITIVE ROM
 	;; notes: > ( w1 w2 -- f )
 	;;   Push true if w1 > w2, false otherwise.
-	POP1PEEK1 (SP)
+	POP2r(SP)
 
 	NEG
 	ADD TMP1		; Subtract

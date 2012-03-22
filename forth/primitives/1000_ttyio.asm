@@ -56,11 +56,12 @@ _SPACES_loop:
 	;;   Print out n characters starting at address addr. Characters are
 	;;   expected to be in the unpacked form (one character per cell).
 	;;   TODO: Use 'EMIT
-	POP(SP)
-	STORE I0		; Save the address
+
 	POP(SP)
 	NEG
-	STORE TMP0		; Save the negated count for looping
+	STORE TMP1		; Save the negated count for looping
+	POP(SP)
+	STORE I0		; Save the address
 	
 _TYPE_loop:
 	LOAD I I0		; Load character (autoincrement)
@@ -68,7 +69,7 @@ _TYPE_loop:
 	AND PLUS127		; This is EMIT.
 	PUTCHAR
 
-	ISZ TMP0		; Loop.
+	ISZ TMP1		; Loop.
 	JMP _TYPE_loop
 
 	NEXT

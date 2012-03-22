@@ -235,7 +235,7 @@ _idiv32_done:
 	
 	NEXT
 
-	.page
+//.page
 	
 
 // End of file.

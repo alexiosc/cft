@@ -20,7 +20,7 @@
 	;;   If f is zero, branch to the address specified after ?branch
 	;;   in the address list. That is, IP <- mem[IP]
 
-	POP (SP)		; Pop f from the data stack
+	POP(SP)			; Pop f from the data stack
 	SZA			; Zero?
 	JMP __branch_no		; No. Don't branch.
 

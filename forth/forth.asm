@@ -123,6 +123,7 @@ UCP:		.word	&beef			; User CP (first free word of user dictionary)
 ULAST:	 	.word	&beef			; User LAST (first free word of user dictionary)
 UBASE:	 	.word	&beef			; User BASE
 UTIB:	 	.word	&beef			; User TIB (char count + terminal input buffer)
+UHLD:	 	.word	&beef			; HOLD pointer
 
 // TODO	
 UTKEY:	 	.word	&beef			; User '?KEY (input source)
@@ -140,6 +141,7 @@ UTOK:		 .word	&beef			; User 'PROMPT
 .equ    BASE    R UBASE
 .equ	LAST    R ULAST
 .equ	TIB     R UTIB
+.equ	HLD     R UHLD
 
 
 ///////////////////////////////////////////////////////////////////////////////

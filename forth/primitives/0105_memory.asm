@@ -3,6 +3,7 @@
 // Slightly more complex memory primitives than in core. Still in Assembly.
 
 	
+	
 	;; word:  HERE
 	;; flags: FFL_PRIMITIVE ROM
 	;; notes: HERE ( -- a )

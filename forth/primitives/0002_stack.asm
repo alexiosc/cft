@@ -214,6 +214,7 @@
 	NEG
 	ADD SP			; Top - bottom
 	PUSH(SP)
+	NEXT
 	
 
 	
@@ -230,6 +231,7 @@
 	STORE TMP1		; TMP1 <- SP - (n + 1)
 	LOAD I TMP1
 	SPOKE(SP)
+	NEXT
 
 
 

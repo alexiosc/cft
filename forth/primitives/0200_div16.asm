@@ -9,17 +9,17 @@
 	;; notes: ab ( -- a b )
 	.word dw_doLIT
 	.word 12345
-	.word dw_doLIT
-	.word 0
+	//.word dw_doLIT
+	//.word 0
 
 	.word dw_doLIT
 	.word -4
-	.word dw_doLIT
-	.word -1
+	//.word dw_doLIT
+	//.word -1
 
 	.word dw_DUMPS
 
-	.word dw_D_DIV_MOD
+	.word dw_DIV_MOD
 
 	.word dw_DUMPS
 	.word dw_HALT
@@ -157,7 +157,6 @@ _idiv16_go:
 	;;
 	;; Details found at http://www.bearcave.com/software/divide.htm
 
-	DEBUGON
 	;; Negate the quotient of the argument signs differ.
 	LOAD TMP14
 	XOR TMP15
@@ -178,7 +177,6 @@ _idiv16_nonegq:
 	RNEG(TMP5, TMP5)	; Negate the remainder to match.
 
 _idiv16_symmetric_done:
-	DEBUGOFF
 _idiv16_flooored:
 
         ;; Up to here, we've done floored division. Now convert it to symmetric
@@ -203,6 +201,19 @@ _idiv16_done:
 
 _idiv16_bit15:
 	.word &8000
+
+
+	;; word:  /
+	;; alias: DIV
+	;; flags: DOCOL ROM CFT
+	;; notes: / ( u1 u2 -- u )
+	;;   16-bit signed integer division. Calculates u1 / u2 and
+	;;   returns the remainder ur and the quotient uq.
+	.word dw_DIV_MOD	; /MOD
+	.word dw_SWAP		; SWAP
+	.word dw_DROP		; DROP
+	.word dw_EXIT
+
 
 
 // End of file.
