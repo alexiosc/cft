@@ -7,7 +7,7 @@
 	;; word:  $str
 	;; alias: _str
 	;; flags: DOCOL ROM CFT
-	;; notes: DIGIT ( u -- b u )
+	;; notes: $str ( u -- b u )
 	;;        Converts an integer to a signed string. Returns the string
 	;;        address and length.
 
@@ -19,6 +19,20 @@
 	.word dw_r_from		; R>
 	.word dw_SIGN		; SIGN
 	.word dw_number_bkt	; >#
+	.word dw_EXIT		; EXIT
+
+	
+
+	;; word:  $ustr
+	;; alias: _ustr
+	;; flags: DOCOL ROM CFT
+	;; notes: $str ( u -- b u )
+	;;        Converts an unsigned integer to a string. Returns the string
+	;;        address and length.
+
+	.word dw_bkt_number	; <#
+	.word dw_number_s	; #S
+	.word dw_number_bkt	; #>
 	.word dw_EXIT		; EXIT
 
 	
@@ -63,6 +77,25 @@
 
 
 
+	;; word:  .0R
+	;; alias: dot_0r
+	;; flags: DOCOL ROM CFT
+	;; notes: .0R ( n +n -- )
+	;;        Zero-pad a signed integer n to a length of +n characters.
+	;;
+
+	.word dw_to_r		; >R
+	.word dw__str		; $str
+	.word dw_r_from		; >R
+	.word dw_OVER		; OVER
+	.word dw_sub		; -
+	.word dw_ZEROES		; ZEROES
+	.word dw_TYPE		; TYPE
+
+	.word dw_EXIT		; EXIT
+
+
+
 	;; word:  U.R
 	;; alias: u_dot_r
 	;; flags: DOCOL ROM CFT
@@ -83,6 +116,27 @@
 
 
 
+	;; word:  U.0R
+	;; alias: u_dot_0r
+	;; flags: DOCOL ROM CFT
+	;; notes: U.R ( u +n -- )
+	;;        Zero-fill unsigned integer u to a length of +n characters.
+	;;
+
+	.word dw_to_r		; >R ( u )
+	.word dw_bkt_number	; <#
+	.word dw_number_s	; #S
+	.word dw_number_bkt	; #> ( a n )
+	.word dw_r_from		; R> ( a n u )
+	.word dw_OVER		; OVER ( a n u n )
+	.word dw_sub		; - ( a n pad )
+	.word dw_ZEROES		; ZEROES ( a n )
+	.word dw_TYPE		; TYPE ( )
+
+	.word dw_EXIT		; EXIT
+
+
+
 	;; word:  U.
 	;; alias: u_dot
 	;; flags: DOCOL ROM CFT
@@ -95,6 +149,7 @@
 	.word dw_number_bkt	; #>
 	.word dw_SPACE		; SPACE
 	.word dw_TYPE		; TYPE
+
 	.word dw_EXIT		; EXIT
 
 	

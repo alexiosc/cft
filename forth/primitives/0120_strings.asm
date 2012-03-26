@@ -18,7 +18,7 @@
 	;; flags: FFL_PRIMITIVE ROM
 	;; notes: >CHAR ( c -- c )
 	;;   Strips high bits and optionally converts non-printable ASCII
-	;;   characters to underscore.
+	;;   characters to dots.
 
 	SPEEK (SP)
 	AND PLUS127		; Keep the lower 7 bits
@@ -33,7 +33,7 @@
 	NEXT
 
 _dw_to_char_fix:
-	LI &5f			; ASCII 95 = &5f = _
+	LI 46			; ASCII 46 = .
 	SPOKE0 (SP)
 	NEXT
 	

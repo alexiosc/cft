@@ -7,9 +7,13 @@
 	;; notes: TEST ( -- )
 	;;   Test the inner interpreter
 
+	.word dw__banner	; $banner ( )
+	
 okloop:
-	.word dw_dot_ok		; .ok
+	//.word dw__t1
+	.word dw_dot_ok		; .ok ( )
 	.word dw_QUERY		; QUERY
+	//.word dw__t0
 	.word dw_blskip		; blskip
 	
 tokenloop:
@@ -54,11 +58,31 @@ tokenloop_err:
 	.word &3f
 	.word dw_EMIT
 	.word dw_SPACE		; SPACE
-
-	//.word dw_DUMPS
-
 	.word dw_branch		; go to tokenlop
 	.word tokenloop
+
+
+	
+	;; word:  $banner
+	;; alias: _banner
+	;; flags: DOCOL ROM CFT
+	;; notes: $banner ( -- )
+	;;   Prints out boot banner.
+	.word dw_doLIT
+	.word _banner_text1
+	.word dw_typep0
+	.word dw_countwords
+	.word dw_DECIMAL
+	.word dw_dot
+	.word dw_doLIT
+	.word _banner_text2
+	.word dw_typep0
+	.word dw_EXIT
+_banner_text1:
+	.strp 10 10 27 "[0;33m" 27 "#3 CFT " 10 27 "#4 CFT " 10 10 27 "[0m16-bit Mini-Computer" 10 "CFT Booted. " 10 "Forth words known:" 0
+_banner_text2:
+	.strp " (type WORDS for a list)" 10 0
+
 	
 	;; word:  BYE
 	;; flags: DOCOL ROM
@@ -68,6 +92,8 @@ tokenloop_err:
 	.word dw_HALT
 	.word dw_EXIT
 
+
+	
 	;; word:  HALT
 	;; flags: FFL_PRIMITIVE ROM
 	;; notes: HALT ( -- )

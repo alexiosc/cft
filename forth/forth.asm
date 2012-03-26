@@ -26,9 +26,10 @@
 // &80-&90 (auto-increment).
 .include "registers.asm"
 
-// Macros. We love'em.
+// Macros. I love'em.
 .include "macro_generic.asm"
 .include "macro_stack.asm"
+.include "macro_forth.asm"
 
 // OS services
 //.include "trap_strings.asm"
@@ -74,6 +75,10 @@ _vector_table:
 
 .equ    NULL    &0000		; The null pointer
 .equ    TMPOUT  R &81		; Temporary (early development) tty out
+.equ    FPSR    R &0		; I/O: front panel Switch Register
+.equ    FPDSR   R &1		; I/O: front panel DIP Switch Register
+.equ    FPOR    R &2		; I/O: front panel output register lights
+.equ    HWTYPE  R &2		; I/O: hardware type register
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -303,7 +308,7 @@ _doCOL:
 	;; Dictionary flags. Basic flags MUST be below &400.
 	.equ FFL_HASHMASK  &0007 ; 3 bits of hash data
 	.equ FFL_IMMEDIATE &0010 ; Immediate word.
-	.equ FFL_CMPLONLY  &0020 ; Compile-only.
+	.equ FFL_COMPILE   &0020 ; Compile-only.
 	.equ FFL_RESERVED  &0040 ;   [the third standard Forth flag]
 
 	;; Forth dictionary flags (for the compiler's use only -- high bits)

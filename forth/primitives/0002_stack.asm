@@ -227,6 +227,20 @@
 	
 
 	
+	;; word:  RDEPTH
+	;; flags: FFL_PRIMITIVE ROM
+	;; notes: RDEPTH ( -- n )
+	;;   Returns the number of elements on the return stack (before
+	;;   execution of DEPTH).
+
+	LOAD RPBOT		; Bottom of stack
+	NEG
+	ADD RP			; Top - bottom
+	PUSH(SP)
+	NEXT
+	
+
+	
 	;; word:  PICK
 	;; flags: FFL_PRIMITIVE ROM
 	;; notes: PICK ( +n -- w )
@@ -237,6 +251,23 @@
 	INC
 	NOT
 	ADD SP
+	STORE TMP1		; TMP1 <- SP - (n + 1)
+	LOAD I TMP1
+	SPOKE(SP)
+	NEXT
+
+
+
+	;; word:  RPICK
+	;; flags: FFL_PRIMITIVE ROM
+	;; notes: RPICK ( +n -- w )
+	;;   Returns the nth-from-the top element on the return stack. 0 PICK
+	;;   returns the top element.
+
+	SPEEK(SP)
+	INC
+	NOT
+	ADD RP
 	STORE TMP1		; TMP1 <- SP - (n + 1)
 	LOAD I TMP1
 	SPOKE(SP)

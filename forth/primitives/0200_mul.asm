@@ -2,6 +2,8 @@
 //
 // Core arithmetic and logic
 
+.page
+	
 	;; word:  *
 	;; alias: mul16
 	;; flags: FFL_PRIMITIVE ROM

@@ -61,7 +61,8 @@ test-%:		test-%.asm $(ASMINCLUDES)
 		$(EMU) $(TESTFLAGS) -t -vv $@.bin -M $@.map -p $@.pasm
 
 remote:
-		xterm -name myTerm -bg black -fg gray70 -fn 7x14 \
+		xterm -title 'CFT Mini-Computer emulator' \
+			-name myTerm -bg black -fg gray70 -fn 7x14 \
 			-ah \
 			-e make remote-run &
 

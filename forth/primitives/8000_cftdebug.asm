@@ -73,21 +73,21 @@
 
 	;; word:  DEBUGON
 	;; flags: FFL_PRIMITIVE ROM CFT
-	;; notes: DUMP ( -- )
+	;; notes: DEBUGON ( -- )
 	;;   Enables debug logging.
 	DEBUGON
 	NEXT
 	
 	;; word:  DEBUGOFF
 	;; flags: FFL_PRIMITIVE ROM CFT
-	;; notes: DUMP ( -- )
+	;; notes: DEBUGOFF ( -- )
 	;;   DISABLES debug logging.
 	DEBUGOFF
 	NEXT
 	
-	;; word:  DUMP
+	;; word:  DUMPSTATE
 	;; flags: FFL_PRIMITIVE ROM CFT
-	;; notes: DUMP ( -- )
+	;; notes: DUMPSTATE ( -- )
 	;;   Issues the DUMP debugging instruction to the test harness,
 	;;   which should dump the machine state.
 	DUMP
@@ -117,6 +117,31 @@
 	RPOP(TMP2, SP)
 	PRINT32(TMP1,TMP2)
 	NEXT
+
+
+	
+	;; word:  $t0
+	;; alias: _t0
+	;; flags: FFL_PRIMITIVE ROM CFT
+	;; notes: $t0 ( -- )
+	;;   Reset the tick timer.
+	OUT &11
+	NEXT
+
+
+	
+	;; word:  $t1
+	;; alias: _t1
+	;; flags: FFL_PRIMITIVE ROM CFT
+	;; notes: $t1 ( -- d )
+	;;   Return number of ticks as a double integer.
+	IN &10
+	PUSH(SP)
+	IN &11
+	PUSH(SP)
+	NEXT
+
+	
 
 // End of file.
 

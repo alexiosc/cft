@@ -42,10 +42,10 @@
 	;; word:  LAST
 	;; flags: DOCOL ROM
 	;; notes: HLD ( -- a )
-	;;        Returns the address of the HLD pointer.
+	;;        Returns the address of the LAST pointer.
 
 	.word dw_doLIT
-	.word LAST
+	.word ULAST
 	.word dw_EXIT
 
 

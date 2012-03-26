@@ -40,9 +40,24 @@ _udiv16_done:
 	RET
 
 _udiv16:
+	;; TODO: optimise for division by powers of two (and ideally 10)
+
+	;; Check for division by zero.
         LOAD TMP3		; Check for division by zero
 	SNZ
 	RET			; Division by zero. Return 0.
+
+	;; Check for division by 2.
+	LI 2
+	XOR TMP3
+	SNZ
+	JMP _ushr1
+	
+	;; Check for division by 16.
+	LI 16
+	XOR TMP3
+	SNZ
+	JMP _ushr4
 	
 	LOAD _udiv16_rep	; -17 => 16 bits
 	STORE TMP0
@@ -79,6 +94,41 @@ _udiv16_nextbit:
 	
 _udiv16_rep:
 	.word -17
+
+	;; Optimised 16-bit division by 2 and 16.
+	;; 
+	;; Inputs:
+	;;   TMP1: dividend
+	;;   TMP3: divisor
+	;;
+	;; Outputs:
+	;;   TMP1: quotient
+	;;   TMP5: modulo
+	;;   AC: 0 => division by zero.
+
+_ushr1:
+	LOAD TMP1
+	CLL RBR
+	STORE TMP1
+	CLA RBL			; Roll-in value of L.
+	STORE TMP5
+	LI 0
+	RET
+	
+_ushr4:
+	LI &f
+	AND TMP1
+	STORE TMP5		; Modulo = (TMP1 & 0xf)
+
+	LOAD TMP1
+
+	LOAD TMP1
+	RNR
+	AND PLUS0FFF		; Quotient = (TMP1 >> 4) & 0xfff)
+	STORE TMP1
+	LI 0
+	RET
+	
 
 
 	;; word:  /MOD

@@ -16,7 +16,7 @@
 
 	
 	;; word:  EXIT
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: FFL_PRIMITIVE ROM COMPILE
 	;; notes: EXIT ( -- )
 
 	RPOP (IP, RP)		; Get the IP from the return stack

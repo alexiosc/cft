@@ -2,19 +2,18 @@
 ;; //
 ;; // INTERPRETER
 
-
-	
 	;; word:  .OK
 	;; alias: dot-ok
 	;; flags: FFL_DOCOL ROM CFT
 	;; notes: .OK ( -- )
 	;;   Print out the "ok " prompt
 
-	.word dw_doPSTR
-	.word @+4
-	.strp 10 "ok " 0
+	.word dw_doLIT
+	.word _dot_ok_prompt
 	.word dw_typep0
 	.word dw_EXIT
+_dot_ok_prompt:	
+	.strp 10 "ok " 0
 
 
 	

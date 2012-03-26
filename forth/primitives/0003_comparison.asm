@@ -104,7 +104,7 @@
 
 
 	;; word:  >=
-	;; alias: greater-than-or-equal
+	;; alias: geq
 	;; flags: FFL_PRIMITIVE ROM
 	;; notes: >= ( w1 w2 -- f )
 	;;   Push true if w1 >= w2, false otherwise.
