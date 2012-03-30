@@ -4,7 +4,7 @@
 
 	;; word:  NAME
 	;; alias: NAME
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: NAME ( -- )
 
 	;; End of primitive

@@ -3,7 +3,7 @@
 // Define the NAME primitive
 
 	;; word:  branch
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: branch ( -- )
 	;;   Branches to the address specified after it in an address list. That is,
 	;;   IP <- mem[IP]
@@ -15,7 +15,7 @@
 
 	;; word:  ?branch
 	;; alias: if-branch
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: branch? ( f -- )
 	;;   If f is zero, branch to the address specified after ?branch
 	;;   in the address list. That is, IP <- mem[IP]
@@ -38,7 +38,7 @@ __branch_no:
 
 
 	;; word:  next
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: next ( -- )
 	;;   Decrement index (at top of return stack) and exit loop if
 	;;   index is less than 0. The loop address is at mem[IP].

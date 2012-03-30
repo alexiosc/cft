@@ -3,7 +3,7 @@
 // Core arithmetic and logic
 
 	;; word:  AND
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: AND ( w w -- w )
 	;;   Bitwise AND
 	POP1PEEK1 (SP)
@@ -14,7 +14,7 @@
 
 	
 	;; word:  OR
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: OR ( w w -- w )
 	;;   Bitwise OR
 	POP1PEEK1 (SP)
@@ -25,7 +25,7 @@
 
 	
 	;; word:  XOR
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: XOR ( w w -- w )
 	;;   Bitwise XOR
 	POP1PEEK1 (SP)
@@ -37,7 +37,7 @@
 	
 	;; word:  +
 	;; alias: add
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: + ( w w -- w )
 	;;   Addition
 	POP1PEEK1 (SP)
@@ -49,7 +49,7 @@
 	
 	;; word:  -
 	;; alias: sub
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: - ( w w -- w )
 	;;   Subtraction
 	POP1PEEK1 (SP)
@@ -62,7 +62,7 @@
 	
 	;; word:  1+
 	;; alias: inc
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: 1+ ( w -- w )
 	;;   Increment by one
 	SPEEK (SP)
@@ -74,7 +74,7 @@
 
 	;; word:  2+
 	;; alias: inc2
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: 2+ ( w -- w )
 	;;   Increment by two
 	SPEEK (SP)
@@ -86,7 +86,7 @@
 
 	;; word:  1-
 	;; alias: dec
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: 1- ( w -- w )
 	;;   Decrement by one
 	SPEEK (SP)
@@ -98,7 +98,7 @@
 
 	;; word:  2-
 	;; alias: dec2
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: 2- ( w -- w )
 	;;   Decrement by two
 	SPEEK (SP)
@@ -110,7 +110,7 @@
 
 	;; word:  >>1
 	;; alias: shl1
-	;; flags: FFL_PRIMITIVE ROM CFT
+	;; flags: CODE ROM CFT
 	;; notes: 2/ ( w -- w )
 	;;   Shift right one bit. No sign extension.
 	SPEEK (SP)
@@ -122,7 +122,7 @@
 
 	;; word:  2/
 	;; alias: 2div
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: 2/ ( w -- w )
 	;;   Shift right one bit with sign extension.
 	SPEEK (SP)
@@ -140,7 +140,7 @@
 
 	;; word:  2*
 	;; alias: 2mul
-	;; flags: FFL_PRIMITIVE ROM CFT
+	;; flags: CODE ROM CFT
 	;; notes: 2* ( u -- u ) 
 	;;   Shift left one bit.
 	SPEEK (SP)
@@ -152,7 +152,7 @@
 
 	;; word:  16/
 	;; alias: 16div
-	;; flags: FFL_PRIMITIVE ROM CFT
+	;; flags: CODE ROM CFT
 	;; notes: 16/ ( u -- u )
 	;;   Shift right four bits (one nybble). No sign extension.
 	SPEEK (SP)
@@ -165,7 +165,7 @@
 
 	;; word:  16*
 	;; alias: 16mul
-	;; flags: FFL_PRIMITIVE ROM CFT
+	;; flags: CODE ROM CFT
 	;; notes: 16* ( w -- w ) 
 	;;   Shift left four bits.
 	SPEEK (SP)
@@ -176,7 +176,7 @@
 	
 
 	;; word:  NOT
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: NOT ( w -- w )
 	;;   Flip all bits in w, or negate in one's complement.
 	SPEEK (SP)
@@ -187,7 +187,7 @@
 	
 
 	;; word:  ABS
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: ABS ( w -- w )
 	;;   The absolute value of w
 	SPEEK (SP)

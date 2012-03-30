@@ -3,7 +3,7 @@
 // Core comparison primitives
 
 	;; word:  FALSE
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: FALSE ( -- f )
 	;;   Push FALSE
 	LI 0
@@ -13,7 +13,7 @@
 
 
 	;; word:  TRUE
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: TRUE ( -- f )
 	;;   Push TRUE
 	RPUSH(SP, MINUS1)	; Push &ffff
@@ -23,7 +23,7 @@
 
 	;; word:  0<
 	;; alias: zero-less
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: 0< ( n -- f )
 	;;   Push true if n is negative, false otherwise
 	POP(SP)
@@ -35,7 +35,7 @@
 
 	;; word:  0=
 	;; alias: zero-equals
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: 0= ( n -- f )
 	;;   Push true if n is zero, false otherwise
 	POP(SP)
@@ -47,7 +47,7 @@
 
 	;; word:  0>
 	;; alias: zero-greater
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: 0> ( n -- f )
 	;;   Push true if n is greter than zero, false otherwise
 	POP(SP)
@@ -59,7 +59,7 @@
 
 	;; word:  <
 	;; alias: less-than
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: < ( w1 w2 -- f )
 	;;   Push true if w1 < w2, false otherwise.
 	POP2r(SP)
@@ -75,7 +75,7 @@
 
 	;; word:  <=
 	;; alias: less-than-or-equal
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: <= ( w1 w2 -- f )
 	;;   Push true if w1 <= w2, false otherwise.
 	POP2r(SP)
@@ -91,7 +91,7 @@
 
 	;; word:  =
 	;; alias: equal
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: = ( w w -- f )
 	;;   Push true if n is negative, false otherwise
 	POP2r(SP)
@@ -105,7 +105,7 @@
 
 	;; word:  >=
 	;; alias: geq
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: >= ( w1 w2 -- f )
 	;;   Push true if w1 >= w2, false otherwise.
 	POP2r(SP)
@@ -121,7 +121,7 @@
 
 	;; word:  >
 	;; alias: greater-than
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: > ( w1 w2 -- f )
 	;;   Push true if w1 > w2, false otherwise.
 	POP2r(SP)
@@ -136,7 +136,7 @@
 	
 	
 	;; word:  MIN
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: MIN ( w w -- w )
 	;;   Pushes the minimum of the two numbers.
 	POP1PEEK1 (SP)
@@ -156,7 +156,7 @@ dw_MIN_push_tmp1:
 
 	
 	;; word:  MAX
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: MIN ( w w -- w )
 	;;   Pushes the minimum of the two numbers.
 	POP1PEEK1 (SP)
@@ -171,7 +171,7 @@ dw_MIN_push_tmp1:
 
 	
 	;; word:  WITHIN
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: WITHIN ( u ul uh -- f )
 	;;   TRUE if ul <= u <= uh
 	RPOP (TMP1, SP)		; uh

@@ -3,10 +3,11 @@
 // Division words
 	
 	
-
+.page
+	
 	;; word:  U/MOD
 	;; alias: U-DIV-MOD
-	;; flags: FFL_PRIMITIVE ROM CFT
+	;; flags: CODE ROM CFT
 	;; notes: U/MOD ( u1 u2 -- ur uq )
 	;;   16-bit unsigned integer division. Calculates u1 / u2 and
 	;;   returns the remainder ur and the quotient uq.
@@ -133,7 +134,7 @@ _ushr4:
 
 	;; word:  /MOD
 	;; alias: DIV-MOD
-	;; flags: FFL_PRIMITIVE ROM CFT
+	;; flags: CODE ROM CFT
 	;; notes: /MOD ( u1 u2 -- ur uq )
 	;;   Floored, 16-bit signed integer division. Calculates u1 / u2 and
 	;;   returns the remainder ur and the quotient uq.

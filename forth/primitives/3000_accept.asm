@@ -6,7 +6,7 @@
 //.page
 	
 	;; word:  accept
-	;; flags: FFL_PRIMITIVE ROM CFT
+	;; flags: CODE ROM CFT
 	;; notes: accept ( a n -- a1 )
 	;;   Receive up to n characters and store as a null-terminated UNPACKED
 	;;   string starting at address a. Rudimentary editing facilities are
@@ -141,17 +141,18 @@ __accept_end:
 	;; word:  QUERY
 	;; flags: DOCOL ROM
 	;; notes: QUERY ( -- )
-	;;        Set up the TIM and get a line from the terminal.
+	;;        Set up the TIB and get a line from the terminal.
 
-	.word dw_TIB		; TIB
-	.word dw_tibptr		; >IN
-	.word dw_store		; !
+	.word dw_TIB		; TIB ( va )
+	.word dw_fetch		; @ ( tib-addr )
+	.word dw_pIN		; >IN ( tib-addr va )
+	.word dw_store		; ! ( )
 	
 	.word dw_TIB		; TIB
-	.word dw_doLIT		; 80
-	.word 128
-	.word dw_accept		; accept
-	.word dw_DROP		; DROP // ignore the returned address
+	.word dw_fetch		; @ ( tib-addr )
+	doLIT(TIBS)		; size of TIB ( tib-addr tib-size )
+	.word dw_accept		; accept ( a )
+	.word dw_DROP		; DROP ( a) \ ignore the returned address
 
 	.word dw_EXIT		; EXIT
 	

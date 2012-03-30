@@ -2,8 +2,10 @@
 //
 // The inner interpreter.
 
+	
+	
 	;; word:  doLIST
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: $doLIST ( a -- )
 	;;   Execute address list starting with a.
 
@@ -16,7 +18,7 @@
 
 	
 	;; word:  EXIT
-	;; flags: FFL_PRIMITIVE ROM COMPILE
+	;; flags: CODE ROM COMPILE
 	;; notes: EXIT ( -- )
 
 	RPOP (IP, RP)		; Get the IP from the return stack
@@ -25,7 +27,7 @@
 
 	
 	;; word:  EXECUTE
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: EXECUTE ( ca -- )
 	;;   Pop address from data stack and jump to it.
 
@@ -36,7 +38,7 @@
 
 	
 	;; word:  doLIT
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: EXECUTE ( -- w )
 	;;   Push a literal onto the stack.
 
@@ -47,7 +49,7 @@
 	
 
 	;; word:  doPSTR
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: EXECUTE ( -- w )
 	;;   Push a string literal onto the stack.
 
@@ -59,7 +61,7 @@
 	
 
 	;; word:  NOP
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: NOP ( -- )
 	;;   Does nothing, and it does it slowly.
 

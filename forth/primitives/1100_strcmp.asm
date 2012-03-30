@@ -5,7 +5,7 @@
 //.page
 	
 	;; word:  pstrcmp
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: pstrcmp ( s1 s2 -- n )
 	;;   Compare two packed strings and return a number indicating their
 	;;   lexicographical order. If n == 0, s1 == s2. If n < 0, s1 < s2.

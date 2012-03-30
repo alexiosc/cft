@@ -5,7 +5,7 @@
 
 
 	;; word:  tty.init
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: tty.init ( -- )
 	;;   Initialise the console. Currently does nothing. The emulator
 	;;   console is always initialised.
@@ -14,7 +14,7 @@
 
 
 	;; word:  tx
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: tx ( c -- )
 	;;   Transmits c to the console.
 	POP (SP)
@@ -25,7 +25,7 @@
 
 	;; word:  rx?
 	;; alias: rx_q
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: tt.rx? ( -- f )
 	;;   Returns true if the console has received a character.
 	RPUSH(SP, INPFR)
@@ -34,7 +34,7 @@
 
 
 	;; word:  rx
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: rx? ( -- c )
 	;;   Receive a character from the console. Block if one isn't available.
 _rx_loop:

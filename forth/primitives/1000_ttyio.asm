@@ -5,7 +5,7 @@
 
 	
 	;; word:  EMIT
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: EMIT ( c -- )
 	;;   Prints out c. The least significant 7 bits are output as per F83.
 	;;   TODO: Use 'EMIT
@@ -17,7 +17,7 @@
 
 
 	;; word:  UEMIT
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: UEMIT ( w -- )
 	;;   Prints out c in UTF-8 encoding. All 16 bits of w are used and
 	;;   encoded accordingly. Only the first 65,536 UCS codepoints may
@@ -107,30 +107,31 @@ _uemit1b:
 _uemitd:
 	.word &ff80		; Mask for >1 byte per char
 	.word &f800		; >2 bytes per char
+
+
 	
-
-
-
 	;; word:  CR
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: CR ( -- )
 	;;   EMIT a carriage return.
 	;;   TODO: Use 'EMIT
 	PUTC(10)
 	NEXT
 
+	
 
 	;; word:  SPACE
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: SPACE ( -- )
 	;;   EMIT a space.
 	;;   TODO: Use 'EMIT
 	PUTC(32)
 	NEXT
 
+	
 
 	;; word:  SPACES
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: SPACES ( n -- )
 	;;   EMITs n SPACEs.
 	;;   TODO: Use 'EMIT
@@ -149,7 +150,7 @@ _SPACES_loop:
 
 	
 	;; word:  ZEROES
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: ZEROES ( n -- )
 	;;   EMITs n '0'.
 	;;   TODO: Use 'EMIT
@@ -168,7 +169,7 @@ _ZEROES_loop:
 
 	
 	;; word:  TYPE
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: TYPE ( addr +n -- )
 	;;   Print out n characters starting at address addr. Characters are
 	;;   expected to be in the unpacked form (one character per cell).
@@ -192,11 +193,10 @@ _TYPE_loop:
 	JMP _TYPE_loop
 
 	NEXT
-
 	
 	
 	;; word:  type0
-	;; flags: FFL_PRIMITIVE ROM CFT
+	;; flags: CODE ROM CFT
 	;; notes: type0 ( addr -- )
 	;;   Print out null-terminated string starting at address addr.
 	;;   Characters are expected to be in the unpacked form (one
@@ -224,7 +224,7 @@ _TYPE0_end:
 
 	
 	;; word:  typep0
-	;; flags: FFL_PRIMITIVE ROM CFT
+	;; flags: CODE ROM CFT
 	;; notes: typep0 ( a -- )
 	;;        Prints out the packed, null-terminated string starting at a.
 

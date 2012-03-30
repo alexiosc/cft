@@ -6,7 +6,7 @@
 	
 	;; word:  PANEL>
 	;; alias: panel-from
-	;; flags: FFL_PRIMITIVE ROM CFT
+	;; flags: CODE ROM CFT
 	;; notes: PANEL> ( -- w )
 	;;   Reads the front panel switches and pushes the result.
 
@@ -18,7 +18,7 @@
 	
 	;; word:  >PANEL
 	;; alias: from-panel
-	;; flags: FFL_PRIMITIVE ROM CFT
+	;; flags: CODE ROM CFT
 	;; notes: >PANEL ( W -- )
 	;;   Write to the front panel output register (OR).
 
@@ -30,7 +30,7 @@
 	
 	;; word:  DIP>
 	;; alias: DIP-from
-	;; flags: FFL_PRIMITIVE ROM CFT
+	;; flags: CODE ROM CFT
 	;; notes: DIP> ( -- w )
 	;;   Write to the front panel output register (OR).
 
@@ -41,12 +41,38 @@
 	
 
 	;; word:  HWTYPE
-	;; flags: FFL_PRIMITIVE ROM CFT
+	;; flags: CODE ROM CFT
 	;; notes: HWTYPE ( -- w )
 	;;   Push the contents of the hardware type register.
 
 	IN HWTYPE
 	PUSH (SP)
+	NEXT
+
+
+
+	;; word:  IO@
+	;; alias: IO_fetch
+	;; flags: CODE ROM CFT
+	;; notes: IO@ ( a -- w )
+	;;   Reads a word from the I/O address at a.
+
+	SPEEK(SP)
+	STORE TMP1
+	IN I TMP1
+	SPOKE0(SP)
+	NEXT
+
+
+
+	;; word:  IO!
+	;; alias: IO_store
+	;; flags: CODE ROM CFT
+	;; notes: IO! ( w a -- )
+	;;   Write w to the I/O address at a.
+
+	POP2r(SP)		; AC=w, TMP1=a
+	OUT I TMP1
 	NEXT
 
 

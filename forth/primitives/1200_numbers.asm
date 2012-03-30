@@ -8,21 +8,9 @@
 
 
 //.page
-	;; word:  BASE
-	;; flags: PRIMITIVE ROM
-	;; notes: BASE ( -- a )
-	;;   The address of the BASE variable, which defines the current number
-	;;   base.
-
-	LIA BASE
-	PUSH(SP)
-	NEXT
-
-
-	
 	;; word:  $DIGIT?
 	;; alias: _isdigit
-	;; flags: PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: DIGIT ( c base -- n true | false )
 	;;   If c is a digit character in the specified base, return n, an
 	;;   integer representation of the digit, and true. Otherwise, return
@@ -113,7 +101,7 @@ _isdigit_c:
 
 	;; word:  NUMBER?
 	;; alias: NUMBER_
-	;; flags: PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: NUMBER ( a -- n true | a false )
 	;;        If the packed string with address a is a valid number
 	;;        literal, return its integer representation and
@@ -126,7 +114,10 @@ _number:
 	LI 0
 	STORE TMP2		; This is where the number is formed.
 	STORE TMP3		; Negative flag (starts off 0)
-	RMOV(TMP4,BASE)		; TMP4 is the base
+
+	LOADUP(UAOFS_BASE)	; Load the BASE user variable
+	STORE TMP4		; TMP4 is the base
+	
 	LIA _number_prefix
 	STORE TMP5		; The character handler (state machine)
 

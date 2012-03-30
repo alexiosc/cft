@@ -78,8 +78,7 @@
 	;; flags: DOCOL ROM
 	;; notes: # ( u -- u )
 	;;        Extract a digit.
-
-	;; BASE @ EXTRACT HOLD
+	;; code:  : # ( u -- u ) BASE @ EXTRACT HOLD ;
 
 	.word dw_BASE		; BASE
 	.word dw_fetch		; @

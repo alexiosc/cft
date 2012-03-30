@@ -5,7 +5,7 @@
 /.page
 	
 	;; word:  pstrupper
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: pstrupper ( s -- s )
 	;;        Convert all characters of a packed string to upper cas
 	;;        in-place. Returns the address of the string.
@@ -91,7 +91,7 @@ _pstrmap_loop:
 
 
 	;; word:  pstrlower
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: pstrlower ( s -- s )
 	;;        Convert all characters of a packed string to lower case in-place.
 	;;        Returns the address of the string.

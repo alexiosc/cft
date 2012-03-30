@@ -5,7 +5,7 @@
 
 
 	;; word:  blindex
-	;; flags: FFL_PRIMITIVE ROM CFT
+	;; flags: CODE ROM CFT
 	;; notes: blindex ( b c -- b )
 	;;        Given a string with address b and a character c, returns the first
 	;;        address >= b containing a token separator character (anything <= 32).
@@ -35,12 +35,15 @@ _blindex_ret0:
 
 
 	;; word:  blskip
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: TOKEN ( -- )
 	;;        Advances >IN past any white space.
 
+	LOADUP(UAOFS_pIN)	; I0 := UP[>IN] (autoincrement reg)
+	STORE I0
+	
 _blskip_loop:
-	LOAD I TIBP		; Load mem[>IN], autoincrement.
+	LOAD I I0		; Load mem[>IN], autoincrement.
 	SNZ			; Zero?
 	JMP _blskin_end
 	
@@ -48,25 +51,29 @@ _blskip_loop:
 	SPA			; <=32?
 	JMP _blskip_loop	; Yes.
 
-_blskin_end:	
-	DECM(TIBP)		; Decrement >IN.
+_blskin_end:
+	LOAD I0
+	ADD MINUS1		; Decrement >IN
+	STORE I TMP0		; TMP0 still holds the address of >IN
 	NEXT
 
 	
 
 	;; word:  $token
 	;; alias: _token
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: $token ( -- +u )
 	;;        Parses a token, starting with the current position of the
 	;;        TIB. Returns the length of the token in characters.
 
-	RPUSH(SP, TIBP)		; Push beginning of token.
+	LOADUP(UAOFS_pIN)	; I0 := UP[>IN] (autoincrement reg)
+	STORE I0
+	RPUSH(SP, I0)		; Push beginning of token.
 	LI 0
 	STORE TMP1		; Length counter
 	
 _token_loop:
-	LOAD I TIBP		; Load mem[>IN], autoincrement.
+	LOAD I I0		; Load mem[>IN], autoincrement.
 	SNZ			; Zero?
 	JMP _token_end		; Yes. Exit.
 	
@@ -79,9 +86,14 @@ _token_loop:
 
 _token_space:	
 	;; It's a whitespace character. Null-terminate.
-	DECM(TIBP)		; Decrement >IN.
+	LOAD I0
+	ADD MINUS1		; Decrement >IN
+	STORE I0
 	LI 0
-	STORE I TIBP		; Store a null.
+	STORE I I0		; [>IN++] = \0
+
+	LOAD I0			; Save the index register value
+	STORE I TMP0		; ... to the user variable
 
 _token_end:
 	RPUSH(SP, TMP1)		; Push length counter
@@ -91,6 +103,7 @@ _token_end:
 _minus32:
 	.word -32
 
+	
 	
 // End of file.
 	

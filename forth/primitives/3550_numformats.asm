@@ -38,23 +38,21 @@
 	
 
 	;; word:  DECIMAL
-	;; flags: PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: DECIMAL ( -- )
 	;;   Set base 10.
 
-	LI 10
-	STORE BASE
+	LSTOREUP(UAOFS_BASE, 10)
 	NEXT
 
 
 	
 	;; word:  HEX
-	;; flags: PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: HEX ( -- )
 	;;   Set base 16.
 
-	LI 16
-	STORE BASE
+	LSTOREUP(UAOFS_BASE, 16)
 	NEXT
 
 
@@ -160,7 +158,7 @@
 	;; notes: . ( w -- )
 	;;        Display a signed integer in free format
 	;;
-	;; src:   : . ( w -- ) BASE @ 10 XOR IF U. EXIT THEN str SPACE TYPE ;
+	;; src:   : . ( w -- ) BASE @ 10 XOR IF U. EXIT THEN $str SPACE TYPE ;
 
 	.word dw_BASE		; BASE
 	.word dw_fetch		; @

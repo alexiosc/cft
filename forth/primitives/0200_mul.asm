@@ -6,7 +6,7 @@
 	
 	;; word:  *
 	;; alias: mul16
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: * ( w1 w2 -- w )
 	;;   16-bit signed integer multiplication. CFT does multiplication in
 	;;   software. The algorithm is faster if w1 > w2.
@@ -58,7 +58,7 @@ _umul16_noadd:
 
 	;; word:  UM*
 	;; alias: UMtimes
-	;; flags: FFL_PRIMITIVE ROM CFT
+	;; flags: CODE ROM CFT
 	;; notes: * ( w1 w2 -- d )
 	;;   16-bit unsigned integer multiplication. Returns 32-bit value.
 	;;   Please remember that CFT does multiplication in software. Consider
@@ -79,7 +79,7 @@ _umul16_noadd:
 	
 	;; word:  UD*
 	;; alias: UDtimes
-	;; flags: FFL_PRIMITIVE ROM CFT
+	;; flags: CODE ROM CFT
 	;; notes: * ( d d -- d )
 	;;   32-bit unsigned integer multiplication.
 	;;   Please remember that CFT does multiplication in software. Consider

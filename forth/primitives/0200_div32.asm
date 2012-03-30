@@ -4,7 +4,7 @@
 
 	;; word:  UD/MOD
 	;; alias: UD-DIV-MOD
-	;; flags: FFL_PRIMITIVE ROM CFT
+	;; flags: CODE ROM CFT
 	;; notes: UD/MOD ( d1 d2 -- dr dq )
 	;;   32-bit unsigned integer division. Calculates d1 / d2 and
 	;;   returns the remainder dr and the quotient dq.
@@ -30,7 +30,7 @@
 
 	;; word:  UM/MOD
 	;; alias: UM-DIV-MOD
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: UD/MOD ( d u -- dr dq )
 	;;   Divide a 32-bit unsigned dividend d by a 16-bit unsigned divisor u.
 	;;   Returns the remainder dr and the quotient dq.
@@ -128,7 +128,7 @@ _udiv32_rep:
 
 	;; word:  D/MOD
 	;; alias: D-DIV-MOD
-	;; flags: FFL_PRIMITIVE ROM CFT
+	;; flags: CODE ROM CFT
 	;; notes: D/MOD ( d1 d2 -- dr dq )
 	;;   32-bit signed floored division. Uses udiv32, which it then
 	;;   adjusts first for symmetric signed division, then for

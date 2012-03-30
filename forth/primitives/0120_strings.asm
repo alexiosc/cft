@@ -3,7 +3,7 @@
 // String handling primitives.
 
 	;; word:  BL
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: bl ( -- 32 )
 	;;   Pushes the codepoint of a space onto the stack.
 
@@ -15,7 +15,7 @@
 
 	;; word:  >CHAR
 	;; alias: to-char
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: >CHAR ( c -- c )
 	;;   Strips high bits and optionally converts non-printable ASCII
 	;;   characters to dots.
@@ -28,7 +28,13 @@
 	ADD TMP1
 	SNN			; char >= 32?
 	JMP _dw_to_char_fix	; No.
-	LOAD TMP1		; Yes. Push it back.
+
+	LI 127			; Compare against ASCII 127
+	XOR TMP1
+	SNZ			; Is it 127?
+	JMP _dw_to_char_fix	; Yes.
+	
+	LOAD TMP1		; No. Push it back.
 	SPOKE0 (SP)
 	NEXT
 
@@ -40,7 +46,7 @@ _dw_to_char_fix:
 	
 	
 	;; word:  COUNT
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: COUNT ( b -- b +n )
 	;;   Pushes the string address for b and its length in characters.
 
@@ -78,7 +84,7 @@ _strplen_end1:
 
 
 	;; word:  CCOUNT
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: CCOUNT ( b -- b +n )
 	;;   Returns the number of cells used by the packed string b, including
 	;;   that of its terminating null.
@@ -110,7 +116,7 @@ _strwplen_end:
 
 
 	;; word:  CMOVE
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: CMOVE ( addr1 addr2 u -- )
 	;;   Copy u cells from addr1 to addr2.
 
@@ -135,7 +141,7 @@ _cmove_loop:
 	
 
 	;; word:  FILL
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: FILL ( a u c -- )
 	;;   Fill c cells starting at address a with value u.
 
@@ -161,7 +167,7 @@ _cfill_loop:
 
 	;; word:  $PACK
 	;; alias: _pack
-	;; flags: FFL_PRIMITIVE ROM CFT
+	;; flags: CODE ROM CFT
 	;; notes: $PACK ( a1 a2 -- a3 a4 )
 	;;        Converts an unpacked null-terminated string starting
 	;;        at address a1 to a bit-packed representation at address
@@ -196,8 +202,54 @@ __pack_end:
 	NEXT
 
 
+	;; word:  $cPACK
+	;; alias: _cPACK
+	;; flags: CODE ROM CFT
+	;; notes: $PACK ( a1 c a2 -- a3 a4 )
+	;;        Converts an unpacked string of length c cells starting
+	;;        at address a1 to a bit-packed representation at address
+	;;        a2 which must be a buffer big enough for the conversion.
+	;;        The word returns the last address read from (a3) and
+	;;        written to (a4).
+
+	RPOP(TMP1, SP)		; TMP1 = dst address
+	POP(SP)			; TMP2 = count
+	ING			; TMP2 = -(TMP2 + 1)
+	STORE TMP2
+	RPOP(I0, SP)		; I0 = src address (autoincrement)
+	
+__cpack_loop:
+	ISZ TMP2		; TMP2++. Zero?
+        JMP __cpack_lo		; No. Skip
+        JMP __cpack_end		; Yes. End processing.
+
+__cpack_lo:	
+	RMOV(I TMP1, I I0)	; Just copy the low byte
+
+	ISZ TMP2		; TMP2++. Zero?
+        JMP __cpack_hi		; No. Skip
+        JMP __cpack_end		; Yes. End processing.
+	
+__cpack_hi:
+        LOAD I I0		; High byte
+	MAKEHICHAR()		; Shift 8 bits left
+        OR I TMP1		; Combine the two bytes
+        STORE I TMP1
+
+        ISZ TMP1		; Increment TMP1. Should never skip.
+        JMP __cpack_loop	; (but just in case...)
+        JMP __cpack_loop	; Loop again
+
+__cpack_end:
+	RPUSH(SP, I0)		; Push the final source address.
+	ISZ TMP1		;
+	PUSH (SP)		; Push the final target address.
+
+	NEXT
+
+
 	;; word:  2CHARS
-	;; flags: FFL_PRIMITIVE ROM CFT
+	;; flags: CODE ROM CFT
 	;; notes: 2CHARS ( a -- a c2 c1 )
 	;;        Given an address a of a packed string cell, this splits the
 	;;        cell value at a into two bytes c2 (high, second character)
@@ -224,7 +276,7 @@ __pack_end:
 
 	;; word:  S@
 	;; alias: s-fetch
-	;; flags: FFL_PRIMITIVE ROM CFT
+	;; flags: CODE ROM CFT
 	;; notes: S@ ( b u -- c )
 	;;        Returns the character c at position u of packed string b.
 	;;        No checking is performed.
@@ -256,7 +308,7 @@ _s_fetch_even:
 
 	;; word:  S!
 	;; alias: s-store
-	;; flags: FFL_PRIMITIVE ROM CFT
+	;; flags: CODE ROM CFT
 	;; notes: S@ ( b u c -- )
 	;;        Stores character c at position u of string at address b.
 	;;        No checking is performed.

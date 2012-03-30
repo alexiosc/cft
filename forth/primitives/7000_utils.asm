@@ -151,6 +151,7 @@ _dumppchars_end:
 	
 _dumphex_loop:
 	.word dw_r_fetch	; R@ ( a n )
+	
 	.word dw_if_branch	;   ?branch ( a )
 	.word _dumphex_end
 	.word dw_r_from		; R> ( a n )
@@ -246,157 +247,12 @@ _dump_end:
 	//.word dw_DROP		; DROP ( )
 
 	;; Restore the base
-	.word dw_BASE		; BASE ( a ab )
 	.word dw_r_from		; R> ( a ab b )
+	.word dw_BASE		; BASE ( a ab )
 	.word dw_store		; ! ( a )
 	
 	.word dw_EXIT		; EXIT
 
 	
 	
-	;; word:  WORDS
-	;; flags: DOCOL ROM CFT
-	;; notes: WORDS ( -- )
-	;;        Prints out list of words.
-
-	.word dw_CR		; CR ( )
-	.word dw_LAST		; LAST ( a )
-
-_words_loop:
-	.word dw_fetch		; @ ( a' )
-	.word dw_DUP		; @ ( a' a' )
- 	.word dw_if_branch	; ?branch ( a' )
-	.word _words_end	;
-	.word dw_inc		; 1+ ( a'+1 ) \ start + 1: word name ptr (pstr)
-	.word dw_DUP		; DUP ( a'+1 a'+1 ) \ start + 1: word name ptr (pstr)
-	.word dw_fetch		; @ ( a'+1 a'' ) \ string address
-	.word dw_typep0		; TYPEP0 ( a'+1 )
-	.word dw_SPACE		; SPACE
-
-	;; Link to the next word
-	.word dw_inc		; 1+ ( a'+2 ) \ start + 2: link.
-	.word dw_branch		; branch
-	.word _words_loop
-
-_words_end:
-	.word dw_DROP		; DROP ( )
-	.word dw_EXIT
-
-	
-	
-	;; word:  WORDS-v
-	;; flags: DOCOL ROM CFT
-	;; notes: WORDS-v ( -- )
-	;;        Prints out a verbose list of words.
-
-	.word dw_CR		; CR ( )
-	.word dw_HEX		; HEX ( )
-	.word dw_LAST		; LAST ( a )
-
-_wordsv_loop:
-	;; Had enough yet?
-	.word dw_NUF_if		; NUF? ( a f )
-	.word dw_NOT		; NOT ( a !f )
-	.word dw_if_branch	;   ?branch ( a )
-	.word _wordsv_end
-
-	.word dw_fetch		; @ ( a' )
-	.word dw_DUP		; @ ( a' a' )
- 	.word dw_if_branch	; ?branch ( a' )
-	.word _words_end	;
-
-	;; Print out the address
-	.word dw_DUP		; DUP ( a' a' )
-	.word dw_doLIT		; DUP ( a' a' 4 )
-	.word 4
-	.word dw_u_dot_0r	; U.0R ( a' )
-	.word dw_SPACE		; SPACE ( a' )
-
-	;; Print out the flags.
-	.word dw_DUP		; DUP ( a' a' )
-	.word dw_fetch		; @ ( a' flags )
-	.word dw_doLIT		; DUP ( a' flags 4 )
-	.word 4
-	.word dw_u_dot_0r	; U.0R ( a' )
-	.word dw_SPACE		; SPACE ( a' )
-
-	;; Print out the label (padded to 16 characters)
-	.word dw_inc		; 1+ ( a'+1 ) \ start + 1: word name ptr (pstr)
-	.word dw_DUP		; DUP ( a'+1 a'+1 ) \ start + 1: word name ptr (pstr)
-	.word dw_fetch		; @ ( a'+1 a'' ) \ string address
-	.word dw_COUNT		; COUNT ( a'+1 a'' n ) string address
-	.word dw_SWAP		; SWAP ( a'+1 n a'' )
-	.word dw_typep0		; TYPEP0 ( a'+1 n )
-	.word dw_doLIT		; 16 ( a'+1 n 16 )
-	.word 16
-	.word dw_SWAP		; SWAP ( a'+1 16 n )
-	.word dw_sub		; - ( a'+1 16 n- )
-	.word dw_SPACES		; SPACES ( a'+1 )
-
-	;; End the line.
-	.word dw_CR		; CR
-
-	;; Link to the next word
-	.word dw_inc		; 1+ ( a'+2 ) \ start + 2: link.
-	.word dw_branch		; branch
-	.word _wordsv_loop
-
-_wordsv_end:
-	.word dw_DROP		; DROP ( )
-	.word dw_EXIT
-
-	
-	
-	;; word:  #WORDS
-	;; alias: countwords
-	;; flags: DOCOL ROM CFT
-	;; notes: #WORDS ( -- n )
-	;;        Returns the number of words in the dictionary.
-
-	.word dw_doLIT		; 0 ( u )
-	.word 0
-	.word dw_LAST		; LAST ( u a )
-
-_countwords_loop:
-	.word dw_fetch		; @ ( u a' )
-	.word dw_DUP		; @ ( u a' a' )
- 	.word dw_if_branch	; ?branch ( u a' )
-	.word _countwords_end	;
-	.word dw_inc2		; 2+ ( u a'+2 ) \ start + 2: link ptr
-	.word dw_SWAP		; SWAP ( a'+2 u )
-	.word dw_inc		; 1+ ( a'+2 u+1 )
-	.word dw_SWAP		; SWAP ( u+1 a'+2 )
-
-	;; Link to the next word
-	.word dw_branch		; branch
-	.word _countwords_loop
-
-_countwords_end:
-	.word dw_DROP		; DROP ( u )
-	.word dw_EXIT
-
-
-	
-
-;; 	RMOV(I0, R USP0)
-
-;; 	PUTC(10)
-;; 	PUTC(10)
-;; 	RSUB(TMP0, SP, R USP0)
-;; 	PRINTD
-
-;; _dumps_loop:
-;; 	LOAD I0
-;; 	XOR SP
-;; 	SNZ
-;; 	JMP _dumps_done
-
-;; 	LOAD I I0
-;; 	PRINTH
-;; 	JMP _dumps_loop
-
-;; _dumps_done:	
-;; 	PUTC(10)
-;; 	PUTC(10)
-;; 	NEXT
-
+// End of file.

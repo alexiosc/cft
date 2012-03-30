@@ -10,10 +10,8 @@
 	.word dw__banner	; $banner ( )
 	
 okloop:
-	//.word dw__t1
 	.word dw_dot_ok		; .ok ( )
 	.word dw_QUERY		; QUERY
-	//.word dw__t0
 	.word dw_blskip		; blskip
 	
 tokenloop:
@@ -31,7 +29,6 @@ tokenloop:
 	.word dw_pstrupper	; pstrupper ( len token-addr) 
 
 	.word dw__FIND		; $FIND
-	/.word dw_DUMPS
 
 	.word dw_if_branch
 	.word tokenloop_num
@@ -95,7 +92,7 @@ _banner_text2:
 
 	
 	;; word:  HALT
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: HALT ( -- )
 	;;   Halts the machine. The computer may be resumed
 	;;   from the front panel, in which case execution will continue.

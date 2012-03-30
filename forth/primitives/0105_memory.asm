@@ -5,7 +5,7 @@
 	
 	
 	;; word:  HERE
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: HERE ( -- a )
 	;;   Returns the address of the first available cell in the user dictionary.
 
@@ -15,7 +15,7 @@
 
 
 	;; word:  PAD
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: PAD ( -- a )
 	;;   Returns the address of the first available cell for scratch use.
 
@@ -26,35 +26,9 @@
 
 
 
-	;; word:  TIB
-	;; flags: FFL_PRIMITIVE ROM
-	;; notes: TIB ( -- a )
-	;;   Return the address of the first character in the Terminal Input
-	;;   Buffer.
-
-	LOAD TIB
-	ADD PLUS1
-	PUSH (SP)
-	NEXT
-
-
-
-	;; word:  >IN
-	;; alias: tibptr
-	;; flags: FFL_PRIMITIVE ROM
-	;; notes: >IN ( -- a )
-	;;   The address of the pointer to the current character in the
-	;;   terminal input buffer.
-
-	LIA TIBP
-	PUSH (SP)
-	NEXT
-
-
-
 	;; word:  @EXECUTE
 	;; alias: FETCH-EXECUTE
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: @EXECUTE ( a -- )
 	;;   If a is non-zero, assume it's a word address and execute it.
 
@@ -67,7 +41,7 @@
 
 
 	;; word:  ALLOT
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: ALLOT ( w -- )
 	;;   Allots w words on the dictionary, changes HERE accordingly.
 	POP (SP)		; Pop value
@@ -79,7 +53,7 @@
 
 	;; word:  ,
 	;; alias: comma
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: , ( w -- )
 	;;   Allots space for w, then stores word at HERE 1-.
 
@@ -91,7 +65,7 @@
 
 	;; word:  2!
 	;; alias: two-store
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: 2! ( d a -- )
 	;;   Stores the 32-bit integer d at address a (low) and a+1 (high).
 
@@ -112,7 +86,7 @@
 
 	;; word:  2@
 	;; alias: two-fetch
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: 2@ ( a -- d )
 	;;   Fetches a 32-bit integer from address a.
 

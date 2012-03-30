@@ -3,7 +3,7 @@
 // Double math
 
 	;; word:  DNEGATE
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: NEGATE ( d -- -d )
 	;;   Negate double-word d (two's complement)
 	LOAD SP			; SP -= 3
@@ -34,7 +34,7 @@
 
 	;; word:  D+
 	;; alias: DPLUS
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: D+ ( d d -- d )
 	;;   Add two double-words
 	;;   TODO: Popping four words like this is inefficient. Fix it.
@@ -70,7 +70,7 @@ _dplus_work:
 
 	;; word:  D-
 	;; alias: DMINUS
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: D- ( d d -- d )
 	;;   Subtract two double-words.
 	;;   TODO: Popping four words like this is inefficient. Fix it.

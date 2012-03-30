@@ -5,13 +5,13 @@
 	;; word:  C!
 	;; alias: c-store
 	;; copy:  store
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: C! ( w a -- )
 	;;   Store w at address a.
 
 	;; word:  !
 	;; alias: store
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: ! ( w a -- )
 	;;   Store w at address a.
 	POP2 (SP)		; w in AC, a in TMP1
@@ -24,14 +24,14 @@
 	;; word:  C@
 	;; alias: c-fetch
 	;; copy:  fetch
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: C@ ( a -- w )
 	;;   Retrieve value at address a. On CFT, characters are
 	;;   16-bits wide and each memory address is one whole 16-bit cell.
 	
 	;; word:  @
 	;; alias: fetch
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: @ ( a -- w )
 	;;   Retrieve value at address a.
 	SPEEK (SP)
@@ -44,7 +44,7 @@
 
 	;; word:  +!
 	;; alias: PLUS-STORE
-	;; flags: FFL_PRIMITIVE ROM
+	;; flags: CODE ROM
 	;; notes: ! ( w a -- )
 	;;   word is added to value at address addr
 	POP2r (SP)		; w in AC, a in TMP1

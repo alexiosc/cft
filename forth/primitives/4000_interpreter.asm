@@ -4,7 +4,7 @@
 
 	;; word:  .OK
 	;; alias: dot-ok
-	;; flags: FFL_DOCOL ROM CFT
+	;; flags: DOCOL ROM CFT
 	;; notes: .OK ( -- )
 	;;   Print out the "ok " prompt
 
@@ -19,7 +19,7 @@ _dot_ok_prompt:
 	
 	;; word:  .DONE
 	;; alias: dot-done
-	;; flags: FFL_DOCOL ROM CFT
+	;; flags: DOCOL ROM CFT
 	;; notes: .DONE ( -- )
 	;;   Execution trampoline. Prints out "Done" and terminates.
 	;; TODO: Make it run ABORT and restart the interpreter.

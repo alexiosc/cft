@@ -2,7 +2,7 @@
 ;; //
 ;; // Dictionary search
 
-//.page
+.page
 	
 	;; word:  FIND
 	;; flags: DOCOL ROM
@@ -27,7 +27,7 @@ _find_hash_mask:
 	
 	;; word:  $FIND
 	;; alias: _FIND
-	;; flags: FFL_PRIMITIVE ROM CFT
+	;; flags: CODE ROM CFT
 	;; notes: FIND ( n a1 -- a2 n )
 	;; 
 	;;        a1 is the address of a packed string, n its length in
@@ -60,14 +60,15 @@ _find_hash_mask:
 	RPOP(TMP5, SP)		; TMP5 = word to search for.
 	POP(SP)			; AC = The length of the word in characters
 
-	;;  Generate the hash: (stlen(s) ^ s[0]) & 7
+	;;  Generate the hash: (strlen(s) ^ s[0]) & 7
 	XOR I TMP5
 	AND _find_hash_mask
 	STORE TMP3
 
 	;; Start going through the dictionary.
 
-	LOAD LAST
+	// TODO: Make this search through all dictionaries
+	LOADUP(UAOFS_CURRENT)
 	STORE TMP2
 
 	;; dict format:
