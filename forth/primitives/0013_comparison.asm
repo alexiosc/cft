@@ -2,6 +2,8 @@
 //
 // Core comparison primitives
 
+
+	
 	;; word:  FALSE
 	;; flags: CODE ROM
 	;; notes: FALSE ( -- f )
@@ -58,7 +60,7 @@
 	
 
 	;; word:  <
-	;; alias: less-than
+	;; alias: lt
 	;; flags: CODE ROM
 	;; notes: < ( w1 w2 -- f )
 	;;   Push true if w1 < w2, false otherwise.
@@ -74,7 +76,7 @@
 	
 
 	;; word:  <=
-	;; alias: less-than-or-equal
+	;; alias: leq
 	;; flags: CODE ROM
 	;; notes: <= ( w1 w2 -- f )
 	;;   Push true if w1 <= w2, false otherwise.
@@ -120,7 +122,7 @@
 	
 
 	;; word:  >
-	;; alias: greater-than
+	;; alias: gt
 	;; flags: CODE ROM
 	;; notes: > ( w1 w2 -- f )
 	;;   Push true if w1 > w2, false otherwise.

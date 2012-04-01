@@ -12,7 +12,7 @@
 	.word dw_doLIT		; 9
 	.word 9
 	.word dw_OVER		; OVER
-	.word dw_less_than	; <
+	.word dw_lt		; <
 	.word dw_doLIT		; 7
 	.word 7
 	.word dw_AND		; AND

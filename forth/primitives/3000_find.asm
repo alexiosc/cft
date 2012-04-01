@@ -2,7 +2,7 @@
 ;; //
 ;; // Dictionary search
 
-.page
+//.page
 	
 	;; word:  FIND
 	;; flags: DOCOL ROM
@@ -58,11 +58,11 @@ _find_hash_mask:
 	;;        I2:   autoinc dict word name ptr for _pstrcmp
 
 	RPOP(TMP5, SP)		; TMP5 = word to search for.
-	POP(SP)			; AC = The length of the word in characters
+	RPOP(TMP6, SP)	   	; TMP6 = AC = length of the word in characters
 
 	;;  Generate the hash: (strlen(s) ^ s[0]) & 7
-	XOR I TMP5
-	AND _find_hash_mask
+	XOR I TMP5		; AC = len ^ s[0]
+	AND _find_hash_mask	; AC = AC & 7
 	STORE TMP3
 
 	;; Start going through the dictionary.

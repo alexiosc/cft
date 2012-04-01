@@ -2,6 +2,8 @@
 ;; //
 ;; // INTERPRETER
 
+
+	
 	;; word:  .OK
 	;; alias: dot-ok
 	;; flags: DOCOL ROM CFT
@@ -13,23 +15,194 @@
 	.word dw_typep0
 	.word dw_EXIT
 _dot_ok_prompt:	
-	.strp 10 "ok " 0
+	.strp " ok" 10 0
 
 
 	
-	;; word:  .DONE
-	;; alias: dot-done
+	;; word:  _DONE
+	;; alias: _DONE
 	;; flags: DOCOL ROM CFT
-	;; notes: .DONE ( -- )
-	;;   Execution trampoline. Prints out "Done" and terminates.
-	;; TODO: Make it run ABORT and restart the interpreter.
+	;; notes: _DONE ( -- )
+	;;   	  Execution trampoline. Prints out "Done" and terminates.
 
-	.word dw_doPSTR
-	.word @+5
-	.strp "Done." 10 0
-	.word dw_typep0
-	.word dw_HALT
+	doLIT(1)
+	.word dw_ABORT_str	; ABORT" trampoline"
+	.word 17
+	.strp "trampoline error (bounce bounce)" 0
+
+
+	
+	;; word:  [
+	;; alias: open-bkt
+	;; flags: DOCOL ROM IMMEDIATE
+	;; notes: [ ( -- )
+	;;        Enter interpreter mode.
+
+	doLIT(FSF_INTERPRET)	; FSF_INTERPRET
+	.word dw_STATE		; STATE
+	.word dw_store		; !
+
+	doLIT(dw_EVAL_INTERPRET) ; EVAL.INTERPRET
+	.word dw_tick_EVAL	; 'EVAL
+	.word dw_store		; !
+
 	.word dw_EXIT
 
+
+
+	;; word:  EVAL.INTERPRET
+	;; flags: DOCOL ROM
+	;; notes: EVAL.INTERPRET ( a -- )
+	;;        Interpret a token.
+
+	// COUNT SWAP ( +n a ) \ Get the token length
+	.word dw_COUNT
+	.word dw_SWAP
+
+	.word dw__FIND		; $FIND ( word-addr TRUE | token-addr FALSE )
+
+	.word dw_if_branch	; ( token-addr ) \ Not a word. Try a number
+	.word _eval_interpret_num
+
+	// TODO: Check for compile-only words.
+
+	// EXECUTE \ Execute the word
+	.word dw_EXECUTE
+	.word dw_EXIT
+
+_eval_interpret_num:
+	.word dw_tick_NUMBER
+	.word dw_fetch_EXECUTE
+	.word dw_if_branch
+	.word _eval_interpret_fail
+	.word dw_EXIT
 	
+_eval_interpret_fail:
+	.word dw_THROW
+	.word dw_FAIL		; Should never reach this
+
+
+
+
+	;; word:  ?STACK
+	;; alias: qSTACK
+	;; flags: DOCOL ROM IMMEDIATE
+	;; notes: ?STACK ( -- )
+	;;        Check for stack underflow, throw an exception if it's
+	;;        detected.
+
+	.word dw_DEPTH		; DEPTH
+	.word dw_zero_less	; 0<
+
+	.word dw_if_branch
+	.word _underflow_ok
+
+	;; SP0 @ SP! \ Reset the stack pointer
+	.word dw_SP0
+	.word dw_fetch
+	.word dw_SP_store
+
+	.word dw_ABORT_str	; ABORT" stack underflow"
+	.word 8
+	.strp "stack underflow" 0
+
+_underflow_ok:
+	.word dw_EXIT
+
+
+	
+	;; word:  EVAL
+	;; flags: DOCOL ROM
+	;; notes: EVAL ( -- )
+	;;        Forth interpreter loop.
+
+_eval_loop:
+	;; TOKEN ?DUP (branch)  \ Parse a token, skip if end encountered
+	.word dw_TOKEN
+	.word dw_if_DUP
+	.word dw_if_branch
+	.word _eval_end
+
+	;; 'EVAL @EXECUTE \ Execute the interpreter or compiler on this token
+	.word dw_tick_EVAL
+	.word dw_fetch_EXECUTE
+
+	;; ?STACK \ Check for stack underflow
+	.word dw_qSTACK
+
+	.word dw_branch
+	.word _eval_loop
+
+_eval_end:
+	;; Print ok prompt
+	;; '.OK @EXECUTE
+	.word dw_tick_dot_OK
+	.word dw_fetch_EXECUTE
+
+	.word dw_EXIT
+
+
+
+	;; word:  .READY
+	;; alias: dot_READY
+	;; flags: DOCOL ROM
+	;; notes: .READY ( -- )
+	;;        Print out the "Ready." prompt.
+
+	.word dw_dot_str
+	.word 4
+	.strp "Ready." 10 0
+	.word dw_EXIT
+	
+
+	
+	;; word:  QUIT
+	;; flags: DOCOL ROM
+	;; notes: QUIT ( -- )
+	;;        Enter the main Forth loop.
+
+	;; RP0 @ RP! \ Clear the return stack
+	.word dw_RP0
+	.word dw_fetch
+	.word dw_RP_store
+
+	;; SP0 @ SP! \ Clear the data stack
+	.word dw_SP0
+	.word dw_fetch
+	.word dw_SP_store
+
+	;; Print out the Ready. prompt
+	.word dw_tick_dot_READY
+	.word dw_fetch_EXECUTE
+
+_quit_loop:	
+	;; [ \ Set interpreter state.
+	.word dw_open_bkt
+
+	;; '.PROMPT @EXECUTE \ Print optional prompt.
+	.word dw_tick_dot_PROMPT
+	.word dw_fetch_EXECUTE
+
+	;; QUERY \ Read input
+	.word dw_QUERY
+
+	doLIT(dw_EVAL)
+	.word dw_CATCH
+
+	.word dw_if_DUP
+	.word dw_if_branch
+	.word _quit_noerror
+
+	;; \ Errors
+	.word dw_typep0
+	.word dw_dot_str
+	.word 3
+	.strp "  ? " 0
+	.word dw_QUIT
+
+_quit_noerror:
+	.word dw_branch		; Loop again
+	.word _quit_loop
+
+
 ;; // End of file.

@@ -278,7 +278,7 @@
 	STORE TMP0		; TMP0 <- %stack-1
 
 	ADD MINUS1
-	STORE TMP2		; TMP2 <- %stack-1
+	STORE TMP2		; TMP2 <- %stack-2
 	STORE %stack
 
 	LOAD I TMP0
@@ -310,11 +310,10 @@
 	STORE TMP0		; TMP0 <- %stack-1
 
 	ADD MINUS1
-	STORE TMP2		; TMP2 <- %stack-1
+	STORE TMP2		; TMP2 <- %stack-2
 	STORE %stack
 
-	LOAD I TMP2
-	STORE TMP1
+	RMOV(TMP1, I TMP2)
 
 	LOAD I TMP0
 .end

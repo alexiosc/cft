@@ -14,16 +14,16 @@
 	.word dw_DEPTH		; DEPTH              ( d )     ( )
 _dot_s_loop:
 	.word dw_DUP		; DUP                ( d d )   ( )
-	.word dw_to_r		; >R                 ( d )     ( d )
+	.word dw_to_R		; >R                 ( d )     ( d )
 	.word dw_if_branch	;   ?branch ( FOR )  ( )       ( d )
 	.word _dot_s_end
-	.word dw_r_from		; R>                 ( d )     ( )
+	.word dw_R_from		; R>                 ( d )     ( )
 	.word dw_dec 		; 1-                 ( d )     ( )
 	.word dw_DUP		; DUP                ( d d )   ( )
-	.word dw_to_r		; >R                 ( d )     ( d )
+	.word dw_to_R		; >R                 ( d )     ( d )
 	.word dw_PICK		; PICK               ( w )     ( d )
 	.word dw_dot 		; .                  ( )       ( d )
-	.word dw_r_from		;   R>               ( d )     ( )
+	.word dw_R_from		;   R>               ( d )     ( )
 	.word dw_branch		;   THEN NEXT        ( d )
 	.word _dot_s_loop
 _dot_s_end:
@@ -81,15 +81,15 @@ _dot_rs_end:
 	;;        Prints out n characters starting at address a.
 	;;        Replaces unprintable characters with dots.
 
-	.word dw_to_r		; >R ( a )
+	.word dw_to_R		; >R ( a )
 	
 _dumpchars_loop:
-	.word dw_r_fetch	; R@ ( a n )
+	.word dw_R_fetch	; R@ ( a n )
 	.word dw_if_branch	;   ?branch ( a )
 	.word _dumpchars_end
-	.word dw_r_from		; R> ( a n )
+	.word dw_R_from		; R> ( a n )
 	.word dw_dec		; 1- ( a n )
-	.word dw_to_r		; >R ( a )
+	.word dw_to_R		; >R ( a )
 
 	.word dw_DUP		; ( a a )
 	.word dw_c_fetch	; C@ ( a w ) \ or just @ on the CFT )
@@ -115,15 +115,15 @@ _dumpchars_end:
 	;;        Prints out 2n packed (8-bit) characters starting at address a.
 	;;        Replaces unprintable characters with dots.
 
-	.word dw_to_r		; >R ( a )
+	.word dw_to_R		; >R ( a )
 	
 _dumppchars_loop:
-	.word dw_r_fetch	; R@ ( a n )
+	.word dw_R_fetch	; R@ ( a n )
 	.word dw_if_branch	;   ?branch ( a )
 	.word _dumppchars_end
-	.word dw_r_from		; R> ( a n )
+	.word dw_R_from		; R> ( a n )
 	.word dw_dec		; 1- ( a n )
-	.word dw_to_r		; >R ( a )
+	.word dw_to_R		; >R ( a )
 
 	.word dw_2CHARS		; 2CHARS ( a+1 c2 c1 )
 	.word dw_to_char	; >CHAR ( a+1 c2 w )
@@ -147,16 +147,16 @@ _dumppchars_end:
 	;; notes: DUMPHEX ( a n -- )
 	;;        Prints out n hex words starting at address a.
 
-	.word dw_to_r		; >R ( a )
+	.word dw_to_R		; >R ( a )
 	
 _dumphex_loop:
-	.word dw_r_fetch	; R@ ( a n )
+	.word dw_R_fetch	; R@ ( a n )
 	
 	.word dw_if_branch	;   ?branch ( a )
 	.word _dumphex_end
-	.word dw_r_from		; R> ( a n )
+	.word dw_R_from		; R> ( a n )
 	.word dw_dec		; 1- ( a n )
-	.word dw_to_r		; >R ( a )
+	.word dw_to_R		; >R ( a )
 
 	.word dw_DUP		; ( a a )
 	.word dw_c_fetch	; C@ ( a w ) \ or just @ on the CFT )
@@ -187,20 +187,20 @@ _dumphex_end:
 
 	.word dw_BASE		; BASE ( a n ab )
 	.word dw_fetch		; @ ( a n b )
-	.word dw_to_r		; >R ( a n )
+	.word dw_to_R		; >R ( a n )
 	
 	.word dw_HEX		; ( a n )
 	
 	.word dw_shl1		; >>1 ( a n/2 )
 	.word dw_shl1		; >>1 ( a n/4 )
 	.word dw_shl1		; >>1 ( a n/8 )
-	.word dw_to_r		; >R ( a )
+	.word dw_to_R		; >R ( a )
 
 	.word dw_CR		; CR ( a )
 
 _dump_loop:
 	;; Done yet?
-	.word dw_r_fetch	; R@ ( a n )
+	.word dw_R_fetch	; R@ ( a n )
 	.word dw_if_branch	;   ?branch ( a )
 	.word _dump_end
 
@@ -209,9 +209,9 @@ _dump_loop:
 	.word dw_if_branch	;   ?branch ( a )
 	.word _dump_end
 	
-	.word dw_r_from		; R> ( a n )
+	.word dw_R_from		; R> ( a n )
 	.word dw_dec		; 1- ( a n )
-	.word dw_to_r		; >R ( a )
+	.word dw_to_R		; >R ( a )
 
 	;; Print out the address column
 	.word dw_DUP		; ( a a )
@@ -247,7 +247,7 @@ _dump_end:
 	//.word dw_DROP		; DROP ( )
 
 	;; Restore the base
-	.word dw_r_from		; R> ( a ab b )
+	.word dw_R_from		; R> ( a ab b )
 	.word dw_BASE		; BASE ( a ab )
 	.word dw_store		; ! ( a )
 	

@@ -4,14 +4,36 @@
 
 
 
+	;; word:  >IN+
+	;; alias: pIN_add
+	;; flags: DOCOL ROM CFT
+	;; notes: >IN+ ( u -- )
+	;; 	  Adds u to the >IN variable. Returns the new >IN.
+	;; code:  : >IN+ ( u -- ) >IN @ + >IN ! ;
+
+	.word dw_pIN		; >IN ( u va )
+	.word dw_fetch		; @ ( u w )
+	.word dw_add		; + ( u+w )
+	.word dw_pIN		; >IN ( u+w va )
+	.word dw_store		; ! ( )
+
+	.word dw_pIN		; >IN ( va )
+	.word dw_fetch		; @ ( w )
+	.word dw_PRINTA		; PRINTA ( )
+
+	.word dw_EXIT
+
+	
+
 	;; word:  $parse
 	;; alias: _parse
 	;; flags: CODE ROM CFT
 	;; notes: $PARSE ( b c  -- b u )
 	;; 	  Ignores any leading characters with codepoint c, then parses
-        ;; 	  a token (starting at address b until the first codepoint c
+        ;; 	  a token (starting at address b) until the first codepoint c
 	;;        is seen again. Returns the address of the token and its
 	;;        length. Returns b=0 and u=0 if there is no more input.
+	;;        The end of the string is signalled by a zero (NUL).
 
 	//DEBUGON
 	RPOP(TMP1, SP)		; TMP1=c
@@ -55,7 +77,40 @@ _parse_end:
 	NEXT
 
 	
+
+	;; word:  EOTIB?
+	;; alias: EOTIBq
+	;; flags: DOCOL ROM CFT
+	;; notes: EOTIB? ( -- f )
+	;;   	  Return TRUE if the end of the TIB has been reacched.
+	;; code:  : EOTIB? ( -- f ) TIB @ #TIB @ + >IN @
+
+	.word dw_TIB		; TIB ( va )
+	.word dw_fetch		; @ ( a )
+	.word dw_cTIB		; #TIB ( a va )
+	.word dw_fetch		; @ ( a u )
+	.word dw_add		; + ( a+u )
+	.word dw_pIN		; >IN ( a+u va )
+	.word dw_fetch		; @ ( a+u a )
+	.word dw_leq		; <= ( f )
+	.word dw_EXIT
+
 	
+
+	;; word:  EOB?
+	;; alias: EOB
+	;; flags: DOCOL ROM CFT
+	;; notes: EOB? ( -- f )
+	;;   	  Return TRUE if the end of the current buffer/block/file has
+	;;        been reacched.
+	;; code:  : EOB? ( -- f ) 'EOB @EXECUTE ;
+
+	.word dw_tick_EOBq
+	.word dw_fetch_EXECUTE
+	.word dw_EXIT
+
+	
+
 	;; word:  PARSE
 	;; flags: DOCOL ROM
 	;; notes: PARSE ( c  -- b u )
@@ -63,6 +118,11 @@ _parse_end:
         ;; 	  a token (starting at IN>) until the first codepoint c
 	;;        is seen again. Returns the address of the token and its
 	;;        length. Returns b=0 and u=0 if there is no more input.
+
+	.word dw_EOTIBq
+	.word dw_NOT
+	.word dw_if_branch
+	.word _parse_empty
 
 	.word dw_pIN		; >IN ( c a )
 	.word dw_fetch		; @ ( c b )
@@ -76,7 +136,12 @@ _parse_end:
 	.word dw_store		; ! ( b u)
 	.word dw_EXIT
 
+_parse_empty:
+	.word dw_DROP		; ( )
+	doLIT(0)		; 0 0 EXIT
+	.word dw_DUP
+	.word dw_EXIT
+
 
 	
 // End of file.
-

@@ -15,6 +15,36 @@
 
 	
  
+	;; word:  SP0
+	;; flags: USER ROM
+	;; notes: SP0 ( -- a )
+	;;        The base address of the data stack.
+	
+	.word 	UAOFS_SP0
+
+	
+ 
+	;; word:  RP0
+	;; flags: USER ROM
+	;; notes: RP0 ( -- a )
+	;;        The base address of the return stack.
+	
+	.word 	UAOFS_RP0
+
+	
+ 
+	;; word:  STATE
+	;; flags: USER ROM
+	;; notes: STATE ( -- a )
+	;;        The address of the STATE variable, the Forth language state.
+	;;        If STATE @ is zero, we are interpreting. Otherwise, we're
+	;;        compiling. User programs may not change this variable
+	;;        directly.
+	
+	.word	UAOFS_STATE
+
+	
+ 
 	;; word:  BASE
 	;; flags: USER ROM
 	;; notes: BASE ( -- a )
@@ -32,7 +62,7 @@
 	;;        Return the address of the variable holding the number of
 	;;        characters in the Terminal Input Buffer.
 	
-	.word UAOFS_TIB
+	.word UAOFS_cTIB
 
 
 	
@@ -102,6 +132,84 @@
 	;;        bottom of the vocabulary stack.
 	
 	.word	UAOFS_CONTEXT
+
+
+	
+	;; word:  CSP
+	;; flags: USER ROM CFT
+	;; notes: CONTEXT ( -- a )
+	;;        The address of the CSP.
+	
+	.word	UAOFS_CSP
+
+
+	
+	;; word:  HANDLER
+	;; flags: USER ROM CFT
+	;; notes: CONTEXT ( -- a )
+	;;        The address of the HANDLER.
+	
+	.word	UAOFS_HANDLER
+
+
+	
+	;; word:  '.READY
+	;; alias: tick_dot_READY
+	;; flags: USER ROM CFT
+	;; notes: '.READY ( -- a | 0 )
+	;;        The address of the message printed when QUIT runs.
+	
+	.word	UAOFS_READY
+
+
+	
+	;; word:  '.PROMPT
+	;; alias: tick_dot_PROMPT
+	;; flags: USER ROM CFT
+	;; notes: '.PROMPT ( -- a | 0 )
+	;;        The address of a prompt vector (or 0).
+	
+	.word	UAOFS_PROMPT
+
+	
+	
+	;; word:  '.OK
+	;; alias: tick_dot_OK
+	;; flags: USER ROM CFT
+	;; notes: '.OK ( -- a | 0 )
+	;;        The address of the .OK prompt vector (or 0).
+	
+	.word	UAOFS_OK
+
+	
+	
+	;; word:  'EVAL
+	;; alias: tick_EVAL
+	;; flags: USER ROM CFT
+	;; notes: 'EVAL ( -- a | 0 )
+	;;        The address of the EVAL vector (or 0).
+	
+	.word	UAOFS_EVAL
+
+	
+	
+	;; word:  'NUMBER
+	;; alias: tick_NUMBER
+	;; flags: USER ROM CFT
+	;; notes: 'NUMBER ( -- a | 0 )
+	;;        The address of the NUMBER vector (or 0).
+	
+	.word	UAOFS_NUMBER
+
+	
+	
+	;; word:  'EOB?
+	;; alias: tick_EOBq
+	;; flags: USER ROM CFT
+	;; notes: 'EOB? ( -- a | 0 )
+	;;        The address of the EOB? vector (or 0).
+	
+	.word	UAOFS_EOBq
 
 
 	

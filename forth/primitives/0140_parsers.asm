@@ -39,18 +39,15 @@
 	;; flags: DOCOL ROM CFT IMMEDIATE
 	;; notes: \ ( -- )
 	;;        Ignores the remainder of the input buffer.
-	;;        Null-terminates the input buffer.
+	;; code:  : \ ( -- ) TIB @ #TIB @ + >IN ! ;
 
-	doLIT(0)		; 0  ( 0 ) 
-	.word dw_DUP		; DUP ( 0 0 )
-	.word dw_TIB		; TIB ( 0 0 va )
-	.word dw_fetch		; @ ( 0 0 tib-addr )
-	.word dw_two_store	; 2! ( )
-	
 	.word dw_TIB		; TIB ( va )
-	.word dw_fetch		; @ ( tib-addr )
-	.word dw_pIN		; >IN ( tib-addr a )
-	.word dw_store		; ! ( ) \ >IN <- TIB
+	.word dw_fetch		; @ ( a )
+	.word dw_cTIB		; #TIB ( a va )
+	.word dw_fetch		; @ ( a u )
+	.word dw_add		; + ( a+u )
+	.word dw_pIN		; >IN ( a+u va )
+	.word dw_store		; !
 	.word dw_EXIT		; EXIT
 
 
@@ -74,11 +71,59 @@
 	;;        Parse a c-delimited token and pack it into a bit-packed
 	;;        string. Return its starting address (which will be HERE).
 
+	// TODO: Debug this.
+
 	.word dw_PARSE		; PARSE ( b u )
 	.word dw_HERE		; HERE ( b u a )
 	.word dw__cPACK		; $cPACK ( a3 a4 )
 	.word dw_HERE		; HERE ( b u a )
 	.word dw_EXIT		; EXIT
+
+
+
+	;; word:  TOKEN
+	;; flags: DOCOL ROM
+	;; notes: TOKEN ( -- addr | 0 )
+	;;        Parse a token and prepare it for dictionary search.
+	;;        Return its address, or 0 if no more tokens are available.
+
+	.word dw_BL		; BL
+	.word dw_PARSE		; PARSE ( b u )
+
+	.word dw_DUP		; DUP ( b u u )
+	.word dw_if_branch	; ( b u )
+	.word _token_empty
+	
+	.word dw_HERE		; HERE ( b u a )
+	.word dw__cPACK		; $cPACK ( a3 a4 )
+	.word dw_2DROP		; 2DROP ( )
+	.word dw_HERE		; HERE ( a )
+	.word dw_pstrupper	; pSTRUPPER ( a )
+	.word dw_EXIT		; EXIT
+
+_token_empty:
+	.word dw_SWAP
+	.word dw_DROP
+	.word dw_EXIT
+
+
+
+	;; word:  '
+	;; alias: tick
+	;; flags: DOCOL ROM
+	;; notes: ' ( -- addr )
+	;;        Return the address of the word represented by the next token.
+	;;        If the word isn't found, raise an error.
+
+	.word dw_TOKEN		; TOKEN ( addr )
+	.word dw_FIND		; FIND ( addr f )
+	.word dw_if_branch	; ?branch ( addr )
+	.word _tick_fail
+	.word dw_EXIT
+	
+_tick_fail:
+	// TODO: throw an exception here
+	.word dw_FAIL
 
 	
 	

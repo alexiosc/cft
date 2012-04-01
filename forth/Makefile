@@ -25,7 +25,7 @@ PRIMTABLE = 	$(GEN)dwtable.asm
 
 SOURCES = $(glob *asm) $(PRIMITIVES) $(TABLES)
 
-.PHONY: 	all clean mrproper test remote
+.PHONY: 	all clean mrproper test remote view tasks tags todo
 
 all:		$(NAME).bin
 
@@ -70,5 +70,9 @@ remote-run:
 		\rm -f output
 		mkfifo output
 		while true; do clear; cat output; done
+
+
+tasks tags todo:
+		rgrep -En '(TODO|FIXME|XXX):' . | scripts/tags.py
 
 # End of file.

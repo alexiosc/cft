@@ -57,6 +57,18 @@
 	ADD TMP1
 	SPOKE0 (SP)
 	NEXT
+	
+	
+
+	;; word:  NEGATE
+	;; alias: NEGATE
+	;; flags: CODE ROM
+	;; notes: NEGATE ( w -- -w ) 
+	;;        Two's complement negation.
+	SPEEK (SP)
+	NEG
+	SPOKE0 (SP)
+	NEXT
 
 
 	

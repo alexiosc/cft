@@ -2,7 +2,8 @@
 
 import re, sys, os
 
-tty = os.isatty(sys.stdout.fileno())
+tty = os.isatty(sys.stderr.fileno()) and \
+    os.environ.get('TERM', 'dumb') != 'dumb'
 
 HEADER = """// -*- asm -*-
 
@@ -25,6 +26,22 @@ NEWFILE = """
 // FILE: %(source)s
 //
 ///////////////////////////////////////////////////////////////////////////////
+
+"""
+
+
+VOCAB = """
+
+	.equ _voc_%(vocabulary)s %(link)s
+
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; START NEW VOCABULARY: %(newvocab)s
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 """
 
@@ -109,6 +126,7 @@ def fail(msg, locals):
 HASHBITS = 3
 hashes = [0] * (1 << HASHBITS)
 
+vocabulary = ''
 vectable = []
 numfiles = 0
 numwords = 0
@@ -120,6 +138,14 @@ for source in sys.argv[1:]:
     for i, line in enumerate(open(source)):
         linenum = i + 1
         print line.rstrip()
+        x = re.findall(';+\s*vocabulary:\s*(\S+)', line)
+        if x:
+            newvocab = x[0]
+            print VOCAB % locals()
+            vocabulary = x[0]
+            link = 'NULL'
+            continue
+
         x = re.findall(';+\s*word:\s*(\S+)', line)
         if x:
             numwords += 1
@@ -138,6 +164,14 @@ for source in sys.argv[1:]:
         if x:
             flags = re.sub('([A-Za-z]+)', 'FFL_\\1', x[0])
             flags = re.sub('(FFL_)+', 'FFL_', flags)
+            flags = flags.replace('FFL_CODE', 'FFL_T_CODE')
+            flags = flags.replace('FFL_DOCOL', 'FFL_T_DOCOL')
+            flags = flags.replace('FFL_VARIABLE', 'FFL_T_VAR')
+            flags = flags.replace('FFL_VAR', 'FFL_T_VAR')
+            flags = flags.replace('FFL_CONST', 'FFL_T_CONST')
+            flags = flags.replace('FFL_USER', 'FFL_T_USER')
+            flags = flags.replace('FFL_DATA', 'FFL_T_DATA')
+
             if name:
                 if name in names:
                     fail("Primitive '%(name)s' already defined.", locals())
@@ -158,32 +192,47 @@ for source in sys.argv[1:]:
                 #label = re.sub('[^A-Za-z0-9_]', '_', alias.upper() or name)
                 label = re.sub('[^A-Za-z0-9_]', '_', alias or name)
 
-                if 'FFL_DOCOL' in flags:
-                    handler = 'CFA_doCOL'
-                elif 'FFL_VARIABLE' in flags:
-                    handler = 'CFA_doVAR'
-                elif copyof:
+                if 'FFL_T_CODE' in flags:
+                    handler = '; None (code word -- fall through)'
+                    col = '1;32'
+                elif 'FFL_T_DOCOL' in flags:
+                    handler = 'CFA_doCOL()'
+                    col = '1;35'
+                elif 'FFL_T_VAR' in flags:
+                    handler = 'CFA_doVAR()'
+                    col = '1;33'
+                elif 'FFL_T_CONST' in flags:
+                    handler = 'CFA_doCONST()'
+                    col = '1;34'
+                elif 'FFL_T_USER' in flags:
+                    handler = 'CFA_doUSER()'
+                    col = '1;36'
+
+                if copyof:
                     #handler = '@dw_%s+1' % re.sub('[^A-Za-z0-9_]', '_', copyof.upper() or name)
                     handler = 'JMP dw_%s' % re.sub('[^A-Za-z0-9_]', '_', copyof or name)
+                    col = '1;31'
                     numcopies += 1
-                else:
-                    #handler = 'JMP dw_%s_pfa' % label
-                    handler = '; None (code word -- fall through)'
 
                 # Start a new dictionary entry
                 if tty:
-                    sys.stderr.write("\033[1m%s\033[0m " % name)
+                    sys.stderr.write("\033[0;%sm%s\033[0m " % (col, name))
                 else:
                     sys.stderr.write("%s " % name)
                 #namerep = name.upper().replace('"', '" 34 "')
                 namerep = name.replace('"', '" 34 "')
                 namerep = re.sub('34 \"$', '34', namerep)
                 namerep = namerep.upper()
+                namerep = namerep.replace('\\', '\\\\')
                 nametable.append(NAME % locals())
                 print ENTRY_NAMETABLE.strip('\n') % locals()
                 link = 'dw_%(label)s_head' % locals()
                 vectable.append((label, link))
     sys.stderr.write('\n')
+
+if vocabulary:
+    newvocab = 'EOF'
+    print VOCAB % locals()
 
 print FOOTER.rstrip() % locals()
 #sys.stderr.write('\n')

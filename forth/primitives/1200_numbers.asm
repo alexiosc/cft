@@ -97,10 +97,11 @@ _isdigit_c:
 	.word -9
 	.word -17		; '0' - 'A'
 	.word 10
+
 	
 
 	;; word:  NUMBER?
-	;; alias: NUMBER_
+	;; alias: NUMBERq
 	;; flags: CODE ROM
 	;; notes: NUMBER ( a -- n true | a false )
 	;;        If the packed string with address a is a valid number

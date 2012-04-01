@@ -12,14 +12,19 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 
-//.equ	EM	&c000		; Top of memory (48kW)
-//.equ	USIZE	64		; User area size
-//.equ	RTSIZE	128		; Return stack/TIB size
-//.equ	RPP	@EM-256		; Start of return stack.
-//.equ	TIBB	@RPP-RTSIZE	; Size of terminal Input Buffer (TIB)
-//.equ    SPP     @TIBB-8		; Start of user stack
-//.equ    UPP     @EM-256		; Start of user area
-//.equ    NAMEE   @EM-256		; Start of user area
+	.equ UTA	&0400	        ; Start of user task
+	.equ UAS	256		; User area size
+	.equ DSS	256		; Data stack size (cells)
+	.equ RSS	256		; Return stack size (cells)
+	.equ TIBS	256		; TIB size (cells)
+
+	.equ PADOFS      80	        ; PAD offset (cells from HERE)
+
+	.equ UAADDR	UTA 		; Address of user area
+	.equ DSADDR	@UAADDR+UAS	; Address of data stack
+	.equ RSADDR	@DSADDR+DSS	; Address of return stack
+	.equ TIBADDR	@RSADDR+RSS	; Address of TIB
+	.equ UDADDR     @TIBADDR+TIBS	; Start of user dictionary
 
 
 // Allocate general registers in page zero, between &00-%30 and
@@ -62,11 +67,6 @@ _vector_table:
 	
 
 	
-//vec_NEXT:	.word &dead	; Address of NEXT
-//vec_doLIST:	.word &dead	; Address of doLIST
-//vec_doCOL:	.word &dead	; Address of doCOL
-//vec_EXIT:	.word &dead	; Address of EXIT
-
 ///////////////////////////////////////////////////////////////////////////////
 //
 // DEFINES
@@ -105,7 +105,7 @@ _vector_table:
 .equ    SP0     R &091
 .equ    RP0     R &092
 .equ    CP0     R &093
-.equ    TIBP0   R &094
+//.equ    TIBP0   R &094
 
 // These registers form the user context (machine regs + user variables)
 
@@ -113,7 +113,7 @@ _vector_table:
 .equ 	SP 	R SP0
 .equ 	RP 	R RP0
 .equ 	CP 	R CP0
-.equ 	TIBP 	R TIBP0
+//.equ 	TIBP 	R TIBP0
 
 // The user area pointer. Note: because we make heavy use of page
 // zero, values from the UA are copied to P0 registers for faster
@@ -121,34 +121,56 @@ _vector_table:
 	
 &0300:				; Provisional address
 UP0:		.word   &beef			; User UP (start of user area)
-USPBOT:	 	.word	&beef			; User SPBOT
-URPBOT:	 	.word	&beef			; User RPBOT
-UNP:		.word	&beef			; User NP (start of user dictionary)
-UCP:		.word	&beef			; User CP (first free word of user dictionary)
-ULAST:	 	.word	&beef			; User LAST (first free word of user dictionary)
-UBASE:	 	.word	&beef			; User BASE
-UTIB:	 	.word	&beef			; User TIB (char count + terminal input buffer)
-UHLD:	 	.word	&beef			; HOLD pointer
+;; USPBOT:	 	.word	&beef			; User SPBOT
+;; URPBOT:	 	.word	&beef			; User RPBOT
+;; UNP:		.word	&beef			; User NP (start of user dictionary)
+;; UCP:		.word	&beef			; User CP (first free word of user dictionary)
+;; ULAST:	 	.word	&beef			; User LAST (first free word of user dictionary)
+;; UBASE:	 	.word	&beef			; User BASE
+;; UTIB:	 	.word	&beef			; User TIB (char count + terminal input buffer)
+;; UHLD:	 	.word	&beef			; HOLD pointer
 
-// TODO	
-UTKEY:	 	.word	&beef			; User '?KEY (input source)
-UTEMIT:	 	.word	&beef			; User 'EMIT (output destination)
-UTMP:	 	.word	&beef			; User tmp
-UINBUF:	 	.word	&beef			; User inbuf
-UCTX:	 	.word	&beef			; User context pointer (vocab search order)
-UCUR:	 	.word	&beef			; User CURRENT
+;; // TODO	
+;; UTKEY:	 	.word	&beef			; User '?KEY (input source)
+;; UTEMIT:	 	.word	&beef			; User 'EMIT (output destination)
+;; UTMP:	 	.word	&beef			; User tmp
+;; UINBUF:	 	.word	&beef			; User inbuf
+;; UCTX:	 	.word	&beef			; User context pointer (vocab search order)
+;; UCUR:	 	.word	&beef			; User CURRENT
 	
-UTEXP:		 .word	&beef			; User 'EXPECT (lexer)
-UTOK:		 .word	&beef			; User 'PROMPT
+;; UTEXP:		 .word	&beef			; User 'EXPECT (lexer)
+;; UTOK:		 .word	&beef			; User 'PROMPT
 
 .equ    UP      R UP0
-.equ    SPBOT   R USPBOT
-.equ    RPBOT   R URPBOT
-.equ    NP      R UNP
-.equ    BASE    R UBASE
-.equ	LAST    R ULAST
-.equ	TIB     R UTIB
-.equ	HLD     R UHLD
+;; .equ    SPBOT   R USPBOT
+;; .equ    RPBOT   R URPBOT
+;; .equ    NP      R UNP
+;; .equ    BASE    R UBASE
+;; .equ	LAST    R ULAST
+;; .equ	TIB     R UTIB
+;; .equ	HLD     R UHLD
+
+	
+///////////////////////////////////////////////////////////////////////////////
+//
+// MEMORY MAP
+//
+///////////////////////////////////////////////////////////////////////////////
+
+&0400:
+user_area:
+
+&0500:
+data_stack:
+
+&0600:
+ret_stack:
+
+&0700:
+tib:
+
+&0800:
+user_dict:
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -160,94 +182,119 @@ UTOK:		 .word	&beef			; User 'PROMPT
 
 // Local assembly macros
 .equ DEC 	ADD MINUS1
+// TODO: This must go away, EMIT to be used everywhere	
 .equ PUTCHAR	OUT TMPOUT
 
-// CFT Code Fields are jump instructions
-.equ CFA_doLIST JMP I R vec_doLIST
-.equ CFA_doCOL 	JSR I R vec_doCOL
 	
+// CFT Code Fields
+
+// Macro: CFA_doLIST(pfa)
+//
+// Execute a Forth word defined at %pfa and below using the doLIST codeword.
+//
+// Side effects:
+//   None for this macro, but executing the Forth word may have lots.
+
+.macro CFA_doLIST(pfa)
+	JMP I R vec_doLIST
+.end
+
+	
+	
+// Macro: CFA_doX(x, pfa)
+//
+// Execute a Forth word defined at %pfa and below using the codeword do%x.  To
+// store the PFA without using extra memory, we abuse the JSR instruction,
+// which stores the address of the next cell in memory to location &0000.  The
+// do%x handler takes the address at this location and uses it in whatever way
+// it needs to.
+//
+// Side effects:
+//   None for this macro, but executing the Forth word may have lots.
+
+.macro CFA_doX(x, pfa)
+	JSR I R vec_do%x	; CFA_doX(%x, %pfa)
+.end
+
+	
+	
+// Macro: CFA_doCOL(pfa)
+//
+// Execute a Forth doCOL word defined at %pfa and below.
+//
+// Side effects:
+//   None for this macro, but executing the Forth word may have lots.
+
+.macro CFA_doCOL(pfa)
+	CFA_doX(COL, pfa)
+.end
+
+	
+	
+// Macro: CFA_doVAR(pfa)
+//
+// Execute a Forth variable or variable-like word defined at %pfa and below.
+//
+// Side effects:
+//   None for this macro, but executing the Forth word may have lots.
+
+.macro CFA_doVAR(pfa)
+	CFA_doX(VAR, pfa)
+.end
+
+	
+	
+// Macro: CFA_doCONST(pfa)
+//
+// Execute a Forth constant or similar word defined at %pfa and below.
+//
+// Side effects:
+//   None for this macro, but executing the Forth word may have lots.
+
+.macro CFA_doCONST(pfa)
+	CFA_doX(CONST, pfa)
+.end
+
+	
+	
+// Macro: CFA_doUSER(pfa)
+//
+// Execute a Forth user variable or similar word defined at %pfa and below.
+//
+// Side effects:
+//   None for this macro, but executing the Forth word may have lots.
+
+.macro CFA_doUSER(pfa)
+	CFA_doX(USER, pfa)
+.end
+
+
+	
+		
 &e000:
-cold:
+init:
 	JSR init_tables
 	JSR init_isr
 
-	//TRAP vec_trap_printps
-	//.word @+1
-	//.word bootstr
-
-	//JSR printdict
-	JMP run
-
-foobar:	.word &1000
-
-//bootstr:	.strp 10 10 27 "[0;33m" 27 "#3 CFT " 10 27 "#4 CFT " 10 10 27 "[0m16-bit Mini-Computer" 10 "CFT Booted." 10 "Available words:" 10 0
-//str2:	.strp "This is another test" 0
-
 run:	
 	// IP sentinel/parachute/trampoline
-	LIA _done
+	LIA @forth+1
 	STORE IP
 	PUSH (RP)
 	
-	// Try out things
-	LOAD _test
+	// Jump into Forth
+	LOAD forth
 	PUSH (SP)
 	doLIST
 
 done:
-	HALT
+	HALT			; Halt.
+	JMP init		; When resumed, init again.
 
-_test:
+forth:
 	.word dw_COLD_pfa
-_done:
-	.word dw_dot_done
+	.word dw__DONE
 
-printdict:
-	// Print out dictionary
-	LI 0
-	STORE TMP3
-	
-	LIA ARG0
-	STORE ARGP
-	
-	LOAD LAST
-	STORE R0		; Save pointer
-
-printdict_loop:	
-	LOAD R0
-	SNZ
-	JMP printdict_end
-	
-	ADD PLUS1		; Skip over flags
-	STORE R1		; Store the string pointer
-	ADD PLUS1
-	STORE R0		; Store the link
-
-	LOAD I R1		; Indirection
-	STORE R2
-	//TRAP vec_trap_printps
-	.word @R2^R
-	.word 0
-
-	ISZ TMP3
-	
-	LI 32
-	PUTCHAR
-
-	LOAD I R0
-	STORE R0
-	JMP printdict_loop
-
-printdict_end:
-	LI 10
-	PUTCHAR
-	LOAD TMP3
-	PRINTD
-	LI 10
-	PUTCHAR
-	PUTCHAR
-	PUTCHAR
-	RET
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -266,8 +313,6 @@ _inner_interpreter:
 // Assembler macro: NEXT ( -- ) Machine semantics: PC <- mem[mem[IP++]]
 .macro MACRO_NEXT()
 	LOAD I IP		; mem[IP++] contains the next pointer to jump to
-	//PRINTA
-	//JSR I printstack
 	STORE TMP0		; Save for dereferencing
 	JMP I TMP0		; Dereference and jump
 .end
@@ -291,33 +336,91 @@ _EXIT:
 _eo_inner_interpreter:
 
 
-// doCALL
+// doCOL
 _doCOL:
 	LOAD IP			; Push the IP onto the return stack.
 	PUSH (RP)
-	LOAD R 0		; Load the return address (PC+1 before JSR, i.e. the PFA)
+	LOAD RETV		; Load the return address (PC+1 before JSR, i.e. the PFA)
 	STORE IP		; Save it as the new IP
 	MACRO_NEXT()
 
 
 	
+// The doVAR and doCONST handler.
+//
+// The PFA of the word is in the RETV register (&0000). Load the address
+// stored there and put it on the stack.
+//
+// Note, since we don't modify the IP, we never really ENTER this
+// word like we ENTER (aka doCOL) a column definition. doVAR words behave
+// like special CODE words, and like CODE words, they're terminated with
+// a call to NEXT.
+//
+// Also note that this doubles as the CONST handler. The only difference
+// is one of semantics. A variable holds an address (a 16-bit value), while
+// a constant holds a 16-bit value.
+_doVAR:
+_doCONST:
+	LOAD RETV
+	STORE TMP0
+	LOAD I TMP0
+	PUSH(SP)
+	NEXT
+
+
+	
+// The doUSER handler.
+//
+// The PFA of the word is in the RETV register (&0000). Load the value
+// stored there, use it as an offset into the user area, then push the
+// address onto the stack.
+//	
+// Note, since we don't modify the IP, we never really ENTER this
+// word like we ENTER (aka doCOL) a column definition. doVAR words behave
+// like special CODE words, and like CODE words, they're terminated with
+// a call to NEXT
+_doUSER:
+	LOAD RETV		; The PFA is in RETV
+	STORE TMP0		; Store for indirection
+	LOAD I TMP0		; Indirection
+	ADD UP			; UP[RETV]
+	PUSH(SP)
+	NEXT
+
+
+
+	
+
 	;; Input flags
 	.equ IFL_NEWCHAR   &0001 ; A new character was seen
 	.equ IFL_CTRLC     &8000 ; Ctrl-C has been pressed
 
+
 	;; Dictionary flags. Basic flags MUST be below &400.
 	.equ FFL_HASHMASK  &0007 ; 3 bits of hash data
+	
 	.equ FFL_IMMEDIATE &0010 ; Immediate word.
 	.equ FFL_COMPILE   &0020 ; Compile-only.
-	.equ FFL_RESERVED  &0040 ;   [the third standard Forth flag]
+	.equ FFL_RSVD0040  &0040 ;   RESERVED
+	.equ FFL_RSVD0080  &0080 ;   RESERVED
 
 	;; Forth dictionary flags (for the compiler's use only -- high bits)
-	.equ FFL_ROM       &4000 ; It's in the ROM.
-	.equ FFL_CPH       &0800 ; Code point handler (_DOCOL, etc).
-	.equ FFL_PRIMITIVE &1000 ; It's an assembly primitive.
-	.equ FFL_DOCOL     &2000 ; It's a colon definition.
-	.equ FFL_VARIABLE  &4000 ; It's a variable definition.
-	.equ FFL_CFT       &8000 ; CFT-specific primitive.
+
+	.equ FFL_TYPE_MASK &0700 ; Word type flag (used for SEE, among others)
+	.equ FFL_T_CODE    &0000 ;   Type: machine code
+	.equ FFL_T_DOCOL   &0100 ;   Type: doCOL or equivalent
+	.equ FFL_T_VAR     &0200 ;   Type: doVAR (address)
+	.equ FFL_T_CONST   &0300 ;   Type: doCONST (value) or equivalent
+	.equ FFL_T_USER    &0400 ;   Type: doUSER (UA ofs) or equivalent
+	.equ FFL_T_DATA    &0500 ;   Type: raw data
+	.equ FFL_T_RSVD6   &0600 ;   RESERVED
+	.equ FFL_T_RSVD7   &0700 ;   RESERVED
+
+	.equ FFL_RSVD0800  &0800 ; RESERVED
+	.equ FFL_RSVD1000  &1000 ; RESERVED
+	.equ FFL_RSVD2000  &2000 ; RESERVED
+	.equ FFL_ROM       &4800 ; It's in the ROM.
+	.equ FFL_CFT       &8000 ; CFT-specific word.
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -428,7 +531,7 @@ isr_done_tty0:
 &fff0:
 __bootvec:
 	JMP I @+1
-	.word cold
+	.word init
 
 	;; ISR vector
 &fff8:

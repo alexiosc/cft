@@ -12,11 +12,11 @@
 	;;        address and length.
 
 	.word dw_DUP		; DUP
-	.word dw_to_r		; >R
+	.word dw_to_R		; >R
 	.word dw_ABS		; ABS
 	.word dw_bkt_number	; <#
 	.word dw_number_s	; #S
-	.word dw_r_from		; R>
+	.word dw_R_from		; R>
 	.word dw_SIGN		; SIGN
 	.word dw_number_bkt	; >#
 	.word dw_EXIT		; EXIT
@@ -64,9 +64,9 @@
 	;;        Right-justify signed integer n in a field of +n characters.
 	;;
 
-	.word dw_to_r		; >R
+	.word dw_to_R		; >R
 	.word dw__str		; $str
-	.word dw_r_from		; >R
+	.word dw_R_from		; >R
 	.word dw_OVER		; OVER
 	.word dw_sub		; -
 	.word dw_SPACES		; SPACES
@@ -82,9 +82,9 @@
 	;;        Zero-pad a signed integer n to a length of +n characters.
 	;;
 
-	.word dw_to_r		; >R
+	.word dw_to_R		; >R
 	.word dw__str		; $str
-	.word dw_r_from		; >R
+	.word dw_R_from		; >R
 	.word dw_OVER		; OVER
 	.word dw_sub		; -
 	.word dw_ZEROES		; ZEROES
@@ -101,11 +101,11 @@
 	;;        Right-justify unsigned integer u in a field of +n characters.
 	;;
 
-	.word dw_to_r		; >R
+	.word dw_to_R		; >R
 	.word dw_bkt_number	; <#
 	.word dw_number_s	; #S
 	.word dw_number_bkt	; #>
-	.word dw_r_from		; R>
+	.word dw_R_from		; R>
 	.word dw_OVER		; OVER
 	.word dw_sub		; -
 	.word dw_SPACES		; SPACES
@@ -121,11 +121,11 @@
 	;;        Zero-fill unsigned integer u to a length of +n characters.
 	;;
 
-	.word dw_to_r		; >R ( u )
+	.word dw_to_R		; >R ( u )
 	.word dw_bkt_number	; <#
 	.word dw_number_s	; #S
 	.word dw_number_bkt	; #> ( a n )
-	.word dw_r_from		; R> ( a n u )
+	.word dw_R_from		; R> ( a n u )
 	.word dw_OVER		; OVER ( a n u n )
 	.word dw_sub		; - ( a n pad )
 	.word dw_ZEROES		; ZEROES ( a n )

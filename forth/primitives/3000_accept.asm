@@ -129,7 +129,7 @@ __accept_end:
 
 	LI 0
 	STORE I TI0		; Null-terminate the string.
-	STORE I TI0		; Null-terminate the string.
+	//STORE I TI0		; Null-terminate the string.
 
 	LOAD TI0
 	PUSH(SP)		; Push the next available address.
@@ -150,9 +150,15 @@ __accept_end:
 	
 	.word dw_TIB		; TIB
 	.word dw_fetch		; @ ( tib-addr )
-	doLIT(TIBS)		; size of TIB ( tib-addr tib-size )
-	.word dw_accept		; accept ( a )
-	.word dw_DROP		; DROP ( a) \ ignore the returned address
+	.word dw_DUP		; DUP ( tib-addr tib-addr )
+	doLIT(TIBS)		; size of TIB ( tib-addr tib-addr tib-size )
+	.word dw_accept		; accept ( tib-addr a )
+
+	.word dw_sub		; - ( -len+ )
+	.word dw_NEGATE		; NEGATE ( len+ )
+	.word dw_dec		; 1- ( len )
+	.word dw_cTIB		; #TIB ( len va )
+	.word dw_store		; ! ( )
 
 	.word dw_EXIT		; EXIT
 	

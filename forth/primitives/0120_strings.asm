@@ -48,7 +48,7 @@ _dw_to_char_fix:
 	;; word:  COUNT
 	;; flags: CODE ROM
 	;; notes: COUNT ( b -- b +n )
-	;;   Pushes the string address for b and its length in characters.
+	;;        Pushes the string +n of the packed, null-terminated string at address b.
 
 	SPEEK (SP)
 	JSR _strplen
@@ -221,9 +221,9 @@ __pack_end:
 __cpack_loop:
 	ISZ TMP2		; TMP2++. Zero?
         JMP __cpack_lo		; No. Skip
-        JMP __cpack_end		; Yes. End processing.
+        JMP __cpack_end1	; Yes. End processing.
 
-__cpack_lo:	
+__cpack_lo:
 	RMOV(I TMP1, I I0)	; Just copy the low byte
 
 	ISZ TMP2		; TMP2++. Zero?
@@ -240,6 +240,10 @@ __cpack_hi:
         JMP __cpack_loop	; (but just in case...)
         JMP __cpack_loop	; Loop again
 
+__cpack_end1:
+	LI 0
+	STORE I TMP1
+	
 __cpack_end:
 	RPUSH(SP, I0)		; Push the final source address.
 	ISZ TMP1		;
@@ -304,6 +308,7 @@ _s_fetch_even:
 	AND BYTELO		; AC & 0xff
 	PUSH (SP)
 	NEXT			; Done.
+
 	
 
 	;; word:  S!
@@ -343,6 +348,41 @@ _s_store_even:
 	STORE I TMP2		; store it
 	NEXT
 
+	
+
+	;; word:  do$
+	;; alias: do_str
+	;; flags: CODE ROM CFT
+	;; notes: doSTR ( -- addr )
+	;; 	  Allows string handling in high-level words. Puts the address
+        ;;        of the string on the stack, and adjusts the return address
+        ;;        (the first item on the return stack) to skip over it. The
+        ;;        string must have been compiled with ,$.
+
+	SPEEK(RP)
+	STORE TMP1		; The location of the length
+
+	LI 1
+	ADD TMP1		; Get the string address
+	PUSH(SP)		; Push it onto the data stack
+
+	ADD I TMP1		; Offset it by the length
+	SPOKE0(RP)		; And store it back on the return stack
+
+	NEXT
 
 	
+
+	;; word:  .$
+	;; alias: dot_str
+	;; flags: DOCOL ROM CFT COMPILE
+	;; notes: .$ ( -- )
+	;; 	  Prints out a string previously compiled with ,$.
+	
+	.word dw_do_str		; do$
+	.word dw_typep0		; TYPEp0
+	.word dw_EXIT
+
+
+
 // End of file.

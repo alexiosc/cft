@@ -27,16 +27,19 @@
 
 
 	;; word:  @EXECUTE
-	;; alias: FETCH-EXECUTE
+	;; alias: fetch-EXECUTE
 	;; flags: CODE ROM
 	;; notes: @EXECUTE ( a -- )
-	;;   If a is non-zero, assume it's a word address and execute it.
+	;;        If a is non-zero, assume it's a word address and execute it.
+	;; code:  : @EXECUTE ( a -- ) @ ?DUP IF EXECUTE THEN ; \ Equivalent
 
-	SPEEK (SP)
-	SNZ
-	NEXT
+	POP(SP)		   	; Get the address of the vector
+	STORE TMP0		; Dereference the vector to get the address
+	LOAD I TMP0		;    of the word to execute.
+	SNZ			; Is it zero?
+	NEXT			; Yes. Ignore it.
 	STORE TMP0
-	JMP I TMP0
+	JMP I TMP0		; No. Jump to it.
 
 
 
