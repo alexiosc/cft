@@ -187,7 +187,7 @@ dump_mini(word oldpc)
 	}
 
 	/* The register/info part of the dump */
-	snprintf(buf1, sizeof(buf1), "%s%s%s%s%s%s %sA:%s%04x %sDR:%s%04x %s%s [IP:%s%04x%s %s] [PFA:%s%04x%s %s]",
+	snprintf(buf1, sizeof(buf1), "%s%s%s%s%s%s %sA:%s%04x %sDR:%s%04x %s%s [IP:%s%04x%s %s] [t:%d.%03d us]",
 		 cpu.v ? COL_GRE "V" COL_NOR : COL_NOR "-",
 		 cpu.l ? COL_GRE "L" COL_NOR : COL_NOR "-",
 		 cpu.n ? COL_GRE "N" COL_NOR : COL_NOR "-",
@@ -198,7 +198,8 @@ dump_mini(word oldpc)
 		 COL_NOR, dr_changed? COL_YEL : "", cpu.dr,
 		 COL_NOR, cpu.irq ? "" : "IRQ",
 		 ip_changed? COL_YEL : "", cpu.mem[REG_IP], COL_NOR, map_get(cpu.mem[REG_IP]),
-		 pfa_changed? COL_YEL : "", cpu.mem[REG_PFA], COL_NOR, map_get(cpu.mem[REG_PFA])
+                 cpu.tick / 4, (cpu.tick % 4) * 250
+		 //pfa_changed? COL_YEL : "", cpu.mem[REG_PFA], COL_NOR, map_get(cpu.mem[REG_PFA])
 		);
 
 	if (source == NULL) {

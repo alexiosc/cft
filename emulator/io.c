@@ -38,9 +38,12 @@ Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
 // The front panel device
 #define IO_PANEL_SWITCHES  0x0000
-#define IO_PANEL_LIGHTS    0x0001
+#define IO_DIP_SWITCHES    0x0001
+#define IO_PANEL_LIGHTS    0x0002
 #define IO_HW_TYPE         0x0002
 #define IO_CLOCK_HALT      0x0007
+#define IO_TICKS_LO        0x0010
+#define IO_TICKS_HI        0x0011
 
 
 static struct termios _input_termios;
@@ -52,6 +55,8 @@ input_reset_terminal_mode()
 }
 
 static uint16_t _hword = 0xbeef;
+
+static uint32_t tickref = 0;
 
 static void
 input_init()
@@ -73,7 +78,7 @@ input_init()
 static int
 input_kbhit()
 {
-    struct timeval tv = { 0L, 0L };
+    struct timeval tv = { 0L, 30L };
     fd_set fds;
     int maxfd;
     FD_ZERO(&fds);
@@ -176,6 +181,11 @@ io_init()
 void
 io_tick()
 {
+	static int delay = 0;
+
+	delay = (delay + 1) & 0x3ff; /* Check I/O every 1024 clock ticks */
+	if (delay) return;
+
 #if 0
 	static time_t t0 = 0;
 	time_t t = time(NULL);
@@ -223,10 +233,28 @@ unit_io(int r, int w)
 			iodebug("IN %x: FRONT PANEL SWITCHES = %04x\n", addr, retval);
 			return retval;
 
+		case IO_DIP_SWITCHES:
+			/* Read dip panel switches */
+			retval = 0x1234;
+			iodebug("IN %x: DIP SWITCHES = %04x\n", addr, retval);
+			return retval;
+
 		case IO_HW_TYPE:
 			/* Read hardware flags */
 			retval = 0x0001; /* Emulator */
 			iodebug("IN %x: READ HARDWARE TYPE = %04x\n", addr, retval);
+			return retval;
+
+		case IO_TICKS_LO:
+			/* Read hardware flags */
+			retval = (cpu.tick - tickref) & 0xffff;
+			testdebug("IN %x: READ TICKS_LO = %04x\n", addr, retval);
+			return retval;
+
+		case IO_TICKS_HI:
+			/* Read hardware flags */
+			retval = ((cpu.tick - tickref) >> 16) & 0xffff;
+			testdebug("IN %x: READ TICKS_HI = %04x\n", addr, retval);
 			return retval;
 
 		case 0x080:
@@ -260,6 +288,15 @@ unit_io(int r, int w)
 			dump_state();
 			dump_ustate();
 			info("*** HALTING ***\n");
+			break;
+
+		case IO_PANEL_LIGHTS:
+			// We don't have panel lights yet.
+			break;
+
+		case IO_TICKS_HI:
+		case IO_TICKS_LO:
+			tickref = cpu.tick;
 			break;
 			
 		case 0x81:

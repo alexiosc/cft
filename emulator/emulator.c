@@ -460,7 +460,6 @@ decode_read_unit()
 	else if (IS_ALU_ADD(cpu.control)) {
 		uint32_t sum = (uint32_t) cpu.a + (uint32_t) cpu.b;
 		cpu.ibus = (word)(sum & 0xffff);
-		fflush(stdout);
 		if (sum & 0x10000) cpu.l = !cpu.l;
 
 		//printf("*** %04x + %04x = %04x (%d %d %d)\n", cpu.a, cpu.b, cpu.ibus, BIT(cpu.a, 15), BIT(cpu.b, 15), BIT(cpu.ibus, 15));
@@ -634,7 +633,7 @@ emulate()
 		if(debug_asm) {
 			if (cpu.ustate.uaddr == 0) {
 				oldpc = cpu.pc;
-			} else if (cpu.ustate.uaddr == 3) {
+			} else if (cpu.ustate.uaddr == 2) {
 				dump_mini(oldpc);
 			}
 		}
