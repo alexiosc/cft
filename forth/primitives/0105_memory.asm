@@ -43,29 +43,6 @@
 
 
 
-	;; word:  ALLOT
-	;; flags: CODE ROM
-	;; notes: ALLOT ( w -- )
-	;;   Allots w words on the dictionary, changes HERE accordingly.
-	POP (SP)		; Pop value
-	ADD CP			; Add to CP
-	STORE CP		; Store it
-	NEXT
-
-
-
-	;; word:  ,
-	;; alias: comma
-	;; flags: CODE ROM
-	;; notes: , ( w -- )
-	;;   Allots space for w, then stores word at HERE 1-.
-
-	POP (SP)		; Pop value
-	STORE I CP		; CP autoincrements.
-	NEXT
-	
-
-
 	;; word:  2!
 	;; alias: two-store
 	;; flags: CODE ROM

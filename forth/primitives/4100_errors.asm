@@ -94,11 +94,11 @@
 
 
 	
-	;; word:  ABORT"
-	;; alias: ABORT_str
-	;; flags: DOCOL ROM COMPILE
-	;; notes: ABORT" ( f -- )
-	;;
+	;; word:  doABORT"
+	;; alias: doABORT_str
+	;; flags: DOCOL ROM
+	;; notes: doABORT" ( f -- )
+	;;        Abort, returning a string error message.
 
 	.word dw_if_branch	; ( f ) ?branch ( )
 	.word _abort_str_no

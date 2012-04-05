@@ -268,12 +268,26 @@ user_dict:
 	CFA_doX(USER, pfa)
 .end
 
+	
+	
+// Macro: CFA_doVOC(pfa)
+//
+// Execute a Forth vocabulary word.
+//
+// Side effects:
+//   None for this macro, but executing the Forth word may have lots.
+
+.macro CFA_doVOC(pfa)
+	CFA_doX(VOC, pfa)
+.end
+
 
 	
 		
 &e000:
 init:
 	JSR init_tables
+	JSR init_serial
 	JSR init_isr
 
 run:	
@@ -367,7 +381,7 @@ _doCONST:
 	PUSH(SP)
 	NEXT
 
-
+	
 	
 // The doUSER handler.
 //
@@ -387,6 +401,36 @@ _doUSER:
 	PUSH(SP)
 	NEXT
 
+	
+	
+// The doVOC handler.
+//
+// The PFA of the word is in the RETV register (&0000). The value
+// stored there is the dictionary LINK to the last defined word in the vocabulary.
+// Load it, and store it to the top of the dictionary stack.
+//	
+// Note, since we don't modify the IP, we never really ENTER this
+// word like we ENTER (aka doCOL) a column definition. doVAR words behave
+// like special CODE words, and like CODE words, they're terminated with
+// a call to NEXT
+
+_doVOC:
+	LOADUP(UAOFS_pCONTEXT)	; Load the context stack pointer
+	STORE TMP1		; Store for later
+
+	LI UAOFS_CONTEXT	; Load the base of the context stack.
+	ADD TMP1		; ... + the current context pointer
+	ADD UP			; ... + the user area pointer
+	ADD MINUS1		; ... -1.
+	STORE TMP2		; Store it again.
+
+	RMOV(I TMP1, RETV)	; mem[TMP2] = PFA
+	NEXT
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////	
 
 
 	
@@ -422,6 +466,19 @@ _doUSER:
 	.equ FFL_ROM       &4800 ; It's in the ROM.
 	.equ FFL_CFT       &8000 ; CFT-specific word.
 
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// I/O
+//
+///////////////////////////////////////////////////////////////////////////////
+
+init_serial:
+	LI 0
+	STORE INPFR
+	STORE INPCH
+	RET
+	
 
 ///////////////////////////////////////////////////////////////////////////////
 //

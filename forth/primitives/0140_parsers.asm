@@ -122,10 +122,8 @@ _token_empty:
 	.word dw_EXIT
 	
 _tick_fail:
-	// TODO: throw an exception here
-	.word dw_FAIL
+	.word dw_THROW
 
-	
 	
 
 // End of file.

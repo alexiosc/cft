@@ -26,8 +26,8 @@ _dot_ok_prompt:
 	;;   	  Execution trampoline. Prints out "Done" and terminates.
 
 	doLIT(1)
-	.word dw_ABORT_str	; ABORT" trampoline"
-	.word 17
+	.word dw_doABORT_str	; ABORT" trampoline"
+	.word @+18
 	.strp "trampoline error (bounce bounce)" 0
 
 
@@ -102,8 +102,8 @@ _eval_interpret_fail:
 	.word dw_fetch
 	.word dw_SP_store
 
-	.word dw_ABORT_str	; ABORT" stack underflow"
-	.word 8
+	.word dw_doABORT_str	; ABORT" stack underflow"
+	.word @+9
 	.strp "stack underflow" 0
 
 _underflow_ok:
@@ -150,7 +150,7 @@ _eval_end:
 	;;        Print out the "Ready." prompt.
 
 	.word dw_dot_str
-	.word 4
+	.word @+5
 	.strp "Ready." 10 0
 	.word dw_EXIT
 	
@@ -196,7 +196,7 @@ _quit_loop:
 	;; \ Errors
 	.word dw_typep0
 	.word dw_dot_str
-	.word 3
+	.word @+4
 	.strp "  ? " 0
 	.word dw_QUIT
 

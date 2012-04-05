@@ -90,12 +90,21 @@ _init_table:
 
 	;; Vector table values
 
+_vtstart:
+_vtofs_NEXT:
 	.word _NEXT		; vector: _NEXT
+_vtofs_doLIST:
 	.word _doLIST		; vector: _doLIST
+_vtofs_doCOL:
 	.word _doCOL		; vector: _doCOL
+_vtofs_doVAR:
 	.word _doVAR		; vector: _doVAR
+_vtofs_doCONST:
 	.word _doCONST		; vector: _doCONST
+_vtofs_doUSER:
 	.word _doUSER		; vector: _doUSER
+_vtofs_doVOC:
+	.word _doVOC		; vector: _doVOC
 	.word _EXIT		; vector: _EXIT
 
 	.word 0			; End.
@@ -132,7 +141,7 @@ _uatmp:
 _uaofs_CURRENT:
 	.word _voc_Forth 	; CURRENT: Vocabulary definitions are added to.
 _uaofs_pCONTEXT:
-	.word _voc_Forth 	; CTXPTR: Vocabulary stack pointer (relative!)
+	.word 2 		; CTXPTR: Vocabulary stack pointer (relative!)
 _uaofs_CONTEXT:
 	.word _voc_Forth;Root	; CONTEXT0: Vocabulary stack (8 cells)
 	.word _voc_Forth	; CONTEXT1
@@ -189,6 +198,15 @@ _uaofs_EOBq:
 	.word dw_EOTIBq		; 'EOB?
 	
 _uaend:
+
+	;; Vector table offets
+	.equ VTOFS_NEXT @_vtofs_NEXT-_vtstart
+	.equ VTOFS_doLIST @_vtofs_doLIST-_vtstart
+	.equ VTOFS_doCOL @_vtofs_doCOL-_vtstart
+	.equ VTOFS_doVAR @_vtofs_doVAR-_vtstart
+	.equ VTOFS_doCONST @_vtofs_doCONST-_vtstart
+	.equ VTOFS_doVOC @_vtofs_doVOC-_vtstart
+	
 	;; Calculate the length of the user area table.
 	.equ NEG_UATLEN @_uastart-_uaend
 

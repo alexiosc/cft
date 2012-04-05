@@ -37,4 +37,29 @@
 
 
 
+	;; word:  LOBYTE
+	;; flags: CODE ROM CFT
+	;; notes: CELLS ( n -- n )
+	;;        Gets the low order byte of a 16-bit cell value.
+
+	SPEEK(SP)		; Pop
+	GETLOCHAR()		; Get the low character (byte)
+	SPOKE0(SP)		; Write it back.
+	NEXT
+
+
+
+	;; word:  HIBYTE
+	;; flags: CODE ROM CFT
+	;; notes: CELLS ( n -- n )
+	;;        Gets the high order byte of a 16-bit cell value.
+
+	SPEEK(SP)		; Pop
+	GETHICHAR()		; Get the high character (byte)
+	SPOKE0(SP)		; Write it back.
+	NEXT
+	
+
+
+
 // End of file.

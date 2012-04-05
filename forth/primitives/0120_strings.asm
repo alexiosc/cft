@@ -48,7 +48,8 @@ _dw_to_char_fix:
 	;; word:  COUNT
 	;; flags: CODE ROM
 	;; notes: COUNT ( b -- b +n )
-	;;        Pushes the string +n of the packed, null-terminated string at address b.
+	;;        Pushes the length +n (in characters) of the packed,
+	;;        null-terminated string at address b.
 
 	SPEEK (SP)
 	JSR _strplen
@@ -109,6 +110,8 @@ _strwplen_loop:
 	AND BYTEHI		; Check the high 8 bits
 	SNZ			; Terminator?
 	JMP _strwplen_end	; Done. No separate termination cell.
+
+	JMP _strwplen_loop	; Loop again.
 
 _strwplen_end:
 	LOAD TMP1
@@ -360,13 +363,13 @@ _s_store_even:
         ;;        string must have been compiled with ,$.
 
 	SPEEK(RP)
-	STORE TMP1		; The location of the length
+	STORE TMP1		; The location of the jump destination.
 
 	LI 1
 	ADD TMP1		; Get the string address
 	PUSH(SP)		; Push it onto the data stack
 
-	ADD I TMP1		; Offset it by the length
+	LOAD I TMP1		; Load the new IP
 	SPOKE0(RP)		; And store it back on the return stack
 
 	NEXT

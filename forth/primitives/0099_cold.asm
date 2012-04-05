@@ -82,7 +82,7 @@ tokenloop_num:
 	
 tokenloop_err:
 	.word dw_dot_str	; ."
-	.word 3
+	.word @+4
 	.strp "  ? " 0
 	.word dw_typep0		; type0
 	//.word dw_doLIT		; &3f EMIT // '?'

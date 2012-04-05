@@ -106,7 +106,6 @@ WORDTABLE_FOOTER = """
 """
 
 
-
 PAT = r'\.word\s+_rom_(\w+)\s+;\s*(.+)\n'
 
 vectors = list()
@@ -138,11 +137,27 @@ for source in sys.argv[1:]:
     for i, line in enumerate(open(source)):
         linenum = i + 1
         print line.rstrip()
-        x = re.findall(';+\s*vocabulary:\s*(\S+)', line)
+        x = re.findall(';+\s*vocab(ulary)?:\s*(\S+)', line)
         if x:
-            newvocab = x[0]
+
+            # if vocabulary:
+            #     hash = (len(vocabulary) ^ ord(vocabulary[0])) & ((1 << HASHBITS) - 1)
+            #     hashes[hash] = hashes[hash] + 1
+            #     print ENTRY_NAMETABLE % dict(
+            #         name=vocabulary,
+            #         source=source,
+            #         linenum=linenum,
+            #         label=vocabulary,
+            #         namerep=vocabulary,
+            #         flags='FFL_T_VAR FFL_ROM',
+            #         link=link,
+            #         handler='CFA_doVOC()',
+            #         )
+            #     print '\t.word %s' % link
+                   
+            newvocab = x[0][1]
             print VOCAB % locals()
-            vocabulary = x[0]
+            vocabulary = x[0][1]
             link = 'NULL'
             continue
 
@@ -207,7 +222,12 @@ for source in sys.argv[1:]:
                 elif 'FFL_T_USER' in flags:
                     handler = 'CFA_doUSER()'
                     col = '1;36'
-
+                elif 'FFL_VOCAB' in flags:
+                    flags = flags.replace('FFL_VOCABULARY', 'FFL_T_VAR')
+                    flags = flags.replace('FFL_VOCAB', 'FFL_T_VAR')
+                    handler = 'CFA_doVOC()'
+                    col = '0;7'
+                    
                 if copyof:
                     #handler = '@dw_%s+1' % re.sub('[^A-Za-z0-9_]', '_', copyof.upper() or name)
                     handler = 'JMP dw_%s' % re.sub('[^A-Za-z0-9_]', '_', copyof or name)
@@ -219,11 +239,13 @@ for source in sys.argv[1:]:
                     sys.stderr.write("\033[0;%sm%s\033[0m " % (col, name))
                 else:
                     sys.stderr.write("%s " % name)
+                namerep = name.upper()
                 #namerep = name.upper().replace('"', '" 34 "')
-                namerep = name.replace('"', '" 34 "')
-                namerep = re.sub('34 \"$', '34', namerep)
+                #namerep = name.replace('"', '" 34 "')
+                #namerep = re.sub('34 \"$', '34', namerep)
                 namerep = namerep.upper()
                 namerep = namerep.replace('\\', '\\\\')
+                namerep = namerep.replace('"', '\\"')
                 nametable.append(NAME % locals())
                 print ENTRY_NAMETABLE.strip('\n') % locals()
                 link = 'dw_%(label)s_head' % locals()

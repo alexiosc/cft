@@ -14,6 +14,7 @@ ASMINCLUDES = 	$(ASMDIR)/io.asm $(ASMDIR)/debugging.asm $(ASMDIR)/testing.asm
 SCRIPTDIR = 	scripts
 PRIMITIVEDIR = 	primitives
 TESTFLAGS +=	-a v1 -t -p $(NAME).pasm -M $(NAME).map
+TESTFLAGS +=	--sentinel
 #TESTFLAGS +=	--debug-asm
 #TESTFLAGS +=	--debug-microcode
 
