@@ -233,6 +233,13 @@ _comma_quote_empty:
 	;; 0 , \ Allocate space for the variable value itself.
 	doLIT(0)
 	.word dw_comma
+
+
+	doLIT(2048)
+	doLIT(32)
+	.word dw_DUMP
+	.word dw_DROP
+	
 	.word dw_EXIT
 	
 

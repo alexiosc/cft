@@ -3,7 +3,7 @@
 ;; // rudimentary line editing and terminal buffering
 
 	;; TODO: Fix this
-//.page
+.page
 	
 	;; word:  accept
 	;; flags: CODE ROM CFT

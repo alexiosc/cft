@@ -3,12 +3,12 @@
 // Start the Forth vocabulary.
 
 
-	;; vocabulary: Forth
+	;; vocabulary: ROMForth
 
-	;; word: FORTH
+	;; word: ROM.FORTH
 	;; flags: VOCABULARY ROM
 
-	.word _voc_Forth
+	.word _voc_ROMForth
 
 
 // End of file.
