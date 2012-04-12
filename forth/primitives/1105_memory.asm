@@ -83,4 +83,31 @@
 
 
 
+	;; word:  +FLAG!
+	;; alias: set_FLAG_store
+	;; flags: CODE ROM
+	;; notes: +FLAG! ( u a -- )
+	;;        The value at address a is ORred with u in-place.
+
+	POP2(SP)		; u in AC, a in TMP1
+	OR I TMP1
+	STORE I TMP1
+	NEXT
+
+
+
+	;; word:  -FLAG!
+	;; alias: clear_FLAG_store
+	;; flags: CODE ROM
+	;; notes: -FLAG! ( u a -- )
+	;;        The value at address a is ANDed with (NOT u) in-place.
+
+	POP2(SP)		; u in AC, a in TMP1
+	XOR MINUS1		; Faster than NOT
+	AND I TMP1
+	STORE I TMP1
+	NEXT
+
+
+
 // End of file.

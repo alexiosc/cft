@@ -56,15 +56,21 @@ _dot_ok_prompt:
 	;;        Interpret a token.
 
 	// COUNT SWAP ( +n a ) \ Get the token length
-	.word dw_COUNT
-	.word dw_SWAP
+	//.word dw_COUNT
+	//.word dw_SWAP
 
-	.word dw__FIND		; $FIND ( word-addr TRUE | token-addr FALSE )
+	.word dw_FIND		; FIND ( word-addr u | token-addr FALSE )
 
+	.word dw_if_DUP	        ; ?DUP ( token-addr u u | token-addr FALSE )
 	.word dw_if_branch	; ( token-addr ) \ Not a word. Try a number
 	.word _eval_interpret_num
 
-	// TODO: Check for compile-only words.
+	// 1 = ABORT" compile-only word" \ Check for a compilation-only word.
+	doLIT(1)
+	.word dw_equal
+	.word dw_doABORT_str	; ABORT" compile-only word"
+	.word @+10
+	.strp "compile-only word" 0
 
 	// EXECUTE \ Execute the word
 	.word dw_EXECUTE

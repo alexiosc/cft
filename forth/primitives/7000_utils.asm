@@ -4,6 +4,19 @@
 
 
 
+	;; word:  WHAT?
+	;; alias: WHAT_q
+	;; flags: DOCOL ROM
+	;; notes: WHAT? ( a -- )
+	;;        Prints out the name of the word whose CFA address is a.
+	;; src:   : WHAT? ( a -- ) >NAME typep0 ;
+
+	.word dw_to_NAME	; >NAME ( a )
+	.word dw_typep0		; typep0 ( )
+	.word dw_EXIT
+
+
+
 	;; word:  .s
 	;; alias: dot_s
 	;; flags: DOCOL ROM
@@ -48,11 +61,10 @@ _dot_rs_loop:
 	.word dw_DUP		; DUP                ( d d )   ( )
 	.word dw_RPICK		; RPICK              ( d w )   ( )
 	.word dw_dot 		; .                  ( d )     ( )
-	.word dw_DUP		;   R>               ( d d )   ( )
-	.word dw_branch		;   THEN NEXT        ( d )
+	.word dw_branch		;   branch           ( d d )
 	.word _dot_rs_loop
 _dot_rs_end:
-	.word dw_DROP		; DROP
+	.word dw_DROP		; DROP               ( )
   	.word dw_EXIT		; EXIT
 
 
@@ -254,5 +266,70 @@ _dump_end:
 	.word dw_EXIT		; EXIT
 
 	
+	
+	;; word:  .WORDS
+	;; alias: dot_WORDS
+	;; flags: DOCOL ROM CFT
+	;; notes: .WORDS ( -- )
+	;;        Prints out a verbose list of words.
+
+	.word dw_CR		; CR ( )
+	.word dw_HEX		; HEX ( )
+	doLIT(0)
+	.word dw_CONTEXT_fetch	; CONTEXT@ ( a )
+
+_wordsv_loop:
+	;; Had enough yet?
+	.word dw_NUF_if		; NUF? ( a f )
+	.word dw_NOT		; NOT ( a !f )
+	.word dw_if_branch	;   ?branch ( a )
+	.word _wordsv_end
+
+	.word dw_fetch		; @ ( a' )
+	.word dw_DUP		; @ ( a' a' )
+ 	.word dw_if_branch	; ?branch ( a' )
+	.word _words_end	;
+
+	;; Print out the address
+	.word dw_DUP		; DUP ( a' a' )
+	.word dw_doLIT		; DUP ( a' a' 4 )
+	.word 4
+	.word dw_u_dot_0r	; U.0R ( a' )
+	.word dw_SPACE		; SPACE ( a' )
+
+	;; Print out the flags.
+	.word dw_DUP		; DUP ( a' a' )
+	.word dw_fetch		; @ ( a' flags )
+	.word dw_doLIT		; DUP ( a' flags 4 )
+	.word 4
+	.word dw_u_dot_0r	; U.0R ( a' )
+	.word dw_SPACE		; SPACE ( a' )
+
+	;; Print out the label (padded to 16 characters)
+	.word dw_inc		; 1+ ( a'+1 ) \ start + 1: word name ptr (pstr)
+	.word dw_DUP		; DUP ( a'+1 a'+1 ) \ start + 1: word name ptr (pstr)
+	.word dw_fetch		; @ ( a'+1 a'' ) \ string address
+	.word dw_COUNT		; COUNT ( a'+1 a'' n ) string address
+	.word dw_SWAP		; SWAP ( a'+1 n a'' )
+	.word dw_typep0		; TYPEP0 ( a'+1 n )
+	.word dw_doLIT		; 16 ( a'+1 n 16 )
+	.word 16
+	.word dw_SWAP		; SWAP ( a'+1 16 n )
+	.word dw_sub		; - ( a'+1 16 n- )
+	.word dw_SPACES		; SPACES ( a'+1 )
+
+	;; End the line.
+	.word dw_CR		; CR
+
+	;; Link to the next word
+	.word dw_inc		; 1+ ( a'+2 ) \ start + 2: link.
+	.word dw_branch		; branch
+	.word _wordsv_loop
+
+_wordsv_end:
+	.word dw_DROP		; DROP ( )
+	.word dw_EXIT
+
+
 	
 // End of file.

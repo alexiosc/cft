@@ -6,7 +6,7 @@
 	
 	;; word:  <MARK
 	;; alias: pre-MARK
-	;; flags: DOCOL ROM
+	;; flags: DOCOL ROM COMPILE
 	;; notes: <MARK ( -- a )
 	;;   	  Control flow mark.
 	
@@ -17,18 +17,18 @@
 	
 	;; word:  <RESOLVE
 	;; alias: pre-RESOLVE
-	;; flags: DOCOL ROM
+	;; flags: DOCOL ROM COMPILE
 	;; notes: <RESOLVE ( a -- )
 	;;   	  Resolve control flow mark.
 	
-	.word dw_comma		; HERE
+	.word dw_comma		; ,
 	.word dw_EXIT		; Exit.
 
 
 	
 	;; word:  >MARK
 	;; alias: post-MARK
-	;; flags: DOCOL ROM
+	;; flags: DOCOL ROM COMPILE
 	;; notes: >MARK ( -- a )
 	;;   	  Control flow mark.
 	
@@ -41,10 +41,12 @@
 	
 	;; word:  >RESOLVE
 	;; alias: post-RESOLVE
-	;; flags: DOCOL ROM
+	;; flags: DOCOL ROM COMPILE
 	;; notes: >RESOLVE ( a -- )
 	;;   	  Resolve control flow mark.
-	
+
+	.word dw_dot_s
+	.word dw_CR
 	.word dw_HERE		; HERE
 	.word dw_SWAP		; SWAP
 	.word dw_store		; !
@@ -53,20 +55,20 @@
 
 	
 	;; word:  IF
-	;; flags: DOCOL ROM IMMEDIATE
+	;; flags: DOCOL ROM IMMEDIATE COMPILE
 	;; notes: IF ( -- a ) \ Compile semantics
 	;;        IF ( f -- ) \ Runtime semantics
 	;;        Compile the beginning of an IF structure
 
-	.word dw_COMPILE
-	.word dw_if_branch
-	.word dw_post_MARK
+	doLIT(dw_if_branch)	; [COMPILE] if_branch
+	.word dw_comma		; ,
+	.word dw_post_MARK	; >MARK
 	.word dw_EXIT
 
 
 	
 	;; word:  THEN
-	;; flags: DOCOL ROM IMMEDIATE
+	;; flags: DOCOL ROM IMMEDIATE COMPILE
 	;; notes: THEN ( a -- ) \ Compile semantics
 	;;        THEN ( -- ) \ Runtime semantics
 	;;        Compile the THEN part of an IF...THEN...ELSE structure
@@ -77,23 +79,23 @@
 
 	
 	;; word:  ELSE
-	;; flags: DOCOL ROM IMMEDIATE
+	;; flags: DOCOL ROM IMMEDIATE COMPILE
 	;; notes: ELSE ( a -- a ) \ Compile semantics
 	;;        ELSE ( -- ) \ Runtime semantics
 	;;        Compile the ELSE part of an IF...THEN...ELSE structure
 	;; code:  : ELSE ( a -- a ) ( -- ) [COMPILE] AHEAD SWAP [COMPILE] THEN ; IMMEDIATE
 
-	.word dw_bkt_COMPILE_bkt
-	.word dw_AHEAD
-	.word dw_SWAP
-	.word dw_bkt_COMPILE_bkt
-	.word dw_THEN
+	doLIT(dw_AHEAD)		; [COMPILE] AHEAD
+	.word dw_comma
+	.word dw_SWAP		; SWAP
+	doLIT(dw_THEN)		; [COMPILE] THEN
+	.word dw_comma
 	.word dw_EXIT
 
 
 	
 	;; word:  AHEAD
-	;; flags: DOCOL ROM IMMEDIATE
+	;; flags: DOCOL ROM IMMEDIATE COMPILE
 	;; notes: AHEAD ( -- a ) \ Compile semantics
 	;;        AHEAD ( -- ) \ Runtime semantics
 	;; code:  : AHEAD ( -- a ) ( -- ) COMPILE branch >MARK ; IMMEDIATE
@@ -106,7 +108,7 @@
 
 	
 	;; word:  FOR
-	;; flags: DOCOL ROM IMMEDIATE
+	;; flags: DOCOL ROM IMMEDIATE COMPILE
 	;; notes: FOR ( -- a ) \ Compile semantics
 	;;        FOR ( -- ) \ Runtime semantics
 	;; code:  : FOR ( -- a ) ( -- ) COMPILE >R <MARK ; IMMEDIATE
@@ -119,7 +121,7 @@
 
 	
 	;; word:  BEGIN
-	;; flags: DOCOL ROM IMMEDIATE
+	;; flags: DOCOL ROM IMMEDIATE COMPILE
 	;; notes: BEGIN ( -- a ) \ Compile semantics
 	;;        BEGIN ( -- ) \ Runtime semantics
 	;; code:  : BEGIN ( -- a ) ( -- ) <MARK ; IMMEDIATE
@@ -130,7 +132,7 @@
 
 	
 	;; word:  NEXT
-	;; flags: DOCOL ROM IMMEDIATE
+	;; flags: DOCOL ROM IMMEDIATE COMPILE
 	;; notes: NEXT ( a -- ) \ Compile semantics
 	;;        NEXT ( -- ) \ Runtime semantics
 	;; code:  : NEXT ( a -- ) ( -- ) ( what goes here? ) ; IMMEDIATE
@@ -141,20 +143,20 @@
 
 	
 	;; word:  UNTIL
-	;; flags: DOCOL ROM IMMEDIATE
+	;; flags: DOCOL ROM IMMEDIATE COMPILE
 	;; notes: UNTIL ( a -- ) \ Compile semantics
 	;;        UNTIL ( -- ) \ Runtime semantics
-	;; code:  : UNTIL ( a -- ) ( -- ) COMPILE ?branch <RESOLVE ; IMMEDIATE
+	;; code:  : UNTIL ( a -- ) ( -- ) [COMPILE] ?branch <RESOLVE ; IMMEDIATE
 
-	.word dw_COMPILE
-	.word dw_if_branch
-	.word dw_pre_RESOLVE
+	doLIT(dw_if_branch)	; [COMPILE] ?branch
+	.word dw_comma
+	.word dw_pre_RESOLVE	; <RESOLVE
 	.word dw_EXIT
 
 
 	
 	;; word:  AGAIN
-	;; flags: DOCOL ROM IMMEDIATE
+	;; flags: DOCOL ROM IMMEDIATE COMPILE
 	;; notes: AGAIN ( a -- ) \ Compile semantics
 	;;        AGAIN ( -- ) \ Runtime semantics
 	;; code:  : AGAIN ( a -- ) ( -- ) COMPILE branch <RESOLVE ; IMMEDIATE
@@ -167,7 +169,7 @@
 
 	
 	;; word:  REPEAT
-	;; flags: DOCOL ROM IMMEDIATE
+	;; flags: DOCOL ROM IMMEDIATE COMPILE
 	;; notes: REPEAT ( a a -- ) \ Compile semantics
 	;;        REPEAT ( -- ) \ Runtime semantics
 	;; code:  : REPEAT ( a a -- ) ( -- ) [COMPILE] AGAIN >RESOLVE ; IMMEDIATE
@@ -180,7 +182,7 @@
 
 	
 	;; word:  AFT
-	;; flags: DOCOL ROM IMMEDIATE
+	;; flags: DOCOL ROM IMMEDIATE COMPILE
 	;; notes: AFT ( a -- a a ) \ Compile semantics
 	;;        AFT ( -- ) \ Runtime semantics
 	;; code:  : AFT ( a -- a a ) ( -- ) DROP [COMPILE] AHEAD [COMPILE] BEGIN SWAP ; IMMEDIATE
@@ -196,7 +198,7 @@
 
 	
 	;; word:  WHEN
-	;; flags: DOCOL ROM IMMEDIATE
+	;; flags: DOCOL ROM IMMEDIATE COMPILE
 	;; notes: WHEN ( a a -- a a a ) \ Compile semantics
 	;;        WHEN ( -- ) \ Runtime semantics
 	;; code:  : WHEN ( a a -- a a a ) ( -- ) [COMPILE] IF OVER ; IMMEDIATE
@@ -218,7 +220,87 @@
 	.word dw_IF
 	.word dw_SWAP
 	.word dw_EXIT
+
+
 	
+	;; word:  DO
+	;; flags: DOCOL ROM IMMEDIATE
+	;; notes: DO ( -- sys ) \ compile-time semantics
+	;;        DO ( w2 w1 -- w1 ) \ runtime semantics
+	;;        Starts a DO-LOOP loop which will run once, or w2-w1+1,
+	;;        whichever is greatest. The end of the loop body is
+	;;        signalled with LOOP.
+	;; code:  : DO ( -- sys ) [COMPILE] >R BEGIN ; IMMEDIATE
+
+	doLIT(dw_to_R)		; [COMPILE] >R
+	.word dw_comma		; ,
+	.word dw_BEGIN		; BEGIN ( -- sys )
+	.word dw_EXIT
+
+
+	
+	;; word:  LOOP
+	;; flags: DOCOL ROM IMMEDIATE
+	;; notes: LOOP ( sys -- ) \ compile-time semantics
+	;;        Terminates a DO-LOOP loop.
+	;; code:  : LOOP ( sys -- ) [COMPILE] doLOOP >RESOLVE ; IMMEDIATE
+
+	doLIT(dw_doLOOP)	; [COMPILE] doLOOP
+	.word dw_comma		; ,
+	.word dw_UNTIL		; >RESOLVE ( )
+	.word dw_EXIT
+
+
+	
+	;; word:  doLOOP
+	;; flags: CODE ROM CFT IMMEDIATE
+	;; notes: doLOOP ( w2 -- w2 u ) \ compile-time semantics
+	;;        Compile-time behaviour of LOOP. w2 is the last value of the loop
+	;;        counter. u is 0 if the last value has not yet been reached, non-
+	;;        zero otherwise.
+
+	SPEEK0(RP)		; TMP0 = top of RP stack
+	ISZ I TMP0		; mem[TMP0]++ (in-place)
+	JMP @+1			; A quick nop.
+	STORE TMP1		; Keep it in TMP1 for now
+
+	SPEEK(SP)		; Peek w2 on the data stack
+	XOR TMP1		; counter == w2?
+	SZA
+	JMP _doLOOP_notdone	; No.
+
+	;; We're done. Clean up and tell ?branch not to.
+	LI 1
+	SPOKE0(SP)		; Drop w2 from the DS, push 1.
+	SDROP(RP)		; Drop the loop counter from the return stack.
+	NEXT
+
+_doLOOP_notdone:
+	;; We're not done yet. Push 0 onto the stack. ?branch branches on zero.
+	LI 0
+	PUSH(SP)		; Push 0 onto the stack. (?branch will loop again)
+	NEXT
+
+
+	
+	;; word:  I
+	;; flags: CODE ROM
+	;; notes: I ( -- u )
+	;;        Returns the innermost loop counter.
+
+	SPEEKn(RP, 1)
+	PUSH(SP)
+	NEXT
+
+	
+	;; word:  J
+	;; flags: CODE ROM
+	;; notes: J ( -- u )
+	;;        Returns the second-innermost loop counter.
+
+	SPEEKn(RP, 2)
+	PUSH(SP)
+	NEXT
 
 
 

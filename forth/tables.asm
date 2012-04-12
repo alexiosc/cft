@@ -81,6 +81,7 @@ _init_table:
 	.word &0001	        ; const: PLUS1
 	.word &0002	        ; const: PLUS2
 	.word &0003	        ; const: PLUS3
+	.word &000F	        ; const: PLUS15
 	.word &007F	        ; const: PLUS127
 	.word &ffff	        ; const: MINUS1
 	.word &fffe	        ; const: MINUS2
@@ -139,19 +140,20 @@ _uatmp:
 	;; The Vocabulary Stack
 
 _uaofs_CURRENT:
-	.word _voc_Forth 	; CURRENT: Vocabulary definitions are added to.
+	.word _voc_ROMForth 	; CURRENT: Vocabulary definitions are added to.
 _uaofs_pCONTEXT:
 	.word 2 		; CTXPTR: Vocabulary stack pointer (relative!)
 _uaofs_CONTEXT:
-	.word _voc_Forth;Root	; CONTEXT0: Vocabulary stack (8 cells)
-	.word _voc_Forth	; CONTEXT1
+	.word 0			; CONTEXT0: Vocabulary stack (8 cells)
+	.word 0			; CONTEXT1
 	.word 0 		; CONTEXT2
 	.word 0 		; CONTEXT3
 	.word 0			; CONTEXT4
 	.word 0 		; CONTEXT5
 	.word 0 		; CONTEXT6
 	.word 0 		; CONTEXT7
-
+_uaofs_CONTEXTEND:
+	
 	;; Standard user variables
 
 
@@ -220,6 +222,7 @@ _uaend:
 	.equ UAOFS_CURRENT @_uaofs_CURRENT-_uastart
 	.equ UAOFS_pCONTEXT @_uaofs_pCONTEXT-_uastart
 	.equ UAOFS_CONTEXT @_uaofs_CONTEXT-_uastart
+	.equ VSS @_uaofs_CONTEXTEND-_uaofs_CONTEXT
 	
 	.equ UAOFS_STATE @_uaofs_STATE-_uastart
 	.equ UAOFS_BASE @_uaofs_BASE-_uastart

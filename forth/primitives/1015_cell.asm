@@ -50,14 +50,15 @@
 
 
 	;; word:  HIBYTE
+	;; copy:  256div
 	;; flags: CODE ROM CFT
 	;; notes: CELLS ( n -- n )
 	;;        Gets the high order byte of a 16-bit cell value.
 
-	SPEEK(SP)		; Pop
-	GETHICHAR()		; Get the high character (byte)
-	SPOKE0(SP)		; Write it back.
-	NEXT
+	;; SPEEK(SP)		; Pop
+	;; GETHICHAR()		; Get the high character (byte)
+	;; SPOKE0(SP)		; Write it back.
+	;; NEXT
 	
 
 

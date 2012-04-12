@@ -19,6 +19,38 @@
 
 
 
+	;; word:  ."
+	;; alias: dot-quote
+	;; flags: DOCOL ROM CFT IMMEDIATE
+	;; notes: ." ( -- )
+	;;        Used as ." foo". Compiles a bit-packed, null-terminated string
+	;;        such that when executed, the address of the string is left on
+	;;        the stack.
+
+	doLIT(dw_doPSTR)	; [COMPILE] doPSTR ( a )
+	.word dw_comma		; , ( )
+	.word dw_comma_str	; ," ( )
+	doLIT(dw_typep0)
+	.word dw_comma		; ,
+	.word dw_EXIT		; EXIT
+
+
+
+	;; word:  "
+	;; alias: quote
+	;; flags: DOCOL ROM CFT IMMEDIATE
+	;; notes: ." ( -- )
+	;;        Used as ." foo". Compiles a bit-packed, null-terminated string
+	;;        such that when executed, the address of the string is left on
+	;;        the stack.
+
+	doLIT(dw_doPSTR)	; [COMPILE] doPSTR ( a )
+	.word dw_comma		; , ( )
+	.word dw_comma_str	; ," ( )
+	.word dw_EXIT		; EXIT
+
+
+
 	;; word:  (
 	;; alias: comment
 	;; flags: DOCOL ROM CFT IMMEDIATE
@@ -75,8 +107,23 @@
 
 	.word dw_PARSE		; PARSE ( b u )
 	.word dw_HERE		; HERE ( b u a )
+
 	.word dw__cPACK		; $cPACK ( a3 a4 )
-	.word dw_HERE		; HERE ( b u a )
+	.word dw_2DROP		; 2DROP ( )
+	.word dw_HERE		; HERE ( a )
+
+	;; .word dw_DUP
+	;; doLIT(8)
+	;; .word dw_DUMP
+	;; .word dw_DROP
+
+	;; .word dw_DEBUGOFF
+	;; .word dw_DUP
+	;; .word dw_CCOUNT
+	;; .word dw_dot_s
+	;; .word dw_CR
+	
+	
 	.word dw_EXIT		; EXIT
 
 

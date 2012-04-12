@@ -6,15 +6,17 @@ VIEWER =	gwenview
 
 NAME = 		forth
 ROMSIZE = 	8192
+ROMIMAGE =	$(NAME)-rom.bin
 EMU = 		../emulator/cftemu
 ASM = 		../tools/cftasm
-ASMFLAGS = 	-m $(NAME).map -a $(NAME).pasm -o $(NAME)-rom.bin -s $(NAME).sym --xpm $(NAME).xpm
+ASMFLAGS = 	-m $(NAME).map -a $(NAME).pasm -o $(ROMIMAGE) -s $(NAME).sym --xpm $(NAME).xpm
 ASMDIR = 	../asm
 ASMINCLUDES = 	$(ASMDIR)/io.asm $(ASMDIR)/debugging.asm $(ASMDIR)/testing.asm 
 SCRIPTDIR = 	scripts
 PRIMITIVEDIR = 	primitives
 TESTFLAGS +=	-a v1 -t -p $(NAME).pasm -M $(NAME).map
 TESTFLAGS +=	--sentinel
+TESTFLAGS +=	--nvram
 #TESTFLAGS +=	--debug-asm
 #TESTFLAGS +=	--debug-microcode
 
@@ -28,9 +30,9 @@ SOURCES = $(glob *asm) $(PRIMITIVES) $(TABLES)
 
 .PHONY: 	all clean mrproper test remote view tasks tags todo
 
-all:		$(NAME).bin
+all:		$(ROMIMAGE)
 
-$(NAME).bin:	$(SOURCES) $(ASMINCLUDES) $(ASM)
+$(ROMIMAGE):	$(SOURCES) $(ASMINCLUDES) $(ASM)
 		$(ASM) $(NAME).asm $(ASMFLAGS) --min-addr=$$[0xe000]
 #		@rm $(NAME)-[0-9][0-9].list || true
 
@@ -40,10 +42,10 @@ clean:
 mrproper:	clean
 		-rm *~ primitives/*~
 
-test:		$(NAME).bin $(EMU)
-		$(EMU) $(TESTFLAGS) -vv --image-start=$$[0xe000] $(NAME)-rom.bin;
+test:		$(ROMIMAGE) $(EMU)
+		$(EMU) $(TESTFLAGS) -vv --image-start=$$[0xe000] $(ROMIMAGE);
 
-view:		$(NAME).bin
+view:		$(ROMIMAGE)
 		$(VIEWER) $(NAME).xpm
 
 $(TABLES):	$(SCRIPTDIR)/mkvectors.py tables.asm

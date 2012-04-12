@@ -5,10 +5,6 @@
 
 	;; vocabulary: ROMForth
 
-	;; word: ROM.FORTH
-	;; flags: VOCABULARY ROM
-
-	.word _voc_ROMForth
 
 
 // End of file.

@@ -159,6 +159,12 @@ for source in sys.argv[1:]:
             print VOCAB % locals()
             vocabulary = x[0][1]
             link = 'NULL'
+
+            if tty:
+                sys.stderr.write("\033[0;1m Vocab: %s \033[0m " % vocabulary)
+            else:
+                sys.stderr.write("%s " % vocabulary)
+
             continue
 
         x = re.findall(';+\s*word:\s*(\S+)', line)

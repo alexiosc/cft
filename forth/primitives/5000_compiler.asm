@@ -130,21 +130,24 @@ _comma_quote_empty:
 
 	
 
-	;; word:  ,HASH
-	;; alias: comma_HASH
+	;; word:  HASH
+	;; alias: HASH
 	;; flags: DOCOL ROM CFT
-	;; notes: ,HASH ( u a -- u )
-	;;        Compiles the dictionary hash (and the default flags) for the
-	;;        token of length u starting at address a. The hash is the
-	;;        first character at a XOR the length u. Only the first 3 bits
+	;; notes: HASH ( u a -- u )
+	;;        Calculates a dictionary hash. The hash is the
+	;;        first character at address a XOR the length u. Only the first 3 bits
 	;;        are used.
-	;; code:  ,HASH ( u a -- ) @ XOR 7 AND , ;
+	;; code:  ,HASH ( u a -- u ) @ XOR 7 AND , ;
+
+	;;  Generate the hash: (strlen(s) ^ s[0]) & 7
+	;; XOR I TMP5		; AC = len ^ s[0]
+	;; AND _find_hash_mask	; AC = AC & 7
+	;; STORE TMP3
 
 	.word dw_fetch
 	.word dw_XOR
 	doLIT(FFL_HASHMASK)
 	.word dw_AND
-	.word dw_comma
 	.word dw_EXIT
 
 	
@@ -154,10 +157,11 @@ _comma_quote_empty:
 	;; flags: DOCOL ROM CFT
 	;; notes: ,HEAD ( a -- head )
 	;;        Compile the head of a new definition. Return its address.
-	;; code:  : ,HEAD ( a -- a ) CCOUNT DUP ALLOT DUP >R OVER ,HASH , R> ;
+	;; code:  : ,HEAD ( a -- a ) CCOUNT DUP ALLOT DUP >R OVER HASH , R> ;
 
-	.word dw_CCOUNT		; CCOUNT ( name len )
+	.word dw_COUNT		; COUNT ( name len )
 	.word dw_DUP		; DUP ( name len len )
+	.word dw_to_CCOUNT	; >CCOUNT ( name len cells )
 	.word dw_ALLOT		; ALLOT ( name len ) \ Allocate space for the string
 
 	;; HERE now points to the head of the new entry. REVEAL will need this.
@@ -166,7 +170,8 @@ _comma_quote_empty:
 
 	;; Compile the flags and dictionary hash value.
 	.word dw_OVER		; OVER ( name len name )
-	.word dw_comma_HASH	; ,HASH ( name )
+	.word dw_HASH		; HASH ( name hash )
+	.word dw_comma		; , ( name )
 
 	;; Compile the name string pointer
 	.word dw_comma		; ,
@@ -195,25 +200,81 @@ _comma_quote_empty:
 	;; flags: DOCOL ROM CFT
 	;; notes: REVEAL ( a -- )
 	;;        Link the dictionary entry at address a to the CURRENT vocabulary.
+	;; code:  : REVEAL ( a -- ) CURRENT@ ! ;
 
-	.word dw_CURRENT	; CURRENT
+	.word dw_CURRENT_fetch	; CURRENT@
 	.word dw_store		; !
 	.word dw_EXIT		; EXIT
 
 
 	
+	;; word:  WORDFLAG
+	;; flags: DOCOL ROM CFT
+	;; notes: WORDFLAG ( u -- )
+	;;        Or u with the flags of the most recently defined word.
+	;; code:  : WORDFLAG ( u -- ) CURRENT@ DUP @
+
+	.word dw_CURRENT_fetch	; CURRENT@ ( u a )
+	.word dw_fetch
+	.word dw_set_FLAG_store ; +FLAG! ( )
+	.word dw_EXIT		; EXIT
+
+
+	
+	;; word:  IMMEDIATE
+	;; flags: DOCOL ROM CFT
+	;; notes: IMMEDIATE ( -- )
+	;;        Set the IMMEDIATE flag for the recently defined word.
+
+	doLIT(FFL_IMMEDIATE)
+	.word dw_WORDFLAG
+	.word dw_EXIT		; EXIT
+
+
+	
+	;; word:  COMPILE-ONLY
+	;; flags: DOCOL ROM CFT
+	;; notes: COMPILE-ONLY ( -- )
+	;;        Set the COMPILE-ONLY flag for the recently defined word.
+
+	doLIT(FFL_COMPILE)
+	.word dw_WORDFLAG
+	.word dw_EXIT		; EXIT
+
+
+	
+	;; word:  'doCOL
+	;; alias: tick_doCOL
+	;; flags: CONST ROM CFT
+	;; notes: 'doCOL ( a -- )
+	;;        The address of the doCOL CFA.
+
+	.word @_vector_table+VTOFS_doCOL
+
+
+	
 	;; word:  'doVAR
 	;; alias: tick_doVAR
-	;; flags: VARIABLE ROM CFT
+	;; flags: CONST ROM CFT
 	;; notes: 'doVAR ( a -- )
 	;;        The address of the doVAR CFA.
 
 	.word @_vector_table+VTOFS_doVAR
 
+
+	
+	;; word:  'doCONST
+	;; alias: tick_doCONST
+	;; flags: CONST ROM CFT
+	;; notes: 'doCONST ( a -- )
+	;;        The address of the doCONST CFA.
+
+	.word @_vector_table+VTOFS_doCONST
+
 	
 
 	;; word:  VARIABLE
-	;; flags: DOCOL ROM IMMEDIATE
+	;; flags: DOCOL ROM
 	;; notes: VARIABLE ( -- )
 	;;
 
@@ -222,8 +283,8 @@ _comma_quote_empty:
 	.word dw_comma_HEAD	; ( head )
 
 	;; CURRENT , \ Compile the link to the previous definition.
-	.word dw_CURRENT
-	.word dw_fetch
+	.word dw_CURRENT_fetch	; CURRENT@
+	.word dw_fetch		; @
 	.word dw_comma		; ( head )
 
 	;; 'doVAR ,CFA \ Compile the code word. This needs some assembly.
@@ -231,17 +292,151 @@ _comma_quote_empty:
 	.word dw_comma_CFA	; ,CFA ( head )
 
 	;; 0 , \ Allocate space for the variable value itself.
-	doLIT(0)
-	.word dw_comma
+	doLIT(0)		; 0 ( head 0 )
+	.word dw_comma		; , ( head )
 
+	;; REVEAL \ Reveal the definition
+	.word dw_REVEAL		; ( )
 
-	doLIT(2048)
-	doLIT(32)
-	.word dw_DUMP
-	.word dw_DROP
+	;; \ Set variable flags
+	doLIT(FFL_T_VAR)	; FFL_T_VAR (whatever it is)
+	.word dw_WORDFLAG	; FLAGWORD ( )
+	.word dw_EXIT
+
 	
+
+	;; word:  CONSTANT
+	;; flags: DOCOL ROM
+	;; notes: CONSTANT ( u -- )
+	;;
+
+	;; TOKEN ,HEAD \ Begin the entry head
+	.word dw_TOKEN
+	.word dw_comma_HEAD	; ( u head )
+
+	;; CURRENT , \ Compile the link to the previous definition.
+	.word dw_CURRENT_fetch	; CURRENT@
+	.word dw_fetch		; @
+	.word dw_comma		; ( u head )
+
+	;; 'doVAR ,CFA \ Compile the code word. This needs some assembly.
+	.word dw_tick_doCONST	; 'doVAR
+	.word dw_comma_CFA	; ,CFA ( u head )
+
+	;; 0 , \ Allocate space for the variable value itself.
+	.word dw_SWAP		; 0 ( head u )
+	.word dw_comma		; , ( head )
+
+	;; REVEAL \ Reveal the definition
+	.word dw_REVEAL		; ( )
+
+	;; \ Set variable flags
+	doLIT(FFL_T_CONST)	; FFL_T_CONST (whatever it is)
+	.word dw_WORDFLAG	; FLAGWORD ( )
+	.word dw_EXIT
+
+	
+
+	;; word:  EVAL.COMPILE
+	;; flags: DOCOL ROM
+	;; notes: EVAL.COMPILE ( a -- )
+	;;        Compile a token
+
+	.word dw_FIND		; FIND ( word-addr u | token-addr FALSE )
+
+	.word dw_if_DUP	        ; ?DUP ( token-addr u u | token-addr FALSE )
+	.word dw_if_branch	; ( token-addr ) \ Not a word. Try a number
+	.word _eval_compile_num
+
+	;; 1 = \ Check for immediate words (FIND returns 1)
+	doLIT(1)		; 1 ( token-addr u 1 )
+	.word dw_equal		; = ( token-addr f )
+	.word dw_if_branch	; branch... ( token-addr )
+	.word _eval_compile_word
+
+	;; ( token-addr ) EXECUTE \ The word is immediate. Execute it.
+	.word dw_EXECUTE
+	.word dw_EXIT
+
+_eval_compile_word:
+	;; (token-addr) , \ Non-immediate word. Compile it.
+	.word dw_comma		; ,
 	.word dw_EXIT
 	
+_eval_compile_num:
+	;; ( token-addr ) 'NUMBER @EXECUTE ,
+	.word dw_tick_NUMBER	; 'NUMBER ( token-addr )
+	.word dw_fetch_EXECUTE	; @EXECUTE ( num true | token-addr false )
+	.word dw_if_branch
+	.word _eval_compile_fail
+	doLIT(dw_doLIT_pfa)	; [COMPILE] doLIT
+	.word dw_comma
+	.word dw_comma		; , ( )
+	.word dw_EXIT
+	
+_eval_compile_fail:
+	.word dw_THROW		; ( token-addr )
+	.word dw_FAIL		; Should never reach this
+
+
+	
+	;; word:  ]
+	;; alias: close-bkt
+	;; flags: DOCOL ROM IMMEDIATE
+	;; notes: ] ( -- )
+	;;        Enter compiler mode.
+
+	doLIT(FSF_COMPILE)	; FSF_COMPILE
+	.word dw_STATE		; STATE
+	.word dw_store		; !
+
+	doLIT(dw_EVAL_COMPILE)	; EVAL.COMPILE
+	.word dw_tick_EVAL	; 'EVAL
+	.word dw_store		; !
+
+	.word dw_EXIT
+
+	
+
+	;; word:  :
+	;; alias: colon
+	;; flags: DOCOL ROM
+	;; notes: : ( -- head )
+	;;        Begins compilation of the next token.
+	;;        Leaves the head of the word definition on the stack.
+
+	;; TOKEN ,HEAD \ Begin the entry head
+	.word dw_TOKEN
+	.word dw_comma_HEAD	; ( head )
+
+	;; CURRENT , \ Compile the link to the previous definition.
+	.word dw_CURRENT_fetch	; CURRENT@
+	.word dw_fetch		; @
+	.word dw_comma		; ( head )
+
+	;; 'doVAR ,CFA \ Compile the code word. This needs some assembly.
+	.word dw_tick_doCOL	; 'doCOL
+	.word dw_comma_CFA	; ,CFA ( head )
+
+	;; Switch to the compiler
+	.word dw_close_bkt	; ] ( head )
+
+	.word dw_EXIT
+
+	
+
+	;; word:  ;
+	;; alias: semicolon
+	;; flags: DOCOL ROM IMMEDIATE COMPILE
+	;; notes: ; ( -- )
+	;;        Ends compilation and returns to the interpreter.
+
+	doLIT(dw_EXIT)		; COMPILE EXIT ( a )
+	.word dw_comma		; , ( )
+	.word dw_open_bkt	; [ ( ) \ Enter the interpreter
+	.word dw_REVEAL		; REVEAL ( ) \ link the last definition
+	.word dw_EXIT
+
 
 
 ;; // End of file.

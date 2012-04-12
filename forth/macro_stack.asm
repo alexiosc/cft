@@ -92,6 +92,26 @@
 
 
 	
+// Macro: SPEEK0 (stack)
+//
+// Calculate the offset of the top value of a stack and store it in TMP0.
+//
+// Warnings:
+//   No checks are performed.
+//
+// Side effects:
+//   TMP0 = %stack - 1
+//   AC = TMP0
+//   L
+	
+.macro SPEEK0 (stack)
+	LOAD %stack		; SPEEK0(%stacK)
+	ADD MINUS1
+	STORE TMP0		; Store for indirection
+.end
+
+
+	
 // Macro: SPEEK (stack)
 //
 // Load the top value of a stack without popping.
@@ -105,9 +125,7 @@
 //   L
 	
 .macro SPEEK (stack)
-	LOAD %stack		; Find [%stack-1]
-	ADD MINUS1
-	STORE TMP0		; Store for indirection
+	SPEEK0(%stack)		; Find top of stack address
 	LOAD I TMP0		; AC <- mem[%stack-1]
 .end
 
@@ -316,6 +334,25 @@
 	RMOV(TMP1, I TMP2)
 
 	LOAD I TMP0
+.end
+
+	
+
+// Macro: SDROP (stack)
+//
+// Drop the top value from the stack.
+//
+// Warnings:
+//   No checks are performed.
+//
+// Side effects:
+//   TMP0 = %stack - 1
+//   TMP2 = %stack - 2
+//   TMP1 = a (first pop())
+//   AC = w (second pop())
+//   L
+.macro SDROP (stack)
+	RADD(%stack, %stack, MINUS1)
 .end
 
 	

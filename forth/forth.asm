@@ -74,7 +74,7 @@ _vector_table:
 ///////////////////////////////////////////////////////////////////////////////
 
 .equ    NULL    &0000		; The null pointer
-.equ    TMPOUT  R &81		; Temporary (early development) tty out
+.equ    TMPOUT  R &61		; Temporary (early development) tty out
 .equ    FPSR    R &0		; I/O: front panel Switch Register
 .equ    FPDSR   R &1		; I/O: front panel DIP Switch Register
 .equ    FPOR    R &2		; I/O: front panel output register lights
@@ -360,10 +360,10 @@ _doCOL:
 
 
 	
-// The doVAR and doCONST handler.
+// The doVAR handler.
 //
-// The PFA of the word is in the RETV register (&0000). Load the address
-// stored there and put it on the stack.
+// The PFA of the word is in the RETV register (&0000). Put that value on the
+// stack, as it's the address of the variable itself.
 //
 // Note, since we don't modify the IP, we never really ENTER this
 // word like we ENTER (aka doCOL) a column definition. doVAR words behave
@@ -374,10 +374,28 @@ _doCOL:
 // is one of semantics. A variable holds an address (a 16-bit value), while
 // a constant holds a 16-bit value.
 _doVAR:
-_doCONST:
 	LOAD RETV
+	PUSH(SP)
+	NEXT
+
+
+// The doCONST handler.
+//
+// The PFA of the word is in the RETV register (&0000). Load the value
+// stored there and put it on the stack.
+//
+// Note, since we don't modify the IP, we never really ENTER this
+// word like we ENTER (aka doCOL) a column definition. doVAR words behave
+// like special CODE words, and like CODE words, they're terminated with
+// a call to NEXT.
+//
+// Also note that this doubles as the CONST handler. The only difference
+// is one of semantics. A variable holds an address (a 16-bit value), while
+// a constant holds a 16-bit value.
+_doCONST:
+	LOAD I RETV
 	STORE TMP0
-	LOAD I TMP0
+	LOAD TMP0
 	PUSH(SP)
 	NEXT
 
@@ -424,7 +442,7 @@ _doVOC:
 	ADD MINUS1		; ... -1.
 	STORE TMP2		; Store it again.
 
-	RMOV(I TMP1, RETV)	; mem[TMP2] = PFA
+	RMOV(I TMP2, RETV)	; mem[TMP2] = PFA
 	NEXT
 
 
@@ -463,7 +481,7 @@ _doVOC:
 	.equ FFL_RSVD0800  &0800 ; RESERVED
 	.equ FFL_RSVD1000  &1000 ; RESERVED
 	.equ FFL_RSVD2000  &2000 ; RESERVED
-	.equ FFL_ROM       &4800 ; It's in the ROM.
+	.equ FFL_ROM       &4000 ; It's in the ROM.
 	.equ FFL_CFT       &8000 ; CFT-specific word.
 
 

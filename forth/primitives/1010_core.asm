@@ -38,7 +38,7 @@
 
 	
 	;; word:  doLIT
-	;; flags: CODE ROM
+	;; flags: CODE ROM IMMEDIATE
 	;; notes: EXECUTE ( -- w )
 	;;   Push a literal onto the stack.
 

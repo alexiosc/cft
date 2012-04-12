@@ -84,6 +84,22 @@ _strplen_end1:
 
 
 
+	;; word:  >CCOUNT
+	;; alias: to_CCOUNT
+	;; flags: CODE ROM
+	;; notes: >CCOUNT ( u -- u )
+	;;        Returns the number of cells needed to store u bytes
+	;;        of a packed string including its termination.
+
+	SPEEK(SP)
+	SNA			; Special case: empty pstrings use 1 cell.
+	INC
+	OP1 CLL INC RBR		; L=0, AC++, AC>>1
+	SPOKE0(SP)
+	NEXT
+
+
+	
 	;; word:  CCOUNT
 	;; flags: CODE ROM
 	;; notes: CCOUNT ( b -- b +n )

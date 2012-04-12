@@ -105,6 +105,20 @@
 	
 
 
+	;; word:  <>
+	;; alias: not-equal
+	;; flags: CODE ROM
+	;; notes: = ( w w -- f )
+	;;   Push true if n is negative, false otherwise
+	POP2r(SP)
+
+	XOR TMP1		; Compare
+	SNZ			; A != 0? (unequal?)
+	JMP dw_FALSE		; No. (equal)
+	JMP dw_TRUE
+	
+
+
 	;; word:  >=
 	;; alias: geq
 	;; flags: CODE ROM

@@ -2,7 +2,7 @@
 //
 // Core arithmetic and logic
 
-.page
+//.page
 	
 	;; word:  *
 	;; alias: mul16
@@ -53,7 +53,6 @@ _umul16_noadd:
 	STORE TMP14
 
 	JMP _umul16_loop	; Loop again
-
 
 
 	;; word:  UM*
@@ -180,6 +179,7 @@ _umul32_noadd:
 	RET			; Then we're done.
 
 	JMP _umul32_loop	; Loop again
+
 
 	
 // End of file.
