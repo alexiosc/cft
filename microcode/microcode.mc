@@ -569,10 +569,10 @@ start INT=1, RST=1, V=X, L=X, OP=IN, I=0, SKIP=X, INC=X;
 
 // Direct mode. (I=1, one level of indirection)
 start INT=1, RST=1, V=X, L=X, OP=IN, I=1, SKIP=X, INC=1;
-      _FETCH_LITERAL;		// Fetch the instruction and operand.
-      w_ar, r_agl;
-      w_a, /io, /r, /end;
-      //_DESEL, /end;	// Hold the address and data bus.
+      _FETCH_LITERAL;		// Fetch the address and operand.
+      //_DESEL;			// Prepare for the next memory read.
+      _IOREAD(dr, A);		// A <- io[DR].
+      _DESEL, /end;
 
 // FIXED: Autoindex mode
 start INT=1, RST=1, V=X, L=X, OP=IN, I=1, SKIP=X, INC=0;
