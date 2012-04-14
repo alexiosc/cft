@@ -181,6 +181,8 @@ _uaofs_CSP:
 	.word 0			; CSP: used for error checking (like eForth)
 _uaofs_HANDLER:
 	.word 0			; HANDLER: used in error reporting (ANS/eForth?)
+_uaofs_DISKUNIT:
+	.word 0			; Disk unit being used. Index inside DISKS array.
 	
 	;; CFT Vectors
 
