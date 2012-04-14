@@ -2,7 +2,7 @@
 ;; //
 ;; // Convert case of strings
 
-/.page
+.page
 	
 	;; word:  pstrupper
 	;; flags: CODE ROM

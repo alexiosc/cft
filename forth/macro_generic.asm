@@ -352,6 +352,34 @@
 	_RAPPLY1(RBR, %tgt, %src)
 .end
 
+	
+
+// Macro: RRNL(tgt, src)
+//
+// Roll src four bits left, store to tgt.
+//
+// Side effects:
+//   mem[%tgt] = %a >> 1
+//   AC = %a - %b >> 1
+//   L (as per roll instructions)
+.macro RRNL(tgt, src)
+	_RAPPLY1(RNL, %tgt, %src)
+.end
+
+	
+
+// Macro: RRNR(tgt, src)
+//
+// Roll src four bits right, store to tgt.
+//
+// Side effects:
+//   mem[%tgt] = %a >> 1
+//   AC = %a - %b >> 1
+//   L (as per roll instructions)
+.macro RRNR(tgt, src)
+	_RAPPLY1(RNR, %tgt, %src)
+.end
+
 
 
 // Macro: RNOT(tgt, src)
@@ -487,6 +515,36 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
+// Macro: OUTL (addr, literal)
+//
+// OUT literal to the specified I/O address. (port).
+// Conditions:
+//   literal must be 0..&3ff.
+//
+// Side effects:
+//   AC = char
+
+.macro OUTL(addr, literal)
+	LI %literal		; OUTL(%addr, %literal)
+	OUT %addr
+.end
+
+
+
+// Macro: RIN(reg, addr)
+//
+// IN from addr and store to reg.
+//
+// Side effects:
+//   AC = char
+
+.macro RIN(reg, addr)
+	IN %ADDR		; RIN(%reg, %addr)
+	STORE %reg
+.end
+
+
+
 // Macro: PUTC (char)
 //
 // Output the specified character.
@@ -496,6 +554,7 @@
 //
 // Side effects:
 //   AC = char
+
 .macro PUTC(char)
 	LI %char		; PUTC(%char)
 	PUTCHAR

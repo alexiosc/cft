@@ -6,6 +6,9 @@
 	;; notes: TEST ( -- )
 	;;   Test the inner interpreter
 
+	;; Set up hardware
+	.word dw_RTC_INIT
+	
 	;; ONLY >RAM FORTH >RAM DEFINITIONS \ Set vocabularies
 	.word dw_ONLY
 	.word dw_to_RAM

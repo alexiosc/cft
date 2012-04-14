@@ -4,6 +4,7 @@
 
 //.page
 	
+
 	;; word:  *
 	;; alias: mul16
 	;; flags: CODE ROM
@@ -16,6 +17,94 @@
 	JSR _umul16
 	RPUSH(SP, TMP13)
 	NEXT
+
+	
+
+	;; word:  *10
+	;; alias: mul10
+	;; flags: CODE ROM CFT
+	;; notes: *10 ( w -- w )
+	;;        Multiply w by 10. 10w = (w<<1) | (w<<3), considerably cheaper than
+	;;        a full 16-bit multiplication.
+
+	POP(SP)
+	JSR _umul10
+	PUSH(SP)
+	NEXT
+
+_umul10_data:
+	.word #1111'1000
+
+_umul10:
+	STORE TMP15
+	
+	SBL			; <<1
+	STORE TMP14
+
+	LOAD TMP15
+	RNL			; <<4
+	SBR			; >>1
+	AND @_umul10_data+0	; Mask LS 3 bits
+
+	OR TMP14		; |
+	RET
+
+	
+
+	;; word:  BCD8>
+	;; alias: BCD8_from
+	;; flags: CODE ROM CFT
+	;; notes: BCD8> ( bcd -- w bcd )
+	;;        Convert the lower 8-bits of bcd from BCD to binary. Push the
+        ;;        binary value w on the stack, followed by the upper 8 bits of
+        ;;        bcd shifted 8 places right.
+	;; 
+	;;        TMP1 = bcd
+	;;        TMP2 = running total
+
+	POP(SP)
+	STORE TMP1
+
+	;; Units.
+	AND PLUS15		; Keep the least significant digit
+	STORE TMP2
+
+	;; Tens.
+	RRNR(TMP1, TMP1)	; Roll TMP1 4 bits right
+	AND PLUS15		; Keep low nybble
+	JSR _umul10		; Multiply by 10.
+	ADD TMP2		; Add it to the running total
+
+	;; Push the converted number
+	PUSH(SP)
+
+	;; Push the high byte of bcd.
+	RRNR(TMP1, TMP1)
+	AND BYTELO
+	PUSH(SP)
+
+	NEXT
+
+	
+
+	;; word:  BCD>
+	;; alias: BCD_from
+	;; flags: DOCOL ROM CFT
+	;; notes: BCD> ( bcd -- w )
+	;;        Convert a 16-bit (four digit) BCD to binary.
+
+	.word dw_BCD8_from	; BCD8> ( lo bcd )
+	.word dw_BCD8_from	; BCD8> ( lo hi bcd )
+	.word dw_DROP		; DROP ( lo hi )
+	.word dw_if_DUP		; ?DUP ( lo 0 | lo hi hi )
+	.word dw_if_branch	;   if hi == 0: EXIT
+	.word _BCD_from_exit
+	doLIT(100)		; 100 ( lo hi 100 )
+	.word dw_mul16		; * ( lo 100hi )
+	.word dw_add		; + ( 100hi + lo )
+_BCD_from_exit:	
+	.word dw_EXIT
+	
 
 	
 

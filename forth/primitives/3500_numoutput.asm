@@ -108,6 +108,32 @@ _number_s_end:
 
 	
 
+	;; word:  0#S
+	;; alias: 0-number-s
+	;; flags: DOCOL ROM
+	;; notes: 0#S ( u +n -- u )
+	;;        Extract n zero-padded digits of u.
+
+	.word dw_inc		; 1+ (u +n++ )
+_znumber_s_loop:
+	.word dw_dec		; 1- ( u +n-1 )
+	.word dw_DUP		; DUP ( u +n-1 +n-1 )
+	.word dw_if_branch	; branch? ( u +n-1 )
+	.word _znumber_s_end	;
+
+	.word dw_SWAP		; SWAP ( +n u)
+	.word dw_number		; # ( +n u )
+	.word dw_SWAP		; SWAP ( u +n )
+	
+	.word dw_branch		; branch
+	.word _znumber_s_loop	; 
+
+_znumber_s_end:
+	.word dw_DROP		; DROP ( u )
+	.word dw_EXIT		; EXIT
+
+	
+
 	;; word:  SIGN
 	;; flags: DOCOL ROM
 	;; notes: SIGN ( n -- 0 )
