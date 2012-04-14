@@ -571,7 +571,7 @@ start INT=1, RST=1, V=X, L=X, OP=IN, I=1, SKIP=X, INC=1;
       //_DESEL, /end;	// Hold the address and data bus.
 
 // Autoindex mode.
-start INT=1, RST=1, V=X, L=X, OP=IN, I=1, SKIP=X, INC=1;
+start INT=1, RST=1, V=X, L=X, OP=IN, I=1, SKIP=X, INC=0;
       _FETCH_IR;                // Fetch cycle
       _MEMREAD(agl, dr);        // DR <- mem[agl]
       //_DESEL;			// Deselect all memory signals and wait.
