@@ -234,6 +234,10 @@ signal /END           = 1.......................; // Reset microprogram, go to f
 
 #define _MEMREAD _MEMREAD_2CYCLE
     
+#define _IOREAD(_areg, _dreg) \
+    w_ar, r_##_areg; \
+    /IO, /R, w_##_dreg
+
 
 // At the end of this macro, /DAB, and /MEM are still active. It's assumed that
 // the caller of the macro will deactivate the lines, deselecting the
@@ -570,18 +574,16 @@ start INT=1, RST=1, V=X, L=X, OP=IN, I=1, SKIP=X, INC=1;
       w_a, /io, /r, /end;
       //_DESEL, /end;	// Hold the address and data bus.
 
-// Autoindex mode.
+// FIXED: Autoindex mode
 start INT=1, RST=1, V=X, L=X, OP=IN, I=1, SKIP=X, INC=0;
       _FETCH_IR;                // Fetch cycle
       _MEMREAD(agl, dr);        // DR <- mem[agl]
       //_DESEL;			// Deselect all memory signals and wait.
+      _IOREAD(dr, a);		// Indirection step: A <- mem[DR]
+      _AUTOINC;			// mem[agl] <- ++DR
+      _DESEL, /end;	        // The fetch cycle begins with a memory read.
 
-      w_ar, r_dr;
-      w_a, /io, /r;
-      ///io, /r;                // 2-cycle I/O
 
-      _AUTOINC, /end;		// mem[agl] <- ++DR
-      //_DESEL, /end;	        // Release the address and data bus.
 
 
 
