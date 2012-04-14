@@ -17,6 +17,7 @@ PRIMITIVEDIR = 	primitives
 TESTFLAGS +=	-a v1 -t -p $(NAME).pasm -M $(NAME).map
 TESTFLAGS +=	--sentinel
 TESTFLAGS +=	--nvram
+TESTFLAGS +=    --hd0 hd0.bin
 #TESTFLAGS +=	--debug-asm
 #TESTFLAGS +=	--debug-microcode
 
@@ -37,7 +38,8 @@ $(ROMIMAGE):	$(SOURCES) $(ASMINCLUDES) $(ASM)
 #		@rm $(NAME)-[0-9][0-9].list || true
 
 clean:
-		-rm -f _generated_*.asm output *.pasm *.sym *.map *.bin *-[0-9][0-9].list
+		-rm -f _generated_*.asm output{,[0-9]} *.pasm *.sym *.map
+		-rm -f $(ROMIMAGE) *-[0-9][0-9].list
 
 mrproper:	clean
 		-rm *~ primitives/*~

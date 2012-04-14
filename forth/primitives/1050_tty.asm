@@ -3,12 +3,96 @@
 // Core TTY operations.
 
 
+	;; DUART bit values
+
+	.equ DUART_IMR_ARXINT  #----'--1- ; UART A: RX interrupt (on reception or FIFO full)
+	.equ DUART_IMR_BRXINT  #--1-'---- ; UART B: RX interrupt (on reception or FIFO full)
+	
+	.equ DUART_CMD_MR0     #1011'----
+	.equ DUART_CMD_MR1     #0001'----
+	.equ DUART_CMD_RXEN    #----'---1
+	.equ DUART_CMD_RXDIS   #----'--1-
+	.equ DUART_CMD_TXEN    #----'-1--
+	.equ DUART_CMD_TXDIS   #----'1---
+
+	.equ DUART_MR1_5BIT    #------00
+	.equ DUART_MR1_6BIT    #------01
+	.equ DUART_MR1_7BIT    #------10
+	.equ DUART_MR1_8BIT    #------11
+	.equ DUART_MR1_EVEN    #-----0-- ; Even parity (must have WP or FP too)
+	.equ DUART_MR1_ODD     #-----1-- ; Odd parity (must have WP or FP too)
+	.equ DUART_MR1_WP      #---00--- ; With parity
+	.equ DUART_MR1_FP      #---01--- ; Forced parity
+	.equ DUART_MR1_NP      #---10--- ; No parity
+	.equ DUART_MR1_MD      #---11--- ; Multidrop
+	.equ DUART_MR1_ERRC    #--1----- ; Char error
+	.equ DUART_MR1_ERRB    #--0----- ; Block error
+	.equ DUART_MR1_INTRX   #-0------ ; RX interrupt on reception
+	.equ DUART_MR1_INTF    #-1------ ; RX interrupt on Rx FIFO full
+	.equ DUART_MR1_RXRTS   #0------- ; RX controls RTS
+	.equ DUART_MR1_NRXRTS  #1------- ; RX does not control RTS
+
+	.equ DUART_MR2_1SB     #----0111 ; 1 stop bit.
+	.equ DUART_MR2_1_5SB   #----1000 ; 1.5 (actually 1.563) stop bit.
+	.equ DUART_MR2_2SB     #----1111 ; 2 stop bits.
+	.equ DUART_MR2_CTS     #---10000 ; CTS Enable Tx
+	.equ DUART_MR2_NRTS    #--0----- ; Tx does not control RTS
+	.equ DUART_MR2_RTS     #--1----- ; Tx controls RTS
+	.equ DUART_MR2_NORMAL  #00------ ; Normal mode
+
+	.equ DUART_CSR_B4800   #0000
+	.equ DUART_CSR_B9600   #1011
+	.equ DUART_CSR_B19200  #0011
+	.equ DUART_CSR_B38400  #1100
+	.equ DUART_CSR_B57600  #0101
+	.equ DUART_CSR_B115200 #0110
+
+	
 
 	;; word:  tty.init
 	;; flags: CODE ROM
 	;; notes: tty.init ( -- )
 	;;   Initialise the console. Currently does nothing. The emulator
 	;;   console is always initialised.
+
+	;; DUART0: channel A IRQ on Rx.
+	LI DUART_IMR_ARXINT
+	OUT DUART0 DUART_IMR
+
+	;; DUART0, UART A: enable transmitter and receiver. Also point to MR1
+	LI DUART_CMD_MR1 DUART_CMD_RXEN DUART_CMD_TXEN
+	OUT DUART0 UARTA UARTCR
+
+	;; MR0. 8 bits, no partiy, char errors, interrupt on reception, and RTS.
+	LI DUART_MR1_8BIT DUART_MR1_NP DUART_MR1_INTRX DUART_MR1_RXRTS
+	OUT DUART0 UARTMR
+
+	;; MR2 is selected automatically. Set it for normal operation, 1 stop bit.
+	LI DUART_MR2_NORMAL DUART_MR2_CTS DUART_MR2_RTS DUART_MR2_1SB
+	OUT DUART0 UARTMR
+
+	;; Delay a bit and set MR0.
+	LI 0
+	OUT DUART0 UARTA UARTCR
+	OUT DUART0 UARTA UARTCR
+	OUT DUART0 UARTA UARTCR
+	OUT DUART0 UARTA UARTCR
+	LI DUART_CMD_MR0
+	OUT DUART0 UARTA UARTCR
+
+	;; Set the MR for normal operation and Extended II bps rates.
+	LI #0000101
+	OUT DUART0 UARTA UARTACR
+
+	;; Set the baud rate. This needs to be set twice, in the low
+	;; (transmitter) and high (receiver) nybbles.
+	LI DUART_CSR_B115200
+	STORE TMP0
+	CLL RNL
+	OR TMP0
+	OUT DUART0 UARTA UARTCSR
+
+	;; Done.
 	NEXT
 	
 
@@ -17,9 +101,20 @@
 	;; flags: CODE ROM
 	;; notes: tx ( c -- )
 	;;   Transmits c to the console.
-	POP (SP)
-	OUT R &81
-	NEXT
+
+_tx_loop:
+	IN TTY0 TTYSR		; Can we transmit a byte yet?
+	AND _tx_TxRDY		; Check the TxRDY bit
+	SNZ			; Is it set?
+	JMP _tx_loop		; No. Loop again.
+	
+	POP (SP)		; Pop the value to transmit
+	PRINTC
+	OUT TTY0 TTYFIFO	; Add it to the TX FIFO
+	NEXT			; Done.
+
+_tx_TxRDY:			; The TxRDY bit in the SR register
+	.word 2
 	
 
 

@@ -116,10 +116,6 @@
 	POP2(SP)		; w in AC, a in TMP1
 	STORE TMP2
 
-	PRINTH
-	LOAD TMP1
-	PRINTH
-
 	;; Get the window offset. This is address >> 4. The NVRAM has
 	;; 800 (2,048) addresses in total, so mask the necessary bits
 	;; too.
@@ -241,18 +237,16 @@
 	.word dw_BASE
 	.word dw_fetch
 	.word dw_to_R
-	.word dw_DECIMAL
+	.word dw_HEX
 	
 	doLIT(&7ff)		; &7ff
 	.word dw_NVC_fetch	; NVC@
-	doLIT(2000)		; 2000
+	doLIT(&2000)		; 2000
 	.word dw_add		; +
 	.word dw_dot		; .
 	doCHAR("-")		; CHAR -
 	.word dw_EMIT		; EMIT
 
-	.word dw_HEX
-	
 	doLIT(&7fe)		; &7fe
 	.word dw_NVC_fetch	; NVC@
 	doLIT(2)		; 2
@@ -310,6 +304,140 @@
 	.word dw_store
 
 	.word dw_EXIT
+
+
+
+	;; word:  idecmd
+	;; flags: CODE ROM CFT
+	;; notes: idecmd ( x -- )
+	;;        Issue an IDE command
+
+_idecmd_wait1:
+	IN R &a6
+	AND @_idecmd_data+0
+	SNZ
+	JMP _idecmd_wait1
+
+	POP(SP)
+	OUT R &b7
+	
+_idecmd_wait2:
+	IN R &a6
+	AND @_idecmd_data+0
+	SNZ
+	JMP _idecmd_wait2
+
+	doLIT(&b7)
+	.word dw_IO_store
+	.word dw_EXIT
+
+_idecmd_data:
+	.word &0040		; DRDY
+	.word &0080		; BSY
+
+
+
+	;; word:  idereset
+	;; flags: CODE ROM CFT
+	;; notes: idecmd ( x -- )
+	;;        Reset IDE channels
+
+	LI &00c
+	OUT &a6
+	OUT &c6
+	NOP
+	NOP
+	NOP
+	NOP
+	NOP
+	NOP
+	NOP
+	NOP
+	LI &008
+	OUT &a6
+	OUT &c6
+	NEXT
+
+
+
+	;; word:  ideread
+	;; flags: CODE ROM CFT
+	;; notes: idecmd ( a1 a2 -- )
+	;;        Read an IDE sector from port a2, store at addresses a1 to a1+255.
+
+	POP2(SP)		; a1 in AC, a2 in TMP1
+	STORE I0
+	RMOV(TMP0, _ideread_count)
+	LOAD TMP1
+	PRINTH
+	
+_ideread_loop:
+	IN I TMP1
+	STORE I I0
+	ISZ TMP0
+	JMP _ideread_loop
+	NEXT
+	
+_ideread_count:
+	.word -256
+
+
+
+	;; word:  idewrite
+	;; flags: CODE ROM CFT
+	;; notes: idewrite ( a1 a2 -- )
+	;;        Write an IDE sector from addresses a1 to a1+255 to port a2.
+
+	POP2r(SP)		; a1 in AC, a2 in TMP1
+	STORE I0
+	RMOV(TMP0, _ideread_count)
+	
+_idewrite_loop:
+	LOAD I I0
+	OUT I TMP1
+	ISZ TMP0
+	JMP _idewrite_loop
+	NEXT
+
+
+
+	;; word:  idesr
+	;; flags: DOCOL ROM CFT
+	;; notes: idesr ( -- x )
+	;;        IDE Status register
+
+	doLIT(&b7)
+	.word dw_IO_fetch
+	.word dw_EXIT
+
+
+
+	;; word:  ideerr
+	;; flags: DOCOL ROM CFT
+	;; notes: ideerr ( -- x )
+	;;        IDE Error register
+
+	doLIT(&b1)
+	.word dw_IO_fetch
+	.word dw_EXIT
+
+
+
+	;; word:  idetest
+	;; flags: DOCOL ROM CFT
+	;; notes: ideerr ( -- x )
+	;;        IDE Error register
+
+	doLIT(&ec)
+	.word dw_idecmd
+
+	doLIT(&8000)
+	doLIT(&b0)
+	.word dw_ideread
+	doLIT(&8000)
+	doLIT(&100)
+	.word dw_DUMP
+	.word dw_DROP
 
 
 

@@ -74,11 +74,25 @@ _vector_table:
 ///////////////////////////////////////////////////////////////////////////////
 
 .equ    NULL    &0000		; The null pointer
-.equ    TMPOUT  R &61		; Temporary (early development) tty out
+.equ    TMPOUT  R &63		; Temporary (early development) tty out
 .equ    FPSR    R &0		; I/O: front panel Switch Register
 .equ    FPDSR   R &1		; I/O: front panel DIP Switch Register
 .equ    FPOR    R &2		; I/O: front panel output register lights
 .equ    HWTYPE  R &2		; I/O: hardware type register
+
+;; Dual UART ports
+.equ    DUART0     R &60	; DUART0 base address
+.equ    DUART1     R &70	; DUART1 base address
+.equ    DUART_IMR  5		; IMR (one per DUART)
+.equ    DUART_ISR  5		; ISR (one per DUART)
+.equ	UARTA	   0		; UART channel A offset
+.equ	UARTB	   8		; UART channel B offset
+.equ    UARTMR     0		; UART Mode Register (MR0/1/2, one per UART)
+.equ    UARTSR     1		; UART Status Register (one per UART)
+.equ    UARTCSR    1		; UART Clock Select Register (CSRA/B, one per UART)
+.equ    UARTCR     2		; UART Command Register (CRA/B, one per UART)
+.equ    UARTFIFO   3		; UART FIFO (TX/RX, two per UART)
+.equ    UARTACR    4		; UART Aux Control Register (one per UART)
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -547,7 +561,8 @@ isr:
 
 // This code should be moved elsewhere.
 isr_tty0_loop:
-	IN TTY0 TTYPOLL		; Is there anything to input?
+	IN TTY0 TTYSR		; Is there anything to input?
+	AND isr_ttycs_rxrdy	; Check RxRDY bit
 	SNZ			; If zero:
 	JMP isr_done_tty0	;   No input. We're done.
 
@@ -555,7 +570,7 @@ isr_tty0_loop:
 	OR R INPFR
 	STORE R INPFR
 	
-	IN TTY0 TTYDATA		; Read data.
+	IN TTY0 TTYFIFO		; Read data.
 	STORE R INPCH		; Store it for later
 	//PRINTC
 
@@ -567,6 +582,9 @@ isr_tty0_loop:
 	HALT
 
 	JMP isr_tty0_loop	; Read more characters
+
+isr_ttycs_rxrdy:
+	.word &0001
 
 isr_done_tty0:
 
