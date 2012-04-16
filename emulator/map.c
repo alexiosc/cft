@@ -29,8 +29,8 @@ Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
 
 /* This is about to get quite hairy, but modern machines have so much
- * memory this will be a dawdle. */
-static char * _map[MEM_SIZE];
+ * memory it should be a dawdle. */
+static char * _map[ADDRSPACE];
 
 char *map_name;
 FILE *map_file = NULL;
@@ -40,7 +40,7 @@ void
 map_load()
 {
 	int i;
-	for (i = 0; i < MEM_SIZE; i++) _map[i] = NULL;
+	for (i = 0; i < ADDRSPACE; i++) _map[i] = NULL;
 
 	/* Only act if a MAP file has been provided */
 	if (map_file == NULL) return;
@@ -61,7 +61,7 @@ map_load()
 	char * oldlabel = "";
 	int addr;
 	i = 0;
-	for(addr = 0; addr < MEM_SIZE; addr++, i++) {
+	for(addr = 0; addr < ADDRSPACE; addr++, i++) {
 		char * label = _map[addr];
 		if (label != NULL) {
 			oldlabel = label;

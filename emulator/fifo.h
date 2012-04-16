@@ -1,8 +1,8 @@
 /* 
-   
-cftemu.c - CFT emulator in C
 
-Copyright (C) 2011 Alexios Chouchoulas
+fifo.h - A simple FIFO.
+
+Copyright (C) 2012 Alexios Chouchoulas
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -20,31 +20,36 @@ Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
 */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/types.h>
-
-#include "cftemu.h"
-#include "ide.h"
+#ifndef FIFO_H
+#define FIFO_H 1
 
 
-void
-init()
-{
-	ide_early_init();
-}
+#include <stdint.h>
 
 
-int
-main (int argc, char **argv)
-{
-	init();
+typedef struct {
+	uint32_t magic;
+	uint32_t rp;
+	uint32_t wp;
+	uint32_t size;
+	uint32_t buf[];
+} fifo_t;
 
-	cmdline_parse(argc, argv);
-	
-	emulate();
-	
-	return 0;
-}
+
+fifo_t * fifo_init(int size);
+
+void fifo_done(fifo_t *);
+
+void fifo_put(fifo_t * fifo, uint32_t val);
+
+int fifo_get(fifo_t * fifo, uint32_t * val);
+
+int fifo_poll(fifo_t * fifo);
+
+int fifo_full(fifo_t * fifo);
+
+
+
+#endif /* FIFO_H */
+
 /* End of file. */

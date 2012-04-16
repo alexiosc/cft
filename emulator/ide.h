@@ -1,8 +1,8 @@
 /* 
-   
-cftemu.c - CFT emulator in C
 
-Copyright (C) 2011 Alexios Chouchoulas
+ide.h - Emulates the IDE host adapter card
+
+Copyright (C) 2012 Alexios Chouchoulas
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -20,31 +20,30 @@ Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
 */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#ifndef IDE_H
+#define IDE_H 1
+
+
+#include <stdint.h>
 #include <sys/types.h>
 
-#include "cftemu.h"
-#include "ide.h"
 
+extern int ide;
 
-void
-init()
-{
-	ide_early_init();
-}
+void idehd_set(uint32_t a, char *fname);
 
+void ide_early_init();
 
-int
-main (int argc, char **argv)
-{
-	init();
+void ide_init();
 
-	cmdline_parse(argc, argv);
-	
-	emulate();
-	
-	return 0;
-}
+void ide_tick(int tick);
+
+void ide_done();
+
+int ide_write(uint16_t addr, uint16_t data);
+
+int ide_read(uint16_t addr, uint16_t * data);
+
+#endif /* IDE_H */
+
 /* End of file. */

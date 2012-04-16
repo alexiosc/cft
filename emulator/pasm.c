@@ -26,9 +26,9 @@ Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 #include <sys/types.h>
 
 #include "cftemu.h"
+#include "memory.h"
 
-
-static char * _source[MEM_SIZE];
+static char * _source[ADDRSPACE];
 
 char *pasm_name;
 FILE *pasm_file = NULL;
@@ -38,7 +38,7 @@ void
 pasm_load()
 {
 	int i;
-	for (i = 0; i < MEM_SIZE; i++) _source[i] = NULL;
+	for (i = 0; i < ADDRSPACE; i++) _source[i] = NULL;
 
 	/* Only act if a PASM file has been provided */
 	if (pasm_file == NULL) return;

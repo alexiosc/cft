@@ -1,8 +1,8 @@
 /* 
-   
-cftemu.c - CFT emulator in C
 
-Copyright (C) 2011 Alexios Chouchoulas
+panel.h - Emulates the front panel controller board.
+
+Copyright (C) 2012 Alexios Chouchoulas
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -20,31 +20,27 @@ Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
 */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#ifndef PANEL_H
+#define PANEL_H 1
+
+
+#include <stdint.h>
 #include <sys/types.h>
 
-#include "cftemu.h"
-#include "ide.h"
+// We always have a front panel in the emulator
+#define panel 1
+
+void panel_init();
+
+int panel_write(uint16_t addr, uint16_t data);
+
+int panel_read(uint16_t addr, uint16_t * data);
+
+void panel_tick(int tick);
+
+void panel_done();
 
 
-void
-init()
-{
-	ide_early_init();
-}
+#endif /* PANEL_H */
 
-
-int
-main (int argc, char **argv)
-{
-	init();
-
-	cmdline_parse(argc, argv);
-	
-	emulate();
-	
-	return 0;
-}
 /* End of file. */

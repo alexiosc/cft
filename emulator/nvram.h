@@ -1,8 +1,8 @@
 /* 
-   
-cftemu.c - CFT emulator in C
 
-Copyright (C) 2011 Alexios Chouchoulas
+nvram.h - Emulates much of an ST-M48T02 timekeeper/NVRAM chip.
+
+Copyright (C) 2012 Alexios Chouchoulas
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -20,31 +20,32 @@ Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
 */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#ifndef NVRAM_H
+#define NVRAM_H 1
+
+
+#include <stdint.h>
 #include <sys/types.h>
 
-#include "cftemu.h"
-#include "ide.h"
+
+#define NVRAM_FNAME "nvram.bin"
+#define NVRAM_SIZE 2048
 
 
-void
-init()
-{
-	ide_early_init();
-}
+extern int nvram;		/* NVRAM emulation enabled? */
 
 
-int
-main (int argc, char **argv)
-{
-	init();
+void nvram_init();
 
-	cmdline_parse(argc, argv);
-	
-	emulate();
-	
-	return 0;
-}
+void nvram_done();
+
+void nvram_tick(int tick);
+
+int nvram_write(uint16_t addr, uint16_t data);
+
+int nvram_read(uint16_t addr, uint16_t * data);
+
+
+#endif /* NVRAM_H */
+
 /* End of file. */

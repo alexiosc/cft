@@ -1,8 +1,8 @@
 /* 
-   
-cftemu.c - CFT emulator in C
 
-Copyright (C) 2011 Alexios Chouchoulas
+util.h - Emulates much of an ST-M48T02 timekeeper/UTIL chip.
+
+Copyright (C) 2012 Alexios Chouchoulas
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -20,31 +20,30 @@ Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
 */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#ifndef UTIL_H
+#define UTIL_H 1
+
+
+#include <stdint.h>
 #include <sys/types.h>
 
-#include "cftemu.h"
-#include "ide.h"
 
 
-void
-init()
-{
-	ide_early_init();
-}
+char * to_bin(uint32_t n, char *s, int slen);
+
+void dump_state();
+
+void dump_ustate();
+
+void dump_mini(word oldpc);
+
+void dump();
+
+void dumpmem(word addr, int count);
+
+void dumpstack(word addr, int usemap);
 
 
-int
-main (int argc, char **argv)
-{
-	init();
+#endif /* UTIL_H */
 
-	cmdline_parse(argc, argv);
-	
-	emulate();
-	
-	return 0;
-}
 /* End of file. */

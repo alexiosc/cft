@@ -29,31 +29,41 @@ Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
 #include "../microcode/microcode.h"
 
+#include "memory.h"
+
 
 #define PACKAGE "cftemu"
 #define VERSION "0.3"
 
 
-#define MEM_SIZE 65536
 #define RST_HOLD 2
+
 
 /*
  * CPU REVISIONS
  */
 
 typedef struct {
+	uint32_t ramsize;	/* In Words */
+	uint32_t romsize;	/* In Words */
+	uint32_t banks[NBANKS]; /* Bank setup */
+
 	char * name;
 	char * code;
 
 	int32_t image_start;
 	int32_t image_size;
 
-	uint32_t have_paging:1;
+	uint32_t have_mbu:1;
 	uint32_t have_intc:1;
+	uint32_t have_ide:1;
+	uint32_t have_nvram:1;
 } mach_t;
 
 extern mach_t mach_revisions[];
 extern mach_t * machp;
+
+void mach_set(mach_t * m);
 
 #define mach (*machp)
 
@@ -62,7 +72,7 @@ extern mach_t * machp;
  * CPU STATE
  */
 
-typedef unsigned short int word;
+#define word uint16_t
 typedef unsigned char bit;
 
 /* This is arbitrary, but it doesn't matter, as we don't use it to *interpret*
@@ -70,7 +80,11 @@ typedef unsigned char bit;
 #define microstate_t __microcode_conds_t_lsb_1st
 
 typedef struct {
-	word mem[MEM_SIZE];	/* the memory */
+	word *ram;		/* RAM */
+	word *rom;		/* ROM */
+
+	uint32_t banks[NBANKS];	/* 8 8KW banks map to a 21-bit physical address space */
+	uint32_t mbu[NBANKS];   /* Bank registers on the MBU */ 
 
 	word ar;
 	word pc;
@@ -203,27 +217,10 @@ extern int debug_io;
 extern int debug_asm;
 extern int testing;
 extern int sanity;
+extern int sentinel;
+extern int nvram;
 
 void emulate();
-
-/*
- * I/O
- */
-
-void io_init();
-void io_tick();
-word unit_io(int r, int w);
-
-
-/*
- * Utilities
- */
-
-char * to_bin(uint32_t n, char *s, int slen);
-void dump_mini(word oldpc);
-void dump_state();
-void dump_ustate();
-void dump();
 
 
 /*
@@ -233,28 +230,44 @@ void dump();
 #define sanity_check(cond, ...) if (cond) { \
 		printf("F: " COL_RED __VA_ARGS__); printf(COL_NOR); dump(); exit(2); \
 }
-#define error(...) { \
-		printf(COL_RED "E: " __VA_ARGS__); \
-		printf(COL_NOR); \
-		dump(); \
-		exit(1); \
-}
-#define fail(...) { \
-		printf(COL_RED "F: " __VA_ARGS__); \
-		printf(COL_NOR); \
-		dump(); \
-		exit(1); \
-}
-#define warning( ...) { \
-		printf(COL_YEL "W: " __VA_ARGS__); \
-		printf(COL_NOR); \
-}
-#define info( ...) { \
-		printf(COL_GRE "I: " __VA_ARGS__); \
-		printf(COL_NOR); \
-}
-#define iodebug( ...) \
-	{					   \
+#define error(...) {					\
+		printf(COL_RED "E: " __VA_ARGS__);	\
+		printf(COL_NOR);			\
+		dump();					\
+		exit(1);				\
+	}
+#define fail(...) {					\
+		printf(COL_RED "F: " __VA_ARGS__);	\
+		printf(COL_NOR);			\
+		dump();					\
+		exit(1);				\
+	}
+#define warning( ...) {					\
+		printf(COL_YEL "W: " __VA_ARGS__);	\
+		printf(COL_NOR);			\
+	}
+
+
+#define info( ...)						\
+        {							\
+		if(verbose > 0) {				\
+			printf(COL_GRE "I: " __VA_ARGS__);	\
+			printf(COL_NOR);			\
+		}						\
+	}
+
+#define info2( ...)						\
+        {							\
+		if(verbose > 1) {				\
+			printf(COL_GRE "I: " __VA_ARGS__);	\
+			printf(COL_NOR);			\
+		}						\
+	}
+
+
+
+#define iodebug( ...)						\
+	{							\
 		if(debug_io) {					\
 			printf(COL_CYA "D: " __VA_ARGS__);	\
 			printf(COL_NOR);			\
@@ -275,6 +288,32 @@ void dump();
 		}						\
 	}
 
+#define mbudebug( ...)						\
+	{							\
+		if(debug_mbu) {					\
+			printf(COL_CYA "D: MBU: " __VA_ARGS__);	\
+			printf(COL_NOR);			\
+		}						\
+	}
+
+#define duartdebug( ...)						\
+	{								\
+		if(debug_duart) {					\
+			printf(COL_CYA "D: DUART: " __VA_ARGS__);	\
+			printf(COL_NOR);				\
+		}							\
+	}
+
+#define mbuinfo info2
+#define duartinfo info2
+
+#define meminfo info
+#define meminfo2 info2
+#define ideinfo info
+#define nvraminfo info
+#define memdebug iodebug
+#define debugdebug iodebug
+
 #define COL_WHI "\033[0;1m"
 #define COL_YEL "\033[0;33;1m"
 #define COL_RED "\033[0;31;1m"
@@ -286,7 +325,7 @@ void dump();
 #define COL_UND "\033[4m"
 
 #define REG_IP 0x90
-#define REG_PFA 0x40
+#define REG_PFA 0x95
 
 
 

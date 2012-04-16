@@ -69,9 +69,9 @@ dump_state()
 	printf("IBUS: %s%04x%s  ", COL_GRE, cpu.ibus, COL_NOR);
 	printf("DBUS: %s%04x%s  ", COL_GRE, cpu.dbus, COL_NOR);
 	printf("\n");
-	printf("0000: %s%04x%s  ", COL_GRE, cpu.mem[0], COL_NOR);
-	printf("0001: %s%04x%s  ", COL_GRE, cpu.mem[0], COL_NOR);
-	printf("0002: %s%04x%s  ", COL_GRE, cpu.mem[0], COL_NOR);
+	printf("0000: %s%04x%s  ", COL_GRE, memory_read(0), COL_NOR);
+	printf("0001: %s%04x%s  ", COL_GRE, memory_read(0), COL_NOR);
+	printf("0002: %s%04x%s  ", COL_GRE, memory_read(0), COL_NOR);
 	printf("\n");
 	printf("\n");
 }
@@ -164,13 +164,13 @@ dump_mini(word oldpc)
 	int pc_changed = (oldoldpc + 1) != oldpc;
 	int a_changed = olda != cpu.a;
 	int dr_changed = olddr != cpu.dr;
-	int ip_changed = oldip != cpu.mem[0x91];
-	int pfa_changed = oldpfa != cpu.mem[0x41];
+	int ip_changed = oldip != memory_read(REG_IP);
+	int pfa_changed = oldpfa != memory_read(REG_PFA);
 	oldoldpc = oldpc;
 	olda = cpu.a;
 	olddr = cpu.dr;
-	oldip = cpu.mem[0x91];
-	oldpfa = cpu.mem[0x41];
+	oldip = memory_read(REG_IP);
+	oldpfa = memory_read(REG_PFA);
 
 	/* The address part of the dump */
 	if (loc) {
@@ -178,16 +178,17 @@ dump_mini(word oldpc)
 		snprintf(buf0, sizeof(buf0), "%s%04x%s  %-20.20s %04x: ",
 			 pc_changed ? COL_YEL ">" : COL_YEL " ",
 			 oldpc, COL_NOR, buf2,
-			 cpu.mem[oldpc]);
+			 memory_read(oldpc));
 	} else {
 		snprintf(buf0, sizeof(buf0), "%s%04x%s  %04x: ",
 			 pc_changed ? COL_YEL ">" : COL_YEL " ",
 			 oldpc,
-			 COL_NOR, cpu.mem[oldpc]);
+			 COL_NOR, memory_read(oldpc));
 	}
 
 	/* The register/info part of the dump */
-	snprintf(buf1, sizeof(buf1), "%s%s%s%s%s%s %sA:%s%04x %sDR:%s%04x %s%s [IP:%s%04x%s %s] [t:%d.%03d us]",
+	snprintf(buf1, sizeof(buf1), "%s%s%s%s%s%s %sA:%s%04x %sDR:%s%04x %s%s "
+		 "[IP:%s%04x %s%s] [PFA:%s%04x %s%s] [t:%d.%03d us]",
 		 cpu.v ? COL_GRE "V" COL_NOR : COL_NOR "-",
 		 cpu.l ? COL_GRE "L" COL_NOR : COL_NOR "-",
 		 cpu.n ? COL_GRE "N" COL_NOR : COL_NOR "-",
@@ -197,9 +198,9 @@ dump_mini(word oldpc)
 		 COL_NOR, a_changed? COL_YEL : "", cpu.a,
 		 COL_NOR, dr_changed? COL_YEL : "", cpu.dr,
 		 COL_NOR, cpu.irq ? "" : "IRQ",
-		 ip_changed? COL_YEL : "", cpu.mem[REG_IP], COL_NOR, map_get(cpu.mem[REG_IP]),
+		 ip_changed? COL_YEL : "", memory_read(REG_IP), map_get(memory_read(REG_IP)), COL_NOR,
+		 pfa_changed? COL_YEL : "", memory_read(REG_PFA), map_get(memory_read(REG_PFA)), COL_NOR,
                  cpu.tick / 4, (cpu.tick % 4) * 250
-		 //pfa_changed? COL_YEL : "", cpu.mem[REG_PFA], COL_NOR, map_get(cpu.mem[REG_PFA])
 		);
 
 	if (source == NULL) {
@@ -235,7 +236,7 @@ dumpmem(word addr, int count)
 			printf("\nD: %04x|  ", addr);
 			columns = 8;
 		}
-		printf("%04x  ", cpu.mem[addr]);
+		printf("%04x  ", memory_read(addr));
 	}
 	printf("\n");
 }
@@ -246,7 +247,7 @@ dumpstack(word addr, int usemap)
 {
 	int i;
 	for (i = addr; i < addr + 8; i++) {
-		word x = cpu.mem[i];
+		word x = memory_read(i);
 		const char * loc = map_get(x);
 		printf("%04x ", x);
 		if (loc != NULL) printf("(%s)  ", loc);

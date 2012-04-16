@@ -1,8 +1,8 @@
 /* 
-   
-cftemu.c - CFT emulator in C
 
-Copyright (C) 2011 Alexios Chouchoulas
+mbu.h - Emulates the Memory Banking Unit.
+
+Copyright (C) 2012 Alexios Chouchoulas
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -20,31 +20,29 @@ Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
 */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#ifndef MBU_H
+#define MBU_H 1
+
+
+#include <stdint.h>
 #include <sys/types.h>
 
-#include "cftemu.h"
-#include "ide.h"
+
+extern int mbu;
+extern int debug_mbu;
 
 
-void
-init()
-{
-	ide_early_init();
-}
+void mbu_init();
+
+int mbu_write(uint16_t addr, uint16_t data);
+
+int mbu_read(uint16_t addr, uint16_t * data);
+
+void mbu_tick(int tick);
+
+void mbu_done();
 
 
-int
-main (int argc, char **argv)
-{
-	init();
+#endif /* MBU_H */
 
-	cmdline_parse(argc, argv);
-	
-	emulate();
-	
-	return 0;
-}
 /* End of file. */

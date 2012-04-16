@@ -24,14 +24,20 @@ Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 #include <stdlib.h>
 #include <string.h>
 #include <stdint.h>
+#include <assert.h>
 #include <time.h>
 #include <sys/types.h>
+#include <sys/stat.h>
 #include <argp.h>
 
 #include "cftemu.h"
+#include "io.h"
+#include "mbu.h"
+#include "ide.h"
+#include "nvram.h"
+#include "memory.h"
+#include "util.h"
 
-#define word unsigned short int
-#define bit unsigned char
 
 char * ops[16] = {
 	"TRAP",
@@ -56,20 +62,57 @@ char * ops[16] = {
 mach_t mach_revisions[] = {
 	{
 		.code = "v0",
-		.name = "Preliminary testing hardware (64KW RAM)",
-		.image_start = 0x0000,
+		.name = "Preliminary testing hardware",
+		.ramsize = 0x10000,
+		.romsize = 0,
+		.banks = {0x000000, 0x002000, 0x004000, 0x006000,
+			  0x008000, 0x00a000, 0x00c000, 0x00e000},
+
+		.image_start = 0,
 		.image_size = 0x10000,
-		.have_paging = 0,
+
+		.have_mbu = 0,
 		.have_intc = 0,
+		.have_ide = 0,
+		.have_nvram = 0,
 	},
 
 	{
 		.code = "v1",
-		.name = "Early turnkey system (56KW RAM, 8KW ROM)",
-		.image_start = 0xe000,
+		.name = "Early turnkey system",
+		.ramsize = 0xe000,
+		.romsize = 0x2000,
+		.banks = {0x000000, 0x002000, 0x004000, 0x006000,
+			  0x008000, 0x00a000, 0x00c000, 0x100000},
+
+		.image_start = 0x100000,
 		.image_size = 0x2000,
-		.have_paging = 0,
+
+		.have_mbu = 0,
 		.have_intc = 0,
+		.have_ide = 0,
+		.have_nvram = 0,
+	},
+
+	{
+		.code = "v2",
+		.name = "Full hardware for ROM development",
+		.ramsize = 0xe000,
+		.romsize = 0x2000,
+		// Note: banking setup is not the banking unit's default!
+		.banks = {0x000000, 0x002000, 0x004000, 0x006000,
+			  0x008000, 0x00a000, 0x00C000, 0x100000},
+
+		.ramsize = 512 << 10,
+		.romsize = 8192,
+
+		.image_start = 0x100000,
+		.image_size = 0x2000,
+
+		.have_mbu = 1,
+		.have_intc = 1,
+		.have_ide = 1,
+		.have_nvram = 1,
 	},
 
 	{ .code = NULL }
@@ -77,11 +120,21 @@ mach_t mach_revisions[] = {
 
 mach_t * machp = &mach_revisions[0];
 
+void
+mach_set(mach_t * m)
+{
+	machp = m;
+	
+	int intc;
+
+	mbu = m->have_mbu;
+	intc = m->have_intc;
+	ide = m->have_ide;
+	nvram = m->have_nvram;
+}
+
 /* The emulator state */
 state_t cpu;
-
-char *memimg_name = NULL;
-FILE *memimg_file = NULL;
 
 char *log_name = "output";
 FILE *log_file = NULL;
@@ -92,28 +145,8 @@ int debug_microcode = 0;
 int debug_io = 0;
 int debug_asm = 0;
 int testing = 0;
-
-
-/* Read the memory image. */
-static inline void
-read_memory()
-{
-	uint32_t size;
-	size = fread(&cpu.mem[mach.image_start], sizeof(word), mach.image_size, memimg_file);
-	if (size != mach.image_size) {
-		if(errno == 0) {
-			fprintf(stderr,
-				"%s: memory image is the wrong size (should be %u 16-bit words or %u bytes)\n",
-				PACKAGE, mach.image_size, mach.image_size / sizeof(word));
-			exit(1);
-		}
-		perror(memimg_name);
-	}
-	
-	if (verbose) {
-		printf("I: Memory: starting at addr %04x, read %d words from %s.\n", mach.image_start, size, memimg_name);
-	}
-}
+int sentinel = 0;
+int nvram = 0;
 
 
 /* Implement the reset sequence (which is quite simple). */
@@ -283,23 +316,9 @@ unit_roll()
 static inline word
 unit_mem(int r, int w)
 {
-	if (r) {
-		cpu.dbus = cpu.mem[cpu.ar];
-		iodebug("Read mem[%04x] == %04x\n", cpu.ar, cpu.dbus);
-	} else if (w) {
-		/*
-		if ((cpu.ar >= 0x100 && cpu.ar <= 0x110) && (cpu.dbus == 0)) {
-			dump();
-			exit();
-		}
-		*/
-		/* Report attempts to write to the ROM */
-		if (sanity && (cpu.ar >= 0xe000)) {
-			fail("Attempt to write %04x to ROM at address %04x.\n", cpu.dbus, cpu.ar);
-		}
-		cpu.mem[cpu.ar] = cpu.dbus;
-		iodebug("Wrote mem[%04x] <- %04x\n", cpu.ar, cpu.dbus);
-	}
+	if (r && !w) cpu.dbus = memory_read(cpu.ar);
+	else if (w && !r) memory_write(cpu.ar, cpu.dbus);
+	else fail("Invalid memory access r=%d, w=%d\n", r, w);
 	return cpu.dbus;
 }
 
@@ -556,14 +575,16 @@ emulate()
 	/* Read the map file, if available */
 	map_load();
 
-	/* Read the memory image */
-	read_memory();
+	/* Initialise memory (RAM and ROM) */
+	memory_init();
 
 	/* Open the log file */
 	if ((log_file = fopen(log_name, "w")) == NULL) {
 		perror("Opening log file");
 		exit(1);
 	}
+	setbuf(log_file, NULL);
+	
 	
 	/* Initialise I/O */
 	io_init();
@@ -774,4 +795,10 @@ emulate()
 		     COL_WHI, t1 - t0, COL_GRE,
 		     COL_WHI, cpu.tick / (t1 - t0) / 1000, COL_GRE);
 	}
+
+	// Clean up.
+	memory_done();
+	io_done();
 }
+
+// End of file.

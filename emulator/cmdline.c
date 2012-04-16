@@ -27,6 +27,10 @@ Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 #include <argp.h>
 
 #include "cftemu.h"
+#include "mbu.h"
+#include "nvram.h"
+#include "duart.h"
+#include "ide.h"
 
 
 static error_t parse_opt (int key, char *arg, struct argp_state *state);
@@ -34,12 +38,25 @@ static void show_version (FILE *stream, struct argp_state *state);
 
 /* argp option keys */
 enum {DUMMY_KEY=129
+      ,KEY_DEBUG_DUART
       ,KEY_DEBUG_MICROCODE
       ,KEY_DEBUG_IO
       ,KEY_DEBUG_ASM
       ,KEY_IMAGE_START
       ,KEY_IMAGE_SIZE
       ,KEY_NO_SANITY
+      ,KEY_SENTINEL
+
+      ,KEY_MBU
+      ,KEY_NO_MBU
+      ,KEY_DEBUG_MBU
+
+      ,KEY_NVRAM
+
+      ,KEY_HD0
+      ,KEY_HD1
+      ,KEY_HD2
+      ,KEY_HD3
 };
 
 static struct argp_option options[] =
@@ -48,6 +65,8 @@ static struct argp_option options[] =
 	  "Show brief syntax help", 1 },
 	{ "verbose",     'v',           NULL,            0,
 	  "Print more information (cumulative)", 0 },
+	{ "quiet",     'q',           NULL,            0,
+	  "Print less information (cumulative)", 0 },
 
 	{ "arch", 'a', "ARCHITECTURE", 0,
 	  "Select machine revision to emulate. Revision 0: 64kW RAM "
@@ -70,10 +89,50 @@ static struct argp_option options[] =
 	{ "map", 'M', "MAP-FILE", 0,
 	  "Load a .map file. Where possible, use it to simplify listing of addresses.",
 	  0 },
+
 	{ "testing",     't',           NULL,            0,
 	  "Enable test/debug device and testing output.", 0 },
 	{ "no-sanity",   KEY_NO_SANITY,  NULL,            0,
 	  "Inhibit sanity checks meant to catch common bugs.", 0 },
+	{ "sentinel",   KEY_SENTINEL,  NULL,            0,
+	  "Fill unpopulated memory image with a sentinel instruction (OUT R &3EF) "
+	  "that will halt the emulator if it executes an empty region of memory.", 0 },
+
+	// MBU
+
+	{ "mbu",    KEY_MBU,  NULL,            0,
+	  "Enable the 21-bit memory banking unit (at &020-&02F).", 0 },
+	{ "no-mbu", KEY_NO_MBU,  NULL,            0,
+	  "Disable the 21-bit memory banking unit (at &020-&02F).", 0 },
+	{ "debug-mbu", KEY_DEBUG_MBU, NULL, 0,
+	  "Trace the operation of the Memory Banking Unit (MBU).", 0 },
+
+        // DUART
+
+	{ "debug-duart", KEY_DEBUG_DUART, NULL, 0,
+	  "Trace the operation of the double DUART (console) board.", 0 },
+
+	// NVRAM
+
+	{ "nvram",    KEY_NVRAM,  NULL,            0,
+	  "Enable a 2k TimeKeeper/NVRAM chip (offset at &090/&08x). "
+	  "The contents of the NVRAM are stored in file " NVRAM_FNAME, 0 },
+
+        // IDE
+
+	{ "hd0",    KEY_HD0,  "DISK-IMAGE",            0,
+	  "Specify an image file for the first IDE disk (channel 1, disk 1). "
+	  "If unspecified, no disk is emulated.", 0 },
+	{ "hd1",    KEY_HD1,  "DISK-IMAGE",            0,
+	  "Specify an image file for the second IDE disk (channel 1, disk 2). "
+	  "If unspecified, no disk is emulated.", 0 },
+	{ "hd2",    KEY_HD2,  "DISK-IMAGE",            0,
+	  "Specify an image file for the third IDE disk (channel 2, disk 1). "
+	  "If unspecified, no disk is emulated.", 0 },
+	{ "hd3",    KEY_HD3,  "DISK-IMAGE",            0,
+	  "Specify an image file for the fourth IDE disk (channel 2, disk 2). "
+	  "If unspecified, no disk is emulated.", 0 },
+
 #if 0
 	{ "microcode",     'm',           NULL,            0,
 	  "Select microcode basename (cumulative)", 0 },
@@ -99,6 +158,30 @@ static struct argp argp =
 	NULL, NULL, NULL
 };
 
+
+static void
+list_archs()
+{
+	fprintf(stderr, "Available architectures:\n\n");
+	fprintf(stderr, "Name     Description                               RAM  ROM  Hardware\n");
+	fprintf(stderr, "------------------------------------------------------------------------------\n");
+	mach_t * m = &mach_revisions[0];
+	while (m->code != NULL) {
+		fprintf(stderr, "%-8.8s %-40.40s %4d %4d  %c%c%c%c\n",
+			m->code, m->name, m->ramsize >> 10, m->romsize >> 10,
+			m->have_mbu? 'b' : '-',
+			m->have_intc? 'i' : '-',
+			m->have_ide? 'h' : '-',
+			m->have_nvram? 'n' : '-'
+			);
+		m++;
+	}
+	fprintf(stderr, "------------------------------------------------------------------------------\n");
+	fprintf(stderr, "Sizes in kWords. b = Memory Banking, i = Interrupt Controller, h = IDE disks,\n");
+	fprintf(stderr, "n = NVRAM/RTC.\n");
+	fprintf(stderr, "\n");
+}
+
 /* Parse a single option.  */
 static error_t
 parse_opt (int key, char *arg, struct argp_state *state)
@@ -107,8 +190,9 @@ parse_opt (int key, char *arg, struct argp_state *state)
 	{
 	case ARGP_KEY_INIT:
 		/* Set up default values.  */
-		verbose = 0;
+		verbose = 1;
 		sanity = 1;
+		sentinel = 0;
 		memimg_name = NULL;
 		memimg_file = NULL;
 		break;
@@ -120,6 +204,10 @@ parse_opt (int key, char *arg, struct argp_state *state)
 		
 	case 'v':
 		verbose++;
+		break;
+
+	case 'q':
+		verbose--;
 		break;
 
 	case KEY_DEBUG_MICROCODE:
@@ -134,6 +222,10 @@ parse_opt (int key, char *arg, struct argp_state *state)
 		debug_asm++;
 		break;
 
+	case KEY_DEBUG_DUART:
+		debug_duart++;
+		break;
+		
 	case 't':
 		testing++;
 		break;
@@ -154,19 +246,13 @@ parse_opt (int key, char *arg, struct argp_state *state)
 
 	case 'a':
 		if (!strcmp(arg, "list")) {
-			fprintf(stderr, "Available architectures:\n\n");
-			mach_t * m = &mach_revisions[0];
-			while (m->code != NULL) {
-				fprintf(stderr, "\t%s: %s\n", m->code, m->name);
-				m++;
-			}
-			fprintf(stderr, "\n");
+			list_archs();
 			exit(0);
 		} else {
 			mach_t * m = &mach_revisions[0];
 			while (m->code != NULL) {
 				if (!strcmp(m->code, arg)) {
-					machp = m;
+					mach_set(m);
 					break;
 				}
 				m++;
@@ -178,8 +264,8 @@ parse_opt (int key, char *arg, struct argp_state *state)
 	case KEY_IMAGE_START:
 		if (!sscanf(arg, "%d", &mach.image_start)) {
 			argp_error (state, "Unable to parse memory image start '%s'", arg);
-		} else if (mach.image_start < 0 || mach.image_start > 65535) {
-			argp_error (state, "Memory image start '%ld' is out of bounds (0-65535)", mach.image_start);
+		} else if (mach.image_start < 0 || mach.image_start > mach.romsize) {
+			argp_error (state, "Memory image start '%ld' is out of bounds (0-%d)", mach.image_start, mach.romsize);
 		}
 		break;
 
@@ -193,6 +279,33 @@ parse_opt (int key, char *arg, struct argp_state *state)
 
 	case KEY_NO_SANITY:
 		sanity = 0;
+		break;
+
+	case KEY_SENTINEL:
+		sentinel = 1;
+		break;
+
+	case KEY_MBU:
+		mbu = 1;
+		break;
+
+	case KEY_NO_MBU:
+		mbu = 0;
+		break;
+
+	case KEY_DEBUG_MBU:
+		debug_mbu++;
+		break;
+		
+	case KEY_NVRAM:
+		nvram = 1;
+		break;
+
+	case KEY_HD0:
+	case KEY_HD1:
+	case KEY_HD2:
+	case KEY_HD3:
+		idehd_set(key - KEY_HD0, arg);
 		break;
 
 	case 'M':

@@ -1,8 +1,8 @@
 /* 
-   
-cftemu.c - CFT emulator in C
 
-Copyright (C) 2011 Alexios Chouchoulas
+duart.h - Emulates the dual DUART card (two Philips/NXP 26C92 DUARTs)
+
+Copyright (C) 2012 Alexios Chouchoulas
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -20,31 +20,28 @@ Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
 */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#ifndef DUART_H
+#define DUART_H 1
+
+
+#include <stdint.h>
 #include <sys/types.h>
 
-#include "cftemu.h"
-#include "ide.h"
 
+extern int duart;
 
-void
-init()
-{
-	ide_early_init();
-}
+extern int debug_duart;
 
+void duart_init();
 
-int
-main (int argc, char **argv)
-{
-	init();
+void duart_tick(int tick);
 
-	cmdline_parse(argc, argv);
-	
-	emulate();
-	
-	return 0;
-}
+void duart_done();
+
+int duart_write(uint16_t addr, uint16_t data);
+
+int duart_read(uint16_t addr, uint16_t * data);
+
+#endif /* DUART_H */
+
 /* End of file. */

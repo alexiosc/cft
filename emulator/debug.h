@@ -1,8 +1,8 @@
 /* 
-   
-cftemu.c - CFT emulator in C
 
-Copyright (C) 2011 Alexios Chouchoulas
+debug.h - Emulate a theoretical in-circuit debugging/testing board.
+
+Copyright (C) 2012 Alexios Chouchoulas
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -20,31 +20,28 @@ Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
 */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#ifndef DEBUG_H
+#define DEBUG_H 1
+
+
+#include <stdint.h>
 #include <sys/types.h>
 
-#include "cftemu.h"
-#include "ide.h"
+
+#define debugger 1
 
 
-void
-init()
-{
-	ide_early_init();
-}
+void debug_init();
+
+int debug_write(uint16_t addr, uint16_t data);
+
+int debug_read(uint16_t addr, uint16_t * data);
+
+void debug_tick(int tick);
+
+void debug_done();
 
 
-int
-main (int argc, char **argv)
-{
-	init();
+#endif /* DEBUG_H */
 
-	cmdline_parse(argc, argv);
-	
-	emulate();
-	
-	return 0;
-}
 /* End of file. */

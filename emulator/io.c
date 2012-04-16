@@ -26,81 +26,30 @@ Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 #include <stdint.h>
 #include <unistd.h>
 #include <assert.h>
-#include <fcntl.h>
 #include <termios.h>
 #include <errno.h>
 #include <time.h>
-#include <sys/select.h>
 #include <sys/types.h>
 #include <sys/time.h>
 
 #include "cftemu.h"
-
-// The front panel device
-#define IO_PANEL_SWITCHES  0x0000
-#define IO_DIP_SWITCHES    0x0001
-#define IO_PANEL_LIGHTS    0x0002
-#define IO_HW_TYPE         0x0002
-#define IO_CLOCK_HALT      0x0007
-#define IO_TICKS_LO        0x0010
-#define IO_TICKS_HI        0x0011
-
-
-static struct termios _input_termios;
-
-static void
-input_reset_terminal_mode()
-{
-    tcsetattr(0, TCSANOW, &_input_termios);
-}
-
-static uint16_t _hword = 0xbeef;
-
-static uint32_t tickref = 0;
-
-static void
-input_init()
-{
-    struct termios new_termios;
-
-    /* take two copies - one for now, one for later */
-    tcgetattr(0, &_input_termios);
-    memcpy(&new_termios, &_input_termios, sizeof(new_termios));
-
-    /* register cleanup handler, and set the new terminal mode */
-    atexit(input_reset_terminal_mode);
-    cfmakeraw(&new_termios);
-    new_termios.c_oflag |= OPOST;
-    new_termios.c_iflag |= ISIG;
-    tcsetattr(0, TCSANOW, &new_termios);
-}
-
-static int
-input_kbhit()
-{
-    struct timeval tv = { 0L, 30L };
-    fd_set fds;
-    int maxfd;
-    FD_ZERO(&fds);
-    FD_SET(0, &fds);
-    return select(1, &fds, NULL, NULL, &tv);
-}
-
-static int
-input_getch()
-{
-    int r;
-    uint8_t c;
-    if ((r = read(0, &c, sizeof(c))) < 0) {
-        return r;
-    } else {
-        return c;
-    }
-}
+#include "io.h"
+#include "mbu.h"
+#include "nvram.h"
+#include "duart.h"
+#include "ide.h"
+#include "panel.h"
+#include "debug.h"
 
 
 
-static inline void
+///////////////////////////////////////////////////////////////////////////////
+//
+// IRQS
+//
+/////////////////////////////////////////////////////////////////////////////// *
+
+inline void
 irq()
 {
 	if (cpu.i) {
@@ -113,67 +62,27 @@ irq()
 }
 
 
-/*
- * The input ring buffer. We'll use 256 bytes, quite arbitrarily.
- */
-
-#define RBSIZE 16
-typedef struct {
-	uint8_t buf[RBSIZE];
-	int rp;
-	int wp;
-} ringbuf_t;
-
-ringbuf_t *
-ringbuf_init()
-{
-	ringbuf_t * x = (ringbuf_t *)malloc(sizeof(ringbuf_t));
-	if (x == NULL) {
-		perror("allocating memory");
-		exit(1);
-	}
-	
-	x->rp = 0;
-	x->wp = 0;
-	return x;
-}
-
-void
-ringbuf_put(ringbuf_t * rb, uint8_t val)
-{
-	assert(rb != NULL);
-	rb->buf[rb->wp] = val;
-	rb->wp = (rb->wp + 1) % RBSIZE;
-}
-
-int
-ringbuf_get(ringbuf_t * rb, uint8_t * val)
-{
-	if (rb->wp == rb->rp) return -1;
-	*val = rb->buf[rb->rp];
-	rb->rp = (rb->rp + 1) % RBSIZE;
-	return 0;
-}
-
-/* Return 1 if data available, 0 i not. */
-int
-ringbuf_poll(ringbuf_t * rb)
-{
-	return rb->wp != rb->rp;
-}
-
-
 /* 
  * This is called to initialise the I/O subsystem.
  */
 
-static ringbuf_t * inputbuf;
-
 void
 io_init()
 {
-	inputbuf = ringbuf_init();
-	input_init();
+	if (mbu) mbu_init();
+	if (nvram) nvram_init();
+	if (duart) duart_init();
+	if (ide) ide_init();
+	if (debugger) debug_init();
+	if (panel) panel_init();
+}
+
+
+void
+io_done()
+{
+	/* Write the NVRAM to disk */
+	if (nvram) nvram_done();
 }
 
 /* This is called once per clock tick to handle I/O and other
@@ -185,6 +94,12 @@ io_tick()
 
 	delay = (delay + 1) & 0x3ff; /* Check I/O every 1024 clock ticks */
 	if (delay) return;
+
+	duart_tick(delay);
+	nvram_tick(delay);
+	ide_tick(delay);
+	panel_tick(delay);
+	debug_tick(delay);
 
 #if 0
 	static time_t t0 = 0;
@@ -198,22 +113,6 @@ io_tick()
 	}
 #endif
 
-	/* Is there input? */
-	if (input_kbhit()) {
-		int c = input_getch();
-		if (c == 28) {
-			cpu.halt = 1;
-			dump_state();
-			dump_ustate();
-			info("*** QUIT PRESSED ***\n");
-		} else if (c == '`') {
-			dump();
-		} else {
-			ringbuf_put(inputbuf, c);
-			irq();
-		}
-	}
-
 }
 
 
@@ -225,188 +124,37 @@ unit_io(int r, int w)
 	word addr = cpu.ar & 0x3ff;
 	word dbus = cpu.dbus;
 	word retval;
+
 	if(r) {
-		switch (addr) {
-		case IO_PANEL_SWITCHES:
-			/* Read front panel switches */
-			retval = 0xf0f0;
-			iodebug("IN %x: FRONT PANEL SWITCHES = %04x\n", addr, retval);
-			return retval;
-
-		case IO_DIP_SWITCHES:
-			/* Read dip panel switches */
-			retval = 0x1234;
-			iodebug("IN %x: DIP SWITCHES = %04x\n", addr, retval);
-			return retval;
-
-		case IO_HW_TYPE:
-			/* Read hardware flags */
-			retval = 0x0001; /* Emulator */
-			iodebug("IN %x: READ HARDWARE TYPE = %04x\n", addr, retval);
-			return retval;
-
-		case IO_TICKS_LO:
-			/* Read hardware flags */
-			retval = (cpu.tick - tickref) & 0xffff;
-			testdebug("IN %x: READ TICKS_LO = %04x\n", addr, retval);
-			return retval;
-
-		case IO_TICKS_HI:
-			/* Read hardware flags */
-			retval = ((cpu.tick - tickref) >> 16) & 0xffff;
-			testdebug("IN %x: READ TICKS_HI = %04x\n", addr, retval);
-			return retval;
-
-		case 0x080:
-			/* Poll input buffer */
-			retval = ringbuf_poll(inputbuf);
-			iodebug("IN %x: TTY0 POLL = %d\n", addr, retval);
-			return retval;
-
-		case 0x081:
-		{
-			/* Read input buffer */
-			uint8_t c;
-			retval = ringbuf_get(inputbuf, &c);
-			retval = retval == 0xffff ? retval : c;
-			//printf("**** IN %d ****\n\r", retval);
-			//dump();
-			iodebug("IN %x: TTY0 GET = %d\n", addr, retval);
-			//debug_io = 1;
-			//debug_microcode = 1;
-			return retval;
-		}
-
-		default:
+		
+		if (mbu && mbu_read(addr, &retval)) return retval;
+		if (nvram && nvram_read(addr, &retval)) return retval;
+		if (duart && duart_read(addr, &retval)) return retval;
+		if (ide && ide_read(addr, &retval)) return retval;
+		if (debugger && debug_read(addr, &retval)) return retval;
+		if (panel && panel_read(addr, &retval)) return retval;
+		
+		// Unknown IO device.
+		if (sanity) {
 			fail("Input from location %04x: NOT IMPLEMENTED\n", addr);
-		}
+		} else return;
+
 	} else if(w) {
-		switch (addr) {
-		case IO_CLOCK_HALT:
-			cpu.halt = 1;
-			printf("\n\n\n");
-			dump_state();
-			dump_ustate();
-			info("*** HALTING ***\n");
-			break;
+		
+		if (mbu && mbu_write(addr, dbus)) return dbus;
+		if (nvram && nvram_write(addr, dbus)) return dbus;
+		if (duart && duart_write(addr, dbus)) return dbus;
+		if (ide && ide_write(addr, dbus)) return dbus;
+		if (debugger && debug_write(addr, dbus)) return dbus;
+		if (panel && panel_write(addr, dbus)) return dbus;
 
-		case IO_PANEL_LIGHTS:
-			// We don't have panel lights yet.
-			break;
-
-		case IO_TICKS_HI:
-		case IO_TICKS_LO:
-			tickref = cpu.tick;
-			break;
-			
-		case 0x81:
-			fprintf(log_file, "%c", dbus & 0xff);
-			fflush(log_file);
-			/*printf("**** OUT %d ****\n\r", dbus);*/
-			c = dbus & 0xff;
-			write(1, &c, 1); //putchar(dbus & 0xff);
-			//fflush(stdout);
-			//debug_io = 0;
-			//debug_microcode = 0;
-			break;
-
-		case 0x3f0:
-		{
-			const char *s = map_get(dbus);
-			if (s == NULL) {
-				fprintf(log_file, "%hx (?)", dbus);
-				fflush(log_file);
-				testdebug("PRINTA: %hx (?)\n", dbus);
-			} else {
-				fprintf(log_file, "%hx (%s)", dbus, s);
-				fflush(log_file);
-				testdebug("PRINTA: %hx (%s)\n", dbus, s);
-			}
-			break;
-		}
-		case 0x3f1:
-			fprintf(log_file, "%c", dbus & 0xff);
-			fflush(log_file);
-			if (((dbus & 0xff) > 32) && ((dbus & 0xff) < 127)) {
-				testdebug("PRINTC: %c\n", dbus & 0xff);
-			} else {
-				testdebug("PRINTc: %d\n", dbus & 0xff);
-			}
-			break;
-		case 0x3f2:
-			fprintf(log_file, "%hd", dbus);
-			fflush(log_file);
-			testdebug("PRINTD: %hd\n", dbus);
-			break;
-		case 0x3f3:
-			fprintf(log_file, "%04hx", dbus);
-			fflush(log_file);
-			testdebug("PRINTU: %u\n", (uint16_t)dbus);
-			break;
-		case 0x3f4:
-			fprintf(log_file, "%04hx", dbus);
-			fflush(log_file);
-			testdebug("PRINTH: %04hx\n", dbus);
-			break;
-		case 0x3f5:
-		{
-			char s[17];
-			to_bin(cpu.a, s, 16);
-			fprintf(log_file, "%s", s);
-			fflush(log_file);
-			testdebug("PRINTB: %s\n", s);
-			break;
-		}
-		case 0x3f6:
-			fprintf(log_file, " ");
-			fflush(log_file);
-			testdebug("PRINTc: 32\n", dbus);
-			break;
-		case 0x3f7:
-			fprintf(log_file, "\n");
-			fflush(log_file);
-			testdebug("PRINTc: 10\n", dbus);
-			break;
-		case 0x3f8:
-			debug_asm = 1;
-			iodebug("Enabling debugging trace\n");
-			break;
-		case 0x3f9:
-			debug_asm = 0;
-			iodebug("Disabling debugging trace\n");
-			break;
-		case 0x3fa:
-			fflush(stdout);
-			//dump();
-			//dumpmem(0x500, 8);
-			//dumpmem(0x204, 20);
-			//dumpmem(0x860, 16);
-			dumpstack(0x400, 0);
-			dumpstack(0x500, 1);
-			printf(COL_NOR);
-			break;
-		case 0x3fb:
-			// Store the high word of a 32-bit quanity for later printing.
-			_hword = dbus;
-			break;
-		case 0x3fc:
-			fprintf(log_file, "%hu", (_hword << 16) | dbus);
-			fflush(log_file);
-			testdebug("PRINTL: %08x\n", (_hword << 16) | dbus);
-			break;
-		case 0x3fe:
-			testdebug("ASSERT: TRUE\n");
-			break;
-		case 0x3ff:
-			testdebug("ASSERT: FALSE\n");
-			cpu.halt = 1;
-			break;
-
-		default:
+		// Unknown IO device.
+		if (sanity) {
 			fail("Output %04x to location %04x: NOT IMPLEMENTED\n", dbus, addr);
-		}
+		} else return;
 	}
-	return cpu.dbus;
+
+	fail("Sanity check failed, unit_io() called with r==w==0.\n");
 }
 
 /* End of file */
