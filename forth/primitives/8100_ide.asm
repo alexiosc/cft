@@ -2,6 +2,52 @@
 //
 // IDE interfacing.
 
+	
+ 
+	;; word:  HDn?
+	;; flags: DOCOL ROM CFT
+	;; notes: HDn? ( n -- f )
+	;;        Returns non-zero if IDE disk IDE n is present.
+
+	doLIT(CFG_HD0)		; CFG_HD0 ( n u )
+	.word dw_SWAP		; SWAP ( u n )
+	.word dw_shl		; << ( u<<n )
+	.word dw_SYSCFG		; SYSCFG ( u<<n cfg )
+	.word dw_AND		; AND ( f )
+	.word dw_EXIT
+
+	
+ 
+	;; word:  ide.sel
+	;; flags: CODE ROM CFT
+	;; notes: HD! ( n -- )
+	;;        Selects the specified IDE disk for further accesses. Valid
+        ;;        values are 0-3.
+
+	LOADUP(UAOFS_DISKUNIT)
+	NEXT
+
+	
+ 
+	;; word:  IDE.INIT
+	;; flags: CODE ROM CFT
+	;; notes: IDE.INIT ( a -- f2 f1 )
+	;;        Initialise the two disks at the specified address.
+	;;        Returns flag f1 (non-zero if first disk exists) and f2
+	;;        (non-zero if second disk exists).
+
+	//RPOP(TMP1, SP)
+	FORTH(dw_ide_rst)
+	;; LI 1
+	;; PUSH(SP)
+	;; PUSH(SP)
+	
+	NEXT
+	
+	doLIT(1)
+	PUSH(SP)
+	NEXT
+
 
 	
 	;; word:  idecmd
@@ -46,25 +92,67 @@ _idewait_loop:
 
 
 
-	;; word:  idereset
+	;; word:  ide.rst
 	;; flags: CODE ROM CFT
-	;; notes: idecmd ( x -- )
-	;;        Reset IDE channels
+	;; notes: ide.rst ( a -- )
+	;;        Reset IDE channel at a.
 
-	LI &00c
-	OUT &a6
-	OUT &c6
-	NOP
-	NOP
-	NOP
-	NOP
-	NOP
-	NOP
-	NOP
-	NOP
-	LI &008
-	OUT &a6
-	OUT &c6
+	POP(SP)
+	STORE TMP13
+	LI 6
+	OR TMP13
+	STORE TMP13		; a|6 = device control
+
+	;; Assert SRST
+	LI &0c
+	OUT I TMP13		; Set device control
+
+	;; Wait 200ms
+	LI 200
+	PUSH(SP)
+	FORTH(dw_MS)
+
+	;; Deassert RST
+	LI &08
+	OUT I TMP13		; Set device control
+
+	LI 30		        ; Timeout after a bit
+	NEG
+	STORE TMP12
+
+	;; Wait for BSY to clear. Don't wait forever.
+_ide_rst_loop:
+	LI &200
+	PUSH(SP)
+	FORTH(dw_PROGRESS)
+
+	IN I TMP13
+	STORE TMP0
+	AND @_idecmd_data+1
+	SNZ
+	JMP _ide_rst_yes
+
+	LOAD TMP0
+	XOR MINUS1		; If &FFFF, we're reading bus pull-ups.
+	SNZ			; There's nothing there; bail out.
+	JMP _ide_rst_no
+
+	LOAD TMP0
+	SNZ			; If &0000, we're reading bus pull-downs.
+	JMP _ide_rst_no		; Bail out.
+
+	ISZ TMP12
+	JMP _ide_rst_loop
+
+_ide_rst_no:
+	LI 0
+	JMP @_ide_rst_yes+1
+	
+_ide_rst_yes:
+	LI 1
+	PUSH(SP)		; Wing it for now.
+	PUSH(SP)
+
 	NEXT
 
 
@@ -187,6 +275,7 @@ _idewrite_loop:
 	.word dw_DUMP
 	.word dw_DROP
 
+	.word dw_EXIT
 
 	doLIT(1)
 	doLIT(&b2)
@@ -229,7 +318,6 @@ _idewrite_loop:
 	doLIT(&100)
 	.word dw_DUMP
 	.word dw_DROP
-	
 
 	
 	.word dw_EXIT

@@ -86,12 +86,14 @@ _init_table:
 	.word &ffff	        ; const: MINUS1
 	.word &fffe	        ; const: MINUS2
 	.word &fffd	        ; const: MINUS3
+	.word -99		; const: MS_4MHZ
 
 	.word 0			; End.
 
 	;; Vector table values
 
 _vtstart:
+	.word TFORTH		; vector: TFORTH
 _vtofs_NEXT:
 	.word _NEXT		; vector: _NEXT
 _vtofs_doLIST:
@@ -182,7 +184,9 @@ _uaofs_CSP:
 _uaofs_HANDLER:
 	.word 0			; HANDLER: used in error reporting (ANS/eForth?)
 _uaofs_DISKUNIT:
-	.word 0			; Disk unit being used. Index inside DISKS array.
+	.word 0			; I/O address base of currently selected disk
+_uaofs_ROTOR:
+	.word 0			; State of the rotor (progress indicator)
 	
 	;; CFT Vectors
 
@@ -236,6 +240,8 @@ _uaend:
 
 	.equ UAOFS_CSP @_uaofs_CSP-_uastart
 	.equ UAOFS_HANDLER @_uaofs_HANDLER-_uastart
+	.equ UAOFS_DISKUNIT @_uaofs_DISKUNIT-_uastart
+	.equ UAOFS_ROTOR @_uaofs_ROTOR-_uastart
 
 	.equ UAOFS_READY @_uaofs_READY-_uastart
 	.equ UAOFS_PROMPT @_uaofs_PROMPT-_uastart

@@ -10,20 +10,20 @@
 	;; notes: PANEL> ( -- w )
 	;;   Reads the front panel switches and pushes the result.
 
-	IN FPSR
+	LSR			; Read panel Switch Register
 	PUSH (SP)
 	NEXT
 
 
 	
 	;; word:  >PANEL
-	;; alias: from-panel
+	;; alias: to-panel
 	;; flags: CODE ROM CFT
 	;; notes: >PANEL ( W -- )
 	;;   Write to the front panel output register (OR).
 
 	POP(SP)
-	OUT FPOR
+	SOR			; Set Output Register
 	NEXT
 
 
@@ -34,22 +34,11 @@
 	;; notes: DIP> ( -- w )
 	;;   Write to the front panel output register (OR).
 
-	IN FPDSR
+	LDSR			; Read DIP-Switch Register
 	PUSH (SP)
 	NEXT
 
 	
-
-	;; word:  HWTYPE
-	;; flags: CODE ROM CFT
-	;; notes: HWTYPE ( -- w )
-	;;   Push the contents of the hardware type register.
-
-	IN HWTYPE
-	PUSH (SP)
-	NEXT
-
-
 
 	;; word:  IO@
 	;; alias: IO_fetch

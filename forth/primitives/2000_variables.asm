@@ -4,6 +4,35 @@
 
 	
  
+	;; word:  SYSCFG
+	;; flags: CODE ROM CFT
+	;; notes: SYSCFG ( -- u )
+	;;        The system configuration value.
+
+	LOAD SYSCFG
+	PUSH(SP)
+	NEXT
+
+	
+ 
+	;; word:  SYSMEM
+	;; flags: CODE ROM CFT
+	;; notes: SYSMEM ( -- u1 u2 )
+	;;        Returns the amount of installed ROM (in u1) and the amount of
+        ;;        installed RAM (in u2). Both are expressed in units of 8kW
+        ;;        blocks.
+
+	LOAD SYSMEM
+	GETLOCHAR()
+	PUSH(SP)
+
+	LOAD SYSMEM
+	GETHICHAR()
+	PUSH(SP)
+	NEXT
+
+	
+ 
 	;; word:  UP@
 	;; alias: UP_fetch
 	;; flags: CODE ROM
@@ -52,6 +81,30 @@
 	;;        number base.
 	
 	.word	UAOFS_BASE
+
+
+	
+	;; word:  BASE>R
+	;; alias: BASE_to_R
+	;; flags: CODE ROM CFT
+	;; notes: BASE>R ( -- )
+	;;        Pushes the value of BASE onto the return stack.
+
+	LOADUP(UAOFS_BASE)
+	PUSH(RP)
+	NEXT
+
+
+	
+	;; word:  R>BASE
+	;; alias: R_to_BASE
+	;; flags: CODE ROM CFT
+	;; notes: R>BASE ( -- )
+	;;        Pops a value from the return stack and stores it in BASE.
+
+	RPOP(TMP1, RP)
+	STOREUP(UAOFS_BASE, TMP1)
+	NEXT
 
 
 	
@@ -150,6 +203,24 @@
 	;;        The address of the HANDLER.
 	
 	.word	UAOFS_HANDLER
+
+
+	
+	;; word:  DISKUNIT
+	;; flags: USER ROM CFT
+	;; notes: DISKUNIT ( -- a )
+	;;        The address of the DISKUNIT variable.
+	
+	.word	UAOFS_DISKUNIT
+
+
+	
+	;; word:  ROTOR
+	;; flags: USER ROM CFT
+	;; notes: ROTOR ( -- a )
+	;;        The address of the ROTOR variable.
+	
+	.word	UAOFS_ROTOR
 
 
 	

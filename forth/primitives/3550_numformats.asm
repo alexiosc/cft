@@ -37,6 +37,16 @@
 
 	
 
+	;; word:  BINARY
+	;; flags: CODE ROM CFT
+	;; notes: BINARY ( -- )
+	;;   Set base 2.
+
+	LSTOREUP(UAOFS_BASE, 2)
+	NEXT
+
+
+	
 	;; word:  DECIMAL
 	;; flags: CODE ROM
 	;; notes: DECIMAL ( -- )
@@ -189,4 +199,6 @@ _dot_else:
 	.word dw_dot		; .
 	.word dw_EXIT		; EXIT
 
+	
+	
 // End of file.

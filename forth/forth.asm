@@ -75,10 +75,6 @@ _vector_table:
 
 .equ    NULL    &0000		; The null pointer
 .equ    TMPOUT  R &63		; Temporary (early development) tty out
-.equ    FPSR    R &0		; I/O: front panel Switch Register
-.equ    FPDSR   R &1		; I/O: front panel DIP Switch Register
-.equ    FPOR    R &2		; I/O: front panel output register lights
-.equ    HWTYPE  R &2		; I/O: hardware type register
 
 ;; Dual UART ports
 .equ    DUART0     R &60	; DUART0 base address
@@ -94,6 +90,17 @@ _vector_table:
 .equ    UARTFIFO   3		; UART FIFO (TX/RX, two per UART)
 .equ    UARTACR    4		; UART Aux Control Register (one per UART)
 
+;; The Memory Banking Unit (MBU)
+
+.equ    MBU        R &40        ; MBU Base. Valid values are MBU 0 to MBU 7
+.equ    MBUEN      R &50	; Enable MBU by writing to &50-%53.
+
+;; The IDE host adaptors
+
+.equ    IDE0       R &a0	; Base address of host adaptor 0
+.equ    IDE1       R &c0	; Base address of host adaptor 1
+
+
 ///////////////////////////////////////////////////////////////////////////////
 //
 // OS REGISTERS
@@ -102,11 +109,35 @@ _vector_table:
 
 // These are provisional and should be replaced by (emulated)
 // UART registers
+	
 .equ	ISR	R &0100		; Address of the ISR
 .equ	UISR	R &0101		; ISR user routines
 .equ	INPFR	R &0102		; Input Flag Register
-.equ	INPCH	R &0103		; Input CHaracter
+.equ	INPCH	R &0103		; Input Character
 
+.equ    SYSCFG  R &0104         ; System config flags (see CFG_x equs below)
+.equ    SYSMEM  R &0105         ; Number of 8kW banks of RAM (high byte) and ROM (low byte)
+.equ    SYSIDE0 R &0106		; Base I/O address of IDE ports 0A and 0B.
+.equ    SYSIDE1 R &0107		; Base I/O address of IDE ports 1A and 1B.
+
+.equ    MBUB0   R &0110		; MBU backup: bank 0
+.equ    MBUB1   R &0111		; MBU backup: bank 1
+.equ    MBUB2   R &0112		; MBU backup: bank 2
+.equ    MBUB3   R &0113		; MBU backup: bank 3
+.equ    MBUB4   R &0114		; MBU backup: bank 4
+.equ    MBUB5   R &0115		; MBU backup: bank 5
+.equ    MBUB6   R &0116		; MBU backup: bank 6
+.equ    MBUB7   R &0117		; MBU backup: bank 7
+
+.equ    CFG_MBU  #---------------1 ; MBU is present.
+.equ    CFG_RTC  #--------------1- ; RTC is present.
+.equ    CFG_NVR  #--------------1- ; NVRAM is present (currently same as RTC)
+.equ    CFG_HD0  #-------------1-- ; IDE HD0 (IDE0A) is present.
+.equ    CFG_HD1  #------------1--- ; IDE HD1 (IDE0B) is present.
+.equ    CFG_HD2  #-----------1---- ; IDE HD2 (IDE1A) is present.
+.equ    CFG_HD3  #----------1----- ; IDE HD3 (IDE1B) is present.
+
+	
 ///////////////////////////////////////////////////////////////////////////////
 //
 // FORTH REGISTERS
@@ -134,37 +165,12 @@ _vector_table:
 // use.
 	
 &0300:				; Provisional address
-UP0:		.word   &beef			; User UP (start of user area)
-;; USPBOT:	 	.word	&beef			; User SPBOT
-;; URPBOT:	 	.word	&beef			; User RPBOT
-;; UNP:		.word	&beef			; User NP (start of user dictionary)
-;; UCP:		.word	&beef			; User CP (first free word of user dictionary)
-;; ULAST:	 	.word	&beef			; User LAST (first free word of user dictionary)
-;; UBASE:	 	.word	&beef			; User BASE
-;; UTIB:	 	.word	&beef			; User TIB (char count + terminal input buffer)
-;; UHLD:	 	.word	&beef			; HOLD pointer
-
-;; // TODO	
-;; UTKEY:	 	.word	&beef			; User '?KEY (input source)
-;; UTEMIT:	 	.word	&beef			; User 'EMIT (output destination)
-;; UTMP:	 	.word	&beef			; User tmp
-;; UINBUF:	 	.word	&beef			; User inbuf
-;; UCTX:	 	.word	&beef			; User context pointer (vocab search order)
-;; UCUR:	 	.word	&beef			; User CURRENT
-	
-;; UTEXP:		 .word	&beef			; User 'EXPECT (lexer)
-;; UTOK:		 .word	&beef			; User 'PROMPT
+UP0:		.word   &beef	; User UP (start of user area)
 
 .equ    UP      R UP0
-;; .equ    SPBOT   R USPBOT
-;; .equ    RPBOT   R URPBOT
-;; .equ    NP      R UNP
-;; .equ    BASE    R UBASE
-;; .equ	LAST    R ULAST
-;; .equ	TIB     R UTIB
-;; .equ	HLD     R UHLD
 
-	
+
+
 ///////////////////////////////////////////////////////////////////////////////
 //
 // MEMORY MAP
@@ -299,6 +305,14 @@ user_dict:
 	
 		
 &e000:
+	;; ROM header.
+	.word &0cf7		; Magic (CFT)
+	.word @-1		; Origin addr.
+	.strp "CFT Forth ROM 0.1            " 0
+	;;     112233445566778899aabbccddeef
+	;;     NB: MUST BE THIS LENGTH!
+	.word 0			; Header end.
+	
 init:
 	JSR init_tables
 	JSR init_serial
@@ -306,7 +320,7 @@ init:
 
 run:	
 	// IP sentinel/parachute/trampoline
-	LIA @forth+1
+	LOAD @forth+1
 	STORE IP
 	PUSH (RP)
 	
@@ -321,10 +335,33 @@ done:
 
 forth:
 	.word dw_COLD_pfa
-	.word dw__DONE
+	.word dw__DONE_pfa
 
 
+	;; This is the very brief TFORTH trap. It lives in page 0 for
+	;; speed. It allows FORTH words to be called from Assembly.
 
+TFORTH:
+	RPUSH(RP, IP)		; Save the IP
+
+	RMOV(TMP0, I RTTV)     ; Get the address of the Forth word
+	ISZ RTTV	       ; Get the address of the return address.
+	RPUSH(RP, RTTV)
+	LIA TFORTH_pret
+	STORE IP
+	JMP I TMP0	       ; Jump right into the inner interpreter
+
+TFORTH_ret:	
+	;; This is where we re-emerge.
+	RPOP(RTTV, RP)	        ; Restore the return address
+	RPOP(IP, RP)	        ; Restore the IP
+	RTT		        ; And jump to it.
+	
+TFORTH_pret:
+	.word TFORTH_ret
+
+	
+	
 ///////////////////////////////////////////////////////////////////////////////
 //
 // INNER INTERPRETER

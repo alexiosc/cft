@@ -1,10 +1,73 @@
 // -*- asm -*-
 //
 // Division words
+
+
+/.page
 	
+	;; word:  <<
+	;; alias: shl
+	;; flags: CODE ROM CFT
+	;; notes: << ( u +n -- a )
+	;;        Shift u +n bits left.
+	;;        TMP1 = +n
+	;;        TMP2 = u
+
+	POP(SP)			; Pop u
+	NEG
+	STORE TMP1
+
+	SPEEK(SP)		; Peek +n
+	STORE TMP2
+
+	LOAD TMP1		; Bail out if either arg is zero.
+	AND TMP2
+	SNZ
+	JMP _shl_end
+
+_shl_loop:
+	RSBL(TMP2,TMP2)
+	ISZ TMP1
+	JMP _shl_loop
 	
-.page
+_shl_end:
+	LOAD TMP2
+	SPOKE0(SP)
+	NEXT
+
+
+	;; word:  >>
+	;; alias: shr
+	;; flags: CODE ROM CFT
+	;; notes: >> ( u +n -- a )
+	;;        Shift u +n bits right.
+	;;        TMP1 = +n
+	;;        TMP2 = u
+
+	POP(SP)			; Pop u
+	NEG
+	STORE TMP1
+
+	SPEEK(SP)		; Peek +n
+	STORE TMP2
+
+	LOAD TMP1		; Bail out if either arg is zero.
+	AND TMP2
+	SNZ
+	JMP _shl_end
+
+_shr_loop:
+	RSBR(TMP2,TMP2)
+	ISZ TMP1
+	JMP _shl_loop
 	
+_shr_end:
+	LOAD TMP2
+	SPOKE0(SP)
+	NEXT
+
+	
+
 	;; word:  U/MOD
 	;; alias: U-DIV-MOD
 	;; flags: CODE ROM CFT

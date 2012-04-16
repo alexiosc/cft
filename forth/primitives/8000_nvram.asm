@@ -4,6 +4,32 @@
 
 
 	
+	;; word:  NVRAM?
+	;; alias: NVRAMq
+	;; flags: CODE ROM CFT
+	;; notes: NVRAM? ( -- f )
+	;;        Returns non-zero if the 2 KByte timekeeper/NVRAM chip is present.
+
+	LI CFG_NVR
+	AND SYSCFG
+	PUSH(SP)
+	NEXT
+
+
+	
+	;; word:  RTC?
+	;; alias: RTCq
+	;; flags: CODE ROM CFT
+	;; notes: RTC? ( -- f )
+	;;        Returns non-zero if the 2 KByte timekeeper/NVRAM chip is present.
+
+	LI CFG_RTC
+	AND SYSCFG
+	PUSH(SP)
+	NEXT
+
+
+	
 	;; word:  NVC@
 	;; alias: NVC_fetch
 	;; flags: CODE ROM CFT
@@ -125,6 +151,47 @@
 	;; notes: RTC.INIT ( -- )
 	;;        Initialises the real-time clock.
 
+	;; Is the chip present?
+	LI &00			; Set window #0
+	OUT NVRAMWIN
+	IN NVRAMOFS 0		; Load a byte from location &000
+	AND BYTELO
+	STORE TMP0		; Store value for later
+
+	LI &01			; Set window #1
+	OUT NVRAMWIN
+	IN NVRAMOFS 0		; Load a byte from location &008
+	AND BYTELO
+	STORE TMP1		; Store value for later
+
+	XOR TMP0		; Is TMP1==TMP0?
+	SZA
+	JMP _rtc_init1
+
+	LOAD TMP1		; Equal. Change #008.
+	XOR MINUS1
+	OUT NVRAMOFS 0		; Store it back
+	
+_rtc_init1:
+	;; At this point, if the RTC/NVRAM chip is present, locations
+	;; &000 and &008 will differ.
+	IN NVRAMOFS 0
+	STORE TMP2
+	LI &00
+	OUT NVRAMWIN
+	IN NVRAMOFS 0
+	XOR TMP2
+	SNZ
+	JMP _rtc_init_nope	; They're equal.
+
+	LI &08
+	OUT NVRAMWIN
+	LOAD TMP1		; Restore location &008
+	OUT NVRAMOFS 0
+
+_rtc_init_init:
+	;; Now initialise.
+	
 	;; Select the RTC registers in the NVRAM chip.
 	LI &7f
 	OUT NVRAMWIN
@@ -151,7 +218,19 @@
 	OUT NVRAMOFS 8
 
 	;; Done.
+	LI CFG_RTC CFG_NVR   ; Update the system configuration bitmap.
+	OR SYSCFG
+	STORE SYSCFG
+	LI 1
+
+_rtc_init_end:
+	PUSH(SP)
 	NEXT
+
+_rtc_init_nope:
+	LI 0
+	JMP _rtc_init_end
+	
 
 	
 

@@ -4,6 +4,89 @@
 
 
 
+	;; word:  1MS
+	;; flags: CODE ROM
+	;; notes: 1MS ( -- )
+	;;        Delay for approximately 1 millisecond.
+
+	;; STT
+	LOAD MS_4MHZ
+	STORE TMP15
+_1ms_loop:
+	ISZ TMP15
+	JMP _1ms_loop
+	;; LTL
+	;; PRINTLO
+	;; LTH
+	;; PRINTHI
+	NEXT
+
+
+
+	;; word:  MS
+	;; flags: CODE ROM
+	;; notes: MS ( n -- )
+	;;        Delay for approximately n milliseconds.
+
+	;; STT
+	POP(SP)
+	NEG
+	STORE TMP14
+_ms_loop1:
+	LOAD MS_4MHZ
+	STORE TMP15
+_ms_loop2:
+	ISZ TMP15
+	JMP _ms_loop2
+	ISZ TMP14
+	JMP _ms_loop1
+	;; LTL
+	;; PRINTLO
+	;; LTH
+	;; PRINTHI
+	NEXT
+
+
+
+	;; word:  .ROTOR
+	;; alias: dot_ROTOR
+	;; flags: DOCOL ROM
+	;; notes: .ROTOR ( -- )
+	;;        Emits a rotor character, and backspaces in anticipation of
+        ;;        the next one (or anything else)
+
+	.word dw_ROTOR
+	.word dw_fetch
+	.word dw_inc
+	.word dw_DUP
+	.word dw_ROTOR
+	.word dw_store
+	doLIT(3)
+	.word dw_AND
+	doLIT(_rotor_data)
+	.word dw_add
+	.word dw_fetch
+	.word dw_EMIT
+	doLIT(8)
+	.word dw_EMIT
+	.word dw_EXIT
+
+_rotor_data:
+	.str "|/-\\"
+
+
+
+	;; word:  PROGRESS
+	;; flags: DOCOL ROM CFT
+	;; notes: PROGRESS ( u -- )
+	;;        Output a rotor character and Wait for u milliseconds.
+
+	.word dw_MS
+	.word dw_dot_ROTOR
+	.word dw_EXIT
+
+
+
 	;; word:  WHAT?
 	;; alias: WHAT_q
 	;; flags: DOCOL ROM

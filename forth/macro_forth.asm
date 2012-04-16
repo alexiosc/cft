@@ -8,6 +8,21 @@
 
 
 	
+// Macro: FORTH(dw)
+//
+// Calls the Forth defined word dw.
+//
+// Side effects:
+//   Probably every conceivable one.
+
+.macro FORTH(word)
+	TRAP vec_TFORTH
+	.word %word
+.end	
+
+
+
+	
 // Macro: doLIT(n)
 //
 // Compiles a doLIT word and its associated literal. Useful in putting literal

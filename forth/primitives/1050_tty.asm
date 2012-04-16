@@ -49,7 +49,7 @@
 
 	
 
-	;; word:  tty.init
+	;; word:  TTY.INIT
 	;; flags: CODE ROM
 	;; notes: tty.init ( -- )
 	;;   Initialise the console. Currently does nothing. The emulator
@@ -92,8 +92,15 @@
 	OR TMP0
 	OUT DUART0 UARTA UARTCSR
 
+	LIA _tty_init_str
+	PUSH(SP)
+	FORTH(dw_typep0)
+
 	;; Done.
 	NEXT
+
+_tty_init_str:
+	.strp 10 10 "TTY: 0A* 0B 1A 1B" 10 0
 	
 
 

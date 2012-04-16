@@ -6,6 +6,7 @@
 	;; flags: CODE ROM
 	;; notes: AND ( w w -- w )
 	;;   Bitwise AND
+
 	POP1PEEK1(SP)
 	AND TMP1
 	SPOKE0(SP)
@@ -17,6 +18,7 @@
 	;; flags: CODE ROM
 	;; notes: OR ( w w -- w )
 	;;   Bitwise OR
+
 	POP1PEEK1(SP)
 	OR TMP1
 	SPOKE0(SP)
@@ -28,6 +30,7 @@
 	;; flags: CODE ROM
 	;; notes: XOR ( w w -- w )
 	;;   Bitwise XOR
+
 	POP1PEEK1(SP)
 	XOR TMP1
 	SPOKE0(SP)
@@ -40,6 +43,7 @@
 	;; flags: CODE ROM
 	;; notes: + ( w w -- w )
 	;;   Addition
+
 	POP1PEEK1(SP)
 	ADD TMP1
 	SPOKE0(SP)
@@ -52,6 +56,7 @@
 	;; flags: CODE ROM
 	;; notes: - ( w w -- w )
 	;;   Subtraction
+
 	POP1PEEK1(SP)
 	NEG
 	ADD TMP1
@@ -65,6 +70,7 @@
 	;; flags: CODE ROM
 	;; notes: NEGATE ( w -- -w ) 
 	;;        Two's complement negation.
+
 	SPEEK(SP)
 	NEG
 	SPOKE0(SP)
@@ -77,6 +83,7 @@
 	;; flags: CODE ROM
 	;; notes: 1+ ( w -- w )
 	;;   Increment by one
+
 	SPEEK(SP)
 	ADD PLUS1
 	SPOKE0(SP)
@@ -89,6 +96,7 @@
 	;; flags: CODE ROM
 	;; notes: 2+ ( w -- w )
 	;;   Increment by two
+
 	SPEEK(SP)
 	ADD PLUS2
 	SPOKE0(SP)
@@ -101,6 +109,7 @@
 	;; flags: CODE ROM
 	;; notes: 1- ( w -- w )
 	;;   Decrement by one
+
 	SPEEK(SP)
 	ADD MINUS1
 	SPOKE0(SP)
@@ -113,6 +122,7 @@
 	;; flags: CODE ROM
 	;; notes: 2- ( w -- w )
 	;;   Decrement by two
+
 	SPEEK(SP)
 	ADD MINUS2
 	SPOKE0(SP)
@@ -125,6 +135,7 @@
 	;; flags: CODE ROM CFT
 	;; notes: 2/ ( w -- w )
 	;;   Shift right one bit. No sign extension.
+
 	SPEEK(SP)
 	SBR
 	SPOKE0(SP)
@@ -137,6 +148,7 @@
 	;; flags: CODE ROM
 	;; notes: 2/ ( w -- w )
 	;;   Shift right one bit with sign extension.
+
 	SPEEK(SP)
 
 	CLL			; Clear L
@@ -155,6 +167,7 @@
 	;; flags: CODE ROM CFT
 	;; notes: 2* ( u -- u ) 
 	;;   Shift left one bit.
+
 	SPEEK(SP)
 	SBL
 	SPOKE0(SP)
@@ -167,6 +180,7 @@
 	;; flags: CODE ROM CFT
 	;; notes: 16/ ( u -- u )
 	;;   Shift right four bits (one nybble). No sign extension.
+
 	SPEEK(SP)
 	RNR
 	AND PLUS0FFF		; Discard bits 12-15
@@ -180,6 +194,7 @@
 	;; flags: CODE ROM CFT
 	;; notes: 16* ( w -- w ) 
 	;;   Shift left four bits.
+
 	SPEEK(SP)
 	RNL
 	AND PLUSFFF0		; Discard bits 0-3
@@ -193,6 +208,7 @@
 	;; flags: CODE ROM CFT
 	;; notes: 256* ( w -- w ) 
 	;;        Shift left eight bits.
+
 	SPEEK(SP)
 	RNL
 	RNL
@@ -207,6 +223,7 @@
 	;; flags: CODE ROM CFT
 	;; notes: 256/ ( w -- w ) 
 	;;        Shift right eight bits.
+
 	SPEEK(SP)
 	RNR
 	RNR
@@ -220,6 +237,7 @@
 	;; flags: CODE ROM
 	;; notes: NOT ( w -- w )
 	;;   Flip all bits in w, or negate in one's complement.
+
 	SPEEK(SP)
 	NOT
 	SPOKE0(SP)
@@ -231,6 +249,7 @@
 	;; flags: CODE ROM
 	;; notes: ABS ( w -- w )
 	;;   The absolute value of w
+
 	SPEEK(SP)
 	SNA			; Negative?
 	NEXT			; No.
@@ -238,5 +257,6 @@
 	SPOKE0(SP)		; And store it back
 	NEXT
 	
+
 	
 // End of file.

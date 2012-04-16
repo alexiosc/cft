@@ -14,12 +14,14 @@ ASMDIR = 	../asm
 ASMINCLUDES = 	$(ASMDIR)/io.asm $(ASMDIR)/debugging.asm $(ASMDIR)/testing.asm 
 SCRIPTDIR = 	scripts
 PRIMITIVEDIR = 	primitives
-TESTFLAGS +=	-a v1 -t -p $(NAME).pasm -M $(NAME).map
+TESTFLAGS :=	-a v2 -t -p $(NAME).pasm -M $(NAME).map $(TESTFLAGS)
 TESTFLAGS +=	--sentinel
 TESTFLAGS +=	--nvram
 TESTFLAGS +=    --hd0 hd0.bin
 #TESTFLAGS +=	--debug-asm
 #TESTFLAGS +=	--debug-microcode
+
+DEBUGGER = 	gdb
 
 GEN =		_generated_
 
@@ -27,7 +29,7 @@ TABLES =	$(GEN)tables.asm
 PRIMITIVES = 	$(GEN)primitives.asm
 PRIMTABLE = 	$(GEN)dwtable.asm
 
-SOURCES = $(glob *asm) $(PRIMITIVES) $(TABLES)
+SOURCES = 	*.asm $(PRIMITIVES) $(TABLES)
 
 .PHONY: 	all clean mrproper test remote view tasks tags todo
 
@@ -45,7 +47,8 @@ mrproper:	clean
 		-rm *~ primitives/*~
 
 test:		$(ROMIMAGE) $(EMU)
-		$(EMU) $(TESTFLAGS) -vv --image-start=$$[0xe000] $(ROMIMAGE);
+		$(EMU) $(TESTFLAGS) $(ROMIMAGE);
+#		$(EMU) $(TESTFLAGS) -vv --image-start=$$[0xe000] $(ROMIMAGE);
 
 view:		$(ROMIMAGE)
 		$(VIEWER) $(NAME).xpm
@@ -67,6 +70,7 @@ test-%:		test-%.asm $(ASMINCLUDES)
 
 remote:
 		xterm -title 'CFT Mini-Computer emulator' \
+			-geometry 90x25 \
 			-name myTerm -bg black -fg gray70 -fn 7x14 \
 			-ah \
 			-e make remote-run &
@@ -74,10 +78,14 @@ remote:
 remote-run:
 		\rm -f output
 		mkfifo output
-		while true; do clear; cat output; done
+		while [ -p output ]; do clear; cat output; echo -e '\n\n\n\033[0;1;32m*** simulation finished ***\033[0m'; sleep 5; done
 
 
 tasks tags todo:
 		rgrep -En '(TODO|FIXME|XXX):' . | scripts/tags.py
+
+debug:		$(ROMIMAGE) $(EMU)
+		\rm -f output
+		$(DEBUGGER) --args $(EMU) $(TESTFLAGS) -vv $(ROMIMAGE)
 
 # End of file.
