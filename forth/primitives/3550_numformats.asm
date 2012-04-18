@@ -11,25 +11,62 @@
 	;;        Converts an integer to a signed string. Returns the string
 	;;        address and length.
 
-	.word dw_DUP		; DUP
-	.word dw_to_R		; >R
-	.word dw_ABS		; ABS
-	.word dw_bkt_number	; <#
-	.word dw_number_s	; #S
-	.word dw_R_from		; R>
-	.word dw_SIGN		; SIGN
-	.word dw_number_bkt	; >#
+	.word dw_DUP		; DUP ( u u )
+	.word dw_to_R		; >R ( u )
+	.word dw_ABS		; ABS ( u )
+	doLIT(0)		; 0 \ zero high bits ( u 0 )
+	.word dw_bkt_number	; <# ( u 0 )
+	.word dw_number_s	; #S ( 0 0 )
+	.word dw_R_from		; R> ( 0 0 u )
+	doLIT(0)		; 0 ( 0 0 u 0 ) \ zero high bits again
+	.word dw_SIGN		; SIGN ( 0 0 )
+	.word dw_number_bkt	; ># ( )
 	.word dw_EXIT		; EXIT
 
 	
 
-	;; word:  $ustr
-	;; alias: _ustr
+	;; word:  $Dstr
+	;; alias: _Dstr
 	;; flags: DOCOL ROM CFT
-	;; notes: $str ( u -- b u )
+	;; notes: D$str ( d -- b u )
+	;;        Converts a double integer to a signed string. Returns the string
+	;;        address and length.
+
+	.word dw_2DUP		; 2DUP ( dl dh dl dh )
+	.word dw_to_R		; >R ( dl dh dl ) ( dh )
+	.word dw_to_R		; >R ( dl dh ) ( dh dl )
+	.word dw_DABS		; ABS ( dl dh )
+	.word dw_bkt_number	; <# ( dl dh)
+	.word dw_number_s	; #S ( 0 0 )
+	.word dw_R_from		; R> ( 0 0 dl )
+	.word dw_R_from		; R> ( 0 0 dl dh )
+	.word dw_SIGN		; SIGN ( 0 0 )
+	.word dw_number_bkt	; ># ( )
+	.word dw_EXIT		; EXIT
+
+	
+
+	;; word:  $Ustr
+	;; alias: _Ustr
+	;; flags: DOCOL ROM CFT
+	;; notes: $Ustr ( u -- b u )
 	;;        Converts an unsigned integer to a string. Returns the string
 	;;        address and length.
 
+	doLIT(0)		; 0 \ zero high bits
+	.word dw_branch
+	.word _DUstr_jumpin
+
+	
+
+	;; word:  $DUstr
+	;; alias: _DUstr
+	;; flags: DOCOL ROM CFT
+	;; notes: $DUstr ( d -- b u )
+	;;        Converts an unsigned double integer to a string. Returns the string
+	;;        address and length.
+
+_DUstr_jumpin:	
 	.word dw_bkt_number	; <#
 	.word dw_number_s	; #S
 	.word dw_number_bkt	; #>
@@ -112,6 +149,7 @@
 	;;
 
 	.word dw_to_R		; >R
+	doLIT(0)		; 0 \ set high cell
 	.word dw_bkt_number	; <#
 	.word dw_number_s	; #S
 	.word dw_number_bkt	; #>
@@ -132,6 +170,7 @@
 	;;
 
 	.word dw_to_R		; >R ( u )
+	doLIT(0)		; 0 \ set high cell
 	.word dw_bkt_number	; <#
 	.word dw_number_s	; #S
 	.word dw_number_bkt	; #> ( a n )
@@ -150,8 +189,22 @@
 	;; flags: DOCOL ROM CFT
 	;; notes: U. ( u -- )
 	;;        Display an unsigned integer in free format
+	;; code:  : U. ( u -- ) 0 DU. ;
+
+	doLIT(0)
+	.word dw_branch
+	.word _DU_dot_jumpin
+
+
+
+	;; word:  DU.
+	;; alias: DU_dot
+	;; flags: DOCOL ROM CFT
+	;; notes: DU. ( d -- )
+	;;        Display an unsigned double integer in free format
 	;;
 
+_DU_dot_jumpin:	
 	.word dw_bkt_number	; <#
 	.word dw_number_s	; #S
 	.word dw_number_bkt	; #>
@@ -187,16 +240,27 @@ _dot_else:
 
 	
 
-	;; word:  @.
-	;; alias: fetch-dot
+	;; word:  D.
+	;; alias: D_dot
 	;; flags: DOCOL ROM CFT
-	;; notes: @. ( addr -- )
-	;;        Prints out the contents of a memory cell.
+	;; notes: D. ( d -- )
+	;;        Display a signed double integer in free format
 	;;
-	;; src:   : @. ( a -- ) @ . ;
+	;; src:   : D. ( w -- ) BASE @ 10 XOR IF U. EXIT THEN $str SPACE TYPE ;
 
+	.word dw_BASE		; BASE
 	.word dw_fetch		; @
-	.word dw_dot		; .
+	.word dw_doLIT		; 10
+	.word 10
+	.word dw_XOR		; XOR
+	.word dw_if_branch	; ?branch
+	.word _d_dot_else
+	.word dw_DU_dot		; DU.
+	.word dw_EXIT		; EXIT
+_d_dot_else:
+	.word dw__Dstr		; D$str
+	.word dw_SPACE		; SPACE
+	.word dw_TYPE		; TYPE
 	.word dw_EXIT		; EXIT
 
 	

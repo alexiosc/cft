@@ -148,6 +148,8 @@ _SPACES_loop:
 	NEXT
 
 
+
+.page	
 	
 	;; word:  ZEROES
 	;; flags: CODE ROM
@@ -155,6 +157,7 @@ _SPACES_loop:
 	;;   EMITs n '0'.
 	;;   TODO: Use 'EMIT
 	;;   TODO: Define in terms of SPACE
+
 	POP(SP)
 	NEG
 	STORE TMP0
@@ -195,6 +198,7 @@ _TYPE_loop:
 	NEXT
 	
 	
+
 	;; word:  type0
 	;; flags: CODE ROM CFT
 	;; notes: type0 ( addr -- )
@@ -221,7 +225,7 @@ _TYPE0_loop:
 
 _TYPE0_end:
 	NEXT
-
+	
 	
 	;; word:  typep0
 	;; flags: CODE ROM CFT
@@ -246,6 +250,45 @@ _typep0_loop:
 	PUTCHAR			; Print it.
 
 	JMP _typep0_loop	; Loop again
+
+
+
+	;; word:  TYPEp
+	;; flags: CODE ROM CFT
+	;; notes: TYPEp ( a n -- )
+	;;        Prints out the first n characters of the packed string
+	;;        starting at a. If the string is shorter than n characters,
+	;;        the entire string is printed.
+
+	POP(SP)
+	ING
+	STORE TMP1
+	POP(SP)
+	STORE I0		; address
+
+_TYPEp_loop:
+	ISZ TMP1		; Reached count limit?
+	JMP @+2
+	NEXT
+
+	LOAD I I0		; Read characters
+        SNZ			; Done?
+        NEXT			; Yes
+	STORE TMP0		; No.
+	GETLOCHAR()
+	PUTCHAR			; Print it.
+
+	ISZ TMP1		; Reached count limit?
+	JMP @+2
+	NEXT
+
+	LOAD TMP0
+	GETHICHAR()
+	SNZ			; Are we done now?
+	NEXT			; Yes
+	PUTCHAR			; Print it.
+
+	JMP _TYPEp_loop		; Loop again
 
 
 	

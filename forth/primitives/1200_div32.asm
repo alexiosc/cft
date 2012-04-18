@@ -8,6 +8,7 @@
 	;; notes: UD/MOD ( d1 d2 -- dr dq )
 	;;   32-bit unsigned integer division. Calculates d1 / d2 and
 	;;   returns the remainder dr and the quotient dq.
+
 	RPOP(TMP2, SP)		; d2 high
 	RPOP(TMP3, SP)		; d2 low
 
@@ -32,14 +33,15 @@
 	;; word:  UM/MOD
 	;; alias: UM-DIV-MOD
 	;; flags: CODE ROM
-	;; notes: UD/MOD ( d u -- dr dq )
+	;; notes: UM/MOD ( d u -- dr dq )
 	;;   Divide a 32-bit unsigned dividend d by a 16-bit unsigned divisor u.
 	;;   Returns the remainder dr and the quotient dq.
+
 	LI 0
-	STORE TMP7		; divisor high = 0
+	STORE TMP2		; divisor high = 0
 	RPOP(TMP3, SP)		; u to divisor low
 
-	RPOP(TMP2,SP)		; d1 high (temporarily)
+	RPOP(TMP7, SP)		; d1 high (temporarily)
 	RPOP(TMP1, SP)		; d1 low
 	RMOV(TMP0, TMP7)	; move d1 high to right register
 
@@ -56,6 +58,7 @@
 	NEXT
 	
 
+	
 	;; A 32-bit unsigned division routine based on div16.
 	;; Inputs (HI,LO)
 	;;   TMP0,TMP1 = dividend (d1)
@@ -74,12 +77,26 @@ _udiv32_done:
         LI 1
         RET
 
+_udiv32_wrap_udiv16:
+	RMOV(TMP15, RETV)
+	JSR _udiv16
+	LI 0
+	STORE TMP0
+	STORE TMP4
+	JMP I TMP15		; Return to saved address
+
 _udiv32:
         ; Check for division by zero.
         LOAD TMP2
         OR TMP3
         SNZ
         RET                     ; Return with AC = 0
+
+	;; Optimisation: if TMP0==TMP2==0, use _udiv16.
+	LOAD TMP2
+	OR TMP0
+	SNZ
+	JMP _udiv32_wrap_udiv16
 
 	RMOV(TMP6, _udiv32_rep) ; loop counter: 32 bits, 32 iterations
 

@@ -309,22 +309,25 @@ _rtc_init_nope:
 	.word dw_DATE		; DATE ( y m d dow )
 	.word dw_DROP		; DROP ( y m d )
 
-	.word dw_bkt_number	; <# ( y m d )
+	.word dw_bkt_number	; <# ( y m d 0 )
+	doLIT(0)
 	doLIT(2)
-	.word dw_0_number_s	; 0#S ( y m 0 )
+	.word dw_0_number_s	; 0#S ( y m 0 0 )
 
-	.word dw_DROP		; DROP ( y m )
+	.word dw_2DROP		; 2DROP ( y m )
 	doCHAR("-")		; CHAR - ( y m '-' )
 	.word dw_HOLD		; HOLD ( y m )
 
+	doLIT(0)
 	doLIT(2)
-	.word dw_0_number_s	; 0#S ( y 0 )
-	.word dw_DROP		; DROP ( y )
+	.word dw_0_number_s	; 0#S ( y 0 0 )
+	.word dw_2DROP		; 2DROP ( y )
 	doCHAR("-")		; CHAR - ( y '-' )
 	.word dw_HOLD		; HOLD ( y )
 
+	doLIT(0)
 	doLIT(4)
-	.word dw_0_number_s	; 0#S ( 0 )
+	.word dw_0_number_s	; 0#S ( 0 0 )
 	.word dw_number_bkt	; #> ( b u )
 	.word dw_EXIT
 
@@ -339,19 +342,22 @@ _rtc_init_nope:
 	.word dw_TIME		; DATE ( h m s )
 
 	.word dw_bkt_number	; <# ( h m s )
+	doLIT(0)
 	doLIT(2)
 	.word dw_0_number_s	; 0#S ( h m 0 )
 
-	.word dw_DROP		; DROP ( h m )
+	.word dw_2DROP		; 2DROP ( h m )
 	doCHAR(":")		; CHAR - ( h m '-' )
 	.word dw_HOLD		; HOLD ( h m )
 
+	doLIT(0)
 	doLIT(2)
 	.word dw_0_number_s	; 0#S ( h 0 )
-	.word dw_DROP		; DROP ( h )
+	.word dw_2DROP		; 2DROP ( h )
 	doCHAR(":")		; CHAR - ( h '-' )
 	.word dw_HOLD		; HOLD ( h )
 
+	doLIT(0)
 	doLIT(2)
 	.word dw_0_number_s	; 0#S ( 0 )
 	.word dw_number_bkt	; #> ( b u )

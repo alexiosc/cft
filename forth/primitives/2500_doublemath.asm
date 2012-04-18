@@ -2,6 +2,8 @@
 //
 // Double math
 
+
+	
 	;; word:  DNEGATE
 	;; flags: CODE ROM
 	;; notes: NEGATE ( d -- -d )
@@ -29,6 +31,22 @@
 	STORE I SP
 
 	NEXT
+	
+	
+
+	;; word:  DABS
+	;; flags: DOCOL ROM
+	;; notes: DABS ( d -- d )
+	;;        The absolute value of double integer d.
+
+	.word dw_DUP		; 2DUP ( dl dh dh )
+	.word dw_zero_less	; 0< ( dl dh f )
+	.word dw_if_branch	;   IF
+	.word _DABS_end
+	.word dw_DNEGATE	; DNEGATE
+
+_DABS_end:
+	.word dw_EXIT
 	
 
 

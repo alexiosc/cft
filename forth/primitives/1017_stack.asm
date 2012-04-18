@@ -189,20 +189,16 @@
 	;; word:  ROT
 	;; flags: CODE ROM
 	;; notes: ROT ( w1 w2 w3 -- w2 w3 w1 )
-	;;   If w is non-zero, duplicate it.
+	;;        Rotate topmost 3 items on data stack to the left.
 
-	LOAD SP			; SP -= 3
-	ADD MINUS3
-	STORE SP
+	RADD(SP, SP, MINUS3)	; SP -= 3
 	STORE TMP0
 
 	RMOV(TMP1, I SP)	; Peek at the three top values and store them.
 	RMOV(TMP2, I SP)
 	RMOV(TMP3, I SP)
 
-	LOAD SP			; SP -= 3
-	ADD MINUS3
-	STORE SP
+	RADD(SP, SP, MINUS3)	; SP -= 3
 
 	RMOV(I SP, TMP2)	; [SP++] = w2
 	RMOV(I SP, TMP3)	; [SP++] = w3
@@ -210,6 +206,30 @@
 
 	NEXT
 
+
+
+	;; word:  -ROT
+	;; alias: not-ROT
+	;; flags: CODE ROM
+	;; notes: ROT ( w1 w2 w3 -- w3 w1 w2 )
+	;;        Rotate topmost 3 items on data stack to the right.
+
+	RADD(SP, SP, MINUS3)	; SP -= 3
+	STORE TMP0
+
+	RMOV(TMP1, I SP)	; w1: Peek at the three top values and store them.
+	RMOV(TMP2, I SP)	; w2
+	RMOV(TMP3, I SP)	; w3
+
+	RADD(SP, SP, MINUS3)	; SP -= 3
+
+	RMOV(I SP, TMP3)	; [SP++] = w2
+	RMOV(I SP, TMP1)	; [SP++] = w3
+	RMOV(I SP, TMP2)	; [SP++] = w1
+
+	NEXT
+
+	
 	
 	;; word:  2DUP
 	;; flags: CODE ROM

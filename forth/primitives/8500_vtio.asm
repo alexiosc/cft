@@ -23,7 +23,7 @@
 	;;        Display an unsigned integer in free format
 	;; code: : vt. ( u -- ) <# #S #> TYPE EXIT ;
 
-	.word dw__ustr		; $ustr
+	.word dw__Ustr		; $ustr
 	.word dw_TYPE		; TYPE
 	.word dw_EXIT		; EXIT
 

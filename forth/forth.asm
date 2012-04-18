@@ -101,33 +101,59 @@ _vector_table:
 .equ    IDE1       R &c0	; Base address of host adaptor 1
 
 
+
 ///////////////////////////////////////////////////////////////////////////////
 //
 // OS REGISTERS
 //
 ///////////////////////////////////////////////////////////////////////////////
 
+// TODO: Move these to 
+	
 // These are provisional and should be replaced by (emulated)
 // UART registers
+
+&0100:	
+.reg	ISR	R @		; Address of the ISR
+.reg	UISR	R @		; ISR user routines
+.reg	INPFR	R @		; Input Flag Register
+.reg	INPCH	R @		; Input Character
 	
-.equ	ISR	R &0100		; Address of the ISR
-.equ	UISR	R &0101		; ISR user routines
-.equ	INPFR	R &0102		; Input Flag Register
-.equ	INPCH	R &0103		; Input Character
+.reg    SYSCFG  R @	  	; System config flags (see CFG_x equs below)
+.reg    SYSMEM  R @         	; Number of 8kW banks of RAM (high byte) and ROM (low byte)
+.reg    SYSIDE0 R @		; Base I/O address of IDE ports 0A and 0B.
+.reg    SYSIDE1 R @		; Base I/O address of IDE ports 1A and 1B.
+	
+.reg    IDEDCR  R @		; Last IDE disk: Device Control Register
+.equ    IDEASR  IDEDCR		; Last IDE disk: Alternate Status Register (=IDEDCR)
+.reg    IDEDATA R @		; Last IDE disk: Data register
+.reg    IDEERR  R @		; Last IDE disk: Error register
+.reg    IDESCR  R @		; Last IDE disk: Sector Count register
+.reg    IDELBA0 R @		; Last IDE disk: LBA0/Sector number register
+.reg    IDELBA1 R @		; Last IDE disk: LBA1/Cylinder low register
+.reg    IDELBA2 R @		; Last IDE disk: LBA2/Cylinder high register
+.reg    IDELBA3 R @		; Last IDE disk: LBA3/Drive/Head Register
+.equ    IDEDHR  IDELBA3		; Last IDE disk: LBA3/Drive/Head Register (=IDELBA3)
+.reg    IDESR   R @		; Last IDE disk: Status register
+.equ    IDECMD  IDESR		; Last IDE disk: Command register (=IDESR)
 
-.equ    SYSCFG  R &0104         ; System config flags (see CFG_x equs below)
-.equ    SYSMEM  R &0105         ; Number of 8kW banks of RAM (high byte) and ROM (low byte)
-.equ    SYSIDE0 R &0106		; Base I/O address of IDE ports 0A and 0B.
-.equ    SYSIDE1 R &0107		; Base I/O address of IDE ports 1A and 1B.
+.reg    HD0SZLO R @		; HD 0 size in sectors, low word
+.reg    HD0SZHI R @		; HD 0 size in sectors, high word
+.reg    HD1SZLO R @		; HD 1 size in sectors, low word
+.reg    HD1SZHI R @		; HD 1 size in sectors, high word
+.reg    HD2SZLO R @		; HD 2 size in sectors, low word
+.reg    HD2SZHI R @		; HD 2 size in sectors, high word
+.reg    HD3SZLO R @		; HD 3 size in sectors, low word
+.reg    HD3SZHI R @		; HD 3 size in sectors, high word
 
-.equ    MBUB0   R &0110		; MBU backup: bank 0
-.equ    MBUB1   R &0111		; MBU backup: bank 1
-.equ    MBUB2   R &0112		; MBU backup: bank 2
-.equ    MBUB3   R &0113		; MBU backup: bank 3
-.equ    MBUB4   R &0114		; MBU backup: bank 4
-.equ    MBUB5   R &0115		; MBU backup: bank 5
-.equ    MBUB6   R &0116		; MBU backup: bank 6
-.equ    MBUB7   R &0117		; MBU backup: bank 7
+.reg    MBUB0   R @		; MBU backup: bank 0
+.reg    MBUB1   R @		; MBU backup: bank 1
+.reg    MBUB2   R @		; MBU backup: bank 2
+.reg    MBUB3   R @		; MBU backup: bank 3
+.reg    MBUB4   R @		; MBU backup: bank 4
+.reg    MBUB5   R @		; MBU backup: bank 5
+.reg    MBUB6   R @		; MBU backup: bank 6
+.reg    MBUB7   R @		; MBU backup: bank 7
 
 .equ    CFG_MBU  #---------------1 ; MBU is present.
 .equ    CFG_RTC  #--------------1- ; RTC is present.

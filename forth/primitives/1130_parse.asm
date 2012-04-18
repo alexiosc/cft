@@ -142,6 +142,49 @@ _parse_empty:
 	.word dw_DUP
 	.word dw_EXIT
 
-
 	
+
+	;; word:  -TRAILING
+	;; alias: dash_TRAILING
+	;; flags: DOCOL ROM
+	;; notes: PARSE ( addr +n1 -- addr +n2 )
+	;;        The character count +n1 of a packed text string beginning at
+        ;;        addr is adjusted to exclude trailing spaces. If +n1 is zero,
+        ;;        then +n2 is also zero.  If the entire string consists of
+        ;;        spaces, then +n2 is zero.
+
+	.word dw_DUP		; DUP ( a n n )
+	.word dw_if_branch	;   IF
+	.word _dash_TRL_end
+	.word dw_branch
+	.word _dash_TRL_jumpin
+
+_dash_TRL_loop:
+	.word dw_DUP		; DUP ( a n n )
+	.word dw_zero_less	; <0 ( a n f )
+	.word dw_NOT
+	.word dw_if_branch	;   IF
+	.word _dash_TRL_end
+
+_dash_TRL_jumpin:
+	.word dw_dec		; 1- ( a n )
+	
+	.word dw_2DUP		; 2DUP ( a n a n )
+	.word dw_s_fetch	; S@ ( a n c )
+	.word dw_BL		; BL ( a n c 32 )
+	.word dw_leq		; <= ( a n f )
+	.word dw_if_branch
+	.word _dash_TRL_end
+
+	;; It's <= 32, null terminate and go again
+	.word dw_2DUP		; 2DUP ( a n a n )
+	doLIT(0)		; 0 ( a n a n 0 )
+	.word dw_s_store	; S! ( a n )
+	.word dw_branch		;    loop again
+	.word _dash_TRL_loop
+
+_dash_TRL_end:
+	.word dw_inc		; 1+ ( a n+1 ) \ convert offset to length
+	.word dw_EXIT
+
 // End of file.

@@ -2,6 +2,7 @@
 ;; //
 ;; // rudimentary line editing and terminal buffering
 
+	
 
 	;; word:  DIGIT
 	;; flags: DOCOL ROM
@@ -24,17 +25,34 @@
 
 	
 
-	;; word:  EXTRACT
-	;; flags: DOCOL ROM
-	;; notes: EXTRACT ( n base -- n c )
+	;; /ord:  EXTRACT
+	;; /lags: DOCOL ROM
+	;; /otes: EXTRACT ( n base -- n c )
 	;;        Extracts the least significant digit of n, in preparation for
 	;;        output in the specified base. Returns a character ready to
 	;;        EMIT and the remainder of n.
 
 	;; /MOD SWAP DIGIT ;
 	
-	.word dw_U_DIV_MOD	; UM/MOD ( rem quot )
-	.word dw_SWAP		; SWAP ( quot rem )
+	;; .word dw_U_DIV_MOD	; UM/MOD ( rem quot )
+	;; .word dw_SWAP		; SWAP ( quot rem )
+	;; .word dw_DIGIT		; DIGIT ( quot char )
+	;; .word dw_EXIT
+
+	
+
+	;; word:  EXTRACT
+	;; flags: DOCOL ROM
+	;; notes: EXTRACT ( d base -- d c )
+	;;        Extracts the least significant digit of double integer d, in
+	;;        preparation for output in the specified base. Returns a
+	;;        character ready to EMIT and the remainder of d.
+	;; code:  : EXTRACT ( d base -- d c ) DM/MOD ROT DROP ROT DIGIT ;
+	
+	.word dw_UM_DIV_MOD	; UM/MOD ( rl 0 ql qh )
+	.word dw_ROT		; ROT ( rl ql qh 0 )
+	.word dw_DROP		; DROP ( rl ql qh )
+	.word dw_ROT		; ROT ( ql qh rl )
 	.word dw_DIGIT		; DIGIT ( quot char )
 	.word dw_EXIT
 
@@ -46,10 +64,23 @@
 	;; notes: <# ( -- )
 	;;        Begin number conversion.
 
+_bkt_number_jumpin:
 	.word dw_PAD		; PAD
 	.word dw_HLD		; HLD
 	.word dw_store		; !
 	.word dw_EXIT		; EXIT
+
+	
+
+	;; word:  S<#
+	;; alias: S-bkt-number
+	;; flags: DOCOL ROM
+	;; notes: S<# ( -- )
+	;;        Begin number conversion for single-precision numbers.
+
+	doLIT(0)		; 0 \ push zero high bits
+	.word dw_branch
+	.word _bkt_number_jumpin
 
 	
 
@@ -73,16 +104,50 @@
 
 	
 
-	;; word:  #
-	;; alias: number
-	;; flags: DOCOL ROM
-	;; notes: # ( u -- u )
+	;; /ord:  #
+	;; /lias: number
+	;; /lags: DOCOL ROM
+	;; /otes: # ( u -- u )
 	;;        Extract a digit.
 	;; code:  : # ( u -- u ) BASE @ EXTRACT HOLD ;
 
+	;; .word dw_BASE		; BASE
+	;; .word dw_fetch		; @
+	;; .word dw_EXTRACT	; EXTRACT
+	;; .word dw_HOLD		; HOLD
+	;; .word dw_EXIT		; EXIT
+
+	
+
+	;; /ord:  #S
+	;; /lias: number-s
+	;; /lags: DOCOL ROM
+	;; /otes: #S ( u -- 0 )
+	;;        Extract all remaining digits.
+	;; code:  : #S ( u -- 0 ) BEGIN # DUP WHILE REPEAT ;
+
+;; _number_s_loop:			; BEGIN
+;; 	.word dw_number		; #
+;; 	.word dw_DUP		; DUP
+;; 	.word dw_if_branch	; branch? ( if zero )
+;; 	.word _number_s_end	; ( destination )
+;; 	.word dw_branch	ct	; branch
+;; 	.word _number_s_loop	; ( destination )
+;; _number_s_end:
+;; 	.word dw_EXIT		; EXIT
+
+	
+
+	;; word:  #
+	;; alias: number
+	;; flags: DOCOL ROM
+	;; notes: # ( d -- d )
+	;;        Extract a digit from double integer d.
+	;; code:  : # ( d -- d ) BASE @ DEXTRACT HOLD ;
+
 	.word dw_BASE		; BASE
 	.word dw_fetch		; @
-	.word dw_EXTRACT	; EXTRACT
+	.word dw_EXTRACT	; DEXTRACT
 	.word dw_HOLD		; HOLD
 	.word dw_EXIT		; EXIT
 
@@ -91,19 +156,20 @@
 	;; word:  #S
 	;; alias: number-s
 	;; flags: DOCOL ROM
-	;; notes: #S ( u -- 0 )
-	;;        Extract all remaining digits.
+	;; notes: #S ( d -- 0 )
+	;;        Extract all remaining digits from double integer d.
 
 	;; BEGIN # DUP WHILE REPEAT ;
 
-_number_s_loop:			; BEGIN
-	.word dw_number		; #
-	.word dw_DUP		; DUP
+_dnumber_s_loop:		; BEGIN
+	.word dw_number		; # ( d )
+	.word dw_2DUP		; 2DUP ( d d )
+	.word dw_OR		; OR ( d dl|dh )
 	.word dw_if_branch	; branch? ( if zero )
-	.word _number_s_end	; ( destination )
+	.word _dnumber_s_end	; ( destination )
 	.word dw_branch		; branch
-	.word _number_s_loop	; ( destination )
-_number_s_end:
+	.word _dnumber_s_loop	; ( destination )
+_dnumber_s_end:
 	.word dw_EXIT		; EXIT
 
 	
@@ -111,19 +177,19 @@ _number_s_end:
 	;; word:  0#S
 	;; alias: 0-number-s
 	;; flags: DOCOL ROM
-	;; notes: 0#S ( u +n -- u )
-	;;        Extract n zero-padded digits of u.
+	;; notes: 0#S ( d +n -- u )
+	;;        Extract n zero-padded digits of d.
 
-	.word dw_inc		; 1+ (u +n++ )
+	.word dw_inc		; 1+ ( dl dh +n++ )
 _znumber_s_loop:
-	.word dw_dec		; 1- ( u +n-1 )
-	.word dw_DUP		; DUP ( u +n-1 +n-1 )
-	.word dw_if_branch	; branch? ( u +n-1 )
+	.word dw_dec		; 1- ( dl dh +n-1 )
+	.word dw_DUP		; DUP ( dl dh +n-1 +n-1 )
+	.word dw_if_branch	; branch? ( dl dh +n-1 )
 	.word _znumber_s_end	;
 
-	.word dw_SWAP		; SWAP ( +n u)
-	.word dw_number		; # ( +n u )
-	.word dw_SWAP		; SWAP ( u +n )
+	.word dw_not_ROT	; -ROT ( +n-1 dl dh )
+	.word dw_number		; # ( +n dl dh )
+	.word dw_ROT		; ROT ( dl dh +n )
 	
 	.word dw_branch		; branch
 	.word _znumber_s_loop	; 
@@ -136,18 +202,18 @@ _znumber_s_end:
 
 	;; word:  SIGN
 	;; flags: DOCOL ROM
-	;; notes: SIGN ( n -- 0 )
+	;; notes: SIGN ( d -- 0 )
 	;;        Adds a sign indicator.
 
-	;; : SIGN ( n -- ) 0< IF 45 HOLD THEN ;
+	;; : SIGN ( d -- ) 0< IF 45 HOLD THEN ;
 
-	.word dw_zero_less	; 0<
+	.word dw_zero_less	; 0< ( dl f )
 	.word dw_if_branch	; ?branch ( IF )
 	.word _sign_end		;
-	.word dw_doLIT		; 45
-	.word 45
-	.word dw_HOLD		; HOLD
+	doCHAR("-")		; 45 ( dl 45 )
+	.word dw_HOLD		; HOLD ( dl )
 _sign_end:
+	.word dw_DROP		; DROP ( ) 
 	.word dw_EXIT		; EXIT
 
 	
@@ -155,17 +221,17 @@ _sign_end:
 	;; word:  #>
 	;; alias: number-bkt
 	;; flags: DOCOL ROM
-	;; notes: #> ( w -- b u )
-	;;        Adds a sign indicator.
+	;; notes: #> ( w -- a n )
+	;;        End conversion. Return string details.
 
-	;; : #> ( w -- b u ) DROP HLD @ PAD OVER - ;
+	;; : #> ( d -- b u ) DROP HLD @ PAD OVER - ;
 
-	.word dw_DROP		; DROP
-	.word dw_HLD		; HLD
-	.word dw_fetch		; @
-	.word dw_PAD		; PAD
-	.word dw_OVER		; OVER
-	.word dw_sub		; -
+	.word dw_2DROP		; 2DROP ( )
+	.word dw_HLD		; HLD ( va )
+	.word dw_fetch		; @ ( a )
+	.word dw_PAD		; PAD ( a a2 )
+	.word dw_OVER		; OVER ( a a2 a )
+	.word dw_sub		; - ( a n )
 	.word dw_EXIT		; EXIT
 
 	

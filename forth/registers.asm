@@ -9,72 +9,79 @@
 // Allocate general registers in page zero, between &00-%2F and
 // &80-&8F (auto-increment).
 
-.equ	RETV	R &000
-.equ	RTTV	R &001
-.equ	RTIV	R &002
-	
-.equ	R0	R &003
-.equ	R1	R &004
-.equ	R2	R &005
-.equ	R3	R &006
-.equ	R4	R &007
-.equ	R5	R &008
+&0000:	
+.reg	RETV	R &000
+.reg	RTTV	R &001
+.reg	RTIV	R &002
 
-.equ    TR0     R &009
-.equ    TR1     R &00a
-.equ    TR2     R &00b
-.equ    TR3     R &00c
+&0003:
+.reg	R0	R @
+.reg	R1	R @
+.reg	R2	R @
+.reg	R3	R @
+.reg	R4	R @
+.reg	R5	R @
+
+.reg    TR0     R @
+.reg    TR1     R @
+.reg    TR2     R @
+.reg    TR3     R @
 
 // Forth word-local registers
-.equ    TMP15   R &010
-.equ    TMP14   R &011
-.equ    TMP13   R &012
-.equ    TMP12   R &013
-.equ    TMP11   R &014
-.equ    TMP10   R &015
-.equ    TMP9    R &016
-.equ    TMP8    R &017
-.equ    TMP7    R &018
-.equ    TMP6    R &019
-.equ    TMP5    R &01a
-.equ    TMP4    R &01b
-.equ    TMP3    R &01c
-.equ    TMP2    R &01d
-.equ	TMP1	R &01e
-.equ	TMP0	R &01f		; Clobbered by most stack routines
+.reg	TMP0	R @		; Clobbered by most stack routines
+.reg	TMP1	R @
+.reg    TMP2    R @
+.reg    TMP3    R @
+.reg    TMP4    R @
+.reg    TMP5    R @
+.reg    TMP6    R @
+.reg    TMP7    R @
+.reg    TMP8    R @
+.reg    TMP9    R @
+.reg    TMP10   R @
+.reg    TMP11   R @
+.reg    TMP12   R @
+.reg    TMP13   R @
+.reg    TMP14   R @
+.reg    TMP15   R @
 
 // Arguments for traps (possibly obsolete)
 
-.equ    ARG0    R &020
-.equ    ARG1    R &021
-.equ    ARG2    R &022
-.equ    ARG3    R &023
-
-.equ    I0      R &080
-.equ    I1      R &081
-.equ    I2      R &082
-.equ    I3      R &083
-
-.equ    ARGP    R &084		; Param block pointer for traps
-.equ    TI0     R &085
-.equ    TI1     R &086
-.equ    TI2     R &087
-
+&0040:
+.reg    ARG0    R @
+.reg    ARG1    R @
+.reg    ARG2    R @
+.reg    ARG3    R @
 
 ;; ISR registers
 
-.equ ISRR0	 R &0030
-.equ ISRR1	 R &0031
-.equ ISRR2	 R &0032
-.equ ISRR3	 R &0033
+&0050:
+.reg ISRR0	 R @
+.reg ISRR1	 R @
+.reg ISRR2	 R @
+.reg ISRR3	 R @
 
-.equ ISRABKP     R &0034
-.equ ISRR0BKP    R &0035
-.equ ISRR1BKP    R &0036
+.reg ISRABKP     R @
+.reg ISRR0BKP    R @
+.reg ISRR1BKP    R @
 
-.equ IIR0	 R &0088
-.equ IIR1	 R &0089
-.equ IIR2	 R &008a
-.equ IIR3	 R &008b
+// Autoincrement registers
+
+&0080:
+.reg    I0      R @
+.reg    I1      R @
+.reg    I2      R @
+.reg    I3      R @
+
+.reg    ARGP    R @		; Param block pointer for traps
+.reg    TI0     R @
+.reg    TI1     R @
+.reg    TI2     R @
+
+.reg    IIR0	R @	; ISR @index regisgters
+.reg    IIR1	R @
+.reg    IIR2	R @
+.reg    IIR3	R @
+
 
 // End of file.

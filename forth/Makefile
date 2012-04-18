@@ -18,6 +18,7 @@ TESTFLAGS :=	-a v2 -t -p $(NAME).pasm -M $(NAME).map $(TESTFLAGS)
 TESTFLAGS +=	--sentinel
 TESTFLAGS +=	--nvram
 TESTFLAGS +=    --hd0 hd0.bin
+TESTFLAGS +=    --ide-speed 1000
 #TESTFLAGS +=	--debug-asm
 #TESTFLAGS +=	--debug-microcode
 

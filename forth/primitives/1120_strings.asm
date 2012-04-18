@@ -3,13 +3,11 @@
 // String handling primitives.
 
 	;; word:  BL
-	;; flags: CODE ROM
+	;; flags: CONST ROM
 	;; notes: bl ( -- 32 )
 	;;   Pushes the codepoint of a space onto the stack.
 
-	LI 32
-	PUSH (SP)
-	NEXT
+	.word 32
 
 
 
@@ -300,8 +298,8 @@ __cpack_end:
 	;; word:  S@
 	;; alias: s-fetch
 	;; flags: CODE ROM CFT
-	;; notes: S@ ( b u -- c )
-	;;        Returns the character c at position u of packed string b.
+	;; notes: S@ ( a n -- c )
+	;;        Returns the character c at position n of packed string a.
 	;;        No checking is performed.
 
 	RPOP (TMP1, SP)		; position
@@ -333,9 +331,9 @@ _s_fetch_even:
 	;; word:  S!
 	;; alias: s-store
 	;; flags: CODE ROM CFT
-	;; notes: S@ ( b u c -- )
-	;;        Stores character c at position u of string at address b.
-	;;        No checking is performed.
+	;; notes: S@ ( a n c -- )
+	;;        Stores character c at position n of string at address a.
+	;;        No checking is performed. n=0 is the first character.
 
 
 	RPOP (TMP3, SP)		; character

@@ -413,6 +413,20 @@ _wordsv_end:
 	.word dw_DROP		; DROP ( )
 	.word dw_EXIT
 
+	
+
+	;; word:  @.
+	;; alias: fetch-dot
+	;; flags: DOCOL ROM CFT
+	;; notes: @. ( addr -- )
+	;;        Prints out the contents of a memory cell.
+	;;
+	;; src:   : @. ( a -- ) @ . ;
+
+	.word dw_fetch		; @
+	.word dw_dot		; .
+	.word dw_EXIT		; EXIT
+
 
 	
 // End of file.
