@@ -82,7 +82,7 @@ _BUILTINS = """;;; CFT Assembler Built-ins
 ;;; 4. Common macros
 
 .equ SEL CLL CPL                        ; Set L
-.equ NEG NOT INC			; Negate A, in twos complement
+.equ NEG NOT INC			; Negate A, in twos complement.
 .equ ING NOT			        ; A = -(A+1) Increase and negate A, in twos complement
 .equ LI    LIA R                        ; Load immediate (0 to &3ff)
 .equ SPA SNN SNZ			; Skip on positive A
@@ -101,7 +101,7 @@ _BUILTINS = """;;; CFT Assembler Built-ins
 
 XPMHEAD = """/* XPM */
 static char * cfg_mem_xpm[] = {
-  "256 256 7 1",
+  "256 256 8 1",
   "  c #222222",
   "I c #FF5555",
   "S c #55FF55",
@@ -109,6 +109,7 @@ static char * cfg_mem_xpm[] = {
   "F c #55FFFF"
   "W c #4433FF",
   "P c #000000",
+  "R c #FF55FF",
 """
 
 XPMFOOT = """};
@@ -181,6 +182,10 @@ class Label(Symbol):
         inaccessible from the current address due to them being on
         different pages."""
         return (addr & 0xfc00) != self.page
+
+
+class Register(Label):
+    """A label denoting a register defined with the .reg directive."""
 
 
 class CFTAssembler(object):
@@ -568,6 +573,24 @@ class CFTAssembler(object):
                 self.poke(val, poketype='W')
                 self.logasm(val, orgline=orgline)
 
+        elif tokens[0] == '.reg':
+            if len(tokens) < 2:
+                self.fail('Value expected after .reg')
+            # Allow forward definitions: don't parse the token unless it's the last pass.
+            # TODO: Verify this code and remove 'True or'.
+            if True or self.passnum == self.PSN_ASSEMBLY:
+                val = self.parseField(tokens[2:], allbits=True)
+                #print self.passnum, tokens[1], hex(val)
+            else:
+                val = 0xdead
+                #print self.passnum, tokens[1], hex(val)
+            self.addSymbol('$' + tokens[1], self.addr, symtype=Register)
+            self.addSymbol(tokens[1], val)
+
+            self.poke(0x0000, poketype='R')
+            if self.passnum == self.PSN_ASSEMBLY:
+                self.logasm(val, orgline=orgline)
+
         elif tokens[0] in ('.str', '.data'):
             self.assembleString(tokens, orgline)
         elif tokens[0] == '.strn':
@@ -783,10 +806,10 @@ class CFTAssembler(object):
         # Already at the beginning of a page. Do nothing.
         if count == 0:
             return
-        elif count > 128:
-            if self.passnum == self.PSN_ASSEMBLY:
-                self.fail(".page generated %d words of slack space. Rearrange your code!" % count)
-        elif count > 64:
+        #elif count > 512:
+        #    if self.passnum == self.PSN_ASSEMBLY:
+        #        self.fail(".page generated %d words of slack space. Rearrange your code!" % count)
+        elif count > 256:
             if self.passnum == self.PSN_ASSEMBLY:
                 self.warn(".page generated %d words of slack space." % count)
 
@@ -943,6 +966,8 @@ class CFTAssembler(object):
             x = x[1:]
             for zero in "-_.":
                 x = x.replace(zero, '0')
+            for zero in "',":
+                x = x.replace(zero, '')
             return int(x, 2)
         elif x.startswith('&'):
             return int(x[1:], 16)
@@ -994,7 +1019,9 @@ class CFTAssembler(object):
                 # Does it start with a '@'? If so, check relative
                 # references, making sure they reference an address on
                 # the same page as the current one.
-                if x.startswith('@-'):
+                if x == '@':
+                    return self.addr
+                elif x.startswith('@-'):
                     addr = (self.addr - self.parseInt(x[2:])) & 0xffff
                     if pageboundary:
                         if (addr & 0xfc00) != (self.addr & 0xfc00):
