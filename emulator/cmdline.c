@@ -57,7 +57,10 @@ enum {DUMMY_KEY=129
       ,KEY_HD1
       ,KEY_HD2
       ,KEY_HD3
+      ,KEY_IDE_SPEED
+      ,KEY_DEBUG_IDE
 };
+
 
 static struct argp_option options[] =
 {
@@ -132,6 +135,8 @@ static struct argp_option options[] =
 	{ "hd3",    KEY_HD3,  "DISK-IMAGE",            0,
 	  "Specify an image file for the fourth IDE disk (channel 2, disk 2). "
 	  "If unspecified, no disk is emulated.", 0 },
+	{ "ide-speed",    KEY_IDE_SPEED, "FACTOR",            0,
+	  "Set IDE speed factor. The default is 10, which is normal speed. 20 is double speed, etc. Values below 10 slow down access for debugging.", 0 },
 
 #if 0
 	{ "microcode",     'm',           NULL,            0,
@@ -308,6 +313,19 @@ parse_opt (int key, char *arg, struct argp_state *state)
 		idehd_set(key - KEY_HD0, arg);
 		break;
 
+	case KEY_IDE_SPEED:
+		if (!sscanf(arg, "%d", &ide_speed)) {
+			argp_error (state, "IDE speed should an integer >= 1.");
+		}
+		if (ide_speed < 1) {
+			argp_error (state, "IDE speed should an integer >= 1.");
+		}
+		break;
+
+	case KEY_DEBUG_IDE:
+		debug_ide++;
+		break;
+		
 	case 'M':
 		map_name = strdup (arg);
 		map_file = fopen (map_name, "r");

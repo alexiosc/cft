@@ -30,6 +30,11 @@ Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
 extern int ide;
 
+extern int ide_speed;
+
+extern int debug_ide;
+
+
 void idehd_set(uint32_t a, char *fname);
 
 void ide_early_init();

@@ -230,22 +230,33 @@ void emulate();
 #define sanity_check(cond, ...) if (cond) { \
 		printf("F: " COL_RED __VA_ARGS__); printf(COL_NOR); dump(); exit(2); \
 }
+
 #define error(...) {					\
 		printf(COL_RED "E: " __VA_ARGS__);	\
 		printf(COL_NOR);			\
 		dump();					\
 		exit(1);				\
 	}
+
 #define fail(...) {					\
 		printf(COL_RED "F: " __VA_ARGS__);	\
 		printf(COL_NOR);			\
 		dump();					\
 		exit(1);				\
 	}
+
 #define warning( ...) {					\
 		printf(COL_YEL "W: " __VA_ARGS__);	\
 		printf(COL_NOR);			\
 	}
+
+#define warning2( ...) {					\
+		if(verbose > 1) {				\
+			printf(COL_YEL "W: " __VA_ARGS__);	\
+			printf(COL_NOR);			\
+		}						\
+	}
+
 
 
 #define info( ...)						\
@@ -304,12 +315,21 @@ void emulate();
 		}							\
 	}
 
+#define idedebug( ...)						\
+	{							\
+		if(debug_ide) {					\
+			printf(COL_CYA "D: IDE: " __VA_ARGS__);	\
+			printf(COL_NOR);			\
+		}						\
+	}
+
 #define mbuinfo info2
 #define duartinfo info2
 
 #define meminfo info
 #define meminfo2 info2
 #define ideinfo info
+#define ideinfo2 info2
 #define nvraminfo info
 #define memdebug iodebug
 #define debugdebug iodebug

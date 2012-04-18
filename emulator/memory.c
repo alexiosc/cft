@@ -112,7 +112,6 @@ inline uint16_t
 memory_read(uint16_t addr)
 {
 	register int phys = l2p(addr);
-	uint32_t ofs = GET_AOFS(phys);
 
 	if (IS_ROM(phys)) {
 

@@ -44,7 +44,12 @@ Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
 void irq();
 
+
 int ide;
+
+int ide_speed = 10;
+
+int debug_ide = 0;
 
 
 #define IDE_CS3_ASTATUS 6
@@ -121,13 +126,30 @@ typedef struct {
 	uint32_t  delay;
 	int       cmd;
 	int       c;
+	void      (*callback)();
 } idehd_t;
 
 
 
 
 idehd_t idehd[NUM_IDEHD];
+
 int drsel [(NUM_IDEHD + 1) >> 1];
+
+
+static void
+callback_diags(int unit)
+{
+	idehd_t * hd = &idehd[unit];
+
+	/* Simulate successful diagnostics */
+	hd->error = 0x01;
+	hd->scount = 0x01;
+	hd->lba0 = 0x01;	/* LBA0 == sector number register */
+	hd->lba1 = 0x00;	/* Cylinder low */
+	hd->lba2 = 0x00;	/* Cylinder high */
+	hd->lba3 = 0x00;	/* Drive/head */
+}
 
 
 void
@@ -146,21 +168,24 @@ idehd_set(uint32_t n, char *fname)
 		fail("Unable to stat HD image '%s': %m\n", fname);
 	}
 
-	info("Disk image %d: file %s, %d kwords\n", n, fname, (uint32_t)st.st_size >> 11);
+	ideinfo("Disk image %d: file %s, %d kwords\n", n, fname, (uint32_t)st.st_size >> 11);
 
-	idehd[n].size = st.st_size;
+	idehd_t * hd = &idehd[n];
 
-	idehd[n].present = 1;	/* Reset counterNo current command */
+	hd->size = st.st_size;
 
-	idehd[n].delay = 15;	/* Unit: 1024 clock ticks */
-	idehd[n].cmd = -1;	/* No current command */
-	idehd[n].c = 1000;	/* Reset counter */
-	idehd[n].bp = 0;
-	idehd[n].error = 0;
-	idehd[n].irqen = 0;
-	idehd[n].irqpending = 0;
-	idehd[n].status = SR_BUSY;
-	idehd[n].scount = 1;
+	hd->present = 1;	/* Reset counterNo current command */
+
+	hd->delay = 15;		/* Unit: 1024 clock ticks */
+	hd->cmd = -1;		/* No current command */
+	hd->c = 2500;		/* Reset counter */
+	hd->bp = 0;
+	hd->error = 0;
+	hd->irqen = 0;
+	hd->irqpending = 0;
+	hd->status = SR_BUSY;
+	hd->scount = 1;
+	hd->callback = callback_diags;
 }
 
 
@@ -194,10 +219,12 @@ idehd_identify(int unit)
 	/*              words: 33445566 */
 	strcpy((char*)&b[23], "0.01    ");
 	/*               bytes: 12345678901234567890 */
-	/*               words: 77889900112233445566 */
-	strcpy((char*)&b[27],  "CFTEmu              ");
-	sprintf((char*)&b[31],        "%dM image  ", hd->size >> 20);
+	/*               words: 7788990011223344556677889900112233445566 */
+	//strcpy((char*)&b[27],  "ST3%uA-DISKIMAGE                         ", hd->size >> 20);
+	sprintf((char*)&b[27], "ST3%04uA-EMU                               ", hd->size / 1000000);
+	//sprintf((char*)&b[31],        "%dM image%c                       ", hd->size >> 20, 0);
 
+	b[47] = MAX_MULTI;	/* Max sectors per transfer */
 	b[57] = (hd->size >> 9) & 0xffff;
 	b[58] = ((hd->size >> 9) >> 16) & 0xffff;
 	b[59] = 0x110;		/* Yes, transfer up to 16 sectors. */
@@ -232,7 +259,7 @@ idehd_read(int unit)
 		((hd->lba2 & 0xff) << 16) | 
 		((hd->lba3 & 0xf) << 24);
 
-	info("IDEHD %u: read %d sector(s) starting with %d\n", unit, n, ofs);
+	idedebug("IDEHD %u: read %d sector(s) starting with %d\n", unit, n, ofs);
 	ofs = ofs << 9;		/* LBA unit: 512-byte sector */
 
 	if (ofs >= hd->size) {
@@ -242,7 +269,7 @@ idehd_read(int unit)
 	}
 	fseek(hd->fp, ofs, SEEK_SET);
 
-	info("IDEHD %u: read %d bytes from ofs %u\n", unit, n * 512, ftell(hd->fp));
+	idedebug("IDEHD %u: read %d bytes from ofs %u\n", unit, n * 512, ftell(hd->fp));
 	
 	if (fread(&hd->buf, 512, n, hd->fp) != n) {
 		fail("IDEHD %d: failed to read %d bytes from %s: %m\n", 
@@ -269,7 +296,7 @@ idehd_write(int unit)
 		((hd->lba2 & 0xff) << 16) | 
 		((hd->lba3 & 0xf) << 24);
 
-	info("IDEHD %u: write %d sector(s) starting at %d\n", unit, n, ofs);
+	idedebug("IDEHD %u: write %d sector(s) starting at %d\n", unit, n, ofs);
 
 	ofs = ofs << 9;		/* LBA unit: 512-byte sector */
 	if (ofs >= hd->size) {
@@ -298,16 +325,16 @@ void idehd_command(int unit, uint16_t cmd)
 	switch(cmd) {
 	case 0xec:		/* Identify drive */
 		idehd_identify(unit);
-		hd->c = 100;
+		hd->c = 1000;
 		break;
 
 	case 0x10:		/* Recalibrate */
-		info("IDEHD %d: Crrrck. Crrrrck. (recalibrating)\n", unit);
+		ideinfo("IDEHD %d: Crrrck. Crrrrck. (recalibrating)\n", unit);
 		hd->lba0 = 0;
 		hd->lba1 = 0;
 		hd->lba2 = 0;
 		hd->lba3 = 0;
-		hd->c = 5000 + (random() % 1000);
+		hd->c = 50000 + (random() % 10000);
 		break;
 
 	case 0xc4:		/* Read multiple */
@@ -316,17 +343,17 @@ void idehd_command(int unit, uint16_t cmd)
 	case 0x20:		/* Read with retry */
 	case 0x21:		/* Read without retry */
 		idehd_read(unit);
-		hd->c = 5;
+		hd->c = 50;
 		break;
 
 	case 0x70:		/* Seek */
 		/* No need to seek the disk image. Just emulate track access */
-		hd->c = 5;
+		hd->c = 50;
 		break;
 
 	case 0xc6:		/* Set multiple mode */
 		hd->multiple = hd->scount;
-		hd->c = 1;
+		hd->c = 10;
 		break;
 
 	case 0xc5:		/* Write multiple */
@@ -335,22 +362,22 @@ void idehd_command(int unit, uint16_t cmd)
 	case 0x30:		/* Write sectors with retry */
 	case 0x31:		/* Write sectors without retry */
 		idehd_write(unit);
-		hd->c = 7;
+		hd->c = 70;
 		break;
 
 	case 0xe0:		/* Spin down */
 	case 0xe1:		/* Spin up */
-		hd->c = 5000 + (random() % 1000);
+		hd->c = 50000 + (random() % 10000);
 		break;
 
 	case 0xe4:		/* Read buffer */
 	case 0xe8:		/* Write buffer */
-		hd->c = 1;
+		hd->c = 10;
 		hd->bp = 0;
 		break;
 
 	default:
-		warning("IDEHD %d: unknown command %02x.\n", unit, cmd);
+		warning2("IDEHD %d: unknown command %02x.\n", unit, cmd);
 		idehd_err(unit, ERR_ABRT);
 		return;
 	}
@@ -423,8 +450,9 @@ ide_reset(int unit)
 	for (i = 0; i < 2; i++, unit++) {
 		idehd_t * hd = &idehd[unit];
 		if (!hd->present) continue;
-		info("IDEHD %d: Resetting...\n", unit);
-		hd->c = 10000;	/* Reset counter */
+		ideinfo2("IDEHD %d: Resetting...\n", unit);
+		hd->c = 100000;	/* Reset counter */
+		hd->callback = callback_diags;
 		hd->bp = 0;
 		hd->error = 0;
 		hd->irqen = 0;
@@ -450,17 +478,17 @@ ide_write(uint16_t addr, uint16_t dbus)
 	case IO_IDEA_CS3|IDE_CS3_DCTL:
 	case IO_IDEB_CS3|IDE_CS3_DCTL:
 		if ((dbus & 9) != 8) {
-			warning("IDEHD %d: DCR value must be xxxx1xx0.\n", unit);
+			warning2("IDEHD %d: DCR value must be xxxx1xx0.\n", unit);
 		}
 		/* Reset: bit 2. IRQ enabled: bit 1 */
 		hd->irqen = (dbus & 2) == 0;
 		tmp = hd->reset;
 		hd->reset = dbus & 4;
 		if (hd->reset && !tmp) {
-			warning("IDEHD %d: SRST (reset) asserted.\n", unit);
-			hd->status |= SR_BUSY;
+			warning2("IDEHD %d: SRST (reset) asserted.\n", unit);
+			hd->status |= SR_BUSY; /* Per IDE spec section 8.1 */
 		} else if (tmp && !hd->reset) {
-			warning("IDEHD %d: SRST (reset) cleared.\n", unit);
+			warning2("IDEHD %d: SRST (reset) cleared.\n", unit);
 			ide_reset(unit);
 		}
 		return 1;
@@ -478,7 +506,7 @@ ide_write(uint16_t addr, uint16_t dbus)
 
 	case IO_IDEB_CS1|IDE_CS1_FEAT:
 	case IO_IDEA_CS1|IDE_CS1_FEAT:
-		warning("IDEHD %d: Features register ignored.\n", unit);
+		warning2("IDEHD %d: Features register ignored.\n", unit);
 		return 1;
 
 	case IO_IDEB_CS1|IDE_CS1_LBA0:
@@ -502,7 +530,7 @@ ide_write(uint16_t addr, uint16_t dbus)
 	case IO_IDEA_CS1|IDE_CS1_DHEAD:
 	case IO_IDEB_CS1|IDE_CS1_DHEAD:
 		if ((dbus & 0xa0) != 0xa0) {
-			warning("IDEHD %d: Drive/Head value must be 1x1xxxxx.\n", unit);
+			warning2("IDEHD %d: Drive/Head value must be 1x1xxxxx.\n", unit);
 		}
 		if ((dbus & 0x40) != 0x40) {
 			warning("IDEHD %d: Selected unimplemented CHS mode.\n", unit);
@@ -531,7 +559,7 @@ ide_read(uint16_t addr, uint16_t *dbus)
 	if (unit < 0) return 0;
 	idehd_t *hd = &idehd[unit];
 	if (!hd->present) {
-		warning("IDEHD %d: not present\n", unit);
+		warning2("IDEHD %d: not present\n", unit);
 		*dbus = 0xffff;
 		return 1;
 	}
@@ -607,10 +635,15 @@ ide_tick(int tick)
 	for (i = 0; i < NUM_IDEHD; i++) {
 		idehd_t * hd = &idehd[i];
 		if(hd->present && hd->c > 0) {
-			if (--hd->c == 0) {
-				info("IDEHD %d: done\n", i);
+			hd->c -= ide_speed;
+			if (hd->c <= 0) {
+				idedebug("IDEHD %d: done\n", i);
 				hd->status &= ~SR_BUSY;
 				hd->status |= SR_DRDY;
+				if (hd->callback != NULL) {
+					(*(hd->callback))(i);
+					hd->callback = NULL;
+				}
 				switch(hd->cmd){
 				case 0xec:
 				case 0xe4:
