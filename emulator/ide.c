@@ -149,6 +149,8 @@ callback_diags(int unit)
 	hd->lba1 = 0x00;	/* Cylinder low */
 	hd->lba2 = 0x00;	/* Cylinder high */
 	hd->lba3 = 0x00;	/* Drive/head */
+
+	ideinfo2("IDEHD %d: Reset complete.\n", unit);
 }
 
 
@@ -536,6 +538,7 @@ ide_write(uint16_t addr, uint16_t dbus)
 			warning("IDEHD %d: Selected unimplemented CHS mode.\n", unit);
 		}
 		drsel[unit >> 1] = dbus & 0x10 ? 1 : 0;
+		//info2("Selected bus=%d unit=%d\n", unit >> 1, drsel[unit >> 1]);
 		hd->lba3 = dbus & 0xf;
 		//info("LBA3 = %d\n", hd->lba3);
 		return 1;
