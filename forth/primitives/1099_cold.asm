@@ -117,23 +117,35 @@ _cold_nortc:
 	;; Set up IDE
 	doLIT(_dev_HD0)
 	.word dw__DEV		; _DEV ( )
+	doLIT(0)
 	doLIT(@IDE0&&3ff)
+	doLIT(0)
 	.word dw_IDE_INIT
 	.word dw__qPRESENT
 
-	;; doLIT(_dev_HD1)
-	;; .word dw__DEV		; _DEV ( )
-	;; .word dw__qPRESENT
+	doLIT(_dev_HD1)
+	.word dw__DEV		; _DEV ( )
+	doLIT(1)
+	doLIT(@IDE0&&3ff)
+	doLIT(1)
+	.word dw_IDE_INIT
+	.word dw__qPRESENT
 
 	doLIT(_dev_HD2)
 	.word dw__DEV		; _DEV ( )
+	doLIT(2)
 	doLIT(@IDE1&&3ff)
+	doLIT(1)
 	.word dw_IDE_INIT
 	.word dw__qPRESENT
 
-	;; doLIT(_dev_HD3)
-	;; .word dw__DEV		; _DEV ( )
-	;; .word dw__qPRESENT
+	doLIT(_dev_HD3)
+	.word dw__DEV		; _DEV ( )
+	doLIT(3)
+	doLIT(@IDE1&&3ff)
+	doLIT(1)
+	.word dw_IDE_INIT
+	.word dw__qPRESENT
 
 	;; Initialise vocabularies
 

@@ -118,12 +118,14 @@ _vector_table:
 .reg	UISR	R @		; ISR user routines
 .reg	INPFR	R @		; Input Flag Register
 .reg	INPCH	R @		; Input Character
+
+.reg    DSKUNIT R @		; The currently active disk unit.
 	
 .reg    SYSCFG  R @	  	; System config flags (see CFG_x equs below)
 .reg    SYSMEM  R @         	; Number of 8kW banks of RAM (high byte) and ROM (low byte)
 .reg    SYSIDE0 R @		; Base I/O address of IDE ports 0A and 0B.
 .reg    SYSIDE1 R @		; Base I/O address of IDE ports 1A and 1B.
-	
+
 .reg    IDEDCR  R @		; Last IDE disk: Device Control Register
 .equ    IDEASR  IDEDCR		; Last IDE disk: Alternate Status Register (=IDEDCR)
 .reg    IDEDATA R @		; Last IDE disk: Data register
@@ -136,6 +138,8 @@ _vector_table:
 .equ    IDEDHR  IDELBA3		; Last IDE disk: LBA3/Drive/Head Register (=IDELBA3)
 .reg    IDESR   R @		; Last IDE disk: Status register
 .equ    IDECMD  IDESR		; Last IDE disk: Command register (=IDESR)
+.reg    IDEDHRB R @ 		; Lase IDE disk: DHR register base value (LBA | drive num)
+.reg    IDECURU R @	        ; Last IDE disk: current unit
 
 .reg    HD0SZLO R @		; HD 0 size in sectors, low word
 .reg    HD0SZHI R @		; HD 0 size in sectors, high word

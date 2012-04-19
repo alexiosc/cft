@@ -33,8 +33,8 @@
 ;; Values for the Drive/Head register.
 
 .equ IDE_DHR  #111'-'----	; Base value (also enables LBA)
-.equ IDE_DRV1 #---'1'----
 .equ IDE_DRV0 #---'0'----
+.equ IDE_DRV1 #---'1'----
 
 ;; IDE macrocommands
 
@@ -101,7 +101,7 @@
 	;; Set up the IDE registers
 	;; 
 	;; Inputs:
-	;;   AC = IDE controller base port.
+	;;   TMP1 = IDE controller base port.
 	;; 
 	;; Output:
 	;;   The IDEx register registers are all updated with the I/O
@@ -114,17 +114,25 @@
 	;;   TMP1 is clobbered.
 
 _ide_setup:
-	STORE TMP0		; TMP0 is the base address.
+	LOAD TMP1
+	XOR IDEDCR		; Compare against DCR
+	AND PLUSFFF0		; Drop the lease significant 16 bits
+	SNZ			; Same?
+	RET			; Yes: already selected. Bail out.
+	
+	LI &3ff			; Invalidate the current unit register.
+	STORE IDECURU		; ... This forces _ide_selunit to act.
+
 	LIA IDEDCR		; Start of the IDE register block
 	STORE I0
 	LIA _ide_setup_data
 	STORE I1
-	RMOV(TMP1, I I1)
+	RMOV(I2, I I1)
 
 _ide_setup_loop:
-	RADD(I I0, TMP0, I I1)	; mem[I0++] = TMP0 + mem[I1++]
+	RADD(I I0, TMP1, I I1)	; mem[I0++] = TMP0 + mem[I1++]
 	LOAD I0
-	ISZ TMP1
+	ISZ I2
 	JMP _ide_setup_loop
 	RET
 
@@ -141,6 +149,39 @@ _ide_setup_data1:
 	.word IDE_OFS_DHR
 	.word IDE_OFS_CMD
 _ide_setup_data_end:
+
+	
+
+	;; Select IDE unit 0/1
+	;; 
+	;; Inputs:
+	;;   TMP2 = unit to select. Must be 0 or 1.
+	;; 
+	;; Output:
+	;;   None.
+	;;
+	;; Side effects:
+	;;   Disk n is selected on the current IDE channel.
+	;;   TMP3 is clobbered.
+
+_ide_selunit:
+	LOAD IDECURU		; Check the currently selected unit.
+	XOR TMP2		; Same as the one requested?
+	SNZ
+	RET			; Yes. Bail out
+
+	RMOV(IDECURU, TMP2)	; Store the current unit.
+	LIA _ide_selunit_data
+	ADD TMP2
+	STORE TMP3
+	LOAD I TMP3		; Load the value itself.
+	OUT I IDEDHR
+	STORE IDEDHRB
+	RET
+	
+_ide_selunit_data:
+	.word IDE_DHR IDE_DRV0
+	.word IDE_DHR IDE_DRV1
 
 
 
@@ -193,57 +234,102 @@ _ide_datacmd_mask:
 	.word #1000'1000	; BSY|DRQ
 _ide_datacmd_val:
 	.word #0000'1000	; DRQ
-	
-	
-	
-
-
-	;; word:  HDn?
-	;; flags: DOCOL ROM CFT
-	;; notes: HDn? ( n -- f )
-	;;        Returns non-zero if IDE disk IDE n is present.
-
-	doLIT(CFG_HD0)		; CFG_HD0 ( n u )
-	.word dw_SWAP		; SWAP ( u n )
-	.word dw_shl		; << ( u<<n )
-	.word dw_SYSCFG		; SYSCFG ( u<<n cfg )
-	.word dw_AND		; AND ( f )
-	.word dw_EXIT
 
 	
  
-	;; word:  ide.sel
+	;; word:  _HDSEL
 	;; flags: CODE ROM CFT
-	;; notes: HD! ( n -- )
-	;;        Selects the specified IDE disk for further accesses. Valid
-        ;;        values are 0-3.
+	;; notes: _HDSEL ( a n -- f )
+	;;        Select disk n (0 or 1) on bus with base address a.
 
-	LOADUP(UAOFS_DISKUNIT)
+	RPOP(TMP2, SP)		; Unit number n
+	RPOP(TMP1, SP)		; Base address a
+
+	JSR _ide_setup		; Set the address and registers
+	JSR _ide_selunit	; Select the drive unit.
+
 	NEXT
 
-	
- 
-	;; word:  IDE.INIT
-	;; flags: CODE ROM CFT
-	;; notes: IDE.INIT ( a -- f2 f1 )
-	;;        Initialise the two disks at the specified address.
-	;;        Returns flag f1 (non-zero if first disk exists) and f2
-	;;        (non-zero if second disk exists).
 
-	//RPOP(TMP1, SP)
-	FORTH(dw_ide_rst)
-	;; LI 1
-	;; PUSH(SP)
-	;; PUSH(SP)
+
+	;; word:  _HDRST
+	;; flags: CODE ROM CFT
+	;; notes: _HDRST ( -- f )
+	;;        Reset the currently selected IDE channel and detect if a
+        ;;        controller is present. Returns a non-zero flag if this is the
+        ;;        case.
+
+	;; Only reset if the first disk unit is selected.
+	LOAD IDECURU
+	SZA
+	JMP _ide_rst_loop_fast	; Check to see if the unit is present.
 	
-	NEXT
+	;; Assert SRST
+	LI &0c
+	HDDCR
+
+	;; Wait 200ms (longer than the longest minimum reset pulse)
+	LI 200
+	PUSH(SP)
+	FORTH(dw_MS)		; note: clobbers TMP0, TMP15, TMP14
+
+	;; Deassert RST
+	LI &08
+	HDDCR
+
+	LI 30		        ; Timeout after a bit
+	NEG
+	STORE I0
+
+	;; Wait for BSY to clear and DRDY to set. Don't wait forever.
+	;; Also ensure a controller is present.
+	JMP _ide_rst_loop_fast	; Don't wait on the first iteration
 	
-	doLIT(1)
+_ide_rst_loop:
+	LI &200
+	PUSH(SP)
+	FORTH(dw_PROGRESS)	; note: clobbers TMP0, TMP15, TMP14
+
+_ide_rst_loop_fast:
+	IN I IDEASR		; Read the alt status register
+	STORE TMP0
+
+	;; Make sure there IS a controller present.
+	XOR MINUS1		; If &FFFF, we're reading bus pull-ups.
+	SNZ			; There's nothing there; bail out.
+	JMP _ide_rst_no
+
+	LOAD TMP0
+	SNZ			; If &0000, we're reading bus pull-downs.
+	JMP _ide_rst_no		; Bail out.
+
+	;; Right. A controller is probably there. Check the status bits.
+	LOAD TMP0
+	AND _ide_BSY		; BSY set?
+	SZA
+	JMP _ide_rst_not_yet	; Yes. Go again.
+
+	LOAD TMP0
+	AND _ide_DRDY		; DRDY set?
+	SZA
+	JMP _ide_rst_yes	; Yes. We've got it.
+
+_ide_rst_not_yet:	
+	ISZ I0
+	JMP _ide_rst_loop
+
+_ide_rst_no:
+	LI 0
+	JMP @_ide_rst_yes+1
+	
+_ide_rst_yes:
+	LI 1
 	PUSH(SP)
 	NEXT
 
 
-	
+
+	;; TODO: Fix this
 	;; word:  idecmd
 	;; flags: CODE ROM CFT
 	;; notes: idecmd ( x -- )
@@ -275,6 +361,7 @@ _ide_DRQ:
 
 
 
+	;; TODO: Fix this
 	;; word:  idewait
 	;; flags: CODE ROM CFT
 	;; notes: idewait ( -- )
@@ -289,81 +376,17 @@ _idewait_loop:
 
 
 
-	;; word:  ide.rst
+_ide_rst_buf:
+	.word IDE_EARLYBUF
+_ide_rst_kw:
+	.strp " kW, " 0
+
+	;; word:  _HDIDENT
 	;; flags: CODE ROM CFT
-	;; notes: ide.rst ( a -- )
-	;;        Reset IDE channel at a.
-
-	POP(SP)
-	JSR _ide_setup		; Set up the IDE registers for the provided controller.
-
-	;; Select unit 0 (master)
-	IDE_SELDRVL(0)
-
-	;; Assert SRST
-	LI &0c
-	HDDCR
-
-	;; Wait 200ms (longer than the longest minimum reset pulse)
-	LI 200
-	PUSH(SP)
-	FORTH(dw_MS)		; note: clobbers TMP0, TMP15, TMP14
-
-	;; Deassert RST
-	LI &08
-	HDDCR
-
-	LI 30		        ; Timeout after a bit
-	NEG
-	STORE TMP12
-
-	;; Wait for BSY to clear and RDY to set. Don't wait forever.
-	;; Also ensure a controller is present.
-	JMP _ide_rst_loop_fast	; Don't wait on the first iteration
-	
-_ide_rst_loop:
-	LI &200
-	PUSH(SP)
-	FORTH(dw_PROGRESS)	; note: clobbers TMP0, TMP15, TMP14
-
-_ide_rst_loop_fast:
-
-	IN I IDEASR		; Read the alt status register
-	STORE TMP0
-
-	;; Make sure there IS a controller present.
-	XOR MINUS1		; If &FFFF, we're reading bus pull-ups.
-	SNZ			; There's nothing there; bail out.
-	JMP _ide_rst_no
-
-	LOAD TMP0
-	SNZ			; If &0000, we're reading bus pull-downs.
-	JMP _ide_rst_no		; Bail out.
-
-	;; Right. A controller is probably there. Check the status bits.
-	LOAD TMP0
-	AND _ide_BSY		; BSY set?
-	SZA
-	JMP _ide_rst_not_yet	; Yes. Go again.
-
-	LOAD TMP0
-	AND _ide_DRDY		; DRDY set?
-	SZA
-	JMP _ide_rst_yes	; Yes. We've got it.
-
-_ide_rst_not_yet:	
-	ISZ TMP12
-	JMP _ide_rst_loop
-
-_ide_rst_no:
-	LI 0
-	PUSH(SP)		; No response to reset.
-	PUSH(SP)
-	NEXT
-	
-_ide_rst_yes:
-	;; Send IDENTIFY commands to both drives, see what they have to
-	;; say for themselves. Copy some information about them.
+	;; notes: _HDIDENT ( )
+	;;        Send IDENTIFY command to current drive, see what it has to
+	;;        say for itself. Copy some information about them to the
+	;;        relevant registers.
 
 	LIA HD0SZLO
 	STORE I0
@@ -376,12 +399,12 @@ _ide_rst_yes:
 	IDE_DATACMD(IDE_IDENTIFY, IDE_EARLYBUF, 63)
 
 	;; Copy the disk capacity
-	LI 57
+	LI 57			; Word 57 (capacity low)
 	ADD _ide_rst_buf
 	STORE I0
 	RMOV(HD0SZLO, I I0)
 	STORE TMP15
-	RMOV(HD0SZHI, I I0)
+	RMOV(HD0SZHI, I I0)	; Word 58 (capacity high)
 	STORE TMP14
 
 	;; Output the size in kW (sectors / 4)
@@ -414,17 +437,70 @@ _ide_rst_yes:
 	FORTH(dw_TYPEp)
 	FORTH(dw_SPACE)
 	
-	
 	LI 1
 _ide_rst_ret:
 	PUSH(SP)		; Wing it for now.
 	PUSH(SP)
 
 	NEXT
-_ide_rst_buf:
-	.word IDE_EARLYBUF
-_ide_rst_kw:
-	.strp " kW, " 0
+
+
+
+	;; word:  IDE.INIT
+	;; flags: DOCOL ROM CFT
+	;; notes: IDE.INIT ( n addr unit -- f )
+	;;        Initialise disk device HDn to be the disk on bus with base
+	;;        address a and the specified unit number.  Returns flag f if a
+	;;        drive was found. Sets configuration flags and makes disk
+	;;        available for access.
+
+	.word dw__HDSEL		; _HDSEL ( n ) \ Select drive <a,n>.
+	.word dw__HDRST		; _HDRST ( n f ) \ Reset & detect.
+	.word dw_DUP		; DUP ( n f f )
+	.word dw_if_branch	;   \ Skip the rest if no disk
+	.word _ide_init_no
+	.word dw__HDIDENT	; _HDIDENT ( n f ) \ Identify disk.
+
+_ide_init_done:
+	.word dw_SWAP		; SWAP ( f n )
+	.word dw_DROP		; DROP ( f )
+	.word dw_EXIT
+
+_ide_init_no:			;  ( n f )
+	.word dw_SWAP		; SWAP ( f n )
+	.word dw_DROP		; DROP ( f )
+	.word dw_EXIT
+
+
+
+
+
+
+
+//////////////////////////////////////////////////////////
+
+	;; word:  HDn?
+	;; flags: DOCOL ROM CFT
+	;; notes: HDn? ( n -- f )
+	;;        Returns non-zero if IDE disk IDE n is present.
+
+	doLIT(CFG_HD0)		; CFG_HD0 ( n u )
+	.word dw_SWAP		; SWAP ( u n )
+	.word dw_shl		; << ( u<<n )
+	.word dw_SYSCFG		; SYSCFG ( u<<n cfg )
+	.word dw_AND		; AND ( f )
+	.word dw_EXIT
+
+
+
+
+
+
+
+
+
+	
+	
 
 
 

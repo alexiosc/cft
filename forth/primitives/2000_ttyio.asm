@@ -149,7 +149,7 @@ _SPACES_loop:
 
 
 
-.page	
+/.page	
 	
 	;; word:  ZEROES
 	;; flags: CODE ROM
