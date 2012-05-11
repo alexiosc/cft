@@ -5,7 +5,9 @@ SHELL = 	/bin/bash
 VIEWER =	gwenview
 
 NAME = 		forth
-ROMSIZE = 	8192
+#ROMSIZE = 	8192
+ROMSIZE = 	16384
+ARCH =		v2-16k
 ROMIMAGE =	$(NAME)-rom.bin
 EMU = 		../emulator/cftemu
 ASM = 		../tools/cftasm
@@ -14,7 +16,7 @@ ASMDIR = 	../asm
 ASMINCLUDES = 	$(ASMDIR)/io.asm $(ASMDIR)/debugging.asm $(ASMDIR)/testing.asm 
 SCRIPTDIR = 	scripts
 PRIMITIVEDIR = 	primitives
-TESTFLAGS :=	-a v2 -t -p $(NAME).pasm -M $(NAME).map $(TESTFLAGS)
+TESTFLAGS :=	-a $(ARCH) -t -p $(NAME).pasm -M $(NAME).map $(TESTFLAGS)
 TESTFLAGS +=	--sentinel
 TESTFLAGS +=	--nvram
 TESTFLAGS +=    --hd0 hd0.bin
@@ -37,7 +39,7 @@ SOURCES = 	*.asm $(PRIMITIVES) $(TABLES)
 all:		$(ROMIMAGE)
 
 $(ROMIMAGE):	$(SOURCES) $(ASMINCLUDES) $(ASM)
-		$(ASM) $(NAME).asm $(ASMFLAGS) --min-addr=$$[0xe000]
+		$(ASM) $(NAME).asm $(ASMFLAGS) --min-addr=$$[0x10000 - $(ROMSIZE)]
 #		@rm $(NAME)-[0-9][0-9].list || true
 
 clean:
@@ -66,7 +68,7 @@ $(PRIMITIVES):	$(SCRIPTDIR)/mkprimitives.py $(PRIMITIVEDIR)/[0-9]*.asm
 		chmod -w $(PRIMITIVES)
 
 test-%:		test-%.asm $(ASMINCLUDES)
-		$(ASM) $(ASMINCLUDES) --min-addr=$$[0xe000] $@.asm -o $@.bin
+		$(ASM) $(ASMINCLUDES) --min-addr=$$[0x10000 - $(ROMsiZE)] $@.asm -o $@.bin
 		$(EMU) $(TESTFLAGS) -t -vv $@.bin -M $@.map -p $@.pasm
 
 remote:

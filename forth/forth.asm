@@ -12,19 +12,22 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 
-	.equ UTA	&0400	        ; Start of user task
-	.equ UAS	256		; User area size
-	.equ DSS	256		; Data stack size (cells)
-	.equ RSS	256		; Return stack size (cells)
-	.equ TIBS	256		; TIB size (cells)
+	.equ UTA	&0400	         ; Start of user task
+	.equ UAS	256		 ; User area size
+	.equ DSS	256		 ; Data stack size (cells)
+	.equ RSS	256		 ; Return stack size (cells)
+	.equ TIBS	256		 ; TIB size (cells)
+	.equ BLKBS      1024		 ; Block buffer size (cells)
 
-	.equ PADOFS      80	        ; PAD offset (cells from HERE)
+	.equ PADOFS      80	         ; PAD offset (cells from HERE)
 
-	.equ UAADDR	UTA 		; Address of user area
-	.equ DSADDR	@UAADDR+UAS	; Address of data stack
-	.equ RSADDR	@DSADDR+DSS	; Address of return stack
-	.equ TIBADDR	@RSADDR+RSS	; Address of TIB
-	.equ UDADDR     @TIBADDR+TIBS	; Start of user dictionary
+	.equ UAADDR	UTA 		 ; Address of user area
+	.equ DSADDR	@UAADDR+UAS	 ; Address of data stack
+	.equ RSADDR	@DSADDR+DSS	 ; Address of return stack
+	.equ TIBADDR	@RSADDR+RSS	 ; Address of TIB
+	.equ BLKB0ADDR  @TIBADDR+TIBS    ; Address of 1st block buffer
+	.equ BLKB1ADDR  @BLKB0ADDR+BLKBS ; Address of 1st block buffer
+	.equ UDADDR     @BLKB1ADDR+BLKBS ; Start of user dictionary
 
 
 // Allocate general registers in page zero, between &00-%30 and
@@ -126,6 +129,15 @@ _vector_table:
 .reg    SYSIDE0 R @		; Base I/O address of IDE ports 0A and 0B.
 .reg    SYSIDE1 R @		; Base I/O address of IDE ports 1A and 1B.
 
+.reg    MBUB0   R @		; MBU backup: bank 0
+.reg    MBUB1   R @		; MBU backup: bank 1
+.reg    MBUB2   R @		; MBU backup: bank 2
+.reg    MBUB3   R @		; MBU backup: bank 3
+.reg    MBUB4   R @		; MBU backup: bank 4
+.reg    MBUB5   R @		; MBU backup: bank 5
+.reg    MBUB6   R @		; MBU backup: bank 6
+.reg    MBUB7   R @		; MBU backup: bank 7
+
 .reg    IDEDCR  R @		; Last IDE disk: Device Control Register
 .equ    IDEASR  IDEDCR		; Last IDE disk: Alternate Status Register (=IDEDCR)
 .reg    IDEDATA R @		; Last IDE disk: Data register
@@ -149,15 +161,6 @@ _vector_table:
 .reg    HD2SZHI R @		; HD 2 size in sectors, high word
 .reg    HD3SZLO R @		; HD 3 size in sectors, low word
 .reg    HD3SZHI R @		; HD 3 size in sectors, high word
-
-.reg    MBUB0   R @		; MBU backup: bank 0
-.reg    MBUB1   R @		; MBU backup: bank 1
-.reg    MBUB2   R @		; MBU backup: bank 2
-.reg    MBUB3   R @		; MBU backup: bank 3
-.reg    MBUB4   R @		; MBU backup: bank 4
-.reg    MBUB5   R @		; MBU backup: bank 5
-.reg    MBUB6   R @		; MBU backup: bank 6
-.reg    MBUB7   R @		; MBU backup: bank 7
 
 .equ    CFG_MBU  #---------------1 ; MBU is present.
 .equ    CFG_RTC  #--------------1- ; RTC is present.
@@ -220,6 +223,12 @@ ret_stack:
 tib:
 
 &0800:
+blkbuf0:
+
+&0c00:
+blkbuf1:
+
+&1000:
 user_dict:
 
 
@@ -307,6 +316,19 @@ user_dict:
 
 	
 	
+// Macro: CFA_do2CONST(pfa)
+//
+// Execute a Forth constant or similar word defined at %pfa and below.
+//
+// Side effects:
+//   None for this macro, but executing the Forth word may have lots.
+
+.macro CFA_do2CONST(pfa)
+	CFA_doX(2CONST, pfa)
+.end
+
+	
+	
 // Macro: CFA_doUSER(pfa)
 //
 // Execute a Forth user variable or similar word defined at %pfa and below.
@@ -334,14 +356,24 @@ user_dict:
 
 	
 		
-&e000:
+&c000:
+__origin:
 	;; ROM header.
 	.word &0cf7		; Magic (CFT)
 	.word @-1		; Origin addr.
+
+	.word 1			; Number of programs
+	.word 0			; Reserved
+
+	;; Program #1
+	
 	.strp "CFT Forth ROM 0.1            " 0
-	;;     112233445566778899aabbccddeef
+	;;     112233445566778899aabbccddeef  f
 	;;     NB: MUST BE THIS LENGTH!
-	.word 0			; Header end.
+
+	.word init		; Entry point
+
+	;; End of header.
 	
 init:
 	JSR init_tables
@@ -459,6 +491,7 @@ _doVAR:
 	PUSH(SP)
 	NEXT
 
+	
 
 // The doCONST handler.
 //
@@ -475,9 +508,33 @@ _doVAR:
 // a constant holds a 16-bit value.
 _doCONST:
 	LOAD I RETV
-	STORE TMP0
-	LOAD TMP0
 	PUSH(SP)
+	NEXT
+
+	
+
+// The do2CONST handler.
+//
+// The PFA of the word is in the RETV register (&0000). Load the value stored
+// at mem[PFA] and mem[PFA+1} and leave them on the stack in that order. [PFA]
+// is the low order cell of a double constant, [PFA+1] is the high order cell.
+//
+// Note, since we don't modify the IP, we never really ENTER this
+// word like we ENTER (aka doCOL) a column definition. doVAR words behave
+// like special CODE words, and like CODE words, they're terminated with
+// a call to NEXT.
+//
+// Also note that this doubles as the CONST handler. The only difference
+// is one of semantics. A variable holds an address (a 16-bit value), while
+// a constant holds a 16-bit value.
+_do2CONST:
+	LOAD I RETV
+	PUSH(SP)
+
+	ISZ RETV
+	LOAD I RETV
+	PUSH(SP)
+
 	NEXT
 
 	
@@ -540,30 +597,31 @@ _doVOC:
 
 
 	;; Dictionary flags. Basic flags MUST be below &400.
-	.equ FFL_HASHMASK  &0007 ; 3 bits of hash data
+	.equ FFL_HASHMASK  #--------'-----111 ; 3 bits of hash data
 	
-	.equ FFL_IMMEDIATE &0010 ; Immediate word.
-	.equ FFL_COMPILE   &0020 ; Compile-only.
-	.equ FFL_RSVD0040  &0040 ;   RESERVED
-	.equ FFL_RSVD0080  &0080 ;   RESERVED
+	.equ FFL_IMMEDIATE #--------'----1--- ; Immediate word.
+	.equ FFL_COMPILE   #--------'---1---- ; Compile-only.
+	.equ FFL_RSVD0020  #--------'--1----- ;   RESERVED
+	.equ FFL_RSVD0040  #--------'-1------ ;   RESERVED
+	.equ FFL_RSVD0080  #--------'1------- ;   RESERVED
 
 	;; Forth dictionary flags (for the compiler's use only -- high bits)
 
-	.equ FFL_TYPE_MASK &0700 ; Word type flag (used for SEE, among others)
-	.equ FFL_T_CODE    &0000 ;   Type: machine code
-	.equ FFL_T_DOCOL   &0100 ;   Type: doCOL or equivalent
-	.equ FFL_T_VAR     &0200 ;   Type: doVAR (address)
-	.equ FFL_T_CONST   &0300 ;   Type: doCONST (value) or equivalent
-	.equ FFL_T_USER    &0400 ;   Type: doUSER (UA ofs) or equivalent
-	.equ FFL_T_DATA    &0500 ;   Type: raw data
-	.equ FFL_T_RSVD6   &0600 ;   RESERVED
-	.equ FFL_T_RSVD7   &0700 ;   RESERVED
+	.equ FFL_TYPE_MASK #-----111'-------- ; Word type flag (used for SEE, among others)
+	.equ FFL_T_CODE    #-----000'-------- ;   Type: machine code
+	.equ FFL_T_DOCOL   #-----001'-------- ;   Type: doCOL or equivalent
+	.equ FFL_T_VAR     #-----010'-------- ;   Type: doVAR (address)
+	.equ FFL_T_CONST   #-----011'-------- ;   Type: doCONST (value) or equivalent
+	.equ FFL_T_USER    #-----100'-------- ;   Type: doUSER (UA ofs) or equivalent
+	.equ FFL_T_DATA    #-----101'-------- ;   Type: raw data
+	.equ FFL_T_RSVD6   #-----110'-------- ;   RESERVED
+	.equ FFL_T_RSVD7   #-----111'-------- ;   RESERVED
 
-	.equ FFL_RSVD0800  &0800 ; RESERVED
-	.equ FFL_RSVD1000  &1000 ; RESERVED
-	.equ FFL_RSVD2000  &2000 ; RESERVED
-	.equ FFL_ROM       &4000 ; It's in the ROM.
-	.equ FFL_CFT       &8000 ; CFT-specific word.
+	.equ FFL_RSVD0800  #----1---'-------- ; RESERVED
+	.equ FFL_RSVD1000  #---1----'-------- ; RESERVED
+	.equ FFL_RSVD2000  #--1-----'-------- ; RESERVED
+	.equ FFL_ROM       #-1------'-------- ; It's in the ROM.
+	.equ FFL_CFT       #1-------'-------- ; CFT-specific word.
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -691,7 +749,7 @@ isr_done_tty0:
 &fff0:
 __bootvec:
 	JMP I @+1
-	.word init
+	.word @__origin+&13	; Boot first ROM partition
 
 	;; ISR vector
 &fff8:

@@ -104,6 +104,8 @@ _vtofs_doVAR:
 	.word _doVAR		; vector: _doVAR
 _vtofs_doCONST:
 	.word _doCONST		; vector: _doCONST
+_vtofs_do2CONST:
+	.word _do2CONST		; vector: _do2CONST
 _vtofs_doUSER:
 	.word _doUSER		; vector: _doUSER
 _vtofs_doVOC:
@@ -163,22 +165,35 @@ _uaofs_STATE:
 	.word FSF_INTERPRET	; STATE: Forth state
 	.equ FSF_INTERPRET 0	; Interpreting
 	.equ FSF_COMPILE   1	; Compiling
-	
+
+	;; (more or less) Standard user variables
 _uaofs_BASE:
 	.word 10	        ; BASE: the number base
 _uaofs_cTIB:
 	.word 0		        ; #TIB: character count in the TIB
 _uaofs_TIB:
 	.word TIBADDR	        ; TIB: Terminal input (and generic) buffer
-_uaofs_pIN:
+_uaofs_ofsIN:
 	.word 0			; >IN: input buffer pointer
 _uaofs_SPAN:
 	.word 0		    	; SPAN: character count received by EXPECT
 _uaofs_HLD:
 	.word 0			; HLD: pointer used in numeric output
-
-	;; Local user variables
-
+_uaofs_BLK:
+	.word 0			; BLK: the block currently being interpreted (0=TTY)
+	
+	;; CFT-Specific user variables
+_uaofs_pBLK:
+	.word 0			; >BLK: block buffer pointer.
+_uaofs_cBLK:
+	.word 0			; #BLK: length of current line.
+_uaofs_BLKBUF:
+	.word 0		        ; BLKBUF: pointer to current block buffer.
+_uaofs_BLKBUF0:
+	.word BLKB0ADDR	        ; BLKBUF0: pointer to first block buffer.
+_uaofs_BLKBUF1:
+	.word BLKB1ADDR		; BLKBUF1: pointer to second block buffer.
+	
 _uaofs_CSP:
 	.word 0			; CSP: used for error checking (like eForth)
 _uaofs_HANDLER:
@@ -192,6 +207,8 @@ _uaofs_ROTOR:
 
 	.word dw_rx_q		; '?KEY
 	.word dw_EMIT		; 'EMIT
+_uaofs_INSRC:
+	.word dw_INSRC		; 'INSRC
 _uaofs_READY:
 	.word dw_dot_READY	; '.READY
 _uaofs_PROMPT:
@@ -203,7 +220,9 @@ _uaofs_EVAL:
 _uaofs_NUMBER:
 	.word dw_NUMBERq	; 'NUMBER
 _uaofs_EOBq:
-	.word dw_EOTIBq		; 'EOB?
+	.word dw__EOBq		; 'EOB?
+_uaofs_EOLq:
+	.word dw__EOLq		; 'EOL?
 	
 _uaend:
 
@@ -213,6 +232,7 @@ _uaend:
 	.equ VTOFS_doCOL @_vtofs_doCOL-_vtstart
 	.equ VTOFS_doVAR @_vtofs_doVAR-_vtstart
 	.equ VTOFS_doCONST @_vtofs_doCONST-_vtstart
+	.equ VTOFS_do2CONST @_vtofs_do2CONST-_vtstart
 	.equ VTOFS_doVOC @_vtofs_doVOC-_vtstart
 	
 	;; Calculate the length of the user area table.
@@ -234,15 +254,23 @@ _uaend:
 	.equ UAOFS_BASE @_uaofs_BASE-_uastart
 	.equ UAOFS_cTIB @_uaofs_cTIB-_uastart
 	.equ UAOFS_TIB @_uaofs_TIB-_uastart
-	.equ UAOFS_pIN @_uaofs_pIN-_uastart
+	.equ UAOFS_ofsIN @_uaofs_ofsIN-_uastart
 	.equ UAOFS_HLD @_uaofs_HLD-_uastart
-	.equ UAOFS_SPAN @_uaofs_HLD-_uastart
+	.equ UAOFS_SPAN @_uaofs_SPAN-_uastart
+
+	.equ UAOFS_BLK @_uaofs_BLK-_uastart
+	.equ UAOFS_pBLK @_uaofs_pBLK-_uastart
+	.equ UAOFS_cBLK @_uaofs_cBLK-_uastart
+	.equ UAOFS_BLKBUF @_uaofs_BLKBUF-_uastart
+	.equ UAOFS_BLKBUF0 @_uaofs_BLKBUF0-_uastart
+	.equ UAOFS_BLKBUF1 @_uaofs_BLKBUF1-_uastart
 
 	.equ UAOFS_CSP @_uaofs_CSP-_uastart
 	.equ UAOFS_HANDLER @_uaofs_HANDLER-_uastart
 	.equ UAOFS_DISKUNIT @_uaofs_DISKUNIT-_uastart
 	.equ UAOFS_ROTOR @_uaofs_ROTOR-_uastart
 
+	.equ UAOFS_INSRC @_uaofs_INSRC-_uastart
 	.equ UAOFS_READY @_uaofs_READY-_uastart
 	.equ UAOFS_PROMPT @_uaofs_PROMPT-_uastart
 	.equ UAOFS_OK @_uaofs_OK-_uastart
@@ -251,6 +279,7 @@ _uaend:
 	.equ UAOFS_NUMBER @_uaofs_NUMBER-_uastart
 
 	.equ UAOFS_EOBq @_uaofs_EOBq-_uastart
+	.equ UAOFS_EOLq @_uaofs_EOLq-_uastart
 	
 
 // End of file.

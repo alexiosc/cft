@@ -37,6 +37,21 @@
 .end
 
 
+
+	
+// Macro: doREG(r)
+//
+// Compiles a doLIT word and its associated literal. The literal used
+//
+// Side effects:
+//   None.	
+
+.macro doREG(r)
+	.word dw_doLIT		; doREG(%r)
+	.word @%r&&3ff
+.end
+
+
 	
 // Macro: doCHAR(c)
 //
