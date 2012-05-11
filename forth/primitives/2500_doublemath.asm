@@ -4,10 +4,43 @@
 
 
 	
+	;; word:  N>D
+	;; alias: N_to_D
+	;; flags: CODE ROM CFT
+	;; notes: N>D ( n -- d )
+	;;        Convert the integer n to a double integer d.
+
+	SPEEK(SP)
+	SNA
+	JMP _n2d_pos
+_n2d_neg:
+	LOAD MINUS1
+	JMP _n2d_end
+_n2d_pos:
+	LI 0
+_n2d_end:
+	PUSH(SP)
+	NEXT
+
+
+	
+	;; word:  U>D
+	;; alias: U_to_D
+	;; flags: CODE ROM CFT
+	;; notes: U>D ( u -- d )
+	;;        Convert the unsigned integer n to a double integer d.
+
+	LI 0
+	PUSH(SP)
+	NEXT
+
+
+
 	;; word:  DNEGATE
 	;; flags: CODE ROM
 	;; notes: NEGATE ( d -- -d )
 	;;   Negate double-word d (two's complement)
+
 	LOAD SP			; SP -= 3
 	ADD MINUS2
 	STORE SP

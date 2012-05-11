@@ -2,10 +2,12 @@
 //
 // String handling primitives.
 
+
+	
 	;; word:  BL
 	;; flags: CONST ROM
 	;; notes: bl ( -- 32 )
-	;;   Pushes the codepoint of a space onto the stack.
+	;;        Pushes the codepoint of a space onto the stack.
 
 	.word 32
 
@@ -158,17 +160,32 @@ _cmove_loop:
 	
 
 	;; word:  FILL
-	;; flags: CODE ROM
+	;; flags: CODE ROM CFT
 	;; notes: FILL ( a u c -- )
 	;;   Fill c cells starting at address a with value u.
 
 	RPOP(TMP1, SP)		; Count (in cells)
 	RPOP(TMP2, SP)		; Value
+_fill_jumpin:
 	RPOP(I0, SP)		; Address
 
 	JSR _cfill
 	NEXT
 
+	
+
+	;; word:  ERASE
+	;; flags: CODE ROM
+	;; notes: ERASE ( a u -- )
+	;;        Fill c cells starting at address a with zeroes.
+
+	RPOP(TMP1, SP)		; Count (in cells)
+	LI 0
+	STORE TMP2		; Value
+	JMP _fill_jumpin	; Jump into FILL.
+
+
+	
 _cfill:
 	RNEG(TMP1,TMP1)		; TMP1 = -TMP1
 	SNZ			; Sanity check: exit if TMP1=0.

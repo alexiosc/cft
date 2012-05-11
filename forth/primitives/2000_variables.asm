@@ -128,15 +128,32 @@
 	.word UAOFS_TIB
 
 
+	
+	;; word:  TIBADDR
+	;; flags: CONST ROM
+	;; notes: TIBADDR ( -- a )
+	;;        The default, boot-time address of the terminal input buffer.
+	
+	.word TIBADDR
+
+
+
+	;; word:  TIBS
+	;; flags: CONST ROM
+	;; notes: TIBS ( -- a )
+	;;        The defualt, boot-time size of the TIB.
+	
+	.word TIBS
+
+
 
 	;; word:  >IN
-	;; alias: pIN
+	;; alias: ofsIN
 	;; flags: USER ROM
 	;; notes: >IN ( -- a )
-	;;   The address of the pointer to the current character in the
-	;;   terminal input buffer.
+	;;        The address of the offset into the current input stream.
 
-	.word UAOFS_pIN
+	.word UAOFS_ofsIN
 
 
 	
@@ -146,6 +163,73 @@
 	;;        Returns the address of the SPAN variable.
 
 	.word	UAOFS_SPAN
+
+
+	
+	;; word:  BLK
+	;; flags: USER ROM
+	;; notes: BLK ( -- a )
+	;;        Returns the address of the block number currently being
+        ;;        interpreted. If 0, input is from the terminal.
+
+	.word	UAOFS_BLK
+
+
+	
+	;; word:  >BLK
+	;; alias: pBLK
+	;; flags: USER ROM CFT
+	;; notes: >BLK ( -- a )
+	;;        Returns the address of a pointer into the current block being
+        ;;        interpreted.
+
+	.word	UAOFS_pBLK
+
+
+	
+	;; word:  #BLK
+	;; alias: cBLK
+	;; flags: USER ROM CFT
+	;; notes: #BLK ( -- +n )
+	;;        Returns the length of the last line parsed from the block buffer.
+
+	.word	UAOFS_cBLK
+
+
+	
+	;; word:  BLKBUF
+	;; flags: USER ROM CFT
+	;; notes: BLKBUF ( -- a )
+	;;        Returns the address of a pointer to the current block buffer.
+
+	.word	UAOFS_BLKBUF
+
+
+	
+	;; word:  BLKBUF0
+	;; flags: USER ROM CFT
+	;; notes: BLKBUF0 ( -- a )
+	;;        Returns the address of a pointer to the first block buffer.
+
+	.word	UAOFS_BLKBUF0
+
+
+	
+	;; word:  BLKBUF1
+	;; flags: USER ROM CFT
+	;; notes: BLKBUF1 ( -- a )
+	;;        Returns the address of a pointer to the first block buffer.
+
+	.word	UAOFS_BLKBUF1
+
+
+	
+	;; word:  BLKBS
+	;; flags: CONST ROM CFT
+	;; notes: BLKBS ( -- +n )
+	;;        Returns the block buffer size.
+
+	.word	BLKBS
 
 
 	
@@ -224,6 +308,15 @@
 
 
 	
+	;; word:  'INSRC
+	;; alias: tick_INSRC
+	;; flags: USER ROM CFT
+	;; notes: 'INSRC ( -- a )
+	;;        The address of a word to return the current input buffer and buffer size.
+	
+	.word	UAOFS_INSRC
+
+
 	;; word:  '.READY
 	;; alias: tick_dot_READY
 	;; flags: USER ROM CFT
@@ -278,6 +371,16 @@
 	;; alias: tick_EOBq
 	;; flags: USER ROM CFT
 	;; notes: 'EOB? ( -- a | 0 )
+	;;        The address of the EOB? vector (or 0).
+	
+	.word	UAOFS_EOBq
+
+	
+	
+	;; word:  'EOL?
+	;; alias: tick_EOLq
+	;; flags: USER ROM CFT
+	;; notes: 'EOL? ( -- a | 0 )
 	;;        The address of the EOB? vector (or 0).
 	
 	.word	UAOFS_EOBq

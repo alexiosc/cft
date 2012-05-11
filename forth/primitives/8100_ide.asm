@@ -11,6 +11,10 @@
 	
 .equ    IDE_EARLYBUF   &1f00
 
+;; NB: These are NOT meant to be changed.
+.equ    BKSIZE         1024	; block size in machine words (cells)
+.equ    BKSIZE_SECTORS 4	; block size in sectors (256 cells)
+
 ;; IDE register offsets (based on IDE0 or IDE1)
 
 .equ    IDE_OFS_DCR    &06    ; Address offset of the Control Register
@@ -27,8 +31,13 @@
 
 ;; IDE commands
 
-.equ    IDE_RECAL     &10	; Recalibrate
-.equ    IDE_IDENTIFY  &ec	; Identify
+.equ    IDE_RECAL      &10	; Recalibrate
+.equ 	IDE_READR      &20	; Read with retry
+.equ 	IDE_READMULT   &c4	; Read multiple
+.equ 	IDE_WRITER     &30	; Write with retry
+.equ 	IDE_WRITEMULT  &c5	; Write multiple
+.equ    IDE_SETMULT    &c6	; Set multiple mod
+.equ    IDE_IDENTIFY   &ec	; Identify
 
 ;; Values for the Drive/Head register.
 
@@ -40,6 +49,9 @@
 
 .equ 	HDDCR		OUT I IDEDCR
 .equ    HDCMD 		OUT I IDECMD
+.equ    HDSCR		OUT I IDESCR
+
+.equ    HDINASR 	IN I IDEASR
 
 ;; Assembler macros
 
@@ -97,6 +109,7 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
+.page
 
 	;; Set up the IDE registers
 	;; 
@@ -291,7 +304,7 @@ _ide_rst_loop:
 	FORTH(dw_PROGRESS)	; note: clobbers TMP0, TMP15, TMP14
 
 _ide_rst_loop_fast:
-	IN I IDEASR		; Read the alt status register
+	HDINASR			; Read the alt status register
 	STORE TMP0
 
 	;; Make sure there IS a controller present.
@@ -329,27 +342,58 @@ _ide_rst_yes:
 
 
 
-	;; TODO: Fix this
+	;; TODO: Fix this: detect errors
+	;; word:  IDE.BSY...
+	;; alias: IDE_BSY_wait
+	;; flags: CODE ROM CFT
+	;; notes: IDE.BSY... ( -- )
+	;;        Wait for the disk to stop being busy.
+
+_ide_bsy_loop:
+	HDINASR
+	AND _ide_BSY
+	SZA
+	JMP _ide_bsy_loop
+	NEXT
+
+
+
+	;; TODO: Fix this: detect errors
+	;; word:  ...IDE.DRQ
+	;; alias: IDE_DRQ_wait
+	;; flags: CODE ROM CFT
+	;; notes: IDE.DRQ... ( -- )
+	;;        Wait until the disk has (or can accept) data.
+
+_ide_drq_loop:
+	HDINASR
+	AND _ide_DRQ
+	SNZ
+	JMP _ide_drq_loop
+	NEXT
+
+
+
+	;; word:  idescr
+	;; flags: CODE ROM CFT
+	;; notes: idescr ( +n -- )
+	;;        Set number of sectors for next command
+
+	POP(SP)
+	HDSCR
+	NEXT
+
+
+
+	;; TODO: Fix this: detect errors
 	;; word:  idecmd
 	;; flags: CODE ROM CFT
 	;; notes: idecmd ( x -- )
 	;;        Issue an IDE command
 
-_idecmd_wait1:
-	IN R &a6
-	AND @_idecmd_data+0
-	SNZ
-	JMP _idecmd_wait1
-
+	FORTH(dw_IDE_BSY_wait)
 	POP(SP)
-	OUT R &b7
-	
-_idecmd_wait2:
-	IN R &a6
-	AND @_idecmd_data+0
-	SNZ
-	JMP _idecmd_wait2
-	NEXT
+	OUT I IDECMD
 
 _idecmd_data:
 _ide_DRDY:
@@ -361,7 +405,7 @@ _ide_DRQ:
 
 
 
-	;; TODO: Fix this
+	;; TODO: Fix this: timeout and issue error.
 	;; word:  idewait
 	;; flags: CODE ROM CFT
 	;; notes: idewait ( -- )
@@ -369,7 +413,7 @@ _ide_DRQ:
 
 _idewait_loop:
 	IN R &a6
-	AND _ide_DRDY
+	AND _ide_BSY
 	SNZ
 	JMP _idewait_loop
 	NEXT
@@ -394,6 +438,9 @@ _ide_rst_kw:
 	;; Drive 0 first.
 	IDE_SELDRVL(0)
 
+	;; Wait for the disk to be ready.
+	FORTH(dw_IDE_BSY_wait)	; IDE.BSY...
+
 	;; Send an identify command and transfer the first 60 words to
 	;; IDE_EARLYBUF
 	IDE_DATACMD(IDE_IDENTIFY, IDE_EARLYBUF, 63)
@@ -409,9 +456,11 @@ _ide_rst_kw:
 
 	;; Output the size in kW (sectors / 4)
 	LOAD TMP14
+	PUSH(SP)
 	SBR
 	STORE TMP14
 	LOAD TMP15
+	PUSH(SP)
 	RBR
 	STORE TMP15
 	LOAD TMP14
@@ -419,9 +468,11 @@ _ide_rst_kw:
 	STORE TMP14
 	LOAD TMP15
 	RBR
+	STORE TMP15
 	PUSH(SP)
 	RPUSH(SP, TMP14)
 	FORTH(dw__Dstr)
+
 	FORTH(dw_TYPE)
 	LIA _ide_rst_kw
 	PUSH(SP)
@@ -433,241 +484,539 @@ _ide_rst_kw:
 	PUSH(SP)
 	LI 40
 	PUSH(SP)
-	FORTH(dw_dash_TRAILING)
+	FORTH(dw_dash_cTRAILING)
 	FORTH(dw_TYPEp)
 	FORTH(dw_SPACE)
-	
-	LI 1
-_ide_rst_ret:
-	PUSH(SP)		; Wing it for now.
-	PUSH(SP)
 
 	NEXT
 
 
-
-	;; word:  IDE.INIT
+	
+	;; word:  _HDSMLT
 	;; flags: DOCOL ROM CFT
-	;; notes: IDE.INIT ( n addr unit -- f )
+	;; notes: _HDSMLT ( n )
+	;;        Set multiple mode to the given number of sectors.
+
+	.word dw_idescr	        ; idescr ( ) \ Set the Sector Count Register
+	doLIT(IDE_SETMULT)
+	.word dw_idecmd		; idecmd ( ) \ Set multiple mode
+	.word dw_EXIT
+	
+
+
+	;; word:  HD.INIT
+	;; flags: DOCOL ROM CFT
+	;; notes: HD.INIT ( n -- f )
 	;;        Initialise disk device HDn to be the disk on bus with base
 	;;        address a and the specified unit number.  Returns flag f if a
 	;;        drive was found. Sets configuration flags and makes disk
 	;;        available for access.
 
-	.word dw__HDSEL		; _HDSEL ( n ) \ Select drive <a,n>.
-	.word dw__HDRST		; _HDRST ( n f ) \ Reset & detect.
-	.word dw_DUP		; DUP ( n f f )
+ 	.word dw_DUP		; DUP ( n n )
+	.word dw_to_R		; >R ( n )
+	.word dw__HD_set	; _HD! ( ) \ Select drive <a,n>.
+	.word dw__HDRST		; _HDRST ( f ) \ Reset & detect.
+
 	.word dw_if_branch	;   \ Skip the rest if no disk
 	.word _ide_init_no
-	.word dw__HDIDENT	; _HDIDENT ( n f ) \ Identify disk.
+	.word dw__HDIDENT	; _HDIDENT ( sizelo sizehi ) \ Identify disk.
+	.word dw_SWAP 		; SWAP ( sizehi sizelo )
+	doLIT(4)		; 4 sectors = one kiloword
+	.word dw__HDSMLT	; _HDSMLT ( sizehi sizelo ) \ Set multiple mode.
+	doLIT(1)		;  ( sizehi sizelo 1 )
+	.word dw_not_ROT	; -ROT ( 1 sizehi sizelo )
 
 _ide_init_done:
-	.word dw_SWAP		; SWAP ( f n )
-	.word dw_DROP		; DROP ( f )
+	.word dw_R_from		; R> ( f sizehi sizelo n )
+	.word dw__IDE_addr	; IDE@ ( f sizehi sizelo addr )
+
+	.word dw_DUP		; DUP ( f sizehi sizelo addr addr )
+	.word dw_to_R		; >R ( f sizehi sizelo addr )
+	.word dw_store		; ! ( f sizehi )
+	.word dw_R_from		; R> ( f sizehi addr )
+	.word dw_inc		; 1+ ( f sizehi addr+1 )
+	.word dw_store		; ! ( f )
 	.word dw_EXIT
 
-_ide_init_no:			;  ( n f )
-	.word dw_SWAP		; SWAP ( f n )
-	.word dw_DROP		; DROP ( f )
-	.word dw_EXIT
+_ide_init_no:
+	doLIT(0)		; 0 ( 0 )
+	.word dw_2DUP		; 0 ( 0 0 0 )
+	.word dw_branch
+	.word _ide_init_done
 
 
 
-
-
-
-
-//////////////////////////////////////////////////////////
-
-	;; word:  HDn?
+	;; word:  _IDE@
+	;; alias: _IDE_addr
 	;; flags: DOCOL ROM CFT
-	;; notes: HDn? ( n -- f )
-	;;        Returns non-zero if IDE disk IDE n is present.
+	;; notes: _IDE@ ( n -- addr )
+	;;        Returns the address of the dist structure for disk unit n.
+	;; code:  : _HDaddr ( n -- addr ) 2* HD0SZLO + ;
 
-	doLIT(CFG_HD0)		; CFG_HD0 ( n u )
-	.word dw_SWAP		; SWAP ( u n )
-	.word dw_shl		; << ( u<<n )
-	.word dw_SYSCFG		; SYSCFG ( u<<n cfg )
-	.word dw_AND		; AND ( f )
+	.word dw_2mul		; 2* ( 2n )
+	doREG(HD0SZLO)		; base address ( 2n addr )
+	.word dw_add		; + ( addr )
 	.word dw_EXIT
 
 
 
+	;; word:  _IDE!
+	;; alias: _HD_set
+	;; flags: DOCOL ROM CFT
+	;; notes: _HD! ( n -- )
+	;;        Select the specified disk unit.
+
+	doLIT(3)		; 3
+	.word dw_AND		; AND ( n )
+	
+	;; Bit 1 is the IDE bus.
+	.word dw_DUP		; DUP ( n n )
+	doLIT(2)		; 2 ( n n 2 )
+	.word dw_AND		; AND ( n f )
+	.word dw_2div		; 2/ ( n f )
+	doREG(SYSIDE0)		; SYSIDE0 ( n f addr )
+	.word dw_add		; + ( n addr )
+	.word dw_fetch		; @ ( n ioaddr )
+	.word dw_SWAP		; SWAP ( ioaddr n )
+	;; Bit 0 is the unit number.
+	doLIT(1)		; 1 ( ioaddr n 1 )
+	.word dw_AND		; AND ( ioaddr unit )
+	.word dw__HDSEL		; _HDSEL
+	.word dw_EXIT
 
 
 
+	;; word:  HDSET
+	;; alias: HDSET
+	;; flags: DOCOL ROM CFT
+	;; notes: HDSET ( n -- )
+	;;        Select the specified disk unit. Throw an error if not present.
+	;; code:  : HDSET ( n -- ) DUP HD? OR 0= ABORT" HD not present" _HD! ;
+
+	.word dw_DUP
+	.word dw_HDq
+	.word dw_OR
+	.word dw_zero_equals
+	.word dw_doABORT_str
+	.word @+9
+	.strp "HD not present" 0
+	;;     223344556677889.
+	.word dw__HD_set
+	.word dw_EXIT
+	
 
 
+	;; word:  HD?
+	;; alias: HDq
+	;; flags: DOCOL ROM CFT
+	;; notes: HD? ( n -- d )
+	;;        Returns a non-zero double integer if IDE disk IDE n
+        ;;        is present. The value represents the number of
+        ;;        sectors on the disk.
+	;; code:  : HD? ( n -- d ) HD 2fetch ;
+
+	.word dw__IDE_addr
+	.word dw_two_fetch
+	.word dw_EXIT
+
+
+
+	;; word:  IDE.INIT
+	;; flags: DOCOL ROM CFT
+	;; notes: IDE.INIT ( n addr -- )
+	;;        Initialise IDE channel #n at address addr.
+
+	.word dw_SWAP		; SWAP ( addr n )
+	doREG(SYSIDE0)		; SWAP SYSIDE0 ( addr n addr )
+	.word dw_add		; SWAP SYSIDE ( addr addr )
+	.word dw_store		; ! ( )
+	.word dw_EXIT
+
+
+	
+	;; word:  IDE.RB
+	;; flags: CODE ROM CFT
+	;; notes: IDE.rd ( addr -- )
+	;;        Read an IDE block from the current drive, store at addresses a1 to a1+BKSIZE-1.
+
+	FORTH(dw_IDE_DRQ_wait)	; IDE_DRQ... (wait for DRQ to be set)
+
+	RPOP(I0, SP)		; buffer addr
+	RMOV(I1, _iderb_count)
+	
+_iderb_loop:
+	IN I IDEDATA
+	STORE I I0
+	ISZ I1
+	JMP _iderb_loop
+	NEXT
+	
+ _iderb_count:
+ 	.word @0-BKSIZE		; -BKSIZE
+
+
+
+	;; word:  IDE.WB
+	;; flags: CODE ROM CFT
+	;; notes: IDE.wr ( addr -- )
+	;;        Copy a block from a1 to the current drive's buffer. BKSIZE cells are copied.
+
+	FORTH(dw_IDE_DRQ_wait)	; IDE_DRQ... (wait for DRQ to be set)
+	
+	RPOP(I0, SP)		; buffer addr
+	STORE I0
+	RMOV(I1, _iderb_count)
+	
+_idewb_loop:
+
+	LOAD I I0
+	OUT I IDEDATA
+	ISZ I1
+	JMP _idewb_loop
+	NEXT
+
+
+
+	;; word:  IDE.SEEKB
+	;; flags: CODE ROM CFT
+	;; notes: IDE.SEEKB ( d -- )
+	;;        Set the block number for subsequent operations.
+	;;        Blocks are hardwired to 4 disk sectors, and block numbers
+	;;        are IDE LBA blocks << 2. Perform this conversion here.
+
+	POP(SP)			; Pop high block number (sector bits 18-33)
+	STORE TMP1
+	RNR			; >>4
+	RBR			; >>1
+	RBR			; >>1 --> total 6 bits
+	AND PLUS15		; AND 15
+	OR IDEDHRB		; Base DHR value
+	OUT I IDEDHR		; Set drive/head (aka LBA3) reg
+	PRINTH
+	
+	LOAD TMP1		; Load sector bits 18-33
+	AND BYTELO		; Get bits 16-23
+	OUT I IDELBA2		; Output to LBA 16-23 reg
+	PRINTH
+
+	POP(SP)			; Pop low block number (sector bits 2-17)
+	STORE TMP1
+
+	RNR			; >>4
+	RBR			; >>1
+	RBR			; >>1 --> total 6 bits
+	AND BYTELO		; Get low 8 bits
+	OUT I IDELBA1		; Out to LBA 8-15 reg
+	PRINTH
+
+	LOAD TMP1		; Load bits 2-17
+	AND BYTELO		; Bits 16-23
+	OUT I IDELBA0		; Output to LBA 0-8 reg
+	PRINTH
+
+	NEXT
+
+
+
+	;; word:  IDE.SEEK
+	;; flags: CODE ROM CFT
+	;; notes: IDE.SEEK ( d -- )
+	;;        Set the sector number for subsequent operations.
+
+	POP(SP)			; Pop high LBA (bits 16-31)
+	STORE TMP1
+	RNR			; >>4
+	RNR			; >>4
+	AND PLUS15		; AND 15
+	OR IDEDHRB		; Base DHR value
+	OUT I IDEDHR		; Set drive/head (aka LBA3) reg
+	
+	LOAD TMP1		; Load bits 16-31
+	AND BYTELO		; Get bits 16-23
+	OUT I IDELBA2		; Output to LBA 16-23 reg
+
+	POP(SP)			; Pop low LBA (bits 0-15)
+	STORE TMP1
+
+	RNR			; >>4
+	RNR			; >>4
+	AND BYTELO		; Get low 8 bits
+	OUT I IDELBA1		; Out to LBA 8-15 reg
+
+	LOAD TMP1		; Load bits 16-31
+	AND BYTELO		; Get bits 16-23
+	OUT I IDELBA0		; Output to LBA 0-8 reg
+
+	NEXT
+
+
+
+	;; word:  HD>
+	;; alias: HD_from
+	;; flags: DOCOL ROM CFT
+	;; notes: HD> ( d addr -- )
+	;;        Read the specified BKSIZE-cell block number (a double integer)
+        ;;        from the current disk unit and store it in memory starting at
+        ;;        address addr.
+	;;        Note: disk block addresses are sectors times 4.
+
+	.word dw_IDE_BSY_wait	; IDE.BSY... ( lo hi addr ) \ Wait for disk to be ready.
+
+	;; Seek to the sector
+	.word dw_not_ROT	; SWAP ( addr lo hi )
+	.word dw_IDE_SEEK	; IDE.SEEK ( addr )
+
+	;; Request one sector
+	doLIT(1)
+	.word dw_idescr
+
+	;; Read it
+	;doLIT(IDE_READR)	; ( addr cmd )
+	doLIT(IDE_READMULT)	; ( addr cmd )
+	.word dw_idecmd		; ( addr )
+
+	;; Copy it to memory.
+	.word dw_IDE_RB		; IDE.RB ( )
+	.word dw_EXIT
+
+
+
+	;; word:  >HD
+	;; alias: to_HD
+	;; flags: DOCOL ROM CFT
+	;; notes: >HD ( d addr -- )
+	;;        Write 256 words starting at address addr to the disk sector
+        ;;        specified in d (a double integer).
+
+	.word dw_IDE_BSY_wait	; IDE.BSY... ( lo hi addr ) \ Wait for disk to be ready.
+
+	;; Seek to the sector
+	.word dw_not_ROT	; SWAP ( addr lo hi )
+	.word dw_IDE_SEEK	; IDE.SEEK ( addr )
+
+	;; Request one sector
+	doLIT(1)
+	.word dw_idescr
+
+	;; Write it
+	doLIT(IDE_WRITER)	; ( addr cmd )
+	.word dw_idecmd		; ( addr )
+
+	;; Copy the buffer from memory to the drive.
+	.word dw_IDE_WB		; IDE.WB ( )
+
+	;; At this point, the drive writes the sector. Wait for it to finish.
+	.word dw_IDE_BSY_wait	; IDE.BSY... ( )
+
+	.word dw_EXIT
+
+
+
+	;; word:  pstate
+	;; flags: DOCOL ROM CFT
+
+	doLIT(_pstate1)
+	.word dw_typep0
+	.word dw_HEX
+	.word dw_BLK
+	.word dw_fetch_dot
+	
+	doLIT(_pstate2)
+	.word dw_typep0
+	.word dw_ofsIN
+	.word dw_fetch_dot
+	
+	doLIT(_pstate3)
+	.word dw_typep0
+	.word dw_TIB
+	.word dw_fetch_dot
+	
+	doLIT(_pstate4)
+	.word dw_typep0
+	.word dw_cTIB
+	.word dw_fetch_dot
+	
+	doLIT(_pstate5)
+	.word dw_typep0
+	.word dw_BLKBUF
+	.word dw_fetch_dot
+	
+	doLIT(_pstate6)
+	.word dw_typep0
+	.word dw_pBLK
+	.word dw_fetch_dot
+	
+	doLIT(_pstate7)
+	.word dw_typep0
+	.word dw_cBLK
+	.word dw_fetch_dot
+	
+	doLIT(_pstate8)
+	.word dw_typep0
+	.word dw_EOLq
+	.word dw_dot
+	
+	doLIT(_pstate9)
+	.word dw_typep0
+	.word dw_EOBq
+	.word dw_dot
+
+	.word dw_CR
+	
+	.word dw_EXIT
+
+
+_pstate1:	.strp 10 "Parse state: BLK" 0
+_pstate2:	.strp ", >IN" 0
+_pstate3:	.strp ", TIB" 0
+_pstate4:	.strp ", #TIB" 0
+_pstate5:	.strp ", BLKBUF" 0
+_pstate6:	.strp ", >BLK" 0
+_pstate7:	.strp ", #BLK" 0
+_pstate8:	.strp ", EOL?" 0
+_pstate9:	.strp ", EOB?" 0
+
+
+
+	;; word:  test
+	;; flags: DOCOL ROM CFT
+
+	;; Choose disk #0.
+	doLIT(0)		; 0
+	.word dw_HDSET		; HDSET ( )
+
+	;; Read the first sector
+	doLIT(0)		; 0 ( 0 )
+	doLIT(0)		; 0 ( 0 0 )
+	doLIT(&8000)		; &1000 ( 0 0 &1000)
+	.word dw_HD_from	; HD> ( 0 )
+
+	;; Dump some of the sector
+	doLIT(&8000)
+	doLIT(&70) 
+	.word dw_DUMP
+	.word dw_DROP
+
+	;; Set block parser
+	doLIT(1)
+	.word dw_BLK
+	.word dw_store
+
+	doLIT(&8000)
+	.word dw_BLKBUF
+	.word dw_store
+
+	.word dw_BLKBUF
+	.word dw_fetch
+	.word dw_BLKBS
+
+	.word dw_HEX
+	.word dw_CR
+	.word dw_dot_s
+	.word dw_CR
+	
+	.word dw_dash_TRAILING
+	.word dw_dot_s
+	.word dw_CR
+	
+	doLIT(5)
+	.word dw_vt_PAPER
+	.word dw_TYPE
+	doLIT(0)
+	.word dw_vt_PAPER
+	.word dw_CR
+
+	.word dw_getline	; BLKBUF0 ( va )
+	.word dw_CR
+	.word dw_getline	; BLKBUF0 ( va )
+	.word dw_CR
+	.word dw_getline	; BLKBUF0 ( va )
+	.word dw_CR
+
+	.word dw_HEX
+	.word dw_dot_s
+	.word dw_HALT
 
 	
 	
 
-
-
-	;; /ord:  ideread
-	;; /lags: CODE ROM CFT
-	;; /otes: idecmd ( a1 a2 -- )
-	;;        Read an IDE sector from port a2, store at addresses a1 to a1+255.
-
-;; 	POP2(SP)		; a1 in AC, a2 in TMP1
-;; 	STORE I0
-;; 	RMOV(TMP0, _ideread_count)
+	doLIT(0)
+	.word dw_BLK
+	.word dw_store
 	
-;; _ideread_loop:
-;; 	IN I TMP1
-;; 	STORE I I0
-;; 	ISZ TMP0
-;; 	JMP _ideread_loop
-;; 	NEXT
-	
-;; _ideread_count:
-;; 	.word -256
+	.word dw_EXIT
 
+	;; .word dw_pstate
 
-
-	;; /ord:  ideseek
-	;; /lags: CODE ROM CFT
-	;; /otes: ideseek ( d -- )
-	;;        Read an IDE sector from port a2, store at addresses a1 to a1+255.
-
-;; 	POP(SP)			; Pop high LBA (bits 16-31)
-;; 	STORE TMP1
-
-;; 	RNR			; >>4
-;; 	RNR			; >>4
-;; 	AND PLUS15		; AND 15
-;; 	OR @_ideseek_data+0	; LBA, drive 0
-;; 	OUT R &b6
-	
-;; 	LOAD TMP1		; Load bits 16-31
-;; 	AND BYTELO		; Get bits 16-23
-;; 	OUT R &B5		; Output to LBA 16-23 reg
-
-;; 	POP(SP)			; Pop low LBA (bits 0-15)
-;; 	STORE TMP1
-
-;; 	RNR			; >>4
-;; 	RNR			; >>4
-;; 	AND BYTELO		; Get low 8 bits
-;; 	OUT R &b4		; Out to LBA 8-15 reg
-
-;; 	LOAD TMP1		; Load bits 16-31
-;; 	AND BYTELO		; Get bits 16-23
-;; 	OUT R &B3		; Output to LBA 0-8 reg
-
-;; 	NEXT
-
-;; _ideseek_data:
-;; 	.word #1110'0000	; LBA, drive 0.
-;; 	.word #1111'0000	; LBA, drive 1.
-
-
-
-	;; /ord:  idewrite
-	;; /lags: CODE ROM CFT
-	;; /otes: idewrite ( a1 a2 -- )
-	;;        Write an IDE sector from addresses a1 to a1+255 to port a2.
-
-;; 	POP2r(SP)		; a1 in AC, a2 in TMP1
-;; 	STORE I0
-;; 	RMOV(TMP0, _ideread_count)
-	
-;; _idewrite_loop:
-;; 	LOAD I I0
-;; 	OUT I TMP1
-;; 	ISZ TMP0
-;; 	JMP _idewrite_loop
-;; 	NEXT
-
-
-
-	;; /ord:  idesr
-	;; /lags: DOCOL ROM CFT
-	;; /otes: idesr ( -- x )
-	;;        IDE Status register
-
-	;; doLIT(&b7)
-	;; .word dw_IO_fetch
 	;; .word dw_EXIT
-
-
-
-	;; /ord:  ideerr
-	;; /lags: DOCOL ROM CFT
-	;; /otes: ideerr ( -- x )
-	;;        IDE Error register
-
-	;; doLIT(&b1)
-	;; .word dw_IO_fetch
-	;; .word dw_EXIT
-
-
-
-	;; /ord:  idetest
-	;; /lags: DOCOL ROM CFT
-	;; /otes: ideerr ( -- x )
-	;;        IDE Error register
-
-	;; doLIT(&ec)
-	;; .word dw_idecmd
 	
-	;; doLIT(&e4)
-	;; .word dw_idecmd
 
-	;; doLIT(&8000)
-	;; doLIT(&b0)
-	;; .word dw_ideread
-	;; doLIT(&8000)
-	;; doLIT(&80)
-	;; .word dw_DUMP
-	;; .word dw_DROP
+;; 	;; TIB @ >R >IN @ >R #TIB @ >R \ Save the parse state for later
+;; 	.word dw_TIB		; Save TIB
+;; 	.word dw_fetch
+;; 	.word dw_to_R
+;; 	.word dw_pIN		; Save >IN
+;; 	.word dw_fetch
+;; 	.word dw_to_R
+;; 	.word dw_cTIB		; Save #TIB
+;; 	.word dw_fetch
+;; 	.word dw_to_R
 
-	;; .word dw_EXIT
+;; 	;; Set the TIB to our buffer
+;; 	;; TODO: Change the buffer origin to something else.
+;; 	doLIT(&1000)		; &1000
+;; 	.word dw_DUP		; DUP ( buf buf )
+;; 	.word dw_TIB		; TIB ( buf buf a )
+;; 	.word dw_store		; ! ( buf )
+;; 	.word dw_pIN		; >IN ( buf a )
+;; 	.word dw_store		; ! ( )
+;; 	doLIT(1024)		; 1024 ( 1024 )
+;; 	.word dw_cTIB		; cTIB
+;; 	.word dw_store		; ! ( )
 
-	;; doLIT(1)
-	;; doLIT(&b2)
-	;; .word dw_IO_store
+;; 	;; 0 PARSE #TIB ! DROP \ Find the limit of the buffer.
+;; 	doLIT(0)
+;; 	.word dw_PARSE		; PARSE ( b u )
+;; 	.word dw_dash_TRAILING	; -TRAILING ( b u )
+;; 	.word dw_cTIB		; #TIB ( b u a )
+;; 	.word dw_store		; ! ( b )
+;; 	.word dw_DROP		; DROP ( )
 
-	;; doLIT(&20)
-	;; .word dw_idecmd
+;; 	;; ( ) TIB @ >IN ! ( ) \ Reset the parser
+;; 	.word dw_TIB
+;; 	.word dw_fetch
+;; 	.word dw_pIN
+;; 	.word dw_store
+
+;; 	;; Parse a line
+;; __test_loop:
+;; 	doLIT(10)		; 10 ( 10 )
+;; 	.word dw_PARSE		; PARSE ( b u )
+
+;; 	.word dw_if_DUP		; ?DUP ( b u u | b 0 )
+;; 	.word dw_if_branch	; ?branch
+;; 	.word __test_end
+
+;; 	.word dw_TYPE		; TYPE ( b u )
+;; 	.word dw_CR
+;; 	.word dw_branch
+;; 	.word __test_loop
+
+;; __test_end:
+;; 	;; >R #TIB ! >R >IN ! >R TIB ! \ Restore the parse state
+;; 	.word dw_R_from
+;; 	.word dw_cTIB
+;; 	.word dw_store
 	
-	;; doLIT(&e4)
-	;; .word dw_idecmd
-
-	;; doLIT(&8000)
-	;; doLIT(&b0)
-	;; .word dw_ideread
-	;; doLIT(&8000)
-	;; doLIT(&100)
-	;; .word dw_DUMP
-	;; .word dw_DROP
-
-
-
-	;; doLIT(1)
-	;; doLIT(0)
-	;; .word dw_ideseek
+;; 	.word dw_R_from
+;; 	.word dw_pIN
+;; 	.word dw_store
 	
-	;; doLIT(1)
-	;; doLIT(&b2)
-	;; .word dw_IO_store
+;; 	.word dw_R_from
+;; 	.word dw_TIB
+;; 	.word dw_store
 
-	;; doLIT(&20)
-	;; .word dw_idecmd
-	
-	;; doLIT(&e4)
-	;; .word dw_idecmd
-
-	;; doLIT(&8000)
-	;; doLIT(&b0)
-	;; .word dw_ideread
-	;; doLIT(&8000)
-	;; doLIT(&100)
-	;; .word dw_DUMP
-	;; .word dw_DROP
-
-	
-	;; .word dw_EXIT
+;; 	.word dw_EXIT
 
 
 

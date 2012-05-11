@@ -14,6 +14,7 @@
 	;; flags: CODE ROM
 	;; notes: ! ( w a -- )
 	;;   Store w at address a.
+
 	POP2 (SP)		; w in AC, a in TMP1
 	STORE I TMP1
 	NEXT
@@ -33,6 +34,7 @@
 	;; flags: CODE ROM
 	;; notes: @ ( a -- w )
 	;;   Retrieve value at address a.
+
 	SPEEK (SP)
 	STORE TMP1		; TMP1 <- w
 	LOAD I TMP1		; AC <- mem[TMP1]
@@ -42,11 +44,12 @@
 
 
 	;; word:  +!
-	;; alias: PLUS-STORE
+	;; alias: plus-store
 	;; flags: CODE ROM
 	;; notes: ! ( w a -- )
 	;;   word is added to value at address addr
-	POP2r (SP)		; w in AC, a in TMP1
+
+	POP2 (SP)		; w in AC, a in TMP1
 	ADD I TMP1		; AC <- AC + mem[w]
 	STORE I TMP1		; mem[w] <- AC
 	NEXT

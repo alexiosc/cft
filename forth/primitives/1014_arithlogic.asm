@@ -256,7 +256,33 @@
 	NEG			; Negate it
 	SPOKE0(SP)		; And store it back
 	NEXT
+
+
 	
+	;; word:  NOR
+	;; flags: CODE ROM
+	;; notes: NOR ( w w -- w )
+	;;   	  Bitwise OR
+
+	POP1PEEK1(SP)
+	OR TMP1
+	NOT
+	SPOKE0(SP)
+	NEXT
+
+
+	
+	;; word:  NAND
+	;; flags: CODE ROM
+	;; notes: NAND ( w w -- w )
+	;;        Bitwise OR
+
+	POP1PEEK1(SP)
+	AND TMP1
+	NOT
+	SPOKE0(SP)
+	NEXT
+
 
 	
 // End of file.

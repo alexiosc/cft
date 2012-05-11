@@ -293,6 +293,7 @@ _doLOOP_notdone:
 	NEXT
 
 	
+	
 	;; word:  J
 	;; flags: CODE ROM
 	;; notes: J ( -- u )
@@ -301,6 +302,34 @@ _doLOOP_notdone:
 	SPEEKn(RP, 2)
 	PUSH(SP)
 	NEXT
+
+	
+	
+	;; word:  K
+	;; flags: CODE ROM
+	;; notes: K ( -- u )
+	;;        Returns the third-innermost loop counter.
+
+	SPEEKn(RP, 3)
+	PUSH(SP)
+	NEXT
+
+	
+	
+	;; word:  +LOOP
+	;; alias: plus_LOOP
+	;; flags: CODE ROM
+	;; notes: +LOOP ( n -- )
+	;;        n is added to the loop index.  If the new index was
+        ;;        incremented across the boundary between limit-1 and limit
+        ;;        then the loop is terminated and loop control parameters are
+        ;;        discarded.  When the loop is not terminated, execution
+        ;;        continues to just after the corresponding DO .  sys is
+        ;;        balanced with its corresponding DO .
+
+	;; TODO: code this.
+	FAIL
+
 
 
 

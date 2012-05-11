@@ -167,6 +167,20 @@ _eval_end:
 	;; notes: QUIT ( -- )
 	;;        Enter the main Forth loop.
 
+	;; Disable debugging
+	.word dw_DEBUGOFF
+
+	;; TODO: Select default input device
+	;; 0 BLK ! \ Deselect loading from blocks.
+	doLIT(0)
+	.word dw_BLK
+	.word dw_store
+	
+	;; TIBADDR TIB ! \ Reset the TIB
+	.word dw_TIBADDR
+	.word dw_TIB
+	.word dw_store
+
 	;; RP0 @ RP! \ Clear the return stack
 	.word dw_RP0
 	.word dw_fetch
@@ -204,7 +218,7 @@ _quit_loop:
 	.word dw_dot_str
 	.word @+4
 	.strp "  ? " 0
-	.word dw_QUIT
+	.word dw_QUIT		; NB: QUIT clears stacks etc, so this is a jump, not a call.
 
 _quit_noerror:
 	.word dw_branch		; Loop again

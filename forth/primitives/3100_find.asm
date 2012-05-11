@@ -166,8 +166,13 @@ _find_fail:
 	
 
 
+.page
+
+
 _find_hash_mask:	
 	.word 7			; bit mask for the hash function
+
+
 	
 	;; word:  voc.find
 	;; flags: CODE ROM CFT

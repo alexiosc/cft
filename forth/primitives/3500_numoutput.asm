@@ -72,11 +72,23 @@ _bkt_number_jumpin:
 
 	
 
-	;; word:  S<#
-	;; alias: S-bkt-number
+	;; word:  N<#
+	;; alias: N-bkt-number
 	;; flags: DOCOL ROM
-	;; notes: S<# ( -- )
-	;;        Begin number conversion for single-precision numbers.
+	;; notes: N<# ( -- )
+	;;        Begin number conversion for signed single-precision numbers.
+
+	.word dw_N_to_D		; Sign-extend
+	.word dw_branch
+	.word _bkt_number_jumpin
+
+	
+
+	;; word:  U<#
+	;; alias: U-bkt-number
+	;; flags: DOCOL ROM
+	;; notes: U<# ( -- )
+	;;        Begin number conversion for unsigned single-precision numbers.
 
 	doLIT(0)		; 0 \ push zero high bits
 	.word dw_branch
@@ -202,7 +214,7 @@ _znumber_s_end:
 
 	;; word:  SIGN
 	;; flags: DOCOL ROM
-	;; notes: SIGN ( d -- 0 )
+	;; notes: SIGN ( d -- )
 	;;        Adds a sign indicator.
 
 	;; : SIGN ( d -- ) 0< IF 45 HOLD THEN ;

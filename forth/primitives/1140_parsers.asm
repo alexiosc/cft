@@ -70,16 +70,12 @@
 	;; alias: line_comment
 	;; flags: DOCOL ROM CFT IMMEDIATE
 	;; notes: \ ( -- )
-	;;        Ignores the remainder of the input buffer.
-	;; code:  : \ ( -- ) TIB @ #TIB @ + >IN ! ;
+	;;        Ignores the remainder of the line.
+	;; code:  : \ ( -- ) #TIB @ >IN ! ;
 
-	.word dw_TIB		; TIB ( va )
-	.word dw_fetch		; @ ( a )
-	.word dw_cTIB		; #TIB ( a va )
-	.word dw_fetch		; @ ( a u )
-	.word dw_add		; + ( a+u )
-	.word dw_pIN		; >IN ( a+u va )
-	.word dw_store		; !
+	doCHAR(10)		; 10
+	.word dw_PARSE		; PARSE ( b u )
+	.word dw_2DROP		; 2DROP ( )
 	.word dw_EXIT		; EXIT
 
 
@@ -140,7 +136,7 @@
 	.word dw_DUP		; DUP ( b u u )
 	.word dw_if_branch	; ( b u )
 	.word _token_empty
-	
+
 	.word dw_HERE		; HERE ( b u a )
 	.word dw__cPACK		; $cPACK ( a3 a4 )
 	.word dw_2DROP		; 2DROP ( )

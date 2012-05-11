@@ -3,8 +3,42 @@
 ;; // rudimentary line editing and terminal buffering
 
 	;; TODO: Fix this
-//.page
+.page
 	
+	;; Subroutine: getch
+	;;
+	;; Inputs:
+	;;   None.
+	;;
+	;; Outputs:
+	;;   INCH: character received.
+	;;   INPFR: new input flags.
+
+_getch:
+	LI IFL_NEWCHAR		; Do we have a new character?
+	AND INPFR
+	SNZ
+	JMP _getch
+
+	LI IFL_NEWCHAR		; Clear the flag
+	XOR MINUS1		; Faster than NOT
+	AND INPFR
+	STORE INPFR
+	RET
+
+	
+	
+	;; word:  KEY
+	;; flags: CODE ROM CFT
+	;; notes: KEY ( -- c )
+	;;        Returns the next available character from the terminal.
+
+	JSR _getch
+	RPUSH(SP, INPCH)
+	NEXT
+
+
+
 	;; word:  accept
 	;; flags: CODE ROM CFT
 	;; notes: accept ( a n -- a1 )
@@ -37,15 +71,7 @@
 	STORE TI0		; store for autoincrement
 
 __accept_loop:
-	LI IFL_NEWCHAR		; Do we have a new character?
-	AND INPFR
-	SNZ
-	JMP __accept_loop
-
-	LI IFL_NEWCHAR		; Clear the flag
-	XOR MINUS1		; Faster than NOT
-	AND INPFR
-	STORE INPFR
+	JSR _getch
 
 	;; Return pressed?
 	LI 13			; Is the character 13?
@@ -138,29 +164,117 @@ __accept_end:
 
 
 	
-	;; word:  QUERY
+	;; word:  EXPECT
 	;; flags: DOCOL ROM
-	;; notes: QUERY ( -- )
-	;;        Set up the TIB and get a line from the terminal.
+	;; notes: EXPECT ( a +n -- )
+	;;        Wrapper around accept for F83 compatibility.
+	;; code:  : EXPECT ( a +n -- ) accept DROP ;
 
-	.word dw_TIB		; TIB ( va )
-	.word dw_fetch		; @ ( tib-addr )
-	.word dw_pIN		; >IN ( tib-addr va )
-	.word dw_store		; ! ( )
-	
-	.word dw_TIB		; TIB
-	.word dw_fetch		; @ ( tib-addr )
-	.word dw_DUP		; DUP ( tib-addr tib-addr )
-	doLIT(TIBS)		; size of TIB ( tib-addr tib-addr tib-size )
-	.word dw_accept		; accept ( tib-addr a )
+	;; ( a +n ) OVER TIB ! ( a +n ) \ Set up TIB
+	.word dw_OVER		; ( a +n a )
+	.word dw_TIB		; TIB ( a +n va )
+	.word dw_store		; ! ( a + n )
 
-	.word dw_sub		; - ( -len+ )
-	.word dw_NEGATE		; NEGATE ( len+ )
-	.word dw_dec		; 1- ( len )
+	;; 0 >IN ! \ Set up >IN
+	doLIT(0)
+	.word dw_ofsIN
+	.word dw_store
+
+	;; $accept ( a+len+1 ) \ read input
+	.word dw_accept		; $accept ( a+len+1 )
+
+	;; TIB @ - ( len+1 ) 1- ( len ) \ get string length
+	.word dw_TIB		; TIB ( a+len+1 va )
+	.word dw_fetch		; @  ( a+len+1 a )
+	.word dw_sub		; - ( len+1 )
+	.word dw_dec		; 1- ( len)
+
+	;; #TIB ! ( )
 	.word dw_cTIB		; #TIB ( len va )
 	.word dw_store		; ! ( )
 
-	.word dw_EXIT		; EXIT
+	.word dw_EXIT
+
+
+	
+	;; word:  getline
+	;; flags: DOCOL ROM
+	;; notes: getline ( -- )
+	;;        Get the next line from the current block.
+
+	;; TODO: separate this into two words so line parsing can be used separately.
+	
+	;; BLKBUF @ DUP >BLK @ + ( buf a ) \ start address for parse
+	.word dw_BLKBUF
+	.word dw_fetch		; ( buf )
+	.word dw_DUP		; ( buf buf )
+	.word dw_pBLK
+	.word dw_fetch
+	.word dw_add		; ( buf b )
+
+	;; SWAP BLKBS + ( b e ) \ Get end address
+	.word dw_SWAP		; SWAP ( b buf )
+	.word dw_BLKBS		; BLKBS ( b buf +n )
+	.word dw_add		; + ( b e )
+
+	doLIT(10)		; 10 ( b e c )
+
+	.word dw__parse		; $parse ( b u +n )
+
+	;; Adjust >BLK
+	.word dw_pBLK		; >BLK ( b u +n va )
+	.word dw_plus_store	; +! ( b u )
+
+	;; Debugging
+	.word dw_2DUP
+	.word dw_TYPE
+
+	;; Store line length
+	.word dw_cBLK		; #BLK (b u va )
+	.word dw_store		; ! ( b )
+	
+	;; 0 >IN ! \ Set >IN
+	doLIT(0)
+	.word dw_ofsIN
+	.word dw_store
+
+	.word dw_EXIT
+
+	
+	
+	;; word:  QUERY
+	;; flags: DOCOL ROM
+	;; notes: QUERY ( -- )
+	;;        Get a line from the terminal or from the current block.
+
+	.word dw_BLK
+	.word dw_fetch
+	.word dw_if_branch
+	.word _query_tty
+
+_query_blk:
+	.word dw_EOBq		; EOB?
+	.word dw_if_branch	;   (if false...)
+	.word _query_blk1	;   ... then read a line
+
+	;; 0 BLK ! RECURSE \ Stop reading from the block, QUERY again.
+	doLIT(0)
+	.word dw_BLK
+	.word dw_store		; 0 BLK !
+	.word dw_branch
+	.word _query_tty	; RECURSE ( sort of )
+	
+_query_blk1:
+	.word dw_getline	; BLKBUF0 ( va )
+	.word dw_EXIT
+
+_query_tty:
+	;; TIBADDR @ TIBS EXPECT
+	.word dw_TIBADDR
+	.word dw_fetch
+	.word dw_TIBS
+	.word dw_EXPECT
+	.word dw_EXIT
 	
 		
 	

@@ -145,7 +145,7 @@ _umul16_noadd:
 
 
 	;; word:  UM*
-	;; alias: UMtimes
+	;; alias: UM_times
 	;; flags: CODE ROM CFT
 	;; notes: * ( w1 w2 -- d )
 	;;   16-bit unsigned integer multiplication. Returns 32-bit value.
@@ -207,18 +207,6 @@ _umul16_noadd:
 
 
 _umul32:
-	LOAD TMP1
-	PRINTHI
-	LOAD TMP2
-	PRINTLO
-
-	LOAD TMP3
-	PRINTHI
-	LOAD TMP4
-	PRINTLO
-	SUCCESS
-
-
 	LI 0
 	STORE TMP5 		; product = 0
 	STORE TMP6 		; product = 0

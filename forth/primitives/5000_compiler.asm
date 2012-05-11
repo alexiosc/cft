@@ -31,7 +31,7 @@
 	;; alias: comma
 	;; flags: CODE ROM
 	;; notes: , ( w -- )
-	;;   Allots space for w, then stores word at HERE 1-.
+	;;        Allots space for w, then stores word at HERE 1-.
 
 	POP (SP)		; Pop value
 	STORE I CP		; CP autoincrements.
@@ -271,71 +271,17 @@ _comma_quote_empty:
 
 	.word @_vector_table+VTOFS_doCONST
 
-	
-
-	;; word:  VARIABLE
-	;; flags: DOCOL ROM
-	;; notes: VARIABLE ( -- )
-	;;
-
-	;; TOKEN ,HEAD \ Begin the entry head
-	.word dw_TOKEN
-	.word dw_comma_HEAD	; ( head )
-
-	;; CURRENT , \ Compile the link to the previous definition.
-	.word dw_CURRENT_fetch	; CURRENT@
-	.word dw_fetch		; @
-	.word dw_comma		; ( head )
-
-	;; 'doVAR ,CFA \ Compile the code word. This needs some assembly.
-	.word dw_tick_doVAR	; 'doVAR
-	.word dw_comma_CFA	; ,CFA ( head )
-
-	;; 0 , \ Allocate space for the variable value itself.
-	doLIT(0)		; 0 ( head 0 )
-	.word dw_comma		; , ( head )
-
-	;; REVEAL \ Reveal the definition
-	.word dw_REVEAL		; ( )
-
-	;; \ Set variable flags
-	doLIT(FFL_T_VAR)	; FFL_T_VAR (whatever it is)
-	.word dw_WORDFLAG	; FLAGWORD ( )
-	.word dw_EXIT
 
 	
+	;; word:  'do2CONST
+	;; alias: tick_do2CONST
+	;; flags: CONST ROM CFT
+	;; notes: 'do2CONST ( a -- )
+	;;        The address of the do2CONST CFA.
 
-	;; word:  CONSTANT
-	;; flags: DOCOL ROM
-	;; notes: CONSTANT ( u -- )
-	;;
+	.word @_vector_table+VTOFS_do2CONST
 
-	;; TOKEN ,HEAD \ Begin the entry head
-	.word dw_TOKEN
-	.word dw_comma_HEAD	; ( u head )
 
-	;; CURRENT , \ Compile the link to the previous definition.
-	.word dw_CURRENT_fetch	; CURRENT@
-	.word dw_fetch		; @
-	.word dw_comma		; ( u head )
-
-	;; 'doVAR ,CFA \ Compile the code word. This needs some assembly.
-	.word dw_tick_doCONST	; 'doVAR
-	.word dw_comma_CFA	; ,CFA ( u head )
-
-	;; 0 , \ Allocate space for the variable value itself.
-	.word dw_SWAP		; 0 ( head u )
-	.word dw_comma		; , ( head )
-
-	;; REVEAL \ Reveal the definition
-	.word dw_REVEAL		; ( )
-
-	;; \ Set variable flags
-	doLIT(FFL_T_CONST)	; FFL_T_CONST (whatever it is)
-	.word dw_WORDFLAG	; FLAGWORD ( )
-	.word dw_EXIT
-
-	
 
 	;; word:  EVAL.COMPILE
 	;; flags: DOCOL ROM

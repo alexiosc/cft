@@ -4,56 +4,34 @@
 
 	
 
-	;; word:  $str
-	;; alias: _str
+	;; word:  _N$
+	;; alias: _Nstr
 	;; flags: DOCOL ROM CFT
-	;; notes: $str ( u -- b u )
-	;;        Converts an integer to a signed string. Returns the string
+	;; notes: _N$ ( u -- b u )
+	;;        Converts an integer to an unpacked string. Returns the string
 	;;        address and length.
 
 	.word dw_DUP		; DUP ( u u )
 	.word dw_to_R		; >R ( u )
 	.word dw_ABS		; ABS ( u )
-	doLIT(0)		; 0 \ zero high bits ( u 0 )
-	.word dw_bkt_number	; <# ( u 0 )
+	.word dw_U_bkt_number	; U<# ( u 0 )
 	.word dw_number_s	; #S ( 0 0 )
 	.word dw_R_from		; R> ( 0 0 u )
-	doLIT(0)		; 0 ( 0 0 u 0 ) \ zero high bits again
-	.word dw_SIGN		; SIGN ( 0 0 )
+	.word dw_N_to_D		; N>D ( 0 0 d )
+	.word dw_SIGN		; SIGN ( 0 0 0 0 )
 	.word dw_number_bkt	; ># ( )
 	.word dw_EXIT		; EXIT
 
 	
 
-	;; word:  $Dstr
-	;; alias: _Dstr
-	;; flags: DOCOL ROM CFT
-	;; notes: D$str ( d -- b u )
-	;;        Converts a double integer to a signed string. Returns the string
-	;;        address and length.
-
-	.word dw_2DUP		; 2DUP ( dl dh dl dh )
-	.word dw_to_R		; >R ( dl dh dl ) ( dh )
-	.word dw_to_R		; >R ( dl dh ) ( dh dl )
-	.word dw_DABS		; ABS ( dl dh )
-	.word dw_bkt_number	; <# ( dl dh)
-	.word dw_number_s	; #S ( 0 0 )
-	.word dw_R_from		; R> ( 0 0 dl )
-	.word dw_R_from		; R> ( 0 0 dl dh )
-	.word dw_SIGN		; SIGN ( 0 0 )
-	.word dw_number_bkt	; ># ( )
-	.word dw_EXIT		; EXIT
-
-	
-
-	;; word:  $Ustr
+	;; word:  _U$
 	;; alias: _Ustr
 	;; flags: DOCOL ROM CFT
-	;; notes: $Ustr ( u -- b u )
+	;; notes: _U$ ( u -- b u )
 	;;        Converts an unsigned integer to a string. Returns the string
 	;;        address and length.
 
-	doLIT(0)		; 0 \ zero high bits
+	.word dw_U_to_D		; U>D ( d )
 	.word dw_branch
 	.word _DUstr_jumpin
 
@@ -74,12 +52,43 @@ _DUstr_jumpin:
 
 	
 
+	;; word:  _D$
+	;; alias: _Dstr
+	;; flags: DOCOL ROM CFT
+	;; notes: D$str ( d -- b u )
+	;;        Converts a double integer to a signed string. Returns the string
+	;;        address and length.
+
+	.word dw_2DUP		; 2DUP ( dl dh dl dh )
+	.word dw_to_R		; >R ( dl dh dl ) ( dh )
+	.word dw_to_R		; >R ( dl dh ) ( dh dl )
+	.word dw_DABS		; ABS ( dl dh )
+	.word dw_bkt_number	; <# ( dl dh)
+	.word dw_number_s	; #S ( 0 0 )
+	.word dw_R_from		; R> ( 0 0 dl )
+	.word dw_R_from		; R> ( 0 0 dl dh )
+	.word dw_SIGN		; SIGN ( 0 0 )
+	.word dw_number_bkt	; ># ( )
+	.word dw_EXIT		; EXIT
+
+	
+
 	;; word:  BINARY
 	;; flags: CODE ROM CFT
 	;; notes: BINARY ( -- )
 	;;   Set base 2.
 
 	LSTOREUP(UAOFS_BASE, 2)
+	NEXT
+
+	
+
+	;; word:  OCTAL
+	;; flags: CODE ROM CFT
+	;; notes: OCTAL ( -- )
+	;;   Set base 8.
+
+	LSTOREUP(UAOFS_BASE, 8)
 	NEXT
 
 
@@ -112,7 +121,7 @@ _DUstr_jumpin:
 	;;
 
 	.word dw_to_R		; >R
-	.word dw__str		; $str
+	.word dw__Nstr		; _N$
 	.word dw_R_from		; >R
 	.word dw_OVER		; OVER
 	.word dw_sub		; -
@@ -130,7 +139,7 @@ _DUstr_jumpin:
 	;;
 
 	.word dw_to_R		; >R
-	.word dw__str		; $str
+	.word dw__Nstr		; _N$
 	.word dw_R_from		; >R
 	.word dw_OVER		; OVER
 	.word dw_sub		; -
@@ -233,7 +242,7 @@ _DU_dot_jumpin:
 	.word dw_u_dot		; U.
 	.word dw_EXIT		; EXIT
 _dot_else:
-	.word dw__str		; $str
+	.word dw__Nstr		; _N$
 	.word dw_SPACE		; SPACE
 	.word dw_TYPE		; TYPE
 	.word dw_EXIT		; EXIT

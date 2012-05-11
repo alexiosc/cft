@@ -119,16 +119,6 @@
 	
 
 
-	;; word:  2DROP
-	;; flags: CODE ROM
-	;; notes: 2DROP ( w1 w2 -- )
-	;;   Discard two items from the data stack.
-
-	LDECn (SP,2)
-	NEXT
-	
-
-
 	;; word:  DUP
 	;; flags: CODE ROM
 	;; notes: DUP ( w -- w w )
@@ -229,28 +219,46 @@
 
 	NEXT
 
-	
-	
-	;; word:  2DUP
+
+
+	;; word:  ROLL
 	;; flags: CODE ROM
-	;; notes: 2DUP ( w1 w2 -- w1 w2 w1 w2 )
-	;;   Duplicate pair-wise the two top items on the stack.
+	;; notes: ROLL ( +n -- )
+	;;        The +nth stack value, not counting +n itself is first removed
+        ;;        and then transferred to the top of the stack, moving the
+        ;;        remaining values into the vacated position.  {0..the number
+        ;;        of elements on the stack-1}
+	;;	
+	;;        2 ROLL is equivalent to ROT
+	;;        0 ROLL is a null operation
 
-	LOAD SP			; SP -= 3
-	ADD MINUS2
-	STORE SP
-	STORE TMP0
+	;; TODO: complete this.
+	FAIL
+	
+	POP(SP)
+	SNZ			; 0? Bail out.
+	NEXT
+	STORE TMP1
 
-	RMOV(TMP1, I SP)	; Peek at the two top values and store them.
-	RMOV(TMP2, I SP)	; Peek at the two top values and store them.
+	LI 1			; Get stack[sp - (n + 1)]
+	ADD TMP1
+	NEG
+	ADD SP
+	STORE TMP2
+	LOAD I TMP2		; Get the value
+	STORE TMP3
 
-	RPUSH(SP, TMP1)
-	RPUSH(SP, TMP2)
+	LOAD TMP1
+	NEG
+	STORE I0		; Loop counter
 
+	
+	
 	NEXT
 
-	
 
+	
+	
 	;; word:  DEPTH
 	;; flags: CODE ROM
 	;; notes: DEPTH ( -- n )

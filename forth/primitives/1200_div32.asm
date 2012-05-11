@@ -78,12 +78,12 @@ _udiv32_done:
         RET
 
 _udiv32_wrap_udiv16:
-	RMOV(TMP15, RETV)
+	RMOV(TMP11, RETV)
 	JSR _udiv16
 	LI 0
 	STORE TMP0
 	STORE TMP4
-	JMP I TMP15		; Return to saved address
+	JMP I TMP11		; Return to saved address
 
 _udiv32:
         ; Check for division by zero.
@@ -145,7 +145,7 @@ _udiv32_rep:
 	
 
 	;; word:  D/MOD
-	;; alias: D-DIV-MOD
+	;; alias: D-div-MOD
 	;; flags: CODE ROM CFT
 	;; notes: D/MOD ( d1 d2 -- dr dq )
 	;;   32-bit signed floored division. Uses udiv32, which it then
@@ -161,7 +161,6 @@ _udiv32_rep:
 	RPOP(TMP1, SP)		; d1 low
 	RMOV(TMP0, TMP7)	; move d1 high to right register
 	STORE TMP14		; and keep for later.
-
 
 	;; Absolute values of the two arguments
 	LOAD TMP0
@@ -180,7 +179,7 @@ _idiv32_nonegn:
 	
 	;; Perform the division itself.
 _idiv32_nonegr:
-	
+
 	JSR _udiv32
 
 	;; TODO: check for division by zero here (AC = 0 => error)

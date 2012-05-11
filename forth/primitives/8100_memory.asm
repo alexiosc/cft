@@ -8,7 +8,7 @@ _mem_init_strmem:
 _mem_init_strram:
 	.strp " kw RAM," 0
 _mem_init_strrom:
-	.strp " kW ROM " 10 0
+	.strp " kW ROM " 0
 
 
 	

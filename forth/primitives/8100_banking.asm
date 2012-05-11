@@ -175,17 +175,25 @@ _mbu_go_loop:
 
 _mbu_go_data:
 	.word -8
+	;; For 8kW ROM systems:
+	;; .word &00		; RAM bank 0
+	;; .word &01		; RAM bank 1
+	;; .word &02		; RAM bank 2
+	;; .word &03		; RAM bank 3
+	;; .word &04		; RAM bank 4
+	;; .word &05		; RAM bank 5
+	;; .word &06		; RAM bank 6
+	;; .word &80		; ROM bank 0
+
+	;; For 16kW ROM systems:
 	.word &00		; RAM bank 0
 	.word &01		; RAM bank 1
 	.word &02		; RAM bank 2
 	.word &03		; RAM bank 3
 	.word &04		; RAM bank 4
 	.word &05		; RAM bank 5
-	.word &06		; RAM bank 6
-	.word &80		; ROM bank 0 (for 8kW ROM systems)
-	;; .word &81		; ROM bank 1 (for 16kW ROM systems)
-	;; .word &82		; ROM bank 2 (for 24kW ROM systems)
-	;; .word &83		; ROM bank 3 (for 32kw ROM or more)
+	.word &80		; ROM bank 0
+	.word &81		; ROM bank 1
 	
 	
 

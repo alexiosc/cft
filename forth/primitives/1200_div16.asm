@@ -4,6 +4,23 @@
 
 
 /.page
+
+
+	;; word:  /0?
+	;; alias: div0q
+	;; flags: DOCOL ROM CFT
+	;; notes: /0? ( n -- n )
+	;;        Abort with an error message if n is zero.
+
+	.word dw_DUP		; ?DUP ( n n )
+	.word dw_zero_equals	; 0= ( n f )
+	.word dw_doABORT_str	; ABORT" division by 0"
+	.word @+8
+	.strp "division by 0" 0
+	;;     11223344556677
+	.word dw_EXIT		; ( n )
+
+
 	
 	;; word:  <<
 	;; alias: shl

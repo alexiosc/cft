@@ -77,7 +77,7 @@ _dev_HD3:
 
 	;; Initialise the system configuration bitmap.
 	doLIT(0)
-	doLIT(@SYSCFG^R)	; Strip R bit from SYSCFG variable
+	doREG(SYSCFG)		; Strip R bit from SYSCFG variable
 	.word dw_store
 
 
@@ -92,6 +92,8 @@ _dev_HD3:
 
 	;; Set up memory
 	.word dw_MEM_INIT
+	doLIT(1)
+	.word dw__qPRESENT
 
 	;; Set up RTC
 	doLIT(_dev_RTC)		; _dev_RTC ( a )
@@ -115,36 +117,35 @@ _cold_nortc:
 
 
 	;; Set up IDE
+	doLIT(0)
+	doREG(IDE0)
+	.word dw_IDE_INIT
+	doLIT(1)
+	doREG(IDE1)
+	.word dw_IDE_INIT
+	
 	doLIT(_dev_HD0)
 	.word dw__DEV		; _DEV ( )
 	doLIT(0)
-	doLIT(@IDE0&&3ff)
-	doLIT(0)
-	.word dw_IDE_INIT
+	.word dw_HD_INIT
 	.word dw__qPRESENT
 
 	doLIT(_dev_HD1)
 	.word dw__DEV		; _DEV ( )
 	doLIT(1)
-	doLIT(@IDE0&&3ff)
-	doLIT(1)
-	.word dw_IDE_INIT
+	.word dw_HD_INIT
 	.word dw__qPRESENT
 
 	doLIT(_dev_HD2)
 	.word dw__DEV		; _DEV ( )
 	doLIT(2)
-	doLIT(@IDE1&&3ff)
-	doLIT(1)
-	.word dw_IDE_INIT
+	.word dw_HD_INIT
 	.word dw__qPRESENT
 
 	doLIT(_dev_HD3)
 	.word dw__DEV		; _DEV ( )
 	doLIT(3)
-	doLIT(@IDE1&&3ff)
-	doLIT(1)
-	.word dw_IDE_INIT
+	.word dw_HD_INIT
 	.word dw__qPRESENT
 
 	;; Initialise vocabularies

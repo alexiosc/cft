@@ -16,100 +16,6 @@
 
 
 
-	;; word:  UEMIT
-	;; flags: CODE ROM
-	;; notes: UEMIT ( w -- )
-	;;   Prints out c in UTF-8 encoding. All 16 bits of w are used and
-	;;   encoded accordingly. Only the first 65,536 UCS codepoints may
-	;;   be output, and they are encoded as one, two or three byte
-	;;   sequences.
-	;;   TODO: Use 'EMIT
-	RPOP(TMP1, SP)		; TMP1 := w
-	LOAD _uemitd
-	AND TMP1
-	SNZ
-	JMP _uemit1b		; c & 0xff80 == 0 <==> single byte
-
-	LOAD @_uemitd+1		; check for >2 bytes
-	AND TMP1
-	SNZ
-	JMP _uemit2b		; c & 0xf800 == 0 <==> two-byte
-
-	;; Three-byte sequence.
-_uemit3b:
-	;; first char, highest 4 bits.
-	LOAD TMP1
-	RNR			; >> 12
-	RNR
-	RNR
-	STORE TMP2
-	LI &f
-	AND TMP2		; & 0x0f
-	STORE TMP2
-	LI &e0			; | 0xe0
-	OR TMP2
-	PUTCHAR
-
-	;; second char, middle 6 bits.
-	LOAD TMP1
-	RNR			; >> 6
-	RBR
-	RBR
-	STORE TMP2
-	LI &3f			; & 0x3f
-	AND TMP2
-	STORE TMP2
-	LI &80			; | 0x80
-	OR TMP2
-	PUTCHAR
-
-	;; third char, low 6 bits.
-	LI &3f			; & 0x3f
-	AND TMP1
-	STORE TMP2
-	LI &80			; | 0x80
-	OR TMP2
-	PUTCHAR
-		
-	NEXT
-
-	;; Two-byte sequence.
-_uemit2b:
-	;; first char, high 5 bits
-	LOAD TMP1
-	RNR			; >> 6
-	RBR
-	RBR
-	STORE TMP2
-	LI &1f			; & 0x1f (5 bits)
-	AND TMP2
-	STORE TMP2
-	LI &c0			; | 0xc0
-	OR TMP2
-	PUTCHAR
-
-	;; seocnd char, low 6 bits.
-	LI &3f			; & 0x3f (6 bits)
-	AND TMP1
-	STORE TMP2
-	LI &80			; | 0x80
-	OR TMP2
-	PUTCHAR
-		
-	NEXT
-	
-	;; Single-byte sequence.
-_uemit1b:
-	LOAD TMP1
-	PUTCHAR
-	NEXT
-
-_uemitd:
-	.word &ff80		; Mask for >1 byte per char
-	.word &f800		; >2 bytes per char
-
-
-	
 	;; word:  CR
 	;; flags: CODE ROM
 	;; notes: CR ( -- )
@@ -322,4 +228,98 @@ _nuf_true:
 	.word dw_EXIT		; EXIT
 
 
+	;; word:  UEMIT
+	;; flags: CODE ROM
+	;; notes: UEMIT ( w -- )
+	;;   Prints out c in UTF-8 encoding. All 16 bits of w are used and
+	;;   encoded accordingly. Only the first 65,536 UCS codepoints may
+	;;   be output, and they are encoded as one, two or three byte
+	;;   sequences.
+	;;   TODO: Use 'EMIT
+	RPOP(TMP1, SP)		; TMP1 := w
+	LOAD _uemitd
+	AND TMP1
+	SNZ
+	JMP _uemit1b		; c & 0xff80 == 0 <==> single byte
+
+	LOAD @_uemitd+1		; check for >2 bytes
+	AND TMP1
+	SNZ
+	JMP _uemit2b		; c & 0xf800 == 0 <==> two-byte
+
+	;; Three-byte sequence.
+_uemit3b:
+	;; first char, highest 4 bits.
+	LOAD TMP1
+	RNR			; >> 12
+	RNR
+	RNR
+	STORE TMP2
+	LI &f
+	AND TMP2		; & 0x0f
+	STORE TMP2
+	LI &e0			; | 0xe0
+	OR TMP2
+	PUTCHAR
+
+	;; second char, middle 6 bits.
+	LOAD TMP1
+	RNR			; >> 6
+	RBR
+	RBR
+	STORE TMP2
+	LI &3f			; & 0x3f
+	AND TMP2
+	STORE TMP2
+	LI &80			; | 0x80
+	OR TMP2
+	PUTCHAR
+
+	;; third char, low 6 bits.
+	LI &3f			; & 0x3f
+	AND TMP1
+	STORE TMP2
+	LI &80			; | 0x80
+	OR TMP2
+	PUTCHAR
+		
+	NEXT
+
+	;; Two-byte sequence.
+_uemit2b:
+	;; first char, high 5 bits
+	LOAD TMP1
+	RNR			; >> 6
+	RBR
+	RBR
+	STORE TMP2
+	LI &1f			; & 0x1f (5 bits)
+	AND TMP2
+	STORE TMP2
+	LI &c0			; | 0xc0
+	OR TMP2
+	PUTCHAR
+
+	;; second char, low 6 bits.
+	LI &3f			; & 0x3f (6 bits)
+	AND TMP1
+	STORE TMP2
+	LI &80			; | 0x80
+	OR TMP2
+	PUTCHAR
+		
+	NEXT
+	
+	;; Single-byte sequence.
+_uemit1b:
+	LOAD TMP1
+	PUTCHAR
+	NEXT
+
+_uemitd:
+	.word &ff80		; Mask for >1 byte per char
+	.word &f800		; >2 bytes per char
+
+
+	
 // End of file.
