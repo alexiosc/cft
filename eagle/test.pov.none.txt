@@ -1,0 +1,5 @@
+Parts not found in 3dpack.dat or 3dusrpac.dat are:
+//R1	4k7	ST10
+//R2	4k7	ST10
+//R3	4k7	ST10
+//R4	4k7	ST10
