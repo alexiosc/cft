@@ -1,3 +1,0 @@
-Parts not found in 3dpack.dat or 3dusrpac.dat are:
-//X1	2520-	PAK100/2500-20
-//X3	2534-	PAK100/2500-34

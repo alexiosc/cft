@@ -1,7 +1,0 @@
-IRQ Controller Notes
-
-* Allow 8 interrupt values.
-* 8 bits Interrupt mask register (write)
-* 8 bits Interrupt source query register (read)
-
-* Incoming -IRQ0..-IRQ7 lines get buffered using flip-flops.

@@ -1,2 +1,0 @@
-//MPD-File
-#ifndef(pack_LED1) #declare global_pack_LED1=yes; object {DIODE_SMD_LED_PLCC2_ROT()translate<0,0,0> rotate<0,0.000000,0>rotate<0,0.000000,0> rotate<0,0,0> translate<80.010000,0.000000,49.530000>translate<0,0.035000,0> }#end		//SMD-LED im PLCC2 LED1  P-LCC-2
