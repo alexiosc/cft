@@ -1,0 +1,881 @@
+2011-01-25  AC  <alexios@bedroomlan.org>
+
+	[Des/Hardware] Earliest draft version of the ‘memory mapped stack
+	machine’ CPU description referencing a PDP-8-like design, but with an 8
+	bit word.
+
+2011-02-11  AC  <alexios@bedroomlan.org>
+
+	[Des/Hardware] Earliest version of the ‘simple 16-bit CPU’ description,
+	a direct descendant of the Fungus CPU. Still references 18-bit
+	registers (like Fungus).
+
+2011-03-03  AC  <alexios@bedroomlan.org>
+
+	[Tools] Created Subversion repository. Initial import of
+	pre-existing code and data.
+
+	[Des/Hardware] Removed Page Register from CPU design.
+
+	[Des/Hardware] Changed MAR to '193-based register.
+
+2012-03-12  AC  <alexios@bedroomlan.org>
+
+	[Doc/Web] Created Facebook page.
+
+2011-03-14  AC  <alexios@bedroomlan.org>
+
+	[Des/Hardware] Major changes to support autoincrement mode, fix
+	issues with the L flag (excessive toggling), rework microcode,
+	uaddr vector, control vector, register types, etc.
+
+	[Des/Software/Microcode] Autoincrement now supported in LOAD.
+
+	[Des/Hardware] Playing around with Eagle schematics as a very
+	early feasibility study.
+
+2011-08-08  AC  <alexios@bedroomlan.org>
+
+	[Des/Hardware] Many changes to the hardware design.
+
+2011-08-30  AC  <alexios@bedroomlan.org>
+
+	[Des/Hardware] Switched to ROM-based ALU.
+
+2011-08-31  AC  <alexios@bedroomlan.org>
+
+	[Des/Hardware] Changes to PCBs for new hardware style.
+
+2011-09-02  AC  <alexios@bedroomlan.org>
+
+	[Des/Hardware] More changes to the hardware and PCBs.
+
+2011-10-24  AC  <alexios@bedroomlan.org>
+
+	[Tools] Released ROMtools, a Python library to generate complex
+	function tables on multiple ROMs. This is used to generate the ALU
+	tables.
+
+2011-10-25  AC  <alexios@bedroomlan.org>
+
+	[Tools] Released mcasm (the Microcode Assembler).
+
+2011-11-08  AC  <alexios@bedroomlan.org>
+
+	[Tools] Released FlashProg hardware and software design.
+
+2011-11-30  AC  <alexios@bedroomlan.org>
+
+	[Tools] Removed VHDL support and relevant directories. The project
+	has been using Verilog for verification for a while.
+
+	[Misc] Created CFT Project logo.
+
+2011-12-01  AC  <alexios@bedroomlan.org>
+
+	[Des/Hardware/PFP] Worked on Front Panel schematics.
+
+2011-12-03  AC  <alexios@bedroomlan.org>
+
+	[Des/Hardware/PFP] First draft of the front panel.
+
+2011-12-13  AC  <alexios@bedroomlan.org>
+
+	[Des/Hardware/PFP] First release candidate of the front panel.
+
+2011-12-19  AC  <alexios@bedroomlan.org>
+
+	[Des/Hardware/PFP] Further design and verification work on the
+	panel.
+
+2011-12-21  AC  <alexios@bedroomlan.org>
+
+	[Des/Hardware/PFP] More work on the front panel and its
+	documentation.
+
+2011-12-22  AC  <alexios@bedroomlan.org>
+
+	[Des/Hardware/PFP] Additional work on the front panel.
+
+2011-12-26  AC  <alexios@bedroomlan.org>
+
+	[Des/Hardware/PFP/Controller] Completed first revision of Front
+	Panel Controller board.
+
+2011-12-28  AC  <alexios@bedroomlan.org>
+
+	[Code/Cross-Assembler] Added macro and file inclusion support.
+
+	[Tools] Slight changes to Eagle3D board rendering options.
+
+	[Des/Hardware/PFP/Controller] Rendered front panel controller.
+
+2011-12-30  AC  <alexios@bedroomlan.org>
+
+	[Tools] Cleaned up crud entries from Subversion repository.
+
+2012-01-09  AC  <alexios@bedroomlan.org>
+
+	[Tools] Added functionality to extract bills of materials from
+	Eagle schematics.
+
+	[Doc/Book] Added BOM for front panel to documentation.
+
+	[Doc/Extra] Added external documents useful for the development of
+	the project (datasheets, etc).
+
+	[Code/Software/Filesystem] First filesystem experiments.
+
+	[Des/Hardware/PFP] Front Panel version 2 (rev B).
+
+	[Doc/Hardware/PFP] Front Panel Bill of Materials generated.
+
+2012-01-16  AC  <alexios@bedroomlan.org>
+
+	[Des/Hardware/PFP/Controller] SMD test of front panel
+	controller. Superseded design, now using new version of front
+	panel controller.
+
+	[Des/Hardware/PFP] Various changes and corrections to the front
+	panel. itself.
+
+	[Doc/Gallery] Added PNG files to the gallery.
+
+2012-01-20  AC  <alexios@bedroomlan.org>
+
+	[Des/Hardware/PFP/Controller] Considerable amount of work on the
+	front panel controller.
+
+	[Des/Hardware] Worked on the clock generator.
+
+2012-02-04  AC  <alexios@bedroomlan.org>
+
+	[Des/Hardware/CTN] Drafting timer layout.
+
+2012-02-14  AC  <alexios@bedroomlan.org>
+
+	[Des/Hardware] Corrected issues with the ROM-based ALU.
+
+	[Testing,Des/Hardware] Coded ALU test benches in Verilog.
+
+2012-02-17  AC  <alexios@bedroomlan.org>
+
+	[Des/Hardware] Fixed ALU bugs. Recoded Verilog ROM-ALU to handle
+	the new ALU design.
+
+	[Des/Hardware] Updated schematics, fixing numerous issues
+	(including the ALU one).
+
+	[Testing,Des/Hardware] Added batch tests for the ALU.
+
+	[Doc/Extra] Added Forth documentation (external to the project).
+
+	[Doc/Extra] Added FlashForth distribution (also external).
+
+	[Code/Software/Filesystem] Work on the filesystem code.
+
+2012-02-25  AC  <alexios@bedroomlan.org>
+
+	[Des/Hardware] Completed CFT schematic collection into a very
+	large Eagle file. This will help keeping signal names constant,
+	and will eventually aid DRC.
+
+2012-03-09  AC  <alexios@bedroomlan.org>
+
+	[Tools] Cleaning up Subversion repository. Removing temporary files.
+
+2012-03-09  AC  <alexios@bedroomlan.org>
+
+	[Code/Software/ROM/Forth] Coded core ROM Forth words (and then some).
+
+2012-03-12  AC  <alexios@bedroomlan.org>
+
+	[Code/Software/ROM/Forth] More Forth primitives. Code reorganisation.
+
+	[Code/Software/ROM] First OS traps added.
+
+2012-03-18  AC  <alexios@bedroomlan.org>
+
+	[Testing,Des/Hardware] Added more hardware tests.
+
+	[Des/Hardware] Imported mkskiptable, meant to speed up minor
+	operation instructions. The functionality is currently too
+	complex, so not used.
+
+	[Code/Software/ROM] Bug fixes and Forth work.
+
+2012-03-22  AC  <alexios@bedroomlan.org>
+
+	[Code/Software/ROM/Forth] Implemented algorithms and unit tests
+	for unsigned, symmetric and floored division in 16 and 32
+	bits. For now, Forth algorithm tests are shared with the Verilog
+	tests (and executed with the Verilog simulator).
+
+	[Code/Software/ROM/Forth] Bug fixes and implementation of various
+	Forth words.
+
+2012-03-26  AC  <alexios@bedroomlan.org>
+
+	[Code/Software/ROM/Forth] Various bits of Forth work.
+
+2012-03-30  AC  <alexios@bedroomlan.org>
+
+	[Code/Software/ROM/Forth] Major changes to the dictionary
+	structure. Coded user area, added some vocabulary support. Lots of
+	refactoring.
+
+2012-04-02  AC  <alexios@bedroomlan.org>
+
+	[Code/Software/ROM/Forth] Most of the interpreter is now in place,
+	including error handling.
+
+	[Code/Emulator] Fixed issues with excessive CPU power due to tight
+	select(2) loops. Added more I/O. Fixed fetch/execute cycle detection.
+
+2012-04-05  AC  <alexios@bedroomlan.org>
+
+	[Code/Software/ROM/Forth] Major additions for debugging, testing. Added
+	compiler words, some defining words and more vocabulary functionality.
+
+2012-04-06  AC  <alexios@bedroomlan.org>
+
+	[Code/Software/ROM/Forth] More vocabulary work. Renumbering to fit ONLY
+	vocabulary.
+
+2012-04-11  AC  <alexios@bedroomlan.org>
+
+	[Code/Software/ROM/Forth] Forth 83 multiple vocabulary support is now
+	in place.
+
+2012-04-12  AC  <alexios@bedroomlan.org>
+
+	[Code/Software/ROM/Forth] Considerable amounts of work done. Compiler
+	is now in place.
+
+2012-04-14  AC  <alexios@bedroomlan.org>
+
+	[Setback,Code/Software/Microcode] Autoindex bug located in the IN
+	instruction. Fixed.
+
+	[Code/Emulator] Work on attaching new I/O devices.
+
+	[Code/Software/ROM/Forth] Numerous additions to dictionary. IDE test
+	code. Minor changes to the user area.
+
+2012-04-16  AC  <alexios@bedroomlan.org>
+
+	[Code/Software/ROM] Major changes to the ROM to facilitate device
+	detection/initialisation etc.
+
+	[Code/Emulator] Major changes to add device drivers, clean up code and
+	implement banked memory.
+
+2012-04-19  AC  <alexios@bedroomlan.org>
+
+	[Code/Software/ROM/Forth] Additional changes to implement more words
+	and more IDE support.
+
+	[Code/Emulator] IDE emulation improvements. Minor changes to support
+	updated hardware. Added more debugging info.
+
+	[Code/Cross-Assembler] Minor bug fixes and .reg directive support.
+
+2012-05-12  AC  <alexios@bedroomlan.org>
+
+	[Code/Software/ROM/Forth] Many changes to the word set.
+
+	[Doc/Gallery] Added more screenshots.
+
+	[Doc/Book] Released Revision F of the Programming Guide.
+
+2012-05-14  AC  <alexios@bedroomlan.org>
+
+	[Code/Software/ROM/Forth] Completed DOES> implementation.
+
+2012-07-01  AC  <alexios@bedroomlan.org>
+
+	[Des/Hardware/VDU] Initial design of a VDU board.
+
+2012-07-12  AC  <alexios@bedroomlan.org>
+
+	[Doc/Hardware/PFP] Updated front panel specification.
+
+2012-07-13  AC  <alexios@bedroomlan.org>
+
+	[Des/Hardware/PFP] Designed front panel layout version 4 (4U, three bank).
+
+2012-07-20  AC  <alexios@bedroomlan.org>
+
+	[Doc/Web] Added Flickr set, opened it to the public.
+
+2012-07-23  AC  <alexios@bedroomlan.org>
+
+	[Des/Hardware/PB0] Simplified clock generator.
+
+2012-07-28  AC  <alexios@bedroomlan.org>
+
+	[Des/Hardware/SND] First draft of sound card incorporating an GI AY-3-8910 chip.
+
+2012-07-29  AC  <alexios@bedroomlan.org>
+
+	[Doc/Hardware/SND] Drafted specification for compact music file format
+	to help ripping music from Z80 executables to compact files for the
+	CFT.
+
+2012-08-04  AC  <alexios@bedroomlan.org>
+
+	[Doc/Web] Started @CFTProject twitter account.
+
+2012-08-06  AC  <alexios@bedroomlan.org>
+
+	[Des/Hardware/DEB] Finished design of debugging board.
+
+	[Doc/Hardware/DEB] Rendered DEB board.
+
+2012-08-09  AC  <alexios@bedroomlan.org>
+
+	[Doc/Hardware] Designed layout templates for double-width DIP boards.
+
+	[Des/Hardware/PB1] Laid out PB1 as ‘Processor Board A’ with DIP components.
+
+	[Des/Hardware/PB2] Laid out PB2 as ‘Processor Board B’ with DIP components.
+
+	[Des/Hardware/PB3] Laid out PB3 as ‘Processor Board C’ with DIP components.
+
+2012-08-15  AC  <alexios@bedroomlan.org>
+
+	[Orders,Milestone] First round of components ordered.
+
+2012-08-16  AC  <alexios@bedroomlan.org>
+
+	[Code/Emulator] Added VDU support to the emulator. Coded various other improvements.
+
+2012-08-17  AC  <alexios@bedroomlan.org>
+
+	[Doc/Hardware/DEB] Updated specification for the DEB board.
+
+2012-08-06  AC  <alexios@bedroomlan.org>
+
+	[Doc/Hardware/DEB] Rendered DEB board.
+
+2012-08-21  AC  <alexios@bedroomlan.org>
+
+	[Orders] AY-3-8910 chips arrive.
+
+2012-08-22  AC  <alexios@bedroomlan.org>
+
+	[Tools] Updated Flashprog software. Added PLCC32 socket for CFT
+	Flash ROMs.
+
+2012-08-24  AC  <alexios@bedroomlan.org>
+
+	[Cons/Hardware/DEB=100] Completed construction of DEB card.
+
+2012-08-26  AC  <alexios@bedroomlan.org>
+
+	[Cons/Hardware/DEB/Firmware=100] Completed first revision of the DEB firmware.
+
+2012-08-29  AC  <alexios@bedroomlan.org>
+
+	[Setback,Cons/Hardware/DEB] MOS termination resistors on backplane
+	too strong for CMOS drivers, getting strange readings from DEB
+	board. Resistors getting unacceptably hot in operation.
+
+2012-08-31  AC  <alexios@bedroomlan.org>
+
+	[Cons/Hardware/MEM=100] Completed construction of the MEM
+	board. 512kW of flash ROM and RAM, debugging LEDs and pull-down
+	resistors for when MBU is missing.
+
+2012-09-05  AC  <alexios@bedroomlan.org>
+
+	[Setback,Testing/Hardware/MEM] Backplane termination resistors burn
+	parts of DEB and MEM boards. Replaced dead memory on MEM board,
+	but one I²C GPIO chip now missing from DEB board.
+
+2012-09-06  AC  <alexios@bedroomlan.org>
+
+	[Des/Hardware/Control_Bus] Programmatically extracted signals
+	needed for the control bus using Python script and the processor's
+	netlist.
+
+2012-09-10  AC  <alexios@bedroomlan.org>
+
+	[Doc/Progress] Created first edition of CFT Progress
+	Poster/Infographic.
+
+2012-09-18  AC  <alexios@bedroomlan.org>
+
+	[Setback,Tools] Potential transmission-line and termination issues
+	with backplane mandate a digital storage oscilloscope for
+	debugging. Construction temporarily on hold while I budget.
+
+2012-09-20  AC  <alexios@bedroomlan.org>
+
+	[Doc/Book] First appearance of the CFT Book as a single entity,
+	rather than the various separate guides. The initial version is
+	309 pages long.
+
+2012-09-27  AC  <alexios@bedroomlan.org>
+
+	[Des/Hardware/VDU] Drafting schematics of the VDU board.
+
+2012-10-04  AC  <alexios@bedroomlan.org>
+
+	[Doc/Software/Filesystem] Documented filesystem structures.
+
+	[Des/Hardware/FDC] First draft of a floppy controller board.
+
+2012-10-05  AC  <alexios@bedroomlan.org>
+
+	[Doc/Book] Worked on documentation.
+
+2012-10-08  AC  <alexios@bedroomlan.org>
+
+	[Des/Hardware/IOB] Designed cassette tape interface to add to the
+	IO Board.
+
+2012-10-24  AC  <alexios@bedroomlan.org>
+
+	[Des/Hardware/VDU] Initial Verilog simulations of parts of the VDU.
+
+2012-10-26  AC  <alexios@bedroomlan.org>
+
+	[Tools,Sim,Des/Hardware/VDU] Created monitor emulator to verify VDU designs on.
+
+	[Des/Hardware/VDU] Verilog simulations of parts of the VDU.
+
+2012-10-27  AC  <alexios@bedroomlan.org>
+
+	[Sim,Des/Hardware/VDU] Verilog simulations of parts of the VDU.
+
+2012-10-28  AC  <alexios@bedroomlan.org>
+
+	[Milestone,Sim,Des/Hardware/VDU] First VDU image displaying in
+	simulations.
+
+2012-10-31  AC  <alexios@bedroomlan.org>
+
+	[Des/Hardware/IOB] Simulated test of cassette tape encoding. The
+	encoding is similar to Sinclair's and sounds much like a faster
+	version of the ZX-Spectrum's tape encoding.
+
+2012-11-10  AC  <alexios@bedroomlan.org>
+
+	[Des/Hardware/VDU] Debugging timing issues.
+
+2012-11-17  AC  <alexios@bedroomlan.org>
+
+	[Setback,Des/Hardware/VDU] Timing tolerances are too tight for
+	74HC family. VDU card switched to Xilinx® CPLD, discrete logic
+	abandoned.
+
+	[Des/Hardware/VDU] CPLD-based VDU card schematics and routing.
+
+	[Des/Hardware/VDU] First rendering of VDU card.
+
+2012-11-18  AC  <alexios@bedroomlan.org>
+
+	[Sim,Des/Hardware/VDU] Simulated VDU CPLD generating correct
+	40-column test pattern.
+
+	[Sim,Des/Hardware/VDU] Split-screen working.
+
+2012-11-19  AC  <alexios@bedroomlan.org>
+
+	[Des/Hardware/VDU] Verified VDU design fits a Xilinx® XC95288XL CPLD.
+
+2012-11-21  AC  <alexios@bedroomlan.org>
+
+	[Des/Hardware/VDU] Horizontal phase control circuit allows for smooth
+	horizontal scrolling.
+
+2012-11-28  AC  <alexios@bedroomlan.org>
+
+	[Des/Hardware/VDU] Debugged and simulated VDU design.
+
+	[Des/Hardware/VDU] Xilinx® software is getting in the way and crashing
+	on Linux.
+
+	[Setback,Des/Hardware/VDU] VDU design will not fit the chosen Xilinx®
+	CPLD part, so 5V tolerance is no longer an option. Switched camps using
+	an Altera® CP9500XL CPLD.
+
+2012-12-06  AC  <alexios@bedroomlan.org>
+
+	[Sim,Coding/Emulator] Implemented VDU in emulator for feasibility
+	testing. It works well.
+
+	[Des/Hardware/VDU] Altera® CPLD version of the VDU simulating cleanly.
+
+2012-12-15  AC  <alexios@bedroomlan.org>
+
+	[Doc/Book] The CFT Book is now 381 pages long and includes
+	documentation on the VDU.
+
+2012-12-16  AC  <alexios@bedroomlan.org>
+
+	[Sim,Des/Hardware/VDU] The VDU board passes ERC and DRC tests.
+
+	[Des/Hardware/VDU] Rendered Altera® CPLD VDU board revision E with PS/2
+	and Sun keyboard/mouse ports.
+
+2012-12-29  AC  <alexios@bedroomlan.org>
+
+	[Sim,Des/Hardware/VDU] VDU design now partly synthesisable. Testing on
+	a physical Terasic® DE-0 Nano board with an Altera® FPGA. First test
+	patterns generated at 640×400 with 64 colours.
+
+2013-01-01  AC  <alexios@bedroomlan.org>
+
+	[Sim,Des/Hardware/VDU] Added VDU support for SDRAM. Not needed for
+	final project, but necessary to test the VDU on the dev board (which
+	has no SRAM memory).
+
+	[Des/Hardware/VDU] Design changed to use 640×480 resolution rather than
+	initial 640×400 because of better support from available monitors. VDU
+	now offers 40×30 and 80×30 text, and high resolution graphics up to
+	640×480.
+
+2013-01-24  AC  <alexios@bedroomlan.org>
+
+	[Sim,Des/Hardware/VDU] VDU fully synehtesisable and tested using JTAG
+	interface. Video of JTAG-based demo uploaded to YouTube.
+
+2013-01-31  AC  <alexios@bedroomlan.org>
+
+	[Cons/Hardware/PB1] Started layout of PB2 as ‘Processor Board B’ on
+	double-width Euroboard.
+
+2013-02-04  AC  <alexios@bedroomlan.org>
+
+	[Code/Emulator] Worked on emulator, fixing issues and refactoring
+	code. Version 0.7 now available.
+
+2013-02-06  AC  <alexios@bedroomlan.org>
+
+	[Des/Software/Microcode] Microcode version 6 being designed with
+	additional instructions: JMPII (doubly-indirect JUMP, i.e. the Forth
+	ENTER instruction) and POP to help with Forth.
+
+2013-02-06  AC  <alexios@bedroomlan.org>
+
+	[Misc] Georgios Fountis donated a book on advanced Forth techniques.
+
+2013-02-09  AC  <alexios@bedroomlan.org>
+
+	[Code/Software/Microcode] Updated to Microcode version 6.
+
+2013-02-16  AC  <alexios@bedroomlan.org>
+
+	[Doc/Web] Wrote CFT microcode-level simulator in Javascript. Shows
+	Front Panel and simple output device, runs considerably slower than
+	real hardware.
+
+2013-02-17  AC  <alexios@bedroomlan.org>
+
+	[Doc/Refcard] Toyed with the idea of a Bowen-style reference card.
+
+	[Doc/Web] GeSHI PHP syntax highlighter mode for CFT Assembly.
+
+2013-02-16  AC  <alexios@bedroomlan.org>
+
+	[Doc/Web] Wrote CFT microcode-level simulator in Javascript. Shows
+	Front Panel and simple output device, runs considerably slower than
+	real hardware.
+
+2013-02-20  AC  <alexios@bedroomlan.org>
+
+	[Setback,Test/Hardware/PBC] Auto-Index Logic bug found. Any Indirect
+	mode instruction immediately following an Autoindex instruction changes
+	into an Autoindex instruction too, no matter what location is being
+	accessed.
+
+2013-02-26  AC  <alexios@bedroomlan.org>
+
+	[Des/Hardware/PB0] Microcode personality board renamed to Microcode
+	Board, hosts microcode store and µBC extension. Cleaned up schematics
+	and routed Rev A. Rendered routed board.
+
+2013-03-12  AC  <alexios@bedroomlan.org>
+
+	[Setback,Testing,Des/Hardware] Glitch found while testing processor as
+	a whole.
+
+2013-03-21  AC  <alexios@bedroomlan.org>
+
+	[Code/Software/ROM] Coded 32-bit division. Whoever wrote a 24-bit
+	division routine for a PDP-8 is an unsung hero. If my assembler didn't
+	have macros I'd have gone crazy.
+
+2013-03-30  AC  <alexios@bedroomlan.org>
+
+	[Testing,Sim,Des/Hardware] Rewrote tests for the hardware, including new
+	ones to cover design changes. Hardware now covered 100% with exhaustive
+	tests. Testing revealed numerous annoying hardware bugs that were fixed
+	easily.
+
+2013-04-02  AC  <alexios@bedroomlan.org>
+
+	[Des/Hardware/PB2] Routing PB2 (as ‘Processor board B’, the register
+	board) on a 16×10cm EuroBoard.
+
+2013-04-22  AC  <alexios@bedroomlan.org>
+
+	[Tools] Ordered Digital Storage Oscilloscope.
+
+2013-05-06  AC  <alexios@bedroomlan.org>
+
+	[Prep/Hardware/PB0] Microcode card job files ready for fabrication.
+
+2013-05-08  AC  <alexios@bedroomlan.org>
+
+	[Des/Hardware/PFP/Light_Assembly/LED_Boards] Revived the idea of the
+	panel LED assembly on PCB modules. Eight single-sided modules of 4×5
+	LEDs were designed. This is Revision C of the front panel module.
+
+2013-05-14  AC  <alexios@bedroomlan.org>
+
+	[Testing,Sim,Des/Hardware] Verilog verification of processor passes
+	test suite.
+
+2013-05-17  AC  <alexios@bedroomlan.org>
+
+	[Setback,Cons/Hardware/PB2] Spent five hours wiring up the register
+	board. Decided 900 nets will take too long to wire and will make issues
+	almost impossible to find and fix. Resigned to making PCBs of all four
+	processor boards.
+
+2013-05-22  AC  <alexios@bedroomlan.org>
+
+	[Des/Hardware/PB2] Touched up design of ‘Processor Board B’, the
+	register board. Rendered the board.
+
+	[Des/Hardware/PB0] Preparing Microcode Board for printing. Routed
+	another version, rendered result.
+
+2013-05-23  AC  <alexios@bedroomlan.org>
+
+	[Orders] A batch of front panel modules is on its way from China. The
+	boards serve as a test of the fab facility's quality.
+
+2013-05-31  AC  <alexios@bedroomlan.org>
+
+	[Des/Hardware/PB3] ‘Processor Board C’ routed.
+
+2013-06-01  AC  <alexios@bedroomlan.org>
+
+	[Tools] Writing a PC-side tool to manage and access CFT disk images,
+	disk labels and filesystems. Developing the algorithms will provide a
+	basis for coding them in CFT Assembly for inclusion in the ROM.
+
+2013-06-07  AC  <alexios@bedroomlan.org>
+
+	[Orders,Milestones] First PCBs (the front panel modules) arrive from
+	Smart Prototyping and they look good. Got a yield of thirteen boards,
+	while ten were ordered.
+
+	[Des/Hardware/PFP/Light_Assembly] Designing layout of light assembly
+	using LED modules.
+
+2013-06-14  AC  <alexios@bedroomlan.org>
+
+	[Meta,Doc/Book] Renamed processor boards. The boards are now PB0
+	(formerly the Microcod Board), PB1 (Processor Board A), PB2 (Processor
+	Board B) and PB3 (Processor Board C).
+
+	[Des/Hardware/PB0] Moved entire sequencer to PB0. Rerouted.
+
+	[Prep/Hardware/PB0] Produced CAM jobs for printing PB0. Proofed land
+	patterns for SOIC ICs, 0805 passives and other components.
+
+	[Orders] Ordered PB0 boards from Smart Prototyping.
+
+	[Des/Hardware/PFP/Light_Assembly] Designing layout of light assembly
+	using LED modules.
+
+2013-06-17  AC  <alexios@bedroomlan.org>
+
+	[Orders] Mouser order with components for the panel and latest PB0
+	arrived.
+
+	[Setback,Orders] I ordered the wrong package for the rather expensive
+	16-bit buffers used for the front panel. They're TSSOP48 which is
+	smaller than SSOP48 (which is small enough). A few single-gate ICs were
+	ordered in three-input versions rather than two-input versions. Will
+	work into incorporating the mis-ordered parts into other boards.
+
+2013-06-20  AC  <alexios@bedroomlan.org>
+
+	[Cons/Hardware/PFP/Light_Assembly/Switch_Assembly] Spray-painted switch
+	paddles for front panel switches.
+
+	[Des/Hardware/PB1/Routing] PB1 routing.
+
+2013-07-01  AC  <alexios@bedroomlan.org>
+
+	[Des/Hardware/PFP=80] Drew panel assembly cross-section.
+
+	[Des/Hardware/PB1/Routing] PB1 routing.
+
+2013-07-06  AC <alexios@bedroomlan.org>
+
+	[Cons/Hardware/PFP/Light_Assembly/LED_Boards=70] 6 of 8 boards
+	populated with SMD parts.
+
+2013-07-07  AC <alexios@bedroomlan.org>
+
+	[Setback,Des/Hardware/PB0] Bug discovered in PB0 µCB extension:
+	executing the Interrupt Service Routing cancels any temporarily
+	set bank. Proposed fix is to AND the INT input to the microcode
+	store with the temporary bank enable, making a temporary bank
+	switch and the instruction following it an atomic operation (as
+	far as interrupts are concerned). The design for this is still not
+	in place and will have to be patched in because the PB0 boards
+	have already been shipped.
+
+	[Des/Hardware/PB1/Routing=80] PB1 routing.
+
+	[Des/PB2/Schematic] Changed semantics of MBU's enable bit. 0 is
+	on, 1 is off. Makes it faster to change banks (no additional OR is
+	required). Makes it harder to turn off banking, which is a very
+	uncommon operation.
+
+	[Code/Emulator] Synchronised emulator with new I/O map.
+
+	[Code/Emulator] Rewrote MBU emulation.
+
+	[Code/Software/ROM/Forth] Changed code to accommodate new I/O map.
+
+2013-07-08  AC <alexios@bedroomlan.org>
+
+	[Changelog,Doc/Progress] Generated Changelog file using entries
+	from Facebook page.
+
+2013-07-09  AC <alexios@bedroomlan.org>
+
+	[Changelog,Doc/Progress] Updated Changelog with entries from
+	Subversion log.
+
+	[Des/Hardware/PB1/Routing] PB1 routing. Considering re-routing from
+	scratch.
+
+2013-07-10  AC <alexios@bedroomlan.org>
+
+	[Des/Hardware/PB1/Routing] PB1 routing.
+
+2013-07-11  AC <alexios@bedroomlan.org>
+
+	[Des/Hardware/PB1/Routing] PB1 routing.
+
+	[Orders,Milestones] Processor Board 0 (the Microcode Store) PCBs
+	arrive.
+
+2013-07-12  AC <alexios@bedroomlan.org>
+
+	[Setback,Des/Hardware/PB0/Routing] The wrong version of PB0 was
+	printed! The CAM job processed the right files (revision C), but the
+	ZIP script zipped up revision A, even after I verified the
+	Gerbers. I'll need to re-order PB0. On the upside, I fixed the IRQS#
+	bug in the µCB extension and rerouted the board using the TSSOP-48
+	16-bit buffers I ordered by mistake. The new PB0 passes ERC and DRC and
+	has been rendered front and back, as usual.
+
+2013-07-13  AC <alexios@bedroomlan.org>
+
+	[Des/Hardware/PB1] Investigating use of the DS1805 I²C-programmable
+	clock generator on PB1. It'll allow the processor frequency to be
+	changed for testing, and also takes up less space than a traditional
+	oscillator.
+
+	[Des/Hardware/VDU] Investigating use of the DS1805L I²C-programmable
+	clock generator on the VDU. The CPLD can program it via I²C and we can
+	support arbitrary pixel clocks up to 33 MHz (pixel clocks are currently
+	half the frequency of the CPLD clock). Mostly, it'll be able to
+	generate lower frequencies to drive, for instance, old-style 15 kHz RGB
+	monitors (at lower resolutions, of course).
+
+2013-07-14  AC <alexios@bedroomlan.org>
+
+	[Des/Hardware/PB0] Realised need for pull-ups for all input
+	signals. Added pull-ups. Since I'm reworking PB0 anyway,
+	investigating removing the microcode store connector altogether,
+	in favour of the control bus. Most of the signals are there
+	anyway. However, this requires moving the unit decoders to PB0
+	too. Added SMT resistor arrays for impedance matching on all
+	outputs.
+
+	[Des/Hardware/PB1] Reworking PB1 to remove microcode store
+	connector in favour of the control bus. Through-hole resistor nets
+	to be removed in favour of SMT resistor arrays.
+
+	[Setbacks,Des/Hardware/PB2] PB2 was not receiving DEC# signal from
+	the microcode store because DEC# was never assigned a control bus
+	pin! Reworked control bus to add this. Merged INCCPL# and DECCPL#
+	signals into ACCPL# using an AND gate on PB2.
+
+	[Des/Hardware/PB3] PB3 must be reworked to incorporate the merged
+	INCCPL# and DECCPL# signals. This may save up to two gates.
+
+	[Des/Hardware/Control_Bus] Reworking signals needed for the
+	control bus, merging in signals used in the microcode connector
+	with a view to removing it altogether.
+
+	[Sim,Des/Hardware] Refactored Verilog code to account for changes
+	in processor design.
+
+2013-07-15  AC <alexios@bedroomlan.org>
+
+	[Des/Hardware/PB0] Routing revision E with the new layout and no
+	microcode connector.
+
+2013-07-16  AC <alexios@bedroomlan.org>
+
+	[Des/Hardware/PB0] Finished routing revision E PB0. Board passes DRC
+	and ERC. Rendered proofs of the board.
+
+2013-07-17  AC <alexios@bedroomlan.org>
+
+	[Des/Hardware/PB0] Minor routing fixes. Re-rendered.
+
+	[Des/Hardware/PB1] Placing PB1 almost from scratch. Without the unic
+	decoders and separate microcode store connector, there's a lot more
+	space for routing and the process is expect to be considerably less
+	painful than previous revisions of the board.
+
+2013-07-18  AC <alexios@bedroomlan.org>
+
+	[Des/Hardware/PB1] Routing PB0.
+
+2012-08-19  AC <alexios@bedroomlan.org>
+
+	[Orders,Tools] More solder paste (in syringes), a manual applicator
+	with plunger and an IR thermometer have been delivered. They should
+	make hot-air soldering easier.
+
+	[Des/Hardware/PB1] Finished routing PB0. Rendered result.
+
+	[Des/Hardware/PB2] Minor re-routing for amended control and expansion
+	bus signals.
+
+	[Des/Hardware/PB3] Minor re-routing for amended control and expansion
+	bus signals.
+
+2012-08-20  AC <alexios@bedroomlan.org>
+
+	[Testing,Des/Hardware] Fixed Verilog testbenches for new
+	structures. Tests on the new control bus now pass.
+
+	[Des/Hardware/PB0] Added pull-ups/pull-downs so the board can be tested
+	on its own. The new testing scheme involves building and testing boards
+	PB0-3 incrementally.
+
+	[Des/Hardware/PB1] Minor changes to the board layout.
+
+	[Des/Hardware/PB2] Minor changes to the board layout.
+
+	[Des/Hardware/PB3] Minor changes to the board layout.
+
+	[Testing,Cons/Hardware/PB1] Built and tested the clock generator and
+	write strobe generation logic to verify they work as expected on real
+	hardware.
