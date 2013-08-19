@@ -1,0 +1,34 @@
+[*]
+[*] GTKWave Analyzer v3.3.35 (w)1999-2012 BSI
+[*] Wed May 16 11:38:09 2012
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/agl_tb.vcd"
+[dumpfile_mtime] "Wed May 16 11:38:07 2012"
+[dumpfile_size] 38732
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/agl_tb.sav"
+[timestart] 13800600
+[size] 1723 675
+[pos] 72 93
+*-17.348795 14700000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] agl_tb.
+[sst_width] 245
+[signals_width] 156
+[sst_expanded] 1
+[sst_vpaned_height] 174
+@22
+agl_tb.pc[15:0]
+agl_tb.ir[15:0]
+@23
+agl_tb.agl_unit.page[5:0]
+@22
+agl_tb.pagebase[15:0]
+@28
+agl_tb.ir10
+agl_tb.nend
+agl_tb.nragl
+@200
+-
+@22
+agl_tb.ibus[15:0]
+[pattern_trace] 1
+[pattern_trace] 0

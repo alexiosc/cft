@@ -1,0 +1,67 @@
+[*]
+[*] GTKWave Analyzer v3.3.38 (w)1999-2012 BSI
+[*] Fri Jul 27 07:30:06 2012
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/databus_tb.vcd"
+[dumpfile_mtime] "Fri Jul 27 07:30:01 2012"
+[dumpfile_size] 59805
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/databus_tb.sav"
+[timestart] 5726000
+[size] 1713 912
+[pos] 25 42
+*-18.331177 6271000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] addressing_tb.
+[treeopen] addressing_tb.clock_generator.
+[treeopen] addressing_tb.db_iface.
+[sst_width] 245
+[signals_width] 279
+[sst_expanded] 1
+[sst_vpaned_height] 266
+@28
+[color] 1
+addressing_tb.clock_generator.clk1
+[color] 2
+addressing_tb.clock_generator.clk2
+[color] 3
+addressing_tb.clock_generator.clk3
+[color] 4
+addressing_tb.clock_generator.clk4
+[color] 5
+addressing_tb.nt34
+@2022
+^1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/../filters/cycle_stage
+addressing_tb.clock_generator.demux_clk.y1[3:0]
+@200
+-
+@28
+addressing_tb.nreset
+@200
+-
+@22
+addressing_tb.db_real[15:0]
+addressing_tb.ibus_real[15:0]
+@200
+-
+@28
+addressing_tb.db_iface.wshold
+addressing_tb.nmem
+addressing_tb.nio
+addressing_tb.nr
+addressing_tb.nwen
+[color] 1
+addressing_tb.nw
+@29
+addressing_tb.db_iface.en
+@28
+addressing_tb.nws
+addressing_tb.db_iface.waiting
+@200
+-
+@2022
+^1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/../filters/cycle_stage
+addressing_tb.clock_generator.demux_clk.y1[3:0]
+@28
+addressing_tb.db_iface.wff.set
+addressing_tb.db_iface.wff.clk
+[pattern_trace] 1
+[pattern_trace] 0

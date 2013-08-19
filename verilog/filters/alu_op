@@ -1,0 +1,17 @@
+# Filters for the ALU op code.
+0000 idle
+0001 idle
+0010 idle
+0011 idle
+0100 idle
+0101 idle
+0110 idle
+0111 idle
+1000 ?green4?ADD
+1001 ?cyan4?AND
+1010 ?cyan4?OR
+1011 ?cyan4?XOR
+1100 ?orange4?ROLL
+1101 ?magenta4?NOT
+1110 ?blue4?CS1
+1111 ?blue4?CS2

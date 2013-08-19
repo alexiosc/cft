@@ -1,0 +1,83 @@
+[*]
+[*] GTKWave Analyzer v3.3.40 (w)1999-2012 BSI
+[*] Wed Oct 17 01:11:20 2012
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/counter_161_tb.vcd"
+[dumpfile_mtime] "Wed Oct 17 01:08:45 2012"
+[dumpfile_size] 21651
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/counter_161_tb.sav"
+[timestart] 0
+[size] 1659 1079
+[pos] 273 33
+*-17.680159 15828790 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] counter_161_tb.
+[sst_width] 241
+[signals_width] 147
+[sst_expanded] 1
+[sst_vpaned_height] 319
+@28
+counter_161_tb.cp
+counter_161_tb.mr
+counter_161_tb.cet
+counter_161_tb.cep
+@200
+-Data In Logic
+@28
+counter_161_tb.pe
+@22
+counter_161_tb.p[15:0]
+@c00022
+counter_161_tb.q[15:0]
+@28
+(0)counter_161_tb.q[15:0]
+(1)counter_161_tb.q[15:0]
+(2)counter_161_tb.q[15:0]
+(3)counter_161_tb.q[15:0]
+(4)counter_161_tb.q[15:0]
+(5)counter_161_tb.q[15:0]
+(6)counter_161_tb.q[15:0]
+(7)counter_161_tb.q[15:0]
+(8)counter_161_tb.q[15:0]
+(9)counter_161_tb.q[15:0]
+(10)counter_161_tb.q[15:0]
+(11)counter_161_tb.q[15:0]
+(12)counter_161_tb.q[15:0]
+(13)counter_161_tb.q[15:0]
+(14)counter_161_tb.q[15:0]
+(15)counter_161_tb.q[15:0]
+@1401200
+-group_end
+@200
+-
+-
+@22
+counter_161_tb.c0.q[3:0]
+@28
+counter_161_tb.c0.tc
+@200
+-
+-
+@22
+counter_161_tb.c1.q[3:0]
+@28
+counter_161_tb.c1.tc
+@29
+counter_161_tb.c1.cet
+@200
+-
+-
+@22
+counter_161_tb.c2.q[3:0]
+@28
+counter_161_tb.c2.tc
+counter_161_tb.c2.cet
+@200
+-
+-
+@22
+counter_161_tb.c3.q[3:0]
+@28
+counter_161_tb.c3.tc
+counter_161_tb.c3.cet
+[pattern_trace] 1
+[pattern_trace] 0

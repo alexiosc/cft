@@ -1,0 +1,58 @@
+[*]
+[*] GTKWave Analyzer v3.3.47 (w)1999-2013 BSI
+[*] Fri Jul 19 23:11:05 2013
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verification/vcd/PB1-DBD-test.vcd"
+[dumpfile_mtime] "Fri Jul 19 23:10:54 2013"
+[dumpfile_size] 34386529
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verification/sav/PB1-DBD-test.sav"
+[timestart] 687000
+[size] 1405 873
+[pos] 284 153
+*-20.000000 250000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] PB1_DBD_test.
+[treeopen] PB1_DBD_test.clock.
+[sst_width] 288
+[signals_width] 178
+[sst_expanded] 1
+[sst_vpaned_height] 254
+@28
+PB1_DBD_test.clock.clk1
+PB1_DBD_test.clock.clk2
+PB1_DBD_test.clock.clk3
+PB1_DBD_test.clock.clk4
+PB1_DBD_test.clock.fastclock
+PB1_DBD_test.clock.fpclken
+PB1_DBD_test.clock.fpustep
+PB1_DBD_test.clock.nreset
+PB1_DBD_test.clock.nt12
+PB1_DBD_test.clock.nt34
+@22
+PB1_DBD_test.clock.ph90[3:0]
+PB1_DBD_test.clock.ph180[3:0]
+PB1_DBD_test.clock.phase_q[3:0]
+@28
+PB1_DBD_test.clock.rawclock1
+PB1_DBD_test.clock.rstclk
+@200
+-
+-
+-
+-
+-
+-WS FF
+@800023
+PB1_DBD_test.clock.ic003a_253_runcontrol.i[3:0]
+@29
+(0)PB1_DBD_test.clock.ic003a_253_runcontrol.i[3:0]
+(1)PB1_DBD_test.clock.ic003a_253_runcontrol.i[3:0]
+(2)PB1_DBD_test.clock.ic003a_253_runcontrol.i[3:0]
+(3)PB1_DBD_test.clock.ic003a_253_runcontrol.i[3:0]
+@1001201
+-group_end
+@28
+PB1_DBD_test.clock.ic003a_253_runcontrol.oe
+PB1_DBD_test.clock.ic003a_253_runcontrol.sel[1:0]
+PB1_DBD_test.clock.ic003a_253_runcontrol.y
+[pattern_trace] 1
+[pattern_trace] 0

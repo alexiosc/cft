@@ -1,0 +1,36 @@
+[*]
+[*] GTKWave Analyzer v3.3.38 (w)1999-2012 BSI
+[*] Sun Jul 22 15:29:47 2012
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/reset_tb.vcd"
+[dumpfile_mtime] "Sun Jul 22 15:29:41 2012"
+[dumpfile_size] 8631
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/reset_tb.sav"
+[timestart] 0
+[size] 1442 899
+[pos] 114 112
+*-22.999521 0 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] reset_logic_tb.
+[sst_width] 245
+[signals_width] 220
+[sst_expanded] 1
+[sst_vpaned_height] 253
+@200
+-
+@28
+reset_logic_tb.clk1
+@29
+reset_logic_tb.fpreset
+@28
+reset_logic_tb.powerok
+reset_logic_tb.nreset
+@200
+-
+-Outputs
+@28
+reset_logic_tb.nrsthold
+@22
+reset_logic_tb.ibus[15:0]
+reset_logic_tb.reset_logic.q[7:0]
+[pattern_trace] 1
+[pattern_trace] 0

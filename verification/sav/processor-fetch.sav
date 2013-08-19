@@ -1,0 +1,62 @@
+[*]
+[*] GTKWave Analyzer v3.3.44 (w)1999-2012 BSI
+[*] Wed Apr 17 00:20:07 2013
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verification/vcd/processor-fetch.vcd"
+[dumpfile_mtime] "Wed Apr 17 00:20:02 2013"
+[dumpfile_size] 105926
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verification/sav/processor-fetch.sav"
+[timestart] 0
+[size] 1779 977
+[pos] -1 -1
+*-21.164557 14641000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] processor_fetch.
+[treeopen] processor_fetch.dut.
+[sst_width] 227
+[signals_width] 194
+[sst_expanded] 1
+[sst_vpaned_height] 287
+@28
+processor_fetch.nreset
+@200
+-
+@28
+[color] 1
+processor_fetch.clk1
+[color] 2
+processor_fetch.clk2
+[color] 3
+processor_fetch.clk3
+[color] 4
+processor_fetch.clk4
+[color] 5
+processor_fetch.nt34
+@200
+-
+@28
+processor_fetch.nmem
+processor_fetch.nr
+@200
+-
+@22
+processor_fetch.dut.pb1_pc[15:0]
+processor_fetch.dut.pa1_ir[15:0]
+@4022
+^>1 /home/alexios/PROJECTS/HARDWARE/cft/verification/sav/../filters/disasm
+processor_fetch.dut.pa1_ir[15:0]
+@22
+processor_fetch.dut.pb2_ac[15:0]
+@200
+-
+@22
+processor_fetch.ab[15:0]
+processor_fetch.db[15:0]
+@23
+processor_fetch.dut.c1_ibus[15:0]
+@200
+-
+@28
+processor_fetch.dut.c1_nwir
+processor_fetch.dut.b3_pbb.c1_nincpc
+[pattern_trace] 1
+[pattern_trace] 0

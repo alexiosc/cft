@@ -1,0 +1,50 @@
+[*]
+[*] GTKWave Analyzer v3.3.34 (w)1999-2012 BSI
+[*] Sat Apr 13 08:55:59 2013
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verification/vcd/processor-board-C-UOP.vcd"
+[dumpfile_mtime] "Sat Apr 13 08:55:19 2013"
+[dumpfile_size] 400316565
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verification/sav/processor-board-C-UOP.sav"
+[timestart] 0
+[size] 1620 797
+[pos] 0 30
+*-35.708786 8202454000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[sst_width] 227
+[signals_width] 377
+[sst_expanded] 1
+[sst_vpaned_height] 228
+@28
+processor_board_C_UOP.nreset
+processor_board_C_UOP.nuoe
+processor_board_C_UOP.nirqs
+@200
+-
+@28
+processor_board_C_UOP.fl
+@22
+processor_board_C_UOP.ac[15:0]
+@200
+-
+@28
+processor_board_C_UOP.uop[2:0]
+@c02028
+^1 /home/alexios/PROJECTS/HARDWARE/cft/verification/sav/../filters/alu_uop
+processor_board_C_UOP.uop[2:0]
+@28
+(0)processor_board_C_UOP.uop[2:0]
+(1)processor_board_C_UOP.uop[2:0]
+(2)processor_board_C_UOP.uop[2:0]
+@1401200
+-group_end
+@200
+-
+@23
+processor_board_C_UOP.ibus[15:0]
+@200
+-
+@28
+processor_board_C_UOP.roll16
+processor_board_C_UOP.isroll
+[pattern_trace] 1
+[pattern_trace] 0

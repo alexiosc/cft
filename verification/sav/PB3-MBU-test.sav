@@ -1,0 +1,130 @@
+[*]
+[*] GTKWave Analyzer v3.3.34 (w)1999-2012 BSI
+[*] Sun Jul  7 12:50:45 2013
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verification/vcd/processor-board-C-MBU-test.vcd"
+[dumpfile_mtime] "Sun Jul  7 12:49:50 2013"
+[dumpfile_size] 194908995
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verification/sav/processor-board-C-MBU-test.sav"
+[timestart] 0
+[size] 1912 1053
+[pos] 0 0
+*-36.102398 10700 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] processor_board_C_MBU_test.
+[treeopen] processor_board_C_MBU_test.dut.
+[sst_width] 254
+[signals_width] 172
+[sst_expanded] 1
+[sst_vpaned_height] 317
+@28
+processor_board_C_MBU_test.nreset
+[color] 2
+processor_board_C_MBU_test.nfpram
+@200
+-
+@22
+processor_board_C_MBU_test.ab[15:0]
+@c00022
+processor_board_C_MBU_test.db[15:0]
+@28
+(0)processor_board_C_MBU_test.db[15:0]
+(1)processor_board_C_MBU_test.db[15:0]
+(2)processor_board_C_MBU_test.db[15:0]
+(3)processor_board_C_MBU_test.db[15:0]
+(4)processor_board_C_MBU_test.db[15:0]
+(5)processor_board_C_MBU_test.db[15:0]
+(6)processor_board_C_MBU_test.db[15:0]
+(7)processor_board_C_MBU_test.db[15:0]
+(8)processor_board_C_MBU_test.db[15:0]
+(9)processor_board_C_MBU_test.db[15:0]
+(10)processor_board_C_MBU_test.db[15:0]
+(11)processor_board_C_MBU_test.db[15:0]
+(12)processor_board_C_MBU_test.db[15:0]
+(13)processor_board_C_MBU_test.db[15:0]
+(14)processor_board_C_MBU_test.db[15:0]
+(15)processor_board_C_MBU_test.db[15:0]
+@1401200
+-group_end
+@200
+-
+@28
+[color] 2
+processor_board_C_MBU_test.nmem
+[color] 2
+processor_board_C_MBU_test.nsysdev
+[color] 2
+processor_board_C_MBU_test.nw
+@200
+-
+@28
+[color] 1
+(7)processor_board_C_MBU_test.db[15:0]
+@22
+[color] 2
+processor_board_C_MBU_test.banking
+@200
+-
+@22
+[color] 3
+processor_board_C_MBU_test.ab[15:0]
+[color] 4
+processor_board_C_MBU_test.aext[7:0]
+@200
+-
+@24
+processor_board_C_MBU_test.set_reg.addr[2:0]
+@200
+-
+@c00022
+processor_board_C_MBU_test.dut.ae[7:0]
+@28
+(0)processor_board_C_MBU_test.dut.ae[7:0]
+(1)processor_board_C_MBU_test.dut.ae[7:0]
+(2)processor_board_C_MBU_test.dut.ae[7:0]
+(3)processor_board_C_MBU_test.dut.ae[7:0]
+(4)processor_board_C_MBU_test.dut.ae[7:0]
+(5)processor_board_C_MBU_test.dut.ae[7:0]
+(6)processor_board_C_MBU_test.dut.ae[7:0]
+(7)processor_board_C_MBU_test.dut.ae[7:0]
+@1401200
+-group_end
+@22
+processor_board_C_MBU_test.dut.ic31_670_r0lo.d[3:0]
+@c00022
+processor_board_C_MBU_test.dut.ic31_670_r0lo.q[3:0]
+@28
+(0)processor_board_C_MBU_test.dut.ic31_670_r0lo.q[3:0]
+(1)processor_board_C_MBU_test.dut.ic31_670_r0lo.q[3:0]
+(2)processor_board_C_MBU_test.dut.ic31_670_r0lo.q[3:0]
+(3)processor_board_C_MBU_test.dut.ic31_670_r0lo.q[3:0]
+@1401200
+-group_end
+@28
+processor_board_C_MBU_test.dut.ic31_670_r0lo.nre
+processor_board_C_MBU_test.dut.ic31_670_r0lo.ra[1:0]
+processor_board_C_MBU_test.dut.ic31_670_r0lo.nwe
+processor_board_C_MBU_test.dut.ic31_670_r0lo.wa[1:0]
+[color] 2
+(0)processor_board_C_MBU_test.dut.nbankr[0:1]
+[color] 2
+(1)processor_board_C_MBU_test.dut.nbankr[0:1]
+[color] 1
+(0)processor_board_C_MBU_test.dut.nbankw[0:1]
+[color] 1
+(1)processor_board_C_MBU_test.dut.nbankw[0:1]
+@22
+processor_board_C_MBU_test.dut.ic31_670_r0lo.r0[3:0]
+processor_board_C_MBU_test.dut.ic31_670_r0lo.r1[3:0]
+processor_board_C_MBU_test.dut.ic31_670_r0lo.r2[3:0]
+processor_board_C_MBU_test.dut.ic31_670_r0lo.r3[3:0]
+@200
+-
+@28
+processor_board_C_MBU_test.dut.ic28a_74_reg.clk
+processor_board_C_MBU_test.dut.ic28a_74_reg.d
+processor_board_C_MBU_test.dut.ic28a_74_reg.q
+processor_board_C_MBU_test.dut.ic28a_74_reg.qn
+processor_board_C_MBU_test.dut.ic28a_74_reg.rst
+processor_board_C_MBU_test.dut.ic28a_74_reg.set
+[pattern_trace] 1
+[pattern_trace] 0

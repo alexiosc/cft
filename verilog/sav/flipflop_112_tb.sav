@@ -1,0 +1,28 @@
+[*]
+[*] GTKWave Analyzer v3.3.37 (w)1999-2012 BSI
+[*] Tue Jul 17 11:44:53 2012
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/flipflop_112_tb.vcd"
+[dumpfile_mtime] "Tue Jul 17 11:44:50 2012"
+[dumpfile_size] 1219
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/flipflop_112_tb.sav"
+[timestart] 0
+[size] 1223 600
+[pos] -1 -1
+*-18.251337 145000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[sst_width] 245
+[signals_width] 78
+[sst_expanded] 1
+[sst_vpaned_height] 148
+@28
+flipflop_112_tb.clk
+flipflop_112_tb.set
+@29
+flipflop_112_tb.rst
+@28
+flipflop_112_tb.j
+flipflop_112_tb.k
+flipflop_112_tb.q
+flipflop_112_tb.qn
+[pattern_trace] 1
+[pattern_trace] 0

@@ -1,0 +1,45 @@
+[*]
+[*] GTKWave Analyzer v3.3.34 (w)1999-2012 BSI
+[*] Mon Mar 25 08:22:46 2013
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verification/vcd/processor-board-A-ISM-test.vcd"
+[dumpfile_mtime] "Mon Mar 25 08:22:17 2013"
+[dumpfile_size] 109368
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verification/sav/processor-board-A-ISM-test.sav"
+[timestart] 481846000
+[size] 1320 606
+[pos] 25 0
+*-18.319471 482578000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] processor_board_A_ISM_test.
+[treeopen] processor_board_A_ISM_test.dut.
+[sst_width] 227
+[signals_width] 95
+[sst_expanded] 1
+[sst_vpaned_height] 159
+@28
+processor_board_A_ISM_test.nreset
+@200
+-
+@28
+[color] 4
+processor_board_A_ISM_test.nsti
+[color] 1
+processor_board_A_ISM_test.ncli
+[color] 3
+processor_board_A_ISM_test.nend
+@200
+-
+@28
+[color] 1
+processor_board_A_ISM_test.nirq
+@200
+-
+@28
+[color] 4
+processor_board_A_ISM_test.fint
+[color] 7
+processor_board_A_ISM_test.firq
+[color] 5
+processor_board_A_ISM_test.nirqs
+[pattern_trace] 1
+[pattern_trace] 0

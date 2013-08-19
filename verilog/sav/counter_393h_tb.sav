@@ -1,0 +1,23 @@
+[*]
+[*] GTKWave Analyzer v3.3.36 (w)1999-2012 BSI
+[*] Tue Jun 12 10:25:59 2012
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/counter_393h_tb.vcd"
+[dumpfile_mtime] "Tue Jun 12 10:25:42 2012"
+[dumpfile_size] 3270
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/counter_393h_tb.sav"
+[timestart] 4972000
+[size] 1000 600
+[pos] -1 -1
+*-19.170757 2012000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[sst_width] 245
+[signals_width] 84
+[sst_expanded] 1
+[sst_vpaned_height] 148
+@28
+counter_393_tb.clk
+counter_393_tb.clr
+@22
+counter_393_tb.q[3:0]
+[pattern_trace] 1
+[pattern_trace] 0

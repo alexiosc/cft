@@ -1,0 +1,131 @@
+[*]
+[*] GTKWave Analyzer v3.3.34 (w)1999-2012 BSI
+[*] Sat Mar 30 14:09:52 2013
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verification/vcd/processor-board-C-BOP-add.vcd"
+[dumpfile_mtime] "Sat Mar 30 14:09:35 2013"
+[dumpfile_size] 449526790
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verification/sav/processor-board-C-BOP-add.sav"
+[timestart] 30890000000
+[size] 1585 968
+[pos] -1 -1
+*-27.793457 323267000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] processor_board_C_BOP_add.
+[treeopen] processor_board_C_BOP_add.PBC_BOP.
+[sst_width] 270
+[signals_width] 264
+[sst_expanded] 1
+[sst_vpaned_height] 278
+@28
+processor_board_C_BOP_add.nreset
+processor_board_C_BOP_add.clk3
+processor_board_C_BOP_add.nboe
+@22
+processor_board_C_BOP_add.runit[3:0]
+@200
+-
+-Addition
+@24
+[color] 1
+processor_board_C_BOP_add.PBC_BOP.ac[15:0]
+[color] 2
+processor_board_C_BOP_add.PBC_BOP.b[15:0]
+[color] 3
+processor_board_C_BOP_add.PBC_BOP.y[15:0]
+@200
+-
+-Signed Addition
+@420
+[color] 1
+processor_board_C_BOP_add.PBC_BOP.ac[15:0]
+[color] 2
+processor_board_C_BOP_add.PBC_BOP.b[15:0]
+[color] 3
+processor_board_C_BOP_add.PBC_BOP.y[15:0]
+@200
+-
+@28
+[color] 4
++{fl (INPUT)} processor_board_C_BOP_add.PBC_BOP.fl
+[color] 1
+processor_board_C_BOP_add.fv
+@200
+-
+@c00024
+[color] 2
+processor_board_C_BOP_add.y[15:0]
+@28
+(0)processor_board_C_BOP_add.y[15:0]
+(1)processor_board_C_BOP_add.y[15:0]
+(2)processor_board_C_BOP_add.y[15:0]
+(3)processor_board_C_BOP_add.y[15:0]
+(4)processor_board_C_BOP_add.y[15:0]
+(5)processor_board_C_BOP_add.y[15:0]
+(6)processor_board_C_BOP_add.y[15:0]
+(7)processor_board_C_BOP_add.y[15:0]
+(8)processor_board_C_BOP_add.y[15:0]
+(9)processor_board_C_BOP_add.y[15:0]
+(10)processor_board_C_BOP_add.y[15:0]
+(11)processor_board_C_BOP_add.y[15:0]
+(12)processor_board_C_BOP_add.y[15:0]
+(13)processor_board_C_BOP_add.y[15:0]
+(14)processor_board_C_BOP_add.y[15:0]
+(15)processor_board_C_BOP_add.y[15:0]
+@1401200
+-group_end
+@29
+processor_board_C_BOP_add.nfltadd
+@200
+-
+@28
+processor_board_C_BOP_add.PBC_BOP.nalucpl
+processor_board_C_BOP_add.PBC_BOP.flatch
+processor_board_C_BOP_add.PBC_BOP.fvout
+@22
+processor_board_C_BOP_add.PBC_BOP.ic108_29040_rom2.d[7:0]
+@200
+-
+-FLAGCLK Generation
+@28
+[color] 1
+processor_board_C_BOP_add.nboe
+[color] 2
+processor_board_C_BOP_add.PBC_BOP.flatch
+[color] 3
+processor_board_C_BOP_add.clk3
+[color] 4
+processor_board_C_BOP_add.PBC_BOP.flagclk
+@200
+-
+-FLTADD# FF
+@28
+[color] 3
+processor_board_C_BOP_add.PBC_BOP.ic110b_74_fltadd.clk
+[color] 3
+processor_board_C_BOP_add.PBC_BOP.ic110b_74_fltadd.d
+[color] 3
+processor_board_C_BOP_add.PBC_BOP.ic110b_74_fltadd.q
+[color] 3
+processor_board_C_BOP_add.PBC_BOP.ic110b_74_fltadd.qn
+[color] 3
+processor_board_C_BOP_add.PBC_BOP.ic110b_74_fltadd.rst
+[color] 3
+processor_board_C_BOP_add.PBC_BOP.ic110b_74_fltadd.set
+@200
+-
+-FV FF
+@28
+[color] 2
+processor_board_C_BOP_add.PBC_BOP.ic110a_74_fv.clk
+[color] 2
+processor_board_C_BOP_add.PBC_BOP.ic110a_74_fv.d
+[color] 2
+processor_board_C_BOP_add.PBC_BOP.ic110a_74_fv.q
+[color] 2
+processor_board_C_BOP_add.PBC_BOP.ic110a_74_fv.qn
+[color] 2
+processor_board_C_BOP_add.PBC_BOP.ic110a_74_fv.rst
+[color] 2
+processor_board_C_BOP_add.PBC_BOP.ic110a_74_fv.set
+[pattern_trace] 1
+[pattern_trace] 0

@@ -1,0 +1,30 @@
+[*]
+[*] GTKWave Analyzer v3.3.34 (w)1999-2012 BSI
+[*] Sun Jul 14 20:37:00 2013
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verification/vcd/PB0-roms.vcd"
+[dumpfile_mtime] "Sun Jul 14 20:34:19 2013"
+[dumpfile_size] 71614798
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verification/sav/PB0-roms.sav"
+[timestart] 0
+[size] 1456 907
+[pos] 131 -186
+*-23.464142 12670000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] PB0_roms.
+[treeopen] PB0_roms.dut.
+[sst_width] 227
+[signals_width] 281
+[sst_expanded] 1
+[sst_vpaned_height] 265
+@22
+PB0_roms.dut.uaddr[18:0]
+@200
+-
+@22
+PB0_roms.data[23:0]
+@200
+-
+@29
+PB0_roms.nuce
+[pattern_trace] 1
+[pattern_trace] 0

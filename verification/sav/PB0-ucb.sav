@@ -1,0 +1,110 @@
+[*]
+[*] GTKWave Analyzer v3.3.44 (w)1999-2012 BSI
+[*] Tue Mar 19 10:20:55 2013
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verification/vcd/processor-board-uC-ucb.vcd"
+[dumpfile_mtime] "Tue Mar 19 10:18:41 2013"
+[dumpfile_size] 27318
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verification/sav/processor-board-uC-ucb.sav"
+[timestart] 0
+[size] 1469 968
+[pos] 0 17
+*-25.431240 131517000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] processor_board_uC_ucb.
+[treeopen] processor_board_uC_ucb.dut.
+[sst_width] 227
+[signals_width] 215
+[sst_expanded] 1
+[sst_vpaned_height] 289
+@28
+processor_board_uC_ucb.ec_nreset
+@22
+processor_board_uC_ucb.ec_ab[15:0]
+processor_board_uC_ucb.ec_db[15:0]
+@28
+processor_board_uC_ucb.dut.ec_nsysdev
+processor_board_uC_ucb.dut.ec_nw
+processor_board_uC_ucb.dut.ec_nio
+@29
+[color] 2
+processor_board_uC_ucb.dut.nsetucbp
+@28
+[color] 3
+processor_board_uC_ucb.dut.nsetucbt
+[color] 1
+processor_board_uC_ucb.dut.dt_nend
+@200
+-
+@22
+processor_board_uC_ucb.dut.ucba[3:0]
+processor_board_uC_ucb.dut.ucbb[3:0]
+@c00022
+[color] 2
+processor_board_uC_ucb.dut.ucb[3:0]
+@28
+(0)processor_board_uC_ucb.dut.ucb[3:0]
+(1)processor_board_uC_ucb.dut.ucb[3:0]
+(2)processor_board_uC_ucb.dut.ucb[3:0]
+(3)processor_board_uC_ucb.dut.ucb[3:0]
+@1401200
+-group_end
+@200
+-
+-Permanent Reg
+@28
+processor_board_uC_ucb.dut.ic6_175_regperm.clk
+@22
+processor_board_uC_ucb.dut.ic6_175_regperm.d[3:0]
+processor_board_uC_ucb.dut.ic6_175_regperm.nq[3:0]
+processor_board_uC_ucb.dut.ic6_175_regperm.q[3:0]
+@28
+processor_board_uC_ucb.dut.ic6_175_regperm.rst
+@200
+-
+-Temporary Reg
+@28
+processor_board_uC_ucb.dut.ic7_175_regtemp.clk
+@22
+processor_board_uC_ucb.dut.ic7_175_regtemp.d[3:0]
+processor_board_uC_ucb.dut.ic7_175_regtemp.nq[3:0]
+processor_board_uC_ucb.dut.ic7_175_regtemp.q[3:0]
+@28
+processor_board_uC_ucb.dut.ic7_175_regtemp.rst
+@200
+-
+@28
+[color] 3
+processor_board_uC_ucb.dut.nsetucbt
+[color] 1
+processor_board_uC_ucb.dut.dt_nend
+processor_board_uC_ucb.dut.nucba_ucbb
+@c00022
+[color] 2
+processor_board_uC_ucb.dut.ucb[3:0]
+@28
+(0)processor_board_uC_ucb.dut.ucb[3:0]
+(1)processor_board_uC_ucb.dut.ucb[3:0]
+(2)processor_board_uC_ucb.dut.ucb[3:0]
+(3)processor_board_uC_ucb.dut.ucb[3:0]
+@1401200
+-group_end
+@200
+-FFa
+@28
+[color] 1
+processor_board_uC_ucb.dut.ic8a_74_tempseq.set
+[color] 1
+processor_board_uC_ucb.dut.ic8a_74_tempseq.rst
+[color] 2
+processor_board_uC_ucb.dut.ic8a_74_tempseq.d
+[color] 2
+processor_board_uC_ucb.dut.ic8a_74_tempseq.clk
+[color] 4
+processor_board_uC_ucb.dut.ic8a_74_tempseq.q
+[color] 3
+processor_board_uC_ucb.dut.ic8a_74_tempseq.qn
+@200
+-
+-FFb
+[pattern_trace] 1
+[pattern_trace] 0

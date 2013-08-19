@@ -1,0 +1,50 @@
+[*]
+[*] GTKWave Analyzer v3.3.40 (w)1999-2012 BSI
+[*] Tue Oct 16 15:21:00 2012
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/video_modnctr_tb.vcd"
+[dumpfile_mtime] "Tue Oct 16 15:18:09 2012"
+[dumpfile_size] 279464
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/video_modnctr_tb.sav"
+[timestart] 0
+[size] 1374 664
+[pos] 0 37
+*-19.040670 1167000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] video_modnctr_tb.
+[treeopen] video_modnctr_tb.modnctr.
+[sst_width] 201
+[signals_width] 179
+[sst_expanded] 1
+[sst_vpaned_height] 177
+@200
+-
+@28
+video_modnctr_tb.hgr
+video_modnctr_tb.clh[1:0]
+@2029
+^1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/../filters/clh
+video_modnctr_tb.clh[1:0]
+@200
+-
+@28
+video_modnctr_tb.inc
+@200
+-
+@c00022
+video_modnctr_tb.q[3:0]
+@28
+(0)video_modnctr_tb.q[3:0]
+(1)video_modnctr_tb.q[3:0]
+(2)video_modnctr_tb.q[3:0]
+(3)video_modnctr_tb.q[3:0]
+@1401200
+-group_end
+@28
+video_modnctr_tb.nincsl
+video_modnctr_tb.nlastsl
+video_modnctr_tb.modnctr.counter.count_down
+video_modnctr_tb.modnctr.counter.count_up
+video_modnctr_tb.modnctr.counter.clear
+video_modnctr_tb.modnctr.lastline[3:0]
+[pattern_trace] 1
+[pattern_trace] 0

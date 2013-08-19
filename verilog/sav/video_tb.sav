@@ -1,0 +1,103 @@
+[*]
+[*] GTKWave Analyzer v3.3.40 (w)1999-2012 BSI
+[*] Tue Nov 20 22:51:10 2012
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/video_tb.vcd"
+[dumpfile_mtime] "Tue Nov 20 22:47:32 2012"
+[dumpfile_size] 144977285
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/video_tb.sav"
+[timestart] 3609930000
+[size] 1912 906
+[pos] 221 0
+*-22.608047 1018050000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] video_tb.
+[treeopen] video_tb.v.
+[sst_width] 245
+[signals_width] 247
+[sst_expanded] 1
+[sst_vpaned_height] 437
+@800200
+>1118524000
+-VGA Output
+@8028
+>0
+[color] 1
+video_tb.r[1:0]
+@20000
+-
+@8028
+[color] 4
+video_tb.b[1:0]
+@20000
+-
+@8028
+[color] 5
+video_tb.g[1:0]
+@20000
+-
+@200
+-
+@28
+video_tb.hsync
+video_tb.vsync
+@200
+-
+@28
+video_tb.hvideo
+video_tb.vvideo
+@1000200
+>1118524000
+-VGA Output
+@c00200
+>0
+-Clocks
+@28
+video_tb.v.clk
+video_tb.v.clk2
+video_tb.v.clk4
+video_tb.v.clk8
+video_tb.v.clk16
+video_tb.v.clk32
+@1401200
+-Clocks
+@200
+-
+@22
+video_tb.v.vcnt[8:0]
+video_tb.v.paddr[16:0]
+video_tb.v.breg[7:0]
+video_tb.v.creg0[15:0]
+video_tb.v.creg[15:0]
+@200
+-
+@28
+video_tb.v.cursor
+@22
+video_tb.v.car[15:0]
+@28
+video_tb.v.cbc[1:0]
+video_tb.v.cblinkon
+video_tb.v.ncellload
+video_tb.v.hs
+video_tb.v.altmode
+@22
+video_tb.v.cgaddr[16:0]
+video_tb.v.pa[16:0]
+@28
+[color] 2
+video_tb.v.memhost
+video_tb.v.memchargen
+video_tb.v.memplane
+@22
+video_tb.v.phi[3:0]
+[color] 1
+video_tb.v.hostphi[2:0]
+@28
+video_tb.v.nhpr
+video_tb.v.ninchar
+[color] 3
+video_tb.v.pixelout
+@29
+video_tb.v.cellclk
+[pattern_trace] 1
+[pattern_trace] 0

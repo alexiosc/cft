@@ -1,0 +1,41 @@
+[*]
+[*] GTKWave Analyzer v3.3.36 (w)1999-2012 BSI
+[*] Sat Jun 16 10:05:43 2012
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/counter_4017_tb.vcd"
+[dumpfile_mtime] "Sat Jun 16 10:04:57 2012"
+[dumpfile_size] 4148
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/counter_4017_tb.sav"
+[timestart] 0
+[size] 1675 746
+[pos] -1 -1
+*-20.987602 3161000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] counter_4017_tb.
+[sst_width] 245
+[signals_width] 188
+[sst_expanded] 1
+[sst_vpaned_height] 198
+@28
+counter_4017_tb.clk
+counter_4017_tb.clear
+@8000a8
+counter_4017_tb.q[9:0]
+@28
+(0)counter_4017_tb.q[9:0]
+(1)counter_4017_tb.q[9:0]
+(2)counter_4017_tb.q[9:0]
+(3)counter_4017_tb.q[9:0]
+(4)counter_4017_tb.q[9:0]
+(5)counter_4017_tb.q[9:0]
+(6)counter_4017_tb.q[9:0]
+(7)counter_4017_tb.q[9:0]
+(8)counter_4017_tb.q[9:0]
+(9)counter_4017_tb.q[9:0]
+@1001200
+-group_end
+@28
+counter_4017_tb.co
+@29
+counter_4017_tb.pulse5
+[pattern_trace] 1
+[pattern_trace] 0

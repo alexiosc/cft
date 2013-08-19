@@ -1,0 +1,19 @@
+[timestart] 0
+[size] 1242 758
+[pos] 35 23
+*-22.351732 8240000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] clock_tb.
+[treeopen] clock_tb.cgen.
+@28
+clock_tb.reset
+clock_tb.clken
+clock_tb.step
+clock_tb.rawclk
+clock_tb.clock
+clock_tb.clock2
+clock_tb.clock3
+clock_tb.clock4
+clock_tb.clock14
+clock_tb.myclk34
+[pattern_trace] 1
+[pattern_trace] 0

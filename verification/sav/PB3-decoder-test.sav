@@ -1,0 +1,49 @@
+[*]
+[*] GTKWave Analyzer v3.3.34 (w)1999-2012 BSI
+[*] Sun Apr 14 22:08:43 2013
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verification/vcd/processor-board-C-decoder-test.vcd"
+[dumpfile_mtime] "Sun Apr 14 22:08:15 2013"
+[dumpfile_size] 51809
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verification/sav/processor-board-C-decoder-test.sav"
+[timestart] 0
+[size] 1813 914
+[pos] 10 0
+*-23.425472 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] processor_board_C_decoder_test.
+[treeopen] processor_board_C_decoder_test.dut.
+[sst_width] 227
+[signals_width] 148
+[sst_expanded] 1
+[sst_vpaned_height] 261
+@28
+processor_board_C_decoder_test.nreset
+processor_board_C_decoder_test.nrsthold
+@200
+-
+@28
+processor_board_C_decoder_test.nt34
+@200
+-
+@28
+processor_board_C_decoder_test.ir0_3[3:0]
+processor_board_C_decoder_test.runit[3:0]
+@2022
+^1 /home/alexios/PROJECTS/HARDWARE/cft/verification/sav/../filters/runit
+processor_board_C_decoder_test.runit[3:0]
+@200
+-
+@28
+[color] 2
+processor_board_C_decoder_test.nuoe
+[color] 2
+processor_board_C_decoder_test.nboe
+@200
+-
+@28
+processor_board_C_decoder_test.uop[2:0]
+@2028
+^2 /home/alexios/PROJECTS/HARDWARE/cft/verification/sav/../filters/alu_uop
+processor_board_C_decoder_test.uop[2:0]
+[pattern_trace] 1
+[pattern_trace] 0

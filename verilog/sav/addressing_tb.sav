@@ -1,0 +1,71 @@
+[*]
+[*] GTKWave Analyzer v3.3.38 (w)1999-2012 BSI
+[*] Sun Jul 22 19:37:23 2012
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/addressing_tb.vcd"
+[dumpfile_mtime] "Sun Jul 22 19:37:20 2012"
+[dumpfile_size] 6452
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/addressing_tb.sav"
+[timestart] 0
+[size] 1680 822
+[pos] -1 -1
+*-22.749266 17270000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[sst_width] 245
+[signals_width] 174
+[sst_expanded] 1
+[sst_vpaned_height] 226
+@28
+addressing_tb.nreset
+@200
+-
+@c00022
+addressing_tb.ibus[15:0]
+@28
+(0)addressing_tb.ibus[15:0]
+(1)addressing_tb.ibus[15:0]
+(2)addressing_tb.ibus[15:0]
+(3)addressing_tb.ibus[15:0]
+(4)addressing_tb.ibus[15:0]
+(5)addressing_tb.ibus[15:0]
+(6)addressing_tb.ibus[15:0]
+(7)addressing_tb.ibus[15:0]
+(8)addressing_tb.ibus[15:0]
+(9)addressing_tb.ibus[15:0]
+(10)addressing_tb.ibus[15:0]
+(11)addressing_tb.ibus[15:0]
+(12)addressing_tb.ibus[15:0]
+(13)addressing_tb.ibus[15:0]
+(14)addressing_tb.ibus[15:0]
+(15)addressing_tb.ibus[15:0]
+@1401200
+-group_end
+@200
+-
+-Address Register
+@22
+addressing_tb.ar[15:0]
+@200
+-
+-Control Signals
+@28
+addressing_tb.nwar
+addressing_tb.nmem
+addressing_tb.nio
+addressing_tb.nend
+@200
+-
+-Address Bus
+@22
+addressing_tb.ab[15:0]
+@200
+-
+-Outputs
+@29
+addressing_tb.naindex
+@28
+addressing_tb.nsysdev
+addressing_tb.niodev1
+addressing_tb.niodev2
+addressing_tb.niodev3
+[pattern_trace] 1
+[pattern_trace] 0

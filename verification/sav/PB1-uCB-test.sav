@@ -1,0 +1,57 @@
+[*]
+[*] GTKWave Analyzer v3.3.34 (w)1999-2012 BSI
+[*] Mon Mar 25 08:46:41 2013
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verification/vcd/processor-board-A-uCB-test.vcd"
+[dumpfile_mtime] "Mon Mar 25 08:46:23 2013"
+[dumpfile_size] 36845
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verification/sav/processor-board-A-uCB-test.sav"
+[timestart] 0
+[size] 1486 837
+[pos] 0 91
+*-20.428375 3550000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] processor_board_A_uCB_test.
+[treeopen] processor_board_A_uCB_test.dut.
+[sst_width] 227
+[signals_width] 122
+[sst_expanded] 1
+[sst_vpaned_height] 241
+@28
+[color] 1
+processor_board_A_uCB_test.nreset
+[color] 2
+processor_board_A_uCB_test.nrsthold
+[color] 3
+processor_board_A_uCB_test.clk4
+@200
+-
+@28
+[color] 1
+processor_board_A_uCB_test.nend
+[color] 2
+processor_board_A_uCB_test.nendext
+[color] 3
+processor_board_A_uCB_test.nhalt
+[color] 4
+processor_board_A_uCB_test.nws
+@200
+-
+@22
+processor_board_A_uCB_test.upc[3:0]
+@28
+processor_board_A_uCB_test.nuce
+@200
+-
+@28
+processor_board_A_uCB_test.dut.ic012_upc_ctr.mr
+processor_board_A_uCB_test.dut.ic012_upc_ctr.cep
+processor_board_A_uCB_test.dut.ic012_upc_ctr.cet
+processor_board_A_uCB_test.dut.ic012_upc_ctr.cp
+@22
+processor_board_A_uCB_test.dut.ic012_upc_ctr.p[3:0]
+@29
+processor_board_A_uCB_test.dut.ic012_upc_ctr.pe
+@22
+processor_board_A_uCB_test.dut.ic012_upc_ctr.q[3:0]
+[pattern_trace] 1
+[pattern_trace] 0

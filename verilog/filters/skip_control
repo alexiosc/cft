@@ -1,0 +1,17 @@
+# Control bits for skip unit
+0000 Desel
+0001 if3
+0010 if4
+0011 if5
+0100 if6
+0101 if7
+0110 if8
+0111 if9
+1000 ?orange4? ifroll
+1001 ?orange4? ifroll
+1010 ?orange4? ifroll
+1011 ?orange4? ifroll
+1100 ?cyan4? ifskip
+1101 ?cyan4? ifskip
+1110 ?cyan4? ifskip
+1111 ?cyan4? ifskip

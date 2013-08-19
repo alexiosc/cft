@@ -1,0 +1,57 @@
+[*]
+[*] GTKWave Analyzer v3.3.32 (w)1999-2012 BSI
+[*] Mon Mar  5 15:36:46 2012
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/banked_memory_tb.vcd"
+[dumpfile_mtime] "Mon Mar  5 15:35:52 2012"
+[dumpfile_size] 45296
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/banked_memory_tb.sav"
+[timestart] 32500000
+[size] 1911 817
+[pos] 72 19
+*-22.255310 55520000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] banked_memory_tb.
+[treeopen] banked_memory_tb.mem.
+[sst_width] 245
+[signals_width] 281
+[sst_expanded] 1
+[sst_vpaned_height] 224
+@28
+banked_memory_tb.nreset
+banked_memory_tb.nmem
+banked_memory_tb.nio
+banked_memory_tb.nr
+banked_memory_tb.nw
+banked_memory_tb.nsysdev
+@200
+-
+-Buses
+@c00022
+banked_memory_tb.aext[7:0]
+@28
+(0)banked_memory_tb.aext[7:0]
+(1)banked_memory_tb.aext[7:0]
+(2)banked_memory_tb.aext[7:0]
+(3)banked_memory_tb.aext[7:0]
+(4)banked_memory_tb.aext[7:0]
+(5)banked_memory_tb.aext[7:0]
+(6)banked_memory_tb.aext[7:0]
+(7)banked_memory_tb.aext[7:0]
+@1401200
+-group_end
+@22
+banked_memory_tb.ab[15:0]
+banked_memory_tb.db[15:0]
+banked_memory_tb.db_real[15:0]
+@200
+-
+-Banking
+@28
+banked_memory_tb.bs.banking
+@22
+banked_memory_tb.mem.y[7:0]
+@28
+banked_memory_tb.mem.nramen
+banked_memory_tb.mem.nromen
+[pattern_trace] 1
+[pattern_trace] 0

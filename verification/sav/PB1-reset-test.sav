@@ -1,0 +1,54 @@
+[*]
+[*] GTKWave Analyzer v3.3.34 (w)1999-2012 BSI
+[*] Fri Mar 22 09:18:31 2013
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verification/vcd/processor-board-A-reset-test.vcd"
+[dumpfile_mtime] "Fri Mar 22 09:18:10 2013"
+[dumpfile_size] 133302
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verification/sav/processor-board-A-reset-test.sav"
+[timestart] 16112000
+[size] 1421 816
+[pos] 0 0
+*-17.894587 16816000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] processor_board_A_reset_test.
+[treeopen] processor_board_A_reset_test.dut.
+[sst_width] 227
+[signals_width] 189
+[sst_expanded] 1
+[sst_vpaned_height] 230
+@28
+processor_board_A_reset_test.rstclk
+@c00022
+processor_board_A_reset_test.ibus[15:0]
+@28
+(0)processor_board_A_reset_test.ibus[15:0]
+(1)processor_board_A_reset_test.ibus[15:0]
+(2)processor_board_A_reset_test.ibus[15:0]
+(3)processor_board_A_reset_test.ibus[15:0]
+(4)processor_board_A_reset_test.ibus[15:0]
+(5)processor_board_A_reset_test.ibus[15:0]
+(6)processor_board_A_reset_test.ibus[15:0]
+(7)processor_board_A_reset_test.ibus[15:0]
+(8)processor_board_A_reset_test.ibus[15:0]
+(9)processor_board_A_reset_test.ibus[15:0]
+(10)processor_board_A_reset_test.ibus[15:0]
+(11)processor_board_A_reset_test.ibus[15:0]
+(12)processor_board_A_reset_test.ibus[15:0]
+(13)processor_board_A_reset_test.ibus[15:0]
+(14)processor_board_A_reset_test.ibus[15:0]
+(15)processor_board_A_reset_test.ibus[15:0]
+@1401200
+-group_end
+@28
+processor_board_A_reset_test.nreset
+@29
+processor_board_A_reset_test.nrsthold
+@200
+-
+@28
+processor_board_A_reset_test.nfpreset
+processor_board_A_reset_test.nreset_drv
+processor_board_A_reset_test.powerok
+processor_board_A_reset_test.dut.clk
+[pattern_trace] 1
+[pattern_trace] 0

@@ -1,0 +1,37 @@
+[timestart] 0
+[size] 1617 782
+[pos] 64 0
+*-21.852581 11600000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] alu_tb.
+@28
+alu_tb.clock
+alu_tb.reset
+@200
+-
+-Control
+@28
+alu_tb.e_add
+alu_tb.e_and
+alu_tb.e_not
+alu_tb.e_or
+alu_tb.e_roll
+alu_tb.e_xor
+@200
+-
+-L (Carry Out)
+@28
+alu_tb.l_in
+@29
+alu_tb.l_latch
+@28
++{L} alu_tb.reg_l.q
+alu_tb.add_l_out
+@200
+-
+-Registers
+@22
+alu_tb.a[15:0]
+alu_tb.b[15:0]
+alu_tb.y[15:0]
+[pattern_trace] 1
+[pattern_trace] 0

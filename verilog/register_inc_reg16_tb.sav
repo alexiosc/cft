@@ -1,0 +1,18 @@
+[timestart] 0
+[size] 1245 600
+[pos] 250 119
+*-20.003763 863000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] register_inc_reg16_tb.
+@28
+register_inc_reg16_tb.reset
+@29
+register_inc_reg16_tb.inc
+@22
+register_inc_reg16_tb.d[15:0]
+@28
+register_inc_reg16_tb.latch
+register_inc_reg16_tb.oe
+@22
+register_inc_reg16_tb.q[15:0]
+[pattern_trace] 1
+[pattern_trace] 0

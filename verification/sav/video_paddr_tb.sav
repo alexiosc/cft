@@ -1,0 +1,71 @@
+[*]
+[*] GTKWave Analyzer v3.3.40 (w)1999-2012 BSI
+[*] Wed Oct 17 07:41:01 2012
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/video_paddr_tb.vcd"
+[dumpfile_mtime] "Wed Oct 17 07:39:58 2012"
+[dumpfile_size] 77068
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/video_paddr_tb.sav"
+[timestart] 88850000
+[size] 1567 900
+[pos] 0 0
+*-20.450439 94860000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] video_paddr_tb.
+[treeopen] video_paddr_tb.paddr.
+[sst_width] 201
+[signals_width] 181
+[sst_expanded] 1
+[sst_vpaned_height] 259
+@28
+video_paddr_tb.nframe
+video_paddr_tb.nstartsl
+video_paddr_tb.nlastsl
+video_paddr_tb.ncellclk
+@c00022
+video_paddr_tb.paddr._paddr[15:0]
+@28
+(0)video_paddr_tb.paddr._paddr[15:0]
+(1)video_paddr_tb.paddr._paddr[15:0]
+(2)video_paddr_tb.paddr._paddr[15:0]
+(3)video_paddr_tb.paddr._paddr[15:0]
+(4)video_paddr_tb.paddr._paddr[15:0]
+(5)video_paddr_tb.paddr._paddr[15:0]
+(6)video_paddr_tb.paddr._paddr[15:0]
+(7)video_paddr_tb.paddr._paddr[15:0]
+(8)video_paddr_tb.paddr._paddr[15:0]
+(9)video_paddr_tb.paddr._paddr[15:0]
+(10)video_paddr_tb.paddr._paddr[15:0]
+(11)video_paddr_tb.paddr._paddr[15:0]
+(12)video_paddr_tb.paddr._paddr[15:0]
+(13)video_paddr_tb.paddr._paddr[15:0]
+(14)video_paddr_tb.paddr._paddr[15:0]
+(15)video_paddr_tb.paddr._paddr[15:0]
+@1401200
+-group_end
+@28
+video_paddr_tb.paddr._sacld
+@c00022
+video_paddr_tb.paddr.sa[15:0]
+@28
+(0)video_paddr_tb.paddr.sa[15:0]
+(1)video_paddr_tb.paddr.sa[15:0]
+(2)video_paddr_tb.paddr.sa[15:0]
+(3)video_paddr_tb.paddr.sa[15:0]
+(4)video_paddr_tb.paddr.sa[15:0]
+(5)video_paddr_tb.paddr.sa[15:0]
+(6)video_paddr_tb.paddr.sa[15:0]
+(7)video_paddr_tb.paddr.sa[15:0]
+(8)video_paddr_tb.paddr.sa[15:0]
+(9)video_paddr_tb.paddr.sa[15:0]
+(10)video_paddr_tb.paddr.sa[15:0]
+(11)video_paddr_tb.paddr.sa[15:0]
+(12)video_paddr_tb.paddr.sa[15:0]
+(13)video_paddr_tb.paddr.sa[15:0]
+(14)video_paddr_tb.paddr.sa[15:0]
+(15)video_paddr_tb.paddr.sa[15:0]
+@1401200
+-group_end
+@22
+video_paddr_tb.sa_real[15:0]
+[pattern_trace] 1
+[pattern_trace] 0

@@ -1,0 +1,313 @@
+[*]
+[*] GTKWave Analyzer v3.3.43 (w)1999-2012 BSI
+[*] Mon Mar 11 23:10:09 2013
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/cft_tb.vcd"
+[dumpfile_mtime] "Mon Mar 11 23:07:32 2013"
+[dumpfile_size] 16264642
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/cft_tb.sav"
+[timestart] 9982700
+[size] 1912 1125
+[pos] 42 0
+*-16.754406 10348000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] cft_tb.
+[treeopen] cft_tb.cft.
+[treeopen] cft_tb.cft.alu.binary.
+[treeopen] cft_tb.cft.regl.
+[treeopen] cft_tb.cft.reset_logic.
+[sst_width] 245
+[signals_width] 463
+[sst_expanded] 1
+[sst_vpaned_height] 698
+@800200
+-Clock, Reset & Int
+@28
+cft_tb.cft.clock_generator.rawclk
+[color] 1
+cft_tb.cft.clk1
+[color] 2
+cft_tb.cft.clk2
+[color] 3
+cft_tb.cft.clk3
+[color] 4
+cft_tb.cft.clk4
+[color] 6
+cft_tb.cft.clock_generator.nt34
+cft_tb.cft.nhalt
+@200
+-
+@28
+cft_tb.nreset
+cft_tb.cft.nrsthold
+@1000200
+-Clock, Reset & Int
+@800200
+-Microcode
+@c00022
+cft_tb.cft.sequencer.upc[3:0]
+@28
+(0)cft_tb.cft.sequencer.upc[3:0]
+(1)cft_tb.cft.sequencer.upc[3:0]
+(2)cft_tb.cft.sequencer.upc[3:0]
+(3)cft_tb.cft.sequencer.upc[3:0]
+@1401200
+-group_end
+@c00022
+cft_tb.cft.sequencer.uaddr[14:0]
+@28
+(0)cft_tb.cft.sequencer.uaddr[14:0]
+(1)cft_tb.cft.sequencer.uaddr[14:0]
+(2)cft_tb.cft.sequencer.uaddr[14:0]
+(3)cft_tb.cft.sequencer.uaddr[14:0]
+(4)cft_tb.cft.sequencer.uaddr[14:0]
+(5)cft_tb.cft.sequencer.uaddr[14:0]
+(6)cft_tb.cft.sequencer.uaddr[14:0]
+(7)cft_tb.cft.sequencer.uaddr[14:0]
+(8)cft_tb.cft.sequencer.uaddr[14:0]
+(9)cft_tb.cft.sequencer.uaddr[14:0]
+(10)cft_tb.cft.sequencer.uaddr[14:0]
+(11)cft_tb.cft.sequencer.uaddr[14:0]
+(12)cft_tb.cft.sequencer.uaddr[14:0]
+(13)cft_tb.cft.sequencer.uaddr[14:0]
+(14)cft_tb.cft.sequencer.uaddr[14:0]
+@1401200
+-group_end
+@c04022
+^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/../filters/uaddr
+cft_tb.cft.sequencer.uaddr[14:0]
+@28
+(0)cft_tb.cft.sequencer.uaddr[14:0]
+(1)cft_tb.cft.sequencer.uaddr[14:0]
+(2)cft_tb.cft.sequencer.uaddr[14:0]
+(3)cft_tb.cft.sequencer.uaddr[14:0]
+(4)cft_tb.cft.sequencer.uaddr[14:0]
+(5)cft_tb.cft.sequencer.uaddr[14:0]
+(6)cft_tb.cft.sequencer.uaddr[14:0]
+(7)cft_tb.cft.sequencer.uaddr[14:0]
+(8)cft_tb.cft.sequencer.uaddr[14:0]
+(9)cft_tb.cft.sequencer.uaddr[14:0]
+(10)cft_tb.cft.sequencer.uaddr[14:0]
+(11)cft_tb.cft.sequencer.uaddr[14:0]
+(12)cft_tb.cft.sequencer.uaddr[14:0]
+(13)cft_tb.cft.sequencer.uaddr[14:0]
+(14)cft_tb.cft.sequencer.uaddr[14:0]
+@1401200
+-group_end
+@c04022
+^>2 /home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/../filters/control
+cft_tb.cft.sequencer.control_out[23:0]
+@28
+(0)cft_tb.cft.sequencer.control_out[23:0]
+(1)cft_tb.cft.sequencer.control_out[23:0]
+(2)cft_tb.cft.sequencer.control_out[23:0]
+(3)cft_tb.cft.sequencer.control_out[23:0]
+(4)cft_tb.cft.sequencer.control_out[23:0]
+(5)cft_tb.cft.sequencer.control_out[23:0]
+(6)cft_tb.cft.sequencer.control_out[23:0]
+(7)cft_tb.cft.sequencer.control_out[23:0]
+(8)cft_tb.cft.sequencer.control_out[23:0]
+(9)cft_tb.cft.sequencer.control_out[23:0]
+(10)cft_tb.cft.sequencer.control_out[23:0]
+(11)cft_tb.cft.sequencer.control_out[23:0]
+(12)cft_tb.cft.sequencer.control_out[23:0]
+(13)cft_tb.cft.sequencer.control_out[23:0]
+(14)cft_tb.cft.sequencer.control_out[23:0]
+(15)cft_tb.cft.sequencer.control_out[23:0]
+(16)cft_tb.cft.sequencer.control_out[23:0]
+(17)cft_tb.cft.sequencer.control_out[23:0]
+(18)cft_tb.cft.sequencer.control_out[23:0]
+(19)cft_tb.cft.sequencer.control_out[23:0]
+(20)cft_tb.cft.sequencer.control_out[23:0]
+(21)cft_tb.cft.sequencer.control_out[23:0]
+(22)cft_tb.cft.sequencer.control_out[23:0]
+(23)cft_tb.cft.sequencer.control_out[23:0]
+@1401200
+-group_end
+@c00028
+cft_tb.cft.sequencer.control_out[23:0]
+@28
+(0)cft_tb.cft.sequencer.control_out[23:0]
+(1)cft_tb.cft.sequencer.control_out[23:0]
+(2)cft_tb.cft.sequencer.control_out[23:0]
+(3)cft_tb.cft.sequencer.control_out[23:0]
+(4)cft_tb.cft.sequencer.control_out[23:0]
+(5)cft_tb.cft.sequencer.control_out[23:0]
+(6)cft_tb.cft.sequencer.control_out[23:0]
+(7)cft_tb.cft.sequencer.control_out[23:0]
+(8)cft_tb.cft.sequencer.control_out[23:0]
+(9)cft_tb.cft.sequencer.control_out[23:0]
+(10)cft_tb.cft.sequencer.control_out[23:0]
+(11)cft_tb.cft.sequencer.control_out[23:0]
+(12)cft_tb.cft.sequencer.control_out[23:0]
+(13)cft_tb.cft.sequencer.control_out[23:0]
+(14)cft_tb.cft.sequencer.control_out[23:0]
+(15)cft_tb.cft.sequencer.control_out[23:0]
+(16)cft_tb.cft.sequencer.control_out[23:0]
+(17)cft_tb.cft.sequencer.control_out[23:0]
+(18)cft_tb.cft.sequencer.control_out[23:0]
+(19)cft_tb.cft.sequencer.control_out[23:0]
+(20)cft_tb.cft.sequencer.control_out[23:0]
+(21)cft_tb.cft.sequencer.control_out[23:0]
+(22)cft_tb.cft.sequencer.control_out[23:0]
+(23)cft_tb.cft.sequencer.control_out[23:0]
+@1401200
+-group_end
+@1000200
+-Microcode
+@800200
+-Registers
+@22
+[color] 2
+cft_tb.cft.pc[15:0]
+@c04022
+[color] 3
+^>3 /home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/../filters/disasm
+cft_tb.cft.ir[15:0]
+@28
+(0)cft_tb.cft.ir[15:0]
+(1)cft_tb.cft.ir[15:0]
+(2)cft_tb.cft.ir[15:0]
+(3)cft_tb.cft.ir[15:0]
+(4)cft_tb.cft.ir[15:0]
+(5)cft_tb.cft.ir[15:0]
+(6)cft_tb.cft.ir[15:0]
+(7)cft_tb.cft.ir[15:0]
+(8)cft_tb.cft.ir[15:0]
+(9)cft_tb.cft.ir[15:0]
+(10)cft_tb.cft.ir[15:0]
+(11)cft_tb.cft.ir[15:0]
+(12)cft_tb.cft.ir[15:0]
+(13)cft_tb.cft.ir[15:0]
+(14)cft_tb.cft.ir[15:0]
+(15)cft_tb.cft.ir[15:0]
+@1401200
+-group_end
+@22
+[color] 3
+cft_tb.cft.ir[15:0]
+cft_tb.cft.ar[15:0]
+[color] 5
+cft_tb.cft.regac.ac[15:0]
+@c00820
+[color] 5
+cft_tb.cft.regac.ac[15:0]
+@28
+[color] 5
+(0)cft_tb.cft.regac.ac[15:0]
+[color] 5
+(1)cft_tb.cft.regac.ac[15:0]
+[color] 5
+(2)cft_tb.cft.regac.ac[15:0]
+[color] 5
+(3)cft_tb.cft.regac.ac[15:0]
+[color] 5
+(4)cft_tb.cft.regac.ac[15:0]
+[color] 5
+(5)cft_tb.cft.regac.ac[15:0]
+[color] 5
+(6)cft_tb.cft.regac.ac[15:0]
+[color] 5
+(7)cft_tb.cft.regac.ac[15:0]
+[color] 5
+(8)cft_tb.cft.regac.ac[15:0]
+[color] 5
+(9)cft_tb.cft.regac.ac[15:0]
+[color] 5
+(10)cft_tb.cft.regac.ac[15:0]
+[color] 5
+(11)cft_tb.cft.regac.ac[15:0]
+[color] 5
+(12)cft_tb.cft.regac.ac[15:0]
+[color] 5
+(13)cft_tb.cft.regac.ac[15:0]
+[color] 5
+(14)cft_tb.cft.regac.ac[15:0]
+[color] 5
+(15)cft_tb.cft.regac.ac[15:0]
+@1401200
+-group_end
+@22
+cft_tb.cft.regdr.dr[15:0]
+@28
+cft_tb.cft.regl.fl
+@1000200
+-Registers
+@c00200
+-Memory
+@28
+[color] 2
+cft_tb.cft.db_driver.nmem
+[color] 2
+cft_tb.cft.db_driver.nio
+[color] 2
++{Bus Enable} cft_tb.cft.db_driver.en
+[color] 4
+cft_tb.cft.sequencer.nr
+[color] 1
+cft_tb.cft.nw
+cft_tb.cft.db_driver.wshold
+@1401200
+-Memory
+@800200
+-Buses
+@22
+[color] 1
+cft_tb.cft.aext[7:0]
+[color] 2
+cft_tb.cft.ab[15:0]
+@c00023
+cft_tb.cft.ibus[15:0]
+@28
+(0)cft_tb.cft.ibus[15:0]
+(1)cft_tb.cft.ibus[15:0]
+(2)cft_tb.cft.ibus[15:0]
+(3)cft_tb.cft.ibus[15:0]
+(4)cft_tb.cft.ibus[15:0]
+(5)cft_tb.cft.ibus[15:0]
+(6)cft_tb.cft.ibus[15:0]
+(7)cft_tb.cft.ibus[15:0]
+(8)cft_tb.cft.ibus[15:0]
+(9)cft_tb.cft.ibus[15:0]
+(10)cft_tb.cft.ibus[15:0]
+(11)cft_tb.cft.ibus[15:0]
+(12)cft_tb.cft.ibus[15:0]
+(13)cft_tb.cft.ibus[15:0]
+(14)cft_tb.cft.ibus[15:0]
+(15)cft_tb.cft.ibus[15:0]
+@1401201
+-group_end
+@22
+[color] 5
+cft_tb.cft.db[15:0]
+@28
+[color] 4
+cft_tb.cft.nw
+cft_tb.cft.decoder.nrac
+cft_tb.cft.db_driver.en
+@1000200
+-Buses
+@200
+-
+-Testing
+@28
+cft_tb.cft.mem.nramen
+cft_tb.cft.sequencer.nend
+[color] 1
+cft_tb.cft.clk1
+[color] 2
+cft_tb.cft.clk2
+[color] 3
+cft_tb.cft.clk3
+[color] 4
+cft_tb.cft.clk4
+[color] 6
+cft_tb.cft.clock_generator.nt34
+cft_tb.cft.regl.fl
+cft_tb.cft.alu.binary.ff2.clk
+cft_tb.cft.alu.binary.ff2.d
+cft_tb.cft.alu.binary.ff2.q
+cft_tb.cft.alu.binary.ff2.qn
+cft_tb.cft.alu.binary.ff2.rst
+cft_tb.cft.alu.binary.ff2.set
+[pattern_trace] 1
+[pattern_trace] 0

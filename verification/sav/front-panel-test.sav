@@ -1,0 +1,32 @@
+[*]
+[*] GTKWave Analyzer v3.3.44 (w)1999-2012 BSI
+[*] Fri Apr 19 14:15:52 2013
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verification/vcd/front-panel-test.vcd"
+[dumpfile_mtime] "Fri Apr 19 14:15:34 2013"
+[dumpfile_size] 1471
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verification/sav/front-panel-test.sav"
+[timestart] 0
+[size] 1000 600
+[pos] -1 -1
+*-21.000000 2243000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[sst_width] 201
+[signals_width] 126
+[sst_expanded] 1
+[sst_vpaned_height] 154
+@22
+front_panel_test.ab[15:0]
+@28
+front_panel_test.clk1
+@22
+front_panel_test.db[15:0]
+front_panel_test.db_drv[15:0]
+@29
+front_panel_test.nhalt
+@28
+front_panel_test.nio
+front_panel_test.niodev3xx
+front_panel_test.nr
+front_panel_test.nw
+[pattern_trace] 1
+[pattern_trace] 0

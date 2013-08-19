@@ -1,0 +1,140 @@
+///////////////////////////////////////////////////////////////////////////////
+//
+// debugging-board.v -- Test the debugging board (DEB)
+//
+// Copyright © 2011-2013 Alexios Chouchoulas
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2, or (at your option)
+// any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+// 
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software Foundation,
+// Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  
+//
+///////////////////////////////////////////////////////////////////////////////
+
+`include "../debugging-board.v"
+
+`timescale 1ns/10ps
+
+
+module debugging_board_test();
+
+   reg [15:0] ab;
+   reg [15:0] db_drv;
+   reg 	      clk1;
+   reg 	      niodev3xx;
+
+   reg 	      nio, nr, nw;
+
+   wire       nhalt;
+
+   wire [15:0] db;
+   assign db = db_drv;
+
+   integer     i, j;
+
+
+   task out;
+      input [15:0] addr;
+      input [15:0] val;
+
+      begin
+	 #250 ab <= addr;
+	 #30 niodev3xx <= 0;
+	 #220 db_drv <= val;
+	 nio <= 0;
+	 #125 nw <= 0;
+	 #60 nw <= 1;
+	 #65 niodev3xx <= 1;
+	 nio <= 1;
+	 db_drv <= {16{1'bz}};
+	 ab <= {16{1'bz}};
+      end
+   endtask // out
+   
+   
+   initial begin
+      $display("%s: [start] Start testing.", `TESTNAME);
+`ifdef WRITE_VCD
+      $dumpfile ("vcd/debugging-board-test.vcd");
+      $dumpvars (0, debugging_board_test);
+`endif
+
+      // Initialise other things
+      nr <= 1;
+      nw <= 1;
+      ab <= 0;
+      db_drv <= {16{1'bz}};
+      niodev3xx <= 1;		// Keep it low, whatever.
+      nio <= 1;			// Ditto.
+      clk1 <= 1;
+
+      // TICK instruction test
+      #1000 out (16'h03e8, 0);	// TICKS
+      #1000 out (16'h03e8, 0);	// TICKS
+      #1000 out (16'h03e8, 0);	// TICKS
+      #1000 out (16'h03e8, 0);	// TICKS
+      out (16'h03e9, 0);	// CLRTCK
+      #1000 out (16'h03e8, 0);	// TICKS
+      #1000 out (16'h03e8, 0);	// TICKS
+      #1000 out (16'h03e8, 0);	// TICKS
+      #1000 out (16'h03e8, 0);	// TICKS
+
+      // Try out the dat printout instructions
+      out (16'h03f0, 16'h1234);
+      out (16'h03f1, 65);
+      out (16'h03f1, 65 + 128);
+      out (16'h03f2, -12345);
+      out (16'h03f3, -12345);
+      out (16'h03f4, 16'h5678);
+      out (16'h03f5, 0);
+      out (16'h03f6, 0);
+      out (16'h03fb, 16'h8765);
+      out (16'h03fc, 16'h4321);
+
+      // Dump and trace instructions
+      out (16'h03f8, 0);	// DEBUGON (ignored)
+      out (16'h03f9, 0);	// DEBUGOFF (ignored)
+      out (16'h03fa, 0);	// DUMP (ad hoc)
+
+      // Assertion tests (must be last)
+      out (16'h03fe, 0);	// SUCCESS
+      out (16'h03ff, 0);	// FAIL: this causes the simulation to exit.
+      out (16'h03ef, 0);	// SENTINEL: also causes an exit.
+      $display("%s: [ok] Pass (DEB card).", `TESTNAME, `TESTNAME);
+
+      // FAIL will have terminated the simulation before we get to this point.
+      #5000 ;
+      $display("%s: [fail] FAIL instruction should have halted the system (and ended the simulation).", `TESTNAME);
+      $display("%s: [fail] DEB card failure.", `TESTNAME);
+      #500 $finish;      // Terminate simulation
+   end // initial begin
+
+   always begin
+      #187 clk1 <= 0;
+      #63 clk1 <= 1;
+   end
+   
+   debugging_board dut(
+		       // DIN-41612
+		       .ec_ab(ab),	// 16-bit address bus
+		       .ec_db(db),	// 16-bit data bus
+		       .ec_nio(nio),	// debugging-board strobe, active low
+		       .ec_nr(nr),	// read strobe, active low
+		       .ec_nw(nw),	// write strobe, active low
+		       .ec_clk1(clk1),	// write strobe, active low
+		       .ec_nhalt(nhalt), // halt
+		       .ec_niodev3xx(niodev3xx)
+	      );
+
+endmodule // processor_test
+
+// End of file.

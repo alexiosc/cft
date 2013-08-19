@@ -1,0 +1,48 @@
+[*]
+[*] GTKWave Analyzer v3.3.34 (w)1999-2012 BSI
+[*] Sun Apr 14 08:50:39 2013
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verification/vcd/processor-board-B-AR-test.vcd"
+[dumpfile_mtime] "Sun Apr 14 08:47:55 2013"
+[dumpfile_size] 91965277
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verification/sav/processor-board-B-AR-test.sav"
+[timestart] 40558736900
+[size] 1204 910
+[pos] 536 87
+*-16.358797 40558856000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] processor_board_B_AR_test.
+[treeopen] processor_board_B_AR_test.dut.
+[sst_width] 227
+[signals_width] 179
+[sst_expanded] 1
+[sst_vpaned_height] 266
+@28
+processor_board_B_AR_test.nreset
+@c00024
+#{processor_board_B_AR_test.j[1:0]} (30)processor_board_B_AR_test.j[31:0] (31)processor_board_B_AR_test.j[31:0]
+@28
+(30)processor_board_B_AR_test.j[31:0]
+(31)processor_board_B_AR_test.j[31:0]
+@1401204
+-group_end
+@200
+-
+@28
+[color] 1
+processor_board_B_AR_test.nwar
+[color] 2
+processor_board_B_AR_test.nmem
+[color] 3
+processor_board_B_AR_test.nio
+@200
+-
+@22
+[color] 4
+processor_board_B_AR_test.ibus[15:0]
+[color] 5
+processor_board_B_AR_test.ab[15:0]
+@28
+[color] 7
+processor_board_B_AR_test.naben
+[pattern_trace] 1
+[pattern_trace] 0

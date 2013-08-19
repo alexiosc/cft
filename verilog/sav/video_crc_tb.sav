@@ -1,0 +1,61 @@
+[*]
+[*] GTKWave Analyzer v3.3.40 (w)1999-2012 BSI
+[*] Tue Oct 23 13:17:37 2012
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/video_crc_tb.vcd"
+[dumpfile_mtime] "Tue Oct 23 13:16:40 2012"
+[dumpfile_size] 557389
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/video_crc_tb.sav"
+[timestart] 0
+[size] 1488 973
+[pos] 481 50
+*-20.697948 8260000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] video_crc_tb.
+[treeopen] video_crc_tb.crc.
+[sst_width] 245
+[signals_width] 288
+[sst_expanded] 1
+[sst_vpaned_height] 288
+@28
+video_crc_tb.crc.hgr
+@802028
+^1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/../filters/clh
+video_crc_tb.crc.clh[1:0]
+@28
+(0)video_crc_tb.crc.clh[1:0]
+(1)video_crc_tb.crc.clh[1:0]
+@1001200
+-group_end
+@c00028
+video_crc_tb.crc.clh[1:0]
+@28
+(0)video_crc_tb.crc.clh[1:0]
+(1)video_crc_tb.crc.clh[1:0]
+@1401200
+-group_end
+@28
+video_crc_tb.crc._y1
+video_crc_tb.crc.inc
+video_crc_tb.crc._y2
+@22
+video_crc_tb.crc.counter0.q[3:0]
+@c00024
+video_crc_tb.crc.counter0.p[3:0]
+@28
+(0)video_crc_tb.crc.counter0.p[3:0]
+(1)video_crc_tb.crc.counter0.p[3:0]
+(2)video_crc_tb.crc.counter0.p[3:0]
+(3)video_crc_tb.crc.counter0.p[3:0]
+@1401200
+-group_end
+@28
+video_crc_tb.nvs
+@29
+video_crc_tb.crc.counter0.load
+@28
+video_crc_tb.crc.counter1.cclr
+video_crc_tb.crc.counter1.clk
+@22
+video_crc_tb.crc.rc[3:0]
+[pattern_trace] 1
+[pattern_trace] 0

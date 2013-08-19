@@ -1,0 +1,9 @@
+# Unary opcodes.
+000 ?blue4?RBL
+001 ?blue4?RBR
+010 ?magenta4?RNL
+011 ?magenta4?RNR
+100 ?orange4?NOT
+101 ?red4?NOT*
+110 ?green4?CS1
+111 ?green4?CS2

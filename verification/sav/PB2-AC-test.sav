@@ -1,0 +1,44 @@
+[*]
+[*] GTKWave Analyzer v3.3.34 (w)1999-2012 BSI
+[*] Sun Apr 14 19:57:35 2013
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verification/vcd/processor-board-B-AC-test.vcd"
+[dumpfile_mtime] "Sun Apr 14 19:56:19 2013"
+[dumpfile_size] 163315565
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verification/sav/processor-board-B-AC-test.sav"
+[timestart] 49381770000
+[size] 1535 600
+[pos] -1 -1
+*-21.593992 49390146700 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[sst_width] 227
+[signals_width] 164
+[sst_expanded] 1
+[sst_vpaned_height] 157
+@28
+processor_board_B_AC_test.nreset
+@200
+-
+@28
+[color] 1
+processor_board_B_AC_test.nrac
+[color] 2
+processor_board_B_AC_test.nwac
+[color] 3
+processor_board_B_AC_test.nstpac
+[color] 4
+processor_board_B_AC_test.ndec
+@200
+-
+@22
+processor_board_B_AC_test.ibus[15:0]
+processor_board_B_AC_test.ibus_drv[15:0]
+processor_board_B_AC_test.ac[15:0]
+@200
+-
+@28
+processor_board_B_AC_test.ndeccpl
+processor_board_B_AC_test.ninccpl
+processor_board_B_AC_test.fn
+processor_board_B_AC_test.fz
+[pattern_trace] 1
+[pattern_trace] 0

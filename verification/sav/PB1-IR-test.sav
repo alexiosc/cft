@@ -1,0 +1,26 @@
+[*]
+[*] GTKWave Analyzer v3.3.34 (w)1999-2012 BSI
+[*] Fri Mar 22 19:24:01 2013
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verification/vcd/processor-board-A-IR-test.vcd"
+[dumpfile_mtime] "Fri Mar 22 19:23:53 2013"
+[dumpfile_size] 11551905
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verification/sav/processor-board-A-IR-test.sav"
+[timestart] 0
+[size] 1524 703
+[pos] -1 -1
+*-17.767609 150000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[sst_width] 227
+[signals_width] 171
+[sst_expanded] 1
+[sst_vpaned_height] 193
+@28
+processor_board_A_IR_test.nreset
+@22
+processor_board_A_IR_test.ibus[15:0]
+@29
+processor_board_A_IR_test.nwir
+@22
+processor_board_A_IR_test.ir[15:0]
+[pattern_trace] 1
+[pattern_trace] 0

@@ -1,0 +1,51 @@
+[*]
+[*] GTKWave Analyzer v3.3.44 (w)1999-2012 BSI
+[*] Thu Apr 18 00:58:00 2013
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verification/vcd/memory-test.vcd"
+[dumpfile_mtime] "Thu Apr 18 00:57:13 2013"
+[dumpfile_size] 191186130
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verification/sav/memory-test.sav"
+[timestart] 274626040000
+[size] 2040 600
+[pos] 0 0
+*-21.247829 274641690000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] memory_test.
+[treeopen] memory_test.dut.
+[sst_width] 201
+[signals_width] 155
+[sst_expanded] 1
+[sst_vpaned_height] 154
+@22
+[color] 1
+memory_test.i[31:0]
+[color] 2
+memory_test.j[31:0]
+@200
+-
+@28
+[color] 3
+memory_test.nmem
+[color] 2
+memory_test.nr
+[color] 1
+memory_test.nw
+@200
+-
+@22
+memory_test.aext[7:0]
+memory_test.ab[15:0]
+@23
+memory_test.db[15:0]
+@200
+-
+@22
+memory_test.dut.ec_aext[7:0]
+memory_test.dut.ec_ab[15:0]
+memory_test.dut.ec_db[15:0]
+@28
+memory_test.dut.ic003_64c008_ramlo.nce
+memory_test.dut.ic003_64c008_ramlo.noe
+memory_test.dut.ic003_64c008_ramlo.nwe
+[pattern_trace] 1
+[pattern_trace] 0

@@ -1,0 +1,12 @@
+[timestart] 0
+[size] 1133 634
+[pos] 45 115
+*-16.302216 15700 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+@28
+panel_autorepeat_tb.clk
+panel_autorepeat_tb.step
+panel_autorepeat_tb.nstep
+panel_autorepeat_tb.pulse
+panel_autorepeat_tb.q
+[pattern_trace] 1
+[pattern_trace] 0

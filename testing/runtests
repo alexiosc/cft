@@ -1,0 +1,172 @@
+#!/usr/bin/env python
+# -*- python -*-
+
+import os
+import sys
+import unittest
+import optparse
+import testlib
+
+def die(msg):
+    sys.stderr.write(sys.argv[0] + ': ' + msg + '\n')
+    sys.exit(1)
+    
+
+usage = "Usage: %prog [-h|-l|-L|-M] [OPTIONS]... [TEST]..."
+p = optparse.OptionParser(usage=usage)
+
+#p.add_option('-v', '--verbose', action='store_true',
+#             help='Print out assembled code')
+#p.add_option('-l', '--leave', action='store_true',
+#             help='Do not delete the test directory at the end of the test.')
+
+p.add_option('-l', '--list', action='store_true',
+             help='List available tests and exit.')
+p.add_option('-L', '--list-xargs', action='store_true',
+             help='List available tests (in raw format, for xargs) and exit.')
+p.add_option('-M', '--make-deps', action='store_true',
+             help='List available tests (in raw format, for xargs) and exit.')
+p.add_option('-s', '--summary', action='store_true',
+             help='Summarise test reports.')
+
+# Filtering options
+p.add_option('-b', '--basedir', metavar='PATH', type='string', default='.',
+             help='Set the testsuite base directory (default: .).')
+p.add_option('-f', '--framework', type='choice',
+             default='verilog',
+             choices=['verilog', 'emulator'],
+             help='Choose emulator framework to test on (default: verilog).')
+#p.add_option('-j', '--jobs', metavar='N', type='int',
+#             help='Run N threads at once.')
+p.add_option('-n', '--dry-run',
+             help='Do everything but run the test suites.')
+p.add_option('-k', '--keep', action='store_true',
+             help='Keep sandbox subdirectories even on successful testing.')
+p.add_option('-w', '--wave', action='store_true',
+             help='Log waveforms and run gtkwave to display them.')
+p.add_option('-v', '--verbose', action='store_true',
+             help='Print out simulation output.')
+
+opts, args = p.parse_args()
+
+if sum((int(x) for x in (opts.list, opts.list_xargs, opts.make_deps,
+                         opts.summary) if x)) > 1:
+    sys.stderr.write('%s: options -l, -L, -M and -s are mutually exclusive.\n' % sys.argv[0])
+    sys.exit(1)
+
+
+# Test listing filters
+shouldTest = lambda x: True
+
+# Get list of valid tests
+allTests = (os.path.basename(x) for x in testlib.listTests(opts.basedir))
+
+# Make dependency patterns
+MAKEPATTERN0 = """
+ALLTESTS = %s
+"""
+
+MAKEPATTERN1 = """
+%(test)s: v%(test)s e%(test)s
+
+v%(test)s: $(REPORTDIR)/v%(test)s.txt
+
+e%(test)s: $(REPORTDIR)/e%(test)s.txt
+
+$(REPORTDIR)/v%(test)s.txt: %(test)s.py $(VTESTDEPS)
+\t$(RUNTESTS) -f verilog $(VTESTFLAGS) %(test)s 2>&1 | $(TEE) $@
+\t@[ -z $@ ] && $(RM) $@ || true
+
+$(REPORTDIR)/e%(test)s.txt: %(test)s.py $(ETESTDEPS)
+\t$(RUNTESTS) -f emulator $(ETESTFLAGS) %(test)s 2>&1 | $(TEE) $@
+\t@[ -z $@ ] && $(RM) $@ || true
+
+"""
+
+
+# List tests
+if opts.list:
+    print "Available tests:"
+    for x in sorted(allTests):
+        if shouldTest(x):
+            print "    ", os.path.basename(x)
+    sys.exit(0)
+
+elif opts.list_xargs:
+    print ' '.join(x for x in sorted(allTests) if shouldTest(x))
+    sys.exit(0)
+
+elif opts.make_deps:
+    allTests = list(allTests)
+    print MAKEPATTERN0 % (' '.join(allTests))
+    for test in sorted(allTests):
+        print MAKEPATTERN1 % locals()
+    sys.exit(0)
+
+elif opts.summary:
+    testlib.summariseReports(list(allTests))
+    sys.exit(0)
+
+# Set the test name
+testlib.setVerbose(opts.verbose)
+testlib.setKeep(opts.keep)
+testlib.setWave(opts.wave)
+#testlib.guessTestName(opts.name)
+
+try:
+    cls = dict(v=testlib.VerilogTest,
+               e=testlib.EmulatorTest)[opts.framework[0]]
+    testlib.setTestClass(cls)
+
+except KeyError:
+    die("Unknown framework type '%s'" % opts.framework)
+
+if not args:
+    die('specify the filenames of one or more Python test programs.')
+
+if not opts.framework:
+    die('specify the testing framework to use.')
+
+
+allTests = tuple(allTests)
+tests = []
+for name in sorted(args):
+    test = os.path.splitext(os.path.basename(name))[0]
+    if test not in allTests:
+        continue
+    fname = os.path.join(opts.basedir, test + '.py')
+    if not os.path.exists(fname):
+        continue
+    #print test, fname
+    tests.append((test, fname))
+
+tests = tuple(set(tests))
+
+for test, fname in sorted(tests):
+    testlib.setTestName(test)
+
+    try:
+        suite = unittest.TestSuite()
+    
+        # Just cause an exception if we can't open the file.
+        open(fname).close()
+        
+        x = __import__(test)
+        
+        suite.addTests(unittest.TestLoader().loadTestsFromModule(x))
+    
+        # Run the tests.    
+        unittest.TextTestRunner(verbosity=2).run(suite)
+
+    except IOError, e:
+        die(str(e))
+
+    except KeyboardInterrupt:
+        sys.stderr.write('Keyboard interrupt\n')
+        sys.exit(1)
+
+    except Exception, e:
+        raise
+        #sys.stderr.write('%s\n' % e.__class__.__name__)
+
+# End of file.

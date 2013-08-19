@@ -1,0 +1,17 @@
+# Filters for the OPIF bus.
+0000 idle
+0001 ?orange4?if3
+0010 ?orange4?if4
+0011 ?orange4?if5
+0100 ?orange4?if6
+0101 ?orange4?if7
+0110 ?orange4?if8
+0111 ?orange4?if9
+1000 idle
+1001 idle
+1010 ?cyan4?ifv
+1011 ?cyan4?ifl
+1100 ?cyan4?ifz
+1101 ?cyan4?ifn
+1110 ?magenta4?ifroll
+1111 ?blue4?ifbranch

@@ -1,0 +1,42 @@
+[*]
+[*] GTKWave Analyzer v3.3.34 (w)1999-2012 BSI
+[*] Fri Mar 22 20:35:37 2013
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verification/vcd/processor-board-A-wunit.vcd"
+[dumpfile_mtime] "Fri Mar 22 20:33:07 2013"
+[dumpfile_size] 6256
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verification/sav/processor-board-A-wunit.sav"
+[timestart] 0
+[size] 1495 600
+[pos] -1 -1
+*-21.491545 36000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[sst_width] 227
+[signals_width] 110
+[sst_expanded] 1
+[sst_vpaned_height] 157
+@28
+[color] 1
+processor_board_A_wunit.nreset
+[color] 2
+processor_board_A_wunit.clk3
+[color] 3
+processor_board_A_wunit.nuce
+@25
+processor_board_A_wunit.wunit[2:0]
+@200
+-
+@28
+[color] 1
+processor_board_A_wunit.nwar
+[color] 2
+processor_board_A_wunit.nwpc
+[color] 3
+processor_board_A_wunit.nwir
+[color] 4
+processor_board_A_wunit.nwdr
+[color] 5
+processor_board_A_wunit.nwac
+[color] 6
+processor_board_A_wunit.nwalu
+[pattern_trace] 1
+[pattern_trace] 0

@@ -1,0 +1,98 @@
+[*]
+[*] GTKWave Analyzer v3.3.40 (w)1999-2012 BSI
+[*] Sun Sep 23 15:17:29 2012
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/clock_tb.vcd"
+[dumpfile_mtime] "Sun Sep 23 15:16:50 2012"
+[dumpfile_size] 16766500
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/clock_tb.sav"
+[timestart] 2684000000
+[size] 1585 936
+[pos] 26 12
+*-25.544960 2721093000 13084000 45516000 61000 310000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] clock_tb.
+[treeopen] clock_tb.clock_generator.
+[sst_width] 245
+[signals_width] 274
+[sst_expanded] 1
+[sst_vpaned_height] 266
+@28
+clock_tb.nreset
+@200
+-
+-Front Panel
+@28
+clock_tb.fpclken
+clock_tb.fpustep
+clock_tb.fpslow
+clock_tb.fpfast
+@200
+-
+-Slow clocks (555)
+@28
+clock_tb.slowclk
+clock_tb.testclk
+@200
+-
+-Clock Generator
+@28
+clock_tb.clock_generator.fastclk
+clock_tb.clock_generator.rawclk
+@200
+-
+-Outputs
+@28
+clock_tb.clock_generator.ctrclk
+@22
+clock_tb.clock_generator.clkcq[3:0]
+@28
+[color] 1
+clock_tb.clk1
+[color] 2
+clock_tb.clk2
+@29
+[color] 3
+clock_tb.clk3
+@28
+[color] 4
+clock_tb.clk4
+@200
+-
+@28
+clock_tb.clock_generator.nt12
+clock_tb.clock_generator.nt34
+@200
+-
+@28
+clock_tb.xstart
+[color] 1
+clock_tb.xff1.clk
+[color] 2
+clock_tb.xff1.q
+[color] 3
+clock_tb.xffq2
+clock_tb.xffq3
+@c00022
+clock_tb.xff4.d[5:0]
+@28
+(0)clock_tb.xff4.d[5:0]
+(1)clock_tb.xff4.d[5:0]
+(2)clock_tb.xff4.d[5:0]
+(3)clock_tb.xff4.d[5:0]
+(4)clock_tb.xff4.d[5:0]
+(5)clock_tb.xff4.d[5:0]
+@1401200
+-group_end
+@c00022
+clock_tb.xff4.q[5:0]
+@28
+(0)clock_tb.xff4.q[5:0]
+(1)clock_tb.xff4.q[5:0]
+(2)clock_tb.xff4.q[5:0]
+(3)clock_tb.xff4.q[5:0]
+(4)clock_tb.xff4.q[5:0]
+(5)clock_tb.xff4.q[5:0]
+@1401200
+-group_end
+[pattern_trace] 1
+[pattern_trace] 0

@@ -1,0 +1,63 @@
+[*]
+[*] GTKWave Analyzer v3.3.34 (w)1999-2012 BSI
+[*] Sun Apr 14 10:20:22 2013
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verification/vcd/processor-board-B-IOD-test.vcd"
+[dumpfile_mtime] "Sun Apr 14 10:20:00 2013"
+[dumpfile_size] 27291699
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verification/sav/processor-board-B-IOD-test.sav"
+[timestart] 29828000
+[size] 1726 652
+[pos] 166 0
+*-20.590195 246484000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] processor_board_B_IOD_test.
+[sst_width] 227
+[signals_width] 398
+[sst_expanded] 1
+[sst_vpaned_height] 177
+@28
+processor_board_B_IOD_test.nreset
+@200
+-
+@28
+processor_board_B_IOD_test.nio
+@22
+processor_board_B_IOD_test.ab[15:0]
+@200
+-
+@c00023
+#{processor_board_B_IOD_test.i[15:0]} (16)processor_board_B_IOD_test.i[31:0] (17)processor_board_B_IOD_test.i[31:0] (18)processor_board_B_IOD_test.i[31:0] (19)processor_board_B_IOD_test.i[31:0] (20)processor_board_B_IOD_test.i[31:0] (21)processor_board_B_IOD_test.i[31:0] (22)processor_board_B_IOD_test.i[31:0] (23)processor_board_B_IOD_test.i[31:0] (24)processor_board_B_IOD_test.i[31:0] (25)processor_board_B_IOD_test.i[31:0] (26)processor_board_B_IOD_test.i[31:0] (27)processor_board_B_IOD_test.i[31:0] (28)processor_board_B_IOD_test.i[31:0] (29)processor_board_B_IOD_test.i[31:0] (30)processor_board_B_IOD_test.i[31:0] (31)processor_board_B_IOD_test.i[31:0]
+@29
+(16)processor_board_B_IOD_test.i[31:0]
+(17)processor_board_B_IOD_test.i[31:0]
+(18)processor_board_B_IOD_test.i[31:0]
+(19)processor_board_B_IOD_test.i[31:0]
+(20)processor_board_B_IOD_test.i[31:0]
+(21)processor_board_B_IOD_test.i[31:0]
+(22)processor_board_B_IOD_test.i[31:0]
+(23)processor_board_B_IOD_test.i[31:0]
+(24)processor_board_B_IOD_test.i[31:0]
+(25)processor_board_B_IOD_test.i[31:0]
+(26)processor_board_B_IOD_test.i[31:0]
+(27)processor_board_B_IOD_test.i[31:0]
+(28)processor_board_B_IOD_test.i[31:0]
+(29)processor_board_B_IOD_test.i[31:0]
+(30)processor_board_B_IOD_test.i[31:0]
+(31)processor_board_B_IOD_test.i[31:0]
+@1401201
+-group_end
+@200
+-
+@28
+[color] 1
+processor_board_B_IOD_test.nsysdev
+[color] 2
+processor_board_B_IOD_test.niodev1xx
+[color] 3
+processor_board_B_IOD_test.niodev2xx
+[color] 4
+processor_board_B_IOD_test.niodev3xx
+@200
+-
+[pattern_trace] 1
+[pattern_trace] 0

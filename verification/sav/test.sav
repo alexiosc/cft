@@ -1,0 +1,30 @@
+[timestart] 0
+[size] 1000 826
+[pos] 102 129
+*-20.778557 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] test.
+[treeopen] test.cgen.
+@28
+test.reset
+test.halt
+test.run
+test.rawclk
+@200
+-
+@28
+test.cgen.clk1
+test.myclock
+test.myclock2
+test.myclock3
+test.myclock4
+test.myclock14
+@200
+-
+@28
+test.cgen.clock
+test.cgen.clock2
+test.cgen.clock3
+test.cgen.clock4
+test.cgen.clock14
+[pattern_trace] 1
+[pattern_trace] 0

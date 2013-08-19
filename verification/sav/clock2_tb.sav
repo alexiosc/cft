@@ -1,0 +1,33 @@
+[*]
+[*] GTKWave Analyzer v3.3.38 (w)1999-2012 BSI
+[*] Sun Jul 22 12:24:52 2012
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/clock2_tb.vcd"
+[dumpfile_mtime] "Sun Jul 22 12:24:39 2012"
+[dumpfile_size] 29986
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/clock2_tb.sav"
+[timestart] 0
+[size] 1242 758
+[pos] 35 23
+*-20.679243 1063000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] clock_tb.
+[treeopen] clock_tb.cgen.
+[sst_width] 245
+[signals_width] 238
+[sst_expanded] 1
+[sst_vpaned_height] 203
+@28
+clock_tb.reset
+clock_tb.clken
+clock_tb.step
+clock_tb.rawclk
+@29
+clock_tb.clock
+@28
+clock_tb.clock2
+clock_tb.clock3
+clock_tb.clock4
+clock_tb.clock14
+clock_tb.myclk34
+[pattern_trace] 1
+[pattern_trace] 0

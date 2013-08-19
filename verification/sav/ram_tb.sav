@@ -1,0 +1,17 @@
+[timestart] 0
+[size] 1511 1074
+[pos] -1 -1
+*-23.879906 57070000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] ram_tb.
+@22
+ram_tb.test_ram.a[12:0]
+ram_tb.test_ram.d[7:0]
+ram_tb.d_write[7:0]
+@28
+ram_tb.test_ram.ce
+@29
+ram_tb.test_ram.oe
+@28
+ram_tb.test_ram.we
+[pattern_trace] 1
+[pattern_trace] 0

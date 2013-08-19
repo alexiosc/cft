@@ -1,0 +1,28 @@
+[*]
+[*] GTKWave Analyzer v3.3.36 (w)1999-2012 BSI
+[*] Tue Jun 12 06:57:03 2012
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/shiftreg_164_tb.vcd"
+[dumpfile_mtime] "Tue Jun 12 06:57:01 2012"
+[dumpfile_size] 2727
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/shiftreg_164_tb.sav"
+[timestart] 0
+[size] 1198 732
+[pos] 69 0
+*-20.979797 138000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] shiftreg_164_tb.
+[sst_width] 245
+[signals_width] 186
+[sst_expanded] 1
+[sst_vpaned_height] 194
+@28
+shiftreg_164_tb.ff.a
+@29
+shiftreg_164_tb.ff.b
+@28
+shiftreg_164_tb.ff.clk
+shiftreg_164_tb.ff.clr
+@22
+shiftreg_164_tb.ff.q[7:0]
+[pattern_trace] 1
+[pattern_trace] 0

@@ -1,0 +1,34 @@
+[timestart] 1110000
+[size] 1283 782
+[pos] -338 -48
+*-14.330061 1162100 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] vibrator_123_tb.
+@28
+vibrator_123_tb.a
+vibrator_123_tb.b
+vibrator_123_tb.clr
+@29
+vibrator_123_tb.q
+@28
+vibrator_123_tb.q2
+vibrator_123_tb.nq
+@200
+-
+-Vibrator 1
+@28
+vibrator_123_tb.vibrator.a
+vibrator_123_tb.vibrator.b
+vibrator_123_tb.vibrator.clr
+vibrator_123_tb.vibrator.nq
+vibrator_123_tb.vibrator.q
+@200
+-
+-Vibrator 2
+@28
+vibrator_123_tb.vibrator2.a
+vibrator_123_tb.vibrator2.b
+vibrator_123_tb.vibrator2.clr
+vibrator_123_tb.vibrator2.nq
+vibrator_123_tb.vibrator2.q
+[pattern_trace] 1
+[pattern_trace] 0

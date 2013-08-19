@@ -1,0 +1,113 @@
+[*]
+[*] GTKWave Analyzer v3.3.34 (w)1999-2012 BSI
+[*] Mon Apr 15 06:39:05 2013
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verification/vcd/processor-test.vcd"
+[dumpfile_mtime] "Mon Apr 15 06:39:00 2013"
+[dumpfile_size] 74635568
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verification/sav/processor-test.sav"
+[timestart] 487600000
+[size] 1779 977
+[pos] -1 -1
+*-22.512901 100000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] processor_test.
+[treeopen] processor_test.dut.
+[treeopen] processor_test.dut.b2_pba.
+[sst_width] 227
+[signals_width] 194
+[sst_expanded] 1
+[sst_vpaned_height] 287
+@28
+processor_test.nreset
+processor_test.dut.c2_nrsthold
+[color] 1
+processor_test.clk1
+[color] 2
+processor_test.clk2
+[color] 3
+processor_test.clk3
+[color] 4
+processor_test.clk4
+[color] 5
+processor_test.nt34
+@200
+-
+@28
+processor_test.nmem
+processor_test.nio
+processor_test.nr
+processor_test.nw
+@200
+-
+@28
+[color] 1
+processor_test.dut.b2_pba.c1_nwar
+[color] 1
+processor_test.dut.b2_pba.c1_nwir
+[color] 1
+processor_test.dut.b2_pba.c1_nwpc
+[color] 1
+processor_test.dut.b2_pba.c1_nwdr
+[color] 1
+processor_test.dut.b2_pba.c1_nwac
+@200
+-
+@28
+[color] 4
+processor_test.dut.b2_pba.c1_nrpc
+[color] 4
+processor_test.dut.b2_pba.c1_nrdr
+[color] 4
+processor_test.dut.b2_pba.c1_nrac
+@200
+-
+@2023
+^1 /home/alexios/PROJECTS/HARDWARE/cft/verification/sav/../filters/upc
+processor_test.dut.b1_uc.uc_upc[3:0]
+@c00022
+processor_test.dut.b1_uc.uaddr[18:0]
+@28
+(0)processor_test.dut.b1_uc.uaddr[18:0]
+(1)processor_test.dut.b1_uc.uaddr[18:0]
+(2)processor_test.dut.b1_uc.uaddr[18:0]
+(3)processor_test.dut.b1_uc.uaddr[18:0]
+(4)processor_test.dut.b1_uc.uaddr[18:0]
+(5)processor_test.dut.b1_uc.uaddr[18:0]
+(6)processor_test.dut.b1_uc.uaddr[18:0]
+(7)processor_test.dut.b1_uc.uaddr[18:0]
+(8)processor_test.dut.b1_uc.uaddr[18:0]
+(9)processor_test.dut.b1_uc.uaddr[18:0]
+(10)processor_test.dut.b1_uc.uaddr[18:0]
+(11)processor_test.dut.b1_uc.uaddr[18:0]
+(12)processor_test.dut.b1_uc.uaddr[18:0]
+(13)processor_test.dut.b1_uc.uaddr[18:0]
+(14)processor_test.dut.b1_uc.uaddr[18:0]
+(15)processor_test.dut.b1_uc.uaddr[18:0]
+(16)processor_test.dut.b1_uc.uaddr[18:0]
+(17)processor_test.dut.b1_uc.uaddr[18:0]
+(18)processor_test.dut.b1_uc.uaddr[18:0]
+@1401200
+-group_end
+@22
+processor_test.dut.b1_uc.udata[23:0]
+@4022
+^>1 /home/alexios/PROJECTS/HARDWARE/cft/verification/sav/../filters/control
+processor_test.dut.b1_uc.udata[23:0]
+@200
+-
+@22
+processor_test.ab[15:0]
+processor_test.db[15:0]
+processor_test.dut.c1_ibus[15:0]
+@200
+-
+@22
+processor_test.dut.b3_pbb.pc[15:0]
+processor_test.dut.b2_pba.ir[15:0]
+@4022
+^>2 /home/alexios/PROJECTS/HARDWARE/cft/verification/sav/../filters/disasm
+processor_test.dut.b2_pba.ir[15:0]
+@22
+processor_test.dut.b2_pba.PBA_AGL.pc10_15[5:0]
+[pattern_trace] 1
+[pattern_trace] 0

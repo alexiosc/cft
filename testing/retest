@@ -1,0 +1,7 @@
+Check PC after reset. ... /bin/sh: 1: ./cft-mc-CPU-MEM64-DEB-PFP.o: not found
+ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.339s
+
+OK

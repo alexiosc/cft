@@ -1,0 +1,42 @@
+[*]
+[*] GTKWave Analyzer v3.3.34 (w)1999-2012 BSI
+[*] Fri Mar 22 20:17:59 2013
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verification/vcd/processor-board-A-runit.vcd"
+[dumpfile_mtime] "Fri Mar 22 20:17:57 2013"
+[dumpfile_size] 8381
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verification/sav/processor-board-A-runit.sav"
+[timestart] 0
+[size] 1568 607
+[pos] -1 -1
+*-22.763016 2902000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[sst_width] 227
+[signals_width] 257
+[sst_expanded] 1
+[sst_vpaned_height] 159
+@28
+[color] 2
+processor_board_A_runit.clk1
+[color] 3
+processor_board_A_runit.nuce
+@29
+[color] 1
+processor_board_A_runit.nreset
+@200
+-
+@22
+[color] 4
+processor_board_A_runit.runit[3:0]
+@200
+-
+@28
+[color] 1
+processor_board_A_runit.nragl
+[color] 4
+processor_board_A_runit.nrpc
+[color] 3
+processor_board_A_runit.nrdr
+[color] 2
+processor_board_A_runit.nrac
+[pattern_trace] 1
+[pattern_trace] 0

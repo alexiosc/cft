@@ -1,0 +1,124 @@
+[*]
+[*] GTKWave Analyzer v3.3.34 (w)1999-2012 BSI
+[*] Sun Jun 30 21:41:58 2013
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/testing/sandbox/vt6500_ISZ/InstructionTest/simulation.vcd"
+[dumpfile_mtime] "Sun Jun 30 21:41:47 2013"
+[dumpfile_size] 905936
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/testing/sav/vt6500_ISZ-InstructionTest.sav"
+[timestart] 6453000
+[size] 1912 1053
+[pos] -1 -1
+*-18.542526 7174000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] cft_mc_test.
+[treeopen] cft_mc_test.CPU.
+[treeopen] cft_mc_test.CPU.b2_pba.PBA_SBL.
+[treeopen] cft_mc_test.CPU.b3_pbb.
+[treeopen] cft_mc_test.CPU.b3_pbb.PBB_AC.
+[treeopen] cft_mc_test.MEM.
+[sst_width] 299
+[signals_width] 536
+[sst_expanded] 1
+[sst_vpaned_height] 312
+@28
+cft_mc_test.nreset
+cft_mc_test.nreset_drv
+cft_mc_test.nhalt
+[color] 1
+cft_mc_test.clk1
+[color] 2
+cft_mc_test.clk2
+[color] 3
+cft_mc_test.clk3
+[color] 4
+cft_mc_test.clk4
+[color] 5
+cft_mc_test.nt34
+@200
+-
+@22
+cft_mc_test.CPU.b3_pbb.pc[15:0]
+@4022
+^>1 /home/alexios/PROJECTS/HARDWARE/cft/testing/sav/../../../../../../../tmp/../home/alexios/PROJECTS/HARDWARE/cft/testing/sav/../../../../../../../tmp/../home/alexios/PROJECTS/HARDWARE/cft/testing/sav/../../verification/filters/disasm
+cft_mc_test.CPU.b2_pba.ir[15:0]
+@24
+cft_mc_test.CPU.b3_pbb.ac[15:0]
+@22
+cft_mc_test.CPU.b3_pbb.PBB_DR.dr[15:0]
+@28
+cft_mc_test.CPU.b3_pbb.PBB_DR.nstpdr
+@200
+-
+@22
+cft_mc_test.ab[15:0]
+cft_mc_test.aext[7:0]
+cft_mc_test.db[15:0]
+@24
+cft_mc_test.db[15:0]
+@200
+-
+-
+@29
+cft_mc_test.CPU.b3_pbb.PBB_AC.nstpac
+@28
+cft_mc_test.CPU.b3_pbb.PBB_AC.nwac
+@24
+cft_mc_test.CPU.b3_pbb.ac[15:0]
+@28
+cft_mc_test.CPU.b2_pba.uc_nskip
+[color] 2
+cft_mc_test.CPU.b2_pba.PBA_SBL.fz
+@22
+cft_mc_test.CPU.b1_uc.uaddr[18:0]
+@4022
+^>2 /home/alexios/PROJECTS/HARDWARE/cft/testing/sav/../../../../../../../tmp/../home/alexios/PROJECTS/HARDWARE/cft/testing/sav/../../../../../../../tmp/../home/alexios/PROJECTS/HARDWARE/cft/verification/filters/uaddr
+cft_mc_test.CPU.b1_uc.uaddr[18:0]
+^>3 /home/alexios/PROJECTS/HARDWARE/cft/testing/sav/../../../../../../../tmp/../home/alexios/PROJECTS/HARDWARE/cft/testing/sav/../../../../../../../tmp/../home/alexios/PROJECTS/HARDWARE/cft/verification/filters/control
+cft_mc_test.CPU.b1_uc.udata[23:0]
+@200
+-
+@c00200
+-Internal ALU State
+@22
+cft_mc_test.CPU.b3_pbb.c1_ibus[15:0]
+cft_mc_test.CPU.b2_pba.c1_ibus[15:0]
+cft_mc_test.CPU.b4_pbc.c1_ibus[15:0]
+cft_mc_test.CPU.b2_pba.PBA_DBD.ic049_245_dblo.a[7:0]
+cft_mc_test.CPU.b2_pba.PBA_DBD.ic049_245_dblo.b[7:0]
+@28
+cft_mc_test.CPU.b2_pba.PBA_DBD.ic049_245_dblo.dir
+cft_mc_test.CPU.b2_pba.PBA_DBD.ic049_245_dblo.en
+@22
+cft_mc_test.CPU.b2_pba.PBA_DBD.ibus[15:0]
+@1401200
+-Internal ALU State
+@200
+-
+@c00200
+-Debugging
+@22
+cft_mc_test.MEM.ec_ab[15:0]
+cft_mc_test.MEM.ec_db[15:0]
+@28
+cft_mc_test.MEM.ec_nmem
+cft_mc_test.MEM.ec_nr
+cft_mc_test.MEM.ec_nw
+@22
+cft_mc_test.MEM.ic003_64c008_ramlo.a[15:0]
+cft_mc_test.MEM.ic003_64c008_ramlo.d[7:0]
+cft_mc_test.MEM.ic003_64c008_ramlo.i[31:0]
+@28
+cft_mc_test.MEM.ic003_64c008_ramlo.nce
+cft_mc_test.MEM.ic003_64c008_ramlo.noe
+cft_mc_test.MEM.ic003_64c008_ramlo.nwe
+@1401200
+-Debugging
+@22
+cft_mc_test.CPU.b2_pba.PBA_SBL.ic035_251_sblmuxhi.d[7:0]
+@28
+cft_mc_test.CPU.b2_pba.PBA_SBL.ic035_251_sblmuxhi.e
+cft_mc_test.CPU.b2_pba.PBA_SBL.ic035_251_sblmuxhi.sel[2:0]
+cft_mc_test.CPU.b2_pba.PBA_SBL.ic035_251_sblmuxhi.w
+cft_mc_test.CPU.b2_pba.PBA_SBL.ic035_251_sblmuxhi.y
+[pattern_trace] 1
+[pattern_trace] 0

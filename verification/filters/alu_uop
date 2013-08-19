@@ -1,0 +1,9 @@
+# Filters for the ALU Unary Operation (UOP) 3-bit signal.
+000 RBL
+001 RBR
+010 RNL
+011 RNR
+100 ?orange4?NOT
+101 ?orange4?NOT
+110 ?cyan4?CS1
+111 ?magenta4?CS2

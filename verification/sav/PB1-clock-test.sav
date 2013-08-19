@@ -1,0 +1,49 @@
+[*]
+[*] GTKWave Analyzer v3.3.44 (w)1999-2012 BSI
+[*] Wed Mar 20 21:26:50 2013
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verification/vcd/processor-board-A-clock-test.vcd"
+[dumpfile_mtime] "Wed Mar 20 21:26:48 2013"
+[dumpfile_size] 249101
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verification/sav/processor-board-A-clock-test.sav"
+[timestart] 0
+[size] 1889 733
+[pos] -1 -1
+*-19.000000 162000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] processor_board_A_clock_test.
+[treeopen] processor_board_A_clock_test.dut.
+[sst_width] 285
+[signals_width] 255
+[sst_expanded] 1
+[sst_vpaned_height] 201
+@28
+processor_board_A_clock_test.dut.nreset
+@200
+-
+-Front Panel
+@28
+processor_board_A_clock_test.dut.fpfast
+processor_board_A_clock_test.dut.fpslow
+processor_board_A_clock_test.dut.fpclken
+processor_board_A_clock_test.dut.fpustep
+@200
+-
+-Clock Generators
+@28
++{fastclock} processor_board_A_clock_test.dut.xtal1.q
++{slowclock} processor_board_A_clock_test.dut.ic001a_556_clockgen.q
++{testclock} processor_board_A_clock_test.dut.ic001b_556_clockgen.q
+@200
+-
+-Clocks
+@28
+processor_board_A_clock_test.dut.clk1
+processor_board_A_clock_test.dut.clk2
+processor_board_A_clock_test.dut.clk3
+processor_board_A_clock_test.dut.clk4
+processor_board_A_clock_test.dut.nt12
+processor_board_A_clock_test.dut.nt34
+@22
+processor_board_A_clock_test.phase[5:0]
+[pattern_trace] 1
+[pattern_trace] 0

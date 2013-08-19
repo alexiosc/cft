@@ -1,0 +1,77 @@
+[*]
+[*] GTKWave Analyzer v3.3.34 (w)1999-2012 BSI
+[*] Mon Apr 29 21:01:59 2013
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verification/vcd/processor-board-C-L-test.vcd"
+[dumpfile_mtime] "Mon Apr 29 21:00:12 2013"
+[dumpfile_size] 10178
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verification/sav/processor-board-C-L-test.sav"
+[timestart] 0
+[size] 1136 778
+[pos] -1 -1
+*-22.159931 5000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] processor_board_C_L_test.
+[treeopen] processor_board_C_L_test.dut.
+[sst_width] 227
+[signals_width] 119
+[sst_expanded] 1
+[sst_vpaned_height] 216
+@28
+processor_board_C_L_test.clk3
+@200
+-
+-Clears
+@28
+processor_board_C_L_test.nreset
+[color] 1
+processor_board_C_L_test.ncll
+@200
+-
+-Toggles
+@28
+[color] 1
+processor_board_C_L_test.ncpl
+[color] 2
+processor_board_C_L_test.nfltadd
+[color] 3
+processor_board_C_L_test.ninccpl
+[color] 4
+processor_board_C_L_test.ndeccpl
+@200
+-
+@28
+[color] 5
+processor_board_C_L_test.isroll
+[color] 5
+processor_board_C_L_test.roll16
+@200
+-
+@28
+processor_board_C_L_test.fl
+@200
+-
+-Debugging
+@29
+[color] 6
+processor_board_C_L_test.dut.lk
+@28
+[color] 6
+processor_board_C_L_test.dut.lj
+[color] 6
+processor_board_C_L_test.dut.toggle0
+[color] 6
+processor_board_C_L_test.dut.toggle1
+[color] 6
+processor_board_C_L_test.dut.toggle
+@200
+-
+-L Reg FF
+@28
+[color] 7
+processor_board_C_L_test.dut.ic098a_112_lreg.j
+[color] 7
+processor_board_C_L_test.dut.ic098a_112_lreg.k
+[color] 7
+processor_board_C_L_test.fl
+[pattern_trace] 1
+[pattern_trace] 0

@@ -1,0 +1,130 @@
+[*]
+[*] GTKWave Analyzer v3.3.40 (w)1999-2012 BSI
+[*] Sun Oct 28 08:41:28 2012
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/video_shiftreg_tb.vcd"
+[dumpfile_mtime] "Sun Oct 28 08:41:18 2012"
+[dumpfile_size] 3696
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/video_shiftreg_tb.sav"
+[timestart] 0
+[size] 1811 838
+[pos] 2225 287
+*-17.989992 268000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] video_shiftreg_tb.
+[treeopen] video_shiftreg_tb.vsr.
+[sst_width] 245
+[signals_width] 222
+[sst_expanded] 1
+[sst_vpaned_height] 232
+@28
+video_shiftreg_tb.nload
+video_shiftreg_tb.vsr.nload_in
+video_shiftreg_tb.vsr.nload
+video_shiftreg_tb.nshift
+@c00022
+video_shiftreg_tb.vsr.p[0:7]
+@28
+(0)video_shiftreg_tb.vsr.p[0:7]
+(1)video_shiftreg_tb.vsr.p[0:7]
+(2)video_shiftreg_tb.vsr.p[0:7]
+(3)video_shiftreg_tb.vsr.p[0:7]
+(4)video_shiftreg_tb.vsr.p[0:7]
+(5)video_shiftreg_tb.vsr.p[0:7]
+(6)video_shiftreg_tb.vsr.p[0:7]
+(7)video_shiftreg_tb.vsr.p[0:7]
+@1401200
+-group_end
+@28
+video_shiftreg_tb.vsr.nstate0
+video_shiftreg_tb.vsr.nstaten
+@200
+-
+-Buffer
+@c00022
+video_shiftreg_tb.vsr.loadreg.y[7:0]
+@28
+(0)video_shiftreg_tb.vsr.loadreg.y[7:0]
+(1)video_shiftreg_tb.vsr.loadreg.y[7:0]
+(2)video_shiftreg_tb.vsr.loadreg.y[7:0]
+(3)video_shiftreg_tb.vsr.loadreg.y[7:0]
+(4)video_shiftreg_tb.vsr.loadreg.y[7:0]
+(5)video_shiftreg_tb.vsr.loadreg.y[7:0]
+(6)video_shiftreg_tb.vsr.loadreg.y[7:0]
+(7)video_shiftreg_tb.vsr.loadreg.y[7:0]
+@1401200
+-group_end
+@28
+video_shiftreg_tb.vsr.loadreg.oe1
+@c00022
+video_shiftreg_tb.vsr.q0[0:7]
+@28
+(0)video_shiftreg_tb.vsr.q0[0:7]
+(1)video_shiftreg_tb.vsr.q0[0:7]
+(2)video_shiftreg_tb.vsr.q0[0:7]
+(3)video_shiftreg_tb.vsr.q0[0:7]
+(4)video_shiftreg_tb.vsr.q0[0:7]
+(5)video_shiftreg_tb.vsr.q0[0:7]
+(6)video_shiftreg_tb.vsr.q0[0:7]
+(7)video_shiftreg_tb.vsr.q0[0:7]
+@1401200
+-group_end
+@200
+-
+-Shift Reg
+@28
+video_shiftreg_tb.vsr.shiftreg.clk
+@c00022
+video_shiftreg_tb.vsr.shiftreg.d[7:0]
+@28
+(0)video_shiftreg_tb.vsr.shiftreg.d[7:0]
+(1)video_shiftreg_tb.vsr.shiftreg.d[7:0]
+(2)video_shiftreg_tb.vsr.shiftreg.d[7:0]
+(3)video_shiftreg_tb.vsr.shiftreg.d[7:0]
+(4)video_shiftreg_tb.vsr.shiftreg.d[7:0]
+(5)video_shiftreg_tb.vsr.shiftreg.d[7:0]
+(6)video_shiftreg_tb.vsr.shiftreg.d[7:0]
+(7)video_shiftreg_tb.vsr.shiftreg.d[7:0]
+@1401200
+-group_end
+@28
+video_shiftreg_tb.vsr.shiftreg.oe
+@22
+video_shiftreg_tb.vsr.shiftreg.q0[7:0]
+@c00022
+video_shiftreg_tb.vsr.shiftreg.q[7:0]
+@28
+(0)video_shiftreg_tb.vsr.shiftreg.q[7:0]
+(1)video_shiftreg_tb.vsr.shiftreg.q[7:0]
+(2)video_shiftreg_tb.vsr.shiftreg.q[7:0]
+(3)video_shiftreg_tb.vsr.shiftreg.q[7:0]
+(4)video_shiftreg_tb.vsr.shiftreg.q[7:0]
+(5)video_shiftreg_tb.vsr.shiftreg.q[7:0]
+(6)video_shiftreg_tb.vsr.shiftreg.q[7:0]
+(7)video_shiftreg_tb.vsr.shiftreg.q[7:0]
+@1401200
+-group_end
+@200
+-
+-State
+@28
+video_shiftreg_tb.vsr.nshift
+video_shiftreg_tb.vsr.state.clk
+video_shiftreg_tb.vsr.state.d
+video_shiftreg_tb.vsr.state.q
+video_shiftreg_tb.vsr.state.qn
+video_shiftreg_tb.vsr.state.rst
+video_shiftreg_tb.vsr.state.set
+@200
+-
+-Misc
+@29
+(0)video_shiftreg_tb.vsr.q1[0:7]
+@28
+video_shiftreg_tb.vsr.loadff.clk
+video_shiftreg_tb.vsr.loadff.d
+video_shiftreg_tb.vsr.loadff.q
+video_shiftreg_tb.vsr.loadff.qn
+video_shiftreg_tb.vsr.loadff.rst
+video_shiftreg_tb.vsr.loadff.set
+[pattern_trace] 1
+[pattern_trace] 0

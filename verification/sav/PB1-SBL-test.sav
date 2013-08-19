@@ -1,0 +1,143 @@
+[*]
+[*] GTKWave Analyzer v3.3.45 (w)1999-2012 BSI
+[*] Wed Jul  3 07:56:17 2013
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verification/vcd/processor-board-A-SBL-test.vcd"
+[dumpfile_mtime] "Wed Jul  3 07:56:04 2013"
+[dumpfile_size] 144598478
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verification/sav/processor-board-A-SBL-test.sav"
+[timestart] 361700000000
+[size] 1912 1053
+[pos] 2048 0
+*-35.383694 2100538000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] processor_board_A_SBL_test.
+[treeopen] processor_board_A_SBL_test.dut.
+[sst_width] 227
+[signals_width] 312
+[sst_expanded] 1
+[sst_vpaned_height] 322
+@28
+[color] 1
+processor_board_A_SBL_test.nreset
+[color] 2
+processor_board_A_SBL_test.nskipext
+@200
+-
+@28
+[color] 2
+processor_board_A_SBL_test.clk4
+@200
+-
+@22
+[color] 3
+processor_board_A_SBL_test.opif[3:0]
+@2028
+[color] 3
+^1 /home/alexios/PROJECTS/HARDWARE/cft/verification/sav/../../../../../../../tmp/../home/alexios/PROJECTS/HARDWARE/cft/verification/sav/../filters/opif
+processor_board_A_SBL_test.opif[3:0]
+@c00022
+[color] 4
+processor_board_A_SBL_test.ir[9:0]
+@28
+[color] 4
+(0)processor_board_A_SBL_test.ir[9:0]
+[color] 4
+(1)processor_board_A_SBL_test.ir[9:0]
+[color] 4
+(2)processor_board_A_SBL_test.ir[9:0]
+[color] 4
+(3)processor_board_A_SBL_test.ir[9:0]
+[color] 4
+(4)processor_board_A_SBL_test.ir[9:0]
+[color] 4
+(5)processor_board_A_SBL_test.ir[9:0]
+[color] 4
+(6)processor_board_A_SBL_test.ir[9:0]
+[color] 4
+(7)processor_board_A_SBL_test.ir[9:0]
+[color] 4
+(8)processor_board_A_SBL_test.ir[9:0]
+[color] 4
+(9)processor_board_A_SBL_test.ir[9:0]
+@1401200
+-group_end
+@28
+[color] 1
+(5)processor_board_A_SBL_test.ir[9:0]
+processor_board_A_SBL_test.dut.svlzn
+[color] 2
+processor_board_A_SBL_test.dut.op1_branch
+@24
+processor_board_A_SBL_test.dut.ic035_251_sblmuxhi.sel[2:0]
+@200
+-
+@800200
+-SBL Internal State
+@28
+[color] 1
+processor_board_A_SBL_test.dut._skipmuxlo
+[color] 2
++{muxlo e} processor_board_A_SBL_test.dut.ic034_251_sblmuxlo.e
+[color] 1
+processor_board_A_SBL_test.dut._skipmuxhi
+[color] 2
++{muxhi e} processor_board_A_SBL_test.dut.ic035_251_sblmuxhi.e
+@200
+-
+@800200
+-Low Mux
+@28
+processor_board_A_SBL_test.dut.ic034_251_sblmuxlo.e
+@c00022
+processor_board_A_SBL_test.dut.ic034_251_sblmuxlo.d[7:0]
+@28
+(0)processor_board_A_SBL_test.dut.ic034_251_sblmuxlo.d[7:0]
+(1)processor_board_A_SBL_test.dut.ic034_251_sblmuxlo.d[7:0]
+(2)processor_board_A_SBL_test.dut.ic034_251_sblmuxlo.d[7:0]
+(3)processor_board_A_SBL_test.dut.ic034_251_sblmuxlo.d[7:0]
+(4)processor_board_A_SBL_test.dut.ic034_251_sblmuxlo.d[7:0]
+(5)processor_board_A_SBL_test.dut.ic034_251_sblmuxlo.d[7:0]
+(6)processor_board_A_SBL_test.dut.ic034_251_sblmuxlo.d[7:0]
+(7)processor_board_A_SBL_test.dut.ic034_251_sblmuxlo.d[7:0]
+@1401200
+-group_end
+@28
+processor_board_A_SBL_test.dut.ic034_251_sblmuxlo.sel[2:0]
+@29
+processor_board_A_SBL_test.dut.ic034_251_sblmuxlo.w
+@28
+processor_board_A_SBL_test.dut.ic034_251_sblmuxlo.y
+@1000200
+-Low Mux
+@200
+-
+@1000200
+-SBL Internal State
+@200
+-
+-Flags
+@28
+[color] 1
+processor_board_A_SBL_test.fn
+[color] 2
+processor_board_A_SBL_test.fz
+[color] 3
+processor_board_A_SBL_test.fl
+[color] 4
+processor_board_A_SBL_test.fv
+@200
+-
+@28
+[color] 6
+processor_board_A_SBL_test.nskipext
+[color] 2
+processor_board_A_SBL_test.nskip
+@200
+-
+-Skip Flag Verification
+@28
+processor_board_A_SBL_test.cor_nskip
+[color] 1
++{nskip XOR cor_nskip} processor_board_A_SBL_test.dnskip
+[pattern_trace] 1
+[pattern_trace] 0
