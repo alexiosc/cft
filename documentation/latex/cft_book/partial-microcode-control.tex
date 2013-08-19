@@ -1,0 +1,27 @@
+
+\begin{description}
+\item \textbf{Bits 0–3: \RUNITn{0–3}}. Vertical field, identifies the processor
+  unit to read from, and includes \ALU operations and constants which are ‘read’
+  from as if they were separate units operating in tandem.
+\item \textbf{Bits 4–6: \WUNITn{0–2}}. Vertical field, identifies the processor unit to write to.
+\item \textbf{Bits 7–10: \OPIFn{0–3}}. Vertical field, identifies an
+  instruction register bit whose value is routed to the next
+  micro-instruction's \ns{SKIP} input.
+\item \textbf{Bit 11: \CLL}. Clears \Lreg.
+\item \textbf{Bit 12: \CPL}. Complements \Lreg.
+\item \textbf{Bit 13: \STI}. Allows interrupts.
+\item \textbf{Bit 14: \CLI}. Masks interrupts.
+\item \textbf{Bit 15: \INCPC}. Increments \PC.
+\item \textbf{Bit 16: \STPDR}. Steps the \DR register.
+\item \textbf{Bit 17: \STPAC}. Steps the \AC register.
+\item \textbf{Bit 18: \DEC}. When this signal is asserted, \STPDR{}
+  and \STPAC{} decrement the \DR{} and \AC{} registers
+  respectively. At other times, \STPDR{} and \STPAC{} increment \DR{}
+  and \AC{}.
+\item \textbf{Bit 19: \MEM}. Indicates a memory cycle.
+\item \textbf{Bit 20: \IO}. Indicates an I/O cycle.
+\item \textbf{Bit 21: \R}. Indicates a read cycle.
+\item \textbf{Bit 22: \WEN}. Indicates a write cycle.
+\item \textbf{Bit 23: \END}. Ends the current microprogram.
+\end{description}
+

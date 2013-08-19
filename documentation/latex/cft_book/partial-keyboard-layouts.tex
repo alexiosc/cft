@@ -1,0 +1,32 @@
+% Definitions used for keyboard layouts.
+
+\def\s{8mm}
+\def\sy{\s * 1.15}
+\def\step{\s * 0.4}
+\def\stepy{\sy * 0.4 + 0.1}
+\makeatletter
+\ifdefined\c@x\setcounter{x}{0}\else\newcounter{x}\fi
+\ifdefined\c@y\setcounter{y}{0}\else\newcounter{y}\fi
+\makeatother
+
+\newcommand\key[4]{
+  \begin{scope}[xshift=\value{x} * \step, yshift=\value{y} * -1 * \stepy]
+    \draw[line width=1pt, rounded corners=0.75mm, fill=\colour] (0,0) rectangle %
+    (#1 * \step - 1mm, #2);
+    \draw(-0.05, #2) node[transform shape, below right] {\scriptsize\textcond{\bfseries #3}};
+    \draw(-0.05, #2 - 2.5mm) node[transform shape, below right] {\scriptsize\textcond{\bfseries #4}};
+    \addtocounter{x}{#1}
+  \end{scope}
+}
+\renewcommand\sc[1]{
+  \begin{scope}[xshift=\value{x} * \step, yshift=\value{y} * -1 * \stepy]
+    \draw(-0.5mm,-0.5mm) node[transform shape, above left] {\scriptsize{\hex{#1}}};
+  \end{scope}
+}
+
+\renewcommand\k[1]{\key{3}{\sy}{#1}{~}}
+\newcommand\sk[2]{\key{3}{\sy}{#1}{#2}}
+\newcommand\gap[1]{\addtocounter{x}{#1}}
+\newcommand\row{\setcounter{x}{0}\addtocounter{y}{3}}
+
+% End of file.

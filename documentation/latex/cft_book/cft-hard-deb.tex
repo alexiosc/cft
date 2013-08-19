@@ -1,0 +1,946 @@
+\label{chap:deb}
+%\lstset{morecomment=[l][\color{red}]{>}
+%}
+
+\section{Introduction}
+
+The \gls{DEB} board originated in the early days of CFT's
+\gls{Verilog} verification. A test framework would run the Verilog
+simulator with various test programs, which needed to be able to print
+output and make test assertions which would halt the computer when
+failed.
+
+This became a virtual device in the CFT Emulator, which allowed the
+emulator to be tested on the same framework — better yet, peripherals
+could also be tested, and tested much faster than in Verilog.
+
+As a side effect, it also allowed testing of various algorithms used
+in the ROM, including integer division, which also tests the
+processor's overall behaviour quite well.
+
+The success of this technique has (unsurprisingly) been great: several
+serious issues with the processor and its microcode were found.
+
+It only made sense that there should be a hardware implementation, to
+bring the unit tests to the constructed CFT. As the test suite grows,
+it will help verify that individual features of the processor and
+computer at large work as expected.
+
+\section{Design}
+
+There are a number of very useful features provided by the \gls{DEB} board:
+
+\begin{itemize}
+\item It can be directed by CFT instructions to output data to the
+  controlling computer.
+\item It can provide information on test progress to the controlling computer.
+\item It can mark failed tests to the controlling computer, and optionally halt so that the CFT's state can be inspected.
+\item It can upload memory images to the computer.
+\item It can examine memory locations.
+\item It performs operations in I/O space, to initialise and test peripherals.
+\item It can be used to reprogram the CFT's Flash ROM in-circuit.
+\item It controls the run state of the machine, making it double as a
+  simple virtual front panel.
+\item It can be used by both humans and automated tools.
+\item It provides four diagnostic LEDs (entirely user-controlled) to
+  show the state of testing.
+\end{itemize}
+
+This feature set also provides a number of unforeseen benefits:
+
+\begin{description}
+\item {\bfseries Construction freedom.} Cards can now be constructed in any
+  order whatsoever. The memory and IDE cards can be constructed ﬁrst
+  and tested to ensure they work before the processor is even
+  attempted. This removes degrees of freedom and uncertainty should a
+  bug be found later on. It is preferable to know that simpler devices
+  (like the memory board) are working well, so issues can be tracked
+  to more complex devices instead.
+  
+\item {\bfseries Build safety.} All the cards can be pulled out of the card
+  cage, leaving \gls{DEB} board and a newly constructed peripheral
+  board. The peripheral board can be tested on its own, again removing
+  degrees of freedom and uncertainty. If something goes really wrong,
+  the worst case scenario is that the chips on the debugging board
+  need to be replaced, and the misbehaving new peripheral needs to be
+  rewired slightly. This is naturally better than having to diagnose a
+  fault when the set of potential failures contains over 250 ICs.
+
+\item {\bfseries Manual operation.} With the current firmware, it is be easy
+  to operate the \gls{DEB} card manually using a serial (\gls{USB})
+  terminal, and get something resembling a basic programmer's front
+  panel.
+
+\item {\bfseries Flash Programming for free.} Since the \gls{DEB} board can
+  write to memory and I/O devices, it can also flash the machine's
+  non-volatile memory. Some flash chips (the microcode store and ALU
+  tables) will have to be pulled to be programmed, but those are not
+  devices that will need to be reprogrammed often.
+
+\end{description}
+
+\section{Theory of Operation}
+
+The DEB board has two main parts:
+
+\begin{description}
+\item {\bfseries The CFT Bus Interface} attaches the DEB board to the CFT,
+  and allows it to be addressed and used by the CFT.
+
+\item {\bfseries The Controller Interface} interfaces the DEB board to an
+  external controlling device using a TTL serial-to-USB bridge, and
+  allows devices on the CFT bus (including the processor) to be
+  remote-controlled, debugged and tested.
+\end{description}
+
+\subsection{Host (CFT) Interface}
+
+\begin{figure}
+\centering
+\includegraphics[width=\columnwidth]{figs/deb-bus-interface.pdf}\\
+%\includegraphics{figs/deb-bus-interface.pdf}\\
+\caption{\label{fig-deb-bus-interface}Debug board bus interface.}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.85\columnwidth]{figs/cft-deb-board-128.png}\vspace{1em}\\
+
+\includegraphics[width=0.85\columnwidth]{figs/cft-deb-board-153.png}\\
+\caption{\label{fig-deb-board}A rendered image of the first draft of
+  the debugging board. Note the obvious erratum: The Microchip®
+  \gls{GPIO} chips are packaged in narrow 28-pin DIP, so they should
+  look exactly like the \gls{MCU}.}
+\end{figure}
+
+The host interface comprises a simple address decoder and a wait-state
+generator. It is shown in~\fcf{fig-deb-bus-interface}.
+
+The address decoder decodes fully the I/O address range
+\hex{03F0}–\hex{03FF} and generates a standard active-low pulse when
+one of these addresses is written to.
+
+The active low pulse asynchronously clears a D flip-flop, so its
+\ns{Q} output goes high. This is inverted using an open-drain inverter
+and used to drive low the \ns{WS} signal. The flip-flop is set
+asynchronously by \ns{RESET} (de-asserting \ns{WS}), and synchronously
+by the DEB board \gls{MCU}, which does so programmatically.
+
+This implements the following behaviour: on reset, \ns{WS} is
+guaranteed to be de-asserted. When the CFT performs an \asm{OUT \&3Fx}
+instruction, the address decoder strobes the flip-flop's \ns{CLR}
+line, and a wait state is asserted, freezing the computer and its buses.
+
+Simultaneously, the strobe interrupts the \gls{MCU}, which wakes from
+sleep, samples the address and data buses, acts according to the
+selected operation, and strobes \ps{DEBCONT}. This sets the flip-flop,
+which de-asserts \ns{WS}, and the computer resumes operation.
+
+Please note that this wait state can be very long, perhaps in the order
+or milliseconds.
+
+\subsection{Controller Interface}
+
+the controller interface is simple but very powerful. It comprises
+three hardware parts:
+
+\begin{description}
+\item{\bfseries The \gls{MCU}} is responsible for the operation of the
+  board. It is an Atmel® AVR® Atmega 168 unit with flash memory and an
+  on-board SPI header for in-circuit programming.
+
+  The \gls{MCU} controls 48 \gls{GPIO} pins, as well as the \ns{MEM},
+  \ns{IO}, \ns{R} and \ns{W} conrol signals. In addition, it can stop
+  and single-step the processor by driving the \ps{FPCLKEN} and
+  \ps{FPUSTEP} lines.
+
+  It also controls a bank of four LEDs which can be
+    illuminated to show progress and status.
+
+\item{\bfseries Three 16-port \gls{GPIO} chips}. Two of these are attached
+  to the address and data buses (one is attached to the MSB of the
+  buses, the other to the LSB of the buses). The third is for future
+  expansion. A 16-pin header on the board allows signals to be
+  connected to it for sampling. GPIO pins may be configured as inputs
+  or outputs, reducing the chip count significantly.
+
+  The \gls{GPIO} chips are Microchip® MCP23016 units, controlled by the
+  \gls{MCU} via its \gls{I2C} bus, running at 100 kHz.
+
+  The three GPIOs are referred to by their \gls{I2C} addresses or their function:
+  
+  \begin{itemize}
+  \item \hex{20} is the address of the \gls{MSB} device, which is
+    attached to \ABUSn{8}–\ABUSn{15} and \DBUSn{8}–\DBUSn{15}.
+  \item \hex{21} is the address of the \gls{LSB} device, which is
+    attached to \ABUSn{0}–\ABUSn{7} and \DBUSn{0}–\DBUSn{7}.
+  \item \hex{23} is the address of the user device, which can be used to
+    sample or control arbitrary lines.
+  \end{itemize}
+
+\item{\bfseries The serial-to-USB bridge} connects the \gls{MCU} to a
+  testing controller via \gls{USB}. This allows high communication
+  speeds — by default, the DEB card communicates at 921,600 bps, while
+  ensuring near-universal compatibility with computing devices.
+\end{description}
+
+The \gls{MCU} firmware controls the hardware assets programmatically,
+so behaviours can be changed, and features may be upgraded as
+required.
+
+\section{Operation}
+\label{sec-deb-firmware}
+
+When powered on or reset, the board goes through a brief
+self-diagnostic phase, ensuring that the \gls{GPIO} chips are in good
+working order. The LED testing lights should illuminate, then turn off
+in sequence, until none remain lit. This process should last
+approximately no longer than three seconds.
+
+If the board stops before completing initialisation,
+\tcf{tab-deb-diag} can be consulted for the meaning of the diagnostic
+LEDs.
+
+If all devices pass power-on tests, all the LEDs should be off.
+
+If a \gls{GPIO} is reported failed, the fault may be transient. The
+MCP23016 \gls{GPIO} has no reset signal, and its error recovery is
+less than perfect — if an I²C or protocol error is encountered, it can
+hang. Resetting the \gls{DEB} board is not enough to clear the error
+condition. Power cycling is recommended.
+
+Diagnostics are also indicated via the serial connection. Upon
+power-up or reset, the following should appear:
+
+{\small
+\begin{lstlisting}[style=deb]
+CFT DEB Board Booting.
+GPIO diag: 20 21 23 Ready.
+201 Version: 0.5
+201 BufSize: 104
+202 (c) 2012 Alexios Chouchoulas <alexios@bedroomlan.org>
+202 Licensed under the GNU Public License v.2.
+202 http://www.bedroomlan.org/cft
+[running]>
+\end{lstlisting}
+}
+
+\newcommand\led[1]{%
+  \begin{tikzpicture}
+    \draw[line width=1pt, fill=#1] (0,0) circle(4pt);
+  \end{tikzpicture}
+}
+
+\begin{table}
+  \zebra
+  \centering
+  \begin{tabular}{ccccl}
+    \noalign{\smallskip}\hline\noalign{\smallskip}
+    A & B & C & D & Meaning \\
+    \noalign{\smallskip}\hline\noalign{\smallskip}
+    \led{r1} & \led{g1} & \led{g1} & \led{g1} & Early hardware failure. \\
+    \led{r1} & \led{g1} & \led{g1} & \led{g0} & MSB \gls{GPIO} fault. \\
+    \led{r1} & \led{g1} & \led{g0} & \led{g0} & LSB \gls{GPIO} fault. \\
+    \led{r1} & \led{g0} & \led{g0} & \led{g0} & User \gls{GPIO} fault. \\
+    \led{r0} & \led{g0} & \led{g0} & \led{g0} & Device is ready. \\
+    \noalign{\smallskip}\hline\noalign{\smallskip}
+  \end{tabular}
+\caption{\label{tab-deb-diag} Meaning of the \gls{DEB} diagnostic
+  lights, should the board stop during initialisation.}
+\end{table}
+
+
+\section{Interactive Operation — The Virtual Front Panel}
+
+The firmware presents an interactive user interface intended for both
+humans and machines, in the style of the SMTP, FTP and HTTP
+protocols. The user enters short commands, optionally followed by one
+or more arguments, and the board responds with a three digit response
+code and a human-readable message. A human ignores the response code;
+a machine ignores the textual message.
+
+A rudimentary line editor is provided for command lines:
+
+\begin{description}
+\item{\bfseries Backspace or DEL} keys delete the last character in the
+  current command.
+\item{\bfseries Ctrl-C or Ctrl-X} keys abort the current command, and may
+  also be used to abort a long-running process.
+\item{\bfseries Newline or Line-feed} keys submit the current command for
+  processing.
+\end{description}
+
+Help may be obtained by using the \cftin{?} or \cftin{help} commands,
+which print out something like this:
+
+{\small
+\begin{lstlisting}[style=deb]
+[running]> $\lstkbd{help}$
+
+201 Available commands:
+201  ? -- Show help.
+201  help -- Show help.
+201  ver? -- Show version.
+201  buf? -- Show size of command buffer.
+201  c? -- Show current word count.
+201  ob -- Set binary for dump.
+201  ot -- Set text for dump.
+201  leds NIBBLE -- Set diagnostic LEDs (0-F).
+201  halt -- Halt the CFT & become bus master.
+201  run -- Resume the CFT.
+201  rst! -- Reset the CFT.
+201  e0 -- Local echo off.
+201  e1 -- Local echo on.
+201  hof0 -- Halt on FAIL.
+201  hof1 -- Continue on FAIL.
+201  a WORD -- Set address.
+201  c WORD -- Set count.
+201  r -- Read word from memory.
+201  w WORD ... -- Write words to memory, step address.
+201  in WORD -- Read from I/O address WORD.
+201  out ADDR WORD -- Write WORD to I/O ADDR.
+201  d -- Dump count words starting at addr, step addr.
+201  clr! -- Reset the DEB board.
+201 Consult documentation for details.
+\end{lstlisting}
+}
+
+The \gls{DEB} board has two modes of operation:
+
+\begin{description}
+
+\item{\bfseries Run mode}. In this mode, the CFT is executing its program as
+  per normal. It is not possible to modify the computer's state in
+  this mode, except to stop it or reset it. The \cftin{run} command
+  (described below) activates this mode.
+
+\item{\bfseries Stop mode}. In this mode, the \gls{DEB} board has master
+  access to the computer's buses and can inspect and modify memory and
+  I/O locations. The \cftin{halt} command (described below) activates
+  this mode and unlocks the full \gls{DEB} command set.
+
+\end{description}
+
+The following is a brief description of available \gls{DEB} commands.
+
+\begin{description}
+\item{\bfseries\cftin{?} or \cftin{help}} Lists available commands and their
+  brief descriptions.
+
+\item{\bfseries\cftin{ver?}} Prints out the current firmware version. The ‘+t’
+  signifies that text dumping is available, which is always the case
+  on the Atmega 168-based board.\footnote{This originated in the
+    author's Flash Programmer project, which was coded for both
+    Atmega 168 and Atmega 8. The latter has 8 kBytes of flash
+    memory, and text-based dumping would not fit.}
+
+{\small
+\begin{lstlisting}[style=deb]
+[running]> $\lstkbd{ver?}$
+201 Version: 0.5+t
+\end{lstlisting}
+}
+
+\item{\bfseries\cftin{buf?}} Displays the size of the input line buffer {\bfseries
+  in hexadecimal}. This affects the maximum number of values that can
+  be written to memory on one line.
+
+{\small
+\begin{lstlisting}[style=deb]
+[running]> $\lstkbd{buf?}$
+201 BufSize: 200
+\end{lstlisting}
+}
+
+\item{\bfseries\cftin{c?}} Displays the current word count {\bfseries in
+  hexadecimal}. This is the size of the block displayed by the \cftin{d}
+  (dump) command. The default count is \hex{80}, i.e. 128 words.
+
+{\small
+\begin{lstlisting}[style=deb]
+[running]> $\lstkbd{c?}$
+201 Count: 0080
+\end{lstlisting}
+}
+
+\item{\bfseries\cftin{ob}} Makes the \cftin{d}
+  (dump) command dump in binary. The default is text dumping.
+
+{\small
+\begin{lstlisting}[style=deb]
+[running]> $\lstkbd{ob}$
+206 Output: bin
+\end{lstlisting}
+}
+
+\item{\bfseries\cftin{ot}} Makes the \cftin{d}
+  (dump) command dump in text, which is also the default.
+
+{\small
+\begin{lstlisting}[style=deb]
+[running]> $\lstkbd{ot}$
+205 Output: text
+\end{lstlisting}
+}
+
+\item{\bfseries\cftin{leds} NYBBLE} Sets the bit pattern of the diagnostic
+  LEDs. \gls{NYBBLE} is a hexadecimal value in the range
+  \hex{0}–\hex{F} (four bits). Bits 0–3 represent LEDs A–D in order. LED D is the
+  red LED. A bit value of \bin{1} turns on a LED; a value of \bin{0}
+  turns it off. To turn on all LEDs but LED A (\bin{1110} = \hex{E}):
+
+{\small
+\begin{lstlisting}[style=deb]
+[running]> $\lstkbd{leds e}$
+209 LEDs: e
+\end{lstlisting}
+}
+
+\item{\bfseries\cftin{halt}} Stops the computer and unlocks the full \gls{DEB}
+  command set. The mode changes to halted, and the prompt changes to
+  show the current address:
+
+{\small
+\begin{lstlisting}[style=deb]
+[running]> $\lstkbd{halt}$
+306 Host halted
+[halted] 0000> $\lstkbd{halt}$
+505 Already halted.
+[halted] 0000> 
+\end{lstlisting}
+}
+
+
+\item{\bfseries\cftin{run}} Locks the \gls{DEB} command set and starts the
+  computer.  The mode changes to running, and the prompt changes to
+  reflect this:
+
+{\small
+\begin{lstlisting}[style=deb]
+[halted] 0000> $\lstkbd{run}$
+305 Host running
+[running]> $\lstkbd{run}$
+506 Already running.
+[running]> 
+\end{lstlisting}
+}
+
+
+\item{\bfseries\cftin{rst!}} Resets the CFT processor. The \gls{DEB} board is
+  not affected by this. No confirmation questions are asked.
+
+{\small
+\begin{lstlisting}[style=deb]
+[halted] 0000> $\lstkbd{rst!}$
+307 Host reset
+\end{lstlisting}
+}
+
+
+\item{\bfseries\cftin{e0}} Disables local echo. This is useful for certain
+  remote terminals that have custom line editors and/or their own
+  echo, which make typed characters appear twice. The default is to
+  perform local echo (\cftin{e1}).
+
+{\small
+\begin{lstlisting}[style=deb]
+[halted] 0000> $\lstkbd{e0}$
+208 Echo: off
+\end{lstlisting}
+}
+
+
+\item{\bfseries\cftin{e1}} Enables local echo. Use this command if typed
+  characters are invisible. This is the default behaviour.
+
+{\small
+\begin{lstlisting}[style=deb]
+[halted] 0000> $\lstkbd{e1}$
+207 Echo: off
+\end{lstlisting}
+}
+
+
+\item{\bfseries\cftin{hof0}} Disables halt-on-\asm{FAIL} mode. When the CFT
+  issues the \asm{FAIL} instruction, the computer will be allowed to
+  keep running. This is the default behaviour.
+
+{\small
+\begin{lstlisting}[style=deb]
+[halted] 0000> $\lstkbd{hof0}$
+211 Halt on FAIL: off
+\end{lstlisting}
+}
+
+
+\item{\bfseries\cftin{hof1}} Enables halt-on-\asm{FAIL} mode. When the CFT
+  issues the \asm{FAIL} instruction, the computer will be halted (and
+  the full \gls{DEB} command set unlocked) to allow state
+  inspection. The default behaviour is \cftin{hof0}.
+
+{\small
+\begin{lstlisting}[style=deb]
+[halted] 0000> $\lstkbd{hof1}$
+210 Halt on FAIL: on
+\end{lstlisting}
+}
+
+
+\item{\bfseries\cftin{a} WORD} Sets the current address to WORD, which is a
+  16-bit value expressed {\bfseries in hexadecimal}. The current address
+  affects memory reads (using the \cftin{d} command) and memory writes
+  (using the \cftin{w} command). If the \gls{DEB} board is in the
+  halted mode, the prompt also indicates the current address:
+
+{\small
+\begin{lstlisting}[style=deb]
+[halted] 0000> $\lstkbd{a 1234}$
+203 Address: 1234
+[halted] 1234> 
+\end{lstlisting}
+}
+
+
+\item{\bfseries\cftin{c} COUNT} Sets the current count to COUNT, which is a
+  16-bit value expressed {\bfseries in hexadecimal}. Please note that this
+  makes it impossible to, for instance, dump 65,536 words (the full
+  CFT logical address space) because the largest acceptable value for
+  COUNT is \hex{FFFF} or 65,535.
+
+{\small
+\begin{lstlisting}[style=deb]
+[halted] 0000> $\lstkbd{c 8000}$
+204 Count: 8000
+\end{lstlisting}
+}
+
+
+\item{\bfseries\cftin{r}} Reads one word from memory space at the current
+  address. The read word is reported {\bfseries in hexadecimal}. The current
+  address is incremented by one. This command only works with the
+  \gls{DEB} board in halted mode.
+
+{\small
+\begin{lstlisting}[style=deb]
+[running]> $\lstkbd{a 1234}$
+203 Address: 1234
+[running]> $\lstkbd{r}$
+503 Halt host first.
+[running]> $\lstkbd{halt}$
+306 Host halted
+[halted] 1234> $\lstkbd{r}$
+304 Value: DEAD
+[halted] 1235> $\lstkbd{r}$
+304 Value: BEEF
+[halted] 1236> $\lstkbd{r}$
+304 Value: 63FF
+[halted] 1237> 
+\end{lstlisting}
+}
+
+
+\item{\bfseries\cftin{w} WORD …} Writes one or more words to space starting
+  with the current address. Words are 16-bit values expressed {\bfseries in
+    hexadecimal}. The current address is incremented after each
+  write. This command only works with the \gls{DEB} board in halted
+  mode. A simple checksum (a 32-bit sum of all input values expressed
+  {\bfseries in hexadecimal} and padded to 8 digits) is reported.
+
+{\small
+\begin{lstlisting}[style=deb]
+[running]> $\lstkbd{a 1234}$
+203 Address: 1234
+[running]> $\lstkbd{w dead beef 63ff}$
+503 Halt host first.
+[running]> $\lstkbd{halt}$
+306 Host halted
+[halted] 1234> $\lstkbd{w dead beef 63ff}$
+301 Done
+303 Checksum: 0002019b
+[halted] 1237> 
+\end{lstlisting}
+}
+
+
+\item{\bfseries\cftin{in} WORD} Reads one 16-bit value from I/O space address
+  WORD and reports it in hexadecimal, padded to 4 digits. This command
+  only works with the \gls{DEB} board in halted mode.
+
+{\small
+\begin{lstlisting}[style=deb]
+[running]> $\lstkbd{in 23}$
+503 Halt host first.
+[running]> $\lstkbd{halt}$
+306 Host halted
+[halted] 0000> $\lstkbd{in 23}$
+304 Value: 00FF
+[halted] 0000> 
+\end{lstlisting}
+}
+
+
+\item{\bfseries\cftin{out} ADDR WORD} Writes the 16-bit WORD to I/O space
+  address ADDR. This command only works with the \gls{DEB} board in
+  halted mode. The current address is not modified.
+
+{\small
+\begin{lstlisting}[style=deb]
+[running]> $\lstkbd{out 16f 1234}$
+503 Halt host first.
+[running]> $\lstkbd{halt}$
+306 Host halted
+[halted] 0000> $\lstkbd{out 16f 1234}$
+301 done
+[halted] 0000> 
+\end{lstlisting}
+}
+
+
+\item{\bfseries\cftin{d}} Dumps a block of COUNT (see \cftin{c} and \cftin{c?}
+  commands above) words starting at the current address. The current
+  address is incremented by COUNT. This command only works with the
+  \gls{DEB} board in halted mode. In text mode (see \cftin{ot}), the
+  command works like this:
+
+{\small
+\begin{lstlisting}[style=deb]
+[running]> $\lstkbd{c 20}$
+204 Count: 0020
+[running]> $\lstkbd{d}$
+203 Address: 0000
+204 Count: 0020
+300 Dumping
+503 Halt host first.
+[running]> $\lstkbd{halt}$
+306 Host halted
+[halted] 0000> $\lstkbd{d}$
+203 Address: 0000
+204 Count: 0020
+300 Dumping
+0000 | 1234 1234 1234 1234 1234 1234 1234 1234 | 44444444 | 000091a0
+0008 | 1234 1234 1234 1234 1234 1234 1234 1234 | 44444444 | 00012340
+0010 | 1234 1234 1234 1234 1234 1234 1234 1234 | 44444444 | 0001b4e0
+0018 | 1234 1234 1234 1234 1234 1234 1234 1234 | 44444444 | 00024680
+301 Done
+303 Checksum: 00024680
+[halted] 0020>
+\end{lstlisting}
+}
+
+The dump is in four columns. The leftmost column is the current
+address. The second column lists eight 16-bit hexadecimal word values
+(padded to four digits), starting at the current address. The third
+column shows ASCII characters by examining the least significant seven
+bits of the value. Unprintable characters are replaced with full stops
+(\cftin{.}). The rightmost column shows a running checksum of the values
+listed so far (including previous lines).
+
+At the end of the dump, the final checksum is reported.
+
+In binary mode, the newline following the ‘\cftin{300 Dumping}’ message
+signals the start of the dump. 2×COUNT 8-bit bytes are
+transmitted. Each pair of bytes is one value from memory. The
+\gls{MSB} is transmitted first. The receiver should read exactly
+2×COUNT bytes and revert to parsing the ‘\cftin{301 Done}’ result. As
+with the text dump, the block checksum is reported.
+
+{\small
+\begin{lstlisting}[style=deb]
+[halted] 0000> $\lstkbd{c 20}$
+204 Count: 0020
+[halted] 0000> $\lstkbd{d}$
+203 Address: 0000
+204 Count: 0080
+300 Dumping
+(64 bytes of binary data follow)
+301 Done
+303 Checksum: 00024680
+[halted] 0020>
+\end{lstlisting}
+}
+
+
+
+\item{\bfseries\cftin{clr!}} Performs a warm reset of the \gls{DEB} board,
+  reverting all settings to their defaults. This does not affect
+  operation of the CFT computer itself, nor does it change the current
+  mode run/stop mode. Thus, a halted computer will remain halted after
+  the warm reset.
+
+{\small
+\begin{lstlisting}[style=deb]
+[halted] 6120> $\lstkbd{clr!}$
+GPIO diag: 20 21 23 Ready.
+201 Version: 0.5+t
+201 BufSize: 200
+202 (c) 2012 Alexios Chouchoulas <alexios@bedroomlan.org>
+202 Licensed under the GNU Public License v.2.
+202 http://www.bedroomlan.org/cft
+[halted] 0000>
+\end{lstlisting}
+}
+
+\end{description}
+
+\subsection{Result Codes}
+
+The \gls{DEB} firmware reports three-digit result codes in
+decimal. These are broken down into four categories:
+
+\begin{description}
+\item{\bfseries 200–299} Informational messages and acknowledgements. These
+  do not affect the operation of the computer.
+  \begin{description}
+  \item{\bfseries\cftout{201}} Supplemental information, boot-up banners.
+  \item{\bfseries\cftout{202}} Copyright and licensing notices.
+  \item{\bfseries\cftout{203 Address:}} The current address is the last field or last four
+    characters of the line.
+  \item{\bfseries\cftout{204 Count:}} The word count the last field or last four characters
+    of the line.
+  \item{\bfseries\cftout{205 Output: text}} Dump output mode has been switched to text.
+  \item{\bfseries\cftout{206 Output: bin}} Dump output mode has been switched to binary.
+  \item{\bfseries\cftout{207 Echo: on}} Local echo activated.
+  \item{\bfseries\cftout{208 Echo: off}} Local echo deactivated.
+  \item{\bfseries\cftout{209 LEDS: on}} LED output pattern set. The pattern is
+    the last space-delimited field (one character) on the line.
+  \item{\bfseries\cftout{210 Halt on FAIL: on}} Halt-on-FAIL enabled.
+  \item{\bfseries\cftout{211 Halt on FAIL: off}} Halt-on-FAIL disabled.
+  \end{description}
+  
+\item{\bfseries 300–399} Messages pertaining to processes that access or
+  modify computer state.
+  \begin{description}
+  \item{\bfseries\cftout{300 Dumping}} A memory dump follows.
+  \item{\bfseries\cftout{301 Done}} Process is finished.
+  \item{\bfseries\cftout{302 Aborted}} A process was aborted by the user.
+  \item{\bfseries\cftout{303 Checksum: }} The last space-delimited field on
+    the line (eight characters) is a 32-bit hexadecimal representation of the
+    checksum of the last block of data sent or received.
+  \item{\bfseries\cftout{304 Value:}} The last space-delimited field on the
+    line (four characters) is a 16-bit hexadecimal representation of
+    the value read from memory, as requested.
+  \item{\bfseries\cftout{305 Host running}} The CFT computer was started or
+    restarted. \gls{DEB} commands that use the computer buses are now
+    locked out.
+  \item{\bfseries\cftout{306 Host halted}} The CFT computer was halted. The
+    full \gls{DEB} command set is now unlocked.
+  \item{\bfseries\cftout{307 Host reset}} The CFT computer was reset.
+  \end{description}
+  
+\item{\bfseries 400–499} Warnings.
+  \begin{description}
+  \item{\bfseries\cftout{401 Warning: write will wrap around}} If COUNT
+    words are written at the current address, the address will wrap
+    around to \hex{0000} during the block write.
+  \end{description}
+  
+\item{\bfseries 500–599} Errors.
+  \begin{description}
+  \item{\bfseries\cftout{500 Unknown command}} The last command was not recognised.
+  \item{\bfseries\cftout{501 Bad value}} An argument was not a valid hexadecimal number.
+  \item{\bfseries\cftout{502 Count must be multiple of 8}} For proper
+    behaviour of dumping, the word count should have its least
+    significant three bits clear, i.e. be a multiple of eight.
+  \item{\bfseries\cftout{503 Halt host first}} A locked-out command was
+    issued. The computer must be halted for these commands to become
+    available.
+  \item{\bfseries\cftout{504 Bus chatter}} For safety, CFT buses are sampled
+    before driving them. If changing values are seen, this message
+    appears and the command is aborted to avoid bus contention. This
+    is an indication of something wrong with the bus connections.
+  \item{\bfseries\cftout{505 Already halted}} The computer is already
+    halted. The \cftin{halt} command had no effect.
+  \item{\bfseries\cftout{506 Already running}} The computer is already
+    running. The \cftin{run} command had no effect.
+  \end{description}
+\end{description}
+
+The following is a list of all the result codes in use by the firmware.
+
+\section{Automated Operation — The DEB Tool}
+
+The \gls{DEB} board may be used remotely by a controlling computer, to
+automate unit testing of the CFT. The tool allows memory images to be
+downloaded to the DEB card and written to CFT memory, then executed,
+and their output captured for analysis by the controlling computer.
+
+\todo{The DEB controller-side tool has yet to be written.}
+
+\section{Operation from the CFT}
+
+The mapping of the \gls{DEB} board to the I/O space provides sixteen
+extended CFT instructions with unusually long names due to their
+unique history. The following is a list of these I/O addresses:
+
+\begin{extcmd}{PRINTA}{OUT R \&3F0}{57F0}{c-wvehf}{3F0}%
+       {DEB, PRINT Address}%
+       {%
+         The current value of \A{} is output from the
+         \gls{DEB} board to the controlling computer in the format
+         \cftout{XXXX (label+N)}, where \cftout{XXXX} is the hexadecimal
+         value of \A{} padded to four digits, \cftout{label} is the most
+         recent \gls{Assembly} source label, and \cftout{n} is the offset (in
+         words) from that label. If a label is not available, ‘\cftout{XXXX
+           (?)}’ is output instead. Labels are only available on the emulator
+         with a map file loaded.%
+       }
+\end{extcmd}
+
+\begin{extcmd}{PRINTC}{OUT R \&3F1}{57F1}{c-wvehf}{3F1}%
+       {DEB, PRINT Character}%
+       {%
+         The \gls{LSB} of the current value of \A{} is output from the
+         \gls{DEB} board to the controlling computer as an 8-bit
+         character.
+       }
+\end{extcmd}
+
+\begin{extcmd}{PRINTD}{OUT R \&3F2}{57F2}{c-wvehf}{3F2}%
+       {DEB, PRINT Decimal}%
+       {%
+         The current value of \A{} is output from the \gls{DEB} board to the
+         controlling computer as a decimal signed, \gls{Twos Complement}
+         integer in the range -32,768–32,767. There is no zero-padding.
+       }
+\end{extcmd}
+
+\begin{extcmd}{PRINTU}{OUT R \&3F3}{57F3}{c-wvehf}{3F3}%
+       {DEB, PRINT Unsigned integer}%
+       {%
+         The current value of \A{} is output from the \gls{DEB} board to the
+         controlling computer as a decimal unsigned integer in the range
+         0–65,535. There is no zero-padding.
+       }
+\end{extcmd}
+
+\begin{extcmd}{PRINTH}{OUT R \&3F4}{57F4}{c-wvehf}{3F4}%
+       {DEB, PRINT Hexadecimal}%
+       {%
+         The current value of \A{} is output from the \gls{DEB} board to the
+         controlling computer as a hexadecimal unsigned integer in the range
+         \hex{0000}–\hex{FFFF}. The number is zero-padded to four digits. The
+         case of the alphabetic digits is purposefully unspecified. Parsers
+         should understand both lower and upper case.
+       }
+\end{extcmd}
+
+\begin{extcmd}{PRINTB}{OUT R \&3F5}{57F5}{c-wvehf}{3F5}%
+       {DEB, PRINT Binary}%
+       {%
+         The current value of \A{} is output from the \gls{DEB} board to the
+         controlling computer in its raw binary representation, in the range
+         \hex{0000000000000000}–\hex{1111111111111111}. The number is
+         zero-padded to sixteen bits.
+       }
+\end{extcmd}
+
+\begin{extcmd}{PRINTSP}{OUT R \&3F6}{57F6}{c-wvehf}{3F6}%
+       {DEB, PRINT SPace}%
+       {%
+         A single space (ASCII codepoint 32) is output from the \gls{DEB} board
+         to the controlling computer. This simplifies debugging and testing,
+         since none of the \gls{DEB} instructions space-pad their output.
+
+       }
+\end{extcmd}
+
+\begin{extcmd}{PRINTNL}{OUT R \&3F7}{57F7}{c-wvehf}{3F7}%
+       {DEB, PRINT New Line}%
+       {%
+         A single new line (ASCII codepoint 10) is output from the \gls{DEB} board
+         to the controlling computer.
+
+       }
+\end{extcmd}
+
+\begin{extcmd}{DEBUGON}{OUT R \&3F8}{57F8}{c-w-e-f}{3F8}%
+       {DEB, Enable Assembly tracing}%
+       {%
+         Only available in the emulator. Enables symbolic \gls{Assembly} tracing of all
+         instructions executed.
+
+       }
+\end{extcmd}
+
+\begin{extcmd}{DEBUGOFF}{OUT R \&3F9}{57F9}{c-w-e-f}{3F9}%
+       {DEB, Disable Assembly tracing}%
+       {%
+         Only available in the emulator. Disables symbolic \gls{Assembly} tracing of all
+         instructions executed.
+       }
+\end{extcmd}
+
+\begin{extcmd}{DUMP}{OUT R \&3FA}{57FA}{c-w-e-f}{3FA}%
+       {DEB, DUMP State}%
+       {%
+         Not currently available in the hardware implementation. Dumps the
+         current state of the computer in an implementation-specific way
+         intended for post-mortem debugging.
+}
+\end{extcmd}
+
+\begin{extcmd}{PRINTHI}{OUT R \&3FB}{57FB}{c-w-ehf}{3FB}%
+       {DEB, PRINT HIgh Word}%
+       {%
+         Stores the current value of the \A{} register in a temporary register
+         on board the \gls{DEB} board. Meant to be precede the
+         \asm{PRINTLO} instruction to print out 32-bit hexadecimal values.}
+\end{extcmd}
+
+\begin{extcmd}{PRINTLO}{OUT R \&3FC}{57FC}{c-w-ehf}{3FC}%
+       {DEB, PRINT LOw Word}%
+       {%
+         Prints out the 32-bit integer made by combining the last value stored
+         by \asm{PRINTHI}, shifted 16 bits to the left, and the current value
+         of \A{}. The number reported is in the range
+         \hex{00000000}–\hex{FFFFFFFF} and is zero padded to eight digits. The
+         case of the alphabetic digits is purposefully unspecified. Parsers
+         should understand both lower and upper case.
+
+         The initial value of the \asm{PRINTHI} register is undefined — care
+         should be taken to always issue a \asm{PRINTHI} before a
+         \asm{PRINTLO}.
+       }
+\end{extcmd}
+
+\begin{extcmd}{SUCCESS}{OUT R \&3FE}{57FE}{c-wvehf}{3FE}%
+       {DEB, Assert SUCCESSful test checkpoint}%
+       {%
+         Registers a successful test checkpoint with the test harness. These
+         may be used to provide progress reporting as well as to ensure an
+         exact, certain number of checkpoints is reached by the code.
+
+         To mark the checkpoint, the sequence ‘\cftout{[ok]}’ is transmitted to
+         the controlling computer.
+       }
+\end{extcmd}
+
+\begin{extcmd}{FAIL}{OUT R \&3FF}{57FF}{c-wvehf}{3FF}%
+       {DEB, FAILed test assertion}%
+       {%
+         Registers a failed test assertion with the test harness. This
+         is used to provide information to the controlling computer.
+
+         The failure is denoted by sending the sequence ‘\cftout{[fail]}’ to the
+         controlling computer.
+
+         On the \gls{DEB} board hardware implementation, \asm{FAIL} illuminates
+         the red LED (LED D). If Halt-on-FAIL mode is enabled, the processor is halted.
+
+         On the Verilog simulator and CFT Emulator, \asm{FAIL} always
+         terminates the Verilog or emulator session, and usually dumps the full
+         state of the CFT and its peripherals for post-mortem analysis
+         (identical to the side-effects of the \asm{DUMP} instruction).
+ }
+\end{extcmd}
+
+
+\section{Notes}
+
+\notes{../../notes/debug-board.txt}
+
+\section{Schematics}
+
+The following page shows the full schematic drawing of the \gls{DEB} board.
+
+\includeschns{45}{DEB Board}{sch:deb}

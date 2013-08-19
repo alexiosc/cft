@@ -1,0 +1,21 @@
+* Six timers (2x 82c54). Each has CLK[0..5], GATE[0..5] and OUT[0..5]
+* Clock sources (two bits per chip):
+** CLK
+** 32 kHz
+** OUT0
+** OUT1
+* Interrupts:
+** 6 bits to switch on interrupt.
+** Use two interrupts, one per chip.
+** Interrupt lines set by jumper?
+
+
+* Interrupt Control Register:
+
+  F   E   D   C   B   A   9   8   7   6   5   4   3   2   1   0
++---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+| X | X |  INTBEN   |  INTAEN   | X | X | X | X | SRC1  | SRC0  |
++---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+
+X = Reserved
+

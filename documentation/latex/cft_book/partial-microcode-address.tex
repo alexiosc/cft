@@ -1,0 +1,27 @@
+\begin{description}
+\item \textbf{Bits 0–3: \UPC}. This is the output of the microcode counter as
+  described in~\cf{sec:upc} and represents the offset inside a
+  microprogram. The remainder of the bits identify different microprograms.
+\item \textbf{Bit 4: \ns{AINDEX}}. Asserted by the Autoindex Logic when autoindex memory locations are accessed. The Autoindex Logic is described in~\cf{sec:ail}.
+\item \textbf{Bit 5: \ns{SKIP}}. Asserted by the Skip logic when a microcode
+  branch must be performed. One side of the branch may affect flow control at
+  the processor level, by appropriate manipulation of the \PC. This is perhaps the most complex and powerful microcode operation. It is discussed in~\cf{sec:sbu}.
+\item \textbf{Bit 6: \IRn{11}}. This is R field of instructions, as discussed
+  in~\cf{sec:instruction-format}.
+\item \textbf{Bits 7–10: \IRn{12–15}}. This is the opcode of the currently
+  executing instruction, as discussed in~\cf{sec:instruction-format}.
+\item \textbf{Bit 11: \ps{FL}}. The current value of the \Lreg.
+\item \textbf{Bit 12: \ps{FV}}. The current value of the overflow flag.
+\item \textbf{Bit 13: \ns{IRQS}}. Asserted if interrupts are allowed, an
+  interrupt has been received, and a new instruction has just started
+  fetching. The signal remains asserted for the duration of the microprogram,
+  which is conventionally the microprogram that induces the processor to jump
+  to the \gls{Interrupt Service Routine}. This is discussed in detail
+  in~\cf{sec:interrupts-state-machine}.
+\item \textbf{Bit 14: \ns{RSTHOLD}}. Asserted for a set number of clock cycles after a reset. Used to run the reset microprogram, which initialises certain registers.
+\item \textbf{Bits 15–19: \UCB}. This is an optional extension to the microcode
+  store. It identifies the microcode bank being used. Each microcode bank
+  contains the full microcode of the CFT, with variations allowing for
+  different machine revisions to be implemented, or extending the instruction
+  set. These bits are normally \bin{0000}. This is discussed in~\cf{sec:ucb}
+\end{description}

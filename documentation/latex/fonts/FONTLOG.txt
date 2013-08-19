@@ -1,0 +1,89 @@
+FONTLOG for the Inconsolata fonts
+
+This file provides detailed information on the Inconsolata
+Font Software.
+
+This information should be distributed along with the 
+Inconsolata Bold fonts and any derivative works.
+
+Basic Font Information
+
+Raph Levien, the primary designer of the family, wrote:
+
+Inconsolata is my first serious original font release. 
+It is a monospace font, designed for printed code listings 
+and the like. There are a great many "programmer fonts," 
+designed primarily for use on the screen, but in most 
+cases do not have the attention to detail for high 
+resolution rendering.
+
+Inconsolata draws from many inspirations and sources. 
+I was particularly struck by the beauty of Luc(as) de 
+Groot's Consolas, which is his monospaced design for 
+Microsoft's Vista release. This font, similar to his 
+earlier TheSansMono, demonstrated clearly to me that 
+monospaced fonts do not have to suck.
+
+First and foremost, Inconsolata is a humanist sans 
+design. I strove for the clarity and clean lines of 
+Adrian Frutiger's Avenir (the lowercase "a", in 
+particular, pays homage to this wonderful design), 
+but also looked to Morris Fuller Benton's Franklin 
+Gothic family for guidance on some of my favorite 
+glyphs, such as lowercase "g" and "S", and, most 
+especially, the numerals.
+
+Designing a monospace font poses unique challenges. 
+I have carefully studied many other monospaced fonts 
+to see how they solve these problems. Many of the 
+available monospace fonts are adaptations of existing 
+proportionally-spaced fonts, but some, such as Letter 
+Gothic, draw strength from being their own designs. 
+I hope Inconsolata upholds that tradition.
+
+Some details will be most apparent in print, such as 
+the subtle curves in lowercase "t", "v", "w", and "y". 
+Inconsolata also borrows "micro-serifs" from some 
+Japanese Gothic fonts, which enhance the appearance 
+of crispness and legibility.
+
+In December 2011, a Bold style was commissioned from 
+Kirill Tkachev of the Cyreal foundry.
+
+Inconsolata is a Unicode typeface family that supports 
+languages that use the Latin script and its variants, 
+and could be expanded to support other scripts.
+
+More specifically, this release supports the following 
+Unicode ranges: Latin-1
+
+For the Bold style there are two .vfb Source files:
+
+1. Inconsolata Bold-OTF.vfb - Merged contours, corresponding
+   to Inconsolata-Bold.otf
+
+2. Inconsolata Bold-TTF.vfb - TTF countours, corresponding
+   to Inconsolata-Bold.ttf
+
+ChangeLog
+
+7 December 2011 (Kirill Tkachev) Inconsolata Bold v. 1.000
+- Initial release of Bold style of Inconsolata
+
+? Month 20?? (Raph Levien) Inconsolata Regular v. 1.???
+- Initial release of Regular style
+
+If you make modifications be sure to add your name (N), 
+email (E), web-address (if you have one) (W) and description (D). 
+This list is in alphabetical order.
+
+N: Kirill Tkachev
+W: http://cyreal.org
+E: contact at cyreal.org
+D: Designer of Bold style
+
+N: Raph Levien
+W: http://www.levien.com/type/myfonts/inconsolata.html
+E: firstname.lastname@gmail.com
+D: Designer of original Regular style
+

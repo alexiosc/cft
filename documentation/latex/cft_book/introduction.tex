@@ -1,0 +1,162 @@
+\chapter{Introduction}
+
+\section{The Game of the Name}
+
+CFT stands for ‘Copious Free Time’: what the author designed, simulated and
+built the CFT in.
+
+\section{Aim of this Document}
+
+This document has two aims: one is to document the CFT project in detail, both
+for ‘historical’\footnote{‘Historical’ being used here to denote age, not
+  quality.} reasons, and because of the author's uncontrollable academic urge
+to document his work with reproducibility in mind.
+
+\section{Features}
+
+\subsection{Processor}
+
+\begin{itemize}
+\item 16 operation instruction set, plus two composite, bitmap
+  instructions.
+\item 16 bit word width.
+\item All instructions are 16 bits in width.
+\item \gls{ABA}.
+\item 65,536 word address space.
+\item Separate memory and I/O address space.
+\item Fully static design. The clock can vary or stop entirely.
+\item Partially horizontal microcoded design with vertical fields used
+  as failsafe devices to avoid bus contention.
+\item The instruction set may be expanded using add-on peripherals or updating microcode.
+\end{itemize}
+
+\subsection{Computer and Peripherals}
+
+\begin{description}
+\item Eurocard-based backplane design.
+\item \textbf{Programmer's front panel.} Provides lights to indicate
+  the processor and computer's state at the microcode level and above,
+  as well as switches to provide input and modify state.
+\item Banked Memory interface for up to 2 MW of memory.
+\item Memory cards of 512 kW RAM/ROM.
+\item Interrupt controller with 8 interrupt lines.
+\item Two to four UART card, including a TTL serial port.
+\item Three or six programmable timer card.
+\item Real time clock and NVRAM.
+\item Two or four IDE disk card.
+\item \textbf{Debugging and testing card.} The ‘\gls{DEB}’ board automates
+  testing and can act as a simple data collector or logic analyser. It can also
+  test peripherals on its own, with the rest of the computer pulled from the
+  backplane. This is useful as a safety measure during construction as the
+  debugging card is purposefully simple. Detailed documentation on the
+  \gls{DEB} board may be found in~\ccf{chap:deb}.
+\end{description}
+
+%\begin{floatingfigure}{0.3\columnwidth}
+\begin{figure}
+  \centering
+  \includegraphics[width=0.5\columnwidth]{figs/Three_IC_circuit_chips.JPG}
+  \caption{Three DIP integrated circuits (chips).}
+%\end{floatingfigure}
+\end{figure}
+
+
+\subsection{Software}
+
+\begin{itemize}
+\item Forth in ROM is used as programming language.
+\item Operating System is Forth.
+\end{itemize}
+
+\tikzset{boxes/.style={line width=2pt}}
+\begin{figure*}[t!]
+  \centering
+
+  \begin{tikzpicture}[boxes,anchor=base]
+    \draw [fill=black!50] (0,1) rectangle (10,-4);
+
+    \begin{scope}[yshift=-6cm]
+      \draw[boxes, fill=magenta!25](0,0) rectangle (10,1);
+      \draw (5,0.35) node {(some) Application Software};
+    \end{scope}
+
+    \begin{scope}[yshift=-5cm]
+      \draw[boxes, fill=blue!25](0,0) rectangle (5,1);
+      \draw (2.5,0.35) node {ROM Forth};
+      \draw[boxes, fill=blue!25](5,0) rectangle (10,1);
+      \draw (7.5,0.35) node {Operating System};
+    \end{scope}
+
+    \begin{scope}[yshift=-4cm]
+      \draw[boxes, fill=cyan!25](0,0) rectangle (10,1);
+      \draw (5,0.35) node {Assembler};
+    \end{scope}
+
+    \begin{scope}[yshift=-3cm]
+      \draw[boxes, fill=green!25](0,0) rectangle (8,3);
+      \draw (4,0.35) node {Instruction macros and extensions};
+    \end{scope}
+
+    \begin{scope}[yshift=-2cm]
+      \draw[boxes, fill=yellow!25](0,0) rectangle (6,1);
+      \draw (3,0.35) node {Instruction set};
+    \end{scope}
+
+    \begin{scope}[yshift=-1cm]
+      \draw[boxes, fill=orange!25](0,0) rectangle (6,1);
+      \draw (3,0.35) node {Microcode};
+    \end{scope}
+
+    \begin{scope}[yshift=0cm]
+      \draw[boxes, fill=red!25](0,0) rectangle (6,1);
+      \draw (3,0.35) node {Processor};
+      \draw[boxes, fill=red!25](6,0) rectangle (10,1);
+      \draw (8,0.35) node {Peripherals};
+      %\draw (10.5,0.35)[anchor=base west] node {\bfseries Hardware};
+    \end{scope}
+
+    %\draw (0.35,10.5)[anchor=base west,rotate=90] node {\bfseries Software};
+
+    \draw[line width=3](0,1) rectangle (10,-6);
+
+    \begin{scope}[xshift=-1.5cm]
+      \draw[fill=cfthl!50](0,1) rectangle(1,-6);
+      \draw[line width=0, draw opacity=0, fill=cfthl!25](0,0) rectangle(1,-1);
+      \draw[line width=0, draw opacity=0, fill=cfthl!25](0,-2) rectangle(1,-3);
+      \draw[line width=0, draw opacity=0, fill=cfthl!25](0,-4) rectangle(1,-5);
+      \draw[boxes, line width=3](0,1) rectangle(1,-6);
+      \draw (0.45, -2.5)[anchor=center]node {\begin{sideways}%
+          Toolset%
+      \end{sideways}};
+    \end{scope}
+
+    \begin{scope}[xshift=-3cm]
+      \draw[fill=cfthl!50](0,1) rectangle(1,-6);
+      \draw[line width=0, draw opacity=0, fill=cfthl!25](0,0) rectangle(1,-1);
+      \draw[line width=0, draw opacity=0, fill=cfthl!25](0,-2) rectangle(1,-3);
+      \draw[line width=0, draw opacity=0, fill=cfthl!25](0,-4) rectangle(1,-5);
+      \draw[boxes, line width=3](0,1) rectangle(1,-6);
+      \draw (0.45, -2.5)[anchor=center] node {\begin{sideways}%
+          Documentation%
+      \end{sideways}};
+    \end{scope}
+
+    \begin{scope}[xshift=10.5cm]
+      \draw[fill=cfthl!50](0,1) rectangle(1,-6);
+      \draw[line width=0, draw opacity=0, fill=cfthl!25](0,0) rectangle(1,-1);
+      \draw[line width=0, draw opacity=0, fill=cfthl!25](0,-2) rectangle(1,-3);
+      \draw[line width=0, draw opacity=0, fill=cfthl!25](0,-4) rectangle(1,-5);
+      \draw[boxes, line width=3](0,1) rectangle(1,-6);
+      \draw (0.45, -2.5)[anchor=center] node {\begin{sideways}%
+          Test Suite%
+      \end{sideways}};
+    \end{scope}
+
+  \end{tikzpicture}
+
+  \caption{\label{fig-projectscope}CFT Project scope and outline.}
+
+\end{figure*}
+
+
+

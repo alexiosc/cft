@@ -1,0 +1,109 @@
+% -*- latex -*-
+\documentclass[12pt,a4paper]{article}
+\usepackage[a4paper,CJKbookmarks,bookmarks=true,bookmarksopen=true,pdfpagelabels,pdfstartpage=1]{hyperref}
+\usepackage{pdftricks}
+\usepackage{pdfpages}
+\usepackage{ifthen}
+\usepackage[includefoot]{geometry}
+\usepackage{color}
+\usepackage[absolute]{textpos}
+\usepackage{fontspec}
+\usepackage{layout}
+\usepackage{calc}
+\usepackage{rotating}
+\usepackage{tikz}
+\usetikzlibrary{arrows,positioning,automata,shadows,fit,shapes}
+\usepackage{tikz-timing}[2009/07/28]
+\usetikztiminglibrary{either}[2009/07/28]
+\tikzset{timing/z/.append style={black},}
+\tikzset{timing/.append style={x=1ex, y=2ex, line cap=round, line join=round, line width=1.3pt}}
+\tikzset{timing/slope=0.33}
+%\usepackage[tocindentauto]{tocstyle}
+
+%\usepackage[cam,a4,center]{crop}
+
+\definecolor{r0}{rgb}{0.33, 0.1, 0.1}
+\definecolor{r1}{rgb}{1, 0.3, 0.3}
+
+\definecolor{g0}{rgb}{0.1, 0.33, 0.1}
+\definecolor{g1}{rgb}{0.3, 1, 0.3}
+
+\definecolor{cftdark}{cmyk}{0,0.42,0.72,0.84}
+\definecolor{cftoutline}{cmyk}{0,0.43,0.72,0.53}
+\definecolor{cftlight}{cmyk}{0,0.43,0.72,0.22}
+\definecolor{cfthl}{rgb}{.89,.698,.529}
+\newcommand{\zebrarow}[1]{\rowcolors{#1}{cfthl!50}{cfthl!25}}
+\newcommand\zebra{\zebrarow{2}}
+\newcommand\zebrahdr{\zebrarow{1}}
+%\newcommand\zebra*[1]{\rowcolors{#1}{gray!10}{white}}
+
+\definecolor{darkblue}{RGB}{0,0,128}
+\hypersetup{
+    pdftitle={CFT Minicomputer Programming Guide},
+    pdfauthor={Alexios Chouchoulas},
+    pdfkeywords={},
+    bookmarksnumbered,
+    pagebackref=true,
+    breaklinks=true,
+%    pdfview=FitH,       % Or try pdfstartview={FitV}, This lead to uncorrect bookmarks
+    urlcolor=darkblue,
+    colorlinks=true,
+    citecolor=cftoutline,          %citeref's color
+    linkcolor=cftoutline,
+        }
+
+
+
+\geometry{a4paper, landscape, hoffset=0in, left=0mm, right=0mm,
+  top=0mm, bottom=0mm, includefoot, footskip=0pt}
+
+\setmainfont{Minion Pro}
+\setsansfont{Myriad Pro}
+\setmonofont[]{Inconsolata}
+
+\begin{document}
+\thispagestyle{empty}
+\pagestyle{empty}
+
+\definecolor{cff0000}{RGB}{255,0,0}
+\definecolor{bgcolor}{RGB}{64, 64, 64}
+\definecolor{ltcolor}{RGB}{128, 128, 128}
+\definecolor{shcolor}{RGB}{0, 0, 0}
+\color{ltcolor}
+\sf
+
+
+\newcommand\shadowtext[2]{%
+  \foreach \n in {0,...,5}{
+    \begin{scope}[xshift=1 * \n pt, yshift=-1 * \n pt, opacity=0.5 - 0.1 * \n]
+      \node[#1]{#2};
+    \end{scope}
+  }
+  \node[#1]{#2};
+}
+
+
+\begin{tikzpicture}[remember picture,overlay]
+  \node[yshift=-\paperheight, draw opacity=0] at (current page.north west)
+       {\begin{tikzpicture}[remember picture, overlay]
+           \draw[fill=bgcolor] (0,0) rectangle
+           (\paperwidth,\paperheight);
+           \node[anchor=north west, xshift=0.05\textwidth,yshift=0.9\textheight]
+                {\includegraphics{figs/cft-logo-v1.pdf}};
+                %
+           \shadowtext{xshift=0.5\textwidth, yshift=0.5\textheight}{%
+             \scalebox{2}{\Large\rm The CFT Project in Numbers}}
+%           \shadowtext{xshift=0.5\textwidth, yshift=0.5\textwidth}{%
+%             \scalebox{2}{\Large\rm\color{red}{The CFT Project in Numbers}}}
+
+                %% \draw[fill=cftoutline] (0,1cm) rectangle
+                %% (\paperwidth,0);
+                %% \node[anchor=east,yshift=0.5\paperheight,xshift=.87\paperwidth,rectangle]
+                %%      {\scalebox{2}{\color{white}foo bar}};
+                %%      \node[anchor=east,yshift=0.43\paperheight,xshift=.87\paperwidth,rectangle]
+                %%           {\scalebox{1.5}{\color{white} bar}};
+         \end{tikzpicture}
+       };
+\end{tikzpicture}
+
+\end{document}

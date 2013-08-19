@@ -1,0 +1,206 @@
+
+Board: Processor Board A
+On sheets: 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12
+Expansion bus signals: 34 (of 74)
+Other signals: 216
+
+To Processor Board B: 35 signal(s)
+    !END, !INCAC, !INCDR, !INCPC, !RAC, !RDR, !RPC, !WAC, !WAR, !WDR, !WPC,
+    FNEG, FZERO, IBUS0-15, PC10-15
+
+To Processor Board C: 28 signal(s)
+    !CLL, !CPL, !RSTHOLD, !WALU, FL, FV, IBUS0-15, IR, IR2, RUNIT0-3
+
+To PFP Light board: 26 signal(s)
+    IR0-15, PC10-15, UCB0-3
+
+To PFP Switch board: 1 signal(s)
+    !FPRESET
+
+To PFP Controller: 14 signal(s)
+    !INCPC, !RAC, !RPC, !WAC, !WAR, !WDR, !WEN, !WIR, !WPC, FPCLKEN,
+    FPFAST, FPSLOW, FPUSTEP, POWEROK
+
+To DEB Board: 2 signal(s)
+    FPCLKEN, FPUSTEP
+
+To Control Bus: 47 signal(s)
+    !CLL, !CPL, !END, !INCAC, !INCDR, !INCPC, !RAC, !RDR, !RPC, !RSTHOLD,
+    !WAC, !WALU, !WAR, !WDR, !WPC, FL, FNEG, FV, FZERO, IBUS0-15, IR, IR2,
+    PC10-15, RUNIT0-3
+
+
+Board: Processor Board B
+On sheets: 13, 14, 15, 16
+Expansion bus signals: 25 (of 74)
+Other signals: 174
+To Processor Board A: 35 signal(s)
+    !END, !INCAC, !INCDR, !INCPC, !RAC, !RDR, !RPC, !WAC, !WAR, !WDR, !WPC,
+    FNEG, FZERO, IBUS0-15, PC10-15
+
+To Processor Board C: 32 signal(s)
+    AC0-15, IBUS0-15
+
+To PFP Light board: 48 signal(s)
+    AC0-15, DR0-15, PC0-15
+
+To PFP Controller: 7 signal(s)
+    !INCPC, !RAC, !RPC, !WAC, !WAR, !WDR, !WPC
+
+To Control Bus: 51 signal(s)
+    !END, !INCAC, !INCDR, !INCPC, !RAC, !RDR, !RPC, !WAC, !WAR, !WDR, !WPC,
+    AC0-15, FNEG, FZERO, IBUS0-15, PC10-15
+
+
+Board: Processor Board C
+On sheets: 17, 18, 19, 20, 21
+Expansion bus signals: 35 (of 74)
+Other signals: 144
+To Processor Board A: 28 signal(s)
+    !CLL, !CPL, !RSTHOLD, !WALU, FL, FV, IBUS0-15, IR, IR2, RUNIT0-3
+
+To Processor Board B: 32 signal(s)
+    AC0-15, IBUS0-15
+
+To PFP Light board: 27 signal(s)
+    AC0-15, BANK0-7, BANKING, IR, IR2
+
+To Control Bus: 44 signal(s)
+    !CLL, !CPL, !RSTHOLD, !WALU, AC0-15, FL, FV, IBUS0-15, IR, IR2,
+    RUNIT0-3
+
+
+Board: INT Board
+On sheets: 22
+Expansion bus signals: 27 (of 74)
+Other signals: 58
+
+Board: MEM Board
+On sheets: 24
+Expansion bus signals: 42 (of 74)
+Other signals: 15
+
+Board: TTY Board
+On sheets: 25
+Expansion bus signals: 31 (of 74)
+Other signals: 90
+
+Board: IDE Board
+On sheets: 26
+Expansion bus signals: 34 (of 74)
+Other signals: 32
+
+Board: CTN Board
+On sheets: 27
+Expansion bus signals: 34 (of 74)
+Other signals: 52
+
+Board: ETH Board
+On sheets: 28
+Expansion bus signals: 26 (of 74)
+Other signals: 23
+
+Board: KBD Board
+On sheets: 29
+Expansion bus signals: 34 (of 74)
+Other signals: 26
+
+Board: SND Board
+On sheets: 30, 31
+Expansion bus signals: 40 (of 74)
+Other signals: 109
+
+Board: PFP Light board
+On sheets: 32, 38
+Expansion bus signals: 2 (of 74)
+Other signals: 311
+To Processor Board A: 26 signal(s)
+    IR0-15, PC10-15, UCB0-3
+
+To Processor Board B: 48 signal(s)
+    AC0-15, DR0-15, PC0-15
+
+To Processor Board C: 27 signal(s)
+    AC0-15, BANK0-7, BANKING, IR, IR2
+
+To PFP Switch board: 3 signal(s)
+    !MFD0-1, !SWLEDSON
+
+To PFP Controller: 3 signal(s)
+    FPFETCH, FPRUN, FPSTOP
+
+To Control Bus: 77 signal(s)
+    AC0-15, BANK0-7, BANKING, DR0-15, IR0-15, PC0-15, UCB0-3
+
+
+Board: PFP Switch board
+On sheets: 33, 36
+Expansion bus signals: 2 (of 74)
+Other signals: 130
+To Processor Board A: 1 signal(s)
+    !FPRESET
+
+To PFP Light board: 3 signal(s)
+    !MFD0-1, !SWLEDSON
+
+To PFP Controller: 13 signal(s)
+    !FPLOCK, !FPRIO, !FPRMEM, !FPRUN, !FPSTOP, !FPWAC, !FPWADDR, !FPWIO,
+    !FPWIR, !FPWMEM, !SAFE, !SWINHIBIT, FPINCADDR
+
+To Control Bus: 1 signal(s)
+    !FPRESET
+
+
+Board: PFP Controller
+On sheets: 34, 35, 41, 42, 43
+Expansion bus signals: 33 (of 74)
+Other signals: 153
+To Processor Board A: 14 signal(s)
+    !INCPC, !RAC, !RPC, !WAC, !WAR, !WDR, !WEN, !WIR, !WPC, FPCLKEN,
+    FPFAST, FPSLOW, FPUSTEP, POWEROK
+
+To Processor Board B: 7 signal(s)
+    !INCPC, !RAC, !RPC, !WAC, !WAR, !WDR, !WPC
+
+To PFP Light board: 3 signal(s)
+    FPFETCH, FPRUN, FPSTOP
+
+To PFP Switch board: 13 signal(s)
+    !FPLOCK, !FPRIO, !FPRMEM, !FPRUN, !FPSTOP, !FPWAC, !FPWADDR, !FPWIO,
+    !FPWIR, !FPWMEM, !SAFE, !SWINHIBIT, FPINCADDR
+
+To DEB Board: 2 signal(s)
+    FPCLKEN, FPUSTEP
+
+To Control Bus: 14 signal(s)
+    !INCPC, !RAC, !RPC, !WAC, !WAR, !WDR, !WEN, !WIR, !WPC, FPCLKEN,
+    FPFAST, FPSLOW, FPUSTEP, POWEROK
+
+
+Board: DEB Board
+On sheets: 45
+Expansion bus signals: 73 (of 74)
+Other signals: 47
+To Processor Board A: 2 signal(s)
+    FPCLKEN, FPUSTEP
+
+To PFP Controller: 2 signal(s)
+    FPCLKEN, FPUSTEP
+
+To Control Bus: 2 signal(s)
+    FPCLKEN, FPUSTEP
+
+-------------------------------------------------------------------------------
+
+Expansion bus (backplane) signals: 74
+    !ENDEXT, !HALT, !IO, !IODEV1XX, !IODEV2XX, !IODEV3XX, !IRQ, !IRQ0-7,
+    !IRQS, !MEM, !R, !RESET, !SKIPEXT, !SYSDEV, !T34, !W, !WS, *TPA, *TPC,
+    +12V, +3.3V, AB0-15, AEXT0-7, CLK1-4, DB0-15, GND, VCC
+
+Control bus signals: 63
+    !CLL, !CPL, !END, !INCAC, !INCDR, !INCPC, !RAC, !RDR, !RPC, !RSTHOLD,
+    !WAC, !WALU, !WAR, !WDR, !WPC, AC0-15, FL, FNEG, FV, FZERO, IBUS0-15,
+    IR, IR2, PC10-15, RUNIT0-3
+
+Additional PFP signals: 7
+    !WEN, !WIR, FPCLKEN, FPFAST, FPSLOW, FPUSTEP, POWEROK

@@ -1,0 +1,126 @@
+\chapter{Typographical Conventions}
+
+Because of the breadth of the project, a wide number of typographical
+conventions are followed in the book. In some cases, different entities may not
+be distinguishable.
+
+\section{Basic Conventions}
+
+\begin{description}
+
+\item {\em Italics\/} is used for emphasis.
+
+\item \textbf{Boldface} is used for more emphasis, and to highlight descriptions
+  in lists.
+
+\item \hex{80:53FE} Hexadecimal numbers are set like this. Where necessary, a
+  colon (\hex{:}) is used to group hexadecimal numbers in 16-bit (four digit)
+  quantities.
+
+\item \bin{0101:00110101} Binary numbers are shown like this. In some cases,
+  colons (\bin{:}) are used to break long binary numbers at appropriate places
+  that depend on what is being discussed.
+
+\item \asm{LOAD R \&10} Inside text, Assembly instructions are shown like this.
+
+\item \AC{} Processor registers are shown like this.
+
+\item \cftout{Ready.} Output from the CFT is shown like this.
+
+\item \cftin{WORDS} Input to the CFT (commands typed by the user) is shown like
+  this.
+
+\item \hyperemail{alexios@bedroomlan.org} Email addresses are typeset like
+  this. They are hypertext links. You can follow them by clicking or tapping to
+  trigger them. This will usually allow you to send an email to that address.
+
+\item \link{www.bedroomlan.org/cft} World-Wide Web addresses are typeset like
+  this. They are hypertext links. You can follow them to the linked page by
+  clicking or tapping.
+
+\end{description}
+
+\section{Program Listings and Computer Interaction}
+
+Listings are shown like this. Listings longer than a couple of lines are
+line-numbered, with the numbers appearing left of the listing.
+
+\begin{lstlisting}[language=cftasm]
+; Comments are set like this.
+
+LOAD R 10    ; Keywords appear in bold.
+.word &0F00  ; Directives appear like this.
+
+prompt> $\lstkbd{User input is shown like this.}$
+\end{lstlisting}
+
+\noindent Forth interactions are quite compact, and user input and machine
+responses often share the same line. The Forth user input convention is always
+used to identify user input in this case, and is made more prominent by
+underlining:
+
+\begin{lstlisting}[language=forth]
+Ready.
+$\lstfkbd{15 3 * .}$ 45  ok
+$\lstfkbd{foo}$ FOO ?  ok
+\end{lstlisting}
+
+\section{Logic}
+
+In describing logic, the following conventions are used:
+
+\begin{description}
+
+\item \ps{RESET} Active-high signal names are shown like this.
+
+\item \ns{HALT} Active-low signals are set like active-high signals, with an overbar.
+
+\item \bin{1} or \textsf{H} (depending on context) is used for a
+  signal's high level (which is almost always +5V with respect to
+  ground).
+
+\item \bin{0} or \textsf{L} (depending on context) is used for a
+  signal's low level (which is always at +0V with respect to ground).
+
+\item \textsf{X} denotes a ‘don't-care’ value, denoting either a high
+  or low level. This is used in function tables to show cases where an
+  input is ignored.
+
+\item \tU{} is the rising edge of a signal. It is used to denote a
+  circuit's sensitivity to a signal edge (event), not a level (state).
+
+\item \tD{} is the falling edge of a signal. It is used to denote a
+  circuit's sensitivity to a signal edge (event), not a level (state).
+
+\end{description}
+
+\section{I/O Addresses and Extended Commands}
+
+\makeatletter
+\ioport@{crwvehf}{315}{IOREG}{%
+  I/O addresses are shown like this.
+  %
+  \begin{description}
+  \item {\texttt{\textbf{c}}} This address is used as a command or instruction.
+  \item {\texttt{\textbf{r}}} This address can be read from.
+  \item {\texttt{\textbf{w}}} This address can be written to.
+  \item {\texttt{\textbf{v}}} This is available in the Verilog verification version.
+  \item {\texttt{\textbf{e}}} This is available in the CFT Emulator.
+  \item {\texttt{\textbf{h}}} This is available on the hardware version of the CFT.
+  \item {\texttt{\textbf{f}}} This address is fully decoded, i.e. only
+    one copy of the instruction or device is available in the address space.
+  \end{description}
+}
+\makeatother
+
+\extcmda{HALT}{OUT R \&a}{540a}{crwvehf}{00a}%
+       {PFP, Halt Processor}%
+       {%
+         Extended CFT instructions are shown like this. Extended instructions
+         are in essence magic I/O space addresses that perform a particular
+         task when read from or written to. In this case, the address is
+         \hex{00a}. The instruction is dubbed \asm{HALT}. The letters in the
+         parentheses signify the same as for I/O addresses above.
+       }
+
+% End of file.

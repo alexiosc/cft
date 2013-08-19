@@ -1,0 +1,44 @@
+% -*- latex -*-
+\documentclass[class=memoir]{standalone}
+\input{preamble}
+
+\begin{document}%
+\begin{tikzpicture}
+
+  \def\w{80mm}
+  \def\h{60mm}
+
+   %\draw[step=0.25cm,color=cfthl!90] (0,0) grid (10,10);
+
+  \draw[heavy, fill=cfthl!25] (0,0) rectangle +(\w,0.25 * \h);
+  \draw[heavy, fill=cfthl!50] (0,0.5 * \h) rectangle +(\w,0.25 * \h);
+  \draw[heavy] (0,0) rectangle (\w,\h);
+
+  \draw (0,\h) node[above] {\small 15};
+  \draw (0.5 * \w,\h) node[above] {\small 8};
+  \draw (\w,\h) node[above] {\small 0};
+
+  \draw (0,\h) node[below left] {\hex{3FFFF}};
+  \draw (0,0.75 * \h) node[left] {\hex{30000}};
+  \draw (0,0.5 * \h) node[left] {\hex{20000}};
+  \draw (0,0.25 * \h) node[left] {\hex{10000}};
+  \draw (0,0) node[left] {\hex{00000}};
+
+  \draw [heavy] (0.5 * \w, 0.5 * \h) -- (0.5 * \w, 0.75 * \h);
+
+  \draw (0.25 * \w, 0.625 * \h) node[above] {Character Generator};
+  \draw (0.25 * \w, 0.625 * \h) node[below] {RAM (65,536×8 bits)};
+
+  \draw (0.75 * \w, 0.625 * \h) node[above] {B Plane};
+  \draw (0.75 * \w, 0.625 * \h) node[below] {(65,536×8 bits)};
+
+  \draw (0.5 * \w, 0.125 * \h) node {C Plane (65,536×16 bits)};
+
+  \draw (0.5 * \w, 0.375 * \h) node {Reserved for future expansion (65,536×16 bits)};
+  \draw (0.5 * \w, 0.875 * \h) node {Reserved for future expansion (65,536×16 bits)};
+
+\end{tikzpicture}%
+\end{document}
+
+% End of file.
+

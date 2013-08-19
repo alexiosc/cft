@@ -1,0 +1,435 @@
+This chapter describes the CFT Microcode.
+
+\section{Microcode Theory}
+
+Dieter Müller (Mueller) has a very useful resource on understanding
+and writing microcode, and it's suitable for beginners in the
+art. It's available at
+\url{http://6502.org/users/dieter/mpd/mpd_0.htm}. It forms a very good
+introductory document.
+
+Microcode formats are usually split into three major groups:
+
+\begin{itemize}
+  \item{\bfseries Vertical Microcode}, where each micro-instruction is
+    decoded by the control unit before being able to drive control
+    signals. Vertical microcode is very compact but requires
+    additional decoding circuitry (and time).
+  \item{\bfseries Horizontal Microcode}, where each control signal is
+    directly encoded in the micro-instruction. Horizontal microcode
+    formats tend to be extremely wide, but they do not need decoding.
+  \item{\bfseries Hybrid Formats}, where parts are horizontal and
+    parts are vertical.
+\end{itemize}
+
+CFT Microcode is hybrid. A number of fields in the format are
+vertically encoded to save bits, but also to avoid bus contention
+issues. Consider horizontal microcode to select which unit to enable
+for reading from:
+
+\begin{center}
+  \zebra
+  \begin{tabular}{*{3}{>{\textsf\bgroup}c<{\egroup}}l}
+    %\noalign{\smallskip}\hline\noalign{\smallskip}
+    %\\\hline
+    A & B & C & Read from\\
+    %\noalign{\smallskip}\hline\noalign{\smallskip}
+    \hline
+    H & H & H & Nothing (all units idle)\\
+    L & X & X & Unit A\\
+    X & L & X & Unit B\\
+    X & X & L & Unit C\\
+    L & L & L & \textrm{\bfseries Fault: all units (bus contention).}\\
+    \hline
+  \end{tabular}
+\end{center}
+
+The first four cases are valid cases of microcode use. The fourth one,
+however, represents one of four cases where multiple units are enabled
+for read, causing bus contention and possibly damage to the
+processor. This way of storing this information is also highly
+wasteful: three bits are used to store four different valid states,
+which only uses 50\% of the range afforded by three bits ($2^3 = 8$).
+
+A better case, which completely eliminates the contention issue, is to
+encode these bits vertically:
+
+\begin{center}
+  \zebra
+  \begin{tabular}{*{1}{>{\textsf\bgroup}c<{\egroup}}l}
+    %\noalign{\smallskip}\hline\noalign{\smallskip}
+    %\\\hline
+    SRC & Read from\\
+    %\noalign{\smallskip}\hline\noalign{\smallskip}
+    \hline
+    00 & Nothing (all units idle)\\
+    01 & Unit A\\
+    10 & Unit B\\
+    11 & Unit C\\
+    \hline
+  \end{tabular}
+\end{center}
+
+This format saves one bit, and removes invalid or dangerous
+states. This technique is used on the CFT in exactly this way and for
+exactly this reason.
+
+
+\section{The Microcode Assembler}
+
+Most microcode formats are usually assembled using helper software of
+various types.  The CFT microcode was prepared using \texttt{mcasm}, a
+Microcode Assembler written for this express task, but probably of use
+in other similar tasks. The assembler is available online at:
+
+\begin{center}
+  \url{http://www.bedroomlan.org/projects/mcasm}
+\end{center}
+
+It is written in the Python programming language.\footnote{Itself available at
+  \url{http://python.org}, though most modern operating systems bundle it.} The
+assembler provides macro and preprocessing facilities using the GNU C
+Preprocessor, which is provided with the free GNU C Compiler. Its syntax
+borrows numerous elements from C, so it can co-operate with the C
+Pre-processor, and so that editor systems can recognise enough of it to provide
+syntax highlighting.
+
+The macro facilities allow common tasks like memory cycles to be repeated
+without the possibility of minor errors that could introduce processor bugs.
+
+The assembler is capable of providing diagnostic output about the quality of
+the code, and generates binary images of as many ROMs as are required to store
+the wide micro-instructions.
+
+
+\begin{figure}
+  \centering
+  \input{figure-microcode-store}
+
+  \caption[Microcode structure]{\label{fig:microcode-store2}Microcode
+    structure. The Address or Conditional Vector (top) is an input to
+    the microcode store. The control vector (bottom) is the Microcode
+    store's output. It drives the processor's units. }
+\end{figure}
+
+
+\section{Microcode Address Vector}
+
+The processor's microcode is functionally similar to the cam timer in an
+old-style washing machine, or the cylinder of a music box. A program is
+executed one step at a time. Each step, one or more units are activated. A
+washing machine's cam timer controls the various devices in the washing machine
+as a function of time. A music box uses studs to trigger musical instruments as
+a function of time.
+
+The microcode could also be visualised as a long table, each column of which
+controls one or more units.
+
+The main difference is that the current position in the microcode can jump from
+one place to the next. This is a form of flow control.
+
+The CFT microcode has a composite microcode address formed of a number of {\em
+  conditionals\/} (in \texttt{mcasm} terminology). This information is also
+available in~\cf{sec:microcode-format} and illustrated
+in~\fcf{fig:microcode-store2}. In short, the address is a vector of ten fields:
+
+\input{partial-microcode-address}
+
+\section{Microprogram structure}
+
+The microcode store is split into a number of microprograms, each allocated 16
+Instructions. The \UPC{} acts as the program counter {\em within\/} a
+microprogram, while the remainder of the address vector selects which
+microprogram is executed.
+
+Microprograms are prioritised: when the computer is being reset, the value of
+the \IR{} is immaterial. If the computer is executing a \asm{LOAD} instruction,
+the value of the \ns{SKIP} component of the address vector is immaterial. These
+don't-care values are illustrated in~\tcf{table:microprograms}:
+
+    \zebrarow{10}
+    \begin{longtable}{*{8}{>{\textsf\bgroup}c<{\egroup}}l}
+      %
+      % First header
+      %
+    \hiderowcolors
+    \ns{RSTHOLD} & \ns{IRQS} & \ps{FV} & \ps{FL} & \IRn{12–15} & \IRn{11} & \ns{SKIP} & \ns{AINDEX} & Microprogram \\
+    \hline
+    \noalign{\global\rownum 0\relax}\showrowcolors
+    \endfirsthead
+    %
+    % Subsequent headers
+    %
+    \hiderowcolors
+    \noalign{\smallskip\smallskip}
+    \multicolumn{9}{l}{\em Continued from previous page.}\\
+    \ns{RSTHOLD} & \ns{IRQS} & \ps{FV} & \ps{FL} & \IRn{12–15} & \IRn{11} & \ns{SKIP} & \ns{AINDEX} & Microprogram \\
+    \hline
+    \noalign{\global\rownum 1\relax}\showrowcolors
+    \endhead
+    %
+    % Footer
+    %
+    \hiderowcolors
+    \hline
+    \noalign{\smallskip\smallskip}
+    \multicolumn{9}{l}{\em Continued on next page.}\\
+    \endfoot
+    %
+    % Last footer
+    %
+    \hiderowcolors
+    \hline
+    \endlastfoot
+    %
+    % Content
+    %
+    \showrowcolors
+    L & X & X & X & X & X & X & X & Reset processor\\
+    H & L & X & X & X & X & X & X & Interrupt handler\\
+    %
+    H & H & X & X & \bin{0000} & \bin{0} & X & H & \asm{TRAP} Direct \\
+    H & H & X & X & \bin{0000} & \bin{1} & X & H & \asm{TRAP} Indirect \\
+    H & H & X & X & \bin{0000} & \bin{1} & X & L & \asm{TRAP} Autoindex \\
+    %
+    H & H & X & X & \bin{0001} & \bin{0} & X & H & \asm{IOT} Direct \\
+    H & H & X & X & \bin{0001} & \bin{1} & X & H & \asm{IOT} Indirect \\
+    H & H & X & X & \bin{0001} & \bin{1} & X & L & \asm{IOT} Autoindex \\
+    %
+    H & H & X & X & \bin{0010} & \bin{0} & X & H & \asm{LOAD} Direct \\
+    H & H & X & X & \bin{0010} & \bin{1} & X & H & \asm{LOAD} Indirect \\
+    H & H & X & X & \bin{0010} & \bin{1} & X & L & \asm{LOAD} Autoindex \\
+    %
+    H & H & X & X & \bin{0011} & \bin{0} & X & H & \asm{STORE} Direct \\
+    H & H & X & X & \bin{0011} & \bin{1} & X & H & \asm{STORE} Indirect \\
+    H & H & X & X & \bin{0011} & \bin{1} & X & L & \asm{STORE} Autoindex \\
+    %
+    H & H & X & X & \bin{0100} & \bin{0} & X & H & \asm{IN} Direct \\
+    H & H & X & X & \bin{0100} & \bin{1} & X & H & \asm{IN} Indirect \\
+    H & H & X & X & \bin{0100} & \bin{1} & X & L & \asm{IN} Autoindex \\
+    %
+    H & H & X & X & \bin{0101} & \bin{0} & X & H & \asm{OUT} Direct \\
+    H & H & X & X & \bin{0101} & \bin{1} & X & H & \asm{OUT} Indirect \\
+    H & H & X & X & \bin{0101} & \bin{1} & X & L & \asm{OUT} Autoindex \\
+    %
+    H & H & X & X & \bin{0110} & \bin{0} & X & H & \asm{JMP} Direct \\
+    H & H & X & X & \bin{0110} & \bin{1} & X & H & \asm{JMP} Indirect \\
+    H & H & X & X & \bin{0110} & \bin{1} & X & L & \asm{JMP} Autoindex \\
+    %
+    H & H & X & X & \bin{0111} & \bin{0} & X & H & \asm{JSR} Direct \\
+    H & H & X & X & \bin{0111} & \bin{1} & X & H & \asm{JSR} Indirect \\
+    H & H & X & X & \bin{0111} & \bin{1} & X & L & \asm{JSR} Autoindex \\
+    %
+    H & H & X & X & \bin{1000} & \bin{0} & X & H & \asm{ADD} Direct \\
+    H & H & X & X & \bin{1000} & \bin{1} & X & H & \asm{ADD} Indirect \\
+    H & H & X & X & \bin{1000} & \bin{1} & X & L & \asm{ADD} Autoindex \\
+    %
+    H & H & X & X & \bin{1001} & \bin{0} & X & H & \asm{AND} Direct \\
+    H & H & X & X & \bin{1001} & \bin{1} & X & H & \asm{AND} Indirect \\
+    H & H & X & X & \bin{1001} & \bin{1} & X & L & \asm{AND} Autoindex \\
+    %
+    H & H & X & X & \bin{1010} & \bin{0} & X & H & \asm{OR} Direct \\
+    H & H & X & X & \bin{1010} & \bin{1} & X & H & \asm{OR} Indirect \\
+    H & H & X & X & \bin{1010} & \bin{1} & X & L & \asm{OR} Autoindex \\
+    %
+    H & H & X & X & \bin{1011} & \bin{0} & X & H & \asm{XOR} Direct \\
+    H & H & X & X & \bin{1011} & \bin{1} & X & H & \asm{XOR} Indirect \\
+    H & H & X & X & \bin{1011} & \bin{1} & X & L & \asm{XOR} Autoindex \\
+    %
+    H & H & X & X & \bin{1100} & \bin{0} & H & H & \asm{OP1} Direct, \asm{NOP}s \\
+    H & H & X & X & \bin{1100} & \bin{1} & L & H & \asm{OP1} Indirect, actions \\
+    %
+    H & H & X & X & \bin{1101} & \bin{0} & H & H & \asm{OP2} Direct, \asm{NOP}s \\
+    H & H & X & X & \bin{1101} & \bin{1} & L & H & \asm{OP2} Indirect, actions \\
+    %
+    H & H & X & X & \bin{1110} & \bin{0} & H & H & \asm{ISZ} Direct, no skip \\
+    H & H & X & X & \bin{1110} & \bin{0} & L & H & \asm{ISZ} Direct, skip \\
+    H & H & X & X & \bin{1110} & \bin{1} & H & H & \asm{ISZ} Indirect, no skip \\
+    H & H & X & X & \bin{1110} & \bin{1} & L & H & \asm{ISZ} Indirect, skip \\
+    H & H & X & X & \bin{1110} & \bin{1} & H & L & \asm{ISZ} Autoindex, no skip \\
+    H & H & X & X & \bin{1110} & \bin{1} & L & L & \asm{ISZ} Autoindex, skip \\
+    %
+    H & H & X & X & \bin{1111} &       X & X & X & \asm{LIA} Immediate \\
+  \end{longtable}
+
+  %% \caption[Table of microprograms]{\label{table:microprograms}Table of
+  %%   microprograms in the Microprogram Store.}
+
+The don't-care (partial address decoding) values indicate that exactly
+half of the microprograms are ‘Reset’ microprograms, one quarter are
+‘Interrupt handler’ microprograms, and even many instructions exist in
+multiple copies in the microcode store.
+
+\section{Microcode Control Vector}
+
+This information is also available in~\cf{sec:microcode-format}, and
+illustrated in~\fcf{fig:microcode-store2}.
+
+\input{partial-microcode-control}
+
+
+
+\section{Microcode State Transitions}
+
+In digital circuits, glitches are short state changes that happen when a
+circuit's inputs are moving from one state to another. One benefit of using a
+memory chip-based microcode store rather than combinatorial logic is that these
+glitches are largely removed.
+
+The potential glitches remaining are logical: as the address vector
+changes from one value to another, the values of the outputs must
+remain sane.
+
+The state changes of the microcode represent and implement the state
+changes of the processor, as described in~\cf{sec:major-states}. Wait
+states are not handled by the microcode engine. They cause it to be
+suspended temporarily, but this is done by inhibiting \UPC{}
+increments and the microcode store is unaware of this. A number of
+additional, minor states are accommodated by the microcode: addressing
+modes and flow control are the major examples of this.
+
+\subsection{Resetting}
+
+When the \ns{RSTHOLD} conditional is asserted, the microcode address jumps
+directly to the {\em middle\/} of the reset microprogram, with the
+\UPC{} not reset at all. The reset microprogram is a very simple
+affair, however. All it does is load the \PC{} and signal a
+microprogram end. This resets the \UPC{}, starting the program over
+from the beginning until \ns{RSTHOLD} is cleared.
+
+At that point, the microprogram exits, with the \PC{} appropriately
+initialised and the \UPC{} cleared. The next micro-program will be an
+instruction fetch for an arbitrary (don't-care) instruction, although
+this instruction will always be \bin{0000} (\asm{TRAP}) since the
+\IR{} will have been reset to \hex{0000} by the \ns{RESET} signal.
+
+\subsection{Interrupt Handling}
+
+When the \ns{INT} conditional is asserted, the microcode address jumps
+directly to the interrupt handler microprogram. Since the \UPC{} is
+not affected by this, this would be the middle of the micro-program,
+but external registration circuitry ensures that \ns{INT} is only ever
+asserted when \UPC{} is zero.
+
+Thus, interrupts are serviced after the end of the previous
+instruction and never while carrying it out.
+
+The interrupt handler's first action is to clear interrupts, which
+also clears the \ns{INT} conditional. This action is also registered
+and is detected by the microcode store at the end of the interrupt
+handler microprogram, when \ns{END} is asserted and \UPC{} is reset to
+zero. At that point, the interrupt handler microprogram exits and a
+new instruction is fetched. (which, since the \PC{} has been set to the
+\abbr{ISR} vector, will belong to the macro-program interrupt service
+routine)
+
+\subsection{Fetching an Instruction}
+
+The first micro-program cycles of every normal instruction
+micro-program contain copies of the exact same fetch microcode. This
+code loads the \IR{} from memory, using the current value of the
+\PC{}, then increments the \PC{} by one.
+
+The action of loading the \IR{} causes a jump from whatever
+instruction's micro-program is executing to a new one. The first
+micro-instruction after the end of the fetch cycle begins execution of
+the instruction just loaded.
+
+\subsection{Flow Control}
+
+For the most part, the skip logic is idle, which causes \ns{SKIP} to
+stay high. Should a micro-instruction request a test of a flag, the
+\ns{SKIP} line may be asserted, which will immediately cause a
+microprogram jump to a new, non-contiguous address. That address
+should perform actions to take skip actions, usually asserting
+\ns{INCPC} to increment the \PC{}.
+
+In the next micro-instruction, the \ns{SKIP} conditional will revert
+to de-asserted, causing another jump back to the non-skipping version
+of the micro-program.
+
+Skipping and non-skipping micro-programs are thus exactly the same
+length. Where necessary, this is done by not doing anything, which
+causes branching and non-branching instructions to take the same time
+to run. This is unusual, since many processors require one less clock
+cycle if the branch is not taken. In the case of the CFT, this is less
+important since branching is performed by the \asm{OP2} instruction
+with performs other optional tasks after the branch (regardless of
+whether the branch is taken or not).
+
+It is obvious that flow control happens by jumping from one
+micro-program to another without modifying the \UPC{}. This allows
+different microcode to be executed. All flow control is performed
+using the \OPIF{} microcode field, and affects the microcode
+only. Instruction-level flow control is observed as a side-effect of
+microcode flow control: simply put, to take an Assembly-level skip,
+microcode needs to increment the \PC{}. To not take a skip, the
+microcode needs to do nothing.
+
+\subsection{Negative and Overflow skips}
+
+The microcode ROM had a few spare address pins, and these were
+connected to the negative and overflow flag registers to allow for
+some unforeseen skip instructions. This allowed the \asm{IFV} and
+\asm{IFN} sub-instructions to be coded.
+
+These are handled and behave in a way almost identical to that of the
+\ns{SKIP} conditional. The unfortunate side effect is that
+microprograms that handle both flag conditionals need to be coded four
+times, one for each combination of the two flags.
+
+\subsection{Indirection}
+
+Indirect mode is selected by setting \IRn{11}. This is loaded at fetch
+time, and is not modified during microprogram execution. Thus, it
+works in conjunction with \IRn{12–15} to select among 16 direct and 16
+indirect instruction micro-programs (autoindex mode is a variation of
+indirect mode).
+
+Instructions \asm{OP1}, \asm{OP2} and \asm{LIA} treat this as a don't
+care value, so there are double as many copies of each micro-program
+for these instructions.
+
+Indirect mode is updated at the end of the fetch cycle, causing a jump
+to the appropriate direct or indirect (or don't care) micro-program.
+
+\subsection{Autoindexing}
+
+Asserting the \ns{AINDEX} conditional causes a jump to the autoindex
+versions of instruction microprograms. When \IRn{11} is clear (direct
+mode), \ns{AINDEX} is treated as a don't-care value, so is
+immaterial. When \IR{11} is set (high), indirect mode is
+active. Autoindexing works in indirect mode by executing additional
+code at the end of the instruction execution micro-program.
+
+The \ns{AINDEX} conditional is latched based on the value of the
+\AR{}. Once set, it remains set until the end of the microprogram,
+avoding jumps back to the non-autoindex code. This is necessary since
+the \AR{} changes during execution and its new value is likely to
+cancel \ns{AINDEX} mid-instruction.
+
+Instructions that observe autoindex mode behave like their indirect
+mode versions. At the end of the instruction, additional code
+increments the memory location identifyed by the instruction operand.
+
+The microcode sequencer contains a flaw-like limitation to keep
+circuitry simple: if an indirect-mode instruction is fetched from an
+address in the range \hex{0080}–\hex{00FF} and the previous address
+was also an indirect-mode instruction, autoindex mode will be set
+regardless of the newly fetched instruction's operand. This is
+considered an acceptable limitation, as the autoindex locations are a
+limited, highly useful resource, and there is no good reason to be
+executing code there.
+
+\subsection{Unusual Glitches}
+
+To avoid unusual glitches, every unused location of the microcode
+store asserts \ns{END}, which causes the microprogram to reset. This
+should never happen, but if it does, it ensures the processor will
+carry on with the next instruction.
+
+\section{Microcode Listing}
+
+%{\small
+\lstinputlisting[style=longmcasm]{../../../microcode/microcode.mc}
+%}

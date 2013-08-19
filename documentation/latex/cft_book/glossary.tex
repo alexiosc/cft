@@ -1,0 +1,347 @@
+% -*- latex -*-
+
+\renewcommand\glspostdescription{}
+
+\newcommand\newglossaryabbr[3]{%
+  \newglossaryentry{abbr#1}{name=\glslink{#1}{#2}, text={#2}, description={#3}}
+  \newacronym[description={\glslink{abbr#1}{#2}}]{#1}{#1}{#2}
+}
+
+\newglossaryentry{IBUS}{name=IBUS,
+  description={
+  Internal Bus: the single, internal 16-bit bus of the CFT processor.
+  }}
+  
+\newglossaryentry{Data Bus}{name=Data Bus, description={ A
+    16-bit bus used to move data between the processor and
+    peripherals.  }}
+  
+\newglossaryentry{Address Bus}{name=Address Bus, description={A
+    16-bit bus used to select a peripheral nor memory location to
+    access.}}
+  
+\newglossaryentry{Video Display Unit}{name=Video Display Unit,
+  description={ Video Display Unit (VDU): a device that drives a
+    display monitor to show character or graphics data on a
+    screen. Often also contains one or more input devices (keyboard,
+    mouse).}}
+  
+\newglossaryentry{von Neumann architecture}{name=Von Neumann architecture,
+  description={ Named after the work of
+    John von Neumann, the von Neumann architecture is a ‘modern’
+    computer architecture that includes a register file, arithmetic
+    and logic units, memory and input/output, and uses the same
+    storage for programs and data.}}
+
+\newglossaryentry{stored program computer}{name=Stored program computer,
+  description={ A type of computer that
+    uses the same storage for programs and data. All modern computers
+    are stored program computers, allowing self-modification of their
+    programs. Early designs and many modern microcontrollers stored
+    programs and data in separate media, and did not or could not
+    treat programs as data.}}
+
+\newglossaryabbr{ALU}{Arithmetic/Logic Unit}{Describe this!}
+\newglossaryabbr{ISR}{Interrupt Service Routine}{Describe this!}
+\newglossaryentry{UART}{name=UART, description={
+    Short for Universal Asynchronous Receiver/Transmitter. UARTs are
+    devices that handle asynchronous serial communications such as RS-232, RS-485 or USB.
+    }
+}
+%% \newglossaryentry{alu}{name=\glslink{ALU}{Arithmetic/Logic Unit}, text=Arithmetic/Logic Unit,
+%%   description={TODO}}
+%% \newacronym[description={\glslink{alu}{Arithmetic/Logic Unit}}]{ALU}{ALU}{Arithmetic/Logic Unit}
+
+\newacronym{SBU}{SBU}{Skip/Branch Unit}
+
+\newacronym{AGL}{AGL}{Address Generation Logic}
+
+\newglossaryentry{DEB}{name=DEB, description={
+    Designation of the CFT Debugging/Testing board, a peripheral that
+    allows remote control and testing of the computer and its
+    peripherals in the style of a virtual front panel. The DEB board
+    is discussed in~\ccf{chap:deb}.
+}}
+
+\newglossaryentry{VDU}{name=VDU, description={ Video Display
+    Unit. Designation of the CFT graphic card and keyboard
+    controller. The VDU board is discussed in~\ccf{chap:vdu}.  }}
+
+\newglossaryentry{MSB}{name=MSB, description={
+    Most Significant Bits. Usually used to refer to the upper eight bits of a CFT word.
+}}
+\newglossaryentry{LSB}{name=LSB, description={
+    Least Significant Bits. Usually used to refer to the lower eight bits of a CFT word.
+}}
+
+\newglossaryentry{NYBBLE}{name=Nybble, description={Sometimes
+    nibble. A four-bit quantity, represented as a single hexadecimal
+    digit.
+}}
+
+\newacronym{MCU}{MCU}{Micro-Controller Unit}
+
+\newacronym{USB}{USB}{Universal Serial Bus}
+
+\newacronym{GPIO}{GPIO}{General-Purpose Input/Output}
+
+\newglossaryentry{Verilog}{name=Verilog,
+  description={
+    One of the two major hardware
+    description languages, the other being VHDL. In the CFT project,
+    Verilog is used to perform 74xxx chip-level simulation and
+    verification of the CFT processor.
+}}
+
+\newglossaryentry{I2C}{name=I²C, description={A two-wire, open-drain
+    bus, often used for communication between \gls{MCU}s and
+    peripheral chips, including EEPROMs and sensors. For more
+    information, please consult
+    \url{http://en.wikipedia.org/wiki/I2C}.}}
+
+\newglossaryentry{data stack}{name=Data Stack,
+  description=To Do}
+
+\newglossaryentry{postfix}{name=postfix,
+  description=To Do}
+
+\newglossaryentry{stack effect comment}{name=stack effect comment,
+  description=To Do}
+
+\newglossaryentry{Wait State}{name=Wait State, 
+  description={An additional state added to the processor state machine
+  to accommodate slow devices. External devices signal their need for a
+  wait state to the processor using an appropriate procotol. The
+  processor then enters the Wait State and does not leave until the
+  device is ready. The processor performs no action during this time,
+  hence the name.}}
+
+
+\newglossaryentry{Twos Complement}{name=Two's Complement,
+  description={Currently the most popular means of representing signed
+    integers in binary. For a bit width $n$, non-negative numbers $0 \leq
+    x < 2^{n-1}$ are represented as unsigned $n$-bit binary
+    integers. Negative numbers $-2^{n-1} \leq x < 0$ are represented in
+    the form $2^n - x$, with the most significant bit set. On the CFT,
+    with $n=16$, this provides a signed range of $[-32,768,
+      32,767]$. Two's complement has many useful mathematical
+    properties: only one representation of zero, the most significant
+    bit also acts as a sign bit, and both addition and subtraction can
+    be performed by the same circuitry. For a full discussion, please refer
+    to \url{http://en.wikipedia.org/wiki/Two's\_complement}.  }}
+
+\newglossaryentry{Assembly}{name=Assembly, description={A symbolic form of
+    \gls{machine code}, meant to be used by humans. Some architectures,
+    including the CFT, have simple machine code that can be learned in minutes,
+    but the human brain deals better with symbols. Assembly languages also
+    provide productivity enhancing features like comments, labels, macros,
+    simple arithmetic for literals, and other such facilities. The CFT
+    Assembler provides all of these facilities.  }}
+
+\newglossaryentry{DIP}{name=DIP, description={Dual In-line Package, the
+    most common integrated circuit package until the introduction of
+    Surface Mount Technology: DIP chips have two rows of pins, with pins
+    set at distances of 2.54~mm (0.1~inch).
+}}
+
+\newglossaryentry{PLCC}{name=PLCC, description={Plastic Leaded Chip
+    Carrier, a square surface mount chip packaging easily adapted to
+    2.54mm grids by means of suitable IC sockets. The CFT uses
+    numerous PLCC chips to save board space and because they offer
+    more choice of chips, and thus better value for money. All CFT
+    PLCC packages are either Flash devices or UARTs.}}
+
+\newglossaryentry{MEM}{name=MEM, description={ Designation of the
+    memory board, which, depending on construction details provides up
+    to 512 or 1,024 kWords of RAM and/or ROM. The MEM board is
+    discussed in~\ccf{chap:mem}.
+}}
+
+\newglossaryentry{MBU}{name=MBU, description={Designation of the
+    Memory Banking Unit. This was originally slated to be a separate
+    peripheral, but has become so important to the project that it is
+    now considered to be part of the processor, and constructed as
+    such. The MBU breaks memory space in logical and physical
+    addresses, and allows the processor's limited 64 kWord address
+    space to be expanded to a 21 bit, 2,048 kWord address space using
+    memory banking techniques. More details may be found in
+    \ccf{chap:mbu}.  }}
+
+\newglossaryentry{Interrupt Service Routine}{name=Interrupt Service Routine (ISR),
+  description={TO DO}}
+
+\newglossaryentry{Page}{name=Page, description={The CFT instruction set allows
+    for a 10-bit operand, which allows instructions to address up to
+    $2^{10}=1024$ locations. This 1,024-word range is known as a page. The CFT
+    address space contains 64 such 1 kWord pages. \gls{Page Zero} at addresses
+    \hex{0000}–\hex{03FF} has special significance in the programming model, as
+    discussed in~\cf{sec:memory-space}.
+ }}
+
+\newglossaryentry{Page Zero}{name=Page Zero, description={Page Zero occupies
+    the first 1,024 addresses (\hex{0000}–\hex{03FFF}) of the memory address
+    space. It is used to simulate 1,024 registers, global variables or
+    constants accessible from anywhere in memory. Addresses
+    \hex{0080}–\hex{00FF} are autoindex locations: they increment when accessed
+    in \gls{Indirect Mode}.}}
+
+\newglossaryentry{Addressing Mode}{name=Addressing Mode, description={An
+    addressing mode is the method in which an instruction operand is
+    interpreted. The CFT can treat operands as literal values (\gls{Literal
+      Mode}), addresses of data (\gls{Direct Mode}), or addresses of addresses
+    of data (\gls{Indirect Mode}), similar to pointersin high-level languages
+    such as C and Pascal. Addressing modes are discussed
+    in~\cf{sec:addressing-modes}}.}
+
+\newglossaryentry{Indirect Mode}{name=Indirect Mode, description={An addressing
+    mode where an instruction operand identifies the memory location which
+    contains the address of the data to access. Compare \gls{Direct
+      Mode}. Addressing modes are discussed in~\cf{sec:addressing-modes}.}}
+
+\newglossaryentry{Direct Mode}{name=Direct Mode, description={An addressing
+    mode where an instruction operand identifies the memory location of the
+    data to access. Compare \gls{Indirect Mode}. Addressing modes are discussed
+    in~\cf{sec:addressing-modes}.}}
+
+\newglossaryentry{Literal Mode}{name=Literal Mode, description={An addressing
+    mode where an instruction operand identifies the memory location of the
+    data to access. Compare \gls{Indirect Mode}. Addressing modes are discussed
+    in~\cf{sec:addressing-modes}.}}
+
+\newglossaryentry{register}{name=Register, description={ A data storage device
+    inside a processor. Registers are usually faster than memory, and so are
+    used to store intermediate results. In many architectures, notably
+    \glspl{ABA}, the only way for the processor to
+    manipulate data is to transfer it to a register, operate on the register,
+    then transfer it back to its intended location. CFT registers are discussed
+    in~\cf{sec:registers}.}}
+
+\newglossaryentry{Accumulator}{name=Accumulator, description={The main
+    \gls{register} in an \gls{ABA}. Data must be transferred to the Accumulator
+    before it can be operated on by the processor. In the CFT, the Accumulator
+    is the only such general purpose register available. The term comes from
+    the days of tabulating machines, which used accumulators to accumulate
+    (sum) numbers. The Accumulator is designated ‘\AC’ on the CFT. Its hardware
+    design is discussed in~\cf{sec:major-registers} and its operation from a
+    programmer's point of view is discussed in~\cf{sec:accumulator}.}}
+
+\newglossaryabbr{ABA}{Accumulator-Based Architecture}{A processor architecture
+  built around a single (or in some cases, a few) accumulators. Most early
+  computers followed this design because of its simplicity, and the CFT does
+  too. Having a single register draastically simplifies the instruction format,
+  too: from a two-operand instruction format (source, destination), we move to
+  a single operand (source or destination). The other operand is always the
+  accumulator.  }
+
+\newglossaryentry{nybble}{name=Nybble, description={(sometimes nibble)
+    A 4-bit quantity, corresponding to one hexadecimal digit, half a
+    byte, or one quarter of a CFT \gls{Word}.}}
+
+\newglossaryentry{Word}{name=Word, description={One CFT Word is a
+    16-bit quantity. CFT memory and I/O accesses transfer exactly one
+    word each. CFT instructions are also one Word wide. This is not to
+    be confused with the Forth concept of a \gls{word} (an identifier).}}
+
+\newglossaryentry{word}{name=Word, description={A Forth word is any
+    sequence of non-whitespace characters that is not a number. This
+    is not to be confused with the more common concept of the
+    \gls{Word} as a numeric datatype.}}
+
+\newglossaryentry{machine code}{name=Machine code, description={Machine code is
+    the native language of every processor, where machine instructions and data
+    are represented in binary. Machine code is easy for the computer to
+    process, but humans find it useful to apply abstraction layers to it: data
+    are represented in other bases (octal, decimal and hexadecimal being the
+    most common), and symbolic instruction names (rather than binary
+    instruction numbers) are used. This set of abstractions is \gls{Assembly}
+    language.}}
+
+\newglossaryentry{disk label}{name=Disk Label, description={ A disk label
+    stores information about a storage device (not always a disk), including a
+    magic number to help detect the block, some optional boot code, and
+    definitions for one to sixteen \glspl{disk slice} (partitions). The disk
+    label always resides in the first block of a device. The best-known disk
+    label format is the MS-DOS Master Boot Record, MBR. The CFT's disk label is
+    discussed in~\cf{sec:disk-label}.}}
+
+\newglossaryentry{disk slice}{name=Disk Slice, description={Part of a disk intended to
+    hold a \gls{filesystem} or other data. Disks are sliced to make them easier
+    to manage, so different operating systems can be used, to control the size
+    of stored data, and to avoid corruption in one filesystem destroying all
+    data. In the MS-DOS world, slices are known as ‘partitions’, and the
+    \gls{disk label} is known as a ‘partition table’ or ‘Master Boot Record’
+    depending whether it resides on a data disk or bootable disk. The CFT's
+    slice scheme is discussed in~\cf{sec:disk-slices}}.}
+
+\newglossaryentry{filesystem}{name=Filesystem, description={ A large data
+    structure used to view a storage medium as a hierarchical collection of
+    data objects called files. The filesystem abstracts the natural
+    array-of-blocks structure of the storage medium, and provides the user with
+    an interface for creating, reading and otherwise operating on files by
+    their name, location and other attributes. Files can be larger than the
+    natural block size, and this is again handled transparently by the
+    filesystem code. The CFT's filesystem is described in~\cf{sec:fs}}}
+
+\newglossaryabbr{VD}{Volume Directory}{A data structure
+  describing a CFT \gls{filesystem}. Comparable to a Unix filesystem
+  superblock. The VDD is the exact same data structure as a
+  \gls{DD}. The difference is in the magic number and the contents of
+  the first directory slot (the header), which contains a volume
+  header structure.}
+
+\newglossaryabbr{DD}{Directory Descriptor}{A data structure describing
+  a directory in a CFT \gls{filesystem}.}
+
+\newglossaryentry{block pointer}{name=Block Pointer, description={A
+    32-bit value (\gls{MSB} first) denoting the number of a filesystem
+    block. A filesystem's first block is block \hex{00000000}.}}
+
+\newglossaryabbr{DH}{Directory Header}{A data structure describing a
+  CFT directory. This is the first entry of a \gls{DD}.}
+
+\newglossaryabbr{OOP}{Object Oriented Programming}{A programming
+  paradigm where data and code are bundled together in data structures
+  called objects. Programs are built based on the interactions and
+  interrelations of these objects.}
+
+\newglossaryentry{descriptor}{name=Descriptor, description={In the CFT Filesystem, a data structure
+    that holds metadata on an object in the CFT filesystem. Descriptors share
+    some common metadata (e.g. filenames, flags, creation time and date). They
+    are located inside container objects (volumes and directories). Containers
+    and descriptors are discussed in~\cfp{sec:fs-containers}.}}
+
+\newglossaryentry{volume}{name=Volume, description={A \gls{disk slice} which
+    has been structured according to the CFT Filesystem. In \gls{OOP} terms, a
+    volume is the object (instance) and the CFT Filesystem is the class.}}
+
+\newglossaryentry{container}{name=Container, description={In the CFT
+    Filesystem, a data structure that contains other filesystem objects. Entire
+    filesystem \glspl{volume} are containers, and so are directories. Each
+    container owns a maximum number of \glspl{descriptor}, identifying the
+    contained objects. Once this limit is reached, continuation blocks are
+    allocated for the container. These continuation blocks form a doubly linked
+    list. Containers are discussed in~\fcf{sec:fs-containers}.}}
+
+\newglossaryabbr{PEL}{Picture Element}{The smallest addressable
+  picture element of a display mode. A PEL is usually a block of
+  multiple pixels.}
+
+\newglossaryabbr{MTBF}{Mean Time Between Failures}{The average life
+  expectancy of a device.}
+
+\newglossaryentry{codepoint}{name=Codepoint, description={A number
+    identifying a character within a character set. For example, in
+    the ASCII set, codepoint 65 is the character ‘A’.}}
+
+\newglossaryabbr{SDRAM}{Synchronous Dynamic Random Access Memory}{A
+  type of modern dynamic RAM that operates using a clock, not
+  asynchronously like original DRAMs. The memory contains a command
+  pipeline, because data appears on the bus two to three clock ticks
+  after a read is signalled. Multiple reads are pipelined, making the
+  memory very fast for many use patterns.}
+
+\newglossaryabbr{SRAM}{Static Random Access Memory}{A type of
+  relatively low-density memory that trades off capacity and price for
+  speed and interface simplicity. SRAMs do not need to be refreshed
+  and are faster than similar dynamic RAMs.}
+

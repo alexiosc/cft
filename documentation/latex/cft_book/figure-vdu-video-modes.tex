@@ -1,0 +1,146 @@
+% -*- latex -*-
+\documentclass[class=memoir]{standalone}
+\input{preamble}
+
+\begin{document}%
+%\tikzexternaldisable%
+\begin{tikzpicture}%
+
+   \def\modeWidth{20mm}
+   \def\modeHeight{16mm}
+
+   % X resolutions
+   \foreach \x [count=\i] in {40, 80, 160, 320, 640}{
+     \begin{scope}[xshift=(\i - 1) * \modeWidth]
+       \draw (0.5 * \modeWidth,0) node [below] {\x×};
+     \end{scope}
+   }
+
+   % Backgrounds
+   %% \draw[heavy,fill opacity=0.5,fill=red!25] (0,5 * \modeHeight) -- +(3mm, 3mm) -- +(2* \modeWidth - 3mm, 3mm) -- +(2 * \modeWidth, -0mm);
+   %% \draw[heavy,xshift=\modeWidth, fill opacity=0.5,fill=yellow!25] (0,5 * \modeHeight) -- +(3mm, 3mm) -- +(2* \modeWidth - 3mm, 3mm) -- +(2 * \modeWidth, -0mm);
+   %% \draw[heavy,xshift=3 * \modeWidth, fill opacity=0.5,fill=green!25] (0,5 * \modeHeight) -- +(3mm, 3mm) -- +(2* \modeWidth - 3mm, 3mm) -- +(2 * \modeWidth, -0mm);
+
+   \foreach \y [count=\j] in {30, 60, 120, 240, 480} {
+     \begin{scope}[yshift=(\j - 1) * \modeHeight]
+       \draw (0,0.5 * \modeHeight) node [left] {×\y};
+       \foreach \x [count=\i] in {40, 80, 160, 320, 640}{
+         \begin{scope}[xshift=(\i - 1) * \modeWidth]
+           \ifthenelse{\i = \j}{
+             \draw[thick,fill=cfthl!50] (0,0) rectangle (\modeWidth, \modeHeight);
+             \ifthenelse{\i > 1}{
+               \draw[thick,fill=cfthl!25] (0,-\modeHeight) rectangle (\modeWidth, 0);
+             }{}
+             \ifthenelse{\i < 5}{
+               \draw[thick,fill=cfthl!25] (0,\modeHeight) rectangle (\modeWidth, 2 * \modeHeight);
+             }{}
+           }{}
+         \end{scope}
+       }
+     \end{scope}
+   }
+
+   %% \draw[thick,fill=red!25] (0,0) rectangle (2mm, 5* \modeHeight);
+   %% \draw[thick,xshift=\modeWidth, fill=red!25] (0,0) rectangle (2mm, 5* \modeHeight);
+
+   %% \draw[thick,xshift=1 * \modeWidth, fill=yellow!25] (0,0) rectangle (2mm, 5* \modeHeight);
+   %% \draw[thick,xshift=2 * \modeWidth, fill=yellow!25] (0,0) rectangle (2mm, 5* \modeHeight);
+
+   %% \draw[thick,xshift=3 * \modeWidth, fill=green!25] (0,0) rectangle (2mm, 5* \modeHeight);
+   %% \draw[thick,xshift=4 * \modeWidth, fill=green!25] (0,0) rectangle (2mm, 5* \modeHeight);
+
+   \foreach \y [count=\j] in {30, 60, 120, 240, 480} {
+     \begin{scope}[yshift=(\j - 1) * \modeHeight]
+       \draw (0,0.5 * \modeHeight) node [left] {×\y};
+       \foreach \x [count=\i] in {40, 80, 160, 320, 640}{
+         \begin{scope}[xshift=(\i - 1) * \modeWidth]
+           \draw[thick,fill=none] (0,0) rectangle (\modeWidth, \modeHeight);
+           \draw (0.5 * \modeWidth,0.55 * \modeHeight) node[below] {\x×\y};
+           %\draw (0.5 * \modeWidth,0.15 * \modeHeight) node {\scriptsize i=\i, j=\j};
+           \ifthenelse{\i = \j}{
+             \draw[fill=black] (\modeWidth-4mm,\modeHeight-4mm) rectangle +(2.5mm,2.5mm);
+           }{
+             \ifthenelse{\i > \j}{
+               \draw[fill=black] (\modeWidth-4mm,\modeHeight-4mm) rectangle +(1mm,2.5mm);
+             }{
+               \draw[fill=black] (\modeWidth-4mm,\modeHeight-4mm) rectangle +(2.5mm,1mm);
+             }
+           }
+           % Annotate modes
+           \ifthenelse{\i < 3 \and \j < 3}{%
+             \draw (0.5 * \modeWidth,0) node[above] {\footnotesize Text};
+             \draw[thick, fill=cyan!25] (3mm,\modeHeight - 3mm) circle (1.75mm);
+             \draw[thick, fill=red!25] (5mm,\modeHeight - 3mm) circle (1.75mm);
+             \ifthenelse{\i = 2}{%
+               \draw[thick, fill=yellow!25] (7mm,\modeHeight - 3mm) circle (1.75mm);
+             }{}
+           }{
+             \ifthenelse{\i < 3}{%
+               \draw[thick, fill=red!25] (3mm,\modeHeight - 3mm) circle (1.75mm);
+             }{}
+             \ifthenelse{\i = 2}{%
+               \draw[thick, fill=yellow!25] (5mm,\modeHeight - 3mm) circle (1.75mm);
+             }{}
+             \ifthenelse{\i = 3}{%
+               \draw[thick, fill=yellow!25] (3mm,\modeHeight - 3mm) circle (1.75mm);
+             }{}
+             \ifthenelse{\i > 3}{%
+               \draw[thick, fill=green!25] (3mm,\modeHeight - 3mm) circle (1.75mm);
+             }{}
+           }
+         \end{scope}
+       }
+     \end{scope}
+   }
+   
+   \draw[heavy,fill=none] (0,0) rectangle (5 * \modeWidth, 5 * \modeHeight);
+   %\draw[heavy,fill=none] (0,0) rectangle (2 * \modeWidth, 2 * \modeHeight);
+
+   \begin{scope}[yshift=-0.3cm]
+     \begin{scope}[yshift=-1cm]
+       \draw[fill=black] (0,0) rectangle +(2.5mm,2.5mm);
+       \draw(3mm,0.5mm) node[anchor=baseline,right] {Square pixels (1:1 aspect)};
+     \end{scope}
+     \begin{scope}[yshift=-1.5cm]
+       \draw[fill=black] (0,0) rectangle +(1mm,2.5mm);
+       \draw(3mm,0.5mm) node[anchor=baseline,right] {Tall pixels (< 1:1 aspect)};
+     \end{scope}
+     \begin{scope}[yshift=-2cm]
+       \draw[fill=black] (0,0) rectangle +(2.5mm,1mm);
+       \draw(3mm,0.5mm) node[anchor=baseline,right] {Wide pixels (> 1:1 aspect)};
+     \end{scope}
+     \begin{scope}[yshift=-2.5cm]
+       \draw[thick, fill=cyan!25] (1.75mm,0) circle (1.75mm);
+       \draw(3mm,0mm) node[anchor=baseline,right] {Text modes};
+     \end{scope}
+     \begin{scope}[yshift=-3cm]
+       \draw[thick, fill=red!25] (1.75mm,0) circle (1.75mm);
+       \draw(3mm,0mm) node[anchor=baseline,right] {Multicolour modes};
+     \end{scope}
+     
+     \begin{scope}[xshift=55mm]
+       \begin{scope}[yshift=-1cm]
+         \draw[fill=cfthl!50,draw opacity=0] (0,0) rectangle +(2.5mm,2.5mm);
+         \draw(3mm,0.5mm) node[anchor=baseline,right] {Ideal modes};
+       \end{scope}
+       \begin{scope}[yshift=-1.5cm]
+         \draw[fill=cfthl!25,draw opacity=0] (0,0) rectangle +(2.5mm,2.5mm);
+         \draw(3mm,0.5mm) node[anchor=baseline,right] {Practical modes};
+       \end{scope}
+       \begin{scope}[yshift=-2.5cm]
+         \draw[thick, fill=yellow!25] (1.75mm,0) circle (1.75mm);
+         \draw(3mm,0mm) node[anchor=baseline,right] {Semigraphics modes};
+       \end{scope}
+       \begin{scope}[yshift=-3cm]
+         \draw[thick, fill=green!25] (1.75mm,0) circle (1.75mm);
+         \draw(3mm,0mm) node[anchor=baseline,right] {Graphics modes};
+       \end{scope}
+     \end{scope}
+   \end{scope}
+
+\end{tikzpicture}%
+%\tikzexternalenable%
+\end{document}
+
+% End of file.
+

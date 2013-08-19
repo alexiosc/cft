@@ -1,0 +1,55 @@
+% -*- latex -*-
+\documentclass[class=memoir]{standalone}
+\input{preamble}
+
+\begin{document}%
+%\tikzexternaldisable%
+\begin{tikzpicture}%
+
+   \newcommand\vdureg[5]{%
+     \begin{scope}[xshift=#1 cm, yshift=#2 cm]
+       \draw[heavy,fill=#3] (0,0) rectangle +(5,0.6);
+       \draw[heavy,fill=#3] (2.5,0.3) node {\hex{1F#4}: {#5}};
+     \end{scope}%
+   }
+
+   %\draw[step=0.2cm,color=cfthl!90] (-1,-10) grid +(13,12);
+
+   \draw[thick, fill=cfthl!25] (-0.4,1.6) rectangle (5.4, -3.4);
+   \draw(2.5,1.2) node{Main/Split Screen Top};
+   
+   \begin{scope}[xshift=6.2cm]
+     \draw[thick, fill=cfthl!25] (-0.4,1.6) rectangle (5.4, -3.4);
+     \draw(2.5,1.2) node{Split Screen Bottom};
+   \end{scope}
+   
+   \vdureg{0}{0}{cfthl!50}{0}{\port{MCR0}/\port{SR}}
+   \vdureg{6.2}{0}{cfthl!50}{1}{\port{MCR1}}
+   
+   \vdureg{0}{-1}{cfthl!50}{2}{\port{SCR0}}
+   \vdureg{6.2}{-1}{cfthl!50}{3}{\port{SCR1}}
+   
+   \vdureg{0}{-2}{cfthl!50}{4}{\port{SAR0}}
+   \vdureg{6.2}{-2}{cfthl!50}{5}{\port{SAR1}}
+   
+   \vdureg{0}{-3}{cfthl!50}{6}{\port{MAR0}}
+   \vdureg{6.2}{-3}{cfthl!50}{7}{\port{MAR1}}
+
+   \begin{scope}[yshift=0.1cm]
+     \vdureg{3}{-4.5}{cfthl!50}{8}{\port{CCR}}
+     \vdureg{3}{-5.5}{cfthl!50}{9}{\port{CAR}}
+     
+     \vdureg{3}{-6.5}{cfthl!50}{A}{\port{HAR}}
+     \vdureg{3}{-7.5}{cfthl!50}{B}{\port{KBD}}
+     \vdureg{3}{-8.5}{cfthl!50}{D}{\port{CRR}}
+     \vdureg{3}{-9.5}{cfthl!50}{E}{\port{CPORT}}
+     \vdureg{3}{-10.5}{cfthl!50}{F}{\port{CMD}/\port{BPORT}/\port{CGPORT}}
+   \end{scope}
+
+
+\end{tikzpicture}%
+%\tikzexternalenable%
+\end{document}
+
+% End of file.
+

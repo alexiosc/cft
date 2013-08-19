@@ -1,0 +1,184 @@
+% -*- latex -*-
+
+The I/O Board supplies 32 bits of digital input, and 32 bits of digital
+output. These 64 lines are routed to two 8-bit I/O User Ports, a Printer Port,
+two Atari-style Joystick Ports and a Tape I/O port, with three spare lines
+driving front panel LEDs.
+
+\section{Design}
+
+\section{Theory of Operation}
+
+\section{Implementation}
+
+\section{Connectors}
+\subsection{User Port 0}
+\subsection{User Port 1}
+\subsection{Joystick 0 (Left)}
+\subsection{Joystick 1 (Right)}
+\subsection{Tape}
+
+\section{Operation}
+
+\begin{ioport}{IOB}{108}{--w--hf}{OP0}{User Output Ports 0 \& 1}
+
+  This port simply drives the output sections of User Ports 0 and 1. Each of
+  these is eight bits wide. A value of \bin{1} drives the corresponding pin
+  with +5V. A value of \bin{0} connects the pin to ground. This port does not
+  change its value after a hard reset.
+  
+  \begin{cbitfield}
+    \bitfieldGroup{8}{cfthl!50}{User Port 0}
+    \bitfieldGroup{8}{cfthl!25}{User Port 1}
+  \end{cbitfield}
+\end{ioport}
+
+\begin{ioport}{IOB}{108}{-r---hf}{IP0}{User Input Port 0}
+
+  This input reads the input sections of User Ports 0 and 1.
+
+  \begin{cbitfield}
+    \bitfieldGroup{6}{cfthl!50}{Schmitt Trigger Input 0}
+    \bitfieldItem{1}{cfthl!25}{TTL0}
+    \bitfieldItem{1}{cfthl!50}{TTL1}
+    \bitfieldGroup{6}{cfthl!25}{Schmitt Trigger Input 1}
+    \bitfieldItem{1}{cfthl!50}{TTL2}
+    \bitfieldItem{1}{cfthl!25}{TTL3}
+  \end{cbitfield}
+
+  All bits default to \bin{1} unless connected to ground, in which case they yield a \bin{0}. There are four groups:
+
+  \begin{description}
+  \item{\bfseries Schmitt Trigger Input A:} six bits of input via Schmitt triggers,
+    including current-limiting resistors for some protection. These inputs are
+    useful for mechanical switches that have glitches. These bits are the first
+    six inputs on User Port 0.
+  \item{\bfseries TTL Inputs (\bit{TTL0}–\bit{TTL3}:} three TTL or CMOS-level
+    inputs, mainly intended for logic devices. \bit{TTL0} and \bit{TTL1} are
+    the last two inputs on User Port 0. \bit{TTL2} and \bit{TTL3} are the last
+    two inputs of User Port 1.
+  \item{\bfseries Schmitt Trigger Input B:} six bits of input via Schmitt triggers,
+    including current-limiting resistors for some protection. These inputs are
+    useful for mechanical switches that have glitches. These bits are the first
+    six inputs of User Port 2.
+  \end{description}
+
+\end{ioport}
+
+\begin{ioport}{IOB}{109}{--w--hf}{OP1}{Output Port 1}
+
+  This output port drives the printer port, tape port, and a trio of
+  general-purpose LEDs that may be connected to spare lights on the front
+  panel.
+
+  This port does not change its value after a hard reset.
+
+  \begin{cbitfield}
+    \bitfieldGroup{8}{cfthl!50}{Printer Data}
+    \bitfieldItem{1}{cfthl!25}{STB}
+    \bitfieldItem{1}{cfthl!50}{AFD}
+    \bitfieldItem{1}{cfthl!25}{RST}
+    \bitfieldGroup{1}{cfthl!50}{SELIN}
+    \bitfieldItem{1}{cfthl!25}{UL0}
+    \bitfieldItem{1}{cfthl!50}{UL1}
+    \bitfieldItem{1}{cfthl!25}{UL2}
+    \bitfieldGroup{1}{cfthl!50}{TPO}
+  \end{cbitfield}
+
+  \begin{description}
+  \item{\bfseries Printer Data:} eight bits of data to be sent to the printer port.
+  \item{\bfseries \bit{STB}:} the printer port \ns{STROBE} signal. To write to
+    the printer port (after ensuring the printer is not busy), a program writes
+    the data to the lower eight bits of this register with \bit{STB} (and other
+    active-low bits discussed below) set, waits at least one millisecond, then
+    clears \bit{STB}.
+  \item{\bfseries \bit{AFD}:} the printer port \ns{AUTOFEED} signal. This
+    should be kept set (\bin{1}) in most cases.
+  \item{\bfseries \bit{RST}:} the printer port \ns{RESET} signal. This should
+    be kept set (\bin{1}). It may be cleared (\bin{0}) for at least 50ms to
+    reset the printer.
+  \item{\bfseries \bit{SELIN}:} the printer port \ns{SELIN} signal. This
+    addresses one of two devices on the parallel port. It should be kept set
+    (\bin{1}) to send data to the vast majority of printers.
+  \item{\bfseries User LEDs \bit{UL0}–\bit{UL2}:} three user LED outputs that
+    may be connected to the front panel. Setting a bit turns on the
+    corresponding LED. Clearing it turns it off.
+  \item{\bfseries \bit{TPO}:} tape output. Setting and clearing this bit
+    generates an analogue pulse on the tape interface.
+  \end{description}
+\end{ioport}
+
+\begin{ioport}{IOB}{109}{-rw--hf}{IP1}{Input Port 1}
+  
+  This input port provides printer status and reads the tape interface and
+  joystick port.
+
+  \begin{cbitfield}
+    \bitfieldGroup{1}{cfthl!50}{BSY}
+    \bitfieldItem{1}{cfthl!25}{SEL}
+    \bitfieldItem{1}{cfthl!50}{ERR}
+    \bitfieldItem{1}{cfthl!25}{ACK}
+    \bitfieldItem{1}{cfthl!50}{PE}
+    %
+    \bitfieldGroup{1}{cfthl!25}{TPI}
+    %
+    \bitfieldGroup{1}{cfthl!50}{J0U}
+    \bitfieldItem{1}{cfthl!25}{J0D}
+    \bitfieldItem{1}{cfthl!50}{J0L}
+    \bitfieldItem{1}{cfthl!25}{J0R}
+    \bitfieldItem{1}{cfthl!50}{J0B}
+    %
+    \bitfieldGroup{1}{cfthl!25}{J1U}
+    \bitfieldItem{1}{cfthl!50}{J1D}
+    \bitfieldItem{1}{cfthl!25}{J1L}
+    \bitfieldItem{1}{cfthl!50}{J1R}
+    \bitfieldItem{1}{cfthl!25}{J1B}
+  \end{cbitfield}
+
+  All bits default to \bin{1} unless connected to ground, in which case they
+  yield a \bin{0}.
+
+  \begin{description}
+  \item{\bfseries \bit{BSY}:} the printer port \ns{BUSY} signal. Programs
+    writing to the printer port should ensure this bit is \bin{1} before
+    writing to the printer port.
+  \item{\bfseries \bit{SEL}:} the printer port \ps{SEL} signal. This is set
+    (\bin{1}) when the printer is online (or physically disconnected), clear
+    otherwise.
+  \item{\bfseries \bit{ERR}:} the printer port \ns{ERROR} signal. This is clear
+    (\bin{0}) when the printer is reporting an error.
+  \item{\bfseries \bit{SELIN}:} the printer port \ns{SELIN} signal. This is clear
+    (\bin{0}) when the printer is reporting an error.
+  \item{\bfseries \bit{TPI}:} tape data input. This bit represents the amplified state of
+    the tape ‘ear’ (tape out, line out) connector.
+  \item{\bfseries \bit{J0U}:} Joystick 0 ‘up’ switch. This bit is clear
+    (\bin{0}) when the first joystick is pushed up.
+  \item{\bfseries \bit{J0D}:} Joystick 0 ‘down’ switch. This bit is clear
+    (\bin{0}) when the first joystick is pushed down.
+  \item{\bfseries \bit{J0L}:} Joystick 0 ‘left’ switch. This bit is clear
+    (\bin{0}) when the first joystick is pushed left.
+  \item{\bfseries \bit{J0R}:} Joystick 0 ‘right’ switch. This bit is clear
+    (\bin{0}) when the first joystick is pushed right.
+  \item{\bfseries \bit{J0B}:} Joystick 0 fire button. This bit is clear
+    (\bin{0}) when the fire button on the first joystick is being pressed.
+  \item{\bfseries \bit{J1U}:} Joystick 1 ‘up’ switch. This bit is clear
+    (\bin{0}) when the second joystick is pushed up.
+  \item{\bfseries \bit{J1D}:} Joystick 1 ‘down’ switch. This bit is clear
+    (\bin{0}) when the second joystick is pushed down.
+  \item{\bfseries \bit{J1L}:} Joystick 1 ‘left’ switch. This bit is clear
+    (\bin{0}) when the second joystick is pushed left.
+  \item{\bfseries \bit{J1R}:} Joystick 1 ‘right’ switch. This bit is clear
+    (\bin{0}) when the second joystick is pushed right.
+  \item{\bfseries \bit{J1B}:} Joystick 1 fire button. This bit is clear
+    (\bin{0}) when the fire button on the second joystick is being pressed.
+  \end{description}
+
+\end{ioport}
+
+\section{Schematics}
+
+The following pages show the full schematic drawings of the I/O board.
+
+\cleardoublepage
+\includeschns{48}{I/O Board, Address decoding and logic}{sch2:iob1}
+\includeschns{49}{I/O Board, interfaces and ports}{sch2:iob2}

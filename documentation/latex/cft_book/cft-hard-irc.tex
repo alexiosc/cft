@@ -1,0 +1,186 @@
+% -*- latex -*-
+
+The Interrupt Controller Board (IRC) eases the load of interrupt handling on
+the CFT by receiving up to eight interrupt lines from peripherals, aggregating
+them into the CFT processor's single \ns{IRQ} line, and allowing the source of
+an interrupt to be determined. Interrupts not needed may be masked as required.
+
+\section{Design}
+
+The CFT has a single, maskable interrupt request line. While this is sufficient
+for simple uses, as the number of peripherals grows, load-balancing interrupt
+traffic is useful: it helps keep the \gls{ISR} short, which reduces the chance
+of losing interrupts (typical CFT ISRs are non-reentrant, and interrupts are
+disabled while they execute).
+
+The Interrupt Controller Card works as a register and multiplexer of up to
+eight interrupt request lines from other cards. Unlike interrupt controllers
+for other platforms, this one is a very simple device. It lacks interrupt
+prioritisation, and all interrupts are always edge-triggered. Any
+prioritisation of interrupt servicing is coded entirely in software.
+
+The Interrupt Controller simply provides a central repository for interrupt
+events. The ISR can mask interrupts to disable unwanted ones, and it can query
+the Interrupt Controller to determine which lines have had interrupt
+activity. This allows the ISR to perform one eighth of the work.
+
+Electrically, sharing of interrupts is possible, since all interrupt lines are
+open-drain ones. Logically, as long as devices drive an interrupt line low for
+a sufficiently short time, sharing is possible. Any peripherals that hold the
+interrupt line low until the interrupt is acknowledged with them specifically
+will cause trouble in a sharing environment. Some of this trouble can be dealt
+with in software and using the time-honoured art of interrupt line
+juggling. Astable vibrators or edge detectors can also be placed between such
+devices and their interrupt lines to simplify handling. This is mainly expected
+from devices made for level-triggered interrupts such as \glspl{UART}.
+
+Even though the IRC card's output is open-drain, it is not meant to be shared
+with other interrupt sources. The card will keep the \ns{IRQ} line asserted
+(driven low) until all pending interrupts are acknowledged by the host.
+
+\section{Theory of Operation}
+
+The centre of the interrupt controller is a group of eight flip-flops (each
+half of a \HC{112} J-K flip-flop chip). Each J-K flip-flop handles one
+interrupt request line.
+
+Each flip-flop has its J (set) signal tied high, and its K (clear) signal tied
+low. The \ns{IRQn} line is connected to the CLK signal. On the falling edge of
+\ns{IRQn}, the flip-flop is set, registering an interrupt request.
+
+To mask interrupts, an enable bit, \ps{IEN0}–\ps{IEN7} is connected to the
+asynchronous, active low \ns{CLR} signal of the flip-flop. When the enable
+signal is clear (low), the flip-flop remains in a reset state, ignoring clock
+pulses. When the enable signal goes high, the flip-flop's reset condition
+clears and it may respond to incoming interrupts.
+
+The active-high (\ps{Q}) outputs of all eight flip-flops are disjuncted using a
+group of eight open-drain NOT gates with their outputs connected to form a
+wired AND, whih works as a negative logic wired OR. This in turn drives the
+processor's \ns{IRQ} input. Since it is an open drain connection, it only
+drives low, allowing other devices to also drive the \ns{IRQ} lin. This is done
+for safety, but is unnecessary in a sane system. The presence of the interrupt
+controller also implies that all peripherals will be using the separate
+\ns{IRQ0}–\ns{IRQ7} lines instead, and the interrupt controller will be the
+only device driving the \ns{IRQ} line.
+
+The flip-flops' \ps{Q} outputs are also brought to a \HC{541} buffer, which
+drives the lower 8 bits of the Data Bus when required. This is the Interrupt
+Status Register, allowing the host to determine the source or sources of an
+interrupt.
+
+To control the interrupts, a \HC{259} addressable latch is used. The latch
+allows interrupt enable bits to be set individually. The advantage of this over
+a simpler eight bit latch or flip-flop is programmatic simplicity: it
+simplifies enabling interrupts incrementally, so that each device driver in an
+operating system can enable its own interrupt without disabling (or having to
+take into account) the interrupt settings of other subsystems. One disadvantage
+of this choice is that it now takes sixteen instructions to disable {\em all\/}
+interrupts, but this operation is not expected to happen a lot, especially
+since the \ns{RESET} signal from the processor also clears the \HC{259}
+performing the very same action.
+
+Finally, addressing the card on the CFT bus is performed using a single
+\HC{138} demultiplexer, which provides partial decoding: reading from I/O space
+addresses \hex{30}–\hex{3F} always read from the Interrupt Status Register,
+while writing to any of these addresses writes to the Interrupt Enable
+Register.
+
+\section{Implementation}
+
+\todo{IRC Implementation}
+
+\section{Connectors}
+
+The eight interrupt lines used by the Interrupt Controller Board are part of
+the CFT Bus, but two connectors for optional front-panel LEDs are provided. The
+connectors are meant for the right hand bank of the front panel.
+
+\section{Operation}
+
+\begin{ioport}{IRC}{30–3F}{--w-eh-}{IER}{Interrupt Enable Command Register}
+
+  This write-only register controls which interrupts are allowed to reach the
+  processor, and also acknowledges interrupt requests. Due to partial decoding,
+  there are 16 copies of this register, \hex{30}–\hex{3F}.
+
+  \begin{cbitfield}
+    \bitfieldGroup{1}{cfthl!50}{IEN}
+    \bitfieldGroup{3}{cfthl!25}{IRQ}
+    \bitfieldRepConst{12}{0}
+  \end{cbitfield}
+
+  \begin{description}
+    \li{\field{IEN}} This bit selects one of two commands:
+    \begin{description}
+      \li{\bin{0}}: mask (disable) an interrupt line, clearing its status flag. This
+      acknowledges that the host is aware of the interrupt.
+      \li{\bin{1}}: unmask (enable) an interrupt line, clearing its status flag. This
+      acknowledges that the host is aware of the interrupt.
+    \end{description}
+
+    \li{\field{IRQ}} The interrupt line to enable, in the range \hex{0}–\hex{7}.
+  \end{description}
+
+  To enable an interrupt request, the number of the interrupt line is shifted
+  left by one bit, and one is added before writing to this register. To disable
+  an interrupt request, the number of the interrupt line is shifted left by one
+  bit, and the value is written to the register. Assembly macros to perform
+  these tasks (with an IRQ number as a literal value) are as follows:
+
+\begin{lstlisting}[language=cftasm]
+; Enable an IRQ provided as a literal value
+.macro IRQEN (irq)
+        LI @%irq*2 1            ; (IRQ level << 1) | 1.
+        OUT R &30               ; Enable it.
+.end
+
+; Disable an IRQ provided as a literal value
+.macro IRQDIS (irq)
+        LI @%irq*2              ; IRQ level << 1
+        OUT R &30               ; Disable it.
+.end
+
+; Acknowledge an IRQ provided as a literal value
+.macro IRQACK (irq)
+        IRQDIS(%irq             ; First disable it
+        IRQEN(%irq)             ; Then enable it again
+.end
+\end{lstlisting}
+
+The macros perform the IRQ number shifting at assembly time. If the IRQ number
+is in a register, the \asm{SBL} macro-instruction should be used instead, and
+the calculation happens at runtime.
+  
+\end{ioport}
+
+\begin{ioport}{IRC}{30—3F}{-r--eh-}{ISR}{Interrupt Status Register}
+
+  This read-only register allows the processor to check the status of the eight
+  interrupt request lines.
+
+  \begin{cbitfield}
+    \bitfieldGroup{1}{cfthl!50}{IRF0}
+    \bitfieldGroup{1}{cfthl!25}{IRF1}
+    \bitfieldGroup{1}{cfthl!50}{IRF2}
+    \bitfieldGroup{1}{cfthl!25}{IRF3}
+    \bitfieldGroup{1}{cfthl!50}{IRF4}
+    \bitfieldGroup{1}{cfthl!25}{IRF5}
+    \bitfieldGroup{1}{cfthl!50}{IRF6}
+    \bitfieldGroup{1}{cfthl!25}{IRF7}
+    \bitfieldRepConst{8}{0}
+  \end{cbitfield}
+
+  Each of these eight bits \field{IRF0}–\field{IRF1} represents an interrupt
+  line from \ns{IRQ0} to \ns{IRQ7}. A set bit (\bin{1}) indicates that an
+  interrupt request has been received. A clear bit (\bin{0}) indicates no
+  interrupt activity on that line.
+
+\end{ioport}
+
+\section{Schematics}
+
+The following page shows the full schematic drawings of the Interrupt Controller board.
+
+\cleardoublepage
+\includeschns{22}{Interrupt Controller Board}{sch2:irc}

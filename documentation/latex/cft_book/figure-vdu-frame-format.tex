@@ -1,0 +1,54 @@
+% -*- latex -*-
+\documentclass[class=memoir,crop=true]{standalone}
+\input{preamble}
+
+\begin{document}%
+%\tikzexternaldisable%
+\begin{tikzpicture}%
+
+   \def\frameWidth{12cm}
+   \def\frameHeight{8cm}
+
+   \draw[fill=cfthl!25] (0,0) rectangle (\frameWidth + 1,\frameHeight);
+   \draw[fill=cfthl!50] (11,0) rectangle +(1,\frameHeight);
+
+   \begin{scope}
+     \draw[fill=cfthl!50] (0,0) rectangle +(\frameWidth,1);
+     \draw[thick] (\frameWidth / 2, 0.5) node { Vertical Sync };
+   \end{scope}
+
+   \begin{scope}[yshift=1cm]
+     \draw[fill=none] (0,0) rectangle +(\frameWidth,1);
+     \draw[fill=none] (\frameWidth / 2, 0.5) node { Vertical Front Porch };
+   \end{scope}
+   
+   \begin{scope}[yshift=7cm]
+     \draw[fill=none] (0,0) rectangle +(\frameWidth,1);
+     \draw[thick] (\frameWidth / 2, 0.5) node { Vertical Back Porch };
+   \end{scope}
+
+   \begin{scope}[yshift=2cm]
+     \draw[fill=none] (0,0) rectangle +(1,5);
+     \draw[fill=none] (10,0) rectangle +(1,5);
+     \draw[fill=none] (11,0) rectangle +(1,5);
+
+     \draw (0.5,2.5) node[rotate=90] { Horizontal Back Porch};
+     \draw (10.5,2.5) node[rotate=90] { Horizontal Front Porch};
+     \draw (11.5,2.5) node[rotate=90] { Horizontal Sync};
+
+     \draw[heavy,fill=cfthl] (1,0) rectangle +(9,5);
+     \draw (5.5, 2.5) node { Visible RGB data };
+   \end{scope}
+
+   \draw (1,0) -- +(0,8);
+   \draw (10,0) -- +(0,8);
+   \draw (11,0) -- +(0,8);
+
+   \draw[heavy] (0,0) rectangle (\frameWidth + 1,\frameHeight);
+
+
+\end{tikzpicture}%
+%\tikzexternalenable%
+\end{document}
+
+% End of file.

@@ -1,0 +1,69 @@
+\footnotesize\centering
+
+\newcommand\mem[1]{\mbox{\bf mem}\left[#1\right]}
+\newcommand\io[1]{\mbox{\bf io}\left[#1\right]}
+\newcommand\eq{\leftarrow}
+\newcommand\rega{\mbox{\A}}
+\newcommand\regl{\mbox{\Lreg}}
+\newcommand\regpc{\mbox{\PC}}
+\newcommand\val{\mbox{\tt a}}
+\newcommand\aeq{\rega\eq}
+\newcommand\la{(\regl,\rega)}
+\newcommand\macro[1]{{\bf Macro:} {\tt #1}\mk{5}}
+
+\begin{tabular}{llcl}
+  \noalign{\smallskip}\hline\noalign{\smallskip}
+  Bit pattern (base hex)           & Mnemonic       & Cycles\mka & Notes\\
+  \noalign{\smallskip}\hline\noalign{\smallskip}
+  {\tt 0000 1 R aaaaaaaaaa (0000) } & {\tt TRAP a}   & 7/10/14 & Trap. $\mem{\mbox{\tt 0001}}\eq\regpc$; $\regpc\eq\val$ (\cf{sec-trap}) \\
+  {\tt 0001 I R aaaaaaaaaa (1000) } & {\tt IOT a}    & 8/11/15 & I/O Transaction. $\io{\val}\eq\rega$; $\aeq \io{\val}$ (\cf{sec-iot}) \\
+  {\tt 0010 I R aaaaaaaaaa (2000) } & {\tt LOAD a}   & 7/10/13 & Load. $\aeq\mem{\val}$ (\cf{sec-load}) \\
+  {\tt 0011 I R aaaaaaaaaa (3000) } & {\tt STORE a}  & 7/10/13 & Store. $\mem{\val}\eq\rega$ (\cf{sec-store}) \\
+  {\tt 0100 I R aaaaaaaaaa (4000) } & {\tt IN a}     & 6/9/12  & Input. $\aeq\io{\val}$ (\cf{sec-in}) \\
+  {\tt 0101 I R aaaaaaaaaa (5000) } & {\tt OUT a}    & 6/9/13  & Output. $\io{\val}\eq\rega$ (\cf{sec-out}) \\
+  {\tt 0110 I R aaaaaaaaaa (6000) } & {\tt JMP a}    & 4/7/11  & Jump. $\regpc\eq\val$ (\cf{sec-jmp}) \\
+  {\tt 0110 1 0 0000000000 (6400) } & {\tt RET}      & 11      & Return from subroutine. \macro{RET I R 0} \\
+  {\tt 0110 1 0 0000000001 (6401) } & {\tt RTT}      & 11      & Return from trap. \macro{RET I R 1} \\
+  {\tt 0111 I R aaaaaaaaaa (7000) } & {\tt JSR a}    & 8/11/14 & Jump to subroutine. $\mem{\mbox{\tt 0000}}\eq\regpc; \regpc\eq\val$ (\cf{sec-jsr}) \\
+  {\tt 1000 1 R aaaaaaaaaa (8000) } & {\tt ADD a}    & 7/10/14 & Add. $\aeq\rega + \mem{\val}$ (\cf{sec-add}) \\
+  {\tt 1001 I R aaaaaaaaaa (9000) } & {\tt AND a}    & 7/10/14 & Bitwise And. $\aeq\rega \,\mbox{AND}\, \mem{\val}$ (\cf{sec-and}) \\
+  {\tt 1010 I R aaaaaaaaaa (A000) } & {\tt OR a}     & 7/10/14 & Bitwise Or. $\aeq\rega \,\mbox{OR}\, \mem{\val}$ (\cf{sec-or}) \\
+  {\tt 1011 I R aaaaaaaaaa (B000) } & {\tt XOR a}    & 7/10/14 & Bitwise exclusive Or. $\aeq\rega \,\mbox{XOR}\, \mem{\val}$ (\cf{sec-xor}) \\
+  %
+  {\tt 1100 - - 0000000000 (C000) } & {\tt OP1 NOP}  & 11\mkb  & No operation. {\tt OP1} discussion:~\cf{sec-op1} \\
+  {\tt 1100 - - 1--------- (C200) } & {\tt OP1 CLA}  & 11\mkb  & Clear \A. $\aeq0$ \\
+  {\tt 1100 - - -1-------- (C100) } & {\tt OP1 CLL}  & 11\mkb  & Clear \Lreg. $\regl\eq0$ \\
+  {\tt 1100 - - --1------- (C080) } & {\tt OP1 NOT}  & 11\mkb  & Complement \A. $\aeq \,\mbox{NOT}\, \rega$ \\
+  {\tt 1100 - - ---1------ (C040) } & {\tt OP1 INC}  & 11\mkb  & Increment \A. $\la\eq\la + 1$ \\
+  {\tt 1100 - - ----1----- (C020) } & {\tt OP1 CPL}  & 11\mkb  & Complement \Lreg. $\regl\eq \,\mbox{NOT}\, \regl$ \\
+  {\tt 1100 - - -------010 (C002) } & {\tt OP1 RBL}  & 11\mkb  & Roll (\Lreg,\A) 1 bit left.\\
+  {\tt 1100 - - -------001 (C001) } & {\tt OP1 RBR}  & 11\mkb  & Roll (\Lreg,\A) 1 bit right.\\
+  {\tt 1100 - - -------110 (C006) } & {\tt OP1 RNL}  & 11\mkb  & Roll (\Lreg,\A) 4 bits left.\\
+  {\tt 1100 - - -------101 (C005) } & {\tt OP1 RNR}  & 11\mkb  & Roll (\Lreg,\A) 4 bits right.\\
+  %
+  {\tt 1100 0 0 0011000000 (C0C0) } & {\tt NEG}      & 11      & $\aeq -\rega$. Two's complement of \A. \macro{OP1 NOT INC} \\
+  {\tt 1100 0 0 0010000000 (C080) } & {\tt ING}      & 11      & $\aeq -(\rega + 1)$. One's complement of \A. \macro{OP1 NOT} \\
+  {\tt 1100 0 0 0100000010 (C102) } & {\tt SBL}      & 11\mkb  & Bitwise shift (\Lreg,\A) 1 bit left. \macro{OP1 CLL RBL} \\
+  {\tt 1100 0 0 0100000001 (C101) } & {\tt SBR}      & 11\mkb  & Bitwise shift (\Lreg,\A) 1 bit right. \macro{OP1 CLL RBR} \\
+  {\tt 1100 0 0 0100000110 (C106) } & {\tt SNL}      & 11\mkb  & Bitwise shift (\Lreg,\A) 4 bits left. \macro{OP1 CLL RNL} \\
+  {\tt 1100 0 0 0100000101 (C105) } & {\tt SNR}      & 11\mkb  & Bitwise shift (\Lreg,\A) 4 bits right. \macro{OP1 CLL RNR} \\
+  %
+  {\tt 1101 - - 0000000000 (D000) } & {\tt OP2 NOP2} & 12\mkc  & No operation. {\tt OP2} discussion:~\cf{sec-op2}\\
+  {\tt 1101 - - ------01-- (D004) } & {\tt OP2 SNA}  & 12\mkc  & G1 skip: $\rega < 0 \Longrightarrow \regpc\eq\regpc + 1$ \mkd \\
+  {\tt 1101 - - ------0-1- (D002) } & {\tt OP2 SZA}  & 12\mkc  & G1 skip: $\rega = 0 \Longrightarrow \regpc\eq\regpc + 1$ \mkd \\
+  {\tt 1101 - - ------0--1 (D001) } & {\tt OP2 SSL}  & 12\mkc  & G1 skip: $\regl = 1 \Longrightarrow \regpc\eq\regpc + 1$ \mkd \\
+  {\tt 1101 - - ------1000 (D008) } & {\tt OP2 SKIP} & 12\mkc  & G2 skip: $\regpc\eq\regpc + 1$ \mkd \\
+  {\tt 1101 - - ------11-- (D00C) } & {\tt OP2 SNN}  & 12\mkc  & G2 skip: $\rega \geq 0 \Longrightarrow \regpc\eq\regpc + 1$ \mkd \\
+  {\tt 1101 - - ------1-1- (D00A) } & {\tt OP2 SNZ}  & 12\mkc  & G2 skip: $\rega \not= 0 \Longrightarrow \regpc\eq\regpc + 1$ \mkd \\
+  {\tt 1101 - - ------1--1 (D009) } & {\tt OP2 SCL}  & 12\mkc  & G2 skip: $\regl = 0 \Longrightarrow \regpc\eq\regpc + 1$ \mkd \\
+  {\tt 1101 - - ---1------ (D040) } & {\tt OP2 CLA2} & 12\mkc  & $\aeq0$ \\
+  {\tt 1101 - - ----1----- (D020) } & {\tt OP2 CLI}  & 12\mkc  & Clear (disallow) interrupt flag. $\mbox{I}\eq 0$ \\
+  {\tt 1101 - - -----1---- (D010) } & {\tt OP2 STI}  & 12\mkc  & Set (allow) interrupt flag. $\mbox{I}\eq 1$ \\
+  %
+  {\tt 1101 0 0 0000000110 (D006) } & {\tt SNP}      & 12\mkc  & G1 Skip if \rega\ non-positive. \macro{OP2 SNA SZA} \\
+  {\tt 1101 0 0 0000001110 (D00E) } & {\tt SPA}      & 12\mkc  & G2 Skip if \rega\ positive. \macro{OP2 SNN SNZ} \\
+  %
+  {\tt 1111 - R aaaaaaaaaa (F000) } & {\tt LIA a }   & 4       & Load immediate address: $\aeq\val$ (\cf{sec-lia}) \\
+  {\tt 1111 - 0 aaaaaaaaaa (F000) } & {\tt LI a }    & 4       & Load immediate. \macro{LI R} \\
+  \noalign{\smallskip}\hline\noalign{\smallskip}
+\end{tabular}

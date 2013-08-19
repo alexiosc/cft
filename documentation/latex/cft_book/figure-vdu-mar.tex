@@ -1,0 +1,92 @@
+% -*- latex -*-
+\documentclass[class=memoir,crop=true]{standalone}
+\input{preamble}
+
+\begin{document}%
+%\tikzexternaldisable%
+\begin{tikzpicture}%
+
+   \def\frameWidth{120mm}
+   \def\frameHeight{60mm}
+
+   \def\SARx{7}
+   \def\SARy{\frameHeight-1cm}
+
+   \def\MARx{\frameWidth-2cm}
+   \def\MARy{\frameHeight-4.25cm}
+
+   \def\planebox{(0,0) rectangle (\frameWidth,\frameHeight)}
+   \def\viewport{(2,\frameHeight -1cm) rectangle +(4, -3)}
+   \def\tritick{(0,0) -- (0.1,0.15) -- (-0.1,0.15) -- cycle}
+
+   \begin{scope}
+     \clip (0,\MARy) -- +(\MARx,0) -- %
+     (\MARx,\frameHeight) -- (\frameWidth,\frameHeight) -- (\frameWidth,0) -- (0,0) --(0,\MARy);
+     \foreach \x in {-50,...,150} {
+       \begin{scope}[color=cfthl!50,thick,xshift=\x mm]
+         \draw (0,0) -- (\frameWidth,\frameWidth);
+       \end{scope}
+     }
+   \end{scope}
+     
+   \draw[step=0.25cm,color=cfthl!90] (0,0) grid (\frameWidth,\frameHeight);
+
+   % Ordinates
+   \draw(0,\frameHeight) node[above]{0};
+   \draw(0,\frameHeight) node[left]{0};
+   \draw(\frameWidth,\frameHeight) node[above]{127};
+   \draw(0,0) node[left]{511};
+
+   \draw[thick,color=cfthl] (\SARx,\frameHeight) -- +(0,-1);
+   \draw[thick,color=cfthl] (0,\SARy) -- +(\SARx,0);
+
+   \draw[thick,color=cfthl] (\MARx,\frameHeight) -- +(0,-\frameHeight);
+   \draw[thick,color=cfthl] (0,\MARy) -- +(\frameWidth,0);
+
+   \draw[fill=black,xshift=\SARx{}cm,yshift=\frameHeight+1pt]\tritick;;
+   \draw[fill=black,xshift=-1pt,yshift=\SARy,rotate=90]\tritick;;
+
+   \draw[fill=black,xshift=\MARx,yshift=\frameHeight+1pt]\tritick;;
+   \draw[fill=black,xshift=-1pt,yshift=\MARy,rotate=90]\tritick;;
+
+   \draw(\SARx,\frameHeight) node[above left] {StartAddress.x~};
+   \draw(0,\SARy) node[below right,rotate=-90] {~StartAddress.y};
+   \draw(\MARx,\frameHeight) node[above left] {MAR.x~};
+   \draw(0,\MARy) node[below right,rotate=-90] {~MAR.y};
+
+   \draw[heavy] \planebox;
+
+   \begin{scope}[xshift=\SARx{}cm,yshift=\SARy]
+     \draw[draw opacity=0, fill=cfthl!50] (0,0) rectangle +(3, -3);
+     \draw[step=0.25cm,color=cfthl!90] (0,-3) grid +(3, 3);
+
+     \draw(0,0) node[above]{0};
+     \draw(0,0) node[left]{0};
+     \draw(0,-3) node[left]{29};
+     %\draw[thick, fill=white](0,0) rectangle +(0.25,-0.25);
+     %\draw[arrow, stealth-] (0.25, -0.25cm) -- +(.5,-.5);
+     %\draw (0.75, -0.75cm) node[below right] {Start Address};
+     \draw(1.5,-1.5) node{Viewport};
+     %\draw[heavy] (0,0) rectangle +(3,-3);
+     \draw[heavy] (3,-3) -- (0,-3) -- (0,0) -- (3,0);
+     \draw[heavy,dashed] (3,0) -- (3,-3);
+
+   \end{scope}
+
+   \begin{scope}[yshift=\frameHeight - 1cm]
+     \draw[draw opacity=0, fill=cfthl!50] (0,0) rectangle +(1, -3);
+     \draw[step=0.25cm,color=cfthl!90] (0,-3) grid +(1, 3);
+
+     \draw(1,0) node[above]{79};
+     %\draw[thick, fill=white](0,0) rectangle +(0.25,-0.25);
+     %\draw[arrow, stealth-] (0.25, -0.25cm) -- +(.5,-.5);
+     %\draw (0.75, -0.75cm) node[below right] {Start Address};
+     \draw[heavy] (0,0) rectangle +(1,-3);
+   \end{scope}
+
+\end{tikzpicture}%
+%\tikzexternalenable%
+\end{document}
+
+% End of file.
+

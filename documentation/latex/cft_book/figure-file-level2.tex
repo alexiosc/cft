@@ -1,0 +1,61 @@
+% -*- latex -*-
+\documentclass[class=memoir]{standalone}
+\input{preamble}
+
+\begin{document}%
+%\tikzexternaldisable%
+\begin{tikzpicture}%
+
+\input{partial-fs}
+
+   % Grid
+   %\draw[step=0.5cm,color=cfthl!90] (0,0) grid (10,9);
+   % Descriptors
+     %\draw[step=0.5cm,color=cfthl!90] (0,0) grid (10,10);
+     \draw[thick arrow, -stealth] (3,7.6) -- (4.5,7.6);
+     \draw (1.8,7.6) node {\footnotesize From \ds{FileDesc}};
+     \begin{scope}[xshift=4.5cm, yshift=7.2cm]
+       \fileLevelIndexBlock
+     \end{scope}
+     \begin{scope}[yshift=3.7cm]
+       \fileLevelIndexBlock
+       %\draw (7,0.4) node {\Huge ...};
+       \begin{scope}[xshift=7cm]
+         \fileLevelIndexBlock
+       \end{scope}
+     \end{scope}
+
+     \draw[thick arrow, -stealth, rounded corners=4mm] (6.25, 7.2) -- +(0,-0.5) -- (0.75, 5.25) -- +(0, -0.75);
+     \draw[thick arrow, -stealth, rounded corners=4mm] (6.75, 7.2) -- +(0,-0.5) -- (7.75, 5.25) -- +(0, -0.75);
+     \draw (7.75,6.7) node {\Huge ...};
+
+     \fileLevelDataBlock{0}{0}{cfthl!50}
+     \fileLevelDataBlock{1.5cm}{0}{cfthl!25}
+     \fileLevelDataBlock{3cm}{0}{cfthl!50}
+     \draw(4.25,0.6) node{\Huge ...};
+     \fileLevelDataBlock{5.5cm}{0}{cfthl!50}
+     \draw[thick arrow, -stealth, rounded corners=4mm] (1.75, 3.7) -- +(0,-0.5) -- (0, 1.95) -- +(0, -0.75);
+     \draw[thick arrow, -stealth, rounded corners=4mm] (2.25, 3.7) -- +(0,-0.5) -- (1.5, 1.95) -- +(0, -0.75);
+     \draw[thick arrow, -stealth, rounded corners=4mm] (2.75, 3.7) -- +(0,-0.5) -- (3, 1.95) -- +(0, -0.75);
+     \draw[thick arrow, -stealth, rounded corners=4mm] (5.75, 3.7) -- +(0,-0.5) -- (5.5, 1.95) -- +(0, -0.75);
+
+     \begin{scope}[xshift=7cm]
+       \fileLevelDataBlock{0}{0}{cfthl!50}
+       \fileLevelDataBlock{1.5cm}{0}{cfthl!25}
+       \fileLevelDataBlock{3cm}{0}{cfthl!50}
+       \draw(4.25,0.6) node{\Huge ...};
+       \fileLevelDataBlock{5.5cm}{0}{cfthl!50}
+       \draw[thick arrow, -stealth, rounded corners=4mm] (1.75, 3.7) -- +(0,-0.5) -- (0, 1.95) -- +(0, -0.75);
+       \draw[thick arrow, -stealth, rounded corners=4mm] (2.25, 3.7) -- +(0,-0.5) -- (1.5, 1.95) -- +(0, -0.75);
+       \draw[thick arrow, -stealth, rounded corners=4mm] (2.75, 3.7) -- +(0,-0.5) -- (3, 1.95) -- +(0, -0.75);
+       \draw[thick arrow, -stealth, rounded corners=4mm] (5.75, 3.7) -- +(0,-0.5) -- (5.5, 1.95) -- +(0, -0.75);
+     \end{scope}
+
+
+
+\end{tikzpicture}%
+%\tikzexternalenable%
+\end{document}
+
+% End of file.
+

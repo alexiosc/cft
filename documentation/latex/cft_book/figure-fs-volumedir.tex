@@ -1,0 +1,36 @@
+% -*- latex -*-
+\documentclass[class=memoir]{standalone}
+\input{preamble}
+
+\begin{document}%
+%\tikzexternaldisable%
+\begin{tikzpicture}%
+
+\input{partial-fs}
+
+   % Grid
+   %\draw[step=0.5cm,color=cfthl!90] (0,0) grid (10,10);
+   %
+   % Gradient ‘expansion’ polygon.
+   \begin{scope}[xshift=5cm]
+     \coordinate (a) at (-2.5, 8 - 3 * 0.8 - 0 * 1.2);
+     \coordinate (b) at (-2.5, 8 - 3 * 0.8 - 1 * 1.2);
+     \coordinate (c) at (0, 8 - 8 * 0.8);
+     \draw[fill opacity=0.3, shading=axis, left color=white, right color=cfthl!75]%
+     (b) -- (a) -- (0, 8) -- (c) -- (b);
+   \end{scope}
+   %
+   % Directory left
+   \directoryBlock{VolumeDir}{\magicVolume}{\textsf{Ø} (Previous)}{Next}{\ds{VolDesc}}
+   %
+   % Volume Descriptor right.
+   \begin{scope}[xshift=5cm]
+     \volumeDescriptor
+   \end{scope}
+
+\end{tikzpicture}%
+%\tikzexternalenable%
+\end{document}
+
+% End of file.
+

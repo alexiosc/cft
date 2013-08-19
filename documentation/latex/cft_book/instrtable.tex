@@ -1,0 +1,115 @@
+% -*- latex -*-
+
+\footnotesize\centering
+
+\newcommand\rega{\mbox{\A}}
+\newcommand\regl{\mbox{\Lreg}}
+\newcommand\regv{\mbox{\Vreg}}
+\newcommand\regpc{\mbox{\PC}}
+\newcommand\val{\mbox{\ttfamily a}}
+\newcommand\aeq{\rega\eq}
+\newcommand\regleq{\regl\eq}
+\newcommand\la{(\regl,\rega)}
+\newcommand\macro[1]{{\bfseries Macro:} {\ttfamily #1}\mk{5}}
+
+
+\zebrarow{10}
+\begin{longtable}{llcP{0.42\textwidth}}
+  %
+  % First header
+  %
+  \hiderowcolors
+  Bit pattern (base hex)           & Mnemonic       & Cycles\mka & Notes\\
+  \hline
+  \noalign{\global\rownum 0\relax}\showrowcolors
+  \endfirsthead
+  %
+  % Subsequent headers
+  %
+  \hiderowcolors
+  \noalign{\smallskip\smallskip}
+  \multicolumn{4}{l}{\em Continued from previous page.}\\
+  Bit pattern (base hex)           & Mnemonic       & Cycles\mka & Notes\\
+  \hline
+  \noalign{\global\rownum 1\relax}\showrowcolors
+  \endhead
+  %
+  % Footer
+  %
+  \hiderowcolors
+  \hline
+  \noalign{\smallskip\smallskip}
+  \multicolumn{4}{l}{\em Continued on next page.}\\
+  \endfoot
+  %
+  % Last footer
+  %
+  \hiderowcolors
+  \hline
+  \endlastfoot
+  %
+  % Content
+  %
+  \showrowcolors
+
+  {\ttfamily 0000 1 R aaaaaaaaaa (0000) } & {\ttfamily TRAP a}   & 7/10/14 & Trap. $\mem{\mbox{\ttfamily 0001}}\eq\regpc$; $\regpc\eq\val$ (\barecf{sec:instruction-TRAP}) \\
+  {\ttfamily 0001 I R aaaaaaaaaa (1000) } & {\ttfamily IOT a}    & 8/11/15 & I/O Transaction. $\io{\val}\eq\rega$; $\aeq \io{\val}$ (\barecf{sec:instruction-IOT}) \\
+  {\ttfamily 0010 I R aaaaaaaaaa (2000) } & {\ttfamily LOAD a}   & 7/10/13 & Load. $\aeq\mem{\val}$ (\barecf{sec:instruction-LOAD}) \\
+  {\ttfamily 0011 I R aaaaaaaaaa (3000) } & {\ttfamily STORE a}  & 7/10/13 & Store. $\mem{\val}\eq\rega$ (\barecf{sec:instruction-STORE}) \\
+  {\ttfamily 0100 I R aaaaaaaaaa (4000) } & {\ttfamily IN a}     & 6/9/12  & Input. $\aeq\io{\val}$ (\barecf{sec:instruction-IN}) \\
+  {\ttfamily 0101 I R aaaaaaaaaa (5000) } & {\ttfamily OUT a}    & 6/9/13  & Output. $\io{\val}\eq\rega$ (\barecf{sec:instruction-OUT}) \\
+  {\ttfamily 0110 I R aaaaaaaaaa (6000) } & {\ttfamily JMP a}    & 4/7/11  & Jump. $\regpc\eq\val$ (\barecf{sec:instruction-JMP}) \\
+  {\ttfamily 0110 1 0 0000000000 (6C00) } & {\ttfamily RET}      & 11      & Return from subroutine. \macro{JMP I R 0} \\
+  {\ttfamily 0110 1 0 0000000001 (6C01) } & {\ttfamily RTT}      & 11      & Return from trap. \macro{JMP I R 1} \\
+  {\ttfamily 0111 I R aaaaaaaaaa (7000) } & {\ttfamily JSR a}    & 8/11/14 & Jump to subroutine. $\mem{\mbox{\ttfamily 0000}}\eq\regpc; \regpc\eq\val$ (\barecf{sec:instruction-JSR}) \\
+  {\ttfamily 1000 1 R aaaaaaaaaa (8000) } & {\ttfamily ADD a}    & 7/10/14 & Add. $\aeq\rega + \mem{\val}$ (\barecf{sec:instruction-ADD}) \\
+  {\ttfamily 1001 I R aaaaaaaaaa (9000) } & {\ttfamily AND a}    & 7/10/14 & Bitwise And. $\aeq\rega \,\mbox{AND}\, \mem{\val}$ (\barecf{sec:instruction-AND}) \\
+  {\ttfamily 1010 I R aaaaaaaaaa (A000) } & {\ttfamily OR a}     & 7/10/14 & Bitwise Or. $\aeq\rega \,\mbox{OR}\, \mem{\val}$ (\barecf{sec:instruction-OR}) \\
+  {\ttfamily 1011 I R aaaaaaaaaa (B000) } & {\ttfamily XOR a}    & 7/10/14 & Bitwise exclusive Or. $\aeq\rega \,\mbox{XOR}\, \mem{\val}$ (\barecf{sec:instruction-XOR}) \\
+  %
+  {\ttfamily 1100 - - 0000000000 (C000) } & {\ttfamily OP1 NOP}  & 11\mkb  & No operation. {\ttfamily OP1} discussion:~\barecf{sec:instruction-OP1} \\
+  {\ttfamily 1100 - - 1--------- (C200) } & {\ttfamily OP1 IFL}  & 11\mkb  & Execute remaining operations only if \Lreg{} set \\
+  {\ttfamily 1100 - - -1-------- (C100) } & {\ttfamily OP1 IFZ}  & 11\mkb  & Execute remaining operations only if \Vreg{} set\\
+  {\ttfamily 1100 - - --1------- (C080) } & {\ttfamily OP1 CLA}  & 11\mkb  & Clear \A. $\aeq0$ \barecf{sec:instruction-CLA2} \\
+  {\ttfamily 1100 - - ---1------ (C040) } & {\ttfamily OP1 CLL}  & 11\mkb  & Clear \Lreg. $\regl\eq0$ \\
+  {\ttfamily 1100 - - ----1----- (C020) } & {\ttfamily OP1 NOT}  & 11\mkb  & Invert/complement \A. $\aeq \,\mbox{NOT}\, \rega$ \\
+  {\ttfamily 1100 - - -----1---- (C010) } & {\ttfamily OP1 INC}  & 11\mkb  & Increment \A. $\la\eq\la + 1$ \\
+  {\ttfamily 1100 - - ------1--- (C008) } & {\ttfamily OP1 CPL}  & 11\mkb  & Complement \Lreg. $\regl\eq \,\mbox{NOT}\, \regl$ \\
+  {\ttfamily 1100 - - -------010 (C002) } & {\ttfamily OP1 RBL}  & 11\mkb  & Roll (\Lreg,\A) 1 bit left.\\
+  {\ttfamily 1100 - - -------001 (C001) } & {\ttfamily OP1 RBR}  & 11\mkb  & Roll (\Lreg,\A) 1 bit right.\\
+  {\ttfamily 1100 - - -------110 (C006) } & {\ttfamily OP1 RNL}  & 11\mkb  & Roll (\Lreg,\A) 4 bits left.\\
+  {\ttfamily 1100 - - -------101 (C005) } & {\ttfamily OP1 RNR}  & 11\mkb  & Roll (\Lreg,\A) 4 bits right.\\
+  %
+  {\ttfamily 1100 0 0 0011000000 (C030) } & {\ttfamily NEG}      & 11      & $\aeq -\rega$ (2's complement) \macro{OP1 NOT INC} \\
+  {\ttfamily 1100 0 0 0010000000 (C020) } & {\ttfamily ING}      & 11      & $\aeq -(\rega + 1)$. (1's compl.) \macro{OP1 NOT} \\
+  {\ttfamily 1100 0 0 0100000010 (C042) } & {\ttfamily SBL}      & 11\mkb  & Bitwise shift (\Lreg,\A) 1 bit left. \macro{OP1 CLL RBL} \\
+  {\ttfamily 1100 0 0 0100000001 (C041) } & {\ttfamily SBR}      & 11\mkb  & Bitwise shift (\Lreg,\A) 1 bit right. \macro{OP1 CLL RBR} \\
+  %{\ttfamily 1100 0 0 0100000110 (C046) } & {\ttfamily SNL}      & 11\mkb  & Bitwise shift (\Lreg,\A) 4 bits left. \macro{OP1 CLL RNL} \\
+  %{\ttfamily 1100 0 0 0100000101 (C045) } & {\ttfamily SNR}      & 11\mkb  & Bitwise shift (\Lreg,\A) 4 bits right. \macro{OP1 CLL RNR} \\
+  {\ttfamily 1100 0 0 0100100000 (C060) } & {\ttfamily SEL}      & 11      & $\regleq 1$. \macro{OP1 CLL CPL} \\
+  %
+  {\ttfamily 1101 - - 0000000000 (D000) } & {\ttfamily OP2 NOP2} & 12\mkc  & No operation. {\ttfamily OP2} discussion:~\barecf{sec:instruction-OP2}\\
+  {\ttfamily 1101 - - -----01--- (D008 } & {\ttfamily OP2 SNA}  & 12\mkc  & G1 skip: $\rega < 0 \Longrightarrow \regpc\eq\regpc + 1$ \mkd \\
+  {\ttfamily 1101 - - -----0-1-- (D004) } & {\ttfamily OP2 SZA}  & 12\mkc  & G1 skip: $\rega = 0 \Longrightarrow \regpc\eq\regpc + 1$ \mkd \\
+  {\ttfamily 1101 - - -----0--1- (D002) } & {\ttfamily OP2 SSL}  & 12\mkc  & G1 skip: $\regl = 1 \Longrightarrow \regpc\eq\regpc + 1$ \mkd \\
+  {\ttfamily 1101 - - -----0---1 (D001) } & {\ttfamily OP2 SSV}  & 12\mkc  & G1 skip: $\regv = 1 \Longrightarrow \regpc\eq\regpc + 1$ \mkd \\
+  {\ttfamily 1101 - - -----10000 (D010) } & {\ttfamily OP2 SKIP} & 12\mkc  & G2 skip: $\regpc\eq\regpc + 1$ \mkd \\
+  {\ttfamily 1101 - - -----11--- (D018) } & {\ttfamily OP2 SNN}  & 12\mkc  & G2 skip: $\rega \geq 0 \Longrightarrow \regpc\eq\regpc + 1$ \mkd \\
+  {\ttfamily 1101 - - -----1-1-- (D014) } & {\ttfamily OP2 SNZ}  & 12\mkc  & G2 skip: $\rega \not= 0 \Longrightarrow \regpc\eq\regpc + 1$ \mkd \\
+  {\ttfamily 1101 - - -----1--1- (D012) } & {\ttfamily OP2 SCL}  & 12\mkc  & G2 skip: $\regl = 0 \Longrightarrow \regpc\eq\regpc + 1$ \mkd \\
+  {\ttfamily 1101 - - -----1---1 (D011) } & {\ttfamily OP2 SCV}  & 12\mkc  & G2 skip: $\regv = 0 \Longrightarrow \regpc\eq\regpc + 1$ \mkd \\
+  {\ttfamily 1101 - - --1------- (C080) } & {\ttfamily OP2 CLA}  & 12\mkc  & $\aeq0$ \barecf{sec:instruction-CLA2} \\
+  {\ttfamily 1101 - - ---1------ (D040) } & {\ttfamily OP2 CLI}  & 12\mkc  & Clear (disallow) interrupt flag. $\mbox{I}\eq 0$ \\
+  {\ttfamily 1101 - - ----1----- (D020) } & {\ttfamily OP2 STI}  & 12\mkc  & Set (allow) interrupt flag. $\mbox{I}\eq 1$ \\
+  %
+  {\ttfamily 1101 0 0 0000000110 (D006) } & {\ttfamily SNP}      & 12\mkc  & G1 Skip if \rega\ non-positive. \macro{OP2 SNA SZA} \\
+  {\ttfamily 1101 0 0 0000001110 (D00E) } & {\ttfamily SPA}      & 12\mkc  & G2 Skip if \rega\ positive. \macro{OP2 SNN SNZ} \\
+  %
+  {\ttfamily 1110 I R aaaaaaaaaa (E000) } & {\ttfamily ISZ a}    & 7/10/14 & Increment memory and Skip if Zero. $\aeq\mem{\val} + 1, \mem{\val}\eq\rega, \rega = 0 \Longrightarrow \regpc\eq\regpc + 1$ (\barecf{sec:instruction-ISZ}) \\
+  %
+  {\ttfamily 1111 0 R aaaaaaaaaa (F000) } & {\ttfamily LIA a }   & 4       & Load immediate address: $\aeq\val$ (\barecf{sec:instruction-LIA}) \\
+  {\ttfamily 1111 0 0 aaaaaaaaaa (F000) } & {\ttfamily LI a }    & 4       & Load immediate. \macro{LI R} \\
+  %
+  {\ttfamily 1111 1 R aaaaaaaaaa (F800) } & {\ttfamily JMPII a } & 4       & Jump with double indirection: $\aeq\mem{\mem{\val}}$ \\
+  %\noalign{\smallskip}\hline\noalign{\smallskip}
+\end{longtable}

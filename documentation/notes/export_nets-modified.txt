@@ -1,0 +1,240 @@
+
+Board: Processor Board A
+On sheets: 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12
+Expansion bus signals: 34 (of 74)
+Other signals: 216
+
+To Processor Board B: 36 signal(s)
+    !END, !INCAC, !INCDR, !INCPC, !RAC, !RDR, !RPC, !WAC, !WAR, !WDR, !WPC,
+    FNEG, FZERO, IBUS0, IBUS1, IBUS10, IBUS11, IBUS12, IBUS13, IBUS14,
+    IBUS15, IBUS2, IBUS3, IBUS4, IBUS5, IBUS6, IBUS7, IBUS8, IBUS9, PC10,
+    PC11, PC12, PC13, PC14, PC15, RESET
+
+To Processor Board C: 28 signal(s)
+    !CLL, !CPL, !RSTHOLD, !WALU, FL, FV, IBUS0, IBUS1, IBUS10, IBUS11,
+    IBUS12, IBUS13, IBUS14, IBUS15, IBUS2, IBUS3, IBUS4, IBUS5, IBUS6,
+    IBUS7, IBUS8, IBUS9, IR0, IR2, RUNIT0, RUNIT1, RUNIT2, RUNIT3
+
+To PFP Light board: 26 signal(s)
+    IR0, IR1, IR10, IR11, IR12, IR13, IR14, IR15, IR2, IR3, IR4, IR5, IR6,
+    IR7, IR8, IR9, PC10, PC11, PC12, PC13, PC14, PC15, UCB0, UCB1, UCB2,
+    UCB3
+
+To PFP Controller: 14 signal(s)
+    !INCPC, !RAC, !RPC, !WAC, !WAR, !WDR, !WEN, !WIR, !WPC, FPCLKEN,
+    FPFAST, FPSLOW, FPUSTEP, POWEROK
+
+To DEB Board: 2 signal(s)
+    FPCLKEN, FPUSTEP
+
+To Control Bus: 48 signal(s)
+    !CLL, !CPL, !END, !INCAC, !INCDR, !INCPC, !RAC, !RDR, !RPC, !RSTHOLD,
+    !WAC, !WALU, !WAR, !WDR, !WPC, FL, FNEG, FV, FZERO, IBUS0, IBUS1,
+    IBUS10, IBUS11, IBUS12, IBUS13, IBUS14, IBUS15, IBUS2, IBUS3, IBUS4,
+    IBUS5, IBUS6, IBUS7, IBUS8, IBUS9, IR0, IR2, PC10, PC11, PC12, PC13,
+    PC14, PC15, RESET, RUNIT0, RUNIT1, RUNIT2, RUNIT3
+
+
+Board: Processor Board B
+On sheets: 13, 14, 15, 16
+Expansion bus signals: 25 (of 74)
+Other signals: 174
+To Processor Board A: 36 signal(s)
+    !END, !INCAC, !INCDR, !INCPC, !RAC, !RDR, !RPC, !WAC, !WAR, !WDR, !WPC,
+    FNEG, FZERO, IBUS0, IBUS1, IBUS10, IBUS11, IBUS12, IBUS13, IBUS14,
+    IBUS15, IBUS2, IBUS3, IBUS4, IBUS5, IBUS6, IBUS7, IBUS8, IBUS9, PC10,
+    PC11, PC12, PC13, PC14, PC15, RESET
+
+To Processor Board C: 32 signal(s)
+    AC0, AC1, AC10, AC11, AC12, AC13, AC14, AC15, AC2, AC3, AC4, AC5, AC6,
+    AC7, AC8, AC9, IBUS0, IBUS1, IBUS10, IBUS11, IBUS12, IBUS13, IBUS14,
+    IBUS15, IBUS2, IBUS3, IBUS4, IBUS5, IBUS6, IBUS7, IBUS8, IBUS9
+
+To PFP Light board: 48 signal(s)
+    AC0, AC1, AC10, AC11, AC12, AC13, AC14, AC15, AC2, AC3, AC4, AC5, AC6,
+    AC7, AC8, AC9, DR0, DR1, DR10, DR11, DR12, DR13, DR14, DR15, DR2, DR3,
+    DR4, DR5, DR6, DR7, DR8, DR9, PC0, PC1, PC10, PC11, PC12, PC13, PC14,
+    PC15, PC2, PC3, PC4, PC5, PC6, PC7, PC8, PC9
+
+To PFP Controller: 7 signal(s)
+    !INCPC, !RAC, !RPC, !WAC, !WAR, !WDR, !WPC
+
+To Control Bus: 52 signal(s)
+    !END, !INCAC, !INCDR, !INCPC, !RAC, !RDR, !RPC, !WAC, !WAR, !WDR, !WPC,
+    AC0, AC1, AC10, AC11, AC12, AC13, AC14, AC15, AC2, AC3, AC4, AC5, AC6,
+    AC7, AC8, AC9, FNEG, FZERO, IBUS0, IBUS1, IBUS10, IBUS11, IBUS12,
+    IBUS13, IBUS14, IBUS15, IBUS2, IBUS3, IBUS4, IBUS5, IBUS6, IBUS7,
+    IBUS8, IBUS9, PC10, PC11, PC12, PC13, PC14, PC15, RESET
+
+
+Board: Processor Board C
+On sheets: 17, 18, 19, 20, 21
+Expansion bus signals: 35 (of 74)
+Other signals: 144
+To Processor Board A: 28 signal(s)
+    !CLL, !CPL, !RSTHOLD, !WALU, FL, FV, IBUS0, IBUS1, IBUS10, IBUS11,
+    IBUS12, IBUS13, IBUS14, IBUS15, IBUS2, IBUS3, IBUS4, IBUS5, IBUS6,
+    IBUS7, IBUS8, IBUS9, IR0, IR2, RUNIT0, RUNIT1, RUNIT2, RUNIT3
+
+To Processor Board B: 32 signal(s)
+    AC0, AC1, AC10, AC11, AC12, AC13, AC14, AC15, AC2, AC3, AC4, AC5, AC6,
+    AC7, AC8, AC9, IBUS0, IBUS1, IBUS10, IBUS11, IBUS12, IBUS13, IBUS14,
+    IBUS15, IBUS2, IBUS3, IBUS4, IBUS5, IBUS6, IBUS7, IBUS8, IBUS9
+
+To PFP Light board: 27 signal(s)
+    AC0, AC1, AC10, AC11, AC12, AC13, AC14, AC15, AC2, AC3, AC4, AC5, AC6,
+    AC7, AC8, AC9, BANK0, BANK1, BANK2, BANK3, BANK4, BANK5, BANK6, BANK7,
+    BANKING, IR0, IR2
+
+To Control Bus: 44 signal(s)
+    !CLL, !CPL, !RSTHOLD, !WALU, AC0, AC1, AC10, AC11, AC12, AC13, AC14,
+    AC15, AC2, AC3, AC4, AC5, AC6, AC7, AC8, AC9, FL, FV, IBUS0, IBUS1,
+    IBUS10, IBUS11, IBUS12, IBUS13, IBUS14, IBUS15, IBUS2, IBUS3, IBUS4,
+    IBUS5, IBUS6, IBUS7, IBUS8, IBUS9, IR0, IR2, RUNIT0, RUNIT1, RUNIT2,
+    RUNIT3
+
+
+Board: INT Board
+On sheets: 22
+Expansion bus signals: 27 (of 74)
+Other signals: 58
+
+Board: MEM Board
+On sheets: 24
+Expansion bus signals: 42 (of 74)
+Other signals: 15
+
+Board: TTY Board
+On sheets: 25
+Expansion bus signals: 31 (of 74)
+Other signals: 90
+
+Board: IDE Board
+On sheets: 26
+Expansion bus signals: 34 (of 74)
+Other signals: 32
+
+Board: CTN Board
+On sheets: 27
+Expansion bus signals: 34 (of 74)
+Other signals: 52
+
+Board: ETH Board
+On sheets: 28
+Expansion bus signals: 26 (of 74)
+Other signals: 23
+
+Board: KBD Board
+On sheets: 29
+Expansion bus signals: 34 (of 74)
+Other signals: 26
+
+Board: SND Board
+On sheets: 30, 31
+Expansion bus signals: 40 (of 74)
+Other signals: 109
+
+Board: PFP Light board
+On sheets: 32, 38
+Expansion bus signals: 2 (of 74)
+Other signals: 311
+To Processor Board A: 26 signal(s)
+    IR0, IR1, IR10, IR11, IR12, IR13, IR14, IR15, IR2, IR3, IR4, IR5, IR6,
+    IR7, IR8, IR9, PC10, PC11, PC12, PC13, PC14, PC15, UCB0, UCB1, UCB2,
+    UCB3
+
+To Processor Board B: 48 signal(s)
+    AC0, AC1, AC10, AC11, AC12, AC13, AC14, AC15, AC2, AC3, AC4, AC5, AC6,
+    AC7, AC8, AC9, DR0, DR1, DR10, DR11, DR12, DR13, DR14, DR15, DR2, DR3,
+    DR4, DR5, DR6, DR7, DR8, DR9, PC0, PC1, PC10, PC11, PC12, PC13, PC14,
+    PC15, PC2, PC3, PC4, PC5, PC6, PC7, PC8, PC9
+
+To Processor Board C: 27 signal(s)
+    AC0, AC1, AC10, AC11, AC12, AC13, AC14, AC15, AC2, AC3, AC4, AC5, AC6,
+    AC7, AC8, AC9, BANK0, BANK1, BANK2, BANK3, BANK4, BANK5, BANK6, BANK7,
+    BANKING, IR0, IR2
+
+To PFP Switch board: 1 signal(s)
+    !SWLEDSON
+
+To PFP Controller: 3 signal(s)
+    FPFETCH, FPRUN, FPSTOP
+
+To Control Bus: 77 signal(s)
+    AC0, AC1, AC10, AC11, AC12, AC13, AC14, AC15, AC2, AC3, AC4, AC5, AC6,
+    AC7, AC8, AC9, BANK0, BANK1, BANK2, BANK3, BANK4, BANK5, BANK6, BANK7,
+    BANKING, DR0, DR1, DR10, DR11, DR12, DR13, DR14, DR15, DR2, DR3, DR4,
+    DR5, DR6, DR7, DR8, DR9, IR0, IR1, IR10, IR11, IR12, IR13, IR14, IR15,
+    IR2, IR3, IR4, IR5, IR6, IR7, IR8, IR9, PC0, PC1, PC10, PC11, PC12,
+    PC13, PC14, PC15, PC2, PC3, PC4, PC5, PC6, PC7, PC8, PC9, UCB0, UCB1,
+    UCB2, UCB3
+
+
+Board: PFP Switch board
+On sheets: 33
+Expansion bus signals: 1 (of 74)
+Other signals: 79
+To PFP Light board: 1 signal(s)
+    !SWLEDSON
+
+To PFP Controller: 2 signal(s)
+    !FPLOCK, !SAFE
+
+
+Board: PFP Controller
+On sheets: 34, 35, 41, 42, 43
+Expansion bus signals: 33 (of 74)
+Other signals: 153
+To Processor Board A: 14 signal(s)
+    !INCPC, !RAC, !RPC, !WAC, !WAR, !WDR, !WEN, !WIR, !WPC, FPCLKEN,
+    FPFAST, FPSLOW, FPUSTEP, POWEROK
+
+To Processor Board B: 7 signal(s)
+    !INCPC, !RAC, !RPC, !WAC, !WAR, !WDR, !WPC
+
+To PFP Light board: 3 signal(s)
+    FPFETCH, FPRUN, FPSTOP
+
+To PFP Switch board: 2 signal(s)
+    !FPLOCK, !SAFE
+
+To DEB Board: 2 signal(s)
+    FPCLKEN, FPUSTEP
+
+To Control Bus: 14 signal(s)
+    !INCPC, !RAC, !RPC, !WAC, !WAR, !WDR, !WEN, !WIR, !WPC, FPCLKEN,
+    FPFAST, FPSLOW, FPUSTEP, POWEROK
+
+
+Board: DEB Board
+On sheets: 45
+Expansion bus signals: 73 (of 74)
+Other signals: 47
+To Processor Board A: 2 signal(s)
+    FPCLKEN, FPUSTEP
+
+To PFP Controller: 2 signal(s)
+    FPCLKEN, FPUSTEP
+
+To Control Bus: 2 signal(s)
+    FPCLKEN, FPUSTEP
+
+-------------------------------------------------------------------------------
+
+Expansion bus (backplane) signals: 74
+    !ENDEXT, !HALT, !IO, !IODEV1XX, !IODEV2XX, !IODEV3XX, !IRQ, !IRQ0,
+    !IRQ1, !IRQ2, !IRQ3, !IRQ4, !IRQ5, !IRQ6, !IRQ7, !IRQS, !MEM, !R,
+    !RESET, !SKIPEXT, !SYSDEV, !T34, !W, !WS, *TPA, *TPC, +12V, +3.3V, AB0,
+    AB1, AB10, AB11, AB12, AB13, AB14, AB15, AB2, AB3, AB4, AB5, AB6, AB7,
+    AB8, AB9, AEXT0, AEXT1, AEXT2, AEXT3, AEXT4, AEXT5, AEXT6, AEXT7, CLK1,
+    CLK2, CLK3, CLK4, DB0, DB1, DB10, DB11, DB12, DB13, DB14, DB15, DB2,
+    DB3, DB4, DB5, DB6, DB7, DB8, DB9, GND, VCC
+
+Control bus signals: 64
+    ***!CLL, ***!CPL, ***!END, ***!INCAC, ***!INCDR, ***!INCPC,
+    !RAC, !RDR, !RPC, !RSTHOLD,
+    !WAC, !WALU, !WAR, !WDR, !WPC, AC0, AC1, AC10, AC11, AC12, AC13, AC14,
+    AC15, AC2, AC3, AC4, AC5, AC6, AC7, AC8, AC9, FL, FNEG, FV, FZERO,
+    IBUS0, IBUS1, IBUS10, IBUS11, IBUS12, IBUS13, IBUS14, IBUS15, IBUS2,
+    IBUS3, IBUS4, IBUS5, IBUS6, IBUS7, IBUS8, IBUS9, IR0, IR2, PC10, PC11,
+    PC12, PC13, PC14, PC15, RESET, ***RUNIT0, ***RUNIT1, ***RUNIT2, ***RUNIT3

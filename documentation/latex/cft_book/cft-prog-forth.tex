@@ -1,0 +1,363 @@
+% Forth documentation
+
+\chapter{Introduction}
+
+CFT contains a small implementation of Forth in 16 kWords of ROM,
+known as the ROM Forth. This forms the basis of more complex, extended
+versions of the language. As is traditional with Forth systems, the
+operating system is part of the language, and one extension provides a
+shell-like user interface to the operating system without leaving the
+Forth interpeter.
+
+In many ways, this is similar to various architectures out there,
+including Sun workstations and servers, pre-Intel Apple iMacs, and the
+OLPC laptop, all of which contain Open Firmware: an implementation of
+Forth that knows enough about the hardware to open a filesystem, read
+a file from it, and execute it.
+
+The main difference is that the CFT's ROM Forth {\em is\/} the
+operating system, and booting from disk simply loads extensions to
+it. In {\em this\/} way, ROM Forth is very much like the ROM BASICs of
+home computers in the Eighties. Even with a disk system, the ROM
+language remains in operation, it simply acquires various extensions.
+
+\section{Why Forth}
+
+A common question is ‘why Forth? Why not a simple boot loader and a
+more modern operating system?’. Here are some answers.
+
+\begin{itemize}
+\item Development speed. It's easy\footnote{More or less} to write a
+  Forth system, and the basic system provides a powerful interface
+  that can be built upon. In comparison, if a boot manager were to be
+  written, and then a boot loader, and then an operating system, there
+  would be an immense amount of code duplication. While this is common
+  on modern PCs, it has little practical use.
+
+\item Simplicity.
+
+\item A tokeniser, parser, shell, compiler, assembler and editor come
+  with the core language.
+
+\item The Forth system is {\em very\/} compact. All of Forth 83 can fit in
+  approximately 8kW of ROM. Over 400 Forth words and most of the
+  operating system can fit in 12 kW.
+
+\item A full programming environment in ROM makes it easier to rescue
+  the system, and allows it to be built incrementally: even without a
+  disk interface, it's possible to use the language and diagnose
+  problems.
+
+\item I like Forth.
+
+\end{itemize}
+
+\section{Terminology Differences: Words and Cells}
+
+Forth introduces a major terminology issue. It uses the term ‘word’ to denote
+any Forth identifier: a series of characters that identify a particular piece
+of code to run. In other languages, this would be a function, procedure,
+subroutine, method, or something similar. In Forth, it's ‘word’.
+
+The CFT, however, is a word-oriented machine. In this sense (and in the sense
+employed by computer science at large), ‘word’ denotes the minimum amount of
+data the CFT can operate on (a 16-bit value). The Forth term for this is
+‘cell’.
+
+To resolve this issue:
+
+\begin{itemize}
+\item In chapters discussing Forth, ‘word’ is used in the Forth sense: a token
+  or the subroutine identified by that token.
+\item ‘Cell’ is used to denote a 16-bit value, the minimum amount of data the
+  computer can operate on.
+\item ‘Machine word’ is sometimes used to denote the same concept, when some
+  hardware-level matters are discussed.
+\item ‘Forth word’ may also be used to disambiguate as necessary.
+\end{itemize}
+
+\section{Learning Forth}
+
+A Forth tutorial is well beyond the scope of this document. There are numerous
+sources of Forth documentation and tutorials online. Perhaps the standard such
+text is by {\em Starting FORTH\/} by Leo Brodie, once available in print, but
+now available online. It can be found at:
+
+\begin{center}
+  \url{http://www.forth.com/starting-forth/}
+\end{center}
+
+\section{Forth in a Nutshell}
+
+This represents a tiny introduction to the language.
+
+Forth works interactively. CFT Forth normally issues a \cftout{Ready} prompt
+after initialisation or errors, and an \cftout{ok} prompt at the end of every
+line it understood, {\em on the same line}.
+
+This last fact represents a cultural shock for many programmers who are used to
+the \cftkbd{Enter} key producing an immediate line feed. In Forth, it's the end
+of the \cftout{ok} prompt that does this. To help distinguish between user
+input and machine output, the part the user types is shown $\lstfkbd{like this}$:
+
+\begin{lstlisting}[mathescape=true,numbers=none]
+Ready
+$\lstfkbd{1 1 + 1+ .}$  3 ok
+$\lstfkbd{FOO}$  FOO  ? Ready
+\end{lstlisting}
+
+\noindent Forth interprets user input by splitting it up into tokens separated
+by one or more spaces, tabs or newlines. A token may be one of only
+three things:
+
+\begin{enumerate}
+\item A valid Forth word, which is executed. Forth words may contain
+  any non-whitespace characters, including digits, punctuation and
+  characters that other languages consider invalid. Addition (\fw{+})
+  is a valid Forth word. So is \fw{1+} (increment by one).
+\item A number, which is pushed onto the \gls{data stack}.
+\item An unknown word, which causes an error.
+\end{enumerate}
+
+The average programmer coming from other languages has a ‘is this all?’ moment
+reading about Forth because they expect the discussion on grammar and syntax —
+it never comes. The only thing to know is: there are numbers, there are words,
+and there is white space. A little bit of grammar is introduced as a
+side-effect of the way some words work. This will be covered as needed.
+
+\subsection{Stacks}
+
+Forth relies almost exclusively on {\em stacks}. A stack is a last-in first-out
+(LIFO) data structure which contains a number of values, and implements (in its
+simplest form) a mere two operations: a value can be {\em pushed\/} on top of
+the stack, and a value can be {\em popped\/} from the top of the stack.
+
+This is identical to the way a stack of, say, plates works. The first plate to
+go on the stack is the last to come off it.
+
+Forth has two stacks: the data stack and the return stack. All numbers
+encountered by the Forth interpreter are immediately pushed on the data
+stack. Most other words work by popping values off the stack, operating on
+them, and possibly pushing the result back onto the stack. The Forth data stack
+contains 16-bit values. The interpretation of these values is left to
+individual Forth words.
+
+The return stack, which is used internally, keeps track of return addresses, so
+words can call each other hierarchically. This allows immense Forth
+applications to be built by defining new Forth words in terms of other, simpler
+Forth words.
+
+\subsection{Calculations}
+
+Because Forth is stack based, all calculations are in the space and time saving
+{\em\gls{postfix}} notation:
+
+\begin{lstlisting}[mathescape=true,numbers=none]
+$\lstfkbd{10 20 + 3 * 11 /}$
+\end{lstlisting}
+
+\noindent evaluates the expression $((10 + 20) \times 3) / 11$. This is how it
+works:
+
+\begin{enumerate}
+\item Push 10 onto the stack. The stack now contains: \cftout{10}.
+\item Push 20 onto the stack. The stack now contains: \cftout{20 10}.
+\item Run the \fw{+} word, which pops two values off the stack, and pushes
+  their sum onto it. \fw{+} pushes 30 back onto the stack. The stack now
+  contains: \cftout{30}.
+\item Push 3 onto the stack. The stack now contains: \cftout{3 30}.
+\item Run the \fw{*} word, which pops two values off the top of the stack, and
+  pushes their product. At the end of this word, the stack contains:
+  \cftout{90}.
+\item Push 11 onto the stack. The stack now contains: \cftout{11 90}.
+\item Run the \fw{/} word which divides the second topmost item on the stack by
+  the topmost one. \fw{/} is an integer division, so it pushes back 8. The
+  stack finally contains \cftout{8}, which is the result.
+\end{enumerate}
+
+A full tutorial on postfix notation\footnote{also known as Reverse Polish
+  Notation, in an allusion to {\em prefix\/} or Polish Notation, invented by
+  Polish logician Jan Łukasiewicz in the 1920s.} is beyond the scope of this
+chapter. {\em Starting Forth\/} provides a gentle introduction for people who
+have never seen it before. An understanding of how postfix works is fundamental
+to understanting Forth.
+
+One benefit of postfix is it has almost no syntax. There are no rules of
+operator precedence, either. With the exception of some delimiter for numbers
+and operators (Forth uses white space), this makes postfix grammar-less. This
+property extends to Forth, making it simple to learn.
+
+\subsection{Stack Operations}
+
+Like all stack-based languages, Forth has a great wealth of words that modify
+the stack. The absolute essential ones are \fw{DUP}, which duplicates the top
+item on the stack; \fw{DROP}, which discards the top item on the stack; and
+\fw{SWAP}, which swaps the two topmost items on the stack.
+
+The word \fw{.} (dot) pops a number off the stack and prints it out. Finally,
+the word \fw{.s} (dot-stack) prints out the stack left-to-right, starting with
+its top-most item.
+
+\begin{lstlisting}[mathescape=true,numbers=none]
+$\lstfkbd{1 1 + .}$  2 ok
+$\lstfkbd{10 20 +3 * 11 / .}$  8 ok
+$\lstfkbd{10 DUP .s}$  10 10 ok
+$\lstfkbd{10 20 .s}$  10 20 ok
+$\lstfkbd{10 20 SWAP .s}$  20 10 ok
+$\lstfkbd{10 20 drop .s}$  10 ok
+\end{lstlisting}
+
+
+\subsection{Errors}
+
+Exceptions are raised (and may be caught by advanced programmers) in a number
+of cases. The most obvious ones are when a token is neither a word nor a valid
+number:
+
+\begin{lstlisting}[mathescape=true,numbers=none]
+$\lstfkbd{foobar}$ FOOBAR  ? Ready
+\end{lstlisting}
+
+\noindent Another one seen a lot is \cftout{stack underflow ?}, which occurs when an item
+is popped from an empty stack.
+
+Errors clear the stacks, so that a common Forth idiom to clear the stack is to
+execute purposefully the non-existent word \fw{X}. This issues an error and
+clears the stack. The same can be done using the extant word \fw{QUIT}, which
+re-initialises the Forth interpreter.
+
+
+\subsection{Comments}
+
+Comments may be enclosed in \cftin{(\space}$\dots$\cftin{\space)}. The space
+after the open parenthesis is part of the syntax and is not optional:
+
+\begin{lstlisting}[mathescape=true,numbers=none]
+$\lstfkbd{( this is a comment )}$
+$\lstfkbd{\textbackslash{} this is also a comment}$
+$\lstfkbd{(this is not a comment)}$  (THIS  ? Ready.
+$\lstfkbd{\textbackslash{}neither is this.}$  \NEITHER  ? Ready.
+\end{lstlisting}
+
+\noindent This is because both \fw{(} and \fw{\textbackslash} are simple Forth words that
+read input and ignore it up to the closing parenthesis and the end of the line
+respectively.
+
+This provides a first glimpse into the ability of Forth to add custom grammar
+as necessary. In fact, Forth words may also redefine or extend the parser
+algorithm, the interpreter, and even the compiler.
+
+\subsection{Defining words}
+
+New words may be defined by the \fw{:} word using the \cftin{: NEW-WORD ... ;} syntax:
+
+\begin{lstlisting}[mathescape=true,numbers=none]
+$\lstfkbd{: HELLO ." Hello, world!" ;}$ ok
+\end{lstlisting}
+
+\noindent The word \fw{HELLO} is then added to the dictionary and can subsequently be
+executed:
+
+\begin{lstlisting}[mathescape=true,numbers=none]
+$\lstfkbd{HELLO}$ Hello, world! ok
+\end{lstlisting}
+
+\noindent It is standard practice to include two things as part of a Forth definition:
+the \gls{stack effect comment}, and a brief comment that explains what the word does. 
+
+\begin{lstlisting}[mathescape=true,numbers=none]
+$\lstfkbd{: HELLO ( -- ) \textbackslash{} Say hello}$  compiled
+$  \lstfkbd{." Hello, world!" ;}$  ok
+\end{lstlisting}
+
+\noindent The stack effect comment shows what values the word expect to find on the
+stack, and what values it leaves on the stack. The two are conventionally
+separated by a \texttt{--}. For example, a definition of a \fw{POLYNOMIAL} word to
+calculate $x^2 + a$ would be:
+
+\begin{lstlisting}[mathescape=true,numbers=none]
+: $\lstfkbd{POLYNOMIAL ( n1 n2 -- n ) \textbackslash{} Calculate n1*n1 + n2}$  compiled
+  $\lstfkbd{SWAP DUP * + ;}$  ok
+\end{lstlisting}
+
+\noindent The first line of the definition forms a simple means of self-documenting Forth
+programs and is similar to docstrings in more recent languages (or Lisp).
+
+The \fw{:} word prepares for a new word definition and switches from the Forth
+interpreter to the Forth compiler. The compiler works just like the
+interpreter, but instead of pushing numbers onto the stack and executing words,
+it adds numbers and words to the word definition. When \cftkbd{Enter} is
+pressed while Forth is in compilation mode, \cftout{compiled} is printed. At
+the end of the definition, the \fw{;} word completes the definition of the
+newly created word, and switches back to the interpreter. As is its habit, the
+interpreter acknowledges the end of its input with the familiar \cftout{ok}.
+
+The \cftout{compiled} and \cftout{ok} prompts are useful to include when
+showing Forth interaction, but they are not shown when Forth {\em programs\/}
+are listed. The small program above would be listed as:
+
+\begin{lstlisting}[style=forthprogram]
+: POLYNOMIAL ( n1 n2 -- n ) \ Calculate n1*n1 + n2
+  SWAP DUP * + ;
+\end{lstlisting}
+
+\section{Differences Between ROM Forth and Forth 83}
+
+\begin{itemize}
+  \item The main language vocabulary is named \fw{ROM.FORTH}, not
+    \fw{FORTH}. A Forth word \fw{FORTH} is provided that adds all
+    necessary vocabularies to the search order. Disk-based Forth
+    extensions are expected to redefine this word so that execution
+    places \fw{ROM.FORTH} and all additional extension vocabularies on
+    the vocabulary stack.
+  \item Uses null-terminated bit-packed strings for the dictionary
+    instead of counted character-per-cell strings.
+  \item There is a limit on the number of defining words that use
+    \fw{DOES>}.
+\end{itemize}
+
+\chapter{Reference}
+
+This chapter provides a reference of Forth words defined. It is
+generated automatically from the Forth source code, and as such, may
+contain typesetting errors.\footnote{Which are being corrected.}
+
+\section{List of available Forth Words}
+
+%This is a complete list of defined Forth words. Its value as a
+%reference tool is limited unless the online version of the manual is
+%used.
+
+\input{../generated/forth-words}
+
+\section{Word Reference}
+
+\newcommand\forthvocabulary[1]{\subsection{#1 Vocabulary}}
+\newcommand\forthword[1]{}
+\newcommand\forthalias[1]{\def\xforthalias{#1}}
+\newcommand\forthflags[1]{}
+\newcommand\forthdoc[3]{
+  \pagebreak[3]
+  \par\noindent{{\ttfamily\textbf{#1}}}%
+  \hspace{0.5em} {\ttfamily{#2}}%
+  \ifthenelse{\equal{#1}{\xforthalias}}{%
+    \index{#1@\protect\fwni{#1}|(pie}%
+    %\subsubsection{#1}%
+  }{%
+    %\subsubsection{#1 (\xforthalias)}%
+    \index{\xforthalias@\fwni{\xforthalias}|(pie}%
+    \hfill(\xforthalias)%
+  }\vspace{0.5ex}%
+  \\
+  \noindent #3
+}
+\newcommand\forthcode[1]{
+
+\noindent Defined as:
+#1
+}
+\newcommand\forthenddef{\vspace{2ex}}
+
+\input{../generated/forth-doc}
+
+% End of file.

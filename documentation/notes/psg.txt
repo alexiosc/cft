@@ -1,0 +1,44 @@
+AUDIO NOTES
+
+AUDIO FILE FORMAT
+
+Parse output of .AY file.
+
+Convert so:
+  (reg 0, reg1) = frequency A
+  (reg 2, reg3) = frequency B
+  (reg 4, reg5) = frequency C
+
+Stream format:
+
+  A packed bitstream of opcodes and data.
+ 
+  Data is encoded in frames. Each frame configures registers. There is
+  a delay of 50ms between frames. There may be empty frames.
+
+Instruction format
+
+* 1 Nybble per opcode
+* 0-12 bits parameter
+
+Code Bits Semantics
+-------------------------------------------------------------------------------
+0000   0 End of frame (end of frame ← 0)
+0001   4 Set reg (r ← x)
+0010   0 Clear reg (regs[r++] ← 0)
+0011   4 Reg write 4b (regs[r++] ← x)
+0100   8 Tone reg write from freq table (regs[r++] ← notes[x] & 0xff,
+            regs[r++] ← (notes[x] >> 8))
+0101   4 Tone reg write from last played tones (regs[r++] ← cache[x] & 0xff,
+            regs[r++] ← (cache[x] >> 8))
+0110   8 Reg write 8b (regs[r++] ← x)
+0111  12 Tone reg write 12b (regs[r++] ← x & 0xff, regs[r++] ← (x >> 8))
+1000   4 Wait x+1 frames (NOP for x+1 frames; r ← 0)
+1001     ** RESERVED
+1010     ** RESERVED
+1011     ** RESERVED
+1100     ** RESERVED
+1101     ** RESERVED
+1110     ** RESERVED
+1111   0 End of file
+

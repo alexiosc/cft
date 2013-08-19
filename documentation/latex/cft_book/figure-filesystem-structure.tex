@@ -1,0 +1,45 @@
+% -*- latex -*-
+\documentclass[class=memoir]{standalone}
+\input{preamble}
+
+\begin{document}%
+%\tikzexternaldisable%
+\begin{tikzpicture}%
+
+\input{partial-fs}
+
+   %\draw[step=0.5cm,color=cfthl!90] (0,0) grid (10,10);
+   %
+   \begin{scope}[yshift=6.5cm]
+     \draw[fill=cfthl!25](0,0) rectangle (5,1.5);
+     \draw(2.5,0.75)node {Boot blocks};
+     \draw(0,1.5) node[left] {\scriptsize Block 0};
+     \draw(5,1.5) node[right] {\scriptsize\color{white} Block 0};
+   \end{scope}
+   %
+   \begin{scope}[yshift=5.5cm]
+     \draw[fill=cfthl!50](0,0) rectangle (5,1);
+     \draw(2.5,0.5)node {Volume Directory};
+     \draw(0,1) node[left] {\scriptsize Block 2};
+   \end{scope}
+   %
+   \begin{scope}[yshift=4cm]
+     \draw[fill=cfthl!25](0,0) rectangle (5,1.5);
+     \draw(2.5,0.75)node {Bitmap};
+     \draw(0,1.5) node[left] {\scriptsize Block 3};
+   \end{scope}
+   %
+   \begin{scope}
+     \draw[fill=white, shading=axis, top color=cfthl!50, bottom color=white](0,0) rectangle (5,4);
+     \draw(2.5,2)node {Free space};
+   \end{scope}
+
+   %\draw(3,2.25)node [rotate=90] {\Huge ...};
+   \draw[heavy, fill=none](0,0) rectangle (5,8);
+
+\end{tikzpicture}%
+%\tikzexternalenable%
+\end{document}
+
+% End of file.
+

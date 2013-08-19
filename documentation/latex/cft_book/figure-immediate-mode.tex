@@ -1,0 +1,37 @@
+% -*- latex -*-
+\documentclass[class=memoir]{standalone}
+\input{preamble}
+
+\begin{document}%
+%\tikzexternaldisable%
+\begin{tikzpicture}%
+
+  \input{partial-addressing-modes}
+
+  % The IR
+  \AddressingModeIR{0}{1}
+
+  % Six bits of zeroes.
+  \begin{scope}[,yshift=-1.5cm]
+    \SixBitsOfZeroes
+  \end{scope}
+
+  % The Accumulator.
+
+  \begin{scope}[,yshift=-3cm]
+    \TargetRegisterPageZero{Literal \hex{000}–\hex{3FF}}{right}{\AC}
+  \end{scope}
+
+  % The arrows
+  \foreach \x in {0.25, 0.75, ..., 2.75} {
+    \draw[arrow, -stealth] (\x, -1.5) -- (\x, -2.4);
+  }
+  \foreach \x in {3.25, 3.75, ..., 7.75} {
+    \draw[arrow, -stealth] (\x, 0) -- (\x, -2.4);
+  }
+    
+\end{tikzpicture}%
+%\tikzexternalenable%
+\end{document}
+
+% End of file.

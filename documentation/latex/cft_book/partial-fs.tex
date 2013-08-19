@@ -1,0 +1,226 @@
+% -*- latex -*-
+
+% Common definitions for Filesystem-related figures
+
+%\input{partial-fs-magic}
+
+% TikZ definitions
+\newcommand\directoryBlock[5]{%
+   %
+   \begin{scope}[yshift=8cm - 1 * 0.8cm]
+     \draw[fill=cfthl!50](0,0) rectangle (2.5,0.8);
+     \draw(1.25,0.65)node[anchor=north] {Magic (\hex{#2})};
+   \end{scope}
+   %
+   \begin{scope}[yshift=8cm - 2 * 0.8cm]
+     \draw[fill=cfthl!25](0,0) rectangle (2.5,0.8);
+     \draw(1.25,0.65)node[anchor=north] {#3};
+   \end{scope}
+   %
+   \begin{scope}[yshift=8cm - 3 * 0.8cm]
+     \draw[fill=cfthl!25](0,0) rectangle (2.5,0.8);
+     \draw(1.25,0.65)node[anchor=north] {#4};
+   \end{scope}
+   %
+   \begin{scope}[yshift=8cm - 3 * 0.8cm - 1 * 1.2cm]
+     \draw[fill=cfthl!50](0,0) rectangle (2.5,1.2);
+     \draw(1.25,0.85)node[anchor=north] {#5};
+   \end{scope}
+   %
+   \begin{scope}[yshift=8cm - 3 * 0.8cm - 2 * 1.2cm]
+     \draw[fill=cfthl!50](0,0) rectangle (2.5,1.2);
+     \draw(1.25,0.85)node[anchor=north] {\ds{Descriptor}};
+   \end{scope}
+   %
+   \begin{scope}[yshift=8cm - 3 * 0.8cm - 3 * 1.2cm - 0.8cm]
+     \draw[shading=axis, top color=cfthl!25, bottom color=white](0,0) rectangle (2.5,2);
+     \draw(1.25,1)node[rotate=90] {\Huge ...};
+   \end{scope}
+   %
+   \begin{scope}%[yshift=8cm - 3 * 0.8cm - 2 * 1.2cm]
+     \draw[fill=cfthl!50](0,0) rectangle (2.5,1.2);
+     \draw(1.25,0.85)node[anchor=north] {\ds{Descriptor}};
+   \end{scope}
+   %\draw(2.5,2.25)node [rotate=90] {\Huge ...};
+   \draw[heavy, fill=none](0,0) rectangle (2.5,8);
+   \draw(1.25,8.6) node[anchor=north] {\ds{#1}};
+}
+\newcommand\directoryEntryTop[2]{%
+  \draw(1.25,8.6) node[anchor=north] {\ds{#1}};
+  %
+  \begin{scope}[yshift=8cm - 1 * 0.8cm]
+    \draw[fill=cfthl!50](0,0) rectangle (2.5,0.8);
+    \draw(1.25,0.65)node[anchor=north] {Magic (#2)};
+  \end{scope}
+  %
+  \begin{scope}[yshift=8cm - 2 * 0.8cm]
+    \draw[fill=cfthl!25](0,0) rectangle (2.5,0.8);
+    \draw(1.25,0.65)node[anchor=north] {Name};
+  \end{scope}
+  %
+  \begin{scope}[yshift=8cm - 3 * 0.8cm]
+    \draw[fill=cfthl!50](0,0) rectangle (2.5,0.8);
+    \draw(1.25,0.65)node[anchor=north] {Flags};
+  \end{scope}
+  %
+  \begin{scope}[yshift=8cm - 4 * 0.8cm]
+    \draw[fill=cfthl!25](0,0) rectangle (2.5,0.8);
+    \draw(1.25,0.65)node[anchor=north] {Created on};
+    \draw[heavy, fill=none](0,0) -- (2.5,0);
+  \end{scope}
+}
+\newcommand\volumeDescriptor{%
+  \coordinate (c) at (0, 8 - 8 * 0.8);
+  %
+  \directoryEntryTop{VolDesc}{\magicVolDesc}
+  %
+  \begin{scope}[yshift=8cm - 5 * 0.8cm]
+    \draw[fill=cfthl!50](0,0) rectangle (2.5,0.8);
+    \draw(1.25,0.65)node[anchor=north] {File Count};
+  \end{scope}
+  %
+  \begin{scope}[yshift=8cm - 6 * 0.8cm]
+    \draw[fill=cfthl!25](0,0) rectangle (2.5,0.8);
+    \draw(1.25,0.65)node[anchor=north] {Total blocks};
+  \end{scope}
+  %
+  \begin{scope}[yshift=8cm - 7 * 0.8cm]
+    \draw[fill=cfthl!50](0,0) rectangle (2.5,0.8);
+    \draw(1.25,0.65)node[anchor=north] {Free blocks};
+  \end{scope}
+  %
+  \begin{scope}[yshift=8cm - 8 * 0.8cm]
+    \draw[fill=cfthl!25](0,0) rectangle (2.5,0.8);
+    \draw(1.25,0.65)node[anchor=north] {Start of Bitmap};
+  \end{scope}
+  %
+  %
+  %
+  \draw[heavy, fill=none](c) rectangle (2.5,8);
+  \begin{scope}[yshift=8cm - 4 * 0.8cm]
+    \draw[heavy, fill=none](0,0) -- (2.5,0);
+  \end{scope}
+}
+\newcommand\directoryDescriptor{%
+  \coordinate (c) at (0, 8 - 7 * 0.8);
+  \directoryEntryTop{DirDesc}{\magicDirDesc}
+  %
+  \begin{scope}[yshift=8cm - 5 * 0.8cm]
+    \draw[fill=cfthl!50](0,0) rectangle (2.5,0.8);
+    \draw(1.25,0.65)node[anchor=north] {File Count};
+  \end{scope}
+  %
+  \begin{scope}[yshift=8cm - 6 * 0.8cm]
+    \draw[fill=cfthl!25](0,0) rectangle (2.5,0.8);
+    \draw(1.25,0.65)node[anchor=north] {Parent};
+  \end{scope}
+  %
+  \begin{scope}[yshift=8cm - 7 * 0.8cm]
+    \draw[fill=cfthl!50](0,0) rectangle (2.5,0.8);
+    \draw(1.25,0.65)node[anchor=north] {Parent Entry \#};
+  \end{scope}
+  %
+  %
+  %
+  \draw[heavy, fill=none](c) rectangle (2.5,8);
+  \begin{scope}[yshift=8cm - 4 * 0.8cm]
+    \draw[heavy, fill=none](0,0) -- (2.5,0);
+  \end{scope}
+}
+\newcommand\fileDescriptor{%
+  \coordinate (c) at (0, 8 - 10 * 0.8);
+  \directoryEntryTop{FileDesc}{\magicFileDesc}
+  %
+  \begin{scope}[yshift=8cm - 5 * 0.8cm]
+    \draw[fill=cfthl!50](0,0) rectangle (2.5,0.8);
+    \draw(1.25,0.65)node[anchor=north] {Sys Metadata};
+  \end{scope}
+  %
+  \begin{scope}[yshift=8cm - 6 * 0.8cm]
+    \draw[fill=cfthl!25](0,0) rectangle (2.5,0.8);
+    \draw(1.25,0.65)node[anchor=north] {User Metadata};
+  \end{scope}
+  %
+  \begin{scope}[yshift=8cm - 7 * 0.8cm]
+    \draw[fill=cfthl!50](0,0) rectangle (2.5,0.8);
+    \draw(1.25,0.65)node[anchor=north] {Block count};
+  \end{scope}
+  %
+  \begin{scope}[yshift=8cm - 8 * 0.8cm]
+    \draw[fill=cfthl!25](0,0) rectangle (2.5,0.8);
+    \draw(1.25,0.65)node[anchor=north] {Size in words};
+  \end{scope}
+  %
+  \begin{scope}[yshift=8cm - 9 * 0.8cm]
+    \draw[fill=cfthl!50](0,0) rectangle (2.5,0.8);
+    \draw(1.25,0.65)node[anchor=north] {Last modified};
+  \end{scope}
+  %
+  \begin{scope}[yshift=8cm - 10 * 0.8cm]
+    \draw[fill=cfthl!25](0,0) rectangle (2.5,0.8);
+    \draw(1.25,0.65)node[anchor=north] {1st Data block};
+  \end{scope}
+  %
+  %
+  %
+  \draw[heavy, fill=none](c) rectangle (2.5,8);
+  \begin{scope}[yshift=8cm - 4 * 0.8cm]
+    \draw[heavy, fill=none](0,0) -- (2.5,0);
+  \end{scope}
+}
+
+
+
+
+
+
+
+\newenvironment{fileLevelDiagram}{%
+   % Grid
+  %\draw[step=0.5cm,color=cfthl!90] (0,0) grid (6,6);
+   %
+   % Gradient ‘expansion’ polygon.
+   \begin{scope}[xshift=2.5cm]
+     \coordinate (d) at (0, 8 - 3 * 0.8 - 2 * 1.2);
+     \coordinate (e) at (1.5, 8 - 10 * 0.8);
+     \draw[fill opacity=0.5, shading=axis, left color=white, right color=cfthl!75]%
+     (d) -- +(0,1.2) -- (1.5, 8) -- (e) -- (d);
+   \end{scope}
+   %
+   % Directory left
+   \directoryBlock{Container}{CF7x}{Previous}{Next}{Header}
+   % Descriptors
+   \begin{scope}[xshift=4cm]
+     %\draw[step=0.5cm,color=cfthl!90] (0,0) grid (10,10);
+     \fileDescriptor
+}{
+   \end{scope}
+}
+
+\newcommand\fileLevelIndexBlock{
+  \draw[heavy] (3, 1.4) node[anchor=north] {\ds{IndexBlock}};
+  \draw[fill=cfthl!25] (0, 0) rectangle +(1.5,0.8);
+  \draw (0.75, 0.35) node {Magic};
+  \draw[fill=cfthl!50] (1.5, 0) rectangle +(0.5,0.8);
+  \draw[fill=cfthl!25] (2, 0) rectangle +(0.5,0.8);
+  \draw[fill=cfthl!50] (2.5, 0) rectangle +(0.5,0.8);
+  %\draw[fill=cfthl!25] (3, 0) rectangle +(0.5,0.8);
+  %\draw[fill=cfthl!50] (3.5, 0) rectangle +(0.5,0.8);
+  %\draw[fill=cfthl!25] (4, 0) rectangle +(0.5,0.8);
+  %\draw[fill=cfthl!50] (4.5, 0) rectangle +(0.5,0.8);
+  %\draw[fill=cfthl!25] (5, 0) rectangle +(0.5,0.8);
+  \draw[shading=axis, left color=cfthl!25, right color=white] (3, 0) rectangle +(2.5,0.8);
+  \draw(4.25, 0.4) node {\Huge ...};
+  \draw[fill=cfthl!50] (5.5, 0) rectangle +(0.5,0.8);
+  \draw[heavy, fill=none] (0, 0) rectangle +(6,0.8);
+}
+
+\newcommand\fileLevelDataBlock[3]{
+  \begin{scope}[xshift=#1, yshift=#2]
+    \draw[heavy, fill=#3] (-0.65,0) rectangle (0.65, 1.2);
+    \draw(0, 0.55) node[above] {Data};
+    \draw(0, 0.65) node[below] {Block};
+\end{scope}
+}
+
+% End of file.

@@ -1,0 +1,50 @@
+% -*- latex -*-
+\documentclass[class=memoir]{standalone}
+\input{preamble}
+
+\begin{document}%
+%\tikzexternaldisable%
+\begin{tikzpicture}%
+
+\input{partial-fs}
+
+   % Grid
+   %\draw[step=0.5cm,color=cfthl!90] (0,0) grid (10,10);
+   %
+   % Gradient ‘expansion’ polygon.
+   \begin{scope}[xshift=2.5cm]
+     \coordinate (a) at (-2.5, 8 - 3 * 0.8 - 1 * 1.2);
+     \coordinate (b) at (-4, 8 - 8 * 0.8);
+     \coordinate (c) at (-7, 8 - 7 * 0.8);
+     \draw[draw opacity=0.3,fill opacity=0.5, shading=axis, right color=white, left color=cfthl!75]%
+     (a) -- +(0,1.2) -- (-7, 8) -- (c) -- (a);
+     \draw[fill opacity=0.5, shading=axis, right color=white, left color=cfthl!75]%
+     (a) -- +(0,1.2) -- (-4, 8) -- (b) -- (a);
+   \end{scope}
+   \begin{scope}[xshift=2.5cm]
+     \coordinate (d) at (0, 8 - 3 * 0.8 - 2 * 1.2);
+     \coordinate (e) at (1.5, 8 - 10 * 0.8);
+     \draw[fill opacity=0.5, shading=axis, left color=white, right color=cfthl!75]%
+     (d) -- +(0,1.2) -- (1.5, 8) -- (e) -- (d);
+   \end{scope}
+   %
+   % Directory left
+   \directoryBlock{Container}{CF7x}{Previous}{Next}{Header}
+   % Descriptors
+   \begin{scope}[xshift=-4cm]
+     \volumeDescriptor
+   \end{scope}
+   \begin{scope}[xshift=-7cm]
+     \directoryDescriptor
+   \end{scope}
+   \begin{scope}[xshift=4cm]
+     \fileDescriptor
+   \end{scope}
+
+
+\end{tikzpicture}%
+%\tikzexternalenable%
+\end{document}
+
+% End of file.
+

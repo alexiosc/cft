@@ -1,0 +1,15 @@
+\documentclass{minimal}
+\usepackage{tikz}
+\usetikzlibrary{patterns}
+ 
+\begin{document}
+\definecolor{lila}{rgb}{0,0.2,0.8}
+ 
+\begin{tikzpicture}
+ 
+\def \bsp{(0,0) -- (2,5) -- (4,-2)}
+\fill[color=lila,fill=lila,fill opacity=0.2] \bsp;
+\pattern[pattern color=lila!60, pattern=north west lines] \bsp;
+\end{tikzpicture}
+ 
+\end{document}

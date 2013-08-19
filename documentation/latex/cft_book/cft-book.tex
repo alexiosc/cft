@@ -1,0 +1,36 @@
+% -*- latex -*-
+\documentclass[11pt,a4paper]{memoir}
+\usepackage{standalone}
+%\usepackage{draftwatermark}
+%\SetWatermarkText{\color{red!15}{\textsf{DRAFT}}}
+\input{preamble}
+
+\begin{document}
+\traditionalparskip
+
+\input{cover}
+\thispagestyle{empty}
+\pagestyle{headings}
+
+%\fancyheadoffset[LE,RO]{\marginparsep+\marginparwidth}
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}
+
+
+\setlength{\cftbeforepartskip}{1em}
+
+%\layout
+
+\input{cft-book-outline}
+
+\end{document}
+
+%%  LocalWords:  documentclass CFT Alexios PDP autoindexing Von LSI
+%%  LocalWords:  Neumann microprograms microprogram microinstructions
+%%  LocalWords:  et cetera kiloword KWord kilowords KWords Autoindex
+%%  LocalWords:  SUBRET JSR TRAPRET ISRRET ISR autoindex th FC FFF tl
+%%  LocalWords:  FFFF pagerel vlgrey linewidth fillstyle fillcolor de
+%%  LocalWords:  addr FFFE IOT LIA JMP bitwise ORred asm bitfield CLA
+%%  LocalWords:  CLL RBL RBR RNL RNR NOP linearc SNA SZA SSL SNN SNZ
+%%  LocalWords:  SCL CLI STI SNP lll RET RTT SBL SBR SNL SNR TTY
+%%  LocalWords:  disjuncted conjuncted ANDed

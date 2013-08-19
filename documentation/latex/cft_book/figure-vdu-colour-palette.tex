@@ -1,0 +1,60 @@
+% -*- latex -*-
+\documentclass[class=memoir]{standalone}
+\input{preamble}
+
+\begin{document}%
+%\tikzexternaldisable%
+\begin{tikzpicture}%
+
+     \newcommand\tohex[1]{%
+       \ifthenelse{#1 = 1}{00}{%
+       \ifthenelse{#1 = 2}{55}{%
+       \ifthenelse{#1 = 3}{AA}{FF}}}}
+     \newcounter{colour} 
+     \setcounter{colour}{0}
+
+     \def\swatchWidth{32mm}
+     \def\swatchHeight{9mm}
+
+     \foreach \b [count=\bb] in {0, 0.333, 0.666, 1}{
+       \foreach \g [count=\gg] in {0, 0.333, 0.666, 1}{
+         \foreach \r [count=\rr] in {0, 0.333, 0.666, 1}{
+           \begin{scope}[xshift=\rr * 34mm, yshift=\gg * -11mm + \bb * -44mm]
+             %
+             \definecolor{tempcolour}{rgb}{\r, \g, \b}
+             \definecolor{tempfgcolour}{rgb}{0, 0, 0}
+             \ifthenelse{\arabic{colour} = 0}{\definecolor{tempfgcolour}{rgb}{1,1,1}}{}
+             \ifthenelse{\arabic{colour} = 1}{\definecolor{tempfgcolour}{rgb}{1,1,1}}{}
+             \ifthenelse{\arabic{colour} = 2}{\definecolor{tempfgcolour}{rgb}{1,1,1}}{}
+             \ifthenelse{\arabic{colour} = 4}{\definecolor{tempfgcolour}{rgb}{1,1,1}}{}
+             \ifthenelse{\arabic{colour} = 5}{\definecolor{tempfgcolour}{rgb}{1,1,1}}{}
+             \ifthenelse{\arabic{colour} = 8}{\definecolor{tempfgcolour}{rgb}{1,1,1}}{}
+             \ifthenelse{\arabic{colour} = 16}{\definecolor{tempfgcolour}{rgb}{1,1,1}}{}
+             \ifthenelse{\arabic{colour} = 17}{\definecolor{tempfgcolour}{rgb}{1,1,1}}{}
+             \ifthenelse{\arabic{colour} = 18}{\definecolor{tempfgcolour}{rgb}{1,1,1}}{}
+             \ifthenelse{\arabic{colour} = 20}{\definecolor{tempfgcolour}{rgb}{1,1,1}}{}
+             \ifthenelse{\arabic{colour} = 21}{\definecolor{tempfgcolour}{rgb}{1,1,1}}{}
+             \ifthenelse{\arabic{colour} = 32}{\definecolor{tempfgcolour}{rgb}{1,1,1}}{}
+             \ifthenelse{\arabic{colour} = 33}{\definecolor{tempfgcolour}{rgb}{1,1,1}}{}
+             \ifthenelse{\arabic{colour} = 34}{\definecolor{tempfgcolour}{rgb}{1,1,1}}{}
+             \ifthenelse{\arabic{colour} = 36}{\definecolor{tempfgcolour}{rgb}{1,1,1}}{}
+             \ifthenelse{\arabic{colour} = 37}{\definecolor{tempfgcolour}{rgb}{1,1,1}}{}
+             \ifthenelse{\arabic{colour} = 48}{\definecolor{tempfgcolour}{rgb}{1,1,1}}{}
+             \ifthenelse{\arabic{colour} = 49}{\definecolor{tempfgcolour}{rgb}{1,1,1}}{}
+             \ifthenelse{\arabic{colour} = 52}{\definecolor{tempfgcolour}{rgb}{1,1,1}}{}
+             \draw[heavy,fill=tempcolour] (0,0) rectangle +(\swatchWidth,\swatchHeight);
+             \draw[color=tempfgcolour](\swatchWidth / 2, \swatchHeight / 2) node %
+                  {\arabic{colour}. \hex{\#\tohex{\rr}\tohex{\gg}\tohex{\bb}}};
+                  \stepcounter{colour}
+             %
+           \end{scope}
+         }
+       }
+     }
+
+\end{tikzpicture}%
+%\tikzexternalenable%
+\end{document}
+
+% End of file.
+

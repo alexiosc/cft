@@ -1,0 +1,115 @@
+% -*- latex -*-
+\documentclass[class=memoir]{standalone}
+\input{preamble}
+
+\begin{document}%
+%\tikzexternaldisable%
+\begin{tikzpicture}%
+
+   \def\frameWidth{120mm}
+   \def\frameHeight{80mm}
+   \def\boxWidth{12mm}
+   \def\boxHeight{8mm}
+   \def\planebox{(0,0) rectangle (\frameWidth,\frameHeight)}
+
+   \newcommand\coordrect[3]{%
+     \begin{scope}[xshift=#1 * \boxWidth, yshift=\frameHeight - #2 * \boxHeight]
+       \draw[thick,fill=cfthl!25] (0,0) rectangle +(\boxWidth,-\boxHeight);
+       \draw(\boxWidth/2,-\boxHeight/2) node {\hex{#3}};
+     \end{scope}
+   }
+
+   % X ordinates
+   \draw(0.5 * \boxWidth,\frameHeight) node[above]{0};
+   \draw(1.5 * \boxWidth,\frameHeight) node[above]{1};
+   \draw(2.5 * \boxWidth,\frameHeight) node[above]{2};
+   \draw(3.5 * \boxWidth,\frameHeight) node[above]{3};
+   \draw(4.5 * \boxWidth,\frameHeight) node[above]{4};
+   \draw(6.0 * \boxWidth,\frameHeight) node[above]{$\cdots$};
+
+   \draw(7.5 * \boxWidth,\frameHeight) node[above]{125};
+   \draw(8.5 * \boxWidth,\frameHeight) node[above]{126};
+   \draw(9.5 * \boxWidth,\frameHeight) node[above]{127};
+
+   % Y ordinates
+   \draw(0, 9.5 * \boxHeight) node[left]{0};
+   \draw(0, 8.5 * \boxHeight) node[left]{1};
+   \draw(0, 7.5 * \boxHeight) node[left]{2};
+   \draw(0, 6.5 * \boxHeight) node[left]{3};
+   \draw(0, 5.5 * \boxHeight) node[left]{4};
+   \draw(0, 4.0 * \boxHeight) node[left]{$\vdots$};
+
+   \draw(0, 2.5 * \boxHeight) node[left]{509};
+   \draw(0, 1.5 * \boxHeight) node[left]{510};
+   \draw(0, 0.5 * \boxHeight) node[left]{511};
+
+   % Horizontal partial grid lines
+   \draw[thick](0, \boxHeight * 9) -- +(\boxWidth * 4.45, 0);
+   \draw[thick](0, \boxHeight * 8) -- +(\boxWidth * 3.45, 0);
+   \draw[thick](0, \boxHeight * 7) -- +(\boxWidth * 2.45, 0);
+   \draw[thick](0, \boxHeight * 6) -- +(\boxWidth * 1.45, 0);
+   \draw[thick](0, \boxHeight * 5) -- +(\boxWidth * 0.45, 0);
+
+   \draw[thick](\frameWidth, \boxHeight * 9) -- +(\boxWidth * -2.45, 0);
+   \draw[thick](\frameWidth, \boxHeight * 8) -- +(\boxWidth * -1.45, 0);
+   \draw[thick](\frameWidth, \boxHeight * 7) -- +(\boxWidth * -0.45, 0);
+
+   \draw[thick](0, \boxHeight * 3) -- +(\boxWidth * 0.45, 0);
+   \draw[thick](0, \boxHeight * 2) -- +(\boxWidth * 1.45, 0);
+   \draw[thick](0, \boxHeight * 1) -- +(\boxWidth * 2.45, 0);
+
+   \draw[thick](\frameWidth, \boxHeight * 3) -- +(\boxWidth * -0.45, 0);
+   \draw[thick](\frameWidth, \boxHeight * 2) -- +(\boxWidth * -1.45, 0);
+   \draw[thick](\frameWidth, \boxHeight * 1) -- +(\boxWidth * -2.45, 0);
+
+   % Vertical partial grid lines
+   \draw[thick](\boxWidth * 1, \frameHeight) -- +(0, \boxHeight * -4.45);
+   \draw[thick](\boxWidth * 2, \frameHeight) -- +(0, \boxHeight * -3.45);
+   \draw[thick](\boxWidth * 3, \frameHeight) -- +(0, \boxHeight * -2.45);
+   \draw[thick](\boxWidth * 4, \frameHeight) -- +(0, \boxHeight * -1.45);
+   \draw[thick](\boxWidth * 5, \frameHeight) -- +(0, \boxHeight * -0.45);
+
+   \draw[thick](\boxWidth * 7, \frameHeight) -- +(0, \boxHeight * -0.45);
+   \draw[thick](\boxWidth * 8, \frameHeight) -- +(0, \boxHeight * -1.45);
+   \draw[thick](\boxWidth * 9, \frameHeight) -- +(0, \boxHeight * -2.45);
+
+   \draw[thick](\boxWidth * 3, 0) -- +(0, \boxHeight * 0.45);
+   \draw[thick](\boxWidth * 2, 0) -- +(0, \boxHeight * 1.45);
+   \draw[thick](\boxWidth * 1, 0) -- +(0, \boxHeight * 2.45);
+
+   \draw[thick](\boxWidth * 7, 0) -- +(0, \boxHeight * 0.45);
+   \draw[thick](\boxWidth * 8, 0) -- +(0, \boxHeight * 1.45);
+   \draw[thick](\boxWidth * 9, 0) -- +(0, \boxHeight * 2.45);
+
+
+   \coordrect{0}{0}{0000}
+   \coordrect{1}{0}{0001}
+   \coordrect{2}{0}{0002}
+   \coordrect{3}{0}{0003}
+   \coordrect{0}{1}{0080}
+   \coordrect{1}{1}{0081}
+   \coordrect{2}{1}{0082}
+   \coordrect{0}{2}{0100}
+   \coordrect{1}{2}{0101}
+   \coordrect{0}{3}{0180}
+
+   \coordrect{8}{0}{007E}
+   \coordrect{9}{0}{007F}
+   \coordrect{9}{1}{00FF}
+   
+   \coordrect{0}{8}{FF00}
+   \coordrect{0}{9}{FF80}
+   \coordrect{1}{9}{FF81}
+
+   \coordrect{9}{8}{FF7F}
+   \coordrect{8}{9}{FFFE}
+   \coordrect{9}{9}{FFFF}
+
+   \draw[heavy] \planebox;
+
+\end{tikzpicture}%
+%\tikzexternalenable%
+\end{document}
+
+% End of file.
+

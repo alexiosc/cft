@@ -1,0 +1,211 @@
+% -*- latex -*-
+\documentclass[class=memoir]{standalone}
+\input{preamble}
+
+\begin{document}%
+%\tikzexternaldisable%
+\begin{tikzpicture}%
+
+  \input{partial-keyboard-layouts}
+  \begin{scope}[rotate=90]
+    % Top row
+    \def\colour{cfthl}\k{Esc}\sc{76}\gap{3}
+    \def\colour{cfthl!25}
+    \k{F1}\sc{05}
+    \k{F2}\sc{06}
+    \k{F3}\sc{04}
+    \k{F4}\sc{0C}\gap{1}
+    \def\colour{cfthl}
+    \k{F5}\sc{03}
+    \k{F6}\sc{0B}
+    \k{F7}\sc{83}
+    \k{F8}\sc{0A}\gap{1}
+    \def\colour{cfthl!25}
+    \k{F9}\sc{01}
+    \k{F10}\sc{09}
+    \k{F11}\sc{78}
+    \k{F12}\sc{07}\gap{1}
+    \def\colour{cfthl}
+    
+    \key{3}{\sy}{Print}{Screen}
+    \begin{scope}[xshift=\value{x} * \step, yshift=\value{y} * -1 * \stepy]
+      \draw[align=right](-4 * \step,4 * \stepy) node[left,transform shape] (P) %
+           {\footnotesize The Print Screen key sends two key presses: \hex{E0 12}, \hex{E0 7C}.} [heavy,-stealth] -- (-1.75 * \step, 4*\stepy) -- ++(0,-1.5 *\stepy);
+    \end{scope}
+    
+    \key{3}{\sy}{Scroll}{Lock}\sc{7E}
+    
+    \key{3}{\sy}{Pause}{}
+    \begin{scope}[xshift=\value{x} * \step, yshift=\value{y} * -1 * \stepy]
+      \draw[align=right](-10 * \step,5 * \stepy) node[left,transform shape] (P) %
+           {\footnotesize Pressing Pause sends two key presses {\em and releases\/}: \hex{E1 14}, \hex{77}, \hex{E1 F0 14}, \hex{F0 77}.} [heavy,-stealth] -- (-1.75 * \step, 5*\stepy) -- ++(0,-2.5 *\stepy);
+    \end{scope}
+    
+    % Number row
+    \row\addtocounter{y}{1}
+    \def\colour{red!50}
+    \sk{¬ `}{\char124}\sc{0E}
+    \def\colour{cfthl!25}
+    \sk{!}{1}\sc{1E}
+    \def\colour{red!50}\sk{"}{2}\sc{16}
+    \sk{£}{3}\sc{26}
+    \sk{\char36}{4}\sc{25}\def\colour{cfthl!25}
+    \sk{\%}{5}\sc{2E}
+    \sk{\char94}{6}\sc{36}
+    \sk{\&}{7}\sc{3D}
+    \sk{*}{8}\sc{3E}
+    \sk{(}{9}\sc{46}
+    \sk{)}{0}\sc{45}
+    \sk{\_}{-}\sc{4E}
+    \sk{+}{=}\sc{55}
+    \def\colour{cfthl}
+    \key{5}{\sy}{Backspace}{}\sc{66}
+    \gap{1}
+    %
+    \k{Ins}\sc{E0 70}
+    \k{Home}\sc{E0 6C}
+    \sk{Page}{Up}\sc{E0 7D}
+    \gap{1}
+    %
+    \key{3}{\sy}{Num}{Lock}\sc{77}
+    \k{/}\sc{E0 4A}
+    \k{*}\sc{7C}
+    \k{-}\sc{7B}
+
+    % Q row
+    \row
+    \def\colour{cfthl}
+    \key{4}{\sy}{Tab}{}\sc{0D}
+    \def\colour{cfthl!25}
+    \k{Q}\sc{15}
+    \k{W}\sc{1D}
+    \k{E}\sc{24}
+    \k{R}\sc{2D}
+    \k{T}\sc{2C}
+    \k{Y}\sc{35}
+    \k{U}\sc{3C}
+    \k{I}\sc{43}
+    \k{O}\sc{44}
+    \k{P}\sc{4D}
+    \sk{\char123}{\char91}\sc{54}
+    \sk{\char125}{\char93}\sc{5B}
+    % US keyboard: backslash
+    %\key{4}{\sy}{\char124}{\char92}\sc{5D}
+    %\gap{5}
+
+    % Inverted L enter key
+    %\begin{scope}[xshift=\value{x} * \step + 2mm, yshift=\value{y} * -1 * \stepy]
+    %  \draw[line width=1pt, rounded corners=0.75mm, fill=cfthl] %
+    %  (0,\sy) -- ++(3 * \step, 0) -- ++(0, -\sy -3 *\stepy) %
+    %  -- ++(-3*\step - \s, 0) -- ++(0,\sy) -- ++(2 *\step, 0) -- ++(0, 3*\stepy) -- cycle;
+    %  \draw(-\s, -\sy) node[transform shape, above right] {\scriptsize\textcond{Return}};
+    %\end{scope}
+    % UI enter key
+    \begin{scope}[xshift=\value{x} * \step, yshift=\value{y} * -1 * \stepy]
+      \draw[line width=1pt, rounded corners=0.75mm, fill=cfthl] %
+      (0,\sy) -- (0,0) -- ++(\step, 0) -- ++(0, -3*\stepy) -- ++(3 * \step - 1mm, 0) --
+      ++(0, 3 * \stepy + \sy) -- cycle;
+      \draw(0, \sy) node[transform shape, below right] {\scriptsize\textcond{\bfseries Return}};
+    \end{scope}
+    \begin{scope}[xshift=4*\step, yshift=-3 * \stepy]
+      \sc{5A}
+    \end{scope}
+    \gap{5}
+    \def\colour{cfthl}
+    \k{Del}\sc{E0 71}
+    \k{End}\sc{E0 69}
+    \sk{Page}{Down}\sc{E0 7A}
+    \gap{1}
+    %
+    \def\colour{cfthl!25}
+    \sk{7}{Home}\sc{6C}
+    \sk{8}{$\uparrow$}\sc{75}
+    \sk{9}{PgUp}\sc{79}%
+
+    % A row
+    \row
+    \def\colour{cfthl}
+    \key{5}{\sy}{Caps}{Lock}\sc{58}
+    \def\colour{cfthl!25}\k{A}\sc{1C}
+    \k{S}\sc{1B}
+    \k{D}\sc{23}
+    \k{F}\sc{2B}
+    \k{G}\sc{34}
+    \k{H}\sc{33}
+    \k{J}\sc{3B}
+    \k{K}\sc{42}
+    \k{L}\sc{4B}
+    \sk{:}{;}\sc{4C}
+    \def\colour{red!50}
+    \sk{@}{'}\sc{52}
+    \sk{\char126}{\char35}\sc{5D}
+    % US enter key
+    %\def\colour{cfthl}
+    %\key{6}{\sy}{Return}{}\sc{5A}
+    %\gap{11}\def\colour{cfthl!25}
+    \gap{14}
+    \def\colour{cfthl!25}
+    %
+    \sk{4}{$\leftarrow$}\sc{6B}
+    \k{5}\sc{73}
+    \sk{6}{$\rightarrow$}\sc{74}
+    % + key, bottom
+    \def\colour{cfthl}\key{3}{\sy + 3 * \stepy}{+}{}\sc{79}
+    
+    % Z row
+    \row
+    \def\colour{cfthl}
+    \key{3}{\sy}{Shift}{}\sc{12}
+    \def\colour{red!50}
+    \sk{¦}{\char92}\sc{61}
+    \def\colour{cfthl!25}
+    \k{Z}\sc{1A}
+    \k{X}\sc{22}
+    \k{C}\sc{21}
+    \k{V}\sc{2A}
+    \k{B}\sc{32}
+    \k{N}\sc{31}
+    \k{M}\sc{3A}
+    \sk{<}{,}\sc{41}
+    \sk{>}{.}\sc{49}
+    \sk{?}{/}\sc{4A}
+    \def\colour{cfthl}\key{8}{\sy}{Shift}{}\sc{59}
+    \gap{4}
+    %
+    \def\colour{cfthl}\k{$\uparrow$}\sc{E0 75}
+    \def\colour{cfthl!25}\gap{4}
+    %
+    \sk{1}{End}\sc{69}
+    \sk{2}{$\downarrow$}\sc{72}
+    \sk{3}{PgDn}\sc{7A}% Enter key, top
+
+    % bottom row
+    \row
+    \def\colour{cfthl}
+    \key{5}{\sy}{Control}{}\sc{14}
+    \key{4}{\sy}{Super}{}\sc{E0 1F}
+    \key{4}{\sy}{Alt}{}\sc{11}
+    % space
+    \def\colour{cfthl!25}\key{17}{\sy}{Space}{}\sc{29}\def\colour{cfthl}
+    \key{4}{\sy}{Alt}{}\sc{E0 11}
+    \key{3}{\sy}{Super}{}\sc{E0 27}
+    \key{3}{\sy}{Apps}{}\sc{E0 2F}
+    \key{4}{\sy}{Control}{}\sc{E0 14}
+    \gap{1}
+    
+    \k{$\leftarrow$}\sc{E0 6B}
+    \k{$\downarrow$}\sc{E0 72}
+    \k{$\rightarrow$}\sc{E0 74}
+    \gap{1}
+    
+    \key{6}{\sy}{0}{}\sc{70}
+    \k{.}\sc{71}
+    \key{3}{\sy + 3 * \stepy}{Enter}{}\sc{E0 5A}
+
+  \end{scope}
+
+\end{tikzpicture}%
+%\tikzexternalenable%
+\end{document}
+
+% End of file.

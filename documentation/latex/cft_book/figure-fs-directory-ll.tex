@@ -1,0 +1,45 @@
+% -*- latex -*-
+\documentclass[class=memoir]{standalone}
+\input{preamble}
+
+\begin{document}%
+%\tikzexternaldisable%
+\begin{tikzpicture}%
+
+\input{partial-fs}
+
+   % Grid
+   %\draw[step=0.5cm,color=cfthl!90] (0,0) grid (12,10);
+   %
+   % First block
+   \directoryBlock{Directory}{\magicDirectory}{\textsf{Ø}}{Next}{\ds{DirDesc}}
+   %
+   % Second block
+   \begin{scope}[xshift=3.5cm]
+     \directoryBlock{Directory}{\magicDirectoryCont}{Previous}{Next}{\ds{Descriptor}}
+   \end{scope}
+   %
+   % Third block
+   \begin{scope}[xshift=2 * 3.5cm]
+     \directoryBlock{Directory}{\magicDirectoryCont}{Previous}{Next}{\ds{Descriptor}}
+   \end{scope}
+   %
+   % Last block
+   \begin{scope}[xshift=3 * 3.5cm]
+     \directoryBlock{Directory}{\magicDirectoryCont}{Previous}{\textsf{Ø}}{\ds{Descriptor}}
+   \end{scope}
+   %
+   % Arrows
+   \foreach \n in {0,...,2} {
+     \begin{scope}[xshift=2.5cm + 3.5cm * \n]
+       \draw[thick arrow, -stealth] (0, 8 - 2 * 0.8 - 0.4) -- +(1, 0);
+       \draw[thick arrow, -stealth] (1, 8 - 1 * 0.8 - 0.4) -- +(-1, 0);
+     \end{scope}
+   }
+
+\end{tikzpicture}%
+%\tikzexternalenable%
+\end{document}
+
+% End of file.
+

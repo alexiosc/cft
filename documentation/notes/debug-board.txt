@@ -1,0 +1,140 @@
+DEBUG BOARD NOTES
+
+* Serial over USB
+* Generic FTDI cable to begin with. Replace with permanently installed,
+  custom-programmed cable/module later.
+
+
+TESTING LANGUAGE
+
+* Based on flashprog code
+* Hayes-like ATx commands
+* Features
+** Drive RESET#, HALT#.
+** Read from memory (text/binary)
+** Write to memory (text/binary)
+** IO from I/O space (text/binary)
+** OUT to I/O space (text/binary)
+** Set up GPIO #2
+** Read from GPIO #2
+** Write to GPIO #2
+** Test LEDs
+** Flash low/high ROM (sector by sector)
+
+
+
+TEST PROCESS
+
+* ATR1 (assert RESET#)
+* ATA0 (starting address 0)
+* ATW65536 (read 65,536 words from serial, write to RAM)
+* ATG0 (Go. Deasserts RESET#, waits for HALT#)
+
+Card reports CFT test results asynchronously (even mid-command). ATG0 waits for
+HALT# before asserting test success to the testing computer. ATGn waits for
+HALT# or a timeout of n seconds.
+
+
+
+CFT PROTOCOL
+
+An interrupt (PD2/INT0) indicates the DEB device has been written to. Read the
+second port of GPIO #0 (Address Bus low), bits 0–3 to determine the command issued.
+
+Read the first port of GPIOs #0 and #1 (Data Bus low, Data Bus high) to get the
+parameter/value sent to the DEB device.
+
+DEBCONT# (PD3) = 0
+DEBCONT# (PD3) = 1
+
+CFT WS# is cleared, computer continues execution.
+
+Execute command(parameter) pair or queue it for execution if it reports serial data.
+
+
+
+COMMANDS
+
+OPCODES &00–&0F:
+
+Do nothing on the Version 1 hardware DEB board.
+
+
+OPCODE &10: .equ PRINTA     OUT DEBUG &10	; Print out an address
+
+Send "PRINTA: xxxx\n\r" where xxxx is the command argument in hex.
+
+
+OPCODE &11: .equ PRINTC     OUT DEBUG &11	; Print out a character
+
+if 32 <= arg <= 96:
+  Send "PRINTC: x\n\r" where x is the ASCII character represented by arg.
+else;
+  Send "PRINTc: xxx\n\r" where x is argument AND &ff in decimal 
+
+
+OPCODE &12: .equ PRINTD     OUT DEBUG &12	; Print out a decimal number in A
+
+Send "PRINTD: xxxxx\n\r" where xxxxx is the command argument in signed twos
+complement decimal (-32768 to 32767)
+
+
+OPCODE &13: .equ PRINTU     OUT DEBUG &13	; Print out a decimal number in A
+
+Send "PRINTU: xxxxx\n\r" where xxxxx is the command argument in unsigned
+decimal (0 to 65535)
+
+
+OPCODE &14: .equ PRINTH     OUT DEBUG &14	; Print out a hex number in A
+
+Send "PRINTH: xxxx\n\r" where xxxx is the command argument in hex.
+
+
+OPCODE &15: .equ PRINTB     OUT DEBUG &15	; Print out a binary number in A
+
+Send "PRINTB: xxxx\n\r" where xxxx is the command argument in binary
+(zero-padded to 16 characters).
+
+
+OPCODE &16: .equ PRINTSP    OUT DEBUG &16	; Print out a space
+
+Send "PRINTc: 32\n\r".
+
+
+OPCODE &17: .equ PRINTNL    OUT DEBUG &17	; Print out a newline
+
+Send "PRINTc: 10\n\r".
+
+
+OPCODE &18: .equ DEBUGON    OUT DEBUG &18	; Emulator: start debugging
+OPCODE &19: .equ DEBUGOFF   OUT DEBUG &19	; Emulator: stop debugging
+OPCODE &1A: .equ DUMP       OUT DEBUG &1a	; Emulator: dump current state
+
+Does nothing on the Version 1 hardware DEB board.
+
+
+OPCODE &1B: .equ PRINTHI    OUT DEBUG &1b	; Set a HI word for later printing.
+
+Stores the command argument in the high word variable.
+
+
+OPCODE &1C: .equ PRINTLO    OUT DEBUG &1c	; Emulator: print out HI:LO words
+
+Send "PRINTL: xxxxxxxx\n\r" where xxxxxxxx is the 32-bit double-word value made
+up of the high word variable (bits 8-15) and the command argument (bits 0-7).
+
+
+OPCODE &1D:
+
+Reserved.
+
+
+OPCODE &1E: .equ SUCCESS    OUT DEBUG &1e	; Assert: true
+
+Send "ASSERT: TRUE\n\r". Indicate using light pattern (TBD).
+
+
+OPCODE &1F: .equ FAIL       OUT DEBUG &1f	; Assert: false
+
+Keep the system in WS (for potential state inspection). Send "ASSERT:
+FALSE\n\r". Indicate using light pattern (TBD).

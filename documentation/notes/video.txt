@@ -1,0 +1,656 @@
+NOTES ON THE TERMINAL CARD
+
+
+Terminal card contains:
+
+* Video output circuitry
+* 2x Serial I/O (one 16C250 for keyboard and optional mouse)
+* 16-bit parallel input (for joystick(s)).
+
+* 25 MHz pixel clock
+* 640x400 resolution (limits of 74HCxxx)
+* 16-bit design
+* text mode only
+* No character ROM. Character RAM initialised from system ROM.
+* Use a large RAM for character patterns to allow > 256 characters.
+* Use fast SRAMs for character / attrs.
+
+* Character cell 8x8.
+
+* (unnecessary) Two independent clock halvers (2:1 MUX) allow: 640x400, 320x400, 640x200, 320x200.
+
+* Counters:
+** 4x horizontal (max, front porch, pixel data, back porch)
+** 4x vertical (max, front porch, pixel data, back porch)
+** character data offset
+** in-character pixel counter (3 bits)
+** in-character row counter (3-4 bits, future expansion)
+
+
+#CHARACTER
+
+      F   E   D   C   B   A   9   8   7   6   5   4   3   2   1   0
+    +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+    |              C H A R A C T E R   D A T A                      |
+    +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+
+#ATTRIBUTE
+
+      F   E   D   C   B   A   9   8   7   6   5   4   3   2   1   0
+    +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+    | 0 | 0 | 0 | 0 | R | R | G | G | B | B | r | r | g | g | b | b |
+    +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+
+Attribute word allows 64 colours for fg/bg plus 4 unused bits
+
+
+MEMORY:
+
+Three separate planes.
+
+* Character patterns: 
+
+* Character data: 
+
+* Attribute data: 
+
+
+512kB x 4 Mbit Flash RAM for character patterns.
+
+32KW / 64 KB / 16b x 32768 SRAM for video RAM.
+
+Double that for separate attribute plane?
+
+80x25 = 2000W (4000 with attrs)
+80x50 = 4000W (8000W with attrs)
+
+
+
+TIMING:
+
+Video: 25.175 MHz pixel clock (VGA standard for 640x400).
+
+Processor: ~4 MHz clock.
+
+I.e. ~6 video pixels pushed per processor clock tick.
+
+Use WS#?
+
+Minimum time between processor writes: (OUT instruction): 4 cycles
+(~1µs period). Actual write duration: 2 cycles (500ns).
+
+Line duration: ~31.46µs.
+Video on for: ~25.42μs.
+HSYNC: ~6μs. => enough for MAX 6 words written.
+
+Frame duration: ~14ms.
+Frame data: ~12ms.
+VSYNC: ~2ms.
+
+Options:
+
+(a) Allow processor access at all times. Green lightning issue.
+(b) Use WS# mechanism to block processor access while video data is refreshing.
+(c) Use a VSYNC IRQ.
+(d) Use a double-buffered technique: two pairs of attribute/character
+    chips. CPU draws on one, video refresh happens from another.
+
+Solution:
+
+Implement all four. Use a register to enable/disable WS# and VSYNC IRQs. Use a
+start address register to allow buffer flipping.
+
+
+
+MEMORY ADDRESS FORMAT
+
+Pages of 4096 characters, each page aligned at the 12 bit boundary (multiples
+of 4096):
+
+      F   E   D   C   B   A   9   8   7   6   5   4   3   2   1   0
+    +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+    | B |   PAGE    |              SCREEN OFFSET                    |
+    +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+       \
+        \
+         \
+          Buffer (for double buffering)
+
+There are two buffers, each with eight pages of 4096 characters for a total of
+65,536 characters (or 16 pages).
+
+A 4-bit buffer-and-page register contains the 4 high-order bits of the starting
+address.
+
+
+
+HARDWARE SCROLLING
+
+A line start register sets the start address within the page.
+
+A '688 comparator implements mod 2000 (0011:11101:0000) or mod 4000
+(0111:11010:0000) to reload the start address from the line start register.
+
+All multiples of 80 are multiples of 16 (10000), so the line start register can
+ignore the lower 4 bits. Similarly, all multiples of 80 up to and including 51
+can fit in 12 bits (i.e are less than 4096), so the top bits can be ignored
+too. This conveniently leaves the line start register with exactly 8 bits of
+range. All values are x16, and an increment of 5 represents the pitch of one
+line (5x16=80).
+
+      F   E   D   C   B   A   9   8   7   6   5   4   3   2   1   0
+    +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+    | B |   PAGE    |     LINE START REGISTER       |     OFFSET    |
+    +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+                                        |    LINE OFFSET (0..79)    |
+                                        +---+---+---+---+---+---+---+
+
+
+
+ADDRESS GENERATOR
+
+Ideally something like the MC6845, which however is VERY rare these
+days. Alternatively, build something like it. Possibly use a CPLD or
+MCU for this. I/O needs:
+
+CS: chip select
+R/W: read/write direction
+16x (8x?) DB: data bus
+3x (4x?) AB: address bus
+IRQ#
+
+
+
+
+FONTS
+
+* 040 flash holds 32768 glyphs, 14 bits. 
+* Put characters even in normally non-printable codepoints.
+
+* 128: ASCII
+* X:   Latin-1, Latin-2, Cyrillic, Greek?
+* 256: 8-bit block characters for bitmap mode (256)
+*      (taken from the 8-bit block characters) 2-bit block characters for
+       Semigraphics modes (same as IBM block graphics)
+-------
+
+
+Optional:
+
+* Double-height forms (2x charset, minus bitmaps/semigraphics)
+* Double-width forms (2x charset, minus bitmaps/semigraphics)*
+* 8-row forms.
+
+
+Charsets:
+
+0000 8x16 normal
+0001 8x16 double height top
+0010 8x16 double height bottom
+0011 8x16 double width left
+0100 8x16 double width right
+0101   **reserved
+0110   **reserved
+0111 graphics
+
+1000 8x8 normal
+1001 8x8 double height top
+1010 8x8 double height bottom
+1011 8x8 double width left
+1100 8x8 double width right
+1101   **reserved
+1110   **reserved
+1111 graphics
+|
++-- The LSB (bit 3) of these font banks is selected via the 8x8 bit in the
+    MCR.
+
+Leaves 10 bits for fonts (1024 characters)
+
+
+
+      F   E   D   C   B   A   9   8   7   6   5   4   3   2   1   0
+    +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+    | BANK  |8x8|  CHARSET  |             CODEPOINT                 |
+    +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+
+    The BANK is currently unused. It's meant to select different
+    character generation chips. Must be 00 for now.
+
+    The 8x8 bit selects whether to use the 8x8 font or the 8x16 font. Set in the MCR.
+
+    The CHARSET field selects the character set in use. (0..7)
+
+    The CODEPOINT selects one character.
+
+
+
+
+
+DISPLAY LISTS?
+
+Using a display list eliminates much of the vertical circuitry:
+
+* Character row counters
+* Vertical comparators
+* Some registers
+
+We need ~600 words for a full display list. We use up to 64000 words for
+display data (two planes), which leaves plenty of memory.
+
+* Set address (in multiples of 8)
+* Set mode (at least 5 bits)
+* Generate interrupt
+* Increment address (multiples of 8)
+* Set/clear VSYNC/VEN
+
+      F   E   D   C   B   A   9   8   7   6   5   4   3   2   1   0
+    +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+    |                     DATA                          |   OPCODE  |
+    +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+
+
+
+CHARACTER SET
+
+* U+0000-U+007F  128*    32  US-ASCII
+* U+0080-U+00FF  128*    32  Latin-1
+* U+0380-U+03FF  128*     ?  Greek/Coptic
+* U+2500-U+257F  128      0  Line drawing
+* U+2580-U+259F   31      0  Block Elements
+* U+2190-U+2199   10      0  Arrows
+* U+21A4-U+21A7    4      0  Arrows
+* U+21D0-U+21D9   10      0  Arrows
+* U+25A0-U+25FF   96*     ?  Geometric shapes (not all)
+
+*                256      0  256 bitmap Patterns (8x1)
+*                 16      0  semigraphics patterns (4x1)
+*                 16      0  semigraphics patterns (2x2)
+-------------------------------------------------------------------------------
+Total glyphs     951         --> 10 bits enough for character set
+
+
+
+DISPLAY LISTS II
+
+Put display lists in video memory. Use a deep 8-bit FIFO to
+synchronise data output, so the display lists can run asynchronously,
+and be interrupted by host memory access etc without green lightning.
+
+* Set source address
+* Set mode
+* Send out character data
+* Wait for zero counters
+* Send interrupts to host
+* Send horizontal sync
+* Send vertical sync
+* Loop till counter zero
+* Jump to DL address
+* Set raster line counter
+
+DL engine
+
+Fetch/execute flip flop multiplexes DL and character data access.
+
+
+
+
+PIXEL COLOUR:
+
+
+CURSOR   BLINK  INV  PIXEL  COLOUR
+----------------------------------------------
+    0      0      0      0   0 (BG)
+    0      0      0      1   1 (FG)
+    0      0      1      0   1 (FG)
+    0      0      1      1   0 (BG)
+----------------------------------------------
+    0      1      0      0   0 (BG)
+    0      1      0      1   0 (BG)
+    0      1      1      0   1 (FG)
+    0      1      1      1   1 (FG)
+----------------------------------------------
+    1      0      0      0   CURSOR 0 (BG)
+    1      0      0      1   CURSOR 1 (FG)
+    1      0      1      0   CURSOR 1 (FG)
+    1      0      1      1   CURSOR 0 (BG)
+----------------------------------------------
+    1      1      0      0   CURSOR 0 (BG)
+    1      1      0      1   CURSOR 0 (BG)
+    1      1      1      0   CURSOR 1 (FG)
+    1      1      1      1   CURSOR 1 (FG)
+
+
+1. 6-bit Multiplexer selects pixel or cursor bank
+2. Pixel XOR Inv selects fg or bg.
+3. Blink forces bg colour.
+
+
+
+
+
+
+BUS COMMANDS
+
+Set attribute
+Set character (with options for stepping etc)
+
+
+
+BUS COMMAND STATE MACHINE
+
+
+
+
+
+STANDARD VGA 640x400 TIMING
+
+This is the only way to get a video mode that will show on most monitors:
+
+Pixel clock = 25.175 MHz (i.e. must use some AC parts)
+
+Line frequency (horizontal refresh) = 31.469 kHz
+Field frequency (refresh rate) 70.086 Hz
+
+Horizontal timings:
+
+  8 pixels front porch
+ 96 pixels horizontal sync
+ 40 pixels back porch
+  8 pixels left border
+640 pixels video
+  8 pixels right border
+---
+800 pixels total
+
+
+Vertical timings:
+
+
+  5 lines front porch
+  2 lines vertical sync
+ 28 lines back porch
+  7 lines top border
+400 lines video
+  7 lines bottom border
+---
+449 lines per field
+
+Sync: H+, V+
+
+
+
+
+ALTERNATE SOURCE (http://tinyvga.com/vga-timing/640x400@70Hz)
+
+Refresh rate: 70 Hz
+Vert refresh: 31.46875 kHz
+Pixel Freq: 25.175 MHz
+
+Visible: 640
+F porch: 16
+Sync: 96
+Back porch: 48
+Total: 800
+
+Visibe: 400
+Front porch: 12
+Sync: 2
+Back porch: 35
+Total: 449
+
+
+
+
+
+MOD-N DIVIDER / LAST LINE DETECTION
+
+HGR CL0-1  Lines (mod)   Last line (LL)    Mod-N eq
+ 1    XX     1              0000           NEXTSL#
+ 0    00     2              0001           
+ 0    01     4              0011
+ 0    10     8              0111
+ 0    11    16              1111
+
+LL0 = !HGR
+LL1 = CL0 | CL1
+LL2 = CL1
+LL3 = CL0 & CL1
+
+
+
+HGR CL0-1  Lines (mod)    P  P3 P2 P1 P0
+ 1    XX     1           15   1  1  1  1
+
+ 0    00    16            0   0  0  0  0
+ 0    01     8            8   1  0  0  0
+ 0    10     4           12   1  1  0  0
+ 0    11     2           14   1  1  1  0
+
+P3 = HGR | CL0 | CL1
+P2 = HGR | ~CL1
+P1 = HGR | (~CL1 && ~CL0)
+P0 = HGR
+
+
+
+
+FOR SIMPLICITY, USE 7 BITS HORIZONTAL
+
+- Requires 64 kB for B plane, 64 kW for C plane.
+- Makes screen dumping a little harder.
+
++ Greatly simplifies cell counters (cell row mod 16).
++ Greatly simplifies line counters (now last line, no comparisons)
++ Allows hardware horizontal scrolling.
++ Allows virtual text resolution of 128x512 cells.
++ Allows virtual bitmap resolutions of up to 1024x512 pixels.
+
+      F   E   D   C   B   A   9   8   7   6   5   4   3   2   1   0
+    +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+    |             Y ORDINATE            |         X ORDINATE        |
+    +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+
+X ordinate steps with pixelclock / 8.
+Y ordinate steps with VS (resetting x ordinate to HSR value).
+
+Cell row = Y ordinate mod 16 (no mod N counters required)
+
+
+
+FPGA?
+
+I/O pins (decoding on-board)
+
+16 address
+16 data
+ 4 I/O, MEM, R, W
+ 1 IRQ
+ 1 RESET
+ 6 RRGGBB
+ 2 SYNC
+--
+46
+
+I/O pins (decoding off-board)
+
+ 2 address
+16 data
+ 2 R, W
+ 1 IRQ
+ 1 RESET
+ 6 RRGGBB
+ 2 SYNC
+ 8 VRAM Data (multiplexed)
+e--
+30
+
+Memory:
+
+32x8 (B) + 64x8 (C) + 32x8 (CG) = 1 MBit
+
+
+
+
+==REGISTERS BITS==
+
+Reg     Bits   Flags  Purpose
+-------------------------------------------------------------------------------
+VDUEN     1           Enables VDU
+COL40     1    m      Sets 40 column (320px) mode
+CS2       2    m      CG RAM address, bits 
+CRH       3    m      Cell Height Register (vertical resolution)
+                        000: cell=16px, 25-row modes
+                        001: cell=8px, 50-row modes
+                        010: cell=4px, 100px height
+                        011: cell=2px, 200px height
+                        1xx: cell=1px, 400px high resolution
+VSCR      4    m      Start line register (vertical smooth scrolling)
+HSCR      3    m      Horizontal phase (horizontal smooth scrolling)
+
+SAR      16    m      Start address register
+
+SCL	  8           Split-screen mode
+
+CBC	  2           Cursor Blink Control
+                        00: cursor off
+			01: cursor on
+			10: fast blink
+			11: slow blink
+CFG       6           Cursor foreground
+CBG       6	      Cursor background
+CAR	 16	      Cursor address
+PIR      16           Plane Index Register
+PCR      16           Plane Count Register
+
+
+For split mode:
+
+Use separate SAR0/1
+COL40 + CS2 + CHR + CRH + VSCR + HSCR = 1 + 2 + 3 + 4 + 3 = 13 bits.
+Use separate MCR0/1 subfields.
+
+
+Keep scrolling registers separate for easy setting.
+
+Mode register 0 contains VDUEN.
+
+
+
+Host-side locations:
+
+* MCR0 (VDUEN, COL40, CS2, CRH, IRQ)
+* MCR1 (SCL, COL40, CS2, CRH)
+* SCR0
+* SCR1
+* SAR0
+* MAR0
+* SAR1
+* MAR1
+* CCR (CBC, CFG, CBG)
+* CAR
+* HAR
+* B/CG/CMD PORT
+* C PORT
+
+
+MCR0
+
+      F   E   D   C   B   A   9   8   7   6   5   4   3   2   1   0
+    +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+    | * | / / / / / / / / / / / / / | * | * |  CS2  | * |    CRH    |
+    +-|-+---+---+---+---+---+---+---+-|-+-|-+---+---+-|-+---+---+---+
+      VDUEN                           |   |           COL40
+                                      |   IRQ ON VSYNC
+                                      IRQ ON SCL
+
+MCR1
+
+      F   E   D   C   B   A   9   8   7   6   5   4   3   2   1   0
+    +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+    |                SCL            | * | / |  CS2  | * |    CRH    |
+    +---+---+---+---+---+---+---+---+-|-+---+---+---+-|-+---+---+---+
+                                      SPLIT ENABLE    COL40
+SCR0/1
+
+      F   E   D   C   B   A   9   8   7   6   5   4   3   2   1   0
+    +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+    | / / / / / / / / / / / / / / / |     VSCR      | / |   HSCR    |
+    +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+                                                            
+CCR
+
+      F   E   D   C   B   A   9   8   7   6   5   4   3   2   1   0
+    +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+    | / / / |      BACKGROUND       |  CBC  |       FOREGROUND      |
+    +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+                                                            
+B/CMD PORT
+
+      F   E   D   C   B   A   9   8   7   6   5   4   3   2   1   0
+    +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+    | 1 | / / / |    CMD    | Y | X |         B/CG DATA             |
+    +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+
+CMDs:
+
+000: Write B & C
+001: Write B
+010: Write C
+011: Write CG
+100: Read B & C
+101: Read B
+110: Read C
+111:   *Reserved
+                                                            
+C PORT
+
+      F   E   D   C   B   A   9   8   7   6   5   4   3   2   1   0
+    +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+    | * | * |      BACKGROUND       |  CS1  |        FOREGROUND     |
+    +-|-+-|-+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+      |   INVERT                                            
+      BLINK
+
+
+
+
+HOST INTERACTION
+
+WRITING TO THE VDU
+
+0. io[HAR] <= start address
+1. io[CPORT] <= desired colour/attr
+2. io[CMD] <= char1 | &100
+3. io[CMD] <= char2 | &100
+4. ...
+
+
+
+READING FROM THE VDU (CHARACTERS)
+
+0. io[HAR] <= start address
+2. io[CMD] <= cmd (e.g. 10101:00000000)
+3. A <= io[CMD]
+4. A <= io[CMD]
+5. ...
+
+
+READING FROM THE VDU (COLOURS)
+
+0. io[HAR] <= start address
+2. io[CMD] <= cmd (e.g. 11001:00000000)
+3. A <= io[CPORT]
+4. A <= io[CPORT]
+5. ...
+
+
+READING FROM THE VDU (BOTH PLANES)
+
+0. io[HAR] <= start address
+2. io[CMD] <= cmd (e.g. 10001:00000000)
+3. A <= io[CPORT]
+4. A <= io[CMD] # Address increments
+5. A <= io[CPORT]
+6. A <= io[CMD] # Address increments
+7. ...

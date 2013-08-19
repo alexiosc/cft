@@ -1,0 +1,41 @@
+% -*- latex -*-
+\documentclass[class=memoir]{standalone}
+\input{preamble}
+
+\begin{document}%
+%\tikzexternaldisable%
+\begin{tikzpicture}%
+
+    \tikzstyle{state} = [draw, heavy, fill=white, rectangle, minimum height=2.5em, minimum width=7em, node distance=3em, text depth=2pt]
+    \tikzstyle{terminal state} = [state, rounded corners=4mm, fill=cfthl!50]
+    \tikzstyle{if} = [state, diamond, fill=cfthl!25]
+    \tikzstyle{edge} = [thick arrow, draw, heavy, -stealth]
+    %% \draw[cfthl,thick,step=5mm] (-5,-5) grid (10,5);
+
+    \node[terminal state] (S) {Read Byte};
+    \node[if, below=of S] (E) {Byte = \hex{E0}?};
+    \node[if, right=of E] (B) {Byte = \hex{F0}?};
+    \node[state, below=of E] (ME) {\ \ Set ‘extended’ flag\ \ };
+    \node[state, above=of B] (MB) {\ \ Set ‘break’ flag\ \ };
+    \node[terminal state, right=of B] (R) {\ \ Report flags \& Byte\ \ };
+
+    \path (S.south) edge[edge] (E.north);
+    \path (E.south) edge[edge] node [left] {yes} (ME);
+    \path (E.east) edge[edge] node [above] {no} (B);
+    \path (B) edge[edge] node [left] {yes} (MB);
+    \path (B.east) edge[edge] node [above] {no} (R.west);
+
+    \path (ME.west) [edge] -- ++(180:5mm) |- (S.west);
+    \path (MB.west) edge[edge] (S.east);
+
+    \draw[heavy] (E.east) -- +(180:1.5pt);
+    \draw[heavy] (E.south) -- +(90:1.5pt);
+    \draw[heavy] (B.north) -- +(270:1.5pt);
+    \draw[heavy] (B.east) -- +(180:1.5pt);
+
+\end{tikzpicture}%
+%\tikzexternalenable%
+\end{document}
+
+% End of file.
+

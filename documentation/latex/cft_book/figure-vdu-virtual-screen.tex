@@ -1,0 +1,52 @@
+% -*- latex -*-
+\documentclass[class=memoir]{standalone}
+\input{preamble}
+
+\begin{document}%
+%\tikzexternaldisable%
+\begin{tikzpicture}%
+
+  \def\frameWidth{120mm}
+  \def\frameHeight{60mm}
+  \def\planebox{(0,0) rectangle (\frameWidth,\frameHeight)}
+  \def\viewport{(2,\frameHeight -1cm) rectangle +(4, -3)}
+  \def\tritick{(0,0) -- (0.1,0.15) -- (-0.1,0.15) -- cycle}
+
+  \draw[step=0.25cm,color=cfthl!90] (0,0) grid (\frameWidth,\frameHeight);
+  
+  % Ordinates
+  \draw(0,\frameHeight) node[above]{0};
+  \draw(0,\frameHeight) node[left]{0};
+  \draw(\frameWidth,\frameHeight) node[above]{127};
+  \draw(0,0) node[left]{511};
+
+  \draw[thick,color=cfthl] (2,\frameHeight) -- +(0,-1);
+  \draw[thick,color=cfthl] (0,\frameHeight-1cm) -- +(2,0);
+  \draw[fill=black,xshift=2cm,yshift=\frameHeight+1pt]\tritick;;
+  \draw[fill=black,xshift=-1pt,yshift=\frameHeight-1cm,rotate=90]\tritick;;
+  \draw(2,\frameHeight) node[above right] {~StartAddress.x};
+  \draw(0,\frameHeight-1cm) node[below right,rotate=-90] {~StartAddress.y};
+
+  \begin{scope}[xshift=2cm,yshift=\frameHeight - 1cm]
+    \draw[fill=cfthl!50] (0,0) rectangle +(4, -3);
+    \draw[step=0.25cm,color=cfthl!90] (0,-3) grid +(4, 3);
+
+    \draw(0,0) node[above]{0};
+    \draw(0,0) node[left]{0};
+    \draw(4,0) node[above]{79};
+    \draw(0,-3) node[left]{29};
+    %\draw[thick, fill=white](0,0) rectangle +(0.25,-0.25);
+    %\draw[arrow, stealth-] (0.25, -0.25cm) -- +(.5,-.5);
+    %\draw (0.75, -0.75cm) node[below right] {Start Address};
+    \draw(2,-1.5) node{Viewport};
+    \draw[heavy] (0,0) rectangle +(4,-3);
+  \end{scope}
+
+  \draw[heavy] \planebox;
+
+\end{tikzpicture}%
+%\tikzexternalenable%
+\end{document}
+
+% End of file.
+

@@ -1,0 +1,58 @@
+% -*- latex -*-
+\documentclass[class=memoir]{standalone}
+\input{preamble}
+
+\begin{document}%
+%\tikzexternaldisable%
+\begin{tikzpicture}%
+
+  \input{partial-addressing-modes}
+
+  % The IR
+  \AddressingModeIR{1}{1}
+
+  % The PC
+  \begin{scope}[,yshift=-1.5cm]
+    \SixBitsOfZeroes
+  \end{scope}
+
+  % The AR
+  \begin{scope}[,yshift=-3cm]
+    \TargetRegisterPageZero{Page Zero address}{above right}{\AR}
+  \end{scope}
+
+  % The DR
+  \begin{scope}[,yshift=-4.5cm]
+    \TargetRegister{Address of data}{above right}{\DR}
+  \end{scope}
+
+  % The AC
+  \begin{scope}[,yshift=-6cm]
+    \TargetRegister{Data}{above right}{\AC}
+  \end{scope}
+
+  % The arrows
+  \foreach \x in {0.25, 0.75, ..., 2.75} {
+    \draw[arrow, -stealth] (\x, -1.5) -- (\x, -2.4);
+  }
+  \foreach \x in {3.25, 3.75, ..., 7.75} {
+    \draw[line width=3pt,color=white] (\x, -0.8) -- (\x, -1.6);
+    \draw[arrow, -stealth] (\x, 0) -- (\x, -2.4);
+  }
+
+  % The memory box.
+  \begin{scope}[xshift=9.5cm,yshift=0.6cm]
+    \TheIndirectionMemoryBox
+  \end{scope}
+
+  % Memory pointer
+  \draw[thick arrow, -stealth] (8, -2.7) -- (9.5, -2.7);
+  \draw[thick arrow, -stealth] (8, -4.2) -- (9.5, -4.2);
+  \draw[thick arrow, -stealth, rounded corners=2mm] (11, -2.95) -- (11, -3.4) -- (8, -3.4) -- (4, -3.4) -- (4, -3.9);
+  \draw[thick arrow, -stealth, rounded corners=4mm, yshift=-1.5cm] (11, -2.95) -- (11, -4.2) -- (8, -4.2);
+    
+\end{tikzpicture}
+%\tikzexternalenable%
+\end{document}
+
+% End of file.

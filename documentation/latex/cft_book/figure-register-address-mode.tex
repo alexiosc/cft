@@ -1,0 +1,55 @@
+% -*- latex -*-
+\documentclass[class=memoir]{standalone}
+\input{preamble}
+
+\begin{document}%
+%\tikzexternaldisable%
+\begin{tikzpicture}%
+
+  \input{partial-addressing-modes}
+
+  % The IR
+  \AddressingModeIR{0}{1}
+
+  % Six bits of zeroes.
+  \begin{scope}[,yshift=-1.5cm]
+    \SixBitsOfZeroes
+  \end{scope}
+
+  % The Accumulator.
+  \begin{scope}[,yshift=-3cm]
+    \begin{scope}[thin,draw opacity=0,line width=0pt]
+      %% \foreach \x in {0, 1, 2, 3, 4, 5, 6, 7}{
+      %%   \draw[fill=cfthl!50,xshift=\x cm](0,0) rectangle (0.5,0.6);
+      %%   \draw[fill=cfthl!25,xshift=\x cm](0.5,0) rectangle (1,0.6);
+      %% }
+      \draw[fill=cfthl!25](0,0) rectangle (3,0.6);
+      \draw[fill=cfthl!50](3,0) rectangle (8,0.6);
+    \end{scope}
+    \draw[thick](3,-0.1) -- (3,0.6);
+    \foreach \x in {0.5, 1, ..., 7.5}{
+      \draw[thin] (\x cm, 0) -- (\x cm, -0.1cm);
+    }
+    \foreach \x in {0, 1, ..., 5}{
+      \draw (0.25 + 0.5 * \x, 0.3) node { \bin{0} };
+    }
+    \draw (5.5, 0.3) node { Address \hex{0000}–\hex{03FF} };
+    \draw[line width=2pt](0,0) rectangle (8,0.6);
+    \draw (8,0) node[below] { \footnotesize 0 };
+    \draw (.25,0) node[below] { \footnotesize 15 };
+    \draw (8.2,0.3) node[right] { \PC };
+  \end{scope}
+
+  % The arrows
+  \foreach \x in {0.25, 0.75, ..., 2.75} {
+    \draw[arrow, -stealth] (\x, -1.5) -- (\x, -2.4);
+  }
+  \foreach \x in {3.25, 3.75, ..., 7.75} {
+    \draw[arrow, -stealth] (\x, 0) -- (\x, -2.4);
+  }
+    
+\end{tikzpicture}%
+%\tikzexternalenable%
+\end{document}
+
+% End of file.

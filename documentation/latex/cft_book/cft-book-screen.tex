@@ -1,0 +1,318 @@
+% -*- latex -*-
+\documentclass[11pt,a4paper,twocolumn]{memoir}
+\usepackage[a4paper,CJKbookmarks,bookmarks=true,bookmarksopen=true,pdfpagelabels,pdfstartpage=1]{hyperref}
+\usepackage[table]{xcolor}
+\usepackage{pdftricks}
+\usepackage{pdfpages}
+\usepackage{glossaries}
+\usepackage{makeidx}
+\glsSetCompositor{-}
+\renewcommand{\delimR}{–}
+
+\usepackage{lipsum}
+\usepackage{ifthen}
+\usepackage{float}
+\usepackage{floatflt}
+\usepackage{verbatim}
+\usepackage[includefoot]{geometry}
+\usepackage{color}
+\usepackage[absolute]{textpos}
+\usepackage{fontspec}
+\usepackage{makeidx}
+\usepackage{layout}
+\usepackage{calc}
+\usepackage{rotating}
+\usepackage{array}
+\newcolumntype{P}[1]{>{\raggedright\arraybackslash}p{#1}}
+\usepackage{tikz}
+%\usetikzlibrary{arrows,positioning,automata,shadows,fit,shapes,counters}
+\usetikzlibrary{arrows,positioning,automata,shadows,fit,shapes}
+\usepackage{tikz-timing}[2009/07/28]
+\usetikztiminglibrary{either}[2009/07/28]
+\tikzset{timing/z/.append style={black},}
+\tikzset{timing/.append style={x=1ex, y=2ex, line cap=round, line join=round, line width=1.3pt}}
+\tikzset{timing/slope=0.33}
+%\usepackage[tocindentauto]{tocstyle}
+
+%\usepackage[cam,a4,center]{crop}
+
+\definecolor{r0}{rgb}{0.33, 0.1, 0.1}
+\definecolor{r1}{rgb}{1, 0.3, 0.3}
+
+\definecolor{g0}{rgb}{0.1, 0.33, 0.1}
+\definecolor{g1}{rgb}{0.3, 1, 0.3}
+
+\definecolor{cftdark}{cmyk}{0,0.42,0.72,0.84}
+\definecolor{cftoutline}{cmyk}{0,0.43,0.72,0.53}
+\definecolor{cftlight}{cmyk}{0,0.43,0.72,0.22}
+\definecolor{cfthl}{rgb}{.89,.698,.529}
+\newcommand{\zebrarow}[1]{\rowcolors{#1}{cfthl!50}{cfthl!25}}
+\newcommand\zebra{\zebrarow{2}}
+\newcommand\zebrahdr{\zebrarow{1}}
+%\newcommand\zebra*[1]{\rowcolors{#1}{gray!10}{white}}
+
+\definecolor{darkblue}{RGB}{0,0,128}
+\hypersetup{
+    pdftitle={CFT Minicomputer Programming Guide},
+    pdfauthor={Alexios Chouchoulas},
+    pdfkeywords={},
+    bookmarksnumbered,
+    pagebackref=true,
+    breaklinks=true,
+%    pdfview=FitH,       % Or try pdfstartview={FitV}, This lead to uncorrect bookmarks
+    urlcolor=darkblue,
+    colorlinks=true,
+    citecolor=cftoutline,          %citeref's color
+    linkcolor=cftoutline,
+        }
+
+\makeindex
+\makeglossaries
+\input{glossary}
+
+\usepackage{listings}
+\lstset{xleftmargin=35pt,
+  basicstyle={\ttfamily},
+  backgroundcolor=\color{cfthl!25},
+  rulecolor=\color{cfthl!25},
+  framesep=5pt,
+  rulesep=5pt,
+  frame=tlrb,
+  framexleftmargin=10pt,
+  flexiblecolumns=true,
+  keepspaces=true,
+  numbers=left,
+  numbersep=5pt,
+  numberstyle={\scriptsize\sffamily\color{cftlight}}
+}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% LISTS OF THINGS
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% %%%\addtolength\cftfignumwidth{1.5em}
+%% \makeatletter
+%% \renewcommand{\@pnumwidth}{1.5em}
+%% \renewcommand{\@tocrmarg}{10em}
+%% \makeatother
+
+%\newcommand\listalgname{List of Algorithms} 
+%\newlistof{alg}{algorithm}
+
+\newcommand\listschematicname{List of Schematics} 
+\newlistof{listofschematic}{los}{\listschematicname}
+\newcounter{schematic}
+\newcommand{\schematic}[1]{%
+  \refstepcounter{schematic}%
+  \par\noindent\textbf{Schematic \theschematic. #1}
+  \addcontentsline{los}{section}{\protect\numberline{\theschematic}#1}\par%
+}
+\newcommand\listofschematics\listofschematic
+
+
+\newcommand\listioportname{List of Input/Output Ports} 
+\newlistof{listofioport}{loioport}{\listioportname}
+%% \newcommand{\registerioport}[1]{%
+%%   \refstepcounter{ioport}%
+%%   \addcontentsline{loioport}{section}{\protect\numberline{\ }%
+%% }
+\newcommand\listofioports\listofioport
+
+
+
+\newcommand\caution[1]{\textcolor{caution}{\textbf{#1}}}
+%\newcommand\todo[1]{\textcolor{caution}{\bf{TODO: #1}}}
+
+
+\newcommand\listtasksname{List of Incomplete Tasks} 
+\newlistof{listoftask}{lotasks}{\listtasksname}
+\newcounter{task}
+\newcommand{\todo}[1]{%
+  \refstepcounter{task}%
+  {\textcolor{caution}{\textbf{TODO: #1}}}
+  \addcontentsline{lotasks}{section}{\protect\numberline{\arabic{task}}To Do: #1}\par%
+}
+\newcommand{\bug}[2]{%
+  \refstepcounter{task}%
+  {\textcolor{caution}{\textbf{BUG: #1 #2}}}
+  \addcontentsline{lotasks}{section}{\protect\numberline{\arabic{task}}Bug: #1}\par%
+}
+\newcommand\listoftasks\listoftask
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% SECTION STYLING
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%% \usepackage{kpfonts}
+\usepackage[explicit]{titlesec}
+
+\counterwithin*{chapter}{part}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\renewcommand\thepart{\Alph{part}}
+\cftpagenumbersoff{part}
+%\newcommand*\partlabel{}
+
+\makeatletter
+\patchcmd{\l@part}{\hss#2}{}{}{}
+\makeatother
+
+
+\renewcommand\partnamefont{\normalfont\sffamily\Huge\scshape}
+\renewcommand\partnumfont{\bfseries}
+\renewcommand\printparttitle[1]{
+  \thispagestyle{empty}
+    \begin{tikzpicture}[remember picture,overlay]
+      \node[yshift=-\paperheight, draw opacity=0] at (current page.north west)
+           {\begin{tikzpicture}[remember picture, overlay]
+               \draw[fill=cftlight] (0,0) rectangle
+               (\paperwidth,\paperheight);
+               \draw[fill=cftoutline] (0,1cm) rectangle
+               (\paperwidth,0);
+               \node[anchor=east,yshift=0.5\paperheight,xshift=.87\paperwidth,rectangle]
+                    {\scalebox{2}{\color{white}\printpartname~\printpartnum}};
+                    \node[anchor=east,yshift=0.43\paperheight,xshift=.87\paperwidth,rectangle]
+                         {\scalebox{1.5}{\color{white} #1}};
+             \end{tikzpicture}
+           };
+    \end{tikzpicture}
+}
+
+
+\newcommand*\chapterlabel{}
+\titleformat{\chapter}
+  {\gdef\chapterlabel{}
+   \normalfont\sffamily\Huge}
+  {\gdef\chapterlabel{\thechapter\ }}{0pt}
+  {%
+    \setcounter{page}{1}
+    \begin{tikzpicture}[remember picture,overlay]
+    \node[yshift=-3.5cm, draw opacity=0] at (current page.north west)
+      {\begin{tikzpicture}[remember picture, overlay]
+        \draw[fill=cftlight] (0,0) rectangle
+          (\paperwidth,3.5cm);
+        \draw[fill=cftoutline] (0,0.25cm) rectangle
+          (\paperwidth,0);
+        \node[anchor=east,yshift=1.4cm,xshift=.87\paperwidth,rectangle]
+              {\color{white}\chapterlabel#1};
+       \end{tikzpicture}
+      };
+   \end{tikzpicture}
+  }
+\titlespacing*{\chapter}{0pt}{35pt}{20pt}
+
+\titleformat{\section}
+            {\gdef\sectionlabel{}\normalfont\sffamily\Large}
+            {\gdef\sectionlabel{\thesection\ }}{0pt}
+            {\color{cftoutline}\thesection\quad #1\\
+              \titlerule[2pt]
+            }[{\vspace{-30pt}\color{cftoutline}\rule{\columnwidth}{2pt}}]
+
+
+\titleformat{\subsection}
+  {\gdef\subsectionlabel{}
+   \normalfont\sffamily\bfseries\large}
+  {\gdef\subsectionlabel{\thesubsection\ }}{0pt}
+  {\color{cftoutline}\thesubsection\quad #1}
+
+
+\titleformat{\subsubsection}
+  {\gdef\subsubsectionlabel{}
+   \normalfont\sffamily\large}
+  {\gdef\subsubsectionlabel{\thesubsubsection\ }}{0pt}
+  {\color{cftoutline}#1}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+
+
+
+
+
+%% \titleformat{\paragraph}
+%%   {\gdef\chapterlabel{}
+%%    \normalfont\bfseries}
+%%   {\gdef\chapterlabel{\theparagraph\ }}{0pt}
+%%   {\color{cftoutline}#1}
+
+
+
+%\geometry{a4paper, hoffset=0in, voffset=-.25in, left=1.5cm, right=1.5cm,
+%  top=2.5cm, bottom=2.5cm}
+%\geometry{paperwidth=17.5cm, paperheight=23.1cm, hoffset=0in, voffset=-.25in, left=1in, right=1in,
+%  top=1in, bottom=1in}
+%\geometry{a4paper, hoffset=0in, left=1.2in, right=1.2in,
+%  top=1.2in, bottom=1.2in, includefoot, footskip=40pt}
+\geometry{a4paper, landscape, hoffset=0in, left=0.5in, right=0.5in,
+  top=1in, bottom=1in, includefoot, footskip=40pt}
+%\sloppy
+
+
+% Fonts
+%\defaultfontfeatures{Mapping=tex-text}
+\setmainfont{Minion Pro}
+\setsansfont{Myriad Pro}
+\setmonofont[]{Inconsolata}
+
+
+% Not really used here, but never mind.
+\setlength\columnsep{7mm}
+
+
+% Input our local macro definitions
+\input{typographic-conventions}
+\input{bom}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+\traditionalparskip
+
+\input{cover}
+\thispagestyle{empty}
+\pagestyle{headings}
+
+%\fancyheadoffset[LE,RO]{\marginparsep+\marginparwidth}
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}
+
+
+\setlength{\cftbeforepartskip}{1em}
+
+%\layout
+
+
+\input{cft-book-outline}
+
+\end{document}
+
+%%  LocalWords:  documentclass CFT Alexios PDP autoindexing Von LSI
+%%  LocalWords:  Neumann microprograms microprogram microinstructions
+%%  LocalWords:  et cetera kiloword KWord kilowords KWords Autoindex
+%%  LocalWords:  SUBRET JSR TRAPRET ISRRET ISR autoindex th FC FFF tl
+%%  LocalWords:  FFFF pagerel vlgrey linewidth fillstyle fillcolor de
+%%  LocalWords:  addr FFFE IOT LIA JMP bitwise ORred asm bitfield CLA
+%%  LocalWords:  CLL RBL RBR RNL RNR NOP linearc SNA SZA SSL SNN SNZ
+%%  LocalWords:  SCL CLI STI SNP lll RET RTT SBL SBR SNL SNR TTY
+%%  LocalWords:  disjuncted conjuncted ANDed

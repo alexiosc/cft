@@ -1,0 +1,15 @@
+% Cover page
+
+\pagestyle{empty}
+\thispagestyle{empty}
+%\begin{textblock}{21}(0,0)
+  \begin{tikzpicture}[overlay, remember picture, anchor=center, inner sep=0pt, outer sep=0pt]
+    \coordinate (T) at (0.5\textwidth,-8cm);
+
+    \draw[draw opacity=0, fill=cftlight] (current page.north west) rectangle (current page.south east);
+    \draw[draw opacity=0, fill=cftdark] (-10cm, -20cm) rectangle (40cm,-30cm);
+    %\draw (T) circle (2cm);
+    \node at (T.center) {\color{white}{\fontspec[Path=fonts/,Scale=20]{yells}{C.F.T}}};
+  \end{tikzpicture}
+%\end{textblock}
+\cleardoublepage

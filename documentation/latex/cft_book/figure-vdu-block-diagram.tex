@@ -1,0 +1,76 @@
+% -*- latex -*-
+\documentclass[class=memoir]{standalone}
+\input{preamble}
+
+\begin{document}%
+\begin{tikzpicture}
+
+   %\draw[step=0.25cm,color=cfthl!90] (0,0) grid (10,10);
+
+   \begin{scope}[xshift=9cm]
+     \draw[heavy,fill=cfthl!25] (0,-4) rectangle +(1,12);
+     \draw[heavy] (0.5,2) node[rotate=-90] {CFT Expansion Bus};
+   \end{scope}
+
+   \begin{scope}[xshift=4.5cm]
+     \begin{scope}[yshift=7cm]
+       \draw[heavy,fill=cfthl!50] (-4.5,0) rectangle +(8,1);
+       \draw[heavy,fill=cfthl!50] (-0.5,0.5) node {Display Register File};
+       \draw[thick arrow, stealth-stealth] (4.5,0.5) -- (3.5,0.5);
+     \end{scope}
+     
+     \begin{scope}[yshift=-2cm]
+       \draw[heavy,fill=cfthl!50] (0,0) rectangle +(3.5,5);
+       \draw[heavy,fill=cfthl!50] (1.75,2.5) node {Memory Sequencer};
+       \draw[thick arrow, stealth-stealth] (1.75,-1) -- (1.75,0);
+     \end{scope}
+     
+     \begin{scope}[yshift=4cm]
+       \draw[heavy,fill=cfthl!50] (0,0) rectangle +(3.5,2);
+       \draw[heavy,fill=cfthl!50] (1.75,1) node {Frame Engine};
+       \draw[thick arrow, -stealth] (1.75,3) -- (1.75,2);
+       \draw[thick arrow, stealth-] (1.75,-1) -- (1.75,0);
+
+     \end{scope}
+     
+     \begin{scope}[yshift=-4cm]
+       \draw[heavy,fill=cfthl!50] (0,0) rectangle +(3.5,1);
+       \draw[heavy,fill=cfthl!50] (1.75,0.5) node {Host Interface};
+       \draw[thick arrow, stealth-stealth] (4.5,0.5) -- (3.5,0.5);
+     \end{scope}
+   \end{scope}
+
+   \begin{scope}[yshift=-4cm]
+     \draw[heavy,fill=cfthl!50] (0,0) rectangle +(3.5,3);
+     \draw[heavy,fill=cfthl!50] (1.75,1.5) node {Video Memory};
+     \draw[thick arrow, stealth-stealth] (4.5,2.5) -- (3.5,2.5);
+   \end{scope}
+
+   \begin{scope}[yshift=4cm]
+     \draw[heavy,fill=cfthl!50] (0,0) rectangle +(3.5,2);
+     \draw[heavy,fill=cfthl!50] (1.75,1) node {Video Out};
+     \draw[thick arrow, -stealth] (4.5,1) -- (3.5,1);
+   \end{scope}
+
+
+   \begin{scope}[yshift=0cm]
+     \draw[heavy,fill=cfthl!50] (0,0) rectangle +(3.5,1);
+     \draw[heavy,fill=cfthl!50] (1.75,0.5) node {Character Generator};
+     \draw[thick arrow, color=black!10] (1,1) -- +(0,2.8);
+     \draw[thick arrow, -stealth] (4.5,0.5) -- (3.5,0.5);
+     \draw[thick arrow, -stealth] (1,3.1) -- +(0,0.9);
+     \draw[thick arrow] (1,1) -- +(0,0.9);
+   \end{scope}
+
+   \begin{scope}[yshift=2cm]
+     \draw[heavy,fill=cfthl!50] (0,0) rectangle +(3.5,1);
+     \draw[heavy,fill=cfthl!50] (1.75,0.5) node {Colour/Attr Engine};
+     \draw[thick arrow, -stealth] (4.5,0.5) -- (3.5,0.5);
+     \draw[thick arrow, -stealth] (1.75,1) -- +(0,1);
+   \end{scope}
+
+\end{tikzpicture}%
+\end{document}
+
+% End of file.
+

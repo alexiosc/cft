@@ -1,0 +1,34 @@
+% -*- latex -*-
+\documentclass[class=memoir]{standalone}
+\input{preamble}
+
+\begin{document}%
+%\tikzexternaldisable%
+\begin{tikzpicture}%
+
+\input{partial-fs}
+
+   \begin{fileLevelDiagram}
+     %\draw[step=0.5cm,color=cfthl!90] (0,0) grid (10,9);
+     \draw[thick arrow, -stealth, rounded corners=4mm] (2.5,0.4) -- (3.1,0.4) -- (3.9,7.6) -- (4.5,7.6);
+     \begin{scope}[xshift=4.5cm, yshift=7.2cm]
+       \fileLevelIndexBlock
+     \end{scope}
+     \fileLevelDataBlock{4.5cm}{3.3cm}{cfthl!50}
+     \fileLevelDataBlock{6cm}{3.3cm}{cfthl!25}
+     \fileLevelDataBlock{7.5cm}{3.3cm}{cfthl!50}
+     \draw(8.75,3.9) node{\Huge ...};
+     \fileLevelDataBlock{10.25cm}{3.3cm}{cfthl!50}
+     \draw[thick arrow, -stealth, rounded corners=4mm] (6.25, 7.2) -- +(0,-0.5) -- (4.5, 5.25) -- +(0, -0.75);
+     \draw[thick arrow, -stealth, rounded corners=4mm] (6.75, 7.2) -- +(0,-0.5) -- (6, 5.25) -- +(0, -0.75);
+     \draw[thick arrow, -stealth, rounded corners=4mm] (7.25, 7.2) -- +(0,-0.5) -- (7.5, 5.25) -- +(0, -0.75);
+     \draw[thick arrow, -stealth, rounded corners=4mm] (10.25, 7.2) -- +(0,-0.5) -- (10.25, 5.25) -- +(0, -0.75);
+
+   \end{fileLevelDiagram}
+
+\end{tikzpicture}%
+%\tikzexternalenable%
+\end{document}
+
+% End of file.
+

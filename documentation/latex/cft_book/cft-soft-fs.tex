@@ -1,0 +1,1373 @@
+% -*- latex -*-
+
+% Definitions for this chapter.
+
+\input{partial-fs-magic}
+
+\chapter{Data Storage}
+\label{sec:fs}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.75\columnwidth]{figs/Floppy_Disk_Drives_8_5_3.jpg}
+  \caption[Floppy drives]{Floppy drives. 8-inch (left), full-height
+    5¼-inch (middle), 3½-inch (right). The ‘full-height’ 5¼-inch unit
+    is the size of two stacked internal CD/DVD drives (the desktop versions).}
+\end{figure}
+
+
+This chapter describes how CFT storage media are organised. Currently, the only
+media in planning are IDE (parallel ATA) disk and disk-like devices such as CF
+cards. IDE CD-ROMs may be attached and eventually supported but this is not
+planned.
+
+I initially considered supporting floppy drives using one of the older
+WD37C65 Floppy Drive Controller chips, which are still relatively easy
+to find (used). I have a number of Shugart 8-inch devices and several
+of the smaller capacity IBM/Tandon 5¼-inch units, and enough floppy
+disks. An immense 8-inch floppy drive controlled by the CFT would be
+appropriate and interesting to look at (and provide interesting
+mini-computer-like sound effects with its head loading/unloding
+sounds), but IDE storage is easier to interface to, more convenient
+and devices are simpler to find, attach, and run. The floppy
+sub-project is still likely to go ahead, but not as the main means of
+storage for the CFT.
+
+A cassette tape interface is much simpler to build than a floppy
+controller, and I may attempt this as part of a multi-I/O board for
+the novelty factor. Desktop cassette decks of the type used in the
+Eighties are not very common and their rubber parts need maintenance
+which makes them not age well. Thankfully, analogue audio will always
+be with us, and a multitude of devices could be used to store and play
+back data streams: from digital voice recorders, to mobile phones and
+other computers.
+
+\section{Fundamentals}
+
+Every storage medium is ultimately a memory array. Unlike memory, storage is
+addressed in blocks. Standard Forth blocks are always 1,024 bytes (512 words)
+in size, but storage blocks are most often 256–4,096 bytes (128–2,048 words) in
+size. Storage is accessed in whole blocks, i.e. a block is the quantum of
+storage. 
+
+Every medium uses its own way of addressing individual
+blocks. Three-dimensional vectors (head, cylinder, sector) are used for
+floppies and (at the lowest level) for hard disks. On hard disks, the on-board
+controller hides this and presents the disk as a simple array of (almost
+always) 256-word blocks.
+
+\section{Units of Measurement}
+
+This discussion (and much of this chapter) often makes reference to
+{\em bytes\/} which are defined to be eight-bit quantities. This is
+done so that quantities make sense to the average reader, who is used
+to multiples of bytes, but not of words. Whenever bytes are
+referenced, quantities in Words are also provided. For the purpose of
+this chapter, multiples of bytes and words are base two:
+
+\begin{center}
+  \zebra
+  \begin{tabular}{lll}
+    Prefix & Unit    & Description\\\hline
+    Kilo-  & kB      & 1 Kilobyte = $2^{10}=1024$ Bytes (512 Words) \\
+    Mega-  & MB      & 1 Megabyte = $2^{20}=1048576$ Bytes (512 kWords) \\
+    Giga-  & GB      & 1 Megabyte = $2^{30}=1073741824$ Bytes (512 MWords) \\
+    Tera-  & TB      & 1 Terabyte = $2^{40}=1099511627776$ Bytes (512 GWords) \\
+    \hline
+  \end{tabular}
+\end{center}%
+%
+\noindent This may seem counter to modern practice, but the design of
+CFT mirrors the design of similar computers before marketing reasons
+made storage device manufacturers decimalise their units. Binary units
+make sense for storage devices, since their block sizes are powers of
+two, even though the total storage capacity is not. It is, however, a
+multiple of a power of two (the block size), and is better expressed
+in binary units.
+
+\section{Byte Oriented Storage Media}
+
+Some storage media are byte oriented, others are word oriented. IDE
+disk drives use a 16-bit word, which is ideal for use on the CFT
+architecture: reading a traditional\footnote{Modern IDE blocks are
+  4,096 bytes long.} 512 byte IDE block requires 256 reads from the
+drive.
+
+Other devices like floppy drives, are byte oriented. In this case, for
+the typical 512 byte sector, the processor must perform 512 8-bit
+transactions using a state machine that shifts the first byte read 8
+bits to the right, making it the MSB.
+
+Byte ordering terms do not apply to a word-oriented machine, but this
+makes the CFT a big-endian architecture, at least in the way it reads
+from 8-bit devices.
+
+\section{Some Data Structures}
+
+This chapter makes reference to a number of simple (or common) data
+structures, which are defined below:
+
+\begin{description}
+  \item\simpledatastructure{Word} this is the familiar 16-bit quantity, the
+    smallest amount of data the CFT can access from memory. Words represent
+    values in the range 0–65,535.
+  \item\simpledatastructure{Cell} same as \ds{Word}. Used when discussing
+    Forth.
+  \item\simpledatastructure{Code} one or more 16-bit words representing CFT
+    instructions.
+  \item\simpledatastructure{DWord} short for ‘double word’. This is a sequence
+    of two words representing an unsigned, 32-bit integer. The \gls{MSB} is the
+    first word (lowest offset or address). A \ds{DWord} can represent values in
+    the range 0–4,294,967,295.
+  \item\simpledatastructure{Reserved} not a true data structure. This is used
+    to mark one or more words that are reserved for future expansion.
+  \item\simpledatastructure{Date} A 16-bit value representing a date. This is a
+    bitfield with the following structure\footnote{Readers with a good memory
+      or traumatic experiences will identify this as the same data structure
+      used by MS-DOS. This is pure co-incidence, guided by the fact that MS-DOS
+      was 16-bit, and the Gregorian calendar hasn't changed much since the late
+      1970s.}:
+
+    \begin{cbitfield}
+      \bitfieldItem{5}{cfthl!50}{Day}
+      \bitfieldItem{4}{cfthl!25}{Month}
+      \bitfieldItem{7}{cfthl!50}{Year}
+    \end{cbitfield}
+
+    \begin{description}
+      \item {\bfseries Day:} the day of the month as an unsigned integer in the range 1–31.
+      \item {\bfseries Month:} the month as an unsigned integer in the range 1–12.
+      \item {\bfseries Year:} the year as an unsigned integer in the range
+        0–127. The CFT Epoch Year, 1960, is added to this, to allow years in
+        the range 1960–2087.
+    \end{description}
+
+  \item\simpledatastructure{Time} A 16-bit value representing a timestamp. This
+    is a bitfield with the following structure\footnote{Again, this is
+      identical to the MS-DOS timestamp due to the similarity in limits and
+      requirements.}:
+
+    \begin{cbitfield}
+      \bitfieldItem{5}{cfthl!50}{Seconds}
+      \bitfieldItem{6}{cfthl!25}{Minutes}
+      \bitfieldItem{5}{cfthl!50}{Hours}
+    \end{cbitfield}
+
+    \begin{description}
+      \item {\bfseries Seconds:} the seconds of the timestamp in the range
+        0–31. Note that this range is unable to represent the required 0–59
+        range. Seconds are shifted one bit to the right, effectively multiplied
+        by two. This gives a range of 0–58 in increments of two. The CFT can
+        thus record timestamps with a precision of 2 seconds. This is
+        sufficient for many needs. MS-DOS did the same and few users noticed
+        the low accuracy.
+      \item {\bfseries Minutes:} the minutes of the timestsamp in the range
+        0–59.
+      \item {\bfseries Hours:} the hours of the timestamp, in the range 0–23
+        (24-hour format).
+    \end{description}
+
+  \item\simpledatastructure{PString} this data structure occupies one or more
+    words, depending on its use. It is used to hold a CFT packed string, a
+    compact method of recording strings of identifier characters. Packed
+    strings contain 127-bit US ASCII values. Every word contains two such
+    characters. Odd-numbered characters take up the lower 8 bits, even-numbered
+    characters take up the upper 8 bits. The last character in the string is
+    denoted by setting the eighth bit (\cftcode{END}) for any character:
+
+    \begin{cbitfield}
+      \bitfieldGroup{7}{cfthl!50}{Character index 0}
+      \bitfieldItem{1}{cfthl!25}{END}
+      \bitfieldGroup{7}{cfthl!50}{Character index 1}
+      \bitfieldItem{1}{cfthl!25}{END}
+    \end{cbitfield}
+
+    Packed strings are also discussed in~\cf{sec:asm-pstring}.
+
+  \item\simpledatastructure{BlockPtr} this is a \ds{DWord} value: a 32-bit
+    unsigned integer, MSB first. It is interpreted as a pointer to a block
+    within a volume. Non-zero values refer to a block by its number. A zero
+    (\hex{00000000}) denotes the pointer \cftcode{NULL} value, usually
+    interpreted as ‘no block’ in this context.
+\end{description}
+
+In addition, a complex data structure, \ds{DateTime} is defined to record the
+date and time of a timestamp:
+
+\begin{datastructure}[Offset]{DateTime}
+    \dsdesc{\hex{00}}{Date}{%
+      The \ds{Date} part of the timestamp.
+      }
+    %
+    \dsdesc{\hex{01}}{Time}{%
+      The \ds{Time} part of the timestamp.
+    }
+    %
+\end{datastructure}
+
+
+\section{Translating Native Geometry to Block Addresses}
+
+Most physical storage devices are block-oriented, but their blocks are
+addressed in native schemes. Functions are provided to map from these
+native schemes to block counts (and the reverse).
+
+\subsection{IDE Hard Drives}
+
+IDE hard drives traditionally used a three-dimensional cylinder-head-sector
+addressing scheme. All but the oldest IDE-compatible drives also provide a
+block-level view of the disk. The disk's embedded controller is responsible for
+the mapping from one scheme to the other, so the CFT operating system does not
+need to.
+
+\subsection{Floppy Disks}
+
+Floppy disks always use cylinder-head-sector addressing, but floppy disk
+controllers do not provide a logical block mapping in hardware. The operating
+system must provide a mapping function in software. One complication here is
+that the number of cylinders and sectors are not necessarily powers of two, so
+software multiplications or an in-memory offset table would be needed.
+
+%% This can be avoided by padding cylinders and sectors to a power of two, and
+%% using the entire vector as a block number. Floppy cylinders are commonly in the
+%% range 0–40 to 0–80. 7 bits can be used for this. Sector numbers start at 1. The
+%% number of sectors per track differs between floppy drive technology, but 5 bits
+%% would be more than enough. The head ordinate is either 0 or 1. One mapping
+%% function could thus be $64c + 32h + s - 1$. This allows a sparse, 13-bit block
+%% map. To avoid allocating 
+
+\subsection{Tapes}
+
+Tapes are sequential access devives and are operated at the pulse level. There
+are blocks, and tapes cannot hold a CFT filesystem, so no block translation is
+needed.
+
+\section{Disk Label}
+\label{sec:disk-label}
+\label{sec:disklabel}
+\label{sec:disk-slices}
+
+All disks, including floppy disks, have a \gls{disk label}. The disk
+label is at block 0 of the device. It identifies the device as
+properly prepared for use. It contains the magic number
+\magicDiskLabel (used to detect the presence of the disk label), space
+for 126 words of optional boot code, and defines between one and
+sixteen \glspl{disk slice}.
+
+\begin{figure}
+ \centering
+ \input{figure-storage-medium-organisation}
+
+ \caption[Disk Label]{\label{fig:storage-medium-organisation} The CFT
+   Disk Label. The first block on each usable storage medium contains
+   this data structure, which includes a magic number (for detection
+   reasons), some optional boot code, and pointers to 1–16 disk
+   \glspl{disk slice}. The storage medium itself is partitioned
+   according to the definition of these slices. Each slice can contain
+   anything, but usually holds a \gls{filesystem}.}
+\end{figure}
+
+Disk labels assume the lowest common denominator of block sizes, 256
+words. This matches the hardware sector size of both hard drives and
+standard-format floppy disks\footnote{Most modern floppy disks are
+  soft-sectored, so exotic formats {\em are\/} possible, if undesirable
+  because of their incompatibility with other platforms.}. The memory
+map of the disk label is as follows:
+
+\begin{datastructure}[Offset]{DiskLabel}
+    \dsdesc{\hex{00}}{Word}{%
+      If ROM boot code should be used, this
+      word should hold the \asm{RET} instruction, \hex{6400}. Otherwise,
+      it should be a \asm{SKIP} instruction (\hex{D010}), and boot code
+      should be provided starting at block offset \hex{02}.}
+    %
+    \dsdesc{\hex{01}}{Word}{%
+      The disk label magic number, always \magicDiskLabel. This works
+      in tandem with offset \hex{00}, so the magic number could be
+      considered to be the 32-bit value \hex{6400CF75} (CFT disk
+      label, ROM boot code) or \hex{D010} (CFT disk label, custom boot
+      code).}
+    %
+    \dsdesc{\hex{02}–\hex{7F}}{Code}{%
+      Up to 126 words of optional boot code. If
+      not used for booting, the contents of the part of the disk label are
+      unspecified and may be used for any other ad hoc purpose.
+    }
+    %
+    \dsdesc{\hex{80}–\hex{FF}}{SliceDesc}{
+      Sixteen identical slice
+      descriptors, each 8 words long, corresponding to slices 0–15 in
+      order. Not all slices need to be used, and they do not need to be
+      used contiguously. Slices do not need to be contiguous, and may
+      overlap as no checking is performed (of course, writing to
+      overlapping slices may corrupt all involved filesystems). The
+      corresponding 8 words for unused slices must be filled with the
+      value \hex{FFFF}.
+    }
+\end{datastructure}%
+%
+Each slice descriptor (\ds{SliceDesc}) consists of eight words as follows:
+
+\pagebreak
+\begin{datastructure}[Offset]{SliceDesc}
+  \dsdesc{\hex{0}}{Word}{%
+    The type of volume held in this slice. Currently,
+    the following values are valid:
+    \begin{itemize}
+      \item{\bfseries\hex{F501}}: a CFT Filesystem.
+      \item{\bfseries\hex{FFFF}}: an unused slice descriptor.
+    \end{itemize}
+    }
+  %
+  \dsdesc{\hex{1}}{Word}{%
+    Slice flags. This value is currently unused and
+    should hold the value \hex{0000} for used slices, \hex{FFFF} for unused
+    ones.
+  }
+  %
+  \dsdesc{\hex{2}–\hex{3}}{DWord}{%
+    32 bits, with the \gls{MSB} at offset
+    \hex{2}. Number of the first hardware-sized block (256 words) of the
+    slice. Valid numbers are \hex{00000001} to \hex{FFFFFFFF}, though in
+    practice the limit is the capacity of the storage device. Block
+    \hex{00000000} is the disk label.
+  }
+  %
+  \dsdesc{\hex{4}–\hex{5}}{DWord}{%
+    32 bits, with the \gls{MSB} at offset
+    \hex{4}. Number of hardware-sized blocks (256 words) in the slice. The
+    minimum value is \hex{00000001}, and the maximum depends on the location of
+    the next slice or the end of the storage medium.%
+  }
+  %
+  \dsdesc{\hex{6}}{Word}{%
+    This word is reserved for future expansion and should be set to \hex{FFFF}.
+  }
+  %
+  \dsdesc{\hex{7}}{Word}{%
+    This word is reserved for future expansion and should be set to \hex{FFFF}.
+  }
+\end{datastructure}
+
+\noindent On PC architectures, floppies contain a boot sector but no
+partition table. The CFT has a single disk label format, and it
+applies to all random access peripheral storage media. Due to their
+size, floppies are expected to have a single slice.
+
+\subsection{Accessing Disk Slices}
+
+Most Unix-based architectures include tools for accessing filesystems
+at arbitrary locations of a container device. On Linux, the
+\cftout{dmsetup} and \cftout{losetup} tools can both do this using
+different kernel drivers.
+
+A driver for the CFT filesystem will, of course, need to be written
+first. This has so far not been done, and chances are it will be a
+user-space driver (which Linux allows through the FUSE framework). As
+such, and since it will be written in ANSI C, it should be simple to
+write drivers for other platforms.
+
+\section{Filesystem}
+\label{sec:fs}
+
+This section describes the CFT Filesystem. Most filesystems are difficult to
+describe in a linear fashion because their components are interlinked in
+complex ways. In reading this discussion, it may be necessary to jump forward
+or back to cover data structures and concepts not yet encountered.
+
+The CFT \gls{filesystem} was inspired very heavily by Apple's ProDOS filesystem
+as used in the Apple II series.\footnote{For a full discussion of ProDOS 8
+  internals, including the filesystem format, please refer to the
+  \ahref{http://www.easy68k.com/paulrsm/6502/PDOS8TRM.HTM}{ProDOS 8 Technical
+    Reference Manual}.}
+
+The CFT Filesystem has a number of useful features:
+
+\begin{itemize}
+\item Works on both small and large devices. On the 8-bit Apples,
+  ProDOS worked with 90 kByte floppy disks, but could use the much
+  larger hard disks of the day. Using 2,048-word blocks, the CFT
+  filesystem can address a staggering 16~TB (8~Terawords). Using the
+  more common 1,024-word block size, the filesystem can store up to
+  8~TB (4~Terawords).
+\item Allows large files. Up to 16 GB ($2^{30}$) can be stored in a single
+  file.
+\item Organises files in nested subdirectories.
+\item Low overheads. An 8~Megaword (256-word blocks) filesystem needs 10 blocks
+  (2 kWord, 0.02\%) for overheads.
+\item Allows different block sizes: 256, 512 or 1,024 Word blocks,
+  with later upwards expansion available.
+\item Blocks can span multiple hardware sectors.
+\item Sparse files are easy to implement and can be supported at a later time.
+\end{itemize}
+
+A filesystem block is defined in terms of the hardware block (sector) size and
+is usually a small multiple of it. It is chosen when the filesystem is created
+and remains constant for the lifetime of the filesystem. Since it affects
+various filesystem limits and overheads, it makes sense for a single filesystem
+block to span multiple hardware blocks or sectors. This parallels the concept
+of a Unix block, or that of the ‘cluster’ in the MS-DOS FAT filesystem.
+
+\subsection{Filesystems and Volumes}
+
+In this chapter, a filesystem is defined as the data structure used to store
+files on a random access storage medium. A particular instance of this
+filesystem residing on a particular storage medium is a termed (in accordance
+with ProDOS tradition) a {\em volume\/}. That is, there is currently only one
+CFT filesystem, but there may be dozens of volumes formatted using this
+filesystem.
+
+This is slightly counter to some Unix terminology, where a filesystem is the
+actual data on disk.
+
+\subsection{Data Structures}
+
+To simplify coding the filesystem, a lot of the data structures are defined in
+terms of a base data structure, in a concept essentially identical to that of
+inheritance in \gls{OOP}. For example, the entire volume is
+described by a data structure which is almost identical to that of a
+directory. Thus, the same code that traverses sub-directories can be used to
+traverse the top-level directory of a volume.
+
+Another \gls{OOP} concept in use is polymorphism. All directory entries are
+derived from the same base data structure, and share a number of metadata
+fields. They also have the same size, which makes them fit neatly in the
+directory entry array.
+
+\subsection{Redundancy}
+
+There are a number of purposefully redundant features in the filesystem
+design. This was done to allow sanity checking, which helps detect corruption
+in volumes. Redundancy has an obvious space cost, and sanity checks have an
+obvious time cost. It was important to balance those against the need for a
+compact, simple filesystem for a simple computer.
+
+Some redundant features are costly in time but helpful in recovering a broken
+filesystem. Using a doubly linked list for directory blocks is one of
+them. Having directory names in two places is another. A repair program could
+scan through the filesystem to locate broken directories and hopefully relink
+the directory hierarchy.
+
+\section{Filesystem Contents}
+
+Filesystem blocks may be one of several types:
+
+\begin{itemize}
+\item A boot block.
+\item A volume directory block, describing the filesystem and containing
+  entries for its first files and sub-directories.
+\item A bitmap block, which shows the computer which blocks are in use.
+\item A directory block, describing a directory or subdirectory (this is almost
+  identical to volume directory blocks above).
+\item A file index block.
+\item A block allocated to a file.
+\item A free block.
+\end{itemize}
+
+The role of a particular block depends on its position (block number), its
+relation to other blocks, or a block type field stored in the block
+itself. Each type of block is described below. The layout of a newly
+constructed volume is shown in~\fcf{fig:filesystem-structure}.
+
+\begin{figure}
+ \centering
+ \input{figure-filesystem-structure}
+ \caption[CFT filesystem overview]{\label{fig:filesystem-structure} High level
+   view of how a newly created CFT filesystem is organised on disk.}
+\end{figure}
+
+
+
+\subsection{Boot Blocks}
+
+The first two blocks of every filesystem are reserved for boot code. If more
+boot code is necessary, additional blocks may be reserved in the filesystem's
+free area. Naturally, the size of the boot blocks in words varies with the size
+of the filesystem block.
+
+In most cases, these boot blocks will not be used. ROM boot code should take
+care of booting in most cases (stage 0 bootstrap). Additional, optional space
+for custom boot requirements is provided in the disk label (stage 1
+bootstrap). The boot blocks in the filesystem can hold stage 2 bootstrap
+code.
+
+
+
+\subsection{Volume Directory}
+
+The \gls{VD} (\ds{VolumeDir} data structure) acts as the filesystem header or
+superblock. Structurally, it is identical to a directory, except for its block
+type field (magic number) and the contents of its first entry. The whole volume
+behaves like a directory without a parent.
+
+Directories are discussed in~\cf{sec:fs-directories}. The specifics of the
+\gls{VD} are discussed in~\cf{sec:fs-containers}. The data structure itself is
+illustrated in~\fcf{fig:fs-volumedir}.
+
+
+
+
+\begin{figure}
+ \centering
+ \input{figure-fs-volumedir}
+ \caption[CFT Volume data structure]{\label{fig:fs-volumedir} The
+   \ds{VolumeDir} data structure is a specialised \ds{Directory} with a
+   Volume Descriptor (\ds{VolumeDesc}) for a header. It contains
+   metadata on the entire volume.}
+\end{figure}
+
+
+
+\subsection{The Bitmap}
+\label{sec:fs-bitmap}
+
+The bitmap is used to mark what blocks are in use. Each block of the volume is
+represented by a single bit in the bitmap, 16 blocks to a word. The size of the
+bitmap depends on the volume's block size and the volume's size (in
+blocks).
+
+Each bitmap block contains information on $16b$ blocks, where $b$ is the
+filesystem block size. For a filesystem of $n$ blocks, $\lceil n/16b\rceil$
+bitmap blocks are needed.
+
+Bit 0 (the \gls{LSB}) of word 0 of block 0 of the bitmap represents block 0 of
+the volume (the first boot block).
+
+The bitmap is a simple bitfield without magic numbers or other fields. For each
+bit, a value of \bin{0} indicates a free block, and a value of \bin{1}
+indicates a used block. The bitmap maps {\em all\/} blocks in the volume,
+including support structures such as the boot blocks, volume directory block
+and the bitmap itself. These blocks are, naturally, marked used at volume
+creation.
+
+A \gls{block pointer} to the first block of the bitmap is stored in the
+\gls{VD} structure (\ds{VolumeDir}). The number of bitmap blocks may be
+calculated when the operating system opens the volume and stored in RAM to
+allow limit checking (though the same function can be performed easily by
+shifting the number of volume blocks (also stored in the \ds{VolumeDir}) 4 bits
+to the right).
+
+If the volume size is not a multiple of the block size times 16, the bitmap
+will have bits at the end of the last bitmap block that do not correspond to a
+valid filesystem block. To simplify operations and avoid attempts to allocate
+blocks past the end of the volume, these bits should always be set.
+
+
+
+\subsection{Directories}
+\label{sec:fs-directories}
+
+Directories\footnote{Known as ‘folders’ on some architectures.} are
+\glspl{container} (see~\cfp{sec:fs-containers}) for files, other directories,
+and other arbitrary objects not yet specified.
+
+Directories may be nested without limits, although the operating system may
+impose a practical limits for storage reasons.
+
+For detailed information on how directories and other containers work, please
+refer to~\cf{sec:fs-containers}). Directories are encoded as a \ds{Directory}
+container data structure, illustrated in~\fcf{fig:fs-directory}.
+
+
+\begin{figure}
+ \centering
+ \input{figure-fs-directory}
+ \caption[CFT Directory data structure]{\label{fig:fs-directory} The
+   CFT \ds{Directory} data structure and its header, the Directory
+   Descriptor (\ds{DirDesc}).}
+\end{figure}
+
+
+
+
+
+\section{Containers}
+\label{sec:fs-containers}
+
+Containers are data structures that contain other filesystem objects, including
+other containers. The container concept is what makes CFT filesystems
+hierarchical. Every \gls{volume} is a container. It may contain files or
+directories. They may, in turn, contain files and other sub-directories, and so
+on. This forms a tree where the leaves are files (and other non-container
+objects). This is illustrated in~\fcf{fig:fs-tree}.
+
+A container is a block-level data structure: it occupies one (or more) entire
+blocks. Each block contains a maximum number of \glspl{descriptor} (discussed
+below), of which the container's own metadata (header) is the first. When first
+allocated, the data structure only occupies one block. When its array of
+Descriptors is full, another block is allocated, a continuation block. This
+block has no metadata of its own, and forms a doubly-linked list. Additional
+continuation blocks may be allocated until the limit of 65,536 descriptors is
+reached. This is illustrated in~\fcf{fig:fs-directory-ll}. The number of
+descriptors that can fit in container blocks is shown
+in~\tcf{table:fs-desc-bs}:
+
+\begin{table}[htb]
+  \centering
+  \zebra
+  \begin{tabular}{rrr}
+    Block Size & Slots/block & Unused space \\
+    \hline
+    256 Words   &  8 & 15 words\\
+    512 Words   & 17 & 10 words\\
+    1,024 Words & 35 &  0 words\\
+    2,048 Words & 70 &  9 words\\
+    \hline
+  \end{tabular}
+  \caption[Number of Descriptors by Block Size]{\label{table:fs-desc-bs} Number
+    of descriptors that fit in a single container block depending on the volume
+    block size. Since descriptors do not fit the block size exacly, each block
+    size has a number of unused space at the end of the descriptor array.}
+\end{table}
+
+\noindent Currently, there are two types of container objects defined:
+
+\begin{description}
+\item {\bfseries\ds{VolumeDir}} (\fcfp{fig:fs-volumedir}) describes the entire
+  volume. In Unix terms, this is the root directory and filesystem superblock
+  combined. \ds{VolumeDir}s have a magic number of \magicVolume.
+\item {\bfseries\ds{Directory}} describes a directory or sub-directory. Its
+  structure is illustrated in~\fcf{fig:fs-directory}. Directories use
+  \magicDirectory{} for their magic number.
+\end{description}
+
+Each container has a number of standard fields, common among all container types:
+
+\begin{datastructure}[Offset]{Container}
+    \dsdesc{\hex{00}}{Word}{%
+      A block type number of magic number to distinguish this type of block
+      from others. If this is a continuation block, the magic number is always
+      \magicDirectoryCont. Otherwise, it depends on the container type.
+    }
+    %
+    \dsdesc{\hex{01}–\hex{02}}{BlockPtr}{%
+      A 32-bit (\gls{MSB} first) \gls{block pointer} to the previous \gls{DD}
+      in the chain, or \hex{00000000} if this is the last one.
+    }
+    %
+    \dsdesc{\hex{03}–\hex{04}}{BlockPtr}{%
+      A \gls{block pointer} to the next \gls{DD} in the chain, or
+      \hex{00000000} if this is the first one.
+    }
+    %
+    \dsdesc{\hex{05}–\hex{08}}{Reserved}{%
+      A block of words reserved for future expansion.
+    }
+    %
+    \dsdesc{\hex{09}–}{DirDesc}{%
+      An array of Descriptors, the size of which depends on the volume block
+      size, and is listed in~\tcf{table:fs-desc-bs}.
+    }
+\end{datastructure}
+
+The payload a container is an array of \glspl{descriptor}. The first of these
+describes the container itself. The remaining ones describe the contained
+objects. Descriptors are discussed below.
+
+%% The {\em first\/} \gls{DD} (i.e. non-continuation) block in a linked list
+%% contains the container's metadata (header) \gls{Descriptor} as its first
+%% entry. This describes the container itself. The format of these metadata
+%% structures, as well as the format of contained object \glspl{Descriptor} is
+%% described below:
+
+
+%% \begin{itemize}
+%%   \item A magic number identifying this as a directory entry, used for sanity
+%%     checking and filesystem recovery.
+%%   \item The name of the directory.
+%%   \item 16 bits of flags.
+%%   \item The date and time the directory was created.
+%%   \item The number of files in the directory.
+%%   \item A \gls{block pointer} to the parent directory.
+%%   \item The index (in the parent \gls{DD}'s entry array) where this directory
+%%     is located.
+%% \end{itemize}
+
+\begin{figure}
+ \centering
+ \input{figure-entry-ds}
+
+ \caption[CFT Directory Entry data structures]{\label{fig:entry-ds} Comparative
+   view of the various data structures that fit in a \ds{Directory}'s
+   \ds{Descriptor} slot. Here, ‘\ds{DirectoryLike}’ denotes either the
+   \ds{Directory} or \ds{VolumeDir} data structures, which are identical except
+   for their headers: directories contain a \ds{DirDesc} (leftmost), volumes
+   contain a \ds{VolDesc} (second from left). \ds{Descriptor} slots contain
+   \ds{FileDesc} or \ds{DirDesc} structures, which contain metadata for a file
+   (or sub-directory) inside the volume or directory. Note that all descriptors
+   start with the same metadata. All descriptor structures are also the same
+   size (despite their simplified view in this diagram).}
+\end{figure}
+
+
+\begin{figure}
+ \centering
+ \input{figure-fs-directory-ll}
+
+ \caption[CFT Directory Linked List]{\label{fig:fs-directory-ll} A long
+   directory with additional \ds{Directory} continuation blocks forming a
+   doubly linked list. Note that continuation blocks blocks have their own
+   magic (\magicDirectoryCont). Also note that the first entry of the first
+   (leftmost) directory block contains metadata for the directory itself, using
+   the Directory Descriptor structure (\ds{DirDesc}). }
+\end{figure}
+
+%\pagebreak
+\subsection{Descriptors}
+
+A \ds{Descriptor} is a polymorphic data structure used to store metadata about
+an object contained in a directory. It is similar to a Unix filesystem {\em
+  inode\/}. Directory Entries come in various types for different objects. All
+types have two basic features:
+
+\begin{enumerate}
+  \item The all have the same size: \textbf{\DescriptorSize~words}. In this
+    way, they can fit in any Directory's (or other container's) \ds{Descriptor}
+    slot. Slack (reserved) words are allocated as necessary to pad shorter
+    structures to \DescriptorSize~words.
+  \item They all share their first four fields: a type (magic) field, a name
+    field, a set of flags, and a creation timestamp. This is illustrated in
+    in~\fcf{fig:entry-ds}.
+\end{enumerate}
+
+The following is a discussion of the currently specified \ds{Descriptor}
+types. It is trivial to add more types, thereby adding more objects a
+filesystem can store.
+
+Please note that some of the \ds{Descriptor} descriptor structures are used as
+metadata (headers) for the container object. For example, \ds{VolumeDir} has a
+\ds{VolumeDesc} acting as its header, while a \ds{Directory} has a \ds{DirDesc}
+to do the same. These headers are {\em always\/} and {\em only\/} encountered
+as entry 0 of the first \ds{Volume} or \ds{Directory} block.
+
+\subsubsection{Volume Descriptor}
+\label{sec:fs-voldesc}
+
+A \ds{VolumeDesc} contains metadata for the \ds{Volume} structure, which
+describes the entire volume. It contains housekeeping and statistical counts
+and information about the filesystem needed by both the user and the operating
+system.
+
+This descriptor {\em must\/} be the first descriptor of a \ds{Volume}'s
+descriptor array. It {\em must not\/} be encountered in subsequent
+(continuation) blocks or other container types. These conditions are necessary
+for the filesystem to be considered clean and sane.
+
+The format of a \ds{VolDesc} is as follows:
+
+\begin{datastructure}[Offset]{VolDesc}
+    \dsdesc{\hex{00}}{Word}{%
+      Magic number. Must always be \magicVolDesc.
+    }
+    %
+    \dsdesc{\hex{01}–\hex{0F}}{PString}{%
+      Volume name, as a packed string. Since this is a packed string, only
+      7-bit ASCII values are allowed. Names can be up to 30 characters long.
+    }
+    %
+    \dsdesc{\hex{10}}{Word}{%
+      This is a flag bitfield. As indicated below, all unused bits
+      should be clear (\bin{0}).
+
+      \begin{bitfield}
+        \bitfieldItem{3}{cfthl!50}{BS}
+        \bitfieldRepConst{13}{0}
+      \end{bitfield}
+
+      \begin{description}
+        \item{\bfseries\cftcode{BS}} This is the file level.
+        \begin{description}
+          \item{\bfseries\cftcode{BS}=\bin{000}} The volume uses 256-word blocks.
+          \item{\bfseries\cftcode{BS}=\bin{001}} The volume uses 512-word blocks.
+          \item{\bfseries\cftcode{BS}=\bin{010}} The volume uses 1,024-word blocks.
+          \item{\bfseries\cftcode{BS}=\bin{011}} The volume uses 2,048-word blocks.
+          \item{\bfseries\cftcode{BS}=\bin{1XX}} Reserved for future expansion, do not use.
+        \end{description}
+      \end{description}
+    }
+    %
+    \dsdesc{\hex{11}–\hex{12}}{DateTime}{%
+      Volume creation date and time (two words). The \ds{DateTime} structure is
+      ubiquitous and described in~\cf{ds:DateTime}.
+    }
+    %
+    \dsdesc{\hex{13}}{Reserved}{%
+      Reserved for future expansion.
+    }
+    %
+    \dsdesc{\hex{14}}{Word}{%
+      File count. An unsigned 16-bit value denoting the number of files in the
+      volume directory (the root directory of the volume, not the entire
+      volume). For a file count of $n$, there will be exactly $n+1$ non-deleted
+      descriptors. The first descriptor (the header) is not counted.
+    }
+    %
+    \dsdesc{\hex{15}–\hex{16}}{DWord}{%
+      Total blocks in the filesystem, including all housekeeping blocks. In
+      most cases, this number should be equal to the volume's \gls{disk
+        slice}'s length field.
+    }
+    %
+    \dsdesc{\hex{17}–\hex{18}}{DWord}{%
+      \todo{This has been removed and should be calculated on mount and in memory.}
+      Free blocks in the filesystem. This should equal the number of zero bits in the Bitmap.
+    }
+    %
+    \dsdesc{\hex{19}–\hex{1A}}{BlockPtr}{%
+      A 32-bit block pointer (\gls{MSB} first) to the start of the Bitmap.
+    }
+    %
+    \dsdesc{\hex{1B}–\hex{1C}}{Reserved}{%
+      Reserved for future expansion.
+    }
+    %
+\end{datastructure}
+
+
+
+
+\subsubsection{Directory Descriptor}
+\label{sec:fs-dirdesc}
+
+A \ds{DirDesc} contains metadata for the \ds{Directory} structure. It contains
+housekeeping and statistical counts and information about the filesystem needed
+by both the user and the operating system.
+
+This descriptor {\em must\/} be the first descriptor of a \ds{Directory}'s
+descriptor array. \todo{Will this be the case? Decide!} A copy of this
+\gls{descriptor} will be located in the parent directory's descriptor
+array. This redundancy is useful for sanity checking and in rebuilding damaged
+directory hierarchies.
+
+The format of a \ds{DirDesc} is as follows:
+
+\begin{datastructure}[Offset]{DirDesc}
+    \dsdesc{\hex{00}}{Word}{%
+      Magic number. Must always be \magicDirDesc.
+    }
+    %
+    \dsdesc{\hex{01}–\hex{0F}}{PString}{%
+      Directory name, as a packed string. Since this is a packed string, only
+      7-bit ASCII values are allowed. Names can be up to 30 characters long.
+    }
+    %
+    \dsdesc{\hex{10}}{Word}{%
+      This is a flag bitfield. As indicated below, all unused bits
+      should be clear (\bin{0}).
+
+      \begin{bitfield}
+        \bitfieldRepConst{15}{0}
+        \bitfieldItem{1}{cfthl!50}{DEL}
+      \end{bitfield}
+
+      \begin{description}
+        \item{\bfseries\cftcode{DEL}} If set to \bin{1}, the directory
+          has been deleted from this container.
+      \end{description} }
+    %
+    \dsdesc{\hex{11}–\hex{12}}{DateTime}{%
+      Directory creation date and time (two words). The \ds{DateTime} structure is
+      ubiquitous and described in~\fcf{sec:ds-datetime}.
+    }
+    %
+    \dsdesc{\hex{13}}{Reserved}{%
+      Reserved for future expansion.
+    }
+    %
+    \dsdesc{\hex{14}}{DWord}{%
+      File count. An unsigned 16-bit value denoting the number of files in the
+      directory (non-recursively, and counting all descriptors, not just
+      files). For a file count of $n$, there will be exactly $n+1$ non-deleted
+      descriptors. The first descriptor (the header) is not counted.
+    }
+    %
+    \dsdesc{\hex{15}–\hex{16}}{BlockPtr}{%
+      32-bit block pointer (\gls{MSB} first) to the parent container of this
+      directory. This is used to traverse the directory tree backwards, and for
+      sanity checking.
+    }
+    %
+    \dsdesc{\hex{17}}{Reserved}{%
+      Reserved for future expansion.
+    }
+    %
+    \dsdesc{\hex{18}}{DWord}{%
+      Number of the descriptor slot in the parent's descriptor array where this
+      directory's descriptor may be found. This is offset by one: zero
+      indicates the second desctiptor slot, i.e. the parent's metadata slot is
+      skipped.
+    }
+    %
+    \dsdesc{\hex{19}–\hex{1C}}{Reserved}{%
+      Reserved for future expansion.
+    }
+    %
+\end{datastructure}
+
+
+
+\subsubsection{File Descriptor}
+\label{sec:fs-filedesc}
+
+The \ds{FileDesc} data structure is used to store metadata for
+files. Unlike container descriptors, this descriptor may be found
+anywhere {\em except\/} the first slot of a container's descriptor
+array. The format is as follows:
+
+\begin{datastructure}[Offset]{FileDesc}
+    \dsdesc{\hex{00}}{Word}{%
+      Magic number. Must always be \magicFileDesc.
+    }
+    %
+    \dsdesc{\hex{01}–\hex{0F}}{PString}{%
+      File name, as a packed string. Since this is a packed string, only
+      7-bit ASCII values are allowed. Names can be up to 30 characters long.
+    }
+    %
+    \dsdesc{\hex{10}}{Word}{%
+      This is a flag bitfield. As indicated below, all unused bits
+      should be clear (\bin{0}).
+
+      \begin{bitfield}
+        \bitfieldItem{3}{cfthl!50}{FL}
+        \bitfieldRepConst{12}{0}
+        \bitfieldItem{1}{cfthl!50}{DEL}
+      \end{bitfield}
+
+      \begin{description}
+        \item{\bfseries\cftcode{DEL}} Set if the file has been deleted from this container.
+        \item{\bfseries\cftcode{FL}} This is the file level.
+        \begin{description}
+          \item{\bfseries\cftcode{FL}=\bin{000}} The file is a level 0 file (single block).
+          \item{\bfseries\cftcode{FL}=\bin{001}} The file is a level 1 file (multi block).
+          \item{\bfseries\cftcode{FL}=\bin{010}} The file is a level 2 file
+            (large file, two-level index block tree).
+          \item{\bfseries\cftcode{FL}=\bin{011}} Reserved for future expansion, do not use.
+          \item{\bfseries\cftcode{FL}=\bin{1XX}} Reserved for future expansion, do not use.
+        \end{description}
+      \end{description}
+    }
+    %
+    \dsdesc{\hex{11}–\hex{12}}{DateTime}{%
+      File creation date and time (two words). The \ds{DateTime} structure is
+      ubiquitous and described in~\fcf{sec:ds-datetime}.
+    }
+    %
+    \dsdesc{\hex{13}}{Word}{%
+      System metadata. The format of this value has not been decided on yet.
+    }
+    %
+    \dsdesc{\hex{14}}{Word}{%
+      User metadata. This field may be used by the user to store one word of
+      custom metadata such as versioning information, creator software, et
+      cetera. The definition and interpretation of this field is entirely up to
+      the user, and the semantics of one file's metadata may differ from
+      another's.
+    }
+    %
+    \dsdesc{\hex{15}–\hex{16}}{DWord}{%
+      Number of blocks allocated to this file.
+    }
+    %
+    \dsdesc{\hex{17}}{Word}{%
+      Reserved for future expansion.
+    }
+    %
+    \dsdesc{\hex{18}}{Word}{%
+      Exact size of the file in words, modulo the block size. This is
+      the number of words used in the last block of the file.
+    }
+    %
+    \dsdesc{\hex{19}–\hex{1A}}{DateTime}{%
+      Date and time (two words) of the file's last modification. The
+      \ds{DateTime} structure is ubiquitous and described
+      in~\fcf{sec:ds-datetime}.
+    }
+    %
+    \dsdesc{\hex{1B}–\hex{1C}}{BlockPtr}{%
+      32-bit block pointer (\gls{MSB} first) to the first block of this
+      file. Depending on the size of the file, this block will be interpreted
+      differently.
+    }
+    %
+\end{datastructure}
+
+
+\subsubsection{Other objects}
+
+Other objects may be accommodated for future expansion of the filesystem. The
+only requirement is a new file type value, and appropriate code to handle them.
+
+
+
+\subsection{Deleting Descriptors}
+
+Deletion is an important feature of every filesystem. When an object is removed
+from a container (either because it has been moved to another container or
+deleted altogether), the Deleted flag (\hex{8000}) is set in the Descriptor's
+flags field. The next time an object is created in the container, the first
+slot with a deleted descriptor will be re-used.
+
+After a deletion, continuation (but only continuation) container blocks that
+contain only deleted descriptors are demoved from the container linked list and
+deallocated, shrinking the container automatically.
+
+The first block of the container is never deallocated in this way, to allow for
+empty containers.
+
+\begin{figure}
+ \centering
+ \input{figure-file-level0}
+
+ \caption[Level 0 file structure]{\label{fig:file-level0} Storage
+   model for Level 0 files. Level 0 files are the smallest files in
+   the volume, requiring space less than or equal to the block
+   size. Thus, they only need a single data block. Once a Level 0 file
+   needs to grow past the block size, it is promoted to a Level 1
+   file.}
+\end{figure}
+
+
+\begin{figure}
+ \centering
+ \input{figure-file-level1}
+
+ \caption[Level 1 file structure]{\label{fig:file-level1} Storage
+   model for level 1 files. Instead of a data block, the ‘data block’
+   \gls{block pointer} indicates the location of an Index Block. In
+   turn, the Index Block holds pointers to multiple data blocks. As
+   the file grows, more data blocks are allocated until the index
+   block is full. The file is then promoted to a Level 2 file.}
+\end{figure}
+
+
+\begin{figure}
+ \centering
+ \input{figure-file-level2}
+
+ \caption[Level 2 file structure]{\label{fig:file-level2} Storage
+   model for level 2 files. The container and descriptor are not shown
+   for simplicity. That part of the structure is the same as for Level
+   0 and Level 1 files. A Level 2 file has a single top index block,
+   and one or more second level index blocks. Each index block
+   contains \glspl{block pointer} to data blocks. The tree grows
+   sideways until it is fully populated, which corresponds to the
+   maximum file size limit for that block size.}
+\end{figure}
+
+
+\section{File Storage}
+
+Files are stored in one of three different formats called ‘levels’, depending
+on their size. This allows to keep overheads down for small files, while
+allowing larger files to exist.
+
+\subsection{Level 0 Files}
+
+These files are the simplest to handle. Files of size less than or
+equal to the block size are allocated a single block on the storage
+medium. The file's \gls{descriptor} points to that block. This is
+illustrated in~\fcf{fig:file-level0}. The file descriptor's block
+count field will be \hex{1}. Its word count field will equal the size
+of the file. When the file needs to grow past the block size limit,
+the filesystem promotes it to a Level 1 file.
+
+Level 0 files are similar to ProDOS ‘seedling’ files.
+
+\subsection{Level 1 Files}
+
+If a file grows beyond a single block, it becomes a Level 1 file. The
+file's \gls{descriptor} now points to an Index Block. Each entry in
+the Index Block points to a file's data block, as shown
+in~\fcf{fig:file-level1}. An Index Block has the following format:
+
+\begin{datastructure}[Offset]{IndexBlock}
+    \dsdesc{\hex{000}}{Word}{%
+      Magic number. Must always be \magicIndexBlock.
+    }
+    \dsdesc{\hex{001}}{Reserved}{%
+      A reserved word.
+    }
+    \dsdesc{\hex{002}–\hex{003}}{BlockPtr}{%
+      Pointer to the first data block of the file.
+    }
+    \dsdesc{\hex{004}–\hex{005}}{BlockPtr}{%
+      Pointer to the second data block of the file, or \hex{00000000} if there is none.
+    }
+    \dsdesc{\hex{006}–\hex{007}}{BlockPtr}{%
+      ...
+    }
+
+\end{datastructure}
+
+Most of the index block's contents are 32-bit \gls{block pointer} to
+data blocks. Each block pointer must point to an data block allocated
+to this file, or be equal to zero if the file does not need that
+block due to its size.
+
+As a file grows, additional blocks are allocated and the Index Block
+updated with pointers to them. When a file is truncated, blocks are
+deallocated as necessary, and the Index Block is updated again.
+
+When a Level 1 file grows to fill the last slot of its Index Block, it
+is promoted to a Level 2 file.
+
+\newpage
+\subsubsection{Sparse File Support and Index Blocks}
+
+ProDOS uses this method to support sparse files at quanta equal to the
+block size. The CFT Filesystem does not support sparse files yet, but
+it is very easy to implement them by allowing null block pointers
+mid-file. When writing to a file at a position with an unallocated
+block, a block is allocated and the Index Block is updated. When
+reading from a file at a position with an unallocated block, a fake
+read is performed that simply returns one block's worth of zero
+values. This is actually easier and more efficient than the
+alternative, which would require allocating and filling in blocks when
+writing to an empty file at a non-zero offset.
+
+\subsection{Level 2 Files}
+
+If a Level 1 file fills up its Index Block with \glspl{block pointer},
+it grows to a Level 2 file. The file's \gls{descriptor} now points to
+an Index Block where each index entry points to another, second level,
+Index Block. Each entry of each second level Index Block, in turn
+points to a data block for the file. The file becomes a tree of depth
+two, where data blocks are leaves and all non-leaf nodes are Index
+Blocks.  This is illustrated in~\fcf{fig:file-level2} (for simplicity,
+this figure omits the file \gls{descriptor} and container).
+
+The structure of each Index Block is the same as the lone Index Block
+for Level 1 files. When the file grows enough to need a new data
+block, the next slot of the last second level Index Block is
+used. Once the second level Index Block runs out of slots, another
+second level Index Block is allocated and its first slot points to the
+newly needed data block. A pointer to this new second level Index
+Block is added to the next slot of the top (root) Index Block. This
+process continues until all second level Index Blocks are filled, and
+all root Index Block slots are filled. At this point, the file has
+reached its maximum size and can grow no more.
+
+
+\subsection{Index Block Theory}
+\label{sec:index-block-theory}
+
+The advantage of using this scheme is that file allocation overheads
+no longer increase at an $O(n)$ complexity ($n$ being the file
+size). The complexity becomes $O(\log_2 n)$. The maximum file size is
+proportional to the square of the number of slots available in an
+Index Block, and the {\em cube\/} of the block size. This should not
+be underestimated: at a block size of 512, each Index Block can
+reference 510 data blocks, each of 512 words. A Level 2 file can then
+reach $510×510×512$ words, a respectable 127~MWords.
+
+The general formula for the maximum size of a file of level $n$ in a
+volume with block size $b$ is:
+
+\begin{eqnarray}
+& \mbox{fs}_{\max}(n, b) = (b - 2) ^ n b\nonumber
+\end{eqnarray}
+
+This generates the following table of maximum file sizes in words:
+
+\begin{center}
+\zebra
+\begin{tabular}{rrrr}
+Block Size & Level 0 & Level 1 & Level 2 \\
+\hline
+  256 words  &   256 &    65,024 &    16,516,096 \\
+  512 words  &   512 &   261,120 &   133,171,200 \\
+1,024 words  & 1,024 & 1,046,528 & 1,069,551,616 \\
+2,048 words  & 2,048 & 4,190,208 & 8,573,165,568 \\
+\hline
+\end{tabular}
+\end{center}
+
+\section{Data Storage Limits}
+
+There are a number of limitations imposed due to the design of the storage
+model. These are:
+
+\begin{itemize}
+\item Up to 16 \glspl{disk slice} may be allocated per storage medium.
+\item Supported storage media must be smaller than 2~TB (1,048,576 MWords).
+\item The maximum slice size is 2~TB (1,048,576 MWords).
+\item The maximum filesystem size is 16~TB (8~TWords) using 2,048-word
+  blocks, but the maximum {\em slice size\/} imposes a lower limit
+  than this.
+\item The maximum size of a single file is 8~GWords using 2,048-word
+  blocks.  Refer to~\cf{sec:index-block-theory} for an explanation of
+  this and a table of maximum file sizes by block size.
+\item Up to 65,636 entries may fit in a directory (including the Volume Directory).
+\end{itemize}
+
+
+
+\section{Calculations and Algorithms}
+
+\subsection{Find the location of a Block in the Bitmap}
+
+Finding the location of a bitmap bit representing a particular block involves
+three tasks: calculating the block number of the bitmap block (if there are
+more than one); calculating the right word offset inside that bitmap block; and
+calculating the bit number (or bit mask) inside that word.
+
+If the first bitmap block is $m_0$, the filesystem has a block size of
+$b$ words, and the bit representing block $x$ is needed, the required bitmap
+block will be located at block $m$, word $w$, bit number $n$ and bit mask $2^n$, which are calculated as follows:
+
+\begin{eqnarray}
+m & = & m_0 + \left\lfloor \frac{x}{16b} \right\rfloor \nonumber\\
+w & = & \left\lfloor \frac{x \,\mbox{mod}\, (16b)}{16}\right\rfloor\nonumber\\
+n & = & {\big(x \,\mbox{mod}\, (16b)}\big) \,\mbox{mod}\, 16\nonumber
+\end{eqnarray}
+
+\noindent In C, and replacing some divisions and modula with bit shifts and bit
+arithmetic, these would be defined as three macros like:
+
+\begin{lstlisting}[language=c,numbers=none]
+#define bm_blockofs(m0, b, x) (m0 + x / (b << 4))  /* calculate m */
+#define bm_wordofs(m0, b, x)  (x % (b << 4)) >> 4) /* calculate w */
+#define bm_bitofs(m0, b, x)   (x % (b << 4)) & 15) /* calculate b */
+\end{lstlisting}
+
+\noindent By expressing the block size $b$ as $\log_2{b}$, the entire calculation is
+performed with shifts and logic, which makes it ideal for the CFT's instruction
+set.
+
+\subsection{Mark a Block as Used/Unused}
+
+Once the bitmap location of a block is found, the bitmap block is read from
+disk, the appropriate bit of the appropriate word is set (if the block is in
+use) or cleared (if the block is free), and the bitmap block is written back to
+disk.
+
+\subsection{Calculate the Size of a File in Words}
+
+The \ds{FileDesc} does not contain the size of a file
+explicitly. Instead, it contains the number of full blocks $n_1$ it
+occupies, plus $n_2$ its size modulo the volume block size, $b$. Using this,
+we can calculate the file size as follows:
+
+\begin{eqnarray}
+& \mbox{fs}(n_1, n_2, b) = n_1b + n_2\nonumber
+\end{eqnarray}
+
+Since $b$ is a power of two, the multiplication may be replaced by
+shifts, or, more precisely, rolls — the calculation is multi-word and
+requires at most 43-bits of integer precision for a proper result.
+
+\subsection{Creating a New Filesystem}
+
+\todo{Write this}
+
+\subsection{Creating a New Directory}
+
+\todo{Write this}
+
+\subsection{Deleting a Directory}
+
+\todo{Write this}
+
+\subsection{Growing a Directory}
+
+\todo{Write this}
+
+\subsection{Shrinking a Directory}
+
+\todo{Write this}
+
+\subsection{Creating a New File}
+
+\todo{Write this}
+
+\subsection{Growing a File}
+
+\todo{Write this}
+
+\subsubsection{From Level 0 to Level 1}
+
+\todo{Write this}
+
+\subsubsection{From Level 1 to Level 2}
+
+\todo{Write this}
+
+\subsection{Truncating a File}
+
+\todo{Write this}
+
+\subsubsection{From Level 2 to Level 1}
+
+\todo{Write this}
+
+\subsubsection{From Level 1 to Level 0}
+
+\todo{Write this}
+
+\subsection{Reading a File}
+
+\todo{Write this}
+
+\subsection{Detecting End of file}
+
+\todo{Write this}
+
+\subsection{Random Access (Seeking) within a File}
+
+\todo{Write this}
+
+\subsection{Deleting a File}
+
+Locate file entry in directory. Mark file entry as deleted. Modify bitmap to
+mark all of the file's data and index blocks as free. If this was the last live
+entry in the directory and the previous link is non-zero (i.e. not the first
+\gls{DD} in the linked list), shrink the directory.
+
+\section{Sanity Checks and Repair}
+
+The following is a list of sanity checks with suggested fixes during volume
+checking.
+
+\begin{itemize}
+  \item The volume's \ds{VolumeDir} must have the correct magic. This may be
+    corrected while checking, because of its fixed location.
+  \item The volume's \ds{VolumeDir} must have its ‘previous’ link set to
+    \hex{00000000}. This may likewise be corrected.
+  \item The volume's file count must match the number of non-deleted file
+    descriptors. Descriptors may be recounted and the file count fixed.
+  \item The volume's free block count must match the number of zero bits in the
+    bitmap.
+  \item The bitmap must list the boot blocks, volume directory and itself as
+    occupied. These may be corrected.
+  \item The bitmap must not list blocks past the end of the disk slice as
+    available. This may also be corrected.
+  \item \glspl{block pointer} must never point past the end of the device.
+  \item \glspl{block pointer} must never point to unallocated blocks.
+  \item Continuation blocks must have a non-zero previous \gls{block pointer}.
+  \item Continuation blocks may not contain only deleted descriptors. If such
+    blocks are found, they may be unlinked from their linked lists and
+    deallocated.
+\end{itemize}
+
+\section{Definitions in C}
+
+These listings illustrate the data structures discussed in this chapter by
+showing C definitions for most of them.
+
+\subsection{Disk Labels}
+
+The following listing is a brief (but heavily commented) definition of the data
+structures needed to represent the CFT disk label, written in C.
+
+\lstinputlisting[style=longmcasm,language=c]{../../../experiments/cftslice.h}
+\pagebreak
+
+\subsection{CFT Filesystem}
+
+The following listing is an incomplete definition of the data structures needed to
+code the CFT filesystem. The code is in C.
+
+\todo{Complete the filesystem code, and fix the C-side terminology.}
+
+\lstinputlisting[style=longmcasm,language=c]{../../../experiments/fs.h}

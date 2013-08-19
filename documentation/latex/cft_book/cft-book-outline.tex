@@ -1,0 +1,252 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% A QUICK WAY TO RENDER PARTS OF THE DOCUMENT ONLY
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% \newcommand\renderpartfrontmatter{1}
+\newcommand\renderparthardware{1}
+\newcommand\renderpartprocessor{1}
+\newcommand\renderpartperipherals{1}
+\newcommand\renderchappfp{1}
+\newcommand\renderchapmbu{1}
+\newcommand\renderchapirc{1}
+\newcommand\renderchapmem{1}
+\newcommand\renderchaptty{1}
+\newcommand\renderchapide{1}
+\newcommand\renderchaptnr{1}
+\newcommand\renderchapdeb{1}
+\newcommand\renderchapvdu{1}
+\newcommand\renderchapkbd{1}
+\newcommand\renderchapsnd{1}
+\newcommand\renderchapfdc{1}
+\newcommand\renderchapiob{1}
+\newcommand\renderpartprogramming{1}
+\newcommand\renderpartemulator{1}
+\newcommand\renderpartforth{1}
+\newcommand\renderpartsoftware{1}
+\newcommand\renderpartschematics{1}
+\newcommand\renderpartbackmatter{1}
+
+\newpage
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ifdefined\renderpartfrontmatter
+  \frontmatter
+
+  \setcounter{tocdepth}{4}
+  \addtocontents{toc}{~\hfill\textbf{Page}\par}
+  \tableofcontents
+
+  \listoffigures
+  \addtocontents{lof}{~\hfill\textbf{Page}\par}
+
+  \listofschematics
+  \addtocontents{los}{~\hfill\textbf{Page}\par}
+
+  \listoftables
+  \addtocontents{lot}{~\hfill\textbf{Page}\par}
+
+  \listoftasks
+  \addtocontents{lotasks}{~\hfill\textbf{Page}\par}
+
+  \listofioport
+  \addtocontents{loioport}{~\hfill\textbf{Page}\par}
+  
+  \listofdatastructures
+  \addtocontents{lods}{~\hfill\textbf{Page}\par}
+  
+  \input{cft-book-preface}
+\fi
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mainmatter
+
+%\let\oldpart=\part
+%\def\part{\setcounter{page}{1}\oldpart}
+
+%\chapter{Introduction}
+\input{introduction}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\renewcommand{\thepage}{\Alph{part}\arabic{chapter}-\arabic{page}}
+\renewcommand{\thefigure}{\Alph{part}\arabic{chapter}.\arabic{figure}}
+\renewcommand{\theschematic}{\Alph{part}\arabic{chapter}.\arabic{schematic}}
+\renewcommand{\thetable}{\Alph{part}\arabic{chapter}.\arabic{schematic}}
+\renewcommand{\thepage}{\thepart\thechapter-\arabic{page}}
+
+\ifdefined\renderpartprocessor
+  \part{Processor}
+  \glsresetall
+
+  \input{cft-hard-processor}
+
+  \chapter{Buses}
+  \glsresetall
+  \input{cft-hard-bus}
+
+  \chapter{Microcode}
+  \glsresetall
+  \label{chap:microcode}
+  \input{cft-microcode}
+
+  \chapter{Processor Schematics}
+  \glsresetall
+  \label{chap:processor-schematics}
+  \input{cft-hard-processor-schematics}
+  
+\fi
+
+\ifdefined\renderpartperipherals
+\part{Peripherals}
+  \ifdefined\renderchappfp
+    \chapter{Front Panel}
+    \glsresetall
+    \input{cft-panel-guide}
+  \fi
+
+  \ifdefined\renderchapmbu
+    \chapter{Banked Memory Controller}
+    \glsresetall
+  \fi
+
+  \ifdefined\renderchapirc
+    \chapter{Interrupt Controller}
+    \glsresetall
+    \input{cft-hard-irc}
+  \fi
+
+  \ifdefined\renderchapmem
+    \chapter{Memory Board}
+    \glsresetall
+    \input{cft-hard-mem}
+  \fi
+
+  \ifdefined\renderchaptty
+    \chapter{Serial Board}
+    \glsresetall
+  \fi
+
+  \ifdefined\renderchapide
+    \chapter{IDE Host Adaptor Board}
+    \glsresetall
+  \fi
+
+  \ifdefined\renderchaptnr
+    \chapter{Timer, NVRAM and Real Time Clock Board}
+    \glsresetall
+  \fi
+
+  \ifdefined\renderchapvdu
+    \chapter{Video Display Unit}
+    \glsresetall
+    \input{cft-hard-vdu}
+  \fi
+
+  \ifdefined\renderchapkbd
+    \chapter{PS/2 Keyboard Interface}
+    \glsresetall
+    \input{cft-hard-kbd}
+  \fi
+
+  \ifdefined\renderchapdeb
+    \chapter{Debugging Board}
+    \glsresetall
+    \input{cft-hard-deb}
+  \fi
+
+  \ifdefined\renderchapfdc
+    \chapter{Floppy Controller Board}
+    \glsresetall
+    \input{cft-hard-fdc}
+  \fi
+
+  \ifdefined\renderchapiob
+    \chapter{I/O Board}
+    \glsresetall
+    \input{cft-hard-iob}
+  \fi
+\fi
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ifdefined\renderpartprogramming
+
+  \part{Programming the CFT}
+
+  \chapter{Programming Model}
+  \glsresetall
+
+  \label{chap:programming-model}
+    \input{cft-prog-programming-model}
+
+  \chapter{Assembler}
+  \glsresetall
+  \input{cft-prog-assembler}
+\fi
+
+\ifdefined\renderpartemulator
+  \chapter{The CFT Emulator}
+  \glsresetall
+  \label{chap:emulator}
+  \input{cft-emulator}
+\fi
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ifdefined\renderpartforth
+\part{Forth Programming}
+  \glsresetall
+
+\input{cft-prog-forth}
+\fi
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ifdefined\renderpartsoftware
+\part{Software}
+  \glsresetall
+
+\input{cft-soft-fs}
+\fi
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ifdefined\renderpartschematics
+\part{Schematics}
+
+\chapter{Schematics}
+\glsresetall
+ \input{schematics}
+\fi
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ifdefined\renderpartbackmatter
+  \appendix
+  \part{Appendices}
+
+  \backmatter
+  \renewcommand{\thepage}{\roman{page}}
+
+  %\chapter{Glossary}
+  \glsaddall
+  \printglossaries
+
+  %\chapter{Index}
+  \printindex
+\fi
+
+
+% End of file.

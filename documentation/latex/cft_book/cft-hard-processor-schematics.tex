@@ -1,0 +1,35 @@
+
+The following page shows the full schematic drawings of the three processor boards.
+
+\cleardoublepage
+\phantomsection\stepcounter{section}%
+\addcontentsline{toc}{section}{\protect\numberline{\thesection} Processor Board A Schematics}
+
+\includeschns{2}{Clock Generation and control}{sch:clock}
+\includeschns{3}{Reset Handling and Sequencing}{sch:reset}
+\includeschns{4}{Microcode Sequencer}{sch:useq}
+\includeschns{5}{Microcode Sequencer Signal Hold}{sch:useq-hold}
+\includeschns{7}{Read and Write Unit Decoding}{sch:unit-decoders}
+\includeschns{8}{Skip and Branch Logic}{sch:sbu}
+\includeschns{9}{Address Generation Logic}{sch:agl}
+\includeschns{10}{Instruction Register}{sch:ir}
+\includeschns{11}{Interrupt State Machine}{sch:intsm}
+\includeschns{12}{Data Bus Driver and Bus Termination}{sch:databus}
+\includeschns{6}{Microcode Sequencer Front Panel Buffers and Connectors}{sch:useq-fp}
+
+\phantomsection\stepcounter{section}%
+\addcontentsline{toc}{section}{\protect\numberline{\thesection} Processor Board B Schematics}
+
+\includeschns{13}{Address Register, Address Bus Drivers \& Termination, Autoindex Logic and Device Decoder}{sch:ar}
+\includeschns{14}{Program Counter}{sch:pc}
+\includeschns{15}{Data Register}{sch:dr}
+\includeschns{16}{Accumulator, Zero Flag and Negative Flag}{sch:ac}
+
+\phantomsection\stepcounter{section}%
+\addcontentsline{toc}{section}{\protect\numberline{\thesection} Processor Board C Schematics}
+
+\includeschns{17}{Link Register}{sch:l}
+\includeschns{18}{Arithmetic/Logic Unit: Decoders and Buffers}{sch:aludecoder}
+\includeschns{19}{ALU Binary Operators}{sch:alub}
+\includeschns{20}{ALU Unary Operators and Constant Store}{sch:aluu}
+\includeschns{21}{8 kW Bank Switching Memory Controller}{sch:mbu}

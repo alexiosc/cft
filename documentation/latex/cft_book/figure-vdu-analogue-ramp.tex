@@ -1,0 +1,71 @@
+% -*- latex -*-
+\documentclass[class=memoir,crop=false]{standalone}
+\input{preamble}
+
+\begin{document}%
+%\tikzexternaldisable%
+\begin{tikzpicture}%
+
+  \def\w{55mm}
+  \def\h{50mm}
+  \def\p{10mm}
+  \def\step{10mm}
+  \def\gstep{2.5mm}
+  \def\ia{\p}
+  \def\ib{\p+\step}
+  \def\ic{\p+2*\step}
+  \def\id{\h-\p}
+
+  \draw[draw opacity=0,fill=cfthl!25] (0,\ia) -- (\ia,\ia) -- (\id, \id) -- (\w,\id) -- (\w,\ia) -- (0,\ia);
+
+  \begin{scope}
+    \clip (0,0) -- (\w,0) -- (\w,\h) -- (0,\h) -- (0,0);
+    \begin{scope}[xshift=\p-\step,yshift=\p-\step]
+      \draw[step=\gstep,color=cfthl!90] (0,0) grid (2*\w,2*\h);
+    \end{scope}
+  \end{scope}
+  %\draw[heavy,color=cfthl!90] (0,\h-\p) -- (\w,\h-\p);
+
+  \foreach \y in {\ia, \ib, \ic, \id} {
+    \begin{scope}[yshift=\y]
+      \draw[thick,color=cfthl!90] (0,0) grid (\w,0);
+    \end{scope}
+    \begin{scope}[xshift=\y]
+      \draw[thick,color=cfthl!90] (0,0) grid (0,\h);
+    \end{scope}
+  }
+
+  % Vertical axis
+  \draw (0,\ia) node[left] {0};
+  \begin{scope}[yshift=\ib]\draw (0,0) node[left] {33};\end{scope}
+  \begin{scope}[yshift=\ic]\draw (0,0) node[left] {66};\end{scope}
+  \begin{scope}[yshift=\id]\draw (0,0) node[left] {100};\end{scope}
+  \draw (0,\h) node[left] {\textbf{\% Intensity}};
+
+  % Horizontal axis
+  \draw (\ia,0) node[below] {0};
+  \begin{scope}[xshift=\ib]\draw (0,0) node[below] {233};\end{scope}
+  \begin{scope}[xshift=\ic]\draw (0,0) node[below] {466};\end{scope}
+  \begin{scope}[xshift=\id]\draw (0,0) node[below] {700};\end{scope}
+  \draw (\w,0) node[below left] {\textbf{mV}};
+
+  % Origin
+  \draw[thick,color=cfthl] (0,\p) -- (\w,\p);
+  \draw[thick,color=cfthl] (\p,0) -- (\p,\h);
+  %\draw[dotted,thick] (0,\p) -- (\w,\p);
+  %\draw[dotted,thick] (\p,0) -- (\p,\h);
+
+  % Plot line and bars
+  \draw[cfthl,plot line] (0,\ia) -- (\ia,\ia) -- (\id, \id) -- (\w,\id);
+  \draw[plot line,color=black] (\ia, \ia) -- (\ib, \ia) -- (\ib, \ib) -- (\ic, \ib) %
+  -- (\ic, \ic) -- (\id, \ic) -- (\id, \id);% -- (\w, \id) -- (\w, \ia) -- (\ia, \ia);
+
+  % Frame
+  \draw[heavy] (0,0) rectangle (\w, \h);
+
+\end{tikzpicture}%
+%\tikzexternalenable%
+\end{document}
+
+% End of file.
+

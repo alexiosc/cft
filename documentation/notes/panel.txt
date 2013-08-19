@@ -1,0 +1,271 @@
+=Front Panel Notes=
+
+The front panel should probably have to be made first, probably using
+a temporary construction. This will:
+
+* Aggregate signals so that it'll be easier to attach logic analyser
+  or oscilloscope probes.
+
+* Provide debugging facilities.
+
+* Allow for early testing on a unit-by-unit basis.
+
+
+=Final Front Panel=
+
+Ideally, I'd like to display:
+
+* AC.
+* PC.
+* AR.
+* DR.
+* IR.
+* Output register for data.
+* AEXT.
+
+Also:
+
+* Power on.
+* Running.
+* Fetching.
+* Executing.
+* MEM.
+* I/O.
+* R.
+* W.
+* The 8 IRQ lines.
+* L.
+* Z.
+* N.
+* V.
+* I (IRQs allowed).
+* IRQ (IRQ in)
+* IRQS (IRQ being serviced).
+* Banking enabled.
+
+Microcode:
+
+* microaddress (includes uPC, part of IR, V, L, INTS, Reset).
+* Signal breakout (24 bits!).
+
+Switches:
+
+* S17: Power switch (key, 3 key removable positions, DP): off, on, panel
+  lock (most switches disabled, most lights off)
+
+* S1-16: 16 toggle switches for data
+
+* S19: Load address (switches -> PC, DR, AR)
+
+* S20 Load data (switches -> A)
+* S20 Load instruction (switches -> IR)
+
+* S21 Memory deposit
+* S21 Memory deposit + increment
+
+* S22 Memory read
+* S22 Memory read + increment
+
+* S23 I/O deposit
+* S23 I/O deposit + increment
+
+* S24 I/O read
+* S24 I/O read + increment
+
+* S28 Run
+* S28 Stop
+
+* S18 reset
+
+* S29 Step (stops at end of next fetch)
+* S29 Microstep
+
+* S30 Fast
+* S30 Slow
+
+* S31 Slow speed (slow/medium/fast)
+
+* S32 RAM/ROM (enable/disable ROM at high 32kW)
+
+* S25 Address: PC/AR
+
+* S26 Data: AC/IBUS/Output register
+
+* S27 MFD: IR/DR/uAddr
+
+* 
+
+=Functionality=
+
+* Calculate fetch signal (uPC == 2, but configurable with jumpers?)
+* Must contain its own address register
+* Input register (I/O-mapped)
+* Output register (I/O-mapped)
+
+=Clock Speeds=
+
+The panel gives us nine clock speeds:
+
+1. FAST
+2. SLOW 1
+3. SLOW 2
+
+A. DIVIDE 1:X
+B. DIVIDE 1:W
+C. DIVIDE 1:Z
+
+These are on two switches, so there are nine combinations.
+
+The slowest speeds should allow easy debugging of code and microcode
+respectively: around 100 Hz for code (i.e. around 6-14 instructions
+per second), and around 10 Hz for microcode (10 microinstructions per
+second).
+
+Slowing down is done using a 74LS292 divider. This provides a division
+by 2^n, where n is a five-bit binary number. The minimum divider is
+4. The clock phase generator divides the raw clock by 4, so for a 4MHz
+system clock we need 4MHz x 4 x 4 = 64MHz raw clock.
+
+==Optional==
+
+The 'RUN' light is a tri-colour LED. It should indicate the speed as follows:
+
+* Fastest speed (1A): green
+* Speeds (1B, 1C, 2A, 2B, 2C): yellow
+* Speeds (3A, 3B, 3C): red
+
+Alternatively, a red LED by the switches should light if running at
+anything other than the fastest speed.
+
+
+=Autorepeat=
+
+I want to use this for the Step (and microStep?) switches for easier
+debugging. The truth table should be like this:
+
+=!SAFE=
+
+Controls that influence machine state should be locked out while the
+processor is running. These controls should also be locked out when
+the panel is locked.  
+		       
+		      		     
+=Layout= 			     
+				  	      
+There are 50 ICs on the front panel board at last count. They must be
+split into three or four groups:
+			       	   
+* The Control Bus-side board.  
+* The Expansion Bus-side board.	
+* The LED board (LED buffers)  
+* The front panel board.     
+
+However, to avoid transmission line effects for processor control
+signals, it may be best to put LED buffers on a board near the
+processor, and have the LED board simply host the lights. Note: this
+would add a large number of '540/541 ICs and 8-pin headers.
+
+
+
+		     
+=Panel V4 Layout=
+
+32 31 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 15 14 13 12 11 10 09 08 07 06 05 04 03 02 01 00
+:  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :
+                        15 14 13 12 11 10 09 08 07 06 05 04 03 02 01 00
+                        |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+() () () () () () () .. () () () () () () () () () () () () () () () () .. () () () () () () () () 
+
+() () () () () () () .. () () () () () () () () () () () () () () () () .. () () () () () () () () 
+
+EE .. MM IO RR WW .. .. 18 .. II II .. LL LL .. DR AC PC .. IF IF IF IF .. WU WU WU .. RU RU RU RU 
+
+RR SS FF EE II .. .. .. PC PC PC PC PC PC PC PC PC PC PC PC PC PC PC PC .. .. .. .. .. .. .. .. .. 
+
+NN ZZ VV II LL .. .. .. AC AC AC AC AC AC AC AC AC AC AC AC AC AC AC AC .. .. .. .. .. .. .. .. .. 
+
+uB uB uB uB .. .. .. .. IR IR IR IR IR IR IR IR IR IR IR IR IR IR IR IR .. .. .. .. .. .. .. .. .. 
+
+                        OR OR OR OR OR OR OR OR OR OR OR OR OR OR OR OR .. .. .. .. .. .. .. .. .. 
+
+xx xx xx    xx xx xx    SR SR SR SR SR SR SR SR SR SR SR SR SR SR SR SR    xx xx xx xx xx xx xx xx
+                        |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+                        15 14 13 12 11 10 09 08 07 06 05 04 03 02 01 00
+	    
+		  
+32 31 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 15 14 13 12 11 10 09 08 07 06 05 04 03 02 01 00
+:  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :
+                        15 14 13 12 11 10 09 08 07 06 05 04 03 02 01 00
+                        |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+() () () () () () () .. () () () () () () () () () () () () () () () () .. () () () () () () () () 
+
+() () () () () () () .. () () () () () () () () () () () () () () () () .. () () () () () () () () 
+
+EE .. MM IO RR WW .. .. 18 .. II II .. LL LL .. DR AC PC .. IF IF IF IF .. WU WU WU .. RU RU RU RU 
+
+RR SS FF EE II .. .. .. PC PC PC PC PC PC PC PC PC PC PC PC PC PC PC PC .. .. .. .. .. .. .. .. .. 
+
+NN ZZ VV II LL .. .. .. AC AC AC AC AC AC AC AC AC AC AC AC AC AC AC AC .. .. .. .. .. .. .. .. .. 
+
+uB uB uB uB .. .. .. .. IR IR IR IR IR IR IR IR IR IR IR IR IR IR IR IR .. .. .. .. .. .. .. .. .. 
+
+                        OR OR OR OR OR OR OR OR OR OR OR OR OR OR OR OR .. .. .. .. .. .. .. .. .. 
+
+xx xx xx    xx xx xx    SR SR SR SR SR SR SR SR SR SR SR SR SR SR SR SR    xx xx xx xx xx xx xx xx
+                        |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+                        15 14 13 12 11 10 09 08 07 06 05 04 03 02 01 00
+	    
+		  
+
+       	       	     
+32 31 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 15 14 13 12 11 10 09 08 07 06 05 04 03 02 01 00
+:  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :
+                           15 14 13 12 11 10 09 08 07 06 05 04 03 02 01 00
+                           |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+() () () () () () () ()    () () () () () () () () () () () () () () () ()    () () () () () () ()
+
+() () () () () () () ()    () () () () () () () () () () () () () () () ()    () () () () () () ()
+
+MM IO RR WW .. .. .. ..    ND 18 .. II II LL LL .. DR AC PC .. IF IF IF IF .. WU WU WU RU RU RU RU 
+
+BB BB BB BB BB BB BB BB    PC PC PC PC PC PC PC PC PC PC PC PC PC PC PC PC    () () () () () () ()
+
+EE .. NN ZZ VV II .. LL    AC AC AC AC AC AC AC AC AC AC AC AC AC AC AC AC    () () () () () () ()
+
+                           IR IR IR IR IR IR IR IR IR IR IR IR IR IR IR IR    () () () () () () ()
+
+                           OR OR OR OR OR OR OR OR OR OR OR OR OR OR OR OR    () () () () () () ()
+--------------------------------------------------------------------------------------------------
+xx xx xx xx xx xx xx xx    SR SR SR SR SR SR SR SR SR SR SR SR SR SR SR SR    xx xx xx    xx xx xx
+                           |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+                           15 14 13 12 11 10 09 08 07 06 05 04 03 02 01 00
+	    
+		  
+
+       	       	     
+32 31 30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 15 14 13 12 11 10 09 08 07 06 05 04 03 02 01 00
+:  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :  :
+                                                   15 14 13 12 11 10 09 08 07 06 05 04 03 02 01 00
+                                                   |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+() () () () () () () ()    () () () () () () ()    () () () () () () () () () () () () () () () ()
+
+() () () () () () () ()    () () () () () () ()    () () () () () () () () () () () () () () () ()
+
+() () () () () () () ()    ND MM IO RR WW 18 II II LL LL DR AC PC IF IF IF IF WU WU WU RU RU RU RU
+
+() () () () () () () ()    () () () () () () ()    OR OR OR OR OR OR OR OR OR OR OR OR OR OR OR OR
+
+() () () () () () () ()    () () () () () () ()    PC PC PC PC PC PC PC PC PC PC PC PC PC PC PC PC
+
+                           () () () () () () ()    AC AC AC AC AC AC AC AC AC AC AC AC AC AC AC AC
+
+                           .. .. .. uB uB uB uB    IR IR IR IR IR IR IR IR IR IR IR IR IR IR IR IR
+--------------------------------------------------------------------------------------------------
+xx xx xx xx xx xx xx xx    xx xx xx    xx xx xx    SR SR SR SR SR SR SR SR SR SR SR SR SR SR SR SR
+                                                   |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+                                                   15 14 13 12 11 10 09 08 07 06 05 04 03 02 01 00
+	    
+		  
+
+       	       	     
+					     

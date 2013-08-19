@@ -1,0 +1,1550 @@
+\documentclass[11pt,a4paper,twocolumns]{article}
+\usepackage[table]{xcolor}
+\newcommand\zebra{\rowcolors{2}{gray!20}{white}}
+%\newcommand\zebra*[1]{\rowcolors{#1}{gray!10}{white}}
+\usepackage[all]{xy}
+\usepackage{pdftricks}
+\usepackage{epsfig}
+\usepackage{lipsum}
+\usepackage{float}
+\usepackage{verbatim}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{epic}
+\usepackage{eepic}
+\usepackage{fontspec}
+\usepackage[a4paper,CJKbookmarks,bookmarks=true,bookmarksopen=true]{hyperref}
+\begin{psinputs}
+\usepackage{color}
+\usepackage{pstcol}
+\usepackage{pstricks}
+\usepackage{pst-plot}
+\usepackage{pst-tree}
+\usepackage{pst-eps}
+\usepackage{multido}
+\usepackage{pst-node}
+\usepackage{pst-eps}
+\end{psinputs}
+
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+
+\definecolor{darkblue}{RGB}{0,0,128}
+\hypersetup{
+    pdftitle={CFT Minicomputer Programming Guide},
+    pdfauthor={Alexios Chouchoulas},
+    pdfkeywords={},
+    bookmarksnumbered,
+    pagebackref=true,
+    breaklinks=true,
+%    pdfview=FitH,       % Or try pdfstartview={FitV}, This lead to uncorrect bookmarks
+    urlcolor=darkblue,
+    colorlinks=true,
+    citecolor=blue,          %citeref's color
+    linkcolor=blue,
+        }
+% Fonts
+%\defaultfontfeatures{Mapping=tex-text}
+\setmainfont{Minion Pro}
+\setsansfont{Myriad Pro}
+\setmonofont[]{Inconsolata}
+
+%\renewcommand{\rmdefault}{put}
+
+\geometry{a4paper, hoffset=0in, voffset=-.25in, left=1.5cm, right=1.5cm,
+  top=2.5cm, bottom=2.5cm}
+\sloppy
+
+% Use hyperlinking when renderind PDFs
+\newcommand{\cf}[2][section]{\hyperref[#2]{#1 \ref*{#2} (p.~\pageref*{#2})}}
+\newcommand{\npcf}[2][section]{\hyperref[#2]{#1 \ref*{#2}}}
+\newcommand{\appcf}[1]{\cf[appendix]{#1}}
+\newcommand{\ccf}[1]{\cf[chapter]{#1}}
+\newcommand{\fcf}[1]{\cf[figure]{#1}}
+\newcommand{\tcf}[1]{\cf[table]{#1}}
+\newcommand{\ecf}[1]{\cf[equation]{#1}}
+\newcommand{\algcf}[1]{\cf[algorithm]{#1}}
+\newcommand{\npappcf}[1]{\npcf[appendix]{#1}}
+\newcommand{\npccf}[1]{\npcf[chapter]{#1}}
+\newcommand{\npfcf}[1]{\npcf[figure]{#1}}
+\newcommand{\nptcf}[1]{\npcf[table]{#1}}
+\newcommand{\npecf}[1]{\npcf[equation]{#1}}
+\newcommand{\npalgcf}[1]{\npcf[algorithm]{#1}}
+
+\setlength\columnsep{7mm}
+
+\newcommand\hyperemail[1]{\sf\href{mailto:#1}{#1}}
+\newcommand\link[1]{\sf\href{http://#1}{#1}}
+
+\newcommand\op[1]{\texttt{#1}}
+\newcommand\hex[1]{\textsf{#1}}
+\newcommand\bus[1]{{#1}}
+\newcommand\unit[1]{{#1}}
+\newcommand\IBUS{\bus{IBUS}}
+\newcommand\ALU{\unit{ALU}}
+\newcommand\AGL{\unit{AGL}}
+\newcommand\register[1]{\textsf{#1}}
+\newcommand\A{\register{AC}}
+\newcommand\Areg{\A}
+\newcommand\Lreg{\register{L}}
+\newcommand\Ireg{\register{I}}
+\newcommand\Zreg{\register{Z}}
+\newcommand\Vreg{\register{V}}
+\newcommand\Nreg{\register{N}}
+\newcommand\AR{\register{AR}}
+\newcommand\MAR{\AR}
+\newcommand\DR{\register{DR}}
+\newcommand\PC{\register{PC}}
+\newcommand\IR{\register{IR}}
+
+
+\begin{document}
+\thispagestyle{empty}
+\pagestyle{plain}
+\twocolumn[
+\centering
+\includegraphics{figs/cft-logo-v1.pdf}\vspace{2em}\\
+{\LARGE\bf CFT Minicomputer Programming Guide}
+\vspace{10pt}
+
+{\Large Alexios Chouchoulas}\\\vspace{5pt}
+{\large \hyperemail{alexios@bedroomlan.org}}
+
+\vspace{20pt}
+
+\begin{minipage}{.75\textwidth}
+  \begin{abstract}
+    \small
+    
+  This document discusses the architecture of the CFT computer from a
+  programmer's perspective. The CFT is a solid-state, 16-bit,
+  microcoded architecture reminiscent, among others, of the DEC
+  PDP-8. The computer incorporates a 16-bit word width with separate
+  memory and input/output addressing spaces and a minimal, orthogonal
+  instruction set that is still particularly versatile. The design
+  includes separate internal (processor) and external (peripheral)
+  buses and is extensible both via processor extensions and
+  peripherals.
+
+  A brief explanation of the architecture is provided, along with a
+  discussion of its programming model, instruction set, and
+  limitations. Short examples of CFT Assembly code are provided, along
+  with a complete opcode table with semantics and timing information.
+    
+  \end{abstract}
+  
+  \section*{History of Changes}
+  \small
+
+  {\bf 2011-10-10} First draft compiled from notes, hardware description
+  and schematics.
+
+  {\bf 2011-10-18} Fixed hexadecimal opcode of macro {\tt ING} in the
+  instruction table. Corrected minor semantic and typesetting errors.
+  
+  {\bf 2011-11-06} Added datapath diagram and description. Minor typo
+  corrections.
+
+  {\bf 2011-11-15} Added {\tt SEL} macro.
+
+  {\bf 2011-11-17} Overflow detection and new instructions. Covered
+  changes from Microcode Version 3 ({\tt OP1} and {\tt OP2} changes),
+  register descriptions, new instructions.
+
+  {\bf 2011-11-23} Accumulator acronym is now \A. Memory Address
+  Register is now the Address Register (\AR). Various minor
+  nomenclature changes and typographical errata.
+
+  {\bf 2012-01-23} The {\sf R} instuction field is now reversed
+  (microcode version 4).
+
+  {\bf 2012-05-12} Further editing to account for microcode version 4,
+  reworked figures.
+
+  \vspace{5ex}
+  
+\end{minipage}
+] % End of \twocolumn
+
+
+%% \tikzset{boxes/.style={line width=2pt}}
+%% \begin{figure*}[t!]
+%%   \centering
+%%   \begin{tikzpicture}[boxes]
+%%     \begin{scope}[yshift=0cm]
+%%       \draw[boxes, fill=red!30](0,0) rectangle (8,1);
+%%       \draw (4,0.5) node {Microcode};
+%%     \end{scope}
+
+%%     \begin{scope}[yshift=1cm]
+%%       \draw[boxes, fill=orange!30](0,0) rectangle (8,1);
+%%       \draw (4,0.5) node {Instruction Set};
+%%     \end{scope}
+
+%%     \begin{scope}[yshift=2cm]
+%%       \draw[boxes, fill=orange!30](0,0) rectangle (8,1);
+%%       \draw (4,0.5) node {Instruction Macros and Extensions};
+%%     \end{scope}
+
+%%     \begin{scope}[yshift=3cm]
+%%       \draw[boxes, fill=yellow!30](0,0) rectangle (8,1);
+%%       \draw (4,0.5) node {Assembler Macros};
+%%     \end{scope}
+
+%%     \begin{scope}[yshift=4cm]
+%%       \draw[boxes, fill=yellow!30](0,0) rectangle (8,1);
+%%       \draw (4,0.5) node {Assembly Sub-programs};
+%%     \end{scope}
+
+%%     \begin{scope}[yshift=5cm]
+%%       \draw[boxes, fill=green!30](0,0) rectangle (8,1);
+%%       \draw (4,0.5) node {Forth Code Words};
+%%     \end{scope}
+
+%%     \begin{scope}[yshift=6cm]
+%%       \draw[boxes, fill=cyan!30](0,0) rectangle (8,1);
+%%       \draw (4,0.5) node {Native Forth Words};
+%%     \end{scope}
+
+%%     %% \begin{scope}[yshift=7cm]
+%%     %%   \draw[boxes, fill=blue!30](0,0) rectangle (8,1);
+%%     %%   \draw (4,0.5) node {Forth Applications};
+%%     %% \end{scope}
+
+%%     %% \begin{scope}[yshift=8cm]
+%%     %%   \draw[boxes, fill=magenta!30](0,0) rectangle (8,1);
+%%     %%   \draw (4,0.5) node {Higher Levels...};
+%%     %% \end{scope}
+
+%%   \end{tikzpicture}
+
+%%   \caption{\label{fig-progmodel}Various levels of the CFT Programming Model.}
+
+%% \end{figure*}
+
+
+
+\section{Introduction}
+
+  This document discusses the architecture of the CFT computer from a
+  programmer's perspective. The CFT is a solid-state, 16-bit
+  architecture reminiscent, among others, of the DEC
+  PDP-8.\footnote{Newer versions of this document and additional
+    documentation and downloads may be found at the following URL:\\
+    \link{www.bedroomlan.org/hardware/cft}.}
+
+  The computer incorporates a 16-bit word, 65,536 words of addressable
+  main memory and 65,536 words of input/output (I/O) space.
+
+  Instructions are 16-bits. There are ten registers (five are 16-bits
+  wide, the remaining five are single-bit flags) and a simple, nearly
+  orthogonal instruction set. The computer is able to initialise
+  itself without operator intervention using read-only ROM and a
+  hardwired, turn-key bootstrap address. Communication to the outside
+  world is attained using an interrupt facility, as part of a single
+  expansion bus that connects to both main memory and peripherals. An
+  autoindexing feature allows for very tightly coded looping
+  structures.
+
+  The design is microcoded for ease of upgrading.
+
+\section{Architecture}
+
+The CFT is a Von Neumann architecture stored program computer. Data is
+primarily manipulated in memory, using the system's single
+general-purpose internal register as an intermediate. The design is
+such that up to 1,024 general purpose memory-based registers may be
+accessed at any time. The computer is completely solid-state,
+implemented using modern 74xxx integrated circuits and some LSI
+memory.
+
+The datapath of the CFT computer is shown in~\fcf{fig-datapath}. For
+simplicity, it is built around a single bus, the \IBUS. All major
+registers are connected to this bus.
+
+The computer is microcoded. This simplifies upgrading and patching the
+architecture to provide new features. Microcode consists of a number
+of microprograms, each handling one CFT major state or
+instruction. Each microprogram consists of up to 16 24-bit
+microinstructions which operate directly the various physical units in
+the computer and control the connection of registers and units to the
+\IBUS.
+
+The entire architecture is built around a 16-bit word. All data and
+instructions is stored in 16-bit quantities, and all registers except
+two are 16 bits wide. This allows programs and data to share the same
+16-bit memory, and also makes programming significantly easier. A
+rational, orthogonal instruction set with 16 main instructions and a
+number of sub-instructions allows for ease of programming, yet
+significant versatility.
+
+The computer has separate address spaces for memory and input/output
+devices, allowing the two to be kept separate. Through microcode
+alterations additional wait states may be introduced for I/O, while
+leaving memory accesses fast. This also allows processor extensions to
+be built in I/O space, such as multiplication and division units,
+novel instructions, et cetera.
+
+\begin{figure*}
+\includegraphics[width=\textwidth]{figs/datapath.pdf}\vspace{2em}\\
+\caption{\label{fig-datapath} The CFT datapath is organised around a
+  single internal bus, the \IBUS. The {\em Accumulator\/} (\A, bottom
+  left) is the sole general-purpose internal register of the machine
+  and is operated on by most instructions. A {\em Flag Unit\/} decodes
+  the value of \A{} and accepts input from the \ALU{} to provide the
+  basis for flow control. The \ALU{} performs all arithmetic and logic
+  operations except register increments which are handled within the
+  circuitry of those major registers that require it. The {\em Link\/}
+  register (\Lreg) acts as a carry out register and extends \A{} by a
+  single bit for certain operations. The {\em Control Unit\/} (centre)
+  interprets microcode in response the the current instruction, which
+  is stored in the {\em Instruction Register\/}. The {\em I Register}
+  controls the reception of interrupts. The {\em Program Counter\/}
+  (\PC) holds the location in memory of the next instruction to be
+  fetched. The {\em Data Register\/} is an intermediate register used
+  to implement indirect memory addressing. The {\em Memory Address
+    Register\/} buffers addresses and directly drives the external
+  address bus. The {\em Data Bus Transceiver\/} is a simple
+  transceiver unit. When necessary, it connects the \IBUS{} to the
+  external data bus to facilitate memory and I/O access. Finally, the
+  {\em Constant Source\/} outputs to the \IBUS{} various constant
+  values needed for resetting, address vectors, and other internal
+  tasks.  }
+\end{figure*}
+
+\subsection{Word Size}
+
+The word size is 16 bits. There are no facilities for accessing
+quantities smaller than one word, and no single-instruction facilities
+for accessing quantities longer than one word.
+
+In this context, one kiloword (KWord) is $2^{10}$ or 1,024 kilowords.
+
+\subsection{Data Types}
+
+CFT defines a single data type: a 16-bit unsigned integer,
+i.e. integers in the range 0–65,535. There are no instructions
+explicitly intended to handle signed numbers, but two's complement
+operations may still be performed and the hardware has been designed
+to make this easier.
+
+\subsection{Addressing}
+
+The CFT architecture can address up to 64~KWords of memory, plus up to
+64~KWords of I/O space\footnote{Although, for practical reasons, 1
+  KWord of I/O space is more readily available.}.
+
+\subsubsection{Memory Space}
+
+Main memory is split up into 64 {\em pages\/}, each 1 KWord in
+size. Instructions usually reference memory addresses relative to the
+page they are executing in.
+
+The first page, Page Zero, is given special treatment by the
+instruction set. If bit 10 (starting at zero) of an instruction is
+clear, addresses in Page Zero may be accessed. This is the fastest and
+most convenient way of accessing memory beyond the current page. As
+such, Page Zero is always used for system variables, constants and
+other data that must be globally accessible.
+
+The 128 words in Zero Page addresses \hex{0080}–\hex{00FF} (inclusive)
+are so-called Autoindex registers. Using the Autoindex addressing
+mode, each time one of these addresses is referenced, it is
+automatically incremented by one. This allows loops to be coded very
+tightly, with index register increments happening at the microcode
+level.
+
+\begin{figure}[bt]
+  \centering
+  \zebra
+  \begin{tabular}{cl}
+    \hex{0000} & {\tt SUBRET} — return address for last {\tt JSR}.\\
+    \hex{0001} & {\tt TRAPRET} — return address for last {\tt TRAP}\\
+    \hex{0002} & {\tt ISRRET} — return address for last ISR.\\
+    \hex{0080} & {\tt IR0} — first autoindex register.\\
+    \hex{00FF} & {\tt IR7F} — last (128th) autoindex register.\\
+    $\vdots$ & $\vdots$ \\
+    \hex{03FF} & Last word of Page Zero.\\
+    \hex{1000} & First word of Page 1.\\
+    $\vdots$ & $\vdots$ \\
+    \hex{8000} & First word of Page 32.\\
+    $\vdots$ & $\vdots$ \\
+    \hex{FC00} & First word of Page 63.\\
+    \hex{FFF0} & Boot/reset address.\\
+    \hex{FFF8} & Interrupt service routine.\\
+    \hex{FFFF} & Highest memory address.\\
+  \end{tabular}
+  \caption{\label{fig-mm}Memory map of the CFT CPU's memory space.}
+\end{figure}
+
+\subsubsection{I/O Space}
+
+Although there are 64 KWords of I/O space, this is limited by
+practical limitations: Only the first 1,024 I/O addresses may be
+accessed from anywhere in memory space. Due to page-relative
+addressing, accessing the rest of the I/O space is mostly convenient
+via indirect addressing. For speed and ease of use, most I/O devices
+will thus occupy the first KWord of address space. Page-relative
+addressing is discussed in detail in \cf{sec-pagerel}.
+
+\subsection{Registers}
+
+\begin{figure}[tb]
+  \centering
+  \begin{tikzpicture}
+    \newcommand\xxregfile[2]{%
+      \begin{scope}[#1]
+        \draw[line width=2pt](0,0) rectangle (8,0.6);
+        \draw (4,0.3) node {#2};
+        \draw (8,0) node[below] { \footnotesize 0 };
+        \draw (0,0) node[below] { \footnotesize 15 };
+      \end{scope}
+    }
+    \newcommand\xxregflag[2]{%
+      \begin{scope}[#1]
+        \draw[line width=2pt](0,0) rectangle (0.4,0.6);
+        \draw (0.2,0.3) node {#2};
+        \draw (0.4,0) node[below] { \footnotesize 0 };
+        \draw (0,0) node[below] { \footnotesize 1 };
+      \end{scope}
+    }
+    \xxregfile{}{\A}
+    \xxregfile{yshift=-1.2cm}{\PC}
+    \xxregfile{yshift=-2.4cm}{\DR}
+    \xxregfile{yshift=-3.6cm}{\IR}
+    \xxregfile{yshift=-4.8cm}{\AR}
+    \begin{scope}[yshift=-6cm]
+      \xxregflag{xshift=7.6cm}{\Ireg}
+      \xxregflag{xshift=6.8cm}{\Vreg}
+      \xxregflag{xshift=6.0cm}{\Zreg}
+      \xxregflag{xshift=5.2cm}{\Nreg}
+      \xxregflag{xshift=4.4cm}{\Lreg}
+    \end{scope}
+  \end{tikzpicture}
+
+  \caption{\label{fig-rf}Full Register file. Only the \A{} major
+    register and the five flag registers are accessible to the user,
+    and only \A{} is directly accessible.}
+
+\end{figure}
+
+There are ten registers in the CFT architecture. They are split into
+the major registers, minor registers, and flag registers. Major and
+minor registers are all 16 bits wide. Flag registers are one bit wide.
+
+\subsubsection{Major Registers}
+
+These registers are used directly by the programming model. These are
+all 16-bit registers. They hardware provides facilities for these
+registers to be read, written and incremented.
+
+\paragraph{Accumulator (\A)}
+
+This is a 16 bit register. It is the only 16-bit register directly and
+fully accessible via the instruction set and the one almost all
+instructions operate on. The value of \A{} influences directly the
+values of the flag registers \Nreg (negative flag) and \Zreg (zero
+flag).
+
+\paragraph{Program Counter (\PC)}
+
+A 16-bit register. It contains the address of the next instruction to
+be executed. It may not be read, but can be indirectly affected by way
+of skips, jumps, subroutine calls, traps, and interrupts.
+
+\paragraph{Data Register (\DR)}
+
+This is a 16-bit register used internally by the CFT to buffer
+addresses during indirect addressing. It cannot be accessed directly
+by the user.
+
+
+
+\subsubsection{Minor Registers}
+
+These registers are used internally by the system, and are built with
+less functionality than major registers.
+
+\paragraph{Instruction Register (\IR)}
+
+The Instruction Register (\IR) holds the instruction currently being
+executed. It is 16 bits wide and is used internally only. There is no
+way to access it.
+
+\paragraph{Address Register (\AR)}
+
+The Address Register (\AR) is a 16-bit register that buffers addresses
+that are put out on the CFT address bus. \AR{} is responsible for all
+memory and I/O addressing with the exception of indirect addressing,
+which also uses the \DR. Like the \IR, the {\AR} cannot be accessed by
+the user.
+
+\subsubsection{Flag Registers}
+
+These are single-bit flags. They are used to sense or set the state of
+the system and form the basis of flow control.
+
+\paragraph{Link Register (\Lreg)}
+
+Used as a carry bit during arithmetic, extending the \A{} register and
+as the 17th bit during roll instructions. It may be used as a generic
+flag by user programs and may be set or cleared by user programs.
+
+\paragraph{Negative Flag (\Nreg)}
+
+Directly linked to 16th bit of the \A{} register. This register may
+not be directly controlled by the programmer. If set, the \A{}
+register may be negative. This, of course, depends on the
+interpretation of the contents of \A{}. If treating \A{} as an
+unsigned quantity, the \Nreg{} register is a good means of testing the
+highest-order bit of \A{}.
+
+\paragraph{Zero Flag (\Zreg)}
+
+Cannot be controlled directly by the user. This flag register is set
+when \A{} is zero. This is among the fastest means of numerical
+comparison on the CFT architecture.
+
+\paragraph{Overflow Flag (\Vreg)}
+
+Cannot be controlled directly by the user. This flag is set when an
+addition results in a result that will not fit in 16 bits. Its
+interpretation depends on the interpretation of the value of \A.
+
+\paragraph{Interrupt Register (\Ireg)}
+
+This single-bit register controls the computer's behaviour on
+detecting an interrupt request. The register may be manipulated by the
+user to allow or mask interrupts.
+
+
+
+\subsection{Instruction Format}
+\label{sec-if}
+
+\begin{figure}[tb]
+  \centering
+  \begin{tikzpicture}
+    \draw[line width=2pt](0,0) rectangle (8,0.6);
+    \draw (8,0) node[below] { \footnotesize 0 };
+    \draw (2,0) node[below left] { \footnotesize 12 };
+    \draw (2,0) node[below right] { \footnotesize 11 };
+    \draw (2.5,0) node[below right] { \footnotesize 10 };
+    \draw (3,0) node[below right] { \footnotesize 9 };
+    \draw (0,0) node[below] { \footnotesize 15 };
+    \foreach \x in {0.5, 1, ..., 7.5}
+      \draw[thin] (\x cm, 0) -- (\x cm, -0.1cm);
+    \draw[thick](2,-0.1) -- (2,0.6);
+    \draw[thick](2.5,-0.1) -- (2.5,0.6);
+    \draw[thick](3,-0.1) -- (3,0.6);
+    \draw (1, 0.3) node { Opcode };
+    \draw (2.25, 0.3) node { I };
+    \draw (2.75, 0.3) node { R };
+    \draw (5.5, 0.3) node { Operand };
+  \end{tikzpicture}
+
+
+  \caption{\label{fig-if}Instruction Format of the CFT architecture.}
+\end{figure}
+
+The CFT computer uses a single instruction format. All instructions are exactly
+16 bits wide and comprise the same fields, as shown in~\fcf{fig-if}. Each
+instruction contains four fields. From most to least significant, they are:
+
+\begin{description}
+\item{\bf The Instruction opcode (most significant 4 bits)}. This
+  field identifies the instruction to be performed.
+\item{\bf The Indirection mode (1 bit)}. Depending on the instruction,
+  this bit selects between the literal and direct, or the direct and
+  indirect addressing mode.
+\item{\bf The Register Mode (1 bit)}. This bit controls whether
+  addresses and literals are relative to the current page, or relative
+  to page zero (the register page).
+\item{\bf The Operand or address offset (least significant 10
+  bits)}. This allows only ten bits of literals or addresses to be
+  specified in an instruction. The most significant six bits are
+  filled in from one of two sources as follows:
+  \begin{itemize}
+  \item If the Register Mode bit is set (1), the six most significant bits
+    of the \PC\ register are used. This is page-relative addressing.
+  \item If the Register Mode bit is clear (0), the six most
+    significant bits of the operand are zero. This is Register
+    addressing, also known as Page-Zero addressing, since Page Zero is
+    used for system registers.
+  \end{itemize}
+  This introduces a number of limitations, discussed in~\cf{sec-pagerel}.
+\end{description}
+
+\subsection{Page-Relative Limitations}
+\label{sec-pagerel}
+
+Unless the Register Mode (R) bit is set (field R in the instruction
+equal to {\sf 1}), an instruction at address {\tt addr} may only access
+memory (and I/O) address between {\tt addr AND FC00} and {\tt (ADDR
+  AND FC00) OR 3FF}. This introduces a number of limitations and
+defines the programming style of CFT more than any other single aspect
+of the design.
+
+There are four obvious solutions to the limitation:
+
+Subprograms need to store temporary data on the local page, or to use
+special ‘scratch’ registers in Page Zero. Both addressing modes take
+the same time to execute.
+
+In the case of constants, the programmer can either limit themselves
+to constants in the range \hex{0000}–\hex{03FF}, store commonly-used
+large constants (such as -1, \hex{FFFF} and -2, \hex{FFFE}) in a Page
+Zero constant table, or a combination of these techniques\footnote{A
+  note for PDP-8 programmers: the CFT has a {\tt LI} (Load Immediate
+  or LIteral) instruction that can load the Accumulator with a 10-bit
+  literal. This is considerably faster the the only PDP-8 alternative,
+  constructing basic constants using microcoded instructions.}.
+
+Special care needs to be taken for subprograms longer than 1,024
+words. If code crosses a page boundary, references to any local data
+will in fact refer to the same offset within the {\tt new\/} page, and
+will of course be invalid.
+
+The standard assembler issues a cross-page warning when using symbolic
+names (labels) for such local data, which is a very good practice.
+
+Jumps, subroutine calls and traps suffer from the same issue. Indirect
+Register addressing is commonly used as a solution to this problem:
+the address (vector) of the subprogram in question is stored in a Page
+Zero location, and the jump is made using indirection. This has the
+added benefit of allowing the vectors to be changed so that system
+services may be overridden.
+
+Perhaps the most significant limitation, however, is on the size of
+the I/O address space. When performing page-relative I/O operations
+({\tt IN}, {\tt OUT} and {\tt IOT}), the most significant six bits of
+the I/O address will {\em still\/} be taken from the six most
+significant bits of the \PC. Because of this, different I/O devices
+will be accessed depending on the location of the program in
+memory. There are two ways to avoid this: the primary one is to only
+use 10 bits of I/O space. Either the R field in all I/O instructions
+must be {\sf 1}, or the hardware must decode only the 10 least significant
+address lines\footnote{Thus providing six don't care bits, which is 64
+  copies of every I/O device, one for every page.}, or a combination
+of both. The secondary means of avoiding this issue is indirect
+addressing. It is assumed that a mixture of these techniques will be
+used in practice. Please refer to your system documentation for exact
+details.
+
+\subsection{Addressing Modes}
+
+CFT instructions have two bits that modify how instructions treat the
+operand field: the R (register) field, and the I (indirection)
+field.
+
+The R field controls how the six most significant bits of the operand
+are derived, as described in~\cf{sec-if}.
+
+The I field controls how the resultant operand is used. This depends
+on the instruction.
+
+Combined, there are up to four addressing modes per instruction. There
+is also a fifth addressing mode, autoindex mode, which is selected for
+specific memory addresses only. Each instruction supports five
+addressing modes. 
+
+Naturally, no instructions support all addressing modes. Depending on
+the nature of the instruction, either literal and direct modes, or
+direct and indirect modes are used. There also some instructions in
+which the addressing mode does not apply. This is indicated as
+‘special’ mode.
+
+The addressing modes are as follows:
+
+\begin{itemize}
+  \item Immediate.
+  \item Immediate page-relative.
+  \item Direct register.
+  \item Direct page-relative.
+  \item Indirect register.
+  \item Indirect page-relative.
+  \item Autoindex.
+  \item Special.
+\end{itemize}
+
+\subsubsection{Immediate Mode}
+
+When using applicable instructions with R=0 and I=0, the value field
+in the instruction is used as the least significant 10 bits of a
+literal value. The most significant six bits are zero. This allows
+literal values in the range \hex{0000}–\hex{03FF} to be specified.
+
+For example, executing the Load Immediate (LI R) instruction {\tt LI R
+  0350} will set \A=\hex{0350}.
+
+\subsubsection{Immediate Page-Relative Mode}
+
+When using applicable instructions with with R=1 and I=0, the value
+field in the instruction is used as the least significant 10 bits of a
+literal value. The six most significant bits of the \PC\ are used as the
+most significant six bits of that value. This allows addresses in the
+current page to be specified.
+
+For example, executing the Load Address (LIA) instruction {\tt LIA
+  0042} at address \hex{2130} will set \A=\hex{2042}.
+
+\subsubsection{Direct Register Mode}
+
+When using applicable instructions with R=1 and I=0, the value field
+in the instruction is used as the least significant 10 bits of a
+memory or I/O address. The most significant six bits are zero. This
+allows Page Zero registers and I/O devices to be addressed.
+
+For example, executing the Load instruction {\tt LOAD R 0010}
+instruction will load the contents of address \hex{0010} into \A.
+
+\subsubsection{Direct Page-Relative Mode}
+
+When using applicable instructions with R=0 and I=0, the six most
+significant bits of the \PC{} and the ten least significant bits of
+the value field in the instruction are used to construct an address
+which is used directly to reference a value in memory or I/O
+space. This is the most commonly used addressing mode.
+
+For example, executing the Store instruction {\tt STORE 0010} at
+address \hex{8514} will write the contents of \A\  onto memory address
+\hex{8410}.
+
+\subsubsection{Indirect Register Mode}
+
+When using applicable instructions with R=1 and I=1, the value field
+in the instruction is used to construct an address. The 16-bit value
+{\em at that address in memory\/} is used to reference memory or I/O
+space.
+
+For example, executing the LOAD instruction {\tt LOAD I 009A} will
+read into the \DR register a 16-bit value from memory location {\tt
+  009A}. \A\  will then be loaded with the value of the address in
+memory stored in \DR.
+
+\subsubsection{Indirect Page-Relative Mode}
+
+When using applicable instructions with R=0 and I=1, the six most
+significant bits of the \PC{} and the ten least significant bits of
+the value field in the instruction are used to construct an
+address. The 16-bit value at that address in memory is used to
+reference memory or I/O space.
+
+For example, executing the LOAD instruction {\tt LOAD I 009A} at
+address \hex{1234} will read into the Data Register a 16-bit value
+from memory location \hex{109A}. That number is treated as the address
+in memory to be read into \A.
+
+\subsubsection{Autoindex Mode}
+
+Autoindex mode operates like Indirect Register Mode above, but the
+memory location indicated in the instruction field is {\em
+  incremented\/} after being used. Indirect Autoindex mode cannot be
+selected directly. It is automatically enabled for addresses in the
+range \hex{0080}–\hex{00FF}. The value of the R field is immaterial,
+only the resultant address is examined.
+
+For example, executing the LOAD instruction {\tt LOAD I R 009A} will
+read into the \DR register a 16-bit value from memory location
+\hex{109A}. That number is used as the address in memory to be read
+into \A, then incremented by one and written back to location
+\hex{009A}.
+
+If the instruction were {\tt LOAD I 009A} and it executed at address
+\hex{0003}, the result would have been the same.
+
+\subsection{Operating States}
+
+The CFT processor has four major operating states: initialisation, interrupt,
+operation and waiting.
+
+\subsubsection{Initialisation}
+
+When the computer initialises via a system reset or initial boot, it
+first clears the major registers \A, \PC{} and \DR{}. Shortly after
+the reset pulse, \PC{} is loaded with the boot address \hex{FFF0} and
+the \Ireg\ register is cleared in order to disallow interrupts.  Other
+registers and machine states are undefined and may contain arbitrary
+values — naturally, boot code should initialise all of the system as
+early as possible. Normal operation is then resumed.
+
+\subsubsection{Interrupt}
+
+When the computer encounters an interrupt, and if the \Ireg\ register is {\tt
+  1} (allowing interrupts), the event is buffered in a minor state
+register. When the currently executing instruction is completed, the
+\Ireg\ register is cleared to disable further interrupts and the current value
+of the \PC\ is written to memory address \hex{0002}. Finally, the \PC\ is
+loaded with the value \hex{FFF8}, which is the address of the Interrupt Service
+Routine (ISR). Normal operation is then resumed.
+
+\subsubsection{Operation}
+
+During normal fetch-execute operation, the computer's microcode
+fetches instructions from main memory address indicated by \PC,
+increments the \PC, then executes the fetched instructions. This is the
+mode the computer spends most of its time in.
+
+\subsubsection{Wait}
+
+On occasion, external slow hardware or the operator's console may halt
+the processor's clocks. In this state, the sequencer does not work
+through the microcode and the computer does not operate.
+
+This mode may be entered at any time. The operator's console allows it
+to be entered either inside a microprogram, or immediately before the
+fetch part.
+
+The Wait state is transient: as soon as the appropriate signals are
+de-asserted by the hardware, the previous state resumes.
+
+\section{Instruction Set Reference}
+
+The first edition of the CFT microcode allowed for fourteen different
+instructions. The second edition added the {\tt IOT} instruction,
+which makes for fifteen mutually orthogonal instructions:
+
+\begin{itemize}
+\item {\tt TRAP}: save the \PC\ and jump to the specified location. Used for operating system services.
+\item {\tt IOT}: new in version 2.0 of the microcode. Writes to a specified output device, then reads a result back from it. Used to implement computer extensions via I/O-addressable extension units.
+\item {\tt LOAD}: load from memory.
+\item {\tt STORE}: write to memory.
+\item {\tt IN}: read from an input device.
+\item {\tt OUT}: write to an output device.
+\item {\tt JMP}: unconditional jump to the specified location.
+\item {\tt JSR}: save the \PC\ and jump unconditionally to the specified location.
+\item {\tt ADD}: load from memory and add to the accumulator.
+\item {\tt AND}: load from memory and perform a bitwise AND with the value in the accumulator.
+\item {\tt OR}: load from memory and perform a bitwise OR with the value in the accumulator.
+\item {\tt XOR}: load from memory and perform a bitwise exclusive OR with the value in the accumulator.
+\item {\tt OP1}: minor operations, group one.
+\item {\tt OP2}: minor operations, group two.
+\item {\tt ISZ}: new in version 4.0 of the microcode, replacing the
+  previous \op{INCM} insruction. Loads a memory value into \A,
+  increments it, and writes it back. The incremented value remains in
+  \A{}. If \A{} is zero, the next instruction is skipped. This
+  simplifies coding loops.
+\item {\tt LIA}: load accumulator with literal value or address.
+\end{itemize}
+
+To simplify understanding of the instruction set, opcode mnemonics are
+used rather than actual machine code. In many cases, the notation used
+is that of the Standard CFT Assembly language which merits some
+description. This is not a full definition of CFT Assembly language,
+merely enough of it to facilitate discussing the instruction set in
+a more human-readable form.
+
+CFT Assemblers parse lexical tokens denoting either symbolic
+instruction names or hexadecimal numbers. Symbols are converted to
+numbers using symbol tables. The resultant numbers, which must be 16
+bits in width, are ORred together to form an instruction%
+% (no longer the case)
+%% \footnote{One
+%%   exception is the {\tt R} symbol, which {\em clears\/} bit 10 of the
+%%   instruction to turn on Page Zero/register addressing modes. In
+%%   practice, this is not actually an exception. After assembling an
+%%   instruction, however, the Assembler performs an {\tt XOR} with the
+%%   hexadecimal value \hex{0400} (complementing bit 10), which allows
+%%   the bitwise Or semantics to work for everything, including the R
+%%   flag, and the resultant code to run as expected.}
+.
+
+This provides great simplicity and generality at the expense of making
+the code slightly less readable from a modern Assembly
+perspective\footnote{PDP-8 Assembly programmers will feel right at
+  home, though.}).
+
+Anything after the first semicolon ({\tt ;}) on a line is considered a
+comment and ignored.
+
+A brief example of CFT Assembly language can be found in~\fcf{fig-asm}.
+
+\begin{figure}
+\small
+\begin{verbatim}
+LOAD 0000     ; Load direct
+LOAD I 0342   ; Load indirect
+0342 I LOAD   ; Valid, but against conventions.
+LOAD I R 007F ; Load zero page and indirect
+LOAD I R 0080 ; Load, autoindexing
+IN R PANEL 0  ; Read panel switches
+CLL RBL       ; Shift left one bit
+HALT          ; Halt the system
+\end{verbatim}
+\caption{\label{fig-asm}Examples of CFT instructions in Assembly language .}
+\end{figure}
+
+\subsection{Memory}
+
+The following instructions operate on memory space.
+
+\subsubsection{{\tt LOAD} — Load Accumulator}
+\label{sec-load}
+
+Load a word from memory into \A. Direct, indirect and autoindex modes are available.
+
+\subsubsection{{\tt STORE} — Store Accumulator}
+\label{sec-store}
+
+Write \A\ to the specified memory location. Direct, indirect and autoindex modes are available.
+
+\subsubsection{{\tt ISZ} — Increment memory and Skip if Zero}
+\label{sec-incm}
+
+Load a word from memory into \A. Increment \A{}, and write it back to
+the same memory location. Direct, indirect and autoindex modes are
+available. In autoindex mode, autoincrement occurs only once, after
+the memory write. After the memory write, if \A{} is zero, the next
+instruction is skipped. This allows loops to be coded using tightly,
+using two instructions to set up the loop, and two instructions to
+iterate:
+
+\begin{verbatim}
+stars:  NEG          ; AC = -AC
+        STORE R 10   ; Loop variable
+loop:   
+        ...          ; Loop body
+        ISZ R 10     ; ++loop
+        JMP loop     ; Skipped if R 10 == 0.
+        ...          ; Exit from loop
+\end{verbatim}
+
+\subsection{I/O}
+
+The following instructions operate on I/O space.
+
+\subsubsection{{\tt IN} — Read from I/O Device}
+\label{sec-in}
+
+Read a word from I/O space into \A. Direct, Indirect and autoindex
+modes are available. {\tt IN} instructions may have additional
+side-effects that depend on the peripheral being addressed.
+
+\subsubsection{{\tt OUT} — Write to I/O Device}
+\label{sec-out}
+
+Write the contents of \A\ to the specified I/O space address. Direct,
+Indirect and autoindex modes are available. {\tt OUT} instructions
+almost always have side-effects that depend on the peripheral being
+addressed.
+
+\subsubsection{{\tt IOT} — I/O Transaction}
+\label{sec-iot}
+
+Implements a processor extension. The {\tt IOT} instruction writes A
+to I/O space, the reads \A{} back from the same address. The I/O-mapped
+processor extension can introduce wait states at the end of the I/O
+space read cycle, in order to get more time to perform its
+task. Direct, Indirect and autoindex modes are available.
+
+\subsection{Arithmetic and Logic}
+
+The following instructions perform common arithmetic and logic operations.
+
+\subsubsection{{\tt ADD} — Add to Accumulator}
+\label{sec-add}
+
+Read a word from memory and add it to \A. If the addition results in a
+carry-out, \Lreg\  is toggled. Direct, Indirect and autoindex modes are
+available.
+
+\subsubsection{{\tt AND} — Bitwise And with Accumulator}
+\label{sec-and}
+
+Read a word from memory and perform a bitwise AND operation with A. Direct, Indirect and autoindex
+modes are available.
+
+\subsubsection{{\tt OR} — Bitwise Or with Accumulator}
+\label{sec-or}
+
+Read a word from memory and perform a bitwise OR operation with A. Direct, Indirect and autoindex
+modes are available.
+
+\subsubsection{{\tt XOR} — Bitwise Exclusive OR with Accumulator}
+\label{sec-xor}
+
+Read a word from memory and perform a bitwise XOR operation with A. Direct, Indirect and autoindex
+modes are available.
+
+\subsection{Flow Control}
+
+The following instructions implement flow control via modification of the \PC\ register.
+
+\subsubsection{{\tt TRAP} — Jump to System Service}
+\label{sec-trap}
+
+Writes the value of the \PC{} to memory location \hex{0001}, then sets
+the \PC to the address specified in the instruction. Direct, Indirect
+and autoindex modes are available.
+
+\subsubsection{{\tt JMP} — Jump to Address}
+\label{sec-jmp}
+
+Sets the \PC{} to the address specified in the instruction. Direct,
+Indirect and autoindex modes are available.
+
+\subsubsection{{\tt JSR} — Jump to Subroutine}
+\label{sec-jsr}
+
+Writes the value of the \PC{} to memory location \hex{0000}, then sets
+the \PC{} to the address specified in the instruction. Direct, Indirect
+and autoindex modes are available.
+
+\subsection{Specials}
+
+These are operations that do not fit in the categories above.
+
+\subsubsection{{\tt OP1} — Operations 1}
+\label{sec-op1}
+
+\begin{figure*}[tb]
+  \centering
+  \input{rolls.tex}
+
+  \caption{\label{fig-roll}Roll Instructions.}
+\end{figure*}
+
+The {\tt OP1} instruction provides a number of minor operations, any
+number of which may be performed in a preset order. This is very
+similar to the PDP-8 ‘microcoded’ instructions.
+
+The operand of the {\tt OP1} instruction is seen as a bitfield, where
+set bits trigger a particular minor operation. The table below
+outlines the possible operations that can be ORred together.
+
+\vspace{1em}\noindent\begin{center}
+\zebra
+\begin{tabular}{ll}
+  Bitfield & {\tt OP1} Instruction \\\noalign{\smallskip}\hline\noalign{\smallskip}
+  {\tt 1---------} & {\tt IFL} — Execute the rest only if \Lreg{} set.\\
+  {\tt -1--------} & {\tt IFV} — Execute the rest only if \Vreg{} set.\\
+  {\tt --1-------} & {\tt CLA} — Clear \A \\
+  {\tt ---1------} & {\tt CLL} — Clear \Lreg \\
+  {\tt ----1-----} & {\tt NOT} — Complement \A \\
+  {\tt -----1----} & {\tt INC} — Increment (\Lreg,\A) by one. \\
+  {\tt ------1---} & {\tt CPL} — Complement \Lreg \\
+  {\tt -------010} & {\tt RBL} — Roll Bit Left (\Lreg,\A) \\
+  {\tt -------001} & {\tt RBR} — Roll Bit Right (\Lreg,\A) \\
+  {\tt -------110} & {\tt RNL} — Roll Nybble Left (\Lreg,\A) \\
+  {\tt -------101} & {\tt RNR} — Roll Nybble Right (\Lreg,\A) \\\noalign{\smallskip}\hline\noalign{\smallskip}
+\end{tabular}
+\end{center}\vspace{1em}
+
+These operations is performed in the order in which they appear above,
+from top to bottom. If no operations are specified, i.e. the
+instruction is \hex{C000}, the instruction is effectively a NOP. The
+four roll instructions are mutually exclusive. The notation (\Lreg,\A)
+indicates that both \Lreg\ and \A\ are used together as a 17-bit
+quantity, with \Lreg\ becoming the most significant bit.
+
+The first two operations end execution of the rest of the instruction
+unless the \Lreg{} and \Vreg{} are set, respectively. These operations
+simplify the rippling of carry, borrow or overflow effects.
+
+To clear both \A{} and \Lreg, the instruction would be {\tt OP1 CLA CLL}.
+
+If the {\tt INC} instruction is issued when \A=\hex{FFFF}, \Lreg\ is
+toggled. As expected, \A\ becomes \hex{0000}.
+
+To calculate the two's complement of \A{} {\tt OP1 NOT INC} (hexadecimal
+instruction \hex{C030}) will first invert \A{}, then increment it by
+one. Note that {\tt OP1 INC NOT} has exactly the same result, as the
+order in which minor operations are performed is fixed.
+
+A binary left shift by one bit can be defined as {\tt OP1 CLL RBL}
+(\hex{C102}).
+
+The standard Assembler defines many of these combinations of 
+instructions as
+convenient macros. When using these macros, specifying {\tt OP1} is
+optional.
+
+The exact operation of the four roll instructions is illustrated
+in~\npfcf{fig-roll}.
+
+\subsubsection{{\tt OP2} — Operations 2}
+\label{sec-op2}
+
+This instruction is very similar to the {\tt OP1} instruction. The
+main feature of the {\tt OP2} instruction is skipping. Skip
+instructions skip over the following instruction if the corresponding
+condition is true. The following table lists the {\tt OP2} bitfield
+values that may be ORred together.
+
+\vspace{1em}\noindent\begin{center}
+\zebra
+\begin{tabular}{ll}
+  Bitfield & {\tt OP2} Instruction \\\noalign{\smallskip}\hline\noalign{\smallskip}
+  {\tt -----01---} & {\tt SNA} — Skip if \A{} negative (G1)\\
+  {\tt -----0-1--} & {\tt SZA} — Skip if \A{} zero (G1) \\
+  {\tt -----0--1-} & {\tt SSL} — Skip if \Lreg{} set (G1) \\
+  {\tt -----0---1} & {\tt SSV} — Skip if \Vreg{} set (G1) \\
+  {\tt -----10000} & {\tt SKIP} — Always skip (G2) \\
+  {\tt -----11---} & {\tt SNN} — Skip if \A{} non-negative (G2) \\
+  {\tt -----1-1--} & {\tt SNZ} — Skip if \A{} non-zero (G2) \\
+  {\tt -----1--1-} & {\tt SCL} — Skip if \Lreg{} clear (G2) \\
+  {\tt -----1---1} & {\tt SCV} — Skip if \Vreg{} clear (G2) \\
+  {\tt --1-------} & {\tt CLA} — Clear \A{} \\
+  {\tt ---1------} & {\tt CLI} — Clear \Ireg{} flag \\
+  {\tt ----1-----} & {\tt STI} — Set \Ireg{} flag \\%
+  \noalign{\smallskip}\hline\noalign{\smallskip}
+\end{tabular}
+\end{center}\vspace{1em}
+
+There are two groups of branching instructions: G1 (bit 4 of the
+instruction operand is {\tt 0}) and G2 (bit 4 of the instruction
+operand is {\tt 1}). When G1 instructions {\tt SNA}, {\tt SZA}, {\tt
+  SSL} and {\tt SSV} are specified together, the skip is performed
+when {\em any\/} of the specified conditions hold (logical disjunction
+or Or). For example, the instruction {\tt SZA SNA} is ‘skip if \A{} less
+than or equal to zero’, or ‘skip if \A{} non-positive’ (which is the
+standard CFT Assembly macro {\tt SNP}).
+
+When G2 instructions are specified together, the skip is performed
+when {\em all\/} of the specified conditions hold (logical conjunction
+or And). For example, {\tt SNN SNZ} is ‘skip if \A{} is non-zero and
+non-negative’, or ‘skip if \A{} is positive’ (the standard Assembler
+macro for this is {\tt SPA}). The full set of combinations to check
+the value of \Areg{} is as follows:
+
+\vspace{1em}\noindent\begin{center}
+\zebra
+\begin{tabular}{lll}
+  Instruction & Macro & Semantics \\\noalign{\smallskip}\hline\noalign{\smallskip}
+  {\tt SNA }     &           & Skip if $\mbox{A} < 0$ \\
+  {\tt SNA SZA } & {\tt SNP} & Skip if $\mbox{A} \leq 0$ \\
+  {\tt SZA }     &           & Skip if $\mbox{A} = 0$ \\
+  {\tt SNZ }     &           & Skip if $\mbox{A} \not= 0$ \\
+  {\tt SNN }     &           & Skip if $\mbox{A} \geq 0$ \\
+  {\tt SNN SNZ } & {\tt SPA} & Skip if $\mbox{A} > 0$ \\
+  \noalign{\smallskip}\hline\noalign{\smallskip}
+\end{tabular}
+\end{center}\vspace{1em}
+
+\paragraph{Why Two {\tt CLA} operations?}
+\label{sec-cla2}
+Superficially, having two {\tt CLA} operations is unnecessary, and wastes
+space that could be used by another minor operation. However, clearing
+\A{} is a very useful operation, and having it in both {\tt OP1} and
+  {\tt OP2} makes it available to more use cases.
+
+Both {\tt CLA} operations have the same bitfield value, \hex{080}. The
+{\tt OP1 CLA} operation is \hex{C080}, and the {\tt OP2 CLA} operation
+is \hex{D080}. To resolve the obvious ambiguity in the naming,
+standard CFT Assembly {\tt always\/} defines {\tt CLA} as
+\hex{C080}. This works in all three combinations of {\tt CLA}
+appearances in instructions:
+
+\begin{itemize}
+\item{\textbf{\tt CLA}:} the symbol table resolves this to {\tt C080},
+  which is {\tt OP1 CLA}.
+\item{\textbf{\tt OP1 CLA}:} since Assembly ORs all fields together,
+  this results in \hex{C000 OR C080}, which is again \hex{C080}, or
+  {\tt OP1 CLA}.
+\item{\textbf{\tt OP2 CLA}:} again, ORring fields together yields
+  \hex{D000 OR C080} which is \hex{D080}, which is {\tt OP2 CLA}.
+\end{itemize}
+
+The only minor drawback of this arrangement is that, should the
+programmer somehow require the {\tt CLA} operation to be executed by
+the {\tt OP2} instruction explicitly, {\tt OP2 CLA} must be specified
+in full.
+
+\subsubsection{{\tt LIA} — Load Immediate Address}
+\label{sec-lia}
+\label{sec-li}
+
+Loads \A{} with the literal value specified in the instruction. The
+page-relative form of this instruction is used to load \A{} with a
+page-relative address.
+
+When R=0, {\tt LIA} becomes the Load Immediate ({\tt LI}) instruction,
+which can load a value in the range \hex{0000}–\hex{03FF} into \A.
+
+This instruction always operates in the Immediate addressing mode. The
+value of the instruction I bit is {\em ignored}.
+
+\subsection{Standard Macros}
+\subsubsection{{\tt RET} — Return from Subroutine}
+
+This is defined as {\tt JMP I R 0000}. It jumps to the return address
+saved by the {\tt JSR} instruction, which stores it at memory address
+\hex{0000}.
+
+\subsubsection{{\tt RTT} — Return from Trap} 
+
+This is defined as {\tt JMP I R 0001}. It jumps to the return address
+saved by the {\tt TRAP} instruction, which stores it at memory address
+\hex{0001}.
+
+\subsubsection{{\tt NEG} — Negate \A}
+
+Obtains the two's complement of \A{} by performing {\tt OP1 NOT INC}.
+
+\subsubsection{{\tt ING} — Increment and Negate \A}
+
+Obtains the two's complement of \A{} and increases it, thereby
+calculating $\mbox{AC} \leftarrow -(\mbox{AC} + 1)$. Due to the use of
+two's complement for arithmetic negation, this is equivalent to a
+simple {\tt OP1 NOT}. The {\op{ING}} instruction is useful in some
+types of loops in conjunction with \op{ISZ}.
+
+\subsubsection{{\tt SEL} — Set L}
+
+This macro sets \Lreg{} by combining the {\tt CLL} and {\tt
+  CPL} instructions.
+
+\subsubsection{{\tt LI} — Load Immediate}
+
+This is equivalent to {\tt LIA R}. It loads \A{} with the 10-bit literal
+value specified as operand. The most significant six bits are zero.
+
+\subsubsection{{\tt SPA} — Skip if Positive \A}
+
+This is equivalent to {\tt OP2 SNN SNZ}. It skips the next instruction
+if \A{} is neither negative, nor zero (thus positive).
+
+\subsubsection{{\tt SNP} — Skip if Non-Positive \A}
+
+This is equivalent to {\tt OP2 SNA SZA}. It skips the next instruction
+if \A{} is less than or equal to zero (non-positive).
+
+\subsubsection{{\tt SBL}, {\tt SBR} — Bitwise shifts}
+
+The two bitwise shift macros are formed by combining {\tt OP1 CLL} with
+the corresponding {\tt OP1} roll operations. They provide bitwise
+(unsigned arithmetic) shift operations which are fundamental in
+implementing multiplication and division, among others.
+
+Please note that there are no nybble-oriented shift operations because
+there is no way to clear the lower order three bits of \A{} with an
+{\tt OP1} instruction.
+
+\subsection{Common Tasks}
+
+This section shows how some common, simple Assembly language tasks can
+be performed using the CFT instruction set.
+
+\subsubsection{Addition With Carry}
+
+The \Lreg{} flag may be used as carry in using this short program:
+\begin{verbatim}
+adc:   IFL INC      ; Skip if L=0
+       ADD addr
+\end{verbatim}
+
+The program increases the Accumulator by one if the \Lreg{} register is set,
+then performs addition as normal.
+
+\subsubsection{Subtraction}
+
+There is no explicit subtraction instruction, but the benefit of two's
+complement is that one is unnecessary. Subtraction can be reduced to
+addition as follows:
+
+\begin{verbatim}
+sub:    NEG         ; OP1 NOT INC
+        ADD addr
+\end{verbatim}
+
+The program does a one's complement (binary negation) of the
+accumulator, then increments it by one, which is a two's complement
+(decimal negation). This is the {\tt NEG} macro. The addition is then
+performed with the negative value of the Accumulator, to obtain the
+value {\tt addr - AC}.
+
+\subsubsection{Negation of a 32-bit Quantity}
+
+The following code negates the two's complement representation of a
+32-bit signed integer stored in locations {\tt xh} (high word) and
+{\tt xl} (low word):
+
+\begin{verbatim}
+neg32:  SEL         ; Set carry
+        LOAD xl     ; Negate low word
+        NEG         ; Two's complement
+        STORE xl
+
+        LOAD xh     ; Negate high word
+        IFL INC     ; Propagate carry
+        NEG         ; Two's complement
+        STORE xh
+\end{verbatim}
+
+\subsubsection{Addition of two 32-bit Values}
+
+To add two 32-bit values stored in locations {\tt al}, {\tt ah} (\A{} low
+and high words respectively), and {\tt bl}, {\tt bh} (B low and high
+words respectively), it is necessary to propagate the carry bit
+stored in the \Lreg{} register:
+
+\begin{verbatim}
+add32:  CLL         ; Clear carry
+        LOAD al     ; Load low A
+        ADD bl      ; Add to low B
+        STORE xl    ; Store it
+
+        LOAD ah     ; Load high A
+        IFL INC     ; Propagate carry
+        ADD bh      ; Add to high B
+        STORE xh
+\end{verbatim}
+
+
+\subsubsection{Subtraction of two 32-bit Values}
+
+This program subtracts two signed, two's complement 32-bit values
+stored in locations {\tt al}, {\tt ah} (\A{} low and high words
+respectively), and {\tt bl}, {\tt bh} (B low and high words
+respectively). It does so by negating B, storing it to the result
+location X, and then adding \A{} to that location while propagating
+carry.
+
+\begin{verbatim}
+sub32:  SEL         ; Set carry
+        LOAD bl     ; Negate low word
+        NEG         ; Two's complement
+        STORE xl
+
+        LOAD bh     ; Negate high word
+        IFL INC     ; Propagate carry
+        NEG         ; Two's complement
+        STORE xh
+
+        CLL         ; Clear carry
+        LOAD al     ; Load low A
+        ADD xl      ; AC = AC + -B
+        STORE xl    ; Store it
+
+        LOAD ah     ; Load high A
+        IFL INC     ; Propagate carry
+        ADD xh      ; Add to high B
+        STORE xh    ; Store it.
+\end{verbatim}
+
+
+%\subsubsection{Two's Complement of a 32-bit Quantity}
+%
+%There is no explicit subtraction instruction, but the benefit of two's
+%complement is that one is unnecessary. Subtraction can be reduced to
+%addition as follows:
+%
+%\begin{verbatim}
+%neg32:  SEL
+%        ADD addr
+%\end{verbatim}
+%
+%The program does a one's complement (binary negation) of the
+%accumulator, then increments it by one, which is a two's complement
+%(decimal negation). This is the {\tt NEG} macro. The addition is then
+%performed with the negative value of the Accumulator, to obtain the
+%value {\tt addr - A}.
+
+\subsubsection{Bitwise Shifts}
+
+To convert bitwise rolls to bitwise shifts, the \Lreg\ register needs
+to be cleared before the roll takes place. The following code performs
+a bitwise (or unsigned arithmetic) shift one bit to the right.
+
+\begin{verbatim}
+shr:    CLL RBR
+\end{verbatim}
+
+This operation is mathematically tantamount to
+$\lfloor\mbox{\A}/2\rfloor$. Obviously, other roll instructions may be
+substituted for {\tt RBR}. Please note that these shifts are already
+available as the standard Assembly macros {\tt SBR}, {\tt SBL}, {\tt
+  SNR} and {\tt SNL}.
+
+\subsubsection{Arithmetic Shifts}
+
+Sign-extending shifts are only slightly more involved.
+
+\begin{verbatim}
+asr:    CLL       ; Clear L (L=0)
+        SNN       ; Skip if AC >= 0
+        CPL       ;   AC < 0: toggle L (L=1)
+        RBR       ;   Roll 1 bit right.
+\end{verbatim}
+
+At the end of this short program, the most significant (i.e. sign) bit
+of \A\ will be the same as before. Due to the use of two's complement,
+this is still equivalent to $\lfloor\mbox{\A}/2\rfloor$, but the
+behaviour is now specialised to signed numbers.
+
+\subsubsection{Bitwise Or of a Small Array}
+
+The autoindex registers can be used to simplify short loops. Here, the
+\A\ is loaded with the address of the first word of the array. The
+first 5 elements of it will be ORred together, and the result left in
+\A.
+
+\begin{verbatim}
+or6:    STORE R 80  ; Autoindex register
+        LOAD I R 80 ; Load 1st value
+        OR I R 80   ; OR with 2nd value
+        OR I R 80   ; OR with 3rd value
+        OR I R 80   ; OR with 4rd value
+        OR I R 80   ; Or with 5th value
+\end{verbatim}
+
+\subsubsection{Simple Loops}
+
+This is a simple loop. It iterates as many times as the value of
+\A\ on entry to the subroutine. In this example, the loop body sends
+the hexadecimal value {\tt 2A} to an I/O device designated {\tt TTY0
+  0}. The routine is expected to be called with {\tt JSR stars}.
+
+\begin{verbatim}
+stars:  NEG          ; AC = -AC
+        STORE R 10   ; Loop variable
+loop:   LIA 21       ; AC = 0021 (ASCII '!')
+        OUT TTY0 0   ; Send it out.
+        ISZ R 10     ; Step the loop counter.
+        JMP loop     ; Loop again.
+        RET          ; Return if R 10 == 0.
+\end{verbatim}
+
+If the operating system has set up a Page Zero store of commonly used
+constants, and it includes {\tt minus1} (which contains -1 ({\tt
+  FFFF}), an easy alternate form of this loop using counter decrements
+is as follows:
+
+\begin{verbatim}
+stars:  STORE R 10   ; Loop variable
+loop:   SNZ          ; AC = 0?
+        RET          ;   Yes. Return.
+        ADD minus1   ; Decrement loop counter
+        STORE R 10   ; Store it back.
+        LIA 21       ; AC = 0021 (ASCII '!')
+        OUT TTY0 0   ; Send it out
+        LOAD R 10    ; Load the loop counter.
+        JMP loop     ; Loop again.
+\end{verbatim}
+
+\subsubsection{Sum of a Block of Words}
+
+A somewhat more complex example leverages the Autoindex feature to
+calculate the sum (modulo 65,536) of a block of words. A pointer to
+the block of words should be stored at location \hex{0010}, and the
+size (in words) should be in \A. On exit, memory address \hex{0012}
+will contain the sum of the words.
+
+\begin{verbatim}
+sum_n:  NEG
+        STORE R 11   ; Loop variable
+        LOAD R 10    ; Array base
+        STORE I R 80 ; Autoindex
+        LI 0         ; 
+        STORE I R 12 ; Sum = 0
+        LOAD R 11    ; Number of words left
+loop:   LOAD R 12    ; Load running total
+        ADD I R 80   ; Sum a word
+        STORE R 12   ; Store it back
+        ISZ R 11     ; Step loop variable
+        JMP loop     ; Loop again
+        RET          : Done.
+\end{verbatim}
+
+\section{Further reading}
+
+For further information on the CFT computer, please consult the
+following URL:
+
+\begin{center}
+\link{www.bedroomlan.org/hardware/cft}
+\end{center}
+
+
+\begin{table*}
+%\newcommand\mk[1]{\ (#1)}
+%\newcommand\mka{\mk{a}}
+%\newcommand\mkb{\mk{b}}
+%\newcommand\mkc{\mk{c}}
+%\newcommand\mkd{\mk{d}}
+\newcommand\mk[1]{$^{#1}$}
+\newcommand\mka{\mk{1}}
+\newcommand\mkb{\mk{2}}
+\newcommand\mkc{\mk{3}}
+\newcommand\mkd{\mk{4}}
+\newcommand\mke{\mk{5}}
+\input{instrtable}
+
+\caption{\label{tab-is}CFT Instruction Set. I is the indirection bit. R is the
+  register mode bit. Dashes in the instruction bit pattern indicate ‘don't
+  care’ values. Notes: \mka~Processor Cycles shown for
+  Direct/Indirect/Autoindex modes, where available. \mkb~Any number of these
+  sub-instructions may be combined and will always need exactly 11 cycles in
+  total. \mkc~Any number of these sub-instructions may be combined for a total
+  of exactly 12 cycles. \mkd~G1 and G2 skips are groupwise mutually
+  exclusive. When G1 skips are combined, their conditions are disjuncted
+  (ORred). When G2 skips are combined, their conditions are conjuncted
+  (ANDed). \mke~This is a convenience macro, not an independent instruction.}
+\end{table*}
+
+%% \section{Physical Units}
+
+%% \begin{itemize}
+%% \item Clock phase generation
+%% \item Reset logic
+%% \item Microcode Unit
+%% \item Microcode decoder Unit
+%% \item Address Generation Logic (AGL)
+%% \item Skip and Branch Logic (SBL)
+%% \item \A register
+%% \item \PC register
+%% \item \DR register
+%% \item \MAR register
+%% \item \IR register
+%% \item \Lreg register
+%% \item ALU
+%% \end{itemize}
+
+%% \section{Data Paths}
+
+%% The CFT implements three buses.
+
+%% \subsection{Internal Bus (IBus)}
+
+%% This bus is used to connect the computer's main units
+%% together. Various auxilliary signals control what units connect to
+%% this bus and in what way.
+
+%% \subsection{Address Bus (ABus)}
+
+%% The address bus is driven with the contents of the \MAR whenever main
+%% memory or an I/O device is being accessed.
+
+%% \subsection{Data Bus (DBus)}
+
+%% The data bus is directly connected to the IBus whenever a memory or
+%% I/O read or write operation is in progress.
+
+
+
+
+%% \section{Logical Units}
+
+%% \begin{itemize}
+%% \item Address Generation Logic (AGL)
+%% \item Skip and Branch Logic (SBL)
+%% \item A register
+%% \item \PC register
+%% \item \DR register
+%% \item \MAR register
+%% \item \IR register
+%% \item ALU
+%% \end{itemize}
+
+\end{document}
+
+%%  LocalWords:  documentclass CFT Alexios PDP autoindexing Von LSI
+%%  LocalWords:  Neumann microprograms microprogram microinstructions
+%%  LocalWords:  et cetera kiloword KWord kilowords KWords Autoindex
+%%  LocalWords:  SUBRET JSR TRAPRET ISRRET ISR autoindex th FC FFF tl
+%%  LocalWords:  FFFF pagerel vlgrey linewidth fillstyle fillcolor de
+%%  LocalWords:  addr FFFE IOT LIA JMP bitwise ORred asm bitfield CLA
+%%  LocalWords:  CLL RBL RBR RNL RNR NOP linearc SNA SZA SSL SNN SNZ
+%%  LocalWords:  SCL CLI STI SNP lll RET RTT SBL SBR SNL SNR TTY
+%%  LocalWords:  disjuncted conjuncted ANDed

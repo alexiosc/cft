@@ -1,0 +1,100 @@
+% -*- latex -*-
+\documentclass[class=memoir]{standalone}
+\input{preamble}
+
+\begin{document}%
+%\tikzexternaldisable%
+\begin{tikzpicture}%
+
+    \newcommand\xxroll[2]{
+      \begin{scope}[#1]
+        
+        \foreach \x in {0, -2} {
+          \begin{scope}[yshift=\x cm]
+            \begin{scope}[thin,draw opacity=0,line width=0pt]
+              \foreach \x in {0, 0.75, ..., 5.25}{
+                \draw[fill=cfthl!50,xshift=\x cm](0,0) rectangle (0.375,0.6);
+                \draw[fill=cfthl!25,xshift=\x cm](0.375,0) rectangle (0.75,0.6);
+              }
+            \end{scope}
+            \draw[line width=2pt](0,0) rectangle (6,0.6);
+            \draw[line width=2pt,fill=cfthl!25](-0.25,0) rectangle (-0.625,0.6);
+            \foreach \x in {0.375, 0.75, ..., 5.625} {
+              \draw[thin] (\x cm, 0) -- (\x cm, 0.6cm);
+            }
+          \end{scope}
+        }
+        
+        \fill (-0.4375, 0.3) circle (1.5pt);
+        \foreach \x in { 0.1875, 0.5625, ..., 5.8125 } \fill (\x, 0.3) circle (1.5pt);
+        \draw (5.75, 0.6) node[above] { \color{cftdark}\bfseries\Large\op{#2\ \ }};
+        \draw (-0.4375, 0.6) node[above] { \Lreg };
+        \draw (-0.1, 0.6) node[above right=0/0.25cm] { \Areg };
+        \draw (6,-2) node[below] { \footnotesize 0 };
+        \draw (0,-2) node[below] { \footnotesize ~~15 };
+      \end{scope}
+    }
+
+    % RBL
+    \begin{scope}
+      \xxroll{}{RBL}
+      \draw[arrow, -stealth] (.1875, 0.3) -- (-.4375, -1.7);
+      \foreach \x in {0.1875, 0.5625, ..., 5.4375} {
+        \draw[arrow, -stealth] (\x + 0.375, 0.3) -- (\x, -1.7);
+      }
+      \draw[arrow, -stealth, rounded corners=3mm] (-0.4375, 0.3) -- (-0.4375, -0.7) -- (5.8125, -0.7) -- (5.8125, -1.7);
+    \end{scope}
+
+    % RBR
+    \begin{scope}[yshift=-4cm]
+      \xxroll{}{RBR}
+      \draw[arrow, -stealth] (-0.4375, 0.3) -- (.1875, -1.7);
+      \foreach \x in {0.1875, 0.5625, ..., 5.4375} {
+        \draw[arrow, -stealth] (\x, 0.3) -- (\x + 0.375, -1.7);
+      }
+      \draw[arrow, -stealth, rounded corners=3mm] (5.8125, 0.3) -- (5.8125, -0.7) -- (-0.4375, -0.7) -- (-0.4375, -1.7);
+    \end{scope}
+
+    % RNL
+    \begin{scope}[xshift=8cm]
+      \xxroll{}{RNL}
+      \begin{scope}[arrow, -stealth]
+        \draw (0.1875 + 3 * 0.375, 0.3) -- (-.4375, -1.7);
+        \foreach \x in {4, ..., 15} {
+          \draw (0.1875 + 0.375 * \x, 0.3) -- ++(-4 * 0.375, -2);
+        }
+        \begin{scope}[rounded corners=3mm]
+          \draw (-.4375, 0.3) -- (-.4375, -.25 - .18 * 4) -- 
+          ( 0.1875 + 0.375 * 12, -.25 - .18 * 4) -- (0.1875 + 0.375 * 12, -1.7);
+          \draw (0.1875, 0.3) -- (0.1875, -.25 - .18 * 3) -- 
+          ( 0.1875 + 0.375 * 13, -.25 - .18 * 3) -- (0.1875 + 0.375 * 13, -1.7);
+          \draw (0.1875 + 0.375, 0.3) -- (0.1875 + 0.375, -.25 - .18 * 2) -- 
+          ( 0.1875 + 0.375 * 14, -.25 - .18 * 2) -- (0.1875 + 0.375 * 14, -1.7);
+          \draw (0.1875 + 0.375 * 2, 0.3) -- (0.1875 + 0.375 * 2, -.25 - .18) -- 
+          ( 0.1875 + 0.375 * 15, -.25 - .18) -- (0.1875 + 0.375 * 15, -1.7);
+        \end{scope}
+      \end{scope}
+    \end{scope}
+
+    % RNR
+    \begin{scope}[xshift=8cm, yshift=-4cm]
+      \xxroll{}{RNR}
+      \begin{scope}[arrow, -stealth]
+        \draw (-.4375, 0.3) -- (0.1875 + 3 * 0.375, -1.7);
+        \foreach \x in {0, ..., 11} {
+          \draw (0.1875 + 0.375 * \x, 0.3) -- ++(4 * 0.375, -2);
+        }
+        \begin{scope}[rounded corners=3mm]
+          \draw (0.1875 + 0.375 * 12, 0.3) -- (0.1875 + 0.375 * 12, -.25 - .18 * 1) -- ( -.4375, -.25 - .18 * 1) -- (-.4375, -1.7);
+          \draw (0.1875 + 0.375 * 13, 0.3) -- (0.1875 + 0.375 * 13, -.25 - .18 * 2) -- ( 0.1875, -.25 - .18 * 2) -- (0.1875, -1.7);
+          \draw (0.1875 + 0.375 * 14, 0.3) -- (0.1875 + 0.375 * 14, -.25 - .18 * 3) -- ( 0.1875 + 0.375, -.25 - .18 * 3) -- (0.1875 + 0.375, -1.7);
+          \draw (0.1875 + 0.375 * 15, 0.3) -- (0.1875 + 0.375 * 15, -.25 - .18 * 4) -- ( 0.1875 + 0.375 * 2, -.25 - .18 * 4) -- (0.1875 + 0.375 * 2, -1.7);
+        \end{scope}
+      \end{scope}
+    \end{scope}
+    
+\end{tikzpicture}
+%\tikzexternalenable%
+\end{document}
+
+% End of file.
