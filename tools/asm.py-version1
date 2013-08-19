@@ -1,0 +1,242 @@
+	
+#!/usr/bin/python2.6
+"""
+
+Syntax:
+
+; Comment
+# Comment
+// Comment
+% Comment
+
+.org 0000
+
+MNEMONIC = OPCODE
+MNEMONIC = [MNEMONIC|OPCODE|LITERAL] ...
+
+LABEL:     [MNEMONIC|OPCODE|LITERAL] ... ; Comment
+           [MNEMONIC|OPCODE|LITERAL] ...
+
+"""
+
+import re
+import os
+import sys
+import array
+import optparse
+
+
+class Assembler(object):
+    FINALPASS = 2
+    
+    BIT_R = 1<<10
+    BIT_I = 1<<11
+
+    def __init__(self, options):
+        self.options = options
+        self.mnemonics = dict()
+        self.labels = dict()
+        self.re_comment = re.compile('[;/].*$')
+        self.re_define = re.compile('\s*([A-Za-z0-9_.,!]+)\s*=\s*(-\s*)?(\S.*)$')
+        self.re_bitfield = re.compile('[^1]')
+        self.re_labelcode = re.compile(r'((&?\w+)\s*:)?\s*(.*)\s*$')
+        self.re_identifier = re.compile('^\w+$')
+        self.lnum = 0
+        self.fname = '?'
+        self.passnum = 0
+        self.mem = array.array('H')
+        #self.mem.fromlist([0xbeef] * 65536)
+        # Fill the memory with OUT Z 101 instructions (HALT)
+        self.mem.fromlist([0x5101] * 65536)
+        self.orgchange = False
+
+
+    def error(self, msg):
+        sys.stderr.write("%s:%d: %s\n" % (self.fname, self.lnum, msg))
+        sys.exit(1)
+
+
+    def warn(self, msg):
+        sys.stderr.write("%s:%d: warning: %s\n" % (self.fname, self.lnum, msg))
+
+
+    def parseField(self, num):
+        res = 0
+        num = num.replace('$', 'R ')
+        for arg in num.split():
+            arg = arg.upper()
+            if arg[0] == "'":   # Bitstring
+                # Try a bitstring.
+                arg = self.re_bitfield.sub('0', arg)
+                arg = int(arg[1:],2)
+            elif arg in self.mnemonics:
+                # Try a mnemonic
+                arg = self.mnemonics[arg]
+            elif arg.lower() in self.labels:
+                # Try a label (but only use lower 10 bits)
+                arg = self.labels[arg.lower()] & 0x3ff
+            elif arg[0] == '[':
+                if arg[-1] != ']':
+                    die('Closing "]" not found.')
+                arg = arg.strip('[]')
+                #print "*** INDIRECTION: %s" % arg
+                arg = self.BIT_I | self.parseField(arg)
+            elif arg[0] == '#':
+                # Try a base 10 integer
+                try:
+                    arg = int(arg[1:])
+                except:
+                    # No luck
+                    self.error('Unable to parse literal "%s"' % arg)
+            else:
+                try:
+                    # Try a hex integer
+                    arg = int(arg, 16)
+                except:
+                    # No luck
+                    self.error('Unable to parse field "%s"' % arg)
+
+            try:
+                if arg[0]:
+                    # Clear some bits.
+                    res = res & ~(arg[1] & 0xffff)
+                else:
+                    res = res | (arg[1] & 0xffff)
+            except TypeError:
+                res = res | arg
+
+        return res
+
+
+    def parseLabel(self, label):
+        label = label.strip().lower()
+        # Set address
+        if label[0] in "&$@":
+            try:
+                self.addr = int(label[1:], 16)
+                if self.passnum == self.FINALPASS and self.orgchange == False:
+                    print
+                    self.orgchange = True
+                #print "New addr: %04x" % self.addr
+                return
+            except:
+                self.error('Unable to parse label "%s"' % label)
+
+        if self.re_identifier.match(label):
+            if label in self.mnemonics:
+                self.error('"%s" is a reserved word and may not be used as a label.' % label)
+            if label in self.labels:
+                if self.passnum == self.FINALPASS and self.addr != self.labels[label]:
+                    self.warn('Redefining label "%s" as %04x (was %04x)' % \
+                                  (label, self.addr, self.labels[label]))
+            self.labels[label] = self.addr
+
+
+    def addMnemonic(self, mnemonic, opcode, neg=False):
+        neg = bool(neg)
+        field = self.parseField(opcode)
+        if mnemonic in self.mnemonics and self.mnemonics[mnemonic] != (neg, field):
+            self.warn('Redefining mnemonic %s as %04x' % (mnemonic, field))
+        if self.options.verbose:
+            print '%s\t= b%16s\t; %s (%s)' % (mnemonic,
+                                              bin(field)[2:].zfill(16).replace('0','-'),
+                                              hex(field)[2:].zfill(4), opcode)
+        self.mnemonics[mnemonic.upper()] = (neg, field)
+
+
+    def process(self, fname, source):
+        def __pass(fname, source):
+            self.passnum += 1
+            self.lnum = 0
+            self.fname = fname
+            self.addr = 0
+            self.orgchange = True # Skips newline at top of output
+    
+            for line in source.split('\n'):
+                # Remove most white space and comments
+                self.lnum += 1
+                line = line.strip()
+                line = self.re_comment.sub('', line)
+    
+                # Ignore blank lines
+                if not line:
+                    continue
+                
+                # Define mnemonic
+                m = self.re_define.match(line)
+                if m:
+                    lhs, neg, rhs = [(x or '').strip() for x in m.groups()]
+                    self.addMnemonic(lhs, rhs, neg)
+                    continue
+    
+                # Parse [label:] Field
+                m = self.re_labelcode.match(line)
+                if m:
+                    label, code = m.groups()[1:]
+                    if label:
+                        label = self.parseLabel(label.strip())
+                    # Only produce object code if the field (code) has been specified.
+                    if code:
+                        field = self.parseField(code.strip())
+                        if self.passnum == self.FINALPASS:
+                            print "$%04x: %04x\t ; %16s  %s" % (self.addr, field, bin(field)[2:].zfill(16), line)
+
+                            # Store object code
+                            self.mem[self.addr] = field
+
+                        # Step address
+                        self.addr += 1
+                        self.orgchange = False
+
+        # First things first, find the labels (this is the first pass, in a way)
+        for label in re.findall('\n(\w+)\s*:', source):
+            self.labels[label.lower()] = 0xffff
+
+        self.passnum = 0
+        __pass(fname, source)
+        __pass(fname, source)
+
+
+    def dump(self, somefile):
+        magic = array.array('H')
+        magic.fromlist([0x3132])
+        #if magic.tostring() == '21':
+            #print "Swapping..."
+            #self.mem.byteswap()
+        self.mem.tofile(somefile)
+
+
+
+p = optparse.OptionParser()
+p.add_option('-o', '--out', metavar='FILENAME', default='a.obj',
+             help='Output object file to FILENAME.')
+p.add_option('-v', '--verbose', action='store_true',
+             help='Print out assembled code')
+
+(options, args) = p.parse_args()
+
+def die(x):
+    sys.stderr.write('%s: %s\n' % (sys.argv[0], x))
+    sys.exit(1)
+    
+if not args:
+    die('An input file must be provided.')
+
+a = Assembler(options)
+for arg in args:
+    try:
+        a.process(arg, file(arg).read())
+    except IOError, e:
+        die('reading %s: %s' % (arg, e))
+
+    a.dump(file(options.out, 'wb'))
+
+    # Dump two Verliog hex list files
+    basename = os.path.splitext(options.out)[0]
+    lo = file('%s-00.list' % basename, 'w')
+    hi = file('%s-01.list' % basename, 'w')
+    for i, a in enumerate(a.mem):
+        lo.write("%s // a=%04x\n" % (bin(a & 0xff)[2:].zfill(8), i))
+        hi.write("%s // a=%04x\n" % (bin((a >> 8) & 0xff)[2:].zfill(8), i))
+
+# End of file.
