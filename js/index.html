@@ -1,0 +1,92 @@
+<html>
+  <head>
+    <title>CFT Emulator (Browser Edition) | BedroomLAN</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script type="text/javascript" src="jquery-1.9.1.min.js"></script>
+    <!--<script type="text/javascript" src="termlib/termlib.js"></script>-->
+    <script type="text/javascript" src="microcode.js"></script>
+    <script type="text/javascript" src="rom.js"></script>
+    <script type="text/javascript" src="emulator.js"></script>
+    <link href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:400,700" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="css/style.css" />
+
+
+    <meta charset="utf-8" />
+    <meta name="copyright" content="Copyright © Alexios Chouchoulas." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="http://www.bedroomlan.org/cft-mini-computer/javascript-emulator" />
+    <link rel="shortcut icon" href="http://www.bedroomlan.org/misc/favicon.ico" type="image/vnd.microsoft.icon" />
+    <meta property="og:site_name" content="BedroomLAN" />
+    <meta name="generator" content="Emacs" />
+    <meta about="/cft-mini-computer/javascript-emulator" property="sioc:num_replies" content="0" datatype="xsd:integer" />
+    <link rel="canonical" href="/cft-mini-computer/javascript-emulator" />
+    <link rel="canonical" href="http://www.bedroomlan.org/cft-mini-computer/javascript-emulator" />
+    <link rel="shortlink" href="/node/3822" />
+    <link rel="pingback" href="http://www.bedroomlan.org/xmlrpc.php" />
+    <meta content="CFT on your Browser" about="/cft-mini-computer/javascript-emulator" property="dc:title" />
+    <meta property="og:title" content="CFT Emulator (Browser Edition) | BedroomLAN" />
+
+    
+  </head>
+  <body>
+    <noscript>
+      <p><strong>This will only work on a modern browser, with Javascript enabled. Sorry!</strong></p>
+
+      <p>You may want to have a look at <a target="_blank"
+      href="http://www.bedroomlan.org/cft-mini-computer/javascript-emulator">the
+      relevant page on the main BedroomLAN site.</a></p>
+    </noscript>
+    <div id="delayed">
+
+      <div id="header">
+	<h1>CFT Emulator</h1>
+	<h2>Browser Edition</h2>
+      </div>
+      
+      <div class="text-lights" id="panelwrapper">
+	<!-- <div class="sprite-lights" id="panelwrapper"> -->
+	<div id="terminalwrapper"></div>
+	<div id="bevel">
+	  <table id="panel"></table>
+	</div>
+	<div id="fadeout" />
+	<div id="curious">Curious? Got here by accident? <a target="_blank" href="http://www.bedroomlan.org/cft-mini-computer/javascript-emulator">Find out more about this emulator and the CFT!</a></div>
+      </div>
+    </div>      
+
+    <script type="text/javascript">
+      <!--//--><![CDATA[//><!--
+
+var cft;
+
+$(document).ready(function(){
+});
+
+$(window).bind("load", function() {
+    $('#delayed').css('opacity', '0').addClass('visible');
+    $('#delayed').animate({opacity:1}, 500);
+  
+    var x = $('#header').width() + 35;
+    setTimeout(function(){$('#header').animate({opacity:0, left:'-=' + x}, 2000)}, 4500);
+    setTimeout(function(){$('#curious').animate({opacity:1, right:30}, 2000)}, 10000);
+    setTimeout(function(){$('#curious').animate({opacity:0.25, bottom:-15}, 2000)}, 20000);
+    <!-- $('#curious').focus(function(){$('#curious').animate({opacity:1, bottom:0}, 250)}) -->
+    <!--              .blur(function(){$('#curious').animate({opacity:0.25, bottom:-15}, 250)}) -->
+    CFTEmulator.init({});
+      
+    setTimeout(function(){cft.startCPU(); cft.tick();}, 1000);
+    //cft.startCPU();
+    //cft.tick();
+    setTimeout(function(){
+      $('#panelwrapper').css('width', $('#panel').width());
+      $('#panelwrapper').css('width', '100%');
+      }, 200);
+
+});
+
+var _paq = _paq || [];(function(){var u=(("https:" == document.location.protocol) ? "http://piwik.bedroomlan.org/" : "http://piwik.bedroomlan.org/");_paq.push(["setSiteId", "1"]);_paq.push(["setTrackerUrl", u+"piwik.php"]);_paq.push(["setDocumentTitle", "Hardware\/The+CFT+Mini+Computer\/CFT+Emulator+Browser+Edition"]);_paq.push(["setDownloadExtensions", "7z|aac|arc|arj|asf|asx|avi|bin|bz2|csv|doc|deb|exe|flv|gif|gz|gzip|hqx|jar|jpe?g|js|mp(2|3|4|e?g)|mov(ie)?|msi|msp|pdf|phps|png|ppt|qtm?|ra(m|r)?|sea|sit|tar|tgz|torrent|txt|wav|wma|wmv|wpd|xls|xml|z|zip"]);_paq.push(["setDoNotTrack", 1]);_paq.push(["trackPageView"]);_paq.push(["enableLinkTracking"]);var d=document,g=d.createElement("script"),s=d.getElementsByTagName("script")[0];g.type="text/javascript";g.defer=true;g.async=true;g.src=u+"piwik.js";s.parentNode.insertBefore(g,s);})();
+
+//--><!]]>
+    </script>
+  </body>
+</html>
