@@ -1,0 +1,9 @@
+# Filters for commands
+000 ?red4? WB&C
+001 ?red4? WB
+010 ?red4? WC
+011 ?red4? WCG
+100 ?green4? Read
+101 -
+110 -
+111 -

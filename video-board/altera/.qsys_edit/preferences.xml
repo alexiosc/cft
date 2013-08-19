@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<preferences>
+ <debug showDebugMenu="0" />
+ <systemtable>
+  <columns>
+   <connections preferredWidth="111" />
+   <irq preferredWidth="34" />
+  </columns>
+ </systemtable>
+ <clocktable>
+  <columns>
+   <clockname preferredWidth="284" />
+   <clocksource preferredWidth="284" />
+   <frequency preferredWidth="265" />
+  </columns>
+ </clocktable>
+ <library
+   expandedCategories="Library/Qsys Interconnect,Library/Peripherals/Display,Project,Library/Peripherals,Library" />
+ <window width="1316" height="800" x="444" y="323" />
+ <hdlexample language="VERILOG" />
+</preferences>

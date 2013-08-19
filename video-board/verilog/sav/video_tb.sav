@@ -1,0 +1,328 @@
+[*]
+[*] GTKWave Analyzer v3.3.40 (w)1999-2012 BSI
+[*] Wed Nov 28 06:43:33 2012
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/video-board/verilog/vcd/video_tb.vcd"
+[dumpfile_mtime] "Wed Nov 28 06:43:01 2012"
+[dumpfile_size] 169413015
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/video-board/verilog/sav/video_tb.sav"
+[timestart] 41677000
+[size] 1912 1132
+[pos] 30720 0
+*-19.976295 31983000 32090000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] video_tb.
+[treeopen] video_tb.v.
+[treeopen] video_tb.v.frameEngine.
+[sst_width] 245
+[signals_width] 234
+[sst_expanded] 1
+[sst_vpaned_height] 535
+@800200
+>1118524000
+-VGA Output
+@8028
+>0
+[color] 1
+video_tb.r[1:0]
+@20000
+-
+@8028
+[color] 4
+video_tb.b[1:0]
+@20000
+-
+@8028
+[color] 5
+video_tb.g[1:0]
+@20000
+-
+@200
+-
+@28
+video_tb.hsync
+video_tb.vsync
+@200
+-
+@28
+video_tb.hvideo
+video_tb.vvideo
+@1000200
+>1118524000
+-VGA Output
+@200
+>0
+-
+@28
+video_tb.v.horizontalPhase.phase
+@22
+video_tb.v.horizontalPhase.hphase[5:0]
+@28
+video_tb.v.paen
+@29
+video_tb.v.npaen
+@200
+-
+-Host Access
+@2028
+^1 /home/alexios/PROJECTS/HARDWARE/cft/video-board/verilog/sav/../filters/cmd
+video_tb.v.hostcmd[2:0]
+@28
+video_tb.v.hostcmd[2:0]
+video_tb.v.rdevsel
+video_tb.v.ncmdsent
+[color] 1
+video_tb.v.nbusy
+[color] 3
+video_tb.v.nr
+[color] 3
+video_tb.v.nw
+@22
+[color] 3
+video_tb.v.ab[7:0]
+[color] 3
+video_tb.v.db[15:0]
+@28
+video_tb.v.nhcmdstb
+@200
+-
+-Memory
+@c00022
+video_tb.v.pa[16:0]
+@28
+(0)video_tb.v.pa[16:0]
+(1)video_tb.v.pa[16:0]
+(2)video_tb.v.pa[16:0]
+(3)video_tb.v.pa[16:0]
+(4)video_tb.v.pa[16:0]
+(5)video_tb.v.pa[16:0]
+(6)video_tb.v.pa[16:0]
+(7)video_tb.v.pa[16:0]
+(8)video_tb.v.pa[16:0]
+(9)video_tb.v.pa[16:0]
+(10)video_tb.v.pa[16:0]
+(11)video_tb.v.pa[16:0]
+(12)video_tb.v.pa[16:0]
+(13)video_tb.v.pa[16:0]
+(14)video_tb.v.pa[16:0]
+(15)video_tb.v.pa[16:0]
+(16)video_tb.v.pa[16:0]
+@1401200
+-group_end
+@c00022
+[color] 7
+video_tb.v.pd[23:0]
+@28
+(0)video_tb.v.pd[23:0]
+(1)video_tb.v.pd[23:0]
+(2)video_tb.v.pd[23:0]
+(3)video_tb.v.pd[23:0]
+(4)video_tb.v.pd[23:0]
+(5)video_tb.v.pd[23:0]
+(6)video_tb.v.pd[23:0]
+(7)video_tb.v.pd[23:0]
+(8)video_tb.v.pd[23:0]
+(9)video_tb.v.pd[23:0]
+(10)video_tb.v.pd[23:0]
+(11)video_tb.v.pd[23:0]
+(12)video_tb.v.pd[23:0]
+(13)video_tb.v.pd[23:0]
+(14)video_tb.v.pd[23:0]
+(15)video_tb.v.pd[23:0]
+(16)video_tb.v.pd[23:0]
+(17)video_tb.v.pd[23:0]
+(18)video_tb.v.pd[23:0]
+(19)video_tb.v.pd[23:0]
+(20)video_tb.v.pd[23:0]
+(21)video_tb.v.pd[23:0]
+(22)video_tb.v.pd[23:0]
+(23)video_tb.v.pd[23:0]
+@1401200
+-group_end
+@28
+[color] 1
+video_tb.v.nhr
+[color] 7
+video_tb.v.nhaen
+[color] 7
+video_tb.v.nhmaskbcg
+[color] 7
+video_tb.v.nhmaskc
+[color] 2
+video_tb.ncs0
+[color] 2
+video_tb.ncs1
+[color] 2
+video_tb.ncs2
+[color] 4
+video_tb.npr
+[color] 1
+video_tb.v.npw
+@22
+video_tb.v.cport[15:0]
+video_tb.v.bcgport[7:0]
+@200
+-
+@c00200
+-Temp
+@200
+-Frame Engine
+@28
+video_tb.v.frameEngine.nreset
+video_tb.v.frameEngine.vduen
+video_tb.v.frameEngine.clk
+video_tb.v.frameEngine.clk16
+@22
+video_tb.v.frameEngine.clkdiv[3:0]
+@24
+[color] 2
+video_tb.v.frameEngine.hcnt[6:0]
+@28
+[color] 2
+video_tb.v.frameEngine.hmemenable
+[color] 2
+video_tb.v.frameEngine.hs
+[color] 2
+video_tb.v.frameEngine.hvideo
+[color] 2
+video_tb.v.frameEngine.len40
+[color] 2
+video_tb.v.frameEngine.len80
+video_tb.v.frameEngine.vmemenable
+[color] 3
+video_tb.v.frameEngine.nfield
+[color] 3
+video_tb.v.frameEngine.nframe
+@22
+[color] 3
+video_tb.v.frameEngine.vcnt[8:0]
+@28
+[color] 3
+video_tb.v.frameEngine.vs
+[color] 3
+video_tb.v.frameEngine.vvideo
+[color] 2
+video_tb.v.frameEngine.memenable
+video_tb.v.frameEngine.video
+@200
+-
+-Video State
+@28
+video_tb.v.video
+@24
+video_tb.v.frameEngine.hcnt[6:0]
+@28
+video_tb.v.memenable
+video_tb.v.pixclk
+video_tb.v.clk
+[color] 1
+video_tb.v.phase
+@c00024
+video_tb.v.xpos[9:0]
+@28
+(0)video_tb.v.xpos[9:0]
+(1)video_tb.v.xpos[9:0]
+(2)video_tb.v.xpos[9:0]
+(3)video_tb.v.xpos[9:0]
+(4)video_tb.v.xpos[9:0]
+(5)video_tb.v.xpos[9:0]
+(6)video_tb.v.xpos[9:0]
+(7)video_tb.v.xpos[9:0]
+(8)video_tb.v.xpos[9:0]
+(9)video_tb.v.xpos[9:0]
+@1401200
+-group_end
+@28
+[color] 3
+video_tb.v.nincaddr
+@22
+[color] 3
+video_tb.v.paddr[16:0]
+video_tb.v.cgaddr[16:0]
+@28
+[color] 2
+video_tb.v.npar
+[color] 2
+video_tb.v.ncgaen
+[color] 2
+video_tb.v.ncgar
+[color] 2
+video_tb.v.nhaen
+@24
+[color] 2
+video_tb.v.ph40[4:0]
+[color] 2
+video_tb.v.ph80[3:0]
+@200
+-
+-Cell Lines
+@22
+video_tb.v.vscr[3:0]
+video_tb.v.crhmask[3:0]
+@200
+-
+-H Phase
+@24
+video_tb.v.horizontalPhase.hpc[2:0]
+video_tb.v.horizontalPhase.hphase[5:0]
+@28
+video_tb.v.horizontalPhase.nreset
+video_tb.v.horizontalPhase.pixclk
+[color] 1
+video_tb.v.phase
+[color] 1
+video_tb.v.video
+@200
+-
+-Shift Register
+@28
+video_tb.v.nload
+video_tb.v.nshift
+@22
+video_tb.v.pixelShiftreg.d0[7:0]
+@200
+-
+-Plane Registration
+@22
+[color] 5
+video_tb.v.breg[7:0]
+[color] 5
+video_tb.v.cgreg[7:0]
+[color] 5
+video_tb.v.creg0[15:0]
+@200
+-
+-Split
+@28
+video_tb.v.sen
+@22
+video_tb.v.vcnt[8:0]
+video_tb.v.scl[7:0]
+@28
+[color] 1
+video_tb.v.nsmstb
+[color] 2
+video_tb.v.splitmode
+@22
+video_tb.v.sar[15:0]
+@200
+-
+-Interrupts
+@28
+[color] 4
+video_tb.v.irqscl
+[color] 4
+video_tb.v.irqvs
+[color] 2
+video_tb.v.istscl
+[color] 2
+video_tb.v.istvs
+[color] 1
+video_tb.v.irq
+@22
+video_tb.v.scl[7:0]
+@1401200
+-Temp
+@200
+-
+[pattern_trace] 1
+[pattern_trace] 0

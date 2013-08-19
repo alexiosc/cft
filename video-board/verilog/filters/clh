@@ -1,0 +1,5 @@
+# Filters for the VDU CLH signals.
+00 16-line
+01 8-line
+10 4-line
+11 2-line
