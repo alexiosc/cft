@@ -1,0 +1,17 @@
+_x     0100  test-basics.asm:4
+xl     0100  test-basics.asm:85
+divd   0101  test-basics.asm:5
+xh     0101  test-basics.asm:86
+dvdr   0102  test-basics.asm:6
+start  e000  test-basics.asm:22
+x2     e006  test-basics.asm:42
+x1     e007  test-basics.asm:43
+neg32  e008  test-basics.asm:47
+sub32  e012  test-basics.asm:60
+a      e01d  test-basics.asm:76
+b      e01e  test-basics.asm:77
+ah     e01f  test-basics.asm:79
+al     e020  test-basics.asm:80
+bh     e021  test-basics.asm:81
+bl     e022  test-basics.asm:82
+reset  fff0  test-basics.asm:15

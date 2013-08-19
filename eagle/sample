@@ -1,0 +1,355 @@
+
+Sheet 1: Cover Sheet (0 big parts)
+
+Sheet 2: Clock generation & control (6 big parts)
+  1. IC1 LM556 14 
+  2. IC2 'HCT253 16 
+  3. IC3 '253 16 
+  4. IC4 '193 16 
+  5. IC5 '139 16 
+  6. XTAL1 XO2-08-14-SOCKET 0814S 
+
+Sheet 3: Reset Handling and Sequencing (5 big parts)
+  1. IC6 '14 14 
+  2. IC7 '05 14 
+  3. IC8 '590 16 
+  4. IC9 '541 20 (8xIBUS)
+  5. IC10 '541 20 (8xIBUS)
+
+Sheet 4: Microcode Sequencer (5 big parts)
+  1. IC11 '00 14 
+  2. IC12 4161P 16 
+  3. IC13 29F040PLCC32 PLCC32 
+  4. IC14 29F040PLCC32 PLCC32 
+  5. IC15 29F040PLCC32 PLCC32 
+
+Sheet 5: Microcode Sequencer Signal Hold (3 big parts)
+  1. IC16 '541 20 
+  2. IC17 '541 20 
+  3. IC18 '541 20 
+
+Sheet 6: Microcode Sequencer Front Panel Connections (5 big parts)
+  1. IC19 '541 20 
+  2. IC20 '541 20 
+  3. IC21 '541 20 
+  4. IC22 '540 20 
+  5. IC23 '540 20 
+
+Sheet 7: Read & Write Unit Decoding (5 big parts)
+  1. IC24 '04 14 
+  2. IC25 '138 16 
+  3. IC26 '138 16 
+  4. IC27 '541 20 
+  5. IC28 '541 20 
+
+Sheet 8: Skip/Branch Logic (8 big parts)
+  1. IC29 '32 14 
+  2. IC30 '08 14 
+  3. IC31 '86 14 
+  4. IC32 '32 14 
+  5. IC33 '00 14 
+  6. IC34 '251 16 
+  7. IC35 '251 16 
+  8. IC36 '74 14 
+
+Sheet 9: Address Generation Logic (3 big parts)
+  1. IC37 '374 20 
+  2. IC38 '541 20 (8xIBUS)
+  3. IC39 '541 20 (8xIBUS)
+
+Sheet 10: Instruction Register (4 big parts)
+  1. IC40 '273 20 (8xIBUS)
+  2. IC41 '273 20 (8xIBUS)
+  3. IC42 '541 20 
+  4. IC43 '541 20 
+
+Sheet 11: Interrupt State Machine (4 big parts)
+  1. IC55 '08 14 
+  2. IC56 '32 14 
+  3. IC57 '112 16 
+  4. IC58 '112 16 
+
+Sheet 12: Data Bus Driver & Bus Termination (8 big parts)
+  1. IC59 '74 14 
+  2. IC60 '08 14 
+  3. IC61 '245 20 (8xIBUS, 8xDB)
+  4. IC62 '245 20 (8xIBUS, 8xDB)
+  5. IC63 '32 14 
+  6. IC64 '04 14 
+  7. IC65 '541 20 (7xDB, 1xAB)
+  8. IC66 '541 20 (8xDB)
+
+Sheet 13: Address Register, Address Bus Drivers & Termination, Autoindex Logic, Device Decoder (11 big parts)
+  1. IC44 '08 14 
+  2. IC45 '273 20 (8xIBUS)
+  3. IC46 '273 20 (8xIBUS)
+  4. IC47 '541 20 (8xAB)
+  5. IC48 '541 20 (8xAB)
+  6. IC49 '688 20 
+  7. IC50 '541 20 (8xAB)
+  8. IC51 '541 20 (8xAB)
+  9. IC52 '74 14 
+  10. IC53 '688 20 (5xAB)
+  11. IC54 '138 16 (3xAB)
+
+Sheet 14: Major Registers: Program Counter (PC) (9 big parts)
+  1. IC67 '04 14 
+  2. IC68 '193 16 (4xIBUS)
+  3. IC69 '193 16 (4xIBUS)
+  4. IC70 '193 16 (4xIBUS)
+  5. IC71 '193 16 (4xIBUS)
+  6. IC72 '541 20 (8xIBUS)
+  7. IC73 '541 20 (8xIBUS)
+  8. IC74 '541 20 
+  9. IC75 '541 20 
+
+Sheet 15: Major Registers: Data Register (DR) (8 big parts)
+  1. IC76 '193 16 (4xIBUS)
+  2. IC77 '193 16 (4xIBUS)
+  3. IC78 '193 16 (4xIBUS)
+  4. IC79 '193 16 (4xIBUS)
+  5. IC80 '541 20 (8xIBUS)
+  6. IC81 '541 20 (8xIBUS)
+  7. IC82 '541 20 
+  8. IC83 '541 20 
+
+Sheet 16: Accumulator (AC), Zero Flag & Negative Flag (11 big parts)
+  1. IC84 '193 16 (4xIBUS)
+  2. IC85 '193 16 (4xIBUS)
+  3. IC86 '193 16 (4xIBUS)
+  4. IC87 '193 16 (4xIBUS)
+  5. IC88 '541 20 (8xIBUS)
+  6. IC89 '541 20 (8xIBUS)
+  7. IC90 '688 20 
+  8. IC91 '688 20 
+  9. IC92 '04 14 
+  10. IC93 '541 20 
+  11. IC94 '541 20 
+
+Sheet 17: The L Register (4 big parts)
+  1. IC95 '08 14 
+  2. IC96 '00 14 
+  3. IC97 '32 14 
+  4. IC98 '112 16 
+
+Sheet 18: Arithmetic/Logic Unit: Decoding Logic (7 big parts)
+  1. IC99 '574 20 (8xIBUS)
+  2. IC100 '574 20 (8xIBUS)
+  3. IC101 '32 14 
+  4. IC102 '253 16 
+  5. IC103 '138 16 
+  6. IC104 '541 20 (8xIBUS)
+  7. IC105 '541 20 (8xIBUS)
+
+Sheet 19: ALU Binary Operators (5 big parts)
+  1. IC106 29F040PLCC32 PLCC32 
+  2. IC107 29F040PLCC32 PLCC32 
+  3. IC108 29F040PLCC32 PLCC32 
+  4. IC109 '253 16 
+  5. IC110 '74 14 
+
+Sheet 20: ALU Unary Operators and Constant Store (3 big parts)
+  1. IC111 29F040PLCC32 PLCC32 (6xIBUS)
+  2. IC112 29F040PLCC32 PLCC32 (6xIBUS)
+  3. IC113 29F040PLCC32 PLCC32 (4xIBUS)
+
+Sheet 21: 8 kW Bank Switching Memory Controller (without 74670) (15 big parts)
+  1. IC114 '32 14 (2xAB)
+  2. IC115 '138 16 (4xAB)
+  3. IC116 '138 16 (3xAB)
+  4. IC117 '74 14 (1xDB)
+  5. IC118 '574 20 (8xDB)
+  6. IC119 '574 20 (8xDB)
+  7. IC120 '574 20 (8xDB)
+  8. IC121 '574 20 (8xDB)
+  9. IC122 '574 20 (8xDB)
+  10. IC123 '574 20 (8xDB)
+  11. IC124 '574 20 (8xDB)
+  12. IC125 '574 20 (8xDB)
+  13. IC126 '541 20 (3xAB)
+  14. IC127 '541 20 
+  15. IC128 '541 20 
+
+Sheet 22: Interrupt Controller (12 big parts)
+  1. IC129 '112 16 
+  2. IC130 '138 16 (2xAB)
+  3. IC131 '112 16 
+  4. IC132 '540 20 (8xDB)
+  5. IC133 '112 16 
+  6. IC134 '112 16 
+  7. IC135 '112 16 
+  8. IC136 '574 20 (8xDB)
+  9. IC137 '08 14 
+  10. IC138 '541 20 
+  11. IC139 '08 14 (2xAB)
+  12. IC140 '541 20 
+
+Sheet 23: Control Bus Connectors (0 big parts)
+
+Sheet 24: Memory (up to 512kW RAM, 512kW ROM) (6 big parts)
+  1. IC141 '138 16 
+  2. IC142 29F040PLCC32 PLCC32 (8xDB, 13xAB)
+  3. IC143 29F040DIP32 32 (8xDB, 13xAB)
+  4. IC144 29F040PLCC32 PLCC32 (8xDB, 13xAB)
+  5. IC145 29F040DIP32 32 (8xDB, 13xAB)
+  6. IC146 '540 20 
+
+Sheet 25: RS-232 Ports (16C550 UARTs) (8 big parts)
+  1. IC147 '138 16 (5xAB)
+  2. IC148 '05 14 
+  3. IC149 16C2550 PLCC-S44-SOCKET (8xDB, 3xAB)
+  4. IC150 16C2550 PLCC-S44-SOCKET (8xDB, 3xAB)
+  5. IC151 MAX232 16 
+  6. IC152 MAX232 16 
+  7. IC153 MAX232 16 
+  8. XTAL2 XO2-08-14-SOCKET 0814S 
+
+Sheet 26: IDE Bus Interface (3 big parts)
+  1. IC154 '138 16 (5xAB)
+  2. IC155 '245 20 (8xDB)
+  3. IC156 '245 20 (8xDB)
+
+Sheet 27: Clock, Timers & NVRAM (16 big parts)
+  1. IC157 '14 14 
+  2. IC158 '138 16 (4xAB)
+  3. IC159 '05 14 
+  4. IC160 '374 20 (7xDB)
+  5. IC161 '138 16 (2xAB)
+  6. IC162 '374 20 (8xDB)
+  7. IC163 '374 20 (8xDB)
+  8. IC164 '32 14 
+  9. IC165 '02 14 
+  10. IC166 '02 14 
+  11. IC167 M48T02 PDIP24-CAPHAT (8xDB, 4xAB)
+  12. IC168 '153 16 
+  13. IC169 '153 16 
+  14. IC170 82C54 24 (8xDB, 2xAB)
+  15. IC171 82C54 24 (8xDB, 2xAB)
+  16. XTAL3 CRYSTALTC38H TC38H 
+
+Sheet 28: Ethernet Interface (WIZ5100 module) (3 big parts)
+  1. IC172 '138 16 (5xAB)
+  2. IC173 '245 20 (8xDB)
+  3. IC174 V_REG_317SINK TO220-ADJ 
+
+Sheet 29: PS/2 Keyboard Controller (9 big parts)
+  1. IC175 '688 20 (8xAB)
+  2. IC176 '138 16 
+  3. IC177 '540 20 (8xDB)
+  4. IC178 '541 20 (8xDB)
+  5. IC179 '374 20 (8xDB)
+  6. IC180 '05 14 
+  7. IC181 '164 14 
+  8. IC182 '164 14 
+  9. IC183 '00 14 
+
+Sheet 30: Audio Device 1 of 2 (Bus Interface & SpeakJet) (13 big parts)
+  1. IC184 LM555 08 
+  2. IC185 '138 16 (5xAB)
+  3. IC186 '138 16 (3xAB)
+  4. IC187 '138 16 (3xAB)
+  5. IC188 '174 16 (6xDB)
+  6. IC189 '574 20 (8xDB)
+  7. IC190 '541 20 (8xDB)
+  8. IC191 '193 16 
+  9. IC192 '00 14 
+  10. IC193 '166 16 (1xDB)
+  11. IC194 '166 16 (7xDB)
+  12. IC195 '04 14 
+  13. IC196 SPEAKJET 18 
+
+Sheet 31: Audio Device 2 of 2 (GI AY-3-8910 PSG) (8 big parts)
+  1. IC195 '04 14 
+  2. IC197 '174 16 
+  3. IC198 '574 20 (8xDB)
+  4. IC199 AY-3-8910 40 (1xDB)
+  5. IC200 '74 14 
+  6. IC201 LM386N-1 08 
+  7. IC202 LM386N-1 08 
+  8. XTAL4 XTAL/S QS 
+
+Sheet 32: Front Panel: LED board (0 big parts)
+
+Sheet 33: Front Panel: Switch board (0 big parts)
+
+Sheet 34: Front Panel: Switch Register and Switches 1/2 (4 big parts)
+  1. IC203 '14 14 
+  2. IC204 '03 14 
+  3. IC205 '04 14 
+  4. IC206 '373 20 
+
+Sheet 35: Front Panel: Step switch auto-repeat (optional) (2 big parts)
+  1. IC207 LM556 14 
+  2. IC208 'HCT00 14 
+
+Sheet 36: Front Panel: Switch Register and Switches 2/2 (7 big parts)
+  1. IC203 '14 14 
+  2. IC209 '14 14 
+  3. IC210 '04 14 
+  4. IC211 '04 14 
+  5. IC212 '14 14 
+  6. IC213 '04 14 
+  7. IC214 '03 14 
+
+Sheet 37: Front Panel: LEDs 2 (1 big parts)
+  1. IC215 LM555 08 
+
+Sheet 38: Front Panel: Multi-Function Display (8 big parts)
+  1. IC216 '138 16 
+  2. IC217 '541 20 
+  3. IC218 '541 20 
+  4. IC219 '541 20 
+  5. IC220 '541 20 
+  6. IC221 '541 20 
+  7. IC222 '541 20 
+  8. IC223 '85 16 
+
+Sheet 39: Front Panel: Interrupt LEDs (4 big parts)
+  1. IC224 LM556 14 
+  2. IC225 LM556 14 
+  3. IC226 LM556 14 
+  4. IC227 LM556 14 
+
+Sheet 40: Front Panel: Connectors (0 big parts)
+
+Sheet 41: Front Panel: System Device (10 big parts)
+  1. IC228 '138 16 (5xAB)
+  2. IC229 '541 20 (8xDB)
+  3. IC230 '541 20 (8xDB)
+  4. IC231 '138 16 (3xAB)
+  5. IC232 '138 16 (3xAB)
+  6. IC233 '574 20 (8xDB)
+  7. IC234 '574 20 (8xDB)
+  8. IC235 '21 14 
+  9. IC236 '541 20 (8xDB)
+  10. IC237 '541 20 (8xDB)
+
+Sheet 42: Front Panel: Run/Stop State Machine (5 big parts)
+  1. IC204 '03 14 
+  2. IC238 '00 14 
+  3. IC239 '00 14 
+  4. IC240 '112 16 
+  5. IC241 '00 14 
+
+Sheet 43: Front Panel: Sequencer (9 big parts)
+  1. IC242 '21 14 
+  2. IC243 '00 14 
+  3. IC244 LM556 14 
+  4. IC245 LM556 14 
+  5. IC246 'HCT00 14 
+  6. IC247 'HCT00 14 
+  7. IC248 '125 14 
+  8. IC249 '125 14 
+  9. IC250 '541 20 
+
+Sheet 44: Bus Connectors (0 big parts)
+
+Sheet 45: Debugging Card (8 big parts)
+  1. IC251 MCP23016 28-6 (8xDB, 8xAB)
+  2. IC252 MCP23016 28-6 
+  3. IC253 '138 16 (4xAB)
+  4. IC254 '74 14 
+  5. IC255 MCP23016 28-6 (8xDB, 8xAB)
+  6. IC256 '05 14 
+  7. IC257 MEGA8-P 28-3 
+  8. XTAL5 CRYSTALHC49U-V HC49U-V 

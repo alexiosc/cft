@@ -1,0 +1,12 @@
+_x                0100  test-mul.asm:4
+prod              0101  test-mul.asm:5
+mulr              0102  test-mul.asm:6
+mulnd             0103  test-mul.asm:7
+start             e000  test-mul.asm:22
+_rom_mul16        e008  test-mul.asm:34
+_rom_mul16_loop   e00a  test-mul.asm:38
+_rom_mul16_noadd  e014  test-mul.asm:52
+minus_16          e018  test-mul.asm:60
+mymulr            e019  test-mul.asm:61
+mymulnd           e01a  test-mul.asm:62
+reset             fff0  test-mul.asm:15

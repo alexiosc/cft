@@ -1,0 +1,2 @@
+Parts not found in 3dpack.dat or 3dusrpac.dat are:
+//RN1	30R	CTS742C083

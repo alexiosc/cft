@@ -1,0 +1,591 @@
+# NetScript
+# 
+# Exported from untitled.sch at 22 Aug 2012 18:47:50
+# 
+# EAGLE Version 5.11.0 Copyright (c) 1988-2010 CadSoft
+# 
+Change Class 0;
+Signal '!DEBCONT' 'IC253'    '3' \
+                  'IC256'    '5' \
+                  ;
+Change Class 0;
+Signal '!DEBRST'  'IC256'    '1' \
+                  'JP28'     '1' \
+                  'JP30'     '5' \
+                  'S48'      '3' \
+                  'S48'      '4' \
+                  ;
+Change Class 0;
+Signal '!DEBW'    'IC252'    '7' \
+                  'IC253'    '1' \
+                  'IC256'    '4' \
+                  ;
+Change Class 0;
+Signal '!ENDEXT'  'EXP1'     'B7' \
+                  'JP32'     '2' \
+                  ;
+Change Class 0;
+Signal '!HALT'    'EXP1'     'A19' \
+                  'IC255'    '4' \
+                  'JP33'     '7' \
+                  ;
+Change Class 0;
+Signal '!IO'      'EXP1'     'C14' \
+                  'IC256'    '26' \
+                  ;
+Change Class 0;
+Signal '!IODEV1XX' 'EXP1'     'B24' \
+                  'JP34'     '1' \
+                  ;
+Change Class 0;
+Signal '!IODEV2XX' 'EXP1'     'B25' \
+                  'JP34'     '2' \
+                  ;
+Change Class 0;
+Signal '!IODEV3XX' 'EXP1'     'B26' \
+                  'IC252'    '5' \
+                  'JP34'     '3' \
+                  ;
+Change Class 0;
+Signal '!IRQ0'    'EXP1'     'C18' \
+                  'JP33'     '6' \
+                  ;
+Change Class 0;
+Signal '!IRQ1'    'EXP1'     'C19' \
+                  'JP33'     '8' \
+                  ;
+Change Class 0;
+Signal '!IRQ2'    'EXP1'     'C20' \
+                  'JP33'     '9' \
+                  ;
+Change Class 0;
+Signal '!IRQ3'    'EXP1'     'A13' \
+                  'JP33'     '2' \
+                  ;
+Change Class 0;
+Signal '!IRQ4'    'EXP1'     'A14' \
+                  'JP33'     '1' \
+                  ;
+Change Class 0;
+Signal '!IRQ5'    'EXP1'     'A15' \
+                  'JP33'     '3' \
+                  ;
+Change Class 0;
+Signal '!IRQ6'    'EXP1'     'A16' \
+                  'JP33'     '4' \
+                  ;
+Change Class 0;
+Signal '!IRQ7'    'EXP1'     'A18' \
+                  'JP33'     '5' \
+                  ;
+Change Class 0;
+Signal '!IRQS'    'EXP1'     'A30' \
+                  'JP35'     '5' \
+                  ;
+Change Class 0;
+Signal '!MEM'     'EXP1'     'C13' \
+                  'IC256'    '25' \
+                  ;
+Change Class 0;
+Signal '!R'       'EXP1'     'C15' \
+                  'IC256'    '23' \
+                  ;
+Change Class 0;
+Signal '!RESET'   'EXP1'     'C30' \
+                  'IC253'    '4' \
+                  'IC255'    '6' \
+                  ;
+Change Class 0;
+Signal '!SKIPEXT' 'EXP1'     'B6' \
+                  'JP32'     '1' \
+                  ;
+Change Class 0;
+Signal '!SYSDEV'  'EXP1'     'A28' \
+                  'JP34'     '5' \
+                  ;
+Change Class 0;
+Signal '!T34'     'EXP1'     'B27' \
+                  'JP34'     '4' \
+                  ;
+Change Class 0;
+Signal '!W'       'EXP1'     'C16' \
+                  'IC252'    '4' \
+                  'IC256'    '24' \
+                  ;
+Change Class 0;
+Signal '!WS'      'EXP1'     'B8' \
+                  'IC255'    '2' \
+                  'JP32'     '3' \
+                  ;
+Change Class 0;
+Signal '*TPA'     'EXP1'     'A17' \
+                  ;
+Change Class 0;
+Signal '*TPC'     'EXP1'     'C17' \
+                  ;
+Change Class 0;
+Signal '+3.3V'    'EXP1'     'A4' \
+                  'EXP1'     'B4' \
+                  'EXP1'     'C4' \
+                  ;
+Change Class 2;
+Signal '+12V'     'EXP1'     'A31' \
+                  'EXP1'     'B31' \
+                  'EXP1'     'C31' \
+                  ;
+Change Class 0;
+Signal '-CTS'     'JP29'     '2' \
+                  ;
+Change Class 0;
+Signal '-RTS'     'JP29'     '6' \
+                  ;
+Change Class 0;
+Signal 'AB0'      'EXP1'     'A5' \
+                  'IC250'    '2' \
+                  ;
+Change Class 0;
+Signal 'AB1'      'EXP1'     'A6' \
+                  'IC250'    '3' \
+                  ;
+Change Class 0;
+Signal 'AB2'      'EXP1'     'A7' \
+                  'IC250'    '4' \
+                  ;
+Change Class 0;
+Signal 'AB3'      'EXP1'     'A8' \
+                  'IC250'    '5' \
+                  ;
+Change Class 0;
+Signal 'AB4'      'EXP1'     'A9' \
+                  'IC250'    '7' \
+                  'IC252'    '1' \
+                  ;
+Change Class 0;
+Signal 'AB5'      'EXP1'     'A10' \
+                  'IC250'    '11' \
+                  'IC252'    '2' \
+                  ;
+Change Class 0;
+Signal 'AB6'      'EXP1'     'A11' \
+                  'IC250'    '12' \
+                  'IC252'    '3' \
+                  ;
+Change Class 0;
+Signal 'AB7'      'EXP1'     'A12' \
+                  'IC250'    '13' \
+                  'IC252'    '6' \
+                  ;
+Change Class 0;
+Signal 'AB8'      'EXP1'     'A20' \
+                  'IC254'    '2' \
+                  ;
+Change Class 0;
+Signal 'AB9'      'EXP1'     'A21' \
+                  'IC254'    '3' \
+                  ;
+Change Class 0;
+Signal 'AB10'     'EXP1'     'A22' \
+                  'IC254'    '4' \
+                  ;
+Change Class 0;
+Signal 'AB11'     'EXP1'     'A23' \
+                  'IC254'    '5' \
+                  ;
+Change Class 0;
+Signal 'AB12'     'EXP1'     'A24' \
+                  'IC254'    '7' \
+                  ;
+Change Class 0;
+Signal 'AB13'     'EXP1'     'A25' \
+                  'IC254'    '11' \
+                  ;
+Change Class 0;
+Signal 'AB14'     'EXP1'     'A26' \
+                  'IC254'    '12' \
+                  ;
+Change Class 0;
+Signal 'AB15'     'EXP1'     'A27' \
+                  'IC254'    '13' \
+                  ;
+Change Class 0;
+Signal 'AEXT0'    'EXP1'     'B13' \
+                  ;
+Change Class 0;
+Signal 'AEXT1'    'EXP1'     'B14' \
+                  ;
+Change Class 0;
+Signal 'AEXT2'    'EXP1'     'B15' \
+                  ;
+Change Class 0;
+Signal 'AEXT3'    'EXP1'     'B16' \
+                  ;
+Change Class 0;
+Signal 'AEXT4'    'EXP1'     'B17' \
+                  ;
+Change Class 0;
+Signal 'AEXT5'    'EXP1'     'B18' \
+                  ;
+Change Class 0;
+Signal 'AEXT6'    'EXP1'     'B19' \
+                  ;
+Change Class 0;
+Signal 'AEXT7'    'EXP1'     'B20' \
+                  ;
+Change Class 0;
+Signal 'CFTRST'   'IC255'    '5' \
+                  'IC256'    '6' \
+                  ;
+Change Class 0;
+Signal 'CLK1'     'EXP1'     'A29' \
+                  'JP35'     '2' \
+                  ;
+Change Class 0;
+Signal 'CLK2'     'EXP1'     'B29' \
+                  'JP35'     '3' \
+                  ;
+Change Class 0;
+Signal 'CLK3'     'EXP1'     'B30' \
+                  'JP35'     '4' \
+                  ;
+Change Class 0;
+Signal 'CLK4'     'EXP1'     'B28' \
+                  'JP35'     '1' \
+                  ;
+Change Class 0;
+Signal 'CLK5'     'EXP1'     'C29' \
+                  ;
+Change Class 0;
+Signal 'DB0'      'EXP1'     'C5' \
+                  'IC250'    '21' \
+                  ;
+Change Class 0;
+Signal 'DB1'      'EXP1'     'C6' \
+                  'IC250'    '22' \
+                  ;
+Change Class 0;
+Signal 'DB2'      'EXP1'     'C7' \
+                  'IC250'    '23' \
+                  ;
+Change Class 0;
+Signal 'DB3'      'EXP1'     'C8' \
+                  'IC250'    '24' \
+                  ;
+Change Class 0;
+Signal 'DB4'      'EXP1'     'C9' \
+                  'IC250'    '25' \
+                  ;
+Change Class 0;
+Signal 'DB5'      'EXP1'     'C10' \
+                  'IC250'    '26' \
+                  ;
+Change Class 0;
+Signal 'DB6'      'EXP1'     'C11' \
+                  'IC250'    '27' \
+                  ;
+Change Class 0;
+Signal 'DB7'      'EXP1'     'C12' \
+                  'IC250'    '28' \
+                  ;
+Change Class 0;
+Signal 'DB8'      'EXP1'     'C21' \
+                  'IC254'    '21' \
+                  ;
+Change Class 0;
+Signal 'DB9'      'EXP1'     'C22' \
+                  'IC254'    '22' \
+                  ;
+Change Class 0;
+Signal 'DB10'     'EXP1'     'C23' \
+                  'IC254'    '23' \
+                  ;
+Change Class 0;
+Signal 'DB11'     'EXP1'     'C24' \
+                  'IC254'    '24' \
+                  ;
+Change Class 0;
+Signal 'DB12'     'EXP1'     'C25' \
+                  'IC254'    '25' \
+                  ;
+Change Class 0;
+Signal 'DB13'     'EXP1'     'C26' \
+                  'IC254'    '26' \
+                  ;
+Change Class 0;
+Signal 'DB14'     'EXP1'     'C27' \
+                  'IC254'    '27' \
+                  ;
+Change Class 0;
+Signal 'DB15'     'EXP1'     'C28' \
+                  'IC254'    '28' \
+                  ;
+Change Class 0;
+Signal 'DEBHALT'  'IC255'    '3' \
+                  'IC256'    '11' \
+                  ;
+Change Class 0;
+Signal 'DEBIN'    'IC256'    '2' \
+                  'JP29'     '4' \
+                  ;
+Change Class 0;
+Signal 'DEBLED0'  'IC256'    '14' \
+                  'R226'     '1' \
+                  ;
+Change Class 0;
+Signal 'DEBLED1'  'IC256'    '15' \
+                  'R227'     '1' \
+                  ;
+Change Class 0;
+Signal 'DEBLED2'  'IC256'    '16' \
+                  'R228'     '1' \
+                  ;
+Change Class 0;
+Signal 'DEBOUT'   'IC256'    '3' \
+                  'JP29'     '5' \
+                  'R230'     '1' \
+                  'R231'     '2' \
+                  ;
+Change Class 0;
+Signal 'DEBSCL'   'IC250'    '14' \
+                  'IC251'    '14' \
+                  'IC254'    '14' \
+                  'IC256'    '28' \
+                  'R233'     '2' \
+                  ;
+Change Class 0;
+Signal 'DEBSDA'   'IC250'    '15' \
+                  'IC251'    '15' \
+                  'IC254'    '15' \
+                  'IC256'    '27' \
+                  'R232'     '2' \
+                  ;
+Change Class 0;
+Signal 'FPCLKEN'  'IC256'    '12' \
+                  'JP31'     '1' \
+                  ;
+Change Class 0;
+Signal 'FPUSTEP'  'IC256'    '13' \
+                  'JP31'     '2' \
+                  ;
+Change Class 0;
+Signal 'FTDIVCC'  'JP29'     '3' \
+                  ;
+Change Class 1;
+Signal 'GND'      'C373'     '1' \
+                  'C374'     '1' \
+                  'C375'     '1' \
+                  'C376'     '1' \
+                  'C377'     '1' \
+                  'C378'     '2' \
+                  'C379'     '2' \
+                  'C380'     '2' \
+                  'C381'     '1' \
+                  'C382'     '2' \
+                  'C383'     '1' \
+                  'C384'     '2' \
+                  'C385'     '2' \
+                  'C386'     '1' \
+                  'C387'     '-' \
+                  'EXP1'     'A1' \
+                  'EXP1'     'A2' \
+                  'EXP1'     'B1' \
+                  'EXP1'     'B2' \
+                  'EXP1'     'C1' \
+                  'EXP1'     'C2' \
+                  'IC250'    '1' \
+                  'IC250'    '16' \
+                  'IC250'    '18' \
+                  'IC250'    '19' \
+                  'IC250'    '8' \
+                  'IC251'    '1' \
+                  'IC251'    '17' \
+                  'IC251'    '18' \
+                  'IC251'    '19' \
+                  'IC251'    '8' \
+                  'IC252'    '8' \
+                  'IC253'    '10' \
+                  'IC253'    '11' \
+                  'IC253'    '12' \
+                  'IC253'    '13' \
+                  'IC253'    '7' \
+                  'IC254'    '1' \
+                  'IC254'    '16' \
+                  'IC254'    '17' \
+                  'IC254'    '18' \
+                  'IC254'    '19' \
+                  'IC254'    '8' \
+                  'IC255'    '11' \
+                  'IC255'    '13' \
+                  'IC255'    '7' \
+                  'IC255'    '9' \
+                  'IC256'    '22' \
+                  'IC256'    '8' \
+                  'JP28'     '2' \
+                  'JP29'     '1' \
+                  'JP30'     '6' \
+                  'LED177'   'K' \
+                  'LED178'   'K' \
+                  'LED179'   'K' \
+                  'LED180'   'K' \
+                  'R231'     '1' \
+                  'S48'      '1' \
+                  'S48'      '2' \
+                  ;
+Change Class 0;
+Signal 'MISO'     'IC256'    '18' \
+                  'JP30'     '1' \
+                  ;
+Change Class 0;
+Signal 'MOSI'     'IC256'    '17' \
+                  'JP30'     '4' \
+                  'R229'     '1' \
+                  ;
+Change Class 0;
+Signal 'N$110'    'C384'     '1' \
+                  'IC256'    '9' \
+                  'XTAL5'    '1' \
+                  ;
+Change Class 0;
+Signal 'N$111'    'C385'     '1' \
+                  'IC256'    '10' \
+                  'XTAL5'    '2' \
+                  ;
+Change Class 0;
+Signal 'N$112'    'IC253'    '6' \
+                  'IC255'    '1' \
+                  ;
+Change Class 0;
+Signal 'N$114'    'LED177'   'A' \
+                  'R226'     '2' \
+                  ;
+Change Class 0;
+Signal 'N$454'    'C378'     '1' \
+                  'IC250'    '9' \
+                  'R223'     '2' \
+                  ;
+Change Class 0;
+Signal 'N$455'    'LED178'   'A' \
+                  'R227'     '2' \
+                  ;
+Change Class 0;
+Signal 'N$456'    'C382'     '1' \
+                  'IC254'    '9' \
+                  'R225'     '2' \
+                  ;
+Change Class 0;
+Signal 'N$457'    'C379'     '1' \
+                  'IC251'    '9' \
+                  'R224'     '2' \
+                  ;
+Change Class 0;
+Signal 'N$462'    'IC251'    '21' \
+                  'JP26'     '1' \
+                  ;
+Change Class 0;
+Signal 'N$467'    'LED179'   'A' \
+                  'R228'     '2' \
+                  ;
+Change Class 0;
+Signal 'N$481'    'LED180'   'A' \
+                  'R229'     '2' \
+                  ;
+Change Class 0;
+Signal 'N$539'    'IC251'    '22' \
+                  'JP26'     '2' \
+                  ;
+Change Class 0;
+Signal 'N$541'    'IC251'    '23' \
+                  'JP26'     '3' \
+                  ;
+Change Class 0;
+Signal 'N$682'    'IC251'    '24' \
+                  'JP26'     '4' \
+                  ;
+Change Class 0;
+Signal 'N$686'    'IC251'    '25' \
+                  'JP26'     '5' \
+                  ;
+Change Class 0;
+Signal 'N$690'    'IC251'    '26' \
+                  'JP26'     '6' \
+                  ;
+Change Class 0;
+Signal 'N$692'    'IC251'    '27' \
+                  'JP26'     '7' \
+                  ;
+Change Class 0;
+Signal 'N$693'    'IC251'    '28' \
+                  'JP26'     '8' \
+                  ;
+Change Class 0;
+Signal 'N$694'    'IC251'    '2' \
+                  'JP27'     '1' \
+                  ;
+Change Class 0;
+Signal 'N$695'    'IC251'    '3' \
+                  'JP27'     '2' \
+                  ;
+Change Class 0;
+Signal 'N$697'    'IC251'    '4' \
+                  'JP27'     '3' \
+                  ;
+Change Class 0;
+Signal 'N$698'    'IC251'    '5' \
+                  'JP27'     '4' \
+                  ;
+Change Class 0;
+Signal 'N$699'    'IC251'    '7' \
+                  'JP27'     '5' \
+                  ;
+Change Class 0;
+Signal 'N$845'    'IC251'    '11' \
+                  'JP27'     '6' \
+                  ;
+Change Class 0;
+Signal 'N$846'    'IC251'    '12' \
+                  'JP27'     '7' \
+                  ;
+Change Class 0;
+Signal 'N$847'    'IC251'    '13' \
+                  'JP27'     '8' \
+                  ;
+Change Class 0;
+Signal 'SCK'      'IC256'    '19' \
+                  'JP30'     '3' \
+                  ;
+Change Class 1;
+Signal 'VCC'      'C373'     '2' \
+                  'C374'     '2' \
+                  'C375'     '2' \
+                  'C376'     '2' \
+                  'C377'     '2' \
+                  'C380'     '1' \
+                  'C381'     '2' \
+                  'C383'     '2' \
+                  'C386'     '2' \
+                  'C387'     '+' \
+                  'EXP1'     'A3' \
+                  'EXP1'     'A32' \
+                  'EXP1'     'B3' \
+                  'EXP1'     'B32' \
+                  'EXP1'     'C3' \
+                  'EXP1'     'C32' \
+                  'IC250'    '17' \
+                  'IC250'    '20' \
+                  'IC251'    '16' \
+                  'IC251'    '20' \
+                  'IC252'    '16' \
+                  'IC253'    '14' \
+                  'IC253'    '2' \
+                  'IC254'    '20' \
+                  'IC255'    '14' \
+                  'IC256'    '20' \
+                  'IC256'    '21' \
+                  'IC256'    '7' \
+                  'JP30'     '2' \
+                  'R223'     '1' \
+                  'R224'     '1' \
+                  'R225'     '1' \
+                  'R230'     '2' \
+                  'R232'     '1' \
+                  'R233'     '1' \
+                  ;

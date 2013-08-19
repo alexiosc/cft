@@ -1,0 +1,2 @@
+Parts not found in 3dpack.dat or 3dusrpac.dat are:
+//CON1	JTAG-XILINX-14-2MM	2X07M

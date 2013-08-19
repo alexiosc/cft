@@ -1,0 +1,473 @@
+Netlist
+
+Exported from untitled.sch at 22 Aug 2012 18:48:35
+
+EAGLE Version 5.11.0 Copyright (c) 1988-2010 CadSoft
+
+Net      Part     Pad      Pin        Sheet
+
+!DEBCONT IC253    3        CLK        1
+         IC256    5        PD3(INT1)  1
+
+!DEBRST  IC256    1        PC6(/RESET) 1
+         JP28     1        1          1
+         JP30     5        5          1
+         S48      3        3          1
+         S48      4        4          1
+
+!DEBW    IC252    7        Y7         1
+         IC253    1        CLR        1
+         IC256    4        PD2(INT0)  1
+
+!ENDEXT  EXP1     B7       7          1
+         JP32     2        2          1
+
+!HALT    EXP1     A19      19         1
+         IC255    4        O          1
+         JP33     7        7          1
+
+!IO      EXP1     C14      14         1
+         IC256    26       PC3(ADC3)  1
+
+!IODEV1XX EXP1     B24      24         1
+         JP34     1        1          1
+
+!IODEV2XX EXP1     B25      25         1
+         JP34     2        2          1
+
+!IODEV3XX EXP1     B26      26         1
+         IC252    5        G2B        1
+         JP34     3        3          1
+
+!IRQ0    EXP1     C18      18         1
+         JP33     6        6          1
+
+!IRQ1    EXP1     C19      19         1
+         JP33     8        8          1
+
+!IRQ2    EXP1     C20      20         1
+         JP33     9        9          1
+
+!IRQ3    EXP1     A13      13         1
+         JP33     2        2          1
+
+!IRQ4    EXP1     A14      14         1
+         JP33     1        1          1
+
+!IRQ5    EXP1     A15      15         1
+         JP33     3        3          1
+
+!IRQ6    EXP1     A16      16         1
+         JP33     4        4          1
+
+!IRQ7    EXP1     A18      18         1
+         JP33     5        5          1
+
+!IRQS    EXP1     A30      30         1
+         JP35     5        5          1
+
+!MEM     EXP1     C13      13         1
+         IC256    25       PC2(ADC2)  1
+
+!R       EXP1     C15      15         1
+         IC256    23       PC0(ADC0)  1
+
+!RESET   EXP1     C30      30         1
+         IC253    4        PRE        1
+         IC255    6        O          1
+
+!SKIPEXT EXP1     B6       6          1
+         JP32     1        1          1
+
+!SYSDEV  EXP1     A28      28         1
+         JP34     5        5          1
+
+!T34     EXP1     B27      27         1
+         JP34     4        4          1
+
+!W       EXP1     C16      16         1
+         IC252    4        G2A        1
+         IC256    24       PC1(ADC1)  1
+
+!WS      EXP1     B8       8          1
+         IC255    2        O          1
+         JP32     3        3          1
+
+*TPA     EXP1     A17      17         1
+
+*TPC     EXP1     C17      17         1
+
++3.3V    EXP1     A4       4          1
+         EXP1     B4       4          1
+         EXP1     C4       4          1
+
++12V     EXP1     A31      31         1
+         EXP1     B31      31         1
+         EXP1     C31      31         1
+
+-CTS     JP29     2        2          1
+
+-RTS     JP29     6        6          1
+
+AB0      EXP1     A5       5          1
+         IC250    2        GP1.0      1
+
+AB1      EXP1     A6       6          1
+         IC250    3        GP1.1      1
+
+AB2      EXP1     A7       7          1
+         IC250    4        GP1.2      1
+
+AB3      EXP1     A8       8          1
+         IC250    5        GP1.3      1
+
+AB4      EXP1     A9       9          1
+         IC250    7        GP1.4      1
+         IC252    1        A          1
+
+AB5      EXP1     A10      10         1
+         IC250    11       GP1.5      1
+         IC252    2        B          1
+
+AB6      EXP1     A11      11         1
+         IC250    12       GP1.6      1
+         IC252    3        C          1
+
+AB7      EXP1     A12      12         1
+         IC250    13       GP1.7      1
+         IC252    6        G1         1
+
+AB8      EXP1     A20      20         1
+         IC254    2        GP1.0      1
+
+AB9      EXP1     A21      21         1
+         IC254    3        GP1.1      1
+
+AB10     EXP1     A22      22         1
+         IC254    4        GP1.2      1
+
+AB11     EXP1     A23      23         1
+         IC254    5        GP1.3      1
+
+AB12     EXP1     A24      24         1
+         IC254    7        GP1.4      1
+
+AB13     EXP1     A25      25         1
+         IC254    11       GP1.5      1
+
+AB14     EXP1     A26      26         1
+         IC254    12       GP1.6      1
+
+AB15     EXP1     A27      27         1
+         IC254    13       GP1.7      1
+
+AEXT0    EXP1     B13      13         1
+
+AEXT1    EXP1     B14      14         1
+
+AEXT2    EXP1     B15      15         1
+
+AEXT3    EXP1     B16      16         1
+
+AEXT4    EXP1     B17      17         1
+
+AEXT5    EXP1     B18      18         1
+
+AEXT6    EXP1     B19      19         1
+
+AEXT7    EXP1     B20      20         1
+
+CFTRST   IC255    5        I          1
+         IC256    6        PD4(XCK/T0) 1
+
+CLK1     EXP1     A29      29         1
+         JP35     2        2          1
+
+CLK2     EXP1     B29      29         1
+         JP35     3        3          1
+
+CLK3     EXP1     B30      30         1
+         JP35     4        4          1
+
+CLK4     EXP1     B28      28         1
+         JP35     1        1          1
+
+CLK5     EXP1     C29      29         1
+
+DB0      EXP1     C5       5          1
+         IC250    21       GP0.0      1
+
+DB1      EXP1     C6       6          1
+         IC250    22       GP0.1      1
+
+DB2      EXP1     C7       7          1
+         IC250    23       GP0.2      1
+
+DB3      EXP1     C8       8          1
+         IC250    24       GP0.3      1
+
+DB4      EXP1     C9       9          1
+         IC250    25       GP0.4      1
+
+DB5      EXP1     C10      10         1
+         IC250    26       GP0.5      1
+
+DB6      EXP1     C11      11         1
+         IC250    27       GP0.6      1
+
+DB7      EXP1     C12      12         1
+         IC250    28       GP0.7      1
+
+DB8      EXP1     C21      21         1
+         IC254    21       GP0.0      1
+
+DB9      EXP1     C22      22         1
+         IC254    22       GP0.1      1
+
+DB10     EXP1     C23      23         1
+         IC254    23       GP0.2      1
+
+DB11     EXP1     C24      24         1
+         IC254    24       GP0.3      1
+
+DB12     EXP1     C25      25         1
+         IC254    25       GP0.4      1
+
+DB13     EXP1     C26      26         1
+         IC254    26       GP0.5      1
+
+DB14     EXP1     C27      27         1
+         IC254    27       GP0.6      1
+
+DB15     EXP1     C28      28         1
+         IC254    28       GP0.7      1
+
+DEBHALT  IC255    3        I          1
+         IC256    11       PD5(T1)    1
+
+DEBIN    IC256    2        PD0(RXD)   1
+         JP29     4        4          1
+
+DEBLED0  IC256    14       PB0(ICP)   1
+         R226     1        1          1
+
+DEBLED1  IC256    15       PB1(OC1A)  1
+         R227     1        1          1
+
+DEBLED2  IC256    16       PB2(SS/OC1B) 1
+         R228     1        1          1
+
+DEBOUT   IC256    3        PD1(TXD)   1
+         JP29     5        5          1
+         R230     1        1          1
+         R231     2        2          1
+
+DEBSCL   IC250    14       SCL        1
+         IC251    14       SCL        1
+         IC254    14       SCL        1
+         IC256    28       PC5(ADC5/SCL) 1
+         R233     2        2          1
+
+DEBSDA   IC250    15       SDA        1
+         IC251    15       SDA        1
+         IC254    15       SDA        1
+         IC256    27       PC4(ADC4/SDA) 1
+         R232     2        2          1
+
+FPCLKEN  IC256    12       PD6(AIN0)  1
+         JP31     1        1          1
+
+FPUSTEP  IC256    13       PD7(AIN1)  1
+         JP31     2        2          1
+
+FTDIVCC  JP29     3        3          1
+
+GND      C373     1        1          1
+         C374     1        1          1
+         C375     1        1          1
+         C376     1        1          1
+         C377     1        1          1
+         C378     2        2          1
+         C379     2        2          1
+         C380     2        2          1
+         C381     1        1          1
+         C382     2        2          1
+         C383     1        1          1
+         C384     2        2          1
+         C385     2        2          1
+         C386     1        1          1
+         C387     -        -          1
+         EXP1     A1       1          1
+         EXP1     A2       2          1
+         EXP1     B1       1          1
+         EXP1     B2       2          1
+         EXP1     C1       1          1
+         EXP1     C2       2          1
+         IC250    1        GND        * none *
+         IC250    16       A0         1
+         IC250    18       A2         1
+         IC250    19       GND        * none *
+         IC250    8        GND        * none *
+         IC251    1        GND        * none *
+         IC251    17       A1         1
+         IC251    18       A2         1
+         IC251    19       GND        * none *
+         IC251    8        GND        * none *
+         IC252    8        GND        * none *
+         IC253    10       PRE        1
+         IC253    11       CLK        1
+         IC253    12       D          1
+         IC253    13       CLR        1
+         IC253    7        GND        * none *
+         IC254    1        GND        * none *
+         IC254    16       A0         1
+         IC254    17       A1         1
+         IC254    18       A2         1
+         IC254    19       GND        * none *
+         IC254    8        GND        * none *
+         IC255    11       I          1
+         IC255    13       I          1
+         IC255    7        GND        * none *
+         IC255    9        I          1
+         IC256    22       GND        1
+         IC256    8        GND        1
+         JP28     2        2          1
+         JP29     1        1          1
+         JP30     6        6          1
+         LED177   K        C          1
+         LED178   K        C          1
+         LED179   K        C          1
+         LED180   K        C          1
+         R231     1        1          1
+         S48      1        1          1
+         S48      2        2          1
+
+MISO     IC256    18       PB4(MISO)  1
+         JP30     1        1          1
+
+MOSI     IC256    17       PB3(MOSI/OC2) 1
+         JP30     4        4          1
+         R229     1        1          1
+
+N$110    C384     1        1          1
+         IC256    9        PB6(XTAL1/TOSC1) 1
+         XTAL5    1        1          1
+
+N$111    C385     1        1          1
+         IC256    10       PB7(XTAL2/TOSC2) 1
+         XTAL5    2        2          1
+
+N$112    IC253    6        !Q         1
+         IC255    1        I          1
+
+N$114    LED177   A        A          1
+         R226     2        2          1
+
+N$454    C378     1        1          1
+         IC250    9        CLK        1
+         R223     2        2          1
+
+N$455    LED178   A        A          1
+         R227     2        2          1
+
+N$456    C382     1        1          1
+         IC254    9        CLK        1
+         R225     2        2          1
+
+N$457    C379     1        1          1
+         IC251    9        CLK        1
+         R224     2        2          1
+
+N$462    IC251    21       GP0.0      1
+         JP26     1        1          1
+
+N$467    LED179   A        A          1
+         R228     2        2          1
+
+N$481    LED180   A        A          1
+         R229     2        2          1
+
+N$539    IC251    22       GP0.1      1
+         JP26     2        2          1
+
+N$541    IC251    23       GP0.2      1
+         JP26     3        3          1
+
+N$682    IC251    24       GP0.3      1
+         JP26     4        4          1
+
+N$686    IC251    25       GP0.4      1
+         JP26     5        5          1
+
+N$690    IC251    26       GP0.5      1
+         JP26     6        6          1
+
+N$692    IC251    27       GP0.6      1
+         JP26     7        7          1
+
+N$693    IC251    28       GP0.7      1
+         JP26     8        8          1
+
+N$694    IC251    2        GP1.0      1
+         JP27     1        1          1
+
+N$695    IC251    3        GP1.1      1
+         JP27     2        2          1
+
+N$697    IC251    4        GP1.2      1
+         JP27     3        3          1
+
+N$698    IC251    5        GP1.3      1
+         JP27     4        4          1
+
+N$699    IC251    7        GP1.4      1
+         JP27     5        5          1
+
+N$845    IC251    11       GP1.5      1
+         JP27     6        6          1
+
+N$846    IC251    12       GP1.6      1
+         JP27     7        7          1
+
+N$847    IC251    13       GP1.7      1
+         JP27     8        8          1
+
+SCK      IC256    19       PB5(SCK)   1
+         JP30     3        3          1
+
+VCC      C373     2        2          1
+         C374     2        2          1
+         C375     2        2          1
+         C376     2        2          1
+         C377     2        2          1
+         C380     1        1          1
+         C381     2        2          1
+         C383     2        2          1
+         C386     2        2          1
+         C387     +        +          1
+         EXP1     A3       3          1
+         EXP1     A32      32         1
+         EXP1     B3       3          1
+         EXP1     B32      32         1
+         EXP1     C3       3          1
+         EXP1     C32      32         1
+         IC250    17       A1         1
+         IC250    20       VCC        * none *
+         IC251    16       A0         1
+         IC251    20       VCC        * none *
+         IC252    16       VCC        * none *
+         IC253    14       VCC        * none *
+         IC253    2        D          1
+         IC254    20       VCC        * none *
+         IC255    14       VCC        * none *
+         IC256    20       AVCC       1
+         IC256    21       AREF       1
+         IC256    7        VCC        1
+         JP30     2        2          1
+         R223     1        1          1
+         R224     1        1          1
+         R225     1        1          1
+         R230     2        2          1
+         R232     1        1          1
+         R233     1        1          1
+

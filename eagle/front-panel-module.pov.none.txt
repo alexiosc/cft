@@ -1,0 +1,10 @@
+Parts not found in 3dpack.dat or 3dusrpac.dat are:
+//JP2		WJ-100
+//JP3		WJ-100
+//JP4		WJ-100
+//JP5		WJ-100
+//JP6		WJ-100
+//JP7		WJ-100
+//JP8		WJ-100
+//JP9		WJ-100
+//JP10		WJ-100

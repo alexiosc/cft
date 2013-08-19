@@ -1,0 +1,403 @@
+Netlist
+
+Exported from ALU.sch at 19 Sep 2011 12:50:22
+
+EAGLE Version 5.11.0 Copyright (c) 1988-2010 CadSoft
+
+Net      Part     Pad      Pin        Sheet
+
+-CLI     CONTROL  8        8          1
+
+-CLL     CONTROL  10       10         1
+
+-HALT    CONTROL  24       24         1
+
+-IEND    CONTROL  42       42         1
+
+-INCA    CONTROL  12       12         1
+         IA       1        1          1
+
+-INCDR   CONTROL  43       43         1
+         IDR      1        1          1
+
+-INCPC   CONTROL  44       44         1
+         IPC      1        1          1
+
+-INC_REG IA       2        2          1
+         IC5      5        UP         1
+         IDR      2        2          1
+         IPC      2        2          1
+
+-IO      CONTROL  46       46         1
+
+-MEM     CONTROL  45       45         1
+
+-R       CONTROL  48       48         1
+
+-RESET   CONTROL  31       31         1
+         IC4      11       I0         1
+         IC4      12       I1         1
+
+-RSTHOLD CONTROL  4        4          1
+
+-R_A     CONTROL  25       25         1
+         RA       1        1          1
+
+-R_AGL   CONTROL  33       33         1
+
+-R_CS1   CONTROL  38       38         1
+
+-R_CS2   CONTROL  40       40         1
+
+-R_DR    CONTROL  17       17         1
+         RDR      1        1          1
+
+-R_PC    CONTROL  15       15         1
+         RPC      1        1          1
+
+-R_REG   IC12     1        G          1
+         IC12     19       G          1
+         IC13     1        G          1
+         IC13     19       G          1
+         RA       2        2          1
+         RDR      2        2          1
+         RPC      2        2          1
+
+-SKIP    CONTROL  14       14         1
+
+-STI     CONTROL  9        9          1
+
+-W       CONTROL  47       47         1
+
+-W_A     CONTROL  41       41         1
+         WA       1        1          1
+
+-W_DR    CONTROL  39       39         1
+         WDR      1        1          1
+
+-W_IR    CONTROL  37       37         1
+
+-W_MAR   CONTROL  32       32         1
+
+-W_PC    CONTROL  35       35         1
+         WPC      1        1          1
+
+-W_REG   IC3      2        I0         1
+         IC3      3        I1         1
+         IC4      6        I1         1
+         WA       2        2          1
+         WDR      2        2          1
+         WPC      2        2          1
+
+ALUOP0   CONTROL  16       16         1
+
+ALUOP1   CONTROL  18       18         1
+
+ALUOP2   CONTROL  20       20         1
+
+ALUOP3   CONTROL  22       22         1
+
+CLOCK    CONTROL  26       26         1
+
+CLOCK2   CONTROL  28       28         1
+
+CLOCK4   CONTROL  27       27         1
+
+CLOCK14  CONTROL  36       36         1
+
+CPL      CONTROL  11       11         1
+
+F_NEG    CONTROL  30       30         1
+
+F_ZERO   CONTROL  29       29         1
+         IC6      1        O          1
+
+GND      C1       1        1          1
+         C10      1        1          1
+         C11      1        1          1
+         C12      1        1          1
+         C13      1        1          1
+         C14      1        1          1
+         C2       1        1          1
+         C3       2        2          1
+         C4       1        1          1
+         C7       -        -          1
+         C8       1        1          1
+         C9       1        1          1
+         CONTROL  50       50         1
+         IC1      7        VSS        * none *
+         IC10     4        DOWN       1
+         IC10     8        VSS        * none *
+         IC11     4        DOWN       1
+         IC11     8        VSS        * none *
+         IC12     10       GND        * none *
+         IC13     10       GND        * none *
+         IC2      7        VSS        * none *
+         IC3      7        GND        * none *
+         IC4      7        GND        * none *
+         IC5      4        DOWN       1
+         IC5      8        VSS        * none *
+         IC6      10       I1         1
+         IC6      11       I2         1
+         IC6      12       I3         1
+         IC6      7        VSS        * none *
+         IC6      9        I0         1
+         IC8      4        DOWN       1
+         IC8      8        VSS        * none *
+         POWER    10       10         1
+         POWER    11       11         1
+         POWER    12       12         1
+         POWER    9        9          1
+
+GUARDPULSE CONTROL  34       34         1
+
+IBUS0    IBUS     2        2          1
+         IC12     3        Y4         1
+         IC5      15       A          1
+
+IBUS1    IBUS     4        4          1
+         IC12     18       Y1         1
+         IC5      1        B          1
+
+IBUS2    IBUS     6        6          1
+         IC12     5        Y3         1
+         IC5      10       C          1
+
+IBUS3    IBUS     8        8          1
+         IC12     16       Y2         1
+         IC5      9        D          1
+
+IBUS4    IBUS     10       10         1
+         IC12     7        Y2         1
+         IC8      15       A          1
+
+IBUS5    IBUS     12       12         1
+         IC12     14       Y3         1
+         IC8      1        B          1
+
+IBUS6    IBUS     14       14         1
+         IC12     9        Y1         1
+         IC8      10       C          1
+
+IBUS7    IBUS     16       16         1
+         IC12     12       Y4         1
+         IC8      9        D          1
+
+IBUS8    IBUS     1        1          1
+         IC10     15       A          1
+         IC13     18       Y1         1
+
+IBUS9    IBUS     3        3          1
+         IC10     1        B          1
+         IC13     16       Y2         1
+
+IBUS10   IBUS     5        5          1
+         IC10     10       C          1
+         IC13     14       Y3         1
+
+IBUS11   IBUS     7        7          1
+         IC10     9        D          1
+         IC13     12       Y4         1
+
+IBUS12   IBUS     9        9          1
+         IC11     15       A          1
+         IC13     3        Y4         1
+
+IBUS13   IBUS     11       11         1
+         IC11     1        B          1
+         IC13     5        Y3         1
+
+IBUS14   IBUS     13       13         1
+         IC11     10       C          1
+         IC13     7        Y2         1
+
+IBUS15   IBUS     15       15         1
+         IC11     9        D          1
+         IC13     9        Y1         1
+
+LOAD     IC10     11       LOAD       1
+         IC11     11       LOAD       1
+         IC4      10       O          1
+         IC5      11       LOAD       1
+         IC8      11       LOAD       1
+
+N$1      IC2      13       O          1
+         IC6      2        I0         1
+
+N$2      IC2      1        O          1
+         IC6      3        I1         1
+
+N$3      IC1      13       O          1
+         IC6      4        I2         1
+
+N$4      IC1      1        O          1
+         IC6      5        I3         1
+
+N$17     IC3      1        O          1
+         IC3      5        I0         1
+         IC3      6        I1         1
+         LOAD_WIDTH 1        1          1
+
+N$18     IC3      4        O          1
+         IC3      8        I0         1
+         IC3      9        I1         1
+
+N$19     IC3      10       O          1
+         IC3      11       I0         1
+         IC3      12       I1         1
+         LOAD_WIDTH 3        3          1
+
+N$20     IC3      13       O          1
+         IC4      2        I0         1
+         IC4      3        I1         1
+
+N$21     IC4      1        O          1
+         LOAD_WIDTH 5        5          1
+
+N$22     IC4      5        I0         1
+         LOAD_WIDTH 2        2          1
+         LOAD_WIDTH 4        4          1
+         LOAD_WIDTH 6        6          1
+
+N$23     IC4      4        O          1
+         IC4      8        I0         1
+         IC4      9        I1         1
+
+N$25     IC5      12       CARRY      1
+         IC8      5        UP         1
+
+N$26     IC10     14       CLEAR      1
+         IC11     14       CLEAR      1
+         IC4      13       O          1
+         IC5      14       CLEAR      1
+         IC8      14       CLEAR      1
+
+N$29     IC10     5        UP         1
+         IC8      12       CARRY      1
+
+N$31     IC10     12       CARRY      1
+         IC11     5        UP         1
+
+OP_IF0   CONTROL  3        3          1
+
+OP_IF1   CONTROL  5        5          1
+
+OP_IF2   CONTROL  6        6          1
+
+OP_IF3   CONTROL  7        7          1
+
+REG0     CONSOLE  1        1          1
+         IC1      2        I0         1
+         IC12     17       A4         1
+         IC5      3        QA         1
+
+REG1     CONSOLE  2        2          1
+         IC1      3        I1         1
+         IC12     2        A1         1
+         IC5      2        QB         1
+
+REG2     CONSOLE  3        3          1
+         IC1      12       I3         1
+         IC12     15       A3         1
+         IC5      6        QC         1
+
+REG3     CONSOLE  4        4          1
+         IC1      4        I2         1
+         IC12     4        A2         1
+         IC5      7        QD         1
+
+REG4     CONSOLE  5        5          1
+         IC1      11       I2         1
+         IC12     13       A2         1
+         IC8      3        QA         1
+
+REG5     CONSOLE  6        6          1
+         IC1      5        I3         1
+         IC12     6        A3         1
+         IC8      2        QB         1
+
+REG6     CONSOLE  7        7          1
+         IC1      10       I1         1
+         IC12     11       A1         1
+         IC8      6        QC         1
+
+REG7     CONSOLE  8        8          1
+         IC1      9        I0         1
+         IC12     8        A4         1
+         IC8      7        QD         1
+
+REG8     CONSOLE  9        9          1
+         IC10     3        QA         1
+         IC13     2        A1         1
+         IC2      2        I0         1
+
+REG9     CONSOLE  10       10         1
+         IC10     2        QB         1
+         IC13     4        A2         1
+         IC2      3        I1         1
+
+REG10    CONSOLE  11       11         1
+         IC10     6        QC         1
+         IC13     6        A3         1
+         IC2      4        I2         1
+         PC-PAGE  1        1          1
+
+REG11    CONSOLE  12       12         1
+         IC10     7        QD         1
+         IC13     8        A4         1
+         IC2      5        I3         1
+
+REG12    CONSOLE  13       13         1
+         IC11     3        QA         1
+         IC13     17       A4         1
+         IC2      12       I3         1
+         PC-PAGE  3        3          1
+
+REG13    CONSOLE  14       14         1
+         IC11     2        QB         1
+         IC13     15       A3         1
+         IC2      11       I2         1
+         PC-PAGE  4        4          1
+
+REG14    CONSOLE  15       15         1
+         IC11     6        QC         1
+         IC13     13       A2         1
+         IC2      10       I1         1
+         PC-PAGE  5        5          1
+
+REG15    CONSOLE  16       16         1
+         F_NEG    1        1          1
+         IC11     7        QD         1
+         IC13     11       A1         1
+         IC2      9        I0         1
+         PC-PAGE  6        6          1
+
+VCC      C1       2        2          1
+         C10      2        2          1
+         C11      2        2          1
+         C12      2        2          1
+         C13      2        2          1
+         C14      2        2          1
+         C2       2        2          1
+         C3       1        1          1
+         C4       2        2          1
+         C7       +        +          1
+         C8       2        2          1
+         C9       2        2          1
+         CONTROL  2        2          1
+         IC1      14       VDD        * none *
+         IC10     16       VDD        * none *
+         IC11     16       VDD        * none *
+         IC12     20       VCC        * none *
+         IC13     20       VCC        * none *
+         IC2      14       VDD        * none *
+         IC3      14       VCC        * none *
+         IC4      14       VCC        * none *
+         IC5      16       VDD        * none *
+         IC6      14       VDD        * none *
+         IC8      16       VDD        * none *
+         POWER    1        1          1
+         POWER    2        2          1
+         POWER    3        3          1
+         POWER    4        4          1
+

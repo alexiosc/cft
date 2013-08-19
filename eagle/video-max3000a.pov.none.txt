@@ -1,0 +1,5 @@
+Parts not found in 3dpack.dat or 3dusrpac.dat are:
+//IC9	AS7C34098A	SOJ44-4
+//TP1		2,54/0,8
+//TP2		2,54/0,8
+//TP3		2,54/0,8

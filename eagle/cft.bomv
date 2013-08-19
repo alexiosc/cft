@@ -1,0 +1,162 @@
+<b>Partlist exported from /home/alexios/eagle/CFT/cft.sch at 13 Aug 2012 20:41:54</b>
+<p>
+<table>
+<tr><td><b>Qty</b></td><td><b>Value</b></td><td><b>Device</b></td><td><b>Parts</b></td><td><b>Order Code</b></td><td><b>Description Override</b></td><td><b>Notes</b></td></tr>
+<tr><td>60</td><td></td><td>1,6/0,8</td><td>PAD1, PAD2, PAD3, PAD4, PAD5, PAD6, PAD7, PAD8, PAD9, PAD10, PAD11, PAD12, PAD13, PAD14, PAD15, PAD16, PAD17, PAD18, PAD19, PAD20, PAD21, PAD22, PAD23, PAD24, PAD25, PAD26, PAD27, PAD28, PAD29, PAD30, PAD31, PAD32, PAD33, PAD34, PAD35, PAD36, PAD37, PAD38, PAD39, PAD40, PAD41, PAD42, PAD43, PAD44, PAD45, PAD46, PAD47, PAD48, PAD49, PAD50, PAD51, PAD52, PAD53, PAD54, PAD55, PAD56, PAD57, PAD58, PAD59, PAD60</td><td>Ignore</td><td></td><td></td></tr>
+<tr><td>2</td><td></td><td>320-938</td><td>S19, S33</td><td>RS 219-5835 + RS 693-2284</td><td>Double-pole 3-position key switch</td><td>Make-before-break</td></tr>
+<tr><td>1</td><td></td><td>F09VP</td><td>CON13</td><td>Farnell 1099294 (£0.48@5)</td><td>DB9 female or 2×5-pin header</td><td></td></tr>
+<tr><td>5</td><td></td><td>FE06-1</td><td>P2, P4, P5, P6, P7</td><td></td><td>6x1 2.54mm female wirewrap header</td><td>Or other stackable</td></tr>
+<tr><td>2</td><td></td><td>FE08-1</td><td>P1, P3</td><td></td><td>8x1 2.54mm female wirewrap header</td><td>Or other stackable</td></tr>
+<tr><td>7</td><td></td><td>JP1E</td><td>JP7, JP8, JP9, JP10, JP11, JP22, JP23</td><td>RS 251-8086 (£0.046@25)</td><td>2-pin 2.54mm header</td><td></td></tr>
+<tr><td>14</td><td></td><td>JP2E</td><td>JP4, JP5, JP6, JP12, JP13, JP14, JP15, JP16, JP17, JP18, JP19, JP20, JP21, JP24</td><td>RS 251-8092 (£0.078@25)</td><td>3-pin 2.54mm header</td><td></td></tr>
+<tr><td>1</td><td></td><td>JP5Q</td><td>JP2</td><td></td><td></td><td></td></tr>
+<tr><td>2</td><td></td><td>M09HP</td><td>CON11, CON12</td><td>Farnell 1099289 (£0.48@5)</td><td>DB9 male or 2×5 pin header</td><td></td></tr>
+<tr><td>1</td><td></td><td>MA03-1</td><td>SV16</td><td></td><td></td><td></td></tr>
+<tr><td>7</td><td></td><td>MA04-2</td><td>SV1, SV5, SV6, SV7, SV8, SV11, SV12</td><td></td><td></td><td></td></tr>
+<tr><td>1</td><td></td><td>MA05-1</td><td>SV14</td><td></td><td></td><td></td></tr>
+<tr><td>4</td><td></td><td>MA06-1</td><td>JP29, SV4, SV9, SV10</td><td></td><td></td><td></td></tr>
+<tr><td>3</td><td></td><td>MA09-2</td><td>SV2, SV3, SV13</td><td></td><td></td><td></td></tr>
+<tr><td>1</td><td></td><td>MA10-2</td><td>SV15</td><td></td><td></td><td></td></tr>
+<tr><td>1</td><td></td><td>MINI_DIN_6</td><td>P8</td><td>Farnell 1280671 (£0.72)</td><td>Mini DIN socket, 6-pin (PS/2 keyboard), chassis-mount</td><td></td></tr>
+<tr><td>3</td><td></td><td>PINHD-1X2</td><td>JP1, JP28, JP31</td><td></td><td></td><td></td></tr>
+<tr><td>1</td><td></td><td>PINHD-1X3</td><td>JP32</td><td></td><td></td><td></td></tr>
+<tr><td>2</td><td></td><td>PINHD-1X5</td><td>JP34, JP35</td><td></td><td></td><td></td></tr>
+<tr><td>2</td><td></td><td>PINHD-1X8</td><td>JP26, JP27</td><td></td><td></td><td></td></tr>
+<tr><td>1</td><td></td><td>PINHD-1X9</td><td>JP33</td><td></td><td></td><td></td></tr>
+<tr><td>2</td><td></td><td>PINHD-2X20</td><td>JP3, JP25</td><td>RS 670-1825 (£0.972@5), Farnell 1099261 (£1.07)</td><td>2×20-pin shrouded/keyed header</td><td></td></tr>
+<tr><td>1</td><td></td><td>SW_DIP-3</td><td>SW1</td><td>Farnell 1522004</td><td>3x dip switch or 2x3 pin header</td><td></td></tr>
+<tr><td>2</td><td></td><td>SW_DIP-8</td><td>SW2, SW3</td><td>RS 712-2576 (£0.50), Farnell 9471596 (£0.66)</td><td>8-way DIP switch</td><td>Through hole</td></tr>
+<tr><td>2</td><td></td><td>TAC_SWITCHPTH</td><td>S1, S48</td><td>Farnell 1813689 (£0.185)</td><td>Tactile switch</td><td></td></tr>
+<tr><td>2</td><td></td><td>VG96-3K</td><td>EXP, EXP1</td><td>Farnell 1656159 (£1.84)</td><td>96-pin (A+B+C) DIN-41612 Bauform ‘C’ plug</td><td>Right angle through hole</td></tr>
+<tr><td>1</td><td></td><td>W237-4</td><td>FPPOWER</td><td>Ignore</td><td>Wago 2x screw clamp</td><td></td></tr>
+<tr><td>1</td><td></td><td>W237-102</td><td>X3</td><td></td><td></td><td></td></tr>
+<tr><td>15</td><td>0.01uF</td><td>C-EU025-024X044</td><td>C6, C10, C241, C319, C320, C321, C322, C327, C328, C329, C330, C364, C365, C366, C367</td><td>Farnell US 1694335 (£0.016@10), Farnell 9411852 (£0.059@25)</td><td>10nF Ceramic Capacitor</td><td></td></tr>
+<tr><td>250</td><td>0.1uF</td><td>C-EU025-024X044</td><td>C1, C2, C3, C5, C8, C11, C12, C13, C14, C15, C16, C18, C19, C20, C21, C22, C23, C28, C29, C30, C31, C33, C34, C35, C36, C37, C38, C39, C40, C42, C43, C44, C46, C47, C48, C49, C51, C52, C53, C54, C55, C57, C58, C59, C60, C61, C63, C64, C65, C66, C67, C68, C69, C70, C71, C73, C74, C75, C76, C77, C78, C79, C80, C82, C83, C84, C85, C86, C87, C88, C89, C91, C92, C93, C94, C95, C96, C97, C98, C99, C100, C102, C103, C104, C105, C107, C108, C109, C110, C112, C113, C114, C115, C116, C121, C122, C123, C128, C129, C130, C131, C132, C133, C134, C135, C136, C137, C138, C139, C140, C141, C142, C144, C145, C146, C147, C148, C149, C150, C151, C152, C153, C154, C155, C157, C158, C159, C160, C161, C162, C168, C169, C171, C189, C190, C191, C192, C193, C196, C197, C198, C199, C200, C201, C202, C203, C204, C205, C206, C207, C208, C209, C210, C214, C215, C216, C217, C218, C219, C220, C221, C223, C224, C225, C226, C227, C228, C229, C232, C233, C234, C235, C236, C238, C239, C240, C242, C243, C245, C246, C247, C248, C250, C251, C252, C253, C255, C256, C259, C260, C264, C265, C269, C270, C271, C272, C280, C283, C284, C285, C294, C295, C300, C301, C302, C304, C306, C307, C308, C309, C310, C311, C312, C314, C315, C316, C317, C336, C337, C338, C339, C340, C341, C342, C343, C344, C345, C347, C348, C349, C350, C351, C353, C354, C355, C356, C357, C358, C359, C360, C361, C362, C373, C374, C375, C376, C377, C381, C383, C386</td><td>Farnell US 1694337 (£0.019@100), RS 721-5240 (£0.051@50), Farnell 1694337 (£0.019@100)</td><td>0.1μF ceramic capacitor</td><td></td></tr>
+<tr><td>1</td><td>0.1uF</td><td>CPOL-EUE2.5-5</td><td>C237</td><td>Farnell 1902938 (£0.033@10)</td><td>100nF electrolytic capacitor</td><td></td></tr>
+<tr><td>1</td><td>1.8432 MHZ</td><td>XO2-08-14-SOCKET</td><td>XTAL2</td><td>Farnell 4666483 (£2.24)</td><td>1.8432 MHz Oscillator</td><td></td></tr>
+<tr><td>3</td><td>1M</td><td>R-EU_0204/7</td><td>R42, R43, R44</td><td>RS 131-615 (£0.014@10), Farnell 9339086 (£0.011@50)</td><td>1MΩ resistor 0.25W</td><td></td></tr>
+<tr><td>1</td><td>1N4002</td><td>DIODE-DO41-10</td><td>D2</td><td>Farnell US 1924512 (£0.022@10), Farnell 1651083 (£0.056), Farnell 1651083 (£0.053@25)</td><td>1N4002 diode</td><td></td></tr>
+<tr><td>3</td><td>1N4148</td><td>1N4148DO35-7</td><td>D3, D4, D5</td><td>Farnell 9565124 (£0.011), RS 436-7341 (£0.003@100)</td><td>1N4148 diode</td><td>Or any fast signal diode</td></tr>
+<tr><td>1</td><td>1N5817-B</td><td>1N5817-B</td><td>D1</td><td>Farnell 1843507 (£0.023)</td><td>1N5817 Schottky barrier rectifier</td><td></td></tr>
+<tr><td>5</td><td>1k</td><td>R-EU_0204/7</td><td>R8, R70, R73, R78, R79</td><td>RS 131-255 (£0.014@10), Farnell 9339051 (£0.011@50)</td><td>1kΩ resistor, 0.25W</td><td></td></tr>
+<tr><td>2</td><td>1k</td><td>R-EU_0207/7</td><td>R230, R231</td><td>Farnell 9339051 (£0.011@50)</td><td>1kΩ, ¼W resistor</td><td></td></tr>
+<tr><td>53</td><td>1uF</td><td>C-EU025-024X044</td><td>C7, C17, C24, C25, C26, C27, C32, C41, C45, C50, C56, C62, C72, C81, C90, C101, C106, C111, C117, C118, C119, C120, C124, C125, C126, C127, C143, C156, C163, C164, C165, C166, C167, C170, C172, C173, C194, C195, C213, C222, C230, C244, C254, C273, C278, C279, C303, C313, C318, C346, C352, C363, C380</td><td>Farnell US 1600879 (£0.041@25), Farnell 3322210 (£0.148), RS 538-1578 (£0.292), Farnell 1100398 (£0.38)</td><td>1μF capacitor</td><td></td></tr>
+<tr><td>16</td><td>1uF</td><td>CPOL-EUE1.8-4</td><td>C274, C275, C276, C277, C286, C287, C288, C289, C290, C291, C292, C293, C296, C297, C298, C299</td><td>Farnell 1236655 (£0.034)</td><td>1μF electrolytic capacitor</td><td></td></tr>
+<tr><td>29</td><td>1uF</td><td>CPOL-EUE2.5-5</td><td>C174, C175, C176, C177, C178, C179, C180, C181, C182, C183, C184, C185, C257, C258, C305, C323, C324, C325, C326, C331, C332, C333, C334, C368, C369, C370, C371, C372, C387</td><td>Farnell 1236655 (£0.034)</td><td>1 μF electrolytic capacitor</td><td>Through hole</td></tr>
+<tr><td>4</td><td>2k2</td><td>R-EU_0204/7</td><td>R71, R72, R75, R76</td><td>Farnell 9339302 (£0.011@50)</td><td></td><td>2.2kΩ, ¼W resistor</td></tr>
+<tr><td>1</td><td>3-pin-header</td><td>MA03-2</td><td>SV17</td><td></td><td>3x2 pin header</td><td></td></tr>
+<tr><td>3</td><td>3k9</td><td>R-EU_0207/7</td><td>R223, R224, R225</td><td>Farnell 9339485 (£0.011@50)</td><td>3.9kΩ, ¼W Resistor</td><td></td></tr>
+<tr><td>1</td><td>4MHz</td><td>XTAL/S</td><td>XTAL4</td><td>Farnell US 1701127 (£0.129), Farnell 1611758 (£0.148)</td><td>4 MHz crystal</td><td>18pF</td></tr>
+<tr><td>2</td><td>4k7</td><td>G03R</td><td>RN4, RN33</td><td>Farnell 9356347 (£0.24@5)</td><td>3×4.7kΩ resistor network</td><td></td></tr>
+<tr><td>1</td><td>4k7</td><td>G04R</td><td>RN2</td><td>Farnell 1973120 (£0.065@10)</td><td></td><td>Using 5-element (G05R) part.</td></tr>
+<tr><td>1</td><td>4k7</td><td>G05R</td><td>RN3</td><td>Farnell 1973120 (£0.065@10)</td><td>5×4.7kΩ resistor network</td><td></td></tr>
+<tr><td>2</td><td>4k7</td><td>G06R</td><td>RN11, RN21</td><td>Farnell 1973129 (£0.085@10)</td><td>7×4.7kΩ resistor network</td><td></td></tr>
+<tr><td>17</td><td>4k7</td><td>G08R</td><td>RN1, RN5, RN9, RN10, RN16, RN19, RN20, RN29, RN30, RN31, RN32, RN34, RN35, RN38, RN39, RN40, RN41</td><td>Farnell US 1602072 (£0.036@10), RS 522-4289 (£0.31@25)</td><td>8×4.7kΩ resistor network</td><td></td></tr>
+<tr><td>44</td><td>4k7</td><td>R-EU_0204/7</td><td>R3, R4, R5, R6, R9, R12, R13, R14, R15, R16, R17, R18, R19, R20, R21, R22, R23, R24, R27, R28, R29, R30, R31, R37, R38, R39, R40, R41, R45, R46, R51, R57, R58, R59, R60, R203, R204, R205, R207, R216, R217, R218, R219, R221</td><td>RS 131-334 (£0.014@10), Farnell 9339540 (£0.011@50)</td><td>4.7kΩ resistor, 0.25W</td><td></td></tr>
+<tr><td>2</td><td>4k7</td><td>R-EU_0207/7</td><td>R232, R233</td><td>Farnell 9339540 (£0.011@50)</td><td></td><td>4.7kΩ, ¼W Resistor</td></tr>
+<tr><td>1</td><td>4k7</td><td>TRIM_EU-CT6</td><td>RV2</td><td>Farnell 1227523 (£0.23)</td><td>4.7kΩ linear potentiometer</td><td></td></tr>
+<tr><td>2</td><td>10M</td><td>R-EU_0204/7</td><td>R49, R68</td><td>RS 135-667 (£0.014@10), Farnell 1186248 (£0.012@50)</td><td>10MΩ resistor, 0.25W</td><td></td></tr>
+<tr><td>2</td><td>10R</td><td>R-EU_0204/7</td><td>R77, R80</td><td>Farnell 9339035 (£0.011@50)</td><td>10Ω, ¼W Resistor</td><td></td></tr>
+<tr><td>7</td><td>10k</td><td>8R-N</td><td>RN6, RN7, RN8, RN12, RN13, RN14, RN15</td><td>RS 707-7622 (£0.014@10), Farnell 9339418 (£0.011@50)</td><td>8×10kΩ resistor, DIL packaged</td><td>Discretes used for prototyping</td></tr>
+<tr><td>1</td><td>10k</td><td>G06R</td><td>RN26</td><td>Farnell 1973163</td><td>10kΩ 6x bussed SIL resistor</td><td></td></tr>
+<tr><td>2</td><td>10k</td><td>G08R</td><td>RN22, RN24</td><td>Farnell 1973130 (£0.085@10)</td><td>8×10kΩ resistor network</td><td></td></tr>
+<tr><td>12</td><td>10k</td><td>R-EU_0204/7</td><td>R63, R206, R208, R209, R210, R211, R212, R213, R214, R215, R220, R222</td><td>Farnell 9339060 (£0.011@50)</td><td></td><td>10kΩ, ¼W Resistor</td></tr>
+<tr><td>1</td><td>10k log</td><td>3RP/1610G</td><td>R74</td><td></td><td></td><td></td></tr>
+<tr><td>9</td><td>10uF</td><td>CPOL-EUE2.5-5</td><td>C4, C9, C186, C187, C188, C231, C249, C261, C266</td><td>Farnell 1902928 (£0.033), RS 440-6547 (£0.026@50)</td><td>10 µF electrolytic capacitor</td><td></td></tr>
+<tr><td>1</td><td>10uF</td><td>CPOL-EUE2.5-7</td><td>C335</td><td>Farnell 1902928</td><td>10μF/10V Electrolytic capacitor</td><td></td></tr>
+<tr><td>1</td><td>14.7456</td><td>CRYSTALHC49U-V</td><td>XTAL5</td><td>Farnell 1611751 (£0.175), Farnell US 1701136 (£0.118)</td><td>14.7456 MHz Crystal</td><td>RS-232C rate</td></tr>
+<tr><td>1</td><td>16.000MHz</td><td>XO2-08-14-SOCKET</td><td>XTAL1</td><td>RS 547-5487 (£1.43), Farnell 7942710 (£1.54)</td><td>16 MHz Crystal</td><td>May need to reduce frequency. 4 MHz: RS 547-5392. 10 MHz: 547-5421. 12 MHz: RS 547-5459</td></tr>
+<tr><td>22</td><td>22-23-2081</td><td>22-23-2081</td><td>CON1, CON2, CON3, CON4, CON5, CON6, CON7, CON8, CON9, CON10, CON16, CON17, CON18, CON19, CON20, CON21, CON22, CON24, CON25, CON26, CON27, CON28</td><td>Farnell 1756826 (£0.122@10) + Farnell 3991271 (£0.179@10)</td><td>8x1 pin 2.54mm centre header</td><td>Molex KK® series header</td></tr>
+<tr><td>1</td><td>22-23-2091</td><td>22-23-2091</td><td>CON23</td><td>Farnell 1756827</td><td>9x1 pin 2.54mm centre header</td><td>Molex KK® series header</td></tr>
+<tr><td>4</td><td>22pF</td><td>C-EU025-024X044</td><td>C211, C212, C384, C385</td><td>Farnell 9411674 (£0.035@25)</td><td>22 pF ceramic capacitor</td><td></td></tr>
+<tr><td>2</td><td>27k</td><td>R-EU_0204/7</td><td>R65, R66</td><td>Farnell 9339370 (£0.011@50)</td><td>27kΩ, ¼W Resistor</td><td></td></tr>
+<tr><td>11</td><td>29F040</td><td>29F040PLCC32</td><td>IC13, IC14, IC15, IC105, IC106, IC107, IC110, IC111, IC112, IC141, IC143</td><td>Farnell 8749493 (£2.84@1), Farnell 8749493 (£2.33@10), Farnell 1565992 (£1.18@10)</td><td>29x040 4 MBit (512k x 8) Flash RAM</td><td>Socket: Farnell 1103872 (£0.48@10)</td></tr>
+<tr><td>1</td><td>32.768kHz</td><td>CRYSTALTC38H</td><td>XTAL3</td><td>Farnell 1652573 (£0.098)</td><td>32.768 kHz Crystal</td><td></td></tr>
+<tr><td>3</td><td>33pF</td><td>C-EU025-024X044</td><td>C378, C379, C382</td><td>Farnell 9411682 (£0.04@25)</td><td>33pF ceramic capacitor</td><td></td></tr>
+<tr><td>2</td><td>47nF</td><td>C-EU025-024X044</td><td>C262, C267</td><td>Farnell 1100530 (£0.055@5)</td><td>47nF ceramic capacitor</td><td></td></tr>
+<tr><td>2</td><td>47uF</td><td>CPOL-EUE2.5-5</td><td>C281, C282</td><td>Farnell 1902909 (£0.041@10)</td><td>47µF electrolytic capacitor</td><td></td></tr>
+<tr><td>3</td><td>50k</td><td>8R-N</td><td>RN23, RN25, RN27</td><td>RS 131-457 (£0.014@10), Farnell 9339558 (£0.011@50)</td><td>8×50kΩ resistor network</td><td>Uses 47kΩ discretes for prototyping.</td></tr>
+<tr><td>1</td><td>50k</td><td>R-EU_R0805</td><td>R10</td><td>RS 131-457 (£0.014@10), Farnell 9339558 (£0.011@50)</td><td>50 kΩ resistor, ¼W</td><td>Actually 47kΩ (cheaper)</td></tr>
+<tr><td>1</td><td>50k log</td><td>TRIM_EU-CT6</td><td>R67</td><td></td><td></td><td></td></tr>
+<tr><td>9</td><td>74HC00N</td><td>74HC00N</td><td>IC11, IC33, IC95, IC182, IC191, IC237, IC238, IC240, IC242</td><td>RS 169-6012 (£0.26), Farnell 9590889 (£0.38)</td><td>74HC00 4× NAND gate</td><td></td></tr>
+<tr><td>2</td><td>74HC02N</td><td>74HC02N</td><td>IC164, IC165</td><td>Farnell US 1163587 (£0.322), Farnell 9665781 (£0.33)</td><td></td><td></td></tr>
+<tr><td>2</td><td>74HC03N</td><td>74HC03N</td><td>IC203, IC213</td><td>Farnell 1282849 (£0.17)</td><td>74HC03N Quad 2-input NAND gate, open collector output</td><td></td></tr>
+<tr><td>9</td><td>74HC04N</td><td>74HC04N</td><td>IC24, IC52, IC66, IC91, IC194, IC204, IC209, IC210, IC212</td><td>Farnell US 2374080 (£0.086), Farnell 9590951 (£0.38), Farnell 9590951 (£0.23@10), RS 714-0877 (£0.149@20), RS 662-9997 (£0.233@10)</td><td>74HC04N Hex inverter</td><td></td></tr>
+<tr><td>5</td><td>74HC05N</td><td>74HC05N</td><td>IC7, IC147, IC158, IC179, IC255</td><td>Farnell 1470855 (£0.54), RS 442-921 (£0.52)</td><td>74HC05 6× open drain inverter</td><td></td></tr>
+<tr><td>7</td><td>74HC08N</td><td>74HC08N</td><td>IC30, IC44, IC48, IC55, IC94, IC136, IC138</td><td>RS 709-2845 (£0.201@10), Farnell 9665803 (£0.22@10)</td><td>74HC08 4× AND gate</td><td></td></tr>
+<tr><td>5</td><td>74HC14N</td><td>74HC14N</td><td>IC6, IC156, IC202, IC208, IC211</td><td>Farnell 7455513 (£0.133@10), RS 714-0899 (£0.164@20)</td><td>74HC14N Hex inverting Schmitt trigger</td><td></td></tr>
+<tr><td>2</td><td>74HC21N</td><td>74HC21N</td><td>IC234, IC241</td><td>Farnell 1740011 (£0.23), RS 709-2665 (£0.163@20)</td><td></td><td></td></tr>
+<tr><td>8</td><td>74HC32N</td><td>74HC32N</td><td>IC29, IC32, IC45, IC51, IC96, IC100, IC113, IC163</td><td>RS 709-3021 (£0.201@10), Farnell 1739939 (£0.27@10)</td><td>74HC32 4× OR gate</td><td></td></tr>
+<tr><td>7</td><td>74HC74N</td><td>74HC74N</td><td>IC36, IC47, IC63, IC109, IC116, IC199, IC253</td><td>Farnell 1013916 (£0.103), RS 714-0975 (£0.15@20)</td><td></td><td></td></tr>
+<tr><td>1</td><td>74HC85N</td><td>74HC85N</td><td>IC222</td><td>Farnell US 1387859 (£0.543), Farnell 380489 (£0.61), RS 527-801 (£0.544@25)</td><td>74HC85N 4-bit Magnitude Comparator</td><td></td></tr>
+<tr><td>1</td><td>74HC86N</td><td>74HC86N</td><td>IC31</td><td>Farnell US 1075957 (£0.169), RS 169-7380 (£0.26)</td><td></td><td></td></tr>
+<tr><td>8</td><td>74HC112N</td><td>74HC112N</td><td>IC46, IC97, IC128, IC130, IC132, IC133, IC134, IC239</td><td>RS 663-1893 (£0.219@10), Farnell 1749804 (£0.39)</td><td></td><td></td></tr>
+<tr><td>2</td><td>74HC125N</td><td>74HC125N</td><td>IC247, IC248</td><td>Farnell 9591036 (£0.48), RS 709-2009 (£0.21@10), RS 169-7403 (£0.32)</td><td></td><td></td></tr>
+<tr><td>22</td><td>74HC138N</td><td>74HC138N</td><td>IC25, IC26, IC65, IC102, IC114, IC115, IC129, IC140, IC146, IC153, IC157, IC160, IC171, IC175, IC184, IC185, IC186, IC215, IC227, IC230, IC231, IC252</td><td>Farnell US 1318508 (£0.172@10), RS 663-0036 (£0.267@10), Farnell 1826779 (£0.29)</td><td>74HC138N 3-to-8 line Decoder</td><td></td></tr>
+<tr><td>1</td><td>74HC139N</td><td>74HC139N</td><td>IC5</td><td>Farnell 380556 (£0.35)</td><td></td><td></td></tr>
+<tr><td>2</td><td>74HC153N</td><td>74HC153N</td><td>IC167, IC168</td><td>RS 443-075 (£0.50), Farnell 1753485 (£0.56)</td><td></td><td></td></tr>
+<tr><td>1</td><td>74HC161</td><td>4161P</td><td>IC12</td><td>Farnell 380600 (£0.48), 380600 (£0.36@10), RS 709-2113 (£0.143@10)</td><td></td><td></td></tr>
+<tr><td>2</td><td>74HC164N</td><td>74HC164N</td><td>IC180, IC181</td><td>Farnell 1201282 (£0.46)</td><td></td><td></td></tr>
+<tr><td>2</td><td>74HC166N</td><td>74HC166N</td><td>IC192, IC193</td><td>Farnell 1287502 (£0.39)</td><td></td><td></td></tr>
+<tr><td>2</td><td>74HC174N</td><td>74HC174N</td><td>IC187, IC196</td><td>Farnell 1287531 (£0.32)</td><td></td><td></td></tr>
+<tr><td>14</td><td>74HC193N</td><td>74HC193N</td><td>IC4, IC67, IC68, IC69, IC70, IC75, IC76, IC77, IC78, IC83, IC84, IC85, IC86, IC190</td><td>Farnell 1470793 (£0.34), RS 527-372 (£0.29@25)</td><td></td><td></td></tr>
+<tr><td>5</td><td>74HC245N</td><td>74HC245N</td><td>IC49, IC50, IC154, IC155, IC172</td><td>RS 714-0916 (£0.18@20), RS 169-6113 (£0.38), Farnell 380714 (£0.49)</td><td>74HC245 Octal bus transceiver, 3-state</td><td></td></tr>
+<tr><td>2</td><td>74HC251N</td><td>74HC251N</td><td>IC34, IC35</td><td>Farnell 9591320 (£0.22), Farnell 9591320 (£0.151@10), RS 663-0203 (£0.423@10)</td><td></td><td></td></tr>
+<tr><td>3</td><td>74HC253N</td><td>74HC253N</td><td>IC3, IC101, IC108</td><td>Farnell 1753491 (£0.28), RS 709-3046 (£0.147@10)</td><td>74HC253 Dual 4:1 multiplexer, 3-state</td><td></td></tr>
+<tr><td>4</td><td>74HC273N</td><td>74HC273N</td><td>IC40, IC41, IC56, IC57</td><td>Farnell 9591397 (£0.34), RS 714-0925 (£0.175@20)</td><td></td><td></td></tr>
+<tr><td>1</td><td>74HC373N</td><td>74HC373N</td><td>IC205</td><td>RS 714-0922 (£0.182@20), Farnell 1607705 (£0.52@10)</td><td>74HC373 Octal D-type transparent latch, negative edge triggered</td><td></td></tr>
+<tr><td>5</td><td>74HC374N</td><td>74HC374N</td><td>IC37, IC159, IC161, IC162, IC178</td><td>RS 714-0931 (£0.191@20), RS 169-6141 (£0.38), Farnell 380763 (£0.57), Farnell 380763 (£0.38@10)</td><td>74HC374 Octal D-type transparent latch, positive edge triggered</td><td></td></tr>
+<tr><td>5</td><td>74HC540N</td><td>74HC540N</td><td>IC22, IC23, IC131, IC145, IC176</td><td>Farnell US 1163595 (£0.482), Farnell 1753515 (£0.60), Farnell 1753515 (£0.46@10), RS 714-7932 (£0.195@20), RS 443-249 (£0.61)</td><td>74HC540N Octal 3-state inverting buffer</td><td></td></tr>
+<tr><td>52</td><td>74HC541N</td><td>74HC541N</td><td>IC9, IC10, IC16, IC17, IC18, IC19, IC20, IC21, IC27, IC28, IC38, IC39, IC42, IC43, IC53, IC54, IC58, IC59, IC61, IC62, IC71, IC72, IC73, IC74, IC79, IC80, IC81, IC82, IC87, IC88, IC92, IC93, IC103, IC104, IC125, IC126, IC127, IC137, IC139, IC177, IC189, IC216, IC217, IC218, IC219, IC220, IC221, IC228, IC229, IC235, IC236, IC249</td><td>RS 714-0953 (£0.18@20), Farnell 1470755 (£0.25@10)</td><td>74HC541N Octal 3-state buffer</td><td></td></tr>
+<tr><td>15</td><td>74HC574N</td><td>74HC574N</td><td>IC98, IC99, IC117, IC118, IC119, IC120, IC121, IC122, IC123, IC124, IC135, IC188, IC197, IC232, IC233</td><td>RS 714-0950 (£0.18@20), Farnell 380830 (£0.42@10)</td><td>74HC574 8-bit D Flip Flop bus driver</td><td></td></tr>
+<tr><td>1</td><td>74HC590N</td><td>74HC590N</td><td>IC8</td><td>Farnell 1652001 (£0.52), RS 709-2523 (£0.236@5)</td><td>74HC590 8-bit registered binary counter</td><td></td></tr>
+<tr><td>5</td><td>74HC688N</td><td>74HC688N</td><td>IC60, IC64, IC89, IC90, IC174</td><td>RS 709-2179 (£0.168@5), Farnell 9591672 (£0.67@10)</td><td>74HC688 8-bit magnitude/identity comparator</td><td></td></tr>
+<tr><td>3</td><td>74HCT00N</td><td>74HCT00N</td><td>IC207, IC245, IC246</td><td>RS 217-5702 (£0.14), Farnell US 2373749 (£0.125), Farnell 9591745 (£0.24)</td><td>74HCT00N Quad 2-input NAND gate</td><td></td></tr>
+<tr><td>1</td><td>74HCT253N</td><td>74HCT253N</td><td>IC2</td><td>Farnell 1740166 (£0.40)</td><td></td><td></td></tr>
+<tr><td>2</td><td>82C54</td><td>82C54</td><td>IC169, IC170</td><td>Farnell 1018175 (£6.69), RS 496-688 (£6.71)</td><td></td><td></td></tr>
+<tr><td>1</td><td>100R</td><td>R-EU_0204/7</td><td>R1</td><td>RS 131-132 (£0.014@10), Farnell 9339043 (£0.011@50)</td><td>100Ω resistor, 0.25W</td><td></td></tr>
+<tr><td>2</td><td>100k</td><td>TRIM_EU-CT6</td><td>RV3, RV4</td><td>Farnell US 1837190 (£0.473), Farnell 9609849 (£0.58)</td><td>100kΩ linear Trimmer/Potentiometer</td><td></td></tr>
+<tr><td>2</td><td>220uF</td><td>CPOL-EUE2.5-5</td><td>C263, C268</td><td>Farnell 1902883 (£0.042@10)</td><td>220µF electrolytic capacitor</td><td></td></tr>
+<tr><td>1</td><td>240R</td><td>R-EU_0207/7</td><td>R53</td><td>Farnell 9341587 (£0.025@50)</td><td>240Ω, ¼W Resistor</td><td></td></tr>
+<tr><td>1</td><td>300k</td><td>R-EU_0204/7</td><td>R50</td><td>RS 707-7864 (£0.015@10), Farnell 9341714 (£0.025@50)</td><td>300kΩ resistor, 0.25W</td><td></td></tr>
+<tr><td>4</td><td>330R</td><td>G08R</td><td>RN17, RN18, RN36, RN37</td><td>Farnell 9356975 (£0.30@5)</td><td>8×330Ω resistor network</td><td></td></tr>
+<tr><td>1</td><td>330R</td><td>GE08R</td><td>RN28</td><td>Farnell 1602072 (£0.041), RS 522-4289 (£0.31@25)</td><td>8×330Ω resistor network</td><td></td></tr>
+<tr><td>137</td><td>330R</td><td>R-EU_0204/7</td><td>R7, R11, R25, R26, R32, R33, R34, R35, R36, R47, R48, R54, R55, R56, R69, R81, R82, R83, R84, R85, R86, R87, R88, R89, R90, R91, R92, R93, R94, R95, R96, R97, R98, R99, R100, R101, R102, R103, R104, R105, R106, R107, R108, R109, R110, R111, R112, R113, R114, R115, R116, R117, R118, R119, R120, R121, R122, R123, R124, R125, R126, R127, R128, R129, R130, R131, R132, R133, R134, R135, R136, R137, R138, R139, R140, R141, R142, R143, R144, R145, R146, R147, R148, R149, R150, R151, R152, R153, R154, R155, R156, R157, R158, R159, R160, R161, R162, R163, R164, R165, R166, R167, R168, R169, R170, R171, R172, R173, R174, R175, R176, R177, R178, R179, R180, R181, R182, R183, R184, R185, R186, R187, R188, R189, R190, R191, R192, R193, R194, R195, R196, R197, R198, R199, R200, R201, R202</td><td>RS 707-7622 (£0.014@10), Farnell 9339418 (£0.011@50)</td><td>330Ω resistor, 0.25W</td><td></td></tr>
+<tr><td>4</td><td>330R</td><td>R-EU_0207/7</td><td>R226, R227, R228, R229</td><td>Farnell 9339418 (£0.011@50)</td><td></td><td>330Ω, ¼W Resistor</td></tr>
+<tr><td>1</td><td>390R</td><td>R-EU_0207/7</td><td>R52</td><td>Farnell 9339477 (£0.011@50)</td><td>390Ω ¼W Resistor</td><td></td></tr>
+<tr><td>2</td><td>470R</td><td>R-EU_0204/7</td><td>R2, R62</td><td>RS 131-211 (£0.014@10), Farnell 9339531 (£0.011@50)</td><td>470Ω resistor, ¼W</td><td></td></tr>
+<tr><td>1</td><td>470R</td><td>TRIM_EU-CT6</td><td>RV1</td><td>Farnell 1227517 (£0.24)</td><td>470Ω linear potentiometer</td><td></td></tr>
+<tr><td>1</td><td>560R</td><td>R-EU_0204/7</td><td>R61</td><td>Farnell 9339590 (£0.011@50)</td><td>560Ω, ¼W Resistor</td><td></td></tr>
+<tr><td>1</td><td>680R</td><td>R-EU_0204/7</td><td>R64</td><td>Farnell 9339655 (£0.011@50)</td><td>680Ω, ¼W Resistor</td><td></td></tr>
+<tr><td>1</td><td>1503_09</td><td>1503_09</td><td>X2</td><td></td><td></td><td></td></tr>
+<tr><td>7</td><td>2540-</td><td>2540-</td><td>P9, P10, P11, P12, P13, P14, P15</td><td>RS 670-1825 (£0.972@5), Farnell 1099261 (£1.07), Farnell US 1258972 (£0.66), Farnell US 2067726 (£0.913)</td><td>20-pin shrouded header</td><td></td></tr>
+<tr><td>2</td><td>AL11P</td><td>AL11P</td><td>SP1, SP2</td><td>Farnell 599256 (£0.91)</td><td>Speaker, 8 ohm</td><td>Any 8 ohm speaker will do (e.g. from old PC cases)</td></tr>
+<tr><td>2</td><td>AS6C4008</td><td>29F040DIP32</td><td>IC142, IC144</td><td>Farnell 1562900 (£4.71)</td><td>4 MBit (512k x 8) Static RAM</td><td></td></tr>
+<tr><td>1</td><td>ATMEGA168</td><td>MEGA8-P</td><td>IC256</td><td></td><td></td><td></td></tr>
+<tr><td>1</td><td>AY-3-8910</td><td>AY-3-8910</td><td>IC198</td><td>Found on E-Bay</td><td></td><td></td></tr>
+<tr><td>4</td><td>BC548</td><td>BC548</td><td>TR1, TR2, TR3, TR4</td><td>Farnell 9558586 (£0.07@5)</td><td>BC548 NPN Transistor</td><td></td></tr>
+<tr><td>8</td><td>HOLE</td><td>HOLE</td><td>H1, H2, H3, H4, H5, H6, H7, H8</td><td>Ignore</td><td></td><td></td></tr>
+<tr><td>2</td><td>IDE-CONNECTOR</td><td>IDE-CONNECTOR</td><td>CON14, CON15</td><td>RS 670-1825 (£0.972@5), Farnell 1099261 (£1.07), Farnell US 1258972 (£0.66), Farnell US 2067726 (£0.913)</td><td>2x20 pin shrouded header</td><td>IDE socket</td></tr>
+<tr><td>1</td><td>ISP</td><td>AVR_SPI_PRG_6NS</td><td>JP30</td><td>Ignore</td><td></td><td></td></tr>
+<tr><td>39</td><td>LED-5MM-AMBER</td><td>LED-5MM-AMBER</td><td>LED71, LED72, LED73, LED74, LED75, LED76, LED77, LED78, LED79, LED90, LED92, LED93, LED94, LED95, LED96, LED97, LED98, LED99, LED100, LED117, LED118, LED119, LED132, LED133, LED134, LED135, LED137, LED138, LED139, LED140, LED144, LED145, LED146, LED147, LED150, LED152, LED155, LED156, LED157</td><td>RS 228-6010 (£0.042), Farnell 1142581 (£0.21)</td><td>5mm amber/orange/yellow LED</td><td></td></tr>
+<tr><td>34</td><td>LED-5MM-GREEN</td><td>LED-5MM-GREEN</td><td>LED1, LED2, LED3, LED4, LED5, LED6, LED7, LED8, LED9, LED10, LED11, LED12, LED13, LED23, LED24, LED25, LED28, LED29, LED125, LED126, LED127, LED128, LED153, LED158, LED159, LED160, LED169, LED170, LED171, LED172, LED173, LED174, LED175, LED176</td><td>RS 228-6004 (£0.042), Farnell 1855549 (£0.42)</td><td>5mm green LED</td><td></td></tr>
+<tr><td>107</td><td>LED-5MM-RED</td><td>LED-5MM-RED</td><td>LED14, LED15, LED16, LED17, LED18, LED19, LED20, LED21, LED22, LED26, LED27, LED30, LED31, LED32, LED33, LED34, LED35, LED36, LED37, LED38, LED39, LED40, LED41, LED42, LED43, LED44, LED45, LED46, LED47, LED48, LED49, LED50, LED51, LED52, LED53, LED54, LED55, LED56, LED57, LED58, LED59, LED60, LED61, LED62, LED63, LED64, LED65, LED66, LED67, LED68, LED69, LED70, LED80, LED81, LED82, LED83, LED84, LED85, LED86, LED87, LED88, LED89, LED91, LED101, LED102, LED103, LED104, LED105, LED106, LED107, LED108, LED109, LED110, LED111, LED112, LED113, LED114, LED115, LED116, LED120, LED121, LED122, LED123, LED124, LED129, LED130, LED131, LED136, LED141, LED142, LED143, LED148, LED149, LED151, LED154, LED161, LED162, LED163, LED164, LED165, LED166, LED167, LED168, LED177, LED178, LED179, LED180</td><td>RS 228-5988 (£0.054@5), RS 228-5988 (£0.042@25), Farnell 1581217 (£0.165)</td><td>5mm red LED</td><td></td></tr>
+<tr><td>1</td><td>LM317T</td><td>V_REG_317SINK</td><td>IC173</td><td>Ignore</td><td></td><td></td></tr>
+<tr><td>2</td><td>LM386N-1</td><td>LM386N-1</td><td>IC200, IC201</td><td>Farnell 9488340 (£0.48), Farnell 9488340 (£0.39@10)</td><td></td><td>Any LM386N-x will work</td></tr>
+<tr><td>2</td><td>LM555N</td><td>LM555N</td><td>IC183, IC214</td><td>RS 534-3469 (£0.62), Farnell 1564692 (£0.52@10)</td><td>LM555N Timer</td><td></td></tr>
+<tr><td>8</td><td>LM556N</td><td>LM556N</td><td>IC1, IC206, IC223, IC224, IC225, IC226, IC243, IC244</td><td>Farnell 9488260 (£1.18), RS 536-0947 (£0.77@10)</td><td>LM556N Dual timer</td><td>May replace with 2×555 + 1×decoupling cap</td></tr>
+<tr><td>1</td><td>M48T02</td><td>M48T02</td><td>IC166</td><td>Farnell 1224444 (£13.14)</td><td>5V, 16 kbit (2k×8) NVRAM & RTC</td><td></td></tr>
+<tr><td>3</td><td>MAX232</td><td>MAX232</td><td>IC150, IC151, IC152</td><td>Farnell 1648737 (£0.73), RS 660-8613 (£0.68@5)</td><td>MAX-232 RS-232 transceiver</td><td></td></tr>
+<tr><td>3</td><td>MCP23016</td><td>MCP23016</td><td>IC250, IC251, IC254</td><td>Farnell 1439389 (£1.31), RS (£1.195@2)</td><td></td><td></td></tr>
+<tr><td>2</td><td>SC16C2550</td><td>16C2550</td><td>IC148, IC149</td><td>Farnell 1294794 (£4.21)</td><td>16C2550 Dual 16550 UART</td><td></td></tr>
+<tr><td>1</td><td>SIGNAL-RENAME</td><td>SIGNAL-RENAME</td><td>X1</td><td>Ignore</td><td></td><td></td></tr>
+<tr><td>2</td><td>SIGNATUREPLANE</td><td>SIGNATUREPLANE</td><td>U$2, U$3</td><td>Ignore</td><td></td><td></td></tr>
+<tr><td>1</td><td>SIGNATURESILK</td><td>SIGNATURESILK</td><td>U$1</td><td>Ignore</td><td></td><td></td></tr>
+<tr><td>1</td><td>SPEAKJET</td><td>SPEAKJET</td><td>IC195</td><td>www.speakjet.com, SparkFun ($24.95)</td><td></td><td>SpeakJet speech synthesiser</td></tr>
+<tr><td>20</td><td>TL36PO</td><td>TL36PO</td><td>S2, S3, S4, S5, S6, S7, S8, S9, S10, S11, S12, S13, S14, S15, S16, S17, S18, S27, S34, S35</td><td></td><td>On-On toggle switch</td><td>Switch body and separate black/red actuators</td></tr>
+<tr><td>10</td><td>TL37PO</td><td>TL37PO</td><td>S21, S22, S29, S30, S31, S37, S39, S40, S46, S47</td><td>Farnell 9473769</td><td>Mom-Off-Mom toggle switch</td><td></td></tr>
+<tr><td>10</td><td>TL47PO</td><td>TL47PO</td><td>S23, S24, S25, S26, S32, S38, S41, S42, S43, S44</td><td>Farnell 9473815</td><td>Mom-Off-Mom toggle switch</td><td></td></tr>
+<tr><td>4</td><td>TL49PO</td><td>TL49PO</td><td>S20, S28, S36, S45</td><td>Farnell 9473807</td><td>On-Off-On toggle switch</td><td>Also add lever actuator</td></tr>
+<tr><td>4</td><td>TPPAD1-13</td><td>TPPAD1-13</td><td>TP20, TP21, TP22, TP23</td><td>Ignore</td><td></td><td></td></tr>
+<tr><td>1</td><td>WIZ812MJ</td><td>WIZ812MJ</td><td>Q1</td><td>RS (£20.60), Mouser (€18)</td><td>WIZ812MJ Ethernet module</td><td></td></tr>
+</table>
