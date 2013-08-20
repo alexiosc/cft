@@ -6,8 +6,9 @@ CFTDIR =	..
 MCDIR =		$(CFTDIR)/microcode
 ROMDIR =	rom
 ROMBASE =	a
-ROMBIN =	$(ROMDIR)/$(ROMBASE).bin
-ROMSRC =	$(ROMDIR)/$(ROMBASE).asm
+OUT = 		$(ROMDIR)/$(ROMBASE)
+ROMBIN =	$(OUT).bin
+ROMSRC =	$(OUT).asm
 CFTASM =	$(CFTDIR)/tools/cftasm
 
 MICROCODE =	$(MCDIR)/microcode-00.bin \
@@ -24,7 +25,7 @@ $(ROMBIN):	$(ROMSRC)
 		(cd $(ROMDIR); ../$(CFTASM) $(notdir $(ROMSRC)))
 
 clean:
-		rm -f rom.js microcode.js *~
+		rm -f rom.js microcode.js *~ $(OUT)*.list $(OUT).pasm $(OUT).sym $(OUT).bin $(OUT).map $(ROMDIR)/rom.js
 
 upload:
 		rsync -vaz . graviera:bedroomlan/www/local/cftjs/ --exclude='*~' --exclude=termlib --exclude=fonts
