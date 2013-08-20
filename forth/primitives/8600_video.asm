@@ -289,15 +289,15 @@ _40x30_data:
 
 
 	
-	;; word:  VDU.80x50
+	;; word:  VDU.80x60
 	;; flags: CODE ROM CFT
-	;; notes: VDU.80x50 ( -- )
+	;; notes: VDU.80x60 ( -- )
 	;;        Sets a basic 40x50 mode.
 
-	LIA _80x50_data
+	LIA _80x60_data
 	LJMP(_vdu_mode)
 
-_80x50_data:
+_80x60_data:
 	.word VDU_MCR_DEF VDU_MCR_R60   ; MCR0
 	.word 0				; MCR1
 	.word 0				; SAR1
