@@ -76,9 +76,11 @@
 \newcommand{\asm}[1]{\texttt{#1}}
 \newcommand{\instr}[1]{\asm{#1}}
 \newcommand{\nsni}[1]{$\overline{\mbox{\textsf{{#1}}}}$}
-\newcommand{\ns}[1]{\nsni{#1}\index{#1@{$\protect\overline{\protect\mbox{\textsf{#1}}}$}}}
+\newcommand{\ns}[1]{\index{#1@{$\protect\overline{\protect\mbox{\textsf{#1}}}$}}%
+  \nsni{#1}}
 \newcommand{\psni}[1]{\textsf{#1}}
-\newcommand{\ps}[1]{\psni{#1}\index{#1@\psni{#1}}}
+\newcommand{\ps}[1]{\index{#1@\psni{#1}}%
+  \psni{#1}}
 \newcommand{\lt}[1]{\textsf{#1}}
 \newcommand{\sw}[1]{\textsf{#1\index{Switch, front panel!#1}}}
 \newcommand{\HC}[1]{\chip{74HC{#1}}}
@@ -89,6 +91,7 @@
 \newcommand{\farnell}[1]{#1}
 
 \newcommand\BUS[2]{\ps{#1}$_{\mbox{\scriptsize #2}}$}
+
 \newcommand\nBUS[2]{\ns{#1}$_{\mbox{\scriptsize #2}}$}
 
 \newcommand\UINSTR{\ns{uINSTR18}}
@@ -114,6 +117,7 @@
 \newcommand\GUARDPULSE{\ns{GUARD}}
 \newcommand\GP{\GUARDPULSE}
 \newcommand\CLOCK[1]{\BUS{CLK}{#1}}
+\newcommand\CLKn[1]{\CLOCK{#1}}
 \newcommand\RSTHOLD{\ns{RSTHOLD}}
 \newcommand\BOE{\ns{BOE}}
 \newcommand\UOE{\ns{UOE}}
@@ -126,7 +130,6 @@
 \newcommand\IRn[1]{\BUS{IR}{#1}}
 \newcommand\PCn[1]{\BUS{PC}{#1}}
 \newcommand\IBUSn[1]{\BUS{IBUS}{#1}}
-\newcommand\IRn[1]{\BUS{IR}{#1}}
 \newcommand\ACn[1]{\BUS{AC}{#1}}
 \newcommand\DBUSn[1]{\BUS{DBUS}{#1}}
 \newcommand\ABUSn[1]{\BUS{AB}{#1}}
@@ -147,6 +150,7 @@
 \newcommand\R{\ns{R}}
 \newcommand\WRITE{\ns{W}}
 \newcommand\WEN{\ns{WEN}}
+\newcommand\WAR{\ns{WAR}}
 \newcommand\READ{\ns{R}}
 \newcommand\FL{\ps{FL}}
 \newcommand\FV{\ps{FV}}
@@ -159,6 +163,7 @@
 \newcommand\WS{\ns{WS}}
 \newcommand\UPC{\ps{µPC}}
 \newcommand\UCB{\ps{µCB}}
+\newcommand\ACCPL{\ns{ACCPL}}
 
 \newcommand\NB{\textbf{Nota Bene:\ }}
 
@@ -173,6 +178,9 @@
 \newcommand\cftout[1]{\textsf{#1}}
 \let\cftcode\cftout
 \let\cftkbd\cftin
+
+\newcommand\board[1]%
+                 {#1\index{Boards!#1}}
 
 \newcommand\li[1]{\item{\bfseries #1}}
 

@@ -153,13 +153,66 @@ circuit.
 
 \section{Control Bus}
 
-\todo{To be revised!}
+\todo{Being revised!}
 
-Provides an interconnect for signals local to the processor part of
-the computer. This includes the \IBUS, signals from the Control Unit,
-and Microcode ROM, as well as signals to and from the \ALU, register
-boards, interrupt controller boards, and all other processor
+The Control Bus provides an interconnect for signals local to the processor
+part of the computer. Anything peripherals don't need to use (or shouldn't be
+using!) is on the Control Bus. This includes the \IBUS, signals from the
+Control Unit and Microcode ROM, as well as signals to and from the \ALU,
+register boards, interrupt controller boards, and all other processor
 components.
+
+The Control Bus is implemented as a pair of 2×20-pin 2.54mm headers, identical
+to the ones used for parallel IDE devices. This makes it cheaper to source
+cable and plugs, since most people likely to be reading this will have mmore
+parallel IDE cables lying around than they know what to do with. Two
+40-conductor flat cables connect all the cards using the control bus in a
+daisy-chain fashion. The two pin headers are referred to as P1 and P2, with
+pins designated P1.1–P1.40 and P2.1–P2.40.
+
+Even though this is a processor-local bus, trace length is probably long enough
+for transmission line effects, so all output signals are conditioned using
+either impedance-matching resistors in series or bus hold circuitry.
+
+There are six signals that normally belong to the Control Bus, but have been
+relegated to the Expansion Bus because of lack of available pins. These are
+signals that expansion boards (however exotic) could potentially benefit from.
+
+\begin{table}[t]
+\caption{\label{table-control-pinout}Control Bus Pin-out.}
+\vspace{1em}
+\centering
+\zebra
+\begin{tabular}{*{4}{rp{0.14\columnwidth}}}
+%\noalign{\smallskip}\hline\noalign{\smallskip}
+%\\\hline
+Pin & Signal & Pin & Signal & Pin & Signal & Pin & Signal \\
+%\noalign{\smallskip}\hline\noalign{\smallskip}
+\hline
+P1.1  & \CLL        & P1.2  & \CPL       & P2.1  & \STPAC     & P2.2  & \STPDR     \\
+P1.3  & \ns{RAGL}   & P1.4  & \ns{WALU}  & P2.3  & \INCPC     & P2.4  & \RAC       \\
+P1.5  & \FL         & P1.6  & \FV        & P2.5  & \RDR       & P2.6  & \RPC       \\
+P1.7  & \IRn{0}     & P1.8  & \ns{WEN}   & P2.7  & \WAC       & P2.8  & \WAR       \\
+P1.9  & \IRn{2}     & P1.10 & \END       & P2.9  & \WDR       & P2.10 & \WPC       \\
+P1.11 & \RUNITn{0}  & P1.12 & \RUNITn{1} & P2.11 & \FNEG      & P2.12 & \FZERO     \\
+P1.13 & \RUNITn{2}  & P1.14 & \RUNITn{3} & P2.13 & \PCn{10}   & P2.14 & \PCn{11}   \\
+P1.15 & \SKIP       & P1.16 & \STI       & P2.15 & \PCn{12}   & P2.16 & \PCn{13}   \\
+P1.17 & \CLI        & P1.18 & \OPIFn{0}  & P2.17 & \PCn{14}   & P2.18 & \PCn{15}   \\
+P1.19 & \OPIFn{1}   & P1.20 & \OPIFn{2}  & P2.19 & \WIR       & P2.20 & \AINDEX    \\
+P1.21 & \OPIFn{3}   & P1.22 & \IRn{11}   & P2.21 & \IBUSn{0}  & P2.22 & \IBUSn{1}  \\
+P1.23 & \ACn{0}     & P1.24 & \ACn{1}    & P2.23 & \IBUSn{2}  & P2.24 & \IBUSn{3}  \\
+P1.25 & \ACn{2}     & P1.26 & \ACn{3}    & P2.25 & \IBUSn{4}  & P2.26 & \IBUSn{5}  \\
+P1.27 & \ACn{4}     & P1.28 & \ACn{5}    & P2.27 & \IBUSn{6}  & P2.28 & \IBUSn{7}  \\
+P1.29 & \ACn{6}     & P1.30 & \ACn{7}    & P2.29 & \IBUSn{8}  & P2.30 & \IBUSn{9}  \\
+P1.31 & \ACn{8}     & P1.32 & \ACn{9}    & P2.31 & \IBUSn{10} & P2.32 & \IBUSn{11} \\
+P1.33 & \ACn{10}    & P1.34 & \ACn{11}   & P2.33 & \IBUSn{12} & P2.34 & \IBUSn{13} \\
+P1.35 & \ACn{12}    & P1.36 & \ACn{13}   & P2.35 & \IBUSn{14} & P2.36 & \IBUSn{15} \\
+P1.37 & \ACn{14}    & P1.38 & \ACn{15}   & P2.37 & \IRn{12}   & P2.38 & \IRn{13}   \\
+P1.39 & \ACCPL      & P1.40 & \DEC       & P2.39 & \IRn{14}   & P2.40 & \IRn{14}   \\
+%\noalign{\smallskip}\hline\noalign{\smallskip}
+\hline
+\end{tabular}
+\end{table}
 
 %% \begin{table}[t]
 %% \caption{\label{table-control-pinout}Control Bus Pin-out.}
@@ -209,58 +262,213 @@ components.
 %% \end{tabular}
 %% \end{table}
 
-The following is a description of the signals of the control bus.
+This is a description of the signals of the control bus:
 
-\subsection{Port 1}
+% IR0, IR2, IR11, IR12-15
+% WEN
+% END
+% RUNIT
+% SKIP
+% STI
+% CLI
+% OPIF
+% AC
+% ACCPL
+% DEC
+
+% STPAC
+% STPDR
+% INCPC
+% FNEG
+% FZERO
+% PC
+% AINDEX
+% IBUS
 
 \begin{description}
 
-\li{\ns{CLL}} (Port 1, pin 1) A direct output from the Microcode board, this
-active low strobe clears the \Lreg~register on the falling edge.
+\li{\CLL} (P1.1) A direct output from the Microcode Store, the falling edge of
+this active low strobe clears the \Lreg~register asynchronously.
 
-\li{\ns{CPL}} (Port 1, pin 3) A direct output from the Microcode board. While
-\sn{CPL} is low, the \Lreg~register is complemented (toggled) on every falling
-edge of \ps{CLK3}.
+\li{\CPL} (P1.2) A direct output from the Microcode Store. While \CPL is low,
+the \Lreg~register is complemented (toggled) on every falling edge of
+\ps{CLK3}.
 
-\li{\ns{RSTHOLD}} (Port 1, pin 5) Output from the reset sequencer and driven
-low for a configurable number of clock pulses after a \ns{RESET} strobe.
+\li{\FL} (P1.5) The current value of the \Lreg{}. This is used as input in the
+Skip and Branch unit, among other places.
 
-\li{\ns{WALU}} (Port 1, pin 7) Active low output from the unit decoders. When
-this signal is active, the ALU latches its port B register from the \IBUS.
+\li{\FV} (P1.6) The current value of the Overflow Flag, as output by the
+\ALU. This flag is used as input in the Skip and Branch unit to aid in signed
+arithmetic.
 
-\li{\ps{FL}} (Port 1, pin 9) Active high output from the ALU. Indicates the
-current value of the \Lreg.
+\li{\IRn{0}, \IRn{2}} (P1.7, P1.9) The current value of bits 0 and 2 of the
+Instruction Register. These are used in the ALU to decode the four roll
+instructions.
 
-\li{\ps{FV}} (Port 1, pin 11) Active high output from the ALU. Indicates the
-current value of the \Vreg.
+\li{\WEN} (P1.8) The Write Enable signal from the Microcode store. When this
+active low signal is asserted, a short write pulse will be generated by the
+write strobe circuitry on \board{PB1}. The timing of the write strobe is
+critical and depends on the assertion of wait states during the bus
+transaction.
 
-\li{\ps{\IRn{0}–\IRn{3}}} (Port 1, pins 13, 15, 17, 19) The low-order nybble of
-the Instruction Register, which is decoded by the \unit{ALU} for shift
-instructions, and the \unit{SBU} for skip instructions.
+\li{\END} (P1.10) This active low signal marks the end of a
+microprogram. The microprogram counter will reset to zero on the first
+rising edge of \CLKn{4} while \END is low. This is an output from the
+Microcode Store and used as an input around the processor.
 
-\li{\ps{\RUNITn{0}–\RUNITn{3}}} (Port 1, pins 21, 23, 25, 27) The
-vertically-encoded Read Unit number from the Microcode Store. This is decoded
-by the Read Unit Decoder and ALU.
+\li{\RUNITn{0}–\RUNITn{3}} (P1.11–P1.14) The vertically-encoded Read
+Unit number from the Microcode Store. This is decoded by the Read Unit
+Decoder and ALU. Some of the decoded values are output as signals on
+the Control Bus. Others are on the Expansion bus. The remainder are
+decoded and used locally by the \ALU.
 
-\li{\ps{\ACn{0}–\ACn{15}}} (Port 1, pins 2, 4, 6, 8, \ldots, 32) The current
-value of the Accumulator, carried from the Register Board to the ALU, where it
-serves as port A.
+\li{\SKIP} (P1.15) This active low signal is generated by the
+\SBU{}. When asserted, it signals the Microcode Store that a skip or
+branch must be performed.
 
-\li{\ns{INCCPL}} (Port 1, pin 34) An active low output from the Register board,
-this strobe toggles the \Lreg as a result of \AC{} increment carry-out.
+\li{\STI} (P1.16) This active low signal is generated by the Microcode
+Store. When asserted, it sets the Interrupt register, allowing sebsequent
+interrupt requests to reach the processor.
 
-\li{\ns{DECCPL}} (Port 1, pin 36) An active low output from the Register board,
-this strobe toggles the \Lreg as a result of \AC{} decrement borrow-out.
+\li{\CLI} (P1.17) When low, this signal clears the Interrupt
+register, disabling subsequent interrupts.
+
+\li{\OPIFn{0}–\OPIF{3}} (P1.18–P1.21) Directly output from the
+Microcode ROMs, this four-bit value instructs the \SBU{} to evaluate
+one of fifteen conditionals and feed back the output to the \SKIP
+signal.
+
+\li{\IRn{11}–\IRn{15}} (P1.22, P2.37–P2.40) The currently executing microprogram
+  as selected by the Instruction Register. These signals are output from the
+  \board{PB1} board (which houses the \IR) and interpreted by the \board{PB0}
+  (where the Microcode Store is).
+
+\li{\ACn{0}–\ACn{15}} (P1.23–P1–38) The current value of the \AC{}
+  register is provided on these 16 signals. This is output by the
+  \board{PB2} and used by the \ALU on the \board{PB3}.
+
+\li{\ACCPL} (P1.39) Output by the \board{PB2} for the benefit of the
+\Lreg{} circuitry. This active-low signal toggles the \Lreg{} when the
+\AC{} wraps around to either \hex{0000} (while decrementing) or
+\hex{1111} (while incrementing).
+
+\li{\DEC} (P1.40) An active low output from the Microdode Store to the
+\board{PB2} signifying that \AC{} and \DR{} should be decremented
+rather than incremented whtn \STPAC{} and/or \STPDR{} are asserted.
+
+
+\li{\STPAC} (P2.1) An active low output from the Microcode Store to
+the \board{PB2} triggering an increment or decrement of \AC{}, pending
+on the current value of \DEC.
+
+\li{\STPDR} (P2.2) An active low output from the Microcode Store to
+the \board{PB2} triggering an increment or decrement of \DR{}, pending
+on the current value of \DEC.
+
+\li{\INCPC} (P2.3) An active low output from the Microcode Store to
+the \board{PB2} triggering an increment of the \PC{}.
+
+\li{\FNEG} (P2.11) The current value of the Negative Flag, as output
+by the \board{PB2}. This flag is used as input in the \SBU to aid in signed
+arithmetic. It currently carries a copy of \ACn{15}.
+
+\li{\FZERO} (P2.12) The current value of the Zero Flag, as output by
+the \board{PB2}. This flag is used as input in the \SBU to facilitate
+decision making and comparisons.
+
+\li{\PCn{10}–\PCn{15}} (P2.13–P2.18) The top six bits of \PC{}, output
+by the \board{PB2} and used by the \AGL{} for local address
+generation.
+
+\li{\AINDEX} (P2.20) When this active low is asserted, an autoindex
+microprogram should be executed instead of the indirect
+microprogram. This is an output from the \unit{AIL}, fed directly into
+the Microcode Store to select an appropriate microprogram.
+
+\li{\IBUSn{0}–\IBUSn{15}} (P2.21–P2.36) The processor's internal bus,
+  used to exchange values between machine registers and to communicate
+  with the outside world. This bus should only by the currently
+  selected output unit.
 
 \end{description}
 
-\foobarbaz
 
-\subsection{Port 2}
+\subsection{Read Unit Signals}
+
+These mutually synchronous, active low signals are output by the Read Unit
+Decoder on the \board{PB1} board. by decoding \ps{RUNIT} (which is also present
+on the Control Bus). There are sixteen possible values, of which the
+\board{PB0} board decodes the first eight and the \ALU{} decodes the remaining
+eight.
+
+At most one of these (and in fact any of the sixteen read signals) will be
+active at any time.
 
 \begin{description}
-\li{} (Pins A1–2, B1–2, C1–2) Connected
+\li{\RAGL} (P1.3) When asserted, the \AGL{} on the \board{PB1} drives
+the \IBUS{} with the address specified in the currently executed
+instruction.
+
+\li{\RAC} (P2.4) When asserted, the \Areg{} buffers on the \board{PB2} board
+drive the \IBUS{} with the current value of the \Areg.
+
+\li{\RDR} (P2.5) When asserted, the \DR{} buffers on the \board{PB2} board
+drive the \IBUS{} with the current value of the \DR.
+
+\li{\RPC} (P2.6) When asserted, the \PC{} buffers on the \board{PB2} board
+drive the \IBUS{} with the current value of the \PC.
+
 \end{description}
+
+\subsection{Write Unit Signals}
+
+These mutually synchronous, active low signals are output by the Write Unit
+Decoder on the \board{PB1} board. by decoding \ps{WUNIT}. There are eight
+possible values, all decoded by the \board{PB0} board. The \ps{WUNIT} microcode
+field is not placed on any bus.
+
+\begin{description}
+\li{\WALU} (P1.4) While asserted, the \ALU{}'s B port latches data from the
+\IBUS.
+
+\li{\WAC} (P2.7) While asserted, the \AC{} latches data from the \IBUS.
+\li{\WDR} (P2.8) While asserted, the \DR{} latches data from the \IBUS.
+\li{\WPC} (P2.9) While asserted, the \AC{} latches data from the \IBUS.
+\li{\WIR} (P2.19) While asserted, the \IR{} latches data from the \IBUS.
+
+\end{description}
+
+
+%% \begin{description}
+
+
+%% \li{\ns{RSTHOLD}} (Port 1, pin 5) Output from the reset sequencer and driven
+%% low for a configurable number of clock pulses after a \ns{RESET} strobe.
+
+%% \li{\ns{WALU}} (Port 1, pin 7) Active low output from the unit decoders. When
+%% this signal is active, the ALU latches its port B register from the \IBUS.
+
+%% \li{\ps{FL}} (Port 1, pin 9) Active high output from the ALU. Indicates the
+%% current value of the \Lreg.
+
+%% \li{\ps{FV}} (Port 1, pin 11) Active high output from the ALU. Indicates the
+%% current value of the \Vreg.
+
+%\li{\ps{\IRn{0}–\IRn{3}}} (Port 1, pins 13, 15, 17, 19) The low-order nybble of
+%the Instruction Register, which is decoded by the \unit{ALU} for shift
+%instructions, and the \unit{SBU} for skip instructions.
+
+%% \li{\ACn{0}–\ACn{15}} (Port 1, pins 2, 4, 6, 8, \ldots, 32) The current
+%% value of the Accumulator, carried from the Register Board to the ALU, where it
+%% serves as port A.
+
+%% \end{description}
+
+%% \subsection{Port 2}
+
+%% \begin{description}
+%% \li{} (Pins A1–2, B1–2, C1–2) Connected
+%% \end{description}
 
 
 
@@ -331,30 +539,30 @@ or both of the two signals:
 \end{description}
 
 
-\begin{figure}
-\centering
-%% x=1.6ex, y=1.6ex,
-%% line cap=round, line join=round,
-%% }%
-%% }
+%% \begin{figure}
+%% \centering
+%% %% x=1.6ex, y=1.6ex,
+%% %% line cap=round, line join=round,
+%% %% }%
+%% %% }
 
-\begin{tikztimingtable}
-  \CLOCK{1} & L 2{C3H C3L} C2H \\
-  \CLOCK{2} & 3L 2{C3H C3L} C \\
-  \CLOCK{3} & H 2{C3L C3H} C2L \\
-  \CLOCK{4} & 3H 2{C3L C3H} C \\
-  \CLOCK{5} & 5H CLC5H CLC4H \\
-  \GP       & 0.5L 2{0.5C0.5HC6L} 0.5C0.5HC 1.5L\\
-%\extracode
-%  \tablerules
-%  \begin{pgfonlayer}{background}
-%    \foreach \n in {1,...,8}
-%      \draw [help lines] (A\n) -- (B\n);
-%  \end{pgfonlayer}
-\end{tikztimingtable}
-\caption{\label{fig-clock}Clock timing diagram showing all the clock
-  phases available to the Control Bus.}
-\end{figure}
+%% \begin{tikztimingtable}
+%%   \CLOCK{1} & L 2{C3H C3L} C2H \\
+%%   \CLOCK{2} & 3L 2{C3H C3L} C \\
+%%   \CLOCK{3} & H 2{C3L C3H} C2L \\
+%%   \CLOCK{4} & 3H 2{C3L C3H} C \\
+%%   \CLOCK{5} & 5H CLC5H CLC4H \\
+%%   \GP       & 0.5L 2{0.5C0.5HC6L} 0.5C0.5HC 1.5L\\
+%% %\extracode
+%% %  \tablerules
+%% %  \begin{pgfonlayer}{background}
+%% %    \foreach \n in {1,...,8}
+%% %      \draw [help lines] (A\n) -- (B\n);
+%% %  \end{pgfonlayer}
+%% \end{tikztimingtable}
+%% \caption{\label{fig-clock}Clock timing diagram showing all the clock
+%%   phases available to the Control Bus.}
+%% \end{figure}
 
 \subsection{Unit Control Signals}
 
@@ -644,7 +852,7 @@ currently use them.
 19 & \HALT       & \AEXTn{6} & \IRQn{1} \\
 20 & \ABUSn{8}   & \AEXTn{7} & \IRQn{2} \\
 21 & \ABUSn{9}   & Reserved  & \DBUSn{8} \\
-22 & \ABUSn{10}  & Reserved  & \DBUSn{9} \\
+22 & \ABUSn{10}  & \RSTHOLD  & \DBUSn{9} \\
 23 & \ABUSn{11}  & Reserved  & \DBUSn{10} \\
 24 & \ABUSn{12}  & \IODEV{1} & \DBUSn{11} \\
 25 & \ABUSn{13}  & \IODEV{2} & \DBUSn{12} \\

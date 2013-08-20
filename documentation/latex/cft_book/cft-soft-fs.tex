@@ -69,10 +69,10 @@ this chapter, multiples of bytes and words are base two:
   \zebra
   \begin{tabular}{lll}
     Prefix & Unit    & Description\\\hline
-    Kilo-  & kB      & 1 Kilobyte = $2^{10}=1024$ Bytes (512 Words) \\
-    Mega-  & MB      & 1 Megabyte = $2^{20}=1048576$ Bytes (512 kWords) \\
-    Giga-  & GB      & 1 Megabyte = $2^{30}=1073741824$ Bytes (512 MWords) \\
-    Tera-  & TB      & 1 Terabyte = $2^{40}=1099511627776$ Bytes (512 GWords) \\
+    Kilo-  & kB      & 1 Kilobyte = $2^{10}=1,024$ Bytes (512 Words) \\
+    Mega-  & MB      & 1 Megabyte = $2^{20}=1,048,576$ Bytes (512 kWords) \\
+    Giga-  & GB      & 1 Megabyte = $2^{30}=1,073,741,824$ Bytes (512 MWords) \\
+    Tera-  & TB      & 1 Terabyte = $2^{40}=1,099,511,627,776$ Bytes (512 GWords) \\
     \hline
   \end{tabular}
 \end{center}%
@@ -93,11 +93,12 @@ architecture: reading a traditional\footnote{Modern IDE blocks are
   4,096 bytes long.} 512 byte IDE block requires 256 reads from the
 drive.
 
-Other devices like floppy drives, are byte oriented. In this case, for
+Other devices, like floppy drives, are byte oriented. In this case, for
 the typical 512 byte sector, the processor must perform 512 8-bit
 transactions using a state machine that shifts the first byte read 8
 bits to the right, making it the MSB.
 
+\todo{Check this!}
 Byte ordering terms do not apply to a word-oriented machine, but this
 makes the CFT a big-endian architecture, at least in the way it reads
 from 8-bit devices.
@@ -1100,10 +1101,11 @@ in~\fcf{fig:file-level1}. An Index Block has the following format:
 
 \end{datastructure}
 
-Most of the index block's contents are 32-bit \gls{block pointer} to
-data blocks. Each block pointer must point to an data block allocated
-to this file, or be equal to zero if the file does not need that
-block due to its size.
+Most of the index block's contents are 32-bit \glspl{block pointer} to
+data blocks. Each block pointer must point to a data block allocated
+to this file, or be equal to zero if the file does not need that block
+because it's either too small, or is a sparse file and the block
+represents a ‘hole’.
 
 As a file grows, additional blocks are allocated and the Index Block
 updated with pointers to them. When a file is truncated, blocks are
@@ -1114,6 +1116,8 @@ is promoted to a Level 2 file.
 
 \newpage
 \subsubsection{Sparse File Support and Index Blocks}
+
+\todo{This has changed, rewrite!}
 
 ProDOS uses this method to support sparse files at quanta equal to the
 block size. The CFT Filesystem does not support sparse files yet, but
@@ -1162,10 +1166,10 @@ reference 510 data blocks, each of 512 words. A Level 2 file can then
 reach $510×510×512$ words, a respectable 127~MWords.
 
 The general formula for the maximum size of a file of level $n$ in a
-volume with block size $b$ is:
+volume with block size $b$ is
 
 \begin{eqnarray}
-& \mbox{fs}_{\max}(n, b) = (b - 2) ^ n b\nonumber
+& \mbox{fs}_{\max}(n, b) = b\left(\frac{b - 2}{2}\right) ^ n\nonumber, 0 \leq n \leq 2.
 \end{eqnarray}
 
 This generates the following table of maximum file sizes in words:
@@ -1175,10 +1179,11 @@ This generates the following table of maximum file sizes in words:
 \begin{tabular}{rrrr}
 Block Size & Level 0 & Level 1 & Level 2 \\
 \hline
-  256 words  &   256 &    65,024 &    16,516,096 \\
-  512 words  &   512 &   261,120 &   133,171,200 \\
-1,024 words  & 1,024 & 1,046,528 & 1,069,551,616 \\
-2,048 words  & 2,048 & 4,190,208 & 8,573,165,568 \\
+  256 words  &   256 &    32,512 &      4,129,024 \\
+  512 words  &   512 &   130,560 &     33,292,800 \\
+1,024 words  & 1,024 &   523,264 &    267,287,904 \\
+2,048 words  & 2,048 & 2,095,104 &  2,143,291,392 \\
+4,096 words  & 4,096 & 8,384,512 & 17,163,096,064 \\
 \hline
 \end{tabular}
 \end{center}

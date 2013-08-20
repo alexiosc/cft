@@ -241,7 +241,7 @@ used. In contrast, \f{.reg} is meant only for register declaration, and this is
 reflected in the various output files (map, symbol tables and graphical maps).
 
 It is almost always useful to define registers with the \asm{R} field
-set, as is done in the example above. This makes it simpled to
+set, as is done in the example above. This makes it simpler to
 reference the registers without having to use \asm{R}, and reduces
 bugs caused by the \asm{R} left out\footnote{Empirical evidence has
   shown that this is a very common and potentially insidious problem
@@ -250,7 +250,7 @@ bugs caused by the \asm{R} left out\footnote{Empirical evidence has
 \subsubsection{Including Assembly Files with \f{.include}}
 
 The \f{.include} directive instructs the Assembler to read, process and
-assemble an external file. It used like this:
+assemble an external file. It is used like this:
 
 \begin{lstlisting}[language=cftasm,numbers=none]
 .include "some_file.asm"
@@ -440,7 +440,7 @@ six bits are populated using the upper six bits of the current address
 \op{JMP} is still \hex{3FF} (the lower 10 bits of \hex{1FFF}, the address of
 \op{loop}). However, the upper six bits are no longer \hex{1C00} (shifted) —
 they are now \hex{2000}. Thus, the machine will jump to address \hex{23FF} and
-the loop will fail. This is a problem common will all paged instruction sets.
+the loop will fail. This is a problem common to all paged instruction sets.
 
 The CFT Standard Assembler refuses to fix this automatically, instead producing a warning:
 
