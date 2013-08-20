@@ -24,6 +24,9 @@ e3d_dir="/home/alexios/eagle/eagle3d/povray"
 # Remove the light sources
 grep -q '^light_source{' $source && sed -i -e 's/^light_source{/\/\/light_source{/' $source
 grep -q e3d_megapov $source || sed -i -e '/^#include "e3d_tools.inc"/ i #include "radiosity/e3d_megapov.inc"' $source
+#sed -i s/IC_SMD_PLCC32/SOCKET_PLCC32/g $source
+#sed -i 's/DBV\"//g' $source
+#sed -i 's/"74\(.*\)1G/"\1/g' $source
  
 # Render
 
