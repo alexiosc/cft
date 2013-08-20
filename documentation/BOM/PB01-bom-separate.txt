@@ -1,0 +1,101 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Partlist exported from /home/alexios/eagle/CFT/CFT-PB0-revE-TSSOP.sch at 20 Aug 2013 00:50:35
+
+Qty Value              Device             Parts
+-28  0.1uF              C-EUC0805K        
+-9   1uF                C-EUC0805K         C4, C8, C10, C15, C23, C32, C35, C36, C37
+-17  4k7                R-EU_R0805         R1, R2, R5, R6, R8, R9, R10, R11, R14, R15, R16, R17, R18, R19, R20, R21, R22
+-3   29F040             29F040PLCC32       IC4, IC6, IC7
+-5   30R                R-EU_R0805         R3, R4, R7, R12, R13
+-3   74AC16244DGG       74AC16244DGG       IC20, IC21, IC22
+-2   74AHC1G32DBV       74AHC1G32DBV       IC1, IC13
+-1   74HC74D            74HC74D            IC17
+-3   74HC138D           74HC138D           IC9, IC10, IC14
+-1   74HC157D           74HC157/ALT-D      IC18
+-3   74HC175D           74HC175D           IC15, IC16, IC19
+-2   74HC541DW          74HC541DW          IC11, IC12
+-3   2540-5             2540-5             P1, P2, P3
+-1   SN74ACT1071D       SN74ACT1071D       IC26
+-3   SN74ACT1073        SN74ACT1073        IC23, IC24, IC25
+
+2   47uF               CPOL-EUE2.5-5      667-ECE-A1AKG470
+
+1                      VG96-3K            EXP
+3   4k7                CTS742C083         RN12, RN13, RN14
+6   10k                CTS742C083         RN16, RN17, RN18, RN19, RN20, RN21
+12  30R                CTS742C083         RN1, RN2, RN3, RN4, RN5, RN6, RN7, RN8, RN9, RN10, RN11, RN15
+1   74AHC1G00DBV       74AHC1G00DBV       IC5
+1   74AHC1G04DBV       74AHC1G04DBV       IC8
+1   74AHC1G08DBV       74AHC1G08DBV       IC2
+1   74HC161D           74HC161D           IC3
+
+
+
+Partlist exported from /home/alexios/eagle/CFT/CFT-PB1-revD-TSSOP.sch at 20 Aug 2013 00:50:49
+
+Qty Value         Device          Parts
+-37  0.1uF         C-EUC0805K      C1, C2, C3, C5, C6, C7, ...
+-8   1uF           C-EUC0805K      C4, C9, C12, C30, C34, C39, C45, C54
+-9   4k7           R-EU_R0805      R1, R2, R4, R5, R11, R12, R13, R40, R48
+-1   16.000MHz     XO-08-SOCKET    XTAL1
+-3   30R           R-EU_R0805      R14, R41, R51
+-3   74AC1G11DBV   74AC1G11DBV     IC20, IC34, IC39
+-2   74AHC1G32DBV  74AHC1G32DBV    IC30, IC32
+-6   74HC541DW     74HC541DW       IC6, IC7, IC8, IC23, IC24, IC27
+-3   2540-5        2540-5          P1, P2, P3
+-2   SN74ACT1071D  SN74ACT1071D    IC41, IC42
+
+1                  DIP8 socket   
+1   1uF-47uF      CPOL-EUE2.5-5   667-ECE-A1AKG470
+2   47uF          CPOL-EUE2.5-5   667-ECE-A1AKG470
+
+3  1N4148         DIODE-SOD123    D1, D2, D3
+1                 TAC_SWITCHPTH   611-PTS645SL43LFS
+1                 VG96-3K         EXP1
+2   4k7           CTS742C083      RN1, RN19
+1   50k           R-EU_R0805      R9
+1   74AC1G27DBV   74AC1G27DBV     IC38
+2   74AC04D       74AC04D         IC9, IC37
+1   74AHC1G04DBV  74AHC1G04DBV    IC17
+1   74AHC1G08DBV  74AHC1G08DBV    IC29
+1   74AHC1G14DBV  74AHC1G14DBV    IC4
+1   74AHC1G86DBV  74AHC1G86DBV    IC15
+1   74HC08D       74HC08D         IC13
+2   74HC32D       74HC32D         IC14, IC16
+3   74HC74D       74HC74D         IC21, IC33, IC40
+1   74HC112D      74HC112D        IC31
+1   74HC139D      74HC139D        IC3
+1   74HC193D      74HC193D        IC2
+2   74HC245DW     74HC245DW       IC35, IC36
+2   74HC251D      74HC251D        IC18, IC19
+1   74HC253D      74HC253D        IC1
+2   74HC573D      74HC573D        IC25, IC26
+1   74HC574D      74HC574D        IC22
+1   74HC590D      74HC590D        IC5
+4   330R          R-EU_R0805      R3, R10, R49, R50
+4   LED-5MM-GREEN LEDCHIPLED_0805 LED1, LED2, LED3, LED4
+
+
+
