@@ -1,0 +1,959 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 18 36 577 806
+%%Title: Enscript Output
+%%Creator: GNU Enscript 1.6.5.90
+%%CreationDate: Wed Aug  7 13:55:19 2013
+%%Orientation: Landscape
+%%Pages: (atend)
+%%DocumentMedia: A4 595 842 0 () ()
+%%DocumentNeededResources: (atend)
+%%EndComments
+%%BeginProlog
+%%BeginResource: procset Enscript-Prolog 1.6.5 90
+%
+% Procedures.
+%
+
+/_S {	% save current state
+  /_s save def
+} def
+/_R {	% restore from saved state
+  _s restore
+} def
+
+/S {	% showpage protecting gstate
+  gsave
+  showpage
+  grestore
+} bind def
+
+/MF {	% fontname newfontname -> -	make a new encoded font
+  /newfontname exch def
+  /fontname exch def
+
+  /fontdict fontname findfont def
+  /newfont fontdict maxlength dict def
+
+  fontdict {
+    exch
+    dup /FID eq {
+      % skip FID pair
+      pop pop
+    } {
+      % copy to the new font dictionary
+      exch newfont 3 1 roll put
+    } ifelse
+  } forall
+
+  newfont /FontName newfontname put
+
+  % insert only valid encoding vectors
+  encoding_vector length 256 eq {
+    newfont /Encoding encoding_vector put
+  } if
+
+  newfontname newfont definefont pop
+} def
+
+/MF_PS { % fontname newfontname -> -	make a new font preserving its enc
+  /newfontname exch def
+  /fontname exch def
+
+  /fontdict fontname findfont def
+  /newfont fontdict maxlength dict def
+
+  fontdict {
+    exch
+    dup /FID eq {
+      % skip FID pair
+      pop pop
+    } {
+      % copy to the new font dictionary
+      exch newfont 3 1 roll put
+    } ifelse
+  } forall
+
+  newfont /FontName newfontname put
+
+  newfontname newfont definefont pop
+} def
+
+/SF { % fontname width height -> -	set a new font
+  /height exch def
+  /width exch def
+
+  findfont
+  [width 0 0 height 0 0] makefont setfont
+} def
+
+/SUF { % fontname width height -> -	set a new user font
+  /height exch def
+  /width exch def
+
+  /F-gs-user-font MF
+  /F-gs-user-font width height SF
+} def
+
+/SUF_PS { % fontname width height -> -	set a new user font preserving its enc
+  /height exch def
+  /width exch def
+
+  /F-gs-user-font MF_PS
+  /F-gs-user-font width height SF
+} def
+
+/M {moveto} bind def
+/s {show} bind def
+
+/Box {	% x y w h -> -			define box path
+  /d_h exch def /d_w exch def /d_y exch def /d_x exch def
+  d_x d_y  moveto
+  d_w 0 rlineto
+  0 d_h rlineto
+  d_w neg 0 rlineto
+  closepath
+} def
+
+/bgs {	% x y height blskip gray str -> -	show string with bg color
+  /str exch def
+  /gray exch def
+  /blskip exch def
+  /height exch def
+  /y exch def
+  /x exch def
+
+  gsave
+    x y blskip sub str stringwidth pop height Box
+    gray setgray
+    fill
+  grestore
+  x y M str s
+} def
+
+/bgcs { % x y height blskip red green blue str -> -  show string with bg color
+  /str exch def
+  /blue exch def
+  /green exch def
+  /red exch def
+  /blskip exch def
+  /height exch def
+  /y exch def
+  /x exch def
+
+  gsave
+    x y blskip sub str stringwidth pop height Box
+    red green blue setrgbcolor
+    fill
+  grestore
+  x y M str s
+} def
+
+% Highlight bars.
+/highlight_bars {	% nlines lineheight output_y_margin gray -> -
+  gsave
+    setgray
+    /ymarg exch def
+    /lineheight exch def
+    /nlines exch def
+
+    % This 2 is just a magic number to sync highlight lines to text.
+    0 d_header_y ymarg sub 2 sub translate
+
+    /cw d_output_w cols div def
+    /nrows d_output_h ymarg 2 mul sub lineheight div cvi def
+
+    % for each column
+    0 1 cols 1 sub {
+      cw mul /xp exch def
+
+      % for each rows
+      0 1 nrows 1 sub {
+        /rn exch def
+        rn lineheight mul neg /yp exch def
+        rn nlines idiv 2 mod 0 eq {
+	  % Draw highlight bar.  4 is just a magic indentation.
+	  xp 4 add yp cw 8 sub lineheight neg Box fill
+	} if
+      } for
+    } for
+
+  grestore
+} def
+
+% Line highlight bar.
+/line_highlight {	% x y width height gray -> -
+  gsave
+    /gray exch def
+    Box gray setgray fill
+  grestore
+} def
+
+% Column separator lines.
+/column_lines {
+  gsave
+    .1 setlinewidth
+    0 d_footer_h translate
+    /cw d_output_w cols div def
+    1 1 cols 1 sub {
+      cw mul 0 moveto
+      0 d_output_h rlineto stroke
+    } for
+  grestore
+} def
+
+% Column borders.
+/column_borders {
+  gsave
+    .1 setlinewidth
+    0 d_footer_h moveto
+    0 d_output_h rlineto
+    d_output_w 0 rlineto
+    0 d_output_h neg rlineto
+    closepath stroke
+  grestore
+} def
+
+% Do the actual underlay drawing
+/draw_underlay {
+  ul_style 0 eq {
+    ul_str true charpath stroke
+  } {
+    ul_str show
+  } ifelse
+} def
+
+% Underlay
+/underlay {	% - -> -
+  gsave
+    0 d_page_h translate
+    d_page_h neg d_page_w atan rotate
+
+    ul_gray setgray
+    ul_font setfont
+    /dw d_page_h dup mul d_page_w dup mul add sqrt def
+    ul_str stringwidth pop dw exch sub 2 div ul_h_ptsize -2 div moveto
+    draw_underlay
+  grestore
+} def
+
+/user_underlay {	% - -> -
+  gsave
+    ul_x ul_y translate
+    ul_angle rotate
+    ul_gray setgray
+    ul_font setfont
+    0 0 ul_h_ptsize 2 div sub moveto
+    draw_underlay
+  grestore
+} def
+
+% Page prefeed
+/page_prefeed {		% bool -> -
+  statusdict /prefeed known {
+    statusdict exch /prefeed exch put
+  } {
+    pop
+  } ifelse
+} def
+
+% Wrapped line markers
+/wrapped_line_mark {	% x y charwith charheight type -> -
+  /type exch def
+  /h exch def
+  /w exch def
+  /y exch def
+  /x exch def
+
+  type 2 eq {
+    % Black boxes (like TeX does)
+    gsave
+      0 setlinewidth
+      x w 4 div add y M
+      0 h rlineto w 2 div 0 rlineto 0 h neg rlineto
+      closepath fill
+    grestore
+  } {
+    type 3 eq {
+      % Small arrows
+      gsave
+        .2 setlinewidth
+        x w 2 div add y h 2 div add M
+        w 4 div 0 rlineto
+        x w 4 div add y lineto stroke
+
+        x w 4 div add w 8 div add y h 4 div add M
+        x w 4 div add y lineto
+	w 4 div h 8 div rlineto stroke
+      grestore
+    } {
+      % do nothing
+    } ifelse
+  } ifelse
+} def
+
+% EPSF import.
+
+/BeginEPSF {
+  /b4_Inc_state save def    		% Save state for cleanup
+  /dict_count countdictstack def	% Count objects on dict stack
+  /op_count count 1 sub def		% Count objects on operand stack
+  userdict begin
+  /showpage { } def
+  0 setgray 0 setlinecap
+  1 setlinewidth 0 setlinejoin
+  10 setmiterlimit [ ] 0 setdash newpath
+  /languagelevel where {
+    pop languagelevel
+    1 ne {
+      false setstrokeadjust false setoverprint
+    } if
+  } if
+} bind def
+
+/EndEPSF {
+  count op_count sub { pos } repeat	% Clean up stacks
+  countdictstack dict_count sub { end } repeat
+  b4_Inc_state restore
+} bind def
+
+% Check PostScript language level.
+/languagelevel where {
+  pop /gs_languagelevel languagelevel def
+} {
+  /gs_languagelevel 1 def
+} ifelse
+%%EndResource
+%%BeginResource: procset Enscript-Encoding-88591 1.6.5 90
+/encoding_vector [
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/space        	/exclam       	/quotedbl     	/numbersign   	
+/dollar       	/percent      	/ampersand    	/quoteright   	
+/parenleft    	/parenright   	/asterisk     	/plus         	
+/comma        	/hyphen       	/period       	/slash        	
+/zero         	/one          	/two          	/three        	
+/four         	/five         	/six          	/seven        	
+/eight        	/nine         	/colon        	/semicolon    	
+/less         	/equal        	/greater      	/question     	
+/at           	/A            	/B            	/C            	
+/D            	/E            	/F            	/G            	
+/H            	/I            	/J            	/K            	
+/L            	/M            	/N            	/O            	
+/P            	/Q            	/R            	/S            	
+/T            	/U            	/V            	/W            	
+/X            	/Y            	/Z            	/bracketleft  	
+/backslash    	/bracketright 	/asciicircum  	/underscore   	
+/quoteleft    	/a            	/b            	/c            	
+/d            	/e            	/f            	/g            	
+/h            	/i            	/j            	/k            	
+/l            	/m            	/n            	/o            	
+/p            	/q            	/r            	/s            	
+/t            	/u            	/v            	/w            	
+/x            	/y            	/z            	/braceleft    	
+/bar          	/braceright   	/tilde        	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/space        	/exclamdown   	/cent         	/sterling     	
+/currency     	/yen          	/brokenbar    	/section      	
+/dieresis     	/copyright    	/ordfeminine  	/guillemotleft	
+/logicalnot   	/hyphen       	/registered   	/macron       	
+/degree       	/plusminus    	/twosuperior  	/threesuperior	
+/acute        	/mu           	/paragraph    	/bullet       	
+/cedilla      	/onesuperior  	/ordmasculine 	/guillemotright	
+/onequarter   	/onehalf      	/threequarters	/questiondown 	
+/Agrave       	/Aacute       	/Acircumflex  	/Atilde       	
+/Adieresis    	/Aring        	/AE           	/Ccedilla     	
+/Egrave       	/Eacute       	/Ecircumflex  	/Edieresis    	
+/Igrave       	/Iacute       	/Icircumflex  	/Idieresis    	
+/Eth          	/Ntilde       	/Ograve       	/Oacute       	
+/Ocircumflex  	/Otilde       	/Odieresis    	/multiply     	
+/Oslash       	/Ugrave       	/Uacute       	/Ucircumflex  	
+/Udieresis    	/Yacute       	/Thorn        	/germandbls   	
+/agrave       	/aacute       	/acircumflex  	/atilde       	
+/adieresis    	/aring        	/ae           	/ccedilla     	
+/egrave       	/eacute       	/ecircumflex  	/edieresis    	
+/igrave       	/iacute       	/icircumflex  	/idieresis    	
+/eth          	/ntilde       	/ograve       	/oacute       	
+/ocircumflex  	/otilde       	/odieresis    	/divide       	
+/oslash       	/ugrave       	/uacute       	/ucircumflex  	
+/udieresis    	/yacute       	/thorn        	/ydieresis    	
+] def
+%%EndResource
+%%EndProlog
+%%BeginSetup
+%%IncludeResource: font Courier-Bold
+/HFpt_w 10 def
+/HFpt_h 10 def
+/Courier-Bold /HF-gs-font MF
+/HF /HF-gs-font findfont [HFpt_w 0 0 HFpt_h 0 0] makefont def
+/Courier-Bold /F-gs-font MF
+/F-gs-font 8 8 SF
+/#copies 1 def
+% Pagedevice definitions:
+gs_languagelevel 1 gt {
+  <<
+    /PageSize [595 842] 
+  >> setpagedevice
+} if
+/d_page_w 770 def
+/d_page_h 559 def
+/d_header_x 0 def
+/d_header_y 559 def
+/d_header_w 770 def
+/d_header_h 0 def
+/d_footer_x 0 def
+/d_footer_y 0 def
+/d_footer_w 770 def
+/d_footer_h 0 def
+/d_output_w 770 def
+/d_output_h 559 def
+/cols 1 def
+%%EndSetup
+%%Page: (1) 1
+%%BeginPageSetup
+_S
+90 rotate
+36 -577 translate
+/pagenum 1 def
+/fname () def
+/fdir (.) def
+/ftail (.) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+5 548 M
+(+----------------------------------------------------------------------------------------------------------------------------------+) s
+5 539 M
+(|                                                                                                                                  |) s
+5 530 M
+(|                                                                                                                                  |) s
+5 521 M
+(|                                 CCCCCCCC                FFFFFFFFFFFFFFFFF       TTTTTTTTTTTTTTTT                                 |) s
+5 512 M
+(|                               CCCCCCCCCCCC              FFFFFFFFFFFFFFFFF       TTTTTTTTTTTTTTTT                                 |) s
+5 503 M
+(|                              CCCC      CCCC             FFFF                          TTTT                                       |) s
+5 494 M
+(|                             CCCC        CCCC            FFFF                          TTTT                                       |) s
+5 485 M
+(|                            CCCC                         FFFF                          TTTT                                       |) s
+5 476 M
+(|                            CCCC                         FFFFFFFFFFFF                  TTTT                                       |) s
+5 467 M
+(|                            CCCC                         FFFFFFFFFFFF                  TTTT                                       |) s
+5 458 M
+(|                            CCCC                         FFFF                          TTTT                                       |) s
+5 449 M
+(|                            CCCC                         FFFF                          TTTT                                       |) s
+5 440 M
+(|                             CCCC        CCCC            FFFF                          TTTT                                       |) s
+5 431 M
+(|                              CCCC      CCCC             FFFF                          TTTT                                       |) s
+5 422 M
+(|                               CCCCCCCCCCCC      XXXX    FFFF            XXXX          TTTT      TTTT                             |) s
+5 413 M
+(|                                 CCCCCCCC        XXXX    FFFF            XXXX          TTTT      TTTT                             |) s
+5 404 M
+(|                                                                                                                                  |) s
+5 395 M
+(|                                                   R E F E R E N C E   C A R D                                                    |) s
+5 386 M
+(|                                                                                                                                  |) s
+5 377 M
+(|   A 16-bit mini computer in the 1970s sense, designed and built out of 74xxx integrated circuits, and heavily influenced by      |) s
+5 368 M
+(|   the design of the DEC PDP-8. Everything from the instruction set to the operating system and documentation is home-brew.       |) s
+5 359 M
+(|   This is a bus and instruction set cheat sheet. The instruction set of the CFT cannot be quantified easily due to the PDP-8     |) s
+5 350 M
+(|   styled instructions and extensions, but the 76 most commonly used instructions are tabulated here.                             |) s
+5 341 M
+(|                                                                                                                                  |) s
+5 332 M
+(|      CONTROL BUS \(P1\)                  CONTROL BUS \(P2\)                        EXPANSION BUS \(DIN 41612\)                         |) s
+5 323 M
+(|                                                                                                                                  |) s
+5 314 M
+(|      1 CLL#           2 CPL#           1 SPTAC#         2 STPDR#               A1  GND         B1  GND         C1  GND           |) s
+5 305 M
+(|      3 RAGL#          4 WALU#          3 INCPC#         4 RAC#                 A2  GND         B2  GND         C2  GND           |) s
+5 296 M
+(|      5 FL             6 FV             5 RDR#           6 RPC#                 A3  +5V         B3  +5V         C3  +5V           |) s
+5 287 M
+(|      7 IR0            8 WEN#           7 WAC#           8 WAR#                 A4  +3.3V       B4  +3.3V       C4  +3.3V         |) s
+5 278 M
+(|      9 IR2           10 END#           9 WDR#          10 WPC#                 A5  AB0 >       B5  NC x        C5  DB0 =         |) s
+5 269 M
+(|     11 RUNIT0        12 RUNIT1        11 FNEG          12 FZERO                A6  AB1 >       B6  SKIPEXT# *  C6  DB1 =         |) s
+5 260 M
+(|     13 RUNIT2        14 RUNIT3        13 PC10          14 PC11                 A7  AB2 >       B7  ENDEXT# *   C7  DB2 =         |) s
+5 251 M
+(|     15 SKIP#         16 STI#          15 PC12          16 PC13                 A8  AB3 >       B8  WS# *       C8  DB3 =         |) s
+5 242 M
+(|     17 CLI#          18 OPIF0         17 PC14          18 PC15                 A9  AB4 >       B9  R1# >       C9  DB4 =         |) s
+5 233 M
+(|     19 OPIF1         20 OPIF2         19 WIR#          20 AINDEX#              A10 AB5 >       B10 R6# >       C10 DB5 =         |) s
+5 224 M
+(|     21 OPIF3         22 IR11          21 IBUS0         22 IBUS1                A11 AB6 >       B11 R7# >       C11 DB6 =         |) s
+5 215 M
+(|     23 AC0           24 AC1           23 IBUS2         24 IBUS3                A12 AB7 >       B12 W1# >       C12 DB7 =         |) s
+5 206 M
+(|     25 AC2           26 AC3           25 IBUS4         26 IBUS5                A13 IRQ3# *     B13 AEXT0 >     C13 MEM# >        |) s
+5 197 M
+(|     27 AC4           28 AC5           27 IBUS6         28 IBUS7                A14 IRQ4# *     B14 AEXT1 >     C14 IO# >         |) s
+5 188 M
+(|     29 AC6           30 AC7           29 IBUS8         30 IBUS9                A15 IRQ5# *     B15 AEXT2 >     C15 R# >          |) s
+5 179 M
+(|     31 AC8           32 AC9           31 IBUS10        32 IBUS11               A16 IRQ6# *     B16 AEXT3 >     C16 W# >          |) s
+5 170 M
+(|     33 AC10          34 AC11          33 IBUS12        34 IBUS13               A17 TPA -       B17 AEXT4 >     C17 TPC -         |) s
+5 161 M
+(|     35 AC12          36 AC13          35 IBUS14        36 IBUS15               A18 IRQ7#       B18 AEXT5 >     C18 IRQ0# *       |) s
+5 152 M
+(|     37 AC14          38 AC15          37 IR12          38 IR13                 A19 HALT# *     B19 AEXT6 >     C19 IRQ1# *       |) s
+5 143 M
+(|     39 ACCPL#        40 DEC#          39 IR14          40 IR15                 A20 AB8 >       B20 AEXT7 >     C20 IRQ2# *       |) s
+5 134 M
+(|                                                                                A21 AB9 >       B21 NC x        C21 DB8 =         |) s
+5 125 M
+(|                                                                                A22 AB10 >      B22 RSTHOLD# >  C22 DB9 =         |) s
+5 116 M
+(|     #  Active low                                                              A23 AB11 >      B23 NC x        C23 DB10 =        |) s
+5 107 M
+(|     >  Output                                                                  A24 AB12 >      B24 IODEV1XX# > C24 DB11 =        |) s
+5 98 M
+(|     <  Input                                                                   A25 AB13 >      B25 IODEV2XX# > C25 DB12 =        |) s
+5 89 M
+(|     *  Open Drain                                                              A26 AB14 >      B26 IODEV3XX# > C26 DB13 =        |) s
+5 80 M
+(|     =  Bidirectional bus                                                       A27 AB15 >      B27 T34# >      C27 DB14 =        |) s
+5 71 M
+(|     x  Do not connect                                                          A28 SYSDEV#     B28 CLK4 >      C28 DB15 =        |) s
+5 62 M
+(|     -  Card-local signal                                                       A29 CLK1 >      B29 CLK2 >      C29 IRQ# *        |) s
+5 53 M
+(|                                                                                A30 IRQS# >     B30 CLK3 >      C30 RESET# *      |) s
+5 44 M
+(|     \(c\) 2013 Alexios Chouchoulas <alexios@bedroomlan.org>                      A31 GND         B31 GND         C31 GND           |) s
+5 35 M
+(|     http://www.bedroomlan.org/cft                                              A32 +5V         B32 +5V         C32 +5V           |) s
+5 26 M
+(|                                                                                                                                  |) s
+5 17 M
+(+----------------------------------------------------------------------------------------------------------------------------------+) s
+_R
+S
+%%Page: (2) 2
+%%BeginPageSetup
+_S
+90 rotate
+36 -577 translate
+/pagenum 2 def
+/fname () def
+/fdir (.) def
+/ftail (.) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+5 548 M
+(+----------+------+------------------+--------+-------+------+------+--------------------------------------------------------------+) s
+5 539 M
+(| Mnemonic |  Hex | Op..IR...Operand | Cycles | INZVL | MIXC | TOme | Description. Semantics. Notes.                               |) s
+5 530 M
+(+----------+------+------------------+--------+-------+------+------+--------------------------------------------------------------+) s
+5 521 M
+(| TRAP     | 0000 | 00000Raaaaaaaaaa | 5      | ----- | A--- | F--- | Save PC and jump to trap. [1]=PC; PC=a                       |) s
+5 512 M
+(| TRAP I   | 0800 | 00001Rmmmmmmmmmm | 7/9    | ----- | AIX- | F--- | Save PC and jump to trap ind. [1]=PC; PC=[m]                 |) s
+5 503 M
+(| IOT      | 1000 | 00010Rdddddddddd | 5      | -NZ-- | D--- | I--- | I/O transaction. {d}=AC; AC={d}                              |) s
+5 494 M
+(| IOT I    | 1800 | 00011Rmmmmmmmmmm | 7/9    | -NZ-- | DIX- | I--- | I/O transaction ind. {[m]}=AC; AC={[m]+}                     |) s
+5 485 M
+(| LOAD     | 2000 | 00100Rdddddddddd | 5      | -NZ-- | D--- | M--- | Load from memory. AC=[m]                                     |) s
+5 476 M
+(| LOAD I   | 2800 | 00101Rmmmmmmmmmm | 7/9    | -NZ-- | DIX- | M--- | Load from memory, ind. AC=[[m]+]                             |) s
+5 467 M
+(| STORE    | 3000 | 00110Rdddddddddd | 5      | ----- | D--- | M--- | Store to memory. AC=[m]                                      |) s
+5 458 M
+(| STORE I  | 3800 | 00111Rmmmmmmmmmm | 7/9    | ----- | DIX- | M--- | Store to memory, ind. AC=[[m]+]                              |) s
+5 449 M
+(| PUSH     | 3C00 | 001111001mmmmmmm | 9      | ----- | --X- | M--- | Push onto stack pointer m. Macro: STORE I R m. **1,2         |) s
+5 440 M
+(| IN       | 4000 | 01000Rdddddddddd | 4      | -NZ-- | D--- | I--- | Input from device. AC={d}                                    |) s
+5 431 M
+(| IN I     | 4800 | 01001Rmmmmmmmmmm | 6/8    | -NZ-- | DIX- | I--- | Input from device, ind. AC={[m]+}                            |) s
+5 422 M
+(| OUT      | 5000 | 01010Rdddddddddd | 4      | ----- | D--- | I--- | Output to device. {d}=AC                                     |) s
+5 413 M
+(| OUT I    | 5800 | 01011Rmmmmmmmmmm | 6/8    | ----- | DIX- | I--- | Output to device, ind. {[m]+}=AC                             |) s
+5 404 M
+(| JMP      | 6000 | 01100Raaaaaaaaaa | 3      | ----- | A--- | F--- | Jump. PC=a                                                   |) s
+5 395 M
+(| JMP I    | 6800 | 01101Rmmmmmmmmmm | 4/7    | ----- | AIX- | F--- | Jump, ind. PC=[a]+                                           |) s
+5 386 M
+(| RET      | 6C00 | 0110110000000000 | 4      | ----- | a--- | F-m- | Return from subroutine. M: JMP I R 0. **3                    |) s
+5 377 M
+(| RTT      | 6C01 | 0110110000000001 | 4      | ----- | a--- | F-m- | Return from trap. M: JMP I R 1. **3                          |) s
+5 368 M
+(| RTI      | 6C02 | 0110110000000010 | 4      | ----- | a--- | F-m- | Return from interrupt. M: JMP I R 2. **3                     |) s
+5 359 M
+(| JSR      | 7000 | 01110Raaaaaaaaaa | 5      | ----- | A--- | F--- | Save PC and jump to subroutine. [0]=PC; PC=a                 |) s
+5 350 M
+(| JSR I    | 7800 | 01111Rmmmmmmmmmm | 6/9    | ----- | AIX- | F--- | Save PC and jump to subroutine, ind. [0]=PC; PC=[a]+         |) s
+5 341 M
+(| ADD      | 8000 | 10000Rmmmmmmmmmm | 5      | -NZVL | D--- | A--- | Add memory to AC. <L,AC>=<L,AC> + [a]                        |) s
+5 332 M
+(| ADD I    | 8800 | 10001Rmmmmmmmmmm | 7/9    | -NZVL | DIX- | A--- | Add memory to AC, inc. <L,AC>=<L,AC> + [[m]+]                |) s
+5 323 M
+(| AND      | 9000 | 10010Rmmmmmmmmmm | 5      | -NZ-- | D--- | A--- | Bitwise AND memory and AC. AC=AC & [m]                       |) s
+5 314 M
+(| AND I    | 9800 | 10011Rmmmmmmmmmm | 7/9    | -NZ-- | DIX- | A--- | Bitwise AND memory and AC, inc. AC=AC & [[m]+]               |) s
+5 305 M
+(| OR       | A000 | 10100Rmmmmmmmmmm | 5      | -NZ-- | D--- | A--- | Bitwise OR memory and AC. AC=AC | [m]                        |) s
+5 296 M
+(| OR I     | A800 | 10101Rmmmmmmmmmm | 7/9    | -NZ-- | DIX- | A--- | Bitwise OR memory and AC, inc. AC=AC | [[m]+]                |) s
+5 287 M
+(| XOR      | A000 | 10100Rmmmmmmmmmm | 5      | -NZ-- | D--- | A--- | Bitwise XOR memory and AC. AC=AC ^ [m]                       |) s
+5 278 M
+(| XOR I    | A800 | 10101Rmmmmmmmmmm | 7/9    | -NZ-- | DIX- | A--- | Bitwise XOR memory and AC, inc. AC=AC ^ [[m]+]               |) s
+5 269 M
+(| OP1      | C000 | 11000xbbbbbbbbbb | 10     | -??-? | ---C | ?1-- | Combined ops 1. **4                                          |) s
+5 260 M
+(| NOP10    | C000 | 11000x0000000000 | 10     | ----- | ---C | -1-- | No operation, ten idle cycles. M: OP1. **3                   |) s
+5 251 M
+(| IFL      | C200 | 11000x1--------- | 3>10   | ----- | ---C | F1-- | Execute remaining instr. iff L set. !L => end.               |) s
+5 242 M
+(| IFV      | C100 | 11000x-1-------- | 4>10   | ----- | ---C | F1-- | Execute remaining instr. iff V set. !V => end.               |) s
+5 233 M
+(| CLA      | C080 | 11000x--1------- | 10     | -00-- | ---C | -1-- | Clear AC. AC=0                                               |) s
+5 224 M
+(| CLL      | C040 | 11000x---1------ | 10     | ----0 | ---C | -1-- | Clear L. L=0                                                 |) s
+5 215 M
+(| NOT      | C020 | 11000x----1----- | 10     | -NZ-- | ---C | A1-- | Complement AC. AC=!AC                                        |) s
+5 206 M
+(| INC      | C010 | 11000x-----1---- | 10     | -NZ-L | ---C | A1-- | Increment. <L,AC>++                                          |) s
+5 197 M
+(| CPL      | C008 | 11000x------1--- | 10     | ----* | ---C | -1-- | Complement link. L=!L                                        |) s
+5 188 M
+(| RBL      | C002 | 11000x-------010 | 10     | -NZ-L | ---C | A1-- | Roll bit left. <L,AC>=<L,AC> <- 1. **5                       |) s
+5 179 M
+(| RBR      | C001 | 11000x-------001 | 10     | -NZ-L | ---C | A1-- | Roll bit right. <L,AC>=<L,AC> -> 1. **5                      |) s
+5 170 M
+(| RNL      | C00A | 11000x-------110 | 10     | -NZ-L | ---C | A1-- | Roll nybble left <L,AC>=<L,AC> <- 4. **5                     |) s
+5 161 M
+(| RNR      | C005 | 11000x-------101 | 10     | -NZ-L | ---C | A1-- | Roll nybble right <L,AC>=<L,AC> -> 4. **5                    |) s
+5 152 M
+(| NEG      | C030 | 11000x----11---- | 10     | -NZ-- | ---C | A1m- | Two's complement. M: NOT INC.                                |) s
+5 143 M
+(| ING      | C020 | 11000x----1----- | 10     | -NZ-- | ---C | A1m- | INcrement and neGate \(One's complement\). M: NOT.             |) s
+5 134 M
+(| SBL      | C042 | 11000x---1---010 | 10     | -NZ-L | ---C | A1m- | Shift bit left without sign extension. M: CLL RBL.           |) s
+5 125 M
+(| SBR      | C041 | 11000x---1---001 | 10     | -NZ-L | ---C | A1m- | Shift bit right without sign extension. M: CLL RBR.          |) s
+5 116 M
+(| SEL      | C048 | 11000x---1--1--- | 10     | ----L | ---C | -1m- | Set L. M: CLL CPL                                            |) s
+5 107 M
+(| OP2      | D000 | 11010xbbbbbbbbbb | 8      | ???-- | ---C | ?2-- | Combined ops 2. **4                                          |) s
+5 98 M
+(| NOP8     | D000 | 11010x0000000000 | 8      | ----- | ---C | -2-- | No operation, eight idle cycles. **3                         |) s
+5 89 M
+(| SKPN     | D000 | 11010x-----00000 | 8      | ----- | ---C | F2-- | Skip never. **6                                              |) s
+5 80 M
+(| SNA      | D008 | 11010x-----01--- | 8      | ----- | ---C | F2-- | Skip if negative. N => PC++. **6                             |) s
+5 71 M
+(| SZA      | D004 | 11010x-----0-1-- | 8      | ----- | ---C | F2-- | Skip if zero. Z => PC++. **6                                 |) s
+5 62 M
+(| SSL      | D002 | 11010x-----0--1- | 8      | ----- | ---C | F2-- | Skip if link. L => PC++. **6                                 |) s
+5 53 M
+(| SSV      | D001 | 11010x-----0---1 | 8      | ----- | ---C | F2-- | Skip if overflow. V => PC++. **6                             |) s
+5 44 M
+(| SNP      | D00C | 11010x-----01100 | 8      | ----- | ---C | F2m- | Skip if non-positive. M: SNA SZA. **6                        |) s
+5 35 M
+(+----------+------+------------------+--------+-------+------+------+--------------------------------------------------------------+) s
+5 26 M
+(| Mnemonic |  Hex | Op..IR...Operand | Cycles | INZVL | MIXC | TOme | Description. Semantics. Notes.                               |) s
+5 17 M
+(+----------+------+------------------+--------+-------+------+------+--------------------------------------------------------------+) s
+_R
+S
+%%Page: (3) 3
+%%BeginPageSetup
+_S
+90 rotate
+36 -577 translate
+/pagenum 3 def
+/fname () def
+/fdir (.) def
+/ftail (.) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+5 548 M
+(+----------+------+------------------+--------+-------+------+------+--------------------------------------------------------------+) s
+5 539 M
+(| Mnemonic |  Hex | Op..IR...Operand | Cycles | INZVL | MIXC | TOme | Description. Semantics. Notes.                               |) s
+5 530 M
+(+----------+------+------------------+--------+-------+------+------+--------------------------------------------------------------+) s
+5 521 M
+(| SKIP     | D010 | 11010x-----10000 | 8      | ----- | ---C | F2-- | Skip always. PC=PC+1. **7                                    |) s
+5 512 M
+(| SNN      | D018 | 11010x-----11--- | 8      | ----- | ---C | F2-- | Skip if non-negative. !N => PC++. **7                        |) s
+5 503 M
+(| SNZ      | D014 | 11010x-----1-1-- | 8      | ----- | ---C | F2-- | Skip if non-zero. !N => PC++. **7                            |) s
+5 494 M
+(| SCL      | D012 | 11010x-----1--1- | 8      | ----- | ---C | F2-- | Skip if link clear. !L => PC++. **7                          |) s
+5 485 M
+(| SCV      | D011 | 11010x-----1---1 | 8      | ----- | ---C | F2-- | Skip if no overflow. !V => PC++. **7                         |) s
+5 476 M
+(| SPA      | D01C | 11010x-----11100 | 8      | ----- | ---C | F2m- | Skip if positive. M: SNN SNZ. **7                            |) s
+5 467 M
+(| CLA      | D080 | 11010x--1------- | 8      | -00-- | ---C | -2-- | Clear AC. AC=0                                               |) s
+5 458 M
+(| CLI      | D040 | 11010x---1 ----- | 8      | 0---- | ---C | -2-- | Clear Interrupts. I=0.                                       |) s
+5 449 M
+(| STI      | D020 | 11010x----1----- | 8      | 1---- | ---C | -2-- | Set Interrupts. I=1.                                         |) s
+5 440 M
+(| POP      | D000 | 11011Rmmmmmmmmmm | 8      | -NZ-- | --X- | M2-- | Pop from stack \(decrement and load\). [m]--; AC=[[m]]. **2    |) s
+5 431 M
+(| ISZ      | E000 | 11100Rmmmmmmmmmm | 7      | -NZ-L | D--- | F--- | Increment and skip if zero. AC=[m]+1; [m]=AC; Z => PC+       |) s
+5 422 M
+(| ISZ I    | E800 | 11101Rmmmmmmmmmm | 9/11   | -NZ-L | DIX- | F--- | Increment ind. & skip if 0. AC=[[m]]+1; [[m]+]=AC; Z => PC++ |) s
+5 413 M
+(| LIA      | F000 | 11110Raaaaaaaaaa | 3      | -NZ-- | A--- | ---- | Load address/literal. AC=a                                   |) s
+5 404 M
+(| LI       | F400 | 111101iiiiiiiiii | 3      | -NZ-- | L--- | --m- | Load immediate. M: LIA R                                     |) s
+5 395 M
+(| JMPII    | F800 | 11111Rmmmmmmmmmm | 6/8    | ----- | A2X- | F--- | Jump doubly indirect \(Forth ENTER\). PC = [[m]+]              |) s
+5 386 M
+(| SBP      | 5400 | 010101000000nnnn | 4      | ----- | D--- | I-me | Select Microcode Bank n. {UBCp}=n. M: OUT R &n. **1,8        |) s
+5 377 M
+(| SBN      | 5410 | 010101000001nnnn | 4      | ----- | D--- | I-me | Set uC Bank for next instr. {UBCt}=n. M: OUT R &1n. **1,8,B  |) s
+5 368 M
+(| SMB      | 5420 | 0101010000100nnn | 4      | ----- | D--- | I-me | Set Memory Bank n. {MBRn}=AC. M: OUT R &2n. **1,9            |) s
+5 359 M
+(| SOR      | 5432 | 0101010000110010 | 4      | ----- | d--- | I-me | Set Front Panel Output Register. {OR}=AC. M: OUT R &32. **A  |) s
+5 350 M
+(| HALT     | 5437 | 0101010000110111 | 4      | ----- | d--- | I-me | Halt clock. M: OUT R &37. **1,A                              |) s
+5 341 M
+(| LSR      | 4430 | 0100010000110000 | 4      | -NZ-- | d--- | I-me | Read Front Panel Switch Regstr. AC={SR}. M: IN R &30. **1,A  |) s
+5 332 M
+(| LDSR     | 4431 | 0100010000110001 | 4      | -NZ-- | d--- | I-me | Read Front Panel DIP Switches. AC={DSR}. M: IN R &31. **1,A  |) s
+5 323 M
+(+----------+------+------------------+--------+-------+------+------+--------------------------------------------------------------+) s
+5 314 M
+(| Mnemonic |  Hex | Op..IR...Operand | Cycles | INZVL | MIXC | TOme | Description. Semantics. Notes.                               |) s
+5 305 M
+(+----------+------+------------------+--------+-------+------+------+--------------------------------------------------------------+) s
+5 296 M
+(|          |      | 1                |        |       |      |      | Bit must be set                                              |) s
+5 287 M
+(|          |      | 0                |        |       |      |      | Bit must be clear                                            |) s
+5 278 M
+(|          |      | -                |        |       |      |      | Any value will do \(don't care / OR with other bit values\)    |) s
+5 269 M
+(|          |      | Op..             |        |       |      |      | Opcode                                                       |) s
+5 260 M
+(|          |      |     I            |        |       |      |      | Indirection bit                                              |) s
+5 251 M
+(|          |      | Op..I            |        |       |      |      | Instruction microprogram identifier                          |) s
+5 242 M
+(|          |      |      R           |        |       |      |      | Register bit. If R=1: zero page. R=0: relative to PC.        |) s
+5 233 M
+(|          |      |       aaaaaaaaaa |        |       |      |      | Address operand \(address modes\)                              |) s
+5 224 M
+(|          |      |       mmmmmmmmmm |        |       |      |      | Address operand \(direct modes\)                               |) s
+5 215 M
+(|          |      |       bbbbbbbbbb |        |       |      |      | Bitmap operand \(minor operations\)                            |) s
+5 206 M
+(|          |      |       iiiiiiiiii |        |       |      |      | Immediate operand \(LI instruction\)                           |) s
+5 197 M
+(|          |      |       nnnnnnnnnn |        |       |      |      | Unit number \(extensions\)                                     |) s
+5 188 M
+(+----------+------+------------------+--------+-------+------+------+--------------------------------------------------------------+) s
+5 179 M
+(|          |      |                  | nn     |       |      |      | Runs in n clock cycles                                       |) s
+5 170 M
+(|          |      |                  |   /mm  |       |      |      | Autoindex runs in m clock cycles                             |) s
+5 161 M
+(|          |      |                  | nn>cc  |       |      |      | Runs in n cycles if false, c if true                         |) s
+5 152 M
+(+----------+------+------------------+--------+-------+------+------+--------------------------------------------------------------+) s
+5 143 M
+(|          |      |                  |        | ?     |      |      | Flag may be affected depending on operand                    |) s
+5 134 M
+(|          |      |                  |        | 0     |      |      | Flag cleared                                                 |) s
+5 125 M
+(|          |      |                  |        | 1     |      |      | Flag set                                                     |) s
+5 116 M
+(|          |      |                  |        | *     |      |      | Flag toggled                                                 |) s
+5 107 M
+(|          |      |                  |        | -     |      |      | Flag unaffected                                              |) s
+5 98 M
+(|          |      |                  |        | I     |      |      | Interrupt flag affected                                      |) s
+5 89 M
+(|          |      |                  |        |  N    |      |      | Negative flag affected                                       |) s
+5 80 M
+(|          |      |                  |        |   Z   |      |      | Zero flag affected                                           |) s
+5 71 M
+(|          |      |                  |        |    V  |      |      | Overflow flag affected                                       |) s
+5 62 M
+(|          |      |                  |        |     L |      |      | Link affected                                                |) s
+5 53 M
+(+----------+------+------------------+--------+-------+------+------+--------------------------------------------------------------+) s
+5 44 M
+(| Mnemonic |  Hex | Op..IR...Operand | Cycles | INZVL | MIXC | TOme | Description. Semantics. Notes.                               |) s
+5 35 M
+(+----------+------+------------------+--------+-------+------+------+--------------------------------------------------------------+) s
+_R
+S
+%%Page: (4) 4
+%%BeginPageSetup
+_S
+90 rotate
+36 -577 translate
+/pagenum 4 def
+/fname () def
+/fdir (.) def
+/ftail (.) def
+/user_header_p false def
+/user_footer_p false def
+%%EndPageSetup
+5 548 M
+(+----------+------+------------------+--------+-------+------+------+--------------------------------------------------------------+) s
+5 539 M
+(| Mnemonic |  Hex | Op..IR...Operand | Cycles | INZVL | MIXC | TOme | Description. Semantics. Notes.                               |) s
+5 530 M
+(+----------+------+------------------+--------+-------+------+------+--------------------------------------------------------------+) s
+5 521 M
+(|          |      |                  |        |       | A    |      | \(Register\) Address mode                                      |) s
+5 512 M
+(|          |      |                  |        |       | D    |      | \(Register\) Direct mode                                       |) s
+5 503 M
+(|          |      |                  |        |       | L    |      | Literal mode                                                 |) s
+5 494 M
+(|          |      |                  |        |       | a    |      | Implied address                                              |) s
+5 485 M
+(|          |      |                  |        |       | d    |      | Implied direct mode address                                  |) s
+5 476 M
+(|          |      |                  |        |       |  I   |      | Indirect                                                     |) s
+5 467 M
+(|          |      |                  |        |       |  2   |      | Double Indirect                                              |) s
+5 458 M
+(|          |      |                  |        |       |   X  |      | Autoindex if &080 <= m <= &FF.                               |) s
+5 449 M
+(|          |      |                  |        |       |    C |      | Conditional                                                  |) s
+5 440 M
+(+----------+------+------------------+--------+-------+------+------+--------------------------------------------------------------+) s
+5 431 M
+(|          |      |                  |        |       |      | F    | Flow control                                                 |) s
+5 422 M
+(|          |      |                  |        |       |      | M    | Memory space                                                 |) s
+5 413 M
+(|          |      |                  |        |       |      | I    | I/O space                                                    |) s
+5 404 M
+(|          |      |                  |        |       |      | A    | Arithmetic/Logic                                             |) s
+5 395 M
+(|          |      |                  |        |       |      | ?    | Depends on operand                                           |) s
+5 386 M
+(|          |      |                  |        |       |      |  1   | OP1 Minor Operations                                         |) s
+5 377 M
+(|          |      |                  |        |       |      |  2   | OP2 Minor Operations                                         |) s
+5 368 M
+(|          |      |                  |        |       |      |   m  | Instruction Macro/Alias                                      |) s
+5 359 M
+(|          |      |                  |        |       |      |    e | Extension                                                    |) s
+5 350 M
+(+----------+------+------------------+--------+-------+------+------+--------------------------------------------------------------+) s
+5 341 M
+(|          |      |                  |        |       |      |      | AC  Accumulator                                              |) s
+5 332 M
+(|          |      |                  |        |       |      |      | L  Link/Carry register                                       |) s
+5 323 M
+(|          |      |                  |        |       |      |      | <L,AC>  17-bit aggregate, L is most-significant bit.         |) s
+5 314 M
+(|          |      |                  |        |       |      |      | +  Bitwise addition.                                         |) s
+5 305 M
+(|          |      |                  |        |       |      |      | X++  Shorthand for X = X + 1                                 |) s
+5 296 M
+(|          |      |                  |        |       |      |      | X--  Shorthand for X = X - 1                                 |) s
+5 287 M
+(|          |      |                  |        |       |      |      | PC  Program Counter                                          |) s
+5 278 M
+(|          |      |                  |        |       |      |      | [n]  memory at address n                                     |) s
+5 269 M
+(|          |      |                  |        |       |      |      | [[n]]  indirection: memory at address [n]                    |) s
+5 260 M
+(|          |      |                  |        |       |      |      | [n]+  autoindex: if &80<=n<=&FF, [n]=[n]+1 at end of instr.  |) s
+5 251 M
+(|          |      |                  |        |       |      |      | {n}  I/O space at address n                                  |) s
+5 242 M
+(|          |      |                  |        |       |      |      | X=Y  X gets the value of Y                                   |) s
+5 233 M
+(|          |      |                  |        |       |      |      | !X => ACTION  Perform ACTION if flag X is clear.             |) s
+5 224 M
+(|          |      |                  |        |       |      |      | end  End execution of current instruction.                   |) s
+5 215 M
+(|          |      |                  |        |       |      |      | &  Bitwise And                                               |) s
+5 206 M
+(|          |      |                  |        |       |      |      | |  Bitwise Or                                                |) s
+5 197 M
+(|          |      |                  |        |       |      |      | ^  Bitwise Exclusive Or \(1 if bits differ\)                   |) s
+5 188 M
+(|          |      |                  |        |       |      |      | !X  Bitwise Not of X \(toggle bit\(s\)\)                         |) s
+5 179 M
+(|          |      |                  |        |       |      |      | X <- n  Roll bits in X n positions to the left.              |) s
+5 170 M
+(|          |      |                  |        |       |      |      | X -> n  Roll bits in X n positions to the right.             |) s
+5 161 M
+(|          |      |                  |        |       |      |      | M:  Macro \(actual instruction executed follows\)              |) s
+5 152 M
+(|          |      |                  |        |       |      |      |                                                              |) s
+5 143 M
+(|          |      |                  |        |       |      |      | **1 Not all 10 bits of operand are used/allowed.             |) s
+5 134 M
+(|          |      |                  |        |       |      |      | **2 Works only for autoindex addresses \(&80-&FF\)             |) s
+5 125 M
+(|          |      |                  |        |       |      |      | **3 No operand.                                              |) s
+5 116 M
+(|          |      |                  |        |       |      |      | **4 Combined minor operations. Executed top-to-bottom as     |) s
+5 107 M
+(|          |      |                  |        |       |      |      |     listed. Operand fragments can be ORred together to       |) s
+5 98 M
+(|          |      |                  |        |       |      |      |     combine multiple minor operations.                       |) s
+5 89 M
+(|          |      |                  |        |       |      |      | **5 Roll operation. L acts as 17th bit. Roll operations are  |) s
+5 80 M
+(|          |      |                  |        |       |      |      |     mutually exclusive.                                      |) s
+5 71 M
+(|          |      |                  |        |       |      |      | **6 Group 1 conditionals. Mutually exclusive with group 2.   |) s
+5 62 M
+(|          |      |                  |        |       |      |      | **7 Group 2 conditionals. Mutually exclusive with group 1.   |) s
+5 53 M
+(|          |      |                  |        |       |      |      | **8 Microcode Banking Extension \(UCB\) must be present.       |) s
+5 44 M
+(|          |      |                  |        |       |      |      | **9 Memory Banking Unit \(MBU\) must be present.               |) s
+5 35 M
+(|          |      |                  |        |       |      |      | **A Programmer's Front Panel \(PFP\) must be present.          |) s
+5 26 M
+(|          |      |                  |        |       |      |      | **B May delay intrpt. handling by 1 fetch-execute cycle.     |) s
+5 17 M
+(+----------+------+------------------+--------+-------+------+------+--------------------------------------------------------------+) s
+_R
+S
+%%Trailer
+%%Pages: 4
+%%DocumentNeededResources: font Courier-Bold 
+%%EOF
