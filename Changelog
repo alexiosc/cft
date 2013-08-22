@@ -809,7 +809,7 @@
 	connector in favour of the control bus. Through-hole resistor nets
 	to be removed in favour of SMT resistor arrays.
 
-	[Setbacks,Des/Hardware/PB2] PB2 was not receiving DEC# signal from
+	[Setback,Des/Hardware/PB2] PB2 was not receiving DEC# signal from
 	the microcode store because DEC# was never assigned a control bus
 	pin! Reworked control bus to add this. Merged INCCPL# and DECCPL#
 	signals into ACCPL# using an AND gate on PB2.
@@ -847,7 +847,7 @@
 
 	[Des/Hardware/PB1] Routing PB0.
 
-2012-08-19  AC <alexios@bedroomlan.org>
+2013-07-19  AC <alexios@bedroomlan.org>
 
 	[Orders,Tools] More solder paste (in syringes), a manual applicator
 	with plunger and an IR thermometer have been delivered. They should
@@ -861,7 +861,7 @@
 	[Des/Hardware/PB3] Minor re-routing for amended control and expansion
 	bus signals.
 
-2012-08-20  AC <alexios@bedroomlan.org>
+2013-07-20  AC <alexios@bedroomlan.org>
 
 	[Testing,Des/Hardware] Fixed Verilog testbenches for new
 	structures. Tests on the new control bus now pass.
@@ -880,7 +880,95 @@
 	write strobe generation logic to verify they work as expected on real
 	hardware.
 
+2013-07-22  AC <alexios@bedroomlan.org>
+
+	[Doc/Book] Documented new Control Bus signals.
+
+	[Des/Hardware/PB0] Minor changes to the board layout.
+
+	[Des/Hardware/PB1] Minor changes to the board layout. Signal
+	conditioning. Re-rendered board.
+
+2013-07-23  AC <alexios@bedroomlan.org>
+
+	[Des/Hardware/PB2] Minor changes to the board layout. Signal
+	conditioning. Re-rendered board.
+
+	[Des/Hardware/PB3] Minor changes to the board layout. Fixed minor
+	issues with component/label placement. Signal conditioning. Re-rendered
+	board.
+
+	[Orders] SpeakJet® chips ordered.
+
+2013-07-28  AC <alexios@bedroomlan.org>
+
+	[Orders] SpeakJet® chips delivered.
+
+2013-08-06  AC <alexios@bedroomlan.org>
+
+	[Orders] Ordered new PB0 and PB1 boards from Smart Prototyping.
+
+2013-08-07  AC <alexios@bedroomlan.org>
+
+	[Doc/Refcard] Produced a bus and instruction set reference card in
+	text, postscript and PDF.
+
+2013-08-09  AC <alexios@bedroomlan.org>
+
+	[Doc/Refcard] Minor error corrections.
+
+	[Doc/Book] Minor fixes to the Assembler and programming model chapter.
+
+	[Code/Software/ROM] First revision of an ASCII 8×8 font.
+
+2013-08-10  AC <alexios@bedroomlan.org>
+
+	[Setback,Des/Hardware/PB1] W# does not tri-state when the processor is
+	halted. Will have to fix using a tri-state buffer.
+
+	[Code/Software/Filesystem] C Filesystem code can now create, read and
+	write Level 0 files.
+
+2013-08-11  AC <alexios@bedroomlan.org>
+
+	[Doc/Book] Minor fixes to the Data Storage (filesystem description)
+	chapter.
+
+	[Code/Software/Filesystem] C Filesystem code can now create, read and
+	write Level 0 and Level 1 files.
+
+2013-08-16  AC <alexios@bedroomlan.org>
+
+	[Setback,Orders] CFT PB0 and PB1 boards arrived in Athens and are stuck
+	in Greek customs hell.
+
+	[Test/Hardware/SPJ] Breadboarded and tested the SpeakJet® chip.
+
+2013-08-17  AC <alexios@bedroomlan.org>
+
+	[Setback] Rsync accident. Accidentally deleted all files created in the
+	past two weeks, including some filesystem code, the completed reference
+	card, the 8×8 font and the SpeakJet® experiment code.
+
+2013-08-19  AC <alexios@bedroomlan.org>
+
+	[Misc] Data recovered. Didn't bother with the 8×8 font which represents
+	a small amount of effort (early revisions of just the ASCII characters
+	done).
+
+	[Doc] Added BOM for front panel to documentation.
+
+	[Orders] Ordered SMT components for the printed versions of the CFT PB0
+	and PB1.
 
 2012-08-20  AC <alexios@bedroomlan.org>
 
 	[Tools] Recreated subversion repository with new versions of all files.
+
+2012-08-22  AC <alexios@bedroomlan.org>
+
+	[Tools] Recreated subversion repository with new versions of all files.
+
+	[Orders] Cleared PB0 and PB1 boards through customs, at the cost of two
+	hours, eleven seperate steps in three buildings, and 75% the value of
+	the boards in various taxes.
