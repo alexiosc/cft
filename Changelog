@@ -972,3 +972,14 @@
 	[Orders] Cleared PB0 and PB1 boards through customs, at the cost of two
 	hours, eleven seperate steps in three buildings, and 75% the value of
 	the boards in various taxes.
+
+2012-08-23  AC <alexios@bedroomlan.org>
+
+	[Orders] Mouser order with PB0 and PB1 components has arrived.
+
+2012-08-25  AC <alexios@bedroomlan.org>
+
+	[Tools] First revision of the image-to-VDU converter. It can handle
+	multicolour and graphics modes for now, and procuces either image
+	format simulating what the VDU displays, or VDU-format files in CFT
+	Assembly or binary formats.
