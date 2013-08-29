@@ -983,3 +983,19 @@
 	multicolour and graphics modes for now, and procuces either image
 	format simulating what the VDU displays, or VDU-format files in CFT
 	Assembly or binary formats.
+
+2012-08-26  AC <alexios@bedroomlan.org>
+
+	[Tools] Improvements to the image-to-VDU converter. First revision
+	of the VDU image format. The converter now outputs files in this
+	format too, either binaries or as CFT Assembler source.
+
+2012-08-27  AC <alexios@bedroomlan.org>
+
+	[Cons/Hardware/PFP/Light_Assembly/LED_Boards=100] Completed last remaining front panel boards. Tested all eight boards.
+
+	[Cons/Hardware/PB0=50] Placed and soldered bottom side of Processor Board 0.
+
+2012-08-28  AC <alexios@bedroomlan.org>
+
+	[Cons/Hardware/PB0=100] Placed and soldered top side of Processor Board 1.
