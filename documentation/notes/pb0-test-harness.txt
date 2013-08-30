@@ -1,0 +1,85 @@
+Inputs
+
+Name       Src      Conditioning
+-------------------------------------------------------------------------------
+CLK4       PB1/CG   Bus hold (PB0)
+CLK3       PB1/CG   Bus hold (PB0)
+CLK1       PB1/CG   Bus hold (PB0)
+WS#        *        Pulled up (PB0)
+ENDEXT#    *        Pulled up (PB0)
+HALT#      *        Pulled up (PB0)
+RESET#     *        Pulled up (PB0)
+AINDEX#    PB1/AIL  Pulled up (PB0)
+SKIP#      PB1/SBL  Pulled up (PB0)
+IR11-15    PB1/IR   Pulled down (PB0)
+FL         PB3/L    Pulled down (PB0)
+FV         PB3/ALU  Pulled down (PB0)
+RSTHOLD#   PB1/RST  Pulled up (PB0)
+IRQS#      PB1/ISM  -
+SYSDEV#    PB1/IOD  Bus hold (PB0)
+W#         PB1/IOD  Bus hold (PB0)
+AB0-15     *        Bus hold (PB0)
+-------------------------------------------------------------------------------
+
+Passive tests:
+
+* High impedance between VCC and GND.
+* RESET# pulled up.
+* WS# pulled up.
+* ENDEXT# pulled up.
+* HALT# pulled up.
+* RESET# pulled up.
+* [R1]# pulled up.
+* RAGL# pulled up.
+* RPC# pulled up.
+* RDR# pulled up.
+* RAC# pulled up.
+* [R6]# pulled up.
+* [R7]# pulled up.
+* [W1]# pulled up.
+* WAR# pulled up.
+* WPC# pulled up.
+* WIR# pulled up.
+* WDR# pulled up.
+* WAC# pulled up.
+* WALU# pulled up.
+* RUNIT0-3 pulled down.
+* WUNIT0-2 pulled down.
+* OPIF0-3 pulled down.
+* IR11-15 pulled down.
+* FL pulled down.
+* FV pulled down.
+
+Active tests:
+
+* UPC: µPC counts up (note: with microcode ROMs installed it will
+  reset before it hits 16).
+* UPC: µPC stops counting on HALT# or RESET#.
+* UPC: µPC resets to zero on RESET#.
+* RUNIT: changes to indicate register reads.
+* WUNIT: changes to indicate register writes.
+* MEM#: should strobe to indicate memory reads.
+* R#: should strobe to indicate memory reads.
+* UCB: UCB0-3 reset to 0000.
+* UCB: UCBA/UCBB# clear on reset.
+* UCB0-3: stay at 0000 while the board runs.
+* Front panel pins reflect machine state.
+
+
+Test harness:
+
+11 input signals need to be driven.
+
+* CLK4 ticking clocks toe µPC counter.
+* CLK1 = 1 to enable RUNIT decoders.
+* CLK3 = 0 to enable WUNIT decoders.
+* IR11-IR15 select microprogram to test (optional)
+* RSTHOLD# is 0 to test reset microprogram. Disconnect = 1 = instruction test.
+* IRQS# = 1.
+* SYSDEV# = 1.
+* W# = 1.
+
+
+
+
+
