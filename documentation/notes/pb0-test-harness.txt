@@ -83,3 +83,9 @@ Test harness:
 
 
 
+Lights:
+
+Row 1: uPC
+Row 2: LSB to MSB: INCPC#, 0, R#, END#
+Row 3: RUNIT
+Row 4: WUNIT
