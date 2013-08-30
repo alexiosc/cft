@@ -999,3 +999,14 @@
 2012-08-28  AC <alexios@bedroomlan.org>
 
 	[Cons/Hardware/PB0=100] Placed and soldered top side of Processor Board 1.
+
+2012-08-29  AC <alexios@bedroomlan.org>
+
+	[Testing/Hardware/PB0] Drew up PB0 testing plan.
+
+	[Cons/Hardware/PB0=100] Burned Microcode EEPROMs.
+
+2012-08-30  AC <alexios@bedroomlan.org>
+
+	[Testing/Hardware/PB0] PB0 passes passive tests and most active tests.
+
