@@ -1008,5 +1008,9 @@
 
 2012-08-30  AC <alexios@bedroomlan.org>
 
-	[Testing/Hardware/PB0] PB0 passes passive tests and most active tests.
+	[Milestone,Testing/Hardware/PB0] PB0 passes passive tests and most
+	active tests.
 
+2012-09-01  AC <alexios@bedroomlan.org>
+
+	[Testing/Hardware/PB1] Uploaded video of PB0 testing to YouTube.
