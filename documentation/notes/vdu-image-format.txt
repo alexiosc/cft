@@ -1,0 +1,53 @@
+VDU IMAGE FORMAT.
+
+Addr:  Value & Notes
+0000: &4456 (VD)
+0001: &3155 (U1) -- VDU1 magic number (1 = version)
+0002: Number of rows of data, negated, two's complement
+0003: Number of whole columns of data (one column = 8 pixels), negated, two's complement
+0004: First word of data.
+
+VERSION 1 FORMAT
+
++--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+|                    DATA                 | OP  |
++--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+
+2 bit opcode, 14 bits data
+
+OPCODES:
+
+00 = End of row.
+01 = Set VDU command repetitions = DATA
+02 = Set VDU CREG = DATA.
+     Note that the two 2 bits of the CREG (blink and inverse
+     attributes) cannot be set.
+03 = Write VDU B plane = DATA.
+     Only the lower 8 bits of DATA are used.
+
+Algorithm:
+
+BLIT(rows, columns, data, x0, y0):
+
+  y = y0
+  i = 0                      # Use autoincrement pointer
+  WHILE rows++ != 0:
+    OUT HAR, y << 7 + x0    # Set next address to write to
+    y++
+    WHILE TRUE:
+       datum = data[i++]
+       opcode = datum & 3
+       arg = (datum >> 2) & 0x3fff
+       if opcode = 0:
+         BREAK
+       else if opcode = 1:
+         OUT CRR, arg
+       else if opcode == 2:
+         OUT CPORT, arg
+       else if opcode == 3:
+         OUT CMD, VDU_WBC | VDU_INCX | arg
+    END-FOREACH
+  END-WHILE
+
+
+
