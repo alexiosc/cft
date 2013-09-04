@@ -1014,3 +1014,10 @@
 2012-09-01  AC <alexios@bedroomlan.org>
 
 	[Testing/Hardware/PB1] Uploaded video of PB0 testing to YouTube.
+
+2012-09-04  AC <alexios@bedroomlan.org>
+
+	[Doc/Extra] Wrote brief description of img2vdu output format.
+
+	[Code/Software/Filesystem] C Filesystem code will now compile. Clean
+	ups. Beginnings of rewriting of the lost code.
