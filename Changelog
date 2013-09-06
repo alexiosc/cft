@@ -1013,7 +1013,7 @@
 
 2012-09-01  AC <alexios@bedroomlan.org>
 
-	[Testing/Hardware/PB1] Uploaded video of PB0 testing to YouTube.
+	[Testing/Hardware/PB0] Uploaded video of PB0 testing to YouTube.
 
 2012-09-04  AC <alexios@bedroomlan.org>
 
@@ -1021,3 +1021,24 @@
 
 	[Code/Software/Filesystem] C Filesystem code will now compile. Clean
 	ups. Beginnings of rewriting of the lost code.
+
+2012-09-05  AC <alexios@bedroomlan.org>
+
+	[Setback,Testing/Hardware/PB1] Outputs of SBL muxes are not pulled
+	up (they are tristated when idle). This implies the three-input
+	NOR gate is superfluous too, but better safe than sorry (the
+	external input, ENDEXT#, could be pulled up by mistake).
+
+	[Cons/Hardware/PB1=80] Finished top side of PB1, surface mount
+	components only.
+
+	[Testing/Hardware/PB1] Drew up PB1 testing plan.
+
+	[Orders] Screws and front panel hardware.
+
+2012-09-06  AC <alexios@bedroomlan.org>
+
+	[Cons/Hardware/PB1=100] Populated through-hole components. Patched
+	pull-up issue for SBL muxes. PB1 is now complete.
+
+	[Orders] Ordered PB2 PCBs.
