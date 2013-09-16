@@ -1,2 +1,2 @@
 Parts not found in 3dpack.dat or 3dusrpac.dat are:
-//XTAL1	64.000	CRYSTAL-SMD-5X3.2MM
+//U5	BZA856AVL	SC70-5

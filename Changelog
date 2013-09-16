@@ -1042,3 +1042,16 @@
 	pull-up issue for SBL muxes. PB1 is now complete.
 
 	[Orders] Ordered PB2 PCBs.
+
+2012-09-14  AC <alexios@bedroomlan.org>
+
+	[Des/Hardware/PB3=100] Touched up PB3. Board is now ready for
+	ordering. Rendered board.
+
+	[Des/Hardware/Prototyping Board=100] Completed prototyping
+	board. Rendered top side of board.
+
+2012-09-15  AC <alexios@bedroomlan.org>
+
+	[Des/Hardware/VDU=100] Reworked VDU board from scratch, added ESD
+	protection.
