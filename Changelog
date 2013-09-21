@@ -992,7 +992,8 @@
 
 2012-08-27  AC <alexios@bedroomlan.org>
 
-	[Cons/Hardware/PFP/Light_Assembly/LED_Boards=100] Completed last remaining front panel boards. Tested all eight boards.
+	[Cons/Hardware/PFP/Light_Assembly/LED_Boards=100] Completed last
+	remaining front panel boards. Tested all eight boards.
 
 	[Cons/Hardware/PB0=50] Placed and soldered bottom side of Processor Board 0.
 
@@ -1055,3 +1056,19 @@
 
 	[Des/Hardware/VDU=100] Reworked VDU board from scratch, added ESD
 	protection.
+
+2012-09-17  AC <alexios@bedroomlan.org>
+
+	[Orders] Screw and front panel hardware has arrived.
+
+2012-09-20  AC <alexios@bedroomlan.org>
+
+	[Cons/Hardware/PFP] Constructed temporary front panel out of
+	cardboard. Switches and lights are still unwired.
+
+2012-09-21  AC <alexios@bedroomlan.org>
+
+	[Des/Hardware/PFP] Fixed issues with front panel assembly diagram.
+
+	[Orders] PB3 ordered.
+
