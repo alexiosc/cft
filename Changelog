@@ -1072,3 +1072,17 @@
 
 	[Orders] PB3 ordered.
 
+2012-09-24  AC <alexios@bedroomlan.org>
+
+	[Des/Hardware/PFP] Drafted rack mount case outlines, started changing
+	front panel to fit.
+
+2012-09-25  AC <alexios@bedroomlan.org>
+
+	[Setback,Testing/Hardware/PB0] OPIF0 and FL are buffered but not
+	connected to the front panel connector on PB0. There is a single spare
+	pin (pin 38, previously grounded), now assigned to OPIF0 in the
+	revision F PB0 board. This is less a problem than it seems, because
+	both OPIF0 and FL are present on the control bus, and can be buffered
+	and forwarded over to the control panel lights on the control panel
+	controller (PFP) board.
