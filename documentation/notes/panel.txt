@@ -266,6 +266,264 @@ xx xx xx xx xx xx xx xx    xx xx xx    xx xx xx    SR SR SR SR SR SR SR SR SR SR
                                                    15 14 13 12 11 10 09 08 07 06 05 04 03 02 01 00
 	    
 		  
+=Panel v5 Operation=
 
-       	       	     
-					     
+The switches are 
+
+Run by a sequencer following this algorithm:
+
+* Sample opcode
+
+
+==State Machine==
+
+8 states, 3 bits.
+
+Transition table:
+
+      To
+      0  1  2  3  4  5  6  7
+From
+  0   a  b  .  .  .  .  .  .    Idle
+  1   .  .  c  .  .  .  .  .    Transaction, step 1
+  2   .  .  .  c  .  .  .  .    Transaction, step 2
+  3   .  .  .  .  c  .  .  .    Transaction, step 3
+  4   .  .  .  .  .  c  .  .    Transaction, step 4
+  5   .  .  .  .  .  .  c  .    Transaction, step 5
+  6   .  .  .  .  .  .  .  c    Transaction, step 6
+  7   a  d  .  .  .  .  .  e    Autorepeat timer
+
+
+(a) If SWSTROBE# is high
+(b) If SWSTROBE# is low
+(c) PCLK
+(d) Timer has expired, SWSTROBE# is high.
+(e) Timer not expired, SWSTROBE# is low.
+
+State 7 transitions:
+
+TIMER-EXPIRED   SWITCH-DOWN   NEW-STATE  S2 S1 S0
+-------------------------------------------------
+       N             N            0       0  0  0
+       N             Y            1       0  0  1
+       Y             N            0       0  0  0
+       Y             Y            7       1  1  1
+
+
+Start/Stop State machine (and clock selection):
+
+* Stop must be synchronous.
+* So, always stop on rising edge of EXEC, when CLK1 is low (or falling edge of
+  CLK4)
+* To avoid glitches, start must be synchronous to the falling edge of the
+  selected slow clock.
+* Latch clock selection only when stopped (?).
+
+* Start conditions:
+  - START-RUNNING (level, async)
+  - OP-RUN# (level/falling edge, Step and uStep swithces assert this)
+
+* Stop conditions:
+  - START-HALTED (level, async)
+  - OP-STOP# (level/falling edge)
+  - FPHALT# (falling edge)
+  - ENDSTEP (rising edge)
+
+
+RUNNING   START-RUNNING   START-HALTED   OP-RUN#   OP-STOP#   FPHALT#   ENDSTEP     STOP  ASYNC-START#   ASYNC-STOP#   Notes
+--------------------------------------------------------------------------------- -----------------------------------------------------------------
+   X            .               .           .         .          .         .          .        .             .        No operation, no change.
+--------------------------------------------------------------------------------- -----------------------------------------------------------------
+   X            0               .           X         X          X         X          .        0             .        Power on (start)
+   X            .               0           X         X          X         X          .        .             0        Power on (halted)
+--------------------------------------------------------------------------------- -----------------------------------------------------------------
+   0            .               .           0         X          X         X          .        0             .        Stopped, START operated
+   1            .               .           0         X          X         X          .        .             .        Running, START operated (NOP)
+--------------------------------------------------------------------------------- -----------------------------------------------------------------
+   0            .               .           X         0          X         X          .        .             .        Stopped, STOP operated (NOP)
+   0            .               .           X         X          0         X          .        .             .        Stopped, HALT instruction (NOP)
+   0            .               .           X         X          X         1          .        .             .        Stopped, end of STEP (NOP)
+   1            .               .           X         0          X         X          1        .             .        Running, STOP operated
+   1            .               .           X         X          0         X          1        .             .        Running, HALT instruction
+   1            .               .           X         X          X         1          .        .             0        Running, end of STEP
+--------------------------------------------------------------------------------- -----------------------------------------------------------------
+. = not asserted
+1/0 = asserted
+X = don't care
+
+STOP = (RUNNING == 1 && OPSTOP == 0) || (RUNNING == 1 && FPHALT == 0)
+ASYNC-STOP# = !((START-HALTED == 0) || (ENDSTEP == 1))
+ASYNC-START# = !((START-RUNNING == 0) || (OP-RUN# == 0))
+
+
+
+
+Stepping:
+
+Three state (2-bit) state machine
+
+State 0: not stepping.
+State 1: instruction stepping.
+State 2: microstepping.
+State 3 is not possible, but exists to provide an immediate transition to state 0.
+
+    S0 S1 S2 S3
+S0   a  b
+S1   c  d
+S2   c     d
+S3   e
+
+a: No input (idle)
+b: OPSTEP# asserted
+c: ENDSTEP asserted
+d: Still stepping
+e: Always
+
+
+START -> 01
+uSTEP -> 10
+STEP ->  11
+
+b0 = START == 0 || STEP == 0
+b1 = uSTEP == 0 || STEP == 0
+       _  __  _
+    AC AC AC AC
+ B  
+~B
+
+b0 = (uSTEP == 0) || (RUN == 0)
+b1 = (STEP == 0) || (RUN == 0)
+
+
+Memory cycle truth table
+____ ____ ___  ___
+MEMW MEMR IOW  IOR  MEM  IO   R    W    T1   T2   T12  T4   T5   T45  RPC  WAR  RAC  WAC  MEM  IO   R    W   Notes
+------------------  ------------------------------------------------  --------------------------------------------------------
+1    1    1    1    0    0    X    X    X    X    X    X    0    0    0    0    0    0    0    0    0    0   Idle
+1    1    1    1    X    X    0    0    X    X    X    X    0    0    0    0    0    0    0    0    0    0   Idle
+------------------  ------------------------------------------------  --------------------------------------------------------
+0    X    X    X    1    0    0    1    0    0    0    0    0    0    0    0    0    0    0    0    0    0   Idle
+0    X    X    X    1    0    0    1    1    0    1    0    0    0    1    1    0    0    0    0    0    0   AR <- PC (setup)
+0    X    X    X    1    0    0    1    0    1    1    0    0    0    1    0    0    0    0    0    0    0   AR <- PC (hold)
+0    X    X    X    1    0    0    1    0    0    0    1    0    1    0    0    1    0    1    0    0    1   Bus write (setup)
+0    X    X    X    1    0    0    1    0    0    0    0    1    1    0    0    1    0    1    0    0    0   Bus write (hold)
+------------------  ------------------------------------------------  --------------------------------------------------------
+X    0    X    X    1    0    1    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0   Idle
+X    0    X    X    1    0    1    0    1    0    1    0    0    0    1    1    0    0    0    0    0    0   AR <- PC (setup)
+X    0    X    X    1    0    1    0    0    1    1    0    0    0    1    0    0    0    0    0    0    0   AR <- PC (hold)
+X    0    X    X    1    0    1    0    0    0    0    1    0    1    0    0    0    1    1    0    1    0   Bus read (setup)
+X    0    X    X    1    0    1    0    0    0    0    0    1    1    0    0    0    0    1    0    1    0   Bus read (hold)
+------------------  ------------------------------------------------  --------------------------------------------------------
+X    X    0    X    0    1    0    1    0    0    0    0    0    0    0    0    0    0    0    0    0    0   Idle
+X    X    0    X    0    1    0    1    1    0    1    0    0    0    1    1    0    0    0    0    0    0   AR <- PC (setup)
+X    X    0    X    0    1    0    1    0    1    1    0    0    0    1    0    0    0    0    0    0    0   AR <- PC (hold)
+X    X    0    X    0    1    0    1    0    0    0    1    0    1    0    0    1    0    0    1    0    1   Bus write (setup)
+X    X    0    X    0    1    0    1    0    0    0    0    1    1    0    0    1    0    0    1    0    0   Bus write (hold)
+------------------  ------------------------------------------------  --------------------------------------------------------
+X    X    X    0    0    1    1    0    0    0    0    0    0    0    0    0    0    0    0    0    0    0   Idle
+X    X    X    0    0    1    1    0    1    0    1    0    0    0    1    1    0    0    0    0    0    0   AR <- PC (setup)
+X    X    X    0    0    1    1    0    0    1    1    0    0    0    1    0    0    0    0    0    0    0   AR <- PC (hold)
+X    X    X    0    0    1    1    0    0    0    0    1    0    1    0    0    1    1    0    1    1    0   Bus read (setup)
+X    X    X    0    0    1    1    0    0    0    0    0    1    1    0    0    1    0    0    1    0    0   Bus write (hold)
+------------------  ------------------------------------------------  -------------------------------------------------------
+
+T           T1    T2        T4    T5
+    ______      ____________________
+T1        \____/
+    ______           _______________
+T12       \_________/
+    _____________________      _________
+T4                       \____/
+    _____________________           ____
+T45                      \_________/
+
+
+WAR = T1 * (MEMW + MEMR + IOW + IOR)
+RPC = T12 * (MEMW + MEMR + IOW + IOR)
+MEM = T45 * (IOW + IOR)
+IO  = T45 * (MEMW + MEMR)
+WAC = T4 * (MEMR + IOR)
+R   = T45 * (MEMR + IOR)
+RAC = T45 * (MEMW + IOW)
+W   = T4 * (MEMW + IOW)
+INCPC = T4 * FPINC
+
+Supplemental:
+WPC = od_not(and(T4#, OP_LDADDR)
+WAC = od_not(and(T4#, OP_LDAC)
+WIR = od_not(and(T4#, OP_LDIR)
+
+
+
+
+=Combination PFP/DEB: Debugging Panel (SDP?)=
+
+* Programmer's Front Panel
+* Virtual Front Panel
+* Lights-out management as a side-effect
+* Processor Debugging
+* System Debugging
+* Should operate without processor (?)
+* Uses a microcontroller
+* I/O using shift registers
+
+==Layout==
+
+Use two boards. One for expansion bus (AB out, DB in/out shift regs), one for
+control bus.
+
+==Commands==
+
+* Power on/off: !POWERON
+* Read panel lock switch
+* Reset: !FPRESET
+* Run/Stop state machine: FPCLKEN, FPUSTEP
+    * Run
+    * Stop (with external FF)
+    * Step (with external FF)
+    * Microstep (with external FF)
+* Select clock speed (full/slow/creep)
+* Vary slow/creep clock speed
+* Read SR
+* Load IR: WIR#
+* Load PC: WPC# + WAR#
+* Load AC: WAC#
+* Memory read/write (+inc)
+* I/O read/write (+inc)
+* IFR1/6
+
+* Display machine status
+* Trace (DEBUGON)
+* Halt
+* PRINTx etc DEB extensions
+* Breakpoints?
+
+* Read/write memory
+* Binary/text dumping
+* Set LEDs
+* Set echo
+* Set halt on fail
+* Set address
+* Set count
+* Read from memory or I/O
+* Write to memory or I/O
+* Reset the panel/DEB board
+
+* Address decoding: occupy 32 I/O addresses
+* Wait states
+
+===Modes===
+
+Independent mode (no processor installed): write to AB/DB. Needs 4-5 more ICs.
+
+Processor mode: operate the processor via the IBUS and control lines. Can't
+diagnose boards without processor present (dangerous).
+
+===Autodetect CPU===
+
+Check signals to see if CPU is present.
+
+===Autodetect Bus Hold===
+
+Check stickiness of buses to detect if bus hold is present. Use a FET to enable
+pull-ups for bus inputs if not.
