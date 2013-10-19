@@ -1072,6 +1072,7 @@
 
 	[Orders] PB3 ordered.
 
+<<<<<<< .mine
 2012-09-24  AC <alexios@bedroomlan.org>
 
 	[Des/Hardware/PFP] Drafted rack mount case outlines, started changing
@@ -1086,3 +1087,84 @@
 	both OPIF0 and FL are present on the control bus, and can be buffered
 	and forwarded over to the control panel lights on the control panel
 	controller (PFP) board.
+
+2012-09-25  AC <alexios@bedroomlan.org>
+
+	[Des/Hardware/PFP] Worked on Front Panel schematics.
+
+	[Orders] PB2 arrived.
+
+2012-10-05  AC <alexios@bedroomlan.org>
+
+	[Des/Hardware/PFP] Worked on Front Panel schematics.
+
+2012-10-07  AC <alexios@bedroomlan.org>
+
+	[Des/Hardware/PFP] Worked on Front Panel schematics.
+
+2012-10-08  AC <alexios@bedroomlan.org>
+
+	[Orders] PB3 arrived.
+
+2012-10-09  AC <alexios@bedroomlan.org>
+
+	[Des/Hardware/PFP] Worked on Front Panel schematics. Started splitting
+	PFP into PFP controller, switch break-out board and light break-out
+	board. All three are through-hole.
+
+	[Orders] Generated BOM for PB2, PB3 and PFP. Ordered parts for PB2, PB3
+	and PFP.
+
+2012-10-10  AC <alexios@bedroomlan.org>
+
+	[Orders] Ordered components for PB2, PB3 and PFP boards, plus
+	leftover parts for wiring the front panel itself.
+
+
+2012-10-15  AC <alexios@bedroomlan.org>
+
+	[Setback, Des/Hardware/PFP] Rev C PFP schematics are done, but the
+	chip count is too high to implement on even a double-sized
+	PCB. Now considering merging the DEB (debugging) board and PFP so
+	that I can use a microcontroller to implement switch debouncing,
+	lock-out and registration (12 ICs) as well as the switch operation
+	state machine (11 ICs) and part of the start/stop state machine (7
+	ICs).
+
+	This would remove some redundancies (e.g. both PFP and DEB
+	implement HALT instructions), and possibly allow a ‘virtual’ front
+	panel where the computer may be debugged and operated via a serial
+	port.
+
+	The lights would still be driven directly by hardware, of course,
+	since the MCU would be too slow to update them all (and not have
+	anywhere near the enough I/O pins).
+
+2012-10-17  AC <alexios@bedroomlan.org>
+
+	[Des/Hardware/PFP] Completed schematics for amalgamated PFP & DEB
+	board. 31 shift registers working as I/O expanders for the MCU! I
+	can use the 6U (double-height) board and connectors previously
+	meant to host the hand-routed PB2.
+
+	[Cons/Hardware/PB2=50] Placed and reflowed the bottom side of PB2.
+
+	[Cons/Hardware/PB3=50] Placed and reflowed the bottom side of
+	PB3. The top side will have to be done when the hard to find
+	74HC670 arrive.
+=======
+2012-09-24  AC <alexios@bedroomlan.org>
+
+	[Des/Hardware/PFP] Drafted rack mount case outlines, started changing
+	front panel to fit.
+
+2012-09-25  AC <alexios@bedroomlan.org>
+
+	[Setback,Testing/Hardware/PB0] OPIF0 and FL are buffered but not
+	connected to the front panel connector on PB0. There is a single spare
+	pin (pin 38, previously grounded), now assigned to OPIF0 in the
+	revision F PB0 board. This is less a problem than it seems, because
+	both OPIF0 and FL are present on the control bus, and can be buffered
+	and forwarded over to the control panel lights on the control panel
+	controller (PFP) board.
+>>>>>>> .r140
