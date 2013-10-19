@@ -43,24 +43,24 @@ module mux_253 (sel, i1, oe1, y1, i2, oe2, y2);
 endmodule // mux_253
 
 
-module mux_253h (sel, i1, oe1, y1);
+module mux_253h (sel, i, oe, y);
    parameter delay = 16;
 
    input [1:0] sel;	// The signal selector
-   input [3:0] i1;	// Input signals.
-   input       oe1;	// Active low tri-state output enables.
-   output      y1;	// Outputs.
+   input [3:0] i;	// Input signals.
+   input       oe;	// Active low tri-state output enables.
+   output      y;	// Outputs.
 
    wire [1:0]  sel;
-   wire [3:0]  i1;
-   wire        oe1;
-   wire        y1;
+   wire [3:0]  i;
+   wire        oe;
+   wire        y;
 
    initial begin
       // $display("BOM: 1/2 74x253");
    end
    
-   assign #delay y1 = oe1 ? 1'bz : i1[sel];
+   assign #delay y = oe ? 1'bz : i[sel];
 
 endmodule // mux_253h
 
@@ -179,8 +179,8 @@ module mux_251 (sel, d, e, y, w);
       // $display("BOM: 74x251");
    end
    
-   assign #delay y = e ? 8'bz : d[sel];
-   assign #delay w = e ? 8'bz : ~d[sel];
+   assign #delay y = e ? 1'bz : d[sel];
+   assign #delay w = e ? 1'bz : ~d[sel];
 
 endmodule // mux_251
 

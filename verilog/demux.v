@@ -44,7 +44,7 @@ module demux_138 (g1, g2a, g2b, a, y);
    
    // The 138 DOES NOT tri-state output. Instead, when disabled, all
    // its active-low outputs are high.
-   assign #delay y = (g10 && !g2a0 && !g2b0) ? y0 : 8'b11111111;
+   assign #delay y = (g1 && !g2a && !g2b) ? y0 : 8'b11111111;
    
    always @ (a) begin
       case (a)

@@ -50,17 +50,14 @@ module counter_161 (
 
    and #delay (tc, cet, q[0], q[1], q[2], q[3]);
 
-   always @ (mr, pe) begin
-      if (mr == 0) begin
-	 #delay q <= 4'b0000;
-      end else if (pe == 0) begin
-	 #delay q <= p;
-      end
+   always @ (mr) begin
+      if (mr == 0) #delay q <= 4'b0000;
    end
 
-   always @ (posedge cp) begin
-      if (cet == 1 && cep == 1) begin
-	 #delay q <= q + 1;
+   always @(posedge cp) begin
+      if (mr == 1 && cp == 1) begin
+	 if (pe == 0) #delay q <= p;
+	 else if (cet == 1 && cep == 1) #delay q <= q + 1;
       end
    end
    
@@ -75,7 +72,7 @@ endmodule // counter_161
 
 module counter_193 (clear, load, p, count_up, count_down, q, carry, borrow);
 
-   parameter delay = 45;	// approxmate maximum delay at 25°C, 5V.
+   parameter delay = 23;	// approxmate maximum delay at 25°C, 5V.
    
    input        clear;		// active high, on rising edge
    input        load;		// active low, on falling edge
@@ -100,7 +97,7 @@ module counter_193 (clear, load, p, count_up, count_down, q, carry, borrow);
       // $display("BOM: 74x193");
    end
 
-   always @ (clear, load) begin
+   always @(clear, load, p) begin
       if (clear == 1) begin
 	 #delay q <= 4'b0000;
       end else if (load == 0) begin

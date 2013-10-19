@@ -28,6 +28,7 @@ SRC =		counter.v counter_161_tb.v counter_590_tb.v counter_393h_tb.v counter_401
 		register.v register_tb.v register_reg_L_tb.v \
 		cft.v cft_tb.v cft_tb_testing.v \
 		step_tb.v \
+		test_panel_revC.v \
 # panel.v panel_tb.v test.v panel_autorepeat_tb.v
 
 #		Disused code:
@@ -284,6 +285,10 @@ test_panel_autorepeat:	panel_autorepeat_tb.o
 test_panel:	panel.o panel_tb.o
 		./panel_tb.o
 		$(GTKWAVE) $(VCDDIR)/panel_tb.vcd $(SAVDIR)/panel_tb.sav
+
+test_panel_revC:test_panel_revC.o
+		./test_panel_revC.o
+		$(GTKWAVE) $(VCDDIR)/test_panel_revC.vcd $(SAVDIR)/test_panel_revC.sav
 
 test_rom.bin:	./make_test_rom.py
 		./make_test_rom.py

@@ -70,23 +70,20 @@ module flipflop_112h (j, k, clk, set, rst, q, qn);
 	 qn <= 1;
       end
    end
-
+   
    always @(negedge clk) begin
       if (set == 1 && rst == 1) begin
 	 case ({j, k})
-	   2'b01: begin
-	      #delay
-		q <= 1'b0;
+	   2'b01: #delay begin
+	      q <= 1'b0;
 	      qn <= 1'b1;
 	   end
-	   2'b10: begin
-	      #delay
-		q <= 1'b1;
+	   2'b10: #delay begin
+	      q <= 1'b1;
 	      qn <= 1'b0;
 	   end
-	   2'b11: begin
-	      #delay
-		q <= ~q;
+	   2'b11: #delay begin
+	      q <= ~q;
 	      qn <= ~qn;
 	   end
 	 endcase // case ({j, k})
@@ -95,23 +92,17 @@ module flipflop_112h (j, k, clk, set, rst, q, qn);
 
    always @ (set, rst, negedge clk) begin
       case ({set, rst})
-	2'b00:
-	  begin
-	     #delay
-	     q <= 1'b0;
-	     qn <= 1'b0;
+	2'b00: #delay begin
+	   q <= 1'b0;
+	   qn <= 1'b0;
 	  end
-	2'b01:
-	  begin
-	     #delay
-	     q <= 1'b1;
-	     qn <= 1'b0;
+	2'b01: #delay begin
+	   q <= 1'b1;
+	   qn <= 1'b0;
 	  end
-	2'b10:
-	  begin
-	     #delay
-	     q <= 1'b0;
-	     qn <= 1'b1;
+	2'b10: #delay begin
+	   q <= 1'b0;
+	   qn <= 1'b1;
 	  end
       endcase // case ({set, rst})
    end
@@ -193,22 +184,27 @@ module flipflop_175 (d, q, nq, clk, rst);
 
    initial begin
       // $display("BOM: 74x175");
+      q <= 4'b1010;
+      nq <= 4'b0101;
    end
 
-   always @ (rst, posedge clk)
-     begin
-	if (rst == 1'b0) begin
-	   #delay begin
-	      q <= 4'b0000;
-	      nq <= 4'b1111;
-	   end
-	end else begin
-	   #delay begin
-	      q <= d;
-	      nq <= ~d;
-	   end
-	end
-     end
+   always @(negedge rst) begin
+      if (rst == 1'b0) begin
+   	 #delay begin
+   	    q <= 4'b0000;
+   	    nq <= 4'b1111;
+   	 end
+      end
+   end
+
+   always @(posedge clk) begin
+      if (rst == 1'b1) begin
+	 #delay begin
+   	    q <= d;
+   	    nq <= ~d;
+	 end
+      end
+   end
 endmodule // End of Module counter
 
 
@@ -244,6 +240,43 @@ module flipflop_273 (d, q, clk, clr);
 	if (clr == 1'b0) begin
 	   q <= #propagation_delay 8'b00000000;
 	end else begin
+	   q <= #propagation_delay d;
+	end
+     end
+endmodule // flipflop_273
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// Function: 74x573 8-bit D latch/bus driver with clear
+//
+//
+///////////////////////////////////////////////////////////////////////////////
+
+module latch_573 (d, q, nle, clr);
+   parameter propagation_delay = 7;
+   
+   input [7:0] d;		// Data
+   input       nle;		// Latch enable (active low)
+   input       clr;		// /CLR (active low): reset
+
+   output [7:0] q;		// Output
+   
+   wire [7:0] 	d;
+   wire 	clk;
+   wire 	clr;
+ 	
+   reg [7:0] 	q;
+
+   initial begin
+      q <= $random;
+   end
+
+   always @(negedge clr, nle, d)
+     begin
+	if (clr == 1'b0) begin
+	   q <= #propagation_delay 8'b00000000;
+	end else if (nle == 1'b0) begin
 	   q <= #propagation_delay d;
 	end
      end

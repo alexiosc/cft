@@ -1,0 +1,114 @@
+[*]
+[*] GTKWave Analyzer v3.3.47 (w)1999-2013 BSI
+[*] Wed Oct  2 08:29:00 2013
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/test_panel_revC.vcd"
+[dumpfile_mtime] "Wed Oct  2 08:28:45 2013"
+[dumpfile_size] 39986304
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/test_panel_revC.sav"
+[timestart] 0
+[size] 1844 1014
+[pos] 33 0
+*-32.492645 6800031000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] test.
+[sst_width] 227
+[signals_width] 220
+[sst_expanded] 1
+[sst_vpaned_height] 301
+@28
+test.nreset
+test.pclk
+@800200
+-CFT clocks
+@28
+[color] 1
+test.clk1
+[color] 2
+test.clk2
+[color] 3
+test.clk3
+[color] 4
+test.clk4
+[color] 5
+test.nt12
+[color] 6
+test.nt34
+@1000200
+-CFT clocks
+@200
+-
+@28
+test.nsw_run
+test.nsw_stop
+test.nsw_step
+test.nsw_ustep
+test.nsw_ldaddr
+test.nsw_ldca
+test.nsw_ldir
+test.nsw_memw
+test.nsw_memr
+test.nsw_iow
+test.nsw_ior
+@200
+-
+@28
+test.gsh
+test.gsl
+test.ngs
+@200
+-
+@c00022
+test.op0[3:0]
+@28
+(0)test.op0[3:0]
+(1)test.op0[3:0]
+(2)test.op0[3:0]
+(3)test.op0[3:0]
+@1401200
+-group_end
+@c02022
+^1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/../filters/swop
+test.op0[3:0]
+@2028
+^1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/../filters/swop
+(0)test.op0[3:0]
+^1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/../filters/swop
+(1)test.op0[3:0]
+^1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/../filters/swop
+(2)test.op0[3:0]
+^1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/../filters/swop
+(3)test.op0[3:0]
+@1401200
+-group_end
+@22
+test.fpop[3:0]
+@2022
+^1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/../filters/swop
+test.fpop[3:0]
+@28
+[color] 2
+test.pclk
+@200
+-
+@29
+test.gs
+@28
+test.start
+[color] 3
+test.ar_timer
+(7)test.t[7:0]
+(5)test.t[7:0]
+@200
+-
+@28
+test.nreset
+@200
+-
+@28
+test.st[2:0]
+test.st1[2:0]
+test.ar0
+test.mux_ar.sel[1:0]
+test.ar12
+[pattern_trace] 1
+[pattern_trace] 0
