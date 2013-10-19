@@ -62,7 +62,7 @@ module PB1_clock(nreset,
    assign rstclk = fastclock;
 
    // The current PB1 has no on-board slow clocks to save board estate. Slow
-   // clocks live on the front panel board, which makes more sense -- with the
+   // clocks live on the front panel board, which makes more sense -- without the
    // front panel, they'd be unusable anyway.
    
    wire rawclock0, rawclock1;
