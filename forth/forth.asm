@@ -765,7 +765,9 @@ isr_tty0_loop:
 	SNZ
 	HALT
 
-	//JMP isr_tty0_loop	; Read more characters
+	// Read and ignore more characters. We ignore all but the last
+	// one because we don't (yet) have an input buffer.
+	JMP isr_tty0_loop	; Read more characters
 
 	JMP isr_done_tty0
 
