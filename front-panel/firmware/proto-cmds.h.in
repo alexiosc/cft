@@ -1,0 +1,73 @@
+#ifndef __PROTO_CMDS_H
+#define __PROTO_CMDS_H
+
+#define CMD_SIZE 8
+static const struct {
+	char cmd[CMD_SIZE];
+	void (*handler)();
+	char *help;
+} cmds[] PROGMEM = {
+	{"?",       say_help,    "-- Show help."},
+	{"help",    say_help,    "-- Show help."},
+	{"ver",     say_version, "-- Show version."},
+	{"buf",     say_bufsize, "-- Show size of command buffer."},
+	{"_clr!",   gs_nop,      "-- Reset the DEB board."},
+	{"echo",    gs_echo,     "[ BOOL ] -- Get/set local echo.\n201"},
+	{"mesg",    gs_mesg,     "[ BOOL ] -- Get/set asyc messages.\n201"},
+
+	{"s",       go_state,    "-- Current CFT/DEB status."},
+       	{"us",      go_ustate,   "-- Microcode control state."},
+	{"cons",    go_nop,      "-- Virtual console (Enter ~ . to exit).\n201"},
+
+	// Left switch bank (computer control)
+
+	{"reset",   go_reset, "-- Reset."},
+	{"start",   go_start, "-- Reset & run."},
+	{"stop",    go_stop,  "-- Stop."},
+	{"halt",    go_stop,  "-- Stop (same as stop, for versatility)."},
+	{"run",     go_run,   "-- Run."},
+	{"step",    go_step,  "[ N ] -- Step to next fetch (default: 1)"},
+	{"ustep",   go_ustep, "[ N ] -- Microstep the CPU (default: 1) .\n201"},
+
+	// Tracing program execution
+
+	{"trace",   go_trace, "-- Status trace."},
+	{"utrace",  go_utrace, "-- Microcode status trace."},
+	{"_bkp0",   go_nop,    "-- Set breakpoint (trace only)."},
+	{"hof",     gs_hof,    "[ BOOL ] -- Get/set halt on FAIL."},
+
+	// Clock speed
+
+	{"fast",    go_fast,   "-- CPU at full speed."},
+	{"slow",    go_slow,   "-- CPU at slow speed."},
+	{"creep",   go_creep,  "-- CPU at creep speed."},
+	{"_clk",    go_nop,    "-- Set slow clock base.\n201"},
+
+	// Right switch bank (cycle operations)
+	{"ir",      gs_ir,     "[ WORD ] -- Get/set IR."},
+	{"pc",      gs_pc,     "[ WORD ] -- Get/set PC."},
+	{"ac",      gs_ac,     "[ WORD ] -- Get/set AC.\n201"},
+
+	{"a",       gs_addr,   "[ WORD ] -- Get/set address."},
+	{"r",       go_read,   "-- Read mem[a++]."},
+	{"d",       go_dump_text,   "[ C ] -- Dump C words (default: 80)"},
+	{"_db",     go_nop,    "-- Binary dump c words starting at mem[a]."},
+	{"w",       go_write,  "WORD [ WORD... ] -- Write c words to mem[a++]."},
+	{"fill",    go_fill,   "COUNT VALUE -- Fill memory."},
+	{"in",      go_in,     "ADDR -- Read I/O address ADDR."},
+	{"out",     go_out,    "ADDR WORD -- Write WORD to I/O addr ADDR.\n201"},
+
+	//{"ram",      go_ram,   "-- Only RAM available on reset."},
+	//{"rom",      go_rom,   "-- 32kW RAM & 32kW ROM on reset."},
+	{"i1",      go_ifr1,  "-- Signal IRQ1."},
+	{"i6",      go_ifr6,  "-- Signal IRQ6."},
+
+	// Diagnostic I/O
+	{"sr",      say_sr,   "-- Read front panel switches."},
+	{"leds",    gs_leds, "[ NYBBLE ] -- Get/set diagnostic LEDs (0-F)."},
+	{"or",      gs_or,   "[ WORD ] -- Get/set OR lights.\n201"},
+
+	{"\0", (void*)-1}
+};
+
+#endif // __PROTO_CMDS_H
