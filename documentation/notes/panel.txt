@@ -474,7 +474,7 @@ control bus.
 
 ==Commands==
 
-* Power on/off: !POWERON
+// * Power on/off: !POWERON
 * Read panel lock switch
 * Reset: !FPRESET
 * Run/Stop state machine: FPCLKEN, FPUSTEP
