@@ -11,19 +11,19 @@ void report_n(const char *msg, uint16_t n);
 
 #define report_c serial_write
 
-#ifdef AVR
-void report_pstr(const char *msg);
+//#ifdef AVR
+char * report_pstr(const char *msg);
 
 void report_npstr(const char *msg, uint16_t n);
-#else
+//#else
 
 // No need for these variants on the host. Alias report() and report_n()
 // instead.
 
-#define report_pstr report
-#define report_npstr report_n
+//#define report_pstr report
+//#define report_npstr report_n
 
-#endif // HOST
+//#endif // HOST
 
 #define report_char(c) serial_write(c)
 
@@ -35,7 +35,9 @@ void report_uint(uint16_t val);
 
 void report_int(int16_t val);
 
-void report_bin(uint16_t val);
+#define report_bin(v) report_bin_pad((v), 16)
+
+void report_bin_pad(uint16_t val, uint8_t bits);
 
 void report_ok(char *msg);
 

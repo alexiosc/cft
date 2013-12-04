@@ -44,17 +44,51 @@ report_n(const char *msg, uint16_t n)
 // Send a string message to the serial port, when the string resides in program
 // memory. Naturally, this is only available on the microcontroller. On the
 // host, we fall back to the simple report() function.
-#ifdef AVR
-void
+char *
 report_pstr(const char *msg)
 {
 	register unsigned char c;
+	/* report_c('('); */
+	/* report_hex((uint16_t)msg, 4); */
+	/* report_c(')'); */
+	/* report_c(32); */
+	/* return; */
+#ifdef AVR
 	while ((c = (unsigned char) pgm_read_byte(msg++)) != '\0') {
-		// Convert \n to \r\n, which is fairly standard practice on
-		// terminal comms.
-		if (c == '\n') serial_write('\r');
-		serial_write(c);
+#else
+	while ((c = *msg++) != '\0') {
+#endif
+
+		// Decompress help string components and process characters.
+		switch (c) {
+		case 1:
+			report_pstr(PSTR("-- "));
+			break;
+		case 2:
+			report_pstr(PSTR("[ WORD ] "));
+			break;
+		case 3:
+			report_pstr(PSTR("[ BOOL ] "));
+			break;
+		case 4:
+			report_pstr(PSTR("Get/set "));
+			break;
+		case 5:
+			report_pstr(PSTR("\n201"));
+			break;
+		case 6:
+			report_pstr(PSTR(" (default: "));
+			break;
+		case '\n':
+			// Convert \n to \r\n, which is fairly standard practice on
+			// terminal comms.
+			serial_write('\r');
+			// Fall-through to default case
+		default:
+			serial_write(c);
+		}
 	}
+	return (char *)msg;
 }
 
 
@@ -63,7 +97,11 @@ void
 report_npstr(const char *msg, uint16_t n)
 {
 	register unsigned char c;
+#ifdef AVR
 	while ((c = (unsigned char) pgm_read_byte(msg++)) != '\0') {
+#else
+	while ((c = *msg++) != '\0') {
+#endif
 		if (!n--) return;
 		// Convert \n to \r\n, which is fairly standard practice on
 		// terminal comms.
@@ -71,7 +109,6 @@ report_npstr(const char *msg, uint16_t n)
 		serial_write(c);
 	}
 }
-#endif // ! AVR
 
 
 // Send out a newline
@@ -106,14 +143,32 @@ report_hex(uint32_t val, uint8_t pad)
 void
 report_uint(uint16_t val)
 {
-	int8_t i;
-	char buf[6];
-	buf[5] = '\0';
+	// Avoid bringing in division and modulo library functions by
+	// using subtractions. Printing out numbers needn't be fast,
+	// but it's probably faster than 16-bit software division AND
+	// 16-bit software modulo on 8-bit hardware. I think the worst
+	// case scenario is printing 59999 (41 subtraction loops).
 
-	for (i = 4; val && i >= 0; i--, val /= 10) {
-		buf[i] = '0' + (val % 10);
-	}
-	report(&buf[i + 1]);
+	char c;
+
+	// 10,000s
+	for (c = '0'; val >= 10000; val -= 10000, c++);
+	if (c > '0') serial_write(c);
+	
+	// 1,000s
+	for (c = '0'; val >= 1000; val -= 1000, c++);
+	if (c > '0') serial_write(c);
+	
+	// 100s
+	for (c = '0'; val >= 100; val -= 100, c++);
+	if (c > '0') serial_write(c);
+	
+	// 10s
+	for (c = '0'; val >= 10; val -= 10, c++);
+	if (c > '0') serial_write(c);
+
+	// 1s
+	serial_write('0' + val);
 }
 
 
@@ -130,11 +185,24 @@ report_int(int16_t val)
 
 
 // Send a binary number to the serial port.
+/*
 void
 report_bin(uint16_t val)
 {
 	uint16_t i;
 	for (i = 0x8000; i; i >>= 1) {
+		serial_write(val & i ? '1' : '0');
+	}
+}
+*/
+
+
+// Send a binary number to the serial port.
+void
+report_bin_pad(uint16_t val, uint8_t bits)
+{
+	uint16_t i;
+	for (i = 1 << (uint16_t)(bits - 1); i; i >>= 1) {
 		serial_write(val & i ? '1' : '0');
 	}
 }

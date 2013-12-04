@@ -25,6 +25,8 @@
 #define FL_MESG   0x0400	/* Receive async messages */
 #define FL_ASYNC  0x0800	/* Async message printed */
 #define FL_PROC   0x1000	/* Processor is installed */
+#define FL_CONS   0x2000	/* The virtual console is running */
+#define FL_HOS    0x4000	/* Halt on sentinel */
 
 #ifdef DISASSEMBLE
 #define BANNER1 "201 Version: " VERSION "+dis\n"
@@ -45,6 +47,7 @@
 #define STR_GSMESG   "11 Async messages: "
 #define STR_GSLEDS   "12 LEDs: "
 #define STR_GSHOF    "13 On FAIL: "
+#define STR_GSHOS    "14 On SENTINEL: "
 #define STR_HOF_H        "HALT\n"
 #define STR_HOF_I        "Ignore\n"
 #define STR_HOF_J        "Jump to: "
@@ -56,10 +59,11 @@
 #define STR_IN2          " Value: "
 
 #define STR_STATE   "250 Machine state: "
-#define STR_USTATE  "251 Microcode control: "
-#define STR_GSAC     "52 AC:"
-#define STR_GSPC     "53 PC"
-#define STR_GSIR     "54 IR"
+#define STR_SWS     "251 Switch state: "
+#define STR_USTATE  "252 Microcode control: "
+#define STR_GSAC     "53 AC"
+#define STR_GSPC     "54 PC"
+#define STR_GSIR     "55 IR"
 
 #define STR_AC           " AC:"
 #define STR_PC           " PC:"
@@ -81,6 +85,16 @@
 #define STR_FAST    "327 Full speed clock.\n"
 #define STR_SLOW    "328 Slow clock.\n"
 #define STR_CREEP   "329 Very slow clock.\n"
+#define STR_CONSBEG "330 Virtual console (press Enter # . to exit).\n"
+#define STR_CONSEND "331 Left virtual console.\n"
+
+#define STR_DEBPRN  "340 PRINT"
+#define STR_DEBSENT "341 SENTINEL\n"
+#define STR_DEBON   "342 DEBUGON\n"
+#define STR_DEBOFF  "343 DEBUGOFF\n"
+//#define STR_FAIL    "344 HAL\n"
+#define STR_SUCCESS "345 SUCCESS\n"
+#define STR_FAIL    "346 FAIL\n"
 
 //                   350-354 reserved
 #define STR_READ    "356 Read: "
@@ -101,6 +115,7 @@
 #define STR_ALRRUN  "506 Already running\n"
 #define STR_NOPROC  "507 No processor\n"
 #define STR_SYNTAX  "508 Syntax error\n"
+#define STR_NIMPL   "509 Not implemented\n"
 
 #define STR_PROMPT  "> "
 #define STR_PRUN    "[running]" STR_PROMPT
@@ -116,7 +131,7 @@
 
 extern unsigned char buf[BUFSIZE];
 
-extern volatile uint16_t flags;
+extern volatile uint32_t flags;
 
 extern uint16_t bp;
 
@@ -130,6 +145,8 @@ void proto_loop();
 unsigned char proto_input(unsigned char c);
 
 void say_sr();
+
+void say_break();
 
 void proto_prompt();
 

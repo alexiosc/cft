@@ -1,4 +1,4 @@
-// -*- indent-c -*-
+// -*- indent-c++ -*-
 
 #ifdef HOST
 #include <stdio.h>
@@ -36,7 +36,7 @@ unsigned char buf[BUFSIZE];
 
 uint16_t buflen, bp;
 
-uint16_t volatile flags = FL_BUSY | FL_ECHO | FL_MESG;
+volatile uint32_t flags = FL_BUSY | FL_ECHO | FL_MESG;
 
 static uint16_t addr;
 
@@ -72,7 +72,9 @@ proto_init()
 	say_bufsize();
 	report_pstr(PSTR(BANNER3 BANNER4 BANNER5));
 	buflen = 0;
-	flags = (flags & FL_HALT) | FL_ECHO | FL_MESG;
+	//flags = (flags & FL_HALT) | FL_ECHO | FL_MESG;
+	flags = FL_ECHO | FL_MESG;
+	report_nl();
 	addr = 0;
 }
 
@@ -88,7 +90,8 @@ proto_init()
 void
 cancel()
 {
-	report_pstr(PSTR("\n\n" STR_ABORT));
+	say_break();
+	report_pstr(PSTR(STR_ABORT));
 }
 
 
@@ -165,6 +168,21 @@ go_reset(){
 }
 
 
+// RUN TO STOP STATE TRANSITION
+//
+// ____   _________
+// HALT       \\\\\\_______________________________________
+//      ___              __________________________________
+// STEP/RUN  ___________/
+//           ____________________________________
+// CLKEN                 \\\\\\\\\\\\\\\\\\\\\\\\\_________
+//             
+// FPUSTEP-IN  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\_____
+//                         
+// FPCLKEN-IN  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\__
+//
+//                       |<---   up to 4 µs  --->|
+
 void
 go_stop(){
 	if (flags & FL_HALT) {
@@ -172,16 +190,25 @@ go_stop(){
 		return;
 	}
 	
-#ifdef HOST
-	printf("*** TODO: Implement halting sequence\n");
-#endif
-	// First, enable HALT to tristate the processor. Then, as quickly as
-	// possible, force a single microstep to stop the clock at the
-	// beginning of a cycle.
-	set_halt(1);
-	strobe_ustep();
+	// First, enable HALT to tristate the processor. Then, set STEP/RUN#
+	// high which will take the step/run state machine out of RUN state and
+	// into the STEP state. In turn, this will stop the clock at the
+	// beginning of the fetch state of the fetch-execute cycle. With the
+	// clock stopped, we'll have entered the STOP state.
+	set_halt(1);		// Assert HALT
+	set_steprun(1);		// Set STEP/RUN# to STEP
 
-	flags |= FL_HALT;
+	// Wait at least 4µs
+	uint8_t i = 15;		// Due to loop overheads
+	while (--i) asm("nop");
+
+	set_clk(CLK_STOPPED);	// Stop the processor clock source. The source
+				// will have already been disconnected from the
+				// processor by the external state machine.
+
+	flags |= FL_HALT | FL_STOP;
+
+	// Donw.
 	report_pstr(PSTR(STR_AHALTED));
 }
 
@@ -284,7 +311,7 @@ _disassemble(uint16_t w)
 static void
 _machine_state()
 {
-	virtual_panel_sample();
+	virtual_panel_sample(0);
 	
 	report_char(bus_state.vp.b.fn ? 'n' : '-');
 	report_char(bus_state.vp.b.fz ? 'z' : '-');
@@ -445,13 +472,88 @@ go_state()
 }
 
 
+static
+void
+go_sws()
+{
+	report_pstr(PSTR(STR_SWS));
+	uint32_t sw = get_sw();
+
+	report_bin_pad((sw >> 24) & 0xff, 8); // Left switches
+	report_c(32);
+	report_bin_pad(get_sr(), 16); // Switch register
+	report_c(32);
+	report_bin_pad(sw & 0xfff, 12); // Right switches
+	report_c(32);
+	report_bin_pad((sw >> 12) & 0xf, 4); // MS DIP switches
+	report_c(32);
+	report_bin_pad((sw >> 16) & 0xff, 8); // LS DIP switches
+	report_c(32);
+	report_nl();
+}
+
+
 static void
 go_ustate()
 {
-	virtual_panel_sample();
+	virtual_panel_sample(0);
 	report_pstr(PSTR(STR_USTATE));
 	_ustate();
 	report_nl();
+}
+
+
+static void
+go_cons()
+{
+	unsigned char c = 0;
+	uint8_t state = 0;
+	//uint8_t n = 0;
+
+	report_pstr(PSTR(STR_CONSBEG));
+	
+	flags |= (FL_BUSY | FL_CONS);
+	while (flags & FL_CONS) {
+		while ((flags & FL_INPOK) == 0) {
+#ifdef HOST
+			// The standalone version doesn't use asynchronous
+			// input (via interrupts or an external thread), so we
+			// must trigger it ourselves.
+			c = read_next_char();
+			if (c) flags |= FL_INPOK;
+#endif // HOST
+		}
+
+#ifdef AVR
+		// The read character was placed in buf[0] by proto_input(). It
+		// will also have set FL_INPOK, breaking us out of the loop
+		// above.
+		c = buf[0];
+#endif // HOST
+
+		flags &= ~FL_INPOK;
+
+		// TODO: this fails, but not sure why.
+
+		// State machine: exit the console.
+		if ((state == 0 || state == 1) && (c == '\n' || c == '\r')) state = 1;
+		else if ((state == 1) && c == '#') state = 2;
+		else if ((state == 2) && c == '.') break;
+		else state = 0;
+
+		// report_hex(state, 1);
+		// report_c(32);
+		// n++;
+		// if ((n % 10) == 0) {
+		// 	report_hex(n, 2);
+		// 	report_c(32);
+		// }
+
+		queue_char(c);
+	}
+	flags &= ~(FL_BUSY | FL_CONS);
+	
+	report_pstr(PSTR(STR_CONSEND));
 }
 
 
@@ -480,7 +582,7 @@ go_creep()
 
 
 static void
-_step(int8_t ustep, int8_t endless)
+_step(bool_t ustep, bool_t endless)
 {
 	uint16_t n = 1;
 
@@ -496,8 +598,12 @@ _step(int8_t ustep, int8_t endless)
 	set_clk(0);
 
 	uint16_t i = n;
-	flags &= ~(FL_STOP | FL_INPOK);
+	flags &= ~(FL_BREAK | FL_INPOK);
+	flags |= FL_BUSY;
 	while (endless || i--) {
+		report_hex(flags, 4);
+		report_c(':');
+		report_c(' ');
 		// Initiate the STEP state machine. This will automatically
 		// terminate without MCU control.
 		if (ustep) {
@@ -519,12 +625,13 @@ _step(int8_t ustep, int8_t endless)
 		}
 #endif // HOST
 
-		if (flags & (FL_STOP | FL_INPOK)) {
+		if (flags & (FL_BREAK | FL_INPOK)) {
 			cancel();
 			break;
 		}
 
 	}
+	flags &= ~FL_BUSY;
 	if (n > 1) done();
 }
 
@@ -734,7 +841,7 @@ go_in()
 void
 go_ifr1()
 {
-	panel_out.ifr1 = 1;
+	set_irq1(1);
 	report_pstr(PSTR(STR_IFR1));
 }
 
@@ -742,7 +849,7 @@ go_ifr1()
 void
 go_ifr6()
 {
-	panel_out.ifr6 = 1;
+	set_irq6(1);
 	report_pstr(PSTR(STR_IFR6));
 }
 
@@ -845,6 +952,9 @@ go_dump_text()
 	uint16_t buf[8];
 	uint8_t j;
 
+	// Ensure the bus is quiet.
+	if (!assert_halted()) return;
+
 	if (optional_hex_val(&count) < 0) return;
 
 	for (i = 0; i < count; i += 8, addr += 8) {
@@ -916,325 +1026,45 @@ gs_hof()
 	int8_t res;
 	res = optional_bool_val(&v);
 	if (res < 0) return;
-	if (res > 0) panel_out.hof = v;
+	if (res > 0) {
+		if (v) flags |= FL_HOF;
+		else flags &= ~FL_HOF;
+	}
 	
 	report_gs(res);
-	report_bool_value(PSTR(STR_GSHOF), panel_out.hof);
+	report_bool_value(PSTR(STR_GSHOF), flags & FL_HOF);
 }
 
 
 static void
-gs_leds(){
-	uint16_t v;
+gs_hos()
+{
+	uint8_t v;
 	int8_t res;
-	res = optional_hex_val(&v);
+	res = optional_bool_val(&v);
 	if (res < 0) return;
 	if (res > 0) {
-		write_leds(panel_out.leds = (v & 0xf));
+		if (v) flags |= FL_HOS;
+		else flags &= ~FL_HOS;
 	}
 	report_gs(res);
-	report_hex_value(PSTR(STR_GSLEDS), panel_out.leds, 1);
+	report_bool_value(PSTR(STR_GSHOS), (flags & FL_HOS) != 0);
 }
 
 
-
-
-
-
-
-
-#if 0
-
-static int
-_ctrlchatter()
-{
-	gpio_input();
-	uint8_t i;
-	uint8_t a;
-
-	// Configure PCR..PCIO (R#, W#, MEM#, IO#) as inputs.
-	DDRC &= ~(_BV(PCR) | _BV(PCW) | _BV(PCMEM) | _BV(PCIO));
-	a = PORTC & (_BV(PCR) | _BV(PCW) | _BV(PCMEM) | _BV(PCIO));
-
-	for (i = 0; i < NUM_SAMPLES; i++)
-		if ((PORTC & (_BV(PCR) | _BV(PCW) | _BV(PCMEM) | _BV(PCIO))) != a)
-			return 0;
-	return 1;
-}
-
-
-#ifdef DUMP_TEXT
-static void
-set_text()
-{
-	flags &= ~FL_BIN;
-	report_pstr(PSTR(STR_TEXT));
-}
-
-static void
-set_bin(){
-	flags |= FL_BIN;
-	report_pstr(PSTR(STR_BIN));
-}
-#endif // DUMP_TEXT
-
-
-static void
-go_clear()
-{
-	flags |= FL_CLEAR;
-}
-
-
-
-static void
-_write_init()
-{
-	// Prepare the control signals. Drive the pins (signals de-asserted),
-	// then set to output. This will glitch momentarily, turning on
-	// Pull-Ups on all the ports (first line), but there's no adverse
-	// effect.
-	PORTC |= _BV(PCR) | _BV(PCW) | _BV(PCMEM) | _BV(PCIO);
-	DDRC |= _BV(PCR) | _BV(PCW) | _BV(PCMEM) | _BV(PCIO);
-
-	// Drive GPIO pins
-	gpio_output();
-}
-
-
-static void
-_write_done()
-{
-	// Tri-state the GPIO pins.
-	gpio_hiz();
-
-	// Tri-state the control signals.
-	DDRC &= ~(_BV(PCR) | _BV(PCW) | _BV(PCMEM) | _BV(PCIO));
-	PORTC &= ~(_BV(PCR) | _BV(PCW) | _BV(PCMEM) | _BV(PCIO));
-}
-
-
-static void
-_perform_write(uint8_t space, uint16_t addr, uint16_t val)
-{
-	uint8_t sig = space == SPACE_MEM ? PCMEM : PCIO;
-
-	// Ensure the bus is quiet. 
-	if (!assert_halted()) return;
-
-	_write_init();
-
-	// Set buses
-	setab(addr);
-	setdb(val);
-	
-	clearbit(PORTC, sig);	// Assert MEM#/IO# (low).
-	_delay_us(1);		// Wait a little bit.
-	clearbit(PORTC, PCW);	// Assert W# (low).
-	_delay_us(1);		// Wait a little bit.
-	setbit(PORTC, PCW);	// De-assert W# (high).
-	_delay_us(1);		// Wait a little bit.
-	setbit(PORTC, sig);	// De-assert MEM/IO# (high).
-
-	_write_done();
-}
-
-
-static void
-_read_init()
-{
-	// Prepare the control signals. Drive the pins (signals de-asserted),
-	// then set to output. This will glitch momentarily, turning on
-	// Pull-Ups on all the ports (first line), but there's no adverse
-	// effect.
-	PORTC |= _BV(PCR) | _BV(PCW) | _BV(PCMEM) | _BV(PCIO);
-	DDRC |= _BV(PCR) | _BV(PCW) | _BV(PCMEM) | _BV(PCIO);
-
-	// Drive GPIO pins
-	gpio_busread();
-}
-
-
-static void
-_read_done()
-{
-	// Tri-state the GPIO pins.
-	gpio_hiz();
-
-	// Tri-state the control signals.
-	DDRC &= ~(_BV(PCR) | _BV(PCW) | _BV(PCMEM) | _BV(PCIO));
-	PORTC &= ~(_BV(PCR) | _BV(PCW) | _BV(PCMEM) | _BV(PCIO));
-}
-
-
-static uint32_t
-go_dump_bin()
-{
-	register uint32_t i, sum = 0, x;
-
-	// Ensure the bus is quiet.
-	if (!assert_halted()) return 0;
-
-	_read_init();
-
-        // How simple is THIS?
-	for (i = 0; i < count; i++) {
-		if (flags & FL_BREAK) {
-			cancel();
-			goto dump_bin_done;
-		}
-
-		// Set address
-		setab(addr);
-	
-		// Perform a read cycle
-		clearbit(PORTC, PCMEM);	// Assert MEM# (low).
-		clearbit(PORTC, PCR);	// Assert R# (low).
-		x = getdb();
-		setbit(PORTC, PCR);	// De-assert R# (high).
-		setbit(PORTC, PCMEM);	// De-assert MEM# (high).
-
-		sum += x;
-		serial_send((x >> 8) & 0xff);
-		serial_send(x & 0xff);
-		
-#if SERIAL_BPS > 57600
-		// On fast links, stop for 200ms every 32k and blink
-		// the LED to provide feedback.
-		//if ((i & 32767) == 0) blink_led(0xffffff, 100);
-#endif // SERIAL_BPS > 57600
-	}
-
-dump_bin_done:
-	_read_done();
-
-	return sum;
-}
-
-
-static void
-go_dump() {
-	uint32_t addr0 = addr, sum;
-
-	// Sanity check
-#ifdef DUMP_TEXT
-	if (!(flags & FL_BIN) && (count & 0xf)) {
-		report_pstr(PSTR(STR_COUNT));
-		flags |= FL_ERROR;
-		return;
-	}
-#endif // DUMP_TEXT
-
-	say_addr();
-	say_count();
-	report_pstr(PSTR(STR_DUMP));
-	
-	// Dump, depending on mode.
-	//hw_read_init();
-
-#ifdef DUMP_TEXT
-	if (flags & FL_BIN) sum = go_dump_bin();
-	else sum = go_dump_text();
-#else
-	sum = go_dump_bin();
-#endif // DUMP_TEXT
-	
-	//hw_read_done();
-	
-	if (flags & (FL_BREAK|FL_ERROR)) {
-		// Restore the previous addring address.
-		addr = addr0;
-		return;
-	}
-
-	say_done();
-	report_pstr(PSTR(STR_CKSUM));
-	report_hex(sum, 8);
-	report_nl();
-	//say_addr();
-}
-
-
-static void
-go_out()
-{
-	register uint16_t a = get_addr();
-	if (flags & (FL_ERROR|FL_EOL)) return;
-
-	register uint16_t val = get_addr();
-	if (flags & (FL_ERROR|FL_EOL)) return;
-
-	_perform_write(SPACE_IO, a, val);
-	if (flags & (FL_ERROR|FL_EOL)) return;
-
-	say_done();
-}
-
-
-static void
-go_write()
-{
-	uint32_t sum = 0;
-	register uint8_t i = BLOCKSIZE + 1, j = 0;
-	
-	//if (flags & FL_ERROR) return;
-	
-	// Ensure the bus is quiet. 
-	if (!assert_halted()) return;
-	
-	_write_init();
-	
-	while (--i) {
-		// Get a word from the command line.
-		register uint16_t data = get_addr() & 0xffff;
-		if (flags & (FL_EOL | FL_ERROR)) goto go_write_done;
-
-		// Set buses
-		setab(addr);
-		setdb(data);
-		
-		clearbit(PORTC, PCMEM);	// Assert MEM#/IO# (low).
-		_delay_us(1);		// Wait a little bit.
-		clearbit(PORTC, PCW);	// Assert W# (low).
-		_delay_us(1);		// Wait a little bit.
-		setbit(PORTC, PCW);	// De-assert W# (high).
-		_delay_us(1);		// Wait a little bit.
-		setbit(PORTC, PCMEM);	// De-assert MEM/IO# (high).
-		
-		sum += (uint32_t)data;
-		addr++;
-		j = 1;
-	}
-	
-go_write_done:
-	_write_done();
-	
-	say_done();
-	if (j) {
-		report_pstr(PSTR(STR_CKSUM));
-		report_hex(sum, 8);
-		report_nl();
-	}
-	//say_addr();
-}
-
-
-static void
-go_in()
-{
-	register uint16_t a = get_addr();
-	if (flags & (FL_ERROR|FL_EOL)) return;
-	
-	uint16_t val = _perform_read(SPACE_IO, a);
-	if (flags & (FL_ERROR|FL_EOL)) return;
-	
-	report_pstr(PSTR(STR_VALUE));
-	report_hex(val, 4);
-	report_nl();
-}
-
-
-#endif // 0
+// static void
+// gs_leds(){
+// 	uint16_t v;
+// 	int8_t res;
+// 	res = optional_hex_val(&v);
+// 	if (res < 0) return;
+// 	if (res > 0) {
+// #warn "TODO: decide if the LEDS stay or go. Code write_leds()"
+// 		//write_leds(panel_out.leds = (v & 0xf));
+// 	}
+// 	report_gs(res);
+// 	//report_hex_value(PSTR(STR_GSLEDS), panel_out.leds, 1);
+// }
 
 
 
@@ -1247,8 +1077,10 @@ go_in()
 void
 say_sr()
 {
-	uint16_t sr = panel_in.b.sr;
+	uint16_t sr = get_sr();
 	report_pstr(PSTR(STR_SR));
+	report_bin(sr);
+	report_char(9);
 	report_hex(sr, 4);
 	report_char(9);
 	report_uint(sr);
@@ -1268,10 +1100,10 @@ gs_or()
 	res = optional_hex_val(&v);
 	if (res < 0) return;
 	if (res > 0) {
-		write_or(panel_out.or = v);
-	}
+		set_or(v);
+	} else v = get_or();
 	report_gs(res);
-	report_hex_value(PSTR(STR_GSOR), panel_out.or, 4);
+	report_hex_value(PSTR(STR_GSOR), v, 4);
 }
 
 
@@ -1299,11 +1131,13 @@ static void say_help();
 
 #include "proto-cmds.h"
 
+static const char _helpstr[] PROGMEM = _HELPSTR;
 
 static void
 say_help()
 {
 	int i;
+	char * hp = (char *)_helpstr;
 	
 #ifdef HOST
 	int maxc = 0, maxd = 0;
@@ -1318,13 +1152,15 @@ say_help()
 		report_pstr(PSTR("\n201\t"));
 		report_npstr((char *)cmds[i].cmd, CMD_SIZE);
 		report_c(32);
-		report_pstr((char *)cmds[i].help);
+		hp = report_pstr(hp);
+
 #ifdef HOST
 		if (strlen(cmds[i].cmd) > maxc) maxc = strlen(cmds[i].cmd);
-		if (strlen(cmds[i].help) > maxd) maxd = strlen(cmds[i].help);
+		//if (strlen(cmds[i].help) > maxd) maxd = strlen(cmds[i].help);
 #endif // HOST
 	}
 	report_pstr(PSTR("\n201 Consult documentation for details.\n"));
+	//report_pstr(_helpstr);
 	
 #ifdef HOST
 	printf("*** There are %d commands.\n", i);
@@ -1336,16 +1172,26 @@ say_help()
 	
 	
 void
+say_break()
+{
+	if (flags & FL_CONS) return; // It's not asynchronous in the console.
+	report_pstr(PSTR("***\n"));
+	flags |= FL_ASYNC;
+}
+
+
+void
 proto_prompt()
 {
-		if (flags & FL_HALT) {
-			report_pstr(PSTR(STR_PSTOP));
-			report_hex(addr, 4);
-			report_pstr(PSTR(STR_PROMPT));
-		} else {
-			report_pstr(PSTR(STR_PRUN));
-		}
-		report_n((char *)buf, buflen);
+	if (flags & FL_CONS) return; // No need to prompt in the virtual console
+	if (flags & FL_HALT) {
+		report_pstr(PSTR(STR_PSTOP));
+		report_hex(addr, 4);
+		report_pstr(PSTR(STR_PROMPT));
+	} else {
+		report_pstr(PSTR(STR_PRUN));
+	}
+	report_n((char *)buf, buflen);
 }
 
 	
@@ -1370,7 +1216,7 @@ void proto_loop()
 		/* if (flags & FL_ECHO) blink_led(0, 10); */
 
 		flags |= FL_BUSY;
-		flags &= ~(FL_ERROR | FL_EOL);
+		flags &= ~(FL_ERROR | FL_EOL | FL_STOP | FL_BREAK);
 		bp = 0;
 
 		// Process the input
@@ -1426,6 +1272,19 @@ proto_input(unsigned char c)
 {
 	flags &= ~FL_ASYNC;
 
+#ifdef AVR
+	// Is the virtual console being used? If so, flag the
+	// character and exit. The go_cons() loop will take care of
+	// the rest (we've been called by the ISR, so we're running on
+	// a separate 'thread').
+	if (flags & FL_CONS) {
+		flags |= FL_INPOK;
+		buf[0] = c;
+		return c;
+	}
+	
+#endif // AVR
+
 	// Allow breaks at all times.
 	if (c == 3 || c == 24) {
 		// Cancel input or operation (ASCII 24, Ctrl-X or Ctrl-C)
@@ -1449,16 +1308,14 @@ proto_input(unsigned char c)
 		flags |= FL_INPOK;
 		if (flags & FL_ECHO) {
 			serial_write('\r');
-#ifdef HOST
 			serial_write('\n');
-#endif // HOST
 			return '\n';
 		}
 		return 0;
 	} else if ((c == 8) || (c == 127)) {
 		if (buflen) {
 			buflen--;
-			if (flags & FL_ECHO) report("\b \b");
+			if (flags & FL_ECHO) report_pstr(PSTR("\b \b"));
 		}
 		return 0;
 	}

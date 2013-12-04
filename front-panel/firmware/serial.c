@@ -14,6 +14,7 @@
 #include "serial.h"
 #include "utils.h"
 #include "proto.h"
+#include "output.h"
 
 // If we're on a platform with only one USART, redefine some macros.
 #ifndef UCSR0A
@@ -69,7 +70,7 @@ unsigned char my_table_id = 255; // An impossibility.
 #define BPS BPSRATE(SERIAL_BPS)
 
 
-void
+inline void
 serial_init()
 {
 // This function is a NOP if running a test on the host.
@@ -103,8 +104,6 @@ serial_init()
 
         // We can enable interrupt handling now.
 	UCSR0B |= _BV(RXCIE0);		// Enable RX complete interrupt
-
-	sei();
 }
 
 
@@ -130,7 +129,7 @@ ISR(USART_RX_vect)
 
 
 // Wait until the serial port is ready, then send a character to it.
-void
+inline void
 serial_send(unsigned char c)
 {
 	loop_until_bit_is_set(UCSR0A, UDRE0);

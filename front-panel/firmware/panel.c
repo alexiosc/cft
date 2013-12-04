@@ -2,43 +2,38 @@
 #include <stdint.h>
 
 #include "hwcompat.h"
+#include "abstract.h"
 #include "proto.h"
 #include "panel.h"
 #include "output.h"
 
 
-panel_in_t panel_in;
-panel_out_t panel_out;
-
-
-void
-say_break()
-{
-	report_pstr(PSTR("***\n"));
-	flags |= FL_ASYNC;
-}
+//panel_in_t panel_in;
+//panel_out_t panel_out;
 
 
 static uint16_t _lock;
+
 void
 async_lock(uint8_t lock)
 {
 	if (lock == _lock) return;
 	_lock = lock;
 	say_break();
-	printf("*** TODO: %s\n", __FUNCTION__);
+//#warning "TODO: finish this"
 	proto_prompt();
 }
 
 
 static uint16_t _sr0;
+
 void
 async_sr(uint16_t sr)
 {
 	if (sr == _sr0) return;
 	_sr0 = sr;
 	say_break();
-	panel_in.b.sr = sr;
+	set_sr(sr);
 	say_sr();
 	proto_prompt();
 }
@@ -116,7 +111,7 @@ void
 async_ldir()
 {
 	say_break();
-	printf("*** TODO\n");
+	//printf("*** TODO\n");
 	proto_prompt();
 }
 
@@ -125,7 +120,7 @@ void
 async_ldaddr()
 {
 	say_break();
-	printf("*** TODO\n");
+	//printf("*** TODO\n");
 	proto_prompt();
 }
 
@@ -134,7 +129,7 @@ void
 async_ldac()
 {
 	say_break();
-	printf("*** TODO: %s\n", __FUNCTION__);
+	//printf("*** TODO: %s\n", __FUNCTION__);
 	proto_prompt();
 }
 
@@ -143,7 +138,7 @@ void
 async_wmem()
 {
 	say_break();
-	printf("*** TODO: %s\n", __FUNCTION__);
+	//printf("*** TODO: %s\n", __FUNCTION__);
 	proto_prompt();
 }
 
@@ -152,7 +147,7 @@ void
 async_wmeminc()
 {
 	say_break();
-	printf("*** TODO: %s\n", __FUNCTION__);
+	//printf("*** TODO: %s\n", __FUNCTION__);
 	proto_prompt();
 }
 
@@ -161,7 +156,7 @@ void
 async_rmem()
 {
 	say_break();
-	printf("*** TODO: %s\n", __FUNCTION__);
+	//printf("*** TODO: %s\n", __FUNCTION__);
 	proto_prompt();
 }
 
@@ -170,7 +165,7 @@ void
 async_rmeminc()
 {
 	say_break();
-	printf("*** TODO: %s\n", __FUNCTION__);
+	//printf("*** TODO: %s\n", __FUNCTION__);
 	proto_prompt();
 }
 
@@ -179,7 +174,7 @@ void
 async_wio()
 {
 	say_break();
-	printf("*** TODO: %s\n", __FUNCTION__);
+	//printf("*** TODO: %s\n", __FUNCTION__);
 	proto_prompt();
 }
 
@@ -188,7 +183,7 @@ void
 async_wioinc()
 {
 	say_break();
-	printf("*** TODO: %s\n", __FUNCTION__);
+	//printf("*** TODO: %s\n", __FUNCTION__);
 	proto_prompt();
 }
 
@@ -197,7 +192,7 @@ void
 async_rio()
 {
 	say_break();
-	printf("*** TODO: %s\n", __FUNCTION__);
+	//printf("*** TODO: %s\n", __FUNCTION__);
 	proto_prompt();
 }
 
@@ -206,7 +201,7 @@ void
 async_rioinc()
 {
 	say_break();
-	printf("*** TODO: %s\n", __FUNCTION__);
+	//printf("*** TODO: %s\n", __FUNCTION__);
 	proto_prompt();
 }
 
@@ -217,7 +212,7 @@ async_rom(uint8_t rom)
 {
 	if (rom == _rom) return;
 	_rom = rom;
-	printf("*** TODO: set RAM/ROM\n");
+	//#warning "*** TODO: set RAM/ROM\n";
 	//say_break();
 	//panel_in.b.sr = sr;
 	//say_sr();
@@ -229,7 +224,7 @@ void
 async_ifr1()
 {
 	say_break();
-	printf("*** TODO: %s\n", __FUNCTION__);
+	//printf("*** TODO: %s\n", __FUNCTION__);
 	proto_prompt();
 }
 
@@ -238,7 +233,7 @@ void
 async_ifr6()
 {
 	say_break();
-	printf("*** TODO: %s\n", __FUNCTION__);
+	//printf("*** TODO: %s\n", __FUNCTION__);
 	proto_prompt();
 }
 

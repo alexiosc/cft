@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <errno.h>
 #include <stdint.h>
 #include <assert.h>
 #include <sys/stat.h>
@@ -25,7 +26,9 @@
 #include "panel.h"
 
 
+static uint16_t _or;
 static uint16_t _ab;
+static uint16_t _sr;
 static uint16_t * _mem;
 static int _pd;
 static char _pipebuf[4096];
@@ -120,7 +123,8 @@ hw_init()
 			exit(1);
 		}
 	}
-	if ((_pd = open(FIFO, O_RDONLY | O_NONBLOCK)) < 0) {
+	
+	if ((_pd = open(FIFO, O_RDWR | O_NONBLOCK)) < 0) {
 		perror("open()");
 		exit(1);
 	}
@@ -146,7 +150,7 @@ cmdpipe_input(char c)
 {
 	if (c == 10) {
 		int i;
-		*_pp = 0;
+		*_pp = '\0';
 		_pp = _pipebuf;
 		if (sscanf(_pipebuf, "lock %d", &i) == 1) {
 			async_lock(i);
@@ -227,10 +231,49 @@ cmdpipe_input(char c)
 
 		// Simulate bus-side messages
 
-		// else if (!strcmp(_pipebuf, "ifr6")) {
-		// 	async_ifr6();
-		// 	return;
-		// }
+		else if (sscanf(_pipebuf, "printa %x", &i) == 1) {
+			buscmd_print('A', i);
+			return;
+		} else if (sscanf(_pipebuf, "printb %x", &i) == 1) {
+			buscmd_print('B', i);
+			return;
+		} else if (sscanf(_pipebuf, "printh %x", &i) == 1) {
+			buscmd_print('H', i);
+			return;
+		} else if (sscanf(_pipebuf, "printc %x", &i) == 1) {
+			buscmd_print('C', i);
+			return;
+		} else if (sscanf(_pipebuf, "printd %x", &i) == 1) {
+			buscmd_print('D', i);
+			return;
+		} else if (sscanf(_pipebuf, "printu %x", &i) == 1) {
+			buscmd_print('U', i);
+			return;
+		} else if (sscanf(_pipebuf, "printhi %x", &i) == 1) {
+			buscmd_printhi(i);
+			return;
+		} else if (sscanf(_pipebuf, "printlo %x", &i) == 1) {
+			buscmd_print('L', i);
+			return;
+		} else if (!strcmp(_pipebuf, "printnl")) {
+			buscmd_print('C', 10);
+			return;
+		} else if (!strcmp(_pipebuf, "printsp")) {
+			buscmd_print('C', 32);
+			return;
+		} else if (!strcmp(_pipebuf, "success")) {
+			buscmd_success();
+			return;
+		} else if (!strcmp(_pipebuf, "halt")) {
+			buscmd_halt();
+			return;
+		} else if (!strcmp(_pipebuf, "sentinel")) {
+			buscmd_sentinel();
+			return;
+		} else if (!strcmp(_pipebuf, "fail")) {
+			buscmd_fail();
+			return;
+		}
 
 		printf("*** \n*** Unhandled command: %d\n", c);
 		flags |= FL_ASYNC;
@@ -252,8 +295,8 @@ query_char(int timeout_usec)
 	FD_ZERO(&rfds);
 	FD_SET(0, &rfds);
 	FD_SET(_pd, &rfds);
-	tv.tv_sec = 1;
-	tv.tv_usec = 0;
+	tv.tv_sec = 0;
+	tv.tv_usec = 20000;
 
 	retval = select(_pd + 1, &rfds, NULL, NULL, &tv);
 	if (retval == -1) {
@@ -262,7 +305,12 @@ query_char(int timeout_usec)
 	} else if (retval) {
 		unsigned char c;
 		if (FD_ISSET(_pd, &rfds)) {
+			c = 0;
 			while (read(_pd, &c, 1) > 0) cmdpipe_input(c);
+			if (errno && errno != EWOULDBLOCK) {
+				perror("fifo read");
+				exit(1);
+			}
 		}
 		if (FD_ISSET(0, &rfds)) {
 			if (read(0, &c, 1) != 1) {
@@ -293,43 +341,58 @@ serial_write(unsigned char c)
 
 // Input
 
+void
+deb_sample(bool_t quick)
+{
+	// Does nothing here.
+}
+
+
 uint16_t
-read_ab()
+get_ab()
 {
 	return 0;
 }
 
 
 uint16_t
-read_db()
+get_db()
 {
 	return _mem[_ab];
 }
 
 
 uint16_t
-read_dsr()
+get_dsr()
 {
 	return 0;
 }
 
 
-uint16_t
-read_sr()
+/* This is only used for the test driver. */
+void
+set_sr(uint16_t sr)
 {
-	return panel_in.b.sr;
+	_sr = sr;
+}
+
+
+inline uint16_t
+get_sr()
+{
+	return _sr;
 }
 
 
 uint32_t
-read_sw()
+get_sw()
 {
 	return 0;
 }
 
 
 void
-virtual_panel_sample()
+virtual_panel_sample(bool_t quick)
 {
 	int i;
 	for (i = 0; i < 5; i++) bus_state.vp.w[i] = rand() & 0xffff;
@@ -381,9 +444,16 @@ write_leds(const uint8_t x)
 }
 
 
-void
-write_or(const uint16_t or)
+inline uint16_t
+get_or()
 {
+	return _or;
+}
+
+void
+set_or(const uint16_t or)
+{
+	_or = or;
 }
 
 
@@ -450,14 +520,21 @@ tristate_db()
 
 
 void
-set_clk(int x)
+set_clk(bool_t x)
 {
 }
 
 
 void
-set_clkfreq(int x)
+set_clkfreq(bool_t x)
 {
+}
+
+
+void
+set_steprun(bool_t x)
+{
+	//printf("*** STEPRUN: %d\n", x);
 }
 
 
@@ -476,31 +553,31 @@ strobe_ustep()
 
 
 void
-set_buspu(int x)
+set_buspu(uint8_t x)
 {
 }
 
 
 void
-set_safe(int x)
+set_safe(bool_t x)
 {
 }
 
 
 void
-set_irq1(int x)
+set_irq1(bool_t x)
 {
 }
 
 
 void
-set_irq6(int x)
+set_irq6(bool_t x)
 {
 }
 
 
 void
-set_fpram(int x)
+set_fpram(bool_t x)
 {
 }
 
@@ -536,19 +613,19 @@ strobe_w()
 
 
 void
-set_r(int x)
+set_r(bool_t x)
 {
 }
 
 
 void
-set_mem(int x)
+set_mem(bool_t x)
 {
 }
 
 
 void
-set_io(int x)
+set_io(bool_t x)
 {
 }
 
@@ -572,16 +649,30 @@ strobe_incpc()
 
 
 void
-set_halt(int x)
+set_halt(bool_t x)
 {
 }
 
 
 void
-set_runstop(int x)
+set_runstop(bool_t x)
 {
 }
 
+
+void
+queue_char(uint8_t c)
+{
+	// Do nothing, there's no CFT on the other side.
+}
+
+
+uint16_t
+maybe_dequeue_char()
+{
+	// Do nothing, there's no CFT on the other side.
+	return 0;
+}
 
 #endif // HOST
 

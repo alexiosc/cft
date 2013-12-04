@@ -2,6 +2,9 @@
 #define __HWCOMPAT_H__
 
 
+#define bool_t uint8_t
+
+
 #ifdef AVR
 
 #include <avr/pgmspace.h>

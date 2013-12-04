@@ -72,20 +72,20 @@ OPTIMIZE	=	-Os -mcall-prologues
 #OPTFLAGS	=	--param inline-call-cost=2 -finline-limit=3
 
 AVRCFLAGS	+=	-DAVR
-AVCRFLAGS	+=	-gstabs
-AVRCFLAGS	+=	-Wl,-static
+AVRCFLAGS	+=	-std=gnu99
+#AVCRFLAGS	+=	-gstabs
+#AVRCFLAGS	+=	-Wl,-static
 AVRCFLAGS	+=	-fdata-sections
 AVRCFLAGS	+=	-ffunction-sections
-AVRCFLAGS	+=	-Wl,--gc-sections
-AVCRFLAGS	+=	-Wl,-s
 AVRCFLAGS	+=	-funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums
 AVRCFLAGS	+=	-fno-inline-small-functions -fno-tree-scev-cprop -fno-split-wide-types
 AVRCFLAGS	+=	-ffreestanding
 AVRCFLAGS	+=	-finline-limit=3
-AVRCFLAGS	+=	--combine -fwhole-program
+#AVRCFLAGS	+=	-flto -fwhole-program
 AVRCFLAGS	+=	-fverbose-asm
 
-AVRLDFLAGS	+=	-Wl,-static -Wl,--gc-sections -Wl,-s
+AVRLDFLAGS	+=	-Wl,-static -Wl,--gc-sections
+#AVRLDFLAGS	+=	-Wl,-s
 AVRLDFLAGS	+=	-fdata-sections
 AVRLDFLAGS	+=	-ffunction-sections
 
@@ -113,7 +113,7 @@ TESTS		=	test_$(PROG)
 CC		=	avr-gcc
 HOSTCC		=	gcc
 HOSTDEFS	=	-DHOST -D_GNU_SOURCE
-HOSTCFLAGS	=	-O2 -g -Wall $(HOSTDEFS) $(DEFINES) -fpack-struct=1
+HOSTCFLAGS	=	-O2 -g -Wall $(HOSTDEFS) $(DEFINES) -fpack-struct=1 -std=c99 -Dasm=__asm
 
 AVRDUDE		=	sudo avrdude -c avrisp2 -p $(MCU_TARGET) -P usb
 
@@ -128,7 +128,7 @@ OBJDUMP        =	avr-objdump
 
 
 
-.PHONY:		all dep download verify reset test
+.PHONY:		all dep download verify reset test fuses
 
 all: 		test_$(PROG) $(PROG).elf lst text eeprom $(TESTS)
 #all: 		test_$(PROG)
@@ -139,6 +139,11 @@ dep .depends:   $(GENERATED)
 $(PROG).elf:	$(SOURCES)
 		$(CC) -S $(INCLUDES) $(CFLAGS) $(DEFINES) $(LDFLAGS) $(CFILES) $(LIBS)
 		$(CC) $(INCLUDES) $(CFLAGS) $(DEFINES) $(LDFLAGS) -o $@ $(CFILES) $(LIBS)
+
+fuses:		.stamp-fuses
+
+.stamp-fuses:
+		$(AVRDUDE) U lfuse:w:0xff:m -U hfuse:w:0xdf:m -U efuse:w:0xf9:m
 
 download:	.stamp-dl
 
@@ -188,7 +193,7 @@ clean:
 lst:  $(PROG).lst
 
 %.lst: %.elf
-	$(OBJDUMP) -h -S $< > $@
+	$(OBJDUMP) -l -h -w -f -S $< > $@
 
 # Rules for building the .text rom images
 

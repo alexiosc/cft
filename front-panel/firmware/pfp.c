@@ -10,9 +10,25 @@
 
 
 inline void
+diag()
+{
+//#warning "TODO: Implement diags"
+}
+
+
+inline void
+cpu_detect()
+{
+//#warning "TODO: Implement CPU detection"
+}
+
+
+inline void
 init()
 {
 	hw_init();
+	diag();
+	cpu_detect();
 	proto_init();
 }
 

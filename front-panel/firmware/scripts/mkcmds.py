@@ -17,7 +17,8 @@ strtable = ''
 for datum in data:
     cmd, fn, help = datum
     len0 += len(help) + 1
-    strtable += 'helpstring_t _cmdhelp%(i)d[] PROGMEM = "%(help)s";\n' % locals()
+    #strtable += 'helpstring_t _cmdhelp%(i)d[] PROGMEM = "%(help)s";\n' % locals()
+    #strtable += 'helpstring_t _cmdhelp%(i)d[] = "%(help)s";\n' % locals()
     ofsdata[cmd] = (i, len(fullhelp), len(help))
     i += 1
     fullhelp += help
@@ -51,6 +52,28 @@ fullhelp = fullhelp.replace("\n", r'\n')
 fullhelp = fullhelp.replace("-- ", r'\1')
 len2 = len(fullhelp) + 1
 
+#helpstr = "201 Available commands:\n";
+helpstr = ''
+
+helpstr += '|'.join(x[2] for x in data)
+helpstr = helpstr.replace(r'\n', '\n')
+helpstr = helpstr.replace('-- ', '\\1')
+helpstr = helpstr.replace('[ WORD ] ', '\\002')
+helpstr = helpstr.replace('[ BOOL ] ', '\\003')
+helpstr = helpstr.replace('Get/set ', '\\004')
+helpstr = helpstr.replace('\n201', '\\005')
+helpstr = helpstr.replace(' (default: ', '\\006')
+helpstr_len = len(helpstr) + 1
+
+#print helpstr \
+#    .replace('\001', '\033[7m -- \033[0m') \
+#    .replace('\002', '\033[7m[ WORD ]\033[0m') \
+#    .replace('\003', '\033[7m[ BOOL ]\033[0m') \
+#    .replace('\004', '\033[7mGet/set \033[0m') \
+#    .replace('\005', '\033[7m201   \033[0m') \
+
+helpstr = helpstr.replace('\n', '\\n').replace('|', '\\0')
+
 print """
 #ifndef __PROTO_CMDS_H
 #define __PROTO_CMDS_H
@@ -68,18 +91,22 @@ print """
 
 %(strtable)s
 
+#define _HELPSTR "%(helpstr)s";
+
 const static const struct {
 	char cmd[CMD_SIZE];
 	void (*handler)();
-#ifdef AVR
-	PGM_P help;
-#else
-        char * help;
-#endif
+//#ifdef AVR
+//	PGM_P help;
+//#else
+//      char * help;
+//#endif
 } cmds[] PROGMEM = {""" % locals()
 
 for i, datum in enumerate(data):
-    print '        {"%s", %s, _cmdhelp%d},' % (datum[0], datum[1], i)
+    #print '        {"%s", %s, _cmdhelp%d},' % (datum[0], datum[1], i)
+    #print '        {"%s", %s, "%s"},' % (datum[0], datum[1], datum[2])
+    print '        {"%s", %s},' % (datum[0], datum[1])
 
 print """        {"\\0", (void*)-1}
 };

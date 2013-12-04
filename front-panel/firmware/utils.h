@@ -23,8 +23,14 @@
 #define bitset(port, bit) ((port) &= ~_BV(bit))
 #define clearbit(port, bit) ((port) &= ~_BV(bit))
 #define setbit(port, bit) ((port) |= _BV(bit))
+
 #define bit(port, bit, yesno) \
 	((port) = (yesno)? (port) | _BV(bit) : (port) & ~_BV(bit))
+
+#define clearflag(var, flag) ((var) &= ~(flag))
+#define setflag(var, flag) ((var) |= (flag))
+#define flag(var, flag, yesno) \
+	((var) = (yesno)? (var) | (flag) : (var) & ~(flag))
 
 #define max(a,b) (((a) > (b)) ? (a) : (b))
 #define min(a,b) (((a) < (b)) ? (a) : (b))

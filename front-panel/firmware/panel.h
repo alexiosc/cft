@@ -56,7 +56,6 @@ typedef union {
 typedef struct {
 	uint8_t ifr1:1;
 	uint8_t ifr6:1;
-	uint8_t hof:1;
 	uint8_t leds:4;
 
 	uint16_t or;
@@ -75,8 +74,8 @@ typedef struct {
 #define CLK_CREEP  2
 
 
-extern panel_in_t panel_in;
-extern panel_out_t panel_out;
+//extern panel_in_t panel_in;
+//extern panel_out_t panel_out;
 
 void async_lock(uint8_t lock);
 
