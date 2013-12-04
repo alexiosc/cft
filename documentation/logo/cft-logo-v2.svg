@@ -14,7 +14,7 @@
    height="1052.3622047"
    id="svg4432"
    version="1.1"
-   inkscape:version="0.48.4 r9939"
+   inkscape:version="0.48.3.1 r9886"
    sodipodi:docname="cft-logo-v2.svg">
   <defs
      id="defs4434">
@@ -42,9 +42,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.8981957"
-     inkscape:cx="723.94882"
-     inkscape:cy="-425.52318"
+     inkscape:zoom="0.63512027"
+     inkscape:cx="730.05272"
+     inkscape:cy="-495.51274"
      inkscape:document-units="px"
      inkscape:current-layer="layer2"
      showgrid="false"
@@ -54,8 +54,8 @@
      inkscape:bbox-nodes="true"
      inkscape:snap-bbox-edge-midpoints="true"
      inkscape:snap-bbox-midpoints="true"
-     inkscape:window-width="2048"
-     inkscape:window-height="1132"
+     inkscape:window-width="1920"
+     inkscape:window-height="1060"
      inkscape:window-x="-4"
      inkscape:window-y="-3"
      inkscape:window-maximized="1">
@@ -116,19 +116,39 @@
        x="-25"
        y="422.36218" />
     <rect
-       style="color:#000000;fill:#ff5500;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       style="color:#000000;fill:#ff7f2a;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
        id="rect6127"
        width="420"
-       height="425"
+       height="420"
        x="555"
-       y="1312.3622" />
+       y="1317.3622" />
     <rect
-       y="1312.3622"
+       y="1317.3621"
        x="995"
-       height="425"
+       height="420"
        width="420"
        id="rect11244"
        style="color:#000000;fill:#222222;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+    <rect
+       y="1762.3622"
+       x="555"
+       height="420"
+       width="420"
+       id="rect3800"
+       style="color:#000000;fill:#ff7f2a;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       inkscape:export-filename="/home/alexios/PROJECTS/HARDWARE/cft/documentation/logo/proof-v2-small.png"
+       inkscape:export-xdpi="600"
+       inkscape:export-ydpi="600" />
+    <rect
+       style="color:#000000;fill:#222222;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:2;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect3802"
+       width="420"
+       height="420"
+       x="995"
+       y="1762.3622"
+       inkscape:export-filename="/home/alexios/PROJECTS/HARDWARE/cft/documentation/logo/proof-v2-small.png"
+       inkscape:export-xdpi="600"
+       inkscape:export-ydpi="600" />
   </g>
   <g
      inkscape:label="Layer 1"
@@ -292,10 +312,10 @@
     </g>
     <g
        id="g6129"
-       style="opacity:1">
+       transform="translate(0,2.9998826)">
       <path
          sodipodi:nodetypes="sssss"
-         style="color:#000000;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:3.54299997999999983;stroke-opacity:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         style="color:#000000;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:4;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
          d="m 747.06243,1524.3622 c 0,38.6599 -31.3401,70 -70,70 -38.6599,0 -70,-31.3401 -70,-70 0,-38.66 31.3401,-70 70,-70 38.6599,0 70,31.34 70,70 z"
          id="path6123"
          inkscape:connector-curvature="0" />
@@ -307,17 +327,56 @@
          style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:4;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
     </g>
     <g
-       id="g11252">
+       id="g11252"
+       transform="translate(0,2.9934605)">
       <path
          id="path7692"
-         d="M 1114.5625 1454.375 C 1075.9026 1454.375 1044.5625 1485.715 1044.5625 1524.375 C 1044.5625 1563.0349 1075.9026 1594.375 1114.5625 1594.375 C 1148.0648 1594.375 1176.0614 1570.8143 1182.9375 1539.375 L 1151.375 1539.375 C 1145.4029 1553.8346 1131.179 1564.0312 1114.5625 1564.0312 C 1092.5653 1564.0312 1074.7188 1546.1846 1074.7188 1524.1875 C 1074.7188 1502.1903 1092.5653 1484.375 1114.5625 1484.375 C 1131.3222 1484.375 1145.6518 1494.7166 1151.5312 1509.375 L 1182.9375 1509.3438 C 1176.0614 1477.9044 1148.0648 1454.375 1114.5625 1454.375 z "
-         style="color:#000000;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:3.54299997999999983;stroke-opacity:1;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+         d="m 1114.5625,1454.375 c -38.6599,0 -70,31.34 -70,70 0,38.6599 31.3401,70 70,70 33.5023,0 61.4989,-23.5607 68.375,-55 l -31.5625,0 c -5.9721,14.4596 -20.196,24.6562 -36.8125,24.6562 -21.9972,0 -39.8437,-17.8466 -39.8437,-39.8437 0,-21.9972 17.8465,-39.8125 39.8437,-39.8125 16.7597,0 31.0893,10.3416 36.9687,25 l 31.4063,-0.031 c -6.8761,-31.4394 -34.8727,-54.9688 -68.375,-54.9688 z"
+         style="color:#000000;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:4;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         inkscape:connector-curvature="0" />
       <path
-         style="color:#000000;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:4;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         style="color:#000000;fill:none;stroke:#ffffff;stroke-width:4;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
          d="m 1243.5614,1454.3622 c -24.3005,0 -44,19.6995 -44,44 l 0,10.9872 -48.0313,0.013 c -5.8794,-14.6584 -20.209,-25 -36.9687,-25 -21.9972,0 -39.8438,17.8153 -39.8438,39.8125 0,21.9971 17.8466,39.8437 39.8438,39.8437 16.6165,0 30.8404,-10.1966 36.8125,-24.6562 l 48.1875,0 0,55 30,0 0,-55 30,0 0,-30 -30,0 0,-11 c 0.375,-7.3972 6.5096,-14 14,-14 l 46,0 0,110 30,0 0,-110 45,0 0,-30 z"
          id="path7694"
          inkscape:connector-curvature="0"
          sodipodi:nodetypes="ccccssscccccccccsccccccc" />
+    </g>
+    <g
+       id="g3804"
+       transform="translate(0,447.99988)"
+       inkscape:export-filename="/home/alexios/PROJECTS/HARDWARE/cft/documentation/logo/proof-v2-small.png"
+       inkscape:export-xdpi="600"
+       inkscape:export-ydpi="600">
+      <path
+         inkscape:connector-curvature="0"
+         id="path3806"
+         d="m 747.06243,1524.3622 c 0,38.6599 -31.3401,70 -70,70 -38.6599,0 -70,-31.3401 -70,-70 0,-38.66 31.3401,-70 70,-70 38.6599,0 70,31.34 70,70 z"
+         style="color:#000000;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:10;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         sodipodi:nodetypes="sssss" />
+      <path
+         style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:10;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         d="m 806.04581,1454.3622 c -24.30042,0 -44,19.6995 -44,44 l 0,10.9872 -48.03125,0.013 c -5.8794,-14.6584 -20.20905,-25 -36.96875,-25 -21.9972,0 -39.84375,17.8153 -39.84375,39.8125 0,21.9971 17.84655,39.8437 39.84375,39.8437 16.6165,0 30.8404,-10.1966 36.8125,-24.6562 l 48.1875,0 0,55 30,0 0,-55 30,0 0,-30 -30,0 0,-11 c 0.37501,-7.3972 6.50964,-14 14,-14 l 46.00005,0 0,110 30,0 0,-110 44.99995,0 0,-30 z"
+         id="path3808"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="ccccssscccccccccsccccccc" />
+    </g>
+    <g
+       id="g3810"
+       transform="translate(0,447.99358)"
+       inkscape:export-filename="/home/alexios/PROJECTS/HARDWARE/cft/documentation/logo/proof-v2-small.png"
+       inkscape:export-xdpi="600"
+       inkscape:export-ydpi="600">
+      <path
+         style="color:#000000;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:10;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         d="m 1114.5625,1454.375 c -38.6599,0 -70,31.34 -70,70 0,38.6599 31.3401,70 70,70 33.5023,0 61.4989,-23.5607 68.375,-55 l -31.5625,0 c -5.9721,14.4596 -20.196,24.6562 -36.8125,24.6562 -21.9972,0 -39.8437,-17.8466 -39.8437,-39.8437 0,-21.9972 17.8465,-39.8125 39.8437,-39.8125 16.7597,0 31.0893,10.3416 36.9687,25 l 31.4063,-0.031 c -6.8761,-31.4394 -34.8727,-54.9688 -68.375,-54.9688 z"
+         id="path3812"
+         inkscape:connector-curvature="0" />
+      <path
+         sodipodi:nodetypes="ccccssscccccccccsccccccc"
+         inkscape:connector-curvature="0"
+         id="path3814"
+         d="m 1243.5614,1454.3622 c -24.3005,0 -44,19.6995 -44,44 l 0,10.9872 -48.0313,0.013 c -5.8794,-14.6584 -20.209,-25 -36.9687,-25 -21.9972,0 -39.8438,17.8153 -39.8438,39.8125 0,21.9971 17.8466,39.8437 39.8438,39.8437 16.6165,0 30.8404,-10.1966 36.8125,-24.6562 l 48.1875,0 0,55 30,0 0,-55 30,0 0,-30 -30,0 0,-11 c 0.375,-7.3972 6.5096,-14 14,-14 l 46,0 0,110 30,0 0,-110 45,0 0,-30 z"
+         style="color:#000000;fill:none;stroke:#ffffff;stroke-width:10;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
     </g>
   </g>
 </svg>
