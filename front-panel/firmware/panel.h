@@ -7,6 +7,7 @@
 
 // The Output Register
 
+#if 0
 typedef struct {
 	uint16_t ab;
 	uint16_t db;
@@ -61,7 +62,6 @@ typedef struct {
 	uint16_t or;
 } panel_out_t;
 
-
 #define MST_STOP   0
 #define MST_RUN    1
 #define MST_STEP   2
@@ -69,59 +69,53 @@ typedef struct {
 #define MST_TRACE  4
 #define MST_UTRACE 5
 
-#define CLK_FAST   0
-#define CLK_SLOW   1
-#define CLK_CREEP  2
+#endif
+
+//#define CLK_FAST   0
+//#define CLK_SLOW   1
+//#define CLK_CREEP  2
 
 
 //extern panel_in_t panel_in;
 //extern panel_out_t panel_out;
 
-void async_lock(uint8_t lock);
+void panel_lock(uint8_t lock);
 
-void async_sr(uint16_t sr);
+void panel_sr(uint16_t sr);
 
-void async_reset();
+void panel_reset();
 
-void async_start();
+void panel_start();
 
-void async_run();
+void panel_run();
 
-void async_stop();
+void panel_stop();
 
-void async_step();
+void panel_step();
 
-void async_ustep();
+void panel_ustep();
 
-void async_spd(uint8_t spd);
+void panel_spd(uint8_t spd);
 
-void async_ldir();
+void panel_ldir();
 
-void async_ldaddr();
+void panel_ldaddr();
 
-void async_ldac();
+void panel_ldac();
 
-void async_wmem();
+void panel_wmem(bool_t inc, uint16_t a, uint16_t d);
 
-void async_wmeminc();
+void panel_rmem(bool_t inc, uint16_t a);
 
-void async_rmem();
+void panel_wio(bool_t inc, uint16_t a, uint16_t d);
 
-void async_rmeminc();
+void panel_rio(bool_t inc, uint16_t a);
 
-void async_wio();
+void panel_rom(uint8_t rom);
 
-void async_wioinc();
+void panel_ifr1();
 
-void async_rio();
-
-void async_rioinc();
-
-void async_rom(uint8_t rom);
-
-void async_ifr1();
-
-void async_ifr6();
+void panel_ifr6();
 
 #endif // __PANEL_H__
 

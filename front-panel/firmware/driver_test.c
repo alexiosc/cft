@@ -28,7 +28,7 @@
 
 static uint16_t _or;
 static uint16_t _ab;
-static uint16_t _sr;
+static uint16_t _sr = 0xbeef, _pc = 0xdead;
 static uint16_t * _mem;
 static int _pd;
 static char _pipebuf[4096];
@@ -128,6 +128,13 @@ hw_init()
 		perror("open()");
 		exit(1);
 	}
+
+	// Pretend we don't have a processor if env var NOPROC is defined.
+	if (getenv("NOPROC") == NULL) {
+		flags |= FL_PROC;
+	} else {
+		printf("*** NOPROC environment variable seen, simulating standalone mode.\n");
+	}
 }
 
 
@@ -148,84 +155,81 @@ hw_done()
 static void
 cmdpipe_input(char c)
 {
+	static uint16_t sr0 = 0;
+	static uint8_t rom0 = 255;
+
 	if (c == 10) {
 		int i;
 		*_pp = '\0';
 		_pp = _pipebuf;
 		if (sscanf(_pipebuf, "lock %d", &i) == 1) {
-			async_lock(i);
+			panel_lock(i);
 			return;
 		} if (sscanf(_pipebuf, "sr %x", &i) == 1) {
-			async_sr(i);
+			if (sr0 != i) panel_sr(sr0 = i);
 			return;
 		} else if (!strcmp(_pipebuf, "reset")) {
-			async_reset();
+			panel_reset();
 			return;
 		} else if (!strcmp(_pipebuf, "stop")) {
-			async_stop();
+			panel_stop();
 			return;
 		} else if (!strcmp(_pipebuf, "run")) {
-			async_run();
+			panel_run();
 			return;
 		} else if (!strcmp(_pipebuf, "start")) {
-			async_start();
+			panel_start();
 			return;
 		} else if (!strcmp(_pipebuf, "step")) {
-			async_step();
+			panel_step();
 			return;
 		} else if (!strcmp(_pipebuf, "ustep")) {
-			async_ustep();
+			panel_ustep();
 			return;
 		} else if (sscanf(_pipebuf, "spd %d", &i) == 1) {
-			async_spd(i);
+			panel_spd(i);
 			return;
 		} else if (!strcmp(_pipebuf, "ldir")) {
-			async_ldir();
+			panel_ldir();
 			return;
 		} else if (!strcmp(_pipebuf, "ldaddr")) {
-			async_ldaddr();
+			panel_ldaddr();
 			return;
 		} else if (!strcmp(_pipebuf, "ldac")) {
-			async_ldac();
+			panel_ldac();
 			return;
 		} else if (!strcmp(_pipebuf, "wmem")) {
-			async_wmem();
+			panel_wmem(0, _pc, _sr);
 			return;
 		} else if (!strcmp(_pipebuf, "wmem+")) {
-			async_wmeminc();
+			panel_wmem(1, _pc, _sr);
 			return;
 		} else if (!strcmp(_pipebuf, "rmem")) {
-			async_rmem();
+			panel_rmem(0, _pc);
 			return;
 		} else if (!strcmp(_pipebuf, "rmem+")) {
-			async_rmeminc();
+			panel_rmem(1, _pc);
 			return;
 		} else if (!strcmp(_pipebuf, "wio")) {
-			async_wio();
+			panel_wio(0, _pc, _sr);
 			return;
 		} else if (!strcmp(_pipebuf, "wio+")) {
-			async_wioinc();
+			panel_wio(1, _pc, _sr);
 			return;
 		} else if (!strcmp(_pipebuf, "rio")) {
-			async_rio();
+			panel_rio(0, _pc);
 			return;
 		} else if (!strcmp(_pipebuf, "rio+")) {
-			async_rioinc();
-			return;
-		} else if (!strcmp(_pipebuf, "rio+")) {
-			async_rioinc();
+			panel_rio(1, _pc);
 			return;
 		} else if (sscanf(_pipebuf, "rom %d", &i) == 1) {
-			async_rom(i);
-			return;
-		} else if (sscanf(_pipebuf, "rom %d", &i) == 1) {
-			async_rom(i);
+			if (rom0 != i) panel_rom(rom0 = i);
 			return;
 		} else if (!strcmp(_pipebuf, "ifr1")) {
-			async_ifr1();
+			panel_ifr1();
 			return;
 		} else if (!strcmp(_pipebuf, "ifr6")) {
-			async_ifr6();
+			panel_ifr6();
 			return;
 		} 
 
@@ -349,6 +353,39 @@ deb_sample(bool_t quick)
 
 
 uint16_t
+get_ac()
+{
+	return 0;
+}
+
+
+uint16_t
+get_pc()
+{
+	return _pc;
+}
+
+
+uint8_t
+get_misc()
+{
+	return 0x42;
+}
+
+
+uint32_t get_uvec()
+{
+	return 0xffffffff;
+}
+
+uint16_t
+get_ir()
+{
+	return 0x70d0;
+}
+
+
+uint16_t
 get_ab()
 {
 	return 0;
@@ -394,8 +431,8 @@ get_sw()
 void
 virtual_panel_sample(bool_t quick)
 {
-	int i;
-	for (i = 0; i < 5; i++) bus_state.vp.w[i] = rand() & 0xffff;
+	//int i;
+	//for (i = 0; i < 5; i++) bus_state.vp.w[i] = rand() & 0xffff;
 	//printf("*** Virtual Panel sample\n");
 }
 
@@ -516,17 +553,42 @@ tristate_db()
 {
 }
 
+
+void
+addr_inc()
+{
+	_pc++;
+}
+
 // Strobes & miscellaneous signals
 
 
 void
-set_clk(bool_t x)
+clk_stop()
 {
 }
 
 
 void
-set_clkfreq(bool_t x)
+set_clkfreq(uint8_t prescaler, uint16_t div)
+{
+}
+
+
+void
+clk_fast()
+{
+}
+
+
+void
+clk_slow()
+{
+}
+
+
+void
+clk_creep()
 {
 }
 

@@ -29,6 +29,9 @@
 #define UDRE0 UDRE
 #endif // UCSR0
 
+#define setup() short_delay()
+#define hold() short_delay()
+
 #else
 
 
@@ -47,6 +50,9 @@
 #define _delay_us(us) usleep(us)
 #define _delay_ms(us) usleep((us) * 1000)
 #define short_delay() usleep(100);
+
+#define setup() 
+#define hold() 
 
 #endif // ! AVR
 

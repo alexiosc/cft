@@ -9,12 +9,9 @@
 #define NUM_SAMPLES 128
 
 
-bus_state_t bus_state;
+//bus_state_t bus_state;
 
-
-#define setup() short_delay();
-#define hold() short_delay();
-
+static uint16_t _hi = 0;
 
 uint8_t
 _buschatter()
@@ -60,8 +57,37 @@ assert_halted()
 }
 
 
+// Read cycle.
+// ____
+// HALT   _________________________________ (already driven low)
+//
+// AB     ZZZ<--------- VALID --------->ZZZ
+// ___ __ ______                     ______
+// MEM/IO       \___________________/
+// _      _________               _________
+// R               \_____________/
+//
+// DB     XXXXXXXXXXXX<---- VALID ---->XXXX
+// ___    _________________   _____________
+// RAC                     \_/
+//
+// Sample data here           ^^^
+// Read data from shift registers here  ^^^
+//
+// We do not obey Wait State requests. We read the bus using shift registers at
+// 14 MHz, so even if one read took two MCU clocks (it takes a bit longer than
+// that), reading the DBUS registers would take around 10 µs (the minimum hold
+// time).
+//
+// Reading into the AC works because asserting either MEM# or IO# and R# causes
+// the bus driver on the processor to connect the IBUS and DBUS for
+// reading. This combinatorial circuit does not get defeated when the processor
+// is halted, which is technically a bug. If we were to do this properly, we'd
+// have to drive the IBUS with the appropriate value ourselves after the end of
+// the DBUS cycle. For now, we rely on this bug.
+
 uint16_t
-_perform_read(uint8_t space, uint16_t addr)
+perform_read(uint8_t space, uint16_t addr)
 {
 	uint16_t val;
 
@@ -80,6 +106,7 @@ _perform_read(uint8_t space, uint16_t addr)
 	// Sample.
 	deb_sample(1);
 	val = get_db();
+	strobe_wac();		// Also put it in the AC.
 
 	hold();
 
@@ -92,8 +119,23 @@ _perform_read(uint8_t space, uint16_t addr)
 }
 
 
+// Write cycle.
+// ____
+// HALT   _________________________________ (already driven low)
+//
+// AB     ZZZ<--------- VALID --------->ZZZ
+//
+// DB     ZZZZZZ<------ VALID --------->ZZZ
+// ___ __ ______                     ______
+// MEM/IO       \___________________/
+// _      __________________      _________
+// W                        \____/
+//
+// We do not obey Wait State requests. The pulses are so wide it shouldn't be a
+// problem (we're likely the slowest device on the bus, after all).
+
 uint8_t
-_perform_write(uint8_t space, uint16_t addr, uint16_t word)
+perform_write(uint8_t space, uint16_t addr, uint16_t word)
 {
 	// Ensure the bus is quiet.
 	if (!assert_halted()) return 0;
@@ -109,7 +151,7 @@ _perform_write(uint8_t space, uint16_t addr, uint16_t word)
 	setup();
 
 	// Strobe.
-	strobe_w(1);
+	strobe_w();
 
 	hold();
 
@@ -123,7 +165,7 @@ _perform_write(uint8_t space, uint16_t addr, uint16_t word)
 
 
 uint16_t
-_perform_block_read(uint16_t base, int16_t n, uint16_t * buf)
+perform_block_read(uint16_t base, int16_t n, uint16_t * buf)
 {
 	// Ensure the bus is quiet.
 	if (!assert_halted()) return 0;
@@ -165,7 +207,7 @@ set_reg(uint8_t reg, uint16_t value)
 	if (!assert_halted()) return 0;
 
 	// Stop the clock (just in case).
-	set_clk(0);
+	clk_stop();
 	
 	write_ibus(value);
 	drive_ibus();
@@ -194,17 +236,20 @@ buscmd_enef(uint16_t val)
 	report_pstr(PSTR(STR_NIMPL));
 }
 
+
 void
 buscmd_disef(uint16_t val)
 {
 	report_pstr(PSTR(STR_NIMPL));
 }
 
+
 void
 buscmd_qef()
 {
 	report_pstr(PSTR(STR_NIMPL));
 }
+
 
 void
 buscmd_print(char op, uint16_t val)
@@ -241,7 +286,7 @@ buscmd_print(char op, uint16_t val)
 		report_uint(val);
 		break;
 	case 'L':
-		report_hex(bus_state.hi, 4);
+		report_hex(_hi, 4);
 		report_hex(val, 4);
 		break;
 	}
@@ -276,7 +321,7 @@ buscmd_dump()
 void
 buscmd_printhi(uint16_t val)
 {
-	bus_state.hi = val;
+	_hi = val;
 }
 
 

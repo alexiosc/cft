@@ -12,7 +12,7 @@ static const struct {
 	{"ver",     say_version, "-- Show version"},
 	{"buf",     say_bufsize, "-- Show size of command buffer"},
 	{"_clr!",   gs_nop,      "-- Reset the DEB board"},
-	{"echo",    gs_echo,     "[ BOOL ] -- Get/set local echo.\n201"},
+	{"echo",    gs_echo,     "[ BOOL ] -- Get/set local echo."},
 	{"mesg",    gs_mesg,     "[ BOOL ] -- Get/set asyc messages.\n201"},
 
 	{"s",       go_state,    "-- Current CFT/DEB status"},
@@ -42,7 +42,7 @@ static const struct {
 	{"fast",    go_fast,   "-- CPU at full speed"},
 	{"slow",    go_slow,   "-- CPU at slow speed"},
 	{"creep",   go_creep,  "-- CPU at creep speed"},
-	{"_clk",    go_nop,    "-- Set slow clock base.\n201"},
+	{"clk",     go_clk,    "PS DIV -- Arbitrary clock speed (see docs).\n201"},
 
 	// Right switch bank (cycle operations)
 	{"ir",      gs_ir,     "[ WORD ] -- Get/set IR"},
@@ -52,7 +52,7 @@ static const struct {
 	{"a",       gs_addr,   "[ WORD ] -- Get/set address"},
 	{"r",       go_read,   "-- Read mem[a++]"},
 	{"d",       go_dump_text,   "[ C ] -- Dump C words (default: 80)"},
-	{"_db",     go_nop,    "-- Binary dump c words starting at mem[a]"},
+	{"db",      go_dump_bin,    "[ C ] -- Binary dump C words (default: 80)"},
 	{"w",       go_write,  "WORD [ WORD... ] -- Write c words to mem[a++]"},
 	{"fill",    go_fill,   "COUNT VALUE -- Fill memory"},
 	{"in",      go_in,     "ADDR -- Read I/O address ADDR"},

@@ -43,6 +43,8 @@
 
 #define STR_READY   "200 Ready\n"
 #define STR_ADDR    "203 Address: "
+#define STR_PROC1   "205 Processor found.\n"
+#define STR_PROC0   "206 No processor.\n"
 #define STR_GSECHO   "10 Echo: "
 #define STR_GSMESG   "11 Async messages: "
 #define STR_GSLEDS   "12 LEDs: "
@@ -61,9 +63,9 @@
 #define STR_STATE   "250 Machine state: "
 #define STR_SWS     "251 Switch state: "
 #define STR_USTATE  "252 Microcode control: "
-#define STR_GSAC     "53 AC"
-#define STR_GSPC     "54 PC"
-#define STR_GSIR     "55 IR"
+#define STR_GSAC     "53 AC: "
+#define STR_GSPC     "54 PC: "
+#define STR_GSIR     "55 IR: "
 
 #define STR_AC           " AC:"
 #define STR_PC           " PC:"
@@ -81,12 +83,17 @@
 #define STR_STEP    "323 Step. "
 #define STR_USTEP   "324 Microstep. "
 #define STR_TRACE   "325 Tracing.\n"
-#define STR_UTRACE  "326 Mictotracing.\n"
+#define STR_UTRACE  "326 Microtracing.\n"
 #define STR_FAST    "327 Full speed clock.\n"
 #define STR_SLOW    "328 Slow clock.\n"
 #define STR_CREEP   "329 Very slow clock.\n"
-#define STR_CONSBEG "330 Virtual console (press Enter # . to exit).\n"
-#define STR_CONSEND "331 Left virtual console.\n"
+#define STR_CLKSET  "330 Clock set to CLK"
+#define STR_CLKSET2      "/"
+#define STR_CONSBEG "331 Virtual console (press Enter # . to exit).\n"
+#define STR_CONSEND "332 Left virtual console.\n"
+#define STR_FPRAM   "333 ROM/RAM# switch: "
+#define STR_FPRAM0       "RAM\n"
+#define STR_FPRAM1       "ROM\n"
 
 #define STR_DEBPRN  "340 PRINT"
 #define STR_DEBSENT "341 SENTINEL\n"
@@ -102,6 +109,14 @@
 #define STR_OUT2    " Value: "
 #define STR_IFR1    "358 IRQ1 signaled\n"
 #define STR_IFR6    "359 IRQ6 signaled\n"
+
+#define STR_WMEM    "370 Write mem["
+#define STR_RMEM    "371 Read mem["
+#define STR_WIO     "372 Write I/O["
+#define STR_RIO     "372 Read I/O["
+
+#define STR_WDATA        "] <- "
+#define STR_RDATA        "] -> "
 
 #define STR_WRAP    "401 Warning: write will wrap around.\n"
 
@@ -120,6 +135,7 @@
 #define STR_PROMPT  "> "
 #define STR_PRUN    "[running]" STR_PROMPT
 #define STR_PSTOP   "[halted] "
+#define STR_PNOPROC "[no processor]"
 #define STR_ON      "on"
 #define STR_OFF     "off"
 

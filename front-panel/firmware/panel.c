@@ -6,6 +6,7 @@
 #include "proto.h"
 #include "panel.h"
 #include "output.h"
+#include "bus.h"
 
 
 //panel_in_t panel_in;
@@ -15,7 +16,7 @@
 static uint16_t _lock;
 
 void
-async_lock(uint8_t lock)
+panel_lock(uint8_t lock)
 {
 	if (lock == _lock) return;
 	_lock = lock;
@@ -25,13 +26,13 @@ async_lock(uint8_t lock)
 }
 
 
-static uint16_t _sr0;
+static uint16_t _oldsr = 0xffff;
 
 void
-async_sr(uint16_t sr)
+panel_sr(uint16_t sr)
 {
-	if (sr == _sr0) return;
-	_sr0 = sr;
+	if (sr == _oldsr) return;
+
 	say_break();
 	set_sr(sr);
 	say_sr();
@@ -40,7 +41,7 @@ async_sr(uint16_t sr)
 
 
 void
-async_reset()
+panel_reset()
 {
 	say_break();
 	go_reset();
@@ -49,7 +50,7 @@ async_reset()
 
 
 void
-async_start()
+panel_start()
 {
 	say_break();
 	go_start();
@@ -58,7 +59,7 @@ async_start()
 
 
 void
-async_stop()
+panel_stop()
 {
 	say_break();
 	go_stop();
@@ -67,7 +68,7 @@ async_stop()
 
 
 void
-async_run()
+panel_run()
 {
 	say_break();
 	go_run();
@@ -76,7 +77,7 @@ async_run()
 
 
 void
-async_step()
+panel_step()
 {
 	say_break();
 	go_step();
@@ -85,7 +86,7 @@ async_step()
 
 
 void
-async_ustep()
+panel_ustep()
 {
 	say_break();
 	go_ustep();
@@ -93,58 +94,63 @@ async_ustep()
 }
 
 
-static uint8_t _spd;
+// 0 is impossible due to switch configuration, so it's a good starting value.
+static uint8_t _spd = 0;
+
+
+// Spd is:
+// bit 1 (FAST)   bit 0 (SLOW)    Value    Meaning
+// 0              0               0        Not possible (full speed)
+// 0              1               1        Fast
+// 1              0               2        Creep
+// 1              1               3        Slow
 void
-async_spd(uint8_t spd)
+panel_spd(uint8_t spd)
 {
 	if (spd == _spd) return;
 	_spd = spd;
+
 	say_break();
-	if (spd == 0) go_fast();
-	else if (spd == 1) go_slow();
-	else if (spd == 2) go_creep();
+	if (spd == 2) {
+		go_creep();
+		report_pstr(PSTR(STR_CREEP));
+	} else if (spd == 3) {
+		go_slow();
+		report_pstr(PSTR(STR_SLOW));
+	} else {
+		go_fast();
+		report_pstr(PSTR(STR_FAST));
+	}
 	proto_prompt();
 }
 
 
 void
-async_ldir()
+panel_ldir()
 {
+	set_reg(REG_IR, get_sr());
+
 	say_break();
-	//printf("*** TODO\n");
+	report_gs(1);
+	report_hex_value(PSTR(STR_GSIR), get_ir(), 4);
 	proto_prompt();
 }
 
 
 void
-async_ldaddr()
+panel_ldaddr()
 {
+	set_reg(REG_IR, get_pc());
+
 	say_break();
-	//printf("*** TODO\n");
+	report_gs(1);
+	report_hex_value(PSTR(STR_GSIR), get_pc(), 4);
 	proto_prompt();
 }
 
 
 void
-async_ldac()
-{
-	say_break();
-	//printf("*** TODO: %s\n", __FUNCTION__);
-	proto_prompt();
-}
-
-
-void
-async_wmem()
-{
-	say_break();
-	//printf("*** TODO: %s\n", __FUNCTION__);
-	proto_prompt();
-}
-
-
-void
-async_wmeminc()
+panel_ldac()
 {
 	say_break();
 	//printf("*** TODO: %s\n", __FUNCTION__);
@@ -153,87 +159,102 @@ async_wmeminc()
 
 
 void
-async_rmem()
+panel_wmem(bool_t inc, uint16_t a, uint16_t d)
 {
+	if (!assert_halted()) return;
+
+	perform_write(SPACE_MEM, a, d);
+	if (inc) addr_inc();
+
 	say_break();
-	//printf("*** TODO: %s\n", __FUNCTION__);
+	report_pstr(PSTR(STR_WMEM));
+	report_hex(a, 4);
+	report_hex_value(PSTR(STR_WDATA), d, 4);
 	proto_prompt();
 }
 
 
 void
-async_rmeminc()
+panel_rmem(bool_t inc, uint16_t a)
 {
+	if (!assert_halted()) return;
+
+	uint16_t d = perform_read(SPACE_MEM, a);
+	if (inc) addr_inc();
+
 	say_break();
-	//printf("*** TODO: %s\n", __FUNCTION__);
+	report_pstr(PSTR(STR_RMEM));
+	report_hex(a, 4);
+	report_hex_value(PSTR(STR_RDATA), d, 4);
 	proto_prompt();
 }
 
 
 void
-async_wio()
+panel_wio(bool_t inc, uint16_t a, uint16_t d)
 {
+	if (!assert_halted()) return;
+
+	perform_write(SPACE_MEM, a, d);
+	if (inc) addr_inc();
+
 	say_break();
-	//printf("*** TODO: %s\n", __FUNCTION__);
+	report_pstr(PSTR(STR_WIO));
+	report_hex(a, 4);
+	report_hex_value(PSTR(STR_WDATA), d, 4);
 	proto_prompt();
 }
 
 
 void
-async_wioinc()
+panel_rio(bool_t inc, uint16_t a)
 {
+	if (!assert_halted()) return;
+
+	uint16_t d = perform_read(SPACE_IO, a);
+	if (inc) addr_inc();
+
 	say_break();
-	//printf("*** TODO: %s\n", __FUNCTION__);
+	report_pstr(PSTR(STR_RIO));
+	report_hex(a, 4);
+	report_hex_value(PSTR(STR_RDATA), d, 4);
 	proto_prompt();
 }
 
 
-void
-async_rio()
-{
-	say_break();
-	//printf("*** TODO: %s\n", __FUNCTION__);
-	proto_prompt();
-}
-
+static uint16_t _rom = 0xffff;
 
 void
-async_rioinc()
+panel_rom(uint8_t rom)
 {
-	say_break();
-	//printf("*** TODO: %s\n", __FUNCTION__);
-	proto_prompt();
-}
-
-
-static uint8_t _rom;
-void
-async_rom(uint8_t rom)
-{
+	if ((flags & FL_HALT) == 0) return;
 	if (rom == _rom) return;
-	_rom = rom;
-	//#warning "*** TODO: set RAM/ROM\n";
-	//say_break();
-	//panel_in.b.sr = sr;
-	//say_sr();
+	set_fpram(rom);
+
+	// Output to the debugging console.
+	say_break();
+	report(PSTR(STR_FPRAM));
+	report(rom ? PSTR(STR_FPRAM1) : PSTR(STR_FPRAM0));
 	proto_prompt();
 }
 
 
 void
-async_ifr1()
+panel_ifr1()
 {
 	say_break();
-	//printf("*** TODO: %s\n", __FUNCTION__);
+	report(PSTR(STR_IFR1));
+	set_irq1(1);
 	proto_prompt();
 }
 
 
 void
-async_ifr6()
+panel_ifr6()
 {
 	say_break();
-	//printf("*** TODO: %s\n", __FUNCTION__);
+	report(PSTR(STR_IFR6));
+	set_irq1(6);
 	proto_prompt();
 }
 

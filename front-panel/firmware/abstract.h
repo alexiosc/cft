@@ -32,12 +32,23 @@ uint16_t get_sr();		// Switch reg
 uint32_t get_sw();		// Remaining switches
 
 void virtual_panel_sample(bool_t quick); // Read the machine state
+
+#define CFL_FN       0x01
+#define CFL_FZ       0x02
+#define CFL_FV       0x04
+#define CFL_FI       0x08
+#define CFL_FL       0x10
+#define CFL_NWAIT    0x20
+#define CFL_NWEN     0x40
+#define CFL_NR       0x80
+
 #define get_flags get_misc
 uint8_t get_misc();		// flags, card select signals
 uint32_t get_uvec();		// uC vector
 uint16_t get_ir();		// IR
 uint16_t get_pc();		// PC
 uint16_t get_ac();		// AC
+uint16_t get_dr();		// DR
 
 // Output
 void write_leds(const uint8_t);   // Set the diagnostic LEDs
@@ -57,11 +68,14 @@ void drive_db();
 void write_db(const uint16_t);
 void tristate_db();
 
-// Strobes & miscellaneous signals
-#define CLK_STOPPED 0xFF
+void addr_inc();
 
-void set_clk(uint8_t x);	 // Clock enable/disable
-void set_clkfreq(uint8_t x);	// Clock frequency select
+void clk_stop();		// Stop clock
+void clk_fast();		// Set fast clock
+void clk_slow();		// Set slow clock
+void clk_creep();		// Set creep clock
+void set_clkfreq(uint8_t prescaler, uint16_t div);	// Clock frequency select
+
 void set_steprun(bool_t x);	// Start the step state machine
 void strobe_step();		// Start the step state machine
 void strobe_ustep();		// Start the microstep state machine

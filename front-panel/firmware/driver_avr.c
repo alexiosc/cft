@@ -103,6 +103,9 @@ volatile static uint16_t _sr;
 volatile static uint16_t _swleft;
 static uint16_t _or;
 static uint8_t _cb[3] = { 0xff, 0xff, 0xff };
+static uint8_t _defercb = 0;
+
+#define defer_cb_write() _defercb++
 
 // flags for _swleft
 
@@ -114,6 +117,7 @@ static uint8_t _cb[3] = { 0xff, 0xff, 0xff };
 #define SWL_USTEP  0x0020
 #define SWL_SLOW   0x0040
 #define SWL_FAST   0x0080
+#define SWL_SPD_SHIFT      6
 
 #define SWL_DS0    0x0100
 #define SWL_DS1    0x0200
@@ -276,14 +280,89 @@ strobe_clr()
 
 #define CALC_FREQ(prescaler, hz) ((F_CPU) / (2 * (prescaler)) / (hz))
 
+
+/*
+
+  Processor detection algorithm.
+
+  The processor houses bus hold chips to terminate the CFT buses. Bus
+  hold will maintain any values written to a bus. Without bus hold,
+  the value is transient. We write various values to the bus and read
+  them back. If they persist over time, a processor has been detected.
+
+  We need to sample the bus repeatedly to avoid stray capacitance
+  problems (values will decay over time). The CFT backplane has quite
+  a lot of capacitance, so we have to wait a long time.
+
+ */
+
+
+static int
+test_bushold(uint16_t val)
+{
+	write_ab(val);
+	drive_ab();
+	tristate_ab();
+
+	// Now wait a LONG time (haven't check the assembly, but between 0.05
+	// and 0.1s.
+	uint16_t x = 65535;
+	while (x--) {
+		asm("nop");
+		asm("nop");
+		asm("nop");
+	}
+
+	// Sample the bus
+	deb_sample(1);		 // Get AB and DB
+	return _ab = val;
+	
+}
+
+void write_cb();		// Forward definition
+static void outcmd(uint8_t, bool_t); // Same
+
+
+// There are many ways to detect the presence of a processor:
+//
+// * Test if asserting HALT# also asserts RSTHOLD# (we don't currently read
+//   RSTHOLD#).
+// * Test if asserting MEM# or IO# drives AB#.
+// * Test if bus hold is present (values written to AB/DB are sticky over a
+//   long-ish period of time).
+
+inline static bool_t
+detect_cpu()
+{
+        // Strategy: hold RESET# and HALT asserted.
+	clearflag(_cb[1], CB1_NFPRESET);
+	clearflag(_cb[2], CB2_NHALT);
+	write_cb();
+	
+	// Write various values to the address bus.
+	if (test_bushold(0x0000) && 
+	    test_bushold(0x1111) && 
+	    test_bushold(0x3333) && 
+	    test_bushold(0x7777) && 
+	    test_bushold(0xffff) &&
+	    test_bushold(0xff00) &&
+	    test_bushold(0x00ff) &&
+	    test_bushold(0xf0f0) &&
+	    test_bushold(0x0f0f) &&
+	    test_bushold(0xaaaa) &&
+	    test_bushold(0x5555)) {
+		// Bus hold detected successfully.
+		return 1;
+	}
+	return 0;
+}
+
+
 void
 hw_init()
 {
-	serial_init();
-
 	// Set output pins and idle values. This will initialise with
 	// all outputs banks idle and the processor clock stopped.
-
 	PORTC = C_IDLE;
 	DDRC = C_OUTPUTS;
 
@@ -316,8 +395,27 @@ hw_init()
 
 	// Set up the console ring buffer
 	ringbuf.ip = ringbuf.op = 0;
+	
+	// Initialise the debugging serial port
+	serial_init();
 
-	// All done. Enable interrupts
+	// All done. Enable interrupts and de-assert RESET
+	setflag(_cb[1], CB1_NFPRESET);
+	setflag(_cb[2], CB2_NHALT);
+	write_cb();
+
+	// Is a processor attached to the system?
+	if (detect_cpu()) {
+		// Mark the processor as present
+		flags |= FL_PROC;
+		// Disable the bus pull-ups.
+		outcmd(CMD_BUSPU, 0);
+	} else {
+		// Should already be high, but a bit of redundancy can't hurt.
+		outcmd(CMD_BUSPU, 1);
+	}
+
+	// Enable the global interrupt flag
 	sei();
 }
 
@@ -334,7 +432,6 @@ hw_done()
 {
 	// The AVR hardware is never uninitialised.
 }
-
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -543,16 +640,6 @@ union {
 uint16_t _ir, _pc, _ac;		// Registers
 
 
-#define CFL_FN       0x01
-#define CFL_FZ       0x02
-#define CFL_FV       0x04
-#define CFL_FL       0x10
-#define CFL_NWAIT    0x20
-#define CFL_NWEN     0x40
-#define CFL_NR       0x80
-
-
-
 void
 virtual_panel_sample(bool_t quick)
 {
@@ -569,9 +656,9 @@ virtual_panel_sample(bool_t quick)
 		_flags = sample_shift_registers(C_VPIN);
 	
 		if (!quick) {
-			_uv.uvec8[0] = sample_shift_registers(C_VPIN);
-			_uv.uvec8[1] = sample_shift_registers(C_VPIN);
 			_uv.uvec8[2] = sample_shift_registers(C_VPIN);
+			_uv.uvec8[1] = sample_shift_registers(C_VPIN);
+			_uv.uvec8[0] = sample_shift_registers(C_VPIN);
 
 			_ir = sample_shift_registers(C_VPIN) << 8 |
 				sample_shift_registers(C_VPIN);
@@ -685,58 +772,133 @@ tristate_ibus()
 
 
 
+///////////////////////////////////////////////////////////////////////////////
+//
+// ADDRESS BUS CODE
+//
+///////////////////////////////////////////////////////////////////////////////
+
+// Strategy: in standalone (no processor) mode, just drive the Address
+// Bus ourselves. Downside: we have no control over AEXT.
+//
+// When a processor is present, use its Address Register instead. This
+// has the advantage of operating the MBU and driving the AEXT lines,
+// so we have access to the whole 21 bit address space.
+//
+// To set the AR: drive IBUS, put value on IBUS, strobe WAR#.
+//
+// To drive/tristate the address bus with a processor present, all we
+// need to do is assert MEM# or IO# (which is done during bus access
+// cycles anyway).
+
 void
 drive_ab()
 {
-	clearbit(PORTD, D_NABOE);
+	// The processor (if present) drives the AB.
+	if (flags & FL_PROC) {
+		// Just in case, tristate our AB drivers.
+		setbit(PORTD, D_NABOE);
+	} else {
+		// Enable the AB drivers.
+		clearbit(PORTD, D_NABOE);
+	}
 }
 
 
 void
 write_ab(const uint16_t abus)
 {
-	out_shift_registers(abus & 0xff, CMD_ABCLK);
-	out_shift_registers((abus >> 8) & 0xff, CMD_ABCLK);
+	if (flags & FL_PROC) {
 
-	// Move data from ALL the shift registers to their respective output
-	// registers. Tristated output registers will of course not have any
-	// effects.
-	strobecmd(CMD_STCP);
+		//                 (1)(2)(3)(4)
+		// IBUS ZZZZZZZZZZZZ<  DATA  >ZZZZZZZZZZ
+		//      ________________   _____________
+		// WAR#                 \_/
+		//                       :
+		// AR   XXXXXXXXXXXXXXXXX< IBUS VALUE
+
+		write_ibus(abus); // Set IBUS value (drivers at Z)
+		drive_ibus();  	  // Drive the IBUS
+		setup();	  // Bus setup time
+		strobe_war();	  // Strobe WAR# 
+		hold();		  // Bus hold time
+		tristate_ibus();  // Release the IBUS
+
+	} else {
+		// Drive the Address Bus ourselves.
+		out_shift_registers(abus & 0xff, CMD_ABCLK);
+		out_shift_registers((abus >> 8) & 0xff, CMD_ABCLK);
+
+		// Move data from ALL the shift registers to their respective
+		// output registers. Tristated output registers will of course
+		// not have any effects.
+		strobecmd(CMD_STCP);
+	}
 }
 
 
 inline void
 tristate_ab()
 {
+	// Just in case something's gone wrong, we tristate the drivers whether
+	// a processor is present or not.
 	setbit(PORTD, D_NABOE);
 }
 
 
+///////////////////////////////////////////////////////////////////////////////
+//
+// DATA BUS
+//
+///////////////////////////////////////////////////////////////////////////////
 
 inline void
 drive_db()
 {
-	clearbit(PORTD, D_NDBOE);
+	// The processor (if present) drives the DB.
+	if (flags & FL_PROC) {
+		// Just in case, tristate our DB drivers.
+		setbit(PORTD, D_NDBOE);
+		drive_ibus();
+	} else {
+		clearbit(PORTD, D_NDBOE);
+	}
 }
 
 
 void
 write_db(const uint16_t dbus)
 {
-	out_shift_registers(dbus & 0xff, CMD_DBCLK);
-	out_shift_registers((dbus >> 8) & 0xff, CMD_DBCLK);
-
-	// Move data from ALL the shift registers to their respective output
-	// registers. Tristated output registers will of course not have any
-	// effects.
-	strobecmd(CMD_STCP);
+	if (flags & FL_PROC) {
+		// The processor drives the DB using the IBUS. All we need to
+		// do is drive the IBUS.
+		write_ibus(dbus);
+	} else {
+		out_shift_registers(dbus & 0xff, CMD_DBCLK);
+		out_shift_registers((dbus >> 8) & 0xff, CMD_DBCLK);
+	
+		// Move data from ALL the shift registers to their respective
+		// output registers. Tristated output registers will of course
+		// not have any effects.
+		strobecmd(CMD_STCP);
+	}
 }
 
 
 void
 tristate_db()
 {
+	if (flags & FL_PROC) tristate_ibus();
+	// Tristate the DB too, even if the processor is connected. Can't hurt.
 	setbit(PORTD, D_NDBOE);
+}
+
+
+void
+addr_inc()
+{
+	_pc++;
+	strobe_incpc();
 }
 
 
@@ -745,22 +907,32 @@ tristate_db()
 void
 write_cb()
 {
-	// The ICR acts as a signal mask, disabling the IRQ1/6 signals. The
-	// mask is updated whenever the ICR register is written to and will
-	// have all bits but those for IFR1/IFR6 set (the latter are controlled
-	// by the value coming from the CFT).
-	out_shift_registers(_cb[0] & _icr, CMD_CTLCLK);
-	out_shift_registers(_cb[1], CMD_CTLCLK);
-	out_shift_registers(_cb[2], CMD_CTLCLK);
+	// Sometimes we need to defer control bus writes so some
+	// signals can be bundled together.
+	if (_defercb) {
+		_defercb = 0;
+		return;
+	}
 
-	// Move data from ALL the shift registers to their respective output
-	// registers. Tristated output registers will of course not have any
-	// effects.
-	strobecmd(CMD_STCP);
-
-	// Finally, enable the control signals (unless already enabled)
-	if ((_cb[2] & (CB2_FPRUN | CB2_FPSTOP)) == (CB2_FPRUN | CB2_FPSTOP)) {
-		clearbit(PORTD, D_NCTLOE);
+	ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+		// The ICR acts as a signal mask, disabling the IRQ1/6
+		// signals. The mask is updated whenever the ICR register is
+		// written to and will have all bits but those for IFR1/IFR6
+		// set (the latter are controlled by the value coming from the
+		// CFT).
+		out_shift_registers(_cb[0] & _icr, CMD_CTLCLK);
+		out_shift_registers(_cb[1], CMD_CTLCLK);
+		out_shift_registers(_cb[2], CMD_CTLCLK);
+		
+		// Move data from ALL the shift registers to their respective
+		// output registers. Tristated output registers will of course
+		// not have any effects.
+		strobecmd(CMD_STCP);
+		
+		// Finally, enable the control signals (unless already enabled)
+		if ((_cb[2] & (CB2_FPRUN | CB2_FPSTOP)) == (CB2_FPRUN | CB2_FPSTOP)) {
+			clearbit(PORTD, D_NCTLOE);
+		}
 	}
 }
 
@@ -789,49 +961,58 @@ wait_for_halt(uint8_t howlong)
 	assert_halted();
 }
 
+// Prescaler values for CS10-12 bits.
+#define PSV_1       1
+#define PSV_8       2
+#define PSV_64      3
+#define PSV_256     4
+#define PSV_1024    5
 
 void
-set_clk(uint8_t clktype)
+set_clkfreq(uint8_t prescaler, uint16_t div)
 {
-	// Bit 7 (inverted) of the CLK_x constants is the clock on/off bit
-	bit(PORTB, B_FPCLKEN, clktype == CLK_STOPPED ? 0 : 1);
-
-	// Set the slow clock type. Note: clock rates are processor raw clocks:
-	// the processor's clock generator divides them by 4.
-	switch(clktype) {
-	case CLK_STOPPED:
-		bit(PORTB, B_FPCLKEN, 0);
-		TCCR1A = 0x00;	// Disconnect FPUSTEP-IN pin, no pulses.
-		return;
-
-	case CLK_FAST:
-		bit(PORTB, B_FPCLKEN, 1);
-		// The rate of the slow clock is a Don't Care value.
-		return;
-
-	case CLK_SLOW:
-		TCCR1A = 0x40;	    // 0100--00: toggle OC1A on Compare Match
-		TCCR1B = 0x8 | 0x5; // Clear on compare, CLK/1024 prescaler
-		TIMSK1 = 0x2;       // Interrupt on compare match
-		OCR1A = 45; 	    // 80 Hz = 147456 / (4 * 1024 * 45)
-		return;
-
-	case CLK_CREEP:
-		TCCR1A = 0x40;	    // 0100--00: toggle OC1A on Compare Match
-		TCCR1B = 0x8 | 0x5; // Clear on compare, CLK/1024 prescaler
-		TIMSK1 = 0x2;       // Interrupt on compare match
-		OCR1A = 450; 	    // 8 Hz = 147456 / (4 * 1024 * 450)
-		return;
-	}
+	bit(PORTB, B_FPCLKEN, 0);
+	TCCR1A = 0x40;
+	TCCR1B = 8 | (prescaler & 7);
+	TIMSK1 = 2;
+	OCR1A = div;
 }
 
 
 void
-set_clkfreq(uint8_t x)
+clk_stop()
 {
+	// Disable the processor's clock.
+	clearbit(PORTB, B_FPCLKEN);
+
+	// Also disconnect the FPUSTEP-IN pin from the timer. The pin
+	// will stay in its last state.
+	TCCR1A = 0x00;	// Disconnect FPUSTEP-IN pin, no pulses.
 }
 
 
+inline void
+clk_fast()
+{
+	bit(PORTB, B_FPCLKEN, 1);
+	// The rate of the slow clock is a Don't Care value.
+}
+
+
+inline void
+clk_slow()
+{
+	// 80 Hz = 14745600 / (2 * 1024 * (1 + 89))
+	set_clkfreq(PSV_1024, 89);
+}
+
+
+inline void
+clk_creep()
+{
+	// 8 Hz = 14745600 / (2 * 1024 * (1 + 890))
+	set_clkfreq(PSV_1024, 899);
+}
 
 
 inline void
@@ -899,7 +1080,7 @@ set_irq6(bool_t val)
 void
 set_fpram(bool_t val)
 {
-	do_cb(1, NFPRAM, !val);
+	do_cb(1, NFPRAM, val);
 	write_cb();
 }
 
@@ -1019,8 +1200,11 @@ strobe_incpc()
 void
 set_halt(bool_t val)
 {
-	do_cb(0, NIRQ6, !val);
+	do_cb(2, NHALT, !val);
 	write_cb();
+
+	// Also update the FPRAM signal
+	if (val) panel_rom(_swright & SWR_RAM ? 1 : 0);
 }
 
 
@@ -1200,6 +1384,7 @@ ISR(INT0_vect)
 		case IO_ISR:
  			_db = _cb[0] & (CB0_NIRQ1 | CB0_NIRQ6);
 			if (ringbuf.op != ringbuf.ip) _db |= 0x8000;
+			defer_cb_write(); // Clear both IRQ1 and IRQ6 together.
 			set_irq1(0);
 			set_irq6(0);
 			break;
@@ -1271,6 +1456,7 @@ ISR(INT0_vect)
 // We do not obey Wait State requests. The pulses are so wide it shouldn't be a
 // problem (we're likely the slowest device on the bus, after all).
 
+/*
 static void
 _writecycle(bool_t is_io)
 {
@@ -1296,7 +1482,7 @@ _writecycle(bool_t is_io)
 	// Increment address after write?
 	if (actuated(_swright, SWR_INC)) strobe_incpc();
 }
-
+*/
 
 // Read cycle.
 // ____
@@ -1327,6 +1513,7 @@ _writecycle(bool_t is_io)
 // have to drive the IBUS with the appropriate value ourselves after the end of
 // the DBUS cycle. For now, we rely on this bug.
 
+ /*
 static void
 _readcycle(bool_t is_io)
 {
@@ -1354,7 +1541,9 @@ _readcycle(bool_t is_io)
 	// Increment address after read?
 	if (actuated(_swright, SWR_INC)) strobe_incpc();
 }
+ */
 
+  //static uint8_t _idle = 0;
 
 ISR(TIMER0_COMPA_vect)
 {
@@ -1364,72 +1553,91 @@ ISR(TIMER0_COMPA_vect)
 	// If locked, bail out.
 	if (actuated(_swleft, SWL_NLOCK)) return;
 
+	// Is the increment signal being asserted?
+	bool_t inc = actuated(_swright, SWR_INC) ? 1 : 0;
+
 	// Check switches. Act on just one per timer interrupt.
 	if (actuated(_swleft, SWL_RESET)) {
 		// Reset
-		async_reset();
+		panel_reset();
 	}
 
 	else if (actuated(_swleft, SWL_STOP)) {
 		// Stop
-		async_stop();
+		panel_stop();
 	}
 
 	else if (actuated(_swleft, SWL_RUN)) {
 		// Run
-		async_run();
+		panel_run();
 	}
 
 	else if (actuated(_swleft, SWL_STEP)) {
 		// Step
-		async_step();
+		panel_step();
 	}
 
 	else if (actuated(_swleft, SWL_USTEP)) {
 		// MicroStep
-		async_ustep();
+		panel_ustep();
 	}
 
 	else if (actuated(_swright, SWR_LDADDR)) {
 		// Load address (PC)
-		async_ldaddr();
+		panel_ldaddr();
 	}
 
 	else if (actuated(_swright, SWR_LDIR)) {
 		// Load instruction register
-		async_ldir();
+		panel_ldir();
 	}
 
 	else if (actuated(_swright, SWR_LDAC)) {
 		// Load AC
-		async_ldac();
+		panel_ldac();
 	}
 
 	else if (actuated(_swright, SWR_MEMW)) {
 		// Memory, write, inc?
-		_writecycle(0);
+		panel_wmem(inc, _pc, _sr);
 	}
 
 	else if (actuated(_swright, SWR_MEMR)) {
 		// Memory, read, inc?
-		_readcycle(0);
+		panel_rmem(inc, _pc);
 	}
 
 	else if (actuated(_swright, SWR_IOW)) {
 		// I/O, write, inc?
-		_writecycle(1);
+		panel_wio(inc, _pc, _sr);
 	}
 
 	else if (actuated(_swright, SWR_IOR)) {
 		// Memory, read, inc?
-		_readcycle(1);
+		panel_rio(inc, _pc);
 	}
 
-	// To be used:
-	async_rom(0);
-	async_rom(1);
-	async_ifr1();
-	async_ifr6();
+	else if (actuated(_swright, SWR_IFR1)) {
+		// Front panel interupt request, level 1
+		panel_ifr1();
+	}
+
+	else if (actuated(_swright, SWR_IFR6)) {
+		// Front panel interupt request, level 1
+		panel_ifr6();
+	}
+
+	// Set the clock speed.
+	panel_spd((_swleft & (SWL_SLOW|SWL_FAST)) >> SWL_SPD_SHIFT);
+
+	// Print out the Switch Register to the debugging console, if it's
+	// changed (the decision is made in panel_sr()).
+	panel_sr(_sr);
+
+	// The RAM switch is only acted on on reset (an edge action), and when
+	// the clock is halted (a level action or latch). Again, the decision
+	// is made in panel_rom().
+	panel_rom(_swright & SWR_RAM ? 1 : 0);
 }
 
 

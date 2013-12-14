@@ -44,6 +44,15 @@ static uint16_t addr;
 //uint8_t progress[5] = {0, 1, 3, 7, 15};
 
 
+static bool_t
+assert_proc_present()
+{
+	if (flags & FL_PROC) return 1;
+	report_pstr(PSTR(STR_NOPROC));
+	return 0;
+}
+
+
 static void
 done()
 {
@@ -71,10 +80,11 @@ proto_init()
 	say_version();
 	say_bufsize();
 	report_pstr(PSTR(BANNER3 BANNER4 BANNER5));
+	report_pstr(flags & FL_PROC ? PSTR(STR_PROC1) : PSTR(STR_PROC0));
 	buflen = 0;
 	//flags = (flags & FL_HALT) | FL_ECHO | FL_MESG;
-	flags = FL_ECHO | FL_MESG;
-	report_nl();
+	flags |= FL_ECHO | FL_MESG;
+	flags &= ~FL_BUSY;
 	addr = 0;
 }
 
@@ -102,8 +112,9 @@ cancel()
 ///////////////////////////////////////////////////////////////////////////////
 
 
+
 static void
-gs_echo()
+gs_flag(uint32_t flag, const char *msg)
 {
 	uint8_t v;
 	int8_t res;
@@ -112,15 +123,23 @@ gs_echo()
 	if (res > 0) {
 		if (v) {
 			// Enable echo
-			flags |= FL_ECHO;
+			flags |= flag;
 		} else {
 			// Disable echo
-			flags &= ~FL_ECHO;
+			flags &= ~flag;
 		}
 	}
 	// Report current setting.
 	report_gs(res);
-	report_bool_value(PSTR(STR_GSECHO), flags & FL_ECHO);
+	report_bool_value(msg, (flags & flag) != 0);
+}
+
+
+
+static void
+gs_echo()
+{
+	gs_flag(FL_ECHO, PSTR(STR_GSECHO));
 }
 
 
@@ -128,22 +147,7 @@ gs_echo()
 static void
 gs_mesg()
 {
-	uint8_t v;
-	int8_t res;
-	res = optional_bool_val(&v);
-	if (res < 0) return;
-	if (res > 0) {
-		if (v) {
-			// Enable async messages
-			flags |= FL_MESG;
-		} else {
-			// Disable async messages
-			flags &= ~FL_MESG;
-		}
-	}
-	// Report current setting.
-	report_gs(res);
-	report_bool_value(PSTR(STR_GSMESG), flags & FL_MESG);
+	gs_flag(FL_MESG, PSTR(STR_GSMESG));
 }
 
 
@@ -202,13 +206,13 @@ go_stop(){
 	uint8_t i = 15;		// Due to loop overheads
 	while (--i) asm("nop");
 
-	set_clk(CLK_STOPPED);	// Stop the processor clock source. The source
-				// will have already been disconnected from the
-				// processor by the external state machine.
+	// Stop the processor clock source. The source will have already been
+	// disconnected from the processor by the external state machine.
+	clk_stop();
 
 	flags |= FL_HALT | FL_STOP;
 
-	// Donw.
+	// Done.
 	report_pstr(PSTR(STR_AHALTED));
 }
 
@@ -313,41 +317,82 @@ _machine_state()
 {
 	virtual_panel_sample(0);
 	
-	report_char(bus_state.vp.b.fn ? 'n' : '-');
-	report_char(bus_state.vp.b.fz ? 'z' : '-');
-	report_char(bus_state.vp.b.fv ? 'v' : '-');
-	report_char(bus_state.vp.b.fi ? 'i' : '-');
-	report_char(bus_state.vp.b.fl ? 'l' : '-');
+	uint8_t f = get_flags();
+	report_char(f & CFL_FN ? 'n' : '-');
+	report_char(f & CFL_FZ ? 'z' : '-');
+	report_char(f & CFL_FV ? 'v' : '-');
+	report_char(f & CFL_FI ? 'i' : '-');
+	report_char(f & CFL_FL ? 'l' : '-');
 
 	report_pstr(PSTR(STR_PC));
-	report_hex(bus_state.vp.b.pc, 4);
+	report_hex(get_pc(), 4);
 
 	report_pstr(PSTR(STR_AC));
-	report_hex(bus_state.vp.b.ac, 4);
+	report_hex(get_ac(), 4);
 
 	report_pstr(PSTR(STR_IR));
-	report_hex(bus_state.vp.b.ir, 4);
+	report_hex(get_ir(), 4);
 
 #ifdef DISASSEMBLE
 	report_char(' ');
-	_disassemble(bus_state.vp.b.ir);
+	_disassemble(get_ir());
 #endif // DISASSEMBLE
 }
 
 
 //static char * _strdis PROGMEM = "memio[ar]ALU.AGLPCDRACaddandorxorrollnotcs1cs2 <- ARIR";
 
+#define IS_END(x) (((x) & 0x800000) == 0)
+#define IS_WEN(x) (((x) & 0x40000000) == 0)
+#define IS_R(x)   (((x) & 0x80000000) == 0)
+#define IS_MEM(x) (((x) & 0x100000) == 0)
+#define IS_IO(x)  (((x) & 0x80000) == 0)
+#define IS_DEC(x)  (((x) & 0x40000) == 0)
+#define IS_STPAC(x)  (((x) & 0x20000) == 0)
+#define IS_STPDR(x)  (((x) & 0x10000) == 0)
+#define IS_INCPC(x)  (((x) & 0x8000) == 0)
+#define IS_CLI(x)  (((x) & 0x4000) == 0)
+#define IS_STI(x)  (((x) & 0x2000) == 0)
+#define IS_CLL(x)  (((x) & 0x1000) == 0)
+#define IS_CPL(x)  (((x) & 0x800) == 0)
+
+#define GET_OPIF(x)  (((x) & 0x780) >> 7)
+#define GET_WUNIT(x)  (((x) & 0x70) >> 4)
+#define GET_RUNIT(x)  ((x) & 0x7)
+
+// The signal map (slightly different to that of the CFT itself) is as
+// follows (LSB to MSB):
+//
+// 0 -  3: .... .... .... .... .... .... .... XXXX        f  0 RUNIT
+// 4 -  6: .... .... .... .... .... .... .XXX ....       70  4 WUNIT
+// 7 - 10: .... .... .... .... .... .XXX X... ....      780  7 OPIF
+//     11: .... .... .... .... .... X... .... ....      800 11 CPL#
+//     12: .... .... .... .... ...X .... .... ....     1000 12 CLL#
+//     13: .... .... .... .... ..X. .... .... ....     2000 13 STI#
+//     14: .... .... .... .... .X.. .... .... ....     4000 14 CLI#
+//     15: .... .... .... .... X... .... .... ....     8000 15 INCPC#
+//     16: .... .... .... ...X .... .... .... ....    10000 16 STPDR#
+//     17: .... .... .... ..X. .... .... .... ....    20000 17 STPAC#
+//     18: .... .... .... .X.. .... .... .... ....    40000 18 DEC#
+//     19: .... .... .... X... .... .... .... ....    80000 19 IO#
+//     20: .... .... ...X .... .... .... .... ....   100000 20 MEM#
+//     21: X... .... .... .... .... .... .... .... 80000000 30 R#
+//     22: .X.. .... .... .... .... .... .... .... 40000000 31 WEN
+//     23: .... .... X... .... .... .... .... ....   800000 23 END
+
 static void
 _ustate()
 {	
-	if (bus_state.vp.b.r) {
-		if (bus_state.vp.b.mem) report_pstr(PSTR("mem"));
-		else if (bus_state.vp.b.io) report_pstr(PSTR("io"));
+	uint32_t u = get_uvec();
+
+	if (IS_R(u)) {
+		if (IS_MEM(u)) report_pstr(PSTR("mem"));
+		else if (IS_IO(u)) report_pstr(PSTR("io"));
 		report_pstr(PSTR("[ar]"));
 	} else {
-		if (bus_state.vp.b.runit & 8) report_pstr(PSTR("ALU."));
+		if (GET_RUNIT(u) & 8) report_pstr(PSTR("ALU."));
 		
-		switch (bus_state.vp.b.runit) {
+		switch (GET_RUNIT(u)) {
 		case 2:
 			report_pstr(PSTR("AGL"));
 			break;
@@ -389,12 +434,12 @@ _ustate()
 
 	report_pstr(PSTR(" <- "));
 
-	if (bus_state.vp.b.wen) {
-		if (bus_state.vp.b.mem) report_pstr(PSTR("mem"));
-		else if (bus_state.vp.b.mem) report_pstr(PSTR("io"));
+	if (IS_WEN(u)) {
+		if (IS_MEM(u)) report_pstr(PSTR("mem"));
+		else if (IS_IO(u)) report_pstr(PSTR("io"));
 		report_pstr(PSTR("[ar]"));
 	} else {
-		switch (bus_state.vp.b.wunit) {
+		switch (GET_WUNIT(u)) {
 		case 2:
 			report_pstr(PSTR("AR"));
 			break;
@@ -416,13 +461,13 @@ _ustate()
 		}
 	}
 
-	if (bus_state.vp.b.opif) report_pstr(PSTR(" if"));
+	if (GET_OPIF(u)) report_pstr(PSTR(" if"));
 
-	if (bus_state.vp.b.opif > 0 && bus_state.vp.b.opif <= 7) {
+	if (GET_OPIF(u) > 0 && GET_OPIF(u) <= 7) {
 		report_pstr(PSTR("-IR"));
-		report_char('2' + bus_state.vp.b.opif);
+		report_char('2' + GET_OPIF(u));
 	} else {
-		switch (bus_state.vp.b.opif) {
+		switch (GET_OPIF(u)) {
 		case 10:
 			report_char('v');
 			break;
@@ -446,26 +491,27 @@ _ustate()
 		}
 	}
 
-	if (bus_state.vp.b.cpl == 0) report_pstr(PSTR(" CPL"));
-	if (bus_state.vp.b.cll == 0) report_pstr(PSTR(" CLL"));
-	if (bus_state.vp.b.sti == 0) report_pstr(PSTR(" STI"));
-	if (bus_state.vp.b.cli == 0) report_pstr(PSTR(" CLI"));
-	if (bus_state.vp.b.incpc == 0) report_pstr(PSTR(" PC+"));
-	if (bus_state.vp.b.stpdr == 0) {
+	if (IS_CPL(u)) report_pstr(PSTR(" CPL"));
+	if (IS_CLL(u)) report_pstr(PSTR(" CLL"));
+	if (IS_STI(u)) report_pstr(PSTR(" STI"));
+	if (IS_CLI(u)) report_pstr(PSTR(" CLI"));
+	if (IS_INCPC(u)) report_pstr(PSTR(" PC+"));
+	if (IS_STPDR(u)) {
 		report_pstr(PSTR(" DR"));
-		report_char(bus_state.vp.b.dec ? '-' : '+');
+		report_char(IS_DEC(u) ? '-' : '+');
 	}
-	if (bus_state.vp.b.stpac == 0) {
+	if (IS_STPAC(u)) {
 		report_pstr(PSTR(" AC"));
-		report_char(bus_state.vp.b.dec ? '-' : '+');
+		report_char(IS_DEC(u) ? '-' : '+');
 	}
-	if (bus_state.vp.b.end == 0) report_pstr(PSTR(" END"));
+	if (IS_END(u)) report_pstr(PSTR(" END"));
 }
 
 
 static void
 go_state()
 {
+	if (!assert_proc_present()) return;
 	report_pstr(PSTR(STR_STATE));
 	_machine_state();
 	report_nl();
@@ -496,6 +542,7 @@ go_sws()
 static void
 go_ustate()
 {
+	if (!assert_proc_present()) return;
 	virtual_panel_sample(0);
 	report_pstr(PSTR(STR_USTATE));
 	_ustate();
@@ -509,6 +556,9 @@ go_cons()
 	unsigned char c = 0;
 	uint8_t state = 0;
 	//uint8_t n = 0;
+
+	// Need a processor
+	if (!assert_proc_present()) return;
 
 	report_pstr(PSTR(STR_CONSBEG));
 	
@@ -561,7 +611,7 @@ void
 go_fast()
 {
 	report_pstr(PSTR(STR_FAST));
-	// TODO
+	clk_fast();
 }
 
 
@@ -569,7 +619,7 @@ void
 go_slow()
 {
 	report_pstr(PSTR(STR_SLOW));
-	// TODO
+	clk_slow();
 }
 
 
@@ -577,7 +627,47 @@ void
 go_creep()
 {
 	report_pstr(PSTR(STR_CREEP));
-	// TODO
+	clk_creep();
+}
+
+
+static void
+go_clk()
+{
+	// Parse PS (Prescaler value)
+
+	char * s = get_arg();
+	if (s == NULL) {
+		badsyntax();
+		return;
+	}
+	
+	uint8_t prescaler = parse_hex(s);
+	if ((flags & FL_ERROR) || (prescaler < 1) || (prescaler > 5)) {
+		badval();
+		return;
+	}
+
+	// Parse word
+
+	s = get_arg();
+	if (s == NULL) {
+		badsyntax();
+		return;
+	}
+	
+	uint16_t div = parse_hex(s);
+	if (flags & FL_ERROR) {
+		badval();
+		return;
+	}
+
+	set_clkfreq(prescaler, div);
+	report_pstr(PSTR(STR_CLKSET));
+	report_hex(prescaler, 1);
+	report_c('/');
+	report_hex(div, 4);
+	report_nl();
 }
 
 
@@ -585,6 +675,9 @@ static void
 _step(bool_t ustep, bool_t endless)
 {
 	uint16_t n = 1;
+
+	// Need a processor
+	if (!assert_proc_present()) return;
 
 	// Optional argument
 	if (optional_hex_val(&n) < 0) return;
@@ -595,7 +688,7 @@ _step(bool_t ustep, bool_t endless)
 	if (endless) report_pstr(ustep ? PSTR(STR_TRACE) : PSTR(STR_UTRACE));
 
 	// Stop the clock (just in case).
-	set_clk(0);
+	clk_stop();
 
 	uint16_t i = n;
 	flags &= ~(FL_BREAK | FL_INPOK);
@@ -688,13 +781,13 @@ _reg(uint8_t reg)
 	report_gs(r);
 	switch(reg) {
 	case REG_AC:
-		report_hex_value(PSTR(STR_GSAC), bus_state.vp.b.ir, 4);
+		report_hex_value(PSTR(STR_GSAC), get_ac(), 4);
 		return;
 	case REG_PC:
-		report_hex_value(PSTR(STR_GSPC), bus_state.vp.b.pc, 4);
+		report_hex_value(PSTR(STR_GSPC), get_pc(), 4);
 		return;
 	case REG_IR:
-		report_hex_value(PSTR(STR_GSIR), bus_state.vp.b.ir, 4);
+		report_hex_value(PSTR(STR_GSIR), get_ir(), 4);
 		return;
 	}
 }
@@ -703,6 +796,8 @@ _reg(uint8_t reg)
 static void
 gs_ac()
 {
+	// Need a processor
+	if (!assert_proc_present()) return;
 	_reg(REG_AC);
 }
 
@@ -710,6 +805,8 @@ gs_ac()
 static void
 gs_pc()
 {
+	// Need a processor
+	if (!assert_proc_present()) return;
 	_reg(REG_PC);
 }
 
@@ -717,6 +814,8 @@ gs_pc()
 static void
 gs_ir()
 {
+	// Need a processor
+	if (!assert_proc_present()) return;
 	_reg(REG_IR);
 }
 
@@ -779,7 +878,7 @@ go_out()
 	}
 
 
-	_perform_write(SPACE_IO, a, v);
+	perform_write(SPACE_IO, a, v);
 	
 	report_pstr(PSTR(STR_OUT1));
 	report_hex(a, 4);
@@ -804,7 +903,7 @@ go_in()
 		return;
 	}
 
-	uint16_t v = _perform_read(SPACE_IO, a);
+	uint16_t v = perform_read(SPACE_IO, a);
 	
 	report_pstr(PSTR(STR_IN1));
 	report_hex(a, 4);
@@ -869,7 +968,7 @@ go_ifr6()
 static void
 go_read()
 {
-	uint16_t val = _perform_read(SPACE_MEM, addr);
+	uint16_t val = perform_read(SPACE_MEM, addr);
 	if (flags & (FL_ERROR|FL_EOL)) return;
 
 	report_hex_value(PSTR(STR_READ), val, 4);
@@ -887,7 +986,7 @@ go_write()
 
 	while ((res = optional_hex_val(&v)) > 0) {
 		first = 0;
-		if (_perform_write(SPACE_MEM, addr, v) == 0) return;
+		if (perform_write(SPACE_MEM, addr, v) == 0) return;
 		addr++;
 		cksum += v;
 	}
@@ -933,7 +1032,7 @@ go_fill()
 	}
 
 	while (count--) {
-		if (_perform_write(SPACE_MEM, addr, val) == 0) return;
+		if (perform_write(SPACE_MEM, addr, val) == 0) return;
 		addr++;
 		if (query_char(10)) {
 			cancel();
@@ -958,7 +1057,7 @@ go_dump_text()
 	if (optional_hex_val(&count) < 0) return;
 
 	for (i = 0; i < count; i += 8, addr += 8) {
-		if (!_perform_block_read(addr, 8, buf)) break;
+		if (!perform_block_read(addr, 8, buf)) break;
 		
 		// Break requested?
 		if (flags & FL_BREAK) {
@@ -1009,6 +1108,49 @@ go_dump_text()
 	}
 	
 	done();
+}
+
+
+
+static void
+go_dump_bin()
+{
+	uint32_t i, sum = 0;
+	uint16_t count = 0x80;
+	uint16_t buf[8];
+	uint8_t j;
+
+	// Ensure the bus is quiet.
+	if (!assert_halted()) return;
+
+	if (optional_hex_val(&count) < 0) return;
+
+	report_pstr(PSTR(STR_DUMP));
+
+	for (i = 0; i < count; i += 8, addr += 8) {
+		if (!perform_block_read(addr, 8, buf)) break;
+		for (j = 0; j < 8; j++) {
+			report_char(buf[j] & 0xff);
+			report_char((buf[j] >> 8) & 0xff);
+			sum += buf[j];
+		}
+
+		// Break requested?
+#ifdef HOST
+		if (query_char(10)) {
+			cancel();
+			break;
+		}
+#else // if AVR
+		if (flags & FL_BREAK) {
+			cancel();
+			return;
+		}
+#endif // AVR
+	}
+
+	done();
+	report_hex_value(PSTR(STR_CKSUM), sum, 4);
 }
 
 
@@ -1090,6 +1232,7 @@ say_sr()
 #endif // DISASSEMBLE
 	report_nl();
 }
+
 
 static void
 gs_or()
@@ -1184,6 +1327,8 @@ void
 proto_prompt()
 {
 	if (flags & FL_CONS) return; // No need to prompt in the virtual console
+
+	if ((flags & FL_PROC) == 0) report_pstr(PSTR(STR_PNOPROC));
 	if (flags & FL_HALT) {
 		report_pstr(PSTR(STR_PSTOP));
 		report_hex(addr, 4);

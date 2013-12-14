@@ -5,6 +5,7 @@
 #include <stdint.h>
 
 
+/*
 typedef struct {
 	uint32_t r:1;
 	uint32_t wen:1;
@@ -33,9 +34,9 @@ typedef struct {
 	uint32_t wunit:3;
 	uint32_t runit:4;
 
-	uint16_t ir;
-	uint16_t pc;
-	uint16_t ac;
+	// uint16_t ir;
+	// uint16_t pc;
+	// uint16_t ac;
 } vpin_bits_t;
 
 typedef union {
@@ -51,6 +52,8 @@ typedef struct {
 
 extern bus_state_t bus_state;
 
+*/
+
 
 uint8_t _buschatter();
 
@@ -59,11 +62,11 @@ uint8_t assert_halted();
 #define SPACE_MEM 0
 #define SPACE_IO 1
 
-uint16_t _perform_read(uint8_t space, uint16_t addr);
+uint16_t perform_read(uint8_t space, uint16_t addr);
 
-uint8_t _perform_write(uint8_t space, uint16_t addr, uint16_t word);
+uint8_t perform_write(uint8_t space, uint16_t addr, uint16_t word);
 
-uint16_t _perform_block_read(uint16_t base, int16_t n, uint16_t * buf);
+uint16_t perform_block_read(uint16_t base, int16_t n, uint16_t * buf);
 
 #define REG_IR 0
 #define REG_AC 1
@@ -282,7 +285,6 @@ void buscmd_halt();
 void buscmd_success();
 
 void buscmd_fail();
-
 
 #endif // __BUS_H__
 
