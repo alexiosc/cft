@@ -13,20 +13,22 @@
 //panel_out_t panel_out;
 
 
-static uint16_t _lock;
+static bool_t _lock;
+static uint16_t _oldsr = 0xffff;
+static uint16_t _rom = 0xffff;
+static uint8_t _spd = 0xff;
 
-void
-panel_lock(uint8_t lock)
+bool_t
+panel_lock(bool_t lock)
 {
-	if (lock == _lock) return;
+	if (lock == _lock) return lock;
 	_lock = lock;
 	say_break();
-//#warning "TODO: finish this"
+	report_bool_value(PSTR(STR_PLOCK), _lock);
 	proto_prompt();
+	return _lock;
 }
 
-
-static uint16_t _oldsr = 0xffff;
 
 void
 panel_sr(uint16_t sr)
@@ -92,10 +94,6 @@ panel_ustep()
 	go_ustep();
 	proto_prompt();
 }
-
-
-// 0 is impossible due to switch configuration, so it's a good starting value.
-static uint8_t _spd = 0;
 
 
 // Spd is:
@@ -221,8 +219,6 @@ panel_rio(bool_t inc, uint16_t a)
 	proto_prompt();
 }
 
-
-static uint16_t _rom = 0xffff;
 
 void
 panel_rom(uint8_t rom)

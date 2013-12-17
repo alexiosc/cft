@@ -12,13 +12,15 @@ static const struct {
 	{"ver",     say_version, "-- Show version"},
 	{"buf",     say_bufsize, "-- Show size of command buffer"},
 	{"_clr!",   gs_nop,      "-- Reset the DEB board"},
+	{"term",    gs_term,     "[ BOOL ] -- Get/set terminal bells & whistles."},
 	{"echo",    gs_echo,     "[ BOOL ] -- Get/set local echo."},
 	{"mesg",    gs_mesg,     "[ BOOL ] -- Get/set asyc messages.\n201"},
 
 	{"s",       go_state,    "-- Current CFT/DEB status"},
        	{"us",      go_ustate,   "-- Microcode control state"},
        	{"sws",     go_sws,      "-- Show Switch state"},
-	{"cons",    go_cons,     "-- Virtual console (Enter # . exit).\n201"},
+       	{"dfps",    go_dfps,     "-- Show DFP state"},
+	{"cons",    go_cons,     "-- Virtual console (<Enter> # . to exit).\n201"},
 
 	// Left switch bank (computer control)
 
@@ -52,14 +54,15 @@ static const struct {
 	{"a",       gs_addr,   "[ WORD ] -- Get/set address"},
 	{"r",       go_read,   "-- Read mem[a++]"},
 	{"d",       go_dump_text,   "[ C ] -- Dump C words (default: 80)"},
+	{"dis",     go_disassemble, "[ C ] -- Disassemble C words (default: 10)"},
 	{"db",      go_dump_bin,    "[ C ] -- Binary dump C words (default: 80)"},
 	{"w",       go_write,  "WORD [ WORD... ] -- Write c words to mem[a++]"},
 	{"fill",    go_fill,   "COUNT VALUE -- Fill memory"},
 	{"in",      go_in,     "ADDR -- Read I/O address ADDR"},
 	{"out",     go_out,    "ADDR WORD -- Write WORD to I/O addr ADDR.\n201"},
 
-	//{"ram",      go_ram,   "-- Only RAM available on reset"},
-	//{"rom",      go_rom,   "-- 32kW RAM & 32kW ROM on reset"},
+	//{"rom",      gs_rom,   "[ BOOL ] -- Get/set top 32kW ROM mapping"},
+	//{"lock",     gs_lock,  "[ BOOL ] -- Get/set front panel lock status"},
 	{"i1",      go_ifr1,  "-- Signal IRQ1"},
 	{"i6",      go_ifr6,  "-- Signal IRQ6"},
 

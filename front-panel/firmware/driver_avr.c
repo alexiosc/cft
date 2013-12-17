@@ -102,7 +102,6 @@ volatile static uint16_t _swright;
 volatile static uint16_t _sr;
 volatile static uint16_t _swleft;
 static uint16_t _or;
-static uint8_t _cb[3] = { 0xff, 0xff, 0xff };
 static uint8_t _defercb = 0;
 
 #define defer_cb_write() _defercb++
@@ -160,6 +159,9 @@ static uint8_t _defercb = 0;
 #define CB0_NWPC      0x80
 
 #define CB1_NSAFE     0x01
+#define CB1_NRESET    0x02
+#define CB1_NRSTHOLD  0x04
+                      //...
 #define CB1_NFPRAM    0x40
 #define CB1_NFPRESET  0x80
 
@@ -171,6 +173,14 @@ static uint8_t _defercb = 0;
 #define CB2_FPRUN     0x20
 #define CB2_FPSTOP    0x40
 
+#define CB0_OUTPUTS   0xff	// All outputs are active low
+#define CB1_OUTPUTS   0xff	// All outputs are active low
+#define CB2_OUTPUTS   0xff ^ (CB2_NHALT)	// Only HALT# asserted, RUN/STOP lights both on.
+
+static uint8_t _cb[3] = {
+	CB0_OUTPUTS,
+	CB1_OUTPUTS,
+	CB2_OUTPUTS };
 
 #define ICRBASE (0xffff & ~(CB0_NIRQ1|CB0_NIRQ6))
 static uint16_t _icr = ICRBASE;
@@ -304,13 +314,13 @@ test_bushold(uint16_t val)
 	drive_ab();
 	tristate_ab();
 
-	// Now wait a LONG time (haven't check the assembly, but between 0.05
-	// and 0.1s.
+	// Now wait a LONG time. Haven't checked the assembly output and
+	// instruction tables, but between 0.05 and 0.1s.
 	uint16_t x = 65535;
 	while (x--) {
-		asm("nop");
-		asm("nop");
-		asm("nop");
+		short_delay();
+		short_delay();
+		short_delay();
 	}
 
 	// Sample the bus
@@ -334,7 +344,8 @@ static void outcmd(uint8_t, bool_t); // Same
 inline static bool_t
 detect_cpu()
 {
-        // Strategy: hold RESET# and HALT asserted.
+        // Strategy: hold RESET# and HALT asserted. They should
+        // already be asserted, but let's make sure.
 	clearflag(_cb[1], CB1_NFPRESET);
 	clearflag(_cb[2], CB2_NHALT);
 	write_cb();
@@ -380,6 +391,11 @@ hw_init()
 	// Reset all the drivers with MR# pins.
 	strobe_clr();
 
+	// Write the control bus, initialising all the control
+	// outputs. This will de-asser all the reset signals, among
+	// other things.
+	write_cb();
+
 	// Enable INT0 (with negative edge sensitivity)
 	EICRA = (EICRA & 0xf0) | _BV(ISC01);
 	setbit(EIMSK, INT0);
@@ -399,11 +415,6 @@ hw_init()
 	// Initialise the debugging serial port
 	serial_init();
 
-	// All done. Enable interrupts and de-assert RESET
-	setflag(_cb[1], CB1_NFPRESET);
-	setflag(_cb[2], CB2_NHALT);
-	write_cb();
-
 	// Is a processor attached to the system?
 	if (detect_cpu()) {
 		// Mark the processor as present
@@ -414,6 +425,26 @@ hw_init()
 		// Should already be high, but a bit of redundancy can't hurt.
 		outcmd(CMD_BUSPU, 1);
 	}
+
+	// An initial sample of the front panel switches.
+	deb_sample(0);
+	defer_cb_write();
+	if (_swright & SWR_RAM) {
+		// Switch is in the ROM position. Start the processor.
+		setflag(_cb[2], CB2_NHALT);
+		set_fpram(1);
+	} else {
+		// Switch is in the RAM position. Start halted.
+		clearflag(_cb[2], CB2_NHALT);
+		set_fpram(0);
+	}
+
+	// Set the initial clock based on the speed switch
+#warning "TODO"
+
+	// All done. Enable interrupts and de-assert RESET.
+	setflag(_cb[1], CB1_NFPRESET);
+	write_cb();
 
 	// Enable the global interrupt flag
 	sei();
@@ -945,21 +976,23 @@ write_cb()
 
 
 void
-wait_for_halt(uint8_t howlong)
+wait_for_halt()
 {
-	do {
+	// This will obviously lock up the MCU if the HALT condition isn't
+	// seen. We want this.
+	flags |= FL_BUSY | FL_STOPPING;
+	for (;;) {
 		// Read the current value of FPCLKEN
 		virtual_panel_sample(1);
 
-		// Wain until the clock-synchronous state machine is done.
+		// Wait until the clock-synchronous state machine is done.
 		if ((get_flags() & CFL_NWAIT) == 0) break;
-
-	} while (--howlong);
-
-//#warning "TODO: Set error condition and lock up MCU if we time out."
+	}
 
 	assert_halted();
+	flags &= ~(FL_BUSY | FL_STOPPING);
 }
+
 
 // Prescaler values for CS10-12 bits.
 #define PSV_1       1
@@ -968,14 +1001,28 @@ wait_for_halt(uint8_t howlong)
 #define PSV_256     4
 #define PSV_1024    5
 
+uint8_t _clk_prescale = 1;
+uint16_t _clk_div = 1;
+
 void
 set_clkfreq(uint8_t prescaler, uint16_t div)
 {
+	_clk_prescale = prescaler;
+	_clk_div = div;
+
 	bit(PORTB, B_FPCLKEN, 0);
 	TCCR1A = 0x40;
 	TCCR1B = 8 | (prescaler & 7);
 	TIMSK1 = 2;
 	OCR1A = div;
+}
+
+
+void
+clk_start()
+{
+	if (_clk_prescale == 0) clk_fast();
+	else set_clkfreq(_clk_prescale, _clk_div);
 }
 
 
@@ -994,6 +1041,7 @@ clk_stop()
 inline void
 clk_fast()
 {
+	_clk_prescale = 0;
 	bit(PORTB, B_FPCLKEN, 1);
 	// The rate of the slow clock is a Don't Care value.
 }
@@ -1019,16 +1067,44 @@ inline void
 strobe_step()
 {
 	strobecmd(CMD_STEPRUN);
-	wait_for_halt(3);
+
+	// The clock-synchronous stepping machine relies on, well, a clock. So
+	// enable the processor's.
+	clk_start();
+	wait_for_halt();
+
+	// The clock will have been stopped automatically by the FSM, but stop
+	// it anyway.
+	clk_stop();
 }
 
 
 void
-set_steprun(bool_t x)
+set_steprun(bool_t val)
 {
 	#warning "TODO"
-	strobecmd(CMD_STEPRUN);
-	wait_for_halt(3);
+
+	// Algorithm:
+	// To RUN:
+	//   Assert STEP/RUN#.
+	//   Start clock.
+	//
+	// To STOP:
+	//   Assume clock is running.
+	//   Deassert (H) STEP/RUN#. STEP is performed automatically.
+	//   Wait for WAIT# signal to be deasserted.
+	//   Stop clock.
+	//
+	// To STEP (assuming clock is stopped and STEP/RUN# is HIGH):
+	//   Stop clock (assume stopped)
+	//   Strobe (H-L-H) STEP/RUN#
+	//   Start clock
+	//   Wait for WAIT# signal to be deasserted.
+	//   Stop clock.
+
+	outcmd(CMD_STEPRUN, val);
+	clk_start();
+	if (val == 1) wait_for_halt();
 }
 
 
@@ -1036,6 +1112,15 @@ void
 strobe_ustep()
 {
 	strobecmd(CMD_USTEP);
+
+	// The clock-synchronous stepping machine relies on, well, a clock. So
+	// enable the processor's.
+	clk_start();
+	wait_for_halt();
+
+	// The clock will have been stopped automatically by the FSM, but stop
+	// it anyway.
+	clk_stop();
 }
 
 
@@ -1088,10 +1173,30 @@ set_fpram(bool_t val)
 void
 strobe_fpreset()
 {
-	clearflag(_cb[1], CB1_NFPRESET);
-	write_cb();
-	setflag(_cb[1], CB1_NFPRESET);
-	write_cb();
+	if (flags & FL_PROC) {
+		// We have a processor. Signal it to reset.
+
+		clearflag(_cb[1], CB1_NFPRESET);
+		write_cb();
+		setflag(_cb[1], CB1_NFPRESET);
+		write_cb();
+	} else {
+
+		ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+			
+			// We're standalone. We'll do it ourselves.
+			
+			clearflag(_cb[1], CB1_NRESET | CB1_NRSTHOLD);
+			write_cb();
+			
+			// Hold these down for a while. It's about 6ms.
+			uint16_t x = 32768;
+			while (x--) short_delay();
+			
+			setflag(_cb[1], CB1_NRESET | CB1_NRSTHOLD);
+			write_cb();
+		}
+	}
 }
 
 void
@@ -1547,11 +1652,39 @@ _readcycle(bool_t is_io)
 
 ISR(TIMER0_COMPA_vect)
 {
+	// Blink the STOP light at ~10Hz while busy, and ignore the
+	// front panel switches.
+	if (flags & FL_BUSY) {
+		_cb[2] ^= CB2_FPSTOP;
+		write_cb();
+		return;
+	}
+	
+	// Toggle switch handling
 	deb_sample(0);		// Read the switches
-	//serial_write('.');
 
-	// If locked, bail out.
-	if (actuated(_swleft, SWL_NLOCK)) return;
+	// If the front panel is locked, bail out.
+	if (panel_lock(actuated(_swleft, SWL_NLOCK))) return;
+
+	// Ignore the panel switches if we're busy
+	if (flags & FL_BUSY) return;
+
+
+
+	// Set the clock speed.
+	panel_spd((_swleft & (SWL_SLOW|SWL_FAST)) >> SWL_SPD_SHIFT);
+
+	// Print out the Switch Register to the debugging console, if it's
+	// changed (the decision is made in panel_sr()).
+	panel_sr(_sr);
+
+	// The RAM switch is only acted on on reset (an edge action), and when
+	// the clock is halted (a level action or latch). Again, the decision
+	// is made in panel_rom().
+	panel_rom(_swright & SWR_RAM ? 1 : 0);
+
+
+
 
 	// Is the increment signal being asserted?
 	bool_t inc = actuated(_swright, SWR_INC) ? 1 : 0;
@@ -1627,17 +1760,6 @@ ISR(TIMER0_COMPA_vect)
 		panel_ifr6();
 	}
 
-	// Set the clock speed.
-	panel_spd((_swleft & (SWL_SLOW|SWL_FAST)) >> SWL_SPD_SHIFT);
-
-	// Print out the Switch Register to the debugging console, if it's
-	// changed (the decision is made in panel_sr()).
-	panel_sr(_sr);
-
-	// The RAM switch is only acted on on reset (an edge action), and when
-	// the clock is halted (a level action or latch). Again, the decision
-	// is made in panel_rom().
-	panel_rom(_swright & SWR_RAM ? 1 : 0);
 }
 
 

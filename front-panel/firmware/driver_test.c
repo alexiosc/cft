@@ -105,6 +105,7 @@ hw_init()
 
 	memset(_mem, 0, sizeof(65536));
 	for (i = 0; i < 65536; i++) _mem[i] = rand() & 0xffff;
+	//for (i = 0; i < 65536; i++) _mem[i] = (i * 1024) & 0xffff;
 
 	if (stat(IMAGE_NAME, &st) == 0) {
 		int s = max(32768, st.st_size);
@@ -280,6 +281,7 @@ cmdpipe_input(char c)
 		}
 
 		printf("*** \n*** Unhandled command: %d\n", c);
+		fflush(stdin);
 		flags |= FL_ASYNC;
 	}
 
@@ -560,7 +562,20 @@ addr_inc()
 	_pc++;
 }
 
-// Strobes & miscellaneous signals
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// STROBES AND MISCELLANEOUS SIGNALS
+//
+///////////////////////////////////////////////////////////////////////////////
+
+
+void
+wait_for_halt()
+{
+}
+
 
 
 void

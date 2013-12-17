@@ -70,20 +70,20 @@ say_version()
 static void
 say_bufsize()
 {
-	report_pstr(PSTR(BANNER2));
+	report_hex_value(PSTR(STR_BUFSIZE), BUFSIZE, 3);
 }
 
 
 void
 proto_init()
 {
+	flags |= FL_ECHO | FL_MESG | FL_TERM;
 	say_version();
+	report_pstr(PSTR(BANNER2 BANNER3 BANNER4));
 	say_bufsize();
-	report_pstr(PSTR(BANNER3 BANNER4 BANNER5));
 	report_pstr(flags & FL_PROC ? PSTR(STR_PROC1) : PSTR(STR_PROC0));
 	buflen = 0;
 	//flags = (flags & FL_HALT) | FL_ECHO | FL_MESG;
-	flags |= FL_ECHO | FL_MESG;
 	flags &= ~FL_BUSY;
 	addr = 0;
 }
@@ -152,6 +152,14 @@ gs_mesg()
 
 
 
+static void
+gs_term()
+{
+	gs_flag(FL_TERM, PSTR(STR_GSTERM));
+}
+
+
+
 ///////////////////////////////////////////////////////////////////////////////
 //
 // LEFT SWITCH BANK
@@ -160,32 +168,29 @@ gs_mesg()
 
 void
 go_reset(){
-#ifdef HOST
-	printf("*** TODO: reset the system the PFP way.\n");
-#endif
-	// This also changes the GPIO pins to inputs.
-//	gpio_hiz();
-//	setreset(1);
-//	sethalt(0);
-//	setreset(0);
+	// This will take care of timings, standalone mode, etc.
+	strobe_fpreset();
 	report_pstr(PSTR(STR_RESET));
 }
 
 
 // RUN TO STOP STATE TRANSITION
 //
-// ____   _________
-// HALT       \\\\\\_______________________________________
-//      ___              __________________________________
-// STEP/RUN  ___________/
-//           ____________________________________
-// CLKEN                 \\\\\\\\\\\\\\\\\\\\\\\\\_________
+//      ___        ________________________________________
+// STEP/RUN    ___/
+// ____               _____________________________________
+// WAIT (*)    ______///////////////////
+//                     wait_for_halt()
+// ____        ___________________________
+// HALT                                   \________________
+//             ______________________________
+// CLKEN                                     \_____________
 //             
-// FPUSTEP-IN  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\_____
+// FPUSTEP-IN  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\_________
 //                         
-// FPCLKEN-IN  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\__
+// FPCLKEN-IN  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\_________
 //
-//                       |<---   up to 4 µs  --->|
+// (*) WAIT# is an input from the run/stop state machine
 
 void
 go_stop(){
@@ -199,18 +204,18 @@ go_stop(){
 	// into the STEP state. In turn, this will stop the clock at the
 	// beginning of the fetch state of the fetch-execute cycle. With the
 	// clock stopped, we'll have entered the STOP state.
-	set_halt(1);		// Assert HALT
+	
 	set_steprun(1);		// Set STEP/RUN# to STEP
+ 	wait_for_halt();	// Wait until the clock has been stopped
+	set_halt(1);		// Assert HALT
 
-	// Wait at least 4µs
-	uint8_t i = 15;		// Due to loop overheads
-	while (--i) asm("nop");
+	// set_steprun waits until the processor is halted.
 
 	// Stop the processor clock source. The source will have already been
 	// disconnected from the processor by the external state machine.
 	clk_stop();
 
-	flags |= FL_HALT | FL_STOP;
+	flags |= FL_HALT;
 
 	// Done.
 	report_pstr(PSTR(STR_AHALTED));
@@ -237,74 +242,125 @@ go_start()
 
 
 #ifdef DISASSEMBLE
+
+//                 1         2         3         4         5
+//       0123456789012345678901234567890123456789012345678901234567"
+static const char _distext[] PROGMEM = 
+	"TRAPIOTLOADSTOREINOUTJMPJSRADDANDORXOROP1OP2POPISZLIAJMPII";
+//       0   4  7   11   1618 21 24 27 30 3335 38 41 44 47 50 53                               
+#define OFS_TRAP   0
+#define OFS_IOT    4
+#define OFS_LOAD   7
+#define OFS_STORE 11
+#define OFS_IN    16
+#define OFS_OUT   18
+#define OFS_JMP   21
+#define OFS_JSR   24
+#define OFS_ADD   27
+#define OFS_AND   30
+#define OFS_OR    33
+#define OFS_XOR   35
+#define OFS_OP1   38
+#define OFS_OP2   41
+#define OFS_POP   44
+#define OFS_ISZ   47
+#define OFS_LIA   50
+#define OFS_JMPII 53
+
+//                 1         2         3         4         5
+//       012345678901234567890123456789012345678901234567890"
+static const char _optext[] PROGMEM = 
+	"IFLIFVCLACLLNOTINCCPLRBLRBRRNLRNRNOPSNANZASSLSSVSKIPSNNSNZSCLSCVCLISEI";
+//       0  3  6  9  12 15 18 21 24 27 30 33 36 39 42 45 48  52 55 58 61 64 67
+
 static void
 _disassemble(uint16_t w)
 {
 	uint8_t op = w >> 12;
 	uint8_t i = w & 0x800 ? 1 : 0;
 	uint8_t r = w & 0x400 ? 1 : 0;
+	uint8_t ofs = 0;
+	uint8_t pad = 9;
+	uint8_t len = 3;
 	switch (op) {
 	case 0:
-		report_pstr(PSTR("TRAP  "));
+		len = 4;
 		break;
 	case 1:
-		report_pstr(PSTR("IOT   "));
+		ofs = OFS_IOT;
 		break;
 	case 2:
-		report_pstr(PSTR("LOAD  "));
+		ofs = OFS_LOAD;
+		len = 4;
 		break;
 	case 3:
-		report_pstr(PSTR("STORE "));
+		ofs = OFS_STORE;
+		len = 5;
 		break;
 	case 4:
-		report_pstr(PSTR("IN    "));
+		ofs = OFS_IN;
+		len = 2;
 		break;
 	case 5:
-		report_pstr(PSTR("OUT   "));
+		ofs = OFS_OUT;
 		break;
 	case 6:
-		report_pstr(PSTR("JMP   "));
+		ofs = OFS_JMP;
 		break;
 	case 7:
-		report_pstr(PSTR("JSR   "));
+		ofs = OFS_JSR;
 		break;
 	case 8:
-		report_pstr(PSTR("ADD   "));
+		ofs = OFS_ADD;
 		break;
 	case 9:
-		report_pstr(PSTR("AND   "));
+		ofs = OFS_AND;
 		break;
 	case 10:
-		report_pstr(PSTR("OR    "));
+		ofs = OFS_OR;
+		len = 2;
 		break;
 	case 11:
-		report_pstr(PSTR("XOR   "));
+		ofs = OFS_XOR;
 		break;
 	case 12:
-		report_pstr(PSTR("OP1   "));
+		ofs = OFS_OP1;
 		break;
 	case 13:
-		if (i == 0) report_pstr(PSTR("OP2   "));
+		if (i == 0) ofs = OFS_OP2;
 		else {
-			report_pstr(PSTR("POP   "));
+			ofs = OFS_POP;
 			i = 0;
 		}
 		break;
 	case 14:
-		report_pstr(PSTR("ISZ   "));
+		ofs = OFS_ISZ;
 		break;
 	case 15:
-		if (i == 0) report_pstr(PSTR("LIA   "));
+		if (i == 0) ofs = OFS_LIA;
 		else {
-			report_pstr(PSTR("JMPII "));
+			ofs = OFS_JMPII;
+			len = 5;
 			i = 0;
 		}
 		break;
 	}
 
-	report_char(i ? 'I' : ' ');
-	report_char(' ');
-	report_char(r ? 'R' : ' ');
+	// Output the instruction
+	pad -= len;
+	while (len--) report_char((unsigned char)pgm_read_byte((char *)&(_distext[ofs++])));
+	
+	if (i) {
+		report_pstr(PSTR(" I"));
+		pad -= 2;
+	}
+
+	if (r) {
+		report_pstr(PSTR(" R"));
+		pad -= 2;
+	}
+	
+	while (pad--) report_char(' ');
 	report_pstr(PSTR(" &"));
 	report_hex(w & 0x3ff, 3);
 }
@@ -318,19 +374,26 @@ _machine_state()
 	virtual_panel_sample(0);
 	
 	uint8_t f = get_flags();
+	style_info();
 	report_char(f & CFL_FN ? 'n' : '-');
 	report_char(f & CFL_FZ ? 'z' : '-');
 	report_char(f & CFL_FV ? 'v' : '-');
 	report_char(f & CFL_FI ? 'i' : '-');
 	report_char(f & CFL_FL ? 'l' : '-');
 
+	style_normal();
 	report_pstr(PSTR(STR_PC));
+	style_info();
 	report_hex(get_pc(), 4);
 
+	style_normal();
 	report_pstr(PSTR(STR_AC));
+	style_info();
 	report_hex(get_ac(), 4);
 
+	style_normal();
 	report_pstr(PSTR(STR_IR));
+	style_info();
 	report_hex(get_ir(), 4);
 
 #ifdef DISASSEMBLE
@@ -545,6 +608,7 @@ go_ustate()
 	if (!assert_proc_present()) return;
 	virtual_panel_sample(0);
 	report_pstr(PSTR(STR_USTATE));
+	style_info();
 	_ustate();
 	report_nl();
 }
@@ -583,8 +647,6 @@ go_cons()
 
 		flags &= ~FL_INPOK;
 
-		// TODO: this fails, but not sure why.
-
 		// State machine: exit the console.
 		if ((state == 0 || state == 1) && (c == '\n' || c == '\r')) state = 1;
 		else if ((state == 1) && c == '#') state = 2;
@@ -602,7 +664,7 @@ go_cons()
 		queue_char(c);
 	}
 	flags &= ~(FL_BUSY | FL_CONS);
-	
+	report_nl();
 	report_pstr(PSTR(STR_CONSEND));
 }
 
@@ -679,11 +741,11 @@ _step(bool_t ustep, bool_t endless)
 	// Need a processor
 	if (!assert_proc_present()) return;
 
-	// Optional argument
-	if (optional_hex_val(&n) < 0) return;
-
 	// Ensure the bus is quiet. 
 	if (!assert_halted()) return;
+
+	// Optional argument
+	if (optional_hex_val(&n) < 0) return;
 
 	if (endless) report_pstr(ustep ? PSTR(STR_TRACE) : PSTR(STR_UTRACE));
 
@@ -695,29 +757,38 @@ _step(bool_t ustep, bool_t endless)
 	flags |= FL_BUSY;
 	while (endless || i--) {
 		report_hex(flags, 4);
-		report_c(':');
-		report_c(' ');
+		report_pstr(PSTR(": "));
+
 		// Initiate the STEP state machine. This will automatically
-		// terminate without MCU control.
+		// terminate without MCU control. The strobe_step() and
+		// strobe_ustep() functions take care of all this, and
+		// terminate up to approximately 4µs after the processor has
+		// halted again.
+
 		if (ustep) {
 			strobe_ustep();
-			report_pstr(PSTR(STR_USTEP));
-			_machine_state();
-			report_char(9);
-			_ustate();
+
+			if (!in_console()) {
+				report_pstr(PSTR(STR_USTEP));
+				_machine_state();
+				report_char(9);
+				_ustate();
+				report_nl();
+			}
 		} else {
 			strobe_step();
-			report_pstr(PSTR(STR_STEP));
-			_machine_state();
-		}
-		report_nl();
-			
-#ifdef HOST
-		if (query_char(10)) {
-			flags |= FL_INPOK;
-		}
-#endif // HOST
 
+			if (!in_console()) {
+				report_pstr(PSTR(STR_STEP));
+				_machine_state();
+				report_nl();
+			}
+		}
+	
+		// Allow the user to interrupt.
+#ifdef HOST
+		if (query_char(10)) flags |= FL_INPOK;
+#endif // HOST
 		if (flags & (FL_BREAK | FL_INPOK)) {
 			cancel();
 			break;
@@ -849,6 +920,8 @@ gs_addr()
 static void
 go_out()
 {
+	if (!assert_halted()) return;
+
 	// Parse addr
 
 	char * s = get_arg();
@@ -889,8 +962,9 @@ go_out()
 static void
 go_in()
 {
-	// Parse addr
+	if (!assert_halted()) return;
 
+	// Parse addr
 	char * s = get_arg();
 	if (s == NULL) {
 		badsyntax();
@@ -911,32 +985,6 @@ go_in()
 }
 
 
-/* static void */
-/* say_count() */
-/* { */
-/* 	// Report current setting. */
-/* 	report_hex_value(PSTR(STR_COUNT), count, 4); */
-/* } */
-
-
-/* static void */
-/* gs_count() */
-/* { */
-/* 	char * s = get_arg(); */
-/* 	if (s != NULL) { */
-/* 		uint16_t x = parse_hex(s); */
-/* 		if ((flags & FL_ERROR) == 0) { */
-/* 			count = x; */
-/* 		} else { */
-/* 			report_pstr(PSTR(STR_BADVAL)); */
-/* 			return; */
-/* 		} */
-			
-/* 	} */
-/* 	say_count(); */
-/* } */
-
-
 void
 go_ifr1()
 {
@@ -953,21 +1001,11 @@ go_ifr6()
 }
 
 
-
-
-
-/* static void */
-/* warn_wrap() */
-/* { */
-/* 	if (count && ((addr + count) & 0xffff) < addr) { */
-/* 		report_pstr(PSTR(STR_WRAP)); */
-/* 	} */
-/* } */
-
-
 static void
 go_read()
 {
+	if (!assert_halted()) return;
+
 	uint16_t val = perform_read(SPACE_MEM, addr);
 	if (flags & (FL_ERROR|FL_EOL)) return;
 
@@ -979,6 +1017,8 @@ go_read()
 static void
 go_write()
 {
+	if (!assert_halted()) return;
+
 	int8_t res;
 	uint16_t v;
 	uint32_t cksum = 0;
@@ -1031,6 +1071,7 @@ go_fill()
 		return;
 	}
 
+	flags |= FL_BUSY;
 	while (count--) {
 		if (perform_write(SPACE_MEM, addr, val) == 0) return;
 		addr++;
@@ -1056,6 +1097,7 @@ go_dump_text()
 
 	if (optional_hex_val(&count) < 0) return;
 
+	flags |= FL_BUSY;
 	for (i = 0; i < count; i += 8, addr += 8) {
 		if (!perform_block_read(addr, 8, buf)) break;
 		
@@ -1067,8 +1109,7 @@ go_dump_text()
 
 		// Address
 		report_hex(addr, 4);
-		report_char(':');
-		report_char(' ');
+		report_pstr(PSTR(": "));
 
 		// Hex display
 		for (j = 0; j < 8; j++) {
@@ -1087,18 +1128,66 @@ go_dump_text()
 		// ASCII display, byte-oriented
 		for (j = 0; j < 8; j++) {
 			uint16_t x = buf[j] & 0x7f;
+			if (buf[j] & 0x80) style_hibit();
 			if(x >= 32 && x < 127) report_char(x);
 			else report_char('.');
+			style_normal();
 
+			if ((buf[j] >> 8) & 0x80) style_hibit();
 			x = (buf[j] >> 8) & 0x7f;
 			if(x >= 32 && x < 127) report_char(x);
 			else report_char('.');
+			style_normal();
 		}
 		report_char(' ');
 
 		// Checksum
 		report_hex(sum, 8);
 		report_nl();
+#ifdef HOST
+		if (query_char(10)) {
+			cancel();
+			break;
+		}
+#endif // HOST
+	}
+	
+	done();
+}
+
+
+
+static void
+go_disassemble()
+{
+	uint32_t i;
+	uint16_t count = 0x10;
+
+	// Ensure the bus is quiet.
+	if (!assert_halted()) return;
+
+	if (optional_hex_val(&count) < 0) return;
+
+	flags |= FL_BUSY;
+	for (i = 0; i < count; i++) {
+		uint16_t w = perform_read(SPACE_MEM, addr++);
+
+		// Break requested?
+		if (flags & FL_BREAK) {
+			cancel();
+			return;
+		}
+
+		// Address
+		report_hex(addr, 4);
+		report_pstr(PSTR(":\t"));
+
+		// Disassemble code
+		_disassemble(w);
+		report_pstr(PSTR("\t; &"));
+		report_hex(w, 4);
+		report_nl();
+
 #ifdef HOST
 		if (query_char(10)) {
 			cancel();
@@ -1126,7 +1215,7 @@ go_dump_bin()
 	if (optional_hex_val(&count) < 0) return;
 
 	report_pstr(PSTR(STR_DUMP));
-
+	flags |= FL_BUSY;
 	for (i = 0; i < count; i += 8, addr += 8) {
 		if (!perform_block_read(addr, 8, buf)) break;
 		for (j = 0; j < 8; j++) {
@@ -1174,7 +1263,7 @@ gs_hof()
 	}
 	
 	report_gs(res);
-	report_bool_value(PSTR(STR_GSHOF), flags & FL_HOF);
+	report_bool_value(PSTR(STR_GSHOF), (flags & FL_HOF) != 0);
 }
 
 
@@ -1194,22 +1283,6 @@ gs_hos()
 }
 
 
-// static void
-// gs_leds(){
-// 	uint16_t v;
-// 	int8_t res;
-// 	res = optional_hex_val(&v);
-// 	if (res < 0) return;
-// 	if (res > 0) {
-// #warn "TODO: decide if the LEDS stay or go. Code write_leds()"
-// 		//write_leds(panel_out.leds = (v & 0xf));
-// 	}
-// 	report_gs(res);
-// 	//report_hex_value(PSTR(STR_GSLEDS), panel_out.leds, 1);
-// }
-
-
-
 ///////////////////////////////////////////////////////////////////////////////
 //
 // Diagnostic I/O
@@ -1221,6 +1294,7 @@ say_sr()
 {
 	uint16_t sr = get_sr();
 	report_pstr(PSTR(STR_SR));
+	style_info();
 	report_bin(sr);
 	report_char(9);
 	report_hex(sr, 4);
@@ -1250,6 +1324,32 @@ gs_or()
 }
 
 
+static
+void
+go_dfps()
+{
+	// Report as much of the DFP status as we know.
+
+	// We'll be calling some of the getters/setters which check for
+	// optional arguments. Force getting (not setting) by clearing the
+	// buffer.
+	
+	buf[buflen = 0] = '\0';
+
+	say_version();
+	say_bufsize();
+	gs_term();
+	gs_echo();
+	gs_mesg();
+	
+	gs_hof();
+	gs_hos();
+	gs_addr();
+	gs_or();
+	say_sr();
+	go_sws();
+}
+
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1263,7 +1363,7 @@ static void
 go_nop()
 {
 #ifdef HOST
-	printf("*** TODO: Implement this command.\n");
+	printf("*** Implement this command.\n");
 #endif // HOST
 }
 #define gs_nop go_nop
@@ -1302,7 +1402,11 @@ say_help()
 		//if (strlen(cmds[i].help) > maxd) maxd = strlen(cmds[i].help);
 #endif // HOST
 	}
-	report_pstr(PSTR("\n201 Consult documentation for details.\n"));
+	report_pstr(PSTR("\n201 \n"
+			 "201 Ctrl-C Ignore command line, stop output, abort command.\n"
+			 "201 Ctrl-X Ignore command line.\n"
+			 "201 Ctrl-T Toggle terminal mode.\n"
+			 "201 Consult documentation for more details.\n"));
 	//report_pstr(_helpstr);
 	
 #ifdef HOST
@@ -1318,6 +1422,7 @@ void
 say_break()
 {
 	if (flags & FL_CONS) return; // It's not asynchronous in the console.
+	style_async();
 	report_pstr(PSTR("***\n"));
 	flags |= FL_ASYNC;
 }
@@ -1328,14 +1433,18 @@ proto_prompt()
 {
 	if (flags & FL_CONS) return; // No need to prompt in the virtual console
 
+	style_normal();
 	if ((flags & FL_PROC) == 0) report_pstr(PSTR(STR_PNOPROC));
 	if (flags & FL_HALT) {
+		style_info();
 		report_pstr(PSTR(STR_PSTOP));
+		style_normal();
 		report_hex(addr, 4);
 		report_pstr(PSTR(STR_PROMPT));
 	} else {
 		report_pstr(PSTR(STR_PRUN));
 	}
+	style_input();
 	report_n((char *)buf, buflen);
 }
 
@@ -1350,7 +1459,7 @@ void proto_loop()
 		while((flags & FL_INPOK) == 0)
 		{
 #ifdef HOST
-			// The standalone version doesn't use assynchronous
+			// The standalone version doesn't use asynchronous
 			// input (via interrupts or an external thread), so we
 			// must trigger it ourselves.
 			unsigned char c = read_next_char();
@@ -1358,11 +1467,11 @@ void proto_loop()
 #endif // HOST
 		}
 
-		/* if (flags & FL_ECHO) blink_led(0, 10); */
-
 		flags |= FL_BUSY;
-		flags &= ~(FL_ERROR | FL_EOL | FL_STOP | FL_BREAK);
+		flags &= ~(FL_ERROR | FL_EOL | FL_BREAK);
 		bp = 0;
+
+		style_normal();
 
 		// Process the input
 		//...
@@ -1436,9 +1545,11 @@ proto_input(unsigned char c)
 		if (flags & FL_BUSY) {
 			flags |= FL_BREAK;
 		} else {
-			if (flags & FL_ECHO) report_pstr(PSTR("\\\n"));
+			style_async();
+			report_pstr(PSTR("*** Aborted\n"));
 			buflen = 0;
-			return 0;
+			flags |= FL_INPOK; // Force a Ready prompt
+			return '\n';
 		}
 	}
 	
@@ -1463,6 +1574,22 @@ proto_input(unsigned char c)
 			if (flags & FL_ECHO) report_pstr(PSTR("\b \b"));
 		}
 		return 0;
+
+	} else if (c == ('L' - '@')) {
+                // Resend the pending command line to the terminal
+		say_break();
+		style_normal();
+		proto_prompt();
+		return 0;
+	} else if (c == ('T' - '@')) {
+		// Toggle the terminal bells and whistles.
+		say_break();
+		style_normal();
+		flags ^= FL_TERM;
+		report_gs(1);
+		report_bool_value(STR_GSTERM, (flags & FL_TERM) != 0);
+		proto_prompt();
+		return 0;
 	}
 
 #ifdef HOST
@@ -1471,6 +1598,11 @@ proto_input(unsigned char c)
 		exit(0);
 	}
 #endif // HOST
+	
+	else if (c < 32 || c > 127) {
+		// Ignore unprintable/control characters
+		return 0;
+	}
 
 	// Store the character.
 	buf[buflen++] = c;

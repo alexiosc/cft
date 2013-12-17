@@ -32,7 +32,7 @@ PROG	=	pfp
 #MCU_TARGET     =	atmega164p
 #MCU_TARGET     =	atmega165
 #MCU_TARGET     =	atmega165p
-MCU_TARGET	=	atmega168
+###MCU_TARGET	=	atmega168
 #MCU_TARGET     =	atmega169
 #MCU_TARGET     =	atmega169p
 #MCU_TARGET     =	atmega2560
@@ -41,6 +41,7 @@ MCU_TARGET	=	atmega168
 #MCU_TARGET     =	atmega324p
 #MCU_TARGET     =	atmega325
 #MCU_TARGET     =	atmega3250
+MCU_TARGET	=	atmega328p
 #MCU_TARGET     =	atmega329
 #MCU_TARGET     =	atmega3290
 #MCU_TARGET     =	atmega48
@@ -100,9 +101,9 @@ DEFS +=	-DDUMP_TEXT
 
 LIBS		=
 
-HFILES		=		pfp.h abstract.h hwcompat.h proto.h output.h input.h \
+HFILES		=	pfp.h abstract.h hwcompat.h proto.h output.h input.h \
 			panel.h bus.h proto-cmds.h
-CFILES		=		pfp.c driver_test.c driver_avr.c proto.c output.c input.c \
+CFILES		=	pfp.c driver_test.c driver_avr.c proto.c output.c input.c \
 			panel.c bus.c serial.c
 #HFILES		=	serial.h hw.h proto.h utils.h
 #CFILES		=	pfp.c serial.c hw.c proto.c utils.c

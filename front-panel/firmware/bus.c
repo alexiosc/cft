@@ -329,7 +329,7 @@ void
 buscmd_success()
 {
 	say_break();
-	if (flags & FL_CONS) report_pstr(PSTR("[ok]"));
+	if (flags & FL_CONS) report_pstr_in_console(PSTR("[ok]"));
 	else report_pstr(PSTR(STR_SUCCESS));
 	proto_prompt();
 }
@@ -339,8 +339,8 @@ void
 buscmd_halt()
 {
 	say_break();
-	if (flags & FL_CONS) report_pstr(PSTR("[halt]"));
-	else report_pstr(PSTR(STR_AHALTED));
+	if (flags & FL_CONS) report_pstr_in_console(PSTR("[halt]"));
+	//else report_pstr(PSTR(STR_AHALTED));
 	proto_prompt();
 	go_stop();
 }
@@ -350,7 +350,7 @@ void
 buscmd_fail()
 {
 	say_break();
-	if (flags & FL_CONS) report_pstr(PSTR("[fail]"));
+	if (flags & FL_CONS) report_pstr_in_console(PSTR("[fail]"));
 	else report_pstr(PSTR(STR_FAIL));
 	proto_prompt();
 	if (flags & FL_HOF) go_stop();
@@ -361,7 +361,7 @@ void
 buscmd_sentinel()
 {
 	say_break();
-	if (flags & FL_CONS) report_pstr(PSTR("[sentinel]"));
+	if (flags & FL_CONS) report_pstr_in_console(PSTR("[sentinel]"));
 	else report_pstr(PSTR(STR_DEBSENT));
 	proto_prompt();
 	if (flags & FL_HOS) go_stop();

@@ -79,7 +79,7 @@ typedef struct {
 //extern panel_in_t panel_in;
 //extern panel_out_t panel_out;
 
-void panel_lock(uint8_t lock);
+bool_t panel_lock(bool_t lock);
 
 void panel_sr(uint16_t sr);
 

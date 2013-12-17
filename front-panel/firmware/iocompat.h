@@ -46,11 +46,12 @@
 #    define TIMSK TIMSK1
 #  endif
 #elif defined(__AVR_ATmega8__) || defined(__AVR_ATmega48__) || \
-      defined(__AVR_ATmega88__) || defined(__AVR_ATmega168__)
+      defined(__AVR_ATmega88__) || defined(__AVR_ATmega168__) || \
+      defined(__AVR_ATmega328__) || defined(__AVR_ATmega328P__)
 #  define OC1 PB1
 #  define DDROC DDRB
 #  define OCR OCR1A
-#  if !defined(TIMSK)		/* ATmega48/88/168 */
+#  if !defined(TIMSK)		/* ATmega48/88/168/328 */
 #    define TIMSK TIMSK1
 #  endif /* !defined(TIMSK) */
 #elif defined(__AVR_ATtiny2313__)

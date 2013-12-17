@@ -71,10 +71,13 @@ void tristate_db();
 void addr_inc();
 
 void clk_stop();		// Stop clock
+void clk_start();		// Start clock
 void clk_fast();		// Set fast clock
 void clk_slow();		// Set slow clock
 void clk_creep();		// Set creep clock
 void set_clkfreq(uint8_t prescaler, uint16_t div);	// Clock frequency select
+
+void wait_for_halt();		// Wait until the processor clock is stopped
 
 void set_steprun(bool_t x);	// Start the step state machine
 void strobe_step();		// Start the step state machine
@@ -98,7 +101,7 @@ void strobe_incpc();		// INCPC#
 void set_halt(bool_t x);	// HALT#
 void set_fprunstop(bool_t x);	// 1=FPRUN, 0=FPSTOP
 
-void wait_for_halt(uint8_t timeout);
+void wait_for_halt();
 
 // CFT-side I/O
 void queue_char(uint8_t c);

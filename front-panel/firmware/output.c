@@ -11,11 +11,63 @@
 #include "output.h"
 #include "abstract.h"
 #include "hwcompat.h"
+#include "proto.h"
+
+
+void
+style_normal()
+{
+	if (flags & FL_TERM) report_pstr(PSTR("\033[0m"));
+}
+
+
+void
+style_hibit()
+{
+	if (flags & FL_TERM) report_pstr(PSTR("\033[4m"));
+}
+
+
+void
+style_input()
+{
+	if (flags & FL_TERM) report_pstr(PSTR("\033[0;1;33m"));
+}
+
+
+void
+style_info()
+{
+	if (flags & FL_TERM) report_pstr(PSTR("\033[0;1m"));
+}
+
+
+void
+style_on()
+{
+	if (flags & FL_TERM) report_pstr(PSTR("\033[0;1;32m"));
+}
+
+
+void
+style_off()
+{
+	if (flags & FL_TERM) report_pstr(PSTR("\033[0;1;31m"));
+}
+
+
+void
+style_async()
+{
+	if (flags & FL_TERM) report_pstr(PSTR("\033[0;1;35m"));
+}
+
 
 // Send a string message to the serial port.
 void
 report(const char *msg)
 {
+	if (flags & FL_CONS) return;
 	register char c;
 	while ((c = *msg++) != '\0') {
 		// Convert \n to \r\n, which is fairly standard practice on
@@ -30,6 +82,7 @@ report(const char *msg)
 void
 report_n(const char *msg, uint16_t n)
 {
+	if (flags & FL_CONS) return;
 	register char c;
 	while ((c = *msg++) != '\0') {
 		if (!n--) return;
@@ -41,12 +94,31 @@ report_n(const char *msg, uint16_t n)
 }
 
 
+// Output a program memory string. Don't suppress messages if the
+// virtual console is running.
+
+char *
+report_pstr_in_console(const char *msg)
+{
+	register unsigned char c;
+#ifdef AVR
+	while ((c = (unsigned char) pgm_read_byte(msg++)) != '\0') {
+#else
+	while ((c = *msg++) != '\0') {
+#endif
+		serial_write(c);
+	}
+	return (char *)msg;
+}
+
+
 // Send a string message to the serial port, when the string resides in program
 // memory. Naturally, this is only available on the microcontroller. On the
 // host, we fall back to the simple report() function.
 char *
 report_pstr(const char *msg)
 {
+	if (flags & FL_CONS) return (char *)msg;
 	register unsigned char c;
 	/* report_c('('); */
 	/* report_hex((uint16_t)msg, 4); */
@@ -96,6 +168,7 @@ report_pstr(const char *msg)
 void
 report_npstr(const char *msg, uint16_t n)
 {
+	if (flags & FL_CONS) return;
 	register unsigned char c;
 #ifdef AVR
 	while ((c = (unsigned char) pgm_read_byte(msg++)) != '\0') {
@@ -114,6 +187,8 @@ report_npstr(const char *msg, uint16_t n)
 // Send out a newline
 void
 report_nl() {
+	if (flags & FL_CONS) return;
+	style_normal();
 	serial_write('\r');
 	serial_write('\n');
 }
@@ -123,6 +198,8 @@ report_nl() {
 void
 report_hex(uint32_t val, uint8_t pad)
 {
+	if (flags & FL_CONS) return;
+
 	// PAD=3, shift = f00 (0xf << 8)
 	// PAD=2, shift =  f0 (0xf << 4)
 	// PAD=1, shift =   f (0xf << 0)
@@ -143,6 +220,8 @@ report_hex(uint32_t val, uint8_t pad)
 void
 report_uint(uint16_t val)
 {
+	if (flags & FL_CONS) return;
+
 	// Avoid bringing in division and modulo library functions by
 	// using subtractions. Printing out numbers needn't be fast,
 	// but it's probably faster than 16-bit software division AND
@@ -176,6 +255,8 @@ report_uint(uint16_t val)
 void
 report_int(int16_t val)
 {
+	if (flags & FL_CONS) return;
+
 	if (val < 0) {
 		serial_write('-');
 		val = -val;
@@ -201,6 +282,8 @@ report_bin(uint16_t val)
 void
 report_bin_pad(uint16_t val, uint8_t bits)
 {
+	if (flags & FL_CONS) return;
+
 	uint16_t i;
 	for (i = 1 << (uint16_t)(bits - 1); i; i >>= 1) {
 		serial_write(val & i ? '1' : '0');
@@ -211,6 +294,8 @@ report_bin_pad(uint16_t val, uint8_t bits)
 static
 void _report(const char *result, const char *msg)
 {
+	if (flags & FL_CONS) return;
+
 	//report_pstr(PSTR("FLASHPROG: "));
 	if (result != NULL) report_pstr((char *)result);
 	if (msg != NULL) report_pstr((char *)msg);
@@ -221,6 +306,8 @@ void _report(const char *result, const char *msg)
 // Send an OK report to the serial port.
 void
 report_ok(char *msg) {
+
+	if (flags & FL_CONS) return;
 
 #ifdef HOST
 	printf("\033[0;1;32m");
@@ -252,8 +339,12 @@ report_error(char *msg) {
 void
 report_hex_value(const char *msg, uint32_t val, uint8_t pad)
 {
+	if (flags & FL_CONS) return;
+
 	report_pstr((char *)msg);
+	style_info();
 	report_hex(val, pad);
+	style_normal();
 	report_nl();
 }
 
@@ -261,8 +352,16 @@ report_hex_value(const char *msg, uint32_t val, uint8_t pad)
 void
 report_bool_value(const char *msg, char val)
 {
+	if (flags & FL_CONS) return;
+
 	report_pstr((char *)msg);
-	report_pstr(val ? PSTR("on") : PSTR("off"));
+	if (val) {
+		style_on();
+		report_pstr(PSTR("on"));
+	} else {
+		style_off();
+		report_pstr(PSTR("off"));
+	}
 	report_nl();
 }
 

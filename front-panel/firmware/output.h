@@ -4,6 +4,23 @@
 
 #include <stdint.h>
 
+// Terminal 'bells and whistles' functionality
+
+void style_normal();
+
+void style_hibit();
+
+void style_input();
+
+void style_info();
+
+void style_on();
+
+void style_off();
+
+void style_async();
+
+
 
 void report(const char *msg);
 
@@ -11,19 +28,11 @@ void report_n(const char *msg, uint16_t n);
 
 #define report_c serial_write
 
-//#ifdef AVR
+char * report_pstr_in_console(const char *msg);
+
 char * report_pstr(const char *msg);
 
 void report_npstr(const char *msg, uint16_t n);
-//#else
-
-// No need for these variants on the host. Alias report() and report_n()
-// instead.
-
-//#define report_pstr report
-//#define report_npstr report_n
-
-//#endif // HOST
 
 #define report_char(c) serial_write(c)
 

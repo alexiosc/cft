@@ -12,21 +12,25 @@
 #endif // HOST
 #endif // AVR
 
-#define FL_INPOK  0x0001
-#define FL_BUSY   0x0002
-#define FL_ERROR  0x0004
-#define FL_BREAK  0x0008
-#define FL_ECHO   0x0010
-#define FL_CLEAR  0x0020
-#define FL_HALT   0x0040
-#define FL_HOF    0x0080	/* Halt-on-fail */
-#define FL_EOL    0x0100	/* End of command line */
-#define FL_STOP   0x0200	/* Stop pressed */
-#define FL_MESG   0x0400	/* Receive async messages */
-#define FL_ASYNC  0x0800	/* Async message printed */
-#define FL_PROC   0x1000	/* Processor is installed */
-#define FL_CONS   0x2000	/* The virtual console is running */
-#define FL_HOS    0x4000	/* Halt on sentinel */
+#define FL_INPOK    0x0001
+#define FL_EOL      0x0002 	/* End of command line */
+#define FL_ERROR    0x0004
+#define FL_BREAK    0x0008
+#define FL_ECHO     0x0010
+#define FL_TERM     0x0020	/* Terminal bells and whistles */
+#define FL_MESG     0x0040	/* Receive async messages */
+#define FL_CLEAR    0x0080
+#define FL_BUSY     0x0100	/* ??? DFP Busy */
+
+#define FL_HALT     0x0200	/* Halted */
+#define FL_HOF      0x0400	/* Halt-on-fail */
+#define FL_HOS      0x0400	/* Halt on sentinel */
+#define FL_STOPPING 0x1000	/* ??? Stop pressed */
+#define FL_ASYNC    0x2000	/* Async message printed */
+#define FL_PROC     0x4000	/* Processor is installed */
+#define FL_CONS     0x8000	/* The virtual console is running */
+
+#define in_console() (flags & FL_CONS)
 
 #ifdef DISASSEMBLE
 #define BANNER1 "201 Version: " VERSION "+dis\n"
@@ -34,10 +38,11 @@
 #define BANNER1 "201 Version: " VERSION "\n"
 #endif // DUMP_TEXT
 
-#define BANNER2 "201 BufSize: " BUFSIZE_S "\n"
-#define BANNER3 "202 (c) 2012 Alexios Chouchoulas <alexios@bedroomlan.org>\n"
-#define BANNER4 "202 Licensed under the GNU Public License v.2.\n"
-#define BANNER5 "202 http://www.bedroomlan.org/cft\n"
+#define BANNER2 "202 (c) 2012 Alexios Chouchoulas <alexios@bedroomlan.org>\n"
+#define BANNER3 "202 Licensed under the GNU Public License v.2.\n"
+#define BANNER4 "202 http://www.bedroomlan.org/cft\n202 All values base 16 unless otherwise noted.\n"
+
+#define STR_BUFSIZE "204 BufSize: "
 
 #define report_gs(x) report_char(x ? '3' : '2')
 
@@ -47,7 +52,7 @@
 #define STR_PROC0   "206 No processor.\n"
 #define STR_GSECHO   "10 Echo: "
 #define STR_GSMESG   "11 Async messages: "
-#define STR_GSLEDS   "12 LEDs: "
+#define STR_GSTERM   "12 Terminal: "
 #define STR_GSHOF    "13 On FAIL: "
 #define STR_GSHOS    "14 On SENTINEL: "
 #define STR_HOF_H        "HALT\n"
@@ -113,10 +118,11 @@
 #define STR_WMEM    "370 Write mem["
 #define STR_RMEM    "371 Read mem["
 #define STR_WIO     "372 Write I/O["
-#define STR_RIO     "372 Read I/O["
+#define STR_RIO     "373 Read I/O["
 
 #define STR_WDATA        "] <- "
 #define STR_RDATA        "] -> "
+#define STR_PLOCK   "374 Panel lock: "
 
 #define STR_WRAP    "401 Warning: write will wrap around.\n"
 
