@@ -961,11 +961,11 @@
 	[Orders] Ordered SMT components for the printed versions of the CFT PB0
 	and PB1.
 
-2012-08-20  AC <alexios@bedroomlan.org>
+2013-08-20  AC <alexios@bedroomlan.org>
 
 	[Tools] Recreated subversion repository with new versions of all files.
 
-2012-08-22  AC <alexios@bedroomlan.org>
+2013-08-22  AC <alexios@bedroomlan.org>
 
 	[Tools] Recreated subversion repository with new versions of all files.
 
@@ -973,57 +973,57 @@
 	hours, eleven seperate steps in three buildings, and 75% the value of
 	the boards in various taxes.
 
-2012-08-23  AC <alexios@bedroomlan.org>
+2013-08-23  AC <alexios@bedroomlan.org>
 
 	[Orders] Mouser order with PB0 and PB1 components has arrived.
 
-2012-08-25  AC <alexios@bedroomlan.org>
+2013-08-25  AC <alexios@bedroomlan.org>
 
 	[Tools] First revision of the image-to-VDU converter. It can handle
 	multicolour and graphics modes for now, and procuces either image
 	format simulating what the VDU displays, or VDU-format files in CFT
 	Assembly or binary formats.
 
-2012-08-26  AC <alexios@bedroomlan.org>
+2013-08-26  AC <alexios@bedroomlan.org>
 
 	[Tools] Improvements to the image-to-VDU converter. First revision
 	of the VDU image format. The converter now outputs files in this
 	format too, either binaries or as CFT Assembler source.
 
-2012-08-27  AC <alexios@bedroomlan.org>
+2013-08-27  AC <alexios@bedroomlan.org>
 
 	[Cons/Hardware/PFP/Light_Assembly/LED_Boards=100] Completed last
 	remaining front panel boards. Tested all eight boards.
 
 	[Cons/Hardware/PB0=50] Placed and soldered bottom side of Processor Board 0.
 
-2012-08-28  AC <alexios@bedroomlan.org>
+2013-08-28  AC <alexios@bedroomlan.org>
 
 	[Cons/Hardware/PB0=100] Placed and soldered top side of Processor Board 1.
 
-2012-08-29  AC <alexios@bedroomlan.org>
+2013-08-29  AC <alexios@bedroomlan.org>
 
 	[Testing/Hardware/PB0] Drew up PB0 testing plan.
 
 	[Cons/Hardware/PB0=100] Burned Microcode EEPROMs.
 
-2012-08-30  AC <alexios@bedroomlan.org>
+2013-08-30  AC <alexios@bedroomlan.org>
 
 	[Milestone,Testing/Hardware/PB0] PB0 passes passive tests and most
 	active tests.
 
-2012-09-01  AC <alexios@bedroomlan.org>
+2013-09-01  AC <alexios@bedroomlan.org>
 
 	[Testing/Hardware/PB0] Uploaded video of PB0 testing to YouTube.
 
-2012-09-04  AC <alexios@bedroomlan.org>
+2013-09-04  AC <alexios@bedroomlan.org>
 
 	[Doc/Extra] Wrote brief description of img2vdu output format.
 
 	[Code/Software/Filesystem] C Filesystem code will now compile. Clean
 	ups. Beginnings of rewriting of the lost code.
 
-2012-09-05  AC <alexios@bedroomlan.org>
+2013-09-05  AC <alexios@bedroomlan.org>
 
 	[Setback,Testing/Hardware/PB1] Outputs of SBL muxes are not pulled
 	up (they are tristated when idle). This implies the three-input
@@ -1037,14 +1037,14 @@
 
 	[Orders] Screws and front panel hardware.
 
-2012-09-06  AC <alexios@bedroomlan.org>
+2013-09-06  AC <alexios@bedroomlan.org>
 
 	[Cons/Hardware/PB1=100] Populated through-hole components. Patched
 	pull-up issue for SBL muxes. PB1 is now complete.
 
 	[Orders] Ordered PB2 PCBs.
 
-2012-09-14  AC <alexios@bedroomlan.org>
+2013-09-14  AC <alexios@bedroomlan.org>
 
 	[Des/Hardware/PB3=100] Touched up PB3. Board is now ready for
 	ordering. Rendered board.
@@ -1052,33 +1052,32 @@
 	[Des/Hardware/Prototyping Board=100] Completed prototyping
 	board. Rendered top side of board.
 
-2012-09-15  AC <alexios@bedroomlan.org>
+2013-09-15  AC <alexios@bedroomlan.org>
 
 	[Des/Hardware/VDU=100] Reworked VDU board from scratch, added ESD
 	protection.
 
-2012-09-17  AC <alexios@bedroomlan.org>
+2013-09-17  AC <alexios@bedroomlan.org>
 
 	[Orders] Screw and front panel hardware has arrived.
 
-2012-09-20  AC <alexios@bedroomlan.org>
+2013-09-20  AC <alexios@bedroomlan.org>
 
 	[Cons/Hardware/PFP] Constructed temporary front panel out of
 	cardboard. Switches and lights are still unwired.
 
-2012-09-21  AC <alexios@bedroomlan.org>
+2013-09-21  AC <alexios@bedroomlan.org>
 
 	[Des/Hardware/PFP] Fixed issues with front panel assembly diagram.
 
 	[Orders] PB3 ordered.
 
-<<<<<<< .mine
-2012-09-24  AC <alexios@bedroomlan.org>
+2013-09-24  AC <alexios@bedroomlan.org>
 
 	[Des/Hardware/PFP] Drafted rack mount case outlines, started changing
 	front panel to fit.
 
-2012-09-25  AC <alexios@bedroomlan.org>
+2013-09-25  AC <alexios@bedroomlan.org>
 
 	[Setback,Testing/Hardware/PB0] OPIF0 and FL are buffered but not
 	connected to the front panel connector on PB0. There is a single spare
@@ -1088,25 +1087,23 @@
 	and forwarded over to the control panel lights on the control panel
 	controller (PFP) board.
 
-2012-09-25  AC <alexios@bedroomlan.org>
-
 	[Des/Hardware/PFP] Worked on Front Panel schematics.
 
 	[Orders] PB2 arrived.
 
-2012-10-05  AC <alexios@bedroomlan.org>
+2013-10-05  AC <alexios@bedroomlan.org>
 
 	[Des/Hardware/PFP] Worked on Front Panel schematics.
 
-2012-10-07  AC <alexios@bedroomlan.org>
+2013-10-07  AC <alexios@bedroomlan.org>
 
 	[Des/Hardware/PFP] Worked on Front Panel schematics.
 
-2012-10-08  AC <alexios@bedroomlan.org>
+2013-10-08  AC <alexios@bedroomlan.org>
 
 	[Orders] PB3 arrived.
 
-2012-10-09  AC <alexios@bedroomlan.org>
+2013-10-09  AC <alexios@bedroomlan.org>
 
 	[Des/Hardware/PFP] Worked on Front Panel schematics. Started splitting
 	PFP into PFP controller, switch break-out board and light break-out
@@ -1115,13 +1112,12 @@
 	[Orders] Generated BOM for PB2, PB3 and PFP. Ordered parts for PB2, PB3
 	and PFP.
 
-2012-10-10  AC <alexios@bedroomlan.org>
+2013-10-10  AC <alexios@bedroomlan.org>
 
 	[Orders] Ordered components for PB2, PB3 and PFP boards, plus
 	leftover parts for wiring the front panel itself.
 
-
-2012-10-15  AC <alexios@bedroomlan.org>
+2013-10-15  AC <alexios@bedroomlan.org>
 
 	[Setback, Des/Hardware/PFP] Rev C PFP schematics are done, but the
 	chip count is too high to implement on even a double-sized
@@ -1140,7 +1136,7 @@
 	since the MCU would be too slow to update them all (and not have
 	anywhere near the enough I/O pins).
 
-2012-10-17  AC <alexios@bedroomlan.org>
+2013-10-17  AC <alexios@bedroomlan.org>
 
 	[Des/Hardware/PFP] Completed schematics for amalgamated PFP & DEB
 	board. 31 shift registers working as I/O expanders for the MCU! I
@@ -1152,19 +1148,191 @@
 	[Cons/Hardware/PB3=50] Placed and reflowed the bottom side of
 	PB3. The top side will have to be done when the hard to find
 	74HC670 arrive.
-=======
-2012-09-24  AC <alexios@bedroomlan.org>
 
-	[Des/Hardware/PFP] Drafted rack mount case outlines, started changing
-	front panel to fit.
+2013-10-18  AC <alexios@bedroomlan.org>
 
-2012-09-25  AC <alexios@bedroomlan.org>
+	[Cons/Hardware/PB2=100] Finished construction of PB2.
 
-	[Setback,Testing/Hardware/PB0] OPIF0 and FL are buffered but not
-	connected to the front panel connector on PB0. There is a single spare
-	pin (pin 38, previously grounded), now assigned to OPIF0 in the
-	revision F PB0 board. This is less a problem than it seems, because
-	both OPIF0 and FL are present on the control bus, and can be buffered
-	and forwarded over to the control panel lights on the control panel
-	controller (PFP) board.
->>>>>>> .r140
+2013-10-21  AC <alexios@bedroomlan.org>
+
+	[Code/Software/Filesystem] Restored C filesystem code functionality:
+	cftdt can now create Level 0, 1 and 2 files and can dump filesystem
+	blocks in hex.
+
+2013-10-22  AC <alexios@bedroomlan.org>
+
+	[Code/Software/Filesystem] Added file extraction support and debugged
+	file writing. cftdt now has the essential features needed to create CFT
+	disk images, with the exception of file deletion (which won't be needed
+	until the CFT side can create and write files).
+
+2013-10-24  AC <alexios@bedroomlan.org>
+
+	[Code/Software/Filesystem] Added file removal support.
+
+2013p-10-27  AC <alexios@bedroomlan.org>
+
+	[Cons/Hardware/PB3=90] Finished construction of PB3.
+
+	[Code/Software/ROM/Forth] Fixed TTY input bug that would only read one
+	character per interrupt from TTY FIFOs.
+
+2013-10-28  AC <alexios@bedroomlan.org>
+
+	[Cons/Hardware/PB3=100] Programmed and labeled Flash ROMs.
+
+	[Orders] Ordered additional components needed for the PFP/DEB
+	board.
+
+2013-10-30  AC <alexios@bedroomlan.org>
+
+	[Cons/Hardware/PFP/Firmware] Worked on the PFP/DEB joint firmware.
+
+	[Orders] The ribbon cable I ordered on Ebay was probably lost en
+	route. Jumped the gun and bought 10m of 50-way ribbon from the
+	high street. The price was comparable.
+
+2013-10-31  AC <alexios@bedroomlan.org>
+
+	[Orders] Mouser order with PFP/DEB components arrived. The order
+	also included Intersil 82C54 ICs needed to build the timer board
+	and a second 16C2550 dual UART for the second half of the TTY
+	board. I am now stocked to build the processor, PFP/DEB, interrupt
+	controller, timer and IDE host adaptor boards.
+
+	[Cons/Hardware/PFP] Crimped the Molex side of the front panel
+	lights wiring loom (190 hand-crimped pins).
+
+2013-11-01  AC <alexios@bedroomlan.org>
+
+	[Cons/Hardware] Cleaned all four processor boards.
+
+2013-11-02  AC <alexios@bedroomlan.org>
+
+	[Cons/Hardware/PFP/Firmware] Worked on the PFP/DEB joint firmware.
+
+2013-11-03  AC <alexios@bedroomlan.org>
+
+	[Cons/Hardware/PFP/Firmware] Worked on the PFP/DEB joint firmware.
+
+	[Setback,Des/Hardware/PB1] Discovered a potential race condition in the
+	interrupt state machine: if interrupts are re-enabled right before an
+	RTI macro, there is a very minor chance the ISR will be re-entered
+	before it exits. Like the PDP-8, the CFT is non-reentrant, and this can
+	cause issues. The flaw can be fixed in microcode (by finding some place
+	to add an atomic RTI instruction), or in software, by saving the ISR
+	return address onto a stack (the Forth Return stack is an ideal
+	choice). The latter choice is easier, of course, although it increases
+	interrupt latency.
+
+2013-11-08  AC <alexios@bedroomlan.org>
+
+	[Des/Hardware/PFP/Firmware] Second attempt to separate the PFP
+	into two boards. This one uses a 13 IC daughterboard.
+
+	[Setback,Cons/Hardware/PFP] Wired half of the front panel switch
+	assembly before realising the loom was laid out the wrong way. I will
+	have to do this all over. Separated flat cable turned out to be
+	aesthetically displeasing, anyway. The next wiring attempt will use
+	Kynar wire. Easier to bundle into a loom and easier to deal with. The
+	wires may terminate on a small PCB with a 50-pin female socket, which
+	will in turn connect to the PFP board using flat cable.
+
+2013-11-09  AC <alexios@bedroomlan.org>
+
+	[Des/Hardware/PFP] Redesigned the front panel fascia with the key
+	locks moved to the bottom and the µCB display to the left of the
+	IR (so it appears as the IR MSB nybble, which it is).
+
+	[Misc] Created CFT Project logo, version 2. This is cleaner, and
+	probably renders better on the CFT itself.
+
+2013-11-15  AC <alexios@bedroomlan.org>
+
+	[Des/Hardware/PFP] Reworked the front panel assembly, preparing
+	for laser cutting on acrylic. The LED modules fit on the LED
+	module assembly, and the switches are fastened to a smaller switch
+	sub-assembly, on spacers. The front panel fascia then attaches to
+	the LED assembly completing the design.
+
+	[Cons/Hardware/PFP] Rewired the switch side of the switch assembly
+	with kynar wire.
+
+2013-11-16  AC <alexios@bedroomlan.org>
+
+	[Cons/Hardware/PFP] Wired the switches to the switch break-out
+	board.
+
+2013-11-17  AC <alexios@bedroomlan.org>
+
+	[Cons/Hardware/PFP] Completed final layout of both PFP boards.
+
+	[Misc] Fixed dates in Changelog.
+
+2013-11-23  AC <alexios@bedroomlan.org>
+
+	[Des/Hardware/PFP/Firmware] Worked on the PFP firmware. Compressed
+	strings for a better fit in the 16k MCU.
+
+2013-11-23  AC <alexios@bedroomlan.org>
+
+	[Des/Hardware/PFP/Firmware] More work on the PFP firmware.
+
+2013-11-29  AC <alexios@bedroomlan.org>
+
+	[Des/Hardware/PFP/Firmware] Yet more work on the PFP
+	firmware. Documented some of the reset/start/stop/step
+	clock-synchronous state machine, coded some firmware functions to
+	control it.
+
+2013-11-29  AC <alexios@bedroomlan.org>
+
+	[Des/Hardware/PFP/Firmware] Yet more work on the PFP
+	firmware. Documented some of the reset/start/stop/step
+	clock-synchronous state machine, coded some firmware functions to
+	control it.
+
+2013-12-05  AC <alexios@bedroomlan.org>
+
+	[Cons/Hardware/PFP=10] Initial work on board 2 of the front
+	panel. Placed sockets, wires power rails. Started wiring.
+
+2013-12-06  AC <alexios@bedroomlan.org>
+
+	[Cons/Hardware/PFP=20] Second wiring session for board 2.
+
+2013-12-07  AC <alexios@bedroomlan.org>
+
+	[Cons/Hardware/PFP=40] Third wiring session for board 2.
+
+2013-12-12  AC <alexios@bedroomlan.org>
+
+	[Des/Hardware/PFP/Firmware] DFP (former PFP) Firmware writing.
+
+2013-12-13  AC <alexios@bedroomlan.org>
+
+	[Des/Hardware/PFP/Firmware] DFP (former PFP) Firmware
+	writing. Switched MCU to Atmega328P (from Atmega168) because the
+	firmware will definitely need more than 16k. C is quite bloated in
+	comparison to Assembly. There really isn't that much functionality
+	in there.
+
+2013-12-14  AC <alexios@bedroomlan.org>
+
+	[Des/Hardware/PFP/Firmware] DFP (former PFP) Firmware
+	writing.
+
+2013-12-15  AC <alexios@bedroomlan.org>
+
+	[Des/Hardware/PFP/Firmware] DFP (former PFP) Firmware
+	writing.
+
+2013-12-16  AC <alexios@bedroomlan.org>
+
+	[Des/Hardware/PFP/Firmware] DFP (former PFP) Firmware
+	writing.
+
+2013-12-17  AC <alexios@bedroomlan.org>
+
+	[Des/Hardware/PFP/Firmware] DFP (former PFP) Firmware
+	writing.
