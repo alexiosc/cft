@@ -2,7 +2,7 @@
 
 PACKAGE = flashprog
 VERSION = 0.4
-SUBDIRS = firmware
+SUBDIRS = firmware simavr
 DISTFILE = $(PACKAGE)-$(VERSION).tar.gz
 
 .PHONY: all tar subdirs $(SUBDIRS)
@@ -13,6 +13,8 @@ $(SUBDIRS):
 	$(MAKE) -C $@
 
 all: subdirs
+
+clean: subdirs
 
 tar: subdirs
 	( \
