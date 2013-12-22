@@ -80,14 +80,14 @@ void set_clkfreq(uint8_t prescaler, uint16_t div);	// Clock frequency select
 void wait_for_halt();		// Wait until the processor clock is stopped
 
 void set_steprun(bool_t x);	// Start the step state machine
-void strobe_step();		// Start the step state machine
-void strobe_ustep();		// Start the microstep state machine
+void perform_step();		// Start the step state machine
+void perform_ustep();		// Start the microstep state machine
 void set_buspu(const uint8_t x);// Control bus pull-up
 void set_safe(bool_t x);	// SAFE#
 void set_irq1(bool_t x);	// IRQ1#
 void set_irq6(bool_t x);	// IRQ6#
 void set_fpram(bool_t x);	// FPRAM#
-void strobe_fpreset();		// FPRESET#
+void perform_reset();		// FPRESET# or RESET#/RSTHOLD#
 void strobe_wpc();		// WPC#
 void strobe_wac();		// WAC#
 void strobe_wir();		// WIR#

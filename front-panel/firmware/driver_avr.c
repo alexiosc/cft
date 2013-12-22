@@ -11,8 +11,8 @@
 #include "hwcompat.h"
 #include "panel.h"
 #include "proto.h"
-#include "bus.h"
 #include "abstract.h"
+#include "bus.h"
 #include "utils.h"
 #include "serial.h"
 
@@ -63,7 +63,7 @@
 #define D_COUT      PD7
 
 #define D_IDLE      (_BV(D_NDBOE) | _BV(D_NABOE) | _BV(D_NIBUSOE) | _BV(D_NCTLOE))
-#define D_OUTPUTS   (_BV(D_IOCMD) | _BV(D_NDBOE) | _BV(D_NABOE) | _BV(D_NIBUSOE) | \
+#define D_OUTPUTS   (_BV(D_NDBOE) | _BV(D_NABOE) | _BV(D_NIBUSOE) | \
 		     _BV(D_NCTLOE) | _BV(D_COUT))
 
 #define B_CLRWS     PB0
@@ -95,6 +95,12 @@
 #define CMD_STCP    015
 #define CMD_BUSPU   016
 
+// Prescaler values for CS10-12 bits.
+#define PSV_1       1
+#define PSV_8       2
+#define PSV_64      3
+#define PSV_256     4
+#define PSV_1024    5
 
 static uint16_t _ab;
 static uint16_t _db;
@@ -103,6 +109,8 @@ volatile static uint16_t _sr;
 volatile static uint16_t _swleft;
 static uint16_t _or;
 static uint8_t _defercb = 0;
+static uint8_t _clk_prescale = 1;
+static uint16_t _clk_div = 1;
 
 #define defer_cb_write() _defercb++
 
@@ -139,7 +147,7 @@ static uint8_t _defercb = 0;
 #define SWR_IOW    0x0080
 
 #define SWR_IOR    0x0100
-#define SWR_RAM    0x0200
+#define SWR_ROM    0x0200
 #define SWR_IFR6   0x0400
 #define SWR_IFR1   0x0800
 
@@ -162,6 +170,7 @@ static uint8_t _defercb = 0;
 #define CB1_NRESET    0x02
 #define CB1_NRSTHOLD  0x04
                       //...
+#define CB1_NWEN      0x20
 #define CB1_NFPRAM    0x40
 #define CB1_NFPRESET  0x80
 
@@ -369,9 +378,52 @@ detect_cpu()
 }
 
 
+// Initialisation timeline:
+//		    
+// Time     012  3456
+// IBUSOE#  zHH	    
+// DBOE#    zH H    
+// ABOE#    zH  H   
+//          	    
+// FPCLKEN  z 	    
+// FPUSTEP  z 	    
+//		    
+// BUSPU         H 2
+// CTLOE# 1 zH	    
+//          	    
+// RESET#   z 	    
+// RSTHOLD# z 	    
+// FPRAM#   z 	    
+// FPRESET# z 	    
+// W#       z 	    
+// WEN#     z 	    
+// R#       z 	    
+// MEM#     z 	    
+// IO#      z 	    
+// HALT#    z     z 3
+// FPRUN    z 	    
+// FPSTOP   z 	    
+// IRQ1     z 	    
+// IRQ6     z 	    
+// CB-INCPC z 	    
+// CB-WAC   z 	    
+// CB-RPC   z 	    
+// CB-WAR   z 	    
+// CB-WIR   z 	    
+// CB-WPC   z 	    
+		    
+//		    
+// 1 All Control Bus signals floating while CTLOE# high.
+// 2 High if processor missing, low if present
+// 3 HALT 	    
+       	       	    
+
+
 void
 hw_init()
 {
+	// Time = 1
+
 	// Set output pins and idle values. This will initialise with
 	// all outputs banks idle and the processor clock stopped.
 	PORTC = C_IDLE;
@@ -383,18 +435,26 @@ hw_init()
 	PORTB = B_IDLE;
 	DDRB = B_OUTPUTS;
 
+	// Time = 2
+
 	// Explicitly tristate everything.
 	tristate_ibus();
 	tristate_db();
 	tristate_ab();
 
+	// Time = 3
+
 	// Reset all the drivers with MR# pins.
 	strobe_clr();
 
+	// Time = 4
+
 	// Write the control bus, initialising all the control
-	// outputs. This will de-asser all the reset signals, among
+	// outputs. This will de-assert all the reset signals, among
 	// other things.
-	write_cb();
+	clearflag(_cb[2], CB2_NHALT); // Keep HALT asserted for now
+	write_cb();		      // Shift out all the values
+	clearbit(PORTD, D_NCTLOE);    // Enable the control bus drivers
 
 	// Enable INT0 (with negative edge sensitivity)
 	EICRA = (EICRA & 0xf0) | _BV(ISC01);
@@ -402,18 +462,20 @@ hw_init()
 
 	// Set up the switch sampling/debouncing timer. Atmega168 datasheet,
 	// p. 104.
+	//
+	// Sampling rate: 14.7456 MHz / (2 * 1024 * 256) = 28.125 Hz
+	//
+	// That's 35.56 ms between samples, plenty of time for
+	// switches to stop bouncing.
+
 	TCCR0B = 0x8 | 0x5; // Clear on compare, CLK/1024 prescaler
 	TIMSK0 = 0x2;       // Interrupt on compare match
-	OCR0A = 0xff; 	    // Slowest rate: 14.7456 MHz / (2 * 1024 * 256) = 28.125 Hz
+	OCR0A = 0xff; 	    // Lowest possible rate (256)
 
 	// Timer 1 (the slow clock input to the CFT processor) is set further
 	// down, on demand.
 
-	// Set up the console ring buffer
-	ringbuf.ip = ringbuf.op = 0;
-	
-	// Initialise the debugging serial port
-	serial_init();
+	// Time = 5
 
 	// Is a processor attached to the system?
 	if (detect_cpu()) {
@@ -426,25 +488,58 @@ hw_init()
 		outcmd(CMD_BUSPU, 1);
 	}
 
-	// An initial sample of the front panel switches.
+	// Read the initial state of the front panel switches.
 	deb_sample(0);
-	defer_cb_write();
-	if (_swright & SWR_RAM) {
-		// Switch is in the ROM position. Start the processor.
-		setflag(_cb[2], CB2_NHALT);
-		set_fpram(1);
+
+	// Set the initial clock values on the speed switch. Don't start the
+	// clock yet.
+	uint8_t spd = (_swleft & (SWL_SLOW|SWL_FAST)) >> SWL_SPD_SHIFT;
+	if (spd == 2) {
+		_clk_prescale = PSV_1024;
+		_clk_div = 89;
+	} else if (spd == 3) {
+		_clk_prescale = PSV_1024;
+		_clk_div = 899;
 	} else {
-		// Switch is in the RAM position. Start halted.
-		clearflag(_cb[2], CB2_NHALT);
-		set_fpram(0);
+		_clk_prescale = 0;
+		_clk_div = 0;
 	}
 
-	// Set the initial clock based on the speed switch
-#warning "TODO"
+	// Don't write anything to the control bus just yet.
+	_defercb = 255;
+	if (_swright & SWR_ROM) {
+		// Switch is in the ROM position. Start the processor.
+		clk_start();		    // Start the clock.
+		setflag(_cb[2], CB2_NHALT); // De-assert HALT#
+	} else {
+		// Switch is in the RAM position. Start halted.
+		clk_stop();		    // Already stopped, but do so anyway
+		clearflag(_cb[2], CB2_NHALT); // Assert HALT#
+	}
 
-	// All done. Enable interrupts and de-assert RESET.
-	setflag(_cb[1], CB1_NFPRESET);
+        // Echo the ROM/RAM# switch to the MBU
+	set_fpram(_swright & SWR_ROM ? 1 : 0);
+
+	// Update the control bus
+	_defercb = 0;
 	write_cb();
+
+	// Perform a full machine RESET cycle, which will either strobe
+	// FPRESET# (only the de-assertion of which is needed), or perform a
+	// standalone RESET#/RSTHOLD# cycle if the processor is missing.
+	perform_reset();
+
+	// Now de-assert the various reset signals explicitly. Can't hurt.
+	_cb[1] |= CB1_NFPRESET | CB1_NRESET | CB1_NRSTHOLD;
+
+	// Write all the control bus signals just in case.
+	write_cb();
+
+	// Set up the console ring buffer
+	ringbuf.ip = ringbuf.op = 0;
+	
+	// Initialise the debugging serial port
+	serial_init();
 
 	// Enable the global interrupt flag
 	sei();
@@ -746,13 +841,6 @@ get_ac()
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-void
-write_leds(const uint8_t x)
-{
-//#warning "TODO"
-}
-
-
 inline uint16_t
 get_or()
 {
@@ -941,7 +1029,7 @@ write_cb()
 	// Sometimes we need to defer control bus writes so some
 	// signals can be bundled together.
 	if (_defercb) {
-		_defercb = 0;
+		_defercb--;
 		return;
 	}
 
@@ -959,11 +1047,6 @@ write_cb()
 		// output registers. Tristated output registers will of course
 		// not have any effects.
 		strobecmd(CMD_STCP);
-		
-		// Finally, enable the control signals (unless already enabled)
-		if ((_cb[2] & (CB2_FPRUN | CB2_FPSTOP)) == (CB2_FPRUN | CB2_FPSTOP)) {
-			clearbit(PORTD, D_NCTLOE);
-		}
 	}
 }
 
@@ -993,16 +1076,6 @@ wait_for_halt()
 	flags &= ~(FL_BUSY | FL_STOPPING);
 }
 
-
-// Prescaler values for CS10-12 bits.
-#define PSV_1       1
-#define PSV_8       2
-#define PSV_64      3
-#define PSV_256     4
-#define PSV_1024    5
-
-uint8_t _clk_prescale = 1;
-uint16_t _clk_div = 1;
 
 void
 set_clkfreq(uint8_t prescaler, uint16_t div)
@@ -1064,7 +1137,7 @@ clk_creep()
 
 
 inline void
-strobe_step()
+perform_step()
 {
 	strobecmd(CMD_STEPRUN);
 
@@ -1109,7 +1182,7 @@ set_steprun(bool_t val)
 
 
 void
-strobe_ustep()
+perform_ustep()
 {
 	strobecmd(CMD_USTEP);
 
@@ -1165,13 +1238,15 @@ set_irq6(bool_t val)
 void
 set_fpram(bool_t val)
 {
+	// ROM/RAM# signal. High = ROM, Low = RAM. Equivalent to the FPRAM#
+	// signal.
 	do_cb(1, NFPRAM, val);
 	write_cb();
 }
 
 
 void
-strobe_fpreset()
+perform_reset()
 {
 	if (flags & FL_PROC) {
 		// We have a processor. Signal it to reset.
@@ -1234,11 +1309,31 @@ strobe_w()
 {
 	// R/W safety interlock.
 	setflag(_cb[2], CB2_NR);
-	clearflag(_cb[2], CB2_NW);
-	write_cb();
-	setflag(_cb[2], CB2_NW);
-	write_cb();
-//#warning "TODO: what about WEN# and the W# tri-stating bug?"
+	
+	if (flags & FL_PROC) {
+
+		// A processor is present. Enable writing and let it handle the
+		// write cycle, observing wait states etc.
+
+		clearflag(_cb[1], CB1_NWEN);
+		write_cb();
+		
+		perform_ustep();
+
+		setflag(_cb[1], CB1_NWEN);
+		write_cb();
+
+	} else {
+
+		// No processor. Strobe the W# signal directly. The signal is
+		// low for so long, wait states hardly even apply.
+
+		clearflag(_cb[2], CB2_NW);
+		write_cb();
+
+		setflag(_cb[2], CB2_NW);
+		write_cb();
+	}
 }
 
 
@@ -1309,7 +1404,7 @@ set_halt(bool_t val)
 	write_cb();
 
 	// Also update the FPRAM signal
-	if (val) panel_rom(_swright & SWR_RAM ? 1 : 0);
+	if (val) panel_rom(_swright & SWR_ROM ? 1 : 0);
 }
 
 
@@ -1669,8 +1764,6 @@ ISR(TIMER0_COMPA_vect)
 	// Ignore the panel switches if we're busy
 	if (flags & FL_BUSY) return;
 
-
-
 	// Set the clock speed.
 	panel_spd((_swleft & (SWL_SLOW|SWL_FAST)) >> SWL_SPD_SHIFT);
 
@@ -1681,10 +1774,7 @@ ISR(TIMER0_COMPA_vect)
 	// The RAM switch is only acted on on reset (an edge action), and when
 	// the clock is halted (a level action or latch). Again, the decision
 	// is made in panel_rom().
-	panel_rom(_swright & SWR_RAM ? 1 : 0);
-
-
-
+	panel_rom(_swright & SWR_ROM ? 1 : 0);
 
 	// Is the increment signal being asserted?
 	bool_t inc = actuated(_swright, SWR_INC) ? 1 : 0;

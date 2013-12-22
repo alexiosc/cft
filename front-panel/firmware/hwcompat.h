@@ -10,6 +10,12 @@
 #include <avr/pgmspace.h>
 #include <util/delay.h>
 
+#if (F_CPU != 14745600)
+#  error "The only supported clock speed is 14.7456 MHz"
+#endif
+
+#define CLKBASE 14400 // << 10
+
 // At ~ 14 MHz and 2 cycles per NOP, this is a 135 ns delay.
 #define short_delay() asm("nop");
 

@@ -616,14 +616,14 @@ set_steprun(bool_t x)
 
 
 void
-strobe_step()
+perform_step()
 {
 	//printf("*** STEP INITIATED\n");
 }
 
 
 void
-strobe_ustep()
+perform_ustep()
 {
 	//printf("*** µSTEP INITIATED\n");
 }
@@ -660,7 +660,7 @@ set_fpram(bool_t x)
 
 
 void
-strobe_fpreset()
+perform_reset()
 {
 }
 

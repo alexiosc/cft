@@ -19,10 +19,10 @@
 #endif // AVR
 
 #include "proto.h"
+#include "abstract.h"
 #include "input.h"
 #include "output.h"
 #include "hwcompat.h"
-#include "abstract.h"
 #include "panel.h"
 #include "bus.h"
 
@@ -169,7 +169,7 @@ gs_term()
 void
 go_reset(){
 	// This will take care of timings, standalone mode, etc.
-	strobe_fpreset();
+	perform_reset();
 	report_pstr(PSTR(STR_RESET));
 }
 
@@ -760,13 +760,10 @@ _step(bool_t ustep, bool_t endless)
 		report_pstr(PSTR(": "));
 
 		// Initiate the STEP state machine. This will automatically
-		// terminate without MCU control. The strobe_step() and
-		// strobe_ustep() functions take care of all this, and
-		// terminate up to approximately 4µs after the processor has
-		// halted again.
+		// terminate without MCU control, but we need to wait for it.
 
 		if (ustep) {
-			strobe_ustep();
+			perform_ustep();
 
 			if (!in_console()) {
 				report_pstr(PSTR(STR_USTEP));
@@ -776,7 +773,7 @@ _step(bool_t ustep, bool_t endless)
 				report_nl();
 			}
 		} else {
-			strobe_step();
+			perform_step();
 
 			if (!in_console()) {
 				report_pstr(PSTR(STR_STEP));

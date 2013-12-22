@@ -2,8 +2,8 @@
 #include <stdint.h>
 
 #include "hwcompat.h"
-#include "abstract.h"
 #include "proto.h"
+#include "abstract.h"
 #include "panel.h"
 #include "output.h"
 #include "bus.h"
