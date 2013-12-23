@@ -36,7 +36,7 @@ unsigned char buf[BUFSIZE];
 
 uint16_t buflen, bp;
 
-volatile uint32_t flags = FL_BUSY | FL_ECHO | FL_MESG;
+volatile uint32_t flags = FL_BUSY | FL_MESG;
 
 static uint16_t addr;
 
@@ -77,7 +77,7 @@ say_bufsize()
 void
 proto_init()
 {
-	flags |= FL_ECHO | FL_MESG | FL_TERM;
+	flags |= FL_MESG | FL_TERM;
 	say_version();
 	report_pstr(PSTR(BANNER2 BANNER3 BANNER4));
 	say_bufsize();
@@ -1533,7 +1533,7 @@ proto_input(unsigned char c)
 		buf[0] = c;
 		return c;
 	}
-	
+
 #endif // AVR
 
 	// Allow breaks at all times.
@@ -1568,7 +1568,7 @@ proto_input(unsigned char c)
 	} else if ((c == 8) || (c == 127)) {
 		if (buflen) {
 			buflen--;
-			if (flags & FL_ECHO) report_pstr(PSTR("\b \b"));
+			/*if (flags & FL_ECHO)*/ report_pstr(PSTR("\b \b"));
 		}
 		return 0;
 
@@ -1584,7 +1584,7 @@ proto_input(unsigned char c)
 		style_normal();
 		flags ^= FL_TERM;
 		report_gs(1);
-		report_bool_value(STR_GSTERM, (flags & FL_TERM) != 0);
+		report_bool_value(PSTR(STR_GSTERM), (flags & FL_TERM) != 0);
 		proto_prompt();
 		return 0;
 	}
