@@ -8,7 +8,7 @@ BUFSIZE		=	512
 CPU_FREQ	=	14745600 # Hz =	14.7456 MHz
 #CPU_FREQ	=	1000000 # Hz (Factory default)
 
-DEFINES		=		-DDEBUG \
+DEFINES		=	-DDEBUG \
 			-DVERSION='"$(VERSION)"' \
 			-DBUFSIZE=$(BUFSIZE) -DBUFSIZE_S='"$(shell printf "%x\n" $(BUFSIZE))"' \
 			-DF_CPU=$(CPU_FREQ) \
