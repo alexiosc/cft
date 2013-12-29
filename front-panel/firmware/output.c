@@ -313,7 +313,7 @@ report_ok(char *msg) {
 	printf("\033[0;1;32m");
 #endif // HOST
 
-	_report(PSTR("OK\n\r"), msg);
+	_report_pstr(PSTR("OK\n\r"), msg);
 
 #ifdef HOST
 	printf("\033[0m");
@@ -328,7 +328,7 @@ report_error(char *msg) {
 	printf("\033[0;1;31m");
 #endif // HOST
 
-	_report(PSTR(" ERROR "), msg);
+	_report_pstr(PSTR(" ERROR "), msg);
 
 #ifdef HOST
 	printf("\033[0m");

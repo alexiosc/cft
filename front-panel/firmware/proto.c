@@ -198,16 +198,18 @@ go_stop(){
 		report_pstr(PSTR(STR_ALRHALT));
 		return;
 	}
-	
+	flags |= FL_BUSY;
+
 	// First, enable HALT to tristate the processor. Then, set STEP/RUN#
 	// high which will take the step/run state machine out of RUN state and
 	// into the STEP state. In turn, this will stop the clock at the
 	// beginning of the fetch state of the fetch-execute cycle. With the
 	// clock stopped, we'll have entered the STOP state.
-	
+
 	set_steprun(1);		// Set STEP/RUN# to STEP
  	wait_for_halt();	// Wait until the clock has been stopped
 	set_halt(1);		// Assert HALT
+	set_fprunstop(0);
 
 	// set_steprun waits until the processor is halted.
 
@@ -229,7 +231,9 @@ go_run(){
 	}
 	flags &= ~FL_HALT;
 	// This also changes the GPIO pins to inputs.
-//	sethalt(0);
+	clk_start();
+	set_halt(0);
+	set_fprunstop(1);
 	report_pstr(PSTR(STR_ARUN));
 }
 
@@ -1420,7 +1424,11 @@ say_break()
 {
 	if (flags & FL_CONS) return; // It's not asynchronous in the console.
 	style_async();
-	report_pstr(PSTR("***\n"));
+	if (flags & FL_TERM) {
+		report_pstr(PSTR("\033[G\033[K"));
+	} else {
+		report_pstr(PSTR("***\n"));
+	}
 	flags |= FL_ASYNC;
 }
 
@@ -1431,6 +1439,8 @@ proto_prompt()
 	if (flags & FL_CONS) return; // No need to prompt in the virtual console
 
 	style_normal();
+	// report_hex(flags, 4);
+	// report_char(32);
 	if ((flags & FL_PROC) == 0) report_pstr(PSTR(STR_PNOPROC));
 	if (flags & FL_HALT) {
 		style_info();

@@ -3,8 +3,15 @@
 
 #ifdef AVR
 
+//#define USE_ATOMIC_BLOCKS 1
+
 #include <avr/interrupt.h>
+
+#ifdef USE_ATOMIC_BLOCKS 1
 #include <util/atomic.h>
+#else
+#define ATOMIC_BLOCK(x)
+#endif
 
 // This 'driver' is only available on the AVR target.
 
@@ -67,8 +74,8 @@
 		     _BV(D_NCTLOE) | _BV(D_COUT))
 
 #define B_CLRWS     PB0
-#define B_FPCLKEN   PB1
-#define B_FPUSTEP   PB2
+#define B_FPUSTEP   PB1
+#define B_FPCLKEN   PB2
 #define B_IOADDR0   PB3
 #define B_IOADDR1   PB4
 #define B_IOADDR2   PB5
@@ -104,13 +111,13 @@
 
 static uint16_t _ab;
 static uint16_t _db;
-volatile static uint16_t _swright;
-volatile static uint16_t _sr;
-volatile static uint16_t _swleft;
+volatile static uint16_t _swright, _swright0;
+volatile static uint16_t _sr, _sr0;
+volatile static uint16_t _swleft, _swleft0;
 static uint16_t _or;
 static uint8_t _defercb = 0;
-static uint8_t _clk_prescale = 1;
-static uint16_t _clk_div = 1;
+static uint8_t _clk_prescale = PSV_1024;
+static uint16_t _clk_div = 89;
 
 #define defer_cb_write() _defercb++
 
@@ -229,7 +236,7 @@ static void
 outcmd(uint8_t addr, uint8_t val)
 {
 	// Clear the CMDx outputs.
-	PORTC = PORTC & ~(_BV(C_CMD0) | _BV(C_CMD1));
+	PORTC = PORTC |= _BV(C_CMD0) | _BV(C_CMD1);
 	
 	// Set the value first. The '259s are latches.
 	bit(PORTD, D_COUT, val);
@@ -239,8 +246,8 @@ outcmd(uint8_t addr, uint8_t val)
 	PORTB = (PORTB & ~B_IOADDR) | ((addr & 7) << 3);
 
 	// Now, strobe the CMDx bit
-	setbit(PORTC, addr & 8 ? C_CMD1 : C_CMD0);
-	PORTC = PORTC & ~(_BV(C_CMD0) | _BV(C_CMD1));
+	clearbit(PORTC, addr & 8 ? C_CMD1 : C_CMD0);
+	PORTC |= _BV(C_CMD0) | _BV(C_CMD1);
 
 	// Clean up.
 	PORTB = PORTB & ~B_IOADDR;
@@ -262,27 +269,27 @@ outcmd(uint8_t addr, uint8_t val)
 static void
 strobecmd(uint8_t addr)
 {
-	// Clear the CMDx outputs.
-	PORTC = PORTC & ~(_BV(C_CMD0) | _BV(C_CMD1));
+	// Clear the CMDx outputs (they're active low).
+	PORTC = PORTC |= _BV(C_CMD0) | _BV(C_CMD1);
 	
-	// Clear te value first. The '259s are latches.
+	// Clear the value first. The '259s are latches.
 	bit(PORTD, D_COUT, 0);
 	
 	// Then, set the address.
 	// Note: the shift makes assumptions about the IOADDRx pins.
 	PORTB = (PORTB & ~B_IOADDR) | ((addr & 7) << 3);
 
-	// Enable the appropriate 
-	setbit(PORTC, addr & 8 ? C_CMD1 : C_CMD0);
+	// Enable the appropriate latch signal
+	clearbit(PORTC, addr & 8 ? C_CMD1 : C_CMD0);
 
 	// The latch has now picked up the 0 value. Strobe it. We have two
 	// edges in total, so both types of edge sensitivity (rising/falling)
 	// are catered for.
-	bit(PORTD, D_COUT, 1);
-	bit(PORTD, D_COUT, 0);
+	setbit(PORTD, D_COUT);
+	clearbit(PORTD, D_COUT);
 
 	// Clear both enables for good measure.
-	PORTC = PORTC & ~(_BV(C_CMD0) | _BV(C_CMD1));
+	PORTC |= _BV(C_CMD0) | _BV(C_CMD1);
 }
 
 
@@ -353,6 +360,9 @@ static void outcmd(uint8_t, bool_t); // Same
 inline static bool_t
 detect_cpu()
 {
+	#warning "Remove this."
+	return 1;
+
         // Strategy: hold RESET# and HALT asserted. They should
         // already be asserted, but let's make sure.
 	clearflag(_cb[1], CB1_NFPRESET);
@@ -426,14 +436,15 @@ hw_init()
 
 	// Set output pins and idle values. This will initialise with
 	// all outputs banks idle and the processor clock stopped.
+	PORTB = B_IDLE;
+	DDRB = B_OUTPUTS;
+
 	PORTC = C_IDLE;
 	DDRC = C_OUTPUTS;
 
 	PORTD = D_IDLE;
 	DDRD = D_OUTPUTS;
-
-	PORTB = B_IDLE;
-	DDRB = B_OUTPUTS;
+	PORTD = 0xff;
 
 	// Time = 2
 
@@ -441,6 +452,7 @@ hw_init()
 	tristate_ibus();
 	tristate_db();
 	tristate_ab();
+
 
 	// Time = 3
 
@@ -467,10 +479,11 @@ hw_init()
 	//
 	// That's 35.56 ms between samples, plenty of time for
 	// switches to stop bouncing.
-
-	TCCR0B = 0x8 | 0x5; // Clear on compare, CLK/1024 prescaler
-	TIMSK0 = 0x2;       // Interrupt on compare match
-	OCR0A = 0xff; 	    // Lowest possible rate (256)
+	
+	TCCR0A = _BV(WGM01);		// CTC Mode
+	TCCR0B = _BV(CS00) | _BV(CS02); // CLK/1024 prescaler
+	TIMSK0 = 2;			// Interrupt on compare match
+	OCR0A = 0xff;			// Lowest possible rate (256)
 
 	// Timer 1 (the slow clock input to the CFT processor) is set further
 	// down, on demand.
@@ -626,9 +639,11 @@ sample_shift_registers(uint8_t in)
 	uint8_t val = 0;
 	uint8_t i = 0x80;
 	while (i) {
-		setbit(PORTC, C_ICLK);
+		if (PINC & _BV(in)) val |= i;
+
 		clearbit(PORTC, C_ICLK);
-		if (PORTC & _BV(in)) val |= i;
+		setbit(PORTC, C_ICLK);
+
 		i >>= 1;
 	}
 	return val;
@@ -670,7 +685,7 @@ deb_sample(bool_t quick)
 		
 		// Enable the debug bus shift registers
 		clearbit(PORTC, C_ICLK);
-		outcmd(CMD_DEBEN, 1);
+		outcmd(CMD_DEBEN, 1); // Inverted in hardware
 		
 		// Now read in data in groups of 8 bits (makes it easier for the 8-bit
 		// AVR).
@@ -775,7 +790,7 @@ virtual_panel_sample(bool_t quick)
 
 		// Enable the debug bus shift registers
 		clearbit(PORTC, C_ICLK);
-		outcmd(CMD_VPEN, 1);
+		outcmd(CMD_VPEN, 1); // Inverted in hardware
 
 		// Now read in data in groups of 8 bits (makes it easier for the 8-bit
 		// AVR.
@@ -853,8 +868,8 @@ set_or(const uint16_t or)
 {
 	_or = or;
 
-	out_shift_registers(_or & 0xff, CMD_ORCLK);
 	out_shift_registers((_or >> 8) & 0xff, CMD_ORCLK);
+	out_shift_registers(_or & 0xff, CMD_ORCLK);
 
 	// Move data from ALL the shift registers to their respective output
 	// registers. Tristated output registers will of course not have any
@@ -873,8 +888,8 @@ drive_ibus()
 void
 write_ibus(const uint16_t ibus)
 {
-	out_shift_registers(ibus & 0xff, CMD_IBUSCLK);
 	out_shift_registers((ibus >> 8) & 0xff, CMD_IBUSCLK);
+	out_shift_registers(ibus & 0xff, CMD_IBUSCLK);
 
 	// Move data from ALL the shift registers to their respective output
 	// registers. Tristated output registers will of course not have any
@@ -945,8 +960,8 @@ write_ab(const uint16_t abus)
 
 	} else {
 		// Drive the Address Bus ourselves.
-		out_shift_registers(abus & 0xff, CMD_ABCLK);
 		out_shift_registers((abus >> 8) & 0xff, CMD_ABCLK);
+		out_shift_registers(abus & 0xff, CMD_ABCLK);
 
 		// Move data from ALL the shift registers to their respective
 		// output registers. Tristated output registers will of course
@@ -993,8 +1008,8 @@ write_db(const uint16_t dbus)
 		// do is drive the IBUS.
 		write_ibus(dbus);
 	} else {
-		out_shift_registers(dbus & 0xff, CMD_DBCLK);
 		out_shift_registers((dbus >> 8) & 0xff, CMD_DBCLK);
+		out_shift_registers(dbus & 0xff, CMD_DBCLK);
 	
 		// Move data from ALL the shift registers to their respective
 		// output registers. Tristated output registers will of course
@@ -1039,9 +1054,9 @@ write_cb()
 		// written to and will have all bits but those for IFR1/IFR6
 		// set (the latter are controlled by the value coming from the
 		// CFT).
-		out_shift_registers(_cb[0] & _icr, CMD_CTLCLK);
-		out_shift_registers(_cb[1], CMD_CTLCLK);
 		out_shift_registers(_cb[2], CMD_CTLCLK);
+		out_shift_registers(_cb[1], CMD_CTLCLK);
+		out_shift_registers(_cb[0] & _icr, CMD_CTLCLK);
 		
 		// Move data from ALL the shift registers to their respective
 		// output registers. Tristated output registers will of course
@@ -1072,7 +1087,8 @@ wait_for_halt()
 		if ((get_flags() & CFL_NWAIT) == 0) break;
 	}
 
-	assert_halted();
+#warning "Crash here if not halted"
+	//assert_halted();
 	flags &= ~(FL_BUSY | FL_STOPPING);
 }
 
@@ -1084,9 +1100,18 @@ set_clkfreq(uint8_t prescaler, uint16_t div)
 	_clk_div = div;
 
 	bit(PORTB, B_FPCLKEN, 0);
-	TCCR1A = 0x40;
-	TCCR1B = 8 | (prescaler & 7);
-	TIMSK1 = 2;
+
+	// COM1A = 00
+	// COM1B = 01 (toggle OC1B on compare match)
+	// WGM   = 0100 (CTC mode)
+
+	// TCCR1A = 0x10;			       // Toggle OC1B on compare match
+	// TCCR1B = 8 | (prescaler & 7);	       // CTC, prescaler
+	// TIMSK1 = 2;
+	// OCR1B = div;
+
+	TCCR1B = _BV(WGM12) | (prescaler & 7); // CTC, prescaler
+	TCCR1A = _BV(COM1A0);
 	OCR1A = div;
 }
 
@@ -1747,29 +1772,44 @@ _readcycle(bool_t is_io)
 
 ISR(TIMER0_COMPA_vect)
 {
+	static uint8_t pause = 0;
+
 	// Blink the STOP light at ~10Hz while busy, and ignore the
 	// front panel switches.
 	if (flags & FL_BUSY) {
-		_cb[2] ^= CB2_FPSTOP;
+		pause = (pause + 1) & 15;
+		if (pause == 0) _cb[2] ^= CB2_FPSTOP;
 		write_cb();
 		return;
 	}
 	
 	// Toggle switch handling
 	deb_sample(0);		// Read the switches
+	
+	// Print out the Switch Register to the debugging console, if it's
+	// changed (the decision is made in panel_sr()). The SR can't be
+	// locked, so we act on it before the panel lock check.
+	if (_sr0 != _sr) panel_sr(_sr);
 
 	// If the front panel is locked, bail out.
-	if (panel_lock(actuated(_swleft, SWL_NLOCK))) return;
+	if (panel_lock(actuated(_swleft, SWL_NLOCK))) {
+		// report_bin_pad(_swleft, 16);
+		// serial_send(32);
+		// report_bin_pad(_swright, 16);
+		// serial_send(32);
+		// report_bin_pad(_sr, 16);
+		// report_nl();
+		return;
+	}
 
 	// Ignore the panel switches if we're busy
 	if (flags & FL_BUSY) return;
 
+	// Have the switches changed?
+	if (_swleft0 == _swleft && _swright0 == _swright && _sr0 == _sr) return;
+
 	// Set the clock speed.
 	panel_spd((_swleft & (SWL_SLOW|SWL_FAST)) >> SWL_SPD_SHIFT);
-
-	// Print out the Switch Register to the debugging console, if it's
-	// changed (the decision is made in panel_sr()).
-	panel_sr(_sr);
 
 	// The RAM switch is only acted on on reset (an edge action), and when
 	// the clock is halted (a level action or latch). Again, the decision
@@ -1778,6 +1818,11 @@ ISR(TIMER0_COMPA_vect)
 
 	// Is the increment signal being asserted?
 	bool_t inc = actuated(_swright, SWR_INC) ? 1 : 0;
+
+	// Become insensitive to this switch configuration.
+	_swleft0 = _swleft;
+	_swright0 = _swright;
+	_sr0 = _sr;
 
 	// Check switches. Act on just one per timer interrupt.
 	if (actuated(_swleft, SWL_RESET)) {
@@ -1849,7 +1894,6 @@ ISR(TIMER0_COMPA_vect)
 		// Front panel interupt request, level 1
 		panel_ifr6();
 	}
-
 }
 
 

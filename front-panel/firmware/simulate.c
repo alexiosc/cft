@@ -20,6 +20,7 @@
  */
 
 #include <stdlib.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
@@ -27,20 +28,25 @@
 #include <fcntl.h>
 #include <libgen.h>
 #include <assert.h>
+#include <pthread.h>
 #include <ncurses.h>
 #include <sys/stat.h>
 #include <sys/ioctl.h>
 
-#include "sim_avr.h"
-#include "avr_ioport.h"
-#include "sim_elf.h"
-#include "sim_hex.h"
-#include "sim_gdb.h"
-#include "uart_pty.h"
-#include "sim_vcd_file.h"
+#include <sim_avr.h>
+#include <avr_ioport.h>
+#include <sim_elf.h>
+#include <sim_hex.h>
+#include <sim_gdb.h>
+#include <uart_pty.h>
+#include <sim_vcd_file.h>
+#include <sim_irq.h>
 
-#include "button.h"
+#include "simulate.h"
+#include "simulate_parts.h"
 
+
+FILE *     debugfp;
 pthread_t  simthread;
 char *     progname;
 uart_pty_t uart_pty;
@@ -51,40 +57,70 @@ float pixsize = 64;
 int window;
 
 
+#define UP(n) (switches[n].st == 1)
+#define DN(n) (switches[n].st == -1)
+#define OP(n) (switches[n].st != 0)
+
+
 ///////////////////////////////////////////////////////////////////////////////
 //
 // SIMULATED SYSTEM STATE
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-typedef struct {
-	uint16_t pc;
-	uint16_t dr;
-	uint16_t ac;
-	uint16_t ir;
-	uint32_t uaddr;
-
-	uint16_t abus;
-	uint16_t dbus;
-	uint16_t ibus;
-
-	uint32_t fn, fz, fv, firq, fl;
-	uint32_t wait;
-} state_t;
-
-
 static state_t state;
+static sim165_t * ireg_deb;	// 80 bits
+static sim165_t * ireg_vp;	// 80 bits
+
+static sim259_t * latch0;	// 8 bits
+static sim259_t * latch1;	// 8 bits
+
+static sim595_t * oreg_dbus;	// 16 bits
+static sim595_t * oreg_abus;	// 16 bits
+static sim595_t * oreg_ibus;	// 16 bits
+static sim595_t * oreg_ctl;	// 24 bits
+static sim595_t * oreg_or;	// 16 bits
+
+
+static void
+init_board()
+{
+	ireg_deb = new_sim165(80, "deb");
+	ireg_vp = new_sim165(80, "vp");
+
+	latch0 = new_sim259("latch0");
+	latch1 = new_sim259("latch1");
+	
+	oreg_dbus = new_sim595(16, "dbus");
+	oreg_abus = new_sim595(16, "abus");
+	oreg_ibus = new_sim595(16, "ibus");
+	oreg_ctl = new_sim595(24, "ctl");
+	oreg_or = new_sim595(16, "or");
+
+	// Pull up some signals
+	state.ndboe = 1;
+	state.naboe = 1;
+	state.nibusoe = 1;
+	state.nctloe = 1;
+	state.nustep = 1;
+	state.fpclken = 1;
+
+	// Configure the rotors
+	state.r_clk.shift = 4;
+	state.r_orclk.shift = 5;
+	state.r_sample.shift = 2;
+	state.r_deben.shift = 2;
+	state.r_vpen.shift = 2;
+}
 
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-// SIMULATED PARTS
+// SIMULATED WIRING TO THE CFT
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-// Simulate the 80-bit Processor Status shift register.
-
-static int
+int
 sim_vps_reg(int nclken, int clk, int nsample)
 {
 	static int clk0 = 0;
@@ -135,10 +171,7 @@ sim_vps_reg(int nclken, int clk, int nsample)
 
 // Simulate the 80-bit Debugging shift register.
 
-#define UP(n) (switches[n].st == 1)
-#define DN(n) (switches[n].st == -1)
-#define OP(n) (switches[n].st != 0)
-
+/*
 static int
 sim_deb_reg(int nclken, int clk, int nsample)
 {
@@ -217,6 +250,7 @@ sim_deb_reg(int nclken, int clk, int nsample)
 	
 	return q[4] & 0x8000 ? 1 : 0;
 }
+*/
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -231,9 +265,12 @@ sim_deb_reg(int nclken, int clk, int nsample)
  * so lets update our buffer
  */
 
-static volatile uint32_t disp_changes = 0;
-static volatile uint32_t pin_changes = 0;
-static volatile uint8_t pin_state[3] = {0,0,0};
+pthread_mutex_t  changes_mutex;
+uint32_t clk = 0;
+uint32_t         disp_changes = 0;
+uint32_t         pin_changes = 0;
+uint8_t          pin_state[3] = {0,0,0};
+uint32_t nnn = 0;
 
 void pin_changed_hook(struct avr_irq_t * irq, uint32_t value, void * param)
 {
@@ -281,17 +318,210 @@ void timerCB(int i)
 }
 
 
-static void * avr_run_thread(void * oaram)
+void
+do_rotor(rotor_t * r, int v)
+{
+	assert (r != NULL);
+	if (r->v != v) {
+		r->v = v;
+		r->c++;
+	}
+}
+
+
+#define PB 0
+#define PC 1
+#define PD 2
+#define BOOL(n) ((n) != 0)
+
+#define if_not_z(var, val)			\
+	{					\
+		int64_t x = val;		\
+		if (x >= 0) var = x;		\
+	}
+
+static inline void
+act_on_changes()
+{
+	int iclk = pin_state[PC] & 0x04;    // PC2
+	int dout = pin_state[PC] & 0x08;    // PC3
+	int cmd0 = pin_state[PC] & 0x10;    // PC4
+	int cmd1 = pin_state[PC] & 0x20;    // PC5
+
+	state.ndboe = pin_state[PD] & 0x08;   // PD3
+	state.naboe = pin_state[PD] & 0x10;   // PD4
+	state.nibusoe = pin_state[PD] & 0x20; // PD5
+	state.nctloe = pin_state[PD] & 0x40;  // PD6	
+
+	int cout = pin_state[PD] & 0x80;    // PD7
+
+	int ioaddr = (pin_state[PB] >> 3) & 7; // PB3, PB4, PB5
+	
+	state.fpustep = pin_state[0] & 2 ? 1 : 0;
+	state.fpclken = pin_state[0] & 4 ? 1 : 0;
+
+	// Latch commands
+	uint8_t out0 = sim_259(latch0, state.nclr, cmd0, ioaddr, cout);
+	uint8_t out1 = sim_259(latch1, state.nclr, cmd1, ioaddr, cout);
+
+	state.nsample =  !BOOL(out0 & 0x01);
+	state.nvpen =    !BOOL(out0 & 0x02);
+	state.ndeben =   !BOOL(out0 & 0x04);
+	state.nclr =     !BOOL(out0 & 0x10);
+	state.steprun =   BOOL(out0 & 0x20);
+	state.nustep =    BOOL(out0 & 0x40);
+	state.orclk =     BOOL(out0 & 0x80);
+
+	state.dbclk =     BOOL(out1 & 0x01);
+	state.abclk =     BOOL(out1 & 0x02);
+	state.ibusclk =   BOOL(out1 & 0x04);
+	state.ctlclk =    BOOL(out1 & 0x08);
+	state.stcp =      BOOL(out1 & 0x20);
+	state.buspu =    !BOOL(out1 & 0x80);
+
+	// Output shift registers
+	if_not_z(state.dbus, sim_595(oreg_dbus, state.nclr, state.stcp, state.dbclk, state.ndboe, dout));
+	if_not_z(state.abus, sim_595(oreg_abus, state.nclr, state.stcp, state.abclk, state.naboe, dout));
+	if_not_z(state.ibus, sim_595(oreg_ibus, state.nclr, state.stcp, state.ibusclk, state.nibusoe, dout));
+	if_not_z(state.or, sim_595(oreg_or, state.nclr, state.stcp, state.orclk, 0, dout));
+	if_not_z(state.ctl, sim_595(oreg_ctl, state.nclr, state.stcp, state.ctlclk, state.nctloe, dout));
+
+	// Read output data from the shift registers
+	state.nirq1 =  state.ctl & 0x000001;
+	state.nirq6 =  state.ctl & 0x000002;
+	state.nincpc = state.ctl & 0x000004;
+	state.nwac =   state.ctl & 0x000008;
+	state.nrpc =   state.ctl & 0x000010;
+	state.nwar =   state.ctl & 0x000020;
+	state.nwir =   state.ctl & 0x000040;
+	state.nwpc =   state.ctl & 0x000080;
+
+	state.nsafe =    state.ctl & 0x000100;
+	state.nreset =   state.ctl & 0x000200;
+	state.nrsthold = state.ctl & 0x000400;
+	state.nwen =     state.ctl & 0x002000;
+	state.nfpram =   state.ctl & 0x004000;
+	state.nfpreset = state.ctl & 0x008000;
+
+	state.nw =       state.ctl & 0x010000;
+	state.nr =       state.ctl & 0x020000;
+	state.nmem =     state.ctl & 0x040000;
+	state.nio =      state.ctl & 0x080000;
+	state.nhalt =    state.ctl & 0x100000;
+	state.fprun =    state.ctl & 0x200000;
+	state.fpstop =   state.ctl & 0x400000;
+
+
+	// Encode data for the input shift registers.
+	uint16_t q[5];
+	int i;
+
+	memset(q, 0xff, sizeof(q));
+	
+	// Note: all front panel switches are active low and pulled up.
+	q[0] = 0xffff;
+	if (UP(30))         q[0] &= ~0x0001; // SWLOCK (active high)
+	if (UP(0) || DN(0)) q[0] &= ~0x0002; // SWRESET# (active low)
+	if (DN(1))          q[0] &= ~0x0004; // SWSTOP# (active low)
+	if (DN(0) || UP(1)) q[0] &= ~0x0008; // SWRUN# (active low)
+	if (DN(2))          q[0] &= ~0x0010; // SWSTEP# (active low)
+	else if (UP(2))     q[0] &= ~0x0020; // SWUSTEP# (active low)
+	if (DN(3))          q[0] &= ~0x0040; // SWSLOW# (active low)
+	else if (UP(3))     q[0] &= ~0x0080; // SWFAST# (active low)
+
+	// Get the lower 8 bits of the DIP switches.
+	// Switches 35-42 -> q[4]bits 15-8.
+	for(i = 0; i < 8; i++) if (DN(35 + i)) q[0] &= ~(1 << (15 - i));
+		
+	// Copy the SR: switches 6-21 -> q[3] bits 15-0.
+	for(i = 0; i < 16; i++) if (DN(6 + i)) q[1] &= ~(1 << (15 - i));
+		
+	// The right switch bank (q[2])
+	if (DN(22))         q[2] &= ~0x0001; // SWLDADDR# (active low)
+	else if (UP(22))    q[2] &= ~0x0002; // SWLDIR# (active low)
+	if (DN(23))         q[2] &= ~0x0004; // SWLDAC# (active low)
+	else if (UP(23))    q[2] &= ~0x0008; // SWSPARE# (active low)
+	if (OP(24))         q[2] &= ~0x0010; // SWMEMW# (active low)
+	if (DN(24))         q[2] &= ~0x0020; // SWINC# (active low)
+	if (OP(25))         q[2] &= ~0x0040; // SWMEMR# (active low)
+	if (DN(25))         q[2] &= ~0x0020; // SWINC# (active low)
+	if (OP(26))         q[2] &= ~0x0080; // SWIOW# (active low)
+	if (DN(26))         q[2] &= ~0x0020; // SWINC# (active low)
+	if (OP(27))         q[2] &= ~0x0100; // SWIOR# (active low)
+	if (DN(27))         q[2] &= ~0x0020; // SWINC# (active low)
+	if (DN(28))         q[2] &= ~0x0200; // SWRAM# (active low)
+	if (UP(29))         q[2] &= ~0x0400; // SWIRF6# (active low)
+	else if (DN(29))    q[2] &= ~0x0800; // SWIFR1# (active low)
+		
+	// Get the upper 4 bits of the DIP switches.
+	// Switches 31-34 -> q[2]bits 15-12.
+	for(i = 0; i < 4; i++) if (DN(31 + i)) q[2] &= ~(1 << (15 - i));
+
+	// These are on board 2.
+	q[3] = state.dbus;
+	q[4] = state.abus;
+
+	/* q[0] = 0x1111; */
+	/* q[1] = 0x2222; */
+	/* q[2] = 0x3333; */
+	/* q[3] = 0x4444; */
+	/* q[4] = 0x5555; */
+
+	int d = sim_165(ireg_deb, state.ndeben, iclk, state.nsample, q);
+
+	// Update the value of the PC0 (DIN) pin.
+	avr_raise_irq(avr_io_getirq(avr, AVR_IOCTL_IOPORT_GETIRQ('C'), 0), d);
+
+
+	///////////////////////////////////////////////////////////////////////////////
+
+	memset(q, 0, sizeof(q));
+	q[0] = state.ac;
+	q[1] = state.pc;
+	q[2] = state.ir;
+	q[3] = state.uaddr & 0xffff;
+	q[4] = ((state.uaddr >> 16) & 0xff) | 0x60; // bits 5 & 6 always high
+	if (state.fn) q[4] |= 0x100;
+	if (state.fz) q[4] |= 0x200;
+	if (state.fv) q[4] |= 0x400;
+	if (state.firq) q[4] |= 0x800;
+	if (state.fz) q[4] |= 0x1000;
+	if (state.wait == 0) q[4] |= 0x2000; // WAIT# (active low)
+	if ((state.uaddr & 0x400) == 0) q[4] |= 0x4000; // WEN# (active low)
+	if (state.uaddr & 0x200) q[4] |= 0x8000; // R (active high)
+	
+	d = sim_165(ireg_vp, state.nvpen, iclk, state.nsample, q);
+
+	// Update the value of the PC1 (VPIN) pin.
+	//avr_raise_irq(avr_io_getirq(avr, AVR_IOCTL_IOPORT_GETIRQ('C'), 1), d);
+
+
+	// Rotors
+	do_rotor(&state.r_clk, pin_state[0] & 2);
+	do_rotor(&state.r_orclk, state.orclk);
+	do_rotor(&state.r_sample, state.nsample);
+	do_rotor(&state.r_deben, state.ndeben);
+	do_rotor(&state.r_vpen, state.nvpen);
+
+	disp_changes++;
+}
+
+
+static void * avr_run_thread(void * param)
 {
 	sleep(1);
 	printf("\nStarting simulation.\n");
 	while (1) {
-		int state = avr_run(avr);
-		if (state == cpu_Done || state == cpu_Crashed) break;
+		int avr_state = avr_run(avr);
+		if (avr_state == cpu_Done || avr_state == cpu_Crashed) break;
 		if (pin_changes) {
+			pthread_mutex_lock(&changes_mutex);
 			pin_changes = 0;
-			//printf("CHANGE: %02x %02x %02x\n", pin_state[0], pin_state[1], pin_state[2]);
+			act_on_changes();
 		}
+		
+		pthread_mutex_unlock(&changes_mutex);
+		
 	}
 	return NULL;
 }
@@ -380,10 +610,7 @@ int      sposmax = 0;
 // 1 Lock switch
 // 12 DIP switches
 
-static struct {
-	char * text;
-	int    flag;
-} options[] = {
+menu_t options[] = {
 	{"Processor present (resets MCU on change)", SFL_PROC},
 	{"Bus faults (bus chatter)", SFL_FBUSDRV},
 	{"Reset faults (FP inputs ignored)", SFL_FRESET},
@@ -391,17 +618,7 @@ static struct {
 	{NULL, 0}
 };
 
-#define SW_2ST        0		// An on/on switch
-#define SW_3ST        2		// A three-state switch, ON-OFF-ON
-#define SW_MOM        3		// A momentary (ON)-OFF-(ON) switc
-
-static struct {
-	int x, y;		// Cursor co-ordinates
-	int col;		// Colour
-	int st;
-	int type;		// 0 = ON-ON, 1 = ON-OFF-ON, 2 = (ON)-OFF-(ON), 3 = ON-OFF
-	char *tooltip;
-} switches[] = {
+switch_t switches[] = {
 	{3, 2, 1, 0, SW_MOM,  "Reset / Start"}, // 0
 	{6, 2, 1, 0, SW_MOM,  "Run / Stop"},	// 1
 	{9, 2, 1, 0, SW_MOM,  "Microstep / Step"}, // 2
@@ -425,7 +642,7 @@ static struct {
 	{27 + 12 * 3, 2, 3, 0, SW_2ST, "Switch Register bit 3 on / off"}, // 18
 	{27 + 13 * 3, 2, 3, 0, SW_2ST, "Switch Register bit 2 on / off"}, // 19
 	{27 + 14 * 3, 2, 3, 0, SW_2ST, "Switch Register bit 1 on / off"}, // 20
-	{27 + 15 * 3, 2, 3, 0, SW_2ST, "Switch Register bit 0 on / off"},
+	{27 + 15 * 3, 2, 3, 0, SW_2ST, "Switch Register bit 0 on / off"}, // 21
 
 	{78, 2, 1, 0, SW_MOM, "Set IR / Set PC"},                  // 22
 	{81, 2, 1, 0, SW_MOM, "Set AC"},	                   // 23
@@ -433,7 +650,7 @@ static struct {
 	{87, 2, 3, 0, SW_MOM, "Memory Read / Memory Read Next"},   // 25
 	{90, 2, 1, 0, SW_MOM, "I/O Write / I/O Write Next"},	   // 26
 	{93, 2, 1, 0, SW_MOM, "I/O Read / I/O Read Next"},	   // 27
-	{96, 2, 3, 0, SW_MOM, "RAM / ROM"},			   // 28
+	{96, 2, 3, 0, SW_2ST, "RAM / ROM"},			   // 28
 	{99, 2, 3, 0, SW_MOM, "IFR1 / IFR6"},			   // 29
 
 	{3, 7, 7,  0, SW_2ST, "Panel Lock on / off"},              // 30
@@ -450,6 +667,26 @@ static struct {
 	{15 + 9 * 3, 7, 7,  0, SW_2ST, "DIP Switch Register bit 2 on / off"}, // 40
 	{15 + 10 * 3, 7, 7,  0, SW_2ST, "DIP Switch Register bit 1 on / off"}, // 41
 	{15 + 11 * 3, 7, 7,  0, SW_2ST, "DIP Switch Register bit 0 on / off"}, // 42
+
+	{3 + 0 * 3, 12, 7,  0, SW_2MOM, "Emulate SOR instruction."},      // 43
+	{3 + 1 * 3, 12, 7,  0, SW_2MOM, "Emulate ICR instruction."},      // 44
+	{3 + 2 * 3, 12, 7,  0, SW_2MOM, "Emulate SENTINEL instruction."}, // 45
+	{3 + 3 * 3, 12, 7,  0, SW_2MOM, "Emulate PRINTA instruction."},   // 46
+	{3 + 4 * 3, 12, 7,  0, SW_2MOM, "Emulate PRINTC instruction."},   // 47
+	{3 + 5 * 3, 12, 7,  0, SW_2MOM, "Emulate PRINTD instruction."},   // 48
+	{3 + 6 * 3, 12, 7,  0, SW_2MOM, "Emulate PRINTU instruction."},   // 49
+	{3 + 7 * 3, 12, 7,  0, SW_2MOM, "Emulate PRINTH instruction."},   // 46
+	{3 + 8 * 3, 12, 7,  0, SW_2MOM, "Emulate PRINTB instruction."},   // 47
+	{3 + 9 * 3, 12, 7,  0, SW_2MOM, "Emulate PRINTSP instruction."},  // 48
+	{3 + 10 * 3, 12, 7,  0, SW_2MOM, "Emulate PRINTNL instruction."},  // 49
+	{3 + 11 * 3, 12, 7,  0, SW_2MOM, "Emulate DEBUGON instruction."},  // 50
+	{3 + 12 * 3, 12, 7,  0, SW_2MOM, "Emulate DEBUGOFF instruction."}, // 51
+	{3 + 13 * 3, 12, 7,  0, SW_2MOM, "Emulate DUMP instruction."},     // 52
+	{3 + 14 * 3, 12, 7,  0, SW_2MOM, "Emulate PRINTHI instruction."},  // 53
+	{3 + 15 * 3, 12, 7,  0, SW_2MOM, "Emulate PRINTLO instruction."},  // 54
+	{3 + 16 * 3, 12, 7,  0, SW_2MOM, "Emulate HALT instruction."},     // 55
+	{3 + 17 * 3, 12, 7,  0, SW_2MOM, "Emulate SUCCESS instruction."},  // 56
+	{3 + 18 * 3, 12, 7,  0, SW_2MOM, "Emulate FAIL instruction."},     // 57
 	
 	{0, 0, 0, 0, 0, NULL}
 };
@@ -550,6 +787,46 @@ draw_switch(int sw, int ln)
 }
 
 
+static void
+printb(uint32_t n, int bits)
+{
+	for (bits--; bits >= 0; bits--) {
+		addch(n & (1 << bits) ? '1' : '0');
+	}
+}
+
+
+static void
+show_hex(char *s, uint32_t val, int pad)
+{
+	fg(7); printw(s);
+	fg(2); printw("%0*x", pad, val);
+}
+
+
+static void
+show_rotor(char *s, rotor_t * r)
+{
+	static char *rotor_chars = "-\\|/";
+	fg(7); printw(s);
+	fg(2); addch(rotor_chars[(r->c >> r->shift) & 3]);
+}
+
+
+static void
+show_bool(char *s, int val)
+{
+	fg(7); printw(s);
+	if (val) {
+		fg(3);
+		attron(A_BOLD);
+		printw("A");
+	} else {
+		fg(7);
+		printw("-");
+	}
+}
+
 
 void
 draw()
@@ -648,8 +925,26 @@ draw()
 	fg(7); draw_switch(sw0, 2);
 	printw("         ");
 	fg(1); for(sw = sw0 + 1, i = 0; i < 12; i++) draw_switch(sw++, 2);
+	printw("      ");
 	draw_tabline(1);
 	printw("Lock        DIP switches");
+
+
+	sw0 = sw;
+	draw_tabline(1);
+	draw_tabline(1);
+	printw("Emulated CFT-side instructions", sw);
+
+	draw_tabline(1);
+	fg(6); for(sw = sw0, i = 0; i < 19; i++) draw_switch(sw++, 0);
+	draw_tabline(1);
+	fg(6); for(sw = sw0, i = 0; i < 19; i++) draw_switch(sw++, 1);
+	draw_tabline(1);
+	fg(6); printw("SOR   SNT A  C  D  U  H  B SP NL ON OFF   HI LO HLT   FAIL");
+	draw_tabline(1);
+	fg(6); printw("   ICR    PRINTxx              DEBUG   DMP PRT     OK");
+	
+
 	draw_tabline(1);
 	draw_tabline(1);
 	fg(2);
@@ -667,40 +962,60 @@ draw()
 
 	draw_tabtop(2);
 	draw_tabline(2);
-	fg(7); printw("AC:   "); fg(2); printw("xxxx");
-	fg(7); printw("  PC:   "); fg(2); printw("xxxx");
-	fg(7); printw("  IR:    "); fg(2); printw("xxxx");
-	fg(7); printw("  uA: "); fg(2); printw("xxxxxx");
-	fg(7); printw("  fl: "); fg(2); printw("-----");
-	fg(7); printw("  OR:   "); fg(2); printw("xxxx");
+	show_hex("AC:    ", state.ac, 4);
+	show_hex("  PC:    ", state.pc, 4);
+	show_hex("  IR:    ", state.ir, 4);
+	show_hex("  uA: ", state.uaddr, 6);
+	fg(1); printw("  fl: "); fg(2); printw("-----");
+	show_hex("  OR:   ", state.or, 4);
 
 	draw_tabline(2);
-	fg(7); printw("IRQ1:    "); fg(2); printw("d");
-	fg(7); printw("  IRQ6:    "); fg(2); printw("d");
-	fg(7); printw("  INCPC:    "); fg(2); printw("d");
-	fg(7); printw("  WAC:     "); fg(2); printw("d");
-	fg(7); printw("  RPC:    "); fg(2); printw("d");
-	fg(7); printw("  WAR:     "); fg(2); printw("d");
-	fg(7); printw("  WIR:    "); fg(2); printw("d");
-	fg(7); printw("   WPC:     "); fg(2); printw("d");
+	show_bool("IRQ1:     ", !state.nirq1);
+	show_bool("  IRQ6:     ", !state.nirq6);
+	show_bool("  INCPC:    ", !state.nincpc);
+	show_bool("  WAC:     ", !state.nwac);
+	show_bool("  RPC:    ", !state.nrpc);
+	show_bool("  WAR:     ", !state.nwar);
+	show_bool("  WIR:    ", !state.nwir);
+	show_bool("   WPC:     ", !state.nwpc);
 
 	draw_tabline(2);
-	fg(7); printw("SAFE:    "); fg(2); printw("d");
-	fg(7); printw("  RESET:   "); fg(2); printw("d");
-	fg(7); printw("  RSTHOLD:  "); fg(2); printw("d");
-	fg(7); printw("  WEN:     "); fg(2); printw("d");
-	fg(7); printw("  FPRAM:  "); fg(2); printw("d");
-	fg(7); printw("  FPRESET: "); fg(2); printw("d");
+	show_bool("SAFE:     ", !state.nsafe);
+	show_bool("  RESET:    ", !state.nreset);
+	show_bool("  RSTHOLD:  ", !state.nrsthold);
+	show_bool("  WEN:     ", !state.nwen);
+	show_bool("  FPRAM:  ", !state.nfpram);
+	show_bool("  FPRESET: ", !state.nfpreset);
 
 	draw_tabline(2);
-	fg(7); printw("W:       "); fg(2); printw("d");
-	fg(7); printw("  R:       "); fg(2); printw("d");
-	fg(7); printw("  MEM:      "); fg(2); printw("d");
-	fg(7); printw("  IO:      "); fg(2); printw("d");
-	fg(7); printw("  HALT:   "); fg(2); printw("d");
-	fg(7); printw("  FPRUN:   "); fg(2); printw("d");
-	fg(7); printw("  FPSTOP: "); fg(2); printw("d");
-	fg(7); printw("   FPCLKEN: "); fg(2); printw("d");
+	show_bool("W:        ", !state.nw);
+	show_bool("  R:        ", !state.nr);
+	show_bool("  MEM:      ", !state.nmem);
+	show_bool("  IO:      ", !state.nio);
+	show_bool("  HALT:   ", !state.nhalt);
+	show_bool("  FPRUN:   ", state.fprun);
+	show_bool("  FPSTOP: ", state.fpstop);
+	show_bool("   FPCLKEN: ", state.fpclken);
+
+	draw_tabline(2);
+	show_bool("ABOE:     ", !state.naboe);
+	show_bool("  DBLOE:    ", !state.ndboe);
+	show_bool("  IBUSOE:   ", !state.nibusoe);
+	show_bool("  CTLOE:   ", !state.nctloe);
+
+	draw_tabline(2);
+	show_rotor("FP Clk:   ", &state.r_clk);
+	show_rotor("  OR Clk:   ", &state.r_orclk);
+	show_rotor("  SAMPLE:   ", &state.r_sample);
+	show_rotor("  DEBEN:   ", &state.r_deben);
+	show_rotor("  VPEN:   ", &state.r_vpen);
+	//debug("*** %d\n", state.r_orclk.c);
+
+	draw_tabline(2);
+	fg(7); printw("B: "); fg(2); printb(pin_state[0], 8);
+	fg(7); printw("  C: ");  fg(2); printb(pin_state[1], 8);
+	fg(7); printw("  D: ");  fg(2); printb(pin_state[2], 8); 
+	//fg(7); printw("  nnn:"); fg(2); printw("%d", nnn % 1000000);
 	
 	draw_tabbottom(2);
 
@@ -716,7 +1031,6 @@ draw()
 		move(switches[spos].y + y1 + adj, switches[spos].x);
 	}
 }
-
 
 void
 init_avr()
@@ -740,10 +1054,13 @@ init_avr()
 	avr_init(avr);
 	avr->frequency = F_CPU;
 	avr->special_deinit = avr_special_deinit;
-	
+
 	// Initialise the UART
 	uart_pty_init(avr, &uart_pty);
 	uart_pty_connect(&uart_pty, '0');
+
+	// Initialise the board simulation
+	init_board();
 
 	// Register callbacks
 	for (int i = 0; i < 8; i++) {
@@ -768,6 +1085,8 @@ init_avr()
 void
 run_threaded()
 {
+	// Initialise the mutex
+	pthread_mutex_init(&changes_mutex, NULL);
 	// Run the simulation
 	pthread_create(&simthread, NULL, avr_run_thread, NULL);
 }
@@ -789,6 +1108,11 @@ done()
 int main(int argc, char *argv[])
 {
 
+	if ((debugfp = fopen("log.out", "w")) == NULL) {
+		fprintf(stderr, "error while creating log.out: %m\n");
+		exit(1);
+	}
+	
 	progname = argv[0];
 
 	init_avr();
@@ -807,10 +1131,10 @@ int main(int argc, char *argv[])
 		dt++;
 
 		// A key was released, reset all momentary switches.
-		if (tab == 1 && c < 0 && dt >= 30) {
+		if (tab == 1 && c < 0 && dt >= 10) {
 			int i;
 			for (i = 0; i < sposmax; i++) {
-				if (switches[i].type == SW_MOM) {
+				if (switches[i].type == SW_MOM || switches[i].type == SW_2MOM) {
 					switches[i].st = 0;
 					disp_changes++;
 				}
@@ -819,9 +1143,11 @@ int main(int argc, char *argv[])
 
 		// Do we need do update anything? Is there a key to
 		// process?
+		__sync_synchronize();
 		if (disp_changes == 0 && c < 0) continue;
-		
-		dt = 0;
+		disp_changes = 0;
+
+		if (c >= 0) dt = 0;
 		switch(tab) {
 		case 0:
 			switch(c) {
@@ -866,12 +1192,14 @@ int main(int argc, char *argv[])
 				}
 				break;
 			case KEY_UP:
+				avr_raise_irq(avr_io_getirq(avr, AVR_IOCTL_IOPORT_GETIRQ('C'), 0), 1);
 				switches[spos].st++;
 				if (switches[spos].type == SW_2ST && switches[spos].st == 0) 
 					switches[spos].st = 1;
 				if (switches[spos].st > 1) switches[spos].st = 1;
 				break;
 			case KEY_DOWN:
+				avr_raise_irq(avr_io_getirq(avr, AVR_IOCTL_IOPORT_GETIRQ('C'), 0), 0);
 				switches[spos].st--;
 				if (switches[spos].type == SW_2ST && switches[spos].st == 0) 
 					switches[spos].st = -1;

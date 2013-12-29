@@ -21,6 +21,7 @@ static uint8_t _spd = 0xff;
 bool_t
 panel_lock(bool_t lock)
 {
+	//report(__FUNCTION__); report_pstr(PSTR("()\n"));
 	if (lock == _lock) return lock;
 	_lock = lock;
 	say_break();
@@ -33,6 +34,7 @@ panel_lock(bool_t lock)
 void
 panel_sr(uint16_t sr)
 {
+	//report(__FUNCTION__); report_pstr(PSTR("()\n"));
 	if (sr == _oldsr) return;
 
 	say_break();
@@ -45,6 +47,7 @@ panel_sr(uint16_t sr)
 void
 panel_reset()
 {
+	//report(__FUNCTION__); report_pstr(PSTR("()\n"));
 	say_break();
 	go_reset();
 	proto_prompt();
@@ -54,6 +57,7 @@ panel_reset()
 void
 panel_start()
 {
+	//report(__FUNCTION__); report_pstr(PSTR("()\n"));
 	say_break();
 	go_start();
 	proto_prompt();
@@ -63,6 +67,7 @@ panel_start()
 void
 panel_stop()
 {
+	//report(__FUNCTION__); report_pstr(PSTR("()\n"));
 	say_break();
 	go_stop();
 	proto_prompt();
@@ -72,6 +77,7 @@ panel_stop()
 void
 panel_run()
 {
+	//report(__FUNCTION__); report_pstr(PSTR("()\n"));
 	say_break();
 	go_run();
 	proto_prompt();
@@ -81,6 +87,7 @@ panel_run()
 void
 panel_step()
 {
+	//report(__FUNCTION__); report_pstr(PSTR("()\n"));
 	say_break();
 	go_step();
 	proto_prompt();
@@ -90,6 +97,7 @@ panel_step()
 void
 panel_ustep()
 {
+	//report(__FUNCTION__); report_pstr(PSTR("()\n"));
 	say_break();
 	go_ustep();
 	proto_prompt();
@@ -105,19 +113,20 @@ panel_ustep()
 void
 panel_spd(uint8_t spd)
 {
+	//report(__FUNCTION__); report_pstr(PSTR("()\n"));
 	if (spd == _spd) return;
 	_spd = spd;
 
 	say_break();
 	if (spd == 2) {
 		go_creep();
-		report_pstr(PSTR(STR_CREEP));
+		//report_pstr(PSTR(STR_CREEP));
 	} else if (spd == 3) {
 		go_slow();
-		report_pstr(PSTR(STR_SLOW));
+		//report_pstr(PSTR(STR_SLOW));
 	} else {
 		go_fast();
-		report_pstr(PSTR(STR_FAST));
+		//report_pstr(PSTR(STR_FAST));
 	}
 	proto_prompt();
 }
@@ -126,11 +135,14 @@ panel_spd(uint8_t spd)
 void
 panel_ldir()
 {
-	set_reg(REG_IR, get_sr());
-
+	//report(__FUNCTION__); report_pstr(PSTR("()\n"));
 	say_break();
-	report_gs(1);
-	report_hex_value(PSTR(STR_GSIR), get_ir(), 4);
+	if (assert_halted()) {
+		set_reg(REG_IR, get_sr());
+
+		report_gs(1);
+		report_hex_value(PSTR(STR_GSIR), get_ir(), 4);
+	}
 	proto_prompt();
 }
 
@@ -138,11 +150,14 @@ panel_ldir()
 void
 panel_ldaddr()
 {
-	set_reg(REG_IR, get_pc());
-
+	//report(__FUNCTION__); report_pstr(PSTR("()\n"));
 	say_break();
-	report_gs(1);
-	report_hex_value(PSTR(STR_GSIR), get_pc(), 4);
+	if (assert_halted()) {
+		set_reg(REG_IR, get_pc());
+		
+		report_gs(1);
+		report_hex_value(PSTR(STR_GSIR), get_pc(), 4);
+	}
 	proto_prompt();
 }
 
@@ -150,8 +165,14 @@ panel_ldaddr()
 void
 panel_ldac()
 {
+	//report(__FUNCTION__); report_pstr(PSTR("()\n"));
 	say_break();
-	//printf("*** TODO: %s\n", __FUNCTION__);
+	if (assert_halted()) {
+		set_reg(REG_AC, get_ac());
+
+		report_gs(1);
+		report_hex_value(PSTR(STR_GSAC), get_ac(), 4);
+	}
 	proto_prompt();
 }
 
@@ -159,15 +180,16 @@ panel_ldac()
 void
 panel_wmem(bool_t inc, uint16_t a, uint16_t d)
 {
-	if (!assert_halted()) return;
-
-	perform_write(SPACE_MEM, a, d);
-	if (inc) addr_inc();
-
+	//report(__FUNCTION__); report_pstr(PSTR("()\n"));
 	say_break();
-	report_pstr(PSTR(STR_WMEM));
-	report_hex(a, 4);
-	report_hex_value(PSTR(STR_WDATA), d, 4);
+	if (assert_halted()) {
+		perform_write(SPACE_MEM, a, d);
+		if (inc) addr_inc();
+		
+		report_pstr(PSTR(STR_WMEM));
+		report_hex(a, 4);
+		report_hex_value(PSTR(STR_WDATA), d, 4);
+	}
 	proto_prompt();
 }
 
@@ -175,15 +197,16 @@ panel_wmem(bool_t inc, uint16_t a, uint16_t d)
 void
 panel_rmem(bool_t inc, uint16_t a)
 {
-	if (!assert_halted()) return;
-
-	uint16_t d = perform_read(SPACE_MEM, a);
-	if (inc) addr_inc();
-
+	//report(__FUNCTION__); report_pstr(PSTR("()\n"));
 	say_break();
-	report_pstr(PSTR(STR_RMEM));
-	report_hex(a, 4);
-	report_hex_value(PSTR(STR_RDATA), d, 4);
+	if (assert_halted()) {
+		uint16_t d = perform_read(SPACE_MEM, a);
+		if (inc) addr_inc();
+		
+		report_pstr(PSTR(STR_RMEM));
+		report_hex(a, 4);
+		report_hex_value(PSTR(STR_RDATA), d, 4);
+	}
 	proto_prompt();
 }
 
@@ -191,15 +214,16 @@ panel_rmem(bool_t inc, uint16_t a)
 void
 panel_wio(bool_t inc, uint16_t a, uint16_t d)
 {
-	if (!assert_halted()) return;
-
-	perform_write(SPACE_MEM, a, d);
-	if (inc) addr_inc();
-
+	//report(__FUNCTION__); report_pstr(PSTR("()\n"));
 	say_break();
-	report_pstr(PSTR(STR_WIO));
-	report_hex(a, 4);
-	report_hex_value(PSTR(STR_WDATA), d, 4);
+	if (assert_halted()) {
+		perform_write(SPACE_MEM, a, d);
+		if (inc) addr_inc();
+		
+		report_pstr(PSTR(STR_WIO));
+		report_hex(a, 4);
+		report_hex_value(PSTR(STR_WDATA), d, 4);
+	}
 	proto_prompt();
 }
 
@@ -207,15 +231,16 @@ panel_wio(bool_t inc, uint16_t a, uint16_t d)
 void
 panel_rio(bool_t inc, uint16_t a)
 {
-	if (!assert_halted()) return;
-
-	uint16_t d = perform_read(SPACE_IO, a);
-	if (inc) addr_inc();
-
+	//report(__FUNCTION__); report_pstr(PSTR("()\n"));
 	say_break();
-	report_pstr(PSTR(STR_RIO));
-	report_hex(a, 4);
-	report_hex_value(PSTR(STR_RDATA), d, 4);
+	if (assert_halted()) {
+		uint16_t d = perform_read(SPACE_IO, a);
+		if (inc) addr_inc();
+		
+		report_pstr(PSTR(STR_RIO));
+		report_hex(a, 4);
+		report_hex_value(PSTR(STR_RDATA), d, 4);
+	}
 	proto_prompt();
 }
 
@@ -223,14 +248,16 @@ panel_rio(bool_t inc, uint16_t a)
 void
 panel_rom(uint8_t rom)
 {
+	//report(__FUNCTION__); report_pstr(PSTR("()\n"));
 	if ((flags & FL_HALT) == 0) return;
 	if (rom == _rom) return;
+	_rom = rom;
 	set_fpram(rom);
 
 	// Output to the debugging console.
 	say_break();
-	report(PSTR(STR_FPRAM));
-	report(rom ? PSTR(STR_FPRAM1) : PSTR(STR_FPRAM0));
+	report_pstr(PSTR(STR_FPRAM));
+	report_pstr(rom ? PSTR(STR_FPRAM0) : PSTR(STR_FPRAM0));
 	proto_prompt();
 }
 
@@ -238,8 +265,9 @@ panel_rom(uint8_t rom)
 void
 panel_ifr1()
 {
+	//report(__FUNCTION__); report_pstr(PSTR("()\n"));
 	say_break();
-	report(PSTR(STR_IFR1));
+	report_pstr(PSTR(STR_IFR1));
 	set_irq1(1);
 	proto_prompt();
 }
@@ -248,9 +276,10 @@ panel_ifr1()
 void
 panel_ifr6()
 {
+	//report(__FUNCTION__); report_pstr(PSTR("()\n"));
 	say_break();
-	report(PSTR(STR_IFR6));
-	set_irq1(6);
+	report_pstr(PSTR(STR_IFR6));
+	set_irq6(1);
 	proto_prompt();
 }
 

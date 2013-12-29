@@ -8,19 +8,14 @@ BUFSIZE		=	512
 CPU_FREQ	=	14745600 # Hz =	14.7456 MHz
 #CPU_FREQ	=	1000000 # Hz (Factory default)
 
-DEFINES		=		-DDEBUG \
+DEFINES		=	-DDEBUG \
 			-DVERSION='"$(VERSION)"' \
 			-DBUFSIZE=$(BUFSIZE) -DBUFSIZE_S='"$(shell printf "%x\n" $(BUFSIZE))"' \
 			-DF_CPU=$(CPU_FREQ) \
-			-DSERIAL_BPS=$(SERIAL_BPS) -DSERIAL_BPS_S='"$(SERIAL_BPS)"'
+			-DSERIAL_BPS=$(SERIAL_BPS) -DSERIAL_BPS_S='"$(SERIAL_BPS)"' \
+			-D__DELAY_BACKWARD_COMPATIBLE__
 DEFINES		+=	-DDISASSEMBLE
 
-SIMAVRDIR	=	../simavr
-SIMAVRLIBS	=	-lsimavr -lelf -lpthread -lutil -lncurses
-SIMAVRLIBDIR	=	$(SIMAVRDIR)/simavr/obj-$(shell arch)-linux-gnu/
-SIMAVRFLAGS	+=	-I$(SIMAVRDIR)/simavr/sim -I$(SIMAVRDIR)/examples/parts \
-			-DMCU_TARGET='"$(MCU_TARGET)"' -DFIRMWARE='"$(PROG).elf"' \
-			-L$(SIMAVRLIBDIR) $(SIMAVRLIBS) -Wl,-rpath,$(SIMAVRLIBDIR)
 
 PROG	=	dfp
 #MCU_TARGET     =	at90s2313
@@ -132,10 +127,19 @@ override CFLAGS =	-fpack-struct=1 -g -Wall \
 				$(OPTIMIZE) -mmcu=$(MCU_TARGET) $(DEFS) $(AVRCFLAGS)
 override LDFLAGS =	-Wl,-Map,$(PROG).map $(AVRLDFLAGS)
 
-OBJCOPY        =	avr-objcopy
-OBJDUMP        =	avr-objdump
+OBJCOPY		=	avr-objcopy
+OBJDUMP        	=	avr-objdump
 
+SIMCFILES	=	simulate.c simulate_parts.c simulate_uart.c
+SIMHFILES	=	simulate_parts.h simulate_uart.h
 
+SIMAVRDIR	=	../simavr
+SIMAVRLIBS	=	-lsimavr -lelf -lpthread -lutil -lncurses
+SIMAVRLIBDIR	=	$(SIMAVRDIR)/simavr/obj-$(shell arch)-linux-gnu/
+SIMAVRFLAGS	+=	$(DEFINES) -g -Wall -std=gnu99 -O0 \
+			-I$(SIMAVRDIR)/simavr/sim -I$(SIMAVRDIR)/examples/parts \
+			-DMCU_TARGET='"$(MCU_TARGET)"' -DFIRMWARE='"$(PROG).elf"' \
+			-L$(SIMAVRLIBDIR) $(SIMAVRLIBS) -Wl,-rpath,$(SIMAVRLIBDIR)
 
 .PHONY:		all dep download verify reset test fuses sim
 
@@ -179,11 +183,11 @@ test test_$(PROG):	$(SOURCES) $(HFILES)
 			rm -f test_$(PROG)
 			$(HOSTCC) $(HOSTCFLAGS) -o test_$(PROG) $(CFILES)
 
-sim_$(PROG):		simulate.c uart_pty.c uart_pty.h
+sim_$(PROG):		$(SIMCFILES) $(SIMHFILES)
 			rm -f sim_$(PROG)
-			$(HOSTCC) $(DEFINES) -g -Wall -std=gnu99 -O0 -o sim_$(PROG) $^ $(SIMAVRFLAGS)
+			$(HOSTCC) -o sim_$(PROG) $(SIMCFILES) $(SIMAVRFLAGS)
 
-sim:			sim_$(PROG)
+sim:			sim_$(PROG) $(PROG).elf
 			TERM=xterm-256color SIMAVR_UART_XTERM=1 ./sim_$(PROG) || true
 
 clean:

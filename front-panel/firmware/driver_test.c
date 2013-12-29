@@ -585,6 +585,12 @@ clk_stop()
 
 
 void
+clk_start()
+{
+}
+
+
+void
 set_clkfreq(uint8_t prescaler, uint16_t div)
 {
 }
@@ -655,6 +661,12 @@ set_irq6(bool_t x)
 
 void
 set_fpram(bool_t x)
+{
+}
+
+
+void
+set_fprunstop(bool_t x)
 {
 }
 
