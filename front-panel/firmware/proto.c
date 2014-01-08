@@ -206,7 +206,7 @@ go_stop(){
 	// beginning of the fetch state of the fetch-execute cycle. With the
 	// clock stopped, we'll have entered the STOP state.
 
-	set_steprun(1);		// Set STEP/RUN# to STEP
+	set_stopping();		// Set STEP/RUN# to STEP
  	wait_for_halt();	// Wait until the clock has been stopped
 	set_halt(1);		// Assert HALT
 	set_fprunstop(0);
@@ -229,10 +229,12 @@ go_run(){
 		report_pstr(PSTR(STR_ALRRUN));
 		return;
 	}
+	flags |= FL_BUSY;
 	flags &= ~FL_HALT;
 	// This also changes the GPIO pins to inputs.
 	clk_start();
 	set_halt(0);
+	set_steprun(0);		// Jam the run/step FSM to run mode.
 	set_fprunstop(1);
 	report_pstr(PSTR(STR_ARUN));
 }
@@ -697,6 +699,9 @@ go_creep()
 }
 
 
+static uint16_t _divs [5] = { 2, 16, 128, 512, 2048 };
+
+
 static void
 go_clk()
 {
@@ -730,10 +735,10 @@ go_clk()
 
 	set_clkfreq(prescaler, div);
 	report_pstr(PSTR(STR_CLKSET));
-	report_hex(prescaler, 1);
-	report_c('/');
-	report_hex(div, 4);
-	report_nl();
+	report_int(_divs[prescaler - 1]);
+	report_pstr(PSTR(" * (1 + "));
+	report_uint(div);
+	report_pstr(PSTR(")) (base 10)\n"));
 }
 
 
@@ -760,9 +765,6 @@ _step(bool_t ustep, bool_t endless)
 	flags &= ~(FL_BREAK | FL_INPOK);
 	flags |= FL_BUSY;
 	while (endless || i--) {
-		report_hex(flags, 4);
-		report_pstr(PSTR(": "));
-
 		// Initiate the STEP state machine. This will automatically
 		// terminate without MCU control, but we need to wait for it.
 

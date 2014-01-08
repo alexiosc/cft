@@ -278,7 +278,7 @@ uart_pty_connect(
 	}
 	if (getenv("SIMAVR_UART_XTERM") && atoi(getenv("SIMAVR_UART_XTERM"))) {
 		char cmd[256];
-		sprintf(cmd, "xterm -geometry 80x25 -fa \"Inconsolata Bold\" "
+		sprintf(cmd, "xterm -title 'DFP Simulation' -geometry 80x25 -fa \"Inconsolata Bold\" "
 			"-fs 10 -xrm \"xterm.vt100.background: grey10\" "
 			"-e screen %s >/dev/null 2>&1 &",
 			p->tap.slavename);

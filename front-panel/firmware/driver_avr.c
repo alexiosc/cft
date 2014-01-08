@@ -3,11 +3,11 @@
 
 #ifdef AVR
 
-//#define USE_ATOMIC_BLOCKS 1
+#define USE_ATOMIC_BLOCKS
 
 #include <avr/interrupt.h>
 
-#ifdef USE_ATOMIC_BLOCKS 1
+#ifdef USE_ATOMIC_BLOCKS
 #include <util/atomic.h>
 #else
 #define ATOMIC_BLOCK(x)
@@ -91,7 +91,7 @@
 #define CMD_DEBEN   002
 #define CMD_CTLOE   003
 #define CMD_CLR     004
-#define CMD_STEPRUN 005		// 0 = Running, strobe = 
+#define CMD_STEPRUN 005		// 0 = Running
 #define CMD_USTEP   006
 #define CMD_ORCLK   007
 
@@ -100,7 +100,7 @@
 #define CMD_IBUSCLK 012
 #define CMD_CTLCLK  013
 #define CMD_STCP    015
-#define CMD_BUSPU   016
+#define CMD_BUSPU   017
 
 // Prescaler values for CS10-12 bits.
 #define PSV_1       1
@@ -311,14 +311,15 @@ strobe_clr()
 
   Processor detection algorithm.
 
-  The processor houses bus hold chips to terminate the CFT buses. Bus
-  hold will maintain any values written to a bus. Without bus hold,
-  the value is transient. We write various values to the bus and read
-  them back. If they persist over time, a processor has been detected.
+  The processor houses bus hold chips to terminate the CFT buses. Bus hold will
+  maintain any values written to a bus. Without bus hold, the value is
+  transient. We write various values to the bus and read them back. If they
+  persist over time, a processor has been detected.
 
-  We need to sample the bus repeatedly to avoid stray capacitance
-  problems (values will decay over time). The CFT backplane has quite
-  a lot of capacitance, so we have to wait a long time.
+  We need to sample the bus repeatedly to avoid parasitic capacitance problems
+  (values will decay over time, rather than disappear immediately). The CFT
+  backplane has quite a lot of capacitance and our CMOS input stages have very
+  high impedance, so we have to wait a long time.
 
  */
 
@@ -341,7 +342,7 @@ test_bushold(uint16_t val)
 
 	// Sample the bus
 	deb_sample(1);		 // Get AB and DB
-	return _ab = val;
+	return _ab == val;
 	
 }
 
@@ -360,9 +361,6 @@ static void outcmd(uint8_t, bool_t); // Same
 inline static bool_t
 detect_cpu()
 {
-	#warning "Remove this."
-	return 1;
-
         // Strategy: hold RESET# and HALT asserted. They should
         // already be asserted, but let's make sure.
 	clearflag(_cb[1], CB1_NFPRESET);
@@ -453,6 +451,16 @@ hw_init()
 	tristate_db();
 	tristate_ab();
 
+	// write_ibus(0x1234);
+	// write_ab(0x5678);
+	// write_db(0xabcd);
+	// int i;
+	// for(i=0;;i++) {
+	// 	_delay_ms(1000);
+	// 	if ((i & 3) == 0) drive_ibus(); else tristate_ibus();
+	// 	if ((i & 3) == 1) drive_ab(); else tristate_ab();
+	// 	if ((i & 3) == 2) drive_db(); else tristate_db();
+	// }
 
 	// Time = 3
 
@@ -494,12 +502,20 @@ hw_init()
 	if (detect_cpu()) {
 		// Mark the processor as present
 		flags |= FL_PROC;
-		// Disable the bus pull-ups.
-		outcmd(CMD_BUSPU, 0);
-	} else {
-		// Should already be high, but a bit of redundancy can't hurt.
+		// Disable the bus pull-ups. Note: active low!
 		outcmd(CMD_BUSPU, 1);
+	} else {
+		// Resets to high (active low), but set it explicitly anyway.
+		outcmd(CMD_BUSPU, 0);
 	}
+	
+	#warning "Diagnostics: if processor present, check bus hold on IBUS, ABUS, DBUS working."
+	#warning "Diagnostics: if processor present, check no bus chatter when RESET# asserted."
+	#warning "Diagnostics: if processor present, check RSTHOLD# asserted when RESET# asserted."
+	#warning "Diagnostics: if processor present, check no bus chatter when RESET# asserted."
+	#warning "Diagnostics: if processor present, check no bus chatter/proc changes when clock stopped."
+
+	#warning "Diagnostics: if processor NOT present, check no bus chatter."
 
 	// Read the initial state of the front panel switches.
 	deb_sample(0);
@@ -520,18 +536,26 @@ hw_init()
 
 	// Don't write anything to the control bus just yet.
 	_defercb = 255;
+
+	// Set the initial RAM/ROM values
+	panel_rom(_swright & SWR_ROM);
+	
+	// If the RAM mapping was selected, start halted. The machins is
+	// unprogrammed and the operator will take it from there. Otherwise,
+	// with ROM mapped, start running. (note: 0 = RAM, non-zero = ROM);
 	if (_swright & SWR_ROM) {
 		// Switch is in the ROM position. Start the processor.
 		clk_start();		    // Start the clock.
-		setflag(_cb[2], CB2_NHALT); // De-assert HALT#
+		set_halt(0);		    // De-assert HALT#, set FPRAM signal
+		set_steprun(0);		    // Lock the run control FSM
+		set_fprunstop(1);	    // Set the LEDs.
 	} else {
 		// Switch is in the RAM position. Start halted.
 		clk_stop();		    // Already stopped, but do so anyway
-		clearflag(_cb[2], CB2_NHALT); // Assert HALT#
+		set_halt(1);		    // Assert HALT#, set FPRAM signal
+		set_fprunstop(0);
+		flags |= FL_HALT;           // The debugging interface needs to know.
 	}
-
-        // Echo the ROM/RAM# switch to the MBU
-	set_fpram(_swright & SWR_ROM ? 1 : 0);
 
 	// Update the control bus
 	_defercb = 0;
@@ -543,6 +567,7 @@ hw_init()
 	perform_reset();
 
 	// Now de-assert the various reset signals explicitly. Can't hurt.
+	_cb[0] |= CB0_NIRQ1 | CB0_NIRQ6;
 	_cb[1] |= CB1_NFPRESET | CB1_NRESET | CB1_NRSTHOLD;
 
 	// Write all the control bus signals just in case.
@@ -1080,11 +1105,18 @@ wait_for_halt()
 	// seen. We want this.
 	flags |= FL_BUSY | FL_STOPPING;
 	for (;;) {
-		// Read the current value of FPCLKEN
+		// Read the WAIT# signal from the first (highest order) shift
+		// register of the virtual panel.
 		virtual_panel_sample(1);
 
+		// report_pstr(PSTR("-- FLAGS: "));
+		// uint32_t x = _flags;
+		// report_hex(x, 4);
+		// report_nl();
+		// _delay_ms(200);
+
 		// Wait until the clock-synchronous state machine is done.
-		if ((get_flags() & CFL_NWAIT) == 0) break;
+		if ((get_flags() & CFL_NWAIT) != 0) break;
 	}
 
 #warning "Crash here if not halted"
@@ -1164,24 +1196,48 @@ clk_creep()
 inline void
 perform_step()
 {
-	strobecmd(CMD_STEPRUN);
+	// Stop the clock, just in case
+	clk_stop();
+	
+	// De-assert the HALT# signal, letting the processor control the bus.
+	set_halt(0);
 
-	// The clock-synchronous stepping machine relies on, well, a clock. So
-	// enable the processor's.
+	// Start the step state machine. This will start the clock, wait until
+	// the next fetch cycle completes, then stop it again. The clock isn't
+	// running yet, so the STEP/RUN# pulse width is immaterial.
+	outcmd(CMD_STEPRUN, 0);	// Note: inverted!
+	outcmd(CMD_STEPRUN, 1);
+	outcmd(CMD_STEPRUN, 0);
+
+	// *NOW* start the clock. Use whatever speed has been set up.
 	clk_start();
+	//bit(PORTB, B_FPCLKEN, 1);
+
+	// When the state machine has completed, WAIT# will be deasserted. Wait
+	// for this event. (often, we don't even have to)
 	wait_for_halt();
+	clk_stop();
+	//bit(PORTB, B_FPCLKEN, 0);
+
+	// Assert HALT#, securing the processor.
+	set_halt(1);
 
 	// The clock will have been stopped automatically by the FSM, but stop
-	// it anyway.
+	// it anyway for added safety.
 	clk_stop();
+}
+
+
+void
+set_stopping()
+{
+	outcmd(CMD_STEPRUN, 0);	// Note: inverted!
 }
 
 
 void
 set_steprun(bool_t val)
 {
-	#warning "TODO"
-
 	// Algorithm:
 	// To RUN:
 	//   Assert STEP/RUN#.
@@ -1200,7 +1256,7 @@ set_steprun(bool_t val)
 	//   Wait for WAIT# signal to be deasserted.
 	//   Stop clock.
 
-	outcmd(CMD_STEPRUN, val);
+	outcmd(CMD_STEPRUN, !val); // Note: inverted!
 	clk_start();
 	if (val == 1) wait_for_halt();
 }
@@ -1209,15 +1265,32 @@ set_steprun(bool_t val)
 void
 perform_ustep()
 {
-	strobecmd(CMD_USTEP);
+	// Stop the clock, just in case
+	clk_stop();
+	
+	// De-assert the HALT# signal, letting the processor control the bus.
+	set_halt(0);
 
-	// The clock-synchronous stepping machine relies on, well, a clock. So
-	// enable the processor's.
-	clk_start();
+	// Start the step state machine. This will start the clock, wait until
+	// the next fetch cycle completes, then stop it again. The clock isn't
+	// running yet, so the STEP/RUN# pulse width is immaterial.
+	outcmd(CMD_USTEP, 0);
+	outcmd(CMD_USTEP, 1);
+	outcmd(CMD_USTEP, 0);
+
+	// *NOW* start the clock.
+	bit(PORTB, B_FPCLKEN, 1);
+
+	// When the state machine has completed, WAIT# will be deasserted. Wait
+	// for this event. (often, we don't even have to)
 	wait_for_halt();
+	bit(PORTB, B_FPCLKEN, 0);
+
+	// Assert HALT#, securing the processor.
+	set_halt(1);
 
 	// The clock will have been stopped automatically by the FSM, but stop
-	// it anyway.
+	// it anyway for added safety.
 	clk_stop();
 }
 
@@ -1425,11 +1498,11 @@ strobe_incpc()
 void
 set_halt(bool_t val)
 {
-	do_cb(2, NHALT, !val);
-	write_cb();
-
 	// Also update the FPRAM signal
 	if (val) panel_rom(_swright & SWR_ROM ? 1 : 0);
+
+	do_cb(2, NHALT, !val);
+	write_cb();
 }
 
 

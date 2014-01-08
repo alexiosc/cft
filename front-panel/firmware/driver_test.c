@@ -615,6 +615,12 @@ clk_creep()
 
 
 void
+set_stopping()
+{
+}
+
+
+void
 set_steprun(bool_t x)
 {
 	//printf("*** STEPRUN: %d\n", x);

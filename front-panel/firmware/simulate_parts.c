@@ -39,6 +39,8 @@ new_sim165(int bits, char *name)
 	ctx->d[2] = 0xffff;
 	ctx->d[3] = 0xffff;
 	ctx->d[4] = 0xffff;
+
+	ctx->debug = 0;
 	return ctx;
 }
 
@@ -48,19 +50,27 @@ sim_165(sim165_t * ctx, int nclken, int clk, int nsample, uint16_t * data_in)
 {
 	assert (ctx != NULL);
 	assert (data_in != NULL);
-	//static int n = 0;
+	static int n = 0;
 
-	//debug("*** 165(%s) size=%d, en=%d, clk=%d, sample=%d\n", ctx->name, ctx->size, nclken, clk, nsample);
+	// if (ctx->debug) debug("*** 165(%s) size=%d, en=%d, clk=%d, sample=%d\n",
+	// 		      ctx->name, ctx->size, nclken, clk, nsample);
 
 	if (nsample == 0) {
-		//sleep(1);
-		//n = 0;
-		//debug("*** 165(%s) sampled!\n", ctx->name);
+		if (ctx->debug) {
+			debug("*** 165(%s) sampled!\n", ctx->name);
+			for (n = 0; n < ctx->size; n++) {
+				debug("*** 165(%s): data[%d] = %04x\n", ctx->name, n, data_in[n]);
+			}
+			n = 0;
+		}
 		for (int i = 0; i < ctx->size; i++) ctx->d[i] = data_in[i];
 	}
 
 	if (nclken == 0 && ctx->clk == 0 && clk != 0) {
-		//debug("*** 165(%s) shift out! n = %2d, bit = %d\n", ctx->name, ++n, ctx->d[ctx->size - 1] & 0x8000 ? 1 : 0);
+		if (ctx->debug) {
+			debug("*** 165(%s) shift out! n = %2d, bit = %d\n",
+			      ctx->name, n++, ctx->d[ctx->size - 1] & 0x8000 ? 1 : 0);
+		}
 		int i;
 		for (i = ctx->size - 1; i > 0; i--) {
 			ctx->d[i] = ((ctx->d[i-1] & 0x8000 ? 1 : 0) |

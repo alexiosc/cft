@@ -52,9 +52,9 @@ char *     progname;
 uart_pty_t uart_pty;
 avr_t *    avr = NULL;
 avr_vcd_t  vcd_file;
-
-float pixsize = 64;
-int window;
+float      pixsize = 64;
+int        window;
+uint32_t   flags = SFL_PROC;
 
 
 #define UP(n) (switches[n].st == 1)
@@ -87,6 +87,7 @@ init_board()
 {
 	ireg_deb = new_sim165(80, "deb");
 	ireg_vp = new_sim165(80, "vp");
+	//ireg_vp->debug = 1;
 
 	latch0 = new_sim259("latch0");
 	latch1 = new_sim259("latch1");
@@ -111,6 +112,12 @@ init_board()
 	state.r_sample.shift = 2;
 	state.r_deben.shift = 2;
 	state.r_vpen.shift = 2;
+
+	// State
+	state.stepping = 0;
+	state.ustepping = 0;
+	state.resetting = 0;
+	state.wait = 1;
 }
 
 
@@ -129,16 +136,16 @@ sim_vps_reg(int nclken, int clk, int nsample)
 		q[0] = state.ac;
 		q[1] = state.pc;
 		q[2] = state.ir;
-		q[3] = state.uaddr & 0xffff;
-		q[4] = ((state.uaddr >> 16) & 0xff) | 0x60; // bits 5 & 6 always high
+		q[3] = state.uvec & 0xffff;
+		q[4] = ((state.uvec >> 16) & 0xff) | 0x60; // bits 5 & 6 always high
 		if (state.fn) q[4] |= 0x100;
 		if (state.fz) q[4] |= 0x200;
 		if (state.fv) q[4] |= 0x400;
 		if (state.firq) q[4] |= 0x800;
 		if (state.fz) q[4] |= 0x1000;
-		if (state.wait == 0) q[4] |= 0x2000; // WAIT# (active low)
-		if ((state.uaddr & 0x400) == 0) q[4] |= 0x4000; // WEN# (active low)
-		if (state.uaddr & 0x200) q[4] |= 0x8000;      // R (active high)
+		if (state.wait) q[4] |= 0x2000; // WAIT#
+		if (state.uvec & 0x400) q[4] |= 0x4000; // WEN#
+		if (state.uvec & 0x200) q[4] |= 0x8000;      // R
 
 		clk0 = clk;
 		return q[4] & 0x8000 ? 1 : 0;
@@ -210,13 +217,16 @@ sim_deb_reg(int nclken, int clk, int nsample)
 		if (DN(26))         q[2] |= 0x0020; // SWINC# (active low)
 		if (OP(27))         q[2] |= 0x0100; // SWIOR# (active low)
 		if (DN(27))         q[2] |= 0x0020; // SWINC# (active low)
-		if (DN(28))         q[2] |= 0x0200; // SWRAM# (active low)
+		if (UP(28))         q[2] |= 0x0200; // SWRAM# (active low)
 		if (UP(29))         q[2] |= 0x0400; // SWIRF6# (active low)
 		else if (DN(29))    q[2] |= 0x0800; // SWIFR1# (active low)
-		
+
 		// Get the upper 4 bits of the DIP switches.
 		// Switches 31-34 -> q[2]bits 15-12.
 		for(i = 0; i < 4; i++) if (UP(31 + i)) q[2] |= (1 << (15 - i));
+
+		// The special switches
+		if (OP(59))
 
 		// These are on board 2.
 		q[1] = state.dbus;
@@ -334,10 +344,18 @@ do_rotor(rotor_t * r, int v)
 #define PD 2
 #define BOOL(n) ((n) != 0)
 
-#define if_not_z(var, val)			\
-	{					\
-		int64_t x = val;		\
-		if (x >= 0) var = x;		\
+#define if_not_z(var, val)				\
+	{						\
+		int64_t x = val;			\
+		var = x >= 0? x : 0xffff;		\
+	}
+
+#define bushold(var, val)				\
+	{						\
+		int64_t x = val;			\
+		if (flags & SFL_PROC) {			\
+			if (x >= 0) var = x;		\
+		} else var = x >= 0? x : -1;		\
 	}
 
 static inline void
@@ -368,8 +386,8 @@ act_on_changes()
 	state.nvpen =    !BOOL(out0 & 0x02);
 	state.ndeben =   !BOOL(out0 & 0x04);
 	state.nclr =     !BOOL(out0 & 0x10);
-	state.steprun =   BOOL(out0 & 0x20);
-	state.nustep =    BOOL(out0 & 0x40);
+	state.steprun =  !BOOL(out0 & 0x20);
+	state.nustep =   !BOOL(out0 & 0x40);
 	state.orclk =     BOOL(out0 & 0x80);
 
 	state.dbclk =     BOOL(out1 & 0x01);
@@ -380,36 +398,37 @@ act_on_changes()
 	state.buspu =    !BOOL(out1 & 0x80);
 
 	// Output shift registers
-	if_not_z(state.dbus, sim_595(oreg_dbus, state.nclr, state.stcp, state.dbclk, state.ndboe, dout));
-	if_not_z(state.abus, sim_595(oreg_abus, state.nclr, state.stcp, state.abclk, state.naboe, dout));
-	if_not_z(state.ibus, sim_595(oreg_ibus, state.nclr, state.stcp, state.ibusclk, state.nibusoe, dout));
+	bushold(state.dbus, sim_595(oreg_dbus, state.nclr, state.stcp, state.dbclk, state.ndboe, dout));
+	bushold(state.abus, sim_595(oreg_abus, state.nclr, state.stcp, state.abclk, state.naboe, dout));
+	bushold(state.ibus, sim_595(oreg_ibus, state.nclr, state.stcp, state.ibusclk, state.nibusoe, dout));
 	if_not_z(state.or, sim_595(oreg_or, state.nclr, state.stcp, state.orclk, 0, dout));
 	if_not_z(state.ctl, sim_595(oreg_ctl, state.nclr, state.stcp, state.ctlclk, state.nctloe, dout));
 
 	// Read output data from the shift registers
-	state.nirq1 =  state.ctl & 0x000001;
-	state.nirq6 =  state.ctl & 0x000002;
-	state.nincpc = state.ctl & 0x000004;
-	state.nwac =   state.ctl & 0x000008;
-	state.nrpc =   state.ctl & 0x000010;
-	state.nwar =   state.ctl & 0x000020;
-	state.nwir =   state.ctl & 0x000040;
-	state.nwpc =   state.ctl & 0x000080;
+#define ctl_sig(x) state.nctloe == 0 ? x : -1
+	state.nirq1 =  ctl_sig(state.ctl & 0x000001);
+	state.nirq6 =  ctl_sig(state.ctl & 0x000002);
+	state.nincpc = ctl_sig(state.ctl & 0x000004);
+	state.nwac =   ctl_sig(state.ctl & 0x000008);
+	state.nrpc =   ctl_sig(state.ctl & 0x000010);
+	state.nwar =   ctl_sig(state.ctl & 0x000020);
+	state.nwir =   ctl_sig(state.ctl & 0x000040);
+	state.nwpc =   ctl_sig(state.ctl & 0x000080);
 
-	state.nsafe =    state.ctl & 0x000100;
-	state.nreset =   state.ctl & 0x000200;
-	state.nrsthold = state.ctl & 0x000400;
-	state.nwen =     state.ctl & 0x002000;
-	state.nfpram =   state.ctl & 0x004000;
-	state.nfpreset = state.ctl & 0x008000;
+	state.nsafe =    ctl_sig(state.ctl & 0x000100);
+	state.nreset =   ctl_sig(state.ctl & 0x000200);
+	state.nrsthold = ctl_sig(state.ctl & 0x000400);
+	state.nwen =     ctl_sig(state.ctl & 0x002000);
+	state.nfpram =   ctl_sig(state.ctl & 0x004000);
+	state.nfpreset = ctl_sig(state.ctl & 0x008000);
 
-	state.nw =       state.ctl & 0x010000;
-	state.nr =       state.ctl & 0x020000;
-	state.nmem =     state.ctl & 0x040000;
-	state.nio =      state.ctl & 0x080000;
-	state.nhalt =    state.ctl & 0x100000;
-	state.fprun =    state.ctl & 0x200000;
-	state.fpstop =   state.ctl & 0x400000;
+	state.nw =       ctl_sig(state.ctl & 0x010000);
+	state.nr =       ctl_sig(state.ctl & 0x020000);
+	state.nmem =     ctl_sig(state.ctl & 0x040000);
+	state.nio =      ctl_sig(state.ctl & 0x080000);
+	state.nhalt =    ctl_sig(state.ctl & 0x100000);
+	state.fprun =    ctl_sig(state.ctl & 0x200000);
+	state.fpstop =   ctl_sig(state.ctl & 0x400000);
 
 
 	// Encode data for the input shift registers.
@@ -449,7 +468,7 @@ act_on_changes()
 	if (DN(26))         q[2] &= ~0x0020; // SWINC# (active low)
 	if (OP(27))         q[2] &= ~0x0100; // SWIOR# (active low)
 	if (DN(27))         q[2] &= ~0x0020; // SWINC# (active low)
-	if (DN(28))         q[2] &= ~0x0200; // SWRAM# (active low)
+	if (UP(28))         q[2] &= ~0x0200; // SWRAM# (active low)
 	if (UP(29))         q[2] &= ~0x0400; // SWIRF6# (active low)
 	else if (DN(29))    q[2] &= ~0x0800; // SWIFR1# (active low)
 		
@@ -457,19 +476,19 @@ act_on_changes()
 	// Switches 31-34 -> q[2]bits 15-12.
 	for(i = 0; i < 4; i++) if (DN(31 + i)) q[2] &= ~(1 << (15 - i));
 
+	// Special (cyan) switches
+	if (UP(62)) {
+		// Reset the DFP MCU.
+		avr_reset(avr);
+	}
+
 	// These are on board 2.
 	q[3] = state.dbus;
 	q[4] = state.abus;
 
-	/* q[0] = 0x1111; */
-	/* q[1] = 0x2222; */
-	/* q[2] = 0x3333; */
-	/* q[3] = 0x4444; */
-	/* q[4] = 0x5555; */
-
-	int d = sim_165(ireg_deb, state.ndeben, iclk, state.nsample, q);
 
 	// Update the value of the PC0 (DIN) pin.
+	int d = sim_165(ireg_deb, state.ndeben, iclk, state.nsample, q);
 	avr_raise_irq(avr_io_getirq(avr, AVR_IOCTL_IOPORT_GETIRQ('C'), 0), d);
 
 
@@ -479,22 +498,21 @@ act_on_changes()
 	q[0] = state.ac;
 	q[1] = state.pc;
 	q[2] = state.ir;
-	q[3] = state.uaddr & 0xffff;
-	q[4] = ((state.uaddr >> 16) & 0xff) | 0x60; // bits 5 & 6 always high
+	q[3] = state.uvec & 0xffff;
+	q[4] = ((state.uvec >> 16) & 0xff) | 0x60; // bits 5 & 6 always high
 	if (state.fn) q[4] |= 0x100;
 	if (state.fz) q[4] |= 0x200;
 	if (state.fv) q[4] |= 0x400;
 	if (state.firq) q[4] |= 0x800;
 	if (state.fz) q[4] |= 0x1000;
-	if (state.wait == 0) q[4] |= 0x2000; // WAIT# (active low)
-	if ((state.uaddr & 0x400) == 0) q[4] |= 0x4000; // WEN# (active low)
-	if (state.uaddr & 0x200) q[4] |= 0x8000; // R (active high)
+	if (state.wait) q[4] |= 0x2000; // WAIT#
+	if (state.uvec & 0x400) q[4] |= 0x4000; // WEN#
+	if (state.uvec & 0x200) q[4] |= 0x8000; // R#
 	
 	d = sim_165(ireg_vp, state.nvpen, iclk, state.nsample, q);
 
 	// Update the value of the PC1 (VPIN) pin.
-	//avr_raise_irq(avr_io_getirq(avr, AVR_IOCTL_IOPORT_GETIRQ('C'), 1), d);
-
+	avr_raise_irq(avr_io_getirq(avr, AVR_IOCTL_IOPORT_GETIRQ('C'), 1), d);
 
 	// Rotors
 	do_rotor(&state.r_clk, pin_state[0] & 2);
@@ -507,10 +525,130 @@ act_on_changes()
 }
 
 
-static void * avr_run_thread(void * param)
+static inline int
+proc_random_run()
+{
+	static int cpu_state = 0;
+
+	cpu_state = (cpu_state + 1) & 3;
+
+	state.uvec = 0x7ff800 | (rand() % 0xffffff);
+
+	if (cpu_state == 0) state.pc++;
+	else if (cpu_state == 1) state.ir = rand() % 0xffff;
+	else if (cpu_state == 2 && (rand() & 3) == 1) state.ac = rand() % 0xffff;
+
+	return cpu_state;
+}
+
+
+static void
+proc_tick()
+{
+	static int old_ustep = 0;
+	static int rsthold_ctr = 0;
+	static uint64_t tick = 0;
+
+	// No processor? Bail out
+	if ((flags & SFL_PROC) == 0) return;
+
+	tick++;
+
+	// Simulate effect of the CLR# signal on the FSM.
+	if (state.nclr == 0) {
+		state.ustepping = 0;
+		state.stepping = 0;
+		state.resetting = 0;
+		state.wait = 1;
+		return;
+	}
+	
+
+	// Simulate stopped and slow clocks, and the run/stop state machine
+	if (state.ustepping == 0 && state.nustep == 0) debug("ustep, fpclken=%d\n", state.fpclken);
+	if (state.stepping == 0 && state.steprun == 0) debug("step, fpclken=%d\n", state.fpclken);
+
+	//state.ustepping = 0;
+	//if (state.fpclken && state.stepping > 0) state.stepping--;
+
+	if (state.steprun == 0) state.stepping = 4;
+	if (state.nustep == 0) state.ustepping = 1;
+
+	state.wait = state.stepping || state.ustepping || state.resetting ? 0 : 1;
+
+	// Simulate reset
+	if (state.nreset == 0 || state.nfpreset == 0) {
+		if ((tick % 100) == 0) debug("Reset\n");
+		rsthold_ctr = 0;
+		state.resetting = 1;
+		return;
+	}
+
+	// FSM Truth table:
+
+	// resetting  ustepping  stepping  clken  ustep-in  notes
+	// ---------------------------------------------------------------------------------
+	//     0          0          0       0        0       Clock stopped
+	//     1          X          X       Z        Z       PB1 pull ups select full speed
+	//     0          X          1       ?        ?       Clock enabled (DFP has control)
+	//     0          1          X       ?        ?       Clock enabled (DFP has control)
+
+	// The clock is stopped: no tick.
+	if (state.stepping == 0 && state.ustepping == 0 &&
+	    state.resetting == 0) return;
+
+	// The DFP has control of the clock, a slow clock is selected,
+	// and there's no edge yet: no tick.
+	if (state.resetting == 0 && state.fpclken == 0 &&
+	    old_ustep == state.fpustep) return;
+	old_ustep = state.fpustep;
+
+	//if (state.steprun && state.stepping) debug("step 2A, stepping=%d\n", state.stepping);
+	//if (state.resetting == 0 && state.ustepping) debug("ustep 2A, fpclken=%d\n", state.fpclken);
+
+	// Th DFP has control of the clock, a slow clock is seleced,
+	// and it's a falling edge: no tick.
+	if (state.resetting == 0 && state.fpclken == 0
+	    && state.fpustep == 0) return;
+
+	//if (state.steprun && state.stepping) debug("step 3A, stepping=%d\n", state.stepping);
+	//if (state.resetting == 0 && state.ustepping) debug("ustep 3A\n");
+
+	// Simulate reset hold
+	if (rsthold_ctr < 255) {
+		rsthold_ctr++;
+		state.pc = 0xfff8;
+		state.ir = 0xfff8;
+		state.ac = 0xfff8;
+		debug("Reset Hold %d\n", rsthold_ctr);
+		state.uvec = 0x7ff800;
+		return;
+	} else if (rsthold_ctr == 255) {
+		rsthold_ctr++;
+		state.nrsthold = 1;
+		state.resetting = 0;	// Disable the reset state machine
+		state.uvec = 0x7ff800;
+		debug("End of reset Hold\n");
+	}
+
+	// Simulate halting
+	if (state.nhalt == 0) return;
+
+	// Simulate the CPU running.
+	proc_random_run();
+	
+	state.ustepping = 0;
+	if (state.stepping > 0) state.stepping--;
+}
+
+
+
+static void *
+avr_run_thread(void * param)
 {
 	sleep(1);
 	printf("\nStarting simulation.\n");
+	int avr_tick = 0;
 	while (1) {
 		int avr_state = avr_run(avr);
 		if (avr_state == cpu_Done || avr_state == cpu_Crashed) break;
@@ -520,8 +658,15 @@ static void * avr_run_thread(void * param)
 			act_on_changes();
 		}
 		
+		// Should we run the CFT processor? Normally, it runs once
+		// every 3.5 AVR clocks. (4.213 MHz, but close enough). We
+		// diffuse the error from integer division by clocking the
+		// processor {0,0,0,1,0,0,1} pattern per AVR clock modulo 7.
+
+		avr_tick = (avr_tick + 1) % 7;
+		if (avr_tick == 3 || avr_tick == 6) proc_tick();
+
 		pthread_mutex_unlock(&changes_mutex);
-		
 	}
 	return NULL;
 }
@@ -590,12 +735,7 @@ handle_winch(int sig)
 #define fg(n) attrset(COLOR_PAIR(n))
 #define bfg(n) attrset(A_BOLD | COLOR_PAIR(n))
 
-#define SFL_PROC        1
-#define SFL_FBUSDRV 2
-#define SFL_FRESET  4
-#define SFL_FCLOCK  8
 
-uint32_t flags   = 0;
 int      tab     = 0;
 int      mpos    = 0;
 int      mposmax = 0;
@@ -611,8 +751,8 @@ int      sposmax = 0;
 // 12 DIP switches
 
 menu_t options[] = {
-	{"Processor present (resets MCU on change)", SFL_PROC},
-	{"Bus faults (bus chatter)", SFL_FBUSDRV},
+	{"Processor present (bus hold and bus chatter)", SFL_PROC},
+	{"Bus faults (extraneous bus chatter)", SFL_FBUSDRV},
 	{"Reset faults (FP inputs ignored)", SFL_FRESET},
 	{"Clock generator faults (FP inputs ignored)", SFL_FCLOCK},
 	{NULL, 0}
@@ -623,7 +763,7 @@ switch_t switches[] = {
 	{6, 2, 1, 0, SW_MOM,  "Run / Stop"},	// 1
 	{9, 2, 1, 0, SW_MOM,  "Microstep / Step"}, // 2
 
-	{15, 2, 3, 0, SW_3ST, "Fast / Slow / Creep"}, // 3
+	{15, 2, 3, 1, SW_3ST, "Fast / Slow / Creep"}, // 3
 	{18, 2, 3, 0, SW_2ST, "Lights on / off (ignored)"}, // 4
 	{21, 2, 3, 0, SW_3ST, "MDF: Output Register / Data Register / micro-Address"}, // 5
 	
@@ -650,7 +790,7 @@ switch_t switches[] = {
 	{87, 2, 3, 0, SW_MOM, "Memory Read / Memory Read Next"},   // 25
 	{90, 2, 1, 0, SW_MOM, "I/O Write / I/O Write Next"},	   // 26
 	{93, 2, 1, 0, SW_MOM, "I/O Read / I/O Read Next"},	   // 27
-	{96, 2, 3, 0, SW_2ST, "RAM / ROM"},			   // 28
+	{96, 2, 3, 1, SW_2ST, "RAM / ROM"},			   // 28
 	{99, 2, 3, 0, SW_MOM, "IFR1 / IFR6"},			   // 29
 
 	{3, 7, 7,  0, SW_2ST, "Panel Lock on / off"},              // 30
@@ -675,18 +815,20 @@ switch_t switches[] = {
 	{3 + 4 * 3, 12, 7,  0, SW_2MOM, "Emulate PRINTC instruction."},   // 47
 	{3 + 5 * 3, 12, 7,  0, SW_2MOM, "Emulate PRINTD instruction."},   // 48
 	{3 + 6 * 3, 12, 7,  0, SW_2MOM, "Emulate PRINTU instruction."},   // 49
-	{3 + 7 * 3, 12, 7,  0, SW_2MOM, "Emulate PRINTH instruction."},   // 46
-	{3 + 8 * 3, 12, 7,  0, SW_2MOM, "Emulate PRINTB instruction."},   // 47
-	{3 + 9 * 3, 12, 7,  0, SW_2MOM, "Emulate PRINTSP instruction."},  // 48
-	{3 + 10 * 3, 12, 7,  0, SW_2MOM, "Emulate PRINTNL instruction."},  // 49
-	{3 + 11 * 3, 12, 7,  0, SW_2MOM, "Emulate DEBUGON instruction."},  // 50
-	{3 + 12 * 3, 12, 7,  0, SW_2MOM, "Emulate DEBUGOFF instruction."}, // 51
-	{3 + 13 * 3, 12, 7,  0, SW_2MOM, "Emulate DUMP instruction."},     // 52
-	{3 + 14 * 3, 12, 7,  0, SW_2MOM, "Emulate PRINTHI instruction."},  // 53
-	{3 + 15 * 3, 12, 7,  0, SW_2MOM, "Emulate PRINTLO instruction."},  // 54
-	{3 + 16 * 3, 12, 7,  0, SW_2MOM, "Emulate HALT instruction."},     // 55
-	{3 + 17 * 3, 12, 7,  0, SW_2MOM, "Emulate SUCCESS instruction."},  // 56
-	{3 + 18 * 3, 12, 7,  0, SW_2MOM, "Emulate FAIL instruction."},     // 57
+	{3 + 7 * 3, 12, 7,  0, SW_2MOM, "Emulate PRINTH instruction."},   // 50
+	{3 + 8 * 3, 12, 7,  0, SW_2MOM, "Emulate PRINTB instruction."},   // 51
+	{3 + 9 * 3, 12, 7,  0, SW_2MOM, "Emulate PRINTSP instruction."},  // 52
+	{3 + 10 * 3, 12, 7,  0, SW_2MOM, "Emulate PRINTNL instruction."},  // 53
+	{3 + 11 * 3, 12, 7,  0, SW_2MOM, "Emulate DEBUGON instruction."},  // 54
+	{3 + 12 * 3, 12, 7,  0, SW_2MOM, "Emulate DEBUGOFF instruction."}, // 55
+	{3 + 13 * 3, 12, 7,  0, SW_2MOM, "Emulate DUMP instruction."},     // 56
+	{3 + 14 * 3, 12, 7,  0, SW_2MOM, "Emulate PRINTHI instruction."},  // 57
+	{3 + 15 * 3, 12, 7,  0, SW_2MOM, "Emulate PRINTLO instruction."},  // 58
+	{3 + 16 * 3, 12, 7,  0, SW_2MOM, "Emulate HALT instruction."},     // 59
+	{3 + 17 * 3, 12, 7,  0, SW_2MOM, "Emulate SUCCESS instruction."},  // 60
+	{3 + 18 * 3, 12, 7,  0, SW_2MOM, "Emulate FAIL instruction."},     // 61
+
+	{3 + 20 * 3, 12, 7,  0, SW_2MOM, "Reset DFP board."},              // 62
 	
 	{0, 0, 0, 0, 0, NULL}
 };
@@ -805,6 +947,20 @@ show_hex(char *s, uint32_t val, int pad)
 
 
 static void
+show_bus(char *s, int64_t val)
+{
+	fg(7); printw(s);
+	if (val < 0) {
+		fg(3);
+		printw("   Z");
+	} else {
+		fg(2);
+		printw("%04x", val & 0xffff);
+	}
+}
+
+
+static void
 show_rotor(char *s, rotor_t * r)
 {
 	static char *rotor_chars = "-\\|/";
@@ -826,6 +982,25 @@ show_bool(char *s, int val)
 		printw("-");
 	}
 }
+
+
+static void
+show_ctl(char *s, int val)
+{
+	fg(7); printw(s);
+	if (state.nctloe != 0) {
+		fg(3);
+		printw("Z");
+	} else if (val) {
+		fg(3);
+		attron(A_BOLD);
+		printw("A");
+	} else {
+		fg(7);
+		printw("-");
+	}
+}
+
 
 
 void
@@ -937,10 +1112,12 @@ draw()
 
 	draw_tabline(1);
 	fg(6); for(sw = sw0, i = 0; i < 19; i++) draw_switch(sw++, 0);
+	printw("   "); draw_switch(sw++, 0);
 	draw_tabline(1);
 	fg(6); for(sw = sw0, i = 0; i < 19; i++) draw_switch(sw++, 1);
+	printw("   "); draw_switch(sw++, 1);
 	draw_tabline(1);
-	fg(6); printw("SOR   SNT A  C  D  U  H  B SP NL ON OFF   HI LO HLT   FAIL");
+	fg(6); printw("SOR   SNT A  C  D  U  H  B SP NL ON OFF   HI LO HLT   FAIL  RST");
 	draw_tabline(1);
 	fg(6); printw("   ICR    PRINTxx              DEBUG   DMP PRT     OK");
 	
@@ -962,39 +1139,44 @@ draw()
 
 	draw_tabtop(2);
 	draw_tabline(2);
+	show_bus("IBUS:  ", state.ibus);
+	show_bus("  ABUS:  ", state.abus);
+	show_bus("  DBUS:  ", state.dbus);
+
+	draw_tabline(2);
 	show_hex("AC:    ", state.ac, 4);
 	show_hex("  PC:    ", state.pc, 4);
 	show_hex("  IR:    ", state.ir, 4);
-	show_hex("  uA: ", state.uaddr, 6);
+	show_hex("  uC: ", state.uvec, 6);
 	fg(1); printw("  fl: "); fg(2); printw("-----");
 	show_hex("  OR:   ", state.or, 4);
 
 	draw_tabline(2);
-	show_bool("IRQ1:     ", !state.nirq1);
-	show_bool("  IRQ6:     ", !state.nirq6);
-	show_bool("  INCPC:    ", !state.nincpc);
-	show_bool("  WAC:     ", !state.nwac);
-	show_bool("  RPC:    ", !state.nrpc);
-	show_bool("  WAR:     ", !state.nwar);
-	show_bool("  WIR:    ", !state.nwir);
-	show_bool("   WPC:     ", !state.nwpc);
+	show_ctl("IRQ1:     ", !state.nirq1);
+	show_ctl("  IRQ6:     ", !state.nirq6);
+	show_ctl("  INCPC:    ", !state.nincpc);
+	show_ctl("  WAC:     ", !state.nwac);
+	show_ctl("  RPC:    ", !state.nrpc);
+	show_ctl("  WAR:     ", !state.nwar);
+	show_ctl("  WIR:    ", !state.nwir);
+	show_ctl("   WPC:     ", !state.nwpc);
 
 	draw_tabline(2);
-	show_bool("SAFE:     ", !state.nsafe);
-	show_bool("  RESET:    ", !state.nreset);
-	show_bool("  RSTHOLD:  ", !state.nrsthold);
-	show_bool("  WEN:     ", !state.nwen);
-	show_bool("  FPRAM:  ", !state.nfpram);
-	show_bool("  FPRESET: ", !state.nfpreset);
+	show_ctl("SAFE:     ", !state.nsafe);
+	show_ctl("  RESET:    ", !state.nreset);
+	show_ctl("  RSTHOLD:  ", !state.nrsthold);
+	show_ctl("  WEN:     ", !state.nwen);
+	show_ctl("  FPRAM:  ", !state.nfpram);
+	show_ctl("  FPRESET: ", !state.nfpreset);
 
 	draw_tabline(2);
-	show_bool("W:        ", !state.nw);
-	show_bool("  R:        ", !state.nr);
-	show_bool("  MEM:      ", !state.nmem);
-	show_bool("  IO:      ", !state.nio);
-	show_bool("  HALT:   ", !state.nhalt);
-	show_bool("  FPRUN:   ", state.fprun);
-	show_bool("  FPSTOP: ", state.fpstop);
+	show_ctl("W:        ", !state.nw);
+	show_ctl("  R:        ", !state.nr);
+	show_ctl("  MEM:      ", !state.nmem);
+	show_ctl("  IO:      ", !state.nio);
+	show_ctl("  HALT:   ", !state.nhalt);
+	show_ctl("  FPRUN:   ", state.fprun);
+	show_ctl("  FPSTOP: ", state.fpstop);
 	show_bool("   FPCLKEN: ", state.fpclken);
 
 	draw_tabline(2);
@@ -1002,6 +1184,7 @@ draw()
 	show_bool("  DBLOE:    ", !state.ndboe);
 	show_bool("  IBUSOE:   ", !state.nibusoe);
 	show_bool("  CTLOE:   ", !state.nctloe);
+	show_bool("  BUSPU:  ", state.buspu);
 
 	draw_tabline(2);
 	show_rotor("FP Clk:   ", &state.r_clk);
@@ -1009,13 +1192,18 @@ draw()
 	show_rotor("  SAMPLE:   ", &state.r_sample);
 	show_rotor("  DEBEN:   ", &state.r_deben);
 	show_rotor("  VPEN:   ", &state.r_vpen);
+	show_bool("  STP/RUN: ", !state.steprun);
+	show_bool("  USTEP:  ", !state.nustep);
 	//debug("*** %d\n", state.r_orclk.c);
 
 	draw_tabline(2);
 	fg(7); printw("B: "); fg(2); printb(pin_state[0], 8);
 	fg(7); printw("  C: ");  fg(2); printb(pin_state[1], 8);
 	fg(7); printw("  D: ");  fg(2); printb(pin_state[2], 8); 
-	//fg(7); printw("  nnn:"); fg(2); printw("%d", nnn % 1000000);
+	show_bool("  stepn:   ", state.stepping);
+	show_bool("  ustepn: ", state.ustepping);
+	show_bool("  resetn:  ", state.resetting);
+	show_bool("  wait:   ", !state.wait);
 	
 	draw_tabbottom(2);
 
@@ -1192,14 +1380,16 @@ int main(int argc, char *argv[])
 				}
 				break;
 			case KEY_UP:
-				avr_raise_irq(avr_io_getirq(avr, AVR_IOCTL_IOPORT_GETIRQ('C'), 0), 1);
+				// TODO: debugging leftovers?
+				//avr_raise_irq(avr_io_getirq(avr, AVR_IOCTL_IOPORT_GETIRQ('C'), 0), 1);
 				switches[spos].st++;
 				if (switches[spos].type == SW_2ST && switches[spos].st == 0) 
 					switches[spos].st = 1;
 				if (switches[spos].st > 1) switches[spos].st = 1;
 				break;
 			case KEY_DOWN:
-				avr_raise_irq(avr_io_getirq(avr, AVR_IOCTL_IOPORT_GETIRQ('C'), 0), 0);
+				// TODO: debugging leftovers?
+				//avr_raise_irq(avr_io_getirq(avr, AVR_IOCTL_IOPORT_GETIRQ('C'), 0), 0);
 				switches[spos].st--;
 				if (switches[spos].type == SW_2ST && switches[spos].st == 0) 
 					switches[spos].st = -1;

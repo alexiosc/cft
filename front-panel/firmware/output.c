@@ -229,22 +229,23 @@ report_uint(uint16_t val)
 	// case scenario is printing 59999 (41 subtraction loops).
 
 	char c;
+	uint8_t started = 0;
 
 	// 10,000s
 	for (c = '0'; val >= 10000; val -= 10000, c++);
-	if (c > '0') serial_write(c);
+	if (started || (c > '0')) started = 1, serial_write(c);
 	
 	// 1,000s
 	for (c = '0'; val >= 1000; val -= 1000, c++);
-	if (c > '0') serial_write(c);
+	if (started || (c > '0')) started = 1, serial_write(c);
 	
 	// 100s
 	for (c = '0'; val >= 100; val -= 100, c++);
-	if (c > '0') serial_write(c);
+	if (started || (c > '0')) started = 1, serial_write(c);
 	
 	// 10s
 	for (c = '0'; val >= 10; val -= 10, c++);
-	if (c > '0') serial_write(c);
+	if (started || (c > '0')) started = 1, serial_write(c);
 
 	// 1s
 	serial_write('0' + val);
@@ -291,7 +292,6 @@ report_bin_pad(uint16_t val, uint8_t bits)
 }
 
 
-static
 void _report(const char *result, const char *msg)
 {
 	if (flags & FL_CONS) return;
@@ -300,39 +300,6 @@ void _report(const char *result, const char *msg)
 	if (result != NULL) report_pstr((char *)result);
 	if (msg != NULL) report_pstr((char *)msg);
 	report_nl();
-}
-
-
-// Send an OK report to the serial port.
-void
-report_ok(char *msg) {
-
-	if (flags & FL_CONS) return;
-
-#ifdef HOST
-	printf("\033[0;1;32m");
-#endif // HOST
-
-	_report_pstr(PSTR("OK\n\r"), msg);
-
-#ifdef HOST
-	printf("\033[0m");
-#endif // HOST
-}
-
-
-// Send an error report to the serial port.
-void
-report_error(char *msg) {
-#ifdef HOST
-	printf("\033[0;1;31m");
-#endif // HOST
-
-	_report_pstr(PSTR(" ERROR "), msg);
-
-#ifdef HOST
-	printf("\033[0m");
-#endif // HOST
 }
 
 

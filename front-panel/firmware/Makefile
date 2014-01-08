@@ -5,13 +5,13 @@ SERIAL_BPS	=	460800
 VERSION		=	1.1
 BUFSIZE		=	512
 #CPU_FREQ	=	7372800 # Hz
-CPU_FREQ	=	14745600 # Hz =	14.7456 MHz
+CPU_FREQ	=	14745600
 #CPU_FREQ	=	1000000 # Hz (Factory default)
 
 DEFINES		=	-DDEBUG \
 			-DVERSION='"$(VERSION)"' \
 			-DBUFSIZE=$(BUFSIZE) -DBUFSIZE_S='"$(shell printf "%x\n" $(BUFSIZE))"' \
-			-DF_CPU=$(CPU_FREQ) \
+			-DF_CPU=$(CPU_FREQ) -DF_CPU_S='"$(CPU_FREQ)"' \
 			-DSERIAL_BPS=$(SERIAL_BPS) -DSERIAL_BPS_S='"$(SERIAL_BPS)"' \
 			-D__DELAY_BACKWARD_COMPATIBLE__
 DEFINES		+=	-DDISASSEMBLE
@@ -150,8 +150,11 @@ dep .depends:   $(GENERATED)
 		$(HOSTCC) $(HOSTCFLAGS) -M $(CFILES) >.depends
 
 $(PROG).elf:	$(SOURCES)
-		$(CC) -S $(INCLUDES) $(CFLAGS) $(DEFINES) $(LDFLAGS) $(CFILES) $(LIBS)
-		$(CC) $(INCLUDES) $(CFLAGS) $(DEFINES) $(LDFLAGS) -o $@ $(CFILES) $(LIBS)
+		@/bin/echo -e "\n\n***  Compiling AVR Firmware  ***\n"
+#		@/bin/echo -e "\n\nASM\t$@"
+#		@$(CC) -S $(INCLUDES) $(CFLAGS) $(DEFINES) $(LDFLAGS) $(CFILES) $(LIBS) 2>/dev/null
+#		@/bin/echo -e "CC\t$@"
+		@$(CC) $(INCLUDES) $(CFLAGS) $(DEFINES) $(LDFLAGS) -o $@ $(CFILES) $(LIBS)
 
 fuses:		.stamp-fuses
 
@@ -180,10 +183,12 @@ proto-cmds.h:	proto-cmds.h.in scripts/mkcmds.py
 #$(PROG).o: $(SOURCES)
 
 test test_$(PROG):	$(SOURCES) $(HFILES)
+			@/bin/echo -e "\n\n***  Compiling Test Program  ***\n"
 			rm -f test_$(PROG)
 			$(HOSTCC) $(HOSTCFLAGS) -o test_$(PROG) $(CFILES)
 
 sim_$(PROG):		$(SIMCFILES) $(SIMHFILES)
+			@/bin/echo -e "\n\n***  Compiling SimAVR Harness  ***\n"
 			rm -f sim_$(PROG)
 			$(HOSTCC) -o sim_$(PROG) $(SIMCFILES) $(SIMAVRFLAGS)
 

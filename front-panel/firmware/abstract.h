@@ -79,6 +79,7 @@ void set_clkfreq(uint8_t prescaler, uint16_t div);	// Clock frequency select
 
 void wait_for_halt();		// Wait until the processor clock is stopped
 
+void set_stopping();		// Request a stop of the processor
 void set_steprun(bool_t x);	// Start the step state machine
 void perform_step();		// Start the step state machine
 void perform_ustep();		// Start the microstep state machine

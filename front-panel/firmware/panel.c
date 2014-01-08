@@ -15,7 +15,7 @@
 
 static bool_t _lock;
 static uint16_t _oldsr = 0xffff;
-static uint16_t _rom = 0xffff;
+static uint8_t _rom = 0xff;
 static uint8_t _spd = 0xff;
 
 bool_t
@@ -36,6 +36,8 @@ panel_sr(uint16_t sr)
 {
 	//report(__FUNCTION__); report_pstr(PSTR("()\n"));
 	if (sr == _oldsr) return;
+
+	_oldsr = sr;
 
 	say_break();
 	set_sr(sr);
@@ -114,9 +116,15 @@ void
 panel_spd(uint8_t spd)
 {
 	//report(__FUNCTION__); report_pstr(PSTR("()\n"));
+	//uint8_t tmp = _spd != 0xff;
 	if (spd == _spd) return;
+	uint8_t tmp = _spd;
 	_spd = spd;
 
+	// Do nothing the very first time we're run (during
+	// initilisation).
+	if (tmp == 0xff) return;
+	
 	say_break();
 	if (spd == 2) {
 		go_creep();
@@ -251,13 +259,18 @@ panel_rom(uint8_t rom)
 	//report(__FUNCTION__); report_pstr(PSTR("()\n"));
 	if ((flags & FL_HALT) == 0) return;
 	if (rom == _rom) return;
+	uint8_t tmp = _rom;
 	_rom = rom;
 	set_fpram(rom);
+
+	// Don't print anything out if this is the first invocation
+	// after power on.
+	if (tmp == 0xff) return;
 
 	// Output to the debugging console.
 	say_break();
 	report_pstr(PSTR(STR_FPRAM));
-	report_pstr(rom ? PSTR(STR_FPRAM0) : PSTR(STR_FPRAM0));
+	report_pstr(rom ? PSTR(STR_FPRAM1) : PSTR(STR_FPRAM0));
 	proto_prompt();
 }
 

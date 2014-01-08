@@ -7,6 +7,7 @@ typedef struct {
 	uint16_t  d[10];
 	int       size;
 	char *    name;
+	int       debug:1;
 } sim165_t;
 
 typedef struct {

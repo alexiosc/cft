@@ -14,11 +14,11 @@ typedef struct {
 	uint16_t dr;
 	uint16_t ac;
 	uint16_t ir;
-	uint32_t uaddr;
+	uint32_t uvec;
 
-	uint16_t abus;
-	uint16_t dbus;
-	uint16_t ibus;
+	int64_t  abus;
+	int64_t  dbus;
+	int64_t  ibus;
 
 	uint16_t or;
 	uint32_t ctl;		// Control out shift register
@@ -62,6 +62,9 @@ typedef struct {
 	rotor_t r_deben;
 	rotor_t r_vpen;
 	rotor_t r_orclk;
+
+	// The run/stop state machine
+	int stepping, ustepping, resetting;
 } state_t;
 
 
@@ -85,6 +88,13 @@ typedef struct {
 	char * text;
 	int    flag;
 } menu_t;
+
+#define SFL_PROC    1
+#define SFL_FBUSDRV 2
+#define SFL_FRESET  4
+#define SFL_FCLOCK  8
+
+extern uint32_t flags;
 
 extern menu_t options[];
 
