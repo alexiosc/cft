@@ -1,15 +1,17 @@
-\documentclass{minimal}
-\usepackage{tikz}
-\usetikzlibrary{patterns}
- 
+% -*- latex -*-
+\documentclass[11pt,a4paper]{book}
+%\usepackage[html]{tex4ht}
+\usepackage{hyperref}
+\newcounter{Hfootnote}
+
 \begin{document}
-\definecolor{lila}{rgb}{0,0.2,0.8}
- 
-\begin{tikzpicture}
- 
-\def \bsp{(0,0) -- (2,5) -- (4,-2)}
-\fill[color=lila,fill=lila,fill opacity=0.2] \bsp;
-\pattern[pattern color=lila!60, pattern=north west lines] \bsp;
-\end{tikzpicture}
- 
+
+\chapter{Foo}
+
+\section{Section}
+
+Foo bar baz.
+
+\input{introduction}
+
 \end{document}

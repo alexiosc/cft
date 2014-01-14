@@ -14,11 +14,13 @@ DEPS = 		*.tex figs/schematics.pdf $(GEN)/forth-words.tex $(GEN)/forth-doc.tex \
 		$(GEN)/fontmap-00c.pdf \
 		$(GEN)/fontmap-00d.pdf \
 		stamp-ioports \
-		stamp-safigs
+		stamp-safigs \
+		stamp-safigs-png
 
 SAFIGS =	$(patsubst %.tex,%.pdf, \
 		$(shell grep -l documentclass.*standalone figure-*.tex | \
 			grep -Fv figure-template.tex))
+SAFIGS_PNG =    $(patsubst %.pdf,%.png,$(SAFIGS))
 
 TOPDIR =	../../..
 FIGDIR =	../figs
@@ -33,7 +35,7 @@ EMUDIR =	$(TOPDIR)/emulator
 BASEDIR = 	../../..
 FORTHDIR =	$(BASEDIR)/forth
 
-.PHONY:		all clean veryclean view upload raster optimise ioports safigs
+.PHONY:		all clean veryclean view upload raster optimise ioports safigs safigs-png
 
 all: 		$(BASE).pdf $(DEPS)
 
@@ -42,7 +44,7 @@ clean:
 			$(BASE).out $(BASE).pdf $(BASE)-fig[0-9]*.* $(BASE).gl? $(BASE)-view.pdf
 
 veryclean:	clean
-		rm -f $(BASE).pdf $(BASE).dvi $(SAFIGS) tikz/*
+		rm -f $(BASE).pdf $(BASE).dvi $(SAFIGS) $(SAFIGS_PNG) tikz/*
 
 view:		$(BASE).pdf
 		cp $(BASE).pdf $(BASE)-view.pdf
@@ -100,6 +102,14 @@ safigs:		$(SAFIGS)
 figure-%.pdf:	figure-%.tex preamble.tex
 		$(LATEX) $<
 		rm $(patsubst %.tex,%,$<).{aux,glo,idx,ist,log,out} || true
+
+stamp-safigs-png \
+safigs-png:	$(SAFIGS_PNG)
+		touch stamp-safigs-png
+
+figure-%.png:   figure-%.pdf
+		pdftoppm -png -r 300 $< >$@
+		mogrify -bordercolor white -border 10 $@
 
 
 # Convert schematics into series of JPEGs.
