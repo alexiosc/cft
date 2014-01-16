@@ -1,0 +1,98 @@
+% -*- latex -*-
+\documentclass[preview,class=memoir,preview]{standalone}
+\input{preamble}
+
+\geometry{a3paper, hoffset=0in, left=1.2in, right=1.2in,
+  top=1.2in, bottom=1.2in, includefoot, footskip=40pt}
+
+\begin{document}%
+%\tikzexternaldisable%
+
+\tikzset{boxes/.style={line width=2pt}}
+\begin{tikzpicture}%
+
+
+    \draw [fill=black!50] (0,1) rectangle (10,-4);
+
+    \begin{scope}[yshift=-6cm]
+      \draw[boxes, fill=magenta!25](0,0) rectangle (10,1);
+      \draw (5,0.35) node {(some) Application Software};
+    \end{scope}
+
+    \begin{scope}[yshift=-5cm]
+      \draw[boxes, fill=blue!25](0,0) rectangle (5,1);
+      \draw (2.5,0.35) node {ROM Forth};
+      \draw[boxes, fill=blue!25](5,0) rectangle (10,1);
+      \draw (7.5,0.35) node {Operating System};
+    \end{scope}
+
+    \begin{scope}[yshift=-4cm]
+      \draw[boxes, fill=cyan!25](0,0) rectangle (10,1);
+      \draw (5,0.35) node {Assembler};
+    \end{scope}
+
+    \begin{scope}[yshift=-3cm]
+      \draw[boxes, fill=green!25](0,0) rectangle (8,3);
+      \draw (4,0.35) node {Instruction macros and extensions};
+    \end{scope}
+
+    \begin{scope}[yshift=-2cm]
+      \draw[boxes, fill=yellow!25](0,0) rectangle (6,1);
+      \draw (3,0.35) node {Instruction set};
+    \end{scope}
+
+    \begin{scope}[yshift=-1cm]
+      \draw[boxes, fill=orange!25](0,0) rectangle (6,1);
+      \draw (3,0.35) node {Microcode};
+    \end{scope}
+
+    \begin{scope}[yshift=0cm]
+      \draw[boxes, fill=red!25](0,0) rectangle (6,1);
+      \draw (3,0.35) node {Processor};
+      \draw[boxes, fill=red!25](6,0) rectangle (10,1);
+      \draw (8,0.35) node {Peripherals};
+      %\draw (10.5,0.35)[anchor=base west] node {\bfseries Hardware};
+    \end{scope}
+
+    %\draw (0.35,10.5)[anchor=base west,rotate=90] node {\bfseries Software};
+
+    \draw[line width=3](0,1) rectangle (10,-6);
+
+    \begin{scope}[xshift=-1.5cm]
+      \draw[fill=cfthl!50](0,1) rectangle(1,-6);
+      \draw[line width=0, draw opacity=0, fill=cfthl!25](0,0) rectangle(1,-1);
+      \draw[line width=0, draw opacity=0, fill=cfthl!25](0,-2) rectangle(1,-3);
+      \draw[line width=0, draw opacity=0, fill=cfthl!25](0,-4) rectangle(1,-5);
+      \draw[boxes, line width=3](0,1) rectangle(1,-6);
+      \draw (0.45, -2.5)[anchor=center]node {\begin{sideways}%
+          Toolset%
+      \end{sideways}};
+    \end{scope}
+
+    \begin{scope}[xshift=-3cm]
+      \draw[fill=cfthl!50](0,1) rectangle(1,-6);
+      \draw[line width=0, draw opacity=0, fill=cfthl!25](0,0) rectangle(1,-1);
+      \draw[line width=0, draw opacity=0, fill=cfthl!25](0,-2) rectangle(1,-3);
+      \draw[line width=0, draw opacity=0, fill=cfthl!25](0,-4) rectangle(1,-5);
+      \draw[boxes, line width=3](0,1) rectangle(1,-6);
+      \draw (0.45, -2.5)[anchor=center] node {\begin{sideways}%
+          Documentation%
+      \end{sideways}};
+    \end{scope}
+
+    \begin{scope}[xshift=10.5cm]
+      \draw[fill=cfthl!50](0,1) rectangle(1,-6);
+      \draw[line width=0, draw opacity=0, fill=cfthl!25](0,0) rectangle(1,-1);
+      \draw[line width=0, draw opacity=0, fill=cfthl!25](0,-2) rectangle(1,-3);
+      \draw[line width=0, draw opacity=0, fill=cfthl!25](0,-4) rectangle(1,-5);
+      \draw[boxes, line width=3](0,1) rectangle(1,-6);
+      \draw (0.45, -2.5)[anchor=center] node {\begin{sideways}%
+          Test Suite%
+      \end{sideways}};
+    \end{scope}
+
+\end{tikzpicture}
+%\tikzexternalenable%
+\end{document}
+
+% End of file.
