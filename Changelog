@@ -373,7 +373,7 @@
 
 2012-08-26  AC  <alexios@bedroomlan.org>
 
-	[Cons/Hardware/DEB/Firmware=100] Completed first revision of the DEB firmware.
+	[Code/Hardware/DEB/Firmware=100] Completed first revision of the DEB firmware.
 
 2012-08-29  AC  <alexios@bedroomlan.org>
 
@@ -1186,7 +1186,7 @@
 
 2013-10-30  AC <alexios@bedroomlan.org>
 
-	[Cons/Hardware/PFP/Firmware] Worked on the PFP/DEB joint firmware.
+	[Code/Hardware/PFP/Firmware] Worked on the PFP/DEB joint firmware.
 
 	[Orders] The ribbon cable I ordered on Ebay was probably lost en
 	route. Jumped the gun and bought 10m of 50-way ribbon from the
@@ -1209,11 +1209,11 @@
 
 2013-11-02  AC <alexios@bedroomlan.org>
 
-	[Cons/Hardware/PFP/Firmware] Worked on the PFP/DEB joint firmware.
+	[Code/Hardware/PFP/Firmware] Worked on the PFP/DEB joint firmware.
 
 2013-11-03  AC <alexios@bedroomlan.org>
 
-	[Cons/Hardware/PFP/Firmware] Worked on the PFP/DEB joint firmware.
+	[Code/Hardware/PFP/Firmware] Worked on the PFP/DEB joint firmware.
 
 	[Setback,Des/Hardware/PB1] Discovered a potential race condition in the
 	interrupt state machine: if interrupts are re-enabled right before an
@@ -1227,7 +1227,7 @@
 
 2013-11-08  AC <alexios@bedroomlan.org>
 
-	[Des/Hardware/PFP/Firmware] Second attempt to separate the PFP
+	[Des/Hardware/PFP] Second attempt to separate the PFP
 	into two boards. This one uses a 13 IC daughterboard.
 
 	[Setback,Cons/Hardware/PFP] Wired half of the front panel switch
@@ -1265,53 +1265,53 @@
 
 2013-11-17  AC <alexios@bedroomlan.org>
 
-	[Cons/Hardware/PFP] Completed final layout of both PFP boards.
+	[Cons/Hardware/DFP] Completed final layout of both DFP boards.
 
 	[Misc] Fixed dates in Changelog.
 
 2013-11-23  AC <alexios@bedroomlan.org>
 
-	[Des/Hardware/PFP/Firmware] Worked on the PFP firmware. Compressed
+	[Code/Hardware/PFP/Firmware] Worked on the PFP firmware. Compressed
 	strings for a better fit in the 16k MCU.
 
 2013-11-23  AC <alexios@bedroomlan.org>
 
-	[Des/Hardware/PFP/Firmware] More work on the PFP firmware.
+	[Code/Hardware/PFP/Firmware] More work on the PFP firmware.
 
 2013-11-29  AC <alexios@bedroomlan.org>
 
-	[Des/Hardware/PFP/Firmware] Yet more work on the PFP
+	[Code/Hardware/PFP/Firmware] Yet more work on the PFP
 	firmware. Documented some of the reset/start/stop/step
 	clock-synchronous state machine, coded some firmware functions to
 	control it.
 
 2013-11-29  AC <alexios@bedroomlan.org>
 
-	[Des/Hardware/PFP/Firmware] Yet more work on the PFP
+	[Code/Hardware/PFP/Firmware] Yet more work on the PFP
 	firmware. Documented some of the reset/start/stop/step
 	clock-synchronous state machine, coded some firmware functions to
 	control it.
 
 2013-12-05  AC <alexios@bedroomlan.org>
 
-	[Cons/Hardware/PFP=10] Initial work on board 2 of the front
+	[Cons/Hardware/DFP=10] Initial work on board 2 of the front
 	panel. Placed sockets, wires power rails. Started wiring.
 
 2013-12-06  AC <alexios@bedroomlan.org>
 
-	[Cons/Hardware/PFP=20] Second wiring session for board 2.
+	[Cons/Hardware/DFP=20] Second wiring session for board 2.
 
 2013-12-07  AC <alexios@bedroomlan.org>
 
-	[Cons/Hardware/PFP=40] Third wiring session for board 2.
+	[Cons/Hardware/DFP=40] Third wiring session for board 2.
 
 2013-12-12  AC <alexios@bedroomlan.org>
 
-	[Des/Hardware/PFP/Firmware] DFP (former PFP) Firmware writing.
+	[Code/Hardware/PFP/Firmware] DFP (former PFP) Firmware writing.
 
 2013-12-13  AC <alexios@bedroomlan.org>
 
-	[Des/Hardware/PFP/Firmware] DFP (former PFP) Firmware
+	[Code/Hardware/PFP/Firmware] DFP (former PFP) Firmware
 	writing. Switched MCU to Atmega328P (from Atmega168) because the
 	firmware will definitely need more than 16k. C is quite bloated in
 	comparison to Assembly. There really isn't that much functionality
@@ -1319,20 +1319,131 @@
 
 2013-12-14  AC <alexios@bedroomlan.org>
 
-	[Des/Hardware/PFP/Firmware] DFP (former PFP) Firmware
+	[Code/Hardware/PFP/Firmware] DFP (former PFP) Firmware
 	writing.
 
 2013-12-15  AC <alexios@bedroomlan.org>
 
-	[Des/Hardware/PFP/Firmware] DFP (former PFP) Firmware
+	[Code/Hardware/PFP/Firmware] DFP (former PFP) Firmware
 	writing.
 
 2013-12-16  AC <alexios@bedroomlan.org>
 
-	[Des/Hardware/PFP/Firmware] DFP (former PFP) Firmware
+	[Code/Hardware/PFP/Firmware] DFP (former PFP) Firmware
 	writing.
 
 2013-12-17  AC <alexios@bedroomlan.org>
 
-	[Des/Hardware/PFP/Firmware] DFP (former PFP) Firmware
+	[Code/Hardware/PFP/Firmware] DFP (former PFP) Firmware
 	writing.
+
+2013-12-17  AC <alexios@bedroomlan.org>
+
+	[Code/Hardware/PFP/Firmware] DFP (former PFP) Firmware
+	writing.
+
+2013-12-20  AC <alexios@bedroomlan.org>
+
+	[Code/Hardware/PFP/Firmware] DFP (former PFP) Firmware
+	writing.
+
+2013-12-21  AC <alexios@bedroomlan.org>
+
+	[Testing,Code/Hardware/PFP/Firmware] Investigating DFP testbench with
+	simavr.
+
+2013-12-22  AC <alexios@bedroomlan.org>
+
+	[Testing,Code/Hardware/PFP/Firmware] Building DFP testbench with
+	simavr.
+
+2013-12-22  AC <alexios@bedroomlan.org>
+
+	[Testing,Code/Hardware/PFP/Firmware] Building DFP testbench with
+	simavr.
+
+2013-12-23  AC <alexios@bedroomlan.org>
+
+	[Testing,Code/Hardware/PFP/Firmware] Building DFP testbench with
+	simavr.
+
+2013-12-24  AC <alexios@bedroomlan.org>
+
+	[Testing,Code/Hardware/PFP/Firmware] Building DFP testbench with
+	simavr.
+
+2013-12-25  AC <alexios@bedroomlan.org>
+
+	[Testing,Code/Hardware/PFP/Firmware] Building DFP testbench with
+	simavr.
+
+2013-12-27  AC <alexios@bedroomlan.org>
+
+	[Testing,Code/Hardware/PFP/Firmware] Building DFP testbench with
+	simavr.
+
+2013-12-28  AC <alexios@bedroomlan.org>
+
+	[Testing,Code/Hardware/PFP/Firmware] Building DFP testbench with
+	simavr.
+
+	[Cons/Hardware/DFP=50] Second construction session for Board 1. Placed
+	sockets and bypass capacitors.
+
+2014-01-05  AC <alexios@bedroomlan.org>
+
+	[Testing,Code/Hardware/PFP/Firmware] Debugging DFP with the help
+	of the simavr framework.
+
+2014-01-06  AC <alexios@bedroomlan.org>
+
+	[Testing,Code/Hardware/PFP/Firmware] Debugging DFP with the help
+	of the simavr framework.
+
+2014-01-07  AC <alexios@bedroomlan.org>
+
+	[Testing,Code/Hardware/PFP/Firmware] Debugging DFP with the help of the
+	simavr framework. The run/stop/step/microstep state machine now works
+	properly.
+
+	[Cons/Hardware/DFP=50] Third construction session for Board 1. Wired
+	bus rails, started light wiring harness.
+
+2014-01-08  AC <alexios@bedroomlan.org>
+
+	[Testing,Code/Hardware/PFP/Firmware] Debugging DFP with the help of the
+	simavr framework. Fixed bus pull-ups.
+
+	[Cons/Hardware/DFP=50] Third construction session for Board 1. Wired
+	bus rails, started light wiring harness.
+
+2014-01-09  AC <alexios@bedroomlan.org>
+
+	[Cons/Hardware/DFP=53] Fourth construction session for Board 1. Slow
+	work due to the complex cable routing requirements (376 signals in
+	total, plus bus rails).
+
+2014-01-10  AC <alexios@bedroomlan.org>
+
+	[Cons/Hardware/DFP=55] Fifth construction session for Board 1. Added
+	approximately 90 pull-up/down resistors to protect CMOS input stages
+	against operation with floating inputs (e.g. missing processor).
+
+2014-01-11  AC <alexios@bedroomlan.org>
+
+	[Cons/Hardware/DFP=63] Sixth construction session for Board 1.
+
+2014-01-14  AC <alexios@bedroomlan.org>
+
+	[Com/Book] Second attempt to produce a hybrid PDF/HTML version of
+	the CFT book. This one is coming along better than previous
+	ones. It uses TeX4ht with a number of hacks to sidestep issues
+	like colour and Unicode support and converts figures, timing
+	diagrams and other ‘difficult’ objects into bitmaps.
+
+2014-01-15  AC <alexios@bedroomlan.org>
+
+	[Com/Book] Drew new version of the datapath.
+
+	[Cons/Hardware/DFP=66] Seventh construction session for Board
+	1. Wired AEXT lights, AC register, plus a few miscellaneous signals.
