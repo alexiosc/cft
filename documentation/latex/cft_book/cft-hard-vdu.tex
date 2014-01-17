@@ -249,7 +249,7 @@ A number of other resolutions were originally considered and ruled out:
 
 \begin{figure}
  \centering     
- \input{figure-vdu-frame-format}
+ \inputfigure{figure-vdu-frame-format}
  \caption[Video frame format]{\label{fig:video-frame-format} Format of a video
    frame, showing porches, sync signals and video data. The frame is not drawn
    to scale.}
@@ -332,7 +332,7 @@ producing, perhaps up to 1V. The VESA standard dictates 0–700mV, however.
 
 \begin{figure}
  \centering
- \input{figure-vdu-analogue-ramp}
+ \inputfigure{figure-vdu-analogue-ramp}
  \caption[Analogue Channel Ramp]{\label{fig:vdu-analogue-ramp} Analogue channel
    ramp. The black line represents the VDU's ramp superimposed on the ideal
    (analogue) ramp.}
@@ -450,7 +450,7 @@ common tasks from the processor to the VDU.
 
 \begin{figure}
  \centering
- \input{figure-vdu-block-diagram}
+ \inputfigure{figure-vdu-block-diagram}
  \caption[High Level Block Diagram of the VDU
    Card]{\label{fig:vdu:block-diagram} High Level Block diagram of the VDU
    card.}
@@ -696,7 +696,7 @@ exact same palette, though it can only display up to 16 colours at a time).
 
 \begin{figure*}
  \centering
- \input{figure-vdu-colour-palette}
+ \inputfigure{figure-vdu-colour-palette}
  \caption[The 64-colour palette]{\label{fig:vdu-colour-palette} The 64-colour
    palette. Each colour swatch is numbered as on the CFT, and includes its
    X11-style 24-bit hexacedimal RGB triplet for reference. Please note that
@@ -830,7 +830,7 @@ sequentially, not simultaneously.
 
 \begin{figure}
  \centering
- \input{figure-vdu-memory}
+ \inputfigure{figure-vdu-memory}
  \caption[VDU Memory Map]{\label{fig:vdu-memory-map} Internal VDU memory organisation.}
 \end{figure}
 
@@ -918,7 +918,7 @@ useful side-effects, discussed below.
 
 \begin{figure}
  \centering
- \input{figure-vdu-plane-org}
+ \inputfigure{figure-vdu-plane-org}
  \caption[Plane Organisation]{\label{fig:plane-org} Plane organisation and
    addressing.}
 \end{figure}
@@ -937,7 +937,7 @@ This layout is illustrated in~\fcf{fig:vdu-virtual-screen}.
 
 \begin{figure}
  \centering
- \input{figure-vdu-virtual-screen}
+ \inputfigure{figure-vdu-virtual-screen}
  \caption[Virtual Screen]{\label{fig:vdu-virtual-screen} Virtual Screen and
    Viewport. The viewport, which is what the physical screnen displays can be
    moved arbitrarily around the virtual screen. Please note that the diagram is not to scale.
@@ -990,7 +990,7 @@ in~\fcf{fig:vdu-virtual-screen-torus}.
 
 \begin{figure}
  \centering
- \input{figure-vdu-virtual-screen-torus}
+ \inputfigure{figure-vdu-virtual-screen-torus}
  \caption[Toroidal Topology of the Virtual
    Screen]{\label{fig:vdu-virtual-screen-torus} Co-ordinates are calculated
    modulo 128 horizontally, and modulo 512 vertically. Here, the viewport wraps
@@ -1038,7 +1038,7 @@ area.
 
 \begin{figure}
  \centering
- \input{figure-vdu-mar}
+ \inputfigure{figure-vdu-mar}
  \caption[Effects of the Modulo Address Register]{\label{fig:vdu-mar} Effects
    of using the Modulo Address Registers to change the point where addresses
    wrap around to zero. The shaded area will never be used. A number of visual
@@ -1410,7 +1410,7 @@ The hardware cursor is usually disabled or hidden in these modes.
 
 \begin{figure}
  \centering
- \input{figure-vdu-semigraphics-bit-pattern}
+ \inputfigure{figure-vdu-semigraphics-bit-pattern}
  \caption[Semigraphics bit patterns]{\label{fig:semigraphics-bit-pattern}
    Semigraphics bit patterns for all available semigraphics modes. The
    80-column modes are created with double-width pixels using 40-column
@@ -1525,7 +1525,7 @@ is described in~\cf{sec:vdu:using-host-iface}.
 
 \begin{figure}
  \centering
- \input{figure-vdu-video-modes}
+ \inputfigure{figure-vdu-video-modes}
  \caption[Video Modes]{\label{fig:video-modes} Video mode chart showing the 34
    available modes (5×5, plus 5 80-column multicolour modes, plus four text
    modes). Unshaded modes are impractical due to the aspect ratio of the
@@ -1701,7 +1701,7 @@ all of which is done via I/O space registers. There are thirteen registers in fi
 
 \begin{figure}
  \centering
- \input{figure-vdu-register-file}
+ \inputfigure{figure-vdu-register-file}
  \caption[Register File]{\label{fig:vdu-register-file} Register File.}
 \end{figure}
 

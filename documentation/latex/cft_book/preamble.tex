@@ -33,38 +33,6 @@
 
 \usepackage{layout}
 
-\usepackage{tikz-timing}[2009/07/28]
-\usetikztiminglibrary{either}[2009/07/28]
-\tikzset{timing/z/.append style={black},}
-\tikzset{timing/.append style={x=1ex, y=2ex, line cap=round, line join=round, line width=1.3pt}}
-\tikzset{timing/slope=0.33}
-\tikzstyle{semithick}=[line width=1pt]
-\tikzstyle{heavy}=[line width=2pt]
-\tikzstyle{heavy outline}=[line width=3.5pt]
-\tikzstyle{plot line}=[line width=4pt]
-\tikzstyle{arrow}=[semithick]
-\tikzstyle{thick arrow}=[heavy]
-\tikzstyle{thick outline arrow}=[thick arrow, heavy outline, color=white, draw opacity=0.8]
-% Create a hatch pattern
-\newlength{\hatchspread}
-\newlength{\hatchthickness}
-% declaring the keys in tikz
-\tikzset{hatchspread/.code={\setlength{\hatchspread}{#1}},
-         hatchthickness/.code={\setlength{\hatchthickness}{#1}}}
-\tikzset{hatchspread=3pt,
-         hatchthickness=0.4pt}
-\pgfdeclarepatternformonly[\hatchspread,\hatchthickness]% variables
-   {hatch}% name
-   {\pgfqpoint{-2\hatchthickness}{-2\hatchthickness}}% lower left corner
-   {\pgfqpoint{\dimexpr\hatchspread+2\hatchthickness}{\dimexpr\hatchspread+2\hatchthickness}}% upper right corner
-   {\pgfqpoint{\hatchspread}{\hatchspread}}% tile size
-   {% shape description
-    \pgfsetlinewidth{\hatchthickness}
-    \pgfpathmoveto{\pgfqpoint{0pt}{\hatchspread}}
-    \pgfpathlineto{\pgfqpoint{\dimexpr\hatchspread+0.15pt}{-0.15pt}}
-    \pgfusepath{stroke}
-   }
-
 %\usepackage[tocindentauto]{tocstyle}
 
 %\usepackage[cam,a4,center]{crop}
@@ -79,10 +47,6 @@
 \definecolor{cftoutline}{cmyk}{0,0.43,0.72,0.53}
 \definecolor{cftlight}{cmyk}{0,0.43,0.72,0.22}
 \definecolor{cfthl}{rgb}{.89,.698,.529}
-\newcommand{\zebrarow}[1]{\rowcolors{#1}{cfthl!50}{cfthl!25}}
-\newcommand\zebra{\zebrarow{2}}
-\newcommand\zebrahdr{\zebrarow{1}}
-%\newcommand\zebra*[1]{\rowcolors{#1}{gray!10}{white}}
 
 \definecolor{darkblue}{RGB}{0,0,128}
 \hypersetup{

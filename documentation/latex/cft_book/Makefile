@@ -35,16 +35,16 @@ EMUDIR =	$(TOPDIR)/emulator
 BASEDIR = 	../../..
 FORTHDIR =	$(BASEDIR)/forth
 
-.PHONY:		all clean veryclean view upload raster optimise ioports safigs safigs-png
+.PHONY:		all clean veryclean view upload raster optimise ioports safigs safigs-png html
 
 all: 		$(BASE).pdf $(DEPS)
 
 clean:
 		rm -f $(BASE).aux $(BASE).log $(BASE)*.png $(BASE)*.pnm \
-			$(BASE).out $(BASE).pdf $(BASE)-fig[0-9]*.* $(BASE).gl? $(BASE)-view.pdf
+			$(BASE).out $(BASE).pdf $(BASE)-fig[0-9]*.* $(BASE).gl? $(BASE)-view.pdf figure-*.acn
 
 veryclean:	clean
-		rm -f $(BASE).pdf $(BASE).dvi $(SAFIGS) $(SAFIGS_PNG) tikz/*
+		rm -f $(BASE).pdf $(BASE).dvi figure-*.pdf figure-*.png tikz/*
 
 view:		$(BASE).pdf
 		cp $(BASE).pdf $(BASE)-view.pdf
@@ -146,5 +146,8 @@ $(GEN)/fontmap-%.eps: $(GEN)/fontmap-%.ps
 
 $(GEN)/fontmap-%.pdf: $(GEN)/fontmap-%.eps
 	epstopdf $<
+
+html:	$(BASE).tex
+	htlatex $(BASE)-html.tex $(BASE)-html.cfg " -cunihtf -utf8"
 
 # End of file.

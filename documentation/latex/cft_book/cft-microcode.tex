@@ -1,4 +1,4 @@
-This chapter describes the CFT Microcode.
+%% This chapter describes the CFT Microcode.
 
 \section{Microcode Theory}
 
@@ -10,39 +10,39 @@ introductory document.
 
 Microcode formats are usually split into three major groups:
 
-\begin{itemize}
-  \item{\bfseries Vertical Microcode}, where each micro-instruction is
-    decoded by the control unit before being able to drive control
-    signals. Vertical microcode is very compact but requires
-    additional decoding circuitry (and time).
-  \item{\bfseries Horizontal Microcode}, where each control signal is
-    directly encoded in the micro-instruction. Horizontal microcode
-    formats tend to be extremely wide, but they do not need decoding.
-  \item{\bfseries Hybrid Formats}, where parts are horizontal and
-    parts are vertical.
-\end{itemize}
+%% \begin{itemize}
+%%   \item{\bfseries Vertical Microcode}, where each micro-instruction is
+%%     decoded by the control unit before being able to drive control
+%%     signals. Vertical microcode is very compact but requires
+%%     additional decoding circuitry (and time).
+%%   \item{\bfseries Horizontal Microcode}, where each control signal is
+%%     directly encoded in the micro-instruction. Horizontal microcode
+%%     formats tend to be extremely wide, but they do not need decoding.
+%%   \item{\bfseries Hybrid Formats}, where parts are horizontal and
+%%     parts are vertical.
+%% \end{itemize}
 
 CFT Microcode is hybrid. A number of fields in the format are
 vertically encoded to save bits, but also to avoid bus contention
 issues. Consider horizontal microcode to select which unit to enable
 for reading from:
 
-\begin{center}
-  \zebra
-  \begin{tabular}{*{3}{>{\textsf\bgroup}c<{\egroup}}l}
-    %\noalign{\smallskip}\hline\noalign{\smallskip}
-    %\\\hline
-    A & B & C & Read from\\
-    %\noalign{\smallskip}\hline\noalign{\smallskip}
-    \hline
-    H & H & H & Nothing (all units idle)\\
-    L & X & X & Unit A\\
-    X & L & X & Unit B\\
-    X & X & L & Unit C\\
-    L & L & L & \textrm{\bfseries Fault: all units (bus contention).}\\
-    \hline
-  \end{tabular}
-\end{center}
+%% \begin{center}
+%%   \zebra
+%%   \begin{tabular}{*{3}{c>{\textsf\bgroup}c<{\egroup}}l}
+%%     %\noalign{\smallskip}\hline\noalign{\smallskip}
+%%     %\\\hline
+%%     A & B & C & Read from\\
+%%     %\noalign{\smallskip}\hline\noalign{\smallskip}
+%%     \hline
+%%     H & H & H & Nothing (all units idle)\\
+%%     L & X & X & Unit A\\
+%%     X & L & X & Unit B\\
+%%     X & X & L & Unit C\\
+%%     L & L & L & \textrm{\bfseries Fault: all units (bus contention).}\\
+%%     \hline
+%%   \end{tabular}
+%% \end{center}
 
 The first four cases are valid cases of microcode use. The fourth one,
 however, represents one of four cases where multiple units are enabled
@@ -54,21 +54,21 @@ which only uses 50\% of the range afforded by three bits ($2^3 = 8$).
 A better case, which completely eliminates the contention issue, is to
 encode these bits vertically:
 
-\begin{center}
-  \zebra
-  \begin{tabular}{*{1}{>{\textsf\bgroup}c<{\egroup}}l}
-    %\noalign{\smallskip}\hline\noalign{\smallskip}
-    %\\\hline
-    SRC & Read from\\
-    %\noalign{\smallskip}\hline\noalign{\smallskip}
-    \hline
-    00 & Nothing (all units idle)\\
-    01 & Unit A\\
-    10 & Unit B\\
-    11 & Unit C\\
-    \hline
-  \end{tabular}
-\end{center}
+%% \begin{center}
+%%   \zebra
+%%   \begin{tabular}{*{1}{>{\textsf\bgroup}c<{\egroup}}l}
+%%     %\noalign{\smallskip}\hline\noalign{\smallskip}
+%%     %\\\hline
+%%     SRC & Read from\\
+%%     %\noalign{\smallskip}\hline\noalign{\smallskip}
+%%     \hline
+%%     00 & Nothing (all units idle)\\
+%%     01 & Unit A\\
+%%     10 & Unit B\\
+%%     11 & Unit C\\
+%%     \hline
+%%   \end{tabular}
+%% \end{center}
 
 This format saves one bit, and removes invalid or dangerous
 states. This technique is used on the CFT in exactly this way and for
@@ -104,7 +104,7 @@ the wide micro-instructions.
 
 \begin{figure}
   \centering
-  \input{figure-microcode-store}
+  \inputfigure{figure-microcode-store}
 
   \caption[Microcode structure]{\label{fig:microcode-store2}Microcode
     structure. The Address or Conditional Vector (top) is an input to
@@ -147,113 +147,113 @@ the \IR{} is immaterial. If the computer is executing a \asm{LOAD} instruction,
 the value of the \ns{SKIP} component of the address vector is immaterial. These
 don't-care values are illustrated in~\tcf{table:microprograms}:
 
-    \zebrarow{10}
-    \begin{longtable}{*{8}{>{\textsf\bgroup}c<{\egroup}}l}
-      %
-      % First header
-      %
-    \hiderowcolors
-    \ns{RSTHOLD} & \ns{IRQS} & \ps{FV} & \ps{FL} & \IRn{12–15} & \IRn{11} & \ns{SKIP} & \ns{AINDEX} & Microprogram \\
-    \hline
-    \noalign{\global\rownum 0\relax}\showrowcolors
-    \endfirsthead
-    %
-    % Subsequent headers
-    %
-    \hiderowcolors
-    \noalign{\smallskip\smallskip}
-    \multicolumn{9}{l}{\em Continued from previous page.}\\
-    \ns{RSTHOLD} & \ns{IRQS} & \ps{FV} & \ps{FL} & \IRn{12–15} & \IRn{11} & \ns{SKIP} & \ns{AINDEX} & Microprogram \\
-    \hline
-    \noalign{\global\rownum 1\relax}\showrowcolors
-    \endhead
-    %
-    % Footer
-    %
-    \hiderowcolors
-    \hline
-    \noalign{\smallskip\smallskip}
-    \multicolumn{9}{l}{\em Continued on next page.}\\
-    \endfoot
-    %
-    % Last footer
-    %
-    \hiderowcolors
-    \hline
-    \endlastfoot
-    %
-    % Content
-    %
-    \showrowcolors
-    L & X & X & X & X & X & X & X & Reset processor\\
-    H & L & X & X & X & X & X & X & Interrupt handler\\
-    %
-    H & H & X & X & \bin{0000} & \bin{0} & X & H & \asm{TRAP} Direct \\
-    H & H & X & X & \bin{0000} & \bin{1} & X & H & \asm{TRAP} Indirect \\
-    H & H & X & X & \bin{0000} & \bin{1} & X & L & \asm{TRAP} Autoindex \\
-    %
-    H & H & X & X & \bin{0001} & \bin{0} & X & H & \asm{IOT} Direct \\
-    H & H & X & X & \bin{0001} & \bin{1} & X & H & \asm{IOT} Indirect \\
-    H & H & X & X & \bin{0001} & \bin{1} & X & L & \asm{IOT} Autoindex \\
-    %
-    H & H & X & X & \bin{0010} & \bin{0} & X & H & \asm{LOAD} Direct \\
-    H & H & X & X & \bin{0010} & \bin{1} & X & H & \asm{LOAD} Indirect \\
-    H & H & X & X & \bin{0010} & \bin{1} & X & L & \asm{LOAD} Autoindex \\
-    %
-    H & H & X & X & \bin{0011} & \bin{0} & X & H & \asm{STORE} Direct \\
-    H & H & X & X & \bin{0011} & \bin{1} & X & H & \asm{STORE} Indirect \\
-    H & H & X & X & \bin{0011} & \bin{1} & X & L & \asm{STORE} Autoindex \\
-    %
-    H & H & X & X & \bin{0100} & \bin{0} & X & H & \asm{IN} Direct \\
-    H & H & X & X & \bin{0100} & \bin{1} & X & H & \asm{IN} Indirect \\
-    H & H & X & X & \bin{0100} & \bin{1} & X & L & \asm{IN} Autoindex \\
-    %
-    H & H & X & X & \bin{0101} & \bin{0} & X & H & \asm{OUT} Direct \\
-    H & H & X & X & \bin{0101} & \bin{1} & X & H & \asm{OUT} Indirect \\
-    H & H & X & X & \bin{0101} & \bin{1} & X & L & \asm{OUT} Autoindex \\
-    %
-    H & H & X & X & \bin{0110} & \bin{0} & X & H & \asm{JMP} Direct \\
-    H & H & X & X & \bin{0110} & \bin{1} & X & H & \asm{JMP} Indirect \\
-    H & H & X & X & \bin{0110} & \bin{1} & X & L & \asm{JMP} Autoindex \\
-    %
-    H & H & X & X & \bin{0111} & \bin{0} & X & H & \asm{JSR} Direct \\
-    H & H & X & X & \bin{0111} & \bin{1} & X & H & \asm{JSR} Indirect \\
-    H & H & X & X & \bin{0111} & \bin{1} & X & L & \asm{JSR} Autoindex \\
-    %
-    H & H & X & X & \bin{1000} & \bin{0} & X & H & \asm{ADD} Direct \\
-    H & H & X & X & \bin{1000} & \bin{1} & X & H & \asm{ADD} Indirect \\
-    H & H & X & X & \bin{1000} & \bin{1} & X & L & \asm{ADD} Autoindex \\
-    %
-    H & H & X & X & \bin{1001} & \bin{0} & X & H & \asm{AND} Direct \\
-    H & H & X & X & \bin{1001} & \bin{1} & X & H & \asm{AND} Indirect \\
-    H & H & X & X & \bin{1001} & \bin{1} & X & L & \asm{AND} Autoindex \\
-    %
-    H & H & X & X & \bin{1010} & \bin{0} & X & H & \asm{OR} Direct \\
-    H & H & X & X & \bin{1010} & \bin{1} & X & H & \asm{OR} Indirect \\
-    H & H & X & X & \bin{1010} & \bin{1} & X & L & \asm{OR} Autoindex \\
-    %
-    H & H & X & X & \bin{1011} & \bin{0} & X & H & \asm{XOR} Direct \\
-    H & H & X & X & \bin{1011} & \bin{1} & X & H & \asm{XOR} Indirect \\
-    H & H & X & X & \bin{1011} & \bin{1} & X & L & \asm{XOR} Autoindex \\
-    %
-    H & H & X & X & \bin{1100} & \bin{0} & H & H & \asm{OP1} Direct, \asm{NOP}s \\
-    H & H & X & X & \bin{1100} & \bin{1} & L & H & \asm{OP1} Indirect, actions \\
-    %
-    H & H & X & X & \bin{1101} & \bin{0} & H & H & \asm{OP2} Direct, \asm{NOP}s \\
-    H & H & X & X & \bin{1101} & \bin{1} & L & H & \asm{OP2} Indirect, actions \\
-    %
-    H & H & X & X & \bin{1110} & \bin{0} & H & H & \asm{ISZ} Direct, no skip \\
-    H & H & X & X & \bin{1110} & \bin{0} & L & H & \asm{ISZ} Direct, skip \\
-    H & H & X & X & \bin{1110} & \bin{1} & H & H & \asm{ISZ} Indirect, no skip \\
-    H & H & X & X & \bin{1110} & \bin{1} & L & H & \asm{ISZ} Indirect, skip \\
-    H & H & X & X & \bin{1110} & \bin{1} & H & L & \asm{ISZ} Autoindex, no skip \\
-    H & H & X & X & \bin{1110} & \bin{1} & L & L & \asm{ISZ} Autoindex, skip \\
-    %
-    H & H & X & X & \bin{1111} &       X & X & X & \asm{LIA} Immediate \\
-  \end{longtable}
+%%     \zebrarow{10}
+%%     \begin{longtable}{*{8}{>{\textsf\bgroup}c<{\egroup}}l}
+%%       %
+%%       % First header
+%%       %
+%%     \hiderowcolors
+%%     \ns{RSTHOLD} & \ns{IRQS} & \ps{FV} & \ps{FL} & \IRn{12–15} & \IRn{11} & \ns{SKIP} & \ns{AINDEX} & Microprogram \\
+%%     \hline
+%%     \noalign{\global\rownum 0\relax}\showrowcolors
+%%     \endfirsthead
+%%     %
+%%     % Subsequent headers
+%%     %
+%%     \hiderowcolors
+%%     \noalign{\smallskip\smallskip}
+%%     \multicolumn{9}{l}{\em Continued from previous page.}\\
+%%     \ns{RSTHOLD} & \ns{IRQS} & \ps{FV} & \ps{FL} & \IRn{12–15} & \IRn{11} & \ns{SKIP} & \ns{AINDEX} & Microprogram \\
+%%     \hline
+%%     \noalign{\global\rownum 1\relax}\showrowcolors
+%%     \endhead
+%%     %
+%%     % Footer
+%%     %
+%%     \hiderowcolors
+%%     \hline
+%%     \noalign{\smallskip\smallskip}
+%%     \multicolumn{9}{l}{\em Continued on next page.}\\
+%%     \endfoot
+%%     %
+%%     % Last footer
+%%     %
+%%     \hiderowcolors
+%%     \hline
+%%     \endlastfoot
+%%     %
+%%     % Content
+%%     %
+%%     \showrowcolors
+%%     L & X & X & X & X & X & X & X & Reset processor\\
+%%     H & L & X & X & X & X & X & X & Interrupt handler\\
+%%     %
+%%     H & H & X & X & \bin{0000} & \bin{0} & X & H & \asm{TRAP} Direct \\
+%%     H & H & X & X & \bin{0000} & \bin{1} & X & H & \asm{TRAP} Indirect \\
+%%     H & H & X & X & \bin{0000} & \bin{1} & X & L & \asm{TRAP} Autoindex \\
+%%     %
+%%     H & H & X & X & \bin{0001} & \bin{0} & X & H & \asm{IOT} Direct \\
+%%     H & H & X & X & \bin{0001} & \bin{1} & X & H & \asm{IOT} Indirect \\
+%%     H & H & X & X & \bin{0001} & \bin{1} & X & L & \asm{IOT} Autoindex \\
+%%     %
+%%     H & H & X & X & \bin{0010} & \bin{0} & X & H & \asm{LOAD} Direct \\
+%%     H & H & X & X & \bin{0010} & \bin{1} & X & H & \asm{LOAD} Indirect \\
+%%     H & H & X & X & \bin{0010} & \bin{1} & X & L & \asm{LOAD} Autoindex \\
+%%     %
+%%     H & H & X & X & \bin{0011} & \bin{0} & X & H & \asm{STORE} Direct \\
+%%     H & H & X & X & \bin{0011} & \bin{1} & X & H & \asm{STORE} Indirect \\
+%%     H & H & X & X & \bin{0011} & \bin{1} & X & L & \asm{STORE} Autoindex \\
+%%     %
+%%     H & H & X & X & \bin{0100} & \bin{0} & X & H & \asm{IN} Direct \\
+%%     H & H & X & X & \bin{0100} & \bin{1} & X & H & \asm{IN} Indirect \\
+%%     H & H & X & X & \bin{0100} & \bin{1} & X & L & \asm{IN} Autoindex \\
+%%     %
+%%     H & H & X & X & \bin{0101} & \bin{0} & X & H & \asm{OUT} Direct \\
+%%     H & H & X & X & \bin{0101} & \bin{1} & X & H & \asm{OUT} Indirect \\
+%%     H & H & X & X & \bin{0101} & \bin{1} & X & L & \asm{OUT} Autoindex \\
+%%     %
+%%     H & H & X & X & \bin{0110} & \bin{0} & X & H & \asm{JMP} Direct \\
+%%     H & H & X & X & \bin{0110} & \bin{1} & X & H & \asm{JMP} Indirect \\
+%%     H & H & X & X & \bin{0110} & \bin{1} & X & L & \asm{JMP} Autoindex \\
+%%     %
+%%     H & H & X & X & \bin{0111} & \bin{0} & X & H & \asm{JSR} Direct \\
+%%     H & H & X & X & \bin{0111} & \bin{1} & X & H & \asm{JSR} Indirect \\
+%%     H & H & X & X & \bin{0111} & \bin{1} & X & L & \asm{JSR} Autoindex \\
+%%     %
+%%     H & H & X & X & \bin{1000} & \bin{0} & X & H & \asm{ADD} Direct \\
+%%     H & H & X & X & \bin{1000} & \bin{1} & X & H & \asm{ADD} Indirect \\
+%%     H & H & X & X & \bin{1000} & \bin{1} & X & L & \asm{ADD} Autoindex \\
+%%     %
+%%     H & H & X & X & \bin{1001} & \bin{0} & X & H & \asm{AND} Direct \\
+%%     H & H & X & X & \bin{1001} & \bin{1} & X & H & \asm{AND} Indirect \\
+%%     H & H & X & X & \bin{1001} & \bin{1} & X & L & \asm{AND} Autoindex \\
+%%     %
+%%     H & H & X & X & \bin{1010} & \bin{0} & X & H & \asm{OR} Direct \\
+%%     H & H & X & X & \bin{1010} & \bin{1} & X & H & \asm{OR} Indirect \\
+%%     H & H & X & X & \bin{1010} & \bin{1} & X & L & \asm{OR} Autoindex \\
+%%     %
+%%     H & H & X & X & \bin{1011} & \bin{0} & X & H & \asm{XOR} Direct \\
+%%     H & H & X & X & \bin{1011} & \bin{1} & X & H & \asm{XOR} Indirect \\
+%%     H & H & X & X & \bin{1011} & \bin{1} & X & L & \asm{XOR} Autoindex \\
+%%     %
+%%     H & H & X & X & \bin{1100} & \bin{0} & H & H & \asm{OP1} Direct, \asm{NOP}s \\
+%%     H & H & X & X & \bin{1100} & \bin{1} & L & H & \asm{OP1} Indirect, actions \\
+%%     %
+%%     H & H & X & X & \bin{1101} & \bin{0} & H & H & \asm{OP2} Direct, \asm{NOP}s \\
+%%     H & H & X & X & \bin{1101} & \bin{1} & L & H & \asm{OP2} Indirect, actions \\
+%%     %
+%%     H & H & X & X & \bin{1110} & \bin{0} & H & H & \asm{ISZ} Direct, no skip \\
+%%     H & H & X & X & \bin{1110} & \bin{0} & L & H & \asm{ISZ} Direct, skip \\
+%%     H & H & X & X & \bin{1110} & \bin{1} & H & H & \asm{ISZ} Indirect, no skip \\
+%%     H & H & X & X & \bin{1110} & \bin{1} & L & H & \asm{ISZ} Indirect, skip \\
+%%     H & H & X & X & \bin{1110} & \bin{1} & H & L & \asm{ISZ} Autoindex, no skip \\
+%%     H & H & X & X & \bin{1110} & \bin{1} & L & L & \asm{ISZ} Autoindex, skip \\
+%%     %
+%%     H & H & X & X & \bin{1111} &       X & X & X & \asm{LIA} Immediate \\
+%%   \end{longtable}
 
-  %% \caption[Table of microprograms]{\label{table:microprograms}Table of
-  %%   microprograms in the Microprogram Store.}
+%%   %% \caption[Table of microprograms]{\label{table:microprograms}Table of
+%%   %%   microprograms in the Microprogram Store.}
 
 The don't-care (partial address decoding) values indicate that exactly
 half of the microprograms are ‘Reset’ microprograms, one quarter are
@@ -430,6 +430,9 @@ carry on with the next instruction.
 
 \section{Microcode Listing}
 
-%{\small
-\lstinputlisting[style=longmcasm]{../../../microcode/microcode.mc}
-%}
+\todo{Reinstate the listing.}
+
+
+%% %{\small
+%% \lstinputlisting[style=longmcasm]{../../../microcode/microcode.mc}
+%% %}

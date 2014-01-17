@@ -1,0 +1,511 @@
+% -*- latex -*-
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% WORKAROUNDS
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ifxetex
+  % XeTeX doesn't have HTML output, of course.
+  \def\HCode#1{}
+\else
+  % This is a hack.
+  \newcounter{Hfootnote}
+\fi
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% HTML GENERATION
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ifxetex
+  \def\texonly#1{#1}
+  \def\htmlonly#1{}
+  \newenvironment{htmldiv}[1]{}{}
+  \newcommand{\htmlspan}[2]{#2}
+\else
+  \def\texonly#1{}
+  \def\htmlonly#1{#1}
+  \newenvironment{htmldiv}[1]{\HCode{<div class="#1">}}{\HCode{</div>}}
+  \newcommand{\htmlspan}[2]{\HCode{<span class="#1">}{#2}\HCode{</span>}}
+\fi
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% LINKING TO LOCATIONS IN THE DOCUMENT
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Use hyperlinking when rendering PDFs
+\newcommand{\barecf}[1]{\hyperref[#1]{\ref*{#1}}}
+
+\newcommand{\cf}[2][section]{\hyperref[#2]{%
+        \ifthenelse{\equal{\pageref*{#2}}{\thepage}}%
+        {#1 \ref*{#2}}%
+        {#1 \ref*{#2} (p.~\pageref*{#2})}%
+}}
+
+\newcommand{\cfp}[2][section]{\hyperref[#2]{%
+        \ifthenelse{\equal{\pageref*{#2}}{\thepage}}%
+        {#1 \ref*{#2}}%
+        {#1 \ref*{#2}, p.~\pageref*{#2}}%
+}}
+
+\newcommand{\fcf}[1]{\cf[figure]{#1}}
+\newcommand{\fcfp}[1]{\cfp[figure]{#1}}
+\newcommand{\tcf}[1]{\cf[table]{#1}}
+\newcommand{\tcfp}[1]{\cfp[table]{#1}}
+\newcommand{\ccf}[1]{\cf[chapter]{#1}}
+\newcommand{\ccfp}[1]{\cfp[chapter]{#1}}
+%
+\newcommand{\npcf}[2][section]{\hyperref[#2]{#1 \ref*{#2}}}
+\newcommand{\appcf}[1]{\cf[appendix]{#1}}
+\newcommand{\ecf}[1]{\cf[equation]{#1}}
+\newcommand{\algcf}[1]{\cf[algorithm]{#1}}
+\newcommand{\npappcf}[1]{\npcf[appendix]{#1}}
+\newcommand{\npccf}[1]{\npcf[chapter]{#1}}
+\newcommand{\npfcf}[1]{\npcf[figure]{#1}}
+\newcommand{\nptcf}[1]{\npcf[table]{#1}}
+\newcommand{\npecf}[1]{\npcf[equation]{#1}}
+\newcommand{\npalgcf}[1]{\npcf[algorithm]{#1}}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% LISTS OF THINGS
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% %%%\addtolength\cftfignumwidth{1.5em}
+\ifxetex
+  \makeatletter
+  \renewcommand*\l@section{\@dottedtocline{1}{1.5em}{2.3em}}
+  \renewcommand*\l@subsection{\@dottedtocline{2}{3.8em}{3.2em}}
+  \renewcommand*\l@subsubsection{\@dottedtocline{3}{7.0em}{4.1em}}
+  \renewcommand*\l@paragraph{\@dottedtocline{4}{10em}{5em}}
+  \renewcommand*\l@subparagraph{\@dottedtocline{5}{12em}{6em}}
+  \setcounter{maxsecnumdepth}{3}
+
+  \renewcommand{\@pnumwidth}{3em}
+  \renewcommand{\@tocrmarg}{4em}
+  \makeatother
+\else
+  \relax
+\fi
+
+%
+% Schematics
+%
+
+\newcommand\listschematicname{List of Schematics} 
+\newcommand{\schematic}[1]{%
+  \refstepcounter{schematic}%
+  \par\noindent\textbf{Schematic \theschematic. #1}
+  \addcontentsline{los}{section}{\protect\numberline{\theschematic}#1}\par%
+}
+\newcommand{\listofschematics}{\listofschematic}
+
+%
+% I/O Ports
+%
+
+\newcommand\listioportname{List of Input/Output Ports} 
+\newlistof{listofioport}{loioport}{\listioportname}
+%% \newcommand{\registerioport}[1]{%
+%%   \refstepcounter{ioport}%
+%%   \addcontentsline{loioport}{section}{\protect\numberline{\ }%
+%% }
+\newcommand\listofioports\listofioport
+
+
+
+\newcommand\caution[1]{\textcolor{caution}{\textbf{#1}}}
+%\newcommand\todo[1]{\textcolor{caution}{\bf{TODO: #1}}}
+
+%
+% Tasks
+%
+
+\newcommand\listtasksname{List of Incomplete Tasks} 
+\newlistof{listoftask}{lotasks}{\listtasksname}
+\newcounter{task}
+
+\ifxetex
+  \newcommand{\todo}[1]{%
+    \refstepcounter{task}%
+    {\textcolor{caution}{\textbf{TODO: #1}}}
+    \addcontentsline{lotasks}{section}{\protect\numberline{\arabic{task}}To Do: #1}\par%
+  }
+  \newcommand{\bug}[2]{%
+    \refstepcounter{task}%
+    {\textcolor{caution}{\textbf{BUG: #1 #2}}}
+    \addcontentsline{lotasks}{section}{\protect\numberline{\arabic{task}}Bug: #1}\par%
+  }
+\else
+  \newcommand{\todo}[1]{%
+    \refstepcounter{task}%
+    {\htmlspan{todo}{#1}}%
+  }
+  \newcommand{\bug}[2]{%
+    \refstepcounter{task}%
+    {\htmlspan{bug}{#1 #2}}%
+  }
+\fi
+\newcommand\listoftasks\listoftask
+
+%
+% Data structures
+%
+
+\newcommand\listdatastructurename{List of Data Structures} 
+\newlistof{listofdatastructure}{lods}{\listdatastructurename}
+\newcounter{datastructure}
+%\newcommand{\datastructure}[1]{%
+%  \refstepcounter{datastructure}%
+%  \par\noindent\textbf{Data Structure \thedatastructure. #1}
+%  \addcontentsline{lods}{section}{\protect\numberline{\thedatastructure}#1}\par%
+%}
+\newcommand\listofdatastructures\listofdatastructure
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% LISTINGS
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand\lstkbd[1]{\mathbf{\textbf{#1}}}
+%\newcommand\lstfkbd[1]{\underline{\mathbf{\textbf{#1}}}}
+\newcommand\lstfkbd[1]{\color{cftoutline}{\mathbf{\textbf{#1}}}}
+\ifxetex
+  \lstset{%
+          keywordstyle=\fontspec{Inconsolata Bold},%
+          keywordstyle=[2]\color{cftoutline}\fontspec{Inconsolata Bold},%
+          keywordstyle=[3]\fontspec{Inconsolata Bold},%
+          commentstyle=\color{cftlight}%
+  }
+\else
+  \lstset{%
+          keywordstyle=\textbf,%
+          keywordstyle=[2]\textbf,%
+          keywordstyle=[3]\textit,%
+          commentstyle=\texttt%
+  }
+\fi
+\lstdefinestyle{deb}{mathescape=true,numbers=none}
+\lstdefinestyle{forthprogram}{}
+\lstdefinelanguage{cftasm}{%
+        mathescape=true,
+        morekeywords={TRAP,IOT,LOAD,STORE,IN,OUT,JMP,JSR,ADD,AND,OR,%
+                      XOR,OP1,OP2,ISZ,LIA,R,I,IFL,IFV,CLA,CLL,NOT,%
+                      INC,CPL,RBL,RBR,RNL,RNR,NOP,SNA,SZA,SSL,SSV,SKIP,%
+                      SNN,SNZ,SCL,SCV,CLI,SEI,SEL,NEG,ING,LI,SPA,SNP,RET,%
+                      RTT,RTI,SBL,SBR},%
+        morekeywords=[2]{.equ,.reg,.include,.word,.fill,%
+                      .str,.data,.strp,.strn,.page,.macro,.end},%
+        alsoletter=.,%
+        sensitive=false,%
+        morecomment=[l]{/},%
+        morecomment=[l]{;},%
+}
+
+\lstdefinestyle{longmcasm}{%
+        language=mcasm,
+        xleftmargin=25pt,
+        xrightmargin=5pt,
+        framexleftmargin=20pt,
+        basicstyle={\footnotesize\ttfamily},
+}
+\lstdefinelanguage{mcasm}{%
+        mathescape=false,
+        morekeywords={cond,field,signal,start,hold},%
+        morekeywords=[2]{\#define,\#ifdef,\#endif,\#if,\#undef,\#line,\#warning,\#warn,\#error},%
+        morekeywords=[3]{INT,RST,V,L,OP,I,SKIP,INC,uaddr},%
+        alsoletter=\#,%
+        sensitive=false,%
+        morecomment=[l]{//},%
+        %morecomment=[s]{( }{ )},%
+}
+
+
+\lstdefinelanguage{forth}{%
+        mathescape=true,
+        %morekeywords={TRAP,IOT,LOAD,STORE,IN,OUT,JMP,JSR,ADD,AND,OR,%
+        %              XOR,OP1,OP2,ISZ,LIA,R,I,IFL,IFV,CLA,CLL,NOT,%
+        %              INC,CPL,RBL,RBR,RNL,RNR,NOP,SNA,SZA,SSL,SSV,SKIP,%
+        %              SNN,SNZ,SCL,SCV,CLI,SEI,SEL,NEG,ING,LI,SPA,SNP,RET,%
+        %              RTT,RTI,SBL,SBR},%
+        morekeywords=[3]{ok}
+        %alsoletter=.,%
+        sensitive=false,%
+        %morecomment=[l]{\},%
+        %morecomment=[s]{( }{ )},%
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% GRAPHICS
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% This includes a TikZ figure (if compiling with XeTeX), or a static
+% PNG image (for htLaTeX).
+\ifxetex
+  \newcommand{\inputfigure}[1]{\input{#1}}
+\else
+  \newcommand{\inputfigure}[1]{%
+    \begin{htmldiv}{includegraphics}%
+      \includegraphics{#1.png}%
+    \end{htmldiv}%
+  }
+\fi
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% TYPOGRAPHY
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Hypertext
+\newcommand\hyperemail[1]{\sffamily\href{mailto:#1}{#1}}
+\newcommand\link[1]{\sffamily\href{http://#1}{#1}}
+\newcommand\ahref[2]{\sffamily\href{#1}{#2}}
+
+% Basic stuff
+\newcommand\hex[1]{\textsf{#1}}
+\newcommand\bin[1]{\textsf{#1}}
+
+% Signals
+\newcommand\tU{$\uparrow$}
+\newcommand\tD{$\downarrow$}
+\ifxetex
+  \newcommand{\nsni}[1]{$\overline{\mbox{\textsf{{#1}}}}$}
+  \newcommand{\psni}[1]{\textsf{#1}}
+\else
+  \newcommand{\nsni}[1]{\htmlspan{signal neg}{#1}}
+  \newcommand{\psni}[1]{\htmlspan{signal}{#1}}
+\fi
+\newcommand{\ps}[1]{\index{#1@\psni{#1}}%
+  \psni{#1}}
+\newcommand{\ns}[1]{\index{#1@{$\protect\overline{\protect\mbox{\textsf{#1}}}$}}%
+  \nsni{#1}}
+\newcommand\BUS[2]{\ps{#1}$_{\mbox{\scriptsize #2}}$}
+\newcommand\nBUS[2]{\ns{#1}$_{\mbox{\scriptsize #2}}$}
+
+% Less than basic stuff
+\newcommand{\asm}[1]{\texttt{#1}}
+\newcommand\register[1]{\textsf{#1}\index{Registers!#1}}
+\newcommand\bus[1]{{#1}}
+\newcommand\unit[1]{{#1}}
+\newcommand\board[1]{#1\index{Boards!#1}}
+
+
+% CFT input and output typesetting
+\newcommand\cftin[1]{\textsf{#1}}
+\newcommand\cftout[1]{\textsf{#1}}
+\let\cftcode\cftout
+\let\cftkbd\cftin
+
+% Machine registers
+\newcommand\A{\register{AC}}
+\newcommand\AC{\A}
+\newcommand\DR{\register{DR}}
+\newcommand\PC{\register{PC}}
+\newcommand\IR{\register{IR}}
+\newcommand\AR{\register{AR}}
+\newcommand\MAR{\AR}
+\newcommand\Areg{\A}
+\newcommand\Ireg{\register{I}}
+\newcommand\Lreg{\register{L}}
+\newcommand\Zreg{\register{Z}}
+\newcommand\Vreg{\register{V}}
+\newcommand\Nreg{\register{N}}
+
+% Buses and units
+\newcommand\IBUS{\bus{\gls{IBUS}\index{IBUS}}}
+\newcommand\DBUS{\bus{\gls{Data Bus}\index{Data Bus}}}
+\newcommand\AEXT{\bus{\gls{AExt}\index{AExt}}}
+\newcommand\ABUS{\bus{\gls{Address Bus}\index{Address Bus}}}
+\newcommand\ALU{\unit{\gls{ALU}\index{ALU}}}
+
+\newcommand\SBU{\unit{\gls{SBU}\index{SBU}}}
+\newcommand\AGL{\unit{\gls{AGL}\index{AGL}}}
+
+% Signals
+\newcommand\CLOCK[1]{\BUS{CLK}{#1}}
+\newcommand\CLKn[1]{\CLOCK{#1}}
+\newcommand\CLL{\ns{CLL}}
+\newcommand\CPL{\ns{CPL}}
+\newcommand\STPAC{\ns{STPAC}}
+\newcommand\STPDR{\ns{STPDR}}
+\newcommand\UINSTR{\ns{uINSTR18}}
+\newcommand\HALT{\ns{HALT}}
+\newcommand\END{\ns{END}}
+\newcommand\IRQ{\ns{IRQ}}
+\newcommand\IRQS{\ns{IRQS}}
+\newcommand\IRQn[1]{\nBUS{IRQ}{#1}}
+\newcommand\RUNITn[1]{\BUS{RUNIT}{#1}}
+\newcommand\WUNITn[1]{\BUS{WUNIT}{#1}}
+\newcommand\TPA{\ps{TPA}}
+\newcommand\TPC{\ps{TPC}}
+\newcommand\WAC{\ns{WAC}}
+\newcommand\WALU{\ns{WALU}}
+\newcommand\WDR{\ns{WDR}}
+\newcommand\WIR{\ns{WIR}}
+\newcommand\WMAR{\ns{WMAR}}
+\newcommand\WPC{\ns{WPC}}
+\newcommand\SYSDEV{\ns{SYSDEV}}
+\newcommand\IODEV[1]{\ns{IODEV{#1}XX}}
+\newcommand\OPIFn[1]{\BUS{OPIF}{#1}}
+\newcommand\OPIF{\ps{OPIF}}
+\newcommand\GUARDPULSE{\ns{GUARD}}
+\newcommand\GP{\GUARDPULSE}
+\newcommand\RSTHOLD{\ns{RSTHOLD}}
+\newcommand\BOE{\ns{BOE}}
+\newcommand\UOE{\ns{UOE}}
+\newcommand\SKIP{\ns{SKIP}}
+\newcommand\AINDEX{\ps{AINDEX}}
+\newcommand\CLI{\ns{CLI}}
+\newcommand\STI{\ns{STI}}
+\newcommand\IRn[1]{\BUS{IR}{#1}}
+\newcommand\PCn[1]{\BUS{PC}{#1}}
+\newcommand\IBUSn[1]{\BUS{IBUS}{#1}}
+\newcommand\ACn[1]{\BUS{AC}{#1}}
+\newcommand\DBUSn[1]{\BUS{DBUS}{#1}}
+\newcommand\ABUSn[1]{\BUS{AB}{#1}}
+\newcommand\AEXTn[1]{\BUS{AEXT}{#1}}
+\newcommand\ISROLL{\ps{ISROLL}}
+\newcommand\RAC{\ns{RAC}}
+\newcommand\RAGL{\ns{RAGL}}
+\newcommand\RDR{\ns{RDR}}
+\newcommand\RPC{\ns{RPC}}
+\newcommand\INCPC{\ns{INCPC}}
+\newcommand\INCAC{\STPAC}
+\newcommand\INCDR{\STPDR}
+\newcommand\DEC{\ns{DEC}}
+\newcommand\MEM{\ns{MEM}}
+\newcommand\IO{\ns{IO}}
+\newcommand\R{\ns{R}}
+\newcommand\WRITE{\ns{W}}
+\newcommand\WEN{\ns{WEN}}
+\newcommand\WAR{\ns{WAR}}
+\newcommand\READ{\ns{R}}
+\newcommand\FL{\ps{FL}}
+\newcommand\FV{\ps{FV}}
+\newcommand\FZERO{\ps{FZERO}}
+\newcommand\FNEG{\ps{FNEG}}
+\newcommand\RESET{\ns{RESET}}
+\newcommand\abbr[1]{#1}
+\newcommand\SKIPEXT{\ns{SKIPEXT}}
+\newcommand\ENDEXT{\ns{ENDEXT}}
+\newcommand\WS{\ns{WS}}
+\newcommand\UPC{\ps{µPC}}
+\newcommand\UCB{\ps{µCB}}
+\newcommand\ACCPL{\ns{ACCPL}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% MEMORY LOCATIONS
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\makeatletter
+\newcommand\ioport@[4]{%
+  \label{ioport:#1-#4}
+  \vspace{0.5em}
+  \noindent\hex{\bfseries{#2}} (\texttt{#1}): {\bfseries\asm{\bfseries{#3}}} — {#4}
+  \vspace{0.5em}
+}
+
+% \ioport{port}{crwvehf}{regname}{descr}
+%
+%% \newcommand\ioport[4]{%
+%%   \ioport@{#1}{#2}{#3}{#4}
+%%   \addcontentsline{loioport}{section}{\hex{#2} (\texttt{#1}) \textbf{\asm{#3}} — soup}%
+%% }
+
+\newenvironment{ioport}[5]{%
+  \begin{htmldiv}{ioport}
+    \vspace{0.5em}
+    \addcontentsline{loioport}{section}{\hex{#2} (\texttt{#3}) \textbf{\cftout{#1} \cftout{#4} — #5}}%
+    \noindent\hex{\bfseries{#2}} (\texttt{#3}): {\bfseries\asm{\bfseries{#4}}} — {#5}%
+    \noindent%
+}{%
+  \vspace{0.5em}
+  \end{htmldiv}
+}
+
+\newenvironment{extcmd}[7]{%
+  \begin{htmldiv}{extcmd}
+    \vspace{0.5em}
+    \addcontentsline{loioport}{section}{\hex{#2} (\texttt{#4}) \textbf{\cftout{#1} \cftout{#2} — #6}}%
+    \noindent\hex{\bfseries{#2}} \hex{#3} (I/O port \hex{#4} — \texttt{#5}): {\bfseries{#6}}%
+    \noindent%
+}{%
+  \vspace{0.5em}
+  \end{htmldiv}
+}
+
+
+% \extcmda{HALT}{OUT R 000A}{540A}{crwvehf}{00a}{Short Descr}{Long Descr}
+\newcommand\extcmda[7]{%
+  \begin{htmldiv}{extcmda}
+    \label{ioport:#5-#2}
+    \vspace{0.5em}
+    \noindent\hex{\bfseries{#2}} (\texttt{#1}): {\bfseries\asm{\bfseries{#3}}} — {#4}
+    \vspace{0.5em}
+    #1 #2 #3 #4 #5 #6 #7
+    %% \ioport{#4}{#5}{#1}{#7}
+  \end{htmldiv}
+}
+\makeatother
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% TABLES
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ifxetex
+  \newcommand{\zebrarow}[1]{\rowcolors{#1}{cfthl!50}{cfthl!25}}
+  \newcommand\zebra{\zebrarow{2}}
+  \newcommand\zebrahdr{\zebrarow{1}}
+  %\newcommand\zebra*[1]{\rowcolors{#1}{gray!10}{white}}
+\else
+  \newcommand{\zebrarow}[1]{}
+  \newcommand\zebra{\zebrarow{2}}
+  \newcommand\zebrahdr{\zebrarow{1}}
+\fi
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% CONVENIENCE
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand\op[1]{{\ttfamily #1}}
+\newcommand\fwni[1]{{\ttfamily{#1}}}
+\newcommand\fw[1]{\fwni{#1}\index{#1@\protect\fwni{#1}}}
+%                           \index{#1@\fwni{#1}|(pie}%
+
+
+
+
+\newcommand\li[1]{\item{\bfseries #1}}
+\newcommand\NB{\textbf{Nota Bene:\ }}
+
+
+
+% End of file.

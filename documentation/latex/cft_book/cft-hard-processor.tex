@@ -17,7 +17,7 @@ processor's programming model, please refer to~\ccf{chap:programming-model}.
 \end{figure}
 
 The CFT datapath, illustrated in~\fcf{fig:datapath}, is organised around a
-single internal bus, the \IBUS. This precludes pipelining techniques, but keeps
+single internal bus, the \IBUS{}. This precludes pipelining techniques, but keeps
 the processor easy to reason about and implement. A number of units may either
 write to the \IBUS{}, or read from it. The \IBUS{} may also be connected to the
 external \DBUS{} via the Data Bus Transceiver, so that data can be exchanged
@@ -150,29 +150,7 @@ with such devices.
 
 \begin{figure}
   \centering
-  \begin{tikzpicture}
-    \begin{scope}[line width=1pt]
-      \begin{scope}[line width=2pt]
-        \node[state,initial,fill=cfthl!50]         (R) {R};
-        \node[state,fill=cfthl]         (F) [right =of R] {F};
-        \node[state,fill=cfthl]         (E) [right =of F] {E};
-        \node[state,fill=cfthl!50]         (S) [above =of F] {S};
-        \node[state,fill=cfthl!50]         (I) [below =of F] {I};
-      \end{scope}
-
-      \draw[->] (R.338) .. controls +(338:3mm) and +(202:3mm) .. (F.202);
-      \draw[->] (F.158) .. controls +(158:3mm) and +(22:3mm) .. (R.22);
-      \draw[->] (F.338) .. controls +(338:3mm) and +(202:3mm) .. (E.202);
-      \draw[->] (E.158) .. controls +(158:3mm) and +(22:3mm) .. (F.22);
-      \draw[->] (E.north) .. controls +(up:35mm) and +(up:35mm) .. (R.north);
-      \draw[->] (E) -- (I);
-      \draw[->] (I) -- (R);
-      \draw[->] (I) -- (F);
-      \draw[->] (E) -- (S);
-      \draw[->] (S) -- (R);
-      \draw[->] (S) -- (F);
-    \end{scope}
-  \end{tikzpicture}
+  \inputfigure{figure-major-states}
   \caption[CFT Processor Major States]{\label{hard:proc:major-states}CFT Processor Major States:
     Reset (R), Fetch (F), Execute (E), Stop (S), and Interrupt (I).}
 \end{figure}
@@ -229,979 +207,969 @@ lasts $250\,\mbox{ns}/4 = 62.5\,\mbox{ns}$.
 
 \begin{figure*}
 \centering
-\begin{tikztimingtable}
-  Stage                & D{} 13D{T1} 13D{T2} 13D{T3} 13D{T4} DD{} \\
-  \CLOCK{1} (0°)       & H 12CL 38CH CL\\
-  \CLOCK{2} (90°)      & 14H 12CL 27CH\\
-  \CLOCK{3} (180°)     & 27H 12CL 14CH\\
-  \CLOCK{4} (270°)     & 40H 12CL CH\\
-  \ns{T12}             & H 25CL 25CH CL\\
-  \ns{T34}             & L 25CH 25CL CH\\
-  Micro-instruction    & D{} 18D{Fetch} 8D{Decode} 26D{Execute} DD{} \\
-  \DBUS                & 21Z 32D{Bus possibly driven by processor} ZZ{} \\
-\end{tikztimingtable}
+\inputfigure{figure-processor-cycle}
 \caption[Phases of a processor cycle]{\label{fig:processor-cycle} The four phases of a processor cycle. Please note that the fetch and decode stages happen asynchronously, since microcode ROM access times are higher than 25\% of the clock period. The \DBUS{} is never accessed during the first half of the processor cycle, which allows other devices (such as a VDU or DRAM refresh circuitry) to access the bus.}
 \end{figure*}
 
-\section{Interrupts}
+%% \section{Interrupts}
 
-\chapter{Hardware Description}
-\label{chap:processor-hardware-description}
+%% \chapter{Hardware Description}
+%% \label{chap:processor-hardware-description}
 
 
-The CFT processor is made up of a number of relatively simple units connected
-in way that causes complex (and in fact, Turing Complete) emergent
-behaviour. The units are as follows:
+%% The CFT processor is made up of a number of relatively simple units connected
+%% in way that causes complex (and in fact, Turing Complete) emergent
+%% behaviour. The units are as follows:
 
-\begin{description}
-  \item{\bfseries Clock Generator}. This simple unit generates appropriately
-    phased clocks from one of three clock sources, and allows stopping the
-    clock and single-stepping.
+%% \begin{description}
+%%   \item{\bfseries Clock Generator}. This simple unit generates appropriately
+%%     phased clocks from one of three clock sources, and allows stopping the
+%%     clock and single-stepping.
 
-  \item{\bfseries Reset Sequencer}. Handles reset inputs and performs the reset
-    sequence.
+%%   \item{\bfseries Reset Sequencer}. Handles reset inputs and performs the reset
+%%     sequence.
 
-  \item{\bfseries Microcode Sequencer}. The nerve centre of the Control
-    Unit. Based on a number of inputs and a microcode store, this unit outputs
-    appropriate control signals to drive the other units in the approproriate
-    sequence.
+%%   \item{\bfseries Microcode Sequencer}. The nerve centre of the Control
+%%     Unit. Based on a number of inputs and a microcode store, this unit outputs
+%%     appropriate control signals to drive the other units in the approproriate
+%%     sequence.
 
-  \item{\bfseries Unit Decoders}. Decodes microcode sequencer vertical signals
-    to strobes driving individual units.
-
-  \item{\bfseries Skip/Branch Logic}. This unit implements flow control by
-    signalling the Microcode Sequencer (when it requests this) when a microcode
-    branch is required. This is also used to perform \gls{machine code}-level
-    skips.
-
-  \item{\bfseries Address Generation Logic}. This unit forms half of the
-    \glspl{Addressing Mode} of the processor.
-
-  \item{\bfseries Instruction Register}. Contains the bit pattern of the
-    instruction currently being executed. This selects a microprogram for the
-    Microcode Sequencer to run.
-
-  \item{\bfseries Interrupt State Machine}. A state machine that handles
-    interrupt requests and instructs (when appropriate) the Microcode Sequencer
-    to jump to the interrupt microprogram.
-
-  \item{\bfseries Data Bus Driver and Wait States}. A unit that connects the
-    processor's internal bus to the external data bus, and also generates write
-    waveforms. As a bonus, it also handles requested wait states.
-
-  \item{\bfseries Address Register}. Is a write-only register that holds the
-    addresses used to drive the external Address Bus and can drive it as
-    required.
-
-  \item{\bfseries Program Counter}. A major 16-bit register that holds the
-    address in memory of the next instruction to execute. It supports reading,
-    writing and increments.
-
-  \item{\bfseries Data Register}. A major 16-bit register used to implement
-    Indirect \glspl{Addressing Mode}. This register supports reading, writing,
-    increments and decrements.
-
-  \item{\bfseries Accumulator}. The single general purpose register of the CFT
-    architecture. This register supports reading, writing, increments and
-    decrements, and also calculates the zero and negative flags for the Control
-    Unit and \gls{ALU}.
-
-  \item{\bfseries Autoindex Logic}. This unit helps implement Autoindex mode by
-    notifying the Microcode Sequencer when the appropriate addresses are used.
-
-  \item{\bfseries I/O Device Address Decoder}. To simplify address decoding for
-    peripherals, this unit decodes the upper eight bits of the I/O address
-    space and provides appropriate chip select signals on the expansion bus.
-
-  \item{\bfseries Link Register}. A complex single-bit register with complex
-    set, clear and toggle inputs.
-
-  \item{\bfseries ALU Operationg Decocder}. Receives signals from the
-    Control Unit and drives appropriate parts of the \gls{ALU}.
-
-  \item{\bfseries ALU Binary B Register}. Implements the right-hand register
-    for \gls{ALU} binary operations.
-
-  \item{\bfseries ALU Binary Y Register}. Implements the output register
-    for \gls{ALU} binary operations.
-
-  \item{\bfseries ALU Binary Table}. Implements the binary operation function
-    table.
-
-  \item{\bfseries ALU Unary Table}. Implements the unary operation function
-    table.
-
-  \item{\bfseries Flag Logic}. Implements the flag registers attached to the
-    \gls{ALU}.
-
-  \item{\bfseries 8 kWord Memory Banking Unit}. A simple banked memory
-    management unit that allows 21 bits of physical memory to fit the CFT's
-    16-bit address space.
-
-\end{description}
-
-\begin{figure*}
-\includegraphics[width=0.95\textwidth]{figs/Processor-Board-A.png}\vspace{2em}\\
-\caption[Layout of Processor Board A]{\label{fig:layout-board-a} Layout of Processor Board A.}
-\end{figure*}
-\begin{figure*}
-\includegraphics[width=0.95\textwidth]{figs/Processor-Board-B.png}\vspace{2em}\\
-\caption[Layout of Processor Board B]{\label{fig:layout-board-b} Layout of Processor Board B.}
-\end{figure*}
-\begin{figure*}
-\includegraphics[width=0.95\textwidth]{figs/Processor-Board-C.png}\vspace{2em}\\
-\caption[Layout of Processor Board C]{\label{fig:layout-board-c} Layout of Processor Board C.}
-\end{figure*}
-
-This chapter discusses the theory of operation of the actual hardware
-implementation of the processor. It discusses how the theoretical CFT
-architecture can be implemented as hardware. It is broken down by
-processor unit, including the minor ones, and examines each in an
-isolated fashion.
-
-\section{Clock Generator}
-
-The original intention is to run the processor at a clock rate of 4~MHz (a
-clock period of 250~ns). This is output by the clock generator circuitry. There
-are four clock phases, all at a 50\% duty cycle, each at a 90° phase
-difference. For each rising clock edge, there is a synchronous, corresponding
-falling clock edge 90° away, and vice versa. Some of these clock phases are
-used directly in the processor (or computer) circuitry. Others are combined to
-create specific timing pulses or strobes.
-
-A 4:1 multiplexer selects one of three clock sources: the fast clock
-(\ps{FASTCLK}, nominally at 16~MHz), a slower demonstration clock named
-\ps{SLOWCLK} (around 200–250 Hz) and a creeping clock for testing and microcode
-debugging called \ps{TESTCLK} (around 20–25 Hz). The multiplexer selects among
-the three clocks with two input signals from the front panel, \ps{FPFAST} and
-\ps{FPSLOW}. The following function table is implemented:
-
-\begin{center}
-  \zebra
-  \begin{tabular}{*{4}{>{\textsf\bgroup}c<{\egroup}}l}
-    %\noalign{\smallskip}\hline\noalign{\smallskip}
-    %\hline
-    \ps{FPSLOW} & \ps{FPFAST} & Mux AB & Clock \\
-    %\noalign{\smallskip}\hline\noalign{\smallskip}
-    \hline
-    L & L & \bin{00} & \ps{SLOWCLK} \\
-    H & L & \bin{10} & \ps{TESTCLK} \\
-    X & H & \bin{X1} & \ps{FASTCLK} \\
-    \hline
-  \end{tabular}
-\end{center}
-
-To provide a sane clock selection when no front panel is connected, \ps{FPFAST}
-is pulled high and \ps{FPSLOW} is pulled low. This selects the fast clock.
-
-\paragraph{Fast Clock}
-
-To ensure a stable clock with maximal accuracy, the fast clock was implemented
-as a single-part, four pin, 16~MHz crystal oscillator. The only additional
-component to this clock source is a 100~nF bypass capacitor.
-
-\paragraph{Slow Clock}
-
-There are fewer concerns about the accuracy of the slow clock, and duty cycle
-is immaterial since clocks are subdivided and only the positive edge is used —
-as such, only the overall {\em clock period\/} is important. Thus, it was
-easier and more flexible to implement the slow clock using a 555 timer in its
-standard astable configuration, as shown in~\fcf{fig:555-astable}.
-
-\begin{figure}
-\centering
-\includegraphics{figs/fig-555-astable.pdf}\\
-\caption[LM555 in astable configuration] {\label{fig:555-astable}The popular LM555 timer in its astable
-  configuration, with a variable frequency (and inevitable variable duty
-  cycle). This one is configured to generate 89–215~Hz frequencies, and is used
-  as the \ps{SLOWCLK} generator.}
-\end{figure}
-
-\paragraph{Test Clock}
-
-The test clock is the same design as the slow clock — in fact, they are both
-built around the same 556 IC (two 555 timers in one 16-pin \gls{DIP} package).
-
-
- Each clock source is
-divided by four internally to generate the four clock phases.
-
-\bug{\ps{FPUSTEP} needs to strobe at 2×CLK, this is not very useful.}{} \bug{The slow
-  clock generators run at ¼ frequency.}{The best way to fix this is to change the 555
-  capacitor to 2.2µF from 10µF, and adjust the variable resistors.}
-
-\todo{Use XOR-based edge detection to generate two pulses (four edges) from one activation
-  of the \sw{µSTEP} switch.}
-
-\todo{Complete this}
-
-
-\begin{figure}
-\centering
-\begin{tikztimingtable}
-  \ns{RAWCLK} & H CL N(A1) 4{CH CL} N(A2) 4{CH CL} N(A3) 4{CH CL} N(A4) 2{CH CL} CH \\
-  %% \CLOCK{1} (270°)  & L 8H 3{8L 8H} 4L \\
-  %% \CLOCK{2} (180°)  & 5H 3{8L 8H} 8L \\
-  %% \CLOCK{3} (90°)   & H 8L 3{8H 8L} 4H \\
-  %% \CLOCK{4} (0°)    & 5L 3{8H 8L} 8H \\
-  %% \CLOCK{5}         & L 12H 3{4L 12H} L \\
-  %% \GUARDPULSE       & 3L ee 3{3H ee 11L ee} 3H ee 8L \\
-  \CLOCK{1} (0°)       & 3H 3{4L 12H} 4L 6H\\
-  \CLOCK{2} (90°)      & 7H 3{4L 12H} 4L 2H\\
-  \CLOCK{3} (180°)     & 11H 3{4L 12H} 2L \\
-  \CLOCK{4} (270°)     & 3L N(B1) 12H 4L N(B2) 12H 4L N(B3) 12H 4L N(B4) 10H\\
-%
-  \extracode
-  \tablerules
-  \begin{pgfonlayer}{background}
-    \foreach \n in {1,...,4}
-    \draw [help lines] (A\n) -- (B\n);
-  \end{pgfonlayer}
-\end{tikztimingtable}
-\caption{\label{fig:clock-timing} Timing diagram of the four-phase clock generator.}
-\end{figure}
-
-
-\begin{figure}
-\centering
-\begin{tikztimingtable}
-  \CLOCK{3}    & H CL 4{CH CL} N(A2) 4{CH CL} N(A3) 4{CH CL} N(A4) 2{CH CL} CH \\
-  \ns{RESET}   & 10H N(A1) 3L ;[dotted] 15L; 7L H ;[dotted] 15H; 10H \\
-  \ns{RSTHOLD} & 10H 3L ;[dotted] 15L; 8L N(B3) ;[dotted] 15L; 10H \\
-   \IBUSn{0–15} & 10U{} N(B1) 41D{\hex{FFF0}} N(B4) 10U{} \\
-%
-  \extracode
-  \tablerules
-  \begin{pgfonlayer}{background}
-    \foreach \n in {1,4}
-    \draw [help lines] (A\n) -- (B\n);
-  \end{pgfonlayer}
-\end{tikztimingtable}
-\caption[Reset waveform]{\label{fig:reset-timing} Reset waveform. The width of \ns{RSTHOLD} has
-  a guaranteed, configurable minimum width and its rising edge is synchronous
-  to the rising edge of \CLOCK{3}.}
-\end{figure}
-
-
-\section{Reset Logic}
-
-The Reset Logic is a simple 8-bit counter, clocked from the processor clock to
-ensure the reset pulse is synchronised with the processor sequencer.
-
-A number of open drain reset inputs are combined together and fed into the
-counter's active low reset pin. These include:
-
-\begin{itemize}
-\item The front panel \ns{FPRESET} input. This is connected to a toggle switch
-  and allows the user to reset the computer manually.
-\item The power supply \ps{POWEROK} signal. The power supply asserts this when
-  the power output is healthy. The signal is clear when the power supply is
-  still stabilising after initial power up, or when a brown-out is
-  detected. Interpreting it as the imaginary active-low ‘\ns{POWERBAD}’ signal
-  allows us to reset the machine on brown-outs {\em and\/} to allow for a
-  power-on reset sequence.
-\item When the optional reset button on the reset logic board is pressed.
-\item When the open drain \ns{RESET} signal is asserted. This allows any number
-  of external drivers of this signal.
-\end{itemize}
-
-When the reset signal goes low, the counter resets and starts counting. A bank
-of jumpers connects one of the counter's binary outputs to the \ns{RSTHOLD}
-signal. With the count reset, \ns{RSTHOLD} goes low. When the count progresses
-enough for the selected bit to go high, \ns{RSTHOLD} goes high
-(deasserted). This also disables the counter. At this point, the \ns{RSTHOLD}
-pulse is complete.
-
-By selecting which count bit drives \ns{RSTHOLD}, the pulse width can be controlled. In
-theory, pulse widths of $2^n$ clock periods ($1\leq n\leq 8$) can be used. In practice,
-because the counter is registered, and the register and count inputs are wired together,
-the \ns{RSTHOLD} pulse lasts for one extra clock period. Also, since the reset pulse
-arrives asynchronously, the \ns{RSTHOLD} may be up to one clock period longer yet.
-
-With a clock of 4~MHz, the longest reset pulse is 64.25~ms which is fine for most uses:
-the processor itself is very quick to reset, needing less than one clock period. Other
-hardware, however, is not as fast. Since a reset sequence also happens when the computer
-powers up or a brown-out is detected, an extended \ns{RSTHOLD} pulse makes the processor
-wait for power rail and clock stabilisation (among other potential pitfalls).
-
-While \ns{RSTHOLD} is active, the value \hex{FFF0} is driven onto the \IBUS{}
-using a pair of 74x541 buffers. This is the Reset Vector. The processor uses
-this value to reset the \PC{} to its initial value.
-
-\section{Microprogram Counter}
-\label{sec:upc}
-
-The Microprogram Counter (µPC) is a simple 4-bit counter with reset and dual
-count enables. A \HC{161} counter was selected for this. The '161 counts on the
-positive edge of \CLOCK{1}, while the count enables are high. These are driven
-by \ns{WS} and \ns{HALT}, both pulled up in case the two input signals are
-physically unconnected.
-
-The counter resets to zero when \ns{RSTHOLD} is asserted.
-
-The \ns{END} signal and its open drain, external counterpart \ns{ENDEXT} are ANDed
-together and fed to the '161's active low load signal (\ns{LD}). This loads the counter
-from the \ps{P1}–\ps{P4} inputs, which are always driven low. This is effectively used to
-reset the counter when the currently executing microprogram is finished.
-
-The counter's output provides the four least significant bits of the microcode address
-vector, the others being provided by other processor states.
-
-The counter implements the following function table:
-
-\begin{center}
-  \zebra
-  \begin{tabular}{*{6}{>{\textsf\bgroup}c<{\egroup}}l}
-    %\noalign{\smallskip}\hline\noalign{\smallskip}
-    %\\\hline
-    \ps{CLOCK4} & \ns{RSTHOLD} & \ns{END} & \ns{ENDEXT} & \ns{WS} & \ns{HALT} & Function \\
-    %\noalign{\smallskip}\hline\noalign{\smallskip}
-    \hline
-    X   & L & X & X & X & X & Reset counter to 0 asynchronously.\\
-    \tU & H & L & X & X & X & Reset counter to 0.\\
-    \tU & H & X & L & X & X & Reset counter to 0.\\
-    \tU & H & X & X & L & X & Inhibit counting.\\
-    \tU & H & X & X & X & L & Inhibit counting.\\
-    \tU & H & H & H & H & H & Increment count (mod 16).\\
-    \hline
-  \end{tabular}
-\end{center}
-
-
-
-%\tikzset{timing/new counter={char=Q,base=16,reset char=R}}
-\begin{figure*}
-  \centering
-\begin{tikztimingtable}
-  \CLOCK{4}    & L 2{2H 2L} N(A2) 2H 2L N(A3) 2H 2L N(A4) 2H 2L N(A5) %
-                 2H 2L N(A6) 2H 2L N(A7) 2H 2L N(A8) %
-                 2H 2L N(A9) 5{2H 2L} N(A10) 2H 2L N(A11) %
-                 2H 1 \\
-  \ns{RSTHOLD} & 2H N(A1) 4L 57H \\
-  \ns{END}     & 15H 3L 45H \\
-  \ns{ENDEXT}  & 23Z 3L 37Z \\
-  \ns{WS}      & 38Z 8L 17Z \\
-  \ns{HALT}    & 47Z 8L 8Z \\
-  \UPC         & 2U{} N(B1) 7D{\hex{0}} %
-                 N(B2) 4D{\hex{1}} %
-                 N(B3) 4D{\hex{2}} %
-                 N(B4) 4D{\hex{0}} %
-                 N(B5) 4D{\hex{1}} %
-                 N(B6) 4D{\hex{0}} %
-                 N(B7) 4D{\hex{1}} %
-                 N(B8) 4D{\hex{3}} %
-                 N(B9) 20D{\hex{3}} %
-                 N(B10) 4D{\hex{4}} % 
-                 N(B11) 2D{\hex{5}} \\
-  %% \ns{WS} & 20H 3L 54H \\
-  %% \ns{HALT} & 70H 7L \\
-\extracode
- \tablerules
- \begin{pgfonlayer}{background}
-   \foreach \n in {1,...,11}
-     \draw [help lines] (A\n) -- (B\n);
- \end{pgfonlayer}
-\end{tikztimingtable}
-\caption[Microprogram Counter Waveforms]{\label{fig:upc-timing} Timing
-  diagram of the operation of the microprogram counter (\UPC). The
-  counter resets synchronously while \ns{RSTHOLD} is asserted. The
-  rising edge of \CLOCK{4} clears it if either \ns{END} or \ns{ENDEXT}
-  are asserted, and counting is inhibited when \ns{WS} or \ns{HALT}
-  are asserted.}
-\end{figure*}
-
-\begin{figure}[tb]
-  \centering
-  \input{figure-microcode-store}
-
-  \caption[Microcode address vector]{\label{fig:ucode-addr-vector}Microcode
-    Address Vector (top) and output control signals (bottom). The Address
-    Vector forms the 15–19 bit address (the \ps{μCB} field is optional) for
-    three ROMs, each of which outputs 8 bits of the 24-bit wide control
-    vector. The control vector, in turn, drives the processor. }
-\end{figure}
-
-\section{Microcode Store}
-\label{sec:microcode-store}
-
-\todo{Reflect DEC support}
-
-The microcode store implements a large function table that maps a 15-to-19-bit
-address vector to a 24-bit control vector, which is made up of vertical
-microcode fields and horizontal control lines connected directly to various
-units around the processor. These signals are described in detail
-in~\cf{sec:microcode-format}.
-
-From the electronics perspective, the hardware store is implemented on a
-daughterboard containing, in its current revision, three 4 MBit (524,288×8 bits
-each) Flash devices. The devices are reprogrammable, which allows the microcode
-to be corrected and updated, but they have to be removed from their sockets to
-do so.
-
-All three ROMs receive the same address vector. Each outputs 8 bits of the
-control vector in parallel. To minimise access times, the chips are permanently
-selected by tying their \ns{CE} pins to ground. Since in-circuit programming is
-not available in this revision, the \ns{WE} pins are pulled high, turning the
-Flash devices into ROMs.
-
-The output enable pins (\ns{OE}) are low, except when \ns{HALT} or \ns{RESET}
-are asserted. With the processor halted (or in the early stages of resetting),
-the ROMs are in a high impedance state, allowing other units (such as the front
-panel controller) to control the processor's units.
-
-The Microcode Store daughterboard plugs into the Processor Board A via two
-24-pin headers which provide power and the 19-bit address vector, and accept 24
-bits of output. The outputs are pulled high (control signals) or low (vertical
-fields) to provide sane idle values when the ROMs are tri-stated.
-
-Having a daughterboard allows the microcode ROMs to be replaced easily with
-other solutions to the same problem, and also to expand the architecture at a
-later stage, by replacing this simple store with a more complex one.
-
-\section{Microcode Format and the Control Unit}
-\label{sec:microcode-format}
-
-A full discussion of the microcode architecture from a software point of
-view can be found in~\ccf{chap:microcode}.
-
-Microcode is a multivariate function that accepts a number of inputs, the
-address vector, and outputs a number of control signals. 
-
-The address vector is made up of the following fields, in order of increasing
-bit significance:
-
-\input{partial-microcode-address}
-
-This address vector indexes three 4 MBit (524,288×8 bits) Microcode ROMs in
-parallel to provide a 524,288×24 table. This 24-bit vector is the control
-vector, which directly (or after some decoding) drives the processor's units
-and the bus. The control lines are as follows:
-
-\input{partial-microcode-control}
-
-
-%% \begin{figure}[tb]
-%%   \centering
-%%   \begin{tikzpicture}
-%%     \begin{scope}[thin,draw opacity=0,line width=0pt]
-%%     \draw[fill=cfthl!25](0,0) rectangle (9.5,0.6);
-%%     \foreach \x in {0, ..., 9}{
-%%       \draw[fill=cfthl!50,xshift=\x cm](0,0) rectangle (0.5,0.6);
-%%     }
-%%     %\draw[fill=cfthl!50,xshift=10 cm](0,0) rectangle (0.5,0.6);
-%%     \end{scope}
-%%     \foreach \x in {0.5, 1, ..., 9}{
-%%       \draw[thin] (\x cm, 0) -- (\x cm, -0.1cm);
-%%     }
-%%     \draw[line width=2pt](0,0) rectangle (9.5,0.6);
-%%     \draw (9.5,0) node[below left] { \footnotesize 0 };
-%%     \draw (0,0) node[below] { \footnotesize 18 };
-
-%%     \foreach \x in {3,4,5,6,10,11,12,13,14}{
-%%       \begin{scope}[xshift=9.5 cm - 0.5 * ( \x cm + 1 cm)]
-%%         \draw[thick](0,-0.1) -- (0,0.6);
-%%         \draw (0,0) node[below right] { \footnotesize \x };
-%%       \end{scope}
-%%     }
-%%     %% \draw[thick](1,-0.1) -- (1,0.6);
-
-%%     %% \draw[thick](4,-0.1) -- (4,0.6);
-%%     \draw (8.5, 0.3) node { \UPC };
-%%     \draw (1, 0.3) node { \UCB };
-%%     \draw (5, 0.3) node { Opcode };
-%%     \draw (0.25, 0.8)[xshift=7 cm] node[right, rotate=60] { \ns{AINDEX} };
-%%     \draw (0.25, 0.8)[xshift=6.5 cm]  node[right, rotate=60] { \ns{SKIP} };
-%%     \draw (0.25, 0.8)[xshift=6 cm]  node[right, rotate=60] { \asm{R} };
-
-%%     \draw (0.25, 0.8)[xshift=3.5 cm]  node[right, rotate=60] { \ps{FL} };
-%%     \draw (0.25, 0.8)[xshift=3 cm]  node[right, rotate=60] { \ps{FV} };
-%%     \draw (0.25, 0.8)[xshift=2.5 cm]  node[right, rotate=60] { \ns{IRQS} };
-%%     \draw (0.25, 0.8)[xshift=2 cm]  node[right, rotate=60] { \ns{RSTHOLD} };
-%%     %% \draw (7.5, 0.3) node[left, rotate=45] { \ns{SKIP} };
-
-%%     %% %% \draw (2.25, 0.3) node { I };
-%%     %% %% \draw (2.75, 0.3) node { R };
-%%     %% \draw (7.25, 0.3) node { \ABUSn{0–12} };
-
-%%     %% \draw (1.5,-1) node[right] { Bank number, bit 0 };
-%%     %% \draw (1.5,-1.5) node[right] { Bank number, bit 1 };
-
-%%     %% \draw[thick, rounded corners=5.5mm] (1.5, -1.5) -- (0.25, -1.5) -- (0.25, -0.2);
-%%     %% \draw[thick, rounded corners=3mm] (1.5, -1) -- (0.75, -1) -- (0.75, -0.2);
-
-%%   \end{tikzpicture}
-
-
-%%   \caption[Microcode store]{\label{fig:ucode-addr-vector}The Microcode Store, with inputs (The Microcode Address Vector) on the left, and outputs (the Control Vector) on the right.}
+%%   \item{\bfseries Unit Decoders}. Decodes microcode sequencer vertical signals
+%%     to strobes driving individual units.
+
+%%   \item{\bfseries Skip/Branch Logic}. This unit implements flow control by
+%%     signalling the Microcode Sequencer (when it requests this) when a microcode
+%%     branch is required. This is also used to perform \gls{machine code}-level
+%%     skips.
+
+%%   \item{\bfseries Address Generation Logic}. This unit forms half of the
+%%     \glspl{Addressing Mode} of the processor.
+
+%%   \item{\bfseries Instruction Register}. Contains the bit pattern of the
+%%     instruction currently being executed. This selects a microprogram for the
+%%     Microcode Sequencer to run.
+
+%%   \item{\bfseries Interrupt State Machine}. A state machine that handles
+%%     interrupt requests and instructs (when appropriate) the Microcode Sequencer
+%%     to jump to the interrupt microprogram.
+
+%%   \item{\bfseries Data Bus Driver and Wait States}. A unit that connects the
+%%     processor's internal bus to the external data bus, and also generates write
+%%     waveforms. As a bonus, it also handles requested wait states.
+
+%%   \item{\bfseries Address Register}. Is a write-only register that holds the
+%%     addresses used to drive the external Address Bus and can drive it as
+%%     required.
+
+%%   \item{\bfseries Program Counter}. A major 16-bit register that holds the
+%%     address in memory of the next instruction to execute. It supports reading,
+%%     writing and increments.
+
+%%   \item{\bfseries Data Register}. A major 16-bit register used to implement
+%%     Indirect \glspl{Addressing Mode}. This register supports reading, writing,
+%%     increments and decrements.
+
+%%   \item{\bfseries Accumulator}. The single general purpose register of the CFT
+%%     architecture. This register supports reading, writing, increments and
+%%     decrements, and also calculates the zero and negative flags for the Control
+%%     Unit and \gls{ALU}.
+
+%%   \item{\bfseries Autoindex Logic}. This unit helps implement Autoindex mode by
+%%     notifying the Microcode Sequencer when the appropriate addresses are used.
+
+%%   \item{\bfseries I/O Device Address Decoder}. To simplify address decoding for
+%%     peripherals, this unit decodes the upper eight bits of the I/O address
+%%     space and provides appropriate chip select signals on the expansion bus.
+
+%%   \item{\bfseries Link Register}. A complex single-bit register with complex
+%%     set, clear and toggle inputs.
+
+%%   \item{\bfseries ALU Operationg Decocder}. Receives signals from the
+%%     Control Unit and drives appropriate parts of the \gls{ALU}.
+
+%%   \item{\bfseries ALU Binary B Register}. Implements the right-hand register
+%%     for \gls{ALU} binary operations.
+
+%%   \item{\bfseries ALU Binary Y Register}. Implements the output register
+%%     for \gls{ALU} binary operations.
+
+%%   \item{\bfseries ALU Binary Table}. Implements the binary operation function
+%%     table.
+
+%%   \item{\bfseries ALU Unary Table}. Implements the unary operation function
+%%     table.
+
+%%   \item{\bfseries Flag Logic}. Implements the flag registers attached to the
+%%     \gls{ALU}.
+
+%%   \item{\bfseries 8 kWord Memory Banking Unit}. A simple banked memory
+%%     management unit that allows 21 bits of physical memory to fit the CFT's
+%%     16-bit address space.
+
+%% \end{description}
+
+%% \begin{figure*}
+%% \includegraphics[width=0.95\textwidth]{figs/Processor-Board-A.png}\vspace{2em}\\
+%% \caption[Layout of Processor Board A]{\label{fig:layout-board-a} Layout of Processor Board A.}
+%% \end{figure*}
+%% \begin{figure*}
+%% \includegraphics[width=0.95\textwidth]{figs/Processor-Board-B.png}\vspace{2em}\\
+%% \caption[Layout of Processor Board B]{\label{fig:layout-board-b} Layout of Processor Board B.}
+%% \end{figure*}
+%% \begin{figure*}
+%% \includegraphics[width=0.95\textwidth]{figs/Processor-Board-C.png}\vspace{2em}\\
+%% \caption[Layout of Processor Board C]{\label{fig:layout-board-c} Layout of Processor Board C.}
+%% \end{figure*}
+
+%% This chapter discusses the theory of operation of the actual hardware
+%% implementation of the processor. It discusses how the theoretical CFT
+%% architecture can be implemented as hardware. It is broken down by
+%% processor unit, including the minor ones, and examines each in an
+%% isolated fashion.
+
+%% \section{Clock Generator}
+
+%% The original intention is to run the processor at a clock rate of 4~MHz (a
+%% clock period of 250~ns). This is output by the clock generator circuitry. There
+%% are four clock phases, all at a 50\% duty cycle, each at a 90° phase
+%% difference. For each rising clock edge, there is a synchronous, corresponding
+%% falling clock edge 90° away, and vice versa. Some of these clock phases are
+%% used directly in the processor (or computer) circuitry. Others are combined to
+%% create specific timing pulses or strobes.
+
+%% A 4:1 multiplexer selects one of three clock sources: the fast clock
+%% (\ps{FASTCLK}, nominally at 16~MHz), a slower demonstration clock named
+%% \ps{SLOWCLK} (around 200–250 Hz) and a creeping clock for testing and microcode
+%% debugging called \ps{TESTCLK} (around 20–25 Hz). The multiplexer selects among
+%% the three clocks with two input signals from the front panel, \ps{FPFAST} and
+%% \ps{FPSLOW}. The following function table is implemented:
+
+%% \begin{center}
+%%   \zebra
+%%   \begin{tabular}{*{4}{>{\textsf\bgroup}c<{\egroup}}l}
+%%     %\noalign{\smallskip}\hline\noalign{\smallskip}
+%%     %\hline
+%%     \ps{FPSLOW} & \ps{FPFAST} & Mux AB & Clock \\
+%%     %\noalign{\smallskip}\hline\noalign{\smallskip}
+%%     \hline
+%%     L & L & \bin{00} & \ps{SLOWCLK} \\
+%%     H & L & \bin{10} & \ps{TESTCLK} \\
+%%     X & H & \bin{X1} & \ps{FASTCLK} \\
+%%     \hline
+%%   \end{tabular}
+%% \end{center}
+
+%% To provide a sane clock selection when no front panel is connected, \ps{FPFAST}
+%% is pulled high and \ps{FPSLOW} is pulled low. This selects the fast clock.
+
+%% \paragraph{Fast Clock}
+
+%% To ensure a stable clock with maximal accuracy, the fast clock was implemented
+%% as a single-part, four pin, 16~MHz crystal oscillator. The only additional
+%% component to this clock source is a 100~nF bypass capacitor.
+
+%% \paragraph{Slow Clock}
+
+%% There are fewer concerns about the accuracy of the slow clock, and duty cycle
+%% is immaterial since clocks are subdivided and only the positive edge is used —
+%% as such, only the overall {\em clock period\/} is important. Thus, it was
+%% easier and more flexible to implement the slow clock using a 555 timer in its
+%% standard astable configuration, as shown in~\fcf{fig:555-astable}.
+
+%% \begin{figure}
+%% \centering
+%% \includegraphics{figs/fig-555-astable.pdf}\\
+%% \caption[LM555 in astable configuration] {\label{fig:555-astable}The popular LM555 timer in its astable
+%%   configuration, with a variable frequency (and inevitable variable duty
+%%   cycle). This one is configured to generate 89–215~Hz frequencies, and is used
+%%   as the \ps{SLOWCLK} generator.}
+%% \end{figure}
+
+%% \paragraph{Test Clock}
+
+%% The test clock is the same design as the slow clock — in fact, they are both
+%% built around the same 556 IC (two 555 timers in one 16-pin \gls{DIP} package).
+
+
+%%  Each clock source is
+%% divided by four internally to generate the four clock phases.
+
+%% \bug{\ps{FPUSTEP} needs to strobe at 2×CLK, this is not very useful.}{} \bug{The slow
+%%   clock generators run at ¼ frequency.}{The best way to fix this is to change the 555
+%%   capacitor to 2.2µF from 10µF, and adjust the variable resistors.}
+
+%% \todo{Use XOR-based edge detection to generate two pulses (four edges) from one activation
+%%   of the \sw{µSTEP} switch.}
+
+%% \todo{Complete this}
+
+
+%% \begin{figure}
+%% \centering
+%% \begin{tikztimingtable}
+%%   \ns{RAWCLK} & H CL N(A1) 4{CH CL} N(A2) 4{CH CL} N(A3) 4{CH CL} N(A4) 2{CH CL} CH \\
+%%   %% \CLOCK{1} (270°)  & L 8H 3{8L 8H} 4L \\
+%%   %% \CLOCK{2} (180°)  & 5H 3{8L 8H} 8L \\
+%%   %% \CLOCK{3} (90°)   & H 8L 3{8H 8L} 4H \\
+%%   %% \CLOCK{4} (0°)    & 5L 3{8H 8L} 8H \\
+%%   %% \CLOCK{5}         & L 12H 3{4L 12H} L \\
+%%   %% \GUARDPULSE       & 3L ee 3{3H ee 11L ee} 3H ee 8L \\
+%%   \CLOCK{1} (0°)       & 3H 3{4L 12H} 4L 6H\\
+%%   \CLOCK{2} (90°)      & 7H 3{4L 12H} 4L 2H\\
+%%   \CLOCK{3} (180°)     & 11H 3{4L 12H} 2L \\
+%%   \CLOCK{4} (270°)     & 3L N(B1) 12H 4L N(B2) 12H 4L N(B3) 12H 4L N(B4) 10H\\
+%% %
+%%   \extracode
+%%   \tablerules
+%%   \begin{pgfonlayer}{background}
+%%     \foreach \n in {1,...,4}
+%%     \draw [help lines] (A\n) -- (B\n);
+%%   \end{pgfonlayer}
+%% \end{tikztimingtable}
+%% \caption{\label{fig:clock-timing} Timing diagram of the four-phase clock generator.}
 %% \end{figure}
 
 
-\section{Skip Logic}
-
-\input{lorem}
-
-\section{Address Generation Logic}
-
-The \gls{AGL} is a relatively simple unit, but it provides half of the CFT's
-addressing modes.
-
-The purpose of the AGL is to take the 10-bit operand field of the \IR{} and use
-it to produce a full, 16-bit address. The source of the most significant six
-bits depends on the value of the \asm{R} (register) field of the \IR.
-
-\begin{description}
-\item {\bfseries If \asm{R} is zero}, the upper six bits come from the \PC, so
-  the address is generated relative to the currently executing
-  instruction.\footnote{The \PC{} normally holds the address of the {\em
-      next\/} instruction to be executed, but a special case is needed here,
-    discussed below.}
-\item {\bfseries If \asm{R} is one}, the upper six bits are zero
-  (\bin{000000}). This allows for addresses in the first 10 bits of memory,
-  i.e. addresses \hex{0000}–\hex{03FF}.
-\end{description}
-
-In essence, the \gls{AGL} is a 2:1 multiplexer, which, depending on the value
-of \IRn{10}, outputs either \bin{pppp:ppnn:nnnn:nnnn} (When \IRn{10}$ = 0$,
-$\mbox{\textsf{page}} × 2^{10} + \mbox{\textsf{offset}}$, where \textsf{page} comes
-from the \PC), or \bin{0000:00nn:nnnn:nnnn} (When \IRn{10}$ = 1$, \gls{Page Zero}
-addresses).
-
-This is implemented using two \HC{541} 8-bit buffers and an \HC{374} 8-bit
-edge-triggered latch.
-
-The latch receives \PCn{10–15}. It latches this value at the rising edge of
-\ns{END}, which comes at the very end of an instruction. At this point in the
-processor's timeline, the PC holds the address of the instruction about to be
-fetched. As a result, the latch will hold the upper six bits of \PC{} just
-before instruction fetch, and before it's incremented. The reasoning behind
-this becomes evident if the case \PC$=$\bin{AAAA:AA11:1111:1111} is
-considered. When the instruction is fetched, the PC is loading from page
-{AAAA:AAxx:xxxx:xxxx}. However, at the end of the fetch cycle, the \PC{} is
-incremented. This wraps around to page $A+1$, and any address generated at that
-point will access memory from the wrong page. This is an insidious issue
-because it only appears if an instruction uses local addressing at the very end
-of a page. It would be unreasonable to expect the programmer to resolve this
-issue in software, so the latch ensures the instruction set behaves
-consistently.
-
-The output of the latch is controlled by \IRn{10}. When it is low, the latch
-drives its output pins. When it is high, the output pins are tri-stated. The
-lines are pulled-down, so they revert to a weak low level, which is equivalent
-to a page of \bin{0000:00xx:xxxx:xxxx}.
-
-These lines drive the upper six inputs of the \gls{MSB} buffer. The remaining
-two inputs and all eight inputs of the \gls{LSB} buffer are driven by the
-\IRn{0–9}, which provide the offset within the page.
-
-The buffers' outputs remain tri-stated unless the \ns{RAGL} active-low signal
-is asserted by the Control Unit. When that happens, the buffers drive \IBUS{}
-with the generated address.
-
-To allow future expansion, a six-pin header connected to the
-pulled-down lines can be used to provide a different page number
-rather than page zero.
-
-\section{The Address Register and Address Bus Driver}
-
-The Address Register (\AR) is a minor, 16-bit write-only register. The register
-is implemented as a pair of \HC{273} 8-bit flip-flops. The flip-flops latch
-their value on the rising edge of \ns{WAR}. The \AR{} is cleared when
-\ns{RESET} is asserted.
-
-The outputs of the flip-flops, which cannot be tri-stated, are fed into a pair
-of \HC{541} buffers. The buffers form the \ABUS{} driver. They allow the \AR{} to
-be tri-stated using the \ns{ABEN} signal (Address Bus Enable). This signal is
-generated from \ns{MEM} and \ns{IO} by an AND gate according to the following
-table:
-
-\begin{center}
-  \zebra
-  \begin{tabular}{*{3}{>{\textsf\bgroup}c<{\egroup}}l}
-    %\noalign{\smallskip}\hline\noalign{\smallskip}
-    %\\\hline
-    \ns{MEM} & \ns{IO} & \ns{ABEN} & Function \\
-    %\noalign{\smallskip}\hline\noalign{\smallskip}
-    \hline
-    H & H & H & \ABUS{} tri-stated \\
-    L & X & L & \AR{} drives \ABUS{} \\
-    X & L & L & \AR{} drives \ABUS{} \\
-    \hline
-  \end{tabular}
-\end{center}
-
-Thus, the \AR{} drives the \ABUS{} when and only when a memory or I/O cycle is
-in progress.
+%% \begin{figure}
+%% \centering
+%% \begin{tikztimingtable}
+%%   \CLOCK{3}    & H CL 4{CH CL} N(A2) 4{CH CL} N(A3) 4{CH CL} N(A4) 2{CH CL} CH \\
+%%   \ns{RESET}   & 10H N(A1) 3L ;[dotted] 15L; 7L H ;[dotted] 15H; 10H \\
+%%   \ns{RSTHOLD} & 10H 3L ;[dotted] 15L; 8L N(B3) ;[dotted] 15L; 10H \\
+%%    \IBUSn{0–15} & 10U{} N(B1) 41D{\hex{FFF0}} N(B4) 10U{} \\
+%% %
+%%   \extracode
+%%   \tablerules
+%%   \begin{pgfonlayer}{background}
+%%     \foreach \n in {1,4}
+%%     \draw [help lines] (A\n) -- (B\n);
+%%   \end{pgfonlayer}
+%% \end{tikztimingtable}
+%% \caption[Reset waveform]{\label{fig:reset-timing} Reset waveform. The width of \ns{RSTHOLD} has
+%%   a guaranteed, configurable minimum width and its rising edge is synchronous
+%%   to the rising edge of \CLOCK{3}.}
+%% \end{figure}
 
 
-\section{Autoindex Logic}
-\label{sec:ail}
+%% \section{Reset Logic}
 
-The Autoindex Logic is a small unit that detects when an address in the range
-\hex{0080}–\hex{00FF} is referenced. This is done by comparing the Address
-Register (\AR) against the value \bin{0000:0000:1xxx:xxxx}. The comparison is
-performed with a \HC{688} 8-bit comparator, using all eight bits plus the
-active-low cascade input (\ns{G}).
+%% The Reset Logic is a simple 8-bit counter, clocked from the processor clock to
+%% ensure the reset pulse is synchronised with the processor sequencer.
 
-The comparator outputs an active low equality signal, \ns{P=Q}, which asserts
-the asynchronous set signal of half a \HC{74} D flip-flop. The complementary
-(\ns{Q}) output of the flip-flop is fed into the Microcode Unit, where it is
-checked and acted upon by whatever microprograms need it.
+%% A number of open drain reset inputs are combined together and fed into the
+%% counter's active low reset pin. These include:
 
-The flip-flop is asynchronously cleared by the \ns{END} signal to reset
-\ns{AINDEX} at the end of the current instruction. The flip-flop's synchronous
-functions are not used. Resetting to a known state is also done
-programmatically — the short reset microprogram asserts \ns{END}, which clears
-the flip-flop.
+%% \begin{itemize}
+%% \item The front panel \ns{FPRESET} input. This is connected to a toggle switch
+%%   and allows the user to reset the computer manually.
+%% \item The power supply \ps{POWEROK} signal. The power supply asserts this when
+%%   the power output is healthy. The signal is clear when the power supply is
+%%   still stabilising after initial power up, or when a brown-out is
+%%   detected. Interpreting it as the imaginary active-low ‘\ns{POWERBAD}’ signal
+%%   allows us to reset the machine on brown-outs {\em and\/} to allow for a
+%%   power-on reset sequence.
+%% \item When the optional reset button on the reset logic board is pressed.
+%% \item When the open drain \ns{RESET} signal is asserted. This allows any number
+%%   of external drivers of this signal.
+%% \end{itemize}
 
-\ns{AINDEX} is latched for the duration of the instruction because of indirect
-addressing modes which modify the value of the \AR{} and can potentially
-de-assert \ns{AINDEX} mid-instruction.
+%% When the reset signal goes low, the counter resets and starts counting. A bank
+%% of jumpers connects one of the counter's binary outputs to the \ns{RSTHOLD}
+%% signal. With the count reset, \ns{RSTHOLD} goes low. When the count progresses
+%% enough for the selected bit to go high, \ns{RSTHOLD} goes high
+%% (deasserted). This also disables the counter. At this point, the \ns{RSTHOLD}
+%% pulse is complete.
 
-\section{The Data Bus Driver}
+%% By selecting which count bit drives \ns{RSTHOLD}, the pulse width can be controlled. In
+%% theory, pulse widths of $2^n$ clock periods ($1\leq n\leq 8$) can be used. In practice,
+%% because the counter is registered, and the register and count inputs are wired together,
+%% the \ns{RSTHOLD} pulse lasts for one extra clock period. Also, since the reset pulse
+%% arrives asynchronously, the \ns{RSTHOLD} may be up to one clock period longer yet.
 
-The \DBUS{} driver is a surprisingly complex logic unit responsible for:
+%% With a clock of 4~MHz, the longest reset pulse is 64.25~ms which is fine for most uses:
+%% the processor itself is very quick to reset, needing less than one clock period. Other
+%% hardware, however, is not as fast. Since a reset sequence also happens when the computer
+%% powers up or a brown-out is detected, an extended \ns{RSTHOLD} pulse makes the processor
+%% wait for power rail and clock stabilisation (among other potential pitfalls).
 
-\begin{itemize}
-\item Connecting the \IBUS{} to the \DBUS{} when necessary and observing the
-  proper transfer direction.
-\item Extending read/write cycles by the appropriate length of time when a wait
-  state has been requested are active.
-\item Generating write strobes (\ns{W}) from write-enable (\ns{WEN}) signals as
-  required.
-\end{itemize}
+%% While \ns{RSTHOLD} is active, the value \hex{FFF0} is driven onto the \IBUS{}
+%% using a pair of 74x541 buffers. This is the Reset Vector. The processor uses
+%% this value to reset the \PC{} to its initial value.
 
-\subsection{Driving the Buses}
+%% \section{Microprogram Counter}
+%% \label{sec:upc}
 
-The buses are connected when the \ns{BUSEN} signal is asserted. This is
-generated according to the following table, of which the \ns{WAITING} signal is
-derived according to~\cf{sec:dbus-driver-waiting}:
+%% The Microprogram Counter (µPC) is a simple 4-bit counter with reset and dual
+%% count enables. A \HC{161} counter was selected for this. The '161 counts on the
+%% positive edge of \CLOCK{1}, while the count enables are high. These are driven
+%% by \ns{WS} and \ns{HALT}, both pulled up in case the two input signals are
+%% physically unconnected.
 
-\begin{center}
-  \zebra
-  \begin{tabular}{*{5}{>{\textsf\bgroup}c<{\egroup}}l}
-    %\noalign{\smallskip}\hline\noalign{\smallskip}
-    %\hline
-    \ns{MEM} & \ns{IO} & \ns{T34} & \ns{WAITING} & \ns{BUSEN} & Notes \\
-    %\noalign{\smallskip}\hline\noalign{\smallskip}
-    \hline
-    H & H & X & H & H & Bus idle \\
-    H & H & H & X & H & Bus idle \\
-    L & X & X & X & L & Memory cycle in progress \\
-    X & L & X & X & L & I/O cycle in progress \\
-    X & X & L & L & L & Wait state \\
-    \hline
-  \end{tabular}
-\end{center}
+%% The counter resets to zero when \ns{RSTHOLD} is asserted.
 
-The centrepiece of the driver is a pair of \HC{245} bidirectional
-transceivers. Their ‘A’ ports are connected to the \IBUS{}; their ‘B’ ports are
-connected to the \DBUS.
+%% The \ns{END} signal and its open drain, external counterpart \ns{ENDEXT} are ANDed
+%% together and fed to the '161's active low load signal (\ns{LD}). This loads the counter
+%% from the \ps{P1}–\ps{P4} inputs, which are always driven low. This is effectively used to
+%% reset the counter when the currently executing microprogram is finished.
 
-The direction pin is connected to \ns{R}, so that the following function table
-is implemented:
+%% The counter's output provides the four least significant bits of the microcode address
+%% vector, the others being provided by other processor states.
 
-\begin{center}
-  \zebra
-  \begin{tabular}{*{2}{>{\textsf\bgroup}c<{\egroup}}l}
-    %\noalign{\smallskip}\hline\noalign{\smallskip}
-    %\\\hline
-    \ns{BUSEN} & \ns{R} & Function \\
-    %\noalign{\smallskip}\hline\noalign{\smallskip}
-    \hline
-    H & X & \DBUS{} tri-stated \\
-    L & H & \DBUS{} drives \IBUS{} (read cycle) \\
-    H & L & \IBUS{} drives \DBUS{} (write cycle) \\
-    \hline
-  \end{tabular}
-\end{center}
+%% The counter implements the following function table:
+
+%% \begin{center}
+%%   \zebra
+%%   \begin{tabular}{*{6}{>{\textsf\bgroup}c<{\egroup}}l}
+%%     %\noalign{\smallskip}\hline\noalign{\smallskip}
+%%     %\\\hline
+%%     \ps{CLOCK4} & \ns{RSTHOLD} & \ns{END} & \ns{ENDEXT} & \ns{WS} & \ns{HALT} & Function \\
+%%     %\noalign{\smallskip}\hline\noalign{\smallskip}
+%%     \hline
+%%     X   & L & X & X & X & X & Reset counter to 0 asynchronously.\\
+%%     \tU & H & L & X & X & X & Reset counter to 0.\\
+%%     \tU & H & X & L & X & X & Reset counter to 0.\\
+%%     \tU & H & X & X & L & X & Inhibit counting.\\
+%%     \tU & H & X & X & X & L & Inhibit counting.\\
+%%     \tU & H & H & H & H & H & Increment count (mod 16).\\
+%%     \hline
+%%   \end{tabular}
+%% \end{center}
 
 
-\begin{figure*}
-\centering
-\begin{tikztimingtable}
-  Stage            & D{} 5{3D{T1} 3D{T2} 3D{T3} 3D{T4}} D{} \\
-  \CLOCK{2}        & H N(A1) 3H 3L 6H N(A2) 3H 3L 6H N(A3) 3H 3L 6H N(A4) 3H 3L 6H N(A5) 3H 3L 6H H \\
-  \ns{T34}         & H 5{6H 6L} H \\
-  \ns{RESET}       & 2H 3L 57H \\
-  \ns{MEM}         & 6H 7L 6H 18L 25H \\
-  \ns{R}           & 7H 5L 8H 16L 26H \\
-  \ns{WS}          & 20Z 9L 21Z 2L 10Z  \\
-%
-  \ns{WAITING}     & 2U 18H 11L 31H \\
+
+%% %\tikzset{timing/new counter={char=Q,base=16,reset char=R}}
+%% \begin{figure*}
+%%   \centering
+%% \begin{tikztimingtable}
+%%   \CLOCK{4}    & L 2{2H 2L} N(A2) 2H 2L N(A3) 2H 2L N(A4) 2H 2L N(A5) %
+%%                  2H 2L N(A6) 2H 2L N(A7) 2H 2L N(A8) %
+%%                  2H 2L N(A9) 5{2H 2L} N(A10) 2H 2L N(A11) %
+%%                  2H 1 \\
+%%   \ns{RSTHOLD} & 2H N(A1) 4L 57H \\
+%%   \ns{END}     & 15H 3L 45H \\
+%%   \ns{ENDEXT}  & 23Z 3L 37Z \\
+%%   \ns{WS}      & 38Z 8L 17Z \\
+%%   \ns{HALT}    & 47Z 8L 8Z \\
+%%   \UPC         & 2U{} N(B1) 7D{\hex{0}} %
+%%                  N(B2) 4D{\hex{1}} %
+%%                  N(B3) 4D{\hex{2}} %
+%%                  N(B4) 4D{\hex{0}} %
+%%                  N(B5) 4D{\hex{1}} %
+%%                  N(B6) 4D{\hex{0}} %
+%%                  N(B7) 4D{\hex{1}} %
+%%                  N(B8) 4D{\hex{3}} %
+%%                  N(B9) 20D{\hex{3}} %
+%%                  N(B10) 4D{\hex{4}} % 
+%%                  N(B11) 2D{\hex{5}} \\
+%%   %% \ns{WS} & 20H 3L 54H \\
+%%   %% \ns{HALT} & 70H 7L \\
 %% \extracode
 %%  \tablerules
 %%  \begin{pgfonlayer}{background}
 %%    \foreach \n in {1,...,11}
 %%      \draw [help lines] (A\n) -- (B\n);
 %%  \end{pgfonlayer}
-\end{tikztimingtable}
-\caption[Wait State Waveform]{\label{fig:wait-state} Wait state waveform. The
-  second pulse of \ns{WS} has no effect because \ns{T34} is high, and because
-  it does not cross the T4-T1 boundary.}
-\end{figure*}
+%% \end{tikztimingtable}
+%% \caption[Microprogram Counter Waveforms]{\label{fig:upc-timing} Timing
+%%   diagram of the operation of the microprogram counter (\UPC). The
+%%   counter resets synchronously while \ns{RSTHOLD} is asserted. The
+%%   rising edge of \CLOCK{4} clears it if either \ns{END} or \ns{ENDEXT}
+%%   are asserted, and counting is inhibited when \ns{WS} or \ns{HALT}
+%%   are asserted.}
+%% \end{figure*}
 
-\subsection{Extending Read/Write Cycles on Wait States}
-\label{sec:dbus-driver-waiting}
+%% \begin{figure}[tb]
+%%   \centering
+%%   \input{figure-microcode-store}
 
-The bus protocol for using wait states to extend bus transactions is described
-fully in~\cf{sec:bus-ws}. In short, when a slow peripheral on the bus is
-addressed, it may assert the \ns{WS} signal immediately to extend the read or
-write operation. For write cycles, \ns{WS} must be asserted before the \ns{W}
-is strobed, which gives a window of approximately 180~ns. Once \ns{WS} is
-asserted, it must be held low until the rising edge of \CLOCK{1} and must be
-de-asserted before the rising edge of \CLOCK{2}. If a \ns{WS} strobe occurs
-entirely outside the T3 or T4 cycle phase, it is ignored.
+%%   \caption[Microcode address vector]{\label{fig:ucode-addr-vector}Microcode
+%%     Address Vector (top) and output control signals (bottom). The Address
+%%     Vector forms the 15–19 bit address (the \ps{μCB} field is optional) for
+%%     three ROMs, each of which outputs 8 bits of the 24-bit wide control
+%%     vector. The control vector, in turn, drives the processor. }
+%% \end{figure}
 
-\ns{WS} must be driven by an open-drain gate to allow sharing the line among
-all peripherals. The \ns{WS} performs two tasks: as described in~\cf{sec:upc},
-it stops the µPC from counting to the next microinstruction; and it extends the
-bus transaction by keeping the \IBUS{} and \DBUS{} connected. The latter is
-performed here by the \ns{WAITING} signal. The waveform is shown
-in~\fcf{fig:wait-state}.
+%% \section{Microcode Store}
+%% \label{sec:microcode-store}
 
-\ns{WAITING} is the complementary output of a \HC{74} D flip-flop. The flip-flop
-is asynchronously set when the disjunction \ns{T34}$\cdot$\ns{WS} is low (this
-is generated by an OR gate, which works as a negative logic AND gate by
-DeMorgan's law). Thus, it is set when a wait state is reuquested during the T3
-ot T4 cycle phase. The flip-flop's \ps{D} input is pulled low, and it is
-clocked by the rising edge of \CLOCK{2}. In essence, unless a wait state is
-still being requested, the rising edge of \CLOCK{2} (i.e. the onset of the T3
-phase) will clear it. This will allow the bus cycle to complete after the end
-of the wait state. The flip-flop is also reset asynchronously on \ns{RESET}.
+%% \todo{Reflect DEC support}
 
-\ps{WAITING} (the complement of \ns{WAITING}) is obtained from the flip-flop's
-\ps{Q} output and is used to inhibit \ns{W} strobes during wait states.
+%% The microcode store implements a large function table that maps a 15-to-19-bit
+%% address vector to a 24-bit control vector, which is made up of vertical
+%% microcode fields and horizontal control lines connected directly to various
+%% units around the processor. These signals are described in detail
+%% in~\cf{sec:microcode-format}.
 
-%% \question{Why use \ns{WAITING} to extend the bus transaction, when the
-%%   Microcode Store is stopped and control signals do not change?}{Peripherals
-%%   generate their \ns{WS} signals when they are addressed, and often {\em
-%%     while\/} they are addressed. Keeping the bus connected is very }
+%% From the electronics perspective, the hardware store is implemented on a
+%% daughterboard containing, in its current revision, three 4 MBit (524,288×8 bits
+%% each) Flash devices. The devices are reprogrammable, which allows the microcode
+%% to be corrected and updated, but they have to be removed from their sockets to
+%% do so.
 
+%% All three ROMs receive the same address vector. Each outputs 8 bits of the
+%% control vector in parallel. To minimise access times, the chips are permanently
+%% selected by tying their \ns{CE} pins to ground. Since in-circuit programming is
+%% not available in this revision, the \ns{WE} pins are pulled high, turning the
+%% Flash devices into ROMs.
 
+%% The output enable pins (\ns{OE}) are low, except when \ns{HALT} or \ns{RESET}
+%% are asserted. With the processor halted (or in the early stages of resetting),
+%% the ROMs are in a high impedance state, allowing other units (such as the front
+%% panel controller) to control the processor's units.
 
-\subsection{Generating Write Srobes}
-\label{sec:w-strobe}
+%% The Microcode Store daughterboard plugs into the Processor Board A via two
+%% 24-pin headers which provide power and the 19-bit address vector, and accept 24
+%% bits of output. The outputs are pulled high (control signals) or low (vertical
+%% fields) to provide sane idle values when the ROMs are tri-stated.
 
-\begin{figure*}
-\centering
-\begin{tikztimingtable}
-  \CLOCK{4}          & 5{6H 2L} 5H \\
-  \ps{WAITING}       & 20L       14H 11L \\
-  \ns{MEM}           & 3H 6L 10H 22L 4H \\
-  \ns{WEN}           & 3H 6L 10H 22L 4H \\
-  \ns{W}             & 6.5H 1.5L 30.5H 1.5L 5H \\
-%% \extracode
-%%  \tablerules
-%%  \begin{pgfonlayer}{background}
-%%    \foreach \n in {1,...,11}
-%%      \draw [help lines] (A\n) -- (B\n);
-%%  \end{pgfonlayer}
-\end{tikztimingtable}
-\caption[Write Strobe Generation]{\label{fig:write-strobe-generation} Write
-  Strobe generation. This diagram shows two write transactions. The first one,
-  on the left, is an ordinary write. The second one, centre to right, is one
-  with a wait state. The asserted \ps{WAITING} signal inhibits the \ns{W}
-  strobe for two clock cycles. The transaction continues until after
-  \ps{WAITING} is cleared, to the end of the memory write cycle. }
-\end{figure*}
+%% Having a daughterboard allows the microcode ROMs to be replaced easily with
+%% other solutions to the same problem, and also to expand the architecture at a
+%% later stage, by replacing this simple store with a more complex one.
 
-Most peripherals, including memory, require some time after they are selected,
-for address decoding to settle, buses to be fully driven, et cetera. They also
-require these signals to be held after a write pulse. This does not allow the
-write pulse to start at the same time as the bus cycle starts, nor to end at
-the same time as the cycle ends.
+%% \section{Microcode Format and the Control Unit}
+%% \label{sec:microcode-format}
 
-Thus, although the Control Unit directly controls the \ns{R} signal on the bus,
-it only indirectly controls the \ns{W} signal. Instead, it asserts a \ns{WEN}
-(Write ENable) signal, and this part of the \DBUS{} driver generates the \ns{W}
-strobe from it.
+%% A full discussion of the microcode architecture from a software point of
+%% view can be found in~\ccf{chap:microcode}.
 
-The \ns{W} strobe is generated by the complementary output of half of a \HC{74}
-flip-flop. The \ns{D} input is pulled high. When the \ns{CLK} line rises, the
-flip-flop is set, \ns{Q} is cleared, and a write strobe begins. The strobe is
-cleared using the asynchrnous reset signal of the flip-flop, when either
-\ns{RESET} is asserted, or approximately 25–30~ns after \ns{Q} goes low. A
-feedback from \ns{Q}, delayed by propagation through four gates, is used to
-clear the flip-flop again.
+%% Microcode is a multivariate function that accepts a number of inputs, the
+%% address vector, and outputs a number of control signals. 
 
-Since bus transactions last until the next microinstruction is fetched from the
-microcode store, the rising edge of the \ns{W} strobe occurs approximately
-15~ns (the $t_{\mbox{\scriptsize PHL}}$ or $t_{\mbox{\scriptsize PLH}}$ delays
-of the µPC's \HC{161}) plus 50–70~ns (the access time of the microcode store)
-before the end of the read/write cycle. This gives an address, data and chip
-select hold time of 65–85~ns, more than enough for most devices.\footnote{Many,
-  in fact, need {\em no\/} hold time.}
+%% The address vector is made up of the following fields, in order of increasing
+%% bit significance:
 
-Thus, the \ns{W} strobe is asserted on the rising edge of the flip-flop's
-\ns{CLK} according to the following table and as shown in~\fcf{fig:w-strobe}.
+%% \input{partial-microcode-address}
 
-\begin{center}
-  \zebra
-  \begin{tabular}{*{4}{>{\textsf\bgroup}c<{\egroup}}l}
-    %\noalign{\smallskip}\hline\noalign{\smallskip}
-    %\\\hline
-    \CLOCK{4} & \ns{WEN} & \ps{WAITING} & FF \ps{CLK} \\
-    %\noalign{\smallskip}\hline\noalign{\smallskip}
-    \hline
-    H & X & X &   L \\
-    X & H & X &   L \\
-    X & X & H &   L \\
-    L & L & L &   H \\
-    \hline
-  \end{tabular}
-\end{center}
+%% This address vector indexes three 4 MBit (524,288×8 bits) Microcode ROMs in
+%% parallel to provide a 524,288×24 table. This 24-bit vector is the control
+%% vector, which directly (or after some decoding) drives the processor's units
+%% and the bus. The control lines are as follows:
+
+%% \input{partial-microcode-control}
 
 
-\section{Interrupt State Machine}
-\label{sec:interrupts-state-machine}
+%% %% \begin{figure}[tb]
+%% %%   \centering
+%% %%   \begin{tikzpicture}
+%% %%     \begin{scope}[thin,draw opacity=0,line width=0pt]
+%% %%     \draw[fill=cfthl!25](0,0) rectangle (9.5,0.6);
+%% %%     \foreach \x in {0, ..., 9}{
+%% %%       \draw[fill=cfthl!50,xshift=\x cm](0,0) rectangle (0.5,0.6);
+%% %%     }
+%% %%     %\draw[fill=cfthl!50,xshift=10 cm](0,0) rectangle (0.5,0.6);
+%% %%     \end{scope}
+%% %%     \foreach \x in {0.5, 1, ..., 9}{
+%% %%       \draw[thin] (\x cm, 0) -- (\x cm, -0.1cm);
+%% %%     }
+%% %%     \draw[line width=2pt](0,0) rectangle (9.5,0.6);
+%% %%     \draw (9.5,0) node[below left] { \footnotesize 0 };
+%% %%     \draw (0,0) node[below] { \footnotesize 18 };
 
-\input{lorem}
+%% %%     \foreach \x in {3,4,5,6,10,11,12,13,14}{
+%% %%       \begin{scope}[xshift=9.5 cm - 0.5 * ( \x cm + 1 cm)]
+%% %%         \draw[thick](0,-0.1) -- (0,0.6);
+%% %%         \draw (0,0) node[below right] { \footnotesize \x };
+%% %%       \end{scope}
+%% %%     }
+%% %%     %% \draw[thick](1,-0.1) -- (1,0.6);
 
-\section{The Major Registers: \PC, \A, \DR}
-\label{sec:major-registers}
+%% %%     %% \draw[thick](4,-0.1) -- (4,0.6);
+%% %%     \draw (8.5, 0.3) node { \UPC };
+%% %%     \draw (1, 0.3) node { \UCB };
+%% %%     \draw (5, 0.3) node { Opcode };
+%% %%     \draw (0.25, 0.8)[xshift=7 cm] node[right, rotate=60] { \ns{AINDEX} };
+%% %%     \draw (0.25, 0.8)[xshift=6.5 cm]  node[right, rotate=60] { \ns{SKIP} };
+%% %%     \draw (0.25, 0.8)[xshift=6 cm]  node[right, rotate=60] { \asm{R} };
 
-\todo{Reflect DEC support}
+%% %%     \draw (0.25, 0.8)[xshift=3.5 cm]  node[right, rotate=60] { \ps{FL} };
+%% %%     \draw (0.25, 0.8)[xshift=3 cm]  node[right, rotate=60] { \ps{FV} };
+%% %%     \draw (0.25, 0.8)[xshift=2.5 cm]  node[right, rotate=60] { \ns{IRQS} };
+%% %%     \draw (0.25, 0.8)[xshift=2 cm]  node[right, rotate=60] { \ns{RSTHOLD} };
+%% %%     %% \draw (7.5, 0.3) node[left, rotate=45] { \ns{SKIP} };
 
-The three major \glspl{register}, \PC{}, \DR{} and \AC{} are all 16 bits wide
-and implemented in a nearly identical fashion. Each of the three registers
-comprises three components:
+%% %%     %% %% \draw (2.25, 0.3) node { I };
+%% %%     %% %% \draw (2.75, 0.3) node { R };
+%% %%     %% \draw (7.25, 0.3) node { \ABUSn{0–12} };
 
-\begin{enumerate}
-\item \textbf{Registration and stepping}. This is implemented as four \HC{193}
-  presettable counters. Each handles four bits and can be cascaded to provide
-  longer widths, which is how it is used here.
-\item \textbf{Tri-state control}. The counters cannot tri-state their outputs,
-  so a pair of 8-bit \HC{541} buffers are used to do this.
-\item \textbf{Front Panel buffering}. An additional pair of \HC{541} buffers are
-  used to isolate the register outputs from the front panel.
-\end{enumerate}
+%% %%     %% \draw (1.5,-1) node[right] { Bank number, bit 0 };
+%% %%     %% \draw (1.5,-1.5) node[right] { Bank number, bit 1 };
 
-The \IBUS{} is connected to the counters' preset inputs, one \gls{nybble} per
-counter. Each counter is reset to \bin{0000} when its \ps{RESET} signal is
-high. This is obtained by inverting the CFT active low \ns{RESET} signal. The
-active low \ns{LOAD} signal is connected to the corresponding signal from the
-Unit Decoder (\cfp{sec:unit-decoder}): \ns{WPC}, \ns{WDR} or \ns{WAC} for the
-\PC, \DR{} and \AC{} respectively. When the line is low, the register presets
-to the value on the \IBUS{}. This is a latching operation, so the register will
-follow all glitches on the \IBUS{} until its \ns{LOAD} line goes high.
+%% %%     %% \draw[thick, rounded corners=5.5mm] (1.5, -1.5) -- (0.25, -1.5) -- (0.25, -0.2);
+%% %%     %% \draw[thick, rounded corners=3mm] (1.5, -1) -- (0.75, -1) -- (0.75, -0.2);
 
-In addition, each register's least significant counter's \ps{UP} (count
-trigger) line is connected to the increment strobes \INCPC, \INCDR{} and
-\INCAC{}. These increment the least significant \gls{nybble} of each
-register. A cascade carry out line (\ps{CARRY}) from the first, second and
-third counter triggers the \ps{UP} signal of the second, third and fourth
-counter respectively, thus ripple counting.
-
-Ripple counting is not ideal in terms of performance, but after an increment is
-performed, the Control Unit will not be using that register again for at least
-one clock period (250~ns), which is plenty of time for carry to ripple up.
-
-The \ps{DOWN} signals of all counters are tied to ground, which is a
-requirement for counting up.
-
-The \ps{BORROW} cascade outputs are not used presently.
-
-Each counter provides four output lines, each of which is connected to a
-\HC{541} buffer, two \HC{193} counters per \HC{541} buffer. The
-\ns{G1} and \ns{G2} output enables of each buffer are connected to the
-corresponding register read strobe, \RPC, \RDR{} and \RAC for the \PC, \DR{}
-and \AC{} registers respectively. When the strobe is low (asserted), the
-buffers drive the \IBUS{} with the value of the register. Otherwise, the
-buffers remain tri-stated allowing the \IBUS{} to be used by other units.
-
-Finally, another pair of \HC{541} buffers receive the unbuffered output of the
-register and buffer it for transmission to the Front Panel. This avoids
-transmission line effects from connecting register outputs to long lines. The
-buffers are permanently enabled by tying their enable lines to ground.
-
-\subsection{A Potential Enhancement: Decrement Support}
-
-\todo{Reflect DEC support}
-
-%% One of the most likely enhancements to the Register file is to allow register
-%% decrement. The increment lines would then become ‘step’ lines, and the spare
-%% Microcode Store signal (\ps{UINSTR18}) can be used to indicate the
-%% direction. Alternatively, since this will require four bits for a total of six
-%% operations, the skip signals may be multiplexed into a vertical microcode
-%% field, which can then be decoded by the Register File. The downside to this
-%% technique is that only one register can be operated on at any given
-%% time. Currently, all three registers can be incremented simultaneously. Since
-%% the \PC{} is unlikely to benefit from decrement support, this may only be
-%% required for the \DR{} and \AC{}. This makes five operations in four bits —
-%% leaving one independent bit for \INCPC, the remaining four operations (\INCDR,
-%% \DECDR, \INCAC, \DECAC) can be encoded in two bits, leaving \ns{UINSTR18}
-%% spare. The benefit of the hybrid solution is that the \PC{} can be incremented
-%% at the same time as either the \DR{} or \AC{}. There is currently no microcode
-%% that performs (or needs to perform) simultaneous \DR{} and \AC{} increments, so
-%% this would be a viable solution which conserves both Microcode Store bits and
-%% Control Bus signals.
-
-%% The modifications to the Register File are simple and cheap enough (one
-%% additional IC, an \HC{138}) that this can be done early in the project, as a
-%% core feature. Whether or not the microcode itself uses it is another matter
-%% altogether. It would still make it possible to extend the machine with just a
-%% microcode update.
-
-\section{The Link Register}
-
-\input{lorem}
-
-\section{The Arithmetic/Logic Unit}
-
-\input{lorem}
-
-\subsection{Decoder and Registers}
-
-\input{lorem}
-
-\subsection{Binary Operations}
-
-\input{lorem}
-
-\subsection{Unary Operations}
-
-\input{lorem}
+%% %%   \end{tikzpicture}
 
 
+%% %%   \caption[Microcode store]{\label{fig:ucode-addr-vector}The Microcode Store, with inputs (The Microcode Address Vector) on the left, and outputs (the Control Vector) on the right.}
+%% %% \end{figure}
 
 
-\chapter{Extending the Processor}
+%% \section{Skip Logic}
 
-\input{lorem}
+%% \lipsum[3-5]
 
-\section{Forcing skips: the \ns{SKIPEXT} signal}
+%% \section{Address Generation Logic}
 
-\input{lorem}
+%% The \gls{AGL} is a relatively simple unit, but it provides half of the CFT's
+%% addressing modes.
 
-\section{Ending instructions: the \ns{ENDEXT} signal}
+%% The purpose of the AGL is to take the 10-bit operand field of the \IR{} and use
+%% it to produce a full, 16-bit address. The source of the most significant six
+%% bits depends on the value of the \asm{R} (register) field of the \IR.
 
-\input{lorem}
+%% \begin{description}
+%% \item {\bfseries If \asm{R} is zero}, the upper six bits come from the \PC, so
+%%   the address is generated relative to the currently executing
+%%   instruction.\footnote{The \PC{} normally holds the address of the {\em
+%%       next\/} instruction to be executed, but a special case is needed here,
+%%     discussed below.}
+%% \item {\bfseries If \asm{R} is one}, the upper six bits are zero
+%%   (\bin{000000}). This allows for addresses in the first 10 bits of memory,
+%%   i.e. addresses \hex{0000}–\hex{03FF}.
+%% \end{description}
 
-\section{Stopping the processor}
+%% In essence, the \gls{AGL} is a 2:1 multiplexer, which, depending on the value
+%% of \IRn{10}, outputs either \bin{pppp:ppnn:nnnn:nnnn} (When \IRn{10}$ = 0$,
+%% $\mbox{\textsf{page}} × 2^{10} + \mbox{\textsf{offset}}$, where \textsf{page} comes
+%% from the \PC), or \bin{0000:00nn:nnnn:nnnn} (When \IRn{10}$ = 1$, \gls{Page Zero}
+%% addresses).
 
-\input{lorem}
+%% This is implemented using two \HC{541} 8-bit buffers and an \HC{374} 8-bit
+%% edge-triggered latch.
 
-\subsection{Inhibiting the processor: the \ns{HALT} signal}
+%% The latch receives \PCn{10–15}. It latches this value at the rising edge of
+%% \ns{END}, which comes at the very end of an instruction. At this point in the
+%% processor's timeline, the PC holds the address of the instruction about to be
+%% fetched. As a result, the latch will hold the upper six bits of \PC{} just
+%% before instruction fetch, and before it's incremented. The reasoning behind
+%% this becomes evident if the case \PC$=$\bin{AAAA:AA11:1111:1111} is
+%% considered. When the instruction is fetched, the PC is loading from page
+%% {AAAA:AAxx:xxxx:xxxx}. However, at the end of the fetch cycle, the \PC{} is
+%% incremented. This wraps around to page $A+1$, and any address generated at that
+%% point will access memory from the wrong page. This is an insidious issue
+%% because it only appears if an instruction uses local addressing at the very end
+%% of a page. It would be unreasonable to expect the programmer to resolve this
+%% issue in software, so the latch ensures the instruction set behaves
+%% consistently.
 
-\input{lorem}
+%% The output of the latch is controlled by \IRn{10}. When it is low, the latch
+%% drives its output pins. When it is high, the output pins are tri-stated. The
+%% lines are pulled-down, so they revert to a weak low level, which is equivalent
+%% to a page of \bin{0000:00xx:xxxx:xxxx}.
 
-\subsection{Wait States: the \ns{WS} signal}
+%% These lines drive the upper six inputs of the \gls{MSB} buffer. The remaining
+%% two inputs and all eight inputs of the \gls{LSB} buffer are driven by the
+%% \IRn{0–9}, which provide the offset within the page.
 
-\input{lorem}
+%% The buffers' outputs remain tri-stated unless the \ns{RAGL} active-low signal
+%% is asserted by the Control Unit. When that happens, the buffers drive \IBUS{}
+%% with the generated address.
 
-\section{Microcode Extensions}
+%% To allow future expansion, a six-pin header connected to the
+%% pulled-down lines can be used to provide a different page number
+%% rather than page zero.
 
-\subsection{The \ps{µCB} Microcode Bank Number}
-\label{sec:ucb}
-Since microcode ROMs are 19-bits wide and the original CFT microcode
-had 15 bit addresses, the extra four bits were reserved to allow for 16
-different microcode banks, which could theoretically increase the CFT
-instruction set to 256 instructions, provided a means to set the value of
-\UCB.
+%% \section{The Address Register and Address Bus Driver}
 
-\subsection{Writable Microcode Store}
-\input{lorem}
+%% The Address Register (\AR) is a minor, 16-bit write-only register. The register
+%% is implemented as a pair of \HC{273} 8-bit flip-flops. The flip-flops latch
+%% their value on the rising edge of \ns{WAR}. The \AR{} is cleared when
+%% \ns{RESET} is asserted.
 
-\subsection{Additional Microcode Width}
-\input{lorem}
+%% The outputs of the flip-flops, which cannot be tri-stated, are fed into a pair
+%% of \HC{541} buffers. The buffers form the \ABUS{} driver. They allow the \AR{} to
+%% be tri-stated using the \ns{ABEN} signal (Address Bus Enable). This signal is
+%% generated from \ns{MEM} and \ns{IO} by an AND gate according to the following
+%% table:
+
+%% \begin{center}
+%%   \zebra
+%%   \begin{tabular}{*{3}{>{\textsf\bgroup}c<{\egroup}}l}
+%%     %\noalign{\smallskip}\hline\noalign{\smallskip}
+%%     %\\\hline
+%%     \ns{MEM} & \ns{IO} & \ns{ABEN} & Function \\
+%%     %\noalign{\smallskip}\hline\noalign{\smallskip}
+%%     \hline
+%%     H & H & H & \ABUS{} tri-stated \\
+%%     L & X & L & \AR{} drives \ABUS{} \\
+%%     X & L & L & \AR{} drives \ABUS{} \\
+%%     \hline
+%%   \end{tabular}
+%% \end{center}
+
+%% Thus, the \AR{} drives the \ABUS{} when and only when a memory or I/O cycle is
+%% in progress.
+
+
+%% \section{Autoindex Logic}
+%% \label{sec:ail}
+
+%% The Autoindex Logic is a small unit that detects when an address in the range
+%% \hex{0080}–\hex{00FF} is referenced. This is done by comparing the Address
+%% Register (\AR) against the value \bin{0000:0000:1xxx:xxxx}. The comparison is
+%% performed with a \HC{688} 8-bit comparator, using all eight bits plus the
+%% active-low cascade input (\ns{G}).
+
+%% The comparator outputs an active low equality signal, \ns{P=Q}, which asserts
+%% the asynchronous set signal of half a \HC{74} D flip-flop. The complementary
+%% (\ns{Q}) output of the flip-flop is fed into the Microcode Unit, where it is
+%% checked and acted upon by whatever microprograms need it.
+
+%% The flip-flop is asynchronously cleared by the \ns{END} signal to reset
+%% \ns{AINDEX} at the end of the current instruction. The flip-flop's synchronous
+%% functions are not used. Resetting to a known state is also done
+%% programmatically — the short reset microprogram asserts \ns{END}, which clears
+%% the flip-flop.
+
+%% \ns{AINDEX} is latched for the duration of the instruction because of indirect
+%% addressing modes which modify the value of the \AR{} and can potentially
+%% de-assert \ns{AINDEX} mid-instruction.
+
+%% \section{The Data Bus Driver}
+
+%% The \DBUS{} driver is a surprisingly complex logic unit responsible for:
+
+%% \begin{itemize}
+%% \item Connecting the \IBUS{} to the \DBUS{} when necessary and observing the
+%%   proper transfer direction.
+%% \item Extending read/write cycles by the appropriate length of time when a wait
+%%   state has been requested are active.
+%% \item Generating write strobes (\ns{W}) from write-enable (\ns{WEN}) signals as
+%%   required.
+%% \end{itemize}
+
+%% \subsection{Driving the Buses}
+
+%% The buses are connected when the \ns{BUSEN} signal is asserted. This is
+%% generated according to the following table, of which the \ns{WAITING} signal is
+%% derived according to~\cf{sec:dbus-driver-waiting}:
+
+%% \begin{center}
+%%   \zebra
+%%   \begin{tabular}{*{5}{>{\textsf\bgroup}c<{\egroup}}l}
+%%     %\noalign{\smallskip}\hline\noalign{\smallskip}
+%%     %\hline
+%%     \ns{MEM} & \ns{IO} & \ns{T34} & \ns{WAITING} & \ns{BUSEN} & Notes \\
+%%     %\noalign{\smallskip}\hline\noalign{\smallskip}
+%%     \hline
+%%     H & H & X & H & H & Bus idle \\
+%%     H & H & H & X & H & Bus idle \\
+%%     L & X & X & X & L & Memory cycle in progress \\
+%%     X & L & X & X & L & I/O cycle in progress \\
+%%     X & X & L & L & L & Wait state \\
+%%     \hline
+%%   \end{tabular}
+%% \end{center}
+
+%% The centrepiece of the driver is a pair of \HC{245} bidirectional
+%% transceivers. Their ‘A’ ports are connected to the \IBUS{}; their ‘B’ ports are
+%% connected to the \DBUS.
+
+%% The direction pin is connected to \ns{R}, so that the following function table
+%% is implemented:
+
+%% \begin{center}
+%%   \zebra
+%%   \begin{tabular}{*{2}{>{\textsf\bgroup}c<{\egroup}}l}
+%%     %\noalign{\smallskip}\hline\noalign{\smallskip}
+%%     %\\\hline
+%%     \ns{BUSEN} & \ns{R} & Function \\
+%%     %\noalign{\smallskip}\hline\noalign{\smallskip}
+%%     \hline
+%%     H & X & \DBUS{} tri-stated \\
+%%     L & H & \DBUS{} drives \IBUS{} (read cycle) \\
+%%     H & L & \IBUS{} drives \DBUS{} (write cycle) \\
+%%     \hline
+%%   \end{tabular}
+%% \end{center}
+
+
+%% \begin{figure*}
+%% \centering
+%% \begin{tikztimingtable}
+%%   Stage            & D{} 5{3D{T1} 3D{T2} 3D{T3} 3D{T4}} D{} \\
+%%   \CLOCK{2}        & H N(A1) 3H 3L 6H N(A2) 3H 3L 6H N(A3) 3H 3L 6H N(A4) 3H 3L 6H N(A5) 3H 3L 6H H \\
+%%   \ns{T34}         & H 5{6H 6L} H \\
+%%   \ns{RESET}       & 2H 3L 57H \\
+%%   \ns{MEM}         & 6H 7L 6H 18L 25H \\
+%%   \ns{R}           & 7H 5L 8H 16L 26H \\
+%%   \ns{WS}          & 20Z 9L 21Z 2L 10Z  \\
+%% %
+%%   \ns{WAITING}     & 2U 18H 11L 31H \\
+%% %% \extracode
+%% %%  \tablerules
+%% %%  \begin{pgfonlayer}{background}
+%% %%    \foreach \n in {1,...,11}
+%% %%      \draw [help lines] (A\n) -- (B\n);
+%% %%  \end{pgfonlayer}
+%% \end{tikztimingtable}
+%% \caption[Wait State Waveform]{\label{fig:wait-state} Wait state waveform. The
+%%   second pulse of \ns{WS} has no effect because \ns{T34} is high, and because
+%%   it does not cross the T4-T1 boundary.}
+%% \end{figure*}
+
+%% \subsection{Extending Read/Write Cycles on Wait States}
+%% \label{sec:dbus-driver-waiting}
+
+%% The bus protocol for using wait states to extend bus transactions is described
+%% fully in~\cf{sec:bus-ws}. In short, when a slow peripheral on the bus is
+%% addressed, it may assert the \ns{WS} signal immediately to extend the read or
+%% write operation. For write cycles, \ns{WS} must be asserted before the \ns{W}
+%% is strobed, which gives a window of approximately 180~ns. Once \ns{WS} is
+%% asserted, it must be held low until the rising edge of \CLOCK{1} and must be
+%% de-asserted before the rising edge of \CLOCK{2}. If a \ns{WS} strobe occurs
+%% entirely outside the T3 or T4 cycle phase, it is ignored.
+
+%% \ns{WS} must be driven by an open-drain gate to allow sharing the line among
+%% all peripherals. The \ns{WS} performs two tasks: as described in~\cf{sec:upc},
+%% it stops the µPC from counting to the next microinstruction; and it extends the
+%% bus transaction by keeping the \IBUS{} and \DBUS{} connected. The latter is
+%% performed here by the \ns{WAITING} signal. The waveform is shown
+%% in~\fcf{fig:wait-state}.
+
+%% \ns{WAITING} is the complementary output of a \HC{74} D flip-flop. The flip-flop
+%% is asynchronously set when the disjunction \ns{T34}$\cdot$\ns{WS} is low (this
+%% is generated by an OR gate, which works as a negative logic AND gate by
+%% DeMorgan's law). Thus, it is set when a wait state is reuquested during the T3
+%% ot T4 cycle phase. The flip-flop's \ps{D} input is pulled low, and it is
+%% clocked by the rising edge of \CLOCK{2}. In essence, unless a wait state is
+%% still being requested, the rising edge of \CLOCK{2} (i.e. the onset of the T3
+%% phase) will clear it. This will allow the bus cycle to complete after the end
+%% of the wait state. The flip-flop is also reset asynchronously on \ns{RESET}.
+
+%% \ps{WAITING} (the complement of \ns{WAITING}) is obtained from the flip-flop's
+%% \ps{Q} output and is used to inhibit \ns{W} strobes during wait states.
+
+%% %% \question{Why use \ns{WAITING} to extend the bus transaction, when the
+%% %%   Microcode Store is stopped and control signals do not change?}{Peripherals
+%% %%   generate their \ns{WS} signals when they are addressed, and often {\em
+%% %%     while\/} they are addressed. Keeping the bus connected is very }
+
+
+
+%% \subsection{Generating Write Srobes}
+%% \label{sec:w-strobe}
+
+%% \begin{figure*}
+%% \centering
+%% \begin{tikztimingtable}
+%%   \CLOCK{4}          & 5{6H 2L} 5H \\
+%%   \ps{WAITING}       & 20L       14H 11L \\
+%%   \ns{MEM}           & 3H 6L 10H 22L 4H \\
+%%   \ns{WEN}           & 3H 6L 10H 22L 4H \\
+%%   \ns{W}             & 6.5H 1.5L 30.5H 1.5L 5H \\
+%% %% \extracode
+%% %%  \tablerules
+%% %%  \begin{pgfonlayer}{background}
+%% %%    \foreach \n in {1,...,11}
+%% %%      \draw [help lines] (A\n) -- (B\n);
+%% %%  \end{pgfonlayer}
+%% \end{tikztimingtable}
+%% \caption[Write Strobe Generation]{\label{fig:write-strobe-generation} Write
+%%   Strobe generation. This diagram shows two write transactions. The first one,
+%%   on the left, is an ordinary write. The second one, centre to right, is one
+%%   with a wait state. The asserted \ps{WAITING} signal inhibits the \ns{W}
+%%   strobe for two clock cycles. The transaction continues until after
+%%   \ps{WAITING} is cleared, to the end of the memory write cycle. }
+%% \end{figure*}
+
+%% Most peripherals, including memory, require some time after they are selected,
+%% for address decoding to settle, buses to be fully driven, et cetera. They also
+%% require these signals to be held after a write pulse. This does not allow the
+%% write pulse to start at the same time as the bus cycle starts, nor to end at
+%% the same time as the cycle ends.
+
+%% Thus, although the Control Unit directly controls the \ns{R} signal on the bus,
+%% it only indirectly controls the \ns{W} signal. Instead, it asserts a \ns{WEN}
+%% (Write ENable) signal, and this part of the \DBUS{} driver generates the \ns{W}
+%% strobe from it.
+
+%% The \ns{W} strobe is generated by the complementary output of half of a \HC{74}
+%% flip-flop. The \ns{D} input is pulled high. When the \ns{CLK} line rises, the
+%% flip-flop is set, \ns{Q} is cleared, and a write strobe begins. The strobe is
+%% cleared using the asynchrnous reset signal of the flip-flop, when either
+%% \ns{RESET} is asserted, or approximately 25–30~ns after \ns{Q} goes low. A
+%% feedback from \ns{Q}, delayed by propagation through four gates, is used to
+%% clear the flip-flop again.
+
+%% Since bus transactions last until the next microinstruction is fetched from the
+%% microcode store, the rising edge of the \ns{W} strobe occurs approximately
+%% 15~ns (the $t_{\mbox{\scriptsize PHL}}$ or $t_{\mbox{\scriptsize PLH}}$ delays
+%% of the µPC's \HC{161}) plus 50–70~ns (the access time of the microcode store)
+%% before the end of the read/write cycle. This gives an address, data and chip
+%% select hold time of 65–85~ns, more than enough for most devices.\footnote{Many,
+%%   in fact, need {\em no\/} hold time.}
+
+%% Thus, the \ns{W} strobe is asserted on the rising edge of the flip-flop's
+%% \ns{CLK} according to the following table and as shown in~\fcf{fig:w-strobe}.
+
+%% \begin{center}
+%%   \zebra
+%%   \begin{tabular}{*{4}{>{\textsf\bgroup}c<{\egroup}}l}
+%%     %\noalign{\smallskip}\hline\noalign{\smallskip}
+%%     %\\\hline
+%%     \CLOCK{4} & \ns{WEN} & \ps{WAITING} & FF \ps{CLK} \\
+%%     %\noalign{\smallskip}\hline\noalign{\smallskip}
+%%     \hline
+%%     H & X & X &   L \\
+%%     X & H & X &   L \\
+%%     X & X & H &   L \\
+%%     L & L & L &   H \\
+%%     \hline
+%%   \end{tabular}
+%% \end{center}
+
+
+%% \section{Interrupt State Machine}
+%% \label{sec:interrupts-state-machine}
+
+%% \lipsum[3-5]
+
+%% \section{The Major Registers: \PC, \A, \DR}
+%% \label{sec:major-registers}
+
+%% \todo{Reflect DEC support}
+
+%% The three major \glspl{register}, \PC{}, \DR{} and \AC{} are all 16 bits wide
+%% and implemented in a nearly identical fashion. Each of the three registers
+%% comprises three components:
+
+%% \begin{enumerate}
+%% \item \textbf{Registration and stepping}. This is implemented as four \HC{193}
+%%   presettable counters. Each handles four bits and can be cascaded to provide
+%%   longer widths, which is how it is used here.
+%% \item \textbf{Tri-state control}. The counters cannot tri-state their outputs,
+%%   so a pair of 8-bit \HC{541} buffers are used to do this.
+%% \item \textbf{Front Panel buffering}. An additional pair of \HC{541} buffers are
+%%   used to isolate the register outputs from the front panel.
+%% \end{enumerate}
+
+%% The \IBUS{} is connected to the counters' preset inputs, one \gls{nybble} per
+%% counter. Each counter is reset to \bin{0000} when its \ps{RESET} signal is
+%% high. This is obtained by inverting the CFT active low \ns{RESET} signal. The
+%% active low \ns{LOAD} signal is connected to the corresponding signal from the
+%% Unit Decoder (\cfp{sec:unit-decoder}): \ns{WPC}, \ns{WDR} or \ns{WAC} for the
+%% \PC, \DR{} and \AC{} respectively. When the line is low, the register presets
+%% to the value on the \IBUS{}. This is a latching operation, so the register will
+%% follow all glitches on the \IBUS{} until its \ns{LOAD} line goes high.
+
+%% In addition, each register's least significant counter's \ps{UP} (count
+%% trigger) line is connected to the increment strobes \INCPC, \INCDR{} and
+%% \INCAC{}. These increment the least significant \gls{nybble} of each
+%% register. A cascade carry out line (\ps{CARRY}) from the first, second and
+%% third counter triggers the \ps{UP} signal of the second, third and fourth
+%% counter respectively, thus ripple counting.
+
+%% Ripple counting is not ideal in terms of performance, but after an increment is
+%% performed, the Control Unit will not be using that register again for at least
+%% one clock period (250~ns), which is plenty of time for carry to ripple up.
+
+%% The \ps{DOWN} signals of all counters are tied to ground, which is a
+%% requirement for counting up.
+
+%% The \ps{BORROW} cascade outputs are not used presently.
+
+%% Each counter provides four output lines, each of which is connected to a
+%% \HC{541} buffer, two \HC{193} counters per \HC{541} buffer. The
+%% \ns{G1} and \ns{G2} output enables of each buffer are connected to the
+%% corresponding register read strobe, \RPC, \RDR{} and \RAC for the \PC, \DR{}
+%% and \AC{} registers respectively. When the strobe is low (asserted), the
+%% buffers drive the \IBUS{} with the value of the register. Otherwise, the
+%% buffers remain tri-stated allowing the \IBUS{} to be used by other units.
+
+%% Finally, another pair of \HC{541} buffers receive the unbuffered output of the
+%% register and buffer it for transmission to the Front Panel. This avoids
+%% transmission line effects from connecting register outputs to long lines. The
+%% buffers are permanently enabled by tying their enable lines to ground.
+
+%% \subsection{A Potential Enhancement: Decrement Support}
+
+%% \todo{Reflect DEC support}
+
+%% %% One of the most likely enhancements to the Register file is to allow register
+%% %% decrement. The increment lines would then become ‘step’ lines, and the spare
+%% %% Microcode Store signal (\ps{UINSTR18}) can be used to indicate the
+%% %% direction. Alternatively, since this will require four bits for a total of six
+%% %% operations, the skip signals may be multiplexed into a vertical microcode
+%% %% field, which can then be decoded by the Register File. The downside to this
+%% %% technique is that only one register can be operated on at any given
+%% %% time. Currently, all three registers can be incremented simultaneously. Since
+%% %% the \PC{} is unlikely to benefit from decrement support, this may only be
+%% %% required for the \DR{} and \AC{}. This makes five operations in four bits —
+%% %% leaving one independent bit for \INCPC, the remaining four operations (\INCDR,
+%% %% \DECDR, \INCAC, \DECAC) can be encoded in two bits, leaving \ns{UINSTR18}
+%% %% spare. The benefit of the hybrid solution is that the \PC{} can be incremented
+%% %% at the same time as either the \DR{} or \AC{}. There is currently no microcode
+%% %% that performs (or needs to perform) simultaneous \DR{} and \AC{} increments, so
+%% %% this would be a viable solution which conserves both Microcode Store bits and
+%% %% Control Bus signals.
+
+%% %% The modifications to the Register File are simple and cheap enough (one
+%% %% additional IC, an \HC{138}) that this can be done early in the project, as a
+%% %% core feature. Whether or not the microcode itself uses it is another matter
+%% %% altogether. It would still make it possible to extend the machine with just a
+%% %% microcode update.
+
+%% \section{The Link Register}
+
+%% \lipsum[3-5]
+
+%% \section{The Arithmetic/Logic Unit}
+
+%% \lipsum[3-5]
+
+%% \subsection{Decoder and Registers}
+
+%% \lipsum[3-5]
+
+%% \subsection{Binary Operations}
+
+%% \lipsum[3-5]
+
+%% \subsection{Unary Operations}
+
+%% \lipsum[3-5]
+
+
+
+
+%% \chapter{Extending the Processor}
+
+%% \lipsum[3-5]
+
+%% \section{Forcing skips: the \ns{SKIPEXT} signal}
+
+%% \lipsum[3-5]
+
+%% \section{Ending instructions: the \ns{ENDEXT} signal}
+
+%% \lipsum[3-5]
+
+%% \section{Stopping the processor}
+
+%% \lipsum[3-5]
+
+%% \subsection{Inhibiting the processor: the \ns{HALT} signal}
+
+%% \lipsum[3-5]
+
+%% \subsection{Wait States: the \ns{WS} signal}
+
+%% \lipsum[3-5]
+
+%% \section{Microcode Extensions}
+
+%% \subsection{The \ps{µCB} Microcode Bank Number}
+%% \label{sec:ucb}
+%% Since microcode ROMs are 19-bits wide and the original CFT microcode
+%% had 15 bit addresses, the extra four bits were reserved to allow for 16
+%% different microcode banks, which could theoretically increase the CFT
+%% instruction set to 256 instructions, provided a means to set the value of
+%% \UCB.
+
+%% \subsection{Writable Microcode Store}
+%% \lipsum[3-5]
+
+%% \subsection{Additional Microcode Width}
+%% \lipsum[3-5]
 

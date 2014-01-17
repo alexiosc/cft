@@ -4,27 +4,27 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%% \newcommand\renderpartfrontmatter{1}
-%% \newcommand\renderparthardware{1}
-%% \newcommand\renderpartprocessor{1}
-%% \newcommand\renderpartperipherals{1}
-%% \newcommand\renderchappfp{1}
-%% \newcommand\renderchapmbu{1}
-%% \newcommand\renderchapirc{1}
-%% \newcommand\renderchapmem{1}
-%% \newcommand\renderchaptty{1}
-%% \newcommand\renderchapide{1}
-%% \newcommand\renderchaptnr{1}
-%% \newcommand\renderchapdeb{1}
-%% \newcommand\renderchapvdu{1}
-%% \newcommand\renderchapkbd{1}
-%% \newcommand\renderchapsnd{1}
-%% \newcommand\renderchapfdc{1}
-%% \newcommand\renderchapiob{1}
-%% \newcommand\renderpartprogramming{1}
-%% \newcommand\renderpartemulator{1}
-%% \newcommand\renderpartforth{1}
-%% \newcommand\renderpartsoftware{1}
+\newcommand\renderpartfrontmatter{1}
+\newcommand\renderparthardware{1}
+\newcommand\renderpartprocessor{1}
+\newcommand\renderpartperipherals{1}
+\newcommand\renderchappfp{1}
+\newcommand\renderchapmbu{1}
+\newcommand\renderchapirc{1}
+\newcommand\renderchapmem{1}
+\newcommand\renderchaptty{1}
+\newcommand\renderchapide{1}
+\newcommand\renderchaptnr{1}
+\newcommand\renderchapdeb{1}
+\newcommand\renderchapvdu{1}
+\newcommand\renderchapkbd{1}
+\newcommand\renderchapsnd{1}
+\newcommand\renderchapfdc{1}
+\newcommand\renderchapiob{1}
+\newcommand\renderpartprogramming{1}
+\newcommand\renderpartemulator{1}
+\newcommand\renderpartforth{1}
+\newcommand\renderpartsoftware{1}
 %% \newcommand\renderpartschematics{1}
 %% \newcommand\renderpartbackmatter{1}
 
@@ -34,29 +34,33 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \ifdefined\renderpartfrontmatter
-  \frontmatter
+  \ifxetex
+    \frontmatter
+    \setcounter{tocdepth}{4}
+    \addtocontents{toc}{~\hfill\textbf{Page}\par}
+    \tableofcontents
 
-  \setcounter{tocdepth}{4}
-  \addtocontents{toc}{~\hfill\textbf{Page}\par}
-  \tableofcontents
+    \addtocontents{lof}{~\hfill\textbf{Page}\par}
+    \listoffigures
+  \else
+    %\setcounter{chapter}{-1}
+    %\renewcommand{\thechapter}{\Roman{chapter}}
+  \fi
 
-  \listoffigures
-  \addtocontents{lof}{~\hfill\textbf{Page}\par}
+  %% \listofschematics
+  %% \addtocontents{los}{~\hfill\textbf{Page}\par}
 
-  \listofschematics
-  \addtocontents{los}{~\hfill\textbf{Page}\par}
+  %% \listoftables
+  %% \addtocontents{lot}{~\hfill\textbf{Page}\par}
 
-  \listoftables
-  \addtocontents{lot}{~\hfill\textbf{Page}\par}
+  %% \listoftasks
+  %% \addtocontents{lotasks}{~\hfill\textbf{Page}\par}
 
-  \listoftasks
-  \addtocontents{lotasks}{~\hfill\textbf{Page}\par}
-
-  \listofioport
-  \addtocontents{loioport}{~\hfill\textbf{Page}\par}
+  %% \listofioport
+  %% \addtocontents{loioport}{~\hfill\textbf{Page}\par}
   
-  \listofdatastructures
-  \addtocontents{lods}{~\hfill\textbf{Page}\par}
+  %% \listofdatastructures
+  %% \addtocontents{lods}{~\hfill\textbf{Page}\par}
   
   \input{cft-book-preface}
 \fi
@@ -75,9 +79,13 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\setcounter{chapter}{0}
+
+\renewcommand{\thepart}{\Alph{part}}
+\renewcommand{\thechapter}{\Alph{part}\arabic{chapter}}
 \renewcommand{\thepage}{\Alph{part}\arabic{chapter}-\arabic{page}}
 \renewcommand{\thefigure}{\Alph{part}\arabic{chapter}.\arabic{figure}}
-\renewcommand{\theschematic}{\Alph{part}\arabic{chapter}.\arabic{schematic}}
+%% \renewcommand{\theschematic}{\Alph{part}\arabic{chapter}.\arabic{schematic}}
 \renewcommand{\thetable}{\Alph{part}\arabic{chapter}.\arabic{schematic}}
 \renewcommand{\thepage}{\thepart\thechapter-\arabic{page}}
 
@@ -86,21 +94,20 @@
   \glsresetall
 
   \input{cft-hard-processor}
-
+  
   \chapter{Buses}
   \glsresetall
   \input{cft-hard-bus}
-
- \chapter{Microcode}
- \glsresetall
- \label{chap:microcode}
- \input{cft-microcode}
-
- \chapter{Processor Schematics}
- \glsresetall
- \label{chap:processor-schematics}
- \input{cft-hard-processor-schematics}
   
+  \chapter{Microcode}
+  \glsresetall
+  \label{chap:microcode}
+  \input{cft-microcode}
+  
+  \chapter{Processor Schematics}
+  \glsresetall
+  \label{chap:processor-schematics}
+  \input{cft-hard-processor-schematics}
 \fi
 
 \ifdefined\renderpartperipherals

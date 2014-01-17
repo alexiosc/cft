@@ -1,0 +1,162 @@
+% -*- latex -*-
+
+% Conditional compilation
+\usepackage{ifxetex}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{rotating}
+\usepackage{lipsum}
+
+\ifxetex
+  \usepackage{fontspec}
+  \setmainfont{Minion Pro}
+  \setsansfont{Myriad Pro}
+  \setmonofont[]{Inconsolata}
+\else
+  \newcommand\fontspec[1]{}
+  %\usepackage[main=english,greek]{babel}
+  \usepackage[utf8]{inputenc}
+  \usepackage{newunicodechar}
+  \newunicodechar{µ}{\ensuremath{\mu}} % ‘micro’ (from latin-1 plane)
+  \newunicodechar{μ}{\ensuremath{\mu}} % mu (from Greek plane)
+  \newunicodechar{–}{--}
+  \newunicodechar{—}{---}
+  \newunicodechar{×}{\ensuremath{\times}}
+  \newunicodechar{°}{\ensuremath{\deg}}
+  \newunicodechar{Ω}{\ensuremath{\Omega}}
+  \newunicodechar{÷}{\ensuremath{\div}}
+\fi
+
+\definecolor{r0}{rgb}{0.33, 0.1, 0.1}
+\definecolor{r1}{rgb}{1, 0.3, 0.3}
+
+\definecolor{g0}{rgb}{0.1, 0.33, 0.1}
+\definecolor{g1}{rgb}{0.3, 1, 0.3}
+
+\definecolor{cftdark}{cmyk}{0,0.42,0.72,0.84}
+\definecolor{cftoutline}{cmyk}{0,0.43,0.72,0.53}
+\definecolor{cftlight}{cmyk}{0,0.43,0.72,0.22}
+\definecolor{cfthl}{rgb}{.89,.698,.529}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% FIGURE DRAWING
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ifxetex
+  \usepackage{pgf}
+  \usepackage{tikz}
+  %\usetikzlibrary{arrows,positioning,automata,shadows,fit,shapes,counters}
+  \usetikzlibrary{arrows,positioning,automata,shadows,fit,shapes,patterns}
+  %\usetikzlibrary{external}
+  %\tikzexternalize[prefix=tikz/]
+  %\tikzset{external/system call={xelatex \tikzexternalcheckshellescape -halt-on-error -interaction=batchmode -jobname "\image" "\texsource"}}
+  \usepackage{standalone}
+
+  \usepackage{tikz-timing}[2009/07/28]
+  \usetikztiminglibrary{either}[2009/07/28]
+  \tikzset{timing/z/.append style={black},}
+  \tikzset{timing/.append style={x=1ex, y=2ex, line cap=round, line join=round, line width=1.3pt}}
+  \tikzset{timing/slope=0.33}
+  \tikzstyle{semithick}=[line width=1pt]
+  \tikzstyle{heavy}=[line width=2pt]
+  \tikzstyle{heavy outline}=[line width=3.5pt]
+  \tikzstyle{plot line}=[line width=4pt]
+  \tikzstyle{arrow}=[semithick]
+  \tikzstyle{thick arrow}=[heavy]
+  \tikzstyle{thick outline arrow}=[thick arrow, heavy outline, color=white, draw opacity=0.8]
+  % Create a hatch pattern
+  \newlength{\hatchspread}
+  \newlength{\hatchthickness}
+  % declaring the keys in tikz
+  \tikzset{hatchspread/.code={\setlength{\hatchspread}{#1}},
+           hatchthickness/.code={\setlength{\hatchthickness}{#1}}}
+  \tikzset{hatchspread=3pt,
+           hatchthickness=0.4pt}
+  \pgfdeclarepatternformonly[\hatchspread,\hatchthickness]% variables
+     {hatch}% name
+     {\pgfqpoint{-2\hatchthickness}{-2\hatchthickness}}% lower left corner
+     {\pgfqpoint{\dimexpr\hatchspread+2\hatchthickness}{\dimexpr\hatchspread+2\hatchthickness}}% upper right corner
+     {\pgfqpoint{\hatchspread}{\hatchspread}}% tile size
+     {% shape description
+      \pgfsetlinewidth{\hatchthickness}
+      \pgfpathmoveto{\pgfqpoint{0pt}{\hatchspread}}
+      \pgfpathlineto{\pgfqpoint{\dimexpr\hatchspread+0.15pt}{-0.15pt}}
+      \pgfusepath{stroke}
+     }
+\fi
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% GLOSSARIES
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Glossaries
+%\usepackage[acronym]{glossaries}
+%\makeindex
+%\makeglossaries
+%\input{glossary}
+\newcommand\gls[1]{#1}
+\newcommand\glsresetall{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% HYPERREF
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ifxetex
+  \usepackage[a4paper,CJKbookmarks,bookmarks=true,bookmarksopen=true,pdfpagelabels,pdfstartpage=1]{hyperref}
+\else
+  \usepackage[tex4ht]{hyperref}
+\fi
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% LISTINGS OF THINGS
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Lists of things (memoir already includes this if running XeTeX)
+\ifxetex
+  \relax
+\else
+  \usepackage{tocloft}
+\fi
+
+
+% Listings
+\usepackage{listings}
+\lstset{%
+  xleftmargin=35pt,
+  xrightmargin=5pt,
+  basicstyle={\ttfamily},
+  backgroundcolor=\color{cfthl!25},
+  rulecolor=\color{cfthl!25},
+  framesep=5pt,
+  rulesep=5pt,
+  frame=tlrb,
+  framexleftmargin=10pt,
+  flexiblecolumns=true,
+  keepspaces=true,
+  numbers=left,
+  numbersep=5pt,
+  numberstyle={\scriptsize\sffamily\color{cftlight}}
+}
+
+
+
+
+
+
+
+
+
+
+% End of file.

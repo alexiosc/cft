@@ -286,7 +286,7 @@ address space. Page-relative addressing is discussed in detail in
 
 \begin{figure}[tb]
   \centering
-  \input{figure-register-file}
+  \inputfigure{figure-register-file}
   \caption{\label{fig-rf}Full Register file. Only the \A{} major
     register and the five flag registers are accessible to the user,
     and only \A{} is directly accessible.}
@@ -401,7 +401,7 @@ laid out and utilised.
 
 \begin{figure}[tb]
   \centering
-  \input{figure-instruction-format}
+  \inputfigure{figure-instruction-format}
   \caption{\label{fig-if}Instruction Format of the CFT architecture.}
 \end{figure}
 
@@ -604,7 +604,7 @@ instruction fetch.
 
 \begin{figure}[htb]
  \centering
- \input{figure-immediate-mode}    
+ \inputfigure{figure-immediate-mode}    
 \caption[Immediate Mode]{\label{fig:immediate-mode} Operation of Immediate
   Mode. The \AC{} is loaded with the bit pattern in the operand field of the
   \IR. The six most significant bits are zeroed. This addressing mode is only
@@ -636,7 +636,7 @@ Immediate Address) instruction, and by all flow control instructions
 
 \begin{figure}[htb]
  \centering
- \input{figure-address-mode}
+ \inputfigure{figure-address-mode}
 \caption[Address Mode]{\label{fig:address-mode} Operation of Address Mode. The
   \AC{} (or \PC{}, in the case of flow control instructions) is loaded with the
   bit pattern in the operand field of the \IR. The six most significant bits
@@ -664,7 +664,7 @@ aside from the instruction fetch.
 
 \begin{figure}[htb]
  \centering
- \input{figure-register-address-mode}    
+ \inputfigure{figure-register-address-mode}    
  \caption[Register Address Mode]{\label{fig:register-address-mode} Operation
    of Register Address Mode.}
 \end{figure}
@@ -688,7 +688,7 @@ required to fetch the instruction.
 
 \begin{figure}[htb]
  \centering
- \input{figure-indirect-address-mode}    
+ \inputfigure{figure-indirect-address-mode}    
 \caption[Indirect Address Mode]{\label{fig:indirect-address-mode} Operation
   of Indirect Address Mode.}
 \end{figure}
@@ -716,7 +716,7 @@ cycle.
 
 \begin{figure}[htb]
  \centering
- \input{figure-register-indirect-address-mode}    
+ \inputfigure{figure-register-indirect-address-mode}    
 \caption[Register Indirect Address Mode]{\label{fig:register-indirect-address-mode} Operation
   of Register Indirect Address Mode.}
 \end{figure}
@@ -779,7 +779,7 @@ update the incremented value).
 
 \begin{figure}[htb]
  \centering
- \input{figure-autoindex-address-mode}    
+ \inputfigure{figure-autoindex-address-mode}    
 \caption[Autoindex Address Mode]{\label{fig:autoindex-address-mode} Operation
   of Autoindex Address Mode.}
 \end{figure}
@@ -805,7 +805,7 @@ the one used to fetch the instruction.
 
 \begin{figure}[htb]
  \centering
- \input{figure-direct-mode}
+ \inputfigure{figure-direct-mode}
 \caption[Direct Mode]{\label{fig:direct-mode} Operation of Direct Mode.}
 \end{figure}
 
@@ -830,7 +830,7 @@ or I/O cycle in addition to the one used to fetch the instruction.
 
 \begin{figure}[htb]
  \centering
- \input{figure-register-direct-mode}    
+ \inputfigure{figure-register-direct-mode}    
  \caption[Register Direct Mode]{\label{fig:register-direct-mode} Operation
    of Register Direct Mode.}
 \end{figure}
@@ -858,7 +858,7 @@ memory cycle needed to fetch the instruction.
 
 \begin{figure}[htb]
  \centering
- \input{figure-indirect-mode}
+ \inputfigure{figure-indirect-mode}
  \caption[Indirect Mode]{\label{fig:indirect-mode} Operation
    of Indirect Mode.}
 \end{figure}
@@ -883,7 +883,7 @@ to the memory cycle needed to fetch the instruction.
 
 \begin{figure}[htb]
  \centering
- \input{figure-register-indirect-mode}
+ \inputfigure{figure-register-indirect-mode}
 \caption[Register Indirect Mode]{\label{fig:register-indirect-mode} Operation
   of Register Indirect Mode.}
 \end{figure}
@@ -927,7 +927,7 @@ incremented index pointer.
 
 \begin{figure}[htb]
  \centering
- \input{figure-autoindex-mode}    
+ \inputfigure{figure-autoindex-mode}    
 \caption[Autoindex Mode]{\label{fig:autoindex-mode} Operation
   of Autoindex Mode.}
 \end{figure}
@@ -1294,7 +1294,7 @@ These are operations that do not fit in the categories above.
 
 \begin{figure*}[tb]
   \centering
-  \input{figure-rolls}
+  \inputfigure{figure-rolls}
 
   \caption{\label{fig-roll}Roll Instructions.}
 \end{figure*}

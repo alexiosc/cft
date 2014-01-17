@@ -96,31 +96,31 @@ In describing logic, the following conventions are used:
 
 \section{I/O Addresses and Extended Commands}
 
-\makeatletter
-\ioport@{crwvehf}{315}{IOREG}{%
-  I/O addresses are shown like this.
-  %
-  \begin{description}
-  \item {\texttt{\textbf{c}}} This address is used as a command or instruction.
-  \item {\texttt{\textbf{r}}} This address can be read from.
-  \item {\texttt{\textbf{w}}} This address can be written to.
-  \item {\texttt{\textbf{v}}} This is available in the Verilog verification version.
-  \item {\texttt{\textbf{e}}} This is available in the CFT Emulator.
-  \item {\texttt{\textbf{h}}} This is available on the hardware version of the CFT.
-  \item {\texttt{\textbf{f}}} This address is fully decoded, i.e. only
-    one copy of the instruction or device is available in the address space.
-  \end{description}
-}
-\makeatother
+%% \makeatletter
+%% \ioport@{crwvehf}{315}{IOREG}{%
+%%   I/O addresses are shown like this.
+%%   %
+%%   \begin{description}
+%%   \item {\texttt{\textbf{c}}} This address is used as a command or instruction.
+%%   \item {\texttt{\textbf{r}}} This address can be read from.
+%%   \item {\texttt{\textbf{w}}} This address can be written to.
+%%   \item {\texttt{\textbf{v}}} This is available in the Verilog verification version.
+%%   \item {\texttt{\textbf{e}}} This is available in the CFT Emulator.
+%%   \item {\texttt{\textbf{h}}} This is available on the hardware version of the CFT.
+%%   \item {\texttt{\textbf{f}}} This address is fully decoded, i.e. only
+%%     one copy of the instruction or device is available in the address space.
+%%   \end{description}
+%% }
+%% \makeatother
 
-\extcmda{HALT}{OUT R \&a}{540a}{crwvehf}{00a}%
-       {PFP, Halt Processor}%
-       {%
-         Extended CFT instructions are shown like this. Extended instructions
-         are in essence magic I/O space addresses that perform a particular
-         task when read from or written to. In this case, the address is
-         \hex{00a}. The instruction is dubbed \asm{HALT}. The letters in the
-         parentheses signify the same as for I/O addresses above.
-       }
+%% \extcmda{HALT}{OUT R \&a}{540a}{crwvehf}{00a}%
+%%         {PFP, Halt Processor}%
+%%         {%
+%%          Extended CFT instructions are shown like this. Extended instructions
+%%          are in essence magic I/O space addresses that perform a particular
+%%          task when read from or written to. In this case, the address is
+%%          \hex{00a}. The instruction is dubbed \asm{HALT}. The letters in the
+%%          parentheses signify the same as for I/O addresses above.
+%%        }
 
 % End of file.
