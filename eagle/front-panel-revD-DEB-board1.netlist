@@ -1,6 +1,6 @@
 Netlist
 
-Exported from front-panel-revD-DEB-board1.sch at 22 Nov 2013 23:33:28
+Exported from front-panel-revD-DEB-board1.sch at 7 Jan 2014 12:31:52
 
 EAGLE Version 5.11.0 Copyright (c) 1988-2010 CadSoft
 
@@ -10,22 +10,6 @@ Net      Part     Pad      Pin        Sheet
          RN11     5        5          10
          RN20     4        4          7
          X4       2        KL         10
-
-!BAINDEX IC4      6        A5         2
-         RN3      6        6          2
-         X21      P$2      P$2        9
-
-!BIRQS   IC5      7        A6         2
-         RN4      7        7          2
-         X18      P$2      P$2        9
-
-!BRSTHOLD IC5      8        A7         2
-         RN4      8        8          2
-         X20      P$2      P$2        9
-
-!BSKIP   IC4      7        A6         2
-         RN3      7        7          2
-         X19      P$2      P$2        9
 
 !CB-WEN  IC25     5        D6         4
          X4       15       KL         10
@@ -64,22 +48,22 @@ Net      Part     Pad      Pin        Sheet
 
 !ENDEXT  EXP      B7       7          10
 
-!FPRAM   IC12     6        Q6         5
-         P9       20       S          9
+!FPRAM   P9       20       S          9
+         R27      1        1          5
 
-!FPRESET IC12     7        Q7         5
-         P5       28       KL         9
+!FPRESET P5       28       KL         9
+         R28      1        1          5
 
-!HALT    D26      A        A          5
-         EXP      A19      19         10
+!HALT    EXP      A19      19         10
+         R33      1        1          5
 
 !IBUS-OE R11      1        1          7
          RN11     3        3          10
          RN20     5        5          7
          X4       10       KL         10
 
-!IO      D25      A        A          5
-         EXP      C14      14         10
+!IO      EXP      C14      14         10
+         R32      1        1          5
 
 !IODEV1XX EXP      B24      24         10
          IC42     4        G2A        7
@@ -108,8 +92,8 @@ Net      Part     Pad      Pin        Sheet
 
 !IRQS    EXP      A30      30         10
 
-!MEM     D24      A        A          5
-         EXP      C13      13         10
+!MEM     EXP      C13      13         10
+         R31      1        1          5
 
 !MFD-DR  IC1      7        Y7         2
          IC2      1        G1         2
@@ -127,8 +111,9 @@ Net      Part     Pad      Pin        Sheet
          IC5      1        G1         2
          IC5      19       G2         2
 
-!PB0-AINDEX P4       29       KL         9
-         X21      P$1      P$1        9
+!PB0-AINDEX IC4      6        A5         2
+         P4       29       KL         9
+         RN3      6        6          2
 
 !PB0-CLI IC47     7        A6         9
          P4       11       KL         9
@@ -151,9 +136,10 @@ Net      Part     Pad      Pin        Sheet
 !PB0-IO  IC47     4        A3         9
          P4       4        KL         9
 
-!PB0-IRQSUC IC46     9        I          9
+!PB0-IRQSUC IC48     8        A7         9
+         IC5      7        A6         2
          P4       27       KL         9
-         X18      P$1      P$1        9
+         RN4      7        7          2
 
 !PB0-MEM IC47     3        A2         9
          P4       2        KL         9
@@ -161,11 +147,14 @@ Net      Part     Pad      Pin        Sheet
 !PB0-R   IC47     5        A4         9
          P4       6        KL         9
 
-!PB0-RSTHOLD P4       26       KL         9
-         X20      P$1      P$1        9
+!PB0-RSTHOLD IC48     7        A6         9
+         IC5      8        A7         2
+         P4       26       KL         9
+         RN4      8        8          2
 
-!PB0-SKIP P4       32       KL         9
-         X19      P$1      P$1        9
+!PB0-SKIP IC4      7        A6         2
+         P4       32       KL         9
+         RN3      7        7          2
 
 !PB0-STI IC48     2        A1         9
          P4       14       KL         9
@@ -183,16 +172,15 @@ Net      Part     Pad      Pin        Sheet
          R23      1        1          7
          X4       18       KL         10
 
-!POWERON P8       3        3          9
-
-!R       D23      A        A          5
-         EXP      C15      15         10
+!R       EXP      C15      15         10
          IC25     6        D7         4
+         R37      1        1          5
 
 !RESET   EXP      C30      30         10
          IC32     10       !MR        5
          IC33     10       !MR        5
          IC39     4        PRE        6
+         R29      1        1          5
 
 !RESET-MCU CON1     5        5          7
          IC41     1        PC6(/RESET) 7
@@ -200,11 +188,11 @@ Net      Part     Pad      Pin        Sheet
 
 !RSTHOLD EXP      B22      22         10
          IC39     3        CLK        6
-         IC46     1        I          9
+         R7       1        1          5
 
 !RTS     JP1      6        6          7
 
-!SAFE    D16      A        A          5
+!SAFE    R30      1        1          5
 
 !SAMPLE  IC10     1        !PL        3
          IC11     1        !PL        3
@@ -227,10 +215,6 @@ Net      Part     Pad      Pin        Sheet
          X4       21       KL         10
 
 !SKIPEXT EXP      B6       6          10
-
-!STEP/RUN IC38     4        PRE        6
-         IC43     10       Q5         7
-         IC45     7        A6         7
 
 !SWFAST  IC6      6        D7         3
          P10      36       KL         9
@@ -297,6 +281,7 @@ Net      Part     Pad      Pin        Sheet
          P10      35       KL         9
 
 !SWPOWER P10      50       KL         9
+         P8       3        3          9
 
 !SWRAM   IC11     12       D1         3
          P10      6        KL         9
@@ -335,8 +320,7 @@ Net      Part     Pad      Pin        Sheet
 !T34     EXP      B27      27         10
 
 !USTEP   IC38     10       PRE        6
-         IC43     11       Q6         7
-         IC45     8        A7         7
+         IC45     12       Y7         7
 
 !VPEN    IC16     2        !CE!/CLK   4
          IC17     2        !CE!/CLK   4
@@ -350,8 +334,8 @@ Net      Part     Pad      Pin        Sheet
          IC25     2        !CE!/CLK   4
          IC45     17       Y2         7
 
-!W       D22      A        A          5
-         EXP      C16      16         10
+!W       EXP      C16      16         10
+         R38      1        1          5
 
 !WAIT    D4       A        A          6
          D5       A        A          6
@@ -460,15 +444,9 @@ BFIRQ    IC25     14       D3         4
          P11      27       KL         8
          P5       35       KL         9
 
-BFL      IC5      5        A4         2
-         RN4      5        5          2
-
 BFNEG    IC25     11       D0         4
          P11      23       KL         8
          P5       37       KL         9
-
-BFV      IC5      6        A5         2
-         RN4      6        6          2
 
 BFZERO   IC25     12       D1         4
          P11      24       KL         8
@@ -717,10 +695,12 @@ FPFETCH  IC37     7        A<B_O      6
          P11      36       KL         8
 
 FPFL     IC25     3        D4         4
+         IC5      5        A4         2
          P11      28       KL         8
+         RN4      5        5          2
          X4       37       KL         10
 
-FPINT    IC46     8        O          9
+FPINT    IC48     12       Y7         9
          P11      38       KL         8
 
 FPIR0    IC20     11       D0         4
@@ -865,20 +845,11 @@ FPPC15   IC19     6        D7         4
          P12      11       KL         8
          P7       25       KL         9
 
-FPRST    IC46     2        O          9
+FPRST    IC48     13       Y6         9
          P11      31       KL         8
 
 FPRUN    IC35     6        Q6         5
          P11      32       KL         8
-
-FPRUNIT0 IC22     11       D0         4
-         P13      9        KL         8
-
-FPRUNIT2 IC22     13       D2         4
-         P13      7        KL         8
-
-FPRUNIT3 IC22     14       D3         4
-         P13      6        KL         8
 
 FPSTOP   IC35     7        Q7         5
          P11      33       KL         8
@@ -1007,7 +978,6 @@ GND      C1       1        1          2
          IC39     7        GND        * none *
          IC4      10       GND        * none *
          IC40     10       2C0        6
-         IC40     15       2G         6
          IC40     6        1C0        6
          IC40     8        GND        * none *
          IC41     22       GND        7
@@ -1018,19 +988,13 @@ GND      C1       1        1          2
          IC45     1        G1         7
          IC45     10       GND        * none *
          IC45     19       G2         7
-         IC46     11       I          9
-         IC46     13       I          9
-         IC46     3        I          9
-         IC46     5        I          9
-         IC46     7        GND        * none *
+         IC45     9        A8         7
          IC47     1        G1         9
          IC47     10       GND        * none *
          IC47     19       G2         9
          IC48     1        G1         9
          IC48     10       GND        * none *
          IC48     19       G2         9
-         IC48     7        A6         9
-         IC48     8        A7         9
          IC48     9        A8         9
          IC5      10       GND        * none *
          IC5      9        A8         2
@@ -1263,8 +1227,8 @@ N$4      D6       C        C          6
 N$5      IC42     15       Y0         7
          R23      2        2          7
 
-N$6      IC45     12       Y7         7
-         NC3      1        P          7
+N$6      IC43     10       Q5         7
+         IC45     7        A6         7
 
 N$7      IC13     10       PRE        7
          IC13     5        Q          7
@@ -1275,8 +1239,47 @@ N$8      D3       C        C          7
 N$9      IC45     11       Y8         7
          NC4      1        P          7
 
+N$10     D7       C        C          5
+         IC12     1        Q1         5
+
+N$11     D7       A        A          5
+         R29      2        2          5
+
+N$12     D16      A        A          5
+         R30      2        2          5
+
+N$13     D17      C        C          5
+         IC12     2        Q2         5
+
+N$14     D17      A        A          5
+         R7       2        2          5
+
+N$15     IC43     11       Q6         7
+         IC45     8        A7         7
+
 N$16     IC6      9        Q7         3
          IC7      10       DS         3
+
+N$17     IC12     6        Q6         5
+         R27      2        2          5
+
+N$18     IC12     7        Q7         5
+         R28      2        2          5
+
+N$19     D26      A        A          5
+         R33      2        2          5
+
+N$20     D24      A        A          5
+         R31      2        2          5
+
+N$21     D25      A        A          5
+         R32      2        2          5
+
+N$22     D23      A        A          5
+         R37      2        2          5
+
+N$23     D22      A        A          5
+         R38      2        2          5
 
 N$38     IC41     25       PC2(ADC2)  7
          R1       2        2          7
@@ -1679,11 +1682,12 @@ N$199    NC26     1        P          8
 ORCLK    IC32     11       SHCP       5
          IC33     11       SHCP       5
          IC43     12       Q7         7
-         IC45     9        A8         7
 
 PB0-FV   IC25     13       D2         4
+         IC5      6        A5         2
          P11      26       KL         8
          P4       34       KL         9
+         RN4      6        6          2
 
 PB0-OPIF1 IC23     11       D0         4
          P12      9        KL         8
@@ -1697,15 +1701,21 @@ PB0-OPIF3 IC23     13       D2         4
          P12      7        KL         8
          P4       21       KL         9
 
-PB0-RUNIT0 P4       39       KL         9
+PB0-RUNIT0 IC22     11       D0         4
+         P13      9        KL         8
+         P4       39       KL         9
 
 PB0-RUNIT1 IC22     12       D1         4
          P13      8        KL         8
          P4       40       KL         9
 
-PB0-RUNIT2 P4       37       KL         9
+PB0-RUNIT2 IC22     13       D2         4
+         P13      7        KL         8
+         P4       37       KL         9
 
-PB0-RUNIT3 P4       35       KL         9
+PB0-RUNIT3 IC22     14       D3         4
+         P13      6        KL         8
+         P4       35       KL         9
 
 PB0-UCB0 P11      49       KL         8
          P4       3        KL         9
@@ -1727,6 +1737,7 @@ R        IC47     15       Y4         9
 
 RESETTING IC39     5        Q          6
          IC40     1        1G         6
+         IC40     15       2G         6
 
 RXD      IC41     2        PD0(RXD)   7
          JP1      4        4          7
@@ -1809,6 +1820,9 @@ STCP     IC12     12       STCP       5
          IC35     12       STCP       5
          RN11     2        2          10
          X4       14       KL         10
+
+STEP/!RUN IC38     4        PRE        6
+         IC45     13       Y6         7
 
 STEPPING IC38     5        Q          6
          IC40     14       A          6
@@ -1961,7 +1975,6 @@ VCC      C1       2        2          2
          IC42     6        G1         7
          IC43     16       VCC        * none *
          IC45     20       VCC        * none *
-         IC46     14       VCC        * none *
          IC47     20       VCC        * none *
          IC48     20       VCC        * none *
          IC5      20       VCC        * none *
