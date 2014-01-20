@@ -1,0 +1,47 @@
+% -*- latex -*-
+\documentclass[border=200pt,class=memoir,preview]{standalone}
+\input{preamble-new}
+\input{macros}
+
+\begin{document}%
+%\tikzexternaldisable%
+
+  \begin{tikzpicture}
+    \begin{scope}[thin,draw opacity=0,line width=0pt]
+    \foreach \x in {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}{
+      \draw[fill=cfthl!50,xshift=\x cm](0,0) rectangle (0.5,0.6);
+      \draw[fill=cfthl!25,xshift=\x cm](0.5,0) rectangle (1,0.6);
+    }
+    \draw[fill=cfthl!50,xshift=10 cm](0,0) rectangle (0.5,0.6);
+    \end{scope}
+    \foreach \x in {0.5, 1, ..., 10}{
+      \draw[thin] (\x cm, 0) -- (\x cm, -0.1cm);
+    }
+    \draw[line width=2pt](0,0) rectangle (10.5,0.6);
+    \draw (10.5,0) node[below left] { \footnotesize 0 };
+    \draw (4,0) node[below right] { \footnotesize 12 };
+    \draw (3.5,0) node[below right] { \footnotesize 0 };
+    \draw (0,0) node[below] { \footnotesize 7 };
+
+    \draw[thick](0.5,-0.1) -- (0.5,0.6);
+    \draw[thick](1,-0.1) -- (1,0.6);
+
+    \draw[thick](4,-0.1) -- (4,0.6);
+    \draw (2, 0.3) node { \AEXTn{0–7} };
+    %% \draw (2.25, 0.3) node { I };
+    %% \draw (2.75, 0.3) node { R };
+    \draw (7.25, 0.3) node { \ABUSn{0–12} };
+
+    \draw (1.5,-1) node[right] { Bank number, bit 0 };
+    \draw (1.5,-1.5) node[right] { Bank number, bit 1 };
+
+    \draw[thick, rounded corners=5.5mm] (1.5, -1.5) -- (0.25, -1.5) -- (0.25, -0.2);
+    \draw[thick, rounded corners=3mm] (1.5, -1) -- (0.75, -1) -- (0.75, -0.2);
+
+  \end{tikzpicture}
+
+
+%\tikzexternalenable%
+\end{document}
+
+% End of file.

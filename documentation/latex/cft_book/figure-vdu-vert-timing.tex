@@ -1,0 +1,19 @@
+% -*- latex -*-
+\documentclass[border=200pt,class=memoir,preview]{standalone}
+\input{preamble-new}
+\input{macros}
+
+\begin{document}%
+%\tikzexternaldisable%
+
+\begin{tikztimingtable}
+  State                & D{} 7D{\textcond FRONT PORCH} 5D{\textcond VSYNC} 7D{\textcond BACK PORCH} 40D{\textcond VIDEO} D{} \\
+  \ns{VSYNC}           & 8L 5H 48L \\
+  \ps{VVIDEO}          & 20L 40H L \\
+  Raster lines         & 20L 40D { \textcond ANALOGUE RGB LINE DATA \& HSYNC } L \\
+\end{tikztimingtable}
+
+%\tikzexternalenable%
+\end{document}
+
+% End of file.

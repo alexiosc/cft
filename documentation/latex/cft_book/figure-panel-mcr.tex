@@ -1,0 +1,29 @@
+% -*- latex -*-
+\documentclass[border=200pt,class=memoir,preview]{standalone}
+\input{preamble-new}
+\input{macros}
+
+\begin{document}%
+%\tikzexternaldisable%
+
+\begin{tikztimingtable}
+  \ns{MCSTART}                & 2H h N(A0)     15L l           N(D0)   2H \\
+  \ns{WAR}                    & 2Z z   N(A1)     3L  12H               h 2Z \\
+  \ns{RPC}                    & 2Z z             5L  N(B2) 10H         h 2Z  \\
+  \ns{MEM}/\ns{IO}            & 2Z z         5H      7L 3H             h 2Z  \\
+  \ns{INCPC}                  & 2Z z         5H      7L 3H             h 2Z  \\
+  \ns{R}                      & 2Z z         5H      7L 3H             h 2Z  \\
+  \ns{WAC}                    & 2Z z   N(A2) 5H      N(B4) 4L 6H h N(D2) 2Z \\
+\extracode
+  \tablerules
+  \begin{pgfonlayer}{background}
+    \draw [help lines] (A0) -- (A2);
+    \draw [help lines] (B2) -- (B4);
+    \draw [help lines] (D0) -- (D2);
+  \end{pgfonlayer}
+\end{tikztimingtable}
+
+%\tikzexternalenable%
+\end{document}
+
+% End of file.

@@ -1,0 +1,19 @@
+% -*- latex -*-
+\documentclass[border=200pt,class=memoir,preview]{standalone}
+\input{preamble-new}
+\input{macros}
+
+\begin{document}%
+%\tikzexternaldisable%
+
+\begin{tikztimingtable}
+  Host Clock    & 2Z 4L 50Z \\
+  Host Data     & 4Z 4L 4D{D0} 4D{D1} 4D{D2} 4D{D3} 4D{D4} 4D{D5} 4D{D6} 4D{D7} 4D{P} 4H 8Z \\
+  Device Clock  & 7Z LL CH 9{CL CH} CL 7Z \\
+  Device Data   & 46Z 4L 6Z \\
+\end{tikztimingtable}
+
+%\tikzexternalenable%
+\end{document}
+
+% End of file.

@@ -1,0 +1,27 @@
+% -*- latex -*-
+\documentclass[border=200pt,class=memoir,preview]{standalone}
+\input{preamble-new}
+\input{macros}
+
+\begin{document}%
+%\tikzexternaldisable%
+
+\begin{tikztimingtable}
+  %\ns{MCSTART} & 2H h e N(A0) 10L 11e H h \\
+  \ns{MCSTART} & 2H h e N(A0) 15L s l s l \\
+  \ns{MC0}     & 3H     N(A1) 4L  13H \\
+  \ns{MC1}     & 3H     N(A2) 6L  N(B2) 11H \\
+  \ns{MC2}     & 9H               N(B3) 8L 3H \\
+  \ps{MC3}     & 9H               N(B4) 5L 6H \\
+\extracode
+  \tablerules
+  \begin{pgfonlayer}{background}
+    \draw [help lines] (A0) -- (A2);
+    \draw [help lines] (B2) -- (B4);
+  \end{pgfonlayer}
+\end{tikztimingtable}
+
+%\tikzexternalenable%
+\end{document}
+
+% End of file.

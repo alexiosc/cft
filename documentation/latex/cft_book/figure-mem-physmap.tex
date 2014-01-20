@@ -1,0 +1,57 @@
+% -*- latex -*-
+\documentclass[class=memoir,border=200pt]{standalone}
+\input{preamble-new}
+\input{macros}
+
+\begin{document}%
+%\tikzexternaldisable%
+
+  \begin{tikzpicture}
+
+    \draw[draw opacity=0, shading=axis, left color=white, right color=cfthl!50] (3,0) rectangle (7,6);
+    %\draw[yshift=0cm, draw opacity=0, shading=axis, left color=white, right color=cfthl!25] (3,0) rectangle (7,6);
+
+    \draw (6.8,3) node[below, rotate=-90] {\large\bfseries Planned};
+    %\draw (6.8,7) node[below, rotate=-90] {\large\bfseries Optional};
+
+    \begin{scope}
+      \draw[thick, fill=cfthl!50](0,0) rectangle (3,2);
+      \draw (1.5,1) node {Bank 0 (RAM)};
+      \draw (0,0) node[left] {\hex{000000}};
+      \draw (3,1) node[right] {\small 512 kWords};
+    \end{scope}
+
+    \begin{scope}[yshift=2cm]
+      \draw[thick, fill=cfthl!25](0,0) rectangle (3,2);
+      \draw (1.5,1) node {Bank 1 (RAM)};
+      \draw (0,0) node[left] {\hex{080000}};
+      \draw (3,1.05) node[right] {\small 512 kWords};
+      \draw (3,0.95) node[below right] {\small Not populated};
+    \end{scope}
+
+    \begin{scope}[yshift=4cm]
+      \draw[thick, fill=cfthl!50](0,0) rectangle (3,2);
+      \draw (1.5,1) node {Bank 2 (ROM)};
+      \draw (0,0) node[left] {\hex{100000}};
+      \draw (3,1) node[right] {\small 512 kWords};
+    \end{scope}
+
+    \begin{scope}[yshift=6cm]
+      \draw[thick, fill=cfthl!25](0,0) rectangle (3,2);
+      \draw (1.5,1) node {Bank 3 (Spare)};
+      \draw (0,0) node[left] {\hex{180000}};
+      \draw (0,2) node[left] {\hex{200000}};
+      \draw (3,1.05) node[right] {\small 512 kWords};
+      \draw (3,0.95) node[below right] {\small Unused};
+    \end{scope}
+
+    \draw[line width=2pt] (0,0) rectangle (3,8);
+    \draw (3,8) node[above right] {2 MWords};
+    \draw (1.5,8) node[above] {\small 16 bits wide};
+
+  \end{tikzpicture}
+
+%\tikzexternalenable%
+\end{document}
+
+% End of file.
