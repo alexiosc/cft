@@ -1,5 +1,5 @@
 % -*- latex -*-
-\documentclass[class=memoir,preview]{standalone}
+\documentclass[class=memoir,border=200pt]{standalone}
 \input{preamble-new}
 \input{macros}
 
@@ -82,7 +82,7 @@
   \begin{scope}[xshift=4cm,yshift=0.5cm]
     \draw[unit] (0,0) -- ++(0,1) -- ++(0.5,0.25) -- ++(-0.5,0.25) -- ++(0,1) --
     ++(1.5,-0.75) -- ++(0,-1) -- cycle;
-    \draw(1,1.25) node {\ALU};
+    \draw(1,1.25) node {ALU};
     \draw[bus,stealth-](0,0.5) -- ++(-1,0) -- ++(0,-1);
     %\draw[bus,sharp corners, stealth-](0,1.75) -- ++(-0.9,0) -- ++(0,0.3) -- ++(-0.6,0);
     \draw[bus,sharp corners, stealth-](0,1.75) -- ++(-1.5,0);
@@ -124,7 +124,7 @@
   % The AGL
   \begin{scope}[xshift=7.25cm,yshift=5cm]
     \draw[unit](0,0) rectangle(1.5,1);
-    \draw(0.75,0.5) node {\AGL};
+    \draw(0.75,0.5) node {AGL};
     \draw[bus, -stealth] (1.5,0.5) -- ++(1,0) -- ++(0,1);
     \draw[smallbus, stealth-](0,0.3) -- ++(-0.75,0) -- ++(0,-1.2) -- ++(0.75,0);
     \bitslicebelow{-0.45cm}{-0.9cm}{10 LSB}
@@ -147,15 +147,15 @@
     \majorReg{\AR}
     \draw[bus,stealth-](0,0.5) -- ++(-1,0) -- ++(0,-1);
     \draw[bus,-stealth](1.5,0.7) -- ++(3.5,0);
-    \node[anchor=west,align=left,xshift=5cm,yshift=0.7cm]{\ABUS};
+    \node[anchor=west,align=left,xshift=5cm,yshift=0.7cm]{Address bus};
   \end{scope}
 
   % The MBU
   \begin{scope}[xshift=11.5cm,yshift=1.25cm]
-    \majorReg{\unit{MBU}}
+    \majorReg{MBU}
     \draw[smallbus,stealth-](0,0.5) -- ++(-0.7,0) -- ++(0,.5) -- ++(-0.3,0);
     \draw[smallbus,-stealth](1.5,0.5) -- ++(1,0);
-    \node[anchor=west,align=left,xshift=2.5cm,yshift=0.5cm]{\AEXT};
+    \node[anchor=west,align=left,xshift=2.5cm,yshift=0.5cm]{AExt};
     \bitslicebelow{-0.45cm}{0.5cm}{3 MSB}
     \bitsliceabove{1.9cm}{0.5cm}{8}
   \end{scope}
@@ -165,7 +165,7 @@
     \majorReg{Data Bus}
     \draw[bus,stealth-stealth](0,0.5) -- ++(-1,0);% -- ++(0,-0.5);
     \draw[bus,stealth-stealth](1.5,0.3) -- ++(3.5,0);
-    \node[anchor=west,align=left,xshift=5cm,yshift=0.3cm]{\DBUS};
+    \node[anchor=west,align=left,xshift=5cm,yshift=0.3cm]{Data bus};
   \end{scope}
   
 
