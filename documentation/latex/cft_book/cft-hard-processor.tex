@@ -11,8 +11,12 @@ processor's programming model, please refer to~\ccf{chap:programming-model}.
 
 \section{Datapath}
 
+%% \begin{figure}
+%% \includegraphics[width=0.95\columnwidth]{figs/datapath2.pdf}\vspace{2em}\\
+%% \caption[CFT Datapath]{\label{fig:datapath} The CFT Datapath. }
+%% \end{figure}
 \begin{figure}
-\includegraphics[width=0.95\columnwidth]{figs/datapath2.pdf}\vspace{2em}\\
+\inputfigure{figure-datapath3}
 \caption[CFT Datapath]{\label{fig:datapath} The CFT Datapath. }
 \end{figure}
 
@@ -84,7 +88,7 @@ addresses either close to the current instruction (by using the top bits of the
 The major states of the processor are fairly conventional, as are the transitions between them:
 
 \begin{description}
-\item {\bfseries Reset}. The initial state of the processor. This state is
+\li{Reset.} The initial state of the processor. This state is
   entered asynchronously when computer is reset, and remains in this state for
   a set number of clock periods, according to the operation of the reset
   sequencer. During the reset state, slow units stabilise (after being powered
@@ -95,7 +99,7 @@ The major states of the processor are fairly conventional, as are the transition
   %number of clock cycles. In the Reset state, internal state is cleared, and
   %the \PC{} is set to the reset vector (\hex{FFF0}).
 
-\item {\bfseries Fetch}. In this state, the processor performs a memory read to
+\li{Fetch.} In this state, the processor performs a memory read to
   get the contents of the \IR, which implicitly jumps to the appropriate
   microprogram, and to the Execute state. The Fetch state is entered at the end
   of the Reset state; at the end of the Stop state once the computer is no
@@ -108,20 +112,20 @@ The major states of the processor are fairly conventional, as are the transition
     panel, which actually includes Fetch and Execute lights, decoded based on
     the value of the Control Unit \register{μPC}.}.
 
-\item {\bfseries Execute}. In this state, the instruction retrieved in the
+\li{Execute.} In this state, the instruction retrieved in the
   Fetch state is executed. This state is only entered at the end of the Fetch
   state and is where all the processing is carried out. At the end of the
   Execute state, the processor usually re-enters the Fetch state to retrieve
   the next instruction, but may also enter the Interrupt state.
 
-\item {\bfseries Interrupt}. The Interrupt state is entered at the end of the
+\li{Interrupt.} The Interrupt state is entered at the end of the
   Execute state if an interrupt has been previously been signalled and
   interrupts are unmasked. In this state, the processor saves certain registers
   and jumps to a hardwired location holding an interrupt service routine.
   %sets the \PC{} to the hardwired interrupt vector (\hex{FFF8}).
 
-\item {\bfseries Stop}. In this state, the processor's microprogram counter
-  (\register{μPC}) is inhibited, freezing the processor. The clocks are still
+\li{Stop.} In this state, the processor's microprogram counter
+  (\UPC) is inhibited, freezing the processor. The clocks are still
   running, allowing peripherals that use them to operate. This state is entered
   while the computer is halted. The processor's design is fully static, so it
   may stay in the Stopped state indefinitely.
@@ -718,12 +722,12 @@ lasts $250\,\mbox{ns}/4 = 62.5\,\mbox{ns}$.
 %% bits depends on the value of the \asm{R} (register) field of the \IR.
 
 %% \begin{description}
-%% \item {\bfseries If \asm{R} is zero}, the upper six bits come from the \PC, so
+%% \li{If \asm{R} is zero}, the upper six bits come from the \PC, so
 %%   the address is generated relative to the currently executing
 %%   instruction.\footnote{The \PC{} normally holds the address of the {\em
 %%       next\/} instruction to be executed, but a special case is needed here,
 %%     discussed below.}
-%% \item {\bfseries If \asm{R} is one}, the upper six bits are zero
+%% \li{If \asm{R} is one}, the upper six bits are zero
 %%   (\bin{000000}). This allows for addresses in the first 10 bits of memory,
 %%   i.e. addresses \hex{0000}–\hex{03FF}.
 %% \end{description}
@@ -947,7 +951,7 @@ lasts $250\,\mbox{ns}/4 = 62.5\,\mbox{ns}$.
 
 
 
-%% \subsection{Generating Write Srobes}
+%% \subsection{Generating Write Strobes}
 %% \label{sec:w-strobe}
 
 %% \begin{figure*}

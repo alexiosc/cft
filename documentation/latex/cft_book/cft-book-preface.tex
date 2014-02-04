@@ -45,25 +45,23 @@ be distinguishable.
 Listings are shown like this. Listings longer than a couple of lines are
 line-numbered, with the numbers appearing left of the listing.
 
-\begin{lstlisting}[language=cftasm]
+\begin{cftasmcode}
 ; Comments are set like this.
 
 LOAD R 10    ; Keywords appear in bold.
 .word &0F00  ; Directives appear like this.
-
-prompt> $\lstkbd{User input is shown like this.}$
-\end{lstlisting}
+\end{cftasmcode}
 
 \noindent Forth interactions are quite compact, and user input and machine
 responses often share the same line. The Forth user input convention is always
 used to identify user input in this case, and is made more prominent by
 underlining:
 
-\begin{lstlisting}[language=forth]
+\begin{intrcode}
 Ready.
-$\lstfkbd{15 3 * .}$ 45  ok
-$\lstfkbd{foo}$ FOO ?  ok
-\end{lstlisting}
+@@@@15 3 * .@@@@ 45  ok
+@@@@foo@@@@ FOO ?  ok
+\end{intrcode}
 
 \section{Logic}
 

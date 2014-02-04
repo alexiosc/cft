@@ -98,13 +98,14 @@ line it understood, {\em on the same line}.
 This last fact represents a cultural shock for many programmers who are used to
 the \cftkbd{Enter} key producing an immediate line feed. In Forth, it's the end
 of the \cftout{ok} prompt that does this. To help distinguish between user
-input and machine output, the part the user types is shown $\lstfkbd{like this}$:
+input and machine output, the part the user types is shown
+\htmlspan{intr-sample}{like this}:
 
-\begin{lstlisting}[mathescape=true,numbers=none]
+\begin{intrcode}
 Ready
-$\lstfkbd{1 1 + 1+ .}$  3 ok
-$\lstfkbd{FOO}$  FOO  ? Ready
-\end{lstlisting}
+@@@@1 1 + 1+ .@@@@ 3 ok
+@@@@FOO@@@@  ? Ready
+\end{intrcode}
 
 \noindent Forth interprets user input by splitting it up into tokens separated
 by one or more spaces, tabs or newlines. A token may be one of only
@@ -152,9 +153,9 @@ Forth words.
 Because Forth is stack based, all calculations are in the space and time saving
 {\em\gls{postfix}} notation:
 
-\begin{lstlisting}[mathescape=true,numbers=none]
-$\lstfkbd{10 20 + 3 * 11 /}$
-\end{lstlisting}
+\begin{intrcode}
+@@@@10 20 + 3 * 11 /@@@@
+\end{intrcode}
 
 \noindent evaluates the expression $((10 + 20) \times 3) / 11$. This is how it
 works:
@@ -198,14 +199,14 @@ The word \fw{.} (dot) pops a number off the stack and prints it out. Finally,
 the word \fw{.s} (dot-stack) prints out the stack left-to-right, starting with
 its top-most item.
 
-\begin{lstlisting}[mathescape=true,numbers=none]
-$\lstfkbd{1 1 + .}$  2 ok
-$\lstfkbd{10 20 +3 * 11 / .}$  8 ok
-$\lstfkbd{10 DUP .s}$  10 10 ok
-$\lstfkbd{10 20 .s}$  10 20 ok
-$\lstfkbd{10 20 SWAP .s}$  20 10 ok
-$\lstfkbd{10 20 drop .s}$  10 ok
-\end{lstlisting}
+\begin{intrcode}
+@@@@1 1 + .@@@@  2 ok
+@@@@10 20 + 3 * 11 / .@@@@  8 ok
+@@@@10 DUP .s@@@@  10 10 ok
+@@@@10 20 .s@@@@  10 20 ok
+@@@@10 20 SWAP .s@@@@  20 10 ok
+@@@@10 20 drop .s@@@@  10 ok
+\end{intrcode}
 
 
 \subsection{Errors}
@@ -214,9 +215,9 @@ Exceptions are raised (and may be caught by advanced programmers) in a number
 of cases. The most obvious ones are when a token is neither a word nor a valid
 number:
 
-\begin{lstlisting}[mathescape=true,numbers=none]
-$\lstfkbd{foobar}$ FOOBAR  ? Ready
-\end{lstlisting}
+\begin{intrcode}
+@@@@foobar@@@@ FOOBAR  ? Ready
+\end{intrcode}
 
 \noindent Another one seen a lot is \cftout{stack underflow ?}, which occurs when an item
 is popped from an empty stack.
@@ -232,53 +233,62 @@ re-initialises the Forth interpreter.
 Comments may be enclosed in \cftin{(\space}$\dots$\cftin{\space)}. The space
 after the open parenthesis is part of the syntax and is not optional:
 
-\begin{lstlisting}[mathescape=true,numbers=none]
-$\lstfkbd{( this is a comment )}$
-$\lstfkbd{\textbackslash{} this is also a comment}$
-$\lstfkbd{(this is not a comment)}$  (THIS  ? Ready.
-$\lstfkbd{\textbackslash{}neither is this.}$  \NEITHER  ? Ready.
-\end{lstlisting}
+\begin{intrcode}
+@@@@( this is a comment )@@@@
+@@@@\ this is also a comment@@@@
+@@@@(this is not a comment)@@@@  (THIS  ? Ready.
+@@@@\neither is this.@@@@  \NEITHER  ? Ready.
+\end{intrcode}
 
 \noindent This is because both \fw{(} and \fw{\textbackslash} are simple Forth words that
 read input and ignore it up to the closing parenthesis and the end of the line
 respectively.
 
 This provides a first glimpse into the ability of Forth to add custom grammar
-as necessary. In fact, Forth words may also redefine or extend the parser
-algorithm, the interpreter, and even the compiler.
+as necessary. In fact, Forth words may also redefine or extend the rudimentary
+parser, the interpreter, and even the compiler. Features such as arrays and
+object orientation, fixed in other languages, can be added to Forth {\em in
+  Forth}.
 
 \subsection{Defining words}
 
 New words may be defined by the \fw{:} word using the \cftin{: NEW-WORD ... ;} syntax:
 
-\begin{lstlisting}[mathescape=true,numbers=none]
-$\lstfkbd{: HELLO ." Hello, world!" ;}$ ok
-\end{lstlisting}
+\begin{forthcode}
+: HELLO ." Hello, world!" ;
+\end{forthcode}
 
 \noindent The word \fw{HELLO} is then added to the dictionary and can subsequently be
 executed:
 
-\begin{lstlisting}[mathescape=true,numbers=none]
-$\lstfkbd{HELLO}$ Hello, world! ok
-\end{lstlisting}
+\begin{intrcode}
+@@@@HELLO@@@@ Hello, world! ok
+\end{intrcode}
 
 \noindent It is standard practice to include two things as part of a Forth definition:
 the \gls{stack effect comment}, and a brief comment that explains what the word does. 
 
-\begin{lstlisting}[mathescape=true,numbers=none]
-$\lstfkbd{: HELLO ( -- ) \textbackslash{} Say hello}$  compiled
-$  \lstfkbd{." Hello, world!" ;}$  ok
-\end{lstlisting}
+\begin{forthcode}
+: HELLO ( -- ) \ Say hello
+  ." Hello, world!" ;
+\end{forthcode}
 
-\noindent The stack effect comment shows what values the word expect to find on the
-stack, and what values it leaves on the stack. The two are conventionally
-separated by a \texttt{--}. For example, a definition of a \fw{POLYNOMIAL} word to
-calculate $x^2 + a$ would be:
+\noindent The stack effect comment shows what values the word expects to find
+on the stack, and what values it leaves on the stack. The two are
+conventionally separated by a \texttt{--}. Stack effect comments (often showing
+only the stack after a line of code executes) can also be used within word
+definitions as rudimentary documentation. For example, a disturbingly
+over-documented definition of a \fw{POLYNOMIAL} word to calculate $x^2 + a$
+would be:
 
-\begin{lstlisting}[mathescape=true,numbers=none]
-: $\lstfkbd{POLYNOMIAL ( n1 n2 -- n ) \textbackslash{} Calculate n1*n1 + n2}$  compiled
-  $\lstfkbd{SWAP DUP * + ;}$  ok
-\end{lstlisting}
+\begin{forthcode}
+: POLYNOMIAL ( n1 n2 -- n ) \ Calculate n1*n1 + n2
+  SWAP ( n1 n2 -- n2 n1 )
+  DUP  ( n2 n1 -- n2 n1 n1 )
+  *    ( n2 n1 n1 -- n2 n1*n1 )
+  +    ( n2 n1*n1 -- n1*n1+n2 )
+;
+\end{forthcode}
 
 \noindent The first line of the definition forms a simple means of self-documenting Forth
 programs and is similar to docstrings in more recent languages (or Lisp).
@@ -296,10 +306,10 @@ The \cftout{compiled} and \cftout{ok} prompts are useful to include when
 showing Forth interaction, but they are not shown when Forth {\em programs\/}
 are listed. The small program above would be listed as:
 
-\begin{lstlisting}[style=forthprogram]
+\begin{forthcode}
 : POLYNOMIAL ( n1 n2 -- n ) \ Calculate n1*n1 + n2
   SWAP DUP * + ;
-\end{lstlisting}
+\end{forthcode}
 
 \section{Differences Between ROM Forth and Forth 83}
 
@@ -351,7 +361,7 @@ contain typesetting errors.\footnote{Which are being corrected.}
   \\
   \noindent #3
 }
-\newcommand\forthcode[1]{
+\newcommand\definedAs[1]{
 
 \noindent Defined as:
 #1

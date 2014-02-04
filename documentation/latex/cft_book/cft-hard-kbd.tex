@@ -42,7 +42,7 @@ pulse to allow it to settle. This may involve a delay of 30–50~μs.
 
 \begin{figure*}
   \centering
-  \includegraphics[width=2cm]{figs/MiniDIN-6_Socket_Pinout.pdf}
+  \includeimage[width=2cm]{figs/MiniDIN-6_Socket_Pinout.pdf}
   \vspace{1em}\par
 
   \zebra
@@ -69,7 +69,7 @@ host. Host-to-device and device-to-host directions differ in a number of ways.
 
 \subsubsection{Receiving from the Device}
 
-A timing diagram of a single byte recepction from a device is shown
+A timing diagram of a single byte reception from a device is shown
 in~\fcf{fig:kbd-kbd-to-host}. The device only transmits bytes if the clock line
 has been consistently high for at least 50~μs. If the clock line is low, the
 host is inhibiting reception of new data. Keyboards typically buffer 16 bytes
@@ -96,10 +96,7 @@ restarted from its first byte.
 
 \begin{figure*}
 \centering
-\begin{tikztimingtable}
-  Clock           & 5H 11{CL CH} 5H \\
-  Data            & 4H 4L 4D{D0} 4D{D1} 4D{D2} 4D{D3} 4D{D4} 4D{D5} 4D{D6} 4D{D7} 4D{P} 10H \\
-\end{tikztimingtable}
+\inputfigure{figure-kbd-kbd-to-host}
 \caption[Keyboard/Mouse to Host Communication]{\label{fig:kbd-kbd-to-host}
   Timing of Device (keyboard or mouse) to Host communication. Every byte sent
   includes a start bit (always low), eight bits of data (least significant bit
@@ -158,12 +155,7 @@ error.
 
 \begin{figure*}
 \centering
-\begin{tikztimingtable}
-  Host Clock           & 2Z 4L 50Z \\
-  Host Data            & 4Z 4L 4D{D0} 4D{D1} 4D{D2} 4D{D3} 4D{D4} 4D{D5} 4D{D6} 4D{D7} 4D{P} 4H 8Z \\
-  Device Clock           & 7Z LL CH 9{CL CH} CL 7Z \\
-  Device Data            & 46Z 4L 6Z \\
-\end{tikztimingtable}
+\inputfigure{figure-kbd-host-to-kbd}
 \caption[Host to Keyboard/Mouse Communication]{\label{fig:kbd-host-to-kbd}
   Timing of Host to Device (keyboard or mouse) communication. The host
   initiates the transmission, and the device drives the clock signal. Every
@@ -226,23 +218,26 @@ There are two notable exceptions to the key handling:
     E0 7C}. The break sequence is, as expected, \hex{E0 F0 12 E0 F0 7C}. The
   scancode \hex{7C} is the scancode of the numeric keypad multiply (\textsf{*})
   key. On the original IBM PC keyboard, the Print Screen function was accessed
-  using Shift and that key. The PS/2 keyboard simulates the AT keyboard in this
-  respect, which simulates the XT keyboard: pressing the Print Screen key
-  issues an shift-\textsf{*} sequence, using \hex{E0} extensions so that code
-  aware of this protocol can detect the key, while code unaware of it (notably
-  running on IBM PC/XT or compatible machines) can still function.
+  using Shift and that key. The PS/2 keyboard simulates the PC keyboard in this
+  respect: pressing the Print Screen key issues an shift-\textsf{*} sequence,
+  using \hex{E0} extensions so that code aware of this protocol can detect the
+  key, while code unaware of it (notably running on IBM PC/XT or compatible
+  machines) can still function.
 
-\item When pressed, the ‘Pause’ key (used with Control to obtain the ‘Break’
-  function) emits the sequence \hex{E1 14 77 E1 F0 14 F0 77}, which includes
-  the make {\em and break\/} sequences of two keys. As a result, it is not
-  possible to detect whether this key is held down or not because no further
-  break packet is sent on its release. On computers unaware of PS/2 keyboards,
-  this simulates pressing the Control key if the Control key is not pressed.
+\item When pressed on its own, the ‘Pause’ key (used with Control to obtain the
+  ‘Break’ function) emits the sequence \hex{E1 14 77 E1 F0 14 F0 77}, which
+  includes the make {\em and break\/} codes of the sequence
+  \textsf{Control-NumLock}. As a result, it is not possible to detect whether
+  this key is held down or not because no further break packet is sent on its
+  release. On computers unaware of PS/2 keyboards, this simulates pressing the
+  Control key if the Control key is not pressed. The prefix \hex{E1} is used
+  for extended keys that have no break code.
 
-  If the Control key {\em is\/} pressed, this key issues the Break\footnote{As
-    in ‘stop immediately’, not ‘break’ as in key release.} function with
-  scancode \hex{7E}. Somewhat ironically, Break has no break code, which is the
-  reason for the Pause button immediately simulating a release.
+  If the physical Control key {\em is\/} pressed, this key issues the
+  Break\footnote{As in ‘stop immediately’, not ‘break’ as in key release.}
+  function with scancode \hex{E0 7E}. Somewhat ironically, Break has no break
+  code, which is the reason for the Pause button immediately simulating a
+  release.
 \end{itemize}
 
 A number of other keys on the keyboard behave in a seemingly erratic function
@@ -269,18 +264,33 @@ red.
 
 \section{Operation}
 
+\begin{turn}{90}
+This is a test.
+\end{turn}
 
 %% \newcounter{x}
 %% \newcounter{y}
 \begin{figure}
   \centering
-  \inputfigure{figure-kbd-us}
+  \ifxetex
+    \inputfigure{figure-kbd-us}
+  \else
+    %\begin{htmldiv}{rot90cw}
+      \inputfigure{figure-kbd-us}
+    %\end{htmldiv}
+  \fi
   \caption{\label{fig:kbd-us} The commonly encountered  US layout PS/2-style keyboard.}
 \end{figure}
 
 \begin{figure}
   \centering
-  \inputfigure{figure-kbd-uk}
+  \ifxetex
+    \inputfigure{figure-kbd-uk}
+  \else
+    %\begin{htmldiv}{rot90cw}
+      \inputfigure{figure-kbd-uk}
+    %\end{htmldiv}
+  \fi
   \caption{\label{fig:kbd-uk} UK keyboard layout. Red marks keys that differ from the US layout.}
 \end{figure}
 
@@ -288,6 +298,7 @@ red.
 
 \subsection{Interrupt-Based Operation}
 
+\htmlbreak
 \section{Schematics}
 
 The following page shows the schematic drawing of the {\em original\/} KBD

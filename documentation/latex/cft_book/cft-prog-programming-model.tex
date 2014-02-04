@@ -909,7 +909,7 @@ Even though the instruction set has not yet been discussed, a short example can
 show how to set up a pointer to an array of words, and add the first four of
 them using Autoindexing.
 
-\begin{lstlisting}[language=cftasm]
+\begin{cftasmcode}
 &20:                 ; Assemble code at address 32 (decimal).
         LI &300      ; AC = 768 (decimal)
         STORE &80    ; Store 768 at mem[128].
@@ -917,7 +917,7 @@ them using Autoindexing.
         ADD I &80    ; AC = AC + mem[769]
         ADD I &80    ; AC = AC + mem[770]
         ADD I &80    ; AC = AC + mem[771]
-\end{lstlisting}
+\end{cftasmcode}
 
 The mode is illustrated in~\fcf{fig:autoindex-mode}. In addition to the memory
 read cycle needed to fetch the instruction, it requires one memory read cycle
@@ -1118,7 +1118,7 @@ A brief example of CFT Assembly language can be found in~\fcf{fig-asm}.
 
 \begin{figure}
 \small
-\begin{lstlisting}[language=cftasm]
+\begin{cftasmcode}
 LOAD 0000     ; Load direct
 LOAD I 0342   ; Load indirect
 0342 I LOAD   ; Valid, but against conventions.
@@ -1127,7 +1127,7 @@ LOAD I R 0080 ; Load, autoindexing
 IN R PANEL 0  ; Read panel switches
 CLL RBL       ; Shift left one bit
 HALT          ; Halt the system
-\end{lstlisting}
+\end{cftasmcode}
 \caption{\label{fig-asm}Examples of CFT instructions in Assembly language .}
 \end{figure}
 
@@ -1182,7 +1182,7 @@ memory write, if \AC{} is zero, the next instruction is skipped. This allows
 loops to be coded very tightly, using two instructions to set up the loop, and
 two instructions to iterate:
 
-\begin{lstlisting}[language=cftasm]
+\begin{cftasmcode}
 start:  NEG          ; AC = -AC
         STORE R 10   ; Loop variable
 loop:   
@@ -1190,7 +1190,7 @@ loop:
         ISZ R 10     ; ++loop
         JMP loop     ; Skipped if R 10 == 0.
         ...          ; Exit from loop
-\end{lstlisting}
+\end{cftasmcode}
 
 \subsection{I/O}
 
@@ -1407,10 +1407,10 @@ the value of \Areg{} is as follows:
 \begin{tabular}{lll}
   Instruction & Macro & Semantics \\\noalign{\smallskip}\hline%\noalign{\smallskip}
   \asm{SNA }     &           & Skip if $\mbox{A} < 0$ \\
-  \asm{SNA SZA } & \asm{SNP} & Skip if $\mbox{A} \leq 0$ \\
+  \asm{SNA SZA } & \asm{SNP} & Skip if $\mbox{A} ≤ 0$ \\
   \asm{SZA }     &           & Skip if $\mbox{A} = 0$ \\
-  \asm{SNZ }     &           & Skip if $\mbox{A} \not= 0$ \\
-  \asm{SNN }     &           & Skip if $\mbox{A} \geq 0$ \\
+  \asm{SNZ }     &           & Skip if $\mbox{A} ≠ 0$ \\
+  \asm{SNN }     &           & Skip if $\mbox{A} ≥ 0$ \\
   \asm{SNN SNZ } & \asm{SPA} & Skip if $\mbox{A} > 0$ \\
   \hline%\noalign{\smallskip}
 \end{tabular}
@@ -1523,10 +1523,10 @@ be performed using the CFT instruction set.
 \subsubsection{Addition With Carry}
 
 The \Lreg{} flag may be used as carry in using this short program:
-\begin{lstlisting}[language=cftasm]
+\begin{cftasmcode}
 adc:   IFL INC      ; Skip if L=0
        ADD addr
-\end{lstlisting}
+\end{cftasmcode}
 
 The program increases the \gls{Accumulator} by one if the \Lreg{} register is set,
 then performs addition as normal.
@@ -1537,10 +1537,10 @@ There is no explicit subtraction instruction, but the benefit of two's
 complement is that one is unnecessary. Subtraction can be reduced to
 addition as follows:
 
-\begin{lstlisting}[language=cftasm]
+\begin{cftasmcode}
 sub:    NEG         ; OP1 NOT INC
         ADD addr
-\end{lstlisting}
+\end{cftasmcode}
 
 The program does a one's complement (binary negation) of the accumulator, then
 increments it by one, which is a two's complement (decimal negation). This is
@@ -1553,7 +1553,7 @@ The following code negates the two's complement representation of a
 32-bit signed integer stored in locations \asm{xh} (high word) and
 \asm{xl} (low word):
 
-\begin{lstlisting}[language=cftasm]
+\begin{cftasmcode}
 neg32:  SEL         ; Set carry
         LOAD xl     ; Negate low word
         NEG         ; Two's complement
@@ -1563,7 +1563,7 @@ neg32:  SEL         ; Set carry
         IFL INC     ; Propagate carry
         NEG         ; Two's complement
         STORE xh
-\end{lstlisting}
+\end{cftasmcode}
 
 \subsubsection{Addition of two 32-bit Values}
 
@@ -1572,7 +1572,7 @@ and high words respectively), and \asm{bl}, \asm{bh} (B low and high
 words respectively), it is necessary to propagate the carry bit
 stored in the \Lreg{} register:
 
-\begin{lstlisting}[language=cftasm]
+\begin{cftasmcode}
 add32:  CLL         ; Clear carry
         LOAD al     ; Load low A
         ADD bl      ; Add to low B
@@ -1582,7 +1582,7 @@ add32:  CLL         ; Clear carry
         IFL INC     ; Propagate carry
         ADD bh      ; Add to high B
         STORE xh
-\end{lstlisting}
+\end{cftasmcode}
 
 
 \subsubsection{Subtraction of two 32-bit Values}
@@ -1594,7 +1594,7 @@ respectively). It does so by negating B, storing it to the result
 location X, and then adding \A{} to that location while propagating
 carry.
 
-\begin{lstlisting}[language=cftasm]
+\begin{cftasmcode}
 sub32:  SEL         ; Set carry
         LOAD bl     ; Negate low word
         NEG         ; Two's complement
@@ -1614,7 +1614,7 @@ sub32:  SEL         ; Set carry
         IFL INC     ; Propagate carry
         ADD xh      ; Add to high B
         STORE xh    ; Store it.
-\end{lstlisting}
+\end{cftasmcode}
 
 
 %\subsubsection{Two's Complement of a 32-bit Quantity}
@@ -1626,7 +1626,7 @@ sub32:  SEL         ; Set carry
 %\begin{lstlisting}
 %neg32:  SEL
 %        ADD addr
-%\end{lstlisting}
+%\end{cftasmcode}
 %
 %The program does a one's complement (binary negation) of the
 %accumulator, then increments it by one, which is a two's complement
@@ -1640,9 +1640,9 @@ To convert bitwise rolls to bitwise shifts, the \Lreg\ register needs
 to be cleared before the roll takes place. The following code performs
 a bitwise (or unsigned arithmetic) shift one bit to the right.
 
-\begin{lstlisting}[language=cftasm]
+\begin{cftasmcode}
 shr:    CLL RBR
-\end{lstlisting}
+\end{cftasmcode}
 
 This operation is mathematically tantamount to
 $\lfloor\mbox{\A}/2\rfloor$. Obviously, other roll instructions may be
@@ -1654,12 +1654,12 @@ shift operations.
 
 Sign-extending shifts are only slightly more involved.
 
-\begin{lstlisting}[language=cftasm]
+\begin{cftasmcode}
 asr:    CLL       ; Clear L (L=0)
         SNN       ; Skip if AC >= 0
         CPL       ;   AC < 0: toggle L (L=1)
         RBR       ;   Roll 1 bit right.
-\end{lstlisting}
+\end{cftasmcode}
 
 At the end of this short program, the most significant (i.e. sign) bit
 of \A\ will be the same as before. Due to the use of two's complement,
@@ -1673,14 +1673,14 @@ The autoindex registers can be used to simplify short loops. Here, the
 first 5 elements of it will be ORred together, and the result left in
 \A.
 
-\begin{lstlisting}[language=cftasm]
+\begin{cftasmcode}
 or6:    STORE R 80  ; Autoindex register
         LOAD I R 80 ; Load 1st value
         OR I R 80   ; OR with 2nd value
         OR I R 80   ; OR with 3rd value
         OR I R 80   ; OR with 4rd value
         OR I R 80   ; Or with 5th value
-\end{lstlisting}
+\end{cftasmcode}
 
 \subsubsection{Simple Loops}
 
@@ -1689,7 +1689,7 @@ This is a simple loop. It iterates as many times as the value of
 the hexadecimal value {\ttfamily 2A} to an I/O device designated \asm{TTY0
   0}. The routine is expected to be called with \asm{JSR stars}.
 
-\begin{lstlisting}[language=cftasm]
+\begin{cftasmcode}
 stars:  NEG          ; AC = -AC
         STORE R 10   ; Loop variable
 loop:   LIA 2A       ; AC = 002A (ASCII '*')
@@ -1697,14 +1697,14 @@ loop:   LIA 2A       ; AC = 002A (ASCII '*')
         ISZ R 10     ; Step the loop counter.
         JMP loop     ; Loop again.
         RET          ; Return if R 10 == 0.
-\end{lstlisting}
+\end{cftasmcode}
 
 If the operating system has set up a Page Zero store of commonly used
 constants, and it includes the conventional constant \asm{MINUS1} (which
 contains -1 (\hex{FFFF}), an easy alternate form of this loop using
 counter decrements is as follows:
 
-\begin{lstlisting}[language=cftasm]
+\begin{cftasmcode}
 stars:  STORE R 10   ; Loop variable
 loop:   SNZ          ; AC = 0?
         RET          ;   Yes. Return.
@@ -1714,7 +1714,7 @@ loop:   SNZ          ; AC = 0?
         OUT TTY0 0   ; Send it out
         LOAD R 10    ; Load the loop counter.
         JMP loop     ; Loop again.
-\end{lstlisting}
+\end{cftasmcode}
 
 \subsubsection{Sum of a Block of Words}
 
@@ -1724,7 +1724,7 @@ the block of words should be stored at location \hex{0010}, and the
 size (in words) should be in \A. On exit, memory address \hex{0012}
 will contain the sum of the words.
 
-\begin{lstlisting}[language=cftasm]
+\begin{cftasmcode}
 sum_n:  NEG
         STORE R 11   ; Loop variable
         LOAD R 10    ; Array base
@@ -1738,7 +1738,7 @@ loop:   LOAD R 12    ; Load running total
         ISZ R 11     ; Step loop variable
         JMP loop     ; Loop again
         RET          ; Done.
-\end{lstlisting}
+\end{cftasmcode}
 
 %% \section{Further reading}
 

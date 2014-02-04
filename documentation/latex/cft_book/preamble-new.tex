@@ -1,53 +1,87 @@
 % -*- latex -*-
 
-% Conditional compilation
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% PACKAGES
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \usepackage{ifxetex}
 \usepackage{graphicx}
-\usepackage{tikz}
-\usepackage{rotating}
-\usepackage{lipsum}
 
+\usepackage{verbatim}
+\usepackage{ifthen}
+\usepackage{float}
+\usepackage{floatflt}
+\usepackage{lipsum}
+\usepackage{layout}
+\usepackage{calc}
+\usepackage{rotating}
+\usepackage{array}
+\usepackage{color}
+\usepackage[table]{xcolor}
+\usepackage[includefoot]{geometry}
+
+% Conditional packages
 \ifxetex
+  % Load fontspec and set fonts
   \usepackage{fontspec}
   \setmainfont{Minion Pro}
   \setsansfont{Myriad Pro}
   \setmonofont[]{Inconsolata}
+
+  \usepackage{pdftricks}
+  \usepackage{pdfpages}
+
+  \def\HCode#1{}
+
 \else
+  \newcounter{Hfootnote}
   \newcommand\fontspec[1]{}
   %\usepackage[main=english,greek]{babel}
   \usepackage[utf8]{inputenc}
   \usepackage{newunicodechar}
-  \newunicodechar{µ}{\ensuremath{\mu}} % ‘micro’ (from latin-1 plane)
-  \newunicodechar{μ}{\ensuremath{\mu}} % mu (from Greek plane)
+  \newunicodechar{®}{\HCode{&reg;}}
+  \newunicodechar{µ}{\HCode{&mu;}} % ‘micro’ (from latin-1 plane)
+  \newunicodechar{μ}{\HCode{&mu;}} % mu (from Greek plane)
   \newunicodechar{–}{--}
   \newunicodechar{—}{---}
   \newunicodechar{×}{\ensuremath{\times}}
-  \newunicodechar{°}{\ensuremath{\deg}}
+  \newunicodechar{°}{\HCode{&deg;}}
+  \newunicodechar{±}{\HCode{&plusm;}}
   \newunicodechar{Ω}{\ensuremath{\Omega}}
   \newunicodechar{÷}{\ensuremath{\div}}
+  %\newunicodechar{²}{\HCode{&sup2;}}
+  \newunicodechar{²}{*2*}
+  \newunicodechar{¼}{\HCode{&\#188;}}
+  \newunicodechar{½}{\HCode{&\#189;}}
+  \newunicodechar{≤}{\HCode{ &le; }}
+  \newunicodechar{≥}{\HCode{ &ge; }}
+  \newunicodechar{≠}{\HCode{ &ne; }}
 \fi
 
-\definecolor{r0}{rgb}{0.33, 0.1, 0.1}
-\definecolor{r1}{rgb}{1, 0.3, 0.3}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% TABLES
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\definecolor{g0}{rgb}{0.1, 0.33, 0.1}
-\definecolor{g1}{rgb}{0.3, 1, 0.3}
-
-\definecolor{cftdark}{cmyk}{0,0.42,0.72,0.84}
-\definecolor{cftoutline}{cmyk}{0,0.43,0.72,0.53}
-\definecolor{cftlight}{cmyk}{0,0.43,0.72,0.22}
-\definecolor{cfthl}{rgb}{.89,.698,.529}
+\renewcommand*\arraystretch{1.25}
+\newcolumntype{P}[1]{>{\raggedright\arraybackslash}p{#1}}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
-%% FIGURE DRAWING
+%% FIGURE DRAWING WITH PGF/TIKZ
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \ifxetex
   \usepackage{pgf}
   \usepackage{tikz}
+  \usepackage{rotating}
+  \usepackage[absolute]{textpos}
+
   %\usetikzlibrary{arrows,positioning,automata,shadows,fit,shapes,counters}
   \usetikzlibrary{arrows,positioning,automata,shadows,fit,shapes,patterns}
   %\usetikzlibrary{external}
@@ -91,29 +125,45 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
-%% GLOSSARIES
-%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% Glossaries
-%\usepackage[acronym]{glossaries}
-%\makeindex
-%\makeglossaries
-%\input{glossary}
-\newcommand\gls[1]{#1}
-\newcommand\glsresetall{}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%
 %% HYPERREF
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\makeatletter
+\@ifpackageloaded{standalone}{}{
+  \ifxetex
+    \usepackage[CJKbookmarks,bookmarks=true,bookmarksopen=true,pdfpagelabels,pdfstartpage=1]{hyperref}
+  \else
+    \usepackage[tex4ht]{hyperref}
+  \fi
+}
+
+\let\old@part\part
+\renewcommand\part[1]{%
+  \setcounter{chapter}{0}%
+  \old@part{#1}%
+}
+%\renewcommand*{\theHchapter}{\thepart.\thechapter}
+\makeatother
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% INDEX AND GLOSSARY
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{makeidx}
+% Glossaries
+\usepackage[acronym]{glossaries}
+%\makeindex
+%\makeglossaries
+\input{glossary}
+%\newcommand\gls[1]{#1}
+%\newcommand\glsresetall{}
 \ifxetex
-  \usepackage[a4paper,CJKbookmarks,bookmarks=true,bookmarksopen=true,pdfpagelabels,pdfstartpage=1]{hyperref}
-\else
-  \usepackage[tex4ht]{hyperref}
+  \glsSetCompositor{-}
+  \renewcommand{\delimR}{–}
 \fi
 
 
@@ -132,6 +182,52 @@
 
 
 % Listings
+\usepackage{minted}
+\newminted{deb}{fontsize=\small}
+\newminted{cftasm}{fontsize=\small}
+\newminted{c}{fontsize=\small}
+\newminted{forth}{fontsize=\small}
+\newminted{intr}{fontsize=\small}
+\newminted{mcasm}{fontsize=\small}
+\newmintedfile{mcasm}{linenos=true,fontsize=\small}
+
+\ifxetex
+  \relax
+\else
+
+% Modify the minted way of invoking pygmentize if running with
+% HTLatex. We'll be converting listings DIRECTLY to HTML and importing
+% them into the TeX4ht output with specials.
+  \makeatletter
+  \newcounter{minted@temp}
+  \renewcommand\minted@pygmentize[2][\jobname.pyg]{
+    \stepcounter{minted@temp}
+    \def\minted@cmd{pygmentize -l #2 -f html -F tokenmerge
+      \minted@opt{gobble} \minted@opt{texcl} \minted@opt{mathescape}
+      \minted@opt{startinline} \minted@opt{funcnamehighlighting}
+      \minted@opt{linenos} -P "verboptions=\minted@opt{extra}"
+      -o \jobname-\arabic{minted@temp}.out.pyg #1}
+    \immediate\write18{\minted@cmd}
+    % Remove kludgy markup hints (four or more @)
+    \immediate\write18{sed -i -e s/@@@@//g \jobname-\arabic{minted@temp}.out.pyg}
+    % For debugging, uncomment:
+    %\immediate\typeout{\minted@cmd}
+    \ifthenelse{\equal{\minted@opt@bgcolor}{}}
+     {}
+     {\begin{minted@colorbg}{\minted@opt@bgcolor}}
+     \HCode{<div class="minted #2">}
+     \special{t4ht*<\jobname-\arabic{minted@temp}.out.pyg} % Import the HTML output
+     \HCode{</div>}
+    \ifthenelse{\equal{\minted@opt@bgcolor}{}}
+     {}
+     {\end{minted@colorbg}}
+    %\DeleteFile{\jobname.out.pyg}
+  }
+  \makeatother
+\fi
+
+
+% Old-style listings
 \usepackage{listings}
 \lstset{%
   xleftmargin=35pt,
@@ -151,11 +247,25 @@
 }
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% COLOURS
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\definecolor{r0}{rgb}{0.33, 0.1, 0.1}
+\definecolor{r1}{rgb}{1, 0.3, 0.3}
 
+\definecolor{g0}{rgb}{0.1, 0.33, 0.1}
+\definecolor{g1}{rgb}{0.3, 1, 0.3}
 
+\definecolor{cftdark}{cmyk}{0,0.42,0.72,0.84}
+\definecolor{cftoutline}{cmyk}{0,0.43,0.72,0.53}
+\definecolor{cftlight}{cmyk}{0,0.43,0.72,0.22}
+\definecolor{cfthl}{rgb}{.89,.698,.529}
 
-
+\definecolor{darkblue}{RGB}{0,0,128}
+\definecolor{caution}{RGB}{192,0,0}
 
 
 

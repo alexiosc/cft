@@ -75,7 +75,7 @@ def shipout():
             defas = 'Defined as'
             if 'CODE' in data.get('flags', ''):
                 defas = 'Equivalent to'
-            print "\n\\noindent %s:\n\\begin{lstlisting}[numbers=none,breaklines=true]\n%s\n\\end{lstlisting}\n" % \
+            print "\n\\noindent %s:\n\\begin{forthcode}\n%s\n\\end{forthcode}\n" % \
                 (defas, data['code'])
         print "\\forthenddef\n\n"
         #print defs[key]

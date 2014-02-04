@@ -48,7 +48,7 @@ of their signals where and when it is appropriate.
 
 \begin{figure}
 \centering
-\includegraphics{figs/din41612.pdf}\\
+\includeimage{figs/din41612}
 \caption[A DIN41612 receptacle with power rails]{\label{fig:slot}A card
   receptacle on the CFT backplane (as seen from the top) showing the power and
   ground rails including one reserved for future expansion (which has now been
@@ -57,9 +57,9 @@ of their signals where and when it is appropriate.
 }
 \end{figure}
 
-\begin{figure}
-\centering
-\includegraphics[width=0.95\columnwidth]{figs/dsc_1996b.jpg}\\
+\begin{figure}%
+\centering%
+\includelarge[width=0.95\columnwidth]{figs/dsc_1996b.jpg}\\
 \caption[A photo of the CFT backplane.]{\label{photo:backplane}A close-up photo
   of the backplane, showing around half of its 96-pin DIN 41612 sockets, screws
   for attaching power terminals, and the pads of the termination resistors
@@ -105,7 +105,7 @@ gauged empirically.
 
 \begin{figure*}
 \centering
-\includegraphics[width=0.85\textwidth]{figs/bus-termination.pdf}\\
+\includelarge[width=0.85\textwidth]{figs/bus-termination.png}\\
 \caption[Backplane bus termination]{\label{fig:bus-termination}Backplane bus
   termination. Each line is terminated at each end, using a pair of resistors
   to power and ground. The 330Ω and 470Ω resistors form a voltage divider that
@@ -179,7 +179,7 @@ relegated to the Expansion Bus because of lack of available pins. These are
 signals that expansion boards (however exotic) could potentially benefit from.
 
 \begin{table}[t]
-%%% RESTORE THIS: \caption{\label{table-control-pinout}Control Bus Pin-out.}
+\caption{\label{table-control-pinout}Control Bus Pin-out.}
 \vspace{1em}
 \centering
 \zebra
@@ -820,10 +820,10 @@ currently use them.
 \label{sec-expansion}
 
 \begin{table}[t!]
-%%% RESTORE THIS: \caption[Expansion Bus Pin out]{\label{table-expansion-pinout}Expansion Bus Pin-out. Row B is
-%%%  optional. Expansion cards that need no access to the banked memory
-%%%  scheme may use 64-pin (A+C) DIN 41612 connectors, which are more
-%%%  cost-effective.}%
+\caption[Expansion Bus Pin out]{\label{table-expansion-pinout}Expansion Bus Pin-out. Row B is
+ optional. Expansion cards that need no access to the banked memory
+ scheme may use 64-pin (A+C) DIN 41612 connectors, which are more
+ cost-effective.}%
 \centering
 \zebra
 \begin{tabular}{rp{0.2\columnwidth}p{0.2\columnwidth}p{0.2\columnwidth}}

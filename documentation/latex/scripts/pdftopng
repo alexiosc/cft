@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -o pipefail
+#set -x
+pdftoppm -png $* 2>&1 | ( fgrep -v Bogus || true )
+
+# End of file.

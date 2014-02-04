@@ -130,7 +130,7 @@ board can be seen in~\fcf{fig:vdu-board}.
 
 \begin{figure}
 \centering
-\includegraphics[width=0.85\columnwidth]{figs/cft-vdu-board3.png}\vspace{1em}\\
+\includelarge[width=0.85\columnwidth]{figs/video-max5-revF-top.jpg}\vspace{1em}\\
 \caption{\label{fig:vdu-board}A rendered image of the VDU board. The CPLD makes
   the design quite sparse, and routing the board is easy — after all, the pins
   can be assigned any function and re-ordered at will to match the board
@@ -252,7 +252,7 @@ A number of other resolutions were originally considered and ruled out:
  \inputfigure{figure-vdu-frame-format}
  \caption[Video frame format]{\label{fig:video-frame-format} Format of a video
    frame, showing porches, sync signals and video data. The frame is not drawn
-   to scale.}
+   to scale. The definitions of ‘front’ and ‘back’ are sometimes reversed.}
 \end{figure}
 
 
@@ -298,7 +298,7 @@ producing, perhaps up to 1V. The VESA standard dictates 0–700mV, however.
 
 \begin{figure*}
   \centering
-  \includegraphics[width=6cm]{figs/DE15_Connector_Pinout.pdf}
+  \inputfigure[width=6cm]{figs/DE15_Connector_Pinout}
   \vspace{1em}\par
 
   \zebra
@@ -508,24 +508,13 @@ CGA's MC6845 used this technique to meet timings.
 
 \begin{figure*}
 \centering
-\begin{tikztimingtable}
-  State                & D{} 7D{\textcond FRONT PORCH} 5D{\textcond HSYNC} 7D{\textcond BACK PORCH} 40D{\textcond VIDEO} D{} \\
-  \ps{HSYNC}           & 8L 5H 48L \\
-  \ps{HVIDEO}          & 20L 40H L \\
-  Sequencer enable      & 16L 40H 5L \\
-  Line data            & 20L 40D { \textcond ANALOGUE RGB LINE DATA } L \\
-\end{tikztimingtable}
+\inputfigure{figure-vdu-horz-timing}
 \caption[Horizontal Timing]{\label{fig:vdu-horz-timing} Horizontal video timing. The polarity of \ps{HSYNC} is reversed before driving the monitor (negative horizontal sync).}
 \end{figure*}
 
 \begin{figure*}
 \centering
-\begin{tikztimingtable}
-  State                & D{} 7D{\textcond FRONT PORCH} 5D{\textcond VSYNC} 7D{\textcond BACK PORCH} 40D{\textcond VIDEO} D{} \\
-  \ns{VSYNC}           & 8L 5H 48L \\
-  \ps{VVIDEO}          & 20L 40H L \\
-  Raster lines         & 20L 40D { \textcond ANALOGUE RGB LINE DATA \& HSYNC } L \\
-\end{tikztimingtable}
+\inputfigure{figure-vdu-vert-timing}
 \caption[Vertical Timing]{\label{fig:vdu-vert-timing} Vertical video timing. The polarity of \ps{VSYNC} is reversed to drive the monitor (negative vertical sync).}
 \end{figure*}
 
@@ -543,12 +532,12 @@ an 8×16 pixel cell, although depending on the mode, not all lines need be
 used. It does this by providing an address scheme for a 65,536×8 area in
 display memory, using information from various sources.
 
-\begin{cbitfield}
-  \bitfieldGroup{4}{cfthl!50}{Line (0-15)}
-  \bitfieldGroup{8}{cfthl!25}{B Plane Value (0–255)}
+\begin{bitfield}
+  \bitfieldGroup{4}{cfthl!50}{Line}
+  \bitfieldGroup{8}{cfthl!25}{B Plane Value}
   \bitfieldGroup{2}{cfthl!50}{CS1}
   \bitfieldGroup{2}{cfthl!25}{CS2}
-\end{cbitfield}
+\end{bitfield}
 
 The \field{Line} field identifies which line of the character cell is
 required. An 8×16 character cell means there are 16 lines in each character
@@ -639,26 +628,26 @@ foreground and background colours. These colours are selected by the
 colour/attribute engine using the following information:
 
 \begin{itemize}
-  \li The foreground and background colours at this position, as read from the
+  \item The foreground and background colours at this position, as read from the
   C plane.
 
-  \li Whether or not this position contains the hardware cursor, and
+  \item Whether or not this position contains the hardware cursor, and
   the cursor is on or blinking (and currently in the ‘on’ blink state). If the
   cursor is steadily on or blinking and in the ‘on’ state, the cursor
   foreground and background colours override the current positions's colours as
   retrieved by the C plane.
 
-  \li Whether or not this position has the inverse video attribute. If so, the
+  \item Whether or not this position has the inverse video attribute. If so, the
   foreground and background colours specified in the C plane are swapped.
 
-  \li Whether or not this position has the blink video attribute, and blinking
+  \item Whether or not this position has the blink video attribute, and blinking
   is in the ‘off’ state. If this is the case, the foreground is made equal to
   the background, making pixels ‘disappear’. This is identical to the CGA's
   (and VGA's) blink behaviour, where characters disappear and reappear against
   their background. If both inverse video and blinking are selected, both
   work. The net effect is that inverted blinking has a 180° phase difference to
   normal blinking: characters appear when normal blink characters disappear,
-  and vice versa.
+  and vice versa. This is illustrated in \fcf{fig:attribute}.
 \end{itemize}
 
 \subsubsection{Colour Space}
@@ -667,6 +656,12 @@ The VDU card has a palette of 64 RGB colours. No look-up tables (LUTs)
 are used and all colours may be present on the same frame. Colours are
 defined in traditional RGB format, with two bits per channel, for a
 total of six bits (64 colours).
+
+\begin{nbitfield}{6}
+    \bitfieldGroup{2}{red!25}{Red}
+    \bitfieldGroup{2}{green!25}{Green}
+    \bitfieldGroup{2}{blue!25}{Blue}
+\end{nbitfield}
 
 \begin{datastructure}[Bits]{Colour}
   \dsdesc{\hex{0}–\hex{1}}{Bits}{%
@@ -682,12 +677,6 @@ total of six bits (64 colours).
   }
   %
 \end{datastructure}
-
-\begin{nbitfield}{6}
-    \bitfieldGroup{2}{red!25}{Red}
-    \bitfieldGroup{2}{green!25}{Green}
-    \bitfieldGroup{2}{blue!25}{Blue}
-\end{nbitfield}
 
 Possible colour components are 0\%, 33\%, 66\% and 100\%. In hexadecimal,
 components are \hex{00}, \hex{55}, \hex{AA} and \hex{FF}, which match the
@@ -733,7 +722,13 @@ period).
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.9\columnwidth]{../figs/attribute-test.png}
+  \ifxetex
+    \includegraphics[width=0.9\columnwidth]{../figs/attribute-test.png}
+  \else
+    \begin{htmldiv}{includegraphics small png}%
+      \includegraphics{../figs/attribute-test.gif}%
+    \end{htmldiv}%
+  \fi
   \caption[Demonstration of Attributes]{\label{fig:attributes}A demonstration
     of all four attribute combinations using white text on a black
     background. From left to right: normal text, inverse video (black on
@@ -866,6 +861,11 @@ two-dimensional geometric plane. Each location is identified uniquely by a
 
 %\pagebreak
 
+\begin{bitfield}
+  \bitfieldGroup{7}{cfthl!50}{Column}
+  \bitfieldGroup{9}{cfthl!25}{Row}
+\end{bitfield}
+
 \begin{datastructure}[Bits]{PlaneAddressVector}
   \dsdesc{\hex{0}–\hex{6}}{Integer}{%
     The X ordinate in the range 0–127.
@@ -879,11 +879,6 @@ two-dimensional geometric plane. Each location is identified uniquely by a
 
 \noindent This is word-packed as follows:
 
-\begin{cbitfield}
-  \bitfieldGroup{7}{cfthl!50}{Column (0–127)}
-  \bitfieldGroup{9}{cfthl!25}{Row (0–511)}
-\end{cbitfield}
-
 \noindent This scheme has a number of advantages: it simplifies plane
 organisation from the hardware standpoint, avoiding additional counters and
 possible modulo-N circuitry. It also makes it very easy to calculate addresses
@@ -892,17 +887,24 @@ apparent waste of memory, but this is not actually so. The additional memory is
 used as a large virtual screen, with the visible portion treated as a smaller
 viewport.
 
-To calculate the address of co-ordinates $(x,y)$, it is enough to evaluate
-$128y+x$. This may be reduced to a bitwise left shift and a bitwise or:
-\cftin{(y << 7) | x} (in C). In CFT Assembly:
+To calculate the address of co-ordinates $(x,y)$, it is enough to
+evaluate $128y+x$. This may be reduced to a bitwise left shift and a
+bitwise or. In C, this would be something as simple as:
 
-\begin{lstlisting}[language=cftasm]
-         LOAD y                      ; Load x
-         RNL                         ; Roll left 4
-         RNL                         ; Roll left 4
+\begin{ccode}
+#define addr(x,y) (((x) << 7) | (y))
+\end{ccode}
+
+In CFT Assembly, assuming $y < 512$ and $x < 128$ and using two left nybble rolls
+and one right shift to get a seven-bit shift:
+
+\begin{cftasmcode}
+         LOAD y                      ; Load y
+         CLL RNL                     ; Clear L and roll left 4 bits
+         RNL                         ; Roll left another 4 bits
          SBR                         ; Shift right 1 bit
          OR x                        ; OR X (no addition needed)
-\end{lstlisting}
+\end{cftasmcode}
 
 \noindent Since the X and Y ordinates are encoded separately in the address word, an
 address may be seen as a two-dimensional vector. This provides additional
@@ -934,12 +936,11 @@ card's registers.
 
 This layout is illustrated in~\fcf{fig:vdu-virtual-screen}.
 
-
 \begin{figure}
  \centering
  \inputfigure{figure-vdu-virtual-screen}
  \caption[Virtual Screen]{\label{fig:vdu-virtual-screen} Virtual Screen and
-   Viewport. The viewport, which is what the physical screnen displays can be
+   Viewport. The viewport (which is what the physical screen displays) can be
    moved arbitrarily around the virtual screen. Please note that the diagram is not to scale.
  }
 \end{figure}
@@ -1010,10 +1011,10 @@ ordinate equals the modulo ordinate, that ordinate of the display address is
 reset back to zero. In C, these two checks (for x and y ordinates) would look
 like this:
 
-\begin{lstlisting}[language=c]
+\begin{ccode}
   current_address.x = current_address.x % (modulo.x + 1);
   current_address.y = current_address.y % (modulo.y + 1);
-\end{lstlisting}
+\end{ccode}
 
 The modulo is off by one, so the address listed is inclusive: it {\em does\/}
 get displayed.
@@ -1396,12 +1397,12 @@ half of the character cell; the \field{Background} field controls the right
 half. The inverse and blink attributes and \field{CS1} character set selector
 should not be used and left zeroed as shown below:
 
-\begin{cbitfield}[8]
+\begin{bitfield}
   \bitfieldItem{6}{cfthl!50}{Right PEL Colour}
   \bitfieldRepConst{2}{0}
   \bitfieldItem{6}{cfthl!50}{Left PEL Colour}
   \bitfieldRepConst{2}{0}
-\end{cbitfield}
+\end{bitfield}
 
 Two to three writes are needed to set the colours of two \glspl{PEL}. As always, 64
 colours are available. Each PEL can have its own colour.
@@ -1563,11 +1564,16 @@ allowed by the hardware, many of these modes are:
 \begin{figure*}
   \centering
   \includegraphics[width=0.48\columnwidth]{../generated/vdu-test-image3-small-dithered-40x480MC.png}
-  \hfill
+  \ifxetex
+    \hfill
+  \else
+    \vspace{1em}\\
+  \fi
   \includegraphics[width=0.48\columnwidth]{../generated/vdu-test-image3-small-dithered-640x30HGR.png}%
   \caption[Two examples of impractical
     modes]{\label{fig:vdu:impractical-modes}Two examples of impractical
-    modes. Left, 40×480. Right, 640×30. The pixel aspect ratios are too extreme
+    modes. \ifxetex Left\else Top\fi, 40×480. \ifxetex Left\else Bottom\fi, 640×30.
+    The pixel aspect ratios are too extreme
     for regular use, although the modes are accepted by the hardware. It should
     be noted that some computers from the past featured similarly extreme
     modes.}
@@ -1584,97 +1590,107 @@ from 8 bits per channel (16,777,216 colours) to 2 bits per channel (64
 colours), with the error diffused using the Floyd-Steinberg dithering
 algorithm.
 
-\begin{figure}
-  \centering
-  \includegraphics[width=0.9\columnwidth]{figs/vdu-test-image3-original.png}%
-  \caption[Original 640×480 demonstration image]
-          {\label{fig:vdu:mode-original}The original true-colour (24-bit colour)
-    demonstration image, scaled down to 640×480.
-  }
-\end{figure}
+\ifxetex
+  \begin{figure}
+    \centering
+    \includegraphics[width=0.9\columnwidth]{figs/vdu-test-image3-original.png}%
+    \caption[Original 640×480 demonstration image]
+            {\label{fig:vdu:mode-original}The original true-colour (24-bit colour)
+      demonstration image, scaled down to 640×480.
+    }
+  \end{figure}
+  
+  \begin{figure}[p]
+    \centering
+    \includegraphics[width=0.9\columnwidth]{../generated/vdu-test-image3-small-dithered-40x30MC.png}%
+    \caption[40×30 Multicolour mode]
+            {\label{fig:vdu:mode-40x30mc}The 40×30 Multicolour mode.
+              Each block can have its own independent colour.
+              This is the same as the 40×30 text mode with whole-cell block graphics.
+    }
+  \end{figure}
+  
+  \begin{figure}[p]
+    \centering
+    \includegraphics[width=0.9\columnwidth]{../generated/vdu-test-image3-small-dithered-80x30MC.png}%
+    \caption[80×30 Multicolour mode]{\label{fig:vdu:mode-80x30mc}The 80×30 Multicolour mode.
+      Each block can have its own independent colour.
+      This is the same as the 80×30 text mode with whole-cell block graphics.
+    }
+  \end{figure}
+  
+  
+  \begin{figure}[p]
+    \centering
+    \includegraphics[width=0.9\columnwidth]{../generated/vdu-test-image3-small-dithered-80x60MC.png}%
+    \caption[80×60 Multicolour mode]{\label{fig:vdu:mode-80x60mc}The 80×60 Multicolour mode.
+      Each block can have its own independent colour.
+      This is the same as the text mode with whole-cell block graphics.
+    }
+  \end{figure}
+  
+  \begin{figure}[p]
+    \centering
+    \includegraphics[width=0.9\columnwidth]{../generated/vdu-test-image3-small-dithered-160x60MC.png}%
+    \caption[160×60 Semigraphics mode]{\label{fig:vdu:mode-160x60}The 160x60 Semigraphics mode.
+      Each block can have its own independent colour.
+    }
+  \end{figure}
+  
+  \begin{figure}[p]
+    \centering
+    \includegraphics[width=0.9\columnwidth]{../generated/vdu-test-image3-small-dithered-160x120MC.png}%
+    \caption[160×120 Semigraphics mode]{\label{fig:vdu:mode-160x120mc}The 160x120 Semigraphics mode.
+      Each block can have its own independent colour.
+    }
+  \end{figure}
+  
+  \begin{figure}[p]
+    \centering
+    \includegraphics[width=0.9\columnwidth]{../generated/vdu-test-image3-small-dithered-160x240MC.png}%
+    \caption[160×240 Semigraphics mode]{\label{fig:vdu:mode-160x240mc}The 160x240
+      Semigraphics mode.  Each block can have its own independent colour.}
+  \end{figure}
+  
+  \begin{figure}[p]
+    \centering
+    \includegraphics[width=0.9\columnwidth]{../generated/vdu-test-image3-small-dithered-320x240HGR.png}%
+    \caption[320×240 Graphics mode]{\label{fig:vdu:mode-320x240hgr}The 320x240
+      Graphics mode.  Two colours are allowed per 8×2 pixel block.  The colour
+      restrictions cause obvious artifacts where numerous colours come close
+      together.  }
+  \end{figure}
+  
+  
+  \begin{figure}[p]
+    \centering
+    \includegraphics[width=0.9\columnwidth]{../generated/vdu-test-image3-small-dithered-320x480HGR.png}%
+    \caption[320×480 Graphics mode]{\label{fig:vdu:mode-320x480hgr}The 320x480 Graphics mode.
+      Each block of 8×1 pixels can have its own independent colour.
+      The colour restrictions cause obvious artifacts where numerous colours come close together.
+      Higher vertical resolution alleviates some of this problem, but not in all cases.
+    }
+  \end{figure}
+  
+  
+  \begin{figure}
+    \centering
+    \includegraphics[width=0.9\columnwidth]{../generated/vdu-test-image3-small-dithered-640x480HGR.png}%
+    \caption[640×480 Graphics mode]{\label{fig:vdu:mode-640x480hgr}The 640x480 Graphics mode.
+      Each block of 8×1 pixels can have its own independent colour.
+      The colour restrictions cause obvious artifacts where numerous colours come close together.
+      This is the highest spatial resolution available.
+    }
+  \end{figure}
 
-\begin{figure}[p]
-  \centering
-  \includegraphics[width=0.9\columnwidth]{../generated/vdu-test-image3-small-dithered-40x30MC.png}%
-  \caption[40×30 Multicolour mode]
-          {\label{fig:vdu:mode-40x30mc}The 40×30 Multicolour mode.
-            Each block can have its own independent colour.
-            This is the same as the 40×30 text mode with whole-cell block graphics.
-  }
-\end{figure}
+\else
 
-\begin{figure}[p]
-  \centering
-  \includegraphics[width=0.9\columnwidth]{../generated/vdu-test-image3-small-dithered-80x30MC.png}%
-  \caption[80×30 Multicolour mode]{\label{fig:vdu:mode-80x30mc}The 80×30 Multicolour mode.
-    Each block can have its own independent colour.
-    This is the same as the 80×30 text mode with whole-cell block graphics.
-  }
-\end{figure}
+  \HCode{<div id="modeDemo" class="interactive widget"></div>}
+  \HCode{<script type="text/javascript">}
+  \HCode{$(document).ready(function(){makeModeDemoWidget();});} %$
+  \HCode{</script>}
 
-
-\begin{figure}[p]
-  \centering
-  \includegraphics[width=0.9\columnwidth]{../generated/vdu-test-image3-small-dithered-80x60MC.png}%
-  \caption[80×60 Multicolour mode]{\label{fig:vdu:mode-80x60mc}The 80×60 Multicolour mode.
-    Each block can have its own independent colour.
-    This is the same as the text mode with whole-cell block graphics.
-  }
-\end{figure}
-
-\begin{figure}[p]
-  \centering
-  \includegraphics[width=0.9\columnwidth]{../generated/vdu-test-image3-small-dithered-160x60MC.png}%
-  \caption[160×60 Semigraphics mode]{\label{fig:vdu:mode-160x60}The 160x60 Semigraphics mode.
-    Each block can have its own independent colour.
-  }
-\end{figure}
-
-\begin{figure}[p]
-  \centering
-  \includegraphics[width=0.9\columnwidth]{../generated/vdu-test-image3-small-dithered-160x120MC.png}%
-  \caption[160×120 Semigraphics mode]{\label{fig:vdu:mode-160x120mc}The 160x120 Semigraphics mode.
-    Each block can have its own independent colour.
-  }
-\end{figure}
-
-\begin{figure}[p]
-  \centering
-  \includegraphics[width=0.9\columnwidth]{../generated/vdu-test-image3-small-dithered-160x240MC.png}%
-  \caption[160×240 Semigraphics mode]{\label{fig:vdu:mode-160x240mc}The 160x240
-    Semigraphics mode.  Each block can have its own independent colour.}
-\end{figure}
-
-\begin{figure}[p]
-  \centering
-  \includegraphics[width=0.9\columnwidth]{../generated/vdu-test-image3-small-dithered-320x240HGR.png}%
-  \caption[320×240 Graphics mode]{\label{fig:vdu:mode-320x240hgr}The 320x240
-    Graphics mode.  Two colours are allowed per 8×2 pixel block.  The colour
-    restrictions cause obvious artifacts where numerous colours come close
-    together.  }
-\end{figure}
-
-
-\begin{figure}[p]
-  \centering
-  \includegraphics[width=0.9\columnwidth]{../generated/vdu-test-image3-small-dithered-320x480HGR.png}%
-  \caption[320×480 Graphics mode]{\label{fig:vdu:mode-320x480hgr}The 320x480 Graphics mode.
-    Each block of 8×1 pixels can have its own independent colour.
-    The colour restrictions cause obvious artifacts where numerous colours come close together.
-    Higher vertical resolution alleviates some of this problem, but not in all cases.
-  }
-\end{figure}
-
-
-\begin{figure}
-  \centering
-  \includegraphics[width=0.9\columnwidth]{../generated/vdu-test-image3-small-dithered-640x480HGR.png}%
-  \caption[640×480 Graphics mode]{\label{fig:vdu:mode-640x480hgr}The 640x480 Graphics mode.
-    Each block of 8×1 pixels can have its own independent colour.
-    The colour restrictions cause obvious artifacts where numerous colours come close together.
-    This is the highest spatial resolution available.
-  }
-\end{figure}
+\fi
 
 
 
@@ -1716,7 +1732,7 @@ all of which is done via I/O space registers. There are thirteen registers in fi
   interrupts, selects an appropriate character set and configures the display
   mode.
 
-  \begin{cbitfield}
+  \begin{bitfield}
     \bitfieldItem{3}{cfthl!50}{CRH}
     \bitfieldItem{1}{cfthl!25}{C40}
     \bitfieldItem{2}{cfthl!50}{CS2}
@@ -1726,7 +1742,7 @@ all of which is done via I/O space registers. There are thirteen registers in fi
     \bitfieldItem{1}{cfthl!50}{KBI}
     \bitfieldRepConst{5}{0}
     \bitfieldItem{1}{cfthl!25}{EN}
-  \end{cbitfield}
+  \end{bitfield}
 
   \begin{description}
     \li{\field{CRH}} is a three bit field that controls the height of the rows
@@ -1794,7 +1810,7 @@ all of which is done via I/O space registers. There are thirteen registers in fi
   mirrors some of the information stored it in. It is used for autodetection of
   the VDU card, and to detect the source of an interrupt.
 
-  \begin{cbitfield}
+  \begin{bitfield}
     \bitfieldItem{3}{cfthl!50}{CRH}
     \bitfieldItem{1}{cfthl!25}{C40}
     \bitfieldItem{2}{cfthl!50}{CS2}
@@ -1804,7 +1820,7 @@ all of which is done via I/O space registers. There are thirteen registers in fi
     \bitfieldItem{1}{cfthl!50}{KBIS}
     \bitfieldItem{5}{cfthl!50}{Version}
     \bitfieldItem{1}{cfthl!25}{EN}
-  \end{cbitfield}
+  \end{bitfield}
 
   \begin{description}
     \li{\field{CRH}} contains the same value as the \field{CRH} field in the \port{MCR0} register.
@@ -1851,14 +1867,14 @@ all of which is done via I/O space registers. There are thirteen registers in fi
   bottom portion. Each portion can act independently of the other so that
   scrolling graphics may be displayed in one portion, and text in the other.
 
-  \begin{cbitfield}
+  \begin{bitfield}
     \bitfieldItem{3}{cfthl!50}{CRH}
     \bitfieldItem{1}{cfthl!25}{C40}
     \bitfieldItem{2}{cfthl!50}{CS2}
     \bitfieldConst{0}
     \bitfieldGroup{1}{cfthl!25}{SEN}
     \bitfieldItem{8}{cfthl!50}{SCL}
-  \end{cbitfield}
+  \end{bitfield}
 
   \begin{description}
     \li{\field{CRH}} is a three bit field that controls the bottom mode's
@@ -1901,12 +1917,12 @@ all of which is done via I/O space registers. There are thirteen registers in fi
   if split screen is disabled). It is eight bits wide, with the remaining bits
   set to \bin{0} to facilitate future expansion:
 
-  \begin{cbitfield}[8]
+  \begin{bitfield}
     \bitfieldGroup{3}{cfthl!50}{HSCR}
     \bitfieldConst{0}
     \bitfieldGroup{4}{cfthl!50}{VSCR}
     \bitfieldRepConst{8}{0}
-  \end{cbitfield}
+  \end{bitfield}
 
   \begin{description}
     \li{\field{HSCR}} shifts the displayed image left by a number of
@@ -1934,12 +1950,12 @@ all of which is done via I/O space registers. There are thirteen registers in fi
   is enabled. Like \port{SCR0}, this register is eight bits wide, with the
   remaining bits set to \bin{0} to facilitate future expansion:
 
-  \begin{cbitfield}[8]
+  \begin{bitfield}
     \bitfieldGroup{3}{cfthl!50}{HSCR}
     \bitfieldConst{0}
     \bitfieldGroup{4}{cfthl!50}{VSCR}
     \bitfieldRepConst{8}{0}
-  \end{cbitfield}
+  \end{bitfield}
 
   \begin{description}
     \li{\field{HSCR}} shifts the displayed image left by a number of
@@ -1966,10 +1982,10 @@ all of which is done via I/O space registers. There are thirteen registers in fi
   screen. It applies to the top portion of a split screen, or the entire screen
   if the split is not enabled.
 
-  \begin{cbitfield}[8]
+  \begin{bitfield}
     \bitfieldGroup{7}{cfthl!50}{Column}
     \bitfieldGroup{9}{cfthl!25}{Row}
-  \end{cbitfield}
+  \end{bitfield}
 
   \begin{description}
   \li{\field{Column}} The column address of the top left cell on the screen.
@@ -1988,10 +2004,10 @@ all of which is done via I/O space registers. There are thirteen registers in fi
   This register sets the address in the video RAM of the top-left corner of the
   screen. It applies to the bottom portion of a split screen.
 
-  \begin{cbitfield}[8]
+  \begin{bitfield}
     \bitfieldGroup{7}{cfthl!50}{Column}
     \bitfieldGroup{9}{cfthl!25}{Row}
-  \end{cbitfield}
+  \end{bitfield}
 
   \begin{description}
   \li{\field{Column}} The column address of the top left cell of the bottom half of a split-screen setup.
@@ -2009,10 +2025,10 @@ all of which is done via I/O space registers. There are thirteen registers in fi
   split screen, or the entire screen if the split is not enabled. The effects
   of modulo address registers are described in~\cf{vdu:sec:modulo-address}.
 
-  \begin{cbitfield}[8]
+  \begin{bitfield}
     \bitfieldGroup{7}{cfthl!50}{Column}
     \bitfieldGroup{9}{cfthl!25}{Row}
-  \end{cbitfield}
+  \end{bitfield}
 
   \begin{description}
   \li{\field{Column}} The column modulo address of the screen.
@@ -2032,10 +2048,10 @@ all of which is done via I/O space registers. There are thirteen registers in fi
   split screen. The effects of modulo address registers are described
   in~\cf{vdu:sec:modulo-address}.
 
-  \begin{cbitfield}[8]
+  \begin{bitfield}
     \bitfieldGroup{7}{cfthl!50}{Column}
     \bitfieldGroup{9}{cfthl!25}{Row}
-  \end{cbitfield}
+  \end{bitfield}
 
   \begin{description}
   \li{\field{Column}} The column modulo address of the bottom half of a split-screen setup.
@@ -2052,12 +2068,12 @@ all of which is done via I/O space registers. There are thirteen registers in fi
   This register controls the appearance and behaviour of the hardware
   cursor. The cursor's behaviour is described in~\cf{sec:vdu:cursor}.
 
-  \begin{cbitfield}[8]
+  \begin{bitfield}
     \bitfieldGroup{6}{cfthl!50}{Foreground}
     \bitfieldGroup{2}{cfthl!25}{CBC}
     \bitfieldGroup{6}{cfthl!50}{Background}
     \bitfieldRepConst{2}{0}
-  \end{cbitfield}
+  \end{bitfield}
 
   \begin{description}
     \li{\field{Foreground}} is the foreground \ds{Colour} of the character
@@ -2089,10 +2105,10 @@ all of which is done via I/O space registers. There are thirteen registers in fi
   disabling it via the \field{CBC} field in the \port{CCR} register). The
   cursor's full behaviour is described in~\cf{sec:vdu:cursor}.
 
-  \begin{cbitfield}[8]
+  \begin{bitfield}
     \bitfieldGroup{7}{cfthl!50}{Cursor Column} The column address of the cursor's location.
     \bitfieldGroup{9}{cfthl!25}{Cursor Row} The row address of the cursor's location.
-  \end{cbitfield}
+  \end{bitfield}
 
 \end{ioport}
 
@@ -2109,14 +2125,14 @@ is described in detail in~\ccf{chap:kbd}.
   This register operates the PS/2 keyboard interface. A full description of
   this interface can be found in~\ccf{chap:kbd}.
 
-  \begin{cbitfield}[8]
+  \begin{bitfield}
     \bitfieldGroup{8}{cfthl!25}{Keyboard Receiver}
     \bitfieldGroup{1}{cfthl!50}{KDP}
     \bitfieldRepConst{4}{0}
     \bitfieldGroup{1}{cfthl!25}{KC}
     \bitfieldGroup{1}{cfthl!50}{KD}
     \bitfieldGroup{1}{cfthl!25}{KDR}
-  \end{cbitfield}
+  \end{bitfield}
 
   \begin{description}
     \li{\field{Keyboard Data}} is an 9-bit value as transmitted by the
@@ -2169,10 +2185,10 @@ registers.
   zero). Reading from the \port{HAR} register is thus a good way to block
   execution while the VDU is running a command.
 
-  \begin{cbitfield}[8]
-    \bitfieldGroup{7}{cfthl!50}{Column} The column address used for the next host command.
-    \bitfieldGroup{9}{cfthl!25}{Row} The row address used for the next host command.
-  \end{cbitfield}
+  \begin{bitfield}
+    \bitfieldGroup{7}{cfthl!50}{Column}
+    \bitfieldGroup{9}{cfthl!25}{Row}
+  \end{bitfield}
 
 \end{ioport}
 
@@ -2192,10 +2208,10 @@ registers.
   \field{GO} field in the \port{CMD} register will be set. Further commands
   will only execute once because of the \hex{000} value.
 
-  \begin{cbitfield}[8]
+  \begin{bitfield}
     \bitfieldGroup{9}{cfthl!50}{Repetitions}
     \bitfieldRepConst{7}{0}
-  \end{cbitfield}
+  \end{bitfield}
 
   Only the least significant nine bits are in use at this location. All other
   bits are ignored on writes, and reads return \bin{0000000} for the most
@@ -2216,13 +2232,13 @@ registers.
   This read/write register contains data retrieved from the C plane, or to be written to
   the C plane. It is 16 bits wide and follows the layout of the C plane itself:
 
-  \begin{cbitfield}[8]
+  \begin{bitfield}
     \bitfieldGroup{6}{cfthl!50}{Foreground}
     \bitfieldGroup{2}{cfthl!25}{CS1}
     \bitfieldGroup{6}{cfthl!50}{Background}
     \bitfieldGroup{1}{cfthl!25}{INV}
     \bitfieldGroup{1}{cfthl!25}{BLN}
-  \end{cbitfield}
+  \end{bitfield}
 
   \begin{description}
     \li{\field{Foreground}} is the foreground \ds{Colour} of the
@@ -2252,18 +2268,18 @@ registers.
 
 \begin{ioport}{VDU}{1FF}{crwvehf}{CMD/BPORT/CGPORT}{Command, B Plane port, CG RAM port Register}
 
-  This read/write register, which may also be seen as an extended instruction,
-  combines read/write access to the B Plane and Character Generator RAM, and
-  supplies the VDU card with host interface commands and their options.
+  This read/write register combines read/write access to the B Plane
+  and Character Generator RAM, and supplies the VDU card with host
+  interface commands and their options.
 
-  \begin{cbitfield}[8]
+  \begin{bitfield}
     \bitfieldGroup{8}{cfthl!50}{B/CG Data}
     \bitfieldGroup{1}{cfthl!25}{XINC}
     \bitfieldItem{1}{cfthl!50}{YINC}
     \bitfieldGroup{4}{cfthl!25}{Command}
     \bitfieldRepConst{1}{0}
     \bitfieldItem{1}{cfthl!50}{GO}
-  \end{cbitfield}
+  \end{bitfield}
 
   \begin{description}
     \li{\field{B/CG Data}} holds data read from or about to be written to the
@@ -2310,9 +2326,11 @@ registers.
   \hex{0080}.
 
   Writing to this register will generate wait states until or unless the VDU's
-  host interface is idle (i.e. any previous command has executed fully and
-  \port{CRR} is zero). Reading from the register does not introduce wait
-  states, making this a good way to poll for command completion.
+  host interface is idle (i.e. any previous command has executed fully
+  and \port{CRR} is zero). Reading from the register does not introduce wait
+  states, making this a good way to poll for command completion. Generating
+  wait states on write (when busy) allows the processor to send the VDU a
+  stream of commands without waiting for each command to complete.
 
 \end{ioport}
 
@@ -2436,7 +2454,7 @@ naturally, pointless as the address does not change between iterations.
 This is a complete example to write an arbitrary character with a particular
 colour.
 
-\begin{lstlisting}[language=cftasm]
+\begin{cftasmcode}
          LI &82                      ; coordinates (2,1) (2 + 1 * 128)
          OUT VDU HAR                 ; Set address
          LOAD colour                 ; Load the colour attribute
@@ -2449,17 +2467,17 @@ colour.
 colour:  .word &003F                 ; white on black
 char:    .word 65                    ; ASCII 65 ('A')
 cmd:     .word #000:000:0:1:00000000 ; Command 000, XINC = 1
-\end{lstlisting}
+\end{cftasmcode}
 
 \noindent The code to write subsequent characters with the same colour and attributes is
 considerably simpler because of the address auto-increment and the persistence
 of the \port{CPORT} register:
 
-\begin{lstlisting}[language=cftasm]
+\begin{cftasmcode}
          LOAD cmd                    ; Load command
          OR char                     ; OR the character
          OUT VDU CMD                 ; Initiate the command
-\end{lstlisting}
+\end{cftasmcode}
 
 \noindent This seems a little excessive for writing a single character, but given the
 nature of CFT Assembly, it is actually shorter than doing the same thing on a
@@ -2467,7 +2485,7 @@ hypothetical, non-planar memory-mapped VDU card, where colours are stored in
 even locations and characters in odd ones\footnote{Exactly the way it is done
   in MDA, CGA, EGA, MCGA and VGA text modes.}:
 
-\begin{lstlisting}[language=cftasm]
+\begin{cftasmcode}
          LI &82                      ; coordinates (2,1) (2 + 1 * 128)
          SBL                         ; Multiply by two
          ADD baddr1                  ; Add VDU base address (attrs)
@@ -2485,17 +2503,17 @@ baddr1:  .word &a000                 ; Base addr (attrs)
 baddr2:  .word &a001                 ; Base addr (chars)
 colour:  .word &003F                 ; white on black
 char:    .word 65                    ; ASCII 65 ('A')
-\end{lstlisting}
+\end{cftasmcode}
 
 \noindent The downside on dumb, memory-mapped devices is that writing {\em subsequent\/}
 characters still takes more instructions:
 
-\begin{lstlisting}[language=cftasm]
+\begin{cftasmcode}
          LOAD colour                 ; Load the colour attribute
          STORE I R &80               ; Store the attribute
          LOAD char                   ; Load the character
          STORE I R &81               ; Store it
-\end{lstlisting}
+\end{cftasmcode}
 
 \noindent With the limited intelligence of the VDU card, writing two characters
 with their colour values took 13 words and 10 instructions, while a
@@ -2510,7 +2528,7 @@ This changes the B plane without changing the C plane, keeping the colours and
 attributes intact. The only difference from the previous example is the command
 used:
 
-\begin{lstlisting}[language=cftasm]
+\begin{cftasmcode}
          LI &82                      ; coordinates (2,1) (2 + 1 * 128)
          OUT VDU HAR                 ; Set address
          LOAD cmd                    ; Load command
@@ -2525,7 +2543,7 @@ used:
 char1:   .word 65                    ; ASCII 65 ('A')
 char2:   .word 66                    ; ASCII 65 ('B')
 cmd:     .word #000:001:0:1:00000000 ; Command 001, XINC = 1
-\end{lstlisting}
+\end{cftasmcode}
 
 
 \subsubsection{Paint Colour Attributes Without Modifying Characters}
@@ -2534,7 +2552,7 @@ This changes the C plane without touching the B plane, keeping the characters
 intact but changing the colours and attributes. Again, the only difference is
 in the command used, but modifying four consecutive positions is quite simple:
 
-\begin{lstlisting}[language=cftasm]
+\begin{cftasmcode}
          LI &82                      ; coordinates (2,1) (2 + 1 * 128)
          OUT VDU HAR                 ; Set address
          LOAD colour                 ; Set the colour
@@ -2548,7 +2566,7 @@ in the command used, but modifying four consecutive positions is quite simple:
 colour:  .word &3f00                 ; Black on white
 repeats: .word 3                     ; Number of characters +1
 cmd:     .word #000:010:0:1:00000000 ; Command 010, XINC = 1
-\end{lstlisting}
+\end{cftasmcode}
 
 
 
@@ -2558,7 +2576,7 @@ This changes the C plane without touching the B plane, keeping the characters
 intact but changing the colours and attributes. Again, the only difference is
 in the command used, but modifying four consecutive positions is quite simple:
 
-\begin{lstlisting}[language=cftasm]
+\begin{cftasmcode}
          LI 65                       ; set the pattern for 'A'
          CLL RNL                     ; Multiply by 16
          OUT VDU HAR                 ; Set address
@@ -2591,7 +2609,7 @@ pattern: .word #--------             ; Ascender, line 1
          .word #--------             ; Descender, line 1
          .word #--------             ; Descender, line 2
          .word #--------             ; Descender, line 3
-\end{lstlisting}
+\end{cftasmcode}
 
 
 
@@ -2603,7 +2621,7 @@ This example uses the read command to read all 128 cells of the first row of
 the VDU memory. Both the B and C planes are read and stored in an interlaced
 manner, suitable for writing to mass storage.
 
-\begin{lstlisting}[language=cftasm]
+\begin{cftasmcode}
          LI 128                      ; Read 128 values
          NEG 
          STORE R &10
@@ -2626,7 +2644,7 @@ loop:    IN VDU CPORT                ; First read from the C plane
 source:  .word &0000                 ; Source VDU address
 dest:    .word &8000                 ; Destination buffer
 cmd:     .word #000:100:0:1:00000000 ; Command 100, XINC = 1
-\end{lstlisting}
+\end{cftasmcode}
 
 \noindent Because of the way read increments are structured, to read the entire
 display memory would require wrapping this code in an outer loop (which sets
@@ -3042,19 +3060,25 @@ propageted across the 4-bit boundary. This was when the design was meant for
 
 \begin{figure*}
   \centering
-  \includegraphics[width=0.48\columnwidth]{../figs/simulating-video-5.png}
-  \hfill
-  \includegraphics[width=0.48\columnwidth]{../figs/simulating-video-cpld-1.png}
+  \begin{htmldiv}{center inline}
+    \includesmall[width=0.48\columnwidth]{../figs/simulating-video-5.png}
+    \hfill
+    \includesmall[width=0.48\columnwidth]{../figs/simulating-video-cpld-1.png}
+  \end{htmldiv}
   \vspace{1em}
 
-  \includegraphics[width=0.48\columnwidth]{../figs/simulating-video-4.png}
-  \hfill
-  \includegraphics[width=0.48\columnwidth]{../figs/simulating-video-cpld-4a.png}
+  \begin{htmldiv}{center inline}
+    \includesmall[width=0.48\columnwidth]{../figs/simulating-video-4.png}
+    \hfill
+    \includesmall[width=0.48\columnwidth]{../figs/simulating-video-cpld-4a.png}
+  \end{htmldiv}
   \vspace{1em}
 
-  \includegraphics[width=0.48\columnwidth]{../figs/simulating-video-cpld-5.png}
-  \hfill
-  \includegraphics[width=0.48\columnwidth]{../figs/simulating-video-cpld-3.png}
+  \begin{htmldiv}{center inline}
+    \includesmall[width=0.48\columnwidth]{../figs/simulating-video-cpld-5.png}
+    \hfill
+    \includesmall[width=0.48\columnwidth]{../figs/simulating-video-cpld-3.png}
+  \end{htmldiv}
   \caption[Monitor Emulator Examples]{\label{fig:vdu:monitor-emu-examples}Examples of the monitor
     emulator decoding and displaying early 640×400 video waveforms from designs
     running in Verilog simulators. From left to right, and top to bottom: a
@@ -3168,17 +3192,41 @@ augmented with line drawing and block graphic characters.
 %% }}
 
 
-\clearpage
+\section{Construction}
+
+\begin{figure}
+  \centering
+  \includelarge{figs/video-max5-top.png}\\
+  %
+  \includelarge{figs/video-max5-top-silk.png}
+
+  \caption{Video board printed circuit board, top side. Top, a
+  simulated un-milled board (larger than the final result). Bottom, part placement.}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includelarge{figs/video-max5-bottom.png}\\
+  %
+  \includelarge{figs/video-max5-bottom-silk.png}
+
+  \caption{Video board printed circuit board, bottom side. Top, a
+  simulated board. Bottom, part placement.}
+\end{figure}
+
+
+\htmlbreak\clearpage
 \section{Schematics}
 
-The following pages show the schematic drawing of the \gls{VDU} board on three sheets.
+The following pages show the schematic drawing of the \gls{VDU} board on five sheets.
 
 \cleardoublepage
 {
-  \def\schematicsFile{figs/video-max5.pdf}
-  \includeschns{1}{VDU Board}{sch2:vdu1}
-  \includeschns{2}{VDU Board (connectors and level translation)}{sch2:vdu2}
-  \includeschns{3}{VDU Board (CFT Expansion Bus)}{sch2:vdu3}
+  \def\schematicsFile{figs/video-max5}
+  \includeschns{2}{VDU Board}{sch2:vdu2}
+  \includeschns{3}{VDU Board (Video Out with ESD protection)}{sch2:vdu3}
+  \includeschns{4}{VDU Board (Other Connectors, Miscellaneous)}{sch2:vdu4}
+  \includeschns{5}{VDU Board (CFT Expansion Bus)}{sch2:vdu5}
 }
 
 

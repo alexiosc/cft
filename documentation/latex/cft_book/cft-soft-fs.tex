@@ -9,7 +9,7 @@
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.75\columnwidth]{figs/Floppy_Disk_Drives_8_5_3.jpg}
+  \includelarge[width=0.75\columnwidth]{figs/Floppy_Disk_Drives_8_5_3.jpg}
   \caption[Floppy drives]{Floppy drives. 8-inch (left), full-height
     5¼-inch (middle), 3½-inch (right). The ‘full-height’ 5¼-inch unit
     is the size of two stacked internal CD/DVD drives (the desktop versions).}
@@ -617,7 +617,7 @@ in~\tcf{table:fs-desc-bs}:
   \end{tabular}
   \caption[Number of Descriptors by Block Size]{\label{table:fs-desc-bs} Number
     of descriptors that fit in a single container block depending on the volume
-    block size. Since descriptors do not fit the block size exacly, each block
+    block size. Since descriptors do not fit the block size exactly, each block
     size has a number of unused space at the end of the descriptor array.}
 \end{table}
 
@@ -707,7 +707,7 @@ objects. Descriptors are discussed below.
 
  \caption[CFT Directory Linked List]{\label{fig:fs-directory-ll} A long
    directory with additional \ds{Directory} continuation blocks forming a
-   doubly linked list. Note that continuation blocks blocks have their own
+   doubly linked list. Note that continuation blocks have their own
    magic (\magicDirectoryCont). Also note that the first entry of the first
    (leftmost) directory block contains metadata for the directory itself, using
    the Directory Descriptor structure (\ds{DirDesc}). }
@@ -1230,11 +1230,11 @@ n & = & {\big(x \,\mbox{mod}\, (16b)}\big) \,\mbox{mod}\, 16\nonumber
 \noindent In C, and replacing some divisions and modula with bit shifts and bit
 arithmetic, these would be defined as three macros like:
 
-\begin{lstlisting}[language=c,numbers=none]
+\begin{ccode}
 #define bm_blockofs(m0, b, x) (m0 + x / (b << 4))  /* calculate m */
 #define bm_wordofs(m0, b, x)  (x % (b << 4)) >> 4) /* calculate w */
 #define bm_bitofs(m0, b, x)   (x % (b << 4)) & 15) /* calculate b */
-\end{lstlisting}
+\end{ccode}
 
 \noindent By expressing the block size $b$ as $\log_2{b}$, the entire calculation is
 performed with shifts and logic, which makes it ideal for the CFT's instruction
@@ -1365,7 +1365,7 @@ showing C definitions for most of them.
 The following listing is a brief (but heavily commented) definition of the data
 structures needed to represent the CFT disk label, written in C.
 
-\lstinputlisting[style=longmcasm,language=c]{../../../experiments/cftslice.h}
+\inputminted{c}{../../../experiments/cftslice.h}
 \pagebreak
 
 \subsection{CFT Filesystem}
@@ -1375,4 +1375,4 @@ code the CFT filesystem. The code is in C.
 
 \todo{Complete the filesystem code, and fix the C-side terminology.}
 
-\lstinputlisting[style=longmcasm,language=c]{../../../experiments/fs.h}
+%\lstinputlisting[style=longmcasm,language=c]{../../../experiments/fs.h}

@@ -98,41 +98,7 @@ be used, along with additional LEDs and resistors.
 
 \begin{figure}[tb]
   \centering
-  \begin{tikzpicture}
-    \begin{scope}[thin,draw opacity=0,line width=0pt]
-    \foreach \x in {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}{
-      \draw[fill=cfthl!50,xshift=\x cm](0,0) rectangle (0.5,0.6);
-      \draw[fill=cfthl!25,xshift=\x cm](0.5,0) rectangle (1,0.6);
-    }
-    \draw[fill=cfthl!50,xshift=10 cm](0,0) rectangle (0.5,0.6);
-    \end{scope}
-    \foreach \x in {0.5, 1, ..., 10}{
-      \draw[thin] (\x cm, 0) -- (\x cm, -0.1cm);
-    }
-    \draw[line width=2pt](0,0) rectangle (10.5,0.6);
-    \draw (10.5,0) node[below left] { \footnotesize 0 };
-    \draw (4,0) node[below right] { \footnotesize 12 };
-    \draw (3.5,0) node[below right] { \footnotesize 0 };
-    \draw (0,0) node[below] { \footnotesize 7 };
-
-    \draw[thick](0.5,-0.1) -- (0.5,0.6);
-    \draw[thick](1,-0.1) -- (1,0.6);
-
-    \draw[thick](4,-0.1) -- (4,0.6);
-    \draw (2, 0.3) node { \AEXTn{0–7} };
-    %% \draw (2.25, 0.3) node { I };
-    %% \draw (2.75, 0.3) node { R };
-    \draw (7.25, 0.3) node { \ABUSn{0–12} };
-
-    \draw (1.5,-1) node[right] { Bank number, bit 0 };
-    \draw (1.5,-1.5) node[right] { Bank number, bit 1 };
-
-    \draw[thick, rounded corners=5.5mm] (1.5, -1.5) -- (0.25, -1.5) -- (0.25, -0.2);
-    \draw[thick, rounded corners=3mm] (1.5, -1) -- (0.75, -1) -- (0.75, -0.2);
-
-  \end{tikzpicture}
-
-
+  \inputfigure{figure-mem-bits}
   \caption{\label{fig:mem-bits}Physical address space as seen by the memory board.}
 \end{figure}
 
@@ -168,50 +134,7 @@ of RAM and ROM should be enough for the CFT.
 
 \begin{figure}[tb]
   \centering
-  \begin{tikzpicture}
-
-    \draw[draw opacity=0, shading=axis, left color=white, right color=cfthl!50] (3,0) rectangle (7,6);
-    %\draw[yshift=0cm, draw opacity=0, shading=axis, left color=white, right color=cfthl!25] (3,0) rectangle (7,6);
-
-    \draw (6.8,3) node[below, rotate=-90] {\large\bfseries Planned};
-    %\draw (6.8,7) node[below, rotate=-90] {\large\bfseries Optional};
-
-    \begin{scope}
-      \draw[thick, fill=cfthl!50](0,0) rectangle (3,2);
-      \draw (1.5,1) node {Bank 0 (RAM)};
-      \draw (0,0) node[left] {\hex{000000}};
-      \draw (3,1) node[right] {\small 512 kWords};
-    \end{scope}
-
-    \begin{scope}[yshift=2cm]
-      \draw[thick, fill=cfthl!25](0,0) rectangle (3,2);
-      \draw (1.5,1) node {Bank 1 (RAM)};
-      \draw (0,0) node[left] {\hex{080000}};
-      \draw (3,1.05) node[right] {\small 512 kWords{\footnotesize *}};
-      \draw (3,0.95) node[below right] {\small Not populated};
-    \end{scope}
-
-    \begin{scope}[yshift=4cm]
-      \draw[thick, fill=cfthl!50](0,0) rectangle (3,2);
-      \draw (1.5,1) node {Bank 2 (ROM)};
-      \draw (0,0) node[left] {\hex{100000}};
-      \draw (3,1) node[right] {\small 512 kWords};
-    \end{scope}
-
-    \begin{scope}[yshift=6cm]
-      \draw[thick, fill=cfthl!25](0,0) rectangle (3,2);
-      \draw (1.5,1) node {Bank 3 (Spare)};
-      \draw (0,0) node[left] {\hex{180000}};
-      \draw (0,2) node[left] {\hex{200000}};
-      \draw (3,1.05) node[right] {\small 512 kWords};
-      \draw (3,0.95) node[below right] {\small Unused};
-    \end{scope}
-
-    \draw[line width=2pt] (0,0) rectangle (3,8);
-    \draw (3,8) node[above right] {2 MWords};
-    \draw (1.5,8) node[above] {\small 16 bits wide};
-
-  \end{tikzpicture}
+  \inputfigure{figure-mem-physmap}
   \caption[Physical memory map of the
     CFT]{\label{fig:mem-physmap}Physical memory map of the CFT. The
     memory board implements three of the four banks. Of these, only

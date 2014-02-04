@@ -1,20 +1,24 @@
 % -*- latex -*-
 
 % Magic numbers: disk label
-\newcommand\DescriptorSize{29}
-\newcommand\magicROMBoot{\hex{6400}}
-\newcommand\magicCustomBoot{\hex{D010}}
-\newcommand\magicDiskLabel{\hex{CF75}}
-\newcommand\magicCFTFSType{\hex{F501}}
-\newcommand\magicEmptySlice{\hex{FFFF}}
+\ifdefined\DescriptorSize
+  \relax
+\else
+  \newcommand\DescriptorSize{29}
+  \newcommand\magicROMBoot{\hex{6400}}
+  \newcommand\magicCustomBoot{\hex{D010}}
+  \newcommand\magicDiskLabel{\hex{CF75}}
+  \newcommand\magicCFTFSType{\hex{F501}}
+  \newcommand\magicEmptySlice{\hex{FFFF}}
 
-% Magic numbers: filesystem
-\newcommand\magicVolume{\hex{CF70}}
-\newcommand\magicVolDesc{\hex{CF71}}
-\newcommand\magicDirectory{\hex{CF7D}}
-\newcommand\magicDirDesc{\hex{CF7E}}
-\newcommand\magicFileDesc{\hex{CF7F}}
-\newcommand\magicDirectoryCont{\hex{CF7C}}
-\newcommand\magicIndexBlock{\hex{CF7A}}
+  % Magic numbers: filesystem
+  \newcommand\magicVolume{\hex{CF70}}
+  \newcommand\magicVolDesc{\hex{CF71}}
+  \newcommand\magicDirectory{\hex{CF7D}}
+  \newcommand\magicDirDesc{\hex{CF7E}}
+  \newcommand\magicFileDesc{\hex{CF7F}}
+  \newcommand\magicDirectoryCont{\hex{CF7C}}
+  \newcommand\magicIndexBlock{\hex{CF7A}}
+\fi
 
 % End of file.

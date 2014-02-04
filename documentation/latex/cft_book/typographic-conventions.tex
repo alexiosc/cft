@@ -1,7 +1,5 @@
 % -*- latex -*-
 
-\definecolor{caution}{RGB}{192,0,0}
-
 \newcommand\textcond{\fontspec{Myriad Pro Condensed}}
 
 % Primary index entries
@@ -38,27 +36,14 @@
 \newcommand{\npalgcf}[1]{\npcf[algorithm]{#1}}
 
 
-\newcommand\f[1]{{\texttt{#1}}}
 \newcommand\bitmap[1]{\texttt{#1}}
 
-\newcommand{\instr}[1]{\asm{#1}}
-\newcommand{\lt}[1]{\textsf{#1}}
-\newcommand{\sw}[1]{\textsf{#1\index{Switch, front panel!#1}}}
-\newcommand{\HC}[1]{\chip{74HC{#1}}}
-\newcommand{\HCT}[1]{\chip{74HCT{#1}}}
-\newcommand{\chip}[1]{#1\index{#1}}
 
-\newcommand{\schpt}[1]{#1\textsf{#1}}
 \newcommand{\farnell}[1]{#1}
 
 
 
-\newcommand\bit[1]{{\texttt{#1}}}
 
-\newcommand\notes[1]{{\small\verbatiminput{#1}}}
-
-\newcommand\field[1]{\textsf{#1}}
-\newcommand\port[1]{\textsf{#1}}
 
 
 % Temporary question environment
@@ -97,212 +82,9 @@
 % \end{extcmd}
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-% CODE FOR DISPLAYING AND INDEXING SCHEMATICS
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-% \schematic{page number}{description}{label}
-\def\schematicsFile{figs/schematics.pdf}
-\newcommand\includesch[3]{%
-  \stepcounter{subsection}%
-  \phantomsection%
-  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection} #2}%
-  \includeschns{#1}{#2}{#3}
-}
-
-\newcommand\includeschns[3]{%
-  \label{#3}%
-  \stepcounter{schematic}%
-  \addcontentsline{los}{section}{\protect\numberline{\theschematic} #2}%
-  \includepdf[
-    pages={#1}
-    ,landscape,
-    ,fitpaper=true,
-%    ,pagecommand={\thispagestyle{lscape}}  
-    ,pagecommand={\thispagestyle{empty}}  
-  ]{\schematicsFile}%
-}
-
-
 
 
 % Machine Code Semantics
-
-\newcommand\mem[1]{\mbox{\bfseries mem}\left[#1\right]}
-\newcommand\memmem[1]{\mbox{\bfseries mem}\left[\mbox{\bfseries mem}\left[{#1}\right]\right]}
-\newcommand\io[1]{\mbox{\bfseries io}\left[#1\right]}
-\newcommand\eq{\leftarrow}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-% DATA STRUCTURES
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% Data structures
-\newcommand\ds[1]{{\ttfamily #1\index{#1@{\texttt{#1}}}}}
-\makeatletter
-\newcommand{\simpledatastructure}[1]{%
-  \label{ds:#1}
-  \refstepcounter{datastructure}%
-  \addcontentsline{lods}{section}{\protect\numberline{\thedatastructure}{\ttfamily #1}}%
-  \index{#1@{\texttt{#1}}|(pie}%
-  {\textbf{\texttt{#1}:}}
-}
-\newenvironment{datastructure}[2][Address]{%
-  \refstepcounter{datastructure}%
-  \addcontentsline{lods}{section}{\protect\numberline{\thedatastructure}{\ttfamily #2}}%
-  \index{#2@{\texttt{#2}}|(pie}%
-  \label{ds:#1}
-  \begin{center}
-    \zebrarow{10}
-    \begin{longtable}{>{\textbf\bgroup}r<{\egroup}lp{.7\columnwidth}}
-      %
-      % First header
-      %
-      \hiderowcolors
-      {#1} & Type & Description\\
-      \hline
-      \noalign{\global\rownum 0\relax}\showrowcolors
-      \endfirsthead
-      %
-      % Subsequent headers
-      %
-      \hiderowcolors
-      \multicolumn{3}{l}{\em Continued from previous page.}\\
-      \noalign{\smallskip\smallskip}
-      {#1} & Type & Description\\
-      \hline
-      \noalign{\global\rownum 1\relax}\showrowcolors
-      \endhead
-      %
-      % Footer
-      %
-      \hiderowcolors
-      \hline\noalign{\smallskip\smallskip}
-      \multicolumn{3}{r}{\em Continued on next page.}\\
-      \endfoot
-      %
-      % Last footer
-      %
-      \hiderowcolors
-      \hline
-      \endlastfoot
-      %
-      % Content
-      %
-      \showrowcolors
-}{%
-    \end{longtable}
-  \end{center}%
-  \@afterindentfalse%
-  \@afterheading%
-}
-\makeatother
-\newcommand\dsdesc[3]{
-{#1}&\ds{#2}&{#3}\\
-}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-% BITFIELDS
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\newcounter{bitfieldBit}
-\makeatletter
-\def\bitfieldHeight{0.7}
-\def\bitfieldHeightText{0.225}
-\def\bitfieldTickMark{0.15}
-\def\bitfieldBits{16}
-
-\newenvironment{bitfield@}[1][]{%
-  \pgfmathsetmacro{\bitfieldBitsMinusOne}{\bitfieldBits - 1}
-  \pgfmathsetmacro{\bitfieldBitsMinusTwo}{\bitfieldBits - 2}
-  \pgfmathsetmacro{\bitfieldStep}{\bitfieldWidth / \bitfieldBits}
-  \vspace{0.5em}
-  \setcounter{bitfieldBit}{0}
-  \begin{tikzpicture}
-    \draw[fill=white, heavy] (0,0) rectangle (\bitfieldWidth,\bitfieldHeight);
-    \foreach \x in {0, ..., \bitfieldBitsMinusOne}{
-      \begin{scope}[xshift=\bitfieldWidth cm - \bitfieldStep * (\x cm + 1 cm)]
-        \draw(0,0) -- +(0,\bitfieldHeight);
-        \draw(\bitfieldStep / 2, \bitfieldHeight / 2) %
-        node {\textcond\small\textbf{#1}};
-        \draw[color=cftdark!50](\bitfieldStep / 2,\bitfieldHeight) node[above] {\scriptsize\x};
-      \end{scope}
-      \foreach \x in {0, ..., \bitfieldBitsMinusTwo}{
-        \draw[xshift=\bitfieldWidth cm - \bitfieldStep * (\x cm + 1 cm)]%
-        (0,\bitfieldHeight) -- +(0, \bitfieldTickMark);
-      }
-    }
-}{%
-  \draw[fill=none, heavy] (0,0) rectangle (\bitfieldWidth,\bitfieldHeight);
-  \end{tikzpicture}
-  \vspace{0.5em}
-}
-\newenvironment{bitfield}[1][]{%
-  \def\bitfieldWidth{10}
-  \begin{center}%
-    \begin{bitfield@}{#1}%
-}{%
-    \end{bitfield@}
-  \end{center}
-}
-\newenvironment{cbitfield}[1][]{%
-  \def\bitfieldWidth{14}
-  \begin{center}%
-    \begin{bitfield@}{#1}%
-}{%
-    \end{bitfield@}
-  \end{center}
-}
-
-\newenvironment{nbitfield}[2][]{%
-  \def\bitfieldWidth{14}
-  \def\bitfieldBits{#2}
-  \begin{center}%
-    \begin{bitfield@}{#1}%
-}{%
-    \end{bitfield@}
-  \end{center}
-}
-
-
-\makeatother
-
-\newcommand\bitfieldItem[3]{%
-  \begin{scope}[xshift=\bitfieldWidth cm - \bitfieldStep * (\arabic{bitfieldBit} cm + #1 cm)]
-    \draw[fill=#2, draw opacity=0] (0,0) rectangle (\bitfieldStep * #1, \bitfieldHeight);
-    \draw(\bitfieldStep * #1 / 2, \bitfieldHeightText) %
-    node[anchor=base] {\textcond{\small {#3}}};
-    \draw[thick] (0,0) -- +(0, \bitfieldHeight);
-    \draw[thick,xshift=\bitfieldStep * #1 cm] (0,0) -- +(0, \bitfieldHeight);
-  \end{scope}
-  \addtocounter{bitfieldBit}{#1}
-}
-
-\newcommand\bitfieldGroup[3]{%
-  \begin{scope}[xshift=\bitfieldWidth cm - \bitfieldStep * (\arabic{bitfieldBit} cm + #1 cm)]
-    \draw[fill=#2, draw opacity=0] (0,0) rectangle (\bitfieldStep * #1, \bitfieldHeight);
-    \draw(\bitfieldStep * #1 / 2, \bitfieldHeightText) %
-    node[anchor=base] {\textcond{\small{#3}} };
-    \draw[thick] (0,0) -- +(0, \bitfieldHeight);
-    \draw[heavy,xshift=\bitfieldStep * #1 cm] (0,0) -- +(0, \bitfieldHeight);
-  \end{scope}
-  \addtocounter{bitfieldBit}{#1}
-}
-
-\newcommand\bitfieldConst[1]{\bitfieldItem{1}{white}{\textbf{#1}}}
-\newcommand\bitfieldRepConst[2]{%
-  \foreach \x in {1,...,#1} \bitfieldConst{#2};
-  \draw[heavy,xshift=\bitfieldStep * #1 cm] (0,0) -- +(0, \bitfieldHeight);
-}
-
 
 
 

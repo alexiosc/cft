@@ -1,6 +1,14 @@
+% -*- latex -*-
+
 \label{chap:deb}
 %\lstset{morecomment=[l][\color{red}]{>}
 %}
+
+\begin{obsoleted}
+\textbf{This peripheral has been obsoleted.} The DEB card has been merged
+with the Programmer's Front Panel and updated to create the Debugging
+Front Panel (DFP). This chapter is still around for historical purposes.
+\end{obsoleted}
 
 \section{Introduction}
 
@@ -50,7 +58,7 @@ This feature set also provides a number of unforeseen benefits:
 
 \begin{description}
 \item {\bfseries Construction freedom.} Cards can now be constructed in any
-  order whatsoever. The memory and IDE cards can be constructed ﬁrst
+  order whatsoever. The memory and IDE cards can be constructed first
   and tested to ensure they work before the processor is even
   attempted. This removes degrees of freedom and uncertainty should a
   bug be found later on. It is preferable to know that simpler devices
@@ -97,16 +105,16 @@ The DEB board has two main parts:
 
 \begin{figure}
 \centering
-\includegraphics[width=\columnwidth]{figs/deb-bus-interface.pdf}\\
+\includeimage[width=\columnwidth]{figs/deb-bus-interface}\\
 %\includegraphics{figs/deb-bus-interface.pdf}\\
 \caption{\label{fig-deb-bus-interface}Debug board bus interface.}
 \end{figure}
 
 \begin{figure}
 \centering
-\includegraphics[width=0.85\columnwidth]{figs/cft-deb-board-128.png}\vspace{1em}\\
+\includelarge[width=0.85\columnwidth]{figs/cft-deb-board-128.png}\vspace{1em}\\
 
-\includegraphics[width=0.85\columnwidth]{figs/cft-deb-board-153.png}\\
+\includelarge[width=0.85\columnwidth]{figs/cft-deb-board-153.png}\\
 \caption{\label{fig-deb-board}A rendered image of the first draft of
   the debugging board. Note the obvious erratum: The Microchip®
   \gls{GPIO} chips are packaged in narrow 28-pin DIP, so they should
@@ -165,9 +173,9 @@ three hardware parts:
   or outputs, reducing the chip count significantly.
 
   The \gls{GPIO} chips are Microchip® MCP23016 units, controlled by the
-  \gls{MCU} via its \gls{I2C} bus, running at 100 kHz.
+  \gls{MCU} via its I²C bus, running at 100 kHz.
 
-  The three GPIOs are referred to by their \gls{I2C} addresses or their function:
+  The three GPIOs are referred to by their I²C addresses or their function:
   
   \begin{itemize}
   \item \hex{20} is the address of the \gls{MSB} device, which is
@@ -195,7 +203,7 @@ When powered on or reset, the board goes through a brief
 self-diagnostic phase, ensuring that the \gls{GPIO} chips are in good
 working order. The LED testing lights should illuminate, then turn off
 in sequence, until none remain lit. This process should last
-approximately no longer than three seconds.
+no longer than around three seconds.
 
 If the board stops before completing initialisation,
 \tcf{tab-deb-diag} can be consulted for the meaning of the diagnostic
@@ -212,8 +220,7 @@ condition. Power cycling is recommended.
 Diagnostics are also indicated via the serial connection. Upon
 power-up or reset, the following should appear:
 
-{\small
-\begin{lstlisting}[style=deb]
+\begin{debcode}
 CFT DEB Board Booting.
 GPIO diag: 20 21 23 Ready.
 201 Version: 0.5
@@ -222,13 +229,16 @@ GPIO diag: 20 21 23 Ready.
 202 Licensed under the GNU Public License v.2.
 202 http://www.bedroomlan.org/cft
 [running]>
-\end{lstlisting}
-}
+\end{debcode}
 
 \newcommand\led[1]{%
-  \begin{tikzpicture}
-    \draw[line width=1pt, fill=#1] (0,0) circle(4pt);
-  \end{tikzpicture}
+  \ifxetex
+    \begin{tikzpicture}
+      \draw[line width=1pt, fill=#1] (0,0) circle(4pt);
+    \end{tikzpicture}
+  \else
+    \HCode{<span class="led #1">&\#9679;</span>}
+  \fi
 }
 
 \begin{table}
@@ -273,9 +283,8 @@ A rudimentary line editor is provided for command lines:
 Help may be obtained by using the \cftin{?} or \cftin{help} commands,
 which print out something like this:
 
-{\small
-\begin{lstlisting}[style=deb]
-[running]> $\lstkbd{help}$
+\begin{debcode}
+[running]> help
 
 201 Available commands:
 201  ? -- Show help.
@@ -302,8 +311,7 @@ which print out something like this:
 201  d -- Dump count words starting at addr, step addr.
 201  clr! -- Reset the DEB board.
 201 Consult documentation for details.
-\end{lstlisting}
-}
+\end{debcode}
 
 The \gls{DEB} board has two modes of operation:
 
@@ -334,54 +342,44 @@ The following is a brief description of available \gls{DEB} commands.
     Atmega 168 and Atmega 8. The latter has 8 kBytes of flash
     memory, and text-based dumping would not fit.}
 
-{\small
-\begin{lstlisting}[style=deb]
-[running]> $\lstkbd{ver?}$
+\begin{debcode}
+[running]> ver?
 201 Version: 0.5+t
-\end{lstlisting}
-}
+\end{debcode}
 
 \item{\bfseries\cftin{buf?}} Displays the size of the input line buffer {\bfseries
   in hexadecimal}. This affects the maximum number of values that can
   be written to memory on one line.
 
-{\small
-\begin{lstlisting}[style=deb]
-[running]> $\lstkbd{buf?}$
+\begin{debcode}
+[running]> buf?
 201 BufSize: 200
-\end{lstlisting}
-}
+\end{debcode}
 
 \item{\bfseries\cftin{c?}} Displays the current word count {\bfseries in
   hexadecimal}. This is the size of the block displayed by the \cftin{d}
   (dump) command. The default count is \hex{80}, i.e. 128 words.
 
-{\small
-\begin{lstlisting}[style=deb]
-[running]> $\lstkbd{c?}$
+\begin{debcode}
+[running]> c?
 201 Count: 0080
-\end{lstlisting}
-}
+\end{debcode}
 
 \item{\bfseries\cftin{ob}} Makes the \cftin{d}
   (dump) command dump in binary. The default is text dumping.
 
-{\small
-\begin{lstlisting}[style=deb]
-[running]> $\lstkbd{ob}$
+\begin{debcode}
+[running]> ob
 206 Output: bin
-\end{lstlisting}
-}
+\end{debcode}
 
 \item{\bfseries\cftin{ot}} Makes the \cftin{d}
   (dump) command dump in text, which is also the default.
 
-{\small
-\begin{lstlisting}[style=deb]
-[running]> $\lstkbd{ot}$
+\begin{debcode}
+[running]> ot
 205 Output: text
-\end{lstlisting}
-}
+\end{debcode}
 
 \item{\bfseries\cftin{leds} NYBBLE} Sets the bit pattern of the diagnostic
   LEDs. \gls{NYBBLE} is a hexadecimal value in the range
@@ -389,52 +387,44 @@ The following is a brief description of available \gls{DEB} commands.
   red LED. A bit value of \bin{1} turns on a LED; a value of \bin{0}
   turns it off. To turn on all LEDs but LED A (\bin{1110} = \hex{E}):
 
-{\small
-\begin{lstlisting}[style=deb]
-[running]> $\lstkbd{leds e}$
+\begin{debcode}
+[running]> leds e
 209 LEDs: e
-\end{lstlisting}
-}
+\end{debcode}
 
 \item{\bfseries\cftin{halt}} Stops the computer and unlocks the full \gls{DEB}
   command set. The mode changes to halted, and the prompt changes to
   show the current address:
 
-{\small
-\begin{lstlisting}[style=deb]
-[running]> $\lstkbd{halt}$
+\begin{debcode}
+[running]> halt
 306 Host halted
-[halted] 0000> $\lstkbd{halt}$
+[halted] 0000> halt
 505 Already halted.
 [halted] 0000> 
-\end{lstlisting}
-}
+\end{debcode}
 
 
 \item{\bfseries\cftin{run}} Locks the \gls{DEB} command set and starts the
   computer.  The mode changes to running, and the prompt changes to
   reflect this:
 
-{\small
-\begin{lstlisting}[style=deb]
-[halted] 0000> $\lstkbd{run}$
+\begin{debcode}
+[halted] 0000> run
 305 Host running
-[running]> $\lstkbd{run}$
+[running]> run
 506 Already running.
 [running]> 
-\end{lstlisting}
-}
+\end{debcode}
 
 
 \item{\bfseries\cftin{rst!}} Resets the CFT processor. The \gls{DEB} board is
   not affected by this. No confirmation questions are asked.
 
-{\small
-\begin{lstlisting}[style=deb]
-[halted] 0000> $\lstkbd{rst!}$
+\begin{debcode}
+[halted] 0000> rst!
 307 Host reset
-\end{lstlisting}
-}
+\end{debcode}
 
 
 \item{\bfseries\cftin{e0}} Disables local echo. This is useful for certain
@@ -442,35 +432,29 @@ The following is a brief description of available \gls{DEB} commands.
   echo, which make typed characters appear twice. The default is to
   perform local echo (\cftin{e1}).
 
-{\small
-\begin{lstlisting}[style=deb]
-[halted] 0000> $\lstkbd{e0}$
+\begin{debcode}
+[halted] 0000> e0
 208 Echo: off
-\end{lstlisting}
-}
+\end{debcode}
 
 
 \item{\bfseries\cftin{e1}} Enables local echo. Use this command if typed
   characters are invisible. This is the default behaviour.
 
-{\small
-\begin{lstlisting}[style=deb]
-[halted] 0000> $\lstkbd{e1}$
+\begin{debcode}
+[halted] 0000> e1
 207 Echo: off
-\end{lstlisting}
-}
+\end{debcode}
 
 
 \item{\bfseries\cftin{hof0}} Disables halt-on-\asm{FAIL} mode. When the CFT
   issues the \asm{FAIL} instruction, the computer will be allowed to
   keep running. This is the default behaviour.
 
-{\small
-\begin{lstlisting}[style=deb]
-[halted] 0000> $\lstkbd{hof0}$
+\begin{debcode}
+[halted] 0000> hof0
 211 Halt on FAIL: off
-\end{lstlisting}
-}
+\end{debcode}
 
 
 \item{\bfseries\cftin{hof1}} Enables halt-on-\asm{FAIL} mode. When the CFT
@@ -478,12 +462,10 @@ The following is a brief description of available \gls{DEB} commands.
   the full \gls{DEB} command set unlocked) to allow state
   inspection. The default behaviour is \cftin{hof0}.
 
-{\small
-\begin{lstlisting}[style=deb]
-[halted] 0000> $\lstkbd{hof1}$
+\begin{debcode}
+[halted] 0000> hof1
 210 Halt on FAIL: on
-\end{lstlisting}
-}
+\end{debcode}
 
 
 \item{\bfseries\cftin{a} WORD} Sets the current address to WORD, which is a
@@ -492,13 +474,11 @@ The following is a brief description of available \gls{DEB} commands.
   (using the \cftin{w} command). If the \gls{DEB} board is in the
   halted mode, the prompt also indicates the current address:
 
-{\small
-\begin{lstlisting}[style=deb]
-[halted] 0000> $\lstkbd{a 1234}$
+\begin{debcode}
+[halted] 0000> a 1234
 203 Address: 1234
 [halted] 1234> 
-\end{lstlisting}
-}
+\end{debcode}
 
 
 \item{\bfseries\cftin{c} COUNT} Sets the current count to COUNT, which is a
@@ -507,12 +487,10 @@ The following is a brief description of available \gls{DEB} commands.
   CFT logical address space) because the largest acceptable value for
   COUNT is \hex{FFFF} or 65,535.
 
-{\small
-\begin{lstlisting}[style=deb]
-[halted] 0000> $\lstkbd{c 8000}$
+\begin{debcode}
+[halted] 0000> c 8000
 204 Count: 8000
-\end{lstlisting}
-}
+\end{debcode}
 
 
 \item{\bfseries\cftin{r}} Reads one word from memory space at the current
@@ -520,23 +498,21 @@ The following is a brief description of available \gls{DEB} commands.
   address is incremented by one. This command only works with the
   \gls{DEB} board in halted mode.
 
-{\small
-\begin{lstlisting}[style=deb]
-[running]> $\lstkbd{a 1234}$
+\begin{debcode}
+[running]> a 1234
 203 Address: 1234
-[running]> $\lstkbd{r}$
+[running]> r
 503 Halt host first.
-[running]> $\lstkbd{halt}$
+[running]> halt
 306 Host halted
-[halted] 1234> $\lstkbd{r}$
+[halted] 1234> r
 304 Value: DEAD
-[halted] 1235> $\lstkbd{r}$
+[halted] 1235> r
 304 Value: BEEF
-[halted] 1236> $\lstkbd{r}$
+[halted] 1236> r
 304 Value: 63FF
 [halted] 1237> 
-\end{lstlisting}
-}
+\end{debcode}
 
 
 \item{\bfseries\cftin{w} WORD …} Writes one or more words to space starting
@@ -546,54 +522,48 @@ The following is a brief description of available \gls{DEB} commands.
   mode. A simple checksum (a 32-bit sum of all input values expressed
   {\bfseries in hexadecimal} and padded to 8 digits) is reported.
 
-{\small
-\begin{lstlisting}[style=deb]
-[running]> $\lstkbd{a 1234}$
+\begin{debcode}
+[running]> a 1234
 203 Address: 1234
-[running]> $\lstkbd{w dead beef 63ff}$
+[running]> w dead beef 63ff
 503 Halt host first.
-[running]> $\lstkbd{halt}$
+[running]> halt
 306 Host halted
-[halted] 1234> $\lstkbd{w dead beef 63ff}$
+[halted] 1234> w dead beef 63ff
 301 Done
 303 Checksum: 0002019b
 [halted] 1237> 
-\end{lstlisting}
-}
+\end{debcode}
 
 
 \item{\bfseries\cftin{in} WORD} Reads one 16-bit value from I/O space address
   WORD and reports it in hexadecimal, padded to 4 digits. This command
   only works with the \gls{DEB} board in halted mode.
 
-{\small
-\begin{lstlisting}[style=deb]
-[running]> $\lstkbd{in 23}$
+\begin{debcode}
+[running]> in 23
 503 Halt host first.
-[running]> $\lstkbd{halt}$
+[running]> halt
 306 Host halted
-[halted] 0000> $\lstkbd{in 23}$
+[halted] 0000> in 23
 304 Value: 00FF
 [halted] 0000> 
-\end{lstlisting}
-}
+\end{debcode}
 
 
 \item{\bfseries\cftin{out} ADDR WORD} Writes the 16-bit WORD to I/O space
   address ADDR. This command only works with the \gls{DEB} board in
   halted mode. The current address is not modified.
 
-{\small
-\begin{lstlisting}[style=deb]
-[running]> $\lstkbd{out 16f 1234}$
+\begin{debcode}
+[running]> out 16f 1234
 503 Halt host first.
-[running]> $\lstkbd{halt}$
+[running]> halt
 306 Host halted
-[halted] 0000> $\lstkbd{out 16f 1234}$
+[halted] 0000> out 16f 1234
 301 done
 [halted] 0000> 
-\end{lstlisting}
-}
+\end{debcode}
 
 
 \item{\bfseries\cftin{d}} Dumps a block of COUNT (see \cftin{c} and \cftin{c?}
@@ -602,18 +572,17 @@ The following is a brief description of available \gls{DEB} commands.
   \gls{DEB} board in halted mode. In text mode (see \cftin{ot}), the
   command works like this:
 
-{\small
-\begin{lstlisting}[style=deb]
-[running]> $\lstkbd{c 20}$
+\begin{debcode}
+[running]> c 20
 204 Count: 0020
-[running]> $\lstkbd{d}$
+[running]> d
 203 Address: 0000
 204 Count: 0020
 300 Dumping
 503 Halt host first.
-[running]> $\lstkbd{halt}$
+[running]> halt
 306 Host halted
-[halted] 0000> $\lstkbd{d}$
+[halted] 0000> d
 203 Address: 0000
 204 Count: 0020
 300 Dumping
@@ -624,8 +593,7 @@ The following is a brief description of available \gls{DEB} commands.
 301 Done
 303 Checksum: 00024680
 [halted] 0020>
-\end{lstlisting}
-}
+\end{debcode}
 
 The dump is in four columns. The leftmost column is the current
 address. The second column lists eight 16-bit hexadecimal word values
@@ -644,11 +612,10 @@ transmitted. Each pair of bytes is one value from memory. The
 2×COUNT bytes and revert to parsing the ‘\cftin{301 Done}’ result. As
 with the text dump, the block checksum is reported.
 
-{\small
-\begin{lstlisting}[style=deb]
-[halted] 0000> $\lstkbd{c 20}$
+\begin{debcode}
+[halted] 0000> c 20
 204 Count: 0020
-[halted] 0000> $\lstkbd{d}$
+[halted] 0000> d
 203 Address: 0000
 204 Count: 0080
 300 Dumping
@@ -656,8 +623,7 @@ with the text dump, the block checksum is reported.
 301 Done
 303 Checksum: 00024680
 [halted] 0020>
-\end{lstlisting}
-}
+\end{debcode}
 
 
 
@@ -667,9 +633,8 @@ with the text dump, the block checksum is reported.
   mode run/stop mode. Thus, a halted computer will remain halted after
   the warm reset.
 
-{\small
-\begin{lstlisting}[style=deb]
-[halted] 6120> $\lstkbd{clr!}$
+\begin{debcode}
+[halted] 6120> clr!
 GPIO diag: 20 21 23 Ready.
 201 Version: 0.5+t
 201 BufSize: 200
@@ -677,8 +642,7 @@ GPIO diag: 20 21 23 Ready.
 202 Licensed under the GNU Public License v.2.
 202 http://www.bedroomlan.org/cft
 [halted] 0000>
-\end{lstlisting}
-}
+\end{debcode}
 
 \end{description}
 
@@ -772,172 +736,126 @@ The mapping of the \gls{DEB} board to the I/O space provides sixteen
 extended CFT instructions with unusually long names due to their
 unique history. The following is a list of these I/O addresses:
 
-\begin{extcmd}{PRINTA}{OUT R \&3F0}{57F0}{c-wvehf}{3F0}%
-       {DEB, PRINT Address}%
-       {%
-         The current value of \A{} is output from the
-         \gls{DEB} board to the controlling computer in the format
-         \cftout{XXXX (label+N)}, where \cftout{XXXX} is the hexadecimal
-         value of \A{} padded to four digits, \cftout{label} is the most
-         recent \gls{Assembly} source label, and \cftout{n} is the offset (in
-         words) from that label. If a label is not available, ‘\cftout{XXXX
-           (?)}’ is output instead. Labels are only available on the emulator
-         with a map file loaded.%
-       }
+\begin{extcmd}{PRINTA}{OUT R \&3F0}{57F0}{c-wvehf}{3F0}{DEB, PRINT Address}             
+  The current value of \A{} is output from the
+  \gls{DEB} board to the controlling computer in the format
+  \cftout{XXXX (label+N)}, where \cftout{XXXX} is the hexadecimal
+  value of \A{} padded to four digits, \cftout{label} is the most
+  recent \gls{Assembly} source label, and \cftout{n} is the offset (in
+  words) from that label. If a label is not available, ‘\cftout{XXXX
+    (?)}’ is output instead. Labels are only available on the emulator
+  with a map file loaded.%
 \end{extcmd}
 
-\begin{extcmd}{PRINTC}{OUT R \&3F1}{57F1}{c-wvehf}{3F1}%
-       {DEB, PRINT Character}%
-       {%
-         The \gls{LSB} of the current value of \A{} is output from the
-         \gls{DEB} board to the controlling computer as an 8-bit
-         character.
-       }
+\begin{extcmd}{PRINTC}{OUT R \&3F1}{57F1}{c-wvehf}{3F1}{DEB, PRINT Character}
+  The \gls{LSB} of the current value of \A{} is output from the
+  \gls{DEB} board to the controlling computer as an 8-bit
+  character.
 \end{extcmd}
 
-\begin{extcmd}{PRINTD}{OUT R \&3F2}{57F2}{c-wvehf}{3F2}%
-       {DEB, PRINT Decimal}%
-       {%
-         The current value of \A{} is output from the \gls{DEB} board to the
-         controlling computer as a decimal signed, \gls{Twos Complement}
-         integer in the range -32,768–32,767. There is no zero-padding.
-       }
+\begin{extcmd}{PRINTD}{OUT R \&3F2}{57F2}{c-wvehf}{3F2}{DEB, PRINT Decimal}
+  The current value of \A{} is output from the \gls{DEB} board to the
+  controlling computer as a decimal signed, \gls{Twos Complement}
+  integer in the range -32,768–32,767. There is no zero-padding.
 \end{extcmd}
 
-\begin{extcmd}{PRINTU}{OUT R \&3F3}{57F3}{c-wvehf}{3F3}%
-       {DEB, PRINT Unsigned integer}%
-       {%
-         The current value of \A{} is output from the \gls{DEB} board to the
-         controlling computer as a decimal unsigned integer in the range
-         0–65,535. There is no zero-padding.
-       }
+\begin{extcmd}{PRINTU}{OUT R \&3F3}{57F3}{c-wvehf}{3F3}{DEB, PRINT Unsigned integer}
+  The current value of \A{} is output from the \gls{DEB} board to the
+  controlling computer as a decimal unsigned integer in the range
+  0–65,535. There is no zero-padding.
 \end{extcmd}
 
-\begin{extcmd}{PRINTH}{OUT R \&3F4}{57F4}{c-wvehf}{3F4}%
-       {DEB, PRINT Hexadecimal}%
-       {%
-         The current value of \A{} is output from the \gls{DEB} board to the
-         controlling computer as a hexadecimal unsigned integer in the range
-         \hex{0000}–\hex{FFFF}. The number is zero-padded to four digits. The
-         case of the alphabetic digits is purposefully unspecified. Parsers
-         should understand both lower and upper case.
-       }
+\begin{extcmd}{PRINTH}{OUT R \&3F4}{57F4}{c-wvehf}{3F4}{DEB, PRINT Hexadecimal}
+  The current value of \A{} is output from the \gls{DEB} board to the
+  controlling computer as a hexadecimal unsigned integer in the range
+  \hex{0000}–\hex{FFFF}. The number is zero-padded to four digits. The
+  case of the alphabetic digits is purposefully unspecified. Parsers
+  should understand both lower and upper case.
 \end{extcmd}
 
-\begin{extcmd}{PRINTB}{OUT R \&3F5}{57F5}{c-wvehf}{3F5}%
-       {DEB, PRINT Binary}%
-       {%
-         The current value of \A{} is output from the \gls{DEB} board to the
-         controlling computer in its raw binary representation, in the range
-         \hex{0000000000000000}–\hex{1111111111111111}. The number is
-         zero-padded to sixteen bits.
-       }
+\begin{extcmd}{PRINTB}{OUT R \&3F5}{57F5}{c-wvehf}{3F5}{DEB, PRINT Binary}
+  The current value of \A{} is output from the \gls{DEB} board to the
+  controlling computer in its raw binary representation, in the range
+  \hex{0000000000000000}–\hex{1111111111111111}. The number is
+  zero-padded to sixteen bits.
 \end{extcmd}
 
-\begin{extcmd}{PRINTSP}{OUT R \&3F6}{57F6}{c-wvehf}{3F6}%
-       {DEB, PRINT SPace}%
-       {%
-         A single space (ASCII codepoint 32) is output from the \gls{DEB} board
-         to the controlling computer. This simplifies debugging and testing,
-         since none of the \gls{DEB} instructions space-pad their output.
-
-       }
+\begin{extcmd}{PRINTSP}{OUT R \&3F6}{57F6}{c-wvehf}{3F6}{DEB, PRINT SPace}
+  A single space (ASCII codepoint 32) is output from the \gls{DEB} board
+  to the controlling computer. This simplifies debugging and testing,
+  since none of the \gls{DEB} instructions space-pad their output.
 \end{extcmd}
 
-\begin{extcmd}{PRINTNL}{OUT R \&3F7}{57F7}{c-wvehf}{3F7}%
-       {DEB, PRINT New Line}%
-       {%
-         A single new line (ASCII codepoint 10) is output from the \gls{DEB} board
-         to the controlling computer.
-
-       }
+\begin{extcmd}{PRINTNL}{OUT R \&3F7}{57F7}{c-wvehf}{3F7}{DEB, PRINT New Line}
+  A single new line (ASCII codepoint 10) is output from the \gls{DEB} board
+  to the controlling computer.
 \end{extcmd}
 
-\begin{extcmd}{DEBUGON}{OUT R \&3F8}{57F8}{c-w-e-f}{3F8}%
-       {DEB, Enable Assembly tracing}%
-       {%
-         Only available in the emulator. Enables symbolic \gls{Assembly} tracing of all
-         instructions executed.
-
-       }
+\begin{extcmd}{DEBUGON}{OUT R \&3F8}{57F8}{c-w-e-f}{3F8}{DEB, Enable Assembly tracing}
+  Only available in the emulator. Enables symbolic \gls{Assembly} tracing of all
+  instructions executed.
 \end{extcmd}
 
-\begin{extcmd}{DEBUGOFF}{OUT R \&3F9}{57F9}{c-w-e-f}{3F9}%
-       {DEB, Disable Assembly tracing}%
-       {%
-         Only available in the emulator. Disables symbolic \gls{Assembly} tracing of all
-         instructions executed.
-       }
+\begin{extcmd}{DEBUGOFF}{OUT R \&3F9}{57F9}{c-w-e-f}{3F9}{DEB, Disable Assembly tracing}
+  Only available in the emulator. Disables symbolic \gls{Assembly} tracing of all
+  instructions executed.
 \end{extcmd}
 
-\begin{extcmd}{DUMP}{OUT R \&3FA}{57FA}{c-w-e-f}{3FA}%
-       {DEB, DUMP State}%
-       {%
-         Not currently available in the hardware implementation. Dumps the
-         current state of the computer in an implementation-specific way
-         intended for post-mortem debugging.
-}
+\begin{extcmd}{DUMP}{OUT R \&3FA}{57FA}{c-w-e-f}{3FA}{DEB, DUMP State}
+  Not currently available in the hardware implementation. Dumps the
+  current state of the computer in an implementation-specific way
+  intended for post-mortem debugging.
 \end{extcmd}
 
-\begin{extcmd}{PRINTHI}{OUT R \&3FB}{57FB}{c-w-ehf}{3FB}%
-       {DEB, PRINT HIgh Word}%
-       {%
-         Stores the current value of the \A{} register in a temporary register
-         on board the \gls{DEB} board. Meant to be precede the
-         \asm{PRINTLO} instruction to print out 32-bit hexadecimal values.}
+\begin{extcmd}{PRINTHI}{OUT R \&3FB}{57FB}{c-w-ehf}{3FB}{DEB, PRINT HIgh Word}
+  Stores the current value of the \A{} register in a temporary register
+  on board the \gls{DEB} board. Meant to be precede the
+  \asm{PRINTLO} instruction to print out 32-bit hexadecimal values.
 \end{extcmd}
 
-\begin{extcmd}{PRINTLO}{OUT R \&3FC}{57FC}{c-w-ehf}{3FC}%
-       {DEB, PRINT LOw Word}%
-       {%
-         Prints out the 32-bit integer made by combining the last value stored
-         by \asm{PRINTHI}, shifted 16 bits to the left, and the current value
-         of \A{}. The number reported is in the range
-         \hex{00000000}–\hex{FFFFFFFF} and is zero padded to eight digits. The
-         case of the alphabetic digits is purposefully unspecified. Parsers
-         should understand both lower and upper case.
+\begin{extcmd}{PRINTLO}{OUT R \&3FC}{57FC}{c-w-ehf}{3FC}{DEB, PRINT LOw Word}
+  Prints out the 32-bit integer made by combining the last value stored
+  by \asm{PRINTHI}, shifted 16 bits to the left, and the current value
+  of \A{}. The number reported is in the range
+  \hex{00000000}–\hex{FFFFFFFF} and is zero padded to eight digits. The
+  case of the alphabetic digits is purposefully unspecified. Parsers
+  should understand both lower and upper case.
 
-         The initial value of the \asm{PRINTHI} register is undefined — care
-         should be taken to always issue a \asm{PRINTHI} before a
-         \asm{PRINTLO}.
-       }
+  The initial value of the \asm{PRINTHI} register is undefined — care
+  should be taken to always issue a \asm{PRINTHI} before a
+  \asm{PRINTLO}.
 \end{extcmd}
 
-\begin{extcmd}{SUCCESS}{OUT R \&3FE}{57FE}{c-wvehf}{3FE}%
-       {DEB, Assert SUCCESSful test checkpoint}%
-       {%
-         Registers a successful test checkpoint with the test harness. These
-         may be used to provide progress reporting as well as to ensure an
-         exact, certain number of checkpoints is reached by the code.
+\begin{extcmd}{SUCCESS}{OUT R \&3FE}{57FE}{c-wvehf}{3FE}{DEB, Assert SUCCESSful test checkpoint}
+  Registers a successful test checkpoint with the test harness. These
+  may be used to provide progress reporting as well as to ensure an
+  exact, certain number of checkpoints is reached by the code.
 
-         To mark the checkpoint, the sequence ‘\cftout{[ok]}’ is transmitted to
-         the controlling computer.
-       }
+  To mark the checkpoint, the sequence ‘\cftout{[ok]}’ is transmitted to
+  the controlling computer.
 \end{extcmd}
 
-\begin{extcmd}{FAIL}{OUT R \&3FF}{57FF}{c-wvehf}{3FF}%
-       {DEB, FAILed test assertion}%
-       {%
-         Registers a failed test assertion with the test harness. This
-         is used to provide information to the controlling computer.
+\begin{extcmd}{FAIL}{OUT R \&3FF}{57FF}{c-wvehf}{3FF}{DEB, FAILed test assertion}
+  Registers a failed test assertion with the test harness. This
+  is used to provide information to the controlling computer.
 
-         The failure is denoted by sending the sequence ‘\cftout{[fail]}’ to the
-         controlling computer.
+  The failure is denoted by sending the sequence ‘\cftout{[fail]}’ to the
+  controlling computer.
 
-         On the \gls{DEB} board hardware implementation, \asm{FAIL} illuminates
-         the red LED (LED D). If Halt-on-FAIL mode is enabled, the processor is halted.
+  On the \gls{DEB} board hardware implementation, \asm{FAIL} illuminates
+  the red LED (LED D). If Halt-on-FAIL mode is enabled, the processor is halted.
 
-         On the Verilog simulator and CFT Emulator, \asm{FAIL} always
-         terminates the Verilog or emulator session, and usually dumps the full
-         state of the CFT and its peripherals for post-mortem analysis
-         (identical to the side-effects of the \asm{DUMP} instruction).
- }
+  On the Verilog simulator and CFT Emulator, \asm{FAIL} always
+  terminates the Verilog or emulator session, and usually dumps the full
+  state of the CFT and its peripherals for post-mortem analysis
+  (identical to the side-effects of the \asm{DUMP} instruction).
 \end{extcmd}
 
 
 \section{Notes}
 
 \notes{../../notes/debug-board.txt}
+
 
 \section{Schematics}
 
