@@ -63,6 +63,13 @@ style_async()
 }
 
 
+void
+style_error()
+{
+	if (flags & FL_TERM) report_pstr(PSTR("\033[0;1;31m"));
+}
+
+
 // Send a string message to the serial port.
 void
 report(const char *msg)

@@ -38,7 +38,7 @@ uint16_t buflen, bp;
 
 volatile uint32_t flags = FL_BUSY | FL_MESG;
 
-static uint16_t addr;
+uint16_t addr;
 
 
 //uint8_t progress[5] = {0, 1, 3, 7, 15};
@@ -218,6 +218,10 @@ go_stop(){
 	clk_stop();
 
 	flags |= FL_HALT;
+	
+	// Sample the bus and set the current DEB/PFP address
+	virtual_panel_sample(0);
+	addr = get_pc();
 
 	// Done.
 	report_pstr(PSTR(STR_AHALTED));
@@ -236,6 +240,7 @@ go_run(){
 	set_halt(0);
 	set_steprun(0);		// Jam the run/step FSM to run mode.
 	set_fprunstop(1);
+	flags &= ~FL_BUSY;
 	report_pstr(PSTR(STR_ARUN));
 }
 
@@ -592,19 +597,57 @@ void
 go_sws()
 {
 	report_pstr(PSTR(STR_SWS));
-	uint32_t sw = get_sw();
+	uint16_t lsw = get_lsw();
+	uint16_t rsw = get_rsw();
 
-	report_bin_pad((sw >> 24) & 0xff, 8); // Left switches
+	report_bin_pad((lsw >> 8) & 0xff, 8); // Left switches
 	report_c(32);
 	report_bin_pad(get_sr(), 16); // Switch register
 	report_c(32);
-	report_bin_pad(sw & 0xfff, 12); // Right switches
+	report_bin_pad(rsw & 0xfff, 12); // Right switches
 	report_c(32);
-	report_bin_pad((sw >> 12) & 0xf, 4); // MS DIP switches
+	report_bin_pad((rsw >> 12) & 0xf, 4); // MS DIP switches
 	report_c(32);
-	report_bin_pad((sw >> 16) & 0xff, 8); // LS DIP switches
+	report_bin_pad(lsw & 0xff, 8); // LS DIP switches
 	report_c(32);
 	report_nl();
+}
+
+
+static
+void
+go_swtest()
+{
+	report_pstr(PSTR(STR_SWTEST));
+
+	uint16_t sr0 = get_sr();
+	uint16_t lsw0 = get_lsw();
+	uint16_t rsw0 = get_rsw();
+	go_sws();
+
+	// Setting the busy flag will cause all switches to be ignored
+	// by the interrupt handler, effectively disabling the switch
+	// assembly. The in-console flag disables line buffering (but
+	// also normal output).
+	flags |= FL_BUSY | FL_CONS;
+	flags &= ~(FL_INPOK | FL_BREAK);
+
+	while ((flags & (FL_INPOK | FL_BREAK)) == 0) {
+		_delay_ms(100);
+		deb_sample(0);	// Read the switches
+		if (sr0 != get_sr() || lsw0 != get_lsw() || rsw0 != get_rsw()) {
+			sr0 = get_sr();
+			lsw0 = get_lsw();
+			rsw0 = get_rsw();
+			// Console mode suppresses normal debugging
+			// output, so disable it temporarily.
+			flags &= ~FL_CONS;
+			go_sws();
+			flags |= FL_CONS;
+		}
+	}
+	flags &= ~(FL_BUSY | FL_CONS | FL_INPOK | FL_BREAK);
+	report_pstr(PSTR(STR_DONE));
 }
 
 
@@ -1439,6 +1482,9 @@ void
 proto_prompt()
 {
 	if (flags & FL_CONS) return; // No need to prompt in the virtual console
+
+	// Keep the DEB address linked to the PC, unless we're standalone
+	if (flags & FL_PROC) addr = get_pc();
 
 	style_normal();
 	// report_hex(flags, 4);

@@ -81,7 +81,6 @@ static sim595_t * oreg_ibus;	// 16 bits
 static sim595_t * oreg_ctl;	// 24 bits
 static sim595_t * oreg_or;	// 16 bits
 
-
 static void
 init_board()
 {
@@ -112,6 +111,18 @@ init_board()
 	state.r_sample.shift = 2;
 	state.r_deben.shift = 2;
 	state.r_vpen.shift = 2;
+	state.r_nr.shift = 1;
+	state.r_nw.shift = 1;
+	state.r_nmem.shift = 1;
+	state.r_nio.shift = 1;
+	state.r_nirq1.shift = 1;
+	state.r_nirq6.shift = 1;
+	state.r_nincpc.shift = 1;
+	state.r_nwac.shift = 1;
+	state.r_nrpc.shift = 1;
+	state.r_nwar.shift = 1;
+	state.r_nwir.shift = 1;
+	state.r_nwpc.shift = 1;
 
 	// State
 	state.stepping = 0;
@@ -127,7 +138,8 @@ init_board()
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-int
+/*
+static int
 sim_vps_reg(int nclken, int clk, int nsample)
 {
 	static int clk0 = 0;
@@ -174,7 +186,7 @@ sim_vps_reg(int nclken, int clk, int nsample)
 	
 	return q[4] & 0x8000 ? 1 : 0;
 }
-
+*/
 
 // Simulate the 80-bit Debugging shift register.
 
@@ -358,6 +370,60 @@ do_rotor(rotor_t * r, int v)
 		} else var = x >= 0? x : -1;		\
 	}
 
+#define sanity_ibus_driven(field, name)					\
+	if (state.field == 0 &&						\
+	    state.nibusoe != 0 &&					\
+	    state.nmem != 0 &&						\
+	    state.nio != 0)						\
+		error(name " asserted with IBUS not driven by any unit.\n");
+
+#define sanity_exclusive(s1, n1, s2, n2)				\
+	if (state.s1 == 0 && state.s2 == 0)				\
+		error(n1 " and " n2 " asserted simultaneously!\n");
+	
+
+static inline void
+sanity_checks()
+{
+	// Check for strobes with undriven IBUS
+	sanity_ibus_driven(nwir, "WIR#");
+	sanity_ibus_driven(nwar, "WAR#");
+	sanity_ibus_driven(nwac, "WAC#");
+	sanity_ibus_driven(nwpc, "WPC#");
+	sanity_ibus_driven(nw, "W#");
+
+	if (state.nr == 0 && state.nmem != 0 && state.nio != 0)
+		error("R# asserted without MEM# or IO#.\n");
+	if (state.nw == 0 && state.nmem != 0 && state.nio != 0)
+		error("W# asserted without MEM# or IO#.\n");
+
+	sanity_exclusive(nr, "R#", nrpc, "RPC#");
+	sanity_exclusive(nr, "R#", nw, "W#");
+	sanity_exclusive(nmem, "MEM#", nio, "IO#");
+
+	if (state.nr == 0) debug("R#\n");
+}
+
+static inline void
+side_effects()
+{
+	if (state.nwir == 0) state.ir = state.ibus;
+	if (state.nwar == 0) state.ar = state.ibus;
+	if (state.nwac == 0) state.ac = state.ibus;
+	if (state.nwpc == 0) state.pc = state.ibus;
+
+	// Memory reads/writes
+	if (state.nmem == 0 && state.nr == 0)
+		state.ibus = state.ram[state.ar];
+	if (state.nmem == 0 && state.nw == 0)
+		state.ram[state.ar] = state.ibus;
+
+	// I/O space reads (writes not implemented)
+	if (state.nio == 0 && state.nr == 0)
+		state.ibus = rand() & 0xffff;
+	//if (state.nio == 0 && state.nw == 0)
+}
+
 static inline void
 act_on_changes()
 {
@@ -491,6 +557,9 @@ act_on_changes()
 	int d = sim_165(ireg_deb, state.ndeben, iclk, state.nsample, q);
 	avr_raise_irq(avr_io_getirq(avr, AVR_IOCTL_IOPORT_GETIRQ('C'), 0), d);
 
+	// Run sanity checks on the update state
+	sanity_checks();
+
 
 	///////////////////////////////////////////////////////////////////////////////
 
@@ -514,12 +583,29 @@ act_on_changes()
 	// Update the value of the PC1 (VPIN) pin.
 	avr_raise_irq(avr_io_getirq(avr, AVR_IOCTL_IOPORT_GETIRQ('C'), 1), d);
 
+	// Side effects (register assignments etc)
+	side_effects();
+
 	// Rotors
 	do_rotor(&state.r_clk, pin_state[0] & 2);
 	do_rotor(&state.r_orclk, state.orclk);
 	do_rotor(&state.r_sample, state.nsample);
 	do_rotor(&state.r_deben, state.ndeben);
 	do_rotor(&state.r_vpen, state.nvpen);
+
+	do_rotor(&state.r_nr, state.nr);
+	do_rotor(&state.r_nw, state.nw);
+	do_rotor(&state.r_nmem, state.nmem);
+	do_rotor(&state.r_nio, state.nio);
+
+	do_rotor(&state.r_nirq1, state.nirq1);
+	do_rotor(&state.r_nirq6, state.nirq6);
+	do_rotor(&state.r_nincpc, state.nincpc);
+	do_rotor(&state.r_nwac, state.nwac);
+	do_rotor(&state.r_nrpc, state.nrpc);
+	do_rotor(&state.r_nwar, state.nwar);
+	do_rotor(&state.r_nwir, state.nwir);
+	do_rotor(&state.r_nwpc, state.nwpc);
 
 	disp_changes++;
 }
@@ -529,12 +615,13 @@ static inline int
 proc_random_run()
 {
 	static int cpu_state = 0;
+	//debug("Random run\n");
 
 	cpu_state = (cpu_state + 1) & 3;
 
 	state.uvec = 0x7ff800 | (rand() % 0xffffff);
 
-	if (cpu_state == 0) state.pc++;
+	if (cpu_state == 0) state.ar = state.pc++;
 	else if (cpu_state == 1) state.ir = rand() % 0xffff;
 	else if (cpu_state == 2 && (rand() & 3) == 1) state.ac = rand() % 0xffff;
 
@@ -970,6 +1057,15 @@ show_rotor(char *s, rotor_t * r)
 
 
 static void
+show_nbrotor(char *s, rotor_t * r)
+{
+	static char *rotor_chars = "-\\|/";
+	fg(7); printw(s);
+	fg(!r->v ? 1 : 2); addch(rotor_chars[(r->c >> r->shift) & 3]);
+}
+
+
+static void
 show_bool(char *s, int val)
 {
 	fg(7); printw(s);
@@ -1147,19 +1243,20 @@ draw()
 	show_hex("AC:    ", state.ac, 4);
 	show_hex("  PC:    ", state.pc, 4);
 	show_hex("  IR:    ", state.ir, 4);
+	show_hex("  AR:   ", state.ar, 4);
 	show_hex("  uC: ", state.uvec, 6);
 	fg(1); printw("  fl: "); fg(2); printw("-----");
 	show_hex("  OR:   ", state.or, 4);
 
 	draw_tabline(2);
-	show_ctl("IRQ1:     ", !state.nirq1);
-	show_ctl("  IRQ6:     ", !state.nirq6);
-	show_ctl("  INCPC:    ", !state.nincpc);
-	show_ctl("  WAC:     ", !state.nwac);
-	show_ctl("  RPC:    ", !state.nrpc);
-	show_ctl("  WAR:     ", !state.nwar);
-	show_ctl("  WIR:    ", !state.nwir);
-	show_ctl("   WPC:     ", !state.nwpc);
+	show_nbrotor("IRQ1:     ", &state.r_nirq1);
+	show_nbrotor("  IRQ6:     ", &state.r_nirq6);
+	show_nbrotor("  INCPC:    ", &state.r_nincpc);
+	show_nbrotor("  WAC:     ", &state.r_nwac);
+	show_nbrotor("  RPC:    ", &state.r_nrpc);
+	show_nbrotor("  WAR:     ", &state.r_nwar);
+	show_nbrotor("  WIR:    ", &state.r_nwir);
+	show_nbrotor("   WPC:     ", &state.r_nwpc);
 
 	draw_tabline(2);
 	show_ctl("SAFE:     ", !state.nsafe);

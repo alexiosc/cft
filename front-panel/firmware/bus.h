@@ -68,9 +68,10 @@ uint8_t perform_write(uint8_t space, uint16_t addr, uint16_t word);
 
 uint16_t perform_block_read(uint16_t base, int16_t n, uint16_t * buf);
 
-#define REG_IR 0
-#define REG_AC 1
-#define REG_PC 2
+#define REG_IR   0
+#define REG_AC   1
+#define REG_PC   2
+#define REG_PCAR 3
 
 uint8_t set_reg(uint8_t reg, uint16_t value);
 

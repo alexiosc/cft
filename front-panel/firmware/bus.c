@@ -219,13 +219,20 @@ set_reg(uint8_t reg, uint16_t value)
 	case REG_AC:
 		strobe_wac();
 		break;
+	case REG_PCAR:
+		strobe_war();
+		// Purposelly falling through
 	case REG_PC:
 		strobe_wpc();
 		break;
 	}
 	hold();
 	tristate_ibus();
-	
+
+	// Sample the bus after setting the reg. This can be used to
+	// verify a correct write.
+	virtual_panel_sample(0);
+
 	return 1;
 }
 

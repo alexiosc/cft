@@ -14,11 +14,14 @@ typedef struct {
 	uint16_t dr;
 	uint16_t ac;
 	uint16_t ir;
+	uint16_t ar;
 	uint32_t uvec;
 
 	int64_t  abus;
 	int64_t  dbus;
 	int64_t  ibus;
+
+	uint16_t ram[65536];
 
 	uint16_t or;
 	uint32_t ctl;		// Control out shift register
@@ -63,9 +66,14 @@ typedef struct {
 	rotor_t r_vpen;
 	rotor_t r_orclk;
 
+	rotor_t r_nr, r_nw, r_nmem, r_nio;
+	rotor_t r_nirq1, r_nirq6, r_nincpc, r_nwac;
+	rotor_t r_nrpc, r_nwar, r_nwir, r_nwpc;
+
 	// The run/stop state machine
 	int stepping, ustepping, resetting;
 } state_t;
+
 
 
 #define SW_2ST        0	// An on/on switch
@@ -101,6 +109,7 @@ extern menu_t options[];
 
 extern FILE * debugfp;
 #define debug(...) fprintf(debugfp, "D: " __VA_ARGS__); fflush(debugfp)
+#define error(...) fprintf(debugfp, "E: " __VA_ARGS__); fflush(debugfp)
 
 
 #endif // __SIMULATE_H__

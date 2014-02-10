@@ -20,6 +20,8 @@ void style_off();
 
 void style_async();
 
+void style_error();
+
 
 
 void report(const char *msg);

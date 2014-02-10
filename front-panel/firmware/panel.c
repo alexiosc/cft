@@ -18,6 +18,20 @@ static uint16_t _oldsr = 0xffff;
 static uint8_t _rom = 0xff;
 static uint8_t _spd = 0xff;
 
+
+static int
+check_mismatch(uint16_t a, uint16_t b)
+{
+	if (a == b) return 0;
+	style_error();
+	report_pstr(PSTR(STR_NVMIS));
+	style_info();
+	report_hex(a, 4);
+	style_error();
+	report_hex_value(PSTR(STR_NVMIS1), b, 4);
+	return 1;
+}
+
 bool_t
 panel_lock(bool_t lock)
 {
@@ -150,6 +164,7 @@ panel_ldir()
 
 		report_gs(1);
 		report_hex_value(PSTR(STR_GSIR), get_ir(), 4);
+		check_mismatch(get_sr(), get_ir());
 	}
 	proto_prompt();
 }
@@ -161,10 +176,12 @@ panel_ldaddr()
 	//report(__FUNCTION__); report_pstr(PSTR("()\n"));
 	say_break();
 	if (assert_halted()) {
-		set_reg(REG_IR, get_pc());
+		extern uint16_t addr;
+		set_reg(REG_PCAR, addr = get_sr());
 		
 		report_gs(1);
-		report_hex_value(PSTR(STR_GSIR), get_pc(), 4);
+		report_hex_value(PSTR(STR_GSPC), get_pc(), 4);
+		check_mismatch(get_sr(), get_pc());
 	}
 	proto_prompt();
 }
@@ -176,10 +193,11 @@ panel_ldac()
 	//report(__FUNCTION__); report_pstr(PSTR("()\n"));
 	say_break();
 	if (assert_halted()) {
-		set_reg(REG_AC, get_ac());
+		set_reg(REG_AC, get_sr());
 
 		report_gs(1);
 		report_hex_value(PSTR(STR_GSAC), get_ac(), 4);
+		check_mismatch(get_sr(), get_ac());
 	}
 	proto_prompt();
 }

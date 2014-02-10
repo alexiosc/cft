@@ -430,6 +430,20 @@ get_sw()
 }
 
 
+uint16_t
+get_lsw()
+{
+	return 0;
+}
+
+
+uint16_t
+get_rsw()
+{
+	return 0;
+}
+
+
 void
 virtual_panel_sample(bool_t quick)
 {

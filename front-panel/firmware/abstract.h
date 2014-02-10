@@ -29,7 +29,8 @@ uint16_t get_db();		// Data bus
 uint16_t get_dsr();		// DIP switch reg (12 bits)
 void set_sr(const uint16_t sr);
 uint16_t get_sr();		// Switch reg
-uint32_t get_sw();		// Remaining switches
+uint16_t get_lsw();		// Left switches
+uint16_t get_rsw();		// Right switches
 
 void virtual_panel_sample(bool_t quick); // Read the machine state
 

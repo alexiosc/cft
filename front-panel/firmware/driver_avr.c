@@ -142,6 +142,8 @@ static uint16_t _clk_div = 89;
 #define SWL_DS6    0x4000
 #define SWL_DS7    0x8000
 
+#define SWL_AUTOREPEAT (SWL_STEP|SWL_USTEP)
+
 // flags for _swright
 
 #define SWR_LDADDR 0x0001
@@ -162,6 +164,8 @@ static uint16_t _clk_div = 89;
 #define SWR_DS9    0x2000
 #define SWR_DS10   0x4000
 #define SWR_DS11   0x8000
+
+#define SWR_AUTOREPEAT (SWR_MEMW|SWR_MEMR|SWR_IOW|SWR_IOR|SWR_IFR6|SWR_IFR1)
 
 // Flags for _cb[x]
 #define CB0_NIRQ6     0x01
@@ -770,12 +774,25 @@ get_sr()
 }
 
 
-inline uint32_t
-get_sw()
+inline uint16_t
+get_lsw()
 {
-	uint32_t res = ((uint32_t)_swleft << 16) | (uint32_t)_swright;
-	return res;
+	return _swleft;
 }
+
+
+inline uint16_t
+get_rsw()
+{
+	return _swright;
+}
+
+// inline uint32_t
+// get_sw()
+// {
+// 	uint32_t res = ((uint32_t)_swleft << 16) | (uint32_t)_swright;
+// 	return res;
+// }
 
 
 // Samples and reads:
@@ -1020,7 +1037,8 @@ drive_db()
 		setbit(PORTD, D_NDBOE);
 		drive_ibus();
 	} else {
-		clearbit(PORTD, D_NDBOE);
+		setbit(PORTD, D_NIBUSOE); // Tristate the IBUS
+		clearbit(PORTD, D_NDBOE); // Drive the DBUS
 	}
 }
 
@@ -1408,6 +1426,17 @@ strobe_w()
 	// R/W safety interlock.
 	setflag(_cb[2], CB2_NR);
 	
+	// The processor is halted, so we can drive W# directly. The
+	// signal is low for so long (tens of bus cycles), wait states
+	// don't really apply.
+
+	clearflag(_cb[2], CB2_NW);
+	write_cb();
+
+	setflag(_cb[2], CB2_NW);
+	write_cb();
+
+/*		
 	if (flags & FL_PROC) {
 
 		// A processor is present. Enable writing and let it handle the
@@ -1432,6 +1461,8 @@ strobe_w()
 		setflag(_cb[2], CB2_NW);
 		write_cb();
 	}
+
+*/
 }
 
 
@@ -1846,6 +1877,8 @@ _readcycle(bool_t is_io)
 ISR(TIMER0_COMPA_vect)
 {
 	static uint8_t pause = 0;
+	static uint8_t autorepeat = 45;
+	static uint8_t accelerate = 0;
 
 	// Blink the STOP light at ~10Hz while busy, and ignore the
 	// front panel switches.
@@ -1866,12 +1899,6 @@ ISR(TIMER0_COMPA_vect)
 
 	// If the front panel is locked, bail out.
 	if (panel_lock(actuated(_swleft, SWL_NLOCK))) {
-		// report_bin_pad(_swleft, 16);
-		// serial_send(32);
-		// report_bin_pad(_swright, 16);
-		// serial_send(32);
-		// report_bin_pad(_sr, 16);
-		// report_nl();
 		return;
 	}
 
@@ -1879,7 +1906,35 @@ ISR(TIMER0_COMPA_vect)
 	if (flags & FL_BUSY) return;
 
 	// Have the switches changed?
-	if (_swleft0 == _swleft && _swright0 == _swright && _sr0 == _sr) return;
+	if (_swleft0 == _swleft && _swright0 == _swright && _sr0 == _sr) {
+		if (autorepeat > 1) autorepeat--;
+		if (autorepeat != 1) return;
+
+		if (((_swleft & SWL_AUTOREPEAT) != SWL_AUTOREPEAT) ||
+		    ((_swright & SWR_AUTOREPEAT) != SWR_AUTOREPEAT)) {
+			// Three levels of autorepeat acceleration: 2 Hz, 6 Hz
+			// and 30 Hz.
+			if (accelerate < 255) accelerate++;
+			if (accelerate > 30) autorepeat = 1;
+			else if (accelerate > 6) autorepeat = 5;
+			else autorepeat = 15;
+		}
+	} else {
+		// A new button that supports autorepeat has been pressed (reminder:
+		// switches are active low, hence the logic below), prepare for
+		// autorepeat. 45 = ~1.5 sec.
+		if (((_swleft & SWL_AUTOREPEAT) != SWL_AUTOREPEAT) ||
+		    ((_swright & SWR_AUTOREPEAT) != SWR_AUTOREPEAT)) {
+			// A switch with autorepeat enabled has been
+			// pressed. Arm for the first repeat event.
+			autorepeat = 45;
+		} else {
+			// All the auto-repeat switches have been
+			// released. Reset auto-repeat.
+			autorepeat = 0;
+			accelerate = 0;
+		}
+	}
 
 	// Set the clock speed.
 	panel_spd((_swleft & (SWL_SLOW|SWL_FAST)) >> SWL_SPD_SHIFT);

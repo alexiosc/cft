@@ -20,7 +20,7 @@
 #define FL_TERM     0x0020	/* Terminal bells and whistles */
 #define FL_MESG     0x0040	/* Receive async messages */
 #define FL_CLEAR    0x0080
-#define FL_BUSY     0x0100	/* ??? DFP Busy */
+#define FL_BUSY     0x0100	/* DFP Busy */
 
 #define FL_HALT     0x0200	/* Halted */
 #define FL_HOF      0x0400	/* Halt-on-fail */
@@ -99,6 +99,7 @@
 #define STR_FPRAM   "333 ROM/RAM# switch: "
 #define STR_FPRAM0       "RAM\n"
 #define STR_FPRAM1       "ROM\n"
+#define STR_SWTEST  "334 Operate toggles/DIP switches. Any key to end.\n"
 
 #define STR_DEBPRN  "340 PRINT"
 #define STR_DEBSENT "341 SENTINEL\n"
@@ -138,6 +139,10 @@
 #define STR_SYNTAX  "508 Syntax error\n"
 #define STR_NIMPL   "509 Not implemented\n"
 
+// Hardware Faults.
+#define STR_NVMIS   "910 Value mismatch. Should be "
+#define STR_NVMIS1       ", was "
+
 #define STR_PROMPT  "> "
 #define STR_PRUN    "[running]" STR_PROMPT
 #define STR_PSTOP   "[halted] "
@@ -158,6 +163,9 @@ extern volatile uint32_t flags;
 extern uint16_t bp;
 
 extern uint16_t buflen;
+
+extern uint16_t addr;
+
 
 
 void proto_init();
