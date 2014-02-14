@@ -55,7 +55,7 @@ extern bus_state_t bus_state;
 */
 
 
-uint8_t _buschatter();
+uint8_t buschatter();
 
 uint8_t assert_halted();
 

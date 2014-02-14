@@ -5,6 +5,11 @@
 #include "abstract.h"
 #include "bus.h"
 
+#ifdef AVR
+#include <util/atomic.h>
+#else
+#define ATOMIC_BLOCK(x)
+#endif
 
 #define NUM_SAMPLES 128
 
@@ -14,7 +19,7 @@
 static uint16_t _hi = 0;
 
 uint8_t
-_buschatter()
+buschatter()
 {
 #ifdef HOST
 	//printf("*** Host mode, bus chatter test always succeeds.\n");
@@ -47,7 +52,7 @@ assert_halted()
 	}
 	
 	// Check for bus chatter.
-	if (_buschatter()) {
+	if (buschatter()) {
 		report_pstr(PSTR(STR_CHATTER));
 		flags |= FL_ERROR;
 		return 0;
@@ -94,26 +99,29 @@ perform_read(uint8_t space, uint16_t addr)
 	// Ensure the bus is quiet.
 	if (!assert_halted()) return 0;
 
-	// Perform a cycle
-	write_ab(addr);
-	drive_ab();
-	space == SPACE_MEM ? set_mem(1) : set_io(1);
-	set_r(1);
+	ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+		
+		// Perform a cycle
+		write_ab(addr);
+		drive_ab();
+		space == SPACE_MEM ? set_mem(1) : set_io(1);
+		set_r(1);
 
-	// Setup delay
-	setup();
+		// Setup delay
+		setup();
+		
+		// Sample.
+		deb_sample(1);
+		val = get_db();
+		strobe_wac();		// Also put it in the AC.
+		
+		hold();
 
-	// Sample.
-	deb_sample(1);
-	val = get_db();
-	strobe_wac();		// Also put it in the AC.
-
-	hold();
-
-	// Release the bus
-	set_r(0);
-	space == SPACE_MEM ? set_mem(0) : set_io(0);
-	tristate_ab();
+		// Release the bus
+		set_r(0);
+		space == SPACE_MEM ? set_mem(0) : set_io(0);
+		tristate_ab();
+	}
 
 	return val;
 }
@@ -140,25 +148,27 @@ perform_write(uint8_t space, uint16_t addr, uint16_t word)
 	// Ensure the bus is quiet.
 	if (!assert_halted()) return 0;
 
-	// Perform a cycle
-	write_ab(addr);
-	write_db(word);
-	drive_ab();
-	space == SPACE_MEM ? set_mem(1) : set_io(1);
-	drive_db();
-
-	// Setup delay
-	setup();
-
-	// Strobe.
-	strobe_w();
-
-	hold();
-
-	// Release the bus
-	space == SPACE_MEM ? set_mem(0) : set_io(0);
-	tristate_db();
-	tristate_ab();
+	ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+		// Perform a cycle
+		write_ab(addr);
+		write_db(word);
+		drive_ab();
+		space == SPACE_MEM ? set_mem(1) : set_io(1);
+		drive_db();
+		
+		// Setup delay
+		setup();
+		
+		// Strobe.
+		strobe_w();
+		
+		hold();
+		
+		// Release the bus
+		space == SPACE_MEM ? set_mem(0) : set_io(0);
+		tristate_db();
+		tristate_ab();
+	}
 
 	return 1;
 }
@@ -170,32 +180,34 @@ perform_block_read(uint16_t base, int16_t n, uint16_t * buf)
 	// Ensure the bus is quiet.
 	if (!assert_halted()) return 0;
 
-	while (n--) {
-		// Perform a cycle
-		write_ab(base++);
-		drive_ab();
-		set_mem(1);
-		set_r(1);
-
-		setup();
-
-		// Sample.
-		deb_sample(1);
-		*buf++ = get_db();
-
-		// Release the bus
-		set_r(0);
-		set_mem(0);
-
-		// Hold delay
-		hold();
-
-		tristate_ab();
-
-		// Wait a little
-		short_delay();
+	ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+		while (n--) {
+			// Perform a cycle
+			write_ab(base++);
+			drive_ab();
+			set_mem(1);
+			set_r(1);
+			
+			setup();
+			
+			// Sample.
+			deb_sample(1);
+			*buf++ = get_db();
+			
+			// Release the bus
+			set_r(0);
+			set_mem(0);
+			
+			// Hold delay
+			hold();
+			
+			tristate_ab();
+			
+			// Wait a little
+			short_delay();
+		}
 	}
-
+	
 	return 1;
 }
 

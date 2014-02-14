@@ -46,7 +46,8 @@ new_sim165(int bits, char *name)
 
 
 int
-sim_165(sim165_t * ctx, int nclken, int clk, int nsample, uint16_t * data_in)
+sim_165(sim165_t * ctx, int nclken, int clk, int nsample,
+	uint16_t * data_in, int cascade_in)
 {
 	assert (ctx != NULL);
 	assert (data_in != NULL);
@@ -76,9 +77,9 @@ sim_165(sim165_t * ctx, int nclken, int clk, int nsample, uint16_t * data_in)
 			ctx->d[i] = ((ctx->d[i-1] & 0x8000 ? 1 : 0) |
 				     (ctx->d[i] << 1)) & 0xffff;
 		}
-		// The serial in of the first register is tied high
-		// for diagnostic reasons.
-		ctx->d[0] = (1 | (ctx->d[0] << 1)) & 0xffff;
+		// The serial in of the first register is given to us
+		// as cascade_in. It's used for diagnostic reasons.
+		ctx->d[0] = ((cascade_in & 1) | (ctx->d[0] << 1)) & 0xffff;
 	}
 
 	// Always return the shift register output

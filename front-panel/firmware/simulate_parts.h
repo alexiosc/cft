@@ -29,7 +29,8 @@ typedef struct {
 
 sim165_t * new_sim165(int bits, char *name);
 
-int sim_165(sim165_t * ctx, int nclken, int clk, int nsample, uint16_t * data_in);
+int sim_165(sim165_t * ctx, int nclken, int clk, int nsample,
+	    uint16_t * data_in, int cascade_in);
 
 sim595_t * new_sim595(int bits, char *name);
 

@@ -86,8 +86,8 @@ void perform_step();		// Start the step state machine
 void perform_ustep();		// Start the microstep state machine
 void set_buspu(const uint8_t x);// Control bus pull-up
 void set_safe(bool_t x);	// SAFE#
-void set_irq1(bool_t x);	// IRQ1#
-void set_irq6(bool_t x);	// IRQ6#
+uint8_t set_irq1(bool_t x);	// IRQ1#
+uint8_t set_irq6(bool_t x);	// IRQ6#
 void set_fpram(bool_t x);	// FPRAM#
 void perform_reset();		// FPRESET# or RESET#/RSTHOLD#
 void strobe_wpc();		// WPC#

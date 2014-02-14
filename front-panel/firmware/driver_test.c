@@ -667,15 +667,17 @@ set_safe(bool_t x)
 }
 
 
-void
+uint8_t
 set_irq1(bool_t x)
 {
+	return 1;
 }
 
 
-void
+uint8_t
 set_irq6(bool_t x)
 {
+	return 1;
 }
 
 

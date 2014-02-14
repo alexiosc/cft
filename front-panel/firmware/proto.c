@@ -160,6 +160,14 @@ gs_term()
 
 
 
+static void
+gs_lock()
+{
+	gs_flag(FL_SWLOCK, PSTR(STR_GSLOCK));
+}
+
+
+
 ///////////////////////////////////////////////////////////////////////////////
 //
 // LEFT SWITCH BANK
@@ -222,6 +230,10 @@ go_stop(){
 	// Sample the bus and set the current DEB/PFP address
 	virtual_panel_sample(0);
 	addr = get_pc();
+
+	// Keep the DEB address linked to the PC, unless we're
+	// standalone.
+	if (flags & FL_PROC) addr = get_pc();
 
 	// Done.
 	report_pstr(PSTR(STR_AHALTED));
@@ -843,6 +855,10 @@ _step(bool_t ustep, bool_t endless)
 	}
 	flags &= ~FL_BUSY;
 	if (n > 1) done();
+
+	// Keep the DEB address linked to the PC, unless we're
+	// standalone.
+	if (flags & FL_PROC) addr = get_pc();
 }
 
 
@@ -1055,7 +1071,7 @@ go_read()
 	uint16_t val = perform_read(SPACE_MEM, addr);
 	if (flags & (FL_ERROR|FL_EOL)) return;
 
-	report_hex_value(PSTR(STR_READ), val, 4);
+	report_hex_value(PSTR(STR_READ), (uint32_t)val, 4);
 	addr++;
 }
 
@@ -1082,7 +1098,6 @@ go_write()
 		return;
 	}
 	report_hex_value(PSTR(STR_CKSUM), cksum, 4);
-	addr++;
 }
 
 
@@ -1121,7 +1136,18 @@ go_fill()
 	while (count--) {
 		if (perform_write(SPACE_MEM, addr, val) == 0) return;
 		addr++;
+
+		if ((addr & 0xff) == 0) {
+			report_hex_value(PSTR(STR_ADDR), addr, 4);
+		}
+#ifdef HOST
 		if (query_char(10)) {
+			cancel();
+			return;
+		}
+#endif // HOST
+		
+		if (flags & FL_BREAK) {
 			cancel();
 			return;
 		}
@@ -1387,6 +1413,7 @@ go_dfps()
 	gs_term();
 	gs_echo();
 	gs_mesg();
+	gs_lock();
 	
 	gs_hof();
 	gs_hos();
@@ -1482,9 +1509,6 @@ void
 proto_prompt()
 {
 	if (flags & FL_CONS) return; // No need to prompt in the virtual console
-
-	// Keep the DEB address linked to the PC, unless we're standalone
-	if (flags & FL_PROC) addr = get_pc();
 
 	style_normal();
 	// report_hex(flags, 4);

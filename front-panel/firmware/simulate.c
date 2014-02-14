@@ -358,13 +358,13 @@ do_rotor(rotor_t * r, int v)
 
 #define if_not_z(var, val)				\
 	{						\
-		int64_t x = val;			\
+		int64_t x = (int64_t)val;		\
 		var = x >= 0? x : 0xffff;		\
 	}
 
 #define bushold(var, val)				\
 	{						\
-		int64_t x = val;			\
+		int64_t x = (int64_t)val;		\
 		if (flags & SFL_PROC) {			\
 			if (x >= 0) var = x;		\
 		} else var = x >= 0? x : -1;		\
@@ -412,15 +412,40 @@ side_effects()
 	if (state.nwac == 0) state.ac = state.ibus;
 	if (state.nwpc == 0) state.pc = state.ibus;
 
-	// Memory reads/writes
-	if (state.nmem == 0 && state.nr == 0)
-		state.ibus = state.ram[state.ar];
-	if (state.nmem == 0 && state.nw == 0)
-		state.ram[state.ar] = state.ibus;
+	if (flags & SFL_PROC) {
+		if (state.nmem == 0) {
+			if (state.nr == 0) {
+				state.abus = state.ar;
+				state.ibus = state.dbus = state.ram[state.ar];
+				//debug("R (AR=%04x, IBUS=%04x)!\n", state.ar, state.ibus);
+			}
+			if (state.nw == 0) {
+				state.abus = state.ar;
+				state.dbus = state.ibus;
+				state.ram[state.ar] = state.ibus;
+				//debug("W (AR=%04x, IBUS=%04x)!\n", state.ar, state.ibus);
+			}
+		}
 
-	// I/O space reads (writes not implemented)
-	if (state.nio == 0 && state.nr == 0)
-		state.ibus = rand() & 0xffff;
+		// I/O space reads (writes not simulated)
+		if (state.nio == 0 && state.nr == 0) {
+			state.abus = state.ar;
+			state.ibus = state.dbus = rand() & 0xffff;
+		}
+	} else {
+		if (state.nmem == 0 && state.nr == 0) {
+			state.dbus = state.ram[state.abus];
+			//debug("R (ABUS=%04x, DBUS=%04x)!\n", state.abus, state.dbus);
+		}
+		if (state.nmem == 0 && state.nw == 0) {
+			//debug("W (abus=%04x)!\n", state.abus);
+			state.ram[state.abus] = state.dbus;
+		}
+		// I/O space reads (writes not simulated)
+		if (state.nio == 0 && state.nr == 0)
+			state.dbus = rand() & 0xffff;
+	}
+
 	//if (state.nio == 0 && state.nw == 0)
 }
 
@@ -469,6 +494,8 @@ act_on_changes()
 	bushold(state.ibus, sim_595(oreg_ibus, state.nclr, state.stcp, state.ibusclk, state.nibusoe, dout));
 	if_not_z(state.or, sim_595(oreg_or, state.nclr, state.stcp, state.orclk, 0, dout));
 	if_not_z(state.ctl, sim_595(oreg_ctl, state.nclr, state.stcp, state.ctlclk, state.nctloe, dout));
+	//if(state.naboe == 0) debug("AB: %04x\n", state.abus);
+	//if(state.nw == 0) debug("AB: %04x, DB: %04x\n", state.abus, state.dbus);
 
 	// Read output data from the shift registers
 #define ctl_sig(x) state.nctloe == 0 ? x : -1
@@ -495,6 +522,9 @@ act_on_changes()
 	state.nhalt =    ctl_sig(state.ctl & 0x100000);
 	state.fprun =    ctl_sig(state.ctl & 0x200000);
 	state.fpstop =   ctl_sig(state.ctl & 0x400000);
+
+	// Side effects (register assignments etc)
+	side_effects();
 
 
 	// Encode data for the input shift registers.
@@ -551,10 +581,11 @@ act_on_changes()
 	// These are on board 2.
 	q[3] = state.dbus;
 	q[4] = state.abus;
-
+	//debug("FOO: %04x\n", q[3]);
 
 	// Update the value of the PC0 (DIN) pin.
-	int d = sim_165(ireg_deb, state.ndeben, iclk, state.nsample, q);
+	int d = sim_165(ireg_deb, state.ndeben, iclk, state.nsample, q,
+			pin_state[PB] & 8 ? 1 : 0);
 	avr_raise_irq(avr_io_getirq(avr, AVR_IOCTL_IOPORT_GETIRQ('C'), 0), d);
 
 	// Run sanity checks on the update state
@@ -578,13 +609,11 @@ act_on_changes()
 	if (state.uvec & 0x400) q[4] |= 0x4000; // WEN#
 	if (state.uvec & 0x200) q[4] |= 0x8000; // R#
 	
-	d = sim_165(ireg_vp, state.nvpen, iclk, state.nsample, q);
+	d = sim_165(ireg_vp, state.nvpen, iclk, state.nsample, q,
+		    pin_state[PB] & 8 ? 1 : 0);
 
 	// Update the value of the PC1 (VPIN) pin.
 	avr_raise_irq(avr_io_getirq(avr, AVR_IOCTL_IOPORT_GETIRQ('C'), 1), d);
-
-	// Side effects (register assignments etc)
-	side_effects();
 
 	// Rotors
 	do_rotor(&state.r_clk, pin_state[0] & 2);
@@ -665,7 +694,7 @@ proc_tick()
 
 	// Simulate reset
 	if (state.nreset == 0 || state.nfpreset == 0) {
-		if ((tick % 100) == 0) debug("Reset\n");
+		//if ((tick % 100) == 0) debug("Reset\n");
 		rsthold_ctr = 0;
 		state.resetting = 1;
 		return;

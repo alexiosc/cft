@@ -24,11 +24,13 @@
 
 #define FL_HALT     0x0200	/* Halted */
 #define FL_HOF      0x0400	/* Halt-on-fail */
-#define FL_HOS      0x0400	/* Halt on sentinel */
+#define FL_HOS      0x0800	/* Halt on sentinel */
 #define FL_STOPPING 0x1000	/* ??? Stop pressed */
 #define FL_ASYNC    0x2000	/* Async message printed */
 #define FL_PROC     0x4000	/* Processor is installed */
 #define FL_CONS     0x8000	/* The virtual console is running */
+
+#define FL_SWLOCK   0x10000     /* Software lock of the front panel */
 
 #define in_console() (flags & FL_CONS)
 
@@ -46,6 +48,20 @@
 
 #define report_gs(x) report_char(x ? '3' : '2')
 
+#define STR_DETPROC "101 Processor: "
+#define STR_DETPROC0     "not found\n"
+#define STR_DETPROC1     "found\n"
+
+#define STR_D_VPIN  "102 VP Shift Reg chain: "
+#define STR_D_DEBIN "103 DEB Shift Reg chain: "
+#define STR_D_ABDRV "104 ABUS driver: "
+#define STR_D_DBDRV "105 DBUS driver: "
+#define STR_D_RSTBQ "106 Bus quiet during reset: "
+
+#define STR_D_OK    "OK\n"
+#define STR_D_FAIL  "faulty\n"
+
+
 #define STR_READY   "200 Ready\n"
 #define STR_ADDR    "203 Address: "
 #define STR_PROC1   "205 Processor found.\n"
@@ -55,6 +71,7 @@
 #define STR_GSTERM   "12 Terminal: "
 #define STR_GSHOF    "13 On FAIL: "
 #define STR_GSHOS    "14 On SENTINEL: "
+#define STR_GSLOCK   "15 Front panel lock: "
 #define STR_HOF_H        "HALT\n"
 #define STR_HOF_I        "Ignore\n"
 #define STR_HOF_J        "Jump to: "
@@ -114,7 +131,9 @@
 #define STR_OUT1    "357 OUT Address: "
 #define STR_OUT2    " Value: "
 #define STR_IFR1    "358 IRQ1 signaled\n"
+#define STR_IFR1M   "458 IRQ1 masked by CFT\n"
 #define STR_IFR6    "359 IRQ6 signaled\n"
+#define STR_IFR6M   "459 IRQ6 masked by CFT\n"
 
 #define STR_WMEM    "370 Write mem["
 #define STR_RMEM    "371 Read mem["

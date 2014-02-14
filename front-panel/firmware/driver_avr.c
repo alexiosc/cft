@@ -362,9 +362,18 @@ static void outcmd(uint8_t, bool_t); // Same
 // * Test if bus hold is present (values written to AB/DB are sticky over a
 //   long-ish period of time).
 
+#define NUM_PATTERNS 11
+static uint16_t _diag_patterns[NUM_PATTERNS] = {
+	0x0000, 0x1111, 0x3333, 0x7777, 0xffff,
+	0xff00, 0x00ff, 0xf0f0, 0x0f0f, 0xaaaa,
+	0x5555
+};
+
 inline static bool_t
 detect_cpu()
 {
+	report_pstr(PSTR(STR_DETPROC));
+
         // Strategy: hold RESET# and HALT asserted. They should
         // already be asserted, but let's make sure.
 	clearflag(_cb[1], CB1_NFPRESET);
@@ -372,21 +381,121 @@ detect_cpu()
 	write_cb();
 	
 	// Write various values to the address bus.
-	if (test_bushold(0x0000) && 
-	    test_bushold(0x1111) && 
-	    test_bushold(0x3333) && 
-	    test_bushold(0x7777) && 
-	    test_bushold(0xffff) &&
-	    test_bushold(0xff00) &&
-	    test_bushold(0x00ff) &&
-	    test_bushold(0xf0f0) &&
-	    test_bushold(0x0f0f) &&
-	    test_bushold(0xaaaa) &&
-	    test_bushold(0x5555)) {
-		// Bus hold detected successfully.
-		return 1;
+	uint8_t i;
+	for (i = 0; i < NUM_PATTERNS; i++) {
+		if (!test_bushold(_diag_patterns[i])) {
+			report_pstr(PSTR(STR_DETPROC0));
+			return 0;
+		}
 	}
-	return 0;
+
+	// All the patterns worked out.
+	report_pstr(PSTR(STR_DETPROC1));
+	return 1;
+}
+
+
+#define NUM_REPS 10
+
+
+static void
+dfp_diags()
+{
+	uint8_t i, j;
+
+	// Test low level stuff first, pretending the processor isn't
+	// there. We'll be asserting RESET and HALT while these tests run, to
+	// remove the processor from all the buses.
+
+
+	// Read only tests: first, test the two shift register chains. The
+	// IOADDR0 pin is connected to the cascade-in pin of the last shift
+	// register, so after sampling, the value of the VPIN (for the virtual
+	// panel) and DEBIN (for the debugging shift regs) should be the same
+	// as IOADDR0. This allows diagnostics.
+
+	report_pstr(PSTR(STR_D_VPIN));
+	for (i = 0; i < 255; i++) {
+		clearbit(PORTB, B_IOADDR0);
+		virtual_panel_sample(0);
+		if (PINC & _BV(C_VPIN)) goto faulty;
+		setbit(PORTB, B_IOADDR0);
+		virtual_panel_sample(0);
+		if ((PINC & _BV(C_VPIN)) != 0) goto faulty;
+	}
+	report_pstr(PSTR(STR_D_OK));
+	
+	report_pstr(PSTR(STR_D_DEBIN));
+	for (i = 0; i < NUM_REPS; i++) {
+		clearbit(PORTB, B_IOADDR0);
+		deb_sample(0);
+		if (PINC & _BV(C_DEBIN)) goto faulty;
+		setbit(PORTB, B_IOADDR0);
+		deb_sample(0);
+		if ((PINC & _BV(C_VPIN)) != 0) goto faulty;
+	}
+	report_pstr(PSTR(STR_D_OK));
+
+	// The shift regs are working, so we can use them to test other
+	// things. Assert RESET# and HALT#. Hardware failsafes should have
+	// asserted them automatically on MCU reset, but do it explicitly just
+	// in case.
+	uint32_t oldflags = flags;
+	flags &= ~ FL_PROC;
+	clearflag(_cb[1], CB1_NFPRESET);
+	clearflag(_cb[2], CB2_NHALT);
+	write_cb();
+
+	// Does driving the ABUS work?
+	report_pstr(PSTR(STR_D_ABDRV));
+	drive_ab();
+	for (j = 0; j < NUM_REPS; j++) {
+		for (i = 0; i < NUM_PATTERNS; i++) {
+			write_ab(_diag_patterns[i]);
+			deb_sample(0);
+			if (_ab != _diag_patterns[i]) {
+				tristate_ab();
+				goto faulty;
+			}
+		}
+	}
+	tristate_ab();
+	report_pstr(PSTR(STR_D_OK));
+
+	// Does driving the DBUS work?
+	report_pstr(PSTR(STR_D_DBDRV));
+	drive_db();
+	for (j = 0; j < NUM_REPS; j++) {
+		for (i = 0; i < NUM_PATTERNS; i++) {
+			write_db(_diag_patterns[i]);
+			deb_sample(0);
+			if (_db != _diag_patterns[i]) {
+				tristate_db();
+				goto faulty;
+			}
+		}
+	}
+	tristate_db();
+	report_pstr(PSTR(STR_D_OK));
+
+
+	flags = oldflags;
+
+	// With the RESET# signal asserted, check there's no bus chatter.
+	report_pstr(PSTR(STR_D_RSTBQ));
+	for (i = 0; i < (1 + (NUM_REPS >> 3)); i++) {
+		if (buschatter()) goto faulty;
+	}
+	report_pstr(PSTR(STR_D_OK));
+
+	return;
+
+faulty:
+	report_pstr(PSTR(STR_D_FAIL));
+	// Endlessly print out the ‘faulty’ string.
+faulty1:
+	cli();
+	goto faulty1;
 }
 
 
@@ -477,6 +586,7 @@ hw_init()
 	// outputs. This will de-assert all the reset signals, among
 	// other things.
 	clearflag(_cb[2], CB2_NHALT); // Keep HALT asserted for now
+	setflag(_cb[2], CB0_NIRQ6); // Keep HALT asserted for now
 	write_cb();		      // Shift out all the values
 	clearbit(PORTD, D_NCTLOE);    // Enable the control bus drivers
 
@@ -497,6 +607,9 @@ hw_init()
 	TIMSK0 = 2;			// Interrupt on compare match
 	OCR0A = 0xff;			// Lowest possible rate (256)
 
+	// Initialise the debugging serial port
+	serial_init();
+
 	// Timer 1 (the slow clock input to the CFT processor) is set further
 	// down, on demand.
 
@@ -512,14 +625,9 @@ hw_init()
 		// Resets to high (active low), but set it explicitly anyway.
 		outcmd(CMD_BUSPU, 0);
 	}
-	
-	#warning "Diagnostics: if processor present, check bus hold on IBUS, ABUS, DBUS working."
-	#warning "Diagnostics: if processor present, check no bus chatter when RESET# asserted."
-	#warning "Diagnostics: if processor present, check RSTHOLD# asserted when RESET# asserted."
-	#warning "Diagnostics: if processor present, check no bus chatter when RESET# asserted."
-	#warning "Diagnostics: if processor present, check no bus chatter/proc changes when clock stopped."
 
-	#warning "Diagnostics: if processor NOT present, check no bus chatter."
+	// Run diagnostics
+	dfp_diags();
 
 	// Read the initial state of the front panel switches.
 	deb_sample(0);
@@ -580,9 +688,6 @@ hw_init()
 	// Set up the console ring buffer
 	ringbuf.ip = ringbuf.op = 0;
 	
-	// Initialise the debugging serial port
-	serial_init();
-
 	// Enable the global interrupt flag
 	sei();
 }
@@ -706,8 +811,8 @@ void
 deb_sample(bool_t quick)
 {
 	ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
-		tristate_ab();
-		tristate_db();
+		//tristate_ab();
+		//tristate_db();
 		
 		// Sample data (all buses to shift registers)
 		strobecmd(CMD_SAMPLE);
@@ -1033,7 +1138,8 @@ drive_db()
 {
 	// The processor (if present) drives the DB.
 	if (flags & FL_PROC) {
-		// Just in case, tristate our DB drivers.
+		// Just in case, tristate our DB drivers. And drive the IBUS
+		// instead.
 		setbit(PORTD, D_NDBOE);
 		drive_ibus();
 	} else {
@@ -1099,7 +1205,7 @@ write_cb()
 		// CFT).
 		out_shift_registers(_cb[2], CMD_CTLCLK);
 		out_shift_registers(_cb[1], CMD_CTLCLK);
-		out_shift_registers(_cb[0] & _icr, CMD_CTLCLK);
+		out_shift_registers(_cb[0] | ~_icr, CMD_CTLCLK);
 		
 		// Move data from ALL the shift registers to their respective
 		// output registers. Tristated output registers will of course
@@ -1335,19 +1441,21 @@ set_safe(bool_t val)
 }
 
 
-void
+uint8_t
 set_irq1(bool_t val)
 {
 	do_cb(0, NIRQ1, !val);
 	write_cb();
+	return _icr & CB0_NIRQ1;
 }
 
 
-void
+uint8_t
 set_irq6(bool_t val)
 {
 	do_cb(0, NIRQ6, !val);
 	write_cb();
+	return _icr & CB0_NIRQ6;
 }
 
 
@@ -1888,6 +1996,9 @@ ISR(TIMER0_COMPA_vect)
 		write_cb();
 		return;
 	}
+	
+	// If software-locked, ignore switches.
+	if (flags & FL_SWLOCK) return;
 	
 	// Toggle switch handling
 	deb_sample(0);		// Read the switches
