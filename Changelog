@@ -1447,3 +1447,97 @@
 
 	[Cons/Hardware/DFP=66] Seventh construction session for Board
 	1. Wired AEXT lights, AC register, plus a few miscellaneous signals.
+
+2014-01-17  AC <alexios@bedroomlan.org>
+
+	[Com/Book] Working on HTML version of documentation.
+
+2014-01-20  AC <alexios@bedroomlan.org>
+
+	[Des/Hardware/VDU=100] Minor changes to the VDU board. Added an
+	extender port for optional VDU daughterboards (e.g. for a sprite
+	engine).
+
+	[Com/Book] Working on HTML version of documentation: build
+	framework, macro set, style, content.
+
+2014-01-21  AC <alexios@bedroomlan.org>
+
+	[Com/Book] Working on HTML version of documentation: build
+	framework, macro set, style, content.
+
+2014-01-22  AC <alexios@bedroomlan.org>
+
+	[Com/Book] Working on HTML version of documentation: interactive
+	mode demonstration widget for VDU documentation.
+
+2014-01-24  AC <alexios@bedroomlan.org>
+
+	[Com/Book] Working on HTML version of documentation: build
+	framework, macro set, style, content.
+
+2014-01-27  AC <alexios@bedroomlan.org>
+
+	[Com/Book] Working on HTML version of documentation: build
+	framework, macro set, style, content. Created pygments lexer for
+	Microcode assembler, added scripts to generate images of PCBs out
+	of Gerber files.
+
+2014-02-01  AC <alexios@bedroomlan.org>
+
+	[Com/Book] Working on HTML version of documentation.
+
+2014-02-02  AC <alexios@bedroomlan.org>
+
+	[Des/Hardware/VDU=100] Minor changes to the VDU board design.
+
+2014-02-07  AC <alexios@bedroomlan.org>
+
+	[Cons/Hardware/DFP=70] Eighth construction session for Board
+	1. Completed wiring of switch input socket.
+
+2014-02-08  AC <alexios@bedroomlan.org>
+
+	[Testing,Code/Hardware/DFP/Firmware] Built more of the
+	test/simulation framework for the DFP.
+
+2014-02-09  AC <alexios@bedroomlan.org>
+
+	[Testing,Code/Hardware/DFP/Firmware] Built more of the test/simulation
+	framework for the DFP. Discovered and fixed some bugs.
+
+2014-02-10  AC <alexios@bedroomlan.org>
+
+	[Testing,Code/Hardware/DFP/Firmware] Implemented first DFP board
+	self-diagnostics.
+
+	[Des/Hardware/DFP] Made two slight changes to the hardware for
+	more reliable diagnostics.
+
+2014-02-11  AC <alexios@bedroomlan.org>
+
+	[Cons/Hardware/DFP=71] Ninth construction session for
+	Board 1. Wiring the remaining P4 (the PB0 front panel
+	connector). Ran out of Kynar® wire and the replacement turned out
+	not to be Kynar (not enough heat resistance).
+
+	[Orders] Ordered more bypass capacitors, pull-up/down resistors,
+	Kynar® wire, and also some better-quality NKK key switches for the
+	front panel.
+
+2014-02-14  AC <alexios@bedroomlan.org>
+
+	[Testing,Code/Hardware/DFP/Firmware] Numerous small fixes to the
+	DFP firmware.
+
+2014-02-17  AC <alexios@bedroomlan.org>
+
+	[Orders] Mouser order (bypass capacitors, pull-up/down resistors,
+	Kynar® wire, NKK® key switches) arrived.
+
+2014-02-18  AC <alexios@bedroomlan.org>
+
+	[Doc/Web] Updated JavaScript CFT microcode-level simulator for the
+	newest panel layout and colours.
+
+	[Doc] Created list of CFT assemblies, wiring and parts.
