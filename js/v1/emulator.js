@@ -192,8 +192,8 @@ function rand(x)
 	    this._addSpace(3, 1);
 	    this._addrow(3, '', 'irq', 'n', 'gggggggg', '76543210');
 
-	    this._addrow(4, 'State', 'state', 'b', 'grryyy', ['RUN', 'STOP', 'WS', 'FETCH', 'EXEC', 'INT']);
-	    this._addSpace(4, 2);
+	    this._addrow(4, 'State', 'state', 'b', 'rgrryyy', ['RST', 'RUN', 'STOP', 'WS', 'FETCH', 'EXEC', 'INT']);
+	    this._addSpace(4, 1);
 	    this._addrow(4, 'Output Register/Data Register/Micro-address vector', 'mfd', 
 			 'n', 'rrrrrrrrrrrrrrrr',
 			['', 'RST', 'INT', 'V', 'L', 'OP3', 'OP2', 'OP1', 'OP0', 'I', 'SKIP', 'AIDX',
@@ -201,12 +201,16 @@ function rand(x)
 	    this._addSpace(4, 1);
 	    this._addrow(4, '', 'gen1', 'n', 'rrrrrrrr', '76543210');
 
-	    this._addSpace(5, 8);
+	    this._addSpace(5, 3);
+	    this._addrow(5, 'Microcode Bank', 'ucb', 'n', 'yyyy', ['UCB3', 'UCB2', 'UCB1', 'UCB0']);
+
+	    this._addSpace(5, 1);
 	    this._addrow(5, 'Instruction Register', 'ir',
 			 'b', 'yyyyryrrrrrrrrrr', ['OP3', 'OP2', 'OP1', 'OP0', 'I', 'R',
 						  '9', '8', '7', '6', '5', '4', '3', '2', '1', '0'])
-	    this._addSpace(5, 1);
-	    this._addrow(5, 'Microcode Bank', 'ucb', 'n', 'yyyy', ['UCB3', 'UCB2', 'UCB1', 'UCB0']);
+	    // Moved in the newest version of the panel.
+	    // this._addSpace(5, 1);
+	    // this._addrow(5, 'Microcode Bank', 'ucb', 'n', 'yyyy', ['UCB3', 'UCB2', 'UCB1', 'UCB0']);
 
 	    // Switches
 	    var s1 = $('#panel #row6a');
@@ -226,11 +230,11 @@ function rand(x)
 	    this.panel['swspd_dn'] = false;
 
 	    // The lights switch
-	    this._addSwitch('swlts', 'sw2', 'LTS ON', 'OFF', null, null);
+	    this._addSwitch('swlts', 'sw2 o', 'LTS ON', 'OFF', null, null);
 
 	    // The MFD switch
 	    s1.append('<td class="pt b swmfd swon" id="swmfd_up">OR</td><td />');
-	    s2.append('<td id="swmfd" class="swwrap sw3" /><td class="pt b swmfd swmid" id="swmfd_mid">DR</td>');
+	    s2.append('<td id="swmfd" class="swwrap sw3 o" /><td class="pt b swmfd swmid" id="swmfd_mid">DR</td>');
 	    s3.append('<td class="pt b swmfd swoff" id="swmfd_dn">µADDR</td><td />');
 	    this.panel['swmfd_up'] = false;
 	    this.panel['swmfd_mid'] = false;
@@ -240,7 +244,7 @@ function rand(x)
 	    s1.append('<th colspan="16" class="title">Switch Register' + 
 		      '<span class="value"><span id="srval" /><span id="srasm" /><span id="srdec" /></th>');
 	    for(var i = 15; i >= 0; i--) {
-		var col = i & 4 ? 'o' : 'w';
+		var col = i & 4 ? 'r' : 'o';
 		var group = i >> 2;
 		s2.append('<td id="swsr' + i + '" class="swwrap sw2 dn ' + col + '" />');
 		s3.append('<td id="swsr' + i + '_tog" class="pt b swtog swgroup' + group + '">' + i + '</td>');
@@ -251,12 +255,12 @@ function rand(x)
 	    this._addSpace(6, 1);
 
 	    // The programming group
-	    this._addSwitch('swirpc', 'swmom o', 'SR→IR', '→PC', null, null);
-	    this._addSwitch('swac', 'swmom o', '', '→AC', null, null);
-	    this._addSwitch('swmemw', 'swmom r', 'MEM W', 'W NEXT', null, null);
-	    this._addSwitch('swmemr', 'swmom g', 'MEM R', 'R NEXT', null, null);
+	    this._addSwitch('swirpc', 'swmom r', 'SR→IR', '→PC', null, null);
+	    this._addSwitch('swac', 'swmom r', '', '→AC', null, null);
+	    this._addSwitch('swmemw', 'swmom o', 'MEM W', 'W NEXT', null, null);
+	    this._addSwitch('swmemr', 'swmom o', 'MEM R', 'R NEXT', null, null);
 	    this._addSwitch('swiow', 'swmom r', 'I/O W', 'W NEXT', null, null);
-	    this._addSwitch('swior', 'swmom g', 'I/O R', 'R NEXT', null, null);
+	    this._addSwitch('swior', 'swmom r', 'I/O R', 'R NEXT', null, null);
 	    this._addSwitch('swbnk', 'sw2 o', 'RAM BNK', 'ROM BNK', null, null);
 	    this._addSwitch('swirq', 'swmom o', 'IFR1', 'IFR6', null, null);
 
@@ -572,6 +576,7 @@ function rand(x)
 	    this.setlight('plstate0', this.cpu.irq ^ 1); // INT state (really IRQ)
 	    this.setlight('plstate4', this.cpu.halt || this.cpu.wait); // Stop state
 	    this.setlight('plstate5', this.cpu.halt == 0 && this.cpu.wait == 0); // Run state
+	    this.setlight('plstate6', this.cpu.rst_hold != -1); // RST state
 
 	    // Set the MFD to the output register.
 	    if (this.panel.mfd === 2) {
