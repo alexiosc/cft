@@ -578,12 +578,6 @@
 
 	[Doc/Web] GeSHI PHP syntax highlighter mode for CFT Assembly.
 
-2013-02-16  AC  <alexios@bedroomlan.org>
-
-	[Doc/Web] Wrote CFT microcode-level simulator in Javascript. Shows
-	Front Panel and simple output device, runs considerably slower than
-	real hardware.
-
 2013-02-20  AC  <alexios@bedroomlan.org>
 
 	[Setback,Test/Hardware/PBC] Auto-Index Logic bug found. Any Indirect
@@ -1541,3 +1535,50 @@
 	newest panel layout and colours.
 
 	[Doc] Created list of CFT assemblies, wiring and parts.
+
+2014-02-22  AC <alexios@bedroomlan.org>
+
+	[Code/Web] Started work on an instruction-level CFT emulato, which
+	will become version 2.
+
+2014-02-24  AC <alexios@bedroomlan.org>
+
+	[Code/Web] Processor, UCB and MBU emulation is now in place.
+
+2014-02-25  AC <alexios@bedroomlan.org>
+
+	[Code/Web] Work on the JS emulator continues. A release candidate
+	is now ready, including an updated test ROM.
+
+	[Tools] Version 2.1 of the CFT Assembler. This version introduces
+	include paths.
+
+	[Code/Hardware/DFP/Firmware] Improved the DFP firmwar's interrupt
+	handling. Standardised on flag values.
+
+	[Code/Software/ROM] Started coding early parts of the ROM.
+
+2014-02-26  AC <alexios@bedroomlan.org>
+
+	[Tools] Version 2.2 of the CFT Assembler. This version introduces
+	namespaces.
+
+	[Misc] Created emacs major mode for editing CFT Assembler files in
+	the proper style.
+
+2014-02-28  AC <alexios@bedroomlan.org>
+
+	[Code/Software/ROM] Refactoring assembler include files to use
+	namespaces and the new, more mature coding style.
+
+	[Tools] Fixed issues with the assembler getting confused with
+	forward .equ/.reg definitions.
+
+2014-03-01  AC <alexios@bedroomlan.org>
+
+	[Code/Software/ROM] Wrote MBU and MEM detection algorithms.
+
+	[Tools] Added .scope/.endscope directives to allow scoped labels (this
+	internally reduces to anonymous namespaces). Added
+	.longstring/.endstring directives to facilitate packing of multi-line
+	.strp directives.
