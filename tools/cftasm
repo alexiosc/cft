@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- python -*-
 """
-The CFT Assembler, version 2.1
+The CFT Assembler, version 2.4
 """
 
 import os
@@ -9,6 +9,7 @@ import re
 import sys
 import copy
 import array
+import pprint
 import doctest
 import optparse
 import subprocess
@@ -221,6 +222,9 @@ class CFTAssembler(object):
         # The symbol table.
         self.symbols = dict()
 
+        # The namespace stack.
+        self.ns = list()
+
         # The macro table and macro context stack
         self.macros = dict()
         self.ctx = list()
@@ -289,7 +293,9 @@ class CFTAssembler(object):
                      help='Print out parsed code and debugging info.')
         p.add_option('', '--show-builtins', action='store_true',
                      help='Print out built-ins and exit.')
-        
+        p.add_option('-I', '--include', metavar='PATH', action='append', default=[],
+                     help='Set include path. Can be specified multiple times ' + \
+                         '(paths in current directory always take precedence).')
         p.add_option('', '--min-addr', action='store', type='int', default=0x0000,
                      help='Set the starting address for dumping objects, verilog output et cetera (default: 0)')
         p.add_option('', '--max-addr', action='store', type='int', default=0xffff,
@@ -329,18 +335,24 @@ class CFTAssembler(object):
         * Pass 1: compile symbol table.
         * Pass 2: assemble code.
         """
-        for self.passnum in [
-            self.PSN_MACRO_DISCOVERY,
-            self.PSN_SYMBOL_DISCOVERY,
-            self.PSN_ASSEMBLY]:
+        self.passnum = self.PSN_MACRO_DISCOVERY
 
+        while True:
+            #print "New pass", self.passnum
+
+            # Clear the namespace stack
+            self.ns = []
+            self.deferred = []
+            self.scope = 0
+            self.longstring = None
+            
             # First, parse the builtins.
             self.filename = '<builtins>'
             self.linenum = 0
             self.setaddr(0)
             self.jumped = False
             self.assembly_pass(self.BUILTINS.split('\n'))
-            
+
             # Then, parse each input file in order.
             for filename in self.args:
                 self.filename = filename
@@ -348,12 +360,39 @@ class CFTAssembler(object):
                 self.mcallno = 0
 
                 self.assembly_pass(open(filename))
-            
-            # At the end of the last parse, print out the symbol table.
-            if self.passnum == self.PSN_ASSEMBLY:
+
+            # Warn about unbalanced namespaces
+            if len(self.ns):
+                self.warn("Namespace stack not empty at end of document (%s)" %
+                          (', '.join(self.ns)))
+
+            if self.deferred:
+                print "Deferred symbols:", self.deferred
+                # Undefine any deferred symbols
+                for sym in self.deferred:
+                    print "deleting", sym
+                    try:
+                        del self.symbols[sym]
+                    except KeyError:
+                        continue
+                
+
+            # Move on to the next pass. There can be multiple symbol discovery
+            # passes, depending on whether there are deferred symbols (forward
+            # definitions that couldn't be resolved in one pass).
+            if self.passnum == self.PSN_MACRO_DISCOVERY:
+                self.passnum = self.PSN_SYMBOL_DISCOVERY
+            elif self.passnum == self.PSN_SYMBOL_DISCOVERY:
+                if not self.deferred:
+                    self.passnum = self.PSN_ASSEMBLY
+                else:
+                    print "Deferred symbols:", self.deferred
+            elif self.passnum == self.PSN_ASSEMBLY:
+                # At the end of the last parse, print out the symbol table.
                 self.outmap()
                 self.outsym()
                 self.outxpm()
+                break
 
 
     def assembly_pass(self, stuff):
@@ -385,12 +424,14 @@ class CFTAssembler(object):
                         self.fail('Value expected after .equ')
                     # Allow forward definitions: don't parse the token unless it's the last pass.
                     # TODO: Verify this code and remove 'True or'.
-                    if True or self.passnum == self.PSN_ASSEMBLY:
-                        val = self.parseField(tokens[2:], allbits=True)
-                        #print self.passnum, tokens[1], hex(val)
-                    else:
-                        val = 0xdead
-                        #print self.passnum, tokens[1], hex(val)
+                    val = self.parseField(tokens[2:], allbits=True)
+                    # if self.passnum == self.PSN_ASSEMBLY:
+                    #     val = self.parseField(tokens[2:], allbits=True)
+                    #     #print self.passnum, tokens[1], hex(val)
+                    # else:
+                    #     print self.parseField(tokens[2:], allbits=True)
+                    #     val = 0xbeef
+                    #     print self.passnum, tokens[1], hex(val)
                     self.addSymbol(tokens[1], val)
                     continue
                 elif tokens[0] == '.macro':
@@ -398,6 +439,18 @@ class CFTAssembler(object):
                     continue
                 elif tokens[0] == '.include':
                     self.includeFile(line)
+                    continue
+                elif tokens[0] == '.pushns':
+                    self.pushNamespace(line)
+                    continue
+                elif tokens[0] == '.popns':
+                    self.popNamespace(line)
+                    continue
+                elif tokens[0] == '.scope':
+                    self.startScope(line)
+                    continue
+                elif tokens[0] == '.endscope':
+                    self.endScope(line)
                     continue
 
             # Is there a label or address?
@@ -417,8 +470,9 @@ class CFTAssembler(object):
 
             # Is this a macro call? If so, it should be the only thing on a
             # line, and be invoked like macro() or macro(a,b,c,...).
-            x = re.findall('^\s*(\w+)\s*\((.+)\)\s*$', ' '.join(tokens))
+            x = re.findall('^\s*([\w.]+)\s*\((.+)\)\s*$', ' '.join(tokens))
             if x:
+                #print "assemble macro", x[0]
                 self.assembleMacro(x[0])
                 continue
 
@@ -444,8 +498,22 @@ class CFTAssembler(object):
         except (TypeError, IndexError):
             self.fail('syntax error parsing .include directive')
 
+        fn = fname
+        class FoundFile(Exception):
+            pass
+
         try:
-            f = open(fname)
+            for pathcomp in ['.'] + self.opts.include:
+                fn = os.path.join(pathcomp, fname)
+                if os.path.exists(fn):
+                    raise FoundFile
+            self.fail("File %s not found in include path .:%s" \
+                          % (fname, ':'.join(self.opts.include)))
+        except FoundFile:
+            pass
+
+        try:
+            f = open(fn)
         except IOError, e:
             self.fail(str(e))
 
@@ -486,11 +554,13 @@ class CFTAssembler(object):
             if line.strip() == '.end':
                 if self.passnum == self.PSN_MACRO_DISCOVERY:
                     try:
-                        pf, pl = self.macros[name][:2]
+                        pf, pl = self.getMacro(name)[:2]
                         self.fail("macro '%s' previously defined in %s, line %d." % (name, pf, pl))
                     except KeyError:
                         # New macro. Store it.
-                        self.macros[name] = (self.filename, start, arglist, macrodef)
+                        nsname = '.'.join(self.ns + [name])
+                        self.macros[nsname] = (self.filename, start, arglist, macrodef)
+                        #print "Defined macro", nsname
                 return
             macrodef.append(line)
 
@@ -524,7 +594,8 @@ class CFTAssembler(object):
         arglist = [x.strip() for x in re.split('\s*,\s*', arglist)]
 
         try:
-            mf, mln, mal, mdef = self.macros[name]
+            #print "Assembling macro", name
+            mf, mln, mal, mdef = self.getMacro(name)
         except KeyError:
             self.fail("undefined macro '%s'" % name)
 
@@ -549,7 +620,7 @@ class CFTAssembler(object):
             sys.stderr.write('D: %s:%d: execute macro %s, arglist: %s\n' % \
                                  (self.filename, self.linenum, name, ', '.join(arglist)))
         fn, nl = self.filename, self.linenum
-        self.pushParseContext(name, self.filename, self.linenum, self.macros[name])
+        self.pushParseContext(name, self.filename, self.linenum, self.getMacro(name))
         self.filename = mf
         self.linenum = mln
         self.assembly_pass(mdef_inst)
@@ -579,7 +650,7 @@ class CFTAssembler(object):
                 self.fail('Value expected after .reg')
             # Allow forward definitions: don't parse the token unless it's the last pass.
             # TODO: Verify this code and remove 'True or'.
-            if True or self.passnum == self.PSN_ASSEMBLY:
+            if self.passnum == self.PSN_ASSEMBLY:
                 val = self.parseField(tokens[2:], allbits=True)
                 #print self.passnum, tokens[1], hex(val)
             else:
@@ -591,13 +662,24 @@ class CFTAssembler(object):
             self.poke(0x0000, poketype='R')
             if self.passnum == self.PSN_ASSEMBLY:
                 self.logasm(val, orgline=orgline)
-
         elif tokens[0] in ('.str', '.data'):
             self.assembleString(tokens, orgline)
         elif tokens[0] == '.strn':
             self.assembleString(tokens, orgline, neg=True)
         elif tokens[0] == '.strp':
             self.assemblePackedString(tokens, orgline)
+        elif tokens[0] == '.longstring':
+            if self.longstring is not None:
+                self.fail(".longstring encountered while another .longstring is pending.")
+            if self.passnum == self.PSN_ASSEMBLY:
+                self.logasm(None, msg='', orgline=orgline)
+            self.longstring = []
+            if len(tokens) > 1:
+                self.assemblePackedString(tokens, orgline)
+            # The address won't be incremented yet.
+            self.incaddr(-1)
+        elif tokens[0] == '.endstring':
+            self.assembleLongString(tokens, orgline)
         elif tokens[0] == '.fill':
             self.assembleFill(tokens, orgline)
         elif tokens[0] == '.regfill':
@@ -657,6 +739,18 @@ class CFTAssembler(object):
         self.incaddr(-1)
 
 
+    def assembleLongString(self, tokens, orgline):
+        """Assemble the previously gathered tokens of a long string."""
+        if self.longstring is None:
+            self.fail(".endstring without matching .longstring!")
+            return
+
+        tokens = [ '.strp' ] + self.longstring + ['0']
+        #print "*** TOKENS:", tokens
+        self.longstring = None
+        self.assemblePackedString(tokens, orgline)
+
+
     def assemblePackedString(self, tokens, orgline):
         """Assemble a packed null-terminated string directive.
 
@@ -700,7 +794,17 @@ class CFTAssembler(object):
         tokens = tokens[1:]
         numchars = 0
         wordval = 0
+        #pprint.pprint(tokens)
         for i, token in enumerate(tokens):
+            #if len(tokens) > 1:
+            #    print "\t***", i, token.replace('\n', r'\n')
+
+            # If we're in longstring mode, just gather all the tokens
+            # for later processing.
+            if self.longstring is not None:
+                self.longstring.append(token)
+                continue
+
             if token.startswith('"'):
                 # The lexer guarantees strings are enclosed in double
                 # quotes. Strip them.
@@ -844,6 +948,55 @@ class CFTAssembler(object):
         self.jumped = True
 
 
+    def pushNamespace(self, line):
+        """Enter a new namespace.
+
+        Namespaces segregate symbols to avoid name polution and allow
+        semi-private symbols to be defined.
+        """
+        try:
+            name = re.findall('^\.pushns\s+(\w+)\s*', line)[0]
+        except (TypeError, IndexError):
+            self.fail('syntax error parsing .pushns')
+
+        self.ns.append(name)
+
+
+        
+    def popNamespace(self, line):
+        """Leave the last namespace.
+        """
+        try:
+            assert re.findall('^(\.popns)\s*', line)[0] != ''
+        except (TypeError, IndexError):
+            self.fail('syntax error parsing .popns')
+
+        if len(self.ns) == 0:
+            self.fail('namespace/scope stack already empty!')
+
+        self.ns = self.ns[:-1]
+
+
+    def startScope(self, line):
+        """Start a new scope.
+        """
+        self.scope += 1
+        self.pushNamespace('.pushns _scp%d' % self.scope)
+    
+
+    def endScope(self, line):
+        """End the last scope.
+        """
+        self.popNamespace('.popns')
+        # if len(self.scope) > 0:
+        #     for sym in self.scope.pop():
+        #         try:
+        #             print "Deleting scope-local symbol %s" % sym
+        #             del self.symbols[sym]
+        #         except KeyError:
+        #             continue
+        # else:
+        #     self.fail('.endscope without matching .scope.')
         
     def assembleInstruction(self, tokens, orgline):
         """Assemble a single instruction.
@@ -1018,6 +1171,17 @@ class CFTAssembler(object):
         try:
             return self.getSymbol(x)
         except KeyError:
+            if re.match('^[A-Za-z]', x):
+                #print "Failed to look up", x
+                # An undefined symbol was used during the macro or symbol
+                # discovery passes. Defer this symbol for another pass.
+                #if x not in self.deferred:
+                #    self.deferred.append(x)
+                #    print "Pass %d: deferring resolution of symbol '%s'" % (self.passnum, x)
+                if self.passnum == self.PSN_ASSEMBLY:
+                    self.fail("Unknown symbol '%s'." % x)
+                return 0xdead
+
             try:
                 # Does it start with a '@'? If so, check relative
                 # references, making sure they reference an address on
@@ -1102,6 +1266,8 @@ class CFTAssembler(object):
         res = 0
         for token in tokens:
             val = self.parseToken(token, pageboundary=pageboundary)
+            if val is None:
+                return None
             try:
                 #res |= val
                 if allbits:
@@ -1194,8 +1360,40 @@ class CFTAssembler(object):
     def getSymbol(self, sym):
         """Return the value of a symbol from the symbol table. Raise KeyError
         if it doesn't exist."""
-        return self.symbols[sym]
 
+        if re.match('^[@#&0-9]', sym):
+            raise KeyError
+
+        #print "Looking up", sym
+        if re.match('^[^a-zA-Z_]', sym):
+            raise KeyError             # It's a literal, not a symbol
+
+        for x in range(len(self.ns), -1, -1):
+            try:
+                nssym = '.'.join(self.ns[0:x] + [sym])
+                #print "Pass", self.passnum, ", Looking up", nssym, self.ns
+                return self.symbols[nssym]
+            except KeyError:
+                continue
+        # Failed to find it.
+        raise KeyError
+            
+
+    def getMacro(self, name):
+        """Return the value of a macro from the macro table. Raise KeyError
+        if it doesn't exist."""
+
+        #print "Looking up macro", name
+        for x in range(len(self.ns), -1, -1):
+            try:
+                nsname = '.'.join(self.ns[0:x] + [name])
+                #print "Pass", self.passnum, ", Looking up", nsname, self.ns
+                return self.macros[nsname]
+            except KeyError:
+                continue
+        # Failed to find it.
+        raise KeyError
+            
 
     def addSymbol(self, sym, val, symtype=None):
         """Add a symbol to the symbol table.
@@ -1205,10 +1403,21 @@ class CFTAssembler(object):
         >>> x.addSymbol('spam', 43)
         <none>:1:warning: redefining symbol spam (#42) to different value (#43).
         """
+        # Prefix the symbol with all namespaces
+        sym0 = sym
+        sym = '.'.join(self.ns + [sym])
+        
+        # Add local symbols to the current scope, if necessary
+        #if sym0.startswith('_') and len(self.scope) > 0:
+        #    self.scope[-1].append(sym)
+
+        #print "File", self.filename, "Pass", self.passnum, ", adding symbol", sym
+
         # TODO: issue a warning if redefining a symbol.
         if sym in self.symbols:
             old = self.symbols[sym]
-            if val != old.val and self.passnum == self.PSN_SYMBOL_DISCOVERY:
+            if val != old.val and self.passnum == self.PSN_SYMBOL_DISCOVERY \
+                    and (old.filename, old.linenum) != (self.filename, self.linenum):
                 self.warn('redefining symbol %s (#%d) to different value (#%d).' % \
                               (sym, old.val, val))
                 self.warn('previous declaration of %s in file %s line %d.' % \

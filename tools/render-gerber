@@ -11,7 +11,7 @@ COPPER='#3c8923'
 OPTS=""
 OPTS="$OPTS -a"
 
-for ext in GBS GBL GBO; do
+for ext in GBS GBL GBO GBA; do
     if [ ! -r $base.$ext ]; then
 	echo "File not found: $base.$ext"
 	exit 2
@@ -36,32 +36,31 @@ done
 
 gerbv $OPTS -B 0 -D $RES -o $base-bottom.png -x png -b $BG \
     -f $HOLE $base.TXT \
-    -f $SILK $base.GBO \
+    -f $SILK $base.GBA \
     -f $STOP $base.GBS \
     -f $COPPER $base.GBL
 
 gerbv $OPTS -B 0 -D $RES -o $base-bottom-silk.png -x png -b '#ffffff' \
-    -f $HOLE $base.TXT \
-    -f '#000000' $base.GBO \
+    -f '#ffffff' $base.TXT \
+    -f '#000000' $base.GBA \
     -f '#dddddd' $base.GBS \
     -f '#dddddd' $base.GBL
 
 gerbv $OPTS -B 0 -D $RES -o $base-top.png -x png -b $BG \
     -f $HOLE $base.TXT \
-    -f $SILK $base.GTO \
+    -f $SILK $base.GTA \
     -f $STOP $base.GTS \
     -f $COPPER $base.GTL
 
 gerbv $OPTS -B 0 -D $RES -o $base-top-silk.png -x png -b '#ffffff' \
-    -f $HOLE $base.TXT \
-    -f '#000000' $base.GTO \
+    -f '#ffffff' $base.TXT \
+    -f '#000000' $base.GTA \
     -f '#dddddd' $base.GTS \
     -f '#dddddd' $base.GTL
 
-mogrify -fuzz 5% -fill 'rgb(0,0,0)' -opaque 'rgb(58,58,17)' $base-{bottom,bottom-silk,top,top-silk}.png
+mogrify -fuzz 5% -fill 'rgb(0,0,0)' -opaque 'rgb(58,58,17)' $base-{bottom,top}.png
+#mogrify -fuzz 5% -fill 'red' -opaque 'rgb(58,58,17)' $base-{bottom-silk,top-silk}.png
 mogrify -flop $base-{bottom,bottom-silk}.png
 #mogrify -geometry 50% $base-{bottom,bottom-silk,top,top-silk}.png
-
-
 
 # End of file.
