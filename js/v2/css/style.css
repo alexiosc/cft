@@ -1,37 +1,37 @@
-@font-face {
-    font-family:Ubuntu;
-    font-weight:normal;
-    font-style:normal;
-    src:local('Ubuntu'),url('/themes/bedroomlan/fonts/Ubuntu-R.ttf.gz') format('truetype');
-}
+/* @font-face { */
+/*     font-family:Ubuntu; */
+/*     font-weight:normal; */
+/*     font-style:normal; */
+/*     src:local('Ubuntu'),url('/themes/bedroomlan/fonts/Ubuntu-R.ttf.gz') format('truetype'); */
+/* } */
 
-@font-face {
-    font-family:Ubuntu;
-    font-weight:bold;
-    font-style:normal;
-    src:local('Ubuntu-Bold'), local('Ubuntu Bold'), local('Ubuntu-B.ttf'), local('Ubuntu-B.otf'), url('/themes/bedroomlan/fonts/Ubuntu-R.ttf.gz') format('truetype');
-}
+/* @font-face { */
+/*     font-family:Ubuntu; */
+/*     font-weight:bold; */
+/*     font-style:normal; */
+/*     src:local('Ubuntu-Bold'), local('Ubuntu Bold'), local('Ubuntu-B.ttf'), local('Ubuntu-B.otf'), url('/themes/bedroomlan/fonts/Ubuntu-R.ttf.gz') format('truetype'); */
+/* } */
 
-@font-face {
-    font-family:Ubuntu;
-    font-weight:bold;
-    font-style:italic;
-    src:local('Ubuntu-BoldItalic'), local('Ubuntu BoldItalic'), local('Ubuntu Bold Italic'), local('Ubuntu-BI.otf'), local('Ubuntu-BI.ttf'), url('/themes/bedroomlan/fonts/Ubuntu-BI.ttf.gz') format('truetype');
-}
+/* @font-face { */
+/*     font-family:Ubuntu; */
+/*     font-weight:bold; */
+/*     font-style:italic; */
+/*     src:local('Ubuntu-BoldItalic'), local('Ubuntu BoldItalic'), local('Ubuntu Bold Italic'), local('Ubuntu-BI.otf'), local('Ubuntu-BI.ttf'), url('/themes/bedroomlan/fonts/Ubuntu-BI.ttf.gz') format('truetype'); */
+/* } */
 
-@font-face {
-    font-family:Ubuntu;
-    font-weight:normal;
-    font-style:italic;
-    src:local('Ubuntu-Italic'), local('Ubuntu Italic'), local('Ubuntu-RI.ttf'), local('Ubuntu-RI.otf'), url('/themes/bedroomlan/fonts/Ubuntu-RI.ttf.gz') format('truetype');
-}
+/* @font-face { */
+/*     font-family:Ubuntu; */
+/*     font-weight:normal; */
+/*     font-style:italic; */
+/*     src:local('Ubuntu-Italic'), local('Ubuntu Italic'), local('Ubuntu-RI.ttf'), local('Ubuntu-RI.otf'), url('/themes/bedroomlan/fonts/Ubuntu-RI.ttf.gz') format('truetype'); */
+/* } */
 
-@font-face {
-    font-family:"Ubuntu Titling";
-    font-weight:bold;
-    font-style:normal;
-    src:local('UbuntuTitling-Bold'), local('Ubuntu Titling Bold'), local('Ubuntu Titling'), local('UbuntuTitling-Boldl.ttf'), local('UbuntuTitling-Boldl.otf'), url('/themes/bedroomlan/fonts/UbuntuTitling-Bold.ttf.gz') format('truetype');
-}
+/* @font-face { */
+/*     font-family:"Ubuntu Titling"; */
+/*     font-weight:bold; */
+/*     font-style:normal; */
+/*     src:local('UbuntuTitling-Bold'), local('Ubuntu Titling Bold'), local('Ubuntu Titling'), local('UbuntuTitling-Boldl.ttf'), local('UbuntuTitling-Boldl.otf'), url('/themes/bedroomlan/fonts/UbuntuTitling-Bold.ttf.gz') format('truetype'); */
+/* } */
 
 
 
@@ -418,25 +418,42 @@ padding-top:16px;
 
 #terminalwrapper {
 }
-#terminal {
+.terminal {
     position:absolute;
+    width:100%;
     z-index:-100;
-    width:960px;
-    height:400px;
-    max-height:400px;
-    bottom:0;
+    bottom:0px;
+    /*
+      width:960px;
+      height:400px;
+      max-height:400px;
 
     overflow:hidden;
     word-wrap:break-word;
 
     margin-top:0;
     padding:0 10px;
+      */
 
     font-family:inconsolata, consolas, aandale mono, courier, courier new, monospace; 
     font-weight:bold;
     color:#666;
     background:#222;
 }
+
+.terminal table {
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.terminal .term {
+}
+
+.terminal .termReverse {
+    color: #222;
+    background: #666;
+}
+
 #cursor {
     width:0.6em;
     height:1em;
@@ -446,8 +463,3 @@ padding-top:16px;
     background:#666;
     color:#222;
 }
-
-#ptmfd14,
-#ptmfd13,
-#ptmfd5,
-#ptmfd4 { text-decoration:overline; }

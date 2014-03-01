@@ -971,7 +971,7 @@ prompt: function() {
 	this.lock=true;
 	if (this.c>0) this.newLine();
 	this.type(this.ps);
-	this._charOut(1);
+	//this._charOut(1);
 	this.lock=false;
 	this.cursorOn();
 },

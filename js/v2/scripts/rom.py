@@ -2,20 +2,19 @@
 
 import sys, array
 
-SIZE = 65536
+SIZE = 524288
 
 rom = array.array('h')
 
-rom.fromfile(open(sys.argv[1], 'rb'), SIZE)
+data = open(sys.argv[1], 'rb').read()
+imageSize = len(data) >> 1
+rom.fromstring(data)
+sys.stderr.write("ROM size is %d kW. ROM image contains %d kW.\n" %
+                 (SIZE >> 10, imageSize >> 10))
 
 print """// -*- javascript -*-
 //
 // Automatically generated, please do not edit!
-
-function _Uint16Array(x) {
-    if (typeof Uint16Array === 'undefined') return x;
-    else return new Uint16Array(x);
-}
 
 function getROM()
 {
@@ -23,12 +22,13 @@ function getROM()
     return new _Uint16Array(["""
 
 for i in xrange(SIZE):
-    if rom[i]:
-        fmt = "0x%x" % (rom[i] & 0xffff)
-    elif rom[i] == 0x57ef:
+    x = rom[i] if i < imageSize else i & 3
+    if x == 0x550f:
         fmt = '_'
+    elif len(hex(x)) < len(str(x)):
+        fmt = "0x%x" % (x & 0xffff)
     else:
-        fmt = '0'
+            fmt = "%d" % (x & 0xffff)
 
     if i == 0:
         sys.stdout.write("         %s" % fmt)
@@ -43,4 +43,3 @@ print """    ]);
 
 
 // End of file."""
-    
