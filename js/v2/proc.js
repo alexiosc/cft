@@ -106,19 +106,22 @@ CFT = {
 	CFT.r.i = 0;		     // Mask interrupts
 	CFT.r.irq = 0;		     // Clear any pending interrupts
 	CFT.failed = 0;		     // Clear the failed flag
-	CFT.rsthold = 10000;
+	CFT.rsthold = 1000000;
+	DFP.updateLights();
 	return CFT;
     },
     
     halt: function()
     {
 	CFT.halted = 1;
+	DFP.updateLights();
 	return CFT;
     },
 
     start: function()
     {
 	CFT.halted = 0;
+	DFP.updateLights();
 	return CFT;
     },
 
