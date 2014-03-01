@@ -94,7 +94,7 @@ assert_halted()
 uint16_t
 perform_read(uint8_t space, uint16_t addr)
 {
-	uint16_t val;
+	uint16_t val = 0;
 
 	// Ensure the bus is quiet.
 	if (!assert_halted()) return 0;

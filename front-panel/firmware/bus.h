@@ -107,11 +107,6 @@ uint8_t set_reg(uint8_t reg, uint16_t value);
 #define IO_SUCCESS  _IO(0x1e)
 #define IO_FAIL     _IO(0x1f)
 
-// 0100 0000 0111 1111
-#define QEF_BASE_RESULT 0x407f
-#define QEF_HOF         0x0080
-#define QEF_HOS         0x0100
-#define QEF_LOCKED      0x0200
 
 // Bus instructions
 

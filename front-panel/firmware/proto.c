@@ -40,6 +40,9 @@ volatile uint32_t flags = FL_BUSY | FL_MESG;
 
 uint16_t addr;
 
+uint16_t bpaddr[NUM_BP];
+uint8_t  bpflag = 0;
+
 
 //uint8_t progress[5] = {0, 1, 3, 7, 15};
 
@@ -789,6 +792,7 @@ go_clk()
 	}
 
 	set_clkfreq(prescaler, div);
+
 	report_pstr(PSTR(STR_CLKSET));
 	report_int(_divs[prescaler - 1]);
 	report_pstr(PSTR(" * (1 + "));
@@ -801,6 +805,7 @@ static void
 _step(bool_t ustep, bool_t endless)
 {
 	uint16_t n = 1;
+	uint8_t j;
 
 	// Need a processor
 	if (!assert_proc_present()) return;
@@ -811,7 +816,7 @@ _step(bool_t ustep, bool_t endless)
 	// Optional argument
 	if (optional_hex_val(&n) < 0) return;
 
-	if (endless) report_pstr(ustep ? PSTR(STR_TRACE) : PSTR(STR_UTRACE));
+	if (endless) report_pstr(ustep ? PSTR(STR_UTRACE) : PSTR(STR_TRACE));
 
 	// Stop the clock (just in case).
 	clk_stop();
@@ -842,6 +847,15 @@ _step(bool_t ustep, bool_t endless)
 				report_nl();
 			}
 		}
+
+		// Check breakpoints
+		for (j = 0; j < NUM_BP; j++) {
+			if ((bpflag & (1 << j)) && bpaddr[j] == get_pc()) {
+				report_hex_value(PSTR(STR_BPOINT), (uint32_t)j, 1);
+				endless = i = 0;
+				break;
+			}
+		}
 	
 		// Allow the user to interrupt.
 #ifdef HOST
@@ -859,6 +873,61 @@ _step(bool_t ustep, bool_t endless)
 	// Keep the DEB address linked to the PC, unless we're
 	// standalone.
 	if (flags & FL_PROC) addr = get_pc();
+}
+
+
+static void
+_printbp(uint8_t i)
+{
+	report_char('2');
+	report_pstr(PSTR(STR_GSBPT));
+	report_hex((uint32_t)i, 1);
+	report_pstr(PSTR(": "));
+	if (bpflag & (1 << i)) report_hex((uint32_t)bpaddr[i], 4);
+	else report_pstr(PSTR(STR_OFF));
+	report_char('\n');
+}
+
+void
+go_bp()
+{
+	uint16_t reg;
+	int8_t r;
+
+	// Parse the breakpoint register number
+	r = optional_hex_val(&reg);
+	if (r < 0) return;
+	else if (r > 0) {
+		if (r < 0 || r >= NUM_BP) {
+			badval();
+			return;
+		}
+		
+		char * s = get_arg();
+		if (s != NULL) {
+			// If an address has been provided, set the breakpoint
+			if (s[0] == 'o' && s[1] == 'f' && s[2] == 'f') {
+				bpflag &= ~(1 << reg);
+			} else {
+				uint16_t addr = parse_hex(s);
+				if ((flags & FL_ERROR) == 0) {
+					bpflag |= (1 << reg);
+					bpaddr[reg] = addr;
+				} else {
+					badval();
+					return;
+				}
+			}
+		}
+		_printbp(reg);
+		return;
+	}
+
+	// With no arguments, print out all the breakpoints.
+	uint8_t i;
+	for (i = 0; i < NUM_BP; i++) {
+		_printbp(i);
+	}
 }
 
 
@@ -985,7 +1054,6 @@ go_out()
 	if (!assert_halted()) return;
 
 	// Parse addr
-
 	char * s = get_arg();
 	if (s == NULL) {
 		badsyntax();
@@ -996,6 +1064,12 @@ go_out()
 	if (flags & FL_ERROR) {
 		badval();
 		return;
+	}
+
+	if (a >= 0x0100 && a < 0x120) {
+		report_pstr(PSTR(STR_NSELF));
+		return;
+
 	}
 
 	// Parse word
@@ -1011,7 +1085,6 @@ go_out()
 		badval();
 		return;
 	}
-
 
 	perform_write(SPACE_IO, a, v);
 	
@@ -1058,7 +1131,7 @@ go_ifr1()
 void
 go_ifr6()
 {
-	set_irq6(1);
+	set_irq6(1, 1);
 	report_pstr(PSTR(STR_IFR6));
 }
 
@@ -1432,14 +1505,14 @@ go_dfps()
 ///////////////////////////////////////////////////////////////////////////////
 
 
-static void
-go_nop()
-{
-#ifdef HOST
-	printf("*** Implement this command.\n");
-#endif // HOST
-}
-#define gs_nop go_nop
+// static void
+// go_nop()
+// {
+// #ifdef HOST
+// 	printf("*** Implement this command.\n");
+// #endif // HOST
+// }
+// #define gs_nop go_nop
 
 
 static void say_help();

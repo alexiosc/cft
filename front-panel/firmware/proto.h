@@ -88,6 +88,7 @@
 #define STR_GSAC     "53 AC: "
 #define STR_GSPC     "54 PC: "
 #define STR_GSIR     "55 IR: "
+#define STR_GSBPT    "59 Breakpoint "
 
 #define STR_AC           " AC:"
 #define STR_PC           " PC:"
@@ -99,9 +100,10 @@
 #define STR_CKSUM   "303 Checksum: "
 
 //                   310-321 reserved
-#define STR_ARUN    "320 Host running\n"
-#define STR_AHALTED "321 Host halted\n"
-#define STR_RESET   "322 Host reset\n"
+#define STR_ARUN    "304 Host running\n"
+#define STR_AHALTED "305 Host halted\n"
+#define STR_RESET   "306 Host reset\n"
+#define STR_BPOINT  "322 Breakpoint "
 #define STR_STEP    "323 Step. "
 #define STR_USTEP   "324 Microstep. "
 #define STR_TRACE   "325 Tracing.\n"
@@ -126,11 +128,12 @@
 #define STR_SUCCESS "345 SUCCESS\n"
 #define STR_FAIL    "346 FAIL\n"
 
-//                   350-354 reserved
+//                   350-355 reserved
 #define STR_READ    "356 Read: "
 #define STR_OUT1    "357 OUT Address: "
 #define STR_OUT2    " Value: "
 #define STR_IFR1    "358 IRQ1 signaled\n"
+
 #define STR_IFR1M   "458 IRQ1 masked by CFT\n"
 #define STR_IFR6    "359 IRQ6 signaled\n"
 #define STR_IFR6M   "459 IRQ6 masked by CFT\n"
@@ -157,6 +160,7 @@
 #define STR_NOPROC  "507 No processor\n"
 #define STR_SYNTAX  "508 Syntax error\n"
 #define STR_NIMPL   "509 Not implemented\n"
+#define STR_NSELF   "510 You talking to me?\n"
 
 // Hardware Faults.
 #define STR_NVMIS   "910 Value mismatch. Should be "
@@ -173,6 +177,10 @@
 #define BLOCKSIZE ((BUFSIZE - 3) / 5)
 
 #define DIVIDER "|"
+
+// Warning: any more than 8 and the bpflag data type will have to
+// change!
+#define NUM_BP 8
 
 
 extern unsigned char buf[BUFSIZE];

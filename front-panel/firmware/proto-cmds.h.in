@@ -11,7 +11,6 @@ static const struct {
 	{"help",    say_help,    "-- Show help"},
 	{"ver",     say_version, "-- Show version"},
 	{"buf",     say_bufsize, "-- Show size of command buffer"},
-	{"_clr!",   gs_nop,      "-- Reset the DEB board"},
 	{"term",    gs_term,     "[ BOOL ] -- Get/set terminal bells & whistles."},
 	{"echo",    gs_echo,     "[ BOOL ] -- Get/set local echo."},
 	{"mesg",    gs_mesg,     "[ BOOL ] -- Get/set asyc messages.\n201"},
@@ -32,12 +31,12 @@ static const struct {
 	{"halt",    go_stop,  "-- Stop (same as stop, for versatility)"},
 	{"run",     go_run,   "-- Run"},
 	{"step",    go_step,  "[ N ] -- Step to next fetch (default: 1)"},
-	{"ustep",   go_ustep, "[ N ] -- Microstep the CPU (default: 1)\n201"},
+	{"ustep",   go_ustep, "[ N ] -- Microstep the CPU (default: 1)"},
 
 	// Tracing program execution
 	{"trace",   go_trace, "-- Status trace"},
 	{"utrace",  go_utrace, "-- Microcode status trace"},
-	{"_bkp0",   go_nop,    "-- Set breakpoint (trace only)"},
+	{"bp",      go_bp,     "[ NUM [ off | ADDR ] ] -- Set breakpoint (see docs)"},
 	{"hof",     gs_hof,    "[ BOOL ] -- Get/set halt on FAIL"},
 	{"hos",     gs_hos,    "[ BOOL ] -- Get/set halt on SENTINEL"},
 

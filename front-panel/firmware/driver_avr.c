@@ -118,6 +118,7 @@ static uint16_t _or;
 static uint8_t _defercb = 0;
 static uint8_t _clk_prescale = PSV_1024;
 static uint16_t _clk_div = 89;
+static uint8_t _stopped = 1;
 
 #define defer_cb_write() _defercb++
 
@@ -168,6 +169,7 @@ static uint16_t _clk_div = 89;
 #define SWR_AUTOREPEAT (SWR_MEMW|SWR_MEMR|SWR_IOW|SWR_IOR|SWR_IFR6|SWR_IFR1)
 
 // Flags for _cb[x]
+
 #define CB0_NIRQ6     0x01
 #define CB0_NIRQ1     0x02
 #define CB0_NINCPC    0x04
@@ -202,8 +204,21 @@ static uint8_t _cb[3] = {
 	CB1_OUTPUTS,
 	CB2_OUTPUTS };
 
-#define ICRBASE (0xffff & ~(CB0_NIRQ1|CB0_NIRQ6))
-static uint16_t _icr = ICRBASE;
+uint16_t icr = 0;
+static uint8_t ifr6_operated = 0;
+
+#define QEF_BASE 0x40ff
+#define QEF_HOF  0x0100
+#define QEF_HOS  0x0200
+#define QEF_LOCK 0x0400
+
+// Feature bits
+#define FTR_HOB  0x0001		// Halt on bus errors: emulator only
+#define FTR_TRC  0x0010		// Assembly trace
+#define FTR_UTR  0x0020		// Microcode trace
+#define FTR_HOS  0x0200		// Halt on SENTINEL
+
+static uint16_t features = 0;
 
 
 // Ring buffer size in bits (we do not use modulo)
@@ -239,6 +254,15 @@ struct {
 static void
 outcmd(uint8_t addr, uint8_t val)
 {
+	// Interlock: never allow VPEN and DEBEN to be asserted
+	// simultaneously. If one is asserted, deassert the
+	// other. Note: these are inverted, so 1 = asserted, 0 =
+	// deassrted.
+	if (val) {
+		if (addr == CMD_VPEN) outcmd(CMD_DEBEN, 0);
+		else if (addr == CMD_DEBEN) outcmd(CMD_VPEN, 0);
+	}
+
 	// Clear the CMDx outputs.
 	PORTC = PORTC |= _BV(C_CMD0) | _BV(C_CMD1);
 	
@@ -1198,14 +1222,9 @@ write_cb()
 	}
 
 	ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
-		// The ICR acts as a signal mask, disabling the IRQ1/6
-		// signals. The mask is updated whenever the ICR register is
-		// written to and will have all bits but those for IFR1/IFR6
-		// set (the latter are controlled by the value coming from the
-		// CFT).
 		out_shift_registers(_cb[2], CMD_CTLCLK);
 		out_shift_registers(_cb[1], CMD_CTLCLK);
-		out_shift_registers(_cb[0] | ~_icr, CMD_CTLCLK);
+		out_shift_registers(_cb[0], CMD_CTLCLK);
 		
 		// Move data from ALL the shift registers to their respective
 		// output registers. Tristated output registers will of course
@@ -1267,7 +1286,6 @@ set_clkfreq(uint8_t prescaler, uint16_t div)
 	// OCR1B = div;
 
 	TCCR1B = _BV(WGM12) | (prescaler & 7); // CTC, prescaler
-	TCCR1A = _BV(COM1A0);
 	OCR1A = div;
 }
 
@@ -1276,7 +1294,11 @@ void
 clk_start()
 {
 	if (_clk_prescale == 0) clk_fast();
-	else set_clkfreq(_clk_prescale, _clk_div);
+	else {
+		set_clkfreq(_clk_prescale, _clk_div);
+		TCCR1A = _BV(COM1A0);
+	}
+	_stopped = 0;
 }
 
 
@@ -1289,6 +1311,7 @@ clk_stop()
 	// Also disconnect the FPUSTEP-IN pin from the timer. The pin
 	// will stay in its last state.
 	TCCR1A = 0x00;	// Disconnect FPUSTEP-IN pin, no pulses.
+	_stopped = 1;
 }
 
 
@@ -1296,6 +1319,7 @@ inline void
 clk_fast()
 {
 	_clk_prescale = 0;
+	TCCR1A = 0x00;
 	bit(PORTB, B_FPCLKEN, 1);
 	// The rate of the slow clock is a Don't Care value.
 }
@@ -1306,6 +1330,7 @@ clk_slow()
 {
 	// 80 Hz = 14745600 / (2 * 1024 * (1 + 89))
 	set_clkfreq(PSV_1024, 89);
+	if (!_stopped) TCCR1A = _BV(COM1A0);
 }
 
 
@@ -1314,6 +1339,7 @@ clk_creep()
 {
 	// 8 Hz = 14745600 / (2 * 1024 * (1 + 890))
 	set_clkfreq(PSV_1024, 899);
+	if (!_stopped) TCCR1A = _BV(COM1A0);
 }
 
 
@@ -1441,21 +1467,22 @@ set_safe(bool_t val)
 }
 
 
-uint8_t
+void
 set_irq1(bool_t val)
 {
 	do_cb(0, NIRQ1, !val);
 	write_cb();
-	return _icr & CB0_NIRQ1;
 }
 
 
-uint8_t
-set_irq6(bool_t val)
+void
+set_irq6(bool_t val, bool_t fromPanel)
 {
+	if (val && fromPanel) {
+		ifr6_operated = 1;
+	}
 	do_cb(0, NIRQ6, !val);
 	write_cb();
-	return _icr & CB0_NIRQ6;
 }
 
 
@@ -1663,6 +1690,7 @@ queue_char(uint8_t c)
 	if (new_ip == ringbuf.op) return;
 	ringbuf.b[ringbuf.ip] = c;
 	ringbuf.ip = new_ip;
+	if (icr & ICR_TTY) set_irq6(1, 0);
 }
 
 
@@ -1688,10 +1716,10 @@ maybe_dequeue_char()
 // When an I/O address in the range 0x0100 to 0x011F is accessed for reading or
 // writing, an FF sets a wait state pausing the processor.
 //
-// At the same time, if a read cycle is in operation (R# low), the DBUS drivers
-// come out of tri-state and start driving the data bus with whatever value was
-// last written to them. Because of the wait state, this value isn't read by
-// the processor.
+// At the same time, if a read cycle is in operation (R# low), the DFP's DBUS
+// drivers come out of high impedance and start driving the data bus with
+// whatever value was last written to them. Because of the wait state, this
+// value isn't read by the processor.
 //
 // The ISR reads (at least) the following bus signals:
 //
@@ -1728,11 +1756,19 @@ ISR(INT0_vect)
 			break;
 
 		case IO_ENEF:
+			features |= _db;
+			if (features & FTR_TRC) buscmd_debugon();
+			if (features & FTR_HOS) flags |= FL_HOS;
+			break;
+
 		case IO_DISEF:
+			features &= ~_db;
+			if (features & FTR_TRC) buscmd_debugoff();
+			if (features & FTR_HOS) flags &= ~FL_HOS;
 			break;
 
 		case IO_ICR:
-			_icr = ICRBASE | _db;
+			icr = _db;
 			break;
 
 		case IO_SENTINEL:
@@ -1819,19 +1855,26 @@ ISR(INT0_vect)
 			break;
 
 		case IO_ISR:
- 			_db = _cb[0] & (CB0_NIRQ1 | CB0_NIRQ6);
-			if (ringbuf.op != ringbuf.ip) _db |= 0x8000;
+ 			_db = 0;
+			// Interrupts asserted
+			if ((_cb[0] & CB0_NIRQ1) == 0) _db |= ISR_IRQ6;
+			if ((_cb[0] & CB0_NIRQ6) == 0) _db |= ISR_IRQ1;
+			// Interrupt sources
+			if (ifr6_operated) _db |= ISR_IFR6;
+			if (ringbuf.op != ringbuf.ip) _db |= ISR_TTY;
+
 			defer_cb_write(); // Clear both IRQ1 and IRQ6 together.
 			set_irq1(0);
-			set_irq6(0);
+			set_irq6(0, 0);
+			ifr6_operated = 0;
 			break;
 
 		case IO_QEF1:
 		case IO_QEF2:
-			_db = QEF_BASE_RESULT;
+			_db = QEF_BASE;
 			if (flags & FL_HOF) _db |= QEF_HOF;
 			if (flags & FL_HOS) _db |= QEF_HOS;
-			if (actuated(_swleft, SWL_NLOCK)) _db |= QEF_LOCKED;
+			if (actuated(_swleft, SWL_NLOCK)) _db |= QEF_LOCK;
 			break;
 
 		case IO_READC:
@@ -1872,7 +1915,7 @@ ISR(INT0_vect)
   IFR6          Y               Y
   RAM           Y               Y
 
-  Debouncing: the 1970s way. We sample the switches slowly enough (at 20 Hz)
+  Debouncing: the 1970s way. We sample the switches slowly enough (at 20-30 Hz)
   for bouncing to not be an issue. Since we sample and don't clock off the
   switches, glitches and bounces won't affect anything.
 

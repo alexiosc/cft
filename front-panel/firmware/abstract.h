@@ -13,6 +13,19 @@
 #endif // AVR
 
 
+// Note: ICR_TTY is used to enable IRQ6# when console characters
+// received.
+#define ICR_IFR6 2
+#define ICR_IFR1 4
+#define ICR_TTY  8
+
+extern uint16_t icr;
+
+#define ISR_IRQ6 1
+#define ISR_IRQ1 2
+#define ISR_IFR6 4
+#define ISR_TTY  8
+
 void hw_init();
 void hw_tick();
 void hw_done();
@@ -76,7 +89,7 @@ void clk_start();		// Start clock
 void clk_fast();		// Set fast clock
 void clk_slow();		// Set slow clock
 void clk_creep();		// Set creep clock
-void set_clkfreq(uint8_t prescaler, uint16_t div);	// Clock frequency select
+void set_clkfreq(uint8_t prescaler, uint16_t div);// Clock frequency select
 
 void wait_for_halt();		// Wait until the processor clock is stopped
 
@@ -86,8 +99,8 @@ void perform_step();		// Start the step state machine
 void perform_ustep();		// Start the microstep state machine
 void set_buspu(const uint8_t x);// Control bus pull-up
 void set_safe(bool_t x);	// SAFE#
-uint8_t set_irq1(bool_t x);	// IRQ1#
-uint8_t set_irq6(bool_t x);	// IRQ6#
+void set_irq1(bool_t x);	// IRQ1#
+void set_irq6(bool_t x, bool_t fromPanel);	// IRQ6#
 void set_fpram(bool_t x);	// FPRAM#
 void perform_reset();		// FPRESET# or RESET#/RSTHOLD#
 void strobe_wpc();		// WPC#

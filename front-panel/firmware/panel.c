@@ -298,8 +298,8 @@ panel_ifr1()
 {
 	//report(__FUNCTION__); report_pstr(PSTR("()\n"));
 	say_break();
-	set_irq6(0);
-	if (set_irq1(1)) {
+	if (icr & ICR_IFR1) {
+		set_irq1(1);
 		report_pstr(PSTR(STR_IFR1));
 	} else {
 		report_pstr(PSTR(STR_IFR1M));
@@ -313,8 +313,8 @@ panel_ifr6()
 {
 	//report(__FUNCTION__); report_pstr(PSTR("()\n"));
 	say_break();
-	set_irq6(0);
-	if (set_irq6(1)) {
+	if (icr & ICR_IFR6) {
+		set_irq6(1, 1);
 		report_pstr(PSTR(STR_IFR6));
 	} else {
 		report_pstr(PSTR(STR_IFR6M));

@@ -26,6 +26,8 @@
 #include "panel.h"
 
 
+uint16_t icr;
+
 static uint16_t _or;
 static uint16_t _ab;
 static uint16_t _sr = 0xbeef, _pc = 0xdead;
@@ -667,17 +669,15 @@ set_safe(bool_t x)
 }
 
 
-uint8_t
+void
 set_irq1(bool_t x)
 {
-	return 1;
 }
 
 
-uint8_t
-set_irq6(bool_t x)
+void
+set_irq6(bool_t x, bool_t fromPanel)
 {
-	return 1;
 }
 
 
