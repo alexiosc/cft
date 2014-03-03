@@ -35,162 +35,167 @@ Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 // banks to be ‘permanent’ (until changed or the computer resets). The
 // upper 16 ports (&10-&1F) change the microcode bank for the next
 // instruction only.
-#define IO_UCB_BASE_PERM   0x0000 /*   00-0F: -whef UCBP (set permanent microcode bank) */
-#define IO_UCB_BASE_TEMP   0x0010 /*   10-1F: -whef UCBT (set temporary microcode bank) */
+#define IO_UCB_BASE_PERM   0x0000 //   00-0F: -whef UCBP (set permanent microcode bank)
+#define IO_UCB_BASE_TEMP   0x0010 //   10-1F: -whef UCBT (set temporary microcode bank)
 
 // The memory banking controller. Note: setting bit 8 of any of
 // addresses &20-&23 disables banking.
-#define IO_MEMBANK0        0x0020 /*      20: -whef MBR0 (Memory Bank Register 0) */
-#define IO_MEMBANK1        0x0021 /*      21: -whef MBR1 (Memory Bank Register 1) */
-#define IO_MEMBANK2        0x0022 /*      22: -whef MBR2 (Memory Bank Register 2) */
-#define IO_MEMBANK3        0x0023 /*      23: -whef MBR3 (Memory Bank Register 3) */
-#define IO_MEMBANK4        0x0024 /*      24: -whef MBR4 (Memory Bank Register 4) */
-#define IO_MEMBANK5        0x0025 /*      25: -whef MBR5 (Memory Bank Register 5) */
-#define IO_MEMBANK6        0x0026 /*      26: -whef MBR6 (Memory Bank Register 6) */
-#define IO_MEMBANK7        0x0027 /*      27: -whef MBR7 (Memory Bank Register 7) */
-
-// The front panel board
-#define IO_PANEL_SWITCHES  0x0030 /*      08: r-hef SR0  (front panel switches) */
-#define IO_DIP_SWITCHES    0x0031 /*      09: r-hef SR1  (front panel dip-switches) */
-#define IO_PANEL_LIGHTS    0x0032 /*      0a: -whef OR   (front panel output LEDs) */
-#define IO_CLOCK_HALT      0x0037 /*      0f: -whef HIR  (front panel HALT) */
-
-// The video card (old, obsolete. See ‘VDU’ below)
-/* #define IO_VIDEO_VSR	   0x0020 /\*      20: r-hef VSR  (Video Status Register) *\/ */
-/* #define IO_VIDEO_MCR	   0x0020 /\*      20: -whef MCR  (Mode Control Register) *\/ */
-/* #define IO_VIDEO_VWR	   0x0021 /\*      21: -whef VWR  (Video Window Register) *\/ */
-/* #define IO_VIDEO_SSR       0x0022 /\*      22: -whef SSR  (Video Screen Start Register) *\/ */
-/* #define IO_VIDEO_SER       0x0023 /\*      23: -whef SER  (Video Screen End Register) *\/ */
-/* #define IO_VIDEO_SCR       0x0024 /\*      24: -whef SCR  (Video SCroll Control Register *\/ */
-/* #define IO_VIDEO_RSVD5     0x0025 /\*      25: -whef   reserved *\/ */
-/* #define IO_VIDEO_CAR       0x0026 /\*      26: -whef CAR  (Cursor address register) *\/ */
-/* #define IO_VIDEO_CCR       0x0027 /\*      27: -whef CCR  (Cursor control register) *\/ */
+#define IO_MEMBANK0        0x0020 //      20: -whef MBR0 (Memory Bank Register 0)
+#define IO_MEMBANK1        0x0021 //      21: -whef MBR1 (Memory Bank Register 1)
+#define IO_MEMBANK2        0x0022 //      22: -whef MBR2 (Memory Bank Register 2)
+#define IO_MEMBANK3        0x0023 //      23: -whef MBR3 (Memory Bank Register 3)
+#define IO_MEMBANK4        0x0024 //      24: -whef MBR4 (Memory Bank Register 4)
+#define IO_MEMBANK5        0x0025 //      25: -whef MBR5 (Memory Bank Register 5)
+#define IO_MEMBANK6        0x0026 //      26: -whef MBR6 (Memory Bank Register 6)
+#define IO_MEMBANK7        0x0027 //      27: -whef MBR7 (Memory Bank Register 7)
 
 // The Interrupt controller
-#define IO_IRC_ICR         0x0040 /*   40-4F: -whe- ICR (Interrupt Command Register; 16 copies) */
-#define IO_IRC_ISR         0x0040 /*   40-4F: r-he- ISR (Interrupt Status Register; 16 copies) */
+#define IO_IRC_ICR         0x0028 //      28: -whef ICR (Interrupt Command Register)
+#define IO_IRC_ISR         0x0028 //      28: r-hef ISR (Interrupt Status Register)
+
+
+// The debugginf front panel board (see asm/dfp.asm for definitive reference)
+#define IO_SOR             0x0100 //     100: -w-ef SOR (set output register)
+#define IO_LSR             0x0100 //     100: r--ef LSR (read switch register)
+#define IO_LDSR            0x0101 //     101: r--ef LDSR (read DIP switch register)
+#define IO_ENEF            0x0108 //     108: -w-ef ENEF (enable features)
+#define IO_QEF             0x0108 //     108: r--ef QEF (query features)
+#define IO_DISEF           0x0109 //     109: -w-ef DISEF (disable features)
+#define IO_SENTINEL        0x010f //     10f: -w-ef SENTINEL instruction
+#define IO_PRINTA	   0x03f0 //     3f0: -whef Log AC as address
+#define IO_PRINTC	   0x03f1 //     3f1: -whef Log AC as character
+#define IO_PRINTD	   0x03f2 //     3f2: -whef Log AC as integer
+#define IO_PRINTU	   0x03f3 //     3f3: -whef Log AC as unsigned int
+#define IO_PRINTH	   0x03f4 //     3f4: -whef Log AC in hex
+#define IO_PRINTB	   0x03f5 //     3f6: -whef Log AC in binary
+#define IO_PRINTSP	   0x03f6 //     3f6: -whef Log a space
+#define IO_PRINTNL	   0x03f7 //     3f7: -whef Log a newline
+#define IO_DEBUGON	   0x03f8 //     3f8: -w-ef Emulator enables assembly tracing
+#define IO_DEBUGOFF	   0x03f9 //     3f9: -w-ef Emulator disables assembly tracing
+#define IO_DUMP  	   0x03fa //     3fa: -w-ef Emulator dumps state
+#define IO_PRINTHI	   0x03fb //     3fb: -whef HI:=AC
+#define IO_PRINTLO	   0x03fc //     3fc: -whef Log 32-bit int as HI:AC
+#define IO_HALT	           0x03fd //     3fd: -whef Debugging halt
+#define IO_SUCCESS         0x03fe //     3fe: -whef Log test success
+#define IO_FAIL 	   0x03ff //     3ff: -whef Log test failure and HALT
+
+
+
+// NEWEST HARDWARE VERIFIED UP TO HERE
+
+
+
+
+// The front panel board (old, obsolete. See ‘DFP’)
+// #define IO_PANEL_SWITCHES  0x0030 //      08: r-hef SR0  (front panel switches)
+// #define IO_DIP_SWITCHES    0x0031 //      09: r-hef SR1  (front panel dip-switches)
+// #define IO_PANEL_LIGHTS    0x0032 //      0a: -whef OR   (front panel output LEDs)
+// #define IO_CLOCK_HALT      0x0037 //      0f: -whef HIR  (front panel HALT)
+
+// The video card (old, obsolete. See ‘VDU’)
+// #define IO_VIDEO_VSR	   0x0020 //      20: r-hef VSR  (Video Status Register)
+// #define IO_VIDEO_MCR	   0x0020 //      20: -whef MCR  (Mode Control Register)
+// #define IO_VIDEO_VWR	   0x0021 //      21: -whef VWR  (Video Window Register)
+// #define IO_VIDEO_SSR       0x0022 //      22: -whef SSR  (Video Screen Start Register)
+// #define IO_VIDEO_SER       0x0023 //      23: -whef SER  (Video Screen End Register)
+// #define IO_VIDEO_SCR       0x0024 //      24: -whef SCR  (Video SCroll Control Register
+// #define IO_VIDEO_RSVD5     0x0025 //      25: -whef   reserved *\/
+// #define IO_VIDEO_CAR       0x0026 //      26: -whef CAR  (Cursor address register)
+// #define IO_VIDEO_CCR       0x0027 //      27: -whef CCR  (Cursor control register)
 
 // The 16550 UARTs (up to four)
-#define IO_TTY0_RX         0x0060 /*      60: r-hef TTY0RX Receive buffer */
-#define IO_TTY0_TX         0x0060 /*      60: -whef TTY0TX Transmit buffer */
-#define IO_TTY0_IER        0x0061 /*      61: rwhef TTY0IER Interrupt enable */
-#define IO_TTY0_IIR        0x0062 /*      62: r-hef TTY0IIR Interrupt identification */
-#define IO_TTY0_FCR        0x0062 /*      62: -whef TTY0FCR FIFO Control */
-#define IO_TTY0_LCR        0x0063 /*      63: rwhef TTY0LCR Line Control */
-#define IO_TTY0_MCR        0x0064 /*      64: rwhef TTY0MCR Modem Control */
-#define IO_TTY0_LSR        0x0065 /*      65: rwhef TTY0MCR Line Status */
-#define IO_TTY0_MSR        0x0066 /*      66: rwhef TTY0MSR Modem Status */
-#define IO_TTY0_SCR        0x0067 /*      67: rwhef TTY0SCR Scratch Register */
+#define IO_TTY0_RX         0x0060 //      60: r-hef TTY0RX Receive buffer
+#define IO_TTY0_TX         0x0060 //      60: -whef TTY0TX Transmit buffer
+#define IO_TTY0_IER        0x0061 //      61: rwhef TTY0IER Interrupt enable
+#define IO_TTY0_IIR        0x0062 //      62: r-hef TTY0IIR Interrupt identification
+#define IO_TTY0_FCR        0x0062 //      62: -whef TTY0FCR FIFO Control
+#define IO_TTY0_LCR        0x0063 //      63: rwhef TTY0LCR Line Control
+#define IO_TTY0_MCR        0x0064 //      64: rwhef TTY0MCR Modem Control
+#define IO_TTY0_LSR        0x0065 //      65: rwhef TTY0MCR Line Status
+#define IO_TTY0_MSR        0x0066 //      66: rwhef TTY0MSR Modem Status
+#define IO_TTY0_SCR        0x0067 //      67: rwhef TTY0SCR Scratch Register
 
-#define IO_TTY1_RX         0x0068 /*      68: r-hef TTY1RX Receive buffer */
-#define IO_TTY1_TX         0x0068 /*      68: -whef TTY1TX Transmit buffer */
-#define IO_TTY1_IER        0x0069 /*      69: rwhef TTY1IER Interrupt enable */
-#define IO_TTY1_IIR        0x006a /*      6a: r-hef TTY1IIR Interrupt identification */
-#define IO_TTY1_FCR        0x006a /*      6a: -whef TTY1FCR FIFO Control */
-#define IO_TTY1_LCR        0x006b /*      6b: rwhef TTY1LCR Line Control */
-#define IO_TTY1_MCR        0x006c /*      6c: rwhef TTY1MCR Modem Control */
-#define IO_TTY1_LSR        0x006d /*      6d: rwhef TTY1MCR Line Status */
-#define IO_TTY1_MSR        0x006e /*      6e: rwhef TTY1MSR Modem Status */
-#define IO_TTY1_SCR        0x006f /*      6f: rwhef TTY1SCR Scratch Register */
+#define IO_TTY1_RX         0x0068 //      68: r-hef TTY1RX Receive buffer
+#define IO_TTY1_TX         0x0068 //      68: -whef TTY1TX Transmit buffer
+#define IO_TTY1_IER        0x0069 //      69: rwhef TTY1IER Interrupt enable
+#define IO_TTY1_IIR        0x006a //      6a: r-hef TTY1IIR Interrupt identification
+#define IO_TTY1_FCR        0x006a //      6a: -whef TTY1FCR FIFO Control
+#define IO_TTY1_LCR        0x006b //      6b: rwhef TTY1LCR Line Control
+#define IO_TTY1_MCR        0x006c //      6c: rwhef TTY1MCR Modem Control
+#define IO_TTY1_LSR        0x006d //      6d: rwhef TTY1MCR Line Status
+#define IO_TTY1_MSR        0x006e //      6e: rwhef TTY1MSR Modem Status
+#define IO_TTY1_SCR        0x006f //      6f: rwhef TTY1SCR Scratch Register
 
-#define IO_TTY2_RX         0x0070 /*      70: r-hef TTY2RX Receive buffer */
-#define IO_TTY2_TX         0x0070 /*      70: -whef TTY2TX Transmit buffer */
-#define IO_TTY2_IER        0x0071 /*      71: rwhef TTY2IER Interrupt enable */
-#define IO_TTY2_IIR        0x0072 /*      72: r-hef TTY2IIR Interrupt identification */
-#define IO_TTY2_FCR        0x0072 /*      72: -whef TTY2FCR FIFO Control */
-#define IO_TTY2_LCR        0x0073 /*      73: rwhef TTY2LCR Line Control */
-#define IO_TTY2_MCR        0x0074 /*      74: rwhef TTY2MCR Modem Control */
-#define IO_TTY2_LSR        0x0075 /*      75: rwhef TTY2MCR Line Status */
-#define IO_TTY2_MSR        0x0076 /*      76: rwhef TTY2MSR Modem Status */
-#define IO_TTY2_SCR        0x0077 /*      77: rwhef TTY2SCR Scratch Register */
+#define IO_TTY2_RX         0x0070 //      70: r-hef TTY2RX Receive buffer
+#define IO_TTY2_TX         0x0070 //      70: -whef TTY2TX Transmit buffer
+#define IO_TTY2_IER        0x0071 //      71: rwhef TTY2IER Interrupt enable
+#define IO_TTY2_IIR        0x0072 //      72: r-hef TTY2IIR Interrupt identification
+#define IO_TTY2_FCR        0x0072 //      72: -whef TTY2FCR FIFO Control
+#define IO_TTY2_LCR        0x0073 //      73: rwhef TTY2LCR Line Control
+#define IO_TTY2_MCR        0x0074 //      74: rwhef TTY2MCR Modem Control
+#define IO_TTY2_LSR        0x0075 //      75: rwhef TTY2MCR Line Status
+#define IO_TTY2_MSR        0x0076 //      76: rwhef TTY2MSR Modem Status
+#define IO_TTY2_SCR        0x0077 //      77: rwhef TTY2SCR Scratch Register
 
-#define IO_TTY3_RX         0x0078 /*      78: r-hef TTY3RX Receive buffer */
-#define IO_TTY3_TX         0x0078 /*      78: -whef TTY3TX Transmit buffer */
-#define IO_TTY3_IER        0x0079 /*      79: rwhef TTY3IER Interrupt enable */
-#define IO_TTY3_IIR        0x007a /*      7a: r-hef TTY3IIR Interrupt identification */
-#define IO_TTY3_FCR        0x007a /*      7a: -whef TTY3FCR FIFO Control */
-#define IO_TTY3_LCR        0x007b /*      7b: rwhef TTY3LCR Line Control */
-#define IO_TTY3_MCR        0x007c /*      7c: rwhef TTY3MCR Modem Control */
-#define IO_TTY3_LSR        0x007d /*      7d: rwhef TTY3MCR Line Status */
-#define IO_TTY3_MSR        0x007e /*      7e: rwhef TTY3MSR Modem Status */
-#define IO_TTY3_SCR        0x007f /*      7f: rwhef TTY3SCR Scratch Register */
+#define IO_TTY3_RX         0x0078 //      78: r-hef TTY3RX Receive buffer
+#define IO_TTY3_TX         0x0078 //      78: -whef TTY3TX Transmit buffer
+#define IO_TTY3_IER        0x0079 //      79: rwhef TTY3IER Interrupt enable
+#define IO_TTY3_IIR        0x007a //      7a: r-hef TTY3IIR Interrupt identification
+#define IO_TTY3_FCR        0x007a //      7a: -whef TTY3FCR FIFO Control
+#define IO_TTY3_LCR        0x007b //      7b: rwhef TTY3LCR Line Control
+#define IO_TTY3_MCR        0x007c //      7c: rwhef TTY3MCR Modem Control
+#define IO_TTY3_LSR        0x007d //      7d: rwhef TTY3MCR Line Status
+#define IO_TTY3_MSR        0x007e //      7e: rwhef TTY3MSR Modem Status
+#define IO_TTY3_SCR        0x007f //      7f: rwhef TTY3SCR Scratch Register
 
 // The NVRAM/RTC/timer board
-#define IO_NVRAM_BASE	   0x0080 /*   80-8F: rwhef NVRx (NVRAM aperture, 16 bytes) */
-#define IO_NVRAM_WINDOW	   0x0090 /*   90-93: -whe- NVRW (NVRAM window register, 4 copies) */
-#define IO_TIMER0_REG0     0x0094 /*      94: rwhef T0R0 (Timer 0, Reg 0) */
-#define IO_TIMER0_REG1     0x0095 /*      95: rwhef T0R1 (Timer 0, Reg 1) */
-#define IO_TIMER0_REG2     0x0096 /*      96: rwhef T0R2 (Timer 0, Reg 2) */
-#define IO_TIMER0_REG3     0x0097 /*      97: rwhef T0R3 (Timer 0, Reg 3) */
-#define IO_TIMER1_REG0     0x0098 /*      98: rwhef T1R0 (Timer 1, Reg 0) */
-#define IO_TIMER1_REG1     0x0099 /*      99: rwhef T1R1 (Timer 1, Reg 1) */
-#define IO_TIMER1_REG2     0x009a /*      9a: rwhef T1R2 (Timer 1, Reg 2) */
-#define IO_TIMER1_REG3     0x009b /*      9b: rwhef T1R3 (Timer 1, Reg 3) */
+#define IO_NVRAM_BASE	   0x0080 //   80-8F: rwhef NVRx (NVRAM aperture, 16 bytes)
+#define IO_NVRAM_WINDOW	   0x0090 //   90-93: -whe- NVRW (NVRAM window register, 4 copies)
+#define IO_TIMER0_REG0     0x0094 //      94: rwhef T0R0 (Timer 0, Reg 0)
+#define IO_TIMER0_REG1     0x0095 //      95: rwhef T0R1 (Timer 0, Reg 1)
+#define IO_TIMER0_REG2     0x0096 //      96: rwhef T0R2 (Timer 0, Reg 2)
+#define IO_TIMER0_REG3     0x0097 //      97: rwhef T0R3 (Timer 0, Reg 3)
+#define IO_TIMER1_REG0     0x0098 //      98: rwhef T1R0 (Timer 1, Reg 0)
+#define IO_TIMER1_REG1     0x0099 //      99: rwhef T1R1 (Timer 1, Reg 1)
+#define IO_TIMER1_REG2     0x009a //      9a: rwhef T1R2 (Timer 1, Reg 2)
+#define IO_TIMER1_REG3     0x009b //      9b: rwhef T1R3 (Timer 1, Reg 3)
 
 // The IDE Host Adaptor
-#define IO_IDEA_CS3	   0x00a0 /*   a0-a7: rwhef HDA3 (IDE A CS3 base) */
-#define IO_IDEA_CS1	   0x00b0 /*   b0-b7: rwhef HDA1 (IDE A CS1 base) */
-#define IO_IDEB_CS3	   0x00c0 /*   c0-c7: rwhef HDA3 (IDE B CS3 base) */
-#define IO_IDEB_CS1	   0x00d0 /*   d0-d7: rwhef HDA1 (IDE B CS1 base) */
+#define IO_IDEA_CS3	   0x00a0 //   a0-a7: rwhef HDA3 (IDE A CS3 base)
+#define IO_IDEA_CS1	   0x00b0 //   b0-b7: rwhef HDA1 (IDE A CS1 base)
+#define IO_IDEB_CS3	   0x00c0 //   c0-c7: rwhef HDA3 (IDE B CS3 base)
+#define IO_IDEB_CS1	   0x00d0 //   d0-d7: rwhef HDA1 (IDE B CS1 base)
 
 // The Ethernet board
-#define IO_ETH_REG0        0x00e0 /*   E0,E4,E8,EC: rwh-- Ethernet register #0 (four copies) */
-#define IO_ETH_REG1        0x00e1 /*   E1,E5,E9,ED: rwh-- Ethernet register #1 */
-#define IO_ETH_REG2        0x00e2 /*   E2,E6,EA,EE: rwh-- Ethernet register #3 */
-#define IO_ETH_REG3        0x00e3 /*   E3,E7,EB,EF: rwh-- Ethernet register #3 */
+#define IO_ETH_REG0        0x00e0 //   E0,E4,E8,EC: rwh-- Ethernet register #0 (four copies)
+#define IO_ETH_REG1        0x00e1 //   E1,E5,E9,ED: rwh-- Ethernet register #1
+#define IO_ETH_REG2        0x00e2 //   E2,E6,EA,EE: rwh-- Ethernet register #3
+#define IO_ETH_REG3        0x00e3 //   E3,E7,EB,EF: rwh-- Ethernet register #3
 
 // The Audio board (AY-3-8910 and SpeakJet®)
-#define IO_SND_PSG         0x00f0 /*      F0: --whef AY-3-8910 PSG comms register */
-#define IO_SND_SJW         0x00f1 /*      F0: --wh-f SpeakJet® write data */
-#define IO_SND_SJCR        0x00f2 /*      F0: -rwh-f SpeakJet® control register */
+#define IO_SND_PSG         0x00f0 //      F0: --whef AY-3-8910 PSG comms register
+#define IO_SND_SJW         0x00f1 //      F0: --wh-f SpeakJet® write data
+#define IO_SND_SJCR        0x00f2 //      F0: -rwh-f SpeakJet® control register
 
 // The new VDU board
-#define IO_VIDEO_SR	   0x01f0 /*     1F0: r-hef SR (Status Register) */
-#define IO_VIDEO_MCR0	   0x01f0 /*     1F0: -whef MCR0 (Mode Control Register 0) */
-#define IO_VIDEO_MCR1	   0x01f1 /*     1F1: -whef MCR1 (Mode Control Register 1) */
-#define IO_VIDEO_SCR0	   0x01f2 /*     1F2: -whef SCR0 (Scroll Control Register 0) */
-#define IO_VIDEO_SCR1	   0x01f3 /*     1F3: -whef SCR1 (Scroll Control Register 1) */
-#define IO_VIDEO_SAR0	   0x01f4 /*     1F4: -whef SAR0 (Start Address Register 0) */
-#define IO_VIDEO_SAR1	   0x01f5 /*     1F5: -whef SAR1 (Start Address Register 1) */
-#define IO_VIDEO_MAR0	   0x01f6 /*     1F6: -whef MAR0 (Modulo Address Register 0) */
-#define IO_VIDEO_MAR1	   0x01f7 /*     1F7: -whef MAR1 (Modulo Address Register 1) */
-#define IO_VIDEO_CCR	   0x01f8 /*     1F8: -whef CCR (Cursor Control Register) */
-#define IO_VIDEO_CAR	   0x01f9 /*     1F9: -whef CAR (Cursor Address Register) */
-#define IO_VIDEO_HAR	   0x01fa /*     1FA: -whef HAR (Host Address Register) */
-#define IO_VIDEO_KBD	   0x01fb /*     1FB: rwhef KBD (Keyboard Access Register) */
+#define IO_VIDEO_SR	   0x01f0 //     1F0: r-hef SR (Status Register)
+#define IO_VIDEO_MCR0	   0x01f0 //     1F0: -whef MCR0 (Mode Control Register 0)
+#define IO_VIDEO_MCR1	   0x01f1 //     1F1: -whef MCR1 (Mode Control Register 1)
+#define IO_VIDEO_SCR0	   0x01f2 //     1F2: -whef SCR0 (Scroll Control Register 0)
+#define IO_VIDEO_SCR1	   0x01f3 //     1F3: -whef SCR1 (Scroll Control Register 1)
+#define IO_VIDEO_SAR0	   0x01f4 //     1F4: -whef SAR0 (Start Address Register 0)
+#define IO_VIDEO_SAR1	   0x01f5 //     1F5: -whef SAR1 (Start Address Register 1)
+#define IO_VIDEO_MAR0	   0x01f6 //     1F6: -whef MAR0 (Modulo Address Register 0)
+#define IO_VIDEO_MAR1	   0x01f7 //     1F7: -whef MAR1 (Modulo Address Register 1)
+#define IO_VIDEO_CCR	   0x01f8 //     1F8: -whef CCR (Cursor Control Register)
+#define IO_VIDEO_CAR	   0x01f9 //     1F9: -whef CAR (Cursor Address Register)
+#define IO_VIDEO_HAR	   0x01fa //     1FA: -whef HAR (Host Address Register)
+#define IO_VIDEO_KBD	   0x01fb //     1FB: rwhef KBD (Keyboard Access Register)
 
-#define IO_VIDEO_CRR	   0x01fd /*     1FD: rwhef CRR (Command Repetition Register) */
-#define IO_VIDEO_CPORT	   0x01fe /*     1FE: rwhef CPORT (C Plane Port) */
-#define IO_VIDEO_CMD	   0x01ff /*     1FF: rwhef CMD (Command Register) */
+#define IO_VIDEO_CRR	   0x01fd //     1FD: rwhef CRR (Command Repetition Register)
+#define IO_VIDEO_CPORT	   0x01fe //     1FE: rwhef CPORT (C Plane Port)
+#define IO_VIDEO_CMD	   0x01ff //     1FF: rwhef CMD (Command Register)
 
-// The emulator/debugging board (see testing.asm for details)
-#define IO_ENEF            0x03e0 /*     3e0: -w-ef enable emulator features */
-#define IO_DISEF           0x03e1 /*     3e1: -w-ef disable emulator features */
-#define IO_QEF             0x03e0 /*     3e0: r--e- query emulator features */
-#define IO_QEF_ALT         0x03e1 /*     3e1: r--e- (same) */
-
-//#define IO_TICKS_LO        0x03e8 /*     3e8: rw-ef TC0  (Tick counter low) */
-//#define IO_TICKS_HI        0x03e9 /*     3e9: rw-ef TC1  (Tick counter high) */
-#define IO_TICKS           0x03e8 /*     3e8: rw-ef TCK  (Tick counter, 32-bit) */
-
-#define IO_SENTINEL        0x03ef /*     3ef: rw-ef log sentinel execution and halt */
-
-#define IO_PRINTA	   0x03f0 /*     3f0: -whef Log AC as address */
-#define IO_PRINTC	   0x03f1 /*     3f1: -whef Log AC as character */
-#define IO_PRINTD	   0x03f2 /*     3f2: -whef Log AC as integer */
-#define IO_PRINTU	   0x03f3 /*     3f3: -whef Log AC as unsigned int */
-#define IO_PRINTH	   0x03f4 /*     3f4: -whef Log AC in hex */
-#define IO_PRINTB	   0x03f5 /*     3f6: -whef Log AC in binary */
-#define IO_PRINTSP	   0x03f6 /*     3f6: -whef Log a space */
-#define IO_PRINTNL	   0x03f7 /*     3f7: -whef Log a newline */
-#define IO_DEBUGON	   0x03f8 /*     3f8: -w-ef Emulator enables assembly tracing */
-#define IO_DEBUGOFF	   0x03f9 /*     3f9: -w-ef Emulator disables assembly tracing */
-#define IO_DUMP  	   0x03fa /*     3fa: -w-ef Emulator dumps state */
-#define IO_PRINTHI	   0x03fb /*     3fb: -whef HI:=AC */
-#define IO_PRINTLO	   0x03fc /*     3fc: -whef Log 32-bit int as HI:AC */
-#define IO_DEB_HALT	   0x03fd /*     3fd: -whef Debugging halt */
-#define IO_SUCCESS         0x03fe /*     3fe: -whef Log test success */
-#define IO_FAIL 	   0x03ff /*     3ff: -whef Log test failure and HALT */
 
 
 
@@ -226,6 +231,6 @@ typedef struct {
 extern iodev_t iodevs[];
 
 
-#endif /* IO_H */
+#endif // IO_H
 
-/* End of file. */
+// End of file.

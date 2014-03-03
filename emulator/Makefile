@@ -11,7 +11,7 @@ LDFLAGS += $(shell pkg-config --libs sdl) -lX11
 
 PROGRAMS = cftemu
 OBJS = cftemu.o cmdline.o emulator.o io.o pasm.o map.o util.o microcode.o \
-	fifo.o memory.o mbu.o irc.o nvram.o duart.o ide.o panel.o debug.o video.o \
+	fifo.o memory.o mbu.o irc.o nvram.o duart.o ide.o video.o \
 	ui.o ui_panel.o ui_menu.o ui_deb.o ui_vdu.o ui_tty.o uterm.o psg.o 8912.o \
 	ay8910.o
 GENERATED = romfont.h

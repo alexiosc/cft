@@ -86,10 +86,8 @@ mbu_write(uint16_t addr, uint16_t dbus)
 
 	switch(addr) {
 	case IO_MEMBANK0:
-	case IO_MEMBANK1:
-	case IO_MEMBANK2:
-	case IO_MEMBANK3:
-
+		
+		// Interpret the enable/disable bit, only available on bank 0.
 		if (dbus & 0x100) {
 			if (cpu.mbuen) {
 				mbudebug("Disabling MBU soft mapping, reverting to hard map.\n");
@@ -105,6 +103,9 @@ mbu_write(uint16_t addr, uint16_t dbus)
 
 		// Case fall-through is intentional.
 
+	case IO_MEMBANK1:
+	case IO_MEMBANK2:
+	case IO_MEMBANK3:
 	case IO_MEMBANK4:
 	case IO_MEMBANK5:
 	case IO_MEMBANK6:
