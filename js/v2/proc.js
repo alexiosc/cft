@@ -203,7 +203,7 @@ CFT = {
     IOT: function(){
 	CFT.instrDebug("IOT");
 	var ar = CFT.AGL();
-	Bus.iow(a, CFT.r.ac);	               // io[AGL] = AC
+	Bus.iow(ar, CFT.r.ac);	               // io[AGL] = AC
 	CFT.r.ac = Bus.ior(ar);		       // AC = io[AGL]
     },
     
@@ -534,10 +534,10 @@ Bus = {
 
     tick: function()
     {
-	// for (var i = 0; i < Bus._drivers.length; i++) {
-	//     var x = Bus._drivers[i].tick;
-	//     if (x) x();
-	// }
+	for (var i = 0; i < Bus._drivers.length; i++) {
+	    var x = Bus._drivers[i].tick;
+	    if (x) x();
+	}
     },
     
     tickUI: function()

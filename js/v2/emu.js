@@ -62,7 +62,7 @@ $(document).ready(function(){
 
     // UI elements
     var x = $('#header').width() + 35;
-    setTimeout(function(){$('#header').animate({opacity:0, left:'-=' + x}, 2000)}, 1500);
+    setTimeout(function(){$('#header').animate({opacity:0, left:'-=' + x}, 2000)}, 10000);
 
     // Initialise the emulator
     Bus.init();
@@ -77,8 +77,8 @@ $(document).ready(function(){
     Bus.init();
     CFT.init();
 
-    CFT.reset().halt();
     Bus.reset();
+    CFT.reset().halt();
 
     var target = 2500000;
     var frames = 0;
@@ -98,7 +98,7 @@ $(document).ready(function(){
     	    Bus.tick();
 	    //if (Bus.sleep) i += 100;
     	}
-    	setTimeout(loop, 5);
+    	setTimeout(loop, 10);
 	frames++;
 	// if ((frames & 0x1) == 0) {
 	//     fps++;
@@ -139,7 +139,7 @@ $(document).ready(function(){
     }, 5000);
 
     // Start the processor
-    setTimeout(CFT.start, 500);
+    setTimeout(CFT.start, 1000);
 });
 
 // End of file.

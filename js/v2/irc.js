@@ -1,29 +1,29 @@
-// -* javascript -*-
+// -*- javascript -*-
 
 IRC = {
     code: 'IRC',
     name: 'Interrupt Controller',
     
-    ifr: 0,			// Interrupt Flag Register
-    ier: 0,			// Interrupt Enable Register
+    isr: 0,			// Interrupt Status Register
+    icr: 0,			// Interrupt Control Register
 
     init: function()
     {
-	IRC.ifr = 0;
-	IRC.irf = 0;
+	IRC.icr = 0;
+	IRC.isr = 0;
     },
 
     reset: function()
     {
-	IRC.irf = 0;
-	IRC.ier = 0;
+	IRC.icr = 0;
+	IRC.isr = 0;
     },
 
     ior: function(addr)
     {
 	if (addr == 0x28) {
 	    DFP.activity(DFP.ACT_LIGHT_IRC);
-	    return 0x0f00 | (IRC.irf & 0xff);
+	    return 0x0f00 | (IRC.isr & 0xff);
 	}
 	return -1;
     },
@@ -36,17 +36,19 @@ IRC = {
 
 	    // The set/clear command is bit 0
 	    if (data & 1) {
+		//console.log('enable irq', irqn);
 		// Set an IRQ 
-		IRC.ier |= (1 << irqn);
+		IRC.icr |= (1 << irqn);
 	    } else {
+		//console.log('disable irq', irqn);
 		// Clear an IRQ
-		IRC.ier &= ~(1 << irqn);
+		IRC.icr &= ~(1 << irqn);
 	    }
 
 	    // Mask interrupts. This clears interrupt flags for masked
 	    // interrupts, so masking an interrupt also works as an
 	    // interrupt acknowledge signal.
-	    IRC.irf &= IRC.ier;
+	    IRC.isr &= IRC.icr;
 
 	    DFP.activity(DFP.ACT_LIGHT_IRC);
 	    return 1;
@@ -60,8 +62,8 @@ IRC = {
 	// the source of an interrupt is cleared, we'll keep
 	// signaling.
 
-	for (var i = 0; i < 8; i++) {
-	    if (IRC.irf[i]) {
+	for (var i = 1; i < 256; i = i << 1) {
+	    if (IRC.isr & i) {
 		CFT.signalInterrupt();
 		return;
 	    }
@@ -70,12 +72,14 @@ IRC = {
 
     irq: function(n)
     {
+	//console.log('irq', n);
 	if ((n < 0) || (n > 7)) {
 	    CFT.fail('Attempted to signal invalid IRQ ' + n);
 	    return;
 	}
 
-	IRC.irf |= (IRC.ier & (1 << n));
+	IRC.isr |= (IRC.icr & (1 << n));
+	console.log(bin(IRC.icr, 8), bin(IRC.isr, 8));
     }
 };
 

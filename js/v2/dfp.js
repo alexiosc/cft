@@ -1,5 +1,25 @@
 // -*- javascript -*-
 
+// A terminal factory which patches the terminal with a medley of VTxxx
+// features.
+function VTFactory(term){
+    term.vtf = {
+	write: term.write,
+	state: 0
+    };
+    term.write = function (x) {
+	var v = term.vtf;
+	var w = v.write;
+
+	switch(v.state) {
+	case 0:
+	    w(x);
+	    break;
+	}
+    };
+    return term;
+}
+
 DFP = {
     code: 'DFP',
     name: 'Debugging Front Panel (partial)',
@@ -46,6 +66,7 @@ DFP = {
 	});
 	DFP._term.open();
 	DFP._term.charMode = true;
+	//DFP._term = VTFactory(DFP._term);
 	
 	function termHandler() {
 	    this.cursorOn();
@@ -148,6 +169,7 @@ DFP = {
 
     console: function(msg)
     {
+	//DFP._term.write("\033[0;1;32mfoo");
 	DFP._term.write(msg);
     },
    
@@ -170,7 +192,7 @@ DFP = {
 	    // The feature set is: DEB (but not the PFP), debug TTY,
 	    // PRINTx, SENTINEL, Halt on FAIL, Halt on SENTINEL,
 	    // running on an emulator.
-	    return 0x61ce;
+	    return 0xe1ce;
 
 	case 0x10a:		// ISR
 	    // The DFP ISR has extra bits for the IFR1/6 switches. We
@@ -490,6 +512,7 @@ DFP = {
 
     queueChar: function(c)
     {
+	if (CFT.halted) return;		// Ignore characters when the CPU is halted
 	DFP._queue.push(c);
 	console.log(DFP._queue);
 	if (DFP.icr & 8) IRC.irq(6);

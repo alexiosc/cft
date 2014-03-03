@@ -43,7 +43,7 @@ MBU = {
 	if (addr & 0x8000) {
 	    // Reading from ROM
 	    data = Bus._rom[addr & 0x7fff];
-	    // console.log('Read ROM: mem[' + addr.toString(16) + '] -> ' + data.toString(16))
+	    //console.log('Read ROM: mem[' + addr.toString(16) + '] -> ' + data.toString(16))
 	    // CFT.debug('Read ROM: mem[' + addr.toString(16) + '] -> ' + data.toString(16));
 	} else {
 	    // Reading from RAM
