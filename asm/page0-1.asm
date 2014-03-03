@@ -24,6 +24,7 @@
 		.reg HWTTYS   R @	; TTYs available
 		.reg MEMCFG   R @	; RAM and ROM pages found
 		.reg ROMSTART R @	; Start of ROM (address or bank number)
+		.reg HWENV    R @	; Hardware Environment
 
 .equ MEMCFG_NRAMMSK &00ff		; Number of RAM banks
 .equ MEMCFG_NROMMSK &ff00		; Number of ROM banks
@@ -49,6 +50,13 @@
 .equ HWT_TTY1 #-------------1--		; TTY 1 present
 .equ HWT_TTY2 #------------1---		; TTY 2 present
 .equ HWT_TTY3 #-----------1----		; TTY 3 present
+.equ HWT_VDU  #------1---------		; VDU present
+
+.equ HWE_HW   0				; Running on hardware
+.equ HWE_V    1				; Verilog emulation (very slow)
+.equ HWE_JS   2				; Javascript emulation (slow)
+.equ HWE_C    3				; C emulation
+		
 
 //.equ HWM_1960 HWC_DFP HWC_IRC HWC_TTY HWC_RTC HWC_TMR HWC_NVR ; 
 //.equ HWM_1970 HWM_1960 HWM_FDC

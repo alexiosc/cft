@@ -42,40 +42,41 @@
 
 ;;; Flags for the QEF instruction
 
-.equ QEF.PFP  #--------'-------1        ; PFP: full front panel installed
-.equ QEF.DEB  #--------'------1-        ; DEB functionality present
-.equ QEF.TTY  #--------'-----1--        ; Debug TTY present
-.equ QEF.TST  #--------'----1---        ; Testing interface (PRINTx) present
-.equ QEF.TRC  #--------'---1----        ; Tracing (DEBUGON/OFF) available
-.equ QEF.UTR  #--------'--1-----	; Microcode tracing available
-.equ QEF.DMP  #--------'-1------	; DUMP available
-.equ QEF.SNT  #--------'1-------	; SENTINEL available
-.equ QEF.HOF  #-------1'--------	; Will halt on FAIL
-.equ QEF.HOS  #------1-'--------	; Will halt on SENTINEL
-.equ QEF.LCK  #-----1--'--------	; Panel is locked
-.equ QEF.VHW  #010-----'--------	; Detection/version: hardware
-.equ QEF.VMU  #011-----'--------        ; Detection/version: emulated panel
-.equ QEF.DET  #111-----'--------        ; Detection mask
+.equ QEF_PFP  #--------'-------1        ; PFP: full front panel installed
+.equ QEF_DEB  #--------'------1-        ; DEB functionality present
+.equ QEF_TTY  #--------'-----1--        ; Debug TTY present
+.equ QEF_TST  #--------'----1---        ; Testing interface (PRINTx) present
+.equ QEF_TRC  #--------'---1----        ; Tracing (DEBUGON/OFF) available
+.equ QEF_UTR  #--------'--1-----	; Microcode tracing available
+.equ QEF_DMP  #--------'-1------	; DUMP available
+.equ QEF_SNT  #--------'1-------	; SENTINEL available
+.equ QEF_HOF  #-------1'--------	; Will halt on FAIL
+.equ QEF_HOS  #------1-'--------	; Will halt on SENTINEL
+.equ QEF_LCK  #-----1--'--------	; Panel is locked
+.equ QEF_VHW  #010-----'--------	; Detection/version: hardware
+.equ QEF_EMU  #011-----'--------        ; Detection/version: emulated panel
+.equ QEF_JS   #111-----'--------        ; Detection/version: JS-emulated panel
+.equ QEF_DET  #111-----'--------        ; Detection mask
 
 ;;; Flags for the ENEF/DISEF instruction
 		
-.equ FTR.HOB  #---------------1         ; Halt on bus errors (emulator only)
-.equ FTR.TRC  #-----------1----		; Assembly trace
-.equ FTR.UTR  #----------1-----		; Microcode trace
-.equ FTR.HOS  #------1---------		; Halt on SENTINEL
+.equ FTR_HOB  #---------------1         ; Halt on bus errors (emulator only)
+.equ FTR_TRC  #-----------1----		; Assembly trace
+.equ FTR_UTR  #----------1-----		; Microcode trace
+.equ FTR_HOS  #------1---------		; Halt on SENTINEL
 
 ;;; Flags for the ISR register
 
-.equ ISR.IRQ6 #---------------1         ; IRQ6 asserted
-.equ ISR.IRQ1 #--------------1-         ; IRQ1 asserted (IFR1 switch operated)
-.equ ISR.IFR6 #-------------1--         ; IFR6 switch operated
-.equ ISR.TTYQ #------------1---         ; TTY characters available
+.equ ISR_IRQ6 #---------------1         ; IRQ6 asserted
+.equ ISR_IRQ1 #--------------1-         ; IRQ1 asserted (IFR1 switch operated)
+.equ ISR_IFR6 #-------------1--         ; IFR6 switch operated
+.equ ISR_TTYQ #------------1---         ; TTY characters available
 
 ;;; Flags for the ICR register
 		
-.equ ICR.IFR1 #--------------1-         ; Signal IRQ1 on IFR1 press
-.equ ICR.IFR6 #-------------1--         ; Signal IRQ6 (or IRQ) on IFR6 press
-.equ ICR.TTYQ #------------1---         ; Signal IRQ6 (or IRQ) when
+.equ ICR_IFR1 #--------------1-         ; Signal IRQ1 on IFR1 press
+.equ ICR_IFR6 #-------------1--         ; Signal IRQ6 (or IRQ) on IFR6 press
+.equ ICR_TTYQ #------------1---         ; Signal IRQ6 (or IRQ) when
 					; TTY characters available
 
 .popns

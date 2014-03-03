@@ -583,9 +583,9 @@
 
 	
 
-;; Macro: LMOV(tgt,src)
+;; Macro: LMOV(tgt,lit)
 ;;
-;; Load value of src and store in tgt.
+;; Store literal value lit in tgt.
 ;;
 ;; Side effects:
 ;;   mem[%tgt] = %lit
@@ -964,7 +964,7 @@
 ;;
 ;; Side effects:
 ;;   Those of JMP.
-.macro LJMP(label)
+.macro FARJMP(label)
 		JMP I @+1		; LJMP(%label)
 		.word %label
 .end

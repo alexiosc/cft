@@ -29,7 +29,8 @@
 ; 		JMP @
 ; .end
 
-.equ ERR_MBU #----'----'----'---1      ; MBU failed to map pages
+.equ ERR_MBU   #----'----'----'---1	; MBU failed to map pages
+.equ ERR_NCONS #----'----'----'--1-	; No console detected
 
 .popns
 

@@ -10,18 +10,18 @@
 ;;; and ISR_IRQn for testing if an interrupt has been signaled.
 
 .macro enable(irq)
-		LI ICR_EN ICR_IRQ%irq
-		OUT ICR
+		LI irc.ICR_EN irc.ICR_IRQ%irq
+		OUT irc.ICR
 .end
 
 .macro disable(irq)
-		LI ICR_DIS ICR_IRQ%irq
-		OUT ICR
+		LI irc.ICR_DIS irc.ICR_IRQ%irq
+		OUT irc.ICR
 .end
 
 .macro ack(irq)
-		disable(irq)
-		enable(irq)
+		irc.disable(%irq)
+		irc.enable(%irq)
 .end
 
 ;;; Definitions
