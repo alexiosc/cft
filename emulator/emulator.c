@@ -123,7 +123,7 @@ mach_t mach_revisions[] = {
 
 	{
 		.code = "v2",
-		.name = "Standard  hardware for ROM development",
+		.name = "Standard hardware for ROM development",
 
 		.ramsize = 512 << 10,
 		.romsize = 8192,
@@ -210,8 +210,6 @@ mach_t mach_revisions[] = {
 		.have_ether = 0,
 	},
 
-
-
 	{
 		.code = "v3",
 		.name = "Full hardware (no Ethernet)",
@@ -231,6 +229,27 @@ mach_t mach_revisions[] = {
 		.have_ide = 1,
 		.have_nvram = 1,
 		.have_video = 1,
+		.have_ether = 0,
+	},
+
+	{
+		.code = "v4",
+		.name = "Full hardware, boot ROM development",
+
+		.ramsize = 512 << 10,
+		.romsize = 32 << 10,
+
+		.banks = {0x000000, 0x002000, 0x004000, 0x006000,
+			  0x100000, 0x102000, 0x104000, 0x106000},
+
+		.image_start = 0x100000,
+		.image_size = 0x8000,
+
+		.have_mbu = 1,
+		.have_irc = 1,
+		.have_ide = 0,
+		.have_nvram = 0,
+		.have_video = 0,
 		.have_ether = 0,
 	},
 
@@ -284,6 +303,19 @@ reset_cpu()
 	cpu.ustate.l = 0;
 
 	cpu.rst_hold = RST_HOLD; /* Set up reset pulse */
+}
+
+void
+halt_cpu()
+{
+	cpu.halt = 1;
+}
+
+
+void
+start_cpu()
+{
+	cpu.halt = 0;
 }
 
 
@@ -685,7 +717,7 @@ decode_write_unit()
 void
 quit(int quiet)
 {
-	cpu.halt = 1;
+	cpu.quit = 1;
 	if (!quiet) {
 		dump_state();
 		dump_ustate();
@@ -737,15 +769,16 @@ emulate()
 	
 	//word addr;
 	//static struct timespec ts;
-	while(!cpu.halt) {
+	cpu.quit = 0;
+	while(!cpu.quit) {
 		volatile int p;
 		for (p = 0; p < 50; p++);
 		
 
 		/* Do nothing if the emulation is paused. */
-		if (cpu.pause) {
+		if (cpu.pause || cpu.halt) {
 			ui_tick();
-			usleep(5000);
+			usleep(1000);
 			continue;
 		}
 

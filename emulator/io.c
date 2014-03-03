@@ -1,6 +1,6 @@
 /* 
 
-emulator.c - Main emulator code
+io.c - I/O devices, central hub
 
 Copyright (C) 2011 Alexios Chouchoulas
 
@@ -39,10 +39,11 @@ Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 #include "nvram.h"
 #include "duart.h"
 #include "ide.h"
-#include "panel.h"
+#include "dfp.h"
+//#include "panel.h"			// Obsoleted by dfp.h
 #include "video.h"
 #include "psg.h"
-#include "debug.h"
+//#include "debug.h"			// Obsoleted by dfp.h
 #include "util.h"
 #include "ui.h"
 
@@ -107,17 +108,29 @@ iodev_t iodevs[] = {
 		.read = ide_read,
 		.write = ide_write
 	},
-	
+
+        // PFP obsoleted in favour of DFP
+	// {
+	// 	.name = "Front Panel",
+	// 	.code = "PFP",
+	// 	.flag = &panel,
+	// 	.init = panel_init,
+	// 	//.reset = panel_reset,
+	// 	.done = panel_done,
+	// 	.tick = panel_tick,
+	// 	.read = panel_read,
+	// 	.write = panel_write
+	// },
 	{
-		.name = "Front Panel",
-		.code = "PFP",
-		.flag = &panel,
-		.init = panel_init,
-		//.reset = panel_reset,
-		.done = panel_done,
-		.tick = panel_tick,
-		.read = panel_read,
-		.write = panel_write
+		.name = "Debugging Front Panel",
+		.code = "DFP",
+		.flag = &dfp_enabled,
+		.init = dfp_init,
+		//.reset = dfp_reset,
+		.done = dfp_done,
+		.tick = dfp_tick,
+		.read = dfp_read,
+		.write = dfp_write
 	},
 	
 	{
@@ -144,17 +157,19 @@ iodev_t iodevs[] = {
 		.write = psg_write
 
 	},
-	{
-		.name = "Debug",
-		.code = "DEB",
-		.flag = &debugger,
-		.init = debug_init,
-		//.reset = debug_reset,
-		.done = debug_done,
-		.tick = debug_tick,
-		.read = debug_read,
-		.write = debug_write
-	},
+
+        // The DEB board has been obsoleted by the DFP
+	// {
+	// 	.name = "Debug",
+	// 	.code = "DEB",
+	// 	.flag = &debugger,
+	// 	.init = debug_init,
+	// 	//.reset = debug_reset,
+	// 	.done = debug_done,
+	// 	.tick = debug_tick,
+	// 	.read = debug_read,
+	// 	.write = debug_write
+	// },
 	
 	{
 		.name = NULL,

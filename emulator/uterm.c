@@ -68,6 +68,7 @@ uterm_t * uterm_new(int lines)
 	ut->blink = 0;
 	ut->inv = 0;
 	ut->bold = 0;
+	ut->state = 0;
 
 	// Clear the screen.
 	uterm_home(ut);
@@ -350,6 +351,7 @@ uterm_putc_again:
 		default:
 			ut->screen[ut->cursline].b[ut->cursofs] = c;
 			ut->screen[ut->cursline].c[ut->cursofs] = ut->attr;
+
 			if (++ut->cursofs >= UTERM_WIDTH) {
 				uterm_nl(ut);
 				/* ut->cursofs = 0; */

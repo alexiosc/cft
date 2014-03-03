@@ -120,6 +120,7 @@ typedef struct {
 	uint32_t     upc;       /* Last microcode conditional vector */
 	uint32_t     control;   /* Last microcode signal vector retrieved */
 
+	int quit;               /* Quit? */
 	int pause;              /* Paused? */
 	int halt;		/* Halted? */
 	int wait;               /* A wait state has been asserted (not used) */

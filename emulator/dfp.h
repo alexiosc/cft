@@ -28,9 +28,23 @@ Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 #include <sys/types.h>
 
 
-extern int dfp;
+extern int      dfp_enabled;
+extern int      dfp_pts;
+extern uint16_t reg_features;
+extern uint16_t reg_sr;
+extern uint16_t reg_or;
+extern uint16_t reg_dsr;
 
-extern int dfp_pts;
+#define FTR_HOB 0x0001
+#define FTR_TRC 0x0010
+#define FTR_UTR 0x0020
+#define FTR_HOS 0x0200
+
+#define QEF_BASE 0xd0ff
+
+#define QEF_HOF  0x0100
+#define QEF_HOS  0x0200
+#define QEF_LOCK 0x0400
 
 
 void dfp_init();

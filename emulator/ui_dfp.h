@@ -1,8 +1,8 @@
 /* 
 
-emulator.h - Interface file for emulator structures
+ui_dfp.h - Debugging Front Panel, UI implementation.
 
-Copyright (C) 2012 Alexios Chouchoulas
+Copyright (C) 2014 Alexios Chouchoulas
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -20,17 +20,20 @@ Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
 */
 
-#ifndef EMULATOR_H
-#define EMULATOR_H 1
+#ifndef UI_DFP_H
+#define UI_DFP_H 1
 
 
-void reset_cpu();
+void ui_tab_dfp_focus();
 
-void start_cpu();
+void ui_tab_dfp_tick();
 
-void halt_cpu();
+int ui_tab_dfp_input(SDL_Event *);
+
+void ui_tab_dfp_unfocus();
 
 
-#endif /* EMULATOR_H */
 
-/* End of file. */
+#endif /* UI_DFP_H */
+
+// End of file.

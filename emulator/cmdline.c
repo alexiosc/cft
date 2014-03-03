@@ -34,7 +34,7 @@ Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 #include "ide.h"
 #include "video.h"
 #include "psg.h"
-#include "debug.h"
+#include "dfp.h"
 #include "duart.h"
 
 
@@ -75,10 +75,14 @@ enum {DUMMY_KEY=129
       
       ,KEY_FS
 
-      ,KEY_DEB_PTS
-      ,KEY_DEB_TTY
-      ,KEY_DEB_IN
-      ,KEY_DEB_OUT
+      // ,KEY_DEB_PTS
+      // ,KEY_DEB_TTY
+      // ,KEY_DEB_IN
+      // ,KEY_DEB_OUT
+      ,KEY_DFP_PTS
+      ,KEY_DFP_TTY
+      ,KEY_DFP_IN
+      ,KEY_DFP_OUT
 
       ,KEY_PSG
       ,KEY_NO_PSG
@@ -204,17 +208,17 @@ static struct argp_option options[] =
 
 	// Debugging Card
 
-	{ "deb-pts", KEY_DEB_PTS,  NULL, 0,
-	  "Allocate a new pseudo-terminal and let the debugging card listen on it.", 0 },
+	{ "dfp-pts", KEY_DFP_PTS,  NULL, 0,
+	  "Allocate a new pseudo-terminal and let the DFP listen on it.", 0 },
 
-	{ "deb-tty", KEY_DEB_TTY,  NULL, 0,
-	  "The debugging card will open this terminal for interactive debugging.", 0 },
+	{ "dfp-tty", KEY_DFP_TTY,  NULL, 0,
+	  "The DFP will open this terminal for interactive debugging.", 0 },
 
-	{ "deb-in", KEY_DEB_IN,  NULL, 0,
-	  "The debugging card will open this file and read a debugging script from it.", 0 },
+	{ "dfp-in", KEY_DFP_IN,  NULL, 0,
+	  "The DFP will open this file and read a debugging script from it.", 0 },
 
-	{ "deb-out", KEY_DEB_OUT,  NULL, 0,
-	  "The debugging card will log its output to this file.", 0 },
+	{ "dfp-out", KEY_DFP_OUT,  NULL, 0,
+	  "The DFP will log its output to this file.", 0 },
 
 #if 0
 	{ "microcode",     'm',           NULL,            0,
@@ -477,21 +481,22 @@ parse_opt (int key, char *arg, struct argp_state *state)
 		debug_video = 1;
 		break;
 
-	case KEY_DEB_PTS:
-		deb_pts = 1;
+	case KEY_DFP_PTS:
+		dfp_pts = 1;
 		break;
 
-	case KEY_DEB_TTY:
+	case KEY_DFP_TTY:
 		fail("Not implemented.\n");
 		break;
 
-	case KEY_DEB_IN:
+	case KEY_DFP_IN:
 		fail("Not implemented.\n");
 		break;
 
-	case KEY_DEB_OUT:
+	case KEY_DFP_OUT:
 		fail("Not implemented.\n");
 		break;
+
 
 
 	case ARGP_KEY_ARG:	// MEMORY-IMAGE (only one allowed)

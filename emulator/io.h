@@ -62,22 +62,22 @@ Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 #define IO_QEF             0x0108 //     108: r--ef QEF (query features)
 #define IO_DISEF           0x0109 //     109: -w-ef DISEF (disable features)
 #define IO_SENTINEL        0x010f //     10f: -w-ef SENTINEL instruction
-#define IO_PRINTA	   0x03f0 //     3f0: -whef Log AC as address
-#define IO_PRINTC	   0x03f1 //     3f1: -whef Log AC as character
-#define IO_PRINTD	   0x03f2 //     3f2: -whef Log AC as integer
-#define IO_PRINTU	   0x03f3 //     3f3: -whef Log AC as unsigned int
-#define IO_PRINTH	   0x03f4 //     3f4: -whef Log AC in hex
-#define IO_PRINTB	   0x03f5 //     3f6: -whef Log AC in binary
-#define IO_PRINTSP	   0x03f6 //     3f6: -whef Log a space
-#define IO_PRINTNL	   0x03f7 //     3f7: -whef Log a newline
-#define IO_DEBUGON	   0x03f8 //     3f8: -w-ef Emulator enables assembly tracing
-#define IO_DEBUGOFF	   0x03f9 //     3f9: -w-ef Emulator disables assembly tracing
-#define IO_DUMP  	   0x03fa //     3fa: -w-ef Emulator dumps state
-#define IO_PRINTHI	   0x03fb //     3fb: -whef HI:=AC
-#define IO_PRINTLO	   0x03fc //     3fc: -whef Log 32-bit int as HI:AC
-#define IO_HALT	           0x03fd //     3fd: -whef Debugging halt
-#define IO_SUCCESS         0x03fe //     3fe: -whef Log test success
-#define IO_FAIL 	   0x03ff //     3ff: -whef Log test failure and HALT
+#define IO_PRINTA	   0x0110 //     3f0: -whef Log AC as address
+#define IO_PRINTC	   0x0111 //     3f1: -whef Log AC as character
+#define IO_PRINTD	   0x0112 //     3f2: -whef Log AC as integer
+#define IO_PRINTU	   0x0113 //     3f3: -whef Log AC as unsigned int
+#define IO_PRINTH	   0x0114 //     3f4: -whef Log AC in hex
+#define IO_PRINTB	   0x0115 //     3f6: -whef Log AC in binary
+#define IO_PRINTSP	   0x0116 //     3f6: -whef Log a space
+#define IO_PRINTNL	   0x0117 //     3f7: -whef Log a newline
+#define IO_DEBUGON	   0x0118 //     3f8: -w-ef Emulator enables assembly tracing
+#define IO_DEBUGOFF	   0x0119 //     3f9: -w-ef Emulator disables assembly tracing
+#define IO_DUMP  	   0x011a //     3fa: -w-ef Emulator dumps state
+#define IO_PRINTHI	   0x011b //     3fb: -whef HI:=AC
+#define IO_PRINTLO	   0x011c //     3fc: -whef Log 32-bit int as HI:AC
+#define IO_HALT	           0x011d //     3fd: -whef Debugging halt
+#define IO_SUCCESS         0x011e //     3fe: -whef Log test success
+#define IO_FAIL 	   0x011f //     3ff: -whef Log test failure and HALT
 
 
 

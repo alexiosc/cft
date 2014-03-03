@@ -36,28 +36,18 @@ Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 #include "debug.h"
 #include "util.h"
 #include "uterm.h"
+#include "dfp.h"
 
 
-int debugger = 1;
+int dfp_enabled = 1;
 int dfp_pts = 0;
 
 uterm_t * dfp_term = NULL;
 
-#define FTR_HOB 0x0001
-#define FTR_TRC 0x0010
-#define FTR_UTR 0x0020
-#define FTR_HOS 0x0200
-
-#define QEF_BASE 0xd0ff
-
-#define QEF_HOF  0x0100
-#define QEF_HOS  0x0200
-#define QEF_LOCK 0x0400
-
-static uint16_t reg_features;
-static uint16_t reg_sr;
-static uint16_t reg_or;
-static uint16_t reg_dsr;
+uint16_t reg_features;
+uint16_t reg_sr = 0xc600;
+uint16_t reg_or;
+uint16_t reg_dsr;
 
 static int debugfd = -1;
 static char * pts;
@@ -119,6 +109,7 @@ dfp_init()
 
 	/* Initialise the DEB terminal emulator */
 	dfp_term = uterm_new(200);
+	uterm_write(dfp_term, "This is a test.\n");
 }
 
 
@@ -145,7 +136,6 @@ int
 dfp_write(uint16_t addr, uint16_t dbus)
 {
 	static word _hword;
-	int i;
 
 	switch(addr){
 	case IO_SOR:
@@ -154,10 +144,12 @@ dfp_write(uint16_t addr, uint16_t dbus)
 
 	case IO_ENEF:
 		reg_features |= dbus;
+		sanity = (reg_features & FTR_HOB) != 0;
 		return 1;
 
 	case IO_DISEF:
 		reg_features &= ~dbus;
+		sanity = (reg_features & FTR_HOB) != 0;
 		return 1;
 
 	case IO_SENTINEL:
@@ -232,13 +224,13 @@ dfp_write(uint16_t addr, uint16_t dbus)
 
 	case IO_DEBUGON:
 		dfp_out("[debugging trace on]");
-		dfp_asm = 1;
+		debug_asm = 1;
 		debugdebug("Enabling debugging trace\n");
 		return 1;
 
 	case IO_DEBUGOFF:
 		dfp_out("[debugging trace off]");
-		dfp_asm = 0;
+		debug_asm = 0;
 		debugdebug("Disabling debugging trace\n");
 		return 1;
 
@@ -295,16 +287,16 @@ dfp_read(uint16_t addr, uint16_t *dbus)
 {
 	switch(addr){
 	case IO_LSR:
-		*dbus = reg_lsr;
+		*dbus = reg_sr;
 		return 1;
 
 	case IO_LDSR:
-		*dbus = reg_ldsr;
+		*dbus = reg_dsr;
 		return 1;
 
 	case IO_QEF:
 		*dbus = QEF_BASE;	// The base set of permanent features
-		if (features & FTR_HOS) *dbus |= QEF_HOS;
+		if (reg_features & FTR_HOS) *dbus |= QEF_HOS;
 		// TODO: add remaining features here
 		return 1;
 	}

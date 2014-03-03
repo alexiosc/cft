@@ -51,7 +51,8 @@ Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 #include "ui_menu.h"
 #include "ui_panel.h"
 #include "ui_vdu.h"
-#include "ui_deb.h"
+//#include "ui_deb.h" // Obsoleted by DFP
+#include "ui_dfp.h"
 #include "ui_tty.h"
 
 
@@ -61,31 +62,39 @@ console_t cons;
 static tab_t tabs[] = 
 {
 	{
-		.name = "F8 VDU",
-		.hotkey = SDLK_F8,
+		.name = "F1 VDU",
+		.hotkey = SDLK_F1,
 		.init = ui_tab_vdu_init,
 		.focus = ui_tab_vdu_focus,
 		.input = ui_tab_vdu_input
 	},
 	{
-		.name = "F9 TTY",
-		.hotkey = SDLK_F9,
+		.name = "F2 TTY",
+		.hotkey = SDLK_F2,
 		.focus = ui_tab_tty_focus,
 		.unfocus = ui_tab_tty_unfocus,
 		.tick = ui_tab_tty_tick,
 		.input = ui_tab_tty_input
 	},
+	// {
+	// 	.name = "F10 DEB",
+	// 	.hotkey = SDLK_F10,
+	// 	.focus = ui_tab_deb_focus,
+	// 	.unfocus = ui_tab_deb_unfocus,
+	// 	.tick = ui_tab_deb_tick,
+	// 	.input = ui_tab_deb_input
+	// },
 	{
-		.name = "F10 DEB",
-		.hotkey = SDLK_F10,
-		.focus = ui_tab_deb_focus,
-		.unfocus = ui_tab_deb_unfocus,
-		.tick = ui_tab_deb_tick,
-		.input = ui_tab_deb_input
+		.name = "F3 DFP",
+		.hotkey = SDLK_F3,
+		.focus = ui_tab_dfp_focus,
+		.unfocus = ui_tab_dfp_unfocus,
+		.tick = ui_tab_dfp_tick,
+		.input = ui_tab_dfp_input
 	},
 	{
-		.name = "F11 Panel",
-		.hotkey = SDLK_F11,
+		.name = "F4 Panel",
+		.hotkey = SDLK_F4,
 		.focus = ui_tab_panel_focus,
 		.unfocus = ui_tab_panel_unfocus,
 		.tick = ui_tab_panel_tick,
@@ -93,8 +102,8 @@ static tab_t tabs[] =
 	},
 
 	{
-		.name = "F12 Menu",
-		.hotkey = SDLK_F12,
+		.name = "F10 Menu",
+		.hotkey = SDLK_F10,
 		.focus = ui_tab_menu_focus,
 		.input = ui_tab_menu_input,
 		.unfocus = ui_tab_menu_unfocus
@@ -391,14 +400,29 @@ ui_key(SDL_Event event)
 	if ((k->sym == 'c' || k->sym == '\\') &&
 	    (k->mod & (KMOD_CTRL|KMOD_LCTRL|KMOD_RCTRL))) {
 		quit(0);
-	}
+	} else
 
-	// Handle tab hotkeys
-	int i;
-	for (i = 0; tabs[i].name != NULL; i++){
-		if (k->mod == 0 && k->sym == tabs[i].hotkey) {
-			ui_tab(i);
+	// Handle global keys
+	if ((k->mod == KMOD_LALT || k->mod == KMOD_RALT)) {
+		switch (k->sym) {
+		case SDLK_F1:
+			start_cpu();
 			return;
+		case SDLK_F2:
+			halt_cpu();
+			return;
+		case SDLK_F12:
+			reset_cpu();
+			return;
+		}
+	} else {
+		// Handle tab hotkeys
+		int i;
+		for (i = 0; tabs[i].name != NULL; i++){
+			if (k->mod == 0 && k->sym == tabs[i].hotkey) {
+				ui_tab(i);
+				return;
+			}
 		}
 	}
 
@@ -456,11 +480,6 @@ ui_tick()
 
 	//fprintf(stderr, "keysym=%d, type=%d\n", event.key.keysym.sym, event.type);
 
-	// Let the current tab process the event first.
-	if (tabs[cons.tab].input) {
-		if ((*tabs[cons.tab].input)(&event)) return;
-	}
-
 	switch (event.type) {
 	case SDL_KEYDOWN:
 		ui_key(event);
@@ -469,6 +488,11 @@ ui_tick()
 	case SDL_QUIT:
 		quit(0);
 		break;
+	}
+
+	// Let the current tab process the event first.
+	if (tabs[cons.tab].input) {
+		if ((*tabs[cons.tab].input)(&event)) return;
 	}
 }
 

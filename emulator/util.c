@@ -47,7 +47,7 @@ dump_state()
 	printf("IR:  %s%04x%s  (OP: %01x I: %01d R: %01d V: %03x) %s%s %s%s%03x%s",
 	       COL_WHI, cpu.ir, COL_NOR,
 	       get_op(cpu.ir), get_i(cpu.ir), get_r(cpu.ir), get_offset(cpu.ir),
-	       COL_MAG, ops[(get_op(cpu.ir) << 1) + get_i(cpu.ir)],
+	       COL_MAG, ops[(cpu.ir >> 11) & 0x1f],
 	       get_i(cpu.ir)? "I ": "",
 	       get_r(cpu.ir)? "R ": "",
 	       get_offset(cpu.ir), COL_NOR);
@@ -86,7 +86,7 @@ dump_ustate()
 	printf("INT: %s%d%s ", COL_YEL, cpu.ustate.int_, COL_NOR);
 	printf("V: %s%d%s ", COL_YEL, cpu.v, COL_NOR);
 	printf("L: %s%d%s ", COL_YEL, cpu.l, COL_NOR);
-	printf("OP:  %s%x (%s)%s ", COL_YEL, cpu.ustate.op, ops[cpu.ustate.op], COL_NOR);
+	printf("OP:  %s%x (%s)%s ", COL_YEL, cpu.ustate.op, ops[cpu.ustate.op << 1], COL_NOR);
 	printf("I: %s%d%s ", COL_YEL, cpu.ustate.i, COL_NOR);
 	printf("SKIP: %s%d%s ", COL_YEL, cpu.ustate.skip, COL_NOR);
 	printf("INC: %s%d%s ", COL_YEL, cpu.ustate.inc, COL_NOR);
@@ -221,7 +221,7 @@ dump_mini(word oldpc)
 
 	if (source == NULL) {
 		info("%s%s%s %s%s%03x%s\t\t%s\n",
-		     buf0, COL_NOR COL_MAG, ops[get_op(cpu.ir)],
+		     buf0, COL_NOR COL_MAG, ops[(cpu.ir >> 11) & 0x1f],
 		     get_i(cpu.ir)? "I ": "",
 		     get_r(cpu.ir)? "R ": "",
 		     get_offset(cpu.ir), COL_NOR,

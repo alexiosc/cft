@@ -207,13 +207,11 @@ ps2_scancode_t set2[] = {
 	{SDLK_F5, 0, 0x03},
 	{SDLK_F6, 0, 0x0b},
 	{SDLK_F7, 0, 0x83},
-	/*
 	{SDLK_F8, 0, 0x0a},
 	{SDLK_F9, 0, 0x01},
 	{SDLK_F10, 0, 0x09},
 	{SDLK_F11, 0, 0x78},
 	{SDLK_F12, 0, 0x07},
-	*/
 
 	/* Special treatment for these. */
 	//{SDLK_PRINT, 0, 0x0e},

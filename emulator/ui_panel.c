@@ -43,7 +43,7 @@
 #include "video.h"
 #include "cftemu.h"
 #include "mbu.h"
-#include "panel.h"
+#include "dfp.h"
 #include "emulator.h"
 #include "util.h"
 #include "uterm.h"
@@ -115,7 +115,7 @@ _ui_tab_panel_acquire()
 	word mfd;
 	switch (_pd.mfdsrc) {
 	case mfd_or:
-		mfd = output_register;
+		mfd = reg_or;
 		break;
 	case mfd_dr:
 		mfd = cpu.dr;
@@ -136,7 +136,7 @@ _ui_tab_panel_acquire()
 	}
 
 	// Process the control vector
-	uint32_t uvec = cpu.control ^ UVEC_XORMASK;
+	uint32_t uvec = cpu.control ^ 0xfff800; // Some lights are inverted
 	for (i = 0, j = 1; i < MICROCODE_TOTALSIGS; i++, j<<=1) {
 		if (uvec & j) _pd.uvec[i]++;
 	}
