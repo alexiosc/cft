@@ -1582,3 +1582,15 @@
 	internally reduces to anonymous namespaces). Added
 	.longstring/.endstring directives to facilitate packing of multi-line
 	.strp directives.
+
+2014-03-02  AC <alexios@bedroomlan.org>
+
+	[Code/Software/ROM] Work on boot loader code.
+
+	[Code/Web] Some improvements to the JS emulator.
+
+2014-03-03  AC <alexios@bedroomlan.org>
+
+	[Code/Emulator] Synchronised the C emulator with the current I/O
+	map. Various minor issues fixed. The C emulator now runs the alpha
+	bootloader ROM.
