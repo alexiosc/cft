@@ -1594,3 +1594,10 @@
 	[Code/Emulator] Synchronised the C emulator with the current I/O
 	map. Various minor issues fixed. The C emulator now runs the alpha
 	bootloader ROM.
+
+2014-03-05  AC <alexios@bedroomlan.org>
+
+	[Cons/Hardware/DFP=72] Tenth construction session for Board 1. Wired
+	the remaining P4 (the PB0 front panel connector) and debugged
+	issues. Currently wiring connector P5 (the PB1 front panel connector,
+	carrying the IR and a few other signals).
