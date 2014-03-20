@@ -42,11 +42,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.63512027"
-     inkscape:cx="730.05272"
-     inkscape:cy="-495.51274"
+     inkscape:zoom="1.2702405"
+     inkscape:cx="396.16321"
+     inkscape:cy="-494.74657"
      inkscape:document-units="px"
-     inkscape:current-layer="layer2"
+     inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:snap-global="true"
      inkscape:snap-bbox="true"
@@ -377,6 +377,25 @@
          id="path3814"
          d="m 1243.5614,1454.3622 c -24.3005,0 -44,19.6995 -44,44 l 0,10.9872 -48.0313,0.013 c -5.8794,-14.6584 -20.209,-25 -36.9687,-25 -21.9972,0 -39.8438,17.8153 -39.8438,39.8125 0,21.9971 17.8466,39.8437 39.8438,39.8437 16.6165,0 30.8404,-10.1966 36.8125,-24.6562 l 48.1875,0 0,55 30,0 0,-55 30,0 0,-30 -30,0 0,-11 c 0.375,-7.3972 6.5096,-14 14,-14 l 46,0 0,110 30,0 0,-110 45,0 0,-30 z"
          style="color:#000000;fill:none;stroke:#ffffff;stroke-width:10;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+    </g>
+    <g
+       inkscape:export-ydpi="600"
+       inkscape:export-xdpi="600"
+       inkscape:export-filename="/home/alexios/PROJECTS/HARDWARE/cft/documentation/logo/proof-v2-small.png"
+       transform="translate(-501.93156,187.23166)"
+       id="g3843">
+      <path
+         sodipodi:nodetypes="sssss"
+         style="color:#000000;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:10;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+         d="m 747.06243,1524.3622 c 0,38.6599 -31.3401,70 -70,70 -38.6599,0 -70,-31.3401 -70,-70 0,-38.66 31.3401,-70 70,-70 38.6599,0 70,31.34 70,70 z"
+         id="path3845"
+         inkscape:connector-curvature="0" />
+      <path
+         sodipodi:nodetypes="ccccssscccccccccsccccccc"
+         inkscape:connector-curvature="0"
+         id="path3847"
+         d="m 806.04581,1454.3622 c -24.30042,0 -44,19.6995 -44,44 l 0,10.9872 -48.03125,0.013 c -5.8794,-14.6584 -20.20905,-25 -36.96875,-25 -21.9972,0 -39.84375,17.8153 -39.84375,39.8125 0,21.9971 17.84655,39.8437 39.84375,39.8437 16.6165,0 30.8404,-10.1966 36.8125,-24.6562 l 48.1875,0 0,55 30,0 0,-55 30,0 0,-30 -30,0 0,-11 c 0.37501,-7.3972 6.50964,-14 14,-14 l 46.00005,0 0,110 30,0 0,-110 44.99995,0 0,-30 z"
+         style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:10;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
     </g>
   </g>
 </svg>
