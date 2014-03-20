@@ -1,0 +1,115 @@
+CFT ASSEMBLIES AND PARTS
+
+* Power supply
+  * PSU Fixing kit
+* Backplane
+  * 8× (?) M5 (?) spacers, nylon
+  * 8× (?) M5 (?) screws, nylon
+  * Power supply harness
+    * 3× GND wires
+    * +5V wire
+    * +12V wire
+    * +3.3V wire
+    * 6× wire terminals, thick
+  * DFP board 1
+    * Serial connector
+      * 3 way cable
+      * Ferrite ring
+      * 2× 5-pin 2.54mm connector
+      * TTL-to-USB module
+    * PSU connector
+      * 2-5 way cable
+      * 5-pin 2.54mm connector
+      * 3× wire terminals, thin
+  * DFP board 2
+    * Cable to DFP board 1
+      * 40-way ribbon cable
+      * 2× 40-pin connectors
+  * PB0 (Processor Board 0)
+    * Cable to DFP board 1
+      * 40-way ribbon cable
+      * 2× 40-pin IDC connectors
+  * PB1 (Processor Board 0)
+    * Cable to DFP board 1
+      * 40-way ribbon cable
+      * 2× 40-pin IDC connectors
+  * PB2 (Processor Board 0)
+    * Cable #1 to DFP board 1
+      * 40-way ribbon cable
+      * 2× 40-pin IDC connectors
+    * Cable #2 to DFP board 1
+      * 40-way ribbon cable
+      * 2× 40-pin IDC connectors
+  * PB3 (Processor Board 0)
+    * Cable to DFP board 1
+      * 20-way ribbon cable
+      * 2× 20-pin IDC connectors
+* Control Bus part 1
+    * 40-pin ribbon cable
+    * 5× 40-pin connectors (DFP board 2, PB0–PB3)
+* Control Bus part 2
+    * 40-pin ribbon cable
+    * 5× 40-pin connectors (DFP board 2, PB0–PB3)
+* Front Panel
+  * Base plastic
+  * 8× LED modules
+    * 4× spacers
+    * 4× screws
+  * Switch assembly
+    * spacers
+    * screws
+    * 30× switches
+      * 2× screws
+      * 2× spacers (?)
+    * 2× key switches
+      * 1× key
+      * 1× washer
+    * Breakout board
+    * Switch assembly cable
+      * 50-pin ribbon cable
+      * 2× 50-pin connectors
+  * Light assembly cabling
+    * 4× cables
+      * 50-pin ribbon cable
+      * 50-pin connector
+      * 10× (max) 5-pin 2.54mm plugs
+  * Fascia (laser-engraved acryllic)
+    * 4–6× spacers (base to fascia)
+    * 4–6× Thumb screws fitting spacers
+* Base panel
+  * 8× (?) M5 (?) screws for backplane
+* Rear panel
+  * Connector plates (modular?)
+    * 2× USB (serial, panel)
+    * 2× DCE RS232 (DB9)
+    * DTE RS232 (DB9)
+    * Parallel printer port (25-pin)
+    * PS/2 keyboard
+    * PS/2 mouse
+    * Sun keyboard/mouse
+    * Video out (DE15)
+    * Audio out
+    * Cassette Tape I/O
+    * 50-pin floppy connector
+    * 34-pin floppy connector
+    * 2× joystick connector (DB9)
+    * User I/O connector (to be decided)
+    * Ethernet port
+  * 3× fan grilles
+    * 4× screws (self tapping?)
+    * 4× nuts (?)
+* 2× Side panels
+  * 2× screws, black
+* Top panel
+  * TODO: 2× speaker assembly
+    * Speaker
+    * Fixings (?)
+    * Speaker harness
+  * Acryllic Window
+  * 4× thumbscrews
+* Card bar (notched, secures tops of cards)
+* 3× 12cm fans (12V)
+  * Wiring harness
+* 2× 3.5" Disk bays (remove from old PC case)
+* 4× case feet
+* Internal frame (wood? To be decided)
