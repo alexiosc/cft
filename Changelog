@@ -1601,3 +1601,51 @@
 	the remaining P4 (the PB0 front panel connector) and debugged
 	issues. Currently wiring connector P5 (the PB1 front panel connector,
 	carrying the IR and a few other signals).
+
+2014-03-06  AC <alexios@bedroomlan.org>
+
+	[Cons/Hardware/DFP=73] Eleventh construction session for Board 1. Wired
+	the remaining P5 and corrected various wiring errors. (388 signals
+	total)
+
+2014-03-12  AC <alexios@bedroomlan.org>
+
+	[Cons/Hardware/DFP=74] Twelfth construction session for Board
+	1. Connected front panel common anodes. The front panel light assembly
+	could now (in theory) be used!
+
+2014-03-13  AC <alexios@bedroomlan.org>
+
+	[Cons/Hardware/DFP=81] Thirteenth construction session for Board
+	1. Wired the PC (thus completing the PB2 front panel connections) and
+	various miscellaneous signals, including passive components. Corrected
+	more errors.
+
+2014-03-17  AC <alexios@bedroomlan.org>
+
+	[Des/Hardware/Case] Designing a case in SketchUp to ensure all the
+	assemblies match properly.
+
+2014-03-18  AC <alexios@bedroomlan.org>
+
+	[Des/Hardware/Case] Designing a case in SketchUp to ensure all the
+	assemblies match properly. Drafting the front panel light assembly.
+
+2014-03-19  AC <alexios@bedroomlan.org>
+
+	[Des/Hardware/Case] Designing a case in SketchUp to ensure all the
+	assemblies match properly. Draw the switch assembly and various
+	additional components.
+
+2014-03-20  AC <alexios@bedroomlan.org>
+
+	[Des/Hardware/Case] Designing a case in SketchUp to ensure all the
+	assemblies match properly. Completed the switch assembly and drafted
+	the backplane.
+
+2014-03-21  AC <alexios@bedroomlan.org>
+
+	[Des/Hardware/Case] Drafted key lock component in SketchUp.
+
+	[Cons/Hardware/DFP=83] Fourteenth construction session for Board
+	1. Wired the MFD outputs (48 wires).
