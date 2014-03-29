@@ -1649,3 +1649,32 @@
 
 	[Cons/Hardware/DFP=83] Fourteenth construction session for Board
 	1. Wired the MFD outputs (48 wires).
+
+2014-03-22  AC <alexios@bedroomlan.org>
+
+	[Des/Hardware/Case] More work on the case design, with emphasis on the
+	front panel light and switch assemblies.
+
+2014-03-23  AC <alexios@bedroomlan.org>
+
+	[Des/Hardware/Case] More work on the case design. Placed the backplane
+	and fixed design issues.
+
+2014-03-24  AC <alexios@bedroomlan.org>
+
+	[Des/Hardware/Case] More work on the case design.
+
+	[Orders] Ordered hardware needed to fix the backplane in place (and
+	provide power to it).
+
+2014-03-28  AC <alexios@bedroomlan.org>
+
+	[Cons/Hardware/DFP=83] Fourteenth construction session for Board
+	1. Rewired the MCU and started adding impedance-matching resistors to
+	most of its outputs. Wired shift register control signals, clocks and
+	enables. Fully connected and tested power and ground. Board 1 is now
+	almost ready to be tested. The remaining signals connect to the right
+	bank of lights, and they will be connected as needed since appropriate
+	headers will need to be made for them.
+
+	[Orders] Ordered more 30Ω 0805 resistors.
