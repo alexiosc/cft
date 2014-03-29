@@ -670,7 +670,7 @@ class CFTAssembler(object):
             self.assemblePackedString(tokens, orgline)
         elif tokens[0] == '.longstring':
             if self.longstring is not None:
-                self.fail(".longstring encountered while another .longstring is pending.")
+                self.fail(".longstring inside another .longstring.")
             if self.passnum == self.PSN_ASSEMBLY:
                 self.logasm(None, msg='', orgline=orgline)
             self.longstring = []
@@ -981,7 +981,7 @@ class CFTAssembler(object):
         """Start a new scope.
         """
         self.scope += 1
-        self.pushNamespace('.pushns _scp%d' % self.scope)
+        self.pushNamespace('.pushns _s%d' % self.scope)
     
 
     def endScope(self, line):
