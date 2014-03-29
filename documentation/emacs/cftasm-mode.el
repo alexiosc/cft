@@ -118,7 +118,7 @@
   (concat "[ \t]*"
 	  (regexp-opt
 	   ; .equ and .reg handled separately
-	   (split-string ".word .data .str .strp .strn .fill .fillreg"))
+	   (split-string ".word .data .str .strp .strn .fill .fillreg .longstring .endstring"))
 	  "\\>"))
 	  
 
