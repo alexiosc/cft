@@ -93,6 +93,13 @@ ui_tab_tty_unfocus()
 }
 
 
+int
+ui_tab_tty_autofocus()
+{
+	return uart[0].term->dirty > 1;
+}
+
+
 void
 ui_tab_tty_tick()
 {

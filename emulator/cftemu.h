@@ -33,7 +33,7 @@ Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
 
 #define PACKAGE "cftemu"
-#define VERSION "0.7"
+#define VERSION "0.8"
 
 
 #define RST_HOLD 2

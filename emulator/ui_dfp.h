@@ -32,6 +32,7 @@ int ui_tab_dfp_input(SDL_Event *);
 
 void ui_tab_dfp_unfocus();
 
+int ui_tab_dfp_autofocus();
 
 
 #endif /* UI_DFP_H */

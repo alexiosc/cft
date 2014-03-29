@@ -95,6 +95,13 @@ ui_tab_dfp_unfocus()
 }
 
 
+int
+ui_tab_dfp_autofocus()
+{
+	return dfp_term->dirty > 1;
+}
+
+
 void
 ui_tab_dfp_tick()
 {
@@ -107,9 +114,9 @@ ui_tab_dfp_input(SDL_Event * event)
 {
 	if (event->type == SDL_KEYDOWN && (event->key.keysym.sym <= 0x7f)) {
 		char buf[2];
-		buf[1] = 0;
-		buf[0] = event->key.keysym.unicode & 0x7f;
-		uterm_write(dfp_term, buf);
+		//buf[1] = 0;
+		//buf[0] = event->key.keysym.unicode & 0x7f;
+		//uterm_write(dfp_term, buf);
 		_ui_tab_dfp_draw();
 	}
 	return 0;

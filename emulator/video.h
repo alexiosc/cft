@@ -29,7 +29,7 @@ Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
 #include <SDL.h>
 
-#define STATUS_SIZE   256
+#define STATUS_SIZE   1024
 #define CHAR_RAM_SIZE 65536 	/* 64kB */
 #define PLANE_SIZE    65536
 
@@ -267,7 +267,7 @@ typedef struct {
 
 extern video_t v;
 
-extern int video, video_fs, video_2x, debug_video;
+extern int video, vdu_dirty, video_fs, video_2x, debug_video;
 
 void sdl_init();
 

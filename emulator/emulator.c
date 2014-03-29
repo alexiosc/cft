@@ -309,6 +309,9 @@ void
 halt_cpu()
 {
 	cpu.halt = 1;
+	info("Halted\n");
+	v.dirty++;
+	v.stdirty++;
 }
 
 
@@ -316,6 +319,9 @@ void
 start_cpu()
 {
 	cpu.halt = 0;
+	info("Resumed\n");
+	v.dirty++;
+	v.stdirty++;
 }
 
 

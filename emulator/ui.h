@@ -53,15 +53,25 @@ Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
 
 typedef struct {
+	int x0, y0;
+	int x1, y1;
+} rect_t;
+
+
+typedef struct {
 	char   * name;
 	SDLKey   hotkey;
-	int    * disabled;
+	int      disabled;	// 1 = yes, -1 = no. Updated using query() callback
+	rect_t   _r;
 	
 	void     (*init)();
+	void     (*available)();
 	void     (*done)();
 	void     (*tick)();
 	void     (*focus)();
 	void     (*unfocus)();
+	int      (*autofocus)();
+	int      (*query)();	// Is the device available?
 	int      (*input)(SDL_Event *);
 } tab_t;
 

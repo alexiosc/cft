@@ -53,6 +53,7 @@ void irq();
 int video = 0, video_fs, video_2x;
 
 int debug_video = 0;
+int vdu_dirty = 1;
 
 #define FRAMERATE 50
 #define BLINKRATE 3
@@ -66,7 +67,7 @@ int debug_video = 0;
 
 #define WIDTH 640
 #define HEIGHT 480
-#define STATUS_HEIGHT 32
+#define STATUS_HEIGHT 64
 #define PITCH (WIDTH >> 3)
 #define COLS 8
 
@@ -245,6 +246,7 @@ sdl_init()
 	v.fb = &v.fb_menu;
 
 	v.dirty = 1;
+	vdu_dirty = 0;
 	v.stdirty = 1;
 
 	/* Set timers */
@@ -438,7 +440,7 @@ _runcmd()
 	}
 
 	/* Redraw the framebuffer */
-	v.dirty++;
+	vdu_dirty = ++v.dirty;
 }
 
 
@@ -449,7 +451,7 @@ video_write(uint16_t addr, uint16_t dbus)
 	switch (addr) {
 	case IO_VIDEO_MCR0:
 		v.fb_cft.mcr0 = dbus;
-		v.dirty++;
+		vdu_dirty = ++v.dirty;
 		vdebug("MCR0 set. EN=%d, KBI=%d, VRI=%d, SCI=%d, VSI=%d, CS2=%d, C40=%d, CRH=%d\n",
 		       mcr0_is_en(v.fb_cft.mcr0),
 		       mcr0_is_kbi(v.fb_cft.mcr0),
@@ -463,7 +465,7 @@ video_write(uint16_t addr, uint16_t dbus)
 
 	case IO_VIDEO_MCR1:
 		v.fb_cft.mcr1 = dbus;
-		v.dirty++;
+		vdu_dirty = ++v.dirty;
 		vdebug("MCR1 set. SCL=%d, SEN=%d, CS2=%d, C40=%d, CRH=%d\n",
 		       mcr1_get_scl(v.fb_cft.mcr1),
 		       mcr1_is_sen(v.fb_cft.mcr1),
@@ -475,74 +477,74 @@ video_write(uint16_t addr, uint16_t dbus)
 
 	case IO_VIDEO_SCR0:
 		v.fb_cft.scr0 = dbus;
-		v.dirty++;
+		vdu_dirty = ++v.dirty;
 		vdebug("SCR0 set to %04x\n", dbus);
 		return 1;
 
 	case IO_VIDEO_SCR1:
 		v.fb_cft.scr1 = dbus;
-		v.dirty++;
+		vdu_dirty = ++v.dirty;
 		//vdebug("SCR1 set to %04x\n", dbus);
 		return 1;
 
 	case IO_VIDEO_SAR0:
 		v.fb_cft.sar0 = dbus;
-		v.dirty++;
+		vdu_dirty = ++v.dirty;
 		//vdebug("SAR0 set to %04x\n", dbus);
 		return 1;
 
 	case IO_VIDEO_SAR1:
 		v.fb_cft.sar1 = dbus;
-		v.dirty++;
+		vdu_dirty = ++v.dirty;
 		//vdebug("SAR1 set to %04x\n", dbus);
 		return 1;
 
 	case IO_VIDEO_MAR0:
 		v.fb_cft.mar0 = dbus;
-		v.dirty++;
+		vdu_dirty = ++v.dirty;
 		//vdebug("MAR0 set to %04x\n", dbus);
 		return 1;
 
 	case IO_VIDEO_MAR1:
 		v.fb_cft.mar1 = dbus;
-		v.dirty++;
+		vdu_dirty = ++v.dirty;
 		//vdebug("MAR1 set to %04x\n", dbus);
 		return 1;
 
 	case IO_VIDEO_CCR:
 		v.fb_cft.ccr = dbus;
-		v.dirty++;
+		vdu_dirty = ++v.dirty;
 		//vdebug("CCR set to %04x\n", dbus);
 		return 1;
 
 	case IO_VIDEO_CAR:
 		v.fb_cft.car = dbus;
-		v.dirty++;
+		vdu_dirty = ++v.dirty;
 		//vdebug("CAR set to %04x\n", dbus);
 		return 1;
 
 	case IO_VIDEO_HAR:
 		v.fb_cft.har = dbus;
-		v.dirty++;
+		vdu_dirty = ++v.dirty;
 		//vdebug("HAR set to %04x\n", dbus);
 		return 1;
 
 	case IO_VIDEO_KBD:
 		fail("Not implemented yet.");
 		//v.fb_cft.har = dbus;
-		//v.dirty++;
+		//vdu_dirty = ++v.dirty;
 		//vdebug("HAR set to %04x\n", dbus);
 		return 1;
 
 	case IO_VIDEO_CRR:
 		v.fb_cft.crr = dbus & 0x3ff;
-		//v.dirty++;
+		//vdu_dirty = ++v.dirty;
 		//vdebug("HAR set to %04x\n", dbus);
 		return 1;
 
 	case IO_VIDEO_CPORT:
 		v.fb_cft.cport = dbus;
-		//v.dirty++;
+		//vdu_dirty = ++v.dirty;
 		//vdebug("CPORT set to %04x\n", dbus);
 		return 1;
 
@@ -842,9 +844,8 @@ _video_update()
 	_video_setengine();
 
 	// This is coded to resemble the hardware design of the VDU.
-
 	for (y = 0; y < HEIGHT; y++) {
-		ofs = y * v.screen->pitch * (1 + video_2x);
+		ofs = (32 + y) * v.screen->pitch * (1 + video_2x);
 		x = 0;
 
 		/* Split mode comparison. This is the way it is because of the
@@ -925,7 +926,7 @@ _video_status_update()
 	/* The status area is a hardwired 80x2 section of the display
 	 * with no scrolling, cursor and other goodies. */
 
-	int bpp = v.screen->format->BytesPerPixel;
+	//int bpp = v.screen->format->BytesPerPixel;
 	int x, y, ofs, colour;
 	uint8_t * pixel = v.screen->pixels;
 	
@@ -941,7 +942,7 @@ _video_status_update()
 	uint8_t cg;		/* Pixel data from the character generator */
 	uint8_t fg, bg;		/* Colours for foreground and background */
 
-	int ofs_status = ((WIDTH << video_2x) * bpp) * (HEIGHT << video_2x);
+	int ofs_status = 0; //((WIDTH << video_2x) * bpp) * ((32 + HEIGHT) << video_2x);
 	int paddr0 = 0;	/* Status area is past the end of the plane. */
 
 	clhmask = 0xf; /* Cell height */
@@ -952,8 +953,9 @@ _video_status_update()
 
 	// This is coded to resemble the hardware design of the VDU.
 
-	for (y = 0; y < 32; y++) {
+	for (y = 0; y < 64; y++) {
 		ofs = ofs_status + y * v.screen->pitch * (1 + video_2x);
+		if (y >= 32) ofs += (HEIGHT * v.screen->pitch);
 		x = 0;
 		pacol = 0;	/* Start of a line */
 		paddr = paddr0 + vector(pacol, parow);
@@ -996,8 +998,6 @@ _video_status_update()
 		// Row counter
 		if (clh == 0) parow++;
 	}
-
-
 }
 
 
@@ -1014,16 +1014,16 @@ video_fbrefresh(uint32_t interval, void *param)
 	}
 
 	if (v.dirty || v.stdirty) {
-		SDL_Rect r;
+		//SDL_Rect r;
 
 		assert (SDL_LockSurface (v.screen) == 0);
 
 		if (v.dirty) {
 			if (mcr0_is_en(v.fb->mcr0)) {
-				r.x = 0;
-				r.y = 0;
-				r.w = WIDTH << video_2x;
-				r.h = HEIGHT << video_2x;
+				// r.x = 0;
+				// r.y = 0;
+				// r.w = WIDTH << video_2x;
+				// r.h = HEIGHT << video_2x;
 				//SDL_FillRect (v.screen, &r, 0);
 				_video_update();
 				//fprintf(stderr, "update, dirty=%d\n", v.dirty);
@@ -1033,11 +1033,11 @@ video_fbrefresh(uint32_t interval, void *param)
 			}
 		}
 		if (v.stdirty) {
-			r.x = 0;
-			r.y = HEIGHT << video_2x;
-			r.w = WIDTH << video_2x;
-			r.h = STATUS_HEIGHT << video_2x;
-			//SDL_FillRect (v.screen, &r, 0);
+			// r.x = 0;
+			// r.y = HEIGHT << video_2x;
+			// r.w = WIDTH << video_2x;
+			// r.h = STATUS_HEIGHT << video_2x;
+			// SDL_FillRect (v.screen, &r, 0);
 			_video_status_update();
 			//fprintf(stderr, "status update, stdirty=%d\n", v.stdirty);
 		}

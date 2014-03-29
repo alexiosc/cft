@@ -30,6 +30,10 @@ void ui_tab_vdu_focus();
 
 int ui_tab_vdu_input(SDL_Event * event);
 
-#endif /* MENU_H */
+int ui_tab_vdu_autofocus();
+
+int ui_tab_vdu_query();
+
+#endif /* UI_VDU_H */
 
 /* End of file. */

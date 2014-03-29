@@ -32,6 +32,8 @@ int ui_tab_tty_input(SDL_Event *);
 
 void ui_tab_tty_unfocus();
 
+int ui_tab_tty_autofocus();
+
 
 
 #endif /* MENU_H */

@@ -109,7 +109,7 @@ dfp_init()
 
 	/* Initialise the DEB terminal emulator */
 	dfp_term = uterm_new(200);
-	uterm_write(dfp_term, "This is a test.\n");
+	//uterm_write(dfp_term, "This is a test.\n");
 }
 
 

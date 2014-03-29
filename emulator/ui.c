@@ -58,6 +58,7 @@ Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
 console_t cons;
 
+static int explicitly_changed = 0;
 
 static tab_t tabs[] = 
 {
@@ -66,7 +67,9 @@ static tab_t tabs[] =
 		.hotkey = SDLK_F1,
 		.init = ui_tab_vdu_init,
 		.focus = ui_tab_vdu_focus,
-		.input = ui_tab_vdu_input
+		.input = ui_tab_vdu_input,
+		.autofocus = ui_tab_vdu_autofocus,
+		.query = ui_tab_vdu_query
 	},
 	{
 		.name = "F2 TTY",
@@ -74,7 +77,8 @@ static tab_t tabs[] =
 		.focus = ui_tab_tty_focus,
 		.unfocus = ui_tab_tty_unfocus,
 		.tick = ui_tab_tty_tick,
-		.input = ui_tab_tty_input
+		.input = ui_tab_tty_input,
+		.autofocus = ui_tab_tty_autofocus
 	},
 	// {
 	// 	.name = "F10 DEB",
@@ -90,7 +94,8 @@ static tab_t tabs[] =
 		.focus = ui_tab_dfp_focus,
 		.unfocus = ui_tab_dfp_unfocus,
 		.tick = ui_tab_dfp_tick,
-		.input = ui_tab_dfp_input
+		.input = ui_tab_dfp_input,
+		.autofocus = ui_tab_dfp_autofocus
 	},
 	{
 		.name = "F4 Panel",
@@ -234,25 +239,52 @@ ui_xycprintfr(int r, int y, word attr, const char *fmt, ...)
 ///////////////////////////////////////////////////////////////////////////////
 
 
+static int
+is_tab_disabled(int i)
+{
+	if (tabs[i].disabled == 1) return 1;
+	if (tabs[i].disabled == -1) return 0;
+	else if (tabs[i].query != NULL) {
+		if ((*tabs[i].query)()) {
+			tabs[i].disabled = -1;
+			return 0;
+		} else {
+			tabs[i].disabled = 1;
+			return 1;
+		}
+	} else {
+		// No query callback, and disabled uninitialised. Just
+		// pretend it's available.
+		tabs[i].disabled = -1;
+		return 0;
+	}
+}
+
 void
 ui_show_tabs()
 {
-	int row = 0;
+	int row = 1;
 	int pitch = 12;
 
 	ui_use_status();
 	ui_fill (0, row, UI_COLS, 1, ATTR_STATUS, 32);
-	int i;
-	for (i = 0; tabs[i].name != NULL; i++){
+	int i, j;
+	for (i = j = 0; tabs[j].name != NULL; j++){
+		if (is_tab_disabled(j)) continue;
+		tabs[j]._r.x0 = i * pitch * 8;
+		tabs[j]._r.x1 = (i + 1) * pitch * 8;
+		tabs[j]._r.y0 = 16;
+		tabs[j]._r.y1 = 32;
 		ui_xycprintf(i * pitch, row,
-			       i == cons.tab? ATTR_TAB_ACTIVE : ATTR_TAB,
-			       "\014 %-9.9s\012", tabs[i].name);
+			       j == cons.tab? ATTR_TAB_ACTIVE : ATTR_TAB,
+			       "\013 %-9.9s\011", tabs[j].name);
 		ui_xycput(i * pitch, row,
-			    i == cons.tab? color(COL_ORANGE, COL_DKGREY) : color(COL_LTGREY, COL_DKGREY),
+			    j == cons.tab? color(COL_ORANGE, COL_DKGREY) : color(COL_LTGREY, COL_DKGREY),
 			    -1);
 		ui_xycput(i * pitch + pitch - 1, row,
-			    i == cons.tab? color(COL_ORANGE, COL_DKGREY) : color(COL_LTGREY, COL_DKGREY),
+			    j == cons.tab? color(COL_ORANGE, COL_DKGREY) : color(COL_LTGREY, COL_DKGREY),
 			    -1);
+		i++;
 	}
 	ui_use_menu();
 }
@@ -284,7 +316,7 @@ void ui_init()
 	v.fb_status.ccr = 0;
 	v.fb_status.car = 65535;
 	ui_cls(ATTR_BG);
-	ui_xycprintfr(80, 1, color(0, COL_ORANGE), " CFT Emulator " VERSION " ");
+	ui_xycprintfr(80, 3, color(0, COL_ORANGE), " CFT Emulator " VERSION " ");
 
 	ui_use_menu();
 	ui_cls(ATTR_BG);
@@ -299,7 +331,11 @@ void ui_init()
 	int i;
 	for (i = 0; tabs[i].name != NULL; i++) {
 		CB_RUN(tabs[i].init)();
+		tabs[i].disabled = 0;
+		if (is_tab_disabled(i)) info("Tab %d is disabled.\n", i);
 	}
+	ui_tab(i - 3);
+	explicitly_changed = 0;
 }
 
 
@@ -379,10 +415,12 @@ ui_menu_move(int d)
 void
 ui_tab(int i)
 {
+	if (cons.tab == i) return;
+	cons.oldtab = cons.tab;
 	CB_RUN(tabs[cons.tab].unfocus)();
 	v.dirty++;
-	if (cons.tab != i) cons.oldtab = cons.tab;
 	cons.tab = i;
+	explicitly_changed = 1;
 	CB_RUN(tabs[cons.tab].focus)();
 	v.dirty++;
 	ui_show_tabs();
@@ -395,6 +433,7 @@ static void
 ui_key(SDL_Event event)
 {
 	SDL_keysym * k = &event.key.keysym;
+	printf("%x %x\n", k->mod, KMOD_LMETA);
 	
 	// Quit?
 	if ((k->sym == 'c' || k->sym == '\\') &&
@@ -416,9 +455,10 @@ ui_key(SDL_Event event)
 			return;
 		}
 	} else {
-		// Handle tab hotkeys
+		// Handle absolute tab hotkeys
 		int i;
 		for (i = 0; tabs[i].name != NULL; i++){
+			if (is_tab_disabled(i)) continue;
 			if (k->mod == 0 && k->sym == tabs[i].hotkey) {
 				ui_tab(i);
 				return;
@@ -428,6 +468,26 @@ ui_key(SDL_Event event)
 
 	/* printf("The %s key was pressed (state=%x (%x))!\n", */
 	/*        SDL_GetKeyName(k->sym), k->mod, KMOD_CTRL); */
+}
+
+
+#define INSIDE(r, x, y) \
+	((x) >= (r).x0 && (x) < (r).x1 && (y) >= (r).y0 && (y) < (r).y1)
+
+static void
+ui_mouse(SDL_Event event)
+{
+	SDL_MouseButtonEvent * m = &event.button;
+	printf("%d %d %d %d\n", m->button, m->x, m->y, m->state);
+	int i;
+	for (i = 0; tabs[i].name != NULL; i++){
+		if (is_tab_disabled(i)) continue;
+		//info("%d: %d %d %d %d\n", i, tabs[i]._r.x0,tabs[i]._r.x1,tabs[i]._r.y0,tabs[i]._r.y1);
+		if (INSIDE(tabs[i]._r, m->x, m->y)) {
+			ui_tab(i);
+			return;
+		}
+	}
 }
 
 
@@ -462,14 +522,32 @@ ui_tick()
 		for (i = 0; iodevs[i].name; i++) {
 			if (first || iodevs[i].hits) {
 				x = min(iodevs[i].hits / 100, 9);
-				ui_xycprintf(i * 5, 1,
+				ui_xycprintf(i * 5, 3,
 					     color(colorscale[x], COL_DKGREY), iodevs[i].code);
 				iodevs[i].hits = max(0, iodevs[i].hits - 60);
 				v.stdirty++;
 			}
 		}
+		
+		if (cpu.halt || cpu.pause) ui_xycprintf(i * 5 + 1, 3, color(0, COL_ORANGE), " Halted ");
+
 		first = 0;
 		ui_use_menu();
+	}
+
+	// Autofocus a tab. Focus happens only to higher-tech tabs (DFP to TTY
+	// to VDU).
+	int i;
+	if (!explicitly_changed) {
+		for (i = 0; tabs[i].name != NULL; i++){
+			if (tabs[i].autofocus != NULL &&
+			    i < cons.tab &&
+			    (*tabs[i].autofocus)()) {
+				//info("Autofocusing tab '%s'\n", tabs[i].name);
+				ui_tab(i);
+				//explicitly_changed = 0;
+			}
+		}
 	}
 
 	// Tick the current tab.
@@ -481,6 +559,10 @@ ui_tick()
 	//fprintf(stderr, "keysym=%d, type=%d\n", event.key.keysym.sym, event.type);
 
 	switch (event.type) {
+	case SDL_MOUSEBUTTONDOWN:
+		ui_mouse(event);
+		break;
+
 	case SDL_KEYDOWN:
 		ui_key(event);
 		break;

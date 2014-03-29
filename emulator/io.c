@@ -73,42 +73,6 @@ iodev_t iodevs[] = {
 		.tick = irc_tick
 	},
 	
-	{
-		.name = "NVRAM",
-		.code = "NVR",
-		.flag = &nvram,
-		.init = nvram_init,
-		//.reset = nvram_reset,
-		.done = nvram_done,
-		.tick = nvram_tick,
-		.read = nvram_read,
-		.write = nvram_write
-	},
-	
-	{
-		.name = "DUART",
-		.code = "TTY",
-		.flag = &duart,
-		.init = duart_init,
-		//.reset = duart_reset,
-		.done = duart_done,
-		.tick = duart_tick,
-		.read = duart_read,
-		.write = duart_write
-	},
-	
-	{
-		.name = "IDE",
-		.code = "IDE",
-		.flag = &ide,
-		.init = ide_init,
-		//.reset = ide_reset,
-		.done = ide_done,
-		.tick = ide_tick,
-		.read = ide_read,
-		.write = ide_write
-	},
-
         // PFP obsoleted in favour of DFP
 	// {
 	// 	.name = "Front Panel",
@@ -133,6 +97,42 @@ iodev_t iodevs[] = {
 		.write = dfp_write
 	},
 	
+	{
+		.name = "DUART",
+		.code = "TTY",
+		.flag = &duart,
+		.init = duart_init,
+		//.reset = duart_reset,
+		.done = duart_done,
+		.tick = duart_tick,
+		.read = duart_read,
+		.write = duart_write
+	},
+	
+	{
+		.name = "NVRAM",
+		.code = "NVR",
+		.flag = &nvram,
+		.init = nvram_init,
+		//.reset = nvram_reset,
+		.done = nvram_done,
+		.tick = nvram_tick,
+		.read = nvram_read,
+		.write = nvram_write
+	},
+	
+	{
+		.name = "IDE",
+		.code = "IDE",
+		.flag = &ide,
+		.init = ide_init,
+		//.reset = ide_reset,
+		.done = ide_done,
+		.tick = ide_tick,
+		.read = ide_read,
+		.write = ide_write
+	},
+
 	{
 		.name = "VDU",
 		.code = "VDU",

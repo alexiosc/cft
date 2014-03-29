@@ -139,6 +139,20 @@ ui_tab_vdu_focus()
 }
 
 
+int
+ui_tab_vdu_autofocus()
+{
+	return vdu_dirty;
+}
+
+
+int
+ui_tab_vdu_query()
+{
+	return video;
+}
+
+
 // Translation table for AT-style (set 2) keyboards.
 ps2_scancode_t set2[] = {
 	{'a', 0, 0x1c},
