@@ -161,10 +161,75 @@ often lead to better readability.
 \subsection{Directives}
 
 A sequence of letters starting with a period (\f{.}) is a directive. Directives
-assemble special values and modify the behaviour of the assembler. They are
-similar in spirit to C preprocessor directives.
+control the asssembly process in a number of ways. They generally come in two
+types: non-assembling directives modify the behaviour of the assembler by
+defining new symbols, including files, declaring namespaces, etc. Assembling
+directives cause one or more words to be assembled at the current location.
 
+Conventionally, assembling directives are indented along with
+code. Non-assembling directives are not indented, and are aligned with label
+definitions.
 
+\subsection{Namespaces}
+
+Large assembly programs tend to define large numbers of symbols, and
+this can lead to reduced code clarity, symbol naming clashes and bugs.
+
+Namespaces help organise symbols into units, and aid in modular coding.
+
+A namespace is defined by enclosing it in \f{.pushns} and \f{.popns}
+directives:
+
+\begin{cftasmcode}
+.pushns foo
+.equ bar &FFFF ; A definition
+; ...
+.popns
+\end{cftasmcode}
+
+All symbol definitions inside the namespaces are prefixed by the name
+of the namespace (‘foo’ in this example), followed by a period. Inside
+the namespace, \f{bar} can be used as is. Outside the namespace,
+\f{foo.bar} must be used.
+
+Namespaces can be nested. Code inside a namespace can access symbols
+in nested namespaces, but not code outside its namespace.
+
+\subsection{Scoping}
+
+Most high level languages have the concept of scopes, which allows for
+local variable definitions.
+
+The Standard Assembler lacks local variables, and its scopes are very
+similar to namespaces. In fact, scopes are essentially anonymous
+namespaces. Their main purpose is to allow scope-local labels which
+makes code significantly more readable. Scoping identify units
+of functionality like algorithms.
+
+Scopes can be used like this:
+
+\begin{cftasmcode}
+.scope
+		LIA vectable
+		STORE R &80
+		LIA R ramvectable
+		STORE R &81
+loop:		LOAD I R &80
+		SNZ
+		JMP done
+		STORE I R &81
+		JMP loop
+done:		
+.endscope
+\end{cftasmcode}
+
+The labels \f{loop} and \f{again} will be undefined outside the scope.
+
+Like namespaces and scopes in other languages, CFT Assembly scopes can
+be nested. Symbols defined in a scope will be visible inside all
+scopes nested within it.
+
+\subsection{Defining Symbols}
 
 \subsubsection{Defining Arbitrary Symbols with \f{.equ}}
 
@@ -247,7 +312,17 @@ bugs caused by the \asm{R} left out\footnote{Empirical evidence has
   shown that this is a very common and potentially insidious problem
   with CFT Assembly code.}.
 
-\subsubsection{Including Assembly Files with \f{.include}}
+
+\subsubsection{Declaring Register Arrays with \f{.regfill}}
+
+Sometimes blocks of registers need to be declared — for example, to account for
+a memory-mapped device with arrays of mapped values (such as a
+framebuffer). The \op{.regfill} directive is used for that. It works exactly
+like \op{.fill}, but also marks the filled area as a register array.
+
+
+
+\subsection{Including Files}
 
 The \f{.include} directive instructs the Assembler to read, process and
 assemble an external file. It is used like this:
@@ -256,11 +331,12 @@ assemble an external file. It is used like this:
 .include "some_file.asm"
 \end{cftasmcode}
 
-This may be used to break large programs into manageable, semantically distinct
-blocks, or to allow libraries of definitions or code to be defined and shared
-among programs.
+This (along with namespaces) may be used to break large programs into
+manageable, semantically distinct blocks, or to allow libraries of
+definitions or code to be defined and shared among programs.
 
 
+\subsection{Directives that Assemble Data}
 
 \subsubsection{Assembling Arbitrary Data with \f{.word}}
 
@@ -316,15 +392,6 @@ with increasing addresses, despite the use of \op{@}.
 \begin{cftasmcode}
 &1000:  .fill 10 JMP @
 \end{cftasmcode}
-
-
-
-\subsubsection{Declaring Register Arrays with \f{.regfill}}
-
-Sometimes blocks of registers need to be declared — for example, to account for
-a memory-mapped device with arrays of mapped values (such as a
-framebuffer). The \op{.regfill} directive is used for that. It works exactly
-like \op{.fill}, but also marks the filled area as a register array.
 
 
 
@@ -418,11 +485,53 @@ dictionary down.
 
 
 
-\subsubsection{Skipping to the Next Page with \f{.page}}
+\subsubsection{Multi-line Packed Strings with \f{.longstring}}
+\label{sec:asm-longstring}
 
-Since CFT is unable to reference ‘far’ addresses (across page boundaries)
-without indirection, the vast majority of loops must not cross page
-boundaries. Take this trivial loop, for example:
+Packed strings spanning multiple lines of Assembly source code must be
+declared as long strings. This mitigates the need for each line of a
+multi-line string to contain even characters. Not doing that inserts
+\hex{00} as the last character, since \f{.strp} must produce an integer
+number of words. This inadvertently terminates the packed
+string. Consider this (contrived) example:
+
+\begin{cftasmcode}
+.strp       "Hello"    ; 5 characters
+.strp       " World!"  ; 7 characters
+.strp       10         ; 1 character
+\end{cftasmcode}
+
+This will assemble to the following words, shown here broken up into
+three lines corresponding to the \f{.strp} directives:
+
+\begin{intrcode}
+6548 6c6c 006f
+5720 726f 646c 0021
+000a
+\end{intrcode}
+
+Note the \hex{00} packed string terminator in the high order bits of
+the last word of every line. To avoid this, use the \f{.longstring}
+and \f{.endstring} directives like this:
+
+\begin{cftasmcode}
+.longstring "Hello "
+.strp       "World!"
+.strp       10
+.endstring
+\end{cftasmcode}
+
+This will have the desired effect. The first line of the string may be
+included on the \f{.longstring} line for brevity, or in subsequent
+\f{.strp} lines for cleaner code. The \f{.endstring} directive accepts
+no parameters.
+
+
+\subsection{Controlling Paging}
+
+Since the CFT is unable to reference ‘far’ addresses (across page
+boundaries) without indirection, the vast majority of loops must not
+cross page boundaries. Take this trivial loop, for example:
 
 \begin{cftasmcode}
         LI 50
@@ -477,8 +586,6 @@ file.asm:924:warning: .page generated 865 words of slack space.
 In such case, it is standard practice to comment out the directive (since
 further coding is likely to push the problem code across another page boundary,
 so the \f{.page} could be needed again).
-
-
 
 \subsection{Instruction Macros}
 
