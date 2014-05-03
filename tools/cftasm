@@ -107,6 +107,7 @@ static char * cfg_mem_xpm[] = {
   "  c #222222",
   "I c #FF5555",
   "S c #55FF55",
+  "C c #55FF55",
   "s c #FFA555",
   "F c #55FFFF"
   "W c #4433FF",
@@ -345,6 +346,7 @@ class CFTAssembler(object):
             self.deferred = []
             self.scope = 0
             self.longstring = None
+            self.compstring = None
             
             # First, parse the builtins.
             self.filename = '<builtins>'
@@ -668,7 +670,8 @@ class CFTAssembler(object):
             self.assembleString(tokens, orgline, neg=True)
         elif tokens[0] == '.strp':
             self.assemblePackedString(tokens, orgline)
-        elif tokens[0] == '.longstring':
+        elif tokens[0] in ('.longstring', '.compstring'):
+            self.compstring = tokens[0] == '.compstring'
             if self.longstring is not None:
                 self.fail(".longstring inside another .longstring.")
             if self.passnum == self.PSN_ASSEMBLY:
@@ -679,7 +682,10 @@ class CFTAssembler(object):
             # The address won't be incremented yet.
             self.incaddr(-1)
         elif tokens[0] == '.endstring':
-            self.assembleLongString(tokens, orgline)
+            if self.compstring:
+                self.assembleCompString(tokens, orgline)
+            else:
+                self.assembleLongString(tokens, orgline)
         elif tokens[0] == '.fill':
             self.assembleFill(tokens, orgline)
         elif tokens[0] == '.regfill':
@@ -750,6 +756,69 @@ class CFTAssembler(object):
         self.longstring = None
         self.assemblePackedString(tokens, orgline)
 
+
+    def assembleCompString(self, tokens, orgline, null=True):
+        """Assemble a run-length, VDU-style packed string (.compstring
+        directive).
+
+        A compressed string stores byte values, one byte per word,
+        with an off-by-one repetition count in the high-order
+        bits. For instance, a value of &0041 decompresses to 'A'. A
+        value of &0242 decompresses to 'CCC'. The repetition count is
+        purposefully compatible to the VDU's CRR register.
+
+        The string is null-terminated with a word value &0000 unless
+        the optional argument null=False is provided.
+        """
+        raise RuntimeError('Not fully implemented yet')
+        print tokens
+        if self.passnum == self.PSN_ASSEMBLY:
+            self.logasm(None, msg='', orgline=orgline)
+            #print 'A: %04x:      ; %s' % (self.addr, orgline)
+
+        tokens = tokens[1:]
+        state = (0, None)
+
+        def _storeChar(byteVal, state):
+            if state[1] == byteVal and state[1] <= 256:
+                state = (state[0] + 1, state[1])
+            else:
+                if state[1] is not None:
+                    if self.passnum == self.PSN_ASSEMBLY:
+                        val = ((state[0] - 1) << 8) | (state[1] & 0xff)
+                        if state[0] < 40 and isprint(chr(state[1])):
+                            s = '"%s"' % (chr(state[1]) * state[0])
+                        else:
+                            s = '"."'
+                        self.logasm(val, orgline='%s %(U+%04x) x %d' % (s, state[1], state[0]))
+                    self.poke(val, poketype='C')
+                    self.incaddr()
+                state = (1, byteVal)
+
+            return state
+
+        for i, token in enumerate(tokens):
+            print i, token
+            if token.startswith('"'):
+                # The lexer guarantees strings are enclosed in double
+                # quotes. Strip them.
+                chars = token[1:-1]
+            else:
+                # If it's not a string token, it should parse to an integer of sorts.
+                chars = [self.parseToken(token)]
+
+            for j, char in enumerate(chars):
+                try:
+                    val = ord(char)
+                except TypeError:
+                    # It's already an int.
+                    val = char
+                state = _storeChar(val, state)
+
+        if null:
+            _storeChar(0, state)
+        # Our caller will increment the address, so adjust here.
+        self.incaddr(-1)
 
     def assemblePackedString(self, tokens, orgline):
         """Assemble a packed null-terminated string directive.
