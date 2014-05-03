@@ -177,7 +177,7 @@
 2012-02-25  AC  <alexios@bedroomlan.org>
 
 	[Des/Hardware] Completed CFT schematic collection into a very
-	large Eagle file. This will help keeping signal names constant,
+	large Eagle file. This will help keep signal names constant,
 	and will eventually aid DRC.
 
 2012-03-09  AC  <alexios@bedroomlan.org>
@@ -580,7 +580,7 @@
 
 2013-02-20  AC  <alexios@bedroomlan.org>
 
-	[Setback,Test/Hardware/PBC] Auto-Index Logic bug found. Any Indirect
+	[Setback,Test/Hardware/PB1] Auto-Index Logic bug found. Any Indirect
 	mode instruction immediately following an Autoindex instruction changes
 	into an Autoindex instruction too, no matter what location is being
 	accessed.
@@ -1553,7 +1553,7 @@
 	[Tools] Version 2.1 of the CFT Assembler. This version introduces
 	include paths.
 
-	[Code/Hardware/DFP/Firmware] Improved the DFP firmwar's interrupt
+	[Code/Hardware/DFP/Firmware] Improved the DFP firmware's interrupt
 	handling. Standardised on flag values.
 
 	[Code/Software/ROM] Started coding early parts of the ROM.
@@ -1678,3 +1678,36 @@
 	headers will need to be made for them.
 
 	[Orders] Ordered more 30Ω 0805 resistors.
+
+2014-04-23  AC <alexios@bedroomlan.org>
+
+	[Changelog,Doc/Progress] Created conversion/import toolchain to
+	publish the Changelog as a progress log.
+
+2014-04-24  AC <alexios@bedroomlan.org>
+
+	[Changelog,Doc/Progress] Worked on Drupal side of the Changelog
+	publishing mechanism.
+
+	[Doc/Web, Doc/Book] Preparing CFT book for publication on the web
+	(using Drupal's Feed module to import HTML as Drupal nodes).
+
+2014-04-25  AC <alexios@bedroomlan.org>
+
+	[Changelog,Doc/Progress] Worked on Drupal side of the Changelog
+	publishing mechanism.
+
+2014-04-29  AC <alexios@bedroomlan.org>
+
+	[Orders] Additional passives arrived.
+
+2014-05-02  AC <alexios@bedroomlan.org>
+
+	[Cons/Hardware/Case] Experimented with hardware for fixing
+	backplane onto case.
+
+	[Cons/Hardware/DFP=91] Fifteenth construction session for Board
+	1. Wiring left-over signals, cleaning up, fixing errors and
+	installing 0805 impedance matching resistors, pull-ups and
+	pull-downs. In some cases, replacing through-hole passives with
+	0805 parts.
