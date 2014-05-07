@@ -1,6 +1,6 @@
 2011-01-25  AC  <alexios@bedroomlan.org>
 
-	[Des/Hardware] Earliest draft version of the ‘memory mapped stack
+	[Hes/Hardware] Earliest draft version of the ‘memory mapped stack
 	machine’ CPU description referencing a PDP-8-like design, but with an 8
 	bit word.
 
@@ -1711,3 +1711,21 @@
 	installing 0805 impedance matching resistors, pull-ups and
 	pull-downs. In some cases, replacing through-hole passives with
 	0805 parts.
+
+2014-05-03  AC <alexios@bedroomlan.org>
+
+	[Cons/Hardware/Case] Wired power supply harness for backplane and
+	DFP. This one is meant for testing. The final one will be a length
+	appropriate for the layout of the case.
+
+	[Cons/Hardware/DFP=93] Sixteenth construction session for Board
+	1. The MCU is now fully wired and can be tested.
+
+2014-05-07  AC <alexios@bedroomlan.org>
+
+	[Cons/Hardware/DFP=100] Seventeenth construction session for Board
+	1. The board has now been fully wired, with the exception of the
+	custom peripheral lights, which will be wired on demand.
+
+	[Testing/Hardware/DFP] Sounded out most of the sensitive
+	connections and removed some duplicate pull-up/donw resistors.
