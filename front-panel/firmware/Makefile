@@ -158,8 +158,13 @@ $(PROG).elf:	$(SOURCES)
 
 fuses:		.stamp-fuses
 
+# Fuses for 328P
 .stamp-fuses:
-		$(AVRDUDE) U lfuse:w:0xff:m -U hfuse:w:0xdf:m -U efuse:w:0xf9:m
+		$(AVRDUDE) -s -u -v -U lfuse:w:0x7f:m -U hfuse:w:0xdf:m -U efuse:w:0x07:m
+
+# Fuses for 168
+#.stamp-fuses:
+#		$(AVRDUDE) -U lfuse:w:0xff:m -U hfuse:w:0xdf:m -U efuse:w:0xf9:m
 
 download:	.stamp-dl
 
