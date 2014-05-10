@@ -89,7 +89,7 @@
 #define CMD_SAMPLE  000
 #define CMD_VPEN    001
 #define CMD_DEBEN   002
-#define CMD_CTLOE   003
+//#define CMD_CTLOE   003
 #define CMD_CLR     004
 #define CMD_STEPRUN 005		// 0 = Running
 #define CMD_USTEP   006
@@ -431,12 +431,52 @@ dfp_diags()
 	// there. We'll be asserting RESET and HALT while these tests run, to
 	// remove the processor from all the buses.
 
-
 	// Read only tests: first, test the two shift register chains. The
 	// IOADDR0 pin is connected to the cascade-in pin of the last shift
 	// register, so after sampling, the value of the VPIN (for the virtual
 	// panel) and DEBIN (for the debugging shift regs) should be the same
 	// as IOADDR0. This allows diagnostics.
+
+#warning "TODO: Reverse order of testing again (VP first, DEB after)"
+	report_pstr(PSTR(STR_D_DEBIN));
+	for (i = 0; i < NUM_REPS; i++) {
+		clearbit(PORTB, B_IOADDR0);
+		deb_sample(0);
+		if (PINC & _BV(C_DEBIN)) goto faulty;
+		setbit(PORTB, B_IOADDR0);
+		deb_sample(0);
+		if ((PINC & _BV(C_VPIN)) != 0) goto faulty;
+	}
+	report_pstr(PSTR(STR_D_OK));
+
+// #warning "TODO: Remove this"
+// 	report_pstr(PSTR("\n\r\n\r\n\r"));
+// 	uint32_t sn = 0;
+// 	uint16_t a = 0, b = 0, c = 0;
+// 	for(;;)
+// 	{
+// 		_delay_ms(50);
+// 		deb_sample(0);
+// 		if (a == _swleft && b == _sr && c == _swright) continue;
+//		
+// 		sn++;
+// 		report_hex(sn, 8);
+// 		report_pstr(PSTR(": "));
+// 		report_bin_pad(_swleft, 16);
+// 		serial_write(32);
+// 		report_bin_pad(_sr, 16);
+// 		serial_write(32);
+// 		report_bin_pad(_swright, 16);
+// 		report_nl();
+//
+// 		a = _swleft;
+// 		b = _sr;
+// 		c = _swright;
+// 	}
+
+	// TODO: remove this
+	return;
+
 
 	report_pstr(PSTR(STR_D_VPIN));
 	for (i = 0; i < 255; i++) {
@@ -449,17 +489,6 @@ dfp_diags()
 	}
 	report_pstr(PSTR(STR_D_OK));
 	
-	report_pstr(PSTR(STR_D_DEBIN));
-	for (i = 0; i < NUM_REPS; i++) {
-		clearbit(PORTB, B_IOADDR0);
-		deb_sample(0);
-		if (PINC & _BV(C_DEBIN)) goto faulty;
-		setbit(PORTB, B_IOADDR0);
-		deb_sample(0);
-		if ((PINC & _BV(C_VPIN)) != 0) goto faulty;
-	}
-	report_pstr(PSTR(STR_D_OK));
-
 	// The shift regs are working, so we can use them to test other
 	// things. Assert RESET# and HALT#. Hardware failsafes should have
 	// asserted them automatically on MCU reset, but do it explicitly just
@@ -639,6 +668,9 @@ hw_init()
 
 	// Time = 5
 
+	// Wait for signals to stabilise.
+	_delay_ms(1500);
+
 	// Is a processor attached to the system?
 	if (detect_cpu()) {
 		// Mark the processor as present
@@ -808,6 +840,25 @@ sample_shift_registers(uint8_t in)
 }
 
 
+static uint8_t
+sample_shift_registers_reverse(uint8_t in)
+{
+	uint8_t val = 0;
+	uint8_t i = 1;
+	while (1) {
+		if (PINC & _BV(in)) val |= i;
+
+		clearbit(PORTC, C_ICLK);
+		setbit(PORTC, C_ICLK);
+
+		if (i == 0x80) break;
+
+		i <<= 1;
+	}
+	return val;
+}
+
+
 static void
 out_shift_registers(uint8_t val, uint8_t clk)
 {
@@ -856,8 +907,8 @@ deb_sample(bool_t quick)
 		if (!quick) {
 			_swright = sample_shift_registers(C_DEBIN) << 8 |
 				sample_shift_registers(C_DEBIN);
-			_sr = sample_shift_registers(C_DEBIN) << 8 |
-				sample_shift_registers(C_DEBIN);
+			_sr = sample_shift_registers_reverse(C_DEBIN) |
+				sample_shift_registers_reverse(C_DEBIN) << 8;
 			_swleft = sample_shift_registers(C_DEBIN) << 8 |
 				sample_shift_registers(C_DEBIN);
 		}
@@ -1296,7 +1347,7 @@ clk_start()
 	if (_clk_prescale == 0) clk_fast();
 	else {
 		set_clkfreq(_clk_prescale, _clk_div);
-		TCCR1A = _BV(COM1A0);
+		TCCR1A = _BV(COM1B0);
 	}
 	_stopped = 0;
 }
@@ -1330,7 +1381,7 @@ clk_slow()
 {
 	// 80 Hz = 14745600 / (2 * 1024 * (1 + 89))
 	set_clkfreq(PSV_1024, 89);
-	if (!_stopped) TCCR1A = _BV(COM1A0);
+	if (!_stopped) TCCR1A = _BV(COM1B0);
 }
 
 
@@ -1339,7 +1390,7 @@ clk_creep()
 {
 	// 8 Hz = 14745600 / (2 * 1024 * (1 + 890))
 	set_clkfreq(PSV_1024, 899);
-	if (!_stopped) TCCR1A = _BV(COM1A0);
+	if (!_stopped) TCCR1A = _BV(COM1B0);
 }
 
 
@@ -2107,7 +2158,12 @@ ISR(TIMER0_COMPA_vect)
 	_sr0 = _sr;
 
 	// Check switches. Act on just one per timer interrupt.
-	if (actuated(_swleft, SWL_RESET)) {
+	if (actuated(_swleft, SWL_RESET|SWL_RUN)) {
+		// Start (reset + run)
+		panel_start();
+	}
+
+	else if (actuated(_swleft, SWL_RESET)) {
 		// Reset
 		panel_reset();
 	}
