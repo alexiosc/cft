@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # 
-# flashprog - Control the Flash Programmer
+# dfptool - Control the CFT's DFP device over USB serial
 # 
 # Copyright (C) 2011 Alexios Chouchoulas
 # 
@@ -67,7 +67,7 @@ class UnsupportedFeature(BaseException):
     pass
 
 
-class FlashProg(object):
+class DFPTool(object):
     """
     A class to talk to the FlashProg.
     """
