@@ -206,6 +206,7 @@ static uint8_t _cb[3] = {
 
 uint16_t icr = 0;
 static uint8_t ifr6_operated = 0;
+static uint8_t idle_addr = 0; // Used for diagnostics
 
 #define QEF_BASE 0x40ff
 #define QEF_HOF  0x0100
@@ -279,6 +280,7 @@ outcmd(uint8_t addr, uint8_t val)
 
 	// Clean up.
 	PORTB = PORTB & ~B_IOADDR;
+	PORTB = (PORTB & ~B_IOADDR) | ((idle_addr & 7) << 3);
 }
 
 
@@ -318,6 +320,7 @@ strobecmd(uint8_t addr)
 
 	// Clear both enables for good measure.
 	PORTC |= _BV(C_CMD0) | _BV(C_CMD1);
+	PORTB = (PORTB & ~B_IOADDR) | ((idle_addr & 7) << 3);
 }
 
 
@@ -419,7 +422,7 @@ detect_cpu()
 }
 
 
-#define NUM_REPS 10
+#define NUM_REPS 20
 
 
 static void
@@ -437,58 +440,42 @@ dfp_diags()
 	// panel) and DEBIN (for the debugging shift regs) should be the same
 	// as IOADDR0. This allows diagnostics.
 
-#warning "TODO: Reverse order of testing again (VP first, DEB after)"
+	report_pstr(PSTR(STR_D_VPIN));
+	for (i = 0; i < NUM_REPS; i++) {
+		idle_addr = 0;
+		PORTB = (PORTB & ~B_IOADDR) | ((idle_addr & 7) << 3);
+		clearbit(PORTB, B_IOADDR0);
+		virtual_panel_sample(0);
+		if (PINC & _BV(C_VPIN)) goto faulty;
+		
+		idle_addr = 7;
+		PORTB = (PORTB & ~B_IOADDR) | ((idle_addr & 7) << 3);
+		setbit(PORTB, B_IOADDR0);
+		virtual_panel_sample(0);
+		if ((PINC & _BV(C_VPIN)) == 0) goto faulty;
+	}
+	report_pstr(PSTR(STR_D_OK));
+	
 	report_pstr(PSTR(STR_D_DEBIN));
 	for (i = 0; i < NUM_REPS; i++) {
+		idle_addr = 0;
+		PORTB = (PORTB & ~B_IOADDR) | ((idle_addr & 7) << 3);
 		clearbit(PORTB, B_IOADDR0);
 		deb_sample(0);
 		if (PINC & _BV(C_DEBIN)) goto faulty;
+
+		idle_addr = 7;
+		PORTB = (PORTB & ~B_IOADDR) | ((idle_addr & 7) << 3);
 		setbit(PORTB, B_IOADDR0);
 		deb_sample(0);
-		if ((PINC & _BV(C_VPIN)) != 0) goto faulty;
+		if ((PINC & _BV(C_DEBIN)) == 0) goto faulty;
 	}
 	report_pstr(PSTR(STR_D_OK));
 
-// #warning "TODO: Remove this"
-// 	report_pstr(PSTR("\n\r\n\r\n\r"));
-// 	uint32_t sn = 0;
-// 	uint16_t a = 0, b = 0, c = 0;
-// 	for(;;)
-// 	{
-// 		_delay_ms(50);
-// 		deb_sample(0);
-// 		if (a == _swleft && b == _sr && c == _swright) continue;
-//		
-// 		sn++;
-// 		report_hex(sn, 8);
-// 		report_pstr(PSTR(": "));
-// 		report_bin_pad(_swleft, 16);
-// 		serial_write(32);
-// 		report_bin_pad(_sr, 16);
-// 		serial_write(32);
-// 		report_bin_pad(_swright, 16);
-// 		report_nl();
-//
-// 		a = _swleft;
-// 		b = _sr;
-// 		c = _swright;
-// 	}
 
 	// TODO: remove this
 	return;
 
-
-	report_pstr(PSTR(STR_D_VPIN));
-	for (i = 0; i < 255; i++) {
-		clearbit(PORTB, B_IOADDR0);
-		virtual_panel_sample(0);
-		if (PINC & _BV(C_VPIN)) goto faulty;
-		setbit(PORTB, B_IOADDR0);
-		virtual_panel_sample(0);
-		if ((PINC & _BV(C_VPIN)) != 0) goto faulty;
-	}
-	report_pstr(PSTR(STR_D_OK));
-	
 	// The shift regs are working, so we can use them to test other
 	// things. Assert RESET# and HALT#. Hardware failsafes should have
 	// asserted them automatically on MCU reset, but do it explicitly just
@@ -829,6 +816,7 @@ sample_shift_registers(uint8_t in)
 	uint8_t val = 0;
 	uint8_t i = 0x80;
 	while (i) {
+		//if (_debug) serial_write(PINC & _BV(in) ? '1' : '0');
 		if (PINC & _BV(in)) val |= i;
 
 		clearbit(PORTC, C_ICLK);
@@ -846,6 +834,7 @@ sample_shift_registers_reverse(uint8_t in)
 	uint8_t val = 0;
 	uint8_t i = 1;
 	while (1) {
+		//if (_debug) serial_write(PINC & _BV(in) ? '1' : '0');
 		if (PINC & _BV(in)) val |= i;
 
 		clearbit(PORTC, C_ICLK);
