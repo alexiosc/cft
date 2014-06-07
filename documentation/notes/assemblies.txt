@@ -17,10 +17,10 @@ CFT ASSEMBLIES AND PARTS
       * Ferrite ring
       * 2× 5-pin 2.54mm connector
       * TTL-to-USB module
-    * PSU connector
+    * PSU connector: DONE
       * 2-5 way cable
       * 5-pin 2.54mm connector
-      * 3× wire terminals, thin
+      * 2× wire terminals, thin
   * DFP board 2
     * Cable to DFP board 1
       * 40-way ribbon cable
