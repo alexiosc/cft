@@ -76,15 +76,21 @@ say_bufsize()
 	report_hex_value(PSTR(STR_BUFSIZE), BUFSIZE, 3);
 }
 
+static void
+say_proc()
+{
+	report_pstr(flags & FL_PROC ? PSTR(STR_PROC1) : PSTR(STR_PROC0));
+}
+
 
 void
 proto_init()
 {
-	flags |= FL_MESG | FL_TERM;
+	flags |= FL_MESG | FL_TERM | FL_ECHO;
 	say_version();
 	report_pstr(PSTR(BANNER2 BANNER3 BANNER4));
 	say_bufsize();
-	report_pstr(flags & FL_PROC ? PSTR(STR_PROC1) : PSTR(STR_PROC0));
+	say_proc();
 	buflen = 0;
 	//flags = (flags & FL_HALT) | FL_ECHO | FL_MESG;
 	flags &= ~FL_BUSY;
@@ -636,6 +642,7 @@ go_swtest()
 	report_pstr(PSTR(STR_SWTEST));
 
 	uint16_t sr0 = get_sr();
+	uint16_t or0 = get_or();
 	uint16_t lsw0 = get_lsw();
 	uint16_t rsw0 = get_rsw();
 	go_sws();
@@ -650,6 +657,10 @@ go_swtest()
 	while ((flags & (FL_INPOK | FL_BREAK)) == 0) {
 		_delay_ms(100);
 		deb_sample(0);	// Read the switches
+
+		// Set the OR from the SR
+		set_or(get_sr());
+
 		if (sr0 != get_sr() || lsw0 != get_lsw() || rsw0 != get_rsw()) {
 			sr0 = get_sr();
 			lsw0 = get_lsw();
@@ -662,10 +673,9 @@ go_swtest()
 		}
 	}
 	flags &= ~(FL_BUSY | FL_CONS | FL_INPOK | FL_BREAK);
+	set_or(or0);
 	report_pstr(PSTR(STR_DONE));
 }
-
-
 static void
 go_ustate()
 {
@@ -1483,6 +1493,7 @@ go_dfps()
 
 	say_version();
 	say_bufsize();
+	say_proc();
 	gs_term();
 	gs_echo();
 	gs_mesg();
@@ -1597,12 +1608,22 @@ proto_prompt()
 		report_pstr(PSTR(STR_PRUN));
 	}
 	style_input();
-	report_n((char *)buf, buflen);
+	
+	// If echo is on, print out the current input buffer. The
+	// buffer may have been left intact before the prompt is
+	// printed for, e.g. prompt redrawing (Ctrl-L).
+	if (flags & FL_ECHO) report_n((char *)buf, buflen);
+
+	// If in ‘machine’ mode (echo off, term off), output a newline
+	// here. The front end is line-oriented, but parses
+	// prompts. This helps a bit.
+	if ((flags & (FL_TERM | FL_ECHO)) == 0) report_char('\n');
 }
 
 	
 void proto_loop()
 {
+	set_fprunstop((flags & FL_HALT) == 0);
 	buf[buflen] = 0;
 	for(; (flags & FL_CLEAR) == 0;) {
 		proto_prompt();
@@ -1669,6 +1690,9 @@ void proto_loop()
 		// Clear the input okay and busy bits.
 		buflen = 0;
 		flags &= ~(FL_INPOK | FL_BUSY | FL_BREAK);
+		// Restore the state of the STOP light (which the ISR blinks
+		// while busy, and it may be left in the wrong state).
+		set_fprunstop((flags & FL_HALT) == 0);
 	}
 }
 
@@ -1709,7 +1733,7 @@ proto_input(unsigned char c)
 	if (flags & FL_BUSY) return '\0';
 
 	// Is the buffer full?
-	if (buflen >= BUFSIZE) return flags & FL_ECHO ? '*' : '\0';
+	if (buflen >= BUFSIZE) return flags & FL_ECHO ? '<' : '\0';
 
 	// End of line? (ignore multiple ones and blank lines)
 	if (c == 10 || c== 13) {
@@ -1723,12 +1747,12 @@ proto_input(unsigned char c)
 	} else if ((c == 8) || (c == 127)) {
 		if (buflen) {
 			buflen--;
-			/*if (flags & FL_ECHO)*/ report_pstr(PSTR("\b \b"));
+			if (flags & FL_ECHO) report_pstr(PSTR("\b \b"));
 		}
 		return 0;
 
 	} else if (c == ('L' - '@')) {
-                // Resend the pending command line to the terminal
+                // Resend the pending command line to the terminal (redraw)
 		say_break();
 		style_normal();
 		proto_prompt();
@@ -1740,6 +1764,18 @@ proto_input(unsigned char c)
 		flags ^= FL_TERM;
 		report_gs(1);
 		report_bool_value(PSTR(STR_GSTERM), (flags & FL_TERM) != 0);
+		proto_prompt();
+		return 0;
+	} else if (c == 30) {
+		// Controlling entity is a computer: disable human features
+		say_break();
+		style_normal();
+		flags &= ~(FL_TERM | FL_ECHO);
+		report_gs(1);
+		report_bool_value(PSTR(STR_GSTERM), (flags & FL_TERM) != 0);
+		report_gs(1);
+		report_bool_value(PSTR(STR_GSECHO), (flags & FL_ECHO) != 0);
+		report_pstr(PSTR(STR_MACHINE));
 		proto_prompt();
 		return 0;
 	}

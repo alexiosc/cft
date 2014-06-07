@@ -33,7 +33,11 @@
 #include <pty.h>
 #endif
 
-#include "uart_pty.h"
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+
+#include "simulate_uart.h"
 #include "avr_uart.h"
 #include "sim_hex.h"
 
@@ -96,7 +100,7 @@ uart_pty_flush_incoming(
 }
 
 /*
- * Called when the uart has room in it's input buffer. This is called repeateadly
+ * Called when the uart has room in its input buffer. This is called repeateadly
  * if necessary, while the xoff is called only when the uart fifo is FULL
  */
 static void
@@ -112,7 +116,7 @@ uart_pty_xon_hook(
 }
 
 /*
- * Called when the uart ran out of room in it's input buffer
+ * Called when the uart ran out of room in its input buffer
  */
 static void
 uart_pty_xoff_hook(
@@ -162,6 +166,7 @@ uart_pty_thread(
 				ssize_t r = read(p->port[ti].s, p->port[ti].buffer, sizeof(p->port[ti].buffer)-1);
 				p->port[ti].buffer_len = r;
 				p->port[ti].buffer_done = 0;
+				write(p->logfd, p->port[ti].buffer, r);
 				TRACE(hdump("pty recv", p->port[ti].buffer, r);)
 			}
 			if (p->port[ti].buffer_done < p->port[ti].buffer_len) {
@@ -180,6 +185,7 @@ uart_pty_thread(
 					*dst++ = uart_pty_fifo_read(&p->port[ti].in);
 				size_t len = dst - buffer;
 				TRACE(size_t r =) write(p->port[ti].s, buffer, len);
+				write(p->logfd, buffer, len);
 				TRACE(hdump("pty send", buffer, r);)
 			}
 		}
@@ -265,6 +271,14 @@ uart_pty_connect(
 		avr_irq_register_notify(xon, uart_pty_xon_hook, p);
 	if (xoff)
 		avr_irq_register_notify(xoff, uart_pty_xoff_hook, p);
+
+	char fname[4096];
+	snprintf(fname, sizeof(fname), "uart%c.log", uart);
+	p->logfd = open(fname, O_CREAT|O_TRUNC|O_WRONLY, 0664);
+	if (p->logfd < 0) {
+		perror("open");
+		exit(2);
+	}
 
 	for (int ti = 0; ti < 1; ti++) if (p->port[ti].s) {
 		char link[128];

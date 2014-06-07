@@ -152,7 +152,7 @@ dep .depends:   $(GENERATED)
 $(PROG).elf:	$(SOURCES)
 		@/bin/echo -e "\n\n***  Compiling AVR Firmware  ***\n"
 #		@/bin/echo -e "\n\nASM\t$@"
-#		@$(CC) -S $(INCLUDES) $(CFLAGS) $(DEFINES) $(LDFLAGS) $(CFILES) $(LIBS) 2>/dev/null
+		-@$(CC) -S $(INCLUDES) $(CFLAGS) $(DEFINES) $(LDFLAGS) $(CFILES) $(LIBS) 2>/dev/null
 #		@/bin/echo -e "CC\t$@"
 		@$(CC) $(INCLUDES) $(CFLAGS) $(DEFINES) $(LDFLAGS) -o $@ $(CFILES) $(LIBS)
 
@@ -160,7 +160,7 @@ fuses:		.stamp-fuses
 
 # Fuses for 328P
 .stamp-fuses:
-		$(AVRDUDE) -s -u -v -U lfuse:w:0x7f:m -U hfuse:w:0xdf:m -U efuse:w:0x07:m
+		$(AVRDUDE) -s -u -v -U lfuse:w:0xff:m -U hfuse:w:0xdf:m -U efuse:w:0x07:m
 
 # Fuses for 168
 #.stamp-fuses:

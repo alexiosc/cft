@@ -18,7 +18,7 @@ static const struct {
 	{"s",       go_state,    "-- Current CFT/DEB status"},
        	{"us",      go_ustate,   "-- Microcode control state"},
        	{"sws",     go_sws,      "-- Show Switch state"},
-       	{"swtest",  go_swtest,   "-- Test switch assembly"},
+       	{"swtest",  go_swtest,   "-- Test switch assembly and OR"},
        	{"dfps",    go_dfps,     "-- Show DFP state"},
 	{"cons",    go_cons,     "-- Virtual console (<Enter> # . to exit)."},
 	{"lock",    gs_lock,     "[ BOOL ] -- Get/set software switch lock.\n201"},

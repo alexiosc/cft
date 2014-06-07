@@ -22,6 +22,7 @@
 #include "bus.h"
 #include "utils.h"
 #include "serial.h"
+#include "output.h"
 
 /*
 
@@ -187,13 +188,14 @@ static uint8_t _stopped = 1;
 #define CB1_NFPRAM    0x40
 #define CB1_NFPRESET  0x80
 
-#define CB2_NW        0x01
-#define CB2_NR        0x02
-#define CB2_NMEM      0x04
-#define CB2_NIO       0x08
-#define CB2_NHALT     0x10
-#define CB2_FPRUN     0x20
-#define CB2_FPSTOP    0x40
+//#define CB2_xxx     0x01
+#define CB2_NW        0x02
+#define CB2_NR        0x04
+#define CB2_NMEM      0x08
+#define CB2_NIO       0x10
+#define CB2_NHALT     0x20
+#define CB2_FPRUN     0x40
+#define CB2_FPSTOP    0x80
 
 #define CB0_OUTPUTS   0xff	// All outputs are active low
 #define CB1_OUTPUTS   0xff	// All outputs are active low
@@ -252,6 +254,8 @@ struct {
 
  */
 
+static void out_shift_registers(uint8_t val, uint8_t clk);
+
 static void
 outcmd(uint8_t addr, uint8_t val)
 {
@@ -296,8 +300,10 @@ outcmd(uint8_t addr, uint8_t val)
 
  */
 
-static void
-strobecmd(uint8_t addr)
+
+
+static inline void
+_multistrobe_start(uint8_t addr)
 {
 	// Clear the CMDx outputs (they're active low).
 	PORTC = PORTC |= _BV(C_CMD0) | _BV(C_CMD1);
@@ -311,19 +317,41 @@ strobecmd(uint8_t addr)
 
 	// Enable the appropriate latch signal
 	clearbit(PORTC, addr & 8 ? C_CMD1 : C_CMD0);
+}
 
-	// The latch has now picked up the 0 value. Strobe it. We have two
-	// edges in total, so both types of edge sensitivity (rising/falling)
-	// are catered for.
+static inline void
+_multistrobe_pulse()
+{
+	// Emit a positive pulse
 	setbit(PORTD, D_COUT);
+	asm("nop");		// Lengthen the pulse by ~140ns.
 	clearbit(PORTD, D_COUT);
+}
 
+
+static inline void
+_multistrobe_end()
+{
 	// Clear both enables for good measure.
 	PORTC |= _BV(C_CMD0) | _BV(C_CMD1);
 	PORTB = (PORTB & ~B_IOADDR) | ((idle_addr & 7) << 3);
 }
 
 
+static void
+strobecmd(uint8_t addr)
+{
+	// Prepare the command latches for strobing
+	_multistrobe_start(addr);
+
+	// The latch has now picked up the 0 value. Strobe it. We have two
+	// edges in total, so both types of edge sensitivity (rising/falling)
+	// are catered for.
+	_multistrobe_pulse();
+
+	// Clear both enables for good measure.
+	_multistrobe_end();
+}
 inline static void
 strobe_clr()
 {
@@ -429,6 +457,7 @@ static void
 dfp_diags()
 {
 	uint8_t i, j;
+	uint16_t code;
 
 	// Test low level stuff first, pretending the processor isn't
 	// there. We'll be asserting RESET and HALT while these tests run, to
@@ -440,6 +469,7 @@ dfp_diags()
 	// panel) and DEBIN (for the debugging shift regs) should be the same
 	// as IOADDR0. This allows diagnostics.
 
+	code = 0x102;
 	report_pstr(PSTR(STR_D_VPIN));
 	for (i = 0; i < NUM_REPS; i++) {
 		idle_addr = 0;
@@ -456,6 +486,7 @@ dfp_diags()
 	}
 	report_pstr(PSTR(STR_D_OK));
 	
+	code = 0x103;
 	report_pstr(PSTR(STR_D_DEBIN));
 	for (i = 0; i < NUM_REPS; i++) {
 		idle_addr = 0;
@@ -472,10 +503,6 @@ dfp_diags()
 	}
 	report_pstr(PSTR(STR_D_OK));
 
-
-	// TODO: remove this
-	return;
-
 	// The shift regs are working, so we can use them to test other
 	// things. Assert RESET# and HALT#. Hardware failsafes should have
 	// asserted them automatically on MCU reset, but do it explicitly just
@@ -487,12 +514,23 @@ dfp_diags()
 	write_cb();
 
 	// Does driving the ABUS work?
+	code = 0x104;
 	report_pstr(PSTR(STR_D_ABDRV));
 	drive_ab();
 	for (j = 0; j < NUM_REPS; j++) {
 		for (i = 0; i < NUM_PATTERNS; i++) {
 			write_ab(_diag_patterns[i]);
 			deb_sample(0);
+			// {
+			// 	uint32_t x = _diag_patterns[i];
+			// 	report_pstr(PSTR("sent: "));
+			// 	report_hex(x, 4);
+			// 	x = _ab & 0xffff;
+			// 	report_pstr(PSTR(" got: "));
+			// 	report_hex(x, 4);
+			// 	report_pstr(PSTR("\n"));
+			// }
+
 			if (_ab != _diag_patterns[i]) {
 				tristate_ab();
 				goto faulty;
@@ -502,13 +540,36 @@ dfp_diags()
 	tristate_ab();
 	report_pstr(PSTR(STR_D_OK));
 
+	// Does tristating the ABUS work? Account for bus hold. The
+	// value read from the bus should never change from the
+	// current one.
+	code = 0x105;
+	report_pstr(PSTR(STR_D_ABTRI));
+	{
+		_delay_ms(2);
+		deb_sample(0);
+		uint16_t old = _ab;
+		for (j = 0; j < NUM_REPS; j++) {
+			for (i = 0; i < NUM_PATTERNS; i++) {
+				write_ab(_diag_patterns[i]);
+				deb_sample(0);
+				if (_ab != old) {
+					goto faulty;
+				}
+			}
+		}
+	}
+	report_pstr(PSTR(STR_D_OK));
+
 	// Does driving the DBUS work?
+	code = 0x106;
 	report_pstr(PSTR(STR_D_DBDRV));
 	drive_db();
 	for (j = 0; j < NUM_REPS; j++) {
 		for (i = 0; i < NUM_PATTERNS; i++) {
 			write_db(_diag_patterns[i]);
 			deb_sample(0);
+
 			if (_db != _diag_patterns[i]) {
 				tristate_db();
 				goto faulty;
@@ -517,11 +578,35 @@ dfp_diags()
 	}
 	tristate_db();
 	report_pstr(PSTR(STR_D_OK));
+	
+	// TODO: Reinstate when state machine ICs get instaled
+	// (without them, the DBUS drivers never go to High-Z).
 
+	// Does tristating the ABUS work? Account for bus hold. The
+	// value read from the bus should never change from the
+	// current one.
+	// code = 0x107;
+	// report_pstr(PSTR(STR_D_DBTRI));
+	// {
+	// 	_delay_ms(2);
+	// 	deb_sample(0);
+	// 	uint16_t old = _db;
+	// 	for (j = 0; j < NUM_REPS; j++) {
+	// 		for (i = 0; i < NUM_PATTERNS; i++) {
+	// 			write_db(_diag_patterns[i]);
+	// 			deb_sample(0);
+	// 			if (_db != old) {
+	// 				goto faulty;
+	// 			}
+	// 		}
+	// 	}
+	// }
+	// report_pstr(PSTR(STR_D_OK));
 
 	flags = oldflags;
 
 	// With the RESET# signal asserted, check there's no bus chatter.
+	code = 0x108;
 	report_pstr(PSTR(STR_D_RSTBQ));
 	for (i = 0; i < (1 + (NUM_REPS >> 3)); i++) {
 		if (buschatter()) goto faulty;
@@ -531,11 +616,20 @@ dfp_diags()
 	return;
 
 faulty:
-	report_pstr(PSTR(STR_D_FAIL));
 	// Endlessly print out the ‘faulty’ string.
-faulty1:
+	set_or(code);
+	report_pstr(PSTR(STR_D_FAIL));
 	cli();
-	goto faulty1;
+
+	// Crash here.
+	for (;;) {
+		report_pstr(PSTR(STR_DIAGF));
+
+		// Blink the STOP light slowly. Hopefully this will work.
+		_delay_ms(1000);
+		_cb[2] ^= CB2_FPSTOP;
+		write_cb();
+	}
 }
 
 
@@ -586,7 +680,7 @@ hw_init()
 	// Time = 1
 
 	// Set output pins and idle values. This will initialise with
-	// all outputs banks idle and the processor clock stopped.
+	// all output banks idle and the processor clock stopped.
 	PORTB = B_IDLE;
 	DDRB = B_OUTPUTS;
 
@@ -851,13 +945,55 @@ sample_shift_registers_reverse(uint8_t in)
 static void
 out_shift_registers(uint8_t val, uint8_t clk)
 {
-	uint8_t i = 0x80;
-	while (i) {
-		bit(PORTC, C_DOUT, val & i);
-		strobecmd(clk);
-		i >>= 1;
-	}
+	// The loop is unrolled and we use a multistrobe context for
+	// faster shifting. We get ~205 kbps with loops and individual
+	// strobes, ~820 kbps with this technique.
+	_multistrobe_start(clk);
+		
+	bit(PORTC, C_DOUT, val & 0x80); _multistrobe_pulse();
+	bit(PORTC, C_DOUT, val & 0x40); _multistrobe_pulse();
+	bit(PORTC, C_DOUT, val & 0x20); _multistrobe_pulse();
+	bit(PORTC, C_DOUT, val & 0x10); _multistrobe_pulse();
+		
+	bit(PORTC, C_DOUT, val & 0x08); _multistrobe_pulse();
+	bit(PORTC, C_DOUT, val & 0x04); _multistrobe_pulse();
+	bit(PORTC, C_DOUT, val & 0x02); _multistrobe_pulse();
+	bit(PORTC, C_DOUT, val & 0x01); _multistrobe_pulse();
+		
+	_multistrobe_end(clk);
 }
+
+static void
+out_shift_registers16(uint16_t val, uint8_t clk)
+{
+	// The loop is unrolled and we use a multistrobe context for
+	// faster shifting. We get ~205 kbps with loops and individual
+	// strobes, ~820 kbps with this technique.
+	_multistrobe_start(clk);
+		
+	bit(PORTC, C_DOUT, val & 0x8000); _multistrobe_pulse();
+	bit(PORTC, C_DOUT, val & 0x4000); _multistrobe_pulse();
+	bit(PORTC, C_DOUT, val & 0x2000); _multistrobe_pulse();
+	bit(PORTC, C_DOUT, val & 0x1000); _multistrobe_pulse();
+		
+	bit(PORTC, C_DOUT, val & 0x0800); _multistrobe_pulse();
+	bit(PORTC, C_DOUT, val & 0x0400); _multistrobe_pulse();
+	bit(PORTC, C_DOUT, val & 0x0200); _multistrobe_pulse();
+	bit(PORTC, C_DOUT, val & 0x0100); _multistrobe_pulse();
+		
+	bit(PORTC, C_DOUT, val & 0x0080); _multistrobe_pulse();
+	bit(PORTC, C_DOUT, val & 0x0040); _multistrobe_pulse();
+	bit(PORTC, C_DOUT, val & 0x0020); _multistrobe_pulse();
+	bit(PORTC, C_DOUT, val & 0x0010); _multistrobe_pulse();
+		
+	bit(PORTC, C_DOUT, val & 0x0008); _multistrobe_pulse();
+	bit(PORTC, C_DOUT, val & 0x0004); _multistrobe_pulse();
+	bit(PORTC, C_DOUT, val & 0x0002); _multistrobe_pulse();
+	bit(PORTC, C_DOUT, val & 0x0001); _multistrobe_pulse();
+		
+	_multistrobe_end(clk);
+}
+
 
 
 // Sample the DEB bus
@@ -1079,12 +1215,12 @@ set_or(const uint16_t or)
 {
 	_or = or;
 
-	out_shift_registers((_or >> 8) & 0xff, CMD_ORCLK);
-	out_shift_registers(_or & 0xff, CMD_ORCLK);
+	out_shift_registers16(_or, CMD_ORCLK);
 
 	// Move data from ALL the shift registers to their respective output
-	// registers. Tristated output registers will of course not have any
-	// effects.
+	// registers. This will have no effect on tristated shift registers,
+	// and will be a NOP unless an output register has been clocked with
+	// new data.
 	strobecmd(CMD_STCP);
 }
 
@@ -1099,8 +1235,7 @@ drive_ibus()
 void
 write_ibus(const uint16_t ibus)
 {
-	out_shift_registers((ibus >> 8) & 0xff, CMD_IBUSCLK);
-	out_shift_registers(ibus & 0xff, CMD_IBUSCLK);
+	out_shift_registers16(ibus, CMD_IBUSCLK);
 
 	// Move data from ALL the shift registers to their respective output
 	// registers. Tristated output registers will of course not have any
@@ -1171,8 +1306,7 @@ write_ab(const uint16_t abus)
 
 	} else {
 		// Drive the Address Bus ourselves.
-		out_shift_registers((abus >> 8) & 0xff, CMD_ABCLK);
-		out_shift_registers(abus & 0xff, CMD_ABCLK);
+		out_shift_registers16(abus, CMD_ABCLK);
 
 		// Move data from ALL the shift registers to their respective
 		// output registers. Tristated output registers will of course
@@ -1221,8 +1355,7 @@ write_db(const uint16_t dbus)
 		// do is drive the IBUS.
 		write_ibus(dbus);
 	} else {
-		out_shift_registers((dbus >> 8) & 0xff, CMD_DBCLK);
-		out_shift_registers(dbus & 0xff, CMD_DBCLK);
+		out_shift_registers16(dbus, CMD_DBCLK);
 	
 		// Move data from ALL the shift registers to their respective
 		// output registers. Tristated output registers will of course
@@ -1244,6 +1377,8 @@ tristate_db()
 void
 addr_inc()
 {
+	extern uint16_t addr;
+	addr++;
 	_pc++;
 	strobe_incpc();
 }
@@ -1287,7 +1422,8 @@ wait_for_halt()
 	// This will obviously lock up the MCU if the HALT condition isn't
 	// seen. We want this.
 	flags |= FL_BUSY | FL_STOPPING;
-	for (;;) {
+	uint16_t timeout = 0xffff;
+	while (timeout--) {
 		// Read the WAIT# signal from the first (highest order) shift
 		// register of the virtual panel.
 		virtual_panel_sample(1);
@@ -1302,8 +1438,19 @@ wait_for_halt()
 		if ((get_flags() & CFL_NWAIT) != 0) break;
 	}
 
-#warning "Crash here if not halted"
-	//assert_halted();
+	if (!assert_halted()) {
+		// Failed to halt. Crash here.
+		set_or(0x911);
+		cli();
+		for (;;) {
+			report_pstr(PSTR(STR_HLTTO));
+			// Blink the STOP light slowly. Hopefully this will work.
+			_delay_ms(1000);
+			_cb[2] ^= CB2_FPSTOP;
+			write_cb();
+		}
+	}
+
 	flags &= ~(FL_BUSY | FL_STOPPING);
 }
 
@@ -2074,8 +2221,8 @@ ISR(TIMER0_COMPA_vect)
 	// Blink the STOP light at ~10Hz while busy, and ignore the
 	// front panel switches.
 	if (flags & FL_BUSY) {
-		pause = (pause + 1) & 15;
-		if (pause == 0) _cb[2] ^= CB2_FPSTOP;
+		pause = (pause + 1) & 3;
+		  if (pause == 0) _cb[2] ^= CB2_FPSTOP;
 		write_cb();
 		return;
 	}
@@ -2096,7 +2243,7 @@ ISR(TIMER0_COMPA_vect)
 		return;
 	}
 
-	// Ignore the panel switches if we're busy
+	// Ignore 'action' panel switches if we're busy
 	if (flags & FL_BUSY) return;
 
 	// Have the switches changed?

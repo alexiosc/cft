@@ -55,8 +55,10 @@
 #define STR_D_VPIN  "102 VP Shift Reg chain: "
 #define STR_D_DEBIN "103 DEB Shift Reg chain: "
 #define STR_D_ABDRV "104 ABUS driver: "
-#define STR_D_DBDRV "105 DBUS driver: "
-#define STR_D_RSTBQ "106 Bus quiet during reset: "
+#define STR_D_ABTRI "105 ABUS tristate: "
+#define STR_D_DBDRV "106 DBUS driver: "
+#define STR_D_DBTRI "107 DBUS tristate: "
+#define STR_D_RSTBQ "108 Bus quiet during reset: "
 
 #define STR_D_OK    "OK\n"
 #define STR_D_FAIL  "faulty\n"
@@ -93,6 +95,8 @@
 #define STR_AC           " AC:"
 #define STR_PC           " PC:"
 #define STR_IR           " IR:"
+
+#define STR_MACHINE "299 T0sgQ09NUFVURVI=\n"
 
 #define STR_DUMP    "300 Dumping\n"
 #define STR_DONE    "301 Done\n"
@@ -160,11 +164,13 @@
 #define STR_NOPROC  "507 No processor\n"
 #define STR_SYNTAX  "508 Syntax error\n"
 #define STR_NIMPL   "509 Not implemented\n"
-#define STR_NSELF   "510 You talking to me?\n"
+#define STR_NSELF   "510 You talkin' to me?\n"
 
 // Hardware Faults.
+#define STR_DIAGF   "901 Diagnostics failed."
 #define STR_NVMIS   "910 Value mismatch. Should be "
 #define STR_NVMIS1       ", was "
+#define STR_HLTTO   "911 Timeout waiting for processor halt.\n"
 
 #define STR_PROMPT  "> "
 #define STR_PRUN    "[running]" STR_PROMPT

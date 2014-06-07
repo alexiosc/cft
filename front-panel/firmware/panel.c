@@ -177,11 +177,19 @@ panel_ldaddr()
 	say_break();
 	if (assert_halted()) {
 		extern uint16_t addr;
-		set_reg(REG_PCAR, addr = get_sr());
+		addr = get_sr();
 		
-		report_gs(1);
-		report_hex_value(PSTR(STR_GSPC), get_pc(), 4);
-		check_mismatch(get_sr(), get_pc());
+		if (flags & FL_PROC) {
+			// We have a processor. Set the PC as well.
+			set_reg(REG_PCAR, addr);
+			report_gs(1);
+			report_hex_value(PSTR(STR_GSPC), get_pc(), 4);
+			check_mismatch(get_sr(), get_pc());
+		} else {
+			// No processor, report the address.
+			report_gs(1);
+			report_hex_value(PSTR(STR_ADDR), addr, 4);
+		}
 	}
 	proto_prompt();
 }
@@ -243,7 +251,7 @@ panel_wio(bool_t inc, uint16_t a, uint16_t d)
 	//report(__FUNCTION__); report_pstr(PSTR("()\n"));
 	say_break();
 	if (assert_halted()) {
-		perform_write(SPACE_MEM, a, d);
+		perform_write(SPACE_IO, a, d);
 		if (inc) addr_inc();
 		
 		report_pstr(PSTR(STR_WIO));

@@ -102,16 +102,6 @@ parse_hex(char *s)
 			flags |= FL_ERROR;
 			return 0;
 		}
-		/*
-		  report("c=");
-		  serial_send(*s);
-		  report(", ");
-		  report_hex((*s - 48), 2);
-		  report(", x=");
-		  report_hex(x, 6);
-		  report_nl();
-		*/
-
 		s++;
 	}
 	return x;
