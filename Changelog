@@ -1729,3 +1729,138 @@
 
 	[Testing/Hardware/DFP] Sounded out most of the sensitive
 	connections and removed some duplicate pull-up/donw resistors.
+
+2014-05-08  AC <alexios@bedroomlan.org>
+
+	[Setbacks,Testing/Hardware/DFP] All of the 40-pin sockets on board 2
+	are upside down! It's the only way to do it, since the sockets on the
+	other boards are right-angled ones. Unfortunately, this makes the
+	ribbon cables a lot less tidy, but it's not impossible to connect. The
+	DFP board 1 and board 2 connection was going to be diagonal anyway,
+	since the sockets don't align.
+
+	[Cons/Hardware/DFP] Made ‘round’ flat cable assemblies which are more
+	flexible and take up less space.
+
+	[Setbacks,Testing/Hardware/DFP] The lights off switch apparently shorts
+	the front panel. No harm done, the ATX power supply is protected
+	against shorts.
+
+2014-05-09  AC <alexios@bedroomlan.org>
+
+	[Testing/Hardware/DFP] Fixed the lights off switch. Many of the
+	grounding wires from the switch assembly were inadvertently connected
+	to the lights on signal (which connects to ground when lights are on,
+	enabling front panel LEDs). This included the power switch: turning
+	lights off would disconnect ground, deasserting the power on signal and
+	turning the PSU off.
+
+	[Testing/Hardware/DFP] Second testing session of the DFP. Both boards
+	are plugged into the backplane and communicating. The MCU, both 74HC259
+	control chips and their inverters, as well as ten input shift registers
+	are populated and working. Current draw is approximately 50 mA.
+
+	[Bugs,Testing/Hardware/DFP] Roughly half of the switches are pulled
+	down instead of up (16 signals in all). It was more convenient to do
+	that with the 74HC165 shift registers because half of the pins are
+	closer to the ground rail. The fix is less pleasing to the eye, but it
+	works now.
+
+	[Bugs,Testing/Hardware/DFP] The switch register (as sampled by the
+	MCU) appears to have its bits reversed (switch 0 is bit 15). It's a
+	nomenclature error, since switches were originally numbered in DEC
+	style (the left most switch is SR0, but bit 15 of the SR). It may be a
+	switch assembly wiring issue, but it was trivial to fix in software.
+
+	[Bugs,Testing/Hardware/DFP] I inadvertently swapped the signals for the
+	Set Address and Set Accumulator switches on the switch break-out board.
+
+2014-05-10  AC <alexios@bedroomlan.org>
+
+	[Bugs,Testing/Hardware/DFP] The R signal was both pulled up and down,
+	ending up at 2.5V and confusing one of the shift registers of the
+	virtual front panel. The same was true of another two signals.
+
+2014-05-16  AC <alexios@bedroomlan.org>
+
+	[Setbacks,Testing/Hardware/DFP] Broke some cables near the connectors
+	to light assembly 3. I'll have to either find the breaks and patch them
+	somehow, or recrimp an entire new flat cable.
+
+	[Bugs,Testing/Hardware/DFP] All the light modules were installed upside
+	down. This will necessitate updating the drilling patterns for the
+	light assembly mounting plate.
+
+	[Bugs,Testing/Hardware/DFP] IR11 isn't being pulled up (but is
+	connected).
+
+	[Bugs,Testing/Hardware/DFP] The OR resets to FFFF but the DFP 'or'
+	command doesn't update it. This could be a software bug, or an issue
+	with the shift register clocks.
+
+2014-05-28  AC <alexios@bedroomlan.org>
+
+	[Code/Hardware/DFP/Firmware] Made the swtest command echo the value of
+	the SR to the OR to facilitate testing the lights (and output shift
+	registers, which are currently not working).
+
+	[Bugs,Testing/Hardware/DFP] Drew up testing plan for front panel
+	lights.
+
+2014-06-01  AC <alexios@bedroomlan.org>
+
+	[Code/Hardware/DFP] Early version of a PC-side DFP communications
+	tool (written in Python 3.4).
+
+2014-06-03  AC <alexios@bedroomlan.org>
+
+	[Code/Hardware/DFP] Early version of a PC-side DFP communications
+	tool (written in Python 3.4).
+
+	[Testing/Hardware/DFP] Fixed several bugs with the output shift
+	registers (mainly missing wires). The DFP now correctly updates the OR
+	and asserts various bus signals (some incorrectly).
+
+	[Bugs,Testing/Hardware/DFP] There are some issues with the bus
+	writes. Some bits of the control bus (namely IC35, the last SR in the
+	chain) seem to be linked: FPRUN/FPSTOP with MEM# or IO#. This is
+	probably a software error.
+
+	[Bugs,Testing/Hardware/DFP] Some command pulses may be too
+	short. Symptom: some reads are incorrect (e.g. 0100 becomes 0110), like
+	the shift registers failed to shift the data between samples. This is
+	plausible since the '165 SRs shift out MSB-first.
+
+2014-06-05  AC <alexios@bedroomlan.org>
+
+	[Testing/Hardware/DFP] Fixed memory cycle bug.
+
+	[Bugs,Testing/Hardware/DFP] The least significant Address Bus nybble
+	(AB0–AB3) seems to have some issue. Values driven are not read back
+	correctly, and DFP bus diagnostics fail. Also, the Data Bus can't be
+	tristated.
+
+2014-06-06  AC <alexios@bedroomlan.org>
+
+	[Testing/Hardware/DFP] Inputs from AB0–AB3 on Board 2 were reversed!
+	Also, AB0 was shorted and producing random values (which appeared as
+	AB3 because of the reversal). After fixing these two issues, the
+	Address Bus diagnostics work fully. Data Bus I/O also works, but the DB
+	can't be tri-stated until the few remaining IC sockets on board 1 are
+	populated. Until then, the Data Bus enable circuitry thinks the CFT is
+	reading from the DFP and drives the Data Bus with data.
+
+	[Bugs,Testing/Hardware/DFP] Using the front panel switches to set the
+	address in standalone mode doesn't work because the PC sanity checks
+	fail (value written is not read back correctly — naturally, because
+	there's no PC in standalone mode).
+
+2014-06-07  AC <alexios@bedroomlan.org>
+
+	[Bugs,Testing/Hardware/DFP] The programmable bus pull-up goes through a
+	diode driven by an inverter (so it's at H or Z, never L). The diode
+	produces a voltage of around 4V, which is quite marginal. Under heavy
+	load and/or fast switching, some active-low bus signals can activate
+	inadvertently. Need to replace the inverter and diode with a '541. It
+	can source 35mA, and provides the same functionality. A capacitor could
+	also help.
