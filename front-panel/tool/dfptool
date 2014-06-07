@@ -1,4 +1,5 @@
-#!/usr/bin/python
+#!/usr/bin/python3.2
+# -*- python -*-
 # 
 # dfptool - Control the CFT's DFP device over USB serial
 # 
@@ -22,10 +23,11 @@
 import sys
 import os
 import re
-import serial
 import optparse
 import array
 import time
+import codecs
+import dfp
 
 
 def fail(msg):
@@ -34,13 +36,13 @@ def fail(msg):
     sys.exit(1)
 
 
-def bare_hex(x):
+def bare_hex(n):
     """Return a hex representation of a number without the C-like '0x'
     prefix."""
-    return hex(x)[2:]
+    return hex(n)[2:]
 
 
-class DFPTool(object):
+class DFP(dfp.Communication):
     """
     A class to talk to the CFT's DFP board over USB serial.
     """
@@ -59,59 +61,144 @@ class DFPTool(object):
 
 
     # Params we keep track of
-    STR_PARAMS = ['echo', 'version', 'output']
-    HEX_PARAMS = ['bufsize', 'start', 'count', 'checksum', 'vendor', 'device']
+    STR_PARAMS = ['have_processor', 'echo', 'version', 'async', 'lock', 'hof', 'hos']
+    HEX_PARAMS = ['bufsize', 'address', 'output_register']
     PARAMS = STR_PARAMS + HEX_PARAMS
 
     
-    def __init__(self, port, rate, timeout=5, debug=False, debug_io=False):
-        return
+    def __init__(self, port, rate, timeout=5, slow=False, debug=False, debug_io=False):
+        dfp.Communication.__init__(self, port, rate,
+                                   timeout=timeout,
+                                   slow=slow,
+                                   debug_io=debug_io)
 
-        self.port = port
-        self.rate = rate
-        self.timeout = timeout
         self.debug = debug
-        self.debug_io = debug_io
-        self.ser = serial.Serial(self.port, self.rate, timeout=self.timeout)
+
+        self.have_processor = None
 
         self.feature_text = False
         
-        self.version = None
-        self.echo = None
+        for prop in self.STR_PARAMS + self.HEX_PARAMS:
+            setattr(self, prop, None)
+
         self.status = None
         self.result = None
-        self.start = None
-        self.count = None
-        self.output = None
-        self.checksum = None
-        self.bufsize = None
-        self.vendor = None
-        self.device = None
+
         
         # Initialise the device.
+        self.initiate()
         self.ping()
-        self.cmd(self.CMD_SET_ECHO_OFF)
-        self.get_features()
+        #self.get_features()
         self.get_full_status()
-        self.output_bin()
+        #self.output_bin()
+
+        # x = 0
+        # while True:
+        #     self.cmd('or', hex(x)[2:])
+        #     time.sleep(0.1);
+        #     x = (x + 1) & 0xffff
+
+        pat = [0x1111, 0x2222, 0x4444, 0x8888]
+        while True:
+            for x in pat:
+                self.cmd('or', hex(x)[2:] )
+                time.sleep(0.1);
 
 
-    def ping(self):
-        """Query the FlashProg for its full status.
-        """
-        # Try pinging the programmer up to three times.
+    def scavenge_state(self, response):
+        """Scan responses for interesting info and update our status."""
         try:
-            self.cmd(self.CMD_PING)
-        except TimeoutException:
-            sys.stderr.write("Timeout, trying again...\n")
-            try:
-                self.cmd(self.CMD_PING)
-            except TimeoutException:
-                sys.stderr.write("Timeout, trying one final time...\n")
-                try:
-                    self.cmd(self.CMD_PING)
-                except TimeoutException:
-                    raise UnableToCommunicate("Unable to communicate with the FlashProg.")
+            code = int(response['result'])
+        except TypeError:
+            return
+
+        # Try the code as is first
+        name = '_parse%03d' % code
+        if hasattr(self, name):
+            return getattr(self, name)(response)
+
+        # Informational codes (2xx) have equivalent Status change (3xx)
+        # messages.
+        if code in range(200, 300):
+            name = '_parse%03d' % (code + 100)
+            if hasattr(self, name):
+                return getattr(self, name)(response)
+
+        # And vice versa
+        if code in range(300, 400):
+            name = '_parse%03d' % (code - 100)
+            if hasattr(self, name):
+                return getattr(self, name)(response)
+
+
+    def _parseHex(self, r, default=0):
+        """Parse a hex report from the DFP."""
+        return int(r.get('val', default), 16)
+
+            
+    def _parseBool(self, r, default='off'):
+        """Parse an on/off report from the DFP."""
+        return r.get('val', default).lower in \
+            ('on', 'true', 'enabled', 'found', 'present')
+
+            
+    def _parse201(self, r):
+        """Parse version."""
+        self.version = r.get('val', None)
+
+
+    def _parse203(self, r):
+        """Parse address."""
+        self.address = self._parseHex(r)
+
+
+    def _parse204(self, r):
+        """Parse bufsize."""
+        self.bufsize = self._parseHex(r)
+
+
+    def _parse205(self, r):
+        """Processor detected."""
+        self.have_processor = True
+
+
+    def _parse206(self, r):
+        """Processor not found."""
+        self.have_processor = False
+        
+
+    def _parse210(self, r):
+        """Echo."""
+        self.echo = self._parseBool(r)
+        
+
+    def _parse215(self, r):
+        """Front panel lock."""
+        self.lock = self._parseBool(r)
+        
+
+    def _parse211(self, r):
+        """Async messages."""
+        self.async = self._parseBool(r)
+        
+
+    def _parse211(self, r):
+        """Async messages."""
+        self.async = self._parseBool(r)
+        
+
+    def _parse221(self, r):
+        """Parse output register."""
+        self.output_register = self._parseHex(r)
+
+
+    def print_state(self):
+        """Print out the current state of the DFP."""
+        for param in [] + self.PARAMS:
+            print("%-20s %s" % (param + ':', getattr(self, param)))
+
+
+    ###############################################################################
 
 
     def get_features(self):
@@ -126,64 +213,19 @@ class DFPTool(object):
     def get_full_status(self):
         """Query the FlashProg for its full status.
         """
-        self.cmd(self.CMD_INFO_VERSION)
-        self.cmd(self.CMD_INFO_BUFSIZE)
-        self.cmd(self.CMD_INFO_START)
-        self.cmd(self.CMD_INFO_COUNT)
-        if self.feature_text:
-            self.cmd(self.CMD_SET_OUT_BIN)
+        self.cmd('dfps', until=251, retry=3)
+        # self.cmd(self.CMD_INFO_BUFSIZE)
+        # self.cmd(self.CMD_INFO_START)
+        # self.cmd(self.CMD_INFO_COUNT)
+        # if self.feature_text:
+        #     self.cmd(self.CMD_SET_OUT_BIN)
 
         
-    def issue_cmd(self, cmd):
-        """Issue a command to the FlashProg."""
-        cmd = cmd + '\n'
-        if self.debug_io:
-            sys.stderr.write('OUT: ' + cmd)
-        self.ser.write(cmd)
-
-
-    def read_response(self, until=200):
-        """Read status responses from the FlashProg"""
-        def _read_response():
-            while True:
-                line = self.ser.readline()
-                if self.debug_io:
-                    sys.stderr.write('IN:  ' + line)
-                if line:
-                    datum = self.grok_result(line.strip().replace('\r', ''))
-                    if self.debug:
-                        sys.stderr.write(str(datum) + '\n')
-                    yield datum
-                    try:
-                        if datum['result'] in xrange(400, 500):
-                            raise FlashProgError(datum)
-                        if datum['result'] == until:
-                            return
-                    except TypeError:
-                        pass
-                if line is None:
-                    raise TimeoutException("Timeout waiting for results.")
-
-        return list(_read_response())
-        
-        
-        
-    def cmd(self, cmd, arg=None, until=RES_READY):
-        """Issue a command, and read its output until a particular
-        output code is seen. Yield output data one by one.
-        """
-        if arg is not None:
-            self.issue_cmd(cmd + ' ' + str(arg))
-        else:
-            self.issue_cmd(cmd)
-        return self.read_response(until=until)
-
-
     def cmd2(self, cmd, arg1, arg2, until=RES_READY):
         """Issue a command, and read its output until a particular
         output code is seen. Yield output data one by one.
         """
-        self.issue_cmd(cmd + ' ' + str(arg1) + ' ' + str(arg2))
+        self.send(cmd + ' ' + str(arg1) + ' ' + str(arg2))
         return self.read_response(until=until)
 
 
@@ -195,7 +237,7 @@ class DFPTool(object):
         def _parse_result(x):
             try:
                 x = re.findall('(\d+)\s+(.+?):\s+(.+)', x)[0]
-                return dict(result=x[0], key=x[1].lower(), val=x[2])
+                return dict(result=int(x[0]), key=x[1].lower(), val=x[2])
             except IndexError:
                 try:
                     x = re.findall('(\d+)\s+(.+)', x)[0]
@@ -212,18 +254,18 @@ class DFPTool(object):
         except AttributeError:
             return datum
 
-        if 'key' in datum \
-                and 'val' in datum \
-                and datum['key'] in self.PARAMS \
-                and hasattr(self, datum['key']):
-            if datum['key'] in self.HEX_PARAMS:
-                try:
-                    setattr(self, datum['key'], int(datum['val'], 16))
-                except ValueError:
-                    raise NumberFormatError("Value for %s should be a hex integer, saw '%s' instead." % \
-                                                (datum['key'], datum['val']))
-            else:
-                setattr(self, datum['key'], datum['val'])
+        # if 'key' in datum \
+        #         and 'val' in datum \
+        #         and datum['key'] in self.PARAMS \
+        #         and hasattr(self, datum['key']):
+        #     if datum['key'] in self.HEX_PARAMS:
+        #         try:
+        #             setattr(self, datum['key'], int(datum['val'], 16))
+        #         except ValueError:
+        #             raise dfp.NumberFormatError("Value for %s should be a hex integer, saw '%s' instead." % \
+        #                                             (datum['key'], datum['val']))
+        #     else:
+        #         setattr(self, datum['key'], datum['val'])
         return datum
 
 
@@ -238,16 +280,6 @@ class DFPTool(object):
         if self.feature_text:
             self.cmd(self.CMD_SET_OUT_TEXT)
     
-
-    def print_state(self):
-        """Print out the current state of the FlashProg."""
-        for param in ['feature_text', 'result', 'status'] + self.PARAMS:
-            print "%-20s %s" % (param + ':', getattr(self, param))
-        x = self.get_device_info()
-        if x:
-            x = "%s %s. %s KBytes, %s" % (x[0], x[1], x[2], x[3] and 'needs VPP' or 'no VPP needed')
-            print "%-20s %s" % ('Device info', x)
-
 
     def set_start(self, addr):
         """Set starting address for chip I/O."""
@@ -301,181 +333,78 @@ class DFPTool(object):
 
 
 if __name__ == '__main__':
-    port = os.environ.get('FLASHPROGPORT')
-    
     p = optparse.OptionParser()
     p.add_option('-i', '--info', action='store_true',
                  help='Initialise the Flash Programmer and get as much information as possible from it.')
-    p.add_option('-r', '--read', action='store_true',
-                 help='Read a ROM image. Specify --start and --length.')
-    p.add_option('-w', '--write', action='store_true',
-                 help='Write a ROM image. Specify --start and --length.')
-    p.add_option('-v', '--verify', action='store_true',
-                 help='Verify a ROM image. Specify --start and --length.')
+    # p.add_option('-r', '--read', action='store_true',
+    #              help='Read a ROM image. Specify --start and --length.')
+    # p.add_option('-w', '--write', action='store_true',
+    #              help='Write a ROM image. Specify --start and --length.')
+    # p.add_option('-v', '--verify', action='store_true',
+    #              help='Verify a ROM image. Specify --start and --length.')
     #p.add_option('-t', '--text', action='store_true',
     #             help='Dump in ASCII mode.')
-    p.add_option('', '--chip-erase', action='store_true',
-                 help='Erase a Flash RAM chip using the JEDEC chip erase code.')
+    # p.add_option('', '--chip-erase', action='store_true',
+    #              help='Erase a Flash RAM chip using the JEDEC chip erase code.')
     p.add_option('-f', '--force', action='store_true',
                  help='Confirm that you wish to erase the Flash RAM chip.')
-    p.add_option('-s', '--start', action='store', type='int', metavar='BYTE-OFFSET',
-                 default=0,
-                 help='Specify starting address (default: 0).')
-    p.add_option('-l', '--length', action='store', type='int', metavar='BYTES',
-                 help='Specify length of read or write.')
+    # p.add_option('-s', '--start', action='store', type='int', metavar='BYTE-OFFSET',
+    #              default=0,
+    #              help='Specify starting address (default: 0).')
+    # p.add_option('-l', '--length', action='store', type='int', metavar='BYTES',
+    #              help='Specify length of read or write.')
     p.add_option('-p', '--port', action='store', metavar='DEVICE',
-                 default=port,
-                 help='The device the Flash Programmer is attached to (default: ' + (port or 'none') + ')')
+                 help='The device the DFP is attached to (e.g. /dev/ttyUSB0).')
     p.add_option('-b', '--bps', action='store', type='int', metavar='BPS-RATE',
                  default=460800,
                  help='The bps rate to use to talk to the Flash Programmer (default: 460800).')
-    p.add_option('-B', '--block', action='store', type='int', metavar='BYTES',
-                 default=8192,
-                 help='How many bytes to read from the chip at a time. (default: 8912)')
+    # p.add_option('-B', '--block', action='store', type='int', metavar='BYTES',
+    #              default=8192,
+    #              help='How many bytes to read from the chip at a time. (default: 8912)')
     p.add_option('', '--debug-io', action='store_true',
                  help='Print out the entire dialogue between the computer and programmer. Excessive output.')
     p.add_option('', '--debug', action='store_true',
                  help='Print out debugging information.')
-    p.add_option('-T', '--timeout', type='int', action='store', default=5, metavar='SECONDS',
-                 help='Set the communications timeout. (default: 5)')
+    p.add_option('-T', '--timeout', type='int', action='store', default=2, metavar='SECONDS',
+                 help='Set the communications timeout. (default: %default)')
+    p.add_option('', '--slow', action='store_true',
+                 help='Slow down communication. Useful for an emulated DFP.')
     
     (options, args) = p.parse_args()
     options.text = False
     options.jedec = True
     
-    if options.read and options.verify:
-        fail("Read and verify cannot be performed at the same time.")
-    if options.verify and not args:
-        fail("You must specify a file to verify.")
-    if options.length and options.length % FlashProg.FP_BLOCK_SIZE:
-        fail("Length must be a multiple of %s." % FlashProg.FP_BLOCK_SIZE)
-    if options.block & 0xf:
-        fail("Block size must be a multiple of 16.")
-    
-    port = options.port
+    # if options.read and options.verify:
+    #     fail("Read and verify cannot be performed at the same time.")
+    # if options.verify and not args:
+    #     fail("You must specify a file to verify.")
+    # if options.length and options.length % FlashProg.FP_BLOCK_SIZE:
+    #     fail("Length must be a multiple of %s." % FlashProg.FP_BLOCK_SIZE)
+    # if options.block & 0xf:
+    #     fail("Block size must be a multiple of 16.")
+
     if not options.port:
-        fail("Please specify a device for the Flash Programmer (on Linux, something like /dev/ttyUSB*).")
+        fail("Please specify a device for the DFP (on Linux, something like /dev/ttyUSB*).")
+    port = options.port
+
+    try:
+        # Initialise
+        fp = DFP(port, options.bps, timeout=options.timeout,
+                 slow=options.slow,
+                 debug=options.debug, debug_io=options.debug_io)
     
-    # Initialise
-    fp = FlashProg(port, options.bps, timeout=options.timeout,
-                   debug=options.debug, debug_io=options.debug_io)
+        # Print out information
+        if options.info:
+            fp.print_state()
+            sys.exit(0)
     
-    # Print out information
-    if options.info:
-        fp.print_state()
-        sys.exit(0)
+    except KeyboardInterrupt:
+        sys.stderr.write('*** User interrupt, aborting\n')
+        sys.exit(1)
+
+    except RuntimeError as e:
+        sys.stderr.write("%s: %s\n" % (sys.argv[0], str(e)))
+        sys.exit(2)
     
-    if options.read:
-        if not options.text and not args and os.isatty(sys.stdout.fileno()):
-            fail("Binary ROM read selected, but output is a TTY. This may not be what you want.")
-        if len(args) > 1:
-            fail("Please specify a single file to write to.")
-        if not options.length:
-            fail("Please specify the number of bytes to dump.")
-    
-        # Create the file.
-        try:
-            outf = open(args[0], 'wb') or sys.stdout
-        except IOError, e:
-            fail("%s: %s" % (args[0], e))
-    
-        # Dump
-        fp.set_start(options.start)
-        fp.output_bin()
-        fp.set_count(options.block)
-        if args[0]:
-            sys.stderr.write('Reading... ')
-            sys.stderr.flush()
-        for n in xrange(0, options.length, options.block):
-            outf.write(fp.dump()[:min(options.block, options.length)])
-            if args[0]:
-                sys.stderr.write('%d ' % n)
-                sys.stderr.flush()
-    
-        sys.stderr.write("%d Done\n" % options.length)
-        sys.exit(0)
-    
-    
-    if options.chip_erase:
-        if not options.write and not options.force:
-            fail("To confirm a chip erase, you must specify --force.")
-        sys.stderr.write('Perforing a JEDEC-style chip erase cycle... ')
-        fp.erase_chip_jedec()
-        # Sleep a bit for good measure.
-        time.sleep(1)
-        sys.stderr.write(' ...Done.\n')
-    
-    
-    if options.write:
-        if not options.chip_erase and not options.force:
-            fail("To write without erasing first, you must specify --force.")
-        sys.stderr.write('Writing... ')
-        sys.stderr.flush()
-    
-        # Read the file.
-        try:
-            inf = open(args[0], 'rb')
-    
-            # Write
-            fp.set_start(options.start)
-            fp.output_bin()
-            for n in xrange(0, options.length, fp.FP_BLOCK_SIZE):
-                filedata = inf.read(fp.FP_BLOCK_SIZE)
-                assert len(filedata) == fp.FP_BLOCK_SIZE
-                
-                if options.jedec:
-                    fp.write_block_jedec(n, [ord(x) for x in filedata])
-                else:
-                    raise RuntimeError('Non-Jedec programming not implemented (yet).')
-    
-                if ((n % 1024) == 0):
-                    sys.stderr.write('%d ' % n)
-                    sys.stderr.flush()
-    
-            
-    
-        except IOError, e:
-            fail("%s: %s" % (args[0], e))
-    
-        sys.stderr.write("%d ...Done\n" % options.length)
-        sys.stderr.flush()
-        
-    
-    if options.verify:
-        if len(args) > 1:
-            fail("Please specify a single file.")
-        if not options.length:
-            fail("Please specify the number of bytes to verify.")
-    
-        # Read the file.
-        try:
-            inf = open(args[0], 'rb')
-    
-            # Read and compare
-            fp.set_start(options.start)
-            fp.output_bin()
-            fp.set_count(options.block)
-            if args[0]:
-                sys.stderr.write('Verifying... ')
-                sys.stderr.flush()
-            for n in xrange(0, options.length, options.block):
-                filedata = inf.read(min(options.block, options.length))
-                romdata = fp.dump()[:min(options.block, options.length)]
-        
-                if filedata != romdata:
-                    sys.stderr.write('Failed!\nFile and ROM differ.\n')
-                    sys.exit(2)
-                
-                if args[0]:
-                    sys.stderr.write('%d ' % n)
-                    sys.stderr.flush()
-    
-        except IOError, e:
-            fail("%s: %s" % (args[0], e))
-    
-        sys.stderr.write("%d ...Done\n" % options.length)
-        sys.stderr.write("File and ROM are identical.\n")
-    
-        
 # End of file.
 
