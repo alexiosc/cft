@@ -1864,3 +1864,30 @@
 	inadvertently. Need to replace the inverter and diode with a '541. It
 	can source 35mA, and provides the same functionality. A capacitor could
 	also help.
+
+2014-06-12  AC <alexios@bedroomlan.org>
+
+	[Bugs,Testing/Hardware/DFP] The POWEROK signal from modern ATX power
+	supplies uses 3.3V, not 5V. This will eventually have to be
+	level-shifted, but the machine will likely work without it: POWEROK is
+	only used for brownout detection, and the Atmega can detect such cases
+	and hold down RESET#. The DFP also boots with RESET# asserted, until
+	the MCU passes diagnostics, which is the same as waiting for the power
+	supply to assert POWEROK.
+
+	[Setbacks,Bugs,Testing/Hardware/DFP] The entire low order 8 bits of DR
+	have been reversed! They are reversed on Processor Board 1 to simplify
+	routing, and the DFP wiring is wrong. All eight signals will have to be
+	flipped around on Board 1 of the DFP.
+
+	[Testing/Hardware/DFP] Verified most of the front panel lights.
+
+2014-06-13  AC <alexios@bedroomlan.org>
+
+	[Testing/Hardware/DFP] Fixed numerous bugs on both DFP boards. All
+	lights are now working properly.
+
+	[Bugs,Testing/Hardware/DFP] The Data Bus enable MUX on DFP Board 2 is
+	not putting out correct values. It may have a dry joint or short,
+	though it seems like all pins test correctly. The theory is correct and
+	the chip works (multiple chips tried), so something else is wrong.
