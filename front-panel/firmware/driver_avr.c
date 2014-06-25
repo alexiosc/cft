@@ -75,8 +75,8 @@
 		     _BV(D_NCTLOE) | _BV(D_COUT))
 
 #define B_CLRWS     PB0
-#define B_FPUSTEP   PB1
-#define B_FPCLKEN   PB2
+#define B_FPCLKEN   PB1
+#define B_FPUSTEP   PB2
 #define B_IOADDR0   PB3
 #define B_IOADDR1   PB4
 #define B_IOADDR2   PB5
@@ -469,6 +469,20 @@ dfp_diags()
 	// panel) and DEBIN (for the debugging shift regs) should be the same
 	// as IOADDR0. This allows diagnostics.
 
+	// uint16_t x;
+	// for(i=0x1234;;i++) {
+	// 	write_db(i);
+	// 	drive_db();
+	// 	_delay_ms(50);
+	// 	_cb[2] ^= CB2_FPSTOP;
+	// 	write_cb();
+
+	// 	tristate_db();
+	// 	_delay_ms(50);
+	// 	_cb[2] ^= CB2_FPSTOP;
+	// 	write_cb();
+	// }
+
 	code = 0x102;
 	report_pstr(PSTR(STR_D_VPIN));
 	for (i = 0; i < NUM_REPS; i++) {
@@ -564,11 +578,21 @@ dfp_diags()
 	// Does driving the DBUS work?
 	code = 0x106;
 	report_pstr(PSTR(STR_D_DBDRV));
+	_delay_ms(2000);
 	drive_db();
 	for (j = 0; j < NUM_REPS; j++) {
 		for (i = 0; i < NUM_PATTERNS; i++) {
 			write_db(_diag_patterns[i]);
 			deb_sample(0);
+
+			// {
+			// 	uint32_t x = _diag_patterns[i];
+			// 	report_hex(x, 4);
+			// 	serial_write(32);
+			// 	x = _db;
+			// 	report_hex(x, 4);
+			// 	report_nl();
+			// }
 
 			if (_db != _diag_patterns[i]) {
 				tristate_db();
@@ -579,29 +603,27 @@ dfp_diags()
 	tristate_db();
 	report_pstr(PSTR(STR_D_OK));
 	
-	// TODO: Reinstate when state machine ICs get instaled
-	// (without them, the DBUS drivers never go to High-Z).
-
 	// Does tristating the ABUS work? Account for bus hold. The
 	// value read from the bus should never change from the
 	// current one.
-	// code = 0x107;
-	// report_pstr(PSTR(STR_D_DBTRI));
-	// {
-	// 	_delay_ms(2);
-	// 	deb_sample(0);
-	// 	uint16_t old = _db;
-	// 	for (j = 0; j < NUM_REPS; j++) {
-	// 		for (i = 0; i < NUM_PATTERNS; i++) {
-	// 			write_db(_diag_patterns[i]);
-	// 			deb_sample(0);
-	// 			if (_db != old) {
-	// 				goto faulty;
-	// 			}
-	// 		}
-	// 	}
-	// }
-	// report_pstr(PSTR(STR_D_OK));
+	code = 0x107;
+	report_pstr(PSTR(STR_D_DBTRI));
+	{
+		_delay_ms(2);
+		deb_sample(0);
+		uint16_t old = _db;
+		for (j = 0; j < NUM_REPS; j++) {
+			for (i = 0; i < NUM_PATTERNS; i++) {
+				write_db(_diag_patterns[i]);
+				deb_sample(0);
+
+				if (_db != old) {
+					goto faulty;
+				}
+			}
+		}
+	}
+	report_pstr(PSTR(STR_D_OK));
 
 	flags = oldflags;
 
@@ -757,10 +779,11 @@ hw_init()
 		// Mark the processor as present
 		flags |= FL_PROC;
 		// Disable the bus pull-ups. Note: active low!
-		outcmd(CMD_BUSPU, 1);
+		set_buspu(1);
 	} else {
-		// Resets to high (active low), but set it explicitly anyway.
-		outcmd(CMD_BUSPU, 0);
+		// Enable the bus pull-ups. They start enabled after reset, but
+		// this couldn't hurt.
+		set_buspu(0);
 	}
 
 	// Run diagnostics
@@ -1438,6 +1461,10 @@ wait_for_halt()
 		if ((get_flags() & CFL_NWAIT) != 0) break;
 	}
 
+	// When we have no CPU, go through the motions but don't fail because
+	// the state machine will never get tot he STOP state.
+	if ((flags & FL_PROC) == 0) return;
+
 	if (!assert_halted()) {
 		// Failed to halt. Crash here.
 		set_or(0x911);
@@ -1814,6 +1841,16 @@ set_io(bool_t val)
 	// MEM/IO safety interlock.
 	setflag(_cb[2], CB2_NMEM);
 	do_cb(2, NIO, !val);
+	write_cb();
+}
+
+
+void
+release_bus()
+{
+	tristate_ab();
+	tristate_db();
+	setflag(_cb[2], CB2_NMEM | CB2_NIO | CB2_NW | CB2_NR);
 	write_cb();
 }
 

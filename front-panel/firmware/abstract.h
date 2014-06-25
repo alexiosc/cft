@@ -110,6 +110,7 @@ void strobe_w();		// W#
 void set_r(bool_t x);		// R#
 void set_mem(bool_t x);		// MEM#
 void set_io(bool_t x);		// IO#
+void release_bus();		// Release all bus signals
 void strobe_war();		// WAR#
 void strobe_rpc();		// RPC#
 void strobe_incpc();		// INCPC#

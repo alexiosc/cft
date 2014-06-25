@@ -96,6 +96,9 @@
 #define STR_PC           " PC:"
 #define STR_IR           " IR:"
 
+#define STR_ABUS    "260 ABUS: "
+#define STR_DBUS    "261 DBUS: "
+
 #define STR_MACHINE "299 T0sgQ09NUFVURVI=\n"
 
 #define STR_DUMP    "300 Dumping\n"
@@ -137,9 +140,10 @@
 #define STR_OUT1    "357 OUT Address: "
 #define STR_OUT2    " Value: "
 #define STR_IFR1    "358 IRQ1 signaled\n"
+#define STR_IFR1    "358 IRQ1 signaled\n"
+#define STR_IFR6    "359 IRQ6 signaled\n"
 
 #define STR_IFR1M   "458 IRQ1 masked by CFT\n"
-#define STR_IFR6    "359 IRQ6 signaled\n"
 #define STR_IFR6M   "459 IRQ6 masked by CFT\n"
 
 #define STR_WMEM    "370 Write mem["
@@ -167,7 +171,7 @@
 #define STR_NSELF   "510 You talkin' to me?\n"
 
 // Hardware Faults.
-#define STR_DIAGF   "901 Diagnostics failed."
+#define STR_DIAGF   "901 Diagnostics failed.\n"
 #define STR_NVMIS   "910 Value mismatch. Should be "
 #define STR_NVMIS1       ", was "
 #define STR_HLTTO   "911 Timeout waiting for processor halt.\n"

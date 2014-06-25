@@ -84,8 +84,10 @@ void
 panel_stop()
 {
 	//report(__FUNCTION__); report_pstr(PSTR("()\n"));
+	flags |= FL_BUSY;
 	say_break();
 	go_stop();
+	flags &= ~FL_BUSY;
 	proto_prompt();
 }
 

@@ -62,7 +62,8 @@ class DFP(dfp.Communication):
 
     # Params we keep track of
     STR_PARAMS = ['have_processor', 'echo', 'version', 'async', 'lock', 'hof', 'hos']
-    HEX_PARAMS = ['bufsize', 'address', 'output_register']
+    HEX_PARAMS = ['bufsize', 'address', 'output_register', 'switch_register',
+                  'left_switches', 'right_switches', 'dip_switches']
     PARAMS = STR_PARAMS + HEX_PARAMS
 
     
@@ -98,11 +99,11 @@ class DFP(dfp.Communication):
         #     time.sleep(0.1);
         #     x = (x + 1) & 0xffff
 
-        pat = [0x1111, 0x2222, 0x4444, 0x8888]
-        while True:
-            for x in pat:
-                self.cmd('or', hex(x)[2:] )
-                time.sleep(0.1);
+        # pat = [0x1111, 0x2222, 0x4444, 0x8888]
+        # while True:
+        #     for x in pat:
+        #         self.cmd('or', hex(x)[2:] )
+        #         time.sleep(0.1);
 
 
     def scavenge_state(self, response):
@@ -112,28 +113,50 @@ class DFP(dfp.Communication):
         except TypeError:
             return
 
-        # Try the code as is first
-        name = '_parse%03d' % code
-        if hasattr(self, name):
-            return getattr(self, name)(response)
-
-        # Informational codes (2xx) have equivalent Status change (3xx)
-        # messages.
-        if code in range(200, 300):
-            name = '_parse%03d' % (code + 100)
+        try:
+            # Try the code as is first
+            name = '_parse%03d' % code
             if hasattr(self, name):
                 return getattr(self, name)(response)
+    
+            # Informational codes (2xx) have equivalent Status change (3xx)
+            # messages.
+            if code in range(200, 300):
+                name = '_parse%03d' % (code + 100)
+                if hasattr(self, name):
+                    return getattr(self, name)(response)
+    
+            # And vice versa
+            if code in range(300, 400):
+                name = '_parse%03d' % (code - 100)
+                if hasattr(self, name):
+                    return getattr(self, name)(response)
 
-        # And vice versa
-        if code in range(300, 400):
-            name = '_parse%03d' % (code - 100)
-            if hasattr(self, name):
-                return getattr(self, name)(response)
+        except (KeyError, AttributeError, IndexError):
+            if response.get('val'):
+                raise ProtocolError("Invalid value for code %s: '%s'." %
+                                    (code, response['val']))
+            else:
+                raise ProtocolError("Missing value for code %s." %
+                                    (code,))
+            
+
 
 
     def _parseHex(self, r, default=0):
-        """Parse a hex report from the DFP."""
-        return int(r.get('val', default), 16)
+        """Parse a hexadecimal report from the DFP."""
+        try:
+            return int(r.get('val', default), 16)
+        except AttributeError:
+            return int(r, 16)
+
+            
+    def _parseBin(self, r, default=0):
+        """Parse a binary report from the DFP."""
+        try:
+            return int(r.get('val', default), 2)
+        except AttributeError:
+            return int(r, 2)
 
             
     def _parseBool(self, r, default='off'):
@@ -172,6 +195,21 @@ class DFP(dfp.Communication):
         self.echo = self._parseBool(r)
         
 
+    def _parse212(self, r):
+        """Terminal mode."""
+        self.terminal = self._parseBool(r)
+        
+
+    def _parse213(self, r):
+        """Parse halt-on-fail (off|on)."""
+        self.hof = self._parseBool(r)
+        
+
+    def _parse214(self, r):
+        """Parse halt-on-sentinel (off|on)."""
+        self.hos = self._parseBool(r)
+        
+
     def _parse215(self, r):
         """Front panel lock."""
         self.lock = self._parseBool(r)
@@ -187,9 +225,27 @@ class DFP(dfp.Communication):
         self.async = self._parseBool(r)
         
 
+    def _parse220(self, r):
+        """Parse Switch Register."""
+        self.switch_register = self._parseHex(r['val'].split()[0])
+
+
     def _parse221(self, r):
-        """Parse output register."""
+        """Parse Output Register."""
         self.output_register = self._parseHex(r)
+
+
+    def _parse251(self, r):
+        """Parse switch status."""
+        data = r.get('val').split()
+        if len(data) != 5:
+            raise dfp.ProtocolError('251 Switch state: expected 5 fields, got %d' % \
+                                        len(data))
+        self.left_switches = self._parseBin(data[0])
+        self.switch_register = self._parseBin(data[1])
+        self.right_switches = self._parseBin(data[2])
+        self.dip_switches = self._parseBin(data[3]) << 8 | self._parseBin(data[4])
+        print(data)
 
 
     def print_state(self):
@@ -214,6 +270,7 @@ class DFP(dfp.Communication):
         """Query the FlashProg for its full status.
         """
         self.cmd('dfps', until=251, retry=3)
+        self.cmd('lock', until=215, retry=3)
         # self.cmd(self.CMD_INFO_BUFSIZE)
         # self.cmd(self.CMD_INFO_START)
         # self.cmd(self.CMD_INFO_COUNT)

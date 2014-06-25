@@ -742,6 +742,12 @@ set_io(bool_t x)
 
 
 void
+release_bus()
+{
+}
+
+
+void
 strobe_war()
 {
 }

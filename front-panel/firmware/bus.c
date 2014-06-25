@@ -4,6 +4,7 @@
 #include "proto.h"
 #include "abstract.h"
 #include "bus.h"
+#include "utils.h"
 
 #ifdef AVR
 #include <util/atomic.h>
@@ -171,6 +172,49 @@ perform_write(uint8_t space, uint16_t addr, uint16_t word)
 	}
 
 	return 1;
+}
+
+
+
+// CAUTION: NO SAFETY MEASURES! ENSURE THE HOST IS HALTED, THE BUS IS
+// QUIET AND THE ENTIRE BUS CYCLE IS EXECUTING ATOMICALLY (WITH
+// INTERRUPTS DISABLED).
+
+void
+start_block_write(uint8_t space)
+{
+	// De-assert every control signal just in case.
+	release_bus();
+	
+	// Select address space and drive the buses, AB first. This is
+	// a slow process (purposefully).
+	drive_ab();
+	if (space == SPACE_MEM) set_mem(1); else set_io(1);
+	drive_db();
+}
+
+void
+perform_block_write(uint16_t addr, uint16_t word)
+{
+	// One MCU clock is 67 ns. Assuming two clocks between signals (it's
+	// far more, we have loops to shift out values to the shift registers),
+	// we can satisfy all setup/hold requirements for memory without
+	// further delays. Some I/O chips are slower (e.g. the AY-3-8910 needs
+	// 1µs bus cycles, but block writes are usually not for that sort of
+	// device).
+
+	write_ab(addr);
+	write_db(word);
+
+	// Strobe W#
+	strobe_w();
+}
+
+void
+end_block_write()
+{
+	// Release the bus (tristate everything, de-assert control signals)
+	release_bus();
 }
 
 

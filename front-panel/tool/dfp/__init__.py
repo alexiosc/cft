@@ -32,6 +32,11 @@ class NumberFormatError(BaseException):
     pass
 
 
+class ProtocolError(BaseException):
+    """There was an error in the DFP protocol."""
+    pass
+
+
 class Base(object):
     """Base class with common tools."""
 

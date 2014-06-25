@@ -26,6 +26,12 @@
 #include "panel.h"
 #include "bus.h"
 
+#ifdef AVR
+#include <util/atomic.h>
+#else
+#define ATOMIC_BLOCK(x)
+#endif
+
 
 #ifdef HOST
 #define PROGMEM
@@ -50,6 +56,9 @@ uint8_t  bpflag = 0;
 static bool_t
 assert_proc_present()
 {
+// #warning "Remove this line."
+// 	return 1;
+
 	if (flags & FL_PROC) return 1;
 	report_pstr(PSTR(STR_NOPROC));
 	return 0;
@@ -978,6 +987,22 @@ go_utrace()
 
 
 static void
+say_abus()
+{
+	deb_sample(0);
+	report_hex_value(PSTR(STR_ABUS), get_ab(), 4);
+}
+
+
+static void
+say_dbus()
+{
+	deb_sample(0);
+	report_hex_value(PSTR(STR_DBUS), get_db(), 4);
+}
+
+
+static void
 _reg(uint8_t reg)
 {
 	uint16_t w;
@@ -1169,12 +1194,20 @@ go_write()
 	uint32_t cksum = 0;
 	uint8_t first = 1;
 
-	while ((res = optional_hex_val(&v)) > 0) {
-		first = 0;
-		if (perform_write(SPACE_MEM, addr, v) == 0) return;
-		addr++;
-		cksum += v;
+	ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+		// Ensure the bus is quiet. 
+		if (!assert_halted()) return;
+
+		start_block_write(SPACE_MEM);
+		while ((res = optional_hex_val(&v)) > 0) {
+			first = 0;
+			perform_block_write(addr, v);
+			addr++;
+			cksum += v;
+		}
+		end_block_write();
 	}
+	
 	if (res < 0) return;
 	if (first) {
 		badsyntax();
@@ -1504,6 +1537,8 @@ go_dfps()
 	gs_addr();
 	gs_or();
 	say_sr();
+	say_abus();
+	say_dbus();
 	go_sws();
 }
 
