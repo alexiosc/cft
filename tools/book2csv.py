@@ -7,7 +7,13 @@ import sha
 import csv
 import pprint
 
-FILE = '/home/alexios/PROJECTS/HARDWARE/cft/documentation/latex/cft_book/cft-book-html.html'
+try:
+    FILE = sys.argv[1]
+except:
+    sys.stderr.write('Syntax: %s DOCUMENT-ROOT-FILE.html\n' % sys.argv[0])
+    sys.exit(1)
+    #'/home/alexios/PROJECTS/HARDWARE/cft/documentation/latex/cft_book/cft-book-html.html'
+
 BASEDIR = os.path.dirname(FILE)
 
 data = open(FILE).read().replace('\n', ' ')

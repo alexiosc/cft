@@ -106,7 +106,8 @@ def shipout(sn, date, name, email, tags, descr):
     # except:
     #     print "***", d
     #     raise
-    
+
+    #sys.stderr.write('SN: %s\n' % sn)
     uuid = sha.sha(str((sn, date))).hexdigest()
     #descr = descr.strip().replace('\n\n', '\n\n<p>')
     descr = re.sub('\s+', ' ', descr.strip()).rstrip('.') + '.'
@@ -141,7 +142,6 @@ for line in sys.stdin:
         # Start of new date
         if date and descr:
             shipout(sn, date, name, email, tags, descr)
-        sn = 0
         date, name, email = x.groups()
         descr = ''
         #print "1:", line.strip()
