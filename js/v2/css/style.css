@@ -242,8 +242,8 @@ h2 {
 }
 
 #panel .swmid {
-/*vertical-align:middle;*/
-padding-top:16px;
+    /*vertical-align:middle;*/
+    padding-top:16px;
 }
 
 /* Switches */
@@ -462,4 +462,63 @@ padding-top:16px;
 #terminal .r {
     background:#666;
     color:#222;
+}
+
+#emutabs {
+    position:relative;
+    padding:0;
+    top:-16px; /* Why? */
+}
+.emutab {
+    position:relative;
+    bottom:0;
+    right:0;
+    width:100%;
+    min-height:90%;
+    overflow:scrolled;
+}
+
+.tab-bar {
+    position:relative;
+    top:0;
+    left:0;
+    width:100%;
+    z-index:1;
+    background:#444;
+}
+
+.tab-bar li {
+    list-style:none;
+    display:inline-block;
+}
+
+.tab-bar a {
+    display:inline-block;
+    padding:10px;
+    text-decoration:none;
+    color:#fff;
+}
+.tab-bar a.active {
+    background:#000;
+    color:#888;
+}
+.tab-bar a:hover {
+    background:#555;
+    color:#fff;
+}
+.tab-bar a:visited {
+    color:#fff;
+}
+#emutabs .emutab {
+    display:none;
+}
+#emutabs .emutab.infocus {
+    display:block;
+}
+
+#vduwrapper {
+    background:#000;
+    width:640px;
+    height:480px;
+    margin:50px auto auto;
 }
