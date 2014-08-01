@@ -22,4 +22,4 @@ clean:
 		rm -f rom.js microcode.js *~ $(OUT)*.list $(OUT).pasm $(OUT).sym $(OUT).bin $(OUT).map $(ROMDIR)/rom.js
 
 upload:
-		rsync -vaz . graviera:bedroomlan/www/local/cftjs/ --exclude='*~' --exclude=termlib --exclude=fonts
+		rsync -vaz . graviera:bedroomlan/www/local/cftjs2/ --exclude='*~' --exclude=termlib --exclude=fonts

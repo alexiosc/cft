@@ -64,15 +64,59 @@ $(document).ready(function(){
     var x = $('#header').width() + 35;
     setTimeout(function(){$('#header').animate({opacity:0, left:'-=' + x}, 2000)}, 10000);
 
+    // Add the tab buttons
+    var html = '<nav id="tabButtons" class="tab-bar"><ul>';
+    $('#emutabs .emutab').each(function(){
+	var $el = $(this);
+	var i = $el.attr('id');
+	var n = $el.attr('data-name');
+	html += '<li><a href="#" id="focus_' + i + '" data-for="' + i + '">' + n + '</a></li>';
+    });
+    html += '</ul></nav>';
+    $('#emutabs').before(html);
+
+    // Focus the first tab, or the tab named in the anchor
+    var focusTabButton = $('#tabButtons a:first');
+    var focusTab = $('#emutabs .emutab:first');
+    if (window.location.hash) {
+	var name = window.location.hash.substr(1).toLowerCase();
+	var tabButton = $('#tabButtons a[data-for="emutab_' + name + '"]');
+	var tab = $('#emutab_' + name);
+	if (tabButton && tab) {
+	    focusTabButton = tabButton;
+	    focusTab = tab;
+	}
+    }
+    focusTabButton.addClass('active');
+    focusTab.addClass('infocus');
+
+    // Add click events
+    $('#tabButtons a').click(function(ev){
+	var $el = $(this);
+	var tab = $el.attr('data-for');
+	ev.preventDefault();
+	$('#emutabs .emutab').each(function(){
+	    var $el = $(this);
+	    $el.toggleClass('infocus', $el.attr('id') == tab);
+	});
+	$('#tabButtons a').each(function(){
+	    var $el = $(this);
+	    $el.toggleClass('active', $el.attr('data-for') == tab);
+	});
+	window.location.hash = '#' + tab.split('_')[1].toUpperCase();
+    });
+
     // Initialise the emulator
     Bus.init();
 
     DFP.initUI();
+    VDU.initUI();
 
     Bus.addDriver(UCB);
     Bus.addDriver(DFP);
     Bus.addDriver(MBU);
     Bus.addDriver(IRC);
+    Bus.addDriver(VDU);
 
     Bus.init();
     CFT.init();

@@ -35,6 +35,7 @@ DFP = {
     ACT_LIGHT_DFP: 1,
     ACT_LIGHT_MBU: 2,
     ACT_LIGHT_IRC: 3,
+    ACT_LIGHT_VDU: 4,
 
     panel: {
 	or0: -1,
@@ -101,10 +102,10 @@ DFP = {
 	}
 
 	DFP._addSpace(1, 4);
-	var x = ['IRC', 'MBU', 'DFP', 'µCB'];
+	var x = ['VDU', 'IRC', 'MBU', 'DFP', 'µCB'];
 	var y = '';
 	for (i = 0; i < x.length; i++) y = y + 'r';
-	DFP._addrow(1, 'Activity', 'activity', 'n', 'rrrr', x);
+	DFP._addrow(1, 'Activity', 'activity', 'n', 'rrrrr', x);
 
 	for (i = 0; i < x.length; i++) {
 	    DFP._act.push($('#panel #plactivity' + i));
@@ -152,10 +153,13 @@ DFP = {
 	$('#panel .swwrap').mouseup(DFP.releaseSwitch);
 
 	// Initialise some buttons.
-	var toggle = [15, 14, 10, 9];
-	for (i = 0; i < toggle.length; i++) {
-	    DFP._switchHandler($('#swsr' + toggle[i]), 'up', true, false);
-	    DFP._switchHandler($('#swsr' + toggle[i]), 'up', false, false);
+	var sr0 = 0xc600;
+	//var toggle = [15, 14, 10, 9];
+	for (i = 0; i < 16; i++) {
+	    if (sr0 & (1 << i)) {
+		DFP._switchHandler($('#swsr' + i), 'up', true, false);
+		DFP._switchHandler($('#swsr' + i), 'up', false, false);
+	    }
 	}
 
 	// Initialise the lights
@@ -341,6 +345,7 @@ DFP = {
     },
 
     clickSwitch: function(ev) {
+	ev.preventDefault();
 	var tgt = $(ev.target);
 	var pressed = ev.type == 'mousedown' || ev.type == 'keydown';
 	var pos = -1;
@@ -348,7 +353,6 @@ DFP = {
 	if (tgt.hasClass('swa')) pos = 'up';
 	else if (tgt.hasClass('mid')) pos = 'mid';
 	else if (tgt.hasClass('swc')) pos = 'dn';
-	ev.preventDefault();
 	DFP._switchHandler(tgt, pos, pressed, true);
 	return false;
     },
