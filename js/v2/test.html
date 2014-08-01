@@ -11,6 +11,8 @@
     <script type="text/javascript" src="dfp.js"></script>
     <script type="text/javascript" src="mbu.js"></script>
     <script type="text/javascript" src="irc.js"></script>
+    <script type="text/javascript" src="vdu.js"></script>
+    <script type="text/javascript" src="romfont.js"></script>
     <script type="text/javascript" src="emu.js"></script>
 
     <link href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:400,700" rel="stylesheet" type="text/css" />
@@ -22,13 +24,17 @@
       <h1>CFT Emulator</h1>
       <h2>Browser Edition (v.2)</h2>
     </div>
-    
-    <div class="text-lights" id="panelwrapper">
-      <!-- <div class="sprite-lights" id="panelwrapper"> -->
-      <div id="bevel"><table id="panel"></table></div>
-      <div id="fadeout" />
-      <div id="curious">Curious? Got here by accident? <a target="_blank" href="http://www.bedroomlan.org/cft-mini-computer/javascript-emulator">Find out more about this emulator and the CFT!</a></div>
+
+    <div id="emutabs">
+      <div class="emutab" id="emutab_vdu" data-name="VDU"></div>
+      <div class="emutab" id="emutab_con" data-name="CON" >
+	<div class="text-lights" id="panelwrapper">
+	  <div id="bevel"><table id="panel"></table></div>
+	  <div id="fadeout"></div>
+	  <div id="curious">Curious? Got here by accident? <a target="_blank" href="http://www.bedroomlan.org/cft-mini-computer/javascript-emulator">Find out more about this emulator and the CFT!</a></div>
+	</div>
+	<div class="terminal" id="termDiv"></div>
+      </div>
     </div>
-    <div class="terminal" id="termDiv"></div>
   </body>
 </html>

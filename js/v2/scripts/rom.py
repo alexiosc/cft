@@ -1,8 +1,18 @@
 #!/usr/bin/python 
 
-import sys, array
+import os, sys, array
 
 SIZE = 524288
+
+# try:
+#     SIZE = os.stat(sys.argv[1]).st_size
+#     assert (SIZE % 16384) == 0
+# except AssertionError:
+#     sys.stderr.write('ROM file should be a multiple of 8 KW (16 KB)')
+#     sys.exit(1)
+# except (IOError, OSError), e:
+#     sys.stderr.write(str(e) + "\n")
+#     sys.exit(1)
 
 rom = array.array('h')
 
