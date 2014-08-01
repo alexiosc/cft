@@ -20,13 +20,16 @@
 
 .include "asm/page0-0.asm"		; Page 0 definitions (&00xx)
 .include "asm/page0-1.asm"		; Page 0 definitions (&01xx)
-.include "asm/dfp.asm"			; Debugging board definitions
-.include "asm/irc.asm"			; Debugging board definitions
-.include "asm/mbu.asm"			; Debugging board definitions
-.include "asm/post.asm"			; Debugging board definitions
+.include "asm/dfp.asm"			; Debugging Front Panel (DFP)
+.include "asm/irc.asm"			; Interrupt Board (IRC)
+.include "asm/vdu.asm"			; Video Board & Keyboard (VDU)
+.include "asm/mbu.asm"			; Memory Banking Unit (MBU)
+.include "asm/post.asm"			; POST patterns
 .include "asm/macro-generic.asm"	; Macros
 
 .pushns earlyBoot
+
+		.bank &80
 
 ;;; Fill both RAM and ROM parts of the image with SENTINEL instructions, which
 ;;; cause the emulator to terminate. This is so we can catch addresses which
@@ -35,9 +38,36 @@
 &0000:		.fill 65535 SENTINEL
 &8000:          .data 0x1234 0x5678
 &a000:          .data 0x1234 0x5678
+&c000:          .data 0x1234 0x5678
 &e000:          .data 0x1234 0x5678
-&f000:          .data 0x1234 0x5678
 
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// Local macros
+//
+///////////////////////////////////////////////////////////////////////////////
+
+;;; Macro: SKIP_IF_HWDIS(hwc_bit)
+;;;
+;;; Execute the next instruction if and only if the device corresponding to the
+;;; specified HWC_xxx flag is disabled. The ‘next’ instruction is the
+;;; instruction after the macro. If the device isn't disabled, the next
+;;; instruction is skipped.
+;;;
+;;; Side effects:
+;;;   AC: clobbered
+;;;   PC: modified for jump
+		
+.macro IF_HWDIS(bitvalue)
+		LOAD p0.HWDIS
+		LOAD @+5		; IF_HWDIS(%bitvalue)
+		AND p0.HWDIS
+		SZA
+		JMP @+3			; Skip to first instruction after macro
+		JMP @+3			; Skip to 2nd instruction after macro
+		.word %bitvalue
+.end
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -49,32 +79,37 @@
 ramvectable:	
 		.reg ISRV R @ 		; Interrupt Service Routing vector
 		.reg PUTSP R @
+		.reg PUTUD R @
+		.reg PUTH R @
+		.reg MEMCPY R @
 		.reg DELAY R @
 		.reg POSTFAIL R @
+		.reg MINUS1 R 2
 		.reg BYTELO R @
+		.reg BYTEHI R @
 
 ///////////////////////////////////////////////////////////////////////////////
-///
-/// 8000: Early boot, diagnostics, hardware discovery and boot loader.
-///
+//
+// 8000: Early boot, diagnostics, hardware discovery and boot loader.
+//
 ///////////////////////////////////////////////////////////////////////////////
 
 &8000:
 earlyBoot:
 .scope
 		;; Initialise the early vector table. Assumption, we have at
-		;; least 1 kW of RAM and it's acccessible at
-		;; &0000-&03FF. Probably a safe assumption. ;)
+		;; least 1 kW of RAM and it's acccessible at &0000-&03FF,
+		;; probably a safe assumption. ;)
 
 .scope
 		LIA vectable
-		STORE R &80
+		STORE I10
 		LIA R ramvectable
-		STORE R &81
-loop:		LOAD I R &80
+		STORE I11
+loop:		LOAD I I10
 		SNZ
 		JMP done
-		STORE I R &81
+		STORE I I11
 		JMP loop
 done:		
 .endscope
@@ -87,10 +122,14 @@ done:
 		;; Start off assuming we're running on physical hardware
 		LMOV (p0.HWENV, p0.HWE_HW)
 		
+		;; Override the startup mode (sets p0.HWDIS)
+		JSR mode_override
+
 		;; Detect hardware
 		JSR detect_mbu_and_mem
 		JSR detect_dfp
 		JSR detect_irc
+		JSR detect_vdu
 
 		;; Choose the console device
 		JSR choose_console
@@ -115,18 +154,95 @@ done:
 		JMP done
 		LI 25
 		NEG
-		STORE R 16
+		STORE R15
 again:		SOR
 		LIA 0
 		JSR I DELAY
-		ISZ R 16
+		ISZ R15
 		JMP again
 done:		
 .endscope
 
 		LOAD welcome
 		JSR I PUTSP
+
+
+
+///////////////////////////////////////////////////////////////////////////////
 		
+		;; Scan for ROMs
+
+.scope
+		LI p0.HWC_MBU
+		AND p0.HWENV		; Do we have an MBU?
+		SZA
+		/JMP have_mbu
+
+no_mbu:
+.scope
+		RMOV(TMP14, d0)		; Start at &2000
+		STORE I15
+loop:           LOAD I I15
+		XOR magic		; Check for magic #1
+		SZA
+		JMP next
+		LOAD I I15
+		XOR @magic+1
+		SZA
+		JMP next
+
+found_one:	LOAD TMP15
+		LOAD I I15		; Skip the origin
+		LOAD I I15		; Load the number of programs
+		PRINTD
+		PRINTNL
+
+		NEG
+		STORE TMP14
+		LOAD I I15		; Skip the reserved word
+
+parse_program:	
+		;; TODO: decode the boot descriptor here.
+
+		LOAD I15
+		PRINTH
+		PRINTSP
+		LINC(I15, 15)		; Skip the name for now
+		LOAD I I15		; Entry point
+		PRINTH
+		PRINTNL
+		ISZ TMP14
+		JMP parse_program
+		
+		
+next:           RADD1(TMP15, d0)	; Step by &1000
+		SNZ			; Wrapped around? If so we're done.
+		JMP done
+		STORE I15
+		JMP loop
+
+done:		
+		HALT
+		
+.endscope
+
+have_mbu:
+.scope
+		HALT
+.endscope
+
+d0:		.data &1000
+magic:		.word &0cf7		; Magic (CFT)
+		.word &1234
+		
+.endscope
+		
+///////////////////////////////////////////////////////////////////////////////
+
+
+
+		
+
 		LI 0			; Clear the AC
 		HALT			; Halt and wait for user
 		
@@ -136,36 +252,40 @@ done:
 		JMP I R 3
 
 welcome:	.word _welcome
-hwdetect:	.strp "Hardware detected: " 0
 vectable:	.word null_isr		; Vector: ISR (Interrupt Service Routine)
 		.word putsp		; Vector: PUTSP (print out packed string)
+		.word putud		; Vector: PUTUD (print unsigned decimal)
+		.word puth		; Vector: PUTH (print 16-bit hex)
+		.word memcpy		; Vector: MEMCPY
 		.word delay		; Vector: DELAY (short delays)
 		.word postfail		; Vector: POSTFAIL (output error codes)
+		.word &ffff		; Const:  MINUS1 = FFFF = -1
 		.word &00ff		; Const:  LOWBYTE
+		.word &ff00		; Const:  HIBYTE
 		.word 0			; End of vector table
 
 detect_dfp:	
 .scope
 		QEF			; Do we have a DFP?
-		STORE R 10
+		STORE R10
 		AND detect_dfp1
-		STORE R 11
+		STORE R11
 		SNZ
 		RET			; Not found, bail.
 		LOR1(p0.HWCONFIG, p0.HWC_DFP)
 
 		LI dfp.QEF_TTY		; Do we have a console?
-		AND R 10
+		AND R10
 		SNZ
 		RET			; Nope.
 		LOR1(p0.HWTTYS, p0.HWT_DFP)
 
-		LOAD R 11		; What are we running on?
+		LOAD R11		; What are we running on?
 		XOR detect_dfp2		; Running under C emulation?
 		SNZ
 		JMP on_c_emu
 
-		LOAD R 11		; What are we running on?
+		LOAD R11		; What are we running on?
 		XOR @detect_dfp2+1	; Running under JS emulation?
 		SNZ
 		JMP on_js_emu
@@ -194,6 +314,31 @@ detect_irc:	IN irc.ISR		; Read the ISR
 		RET
 detect_irc1:	.word irc.ISR_DETECT
 
+
+
+detect_vdu:     
+.scope
+
+		IF_HWDIS(p0.HWC_VDU)	; Is the VDU disabled?
+		RET			; Then return.
+		IN vdu.SR
+		AND data
+		XOR @data+1
+		SZA
+		RET			; Not found. Return.
+
+		;; We have a VDU. Initialise it.
+		ROR1(p0.HWCONFIG, @data+2)
+		FARJMP(vdu_init)
+
+data:		.data vdu.SR_VER_MSK	; VDU version mask
+		.data vdu.SR_VER5	; VDU expected value
+		.data p0.HWC_VDU	; The VDU flag
+
+.endscope
+
+
+		
 ;;; Detect memory. First, detect if we have an MBU.
 ;;;
 ;;; Strategy:
@@ -205,14 +350,18 @@ detect_irc1:	.word irc.ISR_DETECT
 
 detect_mbu_and_mem:
 .scope
+		;; Is the MBU disabled?
+		IF_HWDIS(p0.HWC_MBU)	; Is the MBU disabled?
+		JMP detect_mem_no_mbu	; Scan for memory without an MBU
+		
 		;; Control group
                 LOAD I bank7
-		STORE R 10		; For sanity checking
+		STORE R10		; For sanity checking
 		NOT
 		STORE I bank1
-		STORE R 11		; For sanity checking
+		STORE R11		; For sanity checking
 
-		;; Enable and configure the MBU
+		;; Enable and configure the MBU.
 		mbu.MAPMEML(7, &83)	; Map 32kW of ROM pages
 		mbu.MAPMEML(6, &82)
 		mbu.MAPMEML(5, &81)
@@ -224,7 +373,7 @@ detect_mbu_and_mem:
 
 		;; Sanity check: mem[&8000] shouldn't have changed since
 		;; enabling the MBU.
-		CMPEQ(I bank7, R 10)	; ROM still mapped properly?
+		CMPEQ(I bank7, R10)	; ROM still mapped properly?
 		SZA
 		JMP b0rken		; No, the MBU is broken.
 
@@ -236,9 +385,9 @@ detect_mbu_and_mem:
 
 		;; 2. Is the mapped bank a ROM bank?
 		LOAD I bank1
-		NOT			; if mem[&2000] == R 10, then this is RAM
+		NOT			; if mem[&2000] == R10, then this is RAM
 		STORE I bank7
-		CMPEQ(I bank7, R 10)
+		CMPEQ(I bank7, R10)
 		SZA
 		JMP detect_mem_no_mbu
 
@@ -251,64 +400,60 @@ b0rken:		LI post.ERR_MBU		; Output error code and crash
 
 bank7:		.data &8000
 bank1:		.word &2000
-
+		
 detect_mem_with_mbu:
 
-		LOAD data
-		STORE R 10		; Start with page 0
+		RMOV(R10, data)	; Start with page 0
 		LI 0
-		STORE R 11		; RAM banks found
-		STORE R 12 		; ROM banks found
+		STORE R11		; RAM banks found
+		STORE R12 		; ROM banks found
 		STORE R p0.ROMSTART	; First ROM bank found
 
 		;; Loop body
-loop:		ISZ R 10
+loop:		ISZ R10
 		JMP body
 		JMP done
-body:		LOAD R 10
+body:		LOAD R10
 		ING
 		mbu.MAPMEM(1)		; Bank 1 = page number in AC
 
-		LOAD I bank1
-		STORE R 13		; R 13 = original value (=ROM)
+		RMOV(R13, I bank1)	; R13 = original value (=ROM)
 		NOT
 		STORE I bank1
-		STORE R 14		; R 14 = negated value (=RAM)
+		STORE R14		; R14 = negated value (=RAM)
 
-		CMPEQ(I bank1, R 14)	; Is it RAM?
+		CMPEQ(I bank1, R14)	; Is it RAM?
 		SNZ
 		JMP ramfound
 
-		CMPEQ(I bank1, R 13)	; Is it ROM?
+		CMPEQ(I bank1, R13)	; Is it ROM?
 		SZA
 		JMP loop		; It's most likely unmapped.
 
-		LI 1
-		ADD bank1
-		STORE R &80
-		CMPEQ(I R &80, R 13)	; Is the next word in the ROM identical?
+		LOR(I10, bank1, 1)	; Examine the next word in this bank
+		CMPEQ(I I10, R13)	; Is the next word in the ROM identical?
 		SNZ
 		JMP loop		; Same value
 
-		; CMPEQ(I R &80, R 13)	; Is the next word in the ROM identical?
+		; CMPEQ(I I10, R13)	; Is the next word in the ROM identical?
 		; SNZ
 		; JMP loop		; Same value yet again. 
 
-romfound:	LOAD R 10
+romfound:	LOAD R10
 		ING
 		STORE R p0.ROMSTART	; Update page# of lowest ROM page
-		ISZ R 11		; Guaranteed to never skip
+		ISZ R11		; Guaranteed to never skip
 		JMP loop
 		
-ramfound:	RMOV(I bank1, R 13)	; Be nice, restore original value
-		ISZ R 12		; Guaranteed to never skip
+ramfound:	RMOV(I bank1, R13)	; Be nice, restore original value
+		ISZ R12		; Guaranteed to never skip
 		JMP loop
 
 done:		LI &ff			; We COULD have 256 pages of RAM, so mask
-		AND R 12
+		AND R12
 		STORE p0.MEMCFG		; Store this value into p0.MEMCFG
 
-		LOAD R 11		; Number of ROM banks
+		LOAD R11		; Number of ROM banks
 		RNL
 		RNL			; Roll 8 bits left
 		AND rommask		; Mask it
@@ -336,62 +481,62 @@ rommask:	.word &ff00
 ;;; 
 ;;; (*) Rationale: the data bus is terminated with bus hold circuitry, which
 ;;;     retains the last valid value the bus had driven onto it. If memory is
-;;;     present, this would be the output of a memory IC. Otherwise, the
-;;;     previous memory access would remain. That access would be the fetch part
-;;;     of the previous executed instruction, a LOAD instruction.
+;;;     present, this would be the output of a memory IC. Otherwise, the data of
+;;;     the previous memory access would be read. That access would be the fetch
+;;;     part of the previous executed instruction, a LOAD instruction.
 
 detect_mem_no_mbu:
 .scope
 		LI 3
-		STORE R 11		; Bank counter
+		STORE R11		; Bank counter
 		LI 0
-		STORE R 14		; RAM banks found
-		STORE R 15		; ROM banks found
+		STORE R14		; RAM banks found
+		STORE R15		; ROM banks found
 		STORE R p0.ROMSTART	; First ROM bank found
 
 		;; Loop body
-loop:	        LOAD I R 11		; Load this memory value
-		STORE R 12		; Store for comparison
+loop:	        LOAD I R11		; Load this memory value
+		STORE R12		; Store for comparison
 		NOT			; Invert all the bits
-		STORE R 13		; Store the new value for comparison
-		STORE I R 11		; Store it back.
+		STORE R13		; Store the new value for comparison
+		STORE I R11		; Store it back.
 
-		CMPEQ(I R 11, R 12)	; Is it the original value?
+		CMPEQ(I R11, R12)	; Is it the original value?
 		SNZ
 		JMP romfound		; Yes. It's ROM.
 
-		CMPEQ(I R 11, R 13)	; Is it the updated value?
+		CMPEQ(I R11, R13)	; Is it the updated value?
 		SNZ
 		JMP ramfound		; Yes. It's RAM.
 
 		;; Increment and loop exit
-next:	        LOAD R 11		; Next memory bank
+next:	        LOAD R11		; Next memory bank
 		CLL
 		ADD _l_d
 		SCL			; address > 65535?
 		JMP done		; Yes. We're done.
-		STORE R 11
+		STORE R11
 		JMP loop		; Loop.
 
 		;; ROM bank found
-romfound:	INCM(R 15)		; Increment the number of ROM banks
+romfound:	INCM(R15)		; Increment the number of ROM banks
 		LOAD R p0.ROMSTART	; Is this the first ROM bank?
 		SZA
 		JMP next		; No. Loop
-		RAND(p0.ROMSTART, _l_m, R 11) ; Store the *base* address
+		RAND(p0.ROMSTART, _l_m, R11) ; Store the *base* address
 		JMP next		; And loop.
 
 		;; RAM bank found
-ramfound:       RMOV(I R 11, R 12)	; Be nice, restore the original value
-		INCM(R 14)		; Increment the number of RAM banks
+ramfound:       RMOV(I R11, R12)	; Be nice, restore the original value
+		INCM(R14)		; Increment the number of RAM banks
 		JMP next		; And loop.
 
 		;; We're done.
 done:		LI &ff			; We COULD have 256 pages of RAM, so mask
-		AND R 14
+		AND R14
 		STORE p0.MEMCFG		; Store this value into p0.MEMCFG
 
-		LOAD R 15		; Number of ROM banks
+		LOAD R15		; Number of ROM banks
 		RNL
 		RNL			; Roll 8 bits left
 		AND _l_m2		; Mask it
@@ -401,22 +546,111 @@ done:		LI &ff			; We COULD have 256 pages of RAM, so mask
 
 _l_d:	.word 8192		; Bank size
 _l_m:	.word &e000		; Memory address mask
-_l_m2:	.word p0.MEMCFG_NROMMSK	; ROM field maks in p0.MEMCFG
+_l_m2:	.word p0.MEMCFG_NROMMSK	; ROM field mask in p0.MEMCFG
 .endscope
 
 
+mode_override:
+.scope
+		LMOV(0, p0.HWMODE)	; Initialise the hardware mode
+		LSR
+		AND d0			; Ensure the SR's top 8 bits are &19.
+		XOR @d0+1
+		SZA
+		RET
+
+		LSR
+		STORE p0.HWMODE
+		NEG			; Negate the SR
+		STORE TMP14		; Store it for comparison
+
+		SIA(I15, d1)		; Start address of table
+		LMOV(TMP15, 1)		; Start with a mask of 1.
+
+loop:		LOAD I I15		; Load a value from the table
+		ADD TMP14		; value - SR
+		SNA			; 
+		JMP disable		; Value > SR: disable this device
+
+again:		LOAD TMP15
+		RSBL(TMP15, TMP15)	; Shift the mask left
+		SSL			
+		JMP loop		; Not done yet.
+		RET
+
+disable:	ROR1(p0.HWDIS, TMP15)	; Disable this device.
+		JMP again
+		
+d0:		.data &ff00 &1900	; Switch mask and value
+d1:		.word &1974		; MBU: 1975+
+		.word 0			; DFP: always
+		.word 0			; IRC: always
+		.word &1970		; TTY: 1970+
+		.word &1990		; IDE: 1990+
+		.word 0			; RTC: always
+		.word 0			; TMR: always
+		.word 0			; NVR: always
+		.word &1985		; FDC: 1985+
+		.word &1984		; SPJ: 1984+
+		.word &1980		; PSG: 1980+
+		.word &1980		; LPT: 1980+
+		.word &1984		; VDU: 1985+
+		.word &1992		; ETH: 1992+
+		.word 0			; GIO: always
+		.word 0			; ???: always
+.endscope
+
+		
 hwinfo:
 .scope
-		LOAD RETV		; Store return address
-		STORE R 11
-		LIA header
+		RMOV(R 99, RETV)	; Store return address
+
+		;; If a year mode has been selected, print it out.
+		LOAD p0.HWMODE
+		SNZ
+		JMP nomode
+		LIA modeheader
+		JSR I PUTSP
+		LOAD p0.HWMODE
+		JSR I PUTH
+nomode:
+		
+		;; Print amount of memory.
+		LIA memheader
+		JSR I PUTSP
+		LOAD rammask
+		AND p0.MEMCFG
+		SNZ			; 0 RAM pages = 256 RAM pages
+		LIA &100
+		RNL
+		RBR			; << 3 (*8192, to get KW from pages)
+		JSR I PUTUD
+		LIA mem1
+		JSR I PUTSP
+		LOAD rommask
+		AND p0.MEMCFG
+		RNR
+		RNR
+		STORE R10
+		LI &ff
+		AND R10
+		SNZ
+		LIA &100
+		RNL
+		RBR			; Get KW from pages)
+		JSR I PUTUD
+		LIA mem2
+		JSR I PUTSP
+
+		;; Print out detected hardware subsystems
+		LIA detheader
 		JSR I PUTSP
 		LOAD p0.HWCONFIG
-		STORE R 12
+		STORE R12
 		LIA data
 		STORE R &12
 
-loop:		RSBR(R 12, R 12)	; Shift R 12 right one place
+loop:		RSBR(R12, R12)	; Shift R12 right one place
 		SCL			; Former bit 0 clear?
 		JMP bitset		; No, it's set.
 next:		SNZ			; Are there more bits set?
@@ -428,18 +662,24 @@ next:		SNZ			; Are there more bits set?
 bitset:		LOAD R &12		; Print out hw code, increment index ptr
 		JSR I PUTSP
 		OUTL(dfp.TX, 32)	; Print out a space
-		LOAD R 12
+		LOAD R12
 		JMP next
 		
 done:		OUTL(dfp.TX, 10)	; Print out a newline
 		LOAD p0.HWENV
 		SNZ
-		JMP I R 11
+		JMP I R 99
 		LIA emu
 		JSR I PUTSP
-		JMP I R 11		; Return to saved address
+		JMP I R 99		; Return to saved address
 
-header:		.strp "\nDetected: " 0
+rommask:	.word p0.MEMCFG_NROMMSK
+rammask:	.word p0.MEMCFG_NRAMMSK
+modeheader:	.strp "\nRetro Mode:  " 0
+memheader:	.strp "\nMemory:      " 0
+mem1:		.strp "KW RAM, " 0
+mem2:		.strp "KW ROM\n" 0
+detheader:	.strp "Detected:    " 0
 data:		.strp "MBU" 0
 		.strp "DFP" 0
 		.strp "IRC" 0
@@ -485,10 +725,10 @@ no_console:	LI post.ERR_NCONS	; There's no console!
 
 setup_dfp:
 		;; Print out the banner
-		RMOV(R 11, RETV)
+		RMOV(R11, RETV)
 		LIA dfp_banner
 		JSR I PUTSP
-		RMOV(RETV, R 11)
+		RMOV(RETV, R11)
 				
 		;; Register the ISR and enable console interrupts
 		LIA dfp_isr
@@ -551,34 +791,273 @@ dfp_banner:	.longstring "\n\n\n\n"
 
 .endscope				; early boot
 
-///////////////////////////////////////////////////////////////////////////////		
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// VDU CODE
+//
+///////////////////////////////////////////////////////////////////////////////
+
+vdu_init:	
+.scope
+
+
+.scope
+		;; Set mode
+		ROUT(vdu.MCR0, d0)	; MCR0
+		ROUT(vdu.MCR1, @d0+1)	; MCR1
+		ROUT(vdu.MAR0, @d0+2)	; MAR0 = &ffff
+		OUT vdu.MAR1		; MAR1 = &ffff
+		ROUT(vdu.SAR1, @d0+3)	; SAR1 = &8000
+		OUT vdu.CAR		; CAR = &8000
+		ROUT(vdu.CCR, @d0+4)	; CCR
+		LOUT(vdu.HAR, 0)	; HAR
+		OUT vdu.SAR0		; SAR0
+		JMP post_d0
+d0:		.word vdu.MCR0_EN vdu.MCR0_CS23 vdu.MCR0_C80 vdu.MCR0_CRH1 ; MCR0
+		.word &6d80 vdu.MCR1_C80 vdu.MCR1_CRH16	; SCL = 125, SEN = 1, 80x30
+		.word &ffff
+		.word &8000
+		/.word &0b80
+		.word 191
+post_d0:
+.endscope
+
+		;; Initialise the CG RAM (first, clear it)
+		LOAD data
+		STORE R10
+loop1:		LI &7f			; 128 repetitions (one line)
+		OUT vdu.CRR
+		LOAD @data+2		; WCG command with XINC
+		OUT vdu.CMD
+		vdu.WAIT()		; Wait for completion
+		ISZ R10
+		JMP loop1
+
+		RMOV(R10, _romfont0)	; This is the negated word count
+		SIA(I10, @_romfont0+1)	; Pointer to start of data
+		OUTL(vdu.HAR, 0)	; Reset VDU address
+loop3:          RMOV(R11, I I10)	; Load ROM font data, store for later
+		GETHICHAR()		; Get the upper 8 bits (rep count)
+		OUT vdu.CRR		; Set repetitions
+		LI &ff
+		AND R11			; Get low 8 bits (bitmap data)
+		OR @data+2		; WCG command with XINC
+		OUT vdu.CMD		; Send command
+		vdu.WAIT()
+		ISZ R10			; More data?
+		JMP loop3
+
+		;; Initialise character set CS2=11, CS1=00 (so, origin &c000) to
+		;; be bitmap patterns for graphics.
+		LOAD hgr_csaddr
+		OUT vdu.HAR
+		LI 0			; Start with bitmap pattern &00
+		STORE R10
+loop_hgr:	LI 15
+		OUT vdu.CRR		; 16 reps (15 + 1)
+		LOAD cmd_wcg		; Of the WCG|XINC command...
+		OR R10			; ...with the current bitmap pattern
+		OUT vdu.CMD
+		ISZ R10			; Guaranteed not to skip
+		vdu.WAIT()
+		LI &100			; Have we done all 256?
+		AND R10
+		SNZ
+		JMP loop_hgr
+
+		;; Clear the video RAM
+.scope
+		RMOV(R10, d0)
+		LOUT(vdu.HAR, 0)
+		ROUT(vdu.CPORT, @d0+1)	; Default colours (white fg, black bg)
+loop:		LOUT(vdu.CRR, &7f)	; 128 repetitions (one line)
+		ROUT(vdu.CMD, @d0+2)	; WBC command with XINC
+		vdu.WAIT()		; Wait for completion
+		ISZ R10
+		JMP loop
+
+		JMP post_d0
+d0:		.word -512	        ; Number of rows in video RAM
+		.word &073f	        ; Default colours (orange bg, white fg)
+		.word vdu.CMD_CMD_WBC vdu.CMD_XINC ; Write space, increment
+post_d0:	
+.endscope
+
+; 		SIA(I10, foo)
+; 		OUTL(vdu.HAR, 0)
+; foo0:		LOAD I I10
+; 		PRINTD
+; 		PRINTSP
+; 		SNZ
+; 		JMP foo2
+; 		OR @data+1
+; 		OUT vdu.CMD
+; 		JMP foo0
+; foo2:		IN vdu.HAR
+; 		OUT vdu.CAR
+; 		LOAD @data+3
+; 		OUT vdu.CCR
+
+		;; Display the CFT logo
+
+		LOAD @logo_data+1
+		STORE TMP14
+		LOAD logo_data
+
+		;; Image decompress/blit routine
+		
+		;; Expected data: AC = image data address, TMP14 = origin
+.scope
+		STORE I10		; Store data pointer
+		LINC(I10, 2)		; Skip the magic number
+		RMOV(TMP15, I I10)	; Count rows (negated, for ISZ loops)
+		LOAD I I0		; Skip the column count
+
+		LOAD TMP14		; TMP14: origin (incremented)
+		OUT vdu.HAR		; Set VDU origin
+
+next_datum:	RMOV(TMP13, I I10)	; Read a data word, store for later
+		SBR			; Obtain the operand
+		SBR			; Shift left two bits
+		STORE TMP12		; TMP12: operand
+		LAND(TMP13, TMP13, #11)	; TMP13: is now the opcode
+
+		CASETAB(TMP13)		; Jump table (aka case statement)
+		.word op_nextrow	; opcode 0: next row
+		.word op_setrep		; opcode 1: set repetitions
+		.word op_setc		; opcode 2: set C plane
+		.word op_setb		; opcode 3: set B plane (and command)
+		;; end of case table
+
+op_nextrow:	LADD(TMP14, TMP14, 128)	; Advance the HAR to the next row
+		OUT vdu.HAR		; And set as the HAR
+		ISZ TMP15		; Loop.
+		JMP next_datum
+		JMP post_d0 		; Done
+		
+op_setrep:	LI &7f
+		AND TMP12
+		OUT vdu.CRR		; Set repetitions
+		JMP next_datum
+
+op_setc:	LOAD TMP12
+		OUT vdu.CPORT		; Set C port (colour)
+		JMP next_datum
+
+op_setb:        LI &ff			; Set B port, command and XINC
+		AND TMP12
+		OR d0
+		OUT vdu.CMD
+		vdu.WAIT()		; Wait for command completion
+		JMP next_datum
+d0:		.word vdu.CMD_CMD_WBC vdu.CMD_XINC
+post_d0:
+.endscope
+
+
+
+.scope
+
+		ROUT(vdu.HAR, d0)	; Set starting address
+		ROUT(vdu.CPORT, @d0+1)	; Set starting address
+		LIA @d0+3
+		STORE I10
+		
+loop:		LOAD I I10		; Read a pair of characters
+		SNZ			; Done?
+		JMP post_d0		; Yes
+		STORE R10		; No.
+		GETLOCHAR()
+		OR @d0+2
+		OUT vdu.CMD		; Output character + command
+
+		LOAD R10
+		GETHICHAR()
+		SNZ			; Are we done now?
+		JMP post_d0		; Yes
+		OR @d0+2
+		OUT vdu.CMD		; Output character + command
+
+		JMP loop
+		
+d0:		.word &8018
+		.word &073f
+		.word vdu.CMD_CMD_WBC vdu.CMD_XINC
+		.strp "16 BIT SOLID STATE MINI COMPUTER" 0
+post_d0:
+
+		IN vdu.HAR
+		OUT vdu.CAR
+		
+		RET
+.endscope
+
+data:
+		.data -512
+		.word vdu.CMD_CMD_WBC vdu.CMD_XINC ; 
+cmd_wcg:	.word vdu.CMD_CMD_WCG vdu.CMD_XINC ; Character pattern command
+hgr_csaddr:	.word &c000
+logo_data:	.word logo		; Logo source start address
+		.word &1a15		; Logo origin (top left)
+
+.include "forth/_generated_romfont.asm"	; The ROM font (defines _romfont0)
+
+logo:
+.include "asm/cft-logo.asm"		; The CFT logo bitmap (in VDU format)
+		
+.endscope
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// ROM ENTRY POINT
+//
+///////////////////////////////////////////////////////////////////////////////
 
 		
-; &c000:
-; __origin:
-; 	;; ROM header.
-; 	.word &0cf7		; Magic (CFT)
-; 	.word @-1		; Origin addr.
+&c000:
+		ROM_HEADER(8)
 
-; 	.word 1			; Number of programs
-; 	.word 0			; Reserved
+		.strp "Test program intro & help    " 0
+		.word ep_test_intro
 
-; 	;; Program #1
-	
-; 	.strp "CFT Forth ROM 0.1            " 0
-; 	;;     112233445566778899aabbccddeef  f
-; 	;;     NB: MUST BE THIS LENGTH!
+		.strp "Test program: counter        " 0
+		.word ep_counter
 
-; 	.word init		; Entry point
+		.strp "Test program: adder          " 0
+		.word ep_adder
 
-; 	;; End of header.
+		.strp "Test program: echo           " 0
+		.word ep_echo
 
+		.strp "Test program: rolling lights " 0
+		.word ep_rolling
+
+		.strp "Test program: Fibonacci      " 0
+		.word ep_fibonacci
+
+		.strp "Test program: Eratosthenes   " 0
+		.word ep_primes
+
+		.strp "Test program: Hello World    " 0
+		.word ep_hello
+
+		;; End of ROM HEADER.
+
+
+ep_test_intro:
+		HALT
+		;; TODO
+		
 		
 ;;; C100: Counter. Counts up from zero to the value of the Switch Register
 ;;;       (which can be changed while the program is running). The Output
 ;;;       Register displays the count.
 
 &c100:
+ep_counter:
 
 		LIA acinstr
 		JSR I PUTSP
@@ -586,10 +1065,10 @@ dfp_banner:	.longstring "\n\n\n\n"
 count_again:
 		;; Counter
 		LI 0
-		STORE R 10
-acloop:		LOAD R 10
+		STORE R10
+acloop:		LOAD R10
 		INC
-		STORE R 10
+		STORE R10
 		SOR
 		
 		LOAD acdelay0
@@ -598,7 +1077,7 @@ acloop:		LOAD R 10
 		LSR
 		NEG
 		CLL
-		ADD R 10
+		ADD R10
 		SSL
 		JMP acloop
 		//SUCCESS
@@ -626,23 +1105,24 @@ acinstr:
 ;;;       and printed out to the debugging terminal.
 
 &c200:
+ep_adder:
 		;; Adding machine
 		LI 0
-		STORE R 10
+		STORE R10
 SOR
 
 addloop:
 		LIA addinstr
 		JSR I PUTSP
-		LOAD R 10
+		LOAD R10
 		PRINTU
 		LIA 32			; Print a new line the ‘proper’ way
 		OUT dfp.TX		; Send to the DFP console
 		HALT
 		
 		LSR
-		ADD R 10
-		STORE R 10
+		ADD R10
+		STORE R10
 		SOR
 		JMP addloop
 
@@ -654,6 +1134,7 @@ addinstr:
 ;;;       switches.
 
 &c300:
+ep_echo:
 		LIA echoinstr
 		JSR I PUTSP
 echoloop:	LSR
@@ -676,6 +1157,7 @@ echoinstr:
 ;;;       participates in the rolls, but isn't set from the initial pattern.
 
 &c400:
+ep_rolling:
 		CLL
 		LI 0
 		SOR
@@ -685,15 +1167,15 @@ echoinstr:
 		HALT
 		
 		LSR
-		STORE R 10
+		STORE R10
 		
 		LIA rollinstr2
 		JSR I PUTSP
 
-roll:		LOAD R 10
+roll:		LOAD R10
 		RBL
 		SOR
-		STORE R 10
+		STORE R10
 		
 		LSR			; User-controlled delay
 		JSR I DELAY
@@ -716,6 +1198,7 @@ rollinstr2:	.longstring
 		.equ tmp0 R &12		; Temporary
 
 &c500:
+ep_fibonacci:
 fib:		LIA fibinstr
 		JSR I PUTSP
 		
@@ -759,7 +1242,6 @@ fibinstr:	.strp "16-bit Fibonacci sequence: 1 " 0
 
 
 		.equ ONE R &0F		; Constant 1
-		.equ I0 R &080		; Autoincrement register
 		.equ x R &010		; Count register
 		.equ pos R &011		; Current position
 		.equ posptr R &012	; Pointer to value at current position
@@ -770,6 +1252,7 @@ fibinstr:	.strp "16-bit Fibonacci sequence: 1 " 0
 		.equ count R &017	; 
 
 &c600:
+ep_primes:
 eratosthenes:	;; Prepare the pad
 
 	        LOAD sieve_instr1
@@ -792,7 +1275,7 @@ eratosthenes:	;; Prepare the pad
 		NEG
 		STORE x			; Prepare for clearing the working mem
 		LOAD sieve_start	; Autoindex pointer
-		STORE I0
+		STORE I10
 		
 		LOAD count		; Used for limit checking
 		NEG
@@ -813,7 +1296,7 @@ sieve_clear:	LOAD x
 		AND ONE			; Heh. EBM reference.
 		XOR ONE			; Thus we initialise the entire table 
 					; for prime=2
-		STORE I I0
+		STORE I I10
 		ISZ x
 		JMP sieve_clear
 sieve_init:	LI 2			; pos = 2 (to be incremented soon)
@@ -875,6 +1358,7 @@ sieve_instr2:	.strp "Primes up to " 0
 ;;;       terminal.
 
 &c700:
+ep_hello:
 hello_world:	LIA hello
 		JSR I PUTSP
 
@@ -901,15 +1385,15 @@ hello:		.longstring
 ;;; Print out a packed string.
 putsp:
 .scope
-		STORE R &80
-loop:		LOAD I R &80		; Read a pair of characters
+		STORE I10
+loop:		LOAD I I10		; Read a pair of characters
 		SNZ			; Done?
 		RET			; Yes
-		STORE R 10		; No.
+		STORE R10		; No.
 		GETLOCHAR()
 		OUT dfp.TX		; Print the first character
 
-		LOAD R 10
+		LOAD R10
 		GETHICHAR()
 		SNZ			; Are we done now?
 		RET			; Yes
@@ -917,6 +1401,125 @@ loop:		LOAD I R &80		; Read a pair of characters
 
 		JMP loop
 .endscope
+
+;;; Print out a 16-bit unsigned decimal without using division (faster).
+putud:          
+.scope
+		STORE R10
+		SIA(I10, decades)
+		LSET(R11, 0)		; R11 > 0: printed at least one digit
+
+new_digit:      LSET(R12, 48)		; R12: current digit ('0')
+		RMOV(R13, I I10)	; Load next decade (already negated)
+		SNZ			; Are we done? (decade = 0)
+		JMP units
+again:		CLL
+		ADD R10			; Subtract decade from running modulo.
+		SSL			; L=1 => number >= decade
+		JMP next_decade
+		STORE R10		; Update running modulo.
+		INCM(R12)		; R12++
+		LSET(R11, 1)
+		LOAD R13
+		JMP again
+
+next_decade:	LOAD R11		; Skip leading zeroes
+		SNZ
+		JMP new_digit
+		LOAD R12		; Alright, we'll print it
+		OUT dfp.TX		; Print the character
+		JMP new_digit
+
+units:		LI 48
+		ADD R10
+		OUT dfp.TX		; Print the character
+		RET
+
+decades:        .data -10000 -1000 -100 -10 0
+
+.endscope
+
+
+;;; Print out a 16-bit hex number in AC
+
+puth:
+.scope
+		STORE TMP14
+		RMOV(TMP15, RETV)	; Store the return address
+
+		LOAD TMP14
+		JSR printx
+		STORE TMP13
+
+		RRNR(TMP14, TMP14)
+		JSR printx
+		STORE TMP12
+
+		RRNR(TMP14, TMP14)
+		JSR printx
+		STORE TMP11
+
+		RRNR(TMP14, TMP14)
+		JSR printx
+		OUT dfp.TX		; Print the character
+
+		LOAD TMP11
+		OUT dfp.TX		; Print the character
+		LOAD TMP12
+		OUT dfp.TX		; Print the character
+		LOAD TMP13
+		OUT dfp.TX		; Print the character
+
+		JMP I TMP15
+
+printx:         AND d0
+		ADD minus10
+		SNA
+		JMP alpha
+		ADD plus58
+		RET
+alpha:		ADD plus97
+		RET
+		
+d0:		.word &000f
+minus10:	.word -10
+plus58:		.word 58
+plus97:		.word 97
+.endscope
+
+
+
+;;; memcpy(dst, str, count)
+;;;
+;;; Copies count words from dst to src.
+;;;
+;;; Arguments:
+;;;   ARG0: dst
+;;;   ARG1: src
+;;;   AC:   word count
+;;; 
+;;; Returns:
+;;;   Nothing
+;;;
+;;; Clobbers:
+;;;   TMP15
+;;;   I15
+;;;   I14
+
+memcpy:
+.scope
+		NEG
+		STORE TMP15
+		RMOV(I15, ARG0) 	; I15 = dst
+		RMOV(I14, ARG1)		; I14 = src
+loop:		RMOV(I I15, I I14)	; Copy a word
+		ISZ TMP15
+		JMP loop
+		RET
+.endscope
+
+		
+		
 
 ;;; Delay execution.
 delay:
@@ -983,7 +1586,7 @@ _sieve_instr1:	.longstring
 ///
 ///////////////////////////////////////////////////////////////////////////////
 
-&fff0:		FARJMP(earlyBoot)		; Boot vector (far jump)
+&fff0:		FARJMP(earlyBoot)	; Boot vector (far jump)
 &fff8:		JMP I R ISRV		; Interrupt Service vector
 null_isr:	RTI			; Null ISR
 
