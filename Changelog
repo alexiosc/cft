@@ -1891,3 +1891,205 @@
 	not putting out correct values. It may have a dry joint or short,
 	though it seems like all pins test correctly. The theory is correct and
 	the chip works (multiple chips tried), so something else is wrong.
+
+2014-07-14  AC <alexios@bedroomlan.org>
+
+	[Doc/Book] Added a little bit to the DFP documentation.
+
+2014-07-16  AC <alexios@bedroomlan.org>
+
+	[Testing/Hardware] Drew up spreadsheet of all cross-board processor
+	signals and their conditioning. This will be useful in running boards
+	one by one.
+
+2014-07-17  AC <alexios@bedroomlan.org>
+
+	[Des/Hardware/PB1] Redid the PB1 W# tristate patch to use a open-drain
+	NAND gate rather than a tri-state buffer. This will be much faster (and
+	I have single OD NAND gates in stock as well).
+
+	[Des/Software/Microcode] Added EXTSKIP# support to the IOT
+	instruction. I forgot about that in previous versions. Microcode
+	revision is now 6c.
+
+2014-07-18  AC <alexios@bedroomlan.org>
+
+	[Cons/Hardware/PB1] Patched PB1 so that W# is now an open drain
+	signal. When asserted, it's driven by an open drain NAND gate from the
+	Q (active high) output of write strobe state machine. When de-asserted,
+	the line is at high impedance and pulled up by a 4.7kΩ resistor. Bus
+	Hold and a 30Ω impedance matching resistor take care of signal
+	conditioning.
+
+	[Testing/Hardware] Drew up testing plan for each individual unit of the
+	processor.
+
+	[Bugs,Testing/Hardware/DFP] The Clock multiplexer (IC40) on board 1 of
+	the DFP is receiving a garbled waveform from the MCU for
+	FPUSTEP-IN. Possible short-circuit? FPCLKEN-IN seems to be okay. There
+	also seems to be a lot of ringing on the longer wires, and IC40 is
+	quite far from the MCU.
+
+2014-07-19  AC <alexios@bedroomlan.org>
+
+	[Testing/Hardware/DFP] Last night's problem traced to POWEROK
+	being 3.3V. Temporarily wired POWEROK to +5V and reset (including the
+	RSTHOLD# timing) is working cleanly now.
+
+	[Bugs,Testing/Hardware/DFP] The reset sequence fails because of what
+	looks like a software bug. A manually coded RESET sequence (without the
+	firmware fully initialising) seems to work fine. Also, there may be an
+	issue with HALT#.
+
+2014-07-23  AC <alexios@bedroomlan.org>
+
+	[Bugs,Testing/Hardware/DFP] There seems to be an issue with the WS#
+	signal. In this condition, the contents of the IR on the front panel
+	‘fade away’ (either literally fade away flickering, or lights are
+	extinguished one by one) as if the IBUS is floating (which it shouldn't
+	be, there are bus hold ICs in place), or WIR# is triggering.
+
+	[Setbacks,Bugs,Testing/Hardware/DFP] The WS# issue had two parts: one,
+	many of the WS state machine's pins weren't pulled up or down
+	accordingly. Fixing this resolved the instability of the flip
+	flops. Two, there appear to be serious logic errors in the WS state
+	machine design.
+
+2014-07-24  AC <alexios@bedroomlan.org>
+
+	[Testing/Hardware/DFP] The WS state machine errors have been located
+	and fixed. Luckily, only rewiring of a few signals was needed. No IC or
+	passive component changes.
+
+2014-07-25  AC <alexios@bedroomlan.org>
+
+	[Testing/Hardware/DFP] Implemented WS state machine fixes. Located more
+	logic errors with the state machine, and also fixed those. Again, only
+	rewiring was necessary. A serious firmware error was also fixed, and
+	now the processor is reset properly and goes through a perfectly valid
+	reset sequence: the microcode store asserts the right signals, and
+	those signals drive the processor and bus.
+
+	[Bugs,Testing/Hardware/DFP] The PB1 LEDs lack transistors, so they
+	lower the voltage on their logic lines. This was really stupid. The
+	proposal is to remove the LEDs or hack the board to add the transistors
+	(luckily there's enough space).
+
+2014-07-26  AC <alexios@bedroomlan.org>
+
+	[Des/Hardware/PB1] Stepped PB1 to Revision F, modified schematics and
+	routed board (datecode 1430).
+
+2014-07-27  AC <alexios@bedroomlan.org>
+
+	[Code/Software/ROM] Some work on the early boot ROM. Boot banner now
+	prints out available memory.
+
+	[Tools] Working on implementing banks on the CFT Assembler.
+
+	[Code/Emulator] Implemented much of the VDU in the JS emulator.
+
+2014-07-28  AC <alexios@bedroomlan.org>
+
+	[Code/Software/ROM] Added vdu.asm include file with assembly-level
+	descriptions of the VDU version 5 registers.
+
+	[Code/Emulator] Implented some more of the VDU for the JS emulator.
+
+	[Doc/Book] Fixed minor issues with the VDU documentation.
+
+2014-07-29  AC <alexios@bedroomlan.org>
+
+	[Tools] Created a small tool to perform minimal quantisation on
+	images and convert them to VDU format. The img2vdu tool already
+	ostensibly does this, but its output is currently flawed. This
+	minimal version will be integrated with it eventually.
+
+	[Code/Software/ROM] Generated the CFT logo in VDU format, suitable
+	for assembling as part of the ROM and blitting to the VDU.
+
+2014-07-30  AC <alexios@bedroomlan.org>
+
+	[Code/Software/ROM] Added code to decode VDU format images and blit
+	them to the VDU. Wrote various additional parts of the boot loader
+	code.
+
+2014-07-31  AC <alexios@bedroomlan.org>
+
+	[Code/Software/ROM] Added retro modes. When the computer is booted with
+	the Switch Register holding a BCD-encoded year in the 20th Century
+	(19xx), the computer will only enable some subsystems to emulate a
+	typical computer from that year. Code various other cleanups and added
+	new useful macros.
+
+2014-08-01  AC <alexios@bedroomlan.org>
+
+	[Testing/Hardware/DFP] Removed the stupidly connected LEDs from the
+	RESET# circuitry, and the CFT finally works. The µPC is enabled and
+	counts up on the front panel. Updated testing plan with the workings of DFP. Fixed
+	issue with Fetch/Exec decoder (it was working fine, the DIP switches
+	weren't set properly). Fixed issue with AB0 stuck on (the joint between
+	the output and the pull-ups had broken, so the line was never driven down).
+
+	[Bugs,Testing/Hardware/DFP] The Fetch/Exec decoder lights don't
+	currently work. Bit 0 of the Address Bus is stuck on (seems to be DFP
+	Board 2's fault). Potential short between RUNIT1 and RUNIT2 on
+	PB0. Lights miswired: the microcode vector goes END, WEN, R, IO,
+	MEM. The panel lights go END, W, R, MEM, IO (this should probably be
+	fixed by rewiring on DFP board 1 and changing the labels on the front
+	panel design).
+
+	[Bugs,Testing/Hardware/PB1] A gorgeous, annoying b ug: The part used
+	for the Instruction Register was changed from a flip flop with clock
+	and reset to a latch with latch enable and output enable. The location
+	of the reset (flip-flop) and output enable (latch) signals were the
+	same on both schematic and board, and both received the same signal:
+	RESET#. This work with a flip-flop (resetting the IR), but fails on the
+	latch (the IR only drives during reset, not always). The PB1 will thus
+	have to receive its fourth patch.
+
+	[Bugs,Testing/Hardware] Potential LED wiring issue. RUNIT1 bit seems
+	wrong. Bit(s) flipped or shorted somewhere?
+
+2014-08-02  AC <alexios@bedroomlan.org>
+
+	[Testing/Hardware] Created, rendered and uploaded video of
+	DFP, PB0 and PB1 testing to YouTube. Posted on Google Plus and
+	Facebook.
+
+2014-08-03  AC <alexios@bedroomlan.org>
+
+	[Code/Software/ROM] Ported stack macros from ROM Forth to the new
+	architecture.
+
+	[Tools] Fixed macro argument expansion bug.
+
+2014-08-04  AC <alexios@bedroomlan.org>
+
+	[Setbacks,Bugs,Testing/Hardware/DFP] It turns out that both
+	control signals to the IR are wrong. when the IR flip flops were
+	replaced with latches, the WIR# active low signal should have been
+	inverted ('573 have an active high latch enable pin). So the IR
+	only updates its value when it's not supposed to, and it never
+	outputs a value. An '1G04 inverter is being used to fix this.
+
+	Additionally, and this is a good thing, during the patching I
+	discovered the WIR# signal didn't in fact reach both latches. This
+	looks like a PCB defect, and may mean there are others.
+
+	[Testing/Hardware/PB1] IR issues fixed. The IR now displays as
+	&FFFF without memory installed, and is routed to the µADDR vector
+	correctly. The WIR# signal isn't generated yet though, because
+	there's still a short or other issue with the RUNIT field in the
+	microcode.
+
+2014-08-13  AC <alexios@bedroomlan.org>
+
+	[Bugs,Testing/Hardware/DFP] The microcode store now works
+	(seemingly). Various apparent issues seem to be stemming from the
+	missing PC and AR registers. Perhaps it's time to start testing PB2.
+
+	[Bugs,Testing/Firmware/DFP] When switching from Creep to Slow mode via
+	the front switch, it often takes a while for the change to take
+	place. This is likely a firmware bug, since the same command from a
+	controlling computer works fine.
