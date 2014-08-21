@@ -24,7 +24,7 @@
 .equ HALT	OUT dfp.DFP &1d	        ; Halt
 .equ SUCCESS    OUT dfp.DFP &1e	        ; Assert: true
 .equ FAIL       OUT dfp.DFP &1f	        ; Assert: false
-		
+
 .equ LSR        IN dfp.DFP &00	        ; LSR: load Switch Register
 .equ LDSR       IN dfp.DFP &01	        ; LDSR: load DIP switch register
 .equ QEF        IN dfp.DFP &08	        ; QEF: query features (see below)
@@ -54,7 +54,7 @@
 .equ QEF_HOS  #------1-'--------	; Will halt on SENTINEL
 .equ QEF_LCK  #-----1--'--------	; Panel is locked
 .equ QEF_VHW  #010-----'--------	; Detection/version: hardware
-.equ QEF_EMU  #011-----'--------        ; Detection/version: emulated panel
+.equ QEF_EMU  #110-----'--------        ; Detection/version: emulated panel
 .equ QEF_JS   #111-----'--------        ; Detection/version: JS-emulated panel
 .equ QEF_DET  #111-----'--------        ; Detection mask
 

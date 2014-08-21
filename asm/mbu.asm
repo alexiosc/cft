@@ -31,6 +31,10 @@
 ;;;     corresponding bank register, and read the value back. Repeat this test a
 ;;;     few times, and if at least one value differs, the MBU is there.
 
+
+.equ SMB OUT mbu.MBU			; SMB extended instruction
+
+		
 .pushns mbu
 
 ;;; Useful macros. You probably won't have to use anything other than these, ISR
@@ -39,14 +43,19 @@
 ;;; Map memory. Bank is the bank register to access (0-7). Phys is the physical
 ;;; page to map to that register.
 
-.macro MAPMEML(bank, phys)
+.macro LSMB(bank, phys)
 		LI %phys
-		OUT mbu.MBU %bank
+		SMB %bank
 .end
 
-.macro MAPMEM(bank)
-		OUT mbu.MBU %bank
+.macro RSMB(bank, addr)
+		LOAD %addr
+		SMB %bank
 .end
+
+; .macro MAPMEM(bank)
+; 		SMB %bank
+; .end
 
 ;;; Definitions
 
