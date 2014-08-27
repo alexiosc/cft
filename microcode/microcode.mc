@@ -1011,7 +1011,7 @@ start UCB=XXXX, INT=1, RST=1, V=X, L=X, OP=JMPII, I=1, SKIP=X, INC=0;
 // CLL = OP1  '---1------		; if6: L <- 0
 // NOT = OP1  '----1-----		; if5: A <- NOT A
 // INC = OP1  '-----1----		; if4: <L,A> <- <L,A> + 1
-// NTL = OP1  '------1---		; if3: L <- NOT L
+// CPL = OP1  '------1---		; if3: L <- NOT L
 // RBL = OP1  '-------010		; ifroll: <L,A> <- <L,A> << 1
 // RBR = OP1  '-------001		; <L,A> <- <L,A> >> 1
 // RNL = OP1  '-------110		; <L,A> <- <L,A> << 4
