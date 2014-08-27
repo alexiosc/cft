@@ -1,0 +1,192 @@
+=OPERATING SYSTEM NOTES=
+
+==Memory Map==
+
+==Bank Map==
+
+Bank 0: 0000-1FFF: Page 0.
+                   Global area,
+                   Bank switching code and state.
+                   ISR entry point.
+Bank 1: 2000-3FFF: Forth user area, stack and start of dictionary.
+Bank 2: 4000-5FFF: Mapped by OS, could be RAM or library ROM.
+Bank 3: 6000-7FFF: Mapped by OS, could be RAM or library ROM.
+Bank 4: 8000-9FFF: Mapped by OS, could be RAM or library ROM.
+Bank 5: A000-AFFF: Mapped by OS, could be RAM or library ROM.
+Bank 6: C000-CFFF: Mapped by OS, could be RAM or library ROM.
+Bank 7: E000-FFFF: Usually (but not necessarily) basic OS services.
+
+==Boot-time Bank Map==
+
+When booting, banks 4-7 are all mapped with ROM. The extra ROM mapped
+is used to discover and initialise devices.
+
+==Forth's Use of Banking==
+
+Each dictionary must fit inside one 8 kW bank (heaps of space,
+usually).
+
+The compiler checks which dictionary the currently compiled word is
+in. If it's different to that of the previously compiled word, it adds
+bank switching code and relocates the word address.
+
+There will be a lot of bank switching, so this must be a Forth
+primitive in assembly.
+
+===Large data structures?===
+
+Add multi-bank Forth words to read/copy data longer than 8kW, or allow
+banks to be set up in specific layouts (that would still only allow
+access to up to 40kW).
+
+==List of Banks==
+
+==Services==
+
+Some notes on needed OS services and abstraction layers.
+
+===Memory===
+
+* Allocate static memory (not very granular)
+* Dellocate static memory
+* Map bank
+
+===TTY STRUCTURE===
+
+Abstracts output to a terminal. There are three types of terminals at
+the moment: the DFP's basic terminal, TTY-based terminals, and the VDU
+terminal, which is emulated.
+
+Basic calls:
+
+* Open (initialise)
+* Close
+* Clear to send?
+* Send word
+* Ready to receive?
+* Receive word (buffered, via ISR)
+
+===VDU/KBD===
+
+Provides direct access to the VDU.
+
+Services:
+  * Set mode
+  * Load character set
+  * Fill with char/attribute
+    * Clear screen
+    * Clear line left
+    * Clear line right
+  * Scroll
+    * Down/Up
+    * Hardware scroll unless windowed
+    * Software scroll if windowed
+  * Set window
+  * Reset window
+  * Move cursor (CAR/HAR)
+  * Set cursor colour/blink mode (CCR)
+  * Set colour/attributes
+  * Write text
+  * Write text in graphics mode
+
+  * Keyboard data available?
+  * Read raw keyboard data
+  * Read cooked keyboard data (via ISR)
+  * Write to keyboard (bit banging)
+
+VDU Variables:
+
+  * Screen width, height
+  * Screen start (x,y), end (x,y)
+  * Window start (x,y), end (x,y)
+  * Cursor location (as vector address and separate words: eases arithmetic)
+  * Current attribute
+
+===IDE/FDC===
+
+Used for hard disks and floppies, possibly TTY-based ‘network’ block
+devices.
+
+Abstraction:
+
+  * Probe for units, return list
+  * Open (initialise)
+  * Close
+  * Select unit
+  * Get size (in 256 word blocks)
+  * Read block
+  * Write block
+  * Read status
+
+===Storage===
+
+  One layer above the IDE/FDC layer.
+
+  * Probe label, return volumes
+  * Select volume and open (attach)
+  * Close
+  * Get size (in 256 word blocks)
+  * Read block
+  * Write block
+  * Read status
+
+===Filesystem===
+
+  One layer above the storage layer.
+
+  * Open filesystem
+  * Close
+  * Get stats (size, used, etc.)
+  * Directories:
+    * Open directory
+    * Read descriptor
+    * Close directory
+  * Change working directory
+  * Open file
+  * Read from file
+  * Seek
+  * Write
+  * Close file
+
+==Interrupts==
+
+The CFT can operate on one interrupt line (no IRC card) or eight (IRC
+available).
+
+Without an IRC, all interrupts arrive as IRQ signals. The ISR needs to
+check each available device.
+
+With an IRC, the main ISR checks the IRC ISR (Interrupt Status
+Register) and calls individual ISRn routines.
+
+Both ISR and ISRn routines are in ROM, and the IRQ mapping will
+probably be hardwired in the ROM OS.
+
+Registers ISRVEC and ISRnVEC can be used to install user handlers for
+interrupts. They contain the address of a user handler. Normally, they
+point to the end of the ISR. When a user routine is installed, it
+copies the ISRVEC or ISRnVEC value to its ‘own’ memory, puts its own
+address in that register, and JMPs to the stored address when it's
+done. This allows daisy chaining of user interrupt routines.
+
+==Terminals==
+
+All user input/output comes from/goes to the current ‘A’ terminal,
+whatever that may be. That's usually the TTYA_xxx jump registers. To
+send a character, it's usually enough to TRAP p0.TTYA_SEND with the
+character to send in p0.ARG0.
+
+Build a basic terminal for the VDU port so essential directives will
+work all the time. Software needing a VDU must detect it on start and
+abort.
+
+==OS Calls==
+
+OS Calls are TRAPs. They accept arguments in the ARGn registers, and
+return values in the RETn registers.
+
+Most calls use RET0 to return a result code, often 0 or 1 (often &FFFF
+in case of error).
+
+The page 0 register ERRNO stores the last error encountered.
+

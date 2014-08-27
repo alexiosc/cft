@@ -20,8 +20,8 @@ OPCODES:
 00 = End of row.
 01 = Set VDU command repetitions = DATA
 02 = Set VDU CREG = DATA.
-     Note that the two 2 bits of the CREG (blink and inverse
-     attributes) cannot be set.
+     Note that the most significant 2 bits of the CREG
+     (blink and inverse attributes) cannot be set.
 03 = Write VDU B plane = DATA.
      Only the lower 8 bits of DATA are used.
 

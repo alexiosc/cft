@@ -654,3 +654,13 @@ READING FROM THE VDU (BOTH PLANES)
 5. A <= io[CPORT]
 6. A <= io[CMD] # Address increments
 7. ...
+
+
+
+ROM FONT EXTENSIONS
+
+* Blocks
+* Frames
+* Patterns
+* Arrows
+* Wide form pairs (circles, disks, slopes)

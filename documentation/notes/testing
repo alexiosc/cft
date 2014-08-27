@@ -1,0 +1,325 @@
+Testing Plan
+============
+
+Some of these tests are carried out automatically by the DFP on
+boot. Others need to have explicit tests written for them. Yet others
+are covered implicitly by the instruction set tests (see below).
+
+Explicit Hardware Tests
+-----------------------
+
+* DFP
+  * Switches all working: **OK**
+  * Light connections correct: **OK**
+  * Lights all working when driven directly: **OK**
+  * MFD: OK
+    * DR enabled: **OK**
+    * µADDR enabled: **OK**
+    * OR enabled: **OK**
+  * Switch sense on board 1: **OK** (via swtest command)
+  * AC sense: **OK**
+  * PC sense: **OK**
+  * IR sense: **OK**
+  * Microcode vector sense: **OK**
+  * Flags sense: **OK**
+  * Control signals
+    * SAFE#
+      * open drain
+      * asserts correctly
+    * RESET#
+      * open drain
+      * asserts correctly
+    * RSTHOLD#
+      * open drain
+      * asserts correctly
+    * FPRWAM#
+    * FPRESET#
+    * W#
+      * open drain
+      * asserts correctly
+    * R#
+      * open drain
+      * asserts correctly
+    * MEM#
+      * open drain
+      * asserts correctly
+    * IO#
+      * open drain
+      * asserts correctly
+    * HALT#
+      * open drain
+      * asserts correctly
+    * FPRUN: **OK**
+    * FPSTOP: **OK**
+  * µPC Decoder: **OK** (DIP switch 1 = bit 0, 2 = bit 1, 3 = bit 2)
+  * Step/Run/Stop state machine
+    * Initialises in RESET state: **OK**
+    * STEP/RUN# low sets STEPPING: **OK**
+    * With STEP/RUN# high, FPFETCH pulse clears STEPPING: **OK**
+    * USTEP# low sets USTEPPING: **OK**
+    * With STEP/RUN# high, CLK4 pulse clears USTEPPING: **OK**
+    * RESET# pulse sets RESETTING: **OK**
+    * RSTHOLD# rising edgs clears RESETTING: **OK**
+    * Diode logic: WAIT# = STEPPING & USTEPPING & RESETTING: **OK**
+    * Clock enable multiplexer: **OK**
+      * RESETTING floats FPCLKEN: **OK**
+      * FPCLKEN = FPCLKEN-IN when STEPPING = USTEPPING = 0: **OK**
+      * FPUSTEP = FPUSTEP-IN when STEPPING = USTEPPING = 0: **OK**
+    * Clock switching in a timely fashion (no lock-ups, no delays)
+  * Bus decoder
+    * Asserts PFP-SEL# for I/O address &0100-011f only
+    * Falling edge of PFP-SEL# generates short IOCMD pulse
+    * Falling edge of CLR-WS clears WS#: **OK**
+  * MCU
+    * Firmware (many tests)
+    * Command bank 1
+      * SAMPLE# asserted: **OK**
+      * VPEN# asserted: **OK**
+      * DEBEN# asserted: **OK**
+      * STEP/RUN# asserted: **OK**
+      * USTEP# asserted: **OK**
+      * ORCLK asserted: **OK**
+      * CLR# pulses generated correctly to clear command banks: **OK**
+    * MCU SPI programming interface: **OK**
+    * MCU USB serial interface: **OK**
+
+* PB0
+  * µPC
+    * Increments correctly: **OK**
+    * Resets synchronously: **OK**
+  * Microcode Store
+    * Read Unit Decoder
+      * Correctly pulses RAGL#
+      * Correctly pulses RPC#
+      * Correctly pulses RDR#
+      * Correctly pulses RAC#
+      * Correctly sets ALU_ADD
+      * Correctly sets ALU_AND
+      * Correctly sets ALU_OR
+      * Correctly sets ALU_XOR
+      * Correctly sets ALU_ROLL
+      * Correctly sets ALU_NOT
+      * Correctly sets RCS1
+      * Correctly sets RCS2
+    * Write Unit Decoder
+      * Correctly pulses WAR#: **OK**
+      * Correctly pulses WPC#: **OK**
+      * Correctly pulses WIR#: **OK**
+      * Correctly pulses WDR#: **OK**
+      * Correctly pulses WAC#
+      * Correctly pulses WALU#
+    * Conditionals
+      * Correctly selects IF9
+      * Correctly selects IF8
+      * Correctly selects IF7
+      * Correctly selects IF6
+      * Correctly selects IF5
+      * Correctly selects IF4
+      * Correctly selects IF3
+      * Correctly selects IFV
+      * Correctly selects IFL
+      * Correctly selects IFZ
+      * Correctly selects IFN
+      * Correctly selects IFROLL
+      * Correctly selects IFBRANCH
+    * Others
+      * Correctly pulses CPL#
+      * Correctly pulses CLL#
+      * Correctly pulses STI#
+      * Correctly pulses CLI#
+      * Correctly pulses INCPC#: **OK**
+      * Correctly pulses STPDR#
+      * Correctly pulses STPAC#
+      * Correctly pulses DEC#
+      * Correctly pulses END#
+    * Memory
+      * Correctly pulses R#: **OK**
+      * Correctly pulses W#: **OK**
+      * R# and W# are never seen together
+      * Correctly pulses MEM#: **OK**
+      * Correctly pulses IO#
+      * MEM# and IO# are never seen together
+  * Microcode Banking Unit
+    * Hard mappings:
+      * RAM
+      * RAM+ROM
+    * Soft mappings:
+      * All eight registers working
+      * Enable/disable bit working
+  * Bus Hold
+    * Address Bus
+    * Data Bus
+  * Front Panel Connections
+
+* PB1
+  * Clock Generator: **OK**
+    * Full Speed Clock: **OK**, 16.000 MHz.
+    * Clock Mux: **OK**
+      * Slow clocks: **OK**
+      * Fast clock: **OK**
+    * Phase Generation
+      * CLK1-4: **OK**
+      * T34: **OK**
+  * Reset
+    * Reset Sources: **OK**
+    * RSTHOLD counter: **OK**, all jumpers
+    * System Reset Vector
+  * Skip/Branch Unit
+  * Address Generation Logic
+  * Instruction Register
+  * Interrupt State Machine
+  * Data Bus Transceiver
+  * Wait State State Machine
+  * Write Strobe Generation
+  * IBus bus hold
+  * Front Panel Connections
+
+* PB2
+  * Address Register
+    * Drives the Address bus correctly
+  * Address Bus Driver
+  * Autoindex Logic
+  * I/O Device Decoder
+  * Program Counter
+    * Sets correctly from IBUS: **OK**
+    * Increments: **OK**
+  * Data Register
+    * Sets correctly from IBUS: **OK**
+    * Increments
+    * Decrements
+  * Accumulator
+    * Sets correctly from IBUS: **OK**
+    * Increments
+    * Decrements
+    * Outputs L correctly
+  * Negative Flag
+  * Zero Flag
+
+* PB3
+  * Link Register
+  * Arithmetic/Logic Unit
+    * Binary operations
+      * ADD
+	    * L toggles
+		* V sets/clears
+  	  * AND
+      * OR
+	  * XOR
+	* Unary operations
+	  * NOT
+	  * RNL
+	  * RNR
+	  * RBL
+	  * RBR
+	  * CS1, constant 0
+	  * CS1, constant 1
+	  * CS2, constant 0
+	  * CS2, constant 1
+  * Memory Banking Unit
+    * RAM-only hard Mapping 
+    * RAM/ROM (turnkey) hard Mapping
+    * Mapping selection (enable/disable MBU) works
+	* Soft mapping
+	  * All bank registers can address all banks
+	  * All bank registers are accessible via ABUS
+
+Instruction Set Tests
+---------------------
+
+Since only one microcode bank is in use as of MC version 6, we have a
+total of 34 microprograms to test, with variations:
+
+* Reset
+  * Resets to FFF0 reliably
+* Interrupt
+  * Jumps to FFF8 reliably
+  * Return address stored
+  * Does not interrupt running microprograms
+  * Masking works
+* TRAP
+  * Immediate
+  * Indirect
+  * Indirect Autoindex
+* IOT
+  * Immediate
+  * Indirect
+  * Indirect Autoindex
+* LOAD
+  * Immediate
+  * Indirect
+  * Indirect Autoindex
+* STORE
+  * Immediate
+  * Indirect
+  * Indirect Autoindex
+* IN
+  * Immediate
+  * Indirect
+  * Indirect Autoindex
+* OUT
+  * Immediate
+  * Indirect
+  * Indirect Autoindex
+* JMP
+  * Immediate
+  * Indirect
+  * Indirect Autoindex
+* JSR
+  * Immediate
+  * Indirect
+  * Indirect Autoindex
+* ADD
+  * Immediate
+  * Indirect
+  * Indirect Autoindex
+* AND
+  * Immediate
+  * Indirect
+  * Indirect Autoindex
+* OR
+  * Immediate
+  * Indirect
+  * Indirect Autoindex
+* XOR
+  * Immediate
+  * Indirect
+  * Indirect Autoindex
+* OP1 (lots of tests)
+  * IFL
+  * IFV
+  * CLA
+  * CLL
+  * NOT
+  * INC
+  * CPL
+  * RBL
+  * RBR
+  * RNL
+  * RNR
+  * And combinations, where possible
+* OP2 (lots of tests)
+  * NOP
+  * SNA
+  * SZA
+  * SSL
+  * SSV
+  * SKIP
+  * SNN
+  * SNZ
+  * SCL
+  * SCV
+  * CLA
+  * CLI
+  * STI
+  * And combinations, where possible
+* POP (aka OP1 I)
+  * Indirect
+  * Indirect Autoindex
+* ISZ
+  * Immediate
+  * Indirect
+  * Indirect Autoindex
+* LIA/LI
+* JMPII (aka LIA I)
+  * Double Indirect
+  * Double Indirect Autoindex
