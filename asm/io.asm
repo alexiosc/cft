@@ -1,3 +1,10 @@
+/// THIS FILE IS OBSOLETE.
+///
+/// Most I/O definitions are now in individual files.
+
+
+.pushns __do_not_use__
+		
 ;;; Some standard I/O mnemonics
 
 .equ PANEL  R &030
@@ -61,4 +68,6 @@
 .equ NVRAMWIN R &090
 .equ NVRAMOFS R &080
 
+.popns
+		
 ;;; End of file.

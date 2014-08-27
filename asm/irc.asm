@@ -26,7 +26,7 @@
 
 ;;; Definitions
 
-.equ IRC R &28				; Base address
+.equ IRC R &30				; Base address
 	
 .equ ICR IRC				; IRC ICR (OUT only)
 .equ ISR IRC				; IRC ISR (IN only)

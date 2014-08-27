@@ -56,7 +56,7 @@
                 .reg TMP14 R @		; Clobbered by routine entry/exit code
                 .reg TMP15 R @		; Clobbered by routine entry/exit code
 
-		.reg ARG0 R @		; Argument passing into routines
+		.reg ARG0 R @		; Argument passing into OS routines
 		.reg ARG1 R @
 		.reg ARG2 R @
 		.reg ARG3 R @

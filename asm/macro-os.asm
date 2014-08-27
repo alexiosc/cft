@@ -1,29 +1,21 @@
 ;;; -*- cftasm -*-
-		
-;;; OS Macros.
-;;;
-;;; Copyright © 2014 Alexios Chouchoulas.
-;;;
-;;; This program is free software; you can redistribute it and/or modify it
-;;; under the terms of the GNU General Public License as published by the Free
-;;; Software Foundation; either version 2, or (at your option) any later
-;;; version.
-;;; 
-;;; This program is distributed in the hope that it will be useful, but WITHOUT
-;;; ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-;;; FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
-;;; more details.
-;;; 
-;;; You should have received a copy of the GNU General Public License along with
-;;; this program; if not, write to the Free Software Foundation, Inc., 59 Temple
-;;; Place - Suite 330, Boston, MA 02111-1307, USA.
 
-;;; Macro: errno(literal)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;; Set the error code.
-.macro errno(literal)
-		LI %literal		; errno(%literal)
-		STORE p0.ERRNO
+;;; GENERIC MACROS
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;; Macro: ADC(addr)
+;;;
+;;; Add with carry. Calculates AC = AC + L + addr
+;;;
+;;; Side effects:
+;;;   AC = AC + L + mem[addr]
+;;;   L
+.macro ADC (addr)
+		OP1 IFL INC		; Increment AC if L is set
+		ADD %addr
 .end
 
 ;;; Macro: CMPEQ(a, b)

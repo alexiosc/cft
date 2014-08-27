@@ -143,6 +143,54 @@
 .reg TTY6_PTR R @			; TTY6: pointer to TTY struct
 .reg TTY7_PTR R @			; TTY7: pointer to TTY struct
 
+;;; Interrupt handling.
+;;;
+;;; These locations are initialised with the addresses of the ROM interrupt
+;;; handlers. User programs can install their own interrupt handlers by
+;;; replacing the addresses with their own, and jumping to the original address
+;;; at the end of their code, thus daisy-chaining interrupt handlers.
+
+.reg ISRVEC R @				; The main Interrupt Service Routine
+.reg ISR0VEC R @			; ISR for IRQ0
+.reg ISR1VEC R @			; ISR for IRQ1
+.reg ISR2VEC R @			; ISR for IRQ2
+.reg ISR3VEC R @			; ISR for IRQ3
+.reg ISR4VEC R @			; ISR for IRQ4
+.reg ISR5VEC R @			; ISR for IRQ5
+.reg ISR6VEC R @			; ISR for IRQ6
+.reg ISR7VEC R @			; ISR for IRQ7
+
+;;; ;;; Operating System variables
+
+.reg ERRNO R @				; OS Result code
+
+;;; We have two sets of TTY handles in page 0. These should cover most use
+;;; cases without needing excessive calls to to setup subroutines.
+
+.reg TTYA_HANDLE R @			; Opaque handle of the current TTY
+.reg TTYA_CTS R @			; Current TTY: clear to send data
+.reg TTYA_SEND R @			; Current TTY: send character
+.reg TTYA_DSR R @			; Current TTY: data set ready to receive
+.reg TTYA_READ R @			; Current TTY: read character
+.reg TTYA_STATUS R @			; Current TTY: read status
+.reg TTYA_CTL R @			; Current TTY: control device
+
+.reg TTYB_HANDLE R @			; Opaque handle of the current TTY
+.reg TTYB_CTS R @			; Current TTY: clear to send data
+.reg TTYB_SEND R @			; Current TTY: send character
+.reg TTYB_DSR R @			; Current TTY: data set ready to receive
+.reg TTYB_READ R @			; Current TTY: read character
+.reg TTYB_STATUS R @			; Current TTY: read status
+.reg TTYB_CTL R @			; Current TTY: control device
+
+.reg TTYC_HANDLE R @			; Opaque handle of the current TTY
+.reg TTYC_CTS R @			; Current TTY: clear to send data
+.reg TTYC_SEND R @			; Current TTY: send character
+.reg TTYC_DSR R @			; Current TTY: data set ready to receive
+.reg TTYC_READ R @			; Current TTY: read character
+.reg TTYC_STATUS R @			; Current TTY: read status
+.reg TTYC_CTL R @			; Current TTY: control device
+
 ;;; Mass storage device pointers. There's space for up to 12 units: four
 ;;; floppies, four HDDs, and four other devices (e.g. RAM disks, networked
 ;;; devices etc.)
@@ -160,7 +208,46 @@
 .reg MSD10_PTR R @			; MSD10: pointer to MSD struct
 .reg MSD11_PTR R @			; MSD11: pointer to MSD struct
 
+;;; We have two sets of MSD handles in page 0. These should cover most use
+;;; cases without needing excessive calls to to setup subroutines.
 
+.reg MSDA_HANDLE R @			; Opaque handle for the current MSD
+.reg MSDA_SIZE R @			; Current MSD: Get size of MSD unit
+.reg MSDA_READ R @			; Current MSD: Read a block
+.reg MSDA_WRITE R @			; Current MSD: Write a block
+.reg MSDA_STATUS R @			; Current MSD: Read status of device
+.reg MSDA_CTL R @			; Current MSD: Device control
+
+.reg MSDB_HANDLE R @			; Opaque handle for the current MSD
+.reg MSDB_SIZE R @			; Current MSD: Get size of MSD unit
+.reg MSDB_READ R @			; Current MSD: Read a block
+.reg MSDB_WRITE R @			; Current MSD: Write a block
+.reg MSDB_STATUS R @			; Current MSD: Read status of device
+.reg MSDB_CTL R @			; Current MSD: Device control
+
+.reg MSDC_HANDLE R @			; Opaque handle for the current MSD
+.reg MSDC_SIZE R @			; Current MSD: Get size of MSD unit
+.reg MSDC_READ R @			; Current MSD: Read a block
+.reg MSDC_WRITE R @			; Current MSD: Write a block
+.reg MSDC_STATUS R @			; Current MSD: Read status of device
+.reg MSDC_CTL R @			; Current MSD: Device control
+
+;;; Storage (filesystem) driver entry points. There will be calls to open a
+;;; filesystem based on a scanned list of volumes per MSD. This list is dynamic
+;;; and can be long, so it's not stored here. (it'll probably be a Forth
+;;; dictionary)
+
+.reg FS_HANDLE R @			; Current filesystem handle
+.reg FS_SIZE R @			; Current FS: Get size of MSD unit
+.reg FS_READ R @			; Current FS: Read a block
+.reg FS_WRITE R @			; Current FS: Write a block
+.reg FS_STATUS R @			; Current FS: Read status of device
+.reg FS_CTL R @				; Current FS: Device control
+
+;;; DFP variables
+
+.reg DFP_LASTC				; Result of last read (IN dfp.RX)
+		
 ;;; 
 ;;; 
 ;;; 
