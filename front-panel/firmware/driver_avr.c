@@ -81,7 +81,7 @@
 #define B_IOADDR1   PB4
 #define B_IOADDR2   PB5
 
-#define B_IDLE      0
+#define B_IDLE      (_BV(B_CLRWS))
 #define B_IOADDR    (_BV(B_IOADDR0) | _BV(B_IOADDR1) | _BV(B_IOADDR2))
 #define B_OUTPUTS   (_BV(B_CLRWS) | _BV(B_FPCLKEN) | _BV(B_FPUSTEP) | B_IOADDR)
 
@@ -234,7 +234,6 @@ struct {
 
 #define actuated(bm, sw) (((bm) & (sw)) == 0)
 
-
 ///////////////////////////////////////////////////////////////////////////////
 //
 // WRITING COMMANDS TO THE 74x259 ADDRESSABLE LATCHES
@@ -352,6 +351,8 @@ strobecmd(uint8_t addr)
 	// Clear both enables for good measure.
 	_multistrobe_end();
 }
+
+
 inline static void
 strobe_clr()
 {
@@ -360,6 +361,15 @@ strobe_clr()
 	// CLR (and most other drivers on the PFP/DEB) to zero. However, we
 	// also clear it manually just to be sure.
 	strobecmd(CMD_CLR);
+}
+
+
+inline static void
+clr_ws()
+{
+	// Clear the WS# output.
+	PORTB &= ~ _BV(B_CLRWS);
+	PORTB |= _BV(B_CLRWS);
 }
 
 
@@ -417,9 +427,10 @@ static void outcmd(uint8_t, bool_t); // Same
 // * Test if bus hold is present (values written to AB/DB are sticky over a
 //   long-ish period of time).
 
-#define NUM_PATTERNS 11
+#define NUM_PATTERNS 14
 static uint16_t _diag_patterns[NUM_PATTERNS] = {
 	0x0000, 0x1111, 0x3333, 0x7777, 0xffff,
+	0xeeee, 0xcccc, 0x8888,
 	0xff00, 0x00ff, 0xf0f0, 0x0f0f, 0xaaaa,
 	0x5555
 };
@@ -469,19 +480,54 @@ dfp_diags()
 	// panel) and DEBIN (for the debugging shift regs) should be the same
 	// as IOADDR0. This allows diagnostics.
 
-	// uint16_t x;
-	// for(i=0x1234;;i++) {
-	// 	write_db(i);
-	// 	drive_db();
-	// 	_delay_ms(50);
-	// 	_cb[2] ^= CB2_FPSTOP;
-	// 	write_cb();
+#if 0
 
-	// 	tristate_db();
-	// 	_delay_ms(50);
-	// 	_cb[2] ^= CB2_FPSTOP;
-	// 	write_cb();
+	///////////////////////////////////////////////////////////////////////////////
+	_cb[1] |= CB1_NFPRESET | CB1_NRESET | CB1_NRSTHOLD;
+	_cb[2] |= CB2_NHALT;
+	write_cb();
+	clr_ws();
+	outcmd(CMD_STEPRUN, 1);
+	PORTB &= ~_BV(B_FPCLKEN);
+	uint16_t x;
+	// for (x = 0; x < 65535; x++) {
+	// 	clr_ws();
 	// }
+	for(;;) {
+		PORTB ^= _BV(B_FPUSTEP);
+		_delay_ms(300);
+		_cb[2] ^= CB2_FPSTOP;
+		write_cb();
+
+		report_pstr(PSTR("PORTB: "));
+		x = PORTB;
+		report_bin_pad(x, 8);
+
+		report_pstr(PSTR(" PORTC: "));
+		x = PORTC;
+		report_bin_pad(x, 8);
+
+		report_pstr(PSTR(" PORTD: "));
+		x = PORTD;
+		report_bin_pad(x, 8);
+
+		report_pstr(PSTR(" CB0: "));
+		x = _cb[0];
+		report_bin_pad(x, 8);
+
+		report_pstr(PSTR(" CB1: "));
+		x = _cb[1];
+		report_bin_pad(x, 8);
+
+		report_pstr(PSTR(" CB2: "));
+		x = _cb[2];
+		report_bin_pad(x, 8);
+
+		report_pstr(PSTR("\n"));
+	}
+	///////////////////////////////////////////////////////////////////////////////
+
+#endif
 
 	code = 0x102;
 	report_pstr(PSTR(STR_D_VPIN));
@@ -527,6 +573,22 @@ dfp_diags()
 	clearflag(_cb[2], CB2_NHALT);
 	write_cb();
 
+	// uint16_t x =0;
+	// for(;;) {
+	// 	write_ab(x);
+	// 	x = (x + 1) & 0xffff;
+	// 	drive_ab();
+	// 	//tristate_ab();
+	// 	for (j = 0; j < 1; j++) {
+	// 		deb_sample(0);
+	// 		report_pstr(PSTR("ABUS: "));
+	// 		uint32_t x = _ab & 0xffff;
+	// 		report_hex(x, 4);
+	// 		report_pstr(PSTR("\n"));
+	// 		_delay_ms(250);
+	// 	}
+	// }
+
 	// Does driving the ABUS work?
 	code = 0x104;
 	report_pstr(PSTR(STR_D_ABDRV));
@@ -535,18 +597,20 @@ dfp_diags()
 		for (i = 0; i < NUM_PATTERNS; i++) {
 			write_ab(_diag_patterns[i]);
 			deb_sample(0);
-			// {
-			// 	uint32_t x = _diag_patterns[i];
-			// 	report_pstr(PSTR("sent: "));
-			// 	report_hex(x, 4);
-			// 	x = _ab & 0xffff;
-			// 	report_pstr(PSTR(" got: "));
-			// 	report_hex(x, 4);
-			// 	report_pstr(PSTR("\n"));
-			// }
+			{
+				uint32_t x = _diag_patterns[i];
+				report_pstr(PSTR("sent: "));
+				report_hex(x, 4);
+				x = _ab & 0xffff;
+				report_pstr(PSTR(" got: "));
+				report_hex(x, 4);
+				report_pstr(PSTR("\n"));
+			}
 
 			if (_ab != _diag_patterns[i]) {
 				tristate_ab();
+				report_nl();
+				report_mismatch(PSTR(STR_ABERR), _diag_patterns[i], _ab);
 				goto faulty;
 			}
 		}
@@ -585,17 +649,19 @@ dfp_diags()
 			write_db(_diag_patterns[i]);
 			deb_sample(0);
 
-			// {
-			// 	uint32_t x = _diag_patterns[i];
-			// 	report_hex(x, 4);
-			// 	serial_write(32);
-			// 	x = _db;
-			// 	report_hex(x, 4);
-			// 	report_nl();
-			// }
+			{
+				uint32_t x = _diag_patterns[i];
+				report_hex(x, 4);
+				serial_write(32);
+				x = _db;
+				report_hex(x, 4);
+				report_nl();
+			}
 
 			if (_db != _diag_patterns[i]) {
 				tristate_db();
+				report_nl();
+				report_mismatch(PSTR(STR_DBERR), _diag_patterns[i], _ab);
 				goto faulty;
 			}
 		}
@@ -634,6 +700,16 @@ dfp_diags()
 		if (buschatter()) goto faulty;
 	}
 	report_pstr(PSTR(STR_D_OK));
+
+
+
+
+
+
+
+
+
+
 
 	return;
 
@@ -731,18 +807,28 @@ hw_init()
 	// 	if ((i & 3) == 2) drive_db(); else tristate_db();
 	// }
 
+	// for(;;) {
+	// 	PORTB = 0;
+	// 	_delay_ms(500);
+	// 	PORTB = _BV(PB1) | _BV(PB2);
+	// 	_delay_ms(500);
+	// }
+
 	// Time = 3
 
-	// Reset all the drivers with MR# pins.
+	// Reset all the drivers with MR# pins, and initialise the wait state
+	// state machine.
 	strobe_clr();
+	clr_ws();
 
 	// Time = 4
 
 	// Write the control bus, initialising all the control
 	// outputs. This will de-assert all the reset signals, among
 	// other things.
+	clearflag(_cb[1], CB1_NFPRESET | CB1_NRESET);
 	clearflag(_cb[2], CB2_NHALT); // Keep HALT asserted for now
-	setflag(_cb[2], CB0_NIRQ6); // Keep HALT asserted for now
+	setflag(_cb[2], CB0_NIRQ6);   // Keep HALT asserted for now
 	write_cb();		      // Shift out all the values
 	clearbit(PORTD, D_NCTLOE);    // Enable the control bus drivers
 
@@ -779,7 +865,7 @@ hw_init()
 		// Mark the processor as present
 		flags |= FL_PROC;
 		// Disable the bus pull-ups. Note: active low!
-		set_buspu(1);
+		set_buspu(1); // TODO: REINSTATE
 	} else {
 		// Enable the bus pull-ups. They start enabled after reset, but
 		// this couldn't hurt.
@@ -840,7 +926,7 @@ hw_init()
 
 	// Now de-assert the various reset signals explicitly. Can't hurt.
 	_cb[0] |= CB0_NIRQ1 | CB0_NIRQ6;
-	_cb[1] |= CB1_NFPRESET | CB1_NRESET | CB1_NRSTHOLD;
+	_cb[1] |= CB1_NFPRESET | CB1_NRESET;
 
 	// Write all the control bus signals just in case.
 	write_cb();
@@ -1445,17 +1531,24 @@ wait_for_halt()
 	// This will obviously lock up the MCU if the HALT condition isn't
 	// seen. We want this.
 	flags |= FL_BUSY | FL_STOPPING;
-	uint16_t timeout = 0xffff;
+	uint16_t timeout = 6000;
 	while (timeout--) {
 		// Read the WAIT# signal from the first (highest order) shift
 		// register of the virtual panel.
 		virtual_panel_sample(1);
 
-		// report_pstr(PSTR("-- FLAGS: "));
+		// report_pstr(PSTR("-- FLAGS: ")); // 93 -> b3
 		// uint32_t x = _flags;
 		// report_hex(x, 4);
 		// report_nl();
-		// _delay_ms(200);
+
+		// We need to scale our timeouts, otherwise the
+		// processor will never stop when the clock is really
+		// slow. This should take care of the worst case
+		// scenario.
+		if (_clk_prescale == PSV_1024) _delay_ms(100);
+		else if (_clk_prescale == PSV_256) _delay_ms(30);
+		else if (_clk_prescale == PSV_64) _delay_ms(3);
 
 		// Wait until the clock-synchronous state machine is done.
 		if ((get_flags() & CFL_NWAIT) != 0) break;
@@ -1465,8 +1558,13 @@ wait_for_halt()
 	// the state machine will never get tot he STOP state.
 	if ((flags & FL_PROC) == 0) return;
 
+	// Set the FL_HALT flag first because assert_halted() checks
+	// that before proceeding to proper tests.
+	flags |= FL_HALT;
+
 	if (!assert_halted()) {
 		// Failed to halt. Crash here.
+		flags &= ~FL_HALT; // We're not really halted
 		set_or(0x911);
 		cli();
 		for (;;) {
@@ -1544,6 +1642,8 @@ clk_slow()
 {
 	// 80 Hz = 14745600 / (2 * 1024 * (1 + 89))
 	set_clkfreq(PSV_1024, 89);
+	if (_stopped) report_pstr(PSTR("stopped: true\n"));
+	else report_pstr(PSTR("stopped: false\n"));
 	if (!_stopped) TCCR1A = _BV(COM1B0);
 }
 
@@ -1553,6 +1653,8 @@ clk_creep()
 {
 	// 8 Hz = 14745600 / (2 * 1024 * (1 + 890))
 	set_clkfreq(PSV_1024, 899);
+	if (_stopped) report_pstr(PSTR("stopped: true\n"));
+	else report_pstr(PSTR("stopped: false\n"));
 	if (!_stopped) TCCR1A = _BV(COM1B0);
 }
 
@@ -1716,8 +1818,12 @@ perform_reset()
 	if (flags & FL_PROC) {
 		// We have a processor. Signal it to reset.
 
+		setflag(_cb[1], CB1_NRESET | CB1_NRSTHOLD);
 		clearflag(_cb[1], CB1_NFPRESET);
 		write_cb();
+
+		_delay_ms(500);	// Delay a little, mostly for to convince humans
+
 		setflag(_cb[1], CB1_NFPRESET);
 		write_cb();
 	} else {
@@ -1733,7 +1839,20 @@ perform_reset()
 			uint16_t x = 32768;
 			while (x--) short_delay();
 			
-			setflag(_cb[1], CB1_NRESET | CB1_NRSTHOLD);
+			setflag(_cb[1], CB1_NRESET);
+			write_cb();
+
+			// RSTHOLD# must be deasserted later than RESET#. Only
+			// the processor uses this for now, but other devices
+			// may depend on the timing later on. Also, our
+			// run/stop/step state machine requires it, otherwise
+			// we get stuck in the RESETTING state forever.
+
+			// Delay another 6ms.
+			x = 32768;
+			while (x--) short_delay();
+			
+			setflag(_cb[1], CB1_NRSTHOLD);
 			write_cb();
 		}
 	}
@@ -2065,7 +2184,7 @@ ISR(INT0_vect)
 		}
 	} else {
 		// Read cycle. We do NOT enable the data bus ourselves. There's
-		// an ‘autonomic’ function that makes the data bus register
+		// an ‘involuntary’ function that makes the data bus register
 		// drive whenever the CFT selects the PFP/DEB. All we need to
 		// do is update its value and register it for output.
 		switch ((uint8_t)_ab & 0xff) {
@@ -2109,8 +2228,7 @@ ISR(INT0_vect)
 	}
 	
 	// Strobe the CLR-WS signal to clear wait states.
-	setbit(PORTB, B_CLRWS);
-	clearbit(PORTB, B_CLRWS);
+	clr_ws();
 }
 
 

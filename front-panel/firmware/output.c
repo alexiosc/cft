@@ -143,20 +143,26 @@ report_pstr(const char *msg)
 		case 1:
 			report_pstr(PSTR("-- "));
 			break;
-		case 2:
-			report_pstr(PSTR("[ WORD ] "));
-			break;
-		case 3:
-			report_pstr(PSTR("[ BOOL ] "));
-			break;
-		case 4:
-			report_pstr(PSTR("Get/set "));
-			break;
+		// case 2:
+		// 	report_pstr(PSTR("[ WORD ] "));
+		// 	break;
+		// case 3:
+		// 	report_pstr(PSTR("[ BOOL ] "));
+		// 	break;
+		// case 4:
+		// 	report_pstr(PSTR("Get/set "));
+		// 	break;
 		case 5:
 			report_pstr(PSTR("\n201"));
 			break;
 		case 6:
 			report_pstr(PSTR(" (default: "));
+			break;
+		case 7:
+			report_pstr(PSTR(" ] -- Get/set "));
+			break;
+		case 3:
+			report_pstr(PSTR(" [ BOOL ] -- Get/set "));
 			break;
 		case '\n':
 			// Convert \n to \r\n, which is fairly standard practice on
@@ -338,5 +344,26 @@ report_bool_value(const char *msg, char val)
 	}
 	report_nl();
 }
+
+void 
+report_mismatch(const char *msg, uint16_t should_be, uint16_t was)
+{
+	uint32_t x;
+
+	style_error();
+	report_pstr((char *)msg);
+	x = should_be & 0xffff;
+	style_info();
+	report_hex(x, 4);
+
+	style_error();
+	report_pstr(PSTR(STR_WAS));
+	x = was & 0xffff;
+	style_info();
+	report_hex(x, 4);
+
+	report_nl();
+}
+
 
 // End of file.

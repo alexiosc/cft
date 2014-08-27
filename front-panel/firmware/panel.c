@@ -19,19 +19,6 @@ static uint8_t _rom = 0xff;
 static uint8_t _spd = 0xff;
 
 
-static int
-check_mismatch(uint16_t a, uint16_t b)
-{
-	if (a == b) return 0;
-	style_error();
-	report_pstr(PSTR(STR_NVMIS));
-	style_info();
-	report_hex(a, 4);
-	style_error();
-	report_hex_value(PSTR(STR_NVMIS1), b, 4);
-	return 1;
-}
-
 bool_t
 panel_lock(bool_t lock)
 {
@@ -133,6 +120,7 @@ panel_spd(uint8_t spd)
 {
 	//report(__FUNCTION__); report_pstr(PSTR("()\n"));
 	//uint8_t tmp = _spd != 0xff;
+
 	if (spd == _spd) return;
 	uint8_t tmp = _spd;
 	_spd = spd;

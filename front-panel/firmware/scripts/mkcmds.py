@@ -3,6 +3,13 @@
 import sys, re
 import pprint
 
+print """// -*- c -*-
+// AUTOMATICALLY GENERATED, DO NOT EDIT.
+
+#ifndef __PROTO_CMDS_H
+#define __PROTO_CMDS_H
+"""
+
 source = sys.stdin.read()
 data = re.findall('\n\s*\{"(.+?)",\s*(\w+),\s*\"(.+?)\"\}', source)
 #pprint.pprint(data)
@@ -20,11 +27,16 @@ for datum in data:
     #strtable += 'helpstring_t _cmdhelp%(i)d[] PROGMEM = "%(help)s";\n' % locals()
     #strtable += 'helpstring_t _cmdhelp%(i)d[] = "%(help)s";\n' % locals()
     ofsdata[cmd] = (i, len(fullhelp), len(help))
+    print "// ofsdata[%s] = %s " %(cmd, ofsdata[cmd])
     i += 1
     fullhelp += help
 
-#print "Total length of help before:", len0
-#print "Total length of help after concat:", len(fullhelp)
+# print "/*\n\nofsdata:\n"
+# pprint.pprint(ofsdata)
+# print "*/"
+
+print "// Total length of help before:", len0
+print "// Total length of help after concat:", len(fullhelp)
 
 len1 = len(fullhelp) + 1
 
@@ -55,12 +67,14 @@ len2 = len(fullhelp) + 1
 #helpstr = "201 Available commands:\n";
 helpstr = ''
 
-helpstr += '|'.join(x[2] for x in data)
+helpstr += '\0'.join(x[2] for x in data)
 helpstr = helpstr.replace(r'\n', '\n')
-helpstr = helpstr.replace('-- ', '\\1')
+helpstr = helpstr.replace(' [ BOOL ] -- Get/set ', '\\003')
+helpstr = helpstr.replace(' ] -- Get/set ', '\\007')
 helpstr = helpstr.replace('[ WORD ] ', '\\002')
-helpstr = helpstr.replace('[ BOOL ] ', '\\003')
-helpstr = helpstr.replace('Get/set ', '\\004')
+#helpstr = helpstr.replace('[ BOOL ] ', '\\003')
+#helpstr = helpstr.replace('Get/set ', '\\004')
+helpstr = helpstr.replace('-- ', '\\001')
 helpstr = helpstr.replace('\n201', '\\005')
 helpstr = helpstr.replace(' (default: ', '\\006')
 helpstr_len = len(helpstr) + 1
@@ -72,12 +86,10 @@ helpstr_len = len(helpstr) + 1
 #    .replace('\004', '\033[7mGet/set \033[0m') \
 #    .replace('\005', '\033[7m201   \033[0m') \
 
-helpstr = helpstr.replace('\n', '\\n').replace('|', '\\0')
+helpstr = helpstr.replace('\n', '\\n').replace('\0', '\\0')
+print "// Final length of helpstr:", len(helpstr)
 
 print """
-#ifndef __PROTO_CMDS_H
-#define __PROTO_CMDS_H
-
 #include "hwcompat.h"
 
 #define CMD_SIZE 8

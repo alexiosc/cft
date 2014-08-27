@@ -58,6 +58,8 @@ void report_hex_value(const char *msg, uint32_t val, uint8_t pad);
 
 void report_bool_value(const char *msg, char val);
 
+void report_mismatch(const char *msg, uint16_t should_be, uint16_t was);
+
 
 #endif // __OUTPUT_H__
 

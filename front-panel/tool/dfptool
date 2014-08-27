@@ -271,6 +271,7 @@ class DFP(dfp.Communication):
         """
         self.cmd('dfps', until=251, retry=3)
         self.cmd('lock', until=215, retry=3)
+        self.cmd('?')
         # self.cmd(self.CMD_INFO_BUFSIZE)
         # self.cmd(self.CMD_INFO_START)
         # self.cmd(self.CMD_INFO_COUNT)

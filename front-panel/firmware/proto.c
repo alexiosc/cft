@@ -489,6 +489,14 @@ _ustate()
 {	
 	uint32_t u = get_uvec();
 
+	{
+		uint16_t x = (u >> 16) & 0xffff;
+		report_bin_pad(x, 16);
+		x = u & 0xffff;
+		report_bin_pad(x, 16);
+		report_pstr(PSTR(" "));
+	}
+
 	if (IS_R(u)) {
 		if (IS_MEM(u)) report_pstr(PSTR("mem"));
 		else if (IS_IO(u)) report_pstr(PSTR("io"));
@@ -810,6 +818,10 @@ go_clk()
 		return;
 	}
 
+	if (prescaler == 5 && div >= 0x1000) {
+		report_pstr(PSTR(STR_CLKWRN));
+	}
+
 	set_clkfreq(prescaler, div);
 
 	report_pstr(PSTR(STR_CLKSET));
@@ -904,7 +916,7 @@ _printbp(uint8_t i)
 	report_pstr(PSTR(": "));
 	if (bpflag & (1 << i)) report_hex((uint32_t)bpaddr[i], 4);
 	else report_pstr(PSTR(STR_OFF));
-	report_char('\n');
+	report_nl();
 }
 
 void
@@ -1019,12 +1031,15 @@ _reg(uint8_t reg)
 	switch(reg) {
 	case REG_AC:
 		report_hex_value(PSTR(STR_GSAC), get_ac(), 4);
+		if (r) check_mismatch(w, get_ac());
 		return;
 	case REG_PC:
 		report_hex_value(PSTR(STR_GSPC), get_pc(), 4);
+		if (r) check_mismatch(w, get_pc());
 		return;
 	case REG_IR:
 		report_hex_value(PSTR(STR_GSIR), get_ir(), 4);
+		if (r) check_mismatch(w, get_ir());
 		return;
 	}
 }
@@ -1834,6 +1849,14 @@ proto_input(unsigned char c)
 		report_char(c);
 	}
 	return c;
+}
+
+uint8_t
+check_mismatch(uint16_t should_be, uint16_t was)
+{
+	if (should_be == was) return 0;
+	report_mismatch(PSTR(STR_NVMIS), should_be, was);
+	return 1;
 }
 
 // End of file.

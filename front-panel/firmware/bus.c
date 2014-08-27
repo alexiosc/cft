@@ -227,7 +227,8 @@ perform_block_read(uint16_t base, int16_t n, uint16_t * buf)
 	ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
 		while (n--) {
 			// Perform a cycle
-			write_ab(base++);
+			write_ab(base);
+			base++;
 			drive_ab();
 			set_mem(1);
 			set_r(1);
@@ -262,9 +263,9 @@ set_reg(uint8_t reg, uint16_t value)
 	// Ensure the bus is quiet.
 	if (!assert_halted()) return 0;
 
-	// Stop the clock (just in case).
+	// Stop the clock.
 	clk_stop();
-	
+
 	write_ibus(value);
 	drive_ibus();
 	setup();
@@ -277,7 +278,7 @@ set_reg(uint8_t reg, uint16_t value)
 		break;
 	case REG_PCAR:
 		strobe_war();
-		// Purposelly falling through
+		// Purposefully falling through
 	case REG_PC:
 		strobe_wpc();
 		break;
@@ -293,25 +294,25 @@ set_reg(uint8_t reg, uint16_t value)
 }
 
 
-void
-buscmd_enef(uint16_t val)
-{
-	report_pstr(PSTR(STR_NIMPL));
-}
+// void
+// buscmd_enef(uint16_t val)
+// {
+// 	report_pstr(PSTR(STR_NIMPL));
+// }
 
 
-void
-buscmd_disef(uint16_t val)
-{
-	report_pstr(PSTR(STR_NIMPL));
-}
+// void
+// buscmd_disef(uint16_t val)
+// {
+// 	report_pstr(PSTR(STR_NIMPL));
+// }
 
 
-void
-buscmd_qef()
-{
-	report_pstr(PSTR(STR_NIMPL));
-}
+// void
+// buscmd_qef()
+// {
+// 	report_pstr(PSTR(STR_NIMPL));
+// }
 
 
 void

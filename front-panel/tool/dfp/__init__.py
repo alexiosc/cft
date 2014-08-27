@@ -90,6 +90,8 @@ class Communication(Base):
         def _read_response():
             while True:
                 line = self.ser.readline().decode('utf8')
+                # Remove errant escape sequences.
+                line = re.sub('\033\[.+?m', '', line)
                 if len(line) == 0:
                     raise TimeoutException("Timeout waiting for results.")
                 if strip_vt100:

@@ -156,6 +156,7 @@
 #define STR_PLOCK   "374 Panel lock: "
 
 #define STR_WRAP    "401 Warning: write will wrap around.\n"
+#define STR_CLKWRN  "430 Warning: stopping/stepping will be REALLY slow.\n"
 
 // Errors.
 #define STR_BADCMD  "500 Unknown command\n"
@@ -172,9 +173,12 @@
 
 // Hardware Faults.
 #define STR_DIAGF   "901 Diagnostics failed.\n"
-#define STR_NVMIS   "910 Value mismatch. Should be "
-#define STR_NVMIS1       ", was "
-#define STR_HLTTO   "911 Timeout waiting for processor halt.\n"
+#define STR_NVMIS   "910 Value mismatch. Wrote "
+#define STR_WAS          ", was "
+#define STR_ABERR   "920 ABUS error. Wrote "
+#define STR_DBERR   "921 DBUS error. Wrote "
+
+#define STR_HLTTO   "930 Timeout waiting for processor halt.\n"
 
 #define STR_PROMPT  "> "
 #define STR_PRUN    "[running]" STR_PROMPT
@@ -234,6 +238,8 @@ void go_fast();
 void go_slow();
 
 void go_creep();
+
+uint8_t check_mismatch(uint16_t, uint16_t);
 
 #endif // _PROTO_H__
 
