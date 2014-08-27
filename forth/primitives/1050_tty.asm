@@ -111,8 +111,7 @@
 
 
 	;; TEMPORARY: enable IRQ2 interrupt.
-	LI #010'1
-	OUT R IRC_ICR
+	irc.enable(1)
 	
 
 	;; Done.

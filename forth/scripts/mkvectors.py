@@ -16,19 +16,24 @@ HEADER = """
 
 ;; System vector and trap table
 
+.pushns vt
+
 """
 
 CONSTHEAD = """
-;; Constant definitions
+;;; Constant definitions
 """
 
 
 EQUHEAD = """
-;; Vector definitions for convenience
+;;; Vector definitions
 """
 
 
 FOOTER = """
+
+.popns
+
 // End of file.
 """
 

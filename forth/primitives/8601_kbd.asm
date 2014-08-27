@@ -24,8 +24,7 @@
 
 	;; TODO: Move this elsewhere
 	;; Enable interrupts
-	LI #0011		; IRQ1, enable
-	OUT R IRC_ICR		; IRQ 1
+	irc.enable(1)
 
 	NEXT
 

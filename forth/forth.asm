@@ -5,6 +5,7 @@
 .include "../asm/debugging.asm"
 .include "../asm/testing.asm"
 .include "../asm/irc.asm"
+.include "../asm/dfp.asm"
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -712,17 +713,10 @@ uisr_default:
 // between the SEI and RTI instructions.
 
 .macro testirq(irq, label)
-	LI ISR_IRQ%irq		; Is it an IRQ%irq?
+	LI irc.ISR_IRQ%irq	; Is it an IRQ%irq?
 	AND ISRR0
 	SNZ
 	JMP %label		; It wasn't that one.
-.end
-	
-.macro ackirq(irq)
-	LI IRQDIS IER_IRQ%irq	; Disable the IRQ
-	OUT IRC_ICR
-	LI IRQEN IER_IRQ%irq	; Re-enable the IRQ
-	OUT IRC_ICR
 .end
 
 // Interrupt Service Routine (ISR)
@@ -735,14 +729,14 @@ isr:
 	LOAD R 1		; Save &0001
 	STORE ISRR1BKP
 
-	IN IRC_ISR		; Read from the Interrupt Status Register
+	IN irc.ISR		; Read from the Interrupt Status Register
 	STORE ISRR0		; Store it for later
 
 
 // This code should be moved elsewhere.
 isr_tty0:
 	testirq(2, isr_done_tty0)
-	ackirq(2)		; Acknowledge the IRQ.
+	irc.ack(2)		; Acknowledge the IRQ.
 
 isr_tty0_loop:
 	IN TTY0 TTYLSR		; Is there anything to input?
@@ -780,7 +774,7 @@ isr_done_tty0:
 	;; Check the VDU and keyboard
 
 	testirq(1, isr_done_kbd)
-	ackirq(1)
+	irc.ack(1)
 
 	;; Read input from the VDU keyboard
 	

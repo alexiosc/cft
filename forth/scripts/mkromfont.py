@@ -22,10 +22,12 @@ def process(n, x):
     
     len0 = len(x)
     len1 = len(out)
-    print "        .word %d ; Number of words following, negated" % -len1
+    print "        .data %d ; Number of words following, negated" % -len1
     for i, (reps, c) in enumerate(out):
-        if i % 12 == 0:
-            sys.stdout.write("\n        .str ")
+        if i % 8 == 0:
+            if i > 0:
+                sys.stdout.write("; %d" %i )
+            sys.stdout.write("\n        .data ")
         sys.stdout.write("&%02x%02x " % (reps - 1, c))
     print "\n\n        ;; Length before: %d. Length after: %d\n" % (len0, len1)
 
