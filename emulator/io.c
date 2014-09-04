@@ -51,7 +51,7 @@ Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
 iodev_t iodevs[] = {
 	{
-		.name = "MBU",
+		.name = "Memory Banking Unit",
 		.code = "MBU",
 		.flag = &mbu,
 		.init = mbu_init,
@@ -62,8 +62,8 @@ iodev_t iodevs[] = {
 	},
 	
 	{
-		.name = "INT",
-		.code = "INT",
+		.name = "Interrupt Controller",
+		.code = "IRC",
 		.flag = &have_irc,
 		.init = irc_init,
 		.reset = irc_reset,
@@ -98,7 +98,7 @@ iodev_t iodevs[] = {
 	},
 	
 	{
-		.name = "DUART",
+		.name = "Dual/Quad Serial Card",
 		.code = "TTY",
 		.flag = &duart,
 		.init = duart_init,
@@ -110,7 +110,7 @@ iodev_t iodevs[] = {
 	},
 	
 	{
-		.name = "NVRAM",
+		.name = "Non-Volatile RAM",
 		.code = "NVR",
 		.flag = &nvram,
 		.init = nvram_init,
@@ -122,7 +122,7 @@ iodev_t iodevs[] = {
 	},
 	
 	{
-		.name = "IDE",
+		.name = "IDE Hard Disk Interface",
 		.code = "IDE",
 		.flag = &ide,
 		.init = ide_init,
@@ -134,7 +134,7 @@ iodev_t iodevs[] = {
 	},
 
 	{
-		.name = "VDU",
+		.name = "Video Display Unit and Keyboard",
 		.code = "VDU",
 		.flag = &video,
 		.init = video_init,
