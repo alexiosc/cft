@@ -30,7 +30,7 @@ Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 #include <SDL.h>
 
 #define STATUS_SIZE   1024
-#define CHAR_RAM_SIZE 65536 	/* 64kB */
+#define CHAR_RAM_SIZE 131072 	/* 64kB */
 #define PLANE_SIZE    65536
 
 #define CHAR_RAM_MASK ((CHAR_RAM_SIZE) - 1)

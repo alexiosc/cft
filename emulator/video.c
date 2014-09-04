@@ -293,6 +293,7 @@ void
 video_reset()
 {
 	/* Set registers */
+	printf("*** Video Reset\n");
 
 	v.fb_cft.mcr0 = v.fb_cft.mcr1 = 0;
 	v.fb_cft.scr0 = v.fb_cft.scr1 = 0;
@@ -400,8 +401,8 @@ _runcmd()
 			
 		case 11:
 			/* Write CG */
-			//printf("WCG [%04x] = %02x\n", v.fb_cft.har, cmd_get_data(v.fb_cft.cmd));
-			v.fb_cft.cg[v.fb_cft.har] = cmd_get_data(v.fb_cft.cmd);
+			//printf("WCG %p [%04x] = %02x\n", &v.fb_cft.cg, v.fb_cft.har, cmd_get_data(v.fb_cft.cmd));
+			v.fb_cft.cg[v.fb_cft.har & 0xffff] = cmd_get_data(v.fb_cft.cmd);
 			break;
 
 		case 12:
@@ -422,9 +423,9 @@ _runcmd()
 		}
 
 		/* Increment addresses */
-		v.fb_cft.har = vector(
-			get_col(v.fb_cft.har) + (cmd_is_xinc(v.fb_cft.cmd) ? 1 : 0),
-			get_row(v.fb_cft.har) + (cmd_is_yinc(v.fb_cft.cmd) ? 1 : 0));
+		if (cmd_is_xinc(v.fb_cft.cmd)) v.fb_cft.har = (v.fb_cft.har + 1) & 0xffff;
+		if (cmd_is_yinc(v.fb_cft.cmd)) v.fb_cft.har = (v.fb_cft.har + 128) & 0xffff;
+
 		//fprintf(stderr, "HAR = %0x (%d,%d)\n", v.fb_cft.har, get_col(v.fb_cft.har), get_row(v.fb_cft.har));
 
 	} while (v.fb_cft.crr--);
@@ -586,6 +587,7 @@ video_read(uint16_t addr, uint16_t *dbus)
 		// Clear interrupt source flags whenever the SR is read
 		v.irq_vs = 0;
 		v.irq_sc = 0;
+		v.irq_vr = 0;
 		return 1;
 
 	case IO_VIDEO_KBD:
@@ -612,7 +614,6 @@ video_read(uint16_t addr, uint16_t *dbus)
 
 	case IO_VIDEO_CMD:
 		*dbus = v.fb_cft.cmd;
-		fail("TODO: Perform another read transaction here.");
 		return 1;
 	}
 
@@ -930,7 +931,7 @@ _video_status_update()
 	int x, y, ofs, colour;
 	uint8_t * pixel = v.screen->pixels;
 	
-	v.fb->split = 0;
+	v.fb_status.split = 0;
 	_video_setengine_status();
 
 	int clhmask;
