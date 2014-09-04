@@ -50,8 +50,8 @@ Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 #define IO_MEMBANK7        0x0027 //      27: -whef MBR7 (Memory Bank Register 7)
 
 // The Interrupt controller
-#define IO_IRC_ICR         0x0028 //      28: -whef ICR (Interrupt Command Register)
-#define IO_IRC_ISR         0x0028 //      28: r-hef ISR (Interrupt Status Register)
+#define IO_IRC_ICR         0x0030 //      28: -whef ICR (Interrupt Command Register)
+#define IO_IRC_ISR         0x0030 //      28: r-hef ISR (Interrupt Status Register)
 
 
 // The debugginf front panel board (see asm/dfp.asm for definitive reference)
@@ -61,9 +61,12 @@ Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 #define IO_ENEF            0x0108 //     108: -w-ef ENEF (enable features)
 #define IO_QEF             0x0108 //     108: r--ef QEF (query features)
 #define IO_DISEF           0x0109 //     109: -w-ef DISEF (disable features)
+#define IO_DFP_ICR         0x010a //     10a: -w-ef ICR (DFP Interrupt Control register)
+#define IO_DFP_ISR         0x010a //     10a: r--ef ISR (DFP Interrupt status register)
 #define IO_SENTINEL        0x010f //     10f: -w-ef SENTINEL instruction
 #define IO_PRINTA	   0x0110 //     3f0: -whef Log AC as address
-#define IO_PRINTC	   0x0111 //     3f1: -whef Log AC as character
+#define IO_PRINTC	   0x0111 //     3f1: -whef Print AC to DFP TTY
+#define IO_READC      	   0x0111 //     3f1: r-hef Read character from DFP TTY
 #define IO_PRINTD	   0x0112 //     3f2: -whef Log AC as integer
 #define IO_PRINTU	   0x0113 //     3f3: -whef Log AC as unsigned int
 #define IO_PRINTH	   0x0114 //     3f4: -whef Log AC in hex
