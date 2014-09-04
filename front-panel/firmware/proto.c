@@ -13,6 +13,7 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <avr/sleep.h>
+#include <avr/wdt.h>
 #include <util/delay.h>
 #include <avr/pgmspace.h>
 
@@ -40,7 +41,7 @@
 
 unsigned char buf[BUFSIZE];
 
-uint16_t buflen, bp;
+uint16_t buflen, oldbuflen, bp;
 
 volatile uint32_t flags = FL_BUSY | FL_MESG;
 
@@ -193,7 +194,27 @@ gs_lock()
 ///////////////////////////////////////////////////////////////////////////////
 
 void
-go_reset(){
+go_reset()
+{
+	uint8_t v;
+	int8_t res;
+	res = optional_bool_val(&v);
+	if (res < 0) return;
+	if (res > 0) {
+		if (v) {
+#ifdef AVR
+			// The optional argument has been specified. Perform a
+			// cold boot using the AVR watchdog.
+			report_pstr(PSTR(STR_COLD));
+			wdt_enable(0);
+			cli();
+			for(;;)hold();
+#else
+			printf("*** COLD RESET NOT IMPLEMENTED ***\n");
+#endif
+		}
+	}
+
 	// This will take care of timings, standalone mode, etc.
 	perform_reset();
 	report_pstr(PSTR(STR_RESET));
@@ -221,6 +242,7 @@ go_reset(){
 void
 go_stop(){
 	if (flags & FL_HALT) {
+		set_halt(1);
 		report_pstr(PSTR(STR_ALRHALT));
 		return;
 	}
@@ -233,7 +255,7 @@ go_stop(){
 	// clock stopped, we'll have entered the STOP state.
 
 	set_stopping();		// Set STEP/RUN# to STEP
- 	wait_for_halt();	// Wait until the clock has been stopped
+ 	wait_for_halt(0);	// Wait until the clock has been stopped
 	set_halt(1);		// Assert HALT
 	set_fprunstop(0);
 
@@ -412,7 +434,7 @@ _disassemble(uint16_t w)
 static void
 _machine_state()
 {
-	virtual_panel_sample(0);
+	//virtual_panel_sample(0);
 	
 	uint8_t f = get_flags();
 	style_info();
@@ -446,23 +468,27 @@ _machine_state()
 
 //static char * _strdis PROGMEM = "memio[ar]ALU.AGLPCDRACaddandorxorrollnotcs1cs2 <- ARIR";
 
-#define IS_END(x) (((x) & 0x800000) == 0)
-#define IS_WEN(x) (((x) & 0x40000000) == 0)
-#define IS_R(x)   (((x) & 0x80000000) == 0)
-#define IS_MEM(x) (((x) & 0x100000) == 0)
-#define IS_IO(x)  (((x) & 0x80000) == 0)
-#define IS_DEC(x)  (((x) & 0x40000) == 0)
-#define IS_STPAC(x)  (((x) & 0x20000) == 0)
-#define IS_STPDR(x)  (((x) & 0x10000) == 0)
-#define IS_INCPC(x)  (((x) & 0x8000) == 0)
-#define IS_CLI(x)  (((x) & 0x4000) == 0)
-#define IS_STI(x)  (((x) & 0x2000) == 0)
-#define IS_CLL(x)  (((x) & 0x1000) == 0)
-#define IS_CPL(x)  (((x) & 0x800) == 0)
+// Note: all of these are normally active low on the processor, but
+// the signals buffered for the front panel are inverted to simplify
+// the display, and the DFP reads these (now active high) signals.
+
+#define IS_END(x)   ((x) & 0x800000)
+#define IS_WEN(x)   ((x) & 0x400000)
+#define IS_R(x)     ((x) & 0x200000)
+#define IS_MEM(x)   ((x) & 0x100000)
+#define IS_IO(x)    ((x) & 0x080000)
+#define IS_DEC(x)   ((x) & 0x040000)
+#define IS_STPAC(x) ((x) & 0x020000)
+#define IS_STPDR(x) ((x) & 0x010000)
+#define IS_INCPC(x) ((x) & 0x008000)
+#define IS_CLI(x)   ((x) & 0x004000)
+#define IS_STI(x)   ((x) & 0x002000)
+#define IS_CLL(x)   ((x) & 0x001000)
+#define IS_CPL(x)   ((x) & 0x000800)
 
 #define GET_OPIF(x)  (((x) & 0x780) >> 7)
 #define GET_WUNIT(x)  (((x) & 0x70) >> 4)
-#define GET_RUNIT(x)  ((x) & 0x7)
+#define GET_RUNIT(x)  ((x) & 0xf)
 
 // The signal map (slightly different to that of the CFT itself) is as
 // follows (LSB to MSB):
@@ -488,98 +514,136 @@ static void
 _ustate()
 {	
 	uint32_t u = get_uvec();
+	uint8_t have_dest = 0;
 
 	{
 		uint16_t x = (u >> 16) & 0xffff;
-		report_bin_pad(x, 16);
+		report_bin_pad(x, 8);
 		x = u & 0xffff;
 		report_bin_pad(x, 16);
 		report_pstr(PSTR(" "));
 	}
-
-	if (IS_R(u)) {
-		if (IS_MEM(u)) report_pstr(PSTR("mem"));
-		else if (IS_IO(u)) report_pstr(PSTR("io"));
-		report_pstr(PSTR("[ar]"));
-	} else {
-		if (GET_RUNIT(u) & 8) report_pstr(PSTR("ALU."));
-		
-		switch (GET_RUNIT(u)) {
-		case 2:
-			report_pstr(PSTR("AGL"));
-			break;
-		case 3:
-			report_pstr(PSTR("PC"));
-			break;
-		case 4:
-			report_pstr(PSTR("DR"));
-			break;
-		case 5:
-			report_pstr(PSTR("AC"));
-			break;
-		case 8:
-			report_pstr(PSTR("add"));
-			break;
-		case 9:
-			report_pstr(PSTR("and"));
-			break;
-		case 10:
-			report_pstr(PSTR("or"));
-			break;
-		case 11:
-			report_pstr(PSTR("xor"));
-			break;
-		case 12:
-			report_pstr(PSTR("roll"));
-			break;
-		case 13:
-			report_pstr(PSTR("not"));
-			break;
-		case 14:
-			report_pstr(PSTR("cs1"));
-			break;
-		case 15:
-			report_pstr(PSTR("cs2"));
-			break;
-		}
+	
+	if(IS_MEM(u) && !IS_WEN(u) && !IS_R(u)) {
+		report_pstr(PSTR("mem?? "));
 	}
-
-	report_pstr(PSTR(" <- "));
+	if(IS_IO(u) && !IS_WEN(u) && !IS_R(u)) {
+		report_pstr(PSTR("io?? "));
+	}
 
 	if (IS_WEN(u)) {
-		if (IS_MEM(u)) report_pstr(PSTR("mem"));
-		else if (IS_IO(u)) report_pstr(PSTR("io"));
-		report_pstr(PSTR("[ar]"));
+		if (IS_MEM(u)) {
+			report_pstr(PSTR("mem[ar] <- "));
+			have_dest = 1;
+		} else if (IS_IO(u)) {
+			report_pstr(PSTR("io[ar] <- "));
+			have_dest = 1;
+		}
 	} else {
+		have_dest = 1;
 		switch (GET_WUNIT(u)) {
+		case 0:
+			// Idle
+			have_dest = 0;
+			break;
 		case 2:
-			report_pstr(PSTR("AR"));
+			report_pstr(PSTR("AR <- "));
 			break;
 		case 3:
-			report_pstr(PSTR("PC"));
+			report_pstr(PSTR("PC <- "));
 			break;
 		case 4:
-			report_pstr(PSTR("IR"));
+			report_pstr(PSTR("IR <- "));
 			break;
 		case 5:
-			report_pstr(PSTR("DR"));
+			report_pstr(PSTR("DR <- "));
 			break;
 		case 6:
-			report_pstr(PSTR("AC"));
+			report_pstr(PSTR("AC <- "));
 			break;
 		case 7:
-			report_pstr(PSTR("ALU.b"));
+			report_pstr(PSTR("ALU.b <- "));
+			break;
+		default:
+			report_pstr(PSTR("?? <- "));
 			break;
 		}
 	}
 
-	if (GET_OPIF(u)) report_pstr(PSTR(" if"));
+	if (IS_R(u)) {
+		if (IS_MEM(u)) {
+			report_pstr(PSTR("mem[ar] "));
+			have_dest = 0;
+		} else if (IS_IO(u)) {
+			report_pstr(PSTR("io[ar] "));
+			have_dest = 0;
+		} else if (have_dest) {
+			report_pstr(PSTR("?? "));
+		}
+	} else {
+		if (GET_RUNIT(u) & 8) report_pstr(PSTR("ALU."));
+		uint8_t ru = GET_RUNIT(u);
+		switch (ru) {
+		case 0:
+			// Idle.
+			break;
+		case 2:
+			report_pstr(PSTR("AGL "));
+			break;
+		case 3:
+			report_pstr(PSTR("PC "));
+			break;
+		case 4:
+			report_pstr(PSTR("DR "));
+			break;
+		case 5:
+			report_pstr(PSTR("AC "));
+			break;
+		case 8:
+			report_pstr(PSTR("add "));
+			break;
+		case 9:
+			report_pstr(PSTR("and "));
+			break;
+		case 10:
+			report_pstr(PSTR("or "));
+			break;
+		case 11:
+			report_pstr(PSTR("xor "));
+			break;
+		case 12:
+			report_pstr(PSTR("roll "));
+			break;
+		case 13:
+			report_pstr(PSTR("not "));
+			break;
+		case 14:
+			report_pstr(PSTR("cs1 "));
+			break;
+		case 15:
+			report_pstr(PSTR("cs2 "));
+			break;
+		default:
+			report_pstr(PSTR("?? "));
+			break;
+		}
+		if (ru) have_dest = 0;
+	}
+
+	// Unknown source?
+	if (have_dest) report_pstr(PSTR("?? "));
+
+	if (GET_OPIF(u)) report_pstr(PSTR("if"));
 
 	if (GET_OPIF(u) > 0 && GET_OPIF(u) <= 7) {
 		report_pstr(PSTR("-IR"));
 		report_char('2' + GET_OPIF(u));
+		report_char(' ');
 	} else {
 		switch (GET_OPIF(u)) {
+		case 0:
+			// Idle.
+			break;
 		case 10:
 			report_char('v');
 			break;
@@ -601,22 +665,21 @@ _ustate()
 		default:
 			report_char('?');
 		}
+		report_char(' ');
 	}
 
-	if (IS_CPL(u)) report_pstr(PSTR(" CPL"));
-	if (IS_CLL(u)) report_pstr(PSTR(" CLL"));
-	if (IS_STI(u)) report_pstr(PSTR(" STI"));
-	if (IS_CLI(u)) report_pstr(PSTR(" CLI"));
-	if (IS_INCPC(u)) report_pstr(PSTR(" PC+"));
+	if (IS_CPL(u)) report_pstr(PSTR("CPL "));
+	if (IS_CLL(u)) report_pstr(PSTR("CLL "));
+	if (IS_STI(u)) report_pstr(PSTR("STI "));
+	if (IS_CLI(u)) report_pstr(PSTR("CLI "));
+	if (IS_INCPC(u)) report_pstr(PSTR("PC+ "));
 	if (IS_STPDR(u)) {
-		report_pstr(PSTR(" DR"));
-		report_char(IS_DEC(u) ? '-' : '+');
+		report_pstr(IS_DEC(u) ? PSTR("DR- ") : PSTR("DR+ "));
 	}
 	if (IS_STPAC(u)) {
-		report_pstr(PSTR(" AC"));
-		report_char(IS_DEC(u) ? '-' : '+');
+		report_pstr(IS_DEC(u) ? PSTR("AC- ") : PSTR("AC+ "));
 	}
-	if (IS_END(u)) report_pstr(PSTR(" END"));
+	if (IS_END(u)) report_pstr(PSTR("END"));
 }
 
 
@@ -841,7 +904,7 @@ _step(bool_t ustep, bool_t endless)
 	// Need a processor
 	if (!assert_proc_present()) return;
 
-	// Ensure the bus is quiet. 
+	// Ensure the bus is quiet.
 	if (!assert_halted()) return;
 
 	// Optional argument
@@ -856,6 +919,8 @@ _step(bool_t ustep, bool_t endless)
 	flags &= ~(FL_BREAK | FL_INPOK);
 	flags |= FL_BUSY;
 	while (endless || i--) {
+		wdt_reset();
+
 		// Initiate the STEP state machine. This will automatically
 		// terminate without MCU control, but we need to wait for it.
 
@@ -1215,6 +1280,7 @@ go_write()
 
 		start_block_write(SPACE_MEM);
 		while ((res = optional_hex_val(&v)) > 0) {
+			wdt_reset();
 			first = 0;
 			perform_block_write(addr, v);
 			addr++;
@@ -1265,6 +1331,7 @@ go_fill()
 
 	flags |= FL_BUSY;
 	while (count--) {
+		wdt_reset();
 		if (perform_write(SPACE_MEM, addr, val) == 0) return;
 		addr++;
 
@@ -1302,6 +1369,7 @@ go_dump_text()
 
 	flags |= FL_BUSY;
 	for (i = 0; i < count; i += 8, addr += 8) {
+		wdt_reset();
 		if (!perform_block_read(addr, 8, buf)) break;
 		
 		// Break requested?
@@ -1373,6 +1441,7 @@ go_disassemble()
 
 	flags |= FL_BUSY;
 	for (i = 0; i < count; i++) {
+		wdt_reset();
 		uint16_t w = perform_read(SPACE_MEM, addr++);
 
 		// Break requested?
@@ -1420,6 +1489,7 @@ go_dump_bin()
 	report_pstr(PSTR(STR_DUMP));
 	flags |= FL_BUSY;
 	for (i = 0; i < count; i += 8, addr += 8) {
+		wdt_reset();
 		if (!perform_block_read(addr, 8, buf)) break;
 		for (j = 0; j < 8; j++) {
 			report_char(buf[j] & 0xff);
@@ -1675,6 +1745,8 @@ void proto_loop()
 {
 	set_fprunstop((flags & FL_HALT) == 0);
 	buf[buflen] = 0;
+	oldbuflen = 0;
+	buflen = 0;
 	for(; (flags & FL_CLEAR) == 0;) {
 		proto_prompt();
 
@@ -1785,9 +1857,30 @@ proto_input(unsigned char c)
 	// Is the buffer full?
 	if (buflen >= BUFSIZE) return flags & FL_ECHO ? '<' : '\0';
 
+	// Allow an old buffer to be repeated, but only if the repeat
+	// character is the first character received on the new
+	// line. Use Control N and Control P.
+	if ((c == 14 || c == 16) && oldbuflen) {
+		buflen = oldbuflen;
+
+		// Change nulls before the end of the buffer back to spaces.
+		for (bp = 0; bp < oldbuflen; bp++) {
+			if (buf[bp] == '\0') buf[bp] = 32;
+		}
+
+		style_info();
+		report_pstr(PSTR("(repeat) "));
+		style_input();
+		report((char*)buf);
+
+		goto char_enter;
+	}
+
 	// End of line? (ignore multiple ones and blank lines)
-	if (c == 10 || c== 13) {
+	if (c == 10 || c == 13) {
+	char_enter:
 		flags |= FL_INPOK;
+		oldbuflen = buflen;
 		if (flags & FL_ECHO) {
 			serial_write('\r');
 			serial_write('\n');
@@ -1797,6 +1890,7 @@ proto_input(unsigned char c)
 	} else if ((c == 8) || (c == 127)) {
 		if (buflen) {
 			buflen--;
+			oldbuflen = 0; // Invalidate the previous line.
 			if (flags & FL_ECHO) report_pstr(PSTR("\b \b"));
 		}
 		return 0;
@@ -1844,6 +1938,7 @@ proto_input(unsigned char c)
 
 	// Store the character.
 	buf[buflen++] = c;
+	oldbuflen = 0;		// Invalidate the previous line.
 
 	if (flags & FL_ECHO) {
 		report_char(c);

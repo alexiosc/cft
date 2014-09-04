@@ -6,6 +6,7 @@
 #define USE_ATOMIC_BLOCKS
 
 #include <avr/interrupt.h>
+#include <avr/wdt.h>
 
 #ifdef USE_ATOMIC_BLOCKS
 #include <util/atomic.h>
@@ -112,6 +113,10 @@
 
 static uint16_t _ab;
 static uint16_t _db;
+static uint16_t _ir;
+static uint16_t _pc;
+static uint16_t _ac;
+static uint8_t _flags;
 volatile static uint16_t _swright, _swright0;
 volatile static uint16_t _sr, _sr0;
 volatile static uint16_t _swleft, _swleft0;
@@ -120,6 +125,12 @@ static uint8_t _defercb = 0;
 static uint8_t _clk_prescale = PSV_1024;
 static uint16_t _clk_div = 89;
 static uint8_t _stopped = 1;
+
+static union {
+	uint8_t  uvec8[4];	// Microcode vector: 24 bits ([3] unused)
+	uint32_t uvec32;	// Microcode vector as a 32-bit integer
+} _uv;
+
 
 #define defer_cb_write() _defercb++
 
@@ -427,12 +438,23 @@ static void outcmd(uint8_t, bool_t); // Same
 // * Test if bus hold is present (values written to AB/DB are sticky over a
 //   long-ish period of time).
 
-#define NUM_PATTERNS 14
-static uint16_t _diag_patterns[NUM_PATTERNS] = {
-	0x0000, 0x1111, 0x3333, 0x7777, 0xffff,
+#define NUM_PATTERNS 46
+static const uint16_t _diag_patterns[NUM_PATTERNS] = {
+	0x8000, 0x4000, 0x2000, 0x1000,
+	0x0800, 0x0400, 0x0200, 0x0100,
+	0x0080, 0x0040, 0x0020, 0x0010,
+	0x0008, 0x0004, 0x0002, 0x0001,
+
+	0x7fff, 0xbfff, 0xdfff, 0xefff,
+	0xf7ff, 0xfbff, 0xfdff, 0xfeff,
+	0xff7f, 0xffbf, 0xffdf, 0xffef,
+	0xfff7, 0xfffb, 0xfffd, 0xfffe,
+
+	0x1111, 0x3333, 0x7777,
 	0xeeee, 0xcccc, 0x8888,
+
 	0xff00, 0x00ff, 0xf0f0, 0x0f0f, 0xaaaa,
-	0x5555
+	0x5555, 0xffff, 0x0000,
 };
 
 inline static bool_t
@@ -467,8 +489,10 @@ detect_cpu()
 static void
 dfp_diags()
 {
-	uint8_t i, j;
+	uint8_t i, j, errors;
 	uint16_t code;
+
+	_defercb = 0;
 
 	// Test low level stuff first, pretending the processor isn't
 	// there. We'll be asserting RESET and HALT while these tests run, to
@@ -480,12 +504,25 @@ dfp_diags()
 	// panel) and DEBIN (for the debugging shift regs) should be the same
 	// as IOADDR0. This allows diagnostics.
 
+	_cb[1] |= CB1_NFPRESET | CB1_NRESET | CB1_NRSTHOLD; // De-assert reset signals.
+	_cb[2] &= ~CB2_NHALT;	// Halted
+	write_cb();
+	_delay_ms(500);
+
 #if 0
+	for(code=0;;code++){
+		set_or(code);
+		_delay_ms(100);
+	}
 
 	///////////////////////////////////////////////////////////////////////////////
-	_cb[1] |= CB1_NFPRESET | CB1_NRESET | CB1_NRSTHOLD;
-	_cb[2] |= CB2_NHALT;
+
+	// We'll need to let go of NFPRESET and NRESET now, otherwise we can't
+	// set the OR. We keep the processor in the HALT state, though.
+	setflag(_cb[1], CB1_NFPRESET);
+	_cb[1] &= ~(CB1_NFPRESET | CB1_NRESET | CB1_NRSTHOLD);
 	write_cb();
+	
 	clr_ws();
 	outcmd(CMD_STEPRUN, 1);
 	PORTB &= ~_BV(B_FPCLKEN);
@@ -529,9 +566,10 @@ dfp_diags()
 
 #endif
 
-	code = 0x102;
+	set_or(code = 0x102);
 	report_pstr(PSTR(STR_D_VPIN));
 	for (i = 0; i < NUM_REPS; i++) {
+		wdt_reset();
 		idle_addr = 0;
 		PORTB = (PORTB & ~B_IOADDR) | ((idle_addr & 7) << 3);
 		clearbit(PORTB, B_IOADDR0);
@@ -546,9 +584,10 @@ dfp_diags()
 	}
 	report_pstr(PSTR(STR_D_OK));
 	
-	code = 0x103;
+	set_or(code = 0x103);
 	report_pstr(PSTR(STR_D_DEBIN));
 	for (i = 0; i < NUM_REPS; i++) {
+		wdt_reset();
 		idle_addr = 0;
 		PORTB = (PORTB & ~B_IOADDR) | ((idle_addr & 7) << 3);
 		clearbit(PORTB, B_IOADDR0);
@@ -568,8 +607,8 @@ dfp_diags()
 	// asserted them automatically on MCU reset, but do it explicitly just
 	// in case.
 	uint32_t oldflags = flags;
-	flags &= ~ FL_PROC;
-	clearflag(_cb[1], CB1_NFPRESET);
+	flags &= ~ FL_PROC;	// (Why) is this necessary?
+	//clearflag(_cb[1], CB1_NFPRESET);
 	clearflag(_cb[2], CB2_NHALT);
 	write_cb();
 
@@ -590,44 +629,38 @@ dfp_diags()
 	// }
 
 	// Does driving the ABUS work?
-	code = 0x104;
+	set_or(code = 0x104);
 	report_pstr(PSTR(STR_D_ABDRV));
 	drive_ab();
+	errors = 0;
 	for (j = 0; j < NUM_REPS; j++) {
+		wdt_reset();
 		for (i = 0; i < NUM_PATTERNS; i++) {
 			write_ab(_diag_patterns[i]);
 			deb_sample(0);
-			{
-				uint32_t x = _diag_patterns[i];
-				report_pstr(PSTR("sent: "));
-				report_hex(x, 4);
-				x = _ab & 0xffff;
-				report_pstr(PSTR(" got: "));
-				report_hex(x, 4);
-				report_pstr(PSTR("\n"));
-			}
-
 			if (_ab != _diag_patterns[i]) {
-				tristate_ab();
-				report_nl();
+				if (errors == 0) report_pstr(PSTR(STR_D_FAIL));
 				report_mismatch(PSTR(STR_ABERR), _diag_patterns[i], _ab);
-				goto faulty;
+				errors++;
 			}
 		}
+		if (errors) break;
 	}
 	tristate_ab();
+	if (errors) goto faulty;
 	report_pstr(PSTR(STR_D_OK));
 
 	// Does tristating the ABUS work? Account for bus hold. The
 	// value read from the bus should never change from the
 	// current one.
-	code = 0x105;
+	set_or(code = 0x105);
 	report_pstr(PSTR(STR_D_ABTRI));
 	{
 		_delay_ms(2);
 		deb_sample(0);
 		uint16_t old = _ab;
 		for (j = 0; j < NUM_REPS; j++) {
+			wdt_reset();
 			for (i = 0; i < NUM_PATTERNS; i++) {
 				write_ab(_diag_patterns[i]);
 				deb_sample(0);
@@ -640,45 +673,38 @@ dfp_diags()
 	report_pstr(PSTR(STR_D_OK));
 
 	// Does driving the DBUS work?
-	code = 0x106;
+	set_or(code = 0x106);
 	report_pstr(PSTR(STR_D_DBDRV));
-	_delay_ms(2000);
 	drive_db();
+	errors = 0;
 	for (j = 0; j < NUM_REPS; j++) {
+		wdt_reset();
 		for (i = 0; i < NUM_PATTERNS; i++) {
 			write_db(_diag_patterns[i]);
 			deb_sample(0);
-
-			{
-				uint32_t x = _diag_patterns[i];
-				report_hex(x, 4);
-				serial_write(32);
-				x = _db;
-				report_hex(x, 4);
-				report_nl();
-			}
-
 			if (_db != _diag_patterns[i]) {
-				tristate_db();
-				report_nl();
+				if (errors == 0) report_pstr(PSTR(STR_D_FAIL));
 				report_mismatch(PSTR(STR_DBERR), _diag_patterns[i], _ab);
-				goto faulty;
+				errors++;
 			}
 		}
+		if (errors) break;
 	}
 	tristate_db();
+	if (errors) goto faulty;
 	report_pstr(PSTR(STR_D_OK));
 	
 	// Does tristating the ABUS work? Account for bus hold. The
 	// value read from the bus should never change from the
 	// current one.
-	code = 0x107;
+	set_or(code = 0x107);
 	report_pstr(PSTR(STR_D_DBTRI));
 	{
 		_delay_ms(2);
 		deb_sample(0);
 		uint16_t old = _db;
 		for (j = 0; j < NUM_REPS; j++) {
+			wdt_reset();
 			for (i = 0; i < NUM_PATTERNS; i++) {
 				write_db(_diag_patterns[i]);
 				deb_sample(0);
@@ -694,39 +720,123 @@ dfp_diags()
 	flags = oldflags;
 
 	// With the RESET# signal asserted, check there's no bus chatter.
-	code = 0x108;
+	// clearflag(_cb[1], CB1_NFPRESET);
+	clearflag(_cb[2], CB2_NHALT);
+	write_cb();
+	set_or(code = 0x108);
 	report_pstr(PSTR(STR_D_RSTBQ));
-	for (i = 0; i < (1 + (NUM_REPS >> 3)); i++) {
+	for (i = 0; i < (1 + (NUM_REPS << 2)); i++) {
+		wdt_reset();
 		if (buschatter()) goto faulty;
 	}
 	report_pstr(PSTR(STR_D_OK));
 
+	perform_reset();	// Let the RESET signals go.
 
+	// Check the AC register.
+	set_or(code = 0x109);
+	report_pstr(PSTR(STR_D_ACCHK));
+	tristate_ab();
+	tristate_db();
+	for (j = 0; j < NUM_REPS; j++) {
+		wdt_reset();
+		for (i = 0; i < NUM_PATTERNS; i++) {
+			write_ibus(_diag_patterns[i]);
+			drive_ibus();
+			setup();
+			strobe_wac();
+			hold();
+			tristate_ibus();
+			virtual_panel_sample(0);
 
+			if (_ac != _diag_patterns[i]) {
+				if (errors == 0) report_pstr(PSTR(STR_D_FAIL));
+				report_mismatch(PSTR(STR_ACERR), _diag_patterns[i], _ac);
+				errors = 1;
+			}
+		}
+		if (errors) break;
+	}
+	tristate_ibus();
+	if (errors) goto faulty;
+	report_pstr(PSTR(STR_D_OK));
 
+	// Check the PC register.
+	set_or(code = 0x110);
+	report_pstr(PSTR(STR_D_PCCHK));
+	tristate_ab();
+	tristate_db();
+	for (j = 0; j < NUM_REPS; j++) {
+		wdt_reset();
+		for (i = 0; i < NUM_PATTERNS; i++) {
+			write_ibus(_diag_patterns[i]);
+			drive_ibus();
+			setup();
+			strobe_wpc();
+			hold();
+			tristate_ibus();
+			virtual_panel_sample(0);
 
+			if (_pc != _diag_patterns[i]) {
+				if (errors == 0) report_pstr(PSTR(STR_D_FAIL));
+				report_mismatch(PSTR(STR_PCERR), _diag_patterns[i], _pc);
+				errors = 1;
+			}
+		}
+		if (errors) break;
+	}
+	tristate_ibus();
+	if (errors) goto faulty;
+	report_pstr(PSTR(STR_D_OK));
 
+	// Check the IR register.
+	set_or(code = 0x111);
+	report_pstr(PSTR(STR_D_PCCHK));
+	tristate_ab();
+	tristate_db();
+	for (j = 0; j < NUM_REPS; j++) {
+		wdt_reset();
+		for (i = 0; i < NUM_PATTERNS; i++) {
+			write_ibus(_diag_patterns[i]);
+			drive_ibus();
+			setup();
+			strobe_wir();
+			hold();
+			tristate_ibus();
+			virtual_panel_sample(0);
 
-
-
-
+			if (_ir != _diag_patterns[i]) {
+				if (errors == 0) report_pstr(PSTR(STR_D_FAIL));
+				report_mismatch(PSTR(STR_IRERR), _diag_patterns[i], _ir);
+				errors = 1;
+			}
+		}
+		if (errors) break;
+	}
+	tristate_ibus();
+	if (errors) goto faulty;
+	report_pstr(PSTR(STR_D_OK));
 
 	return;
 
 faulty:
 	// Endlessly print out the ‘faulty’ string.
-	set_or(code);
-	report_pstr(PSTR(STR_D_FAIL));
 	cli();
 
-	// Crash here.
+	// Crash here. The watchdog will cold reset us in a bit.
+	wdt_enable(WDTO_8S);
 	for (;;) {
-		report_pstr(PSTR(STR_DIAGF));
-
 		// Blink the STOP light slowly. Hopefully this will work.
-		_delay_ms(1000);
 		_cb[2] ^= CB2_FPSTOP;
 		write_cb();
+		if (_cb[2] & CB2_FPSTOP) {
+			set_or(code);
+			report_pstr(PSTR(STR_DIAGF));
+			_delay_ms(1000);
+		} else {
+			set_or(0);
+			_delay_ms(100);
+		}
 	}
 }
 
@@ -871,6 +981,9 @@ hw_init()
 		// this couldn't hurt.
 		set_buspu(0);
 	}
+
+	// Enable the watchdog.
+	wdt_enable(WDTO_4S);
 
 	// Run diagnostics
 	dfp_diags();
@@ -1229,14 +1342,6 @@ get_rsw()
 // VPIN    XXXXXXXXXXXXXXX<   0   ><  1   >...
 
 
-uint8_t  _flags;		// 8-bits: flags (also WEN# and R#)
-union {
-	uint8_t  uvec8[4];	// Microcode vector: 24 bits ([3] unused)
-	uint32_t uvec32;	// Microcode vector as a 32-bit integer
-} _uv;
-uint16_t _ir, _pc, _ac;		// Registers
-
-
 void
 virtual_panel_sample(bool_t quick)
 {
@@ -1253,9 +1358,16 @@ virtual_panel_sample(bool_t quick)
 		_flags = sample_shift_registers(C_VPIN);
 	
 		if (!quick) {
-			_uv.uvec8[2] = sample_shift_registers(C_VPIN);
+			_uv.uvec8[2] = sample_shift_registers(C_VPIN) & 0x9f;
 			_uv.uvec8[1] = sample_shift_registers(C_VPIN);
 			_uv.uvec8[0] = sample_shift_registers(C_VPIN);
+
+			// WEN# and R# are provided separately. Invert them and
+			// patch them into the microcode vector. This leaves us
+			// with two free input bits in the uCode vector shift
+			// register for future expansion or debugging.
+			if ((_flags & 0x40) == 0) _uv.uvec8[2] |= 0x40; // W = !WEN#
+			if ((_flags & 0x80) == 0) _uv.uvec8[2] |= 0x20; // R = !R#
 
 			_ir = sample_shift_registers(C_VPIN) << 8 |
 				sample_shift_registers(C_VPIN);
@@ -1526,7 +1638,7 @@ write_cb()
 
 
 void
-wait_for_halt()
+wait_for_halt(bool_t reckless)
 {
 	// This will obviously lock up the MCU if the HALT condition isn't
 	// seen. We want this.
@@ -1562,7 +1674,7 @@ wait_for_halt()
 	// that before proceeding to proper tests.
 	flags |= FL_HALT;
 
-	if (!assert_halted()) {
+	if (!reckless && !assert_halted()) {
 		// Failed to halt. Crash here.
 		flags &= ~FL_HALT; // We're not really halted
 		set_or(0x911);
@@ -1681,7 +1793,7 @@ perform_step()
 
 	// When the state machine has completed, WAIT# will be deasserted. Wait
 	// for this event. (often, we don't even have to)
-	wait_for_halt();
+	wait_for_halt(0);
 	clk_stop();
 	//bit(PORTB, B_FPCLKEN, 0);
 
@@ -1724,7 +1836,7 @@ set_steprun(bool_t val)
 
 	outcmd(CMD_STEPRUN, !val); // Note: inverted!
 	clk_start();
-	if (val == 1) wait_for_halt();
+	if (val == 1) wait_for_halt(0);
 }
 
 
@@ -1747,13 +1859,17 @@ perform_ustep()
 	// *NOW* start the clock.
 	bit(PORTB, B_FPCLKEN, 1);
 
+	// Sample the bus, because we'll need the info
+	virtual_panel_sample(0);
+
 	// When the state machine has completed, WAIT# will be deasserted. Wait
-	// for this event. (often, we don't even have to)
-	wait_for_halt();
+	// for this event. (often, we don't even have to). Use ‘reckless’ mode
+	// (do not assert HALT#, preserving vector lights)
+	wait_for_halt(1);
 	bit(PORTB, B_FPCLKEN, 0);
 
 	// Assert HALT#, securing the processor.
-	set_halt(1);
+	//set_halt(1);
 
 	// The clock will have been stopped automatically by the FSM, but stop
 	// it anyway for added safety.
@@ -1821,7 +1937,6 @@ perform_reset()
 		setflag(_cb[1], CB1_NRESET | CB1_NRSTHOLD);
 		clearflag(_cb[1], CB1_NFPRESET);
 		write_cb();
-
 		_delay_ms(500);	// Delay a little, mostly for to convince humans
 
 		setflag(_cb[1], CB1_NFPRESET);
@@ -2086,7 +2201,6 @@ maybe_dequeue_char()
 __attribute__ ((used))
 ISR(INT0_vect)
 {
-	serial_write('1');
 	deb_sample(1);		 // Get AB and DB
 	virtual_panel_sample(1); // Get control signals
 	
@@ -2373,14 +2487,18 @@ ISR(TIMER0_COMPA_vect)
 	static uint8_t autorepeat = 45;
 	static uint8_t accelerate = 0;
 
-	// Blink the STOP light at ~10Hz while busy, and ignore the
-	// front panel switches.
+	// Blink the STOP light at ~10Hz while busy, and ignore the front panel
+	// switches. Any routine working overtime here had better call
+	// wdt_reset() on its own, otherwise the Watchdog will reset the DFP.
 	if (flags & FL_BUSY) {
 		pause = (pause + 1) & 3;
 		  if (pause == 0) _cb[2] ^= CB2_FPSTOP;
 		write_cb();
 		return;
 	}
+
+	// We're still alive!
+	wdt_reset();
 	
 	// If software-locked, ignore switches.
 	if (flags & FL_SWLOCK) return;

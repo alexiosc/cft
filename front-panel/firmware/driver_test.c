@@ -588,7 +588,7 @@ addr_inc()
 
 
 void
-wait_for_halt()
+wait_for_halt(bool_t reckless)
 {
 }
 

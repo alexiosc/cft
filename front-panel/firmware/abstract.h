@@ -91,7 +91,7 @@ void clk_slow();		// Set slow clock
 void clk_creep();		// Set creep clock
 void set_clkfreq(uint8_t prescaler, uint16_t div);// Clock frequency select
 
-void wait_for_halt();		// Wait until the processor clock is stopped
+void wait_for_halt(bool_t reckless); // Wait until the processor clock is stopped
 
 void set_stopping();		// Request a stop of the processor
 void set_steprun(bool_t x);	// Start the step state machine
@@ -117,7 +117,7 @@ void strobe_incpc();		// INCPC#
 void set_halt(bool_t x);	// HALT#
 void set_fprunstop(bool_t x);	// 1=FPRUN, 0=FPSTOP
 
-void wait_for_halt();
+void wait_for_halt(bool_t reckless);
 
 // CFT-side I/O
 void queue_char(uint8_t c);

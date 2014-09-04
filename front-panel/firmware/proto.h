@@ -59,6 +59,9 @@
 #define STR_D_DBDRV "106 DBUS driver: "
 #define STR_D_DBTRI "107 DBUS tristate: "
 #define STR_D_RSTBQ "108 Bus quiet during reset: "
+#define STR_D_ACCHK "109 AC: "
+#define STR_D_PCCHK "110 PC: "
+#define STR_D_IRCHK "111 IR: "
 
 #define STR_D_OK    "OK\n"
 #define STR_D_FAIL  "faulty\n"
@@ -110,6 +113,7 @@
 #define STR_ARUN    "304 Host running\n"
 #define STR_AHALTED "305 Host halted\n"
 #define STR_RESET   "306 Host reset\n"
+#define STR_COLD    "307 Cold reset.\n"
 #define STR_BPOINT  "322 Breakpoint "
 #define STR_STEP    "323 Step. "
 #define STR_USTEP   "324 Microstep. "
@@ -177,6 +181,9 @@
 #define STR_WAS          ", was "
 #define STR_ABERR   "920 ABUS error. Wrote "
 #define STR_DBERR   "921 DBUS error. Wrote "
+#define STR_ACERR   "922 AC mismatch. Wrote "
+#define STR_PCERR   "923 PC mismatch. Wrote "
+#define STR_IRERR   "924 IR mismatch. Wrote "
 
 #define STR_HLTTO   "930 Timeout waiting for processor halt.\n"
 

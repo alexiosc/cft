@@ -100,7 +100,7 @@ serial_init()
 	UBRR0H = (BPS >> 8) & 0xff;
 
 	// Guard time
-	//report_pstr(PSTR("Ready!\n\r"));
+	report_pstr(PSTR("\033[0m\n\r\n\r"));
 
         // We can enable interrupt handling now.
 	UCSR0B |= _BV(RXCIE0);		// Enable RX complete interrupt

@@ -50,6 +50,15 @@ assert_halted()
 		report_pstr(PSTR(STR_RUNNING));
 		flags |= FL_ERROR;
 		return 0;
+	} else {
+		// The ustep command leaves the processor with its clock
+		// stopped but NOT halted (so the microcode vectors can be
+		// examined). The FL_HALT flag is still set though, so whenever
+		// we're in FL_HALT mode and a command needs the processor to
+		// be halted by calling us, we halt it here. The clock should
+		// be stopped already, so no need to wait for a full
+		// halt. We're just tristating the control lines.
+		set_halt(1);
 	}
 	
 	// Check for bus chatter.

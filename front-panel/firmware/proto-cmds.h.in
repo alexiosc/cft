@@ -13,7 +13,7 @@ static const struct {
 	{"buf",     say_bufsize, "-- Show size of command buffer"},
 	{"term",    gs_term,     "[ BOOL ] -- Get/set terminal bells & whistles."},
 	{"echo",    gs_echo,     "[ BOOL ] -- Get/set local echo."},
-	{"mesg",    gs_mesg,     "[ BOOL ] -- Get/set asyc messages.\n201"},
+	{"mesg",    gs_mesg,     "[ BOOL ] -- Get/set asyc messages."},
 
 	{"s",       go_state,    "-- Current CFT/DEB status"},
        	{"us",      go_ustate,   "-- Microcode control state"},
@@ -27,7 +27,7 @@ static const struct {
 
 	// Left switch bank (computer control)
 
-	{"reset",   go_reset, "-- Reset"},
+	{"reset",   go_reset, "[ BOOL ] -- Reset (if TRUE, cold boot)"},
 	{"start",   go_start, "-- Reset & run"},
 	{"stop",    go_stop,  "-- Stop"},
 	{"halt",    go_stop,  "-- Stop (same as stop, for versatility)"},
