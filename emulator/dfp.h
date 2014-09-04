@@ -40,12 +40,36 @@ extern uint16_t reg_dsr;
 #define FTR_UTR 0x0020
 #define FTR_HOS 0x0200
 
-#define QEF_BASE 0xd0ff
+// Feature set: 1101000011111111
+//              110-------------  Running on emulator
+//              -----?----------  Front panel is locked
+//              ------?---------  Halt on SENTINEL enabled (ORred later)
+//              -------?--------  Halt on FAIL enabled (ORred later)
+//              --------1-------  SENTINEL available
+//              ---------1------  DUMP available
+//              ----------1-----  Microcode tracing available
+//              -----------1----  Tracing available
+//              ------------1---  Testing interface available
+//              -------------1--  Debug TTY available
+//              --------------1-  DEB available (PFP + DEB = DFP)
+//              ---------------1  PFP available
+#define QEF_BASE 0xc0ff
 
 #define QEF_HOF  0x0100
 #define QEF_HOS  0x0200
 #define QEF_LOCK 0x0400
 
+
+// Note: ICR_TTY is used to enable IRQ6# when console characters received.
+
+#define ICR_IFR6 2
+#define ICR_IFR1 4
+#define ICR_TTY  8
+
+#define ISR_IRQ6 1
+#define ISR_IRQ1 2
+#define ISR_IFR6 4
+#define ISR_TTY  8
 
 void dfp_init();
 
@@ -57,6 +81,7 @@ void dfp_tick(int tick);
 
 void dfp_done();
 
+void dfp_queue_char(uint8_t c);
 
 #endif /* DFP_H */
 

@@ -48,9 +48,45 @@ uint16_t reg_features;
 uint16_t reg_sr = 0xc600;
 uint16_t reg_or;
 uint16_t reg_dsr;
+uint16_t reg_icr;
 
 static int debugfd = -1;
 static char * pts;
+
+// Ring buffer size in bits (we do not use modulo)
+#define RBSIZE_BITS 4
+#define RBMASK ((1 << RBSIZE_BITS) - 1)
+static struct {
+	uint8_t ip, op;
+	uint8_t b[(1 << RBSIZE_BITS)];
+} ringbuf;
+
+
+void
+dfp_queue_char(uint8_t c)
+{
+	// Bail out if the buffer is full
+	uint8_t new_ip = (ringbuf.ip + 1) & RBMASK;
+	if (new_ip == ringbuf.op) return;
+	ringbuf.b[ringbuf.ip] = c;
+	ringbuf.ip = new_ip;
+	printf("RB %d %d\n", ringbuf.ip, ringbuf.op);
+	printf("TODO: issue IRQ6/IRQ when key is pressed\n");
+	//if (reg_icr & ICR_TTY) set_irq6(1, 0);
+}
+
+
+static uint16_t
+dfp_maybe_dequeue_char()
+{
+	// Is it empty?
+	if (ringbuf.ip == ringbuf.op) return 0x8000;
+	uint8_t retval = ringbuf.b[ringbuf.op];
+	ringbuf.op = (ringbuf.op + 1) & RBMASK;
+	return retval;
+}
+
+
 
 
 static void
@@ -110,6 +146,9 @@ dfp_init()
 	/* Initialise the DEB terminal emulator */
 	dfp_term = uterm_new(200);
 	//uterm_write(dfp_term, "This is a test.\n");
+
+	// Set up the console ring buffer
+	ringbuf.ip = ringbuf.op = 0;
 }
 
 
@@ -150,6 +189,10 @@ dfp_write(uint16_t addr, uint16_t dbus)
 	case IO_DISEF:
 		reg_features &= ~dbus;
 		sanity = (reg_features & FTR_HOB) != 0;
+		return 1;
+
+	case IO_DFP_ICR:
+		reg_icr = dbus & 0xffff;
 		return 1;
 
 	case IO_SENTINEL:
@@ -294,10 +337,33 @@ dfp_read(uint16_t addr, uint16_t *dbus)
 		*dbus = reg_dsr;
 		return 1;
 
+	case IO_DFP_ISR:
+		*dbus = 0;
+		if (ringbuf.op != ringbuf.ip) *dbus |= ISR_TTY;
+
+		// This is from the DFP source
+#if 0
+		// Interrupts asserted
+		if ((_cb[0] & CB0_NIRQ1) == 0) _db |= ISR_IRQ6;
+		if ((_cb[0] & CB0_NIRQ6) == 0) _db |= ISR_IRQ1;
+		// Interrupt sources
+		if (ifr6_operated) _db |= ISR_IFR6;
+		////if (ringbuf.op != ringbuf.ip) _db |= ISR_TTY;
+		
+		defer_cb_write(); // Clear both IRQ1 and IRQ6 together.
+		set_irq1(0);
+		set_irq6(0, 0);
+		ifr6_operated = 0;
+#endif
+		return 1;
 	case IO_QEF:
 		*dbus = QEF_BASE;	// The base set of permanent features
 		if (reg_features & FTR_HOS) *dbus |= QEF_HOS;
 		// TODO: add remaining features here
+		return 1;
+
+	case IO_READC:
+		*dbus = dfp_maybe_dequeue_char();
 		return 1;
 	}
 
