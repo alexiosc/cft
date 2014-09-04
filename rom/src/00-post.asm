@@ -27,6 +27,9 @@
 
 .pushns post
 
+.equ ITTY_DET R &0ff			; Index register for detecting TTYs
+.equ IMSD_DET R &0fe			; Index register for detecting MSDs
+
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -86,8 +89,8 @@ done:
 		;; Set up the data and return stacks. These will later by used
 		;; by Forth too.
 .scope
-		RMOV(SP, LOAD d0)
-		RMOV(RP, LOAD @d0+1)
+		RMOV(SP, d0)
+		RMOV(RP, @d0+1)
 		JMP post_d0
 d0:		.data config.sp_start
 		.data config.rp_start
@@ -98,8 +101,7 @@ post_d0:
 
 		;; Disable halt-on-bus error, otherwise probing for missing
 		;; devices will cause halts.
-		LI dfp.FTR_HOB		; No halt on bus errors (for emulator)
-		DISEF
+		dfp.disef(dfp.FTR_HOB)	; No halt on bus errors (for emulator)
 
 		;; Start off assuming we're running on physical hardware
 		LMOV (p0.HWENV, p0.HWE_HW)
@@ -107,10 +109,22 @@ post_d0:
 		;; Override the startup mode (sets p0.HWDIS)
 		JSR mode_override
 
+		;; Prepare the counters for TTYs and MSDs.
+		LPUSH(SP, p0.TTY0_PTR)	  ; Page 0, so using L macros
+		RPUSH(SP, NULLDRV)	  ; Fill with NULL drivers
+		LI @p0._ttyNp-p0._tty0p   ; Magic to get count
+		JSR I MEMSET
+
+		LPUSH(SP, p0.MSD0_PTR)	  ; Page 0, so using L macros
+		RPUSH(SP, NULLDRV)	  ; Fill with NULL drivers
+		LI @p0._msdNp-p0._msd0p	  ; Magic to get count
+		JSR I MEMSET
+
 		;; Detect hardware
 		JSR detect_mbu_and_mem
 		JSR detect_dfp
 		JSR detect_irc
+		JSR detect_tty
 		JSR detect_vdu
 
 		;; Choose the console device
@@ -145,6 +159,7 @@ again:		SOR
 done:		
 .endscope
 
+		HALT
 		LOAD welcome
 		JSR I PUTSP
 
@@ -153,7 +168,11 @@ done:
 ///////////////////////////////////////////////////////////////////////////////
 		
 		;; Scan for ROMs
+
 		HALT
+
+
+		
 
 .scope
 		DEBUGON
@@ -205,7 +224,7 @@ next:           RADD1(TMP15, d0)	; Step by &1000
 		STORE I15
 		JMP loop
 
-done:		
+done:
 		HALT
 		
 .endscope
@@ -240,21 +259,30 @@ vectable:
 
 .include "vector-table.asm"
 		
+///////////////////////////////////////////////////////////////////////////////
+//
+// DFP:	detect and initialise
+//
+///////////////////////////////////////////////////////////////////////////////
+
 detect_dfp:	
 .scope
+		enter_sub()
 		QEF			; Do we have a DFP?
 		STORE R10
 		AND detect_dfp1
 		STORE R11
 		SNZ
-		RET			; Not found, bail.
+		JMP ret			; Not found, bail.
 		LOR1(p0.HWCONFIG, p0.HWC_DFP)
 
 		LI dfp.QEF_TTY		; Do we have a console?
 		AND R10
 		SNZ
-		RET			; Nope.
+		JMP ret			; Nope.
 		LOR1(p0.HWTTYS, p0.HWT_DFP)
+		LOAD drv_handle
+		JSR register_tty	; Register the console as a TTY
 
 		LOAD R11		; What are we running on?
 		XOR detect_dfp2		; Running under C emulation?
@@ -266,31 +294,111 @@ detect_dfp:
 		SNZ
 		JMP on_js_emu
 		
-		RET
+		JMP ret
+		
+on_c_emu:       LMOV(p0.HWENV, p0.HWE_C)
+		JMP ret
+		
+on_js_emu:      LMOV(p0.HWENV, p0.HWE_JS)
+
+ret:		return()
+		
 detect_dfp1:	.word dfp.QEF_DET
 detect_dfp2:	.word dfp.QEF_EMU
 		.word dfp.QEF_JS
-
-on_c_emu:       LMOV(p0.HWENV, p0.HWE_C)
-		RET
-		
-on_js_emu:      LMOV(p0.HWENV, p0.HWE_JS)
-		RET
+drv_handle:	.data drv.dfp.handle	; Trick to use all of handle label
 		
 .endscope
 
-		
-		
-detect_irc:	IN irc.ISR		; Read the ISR
+///////////////////////////////////////////////////////////////////////////////
+//
+// IRC:	detect and initialise
+//
+///////////////////////////////////////////////////////////////////////////////
+
+;;; Note: the IRC ignores year modes and is always enabled.
+
+detect_irc:	
+		enter_sub()
+		IN irc.ISR		; Read the ISR
 		AND detect_irc1
 		XOR detect_irc1
 		SZA
 		RET
 		LOR1(p0.HWCONFIG, p0.HWC_IRC)
-		RET
+		return()
 detect_irc1:	.word irc.ISR_DETECT
 
+///////////////////////////////////////////////////////////////////////////////
+//
+// TTY:	detect and initialise
+//
+///////////////////////////////////////////////////////////////////////////////
 
+;;; Detection strategy: check for the existence of the 16550 scratchpad
+;;; registers. These are spare read/write registers on these devices that the
+;;; user can do anything with. They have no special meaning to the UART, so
+;;; they're ideal for detection purposes (since the addresses of the UARTs are
+;;; fixed and we're just checking for presence).
+
+detect_tty:
+.scope
+		IF_HWDIS(p0.HWC_TTY)
+		RET
+		enter_sub()
+
+		RMOV(TMP11, num)	; Number of ports.
+		SIA(ITMP0, addrtable)	; I/O address table
+		SIA(ITMP1, flagtable)	; Flag table
+
+nextport:	RMOV(TMP14, I ITMP0)	; I/O address of the SPR
+		RMOV(TMP13, I ITMP1)	; The TTY flag
+		
+nextpat:	SIA(ITMP2, patterns)
+		LADD(TMP12, TMP14, tty.SPR)
+		RMOV(TMP15, I ITMP2)	; Get a pattern
+		IOT I TMP12		; Write to the SPR, read value back.
+		XOR TMP15
+		SZA
+		JMP nfound		; No UART here
+		LOAD TMP15		; More patterns?
+		SNZ
+		JMP nextpat
+
+		ROR1(p0.HWTTYS, TMP13)	; Flag the particular port
+		LOR1(p0.HWCONFIG, p0.HWC_TTY) ; Also flag the whole TTY board
+
+		;; Initialise the UART to sane defaults now.
+		LOUTX(TMP12, tty.LCR, tty.LCR_INIT)
+
+nfound:		ISZ TMP11
+		JMP nextport		; Try the next port
+
+		return()
+
+num:		.word -4		; Number of ports, negated
+
+addrtable:	.word @tty.TTY0&&3ff	; TTY0 SPR
+		.word @tty.TTY1&&3ff	; TTY1 SPR
+		.word @tty.TTY2&&3ff	; TTY2 SPR
+		.word @tty.TTY3&&3ff	; TTY3 SPR
+
+flagtable:	.word p0.HWT_TTY0
+		.word p0.HWT_TTY1
+		.word p0.HWT_TTY2
+		.word p0.HWT_TTY3
+
+patterns:	.data &0055 &00aa &0000	; Patterns to write to the SPR
+		
+		return()
+.endscope
+
+		
+///////////////////////////////////////////////////////////////////////////////
+//
+// VDU:	detect and initialise
+//
+///////////////////////////////////////////////////////////////////////////////
 
 detect_vdu:     
 .scope
@@ -313,11 +421,16 @@ data:		.data vdu.SR_VER_MSK	; VDU version mask
 
 .endscope
 
+///////////////////////////////////////////////////////////////////////////////
+//
+// Memory allocation: initialise
+//
+///////////////////////////////////////////////////////////////////////////////
 
 ;;; Initialise the memory allocation bitmap. The bitmap uses 16 consecutive
-;;; locations to denote the 256 8 kW memory banks available. Each bit represents
-;;; the allocation state of a bank, with 0 denoting a free bank an allocated
-;;; bank.
+;;; locations to denote the 256 8 kW memory banks available. Each bit
+;;; represents the allocation state of a bank, with 0 denoting a free bank and
+;;; 1 denoting an allocated bank.
 ;;;
 ;;; The bitmap is initialised to with all banks allocated. Any RAM banks found
 ;;; (except bank 00, the zero page) are then marked free by the memory detection
@@ -335,129 +448,13 @@ init_membitmap:
 		return()
 .endscope
 
-;;; Set up a memory allocation/free operation by setting requisite registers.
-;;;
-;;; Arguments
-;;;   TMP15:	 Bank number (&00-&FF)
-;;;
-;;; Returns:
-;;;   TMP15:	 Address to modify inside memory bitmap
-;;;   TMP14:	 Address containing bit mask to modify
-
-_mem_op:
-		RAND(TMP14, TMP15, NYBBLE0) ; AC & f (bit number)
-		LOAD TMP15
-		RNR			; Roll 4 bits right
-		AND NYBBLE0
-		STORE TMP13		; TMP13: (AC >> 4) & f (word offset)
-
-		LIA p0.MLC_BITMAP0	; Index the correct word
-		ADD TMP13
-		STORE TMP13		; TMP15: the address to modify
-
-		LIA BIT0
-		ADD TMP14
-		STORE TMP14
-		LOAD I TMP14		; The bit to modify
-
-		RET
-
-mem_mark:
-.scope
-		enter_sub_ac()
-
-		JSR _mem_op
-		OR I TMP15		; OR it with the current word
-		STORE I TMP15		; Write it back.
-
-		return()
-.endscope
-
 		
-;;; Free a previously allocated bank of memory.
-;;;
-;;; Arguments
-;;;   AC:	 Bank number (&00-&FF)
-;;;
-;;; Returns:
+///////////////////////////////////////////////////////////////////////////////
+//
+// MBU AND MEMORY DETECTION
+//
+///////////////////////////////////////////////////////////////////////////////
 
-memfree:
-.scope
-		enter_sub_ac()
-
-		JSR _mem_op
-		NOT			; Complement the bit mask
-		AND I TMP13		; AND it with the current word
-		STORE I TMP13		; Write it back.
-
-		return()
-.endscope
-
-
-;;; Find and allocate a bank of memory.
-;;;
-;;; Arguments
-;;;   AC:	 Bank number (&00-&FF)
-;;;
-;;; Returns:
-;;;   AC == &FFFF: no free banks found
-;;;   AC <= &00FF: number of free bank found.
-
-memalloc:
-.scope
-		enter_sub_ac()
-
-		RMOV(TMP11, p0)		; Counter for memory bitmap
-		LMOV(TMP14, 0)		; Bank number
-		LIA p0.MLC_BITMAP0	; Start of the memory bitmap
-		STORE TMP12		; TMP12 = bitmap word
-
-loopword:	LMOV(TMP13, 1)		; Bit number
-loopbit:	
-		
-		LOAD TMP13
-		PRINTB
-		PRINTSP
-		LOAD TMP12
-		PRINTH
-		PRINTSP
-		LOAD TMP11
-		PRINTD
-		PRINTSP
-		
-		LOAD I TMP12
-		AND TMP13		; Check a bank
-		PRINTH
-		PRINTNL
-		SNZ
-		JMP found		; Found a free bank
-
-		ISZ TMP14		; Next bank (never skips)
-		LOAD TMP13
-		SBL			; Next bit
-		SCL			; Out of bits in this word?
-		JMP nextword		; If so, try the next word
-		STORE TMP13
-
-		JMP loopbit		; Try again
-
-nextword:	ISZ TMP12		; Next bitmap word (never skips)
-		ISZ TMP11		; Are there more words in the bitmap?
-		JMP loopword
-
-		LOAD MINUS1		; No free banks found.
-return:		return_ac()
-
-found:		
-		ROR(I TMP12, I TMP12, TMP13) ; Set the bit in the bitmap
-		LOAD TMP14		; Return the bank number found
-		JMP return
-
-p0:		.word -16
-.endscope
-		
-
-		
 ;;; Detect memory. First, detect if we have an MBU.
 ;;;
 ;;; Strategy:
@@ -570,7 +567,7 @@ ramfound:	RMOV(I bank1, R13)	; Be nice, restore original value
 		LOAD R10
 		ING
 		SZA			; Don't mark bank 0 as free
-		JSR I MEMFREE
+		TRAP I T_MEMFREE	; Mark the bank as available
 		LOAD R10
 		ISZ R12			; Guaranteed to never skip
 		JMP loop
@@ -677,8 +674,38 @@ _l_m2:	.word p0.MEMCFG_NROMMSK	; ROM field mask in p0.MEMCFG
 .endscope
 
 
+///////////////////////////////////////////////////////////////////////////////
+//
+// BOOT MODE OVERRIDES ('YEAR' MODES)
+//
+///////////////////////////////////////////////////////////////////////////////
+
+;;; What are year modes?
+;;; 
+;;; When the front panel switches are set to certain 20th century years, the
+;;; computer boots in 'year' mode, in which it uses hardware typical of that
+;;; period. For example, setting SR to 1965, you'd get nothing more modern than
+;;; the front panel (and its debugging terminal). Not even TTYs. 1980 mode
+;;; would boot with MBU, TTY, LPT and PSG (sound), but no VDU.
+;;;
+;;; The switches must be set in BCD, so 1974 is #0001'0101'0111'0100.
+;;;
+;;; The table of years and devices is represented as 16 values, each
+;;; representing the minimum year (in BCD) that device is available. Some
+;;; convenience devices (e.g. IRC, TMR, GIO) are always available so their
+;;; minimum year is 0000.
+;;;
+;;; The routine updates p0.HWDIS which represents the disabled devices.
+;;; Detection routines check their particular bits in this value and exit
+;;; without performing any detection or initialisation tasks, giving a more
+;;; complete impression of the lack of hardware. The value p0.HWMODE will be
+;;; set the the selected year mode, or 0 if none was found. Valid year modes
+;;; are 1900 to 1999. The validity of the last two BCD digits isn't checked, so
+;;; 19FF could be specified to enable all devices.
+
 mode_override:
 .scope
+		enter_sub()
 		LMOV(0, p0.HWMODE)	; Initialise the hardware mode
 		LSR
 		AND d0			; Ensure the SR's top 8 bits are &19.
@@ -703,7 +730,7 @@ again:		LOAD TMP15
 		RSBL(TMP15, TMP15)	; Shift the mask left
 		SSL			
 		JMP loop		; Not done yet.
-		RET
+		return()		; Done.
 
 disable:	ROR1(p0.HWDIS, TMP15)	; Disable this device.
 		JMP again
@@ -788,11 +815,11 @@ next:		SNZ			; Are there more bits set?
 
 bitset:		LOAD R &12		; Print out hw code, increment index ptr
 		JSR I PUTSP
-		OUTL(dfp.TX, 32)	; Print out a space
+		lsyscall(p0.TTYA_SEND, 32) ; Print out a space
 		LOAD R12
 		JMP next
 		
-done:		OUTL(dfp.TX, 10)	; Print out a newline
+done:		lsyscall(p0.TTYA_SEND, 10) ; Print out a newline
 		LOAD p0.HWENV
 		SNZ
 		JMP I R 99
@@ -917,6 +944,84 @@ dfp_banner:	.longstring "\n\n\n\n"
 		.endstring
 
 .endscope				; early boot
+
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// CONVENIENCE SUBROUTINES DURING POST/DETECTION
+//
+///////////////////////////////////////////////////////////////////////////////
+
+;;; Helper routine.
+_register_dev_slot:
+.scope
+		clear_errno()
+
+loop:		LOAD I TMP14		; Try a slot.
+		IFEQJMP(NULLDRV, gotit)	; Found an empty slot
+		ISZ TMP14		; Never skips
+		IFEQJMP(TMP13, ranout)	; Ran out of slots
+		JMP loop		; Go again
+
+gotit:          RMOV(I TMP14, TMP15)
+		
+		SIA(ARG0, p0.TTYA)
+		RMOV(ARG1, I TMP14)
+                syscall(T_TTYSEL)	; Also select this device for I/O.
+		return()
+
+ranout:         errno(EFULL)		; Raise an error.
+		return()
+.endscope
+
+		
+;;; Register a detected TTY. Ignored if we already have too many. The handle of
+;;; the TTY should be in AC.
+
+register_tty:   enter_sub_ac()
+		SIA(TMP14, p0.TTY0_PTR)
+		SIA(TMP13, p0._ttyNp)
+		JMP _register_dev_slot
+
+;;; Register a detected MSD. Ignored if we already have too many. The handle of
+;;; the MSD should be in AC.
+
+register_msd:   enter_sub_ac()
+		SIA(TMP14, p0.MSD0_PTR)
+		SIA(TMP13, p0._msdNp)
+		JMP _register_dev_slot
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

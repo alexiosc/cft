@@ -27,12 +27,14 @@ ramvectable:
 .include "asm/mbu.asm"			; Memory Banking Unit (MBU)
 .include "asm/dfp.asm"			; Debugging Front Panel (DFP)
 .include "asm/irc.asm"			; Interrupt Board (IRC)
+.include "asm/tty.asm"			; TTY board (dual dual 16550 UARTs)
 .include "asm/vdu.asm"			; Video Board & Keyboard (VDU)
 .include "asm/post.asm"			; POST patterns
 
 .include "asm/macro-generic.asm"	; General use macros
 .include "asm/macro-stack.asm"		; Stack macros
-.include "asm/macro-entry.asm"		; Stack macros
+.include "asm/macro-entry.asm"		; Function entry/exit conventions
+.include "asm/macro-os.asm"		; OS macros
 
 .include "asm/errno.asm"		; Error codes
 .include "asm/config.asm"		; OS configuration

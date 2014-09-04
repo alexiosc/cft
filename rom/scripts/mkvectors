@@ -19,6 +19,11 @@ HEADER = """// -*- cftasm -*-
 
 """
 
+SYSCALLHEAD = """
+;;; System Call (TRAP) definitions
+"""
+
+
 CONSTHEAD = """
 ;;; Constant definitions
 """
@@ -37,15 +42,19 @@ FOOTER = """
 """
 
 
-PATv = r'\.word\s+(\w+)\s+; [Vv]ector: \s*((\w+).*?)\n'
+PATv = r'\.word\s+(.+)\s+; [Vv]ector: \s*((\w+).*?)\n'
+PATs = r'\.word\s+(.+)\s+; [Ss]ys[Cc]all: \s*((\w+).*?)\n'
 PATc = r'\.word\s+(.+)\s+; [Cc]onst: \s*(\w+)'
 
 vectors = list()
+syscalls = list()
 const = list()
 for source in sys.argv[1:]:
     data = open(source).read()
     for vector in re.findall(PATv, data):
         vectors.append((vector[2], vector[1]))
+    for vector in re.findall(PATs, data):
+        syscalls.append((vector[2], vector[1]))
     for c in re.findall(PATc, data):
         const.append((c[1], c[0]))
 
@@ -54,6 +63,12 @@ print HEADER
 for name, comment in vectors:
     #name = 'v_' + name + ':'
     #print "%-20s .word  &beef ; %s" % (name, comment)
+    name = '.reg %s R @' % name
+    print '                %-24s; %s' % (name, comment)
+
+print SYSCALLHEAD
+
+for name, comment in syscalls:
     name = '.reg %s R @' % name
     print '                %-24s; %s' % (name, comment)
 

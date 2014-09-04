@@ -18,8 +18,9 @@ ROMSRC =	$(SRCDIR)/$(BASENAME).asm
 
 ROMBIN =	$(BUILDDIR)/$(BASENAME).bin
 XPMFILE = 	$(BUILDDIR)/$(BASENAME).xpm
+MAPFILE =	$(BUILDDIR)/$(BASENAME).map
 CFTEMU =	$(CFTDIR)/emulator/cftemu $(CFTEMUOPTS)
-CFTEMUOPTS =	-a v4 -V
+CFTEMUOPTS =	-a v4 -V -M $(MAPFILE)
 
 VECASM =	$(GENDIR)/vector-table.asm
 
@@ -39,7 +40,7 @@ IMG2ASM =	$(TOOLDIR)/vdu-img2asm
 
 all:		$(ROMBIN)
 
-.PHONY: 	all clean test
+.PHONY: 	all clean test view
 
 $(ROMBIN):	$(SRCDIR)/*asm $(GENASM)
 		$(CFTASM) $(CFTASMFLAGS) -I $(SRCDIR) $(ROMSRC) -o $(ROMBIN)
@@ -61,5 +62,5 @@ clean:
 test:		all
 		$(CFTEMU) $(ROMBIN)
 
-visualise:	all
+view:		all
 		display $(XPMFILE)

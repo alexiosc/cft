@@ -4,7 +4,7 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-		.word null_isr		; Vector: ISRV (Interrupt Service Routine)
+		.word null_isr		; Vector: ISRV (Interrupt Service)
 		.word putsp		; Vector: PUTSP (print out packed string)
 		.word putud		; Vector: PUTUD (print unsigned decimal)
 		.word puth		; Vector: PUTH (print 16-bit hex)
@@ -12,8 +12,11 @@
 		.word memset		; Vector: MEMSET
 		.word delay		; Vector: DELAY (short delays)
 		.word postfail		; Vector: POSTFAIL (output error codes)
-		.word memfree		; Vector: MEMFREE (free bank of RAM)
-		.word memalloc		; Vector: MEMALLOC (allocate bank of RAM)
+		.word drv.null.handle	; Vector: NULLDRV (allocate bank of RAM)
+
+		.word memfree		; Syscall: T_MEMFREE (free bank of RAM)
+		.word memalloc		; Syscall: T_MEMALLOC (allocate RAM bank)
+		.word ttysel		; Syscall: T_TTYSEL (select TTY)
 		
 		.word &ffff		; Const:  MINUS1 = FFFF = -1
 		.word -2		; Const:  MINUS2
@@ -28,8 +31,8 @@
 		.word &00f0		; Const:  NYBBLE1
 		.word &0f00		; Const:  NYBBLE2
 		.word &f000		; Const:  NYBBLE3
-		.word #0000000000000001 ; Const:  BIT0
-		.word #0000000000000010 ; Const:  BIT1
+		.word #0000000000000001 ; Const:  BIT0 (bit to bitmask table)
+		.word #0000000000000010 ; Const:  BIT1 (& convenience constants)
 		.word #0000000000000100 ; Const:  BIT2
 		.word #0000000000001000 ; Const:  BIT3
 		.word #0000000000010000 ; Const:  BIT4

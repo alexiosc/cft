@@ -1,6 +1,6 @@
 ;;; -*- cftasm -*-
 		
-;;; TTY driver for the DFP TTY.
+;;; TTY driver for the Dual Dual UART Board (TTY).
 ;;;
 ;;; Copyright © 2014 Alexios Chouchoulas.
 ;;;
@@ -19,7 +19,7 @@
 ;;; Place - Suite 330, Boston, MA 02111-1307, USA.
 
 ;;; We're already called from a 'drivers' namespace, just add our own name.
-.pushns dfp
+.pushns tty
 
 ;;; Note, drivers don't include detection and initialisation routines, these are
 ;;; done in the boot/POST page to save memory.
@@ -67,7 +67,7 @@ send:		clear_errno()
 ;;; DFP output buffer, we store this character in RAM. The read call will then
 ;;; check to see if one is available and return it immediately.
 
-dsr:		clear_errno()
+dsr:		LMOV(p0.ERRNO, 0)
 		IN dfp.RX
 		STORE p0.DFP_LASTC
 		SNA
@@ -76,7 +76,7 @@ dsr:		clear_errno()
 
 ;;; Read a character. Block and wait for one if none is available.
 
-read:		clear_errno()
+read:		LMOV(p0.ERRNO, 0)
 		LOAD p0.DFP_LASTC
 		SNN			; Already have a character
 		JMP _wait_for_char	; We don't, block.

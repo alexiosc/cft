@@ -30,11 +30,34 @@ rtt1:		LMOV(RET0, 1)		; Return 1
 		RTT
 rttval:		STORE RET0		; Store AC and return from trap
 		RTT
-rttnop:		errno(err.ENOP)
-		RMOV(RET0, MINUS1)	; -1 Usually signifies an error.
+rttnop:		errno(ENOP)		; Set NOP error, fall through.
+rtterr:		RMOV(RET0, MINUS1)	; -1 Usually signifies an error.
 		RTT
 .popns
 		
+;;; System call: TTYSEL. Select a TTY device.
+;;;
+;;; Arguments:
+;;; 
+;;;     ARG0: an address to write to. This is usually one of p0.TTY[A-C].
+;;; 
+;;;     ARG1: the address of one of the p0.TTYn_PTR registers.
+;;;
+;;; Return Value:
+;;;
+;;;     Always 0.
+;;;
+;;; Errors:
+;;;
+;;;     None
+
+ttysel:         clear_errno()
+		RPUSH(SP, ARG0)
+		RPUSH(SP, ARG1)
+		LI 7
+		JSR I MEMCPY
+		
+		JMP os.rtt0		; Return 0 = no error.
 
 		
 ;;; Print out a packed string.
@@ -46,13 +69,13 @@ loop:		LOAD I ITMP0		; Read a pair of characters
 		RET			; Yes
 		STORE TMP15		; No.
 		GETLOCHAR()
-		OUT dfp.TX		; Print the first character
+		asyscall(p0.TTYA_SEND)	; Print the first character
 
 		LOAD TMP15
 		GETHICHAR()
 		SNZ			; Are we done now?
 		RET			; Yes
-		OUT dfp.TX 		; Print the second character
+		asyscall(p0.TTYA_SEND)	; Print the second character
 
 		JMP loop
 .endscope
@@ -82,13 +105,12 @@ again:		CLL
 next_decade:	LOAD TMP14		; Skip leading zeroes
 		SNZ
 		JMP new_digit
-		LOAD TMP13		; Alright, we'll print it
-		OUT dfp.TX		; Print the character
+		rsyscall(p0.TTYA_SEND, TMP13)	; Print the character in TMP13
 		JMP new_digit
 
 units:		LI 48
 		ADD TMP15
-		OUT dfp.TX		; Print the character
+		asyscall(p0.TTYA_SEND)	; Print the character in AC
 
 		return()
 
@@ -117,14 +139,10 @@ puth:
 
 		RRNR(TMP15, TMP15)
 		JSR printx
-		OUT dfp.TX		; Print the character
-
-		LOAD TMP11
-		OUT dfp.TX		; Print the character
-		LOAD TMP12
-		OUT dfp.TX		; Print the character
-		LOAD TMP13
-		OUT dfp.TX		; Print the character
+		asyscall(p0.TTYA_SEND)	; Print the character 1 (MSB)
+		rsyscall(p0.TTYA_SEND, TMP11) ; Print the character 2
+		rsyscall(p0.TTYA_SEND, TMP12) ; Print the character 3
+		rsyscall(p0.TTYA_SEND, TMP13) ; Print the character 4 (LSB)
 
 		return()
 
@@ -197,6 +215,143 @@ loop:		RMOV(I I15, TMP14)	; Write value
 		RET
 .endscope
 
+///////////////////////////////////////////////////////////////////////////////
+//
+// Memory allocation routines
+//
+///////////////////////////////////////////////////////////////////////////////
+
+;;; This functionality resembles that of the ProDOS memory ‘managent’ subsystem,
+;;; except ProDOS allocates 256 byte blocks and we allocate full 8 kW banks.
+
+
+;;; System call: memfree(block) -- Free a previously allocated bank of memory.
+;;;
+;;; Arguments:
+;;;   AC:	Bank number (&00-&FF)
+;;;
+;;; Side effects:
+;;;   TMP13
+;;;   Memory bitmap
+;;;
+;;; Returns:
+;;;   AC:	0 on success, -1 on failure.
+;;;
+;;; Errors:
+;;;   EARG:	 Argument not in range [0,255].
+;;;   EINVAL:	 Memory was already free.
+
+memfree:
+.scope
+		enter_sub_ac()		; Not a leaf subroutine, save state.
+
+		LAND(TMP14, TMP15, &f)	; AC & f (is the bit number)
+
+		LOAD TMP15
+		IFNEQJMP(TMP14, badval)	; Check parameter is 00-FF.
+		
+		LOAD TMP15
+		RNR			; Roll 4 bits right
+		AND NYBBLE0
+		STORE TMP13		; TMP13: (AC >> 4) & f (word offset)
+
+		LIA p0.MLC_BITMAP0	; Index the correct word
+		ADD TMP13
+		STORE TMP13		; TMP13: the address to modify
+
+		RMOV(TMP15, I TMP13)	; Save current memory bitmap value
+
+		LINC(TMP14, BIT0)	; Index BITx table, convert bit# to mask.
+		LOAD I TMP14
+		XOR MINUS1		; Complement. Faster than NOT!
+		AND I TMP13		; Turn off a bit in the bitmap
+		STORE I TMP13
+		
+		IFEQJMP(TMP15, invalid)	; Have we changed anything in the bitmap?
+		
+		pop_retv()		; Apparently, we have. It's all good!
+		clear_errno()
+		JMP os.rtt0
+
+badval:         pop_retv()		; Argument error (not &00-&FF)
+		rtt_errno(EARG)		
+
+invalid:	pop_retv()		; The bit was already clear!
+		rtt_errno(EINVAL)
+.endscope
+
+
+;;; System call: memalloc() -- Find and allocate a bank of memory.
+;;;
+;;; Arguments
+;;;   AC:	Bank number (&00-&FF)
+;;;
+;;; Returns:
+;;;   AC:	0 on success, -1 on failure.
+;;;   RET0:	The bank allocated.
+;;;
+;;; Errors:	
+;;;   EARG:	Argument not in range [0,255].
+;;;   ENOMEM:	Out of memory.
+
+memalloc:
+.scope
+		enter_sub_ac()
+
+		RMOV(TMP11, p0)		; Counter for memory bitmap
+		LMOV(RET0, 0)		; Bank number
+		LIA p0.MLC_BITMAP0	; Start of the memory bitmap
+		STORE TMP12		; TMP12 = bitmap word
+
+loopword:	LMOV(TMP13, 1)		; Bit number
+loopbit:	
+
+		;; Debugging info
+		LOAD TMP13
+		PRINTB
+		PRINTSP
+		LOAD TMP12
+		PRINTH
+		PRINTSP
+		LOAD TMP11
+		PRINTD
+		PRINTSP
+		;; End of debugging info
+		
+		LOAD I TMP12
+		AND TMP13		; Check a bank
+		PRINTH
+		PRINTNL
+		SNZ
+		JMP found		; Found a free bank
+
+		ISZ RET0		; Next bank (never skips)
+		LOAD TMP13
+		SBL			; Next bit
+		SCL			; Out of bits in this word?
+		JMP nextword		; If so, try the next word
+		STORE TMP13
+
+		JMP loopbit		; Try again
+
+nextword:	ISZ TMP12		; Next bitmap word (never skips)
+		ISZ TMP11		; Are there more words in the bitmap?
+		JMP loopword
+
+		pop_retv()		; No free banks found
+		rtt_errno(ENOMEM)	; Out of memory
+
+found:		ROR1(I TMP12, TMP13)	; Set the bit in the bitmap
+		clear_errno()
+		JMP os.rtt0		; All clear
+
+p0:		.word -16
+.endscope
+		
+
+		
+
+		
 ;;; delay(count)
 ;;;
 ;;; Delays execution by running through 6*count instructions.
@@ -232,7 +387,18 @@ postfail:
 
 ///////////////////////////////////////////////////////////////////////////////
 /// 
-/// System vectors
+/// ESSENTIAL DRIVERS
+///
+///////////////////////////////////////////////////////////////////////////////
+
+.pushns drv
+.include "driver-null.asm"		; The NULL driver (TTY/MSD sentinel)
+.include "driver-tty-dfp.asm"		; The DFP TTY driver
+.popns
+		
+///////////////////////////////////////////////////////////////////////////////
+/// 
+/// SYSTEM VECTORS
 ///
 ///////////////////////////////////////////////////////////////////////////////
 
