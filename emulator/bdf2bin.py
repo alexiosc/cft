@@ -30,6 +30,7 @@ MAX = 4096
 
 state = 0
 ofs = 0
+codepoint = 0
 for linenum, line in enumerate(open(sys.argv[1]) or sys.stdin):
     line = line.strip()
     if not line:
@@ -60,7 +61,10 @@ for linenum, line in enumerate(open(sys.argv[1]) or sys.stdin):
                 data = array.array('B', [0] * (65536 * PITCH))
                 continue
             elif key == 'ENCODING':
-                codepoint = int(val)
+                if val.lower() in ('++', 'next'):
+                    codepoint += 1
+                else:
+                    codepoint = int(val)
             elif key == 'BBX':
                 bbx = map(int, val.split(' '))
                 _a, bbh, shift, bbo = bbx
