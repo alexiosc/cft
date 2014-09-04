@@ -144,6 +144,9 @@ void ui_show_menu();
 void ui_menu_move(int d);
 
 
+#define CHAR_TAB0 0xb4
+#define CHAR_TAB1 0xb3
+
 
 #endif /* UI_H */
 

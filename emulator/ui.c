@@ -277,7 +277,7 @@ ui_show_tabs()
 		tabs[j]._r.y1 = 32;
 		ui_xycprintf(i * pitch, row,
 			       j == cons.tab? ATTR_TAB_ACTIVE : ATTR_TAB,
-			       "\013 %-9.9s\011", tabs[j].name);
+			     "%c %-9.9s%c", CHAR_TAB0, tabs[j].name, CHAR_TAB1);
 		ui_xycput(i * pitch, row,
 			    j == cons.tab? color(COL_ORANGE, COL_DKGREY) : color(COL_LTGREY, COL_DKGREY),
 			    -1);
@@ -451,6 +451,9 @@ ui_key(SDL_Event event)
 			halt_cpu();
 			return;
 		case SDLK_F12:
+			reset_cpu();
+			io_reset();
+			start_cpu();
 			reset_cpu();
 			return;
 		}
