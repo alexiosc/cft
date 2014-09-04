@@ -675,6 +675,8 @@ menu_handler_reset(SDL_Event * event, int key)
 {
 	void menu_tab(int);
 	reset_cpu();
+	io_reset();
+	start_cpu();
 	menu_tab(c.oldtab);
 }
 

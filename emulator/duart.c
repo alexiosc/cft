@@ -444,7 +444,7 @@ duart_write(uint16_t addr, uint16_t dbus)
 
 	case 7:
 	case 15:
-		uart[unit].scratch = dbus & 0xff; 
+		uart[unit].scratch = dbus & 0xff;
 		return 1;
 	}
 	

@@ -113,10 +113,11 @@ int
 ui_tab_dfp_input(SDL_Event * event)
 {
 	if (event->type == SDL_KEYDOWN && (event->key.keysym.sym <= 0x7f)) {
-		char buf[2];
+		//char buf[2];
 		//buf[1] = 0;
 		//buf[0] = event->key.keysym.unicode & 0x7f;
 		//uterm_write(dfp_term, buf);
+		dfp_queue_char(event->key.keysym.unicode & 0x7f);
 		_ui_tab_dfp_draw();
 	}
 	return 0;

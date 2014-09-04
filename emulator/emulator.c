@@ -621,7 +621,7 @@ decode_read_unit()
 		cpu.ibus = cpu.dr;
 		ucdebug("IBUS <- DR (%04x)\n", cpu.ibus);
 	}
-	else if (IS_R_A(cpu.control)) {
+	else if (IS_R_AC(cpu.control)) {
 		cpu.ibus = cpu.a;
 		ucdebug("IBUS <- A (%04x)\n", cpu.ibus);
 	}
@@ -706,7 +706,7 @@ decode_write_unit()
 		cpu.dr = cpu.ibus;
 		ucdebug("DR <- IBUS (%04x)\n", cpu.ibus);
 	}
-	else if (IS_W_A(cpu.control)) {
+	else if (IS_W_AC(cpu.control)) {
 		set_a (cpu.ibus);
 		ucdebug("A <- IBUS (%04x)\n", cpu.ibus);
 	}
@@ -769,6 +769,7 @@ emulate()
 	cpu.halt = 0;
 	cpu.pause = 0;
 	reset_cpu();
+	io_reset();
 
 	time_t t0 = time(NULL);
 	word oldpc = 0xbeef;
