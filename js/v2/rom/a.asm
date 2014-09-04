@@ -20,12 +20,16 @@
 
 .include "asm/page0-0.asm"		; Page 0 definitions (&00xx)
 .include "asm/page0-1.asm"		; Page 0 definitions (&01xx)
+.include "asm/ucb.asm"			; Debugging Front Panel (DFP)
+.include "asm/mbu.asm"			; Memory Banking Unit (MBU)
 .include "asm/dfp.asm"			; Debugging Front Panel (DFP)
 .include "asm/irc.asm"			; Interrupt Board (IRC)
 .include "asm/vdu.asm"			; Video Board & Keyboard (VDU)
-.include "asm/mbu.asm"			; Memory Banking Unit (MBU)
 .include "asm/post.asm"			; POST patterns
-.include "asm/macro-generic.asm"	; Macros
+.include "asm/macro-generic.asm"	; General use macros
+.include "asm/macro-stack.asm"		; Stack macros
+.include "asm/macro-entry.asm"		; Stack macros
+.include "asm/config.asm"		; OS configuration
 
 .pushns earlyBoot
 
@@ -82,11 +86,43 @@ ramvectable:
 		.reg PUTUD R @
 		.reg PUTH R @
 		.reg MEMCPY R @
+		.reg MEMSET R @
 		.reg DELAY R @
 		.reg POSTFAIL R @
-		.reg MINUS1 R 2
+		.reg MEMFREE R @
+		.reg MEMALLOC R @
+
+		;; Useful constants
+		
+		.reg MINUS1 R @
+		.reg MINUS2 R @
+		.reg MINUS3 R @
+		.reg MINUS4 R @
+		.reg MINUS5 R @
+		.reg MINUS6 R @
+		.reg MINUS7 R @
 		.reg BYTELO R @
 		.reg BYTEHI R @
+		.reg NYBBLE0 R @
+		.reg NYBBLE1 R @
+		.reg NYBBLE2 R @
+		.reg NYBBLE3 R @
+		.reg BIT0 R @
+		.reg BIT1 R @
+		.reg BIT2 R @
+		.reg BIT3 R @
+		.reg BIT4 R @
+		.reg BIT5 R @
+		.reg BIT6 R @
+		.reg BIT7 R @
+		.reg BIT8 R @
+		.reg BIT9 R @
+		.reg BIT10 R @
+		.reg BIT11 R @
+		.reg BIT12 R @
+		.reg BIT13 R @
+		.reg BIT14 R @
+		.reg BIT15 R @
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -113,7 +149,23 @@ loop:		LOAD I I10
 		JMP loop
 done:		
 .endscope
-		
+
+		;; Delay a bit, let some hardware stabilise after reset.
+		JSR I DELAY
+
+		;; Set up the data and return stacks. These will later by used
+		;; by Forth too.
+.scope
+		RMOV(SP, LOAD d0)
+		RMOV(RP, LOAD @d0+1)
+		JMP post_d0
+d0:		.data config.sp_start
+		.data config.rp_start
+post_d0:
+.endscope
+		;; Initialise the memory allocation bitmap
+		JSR init_membitmap
+
 		;; Disable halt-on-bus error, otherwise probing for missing
 		;; devices will cause halts.
 		LI dfp.FTR_HOB		; No halt on bus errors (for emulator)
@@ -257,11 +309,41 @@ vectable:	.word null_isr		; Vector: ISR (Interrupt Service Routine)
 		.word putud		; Vector: PUTUD (print unsigned decimal)
 		.word puth		; Vector: PUTH (print 16-bit hex)
 		.word memcpy		; Vector: MEMCPY
+		.word memset		; Vector: MEMSET
 		.word delay		; Vector: DELAY (short delays)
 		.word postfail		; Vector: POSTFAIL (output error codes)
+		.word memfree		; Vector: MEMFREE (free bank of RAM)
+		.word memalloc		; Vector: MEMALLOC (allocate bank of RAM)
+		
 		.word &ffff		; Const:  MINUS1 = FFFF = -1
-		.word &00ff		; Const:  LOWBYTE
-		.word &ff00		; Const:  HIBYTE
+		.word -2		; Const:  MINUS2
+		.word -3		; Const:  MINUS3
+		.word -4		; Const:  MINUS4
+		.word -5		; Const:  MINUS5
+		.word -6		; Const:  MINUS6
+		.word -7		; Const:  MINUS7
+		.word &00ff		; Const:  BYTELO
+		.word &ff00		; Const:  BYTEHI
+		.word &000f		; Const:  NYBBLE0
+		.word &00f0		; Const:  NYBBLE1
+		.word &0f00		; Const:  NYBBLE2
+		.word &f000		; Const:  NYBBLE3
+		.word #0000000000000001 ; Const:  BIT0
+		.word #0000000000000010 ; Const:  BIT1
+		.word #0000000000000100 ; Const:  BIT2
+		.word #0000000000001000 ; Const:  BIT3
+		.word #0000000000010000 ; Const:  BIT4
+		.word #0000000000100000 ; Const:  BIT5
+		.word #0000000001000000 ; Const:  BIT6
+		.word #0000000010000000 ; Const:  BIT7
+		.word #0000000100000000 ; Const:  BIT8
+		.word #0000001000000000 ; Const:  BIT9
+		.word #0000010000000000 ; Const:  BIT10
+		.word #0000100000000000 ; Const:  BIT11
+		.word #0001000000000000 ; Const:  BIT12
+		.word #0010000000000000 ; Const:  BIT13
+		.word #0100000000000000 ; Const:  BIT14
+		.word #1000000000000000 ; Const:  BIT15
 		.word 0			; End of vector table
 
 detect_dfp:	
@@ -338,6 +420,149 @@ data:		.data vdu.SR_VER_MSK	; VDU version mask
 .endscope
 
 
+;;; Initialise the memory allocation bitmap. The bitmap uses 16 consecutive
+;;; locations to denote the 256 8 kW memory banks available. Each bit represents
+;;; the allocation state of a bank, with 0 denoting a free bank an allocated
+;;; bank.
+;;;
+;;; The bitmap is initialised to with all banks allocated. Any RAM banks found
+;;; (except bank 00, the zero page) are then marked free by the memory detection
+;;; routines.
+
+init_membitmap:
+.scope
+		enter_sub()
+
+		LPUSH(SP, p0.MLC_BITMAP0) ; Page 0, so using L macros
+		RPUSH(SP, MINUS1)	  ; Fill with &FFFF
+		LI 16
+		JSR I MEMSET
+
+		return()
+.endscope
+
+;;; Set up a memory allocation/free operation by setting requisite registers.
+;;;
+;;; Arguments
+;;;   TMP15:	 Bank number (&00-&FF)
+;;;
+;;; Returns:
+;;;   TMP15:	 Address to modify inside memory bitmap
+;;;   TMP14:	 Address containing bit mask to modify
+
+_mem_op:
+		RAND(TMP14, TMP15, NYBBLE0) ; AC & f (bit number)
+		LOAD TMP15
+		RNR			; Roll 4 bits right
+		AND NYBBLE0
+		STORE TMP13		; TMP13: (AC >> 4) & f (word offset)
+
+		LIA p0.MLC_BITMAP0	; Index the correct word
+		ADD TMP13
+		STORE TMP13		; TMP15: the address to modify
+
+		LIA BIT0
+		ADD TMP14
+		STORE TMP14
+		LOAD I TMP14		; The bit to modify
+
+		RET
+
+mem_mark:
+.scope
+		enter_sub_ac()
+
+		JSR _mem_op
+		OR I TMP15		; OR it with the current word
+		STORE I TMP15		; Write it back.
+
+		return()
+.endscope
+
+		
+;;; Free a previously allocated bank of memory.
+;;;
+;;; Arguments
+;;;   AC:	 Bank number (&00-&FF)
+;;;
+;;; Returns:
+
+memfree:
+.scope
+		enter_sub_ac()
+
+		JSR _mem_op
+		NOT			; Complement the bit mask
+		AND I TMP13		; AND it with the current word
+		STORE I TMP13		; Write it back.
+
+		return()
+.endscope
+
+
+;;; Find and allocate a bank of memory.
+;;;
+;;; Arguments
+;;;   AC:	 Bank number (&00-&FF)
+;;;
+;;; Returns:
+;;;   AC == &FFFF: no free banks found
+;;;   AC <= &00FF: number of free bank found.
+
+memalloc:
+.scope
+		enter_sub_ac()
+
+		RMOV(TMP11, p0)		; Counter for memory bitmap
+		LMOV(TMP14, 0)		; Bank number
+		LIA p0.MLC_BITMAP0	; Start of the memory bitmap
+		STORE TMP12		; TMP12 = bitmap word
+
+loopword:	LMOV(TMP13, 1)		; Bit number
+loopbit:	
+		
+		LOAD TMP13
+		PRINTB
+		PRINTSP
+		LOAD TMP12
+		PRINTH
+		PRINTSP
+		LOAD TMP11
+		PRINTD
+		PRINTSP
+		
+		LOAD I TMP12
+		AND TMP13		; Check a bank
+		PRINTH
+		PRINTNL
+		SNZ
+		JMP found		; Found a free bank
+
+		ISZ TMP14		; Next bank (never skips)
+		LOAD TMP13
+		SBL			; Next bit
+		SCL			; Out of bits in this word?
+		JMP nextword		; If so, try the next word
+		STORE TMP13
+
+		JMP loopbit		; Try again
+
+nextword:	ISZ TMP12		; Next bitmap word (never skips)
+		ISZ TMP11		; Are there more words in the bitmap?
+		JMP loopword
+
+		LOAD MINUS1		; No free banks found.
+return:		return_ac()
+
+found:		
+		ROR(I TMP12, I TMP12, TMP13) ; Set the bit in the bitmap
+		LOAD TMP14		; Return the bank number found
+		JMP return
+
+p0:		.word -16
+.endscope
+		
+
 		
 ;;; Detect memory. First, detect if we have an MBU.
 ;;;
@@ -350,6 +575,8 @@ data:		.data vdu.SR_VER_MSK	; VDU version mask
 
 detect_mbu_and_mem:
 .scope
+		enter_sub()
+		
 		;; Is the MBU disabled?
 		IF_HWDIS(p0.HWC_MBU)	; Is the MBU disabled?
 		JMP detect_mem_no_mbu	; Scan for memory without an MBU
@@ -362,14 +589,14 @@ detect_mbu_and_mem:
 		STORE R11		; For sanity checking
 
 		;; Enable and configure the MBU.
-		mbu.MAPMEML(7, &83)	; Map 32kW of ROM pages
-		mbu.MAPMEML(6, &82)
-		mbu.MAPMEML(5, &81)
-		mbu.MAPMEML(4, &80)
-		mbu.MAPMEML(3, &80)	; Same page mapped three times
-		mbu.MAPMEML(2, &80)	; 
-		mbu.MAPMEML(1, &80)	; 
-		mbu.MAPMEML(0, 0 mbu.MBU_ENABLE) ; also enables MBU
+		mbu.LSMB(7, &83)	; Map 32kW of ROM pages
+		mbu.LSMB(6, &82)
+		mbu.LSMB(5, &81)
+		mbu.LSMB(4, &80)
+		mbu.LSMB(3, &80)	; Same page mapped three times
+		mbu.LSMB(2, &80)	; 
+		mbu.LSMB(1, &80)	; 
+		mbu.LSMB(0, 0 mbu.MBU_ENABLE) ; also enables MBU
 
 		;; Sanity check: mem[&8000] shouldn't have changed since
 		;; enabling the MBU.
@@ -415,7 +642,7 @@ loop:		ISZ R10
 		JMP done
 body:		LOAD R10
 		ING
-		mbu.MAPMEM(1)		; Bank 1 = page number in AC
+		SMB 1			; Bank 1 = page number in AC
 
 		RMOV(R13, I bank1)	; R13 = original value (=ROM)
 		NOT
@@ -446,7 +673,12 @@ romfound:	LOAD R10
 		JMP loop
 		
 ramfound:	RMOV(I bank1, R13)	; Be nice, restore original value
-		ISZ R12		; Guaranteed to never skip
+		LOAD R10
+		ING
+		SZA			; Don't mark bank 0 as free
+		JSR I MEMFREE
+		LOAD R10
+		ISZ R12			; Guaranteed to never skip
 		JMP loop
 
 done:		LI &ff			; We COULD have 256 pages of RAM, so mask
@@ -459,7 +691,8 @@ done:		LI &ff			; We COULD have 256 pages of RAM, so mask
 		AND rommask		; Mask it
 		OR p0.MEMCFG
 		STORE p0.MEMCFG		; Done
-		RET
+
+		return()
 
 data:		.data -256
 rommask:	.word &ff00
@@ -519,7 +752,7 @@ next:	        LOAD R11		; Next memory bank
 		JMP loop		; Loop.
 
 		;; ROM bank found
-romfound:	INCM(R15)		; Increment the number of ROM banks
+romfound:	RINC(R15)		; Increment the number of ROM banks
 		LOAD R p0.ROMSTART	; Is this the first ROM bank?
 		SZA
 		JMP next		; No. Loop
@@ -528,7 +761,7 @@ romfound:	INCM(R15)		; Increment the number of ROM banks
 
 		;; RAM bank found
 ramfound:       RMOV(I R11, R12)	; Be nice, restore the original value
-		INCM(R14)		; Increment the number of RAM banks
+		RINC(R14)		; Increment the number of RAM banks
 		JMP next		; And loop.
 
 		;; We're done.
@@ -799,6 +1032,8 @@ dfp_banner:	.longstring "\n\n\n\n"
 //
 ///////////////////////////////////////////////////////////////////////////////
 
+.page
+
 vdu_init:	
 .scope
 
@@ -814,14 +1049,34 @@ vdu_init:
 		ROUT(vdu.CCR, @d0+4)	; CCR
 		LOUT(vdu.HAR, 0)	; HAR
 		OUT vdu.SAR0		; SAR0
+
 		JMP post_d0
 d0:		.word vdu.MCR0_EN vdu.MCR0_CS23 vdu.MCR0_C80 vdu.MCR0_CRH1 ; MCR0
 		.word &6d80 vdu.MCR1_C80 vdu.MCR1_CRH16	; SCL = 125, SEN = 1, 80x30
 		.word &ffff
-		.word &8000
+		.word &e000
 		/.word &0b80
 		.word 191
+
 post_d0:
+.endscope
+
+		;; Clear the video RAM
+.scope
+		RMOV(R10, d0)
+		LOUT(vdu.HAR, 0)
+		ROUT(vdu.CPORT, @d0+1)	; Default colours (white fg, black bg)
+loop:		LOUT(vdu.CRR, &7f)	; 128 repetitions (one line)
+		ROUT(vdu.CMD, @d0+2)	; WBC command with XINC
+		vdu.WAIT()		; Wait for completion
+		ISZ R10
+		JMP loop
+
+		JMP post_d0
+d0:		.word -512	        ; Number of rows in video RAM
+		.word &073f	        ; Default colours (orange bg, white fg)
+		.word vdu.CMD_CMD_WBC vdu.CMD_XINC ; Write space, increment
+post_d0:	
 .endscope
 
 		;; Initialise the CG RAM (first, clear it)
@@ -866,24 +1121,6 @@ loop_hgr:	LI 15
 		AND R10
 		SNZ
 		JMP loop_hgr
-
-		;; Clear the video RAM
-.scope
-		RMOV(R10, d0)
-		LOUT(vdu.HAR, 0)
-		ROUT(vdu.CPORT, @d0+1)	; Default colours (white fg, black bg)
-loop:		LOUT(vdu.CRR, &7f)	; 128 repetitions (one line)
-		ROUT(vdu.CMD, @d0+2)	; WBC command with XINC
-		vdu.WAIT()		; Wait for completion
-		ISZ R10
-		JMP loop
-
-		JMP post_d0
-d0:		.word -512	        ; Number of rows in video RAM
-		.word &073f	        ; Default colours (orange bg, white fg)
-		.word vdu.CMD_CMD_WBC vdu.CMD_XINC ; Write space, increment
-post_d0:	
-.endscope
 
 ; 		SIA(I10, foo)
 ; 		OUTL(vdu.HAR, 0)
@@ -982,7 +1219,7 @@ loop:		LOAD I I10		; Read a pair of characters
 
 		JMP loop
 		
-d0:		.word &8018
+d0:		.word &e018
 		.word &073f
 		.word vdu.CMD_CMD_WBC vdu.CMD_XINC
 		.strp "16 BIT SOLID STATE MINI COMPUTER" 0
@@ -990,6 +1227,27 @@ post_d0:
 
 		IN vdu.HAR
 		OUT vdu.CAR
+
+		;; Remove this later
+		LMOV(TMP0, 0)
+		RMOV(TMP1, @d1+1)
+		RMOV(TMP3, @d1+2)
+again:		ROUT(vdu.SAR0, TMP0)	;
+		LINC(TMP0, &80)
+
+		RMOV(TMP2, TMP3)
+delay:		LINC(TMP2, 0)
+		ISZ TMP2
+		JMP delay
+
+		ISZ TMP1
+		JMP again
+		RET
+d1:		.word &0000
+		.word -160
+		.word 64500
+		.word -10
+;;; REMOVE UP TO HERE
 		
 		RET
 .endscope
@@ -1000,7 +1258,8 @@ data:
 cmd_wcg:	.word vdu.CMD_CMD_WCG vdu.CMD_XINC ; Character pattern command
 hgr_csaddr:	.word &c000
 logo_data:	.word logo		; Logo source start address
-		.word &1a15		; Logo origin (top left)
+		//.word &1a15		; Logo origin (top left)
+		.word &6815		; Logo origin (top left)
 
 .include "forth/_generated_romfont.asm"	; The ROM font (defines _romfont0)
 
@@ -1385,15 +1644,15 @@ hello:		.longstring
 ;;; Print out a packed string.
 putsp:
 .scope
-		STORE I10
-loop:		LOAD I I10		; Read a pair of characters
+		STORE ITMP0
+loop:		LOAD I ITMP0		; Read a pair of characters
 		SNZ			; Done?
 		RET			; Yes
-		STORE R10		; No.
+		STORE TMP15		; No.
 		GETLOCHAR()
 		OUT dfp.TX		; Print the first character
 
-		LOAD R10
+		LOAD TMP15
 		GETHICHAR()
 		SNZ			; Are we done now?
 		RET			; Yes
@@ -1405,35 +1664,37 @@ loop:		LOAD I I10		; Read a pair of characters
 ;;; Print out a 16-bit unsigned decimal without using division (faster).
 putud:          
 .scope
-		STORE R10
-		SIA(I10, decades)
-		LSET(R11, 0)		; R11 > 0: printed at least one digit
+		enter_sub_ac()		; TMP15: AC
+		
+		SIA(ITMP0, decades)
+		LSET(TMP14, 0)		; TMP14 > 0: printed at least one digit
 
-new_digit:      LSET(R12, 48)		; R12: current digit ('0')
-		RMOV(R13, I I10)	; Load next decade (already negated)
+new_digit:      LSET(TMP13, 48)		; TMP13: current digit ('0')
+		RMOV(TMP12, I ITMP0)	; Load next decade (already negated)
 		SNZ			; Are we done? (decade = 0)
 		JMP units
 again:		CLL
-		ADD R10			; Subtract decade from running modulo.
+		ADD TMP15		; Subtract decade from running modulo.
 		SSL			; L=1 => number >= decade
 		JMP next_decade
-		STORE R10		; Update running modulo.
-		INCM(R12)		; R12++
-		LSET(R11, 1)
-		LOAD R13
+		STORE TMP15		; Update running modulo.
+		RINC(TMP13)		; TMP13++
+		LSET(TMP14, 1)
+		LOAD TMP12
 		JMP again
 
-next_decade:	LOAD R11		; Skip leading zeroes
+next_decade:	LOAD TMP14		; Skip leading zeroes
 		SNZ
 		JMP new_digit
-		LOAD R12		; Alright, we'll print it
+		LOAD TMP13		; Alright, we'll print it
 		OUT dfp.TX		; Print the character
 		JMP new_digit
 
 units:		LI 48
-		ADD R10
+		ADD TMP15
 		OUT dfp.TX		; Print the character
-		RET
+
+		return()
 
 decades:        .data -10000 -1000 -100 -10 0
 
@@ -1444,22 +1705,21 @@ decades:        .data -10000 -1000 -100 -10 0
 
 puth:
 .scope
-		STORE TMP14
-		RMOV(TMP15, RETV)	; Store the return address
+		enter_sub_ac()
 
-		LOAD TMP14
+		LOAD TMP15
 		JSR printx
 		STORE TMP13
 
-		RRNR(TMP14, TMP14)
+		RRNR(TMP15, TMP15)
 		JSR printx
 		STORE TMP12
 
-		RRNR(TMP14, TMP14)
+		RRNR(TMP15, TMP15)
 		JSR printx
 		STORE TMP11
 
-		RRNR(TMP14, TMP14)
+		RRNR(TMP15, TMP15)
 		JSR printx
 		OUT dfp.TX		; Print the character
 
@@ -1470,8 +1730,10 @@ puth:
 		LOAD TMP13
 		OUT dfp.TX		; Print the character
 
-		JMP I TMP15
+		return()
 
+		;; Return the ASCII code of a character in base 2-56 (at least,
+		;; though bases over 56 aren't legible).
 printx:         AND d0
 		ADD minus10
 		SNA
@@ -1489,14 +1751,13 @@ plus97:		.word 97
 
 
 
-;;; memcpy(dst, str, count)
+;;; memcpy(dst, src, count)
 ;;;
 ;;; Copies count words from dst to src.
 ;;;
 ;;; Arguments:
-;;;   ARG0: dst
-;;;   ARG1: src
-;;;   AC:   word count
+;;;   SP Stack: dst src
+;;;   AC:       word count
 ;;; 
 ;;; Returns:
 ;;;   Nothing
@@ -1510,27 +1771,53 @@ memcpy:
 .scope
 		NEG
 		STORE TMP15
-		RMOV(I15, ARG0) 	; I15 = dst
-		RMOV(I14, ARG1)		; I14 = src
+		RPOP(I14, SP)		; I14 = src
+		RPOP(I15, SP)		; I15 = dst
 loop:		RMOV(I I15, I I14)	; Copy a word
 		ISZ TMP15
 		JMP loop
 		RET
 .endscope
 
-		
-		
 
-;;; Delay execution.
+;;; memset(dst, value, count)
+;;;
+;;; Writes the value to count words, starting at dst.
+;;;
+;;; Arguments:
+;;;   SP Stack:	 dst value
+;;;   AC:	 count
+
+memset:
+.scope
+		NEG
+		STORE TMP15		; TMP15 = count
+		RPOP(TMP14, SP)		; TMP14 = value
+		RPOP(I15, SP)		; I15 = dst ponter
+loop:		RMOV(I I15, TMP14)	; Write value
+		LOAD TMP15
+		ISZ TMP15		; Loop
+		JMP loop
+		RET
+.endscope
+
+;;; delay(count)
+;;;
+;;; Delays execution by running through 6*count instructions.
+;;;
+;;; Arguments:
+;;;   AC:	loop count
+;;;   TMP15:	running variable
+
 delay:
 .scope
 		NEG			; Negate AC
-		STORE R &7f
+		STORE TMP15
 loop:	        NOP
 		NOP
 		NOP
 		NOP
-		ISZ R &7f
+		ISZ R TMP15
 		JMP loop
 		RET
 .endscope

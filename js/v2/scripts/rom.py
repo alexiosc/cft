@@ -17,6 +17,13 @@ SIZE = 524288
 rom = array.array('h')
 
 data = open(sys.argv[1], 'rb').read()
+try:
+    if len(sys.argv) >= 3:
+        SIZE = int(sys.argv[2])
+except:
+    print "Syntax: rom.py FILENAME [ NUM-WORDS ]"
+    sys.exit(0)
+
 imageSize = len(data) >> 1
 rom.fromstring(data)
 sys.stderr.write("ROM size is %d kW. ROM image contains %d kW.\n" %

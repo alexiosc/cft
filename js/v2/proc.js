@@ -460,7 +460,7 @@ CFT = {
 	var ar = CFT.AGL();
 	var dr = Bus.mr(ar);	                 // DR = mem[AGL]
 	dr = (dr - 1) & 0xffff;			 // DR--
-	Bus.mw(a, dr);				 // mem[AGL] = DR
+	Bus.mw(ar, dr);				 // mem[AGL] = DR
 	CFT.r.ac = Bus.mr(dr);			 // AC = mem[DR]
     },
  

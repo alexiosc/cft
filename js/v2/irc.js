@@ -21,7 +21,7 @@ IRC = {
 
     ior: function(addr)
     {
-	if (addr == 0x28) {
+	if (addr == 0x30) {
 	    DFP.activity(DFP.ACT_LIGHT_IRC);
 	    return 0x0f00 | (IRC.isr & 0xff);
 	}
@@ -30,7 +30,7 @@ IRC = {
     
     iow: function(addr, data)
     {
-	if (addr == 0x28) {
+	if (addr == 0x30) {
 	    // The IRQ number is in bits 1-3
 	    var irqn = (data >> 1) & 7;
 
