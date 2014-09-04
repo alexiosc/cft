@@ -100,7 +100,7 @@ dump_ustate()
 	if(IS_R_AGL(cpu.control)) printf("r_agl ");
 	if(IS_R_PC(cpu.control)) printf("r_pc ");
 	if(IS_R_DR(cpu.control)) printf("r_dr ");
-	if(IS_R_A(cpu.control)) printf("r_a ");
+	if(IS_R_AC(cpu.control)) printf("r_ac ");
 	if(IS_R_CS1(cpu.control)) printf("r_cs1 ");
 	if(IS_R_CS2(cpu.control)) printf("r_cs2 ");
 	if(IS_ALU_ADD(cpu.control)) printf("alu_add ");
@@ -114,7 +114,7 @@ dump_ustate()
 	if(IS_W_PC(cpu.control)) printf("w_pc ");
 	if(IS_W_IR(cpu.control)) printf("w_ir ");
 	if(IS_W_DR(cpu.control)) printf("w_dr ");
-	if(IS_W_A(cpu.control)) printf("w_a ");
+	if(IS_W_AC(cpu.control)) printf("w_ac ");
 	if(IS_IF3(cpu.control)) printf("if3 ");
 	if(IS_IF4(cpu.control)) printf("if4 ");
 	if(IS_IF5(cpu.control)) printf("if5 ");
@@ -241,8 +241,8 @@ dump()
 	dump_mini(0);
 	dump_state();
 	dump_ustate();
-	dumpstack(0x500, 0x91, 0);
-	dumpstack(0x600, 0x92, 1);
+	//dumpstack(0x500, 0x91, 0);
+	//dumpstack(0x600, 0x92, 1);
 }
 
 
