@@ -72,7 +72,7 @@ irc_tick(int tick)
 int 
 irc_write(uint16_t addr, uint16_t dbus)
 {
-	if ((addr & 0xfff0) == IO_IRC_ICR) {
+	if (addr == IO_IRC_ICR) {
 		int level = (dbus >> 1) & 7;
 
 		ircdebug("Write IER, level=%d, on=%d\n", level, dbus & 1);
@@ -92,10 +92,10 @@ irc_write(uint16_t addr, uint16_t dbus)
 int
 irc_read(uint16_t addr, uint16_t *dbus)
 {
-	if ((addr & 0xfff0) == IO_IRC_ISR) {
+	if (addr == IO_IRC_ISR) {
 		ircdebug("Read ISR (%04x): %02x\n", addr, isr);
 		//*dbus = isr ^ 0xff; /* Inverted */
-		*dbus = isr;
+		*dbus = (isr & 0xff) | ISR_DETECT;
 		return 1;
 	}
 	return 0;

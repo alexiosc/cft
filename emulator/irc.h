@@ -42,6 +42,8 @@ extern int debug_irc;
 #define IRQ_TTY23 3
 #define IRQ_IDE 7
 
+#define ISR_DETECT 0x0f00
+
 
 void irc_init();
 
