@@ -8,6 +8,7 @@ import os
 import re
 import sys
 import copy
+import types
 import array
 import pprint
 import doctest
@@ -36,7 +37,7 @@ _BUILTINS = """;;; CFT Assembler Built-ins
 .equ XOR   0xB000
 .equ OP1   0xC000
 .equ OP2   0xD000
-.equ POP   0xD800
+.equ POP   0xD800               // POP = OP2 I
 .equ ISZ   0xE000
 .equ LIA   0xF000
 .equ JMPII 0xF800
@@ -144,7 +145,7 @@ class Symbol(object):
 
     @property
     def page(self):
-        """Provide the upper 6 bits of the value."""
+        """Provide the middle 6 bits of the value."""
         return self.val & 0xfc00
 
 
@@ -206,7 +207,8 @@ class CFTAssembler(object):
     R_FLAG = 0x0400
     I_FLAG = 0x0800
 
-    MEMSIZE = 65536
+    #MEMSIZE = 65536
+    MEMSIZE = 2 << 20           # Use entire address space
 
     # Default location of the C Preprocessor.
     CPP_LOCATION = '/usr/bin/cpp'
@@ -236,8 +238,8 @@ class CFTAssembler(object):
         self.linenum = 1
 
         # The current address in memory.
-        self.minaddr = 0xffff
-        self.maxaddr = 0x0000
+        self.minaddr = self.MEMSIZE
+        self.maxaddr = 0
         self.boundwarn_low = False
         self.boundwarn_high = False
         self.setaddr(0)
@@ -263,6 +265,7 @@ class CFTAssembler(object):
         # State
         self.wrap = False
         self.jumped = False
+        self.bank = None
         
         # Execute
         try:
@@ -298,9 +301,14 @@ class CFTAssembler(object):
                      help='Set include path. Can be specified multiple times ' + \
                          '(paths in current directory always take precedence).')
         p.add_option('', '--min-addr', action='store', type='int', default=0x0000,
-                     help='Set the starting address for dumping objects, verilog output et cetera (default: 0)')
+                     help='Set the starting address for dumping objects, verilog output ' + \
+                         'et cetera (default: 0)')
         p.add_option('', '--max-addr', action='store', type='int', default=0xffff,
-                     help='Set the ending address for dumping objects, verilog output et cetera (default: 65535)')
+                     help='Set the ending address for dumping objects, verilog output ' + \
+                         'et cetera (default: 65535)')
+        p.add_option('-B', '--banked', action='store_true',
+                     help='Assemble for extended address space. All addresses are ' + \
+                         'mod 8192, and you must use the .bank directive at least once.')
         
         return p.parse_args()
 
@@ -521,15 +529,15 @@ class CFTAssembler(object):
 
         # Parse the specified file.
         if self.opts.debugging:
-            sys.stderr.write('D: %s:%d: include file %s\n' % \
-                                 (self.filename, self.linenum, fname))
-        fn, nl = self.filename, self.linenum
-        self.pushParseContext(fname, self.filename, self.linenum, None)
-        self.filename = fname
+            sys.stderr.write('D: %s:%d: include file %s (%s)\n' % \
+                                 (self.filename, self.linenum, fname, fn))
+        savedState = self.filename, self.linenum
+        self.pushParseContext(fn, self.filename, self.linenum, None)
+        self.filename = fn
         self.linenum = 1
         self.assembly_pass(f)
         self.popParseContext()
-        self.filename, self.linenum = fn, nl
+        self.filename, self.linenum = savedState
         if self.opts.debugging:
             sys.stderr.write('D: %s:%d: end of included file %s\n' % \
                                  (self.filename, self.linenum, fname))
@@ -615,7 +623,10 @@ class CFTAssembler(object):
         # Replace placeholders with actual arguments
         for argname, argval in zip(mal, arglist):
             for i, line in enumerate(mdef_inst):
-                mdef_inst[i] = line.replace('%' + argname, argval)
+                # WARNING: this will mess up with args like %n and
+                # %num.
+                #mdef_inst[i] = line.replace('%' + argname, argval)
+                mdef_inst[i] = re.sub('%' + argname + r'\b', argval, line)
 
         # Set us up to parse the macro definition.
         if self.opts.debugging:
@@ -692,6 +703,8 @@ class CFTAssembler(object):
             self.assembleFill(tokens, orgline, poketype='R')
         elif tokens[0] == '.page':
             self.assemblePage(tokens, orgline)
+        elif tokens[0] == '.bank':
+            self.assembleBank(tokens, orgline)
         elif tokens[0].startswith('.'):
             self.fail("Unknown assembler directive '%s'." % tokens[0])
 
@@ -720,12 +733,20 @@ class CFTAssembler(object):
                 chars = [self.parseToken(token)]
 
             for j, char in enumerate(chars):
-                try:
+                # Convert it to an int. Try numerous things.
+                if type(char) == types.StringType:
                     val = ord(char)
-                except TypeError:
-                    # It's already an int.
+                elif type(char) == types.UnicodeType:
+                    val = ord(char)
+                elif type(char) == types.IntType:
                     val = char
-                    char = unichr(char)
+                    char = unichr(val)
+                elif isinstance(char, Symbol):
+                    val = char.assembly_val
+                    char = unichr(val)
+                else:
+                    self.fail('string/data element has weird type %s' % type(char))
+                    
                 if self.passnum == self.PSN_ASSEMBLY:
                     char = isprint(char) and char or ' '
 
@@ -1012,6 +1033,28 @@ class CFTAssembler(object):
         for x in xrange(count):
             self.poke(word, poketype='P')
             self.incaddr()
+
+        # Inhibit the next address increase.
+        self.jumped = True
+
+
+    def assembleBank(self, tokens, orgline):
+        """Assemble a bank directive.
+
+        Syntax: .bank BYTE
+
+        The .bank directive sets the ROM bank being assembled to. The BYTE
+        value, which must be from 0 to 255, sets the 8 high order bits of the
+        address. This allows cftasm to assemble multi-bank code.
+        """
+
+        bank = self.parseField(tokens[2:], allbits=True)
+        if bank < 0 or bank > 255:
+            self.fail('bank should be in the range &00-&FF')
+            
+        self.bank = bank & 0xff
+        # TODO: reinstate this after bank support is completed (and *if*)
+        #self.pasm.write('\n\n.bank %02x\n\n' % self.bank)
 
         # Inhibit the next address increase.
         self.jumped = True
@@ -1497,12 +1540,23 @@ class CFTAssembler(object):
                                  (self.filename, self.linenum, self.addr, sym, val, str(cls)))
         self.symbols[sym] = cls(sym, val, self.filename, self.linenum)
 
+        
+    def mkaddr(self, addr):
+        """Make a full 21-bit physical address based on the current bank and an
+        address, or return just the address."""
+        if self.opts.banked:
+            return ((self.bank << 13) + (addr & 0x1fff)) & 0x1fffff
+        return addr & 0xffff
+
 
     def poke(self, val, addr=None, poketype="?"):
         """Store an address in the memory image. The optional address may be
         used to override the current address."""
         self.jumped = False
         addr = addr or self.addr
+
+        if poketype not in 'R' and self.opts.banked and self.bank is None:
+            self.fail("assembling code before setting a bank (use .bank XX).")
 
         # Sanity check.
         if poketype == 'I':
@@ -1534,8 +1588,8 @@ class CFTAssembler(object):
         #        self.warn('Code at address %04x overrides previous %s data.' %
         #                  (addr, datatype))
 
-        self.mem[addr or self.addr] = val & 0xffff
-        self.sentinel[addr] = poketype
+        self.mem[self.mkaddr(addr or self.addr)] = val & 0xffff
+        self.sentinel[self.mkaddr(addr)] = poketype
 
 
     def setaddr(self, a):
@@ -1569,7 +1623,7 @@ class CFTAssembler(object):
         a0 = self.opts.min_addr
         a1 = self.opts.max_addr + 1
         for addr in xrange(a0, a1):
-            yield (addr, self.mem[addr])
+            yield (addr, self.mem[self.mkaddr(addr)])
 
 
     def outobj(self):
@@ -1642,7 +1696,7 @@ class CFTAssembler(object):
             if mdef:
                 self._msg("error: (in macro '%s' invoked in %s on line %d)" % (n, f, ln))
             else:
-                self._msg("error: (in file '%s' included from %s on line %d)" % (n, f, ln))
+                self._msg("error: (included from %s on line %d)" % (f, ln))
         self._msg('error: ' + msg)
         sys.exit(1)
 

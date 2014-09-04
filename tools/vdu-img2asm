@@ -1,0 +1,150 @@
+#!/usr/bin/python
+
+import sys
+import array
+import subprocess
+
+HEADER=""";;; -*- cftasm -*-
+;;;
+;;; Generated automatically, do not edit!
+;;;
+
+;;; Source filename: %(fname)s
+;;; Read using command: %(cmd)s
+;;; 
+;;; Origin of block in source image: (%(x1)d, %(y1)d)
+;;; Size of block:                   (%(wo)d, %(ho)d)
+;;; Size of block in cells:          (%(wc)d, %(hc)d)
+
+                .strp "VDU1"\t\t; Magic
+                .data -%(ho)d\t\t; Rows (negated)
+                .data -%(wc)d\t\t; Columns (negated)
+"""
+
+FOOTER = """
+
+;;; Total size (including header): %(num)d words
+
+;;; End of file.
+"""
+def pipe(argList):
+    proc = subprocess.Popen(argList, stdout=subprocess.PIPE)
+    return proc.communicate()
+
+fname = sys.argv[1]
+
+x1, y1 = 168, 52  # range in (x1, y2] format
+x2, y2 = 472, 188 # range in (x2,y2] format
+wo, ho = x2 - x1, y2 - y1
+wc, hc = (wo >> 3), ho
+
+assert (wo % 8) == 0
+
+x = ['convert', fname,
+                         #'-geometry', '%dx%d!' % (w, h),
+                         #'-size', '%dx%d' % (w, h),
+                         #'xc:black', '+swap',
+                         #'-gravity', 'center',
+                         #'-composite',
+                         '-depth', '8',
+                         '-map', 'ppm:-',
+                         #'-background', 'black',
+                         '-crop', ('%dx%d+%d+%d' % (wo, ho, x1, y1)),
+                         'ppm:-']
+cmd = ' '.join(x)
+proc = subprocess.Popen(x,
+                        stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+
+# Construct the VDU palette
+ramp = [0x00, 0x55, 0xaa, 0xff]
+palette = tuple((ramp[i & 3],
+                      ramp[(i >> 2) & 3],
+                      ramp[(i >> 4) & 3]) for i in range(64))
+
+# Send the palette
+proc.stdin.write('P6\n64 1\n255\n')
+proc.stdin.write(''.join('%c%c%c' % x for x in palette))
+
+# Get data from the pipe
+data = proc.communicate()
+proc.stdin.close()
+
+# Parse header
+magic, resolution, maxvalue, data = data[0].split('\n', 3)
+#print magic, resolution, maxvalue
+
+# Read data
+dataIn = array.array('B')
+dataIn.fromstring(data)
+assert len(dataIn) == wo * ho * 3
+
+lut = dict()
+for i, (r, g, b) in enumerate(palette):
+    lut[(r,g,b)] = i
+
+data = [lut[tuple(dataIn[i * 3 : i * 3 + 3])] for i in range(wo * ho)]
+
+
+assert 3 * len(data) == len(dataIn)
+
+# Print header
+print HEADER % locals()
+
+def getbc(cell):
+    colours = tuple(set(sorted(cell)))
+    assert len(colours) <= 2
+    if len(colours) == 1:
+        # Just background here
+        return 0, colours[0] << 8 | colours[0]
+
+    # Form a bg/fg bitmap value
+    b = 0
+    for c in cell:
+        b = 2 * b
+        if c == colours[1]:
+            b = b | 1
+    c = colours[0] << 8 | colours[1]
+    return b, c
+
+
+b0, c0, reps = None, None, None
+num = 4                                 # Header size
+
+_c = None
+def outdata(reps, b, c):
+    global _c, num
+    if reps is not None and reps >= 1:
+        out = '.data '
+        if reps > 1:
+            out += "&%04x " % (((reps - 1) << 2) | 0b01)
+            num += 1
+        if _c != c0:
+            out += "&%04x " % ((c0 << 2) | 0b10)
+            _c = c0
+            num += 1
+        out += "&%04x" % ((b << 2) | 0b11)
+        num += 1
+        print "                %-23s ; (%04x, %02x) x %d" % (out, c, b, reps)
+
+for y in range(ho):
+    ofs = y * wo
+    b0, reps = None, None
+    for x in range(wo >> 3):
+        cell = data[ofs + x * 8 : ofs + x * 8 + 8]
+        #print x, y, cell
+        b, c = getbc(cell)
+        if (b, c) == (b0, c0) and reps < 128:
+            reps += 1
+        else:
+            outdata(reps, b0, c0)
+            b0, c0, reps = (b, c, 1)
+        #print x, y, cell, bin(b)[2:].zfill(8), hex(c)[2:].zfill(4)
+
+    outdata(reps, b, c)
+
+    print "                .data &0000             ; End of row"
+    num += 1
+
+print FOOTER % locals()
+
+# Now split data in groups of 8x1 and quantise.

@@ -107,10 +107,14 @@ def shipout(sn, date, name, email, tags, descr):
     #     print "***", d
     #     raise
 
-    #sys.stderr.write('SN: %s\n' % sn)
+    sys.stderr.write('SN: %s,%s\n' % (sn, date))
     uuid = sha.sha(str((sn, date))).hexdigest()
     #descr = descr.strip().replace('\n\n', '\n\n<p>')
-    descr = re.sub('\s+', ' ', descr.strip()).rstrip('.') + '.'
+    descr = descr.replace('\n\n', '<p>')
+    descr = re.sub('\s+', ' ', descr.strip())
+    descr = re.sub('<p>$', '', descr)
+    descr = re.sub('<p>\s+', '\n\n', descr)
+    descr = descr.rstrip('.') + '.'
     completion, tags = processTags(tags)
 
     # Currently using the first tag as the title (which isn't displayed)
@@ -141,24 +145,26 @@ for line in sys.stdin:
     if x:
         # Start of new date
         if date and descr:
+            sn = 1
             shipout(sn, date, name, email, tags, descr)
         date, name, email = x.groups()
         descr = ''
-        #print "1:", line.strip()
+        #sys.stderr.write("1: %s\n" % line.strip())
     elif y:
         # Start of entry
-        sn += 1
         if date and descr:
+            sn += 1
             shipout(sn, date, name, email, tags, descr)
         tags, descr = y.groups()
-        #print "2:", line.strip()
+        #sys.stderr.write("2: %s\n" % line.strip())
     else:
         if date and descr:
             descr += line
-        #print "3:", line.strip()
+        #sys.stderr.write("2: %s\n" % line.strip())
 
 if date and descr:
     for d in descr.split('\n\n'):
+        sn += 1
         shipout(sn, date, name, email, tags, descr)
 
 #import pprint
