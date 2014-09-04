@@ -132,17 +132,6 @@
 .reg MLC_BITMAPE R @		; Bank allocation bitmap, banks e0-ef
 .reg MLC_BITMAPF R @		; Bank allocation bitmap, banks f0-ff
 
-;;; Terminal driver pointers.
-
-.reg TTY0_PTR R @			; TTY0: pointer to TTY struct
-.reg TTY1_PTR R @			; TTY1: pointer to TTY struct
-.reg TTY2_PTR R @			; TTY2: pointer to TTY struct
-.reg TTY3_PTR R @			; TTY3: pointer to TTY struct
-.reg TTY4_PTR R @			; TTY4: pointer to TTY struct
-.reg TTY5_PTR R @			; TTY5: pointer to TTY struct
-.reg TTY6_PTR R @			; TTY6: pointer to TTY struct
-.reg TTY7_PTR R @			; TTY7: pointer to TTY struct
-
 ;;; Interrupt handling.
 ;;;
 ;;; These locations are initialised with the addresses of the ROM interrupt
@@ -164,10 +153,23 @@
 
 .reg ERRNO R @				; OS Result code
 
+;;; Terminal driver pointers.
+
+.equ _tty0p @
+.reg TTY0_PTR R @			; TTY0: pointer to TTY struct
+.reg TTY1_PTR R @			; TTY1: pointer to TTY struct
+.reg TTY2_PTR R @			; TTY2: pointer to TTY struct
+.reg TTY3_PTR R @			; TTY3: pointer to TTY struct
+.reg TTY4_PTR R @			; TTY4: pointer to TTY struct
+.reg TTY5_PTR R @			; TTY5: pointer to TTY struct
+.reg TTY6_PTR R @			; TTY6: pointer to TTY struct
+.reg TTY7_PTR R @			; TTY7: pointer to TTY struct
+.equ _ttyNp @
+		
 ;;; We have two sets of TTY handles in page 0. These should cover most use
 ;;; cases without needing excessive calls to to setup subroutines.
 
-.reg TTYA_HANDLE R @			; Opaque handle of the current TTY
+.reg TTYA R @				; Opaque handle of the current TTY
 .reg TTYA_CTS R @			; Current TTY: clear to send data
 .reg TTYA_SEND R @			; Current TTY: send character
 .reg TTYA_DSR R @			; Current TTY: data set ready to receive
@@ -175,7 +177,7 @@
 .reg TTYA_STATUS R @			; Current TTY: read status
 .reg TTYA_CTL R @			; Current TTY: control device
 
-.reg TTYB_HANDLE R @			; Opaque handle of the current TTY
+.reg TTYB R @				; Opaque handle of the current TTY
 .reg TTYB_CTS R @			; Current TTY: clear to send data
 .reg TTYB_SEND R @			; Current TTY: send character
 .reg TTYB_DSR R @			; Current TTY: data set ready to receive
@@ -183,7 +185,7 @@
 .reg TTYB_STATUS R @			; Current TTY: read status
 .reg TTYB_CTL R @			; Current TTY: control device
 
-.reg TTYC_HANDLE R @			; Opaque handle of the current TTY
+.reg TTYC R @				; Opaque handle of the current TTY
 .reg TTYC_CTS R @			; Current TTY: clear to send data
 .reg TTYC_SEND R @			; Current TTY: send character
 .reg TTYC_DSR R @			; Current TTY: data set ready to receive
@@ -195,6 +197,7 @@
 ;;; floppies, four HDDs, and four other devices (e.g. RAM disks, networked
 ;;; devices etc.)
 
+.equ _msd0p @
 .reg MSD0_PTR R @			; MSD0: pointer to MSD struct
 .reg MSD1_PTR R @			; MSD1: pointer to MSD struct
 .reg MSD2_PTR R @			; MSD2: pointer to MSD struct
@@ -207,6 +210,7 @@
 .reg MSD9_PTR R @			; MSD9: pointer to MSD struct
 .reg MSD10_PTR R @			; MSD10: pointer to MSD struct
 .reg MSD11_PTR R @			; MSD11: pointer to MSD struct
+.equ _msdNp @
 
 ;;; We have two sets of MSD handles in page 0. These should cover most use
 ;;; cases without needing excessive calls to to setup subroutines.
@@ -269,7 +273,7 @@
 .reg VDU_CA       R @		; VDU copy of the CA register
 .reg VDU_CPX      R @		; VDU cursor position, X ordinate (0..VDUCNC)
 .reg VDU_CPY      R @		; VDU cursor position, Y ordinate (0..VDUCNR)
-		
+
 .popns
 	
 ;;; End of file.

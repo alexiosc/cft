@@ -21,8 +21,13 @@
 .pushns err
 
 .equ NOERROR   0			; Everything is OK
-		
-.equ ENOP     99			; Call not available (nothing done)
+
+.equ EINVAL    05			; Invalid value
+.equ EARG      06			; Argument error
+.equ ENODEV    10			; Bad device
+.equ ENOMEM    20			; Out of memory
+.equ EFULL     30			; Full (ran out of slots, etc.)
+.equ ENOP     900			; Call not available (nothing done)
 
 .popns
 

@@ -33,7 +33,7 @@
 
 .equ DFP R &100				; Base address
 
-		;; I/O Registers
+;;; I/O Registers 
 	
 .equ RX   DFP &11		        ; Last read byte from DFP console
 .equ TX   DFP &11		        ; Write to the DFP console
@@ -78,6 +78,35 @@
 .equ ICR_IFR6 #-------------1--         ; Signal IRQ6 (or IRQ) on IFR6 press
 .equ ICR_TTYQ #------------1---         ; Signal IRQ6 (or IRQ) when
 					; TTY characters available
+
+;;; Macro: enef(lit)
+;;;
+;;; Enable features. Flags are given as literals, using the FTR_xxx values
+;;; above.
+;;;
+;;; Side effects:
+;;;   AC = lit
+;;;   DFP features enabled.
+.macro enef (lit)
+		LI %lit			; enef(%lit)
+		ENEF
+.end
+					; TTY characters available
+
+;;; Macro: disef(lit)
+;;;
+;;; Disable features. Flags are given as literals, using the FTR_xxx values
+;;; above.
+;;;
+;;; Side effects:
+;;;   AC = lit
+;;;   DFP features disabled.
+.macro disef (lit)
+		LI %lit			; disef(%lit)
+		DISEF
+.end
+		
+
 
 .popns
 	

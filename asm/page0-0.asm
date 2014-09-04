@@ -102,6 +102,8 @@
                 .reg RP R @		; Return stack pointer
                 .reg SP2 R @
                 .reg SP3 R @
+                .reg SP4 R @
+                .reg SP5 R @
 
 		.reg ITMP0 R @
 		.reg ITMP1 R @
@@ -112,5 +114,6 @@
 		.reg MI1 R @
 		.reg MI2 R @
 		.reg MI3 R @
+
 
 ;;; End of file.

@@ -1,6 +1,6 @@
 ;;; -*- cftasm -*-
 		
-;;; OS Macros.
+;;; Generic Assembly Macros.
 ;;;
 ;;; Copyright © 2014 Alexios Chouchoulas.
 ;;;
@@ -18,15 +18,12 @@
 ;;; this program; if not, write to the Free Software Foundation, Inc., 59 Temple
 ;;; Place - Suite 330, Boston, MA 02111-1307, USA.
 
-;;; Macro: errno(literal)
-;;;
-;;; Set the error code.
-.macro errno(literal)
-		LI %literal		; errno(%literal)
-		STORE p0.ERRNO
-.end
 
-;;; Macro: CMPEQ(a, b)
+;;; 
+;;; OBSOLETE?
+;;; 
+;;; 
+;;; ;;; Macro: CMPEQ(a, b)
 ;;;
 ;;; Compare a and b for equality (XOR)
 ;;;
@@ -832,6 +829,40 @@
 .end
 
 
+;;; Macro: LOUTX(base,ofs,lit)
+;;;
+;;; Output value %lit to the I/O address %base + %ofs, where %base is a register
+;;; and %ofs is a literal.
+;;;
+;;; Side effects:
+;;;   MTMP0
+;;;   io[mem[%base] + %ofs] = %lit
+;;;   AC = %src
+.macro LOUTX(base, ofs, lit)
+		LI %ofs			; LOUTX(%base, %ofs, %lit)
+		ADD %base
+		STORE MTMP0
+		LI %lit
+		OUT I MTMP0
+.end
+
+
+;;; Macro: INX(base,ofs)
+;;;
+;;; Input a value from the I/O address %base + %ofs, where %base is a register
+;;; and %ofs is a literal.
+;;;
+;;; Side effects:
+;;;   MTMP0
+;;;   AC = io[mem[%base] + %ofs]
+.macro INX(base, ofs)
+		LI %ofs			; INX(%base, %ofs)
+		ADD %base
+		STORE MTMP0
+		IN I MTMP0
+.end
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;; INDEXING
@@ -1047,76 +1078,6 @@
 .end
 
 
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;
-;;; JUMP TABLES
-;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;; Macro: JMPTAB (table, tmp, ofs)
-;;;
-;;; Using the value in the address ofs, jump to the jump table entry at table +
-;;; mem[ofs]. A temporary register tmp is used to calculate the address to jump
-;;; to. NO checks are performed. tmp and ofs may be the same location, but ofs
-;;; will be overwritten.
-;;;
-;;; Side effects:
-;;;   AC = table + [ofs]
-;;;   PC = [table + [ofs]]
-;;;   L
-;;;   %tmp = table + [ofs]
-
-.macro JMPTAB(table, tmpreg, ofs)
-		LIA %table		; JMPTAB(%table, %tmpreg, %ofs)
-		ADD %ofs
-		STORE %tmp
-		JMPII %tmp
-.end		
-		
-;;; Macro: CASETAB (ofs)
-;;;
-;;; A special compact form of JMPTAB(). This one CLOBBERS the offset location ofs
-;;; and requires that the jump table immediately follow the CASE() macro.
-;;;
-;;; Side effects:
-;;;   AC = table + [ofs]
-;;;   PC = [table + [ofs]]
-;;;   L
-;;;   %ofs = table + [ofs]
-
-.macro CASETAB(ofs)
-		LIA @+4			; CASETAB(%ofs)
-		ADD %ofs
-		STORE %ofs
-		JMPII %ofs
-.end		
-		
-;;; Macro: JSRTAB (table, tmp, ofs)
-;;;
-;;; Using the value in the address ofs, JSR to the jump table entry at table +
-;;; mem[ofs]. A temporary register tmp is used to calculate the address to jump
-;;; to. NO checks are performed. tmp and ofs may be the same location, but ofs
-;;; will be overwritten.
-;;;
-;;; Note: this takes two instructions (dereference and store) more than JMPTAB
-;;; because there of the double-dereference JMPII instruction (which lacks an
-;;; equivalent JSRII or TRAPII).
-;;;
-;;; Side effects:
-;;;   AC = table + [ofs]
-;;;   PC = [table + [ofs]]
-;;;   L
-
-.macro JSRTAB(table, tmpreg, ofs)
-		LIA %table		; JMPTAB(%table, %tmpreg, %ofs)
-		ADD %ofs
-		STORE %tmp
-		LOAD I %tmp
-		STORE %tmp
-		JSR I %tmp
-.end		
-		
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;; LONG JUMPS ETC

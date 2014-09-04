@@ -47,6 +47,20 @@
 .end
 
 		
+;;; Macro: pop_retv()
+;;;
+;;; Restores a clobbered RETV vector but does not return. Useful for,
+;;; e.g. system calls.
+;;;
+;;; Side effects:
+;;;   TMP15 = return vector
+;;;   AC = return vector
+.macro pop_retv()
+		POP RP			; pop_retv()
+		STORE RETV
+.end
+
+		
 ;;; Macro: return_ac(addr)
 ;;;
 ;;; Exit a subroutine, keeping AC intact. Uses TMP14 to do
