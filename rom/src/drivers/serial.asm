@@ -19,7 +19,8 @@
 ;;; Place - Suite 330, Boston, MA 02111-1307, USA.
 
 ;;; We're already called from a 'drivers' namespace, just add our own name.
-.pushns tty
+
+.pushns serial
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -38,15 +39,6 @@
 .equ read   3
 .equ status 4
 .equ ctl    5
-
-
-.pushns drv
-
-.include "driver-null.asm"		; The NULL driver (TTY/MSD sentinel)
-.include "driver-tty-dfp.asm"		; The DFP TTY driver
-.include "driver-tty-tty.asm"		; The DFP TTY driver
-
-.popns
 
 .popns
 
