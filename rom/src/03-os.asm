@@ -392,9 +392,13 @@ postfail:
 ///////////////////////////////////////////////////////////////////////////////
 
 .pushns drv
+
 .include "drivers/null.asm"		; The NULL driver (TTY/MSD sentinel)
-.include "drivers/tty/.asm"		; Terminal drivers
-.include "driver-tty-dfp.asm"		; The DFP TTY driver
+
+.include "drivers/serial/class.asm"	; Serial class drivers
+.include "drivers/serial/dfp.asm"	; Serial driver for the DFP console
+.include "drivers/serial/tty.asm"	; Serial driver for the TTY board
+
 .popns
 		
 ///////////////////////////////////////////////////////////////////////////////
