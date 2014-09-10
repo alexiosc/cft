@@ -393,6 +393,7 @@ postfail:
 
 .pushns drv
 .include "driver-null.asm"		; The NULL driver (TTY/MSD sentinel)
+.include "driver-class-tty.asm"		; Terminal drivers
 .include "driver-tty-dfp.asm"		; The DFP TTY driver
 .popns
 		

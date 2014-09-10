@@ -32,6 +32,7 @@ ramvectable:
 .include "asm/post.asm"			; POST patterns
 
 .include "asm/macro-generic.asm"	; General use macros
+.include "asm/macro-cond.asm"		; Conditional macros
 .include "asm/macro-stack.asm"		; Stack macros
 .include "asm/macro-entry.asm"		; Function entry/exit conventions
 .include "asm/macro-os.asm"		; OS macros
