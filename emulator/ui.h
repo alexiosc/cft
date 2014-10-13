@@ -35,6 +35,8 @@ Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 #define COL_WHITE  63
 #define COL_ORANGE 11
 
+#define ATTR_INVERT 0x4000
+
 #define ATTR_STATUS color(COL_BLACK, COL_DKGREY)
 #define ATTR_TAB color(COL_BLACK, COL_LTGREY)
 #define ATTR_TAB_ACTIVE color(COL_BLACK, COL_ORANGE)
@@ -82,6 +84,7 @@ typedef struct menu {
 	int      key;
 
 	int      disabled:1;
+	int      interactive:1;
 
 	char *   value;
 	void (*handler)(SDL_Event *, int key);
@@ -123,9 +126,11 @@ void ui_xycputs(int x, int y, word attr, const char *s);
 
 void ui_gotoxy(int x, int y);
 
-void ui_xycprintf(int x, int y, word attr, const char *fmt, ...);
+int ui_xycprintf(int x, int y, word attr, const char *fmt, ...);
 
-void ui_xycprintfr(int r, int y, word attr, const char *fmt, ...);
+int ui_xycprintfr(int r, int y, word attr, const char *fmt, ...);
+
+void ui_cursor(int off);
 
 
 void ui_init();

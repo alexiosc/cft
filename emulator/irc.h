@@ -36,11 +36,14 @@ extern int debug_irc;
 
 
 #define IRQ_TIMER 0
-#define IRQ_VDU 1
+#define IRQ_VDU 2
 #define IRQ_KBD IRQ_VDU
-#define IRQ_TTY01 2
+#define IRQ_TTY01 3
 #define IRQ_TTY23 3
-#define IRQ_IDE 7
+#define IRQ_ETH 4
+#define IRQ_IDE 5
+//#define IRQ_SPJ 6
+//#define IRQ_FDC 7
 
 #define ISR_DETECT 0x0f00
 

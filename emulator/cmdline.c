@@ -146,11 +146,11 @@ static struct argp_option options[] =
 
 	// INTerrupt Controller
 
-	{ "int",    KEY_IRC,  NULL,            0,
+	{ "ird",    KEY_IRC,  NULL,            0,
 	  "Enable the 8-line interrupt controller (at &030-&03F).", 0 },
-	{ "no-int", KEY_NO_IRC,  NULL,            0,
+	{ "no-irc", KEY_NO_IRC,  NULL,            0,
 	  "Disable the 8-line interrupt controller (at &030-&03F).", 0 },
-	{ "debug-int", KEY_DEBUG_IRC, NULL, 0,
+	{ "debug-irc", KEY_DEBUG_IRC, NULL, 0,
 	  "Trace the operation of the INTerrupt controller.", 0 },
 
         // DUART

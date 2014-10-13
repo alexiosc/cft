@@ -116,6 +116,8 @@ typedef struct {
 	
 	bit irq;		/* Interrupt Requested (0 = yes, 1 = no) */
 
+	bit arm_sti;		// Arm STI.
+
 	microstate_t ustate;	/* Microcode ROM state */
 	uint32_t     upc;       /* Last microcode conditional vector */
 	uint32_t     control;   /* Last microcode signal vector retrieved */

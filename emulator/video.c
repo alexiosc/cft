@@ -56,7 +56,7 @@ int debug_video = 0;
 int vdu_dirty = 1;
 
 #define FRAMERATE 50
-#define BLINKRATE 3
+#define BLINKRATE 6
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -485,49 +485,49 @@ video_write(uint16_t addr, uint16_t dbus)
 	case IO_VIDEO_SCR1:
 		v.fb_cft.scr1 = dbus;
 		vdu_dirty = ++v.dirty;
-		//vdebug("SCR1 set to %04x\n", dbus);
+		vdebug("SCR1 set to %04x\n", dbus);
 		return 1;
 
 	case IO_VIDEO_SAR0:
 		v.fb_cft.sar0 = dbus;
 		vdu_dirty = ++v.dirty;
-		//vdebug("SAR0 set to %04x\n", dbus);
+		vdebug("SAR0 set to %04x\n", dbus);
 		return 1;
 
 	case IO_VIDEO_SAR1:
 		v.fb_cft.sar1 = dbus;
 		vdu_dirty = ++v.dirty;
-		//vdebug("SAR1 set to %04x\n", dbus);
+		vdebug("SAR1 set to %04x\n", dbus);
 		return 1;
 
 	case IO_VIDEO_MAR0:
 		v.fb_cft.mar0 = dbus;
 		vdu_dirty = ++v.dirty;
-		//vdebug("MAR0 set to %04x\n", dbus);
+		vdebug("MAR0 set to %04x\n", dbus);
 		return 1;
 
 	case IO_VIDEO_MAR1:
 		v.fb_cft.mar1 = dbus;
 		vdu_dirty = ++v.dirty;
-		//vdebug("MAR1 set to %04x\n", dbus);
+		vdebug("MAR1 set to %04x\n", dbus);
 		return 1;
 
 	case IO_VIDEO_CCR:
 		v.fb_cft.ccr = dbus;
 		vdu_dirty = ++v.dirty;
-		//vdebug("CCR set to %04x\n", dbus);
+		vdebug("CCR set to %04x\n", dbus);
 		return 1;
 
 	case IO_VIDEO_CAR:
 		v.fb_cft.car = dbus;
 		vdu_dirty = ++v.dirty;
-		//vdebug("CAR set to %04x\n", dbus);
+		vdebug("CAR set to %04x\n", dbus);
 		return 1;
 
 	case IO_VIDEO_HAR:
 		v.fb_cft.har = dbus;
 		vdu_dirty = ++v.dirty;
-		//vdebug("HAR set to %04x\n", dbus);
+		vdebug("HAR set to %04x\n", dbus);
 		return 1;
 
 	case IO_VIDEO_KBD:
@@ -594,6 +594,7 @@ video_read(uint16_t addr, uint16_t *dbus)
 	{
 		*dbus = v.kbdata;
 		v.kbdata &= ~0x8000;
+		vdebug("VDU: KBD GET 0x%04x\n", *dbus);
 		//fprintf(stderr, "*** KBD GET 0x%02x\n", i & 0xff);
 		// Clear the keyboard irq flag
 		v.irq_kb = 0;
@@ -629,15 +630,15 @@ video_tick(int tick)
 
 	// If the keyboard is uninhibited, send a new character.
 	if (((++kbdtick) & 31) == 31) {
-		if (v.irq_kb == 0) {
-			int c = kbdbuf_get();
-			if (c >= 0) {
-				//printf("*** C=%d\n",c );
-				v.kbdata = (c & 0xff) | 0x8000;
-				// Add the parity bit (bit 8)
-				v.kbdata |= (1 ^ parity(c & 0xff)) << 8;
-				video_kbd_interrupt();
-			}
+
+		int c = kbdbuf_get();
+		if (c >= 0) {
+			//printf("*** C=%d\n",c );
+			vdebug("KBD: got %d\n", c);
+			v.kbdata = (c & 0xff) | 0x8000;
+			// Add the parity bit (bit 8)
+			v.kbdata |= (1 ^ parity(c & 0xff)) << 8;
+			video_kbd_interrupt();
 		}
 	}
 	
@@ -810,7 +811,7 @@ plane_read(framebuffer_t * fb,
 
 	// Blink attribute?
 	if (cpl_is_bln(c)) {
-		if (v.blink & 2) *fg = *bg;
+		if (v.blink & 4) *fg = *bg;
 	}
 
 	// Cursor?

@@ -693,6 +693,14 @@ decode_write_unit()
 		if (sanity && (cpu.pc == 0)) {
 			fail("PC at 0000. This is probably a CFT software error.\n");
 		}
+
+		// Signal an STI.
+		if (cpu.arm_sti) {
+			cpu.arm_sti = 0;
+			cpu.i = 0; /* The /I flag is Active low */
+			ucdebug("STI: PC=%04x, I <- %d\n", cpu.pc, cpu.i);
+		}
+
 	}
 	else if (IS_W_IR(cpu.control)) {
 		cpu.ir = cpu.ibus;
@@ -953,8 +961,7 @@ emulate()
 			ucdebug("cpl: L <- %d\n", cpu.l);
 		}
 		if (sti) {
-			cpu.i = 0; /* The /I flag is Active low */
-			ucdebug("STI: PC=%04x, I <- %d\n", cpu.pc, cpu.i);
+			cpu.arm_sti = 1; // Arm STI.
 		}
 		if (cli) {
 			cpu.i = 1;

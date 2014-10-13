@@ -120,6 +120,7 @@ ui_tab_tty_input(SDL_Event * event)
 		/* } */
 
 		// TODO: make this more generic.
+		duartdebug("Unit %d Rx %02x\n", 0, event->key.keysym.unicode & 0x7f);
 		uart_rx(0, &uart[0],
 			event->key.keysym.unicode & 0x7f);
 	}

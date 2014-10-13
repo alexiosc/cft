@@ -42,11 +42,30 @@ extern int debug_duart;
 
 typedef struct {
 	int magic;		/* Always 0x11223344 */
+
+	uint8_t ier;
+	uint8_t isr, fcr;
+	uint8_t lcr;
+	uint8_t mcr;
+	uint8_t lsr;
+	uint8_t msr;
+	uint8_t spr;
+
+	uint8_t dll, dlh;
+	uint8_t afr;
+       
+	int int_lsr:1;
+	int int_rxrdy:1;
+	int int_rxtimeout:1;
+	int int_txrdy:1;
+	int int_msr:1;
+
+	int int_txrdy_arm;	// TX queue empty, interrupt at next tick
 	
-	int txen;
-	int rxen;
-	int rxirq;
-	uint8_t scratch;
+	// int txen;
+	// int rxen;
+	// int rxirq;
+	// uint8_t scratch;
 	
 	int is_stdin;
 	int is_stdout;

@@ -205,17 +205,17 @@ dump_mini(word oldpc)
                  cpu.tick / 4, (cpu.tick % 4) * 250
 		);
 */
-	snprintf(buf1, sizeof(buf1), "%s%s%s%s%s%s %sA:%s%04x %sDR:%s%04x %s%s "
+	snprintf(buf1, sizeof(buf1), "%s%s%s%s%s %sA:%s%04x %sDR:%s%04x %s%s "
 		 "[IP:%s%04x %s%s]",
 		 cpu.v ? COL_GRE "V" COL_NOR : COL_NOR "-",
 		 cpu.l ? COL_GRE "L" COL_NOR : COL_NOR "-",
 		 cpu.n ? COL_GRE "N" COL_NOR : COL_NOR "-",
 		 cpu.z ? COL_GRE "Z" COL_NOR : COL_NOR "-",
 		 cpu.i ? COL_NOR "-" : COL_GRE "I" COL_NOR,
-		 cpu.irq ? COL_NOR "-" : COL_GRE "Q" COL_NOR,
+		 //cpu.irq ? COL_NOR "-" : COL_GRE "Q" COL_NOR,
 		 COL_NOR, a_changed? COL_YEL : "", cpu.a,
 		 COL_NOR, dr_changed? COL_YEL : "", cpu.dr,
-		 COL_NOR, cpu.irq ? "" : "IRQ",
+		 COL_NOR, cpu.irq ? "" : "\033[7m IRQ \033[0m",
 		 ip_changed? COL_YEL : "", memory_read(REG_IP), map_get(memory_read(REG_IP)), COL_NOR
 		);
 

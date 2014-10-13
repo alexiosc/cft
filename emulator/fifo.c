@@ -87,9 +87,20 @@ fifo_poll(fifo_t * fifo)
 
 
 int
+fifo_empty(fifo_t * fifo)
+{
+	assert(fifo != NULL);
+
+	return fifo->rp == fifo->wp;
+}
+
+
+int
 fifo_full(fifo_t * fifo)
 {
-	return 0;		/* Temporary, should be changed. */
+	// Full condition: will the next write (wp increment) make it
+	// equal to rp?
+	return ((fifo->wp + 1) % fifo->size) == fifo->rp;
 }
 
 

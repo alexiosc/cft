@@ -309,6 +309,7 @@ unit_io(int r, int w)
 			/* Is there an read handler? If so, attempt to read. */
 			if (io->read && (*io->read)(addr, &retval)) {
 				io->hits = 2000;
+				iodebug("IN (%s) io[%04x] = %04x\n", io->code, addr, dbus);
 				return retval;
 			}
 		}
@@ -320,7 +321,7 @@ unit_io(int r, int w)
 		/* if (debugger && debug_read(addr, &retval)) return retval; */
 		/* if (panel && panel_read(addr, &retval)) return retval; */
 		/* if (video && video_read(addr, &retval)) return retval; */
-		
+
 		// Unknown IO device.
 		sanity_check(1, "Input from location %04x: NOT IMPLEMENTED\n", addr);
 		return 0;
@@ -333,6 +334,7 @@ unit_io(int r, int w)
 			/* Is there an write handler? If so, attempt to read. */
 			if (io->write && (*io->write)(addr, dbus)) {
 				io->hits = 2000;
+				iodebug("OUT (%s) io[%04x] <- %04x\n", io->code, addr, dbus);
 				return dbus;
 			}
 		}

@@ -53,9 +53,12 @@ uart_source_t uart_source[NUM_UARTS];
 #if NUM_UARTS==4
 int tty_irqs[NUM_UARTS] = { IRQ_TTY01, IRQ_TTY01, IRQ_TTY23, IRQ_TTY23 };
 #else
-#error "Unsupported value for NUM_UARTS (add more IRQ definitions)"
+#error Unsupported value for NUM_UARTS (add more IRQ definitions)
 #endif
 
+#ifndef UART16550
+#error Only 16550 UARTs are supported as of 2014-09-14.
+#endif
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -83,7 +86,7 @@ input_init()
 
 	_input_init = 1;
 	
-	inputbuf = fifo_init(64);
+	inputbuf = fifo_init(16);
 	
 	/* take two copies - one for now, one for later */
 	tcgetattr(0, &_input_termios);
@@ -152,19 +155,32 @@ uart_init(uart_t *u, char *fname)
 {
 	u->magic = UART_MAGIC;
 
-	u->txen = 0;
-	u->rxen = 0;
-	u->rxirq = 0;
+	u->ier = 0;
+	u->isr = 1;
+	u->fcr = 0;
+	u->lcr = 0;
+	u->mcr = 0;
+	u->lsr = 0x60;
+	u->msr = 0;
+	u->spr = 0xff;
+
+	u->int_lsr = 0;
+	u->int_rxrdy = 0;
+	u->int_rxtimeout = 0;
+	u->int_txrdy = 0;
+	u->int_msr = 0;
+	u->int_txrdy_arm = 0;
+
+	u->dll = 0x12;			// arbitrary values
+	u->dlh = 0x34;
+	u->afr = 0;
+
 	u->is_stdin = 0;
 	u->is_stdout = 0;
 	u->echo = 0;
 
-	u->txen = 1;		/* Temporary */
-	u->rxen = 1;		/* Temporary */
-	u->rxirq = 1;		/* Temporary */
-
-	u->rxfifo = fifo_init(8);
-	u->txfifo = fifo_init(8);
+	u->rxfifo = fifo_init(16);
+	u->txfifo = fifo_init(16);
 	
 	//u->term = NULL;
 	u->term = uterm_new(200);
@@ -197,11 +213,34 @@ uart_rx(int unit, uart_t * u, char c)
 {
 	assert(u != NULL);
 	assert(u->magic == UART_MAGIC);
-	if (!u->rxen) return;
-	fifo_put(u->rxfifo, c);
-	if (u->rxirq) interrupt(tty_irqs[unit]);
+	//if (!u->rxen) return;
+
+	// Duplicate 16550 behaviour: FIFO is not updated on overruns.
+	if (fifo_full(u->rxfifo)) {
+		u->lsr |= 2;		// Flag overrun error
+		duartdebug("Unit %d FIFO full, receive overrun\n", unit);
+	} else {
+		u->lsr &= 0xfd;		// Clear overrun error flag
+		u->lsr |= 1;		// Data available
+		fifo_put(u->rxfifo, c);
+		duartdebug("UART%d RB %d %d\n", unit, u->rxfifo->rp, u->rxfifo->wp);
+	}
+
+	// RXRDY interrupt?
+	if (u->ier & 1) {
+		u->int_rxrdy = 1;
+		interrupt(tty_irqs[unit]);
+	}
+
 	if (u->echo) {
-		if (u->fp != NULL) write(fileno(u->fp), &c, 1);
+		if (u->fp != NULL) {
+			if (write(fileno(u->fp), &c, 1) != 1) {
+				fail("UART%d: failed to write to stdout: %s",
+				     unit,
+				     strerror(errno));
+				exit(1);
+			}
+		}
 		if (u->term != NULL) uterm_putc(u->term, c);
 	}
 }
@@ -212,11 +251,15 @@ uart_tx(int unit, uart_t * u, char c)
 {
 	assert(u != NULL);
 	assert(u->magic == UART_MAGIC);
-	if (!u->txen) return;
-	//fifo_put(u->txfifo, c);
-	//if (u->txirq) interrupt(tty_irqs[unit]);
-	printf(">>>(%d)\n", c);
-	if (u->fp != NULL) write(fileno(u->fp), &c, 1);
+
+	if (u->fp != NULL) {
+		if (write(fileno(u->fp), &c, 1) != 1) {
+			fail("UART%d: failed to write to stdout: %s",
+			     unit,
+			     strerror(errno));
+			exit(1);
+		}
+	}
 	if (u->term != NULL) uterm_putc(u->term, c);
 }
 
@@ -266,133 +309,6 @@ duart_done()
 
 
 
-#ifdef UART26C92
-int 
-duart_write(uint16_t addr, uint16_t dbus)
-{
-	int unit = -1, chip = -1;
-	char c;
-	
-	/* Which chip is being addressed? */
-	if ((addr & 0xfff0) == IO_DUART0_BASE) chip = 0;
-	else if ((addr & 0xfff0) == IO_DUART1_BASE) chip = 1;
-	else return 0;
-	
-	/* Select A/B UART */
-	unit = chip * 2;
-	if (addr & 8) unit++;
-	
-	int ofs = addr & 0xf;
-	
-	switch (ofs) {
-	case 0:			/* Mode register */
-	case 8:
-		return 1;
-		
-	case 1:			/* Clock Select register */
-	case 9:
-		return 1;
-
-	case 2:			/* Command Register */
-	case 10:
-		return 1;
-		
-	case 4:			/* Aux Control Register */
-	case 12:
-		return 1;
-
-	case 5:			/* Interrupt Mask Register */
-		if (0) {
-			duartinfo("UART chip %d (units %d & %d): IMR = %08x\n",
-				  chip, chip * 2, chip * 2 + 1, dbus);
-		}
-		uart[chip * 2].rxirq = dbus & 0x02;
-		uart[chip * 2 + 1].rxirq = dbus & 0x20;
-		return 1;
-
-	case 6:			/* C/T Upper Preset Value */
-	case 7:			/* C/T Lower Preset Value */
-	case 14:		/* Set Output Port Bits command */
-	case 13:		/* Output Port Conf Register  */
-	case 15:		/* Reset Output Port Bits command */
-		return 1;
-
-	case 3:			/* TxFIFO */
-	case 11:
-		duartdebug("Unit %d Tx %02x\n", unit, dbus);
-		fputc(dbus & 0xff,log_file);
-		c = dbus & 0xff;
-		fifo_put(uart[unit].txfifo, dbus);
-		if (uart[unit].is_stdout) {
-			write(fileno(stdout), &c, 1);
-		}
-		if (uart[unit].fp != NULL) write(fileno(uart[unit].fp), &c, 1);
-		if (uart[unit].term != NULL) uterm_putc(uart[unit].term, c);
-		return 1;
-	}
-	
-	return 0;
-}
-
-
-
-int
-duart_read(uint16_t addr, uint16_t *dbus)
-{
-	int unit = -1;
-	uint32_t c = 0xffff;
-	
-	/* Which chip is being addressed? */
-	if ((addr & 0xfff0) == IO_DUART0_BASE) unit = 0;
-	else if ((addr & 0xfff0) == IO_DUART1_BASE) unit = 2;
-	else return 0;
-	
-	/* Select A/B UART */
-	if (addr & 8) unit++;
-	
-	int ofs = addr & 0xf;
-	
-	switch (ofs) {
-	case 0:			/* Mode register */
-	case 8:
-		
-	case 2:			/* Reserved */
-	case 10:
-		
-	case 4:			/* Input port change register */
-	case 12:
-
-	case 5:			/* Interrupt Status Register */
-	case 13:
-
-	case 6:			/* Counter/Timer upper value */
-	case 7:			/* Counter/Timer lower value */
-	case 14:		/* Start counter command */
-	case 15:		/* Stop counter command */
-		*dbus = 0;
-		return 1;
-
-	case 1:			/* Status register */
-	case 9:
-		*dbus = 0;
-		*dbus |= fifo_poll(uart[unit].rxfifo) ? 0x0001 : 0;
-		*dbus |= !fifo_full(uart[unit].txfifo) ? 0x0004 : 0;
-		duartdebug("Poll UART %d = %04x\n", unit, *dbus);
-		return 1;
-
-	case 3:			/* RxFIFO */
-	case 11:
-		fifo_get(uart[unit].rxfifo, &c);
-		*dbus = c;
-		duartdebug("Read UART %d = %04x\n", unit, *dbus);
-		return 1;
-	}
-	
-	return 0;
-}
-#endif
-
-
 #ifdef UART16550
 int 
 duart_write(uint16_t addr, uint16_t dbus)
@@ -401,50 +317,106 @@ duart_write(uint16_t addr, uint16_t dbus)
 	char c;
 	
 	/* Which chip is being addressed? */
-	if ((addr & 0xfff0) == IO_TTY0_RX) unit = 0;
-	else if ((addr & 0xfff0) == IO_TTY1_RX) unit = 1;
-	else if ((addr & 0xfff0) == IO_TTY2_RX) unit = 2;
-	else if ((addr & 0xfff0) == IO_TTY3_RX) unit = 3;
+	if ((addr & 0xfff8) == IO_TTY0_RX) unit = 0;
+	else if ((addr & 0xfff8) == IO_TTY1_RX) unit = 1;
+	else if ((addr & 0xfff8) == IO_TTY2_RX) unit = 2;
+	else if ((addr & 0xfff8) == IO_TTY3_RX) unit = 3;
 	else return 0;
 	
 	int ofs = addr & 0xf;
 	
 	switch (ofs) {
-	case 0:			/* Transmit Holding Reg */
+	case 0:			/* Transmit Holding Reg / Baud Rate Low */
 	case 8:
-		duartdebug("Unit %d Tx %02x\n", unit, dbus);
-		fputc(dbus & 0xff,log_file);
-		c = dbus & 0xff;
-		fifo_put(uart[unit].txfifo, dbus);
-		if (uart[unit].is_stdout) {
-			write(fileno(stdout), &c, 1);
+		if (uart[unit].lcr & 0x80) {
+			uart[unit].dll = dbus;
+			duartdebug("Unit %d DLL %02x (%d bps)\n",
+				   unit, dbus,
+				   921600 / (uart[unit].dll | (uart[unit].dlh << 8)));
+		} else {
+			duartdebug("Unit %d Tx %02x\n", unit, dbus);
+
+			// TxRDY interrupt? (we don't emulate UART transmission delays)
+			if (uart[unit].ier & 2) {
+				uart[unit].int_txrdy_arm++;
+				uart[unit].lsr &= ~0x60; // Clear the TX FIFO empty flags
+			}
+
+			fputc(dbus & 0xff,log_file);
+			c = dbus & 0xff;
+			fifo_put(uart[unit].txfifo, dbus);
+			if (uart[unit].is_stdout) {
+				if (write(fileno(stdout), &c, 1) != 1) {
+					fail("UART%d: failed to write to stdout: %s",
+					     unit,
+					     strerror(errno));
+					exit(1);
+				}
+			}
+			if (uart[unit].fp != NULL) {
+				if (write(fileno(uart[unit].fp), &c, 1) != 1) {
+					fail("UART%d: failed to write to output file: %s",
+					     unit,
+					     strerror(errno));
+					exit(1);
+				}
+			}
+			if (uart[unit].term != NULL) uterm_putc(uart[unit].term, c);
 		}
-		if (uart[unit].fp != NULL) write(fileno(uart[unit].fp), &c, 1);
-		if (uart[unit].term != NULL) uterm_putc(uart[unit].term, c);
 		return 1;
 
 	case 1:
 	case 9:
+		if (uart[unit].lcr & 0x80) {
+			uart[unit].dlh = dbus;
+			duartdebug("Unit %d DLH %02x (%d bps)\n",
+				   unit, dbus,
+				   921600 / (uart[unit].dll | (uart[unit].dlh << 8)));
+		} else {
+			duartdebug("Unit %d IER %02x\n", unit, dbus);
+			uart[unit].ier = dbus & 0xff;
+		}
+		return 1;
 
 	case 2:
 	case 10:
+		if (uart[unit].lcr & 0x80) {
+			duartdebug("Unit %d AFR %02x\n", unit, dbus);
+		} else {
+			duartdebug("Unit %d FCR %02x\n", unit, dbus);
+			uart[unit].fcr = dbus & 0xff;
+		}
+		return 1;
 		
 	case 3:
 	case 11:
+		uart[unit].lcr = dbus & 0xff;
+		duartdebug("Unit %d LCR %02x\n", unit, dbus);
+		return 1;
 
 	case 4:
 	case 12:
+		if (uart[unit].lcr & 0x80) {
+			warning("DUART%d: attempt to write to MCR with LCR[7] high.\n", unit);
+		}
+		uart[unit].mcr = dbus & 0xff;
+		duartdebug("Unit %d MCR %02x\n", unit, dbus);
+		return 1;
 
-	case 5:
+	case 5:				// Decoded but non-existent registers.
 	case 13:
-
 	case 6:
 	case 14:
+		warning("DUART%d: write to non-existent registr %04d\n", unit, addr);
 		return 1;
 
 	case 7:
 	case 15:
-		uart[unit].scratch = dbus & 0xff;
+		if (uart[unit].lcr & 0x80) {
+			warning("DUART%d: attempt to write to SPR with LCR[7] high.\n", unit);
+		}
+		uart[unit].spr = dbus & 0xff;
+		duartdebug("Unit %d SPR %02x\n", unit, dbus);
 		return 1;
 	}
 	
@@ -460,10 +432,10 @@ duart_read(uint16_t addr, uint16_t *dbus)
 	uint32_t c = 0xffff;
 	
 	/* Which chip is being addressed? */
-	if ((addr & 0xfff0) == IO_TTY0_RX) unit = 0;
-	else if ((addr & 0xfff0) == IO_TTY1_RX) unit = 1;
-	else if ((addr & 0xfff0) == IO_TTY2_RX) unit = 2;
-	else if ((addr & 0xfff0) == IO_TTY3_RX) unit = 3;
+	if ((addr & 0xfff8) == IO_TTY0_RX) unit = 0;
+	else if ((addr & 0xfff8) == IO_TTY1_RX) unit = 1;
+	else if ((addr & 0xfff8) == IO_TTY2_RX) unit = 2;
+	else if ((addr & 0xfff8) == IO_TTY3_RX) unit = 3;
 	else return 0;
 	
 	int ofs = addr & 0xf;
@@ -472,37 +444,69 @@ duart_read(uint16_t addr, uint16_t *dbus)
 	case 0:			/* Receive Holding Reg */
 	case 8:
 		fifo_get(uart[unit].rxfifo, &c);
+		if (!fifo_poll(uart[unit].rxfifo)) {
+			uart[unit].lsr &= 0xfe; // No data ready, FIFO empty.
+		}
 		*dbus = c;
 		duartdebug("Read UART %d = %04x\n", unit, *dbus);
 		return 1;
 
-	case 5:
+	case 1:				// IER
+	case 9:
+		*dbus = uart[unit].ier;
+		duartdebug("UART%d IER=%02x\n", unit, *dbus);
+		return 1;
+
+	case 2:				// ISR
+	case 10:
+		if (uart[unit].int_lsr) {
+			*dbus = 0xc6;
+			uart[unit].int_lsr = 0;
+		} else if (uart[unit].int_rxrdy) {
+			*dbus = 0xc4;
+			uart[unit].int_rxrdy = 0;
+		} else if (uart[unit].int_rxtimeout) {
+			*dbus = 0xcc;
+			uart[unit].int_rxtimeout = 0;
+		} else if (uart[unit].int_txrdy) {
+			*dbus = 0xc2;
+			uart[unit].int_txrdy = 0;
+		} else if (uart[unit].int_msr) {
+			*dbus = 0xc0;
+			uart[unit].int_msr = 0;
+		} else {
+			*dbus = 0xc1;	// No interrupts pending.
+		}
+		duartdebug("UART%d ISR=%02x\n", unit, *dbus);
+		return 1;
+
+	case 3:				// LCR
+	case 11:
+		*dbus = uart[unit].lcr;
+		return 1;
+
+	case 4:				// MCR
+	case 12:
+		*dbus = uart[unit].mcr;
+		return 1;
+
+	case 5:				// LSR
 	case 13:
-		*dbus = 0;
-		*dbus |= fifo_poll(uart[unit].rxfifo) ? 0x0001 : 0;
-		*dbus |= !fifo_full(uart[unit].txfifo) ? 0x0020 : 0;
+		*dbus = uart[unit].lsr;
+		//*dbus |= fifo_poll(uart[unit].rxfifo) ? 0x0001 : 0;
+		//*dbus |= !fifo_full(uart[unit].txfifo) ? 0x0020 : 0;
 		duartdebug("UART %d LSR = %04x\n", unit, *dbus);
 		return 1;
 
-	case 1:
-	case 9:
-
-	case 2:
-	case 10:
-		
-	case 3:
-	case 11:
-
-	case 4:
-	case 12:
-
-	case 6:
+	case 6:				// MSR
 	case 14:
+		*dbus = uart[unit].msr;
 		return 1;
 
-	case 7:
+	case 7:				// SPR
 	case 15:
-		*dbus = uart[unit].scratch;
+		*dbus = uart[unit].spr;
+		duartdebug("UART%d SPR = %04x\n", unit, *dbus);
 		return 1;
 	}
 	
@@ -525,6 +529,22 @@ duart_tick(int tick)
 				if (uart[i].is_stdin) {
 					uart_rx(i, &uart[i], c);
 				}
+			}
+		}
+	}
+
+	// Are there interrupts to issue?
+	for (int i = 0 ; i < NUM_UARTS; i++) {
+		if (uart[i].int_txrdy_arm) {
+			duartdebug("Unit %d TX FIFO %d deep\n", i, uart[i].int_txrdy_arm);
+			uart[i].int_txrdy_arm -= 16; // This is ROUGHLY equivalent to 57600 bps.
+			if (uart[i].int_txrdy_arm < 0) uart[i].int_txrdy_arm = 0;
+
+			if (uart[i].int_txrdy_arm == 0) {
+				uart[i].int_txrdy = 1;
+				uart[i].lsr |= 0x60;
+				interrupt(tty_irqs[i]);
+				duartdebug("Unit %d TXRDY int\n", i);
 			}
 		}
 	}

@@ -201,34 +201,45 @@ ui_gotoxy(int x, int y)
 }
 
 
-void
+int
 ui_xycprintf(int x, int y, word attr, const char *fmt, ...)
 {
 	va_list ap;
 	char * buf;
 
 	va_start(ap, fmt);
-	vasprintf(&buf, fmt, ap);
+	int result = vasprintf(&buf, fmt, ap);
 	va_end(ap);
 
 	assert(buf != NULL);
 	ui_xycputs(x, y, attr, buf);
 	free(buf);
+
+	return result;
 }
 
 
-void
+int
 ui_xycprintfr(int r, int y, word attr, const char *fmt, ...)
 {
 	va_list ap;
 	char * buf;
 
 	va_start(ap, fmt);
-	vasprintf(&buf, fmt, ap);
+	int result = vasprintf(&buf, fmt, ap);
 	va_end(ap);
 
 	ui_xycputs(r - strlen(buf), y, attr, buf);
 	free(buf);
+
+	return result;
+}
+
+void
+ui_cursor(int on)
+{
+	if (on) v.fb_menu.ccr = CCR_CURSOR_BLINK_SLOW | color(COL_BLACK, COL_ORANGE);
+	else v.fb_menu.ccr = CCR_CURSOR_OFF;
 }
 
 
@@ -307,7 +318,7 @@ void ui_init()
 	v.fb_menu.sar0 = 0;
 	v.fb_menu.mar0 = 0xffff;
 	v.fb_menu.mar1 = 0xffff;
-	v.fb_menu.ccr = CCR_CURSOR_BLINK_FAST | color(COL_BLACK, COL_ORANGE);
+	v.fb_menu.ccr = CCR_CURSOR_BLINK_SLOW | color(COL_BLACK, COL_ORANGE);
 	v.fb_menu.car = 0;
 
 	ui_use_status();
@@ -433,10 +444,10 @@ static void
 ui_key(SDL_Event event)
 {
 	SDL_keysym * k = &event.key.keysym;
-	printf("%x %x\n", k->mod, KMOD_LMETA);
+	//printf("%x %x\n", k->mod, KMOD_LMETA);
 	
 	// Quit?
-	if ((k->sym == 'c' || k->sym == '\\') &&
+	if ((k->sym == '\\') &&
 	    (k->mod & (KMOD_CTRL|KMOD_LCTRL|KMOD_RCTRL))) {
 		quit(0);
 	} else

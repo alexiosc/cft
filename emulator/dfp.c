@@ -53,7 +53,7 @@ uint16_t reg_icr;
 static int debugfd = -1;
 static char * pts;
 
-// Ring buffer size in bits (we do not use modulo)
+// These come from the DFP firmware for a more exact simulation.
 #define RBSIZE_BITS 4
 #define RBMASK ((1 << RBSIZE_BITS) - 1)
 static struct {
@@ -70,9 +70,9 @@ dfp_queue_char(uint8_t c)
 	if (new_ip == ringbuf.op) return;
 	ringbuf.b[ringbuf.ip] = c;
 	ringbuf.ip = new_ip;
-	printf("RB %d %d\n", ringbuf.ip, ringbuf.op);
-	printf("TODO: issue IRQ6/IRQ when key is pressed\n");
-	//if (reg_icr & ICR_TTY) set_irq6(1, 0);
+
+	printf("DFP RB %d %d\n", ringbuf.ip, ringbuf.op);
+	if (reg_icr & ICR_TTY) interrupt(6);
 }
 
 
@@ -96,8 +96,10 @@ dfp_out(const char * fmt, ...)
 	char * buf;
 
 	va_start(ap, fmt);
-	vasprintf(&buf, fmt, ap);
+	int result = vasprintf(&buf, fmt, ap);
 	va_end(ap);
+
+	if (result == 0) return;
 
 	int len = strlen(buf);
 	if (fwrite(buf, len, 1, log_file) != 1) {
@@ -210,11 +212,11 @@ dfp_write(uint16_t addr, uint16_t dbus)
 	{
 		const char *s = map_get(dbus);
 		if (s == NULL) {
-			dfp_out("%hx (?)", dbus);
+			dfp_out("%04hx (?)", dbus);
 			testdebug("PRINTA: %hx (?) -> %02x:%04x\n", dbus,
 				  GET_AEXT(mbu_l2p(dbus)), GET_AOFS(mbu_l2p(dbus)));
 		} else {
-			dfp_out("%hx (%s)", dbus, s);
+			dfp_out("%04hx (%s)", dbus, s);
 			testdebug("PRINTA: %hx (%s) -> %02x:%04x\n", dbus, s,
 				  GET_AEXT(mbu_l2p(dbus)), GET_AOFS(mbu_l2p(dbus)));
 		}

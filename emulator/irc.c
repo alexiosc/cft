@@ -105,6 +105,9 @@ irc_read(uint16_t addr, uint16_t *dbus)
 void
 interrupt (int level)
 {
+	// Do nothing if we don't have an IRC.
+	if (!have_irc) return;
+
 	// Set the ISR bit
 	ircdebug("IRQ %d\n", level);
 	//ircdebug("ISR %02x\n", isr);

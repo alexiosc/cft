@@ -53,10 +53,14 @@
 
 static void menu_handler_quit(SDL_Event * event, int);
 static void menu_handler_reset(SDL_Event * event, int);
+static void menu_handler_memory(SDL_Event * event, int);
 static void menu_handler_csdemo(SDL_Event * event, int);
 static void menu_handler_paldemo(SDL_Event * event, int);
 
 static char * menu_getval_hw(int);
+
+static void (*interactive_handler)(SDL_Event *, int) = NULL;
+
 
 #define GETVAL_MBU 1
 #define GETVAL_VDU 2
@@ -66,38 +70,44 @@ static char * menu_getval_hw(int);
 static menu_t menu_main[] = {
 	{
 		.name = "Memory Banking Unit (MBU)",
-		.shortcut = 'M',
+		//.shortcut = 'M',
 		.key = GETVAL_MBU,
 		.getval = menu_getval_hw
 	},
 	{
 		.name = "Video Display Unit (VDU)",
-		.shortcut = 'V',
+		//.shortcut = 'V',
 		.key = GETVAL_VDU,
 		.getval = menu_getval_hw
 	},
 	{
 		.name = "Real Time Clock (RTC)",
-		.shortcut = 'R',
+		//.shortcut = 'R',
 		.key = GETVAL_RTC,
 		.getval = menu_getval_hw
 	},
 	{
 		.name = "Non-Volatile RAM (NVR)",
-		.shortcut = 'N',
+		//.shortcut = 'N',
 		.key = GETVAL_NVR,
 		.getval = menu_getval_hw
 	},
 	MENU_ENTRY_SEPARATOR,
 	{
+		.name = "View Memory...",
+		.shortcut = 'M',
+		.key = 0,
+		.handler = menu_handler_memory,
+	},
+	{
 		.name = "View Character Set...",
-		.shortcut = 'V',
+		.shortcut = 'C',
 		.key = 0,
 		.handler = menu_handler_csdemo,
 	},
 	{
 		.name = "View Colour Palette...",
-		.shortcut = 'i',
+		.shortcut = 'P',
 		.handler = menu_handler_paldemo,
 	},
 	MENU_ENTRY_SEPARATOR,
@@ -223,6 +233,275 @@ menu_handler_csdemo(SDL_Event * event, int key)
 }
 
 
+static uint16_t _dump_topaddr = 0;    // Top of page
+static uint16_t _dump_cursor = 0;     // Current address cursor
+static uint16_t _dump_mark = 0;	      // Mark cursor (to go back)
+static uint16_t _dump_type = 0;
+static uint16_t _dump_addrcursor = 4; // The address input line cursor
+static char _dump_addrent[5] = "0000";
+
+#define NUM_DUMP_TYPES 3
+
+static void
+menu_handler_memory(SDL_Event * event, int key)
+{
+	int pagesize[NUM_DUMP_TYPES] = { 24, 24 * 8, 24 * 8 };
+	int linesize[NUM_DUMP_TYPES] = { 1,  8,      8};
+	int moved = 0;
+
+	ui_cls(ATTR_BG);
+
+	interactive_handler = menu_handler_memory;
+	
+	int i, j, a;
+
+	// Display MBU status
+
+	ui_xycprintf(1, 1, color(COL_ORANGE, COL_DKGREY), "MBU: ");
+	if (cpu.mbuen) {
+		ui_xycprintf(6, 1, color(COL_ORANGE, COL_DKGREY), "On");
+	} else {
+		ui_xycprintf(6, 1, color(COL_ORANGE, COL_DKGREY), "Off");
+	}
+	for (i = 0; i < 8; i++) {
+		ui_xycprintf(11 + i * 7, 1, color(COL_LTGREY, COL_DKGREY), "%d", i);
+		ui_xycprintf(13 + i * 7, 1, color(COL_ORANGE, COL_DKGREY), "%03x",
+			     (cpu.mbuen ? cpu.mbusm[i] : cpu.mbuhm[i]) >> 12);
+	}
+
+	// Dump
+	
+	switch (_dump_type) {
+	case 0:
+		a = _dump_topaddr;
+		for (i = 0; i < 24; i++, a++) {
+			uint8_t bg = a == _dump_cursor ? COL_BLACK : COL_DKGREY;
+			char *s;
+			ui_xycprintf(0, 3 + i, color(COL_LTGREY, bg), " %04x", a);
+			ui_xycprintf(5, 3 + i, color(COL_ORANGE, bg), " %04x", memory_read(a));
+			s = (char *)map_get(a);
+			ui_xycprintf(10, 3 + i, color(COL_WHITE, bg), " %-29.29s", s ? s : "");
+			
+			s = (char *)pasm_get(a);
+			ui_xycprintf(39, 3 + i, color(COL_ORANGE, bg), " %-39.39s ", s ? s : "");
+		}
+		break;
+	case 1:
+	case 2:
+		a = _dump_topaddr;
+		for (i = 0; i < 24; i++, a+=8) {
+			ui_xycprintf(1, 3 + i, color(COL_LTGREY, COL_DKGREY), "%04x", a);
+			for (j = 0; j < 8; j++) {
+				int col = color(COL_ORANGE, COL_DKGREY);
+				if (a + j == _dump_cursor) col = color(COL_ORANGE, COL_BLACK);
+				ui_xycprintf(6 + j * 5, 3 + i, col, "%04x", memory_read(a + j));
+			}
+			for (j = 0; j < 8; j++) {
+				uint16_t c = memory_read(a + j) & 0xff;
+				uint16_t col = color(COL_WHITE, COL_DKGREY);
+				if (a + j == _dump_cursor) col = color(COL_ORANGE, COL_BLACK);
+
+				if (_dump_type == 1 && !isprint(c)) c = '.';
+				else if (c & 0x80) {
+					col |= ATTR_INVERT;
+					c &= 0x7f;
+				}
+				ui_xycprintf(46 + j * 2, 3 + i, col, "%c", c);
+
+				c = (memory_read(a + j) >> 8) & 0xff;
+
+				col = color(COL_WHITE, COL_DKGREY);
+				if (a + j == _dump_cursor) col = color(COL_ORANGE, COL_BLACK);
+
+				if (_dump_type == 1 && !isprint(c)) c = '.';
+				else if (c & 0x80) {
+					col |= ATTR_INVERT;
+					c &= 0x7f;
+				}
+				ui_xycprintf(46 + j * 2 + 1, 3 + i, col, "%c", c);
+			}
+			for (j = 0; j < 8; j++) {
+				uint16_t c = memory_read(a + j);
+				uint16_t col = color(COL_LTGREY, COL_DKGREY);
+				if (a + j == _dump_cursor) col = color(COL_ORANGE, COL_BLACK);
+
+				if (_dump_type == 1 && (c > 255 || !isprint(c))) c = '.';
+				else if (c & 0x8000) {
+					col |= ATTR_INVERT;
+					c &= 0x7fff;
+				}
+				ui_xycprintf(63 + j, 3 + i, col, "%c", c);
+			}
+		}
+		break;
+	}
+
+	switch (event->type) {
+	case SDL_KEYDOWN:
+		switch (event->key.keysym.sym) {
+		case '0': case '1': case '2': case '3': case '4':
+		case '5': case '6': case '7': case '8': case '9':
+		case 'a': case 'b': case 'c': case 'd': case 'e':
+		case 'f': case 'A': case 'B': case 'C': case 'D':
+		case 'E': case 'F':
+		{
+			ui_cursor(1);
+			if (_dump_addrcursor >= 4) _dump_addrcursor = 0;
+			_dump_addrent[_dump_addrcursor] = event->key.keysym.sym;
+			_dump_addrcursor++;
+			break;
+		}
+
+		case SDLK_BACKSPACE:
+			if (_dump_addrcursor > 0) _dump_addrcursor--;
+			break;
+
+		case '\n':
+		case '\r':
+		case SDLK_KP_ENTER:
+			_dump_mark = _dump_cursor;
+			sscanf(_dump_addrent, "%hx", &_dump_cursor);
+			moved = 1;
+			break;
+			
+		case SDLK_ESCAPE:
+			interactive_handler = NULL;
+			ui_cursor(1);
+			menu_return_main(event, key);
+			return;
+
+		case 'i':
+		case 'I':
+			_dump_type = (_dump_type + 1) % NUM_DUMP_TYPES;
+			if ((_dump_topaddr + pagesize[_dump_type]) > 0xffff) {
+				_dump_topaddr = 0xffff - pagesize[_dump_type];
+			}
+			moved = 1;
+			break;
+
+		case 'g':
+		case 'G':
+			_dump_mark = _dump_cursor;
+			_dump_cursor = memory_read(_dump_cursor);
+			moved = 1;
+			break;
+
+		case 'm':
+		case 'M':
+		{
+			uint16_t t = _dump_cursor;
+			_dump_cursor = _dump_mark;
+			_dump_mark = t;
+			moved = 1;
+			break;
+		}
+
+		case 'p':
+		case 'P':
+		{
+			_dump_mark = _dump_cursor;
+			_dump_cursor = cpu.pc;
+			moved = 1;
+			break;
+		}
+
+		case SDLK_LEFT:
+		case SDLK_KP4:
+			_dump_cursor = (_dump_cursor - 1) & 0xffff;
+			moved = 1;
+			break;
+
+		case SDLK_RIGHT:
+		case SDLK_KP6:
+			_dump_cursor = (_dump_cursor + 1) & 0xffff;
+			moved = 1;
+			break;
+
+		case SDLK_UP:
+		case SDLK_KP8:
+			_dump_cursor = (_dump_cursor - linesize[_dump_type]) & 0xffff;
+			moved = 1;
+			break;
+
+		case SDLK_KP2:
+		case SDLK_DOWN:
+			_dump_cursor = (_dump_cursor + linesize[_dump_type]) & 0xffff;
+			moved = 1;
+			break;
+			
+		case SDLK_KP9:
+		case SDLK_PAGEUP:
+			_dump_cursor = (_dump_cursor - pagesize[_dump_type] / 2) & 0xffff;
+			moved = 1;
+			break;
+
+		case SDLK_KP3:
+		case SDLK_PAGEDOWN:
+			_dump_cursor = (_dump_cursor + pagesize[_dump_type] / 2) & 0xffff;
+			moved = 1;
+			break;
+
+		case SDLK_HOME:
+			_dump_cursor = 0;
+			moved = 1;
+			break;
+
+		case SDLK_END:
+			_dump_cursor = (0xffff - pagesize[_dump_type]) & 0xffff;
+			moved = 1;
+			break;
+		}
+	}
+
+	if (moved) {
+		//_dump_topaddr = (_dump_cursor / pagesize[_dump_type]) * pagesize[_dump_type];
+		
+		if (_dump_cursor < (pagesize[_dump_type] / 2)) _dump_topaddr = 0;
+		else if (_dump_cursor + (pagesize[_dump_type] / 2) > 0xffff) {
+			_dump_topaddr = (0xffff - pagesize[_dump_type] + 1) & 0xffff;
+		} else {
+			_dump_topaddr = (_dump_cursor - (_dump_cursor % linesize[_dump_type])) -
+				pagesize[_dump_type] / 2;
+		}
+		_dump_addrcursor = 99;
+		ui_cursor(0);
+		sprintf(_dump_addrent, "%04x", _dump_cursor);
+		
+	}
+
+	ui_xycputs(1, 28, color(COL_ORANGE, COL_DKGREY), "D");
+	ui_xycputs(2, 28, color(COL_WHITE, COL_DKGREY), "i");
+	ui_xycputs(3, 28, color(COL_ORANGE, COL_DKGREY), "splay");
+	ui_xycputs(9, 28, color(COL_WHITE, COL_DKGREY), "G");
+	ui_xycputs(10, 28, color(COL_ORANGE, COL_DKGREY), "o");
+	ui_xycputs(12, 28, color(COL_WHITE, COL_DKGREY), "M");
+	ui_xycputs(13, 28, color(COL_ORANGE, COL_DKGREY), "ark");
+	ui_xycputs(17, 28, color(COL_WHITE, COL_DKGREY), "P");
+	ui_xycputs(18, 28, color(COL_ORANGE, COL_DKGREY), "C");
+	
+
+	ui_xycprintf(23, 28, color(COL_LTGREY, COL_DKGREY), "Address");
+	if (_dump_addrcursor <= 4) {
+		ui_xycprintf(31, 28, color(COL_WHITE, COL_BLACK), " %04s ", _dump_addrent);
+	} else {
+		ui_xycprintf(31, 28, color(COL_WHITE, COL_DKGREY), " %04s ", _dump_addrent);
+	}
+	ui_xycprintf(39, 28, color(COL_LTGREY, COL_DKGREY), "Data");
+	uint16_t x = memory_read(_dump_cursor);
+	char buf[17];
+	to_bin(x, buf, 16);
+	ui_xycprintf(45, 28, color(COL_ORANGE, COL_DKGREY), "%04x %5u %+6d %16.16s", x, x, (int16_t)x, buf);
+
+	char * s = (char *)map_get(_dump_cursor);
+	if (s) ui_xycprintf(1, 29, color(COL_WHITE, COL_DKGREY), "%-80.80s", s);
+
+	//ui_cursor(_dump_cursor <= 4);
+	ui_gotoxy(32 + _dump_addrcursor, 28);
+		
+	v.dirty++;
+}
+
+
 static void
 menu_handler_paldemo(SDL_Event * event, int key)
 {
@@ -268,7 +547,7 @@ void
 ui_tab_menu_focus()
 {
 	cpu.pause++;
-	printf("Menu Focus\n");
+	//printf("Menu Focus\n");
 	v.fb = &v.fb_menu;
 	menu_return_main(NULL, 0);
 }
@@ -277,7 +556,7 @@ ui_tab_menu_focus()
 void
 ui_tab_menu_unfocus()
 {
-	printf("Menu Unfocus\n");
+	//printf("Menu Unfocus\n");
 	cpu.pause--;
 }
 
@@ -285,6 +564,10 @@ ui_tab_menu_unfocus()
 int
 ui_tab_menu_input(SDL_Event * event)
 {
+	if (interactive_handler != NULL) {
+		CB_RUN(interactive_handler)(event, 0);
+		return 1;
+	}
 	switch (event->type) {
 	case SDL_KEYDOWN:
 		switch (event->key.keysym.sym) {
