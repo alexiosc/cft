@@ -42,9 +42,9 @@ FOOTER = """
 """
 
 
-PATv = r'\.word\s+(.+)\s+; [Vv]ector: \s*((\w+).*?)\n'
-PATs = r'\.word\s+(.+)\s+; [Ss]ys[Cc]all: \s*((\w+).*?)\n'
-PATc = r'\.word\s+(.+)\s+; [Cc]onst: \s*(\w+)'
+PATv = r'\.(?:word|data)\s+(.+)\s+; [Vv]ector: \s*((\w+).*?)\n'
+PATs = r'\.(?:word|data)\s+(.+)\s+; [Ss]ys[Cc]all: \s*((\w+).*?)\n'
+PATc = r'\.(?:word|data)\s+(.+)\s+; [Cc]onst: \s*(\w+)'
 
 vectors = list()
 syscalls = list()

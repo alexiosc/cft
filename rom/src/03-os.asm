@@ -31,7 +31,8 @@ rtt1:		LMOV(RET0, 1)		; Return 1
 rttval:		STORE RET0		; Store AC and return from trap
 		RTT
 rttnop:		errno(ENOP)		; Set NOP error, fall through.
-rtterr:		RMOV(RET0, MINUS1)	; -1 Usually signifies an error.
+rtterr:	
+rttminus1:	RMOV(RET0, MINUS1)	; -1 Usually signifies an error.
 		RTT
 .popns
 		
@@ -51,13 +52,52 @@ rtterr:		RMOV(RET0, MINUS1)	; -1 Usually signifies an error.
 ;;;
 ;;;     None
 
-ttysel:         clear_errno()
+ttysel:         
+		clear_errno()
 		RPUSH(SP, ARG0)
 		RPUSH(SP, ARG1)
 		LI 7
 		JSR I MEMCPY
 		
 		JMP os.rtt0		; Return 0 = no error.
+
+		
+;;; System call: WAIT. Waits for input. (temporary)
+;;;
+;;; Arguments:
+;;; 
+;;;     None.
+;;; 
+;;; Return Value:
+;;;
+;;;     RET0: The character received, &ffff on error.
+;;;
+;;; Errors:
+;;;
+;;;     Currently none. When it's done: anything the I/O subsystem can throw at
+;;;     us.
+
+wait:
+.scope
+		clear_errno()
+
+		;; TODO: write this.
+
+; 		RPUSH(SP, RETV)
+; 		RMOV(p0.OSC_SMC, smc)	; Install the self-modifying program.
+
+; 		JMP p0.OSC		; And jump to it.
+; return_here:
+		
+; 		STORE RET0
+; 		RPOP(RETV, SP)
+
+		JMP os.rtt0		; Return 0 = no error.
+
+/smc:		.data &ffff
+.endscope
+
+		
 
 		
 ;;; Print out a packed string.
@@ -69,16 +109,63 @@ loop:		LOAD I ITMP0		; Read a pair of characters
 		RET			; Yes
 		STORE TMP15		; No.
 		GETLOCHAR()
-		asyscall(p0.TTYA_SEND)	; Print the first character
+		callcdrv(p0.TTYA, p0.TTYA_SEND)	; Print the first character
 
 		LOAD TMP15
 		GETHICHAR()
 		SNZ			; Are we done now?
 		RET			; Yes
-		asyscall(p0.TTYA_SEND)	; Print the second character
+		callcdrv(p0.TTYA, p0.TTYA_SEND)	; Print the second character
 
 		JMP loop
 .endscope
+
+;;; Subroutine: PUTNSP. Print out a specified number of characters from a
+;;; packed string.
+;;;
+;;; Arguments:
+;;; 
+;;;     AC: the address of the string.
+;;; 
+;;;     ARG1: the number of characters to print. At most ARG1 characters will be
+;;;     printed.
+
+putnsp:
+.scope
+		STORE ITMP0
+		RNEG(R15, ARG1)		; Negate the count for use with ISZ
+
+loop:		LOAD I ITMP0		; Read a pair of characters
+		SNZ			; Done?
+		RET			; Yes
+		STORE TMP15		; No.
+		
+		ISZ R15			; Reduce char count
+		JMP @+2
+		RET
+
+		LOAD TMP15
+		GETLOCHAR()
+		/TRAP I T_ERB1W
+		callcdrv(p0.TTYA, p0.TTYA_SEND)	; Print the first character
+
+		LOAD TMP15
+		GETHICHAR()
+		STORE TMP15
+		SNZ			; Are we done now?
+		RET			; Yes
+		
+		ISZ R15			; Reduce char count
+		JMP @+2
+		RET
+
+		LOAD TMP15
+		/TRAP I T_ERB1W
+		callcdrv(p0.TTYA, p0.TTYA_SEND)	; Print the second character
+
+		JMP loop
+.endscope
+		
 
 ;;; Print out a 16-bit unsigned decimal without using division (faster).
 putud:          
@@ -105,12 +192,14 @@ again:		CLL
 next_decade:	LOAD TMP14		; Skip leading zeroes
 		SNZ
 		JMP new_digit
-		rsyscall(p0.TTYA_SEND, TMP13)	; Print the character in TMP13
+		/TRAP I T_ERB1W
+		rcallcdrv(p0.TTYA, p0.TTYA_SEND, TMP13) ; Print char in TMP13
 		JMP new_digit
 
 units:		LI 48
 		ADD TMP15
-		asyscall(p0.TTYA_SEND)	; Print the character in AC
+		/TRAP I T_ERB1W
+		callcdrv(p0.TTYA, p0.TTYA_SEND)	; Print the character in AC
 
 		return()
 
@@ -138,11 +227,19 @@ puth:
 		STORE TMP11
 
 		RRNR(TMP15, TMP15)
-		JSR printx
-		asyscall(p0.TTYA_SEND)	; Print the character 1 (MSB)
-		rsyscall(p0.TTYA_SEND, TMP11) ; Print the character 2
-		rsyscall(p0.TTYA_SEND, TMP12) ; Print the character 3
-		rsyscall(p0.TTYA_SEND, TMP13) ; Print the character 4 (LSB)
+		; JSR printx
+		; TRAP I T_ERB1W
+		; LOAD TMP11
+		; TRAP I T_ERB1W
+		; LOAD TMP12
+		; TRAP I T_ERB1W
+		; LOAD TMP13
+		; TRAP I T_ERB1W
+		
+		callcdrv(p0.TTYA, p0.TTYA_SEND) ; Print character 1 (MSB)
+		rcallcdrv(p0.TTYA, p0.TTYA_SEND, TMP11) ; Print character 2
+		rcallcdrv(p0.TTYA, p0.TTYA_SEND, TMP12) ; Print character 3
+		rcallcdrv(p0.TTYA, p0.TTYA_SEND, TMP13) ; Print character 4 (LSB)
 
 		return()
 
@@ -187,7 +284,7 @@ memcpy:
 		STORE TMP15
 		RPOP(I14, SP)		; I14 = src
 		RPOP(I15, SP)		; I15 = dst
-loop:		RMOV(I I15, I I14)	; Copy a word
+loop:           RMOV(I I15, I I14)	; Copy a word
 		ISZ TMP15
 		JMP loop
 		RET
@@ -349,7 +446,8 @@ p0:		.word -16
 .endscope
 		
 
-		
+
+.include "calls/erb.asm"
 
 		
 ;;; delay(count)
@@ -395,13 +493,127 @@ postfail:
 
 .include "drivers/null.asm"		; The NULL driver (TTY/MSD sentinel)
 
-.include "drivers/serial.asm"	; Serial class drivers
-
+.pushns ser
+.include "drivers/serial.asm"		; Serial class drivers
 .include "drivers/serial/dfp.asm"	; Serial driver for the DFP console
 .include "drivers/serial/tty.asm"	; Serial driver for the TTY board
+.include "drivers/serial/vdu.asm"	; Serial driver for the VDU board
+.popns
 
 .popns
 		
+///////////////////////////////////////////////////////////////////////////////
+/// 
+/// INTERRUPT SERVICE ROUTINE
+///
+///////////////////////////////////////////////////////////////////////////////
+
+;;; The IRQ checking code is in the form of an unrolled 8-iteration loop. This
+;;; is faster than a loop with index registers and value tables, and it's
+;;; important to keep interrupt latency low.
+
+.page
+		
+isr:		
+.scope		
+		STORE ISRA		; Save the AC
+		IFL CLA INC		; if L: ac<-1
+		STORE ISRL		; Store it.
+		RMOV(ISRR, RETV)	; Also save the JSR vector
+
+		IN irc.ISR
+		STORE ISRR0
+
+chk0:		LI irc.ISR_IRQ0		; IRQ0
+		AND ISRR0
+		SNZ
+		JMP chk1
+		JSR I p0.ISR0VEC
+		irc.ack(0)
+
+chk1:		LI irc.ISR_IRQ1		; IRQ1
+		AND ISRR0
+		SNZ
+		JMP chk2
+		JSR I p0.ISR1VEC
+		irc.ack(1)
+
+chk2:		LI irc.ISR_IRQ2		; IRQ2
+		AND ISRR0
+		SNZ
+		JMP chk3
+		JSR I p0.ISR2VEC
+		irc.ack(2)
+
+chk3:		LI irc.ISR_IRQ3		; IRQ3
+		AND ISRR0
+		SNZ		
+		JMP chk4
+		JSR I p0.ISR3VEC
+		irc.ack(3)
+
+chk4:		LI irc.ISR_IRQ4		; IRQ4
+		AND ISRR0
+		SNZ
+		JMP chk5
+		JSR I p0.ISR4VEC
+		irc.ack(4)
+
+chk5:		LI irc.ISR_IRQ5		; IRQ5
+		AND ISRR0
+		SNZ
+		JMP chk6
+		JSR I p0.ISR5VEC
+		irc.ack(5)
+
+chk6:		LI irc.ISR_IRQ6		; IRQ6
+		AND ISRR0
+		SNZ
+		JMP chk7
+		JSR I p0.ISR6VEC
+		irc.ack(6)
+		
+chk7:		LI irc.ISR_IRQ7		; IRQ7
+		AND ISRR0
+		SNZ
+		JMP done
+		JSR I p0.ISR7VEC
+		irc.ack(7)
+
+done:		RMOV(RETV, ISRR)	; Restore the JSR vector
+		LOAD ISRL		; Restore L
+		RBR
+		LOAD ISRA		; Restore AC
+
+		SEI
+		RTI
+
+.endscope
+
+;;; Without an IRC board, every interrupt involves checking every single driver
+;;; installed on the system. This is expected to be quite slow.
+
+isr_no_irc:		
+.scope		
+		STORE ISRA		; Save the AC
+		IFL CLA INC		; if L: ac<-1
+		STORE ISRL		; Store it.
+		RMOV(ISRR, RETV)	; Also save the JSR vector
+
+		JSR I p0.ISR0VEC
+		JSR I p0.ISR1VEC
+		JSR I p0.ISR2VEC
+		JSR I p0.ISR3VEC
+		JSR I p0.ISR4VEC
+		JSR I p0.ISR5VEC
+		JSR I p0.ISR6VEC
+		JSR I p0.ISR7VEC
+
+		SEI
+		RTI
+
+.endscope
+
 ///////////////////////////////////////////////////////////////////////////////
 /// 
 /// SYSTEM VECTORS
@@ -414,7 +626,7 @@ postfail:
 		SMB 4			; 4 * &2000
 		FARJMP(post.start)	; Boot vector (far jump)
 
-&fff8:		JMP I R ISRV		; Interrupt Service vector
-null_isr:	RTI			; Null ISR
+&fff8:		FARJMP(isr)
+		RTI
 
 ;;; End of file.

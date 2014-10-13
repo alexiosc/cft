@@ -1,0 +1,338 @@
+#!/usr/bin/python
+
+import pprint
+import heapq
+from collections import deque
+
+# Generate Keyboard matrix in heap structure
+
+sym = 127
+def s(x=None):
+    global sym
+    if x is not None:
+        sym = x - 1
+    else:
+        sym += 1
+    return sym - 1
+
+SDLK_BACKSPACE = s(127)
+
+SDLK_CAPSLOCK = s()
+SDLK_SCROLLOCK = s()
+
+SDLK_F1 = s()
+SDLK_F2 = s()
+SDLK_F3 = s()
+SDLK_F4 = s()
+SDLK_F5 = s()
+SDLK_F6 = s()
+SDLK_F7 = s()
+SDLK_F8 = s()
+SDLK_F9 = s()
+SDLK_F10 = s()
+SDLK_F11 = s()
+SDLK_F12 = s()
+
+SDLK_INSERT = s()
+SDLK_HOME = s()
+SDLK_PAGEUP = s()
+SDLK_DELETE = s()
+SDLK_END = s()
+SDLK_PAGEDOWN = s()
+SDLK_UP = s()
+SDLK_DOWN = s()
+SDLK_LEFT = s()
+SDLK_RIGHT = s()
+SDLK_NUMLOCK = s()
+SDLK_KP_DIVIDE = s()
+SDLK_KP_MULTIPLY = s()
+SDLK_KP_MINUS = s()
+SDLK_KP_PLUS = s()
+SDLK_KP_ENTER = s()
+SDLK_KP_PERIOD = s()
+SDLK_KP0 = s()
+SDLK_KP1 = s()
+SDLK_KP2 = s()
+SDLK_KP3 = s()
+SDLK_KP4 = s()
+SDLK_KP5 = s()
+SDLK_KP6 = s()
+SDLK_KP7 = s()
+SDLK_KP8 = s()
+SDLK_KP9 = s()
+
+# Table format:
+# Word 0: Compacted Scancode
+# Word 1: Plain/Shifted
+# Word 2: Ctrl/Shifted
+# Word 3: Alt/Shifted
+
+KEYS = [
+    
+    # Modifier keys are handled elsewhere
+    
+    # ('SDLK_LSHIFT', 0, 0x12),
+    # ('SDLK_RSHIFT', 0, 0x59),
+    # ('SDLK_LCTRL', 0, 0x14),
+    # ('SDLK_RCTRL', 1, 0x14),
+    # ('SDLK_LALT', 0, 0x11),
+    # ('SDLK_RALT', 1, 0x11),
+    # ('SDLK_LSUPER', 1, 0x1f),	# Left Win key */
+    # ('SDLK_RSUPER', 1, 0x27),
+    
+    
+    ('a', 0, 0x1c, 'a', 'A', 1),
+    ('b', 0, 0x32, 'b', 'B', 2),
+    ('c', 0, 0x21, 'c', 'C', 3),
+    ('d', 0, 0x23, 'd', 'D', 4),
+    ('e', 0, 0x24, 'e', 'E', 5),
+    ('f', 0, 0x2b, 'f', 'F', 6),
+    ('g', 0, 0x34, 'g', 'G', 7),
+    ('h', 0, 0x33, 'h', 'H', 8),
+    ('i', 0, 0x43, 'i', 'I', 9),
+    ('j', 0, 0x3b, 'j', 'J', 10),
+    ('k', 0, 0x42, 'k', 'K', 11),
+    ('l', 0, 0x4b, 'l', 'L', 12),
+    ('m', 0, 0x3a, 'm', 'M', 13),
+    ('n', 0, 0x31, 'n', 'N', 14),
+    ('o', 0, 0x44, 'o', 'O', 15),
+    ('p', 0, 0x4d, 'p', 'P', 16),
+    ('q', 0, 0x15, 'q', 'Q', 17),
+    ('r', 0, 0x2d, 'r', 'R', 18),
+    ('s', 0, 0x1b, 's', 'S', 19),
+    ('t', 0, 0x2c, 't', 'T', 20),
+    ('u', 0, 0x3c, 'u', 'U', 21),
+    ('v', 0, 0x2a, 'v', 'V', 22),
+    ('w', 0, 0x1d, 'w', 'W', 23),
+    ('x', 0, 0x22, 'x', 'X', 24),
+    ('y', 0, 0x35, 'y', 'Y', 25),
+    ('z', 0, 0x1a, 'z', 'Z', 26),
+
+    ('0', 0, 0x45, '0', ')', ),
+    ('1', 0, 0x16, '1', '!', ),
+    ('2', 0, 0x1e, '2', '@', ),
+    ('3', 0, 0x26, '3', '#', ),
+    ('4', 0, 0x25, '4', '$', ),
+    ('5', 0, 0x2e, '5', '%', ),
+    ('6', 0, 0x36, '6', '^', ),
+    ('7', 0, 0x37, '7', '&', ),
+    ('8', 0, 0xe3, '8', '*', ),
+    ('9', 0, 0x46, '9', '(', ),
+
+    ('`', 0, 0x0e, '`', '~', ),
+    ('-', 0, 0x4e, '-', '_', ),
+    ('=', 0, 0x55, '=', '+', ),
+    ('\\', 0, 0x5d, '\\', '|', 28),
+    (' ', 0, 0x29),
+    
+    ('[', 0, 0x54, '[', '{', 27), # [ */
+    (']', 0, 0x5b, ']', '}', 29), # [ */
+    (';', 0, 0x4c, ';', ':', ),
+    ("'", 0, 0x52, "'", '"', ),
+    (',', 0, 0x41, ',', '<', ),
+    ('.', 0, 0x49, '.', '>', ),
+    ('/', 0, 0x4a, '/', '?', ),
+    #('<', 0, 0x61, '<', '>', ),         # The < > (or | \) key.
+    
+    # Special keys
+    (127, 0, 0x66),
+    (9, 0, 0x0d),
+    (10, 0, 0x5a),
+    (27, 0, 0x76),
+
+    # The numeric keypad
+    #(SDLK_NUMLOCK, 0, 0x77),
+    (SDLK_KP_DIVIDE, 1, 0x4a, '/'),
+    (SDLK_KP_MULTIPLY, 0, 0x7c, '*'),
+    (SDLK_KP_MINUS, 0, 0x7b, '-', '-'),
+    (SDLK_KP_PLUS, 0, 0x79, '+', '+'),
+    (SDLK_KP_ENTER, 1, 0x5a, 10),
+    (SDLK_KP_PERIOD, 0, 0x71, '.', '.'),
+    (SDLK_KP0, 0, 0x70, '0'),
+    (SDLK_KP1, 0, 0x69, '1'),
+    (SDLK_KP2, 0, 0x72, '2'),
+    (SDLK_KP3, 0, 0x7a, '3'),
+    (SDLK_KP4, 0, 0x6b, '4'),
+    (SDLK_KP5, 0, 0x73, '5'),
+    (SDLK_KP6, 0, 0x74, '6'),
+    (SDLK_KP7, 0, 0x6c, '7'),
+    (SDLK_KP8, 0, 0x75, '8'),
+    (SDLK_KP9, 0, 0x7d, '9'),
+
+    # Non-printable characters which are passed to the caller as
+    # keysyms.
+
+    # (SDLK_F1, 0, 0x05),
+    # (SDLK_F2, 0, 0x06),
+    # (SDLK_F3, 0, 0x04),
+    # (SDLK_F4, 0, 0x0c),
+    # (SDLK_F5, 0, 0x03),
+    # (SDLK_F6, 0, 0x0b),
+    # (SDLK_F7, 0, 0x83),
+    # (SDLK_F8, 0, 0x0a),
+    # (SDLK_F9, 0, 0x01),
+    # (SDLK_F10, 0, 0x09),
+    # (SDLK_F11, 0, 0x78),
+    # (SDLK_F12, 0, 0x07),
+
+    #(SDLK_CAPSLOCK, 0, 0x58),
+    # Special treatment for these. */
+    #('SDLK_PRINT', 0, 0x0e),
+    #('SDLK_PAUSE', 0, 0x7e),
+
+    #(SDLK_SCROLLOCK, 0, 0x7e),
+
+    # (SDLK_INSERT, 1, 0x70),
+    # (SDLK_HOME, 1, 0x6c),
+    # (SDLK_PAGEUP, 1, 0x7d),
+    # (SDLK_DELETE, 1, 0x71),
+    # (SDLK_END, 1, 0x69),
+    # (SDLK_PAGEDOWN, 1, 0x7a),
+    # (SDLK_UP, 1, 0x75),
+    # (SDLK_DOWN, 1, 0x6b),
+    # (SDLK_LEFT, 1, 0x72),
+    # (SDLK_RIGHT, 1, 0x74),
+
+
+    ]
+
+
+#keys = [ (x[1] << 7) + x[2] for x in KEYS ]
+keydict = dict()
+for datum in KEYS:
+    key, ext, keysym = datum[:3]
+    keysym += ext << 7
+    keydict[keysym] = (key, datum)
+keys = list(keydict.keys())
+
+print ";;; Generated automatically, do not edit!\n;;; "
+print ";;; Keys in total:", len(keys)
+print ";;; Unique keys:", len(set(keys))
+print
+
+assert len(keys) == len(set(keys))
+
+def treeify(x, depth):
+    if len(x) == 0:
+        return []
+
+    mid = len(x) // 2
+    return [(x[mid], depth)] + treeify(x[:mid], depth+1) + treeify(x[mid+1:], depth+1)
+
+def bfs(tree):
+    depth = 0
+    while True:
+        nodes = [ x for x in tree if x[1] == depth ]
+        if not nodes:
+            return
+        for x in nodes:
+            yield x[0]
+        depth += 1
+
+def getheap(heap):
+    while heap:
+        try:
+            yield (heap[0], heap[1])
+        except:
+            yield (heap[0],)
+        heap = heap[2:]
+
+def convert(x):
+    if isinstance(x, (str, unicode)):
+        return ord(x)
+    return x
+
+def kbdmap(n, key):
+    #print keydict[key][1]
+
+    datum = keydict[key][1]
+    
+    if n == 0:
+        if len(datum) >= 4:
+            return convert(datum[3])
+        else:
+            return convert(datum[0])
+
+    elif n == 1:
+        if len(datum) >= 5:
+            return convert(datum[4])
+        else:
+            return kbdmap(0, key)
+
+    elif n == 2:
+        if len(datum) >= 6:
+            return convert(datum[5])
+        else:
+            return kbdmap(0, key)
+
+    elif n == 3:
+        if len(datum) >= 7:
+            return convert(datum[6])
+        else:
+            return kbdmap(0, key)
+
+    raise ValueError('Bad keymap type')
+
+def maybechar(c):
+    if not isinstance(c, int):
+        c = ord(c)
+    if c >= 32 and c <= 126:
+            return "'%c'" % c
+    return '%-3d' % c
+    
+def dokeymap(n):
+    addr = 0
+    #for x in getheap(heap):
+    for x in getheap(sorted(keys)):
+        x = [kbdmap(n, y) for y in x]
+        if len(x) == 2:
+            print "                .word &%02x &%02x00         ; %04x: %s %s" % \
+                (x[0], x[1], addr, maybechar(x[0]), maybechar(x[1]))
+        else:
+            print "                .word     &%02x00         ; %04x:       %s" % \
+                (x[0], addr, maybechar(x[0]))
+        addr += 1
+
+#t = treeify([1,2,3,4,5,6,7], 0)
+t = treeify(sorted(keys), 0)
+#pprint.pprint(list(bfs(t)))
+
+heap = list(bfs(t))
+numkeys = len(heap)
+print """
+.equ heapend @keytable1-keytable       ; Negated max address of heap
+.equ heapsz  %(numkeys)-5d                     ; %(numkeys)d keys in the keymap
+
+;;; Heap of scan codes, two per word. Only the lowest 8 bits are
+;;; checked, so extended scan codes are treated the same as classic
+;;; IBM 5150 ones. This is not a problem, because we're interested in
+;;; keys issuing ASCII symbols.
+
+keytable:
+""" % locals()
+
+addr = 0
+#for x in getheap(heap):
+for x in getheap(sorted(keys)):
+    if len(x) == 2:
+        print "                .word &%02x &%02x00         ; %04x: %3d %3d" % (x[0], x[1], addr, x[0], x[1])
+    else:
+        print "                .word     &%02x00         ; %04x:     %3d" % (x[0], addr, x[0])
+    addr += 1
+
+print "                .word 0                 ; End of scancode table"
+print "keytable1:\n\nkbd_map_plain:\t; Plain keymap"
+dokeymap(0)
+
+print "\nkbd_map_shift:\t; Shift+key keymap"
+dokeymap(1)
+
+print "\nkbd_map_ctrl:\t; Ctrl+key keymap"
+dokeymap(2)
+
+#print "\nkbd_map_alt:\t; Alt+key keymap"
+#dokeymap(3)
+
+print "\n;;; End of file.\n"
+
+# End of file.

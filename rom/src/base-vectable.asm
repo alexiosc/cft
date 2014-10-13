@@ -56,6 +56,8 @@
 		.word #0010000000000000 ; Const:  BIT13
 		.word #0100000000000000 ; Const:  BIT14
 		.word #1000000000000000 ; Const:  BIT15
+		.word &ff80		; Const:  ROWMASK
+		.word &7f		; Const:  COLMASK
 		.word 0			; End of vector table
 
 ;;; End of file.

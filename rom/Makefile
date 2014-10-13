@@ -19,10 +19,15 @@ ROMSRC =	$(SRCDIR)/$(BASENAME).asm
 ROMBIN =	$(BUILDDIR)/$(BASENAME).bin
 XPMFILE = 	$(BUILDDIR)/$(BASENAME).xpm
 MAPFILE =	$(BUILDDIR)/$(BASENAME).map
+PASMFILE =	$(BUILDDIR)/$(BASENAME).pasm
 CFTEMU =	$(CFTDIR)/emulator/cftemu $(CFTEMUOPTS)
-CFTEMUOPTS =	-a v4 -V -M $(MAPFILE)
+CFTEMUOPTS =	-a v4 -M $(MAPFILE) -p $(PASMFILE)
+CFTEMUOPTS +=	-V
+CFTEMUOPTS +=	--nvram
+#CFTEMUOPTS +=	--debug-irc
 
-VECASM =	$(GENDIR)/vector-table.asm
+BASEVECASM =	$(GENDIR)/base-vectable.asm
+FORTHVECASM =	$(GENDIR)/forth-vectable.asm
 
 LOGOASM =	$(GENDIR)/cft-logo.asm
 LOGO =		$(DOCDIR)/logo/cft-logo-v2-cftbanner.png
@@ -31,7 +36,10 @@ FONTASM =	$(GENDIR)/romfont.asm
 FONT =		$(EMUDIR)/romfont.fnt
 FONT2ASM =	$(SCRIPTDIR)/mkromfont
 
-GENASM =	$(VECASM) $(LOGOASM) $(FONTASM)
+KEYMAPASM =	$(GENDIR)/keymap.asm
+MKKEYMAP =	$(SCRIPTDIR)/mkkeymap
+
+GENASM =	$(BASEVECASM) $(FORTHVECASM) $(LOGOASM) $(FONTASM) $(KEYMAPASM)
 
 CFTASM =	$(TOOLDIR)/cftasm
 CFTASMFLAGS =	-I $(CFTDIR) --min-addr=$(BASEADDR)
@@ -42,10 +50,13 @@ all:		$(ROMBIN)
 
 .PHONY: 	all clean test view
 
-$(ROMBIN):	$(SRCDIR)/*asm $(GENASM)
+$(ROMBIN):	$(shell find $(SRCDIR) -name '*asm') $(GENASM) ../asm/*asm
 		$(CFTASM) $(CFTASMFLAGS) -I $(SRCDIR) $(ROMSRC) -o $(ROMBIN)
 
-$(VECASM): 	$(SRCDIR)/vector-table.asm $(SCRIPTDIR)/mkvectors
+$(BASEVECASM): 	$(SRCDIR)/base-vectable.asm $(SCRIPTDIR)/mkvectors
+		$(SCRIPTDIR)/mkvectors $< >$@
+
+$(FORTHVECASM): $(SRCDIR)/forth-vectable.asm $(SCRIPTDIR)/mkvectors
 		$(SCRIPTDIR)/mkvectors $< >$@
 
 $(LOGOASM):	$(LOGO) $(IMG2ASM)
@@ -53,6 +64,9 @@ $(LOGOASM):	$(LOGO) $(IMG2ASM)
 
 $(FONTASM):	$(FONT) $(FONT2ASM)
 		$(FONT2ASM) $< >$@
+
+$(KEYMAPASM):	$(MKKEYMAP)
+		$(MKKEYMAP) >$@
 
 clean:
 		-rm -f $(ROMBIN) $(SRCDIR)/*~ $(BUILDDIR)/*.list $(BUILDDIR)/*.pasm \

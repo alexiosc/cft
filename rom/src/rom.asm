@@ -20,15 +20,22 @@
 
 .include "asm/page0-0.asm"		; Page 0 definitions (&00xx)
 .include "asm/page0-1.asm"		; Page 0 definitions (&01xx)
-ramvectable:
-.include "generated/vector-table.asm"	; Page 0 definitions (&03xx)
+base_vector_table:
+.include "generated/base-vectable.asm"	; Base Page 0 definitions (&03xx)
+forth_vector_table:	
+.include "generated/forth-vectable.asm"	; Forth Page 0 definitions (&03xx)
 
 .include "asm/ucb.asm"			; Debugging Front Panel (DFP)
 .include "asm/mbu.asm"			; Memory Banking Unit (MBU)
 .include "asm/dfp.asm"			; Debugging Front Panel (DFP)
 .include "asm/irc.asm"			; Interrupt Board (IRC)
+.include "asm/rtc.asm"			; Real-Time Clock/NVRAM (IRC/NVR)
+		
 .include "asm/tty.asm"			; TTY board (dual dual 16550 UARTs)
+.include "asm/ide.asm"			; IDE board (dual IDE channels)
 .include "asm/vdu.asm"			; Video Board & Keyboard (VDU)
+.include "asm/psg.asm"			; GI AY-3-8910 Board (PSG)
+.include "asm/spj.asm"			; SpeakJet® Board (SPJ)
 .include "asm/post.asm"			; POST patterns
 
 .include "asm/macro-generic.asm"	; General use macros
@@ -38,11 +45,12 @@ ramvectable:
 .include "asm/macro-os.asm"		; OS macros
 
 .include "asm/errno.asm"		; Error codes
+.include "asm/devctl.asm"		; Device control opcodes
 .include "asm/config.asm"		; OS configuration
 
 .include "00-post.asm"
 /.include "01-xxxx.asm"
-/.include "02-forth.asm"
+.include "02-romforth.asm"
 .include "03-os.asm"
 
 ;;; End of file.

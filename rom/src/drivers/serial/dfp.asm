@@ -1,5 +1,5 @@
 ;;; -*- cftasm -*-
-		
+                
 ;;; TTY driver for the DFP TTY.
 ;;;
 ;;; Copyright © 2014 Alexios Chouchoulas.
@@ -30,16 +30,48 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-;;; Boilerplate and jump table for TTY drivers
-table:
-.equ handle @			         
-		.data @		        ; Magic TBD
-cts:		.word prv.cts		; Clear to send? (always yes for the DFP)
-send:		.word prv.send
-dsr:		.word prv.dsr
-read:		.word prv.read		; Blocking read
-status:		.word os.rttnop		; *** NOT AVAILABLE
-ctl:		.word os.rttnop		; *** NOT AVAILABLE
+;;; Jump table for DFP serial driver
+
+.equ base @			         
+
+table:          .data @                 ; The DFP doesn't use a unit number
+cts:            .word prv.cts           ; Clear to send? (always yes for the DFP)
+send:           .word prv.send
+dsr:            .word prv.dsr
+read:           .word prv.read          ; Blocking read
+status:         .word os.rttnop         ; *** NOT AVAILABLE
+ctl:            .word os.rttnop         ; *** NOT AVAILABLE
+name:		.strp "dfp" 0 0 0	; Name of the device, 6 chars max.
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// INTERRUPT SERVICE ROUTINE
+//
+///////////////////////////////////////////////////////////////////////////////
+		
+;;; Interrupt Service Routine.
+;;;
+;;; IRQ served:	6
+;;; 
+;;; This code checks if there's a character waiting, and queues it.
+
+isr:
+.scope
+		enter_sub()
+check_char:	IN R dfp.ISR
+		STORE R ISRR1
+		LI dfp.ISR_TTYQ
+		AND R ISRR1
+		SNZ
+		JMP done
+		
+		IN dfp.RX
+
+		JSR I enqueue		; Enqueue the character
+		JMP check_char		; And go again.
+done:		return()
+enqueue:	.word erb0w		; Write to event queue
+.endscope
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -51,15 +83,15 @@ ctl:		.word os.rttnop		; *** NOT AVAILABLE
 
 ;;; Check if a character is available, return boolean value.
 
-cts:		clear_errno()
-		JMP os.rtt1		; The DFP is always ready to receive
+cts:            clear_errno()
+                JMP os.rtt1             ; The DFP is always ready to receive
 
 ;;; Send out a character.
 
-send:		clear_errno()
-		LOAD ARG0
-		OUT dfp.TX		; Blocks via wait states until done
-		RTT
+send:           clear_errno()
+                LOAD ARG1
+                OUT dfp.TX              ; Blocks via wait states until done
+                RTT
 
 ;;; Check if a character is available, return 0 (no), 1 (yes). The DFP TTY
 ;;; doesn't have a separate query operation, and returns either a character or
@@ -67,32 +99,33 @@ send:		clear_errno()
 ;;; DFP output buffer, we store this character in RAM. The read call will then
 ;;; check to see if one is available and return it immediately.
 
-dsr:		clear_errno()
-		IN dfp.RX
-		STORE p0.DFP_LASTC
-		SNA
-		JMP os.rtt1		; 1 = yes, there are characters
-		JMP os.rtt0		; 0 = no, no characters
+dsr:            clear_errno()
+                IN dfp.RX
+                STORE p0.DFP_LASTC
+                SNA
+                JMP os.rtt1             ; 1 = yes, there are characters
+                JMP os.rtt0             ; 0 = no, no characters
 
 ;;; Read a character. Block and wait for one if none is available.
 
-read:		clear_errno()
-		LOAD p0.DFP_LASTC
-		SNN			; Already have a character
-		JMP _wait_for_char	; We don't, block.
-		RMOV(p0.DFP_LASTC, BIT15) ; Set LASTC to &8000 (no chars left)
-		AND BYTELO		; Keep the low 8 bits
-		JMP os.rttval		; Return them
-_wait_for_char:	RMOV(p0.DFP_LASTC, BIT15) ; Set LASTC to &8000 (no chars left)
-		IN dfp.RX		; Block, waiting for a character
-		SNN
-		JMP _wait_for_char	; Try again.
-		AND BYTELO		; Keep the low 8 bits
-		JMP os.rttval		; Return them
+read:           clear_errno()
+                LOAD p0.DFP_LASTC
+                SNN                     ; Already have a character
+                JMP _wait_for_char      ; We don't, block.
+                RMOV(p0.DFP_LASTC, BIT15) ; Set LASTC to &8000 (no chars left)
+                AND BYTELO              ; Keep the low 8 bits
+                JMP os.rttval           ; Return them
+_wait_for_char: RMOV(p0.DFP_LASTC, BIT15) ; Set LASTC to &8000 (no chars left)
+                IN dfp.RX               ; Block, waiting for a character
+                SNN
+                JMP _wait_for_char      ; Try again.
+                AND BYTELO              ; Keep the low 8 bits
+                JMP os.rttval           ; Return them
 
 .popns
-;;; End of private code
 		
+;;; End of private code
+                
 .popns
 
 ;;; End of file.

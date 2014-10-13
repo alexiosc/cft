@@ -33,12 +33,35 @@
 ;;; starts with its opaque handle, and is stored in Page 0 as something like
 ;;; TTYA_HANDLE.
 
-.equ cts    0
-.equ send   1
-.equ dsr    2
-.equ read   3
-.equ status 4
-.equ ctl    5
+.equ cts     1
+.equ send    2
+.equ dsr     3
+.equ read    4
+.equ status  5
+.equ ctl     6
+.equ name    7
+;;; entries 7-9 are the six chars of the name
+
+.equ namesz  6				; Max name size.
+
+;;; Bitmap of the return values of the status call. These are nearly identical
+;;; to the maps for the 8250/16450/16550 LSR and MSR registers.
+
+.equ STATUS_RET0_RDR  #-------1			; Data ready for reception
+.equ STATUS_RET0_OERR #------1-			; Overrun error
+.equ STATUS_RET0_PERR #-----1--			; Parity error
+.equ STATUS_RET0_FERR #----1---			; Framing error
+.equ STATUS_RET0_BRK  #---1----			; Break being received
+.equ STATUS_RET0_THR  #--1-----			; Host can send data
+
+.equ STATUS_RET1_DCTS #-------1			; CTS has changed state
+.equ STATUS_RET1_DDSR #------1-			; DSR has changed state
+.equ STATUS_RET1_DRI  #-----1--			; RI has changed state
+.equ STATUS_RET1_DCD  #----1---			; CD has changed state
+.equ STATUS_RET1_CTS  #---1----			; CTS# asserted
+.equ STATUS_RET1_DSR  #--1-----			; DSR# asserted
+.equ STATUS_RET1_RI   #-1------			; RI# asserted
+.equ STATUS_RET1_CD   #1-------			; CD# asserted
 
 .popns
 
