@@ -1,3 +1,5 @@
+% -*- latex -*-
+
 \label{chap:hard-vdu}
 
 The VDU card is a semi-intelligent Video Display Unit controller inspired by
@@ -708,17 +710,25 @@ above. It is implemented by assigning the background colour to the foreground
 colour at set intervals, which effectively makes foreground pixels disappear
 into the background.
 
-The intervals in question are using the vertical synchronisation signal
-(defining the frame rate) as a clock, so blinking is synchronised with the
-frame and all blinking characters on the screen blink in unison. Two blink
-rates are produced: fast blink, where the frame rate is divided by 16, and slow
-blink, where it is divided by 32. Slow blinking is used to blink
-characters. Slow or fast blink may be used to blink the hardware cursor, to
-enhance its visibility.
+The intervals in question are using the vertical synchronisation
+signal (defining the frame rate) as a clock, so blinking is
+synchronised with the frame and all blinking characters on the screen
+blink in unison. Three blink rates are produced: fast blink, where the
+frame rate is divided by 8, slow blink, where it is divided by 16, and
+character blink, where it is divided by 32. Character blinking is used
+to blink characters. Slow or fast blink may be used to blink the
+hardware cursor, to enhance its visibility. Blink rates are outlined
+in the following table, based on the VDU's 73.965~Hz refresh rate.
 
-With the VDU's 73.965~Hz refresh rate, fast blink has an approximate 4.6~Hz
-frequency (432~ms period), while slow blink has a frequency of 2.3~Hz (864~ms
-period).
+\begin{tabular}{lrrr}
+  Blink type & Divider & Frequency (Hz) & Period (ms) \\
+  \hline
+  Fast       &   8   &   9.25   &   108 \\
+  Slow       &  16   &   4.62   &   216 \\
+  Character  &  32   &   2.31   &   432 \\
+  \hline
+\end{tabular}
+
 
 \begin{figure}
   \centering
@@ -1774,16 +1784,16 @@ all of which is done via I/O space registers. There are thirteen registers in fi
       \li{\bin{11}}: \hex{C000}–\hex{FFFF}.
     \end{description}
     
-    \li{\field{VSI}} controls the Vertical Sync Interrupt. If this bit is
-    set, interrupts will be signalled during vertical blanking. The processor
-    can then modify the VDU image with minimum flickering, perhaps to
-    implement a double-buffering technique. This flag defaults to \bin{0}
-    when the system is reset.
+    \li{\field{VSI}} controls the Vertical Sync Interrupt. If this bit is set,
+    an interrupt will be signalled when vertical blanking begins. The processor
+    can then modify the VDU image with minimum flickering, perhaps to implement
+    a double-buffering technique. This flag defaults to \bin{0} when the system
+    is reset.
     
-    \li{\field{SCI}} controls the Split Count Interrupt. If this bit is
-    set, an interrupt will be signalled whenever the scanline specified in
-    \field{SCL} (see below) is being output. This flag defaults to \bin{0}
-    when the system is reset.
+    \li{\field{SCI}} controls the Split Count Interrupt. If this bit is set, an
+    interrupt will be signalled whenever the scanline specified in \field{SCL}
+    (see below) is being output. The interrupt is generated even when split
+    screen mode is disabled. This flag defaults to \bin{0} when the system is reset.
 
     \li{\field{VRI}} controls the VDU Ready Interrupt. If this bit is set, an
     interrupt will be signalled at the completion of every host command.  This
@@ -1823,34 +1833,41 @@ all of which is done via I/O space registers. There are thirteen registers in fi
   \end{bitfield}
 
   \begin{description}
-    \li{\field{CRH}} contains the same value as the \field{CRH} field in the \port{MCR0} register.
+    \li{\field{CRH}} contains the same value as the \field{CRH} field in the
+    \port{MCR0} register.
 
-    \li{\field{C40}} contains the same value as the \field{C40} field in the \port{MCR0} register.
+    \li{\field{C40}} contains the same value as the \field{C40} field in the
+    \port{MCR0} register.
 
-    \li{\field{CS2}} contains the same value as the \field{CS2} field in the \port{MCR0} register.
+    \li{\field{CS2}} contains the same value as the \field{CS2} field in the
+    \port{MCR0} register.
 
     \li{\field{VSIS}} is set if a Vertical Sync Interrupt has been signalled
-    since the last read of the \port{SR} register. This bit is cleared after the register is read.
+    since the last read of the \port{SR} register. This bit is cleared after
+    the register is read.
 
     \li{\field{SCIS}} is set if a Split Count Interrupt has been signalled
-    since the last read of the \port{SR} register. This bit is cleared after the register is read.
+    since the last read of the \port{SR} register. This bit is cleared after
+    the register is read.
 
-    \li{\field{VRIS}} is set if a VDU Ready Interrupt has been signalled
-    since the last read of the \port{SR} register. This bit is cleared after the register is read.
+    \li{\field{VRIS}} is set if a VDU Ready Interrupt has been signalled since
+    the last read of the \port{SR} register. This bit is cleared after the
+    register is read.
 
     \li{\field{KBIS}} is set if a Keyboard Interrupt has been signalled since
     the last read of the \port{SR} register. Unlike other interrupt status
     bits, reading the \port{SR} does {\em not\/} clear this bit. This is done
     by reading the \port{KBD} register instead.
 
-    \li{\field{Version}} is the version of the VDU card. Currently, this
-    field should always yield the value \bin{00010} and that may be used to
-    autodetect the presence of the card.
+    \li{\field{Version}} is the version of the VDU card. For current revisions
+    of the VDU, this field should yield the value \bin{00101}. This may be used
+    to autodetect the presence of the card.
 
-    \li{\field{EN}} must be set to \bin{1} to enable video generation. If set
-    to \bin{0}, the VDU clocks are stopped and the output remains blanked. Most
-    monitors will enter power saving mode within a few seconds of this
-    happening.
+    \li{\field{EN}} matches the bit of the same name in the
+    \port{MCR0} register. It is set if video generation is enabled. If
+    clear, the VDU clocks are stopped and the output remains
+    blanked. Most monitors will enter power saving mode within a few
+    seconds of this happening.
   \end{description}
 
 \end{ioport}
@@ -1924,23 +1941,25 @@ all of which is done via I/O space registers. There are thirteen registers in fi
     \bitfieldRepConst{8}{0}
   \end{bitfield}
 
-  \begin{description}
-    \li{\field{HSCR}} shifts the displayed image left by a number of
-    pixels to the left. A value of \hex{0} does not shift the image; a value of
-    \hex{7} shifts it to the left by seven pixels. This represents the range of
-    modulo 8 and allows smooth scrolling to be implemented in conjunction with
-    the \port{SAR0} register.
+  \begin{description} \li{\field{HSCR}} shifts the displayed image left by a
+    number of pixels. A value of \hex{0} does not shift the image; a value
+    of \hex{7} shifts it to the left by seven pixels. This represents the range
+    of modulo 8 and allows smooth scrolling to be implemented in conjunction
+    with the \port{SAR0} register (which can shift in multiples of eight
+    pixels).
 
-    \li{\field{VSCR}} shifts the displayed image up by a number of pixels. A
-    value of \hex{0} does not shift the image; a value of \hex{15} shifts it up
-    by fifteen pixels. This represents the range of modulo 16 and allows smooth
-    scrolling to be implemented in conjunction with the \port{SAR0} register.
+    \li{\field{VSCR}} shifts the displayed image up by a number of
+    pixels. A value of \hex{0} does not shift the image; a value of
+    \hex{15} shifts it up by fifteen pixels. This represents the range
+    of modulo 16 and allows smooth scrolling to be implemented in
+    conjunction with the \port{SAR0} register. Please note that,
+    depending on the current mode, the row field of \port{SAR0} can
+    shift by 16, 8, 4, 2 or single pixels (30, 60, 120, 240 and 480
+    line modes respectively), so the steps needed for smooth vertical
+    scrolling depend on the mode.
   \end{description}
 
 \end{ioport}
-
-
-
 
 
 \begin{ioport}{VDU}{1F3}{--wvehf}{SCR1}{Smooth Scroll Register 1}
@@ -1957,23 +1976,25 @@ all of which is done via I/O space registers. There are thirteen registers in fi
     \bitfieldRepConst{8}{0}
   \end{bitfield}
 
-  \begin{description}
-    \li{\field{HSCR}} shifts the displayed image left by a number of
-    pixels to the left. A value of \hex{0} does not shift the image; a value of
-    \hex{7} shifts it to the left by seven pixels. This represents the range of
-    modulo 8 and allows smooth scrolling to be implemented in conjunction with
-    the \port{SAR0} register.
+  \begin{description} \li{\field{HSCR}} shifts the displayed image left by a
+    number of pixels. A value of \hex{0} does not shift the image; a value
+    of \hex{7} shifts it to the left by seven pixels. This represents the range
+    of modulo 8 and allows smooth scrolling to be implemented in conjunction
+    with the \port{SAR1} register (which can shift in multiples of eight
+    pixels).
 
-    \li{\field{VSCR}} shifts the displayed image up by a number of pixels. A
-    value of \hex{0} does not shift the image; a value of \hex{15} shifts it up
-    by fifteen pixels. This represents the range of modulo 16 and allows smooth
-    scrolling to be implemented in conjunction with the \port{SAR0} register.
+    \li{\field{VSCR}} shifts the displayed image up by a number of
+    pixels. A value of \hex{0} does not shift the image; a value of
+    \hex{15} shifts it up by fifteen pixels. This represents the range
+    of modulo 16 and allows smooth scrolling to be implemented in
+    conjunction with the \port{SAR1} register. Please note that,
+    depending on the current mode, the row field of \port{SAR1} can
+    shift by 16, 8, 4, 2 or single pixels (30, 60, 120, 240 and 480
+    line modes respectively), so the steps needed for smooth vertical
+    scrolling depend on the mode.
   \end{description}
 
 \end{ioport}
-
-
-
 
 
 \begin{ioport}{VDU}{1F4}{--wvehf}{SAR0}{Start Address Register 0}
@@ -2126,7 +2147,7 @@ is described in detail in~\ccf{chap:kbd}.
   this interface can be found in~\ccf{chap:kbd}.
 
   \begin{bitfield}
-    \bitfieldGroup{8}{cfthl!25}{Keyboard Receiver}
+    \bitfieldGroup{8}{cfthl!25}{Keyboard Data}
     \bitfieldGroup{1}{cfthl!50}{KDP}
     \bitfieldRepConst{4}{0}
     \bitfieldGroup{1}{cfthl!25}{KC}
@@ -2135,8 +2156,8 @@ is described in detail in~\ccf{chap:kbd}.
   \end{bitfield}
 
   \begin{description}
-    \li{\field{Keyboard Data}} is an 9-bit value as transmitted by the
-    keyboard. The ninth bit (\field{KBP}) is an odd parity bit. It is clear if
+    \li{\field{Keyboard Data}} is a read-only 9-bit value as transmitted by the
+    keyboard. The ninth bit (\field{KDP}) is an odd parity bit. It is clear if
     there is an odd number of set bits in the remaining 8 bits, otherwise it is
     set.  \li{\field{KC}} is a direct connection to the keyboard clock
     pin. When reading, the keyboard clock pin will be sampled directly. Writing
@@ -2376,7 +2397,7 @@ values (in binary), as listed above.
   having to perform host-side reads or \asm{OR} operations. One memory read and
   one memory write are performed.
 
-  \li{\textsf{ORBC} (\bin{0010}): OR value with B plane value, write to C plane.} Same as
+  \li{\textsf{ORBWC} (\bin{0010}): OR value with B plane value, write to C plane.} Same as
   above, but in addition the value of the \port{CPORT} register is stored at
   the C plane location in \port{HAR}, modifying the colours and attributes of
   the current location. One memory read is performed, followed by
@@ -2392,7 +2413,7 @@ values (in binary), as listed above.
   \asm{NOT} prior to this operation. One memory read and one memory write are
   performed.
 
-  \li{\textsf{ANDBC} (\bin{0100}): Mask (AND) value with B plane value, write to C plane.} Same
+  \li{\textsf{ANDBWC} (\bin{0100}): Mask (AND) value with B plane value, write to C plane.} Same
   as above, but in addition the value of the \port{CPORT} register is stored at
   the C plane location in \port{HAR}, modifying the colours and attributes of
   the current location. One memory read is performed, followed by
@@ -2408,7 +2429,7 @@ values (in binary), as listed above.
   performing it twice negates its effects. One memory read and one memory write
   are performed.
 
-  \li{\textsf{XORBC} (\bin{0110}): Toggle (XOR) value with B plane value, write to C plane.}
+  \li{\textsf{XORBWC} (\bin{0110}): Toggle (XOR) value with B plane value, write to C plane.}
   Same as above, but in addition the value of the \port{CPORT} register is
   stored at the C plane location in \port{HAR}, modifying the colours and
   attributes of the current location. One memory read is performed, followed by

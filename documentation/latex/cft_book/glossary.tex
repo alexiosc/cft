@@ -79,7 +79,11 @@
     digit.
 }}
 
-\newacronym{MCU}{MCU}{Micro-Controller Unit}
+% \newacronym{MCU}{MCU}{Micro-Controller Unit}
+
+\newglossaryabbr{MCU}{Micro-Controller Unit}{A single-chip device
+  containing a simple microprocessor, general purpose input/output,
+  serial input/output, timers, and other useful devices.}
 
 \newacronym{USB}{USB}{Universal Serial Bus}
 
@@ -345,3 +349,23 @@
   speed and interface simplicity. SRAMs do not need to be refreshed
   and are faster than similar dynamic RAMs.}
 
+\newglossaryentry{extended instruction}{name=Instruction!Extended,
+  description={An address in I/O space that provides side effects
+    useful enough to be seen as extending the processor's instruction
+    set. They are usually aliases of single \asm{IN}, \asm{OUT} or
+    \asm{IOT} instructions.}}
+
+\newglossaryabbr{SR}{Switch Register}{A 16-bit read-only register that
+  provides the value of the 16 data entry switches on the front
+  panel.}
+
+\newglossaryabbr{DSR}{DIP Switch Register}{A 12 to 16-bit read-only
+  register driven by a bank of DIP switches on the Front Panel
+  Controller board. The DSR can be used to set non-volatile prefrences
+  for the computer's early boot.}
+
+\newglossaryabbr{MFD}{Multi-Function Display}{A bank of 16 lights on
+  the front panel which can display a user-selectable register. The
+  user can elect to show the value of the Data Register, Output
+  Register, or the 15-bit microcode store address. A switch on the
+  front panel is used to do this.}

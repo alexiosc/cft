@@ -1,0 +1,32 @@
+% -*- latex -*-
+\documentclass[border=200pt,class=memoir,preview]{standalone}
+\input{preamble-new}
+\input{macros}
+
+\begin{document}%
+%\tikzexternaldisable%
+
+\begin{tikzpicture}[node distance=30mm]%
+
+  \begin{scope}[line width=1pt]
+    \tikzset{initial text={Reset}}
+    \begin{scope}[line width=2pt]
+      \node[fsmstate,col1,initial] (S1) {Interrupts Masked};
+      \node[fsmstate,col2] (S2) [right=of S1] {Enable Armed};
+      \node[fsmstate,col3] (S3) [below=of S2] {Interrupts Enabled};
+      \node[fsmstate,col4] (S4) [below=of S3] {Interrupt Armed};
+      \node[fsmstate,col5] (S5) [left=of S4] {Interrupt µProgram};
+    \end{scope}
+    \draw[thick arrow,->] (S1) -- node [below,align=left] {\asm{SEI} instruction\\asserts \ns{STI} signal.} (S2);
+    \draw[thick arrow,->] (S2) -- node [left,align=right,yshift=1em] {PC is written to\\(rising edge of \ns{WPC})} (S3);
+    \draw[thick arrow,->] (S3) -- node [left,align=right,yshift=1em] {\textbf{Interrupt request}\\(\ns{IRQ} asserted)} (S4);
+    \draw[thick arrow,->] (S3) -| node [above right,align=right] {\asm{CLI} instruction (\ns{CLI} strobed).} (S1);
+    \draw[thick arrow,->] (S4) -- node [above=1.5em,align=center] {End of current instruction\\(rising edge of \ns{END})} (S5);
+    \draw[thick arrow,->] (S5) -- node [right,align=left,yshift=-3em] {End of interrupt microprogram\\(rising edge of \ns{END}).} (S1);
+  \end{scope}
+
+\end{tikzpicture}
+%\tikzexternalenable%
+\end{document}
+
+% End of file.

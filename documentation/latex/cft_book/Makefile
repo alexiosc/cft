@@ -59,7 +59,7 @@ all: 		$(BASE).pdf $(DEPS)
 clean:
 		-rm -f $(BASE).aux $(BASE).log $(BASE)*.pnm
 		-rm -f $(BASE).out $(BASE).pdf $(BASE)-fig[0-9]*.* $(BASE).gl? $(BASE)-view.pdf
-		-rm figure-*.acn figure-*.glo figure-*.out figure-*.idx *.pyg
+		-rm figure-*.acn figure-*.aux figure-*.log figure-*.glo figure-*.out figure-*.idx *.pyg
 
 
 veryclean:	clean
@@ -125,7 +125,7 @@ stamp-safigs \
 safigs:		$(SAFIGS)
 		touch stamp-safigs
 
-figure-%.pdf:	figure-%.tex preamble.tex
+figure-%.pdf:	figure-%.tex preamble.tex preamble-new.tex
 #		$(LATEX) -interaction=batchmode $<
 		$(LATEX) $<
 		pdfcrop $@ $@~

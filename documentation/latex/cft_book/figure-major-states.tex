@@ -8,12 +8,13 @@
 \begin{tikzpicture}%
 
     \begin{scope}[line width=1pt]
+      \tikzset{initial text={Power on}}
       \begin{scope}[line width=2pt]
-        \node[state,initial,fill=cfthl!50]         (R) {R};
-        \node[state,fill=cfthl]         (F) [right =of R] {F};
-        \node[state,fill=cfthl]         (E) [right =of F] {E};
-        \node[state,fill=cfthl!50]         (S) [above =of F] {S};
-        \node[state,fill=cfthl!50]         (I) [below =of F] {I};
+        \node[state,initial,col1]         (R) {R};
+        \node[state,col2]         (F) [right =of R] {F};
+        \node[state,col3]         (E) [right =of F] {E};
+        \node[state,col4]         (S) [above =of F] {S};
+        \node[state,col5]         (I) [below =of F] {I};
       \end{scope}
 
       \draw[->] (R.338) .. controls +(338:3mm) and +(202:3mm) .. (F.202);

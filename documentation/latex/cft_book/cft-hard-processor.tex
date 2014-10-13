@@ -118,10 +118,12 @@ The major states of the processor are fairly conventional, as are the transition
   Execute state, the processor usually re-enters the Fetch state to retrieve
   the next instruction, but may also enter the Interrupt state.
 
-\li{Interrupt.} The Interrupt state is entered at the end of the
-  Execute state if an interrupt has been previously been signalled and
-  interrupts are unmasked. In this state, the processor saves certain registers
-  and jumps to a hardwired location holding an interrupt service routine.
+\li{Interrupt.} The Interrupt state is entered at the end of the Execute state
+if an interrupt has been previously been signalled and interrupts are
+unmasked. In this state, the processor saves certain registers and jumps to a
+hardwired location holding an interrupt service routine. The actual workings of
+interrupts are slightly more complicated than this, as outlined in
+\cf{sec:interrupts-state-machine}.
   %sets the \PC{} to the hardwired interrupt vector (\hex{FFF8}).
 
 \li{Stop.} In this state, the processor's microprogram counter
@@ -1024,8 +1026,93 @@ lasts $250\,\mbox{ns}/4 = 62.5\,\mbox{ns}$.
 %% \end{center}
 
 
-%% \section{Interrupt State Machine}
-%% \label{sec:interrupts-state-machine}
+\section{Interrupt State Machine}
+\label{sec:interrupts-state-machine}
+
+Interrupts allow the normal flow of computation to be temporarily stopped in
+order to process out-of-order events like user input, or slow devices
+completing previously initiated transactions. They are crucial to building a
+computer with practical uses, but can be tricky to implement due to their
+asynchronous nature. Race conditions and metastability can cause trouble.
+
+The CFT interrupt subsytem is a five-state Finite State Machine. On reset, the
+processor starts with interrupts masked, and will ignore any interrupt
+requests. Interrupts may be enabled at any time using the \asm{SEI}
+instruction. Once enabled, on receipt of an interrupt, the processor completes
+the currently running instruction, then executes the Interrupt
+Microprogram. The microprogram disables further interrupts, saves the current
+value of the \PC~and jumps to the location of the \abbr{ISR}. The ISR
+handles the interrupt and usually enables further interrupt requests just
+before exiting.
+
+Since the CFT lacks a hardware stack, nested interrupts are not an option. So,
+enabling interrupts and exiting the ISR must happen atomically. Otherwise, an
+incoming interrupt may jump back to the ISR immediately after the \asm{SEI}
+instruction and before the ISR returns. To avoid this, \asm{SEI} waits until
+the next \PC-changing instruction (loading, not incrementing) before
+enabling interrupts.
+
+The interrupt state machine has five states, as shown
+in~\fcf{hard:proc:interrupt-fsm}:
+
+\begin{figure}
+  \centering
+  \inputfigure{figure-interrupt-fsm}
+  \caption[CFT Processor Interrupt State Machine]{\label{hard:proc:interrupt-fsm}Interrupt state transition diagram.}
+\end{figure}
+
+\begin{enumerate}
+
+\item {\bf Interrupts Disabled}. This is the initial state on reset. In this
+  state, interrupts are ignored. When the \asm{SEI} instruction runs, it
+  strobes the \ns{STI} signal. The rising edge of \ns{STI} arms the interrupt
+  enable.
+
+\item {\bf Interrupt Enable armed}. Interrupts are still masked in this
+  state. When the \PC~is next written to using an \asm{JMP}, \asm{JSR},
+  \asm{RET}, \asm{RTI} or \asm{RTT} instruction (or macros involving one of
+  them), and on the rising edge of the \ns{WPC} strobe, interrupts become
+  fully enabled.
+
+\item {\bf Interrupts Enabled}. In this state, interrupts will be received by
+  the processor. If a low level is seen on the \ns{IRQ} line, the state machine
+  moves to the Interrupt Armed state. If a \asm{CLI} instruction is executed, a
+  low level of the \ns{CLI} signal will reset the state to ‘Interrupts
+  Disabled’ and subsequent interrupts will be ignored.
+
+\item {\bf Interrupt Armed}. The state machine remains in this state until the
+  currently executing instruction is finished. This is signalled by the rising
+  edge of \ns{END} from the Control Unit, at which point \ns{IRQS} goes low to
+  acknowledge the interrupt, the Control Unit executes the Interrupt
+  Microprogram, and the state machine moves to the next state.
+
+\item {\bf Interrupt Microprogram}. The state machine remains here while the
+  interrupt microprogram is being sequenced. During this sequence, interrupts
+  will be disabled via a strobe of \ns{CLI}. This resets the state machine to
+  the {\em Interrupts Disabled\/} state, and the process cycles.
+
+\end{enumerate}
+
+\begin{figure}
+  \centering
+  \inputfigure{figure-interrupt-waveforms}
+  \caption[CFT Processor Interrupt
+    Waveforms]{\label{hard:proc:interrupt-waveforms}Interrupt waveforms. 1.~The
+    \asm{SEI} instruction strobes \ns{STI} preparing to enable
+    interrupts. \ps{STI-ARMED} is asserted. 2.~When next the \PC~is loaded with
+    a value, interrupts are enabled. The rising edge of \ns{WPC} strobes
+    \ns{STI-DELAY} disarming the interrupt enable and asserting the \ns{FINT}
+    flag to allow interrupts. 3.~With \ns{FINT} low, an incoming \ns{IRQ}
+    signals an interrupt request. \ps{FIRQ} goes high to arm the
+    interrupt. 4.~At the end of the current microprogram (rising edge of
+    \ns{END}), \ns{IRQS} is asserted, both acknowledging the interrupt and
+    making the Control Unit execute the Interrupt microprogram. 5.~During the
+    microprogram, \ns{CLI} is asserted. Interrupts are disabled and cleared
+    (\ps{FIRQ} goes low). 6.~At the end of the microprogram, the state machine
+    cycles back to masked interrupts. Control is now in the~\abbr{ISR}.}
+\end{figure}
+
+
 
 %% \lipsum[3-5]
 

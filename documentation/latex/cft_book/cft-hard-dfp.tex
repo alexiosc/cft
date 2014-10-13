@@ -1,0 +1,147 @@
+% -*- latex -*-
+
+\label{chap:hard-dfp}
+
+The Debugging Front Panel is a large sub-project, which replaces both
+the Programmer's Front Panel (\ccfp{chap:hard-pfp}) and Debugging
+Board (\ccfp{chap:hard-deb}).
+
+The board provides an interface between
+the CFT processor, the front panel and an optional computer used to
+automate testing the CFT:
+
+\begin{itemize}
+\item As with the original PFP, the CFT processor may read from the
+  panel switches, internal DIP switches, and output values to the
+  Output Register, a group of sixteen lights.
+
+  It may also interact with the attached computer using extended
+  instructions intended for testing (such as the assertions
+  \asm{SUCCESS} and \asm{FAIL}), and may also output values in various
+  forms to the attached machine and input values from the serial
+  port. This forms a simple virtual console.
+
+\item The front panel allows a user to operate the computer fully,
+  including single-microstep or single-step operation, loading
+  programs and debugging and also operating devices in I/O space. 
+
+\item The attached computer is provided with a virtual front panel
+  which mirrors most of the physical lights, as well as an interface
+  to load programs, run and debug them. This interface may be used
+  either automatically by a computer, or manually by a human
+  (connected via a terminal). Via the virtual console, a human can
+  also use the CFT directly.
+\end{itemize}
+
+Like with the DEB board, debugging and console functionality hinges on
+a \abbr{MCU}. On the DFP, the MCU is also responsible for debouncing
+switches, sequencing memory cycles in a safe manner, and generating
+slow clocks used in debugging. This reduces the chip count and wiring
+complexity. A number of critical functions are ‘autonomic’ and bypass
+the MCU altogether. The run/stop/step/microstep state machine is one
+of these subsystems. The panel lights (with two notable exceptions)
+are driven directly by the CFT processor and update in real time.
+
+\subsection{Subsystems and Facilities}
+
+The device is made up of more parts and sub-assemblies and cabling
+than any other CFT sub-project. There are numerous facilities, both
+physical and logical. Originally, these features were planned:
+
+\begin{itemize}
+
+\item The eponymous front panel, the traditional input/output device
+  of mini-computers.
+  \begin{itemize}
+  \item It has 160 lights, though some are left
+    unconnected and some are meant for future expansion.
+  \item It also has 16 switches used to control, debug and test the computer.
+  \item There are also switches to control the front panel itself.
+  \item Another 16 switches are directly connected to the \abbr{SR},
+    which can be read by both the computer and front panel. They are
+    the computer's sole input device.
+  \item A key lock switch to control power.
+  \item A key lock switch to lock the panel. These locks are mostly
+    there for stylistic reasons, since many mini-computers had them.
+  \end{itemize}
+
+\item A hidden bank of DIP switches to allow the user to set
+  non-volatile preferences. These depend entirely on the CFT's ROM for
+  interpretation. These directly control the value of the \abbr{DSR}.
+
+\item Wiring facilities that route the processor boards' front panel
+  connectors to the correct front panel lights. These involve a
+  large number of connectors and an even larger quantity of wiring.
+  
+\item More wiring facilities to route signals from add-on cards to
+  the lights, including the \abbr{MBU} and \abbr{IRC}.
+
+\item A debouncing facilty for the switches controlling computer
+  functions and programming.
+
+\item Mutual lock-out for control switches so that multiple panel
+  operations can't be started simultaneously by mistake. This also
+  includes locking out most panel operations when the panel lock is
+  activated.
+
+\item An optional auto-repeat facility for the Step/Microstep
+  switch. This is useful in debugging and saves wear on the switch.
+
+\item A 16-bit Output Register (OR) which displays its value on the
+  front panel \abbr{MFD}.
+
+\item A sequencer capable of performing memory and I/O space reads and
+  writes, and can optionally increment the address after each
+  cycle. This provides a total of eight bus functions, assigned to
+  four double-throw toggle switches on the front panel.
+
+\item A switch to configure the optional \abbr{MBU} for either
+  bare-metal operation (the computer starts halted, and the entire
+  64~kBytes of memory is RAM), or turn-key operation (ROM is mapped to
+  the top 32~kBytes, and the computer starts in the run state, like
+  all modern computers).
+
+\item A switch to issue panel-initiated interrupt requests for
+  interacting with computer programs.
+
+\item A slow clock generator capable of providing two slow clock
+  rates, in addition to the rate provided by the CFT processor's own
+  clock generator. These are useful for debugging and demonstrations.
+  
+\item A state machine used to halt the computer at the appropriate
+  part of the processor cycle. This state machine is also used for
+  stepping and micro-stepping.
+
+\end{itemize}
+
+When the DFP was merged with the DEB board, a number of additional
+facilities were added, and many were merged together.
+
+\begin{itemize}
+
+\item foo.
+
+\end{itemize}
+
+
+\section{The Front Panel}
+
+\section{The Debugging System}
+
+\subsection{Attaching a Computer or Terminal}
+
+The MCU connects to the controlling device via a TTL, non-inverted serial port
+terminating in a 6-pin header. The header fits the plug of an FTDI
+USB-to-serial cable, but can also be used with an external FTDI USB-to-serial
+module. A plain RS-232 connection is possible, but the DFP firmware would have
+to be recompiled with bit rate low enough to work with RS-232 connections.
+
+\section{Using the DFP from the CFT}
+
+The DFP appears to the computer as a block of 32 addresses in I/O space. Some
+of these addresses are reserved for future expansion. The addresses are meant
+to be used as \glspl{extended instruction}.
+
+\section{The DFP Firmware}
+
+% End of file.

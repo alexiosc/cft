@@ -1,0 +1,58 @@
+% -*- latex -*-
+\documentclass[border=200pt,class=memoir,preview]{standalone}
+\input{preamble-new}
+\input{macros}
+
+\begin{document}%
+%\tikzexternaldisable%
+
+\begin{tikztimingtable}
+%D{} 7D{\textcond FRONT PORCH} 5D{\textcond HSYNC} 7D{\textcond BACK PORCH} 40D{\textcond VIDEO} D{} \\
+  \ns{RESET}                            & HH N(A0) LLHHHHHHHH N(B0) HHHHHHHHHH N(C0) HHHHHHHHHH N(D0) HHHHHHHHHH N(E0) HHHH N(F0) HHHHHH N(G0) HHHHHHHHHH N(H0) \\
+  \textbf{Allow Interrupts (\ns{STI})}  & HH       HHHHHHHHHH N(B1) LLHHHHHHHH       HHHHHHHHHH       HHHHHHHHHH       HHHH       HHHHHH       HHHHHHHHHH \\
+  \textbf{\PC~Loaded (\ns{WPC})}        & HH       HHHHHHHHHH       HHHHHHHHLL N(C1) HHHHHHHHHH       HHHHHHHHHH       HHHH       HHHHHH       HHHHHHHHHH \\
+  \ps{STI-ARMED}                        & UU       LLLLLLLLLL N(B2) HHHHHHHHHH       LLLLLLLLLL       LLLHHHHHHH       HHHH       HHHHHH       HHHHHHHHHH \\
+  \ns{STI-DELAY}                        & UU       HHHHHHHHHH       HHHHHHHHHH       LLHHHHHHHH       HHHHHHHHHH       HHHH       HHHHHH       HHHHHHHHHH \\
+  Interrupts allowed (\ns{FINT})        & UU       HHHHHHHHHH       HHHHHHHHHH N(C2) LLLLLLLLLL       LLLLLLLLLL       HHHH       HHHHHH       HHHHHHHHHH \\
+  \textbf{Interrupt request (\ns{IRQ})} & HH       HHHHHLLHHH       HHHLLHHHHH       HHHHHHHHHH N(D1) LLHHHHHHHH       HHHH       HHHHHL       LHHHLLHHHH \\
+  Interrupt armed (\ps{FIRQ})           & UU       LLLLLLLLLL       LLLLLLLLLL       LLLLLLLLLL N(D2) HHHHHHHHHH       HHHH N(F1) LLLLLL       LLLLLLLLLL \\
+  \textbf{\ns{END}}                     & HH       HHLLHHHHHH       HHHHHHLLHH       HHHHHLLHHH       HHHHHHHHLL N(E1) HHHH       HHHHLL N(G1) HHHHHHHHHH \\
+  In Interrupt µProgram (\ns{IRQS})     & UU       HHHHHHHHHH       HHHHHHHHHH       HHHHHHHHHH       HHHHHHHHHH       LLLL       LLLLLL       HHHHHHHHHH \\
+  \textbf{Mask Interrupts (\ns{CLI})}   & HH       HHHHHHHHHH       HHHHHHHHHH       HHHHHHHHHH       HHHHHHHHHH N(E2) HHHH N(F2) LLHHHH N(G2) HHHHHHHHHH \\
+  State                                 & UU N(A3) 10D{\textcond Ints Masked}
+                                          N(B3) 10D{\textcond Int Enable Armed}
+                                          N(C3) 10D{\textcond Ints Allowed}
+                                          N(D3) 10D{\textcond Int Armed}
+                                          N(E3) 10D{\textcond Int µProgram}
+                                          N(G3) 10D{\textcond Ints Masked}
+                                          N(H3)
+                                          \\
+\extracode
+  \tablerules
+  \begin{pgfonlayer}{background}
+    \fill [fill=p1!66] (A0) -- (A3) -- (B3) -- (B0) -- (A0);
+    \fill [fill=p2!66] (B0) -- (B3) -- (C3) -- (C0) -- (B0);
+    \fill [fill=p3!66] (C0) -- (C3) -- (D3) -- (D0) -- (C0);
+    \fill [fill=p4!66] (D0) -- (D3) -- (E3) -- (E0) -- (D0);
+    \fill [fill=p5!66] (E0) -- (E3) -- (G3) -- (G0) -- (E0);
+    \fill [fill=p1!66] (G0) -- (G3) -- (H3) -- (H0) -- (G0);
+    \node[below left] at (B1) {\textbf{\footnotesize{1}}};
+    \node[xshift=0.75em,yshift=0.3em] at (C1) {\textbf{\footnotesize{2}}};
+    \node[xshift=-0.5em,yshift=-0.6em] at (D1) {\textbf{\footnotesize{3}}};
+    \node[xshift=0.6em,yshift=0.3em] at (E1) {\textbf{\footnotesize{4}}};
+    \node[xshift=-0.5em,yshift=-0.6em] at (F2) {\textbf{\footnotesize{5}}};
+    \node[xshift=0.6em,yshift=0.3em] at (G1) {\textbf{\footnotesize{6}}};
+    %% \draw [help lines] (A0) -- (A3);
+    %% \draw [help lines] (B1) -- (B3);
+    %% \draw [help lines] (C1) -- (C3);
+    %% \draw [help lines] (D1) -- (D3);
+    %% \draw [help lines] (E1) -- (E3);
+    \draw [help lines] (F1) -- (F2);
+    %% \draw [help lines] (G1) -- (G3);
+  \end{pgfonlayer}
+\end{tikztimingtable}
+
+%\tikzexternalenable%
+\end{document}
+
+% End of file.

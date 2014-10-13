@@ -224,14 +224,15 @@ There are two notable exceptions to the key handling:
   key, while code unaware of it (notably running on IBM PC/XT or compatible
   machines) can still function.
 
-\item When pressed on its own, the ‘Pause’ key (used with Control to obtain the
-  ‘Break’ function) emits the sequence \hex{E1 14 77 E1 F0 14 F0 77}, which
-  includes the make {\em and break\/} codes of the sequence
-  \textsf{Control-NumLock}. As a result, it is not possible to detect whether
-  this key is held down or not because no further break packet is sent on its
-  release. On computers unaware of PS/2 keyboards, this simulates pressing the
-  Control key if the Control key is not pressed. The prefix \hex{E1} is used
-  for extended keys that have no break code.
+\item When pressed on its own, the ‘Pause’ key (used with Control to
+  obtain the ‘Break’ function) emits the sequence \hex{E1 14 77 E1 F0
+    14 F0 77}, which includes the make {\em and break\/} codes of the
+  sequence \textsf{Control-NumLock}. As a result, it is not possible to detect
+  whether this key is held down or not because no further break packet
+  is sent on its release. On computers unaware of PS/2 keyboards, this
+  simulates pressing the Control key if the Control key is not
+  pressed. The prefix \hex{E1} is used for extended keys that have no
+  break code.
 
   If the physical Control key {\em is\/} pressed, this key issues the
   Break\footnote{As in ‘stop immediately’, not ‘break’ as in key release.}
