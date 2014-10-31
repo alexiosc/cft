@@ -167,43 +167,131 @@ loop:		LOAD I ITMP0		; Read a pair of characters
 .endscope
 		
 
-;;; Print out a 16-bit unsigned decimal without using division (faster).
+;;; Subroutine:	 putud: print out a 16-bit unsigned decimal.
+;;; 
+;;; This routine prints 16-bit unsigned decimals without using division
+;;; (faster). Instead, it uses a table of powers of 10, which it iteratively
+;;; subtracts from the working number, converting them to digits on the fly.
+;;;
+;;; There are potentially more iterations this way (printing out 65535 iterates
+;;; 6+5+5+3=19 times; units are just added to ASCII 48, there's no loop), but
+;;; the loops are consideably tighter than those for division, ending in
+;;; significantly improved performance.
+;;; 
 putud:          
 .scope
-		enter_sub_ac()		; TMP15: AC
-		
-		SIA(ITMP0, decades)
-		LSET(TMP14, 0)		; TMP14 > 0: printed at least one digit
+		enter_sub_acr(OSR15)	; TMP15: AC
+		SIA(OSI0, decades)
+		LSET(OSR14, 0)		; OSR14 > 0: printed at least one digit
 
-new_digit:      LSET(TMP13, 48)		; TMP13: current digit ('0')
-		RMOV(TMP12, I ITMP0)	; Load next decade (already negated)
+new_digit:      LSET(OSR13, 48)		; OSR13: current digit ('0')
+		RMOV(OSR12, I OSI0)	; Load next decade (already negated)
 		SNZ			; Are we done? (decade = 0)
 		JMP units
 again:		CLL
-		ADD TMP15		; Subtract decade from running modulo.
+		ADD OSR15		; Subtract decade from running modulo.
 		SSL			; L=1 => number >= decade
 		JMP next_decade
-		STORE TMP15		; Update running modulo.
-		RINC(TMP13)		; TMP13++
-		LSET(TMP14, 1)
-		LOAD TMP12
+		STORE OSR15		; Update running modulo.
+		RINC(OSR13)		; OSR13++
+		LSET(OSR14, 1)
+		LOAD OSR12
 		JMP again
 
-next_decade:	LOAD TMP14		; Skip leading zeroes
+next_decade:	LOAD OSR14		; Skip leading zeroes
 		SNZ
 		JMP new_digit
-		/TRAP I T_ERB1W
-		rcallcdrv(p0.TTYA, p0.TTYA_SEND, TMP13) ; Print char in TMP13
+		rcallcdrv(p0.TTYA, p0.TTYA_SEND, OSR13) ; Print char in OSR13
 		JMP new_digit
 
 units:		LI 48
-		ADD TMP15
-		/TRAP I T_ERB1W
+		ADD OSR15
+		callcdrv(p0.TTYA, p0.TTYA_SEND)	; Print the character in AC
+		return()
+
+decades:        .data -10000 -1000 -100 -10 0
+
+.endscope
+
+
+;;; Subroutine: putdud: print out a 32-bit unsigned decimal.
+;;; 
+;;; This routine prints out 32-bit numbers in decimal, without using
+;;; division. This is considerably faster than a division-based solution since
+;;; division can take over a thousand cycles on the CFT.
+;;;
+;;; If the high order word of the number to print is zero, this routine
+;;; optimises by calling putud (its 16-bit equivalent).
+;;;
+;;; Arguments:
+;;;
+;;;   <ARG1, ARG2>:  Double-word to print
+;;;
+;;; Side-effects:
+;;;
+;;;   <OSR1, OSR2>:   Number being converted
+;;;   OSR14:	      Leading zero suppression flag
+;;;   OSR13:	      Current didit in ASCII
+;;;   <OSR11, OSR12>: Negated decade
+;;;   <OSR9, OSR10>:  Temporary result of subtraction
+
+putdud:          
+.scope
+		enter_sub()
+
+		;; Optimisation: if ARG1 is zero, use plain putud instead
+		;; (faster).
+		RMOV(OSR1, ARG1)
+		SZA
+		JMP islong		; No way to avoid the extra work!
+		LOAD ARG2
+		JSR putud
+		return()
+		
+islong:		RMOV(OSR2, ARG2)
+		SIA(OSI0, decades)
+		LSET(OSR14, 0)		; OSR14 > 0: printed at least one digit
+
+new_digit:      LSET(OSR13, 48)		; OSR13: current digit ('0')
+		RMOV(OSR11, I OSI0)	; Next decade, high word
+		SNZ			; Are we done? (decade = 0)
+		JMP units
+		RMOV(OSR12, I OSI0)	; Next decade, low word
+
+again:
+		;; Subtract the decade from the running modulo
+		DADD(OSR9, OSR10, OSR1, OSR2, OSR11, OSR12)
+		SSL			; L=1 => number ≥ decade
+		JMP next_decade
+		RMOV(OSR1, OSR9)       ; Update running modulo.
+		RMOV(OSR2, OSR10)
+		RINC(OSR13)		; OSR13++
+		LSET(OSR14, 1)
+		JMP again
+
+next_decade:	LOAD OSR14		; Skip leading zeroes
+		SNZ
+		JMP new_digit
+		rcallcdrv(p0.TTYA, p0.TTYA_SEND, OSR13) ; Print char in OSR13
+		JMP new_digit
+
+units:		LI 48
+		ADD OSR2
 		callcdrv(p0.TTYA, p0.TTYA_SEND)	; Print the character in AC
 
 		return()
 
-decades:        .data -10000 -1000 -100 -10 0
+decades:
+                .data &c465 &3600	; -1000000000
+                .data &fa0a &1f00	; -100000000
+                .data &ff67 &6980	; -10000000
+                .data &fff0 &bdc0	; -1000000
+                .data &fffe &7960	; -100000
+                .data &ffff &d8f0	; -10000
+                .data &ffff &fc18	; -1000
+                .data &ffff &ff9c	; -100
+                .data &ffff &fff6	; -10
+		.data 0
 
 .endscope
 
@@ -498,6 +586,11 @@ postfail:
 .include "drivers/serial/dfp.asm"	; Serial driver for the DFP console
 .include "drivers/serial/tty.asm"	; Serial driver for the TTY board
 .include "drivers/serial/vdu.asm"	; Serial driver for the VDU board
+.popns
+
+.pushns sto
+.include "drivers/storage.asm"		; Storage class drivers
+.include "drivers/storage/ide.asm"	; Storage driver for IDE devices
 .popns
 
 .popns

@@ -16,6 +16,7 @@
 		.word putsp		; Vector: PUTSP (print out packed string)
 		.word putnsp		; Vector: PUTNSP (print packed substring)
 		.word putud		; Vector: PUTUD (print unsigned decimal)
+		.word putdud		; Vector: PUTDUD (print double unsigned decimal)
 		.word puth		; Vector: PUTH (print 16-bit hex)
 		.word memcpy		; Vector: MEMCPY
 		.word memset		; Vector: MEMSET

@@ -21,10 +21,15 @@ XPMFILE = 	$(BUILDDIR)/$(BASENAME).xpm
 MAPFILE =	$(BUILDDIR)/$(BASENAME).map
 PASMFILE =	$(BUILDDIR)/$(BASENAME).pasm
 CFTEMU =	$(CFTDIR)/emulator/cftemu $(CFTEMUOPTS)
-CFTEMUOPTS =	-a v4 -M $(MAPFILE) -p $(PASMFILE)
+CFTEMUOPTS +=	-a v4 -M $(MAPFILE) -p $(PASMFILE)
 CFTEMUOPTS +=	-V
 CFTEMUOPTS +=	--nvram
+CFTEMUOPTS +=	--hd0=hd0
+#CFTEMUOPTS +=	--hd1=hd1
+#CFTEMUOPTS +=	--hd2=hd2
+#CFTEMUOPTS +=	--hd3=hd3
 #CFTEMUOPTS +=	--debug-irc
+CFTEMUOPTS +=	--debug-ide
 
 BASEVECASM =	$(GENDIR)/base-vectable.asm
 FORTHVECASM =	$(GENDIR)/forth-vectable.asm

@@ -141,6 +141,7 @@ post_d0:
 		JSR detect_dfp
 		JSR detect_irc
 		JSR detect_tty
+		JSR detect_ide
 		JSR detect_vdu
 		JSR detect_rtc
 
@@ -184,7 +185,7 @@ done:
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-// HARDWARE INITIALISATION DONE, INTERRUPTS ENABLED BEYOND THIS POINT
+// HARDWARE DETECTION DONE, INTERRUPTS ENABLED BEYOND THIS POINT
 //
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -212,6 +213,12 @@ done:
 
 		;; TODO: Remove this.
 .scope
+
+
+		;; Detect storage now that we have a working console and basic
+		;; operating environment.
+
+		JSR detect_idedsk
 
 
 		; SIA(ARG0, p0.TTYA)
@@ -360,7 +367,7 @@ detect_dfp:
 		JMP ret			; Nope.
 		LOR1(p0.HWTTYS, p0.HWT_DFP)
 		LOAD drv_handle
-		JSR register_tty	; Register the console as a TTY
+		JSR I _register_tty	; Register the console as a TTY
 
 		RMOV(p0.ISR6VEC, dfp_isr) ; Install DFP ISR
 
@@ -394,6 +401,8 @@ drv_handle:	.data drv.ser.dfp.base
 dfp_isr:	.word drv.ser.dfp.isr
 
 .endscope
+
+_register_tty:	.word register_tty
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -483,7 +492,7 @@ init:	        RMOV(RET0, I ctl)		; Look up the driver call addr
 		TRAP I RET0			; Execute the driver's ctl call.
 
 register:	LOAD TMP10
-		JSR register_tty	; Register the console as a TTY
+		JSR I _register_tty	; Register the console as a TTY
 
 		RMOV(p0.ISR3VEC, tty_isr) ; Install TTY ISR
 
@@ -522,6 +531,371 @@ tty_isr:	.word drv.ser.tty.isr
 .endscope
 
 		
+///////////////////////////////////////////////////////////////////////////////
+//
+// IDE:	detect and initialise
+//
+///////////////////////////////////////////////////////////////////////////////
+
+detect_ide:
+.scope
+		IF_HWDIS(p0.HWC_VDU)	; Is the VDU disabled?
+		RET			; Then return.
+		enter_sub()
+
+		SIA(ITMP0, ports)	; ITMP0: current starting port
+
+port_loop:	RMOV(TMP14, I ITMP0)	; TMP14: first address to test
+		SNZ			; If 0, we're done
+		JMP done
+		RMOV(TMP15, I ITMP0)	; TMP15: second address to test
+
+		;; Output data
+		ROUT(I TMP15, data)
+		ROUT(I TMP14, @data+1)
+
+		;; Read it back and compare
+		RIN(TMP15, I TMP15)
+		IFNEQJMP(data, not_found)
+		RIN(TMP14, I TMP14)
+		IFNEQJMP(@data+1, not_found)
+
+found:          ROR1(p0.HWCONFIG, flag)
+not_found:	JMP port_loop
+done:
+		return()
+		RET
+
+ports:		.word ide.IDE0 ide.LBA0
+		.word ide.IDE0 ide.LBA1
+		.word ide.IDE1 ide.LBA0
+		.word ide.IDE1 ide.LBA1
+		.word 0
+data:		.data &55 &aa
+flag:		.data p0.HWC_IDE	; The IDE flag
+.endscope
+
+		
+;;; Subroutine:	detect_idedsk: detect IDE disks in both channels.
+;;;
+;;; This routine sends the IDENTIFY command to all four disks, adds appropriate
+;;; driver entries for each disk found, and prints an identification string to
+;;; the system console.
+
+detect_idedsk:
+.scope
+		enter_sub()
+
+		SIA(ITMP2, disks)
+		LMOV(TMP10, 0)
+		
+loop:
+		;; Set up for disk detection
+		
+		RMOV(TMP15, I ITMP2)	; TMP15: DHR I/O address
+		SNZ			; Are we done?
+		JMP done
+		ROUT(I TMP15, I ITMP2)	; Select drive
+
+		;; Short-cut disk detection
+		
+		RMOV(TMP14, I ITMP2)	; Command/Status register
+		IN I TMP14		; Check status register on bus.
+		SNN			; Bit 15 set?
+		JMP nodisk2		; Yes. Pull-ups detected, no disk on bus.
+
+		;; There's something on this bus. Print out detection string.
+		
+		RPUSH(SP, TMP15)
+		RPUSH(SP, TMP14)
+		LIA detstr0		; Print out detection string
+		JSR I PUTSP		; "IDE Drive "
+		LOAD TMP10
+		JSR I PUTUD		; Drive number
+		LIA detstr1
+		JSR I PUTSP		; ": "
+		RPOP(TMP14, SP)
+		RPOP(TMP15, SP)
+
+		;; Send out IDENTIFY command, wait for results.
+		
+		LOUT(I TMP14, ide.CMD_IDENTIFY)
+		LMOV(TMP13, 2)		; Timeout: 2 seconds.
+		LOAD TMP14
+		JSR ide_longwait
+		SNZ
+		JMP success
+		JMP nodisk
+		
+success:
+		;; Found a disk. Parse its identification structure.
+		
+		RMOV(ITMP0, bufptr)	; Buffer pointer
+		RMOV(TMP14, I ITMP2)	; Data register
+		JSR ide_readbuf		; Read a sector of data
+
+		RMOV(ITMP0, bufptr)	; Buffer pointer
+		LI ide.IDF_FXED
+		AND I ITMP0		; 00: Flags
+		SNZ
+		JMP notfixed		; Not a fixed drive, ignore.
+
+		;; Read the capacity.
+		LADD(ITMP1, ITMP0, 56)	; Sector count: offset 57
+		RMOV(TMP15, I ITMP1)	; Sector count, low word
+		RMOV(TMP14, I ITMP1)	; Sector count, high word
+
+		;; Divide the capacity by 4 (get kW blocks from sectors)
+		DSBR1(TMP14, TMP15)	; 32-bit shift right
+		DSBR1(TMP14, TMP15)	; 32-bit shift right
+
+		;; Print out the number of KW blocks on this device
+		RMOV(ARG1, TMP14)
+		RMOV(ARG2, TMP15)
+		JSR I PUTDUD
+		RPUSH(SP, ITMP0)
+		LIA detstr3
+		JSR I PUTSP
+		RPOP(ITMP0, SP)
+
+		;; Print out the model.
+		LMOV(ARG1, 40)	        ; Print out 40 characters
+		LINC(ITMP0, 26)		; Model string: ofs 27 (currently ofs 01)
+		LOAD ITMP0
+		JSR I PUTNSP		; Print out the model name.
+		LIA detstr4
+		JSR I PUTSP
+
+		;; Register the disk with the OS.
+		ROR1(p0.HWMSDS, I ITMP2)
+
+again:          ISZ TMP10
+		JMP loop
+
+nodisk:		LIA detstr2
+		JSR I PUTSP
+nodisk2:	LOAD I ITMP2		; Skip two table values
+		LOAD I ITMP2
+		JMP again
+
+notfixed:	LIA detstr5
+		JSR I PUTSP
+		JMP again
+
+done:
+		return()
+
+detstr0:        .strp "IDE disk " 0
+detstr1:        .strp ":  " 0
+detstr2:        .strp "N/A "		; Note: string fall-through
+detstr4:        .strp "\n" 0
+detstr5:        .strp "Unsupported\n" 0
+detstr3:        .strp " KW, " 0
+bufptr:		.word config.buf_start
+disks:		.word ide.IDE0 ide.DHR	; Drive 0: DHR register
+		.word ide.DHR_SEL0	; Drive 0: DHR base value
+		.word ide.IDE0 ide.CMD	; Drive 0: Command/Status register
+		.word ide.IDE0 ide.DAT	; Drive 0: Data register
+		.word p0.HWM_HD0
+
+		.word ide.IDE0 ide.DHR	; Drive 0: DHR base value
+		.word ide.DHR_SEL1
+		.word ide.IDE0 ide.CMD
+		.word ide.IDE0 ide.DAT	; Drive 0: Data register
+		.word p0.HWM_HD1
+
+		.word ide.IDE1 ide.DHR
+		.word ide.DHR_SEL0
+		.word ide.IDE1 ide.CMD
+		.word ide.IDE1 ide.DAT
+		.word p0.HWM_HD2
+
+		.word ide.IDE1 ide.DHR
+		.word ide.DHR_SEL1
+		.word ide.IDE1 ide.CMD
+		.word ide.IDE1 ide.DAT
+		.word p0.HWM_HD3
+
+		.word 0
+
+
+.endscope
+
+		
+;;; Subroutine:	 Reset IDE channel
+;;;
+;;; Arguments:
+;;;
+;;;   AC:	Port to reset
+;;;
+;;; Side-effects:
+;;;
+;;;   TMP15:	Base address of channel.
+;;;   TMP14:	DCR register for this channel.
+
+ide_reset:
+.scope
+
+		enter_sub_ac()
+
+		LOR(TMP14, TMP15, LI ide.DCR) ; TMP14: Device Control Register
+
+		;; Send out a Soft Reset strobe.
+		LOUT(I TMP14, ide.DCR_RESET)
+		NOP
+		LOUT(I TMP14, ide.DCR_INIT)
+		NOP
+
+		;; Wait for the drive(s) to be ready.
+		LMOV(TMP13, 2)		; Timeout: 2 seconds.
+		LOAD TMP15
+		JSR ide_longwait
+		/SUCCESS
+
+		return()
+
+		;; Wait 200ms.
+		
+.endscope
+
+
+;;; Subroutine:	 Wait for the BSY signal to clear
+;;;
+;;; This subroutine will wait approximately one second for BSY to clear. For
+;;; longer-running IDE commands, it will have to be called repeatedly and a
+;;; longer timeout enforced. Look at subroutine ide_longwait for that.
+;;;
+;;; Arguments:
+;;;
+;;;   AC:	Base address of port to reset
+;;;
+;;; Return:
+;;;
+;;;   AC:	NOERROR (0) on success, ETMOUT on timeout, EINVAL if the bus
+;;;             is unoccupied and bus pull-ups were read.
+;;;
+;;; Side-effects:
+;;;
+;;;   TMP15:	Timeout counter (increments)
+;;;   TMP14:	Address of Status Register
+		
+ide_wait:
+.scope
+		OR str
+		STORE TMP14
+		LMOV(TMP15, 0)
+
+		;; This loop takes 67 clock periods per iteration, so the
+		;; timeout is approximately 65536 * 65 * 250ns = 1060ms.
+		
+loop:		IN I TMP14
+		AND mask
+		XOR value
+		SNZ
+		JMP done
+		SNN
+		JMP nodisk
+
+		OP2			; This is NOP10: 10 clocks (2.25µs)
+		OP2
+
+		ISZ TMP15
+		JMP loop
+
+timeout:	LI err.ETMOUT
+		RET
+
+nodisk:	        LI err.EINVAL
+		RET
+
+done:		LI err.NOERROR
+		RET
+
+str:		.word ide.STR
+mask:		.word &8000 ide.STR_BSY ide.STR_RDY
+value:		.word ide.STR_RDY
+		
+.endscope
+
+
+;;; Subroutine:	Long wait for drive.
+;;;
+;;; This routine repeatedly calls ide_wait until it succeeds. The maximum number
+;;; of calls (and approximate number of seconds' timeout) is in the AC.
+;;;
+;;; Arguments:
+;;;
+;;;   AC:	Base address of port to reset
+;;;   TMP13:	Seconds of timeout.
+;;;
+;;; Return:
+;;;
+;;;   AC:	NOERROR (0) on success, ETMOUT on timeout.
+;;;
+;;; Side-effects:
+;;;
+;;;   TMP15
+;;;   TMP14
+;;;   TMP13
+;;;   TMP12
+
+ide_longwait:
+.scope
+		enter_sub_ac()		; TMP15: base address
+		RMOV(TMP12, TMP15)
+
+		LOAD TMP13
+		NEG
+		STORE TMP13
+
+loop:		LOAD TMP12
+		JSR ide_wait
+		SUCCESS
+		PRINTH
+		SNZ
+		JMP done		; Success.
+
+		ISZ TMP13		; Timeout. Try again.
+		JMP loop
+
+done:		
+		PRINTH
+		PRINTNL
+		return_ac(TMP14)
+		
+.endscope		
+
+;;; Subroutine:	 Read the sector buffer
+;;;
+;;; The read cycle time is 25 processor cycles, so the disk read period is
+;;; 6.25µs per word: plenty of time for the disk to be ready without us checking
+;;; the status register for BSY between reads, even in PIO0 (which has a bus
+;;; timing cycle of 600ns).
+;;;
+;;; Arguments:
+;;;
+;;;   ITMP0:	 Buffer pointer
+;;;   TMP14:	 Data register.
+;;;
+;;; Side-effects:
+;;;
+;;;   TMP15:	 Word counter (will be zero on success).
+
+ide_readbuf:
+.scope
+
+		RMOV(TMP15, minus256)
+		LOAD TMP14
+loop:           RIN(I ITMP0, I TMP14)	; Copy data from disk to buffer
+		ISZ TMP15
+		JMP loop
+		RET
+
+minus256:	.data -256
+		
+.endscope
+
+
 ///////////////////////////////////////////////////////////////////////////////
 //
 // VDU:	detect and initialise
@@ -943,8 +1317,11 @@ d1:		.word &1974		; MBU: 1975+
 		.word 0			; ???: always
 .endscope
 
+hwinfo:		
+		FARJMP(_hwinfo)
+.page
 		
-hwinfo:
+_hwinfo:
 .scope
 		enter_sub()
 
@@ -1073,8 +1450,8 @@ rommask:	.word p0.MEMCFG_NROMMSK
 rammask:	.word p0.MEMCFG_NRAMMSK
 modeheader:	.strp "\nRetro Mode:  " 0
 memheader:	.strp "\nMemory:      " 0
-mem1:		.strp "KW RAM, " 0
-mem2:		.strp "KW ROM\n" 0
+mem1:		.strp " KW RAM, " 0
+mem2:		.strp " KW ROM\n" 0
 detheader:	.strp "Detected:    " 0
 ttyheader:	.strp "Terminals:   " 0
 data:		.strp "MBU" 0
@@ -1173,6 +1550,23 @@ hwec:		.strp "emulator\n" 0
 //
 ///////////////////////////////////////////////////////////////////////////////
 
+;;; Register a detected TTY. Ignored if we already have too many. The handle of
+;;; the TTY should be in AC.
+
+register_tty:   enter_sub_ac()
+		SIA(TMP14, p0.TTY0_PTR)
+		SIA(TMP13, p0._ttyNp)
+		JMP _register_dev_slot
+
+;;; Register a detected MSD. Ignored if we already have too many. The handle of
+;;; the MSD should be in AC.
+
+register_msd:   enter_sub_ac()
+		SIA(TMP14, p0.MSD0_PTR)
+		SIA(TMP13, p0._msdNp)
+		JMP _register_dev_slot
+		
+
 ;;; Helper routine.
 _register_dev_slot:
 .scope
@@ -1196,23 +1590,6 @@ ranout:         errno(EFULL)		; Raise an error.
 .endscope
 
 		
-;;; Register a detected TTY. Ignored if we already have too many. The handle of
-;;; the TTY should be in AC.
-
-register_tty:   enter_sub_ac()
-		SIA(TMP14, p0.TTY0_PTR)
-		SIA(TMP13, p0._ttyNp)
-		JMP _register_dev_slot
-
-;;; Register a detected MSD. Ignored if we already have too many. The handle of
-;;; the MSD should be in AC.
-
-register_msd:   enter_sub_ac()
-		SIA(TMP14, p0.MSD0_PTR)
-		SIA(TMP13, p0._msdNp)
-		JMP _register_dev_slot
-		
-
 
 
 ///////////////////////////////////////////////////////////////////////////////
