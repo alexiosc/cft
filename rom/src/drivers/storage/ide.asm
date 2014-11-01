@@ -116,10 +116,14 @@ isr:
 ;;; The table of registers per drive
 
 .macro drvtable(d, c, u)
-handle_ide%d:	.word ide.DHR_SEL%u	; Unit number
+handle_ide%d:	
+		.word p0.IDE%{c}SZH	; Size offset (high)
+		.word ide.DHR_SEL%u	; Unit number
+                .word ide.IDE%c		; Base I/O address
+		;; The following may be unnecessary, check & remove as required.
 		.word ide.IDE%c ide.DCR	; Device Control Register
 		.word ide.IDE%c ide.DAT	; Data register
-		.word ide.IDE%c ide.ERR	; Data register
+		.word ide.IDE%c ide.ERR	; Error register
 		.word ide.IDE%c ide.SCR	; Sector/Count register
 		.word ide.IDE%c ide.CMD	; Command/Status register
 .end
@@ -129,9 +133,29 @@ handle_ide%d:	.word ide.DHR_SEL%u	; Unit number
 		drvtable(2, 1, 0)
 		drvtable(3, 1, 1)
 
-;;; Report the size of this device.
+;;; Subroutine:	report the size of this device.
+;;;
+;;; Arguments:
+;;;
+;;;   ARG0:	Device handle.
+;;;
+;;; Return value:
+;;;
+;;;   AC:	   Always 0
+;;;   <RET0,RET1>: Size of the device in 1KW blocks.
+;;;
+;;; Side effects:
+;;;
+;;;   DRVI0:	 Used to index the table.
 
-size:           HALT
+size:
+.scope
+		clear_errno()
+		RMOV(DRVI0, ARG0)
+		RMOV(RET0, I DRVI0)
+		RMOV(RET1, I DRVI1)
+		JMP os.rtt0
+.endscope
 
 ;;; Read a block.
 
@@ -148,6 +172,63 @@ status:          HALT
 ;;; Control the device.
 
 ctl:             HALT
+
+;;; Subroutine:	prepare to read/write a device block.
+;;;
+;;; IDE devices have 512-byte (256-word) sectors. The CFT addresses MSDs using
+;;; 1KW blocks, so the routine multiplies by 4 (shifting left by two). Only
+;;; 28-bit LBA is used, which gives an upper limit of 128GB or 64GW. This should
+;;; be more than enough. The routine ensures the block number is no larger than
+;;; this.
+;;;
+;;; Arguments:
+;;; 
+;;;   <DRVR0,DRVR1>: Block number, 32 bits.
+;;;   DRVR2:	     Drive select value (ide.DHR_SEL0 or ide.DHR_SEL1).
+;;;   DRVR3:	     Register base.
+;;; 
+;;; Return:
+;;;     AC:	Zero on success, non-zero if the block is out of range.
+;;;     DRVI0:	The address of the command/status register for the drive.
+
+seek:
+.scope
+		LOAD DRVR0		; Sanity check.
+		AND upper6bits
+		SZA
+		JMP fail
+
+		DSBL1(DRVR0, DRVR1)	; Multiply <DRVR0,DRVR1> *2
+		DSBL1(DRVR0, DRVR1)	; Multiply <DRVR0,DRVR1> *2
+
+		LOR(DRVI0, DRVR3, ide.SCR) ; Address the SCR register.
+		LOUT(I DRVI0, 4)	   ; SCR: 4 sector blocks (1KW).
+
+		LOAD DRVR0		; LBA0-7
+		GETLOCHAR()		; Just for good measure.
+		OUT I DRVI0		; Write LBA0 reg
+
+		LOAD DRVR0		; LBA8-15
+		GETHICHAR()
+		OUT I DRVI0		; Write LBA1 reg
+
+		LOAD DRVR1		; LBA16-23
+		GETLOCHAR()
+		OUT I DRVI0		; Write LBA2 reg
+		
+		LOAD DRVR1		; LBA24-27
+		RNR
+		RNR
+		AND NYBBLE0		; Use only lowest four bits.
+		OR DRVR2		; OR the DHR value.
+		OUT I DRVI0		; Write DHR/LBA3 reg
+
+		LRET(0)			; Done!
+
+fail:		LRET(1)			; block offset too large
+		
+upper6bits:	.word &fc00	; upper 6 bits set (32-28-2)
+.endscope
 
 .popns
 		

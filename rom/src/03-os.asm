@@ -263,7 +263,7 @@ again:
 		DADD(OSR9, OSR10, OSR1, OSR2, OSR11, OSR12)
 		SSL			; L=1 => number ≥ decade
 		JMP next_decade
-		RMOV(OSR1, OSR9)       ; Update running modulo.
+		RMOV(OSR1, OSR9)	; Update running modulo.
 		RMOV(OSR2, OSR10)
 		RINC(OSR13)		; OSR13++
 		LSET(OSR14, 1)

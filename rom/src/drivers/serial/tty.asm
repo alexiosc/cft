@@ -240,7 +240,8 @@ status:
 ;;;
 ;;; Depending on the opcode, additional arguments may be necessary.
 ;;;
-;;; Arguments
+;;; Arguments:
+;;; 
 ;;;   AC:	Device Control (devctl) opcode.
 ;;;   ARG0:	Device handle.
 ;;; 
@@ -277,12 +278,13 @@ jmptab:		.data devctl.CFGTTY @setbps+0
 
 ;;; Dev Ctl: CFGTTY. Configure TTY speed, parity, etc.
 ;;;
-;;; Arguments
+;;; Arguments:
+;;; 
 ;;;   ARG0:	Device handle.
 ;;;   ARG1:	Speed divider value. Use one of the tty.Bxxxx values.
 ;;;   ARG2:	Line options. Or together tty.LCR_xxx values (except DLEN).
 ;;; 
-;;; return Value:
+;;; Return Value:
 ;;;     0       Success.
 ;;;
 ;;; Errors:
