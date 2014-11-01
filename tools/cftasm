@@ -626,7 +626,7 @@ class CFTAssembler(object):
                 # WARNING: this will mess up with args like %n and
                 # %num.
                 #mdef_inst[i] = line.replace('%' + argname, argval)
-                mdef_inst[i] = re.sub('%' + argname + r'\b', argval, line)
+                mdef_inst[i] = re.sub(r'%{?' + argname + r'(}|\b)', argval, line)
 
         # Set us up to parse the macro definition.
         if self.opts.debugging:
@@ -1679,9 +1679,11 @@ class CFTAssembler(object):
         self.pasm.write(line)
 
 
-    def _msg(self, msg):
+    def _msg(self, msg, filename=None, linenum=None):
         """Output a message, along with file and line number info."""
-        sys.stderr.write('%s:%d:%s\n' % (self.filename, self.linenum, msg))
+        sys.stderr.write('%s:%d:%s\n' % (filename or self.filename,
+                                         linenum or self.linenum,
+                                         msg))
 
 
     def warn(self, msg):
@@ -1694,9 +1696,12 @@ class CFTAssembler(object):
         # Is there a macro context we should print out?
         for (n, f, ln, mdef) in self.ctx:
             if mdef:
-                self._msg("error: (in macro '%s' invoked in %s on line %d)" % (n, f, ln))
+                self._msg("error: (in macro '%s' invocation)" % n,
+                          filename=f, linenum=ln-1)
             else:
-                self._msg("error: (included from %s on line %d)" % (f, ln))
+                self._msg("error: (included from %s on line %d)" % (f, ln),
+                          filename=f, linenum=ln)
+
         self._msg('error: ' + msg)
         sys.exit(1)
 
@@ -1710,4 +1715,3 @@ class CFTAssembler(object):
 CFTAssembler()
 
 # End of file.
-
