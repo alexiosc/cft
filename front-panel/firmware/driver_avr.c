@@ -121,7 +121,7 @@ volatile static uint16_t _swright, _swright0;
 volatile static uint16_t _sr, _sr0;
 volatile static uint16_t _swleft, _swleft0;
 static uint16_t _or;
-static uint8_t _defercb = 0;
+uint8_t _defercb = 0;
 static uint8_t _clk_prescale = PSV_1024;
 static uint16_t _clk_div = 89;
 static uint8_t _stopped = 1;
@@ -200,17 +200,17 @@ static union {
 #define CB1_NFPRESET  0x80
 
 //#define CB2_xxx     0x01
-#define CB2_NW        0x02
-#define CB2_NR        0x04
-#define CB2_NMEM      0x08
-#define CB2_NIO       0x10
-#define CB2_NHALT     0x20
+#define CB2_W         0x02
+#define CB2_R         0x04
+#define CB2_MEM       0x08
+#define CB2_IO        0x10
+#define CB2_HALT      0x20
 #define CB2_FPRUN     0x40
 #define CB2_FPSTOP    0x80
 
 #define CB0_OUTPUTS   0xff	// All outputs are active low
 #define CB1_OUTPUTS   0xff	// All outputs are active low
-#define CB2_OUTPUTS   0xff ^ (CB2_NHALT)	// Only HALT# asserted, RUN/STOP lights both on.
+#define CB2_OUTPUTS   0xff ^ (CB2_MEM|CB2_IO|CB2_R|CB2_W)  // HALT# asserted, RUN/STOP lights both on.
 
 static uint8_t _cb[3] = {
 	CB0_OUTPUTS,
@@ -415,13 +415,14 @@ test_bushold(uint16_t val)
 	// instruction tables, but between 0.05 and 0.1s.
 	uint16_t x = 65535;
 	while (x--) {
-		short_delay();
+		wdt_reset();
 		short_delay();
 		short_delay();
 	}
 
 	// Sample the bus
 	deb_sample(1);		 // Get AB and DB
+	if (_ab != val) report_mismatch(PSTR("Bus hold mismatch:"), val, _ab);
 	return _ab == val;
 	
 }
@@ -460,26 +461,31 @@ static const uint16_t _diag_patterns[NUM_PATTERNS] = {
 inline static bool_t
 detect_cpu()
 {
-	report_pstr(PSTR(STR_DETPROC));
+
+	// TODO: Decide if we need cpu-less mode at all now.
+	report_pstr(PSTR(STR_DETPROC STR_DETPROC1));
+
+	return 1;
+
 
         // Strategy: hold RESET# and HALT asserted. They should
         // already be asserted, but let's make sure.
 	clearflag(_cb[1], CB1_NFPRESET);
-	clearflag(_cb[2], CB2_NHALT);
+	setflag(_cb[2], CB2_HALT);
 	write_cb();
 	
 	// Write various values to the address bus.
-	uint8_t i;
+	uint8_t i, found = 1;
 	for (i = 0; i < NUM_PATTERNS; i++) {
 		if (!test_bushold(_diag_patterns[i])) {
-			report_pstr(PSTR(STR_DETPROC0));
+			found = 0;
 			return 0;
 		}
 	}
 
 	// All the patterns worked out.
-	report_pstr(PSTR(STR_DETPROC1));
-	return 1;
+	report_pstr(found ? PSTR(STR_DETPROC1) : PSTR(STR_DETPROC0));
+	return found;
 }
 
 
@@ -505,7 +511,7 @@ dfp_diags()
 	// as IOADDR0. This allows diagnostics.
 
 	_cb[1] |= CB1_NFPRESET | CB1_NRESET | CB1_NRSTHOLD; // De-assert reset signals.
-	_cb[2] &= ~CB2_NHALT;	// Halted
+	_cb[2] |= CB2_HALT;	// Halted
 	write_cb();
 	_delay_ms(500);
 
@@ -566,6 +572,10 @@ dfp_diags()
 
 #endif
 
+	// Report the version
+	report_pstr(PSTR(BANNER1));
+
+
 	set_or(code = 0x102);
 	report_pstr(PSTR(STR_D_VPIN));
 	for (i = 0; i < NUM_REPS; i++) {
@@ -609,7 +619,7 @@ dfp_diags()
 	uint32_t oldflags = flags;
 	flags &= ~ FL_PROC;	// (Why) is this necessary?
 	//clearflag(_cb[1], CB1_NFPRESET);
-	clearflag(_cb[2], CB2_NHALT);
+	setflag(_cb[2], CB2_HALT);
 	write_cb();
 
 	// uint16_t x =0;
@@ -721,7 +731,7 @@ dfp_diags()
 
 	// With the RESET# signal asserted, check there's no bus chatter.
 	// clearflag(_cb[1], CB1_NFPRESET);
-	clearflag(_cb[2], CB2_NHALT);
+	setflag(_cb[2], CB2_HALT);
 	write_cb();
 	set_or(code = 0x108);
 	report_pstr(PSTR(STR_D_RSTBQ));
@@ -791,7 +801,7 @@ dfp_diags()
 
 	// Check the IR register.
 	set_or(code = 0x111);
-	report_pstr(PSTR(STR_D_PCCHK));
+	report_pstr(PSTR(STR_D_IRCHK));
 	tristate_ab();
 	tristate_db();
 	for (j = 0; j < NUM_REPS; j++) {
@@ -816,7 +826,6 @@ dfp_diags()
 	tristate_ibus();
 	if (errors) goto faulty;
 	report_pstr(PSTR(STR_D_OK));
-
 	return;
 
 faulty:
@@ -937,8 +946,7 @@ hw_init()
 	// outputs. This will de-assert all the reset signals, among
 	// other things.
 	clearflag(_cb[1], CB1_NFPRESET | CB1_NRESET);
-	clearflag(_cb[2], CB2_NHALT); // Keep HALT asserted for now
-	setflag(_cb[2], CB0_NIRQ6);   // Keep HALT asserted for now
+	setflag(_cb[2], CB2_HALT | CB0_NIRQ6); // Assert HALT, clear NIRQ6.
 	write_cb();		      // Shift out all the values
 	clearbit(PORTD, D_NCTLOE);    // Enable the control bus drivers
 
@@ -975,7 +983,7 @@ hw_init()
 		// Mark the processor as present
 		flags |= FL_PROC;
 		// Disable the bus pull-ups. Note: active low!
-		set_buspu(1); // TODO: REINSTATE
+		set_buspu(1);
 	} else {
 		// Enable the bus pull-ups. They start enabled after reset, but
 		// this couldn't hurt.
@@ -1645,6 +1653,8 @@ wait_for_halt(bool_t reckless)
 	flags |= FL_BUSY | FL_STOPPING;
 	uint16_t timeout = 6000;
 	while (timeout--) {
+		wdt_reset();
+
 		// Read the WAIT# signal from the first (highest order) shift
 		// register of the virtual panel.
 		virtual_panel_sample(1);
@@ -1754,8 +1764,8 @@ clk_slow()
 {
 	// 80 Hz = 14745600 / (2 * 1024 * (1 + 89))
 	set_clkfreq(PSV_1024, 89);
-	if (_stopped) report_pstr(PSTR("stopped: true\n"));
-	else report_pstr(PSTR("stopped: false\n"));
+	//if (_stopped) report_pstr(PSTR("stopped: true\n"));
+	//else report_pstr(PSTR("stopped: false\n"));
 	if (!_stopped) TCCR1A = _BV(COM1B0);
 }
 
@@ -1765,8 +1775,8 @@ clk_creep()
 {
 	// 8 Hz = 14745600 / (2 * 1024 * (1 + 890))
 	set_clkfreq(PSV_1024, 899);
-	if (_stopped) report_pstr(PSTR("stopped: true\n"));
-	else report_pstr(PSTR("stopped: false\n"));
+	//if (_stopped) report_pstr(PSTR("stopped: true\n"));
+	//else report_pstr(PSTR("stopped: false\n"));
 	if (!_stopped) TCCR1A = _BV(COM1B0);
 }
 
@@ -1952,7 +1962,9 @@ perform_reset()
 			
 			// Hold these down for a while. It's about 6ms.
 			uint16_t x = 32768;
-			while (x--) short_delay();
+			while (x--) {
+				wdt_reset();
+			}
 			
 			setflag(_cb[1], CB1_NRESET);
 			write_cb();
@@ -1965,7 +1977,9 @@ perform_reset()
 
 			// Delay another 6ms.
 			x = 32768;
-			while (x--) short_delay();
+			while (x--) {
+				wdt_reset();
+			}
 			
 			setflag(_cb[1], CB1_NRSTHOLD);
 			write_cb();
@@ -2007,16 +2021,16 @@ void
 strobe_w()
 {
 	// R/W safety interlock.
-	setflag(_cb[2], CB2_NR);
+	clearflag(_cb[2], CB2_R);
 	
 	// The processor is halted, so we can drive W# directly. The
 	// signal is low for so long (tens of bus cycles), wait states
 	// don't really apply.
 
-	clearflag(_cb[2], CB2_NW);
+	setflag(_cb[2], CB2_W);
 	write_cb();
 
-	setflag(_cb[2], CB2_NW);
+	clearflag(_cb[2], CB2_W);
 	write_cb();
 
 /*		
@@ -2053,8 +2067,8 @@ void
 set_r(bool_t val)
 {
 	// R/W safety interlock.
-	setflag(_cb[2], CB2_NW);
-	do_cb(2, NR, !val);
+	clearflag(_cb[2], CB2_W);
+	do_cb(2, R, val);
 	write_cb();
 }
 
@@ -2063,8 +2077,8 @@ void
 set_mem(bool_t val)
 {
 	// MEM/IO safety interlock.
-	setflag(_cb[2], CB2_NIO);
-	do_cb(2, NMEM, !val);
+	clearflag(_cb[2], CB2_IO);
+	do_cb(2, MEM, val);
 	write_cb();
 }
 
@@ -2073,8 +2087,8 @@ void
 set_io(bool_t val)
 {
 	// MEM/IO safety interlock.
-	setflag(_cb[2], CB2_NMEM);
-	do_cb(2, NIO, !val);
+	clearflag(_cb[2], CB2_MEM);
+	do_cb(2, IO, val);
 	write_cb();
 }
 
@@ -2082,9 +2096,15 @@ set_io(bool_t val)
 void
 release_bus()
 {
+	_defercb = 0;		// Always immediate!
 	tristate_ab();
 	tristate_db();
-	setflag(_cb[2], CB2_NMEM | CB2_NIO | CB2_NW | CB2_NR);
+	tristate_ibus();
+	clearflag(_cb[2], CB2_MEM | CB2_IO | CB2_W | CB2_R);
+	
+	do_cb(2, HALT, 0);
+	write_cb();
+	do_cb(2, HALT, 1);
 	write_cb();
 }
 
@@ -2125,7 +2145,8 @@ set_halt(bool_t val)
 	// Also update the FPRAM signal
 	if (val) panel_rom(_swright & SWR_ROM ? 1 : 0);
 
-	do_cb(2, NHALT, !val);
+	//report_bool_value(PSTR("*** set_halt:"), val);
+	do_cb(2, HALT, val);
 	write_cb();
 }
 

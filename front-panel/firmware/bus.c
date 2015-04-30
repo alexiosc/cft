@@ -18,6 +18,9 @@
 //bus_state_t bus_state;
 
 static uint16_t _hi = 0;
+#ifdef AVR
+extern uint8_t _defercb;
+#endif // AVR
 
 uint8_t
 buschatter()
@@ -58,6 +61,9 @@ assert_halted()
 		// be halted by calling us, we halt it here. The clock should
 		// be stopped already, so no need to wait for a full
 		// halt. We're just tristating the control lines.
+#ifdef AVR
+		_defercb = 0;	// Force NHALT#.
+#endif // AVR
 		set_halt(1);
 	}
 	
@@ -158,6 +164,9 @@ perform_write(uint8_t space, uint16_t addr, uint16_t word)
 	// Ensure the bus is quiet.
 	if (!assert_halted()) return 0;
 
+	// De-assert every control signal just in case.
+	release_bus();
+
 	ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
 		// Perform a cycle
 		write_ab(addr);
@@ -167,17 +176,20 @@ perform_write(uint8_t space, uint16_t addr, uint16_t word)
 		drive_db();
 		
 		// Setup delay
-		setup();
+		//setup();
 		
 		// Strobe.
 		strobe_w();
 		
-		hold();
+		//hold();
 		
 		// Release the bus
-		space == SPACE_MEM ? set_mem(0) : set_io(0);
-		tristate_db();
-		tristate_ab();
+		//space == SPACE_MEM ? set_mem(0) : set_io(0);
+		//tristate_db();
+		//tristate_ab();
+
+		// De-assert every control signal just in case.
+		release_bus();
 	}
 
 	return 1;
@@ -199,7 +211,6 @@ start_block_write(uint8_t space)
 	// a slow process (purposefully).
 	drive_ab();
 	if (space == SPACE_MEM) set_mem(1); else set_io(1);
-	drive_db();
 }
 
 void
@@ -216,12 +227,23 @@ perform_block_write(uint16_t addr, uint16_t word)
 	write_db(word);
 
 	// Strobe W#
+	drive_db();
 	strobe_w();
+	tristate_db();
 }
 
 void
-end_block_write()
+end_block_write(uint8_t space)
 {
+	// Release the bus
+	if (space == SPACE_MEM) {
+		set_mem(0);
+	} else {
+		set_io(0);
+	}
+	tristate_db();
+	tristate_ab();
+
 	// Release the bus (tristate everything, de-assert control signals)
 	release_bus();
 }
@@ -275,6 +297,9 @@ set_reg(uint8_t reg, uint16_t value)
 	// Stop the clock.
 	clk_stop();
 
+	// Even with the processor halted, some control signals are
+	// bus-held. Explicitly drive MEM#, IO#, R#, and WEN# high.
+
 	write_ibus(value);
 	drive_ibus();
 	setup();
@@ -286,7 +311,7 @@ set_reg(uint8_t reg, uint16_t value)
 		strobe_wac();
 		break;
 	case REG_PCAR:
-		strobe_war();
+		//strobe_war();
 		// Purposefully falling through
 	case REG_PC:
 		strobe_wpc();

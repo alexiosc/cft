@@ -26,6 +26,7 @@
 #include "hwcompat.h"
 #include "panel.h"
 #include "bus.h"
+#include "utils.h"
 
 #ifdef AVR
 #include <util/atomic.h>
@@ -735,6 +736,7 @@ go_swtest()
 	flags &= ~(FL_INPOK | FL_BREAK);
 
 	while ((flags & (FL_INPOK | FL_BREAK)) == 0) {
+		wdt_reset();
 		_delay_ms(100);
 		deb_sample(0);	// Read the switches
 
@@ -782,6 +784,7 @@ go_cons()
 	
 	flags |= (FL_BUSY | FL_CONS);
 	while (flags & FL_CONS) {
+		wdt_reset();
 		while ((flags & FL_INPOK) == 0) {
 #ifdef HOST
 			// The standalone version doesn't use asynchronous
@@ -1278,15 +1281,16 @@ go_write()
 		// Ensure the bus is quiet. 
 		if (!assert_halted()) return;
 
-		start_block_write(SPACE_MEM);
+		//start_block_write(SPACE_MEM);
 		while ((res = optional_hex_val(&v)) > 0) {
 			wdt_reset();
 			first = 0;
-			perform_block_write(addr, v);
+			perform_write(SPACE_MEM, addr, v);
+			//perform_block_write(addr, v);
 			addr++;
 			cksum += v;
 		}
-		end_block_write();
+		//end_block_write(SPACE_MEM);
 	}
 	
 	if (res < 0) return;
@@ -1330,9 +1334,30 @@ go_fill()
 	}
 
 	flags |= FL_BUSY;
+	//start_block_write(SPACE_MEM);
+
+	//drive_ab();
+	//write_db(val);
+	//drive_db();
+	//set_mem(1);
+
 	while (count--) {
 		wdt_reset();
+		//perform_block_write(addr, val);
 		if (perform_write(SPACE_MEM, addr, val) == 0) return;
+		
+		// write_ab(addr);
+		// setup();
+		// setup();
+		// write_db(val);
+		// setup();
+		// setup();
+		// drive_db();
+		// setup();
+		// setup();
+		// strobe_w();
+		// tristate_db();
+		
 		addr++;
 
 		if ((addr & 0xff) == 0) {
@@ -1346,11 +1371,16 @@ go_fill()
 #endif // HOST
 		
 		if (flags & FL_BREAK) {
+			//end_block_write(SPACE_MEM);
 			cancel();
-			return;
+			goto fill_done;
 		}
 	}
+	//end_block_write(SPACE_MEM);
 	done();
+
+fill_done:
+	release_bus();
 }
 
 
@@ -1367,6 +1397,9 @@ go_dump_text()
 
 	if (optional_hex_val(&count) < 0) return;
 
+	// Release the bus (tristate everything, de-assert control signals)
+	release_bus();
+
 	flags |= FL_BUSY;
 	for (i = 0; i < count; i += 8, addr += 8) {
 		wdt_reset();
@@ -1374,6 +1407,7 @@ go_dump_text()
 		
 		// Break requested?
 		if (flags & FL_BREAK) {
+			release_bus();
 			cancel();
 			return;
 		}
@@ -1423,6 +1457,9 @@ go_dump_text()
 #endif // HOST
 	}
 	
+	// Release the bus (tristate everything, de-assert control signals)
+	release_bus();
+
 	done();
 }
 
@@ -1440,9 +1477,9 @@ go_disassemble()
 	if (optional_hex_val(&count) < 0) return;
 
 	flags |= FL_BUSY;
-	for (i = 0; i < count; i++) {
+	for (i = 0; i < count; i++, addr++) {
 		wdt_reset();
-		uint16_t w = perform_read(SPACE_MEM, addr++);
+		uint16_t w = perform_read(SPACE_MEM, addr);
 
 		// Break requested?
 		if (flags & FL_BREAK) {
@@ -1728,7 +1765,7 @@ proto_prompt()
 		report_pstr(PSTR(STR_PRUN));
 	}
 	style_input();
-	
+
 	// If echo is on, print out the current input buffer. The
 	// buffer may have been left intact before the prompt is
 	// printed for, e.g. prompt redrawing (Ctrl-L).
@@ -1737,7 +1774,7 @@ proto_prompt()
 	// If in ‘machine’ mode (echo off, term off), output a newline
 	// here. The front end is line-oriented, but parses
 	// prompts. This helps a bit.
-	if ((flags & (FL_TERM | FL_ECHO)) == 0) report_char('\n');
+	if ((flags & (FL_TERM | FL_ECHO)) == 0) report_nl();
 }
 
 	

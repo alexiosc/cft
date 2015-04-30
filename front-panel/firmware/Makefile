@@ -2,14 +2,14 @@
 SERIAL_BPS	=	460800
 #SERIAL_BPS	=	230400
 #SERIAL_BPS	=	9600
-VERSION		=	1.1
+VERSION		=	1.2
 BUFSIZE		=	512
 #CPU_FREQ	=	7372800 # Hz
 CPU_FREQ	=	14745600
 #CPU_FREQ	=	1000000 # Hz (Factory default)
 
 DEFINES		=	-DDEBUG \
-			-DVERSION='"$(VERSION)"' \
+			-DVERSION='"$(VERSION) $(shell date +%Y-%m-%d)"' \
 			-DBUFSIZE=$(BUFSIZE) -DBUFSIZE_S='"$(shell printf "%x\n" $(BUFSIZE))"' \
 			-DF_CPU=$(CPU_FREQ) -DF_CPU_S='"$(CPU_FREQ)"' \
 			-DSERIAL_BPS=$(SERIAL_BPS) -DSERIAL_BPS_S='"$(SERIAL_BPS)"' \

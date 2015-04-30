@@ -13,6 +13,7 @@
 
 #ifdef HOST
 #define PSTR(x) x
+#define wdt_reset() ;
 #endif // HOST
 
 

@@ -70,7 +70,7 @@ void start_block_write(uint8_t space);
 
 void perform_block_write(uint16_t addr, uint16_t word);
 
-void end_block_write();
+void end_block_write(uint8_t space);
 
 uint16_t perform_block_read(uint16_t base, int16_t n, uint16_t * buf);
 
