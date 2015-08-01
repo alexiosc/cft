@@ -296,8 +296,8 @@ dfp_write(uint16_t addr, uint16_t dbus)
 		return 1;
 
 	case IO_PRINTLO:
-		dfp_out("%hu", (_hword << 16) | dbus);
-		testdebug("PRINTL: %08x\n", (_hword << 16) | dbus);
+		dfp_out("%d", (_hword << 16) | dbus);
+		testdebug("PRINTL: %hu\n", (_hword << 16) | dbus);
 		return 1;
 
 	case IO_HALT:

@@ -191,6 +191,8 @@ idehd_set(uint32_t n, char *fname)
 	hd->scount = 1;
 	hd->callback = callback_diags;
 	hd->buf_callback = NULL;
+
+	ide = 1;
 }
 
 
@@ -358,8 +360,9 @@ void idehd_command(int unit, uint16_t cmd)
 
 	switch(cmd) {
 	case 0xec:		/* Identify drive */
+		idedebug("IDEHD %d: Identify\n", unit);
 		idehd_identify(unit);
-		hd->c = 1000;
+		hd->c = 100;
 		break;
 
 	case 0x10:		/* Recalibrate */

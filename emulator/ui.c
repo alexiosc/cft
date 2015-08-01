@@ -282,10 +282,10 @@ ui_show_tabs()
 	int i, j;
 	for (i = j = 0; tabs[j].name != NULL; j++){
 		if (is_tab_disabled(j)) continue;
-		tabs[j]._r.x0 = i * pitch * 8;
-		tabs[j]._r.x1 = (i + 1) * pitch * 8;
-		tabs[j]._r.y0 = 16;
-		tabs[j]._r.y1 = 32;
+		tabs[j]._r.x0 = i * pitch * 8 * (1 + video_2x);
+		tabs[j]._r.x1 = (i + 1) * pitch * 8 * (1 + video_2x);
+		tabs[j]._r.y0 = 16 * (1 + video_2x);
+		tabs[j]._r.y1 = 32 * (1 + video_2x);
 		ui_xycprintf(i * pitch, row,
 			       j == cons.tab? ATTR_TAB_ACTIVE : ATTR_TAB,
 			     "%c %-9.9s%c", CHAR_TAB0, tabs[j].name, CHAR_TAB1);

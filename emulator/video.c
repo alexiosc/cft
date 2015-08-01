@@ -957,7 +957,7 @@ _video_status_update()
 
 	for (y = 0; y < 64; y++) {
 		ofs = ofs_status + y * v.screen->pitch * (1 + video_2x);
-		if (y >= 32) ofs += (HEIGHT * v.screen->pitch);
+		if (y >= 32) ofs += (HEIGHT * v.screen->pitch * (1 + video_2x));
 		x = 0;
 		pacol = 0;	/* Start of a line */
 		paddr = paddr0 + vector(pacol, parow);
