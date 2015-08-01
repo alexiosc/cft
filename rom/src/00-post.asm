@@ -1673,6 +1673,10 @@ vdu_init:
 		LIA mode80x30		; Set the mode
 		JSR setmode
 
+		;; Temporary:display the logo
+		; JSR showlogo
+		; HALT
+
 		;; TODO: Add a proper keyboard bell routine
 		LIA NULL_JSR
 		STORE p0.VDU_BELVEC
@@ -1838,6 +1842,8 @@ count:		.data -512
 		
 		;; TODO: rewrite this code, and reinstate VDU initialisation.
 		//RET
+
+showlogo:
 
 
 .scope

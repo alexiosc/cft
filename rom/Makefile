@@ -30,6 +30,7 @@ CFTEMUOPTS +=	--hd0=hd0
 #CFTEMUOPTS +=	--hd3=hd3
 #CFTEMUOPTS +=	--debug-irc
 CFTEMUOPTS +=	--debug-ide
+CFTEMUOPTS +=	--dfp-pts
 
 BASEVECASM =	$(GENDIR)/base-vectable.asm
 FORTHVECASM =	$(GENDIR)/forth-vectable.asm
