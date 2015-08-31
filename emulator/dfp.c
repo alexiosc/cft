@@ -38,6 +38,8 @@ Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 #include "uterm.h"
 #include "dfp.h"
 
+#include "../front-panel/lib/iface.h"
+
 
 int dfp_enabled = 1;
 int dfp_pts = 0;
@@ -143,6 +145,15 @@ dfp_init()
 		if (unlockpt(debugfd)) {
 			fail("Failed to unlock pseudo-tty %s: %s", pts, strerror(errno));
 		}
+
+		int fd = open("dfp_pts", O_WRONLY | O_CREAT, 0644);
+		if (fd < 0) {
+			fail("Failed to create dfp_pts: %s", strerror(errno));
+		}
+		if (write(fd, name, strlen(name)) < 0) {
+			fail("Writing to dfp_pts: %s", strerror(errno));
+		}
+		close(fd);
 	}
 
 	/* Initialise the DEB terminal emulator */
@@ -151,6 +162,10 @@ dfp_init()
 
 	// Set up the console ring buffer
 	ringbuf.ip = ringbuf.op = 0;
+
+	// Initialise the DFP firmware
+	dfp_cb.putc = NULL;
+	dfp_cb.getc = NULL;
 }
 
 

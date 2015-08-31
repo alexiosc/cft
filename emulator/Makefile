@@ -1,13 +1,16 @@
 #!/usr/bin/make -f
 
 CC = gcc
-CFLAGS = -g -Wall -Wno-switch -std=c99 -D_GNU_SOURCE -DUART16550 -fgnu89-inline
+CFLAGS = -g -Wall -Wno-switch -std=c99 -D_GNU_SOURCE -DUART16550 -fgnu89-inline -DCFTEMU
 CFLAGS += -O2
 #CFLAGS += -O0
 LDFLAGS = -g
 
-CFLAGS += $(shell pkg-config --cflags sdl)
+CFLAGS  += $(shell pkg-config --cflags sdl)
 LDFLAGS += $(shell pkg-config --libs sdl) -lX11
+
+LDPATH	= $(shell readlink -f ../front-panel/lib)
+LDFLAGS	+= -L$(LDPATH) -Wl,-rpath=$(LDPATH) -ldfp
 
 PROGRAMS = cftemu
 OBJS = cftemu.o cmdline.o emulator.o io.o pasm.o map.o util.o microcode.o \
@@ -22,8 +25,8 @@ ASMINCLUDES = ../../asm/io.asm ../../asm/debugging.asm ../../asm/testing.asm
 
 all:		$(GENERATED) $(PROGRAMS)
 
-cftemu:		$(OBJS)
-		$(CC) $(OBJS) -o $@ $(LDFLAGS)
+cftemu:		$(OBJS) $(DFPOBJS)
+		$(CC) $(OBJS) $(DFPOBJ) -o $@ $(LDFLAGS)
 
 dep .depends:   $(GENERATED)
 		$(CC) $(CFLAGS) -M *.c >.depends
