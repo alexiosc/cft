@@ -7,7 +7,7 @@ SIZE = 32768
 uc = [array.array('c') for x in range(3)]
 
 for i, x in enumerate(uc):
-    x.fromfile(open('../microcode/microcode-%02d.bin' % i, 'rb'), SIZE)
+    x.fromfile(open('../../microcode/microcode-%02d.bin' % i, 'rb'), SIZE)
 
 print """// -*- javascript -*-
 //

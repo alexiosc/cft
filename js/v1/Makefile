@@ -3,6 +3,7 @@
 all: microcode.js rom.js
 
 CFTDIR =	../..
+SCRIPTDIR =	scripts
 MCDIR =		$(CFTDIR)/microcode
 ROMDIR =	rom
 ROMBASE =	a
@@ -16,13 +17,13 @@ MICROCODE =	$(MCDIR)/microcode-00.bin \
 		$(MCDIR)/microcode-02.bin
 
 microcode.js:	$(MICROCODE)
-		$(CFTDIR)/scripts/microcode.py > microcode.js
+		scripts/microcode.py > microcode.js
 
 rom.js:		$(ROMDIR)/$(ROMBASE).bin
-		$(CFTDIR)/scripts/rom.py $^ > $@
+		scripts/rom.py $^ > $@
 
 $(ROMBIN):	$(ROMSRC)
-		(cd $(ROMDIR); ../$(CFTASM) $(notdir $(ROMSRC)))
+		(cd $(ROMDIR); ../$(CFTASM) -I ../../../asm $(notdir $(ROMSRC)))
 
 clean:
 		rm -f rom.js microcode.js *~ $(OUT)*.list $(OUT).pasm $(OUT).sym $(OUT).bin $(OUT).map $(ROMDIR)/rom.js

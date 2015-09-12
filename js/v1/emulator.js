@@ -21,7 +21,9 @@ function rand(x)
 
     CFTEmulator = {
 
-	VERSION: '0.5',
+	//DEBUG: 1,
+
+	VERSION: '0.6',
 
 	RST_HOLD: 3,		// Reset counter
 
@@ -202,7 +204,7 @@ function rand(x)
 	    this._addrow(4, '', 'gen1', 'n', 'rrrrrrrr', '76543210');
 
 	    this._addSpace(5, 3);
-	    this._addrow(5, 'Microcode Bank', 'ucb', 'n', 'yyyy', ['UCB3', 'UCB2', 'UCB1', 'UCB0']);
+	    this._addrow(5, 'Microcode Bnk', 'ucb', 'n', 'yyyy', ['UCB3', 'UCB2', 'UCB1', 'UCB0']);
 
 	    this._addSpace(5, 1);
 	    this._addrow(5, 'Instruction Register', 'ir',
@@ -801,6 +803,7 @@ function rand(x)
 	    } else {
 		this.debug('<span class="r"> Halted </span>\n')// (' + rate + ' Hz clock)\n');
 	    }
+	    if (this.DEBUG) console.log('HALTED');
 	    $('body').css('cursor', 'default');
 	},
 
@@ -933,7 +936,10 @@ function rand(x)
 	    // Disassemble
 
 	    $('#irval').html('<span class="hex">' + hex(this.cpu.ir, 4) + '</span>');
-	    $('#irasm').html(this.disassemble(this.cpu.ir));
+	    var d = this.disassemble(this.cpu.ir);
+	    $('#irasm').html(d);
+	    if (this.DEBUG) console.log('     %s: %s   %s', hex(this.cpu.pc, 4), hex(this.cpu.ir, 4), d);
+
 
 	    return this.cpu.ir;
 	},
@@ -1061,6 +1067,7 @@ function rand(x)
 	    if ((addr & 0xffff) >= 0xc000) {
 		this.debug('<span class="r"> Attempted to write &' + hex(x, 4) + ' to ROM address &' + hex(addr, 4) + '. </span>\n');
 	    }
+	    if (this.DEBUG) console.log('mem[%s] = %s', hex(addr,4), hex(x,4));
 	    this.ram[addr & 0xffff] = x;
 	    return this.set_dbus(x);
 	},
@@ -1080,49 +1087,53 @@ function rand(x)
 	io_write: function(addr, x)
 	{
 	    switch (addr & 0x3ff) {
-	    case 0x32:
+	    case 0x100:		// SOR
 		this.set_or(x);
 		break;
 		
-	    case 0x37:
-		this.stopCPU();
+	    case 0x108:		// ENEF (ignored)
+	    case 0x109:		// DISEF (ignored)
 		break;
-		
-	    case 0x3ef:
+
+	    case 0x10f:		// SENTINEL
 		this.debug('<span class="r"> Failure </span> (sentinel instruction executed)\n');
 		this.stopCPU();
 		break;
 		
-	    case 0x3f1:
-		this.debug(String.fromCharCode(x));
-		break;
-
-	    case 0x3f0:
-	    case 0x3f4:
+	    case 0x110:		// PRINTA
+	    case 0x114:		// PRINTH
 		this.debug(hex(x, 4));
 		break;
 
-	    case 0x3f2:
+	    case 0x111:		// PRINTC
+		this.debug(String.fromCharCode(x));
+		break;
+
+	    case 0x112:		// PRINTD
 		this.debug(x);
 		break;
 
-	    case 0x3f5:
+	    case 0x115:		// PRINTB
 		this.debug(bin(x, 16));
 		break;
 		
-	    case 0x3f6:
+	    case 0x116:		// PRINTSP
 		this.debug(' ');
 		break;
 		
-	    case 0x3f7:
+	    case 0x117:		// PRINTNL
 		this.debug('\n');
 		break;
 
-	    case 0x3fe:
+	    case 0x11d:		// HALT
+		this.stopCPU();
+		break;
+		
+	    case 0x11e:		// SUCCESS
 		this.debug('<span class="r"> Success </span>\n');
 		break;
 		
-	    case 0x3ff:
+	    case 0x11f:		// FAIL
 		this.debug('<span class="r"> Fail </span> (FAIL instruction)\n');
 		break;
 		
@@ -1133,7 +1144,7 @@ function rand(x)
 	io_read: function(addr)
 	{
 	    switch (addr & 0x3ff) {
-	    case 0x30:
+	    case 0x100:		// LSR
 		return this.set_dbus(this.panel.sr & 0xffff);
 	    }
 	},
@@ -1467,7 +1478,10 @@ function rand(x)
 	    else if (w && io) this.unit_io(r, w);
 
 	    // Step the PC
-	    if (incpc) this.set_pc(this.cpu.pc + 1);
+	    if (incpc) {
+		this.set_pc(this.cpu.pc + 1);
+		//if (this.DEBUG) console.log('next PC:', hex(this.cpu.pc, 4));
+	    }
 	    
 	    // Increment A, if requested by an OPx instruction.
 	    if (stpac) {
