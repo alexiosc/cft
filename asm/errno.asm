@@ -22,11 +22,12 @@
 
 .equ NOERROR   0			; Everything is OK
 
-.equ EINVAL    05			; Invalid value
-.equ EARG      06			; Argument error
+.equ EINVAL     5			; Invalid value
+.equ EARG       6			; Argument error
 .equ ENODEV    10			; Bad device
 .equ ENOMEM    20			; Out of memory
 .equ EFULL     30			; Full (ran out of slots, etc.)
+.equ ETMOUT   100			; Timeout
 .equ ENOP     900			; Call not available (nothing done)
 
 .popns

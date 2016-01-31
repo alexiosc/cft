@@ -147,10 +147,9 @@
 .equ B25    49152			; 25 bps (lowest standard rate we can do)
 
 ;;; Sane Defaults
-;;;
-;;; 
 
 .equ LCR_INIT LCR_8BIT LCR_NP LCR_1SB 	; 8 bits, no parity, 1 stop bit
+.equ IER_INIT IER_RHR ; IER_THR		; RxRDY, TxRDY interrupts
 .equ FCR_INIT FCR_ON FCR_RFS FCR_TFS	; FIFO ON, Flush both FIFOs
 .equ DLL_INIT @B38400&&00ff		; Bit rate divisor, low
 .equ DLM_INIT @B38400>>8		; Bit rate divisor, high

@@ -23,12 +23,14 @@
 		.reg HWCONFIG R @	; Hardware configuration
 		.reg HWDIS    R @	; Disabled devices
 		.reg HWMODE   R @	; Hardware mode ('year')
-		.reg HWTTYS   R @	; TTYs available
 		.reg MEMCFG   R @	; RAM and ROM pages found
 		.reg ROMSTART R @	; Start of ROM (address or bank number)
 		.reg HWENV    R @	; Hardware Environment
+		.reg HWTTYS   R @	; TTYs available
+		.reg HWMSDS   R @	; MSDs available
 
 ;;; Flags for HWCONFIG
+
 
 .equ HWC_MBU  #---------------1		; MBU present
 .equ HWC_DFP  #--------------1-		; DFP present
@@ -54,6 +56,17 @@
 .equ HWT_TTY2 #------------1---		; TTY 2 present
 .equ HWT_TTY3 #-----------1----		; TTY 3 present
 .equ HWT_VDU  #------1---------		; VDU present
+
+;;; Flags for HWMSDS
+
+.equ HWM_FD0  #---------------1		; Floppy Drive 0 present
+.equ HWM_FD1  #--------------1-		; Floppy Drive 1 present
+.equ HWM_FD2  #-------------1--		; Floppy Drive 2 present
+.equ HWM_FD3  #------------1---		; Floppy Drive 3 present
+.equ HWM_HD0  #-------1--------		; Hard Drive 0 present
+.equ HWM_HD1  #------1---------		; Hard Drive 1 present
+.equ HWM_HD2  #-----1----------		; Hard Drive 2 present
+.equ HWM_HD3  #----1-----------		; Hard Drive 3 present
 
 ;;; Bit field definitions for MEMCFG
 
@@ -165,34 +178,36 @@
 .reg TTY6_PTR R @			; TTY6: pointer to TTY struct
 .reg TTY7_PTR R @			; TTY7: pointer to TTY struct
 .equ _ttyNp @
+.equ _nttys @_ttyNp-_tty0p
 		
 ;;; We have two sets of TTY handles in page 0. These should cover most use
 ;;; cases without needing excessive calls to to setup subroutines.
 
-.reg TTYA R @				; Opaque handle of the current TTY
-.reg TTYA_CTS R @			; Current TTY: clear to send data
-.reg TTYA_SEND R @			; Current TTY: send character
-.reg TTYA_DSR R @			; Current TTY: data set ready to receive
-.reg TTYA_READ R @			; Current TTY: read character
-.reg TTYA_STATUS R @			; Current TTY: read status
-.reg TTYA_CTL R @			; Current TTY: control device
+.reg TTYA R @                          ; Opaque handle of the current TTY
+.reg TTYA_CTS R @                      ; Current TTY: clear to send data
+.reg TTYA_SEND R @                     ; Current TTY: send character
+.reg TTYA_DSR R @                      ; Current TTY: data set ready to receive
+.reg TTYA_READ R @                     ; Current TTY: read character
+.reg TTYA_STATUS R @                   ; Current TTY: read status
+.reg TTYA_CTL R @                      ; Current TTY: control device
 
-.reg TTYB R @				; Opaque handle of the current TTY
-.reg TTYB_CTS R @			; Current TTY: clear to send data
-.reg TTYB_SEND R @			; Current TTY: send character
-.reg TTYB_DSR R @			; Current TTY: data set ready to receive
-.reg TTYB_READ R @			; Current TTY: read character
-.reg TTYB_STATUS R @			; Current TTY: read status
-.reg TTYB_CTL R @			; Current TTY: control device
+.reg TTYB R @                          ; Opaque handle of the current TTY
+.reg TTYB_CTS R @                      ; Current TTY: clear to send data
+.reg TTYB_SEND R @                     ; Current TTY: send character
+.reg TTYB_DSR R @                      ; Current TTY: data set ready to receive
+.reg TTYB_READ R @                     ; Current TTY: read character
+.reg TTYB_STATUS R @                   ; Current TTY: read status
+.reg TTYB_CTL R @                      ; Current TTY: control device
 
-.reg TTYC R @				; Opaque handle of the current TTY
-.reg TTYC_CTS R @			; Current TTY: clear to send data
-.reg TTYC_SEND R @			; Current TTY: send character
-.reg TTYC_DSR R @			; Current TTY: data set ready to receive
-.reg TTYC_READ R @			; Current TTY: read character
-.reg TTYC_STATUS R @			; Current TTY: read status
-.reg TTYC_CTL R @			; Current TTY: control device
+.reg TTYC R @                          ; Opaque handle of the current TTY
+.reg TTYC_CTS R @                      ; Current TTY: clear to send data
+.reg TTYC_SEND R @                     ; Current TTY: send character
+.reg TTYC_DSR R @                      ; Current TTY: data set ready to receive
+.reg TTYC_READ R @                     ; Current TTY: read character
+.reg TTYC_STATUS R @                   ; Current TTY: read status
+.reg TTYC_CTL R @                      ; Current TTY: control device
 
+		
 ;;; Mass storage device pointers. There's space for up to 12 units: four
 ;;; floppies, four HDDs, and four other devices (e.g. RAM disks, networked
 ;;; devices etc.)
@@ -213,28 +228,22 @@
 .equ _msdNp @
 
 ;;; We have two sets of MSD handles in page 0. These should cover most use
-;;; cases without needing excessive calls to to setup subroutines.
+;;; cases without needing excessive calls to setup subroutines.
 
 .reg MSDA_HANDLE R @			; Opaque handle for the current MSD
-.reg MSDA_SIZE R @			; Current MSD: Get size of MSD unit
-.reg MSDA_READ R @			; Current MSD: Read a block
-.reg MSDA_WRITE R @			; Current MSD: Write a block
-.reg MSDA_STATUS R @			; Current MSD: Read status of device
-.reg MSDA_CTL R @			; Current MSD: Device control
-
 .reg MSDB_HANDLE R @			; Opaque handle for the current MSD
-.reg MSDB_SIZE R @			; Current MSD: Get size of MSD unit
-.reg MSDB_READ R @			; Current MSD: Read a block
-.reg MSDB_WRITE R @			; Current MSD: Write a block
-.reg MSDB_STATUS R @			; Current MSD: Read status of device
-.reg MSDB_CTL R @			; Current MSD: Device control
-
 .reg MSDC_HANDLE R @			; Opaque handle for the current MSD
-.reg MSDC_SIZE R @			; Current MSD: Get size of MSD unit
-.reg MSDC_READ R @			; Current MSD: Read a block
-.reg MSDC_WRITE R @			; Current MSD: Write a block
-.reg MSDC_STATUS R @			; Current MSD: Read status of device
-.reg MSDC_CTL R @			; Current MSD: Device control
+
+;;; IDE drive size registers. Stored here so they can always be available.
+
+.reg IDE0SZH R @			; ide0, size high word (1KW blocks)
+.reg IDE0SZL R @			; ide0, size low word (1KW blocks)
+.reg IDE1SZH R @			; ide1, size high word (1KW blocks)
+.reg IDE1SZL R @			; ide1, size low word (1KW blocks)
+.reg IDE2SZH R @			; ide2, size high word (1KW blocks)
+.reg IDE2SZL R @			; ide2, size low word (1KW blocks)
+.reg IDE3SZH R @			; ide3, size high word (1KW blocks)
+.reg IDE3SZL R @			; ide3, size low word (1KW blocks)
 
 ;;; Storage (filesystem) driver entry points. There will be calls to open a
 ;;; filesystem based on a scanned list of volumes per MSD. This list is dynamic
@@ -258,22 +267,145 @@
 ;;; 
 ;;; 
 ;;; 
-;;; ;;; VDU variables
-;;;
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// IDE Variables
+//
+///////////////////////////////////////////////////////////////////////////////
+
+		
+///////////////////////////////////////////////////////////////////////////////
+//
+// VDU Variables
+//
+///////////////////////////////////////////////////////////////////////////////
+		
 ;;; Note:	 these should really be user variables
 
-.reg VDU_ATTR     R @		; VDU current attribute
-.reg VDU_ROWS     R @		; VDU screen number of rows
-.reg VDU_COLS     R @		; VDU screen number of columns
-.reg VDU_STADDR   R @		; VDU copy of VDU SAR (start address)
-.reg VDU_CRSADDR  R @ 		; Cursor address
+.reg VDU_MCR0     R @			; Copy of MCR0
 
-.reg VDU_SCRSZ    R @		; VDU screen size (in cells)
-.reg VDU_SCR      R @		; VDU copy of VDU SCR (top of screen)
-.reg VDU_CA       R @		; VDU copy of the CA register
-.reg VDU_CPX      R @		; VDU cursor position, X ordinate (0..VDUCNC)
-.reg VDU_CPY      R @		; VDU cursor position, Y ordinate (0..VDUCNR)
+.reg VDU_ATTR     R @			; VDU current attribute
+.reg VDU_ROWS     R @			; VDU screen number of rows
+.reg VDU_COLS     R @			; VDU screen number of columns
+.reg VDU_STADDR   R @			; VDU copy of VDU SAR (start address)
+.reg VDU_CRSADDR  R @			; Cursor address
+.reg VDU_FLAGS    R @                   ; VDU subsystem flags
+.reg VDU_WIN0     R @			; Window, top left address
+.reg VDU_WIN1     R @			; Window, bottom right address +&81
+.reg VDU_WINSZ    R @			; Window size
+.reg VDU_BELVEC   R @			; Keyboard bell sub routine vector
 
+;;; Flags for VDU_FLAGS.
+.equ VDF_WINDOW   #1---------------	; The window has been set
+.equ VDF_RAW      #---------------1	; Raw terminal (ignore ctrl codes)
+.equ VDF_INIT 0				; Initial flags
+		
+; .reg VDU_SCRSZ    R @		        ; VDU screen size (in cells)
+; .reg VDU_SCR      R @		        ; VDU copy of VDU SCR (top of screen)
+; .reg VDU_CA       R @		        ; VDU copy of the CA register
+; .reg VDU_CPX      R @		        ; VDU cursor pos, X ordinate (0..VDUCNC)
+; .reg VDU_CPY      R @		        ; VDU cursor pos, Y ordinate (0..VDUCNR)
+
+;;; KBD variables
+
+.reg KBD_ST       R @			; KBD state machine state
+.reg KBD_KEYSYM   R @			; Last keysym read
+.reg KBD_MODS     R @			; Modifier bitmap
+.reg KBD_SEQ      R @ 			; Increments when new key received
+.reg KBD_HNDVEC   R @			; Keysym interpretation subroutine vector
+.reg KBD_MAPIDX   R @               	; Keymap vector (scancode table)
+.reg KBD_MAP0VEC  R @               	; (---) Plain keymap vector
+.reg KBD_MAP1VEC  R @               	; (--s) Shifted keymap vector
+.reg KBD_MAP2VEC  R @               	; (-c-) Control keymap vector
+.reg KBD_MAP3VEC  R @               	; (-cs) Shift+Control keymap vector
+.reg KBD_MAP4VEC  R @               	; (a--) AltGr keymap vector
+.reg KBD_MAP5VEC  R @               	; (a-s) AltGr+Shift keymap vector
+.reg KBD_MAP6VEC  R @               	; (ac-) AltGr+Control keymap vector
+.reg KBD_MAP7VEC  R @               	; (acs) AltGr+Shift+Control keymap vector
+
+;;; Flags for KBD_KEYSYM
+.equ KBF_SYMMASK #-------111111111	; Keysym mask (9 bits)
+.equ KBF_EXTEND  #-------1--------	; Extended symbol
+.equ KBF_BREAK   #1---------------	; The key has been released
+
+;;; This subroutine reads output from the PS/2 keyboard state machine
+;;; and updates the VDUKBM modifier bitmap. The map is as follows:
+;;
+;;; -------1 Left Shift
+;;; ------1- Right Shift
+;;; -----1-- Left Ctrl
+;;; ----1--- Right Ctrl
+;;; ---1---- Left Alt
+;;; --1----- Right Alt
+;;; -1------ Left Super
+;;; 1------- Right Super
+
+.equ KBM_LSHIFT #-------1		; Left shift
+.equ KBM_RSHIFT #------1-		; Right shift
+.equ KBM_LCTRL  #-----1--		; Left Control
+.equ KBM_RCTRL  #----1---		; Right Control
+.equ KBM_LALT   #---1----		; Left Alt
+.equ KBM_RALT   #--1-----		; Right Alt
+.equ KBM_LMETA  #-1------		; Left Meta
+.equ KBM_RMETA  #1-------		; Right Meta
+
+.equ KBM_SHIFT KBM_LSHIFT KBM_RSHIFT	; Shift keys
+.equ KBM_CTRL KBM_LCTRL KBM_RCTRL	; Control keys
+.equ KBM_ALT KBM_LALT KBM_RALT		; Alt keys
+.equ KBM_META KBM_LMETA KBM_RMETA	; Meta keys
+		
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// Terminal Input/Output (and Events)
+//
+///////////////////////////////////////////////////////////////////////////////
+
+;;; Each process has a separate ring buffer here, processing input from its
+;;; respective terminal.
+
+.reg ERB0_PTR_MAX R @ 			; Event Ring Buffer 0 pointer max
+.reg ERB0_STATE R @			; 0 = empty, 1 = non-empty, -1 = full
+
+.reg ERB1_PTR_MAX R @			; Event Ring Buffer 1 pointer max
+.reg ERB1_STATE R @			; 0 = empty, 1 = non-empty, -1 = full
+
+.equ ERS_EMPTY    0
+.equ ERS_NONEMPTY 1			; Or anything in the range [1, 65534]
+.equ ERS_FULL     &FFFF			; Obviously can't use this as a literal
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// Operating System Context
+//
+///////////////////////////////////////////////////////////////////////////////
+
+.reg OSC_SMC R @			; Self-modifying code snippet, 8 words.
+.regfill 7 R @				; 
+		
+.reg MUC0_FLAGS R @			; Multi-user context 0 flags
+.reg MUC1_FLAGS R @			; Multi-user context 0 flags
+.reg MUC2_FLAGS R @			; Multi-user context 0 flags
+.reg MUC3_FLAGS R @			; Multi-user context 0 flags
+.reg MUC4_FLAGS R @			; Multi-user context 0 flags
+.reg MUC5_FLAGS R @			; Multi-user context 0 flags
+.reg MUC6_FLAGS R @			; Multi-user context 0 flags
+.reg MUC7_FLAGS R @			; Multi-user context 0 flags
+
+.equ MCUF_TTYA_RXR   #---------------1  ; TTYA character available
+.equ MCUF_TTYA_TXR   #--------------1-  ; TTYA clear to send
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// Forth basics
+//
+///////////////////////////////////////////////////////////////////////////////
+
+;;; The inner interpreter
+
+.reg IP R @                             ; Forth Instruction Pointer
+		
 .popns
 	
 ;;; End of file.

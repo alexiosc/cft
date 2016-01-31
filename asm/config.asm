@@ -19,9 +19,27 @@
 ;;; Place - Suite 330, Boston, MA 02111-1307, USA.
 
 .pushns config
-		
-.equ sp_start &0400			; Start of data stack
+
+;;; The two event FIFOs are used for async communications between processes and
+;;; the ‘operating system’. The FIFO size (n) must be a power of 2 (i.e. the
+;;; ptrmask must be (2**n)-1), and the start pointers must be aligned at a
+;;; multiple of n.
+
+;;; Here, n = 64 (0x40)
+
+.equ fifo0_start &0480			; 64 words for the input event FIFO
+.equ fifo1_start &04C0			; 64 words for the output event FIFO
+.equ fifo_szmask 63			; FIFO size - 1
+
+;;; Stacks
+
 .equ rp_start &0500			; Start of return stack
+.equ sp_start &0600			; Start of data stack
+.equ buf_start &1000			; User buffer start
+
+;;; Other settings
+
+.equ default_tty_speed tty.B115K	; Default TTY speed
 
 .popns
 

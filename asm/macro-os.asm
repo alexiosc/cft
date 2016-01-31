@@ -111,7 +111,7 @@
 .end
 
 
-;;; Macro: asyscall(name, addr)
+;;; Macro: asyscall(name)
 ;;;
 ;;; Calls the specified system call with a single argument in the Accumulator.
 
@@ -120,5 +120,43 @@
 		TRAP I %name
 .end
 
+
+;;; Macro: callcdrv(handle, call)
+;;;
+;;; Calls a cached driver with its handle at location %handle. Uses driver call
+;;; with address %call.
+
+.macro callcdrv(handle, call)
+		STORE ARG1		; calldrv(%handle, %call)
+		LOAD %handle
+		STORE ARG0		; ARG0 = driver handle (unit number)
+		TRAP I %call
+.end
+
+;;; Macro: rcalldrv(handle, call, reg)
+;;;
+;;; Calls a cached driver with its handle at location %handle. Uses driver call
+;;; with address %call, and passes %reg as argument.
+
+.macro rcallcdrv(handle, call, reg)
+		LOAD %handle		; rcalldrv(%handle, %ofs, %reg)
+		STORE ARG0		; ARG0 = driver handle (unit number)
+		LOAD %reg
+		STORE ARG1
+		TRAP I %call
+.end
+
+;;; Macro: lcalldrv(handle, ofs, lit)
+;;;
+;;; Calls a cached driver with its handle at location %handle. Uses driver call
+;;; with address %call, and passes the literal %lit as argument.
+
+.macro lcallcdrv(handle, call, lit)
+		LOAD %handle		; lcalldrv(%handle, %ofs, %lit)
+		STORE ARG0		; ARG0 = driver handle (unit number)
+		LI %lit
+		STORE ARG1		; ARG1 = literal argument
+		TRAP I %call
+.end
 
 ;;; End of file.

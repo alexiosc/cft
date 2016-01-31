@@ -39,6 +39,23 @@
                 .reg R14 R @
                 .reg R15 R @
 
+                .reg OSR0 R @		; Used inside system calls
+                .reg OSR1 R @
+                .reg OSR2 R @
+                .reg OSR3 R @
+                .reg OSR4 R @
+                .reg OSR5 R @
+                .reg OSR6 R @
+                .reg OSR7 R @
+                .reg OSR8 R @
+                .reg OSR9 R @
+                .reg OSR10 R @
+                .reg OSR11 R @
+                .reg OSR12 R @
+                .reg OSR13 R @
+                .reg OSR14 R @
+                .reg OSR15 R @
+
                 .reg TMP0 R @           ; Clobbered by most stack routines
                 .reg TMP1 R @
                 .reg TMP2 R @
@@ -74,14 +91,31 @@
 		.reg RET6 R @
 		.reg RET7 R @
 
+		.reg DRVR0 R @		; Used in drivers
+		.reg DRVR1 R @
+		.reg DRVR2 R @
+		.reg DRVR3 R @
+
+		.reg ISRR0 R @		; USE IN MAIN ISR ONLY!
+		.reg ISRR1 R @		; ISR subroutine registers
+		.reg ISRR2 R @
+		.reg ISRR3 R @
+
 		.reg MTMP0 R @		; Macros may clobber these
 		.reg MTMP1 R @
 		.reg MTMP2 R @
 		.reg MTMP3 R @
 
+;;; ISR state
+
+		.reg ISRA R @		; Copy of AC for ISR
+		.reg ISRL R @		; Copy of L for ISR
+		.reg ISRR R @		; Copy of RETV for ISR
+
+		
 ;;; Autoincrement Registers
 
-&0080:          .reg I0 R @
+&0080:          .reg I0 R @		; Index registers available for user code
                 .reg I1 R @
                 .reg I2 R @
                 .reg I3 R @
@@ -98,22 +132,53 @@
                 .reg I14 R @
                 .reg I15 R @
 
-		.reg SP R @		; Data stack pointer
-                .reg RP R @		; Return stack pointer
-                .reg SP2 R @
-                .reg SP3 R @
-                .reg SP4 R @
-                .reg SP5 R @
+		.reg OSI0 R @		; Index registers for system calls
+                .reg OSI1 R @
+                .reg OSI2 R @
+                .reg OSI3 R @
+                .reg OSI4 R @
+                .reg OSI5 R @
+                .reg OSI6 R @
+                .reg OSI7 R @
+		.reg OSI8 R @
+                .reg OSI9 R @
+                .reg OSI10 R @
+                .reg OSI11 R @
+                .reg OSI12 R @
+                .reg OSI13 R @
+                .reg OSI14 R @
+                .reg OSI15 R @
 
 		.reg ITMP0 R @
 		.reg ITMP1 R @
 		.reg ITMP2 R @
 		.reg ITMP3 R @
 
+		.reg ERB0_WPTR R @	; Event Ring Input Buffer read pointer
+		.reg ERB0_RPTR R @	; Event Ring Input Buffer write pointer
+		.reg ERB1_WPTR R @	; Event Ring Output Buffer read pointer
+		.reg ERB1_RPTR R @	; Event Ring Output Buffer write pointer
+
+		.reg DRVI0 R @		; Used in drivers
+		.reg DRVI1 R @
+		.reg DRVI2 R @
+		.reg DRVI3 R @
+
+		.reg ISRI0 R @		; ISR-local index registers
+		.reg ISRI1 R @
+		.reg ISRI2 R @
+		.reg ISRI3 R @
+
 		.reg MI0 R @		; Macros may clobber these
 		.reg MI1 R @
 		.reg MI2 R @
 		.reg MI3 R @
 
+		.reg SP R @		; Data stack pointer
+                .reg RP R @		; Return stack pointer
+                .reg SP2 R @
+                .reg SP3 R @
+                .reg SP4 R @
+                .reg SP5 R @
 
 ;;; End of file.

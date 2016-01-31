@@ -53,9 +53,10 @@
 .equ QEF_HOF  #-------1'--------	; Will halt on FAIL
 .equ QEF_HOS  #------1-'--------	; Will halt on SENTINEL
 .equ QEF_LCK  #-----1--'--------	; Panel is locked
+.equ QEF_VLE  #000-----'--------	; Detection/version: verilog
 .equ QEF_VHW  #010-----'--------	; Detection/version: hardware
-.equ QEF_EMU  #110-----'--------        ; Detection/version: emulated panel
-.equ QEF_JS   #111-----'--------        ; Detection/version: JS-emulated panel
+.equ QEF_VCE  #110-----'--------        ; Detection/version: emulated panel
+.equ QEF_VJE  #111-----'--------        ; Detection/version: JS-emulated panel
 .equ QEF_DET  #111-----'--------        ; Detection mask
 
 ;;; Flags for the ENEF/DISEF instruction
@@ -76,8 +77,7 @@
 		
 .equ ICR_IFR1 #--------------1-         ; Signal IRQ1 on IFR1 press
 .equ ICR_IFR6 #-------------1--         ; Signal IRQ6 (or IRQ) on IFR6 press
-.equ ICR_TTYQ #------------1---         ; Signal IRQ6 (or IRQ) when
-					; TTY characters available
+.equ ICR_TTYQ #------------1---         ; IRQ6 when TTY characters available
 
 ;;; Macro: enef(lit)
 ;;;

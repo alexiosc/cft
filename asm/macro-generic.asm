@@ -267,7 +267,7 @@
 
 
 	
-;;; Macro: RADD2(tgt,a)
+;;; Macro: RADD1(tgt,a)
 ;;;
 ;;; Add value of a to address at tgt.
 ;;;
@@ -556,9 +556,6 @@
 		LOAD %src		; ROUT(%tgt, %src)
 		OUT %tgt
 .end
-
-
-
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -863,6 +860,32 @@
 .end
 
 
+;;; Macro: LRET(literal)
+;;;
+;;; Load AC with a literal and RETurn.
+;;;
+;;; Side effects:
+;;;   AC = %literal
+;;;   PC = mem[RETV]
+.macro LRET(literal)
+		LI %literal		; LRET(%literal)
+		RET
+.end
+
+
+;;; Macro: RRET(addr)
+;;;
+;;; Load AC with the value at the specfied address and RETurn.
+;;;
+;;; Side effects:
+;;;   AC = mem[%addr]
+;;;   PC = mem[RETV]
+.macro RRET(addr)
+		LOAD %addr		; RRET(%addr)
+		RET
+.end
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;; INDEXING
@@ -933,9 +956,93 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;;; Macro: DCMP(ah, al, bh, bl)
+;;;
+;;; Compare two 32-bit values and yield the difference between either the high
+;;; word or low word (which one is indeterminate, so don't rely on it) and
+;;; appropriate values in the flag registers.
+;;;
+;;; This macro does not perform a full 32-bit subtraction. It compares the high
+;;; order words. If they're equal, it also compares the low order words. It uses
+;;; subtraction per word, but without borrow (sic) propagation.
+;;;
+;;; Side effects:
+;;;   AC:	High word (ah-al) or low word difference (bh-bl).
+;;;   Z:	Set if <ah,al> = <bh,bl>
+;;;   N:	Set if <ah,al> < <bh,bl>
+.macro DCMP(ah, al, bh, bl)
+		LOAD bh			; DCMP(%ah, %al, %bh, %bl)
+		NEG
+		ADD ah			; Calculate %ah - %bh
+		SZA			; Equal?
+		JMP @+4			; No, don't bother with low order words.
+		LOAD bl
+		NEG
+		ADD al			; Calculate %al - %bl
+.end
+		
+;;; Macro: DSBR1(hi,lo)
+;;;
+;;; Right shift a 32-bit quantity stored in a pair of high/low registers.
+;;;
+;;; Side effects:
+;;;   mem[%hi] = msw(<hi,lo> >> 1)
+;;;   mem[%lo] = lsw(<hi,lo> >> 1)
+;;;   AC, L
+.macro DSBR1(hi, lo)
+		LOAD %hi		; DSBL1(%hi, %lo)
+		SBR
+		STORE %hi
+		LOAD %lo
+		RBR
+		STORE %lo
+.end
+
+
+;;; Macro: DSBL1(hi,lo)
+;;;
+;;; Left shift a 32-bit quantity stored in a pair of high/low registers.
+;;;
+;;; Side effects:
+;;;   mem[%hi] = msw(<hi,lo> << 1)
+;;;   mem[%lo] = lsw(<hi,lo> << 1)
+;;;   AC, L
+.macro DSBL1(hi, lo)
+		LOAD %lo		; DSBL1(%hi, %lo)
+		SBL
+		STORE %lo
+		LOAD %hi
+		RBR
+		STORE %hi
+.end
+
+		
+;;; Macro: DADD(xh, xl, ah, al, bh, bl)
+;;;
+;;; Evaluate the result of the 32-bit addition <ah,al>+<bh,bl> and store it in
+;;; <xh, xl>.
+;;;
+;;; Side effects:
+;;;   mem[%xh] = msw(<ah,al> + <bh, bl>)
+;;;   mem[%xl] = lsw(<ah,al> + <bh, bl>)
+;;;   AC, L
+.macro DADD(xh, xl, ah, al, bh, bl)
+		; DEBUGON
+		CLL			; DADD(%xh, %xl, %ah, %al, %bh, %bl)
+		LOAD %al
+		ADD %bl
+		STORE %xl
+
+		LOAD %ah
+		IFL INC	CLL		; Propagate carry
+		ADD %bh
+		STORE %xh
+		; DEBUGOFF
+		; HALT
+.end
 
 	
-;;; Macro: INC32(regh, regl)
+;;; Macro: DINC(regh, regl)
 ;;;
 ;;; Increment <regh,regl> by 1.
 ;;;
@@ -944,8 +1051,8 @@
 ;;;   mem[%tgtl]
 ;;;   AC
 ;;;   L (as per roll instructions)
-.macro INC32(regh, regl)
-		LOAD %regl              ; INC32(%regh, %regl)
+.macro DINC(regh, regl)
+		LOAD %regl              ; DINC(%regh, %regl)
 		CLL INC                 ; Increment by 1. Set up for carry
                                         ; propagation
 		STORE %regl
@@ -956,7 +1063,7 @@
 
 	
 	
-;;; Macro: RNEG32(tgth, tgtl, srch, srcl)
+;;; Macro: DRNEG(tgth, tgtl, srch, srcl)
 ;;;
 ;;; Take two's complement of the 32-bit value <srch,srcl>, store in <tgth,tgtl>.
 ;;;
@@ -965,8 +1072,8 @@
 ;;;   mem[%tgtl]
 ;;;   AC
 ;;;   L (as per roll instructions)
-.macro RNEG32(tgth, tgtl, srch, srcl)
-		LOAD %srcl		; RNEG32(%tgth, %tgtl, %srch, %srcl)
+.macro DRNEG(tgth, tgtl, srch, srcl)
+		LOAD %srcl		; DRNEG(%tgth, %tgtl, %srch, %srcl)
 		OP1 CLL NOT INC         ; NEG with carry out
 		STORE %tgtl
 		LOAD %srch
@@ -1055,7 +1162,7 @@
 ;;;   AC = char
 
 .macro RIN(reg, addr)
-		IN %ADDR		; RIN(%reg, %addr)
+		IN %addr		; RIN(%reg, %addr)
 		STORE %reg
 .end
 

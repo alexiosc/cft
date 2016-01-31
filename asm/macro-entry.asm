@@ -28,7 +28,20 @@
 ;;;   [RP++] = return vector
 ;;;   AC = return vector
 .macro enter_sub_ac()
-		STORE TMP15		; enter_sub_ac()
+		enter_sub_acr(TMP15)
+.end
+
+		
+;;; Macro: enter_sub_acr(reg)
+;;;
+;;; Subroutine entry point. Stores AC in %reg.
+;;;
+;;; Side effects:
+;;;   %reg = AC
+;;;   [RP++] = return vector
+;;;   AC = return vector
+.macro enter_sub_acr(reg)
+		STORE %reg		; enter_sub_acr(%reg)
 		enter_sub()
 .end
 
@@ -42,8 +55,8 @@
 ;;;   AC = return vector
 .macro return()
 		POP RP			; return()
-		STORE TMP15
-		JMP I TMP15
+		STORE RETV
+		RET
 .end
 
 		

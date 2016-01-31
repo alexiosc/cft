@@ -172,8 +172,8 @@
 ;;;   L
 ;;;   %tmp = table + [ofs]
 
-.macro JMPTAB(table, tmpreg, ofs)
-		LIA %table		; JMPTAB(%table, %tmpreg, %ofs)
+.macro JMPTAB(table, tmp, ofs)
+		LIA %table		; JMPTAB(%table, %tmp, %ofs)
 		ADD %ofs
 		STORE %tmp
 		JMPII %tmp

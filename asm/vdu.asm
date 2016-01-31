@@ -82,6 +82,11 @@
 .equ MCR0_CRH2  #-------------011	; 2 scanlines per cell, 240 row modes
 .equ MCR0_CRH1  #-------------100	; 1 scanline per cell, 480 row modes
 
+.equ MCR0_40x30 MCR0_EN MCR0_CS20 MCR0_C40 MCR0_CRH16 ; 40x30 settings
+.equ MCR0_40x60 MCR0_EN MCR0_CS20 MCR0_C40 MCR0_CRH8  ; 40x60 settings
+.equ MCR0_80x30 MCR0_EN MCR0_CS20 MCR0_C80 MCR0_CRH16 ; 80x30 settings
+.equ MCR0_80x60 MCR0_EN MCR0_CS20 MCR0_C80 MCR0_CRH8  ; 80x60 settings
+
 ;;; SR, Status Register
 
 .equ SR_EN_MSK  MCR0_EN			; VDU is enabled if non-zero
@@ -209,9 +214,9 @@
 .equ COL_CYAN2    #101000		; Mediun Cyan
 .equ COL_CYAN3    #111100		; Light Cyan
 
-.equ COL_BROWN    #100100		; Brown
-.equ COL_AZURE    #001011		; Azure
-.equ COL_INDIGO   #010011		; Indigo
+.equ COL_BROWN    #000110		; Brown (the CGA one)
+.equ COL_AZURE    #111000		; Azure
+.equ COL_INDIGO   #110001		; Indigo
 .equ COL_PINK     #111011		; Pink
 .equ COL_PURPLE   #100011		; Purple
 
@@ -245,6 +250,9 @@
 .equ CMD_XINC       #-------1--------   ; Increment column after command
 .equ CMD_DATA_MSK   #--------11111111	; Data field mask
 
+.equ CMD_PUTC CMD_CMD_WBC CMD_XINC	; putc: write char/attrs, move right
+.equ CMD_CLR CMD_CMD_WBC CMD_XINC &20	; Clear: Write space & attrs, move right 
+
 ;; Macro: vdu.WAIT ()
 ;;
 ;; Wait until the VDU is done executing a command.
@@ -259,7 +267,7 @@
 		SNA			; Wait until bit15 (GO) is set.
 		JMP @-2
 .end
-		
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;; BIT FIELDS FOR THE KEYBOARD INTERFACE
