@@ -27,11 +27,14 @@ Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 #include <stdint.h>
 #include <sys/types.h>
 
+#include <SDL.h>
+
 #include "cftemu.h"
 
 
 #define UTERM_WIDTH 80
 #define UTERM_HEIGHT 30
+#define UTERM_SBRATE (UTERM_HEIGHT >> 1)
 
 
 typedef struct {
@@ -47,27 +50,30 @@ typedef struct {
 typedef struct {
 	uint32_t       magic;
 	uterm_line_t * screen;
-	uint32_t       numlines;  /* Size of screen. */
+	uint32_t       numlines;  // Size of screen.
 
-	uint32_t       topline;   /* Top line last drawn */
-	uint32_t       bsofs;	  /* Back-scroll offset */
+	int            bs;	  // Backscroll flag
+	uint32_t       topline0;  // Pre-scrollback top line
+	uint32_t       topline;   // Top line last drawn
 
-	uint32_t       cursline;  /* Cursor line in the ring buffer */
-	uint8_t        cursofs;	  /* Cursor X position (0..79) */
+	uint32_t       cursline;  // Cursor line in the ring buffer
+	uint8_t        cursofs;	  // Cursor X position (0..79)
 	
-	int            dirty;	  /* Terminal written to since last draw. */
+	int            dirty;	  // Terminal written to since last draw.
+	
+	int            wrapped;   // Has the terminal just wrapped around?
 
-	int            state;	  /* Directive parser state */
-	char           buf[256];  /* Directive argument buffer */
-	int            bp;	  /* Buffer pointer */
+	int            state;	  // Directive parser state
+	char           buf[256];  // Directive argument buffer
+	int            bp;	  // Buffer pointer
 
-	int            fg:3;	  /* Current foreground */
-        int            bg:3;	  /* Current background */
-	int            bold:1;	  /* Bold state */
-	int            blink:1;	  /* Blink state */
-	int            inv:1;	  /* Inverse state */
+	int            fg;	  // Current foreground
+        int            bg;	  // Current background
+	int            bold;	  // Bold state
+	int            blink;	  // Blink state
+	int            inv;	  // Inverse state
 
-	word           attr;	  /* Current attribute */
+	word           attr;	  // Current attribute
 	
 } uterm_t;
 
@@ -77,6 +83,8 @@ uterm_t * uterm_new(int lines);
 void uterm_destroy(uterm_t *);
 
 word uterm_setattr(uterm_t *, word attr);
+
+int uterm_handle_event(uterm_t *ut, SDL_Event *event);
 
 void uterm_putc(uterm_t *ut, word c);
 
@@ -92,6 +100,6 @@ void uterm_clrscr(uterm_t *ut);
 
 void uterm_clreol(uterm_t *ut);
 
-#endif /* UTERM_H */
+#endif // UTERM_H
 
-/* End of file. */
+// End of file.

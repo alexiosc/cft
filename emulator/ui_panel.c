@@ -48,6 +48,8 @@
 #include "util.h"
 #include "uterm.h"
 #include "ui.h"
+#include "ui_panel.h"
+#include "dfp.h"
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -69,51 +71,34 @@ int * leds_uv[24] = {Y, Y, Y, Y, R, R, R, Y, Y, Y, Y, R, Y, Y, Y, Y, R, R, R, Y,
 
 #define LED_CHAR "\5\6"
 
-
-typedef enum { mfd_or, mfd_dr, mfd_uaddr } mfd_t;
-
-typedef struct {
-	int ticks;
-
-	mfd_t mfdsrc;
-
-	int uvec[MICROCODE_TOTALSIGS];
-	int aext[8];
-	int mben;
-
-	int fn, fz, fv, fi, fl;
-
-	int pc[16];
-	int ac[16];
-	int mfd[16];
-	int ir[16];
-} panel_t;
-
-
-static panel_t _pd;
+panel_t pd;
 
 #define PANEL_X0 2
 #define PANEL_Y0 1
-
 
 static void
 _ui_tab_panel_acquire()
 {
 	static int initialised = 0;
 	if (!initialised) {
-		memset(&_pd, 0, sizeof(_pd));
+		memset(&pd, 0, sizeof(pd));
 		initialised = 1;
 
-		_pd.mfdsrc = mfd_or;
+		pd.mfdsrc = mfd_or;
+		pd.sr = 0;
+		pd.sr_curs = 0;
+		pd.sr_acurs = 0;
+		strcpy(pd.sr_a, "0000");
+		dfp_sr_changed(pd.sr);
 	}
 
 	int i, j;
 
-	_pd.ticks++;
+	pd.ticks++;
 
 	// Process the source of MFD data (OR/DR/uAddr)
 	word mfd;
-	switch (_pd.mfdsrc) {
+	switch (pd.mfdsrc) {
 	case mfd_or:
 		mfd = reg_or;
 		break;
@@ -129,34 +114,34 @@ _ui_tab_panel_acquire()
 	
 	// Process the AC, PC and IR
 	for (i = 0, j = 1; i < 16; i++, j<<=1) {
-		if (cpu.a & j) _pd.ac[i]++;
-		if (cpu.pc & j) _pd.pc[i]++;
-		if (cpu.ir & j) _pd.ir[i]++;
-		if (mfd & j) _pd.mfd[i]++;
+		if (cpu.a & j) pd.ac[i]++;
+		if (cpu.pc & j) pd.pc[i]++;
+		if (cpu.ir & j) pd.ir[i]++;
+		if (mfd & j) pd.mfd[i]++;
 	}
 
 	// Process the control vector
 	uint32_t uvec = cpu.control ^ 0xfff800; // Some lights are inverted
 	for (i = 0, j = 1; i < MICROCODE_TOTALSIGS; i++, j<<=1) {
-		if (uvec & j) _pd.uvec[i]++;
+		if (uvec & j) pd.uvec[i]++;
 	}
 
 	// Process the MBU address lines
 	if (mbu) {
 		uint8_t bank = mbu_bank(cpu.ar) >> 13;
 		for (i = 0, j = 1; i < 8; i++, j<<=1) {
-			if (bank & j) _pd.aext[i]++;
+			if (bank & j) pd.aext[i]++;
 		}
 	}
 
 	// Acquire flags and single-bit registers
-	if (cpu.n) _pd.fn++;
-	if (cpu.z) _pd.fz++;
-	if (cpu.v) _pd.fv++;
-	if (cpu.i) _pd.fi++;
-	if (cpu.l) _pd.fl++;
-	if (cpu.l) _pd.fl++;
-	if (cpu.mbuen) _pd.mben++;
+	if (cpu.n) pd.fn++;
+	if (cpu.z) pd.fz++;
+	if (cpu.v) pd.fv++;
+	if (cpu.i) pd.fi++;
+	if (cpu.l) pd.fl++;
+	if (cpu.l) pd.fl++;
+	if (cpu.mbuen) pd.mben++;
 }
 
 
@@ -167,90 +152,104 @@ _ui_tab_panel_draw()
 
 	delay++;
 
-	if (delay > 20 && _pd.ticks) {
+	if (delay > 20 && pd.ticks) {
 		//i++;
-		//menu_xycprintf(10, 10, color(COL_ORANGE, COL_BLACK), "Foo: %d %d", _pd.ticks, i);
+		//menu_xycprintf(10, 10, color(COL_ORANGE, COL_BLACK), "Foo: %d %d", pd.ticks, i);
 
-		int i, col;
+		int i, j, k, col;
 		for (i = 0; i < MICROCODE_TOTALSIGS; i++) {
 			// The micro-instruction control vector
-			col = min(3, 3 * _pd.uvec[i] / _pd.ticks);
+			col = min(3, 3 * pd.uvec[i] / pd.ticks);
 			ui_xycputs(PANEL_X0 + 46 - (i * 2), PANEL_Y0 + 1, color(leds_uv[i][col], 0), LED_CHAR);
-			_pd.uvec[i] = 0;
+			pd.uvec[i] = 0;
 		}
 
 		for (i = 0; i < 16; i++) {
 			// The micro-instruction control vector
-			col = min(3, 3 * _pd.uvec[i] / _pd.ticks);
+			col = min(3, 3 * pd.uvec[i] / pd.ticks);
 			ui_xycputs(PANEL_X0 + 46 - (i * 2), PANEL_Y0 + 1, color(leds_uv[i][col], 0), LED_CHAR);
-			_pd.uvec[i] = 0;
+			pd.uvec[i] = 0;
 
 			// The PC
-			col = min(3, 3 * _pd.pc[i] / _pd.ticks);
+			col = min(3, 3 * pd.pc[i] / pd.ticks);
 			ui_xycputs(PANEL_X0 + 46 - (i * 2), PANEL_Y0 + 5, color(led_r[col], 0), LED_CHAR);
-			_pd.pc[i] = 0;
+			pd.pc[i] = 0;
+			ui_xycprintf(PANEL_X0 + 44, PANEL_Y0 + 4, color(COL_LTGREY, COL_BLACK), "%04x", cpu.pc);
 
 			// The AC
-			col = min(3, 3 * _pd.ac[i] / _pd.ticks);
+			col = min(3, 3 * pd.ac[i] / pd.ticks);
 			ui_xycputs(PANEL_X0 + 46 - (i * 2), PANEL_Y0 + 9, color(led_r[col], 0), LED_CHAR);
-			_pd.ac[i] = 0;
+			pd.ac[i] = 0;
+			ui_xycprintf(PANEL_X0 + 44, PANEL_Y0 + 8, color(COL_LTGREY, COL_BLACK), "%04x", cpu.a);
 
 			// The MFD
-			col = min(3, 3 * _pd.mfd[i] / _pd.ticks);
+			col = min(3, 3 * pd.mfd[i] / pd.ticks);
 			ui_xycputs(PANEL_X0 + 46 - (i * 2), PANEL_Y0 + 13, color(led_r[col], 0), LED_CHAR);
-			_pd.mfd[i] = 0;
+			pd.mfd[i] = 0;
 
 			// The IR
-			col = min(3, 3 * _pd.ir[i] / _pd.ticks);
+			col = min(3, 3 * pd.ir[i] / pd.ticks);
 			ui_xycputs(PANEL_X0 + 46 - (i * 2), PANEL_Y0 + 17, color(leds_ir[i][col], 0), LED_CHAR);
-			_pd.ir[i] = 0;
+			pd.ir[i] = 0;
+
+			// The SR
+			for (j = 46, i = 0, k = 1; i < 16; i++, j-=2, k<<=1) {
+				int fg, bg;
+				fg = (i & 4) ? rgb(3,1,0) : rgb(3,2,0);
+				bg = i == pd.sr_curs ? rgb(1,1,1) : rgb(0,0,0);
+				ui_xycputs(PANEL_X0 + j,
+					   PANEL_Y0 + 21,
+					   pd.sr & k ? color(fg, bg) : color(fg, bg),
+					   pd.sr & k ? "\xd3\xd4" : "\xd6\xd5");
+			}
+			ui_xycprintf(PANEL_X0 + 44, PANEL_Y0 + 20, color(COL_LTGREY, COL_BLACK), "%04x", pd.sr);
+			if (pd.sr_acurs < 4) {
+				//ui_cursor(1);
+				ui_gotoxy(PANEL_X0 + 44 + pd.sr_acurs, PANEL_Y0 + 20);
+			}
 		}
 
 
 		for (i = 0; i < 8; i++) {
 			// The AEXT bus
-			col = min(3, 3 * _pd.aext[i] / _pd.ticks);
+			col = min(3, 3 * pd.aext[i] / pd.ticks);
 			ui_xycputs(PANEL_X0 + 14 - (i * 2), PANEL_Y0 + 5, color(led_y[col], 0), LED_CHAR);
-			_pd.aext[i] = 0;
+			pd.aext[i] = 0;
 		}
 
 		// Various single-bit registers
 		
 		// MBEN
-		col = min(3, 3 * _pd.mben / _pd.ticks);
+		col = min(3, 3 * pd.mben / pd.ticks);
 		ui_xycputs(PANEL_X0, PANEL_Y0 + 9, color(led_g[col], 0), LED_CHAR);
-		_pd.mben = 0;
+		pd.mben = 0;
 
 		// Flags: N
-		col = min(3, 3 * _pd.fn / _pd.ticks);
+		col = min(3, 3 * pd.fn / pd.ticks);
 		ui_xycputs(PANEL_X0 + 4, PANEL_Y0 + 9, color(led_g[col], 0), LED_CHAR);
-		_pd.fn = 0;
+		pd.fn = 0;
 
 		// Flags: Z
-		col = min(3, 3 * _pd.fz / _pd.ticks);
+		col = min(3, 3 * pd.fz / pd.ticks);
 		ui_xycputs(PANEL_X0 + 6, PANEL_Y0 + 9, color(led_g[col], 0), LED_CHAR);
-		_pd.fz = 0;
+		pd.fz = 0;
 
 		// Flags: V
-		col = min(3, 3 * _pd.fv / _pd.ticks);
+		col = min(3, 3 * pd.fv / pd.ticks);
 		ui_xycputs(PANEL_X0 + 8, PANEL_Y0 + 9, color(led_g[col], 0), LED_CHAR);
-		_pd.fv = 0;
+		pd.fv = 0;
 
 		// Flags: I
-		col = min(3, 3 * _pd.fi / _pd.ticks);
+		col = min(3, 3 * pd.fi / pd.ticks);
 		ui_xycputs(PANEL_X0 + 10, PANEL_Y0 + 9, color(led_g[col], 0), LED_CHAR);
-		_pd.fi = 0;
+		pd.fi = 0;
 
 		// Flags: L
-		col = min(3, 3 * _pd.fl / _pd.ticks);
+		col = min(3, 3 * pd.fl / pd.ticks);
 		ui_xycputs(PANEL_X0 + 12, PANEL_Y0 + 9, color(led_g[col], 0), LED_CHAR);
-		_pd.fl = 0;
+		pd.fl = 0;
 
-
-
-
-
-		_pd.ticks = 0;
+		pd.ticks = 0;
 		v.dirty++;
 	}
 
@@ -269,13 +268,15 @@ ui_tab_panel_focus()
 	ui_xycputs(PANEL_X0 + 4, PANEL_Y0 + 8, color(COL_WHITE, COL_BLACK), "Flags");
 	
 	ui_xycputs(PANEL_X0 + 16, PANEL_Y0 + 4, color(COL_WHITE, COL_BLACK), "Program Counter");
+
 	ui_xycputs(PANEL_X0 + 16, PANEL_Y0 + 8, color(COL_WHITE, COL_BLACK), "Accumulator");
 	ui_xycputs(PANEL_X0 + 16, PANEL_Y0 + 12, color(COL_WHITE, COL_BLACK), "OR/DR/uAddr");
 	ui_xycputs(PANEL_X0 + 16, PANEL_Y0 + 16, color(COL_WHITE, COL_BLACK), "Instruction Register");
+	ui_xycputs(PANEL_X0 + 16, PANEL_Y0 + 20, color(COL_WHITE, COL_BLACK), "Switch Register");
 	
 	int i, j;
 	char digits[16] = "0123456789abcdef";
-	for (j = 0; j < 4; j++) {
+	for (j = 0; j < 5; j++) {
 		for (i = 0; i < 16; i+=1) {
 			ui_xycput(PANEL_X0 + 47 - i * 2,
 				  PANEL_Y0 + 6 + 4 * j,
@@ -289,6 +290,8 @@ ui_tab_panel_focus()
 	ui_xycputs(PANEL_X0, PANEL_Y0 + 2, color(COL_DKGREY, COL_BLACK),
 		   " e w r m i   d ai0i1l0lt c if3-0   wu2-0 ru3-0");
 	
+	pd.sr_curs = 0;
+	ui_cursor(0);
 
 	_ui_tab_panel_draw();
 	ui_gotoxy(UI_COLS - 1, UI_ROWS + 50); /* Hide the cursor */
@@ -313,6 +316,76 @@ ui_tab_panel_tick()
 int
 ui_tab_panel_input(SDL_Event * event)
 {
+	int dirty = 0;
+
+	switch (event->type) {
+	case SDL_KEYDOWN:
+		switch (event->key.keysym.sym) {
+		case SDLK_LEFT:
+		case SDLK_KP4:
+			pd.sr_curs = (pd.sr_curs + 1) & 0xf;
+			dirty = 1;
+			break;
+ 
+		case SDLK_RIGHT:
+		case SDLK_KP6:
+			pd.sr_curs = (pd.sr_curs - 1) & 0xf;
+			dirty = 1;
+			break;
+
+		case SDLK_UP:
+		case SDLK_KP8:
+			pd.sr |= 1 << (pd.sr_curs & 0xf);
+			snprintf(pd.sr_a, sizeof(pd.sr_a), "%04x", pd.sr & 0xffff);
+			dfp_sr_changed(pd.sr);
+			dirty = 1;
+			break;
+
+		case SDLK_DOWN:
+		case SDLK_KP2:
+			pd.sr &= ~(1 << (pd.sr_curs & 0xf));
+			snprintf(pd.sr_a, sizeof(pd.sr_a), "%04x", pd.sr & 0xffff);
+			dfp_sr_changed(pd.sr);
+			dirty = 1;
+			break;
+			
+		case SDLK_BACKSPACE:
+			if (pd.sr_acurs > 0) pd.sr_acurs--;
+			else {
+				ui_cursor(1);
+				pd.sr_acurs = 3;
+			}
+			dirty = 1;
+			break;
+
+		case SDLK_RETURN:
+		case SDLK_KP_ENTER:
+		case SDLK_SPACE:
+			dirty = 1;
+			break;
+
+		case '0': case '1': case '2': case '3': case '4':
+		case '5': case '6': case '7': case '8': case '9':
+		case 'a': case 'b': case 'c': case 'd': case 'e':
+		case 'f': case 'A': case 'B': case 'C': case 'D':
+		case 'E': case 'F':
+			ui_cursor(1);
+			pd.sr_a[pd.sr_acurs] = event->key.keysym.sym;
+			pd.sr_acurs = (pd.sr_acurs + 1) & 3;
+			if (pd.sr_acurs == 0) ui_cursor(0);
+			sscanf(pd.sr_a, "%hx", &pd.sr);
+			dfp_sr_changed(pd.sr);
+			dirty = 1;
+			break;
+
+		}
+		break;
+	}
+
+	if (dirty) {
+		_ui_tab_panel_draw();
+		return 1;
+	}
 	return 0;
 }
 

@@ -35,6 +35,32 @@ void ui_tab_panel_tick();
 
 int ui_tab_panel_input(SDL_Event * event);
 
+typedef enum { mfd_or, mfd_dr, mfd_uaddr } mfd_t;
+
+typedef struct {
+	int ticks;
+
+	mfd_t mfdsrc;
+
+	int uvec[MICROCODE_TOTALSIGS];
+	int aext[8];
+	int mben;
+
+	int fn, fz, fv, fi, fl;
+
+	int pc[16];
+	int ac[16];
+	int mfd[16];
+	int ir[16];
+
+	uint16_t sr;		// The SR is just a bitmap.
+	int      sr_curs;	// SR cursor
+	int      sr_acurs;	// SR text cursor
+	char     sr_a[5];	// SR text parse field
+} panel_t;
+
+extern panel_t pd;
+
 #endif /* UI_PANEL_H */
 
 /* End of file. */

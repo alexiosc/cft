@@ -30,6 +30,8 @@ void start_cpu();
 
 void halt_cpu();
 
+void reset_system();
+
 
 #endif /* EMULATOR_H */
 

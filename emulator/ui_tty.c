@@ -69,7 +69,12 @@ _ui_tab_tty_draw()
 			   v.fb_menu.c,
 			   0, 0, UTERM_WIDTH, UTERM_HEIGHT,
 			   &xc, &yc);
-		ui_gotoxy(xc, yc);
+		if (yc >= 0) {
+			ui_cursor(1);
+			ui_gotoxy(xc, yc);
+		} else {
+			ui_cursor(0);
+		}
 		v.dirty++;
 	}
 }

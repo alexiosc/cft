@@ -54,7 +54,10 @@ Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 #define IO_IRC_ISR         0x0030 //      28: r-hef ISR (Interrupt Status Register)
 
 
-// The debugginf front panel board (see asm/dfp.asm for definitive reference)
+// The debugging front panel board (see asm/dfp.asm for definitive reference)
+#define IO_DFP_MASK        ((0x001f) ^ 0xffff)
+#define IO_DFP_BASE        0x0100
+
 #define IO_SOR             0x0100 //     100: -w-ef SOR (set output register)
 #define IO_LSR             0x0100 //     100: r--ef LSR (read switch register)
 #define IO_LDSR            0x0101 //     101: r--ef LDSR (read DIP switch register)
@@ -80,7 +83,7 @@ Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 #define IO_PRINTLO	   0x011c //     3fc: -whef Log 32-bit int as HI:AC
 #define IO_HALT	           0x011d //     3fd: -whef Debugging halt
 #define IO_SUCCESS         0x011e //     3fe: -whef Log test success
-#define IO_FAIL 	   0x011f //     3ff: -whef Log test failure and HALT
+#define IO_FAIL 	   0x011f //     3ff: -whef Log test failure and HALTh
 
 
 

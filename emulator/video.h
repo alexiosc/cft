@@ -115,8 +115,8 @@ Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 #define MCR1_SCL_SHIFT         8
 
 #define MCR0_80x30             MCR0_EN /* All other bits at are 0 */
-#define MCR0_40x30             MCR0_EN | MCR0_C40
-#define MCR0_80x60             MCR0_EN | MCR0_CRH8
+#define MCR0_40x30             MCR0_EN | MCR_C40
+#define MCR0_80x60             MCR0_EN | MCR_CRH8
 
 #define mcr_get_crh(x) __get(x, MCR_CRH_MASK, 0)
 #define mcr_is_c40(x) __bit(x, MCR_C40)

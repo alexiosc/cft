@@ -31,6 +31,8 @@ Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 #include <sys/types.h>
 #include <assert.h>
 
+#include <SDL.h>
+
 #include "cftemu.h"
 #include "io.h"
 #include "video.h"
@@ -59,8 +61,8 @@ uterm_t * uterm_new(int lines)
 	ut->numlines = lines;
 
 	ut->topline = ut->numlines - UTERM_HEIGHT;
-
-	ut->bsofs = 0;
+	ut->topline0 = ut->topline;
+	ut->bs = 0;
 
 	ut->dirty = 1;
 
@@ -150,6 +152,19 @@ uterm_clreol(uterm_t * ut)
 	assert (ut != NULL);
 	assert (ut->magic == UT_MAGIC);
 	for (i = ut->cursofs; i < UTERM_WIDTH; i++) {
+		ut->screen[ut->cursline].b[i] = 32;
+		ut->screen[ut->cursline].c[i] = ut->attr;
+	}
+}
+
+
+void
+uterm_clrleft(uterm_t * ut)
+{
+	int i;
+	assert (ut != NULL);
+	assert (ut->magic == UT_MAGIC);
+	for (i = 0; i < ut->cursofs; i++) {
 		ut->screen[ut->cursline].b[i] = 32;
 		ut->screen[ut->cursline].c[i] = ut->attr;
 	}
@@ -291,8 +306,12 @@ _csim(uterm_t * ut)
 		case 35:
 		case 36:
 		case 37:
-			ut->fg = ps - 30;
+		{
+			int fg = ps - 30;
+			ut->fg = fg & 7;
+			//info("*** ps=%d, fg=%d, ut->fg=%d\n", ps, fg, ut->fg);
 			break;
+		}
 		case 39:	/* Set default foreground */
 			ut->fg = 7;
 			break;
@@ -320,10 +339,72 @@ _csim(uterm_t * ut)
 
 
 void
+uterm_scrollback(uterm_t *ut, int delta)
+{
+	assert (ut != NULL);
+
+	// About to start scrollback, store old top line
+	if (!ut->bs) {
+		ut->bs = 1;
+		ut->topline0 = ut->topline;
+	}
+	
+	// Modify the top line, apply limits.
+	int tl = ut->topline + delta;
+	if (tl < 0) tl = 0;
+	else if (tl > ut->numlines - UTERM_HEIGHT) tl = ut->numlines - UTERM_HEIGHT;
+
+	//printf("SCROLLBACK: topline=%d, new=%d\n", ut->topline, tl);
+
+	// Set it.
+	if (tl != ut->topline) {
+		ut->topline = tl;
+		ut->dirty++;
+	}
+}
+
+
+int
+uterm_handle_event(uterm_t *ut, SDL_Event * event)
+{
+	if (event->type == SDL_KEYDOWN) {
+		SDL_keysym * k = &event->key.keysym;
+		// Shift+PgUp/PgDn handles scrollback
+		if ((k->mod == KMOD_LSHIFT || k->mod == KMOD_RSHIFT)) {
+			switch (k->sym) {
+			case SDLK_PAGEUP:
+				uterm_scrollback(ut, -UTERM_SBRATE);
+				return 1;
+			case SDLK_PAGEDOWN:
+				uterm_scrollback(ut, UTERM_SBRATE);
+				return 1;
+			}
+		}
+	}
+	
+	if (event->type == SDL_MOUSEBUTTONDOWN) {
+		if (event->button.button == 4) {
+			uterm_scrollback(ut, -1);
+			return 1;
+		}
+		if (event->button.button == 5) {
+			uterm_scrollback(ut, 1);
+			return 1;
+		}
+	}
+
+	return 0;
+}
+
+
+void
 uterm_putc(uterm_t *ut, word c)
 {
 	assert (ut != NULL);
 	assert (ut->magic == UT_MAGIC);
+	
+	// Cancel scroll back whenever something is printed.
+	ut->topline = ut->topline0;
 
 	/* Yes, I use gotos once every 500,000 lines of code. Get over it. It's
 	 * faster than a flag and loop, and can be easier to understand. */
@@ -333,7 +414,8 @@ uterm_putc_again:
 		switch(c) {
 		case '\n':
 		case '\r':
-			uterm_nl(ut);
+			if (!ut->wrapped) uterm_nl(ut);
+			ut->wrapped = 0;
 			break;
 			
 		case '\b':
@@ -342,6 +424,14 @@ uterm_putc_again:
 			
 		case '\a':		/* Bell */
 			break;
+
+		case '\t':
+		{
+			while (ut->cursofs & 7) {
+				uterm_putc(ut, 32);
+			}
+			break;
+		}
 			
 		case '\e':
 			ut->state = 1;
@@ -354,8 +444,11 @@ uterm_putc_again:
 
 			if (++ut->cursofs >= UTERM_WIDTH) {
 				uterm_nl(ut);
+				ut->wrapped = 1;
 				/* ut->cursofs = 0; */
 				/* ut->cursline++; */
+			} else {
+				ut->wrapped = 0;
 			}
 		}
 
@@ -376,8 +469,21 @@ uterm_putc_again:
 		}
 		
 	} else if (ut->state == 2) {
+		//info("*** STATE 2 %c\n", c);
 
 		switch(c) {
+		case 'G':
+		{
+			int col = 0;
+			if (ut->bp) {
+				ut->buf[ut->bp] = '\0';
+				col = atoi(ut->buf) - 1;
+			}
+			ut->cursofs = col;
+			ut->state = 0;
+			break;
+		}
+
 		case 'H':
 			ut->cursline = ut->topline;
 			ut->cursofs = 0;
@@ -400,9 +506,32 @@ uterm_putc_again:
 				ut->state = 0;
 				break;
 			}
+			break;
 
+		case 'K':
+		{
+			if (!ut->buf[0]) strcpy(ut->buf, "0");
+			switch(atoi(ut->buf)) {
+			case 1:
+				uterm_clrleft(ut);
+				ut->state = 0;
+				break;
+			case 2:
+				uterm_clrleft(ut);
+				uterm_clreol(ut);
+				ut->state = 0;
+				break;
+			default:
+				uterm_clreol(ut);
+				ut->state = 0;
+				break;
+			}
+			break;
+		}
 		case 'm':
 			_csim(ut);
+			//info("*** _csim(), fg=%d, attr=%d\n", ut->fg, ut->attr);
+			ut->state = 0;
 			break;
 
 		case '0':
@@ -428,7 +557,7 @@ uterm_putc_again:
 			break;
 
 		default:
-			warning("ESC [ ... %c not yet implemented.\n", c);
+			warning("ESC [ ... %c (%s) not yet implemented.\n", c, ut->buf);
 			ut->state = 0;
 			goto uterm_putc_again;
 		}
@@ -472,6 +601,8 @@ uterm_draw(uterm_t *ut, uint8_t *b, uint16_t *c,
 	h = h > UTERM_HEIGHT ? UTERM_HEIGHT : h;
 	w = w > UTERM_WIDTH ? UTERM_WIDTH : w;
 
+	*yc = -1;		// Leave the cursor hidden unless it's visible.
+
 	line = ut->topline;
 	for (y = 0; y < h; y++, line++) {
 		memcpy(&b[vector(x0, y + y0)], &ut->screen[line].b, w * sizeof(uint8_t));
@@ -481,7 +612,7 @@ uterm_draw(uterm_t *ut, uint8_t *b, uint16_t *c,
 
 	*xc = x0 + ut->cursofs;
 
-	// printf("*** top=%d cursline=%d, c=(%d,%d)\n", ut->topline, ut->cursline, *xc, *yc);
+	//printf("*** top=%d cursline=%d, c=(%d,%d)\n", ut->topline, ut->cursline, *xc, *yc);
 }
 
 /* End of file. */

@@ -96,11 +96,12 @@ typedef struct {
 	uint8_t  mbuen;		/* MBU enable: is the MBU soft map selected? */
 	uint8_t  aext;		/* The output of the MBU */
 
-	word ar;
+	word ar;		// Address register, also value of ABUS
 	word pc;
 	word ir;
 	word dr;
-	
+
+	// word abus;		// Note: use ar to access the ABUS
 	word dbus;
 	word ibus;
 

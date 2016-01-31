@@ -83,6 +83,8 @@ void dfp_done();
 
 void dfp_queue_char(uint8_t c);
 
+void dfp_sr_changed(uint16_t sr);
+
 #endif /* DFP_H */
 
 /* End of file. */

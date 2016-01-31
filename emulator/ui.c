@@ -462,10 +462,7 @@ ui_key(SDL_Event event)
 			halt_cpu();
 			return;
 		case SDLK_F12:
-			reset_cpu();
-			io_reset();
-			start_cpu();
-			reset_cpu();
+			reset_system();
 			return;
 		}
 	} else {

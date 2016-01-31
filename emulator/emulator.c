@@ -325,6 +325,17 @@ start_cpu()
 }
 
 
+void
+reset_system()
+{
+	printf("Resetting...\n");
+	reset_cpu();
+	io_reset();
+	start_cpu();
+	reset_cpu();
+}
+
+
 /* Set the Accumulator, handling flags. */
 static inline void
 set_a(word x)
@@ -470,7 +481,7 @@ unit_roll()
 }
 
 
-static inline word
+word
 unit_mem(int r, int w)
 {
 	if (r && !w) cpu.dbus = memory_read(cpu.ar);
@@ -793,6 +804,7 @@ emulate()
 		/* Do nothing if the emulation is paused. */
 		if (cpu.pause || cpu.halt) {
 			ui_tick();
+			dfp_tick(); // the DFP always runs
 			usleep(1000);
 			continue;
 		}

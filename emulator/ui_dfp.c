@@ -77,10 +77,16 @@ _ui_tab_dfp_draw()
 }
 
 
+static uint16_t _mcr0;
+
 void
 ui_tab_dfp_focus()
 {
 	v.fb = &v.fb_menu;
+
+	_mcr0 = v.fb_menu.mcr0;
+	//v.fb_menu.mcr0 = MCR0_80x60;
+
 	ui_cls(color(0, 0));
 	ui_gotoxy(0, 0);
 	dfp_term->dirty++;
@@ -92,6 +98,7 @@ ui_tab_dfp_focus()
 void
 ui_tab_dfp_unfocus()
 {
+	v.fb_menu.mcr0 = _mcr0;
 }
 
 
@@ -112,6 +119,8 @@ ui_tab_dfp_tick()
 int
 ui_tab_dfp_input(SDL_Event * event)
 {
+	if (uterm_handle_event(dfp_term, event)) return 0;
+
 	if (event->type == SDL_KEYDOWN && (event->key.keysym.sym <= 0x7f)) {
 		//char buf[2];
 		//buf[1] = 0;

@@ -7,7 +7,9 @@ CFLAGS += -O2
 LDFLAGS = -g
 
 CFLAGS  += $(shell pkg-config --cflags sdl)
-LDFLAGS += $(shell pkg-config --libs sdl) -lX11
+LDFLAGS += $(shell pkg-config --libs sdl)
+LDFLAGS += -lX11
+LDFLAGS += -lpthread
 
 LDPATH	= $(shell readlink -f ../front-panel/lib)
 LDFLAGS	+= -L$(LDPATH) -Wl,-rpath=$(LDPATH) -ldfp
