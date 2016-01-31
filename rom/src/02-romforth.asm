@@ -65,6 +65,7 @@ done:
 		LIA foo
 		JSR I PUTSP
 		HALT
+		JMP @
 
 foo:		.strp "\n" 2 2 2 "ROM Forth booting..." 0
 		
