@@ -21,9 +21,12 @@
 #include "proto.h"
 #include "abstract.h"
 #include "bus.h"
+#include "buscmd.h"
 #include "utils.h"
 #include "serial.h"
 #include "output.h"
+#include "switches.h"
+#include "panel.h"
 
 /*
 
@@ -121,7 +124,7 @@ volatile static uint16_t _swright, _swright0;
 volatile static uint16_t _sr, _sr0;
 volatile static uint16_t _swleft, _swleft0;
 static uint16_t _or;
-uint8_t _defercb = 0;
+uint8_t defercb = 0;
 static uint8_t _clk_prescale = PSV_1024;
 static uint16_t _clk_div = 89;
 static uint8_t _stopped = 1;
@@ -131,117 +134,17 @@ static union {
 	uint32_t uvec32;	// Microcode vector as a 32-bit integer
 } _uv;
 
-
-#define defer_cb_write() _defercb++
-
-// flags for _swleft
-
-#define SWL_NLOCK  0x0001
-#define SWL_RESET  0x0002
-#define SWL_STOP   0x0004
-#define SWL_RUN    0x0008
-#define SWL_STEP   0x0010
-#define SWL_USTEP  0x0020
-#define SWL_SLOW   0x0040
-#define SWL_FAST   0x0080
-#define SWL_SPD_SHIFT      6
-
-#define SWL_DS0    0x0100
-#define SWL_DS1    0x0200
-#define SWL_DS2    0x0400
-#define SWL_DS3    0x0800
-#define SWL_DS4    0x1000
-#define SWL_DS5    0x2000
-#define SWL_DS6    0x4000
-#define SWL_DS7    0x8000
-
-#define SWL_AUTOREPEAT (SWL_STEP|SWL_USTEP)
-
-// flags for _swright
-
-#define SWR_LDADDR 0x0001
-#define SWR_LDIR   0x0002
-#define SWR_LDAC   0x0004
-#define SWR_SPARE  0x0008
-#define SWR_MEMW   0x0010
-#define SWR_INC    0x0020
-#define SWR_MEMR   0x0040
-#define SWR_IOW    0x0080
-
-#define SWR_IOR    0x0100
-#define SWR_ROM    0x0200
-#define SWR_IFR6   0x0400
-#define SWR_IFR1   0x0800
-
-#define SWR_DS8    0x1000
-#define SWR_DS9    0x2000
-#define SWR_DS10   0x4000
-#define SWR_DS11   0x8000
-
-#define SWR_AUTOREPEAT (SWR_MEMW|SWR_MEMR|SWR_IOW|SWR_IOR|SWR_IFR6|SWR_IFR1)
-
-// Flags for _cb[x]
-
-#define CB0_NIRQ6     0x01
-#define CB0_NIRQ1     0x02
-#define CB0_NINCPC    0x04
-#define CB0_NWAC      0x08
-#define CB0_NRPC      0x10
-#define CB0_NWAR      0x20
-#define CB0_NWIR      0x40
-#define CB0_NWPC      0x80
-
-#define CB1_NSAFE     0x01
-#define CB1_NRESET    0x02
-#define CB1_NRSTHOLD  0x04
-                      //...
-#define CB1_NWEN      0x20
-#define CB1_NFPRAM    0x40
-#define CB1_NFPRESET  0x80
-
-//#define CB2_xxx     0x01
-#define CB2_W         0x02
-#define CB2_R         0x04
-#define CB2_MEM       0x08
-#define CB2_IO        0x10
-#define CB2_HALT      0x20
-#define CB2_FPRUN     0x40
-#define CB2_FPSTOP    0x80
-
-#define CB0_OUTPUTS   0xff	// All outputs are active low
-#define CB1_OUTPUTS   0xff	// All outputs are active low
-#define CB2_OUTPUTS   0xff ^ (CB2_MEM|CB2_IO|CB2_R|CB2_W)  // HALT# asserted, RUN/STOP lights both on.
-
-static uint8_t _cb[3] = {
+uint8_t cb[3] = {
 	CB0_OUTPUTS,
 	CB1_OUTPUTS,
-	CB2_OUTPUTS };
+	CB2_OUTPUTS
+};
 
 uint16_t icr = 0;
-static uint8_t ifr6_operated = 0;
+uint8_t ifr6_operated = 0;
 static uint8_t idle_addr = 0; // Used for diagnostics
 
-#define QEF_BASE 0x40ff
-#define QEF_HOF  0x0100
-#define QEF_HOS  0x0200
-#define QEF_LOCK 0x0400
-
-// Feature bits
-#define FTR_HOB  0x0001		// Halt on bus errors: emulator only
-#define FTR_TRC  0x0010		// Assembly trace
-#define FTR_UTR  0x0020		// Microcode trace
-#define FTR_HOS  0x0200		// Halt on SENTINEL
-
-static uint16_t features = 0;
-
-
-// Ring buffer size in bits (we do not use modulo)
-#define RBSIZE_BITS 4
-#define RBMASK ((1 << RBSIZE_BITS) - 1)
-struct {
-	uint8_t ip, op;
-	uint8_t b[(1 << RBSIZE_BITS)];
-} ringbuf;
+ringbuf_t ringbuf;
 
 #define actuated(bm, sw) (((bm) & (sw)) == 0)
 
@@ -470,8 +373,8 @@ detect_cpu()
 
         // Strategy: hold RESET# and HALT asserted. They should
         // already be asserted, but let's make sure.
-	clearflag(_cb[1], CB1_NFPRESET);
-	setflag(_cb[2], CB2_HALT);
+	clearflag(cb[1], CB1_NFPRESET);
+	setflag(cb[2], CB2_HALT);
 	write_cb();
 	
 	// Write various values to the address bus.
@@ -498,7 +401,7 @@ dfp_diags()
 	uint8_t i, j, errors;
 	uint16_t code;
 
-	_defercb = 0;
+	defercb = 0;
 
 	// Test low level stuff first, pretending the processor isn't
 	// there. We'll be asserting RESET and HALT while these tests run, to
@@ -510,8 +413,8 @@ dfp_diags()
 	// panel) and DEBIN (for the debugging shift regs) should be the same
 	// as IOADDR0. This allows diagnostics.
 
-	_cb[1] |= CB1_NFPRESET | CB1_NRESET | CB1_NRSTHOLD; // De-assert reset signals.
-	_cb[2] |= CB2_HALT;	// Halted
+	cb[1] |= CB1_NFPRESET | CB1_NRESET | CB1_NRSTHOLD; // De-assert reset signals.
+	cb[2] |= CB2_HALT;	// Halted
 	write_cb();
 	_delay_ms(500);
 
@@ -525,8 +428,8 @@ dfp_diags()
 
 	// We'll need to let go of NFPRESET and NRESET now, otherwise we can't
 	// set the OR. We keep the processor in the HALT state, though.
-	setflag(_cb[1], CB1_NFPRESET);
-	_cb[1] &= ~(CB1_NFPRESET | CB1_NRESET | CB1_NRSTHOLD);
+	setflag(cb[1], CB1_NFPRESET);
+	cb[1] &= ~(CB1_NFPRESET | CB1_NRESET | CB1_NRSTHOLD);
 	write_cb();
 	
 	clr_ws();
@@ -539,7 +442,7 @@ dfp_diags()
 	for(;;) {
 		PORTB ^= _BV(B_FPUSTEP);
 		_delay_ms(300);
-		_cb[2] ^= CB2_FPSTOP;
+		cb[2] ^= CB2_FPSTOP;
 		write_cb();
 
 		report_pstr(PSTR("PORTB: "));
@@ -555,15 +458,15 @@ dfp_diags()
 		report_bin_pad(x, 8);
 
 		report_pstr(PSTR(" CB0: "));
-		x = _cb[0];
+		x = cb[0];
 		report_bin_pad(x, 8);
 
 		report_pstr(PSTR(" CB1: "));
-		x = _cb[1];
+		x = cb[1];
 		report_bin_pad(x, 8);
 
 		report_pstr(PSTR(" CB2: "));
-		x = _cb[2];
+		x = cb[2];
 		report_bin_pad(x, 8);
 
 		report_pstr(PSTR("\n"));
@@ -618,8 +521,8 @@ dfp_diags()
 	// in case.
 	uint32_t oldflags = flags;
 	flags &= ~ FL_PROC;	// (Why) is this necessary?
-	//clearflag(_cb[1], CB1_NFPRESET);
-	setflag(_cb[2], CB2_HALT);
+	//clearflag(cb[1], CB1_NFPRESET);
+	setflag(cb[2], CB2_HALT);
 	write_cb();
 
 	// uint16_t x =0;
@@ -730,8 +633,8 @@ dfp_diags()
 	flags = oldflags;
 
 	// With the RESET# signal asserted, check there's no bus chatter.
-	// clearflag(_cb[1], CB1_NFPRESET);
-	setflag(_cb[2], CB2_HALT);
+	// clearflag(cb[1], CB1_NFPRESET);
+	setflag(cb[2], CB2_HALT);
 	write_cb();
 	set_or(code = 0x108);
 	report_pstr(PSTR(STR_D_RSTBQ));
@@ -836,9 +739,9 @@ faulty:
 	wdt_enable(WDTO_8S);
 	for (;;) {
 		// Blink the STOP light slowly. Hopefully this will work.
-		_cb[2] ^= CB2_FPSTOP;
+		cb[2] ^= CB2_FPSTOP;
 		write_cb();
-		if (_cb[2] & CB2_FPSTOP) {
+		if (cb[2] & CB2_FPSTOP) {
 			set_or(code);
 			report_pstr(PSTR(STR_DIAGF));
 			_delay_ms(1000);
@@ -945,8 +848,8 @@ hw_init()
 	// Write the control bus, initialising all the control
 	// outputs. This will de-assert all the reset signals, among
 	// other things.
-	clearflag(_cb[1], CB1_NFPRESET | CB1_NRESET);
-	setflag(_cb[2], CB2_HALT | CB0_NIRQ6); // Assert HALT, clear NIRQ6.
+	clearflag(cb[1], CB1_NFPRESET | CB1_NRESET);
+	setflag(cb[2], CB2_HALT | CB0_NIRQ6); // Assert HALT, clear NIRQ6.
 	write_cb();		      // Shift out all the values
 	clearbit(PORTD, D_NCTLOE);    // Enable the control bus drivers
 
@@ -1014,7 +917,7 @@ hw_init()
 	}
 
 	// Don't write anything to the control bus just yet.
-	_defercb = 255;
+	defercb = 255;
 
 	// Set the initial RAM/ROM values
 	panel_rom(_swright & SWR_ROM);
@@ -1037,7 +940,7 @@ hw_init()
 	}
 
 	// Update the control bus
-	_defercb = 0;
+	defercb = 0;
 	write_cb();
 
 	// Perform a full machine RESET cycle, which will either strobe
@@ -1046,8 +949,8 @@ hw_init()
 	perform_reset();
 
 	// Now de-assert the various reset signals explicitly. Can't hurt.
-	_cb[0] |= CB0_NIRQ1 | CB0_NIRQ6;
-	_cb[1] |= CB1_NFPRESET | CB1_NRESET;
+	cb[0] |= CB0_NIRQ1 | CB0_NIRQ6;
+	cb[1] |= CB1_NFPRESET | CB1_NRESET;
 
 	// Write all the control bus signals just in case.
 	write_cb();
@@ -1285,6 +1188,13 @@ inline uint16_t
 get_db()
 {
 	return _db;
+}
+
+
+inline void
+set_db(uint16_t db)
+{
+	_db = db;
 }
 
 
@@ -1620,15 +1530,15 @@ write_cb()
 {
 	// Sometimes we need to defer control bus writes so some
 	// signals can be bundled together.
-	if (_defercb) {
-		_defercb--;
+	if (defercb) {
+		defercb--;
 		return;
 	}
 
 	ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
-		out_shift_registers(_cb[2], CMD_CTLCLK);
-		out_shift_registers(_cb[1], CMD_CTLCLK);
-		out_shift_registers(_cb[0], CMD_CTLCLK);
+		out_shift_registers(cb[2], CMD_CTLCLK);
+		out_shift_registers(cb[1], CMD_CTLCLK);
+		out_shift_registers(cb[0], CMD_CTLCLK);
 		
 		// Move data from ALL the shift registers to their respective
 		// output registers. Tristated output registers will of course
@@ -1693,7 +1603,7 @@ wait_for_halt(bool_t reckless)
 			report_pstr(PSTR(STR_HLTTO));
 			// Blink the STOP light slowly. Hopefully this will work.
 			_delay_ms(1000);
-			_cb[2] ^= CB2_FPSTOP;
+			cb[2] ^= CB2_FPSTOP;
 			write_cb();
 		}
 	}
@@ -1898,7 +1808,7 @@ set_buspu(const uint8_t x)
 
 
 // Helper and sanity check
-#define do_cb(n, s, v) flag(_cb[n], CB##n##_##s, v)
+#define do_cb(n, s, v) flag(cb[n], CB##n##_##s, v)
 
 
 inline void
@@ -1944,12 +1854,12 @@ perform_reset()
 	if (flags & FL_PROC) {
 		// We have a processor. Signal it to reset.
 
-		setflag(_cb[1], CB1_NRESET | CB1_NRSTHOLD);
-		clearflag(_cb[1], CB1_NFPRESET);
+		setflag(cb[1], CB1_NRESET | CB1_NRSTHOLD);
+		clearflag(cb[1], CB1_NFPRESET);
 		write_cb();
 		_delay_ms(500);	// Delay a little, mostly for to convince humans
 
-		setflag(_cb[1], CB1_NFPRESET);
+		setflag(cb[1], CB1_NFPRESET);
 		write_cb();
 	} else {
 
@@ -1957,7 +1867,7 @@ perform_reset()
 			
 			// We're standalone. We'll do it ourselves.
 			
-			clearflag(_cb[1], CB1_NRESET | CB1_NRSTHOLD);
+			clearflag(cb[1], CB1_NRESET | CB1_NRSTHOLD);
 			write_cb();
 			
 			// Hold these down for a while. It's about 6ms.
@@ -1966,7 +1876,7 @@ perform_reset()
 				wdt_reset();
 			}
 			
-			setflag(_cb[1], CB1_NRESET);
+			setflag(cb[1], CB1_NRESET);
 			write_cb();
 
 			// RSTHOLD# must be deasserted later than RESET#. Only
@@ -1981,7 +1891,7 @@ perform_reset()
 				wdt_reset();
 			}
 			
-			setflag(_cb[1], CB1_NRSTHOLD);
+			setflag(cb[1], CB1_NRSTHOLD);
 			write_cb();
 		}
 	}
@@ -1990,9 +1900,9 @@ perform_reset()
 void
 strobe_wpc()
 {
-	clearflag(_cb[0], CB0_NWPC);
+	clearflag(cb[0], CB0_NWPC);
 	write_cb();
-	setflag(_cb[0], CB0_NWPC);
+	setflag(cb[0], CB0_NWPC);
 	write_cb();
 }
 
@@ -2000,9 +1910,9 @@ strobe_wpc()
 void
 strobe_wac()
 {
-	clearflag(_cb[0], CB0_NWAC);
+	clearflag(cb[0], CB0_NWAC);
 	write_cb();
-	setflag(_cb[0], CB0_NWAC);
+	setflag(cb[0], CB0_NWAC);
 	write_cb();
 }
 
@@ -2010,9 +1920,9 @@ strobe_wac()
 void
 strobe_wir()
 {
-	clearflag(_cb[0], CB0_NWIR);
+	clearflag(cb[0], CB0_NWIR);
 	write_cb();
-	setflag(_cb[0], CB0_NWIR);
+	setflag(cb[0], CB0_NWIR);
 	write_cb();
 }
 
@@ -2021,16 +1931,16 @@ void
 strobe_w()
 {
 	// R/W safety interlock.
-	clearflag(_cb[2], CB2_R);
+	clearflag(cb[2], CB2_R);
 	
 	// The processor is halted, so we can drive W# directly. The
 	// signal is low for so long (tens of bus cycles), wait states
 	// don't really apply.
 
-	setflag(_cb[2], CB2_W);
+	setflag(cb[2], CB2_W);
 	write_cb();
 
-	clearflag(_cb[2], CB2_W);
+	clearflag(cb[2], CB2_W);
 	write_cb();
 
 /*		
@@ -2039,12 +1949,12 @@ strobe_w()
 		// A processor is present. Enable writing and let it handle the
 		// write cycle, observing wait states etc.
 
-		clearflag(_cb[1], CB1_NWEN);
+		clearflag(cb[1], CB1_NWEN);
 		write_cb();
 		
 		perform_ustep();
 
-		setflag(_cb[1], CB1_NWEN);
+		setflag(cb[1], CB1_NWEN);
 		write_cb();
 
 	} else {
@@ -2052,10 +1962,10 @@ strobe_w()
 		// No processor. Strobe the W# signal directly. The signal is
 		// low for so long, wait states hardly even apply.
 
-		clearflag(_cb[2], CB2_NW);
+		clearflag(cb[2], CB2_NW);
 		write_cb();
 
-		setflag(_cb[2], CB2_NW);
+		setflag(cb[2], CB2_NW);
 		write_cb();
 	}
 
@@ -2067,7 +1977,7 @@ void
 set_r(bool_t val)
 {
 	// R/W safety interlock.
-	clearflag(_cb[2], CB2_W);
+	clearflag(cb[2], CB2_W);
 	do_cb(2, R, val);
 	write_cb();
 }
@@ -2077,7 +1987,7 @@ void
 set_mem(bool_t val)
 {
 	// MEM/IO safety interlock.
-	clearflag(_cb[2], CB2_IO);
+	clearflag(cb[2], CB2_IO);
 	do_cb(2, MEM, val);
 	write_cb();
 }
@@ -2087,7 +1997,7 @@ void
 set_io(bool_t val)
 {
 	// MEM/IO safety interlock.
-	clearflag(_cb[2], CB2_MEM);
+	clearflag(cb[2], CB2_MEM);
 	do_cb(2, IO, val);
 	write_cb();
 }
@@ -2096,11 +2006,11 @@ set_io(bool_t val)
 void
 release_bus()
 {
-	_defercb = 0;		// Always immediate!
+	defercb = 0;		// Always immediate!
 	tristate_ab();
 	tristate_db();
 	tristate_ibus();
-	clearflag(_cb[2], CB2_MEM | CB2_IO | CB2_W | CB2_R);
+	clearflag(cb[2], CB2_MEM | CB2_IO | CB2_W | CB2_R);
 	
 	do_cb(2, HALT, 0);
 	write_cb();
@@ -2112,9 +2022,9 @@ release_bus()
 void
 strobe_war()
 {
-	clearflag(_cb[0], CB0_NWAR);
+	clearflag(cb[0], CB0_NWAR);
 	write_cb();
-	setflag(_cb[0], CB0_NWAR);
+	setflag(cb[0], CB0_NWAR);
 	write_cb();
 }
 
@@ -2122,9 +2032,9 @@ strobe_war()
 void
 strobe_rpc()
 {
-	clearflag(_cb[0], CB0_NRPC);
+	clearflag(cb[0], CB0_NRPC);
 	write_cb();
-	setflag(_cb[0], CB0_NRPC);
+	setflag(cb[0], CB0_NRPC);
 	write_cb();
 }
 
@@ -2132,9 +2042,9 @@ strobe_rpc()
 void
 strobe_incpc()
 {
-	clearflag(_cb[0], CB0_NINCPC);
+	clearflag(cb[0], CB0_NINCPC);
 	write_cb();
-	setflag(_cb[0], CB0_NINCPC);
+	setflag(cb[0], CB0_NINCPC);
 	write_cb();
 }
 
@@ -2155,8 +2065,8 @@ void
 set_fprunstop(bool_t run)
 {
 	// Update the front panel LEDs
-	_cb[2] &= ~(CB2_FPRUN | CB2_FPSTOP);
-	_cb[2] |= run ? CB2_FPRUN : CB2_FPSTOP;
+	cb[2] &= ~(CB2_FPRUN | CB2_FPSTOP);
+	cb[2] |= run ? CB2_FPRUN : CB2_FPSTOP;
 	write_cb();
 }
 
@@ -2219,6 +2129,7 @@ maybe_dequeue_char()
 // Clear the wait state by strobing CLR-WS (the positive edge will clear the
 // wait state). The cycle will now continue.
 
+
 __attribute__ ((used))
 ISR(INT0_vect)
 {
@@ -2227,139 +2138,9 @@ ISR(INT0_vect)
 	
 	// Is it a write cycle? (NR = 1, i.e. unasserted)
 	if (_flags & CFL_NR) {
-		// Write cycle
-		switch (_ab) {
-		case IO_SOR:
-			set_or(_db);
-			break;
-
-		case IO_ENEF:
-			features |= _db;
-			if (features & FTR_TRC) buscmd_debugon();
-			if (features & FTR_HOS) flags |= FL_HOS;
-			break;
-
-		case IO_DISEF:
-			features &= ~_db;
-			if (features & FTR_TRC) buscmd_debugoff();
-			if (features & FTR_HOS) flags &= ~FL_HOS;
-			break;
-
-		case IO_ICR:
-			icr = _db;
-			break;
-
-		case IO_SENTINEL:
-			buscmd_sentinel();
-			break;
-
-		case IO_PRINTA:
-			buscmd_print('A', _db);
-			break;
-
-		case IO_PRINTC:
-			buscmd_print('C', _db);
-			break;
-
-		case IO_PRINTD:
-			buscmd_print('D', _db);
-			break;
-
-		case IO_PRINTU:
-			buscmd_print('U', _db);
-			break;
-
-		case IO_PRINTH:
-			buscmd_print('H', _db);
-			break;
-
-		case IO_PRINTB:
-			buscmd_print('B', _db);
-			break;
-
-		case IO_PRINTSP:
-			buscmd_print('C', 32);
-			break;
-
-		case IO_PRINTNL:
-			buscmd_print('C', 10);
-			break;
-
-		case IO_DEBUGON:
-			buscmd_debugon();
-			break;
-
-		case IO_DEBUGOFF:
-			buscmd_debugoff();
-			break;
-
-		case IO_DUMP:
-			buscmd_dump();
-			break;
-
-		case IO_PRINTHI:
-			buscmd_printhi(_db);
-			break;
-
-		case IO_PRINTLO:
-			buscmd_print('L', _db);
-			break;
-
-		case IO_HALT:
-			buscmd_halt();
-			break;
-
-		case IO_SUCCESS:
-			buscmd_success();
-			break;
-
-		case IO_FAIL:
-			buscmd_fail();
-			break;
-		}
+		buscmd_write();
 	} else {
-		// Read cycle. We do NOT enable the data bus ourselves. There's
-		// an ‘involuntary’ function that makes the data bus register
-		// drive whenever the CFT selects the PFP/DEB. All we need to
-		// do is update its value and register it for output.
-		switch ((uint8_t)_ab & 0xff) {
-		case IO_LSR:
-			_db = _sr;
-			break;
-
-		case IO_LDSR:
-			_db = (_swleft & 0xff00) >> 8;
-			_db |= (_swright & 0xf000) >> 4;
-			break;
-
-		case IO_ISR:
- 			_db = 0;
-			// Interrupts asserted
-			if ((_cb[0] & CB0_NIRQ1) == 0) _db |= ISR_IRQ6;
-			if ((_cb[0] & CB0_NIRQ6) == 0) _db |= ISR_IRQ1;
-			// Interrupt sources
-			if (ifr6_operated) _db |= ISR_IFR6;
-			if (ringbuf.op != ringbuf.ip) _db |= ISR_TTY;
-
-			defer_cb_write(); // Clear both IRQ1 and IRQ6 together.
-			set_irq1(0);
-			set_irq6(0, 0);
-			ifr6_operated = 0;
-			break;
-
-		case IO_QEF1:
-		case IO_QEF2:
-			_db = QEF_BASE;
-			if (flags & FL_HOF) _db |= QEF_HOF;
-			if (flags & FL_HOS) _db |= QEF_HOS;
-			if (actuated(_swleft, SWL_NLOCK)) _db |= QEF_LOCK;
-			break;
-
-		case IO_READC:
-			_db = maybe_dequeue_char();
-			break;
-		}
-		write_db(_db);
+		buscmd_read();
 	}
 	
 	// Strobe the CLR-WS signal to clear wait states.
@@ -2513,7 +2294,7 @@ ISR(TIMER0_COMPA_vect)
 	// wdt_reset() on its own, otherwise the Watchdog will reset the DFP.
 	if (flags & FL_BUSY) {
 		pause = (pause + 1) & 3;
-		  if (pause == 0) _cb[2] ^= CB2_FPSTOP;
+		  if (pause == 0) cb[2] ^= CB2_FPSTOP;
 		write_cb();
 		return;
 	}

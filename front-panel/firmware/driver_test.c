@@ -15,6 +15,7 @@
 #include <termios.h>
 
 #include "bus.h"
+#include "buscmd.h"
 
 
 // This 'driver' is only available on the host.

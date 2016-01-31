@@ -14,9 +14,11 @@
 #include "serial.h"
 #include "output.h"
 #include "iface.h"
+#include "switches.h"
 
 dfp_cb_t dfp_cb;
 
+static uint16_t _ibus;
 static uint16_t _ab;
 static uint16_t _db;
 static uint16_t _ir;
@@ -31,62 +33,22 @@ uint8_t _defercb = 0;
 //static uint8_t _clk_prescale = PSV_1024;
 static uint16_t _clk_div = 89;
 static uint8_t v_stopped = 1;
+static uint16_t _oldsr = 0xffff;
+static uint16_t _buscmd_write = 0;
 
 static union {
 	uint8_t  uvec8[4];	// Microcode vector: 24 bits ([3] unused)
 	uint32_t uvec32;	// Microcode vector as a 32-bit integer
 } _uv;
 
-#define defer_cb_write() _defercb++
-
-// flags for _swleft
-
-#define SWL_NLOCK  0x0001
-#define SWL_RESET  0x0002
-#define SWL_STOP   0x0004
-#define SWL_RUN    0x0008
-#define SWL_STEP   0x0010
-#define SWL_USTEP  0x0020
-#define SWL_SLOW   0x0040
-#define SWL_FAST   0x0080
-#define SWL_SPD_SHIFT      6
-
-#define SWL_DS0    0x0100
-#define SWL_DS1    0x0200
-#define SWL_DS2    0x0400
-#define SWL_DS3    0x0800
-#define SWL_DS4    0x1000
-#define SWL_DS5    0x2000
-#define SWL_DS6    0x4000
-#define SWL_DS7    0x8000
-
-#define SWL_AUTOREPEAT (SWL_STEP|SWL_USTEP)
-
-// flags for _swright
-
-#define SWR_LDADDR 0x0001
-#define SWR_LDIR   0x0002
-#define SWR_LDAC   0x0004
-#define SWR_SPARE  0x0008
-#define SWR_MEMW   0x0010
-#define SWR_INC    0x0020
-#define SWR_MEMR   0x0040
-#define SWR_IOW    0x0080
-
-#define SWR_IOR    0x0100
-#define SWR_ROM    0x0200
-#define SWR_IFR6   0x0400
-#define SWR_IFR1   0x0800
-
-#define SWR_DS8    0x1000
-#define SWR_DS9    0x2000
-#define SWR_DS10   0x4000
-#define SWR_DS11   0x8000
-
-#define SWR_AUTOREPEAT (SWR_MEMW|SWR_MEMR|SWR_IOW|SWR_IOR|SWR_IFR6|SWR_IFR1)
+uint8_t cb[3] = {
+	CB0_OUTPUTS,
+	CB1_OUTPUTS,
+	CB2_OUTPUTS
+};
 
 uint16_t icr = 0;
-static uint8_t ifr6_operated = 0;
+uint8_t ifr6_operated = 0;
 static uint8_t idle_addr = 0; // Used for diagnostics
 
 #define QEF_BASE 0x40ff
@@ -104,12 +66,7 @@ static uint16_t features = 0;
 
 
 // Ring buffer size in bits (we do not use modulo)
-#define RBSIZE_BITS 4
-#define RBMASK ((1 << RBSIZE_BITS) - 1)
-struct {
-	uint8_t ip, op;
-	uint8_t b[(1 << RBSIZE_BITS)];
-} ringbuf;
+ringbuf_t ringbuf;
 
 #define actuated(bm, sw) (((bm) & (sw)) == 0)
 
@@ -124,9 +81,49 @@ void serial_init()
 	// Does nothing.
 }
 
+
 void serial_send(unsigned char c)
 {
+	if (c == '\r') return;
 	(*dfp_cb.putc)(c);
+}
+
+
+void dfp_fw_rx(unsigned char c)
+{
+	proto_input(c);
+	pthread_mutex_unlock(&dfp_cb.rx_lock);
+}
+
+
+void dfp_fw_sr(uint16_t sr)
+{
+	// Not needed, the timer picks up changes to the SR without an explicit
+	// 'interrupt'.
+}
+
+
+void dfp_fw_iocmd(uint8_t is_write)
+{
+	// Handle an I/O command from the CPU.
+	//
+	// Note: R# is an active low signal, so it's *1* when writing.
+	_buscmd_write = is_write;
+	printf("*** INTERRUPT\n");
+	run_buscmd_interrupt();
+}
+
+
+void dfp_fw_init()
+{
+	hw_init();
+	proto_init();
+}
+
+
+void dfp_fw_run()
+{
+	proto_loop();
 }
 
 
@@ -151,14 +148,22 @@ wdt_reset()
 bool_t
 panel_lock(bool_t lock)
 {
-	printf("%s: NOT IMPLEMENTED\n", __FUNCTION__);
+	// We don't have a panel key lock.
 	return 0;
 }
 
 void 
 panel_sr(uint16_t sr)
 {
-	printf("%s: NOT IMPLEMENTED\n", __FUNCTION__);
+	//report(__FUNCTION__); report_pstr(PSTR("()\n"));
+	if (sr == _oldsr) return;
+
+	_oldsr = sr;
+
+	say_break();
+	set_sr(sr);
+	say_sr();
+	proto_prompt();
 }
 
 void
@@ -248,7 +253,6 @@ panel_rio(bool_t inc, uint16_t a)
 void
 panel_rom(uint8_t rom)
 {
-	printf("%s: NOT IMPLEMENTED\n", __FUNCTION__);
 }
 
 void
@@ -281,42 +285,100 @@ assert_halted()
 uint16_t
 perform_read(uint8_t space, uint16_t addr)
 {
-	printf("%s: NOT IMPLEMENTED\n", __FUNCTION__);
-	return 0;
+	if (dfp_cb.ab == NULL) return 0;
+	if (dfp_cb.db == NULL) return 0;
+	if (dfp_cb.unit_mem == NULL) return 0;
+	if (dfp_cb.unit_io == NULL) return 0;
+
+	pthread_mutex_lock(&dfp_cb.lock);
+	*(dfp_cb.ab) = addr;
+	uint16_t val;
+
+	if (space == SPACE_MEM) {
+		val = *(dfp_cb.db) = (*dfp_cb.unit_mem)(1, 0);
+	} else {
+		val = *(dfp_cb.db) = (*dfp_cb.unit_io)(1, 0);
+	}
+	pthread_mutex_unlock(&dfp_cb.lock);
+
+	return val;
 }
 
 uint16_t
 perform_block_read(uint16_t base, int16_t n, uint16_t * buf)
 {
-	printf("%s: NOT IMPLEMENTED\n", __FUNCTION__);
-	return 0;
+	if (dfp_cb.ab == NULL) return 0;
+	if (dfp_cb.db == NULL) return 0;
+	if (dfp_cb.unit_mem == NULL) return 0;
+
+	// Ensure the bus is quiet.
+	if (!assert_halted()) return 0;
+
+	pthread_mutex_lock(&dfp_cb.lock);
+	while (n--) {
+		// Perform a cycle
+		*(dfp_cb.ab) = base;
+		*buf++ = *(dfp_cb.db) = (*dfp_cb.unit_mem)(1, 0);
+		base++;
+	}
+	pthread_mutex_unlock(&dfp_cb.lock);
+	
+	return 1;
 }
 
 
 uint8_t
 perform_write(uint8_t space, uint16_t addr, uint16_t word)
 {
-	printf("%s: NOT IMPLEMENTED\n", __FUNCTION__);
-	return 0;
-}
+	if (dfp_cb.ab == NULL) return 0;
+	if (dfp_cb.db == NULL) return 0;
+	if (dfp_cb.unit_mem == NULL) return 0;
+	if (dfp_cb.unit_io == NULL) return 0;
 
-void
-start_block_write(uint8_t space)
-{
-	printf("%s: NOT IMPLEMENTED\n", __FUNCTION__);
-}
+	pthread_mutex_lock(&dfp_cb.lock);
+	*(dfp_cb.ab) = addr;
+	*(dfp_cb.db) = word;
 
-void
-perform_block_write(uint16_t addr, uint16_t word)
-{
-	printf("%s: NOT IMPLEMENTED\n", __FUNCTION__);
+	if (space == SPACE_MEM) {
+		(*dfp_cb.unit_mem)(0, 1);
+	} else {
+		(*dfp_cb.unit_io)(0, 1);
+	}
+	pthread_mutex_unlock(&dfp_cb.lock);
 }
-
 
 uint8_t
 set_reg(uint8_t reg, uint16_t value)
 {
-	printf("%s: NOT IMPLEMENTED\n", __FUNCTION__);
+	// Ensure the bus is quiet.
+	if (!assert_halted()) return 0;
+
+	// Stop the clock.
+	clk_stop();
+
+	// Even with the processor halted, some control signals are
+	// bus-held. Explicitly drive MEM#, IO#, R#, and WEN# high.
+
+	switch (reg) {
+	case REG_IR:
+		*(dfp_cb).ir = value;
+		break;
+	case REG_AC:
+		*(dfp_cb).ac = value;
+		break;
+	case REG_PCAR:
+		// Purposefully falling through
+	case REG_PC:
+		*(dfp_cb).ab = value; // AR == AB
+		*(dfp_cb).pc = value;
+		break;
+	}
+
+	// Sample the bus after setting the reg. This can be used to
+	// verify a correct write.
+	virtual_panel_sample(0);
+
+	return 1;
 }
 
 
@@ -372,14 +434,13 @@ strobecmd(uint8_t addr)
 inline static void
 strobe_clr()
 {
-	printf("%s: NOT IMPLEMENTED\n", __FUNCTION__);
 }
 
 
 inline static void
 clr_ws()
 {
-	printf("%s: NOT IMPLEMENTED\n", __FUNCTION__);
+	// Wait states aren't implemented internally. Do nothing.
 }
 
 
@@ -444,6 +505,7 @@ static const uint16_t _diag_patterns[NUM_PATTERNS] = {
 inline static bool_t
 detect_cpu()
 {
+	// The emulator always has a CPU installed.
 	report_pstr(PSTR(STR_DETPROC STR_DETPROC1));
 	return 1;
 }
@@ -462,6 +524,22 @@ dfp_diags()
 void
 hw_init()
 {
+	if (detect_cpu()) {
+		// Mark the processor as present
+		flags |= FL_PROC;
+		// Disable the bus pull-ups. Note: active low!
+		set_buspu(1);
+	} else {
+		// Enable the bus pull-ups. They start enabled after reset, but
+		// this couldn't hurt.
+		set_buspu(0);
+	}
+
+
+
+	///////////////////////////////////////////////////////////////////////////////
+
+	
 	printf("%s: NOT IMPLEMENTED\n", __FUNCTION__);
 
 	// Run diagnostics
@@ -513,7 +591,10 @@ hw_init()
 
 	// Perform a full machine RESET cycle, which will either strobe
 	// FPRESET# (only the de-assertion of which is needed), or perform a
-	// standalone RESET#/RSTHOLD# cycle if the processor is missing.
+	// standalone RESET#/RSTHOLD# cycle if the processor is missing. This
+	// is only required on actual hardware. The way the emulator works (a)
+	// ensures a full reset of the machine at this point anyway, and (b)
+	// causes an endless reset loop.
 	perform_reset();
 
 	// Now de-assert the various reset signals explicitly. Can't hurt.
@@ -616,17 +697,24 @@ serial_write(unsigned char c)
 //   * DIP switches
 //   * Front panel switches
 
+
+#define dereference(x) ((x) != NULL ? *(x) : 0)
+#define testbit(x, b) ((x) != NULL ? (*(x) ? b : 0) : 0)
+
 void
 deb_sample(bool_t quick)
 {
-	printf("%s: NOT IMPLEMENTED\n", __FUNCTION__);
+	_ab = dereference(dfp_cb.ab);
+	_db = dereference(dfp_cb.db);
+	_swright = dereference(dfp_cb.swright);
+	_swleft = dereference(dfp_cb.swleft);
+	_sr = dereference(dfp_cb.sr);
 }
 
 
 inline uint16_t
 get_ab()
 {
-	printf("%s: NOT IMPLEMENTED\n", __FUNCTION__);
 	return _ab;
 }
 
@@ -634,7 +722,6 @@ get_ab()
 inline uint16_t
 get_db()
 {
-	printf("%s: NOT IMPLEMENTED\n", __FUNCTION__);
 	return 0;
 }
 
@@ -650,37 +737,48 @@ get_dsr()
 inline void
 set_sr(const uint16_t sr)
 {
-	printf("%s: NOT IMPLEMENTED\n", __FUNCTION__);
+	_sr = sr;
 }
 
 
 inline uint16_t
 get_sr()
 {
-	printf("%s: NOT IMPLEMENTED\n", __FUNCTION__);
-	return 0;
+	return _sr;
 }
 
 
 inline uint16_t
 get_lsw()
 {
-	printf("%s: NOT IMPLEMENTED\n", __FUNCTION__);
-	return 0;
+	return _swleft;
 }
 
 
 inline uint16_t
 get_rsw()
 {
-	printf("%s: NOT IMPLEMENTED\n", __FUNCTION__);
-	return 0;
+	return _swright;
 }
 
 void
 virtual_panel_sample(bool_t quick)
 {
-	printf("%s: NOT IMPLEMENTED\n", __FUNCTION__);
+	_flags = 
+		testbit(dfp_cb.n, CFL_FN) |
+		testbit(dfp_cb.z, CFL_FZ) |
+		testbit(dfp_cb.v, CFL_FV) |
+		testbit(dfp_cb.i, CFL_FI) |
+		testbit(dfp_cb.l, CFL_FL);
+
+	if (_buscmd_write) _flags |= CFL_NR;
+	
+	if (!quick) {
+		_uv.uvec32 = dereference(dfp_cb.uvec) ^ UVEC_INVERT;
+		_ir = dereference(dfp_cb.ir);
+		_pc = dereference(dfp_cb.pc);
+		_ac = dereference(dfp_cb.ac);
+	}
 }
 
 
@@ -695,32 +793,28 @@ get_misc()
 inline uint32_t
 get_uvec()
 {
-	printf("%s: NOT IMPLEMENTED\n", __FUNCTION__);
-	return 0;
+	return _uv.uvec32;
 }
 
 
 inline uint16_t
 get_ir()
 {
-	printf("%s: NOT IMPLEMENTED\n", __FUNCTION__);
-	return 0;
+	return _ir;
 }
 
 
 inline uint16_t
 get_pc()
 {
-	printf("%s: NOT IMPLEMENTED\n", __FUNCTION__);
-	return 0;
+	return _pc;
 }
 
 
 inline uint16_t
 get_ac()
 {
-	printf("%s: NOT IMPLEMENTED\n", __FUNCTION__);
-	return 0;
+	return _ac;
 }
 
 
@@ -733,37 +827,33 @@ get_ac()
 inline uint16_t
 get_or()
 {
-	printf("%s: NOT IMPLEMENTED\n", __FUNCTION__);
-	return 0;
+	return _or;
 }
 
 
 inline void
 set_or(const uint16_t or)
 {
-	printf("%s: NOT IMPLEMENTED\n", __FUNCTION__);
-	return;
+	_or = or;
 }
 
 
 inline void
 drive_ibus()
 {
-	printf("%s: NOT IMPLEMENTED\n", __FUNCTION__);
 }
 
 
 void
 write_ibus(const uint16_t ibus)
 {
-	printf("%s: NOT IMPLEMENTED\n", __FUNCTION__);
+	_ibus = ibus;
 }
 
 
 inline void
 tristate_ibus()
 {
-	printf("%s: NOT IMPLEMENTED\n", __FUNCTION__);
 }
 
 
@@ -790,21 +880,19 @@ tristate_ibus()
 void
 drive_ab()
 {
-	printf("%s: NOT IMPLEMENTED\n", __FUNCTION__);
 }
 
 
 void
 write_ab(const uint16_t abus)
 {
-	printf("%s: NOT IMPLEMENTED\n", __FUNCTION__);
+	if (dfp_cb.ab != NULL) *(dfp_cb.ab) = abus;
 }
 
 
 inline void
 tristate_ab()
 {
-	printf("%s: NOT IMPLEMENTED\n", __FUNCTION__);
 }
 
 
@@ -817,21 +905,19 @@ tristate_ab()
 inline void
 drive_db()
 {
-	printf("%s: NOT IMPLEMENTED\n", __FUNCTION__);
 }
 
 
 void
 write_db(const uint16_t dbus)
 {
-	printf("%s: NOT IMPLEMENTED\n", __FUNCTION__);
+	if (dfp_cb.db != NULL) *(dfp_cb.db) = dbus;
 }
 
 
 void
 tristate_db()
 {
-	printf("%s: NOT IMPLEMENTED\n", __FUNCTION__);
 }
 
 
@@ -994,7 +1080,8 @@ set_fpram(bool_t val)
 void
 perform_reset()
 {
-	printf("%s: NOT IMPLEMENTED\n", __FUNCTION__);
+	pthread_mutex_lock(&dfp_cb.lock);
+	dfp_cb.request_reset++;
 }
 
 void
@@ -1049,7 +1136,7 @@ set_io(bool_t val)
 void
 release_bus()
 {
-	printf("%s: NOT IMPLEMENTED\n", __FUNCTION__);
+	// No need.
 }
 
 
@@ -1077,14 +1164,25 @@ strobe_incpc()
 void
 set_halt(bool_t val)
 {
-	printf("%s: NOT IMPLEMENTED\n", __FUNCTION__);
+	static int val0 = 42;
+
+	if (val0 != val) {
+		if (val) {
+			//pthread_mutex_lock(&dfp_cb.lock);
+			dfp_cb.request_halt++;
+		} else {
+			//pthread_mutex_lock(&dfp_cb.lock);
+			dfp_cb.request_run++;
+		}
+	}
+	val0 = val;
 }
 
 
 void
 set_fprunstop(bool_t run)
 {
-	printf("%s: NOT IMPLEMENTED\n", __FUNCTION__);
+	// We don't have LEDs, do nothing.
 }
 
 
@@ -1138,154 +1236,22 @@ maybe_dequeue_char()
 // Clear the wait state by strobing CLR-WS (the positive edge will clear the
 // wait state). The cycle will now continue.
 
-#if 0
-__attribute__ ((used))
-ISR(INT0_vect)
+void
+run_buscmd_interrupt()
 {
 	deb_sample(1);		 // Get AB and DB
 	virtual_panel_sample(1); // Get control signals
 	
 	// Is it a write cycle? (NR = 1, i.e. unasserted)
 	if (_flags & CFL_NR) {
-		// Write cycle
-		switch (_ab) {
-		case IO_SOR:
-			set_or(_db);
-			break;
-
-		case IO_ENEF:
-			features |= _db;
-			if (features & FTR_TRC) buscmd_debugon();
-			if (features & FTR_HOS) flags |= FL_HOS;
-			break;
-
-		case IO_DISEF:
-			features &= ~_db;
-			if (features & FTR_TRC) buscmd_debugoff();
-			if (features & FTR_HOS) flags &= ~FL_HOS;
-			break;
-
-		case IO_ICR:
-			icr = _db;
-			break;
-
-		case IO_SENTINEL:
-			buscmd_sentinel();
-			break;
-
-		case IO_PRINTA:
-			buscmd_print('A', _db);
-			break;
-
-		case IO_PRINTC:
-			buscmd_print('C', _db);
-			break;
-
-		case IO_PRINTD:
-			buscmd_print('D', _db);
-			break;
-
-		case IO_PRINTU:
-			buscmd_print('U', _db);
-			break;
-
-		case IO_PRINTH:
-			buscmd_print('H', _db);
-			break;
-
-		case IO_PRINTB:
-			buscmd_print('B', _db);
-			break;
-
-		case IO_PRINTSP:
-			buscmd_print('C', 32);
-			break;
-
-		case IO_PRINTNL:
-			buscmd_print('C', 10);
-			break;
-
-		case IO_DEBUGON:
-			buscmd_debugon();
-			break;
-
-		case IO_DEBUGOFF:
-			buscmd_debugoff();
-			break;
-
-		case IO_DUMP:
-			buscmd_dump();
-			break;
-
-		case IO_PRINTHI:
-			buscmd_printhi(_db);
-			break;
-
-		case IO_PRINTLO:
-			buscmd_print('L', _db);
-			break;
-
-		case IO_HALT:
-			buscmd_halt();
-			break;
-
-		case IO_SUCCESS:
-			buscmd_success();
-			break;
-
-		case IO_FAIL:
-			buscmd_fail();
-			break;
-		}
+		buscmd_write();
 	} else {
-		// Read cycle. We do NOT enable the data bus ourselves. There's
-		// an ‘involuntary’ function that makes the data bus register
-		// drive whenever the CFT selects the PFP/DEB. All we need to
-		// do is update its value and register it for output.
-		switch ((uint8_t)_ab & 0xff) {
-		case IO_LSR:
-			_db = _sr;
-			break;
-
-		case IO_LDSR:
-			_db = (_swleft & 0xff00) >> 8;
-			_db |= (_swright & 0xf000) >> 4;
-			break;
-
-		case IO_ISR:
- 			_db = 0;
-			// Interrupts asserted
-			if ((_cb[0] & CB0_NIRQ1) == 0) _db |= ISR_IRQ6;
-			if ((_cb[0] & CB0_NIRQ6) == 0) _db |= ISR_IRQ1;
-			// Interrupt sources
-			if (ifr6_operated) _db |= ISR_IFR6;
-			if (ringbuf.op != ringbuf.ip) _db |= ISR_TTY;
-
-			defer_cb_write(); // Clear both IRQ1 and IRQ6 together.
-			set_irq1(0);
-			set_irq6(0, 0);
-			ifr6_operated = 0;
-			break;
-
-		case IO_QEF1:
-		case IO_QEF2:
-			_db = QEF_BASE;
-			if (flags & FL_HOF) _db |= QEF_HOF;
-			if (flags & FL_HOS) _db |= QEF_HOS;
-			if (actuated(_swleft, SWL_NLOCK)) _db |= QEF_LOCK;
-			break;
-
-		case IO_READC:
-			_db = maybe_dequeue_char();
-			break;
-		}
-		write_db(_db);
+		buscmd_read();
 	}
 	
 	// Strobe the CLR-WS signal to clear wait states.
 	clr_ws();
 }
-#endif
 
 /*
 
@@ -1422,28 +1388,28 @@ _readcycle(bool_t is_io)
 
   //static uint8_t _idle = 0;
 
-#if 0
-ISR(TIMER0_COMPA_vect)
+void
+run_timer_interrupt()
 {
-	static uint8_t pause = 0;
-	static uint8_t autorepeat = 45;
-	static uint8_t accelerate = 0;
+	// static uint8_t pause = 0;
+	// static uint8_t autorepeat = 45;
+	// static uint8_t accelerate = 0;
 
-	// Blink the STOP light at ~10Hz while busy, and ignore the front panel
-	// switches. Any routine working overtime here had better call
-	// wdt_reset() on its own, otherwise the Watchdog will reset the DFP.
-	if (flags & FL_BUSY) {
-		pause = (pause + 1) & 3;
-		  if (pause == 0) _cb[2] ^= CB2_FPSTOP;
-		write_cb();
-		return;
-	}
+	// // Blink the STOP light at ~10Hz while busy, and ignore the front panel
+	// // switches. Any routine working overtime here had better call
+	// // wdt_reset() on its own, otherwise the Watchdog will reset the DFP.
+	// if (flags & FL_BUSY) {
+	// 	pause = (pause + 1) & 3;
+	// 	if (pause == 0) _cb[2] ^= CB2_FPSTOP;
+	// 	write_cb();
+	// 	return;
+	// }
 
-	// We're still alive!
-	wdt_reset();
-	
-	// If software-locked, ignore switches.
-	if (flags & FL_SWLOCK) return;
+	// // We're still alive!
+	// wdt_reset();
+
+	// // If software-locked, ignore switches.
+	// if (flags & FL_SWLOCK) return;
 	
 	// Toggle switch handling
 	deb_sample(0);		// Read the switches
@@ -1453,138 +1419,138 @@ ISR(TIMER0_COMPA_vect)
 	// locked, so we act on it before the panel lock check.
 	if (_sr0 != _sr) panel_sr(_sr);
 
-	// If the front panel is locked, bail out.
-	if (panel_lock(actuated(_swleft, SWL_NLOCK))) {
-		return;
-	}
+	// // If the front panel is locked, bail out.
+	// if (panel_lock(actuated(_swleft, SWL_NLOCK))) {
+	// 	return;
+	// }
 
-	// Ignore 'action' panel switches if we're busy
-	if (flags & FL_BUSY) return;
+	// // Ignore 'action' panel switches if we're busy
+	// if (flags & FL_BUSY) return;
 
-	// Have the switches changed?
-	if (_swleft0 == _swleft && _swright0 == _swright && _sr0 == _sr) {
-		if (autorepeat > 1) autorepeat--;
-		if (autorepeat != 1) return;
+	// // Have the switches changed?
+	// if (_swleft0 == _swleft && _swright0 == _swright && _sr0 == _sr) {
+	// 	if (autorepeat > 1) autorepeat--;
+	// 	if (autorepeat != 1) return;
 
-		if (((_swleft & SWL_AUTOREPEAT) != SWL_AUTOREPEAT) ||
-		    ((_swright & SWR_AUTOREPEAT) != SWR_AUTOREPEAT)) {
-			// Three levels of autorepeat acceleration: 2 Hz, 6 Hz
-			// and 30 Hz.
-			if (accelerate < 255) accelerate++;
-			if (accelerate > 30) autorepeat = 1;
-			else if (accelerate > 6) autorepeat = 5;
-			else autorepeat = 15;
-		}
-	} else {
-		// A new button that supports autorepeat has been pressed (reminder:
-		// switches are active low, hence the logic below), prepare for
-		// autorepeat. 45 = ~1.5 sec.
-		if (((_swleft & SWL_AUTOREPEAT) != SWL_AUTOREPEAT) ||
-		    ((_swright & SWR_AUTOREPEAT) != SWR_AUTOREPEAT)) {
-			// A switch with autorepeat enabled has been
-			// pressed. Arm for the first repeat event.
-			autorepeat = 45;
-		} else {
-			// All the auto-repeat switches have been
-			// released. Reset auto-repeat.
-			autorepeat = 0;
-			accelerate = 0;
-		}
-	}
+	// 	if (((_swleft & SWL_AUTOREPEAT) != SWL_AUTOREPEAT) ||
+	// 	    ((_swright & SWR_AUTOREPEAT) != SWR_AUTOREPEAT)) {
+	// 		// Three levels of autorepeat acceleration: 2 Hz, 6 Hz
+	// 		// and 30 Hz.
+	// 		if (accelerate < 255) accelerate++;
+	// 		if (accelerate > 30) autorepeat = 1;
+	// 		else if (accelerate > 6) autorepeat = 5;
+	// 		else autorepeat = 15;
+	// 	}
+	// } else {
+	// 	// A new button that supports autorepeat has been pressed (reminder:
+	// 	// switches are active low, hence the logic below), prepare for
+	// 	// autorepeat. 45 = ~1.5 sec.
+	// 	if (((_swleft & SWL_AUTOREPEAT) != SWL_AUTOREPEAT) ||
+	// 	    ((_swright & SWR_AUTOREPEAT) != SWR_AUTOREPEAT)) {
+	// 		// A switch with autorepeat enabled has been
+	// 		// pressed. Arm for the first repeat event.
+	// 		autorepeat = 45;
+	// 	} else {
+	// 		// All the auto-repeat switches have been
+	// 		// released. Reset auto-repeat.
+	// 		autorepeat = 0;
+	// 		accelerate = 0;
+	// 	}
+	// }
 
-	// Set the clock speed.
-	panel_spd((_swleft & (SWL_SLOW|SWL_FAST)) >> SWL_SPD_SHIFT);
+	// // Set the clock speed.
+	// panel_spd((_swleft & (SWL_SLOW|SWL_FAST)) >> SWL_SPD_SHIFT);
 
-	// The RAM switch is only acted on on reset (an edge action), and when
-	// the clock is halted (a level action or latch). Again, the decision
-	// is made in panel_rom().
-	panel_rom(_swright & SWR_ROM ? 1 : 0);
+	// // The RAM switch is only acted on on reset (an edge action), and when
+	// // the clock is halted (a level action or latch). Again, the decision
+	// // is made in panel_rom().
+	// panel_rom(_swright & SWR_ROM ? 1 : 0);
 
-	// Is the increment signal being asserted?
-	bool_t inc = actuated(_swright, SWR_INC) ? 1 : 0;
+	// // Is the increment signal being asserted?
+	// bool_t inc = actuated(_swright, SWR_INC) ? 1 : 0;
 
-	// Become insensitive to this switch configuration.
-	_swleft0 = _swleft;
-	_swright0 = _swright;
-	_sr0 = _sr;
+	// // Become insensitive to this switch configuration.
+	// _swleft0 = _swleft;
+	// _swright0 = _swright;
+	// _sr0 = _sr;
 
-	// Check switches. Act on just one per timer interrupt.
-	if (actuated(_swleft, SWL_RESET|SWL_RUN)) {
-		// Start (reset + run)
-		panel_start();
-	}
+	// // Check switches. Act on just one per timer interrupt.
+	// if (actuated(_swleft, SWL_RESET|SWL_RUN)) {
+	// 	// Start (reset + run)
+	// 	panel_start();
+	// }
 
-	else if (actuated(_swleft, SWL_RESET)) {
-		// Reset
-		panel_reset();
-	}
+	// else if (actuated(_swleft, SWL_RESET)) {
+	// 	// Reset
+	// 	panel_reset();
+	// }
 
-	else if (actuated(_swleft, SWL_STOP)) {
-		// Stop
-		panel_stop();
-	}
+	// else if (actuated(_swleft, SWL_STOP)) {
+	// 	// Stop
+	// 	panel_stop();
+	// }
 
-	else if (actuated(_swleft, SWL_RUN)) {
-		// Run
-		panel_run();
-	}
+	// else if (actuated(_swleft, SWL_RUN)) {
+	// 	// Run
+	// 	panel_run();
+	// }
 
-	else if (actuated(_swleft, SWL_STEP)) {
-		// Step
-		panel_step();
-	}
+	// else if (actuated(_swleft, SWL_STEP)) {
+	// 	// Step
+	// 	panel_step();
+	// }
 
-	else if (actuated(_swleft, SWL_USTEP)) {
-		// MicroStep
-		panel_ustep();
-	}
+	// else if (actuated(_swleft, SWL_USTEP)) {
+	// 	// MicroStep
+	// 	panel_ustep();
+	// }
 
-	else if (actuated(_swright, SWR_LDADDR)) {
-		// Load address (PC)
-		panel_ldaddr();
-	}
+	// else if (actuated(_swright, SWR_LDADDR)) {
+	// 	// Load address (PC)
+	// 	panel_ldaddr();
+	// }
 
-	else if (actuated(_swright, SWR_LDIR)) {
-		// Load instruction register
-		panel_ldir();
-	}
+	// else if (actuated(_swright, SWR_LDIR)) {
+	// 	// Load instruction register
+	// 	panel_ldir();
+	// }
 
-	else if (actuated(_swright, SWR_LDAC)) {
-		// Load AC
-		panel_ldac();
-	}
+	// else if (actuated(_swright, SWR_LDAC)) {
+	// 	// Load AC
+	// 	panel_ldac();
+	// }
 
-	else if (actuated(_swright, SWR_MEMW)) {
-		// Memory, write, inc?
-		panel_wmem(inc, _pc, _sr);
-	}
+	// else if (actuated(_swright, SWR_MEMW)) {
+	// 	// Memory, write, inc?
+	// 	panel_wmem(inc, _pc, _sr);
+	// }
 
-	else if (actuated(_swright, SWR_MEMR)) {
-		// Memory, read, inc?
-		panel_rmem(inc, _pc);
-	}
+	// else if (actuated(_swright, SWR_MEMR)) {
+	// 	// Memory, read, inc?
+	// 	panel_rmem(inc, _pc);
+	// }
 
-	else if (actuated(_swright, SWR_IOW)) {
-		// I/O, write, inc?
-		panel_wio(inc, _pc, _sr);
-	}
+	// else if (actuated(_swright, SWR_IOW)) {
+	// 	// I/O, write, inc?
+	// 	panel_wio(inc, _pc, _sr);
+	// }
 
-	else if (actuated(_swright, SWR_IOR)) {
-		// Memory, read, inc?
-		panel_rio(inc, _pc);
-	}
+	// else if (actuated(_swright, SWR_IOR)) {
+	// 	// Memory, read, inc?
+	// 	panel_rio(inc, _pc);
+	// }
 
-	else if (actuated(_swright, SWR_IFR1)) {
-		// Front panel interupt request, level 1
-		panel_ifr1();
-	}
+	// else if (actuated(_swright, SWR_IFR1)) {
+	// 	// Front panel interupt request, level 1
+	// 	panel_ifr1();
+	// }
 
-	else if (actuated(_swright, SWR_IFR6)) {
-		// Front panel interupt request, level 1
-		panel_ifr6();
-	}
+	// else if (actuated(_swright, SWR_IFR6)) {
+	// 	// Front panel interupt request, level 1
+	// 	panel_ifr6();
+	// }
+
 }
-#endif
 
 #endif	// CFTEMU
 

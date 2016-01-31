@@ -39,6 +39,11 @@
 #define PROGMEM
 #endif // HOST
 
+#ifdef CFTEMU
+#include <pthread.h>
+#include "iface.h"
+#endif // CFTEMU
+
 
 unsigned char buf[BUFSIZE];
 
@@ -338,7 +343,7 @@ static const char _optext[] PROGMEM =
 //       0  3  6  9  12 15 18 21 24 27 30 33 36 39 42 45 48  52 55 58 61 64 67
 
 static void
-_disassemble(uint16_t w)
+_disassemble(uint16_t w, uint8_t brief)
 {
 	uint8_t op = w >> 12;
 	uint8_t i = w & 0x800 ? 1 : 0;
@@ -346,12 +351,15 @@ _disassemble(uint16_t w)
 	uint8_t ofs = 0;
 	uint8_t pad = 9;
 	uint8_t len = 3;
+	uint8_t mem_access = 1;
+
 	switch (op) {
 	case 0:
 		len = 4;
 		break;
 	case 1:
 		ofs = OFS_IOT;
+		mem_access = 0;
 		break;
 	case 2:
 		ofs = OFS_LOAD;
@@ -364,9 +372,11 @@ _disassemble(uint16_t w)
 	case 4:
 		ofs = OFS_IN;
 		len = 2;
+		mem_access = 0;
 		break;
 	case 5:
 		ofs = OFS_OUT;
+		mem_access = 0;
 		break;
 	case 6:
 		ofs = OFS_JMP;
@@ -389,10 +399,13 @@ _disassemble(uint16_t w)
 		break;
 	case 12:
 		ofs = OFS_OP1;
+		mem_access = 0;
 		break;
 	case 13:
-		if (i == 0) ofs = OFS_OP2;
-		else {
+		if (i == 0) {
+			ofs = OFS_OP2;
+			mem_access = 0;
+		} else {
 			ofs = OFS_POP;
 			i = 0;
 		}
@@ -401,8 +414,10 @@ _disassemble(uint16_t w)
 		ofs = OFS_ISZ;
 		break;
 	case 15:
-		if (i == 0) ofs = OFS_LIA;
-		else {
+		if (i == 0) {
+			ofs = OFS_LIA;
+			mem_access = 0;
+		} else {
 			ofs = OFS_JMPII;
 			len = 5;
 			i = 0;
@@ -427,6 +442,19 @@ _disassemble(uint16_t w)
 	while (pad--) report_char(' ');
 	report_pstr(PSTR(" &"));
 	report_hex(w & 0x3ff, 3);
+	
+	if (brief) return;
+
+	// If it's a page-local memory access, show the actual address too.
+	if (mem_access) {
+		report_pstr(PSTR("\t; [&"));
+		report_hex((addr & 0xfc00) | (w & 0x3ff), 4);
+		report_pstr(PSTR("] &"));
+	} else {
+		report_pstr(PSTR("\t;         &"));
+	}
+	report_hex(w, 4);
+
 }
 
 #endif // DISASSEMBLE
@@ -462,7 +490,7 @@ _machine_state()
 
 #ifdef DISASSEMBLE
 	report_char(' ');
-	_disassemble(get_ir());
+	_disassemble(get_ir(), 1);
 #endif // DISASSEMBLE
 }
 
@@ -688,6 +716,7 @@ static void
 go_state()
 {
 	if (!assert_proc_present()) return;
+	virtual_panel_sample(0);
 	report_pstr(PSTR(STR_STATE));
 	_machine_state();
 	report_nl();
@@ -1492,9 +1521,7 @@ go_disassemble()
 		report_pstr(PSTR(":\t"));
 
 		// Disassemble code
-		_disassemble(w);
-		report_pstr(PSTR("\t; &"));
-		report_hex(w, 4);
+		_disassemble(w, 0);
 		report_nl();
 
 #ifdef HOST
@@ -1612,7 +1639,7 @@ say_sr()
 	report_uint(sr);
 #ifdef DISASSEMBLE
 	report_char(9);
-	_disassemble(sr);
+	_disassemble(sr, 1);
 #endif // DISASSEMBLE
 	report_nl();
 }
@@ -1797,6 +1824,15 @@ void proto_loop()
 			unsigned char c = read_next_char();
 			if (c) c = proto_input(c);
 #endif // HOST
+
+#ifdef CFTEMU
+			// The AVR sleeps for 35.56ms between samples, so we do
+			// the same. Note that this adds a maximum of 35.56ms
+			// between sending the DFP a command and it responding,
+			// though.
+			usleep(35560);
+			run_timer_interrupt();
+#endif // CFTEMU			
 		}
 
 		flags |= FL_BUSY;

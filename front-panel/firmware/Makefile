@@ -105,14 +105,14 @@ DEFS +=	-DDUMP_TEXT
 LIBS		=
 
 HFILES		=	dfp.h abstract.h hwcompat.h proto.h output.h input.h \
-			panel.h bus.h proto-cmds.h
+			panel.h bus.h buscmd.h proto-cmds.h
 CFILES		=	dfp.c driver_test.c driver_avr.c proto.c output.c input.c \
-			panel.c bus.c serial.c
+			panel.c bus.c buscmd.c serial.c
 #HFILES		=	serial.h hw.h proto.h utils.h
 #CFILES		=	dfp.c serial.c hw.c proto.c utils.c
 SOURCES		=	$(CFILES) $(HFILES)
 
-TESTS		=	test_$(PROG)
+#TESTS		=	test_$(PROG)
 
 CC		=	avr-gcc
 HOSTCC		=	gcc
@@ -143,7 +143,7 @@ SIMAVRFLAGS	+=	$(DEFINES) -g -Wall -std=gnu99 -O0 \
 
 .PHONY:		all dep download verify reset test fuses sim
 
-all: 		sim_$(PROG) test_$(PROG) $(PROG).elf lst text eeprom $(TESTS)
+all: 		sim_$(PROG) $(PROG).elf lst text eeprom $(TESTS)
 #all: 		test_$(PROG)
 
 dep .depends:   $(GENERATED)
@@ -154,7 +154,7 @@ $(PROG).elf:	$(SOURCES)
 #		@/bin/echo -e "\n\nASM\t$@"
 		-@$(CC) -S $(INCLUDES) $(CFLAGS) $(DEFINES) $(LDFLAGS) $(CFILES) $(LIBS) 2>/dev/null
 #		@/bin/echo -e "CC\t$@"
-		@$(CC) $(INCLUDES) $(CFLAGS) $(DEFINES) $(LDFLAGS) -o $@ $(CFILES) $(LIBS)
+		$(CC) $(INCLUDES) $(CFLAGS) $(DEFINES) $(LDFLAGS) -o $@ $(CFILES) $(LIBS)
 
 fuses:		.stamp-fuses
 
@@ -187,10 +187,10 @@ proto-cmds.h:	proto-cmds.h.in scripts/mkcmds.py
 # dependency:
 #$(PROG).o: $(SOURCES)
 
-test test_$(PROG):	$(SOURCES) $(HFILES)
-			@/bin/echo -e "\n\n***  Compiling Test Program  ***\n"
-			rm -f test_$(PROG)
-			$(HOSTCC) $(HOSTCFLAGS) -o test_$(PROG) $(CFILES)
+# test test_$(PROG):	$(SOURCES) $(HFILES)
+# 			@/bin/echo -e "\n\n***  Compiling Test Program  ***\n"
+# 			rm -f test_$(PROG)
+# 			$(HOSTCC) $(HOSTCFLAGS) -o test_$(PROG) $(CFILES)
 
 sim_$(PROG):		$(SIMCFILES) $(SIMHFILES)
 			@/bin/echo -e "\n\n***  Compiling SimAVR Harness  ***\n"

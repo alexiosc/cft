@@ -20,6 +20,21 @@
 #define ICR_TTY  8
 
 extern uint16_t icr;
+extern uint8_t ifr6_operated;
+extern uint8_t cb[3];
+extern uint8_t defercb;
+
+#define defer_cb_write() defercb++
+
+// Ring buffer size in bits (we do not use modulo)
+#define RBSIZE_BITS 4
+#define RBMASK ((1 << RBSIZE_BITS) - 1)
+typedef struct {
+	uint8_t ip, op;
+	uint8_t b[(1 << RBSIZE_BITS)];
+} ringbuf_t;
+
+extern ringbuf_t ringbuf;
 
 #define ISR_IRQ6 1
 #define ISR_IRQ1 2
@@ -39,6 +54,7 @@ void serial_write(unsigned char c);
 void deb_sample(bool_t quick);
 uint16_t get_ab();		// Address bus
 uint16_t get_db();		// Data bus
+void set_db(uint16_t);		// Data bus
 uint16_t get_dsr();		// DIP switch reg (12 bits)
 void set_sr(const uint16_t sr);
 uint16_t get_sr();		// Switch reg
@@ -54,7 +70,7 @@ void virtual_panel_sample(bool_t quick); // Read the machine state
 #define CFL_FL       0x10
 #define CFL_NWAIT    0x20
 #define CFL_NWEN     0x40
-#define CFL_NR       0x80
+#define CFL_NR       0x80	// The R# signal is here too
 
 #define get_flags get_misc
 uint8_t get_misc();		// flags, card select signals
@@ -122,6 +138,8 @@ void wait_for_halt(bool_t reckless);
 // CFT-side I/O
 void queue_char(uint8_t c);
 uint16_t maybe_dequeue_char();
+
+void run_buscmd_interrupt();
 
 #endif // __ABSTRACT_H__
 

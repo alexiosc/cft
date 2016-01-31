@@ -17,7 +17,6 @@
 
 //bus_state_t bus_state;
 
-static uint16_t _hi = 0;
 #ifdef AVR
 extern uint8_t _defercb;
 #endif // AVR
@@ -62,7 +61,7 @@ assert_halted()
 		// be stopped already, so no need to wait for a full
 		// halt. We're just tristating the control lines.
 #ifdef AVR
-		_defercb = 0;	// Force NHALT#.
+		defercb = 0;	// Force NHALT#.
 #endif // AVR
 		set_halt(1);
 	}
@@ -327,142 +326,5 @@ set_reg(uint8_t reg, uint16_t value)
 	return 1;
 }
 
-
-// void
-// buscmd_enef(uint16_t val)
-// {
-// 	report_pstr(PSTR(STR_NIMPL));
-// }
-
-
-// void
-// buscmd_disef(uint16_t val)
-// {
-// 	report_pstr(PSTR(STR_NIMPL));
-// }
-
-
-// void
-// buscmd_qef()
-// {
-// 	report_pstr(PSTR(STR_NIMPL));
-// }
-
-
-void
-buscmd_print(char op, uint16_t val)
-{
-	// If this is an unprintable character and we're not on the
-	// console, print it as a decimal ('c' opcode).
-	if (op == 'C' && ((flags & FL_CONS) == 0) && (val < 33 || val > 127)) {
-		op = 'c';
-	}
-
-	say_break();
-	if ((flags & FL_CONS) == 0) {
-		report_pstr(PSTR(STR_DEBPRN));
-		report_char(op);
-		report_char(32);
-	}
-
-	switch (op) {
-	case 'A':
-	case 'H':
-		report_hex(val, 4);
-		break;
-	case 'B':
-		report_bin(val);
-		break;
-	case 'C':
-		report_char(val & 255);
-		break;
-	case 'c':
-	case 'D':
-		report_int(val);
-		break;
-	case 'U':
-		report_uint(val);
-		break;
-	case 'L':
-		report_hex(_hi, 4);
-		report_hex(val, 4);
-		break;
-	}
-
-	if (flags & FL_CONS) return;
-	report_nl();
-	proto_prompt();
-}
-
-
-void
-buscmd_debugon()
-{
-	report_pstr(PSTR(STR_NIMPL));
-}
-
-
-void
-buscmd_debugoff()
-{
-	report_pstr(PSTR(STR_NIMPL));
-}
-
-
-void
-buscmd_dump()
-{
-	report_pstr(PSTR(STR_NIMPL));
-}
-
-
-void
-buscmd_printhi(uint16_t val)
-{
-	_hi = val;
-}
-
-
-void
-buscmd_success()
-{
-	say_break();
-	if (flags & FL_CONS) report_pstr_in_console(PSTR("[ok]"));
-	else report_pstr(PSTR(STR_SUCCESS));
-	proto_prompt();
-}
-
-
-void
-buscmd_halt()
-{
-	say_break();
-	if (flags & FL_CONS) report_pstr_in_console(PSTR("[halt]"));
-	//else report_pstr(PSTR(STR_AHALTED));
-	proto_prompt();
-	go_stop();
-}
-
-
-void
-buscmd_fail()
-{
-	say_break();
-	if (flags & FL_CONS) report_pstr_in_console(PSTR("[fail]"));
-	else report_pstr(PSTR(STR_FAIL));
-	proto_prompt();
-	if (flags & FL_HOF) go_stop();
-}
-
-
-void
-buscmd_sentinel()
-{
-	say_break();
-	if (flags & FL_CONS) report_pstr_in_console(PSTR("[sentinel]"));
-	else report_pstr(PSTR(STR_DEBSENT));
-	proto_prompt();
-	if (flags & FL_HOS) go_stop();
-}
 
 // End of file.
