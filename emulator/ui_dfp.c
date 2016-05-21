@@ -83,10 +83,10 @@ void
 ui_tab_dfp_focus()
 {
 	v.fb = &v.fb_menu;
-
 	_mcr0 = v.fb_menu.mcr0;
 	//v.fb_menu.mcr0 = MCR0_80x60;
 
+	ui_cursor(1);
 	ui_cls(color(0, 0));
 	ui_gotoxy(0, 0);
 	dfp_term->dirty++;

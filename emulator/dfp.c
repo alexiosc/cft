@@ -22,6 +22,7 @@ Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <termios.h>
 #include <unistd.h>
 #include <fcntl.h>
 #include <errno.h>
@@ -141,6 +142,29 @@ dfp_out(const char * fmt, ...)
 }
 
 
+static void
+dfp_putc(const char c)
+{
+	char buf[2];
+	buf[0] = c;
+	buf[1] = '\0';
+
+	if (fwrite(buf, 1, 1, log_file) != 1) {
+		warning("Unable to write to DEB card log file %s: %s\n",
+			log_name, strerror(errno));
+	}
+	if (debugfd >= 0 && write(debugfd, buf, 1) != 1) {
+		warning("Unable to write to DEB card pseudo-TTY %s: %s\n",
+			pts, strerror(errno));
+	}
+	if (dfp_term) {
+		//int oldattr = uterm_setattr(dfp_term, 63);
+		uterm_write(dfp_term, buf);
+		//uterm_setattr(dfp_term, oldattr);
+	}
+}
+
+
 void dfp_firmware_init(); // Forward definition
 
 void
@@ -166,7 +190,16 @@ dfp_init()
 		if (unlockpt(debugfd)) {
 			fail("Failed to unlock pseudo-tty %s: %s", pts, strerror(errno));
 		}
+		// Make it non-blocking.
+		int flags = fcntl(debugfd, F_GETFL, 0);
+		fcntl(debugfd, F_SETFL, flags | O_NONBLOCK);
 
+		struct termios options;
+		tcgetattr(debugfd, &options);
+		cfmakeraw(&options);
+		tcsetattr(debugfd, TCSANOW, &options);
+
+		// And store the PTS name to dfp_pts so others can read it.
 		int fd = open("dfp_pts", O_WRONLY | O_CREAT, 0644);
 		if (fd < 0) {
 			fail("Failed to create dfp_pts: %s", strerror(errno));
@@ -216,20 +249,35 @@ dfp_tick(int tick)
 		reset_system();
 	}
 
-	// if (dfp_cb.request_halt) {
-	// 	dfp_cb.request_halt = 0;
-	// 	cpu.halt = 1;
-	// 	printf("\n\n\n");
-	// 	dump_state();
-	// 	dump_ustate();
-	// 	info("*** HALTING ***\n");
-	// }
+	if (dfp_cb.request_halt) {
+		dfp_cb.request_halt = 0;
+		cpu.halt = 1;
+		printf("\n\n\n");
+		dump_state();
+		dump_ustate();
+		info("*** HALTING ***\n");
+	}
 
-	// if (dfp_cb.request_run) {
-	// 	dfp_cb.request_run = 0;
-	// 	cpu.halt = 0;
-	// 	info("*** RUNNING ***\n");
-	// }
+	if (dfp_cb.request_run) {
+		dfp_cb.request_run = 0;
+		cpu.halt = 0;
+		info("*** RUNNING ***\n");
+	}
+
+	// Any input from the debug PTS?
+	if (debugfd >= 0) {
+		char buf[33];
+		memset(buf, 0, sizeof(buf));
+		int n = read(debugfd, buf, sizeof(buf)-1);
+		if (n > 0) {
+			//info("*** READ %d bytes from pts (%s)\n", n, buf);
+			for (int i = 0; i < n; i++) {
+				if (buf[i] == 13) continue;
+				//info("    %d. %d\n", i, buf[i]);
+				dfp_queue_char(buf[i]);
+			}
+		}
+	}
 
 	// Process coommands etc. to the DFP.
 
@@ -563,12 +611,8 @@ dfp_cb_putc(unsigned char c)
 	// the newline character is sent *after* the firmware responds to a
 	// command, splitting the response in two.
 	pthread_mutex_lock(&dfp_cb.tx_lock);
-	dfp_out("%c", c);
+	dfp_putc(c);
 	pthread_mutex_unlock(&dfp_cb.tx_lock);
 }
-
-
-
-
 
 /* End of file. */

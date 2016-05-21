@@ -412,8 +412,9 @@ uterm_putc_again:
 
 	if (ut->state == 0) {
 		switch(c) {
-		case '\n':
 		case '\r':
+			break;
+		case '\n':
 			if (!ut->wrapped) uterm_nl(ut);
 			ut->wrapped = 0;
 			break;
