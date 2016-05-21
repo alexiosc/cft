@@ -45,7 +45,7 @@ class Communication(Base):
     """Implement serial communications and methods to facilitate the
     lowest level of communications with the DFP."""
 
-    REGEXP_PROMPT = '^.*?>\s*'
+    REGEXP_PROMPT = '^(\[halted\] [0-9a-fA-F]{4}|\[running\])> '
 
     def __init__(self, port, rate, timeout=5, slow=False, debug_io=False):
         Base.__init__(self)
@@ -55,6 +55,7 @@ class Communication(Base):
         self.timeout = timeout
         self.slow = slow
         self.debug_io = debug_io
+        self.at_prompt = False
 
         try:
             self.ser = serial.Serial(self.port, self.rate, timeout=self.timeout)
@@ -94,8 +95,16 @@ class Communication(Base):
                 line = re.sub('\033\[.+?m', '', line)
                 if len(line) == 0:
                     raise TimeoutException("Timeout waiting for results.")
+
+                if re.match('^(\[halted\] [0-9a-fA-F]{4}|\[running\])> ', line):
+                    self.at_prompt = True
+                    #self.debug("*** AT PROMPT ***")
+                else:
+                    self.at_prompt = False
+
                 if strip_vt100:
                     line = strip_escapes(line)
+
                 if self.debug_io:
                     if until is not None:
                         sys.stderr.write('\033[0;1;32mIN:  (until %s) "%s"\033[0m\n' %
@@ -103,12 +112,11 @@ class Communication(Base):
                     else:
                         sys.stderr.write('\033[0;1;32mIN:  "%s"\033[0m\n' %
                                          visible_escapes(line.rstrip()))
+
                 if line:
-                    x = re.match(self.REGEXP_PROMPT, line)
-                    if x:
-                        # Found a prompt.
-                        if until is None:
-                            return
+                    # Found a prompt.
+                    if self.at_prompt and until is None:
+                        return
                     datum = self.grok_result(line.strip().replace('\r', ''))
                     # if self.debug:
                     #     sys.stderr.write(str(datum) + '\n')
@@ -133,36 +141,43 @@ class Communication(Base):
         case) and disable echo and terminal mode.
         """
         # Drain all input
-        try:
-            print("Draining...")
-            while True:
-                self.expect(None, update_state=False)
-        except TimeoutException:
-            # Nothing left in the input buffer. That's good.
-            pass
+        # try:
+        #     self.send('\n')
+        #     print("Draining...")
+        #     while True:
+        #         self.expect(None, update_state=False)
+        # except TimeoutException:
+        #     # Nothing left in the input buffer. That's good.
+        #     pass
+        # sys.exit(0)
 
         for i in range(3):
-            print("Initiating...")
+            if self.debug:
+                print("Initiating...")
             try:
                 self.send('\036')
                 res = self.expect(299)
-                print(res)
                 if res[-1]['result'] == 299:
-                    print("DONE")
                     return
             except TimeoutException:
                 continue
 
 
-    def get_prompt(self, initiate_on_fail=True):
+    def get_prompt(self, abort_previous=True, initiate_on_fail=True):
         """Ensure we're at a prompt.
         """
-        print("GET PROMPT")
         for i in range(3):
+            if self.at_prompt:
+                #print("*** AT PROMPT ***")
+                return
+
             try:
-                self.send('\003')
+                if abort_previous:
+                    self.send('\003')
+                else:
+                    self.send('\n')
                 res = self.expect(None, strip_vt100=True)
-                print(res)
+                #print(res)
                 return
             except TimeoutException:
                 continue
@@ -202,7 +217,7 @@ class Communication(Base):
                     self.send(cmd + ' ' + str(arg) + '\n')
                 else:
                     self.send(cmd + '\n')
-                
+
                 return self.expect(until, strip_vt100=True)
 
             except TimeoutException:

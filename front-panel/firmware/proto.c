@@ -249,7 +249,9 @@ void
 go_stop(){
 	if (flags & FL_HALT) {
 		set_halt(1);
-		report_pstr(PSTR(STR_ALRHALT));
+		if (flags & FL_MESG) {
+			report_pstr(PSTR(STR_ALRHALT));
+		}
 		return;
 	}
 	flags |= FL_BUSY;
@@ -282,7 +284,14 @@ go_stop(){
 	if (flags & FL_PROC) addr = get_pc();
 
 	// Done.
-	report_pstr(PSTR(STR_AHALTED));
+	if (flags & FL_MESG) {
+		//say_break();
+		report_pstr(PSTR(STR_AHALTED));
+		if (flags & FL_ASYNC) {
+			style_normal();
+			proto_prompt();
+		}
+	}
 }
 
 void
@@ -1552,10 +1561,10 @@ go_dump_bin()
 
 	report_pstr(PSTR(STR_DUMP));
 	flags |= FL_BUSY;
-	for (i = 0; i < count; i += 8, addr += 8) {
+	for (i = 0; i < count; ) {
 		wdt_reset();
-		if (!perform_block_read(addr, 8, buf)) break;
-		for (j = 0; j < 8; j++) {
+		if (!perform_block_read(addr + i, 8, buf)) break;
+		for (j = 0; i < count && j < 8; i++, j++) {
 			report_char(buf[j] & 0xff);
 			report_char((buf[j] >> 8) & 0xff);
 			sum += buf[j];
@@ -1574,6 +1583,7 @@ go_dump_bin()
 		}
 #endif // AVR
 	}
+	addr += count;
 
 	done();
 	report_hex_value(PSTR(STR_CKSUM), sum, 4);
@@ -1758,7 +1768,7 @@ say_help()
 #endif
 }
 	
-	
+
 void
 say_break()
 {

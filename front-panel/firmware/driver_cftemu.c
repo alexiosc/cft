@@ -84,7 +84,7 @@ void serial_init()
 
 void serial_send(unsigned char c)
 {
-	if (c == '\r') return;
+	//if (c == '\r') return;
 	(*dfp_cb.putc)(c);
 }
 
@@ -278,7 +278,14 @@ panel_ifr6()
 uint8_t
 assert_halted()
 {
-	return 1;		// Fake it.
+	// Ensure it's stopped.
+	if ((flags & FL_HALT) == 0) {
+		report_pstr(PSTR(STR_RUNNING));
+		flags |= FL_ERROR;
+		return 0;
+	}
+
+	return 1;
 }
 
 
@@ -345,6 +352,8 @@ perform_write(uint8_t space, uint16_t addr, uint16_t word)
 		(*dfp_cb.unit_io)(0, 1);
 	}
 	pthread_mutex_unlock(&dfp_cb.lock);
+
+	return 1;
 }
 
 uint8_t
@@ -950,15 +959,12 @@ write_cb()
 void
 wait_for_halt(bool_t reckless)
 {
-	printf("%s: NOT IMPLEMENTED\n", __FUNCTION__);
-
 	// This will obviously lock up the MCU if the HALT condition isn't
 	// seen. We want this.
 	flags |= FL_BUSY | FL_STOPPING;
 
-	// When we have no CPU, go through the motions but don't fail because
-	// the state machine will never get tot he STOP state.
-	if ((flags & FL_PROC) == 0) return;
+	// Pretend.
+	usleep(250000);
 
 	// Set the FL_HALT flag first because assert_halted() checks
 	// that before proceeding to proper tests.
@@ -1165,12 +1171,15 @@ void
 set_halt(bool_t val)
 {
 	static int val0 = 42;
+	//printf("*** SET_HALT(%d) CALLED (val0=%d) ***\n", val, val0);
 
 	if (val0 != val) {
 		if (val) {
+			//printf("*** HALTING %d ***\n", val);
 			//pthread_mutex_lock(&dfp_cb.lock);
 			dfp_cb.request_halt++;
 		} else {
+			//printf("*** RUNNING %d ***\n", val);
 			//pthread_mutex_lock(&dfp_cb.lock);
 			dfp_cb.request_run++;
 		}

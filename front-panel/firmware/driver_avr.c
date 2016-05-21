@@ -175,7 +175,7 @@ outcmd(uint8_t addr, uint8_t val)
 	// Interlock: never allow VPEN and DEBEN to be asserted
 	// simultaneously. If one is asserted, deassert the
 	// other. Note: these are inverted, so 1 = asserted, 0 =
-	// deassrted.
+	// deasserted.
 	if (val) {
 		if (addr == CMD_VPEN) outcmd(CMD_DEBEN, 0);
 		else if (addr == CMD_DEBEN) outcmd(CMD_VPEN, 0);

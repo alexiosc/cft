@@ -13,7 +13,7 @@ static const struct {
 	{"buf",     say_bufsize, "-- Show size of command buffer"},
 	{"term",    gs_term,     "[ BOOL ] -- Get/set terminal bells & whistles."},
 	{"echo",    gs_echo,     "[ BOOL ] -- Get/set local echo."},
-	{"mesg",    gs_mesg,     "[ BOOL ] -- Get/set asyc messages."},
+	{"mesg",    gs_mesg,     "[ BOOL ] -- Get/set async messages."},
 
 	{"s",       go_state,    "-- Current CFT/DEB status"},
        	{"us",      go_ustate,   "-- Microcode control state"},

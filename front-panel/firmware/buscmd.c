@@ -44,6 +44,9 @@ static uint16_t features = 0;
 void
 buscmd_print(char op, uint16_t val)
 {
+	// Do nothing if MESG is off.
+	if ((flags & FL_MESG) == 0) return;
+
 	// If this is an unprintable character and we're not on the
 	// console, print it as a decimal ('c' opcode).
 	if (op == 'C' && ((flags & FL_CONS) == 0) && (val < 33 || val > 127)) {
@@ -90,6 +93,7 @@ buscmd_print(char op, uint16_t val)
 void
 buscmd_debugon()
 {
+	if ((flags & FL_MESG) == 0) return;
 	report_pstr(PSTR(STR_NIMPL));
 }
 
@@ -97,6 +101,7 @@ buscmd_debugon()
 void
 buscmd_debugoff()
 {
+	if ((flags & FL_MESG) == 0) return;
 	report_pstr(PSTR(STR_NIMPL));
 }
 
@@ -104,6 +109,7 @@ buscmd_debugoff()
 void
 buscmd_dump()
 {
+	if ((flags & FL_MESG) == 0) return;
 	report_pstr(PSTR(STR_NIMPL));
 }
 
@@ -118,6 +124,7 @@ buscmd_printhi(uint16_t val)
 void
 buscmd_success()
 {
+	if ((flags & FL_MESG) == 0) return;
 	say_break();
 	if (flags & FL_CONS) report_pstr_in_console(PSTR("[ok]"));
 	else report_pstr(PSTR(STR_SUCCESS));
@@ -139,10 +146,12 @@ buscmd_halt()
 void
 buscmd_fail()
 {
-	say_break();
-	if (flags & FL_CONS) report_pstr_in_console(PSTR("[fail]"));
-	else report_pstr(PSTR(STR_FAIL));
-	proto_prompt();
+	if (flags & FL_MESG) {
+		say_break();
+		if (flags & FL_CONS) report_pstr_in_console(PSTR("[fail]"));
+		else report_pstr(PSTR(STR_FAIL));
+		proto_prompt();
+	}
 	if (flags & FL_HOF) go_stop();
 }
 
@@ -150,10 +159,12 @@ buscmd_fail()
 void
 buscmd_sentinel()
 {
-	say_break();
-	if (flags & FL_CONS) report_pstr_in_console(PSTR("[sentinel]"));
-	else report_pstr(PSTR(STR_DEBSENT));
-	proto_prompt();
+	if (flags & FL_MESG) {
+		say_break();
+		if (flags & FL_CONS) report_pstr_in_console(PSTR("[sentinel]"));
+		else report_pstr(PSTR(STR_DEBSENT));
+		proto_prompt();
+	}
 	if (flags & FL_HOS) go_stop();
 }
 

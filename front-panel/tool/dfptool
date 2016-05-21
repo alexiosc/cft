@@ -1,4 +1,4 @@
-#!/usr/bin/python3.2
+#!/usr/bin/python3
 # -*- python -*-
 # 
 # dfptool - Control the CFT's DFP device over USB serial
@@ -27,6 +27,7 @@ import optparse
 import array
 import time
 import codecs
+import array
 import dfp
 
 
@@ -63,9 +64,16 @@ class DFP(dfp.Communication):
     # Params we keep track of
     STR_PARAMS = ['have_processor', 'echo', 'version', 'async', 'lock', 'hof', 'hos']
     HEX_PARAMS = ['bufsize', 'address', 'output_register', 'switch_register',
-                  'left_switches', 'right_switches', 'dip_switches']
+                  'left_switches', 'right_switches', 'dip_switches', 'checksum']
     PARAMS = STR_PARAMS + HEX_PARAMS
 
+    # Commands
+    CMD_INFO_VERSION = "ver"
+    CMD_INFO_BUFSIZE = "buf"
+    CMD_INFO_START = "a"
+
+    CMD_ADDR = "a"
+    CMD_DUMP = "db"
     
     def __init__(self, port, rate, timeout=5, slow=False, debug=False, debug_io=False):
         dfp.Communication.__init__(self, port, rate,
@@ -89,9 +97,15 @@ class DFP(dfp.Communication):
         # Initialise the device.
         self.initiate()
         self.ping()
+
         #self.get_features()
-        self.get_full_status()
+        #self.get_full_status()
         #self.output_bin()
+
+        self.dump(0xc000, 1000)
+        self.get_address()
+        self.print_state()
+        assert (self.address == 0xc000 + 1000)
 
         # x = 0
         # while True:
@@ -245,13 +259,20 @@ class DFP(dfp.Communication):
         self.switch_register = self._parseBin(data[1])
         self.right_switches = self._parseBin(data[2])
         self.dip_switches = self._parseBin(data[3]) << 8 | self._parseBin(data[4])
-        print(data)
+        #print(data)
+
+
+    def _parse303(self, r):
+        """Parse Checksum."""
+        self.checksum = self._parseHex(r)
 
 
     def print_state(self):
         """Print out the current state of the DFP."""
         for param in [] + self.PARAMS:
-            print("%-20s %s" % (param + ':', getattr(self, param)))
+            val = getattr(self, param)
+            if val is not None:
+                print("%-20s %s" % (param + ':', val))
 
 
     ###############################################################################
@@ -261,7 +282,7 @@ class DFP(dfp.Communication):
         """Detect available optional features.
         """
         if not self.version:
-            self.cmd(self.CMD_INFO_VERSION)
+            self.cmd(self.CMD_INFO_VERSION, get_prompt=True)
         self.feature_text = "+t" in self.version
         
             
@@ -271,12 +292,9 @@ class DFP(dfp.Communication):
         """
         self.cmd('dfps', until=251, retry=3)
         self.cmd('lock', until=215, retry=3)
-        self.cmd('?')
-        # self.cmd(self.CMD_INFO_BUFSIZE)
-        # self.cmd(self.CMD_INFO_START)
-        # self.cmd(self.CMD_INFO_COUNT)
-        # if self.feature_text:
-        #     self.cmd(self.CMD_SET_OUT_BIN)
+
+        self.cmd(self.CMD_INFO_BUFSIZE)
+        self.cmd(self.CMD_INFO_START)
 
         
     def cmd2(self, cmd, arg1, arg2, until=RES_READY):
@@ -327,6 +345,12 @@ class DFP(dfp.Communication):
         return datum
 
 
+    def get_address(self):
+        """Query the current address.
+        """
+        self.cmd('a', until=203)
+
+        
     def output_bin(self):
         """Set output mode to binary."""
         if self.feature_text:
@@ -339,34 +363,38 @@ class DFP(dfp.Communication):
             self.cmd(self.CMD_SET_OUT_TEXT)
     
 
-    def set_start(self, addr):
+    def set_addr(self, addr):
         """Set starting address for chip I/O."""
-        self.cmd(self.CMD_SET_START, bare_hex(addr))
+        self.cmd(self.CMD_ADDR, bare_hex(addr))
 
 
-    def set_count(self, count):
-        """Set byte count for chip I/O."""
-        self.cmd(self.CMD_SET_COUNT, bare_hex(count))
+    def dump(self, start, count, check=True):
+        """Dump data from memory."""
+        assert start >= 0 and start <= 0xffff
+        assert count > 0 and count <= 0xffff
+
+        self.set_addr(start)
+        self.cmd(self.CMD_DUMP, bare_hex(count), until=300)
+
+        data = self.ser.read(count * 2)
 
 
-    def dump(self, start=None, count=None, check=True):
-        """Dump data from the ROM. If the start address and/or byte count are
-        omitted, the last used values (perhaps the FlashProg hardware
-        defaults) will be used instead."""
-        if start is not None:
-            self.set_start(start)
-        if count is not None:
-            self.set_count(count)
-        self.cmd(self.CMD_DUMP, until=self.RES_WORKING)
+        # Wait for Done, and then for Checksum.
+        res = self.expect(301)
+        res = self.expect(303)
 
-        data = self.ser.read(int(self.count))
-        x = self.read_response()
-
+        a = array.array('h')
+        a.fromstring(data)
+        if sys.byteorder != 'little':
+            self.info("swab()")
+            a.byteswap()
+        # Calculate a naive 16-bit checksum
+        checksum = sum(x & 0xffff for x in a) & 0xffff
         if check:
-            if sum(ord(x) for x in data) != self.checksum:
-                raise ChecksumError()
+            if checksum != self.checksum:
+                raise dfp.ChecksumError("We got %04x, DFP said %04x" % (checksum, self.checksum))
             
-        return data
+        return tuple(a)
 
 
     def dumptext(self, start=None, count=None):
@@ -393,7 +421,7 @@ class DFP(dfp.Communication):
 if __name__ == '__main__':
     p = optparse.OptionParser()
     p.add_option('-i', '--info', action='store_true',
-                 help='Initialise the Flash Programmer and get as much information as possible from it.')
+                 help='Initialise the DFP and get as much information as possible from it.')
     # p.add_option('-r', '--read', action='store_true',
     #              help='Read a ROM image. Specify --start and --length.')
     # p.add_option('-w', '--write', action='store_true',
