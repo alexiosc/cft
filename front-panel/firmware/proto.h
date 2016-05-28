@@ -144,7 +144,6 @@
 #define STR_OUT1    "357 OUT Address: "
 #define STR_OUT2    " Value: "
 #define STR_IFR1    "358 IRQ1 signaled\n"
-#define STR_IFR1    "358 IRQ1 signaled\n"
 #define STR_IFR6    "359 IRQ6 signaled\n"
 
 #define STR_IFR1M   "458 IRQ1 masked by CFT\n"

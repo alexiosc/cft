@@ -1856,20 +1856,19 @@ void proto_loop()
 		//report_pstr(PSTR("BUSY...\n"));
 		buf[buflen]=0;
 
-		if (!buflen) {
-			report_pstr(PSTR(STR_READY));
-			goto done;
-		}
-
-		// All valid commands are between 1 and 4 characters long.
-		if (buflen < 1) goto unknown_command;
-
 		if(flags & FL_ERROR) {
 			goto error;
 		}
 
 		int i;
 		char *s = get_arg();
+		if (s == NULL) {
+			buflen = 0;
+		}
+		if (!buflen) {
+			report_pstr(PSTR(STR_READY));
+			goto done;
+		}
 
 #ifdef AVR
 		for(i=0; (uint16_t) pgm_read_word(&(cmds[i].handler)) != -1; i++) {
