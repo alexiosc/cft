@@ -1737,7 +1737,7 @@ say_help()
 	int maxc = 0, maxd = 0;
 #endif // HOST
 	
-	report_pstr(PSTR("\n201 Available commands:"));
+	report_pstr(PSTR("201 Available commands:"));
 #ifdef AVR
 	for(i=0; (uint16_t) pgm_read_word(&(cmds[i].handler)) != -1; i++) {
 #else

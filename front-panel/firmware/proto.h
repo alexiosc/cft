@@ -40,7 +40,7 @@
 #define BANNER1 "201 Version: " VERSION "\n"
 #endif // DUMP_TEXT
 
-#define BANNER2 "202 (c) 2012 Alexios Chouchoulas <alexios@bedroomlan.org>\n"
+#define BANNER2 "202 (c) 2012-2016 Alexios Chouchoulas <alexios@bedroomlan.org>\n"
 #define BANNER3 "202 Licensed under the GNU Public License v.2.\n"
 #define BANNER4 "202 http://www.bedroomlan.org/cft\n202 All values base 16 unless otherwise noted.\n"
 
@@ -129,7 +129,7 @@
 #define STR_FPRAM   "333 ROM/RAM# switch: "
 #define STR_FPRAM0       "RAM\n"
 #define STR_FPRAM1       "ROM\n"
-#define STR_SWTEST  "334 Operate toggles/DIP switches. Ctrl-C end.\n"
+#define STR_SWTEST  "334 Operate toggles/DIP switches. Ctrl-C ends.\n"
 
 #define STR_DEBPRN  "340 PRINT"
 #define STR_DEBSENT "341 SENTINEL\n"

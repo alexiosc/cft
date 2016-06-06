@@ -374,6 +374,8 @@ set_reg(uint8_t reg, uint16_t value)
 		break;
 	case REG_AC:
 		*(dfp_cb).ac = value;
+		*(dfp_cb).z = value == 0;
+		*(dfp_cb).n = value & 0x8000 ? 1 : 0;
 		break;
 	case REG_PCAR:
 		// Purposefully falling through
@@ -794,8 +796,7 @@ virtual_panel_sample(bool_t quick)
 inline uint8_t
 get_misc()
 {
-	printf("%s: NOT IMPLEMENTED\n", __FUNCTION__);
-	return 0;
+	return _flags;
 }
 
 
