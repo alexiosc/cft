@@ -313,6 +313,9 @@ next:           RADD1(TMP15, d0)	; Step by &1000
 		JMP loop
 
 done:
+		SUCCESS
+		JMP @
+		JMP done
 		HALT
 		
 .endscope
@@ -861,6 +864,12 @@ loop:		LOAD TMP12
 done:		
 		PRINTH
 		PRINTNL
+
+		INC
+		JMP @-1
+		JMP @-2
+		JMP @-3
+		HALT
 		return_ac(TMP14)
 		
 .endscope		
