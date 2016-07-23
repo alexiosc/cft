@@ -233,7 +233,13 @@ sdl_init()
 	}
 	
 	/* Set the window manager title bar */
-	SDL_WM_SetCaption("CFT emulator", "cftemu");
+	extern int dfp_testmode;
+	if (dfp_testmode) {
+		SDL_WM_SetCaption("CFT emulator (test mode)", "cftemuTest");
+		SDL_WM_IconifyWindow();
+	} else {
+		SDL_WM_SetCaption("CFT emulator", "cftemu");
+	}
 	
 	/* Set the keyboard state */
 	SDL_EnableKeyRepeat(SDL_DEFAULT_REPEAT_DELAY, SDL_DEFAULT_REPEAT_INTERVAL);

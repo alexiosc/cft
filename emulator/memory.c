@@ -185,10 +185,10 @@ memory_fill_sentinel()
 static inline void
 memory_load_rom()
 {
-	if (mach.romsize == 0) {
-		meminfo2("This machine type has no ROM.\n");
-		return;
-	}
+	// if (mach.romsize == 0) {
+	// 	meminfo2("This machine type has no ROM.\n");
+	// 	return;
+	// }
 
 	// Check the size of the image.
 	struct stat st;
@@ -196,12 +196,12 @@ memory_load_rom()
 		fail("Unable to stat ROM image '%s': %m\n", memimg_name);
 	}
 	
-	if (st.st_size != mach.romsize * sizeof(word)) {
-		fail("Memory image should be %u kWords (%lu bytes), was %lu bytes\n",
-		     mach.romsize >> 10,
-		     mach.romsize * sizeof(word),
-		     st.st_size);
-	}
+	// if (st.st_size != mach.romsize * sizeof(word)) {
+	// 	fail("Memory image should be %u kWords (%lu bytes), was %lu bytes\n",
+	// 	     mach.romsize >> 10,
+	// 	     mach.romsize * sizeof(word),
+	// 	     st.st_size);
+	// }
 	
 	/* We'll be loading the ROM one bank at a time, so we can
 	 * resolve memory references. */
@@ -214,21 +214,35 @@ memory_load_rom()
 		 * less than 0x100000, it's probably a logical
 		 * address. */
 		
-		if (ofs < 0x100000) {
-			buf = l2ptr(ofs);
-			ofs = mbu_l2p(ofs);
-		} else {
-			buf = &cpu.rom[ofs & 0xfffff];
-			ofs = 0x100000 + (buf - cpu.rom);
-		}
+		// if (ofs < 0x100000) {
+		// 	buf = l2ptr(ofs);
+		// 	ofs = mbu_l2p(ofs);
+		// } else {
+		// 	buf = &cpu.rom[ofs & 0xfffff];
+		// 	ofs = 0x100000 + (buf - cpu.rom);
+		// }
+		buf = l2ptr(ofs);
+		//ofs = mbu_l2p(ofs);
 		
 		// Sanity checks
 		if (fread(buf, BANKSIZE * sizeof(word), 1, memimg_file) != 1) {
 			fail("Short read from ROM image file %s: %m\n", memimg_name);
 		}
 
-		meminfo2("ROM: loaded %d words at ofs=%x -> %02x:%04x\n",
-			 BANKSIZE, ofs, GET_AEXT(ofs), GET_AOFS(ofs));
+		if(0)
+		{
+			int i,j;
+			for (i = 0; i < BANKSIZE; i+=32) {
+				for (j = 0; j < 31; j++) {
+					printf("%04x ", buf[i+j]);
+				}
+				printf("\n");
+			}
+			printf("\n\n");
+		}
+
+		meminfo2("ROM: loaded %d words at ofs=%05x -> %02x:%04x (%p)\n",
+			 BANKSIZE, ofs, GET_AEXT(ofs), GET_AOFS(ofs), buf);
 	}
 }
 

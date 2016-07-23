@@ -766,9 +766,6 @@ emulate()
 	/* Read the map file, if available */
 	map_load();
 
-	/* Initialise memory (RAM and ROM) */
-	memory_init();
-
 	/* Open the log file */
 	if ((log_file = fopen(log_name, "w")) == NULL) {
 		perror("Opening log file");
@@ -779,6 +776,10 @@ emulate()
 	/* Initialise I/O */
 	io_init();
 	
+	// Initialise memory (RAM and ROM). Done after I/O init so we have a
+	// functioning MBU.
+	memory_init();
+
 	/* Initialise the menuing system */
 	ui_init();
 
@@ -786,12 +787,14 @@ emulate()
 	cpu.tick = 0;
 	cpu.wait = 0;
 	cpu.halt = 0;
-	cpu.pause = 0;
+	extern int dfp_enabled;
+	cpu.pause = dfp_enabled ? 1 : 0;
 	reset_cpu();
 	io_reset();
 
 	time_t t0 = time(NULL);
 	word oldpc = 0xbeef;
+	void dfp_tick();
 	
 	//word addr;
 	//static struct timespec ts;
@@ -1001,6 +1004,11 @@ emulate()
 
 		// Perform 'background' 'hardware' tasks.
 		io_tick();
+		
+		// But always tick the DFP.
+		if (dfp_enabled) {
+			dfp_tick();
+		}
 	}
 
 	time_t t1 = time(NULL);

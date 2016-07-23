@@ -29,11 +29,15 @@ Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
 
 extern int      dfp_enabled;
+extern int      dfp_testmode;
 extern int      dfp_pts;
 extern uint16_t reg_features;
 extern uint16_t reg_sr;
 extern uint16_t reg_or;
 extern uint16_t reg_dsr;
+
+extern char *   dfp_out_name;
+extern FILE *   dfp_out_fp;
 
 #define FTR_HOB 0x0001
 #define FTR_TRC 0x0010

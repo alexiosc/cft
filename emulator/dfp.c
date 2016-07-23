@@ -45,7 +45,11 @@ Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 #include "../front-panel/lib/switches.h"
 
 int dfp_enabled = 1;
+int dfp_testmode = 0;
 int dfp_pts = 0;
+
+char *   dfp_out_name = NULL;
+FILE *   dfp_out_fp = NULL;
 
 uterm_t * dfp_term = NULL;
 
@@ -132,6 +136,10 @@ dfp_out(const char * fmt, ...)
 		warning("Unable to write to DEB card pseudo-TTY %s: %s\n",
 			pts, strerror(errno));
 	}
+	if (dfp_out_fp != NULL && fwrite(buf, len, 1, dfp_out_fp) != 1) {
+		warning("Unable to write to DEB card outpuf file %s: %s\n",
+			dfp_out_name, strerror(errno));
+	}
 	if (dfp_term) {
 		//int oldattr = uterm_setattr(dfp_term, 63);
 		uterm_write(dfp_term, buf);
@@ -141,6 +149,9 @@ dfp_out(const char * fmt, ...)
 	free(buf);
 }
 
+
+static char debug_buf[65536];
+static int debug_bufi;
 
 static void
 dfp_putc(const char c)
@@ -157,6 +168,29 @@ dfp_putc(const char c)
 		warning("Unable to write to DEB card pseudo-TTY %s: %s\n",
 			pts, strerror(errno));
 	}
+	if (dfp_out_fp != NULL && fwrite(buf, 1, 1, dfp_out_fp) != 1) {
+		warning("Unable to write to DEB card outpuf file %s: %s\n",
+			dfp_out_name, strerror(errno));
+	}
+
+	// Add it to the debug buffer
+	if (dfp_testmode) {
+		switch (c) {
+		case 10:
+			printf("DFP: %s\n", debug_buf);
+			debug_bufi = 0;
+			debug_buf[0] = 0;
+			break;
+		case 13:
+			break;
+		default:
+			if (debug_bufi < (sizeof(debug_buf) - 1)) {
+				debug_buf[debug_bufi++] = c;
+				debug_buf[debug_bufi] = 0;
+			}
+		}
+	}
+
 	if (dfp_term) {
 		//int oldattr = uterm_setattr(dfp_term, 63);
 		uterm_write(dfp_term, buf);
@@ -217,6 +251,11 @@ dfp_init()
 	// Set up the console ring buffer
 	ringbuf.ip = ringbuf.op = 0;
 
+	if (dfp_testmode) {
+		dfp_queue_char('\036'); // This selects test (computer) mode
+	}
+
+	halt_cpu();
 	dfp_firmware_init();
 }
 
@@ -249,6 +288,12 @@ dfp_tick(int tick)
 		reset_system();
 	}
 
+	if (dfp_cb.request_unpause) {
+		dfp_cb.request_unpause = 0;
+		pthread_mutex_unlock(&dfp_cb.lock);
+		cpu.pause--;
+	}
+
 	if (dfp_cb.request_halt) {
 		dfp_cb.request_halt = 0;
 		cpu.halt = 1;
@@ -256,6 +301,10 @@ dfp_tick(int tick)
 		dump_state();
 		dump_ustate();
 		info("*** HALTING ***\n");
+		if (dfp_testmode) {
+			info("*** QUITTING ***\n");
+			cpu.quit = 1;
+		}
 	}
 
 	if (dfp_cb.request_run) {
@@ -581,6 +630,10 @@ void dfp_firmware_init()
 	pthread_mutex_init(&dfp_cb.lock, NULL);
 	pthread_mutex_init(&dfp_cb.rx_lock, NULL);
 	pthread_mutex_init(&dfp_cb.tx_lock, NULL);
+
+	if (dfp_testmode) {
+		dfp_cb.request_testmode = 1;
+	}
 
 	// Initialise the firmare thread.
 	void * dfp_firmware_run(void*);

@@ -83,6 +83,7 @@ enum {DUMMY_KEY=129
       ,KEY_DFP_TTY
       ,KEY_DFP_IN
       ,KEY_DFP_OUT
+      ,KEY_DFP_TESTMODE
 
       ,KEY_PSG
       ,KEY_NO_PSG
@@ -208,6 +209,10 @@ static struct argp_option options[] =
 
 	// Debugging Card
 
+	{ "dfp-testmode", KEY_DFP_TESTMODE,  NULL, 0,
+	  "Used for automated testing (the simulation ends on HALT, DFP is put in "
+	  "testing mode immediately).", 0 },
+
 	{ "dfp-pts", KEY_DFP_PTS,  NULL, 0,
 	  "Allocate a new pseudo-terminal and let the DFP listen on it.", 0 },
 
@@ -217,7 +222,7 @@ static struct argp_option options[] =
 	{ "dfp-in", KEY_DFP_IN,  NULL, 0,
 	  "The DFP will open this file and read a debugging script from it.", 0 },
 
-	{ "dfp-out", KEY_DFP_OUT,  NULL, 0,
+	{ "dfp-out", KEY_DFP_OUT,  "FILE", 0,
 	  "The DFP will log its output to this file.", 0 },
 
 #if 0
@@ -494,10 +499,18 @@ parse_opt (int key, char *arg, struct argp_state *state)
 		break;
 
 	case KEY_DFP_OUT:
-		fail("Not implemented.\n");
+		dfp_out_name = strdup (arg);
+		dfp_out_fp = fopen (dfp_out_name, "w");
+		if (!dfp_out_fp) {
+			argp_failure (state, EXIT_FAILURE, errno,
+				      "Cannot open DFP output file %s for writing",
+				      dfp_out_name);
+		}
 		break;
 
-
+	case KEY_DFP_TESTMODE:
+		dfp_testmode = 1;
+		break;
 
 	case ARGP_KEY_ARG:	// MEMORY-IMAGE (only one allowed)
 		if (memimg_name == NULL) {

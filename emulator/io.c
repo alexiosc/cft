@@ -85,6 +85,8 @@ iodev_t iodevs[] = {
 	// 	.read = panel_read,
 	// 	.write = panel_write
 	// },
+
+
 	{
 		.name = "Debugging Front Panel",
 		.code = "DFP",
@@ -92,7 +94,8 @@ iodev_t iodevs[] = {
 		.init = dfp_init,
 		//.reset = dfp_reset,
 		.done = dfp_done,
-		.tick = dfp_tick,
+		// The DFP ticks independently
+		//.tick = dfp_tick,
 		.read = dfp_read,
 		.write = dfp_write
 	},
