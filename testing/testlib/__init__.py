@@ -11,6 +11,21 @@ import unittest
 import subprocess
 
 
+FRAMEWORK_PATTERNS = dict(
+    verilog=r't\d{4}-v....',
+    emulator=r't\d{4}-.e...',
+    emu_dfp=r't\d{4}-..d..',
+    hardware=r't\d{4}-...h.',
+)
+
+FRAMEWORK_FLAGS = dict(
+    verilog='v',
+    emulator='e',
+    emu_dfp='d',
+    hardware='h',
+)
+
+
 def findBaseDir():
     """Locate the base directory of the project"""
 
@@ -56,17 +71,21 @@ def summariseReports(tests, col=None):
     if col is None:
         col = os.isatty(sys.stdout.fileno())
 
-    print '%-24.24s %-20.20s %-20.20s' % ('Test', 'Verilog', 'Emulator')
-    print "-" * 79
+    print '%-30.30s %-20.20s %-20.20s %-20.20s %-20.20s' % ('Test', 'Verilog', 'Emulator', 'Emulator (DFP)', 'Hardware')
+    print "-" * 121
     for test in sorted(tests):
-        sys.stdout.write('%-24.24s ' % test)
-        for framework in ('verilog', 'emulator'):
-            fname = os.path.join(REPORTDIR, framework[0] + test + '.txt')
+        sys.stdout.write('%-30.30s ' % test)
+        for framework in ('verilog', 'emulator', 'emu_dfp', 'hardware'):
+            fname = os.path.join(REPORTDIR, FRAMEWORK_FLAGS[framework] + test + '.txt')
             col0, col1 = '', '\033[0m'
             res = '?'
             if not os.path.exists(fname):
-                col0, col1 = '\033[0;1;30m', '\033[0m'
-                res = 'Not tested'
+                if re.search(FRAMEWORK_PATTERNS[framework], fname):
+                    col0, col1 = '\033[0m', '\033[0m'
+                    res = 'Not tested'
+                else:
+                    col0, col1 = '\033[0;1;30m', '\033[0m'
+                    res = 'Not applicable'
             else:
                 try:
                     data = open(fname).read().strip()
@@ -74,9 +93,9 @@ def summariseReports(tests, col=None):
 
                     m = re.findall('\nRan (\d+) tests?.*\n\nOK', data)
                     if m:
-                        numtests = numcheckpoints or m[0]
+                        numtests = int(numcheckpoints or m[0])
                         col0 = '\033[0;1;32m'
-                        res = 'Passed (%s test%s)' % (numtests, ('', 's')[numtests != '1'])
+                        res = 'Passed (%d test%s)' % (numtests, ('', 's')[numtests != 1])
                     else:
                         m = re.findall('\nFAILED \(failures?=(\d+)\)', data)
                         if m:
@@ -248,7 +267,7 @@ class BaseTest(unittest.TestCase):
         asm = CFTASM
         basedir = self._basedir
         libs = ' '.join(os.path.join(LIBDIR, x) for x in
-                        ['io.asm', 'debugging.asm', 'testing.asm'] + extralibs)
+                        ['dfp.asm'] + extralibs)
         out = 'a.bin'
         debug = debug and '-d' or ''
 
@@ -339,13 +358,14 @@ class BaseTest(unittest.TestCase):
             # respect, but I need the colour to sift through the sheer volume
             # of information -- Alexios)
             line = re.sub('\033\[.+?m', '', line)
-            
-            # We're only interested in debugging (old versions of the
-            # emulators) and testing output.
-            if not line.startswith('D:') and not line.startswith('T:'):
+
+            # Match all versions of emulators, DEB, DFP, etc. Only keep what we need.
+            m = re.match('^(?:D|T|DFP):\s*(?:\d\d\d\s+)?(\S+)(?:\s+(.+))?$', line)
+
+            if not m:
                 continue
-    
-            tokens = line.split()[1:]
+
+            tokens = m.groups()
             cmd = tokens[0].rstrip(':')
             if cmd == 'PRINTC':
                 yield tokens[1]
@@ -363,6 +383,12 @@ class BaseTest(unittest.TestCase):
                 yield tokens[1]
             elif cmd == 'PRINTL':
                 yield tokens[1].lstrip('0') or '0'
+            elif cmd == 'SUCCESS':
+                    sys.stderr.write('+')
+                    yield '[ok]'
+            elif cmd == 'FAIL':
+                    sys.stderr.write('-')
+                    yield '[FAIL!]'
             elif cmd == 'ASSERT':
                 if tokens[1] == 'TRUE':
                     sys.stderr.write('+')
@@ -570,6 +596,10 @@ class EmulatorTest(BaseTest):
         BaseTest.__init__(self, *args, **kwargs)
 
 
+    def addArg(self, args):
+        return
+
+
     def getFrameworkPrefix(self):
         """Return a single character prefix identifying this testing framework."""
         return 'e'
@@ -588,8 +618,10 @@ class EmulatorTest(BaseTest):
         basedir = self._basedir
         emu = self.EMULATOR
         flags = self.EMUFLAGS
-        cmd = '%(emu)s --no-sanity -a v0 -t -l %(basedir)s/output -M %(basedir)s/a.map ' + \
-            '-p %(basedir)s/a.pasm %(flags)s %(basedir)s/a.bin'
+
+        cmd = 'timeout 5 %(emu)s --no-sanity -a v1 --mbu -t -l %(basedir)s/output -M %(basedir)s/a.map ' + \
+            '-p %(basedir)s/a.pasm %(flags)s--image-start=0 --image-size=65536 ' + \
+            '--dfp-testmode %(basedir)s/a.bin'
         cmd = cmd % locals()
         if verbose:
             sys.stderr.write("Executing: %s\n" % cmd)
