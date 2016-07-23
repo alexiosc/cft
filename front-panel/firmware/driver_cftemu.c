@@ -109,7 +109,7 @@ void dfp_fw_iocmd(uint8_t is_write)
 	//
 	// Note: R# is an active low signal, so it's *1* when writing.
 	_buscmd_write = is_write;
-	printf("*** INTERRUPT\n");
+	//printf("*** INTERRUPT\n");
 	run_buscmd_interrupt();
 }
 
@@ -118,6 +118,13 @@ void dfp_fw_init()
 {
 	hw_init();
 	proto_init();
+	pthread_mutex_lock(&dfp_cb.lock);
+	dfp_cb.request_unpause++;
+	if (dfp_cb.request_testmode) {
+		flags &= ~(FL_TERM | FL_ECHO);
+		flags |= FL_HOF | FL_HOS;
+		dfp_cb.request_testmode = 0;
+	}
 }
 
 
@@ -280,6 +287,7 @@ assert_halted()
 {
 	// Ensure it's stopped.
 	if ((flags & FL_HALT) == 0) {
+		style_error();
 		report_pstr(PSTR(STR_RUNNING));
 		flags |= FL_ERROR;
 		return 0;
@@ -733,7 +741,7 @@ get_ab()
 inline uint16_t
 get_db()
 {
-	return 0;
+	return _db;
 }
 
 

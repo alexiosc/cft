@@ -50,6 +50,7 @@ unsigned char buf[BUFSIZE];
 uint16_t buflen, oldbuflen, bp;
 
 volatile uint32_t flags = FL_BUSY | FL_MESG;
+volatile uint8_t  abort_stepping = 0;
 
 uint16_t addr;
 
@@ -67,6 +68,7 @@ assert_proc_present()
 // 	return 1;
 
 	if (flags & FL_PROC) return 1;
+	style_error();
 	report_pstr(PSTR(STR_NOPROC));
 	return 0;
 }
@@ -247,9 +249,11 @@ go_reset()
 
 void
 go_stop(){
+
 	if (flags & FL_HALT) {
 		set_halt(1);
 		if (flags & FL_MESG) {
+			style_error();
 			report_pstr(PSTR(STR_ALRHALT));
 		}
 		return;
@@ -292,11 +296,15 @@ go_stop(){
 			proto_prompt();
 		}
 	}
+
+	// Also cancel stepping or tracing.
+	abort_stepping = 1;
 }
 
 void
 go_run(){
 	if ((flags & FL_HALT) == 0) {
+		style_error();
 		report_pstr(PSTR(STR_ALRRUN));
 		return;
 	}
@@ -959,6 +967,7 @@ _step(bool_t ustep, bool_t endless)
 	uint16_t i = n;
 	flags &= ~(FL_BREAK | FL_INPOK);
 	flags |= FL_BUSY;
+	abort_stepping = 0;
 	while (endless || i--) {
 		wdt_reset();
 
@@ -994,15 +1003,23 @@ _step(bool_t ustep, bool_t endless)
 			}
 		}
 	
-		// Allow the user to interrupt.
+		// Allow the user to interrupt. Also allow panel or bus
+		// operations that halt the computer to abort multi-stepping.
 #ifdef HOST
 		if (query_char(10)) flags |= FL_INPOK;
 #endif // HOST
-		if (flags & (FL_BREAK | FL_INPOK)) {
+		if (abort_stepping || (flags & (FL_BREAK | FL_INPOK))) {
 			cancel();
 			break;
 		}
+		
+		// Front panel or bus operations that halt the computer also
+		// abort multi-stepping.
 
+		if (abort_stepping) {
+			cancel();
+			break;
+		}
 	}
 	flags &= ~FL_BUSY;
 	if (n > 1) done();
@@ -1223,6 +1240,7 @@ go_out()
 	}
 
 	if (a >= 0x0100 && a < 0x120) {
+		style_error();
 		report_pstr(PSTR(STR_NSELF));
 		return;
 
@@ -1266,6 +1284,13 @@ go_in()
 	if (flags & FL_ERROR) {
 		badval();
 		return;
+	}
+
+	if (a >= 0x0100 && a < 0x120) {
+		style_error();
+		report_pstr(PSTR(STR_NSELF));
+		return;
+
 	}
 
 	uint16_t v = perform_read(SPACE_IO, a);
@@ -1873,7 +1898,7 @@ void proto_loop()
 #ifdef AVR
 		for(i=0; (uint16_t) pgm_read_word(&(cmds[i].handler)) != -1; i++) {
 #else
-			for(i=0; cmds[i].handler != (void *)-1; i++) {
+		for(i=0; cmds[i].handler != (void *)-1; i++) {
 #endif // AVR
 			if(!strncmp_P(s, cmds[i].cmd, CMD_SIZE)) {
 				void (*handler)() = (void *)pgm_read_word(&(cmds[i].handler));
@@ -1882,7 +1907,7 @@ void proto_loop()
 			}
 		}
 
-	unknown_command:
+		// If we get to this point, it's an unknown command.
 		report_pstr(PSTR(STR_BADCMD));
 		goto done;
 

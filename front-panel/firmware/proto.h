@@ -122,7 +122,11 @@
 #define STR_FAST    "327 Full speed clock.\n"
 #define STR_SLOW    "328 Slow clock.\n"
 #define STR_CREEP   "329 Very slow clock.\n"
+#ifdef AVR
 #define STR_CLKSET  "330 Clock set to " F_CPU_S " Hz / ("
+#else
+#define STR_CLKSET  "330 Clock set to 14745600 Hz / ("
+#endif // VAR
 #define STR_CLKSET2      "*(1+"
 #define STR_CONSBEG "331 Virtual console (press Enter # . to exit).\n"
 #define STR_CONSEND "332 Left virtual console.\n"
@@ -164,7 +168,7 @@
 // Errors.
 #define STR_BADCMD  "500 Unknown command\n"
 #define STR_BADVAL  "501 Bad value\n"
-#define STR_COUNT8  "502 Count must be multiple of 8\n"
+// #define STR_COUNT8  "502 Count must be multiple of 8\n"
 #define STR_RUNNING "503 Halt host first\n"
 #define STR_CHATTER "504 Bus chatter\n"
 #define STR_ALRHALT "505 Already halted\n"

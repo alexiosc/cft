@@ -102,6 +102,7 @@ class DFP(dfp.Communication):
         #self.get_full_status()
         #self.output_bin()
 
+        self.cmd('halt')
         self.dump(0xc000, 1000)
         self.get_address()
         self.print_state()

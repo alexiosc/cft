@@ -17,6 +17,8 @@ typedef struct {
 	uint16_t        (*unit_mem)(int r, int w);
 	uint16_t        (*unit_io)(int r, int w);
 
+	int             request_testmode;
+	int             request_unpause;
 	int             request_reset;
 	int             request_halt;
 	int             request_run;

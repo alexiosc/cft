@@ -743,6 +743,7 @@ faulty:
 		write_cb();
 		if (cb[2] & CB2_FPSTOP) {
 			set_or(code);
+			style_error();
 			report_pstr(PSTR(STR_DIAGF));
 			_delay_ms(1000);
 		} else {
@@ -1600,6 +1601,7 @@ wait_for_halt(bool_t reckless)
 		set_or(0x911);
 		cli();
 		for (;;) {
+			style_error();
 			report_pstr(PSTR(STR_HLTTO));
 			// Blink the STOP light slowly. Hopefully this will work.
 			_delay_ms(1000);

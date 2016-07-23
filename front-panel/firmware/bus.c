@@ -49,6 +49,7 @@ assert_halted()
 {
 	// Ensure it's stopped.
 	if ((flags & FL_HALT) == 0) {
+		style_error();
 		report_pstr(PSTR(STR_RUNNING));
 		flags |= FL_ERROR;
 		return 0;
@@ -68,6 +69,7 @@ assert_halted()
 	
 	// Check for bus chatter.
 	if (buschatter()) {
+		style_error();
 		report_pstr(PSTR(STR_CHATTER));
 		flags |= FL_ERROR;
 		return 0;

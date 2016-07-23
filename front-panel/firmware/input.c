@@ -13,6 +13,7 @@
 void
 badval()
 {
+	style_error();
 	report_pstr(PSTR(STR_BADVAL));
 }
 
@@ -20,6 +21,7 @@ badval()
 void
 badsyntax()
 {
+	style_error();
 	report_pstr(PSTR(STR_SYNTAX));
 }
 

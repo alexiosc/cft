@@ -94,6 +94,7 @@ void
 buscmd_debugon()
 {
 	if ((flags & FL_MESG) == 0) return;
+	style_error();
 	report_pstr(PSTR(STR_NIMPL));
 }
 
@@ -102,6 +103,7 @@ void
 buscmd_debugoff()
 {
 	if ((flags & FL_MESG) == 0) return;
+	style_error();
 	report_pstr(PSTR(STR_NIMPL));
 }
 
@@ -110,6 +112,7 @@ void
 buscmd_dump()
 {
 	if ((flags & FL_MESG) == 0) return;
+	style_error();
 	report_pstr(PSTR(STR_NIMPL));
 }
 
@@ -169,8 +172,10 @@ buscmd_sentinel()
 }
 
 #ifdef CFTEMU
-#define debug_out(x) printf("*** DFP OUT: %s %04x\n", x, get_db())
-#define debug_in(x) printf("*** DFP IN: %s %04x\n", x, _db)
+// #define debug_out(x) printf("*** DFP OUT: %s %04x\n", x, get_db())
+// #define debug_in(x) printf("*** DFP IN: %s %04x\n", x, _db)
+#define debug_out(x)
+#define debug_in(x)
 #else
 #define debug_out(x)
 #define debug_in(x)
