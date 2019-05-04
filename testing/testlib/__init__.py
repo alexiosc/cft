@@ -370,7 +370,7 @@ class BaseTest(unittest.TestCase):
             if cmd == 'PRINTC':
                 yield tokens[1]
             elif cmd == 'PRINTc':
-                yield chr(int(tokens[1]))
+                yield unichr(int(tokens[1]))
             elif cmd == 'PRINTU':
                 yield tokens[1]
             elif cmd == 'PRINTD':
@@ -609,7 +609,7 @@ class EmulatorTest(BaseTest):
         """Set up the test by creating a temporary testbed."""
         #sys.stderr.write("setup ")
         BaseTest.setUp(self)
-        os.system('ln -s . %s/img' % self._basedir)
+        os.system('ln -s 2>/dev/null . %s/img' % self._basedir)
 
 
     def runFramework(self, getall=False, debug=False):

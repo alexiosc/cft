@@ -2,6 +2,7 @@
 # -*- python -*-
 
 import os
+import re
 import sys
 import unittest
 import optparse
@@ -33,9 +34,9 @@ p.add_option('-s', '--summary', action='store_true',
 p.add_option('-b', '--basedir', metavar='PATH', type='string', default='.',
              help='Set the testsuite base directory (default: .).')
 p.add_option('-f', '--framework', type='choice',
-             default='verilog',
-             choices=['verilog', 'emulator'],
-             help='Choose emulator framework to test on (default: verilog).')
+             choices=['verilog', 'emulator', 'emu_dfp', 'hardware'],
+             help='Choose emulator framework to test on. ' + \
+             'May be one of verilog, emulator, emu_dfp, or hardware. Mandatory.')
 #p.add_option('-j', '--jobs', metavar='N', type='int',
 #             help='Run N threads at once.')
 p.add_option('-n', '--dry-run',
@@ -63,30 +64,36 @@ allTests = (os.path.basename(x) for x in testlib.listTests(opts.basedir))
 
 # Make dependency patterns
 MAKEPATTERN0 = """
-ALLTESTS = %s
+%sTESTS = %s
+"""
+
+MAKEPATTERN_FRAMEWORK = """
+%(prefix)s%(test)s: $(REPORTDIR)/%(prefix)s%(test)s.txt
+
+$(REPORTDIR)/%(prefix)s%(test)s.txt: %(test)s.py $(%(prefix_upper)sTESTDEPS)
+\t$(RUNTESTS) -f %(framework)s $(%(prefix_upper)sTESTFLAGS) %(test)s 2>&1 | $(TEE) $@
+\t@[ -z $@ ] && $(RM) $@ || true
 """
 
 MAKEPATTERN1 = """
-%(test)s: v%(test)s e%(test)s
-
-v%(test)s: $(REPORTDIR)/v%(test)s.txt
-
-e%(test)s: $(REPORTDIR)/e%(test)s.txt
-
-$(REPORTDIR)/v%(test)s.txt: %(test)s.py $(VTESTDEPS)
-\t$(RUNTESTS) -f verilog $(VTESTFLAGS) %(test)s 2>&1 | $(TEE) $@
-\t@[ -z $@ ] && $(RM) $@ || true
-
-$(REPORTDIR)/e%(test)s.txt: %(test)s.py $(ETESTDEPS)
-\t$(RUNTESTS) -f emulator $(ETESTFLAGS) %(test)s 2>&1 | $(TEE) $@
-\t@[ -z $@ ] && $(RM) $@ || true
-
+%(test)s: %(testlist)s
 """
 
+def getFrameworksForTest(fname):
+    """Find what frameworks this is available for. Return a list of tuples
+    of framework names and prefix letters."""
+    for framework, pat in testlib.FRAMEWORK_PATTERNS.items():
+        if re.search(pat, fname) and shouldTest:
+            yield (framework, testlib.FRAMEWORK_FLAGS[framework])
+    
 
 # List tests
 if opts.list:
     print "Available tests:"
+
+    pat = testlib.FRAMEWORK_PATTERNS.get(opts.framework, None)
+    shouldTest = lambda x: (pat is None) or re.search(pat, x)
+
     for x in sorted(allTests):
         if shouldTest(x):
             print "    ", os.path.basename(x)
@@ -98,9 +105,20 @@ elif opts.list_xargs:
 
 elif opts.make_deps:
     allTests = list(allTests)
-    print MAKEPATTERN0 % (' '.join(allTests))
+    fwTests = dict()
     for test in sorted(allTests):
+        testlist = []
+        for (framework, prefix) in getFrameworksForTest(test):
+            t = '%s%s' % (prefix, test)
+            testlist.append(t)
+            fwTests.setdefault(prefix, []).append(t)
+            prefix_upper = prefix.upper()
+            print MAKEPATTERN_FRAMEWORK % locals()
+        testlist = ' '.join(testlist)
         print MAKEPATTERN1 % locals()
+    print MAKEPATTERN0 % ('ALL', ' '.join(allTests))
+    for prefix, tests in fwTests.items():
+        print MAKEPATTERN0 % (prefix.upper(), ' '.join(tests))
     sys.exit(0)
 
 elif opts.summary:
@@ -112,6 +130,9 @@ testlib.setVerbose(opts.verbose)
 testlib.setKeep(opts.keep)
 testlib.setWave(opts.wave)
 #testlib.guessTestName(opts.name)
+
+if not opts.framework:
+    die("Option -f is mandatory")
 
 try:
     cls = dict(v=testlib.VerilogTest,

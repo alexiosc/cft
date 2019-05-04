@@ -26,7 +26,7 @@ class InstructionTest(testlib.testBaseClass):
         # Test 1. Local (must be done in page zero)
         for i in xrange(min(64, MAX)):
             self.asm('          LI %d' % i)
-            self.asm('          IOT &3e7')
+            self.asm('          IOT &107')
             self.asm('          SUCCESS')
             self.asm('          PRINTU')
             exp += '[ok]%d' % ((i * 10) & 0xffff)
@@ -37,7 +37,7 @@ class InstructionTest(testlib.testBaseClass):
         exp += '[ok]'
         
         # Test 2. Indirect
-        self.asm('&0800:    .word &3e7')
+        self.asm('&0800:    .word &107')
         self.asm('test2:')
         for i in range(min(256, MAX)):
             self.asm('          LI %d' % i)
@@ -52,7 +52,7 @@ class InstructionTest(testlib.testBaseClass):
         exp += '[ok]'
 
         # Test 3. Indirect Register
-        self.asm('&0010:    .word &3e7')
+        self.asm('&0010:    .word &107')
         self.asm('&1000:')
         self.asm('test3:')
         for i in range(MAX):
@@ -73,7 +73,7 @@ class InstructionTest(testlib.testBaseClass):
         self.asm('test4:')
         for i in range(MAX):
             self.asm('          LI %d' % i)
-            self.asm('          IOT R &3e7')
+            self.asm('          IOT R &107')
             self.asm('          SUCCESS')
             self.asm('          PRINTU')
             exp += '[ok]%d' % ((i * 10) & 0xffff)
@@ -88,7 +88,7 @@ class InstructionTest(testlib.testBaseClass):
         self.asm('&1400:')
         self.asm('test5:')
         for i in range(MAX):
-            self.asm('          LI &3e7')
+            self.asm('          LI &107')
             self.asm('          STORE R &80')
             self.asm('          LI %d' % i)
             self.asm('          IOT I R &80')
@@ -97,7 +97,7 @@ class InstructionTest(testlib.testBaseClass):
             self.asm('          PRINTSP')
             self.asm('          LOAD R &80')
             self.asm('          PRINTH')
-            exp += '[ok]%d %04x' % (((i * 10) & 0xffff, 0x3e8))
+            exp += '[ok]%d %04x' % (((i * 10) & 0xffff, 0x108))
 
         self.asm('HALT')
 

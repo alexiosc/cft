@@ -12,99 +12,125 @@ class InstructionTest(testlib.testBaseClass):
     def runTest(self):
         """Test IN instruction"""
 
+        # Make the dataset
+        ds = []
+        ds += [ 1<<x for x in range(16) ]
+        ds += [ (1<<x) ^ 0xffff for x in range(16) ]
+        ds += [ (15<<x) for x in range(12) ]
+        ds += [ (15<<x) ^ 0xffff for x in range(12) ]
+        ds += [ 0x5555, 0xaaaa ]
+
         # Boot code
         self.asm('&0000:    .fill 65535 FAIL')        
         self.asm('          ; Boot code')        
         self.asm('&fff0:    JMP I @+1')
         self.asm('          .word boot')
         
-        self.asm('&0200:')
+        self.asm('&0100:')
+        self.asm('dssize:   .word -%d' % len(ds))
+        self.asm('dataset:')
+        for x in ds:
+            self.asm('          .word &%04x' % x)
+
         self.asm('boot:')
-        
+        self.asm('          IN R &108')
+        self.asm('          STORE R 3')
+        self.asm('          LIA dataset')
+        self.asm('          STORE R 4')
+        self.asm('          STORE R &80')
+
         exp = ''
 
         # Test 1. Local (must be done in page zero)
-        for i in xrange(min(50, MAX)):
-            self.asm('          LI %d' % i)
-            self.asm('          OUT R &3e7')
-            self.asm('          IN &3e7')
+        for i in range(len(ds)):
+            self.asm('          LOAD I R &80')
+            self.asm('          IN &107')
+            self.asm('          XOR R &3')
             self.asm('          SUCCESS')
             self.asm('          PRINTU')
-            exp += '[ok]%d' % ((i * 10) & 0xffff)
+            exp += '[ok]0'
 
         self.asm('          SUCCESS')
+        self.asm('          LOAD R 4')
+        self.asm('          STORE R &80')
         self.asm('          JMP I @+1')
         self.asm('          .word test2')
         exp += '[ok]'
         
         # Test 2. Indirect
-        self.asm('&0800:    .word &3e7')
+        self.asm('ind_test: .word &108')
         self.asm('test2:')
-        for i in range(min(200, MAX)):
-            self.asm('          LI %d' % i)
-            self.asm('          OUT R &3e7')
-            self.asm('          IN I 0') # Page-relative 0 = &0800
+        for i in range(len(ds)):
+            self.asm('          LOAD I R &80')
+            self.asm('          IN I ind_test')
+            self.asm('          XOR R &3')
             self.asm('          SUCCESS')
             self.asm('          PRINTU')
-            exp += '[ok]%d' % ((i * 10) & 0xffff)
+            exp += '[ok]0'
 
         self.asm('          SUCCESS')
+        self.asm('          LOAD R 4')
+        self.asm('          STORE R &80')
         self.asm('          JMP I @+1')
         self.asm('          .word test3')
         exp += '[ok]'
 
         # Test 3. Indirect Register
-        self.asm('&0010:    .word &3e7')
-        self.asm('&1000:')
         self.asm('test3:')
-        for i in range(MAX):
-            self.asm('          LI %d' % i)
-            self.asm('          OUT R &3e7')
+        self.asm('          LI &108')
+        self.asm('          STORE R &10')
+        for i in range(len(ds)):
+            self.asm('          LOAD I R &80')
             self.asm('          IN I R &10')
+            self.asm('          XOR R &3')
             self.asm('          SUCCESS')
             self.asm('          PRINTU')
-            exp += '[ok]%d' % ((i * 10) & 0xffff)
+            exp += '[ok]0'
             
         self.asm('          SUCCESS')
+        self.asm('          LOAD R 4')
+        self.asm('          STORE R &80')
         self.asm('          JMP I @+1')
         self.asm('          .word test4')
         exp += '[ok]'
 
-
         # Test 4. Register
-        self.asm('&1200:')
         self.asm('test4:')
-        for i in range(MAX):
-            self.asm('          LI %d' % i)
-            self.asm('          OUT R &3e7')
-            self.asm('          IN R &3e7')
+        for i in range(len(ds)):
+            self.asm('          LOAD I R &80')
+            self.asm('          IN R &107')
+            self.asm('          XOR R &3')
             self.asm('          SUCCESS')
             self.asm('          PRINTU')
-            exp += '[ok]%d' % ((i * 10) & 0xffff)
+            exp += '[ok]0'
             
         self.asm('          SUCCESS')
+        self.asm('          LOAD R 4')
+        self.asm('          STORE R &80')
         self.asm('          JMP I @+1')
         self.asm('          .word test5')
         exp += '[ok]'
 
 
         # Test 5. Autoincrement
-        self.asm('&1400:')
         self.asm('test5:')
-        for i in range(MAX):
-            self.asm('          LI &3e7')
-            self.asm('          STORE R &80')
-            self.asm('          LI %d' % i)
-            self.asm('          OUT R &3e7')
-            self.asm('          IN I R &80')
+        for i in range(len(ds)):
+            self.asm('          LI &108')
+            self.asm('          STORE R &81')
+            self.asm('          LOAD I R &80')
+            self.asm('          IN I R &81')
+            self.asm('          XOR R &3')
             self.asm('          SUCCESS')
             self.asm('          PRINTU')
             self.asm('          PRINTSP')
-            self.asm('          LOAD R &80')
+            self.asm('          LOAD R &81')
             self.asm('          PRINTH')
-            exp += '[ok]%d %04x' % (((i * 10) & 0xffff, 0x3e8))
+            # Expect the autoincrement register to have incremented correctly.
+            exp += '[ok]0 %04x' % (0x109,)
 
-        self.asm('HALT')
+        self.asm('          SUCCESS')
+        exp += '[ok]'
+        self.asm('          HALT')
 
         self.assemble()
         #self.addArg('+timeout=3000000')
@@ -116,6 +142,7 @@ class InstructionTest(testlib.testBaseClass):
         except:
             print "\nExpected: ", exp
             print "Simulated:", sim
+            print self.hldiff(exp,sim)
             raise
 
 

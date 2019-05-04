@@ -20,12 +20,18 @@ REPORTS_V =	$(patsubst %,$(REPORTDIR)/v%.txt,$(TESTS))
 REPORTS_E =	$(patsubst %,$(REPORTDIR)/e%.txt,$(TESTS))
 TESTS_V = 	$(patsubst %,v%,$(TESTS))
 TESTS_E = 	$(patsubst %,e%,$(TESTS))
+TESTS_D = 	$(patsubst %,d%,$(TESTS))
+TESTS_H = 	$(patsubst %,h%,$(TESTS))
 
 VTESTDEPS =	$(DEPS) $(VERILOGDIR)/*.o
 ETESTDEPS =	$(DEPS)
+DTESTDEPS =	$(ETESTDEPS)
+HTESTDEPS =	$(ETESTDEPS)
 
-VTESTFLAGS =	
+VTESTFLAGS =	-v
 ETESTFLAGS =	
+DTESTFLAGS =	$(ETESTFLAGS)
+HTESTFLAGS =	$(ETESTFLAGS)
 
 SHELL =		/bin/bash	# We use a few bash-isms.
 
@@ -42,6 +48,7 @@ SHELL =		/bin/bash	# We use a few bash-isms.
 		tv vt vtest testv \
 		te et etest teste \
 		rv reportv \
+		rw retest-wave \
 		$(TESTS_V) $(TESTS_E)
 
 h help targets:
@@ -54,6 +61,8 @@ h help targets:
 		@echo "  ls lists                 List all available sandboxes"
 		@echo "  lv listv                 List all Verilog tests"
 		@echo "  le liste                 List all Emulator tests"
+		@echo "  ld listd                 List all Emulator (via DFP) tests"
+		@echo "  lh listh                 List all Hardware tests"
 		@echo "  rt retest T=pat          Retest tests matching pat (glob)"
 		@echo "  rk retest-keep T=pat     Retest and keep sandboxes"
 		@echo "  rw retest-wave T=pat     Test and generate gtkwave waveforms"
@@ -156,6 +165,12 @@ vtest testv:	$(TESTS_V)
 
 te et \
 etest teste:	$(TESTS_E)
+
+td dt \
+dtest testd:	$(TESTS_D)
+
+th ht \
+htest testh:	$(TESTS_H)
 
 $(TESTS):	reports/%.txt
 #v%:		reports/v%.txt

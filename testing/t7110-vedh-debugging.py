@@ -19,18 +19,15 @@ ASM = """
 datum:  .word &5555
 start:  LOAD datum
         PRINTC       ; Must output 'U'
-        LI &20
-        PRINTC
+        PRINTSP
 
         LOAD datum
         PRINTD       ; Must output 21845
-        LI &20
-        PRINTC
+        PRINTSP
 
         LOAD datum
         PRINTH       ; Must output 5555
-        LI &20
-        PRINTC
+        PRINTSP
 
         LOAD datum
         PRINTB       ; Must output 0101010101010101
