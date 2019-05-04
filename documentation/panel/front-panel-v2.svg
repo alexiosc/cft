@@ -14,7 +14,7 @@
    height="945"
    id="svg2"
    version="1.1"
-   inkscape:version="0.48.1 r9760"
+   inkscape:version="0.48.4 r9939"
    sodipodi:docname="front-panel-v2.svg"
    inkscape:export-filename="/home/alexios/PROJECTS/HARDWARE/cft/documentation/panel/front-panel.png"
    inkscape:export-xdpi="150.01273"
@@ -24,10 +24,11 @@
     <filter
        inkscape:collect="always"
        id="filter3989"
-       x="-0.36"
+       x="-0.36000001"
        width="1.72"
-       y="-0.36"
-       height="1.72">
+       y="-0.36000001"
+       height="1.72"
+       color-interpolation-filters="sRGB">
       <feGaussianBlur
          inkscape:collect="always"
          stdDeviation="8.1428576"
@@ -41,11 +42,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="3.6851312"
-     inkscape:cx="550.90358"
-     inkscape:cy="278.60266"
+     inkscape:zoom="0.64126648"
+     inkscape:cx="812.86743"
+     inkscape:cy="478.60189"
      inkscape:document-units="in"
-     inkscape:current-layer="layer4"
+     inkscape:current-layer="layer2"
      showgrid="false"
      inkscape:window-width="2048"
      inkscape:window-height="1132"
@@ -59,7 +60,11 @@
      inkscape:bbox-nodes="true"
      inkscape:snap-bbox-edge-midpoints="true"
      inkscape:snap-bbox-midpoints="true"
-     inkscape:object-nodes="true" />
+     inkscape:object-nodes="true"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
   <metadata
      id="metadata7">
     <rdf:RDF>
@@ -77,7 +82,7 @@
      id="layer2"
      inkscape:label="Background"
      style="display:inline"
-     sodipodi:insensitive="true">
+     transform="translate(0,-45)">
     <rect
        y="-325.27182"
        x="-782.85712"
@@ -98,7 +103,8 @@
      inkscape:groupmode="layer"
      id="layer4"
      inkscape:label="Engraving"
-     style="display:inline">
+     style="display:inline"
+     transform="translate(0,-45)">
     <g
        id="g13656">
       <rect
@@ -2707,7 +2713,8 @@
      inkscape:groupmode="layer"
      id="layer5"
      inkscape:label="Holes"
-     style="display:inline">
+     style="display:inline"
+     transform="translate(0,-45)">
     <text
        xml:space="preserve"
        style="font-size:40px;font-style:italic;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
@@ -4219,7 +4226,7 @@
      inkscape:label="Lights"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(0,-107.35975)"
+     transform="translate(0,-152.35975)"
      style="display:inline">
     <g
        transform="matrix(1.1861006,0,0,1.1861006,68.384401,-1330.1157)"
@@ -4354,11 +4361,11 @@
          sodipodi:cy="350.71429"
          sodipodi:rx="27.142859"
          sodipodi:ry="27.142859"
-         d="m 327.14286,350.71429 a 27.142859,27.142859 0 1 1 -54.28572,0 27.142859,27.142859 0 1 1 54.28572,0 z"
+         d="m 327.14286,350.71429 c 0,14.99059 -12.15227,27.14286 -27.14286,27.14286 -14.99059,0 -27.14286,-12.15227 -27.14286,-27.14286 0,-14.99058 12.15227,-27.14285 27.14286,-27.14285 14.99059,0 27.14286,12.15227 27.14286,27.14285 z"
          transform="matrix(0.65271443,0,0,0.65271443,14.496434,725.75647)" />
       <path
          transform="matrix(0.834616,0,0,0.834616,-40.074035,661.96099)"
-         d="m 327.14286,350.71429 a 27.142859,27.142859 0 1 1 -54.28572,0 27.142859,27.142859 0 1 1 54.28572,0 z"
+         d="m 327.14286,350.71429 c 0,14.99059 -12.15227,27.14286 -27.14286,27.14286 -14.99059,0 -27.14286,-12.15227 -27.14286,-27.14286 0,-14.99058 12.15227,-27.14285 27.14286,-27.14285 14.99059,0 27.14286,12.15227 27.14286,27.14285 z"
          sodipodi:ry="27.142859"
          sodipodi:rx="27.142859"
          sodipodi:cy="350.71429"
@@ -4547,7 +4554,7 @@
        id="g4145">
       <path
          transform="matrix(0.65271443,0,0,0.65271443,-78.841661,-18.11986)"
-         d="m 327.14286,350.71429 a 27.142859,27.142859 0 1 1 -54.28572,0 27.142859,27.142859 0 1 1 54.28572,0 z"
+         d="m 327.14286,350.71429 c 0,14.99059 -12.15227,27.14286 -27.14286,27.14286 -14.99059,0 -27.14286,-12.15227 -27.14286,-27.14286 0,-14.99058 12.15227,-27.14285 27.14286,-27.14285 14.99059,0 27.14286,12.15227 27.14286,27.14285 z"
          sodipodi:ry="27.142859"
          sodipodi:rx="27.142859"
          sodipodi:cy="350.71429"
@@ -4563,7 +4570,7 @@
          sodipodi:cy="350.71429"
          sodipodi:rx="27.142859"
          sodipodi:ry="27.142859"
-         d="m 327.14286,350.71429 a 27.142859,27.142859 0 1 1 -54.28572,0 27.142859,27.142859 0 1 1 54.28572,0 z"
+         d="m 327.14286,350.71429 c 0,14.99059 -12.15227,27.14286 -27.14286,27.14286 -14.99059,0 -27.14286,-12.15227 -27.14286,-27.14286 0,-14.99058 12.15227,-27.14285 27.14286,-27.14285 14.99059,0 27.14286,12.15227 27.14286,27.14285 z"
          transform="matrix(0.834616,0,0,0.834616,-133.41213,-81.91534)" />
     </g>
     <use

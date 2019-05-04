@@ -14,7 +14,7 @@
    height="945"
    id="svg2"
    version="1.1"
-   inkscape:version="0.48.3.1 r9886"
+   inkscape:version="0.48.4 r9939"
    sodipodi:docname="front-panel-v3.svg"
    inkscape:export-filename="/home/alexios/PROJECTS/HARDWARE/cft/documentation/panel/front-panel.png"
    inkscape:export-xdpi="150.01273"
@@ -24,10 +24,11 @@
     <filter
        inkscape:collect="always"
        id="filter3989"
-       x="-0.36"
+       x="-0.36000001"
        width="1.72"
-       y="-0.36"
-       height="1.72">
+       y="-0.36000001"
+       height="1.72"
+       color-interpolation-filters="sRGB">
       <feGaussianBlur
          inkscape:collect="always"
          stdDeviation="8.1428576"
@@ -41,16 +42,16 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.9212828"
-     inkscape:cx="759.6339"
-     inkscape:cy="446.31624"
+     inkscape:zoom="0.64126648"
+     inkscape:cx="333.23016"
+     inkscape:cy="404.33296"
      inkscape:document-units="in"
-     inkscape:current-layer="layer4"
+     inkscape:current-layer="layer2"
      showgrid="false"
-     inkscape:window-width="1912"
-     inkscape:window-height="1173"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:window-width="2048"
+     inkscape:window-height="1132"
+     inkscape:window-x="-4"
+     inkscape:window-y="-3"
      inkscape:window-maximized="1"
      units="in"
      inkscape:snap-global="false"
@@ -59,10 +60,20 @@
      inkscape:bbox-nodes="true"
      inkscape:snap-bbox-edge-midpoints="true"
      inkscape:snap-bbox-midpoints="true"
-     inkscape:object-nodes="true">
+     inkscape:object-nodes="true"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0">
     <inkscape:grid
        type="xygrid"
-       id="grid7143" />
+       id="grid7143"
+       empspacing="5"
+       visible="true"
+       enabled="true"
+       snapvisiblegridlinesonly="true"
+       originx="0px"
+       originy="45px" />
   </sodipodi:namedview>
   <metadata
      id="metadata7">
@@ -81,7 +92,7 @@
      id="layer2"
      inkscape:label="Background"
      style="display:inline"
-     sodipodi:insensitive="true">
+     transform="translate(0,-45)">
     <rect
        y="-325.27182"
        x="-782.85712"
@@ -102,7 +113,8 @@
      inkscape:groupmode="layer"
      id="layer4"
      inkscape:label="Engraving"
-     style="display:inline">
+     style="display:inline"
+     transform="translate(0,-45)">
     <g
        id="g13656">
       <rect
@@ -2797,7 +2809,8 @@
      inkscape:groupmode="layer"
      id="layer5"
      inkscape:label="Holes"
-     style="display:inline">
+     style="display:inline"
+     transform="translate(0,-45)">
     <text
        xml:space="preserve"
        style="font-size:40px;font-style:italic;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
@@ -4273,7 +4286,7 @@
      inkscape:label="Lights"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(0,-107.35975)"
+     transform="translate(0,-152.35975)"
      style="display:inline">
     <use
        height="945"
