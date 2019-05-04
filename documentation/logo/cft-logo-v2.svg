@@ -8,6 +8,7 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="744.09448819"
@@ -42,11 +43,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.2702405"
-     inkscape:cx="396.16321"
-     inkscape:cy="-494.74657"
+     inkscape:zoom="1.7963913"
+     inkscape:cx="849.0889"
+     inkscape:cy="-1825.7297"
      inkscape:document-units="px"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="layer2"
      showgrid="false"
      inkscape:snap-global="true"
      inkscape:snap-bbox="true"
@@ -71,7 +72,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -149,7 +150,103 @@
        inkscape:export-filename="/home/alexios/PROJECTS/HARDWARE/cft/documentation/logo/proof-v2-small.png"
        inkscape:export-xdpi="600"
        inkscape:export-ydpi="600" />
-  </g>
+    <use
+       x="0"
+       y="0"
+       xlink:href="#rect3800"
+       id="use3149"
+       transform="translate(0,438.6572)"
+       width="744.09448"
+       height="1052.3622" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#rect3802"
+       id="use3151"
+       transform="translate(0,438.6572)"
+       width="744.09448"
+       height="1052.3622" />
+    <text
+       xml:space="preserve"
+       style="font-size:10px;font-style:italic;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
+       x="766.27881"
+       y="2516.9651"
+       id="text3165"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3167"
+         x="766.27881"
+         y="2516.9651"
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;text-align:center;text-anchor:middle;font-family:Myriad Pro;-inkscape-font-specification:Myriad Pro Semi-Bold">16 Bit Solid State Mini Computer</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text3206"
+       y="2516.9651"
+       x="1203.7866"
+       style="font-size:10px;font-style:italic;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
+       xml:space="preserve"><tspan
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;text-align:center;text-anchor:middle;font-family:Myriad Pro;-inkscape-font-specification:Myriad Pro Semi-Bold;fill:#ffffff"
+         y="2516.9651"
+         x="1203.7866"
+         id="tspan3208"
+         sodipodi:role="line">16 Bit Solid State Mini Computer</tspan></text>
+    <use
+       x="0"
+       y="0"
+       xlink:href="#use3149"
+       id="use3218"
+       transform="translate(0,440.07414)"
+       width="744.09448"
+       height="1052.3622"
+       inkscape:export-filename="/home/alexios/PROJECTS/HARDWARE/cft/documentation/logo/g3081.png"
+       inkscape:export-xdpi="600"
+       inkscape:export-ydpi="600" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#use3151"
+       id="use3220"
+       transform="translate(0,440.07414)"
+       width="744.09448"
+       height="1052.3622" />
+    <text
+       sodipodi:linespacing="125%"
+       id="use3222"
+       y="2957.0393"
+       x="766.27881"
+       style="font-size:10px;font-style:italic;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
+       xml:space="preserve"
+       inkscape:export-filename="/home/alexios/PROJECTS/HARDWARE/cft/documentation/logo/g3081.png"
+       inkscape:export-xdpi="600"
+       inkscape:export-ydpi="600"><tspan
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;text-align:center;text-anchor:middle;font-family:Myriad Pro;-inkscape-font-specification:Myriad Pro Semi-Bold"
+         y="2957.0393"
+         x="766.27881"
+         id="tspan3232"
+         sodipodi:role="line">16 Bit Homebrew Mini Computer</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:10px;font-style:italic;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans;-inkscape-font-specification:Sans"
+       x="1203.7866"
+       y="2957.0393"
+       id="use3224"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3236"
+         x="1203.7866"
+         y="2957.0393"
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;text-align:center;text-anchor:middle;fill:#ffffff;font-family:Myriad Pro;-inkscape-font-specification:Myriad Pro Semi-Bold">16 Bit Homebrew Mini Computer</tspan></text>
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot3238"
+       style="fill:black;stroke:none;stroke-opacity:1;stroke-width:1px;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;font-family:Bitstream Vera Sans;font-style:italic;font-weight:normal;font-size:10px;-inkscape-font-specification:Sans;line-height:125%;letter-spacing:0px;word-spacing:0px"><flowRegion
+         id="flowRegion3240"><rect
+           id="rect3242"
+           width="509.91116"
+           height="482.07758"
+           x="479.85089"
+           y="2622.176" /></flowRegion><flowPara
+         id="flowPara3244"></flowPara></flowRoot>  </g>
   <g
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
@@ -397,5 +494,40 @@
          d="m 806.04581,1454.3622 c -24.30042,0 -44,19.6995 -44,44 l 0,10.9872 -48.03125,0.013 c -5.8794,-14.6584 -20.20905,-25 -36.96875,-25 -21.9972,0 -39.84375,17.8153 -39.84375,39.8125 0,21.9971 17.84655,39.8437 39.84375,39.8437 16.6165,0 30.8404,-10.1966 36.8125,-24.6562 l 48.1875,0 0,55 30,0 0,-55 30,0 0,-30 -30,0 0,-11 c 0.37501,-7.3972 6.50964,-14 14,-14 l 46.00005,0 0,110 30,0 0,-110 44.99995,0 0,-30 z"
          style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:10;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
     </g>
+    <use
+       x="0"
+       y="0"
+       xlink:href="#g3804"
+       id="use3153"
+       transform="translate(0,438.6572)"
+       width="744.09448"
+       height="1052.3622" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#g3810"
+       id="use3155"
+       transform="translate(0,438.6572)"
+       width="744.09448"
+       height="1052.3622" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#use3153"
+       id="use3226"
+       transform="translate(0,440.07414)"
+       width="744.09448"
+       height="1052.3622"
+       inkscape:export-filename="/home/alexios/PROJECTS/HARDWARE/cft/documentation/logo/g3081.png"
+       inkscape:export-xdpi="600"
+       inkscape:export-ydpi="600" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#use3155"
+       id="use3228"
+       transform="translate(0,440.07414)"
+       width="744.09448"
+       height="1052.3622" />
   </g>
 </svg>
