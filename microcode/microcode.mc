@@ -33,6 +33,11 @@
 //
 //   Version 6c: (2014-07-17) Changed the IOT instruction so it
 //   also listens to the EXTSKIP# signal.
+//
+//   Version 6d: (2016-07-23) Fixed an IOT bug where IOT in literal bug would
+//   always skip regardless of the state of EXTSKIP#. Took a very long time to
+//   find this since there's currently no CFT hardware that uses this
+//   instruction.
 
 // Define the opcodes for convenience.
 
@@ -242,21 +247,21 @@ signal /END           = 1.......................; // Reset uaddr, go to fetch st
 // This is the read cycle we're going for:
 //
 // uSTEP  0.......... 1.......... 2.......... 3.......... 4...........  
-//         _____       _____       _____       _____       _____
-// CLK ___|     |_____|     |_____|     |_____|     |_____|     |_____
-//     ___       _____       _____       _____       _____       _____
-// CLK2   |_____|     |_____|     |_____|     |_____|     |_____|     
+// ___     _____       _____       _____       _____       _____
+// T12 ___|     |_____|     |_____|     |_____|     |_____|     |_____
+// ___ ___       _____       _____       _____       _____       _____
+// T34    |_____|     |_____|     |_____|     |_____|     |_____|     
 //
 // AR XXXXX|<============ VALID ==============>|XXXXXXXXXXXXXXXXXXXXXXXXXXX
 //
 // AB  ZZZZZ|<============ DRIVEN =============>|ZZZZZZZZZZZZZZZZZZZZZZZZZZZ
-//     _____                                     ______________________
+// ___ _____                                     ______________________
 // DAB      |___________________________________|
-//     _____                                     ______________________
+// ___ _____                                     ______________________
 // MEM      |___________________________________|
-//     _____             _____________________________________________     
+// _   _____             _____________________________________________     
 // R        |___________|                         
-//     __________             ________________________________________     
+// __  __________             ________________________________________     
 // MR*           |___________|    ::::
 //                                ::::
 //                                ::::
@@ -582,7 +587,7 @@ start UCB=XXXX, INT=1, RST=1, V=X, L=X, OP=IOT, I=0, SKIP=DONT_ACT, INC=X;
 
 
 // LITERAL MODE INSTRUCTION with SKIP asserted.
-start UCB=XXXX, INT=1, RST=1, V=X, L=X, OP=IOT, I=0, SKIP=DONT_ACT, INC=X;
+start UCB=XXXX, INT=1, RST=1, V=X, L=X, OP=IOT, I=0, SKIP=ACT, INC=X;
       _FETCH_IR;		// Fetch the instruction and operand.
       w_ar, r_agl;
       r_ac, /io, /wen;
