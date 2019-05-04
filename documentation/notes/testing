@@ -1,3 +1,5 @@
+-*- markdown -*-
+
 Testing Plan
 ============
 
@@ -70,6 +72,38 @@ Explicit Hardware Tests
     * Asserts PFP-SEL# for I/O address &0100-011f only
     * Falling edge of PFP-SEL# generates short IOCMD pulse
     * Falling edge of CLR-WS clears WS#: **OK**
+  * Bus interface
+    * DFP refuses to address itself: **OK**
+    * Asserts WS on addressing
+    * Clears WS when transaction is done
+    * Correctly implements all OUT commands:
+      * SOR
+      * ENEF
+      * DISEF
+      * ICR
+      * SENTINEL
+      * PRINTA
+      * PRINTC
+      * PRINTD
+      * PRINTU
+      * PRINTH
+      * PRINTB
+      * PRINTSP
+      * PRINTNL
+      * DEBUGON
+      * DEBUGOFF
+      * DUMP
+      * PRINTHI
+      * PRINTLO
+      * HALT
+      * SUCCESS
+      * FAIL
+    * Correctly implements all IN commands:
+      * LSR
+      * LDSR
+      * ISR
+      * QEF
+      * READC
   * MCU
     * Firmware (many tests)
     * Command bank 1
@@ -90,7 +124,7 @@ Explicit Hardware Tests
   * Microcode Store
     * Read Unit Decoder
       * Correctly pulses RAGL#
-      * Correctly pulses RPC#
+      * Correctly pulses RPC#: **OK**
       * Correctly pulses RDR#
       * Correctly pulses RAC#
       * Correctly sets ALU_ADD
@@ -131,13 +165,13 @@ Explicit Hardware Tests
       * Correctly pulses STPDR#
       * Correctly pulses STPAC#
       * Correctly pulses DEC#
-      * Correctly pulses END#
+      * Correctly pulses END#: **OK**
     * Memory
       * Correctly pulses R#: **OK**
       * Correctly pulses W#: **OK**
       * R# and W# are never seen together
       * Correctly pulses MEM#: **OK**
-      * Correctly pulses IO#
+      * Correctly pulses IO#: **OK**
       * MEM# and IO# are never seen together
   * Microcode Banking Unit
     * Hard mappings:
@@ -157,7 +191,7 @@ Explicit Hardware Tests
     * Clock Mux: **OK**
       * Slow clocks: **OK**
       * Fast clock: **OK**
-    * Phase Generation
+    * Phase Generation: **OK**
       * CLK1-4: **OK**
       * T34: **OK**
   * Reset
@@ -184,7 +218,7 @@ Explicit Hardware Tests
     * Sets correctly from IBUS: **OK**
     * Increments: **OK**
   * Data Register
-    * Sets correctly from IBUS: **OK**
+    * Sets correctly from IBUS
     * Increments
     * Decrements
   * Accumulator
@@ -192,8 +226,8 @@ Explicit Hardware Tests
     * Increments
     * Decrements
     * Outputs L correctly
-  * Negative Flag
-  * Zero Flag
+  * Negative Flag: **OK**
+  * Zero Flag: **OK**
 
 * PB3
   * Link Register

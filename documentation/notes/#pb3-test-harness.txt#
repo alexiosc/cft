@@ -1,0 +1,148 @@
+Inputs
+
+Name       Src      30Ω When floating
+-------------------------------------------------------------------------------
+CLK4       PB1/CG    -  Bus hold (PB0)
+CLK3       PB1/CG    -  Bus hold (PB0)
+CLK1       PB1/CG    -  Bus hold (PB0)
+WS#        Bus       -  Pulled up (PB0)
+ENDEXT#    Bus       -  Pulled up (PB0)
+HALT#      Bus       -  Pulled up (PB0)
+RESET#     Bus       -  Pulled up (PB0)
+AINDEX#    PB1/AIL   ?  Pulled up (PB0)
+SKIP#      PB1/SBL   -  Pulled up (PB0)
+IR11-15    PB1/IR    -  Pulled down (PB0)
+FL         PB3/L     ?  Pulled down (PB0)
+FV         PB3/ALU   ?  Pulled down (PB0)
+RSTHOLD#   PB1/RST   ?  Pulled up (PB0)
+IRQS#      PB1/ISM   -  -
+SYSDEV#    PB1/IOD   -  Bus hold (PB0)
+W#         PB1/IOD   -  Bus hold (PB0)
+AB0-15     Bus       -  Bus hold (PB0)
+-------------------------------------------------------------------------------
+FPCLKEN    PFP       -  Pulled up (PB1)
+FPUSTEP    PFP       -  Pulled down (PB1)
+NFPRESET   PFP       -  Pulled up (PB1), diode AD (OD) -> RESET#
+POWEROK    PFP       -  Pulled up (PB1), diode AD (OD) -> RESET#
+FNEG       PB2       ?  -
+FZERO      PB2       ?  -
+FL         PB3       ?  -
+FV         PB3       ?  -
+SKIPEXT#   Bus       -  Pulled up (PB1)
+RAGL#      PB0/RUD   Y  Pulled up (PB0)
+gEND#       PB0/uC    Y  -
+WIR#       PB0/WUD   Y  -
+STI#       PB0/uC    Y  -
+CLI#       PB0/uC    -	-
+IRQ#	   Bus	     -	-
+WS#	   Bus	     -	-
+MEM#	   PB0/uC    Y	-
+IO#	   PB0/uC    Y	-
+R#	   PB0/uC    Y  -
+WEN#	   PB0/uC    Y	-	
+T34#	   PB1/CG    -	Bus hold (PB0)	
+CLK2	   PB1/CG    -  Bus hold (PB0)
+CLK4	   PB1/CG    -  Bus hold (PB0)
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+RESET#     
+-------------------------------------------------------------------------------
+
+Patches required:
+
+* Pull up SKIPMUXLO and SKIPMUXHI via 4.7kΩ resistor.
+
+* Use '125 buffer to ensure W# is at high impedance when UCE# is
+  asserted. When UCE# is asserted, WEN# goes high, and write pulses
+  should only be generated when WEN# is low. Take advantage of this
+  (use WEN# as buffer enable?).
+
+Passive tests:
+
+* High impedance between VCC and GND.
+* FPRESET# pulled up.
+* POWEROK pulled up.
+* RSTHOLD-SHORT# pulled down without a jumper.
+* SKIPEXT# pulled up.
+* IRQ# pulled up.
+* Outputs of JP3 pulled down without a jumper.
+* AGL PAGE0-PAGE5 pulled down.
+
+Active tests:
+
+* CLOCK GENERATOR
+  * CLK[1-4], T12, T34 waveform is nominal.
+  * Clock stops when FPCLKEN is driven low.
+  * With FPCLKEN low, strobing FPUSTEP should advance the clock.
+  * Clock restarts when FPCLKEN is left floating or driven high.
+  * Resetting restarts the clock phase.
+
+* RESET
+  * Driving RESET# low resets.
+  * Driving FPRESET# low resets.
+  * Driving POWEROK low resets.
+  * Pressing reset buttont resets.
+  * Reset sets RSTHOLD#.
+  * RSTHOLD# waveform is nominal.
+  * RSTHOLD# goes up in phase with clock.
+  * Reset vector is driven onto IBUS while RSTHOLD# is low.
+
+* SBU
+
+  * Difficult to test through harness.
+  * TBD.
+
+* AGL
+
+  * TBD.
+
+* ISM
+
+  * Interrupts lights off on reset.
+  * Strobing IRQ# does nothing after reset.
+  * Strobing STI# turns "interrupts allowed" light on.
+  * Strobing IRQ# turns "interrupt seen" light on.
+  * Strobing IRQ# drives IRQS# low.
+  * Strobing CLI# or RESET# clears IRQS# and extinguishes both lights.
+
+* Wait states
+
+  * Difficult to test.
+  * TBD.
+
+* Data bus transceiver
+
+  * TBD.
+
+* Write strobe generator.
+
+  * Calibrate.
+
+
+
+Test harness:
+
+  * Pull RESET# up.
+  * Pull down IR0-4.
+  * Pull down FV.
+  * Pull down FNEG.
+  * Pull down FZERO.
+  * Pull down FL.
+  * Pull down FV.
+  * Pull up RAGL#.
+  * Pull up END#.
+  * Pull up WIR#.
+  * Pull up STI#.
+  * Pull up CLI#.
+  * Pull up WS#.
+  * Pull up MEM#.
+  * Pull up IO#.
+  * Pull up R#.
+  * Pull up WEN#.
+  * Pull up WEN#.
+
+Lights:
+
+  * IR0-3
+  * IR4
+  * SKIP (for skip experimentation)

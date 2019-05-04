@@ -1,0 +1,52 @@
+==3.3-to-5V Shifting==
+
+The MAX V
+
+* The Max V CPL tolerates up to 4V for input.
+* It provides ≥2.4V for output.
+
+Bus Hold Drivers
+
+* The 74ACT107[13] bus hold drivers hold the bus at 5V.
+* They accept ≥1.6V (typical; ≥2V worst-case) as the minimum HIGH voltage.
+
+Other HC ICs:
+
+* Use 5V.
+* Accept ≥3.7V (typical) for VIH.
+
+The 74ACT245:
+
+* Drives 5V
+* Accepts ≥1.5V (typical; ≥2V worst-case).
+
+
+
+
+* MAX V Drives the bus (with 5V-powered '245)
+
+The Max V outputs ≥2.4V to drive high.
+The 'ACT245 reads ≥2V as high.
+The 'ACT245 correctly outputs ~5V.
+
+* CFT Drives the bus (with 5V-powered '245)
+
+The 'ACT245 reads ~5V.
+The 'ACT245 outputs ~5V (which is the >4V maximum tolerance)
+
+
+
+* (NOT WORKING) MAX V Drives the bus (with 3.3V-powered '245)
+
+The Max V outputs ≥2.4V to drive high.
+The 'ACT245 reads ≥2V as high.
+The 'ACT245 correctly outputs ~3.3V.
+(CHECK EXPERIMENTALLY!) The CFT bus hold reads ≥1.6V as high and clamps to 5V.
+
+* CFT Drives the bus (with 3.3V-powered '245)
+
+The 'ACT245 reads ~5V (which is higher than the absolute VI rating, 3.3V+0.5V = 3.8V)
+The 'ACT245 outputs ~5V (which is the >4V maximum tolerance)
+
+
+

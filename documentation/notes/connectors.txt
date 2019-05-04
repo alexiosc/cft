@@ -1,0 +1,19 @@
+LIST OF CONNECTORS
+
+* USB Type B
+  * Leads to internal hub:
+  * FT-232 module connecting to DFP
+  * FT-232 module connecting to TTY3
+* VGA out
+* 2× DTE 9-pin RS-232
+* 1× DCE 9-pin RS-232
+* 1× 25-pin parallel port out (TBD)
+* 1× 34-pin floppy
+* 1× 50-pin Shugart floppy
+* RJ-45 Ethernet
+* Stereo audio out
+* Tape I/O
+* PS/2 keyboard (TBD)
+* Sun keyboard (TBD)
+* CF card slot? (TBD)
+* User I/O (TBD)

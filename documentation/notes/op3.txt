@@ -1,0 +1,17 @@
+==TENTATIVE DESIGN FOR AN OP3 INSTRUCTION IN MICROCODE 7==
+
+INDEX, JMPII, etc.
+
+* PC to AC
+* DR to AC
+* Clear AC
+* Inc AC
+* Dec AC
+* Add AC + DR
+* AC to DR
+* AC <- mem[DR]
+* AC <- mem[DR] (second indirection)
+* AC to PC
+
+9876543210
+         

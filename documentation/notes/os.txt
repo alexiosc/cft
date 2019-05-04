@@ -190,3 +190,77 @@ in case of error).
 
 The page 0 register ERRNO stores the last error encountered.
 
+==Multiuser Operation==
+
+This is fairly easy with the MBU. On the CFT, page 0 is in practice a
+very large register file. With memory banking, we can swap this
+register file for any other.
+
+A context switch would then execute this algorithm:
+
+* Save L, AC, PC (in context's page 0)
+* Map another physical bank to &0000–1FFF.
+* Restore L, AC, PC.
+
+Page 0 is 1 KW long, but a memory bank is 8 KW long. This allows up to
+7 KW of user data (e.g. Forth user variables, buffers and stacks) to
+be saved along with everything else. The entire state of the system
+should fit in this 8KW quite easily (possibly with space to spare).
+
+==Asynchronous Operation==
+
+With async operation, we can have multiple user contexts in a
+pseudo-multitasking environment. We could even have pre-emptive
+multitasking using timer interrupts.
+
+===Blocking I/O===
+
+Suggest having a system call or macro wait(TTYA) whenever input is
+expected. Check flag (set by ISR), loop if not set, return character
+received on success.
+
+Right now, the ISR can clear this flag.
+
+With multi-user extensions later, the macro can relinquish control to
+the OS while the process is waiting for I/O.
+
+Use a static, low number of threads (e.g. 16).
+
+To avoid synchronisation issue, use a state machine for each process
+just like modern OS, but much simpler:
+
+    +-----+     +------+  :  +---------+
+    | RUN |---->| WAIT |--:->| WAITING |
+    +-----+     +------+  :  +---------+
+       \                  :       |
+        +-----------------:-------+
+                          :
+                          :--> other processes are scheduled here.
+
+==Interrupt Allocation==
+
+Tentative allocation, may change a lot.
+
+Considerations:
+
+  * Querying the DFP is VERY slow. Keep IRQ6 disabled on it unless necessary.
+
+  * With shared interrupts, check faster devices before slow
+    devices. The DFP is always last.
+
+  * IRQ0 shouldn't be shared (simplifies the ISR).
+
+  * The ISR treats the interrupts as prioritised in order. Since IRQs
+    can't be reconfigured easily, this prioritisation may change in
+    software.
+
+IRQ MBU DFP IRC TTY IDE RTC TMR NVR FDC SPJ PSG LPT VDU ETH GIO   Notes
+----------------------------------------------------------------------------------
+ 0             	     	     X 	     	    	     		  Timer interrupts
+ 1     	 X     	       	       	       	       	                  DFP
+ 2	  	                                     X            VDU (+KBD)
+ 3	 	0-3                                               TTYs
+ 4     	       	       	       	       	       	       	 X        ETH
+ 5	 	     X                                            IDE
+ 6	(X)     		     	 ?  	 ?                (DFP), SPJ?, LPT?
+ 7     	       	       	       	     X                            FDC
