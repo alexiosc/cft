@@ -11,7 +11,7 @@ COPPER='#3c8923'
 OPTS=""
 OPTS="$OPTS -a"
 
-for ext in GBS GBL GBO GBA; do
+for ext in G{B,T}{L,S,O,A}; do
     if [ ! -r $base.$ext ]; then
 	echo "File not found: $base.$ext"
 	exit 2
@@ -34,29 +34,34 @@ done
 
 # convert -fill $base-{GBL,GBO,GBS,TXT} -layers flatten $base-bottom.png
 
-gerbv $OPTS -B 0 -D $RES -o $base-bottom.png -x png -b $BG \
-    -f $HOLE $base.TXT \
-    -f $SILK $base.GBA \
-    -f $STOP $base.GBS \
-    -f $COPPER $base.GBL
+#for fmt in png svg; do
+for fmt in png; do
+    gerbv $OPTS -B 0 -D $RES -o $base-bottom.$fmt -x $fmt -b $BG \
+	-f $HOLE $base.TXT \
+	-f $SILK $base.GBO \
+	-f $STOP $base.GBS \
+	-f $COPPER $base.GBL &
 
-gerbv $OPTS -B 0 -D $RES -o $base-bottom-silk.png -x png -b '#ffffff' \
-    -f '#ffffff' $base.TXT \
-    -f '#000000' $base.GBA \
-    -f '#dddddd' $base.GBS \
-    -f '#dddddd' $base.GBL
+    gerbv $OPTS -B 0 -D $RES -o $base-bottom-silk.$fmt -x $fmt -b '#ffffff' \
+	-f '#ffffff' $base.TXT \
+	-f '#000000' $base.GBA \
+	-f '#dddddd' $base.GBS \
+	-f '#dddddd' $base.GBL &
 
-gerbv $OPTS -B 0 -D $RES -o $base-top.png -x png -b $BG \
-    -f $HOLE $base.TXT \
-    -f $SILK $base.GTA \
-    -f $STOP $base.GTS \
-    -f $COPPER $base.GTL
+    gerbv $OPTS -B 0 -D $RES -o $base-top.$fmt -x $fmt -b $BG \
+	-f $HOLE $base.TXT \
+	-f $SILK $base.GTO \
+	-f $STOP $base.GTS \
+	-f $COPPER $base.GTL &
 
-gerbv $OPTS -B 0 -D $RES -o $base-top-silk.png -x png -b '#ffffff' \
-    -f '#ffffff' $base.TXT \
-    -f '#000000' $base.GTA \
-    -f '#dddddd' $base.GTS \
-    -f '#dddddd' $base.GTL
+    gerbv $OPTS -B 0 -D $RES -o $base-top-silk.$fmt -x $fmt -b '#ffffff' \
+	-f '#ffffff' $base.TXT \
+	-f '#000000' $base.GTA \
+	-f '#dddddd' $base.GTS \
+	-f '#dddddd' $base.GTL &
+
+    wait
+done
 
 mogrify -fuzz 5% -fill 'rgb(0,0,0)' -opaque 'rgb(58,58,17)' $base-{bottom,top}.png
 #mogrify -fuzz 5% -fill 'red' -opaque 'rgb(58,58,17)' $base-{bottom-silk,top-silk}.png

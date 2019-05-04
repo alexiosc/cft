@@ -52,30 +52,30 @@ _BUILTINS = """;;; CFT Assembler Built-ins
 
 .equ IFL OP1  #1---------		; Execute the rest only if L is set.
 .equ IFV OP1  #-1--------		; Execute the rest only if V is set.
-.equ CLA OP1  #--1-------		; A <- 0
+.equ CLA OP1  #--1-------		; AC <- 0
 .equ CLL OP1  #---1------		; L <- 0
-.equ NOT OP1  #----1-----		; A <- NOT A
-.equ INC OP1  #-----1----		; <L,A> <- <L,A> + 1
+.equ NOT OP1  #----1-----		; AC <- NOT A
+.equ INC OP1  #-----1----		; <L,AC> <- <L,AC> + 1
 .equ CPL OP1  #------1---		; L <- NOT L
-.equ RBL OP1  #-------010		; <L,A> <- <L,A> >> 1
-.equ RBR OP1  #-------001		; <L,A> <- <L,A> << 1
-.equ RNL OP1  #-------110		; <L,A> <- <L,A> >> 4
-.equ RNR OP1  #-------101		; <L,A> <- <L,A> << 4
+.equ RBL OP1  #-------010		; <L,AC> <- <L,AC> >> 1
+.equ RBR OP1  #-------001		; <L,AC> <- <L,AC> << 1
+.equ RNL OP1  #-------110		; <L,AC> <- <L,AC> >> 4
+.equ RNR OP1  #-------101		; <L,AC> <- <L,AC> << 4
 
 
 ;;; 3. OP2 Mnemonics, in order of execution.
 
 .equ NOP  OP2 #-----00000		; (no semantics)
-.equ SNA  OP2 #-----01---		; A & 0x8000 == 1 ==> PC := PC + 1  }
-.equ SZA  OP2 #-----0-1--		; A == 0 ==> PC := PC + 1           } ORred together
-.equ SSL  OP2 #-----0--1-		; L == 1 ==> PC := PC + 1           }
-.equ SSV  OP2 #-----0---1		; V == 1 ==> PC := PC + 1           }
+.equ SNA  OP2 #-----01---		; AC & 0x8000 == 1 ==> PC := PC + 1  }
+.equ SZA  OP2 #-----0-1--		; AC == 0 ==> PC := PC + 1           } ORred together
+.equ SSL  OP2 #-----0--1-		; L == 1 ==> PC := PC + 1            }
+.equ SSV  OP2 #-----0---1		; V == 1 ==> PC := PC + 1            }
 .equ SKIP OP2 #-----10000		; PC := PC + 1
-.equ SNN  OP2 #-----11---		; A & 0x8000 == 0 ==> PC := PC + 1  }
-.equ SNZ  OP2 #-----1-1--		; A != 0 ==> PC := PC + 1           } ANDed together
-.equ SCL  OP2 #-----1--1-		; L == 0 ==> PC := PC + 1           }
-.equ SCV  OP2 #-----1---1		; V == 0 ==> PC := PC + 1           }
-;.equ CLA OP2 #--1-------		; A <- 0
+.equ SNN  OP2 #-----11---		; AC & 0x8000 == 0 ==> PC := PC + 1  }
+.equ SNZ  OP2 #-----1-1--		; AC != 0 ==> PC := PC + 1           } ANDed together
+.equ SCL  OP2 #-----1--1-		; L == 0 ==> PC := PC + 1            }
+.equ SCV  OP2 #-----1---1		; V == 0 ==> PC := PC + 1            }
+;.equ CLA OP2 #--1-------		; AC <- 0
 .equ CLI  OP2 #---1------		; INT <= 0
 .equ SEI  OP2 #----1-----		; INT <= 1
 
@@ -83,11 +83,18 @@ _BUILTINS = """;;; CFT Assembler Built-ins
 ;;; 4. Common macros
 
 .equ SEL CLL CPL                        ; Set L
-.equ NEG NOT INC			; Negate A, in two's complement.
-.equ ING NOT			        ; A = -(A+1) Increment and negate A, in two's complement
+.equ NEG NOT INC			; Negate AC, in two's complement.
+.equ ING NOT			        ; AC = -(AC+1) Increment and negate A, in two's complement
 .equ LI    LIA R                        ; Load immediate (0 to &3ff)
-.equ SPA SNN SNZ			; Skip on positive A
-.equ SNP SNA SZA                        ; Skip on non-positive A
+.equ SPA SNN SNZ			; Skip on positive AC
+.equ SNP SNA SZA                        ; Skip on non-positive AC
+
+.equ IFNN SNA                           ; (don't skip) if AC >= 0
+.equ IFPA SNA SZA                       ; (don't skip) if AC > 0
+.equ IFNZ SZA                           ; (don't skip) if AC != 0
+.equ IFZA SNZ                           ; (don't skip) if AC == 0
+.equ IFNA SNN                           ; (don't skip) if AC < 0
+.equ IFNP SNN SNZ                       ; (don't skip) if AC <= 0
 
 .equ RET JMP I R 0                      ; Return from a subroutine
 .equ RTT JMP I R 1                      ; Return from a trap

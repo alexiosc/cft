@@ -114,7 +114,8 @@ def shipout(sn, date, name, email, tags, descr):
     descr = re.sub('\s+', ' ', descr.strip())
     descr = re.sub('<p>$', '', descr)
     descr = re.sub('<p>\s+', '\n\n', descr)
-    descr = descr.rstrip('.') + '.'
+    if descr[-1] not in "!?":
+        descr = descr.rstrip('.') + '.'
     completion, tags = processTags(tags)
 
     # Currently using the first tag as the title (which isn't displayed)
