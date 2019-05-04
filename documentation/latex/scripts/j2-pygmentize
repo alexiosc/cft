@@ -1,0 +1,11 @@
+#!/bin/bash
+
+src=$1; shift
+lang=$1; shift
+echo '{% filter source("'$lang'") %}'
+echo '{% raw %}'
+cat $src
+echo '{% endraw %}'
+echo '{% endfilter %}'
+
+# end of file.

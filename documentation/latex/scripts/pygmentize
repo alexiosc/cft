@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [ -x /var/www/static-bedroomlan/packages/pygmentize ]; then
+    exec /var/www/static-bedroomlan/packages/pygmentize "$@"
+else
+    pygmentize "$@"
+fi
+
+# end of file.
