@@ -103,14 +103,14 @@
                           OP1 OP2 POP ISZ LIA JMPII IFL IFV CLA CLL NOT INC
                           CPL RBL RBR RNL RNR NOP SNA SZA SSL SSV SKIP SNN
                           SNZ SCL SCV CLI SEI SEL NEG ING LI SPA SNP RET RTT
-                          RTI SBL SBR PUSH R I"))
+                          RTI SBL SBR PUSH R I SMB"))
 	  "\\>"))
 	  
 (defconst cftasm-preprocess-directives
   (concat "^[ \t]*\\."
 	  (regexp-opt
 	   ; .macro, .equ and .reg are handled separately
-	   (split-string "macro end include pushns popns page equ scope endscope")
+	   (split-string "macro end include pushns popns page bank equ scope endscope")
 	   )
 	  "[ \t]*"))
 
@@ -118,7 +118,7 @@
   (concat "[ \t]*"
 	  (regexp-opt
 	   ; .equ and .reg handled separately
-	   (split-string ".word .data .str .strp .strn .fill .fillreg .longstring .endstring"))
+	   (split-string ".word .data .str .strp .strn .fill .fillreg .longstring .compstring .endstring"))
 	  "\\>"))
 	  
 
@@ -130,13 +130,13 @@
 
 (defconst cftasm-font-lock-keywords
   (list
-   (list "\\(%\\sw+\\)" 1 font-lock-doc-face)
+   (list "\\(%\\sw+\\|%{\\sw+}\\)" 1 font-lock-doc-face)
    (list cftasm-instructions 0 font-lock-keyword-face)
    (list "[ \t]*\\(\\.equ\\|\\.reg\\|\\.macro\\)[ \t]+\\([^ \t(]+\\)"
    	 '(1 font-lock-preprocessor-face) '(2 font-lock-variable-name-face))
    (list "[ \t]*\\([^ \t]+\\)[ \t]*(" 1 font-lock-function-name-face)
-   (list cftasm-preprocess-directives 0 font-lock-preprocessor-face)
    (list cftasm-assembly-directives 0 font-lock-preprocessor-face)
+   (list cftasm-preprocess-directives 0 font-lock-preprocessor-face)
    (list "^[ \t]*\\([^ \t]+:\\)?[ \t]*\\([^ \t]+\\)" 2 font-lock-type-face)
    (list cftasm-label '(1 font-lock-constant-face) '(3 font-lock-keyword-face nil t))
    (list "^[ \t]*\\(/+.*\\)" 1 font-lock-comment-face t)
