@@ -1,0 +1,346 @@
+%% % -*- latex -*-
+
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% %%
+%% %% PACKAGES
+%% %%
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% \usepackage{ifxetex}
+%% \usepackage{graphicx}
+
+%% \usepackage{verbatim}
+%% \usepackage{ifthen}
+%% \usepackage{float}
+%% \usepackage{floatflt}
+%% \usepackage{lipsum}
+%% \usepackage{layout}
+%% \usepackage{calc}
+%% \usepackage{rotating}
+%% \usepackage{array}
+%% \usepackage{color}
+%% \usepackage[table]{xcolor}
+%% \usepackage[includefoot]{geometry}
+
+% Conditional packages
+\ifxetex
+  % Load fontspec and set fonts
+  \usepackage{fontspec}
+  \setmainfont{Minion Pro}
+  \setsansfont{Myriad Pro}
+  \setmonofont[]{Inconsolata}
+
+  \usepackage{pdftricks}
+  \usepackage{pdfpages}
+
+%%   \def\HCode#1{}
+
+%%   % HTML Metadata commands do nothing in XeTeX
+%%   \newcommand\HtmlMetaDescription[1]{}
+%%   \newcommand\HtmlMetaGoogleDescription[1]{}
+%%   \newcommand\HtmlMetaBanner[1]{}
+%%   \newcommand\HtmlMetaTags[1]{}
+
+\else
+%%   \newcounter{Hfootnote}
+%%   \newcommand\fontspec[1]{}
+%%   %\usepackage[main=english,greek]{babel}
+%%   \usepackage[utf8]{inputenc}
+%%   \usepackage{newunicodechar}
+%%   \newunicodechar{®}{\HCode{&reg;}}
+%%   \newunicodechar{µ}{\HCode{&mu;}} % ‘micro’ (from latin-1 plane)
+%%   \newunicodechar{μ}{\HCode{&mu;}} % mu (from Greek plane)
+%%   \newunicodechar{–}{--}
+%%   \newunicodechar{—}{---}
+%%   \newunicodechar{×}{\ensuremath{\times}}
+%%   \newunicodechar{°}{\HCode{&deg;}}
+%%   \newunicodechar{±}{\HCode{&plusm;}}
+%%   \newunicodechar{Ω}{\ensuremath{\Omega}}
+%%   \newunicodechar{÷}{\ensuremath{\div}}
+%%   %\newunicodechar{²}{\HCode{&sup2;}}
+%%   \newunicodechar{²}{*2*}
+%%   \newunicodechar{¼}{\HCode{&\#188;}}
+%%   \newunicodechar{½}{\HCode{&\#189;}}
+%%   \newunicodechar{≤}{\HCode{ &le; }}
+%%   \newunicodechar{≥}{\HCode{ &ge; }}
+%%   \newunicodechar{≠}{\HCode{ &ne; }}
+%%   \newunicodechar{←}{\HCode{&\#8592;}}
+
+%%   \let\oldeqnarray\eqnarray
+%%   \let\oldendeqnarray\endeqnarray
+%%   \def\eqnarray{\begingroup \oldeqnarray}
+%%   \def\endeqnarray{\oldendeqnarray \endgroup}
+
+%%   % HTML Metadata commands do nothing in XeTeX
+%%   \newcommand\HtmlMetaDescription[1]{%
+%%     \HCode{<div style="display:none" id="HtmlMetaDescription">#1</div>}%
+%%   }
+%%   \newcommand\HtmlMetaGoogleDescription[1]{%
+%%     \HCode{<div style="display:none" id="HtmlMetaGoogleDescription">#1</div>}%
+%%   }
+%%   \newcommand\HtmlMetaBanner[1]{%
+%%     \HCode{<div style="display:none" id="HtmlMetaBanner">#1</div>}%
+%%   }
+%%   \newcommand\HtmlMetaTags[1]{%
+%%     \HCode{<div style="display:none" id="HtmlMetaTags">#1</div>}%
+%%   }
+
+\fi
+
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% %%
+%% %% TABLES
+%% %%
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% \renewcommand*\arraystretch{1.25}
+%% \newcolumntype{P}[1]{>{\raggedright\arraybackslash}p{#1}}
+
+
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% %%
+%% %% FIGURE DRAWING WITH PGF/TIKZ
+%% %%
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ifxetex
+  \usepackage{pgf}
+  \usepackage{tikz}
+  \usepackage{rotating}
+  \usepackage[absolute]{textpos}
+
+  %\usetikzlibrary{arrows,positioning,automata,shadows,fit,shapes,counters}
+  \usetikzlibrary{arrows,positioning,automata,shadows,fit,shapes,patterns}
+  \usetikzlibrary{shadows.blur}
+  %\usetikzlibrary{external}
+  %\tikzexternalize[prefix=tikz/]
+  %\tikzset{external/system call={xelatex \tikzexternalcheckshellescape -halt-on-error -interaction=batchmode -jobname "\image" "\texsource"}}
+  \usepackage{standalone}
+
+  \usepackage{tikz-timing}[2009/07/28]
+  \usetikztiminglibrary{either}[2009/07/28]
+  \tikzset{>=latex}
+  \tikzset{timing/z/.append style={black},}
+  \tikzset{timing/.append style={x=1ex, y=2ex, line cap=round, line join=round, line width=1.3pt}}
+  \tikzset{timing/slope=0.33}
+  \tikzstyle{semithick}=[line width=1pt]
+  \tikzstyle{heavy}=[line width=2pt]
+  \tikzstyle{heavy outline}=[line width=3.5pt]
+  \tikzstyle{plot line}=[line width=4pt]
+  \tikzstyle{arrow}=[semithick]
+  \tikzstyle{thick arrow}=[heavy]
+  \tikzstyle{thick outline arrow}=[thick arrow, heavy outline, color=white, draw opacity=0.8]
+  \tikzstyle{help lines}=[dotted, line width=0.5pt]
+  \tikzstyle{col1}=[draw=p1,fill=p1!60]
+  \tikzstyle{col2}=[draw=p2,fill=p2!60]
+  \tikzstyle{col3}=[draw=p3,fill=p3!60]
+  \tikzstyle{col4}=[draw=p4,fill=p4!60]
+  \tikzstyle{col5}=[draw=p5,fill=p5!60]
+  \tikzstyle{col6}=[draw=p6,fill=p6!60]
+  \tikzstyle{dropshadow}=[] % shade,blur shadow={shadow blur steps=5, shadow blur extra rounding=1.3pt}]
+  \tikzset{fsmstate/.style={state,rectangle,rounded corners,dropshadow,minimum width=10em,line width=1pt}}
+  % Create a hatch pattern
+  \newlength{\hatchspread}
+  \newlength{\hatchthickness}
+  % declaring the keys in tikz
+  \tikzset{hatchspread/.code={\setlength{\hatchspread}{#1}},
+           hatchthickness/.code={\setlength{\hatchthickness}{#1}}}
+  \tikzset{hatchspread=3pt,
+           hatchthickness=0.4pt}
+  \pgfdeclarepatternformonly[\hatchspread,\hatchthickness]% variables
+     {hatch}% name
+     {\pgfqpoint{-2\hatchthickness}{-2\hatchthickness}}% lower left corner
+     {\pgfqpoint{\dimexpr\hatchspread+2\hatchthickness}{\dimexpr\hatchspread+2\hatchthickness}}% upper right corner
+     {\pgfqpoint{\hatchspread}{\hatchspread}}% tile size
+     {% shape description
+      \pgfsetlinewidth{\hatchthickness}
+      \pgfpathmoveto{\pgfqpoint{0pt}{\hatchspread}}
+      \pgfpathlineto{\pgfqpoint{\dimexpr\hatchspread+0.15pt}{-0.15pt}}
+      \pgfusepath{stroke}
+     }
+\fi
+
+
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% %%
+%% %% HYPERREF
+%% %%
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% \makeatletter
+%% \@ifpackageloaded{standalone}{}{
+%%   \ifxetex
+%%     \usepackage[CJKbookmarks,bookmarks=true,bookmarksopen=true,pdfpagelabels,pdfstartpage=1]{hyperref}
+%%   \else
+%%     \usepackage[tex4ht]{hyperref}
+%%   \fi
+%% }
+
+%% \let\old@part\part
+%% \renewcommand\part[1]{%
+%%   \setcounter{chapter}{0}%
+%%   \old@part{#1}%
+%% }
+%% %\renewcommand*{\theHchapter}{\thepart.\thechapter}
+%% \makeatother
+
+
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% %%
+%% %% INDEX AND GLOSSARY
+%% %%
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{makeidx}
+% Glossaries
+\usepackage[acronym]{glossaries}
+%\makeindex
+%\makeglossaries
+\input{glossary}
+%\newcommand\gls[1]{#1}
+%\newcommand\glsresetall{}
+\ifxetex
+  \glsSetCompositor{-}
+  \renewcommand{\delimR}{–}
+\fi
+
+
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% %%
+%% %% LISTINGS OF THINGS
+%% %%
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% % Lists of things (memoir already includes this if running XeTeX)
+%% \ifxetex
+%%   \relax
+%% \else
+%%   \usepackage{tocloft}
+%% \fi
+
+
+%% % Listings
+%% \usepackage{minted}
+%% \newminted{deb}{fontsize=\small}
+%% \newminted{cftasm}{fontsize=\small}
+%% \newminted{c}{fontsize=\small}
+%% \newminted{forth}{fontsize=\small}
+%% \newminted{intr}{fontsize=\small}
+%% \newminted{mcasm}{fontsize=\small}
+%% \newmintedfile{mcasm}{linenos=true,fontsize=\small}
+
+%% \ifxetex
+%%   \relax
+%% \else
+
+%% % Modify the minted way of invoking pygmentize if running with
+%% % HTLatex. We'll be using a dummy ‘pygmentize’ binary that produces
+%% % Jinja code appropriate for the website. The site generator will then
+%% % do its own thing to render the source.
+
+%%   \makeatletter
+%%   \newcounter{minted@temp}
+%%   \renewcommand\minted@pygmentize[2][\jobname.pyg]{
+%%     \stepcounter{minted@temp}
+%%     \def\minted@cmd{../scripts/pygmentize -l #2 -f html -F tokenmerge
+%%       \minted@opt{gobble} \minted@opt{texcl} \minted@opt{mathescape}
+%%       \minted@opt{startinline} \minted@opt{funcnamehighlighting}
+%%       \minted@opt{linenos} -P "verboptions=\minted@opt{extra}"
+%%       -o \jobname-\arabic{minted@temp}.out.pyg #1}
+%%     %% \def\minted@cmd{../scripts/j2-pygmentize #1 #2 > \jobname-\arabic{minted@temp}.out.pyg}
+%%     \immediate\write18{\minted@cmd}
+%%     % Remove kludgy markup hints (four or more @)
+%%     \immediate\write18{sed -i -e s/@@@@//g \jobname-\arabic{minted@temp}.out.pyg}
+%%     % For debugging, uncomment:
+%%     %\immediate\typeout{\minted@cmd}
+%%     \ifthenelse{\equal{\minted@opt@bgcolor}{}}
+%%      {}
+%%      {\begin{minted@colorbg}{\minted@opt@bgcolor}}
+%%      \HCode{<div class="minted #2">}
+%%      \special{t4ht*<\jobname-\arabic{minted@temp}.out.pyg} % Import the HTML output
+%%      \HCode{</div>}
+%%      \ifthenelse{\equal{\minted@opt@bgcolor}{}}
+%%      {}
+%%      {\end{minted@colorbg}}
+%%     %\DeleteFile{\jobname.out.pyg}
+%%   }
+%%   \makeatother
+%% \fi
+
+
+%% % Old-style listings
+%% \usepackage{listings}
+%% \lstset{%
+%%   xleftmargin=35pt,
+%%   xrightmargin=5pt,
+%%   basicstyle={\ttfamily},
+%%   backgroundcolor=\color{cfthl!25},
+%%   rulecolor=\color{cfthl!25},
+%%   framesep=5pt,
+%%   rulesep=5pt,
+%%   frame=tlrb,
+%%   framexleftmargin=10pt,
+%%   flexiblecolumns=true,
+%%   keepspaces=true,
+%%   numbers=left,
+%%   numbersep=5pt,
+%%   numberstyle={\scriptsize\sffamily\color{cftlight}}
+%% }
+
+
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% %%
+%% %% COLOURS
+%% %%
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% \definecolor{r0}{rgb}{0.33, 0.1, 0.1}
+%% \definecolor{r1}{rgb}{1, 0.3, 0.3}
+
+%% \definecolor{g0}{rgb}{0.1, 0.33, 0.1}
+%% \definecolor{g1}{rgb}{0.3, 1, 0.3}
+
+%% %% \definecolor{cftdark}{cmyk}{0,0.42,0.72,0.84} % 29180b hsv(25,72,16)
+%% %% \definecolor{cftoutline}{cmyk}{0,0.43,0.72,0.53} % 784422 hsv(42,72,47)
+%% %% \definecolor{cftlight}{cmyk}{0,0.43,0.72,0.22} % c77138 hsv(24,72,78)
+%% %% \definecolor{cfthl}{rgb}{.89,.698,.529} % e3b287 hsv(28,41,89)
+
+%% \definecolor{cftdark}{cmyk}{.72, .46, 0, .84}    % 0b1629 hsv(218,72,16)
+%% \definecolor{cftoutline}{cmyk}{.72, .46, 0, .53} % 224178 hsv(218,72,47)
+%% \definecolor{cftlight}{cmyk}{.72, .46, 0, .22}   % 386cc7 hsv(218,72,78)
+%% \definecolor{cfthl}{rgb}{.529, .663, .890}       % 87a9e3 hsv(218,41,89)
+
+%% \definecolor{darkblue}{RGB}{0,0,128}
+%% \definecolor{caution}{RGB}{192,0,0}
+
+% Graph colours
+
+\definecolor{p1}{rgb}{0.863, .729, .318} % dcb951
+\definecolor{p2}{rgb}{.792, .514, .251}  % c98340
+\definecolor{p3}{rgb}{.667, .314, .176}  % aa502c
+%\definecolor{p4}{rgb}{.475, .102, .098}
+\definecolor{p4}{rgb}{.675, .239, .239}  % ac3d3b
+\definecolor{p5}{rgb}{.435, .443, .267}  % 8e9158
+\definecolor{p6}{rgb}{.345, .427, .568}  % 586d91 hsv(218,39,57)
+
+\definecolor{col1}{rgb}{0.957, 0.263, 0.212}
+\definecolor{col2}{rgb}{0.914, 0.118, 0.388}
+\definecolor{col3}{rgb}{0.612, 0.153, 0.690}
+\definecolor{col4}{rgb}{0.404, 0.227, 0.718}
+\definecolor{col5}{rgb}{0.247, 0.318, 0.710}
+\definecolor{col6}{rgb}{0.129, 0.588, 0.953}
+\definecolor{col7}{rgb}{0.012, 0.663, 0.957}
+\definecolor{col8}{rgb}{0.000, 0.737, 0.831}
+\definecolor{col9}{rgb}{0.000, 0.588, 0.533}
+\definecolor{col10}{rgb}{0.298, 0.686, 0.314}
+\definecolor{col11}{rgb}{0.545, 0.765, 0.290}
+\definecolor{col12}{rgb}{0.804, 0.863, 0.224}
+\definecolor{col13}{rgb}{1.000, 0.922, 0.231}
+\definecolor{col14}{rgb}{1.000, 0.757, 0.027}
+\definecolor{col15}{rgb}{1.000, 0.596, 0.000}
+\definecolor{col16}{rgb}{1.000, 0.341, 0.133}
+\definecolor{col17}{rgb}{0.475, 0.333, 0.282}
+\definecolor{col18}{rgb}{0.620, 0.620, 0.620}
+\definecolor{col19}{rgb}{0.376, 0.490, 0.545}
+
+%% % End of file.

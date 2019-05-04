@@ -9,12 +9,12 @@
 \newcommand\renderpartprocessor{1}
 \newcommand\renderpartperipherals{1}
 \newcommand\renderchapdfp{1}
-%% \newcommand\renderchapmbu{1}
-%% \newcommand\renderchapirc{1}
-%% \newcommand\renderchapmem{1}
-%% \newcommand\renderchaptty{1}
-%% \newcommand\renderchapide{1}
-%% \newcommand\renderchaptnr{1}
+\newcommand\renderchapmbu{1}
+\newcommand\renderchapirc{1}
+\newcommand\renderchapmem{1}
+%\newcommand\renderchaptty{1}
+%\newcommand\renderchapide{1}
+%\newcommand\renderchaptnr{1}
 \newcommand\renderchapvdu{1}
 \newcommand\renderchapkbd{1}
 %% \newcommand\renderchapsnd{1}
@@ -23,9 +23,11 @@
 %% \newcommand\renderchappfp{1}
 \newcommand\renderchapdeb{1}
 \newcommand\renderpartprogramming{1}
-\newcommand\renderpartemulator{1}
 \newcommand\renderpartforth{1}
+
 \newcommand\renderpartsoftware{1}
+\newcommand\renderchapfs{1}
+\newcommand\renderchapemulators{1}
 %% \newcommand\renderpartschematics{1}
 %% \newcommand\renderpartbackmatter{1}
 
@@ -105,10 +107,10 @@
   \label{chap:microcode}
   \input{cft-microcode}
   
-  \chapter{Processor Schematics}
-  \glsresetall
-  \label{chap:processor-schematics}
-  \input{cft-hard-processor-schematics}
+  %% \chapter{Processor Schematics}
+  %% \glsresetall
+  %% \label{chap:processor-schematics}
+  %% \input{cft-hard-processor-schematics}
 \fi
 
 \ifdefined\renderpartperipherals
@@ -120,7 +122,7 @@
   \fi
 
   \ifdefined\renderchapmbu
-    \chapter{Banked Memory Controller}
+    %% \chapter{Banked Memory Controller}
     \glsresetall
   \fi
 
@@ -206,13 +208,6 @@
   \input{cft-prog-assembler}
 \fi
 
-\ifdefined\renderpartemulator
-  \chapter{The CFT Emulator}
-  \glsresetall
-  \label{chap:emulator}
-  \input{cft-emulator}
-\fi
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \ifdefined\renderpartforth
@@ -230,7 +225,16 @@
 \part{Software}
   \glsresetall
 
+\ifdefined\renderchapfs
 \input{cft-soft-fs}
+\fi
+
+\ifdefined\renderchapemulators
+  \chapter{The CFT Emulator}
+  \glsresetall
+  \label{chap:emulator}
+  \input{cft-emulator}
+\fi
 \fi
 
 

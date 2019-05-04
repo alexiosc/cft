@@ -1,7 +1,7 @@
 % -*- latex -*-
 \documentclass[class=memoir,border=200pt]{standalone}
-\input{preamble-new}
-\input{macros}
+\input{preamble-2018}
+\input{macros-2018}
 
 \begin{document}%
 %\tikzexternaldisable%
@@ -10,7 +10,7 @@
   \input{partial-addressing-modes}
 
   % The IR
-  \AddressingModeIR{1}{1}
+  \AddressingModeIR{1}{1}{col10!50}
 
   % The PC
   \begin{scope}[,yshift=-1.5cm]
@@ -19,7 +19,7 @@
 
   % The AR
   \begin{scope}[,yshift=-3cm]
-    \TargetRegisterPageZero{Page Zero address}{above right}{\AR}
+    \TargetRegisterPageZero{Page Zero address}{above right}{\AR}{col14!50}{col10!50}
   \end{scope}
 
   % The DR

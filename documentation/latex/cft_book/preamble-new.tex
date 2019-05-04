@@ -35,6 +35,12 @@
 
   \def\HCode#1{}
 
+  % HTML Metadata commands do nothing in XeTeX
+  \newcommand\HtmlMetaDescription[1]{}
+  \newcommand\HtmlMetaGoogleDescription[1]{}
+  \newcommand\HtmlMetaBanner[1]{}
+  \newcommand\HtmlMetaTags[1]{}
+
 \else
   \newcounter{Hfootnote}
   \newcommand\fontspec[1]{}
@@ -58,6 +64,27 @@
   \newunicodechar{≤}{\HCode{ &le; }}
   \newunicodechar{≥}{\HCode{ &ge; }}
   \newunicodechar{≠}{\HCode{ &ne; }}
+  \newunicodechar{←}{\HCode{&\#8592;}}
+
+  \let\oldeqnarray\eqnarray
+  \let\oldendeqnarray\endeqnarray
+  \def\eqnarray{\begingroup \oldeqnarray}
+  \def\endeqnarray{\oldendeqnarray \endgroup}
+
+  % HTML Metadata commands do nothing in XeTeX
+  \newcommand\HtmlMetaDescription[1]{%
+    \HCode{<div style="display:none" id="HtmlMetaDescription">#1</div>}%
+  }
+  \newcommand\HtmlMetaGoogleDescription[1]{%
+    \HCode{<div style="display:none" id="HtmlMetaGoogleDescription">#1</div>}%
+  }
+  \newcommand\HtmlMetaBanner[1]{%
+    \HCode{<div style="display:none" id="HtmlMetaBanner">#1</div>}%
+  }
+  \newcommand\HtmlMetaTags[1]{%
+    \HCode{<div style="display:none" id="HtmlMetaTags">#1</div>}%
+  }
+
 \fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -207,17 +234,20 @@
 \else
 
 % Modify the minted way of invoking pygmentize if running with
-% HTLatex. We'll be converting listings DIRECTLY to HTML and importing
-% them into the TeX4ht output with specials.
+% HTLatex. We'll be using a dummy ‘pygmentize’ binary that produces
+% Jinja code appropriate for the website. The site generator will then
+% do its own thing to render the source.
+
   \makeatletter
   \newcounter{minted@temp}
   \renewcommand\minted@pygmentize[2][\jobname.pyg]{
     \stepcounter{minted@temp}
-    \def\minted@cmd{pygmentize -l #2 -f html -F tokenmerge
+    \def\minted@cmd{../scripts/pygmentize -l #2 -f html -F tokenmerge
       \minted@opt{gobble} \minted@opt{texcl} \minted@opt{mathescape}
       \minted@opt{startinline} \minted@opt{funcnamehighlighting}
       \minted@opt{linenos} -P "verboptions=\minted@opt{extra}"
       -o \jobname-\arabic{minted@temp}.out.pyg #1}
+    %% \def\minted@cmd{../scripts/j2-pygmentize #1 #2 > \jobname-\arabic{minted@temp}.out.pyg}
     \immediate\write18{\minted@cmd}
     % Remove kludgy markup hints (four or more @)
     \immediate\write18{sed -i -e s/@@@@//g \jobname-\arabic{minted@temp}.out.pyg}
@@ -229,7 +259,7 @@
      \HCode{<div class="minted #2">}
      \special{t4ht*<\jobname-\arabic{minted@temp}.out.pyg} % Import the HTML output
      \HCode{</div>}
-    \ifthenelse{\equal{\minted@opt@bgcolor}{}}
+     \ifthenelse{\equal{\minted@opt@bgcolor}{}}
      {}
      {\end{minted@colorbg}}
     %\DeleteFile{\jobname.out.pyg}
@@ -270,10 +300,15 @@
 \definecolor{g0}{rgb}{0.1, 0.33, 0.1}
 \definecolor{g1}{rgb}{0.3, 1, 0.3}
 
-\definecolor{cftdark}{cmyk}{0,0.42,0.72,0.84}
-\definecolor{cftoutline}{cmyk}{0,0.43,0.72,0.53}
-\definecolor{cftlight}{cmyk}{0,0.43,0.72,0.22}
-\definecolor{cfthl}{rgb}{.89,.698,.529}
+%% \definecolor{cftdark}{cmyk}{0,0.42,0.72,0.84} % 29180b hsv(25,72,16)
+%% \definecolor{cftoutline}{cmyk}{0,0.43,0.72,0.53} % 784422 hsv(42,72,47)
+%% \definecolor{cftlight}{cmyk}{0,0.43,0.72,0.22} % c77138 hsv(24,72,78)
+%% \definecolor{cfthl}{rgb}{.89,.698,.529} % e3b287 hsv(28,41,89)
+
+\definecolor{cftdark}{cmyk}{.72, .46, 0, .84}    % 0b1629 hsv(218,72,16)
+\definecolor{cftoutline}{cmyk}{.72, .46, 0, .53} % 224178 hsv(218,72,47)
+\definecolor{cftlight}{cmyk}{.72, .46, 0, .22}   % 386cc7 hsv(218,72,78)
+\definecolor{cfthl}{rgb}{.529, .663, .890}       % 87a9e3 hsv(218,41,89)
 
 \definecolor{darkblue}{RGB}{0,0,128}
 \definecolor{caution}{RGB}{192,0,0}
@@ -286,7 +321,7 @@
 %\definecolor{p4}{rgb}{.475, .102, .098}
 \definecolor{p4}{rgb}{.675, .239, .239}  % ac3d3b
 \definecolor{p5}{rgb}{.435, .443, .267}  % 8e9158
-\definecolor{p6}{rgb}{.345, .427, .568}  % 586d91
+\definecolor{p6}{rgb}{.345, .427, .568}  % 586d91 hsv(218,39,57)
 
 
 % End of file.

@@ -1,0 +1,33 @@
+% -*- latex -*-
+\documentclass[border=200pt,class=memoir,preview]{standalone}
+\input{preamble-2018}
+\input{macros-2018}
+
+\begin{document}%
+%\tikzexternaldisable%
+\begin{tikztimingtable}
+  \ns{T34}   & 3L 8CH 8CL 8CH 8CL 8CH 8CL 2CH \\
+%
+%
+% \ns{c}        & LLLHHHHHHHHHLLLLLLLLLHHHHHHHHHLLLLLLLLLHHHHHHHHHLLLLLLLLLHHH  \\
+  \ns{MEM}      & HHHHHHHHLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLHHHHHHHHHHHHHHHHHHHH  \\
+  \ns{W}        & HHHHHHHHHHHHHHHHLLLHHHHHHHHHHHHHHHLLLHHHHHHHHHHHHHHHHHHHHHHH  \\
+  \ns{WS}       & HHHHHHHHHHLLLLHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH  \\
+  \ns{WAITING}  & HHHHHHHHHHLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLHHHHHHHHHHHHHHHHHHHH  \\
+%
+  \ps{AB}       & UUUDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDUUUUUUUUUUUUUUUUU  \\
+  \ps{DB}       & ZZZZZZZZZZZZZZZZZZZZZZZZZZZZDDDDDDDDDDZZZZZZZZZZZZZZZZZZZZZZ  \\
+%
+%  \tikzexternalenable%
+  \extracode
+%    \tablerules
+    \begin{pgfonlayer}{background}
+      %% \draw [help lines] (A0) -- (B0);
+      %% \draw [help lines] (A1) -- (B1);
+  \end{pgfonlayer}
+\end{tikztimingtable}
+
+
+\end{document}
+
+% End of file.

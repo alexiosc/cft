@@ -1,0 +1,43 @@
+% -*- latex -*-
+\documentclass[border=200pt,class=memoir,preview]{standalone}
+\input{preamble-new}
+\input{macros}
+
+\begin{document}%
+%\tikzexternaldisable%
+
+\begin{tikztimingtable}
+  \CLOCK{4}    & L 2{2H 2L} N(A2) 2H 2L N(A3) 2H 2L N(A4) 2H 2L N(A5) %
+                 2H 2L N(A6) 2H 2L N(A7) 2H 2L N(A8) %
+                 2H 2L N(A9) 5{2H 2L} N(A10) 2H 2L N(A11) %
+                 2H 1 \\
+  \ns{RSTHOLD} & 2H N(A1) 4L 57H \\
+  \ns{END}     & 15H 3L 45H \\
+  \ns{ENDEXT}  & 23Z 3L 37Z \\
+  \ns{WS}      & 38Z 8L 17Z \\
+  \ns{HALT}    & 47Z 8L 8Z \\
+  \UPC         & 2U{} N(B1) 7D{\hex{0}} %
+                 N(B2) 4D{\hex{1}} %
+                 N(B3) 4D{\hex{2}} %
+                 N(B4) 4D{\hex{0}} %
+                 N(B5) 4D{\hex{1}} %
+                 N(B6) 4D{\hex{0}} %
+                 N(B7) 4D{\hex{1}} %
+                 N(B8) 4D{\hex{3}} %
+                 N(B9) 20D{\hex{3}} %
+                 N(B10) 4D{\hex{4}} % 
+                 N(B11) 2D{\hex{5}} \\
+  %% \ns{WS} & 20H 3L 54H \\
+  %% \ns{HALT} & 70H 7L \\
+\extracode
+ \tablerules
+ \begin{pgfonlayer}{background}
+   \foreach \n in {1,...,11}
+     \draw [help lines] (A\n) -- (B\n);
+ \end{pgfonlayer}
+\end{tikztimingtable}
+
+%\tikzexternalenable%
+\end{document}
+
+% End of file.

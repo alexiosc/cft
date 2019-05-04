@@ -1,4 +1,8 @@
 % -*- latex -*-
+\HtmlMetaDescription{The Video Display Board gives the CFT the ability to display colourful graphics on a monitor, and allows keyboards (and potentially mice) to be attached.}
+%\HtmlMetaGoogleDescription{}
+%\HtmlMetaBanner{}
+%\HtmlMetaTags{}
 
 \label{chap:hard-vdu}
 
@@ -2593,9 +2597,10 @@ cmd:     .word #000:010:0:1:00000000 ; Command 010, XINC = 1
 
 \subsubsection{Creating a New Character Pattern}
 
-This changes the C plane without touching the B plane, keeping the characters
-intact but changing the colours and attributes. Again, the only difference is
-in the command used, but modifying four consecutive positions is quite simple:
+This program programs the Character Generator by writing to the CG
+Plane a pattern suitable for a 16-line ‘A’ glyph. It demonstrates how
+to calculate CG plane addresses and demonstrates how the CFT Standard
+Assembler's advanced features can simplify font generation.
 
 \begin{cftasmcode}
          LI 65                       ; set the pattern for 'A'

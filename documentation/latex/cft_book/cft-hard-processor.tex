@@ -1,4 +1,9 @@
 \chapter{Theoretical Description}
+\HtmlMetaDescription{This chapter describes the CFT processor from a
+  theoretical perspective.}
+%\HtmlMetaGoogleDescription{}
+%\HtmlMetaBanner{}
+%\HtmlMetaTags{}
 
 This chapter describes the CFT processor from a theoretical
 perspective.
@@ -8,8 +13,29 @@ beyond the scope of a theoretical discussion, please refer
 to~\ccf{chap:processor-hardware-description}. For a description of the
 processor's programming model, please refer to~\ccf{chap:programming-model}.
 
+The CFT processor was purposefully designed to be very simple. This
+allows it to be built with relatively simple manual techniques, but
+also makes it easier to debug, maintain and reason about.
+
+To keep things simple in these days of immense memory, the CFT is a
+\gls{von Neumann architecture}: it uses the same memory for both
+programs and data, allowing the two to be mixed.
+
+Like many traditional architectures, it is an \abbr{ABA}: operations
+usually use a single, main register to hold all values from or to
+memory.
+
+Internally, the design (like most hobbyist designs out there) is built
+on microcode hosted on Flash RAM, which allows many bugs in the
+processor to be solved by reprogramming the memory rather than
+rewiring.
 
 \section{Datapath}
+
+Processors are built out of simple, discrete units connected together
+by buses and control signals. The CFT is no different. The processor's
+datapath, the way data flows from unit to unit, is shown
+in~\fcf{fig:datapath}.
 
 %% \begin{figure}
 %% \includegraphics[width=0.95\columnwidth]{figs/datapath2.pdf}\vspace{2em}\\
@@ -20,69 +46,117 @@ processor's programming model, please refer to~\ccf{chap:programming-model}.
 \caption[CFT Datapath]{\label{fig:datapath} The CFT Datapath. }
 \end{figure}
 
-The CFT datapath, illustrated in~\fcf{fig:datapath}, is organised around a
-single internal bus, the \IBUS{}. This precludes pipelining techniques, but keeps
-the processor easy to reason about and implement. A number of units may either
-write to the \IBUS{}, or read from it. The \IBUS{} may also be connected to the
-external \DBUS{} via the Data Bus Transceiver, so that data can be exchanged
-between the processor and its peripherals.
+The datapath is organised around a single internal bus (showing surrounding the
+datapath diagram), the \IBUS{}. Modern processors use multiple internal buses
+or buses segmented into so-called {\em pipelines\/}: this allows one processor
+unit to start work before the previous one has completed, increasing processing
+speed and complexity of the design. In contrast, the \IBUS{} is not
+pipelined. At any given time, at most one unit is writing to it, and (in normal
+circumstances) at most one unit is reading from it.
 
-The Control Unit (centre left) is disjoint from the \IBUS{}, but controls what
-other units are connected to it. To do so, it consults the values of registers
-and flags.
+This precludes pipelining techniques, but keeps the processor's behaviour easy
+to visualise and implement. A number of units may either write to the \IBUS{},
+or read from it. The \IBUS{} may also be connected to the external \DBUS{} via
+the Data Bus Transceiver, so that data can be exchanged between the processor
+and its peripherals.
 
-The \ALU{} is responsible for all high-level operations performed by
-the processor. It can perform a number of binary and unary
-operations. All operations involve the \gls{Accumulator} (see below). Binary
-operations involve the current value of the \gls{Accumulator} and the value
-of the \IBUS{}. The \ALU's operations update some of the flags used by
-the control Unit.
+The Control Unit (near the top right corner) is not directly attached to the
+\IBUS{}, but controls the rest of the processor. To do so, it looks up the
+values of various registers and flags on a large table of \gls{microcode} and
+activates control signals as dictated by the table, driving the rest of the
+processor.
+%%  These control signals specify, at any
+%% given time and for any given input, which unit (if any) should write to the
+%% \IBUS{}, and which unit should read from it. It also controls how flow control
+%% (decisions) are made. The Control Unit essentially examines the current state
+%% of the machine and derives a new state for it --
 
-Ancillary to the \ALU{} is the Constant Store, which can provide a small
-number of constant values to the \IBUS{}. These are useful for a number of
-operations, such as clearing registers by assigning them the zero constant.
+The \ALU{} is responsible for arithmetic and logic operations
+operations performed by the processor. It can perform a number of
+binary and unary operations. All operations involve the
+\gls{Accumulator} (AC — see below) as one of the operands. Binary
+operations involve the current value of the \gls{Accumulator} and the
+value of the \IBUS{}. Unary operations involve only the
+\gls{Accumulator}. The \ALU's operations update some of the flags used
+by the control Unit.
 
-The Flag Unit is illustrated in the datapath as a clearing house for the values
-of various flags in the processor. It does not have a corresponding physical
-unit, as flags feed directly into various parts of the Control Unit, but it
-helps illustrate simply how this is done.
+Ancillary to (and in fact part of) the \ALU{} is the Constant Store,
+which can provide a small number of constant values to the
+\IBUS{}. These are useful for a number of operations, such as clearing
+registers by assigning them the zero constant, or initialising values
+of registers when the machine is reset.
 
-There are three {\em major\/} registers in the datapath: the \gls{Accumulator} (\A),
-the Data Register (\DR), and the Program Counter (\PC). Major registers are
-16-bits wide. They may be read from or written to, incremented by one, or
-decremented by one.
+There are three {\em major\/} registers in the datapath: the
+\gls{Accumulator} (\A), the Data Register (\DR), and the Program
+Counter (\PC). Major registers are 16-bits wide. They may be read from
+or written to, incremented by one, or decremented by one.
 
 Of these, the \A{} is used as a general-purpose register, permanently and
-directly supplying the left operand of the \ALU, and generating flags
-used by the Control Unit in decision making.
+directly supplying the left operand of the \ALU, and generating flags used by
+the Control Unit in decision making.
 
 The \PC{} is used to store the location in memory of the next instruction to be
 executed.
 
-The \DR{} is used to store temporarily intermediate addresses used for indirect
-memory accesses.
+The \DR{} is used to temporarily store intermediate addresses used for indirect
+memory accesses but may be generally used by the microcode as a scratch
+register.
 
 A number of {\em minor registers} are also available. These are either narrower
-than 16 bits, or have various restrictions placed on them. The Interrupt
-(\Ireg{}) register is a single-bit register that controls whether asynchronous
-interrupts may temporarily stop the processor. The {\em Link Register} (\Lreg)
-is a versatile single-bit register: it is used as a flag, a carry out bit,
-carry in bit, a borrow bit, or a shift register, and is usually treated as a
-one-bit extension of the \A{} register. Finally, the \IR{} is a 16-bit
-write-only\footnote{It is write-only from the point of view of the \IBUS{} only
-  — the Control Unit reads its value continuously.} register permanently
-connected to the Control Unit, and controlling its behaviour.
+than 16 bits, or have various restrictions placed on them.
+
+The Interrupt (\Ireg{}) register is a single-bit register that controls whether
+asynchronous interrupts (e.g. peripherals needing attention) may temporarily
+stop the processor.
+
+The {\em Link Register} (\Lreg) is a versatile single-bit register: it is used
+as a flag, a carry out bit, carry in bit, a borrow bit, or a shift register,
+and is usually treated as a one-bit extension of the \A{} register.
+
+The Overflow (\Vreg{}) register is a single-bit flag set by the ALU if an
+addition has generated a result that will not fit 16 bits. This is used for
+signed, two's complement arithmetic: the \Lreg performs the same for unsigned
+arithmetic.
+
+The Zero (\Zreg{}) register is set if and only if all the bits of the \AC{} are
+zero. It is commonly used for decision making.
+
+The Negative (\Nreg{}) register is set if and only if the most significant bit
+of the \AC{} is zero. In signed arithmetic, this signifies the value is
+negative, but it may be used to simply test that bit of the accumulator. It is
+commonly used in decision making.
+
+The \IR{} is a 16-bit register containing the instruction being executed. From
+the point of view of the \IBUS{}, it can only be written to, but its value
+directs the Control Unit's behaviour directly.
 
 The memory Address Register (\AR{}) is a write-only 16-bit register that stores
-an address, and when required, writes this address onto the \ABUS{} to
-facilitate external read/write cycles.
+an address. When required, it writes this address onto the \ABUS{} to
+facilitate external read/write cycles. This address selects a memory location
+or device to access.
 
 Memory addresses used for data are calculating by the \AGL{}, which is
 responsible for implementing addressing modes. The \AGL{} can generate 16-bit
 addresses either close to the current instruction (by using the top bits of the
 \PC{}), or near the beginning of memory (by zeroing the top bits).
 
-\section{Major States}
+The Reset unit is responsible for initialising the state of the processor on
+power on or cold reset. It establishes the initial value of the \PC{} and other
+registers, and times reset signals sent to peripherals.
+
+Finally, the \unit{MBU} is a recent addition to the processor: it used to be an
+external peripheral but has become so useful it was absorbed by the processor
+proper. It extends the memory address space of the CFT from 16 bits to 21 bits
+by implementing a simple memory banking scheme.
+
+\section{The Control Unit}
+\label{sec:control-unit}
+
+The Control Unit is made out of a number of smaller units. In their
+entirety, they form a complex state machine or a number of smaller
+ones.
+
+\subsection{Major States}
 \label{sec:major-states}
 
 The major states of the processor are fairly conventional, as are the transitions between them:
@@ -134,7 +208,14 @@ interrupts are slightly more complicated than this, as outlined in
 
 \end{description}
 
-\section{The Wait State}
+\begin{figure}
+  \centering
+  \inputfigure{figure-major-states}
+  \caption[CFT Processor Major States]{\label{hard:proc:major-states}CFT Processor Major States:
+    Reset (R), Fetch (F), Execute (E), Stop (S), and Interrupt (I).}
+\end{figure}
+
+\subsection{The Wait State}
 
 The Wait State is a transient, astable state. It may be entered at any time,
 though it has special meaning during memory or I/O cycles and is easier to
@@ -154,20 +235,44 @@ with such devices.
 
 %% \todo{Describe this in detail.}
 
-\begin{figure}
-  \centering
-  \inputfigure{figure-major-states}
-  \caption[CFT Processor Major States]{\label{hard:proc:major-states}CFT Processor Major States:
-    Reset (R), Fetch (F), Execute (E), Stop (S), and Interrupt (I).}
-\end{figure}
+\subsection{The Fetch-Execute Cycle}
+\label{sec:processor-cycle}
 
+The processor spends almost its entire runtime flipping between the
+Fetch and Execute states. This is known as Fetch-Execute Cycle and
+follows this algorithm:
 
-\section{Processor Cycle}
+\begin{enumerate}
+\item \IR{} ← mem[\PC]: an instruction is read from the memory address contained in the \PC.
+\item \PC{} ← \PC{} + 1: the PC is incremented by one.
+\item The instruction is decoded.
+\item The instruction is executed.
+\item Go to step 1.
+\end{enumerate}
 
-Each processor cycle consists of four stages, T1-T4, each at a 90°
-phase difference from the previous one, and each lasting 25\% of the
-nominal clock period. With the clock running at 4~MHz, each phase
-lasts $250\,\mbox{ns}/4 = 62.5\,\mbox{ns}$.
+These steps are implemented at the microcode level with a level of
+parallelism. The first two steps take two clock ticks (known as
+clock cycles): memory accesses take two cycles, at the end of
+which the \PC{} is incremented. Instruction decoding happens during
+this time as well. Instruction execution begins with the third cycle
+and can last several cycles.
+
+The fetch-execute cycle of the CFT is implemented in microcode. Almost
+every microprogram begins with two microcode instructions to fetch the
+next instruction from memory and increment the \PC. The part of each
+microprogram up to and including the incrementing of the \PC{} is
+conventionally called the fetch state, though the computer treats it
+like ordinary microcode processing. In fact, the only point where
+Fetch/Execute is displayed is on the front panel for the user's
+convenience.
+
+\subsection{The Clock Cycle}
+
+Each clock cycle itself consists of four stages, T1-T4. They are
+controlled by the four phases of the main clock. Each phase has a 90°
+difference from the previous one, and each lasts 25\% of the nominal
+clock period. With the clock running at 4~MHz (250~ns processor
+cycle), each phase lasts ¼×250~ns, or 62.5~ns.
 
 \begin{description}
 \item{\bfseries T1:} the microprogram counter increments, generating a
@@ -206,7 +311,7 @@ lasts $250\,\mbox{ns}/4 = 62.5\,\mbox{ns}$.
     point, and the unit latches data from the \IBUS. This also
     happens for memory or I/O reads.
   \item If a memory or I/O write is requested, \ns{W} is
-      asserted. The external device latches or clocks data
+      strobed. The external device latches or clocks data
       accordingly.
   \end{itemize}
 \end{description}
@@ -214,8 +319,223 @@ lasts $250\,\mbox{ns}/4 = 62.5\,\mbox{ns}$.
 \begin{figure*}
 \centering
 \inputfigure{figure-processor-cycle}
-\caption[Phases of a processor cycle]{\label{fig:processor-cycle} The four phases of a processor cycle. Please note that the fetch and decode stages happen asynchronously, since microcode ROM access times are higher than 25\% of the clock period. The \DBUS{} is never accessed during the first half of the processor cycle, which allows other devices (such as a VDU or DRAM refresh circuitry) to access the bus.}
+\caption[Phases of a processor cycle]{\label{fig:processor-cycle} The
+  four phases of a processor cycle. Please note that the microcode
+  fetch and decode stages happen asynchronously, since microcode ROM
+  access times are higher than 25\% of the clock period. The \DBUS{}
+  is never accessed during the first half of the processor cycle,
+  which allows other devices (such as a VDU or DRAM refresh circuitry)
+  to access the bus.}
 \end{figure*}
+
+%% \subsection{Autoindex Logic}
+
+%% If, at the time an instruction is fetched, the \IR{} contains a
+%% pattern that matches \bin{XXXX1100'1XXXXXXX}, the internal Autoindex
+%% state is entered until the next instruction is fetched. This selects
+%% the special indirect indexed addressing modes where locations in
+%% memory known as Index Registers are automatically incremented after
+%% each use.
+
+\section{The Instruction Register}
+
+This is a simple 16-bit register. It receives its value from the
+\IBUS. It never emits its value {\em to\/} the \IBUS. Instead, bits
+from it are sent to various other units which act upon them.
+
+The highest five bits (bits 15–11 inclusive) are used to select which microprogram to
+run. This sets the instruction and (in most cases) selects either the
+direct or indirect addressing mode families.
+
+Bit 10 controls the behaviour of the \AGL to select between the
+page-local and page-zero addressing mode families.
+
+Bits 9 to 0 inclusive usually contain the instruction operand but can
+be checked individually by the Control Unit to implement special
+instructions.
+
+\section{The Major Registers}
+\label{sec:major-registers}
+
+The three major registers are the Program Counter (\PC), Data Register
+(\DR) and Accumulator (\AC). The \PC{} holds the address of the next
+instruction to be executed; the \DR{} is used internally as a
+temporary register to implement indirect addressing; and the \AC{} is,
+of course, the main register of the machine, fully accessible at the
+machine code level.
+
+All three registers are 16-bit wide. Each register may be incremented
+or decremented directly and quickly, without involving the \ALU. This
+simplifies microcode design significantly and allows for a certain
+degree of parallelism.
+
+Since none of these registers are truly general purpose registers,
+there are some exceptions: the \PC{} does not need to support
+decrementing. The output of the \AC{} is used to generate the
+\Zreg{} and \Nreg{} flags. If the \AC{} wraps around during
+incrementing or decrementing (carry or borrow), the \Lreg{} is
+toggled.
+
+\section{The Arithmetic/Logic Unit}
+\label{sec:alu}
+
+The \ALU{} and Constant Store allow the processor to perform
+arithmetic and logic operations, and contains useful constants. As is
+often the case, this is a very complex unit.
+
+
+It receives 33 bits of input (the \LAC{} vector and the current
+value of the \IBUS), several control signals. The control signals
+select an operation to be performed based on the value of the \IR.
+
+Depending on the required operation, the \ALU{} outputs between 16 and
+18 bits of data: 16 bits of are placed on the \IBUS. When required,
+the remaining bits update the \Lreg{} and \Vreg. Microcode almost
+always writes the ALU's result back to the \AC{}.
+
+The operations supported by the \ALU{} are as follows:
+
+\begin{description}
+
+\item{\bfseries Addition:} the value of the \AC{} is added to the
+  value on the \IBUS. Carry out from the addition toggles the \Lreg,
+  while the \Vreg is updated to indicate signed addition
+  overflow. This operation supports both \gls{Twos Complement} signed
+  and unsigned addition. With Two's Complement, the same operation may
+  be used for subtraction.
+
+\item{\bfseries Bitwise AND:} the value of the \AC{} is conjuncted
+  with the value on the \IBUS. Each bit of the result will be set if
+  and only if {\em both\/} corresponding bits of the two operands are
+  set.
+
+\item{\bfseries Bitwise OR:} the value of the \AC{} is disjuncted with
+  the value on the \IBUS. Each bit of the result will be set if and
+  only if {\em either\/} of the corresponding bits of the two operands
+  are set.
+
+\item{\bfseries Bitwise Exclusive OR:} the value of the \AC{} is
+  disjuncted (according to the rules of XOR) with the value on the
+  \IBUS. Each bit of the result will be set if the corresponding bits
+  of the two operands differ. This operation can test for equality but
+  has numerous other applications.
+
+\item{\bfseries Bitwise NOT:} a unary operation. The result contains
+  the complement of each bit of \AC{}. Bits in the result are set if
+  the corresponding bit in \AC{} is clear and vice versa.
+
+\item{\bfseries Left 1-bit Roll:} a unary operation. The bits of the
+  \LAC{} vector are rotated left one place in a circle: the value
+  of the \Lreg{} is assigned to bit 0 of the \AC{}; bit 15 of the
+  \AC{} goes to \Lreg{}. This is a very useful operation that can be
+  used, among other things, to divide a number by two.
+
+\item{\bfseries Right 1-bit Roll:} a unary operation. The bits of the
+  \LAC{} vector are rotated right one place. This is a very useful
+  operation that can be used, among other things, to multiply a number
+  by two.
+
+\item{\bfseries Left 4-bit Roll:} a unary operation. The bits of the
+  \LAC{} vector are rotated left four place in a circle. In
+  certain cases, this operation may be used to divide a number by
+  16.
+
+\item{\bfseries Right 4-bit Roll:} a unary operation. The bits of the
+  \LAC{} vector are rotated right four places. In certain cases,
+  this operation may be used to multiply a number by 16.
+
+\end{description}
+
+The \ALU{} can also emit the constants \hex{0000}, \hex{0001},
+\hex{0002} and \hex{FFF8}. The first three are used to save temporary
+copies of the \PC{} during various operations. \hex{FFF8} is the
+location in memory of the Interrupt Service Routine.
+
+\section{The Address Generation Logic}
+
+The \AGL{} is responsible for converting 10-bit instruction operands
+to 16-bit addresses. To do this, it examines bit 10 in the \IR. If the
+bit is set, the top six bits of the address will be zero. If the bit
+is clear, the top six bits of the address are taken from the value of
+the \PC{} when the instruction fetch started, before incrementing.
+
+This implements two families of addressing modes: page-local and page
+zero. In page-local modes, machine code can access data in the same
+1,024 word page it is located. In page zero mode, the first 1,024
+words are always accessed. The first page is called Page Zero and can
+contain globally accessible values. In PDP-8 terminology, these are
+called ‘registers’, and bit 10 in the \IR{} is the ‘R’ bit.
+
+\section{The Address Register}
+
+This is a simple 16-bit register that can only be written to using the
+current value of the \IBUS. It controls the external Address Bus
+during memory and I/O access cycles.
+
+\section{The Data Bus Driver}
+
+The Data Bus driver allows the \IBUS{} to be connected to the external
+Data Bus. This, coupled with the Address Bus, allows the computer to
+exchange data with memory and I/O devices.
+
+The driver has three states of operation: it can isolate the two buses
+from each other; it can allow the \IBUS{} to drive the Data Bus for
+write operations; or it can allow the Data Bus to drive the \IBUS{}
+for read operations.
+
+\section{Reset Circuitry}
+
+The reset circuitry generates appropriate reset signals as necessary,
+and prepares the processor for operation.
+
+To do this, it uses a number of different sources for reset signals
+including the front panel and power supply's health status (for
+brown-out detection). While a reset signal is held active, the
+processor is immediately halted and the reset sequence begins. During
+this sequence, the reset circuitry puts the value \hex{FFF0} on the
+\IBUS{}, while the processor repeatedly writes this value to the \PC{}
+and resets its other registers.
+
+The repetition allows the clock generator and processor to stabilise
+during a cold start, but also generates a long reset pulse for any
+peripherals connected to the processor. Many peripherals need reset
+pulses many microseconds in length, and the reset sequence is
+calibrated to fit such peripherals.
+
+At the end of the sequence, the reset signal becomes inactive, and the
+Control Unit enters the Fetch-Execute Cycle, starting execution at the
+reset address \hex{FFF0}.
+
+\section{The Memory Banking Unit}
+
+The \MBU{} is a full-blown peripheral absorbed by the processor for
+its utility. It expands the 16-bit address space of the CFT processor
+to 21 bits.
+
+To do this, it divides the 65,536 Word address space into eight 8,192
+Word banks, each of which may ‘contain’ 8,192 Words from the a 2 MWord
+(21-bit) memory address space. In short, the most significant three
+bits of an address are mapped to eight bits: 16-3+8 = 21~bits.
+
+The \MBU{} thus has eight 8-bit registers. Whenever the Address
+Register receives an address, the \MBU{} uses the most significant
+three bits to select one of the eight registers, and outputs its value
+on the 8-bit \AEXT{} bus. Memory cards can the use these eight bits
+and the least significant 13 bits of the Address Bus to generate a
+physical address.
+
+On reset, the \MBU{} contains a ‘hard mapping’, which can map either
+64 KWords of RAM or 32 KWords of RAM and 32 KWords of ROM to the
+address space. The selection can be made using a switch on the front
+panel.
+
+The ‘soft mapping’ where all eight registers are freely defined may be
+activated by configuring the \MBU{} via the processor expansion bus,
+like an ordinary peripheral.
+
+The soft/hard status of the \MBU{} is usually shown on the front
+panel.
+
 
 %% \section{Interrupts}
 
@@ -502,212 +822,11 @@ lasts $250\,\mbox{ns}/4 = 62.5\,\mbox{ns}$.
 %% using a pair of 74x541 buffers. This is the Reset Vector. The processor uses
 %% this value to reset the \PC{} to its initial value.
 
-%% \section{Microprogram Counter}
-%% \label{sec:upc}
-
-%% The Microprogram Counter (µPC) is a simple 4-bit counter with reset and dual
-%% count enables. A \HC{161} counter was selected for this. The '161 counts on the
-%% positive edge of \CLOCK{1}, while the count enables are high. These are driven
-%% by \ns{WS} and \ns{HALT}, both pulled up in case the two input signals are
-%% physically unconnected.
-
-%% The counter resets to zero when \ns{RSTHOLD} is asserted.
-
-%% The \ns{END} signal and its open drain, external counterpart \ns{ENDEXT} are ANDed
-%% together and fed to the '161's active low load signal (\ns{LD}). This loads the counter
-%% from the \ps{P1}–\ps{P4} inputs, which are always driven low. This is effectively used to
-%% reset the counter when the currently executing microprogram is finished.
-
-%% The counter's output provides the four least significant bits of the microcode address
-%% vector, the others being provided by other processor states.
-
-%% The counter implements the following function table:
-
-%% \begin{center}
-%%   \zebra
-%%   \begin{tabular}{*{6}{>{\textsf\bgroup}c<{\egroup}}l}
-%%     %\noalign{\smallskip}\hline\noalign{\smallskip}
-%%     %\\\hline
-%%     \ps{CLOCK4} & \ns{RSTHOLD} & \ns{END} & \ns{ENDEXT} & \ns{WS} & \ns{HALT} & Function \\
-%%     %\noalign{\smallskip}\hline\noalign{\smallskip}
-%%     \hline
-%%     X   & L & X & X & X & X & Reset counter to 0 asynchronously.\\
-%%     \tU & H & L & X & X & X & Reset counter to 0.\\
-%%     \tU & H & X & L & X & X & Reset counter to 0.\\
-%%     \tU & H & X & X & L & X & Inhibit counting.\\
-%%     \tU & H & X & X & X & L & Inhibit counting.\\
-%%     \tU & H & H & H & H & H & Increment count (mod 16).\\
-%%     \hline
-%%   \end{tabular}
-%% \end{center}
 
 
 
-%% %\tikzset{timing/new counter={char=Q,base=16,reset char=R}}
-%% \begin{figure*}
-%%   \centering
-%% \begin{tikztimingtable}
-%%   \CLOCK{4}    & L 2{2H 2L} N(A2) 2H 2L N(A3) 2H 2L N(A4) 2H 2L N(A5) %
-%%                  2H 2L N(A6) 2H 2L N(A7) 2H 2L N(A8) %
-%%                  2H 2L N(A9) 5{2H 2L} N(A10) 2H 2L N(A11) %
-%%                  2H 1 \\
-%%   \ns{RSTHOLD} & 2H N(A1) 4L 57H \\
-%%   \ns{END}     & 15H 3L 45H \\
-%%   \ns{ENDEXT}  & 23Z 3L 37Z \\
-%%   \ns{WS}      & 38Z 8L 17Z \\
-%%   \ns{HALT}    & 47Z 8L 8Z \\
-%%   \UPC         & 2U{} N(B1) 7D{\hex{0}} %
-%%                  N(B2) 4D{\hex{1}} %
-%%                  N(B3) 4D{\hex{2}} %
-%%                  N(B4) 4D{\hex{0}} %
-%%                  N(B5) 4D{\hex{1}} %
-%%                  N(B6) 4D{\hex{0}} %
-%%                  N(B7) 4D{\hex{1}} %
-%%                  N(B8) 4D{\hex{3}} %
-%%                  N(B9) 20D{\hex{3}} %
-%%                  N(B10) 4D{\hex{4}} % 
-%%                  N(B11) 2D{\hex{5}} \\
-%%   %% \ns{WS} & 20H 3L 54H \\
-%%   %% \ns{HALT} & 70H 7L \\
-%% \extracode
-%%  \tablerules
-%%  \begin{pgfonlayer}{background}
-%%    \foreach \n in {1,...,11}
-%%      \draw [help lines] (A\n) -- (B\n);
-%%  \end{pgfonlayer}
-%% \end{tikztimingtable}
-%% \caption[Microprogram Counter Waveforms]{\label{fig:upc-timing} Timing
-%%   diagram of the operation of the microprogram counter (\UPC). The
-%%   counter resets synchronously while \ns{RSTHOLD} is asserted. The
-%%   rising edge of \CLOCK{4} clears it if either \ns{END} or \ns{ENDEXT}
-%%   are asserted, and counting is inhibited when \ns{WS} or \ns{HALT}
-%%   are asserted.}
-%% \end{figure*}
-
-%% \begin{figure}[tb]
-%%   \centering
-%%   \input{figure-microcode-store}
-
-%%   \caption[Microcode address vector]{\label{fig:ucode-addr-vector}Microcode
-%%     Address Vector (top) and output control signals (bottom). The Address
-%%     Vector forms the 15–19 bit address (the \ps{μCB} field is optional) for
-%%     three ROMs, each of which outputs 8 bits of the 24-bit wide control
-%%     vector. The control vector, in turn, drives the processor. }
-%% \end{figure}
-
-%% \section{Microcode Store}
-%% \label{sec:microcode-store}
-
-%% \todo{Reflect DEC support}
-
-%% The microcode store implements a large function table that maps a 15-to-19-bit
-%% address vector to a 24-bit control vector, which is made up of vertical
-%% microcode fields and horizontal control lines connected directly to various
-%% units around the processor. These signals are described in detail
-%% in~\cf{sec:microcode-format}.
-
-%% From the electronics perspective, the hardware store is implemented on a
-%% daughterboard containing, in its current revision, three 4 MBit (524,288×8 bits
-%% each) Flash devices. The devices are reprogrammable, which allows the microcode
-%% to be corrected and updated, but they have to be removed from their sockets to
-%% do so.
-
-%% All three ROMs receive the same address vector. Each outputs 8 bits of the
-%% control vector in parallel. To minimise access times, the chips are permanently
-%% selected by tying their \ns{CE} pins to ground. Since in-circuit programming is
-%% not available in this revision, the \ns{WE} pins are pulled high, turning the
-%% Flash devices into ROMs.
-
-%% The output enable pins (\ns{OE}) are low, except when \ns{HALT} or \ns{RESET}
-%% are asserted. With the processor halted (or in the early stages of resetting),
-%% the ROMs are in a high impedance state, allowing other units (such as the front
-%% panel controller) to control the processor's units.
-
-%% The Microcode Store daughterboard plugs into the Processor Board A via two
-%% 24-pin headers which provide power and the 19-bit address vector, and accept 24
-%% bits of output. The outputs are pulled high (control signals) or low (vertical
-%% fields) to provide sane idle values when the ROMs are tri-stated.
-
-%% Having a daughterboard allows the microcode ROMs to be replaced easily with
-%% other solutions to the same problem, and also to expand the architecture at a
-%% later stage, by replacing this simple store with a more complex one.
-
-%% \section{Microcode Format and the Control Unit}
-%% \label{sec:microcode-format}
-
-%% A full discussion of the microcode architecture from a software point of
-%% view can be found in~\ccf{chap:microcode}.
-
-%% Microcode is a multivariate function that accepts a number of inputs, the
-%% address vector, and outputs a number of control signals. 
-
-%% The address vector is made up of the following fields, in order of increasing
-%% bit significance:
-
-%% \input{partial-microcode-address}
-
-%% This address vector indexes three 4 MBit (524,288×8 bits) Microcode ROMs in
-%% parallel to provide a 524,288×24 table. This 24-bit vector is the control
-%% vector, which directly (or after some decoding) drives the processor's units
-%% and the bus. The control lines are as follows:
-
-%% \input{partial-microcode-control}
 
 
-%% %% \begin{figure}[tb]
-%% %%   \centering
-%% %%   \begin{tikzpicture}
-%% %%     \begin{scope}[thin,draw opacity=0,line width=0pt]
-%% %%     \draw[fill=cfthl!25](0,0) rectangle (9.5,0.6);
-%% %%     \foreach \x in {0, ..., 9}{
-%% %%       \draw[fill=cfthl!50,xshift=\x cm](0,0) rectangle (0.5,0.6);
-%% %%     }
-%% %%     %\draw[fill=cfthl!50,xshift=10 cm](0,0) rectangle (0.5,0.6);
-%% %%     \end{scope}
-%% %%     \foreach \x in {0.5, 1, ..., 9}{
-%% %%       \draw[thin] (\x cm, 0) -- (\x cm, -0.1cm);
-%% %%     }
-%% %%     \draw[line width=2pt](0,0) rectangle (9.5,0.6);
-%% %%     \draw (9.5,0) node[below left] { \footnotesize 0 };
-%% %%     \draw (0,0) node[below] { \footnotesize 18 };
-
-%% %%     \foreach \x in {3,4,5,6,10,11,12,13,14}{
-%% %%       \begin{scope}[xshift=9.5 cm - 0.5 * ( \x cm + 1 cm)]
-%% %%         \draw[thick](0,-0.1) -- (0,0.6);
-%% %%         \draw (0,0) node[below right] { \footnotesize \x };
-%% %%       \end{scope}
-%% %%     }
-%% %%     %% \draw[thick](1,-0.1) -- (1,0.6);
-
-%% %%     %% \draw[thick](4,-0.1) -- (4,0.6);
-%% %%     \draw (8.5, 0.3) node { \UPC };
-%% %%     \draw (1, 0.3) node { \UCB };
-%% %%     \draw (5, 0.3) node { Opcode };
-%% %%     \draw (0.25, 0.8)[xshift=7 cm] node[right, rotate=60] { \ns{AINDEX} };
-%% %%     \draw (0.25, 0.8)[xshift=6.5 cm]  node[right, rotate=60] { \ns{SKIP} };
-%% %%     \draw (0.25, 0.8)[xshift=6 cm]  node[right, rotate=60] { \asm{R} };
-
-%% %%     \draw (0.25, 0.8)[xshift=3.5 cm]  node[right, rotate=60] { \ps{FL} };
-%% %%     \draw (0.25, 0.8)[xshift=3 cm]  node[right, rotate=60] { \ps{FV} };
-%% %%     \draw (0.25, 0.8)[xshift=2.5 cm]  node[right, rotate=60] { \ns{IRQS} };
-%% %%     \draw (0.25, 0.8)[xshift=2 cm]  node[right, rotate=60] { \ns{RSTHOLD} };
-%% %%     %% \draw (7.5, 0.3) node[left, rotate=45] { \ns{SKIP} };
-
-%% %%     %% %% \draw (2.25, 0.3) node { I };
-%% %%     %% %% \draw (2.75, 0.3) node { R };
-%% %%     %% \draw (7.25, 0.3) node { \ABUSn{0–12} };
-
-%% %%     %% \draw (1.5,-1) node[right] { Bank number, bit 0 };
-%% %%     %% \draw (1.5,-1.5) node[right] { Bank number, bit 1 };
-
-%% %%     %% \draw[thick, rounded corners=5.5mm] (1.5, -1.5) -- (0.25, -1.5) -- (0.25, -0.2);
-%% %%     %% \draw[thick, rounded corners=3mm] (1.5, -1) -- (0.75, -1) -- (0.75, -0.2);
-
-%% %%   \end{tikzpicture}
-
-
-%% %%   \caption[Microcode store]{\label{fig:ucode-addr-vector}The Microcode Store, with inputs (The Microcode Address Vector) on the left, and outputs (the Control Vector) on the right.}
-%% %% \end{figure}
 
 
 %% \section{Skip Logic}
@@ -1035,7 +1154,7 @@ completing previously initiated transactions. They are crucial to building a
 computer with practical uses, but can be tricky to implement due to their
 asynchronous nature. Race conditions and metastability can cause trouble.
 
-The CFT interrupt subsytem is a five-state Finite State Machine. On reset, the
+The CFT interrupt subsystem is a five-state Finite State Machine. On reset, the
 processor starts with interrupts masked, and will ignore any interrupt
 requests. Interrupts may be enabled at any time using the \asm{SEI}
 instruction. Once enabled, on receipt of an interrupt, the processor completes
@@ -1112,6 +1231,242 @@ in~\fcf{hard:proc:interrupt-fsm}:
     cycles back to masked interrupts. Control is now in the~\abbr{ISR}.}
 \end{figure}
 
+
+
+\chapter{Hardware Description}
+\HtmlMetaDescription{This chapter describes the CFT processor's
+  hardware implementation, in detail.}
+
+This chapter describes the CFT processor's hardware implementation at
+the digital electronics level. Most of the units from the theoretical
+description feature here, as well as a number of sub-units and units
+not worth mentioning in the theoretical description.
+
+\section{Overview}
+
+The CFT Processor is built on four printed circuit boards, designated
+PB0 to PB3:
+
+\begin{description}
+
+\item{\bfseries Processor Board 0 (PB0):} contains the Microprogram
+  Counter, the Microcode Store, Read/Write Unit Decoders, Address and
+  Data Bus signal conditioning, and the optional \abbr{µCB}.
+
+\item{\bfseries Processor Board 1 (PB1):} a complex board that hosts
+  the clock generator, reset circuitry, \abbr{SBU}, \abbr{AGL}, the
+  \IR{}, the Interrupt State Machine, the Data Bus Driver, the Wait
+  State logic, the Write Strobe generator, and \IBUS{} signal
+  conditioning and termination,
+
+\item{\bfseries Processor Board 2 (PB2):} hosts the three major
+  registers, their front panel buffers, the Address Register (and its
+  own buffers), as well as the \Zreg, \Nreg{} flags and the Autoindex
+  Logic.
+
+\item{\bfseries Processor Board 3 (PB2):} hosts the \Lreg register,
+  the \ALU{} and the \MBU.
+
+\end{description}
+
+\section{Processor Board 0}
+\subsection{Microprogram Counter}
+\label{sec:upc}
+
+The Microprogram Counter (µPC) is a simple 4-bit counter with reset and dual
+count enables. A \HC{161} counter was selected for this. The '161 counts on the
+positive edge of \CLOCK{4}, while the count enables are high. These are driven
+by \ns{WS} and \ns{HALT}, both pulled up in case the two input signals are
+physically unconnected.
+
+The counter resets to zero when \ns{RSTHOLD} is asserted.
+
+The \ns{END} signal and its open drain, external counterpart \ns{ENDEXT} are
+ANDed together and fed to the '161's active low load signal (\ns{LD}). This
+loads the counter from the \ps{P1}–\ps{P4} inputs, which are permanently tied
+to GND. This provides a second reset circuit, when the currently executing
+microprogram is finished.
+
+The counter's output provides the four least significant bits of the microcode
+address vector, the others being provided by other processor states.
+
+In terms of CFT processor signals, the counter implements the following function table:
+
+\begin{center}
+  \zebra
+  \begin{tabular}{*{6}{>{\textsf\bgroup}c<{\egroup}}l}
+    %\noalign{\smallskip}\hline\noalign{\smallskip}
+    %\\\hline
+    \ps{CLOCK4} & \ns{RSTHOLD} & \ns{END} & \ns{ENDEXT} & \ns{WS} & \ns{HALT} & Function \\
+    %\noalign{\smallskip}\hline\noalign{\smallskip}
+    \hline
+    X   & L & X & X & X & X & Reset counter to 0 asynchronously.\\
+    \tU & H & L & X & X & X & Reset counter to 0.\\
+    \tU & H & X & L & X & X & Reset counter to 0.\\
+    \tU & H & X & X & L & X & Inhibit counting.\\
+    \tU & H & X & X & X & L & Inhibit counting.\\
+    \tU & H & H & H & H & H & Increment count (mod 16).\\
+    \hline
+  \end{tabular}
+\end{center}
+
+\begin{figure*}
+  \centering
+  \inputfigure{figure-microcode-counter}
+  \caption[Microprogram Counter Waveforms]{\label{fig:upc-timing} Timing
+    diagram of the operation of the microprogram counter (\UPC). The
+    counter resets synchronously while \ns{RSTHOLD} is asserted. The
+    rising edge of \CLOCK{4} clears it if either \ns{END} or \ns{ENDEXT}
+    are asserted, and counting is inhibited when \ns{WS} or \ns{HALT}
+    are asserted.}
+\end{figure*}
+
+
+\subsection{Microcode Store}
+\label{sec:microcode-store}
+
+\begin{figure}[tb]
+  \centering
+  \inputfigure{figure-microcode-store}
+
+  \caption[Microcode address vector]{\label{fig:ucode-addr-vector}Microcode
+    Address Vector (top) and output control signals (bottom). The Address
+    Vector forms the 15–19 bit address (the \ps{μCB} field is optional) for
+    three ROMs, each of which outputs 8 bits of the 24-bit wide control
+    vector. The control vector, in turn, drives the processor. }
+\end{figure}
+
+The microcode store is the heart of the Control Unit. It consists of a large
+truth table mapping 15 or 19 (if the \abbr{µCB} extension is installed) bits of
+input to 24 bits of output. The input depends on the current instruction being
+executed and other state bits of the processor.
+
+From the electronics perspective, the microcode store is implemented as three 4
+MBit (524,288×8 bits each) Flash devices. The devices are reprogrammable, which
+allows the microcode to be corrected and updated, although they have to be
+removed from their sockets for this to be done.
+
+All three ROMs receive the same address vector. Each outputs 8 bits of the
+control vector in parallel. To minimise access times, the chips are permanently
+selected by tying their \ns{CE} pins to ground. Since in-circuit programming is
+not not available, the \ns{WE} pins are tied to Vcc, turning the Flash devices
+into ROMs.
+
+The output enable pins (\ns{OE}) are low, except when \ns{HALT} or \ns{RESET}
+are asserted. With the processor halted (or in the early stages of resetting),
+the ROMs are in a high impedance state, allowing other units (such as the front
+panel controller) to control the processor's units. Pull-up and pull-down
+resistors weakly tie the control signals to safe (idle) levels.
+
+
+\section{Microcode Format and the Control Unit}
+\label{sec:microcode-format}
+
+A full discussion of the microcode architecture from a software point of
+view can be found in~\ccf{chap:microcode}.
+
+Microcode is a multivariate function that accepts a number of inputs, the
+address vector, and outputs a number of control signals. 
+
+The address vector is made up of the following fields, in order of increasing
+bit significance:
+
+\input{partial-microcode-address}
+
+This address vector indexes three 4 MBit (524,288×8 bits) Microcode ROMs in
+parallel to provide a 524,288×24 table. This 24-bit vector is the control
+vector, which directly (or after some decoding) drives the processor's units
+and the bus. The control lines are as follows:
+
+\input{partial-microcode-control}
+
+
+%% \begin{figure}[tb]
+%%   \centering
+%%   \begin{tikzpicture}
+%%     \begin{scope}[thin,draw opacity=0,line width=0pt]
+%%     \draw[fill=cfthl!25](0,0) rectangle (9.5,0.6);
+%%     \foreach \x in {0, ..., 9}{
+%%       \draw[fill=cfthl!50,xshift=\x cm](0,0) rectangle (0.5,0.6);
+%%     }
+%%     %\draw[fill=cfthl!50,xshift=10 cm](0,0) rectangle (0.5,0.6);
+%%     \end{scope}
+%%     \foreach \x in {0.5, 1, ..., 9}{
+%%       \draw[thin] (\x cm, 0) -- (\x cm, -0.1cm);
+%%     }
+%%     \draw[line width=2pt](0,0) rectangle (9.5,0.6);
+%%     \draw (9.5,0) node[below left] { \footnotesize 0 };
+%%     \draw (0,0) node[below] { \footnotesize 18 };
+
+%%     \foreach \x in {3,4,5,6,10,11,12,13,14}{
+%%       \begin{scope}[xshift=9.5 cm - 0.5 * ( \x cm + 1 cm)]
+%%         \draw[thick](0,-0.1) -- (0,0.6);
+%%         \draw (0,0) node[below right] { \footnotesize \x };
+%%       \end{scope}
+%%     }
+%%     %% \draw[thick](1,-0.1) -- (1,0.6);
+
+%%     %% \draw[thick](4,-0.1) -- (4,0.6);
+%%     \draw (8.5, 0.3) node { \UPC };
+%%     \draw (1, 0.3) node { \UCB };
+%%     \draw (5, 0.3) node { Opcode };
+%%     \draw (0.25, 0.8)[xshift=7 cm] node[right, rotate=60] { \ns{AINDEX} };
+%%     \draw (0.25, 0.8)[xshift=6.5 cm]  node[right, rotate=60] { \ns{SKIP} };
+%%     \draw (0.25, 0.8)[xshift=6 cm]  node[right, rotate=60] { \asm{R} };
+
+%%     \draw (0.25, 0.8)[xshift=3.5 cm]  node[right, rotate=60] { \ps{FL} };
+%%     \draw (0.25, 0.8)[xshift=3 cm]  node[right, rotate=60] { \ps{FV} };
+%%     \draw (0.25, 0.8)[xshift=2.5 cm]  node[right, rotate=60] { \ns{IRQS} };
+%%     \draw (0.25, 0.8)[xshift=2 cm]  node[right, rotate=60] { \ns{RSTHOLD} };
+%%     %% \draw (7.5, 0.3) node[left, rotate=45] { \ns{SKIP} };
+
+%%     %% %% \draw (2.25, 0.3) node { I };
+%%     %% %% \draw (2.75, 0.3) node { R };
+%%     %% \draw (7.25, 0.3) node { \ABUSn{0–12} };
+
+%%     %% \draw (1.5,-1) node[right] { Bank number, bit 0 };
+%%     %% \draw (1.5,-1.5) node[right] { Bank number, bit 1 };
+
+%%     %% \draw[thick, rounded corners=5.5mm] (1.5, -1.5) -- (0.25, -1.5) -- (0.25, -0.2);
+%%     %% \draw[thick, rounded corners=3mm] (1.5, -1) -- (0.75, -1) -- (0.75, -0.2);
+
+%%   \end{tikzpicture}
+
+
+%%   \caption[Microcode store]{\label{fig:ucode-addr-vector}The Microcode Store, with inputs (The Microcode Address Vector) on the left, and outputs (the Control Vector) on the right.}
+%% \end{figure}
+
+
+\subsection{Read/Write Unit Decoders}
+\subsection{Address and Data Bus Termination}
+\subsection{Microcode Banking Unit}
+
+\section{Processor Board 1}
+\subsection{Clock Generator}
+\subsection{Reset Unit}
+\subsection{Skip/Branch Unit}
+\subsection{Address Generation Logic}
+\subsection{Instruction Register}
+\subsection{Interrupt State Machine}
+\subsection{Data Bus Driver}
+\subsection{Wait State Logic}
+\subsection{Write Strobe Generation}
+\subsection{\IBUS{} Termination}
+
+\section{Processor Board 2}
+\subsection{Address Register}
+\subsection{Autoindex Logic}
+\subsection{I/O Device Adress Decoder}
+\subsection{Major Registers}
+\subsection{The \Zreg{} and \Nreg{} Flags}
+
+\section{Processor Board 3}
+\subsection{The \Lreg{} register}
+\subsection{The \ALU}
+\subsection{\ALU{} Port Registration}
+\subsection{\ALU{} Operation Decoding}
+\subsection{\ALU{} Tables}
+\subsection{Memory Banking Unit}
 
 
 %% \lipsum[3-5]
@@ -1264,3 +1619,8 @@ in~\fcf{hard:proc:interrupt-fsm}:
 %% \subsection{Additional Microcode Width}
 %% \lipsum[3-5]
 
+
+%%  LocalWords:  CFT von Neumann Datapath MBU mem incrementing WS FFF
+%%  LocalWords:  decrementing ALU's PDP MWord KWords SEI ISR fsm STI
+%%  LocalWords:  JMP JSR RET RTI RTT WPC IRQ CLI IRQS waveforms FINT
+%%  LocalWords:  FIRQ

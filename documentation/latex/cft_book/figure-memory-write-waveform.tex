@@ -1,0 +1,27 @@
+% -*- latex -*-
+\documentclass[border=200pt,class=memoir,preview]{standalone}
+\input{preamble-2018}
+\input{macros-2018}
+
+\begin{document}%
+%\tikzexternaldisable%
+\begin{tikztimingtable}
+  \ns{MEM}   & 10H 10H N(A0) LLLLLLLLLL    N(A1) 30H \\
+  \ns{W}     & 10H 10H       HHHHHHLLHH          30H \\
+  \ps{AB}    & 10U 10D       DDDDDDDDDDD         29U \\
+  \ps{AEXT}  & 11U  9D       DDDDDDDDDDDD        28U \\
+  \ps{DB}    & 11U  9D N(B0) DDDDDDDDDDDD  N(B1) 28U \\
+%
+%  \tikzexternalenable%
+  \extracode
+%    \tablerules
+    \begin{pgfonlayer}{background}
+      %% \draw [help lines] (A0) -- (B0);
+      %% \draw [help lines] (A1) -- (B1);
+  \end{pgfonlayer}
+\end{tikztimingtable}
+
+
+\end{document}
+
+% End of file.

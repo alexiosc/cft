@@ -20,6 +20,12 @@
     16-bit bus used to select a peripheral nor memory location to
     access.}}
   
+\newglossaryentry{AExt}{name=Address Extension Bus, description={An
+    8-bit bus used to extend the CFT processor's memory address space
+    to 21 bits (2 KWords of memory). The value on this bus is used
+    only by memory cards and memory-mapped devices (of which there are
+    currently none).}}
+  
 \newglossaryentry{Video Display Unit}{name=Video Display Unit,
   description={ Video Display Unit (VDU): a device that drives a
     display monitor to show character or graphics data on a
@@ -41,8 +47,15 @@
     programs and data in separate media, and did not or could not
     treat programs as data.}}
 
-\newglossaryabbr{ALU}{Arithmetic/Logic Unit}{Describe this!}
-\newglossaryabbr{ISR}{Interrupt Service Routine}{Describe this!}
+\newglossaryabbr{ALU}{Arithmetic/Logic Unit}{An important part of the
+  CFT processor responsible for performing arithmetic and logic
+  operations, and also yielding various useful constants.}
+
+\newglossaryabbr{ISR}{Interrupt Service Routine}{A software routine
+  responsible for servicing interrupts from external peripherals, such
+  as keyboards. The CFT has a single interrupt, and its service
+  routine starts at memory address \hex{FFF8}.}
+
 \newglossaryentry{UART}{name=UART, description={
     Short for Universal Asynchronous Receiver/Transmitter. UARTs are
     devices that handle asynchronous serial communications such as RS-232, RS-485 or USB.
@@ -52,9 +65,14 @@
 %%   description={TODO}}
 %% \newacronym[description={\glslink{alu}{Arithmetic/Logic Unit}}]{ALU}{ALU}{Arithmetic/Logic Unit}
 
-\newacronym{SBU}{SBU}{Skip/Branch Unit}
+\newacronym{SBU}{SBU}{Skip/Branch Unit. Part of the Control Unit
+  responsible for implementing conditional skips and branches, both at
+  the microcode level and the machine code level.}
 
-\newacronym{AGL}{AGL}{Address Generation Logic}
+\newacronym{AGL}{AGL}{Address Generation Logic. A unit responsible for
+  converting 10-bit instruction operands to 16-bit addresses. This is
+  done in two different ways, implementing two addressing mode
+  families.}
 
 \newglossaryentry{DEB}{name=DEB, description={
     Designation of the CFT Debugging/Testing board, a peripheral that
@@ -369,3 +387,38 @@
   user can elect to show the value of the Data Register, Output
   Register, or the 15-bit microcode store address. A switch on the
   front panel is used to do this.}
+
+\newglossaryentry{microcode}{name=Microcode, description={Microcode is
+    a very low level of hardware-based instructions which interpret
+    higher-level machine code. Some microcode is \glslink{Turing
+      Completeness}{Turing Complete}, but it does not have to. The
+    microcode of the CFT is quite simplistic: 15 bits of input operate
+    24 signals. The benefit of microcode is that it keeps the
+    computer's \gls{chip count} down, makes debugging easier, and
+    allows more complex state machines to be implemented.}}
+
+\newglossaryentry{chip count}{name=Chip count, description={the number
+    of integrated circuits (chips) used in making an electronic
+    device, often used as a complexity or cost metric.}}
+
+\newglossaryentry{Turing Completeness}{name=Turing Completeness,
+  description={A data processing design such as an instruction set or
+    language is said to be Turing Complete if it can emulate any
+    tape-based Turing Machine, and thus compute anything that is
+    computable. Such a design can implement any universal Turing
+    Machine, and thus emulate itself. Another classical test of Turing
+    Completeness is the ability to implement McCarthy's implementation
+    of Lisp. All {\em programming\/} languages are by definition
+    Turing Complete. Some other languages (such as Sendmail
+    configuration files) are ‘accidentally’ Turing Complete.}}
+
+\newglossaryabbr{UCB}{Microcode Banking unit}{A CFT processor
+  extension unit that allows, through the use of banking, multiple
+  versions of microcode to reside on the same microcode ROMs. This is
+  possible because the Microcode Store uses 19-bit (512 KByte) ROMs,
+  whereas the microcode table only requires 14 bits (32 KBytes). This
+  allows 16 different versions of microcode. The UCB allows the
+  microcode bank to be changed permanently, or for the next
+  instruction only, allowing more complex extensions to the
+  CFT instruction set.}
+

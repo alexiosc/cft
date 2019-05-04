@@ -1,0 +1,33 @@
+% -*- latex -*-
+\documentclass[border=200pt,class=memoir,preview]{standalone}
+\input{preamble-new}
+\input{macros}
+
+\begin{document}%
+%\tikzexternaldisable%
+
+\begin{tikztimingtable}
+%D{} 7D{\textcond FRONT PORCH} 5D{\textcond HSYNC} 7D{\textcond BACK PORCH} 40D{\textcond VIDEO} D{} \\
+
+  Address Bus                               & UUUU N(A1) 40D{\hex{0100}–\hex{011F}}                             N(A4) UUUU \\
+  \ns{IO}                                   & HHHH       HLLLLLLLLLLLLLLLLLLLLLLLLLLLLL N(A2) LLLLLL N(A3) LLHH       HHHH \\
+  \ns{IODEV1XX}                             & HHHH       HHLLLLLLLLLLLLLLLLLLLLLLLLLLLL       LLLLLL       LLLH       HHHH \\
+  \textbf{DFP Addressed (\ns{PFP-SEL})}     & HHHH       HHHLLLLLLLLLLLLLLLLLLLLLLLLLLL       LLLLLL       LLLL       HHHH \\
+  \ns{IOCMD}                                & HHHH       HHHHLHHHHHHHHHHHHHHHHHHHHHHHHH       HHHHHH       HHHH       HHHH \\
+  \ns{WS}                                   & ZZZZ       ZZZZLLLLLLLLLLLLLLLLLLLLLLLLLL       LLLLLL       LZZZ       ZZZZ \\
+  \textbf{End bus transaction (\ps{CLRWS})} & LLLL N(B1) LLLLLLLLLLLLLLLLLLLLLLLLLLLLLL N(B2) LLLLLH N(B3) LLLL N(B4) LLLL \\
+                                          \\
+\extracode
+  \tablerules
+  \begin{pgfonlayer}{background}
+    %% \draw [help lines] (A1) -- (B1);
+    %% %% \draw [help lines] (A2) -- (B2);
+    %% \draw [help lines] (A3) -- (B3);
+    %% \draw [help lines] (A4) -- (B4);
+  \end{pgfonlayer}
+\end{tikztimingtable}
+
+%\tikzexternalenable%
+\end{document}
+
+% End of file.

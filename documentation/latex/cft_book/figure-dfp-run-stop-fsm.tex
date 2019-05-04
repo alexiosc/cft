@@ -1,0 +1,48 @@
+% -*- latex -*-
+\documentclass[border=200pt,class=memoir,preview]{standalone}
+\input{preamble-new}
+\input{macros}
+
+\begin{document}%
+%\tikzexternaldisable%
+
+\begin{tikzpicture}[node distance=30mm]%
+  %\tikzset{fsmstate/.style={state,circle}}
+
+  \begin{scope}[line width=1pt]
+    \tikzset{initial text={Power on}}
+    \begin{scope}[line width=2pt]
+      \node[fsmstate,col1,initial] (resetting) {Resetting \footnotemark[1]};
+      \node[fsmstate,col2]         (running) [right=of resetting] {Running \footnotemark[2]};
+      \node[fsmstate,col3]         (stopping) [below=of running] {Stopping \footnotemark[2]};
+      \node[fsmstate,col4]         (stopped) [below=of resetting] {Stopped};
+      \node[fsmstate,col5]         (stepping) [below right=of stopped] {Stepping \footnotemark[2]};
+      \node[fsmstate,col6]         (ustepping) [below left=of stopped] {Microstepping \footnotemark[2]};
+      %% \node[fsmstate,col2] (S2) [right=of S1] {Enable Armed};
+      %% \node[fsmstate,col3] (S3) [below=of S2] {Interrupts Enabled};
+      %% \node[fsmstate,col4] (S4) [below=of S3] {Interrupt Armed};
+      %% \node[fsmstate,col5] (S5) [left=of S4] {Interrupt µProgram};
+    \end{scope}
+    \draw[thick arrow,->] (resetting) edge [bend left]  node [above,align=left] {Reset complete, ROM mode \footnotemark[3]} (running);
+    \draw[thick arrow,->] (resetting) edge [bend left]  node [right,align=left] {Reset complete, RAM mode \footnotemark[4]} (stopped);
+
+    \draw[thick arrow,->] (running)   edge [bend left]  node [above=1mm,align=center] {Reset requested \footnotemark[5]} (resetting);
+    \draw[thick arrow,->] (running)   edge              node [right,align=left] {Halt requested \footnotemark[6]} (stopping);
+
+    \draw[thick arrow,->] (stopped)   edge [bend left]  node [left,align=right] {Reset requested \footnotemark[5]} (resetting);
+    \draw[thick arrow,->] (stopped)   edge [bend left]  node [below left,align=right] {Step requested \footnotemark[7]} (stepping);
+    \draw[thick arrow,->] (stopped)   edge [bend left]  node [left=1mm,align=right] {Microstep requested \footnotemark[8]} (ustepping);
+
+    \draw[thick arrow,->] (stopping)  edge [bend right] node [below=2mm,align=center] {Fetch cycle complete} (stopped);
+
+    \draw[thick arrow,->] (stepping)  edge [bend left]  node [below=6mm,align=right] {Fetch cycle complete} (stopped);
+
+    \draw[thick arrow,->] (ustepping) edge [bend left]  node [above=6mm,align=center] {Clock cycle complete} (stopped);
+    ;
+  \end{scope}
+
+\end{tikzpicture}
+%\tikzexternalenable%
+\end{document}
+
+% End of file.

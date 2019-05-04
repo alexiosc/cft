@@ -1,7 +1,7 @@
 % -*- latex -*-
 \documentclass[class=memoir,border=200pt]{standalone}
-\input{preamble-new}
-\input{macros}
+\input{preamble-2018}
+\input{macros-2018}
 
 \begin{document}%
 %\tikzexternaldisable%
@@ -10,21 +10,21 @@
   \input{partial-addressing-modes}
 
   % The IR
-  \AddressingModeIR{1}{0}
+  \AddressingModeIR{1}{0}{col10!50}
 
   % The PC
   \begin{scope}[,yshift=-1.5cm]
-    \PageFromPC
+    \PageFromPC{col14!50}
   \end{scope}
 
   % The AR
   \begin{scope}[,yshift=-3cm]
-    \TargetRegisterTwo{Page-relative address}{above right}{\AR}
+    \TargetRegisterTwo{Page-relative address}{above right}{\AR}{col14!50}{col10!50}
   \end{scope}
 
   % The Accumulator
   \begin{scope}[,yshift=-4.5cm]
-    \TargetRegister{Address}{above right}{\PC}
+    \TargetRegister{Address}{above right}{\PC}{col8!33}
   \end{scope}
 
   % The arrows
@@ -38,7 +38,7 @@
 
   % The memory box.
   \begin{scope}[xshift=9.5cm,yshift=0.6cm]
-    \TheMemoryBox
+    \TheMemoryBox{col8!33}
   \end{scope}
 
   % Memory pointer

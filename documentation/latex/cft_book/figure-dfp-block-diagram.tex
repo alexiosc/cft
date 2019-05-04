@@ -1,0 +1,74 @@
+% -*- latex -*-
+\documentclass[class=memoir,border=200pt]{standalone}
+\input{preamble-2018}
+\input{macros-2018}
+
+\begin{document}%
+%\tikzexternaldisable%
+\begin{tikzpicture}%
+
+  \tikzstyle{major} = [heavy,col1]
+  \tikzstyle{minor} = [major,col2]
+  \tikzstyle{unit} = [major,col3]
+  \tikzstyle{mux} = [major,col4,fill=white]
+  \tikzstyle{bus} = [line width=3pt, rounded corners=15pt]
+  \tikzstyle{smallbus} = [line width=2pt]
+  \tikzstyle{signal} = [line width=1.5pt]
+
+  % The MCU
+
+  \begin{scope}[]
+    %% \draw[major,col1](0,0) -- (90:3) -- (30:3) -- cycle;
+    \draw[major,col1](0,0) circle(1);
+    \draw(0,0) node [align=center] {
+      DFP\\
+      Controller
+    };
+  \end{scope}
+
+  \draw[bus, stealth-stealth](-3.5,0) -- (-1,0);
+  \draw[bus, stealth-stealth](-30:1) -- (-30:3.5) coordinate (F);
+  \draw[bus, stealth-stealth](30:1) -- (30:3.5) coordinate (T);
+
+  % The CFT
+  \begin{scope}[xshift=-5cm]
+    \draw[major,col2](-1.5,-3) rectangle +(3,6);
+    \draw(0,0) node[align=center] {
+      CFT\\
+      Computer
+    };
+  \end{scope}
+
+  % The Front Panel
+  \draw[major,col3](F) +(0,-1) rectangle +(3,1);
+  \draw (F) +(1.5,0) node[align=center] {
+      Front Panel
+  };
+  
+  % The Terminal Interface
+  \draw[major,col5](T) +(0,-1) rectangle +(3,1);
+  \draw (T) +(1.5,0) node[align=center] {
+      Serial Terminal
+  };
+  
+  \draw[bus, stealth-stealth](-3.5,0) -- (-1,0);
+  \draw[bus, stealth-stealth](-30:1) -- (-30:3.5) coordinate (F);
+  \draw[bus, stealth-stealth](30:1) -- (30:3.5) coordinate (T);
+  
+  \draw(-2.25,-0.2) node[below,align=center] {\footnotesize CFT Bus, \\
+  \footnotesize register output \& \\
+  \footnotesize other front panel \\
+  \footnotesize connections };
+  \begin{scope}[rotate=30]
+    \draw(2.25,0.2) node[above,rotate=30] {\footnotesize USB or RS-232};
+  \end{scope}
+  \begin{scope}[rotate=-30]
+    \draw(2.25,-0.2) node[below,align=center,rotate=-30] {\footnotesize Front panel\\
+      \footnotesize interface};
+  \end{scope}
+
+\end{tikzpicture}%
+%\tikzexternalenable%
+\end{document}
+
+% End of file.

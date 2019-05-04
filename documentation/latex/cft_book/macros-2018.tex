@@ -1,338 +1,338 @@
 % -*- latex -*-
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%
-%% WORKAROUNDS
-%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% %%
+%% %% WORKAROUNDS
+%% %%
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% %% \ifxetex
+%% %%   % XeTeX doesn't have HTML output, of course.
+%% %%   \def\HCode#1{}
+%% %% \else
+%% %%   % This is a hack.
+%% %%   \newcounter{Hfootnote}
+%% %% \fi
+
+
+
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% %%
+%% %% HTML GENERATION
+%% %%
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %% \ifxetex
-%%   % XeTeX doesn't have HTML output, of course.
-%%   \def\HCode#1{}
+%%   \def\texonly#1{#1}
+%%   \def\htmlonly#1{}
+%%   \newenvironment{htmldiv}[1]{}{}
+%%   \newcommand{\htmlspan}[2]{#2}
+%%   \newcommand{\htmlbreak}{}
 %% \else
-%%   % This is a hack.
-%%   \newcounter{Hfootnote}
+%%   \def\texonly#1{}
+%%   \def\htmlonly#1{#1}
+%%   \newenvironment{htmldiv}[1]{\HCode{<div class="#1">}}{\HCode{</div>}}
+%%   \newcommand{\htmlspan}[2]{\HCode{<span class="#1">}{#2}\HCode{</span>}}
+%%   \newcommand{\htmlbreak}{\HCode{<div class="break" />}}
 %% \fi
 
 
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% %%
+%% %% LINKING TO LOCATIONS IN THE DOCUMENT
+%% %%
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%
-%% HTML GENERATION
-%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% % Use hyperlinking when rendering PDFs
+%% \newcommand{\barecf}[1]{\hyperref[#1]{\ref*{#1}}}
 
-\ifxetex
-  \def\texonly#1{#1}
-  \def\htmlonly#1{}
-  \newenvironment{htmldiv}[1]{}{}
-  \newcommand{\htmlspan}[2]{#2}
-  \newcommand{\htmlbreak}{}
-\else
-  \def\texonly#1{}
-  \def\htmlonly#1{#1}
-  \newenvironment{htmldiv}[1]{\HCode{<div class="#1">}}{\HCode{</div>}}
-  \newcommand{\htmlspan}[2]{\HCode{<span class="#1">}{#2}\HCode{</span>}}
-  \newcommand{\htmlbreak}{\HCode{<div class="break" />}}
-\fi
+%% \newcommand{\cf}[2][section]{\hyperref[#2]{%
+%%   \ifxetex%
+%%     \ifthenelse{\equal{\pageref*{#2}}{\thepage}}%
+%%                {#1 \ref*{#2}}%
+%%                {#1 \ref*{#2} (p.~\pageref*{#2})}%
+%%   \else%
+%%                {#1 \ref*{#2}}%
+%%   \fi%
+%% }}
 
+%% \newcommand{\cfp}[2][section]{\hyperref[#2]{%
+%%   \ifxetex%
+%%     \ifthenelse{\equal{\pageref*{#2}}{\thepage}}%
+%%       {#1 \ref*{#2}}%
+%%       {#1 \ref*{#2}, p.~\pageref*{#2}}%
+%%   \else
+%%      {#1 \ref*{#2}}%
+%%   \fi%
+%% }}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%
-%% LINKING TO LOCATIONS IN THE DOCUMENT
-%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% Use hyperlinking when rendering PDFs
-\newcommand{\barecf}[1]{\hyperref[#1]{\ref*{#1}}}
-
-\newcommand{\cf}[2][section]{\hyperref[#2]{%
-  \ifxetex%
-    \ifthenelse{\equal{\pageref*{#2}}{\thepage}}%
-               {#1 \ref*{#2}}%
-               {#1 \ref*{#2} (p.~\pageref*{#2})}%
-  \else%
-               {#1 \ref*{#2}}%
-  \fi%
-}}
-
-\newcommand{\cfp}[2][section]{\hyperref[#2]{%
-  \ifxetex%
-    \ifthenelse{\equal{\pageref*{#2}}{\thepage}}%
-      {#1 \ref*{#2}}%
-      {#1 \ref*{#2}, p.~\pageref*{#2}}%
-  \else
-     {#1 \ref*{#2}}%
-  \fi%
-}}
-
-\newcommand{\fcf}[1]{\cf[figure]{#1}}
-\newcommand{\fcfp}[1]{\cfp[figure]{#1}}
-\newcommand{\tcf}[1]{\cf[table]{#1}}
-\newcommand{\tcfp}[1]{\cfp[table]{#1}}
-\newcommand{\ccf}[1]{\cf[chapter]{#1}}
-\newcommand{\ccfp}[1]{\cfp[chapter]{#1}}
-%
-\newcommand{\npcf}[2][section]{\hyperref[#2]{#1 \ref*{#2}}}
-\newcommand{\appcf}[1]{\cf[appendix]{#1}}
-\newcommand{\ecf}[1]{\cf[equation]{#1}}
-\newcommand{\algcf}[1]{\cf[algorithm]{#1}}
-\newcommand{\npappcf}[1]{\npcf[appendix]{#1}}
-\newcommand{\npccf}[1]{\npcf[chapter]{#1}}
-\newcommand{\npfcf}[1]{\npcf[figure]{#1}}
-\newcommand{\nptcf}[1]{\npcf[table]{#1}}
-\newcommand{\npecf}[1]{\npcf[equation]{#1}}
-\newcommand{\npalgcf}[1]{\npcf[algorithm]{#1}}
+%% \newcommand{\fcf}[1]{\cf[figure]{#1}}
+%% \newcommand{\fcfp}[1]{\cfp[figure]{#1}}
+%% \newcommand{\tcf}[1]{\cf[table]{#1}}
+%% \newcommand{\tcfp}[1]{\cfp[table]{#1}}
+%% \newcommand{\ccf}[1]{\cf[chapter]{#1}}
+%% \newcommand{\ccfp}[1]{\cfp[chapter]{#1}}
+%% %
+%% \newcommand{\npcf}[2][section]{\hyperref[#2]{#1 \ref*{#2}}}
+%% \newcommand{\appcf}[1]{\cf[appendix]{#1}}
+%% \newcommand{\ecf}[1]{\cf[equation]{#1}}
+%% \newcommand{\algcf}[1]{\cf[algorithm]{#1}}
+%% \newcommand{\npappcf}[1]{\npcf[appendix]{#1}}
+%% \newcommand{\npccf}[1]{\npcf[chapter]{#1}}
+%% \newcommand{\npfcf}[1]{\npcf[figure]{#1}}
+%% \newcommand{\nptcf}[1]{\npcf[table]{#1}}
+%% \newcommand{\npecf}[1]{\npcf[equation]{#1}}
+%% \newcommand{\npalgcf}[1]{\npcf[algorithm]{#1}}
 
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%
-%% LISTS OF THINGS
-%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% %%
+%% %% LISTS OF THINGS
+%% %%
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%% %%%\addtolength\cftfignumwidth{1.5em}
-\ifxetex
-  \makeatletter
-  \renewcommand*\l@section{\@dottedtocline{1}{1.5em}{2.3em}}
-  \renewcommand*\l@subsection{\@dottedtocline{2}{3.8em}{3.2em}}
-  \renewcommand*\l@subsubsection{\@dottedtocline{3}{7.0em}{4.1em}}
-  \renewcommand*\l@paragraph{\@dottedtocline{4}{10em}{5em}}
-  \renewcommand*\l@subparagraph{\@dottedtocline{5}{12em}{6em}}
-  \setcounter{maxsecnumdepth}{3}
+%% %% %%%\addtolength\cftfignumwidth{1.5em}
+%% \ifxetex
+%%   \makeatletter
+%%   \renewcommand*\l@section{\@dottedtocline{1}{1.5em}{2.3em}}
+%%   \renewcommand*\l@subsection{\@dottedtocline{2}{3.8em}{3.2em}}
+%%   \renewcommand*\l@subsubsection{\@dottedtocline{3}{7.0em}{4.1em}}
+%%   \renewcommand*\l@paragraph{\@dottedtocline{4}{10em}{5em}}
+%%   \renewcommand*\l@subparagraph{\@dottedtocline{5}{12em}{6em}}
+%%   \setcounter{maxsecnumdepth}{3}
 
-  \renewcommand{\@pnumwidth}{3em}
-  \renewcommand{\@tocrmarg}{4em}
-  \makeatother
-\else
-  \relax
-\fi
+%%   \renewcommand{\@pnumwidth}{3em}
+%%   \renewcommand{\@tocrmarg}{4em}
+%%   \makeatother
+%% \else
+%%   \relax
+%% \fi
 
-%
-% Schematics
-%
+%% %
+%% % Schematics
+%% %
 
-\newcommand\listschematicname{List of Schematics} 
-\newcommand{\schematic}[1]{%
-  \refstepcounter{schematic}%
-  \par\noindent\textbf{Schematic \theschematic. #1}
-  \addcontentsline{los}{section}{\protect\numberline{\theschematic}#1}\par%
-}
-\newcommand{\listofschematics}{\listofschematic}
-
-%
-% I/O Ports
-%
-
-\newcommand\listioportname{List of Input/Output Ports} 
-\newlistof{listofioport}{loioport}{\listioportname}
-%% \newcommand{\registerioport}[1]{%
-%%   \refstepcounter{ioport}%
-%%   \addcontentsline{loioport}{section}{\protect\numberline{\ }%
+%% \newcommand\listschematicname{List of Schematics} 
+%% \newcommand{\schematic}[1]{%
+%%   \refstepcounter{schematic}%
+%%   \par\noindent\textbf{Schematic \theschematic. #1}
+%%   \addcontentsline{los}{section}{\protect\numberline{\theschematic}#1}\par%
 %% }
-\newcommand\listofioports\listofioport
+%% \newcommand{\listofschematics}{\listofschematic}
+
+%% %
+%% % I/O Ports
+%% %
+
+%% \newcommand\listioportname{List of Input/Output Ports} 
+%% \newlistof{listofioport}{loioport}{\listioportname}
+%% %% \newcommand{\registerioport}[1]{%
+%% %%   \refstepcounter{ioport}%
+%% %%   \addcontentsline{loioport}{section}{\protect\numberline{\ }%
+%% %% }
+%% \newcommand\listofioports\listofioport
 
 
 
-\newcommand\caution[1]{\textcolor{caution}{\textbf{#1}}}
-%\newcommand\todo[1]{\textcolor{caution}{\bf{TODO: #1}}}
+%% \newcommand\caution[1]{\textcolor{caution}{\textbf{#1}}}
+%% %\newcommand\todo[1]{\textcolor{caution}{\bf{TODO: #1}}}
 
-\ifxetex
-  \newenvironment{obsoleted}{}{}
-\else
-  \newenvironment{obsoleted}{\begin{htmldiv}{obsoleted box}}{\end{htmldiv}}
-\fi
+%% \ifxetex
+%%   \newenvironment{obsoleted}{}{}
+%% \else
+%%   \newenvironment{obsoleted}{\begin{htmldiv}{obsoleted box}}{\end{htmldiv}}
+%% \fi
 
-%
-% Tasks
-%
+%% %
+%% % Tasks
+%% %
 
-\newcommand\listtasksname{List of Incomplete Tasks} 
-\newlistof{listoftask}{lotasks}{\listtasksname}
-\newcounter{task}
+%% \newcommand\listtasksname{List of Incomplete Tasks} 
+%% \newlistof{listoftask}{lotasks}{\listtasksname}
+%% \newcounter{task}
 
-\ifxetex
-  \newcommand{\todo}[1]{%
-    \refstepcounter{task}%
-    {\textcolor{caution}{\textbf{TODO: #1}}}
-    \addcontentsline{lotasks}{section}{\protect\numberline{\arabic{task}}To Do: #1}\par%
-  }
-  \newcommand{\bug}[2]{%
-    \refstepcounter{task}%
-    {\textcolor{caution}{\textbf{BUG: #1 #2}}}
-    \addcontentsline{lotasks}{section}{\protect\numberline{\arabic{task}}Bug: #1}\par%
-  }
-\else
-  \newcommand{\todo}[1]{%
-    \refstepcounter{task}%
-    {\htmlspan{todo}{#1}}%
-  }
-  \newcommand{\bug}[2]{%
-    \refstepcounter{task}%
-    {\htmlspan{bug}{#1 #2}}%
-  }
-\fi
-\newcommand\listoftasks\listoftask
+%% \ifxetex
+%%   \newcommand{\todo}[1]{%
+%%     \refstepcounter{task}%
+%%     {\textcolor{caution}{\textbf{TODO: #1}}}
+%%     \addcontentsline{lotasks}{section}{\protect\numberline{\arabic{task}}To Do: #1}\par%
+%%   }
+%%   \newcommand{\bug}[2]{%
+%%     \refstepcounter{task}%
+%%     {\textcolor{caution}{\textbf{BUG: #1 #2}}}
+%%     \addcontentsline{lotasks}{section}{\protect\numberline{\arabic{task}}Bug: #1}\par%
+%%   }
+%% \else
+%%   \newcommand{\todo}[1]{%
+%%     \refstepcounter{task}%
+%%     {\htmlspan{todo}{#1}}%
+%%   }
+%%   \newcommand{\bug}[2]{%
+%%     \refstepcounter{task}%
+%%     {\htmlspan{bug}{#1 #2}}%
+%%   }
+%% \fi
+%% \newcommand\listoftasks\listoftask
 
-%
-% Data structures
-%
+%% %
+%% % Data structures
+%% %
 
-\newcommand\listdatastructurename{List of Data Structures} 
-\newlistof{listofdatastructure}{lods}{\listdatastructurename}
-\newcounter{datastructure}
-%\newcommand{\datastructure}[1]{%
-%  \refstepcounter{datastructure}%
-%  \par\noindent\textbf{Data Structure \thedatastructure. #1}
-%  \addcontentsline{lods}{section}{\protect\numberline{\thedatastructure}#1}\par%
-%}
-\newcommand\listofdatastructures\listofdatastructure
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%
-%% LISTINGS
-%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\newcommand\lstkbd[1]{%
-  \ifxetex%
-    \ensuremath{\mathbf{\textbf{#1}}}%
-  \else%
-    \htmlspan{input}{#1 }%
-  \fi%
-}
-%\newcommand\lstfkbd[1]{\underline{\mathbf{\textbf{#1}}}}
-\newcommand\lstfkbd[1]{\color{cftoutline}{\mathbf{\textbf{#1}}}}
-\ifxetex
-  \lstset{%
-          keywordstyle=\fontspec{Inconsolata Bold},%
-          keywordstyle=[2]\color{cftoutline}\fontspec{Inconsolata Bold},%
-          keywordstyle=[3]\fontspec{Inconsolata Bold},%
-          commentstyle=\color{cftlight}%
-  }
-\else
-  \lstset{%
-          keywordstyle=\textbf,%
-          keywordstyle=[2]\textbf,%
-          keywordstyle=[3]\textit,%
-          commentstyle=\texttt%
-  }
-\fi
-\lstdefinestyle{deb}{
-  mathescape=true,
-  numbers=none,
-  moredelim=*[s][\textbf]{[}{]}
-}
-\lstdefinestyle{forthprogram}{}
-\lstdefinelanguage{cftasm}{%
-        mathescape=true,
-        morekeywords={TRAP,IOT,LOAD,STORE,IN,OUT,JMP,JSR,ADD,AND,OR,%
-                      XOR,OP1,OP2,ISZ,LIA,R,I,IFL,IFV,CLA,CLL,NOT,%
-                      INC,CPL,RBL,RBR,RNL,RNR,NOP,SNA,SZA,SSL,SSV,SKIP,%
-                      SNN,SNZ,SCL,SCV,CLI,SEI,SEL,NEG,ING,LI,SPA,SNP,RET,%
-                      RTT,RTI,SBL,SBR},%
-        morekeywords=[2]{.equ,.reg,.include,.word,.fill,%
-                      .str,.data,.strp,.strn,.page,.macro,.end},%
-        alsoletter=.,%
-        sensitive=false,%
-        morecomment=[l]{/},%
-        morecomment=[l]{;},%
-}
-
-\lstdefinestyle{longmcasm}{%
-        language=mcasm,
-        xleftmargin=25pt,
-        xrightmargin=5pt,
-        framexleftmargin=20pt,
-        basicstyle={\footnotesize\ttfamily},
-}
-\lstdefinelanguage{mcasm}{%
-        mathescape=false,
-        morekeywords={cond,field,signal,start,hold},%
-        morekeywords=[2]{\#define,\#ifdef,\#endif,\#if,\#undef,\#line,\#warning,\#warn,\#error},%
-        morekeywords=[3]{INT,RST,V,L,OP,I,SKIP,INC,uaddr},%
-        alsoletter=\#,%
-        sensitive=false,%
-        morecomment=[l]{//},%
-        %morecomment=[s]{( }{ )},%
-}
+%% \newcommand\listdatastructurename{List of Data Structures} 
+%% \newlistof{listofdatastructure}{lods}{\listdatastructurename}
+%% \newcounter{datastructure}
+%% %\newcommand{\datastructure}[1]{%
+%% %  \refstepcounter{datastructure}%
+%% %  \par\noindent\textbf{Data Structure \thedatastructure. #1}
+%% %  \addcontentsline{lods}{section}{\protect\numberline{\thedatastructure}#1}\par%
+%% %}
+%% \newcommand\listofdatastructures\listofdatastructure
 
 
-\lstdefinelanguage{forth}{%
-        mathescape=true,
-        %morekeywords={TRAP,IOT,LOAD,STORE,IN,OUT,JMP,JSR,ADD,AND,OR,%
-        %              XOR,OP1,OP2,ISZ,LIA,R,I,IFL,IFV,CLA,CLL,NOT,%
-        %              INC,CPL,RBL,RBR,RNL,RNR,NOP,SNA,SZA,SSL,SSV,SKIP,%
-        %              SNN,SNZ,SCL,SCV,CLI,SEI,SEL,NEG,ING,LI,SPA,SNP,RET,%
-        %              RTT,RTI,SBL,SBR},%
-        morekeywords=[3]{ok}
-        %alsoletter=.,%
-        sensitive=false,%
-        %morecomment=[l]{\},%
-        %morecomment=[s]{( }{ )},%
-}
-\newcommand\notes[1]{{\small\verbatiminput{#1}}}
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% %%
+%% %% LISTINGS
+%% %%
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% \newcommand\lstkbd[1]{%
+%%   \ifxetex%
+%%     \ensuremath{\mathbf{\textbf{#1}}}%
+%%   \else%
+%%     \htmlspan{input}{#1 }%
+%%   \fi%
+%% }
+%% %\newcommand\lstfkbd[1]{\underline{\mathbf{\textbf{#1}}}}
+%% \newcommand\lstfkbd[1]{\color{cftoutline}{\mathbf{\textbf{#1}}}}
+%% \ifxetex
+%%   \lstset{%
+%%           keywordstyle=\fontspec{Inconsolata Bold},%
+%%           keywordstyle=[2]\color{cftoutline}\fontspec{Inconsolata Bold},%
+%%           keywordstyle=[3]\fontspec{Inconsolata Bold},%
+%%           commentstyle=\color{cftlight}%
+%%   }
+%% \else
+%%   \lstset{%
+%%           keywordstyle=\textbf,%
+%%           keywordstyle=[2]\textbf,%
+%%           keywordstyle=[3]\textit,%
+%%           commentstyle=\texttt%
+%%   }
+%% \fi
+%% \lstdefinestyle{deb}{
+%%   mathescape=true,
+%%   numbers=none,
+%%   moredelim=*[s][\textbf]{[}{]}
+%% }
+%% \lstdefinestyle{forthprogram}{}
+%% \lstdefinelanguage{cftasm}{%
+%%         mathescape=true,
+%%         morekeywords={TRAP,IOT,LOAD,STORE,IN,OUT,JMP,JSR,ADD,AND,OR,%
+%%                       XOR,OP1,OP2,ISZ,LIA,R,I,IFL,IFV,CLA,CLL,NOT,%
+%%                       INC,CPL,RBL,RBR,RNL,RNR,NOP,SNA,SZA,SSL,SSV,SKIP,%
+%%                       SNN,SNZ,SCL,SCV,CLI,SEI,SEL,NEG,ING,LI,SPA,SNP,RET,%
+%%                       RTT,RTI,SBL,SBR},%
+%%         morekeywords=[2]{.equ,.reg,.include,.word,.fill,%
+%%                       .str,.data,.strp,.strn,.page,.macro,.end},%
+%%         alsoletter=.,%
+%%         sensitive=false,%
+%%         morecomment=[l]{/},%
+%%         morecomment=[l]{;},%
+%% }
+
+%% \lstdefinestyle{longmcasm}{%
+%%         language=mcasm,
+%%         xleftmargin=25pt,
+%%         xrightmargin=5pt,
+%%         framexleftmargin=20pt,
+%%         basicstyle={\footnotesize\ttfamily},
+%% }
+%% \lstdefinelanguage{mcasm}{%
+%%         mathescape=false,
+%%         morekeywords={cond,field,signal,start,hold},%
+%%         morekeywords=[2]{\#define,\#ifdef,\#endif,\#if,\#undef,\#line,\#warning,\#warn,\#error},%
+%%         morekeywords=[3]{INT,RST,V,L,OP,I,SKIP,INC,uaddr},%
+%%         alsoletter=\#,%
+%%         sensitive=false,%
+%%         morecomment=[l]{//},%
+%%         %morecomment=[s]{( }{ )},%
+%% }
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%
-%% GRAPHICS
-%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% This includes a TikZ figure (if compiling with XeTeX), or a static
-% PNG image (for htLaTeX).
-\ifxetex
-  \newcommand{\inputfigure}[2][]{\input{#2}}
-\else
-  %% \newcommand{\inputfigure}[2][]{%
-  %%   \begin{htmldiv}{includegraphics png}%
-  %%     \includegraphics{#2.png}%
-  %%   \end{htmldiv}%
-  %% }
-  \newcommand{\inputfigure}[2][]{%
-    \begin{htmldiv}{includegraphics svg}%
-      %\special{t4ht*<#2.svg}
-      \HCode{<img src="#2.svg" />}
-    \end{htmldiv}%
-  }
-\fi
+%% \lstdefinelanguage{forth}{%
+%%         mathescape=true,
+%%         %morekeywords={TRAP,IOT,LOAD,STORE,IN,OUT,JMP,JSR,ADD,AND,OR,%
+%%         %              XOR,OP1,OP2,ISZ,LIA,R,I,IFL,IFV,CLA,CLL,NOT,%
+%%         %              INC,CPL,RBL,RBR,RNL,RNR,NOP,SNA,SZA,SSL,SSV,SKIP,%
+%%         %              SNN,SNZ,SCL,SCV,CLI,SEI,SEL,NEG,ING,LI,SPA,SNP,RET,%
+%%         %              RTT,RTI,SBL,SBR},%
+%%         morekeywords=[3]{ok}
+%%         %alsoletter=.,%
+%%         sensitive=false,%
+%%         %morecomment=[l]{\},%
+%%         %morecomment=[s]{( }{ )},%
+%% }
+%% \newcommand\notes[1]{{\small\verbatiminput{#1}}}
 
 
-% This includes a PDF image (for PDF generation), or a PNG
-% (autoconverted from the PDF).
-\ifxetex
-  \newcommand{\includeimage}[2]{\includegraphics[#1]{#2.pdf}}
-\else
-  \newcommand{\includeimage}[2][]{%
-    \begin{htmldiv}{includegraphics png}%
-      \includegraphics[#1]{#2.png}%
-    \end{htmldiv}%
-  }
-\fi
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% %%
+%% %% GRAPHICS
+%% %%
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\ifxetex
-  \newcommand{\includelarge}[2]{\includegraphics[#1]{#2}}
-\else
-  \newcommand{\includelarge}[2][]{%
-    \begin{htmldiv}{includegraphics large jpeg}%
-      \includegraphics[#1]{#2}%
-    \end{htmldiv}%
-  }
-\fi
+%% % This includes a TikZ figure (if compiling with XeTeX), or a static
+%% % PNG image (for htLaTeX).
+%% \ifxetex
+%%   \newcommand{\inputfigure}[2][]{\input{#2}}
+%% \else
+%%   %% \newcommand{\inputfigure}[2][]{%
+%%   %%   \begin{htmldiv}{includegraphics png}%
+%%   %%     \includegraphics{#2.png}%
+%%   %%   \end{htmldiv}%
+%%   %% }
+%%   \newcommand{\inputfigure}[2][]{%
+%%     \begin{htmldiv}{includegraphics svg}%
+%%       %\special{t4ht*<#2.svg}
+%%       \HCode{<img src="#2.svg" />}
+%%     \end{htmldiv}%
+%%   }
+%% \fi
 
-\ifxetex
-  \newcommand{\includesmall}[2]{\includegraphics[#1]{#2}}
-\else
-  \newcommand{\includesmall}[2][]{%
-    \begin{htmldiv}{includegraphics small jpeg}%
-      \includegraphics[#1]{#2}%
-    \end{htmldiv}%
-  }
-\fi
+
+%% % This includes a PDF image (for PDF generation), or a PNG
+%% % (autoconverted from the PDF).
+%% \ifxetex
+%%   \newcommand{\includeimage}[2]{\includegraphics[#1]{#2.pdf}}
+%% \else
+%%   \newcommand{\includeimage}[2][]{%
+%%     \begin{htmldiv}{includegraphics png}%
+%%       \includegraphics[#1]{#2.png}%
+%%     \end{htmldiv}%
+%%   }
+%% \fi
+
+%% \ifxetex
+%%   \newcommand{\includelarge}[2]{\includegraphics[#1]{#2}}
+%% \else
+%%   \newcommand{\includelarge}[2][]{%
+%%     \begin{htmldiv}{includegraphics large jpeg}%
+%%       \includegraphics[#1]{#2}%
+%%     \end{htmldiv}%
+%%   }
+%% \fi
+
+%% \ifxetex
+%%   \newcommand{\includesmall}[2]{\includegraphics[#1]{#2}}
+%% \else
+%%   \newcommand{\includesmall}[2][]{%
+%%     \begin{htmldiv}{includegraphics small jpeg}%
+%%       \includegraphics[#1]{#2}%
+%%     \end{htmldiv}%
+%%   }
+%% \fi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
@@ -879,4 +879,4 @@
 
 
 
-% End of file.
+%% % End of file.

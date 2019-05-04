@@ -1,0 +1,48 @@
+% -*- latex -*-
+\documentclass[class=memoir,border=200pt]{standalone}
+\input{preamble-new}
+\input{macros}
+
+\begin{document}%
+%\tikzexternaldisable%
+\begin{tikzpicture}%
+
+    \newcommand\xxregfile[3]{%
+      \begin{scope}[#1]
+        \draw[line width=0pt,fill=#2](0,0) rectangle (8,0.6);
+        %% \foreach \x in {0, 1, 2, 3, 4, 5, 6, 7}{
+        %%   \draw[draw opacity=0, line width=0pt, fill=cfthl!50,xshift=\x cm](0,0) rectangle (0.5,0.6);
+        %%   %\draw[fill=cfthl!25,xshift=\x cm](0.5,0) rectangle (1,0.6);
+        %% }
+        \draw[line width=2pt](0,0) rectangle (8,0.6);
+        \draw (4,0.3) node {#2};
+        \draw (8,0) node[below] { \footnotesize 0 };
+        \draw (0,0) node[below] { \footnotesize 15 };
+      \end{scope}
+    }
+    \newcommand\xxregflag[2]{%
+      \begin{scope}[#1]
+        \draw[line width=2pt,fill=cfthl!25](0,0) rectangle (0.5,0.6);
+        \draw (0.25,0.3) node {#2};
+        \draw (0.5,0) node[below] { \footnotesize 0 };
+        \draw (0,0) node[below] { \footnotesize 1 };
+      \end{scope}
+    }
+    \xxregfile{}{\A}
+    \xxregfile{yshift=-1.2cm}{p1}{\PC}
+    \xxregfile{yshift=-2.4cm}{p2}{\DR}
+    \xxregfile{yshift=-3.6cm}{p3}{\IR}
+    \xxregfile{yshift=-4.8cm}{p4}{\AR}
+    \begin{scope}[yshift=-6cm]
+      \xxregflag{xshift=7.5cm}{\Ireg}
+      \xxregflag{xshift=6.6cm}{\Vreg}
+      \xxregflag{xshift=5.7cm}{\Zreg}
+      \xxregflag{xshift=4.8cm}{\Nreg}
+      \xxregflag{xshift=3.9cm}{\Lreg}
+    \end{scope}
+
+\end{tikzpicture}%
+%\tikzexternalenable%
+\end{document}
+
+% End of file.

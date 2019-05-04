@@ -7,6 +7,13 @@
 \chapter{Data Storage}
 \label{sec:fs}
 
+\HtmlMetaDescription{This chapter describes the particulars of CFT
+  data storage, including disk, ROM and tape labels, the CFT
+  filesystem, and their constituent parts.}
+%\HtmlMetaGoogleDescription{}
+%\HtmlMetaBanner{}
+%\HtmlMetaTags{}
+
 \begin{figure}
   \centering
   \includelarge[width=0.75\columnwidth]{figs/Floppy_Disk_Drives_8_5_3.jpg}
@@ -262,10 +269,10 @@ sixteen \glspl{disk slice}.
  \caption[Disk Label]{\label{fig:storage-medium-organisation} The CFT
    Disk Label. The first block on each usable storage medium contains
    this data structure, which includes a magic number (for detection
-   reasons), some optional boot code, and pointers to 1–16 disk
-   \glspl{disk slice}. The storage medium itself is partitioned
-   according to the definition of these slices. Each slice can contain
-   anything, but usually holds a \gls{filesystem}.}
+   reasons), some optional boot code, and pointers to 1–16 \glspl{disk
+     slice}. The storage medium itself is partitioned according to the
+   definition of these slices. Each slice can contain anything, but
+   usually holds a \gls{filesystem}.}
 \end{figure}
 
 Disk labels assume the lowest common denominator of block sizes, 256
@@ -286,7 +293,7 @@ map of the disk label is as follows:
       The disk label magic number, always \magicDiskLabel. This works
       in tandem with offset \hex{00}, so the magic number could be
       considered to be the 32-bit value \hex{6400CF75} (CFT disk
-      label, ROM boot code) or \hex{D010} (CFT disk label, custom boot
+      label, ROM boot code) or \hex{D010CF75} (CFT disk label, custom boot
       code).}
     %
     \dsdesc{\hex{02}–\hex{7F}}{Code}{%
