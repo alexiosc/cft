@@ -107,29 +107,29 @@
 | SBL      | C042 | 11000x---1---010 | 10     | -NZ-L | ---C | A1m- | Shift bit left without sign extension. M: CLL RBL.           |
 | SBR      | C041 | 11000x---1---001 | 10     | -NZ-L | ---C | A1m- | Shift bit right without sign extension. M: CLL RBR.          |
 | SEL      | C048 | 11000x---1--1--- | 10     | ----L | ---C | -1m- | Set L. M: CLL CPL                                            |
-| OP2      | D000 | 11010xbbbbbbbbbb | 8      | ???-- | ---C | ?2-- | Combined ops 2. **4                                          |
-| NOP8     | D000 | 11010x0000000000 | 8      | ----- | ---C | -2-- | No operation, eight idle cycles. **3                         |
-| SKPN     | D000 | 11010x-----00000 | 8      | ----- | ---C | F2-- | Skip never. **6                                              |
-| SNA      | D008 | 11010x-----01--- | 8      | ----- | ---C | F2-- | Skip if negative. N => PC++. **6                             |
-| SZA      | D004 | 11010x-----0-1-- | 8      | ----- | ---C | F2-- | Skip if zero. Z => PC++. **6                                 |
-| SSL      | D002 | 11010x-----0--1- | 8      | ----- | ---C | F2-- | Skip if link. L => PC++. **6                                 |
-| SSV      | D001 | 11010x-----0---1 | 8      | ----- | ---C | F2-- | Skip if overflow. V => PC++. **6                             |
-| SNP      | D00C | 11010x-----01100 | 8      | ----- | ---C | F2m- | Skip if non-positive. M: SNA SZA. **6                        |
+| OP2      | D000 | 11010xbbbbbbbbbb | 6      | ???-- | ---C | ?2-- | Combined ops 2. **4                                          |
+| NOP6     | D000 | 11010x0000000000 | 6      | ----- | ---C | -2-- | No operation, six idle cycles. **3                           |
+| SKPN     | D000 | 11010x-----00000 | 6      | ----- | ---C | F2-- | Skip never. **6                                              |
+| SNA      | D008 | 11010x-----01--- | 6      | ----- | ---C | F2-- | Skip if negative. N => PC++. **6                             |
+| SZA      | D004 | 11010x-----0-1-- | 6      | ----- | ---C | F2-- | Skip if zero. Z => PC++. **6                                 |
+| SSL      | D002 | 11010x-----0--1- | 6      | ----- | ---C | F2-- | Skip if link. L => PC++. **6                                 |
+| SSV      | D001 | 11010x-----0---1 | 6      | ----- | ---C | F2-- | Skip if overflow. V => PC++. **6                             |
+| SNP      | D00C | 11010x-----01100 | 6      | ----- | ---C | F2m- | Skip if non-positive. M: SNA SZA. **6                        |
 +----------+------+------------------+--------+-------+------+------+--------------------------------------------------------------+
 | Mnemonic |  Hex | Op..IR...Operand | Cycles | INZVL | MIXC | TOme | Description. Semantics. Notes.                               |
 +----------+------+------------------+--------+-------+------+------+--------------------------------------------------------------+
 +----------+------+------------------+--------+-------+------+------+--------------------------------------------------------------+
 | Mnemonic |  Hex | Op..IR...Operand | Cycles | INZVL | MIXC | TOme | Description. Semantics. Notes.                               |
 +----------+------+------------------+--------+-------+------+------+--------------------------------------------------------------+
-| SKIP     | D010 | 11010x-----10000 | 8      | ----- | ---C | F2-- | Skip always. PC=PC+1. **7                                    |
-| SNN      | D018 | 11010x-----11--- | 8      | ----- | ---C | F2-- | Skip if non-negative. !N => PC++. **7                        |
-| SNZ      | D014 | 11010x-----1-1-- | 8      | ----- | ---C | F2-- | Skip if non-zero. !N => PC++. **7                            |
-| SCL      | D012 | 11010x-----1--1- | 8      | ----- | ---C | F2-- | Skip if link clear. !L => PC++. **7                          |
-| SCV      | D011 | 11010x-----1---1 | 8      | ----- | ---C | F2-- | Skip if no overflow. !V => PC++. **7                         |
-| SPA      | D01C | 11010x-----11100 | 8      | ----- | ---C | F2m- | Skip if positive. M: SNN SNZ. **7                            |
-| CLA      | D080 | 11010x--1------- | 8      | -00-- | ---C | -2-- | Clear AC. AC=0                                               |
-| CLI      | D040 | 11010x---1 ----- | 8      | 0---- | ---C | -2-- | Clear Interrupts. I=0.                                       |
-| STI      | D020 | 11010x----1----- | 8      | 1---- | ---C | -2-- | Set Interrupts. I=1.                                         |
+| SKIP     | D010 | 11010x-----10000 | 6      | ----- | ---C | F2-- | Skip always. PC=PC+1. **7                                    |
+| SNN      | D018 | 11010x-----11--- | 6      | ----- | ---C | F2-- | Skip if non-negative. !N => PC++. **7                        |
+| SNZ      | D014 | 11010x-----1-1-- | 6      | ----- | ---C | F2-- | Skip if non-zero. !N => PC++. **7                            |
+| SCL      | D012 | 11010x-----1--1- | 6      | ----- | ---C | F2-- | Skip if link clear. !L => PC++. **7                          |
+| SCV      | D011 | 11010x-----1---1 | 6      | ----- | ---C | F2-- | Skip if no overflow. !V => PC++. **7                         |
+| SPA      | D01C | 11010x-----11100 | 6      | ----- | ---C | F2m- | Skip if positive. M: SNN SNZ. **7                            |
+| CLA      | D080 | 11010x--1------- | 6      | -00-- | ---C | -2-- | Clear AC. AC=0                                               |
+| CLI      | D040 | 11010x---1 ----- | 6      | 0---- | ---C | -2-- | Clear Interrupts. I=0.                                       |
+| STI      | D020 | 11010x----1----- | 6      | 1---- | ---C | -2-- | Set Interrupts. I=1.                                         |
 | POP      | D000 | 11011Rmmmmmmmmmm | 8      | -NZ-- | --X- | M2-- | Pop from stack (decrement and load). [m]--; AC=[[m]]. **2    |
 | ISZ      | E000 | 11100Rmmmmmmmmmm | 7      | -NZ-L | D--- | F--- | Increment and skip if zero. AC=[m]+1; [m]=AC; Z => PC+       |
 | ISZ I    | E800 | 11101Rmmmmmmmmmm | 9/11   | -NZ-L | DIX- | F--- | Increment ind. & skip if 0. AC=[[m]]+1; [[m]+]=AC; Z => PC++ |
