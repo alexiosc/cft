@@ -1,0 +1,52 @@
+<b>Partlist exported from /home/alexios/eagle/CFT/CFT-PB1-revG-TSSOP.sch at 14 Aug 2016 12:53:25</b>
+<p>
+<table>
+<tr><td><b>Qty</b></td><td><b>Value</b></td><td><b>Device</b></td><td><b>Parts</b></td><td><b>Order Code</b></td><td><b>Description Override</b></td><td><b>Notes</b></td></tr>
+<tr><td>3</td><td></td><td>DIODE-SOD123</td><td>D1, D2, D3</td><td>Mouser 625-1N4148W-V</td><td></td><td></td></tr>
+<tr><td>1</td><td></td><td>JP4Q</td><td>JP3</td><td></td><td></td><td></td></tr>
+<tr><td>1</td><td></td><td>JP5Q</td><td>JP2</td><td></td><td></td><td></td></tr>
+<tr><td>1</td><td></td><td>PINHD-1X2</td><td>JP1</td><td></td><td></td><td></td></tr>
+<tr><td>1</td><td></td><td>SJ2W</td><td>SJ1</td><td>Ignore</td><td></td><td></td></tr>
+<tr><td>1</td><td></td><td>TAC_SWITCHPTH</td><td>S1</td><td>Farnell 1813689 (£0.185)</td><td>Tactile switch</td><td></td></tr>
+<tr><td>1</td><td></td><td>VG96-3K</td><td>EXP1</td><td>Mouser 571-5650947-5, Farnell 1656159 (£1.84)</td><td>96-pin (A+B+C) DIN-41612 Bauform ‘C’ plug</td><td>Right angle through hole</td></tr>
+<tr><td>39</td><td>0.1uF</td><td>C-EUC0805K</td><td>C1, C2, C3, C5, C6, C7, C8, C11, C13, C15, C16, C21, C22, C23, C24, C25, C26, C27, C28, C29, C31, C32, C33, C35, C36, C37, C38, C40, C44, C46, C47, C48, C49, C50, C51, C52, C53, C55, C56</td><td>Mouser 77-VJ0805V104MXBPBC</td><td></td><td></td></tr>
+<tr><td>8</td><td>1uF</td><td>C-EUC0805K</td><td>C4, C9, C12, C30, C34, C39, C45, C54</td><td>Mouser 77-VJ0805Y105KXQTBC</td><td></td><td></td></tr>
+<tr><td>1</td><td>1uF</td><td>CPOL-EUE2.5-5</td><td>C10</td><td>Farnell 1236655 (£0.034)</td><td>1 μF electrolytic capacitor</td><td>Through hole</td></tr>
+<tr><td>2</td><td>4k7</td><td>CTS742C083</td><td>RN1, RN19</td><td>Mouser 774-742C083472JP</td><td></td><td></td></tr>
+<tr><td>11</td><td>4k7</td><td>R-EU_R0805</td><td>R1, R2, R4, R5, R6, R7, R10, R13, R15, R40, R48</td><td>Mouser 667-ERJ-6ENF4701V</td><td>4.7kΩ resistor</td><td>0805 package</td></tr>
+<tr><td>1</td><td>16.000MHz</td><td>XO-08-SOCKET</td><td>XTAL1</td><td>RS 547-5487 (£1.43), Farnell 7942710 (£1.54)</td><td>16 MHz Crystal</td><td>May need to reduce frequency. 4 MHz: RS 547-5392. 10 MHz: 547-5421. 12 MHz: RS 547-5459</td></tr>
+<tr><td>4</td><td>30R</td><td>R-EU_R0805</td><td>R11, R14, R41, R51</td><td>Mouser 660-RK73H2ATTD30R0F</td><td></td><td></td></tr>
+<tr><td>2</td><td>47uF</td><td>CPOL-EUE2.5-5</td><td>C14, C57</td><td>Farnell 1902909 (£0.041@10)</td><td>47µF electrolytic capacitor</td><td></td></tr>
+<tr><td>1</td><td>50k</td><td>R-EU_R0805</td><td>R9</td><td>Mouser 71-CRCW0805-47K-E3, RS 131-457 (£0.014@10), Farnell 9339558 (£0.011@50)</td><td>50 kΩ resistor, ¼W</td><td>Actually 47kΩ (cheaper)</td></tr>
+<tr><td>3</td><td>74AC1G11DBV</td><td>74AC1G11DBV</td><td>IC20, IC34, IC39</td><td>Mouser 595-74LVC1G11DBVRE4</td><td></td><td></td></tr>
+<tr><td>1</td><td>74AC1G27DBV</td><td>74AC1G27DBV</td><td>IC38</td><td>Mouser 595-SN74LVC1G27DBVR</td><td></td><td></td></tr>
+<tr><td>2</td><td>74AC04D</td><td>74AC04D</td><td>IC9, IC37</td><td>Mouser 595-SN74AC04DE4</td><td></td><td></td></tr>
+<tr><td>3</td><td>74AHC1G04DBV</td><td>74AHC1G04DBV</td><td>IC11, IC17, IC28</td><td>Mouser 595-SN74LVC1G04DBVR</td><td></td><td></td></tr>
+<tr><td>1</td><td>74AHC1G08DBV</td><td>74AHC1G08DBV</td><td>IC29</td><td>Mouser 595-SN74LVC1G08DBVR</td><td></td><td></td></tr>
+<tr><td>2</td><td>74AHC1G32DBV</td><td>74AHC1G32DBV</td><td>IC30, IC32</td><td>Mouser 511-74LX1G32S</td><td></td><td></td></tr>
+<tr><td>1</td><td>74AHC1G86DBV</td><td>74AHC1G86DBV</td><td>IC15</td><td>Mouser 595-SN74LVC1G86DBVG4</td><td></td><td></td></tr>
+<tr><td>1</td><td>74AUC1G17DBV</td><td>74AUC1G17DBV</td><td>IC4</td><td>Mouser 595-74AUC1G17DBVRG4</td><td></td><td></td></tr>
+<tr><td>1</td><td>74HC08D</td><td>74HC08D</td><td>IC13</td><td>Mouser 595-SN74HC08DE4</td><td>74HC08D Quad 2-input And gate</td><td></td></tr>
+<tr><td>2</td><td>74HC32D</td><td>74HC32D</td><td>IC14, IC16</td><td>Mouser 595-SN74HC32D</td><td></td><td></td></tr>
+<tr><td>4</td><td>74HC74D</td><td>74HC74D</td><td>IC12, IC21, IC33, IC40</td><td>Mouser 595-SN74HC74DG4</td><td></td><td></td></tr>
+<tr><td>1</td><td>74HC112D</td><td>74HC112D</td><td>IC31</td><td>Mouser 595-SN74HC112DR</td><td>74HC112D Dual J-K Flip Flop</td><td></td></tr>
+<tr><td>1</td><td>74HC139D</td><td>74HC139D</td><td>IC3</td><td>Mouser 595-SN74HC139DR</td><td></td><td></td></tr>
+<tr><td>1</td><td>74HC193D</td><td>74HC193D</td><td>IC2</td><td>Mouser 595-SN74HC193DR</td><td></td><td></td></tr>
+<tr><td>2</td><td>74HC245DW</td><td>74HC245DW</td><td>IC35, IC36</td><td>Mouser 595-SN74HC245DWR</td><td></td><td></td></tr>
+<tr><td>2</td><td>74HC251D</td><td>74HC251D</td><td>IC18, IC19</td><td>Mouser 595-SN74HC251DR</td><td></td><td></td></tr>
+<tr><td>1</td><td>74HC253D</td><td>74HC253D</td><td>IC1</td><td>Mouser 595-SN74HC253DR</td><td></td><td></td></tr>
+<tr><td>6</td><td>74HC541DW</td><td>74HC541DW</td><td>IC6, IC7, IC8, IC23, IC24, IC27</td><td>Mouser 595-SN74HC541DWR</td><td>73HC541DW Octal 3-state buffer</td><td></td></tr>
+<tr><td>2</td><td>74HC573D</td><td>74HC573D</td><td>IC25, IC26</td><td>Mouser 595-SN74HC573ADWR</td><td></td><td></td></tr>
+<tr><td>1</td><td>74HC574D</td><td>74HC574D</td><td>IC22</td><td>Mouser 595-SN74HC574DWR</td><td></td><td></td></tr>
+<tr><td>1</td><td>74HC590D</td><td>74HC590D</td><td>IC5</td><td>Mouser 595-SN74HC590ADRG4</td><td></td><td></td></tr>
+<tr><td>1</td><td>74LVC1G125DBV</td><td>74LVC1G125DBV</td><td>IC10</td><td>Mouser 595-SN74LVC1G125DBVR</td><td></td><td></td></tr>
+<tr><td>4</td><td>330R</td><td>R-EU_R0805</td><td>R3, R8, R49, R50</td><td>Mouser 667-ERJ-6GEYJ331V</td><td></td><td></td></tr>
+<tr><td>3</td><td>2540-5</td><td>2540-5</td><td>P1, P2, P3</td><td></td><td></td><td></td></tr>
+<tr><td>2</td><td>BC848</td><td>BC848</td><td>T1, T2</td><td></td><td></td><td></td></tr>
+<tr><td>4</td><td>HOLE</td><td>HOLE</td><td>U1, U2, U3, U4</td><td>Ignore</td><td></td><td></td></tr>
+<tr><td>4</td><td>LED-5MM-GREEN</td><td>LEDCHIPLED_0805</td><td>LED1, LED2, LED3, LED4</td><td>Mouser 593-VAOL-S8GT4</td><td></td><td></td></tr>
+<tr><td>2</td><td>OSHW-LOGOL</td><td>OSHW-LOGOL</td><td>$4_39_$, $4_39_$1</td><td>Ignore</td><td></td><td></td></tr>
+<tr><td>1</td><td>QRCODE-CFT</td><td>QRCODE-CFT</td><td>$4_40_$</td><td>Ignore</td><td></td><td></td></tr>
+<tr><td>1</td><td>SIGNATURESILK</td><td>SIGNATURESILK</td><td>$4_37_$1</td><td>Ignore</td><td></td><td></td></tr>
+<tr><td>2</td><td>SN74ACT1071D</td><td>SN74ACT1071D</td><td>IC41, IC42</td><td></td><td></td><td></td></tr>
+</table>

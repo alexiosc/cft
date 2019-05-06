@@ -62,25 +62,25 @@ CPOL-EUE2.5-5:1uF	Farnell 1236655 (£0.034)	1 μF electrolytic capacitor	Through
 74HC688DW		74HC688DW 8-bit magniture comparator	
 74HC21D		74HC21D Dual 4-input And gate	
 74HC138D		74HC138D 3-to-8 line decoder	
-74HC541DW		73HC541DW Octal 3-state buffer	
+74HC541DW	Mouser 595-SN74HC541DWR	73HC541DW Octal 3-state buffer	
 74HCT574D		74HCT574D 8-bit D Flip Flop	
 74HC00D		74HC00D Quad 2-input Nand gate	
-74HC112D		74HC112D Dual J-K Flip Flop	
+74HC112D	Mouser 595-SN74HC112DR	74HC112D Dual J-K Flip Flop	
 74HC01D		74HC01D Quad 2-input Open Drain Nand gate	
 74LS123D		74LS123D Monostable Multivibrator	
-74HC08D		74HC08D Quad 2-input And gate	
+74HC08D	Mouser 595-SN74HC08DE4	74HC08D Quad 2-input And gate	
 74HCT32D		74HCT32D Quad 2-input Or gate	Must be TTL compatible!
 74HCT541DW		74HCT541DW Octal 3-state buffer	Must be TTL compatible!
 74HC125D		74HC125D Quad bus buffer	
 FE08-1:		8x1 2.54mm female wirewrap header	Or other stackable
 FE06-1:		6x1 2.54mm female wirewrap header	Or other stackable
 R-EU_R0805:1k		1kΩ resistor	0805 package
-R-EU_R0805:4k7		4.7kΩ resistor	0805 package
+R-EU_R0805:4k7	Mouser 667-ERJ-6ENF4701V	4.7kΩ resistor	0805 package
 G08R:2k2		2.2kΩ octal bussed SIL resistor	
 G05R:2k2		2.2κΩ hex bussed SIL resistor	
 G07R:2k2		2.2kΩ 7x bussed SIL resistor	
 SW_DIP-8:	RS 712-2576 (£0.50), Farnell 9471596 (£0.66)	8-way DIP switch	Through hole
-VG96-3K:	Farnell 1656159 (£1.84)	96-pin (A+B+C) DIN-41612 Bauform ‘C’ plug	Right angle through hole
+VG96-3K:	Mouser 571-5650947-5, Farnell 1656159 (£1.84)	96-pin (A+B+C) DIN-41612 Bauform ‘C’ plug	Right angle through hole
 GE08R:330R	Farnell 1602072 (£0.041), RS 522-4289 (£0.31@25)	8×330Ω resistor network	
 GE09R:330R		330Ω 9x bussed SIL resistor	
 8R-N:330R	RS 707-7622 (£0.014@10), Farnell 9339418 (£0.011@50)	330Ω octal DIL resistor	Discretes used for prototyping.
@@ -106,7 +106,7 @@ PINHD-2X20:	RS 670-1825 (£0.972@5), Farnell 1099261 (£1.07)	2×20-pin shrouded
 JP1E:	RS 251-8086 (£0.046@25)	2-pin 2.54mm header	
 1N5817-B	Farnell 1843507 (£0.023)	1N5817 Schottky barrier rectifier	
 R-EU_0204/7:47R	RS 131-097 (£0.014@10), Farnell 9339523 (£0.011@50)	47Ω resistor, 0.25W	
-R-EU_R0805:50k	RS 131-457 (£0.014@10), Farnell 9339558 (£0.011@50)	50 kΩ resistor, ¼W	Actually 47kΩ (cheaper)
+R-EU_R0805:50k	Mouser 71-CRCW0805-47K-E3, RS 131-457 (£0.014@10), Farnell 9339558 (£0.011@50)	50 kΩ resistor, ¼W	Actually 47kΩ (cheaper)
 R-EU_0204/7:4k7	RS 131-334 (£0.014@10), Farnell 9339540 (£0.011@50)	4.7kΩ resistor, 0.25W	
 R-EU_0204/7:330R	RS 707-7622 (£0.014@10), Farnell 9339418 (£0.011@50)	330Ω resistor, 0.25W	
 R-EU_0204/7:470R	RS 131-211 (£0.014@10), Farnell 9339531 (£0.011@50)	470Ω resistor, ¼W	
@@ -206,3 +206,32 @@ R-EU_0204/7:680R	Farnell 9339655 (£0.011@50)	680Ω, ¼W Resistor
 R-EU_0204/7:27k	Farnell 9339370 (£0.011@50)	27kΩ, ¼W Resistor	
 R-EU_0204/7:10R	Farnell 9339035 (£0.011@50)	10Ω, ¼W Resistor	
 TRIM_EU-CT6:100k	Farnell US 1837190 (£0.473), Farnell 9609849 (£0.58)	100kΩ linear Trimmer/Potentiometer	
+C-EUC0805K:0.1uF	Mouser 77-VJ0805V104MXBPBC		
+C-EUC0805K:1uF	Mouser 77-VJ0805Y105KXQTBC		
+74HC74D	Mouser 595-SN74HC74DG4		
+LEDCHIPLED_0805:LED-5MM-GREEN	Mouser 593-VAOL-S8GT4		
+R-EU_R0805:330R	Mouser 667-ERJ-6GEYJ331V		
+R-EU_R0805:30R	Mouser 660-RK73H2ATTD30R0F		
+DIODE-SOD123:	Mouser 625-1N4148W-V		
+74AHC1G04DBV	Mouser 595-SN74LVC1G04DBVR		
+74AC1G11DBV	Mouser 595-74LVC1G11DBVRE4		
+OSHW-LOGOL	Ignore		
+74AC04D	Mouser 595-SN74AC04D		
+74HC32D	Mouser 595-SN74HC32D		
+74HC251D	Mouser 595-SN74HC251DR		
+74HC573D	Mouser 595-SN74HC573ADWR		
+74AHC1G32DBV	Mouser 595-SN74AHC1G32DBVR		
+74HC245DW	Mouser 595-SN74HC245DWR		
+4k7	Mouser 774-742C083472JP		
+QRCODE-CFT	Ignore		
+74HC253D	Mouser 595-SN74HC253DR		
+74HC193D	Mouser 595-SN74HC193DR		
+74HC139D	Mouser 595-SN74HC139DR		
+74HC590D	Mouser 595-SN74HC590ADRG4		
+74LVC1G125DBV	Mouser 595-SN74LVC1G125DBVR		
+74AHC1G86DBV	Mouser 595-SN74LVC1G86DBVG4		
+74AUC1G17DBV	Mouser 595-74AUC1G17DBVRG4		
+74HC574D	Mouser 595-SN74HC574DWR		
+74AHC1G08DBV	Mouser 595-SN74LVC1G08DBVR		
+74AC1G27DBV	Mouser 595-SN74LVC1G27DBVR		
+SJ2W:	Ignore		
