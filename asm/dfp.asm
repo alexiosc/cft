@@ -53,10 +53,10 @@
 .equ QEF_HOF  #-------1'--------	; Will halt on FAIL
 .equ QEF_HOS  #------1-'--------	; Will halt on SENTINEL
 .equ QEF_LCK  #-----1--'--------	; Panel is locked
-.equ QEF_VLE  #000-----'--------	; Detection/version: verilog
-.equ QEF_VHW  #010-----'--------	; Detection/version: hardware
-.equ QEF_VCE  #110-----'--------        ; Detection/version: emulated panel
-.equ QEF_VJE  #111-----'--------        ; Detection/version: JS-emulated panel
+.equ QEF_DVE  #000-----'--------	; Detection/version: verilog
+.equ QEF_DHW  #010-----'--------	; Detection/version: hardware
+.equ QEF_DCE  #110-----'--------        ; Detection/version: C-emulated panel
+.equ QEF_DJE  #111-----'--------        ; Detection/version: JS-emulated panel
 .equ QEF_DET  #111-----'--------        ; Detection mask
 
 ;;; Flags for the ENEF/DISEF instruction
