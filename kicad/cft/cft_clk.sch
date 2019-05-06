@@ -1,0 +1,648 @@
+EESchema Schematic File Version 4
+LIBS:cft-cache
+EELAYER 29 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 7 24
+Title "CFT Homebrew 16-bit Minicomputer"
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L Device:C_Small C?
+U 1 1 5E3810F5
+P 3050 3550
+AR Path="/5CC0D65F/5E3810F5" Ref="C?"  Part="1" 
+AR Path="/5E3810F5" Ref="C?"  Part="1" 
+AR Path="/5E36D9C8/5E3810F5" Ref="C802"  Part="1" 
+F 0 "C802" H 2959 3596 50  0000 R CNN
+F 1 "100nF" H 2959 3505 50  0000 R CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 3050 3550 50  0001 C CNN
+F 3 "~" H 3050 3550 50  0001 C CNN
+	1    3050 3550
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5E3810FB
+P 2850 3750
+AR Path="/5E3810FB" Ref="#PWR?"  Part="1" 
+AR Path="/5E36D9C8/5E3810FB" Ref="#PWR0808"  Part="1" 
+F 0 "#PWR0808" H 2850 3500 50  0001 C CNN
+F 1 "GND" H 2855 3577 50  0000 C CNN
+F 2 "" H 2850 3750 50  0001 C CNN
+F 3 "" H 2850 3750 50  0001 C CNN
+	1    2850 3750
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 5E381101
+P 2850 3350
+AR Path="/5E381101" Ref="#PWR?"  Part="1" 
+AR Path="/5E36D9C8/5E381101" Ref="#PWR0804"  Part="1" 
+F 0 "#PWR0804" H 2850 3200 50  0001 C CNN
+F 1 "+5V" H 2865 3523 50  0000 C CNN
+F 2 "" H 2850 3350 50  0001 C CNN
+F 3 "" H 2850 3350 50  0001 C CNN
+	1    2850 3350
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:CXO_DIP8 X?
+U 1 1 5E381107
+P 3500 3500
+AR Path="/5E381107" Ref="X?"  Part="1" 
+AR Path="/5E36D9C8/5E381107" Ref="X801"  Part="1" 
+F 0 "X801" H 3600 3867 50  0000 C CNN
+F 1 "CXO_DIP8" H 3600 3776 50  0000 C CNN
+F 2 "Oscillator:Oscillator_DIP-8" H 3650 3100 50  0001 C CNN
+F 3 "http://cdn-reichelt.de/documents/datenblatt/B400/OSZI.pdf" H 3600 3450 50  0001 C CNN
+	1    3500 3500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3050 3450 3050 3400
+Wire Wire Line
+	3200 3400 3050 3400
+Connection ~ 3050 3400
+Wire Wire Line
+	3050 3650 3050 3700
+Wire Wire Line
+	3200 3700 3050 3700
+Connection ~ 3050 3700
+$Comp
+L alexios:74HC253 U?
+U 1 1 5E381113
+P 5150 4050
+AR Path="/5E381113" Ref="U?"  Part="1" 
+AR Path="/5E36D9C8/5E381113" Ref="U803"  Part="1" 
+F 0 "U803" H 5150 5017 50  0000 C CNN
+F 1 "74HC253" H 5150 4926 50  0000 C CNN
+F 2 "" H 5450 4650 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS253" H 5450 4650 50  0001 C CNN
+	1    5150 4050
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC253 U?
+U 2 1 5E381119
+P 5150 6100
+AR Path="/5E381119" Ref="U?"  Part="2" 
+AR Path="/5E36D9C8/5E381119" Ref="U803"  Part="2" 
+F 0 "U803" H 5330 6746 50  0000 L CNN
+F 1 "74HC253" H 5330 6655 50  0000 L CNN
+F 2 "" H 5450 6700 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS253" H 5450 6700 50  0001 C CNN
+	2    5150 6100
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 5E38111F
+P 4800 5400
+AR Path="/5E38111F" Ref="#PWR?"  Part="1" 
+AR Path="/5E36D9C8/5E38111F" Ref="#PWR0815"  Part="1" 
+F 0 "#PWR0815" H 4800 5250 50  0001 C CNN
+F 1 "+5V" H 4815 5573 50  0000 C CNN
+F 2 "" H 4800 5400 50  0001 C CNN
+F 3 "" H 4800 5400 50  0001 C CNN
+	1    4800 5400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 5E381125
+P 4800 5500
+AR Path="/5CC0D65F/5E381125" Ref="C?"  Part="1" 
+AR Path="/5E381125" Ref="C?"  Part="1" 
+AR Path="/5E36D9C8/5E381125" Ref="C805"  Part="1" 
+F 0 "C805" H 4709 5546 50  0000 R CNN
+F 1 "100nF" H 4709 5455 50  0000 R CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 4800 5500 50  0001 C CNN
+F 3 "~" H 4800 5500 50  0001 C CNN
+	1    4800 5500
+	1    0    0    -1  
+$EndComp
+Connection ~ 4800 5400
+$Comp
+L power:GND #PWR?
+U 1 1 5E38112C
+P 4800 5600
+AR Path="/5E38112C" Ref="#PWR?"  Part="1" 
+AR Path="/5E36D9C8/5E38112C" Ref="#PWR0816"  Part="1" 
+F 0 "#PWR0816" H 4800 5350 50  0001 C CNN
+F 1 "GND" H 4805 5427 50  0000 C CNN
+F 2 "" H 4800 5600 50  0001 C CNN
+F 3 "" H 4800 5600 50  0001 C CNN
+	1    4800 5600
+	1    0    0    -1  
+$EndComp
+Connection ~ 4800 5600
+$Comp
+L Device:C_Small C?
+U 1 1 5E381133
+P 2600 3550
+AR Path="/5CC0D65F/5E381133" Ref="C?"  Part="1" 
+AR Path="/5E381133" Ref="C?"  Part="1" 
+AR Path="/5E36D9C8/5E381133" Ref="C801"  Part="1" 
+F 0 "C801" H 2509 3596 50  0000 R CNN
+F 1 "1µF" H 2509 3505 50  0000 R CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 2600 3550 50  0001 C CNN
+F 3 "~" H 2600 3550 50  0001 C CNN
+	1    2600 3550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2600 3400 2850 3400
+Wire Wire Line
+	2600 3700 2850 3700
+Wire Wire Line
+	2850 3350 2850 3400
+Connection ~ 2850 3400
+Wire Wire Line
+	2850 3400 3050 3400
+Wire Wire Line
+	2850 3750 2850 3700
+Connection ~ 2850 3700
+Wire Wire Line
+	2850 3700 3050 3700
+$Comp
+L power:GND #PWR?
+U 1 1 5E381141
+P 4500 4950
+AR Path="/5E381141" Ref="#PWR?"  Part="1" 
+AR Path="/5E36D9C8/5E381141" Ref="#PWR0813"  Part="1" 
+F 0 "#PWR0813" H 4500 4700 50  0001 C CNN
+F 1 "GND" H 4505 4777 50  0000 C CNN
+F 2 "" H 4500 4950 50  0001 C CNN
+F 3 "" H 4500 4950 50  0001 C CNN
+	1    4500 4950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4650 3850 4500 3850
+Wire Wire Line
+	4500 3850 4500 4050
+Wire Wire Line
+	4650 4050 4500 4050
+Connection ~ 4500 4050
+Wire Wire Line
+	4500 4050 4500 4150
+Wire Wire Line
+	4650 4150 4500 4150
+Connection ~ 4500 4150
+Wire Wire Line
+	4500 4150 4500 4250
+Wire Wire Line
+	4650 4250 4500 4250
+Connection ~ 4500 4250
+Wire Wire Line
+	4500 4250 4500 4350
+Wire Wire Line
+	4650 4350 4500 4350
+Connection ~ 4500 4350
+Wire Wire Line
+	4500 4350 4500 4550
+Wire Wire Line
+	4650 4550 4500 4550
+Connection ~ 4500 4550
+Wire Wire Line
+	4500 4550 4500 4950
+NoConn ~ 5650 4050
+Wire Wire Line
+	4000 3550 4600 3550
+Wire Wire Line
+	4650 3650 4600 3650
+Wire Wire Line
+	4600 3650 4600 3550
+Connection ~ 4600 3550
+Wire Wire Line
+	4600 3550 4650 3550
+Text Label 4100 3550 0    50   ~ 0
+FASTCLK
+Connection ~ 4500 3850
+Wire Wire Line
+	4650 3350 4500 3350
+Wire Wire Line
+	4500 3350 4500 3850
+Wire Wire Line
+	4650 3450 4600 3450
+Wire Wire Line
+	4600 3450 4600 3250
+$Comp
+L power:+5V #PWR?
+U 1 1 5E381164
+P 4600 3250
+AR Path="/5E381164" Ref="#PWR?"  Part="1" 
+AR Path="/5E36D9C8/5E381164" Ref="#PWR0803"  Part="1" 
+F 0 "#PWR0803" H 4600 3100 50  0001 C CNN
+F 1 "+5V" H 4615 3423 50  0000 C CNN
+F 2 "" H 4600 3250 50  0001 C CNN
+F 3 "" H 4600 3250 50  0001 C CNN
+	1    4600 3250
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC193 U?
+U 1 1 5E38116A
+P 7150 2800
+AR Path="/5E38116A" Ref="U?"  Part="1" 
+AR Path="/5E36D9C8/5E38116A" Ref="U802"  Part="1" 
+F 0 "U802" H 7150 3467 50  0000 C CNN
+F 1 "74HC193" H 7150 3376 50  0000 C CNN
+F 2 "" H 7200 2800 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74HC193" H 7200 2800 50  0001 C CNN
+	1    7150 2800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5650 3350 5850 3350
+Wire Wire Line
+	5850 3100 6650 3100
+Wire Wire Line
+	6650 2400 6550 2400
+Wire Wire Line
+	6550 2400 6550 2500
+$Comp
+L power:GND #PWR?
+U 1 1 5E381174
+P 6550 3400
+AR Path="/5E381174" Ref="#PWR?"  Part="1" 
+AR Path="/5E36D9C8/5E381174" Ref="#PWR0805"  Part="1" 
+F 0 "#PWR0805" H 6550 3150 50  0001 C CNN
+F 1 "GND" H 6555 3227 50  0000 C CNN
+F 2 "" H 6550 3400 50  0001 C CNN
+F 3 "" H 6550 3400 50  0001 C CNN
+	1    6550 3400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6650 2500 6550 2500
+Connection ~ 6550 2500
+Wire Wire Line
+	6550 2500 6550 2600
+Wire Wire Line
+	6650 2600 6550 2600
+Connection ~ 6550 2600
+Wire Wire Line
+	6550 2600 6550 2700
+Wire Wire Line
+	6650 2700 6550 2700
+Connection ~ 6550 2700
+Wire Wire Line
+	6550 2700 6550 3300
+Wire Wire Line
+	2600 3650 2600 3700
+Wire Wire Line
+	2600 3450 2600 3400
+Wire Wire Line
+	4650 4750 3450 4750
+Wire Wire Line
+	4650 4850 3300 4850
+Text Label 2600 4750 0    50   ~ 0
+FPµSTEP
+Text Label 2600 4850 0    50   ~ 0
+FPCLKEN
+Text Label 2600 2900 0    50   ~ 0
+~RESET
+Text Label 5900 2900 0    50   ~ 0
+~RESET
+Text Label 5900 3100 0    50   ~ 0
+CLKIN
+Wire Wire Line
+	5850 3100 5850 3350
+Wire Wire Line
+	2600 2900 6650 2900
+$Comp
+L power:+5V #PWR?
+U 1 1 5E38118E
+P 6350 2700
+AR Path="/5E38118E" Ref="#PWR?"  Part="1" 
+AR Path="/5E36D9C8/5E38118E" Ref="#PWR0801"  Part="1" 
+F 0 "#PWR0801" H 6350 2550 50  0001 C CNN
+F 1 "+5V" H 6365 2873 50  0000 C CNN
+F 2 "" H 6350 2700 50  0001 C CNN
+F 3 "" H 6350 2700 50  0001 C CNN
+	1    6350 2700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6350 2700 6350 3200
+Wire Wire Line
+	6350 3200 6650 3200
+Wire Wire Line
+	6650 3300 6550 3300
+Connection ~ 6550 3300
+Wire Wire Line
+	6550 3300 6550 3400
+NoConn ~ 7650 2600
+NoConn ~ 7650 2700
+NoConn ~ 7650 3100
+NoConn ~ 7650 3200
+$Comp
+L alexios:74HC139 U?
+U 2 1 5E38119D
+P 8500 3300
+AR Path="/5E38119D" Ref="U?"  Part="2" 
+AR Path="/5E36D9C8/5E38119D" Ref="U801"  Part="2" 
+F 0 "U801" H 8500 3667 50  0000 C CNN
+F 1 "74HC139" H 8500 3576 50  0000 C CNN
+F 2 "" H 8500 3300 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS139" H 8500 3300 50  0001 C CNN
+	2    8500 3300
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC139 U?
+U 3 1 5E3811A3
+P 8650 4050
+AR Path="/5E3811A3" Ref="U?"  Part="3" 
+AR Path="/5E36D9C8/5E3811A3" Ref="U801"  Part="3" 
+F 0 "U801" H 8830 4096 50  0000 L CNN
+F 1 "74HC139" H 8830 4005 50  0000 L CNN
+F 2 "" H 8650 4050 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS139" H 8650 4050 50  0001 C CNN
+	3    8650 4050
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC193 U?
+U 2 1 5E3811A9
+P 7200 3850
+AR Path="/5E3811A9" Ref="U?"  Part="2" 
+AR Path="/5E36D9C8/5E3811A9" Ref="U802"  Part="2" 
+F 0 "U802" H 7380 3996 50  0000 L CNN
+F 1 "74HC193" H 7380 3905 50  0000 L CNN
+F 2 "" H 7250 3850 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74HC193" H 7250 3850 50  0001 C CNN
+	2    7200 3850
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5E3811AF
+P 7950 3550
+AR Path="/5E3811AF" Ref="#PWR?"  Part="1" 
+AR Path="/5E36D9C8/5E3811AF" Ref="#PWR0806"  Part="1" 
+F 0 "#PWR0806" H 7950 3300 50  0001 C CNN
+F 1 "GND" H 7955 3377 50  0000 C CNN
+F 2 "" H 7950 3550 50  0001 C CNN
+F 3 "" H 7950 3550 50  0001 C CNN
+	1    7950 3550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8000 3300 7950 3300
+Wire Wire Line
+	7950 3300 7950 3500
+Wire Wire Line
+	8000 3500 7950 3500
+Connection ~ 7950 3500
+Wire Wire Line
+	7950 3500 7950 3550
+Wire Wire Line
+	7650 2400 7750 2400
+Wire Wire Line
+	7650 2500 8000 2500
+NoConn ~ 9000 3200
+NoConn ~ 9000 3300
+NoConn ~ 9000 3500
+$Comp
+L power:GND #PWR?
+U 1 1 5E3811BF
+P 6850 3850
+AR Path="/5E3811BF" Ref="#PWR?"  Part="1" 
+AR Path="/5E36D9C8/5E3811BF" Ref="#PWR0809"  Part="1" 
+F 0 "#PWR0809" H 6850 3600 50  0001 C CNN
+F 1 "GND" H 6855 3677 50  0000 C CNN
+F 2 "" H 6850 3850 50  0001 C CNN
+F 3 "" H 6850 3850 50  0001 C CNN
+	1    6850 3850
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5E3811C5
+P 8300 4150
+AR Path="/5E3811C5" Ref="#PWR?"  Part="1" 
+AR Path="/5E36D9C8/5E3811C5" Ref="#PWR0811"  Part="1" 
+F 0 "#PWR0811" H 8300 3900 50  0001 C CNN
+F 1 "GND" H 8305 3977 50  0000 C CNN
+F 2 "" H 8300 4150 50  0001 C CNN
+F 3 "" H 8300 4150 50  0001 C CNN
+	1    8300 4150
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 5E3811CB
+P 8300 3950
+AR Path="/5E3811CB" Ref="#PWR?"  Part="1" 
+AR Path="/5E36D9C8/5E3811CB" Ref="#PWR0810"  Part="1" 
+F 0 "#PWR0810" H 8300 3800 50  0001 C CNN
+F 1 "+5V" H 8315 4123 50  0000 C CNN
+F 2 "" H 8300 3950 50  0001 C CNN
+F 3 "" H 8300 3950 50  0001 C CNN
+	1    8300 3950
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 5E3811D1
+P 6850 3750
+AR Path="/5CC0D65F/5E3811D1" Ref="C?"  Part="1" 
+AR Path="/5E3811D1" Ref="C?"  Part="1" 
+AR Path="/5E36D9C8/5E3811D1" Ref="C803"  Part="1" 
+F 0 "C803" H 6759 3796 50  0000 R CNN
+F 1 "100nF" H 6759 3705 50  0000 R CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 6850 3750 50  0001 C CNN
+F 3 "~" H 6850 3750 50  0001 C CNN
+	1    6850 3750
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 5E3811D7
+P 8300 4050
+AR Path="/5CC0D65F/5E3811D7" Ref="C?"  Part="1" 
+AR Path="/5E3811D7" Ref="C?"  Part="1" 
+AR Path="/5E36D9C8/5E3811D7" Ref="C804"  Part="1" 
+F 0 "C804" H 8209 4096 50  0000 R CNN
+F 1 "100nF" H 8209 4005 50  0000 R CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 8300 4050 50  0001 C CNN
+F 3 "~" H 8300 4050 50  0001 C CNN
+	1    8300 4050
+	1    0    0    -1  
+$EndComp
+Connection ~ 6850 3650
+Connection ~ 6850 3850
+Connection ~ 8300 3950
+Connection ~ 8300 4150
+$Comp
+L power:+5V #PWR?
+U 1 1 5E3811E1
+P 6850 3650
+AR Path="/5E3811E1" Ref="#PWR?"  Part="1" 
+AR Path="/5E36D9C8/5E3811E1" Ref="#PWR0807"  Part="1" 
+F 0 "#PWR0807" H 6850 3500 50  0001 C CNN
+F 1 "+5V" H 6865 3823 50  0000 C CNN
+F 2 "" H 6850 3650 50  0001 C CNN
+F 3 "" H 6850 3650 50  0001 C CNN
+	1    6850 3650
+	1    0    0    -1  
+$EndComp
+Text Label 7850 2400 0    50   ~ 0
+÷2
+Text Label 7850 2500 0    50   ~ 0
+÷4
+Wire Wire Line
+	9000 2400 9450 2400
+Wire Wire Line
+	9000 2500 9450 2500
+Wire Wire Line
+	9000 2600 9450 2600
+Wire Wire Line
+	9000 2700 9450 2700
+Text Label 9100 2400 0    50   ~ 0
+CLK1
+$Comp
+L alexios:74HC139 U?
+U 1 1 5E3811EE
+P 8500 2500
+AR Path="/5E3811EE" Ref="U?"  Part="1" 
+AR Path="/5E36D9C8/5E3811EE" Ref="U801"  Part="1" 
+F 0 "U801" H 8500 2867 50  0000 C CNN
+F 1 "74HC139" H 8500 2776 50  0000 C CNN
+F 2 "" H 8500 2500 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS139" H 8500 2500 50  0001 C CNN
+	1    8500 2500
+	1    0    0    -1  
+$EndComp
+Text Label 9100 2500 0    50   ~ 0
+CLK2
+Text Label 9100 2600 0    50   ~ 0
+CLK3
+Text Label 9100 2700 0    50   ~ 0
+CLK4
+Text HLabel 9450 2400 2    50   Output ~ 0
+CLK1
+Text HLabel 9450 2500 2    50   Output ~ 0
+CLK2
+Text HLabel 9450 2600 2    50   Output ~ 0
+CLK3
+Text HLabel 9450 2700 2    50   Output ~ 0
+CLK4
+Wire Wire Line
+	7750 3200 7750 2400
+Wire Wire Line
+	7750 3200 8000 3200
+Connection ~ 7750 2400
+Wire Wire Line
+	7750 2400 8000 2400
+Text Label 7850 3200 0    50   ~ 0
+÷2
+Wire Wire Line
+	8000 2700 7950 2700
+Wire Wire Line
+	7950 2700 7950 2750
+$Comp
+L power:GND #PWR?
+U 1 1 5E381202
+P 7950 2750
+AR Path="/5E381202" Ref="#PWR?"  Part="1" 
+AR Path="/5E36D9C8/5E381202" Ref="#PWR0802"  Part="1" 
+F 0 "#PWR0802" H 7950 2500 50  0001 C CNN
+F 1 "GND" H 7955 2577 50  0000 C CNN
+F 2 "" H 7950 2750 50  0001 C CNN
+F 3 "" H 7950 2750 50  0001 C CNN
+	1    7950 2750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9000 3400 9450 3400
+Text Label 9100 3400 0    50   ~ 0
+~T34
+Text HLabel 9450 3400 2    50   Output ~ 0
+~T34
+Text HLabel 2600 2900 0    50   Input ~ 0
+~RESET
+Text HLabel 2600 4750 0    50   Input ~ 0
+~FPµSTEP
+Text HLabel 2600 4850 0    50   Input ~ 0
+FPCLKEN
+$Comp
+L Device:R_Small R?
+U 1 1 5E38120E
+P 3450 5050
+AR Path="/5E38120E" Ref="R?"  Part="1" 
+AR Path="/5CC0D65F/5E38120E" Ref="R?"  Part="1" 
+AR Path="/5CD3AC27/5E38120E" Ref="R?"  Part="1" 
+AR Path="/5E36D9C8/5E38120E" Ref="R802"  Part="1" 
+F 0 "R802" H 3392 5096 50  0000 R CNN
+F 1 "10kΩ" H 3392 5005 50  0000 R CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 3450 5050 50  0001 C CNN
+F 3 "~" H 3450 5050 50  0001 C CNN
+	1    3450 5050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_Small R?
+U 1 1 5E381214
+P 3300 4600
+AR Path="/5E381214" Ref="R?"  Part="1" 
+AR Path="/5CC0D65F/5E381214" Ref="R?"  Part="1" 
+AR Path="/5CD3AC27/5E381214" Ref="R?"  Part="1" 
+AR Path="/5E36D9C8/5E381214" Ref="R801"  Part="1" 
+F 0 "R801" H 3242 4646 50  0000 R CNN
+F 1 "10kΩ" H 3242 4555 50  0000 R CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 3300 4600 50  0001 C CNN
+F 3 "~" H 3300 4600 50  0001 C CNN
+	1    3300 4600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3300 4700 3300 4850
+Connection ~ 3300 4850
+Wire Wire Line
+	3300 4850 2600 4850
+$Comp
+L power:+5V #PWR?
+U 1 1 5E38121D
+P 3300 4500
+AR Path="/5E38121D" Ref="#PWR?"  Part="1" 
+AR Path="/5E36D9C8/5E38121D" Ref="#PWR0812"  Part="1" 
+F 0 "#PWR0812" H 3300 4350 50  0001 C CNN
+F 1 "+5V" H 3315 4673 50  0000 C CNN
+F 2 "" H 3300 4500 50  0001 C CNN
+F 3 "" H 3300 4500 50  0001 C CNN
+	1    3300 4500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3450 4950 3450 4750
+Connection ~ 3450 4750
+Wire Wire Line
+	3450 4750 2600 4750
+$Comp
+L power:GND #PWR?
+U 1 1 5E381226
+P 3450 5150
+AR Path="/5E381226" Ref="#PWR?"  Part="1" 
+AR Path="/5E36D9C8/5E381226" Ref="#PWR0814"  Part="1" 
+F 0 "#PWR0814" H 3450 4900 50  0001 C CNN
+F 1 "GND" H 3455 4977 50  0000 C CNN
+F 2 "" H 3450 5150 50  0001 C CNN
+F 3 "" H 3450 5150 50  0001 C CNN
+	1    3450 5150
+	1    0    0    -1  
+$EndComp
+Text Notes 7100 7000 0    197  ~ 39
+4-Phase Clock Generator
+$EndSCHEMATC

@@ -1,0 +1,8 @@
+(fp_lib_table
+  (lib (name alexios)(type KiCad)(uri /home/alexios/PROJECTS/HARDWARE/cft/kicad/alexios.pretty)(options "")(descr ""))
+  (lib (name Connect)(type KiCad)(uri /home/alexios/PROJECTS/HARDWARE/kicad/libraries/kicad-gigalib/modules/Connect.pretty)(options "")(descr ""))
+  (lib (name Connectors_JAE)(type KiCad)(uri /home/alexios/PROJECTS/HARDWARE/kicad/libraries/kicad-gigalib/modules/Connectors_JAE.pretty)(options "")(descr ""))
+  (lib (name Connectors_Molex)(type KiCad)(uri /home/alexios/PROJECTS/HARDWARE/kicad/libraries/kicad-gigalib/modules/Connectors_Molex.pretty)(options "")(descr ""))
+  (lib (name Gekkio_Connector)(type KiCad)(uri /home/alexios/PROJECTS/HARDWARE/kicad/libraries/gekkio-kicad-libs/Gekkio_Connector.pretty)(options "")(descr ""))
+  (lib (name Gekkio_Connector_PCBEdge)(type KiCad)(uri /home/alexios/PROJECTS/HARDWARE/kicad/libraries/gekkio-kicad-libs/Gekkio_Connector_PCBEdge.pretty)(options "")(descr ""))
+)

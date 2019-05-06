@@ -1,0 +1,3 @@
+(sym_lib_table
+  (lib (name alexios)(type Legacy)(uri ${KIPRJMOD}/alexios.lib)(options "")(descr ""))
+)
