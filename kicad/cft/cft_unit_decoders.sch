@@ -4,7 +4,7 @@ EELAYER 29 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 17 24
+Sheet 16 23
 Title ""
 Date ""
 Rev ""
@@ -1066,10 +1066,6 @@ Text Notes 4250 850  0    98   ~ 20
 Read Unit Decoder
 Text Notes 4200 2950 0    98   ~ 20
 Write Unit Decoder
-Wire Bus Line
-	3950 3150 3950 3450
-Wire Bus Line
-	3900 1100 3900 1900
 Wire Wire Line
 	3900 2550 9600 2550
 Wire Wire Line
@@ -1089,4 +1085,8 @@ Text HLabel 9550 5400 2    50   Output ~ 0
 ~DECAC
 Text HLabel 9550 5500 2    50   Output ~ 0
 ~INCAC
+Wire Bus Line
+	3950 3150 3950 3450
+Wire Bus Line
+	3900 1100 3900 1900
 $EndSCHEMATC
