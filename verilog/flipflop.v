@@ -253,18 +253,17 @@ endmodule // flipflop_273
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-module latch_573 (d, q, nle, clr);
+module latch_573 (d, q, nle, nclr);
    parameter propagation_delay = 7;
    
    input [7:0] d;		// Data
    input       nle;		// Latch enable (active low)
-   input       clr;		// /CLR (active low): reset
+   input       nclr;		// /CLR (active low): reset
 
    output [7:0] q;		// Output
    
    wire [7:0] 	d;
-   wire 	clk;
-   wire 	clr;
+   wire 	nclr;
  	
    reg [7:0] 	q;
 
@@ -272,9 +271,9 @@ module latch_573 (d, q, nle, clr);
       q <= $random;
    end
 
-   always @(negedge clr, nle, d)
+   always @(negedge nclr, nle, d)
      begin
-	if (clr == 1'b0) begin
+	if (nclr == 1'b0) begin
 	   q <= #propagation_delay 8'b00000000;
 	end else if (nle == 1'b0) begin
 	   q <= #propagation_delay d;
