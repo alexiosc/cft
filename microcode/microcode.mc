@@ -157,80 +157,76 @@ cond uaddr:5;
 // 11110                                      
 // 11111
 
-// NEXT (µADDRESS) FIELD. This is for implemting jumps.
-jump_field jump        = ___________________________XXXXX; // The next value for the µPC
-field reserved         = ________________________XXX_____; // Reserved for future expansion.
-
 // RADDR FIELD
-field  READ            = ___________________XXXXX________; // Read unit field
-signal read_agl        = ...................00010........; // Read from address generation logic
-signal read_pc         = ...................01000........; // Read from PC
-signal read_dr         = ...................01001........; // Read from DR
-signal read_ac         = ...................01010........; // Read from AC
-signal read_mbp        = ...................01100........; // Read MBP (MB0)
-signal read_mbp_flags  = ...................01101........; // Read combination MBP+flags
-signal read_alu_add    = ...................10000........; // ALU: Read from the Adder unit
-signal read_alu_and    = ...................10001........; // ALU: Read from the AND unit
-signal read_alu_or     = ...................10010........; // ALU: Read from the OR unit
-signal read_alu_xor    = ...................10011........; // ALU: Read from the XOR unit
-signal read_alu_roll   = ...................10100........; // ALU: Read from the ROLL unit
-signal read_alu_not    = ...................10101........; // ALU: Read from the NOT unit
-signal read_cs_rstvec  = ...................11   ........; // Constant Store: Reset Vector
-signal read_cs_isrvec0 = ...................11   ........; // Constant Store: ISR Vector (MSB)
-signal read_cs_isrvec1 = ...................11   ........; // Constant Store: ISR Vector (LSB)
-signal read_cs_sp      = ...................11001........; // Constant Store: Stack Pointer
+field  READ            = ___________________XXXXX; // Read unit field
+signal read_agl        = ...................00010; // Read from address generation logic
+signal read_pc         = ...................01000; // Read from PC
+signal read_dr         = ...................01001; // Read from DR
+signal read_ac         = ...................01010; // Read from AC
+signal read_mbp        = ...................01100; // Read MBP (MB0)
+signal read_mbp_flags  = ...................01101; // Read combination MBP+flags
+signal read_alu_add    = ...................10000; // ALU: Read from the Adder unit
+signal read_alu_and    = ...................10001; // ALU: Read from the AND unit
+signal read_alu_or     = ...................10010; // ALU: Read from the OR unit
+signal read_alu_xor    = ...................10011; // ALU: Read from the XOR unit
+signal read_alu_roll   = ...................10100; // ALU: Read from the ROLL unit
+signal read_alu_not    = ...................10101; // ALU: Read from the NOT unit
+signal read_cs_rstvec  = ...................11   ; // Constant Store: Reset Vector
+signal read_cs_isrvec0 = ...................11   ; // Constant Store: ISR Vector (MSB)
+signal read_cs_isrvec1 = ...................11   ; // Constant Store: ISR Vector (LSB)
+signal read_cs_sp      = ...................11001; // Constant Store: Stack Pointer
 
 // WADDR FIELD
-field  WRITE           = ______________XXXXX_____________; // Write unit field
-signal write_ir        = ..............00010.............; // Write to the Instruction Register
-signal write_ar_mbp    = ..............00100.............; // Write MBP:AR (program area, extend with MBP)
-signal write_ar_mbd    = ..............00101.............; // Write MBD:AR (data area, extend with MBD)
-signal write_ar_mbs    = ..............00110.............; // Write MBS:AR (stack area, extend with MBS)
-signal write_ar_mbn    = ..............00111.............; // Write MBn:AR (use MBx decided using IR)
-signal write_pc        = ..............01000.............; // Write to PC
-signal write_dr        = ..............01001.............; // Write to DR
-signal write_ac        = ..............01010.............; // Write to AC
-signal write_alu_b     = ..............01011.............; // Write to ALU's B Port
-signal write_mbp       = ..............01100.............; // Read MBP
-signal write_mbp_flags = ..............01101.............; // Read combination MBP+flags
+field  WRITE           = ______________XXXXX_____; // Write unit field
+signal write_ir        = ..............00010.....; // Write to the Instruction Register
+signal write_ar_mbp    = ..............00100.....; // Write MBP:AR (program area, extend with MBP)
+signal write_ar_mbd    = ..............00101.....; // Write MBD:AR (data area, extend with MBD)
+signal write_ar_mbs    = ..............00110.....; // Write MBS:AR (stack area, extend with MBS)
+signal write_ar_mbn    = ..............00111.....; // Write MBn:AR (use MBx decided using IR)
+signal write_pc        = ..............01000.....; // Write to PC
+signal write_dr        = ..............01001.....; // Write to DR
+signal write_ac        = ..............01010.....; // Write to AC
+signal write_alu_b     = ..............01011.....; // Write to ALU's B Port
+signal write_mbp       = ..............01100.....; // Read MBP
+signal write_mbp_flags = ..............01101.....; // Read combination MBP+flags
 
 // COND FIELD (UNDER REDESIGN)
-field  IF              = _________XXXXX__________________; // OPx IF field
-signal if_ir0          = .........00001..................; // SKIP = IR[3]
-signal if_ir1          = .........00010..................; // SKIP = IR[3]
-signal if_ir2          = .........00011..................; // SKIP = IR[3]
-signal if_ir3          = .........00100..................; // SKIP = IR[3]
-signal if_ir4          = .........00101..................; // SKIP = IR[4]
-signal if_ir5          = .........00110..................; // SKIP = IR[5]
-signal if_ir6          = .........00111..................; // SKIP = IR[6]
-signal if_v            = .........01010..................; // SKIP = V
-signal if_l            = .........01011..................; // SKIP = L
-signal if_z            = .........01100..................; // SKIP = Z
-signal if_ifneg        = .........01101..................; // SKIP = N
-signal if_roll         = .........01110..................; // SKIP = roll_logic(IR[2:0])
-signal if_branch       = .........01111..................; // SKIP = skip_logic(IR[3:0])
+field  IF              = _________XXXXX__________; // OPx IF field
+signal if_ir0          = .........00001..........; // SKIP = IR[3]
+signal if_ir1          = .........00010..........; // SKIP = IR[3]
+signal if_ir2          = .........00011..........; // SKIP = IR[3]
+signal if_ir3          = .........00100..........; // SKIP = IR[3]
+signal if_ir4          = .........00101..........; // SKIP = IR[4]
+signal if_ir5          = .........00110..........; // SKIP = IR[5]
+signal if_ir6          = .........00111..........; // SKIP = IR[6]
+signal if_v            = .........01010..........; // SKIP = V
+signal if_l            = .........01011..........; // SKIP = L
+signal if_z            = .........01100..........; // SKIP = Z
+signal if_ifneg        = .........01101..........; // SKIP = N
+signal if_roll         = .........01110..........; // SKIP = roll_logic(IR[2:0])
+signal if_branch       = .........01111..........; // SKIP = skip_logic(IR[3:0])
 
 // ACTION FIELD (UNDER REDESIGN)
 //                      76543210FEDCBA9876543210
-field  ACTION          = _____XXXX_______________........; 
-signal /action_cpl     = .....0001.......................; // Complement L
-signal /action_cll     = .....0010.......................; // Clear L flag
-signal /action_sti     = .....0011.......................; // Set I flag
-signal /action_cli     = .....0100.......................; // Clear I flag
-signal /action_incpc   = .....1000.......................; // Step the PC
-signal /action_incdr   = .....1001.......................; // Increment DR
-signal /action_decdr   = .....1010.......................; // Decrement DR
-signal /action_incac   = .....1011.......................; // Increment AC
-signal /action_decac   = .....1100.......................; // Increment AC
-signal /action_incsp   = .....1101.......................; // Increment SP
-signal /action_decsp   = .....1110.......................; // Increment SP
+field  ACTION          = _____XXXX_______________; 
+signal /action_cpl     = .....0001...............; // Complement L
+signal /action_cll     = .....0010...............; // Clear L flag
+signal /action_sti     = .....0011...............; // Set I flag
+signal /action_cli     = .....0100...............; // Clear I flag
+signal /action_incpc   = .....1000...............; // Step the PC
+signal /action_incdr   = .....1001...............; // Increment DR
+signal /action_decdr   = .....1010...............; // Decrement DR
+signal /action_incac   = .....1011...............; // Increment AC
+signal /action_decac   = .....1100...............; // Increment AC
+signal /action_incsp   = .....1101...............; // Increment SP
+signal /action_decsp   = .....1110...............; // Increment SP
 
 // HORIZONTAL SIGNALS
-signal /MEM            = ....1...........................; // Memory access
-signal /IO             = ...1............................; // Input/Output enable
-signal /R              = ..1.............................; // Memory read
-signal /WEN            = .1..............................; // Memory write
-signal /END            = 1...............................; // Reset uaddr, go to fetch state.
+signal /MEM            = ....1...................; // Memory access
+signal /IO             = ...1....................; // Input/Output enable
+signal /R              = ..1.....................; // Memory read
+signal /WEN            = .1......................; // Memory write
+signal /END            = 1.......................; // Reset uaddr, go to fetch state.
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -492,13 +488,6 @@ start RST=1, INT=0, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 // 3 = Autoindex behaviour is non-standard. (decrements AC for DEC & SP regs)
 
 
-// IFL = OP1  '1---------               ; if9: END if L=0
-// IFV = OP1  '-1--------               ; if8: END if V=0
-// CLA = OP1  '--1-------               ; if7: A <- 0
-// CLL = OP1  '---1------               ; if6: L <- 0
-// NOT = OP1  '----1-----               ; if5: A <- NOT A
-// INC = OP1  '-----1----               ; if4: <L,A> <- <L,A> + 1
-// CPL = OP1  '------1---               ; if3: L <- NOT L
 // RBL = OP1  '-------010               ; ifroll: <L,A> <- <L,A> << 1
 // RBR = OP1  '-------001               ; <L,A> <- <L,A> >> 1
 // RNL = OP1  '-------110               ; <L,A> <- <L,A> << 4
@@ -690,6 +679,48 @@ start LJSR, I=1, R=1, IDX=IDX_SP;
       MEMREAD_PAGE0(dr, mbp);	                // 11 PC ← mem[MBD:DR]
       /action_decdr;                            // 13 DR--
       MEMWRITE_PAGE0(agl, dr), END;             // 14 mem[MBD:AGL] ← DR
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// THE INSTRUCTION SET
+//
+///////////////////////////////////////////////////////////////////////////////
+
+
+
+// DONE: #define LJSR  0000
+// DONE: #define LJMP  0000
+// DONE: #define JMP   0110    Possibly free for other instructions: ⑤ ⑥ ⑦
+// DONE: #define JSR   0111    Possibly free for other instructions: ⑤ ⑥ ⑦
+
+// DONE: #define IOT   0001    Free: ① ③ 
+// DONE: #define IN    0100    Free: ① ③ 
+// DONE: #define OUT   0101    Free: ① ③ 
+
+// DONE: #define LOAD  0010
+// DONE: #define STORE 0011
+// #define ADD   1000
+// #define AND   1001
+// #define OR    1010
+// #define XOR   1011
+
+// TODO: RET
+// TODO: RTI
+// TODO: PUSH
+// TODO: POP
+// TODO: PEEK?
+
+// #define OP1   1100              // Also OP2
+
+// #define OP2   1101              // OP=1101, I=0: OP1
+// #define POP   1101              // v6. OP=1101, I=1: POP
+// #define ISZ   1110
+// DONE: #define LIA   1111              // OP=1111, I=0: LIA/LI
+// #define JMPII 1111              // v6. OP=1111, I=1: JMPII
+
+
+
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1624,7 +1655,7 @@ start TDA;
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-start TAD, I=0, R=1, SUBOP=011, IDX=XX;
+start TAD;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       SET(DR, AC), END;				// 02 DR ← AC
 
@@ -1701,20 +1732,31 @@ start CLI;
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-// What to call this one?
 //             9876543210
-// CLA = OP1  '----1-----		; if5: A <- 0
-// CLL = OP1  '-----1----		; if4: L <- 0
-// NOT = OP1  '------1---		; if3: A <- NOT A
-// INC = OP1  '-------1--		; if2: <L,A> <- <L,A> + 1
-// DEC = OP1  '--------1-		; if1: <L,A> <- <L,A> + 1
-// CPL = OP1  '---------1		; if0: L <- NOT L
+// UOP = UOP  '111-------		; Perform further steps unconditionally
+// IFL = UOP  '101-------		; Perform further steps if L set
+// IFV = UOP  '110-------		; Perform further steps if V set
+// CLA = UOP  '----1-----		; if5: A <- 0
+// CLL = UOP  '-----1----		; if4: L <- 0
+// NOT = UOP  '------1---		; if3: A <- NOT A
+// INC = UOP  '-------1--		; if2: <L,A> <- <L,A> + 1
+// DEC = UOP  '--------1-		; if1: <L,A> <- <L,A> + 1
+// CPL = UOP  '---------1		; if0: L <- NOT L
 
 // L=1 ⇒ COND=0, so IFL takes action.
 
+// Explanation: When if_X is asserted, if the condition is true
+// (e.g. bit set), COND goes low in the next processor cycle and
+// execution jumps from the version with COND=1 to the version with
+// COND=0, at the exact same step. So both branches have to have the
+// same number of microsteps and they have to assert the same if_X
+// condition on the same step, except the ‘don't act’ (COND=1) version
+// does nothing but. If it helps, look at the COND=0 and COND=1
+// versions side by side.
+
 start IFL, COND=0;
       FETCH_IR, if_l;		                // 00 IR ← mem[PC++];
-      if_ir5;					// If L:
+      if_ir5;					// If L: proceed
       /action_cla, if_ir4;			// If IR5: AC ← 0
       /action_cll, if_ir3;			// If IR4: L ← 0
       SET(ac, alu_not), if_ir2;			// If IR3: AC ← ~AC
@@ -1724,55 +1766,54 @@ start IFL, COND=0;
 
 start IFL, COND=1;
       FETCH_IR, if_l;		                // 00 IR ← mem[PC++];
-      END;
-      if_ir4;
-      if_ir3;
-      if_ir2;
-      if_ir1;
-      if_ir0;
-      ENF;
-
-
+      END;                                      // 02 If not L: END here
+      if_ir4;					// 03 If IR5 (from COND=0): NOP
+      if_ir3;					// 04 If IR4: NOP
+      if_ir2;					// 05 If IR3: NOP
+      if_ir1;					// 06 If IR2: NOP
+      if_ir0;					// 07 If IR1: NOP
+      ENF;					// 08 If IR0: NOP
 
 start IFV, COND=0;
       FETCH_IR, if_v;		                // 00 IR ← mem[PC++];
-      if_ir5;					// If V:
-      /action_cla, if_ir4;			// If IR5: AC ← 0
-      /action_cll, if_ir3;			// If IR4: L ← 0
-      SET(ac, alu_not), if_ir2;			// If IR3: AC ← ~AC
-      /action_incac, if_ir1;                    // IF IR2: AC++
-      /action_decac, if_ir0;                    // IF IR1: AC--
+      if_ir5;					// 02 If V: proceed
+      /action_cla, if_ir4;			// 03 If IR5: AC ← 0
+      /action_cll, if_ir3;			// 04 If IR4: L ← 0
+      SET(ac, alu_not), if_ir2;			// 05 If IR3: AC ← ~AC
+      /action_incac, if_ir1;                    // 06 IF IR2: AC++
+      /action_decac, if_ir0;                    // 07 IF IR1: AC--
       /action_cpl, END;				// IF IR0: L ← ¬L
 
 start IFV, COND=1;
       FETCH_IR, if_v;		                // 00 IR ← mem[PC++];
-      END;
-      if_ir4;
-      if_ir3;
-      if_ir2;
-      if_ir1;
-      if_ir0;
-      END;
+      END;					// 02 If not V: END here
+      if_ir4;					// 03 If IR5 (from COND=0): NOP
+      if_ir3;					// 04 If IR4: NOP
+      if_ir2;					// 05 If IR3: NOP
+      if_ir1;					// 06 If IR2: NOP
+      if_ir0;					// 07 If IR1: NOP
+      END;					// 08 If IR0: NOP
 
-
+// Note: UOP needs one less check, so it runs one cycle faster.
 
 start UOP, COND=0;
       FETCH_IR, if_ir5;		                // 00 IR ← mem[PC++];
-      /action_cla, if_ir4;			// If IR5: AC ← 0
-      /action_cll, if_ir3;			// If IR4: L ← 0
-      SET(ac, alu_not), if_ir2;			// If IR3: AC ← ~AC
-      /action_incac, if_ir1;                    // IF IR2: AC++
-      /action_decac, if_ir0;                    // IF IR1: AC--
-      /action_cpl, END;				// IF IR0: L ← ¬L
+      /action_cla, if_ir4;			// 02 If IR5: AC ← 0
+      /action_cll, if_ir3;			// 03 If IR4: L ← 0
+      SET(ac, alu_not), if_ir2;			// 04 If IR3: AC ← ~AC
+      /action_incac, if_ir1;                    // 05 If IR2: AC++
+      /action_decac, if_ir0;                    // 06 If IR1: AC--
+      /action_cpl, END;				// 07 If IR0: L ← ¬L
 
 start UOP, COND=1;
       FETCH_IR, if_ir5;		                // 00 IR ← mem[PC++];
-      if_ir4;
-      if_ir3;
-      if_ir2;
-      if_ir1;
-      if_ir0;
-      END;
+      if_ir4;					// 03 If IR5: NOP
+      if_ir3;					// 04 If IR4: NOP
+      if_ir2;					// 05 If IR3: NOP
+      if_ir1;					// 06 If IR2: NOP
+      if_ir0;					// 07 If IR1: NOP
+      END;					// 08 If IR0: NOP
+
 
 
 
