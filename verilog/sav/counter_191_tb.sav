@@ -1,0 +1,31 @@
+[*]
+[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
+[*] Fri May 24 16:59:01 2019
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/counter_191_tb.vcd"
+[dumpfile_mtime] "Fri May 24 16:58:41 2019"
+[dumpfile_size] 4739
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/counter_191_tb.sav"
+[timestart] 0
+[size] 1743 917
+[pos] 0 15
+*-21.000000 4540000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] counter_191_tb.
+[sst_width] 226
+[signals_width] 269
+[sst_expanded] 1
+[sst_vpaned_height] 252
+@28
+counter_191_tb.c0.cp
+counter_191_tb.c0.nce
+counter_191_tb.c0.down
+counter_191_tb.c0.npl
+@22
+counter_191_tb.c0.p[3:0]
+counter_191_tb.c0.q[3:0]
+@28
+counter_191_tb.c0.tc
+@29
+counter_191_tb.c0.nrc
+[pattern_trace] 1
+[pattern_trace] 0

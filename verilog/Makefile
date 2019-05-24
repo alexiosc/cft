@@ -36,7 +36,7 @@ SRC =		counter.v counter_161_tb.v counter_590_tb.v counter_393h_tb.v counter_401
 
 OBJ =		$(SRC:.v=.o)
 
-VERILOG =	iverilog -Wall
+VERILOG =	iverilog -Wall -Wno-implicit-dimensions
 GTKWAVE =	gtkwave
 SAVDIR	= 	sav
 VCDDIR	=	vcd
@@ -105,6 +105,10 @@ test_251:	mux_251_tb.o mux.o
 test_253:	mux_253_tb.o mux.o
 		./mux_253_tb.o
 		$(GTKWAVE) $(VCDDIR)/mux_253_tb.vcd $(SAVDIR)/mux_253_tb.sav
+
+test_191:	counter_191_tb.o counter.o
+		./counter_191_tb.o
+		$(GTKWAVE) $(VCDDIR)/counter_191_tb.vcd $(SAVDIR)/counter_191_tb.sav
 
 test_193:	counter_193_tb.o counter.o
 		./counter_193_tb.o
@@ -301,6 +305,10 @@ test_cu:	control_unit_tb.o control_unit.o test_rom.bin
 		./control_unit_tb.o
 		$(GTKWAVE) $(VCDDIR)/control_unit_tb.vcd $(SAVDIR)/control_unit_tb.sav
 
+
+test_serial_shifter:	serial_shifter_tb.o serial_shifter.o
+		./serial_shifter_tb.o
+		$(GTKWAVE) $(VCDDIR)/serial_shifter_tb.vcd $(SAVDIR)/serial_shifter_tb.sav
 
 ###############################################################################
 #

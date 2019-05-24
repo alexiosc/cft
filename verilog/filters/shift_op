@@ -1,0 +1,9 @@
+# Arithmetic | Rotate | Right
+000 ?cyan4?   << Bit
+001 ?cyan4?   >> Bit
+010 ?green4?  << Rot
+011 ?green4?  >> Rot
+100 ?orange4? << Ari
+101 ?orange4? >> Ari
+110 ?green4?  << Rot
+111 ?green4?  >> Rot

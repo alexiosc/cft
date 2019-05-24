@@ -1,0 +1,99 @@
+[*]
+[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
+[*] Fri May 24 20:35:19 2019
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/serial_shifter_tb.vcd"
+[dumpfile_mtime] "Fri May 24 20:35:07 2019"
+[dumpfile_size] 60028
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/serial_shifter_tb.sav"
+[timestart] 0
+[size] 2048 1123
+[pos] 0 0
+*-21.715988 14070000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] serial_shifter_tb.
+[treeopen] serial_shifter_tb.serial_shifter.
+[sst_width] 226
+[signals_width] 226
+[sst_expanded] 1
+[sst_vpaned_height] 315
+@28
+[color] 2
+serial_shifter_tb.serial_shifter.nreset
+[color] 2
+serial_shifter_tb.serial_shifter.clk2
+[color] 2
+serial_shifter_tb.serial_shifter.clk4
+[color] 2
+serial_shifter_tb.serial_shifter.x4clk
+@200
+-
+@28
+[color] 4
+serial_shifter_tb.serial_shifter.nstart
+[color] 4
+serial_shifter_tb.serial_shifter.nstart_sync
+@200
+-
+@2028
+^1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/shift_op
+serial_shifter_tb.shift_op[2:0]
+@22
+[color] 3
+serial_shifter_tb.serial_shifter.op_dist[3:0]
+@200
+-
+@22
+serial_shifter_tb.serial_shifter.ctr_state.q[3:0]
+@28
+serial_shifter_tb.serial_shifter.ctr_state.tc
+serial_shifter_tb.serial_shifter.ctr_state.nrc
+serial_shifter_tb.serial_shifter.ctr_state.nce
+serial_shifter_tb.serial_shifter.shiftclk
+@800022
+serial_shifter_tb.serial_shifter.b[15:0]
+@28
+[color] 5
+serial_shifter_tb.fl
+[color] 5
+serial_shifter_tb.serial_shifter.msb
+[color] 7
+(0)serial_shifter_tb.serial_shifter.b[15:0]
+[color] 7
+(1)serial_shifter_tb.serial_shifter.b[15:0]
+[color] 7
+(2)serial_shifter_tb.serial_shifter.b[15:0]
+[color] 7
+(3)serial_shifter_tb.serial_shifter.b[15:0]
+[color] 7
+(4)serial_shifter_tb.serial_shifter.b[15:0]
+[color] 7
+(5)serial_shifter_tb.serial_shifter.b[15:0]
+[color] 7
+(6)serial_shifter_tb.serial_shifter.b[15:0]
+[color] 7
+(7)serial_shifter_tb.serial_shifter.b[15:0]
+[color] 7
+(8)serial_shifter_tb.serial_shifter.b[15:0]
+[color] 7
+(9)serial_shifter_tb.serial_shifter.b[15:0]
+[color] 7
+(10)serial_shifter_tb.serial_shifter.b[15:0]
+[color] 7
+(11)serial_shifter_tb.serial_shifter.b[15:0]
+[color] 7
+(12)serial_shifter_tb.serial_shifter.b[15:0]
+[color] 7
+(13)serial_shifter_tb.serial_shifter.b[15:0]
+[color] 7
+(14)serial_shifter_tb.serial_shifter.b[15:0]
+[color] 7
+(15)serial_shifter_tb.serial_shifter.b[15:0]
+@1001200
+-group_end
+@28
+[color] 5
+serial_shifter_tb.serial_shifter.lsb
+[color] 4
+serial_shifter_tb.serial_shifter.flout
+[pattern_trace] 1
+[pattern_trace] 0

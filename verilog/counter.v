@@ -102,21 +102,75 @@ module counter_193 (clear, load, p, count_up, count_down, q, carry, borrow);
 	 #delay q <= 4'b0000;
       end else if (load == 0) begin
 	 #delay q <= p;
-      end
+     end
    end
 
    always @(posedge count_up) begin
-      if (clear == 0 && load == 1) #delay q <= q + 1;
+      if (clear == 0 && load == 1 && count_down == 1) #delay q <= q + 1;
    end
 
    always @(posedge count_down) begin
-      if (clear == 0 && load == 1) #delay q <= q - 1;
+      if (clear == 0 && load == 1 && count_up == 1) #delay q <= q - 1;
    end
 
    // Calculate carry and borrow out
    assign #delay borrow = (q == 4'b0000 && count_down == 0) ? 1'b0 : 1'b1;
    assign #delay carry = (q == 4'b1111 && count_up == 0) ? 1'b0 : 1'b1;
 endmodule // counter_193
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// Function: 74x191 4-bit synchronous presettable up/down counter
+//
+///////////////////////////////////////////////////////////////////////////////
+
+// Delays calibrated for AC family.
+module counter_191 (p, npl, down, nce, cp,
+		    q, nrc, tc);
+   input [3:0]  p;
+   input 	npl;	        // Active low asynchronous parallel load
+   input 	down;		// 0 = count up, 1 = count down
+   input 	nce;		// Active low clock enable
+   input 	cp;		// Clock (positive edge)
+
+   output [3:0] q;		// Count out
+   output 	nrc;		// Active low ripple clock output
+   output 	tc;		// Terminal count
+
+   reg [3:0] 	q;
+   reg 		nrc;
+   wire 	npl;	        // Active low asynchronous parallel load
+   wire 	down;		// 0 = count up, 1 = count down
+   wire 	nce;		// Active low clock enable
+   wire 	cp;		// Clock (positive edge)
+
+   initial begin
+      // $display("BOM: 74x191");
+      q <= 4'b0110;
+      nrc = 1;
+   end
+
+   // Async parallel load
+   always @(npl) begin
+      #5.5 q <= p;
+   end
+
+   // Synchronous counting
+   always #6 @(posedge cp) begin
+      if (npl == 1 && nce == 0) begin
+	 if (down == 0) q <= q + 1;
+	 if (down == 1) q <= q - 1;
+	 nrc = ~tc;
+      end
+   end
+
+   // The terminal count (TC) output is normally LOW. It goes HIGH when the
+   // circuits reach zero in the count down mode or 15 in the count up
+   // mode. The TC output will then remain HIGH until a state change occurs,
+   // whether by counting or presetting or until U/D is changed.
+   assign #5 tc = (down == 0 && q == 15) ? 1 : (down == 1 && q == 0) ? 1 : 0;
+endmodule // counter_191
 
 
 ///////////////////////////////////////////////////////////////////////////////
