@@ -77,12 +77,12 @@
 
 cond RST:1;                   // When low, machine is resetting.
 cond INT:1;                   // When low, servicing an interrupt request
-cond IN_RESERVED:1;           // Reserved.
-cond COND:1;                  // When low: SBL returned TRUE. (registered, reset on END)
 cond OP:4;                    // The opcode field of the IR.
 cond I:1;                     // The indirection field of the IR.
 cond R:1;                     // The register field of the IR.
 cond SUBOP:3;		      // Used to implement instructions without operands. (IR[9..7])
+cond IN_RESERVED:1;           // Reserved.
+cond COND:1;                  // When low: SBL returned TRUE. (registered, reset on END)
 cond IDX:2;		      // Auto-index type (IR[7..6] if IR[9..8] == 01, otherwise 00)
 
 #define IDX_REG  00           // Ordinary register
@@ -168,6 +168,7 @@ signal read_sp         = ...................01011; // Read from AC
 signal read_mbp        = ...................01100; // Read MBP (MB0)
 signal read_mbp_flags  = ...................01101; // Read combination MBP+flags
 signal read_flags      = ...................01110; // Read flags
+signal read_mbn        = ...................01111; // Read an MBn register (IR0..2 select reg)
 signal read_alu_add    = ...................10000; // ALU: Read from ALU: AC + B + L
 signal read_alu_and    = ...................10001; // ALU: Read from ALU: AC AND B
 signal read_alu_or     = ...................10010; // ALU: Read from ALU: AC OR B
@@ -194,21 +195,22 @@ signal write_alu_b     = ..............10101.....; // Write to ALU's B Port
 signal write_mbp       = ..............01100.....; // Read MBP
 signal write_mbp_flags = ..............01101.....; // Read combination MBP+flags
 signal write_flags     = ..............01110.....; // Write flags (not all are written!)
+signal write_mbn       = ..............01111.....; // Write an MBn register (IR0..2 select reg)
 
 // COND FIELD (UNDER REDESIGN)
 field  IF              = _________XXXXX__________; // OPx IF field
-signal if_ir0          = .........00001..........; // SKIP = IR[3]
-signal if_ir1          = .........00010..........; // SKIP = IR[3]
-signal if_ir2          = .........00011..........; // SKIP = IR[3]
+signal if_ir0          = .........00001..........; // SKIP = IR[0]
+signal if_ir1          = .........00010..........; // SKIP = IR[1]
+signal if_ir2          = .........00011..........; // SKIP = IR[2]
 signal if_ir3          = .........00100..........; // SKIP = IR[3]
 signal if_ir4          = .........00101..........; // SKIP = IR[4]
 signal if_ir5          = .........00110..........; // SKIP = IR[5]
-signal if_ir6          = .........00111..........; // SKIP = IR[6]
+signal if_ir6          = .........00111..........; // SKIP = IR[6] (Currently unused)
 signal if_v            = .........01010..........; // SKIP = V
 signal if_l            = .........01011..........; // SKIP = L
 signal if_z            = .........01100..........; // SKIP = Z
-signal if_ifneg        = .........01101..........; // SKIP = N
-signal if_roll         = .........01110..........; // SKIP = roll_logic(IR[2:0])
+signal if_ifneg        = .........01101..........; // SKIP = N (currently unused)
+signal if_xxx          = .........01110..........; // Not used
 signal if_branch       = .........01111..........; // SKIP = skip_logic(IR[3:0])
 
 // ACTION FIELD (UNDER REDESIGN)
@@ -561,8 +563,8 @@ start RST=1, INT=0, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 #define SKP    _INSTR(0111), I=1, R=0, SUBOP=001, COND=X, IDX=XX // Skips
 #define TAB    _INSTR(0111), I=1, R=0, SUBOP=010, COND=X, IDX=XX
 #define TBA    _INSTR(0111), I=1, R=0, SUBOP=011, COND=X, IDX=XX
-//#define      _INSTR(0111), I=1, R=0, SUBOP=100, COND=X, IDX=XX // This is available
-//#define      _INSTR(0111), I=1, R=0, SUBOP=101, COND=X, IDX=XX // This is available
+#define RMB    _INSTR(0111), I=1, R=0, SUBOP=100, COND=X, IDX=XX // Read a Memory Bank Register
+#define SMB    _INSTR(0111), I=1, R=0, SUBOP=101, COND=X, IDX=XX // Set an Memory Bank Register
 //#define      _INSTR(0111), I=1, R=0, SUBOP=110, COND=X, IDX=XX // This is available
 //#define IND  _INSTR(0111), I=1, R=0, SUBOP=111, COND=X, IDX=XX // THIS IS IND R (SEE BELOW)
 //#define      _INSTR(0111), I=1, R=1, SUBOP=000, COND=X, IDX=XX // This is available
@@ -1585,7 +1587,7 @@ start RET;
 
 start TSA;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
-      SET(AC, SP), END;				// 02 AC ← SP
+      SET(ac, sp), END;				// 02 AC ← SP
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1596,7 +1598,7 @@ start TSA;
 
 start TAS;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
-      SET(SP, AC), END;				// 02 SP ← AC
+      SET(sp, ac), END;				// 02 SP ← AC
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1607,7 +1609,7 @@ start TAS;
 
 start TDA;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
-      SET(AC, DR), END;				// 02 AC ← DR
+      SET(ac, dr), END;				// 02 AC ← DR
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1843,7 +1845,7 @@ start SRU, COND=0;
 
 start TBA;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
-      SET(AC, ALU_B), END;			// 02 AC ← ALU B
+      SET(ac, alu_b), END;			// 02 AC ← ALU B
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1854,7 +1856,29 @@ start TBA;
 
 start TBA;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
-      SET(ALU_B, AC), END;			// 02 ALU_B ← AC
+      SET(alu_b, ac), END;			// 02 ALU_B ← AC
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// THE RMB INSTRUCTION
+//
+///////////////////////////////////////////////////////////////////////////////
+
+start RMB;
+      FETCH_IR;                                 // 00 IR ← mem[PC++]
+      SET(ac, mbn), END;			// 02 AC ← MB[IR0..IR2]
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// THE SMB INSTRUCTION
+//
+///////////////////////////////////////////////////////////////////////////////
+
+start SMB;
+      FETCH_IR;                                 // 00 IR ← mem[PC++]
+      SET(mbn, ac), END;			// 02 MB[IR0..02] ← AC
 
 
 ///////////////////////////////////////////////////////////////////////////////
