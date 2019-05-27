@@ -135,8 +135,8 @@ cond uaddr:5;
 // 01000     PC          PC                                 
 // 01001     DR          DR                                      
 // 01010     AC          AC                                      
-// 01011     ALU:B?      ALU:B        The ALU B port is treated as a major reg without increments.
-// 01100     MBP         MBP          The MBP is pushed onto the stack before a long jump.
+// 01011                                          
+// 01100                 
 // 01101     MBP + flags MBP + flags  This is used in interrupt handlers for speed.
 // 01110                                      
 // 01111                                      
@@ -144,8 +144,8 @@ cond uaddr:5;
 // 10001     ALU:AND                                      
 // 10010     ALU:OR                                      
 // 10011     ALU:XOR                                      
-// 10100     ALU:ROLL                                      
-// 10101     ALU:NOT                                      
+// 10100     ALU:NOT                                      
+// 10101     ALU:B       ALU:B        The ALU B port is treated as a major reg without increments.                          
 // 10110                                      
 // 10111                                      
 // 11000     CS0                      Read from constant store
@@ -157,76 +157,84 @@ cond uaddr:5;
 // 11110                                      
 // 11111
 
+// NEXT (µADDRESS) FIELD. This is for implemting jumps.
+jump_field jump        = ___________________________XXXXX; // The next value for the µPC
+field reserved         = ________________________XXX_____; // Reserved for future expansion.
+
 // RADDR FIELD
-field  READ            = ___________________XXXXX; // Read unit field
-signal read_agl        = ...................00010; // Read from address generation logic
-signal read_pc         = ...................01000; // Read from PC
-signal read_dr         = ...................01001; // Read from DR
-signal read_ac         = ...................01010; // Read from AC
-signal read_mbp        = ...................01100; // Read MBP (MB0)
-signal read_mbp_flags  = ...................01101; // Read combination MBP+flags
-signal read_alu_add    = ...................10000; // ALU: Read from the Adder unit
-signal read_alu_and    = ...................10001; // ALU: Read from the AND unit
-signal read_alu_or     = ...................10010; // ALU: Read from the OR unit
-signal read_alu_xor    = ...................10011; // ALU: Read from the XOR unit
-signal read_alu_roll   = ...................10100; // ALU: Read from the ROLL unit
-signal read_alu_not    = ...................10101; // ALU: Read from the NOT unit
-signal read_cs_rstvec  = ...................11   ; // Constant Store: Reset Vector
-signal read_cs_isrvec0 = ...................11   ; // Constant Store: ISR Vector (MSB)
-signal read_cs_isrvec1 = ...................11   ; // Constant Store: ISR Vector (LSB)
-signal read_cs_sp      = ...................11001; // Constant Store: Stack Pointer
+field  READ            = ___________________XXXXX________; // Read unit field
+signal read_agl        = ...................00010........; // Read from address generation logic
+signal read_pc         = ...................01000........; // Read from PC
+signal read_dr         = ...................01001........; // Read from DR
+signal read_ac         = ...................01010........; // Read from AC
+signal read_mbp        = ...................01100........; // Read MBP (MB0)
+signal read_mbp_flags  = ...................01101........; // Read combination MBP+flags
+signal read_alu_add    = ...................10000........; // ALU: Read from ALU: AC + B + L
+signal read_alu_and    = ...................10001........; // ALU: Read from ALU: AC AND B
+signal read_alu_or     = ...................10010........; // ALU: Read from ALU: AC OR B
+signal read_alu_xor    = ...................10011........; // ALU: Read from ALU: AC XOR B
+signal read_alu_not    = ...................10100........; // ALU: Read from ALU: NOT AC
+signal read_alu_b      = ...................10101........; // ALU: Read B register from ALU
+signal read_cs_rstvec  = ...................11   ........; // Constant Store: Reset Vector
+signal read_cs_isrvec0 = ...................11   ........; // Constant Store: ISR Vector (MSB)
+signal read_cs_isrvec1 = ...................11   ........; // Constant Store: ISR Vector (LSB)
+signal read_cs_sp      = ...................11001........; // Constant Store: Stack Pointer
 
 // WADDR FIELD
-field  WRITE           = ______________XXXXX_____; // Write unit field
-signal write_ir        = ..............00010.....; // Write to the Instruction Register
-signal write_ar_mbp    = ..............00100.....; // Write MBP:AR (program area, extend with MBP)
-signal write_ar_mbd    = ..............00101.....; // Write MBD:AR (data area, extend with MBD)
-signal write_ar_mbs    = ..............00110.....; // Write MBS:AR (stack area, extend with MBS)
-signal write_ar_mbn    = ..............00111.....; // Write MBn:AR (use MBx decided using IR)
-signal write_pc        = ..............01000.....; // Write to PC
-signal write_dr        = ..............01001.....; // Write to DR
-signal write_ac        = ..............01010.....; // Write to AC
-signal write_alu_b     = ..............01011.....; // Write to ALU's B Port
-signal write_mbp       = ..............01100.....; // Read MBP
-signal write_mbp_flags = ..............01101.....; // Read combination MBP+flags
+field  WRITE           = ______________XXXXX_____________; // Write unit field
+signal write_ir        = ..............00010.............; // Write to the Instruction Register
+signal write_ar_mbp    = ..............00100.............; // Write MBP:AR (program area, extend with MBP)
+signal write_ar_mbd    = ..............00101.............; // Write MBD:AR (data area, extend with MBD)
+signal write_ar_mbs    = ..............00110.............; // Write MBS:AR (stack area, extend with MBS)
+signal write_ar_mbn    = ..............00111.............; // Write MBn:AR (use MBx decided using IR)
+signal write_pc        = ..............01000.............; // Write to PC
+signal write_dr        = ..............01001.............; // Write to DR
+signal write_ac        = ..............01010.............; // Write to AC
+signal write_alu_b     = ..............10101.............; // Write to ALU's B Port
+signal write_mbp       = ..............01100.............; // Read MBP
+signal write_mbp_flags = ..............01101.............; // Read combination MBP+flags
 
 // COND FIELD (UNDER REDESIGN)
-field  IF              = _________XXXXX__________; // OPx IF field
-signal if_ir0          = .........00001..........; // SKIP = IR[3]
-signal if_ir1          = .........00010..........; // SKIP = IR[3]
-signal if_ir2          = .........00011..........; // SKIP = IR[3]
-signal if_ir3          = .........00100..........; // SKIP = IR[3]
-signal if_ir4          = .........00101..........; // SKIP = IR[4]
-signal if_ir5          = .........00110..........; // SKIP = IR[5]
-signal if_ir6          = .........00111..........; // SKIP = IR[6]
-signal if_v            = .........01010..........; // SKIP = V
-signal if_l            = .........01011..........; // SKIP = L
-signal if_z            = .........01100..........; // SKIP = Z
-signal if_ifneg        = .........01101..........; // SKIP = N
-signal if_roll         = .........01110..........; // SKIP = roll_logic(IR[2:0])
-signal if_branch       = .........01111..........; // SKIP = skip_logic(IR[3:0])
+field  IF              = _________XXXXX__________________; // OPx IF field
+signal if_ir0          = .........00001..................; // SKIP = IR[3]
+signal if_ir1          = .........00010..................; // SKIP = IR[3]
+signal if_ir2          = .........00011..................; // SKIP = IR[3]
+signal if_ir3          = .........00100..................; // SKIP = IR[3]
+signal if_ir4          = .........00101..................; // SKIP = IR[4]
+signal if_ir5          = .........00110..................; // SKIP = IR[5]
+signal if_ir6          = .........00111..................; // SKIP = IR[6]
+signal if_v            = .........01010..................; // SKIP = V
+signal if_l            = .........01011..................; // SKIP = L
+signal if_z            = .........01100..................; // SKIP = Z
+signal if_ifneg        = .........01101..................; // SKIP = N
+signal if_roll         = .........01110..................; // SKIP = roll_logic(IR[2:0])
+signal if_branch       = .........01111..................; // SKIP = skip_logic(IR[3:0])
 
 // ACTION FIELD (UNDER REDESIGN)
 //                      76543210FEDCBA9876543210
-field  ACTION          = _____XXXX_______________; 
-signal /action_cpl     = .....0001...............; // Complement L
-signal /action_cll     = .....0010...............; // Clear L flag
-signal /action_sti     = .....0011...............; // Set I flag
-signal /action_cli     = .....0100...............; // Clear I flag
-signal /action_incpc   = .....1000...............; // Step the PC
-signal /action_incdr   = .....1001...............; // Increment DR
-signal /action_decdr   = .....1010...............; // Decrement DR
-signal /action_incac   = .....1011...............; // Increment AC
-signal /action_decac   = .....1100...............; // Increment AC
-signal /action_incsp   = .....1101...............; // Increment SP
-signal /action_decsp   = .....1110...............; // Increment SP
+field  ACTION          = _____XXXX_______________........; 
+signal /action_cpl     = .....0001.......................; // Complement L
+signal /action_cll     = .....0010.......................; // Clear L flag
+signal /action_sti     = .....0011.......................; // Set I flag
+signal /action_cli     = .....0100.......................; // Clear I flag
+//signal /action_???   = .....0101.......................; // 
+//signal /action_???   = .....0110.......................; // 
+//signal /action_???   = .....0111.......................; // 
+signal /action_incpc   = .....1000.......................; // Step the PC
+signal /action_incdr   = .....1001.......................; // Increment DR
+signal /action_decdr   = .....1010.......................; // Decrement DR
+signal /action_incac   = .....1011.......................; // Increment AC
+signal /action_decac   = .....1100.......................; // Increment AC
+signal /action_incsp   = .....1101.......................; // Increment SP
+signal /action_decsp   = .....1110.......................; // Increment SP
+signal /action_sru     = .....1111.......................; // Start the shift/roll engine
 
 // HORIZONTAL SIGNALS
-signal /MEM            = ....1...................; // Memory access
-signal /IO             = ...1....................; // Input/Output enable
-signal /R              = ..1.....................; // Memory read
-signal /WEN            = .1......................; // Memory write
-signal /END            = 1.......................; // Reset uaddr, go to fetch state.
+signal /MEM            = ....1...........................; // Memory access
+signal /IO             = ...1............................; // Input/Output enable
+signal /R              = ..1.............................; // Memory read
+signal /WEN            = .1..............................; // Memory write
+signal /END            = 1...............................; // Reset uaddr, go to fetch state.
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -439,45 +447,27 @@ start RST=1, INT=0, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 // DONE:       OR     1010              X    X    X    X    X    X    X
 // DONE:       XOR    1011              X    X    X    X    X    X    X
 // --------------------------------------------------------------------------------------
+// DONE:       IRET   0111  0 0 000
+// DONE:       LRET   0111  0 0 001
+// DONE:       RET    0111  0 0 010
+// DONE:       TAS    0111  0 0 011
+// DONE:       TSA    0111  0 0 100
+// DONE:       TAD    0111  0 0 101
+// DONE:       TDA    0111  0 0 110
+// DONE:       PHA    0111  0 0 111
+// DONE:       PPA    0111  0 1 000
+// DONE:       PHF    0111  0 1 001
+// DONE:       PPF    0111  0 1 010
+// DONE:       STI    0111  0 1 011
+// DONE:       CLI    0111  0 1 100
+// DONE:       IFL    0111  0 1 101
+// DONE:       IFV    0111  0 1 110
+// DONE:       UOP    0111  0 1 111
+// DONE:       SRU    0111  1 0 000
+// --------------------------------------------------------------------------------------
 // DONE:       LIA    1111  0           X    X
 // DONE:       LI     1111                   X
-// --------------------------------------------------------------------------------------
-// DONE:       IRET   1100  0 0 000
-// DONE:       LRET   1100  0 0 001
-// DONE:       RET    1100  0 0 010
-// DONE:       TAS    1100  0 0 011
-// DONE:       TSA    1100  0 0 100
-// DONE:       TDA    1100  0 1 010
-// DONE:       TAD    1100  0 1 011
-// DONE:       PHA    1100  0 0 101
-// DONE:       PPA    1100  0 0 110
-// DONE:       PHF    1100  0 0 111
-// DONE:       PPF    1100  0 0 111
-// DONE:       STI    1100  0 1 000
-// DONE:       CLI    1100  0 1 001
-//             UOP    1100  0 1 100
-//             IFV    1100  0 1 101
-//             IFL    1100  0 1 110
-//                    1100  0 1 111
-
-//                    1100  1 0 000
-//                    1100  1 0 001
-
-//                    1100  1 0 010
-//                    1100  1 0 011
-//                    1100  1 0 100
-//                    1100  1 0 101
-//                    1100  1 0 110
-//                    1100  1 0 111
-//                    1100  1 1 000
-//                    1100  1 1 001
-//                    1100  1 1 010
-//                    1100  1 1 011
-//                    1100  1 1 100
-//                    1100  1 1 101
-//                    1100  1 1 110
-
-//             IND    1100  1   111     X    X
+// DONE:       IND    1100  1   111     X    X
 
 // --------------------------------------------------------------------------------------
 // X = Addressing mode implemented
@@ -488,24 +478,17 @@ start RST=1, INT=0, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 // 3 = Autoindex behaviour is non-standard. (decrements AC for DEC & SP regs)
 
 
+// IFL = OP1  '1---------               ; if9: END if L=0
+// IFV = OP1  '-1--------               ; if8: END if V=0
+// CLA = OP1  '--1-------               ; if7: A <- 0
+// CLL = OP1  '---1------               ; if6: L <- 0
+// NOT = OP1  '----1-----               ; if5: A <- NOT A
+// INC = OP1  '-----1----               ; if4: <L,A> <- <L,A> + 1
+// CPL = OP1  '------1---               ; if3: L <- NOT L
 // RBL = OP1  '-------010               ; ifroll: <L,A> <- <L,A> << 1
 // RBR = OP1  '-------001               ; <L,A> <- <L,A> >> 1
 // RNL = OP1  '-------110               ; <L,A> <- <L,A> << 4
 // RNR = OP1  '-------101               ; <L,A> <- <L,A> >> 4
-
-// NOP =  OP2 '-----00000               ; 
-// SNA =  OP2 '-----01---               ; A < 0 ==> PC++  (1)
-// SZA =  OP2 '-----0-1--               ; A == 0 ==> PC++ (1)
-// SLS =  OP2 '-----0--1-               ; L == 1 ==> PC++ (1)
-// SSV =  OP2 '-----0---1               ; V == 1 ==> PC++ (1)
-// SKIP = OP2 '-----10000               ; PC++
-// SNN =  OP2 '-----11---               ; a >=0 ==> PC++  (2)
-// SNZ =  OP2 '-----1-1--               ; A != 0 ==> PC++ (2)
-// SCL =  OP2 '-----1--1-               ; L == 0 ==> PC++ (2)
-// SCV =  OP2 '-----1---1               ; V == 0 ==> PC++ (2)
-// CLA =  OP2 '--1-------               ; A <- 0
-// CLI =  OP2 '---1------               ; INT <= 0
-// STI =  OP2 '----1-----               ; INT <= 1
 
 // ROLLS/SHIFTS
 //
@@ -522,7 +505,7 @@ start RST=1, INT=0, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 
 #define LJSR   _INSTR(0000), SUBOP=XXX, COND=X
 #define LJMP   _INSTR(0001), SUBOP=XXX, COND=X
-#define JMP    _INSTR(0011), SUBOP=XXX, COND=X
+#define JMP    _INSTR(0010), SUBOP=XXX, COND=X
 #define JSR    _INSTR(0011), SUBOP=XXX, COND=X
 
 #define IOT    _INSTR(0100), SUBOP=XXX
@@ -545,7 +528,21 @@ start RST=1, INT=0, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 #define IFL    _INSTR(0111), I=0, R=1, SUBOP=101,         IDX=XX
 #define IFV    _INSTR(0111), I=0, R=1, SUBOP=110,         IDX=XX
 #define UOP    _INSTR(0111), I=0, R=1, SUBOP=111, COND=X, IDX=XX
-// ...
+#define SRU    _INSTR(0111), I=1, R=0, SUBOP=000, COND=X, IDX=XX // All shifts and rolls are here.
+#define SKP    _INSTR(0111), I=1, R=0, SUBOP=001, COND=X, IDX=XX // Skips
+#define TAB    _INSTR(0111), I=1, R=0, SUBOP=010, COND=X, IDX=XX
+#define TBA    _INSTR(0111), I=1, R=0, SUBOP=011, COND=X, IDX=XX
+//#define      _INSTR(0111), I=1, R=0, SUBOP=100, COND=X, IDX=XX // This is available
+//#define      _INSTR(0111), I=1, R=0, SUBOP=101, COND=X, IDX=XX // This is available
+//#define      _INSTR(0111), I=1, R=0, SUBOP=110, COND=X, IDX=XX // This is available
+//#define IND  _INSTR(0111), I=1, R=0, SUBOP=111, COND=X, IDX=XX // THIS IS IND R (SEE BELOW)
+//#define      _INSTR(0111), I=1, R=1, SUBOP=000, COND=X, IDX=XX // This is available
+//#define      _INSTR(0111), I=1, R=1, SUBOP=001, COND=X, IDX=XX // This is available
+//#define      _INSTR(0111), I=1, R=1, SUBOP=010, COND=X, IDX=XX // This is available
+//#define      _INSTR(0111), I=1, R=1, SUBOP=011, COND=X, IDX=XX // This is available
+//#define      _INSTR(0111), I=1, R=1, SUBOP=100, COND=X, IDX=XX // This is available
+//#define      _INSTR(0111), I=1, R=1, SUBOP=101, COND=X, IDX=XX // This is available
+//#define      _INSTR(0111), I=1, R=1, SUBOP=110, COND=X, IDX=XX // This is available
 #define IND    _INSTR(0111), I=1,      SUBOP=111, COND=X, IDX=XX
 
 #define LOAD   _INSTR(1000), SUBOP=XXX, COND=X
@@ -679,48 +676,6 @@ start LJSR, I=1, R=1, IDX=IDX_SP;
       MEMREAD_PAGE0(dr, mbp);	                // 11 PC ← mem[MBD:DR]
       /action_decdr;                            // 13 DR--
       MEMWRITE_PAGE0(agl, dr), END;             // 14 mem[MBD:AGL] ← DR
-
-
-///////////////////////////////////////////////////////////////////////////////
-//
-// THE INSTRUCTION SET
-//
-///////////////////////////////////////////////////////////////////////////////
-
-
-
-// DONE: #define LJSR  0000
-// DONE: #define LJMP  0000
-// DONE: #define JMP   0110    Possibly free for other instructions: ⑤ ⑥ ⑦
-// DONE: #define JSR   0111    Possibly free for other instructions: ⑤ ⑥ ⑦
-
-// DONE: #define IOT   0001    Free: ① ③ 
-// DONE: #define IN    0100    Free: ① ③ 
-// DONE: #define OUT   0101    Free: ① ③ 
-
-// DONE: #define LOAD  0010
-// DONE: #define STORE 0011
-// #define ADD   1000
-// #define AND   1001
-// #define OR    1010
-// #define XOR   1011
-
-// TODO: RET
-// TODO: RTI
-// TODO: PUSH
-// TODO: POP
-// TODO: PEEK?
-
-// #define OP1   1100              // Also OP2
-
-// #define OP2   1101              // OP=1101, I=0: OP1
-// #define POP   1101              // v6. OP=1101, I=1: POP
-// #define ISZ   1110
-// DONE: #define LIA   1111              // OP=1111, I=0: LIA/LI
-// #define JMPII 1111              // v6. OP=1111, I=1: JMPII
-
-
-
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1733,30 +1688,18 @@ start CLI;
 ///////////////////////////////////////////////////////////////////////////////
 
 //             9876543210
-// UOP = UOP  '111-------		; Perform further steps unconditionally
-// IFL = UOP  '101-------		; Perform further steps if L set
-// IFV = UOP  '110-------		; Perform further steps if V set
-// CLA = UOP  '----1-----		; if5: A <- 0
-// CLL = UOP  '-----1----		; if4: L <- 0
-// NOT = UOP  '------1---		; if3: A <- NOT A
-// INC = UOP  '-------1--		; if2: <L,A> <- <L,A> + 1
-// DEC = UOP  '--------1-		; if1: <L,A> <- <L,A> + 1
-// CPL = UOP  '---------1		; if0: L <- NOT L
+// CLA = OP1  '----1-----		; if5: A <- 0
+// CLL = OP1  '-----1----		; if4: L <- 0
+// NOT = OP1  '------1---		; if3: A <- NOT A
+// INC = OP1  '-------1--		; if2: <L,A> <- <L,A> + 1
+// DEC = OP1  '--------1-		; if1: <L,A> <- <L,A> + 1
+// CPL = OP1  '---------1		; if0: L <- NOT L
 
 // L=1 ⇒ COND=0, so IFL takes action.
 
-// Explanation: When if_X is asserted, if the condition is true
-// (e.g. bit set), COND goes low in the next processor cycle and
-// execution jumps from the version with COND=1 to the version with
-// COND=0, at the exact same step. So both branches have to have the
-// same number of microsteps and they have to assert the same if_X
-// condition on the same step, except the ‘don't act’ (COND=1) version
-// does nothing but. If it helps, look at the COND=0 and COND=1
-// versions side by side.
-
 start IFL, COND=0;
       FETCH_IR, if_l;		                // 00 IR ← mem[PC++];
-      if_ir5;					// If L: proceed
+      if_ir5;					// If L:
       /action_cla, if_ir4;			// If IR5: AC ← 0
       /action_cll, if_ir3;			// If IR4: L ← 0
       SET(ac, alu_not), if_ir2;			// If IR3: AC ← ~AC
@@ -1766,59 +1709,146 @@ start IFL, COND=0;
 
 start IFL, COND=1;
       FETCH_IR, if_l;		                // 00 IR ← mem[PC++];
-      END;                                      // 02 If not L: END here
-      if_ir4;					// 03 If IR5 (from COND=0): NOP
-      if_ir3;					// 04 If IR4: NOP
-      if_ir2;					// 05 If IR3: NOP
-      if_ir1;					// 06 If IR2: NOP
-      if_ir0;					// 07 If IR1: NOP
-      ENF;					// 08 If IR0: NOP
+      END;
+      if_ir4;
+      if_ir3;
+      if_ir2;
+      if_ir1;
+      if_ir0;
+      ENF;
+
+
 
 start IFV, COND=0;
       FETCH_IR, if_v;		                // 00 IR ← mem[PC++];
-      if_ir5;					// 02 If V: proceed
-      /action_cla, if_ir4;			// 03 If IR5: AC ← 0
-      /action_cll, if_ir3;			// 04 If IR4: L ← 0
-      SET(ac, alu_not), if_ir2;			// 05 If IR3: AC ← ~AC
-      /action_incac, if_ir1;                    // 06 IF IR2: AC++
-      /action_decac, if_ir0;                    // 07 IF IR1: AC--
+      if_ir5;					// If V:
+      /action_cla, if_ir4;			// If IR5: AC ← 0
+      /action_cll, if_ir3;			// If IR4: L ← 0
+      SET(ac, alu_not), if_ir2;			// If IR3: AC ← ~AC
+      /action_incac, if_ir1;                    // IF IR2: AC++
+      /action_decac, if_ir0;                    // IF IR1: AC--
       /action_cpl, END;				// IF IR0: L ← ¬L
 
 start IFV, COND=1;
       FETCH_IR, if_v;		                // 00 IR ← mem[PC++];
-      END;					// 02 If not V: END here
-      if_ir4;					// 03 If IR5 (from COND=0): NOP
-      if_ir3;					// 04 If IR4: NOP
-      if_ir2;					// 05 If IR3: NOP
-      if_ir1;					// 06 If IR2: NOP
-      if_ir0;					// 07 If IR1: NOP
-      END;					// 08 If IR0: NOP
+      END;
+      if_ir4;
+      if_ir3;
+      if_ir2;
+      if_ir1;
+      if_ir0;
+      END;
 
-// Note: UOP needs one less check, so it runs one cycle faster.
+
 
 start UOP, COND=0;
       FETCH_IR, if_ir5;		                // 00 IR ← mem[PC++];
-      /action_cla, if_ir4;			// 02 If IR5: AC ← 0
-      /action_cll, if_ir3;			// 03 If IR4: L ← 0
-      SET(ac, alu_not), if_ir2;			// 04 If IR3: AC ← ~AC
-      /action_incac, if_ir1;                    // 05 If IR2: AC++
-      /action_decac, if_ir0;                    // 06 If IR1: AC--
-      /action_cpl, END;				// 07 If IR0: L ← ¬L
+      /action_cla, if_ir4;			// If IR5: AC ← 0
+      /action_cll, if_ir3;			// If IR4: L ← 0
+      SET(ac, alu_not), if_ir2;			// If IR3: AC ← ~AC
+      /action_incac, if_ir1;                    // IF IR2: AC++
+      /action_decac, if_ir0;                    // IF IR1: AC--
+      /action_cpl, END;				// IF IR0: L ← ¬L
 
 start UOP, COND=1;
       FETCH_IR, if_ir5;		                // 00 IR ← mem[PC++];
-      if_ir4;					// 03 If IR5: NOP
-      if_ir3;					// 04 If IR4: NOP
-      if_ir2;					// 05 If IR3: NOP
-      if_ir1;					// 06 If IR2: NOP
-      if_ir0;					// 07 If IR1: NOP
-      END;					// 08 If IR0: NOP
+      if_ir4;
+      if_ir3;
+      if_ir2;
+      if_ir1;
+      if_ir0;
+      END;
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// SHIFTS AND ROTATIONS
+//
+///////////////////////////////////////////////////////////////////////////////
+
+//            OP   I R 987 654 3210
+// SHL = SRU  0111'1'0'000'000'dddd    ; Bitwise shift left by d bits
+// SHR = SRU  0111'1'0'000'001'dddd    ; Bitwise shift right by d bits
+// ASR = SRU  0111'1'0'000'011'dddd    ; Arithmetic shift right by d bits
+// ROL = SRU  0111'1'0'000'100'dddd    ; Rotate left by d bits
+// ROR = SRU  0111'1'0'000'101'dddd    ; Rotate right by d bits
+
+// L=1 ⇒ COND=0, so IFL takes action.
+
+// IR bits are directly linked to the shift/rotate unit, so all
+// of these instructions have the same microcode.
+start SRU:
+      FETCH_IR;                                 // 00 IR ← mem[PC++]
+      /action_roll;				// 02 SRU cycle #1 (sync wait)
+      ;				                // 03 SRU cycle #2
+      ;				                // 04 SRU cycle #3
+      ;				                // 05 SRU cycle #4
+      ;				                // 06 SRU cycle #5
+      SET(ac, alu_b), END;			// 07 AC ← ALU B Reg
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// SKIPS
+//
+///////////////////////////////////////////////////////////////////////////////
+
+//            OP   I R 987 6543210
+//       SKP  0111'1'0'001'000dddd    ; Bitwise shift left by d bits
+//       NOP  0111'1'0'001'0000000    ; G1 Skip never (NOP)
+//       SNA  0111'1'0'001'--01---    ; G1 Skip if Negative AC: A < 0 => PC++
+//       SZA  0111'1'0'001'--0-1--    ; G1 Skip if Zero AC: A == 0 => PC++
+//       SLS  0111'1'0'001'--0--1-    ; G1 Skip if Link set: L == 1 ==> PC++
+//       SSV  0111'1'0'001'--0---1    ; G1 Skip if Overflow set: V == 1 ==> PC++ (1)
+//
+//       SKIP 0111'1'0'001'--10000    ; G2 Skip always: PC++
+//       SNN  0111'1'0'001'--11---    ; G2 Skip if Non-Negative AC: a >=0 ==> PC++  (2)
+//       SNZ  0111'1'0'001'--1-1--    ; G2 Skip if Non-Zero AC: AC != 0 ==> PC++ (2)
+//       SCL  0111'1'0'001'--1--1-    ; G2 Skip if Link clear: L == 0 ==> PC++ (2)
+//       SCV  0111'1'0'001'--1---1    ; G2 Skip if Overflow clear: V == 0 ==> PC++ (2)
+//
+// G1 and G2 sub-instructions may be combined, but not across groups.
+// G1 condition bits are ORred together.
+// G2 conditions bits are ANDed together.
+// 
+// The OR/AND logic isn't microcoded, it's part of the hardwired
+// decoding of the branch bits.
+
+// The skip mechanism is hard-wired, so the microcode here is fairly
+// simple here.
+
+// First, the version where the skip isn't taken.
+start SRU, COND=0;
+      FETCH_IR, if_branch;	                // 00 IR ← mem[PC++]
+      END;					// 02 IF not skip: END
+
+// Next, the version where the skip is taken.
+start SRU, COND=0;
+      FETCH_IR, if_branch;	                // 00 IR ← mem[PC++]
+      /action_incpc;				// 02 If skip: PC++
 
 
 
+///////////////////////////////////////////////////////////////////////////////
+//
+// THE TBA INSTRUCTION
+//
+///////////////////////////////////////////////////////////////////////////////
 
-// ...
+start TBA;
+      FETCH_IR;                                 // 00 IR ← mem[PC++]
+      SET(AC, ALU_B), END;			// 02 AC ← ALU B
 
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// THE TAB INSTRUCTION
+//
+///////////////////////////////////////////////////////////////////////////////
+
+start TBA;
+      FETCH_IR;                                 // 00 IR ← mem[PC++]
+      SET(ALU_B, AC), END;			// 02 ALU_B ← AC
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1830,374 +1860,14 @@ start UOP, COND=1;
 // ① IND, local address addressing mode
 start IND, R=0;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
-      SET(DR, AC);				// 02 DR ← AC
-      MEMREAD_LOCAL(AC, DR), END;		// 03 AC ← mem[DR]
+      SET(dr, ac);				// 02 DR ← AC
+      MEMREAD_LOCAL(ac, dr), END;		// 03 AC ← mem[DR]
 
 // ② IND, register address addressing mode
 start IND, R=1;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
-      SET(DR, AC);				// 02 DR ← AC
-      MEMREAD_PAGE0(AC, DR), END;		// 03 AC ← mem[DR]
-
-
-
-///////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////
-
-
-
-
-
-
-
-
-
-
-///////////////////////////////////////////////////////////////////////////////
-//
-// ANYTHING BELOW HERE IS A TO-DO
-//
-///////////////////////////////////////////////////////////////////////////////
-
-// This macro implements step 1. Useful for JMP-like instructions and literal
-// addressing. And of course as a basis for direct and indirect modes.  Note
-// the second cycle is not complete! The caller can add signals to it.
-#define _FETCH_IR \
-        _MEMREAD(PC, IR), /incpc
-
-
-// This macro implements steps 1 and 2a:
-//
-// 1. IR <- mem[PC]
-//    Deselect the memory, take the opportunity to step the PC.
-// 2. DR <- mem[IR.operand]
-
-#define _FETCH_DIRECT \
-        _FETCH_IR; \
-        _MEMREAD(agl, DR)
-
-#define _FETCH_LITERAL _FETCH_DIRECT
-
-
-// This macro takes care of most of the autoincrement
-// microsteps. NOTE: this can be combined with the last step of
-// another macro (as long as it doesn't modify the DR), as the only
-// thing it does on its first microstep is to increase the DR.
-
-#define _AUTOINC_3CYCLE \
-        r_agl, w_ar, /stpdr; \
-        r_dr, /mem, /wen;       \
-        r_dr, /mem
-
-#define _AUTOINC_2CYCLE \
-        r_agl, w_ar, /stpdr; \
-        r_dr, /mem, /wen
-
-#define _AUTOINC _AUTOINC_2CYCLE
-
-
-
-
-
-
-
-
-
-
-
-///////////////////////////////////////////////////////////////////////////////
-//
-// TRAP instruction.
-//
-///////////////////////////////////////////////////////////////////////////////
-
-// The TRAP instruction saves the current PC to memory location 0001
-// and performs a jump to the specified address.
-
-start UCB=XXXX, INT=1, RST=1, V=X, L=X, OP=TRAP, I=0, COND=X, INC=X;
-      _FETCH_IR;                // Fetch the instruction and operand. That's
-                                // all we need.
-      _MEMWRITE(cs2, pc);       // Store PC at location 0001.
-      w_pc, r_agl, /end;        // Set the PC from AGL(IR.operand)
-
-// The _FETCH macro fetches the IR and operand, and then loads into DR the
-// value stored in mem[operand]. This is all the indirection we need here (one
-// less indirection step than normal).
-
-start UCB=XXXX, INT=1, RST=1, V=X, L=X, OP=TRAP, I=1, COND=X, INC=1;
-      _FETCH_LITERAL;           // Fetch the instruction and operand.
-      _MEMWRITE(cs2, pc);       // Store PC at location 0001.
-      w_pc, r_dr, /end;         // Set the PC from DR.
-
-start UCB=XXXX, INT=1, RST=1, V=X, L=X, OP=TRAP, I=1, COND=X, INC=0;
-      _FETCH_LITERAL;           // Fetch the instruction and operand.
-      _MEMWRITE(cs2, pc);       // Store PC at location 0001.
-      w_pc, r_dr;
-      _AUTOINC, /end;           // Autoindex
-
-
-
-///////////////////////////////////////////////////////////////////////////////
-//
-// JMPII instruction (version 6)
-//
-///////////////////////////////////////////////////////////////////////////////
-
-// The JMPII instruction performs a double indirection and sets the PC with its
-// result. This is used in, among other places, Forth (where it's used as the
-// Forth ENTER routine, which is used to start executing a word).
-// Semantics:
-//
-// DR <- mem[AGL]
-// PC <- mem[DR]
-//
-// Total semantics: PC <- mem[mem[AGL]]
-
-start UCB=XXXX, INT=1, RST=1, V=X, L=X, OP=JMPII, I=1, COND=X, INC=1;
-      _FETCH_IR;                // Fetch the address and operand.
-      _MEMREAD(agl, dr);        // DR <- mem[AGL]. # First indirection
-      _MEMREAD(dr, PC), /end;   // PC <- mem[DR]. # Second indirection
-
-// FIXED: Autoindex mode
-start UCB=XXXX, INT=1, RST=1, V=X, L=X, OP=JMPII, I=1, COND=X, INC=0;
-      _FETCH_IR;                // Fetch the address and operand.
-      _MEMREAD(agl, dr);        // DR <- mem[AGL]. # First indirection
-      _MEMREAD(dr, PC);         // PC <- mem[DR]. # Second indirection
-      _AUTOINC, /end;           // mem[AGL] <- ++DR
-
-
-///////////////////////////////////////////////////////////////////////////////
-//
-// OP1 instruction.
-//
-///////////////////////////////////////////////////////////////////////////////
-
-// PDP-8-style ‘microcoded’ instruction (in the PDP-8 sense, i.e. many
-// instructions in one). No addressing modes or AGL used, but SKIP is
-// used to determine what gets executed and what not.
-//
-// Note: ifX microcode instructions apply the condition to the NEXT
-// microstep, which is why we list them last. COND=DONT_ACT means 'don't
-// skip'.
-//
-// Bit allocation and sequencing:
-//
-//                     roll
-//             9876543///
-// IFL = OP1  '1---------               ; if9: END if L=0
-// IFV = OP1  '-1--------               ; if8: END if V=0
-// CLA = OP1  '--1-------               ; if7: A <- 0
-// CLL = OP1  '---1------               ; if6: L <- 0
-// NOT = OP1  '----1-----               ; if5: A <- NOT A
-// INC = OP1  '-----1----               ; if4: <L,A> <- <L,A> + 1
-// CPL = OP1  '------1---               ; if3: L <- NOT L
-// RBL = OP1  '-------010               ; ifroll: <L,A> <- <L,A> << 1
-// RBR = OP1  '-------001               ; <L,A> <- <L,A> >> 1
-// RNL = OP1  '-------110               ; <L,A> <- <L,A> << 4
-// RNR = OP1  '-------101               ; <L,A> <- <L,A> >> 4
-//
-// (*) The final /end is necessary when the computer comes out of the
-// HALT state.
-
-// TO DO: Copy these two microprograms another 3 times, amend for all
-// combinations of <V,L> inputs.
-
-//
-// Here are the OP1 macros with comments.
-//
-// #define OP1COMMON_SKIP1 \
-//      w_ac, r_cs1, if6; \     // 4. If bit 7: do nothing here \
-//      /cll, if5; \            // 5. If bit 6: do nothing here \
-//      w_ac, alu_not, if4; \   // 6. If bit 5: complement A    \
-//      /stpac, if3; \          // 7. If bit 4: increment A     \
-//      /cpl, ifroll; \         // 8. If bit 3: complement L    \
-//      w_ac, alu_roll; \               // 9. If roll: well, roll.      \
-//      /end                    // (*)
-//
-//#define OP1COMMON_SKIP0 \
-//      if6; \                    // 4. If bit 7: do nothing here \
-//      if5; \                  // 5. If bit 6: do nothing here \
-//      if4; \                  // 6. If bit 5: complement A    \
-//      if3; \                  // 7. If bit 4: increment A     \
-//      ifroll; \                       // 8. If bit 3: complement L    \
-//      /end; \                 // 9. If roll: well, roll.      \
-//      /end \                  // (*)
-//*/
-
-// And without (because they're multiline)
-#define OP1COMMON_SKIP0 \
-      w_ac, r_cs1, if6; \
-      /cll, if5; \
-      w_ac, alu_not, if4; \
-      /stpac, if3; \
-      /cpl, ifroll; \
-      w_ac, alu_roll; \
-      /end
-
-#define OP1COMMON_SKIP1 \
-      if6; \
-      if5; \
-      if4; \
-      if3; \
-      ifroll; \
-      /end; \
-      /end \
-
-// V=1, L=1 (always executes all of instruction)
-start UCB=XXXX, INT=1, RST=1, V=X, L=X, OP=OP1, I=0, COND=ACT, INC=X;
-      _FETCH_IR;
-      if9;                      // 1. Fetch the instruction and operand.
-      if8;                      // 2. If bit 9: end if L=0 (handled below)
-      if7;                      // 3. If bit 8: end if V=0 (handled below)
-      OP1COMMON_SKIP0;
-
-start UCB=XXXX, INT=1, RST=1, V=X, L=X, OP=OP1, I=0, COND=DONT_ACT, INC=X;
-      _FETCH_IR;
-      if9;                      // 1. Fetch the instruction and operand.
-      if8;                      // 2. If bit 9: end if L=0 (handled below)
-      if7;                      // 3. If bit 8: end if V=0 (handled below)
-      OP1COMMON_SKIP1;
-
-
-// V=0, L=1 (stops if IFV [if8] is set)
-start UCB=XXXX, INT=1, RST=1, V=0, L=1, OP=OP1, I=0, COND=ACT, INC=X;
-      _FETCH_IR;
-      if9;                      // 1. Fetch the instruction and operand.
-      if8;                      // 2. If bit 9: end if L=0 (handled below)
-      /end, if7;                // 3. If bit 8: end if V=0 (handled below)
-      // Fall-through to the V=X, L=X case above.
-
-start UCB=XXXX, INT=1, RST=1, V=0, L=1, OP=OP1, I=0, COND=DONT_ACT, INC=X;
-      _FETCH_IR;
-      if9;                      // 1. Fetch the instruction and operand.
-      if8;                      // 2. If bit 9: end if L=0 (handled below)
-      if7;                      // 3. If bit 8: end if V=0 (handled below)
-      // Fall-through to the V=X, L=X case above.
-
-
-// V=1, L=0 (stops if IFL [if9] is set)
-start UCB=XXXX, INT=1, RST=1, V=1, L=0, OP=OP1, I=0, COND=ACT, INC=X;
-      _FETCH_IR;
-      if9;                      // 1. Fetch the instruction and operand.
-      /end, if8;                // 2. If bit 9: end if L=0 (handled below)
-      if7;                      // 3. If bit 8: end if V=0 (handled below)
-      // Fall-through to the V=X, L=X case above.
-
-start UCB=XXXX, INT=1, RST=1, V=1, L=0, OP=OP1, I=0, COND=DONT_ACT, INC=X;
-      _FETCH_IR;
-      if9;                      // 1. Fetch the instruction and operand.
-      if8;                      // 2. If bit 9: end if L=0 (handled below)
-      if7;                      // 3. If bit 8: end if V=0 (handled below)
-      // Fall-through to the V=X, L=X case above.
-
-
-// V=0, L=0 (stops if IFL [if9] or IFV [if8] are set).
-start UCB=XXXX, INT=1, RST=1, V=0, L=0, OP=OP1, I=0, COND=ACT, INC=X;
-      _FETCH_IR;
-      if9;                      // 1. Fetch the instruction and operand.
-      /end, if8;                // 2. If bit 9: end if L=0 (handled below)
-      /end, if7;                // 3. If bit 8: end if V=0 (handled below)
-      // Fall-through to the V=X, L=X case above.
-
-start UCB=XXXX, INT=1, RST=1, V=0, L=0, OP=OP1, I=0, COND=DONT_ACT, INC=X;
-      _FETCH_IR;
-      if9;                      // 1. Fetch the instruction and operand.
-      if8;                      // 2. If bit 9: end if L=0 (handled below)
-      if7;                      // 3. If bit 8: end if V=0 (handled below)
-      // Fall-through to the V=X, L=X case above.
-
-
-///////////////////////////////////////////////////////////////////////////////
-//
-// OP2 instruction.
-//
-///////////////////////////////////////////////////////////////////////////////
-
-// PDP-8-style microcoded instruction. No addressing modes or AGL
-// used, but SKIP is used to determine what gets executed and what not.
-//
-// Note: ifX microcode instructions apply the condition to the NEXT
-// microstep, which is why we list them last. COND=DONT_ACT means 'don't
-// skip'.
-//
-// Bit allocation and sequencing:
-//
-//                   branch
-//             98765/////
-// NOP =  OP2 '-----00000               ; 
-// SNA =  OP2 '-----01---               ; A < 0 ==> PC++  (1)
-// SZA =  OP2 '-----0-1--               ; A == 0 ==> PC++ (1)
-// SLS =  OP2 '-----0--1-               ; L == 1 ==> PC++ (1)
-// SSV =  OP2 '-----0---1               ; V == 1 ==> PC++ (1)
-// SKIP = OP2 '-----10000               ; PC++
-// SNN =  OP2 '-----11---               ; a >=0 ==> PC++  (2)
-// SNZ =  OP2 '-----1-1--               ; A != 0 ==> PC++ (2)
-// SCL =  OP2 '-----1--1-               ; L == 0 ==> PC++ (2)
-// SCV =  OP2 '-----1---1               ; V == 0 ==> PC++ (2)
-// CLA =  OP2 '--1-------               ; A <- 0
-// CLI =  OP2 '---1------               ; INT <= 0
-// STI =  OP2 '----1-----               ; INT <= 1
-//
-// (1) Conditions ORred together
-// (2) Conditions ANDed together. The OR/AND logic isn't microcoded,
-// it's part of the hardwired decoding of the branch bits.
-//
-// The branch test logic, along with the bits set in the
-// microinstruction, feed the SKIP field, so SKIP handles both
-// microinstruction skips and machine code branches.
-
-// TODO: I think r_cs produces 0001 here, not 0000. Check it!
-start UCB=XXXX, INT=1, RST=1, V=X, L=X, OP=OP2, I=0, COND=ACT, INC=X;
-      _FETCH_IR;
-      ifbranch;
-      /incpc, if7;              // 5. If branching: branch (if needed)
-      w_ac, r_cs1, if6;         // 6. If bit 6: A <= 0
-      /cli, if5;                // 7. If bit 5: I <= 0
-      /sti, /end;               // 8. If bit 4: I <= 1
-      /end;                     // (*)
-
-start UCB=XXXX, INT=1, RST=1, V=X, L=X, OP=OP2, I=0, COND=DONT_ACT, INC=X;
-      _FETCH_IR;
-      ifbranch;                 // 4. If bit 7: PR <= PC (note: PC <- PC)
-      if7;                      // 5. If branching: branch (if needed)
-      if6;                      // 6. If bit 6: A <= 0
-      if5;                      // 7. If bit 5: I <= 0
-      /end;                     // 8. If bit 4: I <= !I
-      /end;                     // (*)
-
-
-///////////////////////////////////////////////////////////////////////////////
-//
-// POP instruction.
-//
-///////////////////////////////////////////////////////////////////////////////
-
-// POP is the 'opposite' instruction of STORE I at an autoincrement location
-// (used as a stack PUSH). POP decrements the memory location provided (storing
-// it back), then loads AC with the decremented value.
-
-// Semantics:
-//   DR <- mem[AGL]
-//   DR <- DR - 1
-//   mem[AGL] <- DR
-//   AC <- mem[DR]
-//
-// Total semantics: AC <- mem[--AGL]
-
-// No autoincrement
-start UCB=XXXX, INT=1, RST=1, V=X, L=X, OP=POP, I=1, COND=X, INC=X;
-      _FETCH_DIRECT;            // IR <- mem[PC++], DR <- mem[AGL]
-
-      /dec, /stpdr;             // DR--
-      r_dr, /mem, /wen;         // mem[AGL] <- DR (AR is already set up)
-
-      _MEMREAD(dr, ac), /end;   // AC <- mem[DR]
+      SET(dr, ac);				// 02 DR ← AC
+      MEMREAD_PAGE0(ac, dr), END;		// 03 AC ← mem[DR]
 
 
 // End of file.
