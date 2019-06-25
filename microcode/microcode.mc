@@ -132,7 +132,7 @@ cond uaddr:4;
 // 00100                 AR:MBP       Write to the Address Register, use Program MBR.
 // 00101                 AR:MBD       Write to the AR, use Data MBR.
 // 00110                 AR:MBS       Write to the AR, use Stack MBR.
-// 00111                 AR:MBn       MB reg depends on IR bits.
+// 00111                 AR:MBZ       Write to the AR, use Zero Page MBR/addressing.
 // 01000     PC          PC                                 
 // 01001     DR          DR                                      
 // 01010     AC          AC                                      
@@ -140,7 +140,7 @@ cond uaddr:4;
 // 01100                 
 // 01101     MBP + flags MBP + flags  This is used in interrupt handlers for speed.
 // 01110     flags                    Just the flags.
-// 01111                                      
+// 01111     MBn         MBn          IR[0..2] selects the register to read/write
 // 10000     ALU:ADD
 // 10001     ALU:AND                                      
 // 10010     ALU:OR                                      
@@ -149,10 +149,10 @@ cond uaddr:4;
 // 10101     ALU:B       ALU:B        The ALU B port is treated as a major reg without increments.                          
 // 10110                                      
 // 10111                                      
-// 11000     CS0                      Read from constant store
-// 11001     CS1                      
-// 11010     ...                      
-// 11011                                      
+// 11000     CS0                      Read from constant store (0000)
+// 11001     CS1                      Read from constant store (0001)
+// 11010     CS2                      Read from constant store (0002)
+// 11011     CS3                      Read from constant store (0003)
 // 11100                                      
 // 11101                                      
 // 11110                                      
@@ -175,10 +175,11 @@ signal read_alu_or     = ...................10010; // ALU: Read from ALU: AC OR 
 signal read_alu_xor    = ...................10011; // ALU: Read from ALU: AC XOR B
 signal read_alu_not    = ...................10100; // ALU: Read from ALU: NOT AC
 signal read_alu_b      = ...................10101; // ALU: Read B register from ALU
-signal read_cs_rstvec  = ...................11   ; // Constant Store: Reset Vector
-signal read_cs_isrvec0 = ...................11   ; // Constant Store: ISR Vector (MSB)
-signal read_cs_isrvec1 = ...................11   ; // Constant Store: ISR Vector (LSB)
-signal read_cs_sp      = ...................11001; // Constant Store: Stack Pointer
+signal read_cs_rstvec  = ...................11   ; // Constant Store: Reset Vector (0000)
+signal read_cs_isrvec0 = ...................11   ; // Constant Store: ISR Vector (0002)
+signal read_cs_isrvec1 = ...................11   ; // Constant Store: ISR Vector (0003)
+// No longer used, there's a dedicated 1b6-bit stack pointer now.
+//signal read_cs_sp      = ...................11001; // Constant Store: Stack Pointer
 
 // WADDR FIELD
 field  WRITE           = ______________XXXXX_____; // Write unit field
@@ -186,7 +187,7 @@ signal write_ir        = ..............00010.....; // Write to the Instruction R
 signal write_ar_mbp    = ..............00100.....; // Write MBP:AR (program area, extend with MBP)
 signal write_ar_mbd    = ..............00101.....; // Write MBD:AR (data area, extend with MBD)
 signal write_ar_mbs    = ..............00110.....; // Write MBS:AR (stack area, extend with MBS)
-signal write_ar_mbn    = ..............00111.....; // Write MBn:AR (use MBx decided using IR)
+signal write_ar_mbz    = ..............00111.....; // Write MBZ:AR (page zero with index registers)
 signal write_pc        = ..............01000.....; // Write to PC
 signal write_dr        = ..............01001.....; // Write to DR
 signal write_ac        = ..............01010.....; // Write to AC
@@ -206,11 +207,13 @@ signal if_ir3          = .........00100..........; // SKIP = IR[3]
 signal if_ir4          = .........00101..........; // SKIP = IR[4]
 signal if_ir5          = .........00110..........; // SKIP = IR[5]
 signal if_ir6          = .........00111..........; // SKIP = IR[6] (Currently unused)
+//signal if_xxx        = .........01000..........; // Not used
+//signal if_xxx        = .........01001..........; // Not used
 signal if_v            = .........01010..........; // SKIP = V
 signal if_l            = .........01011..........; // SKIP = L
 signal if_z            = .........01100..........; // SKIP = Z
-signal if_ifneg        = .........01101..........; // SKIP = N (currently unused)
-signal if_xxx          = .........01110..........; // Not used
+signal if_n            = .........01101..........; // SKIP = N (currently unused)
+//signal if_xxx        = .........01110..........; // Not used
 signal if_branch       = .........01111..........; // SKIP = skip_logic(IR[3:0])
 
 // ACTION FIELD (UNDER REDESIGN)
@@ -222,7 +225,7 @@ signal /action_sti     = .....0011...............; // Set I flag
 signal /action_cli     = .....0100...............; // Clear I flag
 signal /action_cla     = .....0101...............; // Clear the AC
 //signal /action_???   = .....0110...............; // 
-//signal /action_???   = .....0111...............; // 
+signal /action_sru     = .....0111...............; // Start the shift/roll engine
 signal /action_incpc   = .....1000...............; // Step the PC
 signal /action_incdr   = .....1001...............; // Increment DR
 signal /action_decdr   = .....1010...............; // Decrement DR
@@ -230,7 +233,7 @@ signal /action_incac   = .....1011...............; // Increment AC
 signal /action_decac   = .....1100...............; // Increment AC
 signal /action_incsp   = .....1101...............; // Increment SP
 signal /action_decsp   = .....1110...............; // Increment SP
-signal /action_sru     = .....1111...............; // Start the shift/roll engine
+//signal /action_???   = .....1111...............; // 
 
 // HORIZONTAL SIGNALS
 signal /MEM            = ....1...................; // Memory access
@@ -250,7 +253,7 @@ signal /END            = 1.......................; // Reset uaddr, go to fetch s
 // so these macros can be combined with other microinstructions.
 
 // This macros uses cpp's symbol concatenation, which is why it's extra ugly.
-#define _MEMREAD(mbr, addr, data)            \
+#define MEMREAD(mbr, addr, data)             \
     write_ar_##mbr, read_##addr;             \
     /MEM, /R, write_##data
 
@@ -260,15 +263,6 @@ signal /END            = 1.......................; // Reset uaddr, go to fetch s
     write_ar_mbp, read_##addr;               \
     /IO, /R, write_##data
 
-// Shorthands to reduce bugs
-#define MEMREAD_PROGRAM(addr, data) _MEMREAD(MBP, addr, data)
-#define MEMREAD_LOCAL(addr, data)   MEMREAD_PROGRAM(addr, data)
-
-#define MEMREAD_DATA(addr, data)    _MEMREAD(MBD, addr, data)
-#define MEMREAD_PAGE0(addr, data)   MEMREAD_DATA(addr, data)
-
-#define MEMREAD_STACK(addr, data)   _MEMREAD(MBS, addr, data)
-
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -276,25 +270,29 @@ signal /END            = 1.......................; // Reset uaddr, go to fetch s
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-#define _MEMWRITE(mbr, addr, data)        \
-    write_ar_##mbr, read_##addr;             \
+#define MEMWRITE(mbr, addr, data)  \
+    write_ar_##mbr, read_##addr;   \
     /MEM, /WEN, read_##data
 
 // I/O space is 16 bits wide and ignores AB[16..23], so we can use any
 // old MBR to write to the AR, it doesn't matter.
-#define IOWRITE(addr, data)                  \
-    write_ar_mbp, read_##addr;                   \
-    /MEM, /WEN, read_##data
+#define IOWRITE(addr, data)        \
+    write_ar_mbp, read_##addr;     \
+/MEM, /WEN, read_##data
 
 
-// Shorthands to reduce bugs
-#define MEMWRITE_PROGRAM(addr, data) _MEMWRITE(MBP, addr, data)
-#define MEMWRITE_LOCAL(addr, data)   MEMWRITE_PROGRAM(addr, data)
+///////////////////////////////////////////////////////////////////////////////
+//
+// MACROS TO USE THE HARWDARE STACK
+//
+///////////////////////////////////////////////////////////////////////////////
 
-#define MEMWRITE_DATA(addr, data)    _MEMWRITE(MBD, addr, data)
-#define MEMWRITE_PAGE0(addr, data)   MEMWRITE_DATA(addr, data)
+#define STACK_PUSH(data)                         \
+        MEMWRITE(mbs, sp, data), /action_incsp
 
-#define MEMWRITE_STACK(addr, data)   _MEMWRITE(MBS, addr, data)
+#define STACK_POP(data)           \
+        /action_decsp;            \
+        MEMREAD(mbs, sp, data)
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -309,7 +307,7 @@ signal /END            = 1.......................; // Reset uaddr, go to fetch s
 // 1. Read mem[PC] and write to IR.
 // 2. Increment the PC so it points to the next instruction to execute.
 
-#define FETCH_IR MEMREAD_PROGRAM(pc, ir), /action_incpc
+#define FETCH_IR MEMREAD(mbp, pc, ir), /action_incpc
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -417,16 +415,6 @@ start RST=0, INT=X, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-// The stack pointer is a minor register, and it can't increment or
-// decrement. We temporarily transfer it to the DR, which is used as a scratch
-// register and can do both.
-#define STACK_PUSH(data)                       \
-      MEMWRITE_STACK(sp, data), /action_incsp
-
-#define STACK_POP(data)        \
-      /action_decsp;           \
-      MEMREAD_STACK(sp, data)
-
 // Interrupt handling algorithm:
 //
 // Push MBP+flags onto stack.
@@ -460,23 +448,17 @@ start RST=1, INT=0, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 //             REG TYPE                     REG       REG  INC  DEC  SP   BIT
 //             INSTR  OP    I R SUB     :    :    :    :    :    :    :    :
 // --------------------------------------------------------------------------------------
-// DONE:       LJSR   0000  0           1    1              2    2    2
-// DONE:       LJMP   0000  1                     X    X    2    2    2
-// DONE:       JSR    0111              X    X    X    X    2    2    2
-// DONE:       JMP    0110              X    X    X    X    2    2    2
+// DONE:       LIA    0000  0           X    X
+// DONE:       LI     0000  0                X
 // --------------------------------------------------------------------------------------
-// DONE:       IOT    0001              .    X    .    X    ?    ?    ?
-// DONE:       IN     0100              .    X    .    X    ?    ?    ?
-// DONE:       OUT    0101              .    X    .    X    ?    ?    ?
+// DONE:       LJSR   0000  1           1    1              2    2    2
+// DONE:       LJMP   0001  1                     X    X    2    2    2
+// DONE:       JSR    0010              X    X    X    X    2    2    2
+// DONE:       JMP    0011              X    X    X    X    2    2    2
 // --------------------------------------------------------------------------------------
-// DONE:       LOAD   0010              X    X    X    X    X    X    X
-// DONE:       STORE  0011              X    X    X    X    X    X    X
-// DONE:       ISZ    1110              X    X    X    3    3    3    3
-// --------------------------------------------------------------------------------------
-// DONE:       ADD    1000              X    X    X    X    X    X    X
-// DONE:       AND    1001              X    X    X    X    X    X    X
-// DONE:       OR     1010              X    X    X    X    X    X    X
-// DONE:       XOR    1011              X    X    X    X    X    X    X
+// DONE:       IOT    0100              .    X    .    X    ?    ?    ?
+// DONE:       IN     0101              .    X    .    X    ?    ?    ?
+// DONE:       OUT    0110              .    X    .    X    ?    ?    ?
 // --------------------------------------------------------------------------------------
 // DONE:       IRET   0111  0 0 000
 // DONE:       LRET   0111  0 0 001
@@ -495,11 +477,21 @@ start RST=1, INT=0, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 // DONE:       IFV    0111  0 1 110
 // DONE:       UOP    0111  0 1 111
 // DONE:       SRU    0111  1 0 000
+// DONE:       SKP    0111  1 0 001
+// DONE:       TAB    0111  1 0 010
+// DONE:       TBA    0111  1 0 011
+// DONE:       RMB    0111  1 0 100
+// DONE:       SMB    0111  1 0 101
+// DONE:       IND    0111  1   111
 // --------------------------------------------------------------------------------------
-// DONE:       LIA    1111  0           X    X
-// DONE:       LI     1111                   X
-// DONE:       IND    1100  1   111     X    X
-
+// DONE:       LOAD   1000              X    X    X    X    X    X    X
+// DONE:       STORE  1001              X    X    X    X    X    X    X
+// DONE:       ISZ    1010              X    X    X    3    3    3    3
+// --------------------------------------------------------------------------------------
+// DONE:       ADD    1100              X    X    X    X    X    X    X
+// DONE:       AND    1101              X    X    X    X    X    X    X
+// DONE:       OR     1110              X    X    X    X    X    X    X
+// DONE:       XOR    1111              X    X    X    X    X    X    X
 // --------------------------------------------------------------------------------------
 // X = Addressing mode implemented
 // . = Addressing mode makes no sense, TBD
@@ -534,6 +526,8 @@ start RST=1, INT=0, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 
 #define _INSTR(x) RST=1, INT=1, IN_RESERVED=X, OP=x
 
+#define LIA    _INSTR(0000), SUBOP=XXX, COND=X
+
 #define LJSR   _INSTR(0000), SUBOP=XXX, COND=X
 #define LJMP   _INSTR(0001), SUBOP=XXX, COND=X
 #define JMP    _INSTR(0010), SUBOP=XXX, COND=X
@@ -567,8 +561,8 @@ start RST=1, INT=0, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 #define SMB    _INSTR(0111), I=1, R=0, SUBOP=101, COND=X, IDX=XX // Set an Memory Bank Register
 //#define      _INSTR(0111), I=1, R=0, SUBOP=110, COND=X, IDX=XX // This is available
 //#define IND  _INSTR(0111), I=1, R=0, SUBOP=111, COND=X, IDX=XX // THIS IS IND R (SEE BELOW)
-//#define      _INSTR(0111), I=1, R=1, SUBOP=000, COND=X, IDX=XX // This is available
-//#define      _INSTR(0111), I=1, R=1, SUBOP=001, COND=X, IDX=XX // This is available
+#define JPA    _INSTR(0111), I=1, R=1, SUBOP=000, COND=X, IDX=XX
+#define JSA    _INSTR(0111), I=1, R=1, SUBOP=001, COND=X, IDX=XX
 //#define      _INSTR(0111), I=1, R=1, SUBOP=010, COND=X, IDX=XX // This is available
 //#define      _INSTR(0111), I=1, R=1, SUBOP=011, COND=X, IDX=XX // This is available
 //#define      _INSTR(0111), I=1, R=1, SUBOP=100, COND=X, IDX=XX // This is available
@@ -579,8 +573,6 @@ start RST=1, INT=0, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 #define LOAD   _INSTR(1000), SUBOP=XXX, COND=X
 #define STORE  _INSTR(1001), SUBOP=XXX, COND=X
 #define ISZ    _INSTR(1010), SUBOP=XXX, COND=X
-
-#define LIA    _INSTR(1011), SUBOP=XXX, COND=X
 
 #define ADD    _INSTR(1100), SUBOP=XXX, COND=X
 #define AND    _INSTR(1101), SUBOP=XXX, COND=X
@@ -627,24 +619,22 @@ start LIA, I=0, R=1, IDX=XX;
 // LIA instruction, which makes no sense with I=0.
 
 // ③ LJSR (always with I=1), local indirect addressing mode.
-// Note: despite I=0, this is an indirect mode.
 start LJSR, I=1, R=0, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]      
       STACK_PUSH(mbp);				// 02 mem[SP++] ← MBP     
       STACK_PUSH(pc);				// 04 mem[SP++] ← PC      
       SET(dr, agl);				// 06                     
-      MEMREAD_LOCAL(agl, pc), /action_incdr;	// 07 PC ← mem[MBP:AGL]   
-      MEMREAD_LOCAL(dr, mbp), END;		// 09 MBP ← mem[MBP:AGL+1]
+      MEMREAD(mbp, agl, pc), /action_incdr;	// 07 PC ← mem[MBP:AGL]   
+      MEMREAD(mbp, dr, mbp), END;		// 09 MBP ← mem[MBP:AGL+1]
 
 // ④ LJSR (always with I=1), register indirect addressing mode.
-// Note: despite I=0, this is an indirect mode.
 start LJSR, I=1, R=1, IDX=IDX_REG;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       STACK_PUSH(mbp);				// 02 mem[SP++] ← MBP
       STACK_PUSH(pc);				// 04 mem[SP++] ← PC
       SET(dr, agl);				// 06
-      MEMREAD_PAGE0(agl, pc), /action_incdr;	// 07 PC ← mem[MBD:AGL]
-      MEMREAD_PAGE0(dr, mbp), END;		// 09 MBP ← mem[MBD:AGL+1]
+      MEMREAD(mbz, agl, pc), /action_incdr;	// 07 PC ← mem[MBZ:AGL]
+      MEMREAD(mbz, dr, mbp), END;		// 09 MBP ← mem[MBZ:AGL+1]
 
 // ⑤ LJSR (always with I=1), register double indirect autoincrement addressing mode.
 // NOTE: If /action_incdr can happen fast enough, we can shave off two cycles here.
@@ -652,24 +642,24 @@ start LJSR, I=1, R=1, IDX=IDX_INC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       STACK_PUSH(mbp);				// 02 mem[SP++] ← MBP     
       STACK_PUSH(pc);				// 04 mem[SP++] ← PC      
-      MEMREAD_PAGE0(agl, dr);	                // 06 DR ← mem[MBD:AGL]
-      MEMREAD_PAGE0(dr, pc);	                // 08 PC ← mem[MBD:DR]
+      MEMREAD(mbz, agl, dr);	                // 06 DR ← mem[MBZ:AGL]
+      MEMREAD(mbd, dr, pc);	                // 08 PC ← mem[MBD:DR]
       /action_incdr;                            // 10 DR++
-      MEMREAD_PAGE0(dr, mbp);	                // 11 MBP ← mem[MBD:DR]
+      MEMREAD(mbd, dr, mbp);	                // 11 MBP ← mem[MBD:DR]
       /action_incdr;                            // 13 DR++
-      MEMWRITE_PAGE0(agl, dr), END;             // 14 mem[MBD:AGL] ← DR
+      MEMWRITE(mbz, agl, dr), END;               // 14 mem[MBZ:AGL] ← DR
 
 // ⑥ LJSR (always with I=1), register indirect autodecrement addressing mode.
 start LJSR, I=1, R=1, IDX=IDX_DEC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       STACK_PUSH(mbp);				// 02 mem[SP++] ← MBP     
       STACK_PUSH(pc);				// 04 mem[SP++] ← PC      
-      MEMREAD_PAGE0(agl, dr);	                // 06 DR ← mem[MBD:AGL]
-      MEMREAD_PAGE0(dr, mbp);	                // 08 MBP ← mem[MBD:DR]
+      MEMREAD(mbz, agl, dr);	                // 06 DR ← mem[MBZ:AGL]
+      MEMREAD(mbd, dr, mbp);	                // 08 MBP ← mem[MBD:DR]
       /action_decdr;                            // 10 DR--
-      MEMREAD_PAGE0(dr, pc);	                // 11 PC ← mem[MBD:DR]
+      MEMREAD(mbd, dr, pc);	                // 11 PC ← mem[MBD:DR]
       /action_decdr;                            // 13 DR--
-      MEMWRITE_PAGE0(agl, dr), END;             // 14 mem[MBD:AGL] ← DR
+      MEMWRITE(mbz, agl, dr), END;               // 14 mem[MBZ:AGL] ← DR
 
 // ⑦ LJSR (always with I=1), register indirect stack addressing mode.
 // NOTE: Pops pairs of (MBP, PC) tuples off a stack and jumps to
@@ -678,12 +668,12 @@ start LJSR, I=1, R=1, IDX=IDX_SP;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       STACK_PUSH(mbp);				// 02 mem[SP++] ← MBP     
       STACK_PUSH(pc);				// 04 mem[SP++] ← PC      
-      MEMREAD_PAGE0(dr, pc);	                // 06 MBP ← mem[MBD:DR]
-      MEMREAD_PAGE0(agl, dr);	                // 08 DR ← mem[MBD:AGL]
+      MEMREAD(mbz, dr, pc);	                // 06 MBP ← mem[MBD:DR]
+      MEMREAD(mbd, agl, dr);	                // 08 DR ← mem[MBD:AGL]
       /action_decdr;                            // 10 DR--
-      MEMREAD_PAGE0(dr, mbp);	                // 11 PC ← mem[MBD:DR]
+      MEMREAD(mbd, dr, mbp);	                // 11 PC ← mem[MBD:DR]
       /action_decdr;                            // 13 DR--
-      MEMWRITE_PAGE0(agl, dr), END;             // 14 mem[MBD:AGL] ← DR
+      MEMWRITE(mbz, agl, dr), END;               // 14 mem[MBD:AGL] ← DR
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -700,37 +690,37 @@ start LJSR, I=1, R=1, IDX=IDX_SP;
 start LJMP, I=1, R=0, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       SET(dr, agl);				// 02 DR ← AGL
-      MEMREAD_LOCAL(agl, pc), /action_incdr;	// 03 PC ← mem[MBP:AGL]; DR++
-      MEMREAD_LOCAL(dr, mbp), END;		// 05 MBP ← mem[MBP:AGL+1]
+      MEMREAD(mbp, agl, pc), /action_incdr;	// 03 PC ← mem[MBP:AGL]; DR++
+      MEMREAD(mbp, dr, mbp), END;		// 05 MBP ← mem[MBP:AGL+1]
 
 // ④ LJMP (always with I=1), register indirect addressing mode.
 start LJMP, I=1, R=1, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       SET(dr, agl);				// 02 DR ← AGL
-      MEMREAD_PAGE0(agl, pc), /action_incdr;	// 03 PC ← mem[MBD:AGL]; DR++
-      MEMREAD_PAGE0(dr, mbp), END;		// 05 MBP ← mem[MBD:AGL+1]
+      MEMREAD(mbz, agl, pc), /action_incdr;	// 03 PC ← mem[MBZ:AGL]; DR++
+      MEMREAD(mbz, dr, mbp), END;		// 05 MBP ← mem[MBZ:AGL+1]
 
 // ⑤ LJMP (always with I=1), register double indirect autoincrement addressing mode.
 // NOTE: If /action_incdr can happen fast enough, we can shave off two cycles here.
 start LJMP, I=1, R=1, IDX=IDX_INC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_PAGE0(agl, dr);	                // 02 DR ← mem[MBD:AGL]
-      MEMREAD_PAGE0(dr, pc);	                // 04 PC ← mem[MBD:DR]
+      MEMREAD(mbz, agl, dr);	                // 02 DR ← mem[MBZ:AGL]
+      MEMREAD(mbd, dr, pc);	                // 04 PC ← mem[MBD:DR]
       /action_incdr;                            // 06 DR++
-      MEMREAD_PAGE0(dr, mbp);	                // 07 MBP ← mem[MBD:DR]
+      MEMREAD(mbd, dr, mbp);	                // 07 MBP ← mem[MBD:DR]
       /action_incdr;                            // 09 DR++
-      MEMWRITE_PAGE0(agl, dr), END;             // 10 mem[MBD:AGL] ← DR
+      MEMWRITE(mbz, agl, dr), END;               // 10 mem[MBZ:AGL] ← DR
 
 
 // ⑥ LJMP (always with I=1), register indirect autodecrement addressing mode.
 start LJMP, I=1, R=1, IDX=IDX_DEC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_PAGE0(agl, dr);	                // 02 DR ← mem[MBD:AGL]
-      MEMREAD_PAGE0(dr, mbp);	                // 04 MBP ← mem[MBD:DR]
+      MEMREAD(mbz, agl, dr);	                // 02 DR ← mem[MBD:AGL]
+      MEMREAD(mbd, dr, mbp);	                // 04 MBP ← mem[MBD:DR]
       /action_decdr;                            // 06 DR--
-      MEMREAD_PAGE0(dr, pc);	                // 07 PC ← mem[MBD:DR]
+      MEMREAD(mbd, dr, pc);	                // 07 PC ← mem[MBD:DR]
       /action_decdr;                            // 09 DR--
-      MEMWRITE_PAGE0(agl, dr), END;             // 10 mem[MBD:AGL] ← DR
+      MEMWRITE(mbz, agl, dr), END;               // 10 mem[MBD:AGL] ← DR
 
 
 // ⑦ LJMP (always with I=1), register indirect stack addressing mode.
@@ -738,12 +728,12 @@ start LJMP, I=1, R=1, IDX=IDX_DEC;
 // them. Push MBP onto the stack first.
 start LJMP, I=1, R=1, IDX=IDX_SP;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_PAGE0(agl, dr);	                // 02 DR ← mem[MBD:AGL]
-      MEMREAD_PAGE0(dr, pc);	                // 04 PC ← mem[MBD:DR]
+      MEMREAD(mbz, agl, dr);	                // 02 DR ← mem[MBD:AGL]
+      MEMREAD(mbd, dr, pc);	                // 04 PC ← mem[MBD:DR]
       /action_decdr;                            // 06 DR--
-      MEMREAD_PAGE0(dr, mbp);	                // 07 MBP ← mem[MBD:DR]
+      MEMREAD(mbd, dr, mbp);	                // 07 MBP ← mem[MBD:DR]
       /action_decdr;                            // 09 DR--
-      MEMWRITE_PAGE0(agl, dr), END;             // 10 mem[MBD:AGL] ← DR
+      MEMWRITE(mbz, agl, dr), END;               // 10 mem[MBD:AGL] ← DR
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -752,7 +742,9 @@ start LJMP, I=1, R=1, IDX=IDX_SP;
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-// ① & ②, local address addressing mode
+// ① & ②, local address addressing mode and register addressing mode
+// Note: with R=0, the address jumped to is relative to MBP, not MBZ!
+// TODO: examine if this should be fixed, and whether a fix is feasible.
 start JMP, I=0, R=X, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       SET(pc, agl), END;			// 02 PC ← AGL
@@ -760,35 +752,35 @@ start JMP, I=0, R=X, IDX=XX;
 // ③ JMP, local indirect addressing mode.
 start JMP, I=1, R=0, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_PROGRAM(agl, pc), END;		// 02 PC ← mem[MBP:AGL]
+      MEMREAD(mbp, agl, pc), END;		// 02 PC ← mem[MBP:AGL]
 
 // ④ JMP, register indirect addressing mode.
 start JMP, I=1, R=1, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_PAGE0(agl, pc), END;		// 02 PC ← mem[MBD:AGL]
+      MEMREAD(mbz, agl, pc), END;		// 02 PC ← mem[MBZ:AGL]
 
 // ⑤ JMP, double register indirect autoincrement addressing mode.
 start JMP, I=1, R=1, IDX=IDX_INC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_PAGE0(agl, dr);			// 02 DR ← mem[MBD:AGL]
-      MEMREAD_DATA(dr, pc), /action_incdr;	// 04 PC ← mem[MBD:DR]; DR++;
-      MEMWRITE_PAGE0(agl, dr), END;             // 06 mem[MBD:AGL] ← DR
+      MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
+      MEMREAD(mbp, dr, pc), /action_incdr;	// 04 PC ← mem[MBP:DR]; DR++;
+      MEMWRITE(mbz, agl, dr), END;               // 06 mem[MBD:AGL] ← DR
 
 // ⑥ JMP, double register indirect autodecrement addressing mode.
 start JMP, I=1, R=1, IDX=IDX_DEC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_PAGE0(agl, dr);			// 02 DR ← mem[MBD:AGL]
-      MEMREAD_DATA(dr, pc), /action_decdr;	// 04 PC ← mem[MBD:DR]; DR++;
-      MEMWRITE_PAGE0(agl, dr), END;             // 06 mem[MBD:AGL] ← DR
+      MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
+      MEMREAD(mbp, dr, pc), /action_decdr;	// 04 PC ← mem[MBP:DR]; DR--;
+      MEMWRITE(mbz, agl, dr), END;               // 06 mem[MBZ:AGL] ← DR
 
-// ⑦ JMP, double register indirect autoincrement addressing mode.
-// NOTE: behaves like ⑥, popping subroutine locations from a stack
-// register and jumping to them.
+// ⑦ JMP, double register indirect stack addressing mode.
+// Pops a 16-bit value from the specified stack register and jumps to it.
 start JMP, I=1, R=1, IDX=IDX_SP;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_PAGE0(agl, dr);			// 02 DR ← mem[MBD:AGL]
-      MEMREAD_DATA(dr, pc), /action_decdr;	// 04 PC ← mem[MBD:DR]; DR++;
-      MEMWRITE_PAGE0(agl, dr), END;             // 06 mem[MBD:AGL] ← DR
+      MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
+      /action_decdr;                            // 04 DR--;
+      MEMREAD(mbp, dr, pc);	                // 05 PC ← mem[MBP:DR]
+      MEMWRITE(mbz, agl, dr), END;               // 07 mem[MBZ:AGL] ← DR
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -797,39 +789,39 @@ start JMP, I=1, R=1, IDX=IDX_SP;
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-// ① & ② JSR, local address addressing mode
+// ① & ② JSR, local address addressing mode and register addressing mode
 start JSR, I=0, R=X, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      STACK_PUSH(pc);				// 02 mem[SP++] ← PC; CLI
+      STACK_PUSH(pc);				// 02 mem[SP++] ← PC
       SET(pc, agl), END;			// 04 PC ← AGL
 
 // ③ JSR, local indirect address addressing mode.
 start JSR, I=1, R=0, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       STACK_PUSH(pc);				// 02 mem[SP++] ← PC; CLI
-      MEMREAD_PROGRAM(agl, pc), END;		// 04 PC ← mem[MBP:AGL]
+      MEMREAD(mbp, agl, pc), END;		// 04 PC ← mem[MBP:AGL]
 
 // ④ JSR, register indirect address addressing mode.
 start JSR, I=1, R=1, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       STACK_PUSH(pc);				// 02 mem[SP++] ← PC; CLI
-      MEMREAD_PAGE0(agl, pc), END;		// 04 PC ← mem[MBD:AGL]
+      MEMREAD(mbz, agl, pc), END;		// 04 PC ← mem[MBZ:AGL]
 
 // ⑤ JSR, double register indirect autoincrement addressing mode.
 start JSR, I=1, R=1, IDX=IDX_INC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       STACK_PUSH(pc);				// 02 mem[SP++] ← PC; CLI
-      MEMREAD_PAGE0(agl, dr);			// 04 DR ← mem[MBD:AGL]
-      MEMREAD_DATA(dr, pc), /action_incdr;	// 06 PC ← mem[MBD:DR]; DR++;
-      MEMWRITE_PAGE0(agl, dr), END;		// 08 mem[MBD:AGL] ← DR
+      MEMREAD(mbz, agl, dr);			// 04 DR ← mem[MBZ:AGL]
+      MEMREAD(mbp, dr, pc), /action_incdr;	// 06 PC ← mem[MBP:DR]; DR++;
+      MEMWRITE(mbz, agl, dr), END;		// 08 mem[MBZ:AGL] ← DR
 
 // ⑥ JSR, double register indirect autodecrement addressing mode.
 start JSR, I=1, R=1, IDX=IDX_DEC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       STACK_PUSH(pc);				// 02 mem[SP++] ← PC; CLI
-      MEMREAD_PAGE0(agl, dr);			// 04 DR ← mem[MBD:AGL]
-      MEMREAD_DATA(dr, pc), /action_decdr;	// 06 AC ← mem[MBD:DR]; DR++;
-      MEMWRITE_PAGE0(agl, dr), END;		// 08 mem[MBD:AGL] ← DR
+      MEMREAD(mbz, agl, dr);			// 04 DR ← mem[MBZ:AGL]
+      MEMREAD(mbp, dr, pc), /action_decdr;	// 06 AC ← mem[MBP:DR]; DR--;
+      MEMWRITE(mbz, agl, dr), END;		// 08 mem[MBZ:AGL] ← DR
 
 // ⑦ JMP, double register indirect autoincrement addressing mode.
 // NOTE: behaves like ⑥, popping subroutine locations from a stack
@@ -837,9 +829,10 @@ start JSR, I=1, R=1, IDX=IDX_DEC;
 start JSR, I=1, R=1, IDX=IDX_SP;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       STACK_PUSH(pc);				// 02 mem[SP++] ← PC; CLI
-      MEMREAD_PAGE0(agl, dr);			// 04 DR ← mem[MBD:AGL]
-      MEMREAD_DATA(dr, pc), /action_decdr;	// 06 AC ← mem[MBD:DR]; DR++;
-      MEMWRITE_PAGE0(agl, dr), END;		// 08 mem[MBD:AGL] ← DR
+      MEMREAD(mbz, agl, dr);			// 04 DR ← mem[MBZ:AGL]
+      /action_decdr;				// 06 DR--
+      MEMREAD(mbp, dr, pc);	                // 07 AC ← mem[MBP:DR]; DR++;
+      MEMWRITE(mbz, agl, dr), END;		// 09 mem[MBZ:AGL] ← DR
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -853,62 +846,64 @@ start JSR, I=1, R=1, IDX=IDX_SP;
 // ① ISZ, local addressing mode.
 start ISZ, COND=1, I=0, R=0, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_LOCAL(agl, ac);	                // 02 AC ← mem[MBP:AGL]
+      MEMREAD(mbp, agl, ac);	                // 02 AC ← mem[MBP:AGL]
       /action_incac;				// 04 AC++;
-      MEMWRITE_LOCAL(agl, ac), if_z;            // 05 mem[MBP:AGL] ← AC
+      MEMWRITE(mbp, agl, ac), if_z;              // 05 mem[MBP:AGL] ← AC
       END;					// 07
 
 // ② ISZ, register addressing mode.
 start ISZ, COND=1, I=0, R=1, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_PAGE0(agl, ac);	                // 02 AC ← mem[MBD:AGL]
+      MEMREAD(mbz, agl, ac);	                // 02 AC ← mem[MBZ:AGL]
       /action_incac;				// 04 AC++;
-      MEMWRITE_PAGE0(agl, ac), if_z;            // 05 mem[MBD:AGL] ← AC
+      MEMWRITE(mbz, agl, ac), if_z;              // 05 mem[MBZ:AGL] ← AC
       END;					// 07
 
 // ③ ISZ, local indirect addressing mode.
 start ISZ, COND=1, I=1, R=0, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_LOCAL(agl, dr);			// 02 DR ← mem[MBP:AGL]
-      MEMREAD_PAGE0(dr, ac);	                // 04 AC ← mem[MBD:DR]
+      MEMREAD(mbp, agl, dr);			// 02 DR ← mem[MBP:AGL]
+      MEMREAD(mbd, dr, ac);	                // 04 AC ← mem[MBD:DR]
       /action_incac;				// 06 AC++;
-      MEMWRITE_PAGE0(dr, ac), if_z;		// 07 mem[MBD:DR] ← AC
+      MEMWRITE(mbd, dr, ac), if_z;		// 07 mem[MBD:DR] ← AC
       END;					// 09
 
 // ④ ISZ, register indirect addressing mode.
 start ISZ, COND=1, I=1, R=1, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_PAGE0(agl, dr);			// 02 DR ← mem[MBD:AGL]
-      MEMREAD_DATA(dr, ac);	                // 04 AC ← mem[MBD:DR]
+      MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
+      MEMREAD(mbd, dr, ac);	                // 04 AC ← mem[MBD:DR]
       /action_incac;				// 06 AC++;
-      MEMWRITE_DATA(dr, ac), if_z;		// 07 mem[MBD:DR] ← AC
+      MEMWRITE(mbd, dr, ac), if_z;		// 07 mem[MBD:DR] ← AC
       END;					// 09
 
 // ⑤ ISZ, register indirect autoincrement addressing mode.
 start ISZ, COND=1, I=1, R=1, IDX=IDX_INC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_PAGE0(agl, dr);			// 02 DR ← mem[MBD:AGL]
-      MEMREAD_DATA(dr, ac);	                // 04 AC ← mem[MBD:DR]
+      MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
+      MEMREAD(mbd, dr, ac);	                // 04 AC ← mem[MBD:DR]
       /action_incac;				// 06 AC++;
-      MEMWRITE_DATA(dr, ac), if_z;		// 07 mem[MBD:DR] ← AC
+      MEMWRITE(mbd, dr, ac), if_z;		// 07 mem[MBD:DR] ← AC
       END;					// 09
 
 // ⑥ ISZ, register indirect autodecrement addressing mode.
 start ISZ, COND=1, I=1, R=1, IDX=IDX_DEC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_PAGE0(agl, dr);			// 02 DR ← mem[MBD:AGL]
-      MEMREAD_DATA(dr, ac);	                // 04 AC ← mem[MBD:DR]
+      MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
+      MEMREAD(mbd, dr, ac);	                // 04 AC ← mem[MBD:DR]
       /action_decac;				// 06 AC--;
-      MEMWRITE_DATA(dr, ac), if_z;		// 07 mem[MBD:DR] ← AC
+      MEMWRITE(mbd, dr, ac), if_z;		// 07 mem[MBD:DR] ← AC
       END;					// 09
 
-// ⑦ ISZ, register indirect stack addressing mode.
+// ⑦ ISZ, register indirect stack addressing mode.  This technically
+// pops a value from the stack and writes it back. With no net change
+// in the stack pointer register, we don't need to increment or decrement.
 start ISZ, COND=1, I=1, R=1, IDX=IDX_SP;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_PAGE0(agl, dr);			// 02 DR ← mem[MBD:AGL]
-      MEMREAD_DATA(dr, ac);	                // 04 AC ← mem[MBD:DR]
+      MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
+      MEMREAD(mbd, dr, ac);	                // 04 AC ← mem[MBD:DR]
       /action_decac;				// 06 AC--;
-      MEMWRITE_DATA(dr, ac), if_z;		// 07 mem[MBD:DR] ← AC
+      MEMWRITE(mbd, dr, ac), if_z;		// 07 mem[MBD:DR] ← AC
       END;					// 09
 
 // And now the same, with skips taken: /action_incpc is executed in
@@ -917,62 +912,62 @@ start ISZ, COND=1, I=1, R=1, IDX=IDX_SP;
 // ① ISZ, local addressing mode.
 start ISZ, COND=0, I=0, R=0, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_LOCAL(agl, ac);	                // 02 AC ← mem[MBP:AGL]
+      MEMREAD(mbp, agl, ac);	                // 02 AC ← mem[MBP:AGL]
       /action_incac;				// 04 AC++;
-      MEMWRITE_LOCAL(agl, ac), if_z;            // 05 mem[MBP:AGL] ← AC
+      MEMWRITE(mbp, agl, ac), if_z;              // 05 mem[MBP:AGL] ← AC
       END;					// 07
 
 // ② ISZ, register addressing mode.
 start ISZ, COND=0, I=0, R=1, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_PAGE0(agl, ac);	                // 02 AC ← mem[MBD:AGL]
+      MEMREAD(mbz, agl, ac);	                // 02 AC ← mem[MBZ:AGL]
       /action_incac;				// 04 AC++;
-      MEMWRITE_PAGE0(agl, ac), if_z;            // 05 mem[MBD:AGL] ← AC
+      MEMWRITE(mbz, agl, ac), if_z;              // 05 mem[MBZ:AGL] ← AC
       /action_incpc, END;			// 07 PC++;
 
 // ③ ISZ, local indirect addressing mode.
 start ISZ, COND=0, I=1, R=0, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_LOCAL(agl, dr);			// 02 DR ← mem[MBP:AGL]
-      MEMREAD_PAGE0(dr, ac);	                // 04 AC ← mem[MBD:DR]
+      MEMREAD(mbp, agl, dr);			// 02 DR ← mem[MBP:AGL]
+      MEMREAD(mbd, dr, ac);	                // 04 AC ← mem[MBD:DR]
       /action_incac;				// 06 AC++;
-      MEMWRITE_PAGE0(dr, ac), if_z;		// 07 mem[MBD:DR] ← AC
+      MEMWRITE(mbd, dr, ac), if_z;		// 07 mem[MBD:DR] ← AC
       /action_incpc, END;			// 09 PC++;
 
 // ④ ISZ, register indirect addressing mode.
 start ISZ, COND=0, I=1, R=1, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_PAGE0(agl, dr);			// 02 DR ← mem[MBD:AGL]
-      MEMREAD_DATA(dr, ac);	                // 04 AC ← mem[MBD:DR]
+      MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
+      MEMREAD(mbd, dr, ac);	                // 04 AC ← mem[MBD:DR]
       /action_incac;				// 06 AC++;
-      MEMWRITE_DATA(dr, ac), if_z;		// 07 mem[MBD:DR] ← AC
+      MEMWRITE(mbd, dr, ac), if_z;		// 07 mem[MBD:DR] ← AC
       /action_incpc, END;			// 09 PC++;
 
 // ⑤ ISZ, register indirect autoincrement addressing mode.
 start ISZ, COND=0, I=1, R=1, IDX=IDX_INC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_PAGE0(agl, dr);			// 02 DR ← mem[MBD:AGL]
-      MEMREAD_DATA(dr, ac);	                // 04 AC ← mem[MBD:DR]
+      MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
+      MEMREAD(mbd, dr, ac);	                // 04 AC ← mem[MBD:DR]
       /action_incac;				// 06 AC++;
-      MEMWRITE_DATA(dr, ac), if_z;		// 07 mem[MBD:DR] ← AC
+      MEMWRITE(mbd, dr, ac), if_z;		// 07 mem[MBD:DR] ← AC
       /action_incpc, END;			// 09 PC++;
 
 // ⑥ ISZ, register indirect autodecrement addressing mode.
 start ISZ, COND=0, I=1, R=1, IDX=IDX_DEC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_PAGE0(agl, dr);			// 02 DR ← mem[MBD:AGL]
-      MEMREAD_DATA(dr, ac);	                // 04 AC ← mem[MBD:DR]
+      MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
+      MEMREAD(mbd, dr, ac);	                // 04 AC ← mem[MBD:DR]
       /action_decac;				// 06 AC--;
-      MEMWRITE_DATA(dr, ac), if_z;		// 07 mem[MBD:DR] ← AC
+      MEMWRITE(mbd, dr, ac), if_z;		// 07 mem[MBD:DR] ← AC
       /action_incpc, END;			// 09 PC++;
 
 // ⑦ ISZ, register indirect stack addressing mode.
 start ISZ, COND=0, I=1, R=1, IDX=IDX_SP;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_PAGE0(agl, dr);			// 02 DR ← mem[MBD:AGL]
-      MEMREAD_DATA(dr, ac);	                // 04 AC ← mem[MBD:DR]
+      MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
+      MEMREAD(mbd, dr, ac);	                // 04 AC ← mem[MBD:DR]
       /action_decac;				// 06 AC--;
-      MEMWRITE_DATA(dr, ac), if_z;		// 07 mem[MBD:DR] ← AC
+      MEMWRITE(mbd, dr, ac), if_z;		// 07 mem[MBD:DR] ← AC
       /action_incpc, END;			// 09 PC++;
 
 
@@ -985,45 +980,48 @@ start ISZ, COND=0, I=1, R=1, IDX=IDX_SP;
 // ① LOAD, local addressing mode.
 start LOAD, I=0, R=0, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_LOCAL(agl, ac), END;		// 02 AC ← mem[MBP:AGL]
+      MEMREAD(mbp, agl, ac), END;		// 02 AC ← mem[MBP:AGL]
 
 // ② LOAD, register addressing mode.
 start LOAD, I=0, R=1, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_PAGE0(agl, ac), END;		// 02 AC ← mem[MBD:AGL]
+      MEMREAD(mbz, agl, ac), END;		// 02 AC ← mem[MBZ:AGL]
 
 // ③ LOAD, local indirect addressing mode.
 start LOAD, I=1, R=0, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_LOCAL(agl, dr);			// 02 DR ← mem[MBP:AGL]
-      MEMREAD_DATA(dr, ac), END;		// 04 AC ← mem[MBD:DR]
+      MEMREAD(mbp, agl, dr);			// 02 DR ← mem[MBP:AGL]
+      MEMREAD(mbd, dr, ac), END;			// 04 AC ← mem[MBD:DR]
 
 // ④ LOAD, register indirect addressing mode.
 start LOAD, I=1, R=1, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_PAGE0(agl, dr);			// 02 DR ← mem[MBD:AGL]
-      MEMREAD_DATA(dr, ac), END;		// 04 AC ← mem[MBD:DR]
+      MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
+      MEMREAD(mbd, dr, ac), END;			// 04 AC ← mem[MBD:DR]
 
 // ⑤ LOAD, register indirect autoincrement addressing mode.
+// TODO: /action_incdr might need to be in a processor cycle of its own!
 start LOAD, I=1, R=1, IDX=IDX_INC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_PAGE0(agl, dr);			// 02 DR ← mem[MBD:AGL]
-      MEMREAD_DATA(dr, ac), /action_incdr;	// 04 AC ← mem[MBD:DR]; DR++;
-      MEMWRITE_PAGE0(agl, dr), END;		// 06 mem[MBD:AGL] ← DR
+      MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
+      MEMREAD(mbd, dr, ac), /action_incdr;	// 04 AC ← mem[MBD:DR]; DR++;
+      MEMWRITE(mbz, agl, dr), END;		// 06 mem[MBZ:AGL] ← DR
 
 // ⑥ LOAD, register indirect autodecrement addressing mode.
+// TODO: /action_incdr might need to be in a processor cycle of its own!
 start LOAD, I=1, R=1, IDX=IDX_DEC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_PAGE0(agl, dr);			// 02 DR ← mem[MBD:AGL]
-      MEMREAD_DATA(dr, ac), /action_decdr;	// 04 AC ← mem[MBD:DR]; DR--;
-      MEMWRITE_PAGE0(agl, dr), END;		// 06 mem[MBD:AGL] ← DR
+      MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
+      MEMREAD(mbd, dr, ac), /action_decdr;	// 04 AC ← mem[MBD:DR]; DR--;
+      MEMWRITE(mbz, agl, dr), END;		// 06 mem[MBZ:AGL] ← DR
 
 // ⑦ LOAD, register indirect stack addressing mode.
 start LOAD, I=1, R=1, IDX=IDX_SP;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_PAGE0(agl, dr);			// 02 DR ← mem[MBD:AGL]
-      /action_decdr, MEMREAD_DATA(dr, ac);	// 04 DR--; AC ← mem[MBD:DR];
-      MEMWRITE_PAGE0(agl, dr), END;		// 06 mem[MBD:AGL] ← DR
+      MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
+      /action_decdr;				// 04 DR--
+      MEMREAD(mbd, dr, ac);	                // 05 AC ← mem[MBD:DR];
+      MEMWRITE(mbz, agl, dr), END;		// 06 mem[MBZ:AGL] ← DR
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1035,45 +1033,45 @@ start LOAD, I=1, R=1, IDX=IDX_SP;
 // ① STORE, local addressing mode.
 start STORE, I=0, R=0, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMWRITE_LOCAL(agl, ac), END;		// 02 mem[MBP:AGL] ← AC
+      MEMWRITE(mbp, agl, ac), END;		// 02 mem[MBP:AGL] ← AC
 
 // ② STORE, register addressing mode.
 start STORE, I=0, R=1, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMWRITE_PAGE0(agl, ac), END;		// 02 mem[MBD:AGL] ← AC
+      MEMWRITE(mbz, agl, ac), END;		// 02 mem[MBZ:AGL] ← AC
 
 // ③ STORE, local indirect addressing mode.
 start STORE, I=1, R=0, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_LOCAL(agl, dr);			// 02 DR ← mem[MBP:AGL]
-      MEMWRITE_DATA(dr, ac), END;		// 04 mem[MBD:DR] ← AC
+      MEMREAD(mbp, agl, dr);			// 02 DR ← mem[MBP:AGL]
+      MEMWRITE(mbd, dr, ac), END;		// 04 mem[MBD:DR] ← AC
 
 // ④ STORE, register indirect addressing mode.
 start STORE, I=1, R=1, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_PAGE0(agl, dr);			// 02 DR ← mem[MBD:AGL]
-      MEMWRITE_DATA(dr, ac), END;		// 04 mem[MBD:DR] ← AC
+      MEMREAD(mbp, agl, dr);			// 02 DR ← mem[MBP:AGL]
+      MEMWRITE(mbz, dr, ac), END;		// 04 mem[MBZ:DR] ← AC
 
 // ⑤ STORE, register indirect autoincrement addressing mode.
 start STORE, I=1, R=1, IDX=IDX_INC;
       FETCH_IR;			                // 00 IR ← mem[PC++]p
-      MEMREAD_PAGE0(agl, dr);			// 02 DR ← mem[MBD:AGL]
-      MEMWRITE_DATA(dr, ac), /action_incdr;	// 04 AC ← mem[MBD:DR]; DR++;
-      MEMWRITE_PAGE0(agl, dr), END;		// 06 mem[MBD:AGL] ← DR
+      MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
+      MEMWRITE(mbd, dr, ac), /action_incdr;	// 04 AC ← mem[MBD:DR]; DR++;
+      MEMWRITE(mbz, agl, dr), END;		// 06 mem[MBZ:AGL] ← DR
 
 // ⑥ STORE, register indirect autodecrement addressing mode.
 start STORE, I=1, R=1, IDX=IDX_DEC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_PAGE0(agl, dr);			// 02 DR ← mem[MBD:AGL]
-      MEMWRITE_DATA(dr, ac), /action_decdr;	// 04 mem[MBD:DR] ← AC; DR--;
-      MEMWRITE_PAGE0(agl, dr);			// 06 mem[MBD:AGL] ← DR
+      MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
+      MEMWRITE(mbd, dr, ac), /action_decdr;	// 04 mem[MBD:DR] ← AC; DR--;
+      MEMWRITE(mbz, agl, dr);			// 06 mem[MBZ:AGL] ← DR
 
 // ⑦ STORE, register indirect stack addressing mode.
 start STORE, I=1, R=1, IDX=IDX_SP;
-      FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_PAGE0(agl, dr);			// 02 DR ← mem[MBD:AGL]
-      MEMWRITE_DATA(dr, ac), /action_incdr;	// 04 AC ← mem[MBD:DR]; DR++;
-      MEMWRITE_PAGE0(agl, dr), END;		// 06 mem[MBD:AGL] ← DR
+      FETCH_IR;			                // 00 IR ← mem[PC++]p
+      MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
+      MEMWRITE(mbd, dr, ac), /action_incdr;	// 04 AC ← mem[MBD:DR]; DR++;
+      MEMWRITE(mbz, agl, dr), END;		// 06 mem[MBZ:AGL] ← DR
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1100,35 +1098,35 @@ start IN, I=0, R=1, IDX=XX;
 // TODO: This addressing mode is pointless. Reuse microprogram?
 start IN, I=1, R=0, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_LOCAL(agl, dr);			// 02 DR ← mem[MBP:AGL]
+      MEMREAD(mbp, agl, dr);			// 02 DR ← mem[MBP:AGL]
       IOREAD(dr, ac), END;      		// 04 AC ← io[DR]
 
 // ④ IN, indirect addressing mode.
 start IN, I=1, R=1, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_PAGE0(agl, dr);			// 02 DR ← mem[MBD:AGL]
+      MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
       IOREAD(dr, ac), END;		        // 04 AC ← io[DR]
 
 // ⑤ IN, indirect autoincrement addressing mode.
 start IN, I=1, R=1, IDX=IDX_INC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_PAGE0(agl, dr);			// 02 DR ← mem[MBD:AGL]
+      MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBD:AGL]
       IOREAD(dr, ac), /action_incdr;		// 04 AC ← io[DR]; DR++
-      MEMWRITE_PAGE0(agl, dr), END;		// 06 mem[MBD:AGL] ← DR
+      MEMWRITE(mbz, agl, dr), END;		// 06 mem[MBD:AGL] ← DR
 
 // ⑥ IN, indirect autodecrement addressing mode.
 start IN, I=1, R=1, IDX=IDX_DEC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_PAGE0(agl, dr);			// 02 DR ← mem[MBD:AGL]
+      MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
       IOREAD(dr, ac), /action_decdr;		// 04 AC ← io[DR]; DR--;
-      MEMWRITE_PAGE0(agl, dr), END;		// 06 mem[MBD:AGL] ← DR
+      MEMWRITE(mbz, agl, dr), END;		// 06 mem[MBZ:AGL] ← DR
 
 // ⑦ IN, indirect stack addressing mode.
 start IN, I=1, R=1, IDX=IDX_SP;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_PAGE0(agl, dr);			// 02 DR ← mem[MBD:AGL]
+      MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
       /action_decdr, IOREAD(dr, ac);		// 04 DR--; AC ← io[DR];
-      MEMWRITE_PAGE0(agl, dr), END;		// 06 mem[MBD:AGL] ← DR
+      MEMWRITE(mbz, agl, dr), END;		// 06 mem[MBZ:AGL] ← DR
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1152,35 +1150,35 @@ start OUT, I=0, R=1, IDX=XX;
 // TODO: This addressing mode is pointless. Reuse microprogram?
 start OUT, I=1, R=0, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_LOCAL(agl, dr);			// 02 DR ← mem[MBP:AGL]
+      MEMREAD(mbp, agl, dr);			// 02 DR ← mem[MBP:AGL]
       IOWRITE(dr, ac), END;			// 04 io[DR] ← AC
 
 // ④ OUT, register indirect addressing mode.
 start OUT, I=1, R=1, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_PAGE0(agl, dr);			// 02 DR ← mem[MBD:AGL]
+      MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
       IOWRITE(dr, ac), END;			// 04 io[DR] ← AC
 
 // ⑤ OUT, register indirect autoincrement addressing mode.
 start OUT, I=1, R=1, IDX=IDX_INC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_PAGE0(agl, dr);			// 02 DR ← mem[MBD:AGL]
+      MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
       IOWRITE(dr, ac), /action_incdr;		// 04 AC ← io[DR]; DR++;
-      MEMWRITE_PAGE0(agl, dr), END;		// 06 mem[MBD:AGL] ← DR
+      MEMWRITE(mbz, agl, dr), END;		// 06 mem[MBZ:AGL] ← DR
 
 // ⑥ OUT, register indirect autodecrement addressing mode.
 start OUT, I=1, R=1, IDX=IDX_DEC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_PAGE0(agl, dr);			// 02 DR ← mem[MBD:AGL]
+      MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
       IOWRITE(dr, ac), /action_decdr;		// 04 io[DR] ← AC; DR--;
-      MEMWRITE_PAGE0(agl, dr);			// 06 mem[MBD:AGL] ← DR
+      MEMWRITE(mbz, agl, dr);			// 06 mem[MBZ:AGL] ← DR
 
 // ⑦ OUT, register indirect stack addressing mode.
 start OUT, I=1, R=1, IDX=IDX_SP;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_PAGE0(agl, dr);			// 02 DR ← mem[MBD:AGL]
+      MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
       IOWRITE(dr, ac), /action_incdr;		// 04 AC ← io[DR]; DR++;
-      MEMWRITE_PAGE0(agl, dr), END;		// 06 mem[MBD:AGL] ← DR
+      MEMWRITE(mbz, agl, dr), END;		// 06 mem[MBZ:AGL] ← DR
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1195,7 +1193,7 @@ start OUT, I=1, R=1, IDX=IDX_SP;
 // extension can also assert ENDEXT to skip past reading the AC. If they do
 // that, auto-increment and auto-decrement modes act as plain register modes.
 
-// First, without skips. Remember, SKIP is active low.
+// First, without skips. Remember, SKIP (aka COND) is active low.
 
 // ① IOT, local addressing mode.
 // TODO: This addressing mode is pointless. Reuse microprogram?
@@ -1214,39 +1212,38 @@ start IOT, COND=1, I=0, R=1, IDX=XX;
 // TODO: This addressing mode is pointless. Reuse microprogram?
 start IOT, COND=1, I=1, R=0, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_LOCAL(agl, dr);			// 02 DR ← mem[MBP:AGL]
+      MEMREAD(mbp, agl, dr);			// 02 DR ← mem[MBP:AGL]
       IOWRITE(dr, ac);				// 04 io[DR] ← AC
       IOREAD(dr, ac), END;			// 06 AC ← io[DR]
 
 // ④ IOT, register indirect addressing mode.
 start IOT, COND=1, I=1, R=1, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_PAGE0(agl, dr);			// 02 DR ← mem[MBD:AGL]
+      MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
       IOWRITE(dr, ac);				// 04 io[DR] ← AC
       IOREAD(dr, ac), END;			// 06 AC ← io[DR]
 
 // ⑤ IOT, register indirect autoincrement addressing mode.
 start IOT, COND=1, I=1, R=1, IDX=IDX_INC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_PAGE0(agl, dr);			// 02 DR ← mem[MBD:AGL]
+      MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
       IOWRITE(dr, ac), /action_incdr;		// 04 AC ← io[DR]; DR++;
       IOREAD(dr, ac);				// 06 AC ← io[DR]
-      MEMWRITE_PAGE0(agl, dr), END;		// 08 mem[MBD:AGL] ← DR
+      MEMWRITE(mbz, agl, dr), END;		// 08 mem[MBZ:AGL] ← DR
 
 // ⑥ IOT, register indirect autodecrement addressing mode.
 start IOT, COND=1, I=1, R=1, IDX=IDX_DEC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_PAGE0(agl, dr);			// 02 DR ← mem[MBD:AGL]
+      MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
       IOWRITE(dr, ac), /action_decdr;		// 04 io[DR] ← AC; DR--;
       IOREAD(dr, ac);				// 06 AC ← io[DR]
-      MEMWRITE_PAGE0(agl, dr);			// 08 mem[MBD:AGL] ← DR
+      MEMWRITE(mbz, agl, dr);			// 08 mem[MBZ:AGL] ← DR
 
 // ⑦ IOT, register indirect stack addressing mode.
-// Note: This acts like register indirect mode, so it's microcoded coded like
-// it too.
+// Note: This acts like register indirect mode, so it's microcoded like it too.
 start IOT, COND=1, I=1, R=1, IDX=IDX_SP;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_PAGE0(agl, dr);			// 02 DR ← mem[MBD:AGL]
+      MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
       IOWRITE(dr, ac);				// 04 io[DR] ← AC
       IOREAD(dr, ac), END;			// 06 AC ← io[DR]
 
@@ -1270,39 +1267,39 @@ start IOT, COND=0, I=0, R=1, IDX=XX;
 // TODO: This addressing mode is pointless. Reuse microprogram?
 start IOT, COND=0, I=1, R=0, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_LOCAL(agl, dr);			// 02 DR ← mem[MBP:AGL]
+      MEMREAD(mbp, agl, dr);			// 02 DR ← mem[MBP:AGL]
       IOWRITE(dr, ac);				// 04 io[DR] ← AC
       IOREAD(dr, ac), /action_incpc, END;	// 04 AC ← io[DR]; PC++
 
 // ④ IOT, register indirect addressing mode.
 start IOT, COND=0, I=1, R=1, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_PAGE0(agl, dr);			// 02 DR ← mem[MBD:AGL]
+      MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
       IOWRITE(dr, ac);				// 04 io[DR] ← AC
       IOREAD(dr, ac), /action_incpc, END;	// 04 AC ← io[DR]; PC++
 
 // ⑤ IOT, register indirect autoincrement addressing mode.
 start IOT, COND=0, I=1, R=1, IDX=IDX_INC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_PAGE0(agl, dr);			// 02 DR ← mem[MBD:AGL]
+      MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
       IOWRITE(dr, ac), /action_incdr;		// 04 AC ← io[DR]; DR++;
       IOREAD(dr, ac);				// 06 AC ← io[DR]
-      MEMWRITE_PAGE0(agl, dr), /action_incpc, END; // 08 mem[MBD:AGL] ← DR; PC++
+      MEMWRITE(mbz, agl, dr), /action_incpc, END; // 08 mem[MBZ:AGL] ← DR; PC++
 
 // ⑥ IOT, register indirect autodecrement addressing mode.
 start IOT, COND=0, I=1, R=1, IDX=IDX_DEC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_PAGE0(agl, dr);			// 02 DR ← mem[MBD:AGL]
+      MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
       IOWRITE(dr, ac), /action_decdr;		// 04 io[DR] ← AC; DR--;
       IOREAD(dr, ac);				// 06 AC ← io[DR]
-      MEMWRITE_PAGE0(agl, dr), /action_incpc, END; // 08 mem[MBD:AGL] ← DR; PC++
+      MEMWRITE(mbz, agl, dr), /action_incpc, END; // 08 mem[MBD:AGL] ← DR; PC++
 
 // ⑦ IOT, register indirect stack addressing mode.
 // Note: This acts like register indirect mode, so it's microcoded coded like
 // it too.
 start IOT, COND=0, I=1, R=1, IDX=IDX_SP;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_PAGE0(agl, dr);			// 02 DR ← mem[MBD:AGL]
+      MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
       IOWRITE(dr, ac);				// 04 io[DR] ← AC
       IOREAD(dr, ac), /action_incpc, END;	// 06 AC ← io[DR]; PC++
 
@@ -1324,52 +1321,53 @@ start IOT, COND=0, I=1, R=1, IDX=IDX_SP;
 // ① ADD, local addressing mode.
 start ADD, I=0, R=0, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_LOCAL(agl, alu_b);                // 02 B ← mem[MBP:AGL]
+      MEMREAD(mbp, agl, alu_b);                  // 02 B ← mem[MBP:AGL]
       SET(ac, alu_add), END;			// 04 AC ← AC + B
 
 // ② ADD, register addressing mode.
 start ADD, I=0, R=1, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_PAGE0(agl, alu_b);                // 02 B ← mem[MBP:AGL]
+      MEMREAD(mbz, agl, alu_b);                  // 02 B ← mem[MBZ:AGL]
       SET(ac, alu_add), END;			// 04 AC ← AC + B
 
 // ③ ADD, local indirect addressing mode.
 start ADD, I=1, R=0, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_LOCAL(agl, dr);			// 02 DR ← mem[MBP:AGL]
-      MEMREAD_DATA(dr, alu_b);			// 04 AC ← mem[MBD:DR]
+      MEMREAD(mbp, agl, dr);			// 02 DR ← mem[MBP:AGL]
+      MEMREAD(mbd, dr, alu_b);			// 04 AC ← mem[MBD:DR]
       SET(ac, alu_add), END;			// 06 AC ← AC + B
 
 // ④ ADD, register indirect addressing mode.
 start ADD, I=1, R=1, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_PAGE0(agl, dr);			// 02 DR ← mem[MBD:AGL]
-      MEMREAD_DATA(dr, alu_b);			// 04 B ← mem[MBD:DR]
+      MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
+      MEMREAD(mbp, dr, alu_b);			// 04 B ← mem[MBP:DR]
       SET(ac, alu_add), END;			// 06 AC ← AC + B
 
 // ⑤ ADD, register indirect autoincrement addressing mode.
 start ADD, I=1, R=1, IDX=IDX_INC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_PAGE0(agl, dr);			// 02 DR ← mem[MBD:AGL]
-      MEMREAD_DATA(dr, alu_b), /action_incdr;	// 04 B ← mem[MBD:DR]; DR++;
-      MEMWRITE_PAGE0(agl, dr);	                // 06 mem[MBD:AGL] ← DR
+      MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
+      MEMREAD(mbd, dr, alu_b), /action_incdr;	// 04 B ← mem[MBD:DR]; DR++;
+      MEMWRITE(mbz, agl, dr);	                // 06 mem[MBZ:AGL] ← DR
       SET(ac, alu_add), END;			// 08 AC ← AC + B
 
 // ⑥ ADD, register indirect autodecrement addressing mode.
 start ADD, I=1, R=1, IDX=IDX_DEC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_PAGE0(agl, dr);			// 02 DR ← mem[MBD:AGL]
-      MEMREAD_DATA(dr, alu_b), /action_decdr;	// 04 B ← mem[MBD:DR]; DR--;
-      MEMWRITE_PAGE0(agl, dr);	                // 06 mem[MBD:AGL] ← DR
+      MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
+      MEMREAD(mbd, dr, alu_b), /action_decdr;	// 04 B ← mem[MBD:DR]; DR--;
+      MEMWRITE(mbz, agl, dr);	                // 06 mem[MBZ:AGL] ← DR
       SET(ac, alu_add), END;			// 08 AC ← AC + B
 
 // ⑦ ADD, register indirect stack addressing mode.
 start ADD, I=1, R=1, IDX=IDX_SP;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_PAGE0(agl, dr);			// 02 DR ← mem[MBD:AGL]
-      /action_decdr, MEMREAD_DATA(dr, alu_b);	// 04 DR--; B ← mem[MBD:DR];
-      MEMWRITE_PAGE0(agl, dr);	                // 06 mem[MBD:AGL] ← DR
-      SET(ac, alu_add), END;			// 08 AC ← AC + B
+      MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBD:AGL]
+      /action_decdr;			        // 04 DR--
+      MEMREAD(mbd, dr, alu_b);			// 05 B ← mem[MBD:DR];
+      MEMWRITE(mbz, agl, dr);	                // 07 mem[MBD:AGL] ← DR
+      SET(ac, alu_add), END;			// 09 AC ← AC + B
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1381,52 +1379,53 @@ start ADD, I=1, R=1, IDX=IDX_SP;
 // ① AND, local addressing mode.
 start AND, I=0, R=0, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_LOCAL(agl, alu_b);                // 02 B ← mem[MBP:AGL]
-      SET(ac, alu_and), END;			// 04 AC ← AC + B
+      MEMREAD(mbp, agl, alu_b);                  // 02 B ← mem[MBP:AGL]
+      SET(ac, alu_and), END;			// 04 AC ← AC & B
 
 // ② AND, register addressing mode.
 start AND, I=0, R=1, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_PAGE0(agl, alu_b);                // 02 B ← mem[MBP:AGL]
-      SET(ac, alu_and), END;			// 04 AC ← AC + B
+      MEMREAD(mbz, agl, alu_b);                  // 02 B ← mem[MBZ:AGL]
+      SET(ac, alu_and), END;			// 04 AC ← AC & B
 
 // ③ AND, local indirect addressing mode.
 start AND, I=1, R=0, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_LOCAL(agl, dr);			// 02 DR ← mem[MBP:AGL]
-      MEMREAD_DATA(dr, alu_b);			// 04 AC ← mem[MBD:DR]
-      SET(ac, alu_and), END;			// 06 AC ← AC + B
+      MEMREAD(mbp, agl, dr);			// 02 DR ← mem[MBP:AGL]
+      MEMREAD(mbd, dr, alu_b);			// 04 AC ← mem[MBD:DR]
+      SET(ac, alu_and), END;			// 06 AC ← AC & B
 
 // ④ AND, register indirect addressing mode.
 start AND, I=1, R=1, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_PAGE0(agl, dr);			// 02 DR ← mem[MBD:AGL]
-      MEMREAD_DATA(dr, alu_b);			// 04 B ← mem[MBD:DR]
-      SET(ac, alu_and), END;			// 06 AC ← AC + B
+      MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
+      MEMREAD(mbd, dr, alu_b);			// 04 B ← mem[MBD:DR]
+      SET(ac, alu_and), END;			// 06 AC ← AC & B
 
 // ⑤ AND, register indirect autoincrement addressing mode.
 start AND, I=1, R=1, IDX=IDX_INC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_PAGE0(agl, dr);			// 02 DR ← mem[MBD:AGL]
-      MEMREAD_DATA(dr, alu_b), /action_incdr;	// 04 B ← mem[MBD:DR]; DR++;
-      MEMWRITE_PAGE0(agl, dr);	                // 06 mem[MBD:AGL] ← DR
-      SET(ac, alu_and), END;			// 08 AC ← AC + B
+      MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
+      MEMREAD(mbd, dr, alu_b), /action_incdr;	// 04 B ← mem[MBD:DR]; DR++;
+      MEMWRITE(mbz, agl, dr);	                // 06 mem[MBZ:AGL] ← DR
+      SET(ac, alu_and), END;			// 08 AC ← AC & B
 
 // ⑥ AND, register indirect autodecrement addressing mode.
 start AND, I=1, R=1, IDX=IDX_DEC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_PAGE0(agl, dr);			// 02 DR ← mem[MBD:AGL]
-      MEMREAD_DATA(dr, alu_b), /action_decdr;	// 04 B ← mem[MBD:DR]; DR--;
-      MEMWRITE_PAGE0(agl, dr);	                // 06 mem[MBD:AGL] ← DR
-      SET(ac, alu_and), END;			// 08 AC ← AC + B
+      MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
+      MEMREAD(mbd, dr, alu_b), /action_decdr;	// 04 B ← mem[MBD:DR]; DR--;
+      MEMWRITE(mbz, agl, dr);	                // 06 mem[MBZ:AGL] ← DR
+      SET(ac, alu_and), END;			// 08 AC ← AC & B
 
 // ⑦ AND, register indirect stack addressing mode.
 start AND, I=1, R=1, IDX=IDX_SP;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_PAGE0(agl, dr);			// 02 DR ← mem[MBD:AGL]
-      /action_decdr, MEMREAD_DATA(dr, alu_b);	// 04 DR--; B ← mem[MBD:DR];
-      MEMWRITE_PAGE0(agl, dr);	                // 06 mem[MBD:AGL] ← DR
-      SET(ac, alu_and), END;			// 08 AC ← AC + B
+      MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
+      /action_decdr;			        // 04 DR--
+      MEMREAD(mbd, dr, alu_b);	                // 05 B ← mem[MBD:DR];
+      MEMWRITE(mbz, agl, dr);	                // 07 mem[MBZ:AGL] ← DR
+      SET(ac, alu_and), END;			// 09 AC ← AC & B
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1438,52 +1437,53 @@ start AND, I=1, R=1, IDX=IDX_SP;
 // ① OR, local addressing mode.
 start OR, I=0, R=0, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_LOCAL(agl, alu_b);                // 02 B ← mem[MBP:AGL]
-      SET(ac, alu_or), END;			// 04 AC ← AC + B
+      MEMREAD(mbp, agl, alu_b);                  // 02 B ← mem[MBP:AGL]
+      SET(ac, alu_or), END;			// 04 AC ← AC | B
 
 // ② OR, register addressing mode.
 start OR, I=0, R=1, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_PAGE0(agl, alu_b);                // 02 B ← mem[MBP:AGL]
-      SET(ac, alu_or), END;			// 04 AC ← AC + B
+      MEMREAD(mbz, agl, alu_b);                  // 02 B ← mem[MBZ:AGL]
+      SET(ac, alu_or), END;			// 04 AC ← AC | B
 
 // ③ OR, local indirect addressing mode.
 start OR, I=1, R=0, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_LOCAL(agl, dr);			// 02 DR ← mem[MBP:AGL]
-      MEMREAD_DATA(dr, alu_b);			// 04 AC ← mem[MBD:DR]
-      SET(ac, alu_or), END;			// 06 AC ← AC + B
+      MEMREAD(mbp, agl, dr);			// 02 DR ← mem[MBP:AGL]
+      MEMREAD(mbd, dr, alu_b);			// 04 AC ← mem[MBD:DR]
+      SET(ac, alu_or), END;			// 06 AC ← AC | B
 
 // ④ OR, register indirect addressing mode.
 start OR, I=1, R=1, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_PAGE0(agl, dr);			// 02 DR ← mem[MBD:AGL]
-      MEMREAD_DATA(dr, alu_b);			// 04 B ← mem[MBD:DR]
-      SET(ac, alu_or), END;			// 06 AC ← AC + B
+      MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
+      MEMREAD(mbz, dr, alu_b);			// 04 B ← mem[MBD:DR]
+      SET(ac, alu_or), END;			// 06 AC ← AC | B
 
 // ⑤ OR, register indirect autoincrement addressing mode.
 start OR, I=1, R=1, IDX=IDX_INC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_PAGE0(agl, dr);			// 02 DR ← mem[MBD:AGL]
-      MEMREAD_DATA(dr, alu_b), /action_incdr;	// 04 B ← mem[MBD:DR]; DR++;
-      MEMWRITE_PAGE0(agl, dr);	                // 06 mem[MBD:AGL] ← DR
-      SET(ac, alu_or), END;			// 08 AC ← AC + B
+      MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
+      MEMREAD(mbd, dr, alu_b), /action_incdr;	// 04 B ← mem[MBD:DR]; DR++;
+      MEMWRITE(mbz, agl, dr);	                // 06 mem[MBZ:AGL] ← DR
+      SET(ac, alu_or), END;			// 08 AC ← AC | B
 
 // ⑥ OR, register indirect autodecrement addressing mode.
 start OR, I=1, R=1, IDX=IDX_DEC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_PAGE0(agl, dr);			// 02 DR ← mem[MBD:AGL]
-      MEMREAD_DATA(dr, alu_b), /action_decdr;	// 04 B ← mem[MBD:DR]; DR--;
-      MEMWRITE_PAGE0(agl, dr);	                // 06 mem[MBD:AGL] ← DR
-      SET(ac, alu_or), END;			// 08 AC ← AC + B
+      MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
+      MEMREAD(mbd, dr, alu_b), /action_decdr;	// 04 B ← mem[MBD:DR]; DR--;
+      MEMWRITE(mbz, agl, dr);	                // 06 mem[MBZ:AGL] ← DR
+      SET(ac, alu_or), END;			// 08 AC ← AC | B
 
 // ⑦ OR, register indirect stack addressing mode.
 start OR, I=1, R=1, IDX=IDX_SP;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_PAGE0(agl, dr);			// 02 DR ← mem[MBD:AGL]
-      /action_decdr, MEMREAD_DATA(dr, alu_b);	// 04 DR--; B ← mem[MBD:DR];
-      MEMWRITE_PAGE0(agl, dr);	                // 06 mem[MBD:AGL] ← DR
-      SET(ac, alu_or), END;			// 08 AC ← AC + B
+      MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
+      /action_decdr;				// 04 DR--;
+      MEMREAD(mbd, dr, alu_b);			// 05 B ← mem[MBD:DR];
+      MEMWRITE(mbz, agl, dr);	                // 07 mem[MBZ:AGL] ← DR
+      SET(ac, alu_or), END;			// 09 AC ← AC | B
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1495,52 +1495,53 @@ start OR, I=1, R=1, IDX=IDX_SP;
 // ① XOR, local addressing mode.
 start XOR, I=0, R=0, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_LOCAL(agl, alu_b);                // 02 B ← mem[MBP:AGL]
-      SET(ac, alu_xor), END;			// 04 AC ← AC + B
+      MEMREAD(mbp, agl, alu_b);                  // 02 B ← mem[MBP:AGL]
+      SET(ac, alu_xor), END;			// 04 AC ← AC ^ B
 
 // ② XOR, register addressing mode.
 start XOR, I=0, R=1, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_PAGE0(agl, alu_b);                // 02 B ← mem[MBP:AGL]
-      SET(ac, alu_xor), END;			// 04 AC ← AC + B
+      MEMREAD(mbz, agl, alu_b);                  // 02 B ← mem[MBP:AGL]
+      SET(ac, alu_xor), END;			// 04 AC ← AC ^ B
 
 // ③ XOR, local indirect addressing mode.
 start XOR, I=1, R=0, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_LOCAL(agl, dr);			// 02 DR ← mem[MBP:AGL]
-      MEMREAD_DATA(dr, alu_b);			// 04 AC ← mem[MBD:DR]
-      SET(ac, alu_xor), END;			// 06 AC ← AC + B
+      MEMREAD(mbp, agl, dr);			// 02 DR ← mem[MBP:AGL]
+      MEMREAD(mbd, dr, alu_b);			// 04 AC ← mem[MBD:DR]
+      SET(ac, alu_xor), END;			// 06 AC ← AC ^ B
 
 // ④ XOR, register indirect addressing mode.
 start XOR, I=1, R=1, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_PAGE0(agl, dr);			// 02 DR ← mem[MBD:AGL]
-      MEMREAD_DATA(dr, alu_b);			// 04 B ← mem[MBD:DR]
-      SET(ac, alu_xor), END;			// 06 AC ← AC + B
+      MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
+      MEMREAD(mbd, dr, alu_b);			// 04 B ← mem[MBD:DR]
+      SET(ac, alu_xor), END;			// 06 AC ← AC ^ B
 
 // ⑤ XOR, register indirect autoincrement addressing mode.
 start XOR, I=1, R=1, IDX=IDX_INC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_PAGE0(agl, dr);			// 02 DR ← mem[MBD:AGL]
-      MEMREAD_DATA(dr, alu_b), /action_incdr;	// 04 B ← mem[MBD:DR]; DR++;
-      MEMWRITE_PAGE0(agl, dr);	                // 06 mem[MBD:AGL] ← DR
-      SET(ac, alu_xor), END;			// 08 AC ← AC + B
+      MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
+      MEMREAD(mbd, dr, alu_b), /action_incdr;	// 04 B ← mem[MBD:DR]; DR++;
+      MEMWRITE(mbz, agl, dr);	                // 06 mem[MBD:AGL] ← DR
+      SET(ac, alu_xor), END;			// 08 AC ← AC ^ B
 
 // ⑥ XOR, register indirect autodecrement addressing mode.
 start XOR, I=1, R=1, IDX=IDX_DEC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_PAGE0(agl, dr);			// 02 DR ← mem[MBD:AGL]
-      MEMREAD_DATA(dr, alu_b), /action_decdr;	// 04 B ← mem[MBD:DR]; DR--;
-      MEMWRITE_PAGE0(agl, dr);	                // 06 mem[MBD:AGL] ← DR
-      SET(ac, alu_xor), END;			// 08 AC ← AC + B
+      MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
+      MEMREAD(mbd, dr, alu_b), /action_decdr;	// 04 B ← mem[MBD:DR]; DR--;
+      MEMWRITE(mbz, agl, dr);	                // 06 mem[MBD:AGL] ← DR
+      SET(ac, alu_xor), END;			// 08 AC ← AC ^ B
 
 // ⑦ XOR, register indirect stack addressing mode.
 start XOR, I=1, R=1, IDX=IDX_SP;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD_PAGE0(agl, dr);			// 02 DR ← mem[MBD:AGL]
-      /action_decdr, MEMREAD_DATA(dr, alu_b);	// 04 DR--; B ← mem[MBD:DR];
-      MEMWRITE_PAGE0(agl, dr);	                // 06 mem[MBD:AGL] ← DR
-      SET(ac, alu_xor), END;			// 08 AC ← AC + B
+      MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
+      /action_decdr;				// 04 DR--;
+      MEMREAD(mbd, dr, alu_b);			// 05 B ← mem[MBD:DR];
+      MEMWRITE(mbz, agl, dr);	                // 07 mem[MBD:AGL] ← DR
+      SET(ac, alu_xor), END;			// 09 AC ← AC ^ B
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1883,6 +1884,29 @@ start SMB;
 
 ///////////////////////////////////////////////////////////////////////////////
 //
+// THE JPA INSTRUCTION
+//
+///////////////////////////////////////////////////////////////////////////////
+
+start JPA;
+      FETCH_IR;                                 // 00 IR ← mem[PC++]
+      SET(pc, ac), END;				// 02 PC ← AC
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// THE JSA INSTRUCTION
+//
+///////////////////////////////////////////////////////////////////////////////
+
+start JSA;
+      FETCH_IR;                                 // 00 IR ← mem[PC++]
+      STACK_PUSH(pc);				// 02 mem[SP++] ← PC
+      SET(pc, ac), END;				// 04 PC ← AC
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
 // THE IND INSTRUCTION
 //
 ///////////////////////////////////////////////////////////////////////////////
@@ -1891,13 +1915,13 @@ start SMB;
 start IND, R=0;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       SET(dr, ac);				// 02 DR ← AC
-      MEMREAD_LOCAL(ac, dr), END;		// 03 AC ← mem[DR]
+      MEMREAD(mbp,ac, dr), END;		        // 03 AC ← mem[DR]
 
 // ② IND, register address addressing mode
 start IND, R=1;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       SET(dr, ac);				// 02 DR ← AC
-      MEMREAD_PAGE0(ac, dr), END;		// 03 AC ← mem[DR]
+      MEMREAD(mbz,ac, dr), END;		        // 03 AC ← mem[MBZ:DR]
 
 
 // End of file.
