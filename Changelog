@@ -1,6 +1,6 @@
 2011-01-25  AC  <alexios@bedroomlan.org>
 
-	[Hes/Hardware] Earliest draft version of the ‘memory mapped stack
+	[Des/Hardware] Earliest draft version of the ‘memory mapped stack
 	machine’ CPU description referencing a PDP-8-like design, but with an 8
 	bit word.
 
@@ -675,7 +675,7 @@
 2013-06-14  AC  <alexios@bedroomlan.org>
 
 	[Meta,Doc/Book] Renamed processor boards. The boards are now PB0
-	(formerly the Microcod Board), PB1 (Processor Board A), PB2 (Processor
+	(formerly the Microcode Board), PB1 (Processor Board A), PB2 (Processor
 	Board B) and PB3 (Processor Board C).
 
 	[Des/Hardware/PB0] Moved entire sequencer to PB0. Rerouted.
@@ -2039,7 +2039,7 @@
 	fixed by rewiring on DFP board 1 and changing the labels on the front
 	panel design).
 
-	[Bugs,Testing/Hardware/PB1] A gorgeous, annoying b ug: The part used
+	[Bugs,Testing/Hardware/PB1] A gorgeous, annoying bug: The part used
 	for the Instruction Register was changed from a flip flop with clock
 	and reset to a latch with latch enable and output enable. The location
 	of the reset (flip-flop) and output enable (latch) signals were the
@@ -2093,3 +2093,782 @@
 	the front switch, it often takes a while for the change to take
 	place. This is likely a firmware bug, since the same command from a
 	controlling computer works fine.
+
+2014-08-15  AC <alexios@bedroomlan.org>
+
+	[Testing/Firmware/DFP] Fixed halting bug.
+
+	[Bugs,Testing/DFP] Loading the IR from the SR fails. This
+	could be a firmware bug. The IR0 and IR1 (or IBUS0 and IBUS1) signals
+	are swapped somewhere. Setting the SR for 0002 makes the IR 0001 and
+	vice versa. Tracked down to swapped IBUS wires on the PB2. No biggie.
+
+	Going through the test script for the DFP, I discovered yet another
+	signal that was pulled up and down simultaneously: WAIT#. I'm removing
+	the pull-down.
+
+	And more of the same: some unit is still driving the IBUS with the
+	machine halted. It's not DFP board 2, because I'm getting mismatched
+	values when writing to the IBUS from it. PB1 doesn't use the IBUS, so
+	the culprit must be on PB1, and specifically the AGL, Data Bus
+	Transceiver, or numerous shorts. Update: fixed quite early. The real
+	culprit was the control bus ribbon cable not being plugged into PB0.
+
+	Yet another bug: when microstepping, the last step of a microprogram is
+	skipped because END# seems to take effect immediately. This is probably
+	because the µPC is reset asynchronously but incremented
+	synchronously. Update: fixed when the PB0 ribbon cable was reconnected.
+
+	The microcode control vector isn't read correctly on the DFP
+	serial interface, but displays correctly on the panel light.
+
+	The computer seems to be selecting the ROM bank on the MEM board
+	regardless of the setting of the RAM/ROM switch on the front panel.
+
+	The PC on PB2 does not increment correctly. Bit 4 is stuck on, and the
+	PC counts between &0010-&001F inclusive. Carry aggregation issue? It
+	could also be an issue with the front-panel buffers.
+
+	[Des,Hardware/DFP] The ‘reset’ light lights when the RSTHOLD# signal is
+	asserted (processor's reset state). Since resetting always runs at full
+	speed, it may be nice to turn this light on during RESET# or RSTHOLD#
+	assertion. A wired AND gate will do for this, and there's plenty of
+	space available for it.
+
+2014-08-18  AC <alexios@bedroomlan.org>
+
+	[Code/Software/ROM] Added entry/exit conventions to the macro
+	definitions. Minor work on the ROM.
+
+2014-08-19  AC <alexios@bedroomlan.org>
+
+	[Code/Software/ROM] Added memory allocation functionality to the
+	ROM. It only has bank granularity for now. Much closer to
+	re-incorporating the Forth interpreter in the new OS framework.
+
+2014-08-23  AC <alexios@bedroomlan.org>
+
+	[Bugs,Testing/DFP] WEN# was pulled up (by the PB0) and down (by the
+	DFP) simultaneously. Removed the DFP resistor and good riddance. I keep
+	finding these!
+
+	The PC4 pin on PB2's IC12 counter was connected to +5V via a tiny
+	solder bridge under the chip (too much solder paste, which is what you
+	get when you solder with paste and no stencil). I clipped the pin,
+	reheated the space under the chip very carefully, verified the bridge
+	had sublimated and absorbed by pads, then re-connected the pin to the
+	pad with a very short length of wire.
+
+	Bus Writes via the processor don't seem to work. Bus reads may also be
+	non-functional but it's difficult to test without bus writes (memory
+	seems to initialise to &FFFF).
+
+2014-08-24  AC <alexios@bedroomlan.org>
+
+	[Code/Emulator] Fixed bugs with the IRC in the C emulator. Added
+	support for the DFP terminal using code taken directly from the
+	DFP firmware. Lovely how code can be shared between firmware and
+	emulator!
+
+	[Code/Software/ROM] Minor ROM development and fixes. Started work
+	on refactoring the Forth interpreter to fit the new memory layout,
+	OS primitives and Assembler improvements.
+
+2014-08-25  AC <alexios@bedroomlan.org>
+
+	[Code/Software/ROM] ROM development and fixes. Refactoring old asm
+	directory, and started merging code into a new ROM
+	subproject. Worked on the basic OS calls.
+
+2014-08-26  AC <alexios@bedroomlan.org>
+
+	[Code/Software/ROM] Coded DFP TTY driver as a proof of concept. Added
+	NULL (sentinel) driver. Added driver abstraction and basic system call
+	support. You can now output characters to abstract terminal devices.
+
+2014-08-27  AC <alexios@bedroomlan.org>
+
+	[Bugs,Testing/PB1] Signal IBUS10 does not appear to be held properly,
+	or is shorted to ground somewhere. When the DFP writes FFFF to the IBUS
+	and then stops driving, the IBUS changes to FBFF. Likewise, 0400
+	flickers between 0400 and 0000, even while being supposedly
+	driven. Perhaps DFP Board 2 isn't driving that bit properly. This
+	doesn't always happen, though, and all register diagnostics pass for
+	PC, AC and IR.
+
+	[Bugs,Testing/PB2] Sometimes, the AC diagnostics fail with the lower
+	nybble of the AC seemingly stuck to 0. (i.e. writing FFFF, but reading
+	back FFF0).
+
+	[Bugs,Testing/DFP] The DFP ustep command can step multiple times (even
+	if single stepping). Sometimes, the step ends with some lights
+	illuminated, other times the lights are idled (and all lights on the
+	front panel are off).
+
+2014-08-28  AC <alexios@bedroomlan.org>
+
+	[Bugs,Testing/PB0] If the Microcode Store is in a state when IR is
+	being written, even with the processor halted, you can't modify
+	the IR via the switches or debug UI. This shouldn't be the case,
+	all the units should be idle with the processor halted, and the
+	microcode lights certainly indicate just this (all off).
+
+	[Bugs,Testing/DFP] When the CFT starts halted, (RAM/ROM switch set
+	to RAM), the DFP doesn't give the processor enough clock ticks to
+	de-assert RSTHOLD#. This should be part of the reset function (let
+	the clock run and ensure the RESETTING state has cleared by
+	looping until the WAIT# input is 1).
+
+2014-08-29  AC <alexios@bedroomlan.org>
+
+	[Bugs,Testing/PB0] The RUNIT1 issue seems to be a short. The
+	signal goes up to ~2.4V, but the PB0 tests out okay (10kΩ between
+	the µ00 ROM pin and GND, >1MΩ between the pin and Vcc). The issue
+	must be somewhere else, then (RUNIT1 is also on the control bus).
+
+	Update: tracked the issue to a tiny solder bridge on DFP Board 2,
+	the usual culprit for shoddy construction. Shockingly, with the
+	RUNIT field operational, the computer is now working and executing
+	a nonsensical program, including talking to the DFP itself!
+	(PRINTx instructions being logged).
+
+	[Bugs,Testing/DFP] Some DFP I/O instructions cause the DFP to crash,
+	and the watchdog causes a reset. This one is a bit premature, of
+	course.
+
+2014-08-30  AC <alexios@bedroomlan.org>
+
+	[Code/Software/ROM] Added assembler definitions for 16550 UARTs. I
+	always forget they're quite complex devices!
+
+2014-09-01  AC <alexios@bedroomlan.org>
+
+	[Code/Software/ROM] Minor refactoring of the ROMs.
+
+2014-09-04  AC <alexios@bedroomlan.org>
+
+	[Bugs,Testing/PB1] The Control Bus ribbon cable needs to be
+	mechanically stronger. Minor movements of cards can unplug it
+	partially, causing various sorts of grief.
+
+	[Bugs,Testing/DFP] Some of the control signals appearing on the
+	front panel are mis-read by the input shift registers, breaking
+	microcode disassembly. INCPC# is currently an issue.
+
+2014-09-05  AC <alexios@bedroomlan.org>
+
+	[Testing/PB1] I tracked down garbled register writes (via the DFP) to
+	signals not being deasserted with HALT# asserted, and then to just MEM#
+	and R# staying asserted. These signals are routed to the CFT busplane,
+	and have bus-hold circuits, so when the Microcode Store ROMs stop
+	driving them, the bus hold keeps them at their previous state. I fixed
+	this by pulling up MEM#, IO#, R# and W# and adjusting the schematics.
+
+	[Bugs, Testing/DFP] The w(rite) command seems to leave the MEM# and R#
+	signals at an indeterminate state (~1.6V). The fill command doesn't do
+	this though. After a fresh power cycle, the DFP can perform reads from
+	the SRAM, fill memory with specific values and read them back. After a
+	single w command, this is compromised.
+
+	[Bugs, Testing/PB2] At clock frequencies over 0.614 MHz (15% of the
+	intended clock rate), incrementing the AC fails. The second counter
+	seemingly wraps around at 127 or 255. The latter is clearly a carry
+	propagation issue, but I'm not sure what the former is. The AC carry
+	chain works fine at 0.614 MHz, and the PC carry chain works fine at 4
+	MHz.
+
+	[Bugs, Testing/PB1] Write signal generation works, but once the
+	signal is released it slowly curves back to +5V over the course of
+	around 400 ns. This looks like the normal waveform shape for an
+	open drain circuit, just horrendously elongated, possibly because
+	of the parasitic capacitance of the backplane. I need a totem-pole
+	driver for W#, so it's back to the original plan to use a
+	74'1G125 single tri-state buffer.
+
+	[Milestone] The CFT processor has executed its first two programs,
+	designed to operate without an ALU (which isn't yet installed). Both
+	programs incremented the AC in tight loops (one also sent data to the
+	front panel debugging interface).
+
+2014-09-06  AC <alexios@bedroomlan.org>
+
+	[Testing/Hardware] Created, rendered and uploaded video of the CFT
+	running its first program. Posted on Google Plus and Facebook.
+
+2014-09-11  AC <alexios@bedroomlan.org>
+
+	[Code/Software/ROM] Work on the ROM.
+
+	[Code/Emulator] Fixed numerous bugs with the emulator. Added a memory
+	inspection feature.
+
+	[Code/Cross-Assembler] Fixed bug with error reporting.
+
+2014-09-12  AC <alexios@bedroomlan.org>
+
+	[Code/Emulator] Finished the memory inspection code in the emulator and
+	used it to track down an issue with the TTY driver code.
+
+	[Des/Hardware/PB1] Since the DFP is working well with the processor,
+	and it's the only bus-mastering device, and since the PB1 has so many
+	bugs, I've all but decided to give up on tri-stating the W# signal on
+	it. The design will include it, but PB1 doesn't need it for the
+	computer to work. W# can be driven full-time with no ill effects: the
+	DFP simply drives the processor's internal WEN# signal which generates
+	W# pulses. This should be fine fow now. Later, if I feel like it, I'll
+	have Revision F of the PB1 re-printed and construct a new one with all
+	the corrections.
+
+	This is a design decision motivated by laziness too: hand-soldering
+	Kynar wire onto SOT-23 devices with a soldering iron (and solder) meant
+	for DIP chips isn't easy.
+
+	[Code/Software/ROM] Work on the ROM.
+
+2014-09-13  AC <alexios@bedroomlan.org>
+
+	[Code/Software/ROM] Work on the ROM. Modulo some more refactoring, I'm
+	ready to start adding the ROM Forth interpreter back to the mix. The
+	ROM Forth dictionary will be pared down to the essentials, so the
+	interpreter, compiler and essential features can fit in 8kW. Forth 83
+	support can be added later, which will allow another 8kW for the
+	language. Then, another 8kW should add support for most of the
+	hardware.
+
+2014-09-18  AC <alexios@bedroomlan.org>
+
+	[Code/Software/ROM] Work on FIFOs and interrupt-driven TTY I/O.
+
+2014-09-19  AC <alexios@bedroomlan.org>
+
+	[Code/Software/ROM] Work on interrupt-driven TTY I/O.
+
+2014-09-20  AC <alexios@bedroomlan.org>
+
+	[Setback,Code/Software/ROM] Interrupt driven, FIFO-based I/O is
+	going well, but I have struck my worst-case scenario: an interrupt
+	being signalled between the SEI and RTI instructions, which means
+	two things: (a) the ISR will have to re-entrant (or have a return
+	stack), and (b) interrupts are coming in faster than the ISR can
+	handle, even with just a TTY.
+
+2014-09-26  AC <alexios@bedroomlan.org>
+
+	[Des/Hardware/PB1] Reworked the Rev F PB1 schematics and PCB to
+	include the fifth state in the interrupt state machine.
+
+	[Code/Software/ROM] Work on the VDU driver for the OS.
+
+2014-09-27  AC <alexios@bedroomlan.org>
+
+	[Code/Software/ROM] Work on the VDU driver for the OS.
+
+	[Doc/Book] Documented the new interrupt state machine, including
+	state diagrams and waveforms.
+
+2014-09-28  AC <alexios@bedroomlan.org>
+
+	[Code/Software/ROM] Worked on the VDU/KBD driver. The driver has
+	extremely rudimentary tty support. It can output characters (so
+	the initial text-mode banner is visible) but not yet scroll,
+	etc. Code cleanups.
+
+2014-09-29  AC <alexios@bedroomlan.org>
+
+	[Code/Software/ROM] Added the KBD Interrupt handler. The OS can
+	now read from a PS/2 keyboard.
+
+2014-10-03  AC <alexios@bedroomlan.org>
+
+	[Bugs, Testing/DFP] After not having been touched for a couple of
+	weeks, the CFT hardware is failing diagnostics for the AC (IBUS
+	trouble, possibly a short) and PC (it never changes, possibly WPC
+	connection broken or shorted). DFP Board 2 is almost certainly to
+	blame for this.
+
+2014-10-05  AC <alexios@bedroomlan.org>
+
+	[Code/Software/ROM] Completed the PS/2 keyboard handler. Keyboard
+	events are now read and inserted into the event queue of the
+	current process.
+
+2014-11-07  AC <alexios@bedroomlan.org>
+
+	[Bugs, Testing/DFP] Rewired control bus to fix issues with the DFP.
+
+2015-03-10  AC <alexios@bedroomlan.org>
+
+	[Doc/Book] Started work on converting the CFT Book (HTML version)
+	to Jinja 2 HTML suitable for the BedroomLAN site.
+
+2015-03-29  AC <alexios@bedroomlan.org>
+
+	[Doc/Book] Additional work on the documentation converter. Puzzling out
+	TeX Math to SVG conversion.
+
+2015-03-30  AC <alexios@bedroomlan.org>
+
+	[Doc/Book] Much progress with the documentation converter. For now,
+	it's generating a single, huge HTML file with proper markup including
+	SVG images (but currently not maths). Once cross-chapter links are
+	converted and a stylesheet is written, it will be possible to publish
+	an early version of the documentation.
+
+2015-04-01  AC <alexios@bedroomlan.org>
+
+	[Doc/Book] First drafts of The CFT Book (at least the non-empty
+	chapters) are now online. Hyperlinks are stripped out of the documents
+	and there's still need for plenty of CSS styling, but at least the
+	information is online again.
+
+2015-04-02  AC <alexios@bedroomlan.org>
+
+	[Doc/Book] More work on the CFT Book conversion, as well as the
+	CFT section on the BedroomLAN site.
+
+2015-04-03  AC <alexios@bedroomlan.org>
+
+	[Doc/Book] More work on the CFT Book conversion, as well as the
+	CFT section on the BedroomLAN site.
+
+2015-04-04  AC <alexios@bedroomlan.org>
+
+	[Doc/Book] More work on the CFT Book conversion, as well as the
+	CFT section on the BedroomLAN site.
+
+2015-04-05  AC <alexios@bedroomlan.org>
+
+	[Doc/Book] Added some content to the CFT Book (processor
+	description). Corrected a few errors. Re-added the Javascript
+	emulator with new text, including the ROM source code. Published
+	the documentation on the live website.
+
+2015-04-06  AC <alexios@bedroomlan.org>
+
+	[Doc/Book] Worked on the documentation. It dawns on me that I should
+	probably port the documentation to HTML, XML or somesuch instead and
+	use LaTeX for the diagrams. I can then re-import it into LaTeX to
+	generate PDFs — when/if I decide to do so. These days, HTML can be have
+	more semantics than TeX!
+
+2015-05-01  AC <alexios@bedroomlan.org>
+
+	[Bugs,Cons/Hardware/PB1] Patched PB1 write strobe circuitry. One
+	last bug remaining: the circuit should tri-state when HALT# is
+	de-asserted. It's currently doing the reverse (a NOT gate is
+	needed).
+
+	[Bugs,Testing/DFP] Patched the DFP so it doesn't use open drain drivers
+	for MEM#, IO#, R# and W#. One minor hardware patch needed: snip the
+	ABOE# signal to board 2. This will permanently disable NOPROC mode, and
+	the current AB-OE# signal will then be renamed to BUSEN#. Obviously,
+	this will require changes to the DFP firmware. On the up side, with
+	NOPROC mode removed, the firmware will be smaller.
+
+2015-05-03  AC <alexios@bedroomlan.org>
+
+	[Doc/Web] Updates the CFT microcode-level emmulator to use the
+	newest DFP addresses, so it can use the newest Assembly include
+	files.
+
+	[Code/Software/ROM] Now tha the Javascrpit emulator is so much
+	faster, I've added short welcome messages to most of the sample
+	ROM's programs, including a boot-up message. The ROM now showcases
+	the Assembler (and instruction set) pretty well: it has macros,
+	scopes, subroutines, extended instructions, the works. I've
+	refactored the ROM to get rid of old cruft, cleaned and
+	reformatted up the source, and annotated everything with
+	comments. The ROM is now published on the web anyway.
+
+2015-05-04  AC <alexios@bedroomlan.org>
+
+	[Bugs,Cons/Hardware/PB1] Updated the rev G PB1 schematic with the
+	newest write circuitry bug fix (the added NOT gate so the circuit
+	floats when HALT# is asserted, not the other way round).
+
+2015-06-15  AC <alexios@bedroomlan.org>
+
+	[Bugs,Cons/Hardware/PB1] Progress with the revision G PB1 board.
+
+2015-07-30  AC <alexios@bedroomlan.org>
+
+	[Bugs,Cons/Hardware/PB1] Produced CAM files for PB1, ready to
+	reprint PCB.
+
+2015-08-01  AC <alexios@bedroomlan.org>
+
+	[Code/Emulator] Working on adding the full DFP firmware into the
+	emulator.
+
+2015-08-29  AC <alexios@bedroomlan.org>
+
+	[Code/Emulator] Working on adding the full DFP firmware into the
+	emulator.
+
+2015-08-30  AC <alexios@bedroomlan.org>
+
+	[Code/Emulator] Working on adding the full DFP firmware into the
+	emulator. DFP firmware now compiling as library and linking against the
+	emulator.
+
+2015-08-31  AC <alexios@bedroomlan.org>
+
+	[Code/Emulator] Working on adding the full DFP firmware into the
+	emulator.
+
+2015-09-02  AC <alexios@bedroomlan.org>
+
+	[Code/Emulator] Working on adding the full DFP firmware into the
+	emulator.
+
+2015-09-03  AC <alexios@bedroomlan.org>
+
+	[Code/Emulator] DFP Firmware now running on the emulator! Still
+	mostly throws ‘NOT IMPLEMENTED’ messages and has no access to the
+	emulated machine.
+
+2015-09-04  AC <alexios@bedroomlan.org>
+
+	[Code/Emulator] Working on adding the full DFP firmware into the
+	emulator.
+
+2015-09-10  AC <alexios@bedroomlan.org>
+
+	[Code/Emulator] Working on adding the full DFP firmware into the
+	emulator.
+
+2015-09-19  AC <alexios@bedroomlan.org>
+
+	[Code/Emulator] DFP firmware now has access to most of the
+	Emulated CFT. Some operations still can't be performed. A couple
+	of serialisation bugs have appeared.
+
+2015-09-27  AC <alexios@bedroomlan.org>
+
+	[Code/Emulator] Solved serialisation bugs, implemented much more
+	functionality. The DFP can now read and write to memory and
+	I/O.
+
+2015-11-14  AC <alexios@bedroomlan.org>
+
+	[Code/Emulator] Worked out the previous ‘deadlock’ issue: it was
+	OS blocking because the Emulator was opening a debugging
+	pseudo-TTY which wasn't being read from. Once the OS PTY buffer
+	got full, writes blocked blocking the entire DFP thread (but not
+	the rest of the emulator).
+
+2015-11-15  AC <alexios@bedroomlan.org>
+
+	[Code/Emulator] Worked on virtual reset circuitry. Thread
+	synchronisation can be problematic for this stuff, since the DFP
+	runs on its own thread. Using a system of simple messages to the
+	emulator thread.
+
+2016-01-30  AC <alexios@bedroomlan.org>
+
+	[Cons/Hardware/PB1] Verifying Rev G PB1 schematic and preparing to
+	have it manufactured.
+
+	[Code/Emulator] Added Switch Register support to the emulator and
+	improved the virtual front panel. Continuing to implement virtual
+	DFP integration.
+
+2016-01-31  AC <alexios@bedroomlan.org>
+
+	[Cons/Hardware/PB1] Fixed minor layout issues on G PB1 board.
+
+	[Code/Emulator] Added front panel and bus interrupt support to the
+	emulated DFP. Working on run/stop logic and bus command
+	integration. It's more complex than it looks because of the necessity
+	for synchronisation and thread-safety. I may have to simplify things,
+	but can't really change the firmware code so the separate thread is
+	here to stay.
+
+2016-02-01  AC <alexios@bedroomlan.org>
+
+	[Code/Emulator] Fixed bugs from previous day. The run/stop logic works
+	fine now. Working on more integration of DFP features.
+
+2016-02-06  AC <alexios@bedroomlan.org>
+
+	[Doc/Book] Worked on the Web version of the documentation. Redid
+	the Programming Model chapter. Worked on the styling. Added a
+	little information and corrected mistakes.
+
+2016-02-07  AC <alexios@bedroomlan.org>
+
+	[Doc/Book] Worked on the Web version of the documentation. Redid
+	the Assembler chapter and worked on formatting code and
+	styling. Debugged plenty of issues with the TeX to HTML
+	conversion. Fixed spelling mistakes. Brought some of the content
+	up to date.
+
+2016-02-07  AC <alexios@bedroomlan.org>
+
+	[Doc/Book] Worked on the web edition of the Theoretical
+	Description chapter.
+
+2016-02-08  AC <alexios@bedroomlan.org>
+
+	[Doc/Book] Worked on the web edition of the Theoretical
+	Description chapter.
+
+2016-02-12  AC <alexios@bedroomlan.org>
+
+	[Doc/Book] Worked on reference resolving code, improved markup
+	framework. Worked on the web edition of the Theoretical
+	Description chapter.
+
+2016-02-13  AC <alexios@bedroomlan.org>
+
+	[Doc/Book] Worked on the web edition of the Theoretical
+	Description chapter.
+
+2016-02-14  AC <alexios@bedroomlan.org>
+
+	[Doc/Book] Completed first update of the theoretical description
+	chapter. Needs to be re-organised heavily.
+
+2016-05-21  AC <alexios@bedroomlan.org>
+
+	[Code/Emulator] Finished pseudo-TTY code, so the emulator can be used
+	to develop tests for the real, live CFT. The emulated DFP is still not
+	fully implemented, but it's close enough to test things. Fixed minor
+	bugs.
+
+	[Bugs,Testing/DFP] Fixed a number of minor bugs in the DFP firmware
+	just by testing communications with the testing tool.
+
+2016-05-28  AC <alexios@bedroomlan.org>
+
+	[Doc/Book] Writing documentation for the DFP.
+
+2016-05-29  AC <alexios@bedroomlan.org>
+
+	[Doc/Book] Writing documentation for the DFP.
+
+2016-05-30  AC <alexios@bedroomlan.org>
+
+	[Doc/Book] Writing documentation for the DFP.
+
+	[Testing/DFP] Worked on the DFP testing tool.
+
+2016-06-04  AC <alexios@bedroomlan.org>
+
+	[Doc/Book] Writing documentation for the DFP.
+
+2016-06-05  AC <alexios@bedroomlan.org>
+
+	[Doc/Book] Writing documentation for the DFP.
+
+2016-06-06  AC <alexios@bedroomlan.org>
+
+	[Doc/Book] Writing documentation for the DFP.
+
+	[Bugs,Testing/DFP] Fixed a number of minor bugs in the DFP firmware.
+
+2016-06-10  AC <alexios@bedroomlan.org>
+
+	[Doc/Book] Writing documentation for the DFP.
+
+	[Bugs,Testing/DFP] Fixed a number of minor bugs in the DFP
+	firmware. Reflashed the physical DFP and performed a few tests on
+	it.
+
+2016-06-11  AC <alexios@bedroomlan.org>
+
+	[Doc/Book] Writing documentation for the DFP.
+
+	[Bugs,Testing/DFP] Fixed a number of minor bugs in the DFP firmware.
+
+2016-06-12  AC <alexios@bedroomlan.org>
+
+	[Doc/Book] Writing documentation for the DFP. Started documenting
+	the hardware, including Sketchup renders, PCBs, assemblies etc.
+
+	[Bugs,Testing/DFP] Discovered and fixed a minor bug in the DFP
+	firmware (HALT instruction not being honoured while multistepping
+	or tracing). Colourised error messages.
+
+2016-06-12  AC <alexios@bedroomlan.org>
+
+	[Doc/Book] Writing documentation for the DFP. Started documenting
+	the hardware, including Sketchup renders, PCBs, assemblies etc.
+
+	[Bugs,Testing/DFP] Discovered and fixed a minor bug in the DFP
+	firmware (HALT instruction not being honoured while multistepping
+	or tracing). Colourised error messages.
+
+2016-06-25  AC <alexios@bedroomlan.org>
+
+	[Doc/Book] Writing documentation for the DFP. Started documenting
+	the hardware, including Sketchup renders, PCBs, assemblies etc.
+
+2016-07-16  AC <alexios@bedroomlan.org>
+
+	[Doc/Web] Created Instagram.
+
+	[Doc/Web] Minor refurbishment of the Twitter account.
+
+	[Orders] Ordered Revision G of the PB1 PCBs.
+
+2016-07-17  AC <alexios@bedroomlan.org>
+
+	[Testing] Reworking the testing framework. Added two new testing
+	targets: emulator (via the DFP), and hardware (also via the DFP,
+	of course). Need to refactor the Verilog testbeds. With mostly
+	working hardware, this is not strictly needed, but it should do it
+	for completeness.
+
+2016-07-20  AC <alexios@bedroomlan.org>
+
+	[Orders] Ordered solder paste.
+
+2016-08-05  AC <alexios@bedroomlan.org>
+
+	[Orders] Revision G of the PB1 PCBs have arrived.
+
+2016-08-12  AC <alexios@bedroomlan.org>
+
+	[Orders] Solder paste has arrived.
+
+2016-08-16  AC <alexios@bedroomlan.org>
+
+	[Orders] Ordered components for PB1 from Mouser and eBay (for the
+	SN74ACT1071 which Mouser doesn't stock).
+
+2016-08-18  AC <alexios@bedroomlan.org>
+
+	[Orders] Mouser order for PB1 arrived.
+
+2018-11-26  AC <alexios@bedroomlan.org>
+
+	[Doc/Web] Have been redoing documentation for new site.
+
+2018-12-03  AC <alexios@bedroomlan.org>
+
+	[Doc/Web] Simplified addressing mode documentation. Completed
+	Programming Model documentation using new microcode and correct information.
+
+	[Code/Cross-Assembler] Added new IFxx macros, fixed some of the comments.
+
+2018-12-04  AC <alexios@bedroomlan.org>
+
+	[Doc/Web] Added a photo from the wiring of the CFT DFP board.
+
+2018-12-05  AC <alexios@bedroomlan.org>
+
+	[Doc/Web] Added a photo of CFT PB0 and PB1 blank PCBs.
+
+2018-12-16  AC <alexios@bedroomlan.org>
+
+	[Doc/Web] Lots of work on the CFT documentation. Slow work because
+	it needs CSS rework, and also because I've forgotten so much of
+	the CFT's inner workings I keep going back to the schematics to
+	verify all the documentation I'm converting and updating.
+
+2018-12-27  AC <alexios@bedroomlan.org>
+
+	[Doc/Web] Worked on the processor's Theoretical Description.
+
+2018-12-28  AC <alexios@bedroomlan.org>
+
+	[Doc/Web] ALU description for the processor's Theoretical Description.
+
+2018-12-30  AC <alexios@bedroomlan.org>
+
+	[Doc/Web] Added schematics to the Theoretical Description.
+
+2019-01-04  AC <alexios@bedroomlan.org>
+
+	[Doc/Web] Completed Theoretical Description. Added Expansion and
+	Control Bus descriptions.
+
+2019-01-05  AC <alexios@bedroomlan.org>
+
+	[Doc/Web,MEM] Added MEM board description.
+
+2019-01-20  AC <alexios@bedroomlan.org>
+
+	[Doc/Web,DEB] Added DEB board description.
+
+2019-01-29  AC <alexios@bedroomlan.org>
+
+	[Doc/Web,DFP] Worked on DFP documentation.
+
+2019-02-23  AC <alexios@bedroomlan.org>
+
+	[Doc/Web,DFP] Worked on DFP documentation.
+
+2019-04-28  AC <alexios@bedroomlan.org>
+
+	[Des/Hardware] Worked on major redesign of the bus and
+	boards. Published the Easter Notes outlining the plan to improve
+	on the CFT's construction quality (and reliability, because that's
+	the main issue).
+
+2019-05-03  AC <alexios@bedroomlan.org>
+
+	[Des/Hardware] Backplane modules routed and ready for
+	fabrication. This didn't take long at all.
+
+2019-05-04  AC <alexios@bedroomlan.org>
+
+	[Des/Hardware] Working on front panel module board.
+
+	[Tools] Giving the subversion repository some attention before importing it into Github.
+
+	[Des/Software/Microcode] Major microcode rewrites for version 7.
+
+2019-05-10  AC <alexios@bedroomlan.org>
+
+	[Des/Software/Microcode] Working on Version 7 microcode.Major microcode rewrites for version 7.
+
+2019-05-11  AC <alexios@bedroomlan.org>
+
+	[Des/Software/Microcode] Working on Version 7 microcode.Major microcode rewrites for version 7.
+
+2019-05-12  AC <alexios@bedroomlan.org>
+
+	[Des/Software/Microcode] Working on Version 7 microcode.Major microcode rewrites for version 7.
+
+2019-05-13  AC <alexios@bedroomlan.org>
+
+	[Des/Software/Microcode] Working on Version 7 microcode.Major microcode rewrites for version 7.
+
+2019-05-14  AC <alexios@bedroomlan.org>
+
+	[Des/Software/Microcode] First release candidate for Microcode Version 7.
+
+2019-05-27  AC <alexios@bedroomlan.org>
+
+	[Orders] New backplanes (datecode 1922) ordered.
+
+2019-05-27  AC <alexios@bedroomlan.org>
+
+	[Orders] New backplanes (datecode 1922) ordered.
+
+2019-05-31  AC <alexios@bedroomlan.org>
+
+	[Testing,Sim,Des/Hardware] New serial shifter now working.
+
+2019-06-01  AC <alexios@bedroomlan.org>
+
+	[Testing,Sim,Des/Hardware] Working on Verilog descriptions of new hardware.
+
+2019-06-06  AC <alexios@bedroomlan.org>
+
+	[Testing,Sim,Des/Hardware] 24-bit Address Register verifies in
+	Verilog. Working on Memory Bank Registers.
+
+2019-06-07  AC <alexios@bedroomlan.org>
+
+	[Testing,Sim,Des/Hardware] Memory Bank Register file verifies in Verilog.
+
+	[Des/Hardware] Memory Bank Registers schematics complete.
+
+2019-06-09  AC <alexios@bedroomlan.org>
+
+	[Des/Software/Microcode] Second release candidate for Microcode
+	Version 7, including support for Memory Bank Registers and full
+	hardware stack.

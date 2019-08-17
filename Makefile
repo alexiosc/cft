@@ -36,8 +36,9 @@ pub:		$(CHANGELOG_CSV) $(CFTBOOK_CSV)
 publish:	pub
 		svn commit $(PUBDIR) -m "Published documentation."
 
-$(CHANGELOG_CSV): $(CHANGELOG)
+$(CHANGELOG_CSV): $(CHANGELOG) $(CHANGELOG2CSV)
 		$(CHANGELOG2CSV) <$(CHANGELOG) >$@
+		scp $@ ftp.bedroomlan.org:bedroomlan/files/cft/private/
 
 $(CFTBOOK_CSV):	$(CHANGELOG)
 		$(BOOK2CSV) $(CFTBOOKFILE) >$@
