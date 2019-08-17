@@ -1,0 +1,120 @@
+-*- markdown -*-
+
+# Notes on the 2019 version of the CFT.
+
+The current incarnation of the CFT is ugly and nearly unmaintainable. The problems:
+
+* The backplane is not ideal for my needs.
+* Patching mistakes means redoing entire large boards. I need a better backplane and
+  smaller, simpler, cheaper to redo boards.
+* Too many connecting wires that can fail.
+* The Control Bus is a horror.
+* Both of these problems essentially preclude me from building a card cage and enclosure.
+
+
+## An Even Bigger Mess of Wires
+
+The previous front panel, DFP and processor control bus became a massive mess of ribbon
+cables and it's not a nice thing to look at. Here's what it currently has:
+
+* 2x 40-way Control Bus cables connecting all processor boards and both boards of the DFP.
+* 4x 40-way front panel cables from the processor boards to the DFP.
+* 1x 20-way front panel cable from the MBU (PB3) to the DFP.
+* 4x 50-way cables from the DFP to the light modules on the front panel.
+* 1x 50-way cable from the DFP to the switch break-out module on the front panel.
+* 30-odd wires from the break-out module to the switches.
+
+On top of it, there's also the control bus, which is another 2 40-way ribbon cables.
+
+My priorities have changed over the years. I'd rather have the CFT look cleaner than it
+looks like right now. On top of it, I can make arbitrary sized boards with KiCAD. So, this
+is the proposal.
+
+
+## Backplane
+
+I will (reluctantly) abandon the 19-slot DIN backplane in favour of a custom-made one.
+
+Features:
+
+* Use a DEC-style backplane with small sockets arraned in a six columns of six sockets.
+* A pair of modules side by side (6x6 sockets) form the processor.
+* One or two modules side by side form the expansion bus, with a bridge between the two
+  sections.
+* Bus approximately two thirds of the signals on each module.
+* Leave some signals unbussed so they can be wired right on the backplane.
+* Break out ubnussed slot pins to pin headers so expansion cards can wire external connectors
+  directly through the backplane.
+
+Signal allocation:
+
+* Every conector carries 8 bits of some bus so that boards that tend to be symmetric
+  between the high and low order bits of a bus (i.e. most of them!) can be reused by just
+  plugging two copies into adjacent sockets.
+
+
+## Front Panel Light Signals
+
+The front panel needs:
+
+| Bus/Signal                   | Bits | 8-bit groups |
+|------------------------------|-----:|-------------:|
+| Microcode Control Vector     |   24 |            3 |
+| AEXT memory bank from MBU    |    8 |            1 |
+| Flags (MBUEN, L, N, Z, V, I) |    6 |            1 |
+| State bits                   |    6 |            1 |
+| UCB Microcode Bank           |    4 |            1 |
+| PC                           |   16 |            2 |
+| AC                           |   16 |            2 |
+| DR                           |   16 |            2 |
+| Output Register              |   16 |            2 |
+| Microcode Address Vector     |   15 |            2 |
+| IR                           |   16 |            2 |
+| Generic lights row 1         |    8 |            1 |
+| Generic lights row 2         |    8 |            1 |
+| Generic lights row 3         |    8 |            1 |
+| Generic lights row 4         |    8 |            1 |
+| **Total**                    |  175 |           23 |
+
+That's 175 signals for lights plus power powering the 19 8-light groups
+of the front panel.
+
+The proposal is to use just this: a single 8-bit bus and
+time-multiplexing. The buffers on the processor boards have enable
+signals. The Front Panel controller uses a counter and 74138 decoders
+to enable the right buffers to drive the Front Panel Output
+(FPO[0..7]) bus. Simultaneously, the appropriate latches on the front
+panel modules themselves are enabled and read the 8-bit value.
+
+This means that front panel lights don't update in real time, but the
+data can transfer quickly enough that it's not obvious.
+
+Since there are two modules side by side and two FPO buses, we
+transfer 16 bits at a time.
+
+To do this we need:
+
+* 16 bits of LED data.
+* 4 binary encoded latch enable lines (encoding 10 light rows)
+
+Setback: for the MFD, we need to remap these enable lines.
+
+
+```
+                    MODULE 1                MODULE 2                MODULE 3                  MODULE 4
+                    ----------------------- ----------------------- -----------------------   -----------------------
+ROW A               () () () () () () () () () () () () () () () () () () () () () () () ()   () () () () () () () () 
+                    
+ROW B               () () () () () () () () () () () () () () () () () () () () () () () ()   () () () () () () () () 
+                    
+ROW C               () () () () () () () () () () () () () () () () () () () () () () () ()   () () () () () () () () 
+                    
+ROW D               () () () () () () () () () () () () () () () () () () () () () () () ()   () () () () () () () () 
+                    
+ROW E               () () () () () () () () () () () () () () () () () () () () () () () ()
+                    ----------------------- ----------------------- -----------------------   ----------------------- 
+LED/BIT              7  6  5  4  3  2  1  0  7  6  5  4  3  2  1  0  7  6  5  4  3  2  1  0    7  6  5  4  3  2  1  0
+```
+
+## Light modules
+
