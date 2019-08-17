@@ -1,0 +1,82 @@
+[*]
+[*] GTKWave Analyzer v3.3.45 (w)1999-2012 BSI
+[*] Tue May 14 19:02:33 2013
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/testing/sandbox/vt7220_mul16/Mul16/simulation.vcd"
+[dumpfile_mtime] "Tue May 14 18:59:40 2013"
+[dumpfile_size] 1079464
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/testing/sav/vt7220_mul16-Mul16.sav"
+[timestart] 34190000
+[size] 1912 814
+[pos] 54 51
+*-21.034590 44730000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] cft_mc_test.
+[treeopen] cft_mc_test.CPU.
+[treeopen] cft_mc_test.CPU.b3_pbb.PBB_DR.
+[treeopen] cft_mc_test.CPU.b4_pbc.
+[treeopen] cft_mc_test.CPU.b4_pbc.PBC_L.
+[treeopen] cft_mc_test.MEM.
+[sst_width] 227
+[signals_width] 275
+[sst_expanded] 1
+[sst_vpaned_height] 230
+@28
+cft_mc_test.nreset
+cft_mc_test.nreset_drv
+cft_mc_test.nhalt
+cft_mc_test.CPU.ec_nirq0
+cft_mc_test.clk1
+cft_mc_test.clk2
+cft_mc_test.clk3
+cft_mc_test.clk4
+cft_mc_test.nt34
+@200
+-
+@22
+cft_mc_test.CPU.b3_pbb.pc[15:0]
+@4022
+^>1 /home/alexios/PROJECTS/HARDWARE/cft/testing/sav/../../verification/filters/disasm
+cft_mc_test.CPU.b2_pba.ir[15:0]
+@24
+cft_mc_test.CPU.b3_pbb.ac[15:0]
+@22
+cft_mc_test.CPU.b3_pbb.PBB_DR.dr[15:0]
+@200
+-
+@22
+cft_mc_test.ab[15:0]
+cft_mc_test.aext[7:0]
+cft_mc_test.db[15:0]
+@24
+cft_mc_test.db[15:0]
+@200
+-
+@4022
+^>2 /home/alexios/PROJECTS/HARDWARE/cft/testing/sav/../../verification/filters/control
+cft_mc_test.CPU.b1_uc.udata[23:0]
+@28
+cft_mc_test.CPU.b4_pbc.PBC_L.clk3
+cft_mc_test.CPU.b4_pbc.PBC_L.fl
+[color] 1
+cft_mc_test.CPU.b4_pbc.PBC_L.isroll
+cft_mc_test.CPU.b4_pbc.PBC_L.j
+cft_mc_test.CPU.b4_pbc.PBC_L.k
+cft_mc_test.CPU.b4_pbc.PBC_L.lj
+cft_mc_test.CPU.b4_pbc.PBC_L.lk
+cft_mc_test.CPU.b4_pbc.PBC_L.lk0
+cft_mc_test.CPU.b4_pbc.PBC_L.ncll
+cft_mc_test.CPU.b4_pbc.PBC_L.ncpl
+cft_mc_test.CPU.b4_pbc.PBC_L.ndeccpl
+cft_mc_test.CPU.b4_pbc.PBC_L.nfltadd
+cft_mc_test.CPU.b4_pbc.PBC_L.ninccpl
+cft_mc_test.CPU.b4_pbc.PBC_L.nlclr
+cft_mc_test.CPU.b4_pbc.PBC_L.nreset
+@29
+[color] 1
+cft_mc_test.CPU.b4_pbc.PBC_L.roll16
+@28
+cft_mc_test.CPU.b4_pbc.PBC_L.toggle
+cft_mc_test.CPU.b4_pbc.PBC_L.toggle0
+cft_mc_test.CPU.b4_pbc.PBC_L.toggle1
+[pattern_trace] 1
+[pattern_trace] 0
