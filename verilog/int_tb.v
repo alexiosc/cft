@@ -1,14 +1,9 @@
-// REDESIGNED IN 2019
-
 `include "int.v"
-`include "clock.v"
 `include "register.v"
 
 `timescale 10ns/10ps
 
 module int_tb();
-   wire clk1, clk2, clk3, clk4;
-   
    reg  nreset, nsti, ncli, nend, nirq;
    wire fint, firq, nirqs;
 
@@ -135,14 +130,6 @@ module int_tb();
       #1000 $finish;      // Terminate simulation
    end // initial begin
 
-   // Use the clock unit to test this, it's easier than making our own
-   // 4-phase clock.
-   clock clock(.fpclk(1'b0), .nfpclk_or_clk(1'b1), .nreset(nreset),
-	       .clk1(clk1), .clk2(clk2), .clk3(clk3), .clk4(clk4));
-
-   int_unit int_unit (.nreset(nreset), .clk2(clk2), .clk3(clk3), .clk4(clk4),
-		 .nirq(nirq),
-		 .naction_cli(ncli), .naction_sti(nsti), .nend(nend),
-		 .fi(fi), .nirqs(nirqs));
+   intsm int_unit (nreset, nsti, ncli, nend, nirq, fint, firq, nirqs);
 
 endmodule

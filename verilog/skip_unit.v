@@ -1,11 +1,5 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// REDESIGNED IN 2019
-//
-///////////////////////////////////////////////////////////////////////////////
-//
-// NOTE: these notes are old and out of date!
-//
 // THE SKIP UNIT
 //
 // NOTES: the skip unit provides both microcode and code skip functionality to
@@ -183,7 +177,6 @@
 `timescale 1ns/1ps
 
 
-`ifdef OLD_VERSIONS
 module skip_unit_v0(sel, data, f_zero, f_neg, f_l, f_v, enable, skip, ifend);
    input [3:0] sel;
    input [9:0] data;
@@ -250,8 +243,13 @@ module skip_unit_v0(sel, data, f_zero, f_neg, f_l, f_v, enable, skip, ifend);
 
 endmodule // skip_unit
 
+///////////////////////////////////////////////////////////////////////////////
+//
+// BASED ON DRAWN SCHEMATICS
+//
+///////////////////////////////////////////////////////////////////////////////
 
-module skip_unit_v1(clk1, nreset,
+module skip_unit(clk1, nreset,
 		 ir, opif, fneg, fzero, fl, fv,
 		 nskip);
    
@@ -313,82 +311,6 @@ module skip_unit_v1(clk1, nreset,
    wire [3:0] 	nq;
    flipflop_175 skipff ({3'b0, skip1}, , nq, clk1, nreset);
    assign nskip = nq[0];
-
-endmodule // skip_unit
-`endif //  `ifdef OLD_VERSIONS
-
-
-///////////////////////////////////////////////////////////////////////////////
-//
-// BASED ON DRAWN SCHEMATICS
-//
-///////////////////////////////////////////////////////////////////////////////
-
-module skip_unit(nreset, clk4,
-		 ir, cond, fv, fl, fz, fn,
-		 nskipext,
-		 nskip);
-   
-   input        clk4;
-   input 	nreset;
-   input [6:0] 	ir;
-   input [4:0] 	cond;
-   input 	fv;
-   input 	fl;
-   input 	fz;
-   input 	fn;
-   input 	nskipext;
-
-   output 	nskip;
-
-   wire 	clk4, nreset;
-   wire [6:0] 	ir;
-   wire [4:0] 	cond;
-   wire 	fv, fl, fz, fn;
-   
-   wire 	nskip;
-
-   wire 	sv, sl, sz, sn;
-
-   // Cond address decoder using a 74HC139 (one unit unused)
-   wire [3:0] 	y;
-   wire 	ncondcs0, ncondcs1;
-   demux_139h cond_decoder (.g(1'b0), .a(cond[4:3]), .y(y));
-   assign ncondcs0 = y[0];
-   assign ncondcs1 = y[1];
-
-   // The condition multiplexers. Two of them decode up to 16 COND addresses
-   // (half of the address space). They output an INVERTED signal.
-   tri1 	nskip0, nskip1, branch_;
-   mux_251 cond_mux0 (.sel(cond[2:0]), .d({ir[6:0], 1'b0}),                       .e(ncondcs0), .w(nskip0));
-   mux_251 cond_mux1 (.sel(cond[2:0]), .d({branch_, 1'b0, fn, fz, fl, fv, 2'b0}), .e(ncondcs1), .w(nskip1));
-
-   // Combine the outputs
-   wire 	nskipd;
-   assign #6 nskipd = nskip0 & nskip1 & nskipext;
-
-   // Register the skip value on the rising edge of CLK4 (end of processor
-   // cycle)
-   flipflop_74h skip_reg (.d(nskipd), .clk(clk4), .set(nreset), .rst(1'b1), .q(nskip));
-
-   // Now for the branch logic. This is stole^Wheavily inspired by the PDP-8
-   // branch unit.
-   and #6 (sv, fv, ir[0]);
-   and #6 (sl, fl, ir[1]);
-   and #6 (sz, fz, ir[2]);
-   and #6 (sn, fn, ir[3]);
-
-   // Second stage
-   wire 	szn, svl, s;
-   or #6 (szn, sz, sn);
-   or #6 (svl, sv, sl);
-
-   // Third stage
-   or #6 (s, szn, svl);
-
-   // Fourth stage: the XOR gate allows us to negate the branch semantics when
-   // IR4 is set.
-   xor #11 (branch_, s, ir[4]);
 
 endmodule // skip_unit
 

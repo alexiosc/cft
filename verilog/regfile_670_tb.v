@@ -60,7 +60,7 @@ module regfile_670_tb();
    end
    
    always begin
-      #100 re = ~re;
+      #50 re = ~re;
    end
    
    // Connect DUT to test bench

@@ -38,11 +38,6 @@ module regfile_670 (d, re, we, ra, wa, q);
 
    initial begin
       // $display("BOM: 74x670");
-      q0[0] = $random;
-      q0[1] = $random;
-      q0[2] = $random;
-      q0[3] = $random;
-
    end
 
    always @(we, d) begin

@@ -1,9 +1,4 @@
-//
-// REDESIGNED IN 2019
-//
-
 `include "reset.v"
-`include "constant_store.v"
 
 `timescale 1ns/10ps
 
@@ -11,17 +6,17 @@ module reset_logic_tb();
 
 // Declare inputs as regs and outputs as wires
    inout       nreset;		// We drive RESET# open-drain.
-   reg 	       fpreset, powerok, clk, nreset_r;
-   
-   wire        nrsthold;
    wire [15:0] ibus;
+   reg 	       fpreset, powerok, clk1, nreset_r;
+   
+   wire  nrsthold;
       
    // Initialize all variables
    initial begin        
       $dumpfile ("vcd/reset_tb.vcd");
       $dumpvars (0, reset_logic_tb);
 
-      clk = 0;
+      clk1 = 0;
       nreset_r = 1;
       fpreset = 1;
       powerok = 0;
@@ -37,17 +32,15 @@ module reset_logic_tb();
       #5000 fpreset = 0;
       #200 fpreset = 1;
       
-      #10000 $finish;      // Terminate simulation
+      #25000 $finish;      // Terminate simulation
    end // initial begin
 
    assign nreset = nreset_r;
 
    always begin
-      #187.5 clk = 1;
-      #62.5  clk = 0;
+      #125 clk1 = ~clk1;
    end
    
-   reset_logic reset_logic(.nreset(nreset), .nrsthold(nrsthold), .clk3(clk), .fpreset(fpreset), .powerok(powerok));
-   constant_store csu (.nrsthold(nrsthold), .nruen(1'b0), .raddr(5'b0), .ibus(ibus));
+   reset_logic reset_logic(nreset, nrsthold, clk1, fpreset, powerok, ibus);
 
 endmodule

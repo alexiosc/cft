@@ -119,37 +119,62 @@ module mux_157 (sel, i1, i2, oe, y);
       // $display("BOM: 74x157");
    end
    
-   assign #delay y = oe ? 4'b0000 : (sel == 0? i1 : i2);
+   assign #delay y = oe ? 4'bzzzz : (sel == 0? i1 : i2);
+
+endmodule // mux_157
+
+// The 74LVC2G157 is a 2:1 version of the '157. It has a complementary
+// output too though.
+module mux_1g_157 (sel, a, b, ng, y, ny);
+   parameter delay = 20;
+
+   input        sel;		// The signal selector
+   input 	a, b;		// Inputs
+   input        ng;	        // Active low tri-state output enables.
+   output 	y;		// Output
+   output 	ny;		// Output
+
+   wire 	sel;
+   wire 	a, b;
+   wire 	ng;
+   wire 	y;
+   wire 	ny;
+   
+   initial begin
+      // $display("BOM: 74x157");
+   end
+   
+   assign #delay y = ng ? 1'bz : (sel == 0? a : b);
+   assign #delay ny = ng ? 1'bz : (sel == 0? ~a : ~b);
 
 endmodule // mux_157
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-// Function: 74x2G157 2-to-1 line data selector/multiplexer.
+// Function: 74x1G157 2-to-1 line data selector/multiplexer.
 //
-// Notes: This is based on the datasheet for the SN74LVC2G157
+// Notes:
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-module mux_2g157 (sel, a, b, ng, y, ny);
-   parameter delay = 4;		// SN74LVC2G157: Max prop delay, 5V
+module mux_1g157 (sel, i1, i2, oe, y);
+   parameter delay = 20;
 
    input        sel;		// The signal selector
-   input        a, b;		// Input signals.
-   input        ng;	        // Active low tri-state output enables.
-   output       y, ny;		// Outputs.
+   input        i1, i2;		// Input signals.
+   input        oe;	        // Active low tri-state output enables.
+   output       y;		// Outputs.
 
    wire        sel;
-   wire        a, b;
-   wire        ng;
-   wire        y, ny;
+   wire        i1, i2;
+   wire        oe;
+   wire        y;
 
    initial begin
       // $display("BOM: 74x1G157");
    end
    
-   assign #delay y = ng ? 1'bz : (sel == 0? a : b);
-   assign #delay ny = ng ? 1'bz : (sel == 0? ~a : ~b);
+   assign #delay y = oe ? 1'bz : (sel == 0? i1 : i2);
 
 endmodule // mux_1G157
 

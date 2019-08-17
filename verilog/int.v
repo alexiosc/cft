@@ -1,5 +1,3 @@
-// REDESIGNED IN 2019
-
 ///////////////////////////////////////////////////////////////////////////////
 //
 // Function: the CFT interrupt finite state machine.
@@ -25,92 +23,70 @@
 // synchronously, at the beginning of a fetch cycle. We only respond when
 // the Interrupt Flag (I register) is set.
 //
-// The interrupt state machine has four states:
+// To do this, we use two halves of a '112 FF. One half records the incoming
+// interrupt request asynchronously, while the second one registers this
+// request until the end of the current instruction. This then sets the I
+// MicroROM condition flag which causes a jump to the microcode interrupt
+// handler, which in turn makes the entire machine jump to location ffff.
 //
-// * Q1: Interrupts disabled
-// * Q2: Interrupts enabled
-// * Q3: Interrupt armed
-// * Q4: Interrupt seen (signalled to the microcode store)
+// Location ffff is expected to have a JMP to the actuall ISR.
 //
-// The initial sate is Q1.
+// The interrupt logic is a three-state FSM:
 //
-// Since IRQ# is asynchronous, registering it is subject to
-// metastability problems. We use a pair of flip flops to cross into
-// the CFT processor clock domain. This adds to the IRQ latency. To
-// reduce this latency, observer that CLK1-4 are phases of the same
-// clock, and thus in the same clock domain (since clock skew is
-// negligible at our clock rates). So:
+// State W: Waiting for an interrupt.
+// State S: Seen an IRQ.
+// State H: Handling the interrupt.
 //
-// IRQ# is registered on the rising edge of CLK1.  It bocomes INT₀# on
-// the rising edge of CLK2 or CLK3 (jumper settable). This delays by
-// 62.5 or 125 ns, plenty of time for hold times to be honoured and
-// metastability to not be an issue.
+// State transitions:
 //
-// The final (Q4) state is reached on the rising edge of CLK4, if END#
-// is also asserted. This makes the processor enter the interrupt
-// microprogram after it's done executing the current instruction.
+// ISIG: the falling edge of the IRQ line OR the CLI flag. (*)
+// UPC0: the uPC is zero (the rising edge of go_fetch)
+// UPC1: the uPC is non-zero (clock1 & uPC0)
 //
-// If the IRQ comes in WHEN the processor is in the last processor
-// cycle of its current instruction (END# asserted), the IRQ latency
-// is 187.5ns (75% of a processor cycle). (plus the execution time of the interrupt
-// microprogam).
+// State transition diagram:
 //
-// Note: we can reduce this to 125ns if we register IRQ# on the rising
-// edge of CLK2, and assert INT₀# on CLK3.
+// T1. W (00): ISIG -> S (01)
+// T2. S (01): UPC0 -> H (11)
+// T3. H (11): UPC1 -> W (00)
+// T4. H (11): ISIG -> S (01)
+//
+// We encode the three states in two bits, where:
+//
+// W = 00
+// S = 01
+// H = 11
+//
+// To implement this, we use both halves of a '112 flip-flop. The first half
+// handles the LSB (S1), the second half the MSB (S2).
+//
+// S1: 0 -> 1 on S2 = 0 && ISIG
+//     1 -> 0 on S2 = 1 && UPC1
+// S2: 0 -> 1 on S1 = 1 && UPC0
+//     1 -> 0 on (S1 = 1 && UPC1)
+//
+// TODO: REWORK THIS.
+//
+// First half:
+//   * Asynchronously cleared by -RESET.
+//   * Asynchronously set by ISIG input (T1, T4)
+//
+// Second half:
+//   * Asynchronously cleared by -RESET
+//   * Set by uPC0 (when first half is set) (T2)
+//   * Cleared by UPC1 (T3)
+//   * Cleared by ISIG (T4)
+// 
+//
+// (*) ISIG logic:
+//
+// -IRQ  CLI   ISIG (OR)  -ISIG (NOR)
+//   0    0     1             0
+//   0    1     0             1
+//   1    0     0             1
+//   1    1     0             1
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-module int_unit (nreset, clk2, clk3, clk4,
-		 nirq,
-		 naction_cli, naction_sti, nend,
-		 fi, nirqs);
-   
-
-   input  nreset;
-   input  clk2, clk3, clk4;
-   input  nend;
-   input  nirq;
-   input  naction_cli, naction_sti;
-
-   wire   nreset;
-   wire   clk2, clk3, clk4;
-   wire   nend;
-   wire   nirq;
-   wire   naction_cli, naction_sti;
-
-   output fi;
-   output nirqs;
-
-   wire   nreset_or_cli;
-   wire   fi;
-
-   assign #4 nreset_or_cli = nreset & naction_cli;
-
-   flipflop_74h ff_q1 (.d(1'b1), .clk(1'b1), .set(naction_sti), .rst(nreset_or_cli), .q(fi));
-
-   wire   nintn, nint;
-   flipflop_74h ff_q2a (.d(nirq),  .clk(clk2), .set(fi), .rst(1'b1), .q(nintn));
-   flipflop_74h ff_q2b (.d(nintn), .clk(clk3), .set(fi), .rst(1'b1), .q(nint));
-
-   wire   irqs0;
-   wire   clk4_and_nend;
-
-   flipflop_74h ff_q3  (.d(1'b1), .clk(1'b1),  .set(nint), .rst(nreset_or_cli), .q(irqs0));
-
-   assign #4 clk4_and_nend = clk4 | nend;
-   flipflop_74h ff_q4  (.d(irqs0), .clk(clk4_and_nend),  .set(1'b1), .rst(nreset_or_cli), .qn(nirqs));
-  
-endmodule // int_unit
-
-	      
-
-		 
-
-
-
-// Old versions below
-
-`ifdef never
 module int_unit_v0 (clock, upc, go_fetch, cli, i_flag, irq, reset, int_out);
 
    input clock;
@@ -258,8 +234,7 @@ module intc (nreset, nsysdev, nr, nw, ab, db, nirq_in, nirq);
 
    and #6 (nirq, nirfab, nirfcd);
 endmodule
-
-`endif //  `ifdef never
+   
 
 `endif //  `ifndef int_v
 

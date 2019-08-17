@@ -1,21 +1,24 @@
-//
-// REDESIGNED IN 2019
-//
+`include "flipflop.v"
 `include "clock.v"
-`include "reset.v"
+`include "vibrator.v"
 
 `timescale 1ns/10ps
 
 module clock_tb();
-   reg fpclk;		   // Slow/step clock from the front panel.
-   reg nfpclk_or_clk;	   // When low: use FPCLK. Otherwise, use CLK.
-   reg nreset;		   // RESET# signal.
-   wire nreset_real;
 
-   wire clk1, clk2, clk3, clk4, t34, wstb;
-   wire nrsthold;
+
+   reg fpclken;
+   reg fpustep;
+   reg nreset;
+   reg fpfast, fpslow;
+
+   reg xstart;
+   
+   wire testclk, slowclk;
+   wire clk1, clk2, clk3, clk4, nguard;
+
    integer i;
-
+      
    initial begin
       
       //$display ("time\t d pulse");
@@ -24,46 +27,82 @@ module clock_tb();
       $dumpfile ("vcd/clock_tb.vcd");
       $dumpvars (0, clock_tb);
       
-      // Start off with the front panel disconnected
-      nfpclk_or_clk = 1'b1;
-      fpclk = 1'bz;
       nreset = 0;
-      #100 nreset = 1;
-      #2000 ;
+      xstart = 1;
       
+      // Start off with the front panel disconnected
+      fpclken = 1'b1;
+      fpustep = 1'bz;
+      fpfast = 1'bz;
+      fpslow = 1'bz;
+      
+      #50 nreset = 1;
+
+      #1070 xstart = 0;
+      #100 xstart = 1;
+
+      #1070 xstart = 0;
+      #100 xstart = 1;
+      #50 xstart = 0;
+      #1000 xstart = 1;
 
       // Let it run a while, then connect the front panel.
-      #5000 nfpclk_or_clk = 1;
-      fpclk = 0;
+      #5000 fpclken = 1;
+      fpustep = 0;
+      fpfast = 1;
+      fpslow = 0;
       
       // Then, stop the clock.
-      #5000 nfpclk_or_clk = 0;
+      #5000 fpclken = 0;
       
       // Strobe the uStep switch
-      #2000 fpclk = 1;
-      #1000 fpclk = 0;
+      #2000 fpustep = 1;
+      #1000 fpustep = 0;
       for (i = 0; i < 40; i = i + 1) begin
-	 #(200 + ($urandom % 550)) fpclk = 1;
-	 #(200 + ($urandom % 550)) fpclk = 0;
+	 #(10000 + ($random % 4000) - 2000) fpustep = 1;
+	 #(10000 + ($random % 4000) - 2000) fpustep = 0;
       end
 
       // Change the clock speed to the slow clock and wait a LOT
-      #1000 nfpclk_or_clk=0;
-      #1000 nfpclk_or_clk = 1;
-      #10000 nfpclk_or_clk = 0;
+      #1000 fpclken=0;
+      #1000 fpfast=0;
+      #1000 fpslow=0;
+      #1000 fpclken = 1;
+      #10000000 fpclken = 0;
 
-      #1000 nfpclk_or_clk=0;
-      #10000 nfpclk_or_clk = 1;
+      #1000 fpclken=0;
+      #1000 fpfast=0;
+      #1000 fpslow=1;
+      #100000 fpclken = 1;
 
-      #10000 $finish;
+      #10000000 $finish;
       
    end // initial begin
-
-   assign nreset_real = nreset;
    
    // The slow clock vibrator
-   reset_logic reset_logic(.nreset(nreset_real), .nrsthold(nrsthold), .clk3(clk3), .fpreset(1'b1), .powerok(1'b1));
-   clock clock (.fpclk(fpclk), .nfpclk_or_clk(nfpclk_or_clk), .nreset(nreset_real),
-		.clk1(clk1), .clk2(clk2), .clk3(clk3), .clk4(clk4), .t34(t34), .wstb(wstb));
+   slow_clock_generator slow_clocks (slowclk, testclk);
+   clock_generator clock_generator (fpclken, fpustep,
+				    nreset,
+				    slowclk, testclk,
+				    fpfast, fpslow,
+				    clk1, clk2, clk3, clk4, , nt34);
+   // This is an experiment
+   // wire xffq, xffnq, xff2d, xffq2, xffnq2, xffq3, xffnq3;
+   // flipflop_74h xff1 (0, clk1, xstart, nreset, xffq, xffnq);
+   // wire nxffnq;
+   // not #8 (nxffnq, xffnq);
+
+   // flipflop_74h xff2 (nxffnq, clk1, xstart, nreset, xffq2, xffnq2);
+   // wire nxffnq2;
+   // not #8 (nxffnq2, xffnq2);
+   // flipflop_74h xff3 (nxffnq2, clk1, xstart, nreset, xffq3, xffnq3);
+
+   // wire [5:0] xtmp;
+   // flipflop_174 xff4 ({xtmp[4:0], 1'b1}, xtmp, clk1, xstart & nreset);
+
+   wire clk8;
+
+
+   assign clk8 = clk1 & clk3;
    
 endmodule // triclock_tb
