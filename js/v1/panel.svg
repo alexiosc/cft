@@ -1,0 +1,34 @@
+
+<html>
+<head>
+<style>
+</style>
+</head>
+<body>
+<h1>SVG Panel</h1>
+
+<svg width="1969" height="700" xmlns="http://www.w3.org/2000/svg" xmlns:xlink= "http://www.w3.org/1999/xlink">
+
+
+
+  <rect x="0" y="0" width="1969" height="700" style="fill:#000"/>
+  <g transform="translate(100 100)">
+    <text font-size="17" fill="#fff" x="0" y="0">Micro-Instruction Control Vector111</text>
+    <g fill="#800" transform="translate(15 30)">
+      <circle id="cft_la00" class="lr" cx="0" cy="0" r="15" style="fill:#800"/>
+      <circle id="cft_la00" class="lr" cx="50" cy="0" r="15" style="fill:#800"/>
+      <circle id="cft_la00" class="lr" cx="100" cy="0" r="15" style="fill:#800"/>
+      <circle id="cft_la00" class="lr" cx="150" cy="0" r="15" style="fill:#800"/>
+      <circle id="cft_la00" class="lr" cx="200" cy="0" r="15" style="fill:#800"/>
+      <circle id="cft_la00" class="lr" cx="250" cy="0" r="15" style="fill:#800"/>
+      <circle id="cft_la00" class="lr" cx="300" cy="0" r="15" style="fill:#800"/>
+      <circle id="cft_la00" class="lr" cx="350" cy="0" r="15" style="fill:#800"/>
+    </g>
+  </g>
+
+
+
+</svg>
+</body>
+</html>
+
