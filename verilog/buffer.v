@@ -110,7 +110,7 @@ module buffer_125q (a, oe, y);
    end
 
    assign #delay y = oe ? 1'bz : a;
-endmodule // End of Module buffer
+endmodule // buffer_125q
 
 
 

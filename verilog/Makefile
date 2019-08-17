@@ -11,7 +11,6 @@ SRC =		counter.v counter_161_tb.v counter_590_tb.v counter_393h_tb.v counter_401
 		rom.v rom_tb.v \
 		ram.v ram_tb.v \
 		reset.v reset_tb.v \
-		memory.v banked_memory_tb.v \
 		io.v \
 		regfile.v regfile_670_tb.v \
 		comparator.v comparator_688_tb.v comparator_85_tb.v \
@@ -24,12 +23,17 @@ SRC =		counter.v counter_161_tb.v counter_590_tb.v counter_393h_tb.v counter_401
 		sequencer.v unit_decoder.v \
 		ir.v \
 		databus.v databus_tb.v \
-		addressing.v addressing_tb.v \
 		register.v register_tb.v register_reg_L_tb.v \
 		cft.v cft_tb.v cft_tb_testing.v \
 		step_tb.v \
 		test_panel_revC.v \
+		address_register.v address_register_tb.v \
+		reg_mbr.v reg_mbr_tb.v \
+		reg_l.v reg_l_tb.v \
+		reg_v.v reg_v_tb.v \
+#		addressing.v addressing_tb.v \
 # panel.v panel_tb.v test.v panel_autorepeat_tb.v
+#		memory.v banked_memory_tb.v \
 
 #		Disused code:
 #		register_PR.v register_PR_tb.v
@@ -62,6 +66,9 @@ clean:
 
 $(SUBDIRS):
 	$(MAKE) -C $@
+
+%_tb.o:	%_tb.v %.v
+	$(VERILOG) -o $@ $<
 
 %.o:	%.v
 	$(VERILOG) -o $@ $<
@@ -202,6 +209,10 @@ test_agl:	agl_tb.o agl.o
 		./agl_tb.o
 		$(GTKWAVE) $(VCDDIR)/agl_tb.vcd $(SAVDIR)/agl_tb.sav
 
+test_ar:	address_register.o address_register_tb.o 
+		./address_register_tb.o
+		$(GTKWAVE) $(VCDDIR)/address_register_tb.vcd $(SAVDIR)/address_register_tb.sav
+
 test_addr test_addressing: addressing_tb.o addressing.o
 		./addressing_tb.o
 		$(GTKWAVE) $(VCDDIR)/addressing_tb.vcd $(SAVDIR)/addressing_tb.sav
@@ -281,6 +292,18 @@ test_ram:	ram_tb.o ram.o test_rom.bin
 test_banked_memory:	memory.o ram.o demux.o comparator.o flipflop.o regfile.o mux.o banked_memory_tb.o
 		./banked_memory_tb.o
 		$(GTKWAVE) $(VCDDIR)/banked_memory_tb.vcd $(SAVDIR)/banked_memory_tb.sav
+
+test_reg_mbr:	reg_mbr_tb.o reg_mbr.o comparator.o demux.o mux.o
+		./reg_mbr_tb.o
+		$(GTKWAVE) $(VCDDIR)/reg_mbr_tb.vcd $(SAVDIR)/reg_mbr_tb.sav
+
+test_reg_l:	reg_l_tb.o reg_l.o flipflop.o mux.o
+		./reg_l_tb.o
+		$(GTKWAVE) $(VCDDIR)/reg_l_tb.vcd $(SAVDIR)/reg_l_tb.sav
+
+test_reg_v:	reg_v_tb.o reg_v.o flipflop.o mux.o
+		./reg_v_tb.o
+		$(GTKWAVE) $(VCDDIR)/reg_v_tb.vcd $(SAVDIR)/reg_v_tb.sav
 
 test_panel_autorepeat:	panel_autorepeat_tb.o
 		./panel_autorepeat_tb.o

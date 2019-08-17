@@ -1,3 +1,6 @@
+//
+// REDESIGNED IN 2019
+//
 ///////////////////////////////////////////////////////////////////////////////
 //
 // Function: Reset circuitry
@@ -26,19 +29,16 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-module reset_logic (nreset, nrsthold, clk3, fpreset, powerok, ibus);
+module reset_logic (nreset, fpreset, powerok, nrsthold, clk3);
 
-   inout nreset;
+   inout  nreset;
+   input  fpreset;
+   input  powerok;
    output nrsthold;
-   input clk3;
+   input  clk3;
 
-   input fpreset;
-   input powerok;
-
-   inout [15:0] ibus;
-
-   wand nreset;
-   tri1  nrsthold, fpreset;
+   wand   nreset;
+   tri1   nrsthold, fpreset;
 
    wire [15:0] ibus;
 
@@ -51,18 +51,14 @@ module reset_logic (nreset, nrsthold, clk3, fpreset, powerok, ibus);
 
    // Reset timer
    wire [7:0] q;
-   counter_590 reset_counter (clk3, nrsthold, nreset, clk3, 1'b0, q,);
+   counter_590 reset_counter (.clk(clk3), .ccken(nrsthold),
+			      .cclr(nreset & fpreset & powerok),
+			      .rck(clk3), .g(1'b0), .q(q));
 
-   // Allow different reset timings.
-   assign nrsthold = q[3];	// 16 ticks (2ms @ 4 MHz processor clock)
-   //assign nrsthold = q[4];	// 16 ticks (4ms @ 4 MHz processor clock)
-   //assign nrsthold = q[5];	// 32 ticks (8ms)
-   //assign nrsthold = q[6];	// 64 ticks (16ms)
-   //assign nrsthold = q[7];	// 128 ticks (32ms)
+   // Allow different reset timings, but use a fast one for verilog testing.
+   // assign nrsthold = q[0];	// 2 ticks (0.5µs @ 4 MHz processor clock)
+   assign nrsthold = q[1];
 
-   // Reset vector
-   buffer_541 reset_vector_lo (nrsthold, nrsthold, 8'b11110000, ibus[7:0]);
-   buffer_541 reset_vector_hi (nrsthold, nrsthold, 8'b11111111, ibus[15:8]);
 
 endmodule // reset_logic
 

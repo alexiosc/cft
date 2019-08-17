@@ -1,6 +1,6 @@
-(module Amphenol_10018783-x0x03_2x82_P1.00mm_Socket_Vertical (layer F.Cu) (tedit 5CBE1D7D)
-  (descr "x8 Vertical Card Edge Connector, 98 Positions, 1mm Pitch (https://cdn.amphenol-icc.com/media/wysiwyg/files/drawing/10018783.pdf)")
-  (tags "pci express x8")
+(module Amphenol_10018783-x0x03_2x82_P1.00mm_Socket_Vertical (layer F.Cu) (tedit 5D232F72)
+  (descr "x16 Vertical Card Edge Connector, 186 Positions, 1mm Pitch (https://cdn.amphenol-icc.com/media/wysiwyg/files/drawing/10018783.pdf)")
+  (tags "pci express x16")
   (fp_text reference REF** (at 25.15 7.2) (layer F.SilkS)
     (effects (font (size 1 1) (thickness 0.15)))
   )
@@ -191,8 +191,8 @@
   (pad B78 thru_hole circle (at 79 4.5) (size 1.1 1.1) (drill 0.7) (layers *.Cu *.Mask))
   (pad B80 thru_hole circle (at 81 4.5) (size 1.1 1.1) (drill 0.7) (layers *.Cu *.Mask))
   (pad B82 thru_hole circle (at 83 4.5) (size 1.1 1.1) (drill 0.7) (layers *.Cu *.Mask))
-  (model ${KISYS3DMOD}/Gekkio_Connector_PCBEdge.3dshapes/Amphenol_10018783-x0x02_2x49_P1.00mm_Socket_Vertical.wrl
-    (at (xyz 0 0 0))
+  (model /home/alexios/.config/kicad/libraries/footprints/walter/conn_pc/pci-x_conn-x16.wrl
+    (offset (xyz 9.5 -1.27 0))
     (scale (xyz 1 1 1))
     (rotate (xyz 0 0 0))
   )
