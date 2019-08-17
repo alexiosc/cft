@@ -1,61 +1,5 @@
 #!/usr/bin/python2.6
 
-"""
-Create the truth table of an ALU ROM.
-
-  Address bits:
-    op:    3 bits
-      000: ADD
-      001: AND
-      010: OR
-      011: XOR
-      100: NOT
-      101: RBL
-      110: RBR
-      111: xxx
-    a:     8 bits
-    b:     8 bits
-    in_hi: 1 bit
-    in_lo: 1 bit
-
-  Data bits:
-    x:     8 bits
-    
-  ------------------------------------------------
-    total: A 21 bits (2 MBytes/16 MBit) -- 2 needed
-           D: 8 bits output + another ROM (or logic) for L out
-
-
-  L logic: L_out = op==add and a[15] == 1 and b[15] == 1.
-
-
-  ROMs by op:
-
-  Binary ops (ADD/AND/OR/XOR):
-
-  a:   8 bits
-  b:   8 bits
-  op:  2 bits
-  cin: 1 bit
-  
-  total: 19 bits (512k/4 MBit, easily available)
-
-  *** Still needs L to be calculated externally, but ADD/AND/OR/XOR is
-      now 2 ROMs and some logic.
-
-  Unary ops (NOT/RBL/RBR/RNL/RNR)
-  op: 3 bits
-  a:  16 bits
-
-  
-  Rolls: no point using a ROM but the 4 roll ops need 8x '244 plus
-  decoding (necessitating a whole board).
-
-  Idea: Use a unary op ROM?
-
-
-"""
-
 import os
 import sys
 import array
@@ -64,11 +8,9 @@ import threading
 
 class Unary(threading.Thread):
     """
-    ==The Unary ROM==
+    ==The Bit Shift (ex Unary) ROM==
     
-      The unary ROM is responsible or calculating unary operations. Currently,
-      these are the four rolls (roll <L,A> left/right one bit/nybble) and the NOT
-      operation.
+      The Bit Shift ROM is responsible or calculating rolls and shifts.
     
       The operation is represented using 5 bits, in the OP field:
     
@@ -140,7 +82,35 @@ class Unary(threading.Thread):
     
     opcodes = ['RBL', 'RBR', 'RNL', 'RNR',
                'NOT', 'NOT', 'CS1', 'CS2']
-               
+
+    # Operations:
+    #
+    # 3 Left Rolls
+    # 3 Right Rolls
+    # 3 Left Bitwise Shifts
+    # 3 Right Bitwise Shifts
+    # 3 Right Arithmetic Shifts
+    # => 4 bits
+
+    opcodes = [
+        ("RL", 1),
+        ("RR", 1),
+        ("RL", 2),
+        ("RR", 2),
+        ("RL", 4),
+        ("RR", 4),
+
+        ("SL", 1),
+        ("SR", 1),
+        ("SL", 2),
+        ("SR", 2),
+        ("SL", 4),
+        ("SR", 4),
+
+        ("AR", 1),
+        ("AR", 2),
+        ("AR", 4),
+    ]        
 
     def __init__(self, tt, a0, a1):
         self.tt = tt
@@ -155,14 +125,17 @@ class Unary(threading.Thread):
         Run the thread.
         """
         tt = self.tt
-        for op in xrange(8):
+        for op, bits, direction in opcodes:
             for ints in xrange(2):
                 for l in xrange(2):
                     for a in xrange(self.a0, self.a1 + 1):
             
-                        # Calculate the result
-            
                         al = ((l & 1) << 16) | (a & 0xffff)
+
+                        # Calculate the result
+                        if op == 'RL':
+                            x = 
+            
                         if op == self.NOT1 or op == self.NOT2:
                             x = a ^ 0xffff
                             x = x | (l << 16) # Embed L in the result
