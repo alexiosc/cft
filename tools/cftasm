@@ -17,7 +17,8 @@ import subprocess
 import unicodedata
 
 
-_BUILTINS = """;;; CFT Assembler Built-ins
+# Microcode 6 instruction set, the old one.
+_BUILTINS_OLD = """;;; CFT Assembler Built-ins
 
 ;;; 1. Machine mnemonics
 
@@ -105,6 +106,103 @@ _BUILTINS = """;;; CFT Assembler Built-ins
 
 .equ PUSH STORE I                       ; To mirror POP in Microcode v6 (autoinc only)
 
+
+"""
+
+
+# Microcode 7 instruction set. This is the current one, with Memory Bank
+# Registers and a Stack Pointer.
+_BUILTINS = """;;; CFT Assembler Built-ins, Microcode Version 7.x.
+
+;;; 1. Machine mnemonics
+
+;;; 1.1. Basic mnemonics and essential macros
+
+;           OP..IR SUB/OPERAND
+;          -----|| |||-------
+.equ LIA   #00000-'----------           ; Load Address (low order 16 bits only)
+.equ LI    #000001'----------           ; Load Literal
+.equ LJSR  #00001-'----------           ; Long jump to subroutine, indirect
+.equ LJMP  #00011-'----------           ; Long jump, indirect
+.equ JSR   #0010--'----------           ; Jump to subroutine
+.equ JMP   #0011--'----------           ; Jump
+.equ IOT   #0100--'----------           ; I/O transaction (write AC to I/O, read back)
+.equ IN    #0101--'----------           ; Read AC from I/O space
+.equ OUT   #0110--'----------           ; Write AC to I/O space
+.equ IRET  #011100'000-------           ; Return from Interrupt Service Routine
+.equ LRET  #011100'001-------           ; Return from LJSR subroutine
+.equ RET   #011100'010-------           ; Return from subroutine
+.equ TAS   #011100'011-------           ; SP <- AC
+.equ TSA   #011100'100-------           ; AC <- SP
+.equ TAD   #011100'101-------           ; DR <- AC
+.equ TDA   #011100'110-------           ; AC <- DR
+.equ PHA   #011100'111-------           ; Push AC to stack
+.equ PPA   #011101'000-------           ; Pop AC from stack
+.equ PHF   #011101'001-------           ; Push Flags to stack
+.equ PPF   #011101'010-------           ; Pop Flags from stack
+.equ STI   #011101'011-------           ; Set interrupt flag (allow interrupts)
+.equ CLI   #011101'100-------           ; Clear interrupt flag (block interrupts)
+
+; Shifts and rolls
+;                        dddd
+.equ SRU   #011110'000-------           ; Generic shift/roll instruction, use one from below
+.equ SHL   SRU       #000----           ; Shift <L,AC> left by dddd bits.
+.equ SHR   SRU       #001----           ; Shift <L,AC> right by dddd bits.
+.equ ASR   SRU       #011----           ; Arithmetic (sign-extending) shift <L,AC> right by dddd bits.
+.equ ROL   SRU       #100----           ; Roll <L,AC> left by dddd bits.
+.equ ROR   SRU       #101----           ; Roll <L,AC> right by dddd bits.
+
+; Skips
+;                       gNZLV
+.equ SKP   #011110'001-------
+.equ NOP   SKP       #0000000           ; Skip never (3 cycle NOP)
+.equ SNA   SKP       #--01---           ; Skip if A<0
+.equ SZA   SKP       #--0-1--           ; Skip if A=0
+.equ SNP   SKP       #--011--           ; Skip if A≤0
+.equ SSL   SKP       #--0--1-           ; Skip if L=1
+.equ SSV   SKP       #--0---1           ; Skip if V=1
+.equ SKIP  SKP       #--10000           ; Skip always
+.equ SNN   SKP       #--11---           ; Skip if A≥0
+.equ SNZ   SKP       #--1-1--           ; Skip if A≠0
+.equ SNN   SKP       #--111--           ; Skip if A>0
+.equ SCL   SKP       #--1--1-           ; Skip if L=0
+.equ SCV   SKP       #--1---1           ; Skip if V=0
+
+.equ TAB   #011110'010-------           ; ALU B <- AC
+.equ TBA   #011110'011-------           ; AC -> ALU B
+.equ RMB   #011110'100-------           ; Read Memory Bank Register 0-7
+.equ SMB   #011110'101-------           ; Write Memory Bank Register 0-7
+
+.equ JPA   #011111'000-------           ; Jump to location in AC
+.equ JSA   #011111'001-------           ; Jump to subroutine at AC
+
+.equ UOP   #011111'100-------           ; Execute bitmapped instructions
+.equ IFL   #011111'101-------           ; Execute bitmapped if L set
+.equ IFV   #011111'110-------           ; Execute bitmapped if V set
+.equ CLA   UOP       #-1-----		; AC <- 0
+.equ CLL   UOP       #--1----		; L <- 0
+.equ NOT   UOP       #---1---        	; AC <- ~A
+.equ INC   UOP       #----1--	        ; <L,AC> <- <L,AC> + 1
+.equ DEC   UOP       #-----1-		; <L,AC> <- <L,AC> - 1
+.equ CPL   UOP       #------1		; L <- ~L
+.equ SEL   UOP       #--1---1           ; L <- 1
+.equ NEG   UOP       #---11--           ; AC <- -AC
+
+.equ IND   #01111-'111-------           ; Indirection
+
+.equ LOAD  #1000--'----------           ; Load from memory
+.equ STORE #1001--'----------           ; Write to memory
+.equ ISZ   #1010--'----------           ; Increment memory and skip if zero
+
+.equ ADD   #1100--'----------           ; Add memory to <L,AC>
+.equ AND   #1101--'----------           ; AND memory and AC
+.equ OR    #1110--'----------           ; OR memory and AC
+.equ XOR   #1111--'----------           ; XOR memory and AC
+
+;;; 1.1.1. Instruction flags.
+
+.equ R     0x0400 ; Specify to reference a register (zero page).
+.equ I     0x0800 ; Indirection
 
 """
 
