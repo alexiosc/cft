@@ -1,10 +1,10 @@
 EESchema Schematic File Version 4
 LIBS:cft-cache
-EELAYER 29 0
+EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 8 23
+Sheet 3 35
 Title "CFT Homebrew 16-bit Minicomputer"
 Date ""
 Rev ""
@@ -110,7 +110,7 @@ FL
 Text HLabel 950  2500 0    50   Input ~ 0
 FZ
 Text HLabel 950  2000 0    50   Input ~ 0
-OPIF[0..3]
+COND[0..3]
 Text HLabel 950  1500 0    50   Input ~ 0
 IR[0..15]
 Text HLabel 950  1100 0    50   3State ~ 0
@@ -120,9 +120,7 @@ Entry Bus Bus
 Text Label 1000 1500 0    50   ~ 0
 IR[0..15]
 Text Label 1000 2000 0    50   ~ 0
-OPIF[0..3]
-Text Label 6100 5150 1    50   ~ 0
-OPIF[0..3]
+COND[0..3]
 Entry Bus Bus
 	6100 1500 6200 1600
 Entry Bus Bus
@@ -412,13 +410,13 @@ F 3 "~" H 7000 4050 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 Text Label 7400 5050 2    50   ~ 0
-OPIF2
+COND2
 Text Label 7400 4950 2    50   ~ 0
-OPIF1
+COND1
 Text Label 7400 4850 2    50   ~ 0
-OPIF0
+COND0
 Text Label 6250 4850 0    50   ~ 0
-OPIF0
+COND0
 Text Label 6250 4150 0    50   ~ 0
 FV
 Text Label 6250 4250 0    50   ~ 0
@@ -665,15 +663,15 @@ Wire Wire Line
 Wire Wire Line
 	6200 2800 7400 2800
 Text Label 6250 5250 0    50   ~ 0
-OPIF3
+COND3
 Wire Wire Line
 	6200 5250 6500 5250
 Entry Wire Line
 	6100 5150 6200 5250
 Text Label 6250 5050 0    50   ~ 0
-OPIF2
+COND2
 Text Label 6250 4950 0    50   ~ 0
-OPIF1
+COND1
 Wire Wire Line
 	6200 5050 7400 5050
 Wire Wire Line
@@ -687,21 +685,21 @@ Entry Wire Line
 Entry Wire Line
 	6100 4750 6200 4850
 Text Label 7400 3200 2    50   ~ 0
-OPIF3
+COND3
 Text Label 7400 3000 2    50   ~ 0
-OPIF2
+COND2
 Text Label 7400 2900 2    50   ~ 0
-OPIF1
+COND1
 Text Label 7400 2800 2    50   ~ 0
-OPIF0
+COND0
 Text Label 6450 3200 0    50   ~ 0
-OPIF3
+COND3
 Text Label 6450 3000 0    50   ~ 0
-OPIF2
+COND2
 Text Label 6450 2900 0    50   ~ 0
-OPIF1
+COND1
 Text Label 6450 2800 0    50   ~ 0
-OPIF0
+COND0
 Entry Wire Line
 	6100 3100 6200 3200
 Entry Wire Line
@@ -711,7 +709,7 @@ Entry Wire Line
 Entry Wire Line
 	6100 2700 6200 2800
 Text Label 6100 3200 1    50   ~ 0
-OPIF[0..3]
+COND[0..3]
 $Comp
 L alexios:74AHC1G04 U?
 U 1 1 5F031548
@@ -726,7 +724,7 @@ F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 6800 5250 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Text Label 7400 5250 2    50   ~ 0
-~OPIF3
+~COND3
 Connection ~ 6800 4050
 Wire Wire Line
 	6800 3950 6800 4050
@@ -1314,8 +1312,8 @@ L alexios:74AHC1G04 U?
 U 2 1 60F742A0
 P 10200 4800
 AR Path="/60F742A0" Ref="U?"  Part="1" 
-AR Path="/5EFCF155/60F742A0" Ref="U?"  Part="2" 
-F 0 "U?" H 10380 4846 50  0000 L CNN
+AR Path="/5EFCF155/60F742A0" Ref="U910"  Part="2" 
+F 0 "U910" H 10380 4846 50  0000 L CNN
 F 1 "74AHC1G04" H 10380 4755 50  0000 L CNN
 F 2 "" H 10200 4800 50  0001 C CNN
 F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 10200 4800 50  0001 C CNN
@@ -1328,8 +1326,8 @@ U 1 1 60F76FC9
 P 9850 4800
 AR Path="/5CC0D65F/60F76FC9" Ref="C?"  Part="1" 
 AR Path="/60F76FC9" Ref="C?"  Part="1" 
-AR Path="/5EFCF155/60F76FC9" Ref="C?"  Part="1" 
-F 0 "C?" H 9759 4846 50  0000 R CNN
+AR Path="/5EFCF155/60F76FC9" Ref="C301"  Part="1" 
+F 0 "C301" H 9759 4846 50  0000 R CNN
 F 1 "100nF" H 9759 4755 50  0000 R CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric" H 9850 4800 50  0001 C CNN
 F 3 "~" H 9850 4800 50  0001 C CNN
@@ -1337,10 +1335,10 @@ F 3 "~" H 9850 4800 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+5V #PWR?
+L power:+5V #PWR0301
 U 1 1 60F7E713
 P 9850 4700
-F 0 "#PWR?" H 9850 4550 50  0001 C CNN
+F 0 "#PWR0301" H 9850 4550 50  0001 C CNN
 F 1 "+5V" H 9865 4873 50  0000 C CNN
 F 2 "" H 9850 4700 50  0001 C CNN
 F 3 "" H 9850 4700 50  0001 C CNN
@@ -1349,10 +1347,10 @@ F 3 "" H 9850 4700 50  0001 C CNN
 $EndComp
 Connection ~ 9850 4700
 $Comp
-L power:GND #PWR?
+L power:GND #PWR0302
 U 1 1 60F7F6B2
 P 9850 4900
-F 0 "#PWR?" H 9850 4650 50  0001 C CNN
+F 0 "#PWR0302" H 9850 4650 50  0001 C CNN
 F 1 "GND" H 9855 4727 50  0000 C CNN
 F 2 "" H 9850 4900 50  0001 C CNN
 F 3 "" H 9850 4900 50  0001 C CNN
@@ -1360,14 +1358,6 @@ F 3 "" H 9850 4900 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Connection ~ 9850 4900
-Wire Bus Line
-	1600 1600 1600 5250
-Wire Bus Line
-	6100 2100 6100 5150
-Wire Bus Line
-	6200 1600 6200 2500
-Wire Bus Line
-	950  1500 6100 1500
 Wire Wire Line
 	7400 1900 7100 1900
 $Comp
@@ -1385,4 +1375,14 @@ F 3 "" H 7100 3300 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	7100 1900 7100 3300
+Wire Bus Line
+	950  1500 6100 1500
+Wire Bus Line
+	6200 1600 6200 2500
+Wire Bus Line
+	1600 1600 1600 5250
+Wire Bus Line
+	6100 2100 6100 5150
+Text Label 6100 5150 1    50   ~ 0
+COND[0..3]
 $EndSCHEMATC

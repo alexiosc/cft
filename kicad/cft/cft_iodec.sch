@@ -4,7 +4,7 @@ EELAYER 29 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 3 23
+Sheet 2 34
 Title "CFT Homebrew 16-bit Minicomputer"
 Date ""
 Rev ""
@@ -158,7 +158,7 @@ AR14
 Text Label 4900 3700 2    50   ~ 0
 AR15
 Wire Bus Line
-	4550 2400 3550 2400
+	4450 2300 3450 2300
 Entry Wire Line
 	4550 2500 4650 2600
 Entry Wire Line
@@ -197,11 +197,9 @@ Text HLabel 7800 2800 2    50   Output ~ 0
 ~IODEV2XX
 Text HLabel 7800 2900 2    50   Output ~ 0
 ~IODEV3XX
-Text HLabel 3550 2400 0    50   Input ~ 0
+Text HLabel 3450 2300 0    50   Input ~ 0
 AR[8..15]
-Wire Wire Line
-	3550 5100 4900 5100
-Text HLabel 3550 5100 0    50   Input ~ 0
+Text HLabel 3450 5100 0    50   Input ~ 0
 ~IO
 $Comp
 L power:+5V #PWR?
@@ -262,7 +260,7 @@ F 3 "~" H 6750 4900 50  0001 C CNN
 	1    6750 4900
 	1    0    0    -1  
 $EndComp
-Text Label 3650 2400 0    50   ~ 0
+Text Label 3550 2300 0    50   ~ 0
 AR[8..15]
 NoConn ~ 7450 3000
 NoConn ~ 7450 3100
@@ -361,6 +359,10 @@ F 3 "" H 6450 3400 50  0001 C CNN
 $EndComp
 Text Notes 7100 7000 0    197  ~ 39
 I/O Address Decoder
+Entry Bus Bus
+	4450 2300 4550 2400
+Wire Wire Line
+	3450 5100 4900 5100
 Wire Bus Line
 	4550 2400 4550 3600
 $EndSCHEMATC

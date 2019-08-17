@@ -5,4 +5,6 @@
   (lib (name Connectors_Molex)(type KiCad)(uri /home/alexios/PROJECTS/HARDWARE/kicad/libraries/kicad-gigalib/modules/Connectors_Molex.pretty)(options "")(descr ""))
   (lib (name Gekkio_Connector)(type KiCad)(uri /home/alexios/PROJECTS/HARDWARE/kicad/libraries/gekkio-kicad-libs/Gekkio_Connector.pretty)(options "")(descr ""))
   (lib (name Gekkio_Connector_PCBEdge)(type KiCad)(uri /home/alexios/PROJECTS/HARDWARE/kicad/libraries/gekkio-kicad-libs/Gekkio_Connector_PCBEdge.pretty)(options "")(descr ""))
+  (lib (name walter)(type KiCad)(uri /home/alexios/PROJECTS/HARDWARE/kicad/libraries/footprints/walter/conn_pc)(options "")(descr ""))
+  (lib (name conn_pc)(type KiCad)(uri /home/alexios/PROJECTS/HARDWARE/kicad/libraries/footprints/walter/conn_pc)(options "")(descr ""))
 )

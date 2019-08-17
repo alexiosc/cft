@@ -1,10 +1,10 @@
 EESchema Schematic File Version 4
 LIBS:cft-cache
-EELAYER 29 0
+EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 6 23
+Sheet 2 35
 Title "CFT Homebrew 16-bit Minicomputer"
 Date ""
 Rev ""
@@ -285,9 +285,9 @@ $EndComp
 Text HLabel 1100 1500 0    50   Input ~ 0
 ~RAC
 Text HLabel 1100 1200 0    50   Input ~ 0
-~INCAC
+~ACTION-INCAC
 Text Label 1550 1200 2    50   ~ 0
-~INCAC
+~ACTION-INCAC
 Wire Wire Line
 	1100 1200 1550 1200
 Wire Wire Line
@@ -297,9 +297,9 @@ Text Label 1550 1500 2    50   ~ 0
 Wire Wire Line
 	1100 1050 1550 1050
 Text Label 1550 1050 2    50   ~ 0
-~WAC
+~WRITE-AC
 Text HLabel 1100 1050 0    50   Input ~ 0
-~WAC
+~WRITE-AC
 Entry Bus Bus
 	1600 650  1700 750 
 Text Label 1550 900  2    50   ~ 0
@@ -687,15 +687,15 @@ Wire Wire Line
 Text Label 2250 3500 0    50   ~ 0
 RESET
 Text Label 2250 6300 0    50   ~ 0
-~WAC
+~WRITE-AC
 Wire Wire Line
 	2250 6300 2500 6300
 Text Label 2250 4700 0    50   ~ 0
-~WAC
+~WRITE-AC
 Wire Wire Line
 	2250 4700 2500 4700
 Text Label 2250 1550 0    50   ~ 0
-~WAC
+~WRITE-AC
 Wire Wire Line
 	2250 1750 2500 1750
 Wire Wire Line
@@ -703,7 +703,7 @@ Wire Wire Line
 Text Label 2250 1950 0    50   ~ 0
 RESET
 Text Label 2250 1750 0    50   ~ 0
-~INCAC
+~ACTION-INCAC
 Wire Wire Line
 	2250 1550 2500 1550
 Wire Wire Line
@@ -1174,17 +1174,17 @@ Wire Wire Line
 Wire Wire Line
 	2500 1050 1800 1050
 Text HLabel 1100 1350 0    50   Input ~ 0
-~DECAC
+~ACTION-DECAC
 Text Label 1550 1350 2    50   ~ 0
-~DECAC
+~ACTION-DECAC
 Wire Wire Line
 	1100 1350 1550 1350
 Wire Wire Line
 	2250 1850 2500 1850
 Text Label 2250 1850 0    50   ~ 0
-~DECAC
+~ACTION-DECAC
 Text Label 2250 3100 0    50   ~ 0
-~WAC
+~WRITE-AC
 Wire Wire Line
 	2250 3100 2500 3100
 Wire Wire Line

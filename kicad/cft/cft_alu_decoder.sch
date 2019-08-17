@@ -4,7 +4,7 @@ EELAYER 29 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 21 23
+Sheet 13 37
 Title ""
 Date ""
 Rev ""
@@ -184,14 +184,14 @@ IR2
 $Comp
 L alexios:74AHC1G32 U?
 U 1 1 5F2B0BEF
-P 3400 3100
+P 3300 3100
 AR Path="/5F2B0BEF" Ref="U?"  Part="1" 
 AR Path="/5F26E13A/5F2B0BEF" Ref="U?"  Part="1" 
-F 0 "U?" H 3350 3367 50  0000 C CNN
-F 1 "74AHC1G32" H 3350 3276 50  0000 C CNN
-F 2 "" H 3410 3080 50  0001 C CNN
-F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 3410 3080 50  0001 C CNN
-	1    3400 3100
+F 0 "U?" H 3250 3367 50  0000 C CNN
+F 1 "74AHC1G32" H 3250 3276 50  0000 C CNN
+F 2 "" H 3310 3080 50  0001 C CNN
+F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 3310 3080 50  0001 C CNN
+	1    3300 3100
 	1    0    0    -1  
 $EndComp
 Wire Wire Line

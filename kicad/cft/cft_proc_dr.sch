@@ -1,10 +1,10 @@
 EESchema Schematic File Version 4
 LIBS:cft-cache
-EELAYER 29 0
+EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 15 23
+Sheet 14 35
 Title "CFT Homebrew 16-bit Minicomputer"
 Date ""
 Rev ""
@@ -15,12 +15,12 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 Wire Wire Line
-	1400 2250 1850 2250
-Text HLabel 1400 2250 0    50   Input ~ 0
+	1100 2250 1850 2250
+Text HLabel 1100 2250 0    50   Input ~ 0
 ~FPDRH
 Wire Wire Line
-	1400 2100 1850 2100
-Text HLabel 1400 2100 0    50   Input ~ 0
+	1100 2100 1850 2100
+Text HLabel 1100 2100 0    50   Input ~ 0
 ~FPDRL
 Text Label 1850 2250 2    50   ~ 0
 ~FPDRH
@@ -35,6 +35,7 @@ AR Path="/5D7D08B9" Ref="#PWR?"  Part="1"
 AR Path="/5D54E677/5D7D08B9" Ref="#PWR?"  Part="1" 
 AR Path="/5D62E1DC/5D7D08B9" Ref="#PWR?"  Part="1" 
 AR Path="/5D79EA4B/5D7D08B9" Ref="#PWR0716"  Part="1" 
+AR Path="/5DDCCE66/5D7D08B9" Ref="#PWR?"  Part="1" 
 F 0 "#PWR0716" H 9900 3300 50  0001 C CNN
 F 1 "GND" H 9905 3377 50  0000 C CNN
 F 2 "" H 9900 3550 50  0001 C CNN
@@ -51,6 +52,7 @@ AR Path="/5D7D08BF" Ref="#PWR?"  Part="1"
 AR Path="/5D54E677/5D7D08BF" Ref="#PWR?"  Part="1" 
 AR Path="/5D62E1DC/5D7D08BF" Ref="#PWR?"  Part="1" 
 AR Path="/5D79EA4B/5D7D08BF" Ref="#PWR0712"  Part="1" 
+AR Path="/5DDCCE66/5D7D08BF" Ref="#PWR?"  Part="1" 
 F 0 "#PWR0712" H 9900 2500 50  0001 C CNN
 F 1 "GND" H 9905 2577 50  0000 C CNN
 F 2 "" H 9900 2750 50  0001 C CNN
@@ -67,6 +69,7 @@ AR Path="/5D7D08C5" Ref="#PWR?"  Part="1"
 AR Path="/5D54E677/5D7D08C5" Ref="#PWR?"  Part="1" 
 AR Path="/5D62E1DC/5D7D08C5" Ref="#PWR?"  Part="1" 
 AR Path="/5D79EA4B/5D7D08C5" Ref="#PWR0708"  Part="1" 
+AR Path="/5DDCCE66/5D7D08C5" Ref="#PWR?"  Part="1" 
 F 0 "#PWR0708" H 9900 1700 50  0001 C CNN
 F 1 "GND" H 9905 1777 50  0000 C CNN
 F 2 "" H 9900 1950 50  0001 C CNN
@@ -83,6 +86,7 @@ AR Path="/5D7D08CB" Ref="#PWR?"  Part="1"
 AR Path="/5D54E677/5D7D08CB" Ref="#PWR?"  Part="1" 
 AR Path="/5D62E1DC/5D7D08CB" Ref="#PWR?"  Part="1" 
 AR Path="/5D79EA4B/5D7D08CB" Ref="#PWR0704"  Part="1" 
+AR Path="/5DDCCE66/5D7D08CB" Ref="#PWR?"  Part="1" 
 F 0 "#PWR0704" H 9900 900 50  0001 C CNN
 F 1 "GND" H 9905 977 50  0000 C CNN
 F 2 "" H 9900 1150 50  0001 C CNN
@@ -99,6 +103,7 @@ AR Path="/5D7D08D1" Ref="#PWR?"  Part="1"
 AR Path="/5D54E677/5D7D08D1" Ref="#PWR?"  Part="1" 
 AR Path="/5D62E1DC/5D7D08D1" Ref="#PWR?"  Part="1" 
 AR Path="/5D79EA4B/5D7D08D1" Ref="#PWR0702"  Part="1" 
+AR Path="/5DDCCE66/5D7D08D1" Ref="#PWR?"  Part="1" 
 F 0 "#PWR0702" H 9900 800 50  0001 C CNN
 F 1 "+5V" H 9915 1123 50  0000 C CNN
 F 2 "" H 9900 950 50  0001 C CNN
@@ -115,6 +120,7 @@ AR Path="/5D7D08D7" Ref="#PWR?"  Part="1"
 AR Path="/5D54E677/5D7D08D7" Ref="#PWR?"  Part="1" 
 AR Path="/5D62E1DC/5D7D08D7" Ref="#PWR?"  Part="1" 
 AR Path="/5D79EA4B/5D7D08D7" Ref="#PWR0706"  Part="1" 
+AR Path="/5DDCCE66/5D7D08D7" Ref="#PWR?"  Part="1" 
 F 0 "#PWR0706" H 9900 1600 50  0001 C CNN
 F 1 "+5V" H 9915 1923 50  0000 C CNN
 F 2 "" H 9900 1750 50  0001 C CNN
@@ -131,6 +137,7 @@ AR Path="/5D7D08DD" Ref="#PWR?"  Part="1"
 AR Path="/5D54E677/5D7D08DD" Ref="#PWR?"  Part="1" 
 AR Path="/5D62E1DC/5D7D08DD" Ref="#PWR?"  Part="1" 
 AR Path="/5D79EA4B/5D7D08DD" Ref="#PWR0710"  Part="1" 
+AR Path="/5DDCCE66/5D7D08DD" Ref="#PWR?"  Part="1" 
 F 0 "#PWR0710" H 9900 2400 50  0001 C CNN
 F 1 "+5V" H 9915 2723 50  0000 C CNN
 F 2 "" H 9900 2550 50  0001 C CNN
@@ -147,6 +154,7 @@ AR Path="/5D7D08E3" Ref="#PWR?"  Part="1"
 AR Path="/5D54E677/5D7D08E3" Ref="#PWR?"  Part="1" 
 AR Path="/5D62E1DC/5D7D08E3" Ref="#PWR?"  Part="1" 
 AR Path="/5D79EA4B/5D7D08E3" Ref="#PWR0714"  Part="1" 
+AR Path="/5DDCCE66/5D7D08E3" Ref="#PWR?"  Part="1" 
 F 0 "#PWR0714" H 9900 3200 50  0001 C CNN
 F 1 "+5V" H 9915 3523 50  0000 C CNN
 F 2 "" H 9900 3350 50  0001 C CNN
@@ -164,6 +172,7 @@ AR Path="/5D7D08E9" Ref="C?"  Part="1"
 AR Path="/5D54E677/5D7D08E9" Ref="C?"  Part="1" 
 AR Path="/5D62E1DC/5D7D08E9" Ref="C?"  Part="1" 
 AR Path="/5D79EA4B/5D7D08E9" Ref="C708"  Part="1" 
+AR Path="/5DDCCE66/5D7D08E9" Ref="C?"  Part="1" 
 F 0 "C708" H 9809 3496 50  0000 R CNN
 F 1 "100nF" H 9809 3405 50  0000 R CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric" H 9900 3450 50  0001 C CNN
@@ -181,6 +190,7 @@ AR Path="/5D7D08EF" Ref="C?"  Part="1"
 AR Path="/5D54E677/5D7D08EF" Ref="C?"  Part="1" 
 AR Path="/5D62E1DC/5D7D08EF" Ref="C?"  Part="1" 
 AR Path="/5D79EA4B/5D7D08EF" Ref="C706"  Part="1" 
+AR Path="/5DDCCE66/5D7D08EF" Ref="C?"  Part="1" 
 F 0 "C706" H 9809 2696 50  0000 R CNN
 F 1 "100nF" H 9809 2605 50  0000 R CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric" H 9900 2650 50  0001 C CNN
@@ -198,6 +208,7 @@ AR Path="/5D7D08F5" Ref="C?"  Part="1"
 AR Path="/5D54E677/5D7D08F5" Ref="C?"  Part="1" 
 AR Path="/5D62E1DC/5D7D08F5" Ref="C?"  Part="1" 
 AR Path="/5D79EA4B/5D7D08F5" Ref="C704"  Part="1" 
+AR Path="/5DDCCE66/5D7D08F5" Ref="C?"  Part="1" 
 F 0 "C704" H 9809 1896 50  0000 R CNN
 F 1 "100nF" H 9809 1805 50  0000 R CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric" H 9900 1850 50  0001 C CNN
@@ -215,6 +226,7 @@ AR Path="/5D7D08FB" Ref="C?"  Part="1"
 AR Path="/5D54E677/5D7D08FB" Ref="C?"  Part="1" 
 AR Path="/5D62E1DC/5D7D08FB" Ref="C?"  Part="1" 
 AR Path="/5D79EA4B/5D7D08FB" Ref="C702"  Part="1" 
+AR Path="/5DDCCE66/5D7D08FB" Ref="C?"  Part="1" 
 F 0 "C702" H 9809 1096 50  0000 R CNN
 F 1 "100nF" H 9809 1005 50  0000 R CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric" H 9900 1050 50  0001 C CNN
@@ -230,6 +242,7 @@ AR Path="/5D7D0901" Ref="U?"  Part="2"
 AR Path="/5D54E677/5D7D0901" Ref="U?"  Part="2" 
 AR Path="/5D62E1DC/5D7D0901" Ref="U?"  Part="2" 
 AR Path="/5D79EA4B/5D7D0901" Ref="U707"  Part="2" 
+AR Path="/5DDCCE66/5D7D0901" Ref="U?"  Part="2" 
 F 0 "U707" H 10430 3496 50  0000 L CNN
 F 1 "74HCT541" H 10430 3405 50  0000 L CNN
 F 2 "Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm" H 10250 3450 50  0001 C CNN
@@ -245,6 +258,7 @@ AR Path="/5D7D0907" Ref="U?"  Part="2"
 AR Path="/5D54E677/5D7D0907" Ref="U?"  Part="2" 
 AR Path="/5D62E1DC/5D7D0907" Ref="U?"  Part="2" 
 AR Path="/5D79EA4B/5D7D0907" Ref="U705"  Part="2" 
+AR Path="/5DDCCE66/5D7D0907" Ref="U?"  Part="2" 
 F 0 "U705" H 10430 2696 50  0000 L CNN
 F 1 "74HCT541" H 10430 2605 50  0000 L CNN
 F 2 "Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm" H 10250 2650 50  0001 C CNN
@@ -260,6 +274,7 @@ AR Path="/5D7D090D" Ref="U?"  Part="2"
 AR Path="/5D54E677/5D7D090D" Ref="U?"  Part="2" 
 AR Path="/5D62E1DC/5D7D090D" Ref="U?"  Part="2" 
 AR Path="/5D79EA4B/5D7D090D" Ref="U703"  Part="2" 
+AR Path="/5DDCCE66/5D7D090D" Ref="U?"  Part="2" 
 F 0 "U703" H 10430 1896 50  0000 L CNN
 F 1 "74HCT541" H 10430 1805 50  0000 L CNN
 F 2 "Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm" H 10250 1850 50  0001 C CNN
@@ -277,6 +292,7 @@ AR Path="/5D7D0913" Ref="C?"  Part="1"
 AR Path="/5D54E677/5D7D0913" Ref="C?"  Part="1" 
 AR Path="/5D62E1DC/5D7D0913" Ref="C?"  Part="1" 
 AR Path="/5D79EA4B/5D7D0913" Ref="C701"  Part="1" 
+AR Path="/5DDCCE66/5D7D0913" Ref="C?"  Part="1" 
 F 0 "C701" H 8459 1096 50  0000 R CNN
 F 1 "100nF" H 8459 1005 50  0000 R CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric" H 8550 1050 50  0001 C CNN
@@ -293,6 +309,7 @@ AR Path="/5D7D0919" Ref="#PWR?"  Part="1"
 AR Path="/5D54E677/5D7D0919" Ref="#PWR?"  Part="1" 
 AR Path="/5D62E1DC/5D7D0919" Ref="#PWR?"  Part="1" 
 AR Path="/5D79EA4B/5D7D0919" Ref="#PWR0703"  Part="1" 
+AR Path="/5DDCCE66/5D7D0919" Ref="#PWR?"  Part="1" 
 F 0 "#PWR0703" H 8550 900 50  0001 C CNN
 F 1 "GND" H 8555 977 50  0000 C CNN
 F 2 "" H 8550 1150 50  0001 C CNN
@@ -308,6 +325,7 @@ AR Path="/5D7D091F" Ref="U?"  Part="2"
 AR Path="/5D54E677/5D7D091F" Ref="U?"  Part="2" 
 AR Path="/5D62E1DC/5D7D091F" Ref="U?"  Part="2" 
 AR Path="/5D79EA4B/5D7D091F" Ref="U701"  Part="2" 
+AR Path="/5DDCCE66/5D7D091F" Ref="U?"  Part="2" 
 F 0 "U701" H 10430 1096 50  0000 L CNN
 F 1 "74HCT541" H 10430 1005 50  0000 L CNN
 F 2 "Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm" H 10250 1050 50  0001 C CNN
@@ -315,31 +333,31 @@ F 3 "http://www.ti.com/lit/gpn/sn74HCT541" H 10250 1050 50  0001 C CNN
 	2    10250 1050
 	1    0    0    -1  
 $EndComp
-Text HLabel 1400 1850 0    50   Input ~ 0
-~RDR
-Text HLabel 1400 1550 0    50   Input ~ 0
+Text HLabel 1100 1850 0    50   Input ~ 0
+~READ-DR
+Text HLabel 1100 1550 0    50   Input ~ 0
 ~INCDR
 Text Label 1850 1550 2    50   ~ 0
 ~INCDR
 Wire Wire Line
-	1400 1550 1850 1550
+	1100 1550 1850 1550
 Wire Wire Line
-	1400 1850 1850 1850
+	1100 1850 1850 1850
 Text Label 1850 1850 2    50   ~ 0
-~RDR
+~READ-DR
 Wire Wire Line
-	1400 1400 1850 1400
+	1100 1400 1850 1400
 Text Label 1850 1400 2    50   ~ 0
-~WDR
-Text HLabel 1400 1400 0    50   Input ~ 0
-~WDR
+~WRITE-DR
+Text HLabel 1100 1400 0    50   Input ~ 0
+~WRITE-DR
 Entry Bus Bus
 	1900 1000 2000 1100
 Text Label 1850 1250 2    50   ~ 0
 RESET
 Wire Wire Line
-	1400 1250 1850 1250
-Text HLabel 1400 1250 0    50   Input ~ 0
+	1100 1250 1850 1250
+Text HLabel 1100 1250 0    50   Input ~ 0
 RESET
 Text Label 6350 2650 1    50   ~ 0
 IBUS[0..15]
@@ -520,11 +538,11 @@ Wire Wire Line
 Text Label 4650 7000 0    50   ~ 0
 ~FPDRH
 Text Label 4650 3850 0    50   ~ 0
-~RDR
+~READ-DR
 Wire Wire Line
 	4650 2300 4900 2300
 Text Label 4650 2300 0    50   ~ 0
-~RDR
+~READ-DR
 Entry Wire Line
 	4200 6800 4100 6900
 Entry Wire Line
@@ -565,6 +583,7 @@ AR Path="/5D7D09BD" Ref="U?"  Part="1"
 AR Path="/5D54E677/5D7D09BD" Ref="U?"  Part="1" 
 AR Path="/5D62E1DC/5D7D09BD" Ref="U?"  Part="1" 
 AR Path="/5D79EA4B/5D7D09BD" Ref="U701"  Part="1" 
+AR Path="/5DDCCE66/5D7D09BD" Ref="U?"  Part="1" 
 F 0 "U701" H 5400 7367 50  0000 C CNN
 F 1 "74HCT541" H 5400 7276 50  0000 C CNN
 F 2 "Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm" H 5400 6600 50  0001 C CNN
@@ -644,6 +663,7 @@ AR Path="/5D7D0A02" Ref="U?"  Part="1"
 AR Path="/5D54E677/5D7D0A02" Ref="U?"  Part="1" 
 AR Path="/5D62E1DC/5D7D0A02" Ref="U?"  Part="1" 
 AR Path="/5D79EA4B/5D7D0A02" Ref="U605"  Part="1" 
+AR Path="/5DDCCE66/5D7D0A02" Ref="U?"  Part="1" 
 F 0 "U605" H 5400 4217 50  0000 C CNN
 F 1 "74HCT541" H 5400 4126 50  0000 C CNN
 F 2 "Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm" H 5400 3450 50  0001 C CNN
@@ -720,15 +740,15 @@ Wire Wire Line
 Text Label 2550 3850 0    50   ~ 0
 RESET
 Text Label 2550 6650 0    50   ~ 0
-~WDR
+~WRITE-DR
 Wire Wire Line
 	2550 6650 2800 6650
 Text Label 2550 5050 0    50   ~ 0
-~WDR
+~WRITE-DR
 Wire Wire Line
 	2550 5050 2800 5050
 Text Label 2550 1900 0    50   ~ 0
-~WDR
+~WRITE-DR
 Wire Wire Line
 	2550 2100 2800 2100
 Wire Wire Line
@@ -793,6 +813,7 @@ AR Path="/5D7D0A59" Ref="U?"  Part="1"
 AR Path="/5D54E677/5D7D0A59" Ref="U?"  Part="1" 
 AR Path="/5D62E1DC/5D7D0A59" Ref="U?"  Part="1" 
 AR Path="/5D79EA4B/5D7D0A59" Ref="U603"  Part="1" 
+AR Path="/5DDCCE66/5D7D0A59" Ref="U?"  Part="1" 
 F 0 "U603" H 5400 2667 50  0000 C CNN
 F 1 "74HCT541" H 5400 2576 50  0000 C CNN
 F 2 "Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm" H 5400 1900 50  0001 C CNN
@@ -809,6 +830,7 @@ AR Path="/5D7D0A5F" Ref="#PWR?"  Part="1"
 AR Path="/5D54E677/5D7D0A5F" Ref="#PWR?"  Part="1" 
 AR Path="/5D62E1DC/5D7D0A5F" Ref="#PWR?"  Part="1" 
 AR Path="/5D79EA4B/5D7D0A5F" Ref="#PWR0715"  Part="1" 
+AR Path="/5DDCCE66/5D7D0A5F" Ref="#PWR?"  Part="1" 
 F 0 "#PWR0715" H 8550 3300 50  0001 C CNN
 F 1 "GND" H 8555 3377 50  0000 C CNN
 F 2 "" H 8550 3550 50  0001 C CNN
@@ -825,6 +847,7 @@ AR Path="/5D7D0A65" Ref="#PWR?"  Part="1"
 AR Path="/5D54E677/5D7D0A65" Ref="#PWR?"  Part="1" 
 AR Path="/5D62E1DC/5D7D0A65" Ref="#PWR?"  Part="1" 
 AR Path="/5D79EA4B/5D7D0A65" Ref="#PWR0711"  Part="1" 
+AR Path="/5DDCCE66/5D7D0A65" Ref="#PWR?"  Part="1" 
 F 0 "#PWR0711" H 8550 2500 50  0001 C CNN
 F 1 "GND" H 8555 2577 50  0000 C CNN
 F 2 "" H 8550 2750 50  0001 C CNN
@@ -841,6 +864,7 @@ AR Path="/5D7D0A6B" Ref="#PWR?"  Part="1"
 AR Path="/5D54E677/5D7D0A6B" Ref="#PWR?"  Part="1" 
 AR Path="/5D62E1DC/5D7D0A6B" Ref="#PWR?"  Part="1" 
 AR Path="/5D79EA4B/5D7D0A6B" Ref="#PWR0707"  Part="1" 
+AR Path="/5DDCCE66/5D7D0A6B" Ref="#PWR?"  Part="1" 
 F 0 "#PWR0707" H 8550 1700 50  0001 C CNN
 F 1 "GND" H 8555 1777 50  0000 C CNN
 F 2 "" H 8550 1950 50  0001 C CNN
@@ -857,6 +881,7 @@ AR Path="/5D7D0A71" Ref="#PWR?"  Part="1"
 AR Path="/5D54E677/5D7D0A71" Ref="#PWR?"  Part="1" 
 AR Path="/5D62E1DC/5D7D0A71" Ref="#PWR?"  Part="1" 
 AR Path="/5D79EA4B/5D7D0A71" Ref="#PWR0713"  Part="1" 
+AR Path="/5DDCCE66/5D7D0A71" Ref="#PWR?"  Part="1" 
 F 0 "#PWR0713" H 8550 3200 50  0001 C CNN
 F 1 "+5V" H 8565 3523 50  0000 C CNN
 F 2 "" H 8550 3350 50  0001 C CNN
@@ -873,6 +898,7 @@ AR Path="/5D7D0A77" Ref="#PWR?"  Part="1"
 AR Path="/5D54E677/5D7D0A77" Ref="#PWR?"  Part="1" 
 AR Path="/5D62E1DC/5D7D0A77" Ref="#PWR?"  Part="1" 
 AR Path="/5D79EA4B/5D7D0A77" Ref="#PWR0709"  Part="1" 
+AR Path="/5DDCCE66/5D7D0A77" Ref="#PWR?"  Part="1" 
 F 0 "#PWR0709" H 8550 2400 50  0001 C CNN
 F 1 "+5V" H 8565 2723 50  0000 C CNN
 F 2 "" H 8550 2550 50  0001 C CNN
@@ -889,6 +915,7 @@ AR Path="/5D7D0A7D" Ref="#PWR?"  Part="1"
 AR Path="/5D54E677/5D7D0A7D" Ref="#PWR?"  Part="1" 
 AR Path="/5D62E1DC/5D7D0A7D" Ref="#PWR?"  Part="1" 
 AR Path="/5D79EA4B/5D7D0A7D" Ref="#PWR0705"  Part="1" 
+AR Path="/5DDCCE66/5D7D0A7D" Ref="#PWR?"  Part="1" 
 F 0 "#PWR0705" H 8550 1600 50  0001 C CNN
 F 1 "+5V" H 8565 1923 50  0000 C CNN
 F 2 "" H 8550 1750 50  0001 C CNN
@@ -905,6 +932,7 @@ AR Path="/5D7D0A83" Ref="#PWR?"  Part="1"
 AR Path="/5D54E677/5D7D0A83" Ref="#PWR?"  Part="1" 
 AR Path="/5D62E1DC/5D7D0A83" Ref="#PWR?"  Part="1" 
 AR Path="/5D79EA4B/5D7D0A83" Ref="#PWR0701"  Part="1" 
+AR Path="/5DDCCE66/5D7D0A83" Ref="#PWR?"  Part="1" 
 F 0 "#PWR0701" H 8550 800 50  0001 C CNN
 F 1 "+5V" H 8565 1123 50  0000 C CNN
 F 2 "" H 8550 950 50  0001 C CNN
@@ -921,6 +949,7 @@ AR Path="/5CE16E65/5D7D0A89" Ref="U?"  Part="2"
 AR Path="/5D54E677/5D7D0A89" Ref="U?"  Part="2" 
 AR Path="/5D62E1DC/5D7D0A89" Ref="U?"  Part="2" 
 AR Path="/5D79EA4B/5D7D0A89" Ref="U708"  Part="2" 
+AR Path="/5DDCCE66/5D7D0A89" Ref="U?"  Part="2" 
 F 0 "U708" H 9080 3696 50  0000 L CNN
 F 1 "74HC193" H 9080 3605 50  0000 L CNN
 F 2 "Package_SO:SOIC-16_3.9x9.9mm_P1.27mm" H 8900 3550 50  0001 C CNN
@@ -938,6 +967,7 @@ AR Path="/5D7D0A8F" Ref="C?"  Part="1"
 AR Path="/5D54E677/5D7D0A8F" Ref="C?"  Part="1" 
 AR Path="/5D62E1DC/5D7D0A8F" Ref="C?"  Part="1" 
 AR Path="/5D79EA4B/5D7D0A8F" Ref="C707"  Part="1" 
+AR Path="/5DDCCE66/5D7D0A8F" Ref="C?"  Part="1" 
 F 0 "C707" H 8459 3496 50  0000 R CNN
 F 1 "100nF" H 8459 3405 50  0000 R CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric" H 8550 3450 50  0001 C CNN
@@ -954,6 +984,7 @@ AR Path="/5CE16E65/5D7D0A95" Ref="U?"  Part="2"
 AR Path="/5D54E677/5D7D0A95" Ref="U?"  Part="2" 
 AR Path="/5D62E1DC/5D7D0A95" Ref="U?"  Part="2" 
 AR Path="/5D79EA4B/5D7D0A95" Ref="U706"  Part="2" 
+AR Path="/5DDCCE66/5D7D0A95" Ref="U?"  Part="2" 
 F 0 "U706" H 9080 2896 50  0000 L CNN
 F 1 "74HC193" H 9080 2805 50  0000 L CNN
 F 2 "Package_SO:SOIC-16_3.9x9.9mm_P1.27mm" H 8900 2750 50  0001 C CNN
@@ -971,6 +1002,7 @@ AR Path="/5D7D0A9B" Ref="C?"  Part="1"
 AR Path="/5D54E677/5D7D0A9B" Ref="C?"  Part="1" 
 AR Path="/5D62E1DC/5D7D0A9B" Ref="C?"  Part="1" 
 AR Path="/5D79EA4B/5D7D0A9B" Ref="C705"  Part="1" 
+AR Path="/5DDCCE66/5D7D0A9B" Ref="C?"  Part="1" 
 F 0 "C705" H 8459 2696 50  0000 R CNN
 F 1 "100nF" H 8459 2605 50  0000 R CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric" H 8550 2650 50  0001 C CNN
@@ -987,6 +1019,7 @@ AR Path="/5CE16E65/5D7D0AA1" Ref="U?"  Part="2"
 AR Path="/5D54E677/5D7D0AA1" Ref="U?"  Part="2" 
 AR Path="/5D62E1DC/5D7D0AA1" Ref="U?"  Part="2" 
 AR Path="/5D79EA4B/5D7D0AA1" Ref="U704"  Part="2" 
+AR Path="/5DDCCE66/5D7D0AA1" Ref="U?"  Part="2" 
 F 0 "U704" H 9080 2096 50  0000 L CNN
 F 1 "74HC193" H 9080 2005 50  0000 L CNN
 F 2 "Package_SO:SOIC-16_3.9x9.9mm_P1.27mm" H 8900 1950 50  0001 C CNN
@@ -1004,6 +1037,7 @@ AR Path="/5D7D0AA7" Ref="C?"  Part="1"
 AR Path="/5D54E677/5D7D0AA7" Ref="C?"  Part="1" 
 AR Path="/5D62E1DC/5D7D0AA7" Ref="C?"  Part="1" 
 AR Path="/5D79EA4B/5D7D0AA7" Ref="C703"  Part="1" 
+AR Path="/5DDCCE66/5D7D0AA7" Ref="C?"  Part="1" 
 F 0 "C703" H 8459 1896 50  0000 R CNN
 F 1 "100nF" H 8459 1805 50  0000 R CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric" H 8550 1850 50  0001 C CNN
@@ -1020,6 +1054,7 @@ AR Path="/5CE16E65/5D7D0AAD" Ref="U?"  Part="2"
 AR Path="/5D54E677/5D7D0AAD" Ref="U?"  Part="2" 
 AR Path="/5D62E1DC/5D7D0AAD" Ref="U?"  Part="2" 
 AR Path="/5D79EA4B/5D7D0AAD" Ref="U702"  Part="2" 
+AR Path="/5DDCCE66/5D7D0AAD" Ref="U?"  Part="2" 
 F 0 "U702" H 9080 1296 50  0000 L CNN
 F 1 "74HC193" H 9080 1205 50  0000 L CNN
 F 2 "Package_SO:SOIC-16_3.9x9.9mm_P1.27mm" H 8900 1150 50  0001 C CNN
@@ -1036,6 +1071,7 @@ AR Path="/5CE16E65/5D7D0AB3" Ref="U?"  Part="1"
 AR Path="/5D54E677/5D7D0AB3" Ref="U?"  Part="1" 
 AR Path="/5D62E1DC/5D7D0AB3" Ref="U?"  Part="1" 
 AR Path="/5D79EA4B/5D7D0AB3" Ref="U702"  Part="1" 
+AR Path="/5DDCCE66/5D7D0AB3" Ref="U?"  Part="1" 
 F 0 "U702" H 3300 2467 50  0000 C CNN
 F 1 "74HC193" H 3300 2376 50  0000 C CNN
 F 2 "Package_SO:SOIC-16_3.9x9.9mm_P1.27mm" H 3300 1800 50  0001 C CNN
@@ -1045,7 +1081,7 @@ F 3 "http://www.ti.com/lit/gpn/sn74HC193" H 3300 1800 50  0001 C CNN
 $EndComp
 Text Label 2000 2650 1    50   ~ 0
 IBUS[0..15]
-Text HLabel 1400 1000 0    50   Input ~ 0
+Text HLabel 1100 1000 0    50   Input ~ 0
 IBUS[0..15]
 Entry Wire Line
 	4000 6450 4100 6550
@@ -1088,6 +1124,7 @@ AR Path="/5CE16E65/5D7D0ACB" Ref="U?"  Part="1"
 AR Path="/5D54E677/5D7D0ACB" Ref="U?"  Part="1" 
 AR Path="/5D62E1DC/5D7D0ACB" Ref="U?"  Part="1" 
 AR Path="/5D79EA4B/5D7D0ACB" Ref="U708"  Part="1" 
+AR Path="/5DDCCE66/5D7D0ACB" Ref="U?"  Part="1" 
 F 0 "U708" H 3300 7217 50  0000 C CNN
 F 1 "74HC193" H 3300 7126 50  0000 C CNN
 F 2 "Package_SO:SOIC-16_3.9x9.9mm_P1.27mm" H 3300 6550 50  0001 C CNN
@@ -1136,6 +1173,7 @@ AR Path="/5CE16E65/5D7D0AE1" Ref="U?"  Part="1"
 AR Path="/5D54E677/5D7D0AE1" Ref="U?"  Part="1" 
 AR Path="/5D62E1DC/5D7D0AE1" Ref="U?"  Part="1" 
 AR Path="/5D79EA4B/5D7D0AE1" Ref="U706"  Part="1" 
+AR Path="/5DDCCE66/5D7D0AE1" Ref="U?"  Part="1" 
 F 0 "U706" H 3300 5617 50  0000 C CNN
 F 1 "74HC193" H 3300 5526 50  0000 C CNN
 F 2 "Package_SO:SOIC-16_3.9x9.9mm_P1.27mm" H 3300 4950 50  0001 C CNN
@@ -1184,6 +1222,7 @@ AR Path="/5CE16E65/5D7D0AF7" Ref="U?"  Part="1"
 AR Path="/5D54E677/5D7D0AF7" Ref="U?"  Part="1" 
 AR Path="/5D62E1DC/5D7D0AF7" Ref="U?"  Part="1" 
 AR Path="/5D79EA4B/5D7D0AF7" Ref="U704"  Part="1" 
+AR Path="/5DDCCE66/5D7D0AF7" Ref="U?"  Part="1" 
 F 0 "U704" H 3300 4017 50  0000 C CNN
 F 1 "74HC193" H 3300 3926 50  0000 C CNN
 F 2 "Package_SO:SOIC-16_3.9x9.9mm_P1.27mm" H 3300 3350 50  0001 C CNN
@@ -1223,18 +1262,18 @@ Wire Wire Line
 	2100 1500 2800 1500
 Wire Wire Line
 	2800 1400 2100 1400
-Text HLabel 1400 1700 0    50   Input ~ 0
+Text HLabel 1100 1700 0    50   Input ~ 0
 ~DECDR
 Text Label 1850 1700 2    50   ~ 0
 ~DECDR
 Wire Wire Line
-	1400 1700 1850 1700
+	1100 1700 1850 1700
 Wire Wire Line
 	2550 2200 2800 2200
 Text Label 2550 2200 0    50   ~ 0
 ~DECDR
 Text Label 2550 3450 0    50   ~ 0
-~WDR
+~WRITE-DR
 Wire Wire Line
 	2550 3450 2800 3450
 Wire Wire Line
@@ -1386,6 +1425,7 @@ AR Path="/5D7D09DF" Ref="U?"  Part="1"
 AR Path="/5D54E677/5D7D09DF" Ref="U?"  Part="1" 
 AR Path="/5D62E1DC/5D7D09DF" Ref="U?"  Part="1" 
 AR Path="/5D79EA4B/5D7D09DF" Ref="U608"  Part="1" 
+AR Path="/5DDCCE66/5D7D09DF" Ref="U?"  Part="1" 
 F 0 "U608" H 5400 5817 50  0000 C CNN
 F 1 "74HCT541" H 5400 5726 50  0000 C CNN
 F 2 "Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm" H 5400 5050 50  0001 C CNN
@@ -1443,7 +1483,7 @@ Entry Wire Line
 Text Notes 7100 7000 0    197  ~ 39
 Data Register (DR)
 Wire Bus Line
-	1400 1000 6250 1000
+	1100 1000 6250 1000
 Wire Bus Line
 	6350 4300 6350 6700
 Wire Bus Line

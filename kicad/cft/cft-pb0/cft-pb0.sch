@@ -1,0 +1,1046 @@
+EESchema Schematic File Version 4
+LIBS:cft-pb0-cache
+LIBS:cft-card-blank-single-cache
+EELAYER 29 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 9
+Title "CFT Homebrew 16-bit Minicomputer"
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+Connection ~ 18400 6200
+Connection ~ 18400 6100
+Connection ~ 18400 5900
+Connection ~ 18400 5800
+Connection ~ 17600 6200
+Connection ~ 17600 6100
+Connection ~ 17600 5900
+Connection ~ 17600 5800
+Wire Wire Line
+	18400 6100 18400 6200
+Wire Wire Line
+	18400 5800 18400 5900
+$Comp
+L power:GND #PWR?
+U 1 1 5D3B0240
+P 18400 6200
+AR Path="/5F67D4B5/5D3B0240" Ref="#PWR?"  Part="1" 
+AR Path="/5D3B0240" Ref="#PWR05"  Part="1" 
+F 0 "#PWR05" H 18400 5950 50  0001 C CNN
+F 1 "GND" H 18405 6027 50  0000 C CNN
+F 2 "" H 18400 6200 50  0001 C CNN
+F 3 "" H 18400 6200 50  0001 C CNN
+	1    18400 6200
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 5D3B023A
+P 18400 5800
+AR Path="/5F67D4B5/5D3B023A" Ref="#PWR?"  Part="1" 
+AR Path="/5D3B023A" Ref="#PWR04"  Part="1" 
+F 0 "#PWR04" H 18400 5650 50  0001 C CNN
+F 1 "+5V" H 18415 5973 50  0000 C CNN
+F 2 "" H 18400 5800 50  0001 C CNN
+F 3 "" H 18400 5800 50  0001 C CNN
+	1    18400 5800
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 5D3B0233
+P 18400 6000
+AR Path="/5CC0D65F/5D3B0233" Ref="C?"  Part="1" 
+AR Path="/5D3B0233" Ref="C2"  Part="1" 
+AR Path="/5F67D4B5/5D3B0233" Ref="C?"  Part="1" 
+F 0 "C2" H 18492 6046 50  0000 L CNN
+F 1 "10µF" H 18492 5955 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 18400 6000 50  0001 C CNN
+F 3 "~" H 18400 6000 50  0001 C CNN
+	1    18400 6000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	17600 6100 17600 6200
+Wire Wire Line
+	17600 5800 17600 5900
+$Comp
+L power:GND #PWR?
+U 1 1 5D3AA1AB
+P 17600 6200
+AR Path="/5F67D4B5/5D3AA1AB" Ref="#PWR?"  Part="1" 
+AR Path="/5D3AA1AB" Ref="#PWR03"  Part="1" 
+F 0 "#PWR03" H 17600 5950 50  0001 C CNN
+F 1 "GND" H 17522 6163 50  0000 R CNN
+F 2 "" H 17600 6200 50  0001 C CNN
+F 3 "" H 17600 6200 50  0001 C CNN
+	1    17600 6200
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 5D3AA1A5
+P 17600 5800
+AR Path="/5F67D4B5/5D3AA1A5" Ref="#PWR?"  Part="1" 
+AR Path="/5D3AA1A5" Ref="#PWR02"  Part="1" 
+F 0 "#PWR02" H 17600 5650 50  0001 C CNN
+F 1 "+5V" H 17542 5837 50  0000 R CNN
+F 2 "" H 17600 5800 50  0001 C CNN
+F 3 "" H 17600 5800 50  0001 C CNN
+	1    17600 5800
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 5D3AA19E
+P 17600 6000
+AR Path="/5CC0D65F/5D3AA19E" Ref="C?"  Part="1" 
+AR Path="/5D3AA19E" Ref="C1"  Part="1" 
+AR Path="/5F67D4B5/5D3AA19E" Ref="C?"  Part="1" 
+F 0 "C1" H 17509 6046 50  0000 R CNN
+F 1 "10µF" H 17509 5955 50  0000 R CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 17600 6000 50  0001 C CNN
+F 3 "~" H 17600 6000 50  0001 C CNN
+	1    17600 6000
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:CFT-2019-Bus P1
+U 4 1 5D3A6E20
+P 18000 5650
+F 0 "P1" H 18000 5817 50  0000 C CNN
+F 1 "CFT-2019-Bus" H 18000 5726 50  0000 C CNN
+F 2 "alexios:CFT-2019-Card-Edge" H 17950 4750 50  0001 C CNN
+F 3 "" H 17950 4750 50  0001 C CNN
+	4    18000 5650
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:CFT-2019-Bus P1
+U 1 1 5D1A9D81
+P 13050 2950
+F 0 "P1" H 13050 3117 50  0000 C CNN
+F 1 "CFT-2019-Bus" H 13050 3026 50  0000 C CNN
+F 2 "alexios:CFT-2019-Card-Edge" H 13000 2050 50  0001 C CNN
+F 3 "" H 13000 2050 50  0001 C CNN
+	1    13050 2950
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:CFT-2019-Bus P1
+U 2 1 5D1AC429
+P 15500 2950
+F 0 "P1" H 15500 3117 50  0000 C CNN
+F 1 "CFT-2019-Bus" H 15500 3026 50  0000 C CNN
+F 2 "alexios:CFT-2019-Card-Edge" H 15450 2050 50  0001 C CNN
+F 3 "" H 15450 2050 50  0001 C CNN
+	2    15500 2950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	12450 3100 12050 3100
+Wire Wire Line
+	12450 3300 12050 3300
+Wire Wire Line
+	12450 3400 12050 3400
+Wire Wire Line
+	12450 3500 12050 3500
+Wire Wire Line
+	12450 3600 12050 3600
+Wire Wire Line
+	12450 3700 12050 3700
+Wire Wire Line
+	12450 3800 12050 3800
+Wire Wire Line
+	12450 3900 12050 3900
+Wire Wire Line
+	12450 4000 12050 4000
+Wire Wire Line
+	12450 4100 12050 4100
+Wire Wire Line
+	12450 4200 12050 4200
+Wire Wire Line
+	12450 4300 12050 4300
+Wire Wire Line
+	12450 4400 12050 4400
+Wire Wire Line
+	12450 4500 12050 4500
+Wire Wire Line
+	12450 4600 12050 4600
+Wire Wire Line
+	12450 4700 12050 4700
+Wire Wire Line
+	12450 4800 12050 4800
+Wire Wire Line
+	12450 4900 12050 4900
+Wire Wire Line
+	12450 5000 12050 5000
+Wire Wire Line
+	12450 5100 12050 5100
+Wire Wire Line
+	12450 5200 12050 5200
+Wire Wire Line
+	12450 5300 12050 5300
+Wire Wire Line
+	12450 5400 12050 5400
+Wire Wire Line
+	12450 5500 12050 5500
+Wire Wire Line
+	12450 5600 12050 5600
+Wire Wire Line
+	12450 5700 12050 5700
+Wire Wire Line
+	12450 5800 12050 5800
+Wire Wire Line
+	12450 5900 12050 5900
+Wire Wire Line
+	12450 6000 12050 6000
+Wire Wire Line
+	12450 6100 12050 6100
+Wire Wire Line
+	12450 6200 12050 6200
+Wire Wire Line
+	12450 6300 12050 6300
+Wire Wire Line
+	12450 6400 12050 6400
+Wire Wire Line
+	13650 3100 14050 3100
+Wire Wire Line
+	13650 3200 14050 3200
+Wire Wire Line
+	13650 3300 14050 3300
+Wire Wire Line
+	13650 3400 14050 3400
+Wire Wire Line
+	13650 3500 14050 3500
+Wire Wire Line
+	13650 3600 14050 3600
+Wire Wire Line
+	13650 3700 14050 3700
+Wire Wire Line
+	13650 3800 14050 3800
+Wire Wire Line
+	13650 3900 14050 3900
+Wire Wire Line
+	13650 4000 14050 4000
+Wire Wire Line
+	13650 4100 14050 4100
+Wire Wire Line
+	13650 4200 14050 4200
+Wire Wire Line
+	13650 4300 14050 4300
+Wire Wire Line
+	13650 4400 14050 4400
+Wire Wire Line
+	13650 4500 14050 4500
+Wire Wire Line
+	13650 4600 14050 4600
+Wire Wire Line
+	13650 4700 14050 4700
+Wire Wire Line
+	13650 4800 14050 4800
+Wire Wire Line
+	13650 4900 14050 4900
+Wire Wire Line
+	13650 5000 14050 5000
+Wire Wire Line
+	13650 5100 14050 5100
+Wire Wire Line
+	13650 5200 14050 5200
+Wire Wire Line
+	13650 5300 14050 5300
+Wire Wire Line
+	13650 5400 14050 5400
+Wire Wire Line
+	13650 5500 14050 5500
+Wire Wire Line
+	13650 5600 14050 5600
+Wire Wire Line
+	13650 5700 14050 5700
+Wire Wire Line
+	13650 5800 14050 5800
+Wire Wire Line
+	13650 5900 14050 5900
+Wire Wire Line
+	13650 6000 14050 6000
+Wire Wire Line
+	13650 6100 14050 6100
+Wire Wire Line
+	13650 6200 14050 6200
+Wire Wire Line
+	13650 6300 14050 6300
+Wire Wire Line
+	13650 6400 14050 6400
+Wire Wire Line
+	14500 3100 14900 3100
+Wire Wire Line
+	14500 3200 14900 3200
+Wire Wire Line
+	14500 3300 14900 3300
+Wire Wire Line
+	14500 3400 14900 3400
+Wire Wire Line
+	14500 3500 14900 3500
+Wire Wire Line
+	14500 3600 14900 3600
+Wire Wire Line
+	14500 3700 14900 3700
+Wire Wire Line
+	14500 3800 14900 3800
+Wire Wire Line
+	14500 3900 14900 3900
+Wire Wire Line
+	14500 4000 14900 4000
+Wire Wire Line
+	14500 4100 14900 4100
+Wire Wire Line
+	14500 4200 14900 4200
+Wire Wire Line
+	14500 4300 14900 4300
+Wire Wire Line
+	14500 4400 14900 4400
+Wire Wire Line
+	14500 4500 14900 4500
+Wire Wire Line
+	14500 4600 14900 4600
+Wire Wire Line
+	14500 4800 14900 4800
+Wire Wire Line
+	14500 4900 14900 4900
+Wire Wire Line
+	14500 5000 14900 5000
+Wire Wire Line
+	14500 5100 14900 5100
+Wire Wire Line
+	14500 5200 14900 5200
+Wire Wire Line
+	14500 5300 14900 5300
+Wire Wire Line
+	14500 5400 14900 5400
+Wire Wire Line
+	14500 5500 14900 5500
+Wire Wire Line
+	16100 3100 16500 3100
+Wire Wire Line
+	16100 3200 16500 3200
+Wire Wire Line
+	16100 3300 16500 3300
+Wire Wire Line
+	17150 3150 17550 3150
+Wire Wire Line
+	17150 3250 17550 3250
+Wire Wire Line
+	17150 3350 17550 3350
+Wire Wire Line
+	17150 3450 17550 3450
+Wire Wire Line
+	17150 3550 17550 3550
+Wire Wire Line
+	17150 3650 17550 3650
+Wire Wire Line
+	17150 3750 17550 3750
+Wire Wire Line
+	17150 3850 17550 3850
+Wire Wire Line
+	17150 3950 17550 3950
+Wire Wire Line
+	17150 4050 17550 4050
+Wire Wire Line
+	17150 4150 17550 4150
+Wire Wire Line
+	17150 4250 17550 4250
+Wire Wire Line
+	17150 4350 17550 4350
+Wire Wire Line
+	17150 4450 17550 4450
+Wire Wire Line
+	17150 4550 17550 4550
+Wire Wire Line
+	17150 4650 17550 4650
+Wire Wire Line
+	17150 4750 17550 4750
+Wire Wire Line
+	17150 4850 17550 4850
+Wire Wire Line
+	17150 4950 17550 4950
+Wire Wire Line
+	17150 5050 17550 5050
+$Comp
+L alexios:CFT-2019-Bus P1
+U 3 1 5D1AE7FD
+P 18050 3000
+F 0 "P1" H 18050 3167 50  0000 C CNN
+F 1 "CFT-2019-Bus" H 18050 3076 50  0000 C CNN
+F 2 "alexios:CFT-2019-Card-Edge" H 18000 2100 50  0001 C CNN
+F 3 "" H 18000 2100 50  0001 C CNN
+	3    18050 3000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	18550 3150 18950 3150
+Wire Wire Line
+	18550 3250 18950 3250
+Wire Wire Line
+	18550 3350 18950 3350
+Wire Wire Line
+	18550 3450 18950 3450
+Wire Wire Line
+	18550 3550 18950 3550
+Wire Wire Line
+	18550 3650 18950 3650
+Wire Wire Line
+	18550 3750 18950 3750
+Wire Wire Line
+	18550 3850 18950 3850
+Wire Wire Line
+	18550 3950 18950 3950
+Wire Wire Line
+	18550 4050 18950 4050
+Wire Wire Line
+	18550 4150 18950 4150
+Wire Wire Line
+	18550 4250 18950 4250
+Wire Wire Line
+	18550 4350 18950 4350
+Wire Wire Line
+	18550 4450 18950 4450
+Wire Wire Line
+	18550 4550 18950 4550
+Wire Wire Line
+	18550 4650 18950 4650
+Wire Wire Line
+	18550 4750 18950 4750
+Wire Wire Line
+	18550 4850 18950 4850
+Wire Wire Line
+	18550 4950 18950 4950
+Wire Wire Line
+	18550 5050 18950 5050
+Text Label 12050 3100 0    50   ~ 0
+~RESET
+Text Label 12050 3300 0    50   ~ 0
+CLK1
+Text Label 12050 3400 0    50   ~ 0
+CLK2
+Text Label 12050 3500 0    50   ~ 0
+CLK3
+Text Label 12050 3600 0    50   ~ 0
+CLK4
+Text Label 12050 3700 0    50   ~ 0
+WSTB
+Text Label 12050 3800 0    50   ~ 0
+T34
+Text Label 12050 3900 0    50   ~ 0
+~IRQ
+Text Label 12050 4000 0    50   ~ 0
+~IRQS
+Text Label 12050 4100 0    50   ~ 0
+AB0
+Text Label 12050 4200 0    50   ~ 0
+AB1
+Text Label 12050 4300 0    50   ~ 0
+AB2
+Text Label 12050 4400 0    50   ~ 0
+AB3
+Text Label 12050 4500 0    50   ~ 0
+AB4
+Text Label 12050 4600 0    50   ~ 0
+AB5
+Text Label 12050 4700 0    50   ~ 0
+AB6
+Text Label 12050 4800 0    50   ~ 0
+AB7
+Text Label 12050 4900 0    50   ~ 0
+AB8
+Text Label 12050 5000 0    50   ~ 0
+AB9
+Text Label 12050 5100 0    50   ~ 0
+AB10
+Text Label 12050 5200 0    50   ~ 0
+AB11
+Text Label 12050 5300 0    50   ~ 0
+AB12
+Text Label 12050 5400 0    50   ~ 0
+AB13
+Text Label 12050 5500 0    50   ~ 0
+AB14
+Text Label 12050 5600 0    50   ~ 0
+AB15
+Text Label 12050 5700 0    50   ~ 0
+AB16
+Text Label 12050 5800 0    50   ~ 0
+AB17
+Text Label 12050 5900 0    50   ~ 0
+AB18
+Text Label 12050 6000 0    50   ~ 0
+AB19
+Text Label 12050 6100 0    50   ~ 0
+AB20
+Text Label 12050 6200 0    50   ~ 0
+AB21
+Text Label 12050 6300 0    50   ~ 0
+AB22
+Text Label 12050 6400 0    50   ~ 0
+AB23
+Text Label 14050 3100 2    50   ~ 0
+~RSTHOLD
+Text Label 14050 3200 2    50   ~ 0
+~SYSDEV
+Text Label 14050 3300 2    50   ~ 0
+~IODEV1xx
+Text Label 14050 3400 2    50   ~ 0
+~IODEV2xx
+Text Label 14050 3500 2    50   ~ 0
+~IODEV3xx
+Text Label 14050 3600 2    50   ~ 0
+~MEM
+Text Label 14050 3700 2    50   ~ 0
+~IO
+Text Label 14050 3800 2    50   ~ 0
+~R
+Text Label 14050 3900 2    50   ~ 0
+~W
+Text Label 14050 4000 2    50   ~ 0
+~WS
+Text Label 14050 4100 2    50   ~ 0
+~IRQ0
+Text Label 14050 4200 2    50   ~ 0
+~IRQ1
+Text Label 14050 4300 2    50   ~ 0
+~IRQ2
+Text Label 14050 4400 2    50   ~ 0
+~IRQ3
+Text Label 14050 4500 2    50   ~ 0
+~IRQ4
+Text Label 14050 4600 2    50   ~ 0
+~IRQ5
+Text Label 14050 4700 2    50   ~ 0
+~IRQ6
+Text Label 14050 4800 2    50   ~ 0
+~IRQ7
+Text Label 14050 4900 2    50   ~ 0
+DB0
+Text Label 14050 5000 2    50   ~ 0
+DB1
+Text Label 14050 5100 2    50   ~ 0
+DB2
+Text Label 14050 5200 2    50   ~ 0
+DB3
+Text Label 14050 5300 2    50   ~ 0
+DB4
+Text Label 14050 5400 2    50   ~ 0
+DB5
+Text Label 14050 5500 2    50   ~ 0
+DB6
+Text Label 14050 5600 2    50   ~ 0
+DB7
+Text Label 14050 5700 2    50   ~ 0
+DB8
+Text Label 14050 5800 2    50   ~ 0
+DB9
+Text Label 14050 5900 2    50   ~ 0
+DB10
+Text Label 14050 6000 2    50   ~ 0
+DB11
+Text Label 14050 6100 2    50   ~ 0
+DB12
+Text Label 14050 6200 2    50   ~ 0
+DB13
+Text Label 14050 6300 2    50   ~ 0
+DB14
+Text Label 14050 6400 2    50   ~ 0
+DB15
+Text Label 14500 3100 0    50   ~ 0
+IBUS0
+Text Label 14500 3200 0    50   ~ 0
+IBUS1
+Text Label 14500 3300 0    50   ~ 0
+IBUS2
+Text Label 14500 3400 0    50   ~ 0
+IBUS3
+Text Label 14500 3500 0    50   ~ 0
+IBUS4
+Text Label 14500 3600 0    50   ~ 0
+IBUS5
+Text Label 14500 3700 0    50   ~ 0
+IBUS6
+Text Label 14500 3800 0    50   ~ 0
+IBUS7
+Text Label 14500 3900 0    50   ~ 0
+IBUS8
+Text Label 14500 4000 0    50   ~ 0
+IBUS9
+Text Label 14500 4100 0    50   ~ 0
+IBUS10
+Text Label 14500 4200 0    50   ~ 0
+IBUS11
+Text Label 14500 4300 0    50   ~ 0
+IBUS12
+Text Label 14500 4400 0    50   ~ 0
+IBUS13
+Text Label 14500 4500 0    50   ~ 0
+IBUS14
+Text Label 14500 4600 0    50   ~ 0
+IBUS15
+Text Label 14500 4800 0    50   ~ 0
+FPO0
+Text Label 14500 4900 0    50   ~ 0
+FPO1
+Text Label 14500 5000 0    50   ~ 0
+FPO2
+Text Label 14500 5100 0    50   ~ 0
+FPO3
+Text Label 14500 5200 0    50   ~ 0
+FPO4
+Text Label 14500 5300 0    50   ~ 0
+FPO5
+Text Label 14500 5400 0    50   ~ 0
+FPO6
+Text Label 14500 5500 0    50   ~ 0
+FPO7
+Text Label 16500 3100 2    50   ~ 0
+~ENDEXT
+Text Label 16500 3200 2    50   ~ 0
+~SKIPEXT
+Text Label 16500 3300 2    50   ~ 0
+~HALT
+Text Label 16500 5500 2    50   ~ 0
+ACTION3
+Text Label 16500 5400 2    50   ~ 0
+ACTION2
+Text Label 16500 5300 2    50   ~ 0
+ACTION1
+Text Label 16500 5200 2    50   ~ 0
+ACTION0
+Text Label 16500 5100 2    50   ~ 0
+WADDR4
+Text Label 16500 5000 2    50   ~ 0
+WADDR3
+Text Label 16500 4900 2    50   ~ 0
+WADDR2
+Text Label 16500 4800 2    50   ~ 0
+WADDR1
+Text Label 16500 4700 2    50   ~ 0
+WADDR0
+Text Label 16500 4600 2    50   ~ 0
+RADDR4
+Text Label 16500 4500 2    50   ~ 0
+RADDR3
+Text Label 16500 4400 2    50   ~ 0
+RADDR2
+Text Label 16500 4300 2    50   ~ 0
+RADDR1
+Text Label 16500 4200 2    50   ~ 0
+RADDR0
+Wire Wire Line
+	16100 5500 16500 5500
+Wire Wire Line
+	16100 5400 16500 5400
+Wire Wire Line
+	16100 5300 16500 5300
+Wire Wire Line
+	16100 5200 16500 5200
+Wire Wire Line
+	16100 5100 16500 5100
+Wire Wire Line
+	16100 5000 16500 5000
+Wire Wire Line
+	16100 4900 16500 4900
+Wire Wire Line
+	16100 4800 16500 4800
+Wire Wire Line
+	16100 4700 16500 4700
+Wire Wire Line
+	16100 4600 16500 4600
+Wire Wire Line
+	16100 4500 16500 4500
+Wire Wire Line
+	16100 4400 16500 4400
+Wire Wire Line
+	16100 4300 16500 4300
+Wire Wire Line
+	16100 4200 16500 4200
+Text Label 9600 2450 2    50   ~ 0
+~IRQS
+Text Label 7750 2450 0    50   ~ 0
+~IRQ
+Wire Wire Line
+	9250 2450 9600 2450
+Wire Wire Line
+	8100 2450 7750 2450
+Text Label 7750 2300 0    50   ~ 0
+~RESET
+Wire Wire Line
+	8100 2300 7750 2300
+Text Label 9600 2900 2    50   ~ 0
+CLK4
+Wire Wire Line
+	9250 2900 9600 2900
+Text Label 9600 2750 2    50   ~ 0
+CLK2
+Wire Wire Line
+	9250 2750 9600 2750
+$Sheet
+S 8100 2100 1150 1050
+U 5F67D4B5
+F0 "Interrupt State Machine" 50
+F1 "cft_int_fsm.sch" 50
+F2 "~IRQ" I L 8100 2450 50 
+F3 "~RESET" I L 8100 2300 50 
+F4 "~CLI" I L 8100 2750 50 
+F5 "~WRITE-PC" I L 8100 2600 50 
+F6 "~STI" I L 8100 2900 50 
+F7 "FI" O R 9250 2300 50 
+F8 "~IRQS" O R 9250 2450 50 
+F9 "~END" I L 8100 3050 50 
+F10 "CLK4" I R 9250 2900 50 
+F11 "CLK2" I R 9250 2750 50 
+$EndSheet
+$Sheet
+S 5550 2550 1150 1800
+U 5DB25C41
+F0 "Action Decoders" 50
+F1 "cft_action_decoder.sch" 50
+F2 "ACTION[0..3]" I L 5550 2700 50 
+F3 "~ACTION-CPL" T R 6700 2700 50 
+F4 "~ACTION-CLL" T R 6700 2800 50 
+F5 "~ACTION-STI" T R 6700 2900 50 
+F6 "~ACTION-CLI" T R 6700 3000 50 
+F7 "~ACTION-CLA" T R 6700 3100 50 
+F8 "~ACTION6" T R 6700 3200 50 
+F9 "~ACTION-SRU" T R 6700 3300 50 
+F10 "~ACTION-INCPC" T R 6700 3500 50 
+F11 "~ACTION-INCDR" T R 6700 3600 50 
+F12 "~ACTION-DECDR" T R 6700 3700 50 
+F13 "WSTB" I L 5550 2800 50 
+F14 "~ACTION-INCAC" T R 6700 3800 50 
+F15 "~ACTION-DECAC" T R 6700 3900 50 
+F16 "~ACTION-INCSP" T R 6700 4000 50 
+F17 "~ACTION-DECSP" T R 6700 4100 50 
+F18 "~ACTION15" T R 6700 4200 50 
+F19 "~µCE" I L 5550 2900 50 
+$EndSheet
+Text Label 1100 5700 0    50   ~ 0
+~FPIRH
+Text Label 1100 5550 0    50   ~ 0
+~FPIRL
+Text Label 1100 5400 0    50   ~ 0
+~WRITE-IR
+Wire Wire Line
+	1700 5700 1100 5700
+Wire Wire Line
+	1700 5550 1100 5550
+Wire Wire Line
+	1700 5400 1100 5400
+Text Label 1100 5250 0    50   ~ 0
+IBUS[0..15]
+Wire Bus Line
+	1700 5250 1100 5250
+Wire Bus Line
+	2850 5700 3450 5700
+Text Label 3450 5700 2    50   ~ 0
+FPO[0..7]
+Text Label 3450 5250 2    50   ~ 0
+IR[0..15]
+Wire Bus Line
+	2850 5250 3450 5250
+Text Label 3450 3050 2    50   ~ 0
+ACTION[0..3]
+Text Label 3450 2950 2    50   ~ 0
+COND[0..4]
+Text Label 3450 2850 2    50   ~ 0
+WADDR[0..4]
+Wire Bus Line
+	2850 2750 3450 2750
+Text Label 3450 2750 2    50   ~ 0
+RADDR[0..4]
+Wire Bus Line
+	2850 3050 3450 3050
+Wire Bus Line
+	2850 2950 3450 2950
+Wire Bus Line
+	2850 2850 3450 2850
+Text Label 1100 3700 0    50   ~ 0
+IR[7..15]
+Text Label 1100 3400 0    50   ~ 0
+IDX[0..1]
+Wire Wire Line
+	1550 3600 1100 3600
+Connection ~ 1550 3600
+Wire Wire Line
+	1550 3900 1550 3600
+$Comp
+L power:GND #PWR01
+U 1 1 5D31960E
+P 1550 4100
+F 0 "#PWR01" H 1550 3850 50  0001 C CNN
+F 1 "GND" H 1555 3927 50  0000 C CNN
+F 2 "" H 1550 4100 50  0001 C CNN
+F 3 "" H 1550 4100 50  0001 C CNN
+	1    1550 4100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_Small R1
+U 1 1 5D316E0E
+P 1550 4000
+AR Path="/5D316E0E" Ref="R1"  Part="1" 
+AR Path="/5CC0D65F/5D316E0E" Ref="R?"  Part="1" 
+AR Path="/5D54E677/5D316E0E" Ref="R?"  Part="1" 
+AR Path="/5D62E1DC/5D316E0E" Ref="R?"  Part="1" 
+AR Path="/5DEAC282/5D316E0E" Ref="R?"  Part="1" 
+AR Path="/5F67D4B5/5D316E0E" Ref="R?"  Part="1" 
+AR Path="/5D46B22D/5D316E0E" Ref="R?"  Part="1" 
+F 0 "R1" H 1609 4046 50  0000 L CNN
+F 1 "4.7kΩ" H 1609 3955 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1550 4000 50  0001 C CNN
+F 3 "~" H 1550 4000 50  0001 C CNN
+	1    1550 4000
+	-1   0    0    1   
+$EndComp
+$Sheet
+S 1700 2550 1150 2300
+U 5DEAC282
+F0 "Microprogram Sequencer" 50
+F1 "cft_microcode.sch" 50
+F2 "~ENDEXT" I L 1700 3100 50 
+F3 "~RSTHOLD" I L 1700 2800 50 
+F4 "~WS" I L 1700 3200 50 
+F5 "~HALT" I L 1700 3000 50 
+F6 "CLK4" I L 1700 2900 50 
+F7 "~RESET" I L 1700 2700 50 
+F8 "~µCE" O R 2850 3800 50 
+F9 "RADDR[0..4]" O R 2850 2750 50 
+F10 "WADDR[0..4]" O R 2850 2850 50 
+F11 "COND[0..4]" O R 2850 2950 50 
+F12 "ACTION[0..3]" O R 2850 3050 50 
+F13 "~MEM" O R 2850 3150 50 
+F14 "~IO" O R 2850 3250 50 
+F15 "~R" O R 2850 3350 50 
+F16 "~WEN" O R 2850 3450 50 
+F17 "~END" O R 2850 3550 50 
+F18 "~IRQSUC" I L 1700 3800 50 
+F19 "IN-RSVD" I L 1700 3600 50 
+F20 "COND" I L 1700 3500 50 
+F21 "IR[7..15]" I L 1700 3700 50 
+F22 "FPO[0..7]" T R 2850 4700 50 
+F23 "~FPµA0" I R 2850 4050 50 
+F24 "~FPµA1" I R 2850 4150 50 
+F25 "~FPµA2" I R 2850 4250 50 
+F26 "~FPµC0" I R 2850 4350 50 
+F27 "~FPµC1" I R 2850 4450 50 
+F28 "~FPµC2" I R 2850 4550 50 
+F29 "IDX[0..1]" I L 1700 3400 50 
+$EndSheet
+Wire Wire Line
+	1700 2000 1100 2000
+Wire Wire Line
+	1700 1400 1100 1400
+Wire Wire Line
+	1700 1550 1100 1550
+Wire Wire Line
+	1700 1650 1100 1650
+Wire Wire Line
+	1700 1750 1100 1750
+Text Label 1100 1400 0    50   ~ 0
+~RESET
+Text Label 1100 1550 0    50   ~ 0
+~FPRESET
+Text Label 1100 1650 0    50   ~ 0
+FPCLK
+Text Label 1100 1750 0    50   ~ 0
+FPCLKEN
+Text Label 1100 2000 0    50   ~ 0
+POWEROK
+Wire Wire Line
+	3450 1400 2850 1400
+Wire Wire Line
+	2850 1550 3450 1550
+Wire Wire Line
+	2850 1650 3450 1650
+$Sheet
+S 1700 1250 1150 1050
+U 5E36D9C8
+F0 "Clock Generator" 50
+F1 "cft_clk.sch" 50
+F2 "CLK1" O R 2850 1550 50 
+F3 "CLK2" O R 2850 1650 50 
+F4 "CLK3" O R 2850 1750 50 
+F5 "CLK4" O R 2850 1850 50 
+F6 "~RESET" I L 1700 1400 50 
+F7 "FPCLK" I L 1700 1650 50 
+F8 "~RSTHOLD" O R 2850 1400 50 
+F9 "POWEROK" I L 1700 2000 50 
+F10 "~FPRESET" I L 1700 1550 50 
+F11 "~FPCLK~⁄CLK" I L 1700 1750 50 
+F12 "T34" O R 2850 2000 50 
+F13 "WSTB" O R 2850 2150 50 
+$EndSheet
+Wire Wire Line
+	2850 1750 3450 1750
+Wire Wire Line
+	2850 1850 3450 1850
+Wire Wire Line
+	2850 2000 3450 2000
+Wire Wire Line
+	2850 2150 3450 2150
+Text Label 3450 1400 2    50   ~ 0
+~RSTHOLD
+Text Label 3450 1550 2    50   ~ 0
+CLK1
+Text Label 3450 1650 2    50   ~ 0
+CLK2
+Text Label 3450 1750 2    50   ~ 0
+CLK3
+Text Label 3450 1850 2    50   ~ 0
+CLK4
+Text Label 3450 2000 2    50   ~ 0
+T34
+Text Label 3450 2150 2    50   ~ 0
+WSTB
+Wire Wire Line
+	1700 3000 1100 3000
+Text Label 1100 3000 0    50   ~ 0
+~HALT
+Wire Wire Line
+	1700 2900 1100 2900
+Text Label 1100 2900 0    50   ~ 0
+CLK4
+Wire Wire Line
+	1100 2800 1700 2800
+Text Label 1100 2800 0    50   ~ 0
+~RSTHOLD
+Wire Wire Line
+	1700 2700 1100 2700
+Text Label 1100 2700 0    50   ~ 0
+~RESET
+Wire Wire Line
+	1100 3100 1700 3100
+Wire Wire Line
+	1100 3200 1700 3200
+Text Label 1100 3100 0    50   ~ 0
+~ENDEXT
+Text Label 1100 3200 0    50   ~ 0
+~WS
+Wire Wire Line
+	2850 3150 3450 3150
+Wire Wire Line
+	2850 3250 3450 3250
+Wire Wire Line
+	2850 3350 3450 3350
+Wire Wire Line
+	2850 3450 3450 3450
+Wire Wire Line
+	2850 3550 3450 3550
+Text Label 3450 3150 2    50   ~ 0
+~MEM
+Text Label 3450 3250 2    50   ~ 0
+~IO
+Text Label 3450 3350 2    50   ~ 0
+~R
+Text Label 3450 3450 2    50   ~ 0
+~WEN
+Text Label 3450 3550 2    50   ~ 0
+~END
+Wire Wire Line
+	2850 3800 3450 3800
+Text Label 3450 3800 2    50   ~ 0
+~µCE
+Wire Wire Line
+	2850 4050 3450 4050
+Wire Wire Line
+	2850 4150 3450 4150
+Wire Wire Line
+	2850 4250 3450 4250
+Wire Wire Line
+	2850 4350 3450 4350
+Wire Wire Line
+	2850 4450 3450 4450
+Wire Wire Line
+	2850 4550 3450 4550
+Text Label 3450 4050 2    50   ~ 0
+~FPµA0
+Text Label 3450 4150 2    50   ~ 0
+~FPµA1
+Text Label 3450 4250 2    50   ~ 0
+~FPµA2
+Text Label 3450 4350 2    50   ~ 0
+~FPµC0
+Text Label 3450 4450 2    50   ~ 0
+~FPµC1
+Text Label 3450 4550 2    50   ~ 0
+~FPµC2
+Wire Bus Line
+	2850 4700 3450 4700
+Text Label 3450 4700 2    50   ~ 0
+FPO[0..7]
+Wire Bus Line
+	1700 3400 1100 3400
+Wire Wire Line
+	1700 3500 1100 3500
+Wire Wire Line
+	1700 3600 1550 3600
+Wire Bus Line
+	1700 3700 1100 3700
+Wire Wire Line
+	1700 3800 1100 3800
+Text Label 1100 3800 0    50   ~ 0
+~IRQSUC
+Text Label 1100 3500 0    50   ~ 0
+COND
+Text Label 1100 3600 0    50   ~ 0
+IN-RSVD
+$Sheet
+S 3950 2550 1150 2300
+U 5E726BB8
+F0 "Unit Decoders" 50
+F1 "cft_unit_decoders.sch" 50
+F2 "RUNIT[0..3]" I L 3950 3200 50 
+F3 "CLK1" I L 3950 2850 50 
+F4 "~R1" O R 5100 2700 50 
+F5 "~RAGL" O R 5100 2800 50 
+F6 "~READ-PC" O R 5100 2900 50 
+F7 "~READ-DR" O R 5100 3000 50 
+F8 "~RAC" O R 5100 3100 50 
+F9 "~R6" O R 5100 3200 50 
+F10 "~R7" O R 5100 3300 50 
+F11 "~µCE" I L 3950 3500 50 
+F12 "WUNIT[0..2]" I L 3950 3350 50 
+F13 "~RESET" I L 3950 2700 50 
+F14 "CLK3" I L 3950 3000 50 
+F15 "~W1" I R 5100 3500 50 
+F16 "~WRITE-AR" I R 5100 3600 50 
+F17 "~WRITE-PC" I R 5100 3700 50 
+F18 "~WIR" I R 5100 3800 50 
+F19 "~WRITE-DR" I R 5100 3900 50 
+F20 "~WRITE-AC" I R 5100 4000 50 
+F21 "~WALU" I R 5100 4100 50 
+F22 "~STPDR" I L 3950 4300 50 
+F23 "~DEC" I L 3950 4600 50 
+F24 "~STPAC" I L 3950 4450 50 
+F25 "RESET" O R 5100 4300 50 
+F26 "~ACTION-DECDR" O R 5100 4400 50 
+F27 "~ACTION-INCDR" O R 5100 4500 50 
+F28 "~ACTION-DECAC" O R 5100 4600 50 
+F29 "~ACTION-INCAC" O R 5100 4700 50 
+$EndSheet
+$Sheet
+S 22000 6500 1150 750 
+U 5F63066B
+F0 "Instruction Register (IR)" 50
+F1 "cfg_reg_ir.sch" 50
+F2 "IBUS[0..15]" T L 22000 6650 50 
+F3 "IR[0..15]" B R 23150 6650 50 
+F4 "~FPIRL" I L 22000 6950 50 
+F5 "~FPIRH" I L 22000 7100 50 
+F6 "FPO[0..7]" T R 23150 7100 50 
+F7 "~WRITE-IR" I L 22000 6800 50 
+$EndSheet
+$EndSCHEMATC

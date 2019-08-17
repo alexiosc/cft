@@ -1,10 +1,10 @@
 EESchema Schematic File Version 4
 LIBS:cft-cache
-EELAYER 29 0
+EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 14 23
+Sheet 7 35
 Title "CFT Homebrew 16-bit Minicomputer"
 Date ""
 Rev ""

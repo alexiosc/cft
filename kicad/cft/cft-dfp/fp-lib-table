@@ -1,0 +1,3 @@
+(fp_lib_table
+  (lib (name alexios)(type KiCad)(uri /home/alexios/PROJECTS/HARDWARE/cft/kicad/alexios.pretty)(options "")(descr ""))
+)

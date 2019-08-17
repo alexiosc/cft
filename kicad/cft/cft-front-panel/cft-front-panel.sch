@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:cft-front-panel-cache
-EELAYER 29 0
+EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -636,7 +636,6 @@ F 3 "" H 3200 3400 50  0001 C CNN
 	1    3200 3400
 	1    0    0    -1  
 $EndComp
-Connection ~ 3200 3400
 $Comp
 L alexios:74HC138 U3
 U 2 1 5D335BA2
