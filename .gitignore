@@ -1,4 +1,4 @@
-#*
+\#*
 *.aux
 *.bak
 *.gpi
@@ -26,7 +26,7 @@ asm/*.list
 asm/*.map
 asm/*.pasm
 asm/*.sym
-documentation/external
+documentation/external/
 documentation/latex/*/*.aux
 documentation/latex/*/*.log
 documentation/latex/*/*.dvi
@@ -269,6 +269,6 @@ video-board/altera/output_files/*
 video-board/verilog/sn*.pdf
 video-board/verilog/img
 video-board/verilog/vdu-*.bmp
-videos
+videos/
 rom/Untitled.xpm
-pub
+pub/
