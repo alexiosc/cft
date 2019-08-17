@@ -1,4 +1,4 @@
-# -*- conf *-*
+# -*- conf -*-
 # Emacs temporary and backup files.
 \#*
 *~
@@ -344,7 +344,6 @@ notes/*pdf
 testing/reports/*
 screenshots
 testing/.deps
-testing/sav/*
 testing/sandbox/*
 tmp
 tools/pygment*
