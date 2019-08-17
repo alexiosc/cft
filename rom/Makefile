@@ -29,8 +29,8 @@ CFTEMUOPTS +=	--hd0=hd0
 #CFTEMUOPTS +=	--hd2=hd2
 #CFTEMUOPTS +=	--hd3=hd3
 #CFTEMUOPTS +=	--debug-irc
-CFTEMUOPTS +=	--debug-ide
-#CFTEMUOPTS +=	--dfp-pts
+#CFTEMUOPTS +=	--debug-ide
+CFTEMUOPTS +=	--dfp-pts
 #CFTEMUOPTS +=	--debug-mem
 
 BASEVECASM =	$(GENDIR)/base-vectable.asm

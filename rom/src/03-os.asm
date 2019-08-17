@@ -715,6 +715,7 @@ isr_no_irc:
 
 &fff0:		LI dfp.FTR_HOB		; No halt on bus errors (for emulator)
 		DISEF
+		DEBUGON
 		LI &80			; Ensure ROM bank 0 is mapped at &8000
 		SMB 4			; 4 * &2000
 		FARJMP(post.start)	; Boot vector (far jump)

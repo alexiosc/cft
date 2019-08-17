@@ -397,9 +397,9 @@ v:		LMOV(p0.HWENV, p0.HWE_V)
 ret:		return()
 		
 detect_mask:	.word dfp.QEF_DET
-detect_c:	.word dfp.QEF_VCE
-detect_v:	.word dfp.QEF_VLE
-detect_j:	.word dfp.QEF_VJE
+detect_c:	.word dfp.QEF_DCE
+detect_v:	.word dfp.QEF_DVE
+detect_j:	.word dfp.QEF_DJE
 drv_handle:	.data drv.ser.dfp.base
 dfp_isr:	.word drv.ser.dfp.isr
 
