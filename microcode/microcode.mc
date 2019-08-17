@@ -126,21 +126,25 @@ cond uaddr:4;
 // Address   Read from   Write to     Notes
 // -------------------------------------------------------------------------------
 // 00000     Idle        Idle         Needed to disable reading/writing
-// 00001
-// 00010     AGL         IR           The AGL is read-only; the IR is write-only.
-// 00011                     
+// -------------------------------------------------------------------------------
+// 00001     MBP + flags MBP + flags  This is used in interrupt handlers for speed.
+// 00010     flags                    Just the flags.
+// 00011     MBn         MBn          IR[0..2] selects the register to read/write
 // 00100                 AR:MBP       Write to the Address Register, use Program MBR.
 // 00101                 AR:MBD       Write to the AR, use Data MBR.
 // 00110                 AR:MBS       Write to the AR, use Stack MBR.
 // 00111                 AR:MBZ       Write to the AR, use Zero Page MBR/addressing.
+// -------------------------------------------------------------------------------
 // 01000     PC          PC                                 
 // 01001     DR          DR                                      
 // 01010     AC          AC                                      
 // 01011     SP          SP           The CFT is a big boy now, it has a Stack Pointer!
-// 01100                 
-// 01101     MBP + flags MBP + flags  This is used in interrupt handlers for speed.
-// 01110     flags                    Just the flags.
-// 01111     MBn         MBn          IR[0..2] selects the register to read/write
+// -------------------------------------------------------------------------------
+// 11100                                      
+// 11101                                      
+// 11110                                      
+// 11111
+// -------------------------------------------------------------------------------
 // 10000     ALU:ADD
 // 10001     ALU:AND                                      
 // 10010     ALU:OR                                      
@@ -149,14 +153,16 @@ cond uaddr:4;
 // 10101     ALU:B       ALU:B        The ALU B port is treated as a major reg without increments.                          
 // 10110                                      
 // 10111                                      
+// -------------------------------------------------------------------------------
 // 11000     CS0                      Read from constant store (0000)
 // 11001     CS1                      Read from constant store (0001)
 // 11010     CS2                      Read from constant store (0002)
 // 11011     CS3                      Read from constant store (0003)
-// 11100                                      
-// 11101                                      
-// 11110                                      
-// 11111
+// -------------------------------------------------------------------------------
+// 11100
+// 11101
+// 11110     AGL                      The AGL is read-only
+// 11111                 IR           The IR is write-only
 
 // RADDR FIELD
 field  READ            = ___________________XXXXX; // Read unit field
@@ -175,13 +181,18 @@ signal read_alu_or     = ...................10010; // ALU: Read from ALU: AC OR 
 signal read_alu_xor    = ...................10011; // ALU: Read from ALU: AC XOR B
 signal read_alu_not    = ...................10100; // ALU: Read from ALU: NOT AC
 signal read_alu_b      = ...................10101; // ALU: Read B register from ALU
-signal read_cs_rstvec  = ...................11   ; // Constant Store: Reset Vector (0000)
-signal read_cs_isrvec0 = ...................11   ; // Constant Store: ISR Vector (0002)
-signal read_cs_isrvec1 = ...................11   ; // Constant Store: ISR Vector (0003)
+signal read_cs_rstvec  = ...................11000; // Constant Store: Reset Vector (0000)
+signal read_cs_rsvd1   = ...................11001; // Constant Store: Unused (0001)
+signal read_cs_isrvec0 = ...................11010; // Constant Store: ISR Vector (0002)
+signal read_cs_isrvec1 = ...................11011; // Constant Store: ISR Vector (0003)
 // No longer used, there's a dedicated 1b6-bit stack pointer now.
 //signal read_cs_sp      = ...................11001; // Constant Store: Stack Pointer
 
 // WADDR FIELD
+
+FIX THESE ADDRESSES ACCORDING TO THE COMMENTS ABOVE!!!
+
+
 field  WRITE           = ______________XXXXX_____; // Write unit field
 signal write_ir        = ..............00010.....; // Write to the Instruction Register
 signal write_ar_mbp    = ..............00100.....; // Write MBP:AR (program area, extend with MBP)
@@ -550,9 +561,9 @@ start RST=1, INT=0, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 #define PPF    _INSTR(0111), I=0, R=1, SUBOP=010, COND=X, IDX=XX
 #define STI    _INSTR(0111), I=0, R=1, SUBOP=011, COND=X, IDX=XX
 #define CLI    _INSTR(0111), I=0, R=1, SUBOP=100, COND=X, IDX=XX
-#define IFL    _INSTR(0111), I=0, R=1, SUBOP=101,         IDX=XX
-#define IFV    _INSTR(0111), I=0, R=1, SUBOP=110,         IDX=XX
-#define UOP    _INSTR(0111), I=0, R=1, SUBOP=111, COND=X, IDX=XX
+#define WAIT   _INSTR(0111), I=0, R=1, SUBOP=101,         IDX=XX
+//#define      _INSTR(0111), I=0, R=1, SUBOP=110, COND=X, IDX=XX // This is available
+//#define      _INSTR(0111), I=0, R=1, SUBOP=111, COND=X, IDX=XX // This is available
 #define SRU    _INSTR(0111), I=1, R=0, SUBOP=000, COND=X, IDX=XX // All shifts and rolls are here.
 #define SKP    _INSTR(0111), I=1, R=0, SUBOP=001, COND=X, IDX=XX // Skips
 #define TAB    _INSTR(0111), I=1, R=0, SUBOP=010, COND=X, IDX=XX
@@ -565,14 +576,16 @@ start RST=1, INT=0, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 #define JSA    _INSTR(0111), I=1, R=1, SUBOP=001, COND=X, IDX=XX
 //#define      _INSTR(0111), I=1, R=1, SUBOP=010, COND=X, IDX=XX // This is available
 //#define      _INSTR(0111), I=1, R=1, SUBOP=011, COND=X, IDX=XX // This is available
-//#define      _INSTR(0111), I=1, R=1, SUBOP=100, COND=X, IDX=XX // This is available
-//#define      _INSTR(0111), I=1, R=1, SUBOP=101, COND=X, IDX=XX // This is available
-//#define      _INSTR(0111), I=1, R=1, SUBOP=110, COND=X, IDX=XX // This is available
+#define UOP    _INSTR(0111), I=1, R=1, SUBOP=100, COND=X, IDX=XX
+#define IFL    _INSTR(0111), I=1, R=1, SUBOP=101,         IDX=XX
+#define IFV    _INSTR(0111), I=1, R=1, SUBOP=110,         IDX=XX
 #define IND    _INSTR(0111), I=1,      SUBOP=111, COND=X, IDX=XX
 
 #define LOAD   _INSTR(1000), SUBOP=XXX, COND=X
 #define STORE  _INSTR(1001), SUBOP=XXX, COND=X
 #define ISZ    _INSTR(1010), SUBOP=XXX, COND=X
+
+//#define ???  _INSTR(1011), ... // Available full instruction
 
 #define ADD    _INSTR(1100), SUBOP=XXX, COND=X
 #define AND    _INSTR(1101), SUBOP=XXX, COND=X
@@ -1692,6 +1705,43 @@ start CLI;
 
 ///////////////////////////////////////////////////////////////////////////////
 //
+// THE WAIT INSTRUCTION
+//
+///////////////////////////////////////////////////////////////////////////////
+
+// The WAIT instruction stops execution until an interrupt arrives (in
+// case it's handled).
+//
+// There's no fetch cycle here! The instruction just executes END, but doesn't
+// fetch anything, which puts the microcode sequencer in an endless loop. It
+// will be broken out of that loop only when an interrupt arrives, and the
+// interrupt handler microprogram gets executed. That happens when END is
+// asserted, conveniently.
+//
+// While WAIT is active, the front panel will appear to be stuck in the ‘Fetch’
+// state with the µPC stuck to zero.
+
+start WAIT, COND=1;
+      END;			// 00
+      END;			// 01
+      END;			// 02
+      END;			// 03
+      END;			// 04
+      END;			// 05
+      END;			// 06
+      END;			// 07
+      END;			// 08
+      END;			// 09
+      END;			// 0a
+      END;			// 0b
+      END;			// 0c
+      END;			// 0d
+      END;			// 0e
+      END;			// 0f
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
 // THE UNARY OPERATION GROUP: IFL, IFV, UOP
 //
 ///////////////////////////////////////////////////////////////////////////////
@@ -1726,8 +1776,6 @@ start IFL, COND=1;
       if_ir0;
       END;
 
-
-
 start IFV, COND=0;
       FETCH_IR, if_v;		                // 00 IR ← mem[PC++];
       if_ir5;					// If V:
@@ -1747,8 +1795,6 @@ start IFV, COND=1;
       if_ir1;
       if_ir0;
       END;
-
-
 
 start UOP, COND=0;
       FETCH_IR, if_ir5;		                // 00 IR ← mem[PC++];
@@ -1803,11 +1849,11 @@ start SRU;
 ///////////////////////////////////////////////////////////////////////////////
 
 //            OP   I R 987 6543210
-//       SKP  0111'1'0'001'000dddd    ; Bitwise shift left by d bits
+//       SKP  0111'1'0'001'000dddd    ; 
 //       NOP  0111'1'0'001'0000000    ; G1 Skip never (NOP)
 //       SNA  0111'1'0'001'--01---    ; G1 Skip if Negative AC: A < 0 => PC++
 //       SZA  0111'1'0'001'--0-1--    ; G1 Skip if Zero AC: A == 0 => PC++
-//       SLS  0111'1'0'001'--0--1-    ; G1 Skip if Link set: L == 1 ==> PC++
+//       SSL  0111'1'0'001'--0--1-    ; G1 Skip if Link set: L == 1 ==> PC++
 //       SSV  0111'1'0'001'--0---1    ; G1 Skip if Overflow set: V == 1 ==> PC++ (1)
 //
 //       SKIP 0111'1'0'001'--10000    ; G2 Skip always: PC++
@@ -1827,14 +1873,14 @@ start SRU;
 // simple here.
 
 // First, the version where the skip isn't taken.
-start SRU, COND=0;
+start SKP, COND=0;
       FETCH_IR, if_branch;	                // 00 IR ← mem[PC++]
       END;					// 02 IF not skip: END
 
 // Next, the version where the skip is taken.
-start SRU, COND=0;
+start SKP, COND=0;
       FETCH_IR, if_branch;	                // 00 IR ← mem[PC++]
-      /action_incpc;				// 02 If skip: PC++
+      /action_incpc, END;			// 02 If skip: PC++
 
 
 
@@ -1915,13 +1961,13 @@ start JSA;
 start IND, R=0;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       SET(dr, ac);				// 02 DR ← AC
-      MEMREAD(mbp,ac, dr), END;		        // 03 AC ← mem[DR]
+      MEMREAD(mbp, ac, dr), END;		// 03 AC ← mem[MBP:DR]
 
 // ② IND, register address addressing mode
 start IND, R=1;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       SET(dr, ac);				// 02 DR ← AC
-      MEMREAD(mbz,ac, dr), END;		        // 03 AC ← mem[MBZ:DR]
+      MEMREAD(mbz, ac, dr), END;		// 03 AC ← mem[MBZ:DR]
 
 
 // End of file.
