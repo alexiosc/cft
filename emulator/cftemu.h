@@ -97,6 +97,7 @@ typedef struct {
 	uint8_t  aext;		/* The output of the MBU */
 
 	word ar;		// Address register, also value of ABUS
+	word agl_page;		// Pre-increment value of the PC, used by the AGL.
 	word pc;
 	word ir;
 	word dr;

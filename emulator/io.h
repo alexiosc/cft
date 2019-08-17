@@ -67,25 +67,23 @@ Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 #define IO_DFP_ICR         0x010a //     10a: -w-ef ICR (DFP Interrupt Control register)
 #define IO_DFP_ISR         0x010a //     10a: r--ef ISR (DFP Interrupt status register)
 #define IO_SENTINEL        0x010f //     10f: -w-ef SENTINEL instruction
-#define IO_PRINTA	   0x0110 //     3f0: -whef Log AC as address
-#define IO_PRINTC	   0x0111 //     3f1: -whef Print AC to DFP TTY
-#define IO_READC      	   0x0111 //     3f1: r-hef Read character from DFP TTY
-#define IO_PRINTD	   0x0112 //     3f2: -whef Log AC as integer
-#define IO_PRINTU	   0x0113 //     3f3: -whef Log AC as unsigned int
-#define IO_PRINTH	   0x0114 //     3f4: -whef Log AC in hex
-#define IO_PRINTB	   0x0115 //     3f6: -whef Log AC in binary
-#define IO_PRINTSP	   0x0116 //     3f6: -whef Log a space
-#define IO_PRINTNL	   0x0117 //     3f7: -whef Log a newline
-#define IO_DEBUGON	   0x0118 //     3f8: -w-ef Emulator enables assembly tracing
-#define IO_DEBUGOFF	   0x0119 //     3f9: -w-ef Emulator disables assembly tracing
-#define IO_DUMP  	   0x011a //     3fa: -w-ef Emulator dumps state
-#define IO_PRINTHI	   0x011b //     3fb: -whef HI:=AC
-#define IO_PRINTLO	   0x011c //     3fc: -whef Log 32-bit int as HI:AC
-#define IO_HALT	           0x011d //     3fd: -whef Debugging halt
-#define IO_SUCCESS         0x011e //     3fe: -whef Log test success
-#define IO_FAIL 	   0x011f //     3ff: -whef Log test failure and HALTh
-
-
+#define IO_PRINTA	   0x0110 //     110: -whef Log AC as address
+#define IO_PRINTC	   0x0111 //     111: -whef Print AC to DFP TTY
+#define IO_READC      	   0x0111 //     111: r-hef Read character from DFP TTY
+#define IO_PRINTD	   0x0112 //     112: -whef Log AC as integer
+#define IO_PRINTU	   0x0113 //     113: -whef Log AC as unsigned int
+#define IO_PRINTH	   0x0114 //     114: -whef Log AC in hex
+#define IO_PRINTB	   0x0115 //     116: -whef Log AC in binary
+#define IO_PRINTSP	   0x0116 //     116: -whef Log a space
+#define IO_PRINTNL	   0x0117 //     117: -whef Log a newline
+#define IO_DEBUGON	   0x0118 //     118: -w-ef Emulator enables assembly tracing
+#define IO_DEBUGOFF	   0x0119 //     119: -w-ef Emulator disables assembly tracing
+#define IO_DUMP  	   0x011a //     11a: -w-ef Emulator dumps state
+#define IO_PRINTHI	   0x011b //     11b: -whef HI:=AC
+#define IO_PRINTLO	   0x011c //     11c: -whef Log 32-bit int as HI:AC
+#define IO_HALT	           0x011d //     11d: -whef Debugging halt
+#define IO_SUCCESS         0x011e //     11e: -whef Log test success
+#define IO_FAIL 	   0x011f //     11f: -whef Log test failure and HALTh
 
 // NEWEST HARDWARE VERIFIED UP TO HERE
 

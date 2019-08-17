@@ -302,6 +302,7 @@ reset_cpu()
 	cpu.ustate.v = 0;
 	cpu.ustate.l = 0;
 
+	cpu.agl_page = get_page(cpu.pc);
 	cpu.rst_hold = RST_HOLD; /* Set up reset pulse */
 }
 
@@ -354,7 +355,7 @@ unit_agl() {
 	 * If R flag is set, use high bits of PC for the high bits of the
 	 * address. Otherwise, use zeroes. Use the IR operand for the low bits.
 	 */
-	return (get_r(cpu.ir) ? 0 : get_page(cpu.pc)) | (get_offset(cpu.ir));
+	return (get_r(cpu.ir) ? 0 : cpu.agl_page) | (get_offset(cpu.ir));
 }
 
 
@@ -993,6 +994,7 @@ emulate()
 		// End of the instruction?
 		if (end) {
 			//dump_state();
+			cpu.agl_page = get_page(cpu.pc);
 			cpu.ustate.uaddr = 0;
 			cpu.ustate.int_ = 1; /* Clear the INT microcode condition */
 			ucdebug("*** GO FETCH ***\n\n\n\n\n\n\n");
