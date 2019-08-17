@@ -1,2 +1,0 @@
-Parts not found in 3dpack.dat or 3dusrpac.dat are:
-//IC20	74AC1G11DBV	DBV_R-PDSO-G6

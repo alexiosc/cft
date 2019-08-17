@@ -1,21 +1,21 @@
 [*]
-[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Fri May 24 20:35:19 2019
+[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
+[*] Mon Jun 17 06:47:55 2019
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/serial_shifter_tb.vcd"
-[dumpfile_mtime] "Fri May 24 20:35:07 2019"
-[dumpfile_size] 60028
+[dumpfile_mtime] "Mon Jun 17 06:47:36 2019"
+[dumpfile_size] 26327
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/serial_shifter_tb.sav"
-[timestart] 0
-[size] 2048 1123
-[pos] 0 0
-*-21.715988 14070000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[timestart] 188000
+[size] 1920 1019
+[pos] 8192 0
+*-18.230942 574900 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] serial_shifter_tb.
 [treeopen] serial_shifter_tb.serial_shifter.
-[sst_width] 226
+[sst_width] 258
 [signals_width] 226
 [sst_expanded] 1
-[sst_vpaned_height] 315
+[sst_vpaned_height] 314
 @28
 [color] 2
 serial_shifter_tb.serial_shifter.nreset
@@ -49,7 +49,7 @@ serial_shifter_tb.serial_shifter.ctr_state.tc
 serial_shifter_tb.serial_shifter.ctr_state.nrc
 serial_shifter_tb.serial_shifter.ctr_state.nce
 serial_shifter_tb.serial_shifter.shiftclk
-@800022
+@c00022
 serial_shifter_tb.serial_shifter.b[15:0]
 @28
 [color] 5
@@ -88,12 +88,14 @@ serial_shifter_tb.serial_shifter.msb
 (14)serial_shifter_tb.serial_shifter.b[15:0]
 [color] 7
 (15)serial_shifter_tb.serial_shifter.b[15:0]
-@1001200
+@1401200
 -group_end
 @28
 [color] 5
 serial_shifter_tb.serial_shifter.lsb
 [color] 4
 serial_shifter_tb.serial_shifter.flout
+@200
+-
 [pattern_trace] 1
 [pattern_trace] 0

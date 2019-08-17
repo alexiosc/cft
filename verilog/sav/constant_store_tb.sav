@@ -1,15 +1,61 @@
-[timestart] 0
-[size] 1426 914
-[pos] 161 205
-*-20.148731 674000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[*]
+[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
+[*] Wed May 29 13:45:59 2019
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/constant_store_tb.vcd"
+[dumpfile_mtime] "Wed May 29 13:45:57 2019"
+[dumpfile_size] 10012
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/constant_store_tb.sav"
+[timestart] 5930000
+[size] 1803 755
+[pos] 334 269
+*-19.482979 2267000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] constant_store_tb.
 [treeopen] constant_store_tb.constant_store.
+[sst_width] 258
+[signals_width] 200
+[sst_expanded] 1
+[sst_vpaned_height] 167
 @28
-constant_store_tb.constant_store.in_rst
-constant_store_tb.constant_store.in_int
-constant_store_tb.constant_store.r_cs2
-constant_store_tb.constant_store.r_cs1
-@22
-constant_store_tb.constant_store.q[15:0]
+constant_store_tb.nrsthold
+constant_store_tb.nruen
+@c02029
+^1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/raddr
+constant_store_tb.raddr[4:0]
+@29
+(0)constant_store_tb.raddr[4:0]
+(1)constant_store_tb.raddr[4:0]
+(2)constant_store_tb.raddr[4:0]
+(3)constant_store_tb.raddr[4:0]
+(4)constant_store_tb.raddr[4:0]
+@1401201
+-group_end
+@c00022
+constant_store_tb.ibus[15:0]
+@28
+(0)constant_store_tb.ibus[15:0]
+(1)constant_store_tb.ibus[15:0]
+(2)constant_store_tb.ibus[15:0]
+(3)constant_store_tb.ibus[15:0]
+(4)constant_store_tb.ibus[15:0]
+(5)constant_store_tb.ibus[15:0]
+(6)constant_store_tb.ibus[15:0]
+(7)constant_store_tb.ibus[15:0]
+(8)constant_store_tb.ibus[15:0]
+(9)constant_store_tb.ibus[15:0]
+(10)constant_store_tb.ibus[15:0]
+(11)constant_store_tb.ibus[15:0]
+(12)constant_store_tb.ibus[15:0]
+(13)constant_store_tb.ibus[15:0]
+(14)constant_store_tb.ibus[15:0]
+(15)constant_store_tb.ibus[15:0]
+@1401200
+-group_end
+@28
+constant_store_tb.constant_store.ncsoe
+constant_store_tb.constant_store.nrsthold
+constant_store_tb.constant_store.nruen
+@200
+-
 [pattern_trace] 1
 [pattern_trace] 0

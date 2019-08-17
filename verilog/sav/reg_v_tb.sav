@@ -1,0 +1,54 @@
+[*]
+[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
+[*] Mon Jun 24 07:01:53 2019
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/reg_v_tb.vcd"
+[dumpfile_mtime] "Mon Jun 24 07:01:51 2019"
+[dumpfile_size] 5574
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/reg_v_tb.sav"
+[timestart] 0
+[size] 1575 810
+[pos] 184 28
+*-22.000000 4077500 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] reg_v_tb.
+[treeopen] reg_v_tb.reg_v.
+[sst_width] 226
+[signals_width] 270
+[sst_expanded] 1
+[sst_vpaned_height] 215
+@28
+reg_v_tb.nreset
+reg_v_tb.clk4
+@200
+-
+@28
+[color] 1
+reg_v_tb.ibus13
+[color] 2
+reg_v_tb.nflagwe
+@200
+-
+@28
+[color] 1
+reg_v_tb.nread_alu_add
+[color] 2
+reg_v_tb.fvin_add
+@200
+-
+@28
+reg_v_tb.fv
+@200
+-
+@28
+reg_v_tb.reg_v.vd_mux.a
+reg_v_tb.reg_v.vd_mux.y
+reg_v_tb.reg_v.vd_mux.sel
+reg_v_tb.reg_v.clkv
+@200
+-
+@29
+reg_v_tb.reg_v.vff1.clk
+@28
+reg_v_tb.reg_v.vff1.d
+[pattern_trace] 1
+[pattern_trace] 0

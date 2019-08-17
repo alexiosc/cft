@@ -1,3 +1,0 @@
-Parts not found in 3dpack.dat or 3dusrpac.dat are:
-//CON2	2534-5	PAK100/2500-5-34
-//IC1	5M570ZT144	TQFP144@1

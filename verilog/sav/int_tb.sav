@@ -1,27 +1,62 @@
-[timestart] 0
-[size] 1192 863
-[pos] 0 0
-*-26.403875 240600000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[*]
+[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
+[*] Mon Jun 24 07:01:57 2019
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/int_tb.vcd"
+[dumpfile_mtime] "Mon Jun 24 07:01:56 2019"
+[dumpfile_size] 857873
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/int_tb.sav"
+[timestart] 95680000
+[size] 1713 863
+[pos] -1 -1
+*-20.936277 97490000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] int_tb.
 [treeopen] int_tb.int_unit.
+[sst_width] 258
+[signals_width] 176
+[sst_expanded] 1
+[sst_vpaned_height] 230
 @28
+[color] 2
 int_tb.nreset
+[color] 4
+int_tb.clock.clk1
+[color] 4
+int_tb.clock.clk2
+[color] 4
+int_tb.clock.clk3
+[color] 4
+int_tb.clock.clk4
+[color] 1
 int_tb.nirq
+[color] 2
 int_tb.nend
 @200
 -
 -IRQ Masking
 @28
+[color] 1
+int_tb.nirq
+[color] 2
 int_tb.nsti
+[color] 3
 int_tb.ncli
+@200
+-
+-IRQ State
+@28
+[color] 4
 int_tb.int_unit.nreset_or_cli
+[color] 5
+int_tb.fi
+[color] 6
+int_tb.int_unit.nintn
+[color] 7
+int_tb.int_unit.nint
 @200
 -
 -State
 @29
-int_tb.fint
-@28
-int_tb.firq
 int_tb.nirqs
 [pattern_trace] 1
 [pattern_trace] 0

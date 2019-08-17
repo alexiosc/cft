@@ -1,0 +1,42 @@
+[*]
+[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
+[*] Sat Jun  1 10:02:42 2019
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/address_register_tb.vcd"
+[dumpfile_mtime] "Sat Jun  1 10:01:16 2019"
+[dumpfile_size] 5342
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/address_register_tb.sav"
+[timestart] 991000
+[size] 1383 742
+[pos] 273 0
+*-19.000000 3706000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[sst_width] 226
+[signals_width] 180
+[sst_expanded] 1
+[sst_vpaned_height] 191
+@28
+address_register_tb.nmem
+address_register_tb.nio
+@22
+address_register_tb.aext[7:0]
+address_register_tb.ibus[15:0]
+@28
+address_register_tb.nwrite_ar
+@200
+-
+@22
+address_register_tb.ab[23:0]
+@200
+-
+@28
+[color] 1
+address_register_tb.nsysdev
+[color] 2
+address_register_tb.niodev1xx
+[color] 3
+address_register_tb.niodev2xx
+@29
+[color] 4
+address_register_tb.niodev3xx
+[pattern_trace] 1
+[pattern_trace] 0
