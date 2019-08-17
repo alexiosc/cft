@@ -291,9 +291,9 @@ def dokeymap(n):
                 (x[0], addr, maybechar(x[0]))
         addr += 1
 
-#pprint.pprint(treeify(sorted(keys)))
 #t = treeify([1,2,3,4,5,6,7], 0)
 t = treeify(sorted(keys), 0)
+pprint.pprint(list(bfs(t)))
 
 heap = list(bfs(t))
 numkeys = len(heap)
