@@ -68,10 +68,9 @@ module PB1_IR_test();
       #500 $finish;      // Terminate simulation
    end // initial begin
 
-   PB1_IR dut(.nreset(nreset),
-			    .ibus(ibus),
-			    .nwir(nwir),
-			    .ir(ir));
+   PB1_IR dut(.ibus(ibus),
+	      .nwir(nwir),
+	      .ir(ir));
 			  
 endmodule // PB1_IR_test
 

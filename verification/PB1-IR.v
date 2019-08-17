@@ -36,21 +36,21 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-module PB1_IR(nreset, ibus, nwir, ir);
+module PB1_IR(ibus, nwir, ir);
 
-   input        nreset;
    input [15:0] ibus;
    input 	nwir;		// Clock IR value from IBUS
 
    output [15:0] ir;
    
    // We do not model the buffers for the front panel LEDs.
+
+   // TODO: FIX THIS, 573s don't have reset!
+   latch_573 ic040_573_irlo (.d(ibus[7:0]), .q(ir[7:0]),
+				.nle(nwir), .noe(0));
    
-   latch_573 ic040_273_irlo (.d(ibus[7:0]), .q(ir[7:0]),
-				.nle(nwir), .clr(nreset));
-   
-   latch_573 ic041_273_irhi (.d(ibus[15:8]), .q(ir[15:8]),
-				.nle(nwir), .clr(nreset));
+   latch_573 ic041_573_irhi (.d(ibus[15:8]), .q(ir[15:8]),
+				.nle(nwir), .noe(0));
 endmodule // PB1_IR
 
 

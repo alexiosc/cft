@@ -22,8 +22,9 @@
 
 `include "../processor.v"
 `include "../mem64k.v"
-`include "../debugging-board.v"
-`include "../front-panel.v"
+`include "../DFP.v"
+// `include "../debugging-board.v"
+// `include "../front-panel.v"
 
 `timescale 1ns/10ps
 
@@ -43,6 +44,8 @@ module cft_mc_test();
    wire        nhalt;
    wire        nreset;
    wire        nsysdev;
+   wire        niodev1xx;
+   wire        niodev2xx;
    wire        niodev3xx;
    
    wire        clk1;
@@ -191,7 +194,7 @@ module cft_mc_test();
       end
    end
 
-   // Slots 1--4: the Processor
+   // Slots 2--5: the Processor
 
    processor CPU(
 		 // DIN-41612
@@ -215,10 +218,8 @@ module cft_mc_test();
 		 ec_nws,        // wait state, open drain
 		  */
 		 .ec_nsysdev(nsysdev),    // I/O 0000-00FF selected
-		 /*
-		 ec_niodev1xx,  // I/O 0100-01FF selected 
-		 ec_niodev2xx,  // I/O 0200-02FF selected
-		  */
+		 .ec_niodev1xx(niodev1xx),  // I/O 0100-01FF selected 
+		 .ec_niodev2xx(niodev2xx),  // I/O 0200-02FF selected
 		 .ec_niodev3xx(niodev3xx),  // I/O 0300-03ff selected
 		 .ec_clk1(clk1),       // 4 MHz clock, 75%, 90°
 		 .ec_clk2(clk2),       // 4 MHz clock, 75%, 180°
@@ -227,7 +228,7 @@ module cft_mc_test();
 		 .ec_nt34(nt34)       // 4 MHz clock, 50%, 0°
 		 );
 
-   // Slot 5: Basic MEM board (64k RAM only)
+   // Slot 6: Basic MEM board (64k RAM only)
 
    mem64k MEM(
    	      // DIN-41612
@@ -238,9 +239,9 @@ module cft_mc_test();
    	      .ec_nw(nw)	// write strobe, active low
    	      );
 
-   // Slot 6: Basic DEB board
+   // Slots 0-1: Basic DFP board
 
-   debugging_board DEB(
+   debugging_front_panel DFP(
    		       // DIN-41612
    		       .ec_ab(ab),	// 16-bit address bus
    		       .ec_db(db),	// 16-bit data bus
@@ -249,21 +250,9 @@ module cft_mc_test();
    		       .ec_nw(nw),	// write strobe, active low
    		       .ec_clk1(clk1),	// write strobe, active low
    		       .ec_nhalt(nhalt), // halt
-   		       .ec_niodev3xx(niodev3xx)
+   		       .ec_niodev1xx(niodev1xx)
    	      );
 
-   // Slot 7: PFP (Programmer's Front Panel) board
-
-   front_panel PFP(
-   		   // DIN-41612
-   		   .ec_ab(ab),	     // 16-bit address bus
-   		   .ec_db(db),	     // 16-bit data bus
-   		   .ec_nio(nio),     // debugging-board strobe, active low
-   		   .ec_nr(nr),	     // read strobe, active low
-   		   .ec_nw(nw),	     // write strobe, active low
-   		   .ec_nhalt(nhalt), // halt
-   		   .ec_nsysdev(nsysdev)
-   	      );
 
 endmodule // processor_test
 

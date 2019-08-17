@@ -28,8 +28,8 @@
 
 `timescale 1ns/1ps
 
-`define PFP_BASE         16'h0030
-`define PFP_HALT         (`PFP_BASE | 16'h7) /*     037: -whef HALT */
+`define DFP_BASE         16'h0100
+`define DFP_HALT         (`DFP_BASE | 16'h1d) /*     11d: -whef HALT */
 
 
   
@@ -133,15 +133,15 @@ module front_panel(
    end
 
    
-   // The PFP board can halt the system. When this happens, we assert HALT#,
+   // The DFP board can halt the system. When this happens, we assert HALT#,
    // wait a little bit, then exit the simulation entirely.
-   assign dec_addr = ((ec_ab & 16'hfff8) === `PFP_BASE) ? 1'b1 : 1'b0;
+   assign dec_addr = ((ec_ab & 16'hffe0) === `DFP_BASE) ? 1'b1 : 1'b0;
    
    // Respond to OUT instructions
    always @(negedge ec_nw) begin
       if (ec_nsysdev == 0 && dec_addr == 1) begin
       	 case (ec_ab)
-      	   `PFP_HALT:		// ENEF instruction
+      	   `DFP_HALT:		// HALT instruction
       	     begin
       		//$display("T: HALTING (using PFP board instruction), t=%d");
 		ec_nhalt_drv <= 1'b0;

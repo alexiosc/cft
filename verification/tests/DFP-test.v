@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// front-panel.v -- Test the debugging board (DEB)
+// debugging-board.v -- Test the debugging board (DEB)
 //
 // Copyright © 2011-2013 Alexios Chouchoulas
 //
@@ -20,17 +20,17 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-`include "../front-panel.v"
+`include "../DFP.v"
 
 `timescale 1ns/10ps
 
 
-module front_panel_test();
+module debugging_board_test();
 
    reg [15:0] ab;
    reg [15:0] db_drv;
    reg 	      clk1;
-   reg 	      nsysdev;
+   reg 	      niodev1xx;
 
    reg 	      nio, nr, nw;
 
@@ -48,12 +48,12 @@ module front_panel_test();
 
       begin
 	 #250 ab <= addr;
-	 #30 nsysdev <= 0;
+	 #30 niodev1xx <= 0;
 	 #220 db_drv <= val;
 	 nio <= 0;
 	 #125 nw <= 0;
 	 #60 nw <= 1;
-	 #65 nsysdev <= 1;
+	 #65 niodev1xx <= 1;
 	 nio <= 1;
 	 db_drv <= {16{1'bz}};
 	 ab <= {16{1'bz}};
@@ -64,8 +64,8 @@ module front_panel_test();
    initial begin
       $display("%s: [start] Start testing.", `TESTNAME);
 `ifdef WRITE_VCD
-      $dumpfile ("vcd/front-panel-test.vcd");
-      $dumpvars (0, front_panel_test);
+      $dumpfile ("vcd/DFP-test.vcd");
+      $dumpvars (0, debugging_board_test);
 `endif
 
       // Initialise other things
@@ -73,14 +73,44 @@ module front_panel_test();
       nw <= 1;
       ab <= 0;
       db_drv <= {16{1'bz}};
-      nsysdev <= 1;		// Keep it low, whatever.
+      niodev1xx <= 1;		// Keep it low, whatever.
       nio <= 1;			// Ditto.
       clk1 <= 1;
 
       // TICK instruction test
-      #1000 out (16'h011d, 0);	// HALT
-      $display("%s: [ok] Pass (DFP card).", `TESTNAME);
-      
+      #1000 out (16'h0108, 0);	// TICKS
+      #1000 out (16'h0108, 0);	// TICKS
+      #1000 out (16'h0108, 0);	// TICKS
+      #1000 out (16'h0108, 0);	// TICKS
+      out (16'h0109, 0);	// CLRTCK
+      #1000 out (16'h0108, 0);	// TICKS
+      #1000 out (16'h0108, 0);	// TICKS
+      #1000 out (16'h0108, 0);	// TICKS
+      #1000 out (16'h0108, 0);	// TICKS
+
+      // Try out the dat printout instructions
+      out (16'h0110, 16'h1234);
+      out (16'h0111, 65);
+      out (16'h0111, 65 + 128);
+      out (16'h0112, -12345);
+      out (16'h0113, -12345);
+      out (16'h0114, 16'h5678);
+      out (16'h0115, 0);
+      out (16'h0116, 0);
+      out (16'h011b, 16'h8765);
+      out (16'h011c, 16'h4321);
+
+      // Dump and trace instructions
+      out (16'h0118, 0);	// DEBUGON (ignored)
+      out (16'h0119, 0);	// DEBUGOFF (ignored)
+      out (16'h011a, 0);	// DUMP (ad hoc)
+
+      // Assertion tests (must be last)
+      out (16'h011e, 0);	// SUCCESS
+      out (16'h011f, 0);	// FAIL: this causes the simulation to exit.
+      out (16'h010f, 0);	// SENTINEL: also causes an exit.
+      $display("%s: [ok] Pass (DEB card).", `TESTNAME, `TESTNAME);
+
       // FAIL will have terminated the simulation before we get to this point.
       #5000 ;
       $display("%s: [fail] FAIL instruction should have halted the system (and ended the simulation).", `TESTNAME);
@@ -93,15 +123,16 @@ module front_panel_test();
       #63 clk1 <= 1;
    end
    
-   front_panel dut(
-		   // DIN-41612
-		   .ec_ab(ab),	// 16-bit address bus
-		   .ec_db(db),	// 16-bit data bus
-		   .ec_nio(nio),	// front-panel strobe, active low
-		   .ec_nr(nr),	// read strobe, active low
-		   .ec_nw(nw),	// write strobe, active low
-		   .ec_nhalt(nhalt), // halt
-		   .ec_nsysdev(nsysdev)
+   debugging_front_panel dut(
+			     // DIN-41612
+			     .ec_ab(ab),	// 16-bit address bus
+			     .ec_db(db),	// 16-bit data bus
+			     .ec_nio(nio),	// debugging-board strobe, active low
+			     .ec_nr(nr),	// read strobe, active low
+			     .ec_nw(nw),	// write strobe, active low
+			     .ec_clk1(clk1),	// write strobe, active low
+			     .ec_nhalt(nhalt), // halt
+			     .ec_niodev1xx(niodev1xx)
 	      );
 
 endmodule // processor_test

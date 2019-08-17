@@ -3,9 +3,9 @@
 UNITS = 	PB0 PB1 PB2 PB3 \
 		processor \
 		memory \
-		debugging-board \
-		front-panel \
+		DFP \
 		cft \
+		front-panel \
 
 VTESTS =	$(foreach unit,$(UNITS),$(patsubst %.v,%,$(wildcard $(unit)*.v)))
 PYTESTS =	$(foreach unit,$(UNITS),$(patsubst %.v,%,$(wildcard $(unit)*.py)))

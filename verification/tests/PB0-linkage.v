@@ -137,8 +137,17 @@ module PB0_uCB();
       #500 $finish;      // Terminate simulation
    end // initial begin
 
-   PB1_uCB dut(nreset, nrsthold, clk4, nws, nhalt, nend,
-			     nendext, upc, nuce);
+   // // TODO: THIS NO LONGER WORKS, FIX IT.
+   // PB1_uCB ucb(.nreset(nreset),
+   // 	       .nsysdev(1),
+   // 	       .nw(1),
+   // 	       .ab(0),
+   // 	       .nend(nend),
+   // 	       .ucbb(
+   // 	       , nrsthold, clk4, nws, nhalt, nend,
+   // 			     nendext, upc, nuce);
+
+   //module PB0_UCB(nreset, nsysdev, nw, ab, nend, ucb, ninhibit_irq);
 			  
 endmodule // PB1_uCB_test
 

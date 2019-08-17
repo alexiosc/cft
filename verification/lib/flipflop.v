@@ -257,39 +257,41 @@ endmodule // flipflop_273
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-// Function: 74x573 8-bit D latch/bus driver with clear
+// Function: 74x573 8-bit D latch/bus driver
 //
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-module latch_573 (d, q, nle, clr);
+module latch_573 (d, q, nle, noe);
    parameter propagation_delay = 7;
    
    input [7:0] d;		// Data
-   input       nle;		// Latch enable (active low)
-   input       clr;		// /CLR (active low): reset
+   input       nle;		// Clock
+   input       noe;		// /OE (active low): output enable
 
    output [7:0] q;		// Output
    
    wire [7:0] 	d;
-   wire 	clk;
-   wire 	clr;
+   wire 	nle;
+   wire 	noe;
  	
-   reg [7:0] 	q;
+   reg [7:0] 	q0;
+
+   wire [7:0] 	q;
 
    initial begin
-      q <= $random;
+      q0 <= $random;
+      // $display("BOM: 74x574");
    end
 
-   always @(negedge clr, nle, d)
-     begin
-	if (clr == 1'b0) begin
-	   q <= #propagation_delay 8'b00000000;
-	end else if (nle == 1'b0) begin
-	   q <= #propagation_delay d;
-	end
+   always @ (nle)
+     if (nle == 0) begin
+	q0 <= d;
      end
-endmodule // flipflop_273
+   
+   assign #propagation_delay q = noe ? 8'bzzzzzzzz : q0;
+   
+endmodule // latch_573
 
 
 ///////////////////////////////////////////////////////////////////////////////

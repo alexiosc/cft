@@ -356,8 +356,7 @@ module PB1(
    //
    ///////////////////////////////////////////////////////////////////////////////
 
-   PB1_IR pb1_ir (.nreset(ec_nreset),
-		  .ibus(c2_ibus),
+   PB1_IR pb1_ir (.ibus(c2_ibus),
 		  .nwir(c2_nwir),
 		  .ir(ir));
 

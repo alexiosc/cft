@@ -20,11 +20,11 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-`include "../PB1-uCB.v"
+`include "../PB0-UCB.v"
 
 `timescale 1ns/10ps
 
-module PB1_uCB_test();
+module PB0_UCB_TEST();
 
    reg 	      nreset;
    reg 	      nrsthold;
@@ -81,7 +81,7 @@ module PB1_uCB_test();
       $display("%s: [start] Start testing.", `TESTNAME);
 `ifdef WRITE_VCD
       $dumpfile ("vcd/PB1-uCB-test.vcd");
-      $dumpvars (0, PB1_uCB_test);
+      $dumpvars (0, PB0_UCB_test);
 `endif
       
       // Reset
@@ -137,7 +137,7 @@ module PB1_uCB_test();
       #500 $finish;      // Terminate simulation
    end // initial begin
 
-   PB1_uCB dut(nreset, nrsthold, clk4, nws, nhalt, nend,
+   PB0_UCB dut(nreset, nrsthold, clk4, nws, nhalt, nend,
 			     nendext, upc, nuce);
 			  
 endmodule // PB1_uCB_test

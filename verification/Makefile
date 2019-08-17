@@ -34,8 +34,11 @@ SRC =		PB0.v \
 		processor.v \
 		memory.v \
 		mem64k.v \
-		debugging-board.v \
-		front-panel.v \
+		DFP.v \
+
+# Obsolete modules
+#		debugging-board.v \
+#		front-panel.v \
 
 OBJ =		$(SRC:.v=.o)
 

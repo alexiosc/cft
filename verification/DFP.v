@@ -1,8 +1,8 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// debugging-board.v -- The DEB board (partial implementation)
+// debugging-board.v -- The DFP board (partial implementation)
 //
-// Copyright © 2011-2013 Alexios Chouchoulas
+// Copyright © 2011-2016 Alexios Chouchoulas
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -21,10 +21,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 
-// WARNING: THIS IS OBSOLETE. Use DFP.v instead!
-
-`error "Obsolete module."
-
 `include "rom.v"
 `include "ram.v"
 `include "demux.v"
@@ -32,37 +28,37 @@
 
 `timescale 1ns/1ps
 
-`ifndef DEB_LOGFILE
- `define DEB_LOGFILE "/dev/stdout"
-`endif // DEB_LOGFILE
+`ifndef DFP_LOGFILE
+ `define DFP_LOGFILE "/dev/stdout"
+`endif // DFP_LOGFILE
 
 
-`define DEB_ENEF         16'h03e0 /*     3e0: -w-ef enable emulator features */
-`define DEB_DISEF        16'h03e1 /*     3e1: -w-ef disable emulator features */
-`define DEB_QEF          16'h03e0 /*     3e0: r--e- query emulator features */
-`define DEB_QEF_ALT      16'h03e1 /*     3e1: r--e- (same) */
+`define DFP_ENEF         16'h0100 /*     3e0: -w-ef enable emulator features */
+`define DFP_DISEF        16'h0101 /*     3e1: -w-ef disable emulator features */
+`define DFP_QEF          16'h0100 /*     3e0: r--e- query emulator features */
+`define DFP_QEF_ALT      16'h0101 /*     3e1: r--e- (same) */
 
-`define DEB_TICKS        16'h03e8 /*     3e8: rw-ef TICKS (Tick counter, 32 bits) */
-`define DEB_CLR_TICKS    16'h03e9 /*     3e8: rw-ef CLRTCK (Clear tick counter) */
+`define DFP_TICKS        16'h0108 /*     3e8: rw-ef TICKS (Tick counter, 32 bits) */
+`define DFP_CLR_TICKS    16'h0109 /*     3e8: rw-ef CLRTCK (Clear tick counter) */
 
-`define DEB_SENTINEL     16'h03ef /*     3ef: rw-ef log sentinel execution and halt */
+`define DFP_SENTINEL     16'h010f /*     3ef: rw-ef log sentinel execution and halt */
 
-`define DEB_PRINTA	 16'h03f0 /*     3f0: -whef Log AC as address */
-`define DEB_PRINTC	 16'h03f1 /*     3f1: -whef Log AC as character */
-`define DEB_PRINTD	 16'h03f2 /*     3f2: -whef Log AC as integer */
-`define DEB_PRINTU	 16'h03f3 /*     3f3: -whef Log AC as unsigned int */
-`define DEB_PRINTH	 16'h03f4 /*     3f4: -whef Log AC in hex */
-`define DEB_PRINTB	 16'h03f5 /*     3f6: -whef Log AC in binary */
-`define DEB_PRINTSP	 16'h03f6 /*     3f6: -whef Log a space */
-`define DEB_PRINTNL	 16'h03f7 /*     3f7: -whef Log a newline */
-`define DEB_DEBUGON	 16'h03f8 /*     3f8: -w-ef Emulator enables assembly tracing */
-`define DEB_DEBUGOFF	 16'h03f9 /*     3f9: -w-ef Emulator disables assembly tracing */
-`define DEB_DUMP  	 16'h03fa /*     3fa: -w-ef Emulator dumps state */
-`define DEB_PRINTHI	 16'h03fb /*     3fb: -whef HI:=AC */
-`define DEB_PRINTLO	 16'h03fc /*     3fc: -whef Log 32-bit int as HI:AC */
-`define DEB_HALT	 16'h03fd /*     3fd: -whef HALT: (Debugging board) halt */
-`define DEB_SUCCESS      16'h03fe /*     3fe: -whef Log test success */
-`define DEB_FAIL 	 16'h03ff /*     3ff: -whef Log test failure and HALT */
+`define DFP_PRINTA	 16'h0110 /*     3f0: -whef Log AC as address */
+`define DFP_PRINTC	 16'h0111 /*     3f1: -whef Log AC as character */
+`define DFP_PRINTD	 16'h0112 /*     3f2: -whef Log AC as integer */
+`define DFP_PRINTU	 16'h0113 /*     3f3: -whef Log AC as unsigned int */
+`define DFP_PRINTH	 16'h0114 /*     3f4: -whef Log AC in hex */
+`define DFP_PRINTB	 16'h0115 /*     3f6: -whef Log AC in binary */
+`define DFP_PRINTSP	 16'h0116 /*     3f6: -whef Log a space */
+`define DFP_PRINTNL	 16'h0117 /*     3f7: -whef Log a newline */
+`define DFP_DEBUGON	 16'h0118 /*     3f8: -w-ef Emulator enables assembly tracing */
+`define DFP_DEBUGOFF	 16'h0119 /*     3f9: -w-ef Emulator disables assembly tracing */
+`define DFP_DUMP  	 16'h011a /*     3fa: -w-ef Emulator dumps state */
+`define DFP_PRINTHI	 16'h011b /*     3fb: -whef HI:=AC */
+`define DFP_PRINTLO	 16'h011c /*     3fc: -whef Log 32-bit int as HI:AC */
+`define DFP_HALT	 16'h011d /*     3fd: -whef HALT: (Debugging board) halt */
+`define DFP_SUCCESS      16'h011e /*     3fe: -whef Log test success */
+`define DFP_FAIL 	 16'h011f /*     3ff: -whef Log test failure and HALT */
 
 
 // The following addresses are used by a dummy device (activated by
@@ -70,16 +66,16 @@
 // IOT instruction by providing a hardware multiplier. This is not
 // part of the hardware.
 
-`define DEB_TEST_IOT     16'h03e7
+`define DFP_TEST_IOT     16'h0107
 
   
 ///////////////////////////////////////////////////////////////////////////////
 //
-// The DEB (debugging) board
+// The DFP (debugging) board
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-module debugging_board(
+module debugging_front_panel(
 		       // DIN-41612
 		       ec_ab,         // 16-bit address bus
 		       //ec_aext,       // 8-bit address bus extension
@@ -99,11 +95,11 @@ module debugging_board(
 		       ec_nskipext,   // skip input, open drain
 		       /*
 		       ec_nws,        // wait state, open drain
-			ec_nsysdev,    // I/O 0000-00FF selected
-			ec_niodev1xx,  // I/O 0100-01FF selected 
-			ec_niodev2xx,  // I/O 0200-02FF selected
 			*/
-		       ec_niodev3xx,  // I/O 0300-03ff selected
+		       //ec_nsysdev,    // I/O 0000-00FF selected
+		       ec_niodev1xx,  // I/O 0100-01FF selected 
+		       //ec_niodev2xx,  // I/O 0200-02FF selected
+		       //ec_niodev3xx,  // I/O 0300-03ff selected
 		       ec_clk1,       // 4 MHz clock, 75%, 90°
 		       /*
 			ec_clk2,       // 4 MHz clock, 75%, 180°
@@ -140,11 +136,11 @@ module debugging_board(
    inout        ec_nskipext;    // skip input, open drain
    /*
    inout        ec_nws;         // wait state, open drain
-   output       ec_nsysdev;     // I/O 0000-00FF selected
-   output       ec_niodev1xx;   // I/O 0100-01FF selected
-   output       ec_niodev2xx;   // I/O 0200-02FF selected
     */
-   input       ec_niodev3xx;   // I/O 0300-03ff selected
+   //input       ec_nsysdev;     // I/O 0000-00FF selected
+   input       ec_niodev1xx;   // I/O 0100-01FF selected
+   //input       ec_niodev2xx;   // I/O 0200-02FF selected
+   //input       ec_niodev3xx;   // I/O 0300-03ff selected
    input        ec_clk1;	// 4 MHz clock, 75%, 90°
    /*
    output       ec_clk2;        // 4 MHz clock, 75%, 180°
@@ -157,11 +153,11 @@ module debugging_board(
 
    // We don't implement the debugging board in full. For testing reasons, all
    // we need to do is implement the logging/assertion extended
-   // instructions. The DEB board decodes I/O addresses 03E0-03FF. Not all
+   // instructions. The DFP board decodes I/O addresses 03E0-03FF. Not all
    // ports are implemented or need to be.
 
    // We also don't simulate HARDWARE here. We provide a functional simulation
-   // of the DEB board in Verilog.
+   // of the DFP board in Verilog.
    
    reg 		     ec_nhalt_drv;
    assign ec_nhalt = ec_nhalt_drv;
@@ -188,7 +184,7 @@ module debugging_board(
       if ($value$plusargs("deblog=%s", deb_logfile)) begin
 	 logfile = $fopen(deb_logfile, "w");
       end else begin
-	 logfile = $fopen(`DEB_LOGFILE, "w");
+	 logfile = $fopen(`DFP_LOGFILE, "w");
       end
 
       $fwrite(logfile, "I: Log file created.\n");
@@ -200,7 +196,7 @@ module debugging_board(
    end
 
    
-   // The DEB board can halt the system. When this happens, we assert HALT#,
+   // The DFP board can halt the system. When this happens, we assert HALT#,
    // wait a little bit, then exit.
    always @(halting) begin
       ec_nhalt_drv <= 1'b0;
@@ -213,32 +209,32 @@ module debugging_board(
       ticks = ticks + 1;
    end
 
-   assign dec_addr = ((ec_ab & 16'hffe0) === 16'h03e0) ? 1'b1 : 1'b0;
+   assign dec_addr = ((ec_ab & 16'hffe0) === 16'h0100) ? 1'b1 : 1'b0;
    
    // Respond to the IN instructions
    always @(negedge ec_nr) begin
-      if (ec_niodev3xx == 0 && ec_nio == 0 && dec_addr) begin
+      if (ec_niodev1xx == 0 && ec_nio == 0 && dec_addr) begin
 	 case (ec_ab)
-	   `DEB_QEF:
+	   `DFP_QEF:
 	     $fwrite(logfile, "I: QEF not yet implemented\n");
 	   
-	   `DEB_QEF_ALT:
+	   `DFP_QEF_ALT:
 	     $fwrite(logfile, "I: QEF not yet implemented\n");
 
-	   `DEB_TEST_IOT:
+	   `DFP_TEST_IOT:
 		db_drv <= (deb_test_iot * 10) & 16'hffff;
 	   default:
 	     $fwrite(logfile, "E: read from I/O %04h not implemented\n", ec_ab);
 	 endcase // case (ec_ab)
-      end // if (ec_niodev3xx == 0 && ec_nio == 0)
+      end // if (ec_niodev1xx == 0 && ec_nio == 0)
    end // always @ (negedge ec_nr)
 
 
    // Connect the data bus driver
-   assign ec_db = (ec_niodev3xx == 0 &&
+   assign ec_db = (ec_niodev1xx == 0 &&
 		   ec_nio == 0 &&
 		   ec_nr == 0 && 
-		   ec_ab == `DEB_TEST_IOT) ? ((deb_test_iot * 10) & 16'hffff) : {16{1'bz}};
+		   ec_ab == `DFP_TEST_IOT) ? ((deb_test_iot * 10) & 16'hffff) : {16{1'bz}};
 
 
    always @(ec_nreset) begin
@@ -256,92 +252,92 @@ module debugging_board(
    
    // Respond to OUT instructions
    always @(negedge ec_nw) begin
-      if (ec_niodev3xx == 0 && ec_nio == 0 && dec_addr) begin
+      if (ec_niodev1xx == 0 && ec_nio == 0 && dec_addr) begin
 	 case (ec_ab)
-	   `DEB_ENEF:		// ENEF instruction
+	   `DFP_ENEF:		// ENEF instruction
 	     $fwrite(logfile, "I: ENEF not implemented\n");
 	   
-	   `DEB_DISEF:		// DISEF instruction
+	   `DFP_DISEF:		// DISEF instruction
 	     $fwrite(logfile, "I: DISEF not implemented\n");
 	   
-	   `DEB_TICKS:		// TICKS instruction
+	   `DFP_TICKS:		// TICKS instruction
 	     $fwrite(logfile, "T: TICKS %-0d\n", ticks);
 	   
-	   `DEB_CLR_TICKS:		// CLRTCK instruction
+	   `DFP_CLR_TICKS:		// CLRTCK instruction
 	     $fwrite(logfile, "I: CLRTCK Tick counter cleared\n");
 	   
-	   `DEB_TEST_IOT:
+	   `DFP_TEST_IOT:
 	     deb_test_iot <= ec_db;
 
-	   `DEB_SENTINEL:		// Instruction sentinel
+	   `DFP_SENTINEL:		// Instruction sentinel
 	     begin
 		$fwrite(logfile, "T: SENTINEL instruction executed\n");
 		-> sentinel;
 		-> halting;
 	     end
 
-	   `DEB_PRINTA:		// Print DB as address
+	   `DFP_PRINTA:		// Print DB as address
 	     $fwrite(logfile, "T: PRINTA %04h (?)\n", ec_db);
 
-	   `DEB_PRINTC:		// Print DB as char
+	   `DFP_PRINTC:		// Print DB as char
 	     begin
 		if (ec_db > 32 && ec_db < 127) $fwrite(logfile, "T: PRINTC: %s\n", ec_db[7:0]);
 		else $fwrite(logfile, "T: PRINTc: %d\n",ec_db[7:0]);
 		//$time, ec_db, ec_ab, ec_nio, ec_nw, dec_addr);
 	     end
 
-	   `DEB_PRINTD:		// Print DB as signed integer
+	   `DFP_PRINTD:		// Print DB as signed integer
 	     begin
 		si = ec_db;
 		$fwrite(logfile, "T: PRINTD %d\n", si);
 	     end
 
-	   `DEB_PRINTU:		// Print DB as unsigned integer
+	   `DFP_PRINTU:		// Print DB as unsigned integer
 	     $fwrite(logfile, "T: PRINTU %d\n", ec_db);
 
-	   `DEB_PRINTH:		// Print DB as zero-padded 16-bit hex
+	   `DFP_PRINTH:		// Print DB as zero-padded 16-bit hex
 	     $fwrite(logfile, "T: PRINTH %04h\n", ec_db);
 
-	   `DEB_PRINTB:		// Print DB as zero-padded 16-bit binary
+	   `DFP_PRINTB:		// Print DB as zero-padded 16-bit binary
 	     $fwrite(logfile, "T: PRINTB %b\n", ec_db);
 
-	   `DEB_PRINTSP:		// Print a space
+	   `DFP_PRINTSP:		// Print a space
 	     $fwrite(logfile, "T: PRINTc 32\n");
 
-	   `DEB_PRINTNL:		// Print a newline
+	   `DFP_PRINTNL:		// Print a newline
 	     $fwrite(logfile, "T: PRINTc 10\n");
 
-	   `DEB_PRINTNL:		// Print a newline
+	   `DFP_PRINTNL:		// Print a newline
 	     $fwrite(logfile, "T: PRINTc 10\n");
 
-	   `DEB_DEBUGON:		// DEBUGON instruction
+	   `DFP_DEBUGON:		// DEBUGON instruction
 	     $fwrite(logfile, "I: DEBUGON not implemented\n");
 
-	   `DEB_DEBUGOFF:		// DEBUGOFF instruction
+	   `DFP_DEBUGOFF:		// DEBUGOFF instruction
 	     $fwrite(logfile, "I: DEBUGOFF not implemented\n");
 
-	   `DEB_DUMP:		// DUMP instruction (ad-hoc)
+	   `DFP_DUMP:		// DUMP instruction (ad-hoc)
 	     begin
 		$fwrite(logfile, "T: DUMP follows (ad hoc)\n");
 		->dump;
 	     end
 
-	   `DEB_PRINTHI:		// PRINTHI instruction
+	   `DFP_PRINTHI:		// PRINTHI instruction
 	     hi <= ec_db;
 
-	   `DEB_PRINTLO:		// PRINTLO instruction
+	   `DFP_PRINTLO:		// PRINTLO instruction
 	     $fwrite(logfile, "T: PRINTL %04x%04x\n", hi[15:0], ec_db);
 
-	   `DEB_HALT:		// DEB board HALT instruction
+	   `DFP_HALT:		// DEB board HALT instruction
 	     begin
 		$fwrite(logfile, "T: HALTING (using temporary DEB board instruction)\n");
 		->halting;
 	     end
 	   
-	   `DEB_SUCCESS:
+	   `DFP_SUCCESS:
 	     $fwrite(logfile, "T: ASSERT: TRUE\n");
 	   
-	   `DEB_FAIL:
+	   `DFP_FAIL:
 	     begin
 		$fwrite(logfile, "T: ASSERT: FAIL\n");
 		-> assertion_failed;
