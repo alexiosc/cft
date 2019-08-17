@@ -72,6 +72,8 @@ buscmd_print(char op, uint16_t val)
 		report_char(val & 255);
 		break;
 	case 'c':
+		val = val & 255;
+		// Purposefully falling through
 	case 'D':
 		report_int(val);
 		break;
