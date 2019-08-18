@@ -1,0 +1,1250 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP 29F040
+D Flash EEProm 512PP (TSOP 32) 3,3V
+K EEPROM FLASH 512KO
+$ENDCMP
+#
+$CMP 74AC04
+D hex inverter
+K HCTMOS not inverter
+F https://assets.nexperia.com/documents/data-sheet/74HC_HCT04.pdf
+$ENDCMP
+#
+$CMP 74AC08
+D Quad Two Input And Gates
+K Quad And
+F http://www.ti.com/lit/gpn/sn74LS08
+$ENDCMP
+#
+$CMP 74AC112
+D dual JK Flip-Flop, Set & Reset
+K TTL JK
+F http://www.ti.com/lit/gpn/sn74LS112
+$ENDCMP
+#
+$CMP 74AC138
+D Decoder 3 to 8 active low outputs
+K TTL DECOD DECOD8
+F http://www.ti.com/lit/gpn/sn74LS138
+$ENDCMP
+#
+$CMP 74AC139
+D Dual Decoder 1 of 4, Active low outputs
+K TTL DECOD4
+F http://www.ti.com/lit/gpn/sn74LS139
+$ENDCMP
+#
+$CMP 74AC157
+D Quad 2 to 1 line Multiplexer
+K TTL MUX MUX2
+F http://www.ti.com/lit/gpn/sn74LS157
+$ENDCMP
+#
+$CMP 74AC161
+D Synchronous 4-bit programmable binary Counter
+K TTL CNT CNT4
+F http://www.ti.com/lit/gpn/sn74LS161
+$ENDCMP
+#
+$CMP 74AC169
+D Synchronous 4-bit Up/Down Decimal counter
+K TTL CNT CNT4
+F http://www.ti.com/lit/gpn/sn74LS168
+$ENDCMP
+#
+$CMP 74AC175
+D 4-bit D Flip-Flop, reset
+K TTL REG REG4 DFF
+F http://www.ti.com/lit/gpn/sn74LS175
+$ENDCMP
+#
+$CMP 74AC191
+D 4-bit Synchronous Up/Down BCD Counter
+K TTL CNT CNT4
+F http://www.ti.com/lit/gpn/sn74LS190
+$ENDCMP
+#
+$CMP 74AC193
+D Synchronous 4-bit Up/Down (2 clk) counter
+K TTL CNT CNT4
+F http://www.ti.com/lit/gpn/sn74LS192
+$ENDCMP
+#
+$CMP 74AC245
+D Octal BUS Transceivers, 3-State outputs
+K TTL BUS 3State
+F http://www.ti.com/lit/gpn/sn74LS245
+$ENDCMP
+#
+$CMP 74AC251
+D Multiplexer 8 to 1, 3-state Outputs
+K TTL MUX MUX8 3State
+F http://www.ti.com/lit/gpn/sn74LS251
+$ENDCMP
+#
+$CMP 74AC253
+D Dual Multiplexer 4 to 1, 3-State Outputs
+K TTL MUX MUX4 3State
+F http://www.mouser.com/ds/2/149/74act253-288382.pdf
+$ENDCMP
+#
+$CMP 74AC283
+D 4-bit full Adder
+K TTL ADD Arith ALU
+F http://www.ti.com/lit/ds/symlink/cd74ac283.pdf
+$ENDCMP
+#
+$CMP 74AC32
+D Quad 2-input OR Gate
+K TTL Or2
+F http://www.ti.com/lit/gpn/sn74LS32
+$ENDCMP
+#
+$CMP 74AC374
+D 8-bit Register, 3-state outputs
+K TTL DFF DFF8 REG 3State
+F http://www.ti.com/lit/gpn/sn74LS374
+$ENDCMP
+#
+$CMP 74AC540
+D 8-bit Buffer/Line Driver 3-state outputs
+K TTL BUFFER 3State BUS
+$ENDCMP
+#
+$CMP 74AC541
+D 8-bit Buffer/Line Driver 3-state outputs
+K TTL BUFFER 3State BUS
+F https://www.mouser.com/ds/2/149/74AC541-74146.pdf
+$ENDCMP
+#
+$CMP 74AC573
+D 8-bit Latch 3-state outputs
+K TTL DFF DFF8 LATCH 3State
+F https://assets.nexperia.com/documents/data-sheet/74HC_HCT573.pdf
+$ENDCMP
+#
+$CMP 74AC574
+D 8-bit Register, 3-state outputs
+K TTL REG DFF DFF8 3State
+F http://www.ti.com/lit/gpn/sn74AC574
+$ENDCMP
+#
+$CMP 74AC688
+D 8-bit Comparator
+K TTL DECOD Arith
+F http://www.ti.com/lit/gpn/sn74LS688
+$ENDCMP
+#
+$CMP 74AC74
+D Dual D Flip-flop, Set & Reset
+K TTL DFF
+F 74xx/74hc_hct74.pdf
+$ENDCMP
+#
+$CMP 74AC85
+D 4-bit Comparator
+K TTL COMP ARITH
+F http://www.ti.com/lit/gpn/sn74LS85
+$ENDCMP
+#
+$CMP 74AC86
+D Quad 2-input XOR
+K TTL XOR2
+F 74xx/74ls86.pdf
+$ENDCMP
+#
+$CMP 74ACT04
+D hex inverter
+K HCTMOS not inverter
+F https://assets.nexperia.com/documents/data-sheet/74HC_HCT04.pdf
+$ENDCMP
+#
+$CMP 74ACT08
+D Quad Two Input And Gates
+K Quad And
+F http://www.ti.com/lit/gpn/sn74LS08
+$ENDCMP
+#
+$CMP 74ACT112
+D dual JK Flip-Flop, Set & Reset
+K TTL JK
+F http://www.ti.com/lit/gpn/sn74LS112
+$ENDCMP
+#
+$CMP 74ACT138
+D Decoder 3 to 8 active low outputs
+K TTL DECOD DECOD8
+F http://www.ti.com/lit/gpn/sn74LS138
+$ENDCMP
+#
+$CMP 74ACT139
+D Dual Decoder 1 of 4, Active low outputs
+K TTL DECOD4
+F http://www.ti.com/lit/gpn/sn74LS139
+$ENDCMP
+#
+$CMP 74ACT157
+D Quad 2 to 1 line Multiplexer
+K TTL MUX MUX2
+F http://www.ti.com/lit/gpn/sn74LS157
+$ENDCMP
+#
+$CMP 74ACT161
+D Synchronous 4-bit programmable binary Counter
+K TTL CNT CNT4
+F http://www.ti.com/lit/gpn/sn74LS161
+$ENDCMP
+#
+$CMP 74ACT16244
+D 8-bit Buffer/Line Driver 3-state
+K TTL BUFFER 3State
+F http://www.ti.com/lit/ds/symlink/74ac16244.pdf
+$ENDCMP
+#
+$CMP 74ACT16374
+D Widebus™ 16-bit positive edge triggered 16-bit flip-flop with 3-state outputs
+K Widebus, 16-bit, positive, ff, flip-flop, flip flop, 3state, tri-state, 3-state, three-state
+F http://www.ti.com/lit/ds/symlink/74act16374.pdf
+$ENDCMP
+#
+$CMP 74ACT169
+D Synchronous 4-bit Up/Down Decimal counter
+K TTL CNT CNT4
+F http://www.ti.com/lit/gpn/sn74LS168
+$ENDCMP
+#
+$CMP 74ACT175
+D 4-bit D Flip-Flop, reset
+K TTL REG REG4 DFF
+F http://www.ti.com/lit/gpn/sn74LS175
+$ENDCMP
+#
+$CMP 74ACT191
+D 4-bit Synchronous Up/Down BCD Counter
+K TTL CNT CNT4
+F http://www.ti.com/lit/gpn/sn74LS190
+$ENDCMP
+#
+$CMP 74ACT193
+D Synchronous 4-bit Up/Down (2 clk) counter
+K TTL CNT CNT4
+F http://www.ti.com/lit/gpn/sn74HC193
+$ENDCMP
+#
+$CMP 74ACT245
+D Octal BUS Transceivers, 3-State outputs
+K TTL BUS 3State
+F http://www.ti.com/lit/gpn/sn74LS245
+$ENDCMP
+#
+$CMP 74ACT251
+D Multiplexer 8 to 1, 3-state Outputs
+K TTL MUX MUX8 3State
+F http://www.ti.com/lit/gpn/sn74LS251
+$ENDCMP
+#
+$CMP 74ACT253
+D Dual Multiplexer 4 to 1, 3-State Outputs
+K TTL MUX MUX4 3State
+F http://www.mouser.com/ds/2/149/74act253-288382.pdf
+$ENDCMP
+#
+$CMP 74ACT32
+D Quad 2-input OR Gate
+K TTL Or2
+F http://www.ti.com/lit/gpn/sn74LS32
+$ENDCMP
+#
+$CMP 74ACT374
+D 8-bit Register, 3-state outputs
+K TTL DFF DFF8 REG 3State
+F http://www.ti.com/lit/gpn/sn74LS374
+$ENDCMP
+#
+$CMP 74ACT540
+D 8-bit Buffer/Line Driver 3-state outputs
+K TTL BUFFER 3State BUS
+$ENDCMP
+#
+$CMP 74ACT541
+D 8-bit Buffer/Line Driver 3-state outputs
+K TTL BUFFER 3State BUS
+F https://www.mouser.com/ds/2/149/74AC541-74146.pdf
+$ENDCMP
+#
+$CMP 74ACT573
+D 8-bit Latch 3-state outputs
+K TTL DFF DFF8 LATCH 3State
+F https://assets.nexperia.com/documents/data-sheet/74HC_HCT573.pdf
+$ENDCMP
+#
+$CMP 74ACT574
+D 8-bit Register, 3-state outputs
+K TTL REG DFF DFF8 3State
+F http://www.ti.com/lit/gpn/sn74ACT574
+$ENDCMP
+#
+$CMP 74ACT688
+D 8-bit Comparator
+K TTL DECOD Arith
+F http://www.ti.com/lit/gpn/sn74LS688
+$ENDCMP
+#
+$CMP 74ACT74
+D Dual D Flip-flop, Set & Reset
+K TTL DFF
+F 74xx/74hc_hct74.pdf
+$ENDCMP
+#
+$CMP 74ACT85
+D 4-bit Comparator
+K TTL COMP ARITH
+F http://www.ti.com/lit/gpn/sn74LS85
+$ENDCMP
+#
+$CMP 74ACT86
+D Quad 2-input XOR
+K TTL XOR2
+F 74xx/74ls86.pdf
+$ENDCMP
+#
+$CMP 74ACTG283
+D 4-bit full Adder with Fast Carry
+K TTL ADD Arith ALU 7483 74LS83 74AC83
+F http://www.ti.com/lit/ds/symlink/cd74ac283.pdf
+$ENDCMP
+#
+$CMP 74AHC1G00
+D Single AND Gate, Low-Voltage CMOS
+K Single Gate AND LVC CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
+$CMP 74AHC1G02
+D Single NOR Gate, Low-Voltage CMOS
+K Single Gate NOR LVC CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
+$CMP 74AHC1G04
+D Single NOT Gate, Low-Voltage CMOS
+K Single Gate NOT LVC CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
+$CMP 74AHC1G08
+D Single AND Gate, Low-Voltage CMOS
+K Single Gate AND LVC CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
+$CMP 74AHC1G125
+D Single Buffer Gate Tri-State, Low-Voltage CMOS
+K Single Gate Buff Tri-State LVC CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
+$CMP 74AHC1G14
+D Single Schmitt NOT Gate, Low-Voltage CMOS
+K Single Gate NOT Schmitt LVC CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
+$CMP 74AHC1G14_copy
+D Single Schmitt NOT Gate, Low-Voltage CMOS
+K Single Gate NOT Schmitt LVC CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
+$CMP 74AHC1G32
+D Single OR Gate, Low-Voltage CMOS
+K Single Gate OR LVC CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
+$CMP 74AHC1G86
+D Single EX-OR Gate, Low-Voltage CMOS
+K Single Gate EX-OR LVC CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
+$CMP 74AHC1GU04
+D 74AHC1G04, Single NOT Gate, Low-Voltage CMOS
+K Single Gate NOT LVC CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
+$CMP 74AHCT1G00
+D Single AND Gate, Low-Voltage CMOS
+K Single Gate AND LVC CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
+$CMP 74AHCT1G02
+D Single NOR Gate, Low-Voltage CMOS
+K Single Gate NOR LVC CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
+$CMP 74AHCT1G04
+D Single NOT Gate, Low-Voltage CMOS
+K Single Gate NOT LVC CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
+$CMP 74AHCT1G08
+D Single AND Gate, Low-Voltage CMOS
+K Single Gate AND LVC CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
+$CMP 74AHCT1G125
+D Single Buffer Gate Tri-State, Low-Voltage CMOS
+K Single Gate Buff Tri-State LVC CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
+$CMP 74AHCT1G14
+D Single Schmitt NOT Gate, Low-Voltage CMOS
+K Single Gate NOT Schmitt LVC CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
+$CMP 74AHCT1G14_copy
+D Single Schmitt NOT Gate, Low-Voltage CMOS
+K Single Gate NOT Schmitt LVC CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
+$CMP 74AHCT1G32
+D Single OR Gate, Low-Voltage CMOS
+K Single Gate OR LVC CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
+$CMP 74AHCT1G86
+D Single EX-OR Gate, Low-Voltage CMOS
+K Single Gate EX-OR LVC CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
+$CMP 74AHCT1GU04
+D 74AHCT1G04, Single NOT Gate, Low-Voltage CMOS
+K Single Gate NOT LVC CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
+$CMP 74AUC1G00
+D Single AND Gate, Low-Voltage CMOS
+K Single Gate AND LVC CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
+$CMP 74AUC1G02
+D Single NOR Gate, Low-Voltage CMOS
+K Single Gate NOR LVC CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
+$CMP 74AUC1G04
+D Single NOT Gate, Low-Voltage CMOS
+K Single Gate NOT LVC CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
+$CMP 74AUC1G06
+D Single NOT Gate w/ Open Drain, Low-Voltage CMOS
+K Single Gate NOT LVC CMOS Open Drain
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
+$CMP 74AUC1G07
+D Single Buffer Gate w/ Open Drain, Low-Voltage CMOS
+K Single Gate Buff LVC CMOS Open Drain
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
+$CMP 74AUC1G08
+D Single AND Gate, Low-Voltage CMOS
+K Single Gate AND LVC CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
+$CMP 74AUC1G125
+D Single Buffer Gate Tri-State, Low-Voltage CMOS
+K Single Gate Buff Tri-State LVC CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
+$CMP 74AUC1G14
+D Single Schmitt NOT Gate, Low-Voltage CMOS
+K Single Gate NOT Schmitt LVC CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
+$CMP 74AUC1G14_copy
+D Single Schmitt NOT Gate, Low-Voltage CMOS
+K Single Gate NOT Schmitt LVC CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
+$CMP 74AUC1G32
+D Single OR Gate, Low-Voltage CMOS
+K Single Gate OR LVC CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
+$CMP 74AUC1G74
+D Single D Flip-Flop, Low-Voltage CMOS
+K Single D Flip-Flop D CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
+$CMP 74AUC1G86
+D Single EX-OR Gate, Low-Voltage CMOS
+K Single Gate EX-OR LVC CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
+$CMP 74AUC1GU04
+D 74AUC1G04, Single NOT Gate, Low-Voltage CMOS
+K Single Gate NOT LVC CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
+$CMP 74AUP1G00
+D Single AND Gate, Low-Voltage CMOS
+K Single Gate AND LVC CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
+$CMP 74AUP1G02
+D Single NOR Gate, Low-Voltage CMOS
+K Single Gate NOR LVC CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
+$CMP 74AUP1G04
+D Single NOT Gate, Low-Voltage CMOS
+K Single Gate NOT LVC CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
+$CMP 74AUP1G06
+D Single NOT Gate w/ Open Drain, Low-Voltage CMOS
+K Single Gate NOT LVC CMOS Open Drain
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
+$CMP 74AUP1G07
+D Single Buffer Gate w/ Open Drain, Low-Voltage CMOS
+K Single Gate Buff LVC CMOS Open Drain
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
+$CMP 74AUP1G08
+D Single AND Gate, Low-Voltage CMOS
+K Single Gate AND LVC CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
+$CMP 74AUP1G125
+D Single Buffer Gate Tri-State, Low-Voltage CMOS
+K Single Gate Buff Tri-State LVC CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
+$CMP 74AUP1G14
+D Single Schmitt NOT Gate, Low-Voltage CMOS
+K Single Gate NOT Schmitt LVC CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
+$CMP 74AUP1G14_copy
+D Single Schmitt NOT Gate, Low-Voltage CMOS
+K Single Gate NOT Schmitt LVC CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
+$CMP 74AUP1G32
+D Single OR Gate, Low-Voltage CMOS
+K Single Gate OR LVC CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
+$CMP 74AUP1G74
+D Single D Flip-Flop, Low-Voltage CMOS
+K Single D Flip-Flop D CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
+$CMP 74AUP1GU04
+D 74AUP1G04, Single NOT Gate, Low-Voltage CMOS
+K Single Gate NOT LVC CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
+$CMP 74HC04
+D hex inverter
+K HCTMOS not inverter
+F https://assets.nexperia.com/documents/data-sheet/74HC_HCT04.pdf
+$ENDCMP
+#
+$CMP 74HC08
+D Quad Two Input And Gates
+K Quad And
+F http://www.ti.com/lit/gpn/sn74LS08
+$ENDCMP
+#
+$CMP 74HC10
+D Triple 3-input NAND
+K TTL Nand3
+F http://www.ti.com/lit/gpn/sn74LS10
+$ENDCMP
+#
+$CMP 74HC112
+D dual JK Flip-Flop, Set & Reset
+K TTL JK
+F https://assets.nexperia.com/documents/data-sheet/74HC_HCT112.pdf
+$ENDCMP
+#
+$CMP 74HC138
+D Decoder 3 to 8 active low outputs
+K TTL DECOD DECOD8
+F http://www.ti.com/lit/gpn/sn74LS138
+$ENDCMP
+#
+$CMP 74HC139
+D Dual Decoder 1 of 4, Active low outputs
+K TTL DECOD4
+F http://www.ti.com/lit/gpn/sn74LS139
+$ENDCMP
+#
+$CMP 74HC14
+D Hex inverter schmitt trigger
+K HCMOS not inverter
+F http://www.ti.com/lit/gpn/sn74HC14
+$ENDCMP
+#
+$CMP 74HC157
+D Quad 2 to 1 line Multiplexer
+K TTL MUX MUX2
+F http://www.ti.com/lit/gpn/sn74LS157
+$ENDCMP
+#
+$CMP 74HC161
+D Synchronous 4-bit programmable binary Counter
+K TTL CNT CNT4
+F http://www.ti.com/lit/gpn/sn74LS161
+$ENDCMP
+#
+$CMP 74HC169
+D Synchronous 4-bit Up/Down Decimal counter
+K TTL CNT CNT4
+F http://www.ti.com/lit/gpn/sn74LS168
+$ENDCMP
+#
+$CMP 74HC175
+D 4-bit D Flip-Flop, reset
+K TTL REG REG4 DFF
+F http://www.ti.com/lit/gpn/sn74LS175
+$ENDCMP
+#
+$CMP 74HC191
+D 4-bit Synchronous Up/Down BCD Counter
+K TTL CNT CNT4
+F http://www.ti.com/lit/gpn/sn74LS190
+$ENDCMP
+#
+$CMP 74HC193
+D Synchronous 4-bit Up/Down (2 clk) counter
+K TTL CNT CNT4
+F http://www.ti.com/lit/gpn/sn74HC193
+$ENDCMP
+#
+$CMP 74HC244
+D 8-bit Buffer/Line Driver 3-state
+K TTL BUFFER 3State
+F https://assets.nexperia.com/documents/data-sheet/74HC_HCT244.pdf
+$ENDCMP
+#
+$CMP 74HC245
+D Octal BUS Transceivers, 3-State outputs
+K HCMOS BUS 3State
+F http://www.ti.com/lit/gpn/sn74HC245
+$ENDCMP
+#
+$CMP 74HC251
+D Multiplexer 8 to 1, 3-state Outputs
+K TTL MUX MUX8 3State
+F http://www.ti.com/lit/gpn/sn74LS251
+$ENDCMP
+#
+$CMP 74HC253
+D Dual Multiplexer 4 to 1, 3-State Outputs
+K TTL MUX MUX4 3State
+F https://assets.nexperia.com/documents/data-sheet/74HC_HCT253.pdf
+$ENDCMP
+#
+$CMP 74HC32
+D Quad 2-input OR Gate
+K TTL Or2
+F http://www.ti.com/lit/gpn/sn74LS32
+$ENDCMP
+#
+$CMP 74HC374
+D 8-bit Register, 3-state outputs
+K TTL DFF DFF8 REG 3State
+F http://www.ti.com/lit/gpn/sn74LS374
+$ENDCMP
+#
+$CMP 74HC540
+D 8-bit Buffer/Line Driver 3-state outputs
+K TTL BUFFER 3State BUS
+F http://www.ti.com/lit/gpn/sn74HC540
+$ENDCMP
+#
+$CMP 74HC541
+D 8-bit Buffer/Line Driver 3-state outputs
+K TTL BUFFER 3State BUS
+F https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf
+$ENDCMP
+#
+$CMP 74HC573
+D 8-bit Latch 3-state outputs
+K TTL DFF DFF8 LATCH 3State
+F https://assets.nexperia.com/documents/data-sheet/74HC_HCT573.pdf
+$ENDCMP
+#
+$CMP 74HC574
+D 8-bit Register, 3-state outputs
+K TTL REG DFF DFF8 3State
+F http://www.ti.com/lit/gpn/sn74LS574
+$ENDCMP
+#
+$CMP 74HC590
+D 8-bit Binary Counter with Output Register 3-State Outputs, SOIC-16/TSSOP-16
+K HCMOS Counter 3State
+F https://assets.nexperia.com/documents/data-sheet/74HC590.pdf
+$ENDCMP
+#
+$CMP 74HC590A
+D 8-bit Binary Counter with Output Register 3-State Outputs, DIP-16/SOIC-16/SOIC-16W
+K HCMOS Counter 3State
+F http://www.ti.com/lit/ds/symlink/sn74hc590a.pdf
+$ENDCMP
+#
+$CMP 74HC670
+D 4 x 4 Register Files Open Collector
+K TTL Register OpenCol
+F https://www.ti.com/lit/ds/symlink/cd74hc670.pdf
+$ENDCMP
+#
+$CMP 74HC688
+D 8-bit Comparator
+K TTL DECOD Arith
+F https://assets.nexperia.com/documents/data-sheet/74HC688.pdf
+$ENDCMP
+#
+$CMP 74HC74
+D Dual D Flip-flop, Set & Reset
+K TTL DFF
+F 74xx/74hc_hct74.pdf
+$ENDCMP
+#
+$CMP 74HC85
+D 4-bit Comparator
+K TTL COMP ARITH
+F http://www.ti.com/lit/gpn/sn74LS85
+$ENDCMP
+#
+$CMP 74HC86
+D Quad 2-input XOR
+K TTL XOR2
+F http://www.ti.com/lit/gpn/sn74HC86
+$ENDCMP
+#
+$CMP 74HCT08
+D Quad Two Input And Gates
+K Quad And
+F http://www.ti.com/lit/gpn/sn74LS08
+$ENDCMP
+#
+$CMP 74HCT112
+D dual JK Flip-Flop, Set & Reset
+K TTL JK
+F https://assets.nexperia.com/documents/data-sheet/74HC_HCT112.pdf
+$ENDCMP
+#
+$CMP 74HCT138
+D Decoder 3 to 8 active low outputs
+K TTL DECOD DECOD8
+F http://www.ti.com/lit/gpn/sn74LS138
+$ENDCMP
+#
+$CMP 74HCT139
+D Dual Decoder 1 of 4, Active low outputs
+K TTL DECOD4
+F http://www.ti.com/lit/gpn/sn74LS139
+$ENDCMP
+#
+$CMP 74HCT157
+D Quad 2 to 1 line Multiplexer
+K TTL MUX MUX2
+F http://www.ti.com/lit/gpn/sn74LS157
+$ENDCMP
+#
+$CMP 74HCT161
+D Synchronous 4-bit programmable binary Counter
+K TTL CNT CNT4
+F http://www.ti.com/lit/gpn/sn74LS161
+$ENDCMP
+#
+$CMP 74HCT169
+D Synchronous 4-bit Up/Down Decimal counter
+K TTL CNT CNT4
+F http://www.ti.com/lit/gpn/sn74LS168
+$ENDCMP
+#
+$CMP 74HCT175
+D 4-bit D Flip-Flop, reset
+K TTL REG REG4 DFF
+F http://www.ti.com/lit/gpn/sn74LS175
+$ENDCMP
+#
+$CMP 74HCT191
+D 4-bit Synchronous Up/Down BCD Counter
+K TTL CNT CNT4
+F http://www.ti.com/lit/gpn/sn74LS190
+$ENDCMP
+#
+$CMP 74HCT193
+D Synchronous 4-bit Up/Down (2 clk) counter
+K TTL CNT CNT4
+F http://www.ti.com/lit/gpn/sn74HC193
+$ENDCMP
+#
+$CMP 74HCT244
+D 8-bit Buffer/Line Driver 3-state
+K TTL BUFFER 3State
+F https://assets.nexperia.com/documents/data-sheet/74HC_HCT244.pdf
+$ENDCMP
+#
+$CMP 74HCT244_copy
+D 8-bit Buffer/Line Driver 3-state
+K TTL BUFFER 3State
+F https://assets.nexperia.com/documents/data-sheet/74HC_HCT244.pdf
+$ENDCMP
+#
+$CMP 74HCT245
+D Octal BUS Transceivers, 3-State outputs
+K TTL BUS 3State
+F http://www.ti.com/lit/gpn/sn74LS245
+$ENDCMP
+#
+$CMP 74HCT251
+D Multiplexer 8 to 1, 3-state Outputs
+K TTL MUX MUX8 3State
+F http://www.ti.com/lit/gpn/sn74LS251
+$ENDCMP
+#
+$CMP 74HCT253
+D Dual Multiplexer 4 to 1, 3-State Outputs
+K TTL MUX MUX4 3State
+F https://assets.nexperia.com/documents/data-sheet/74HC_HCT253.pdf
+$ENDCMP
+#
+$CMP 74HCT32
+D Quad 2-input OR Gate
+K TTL Or2
+F http://www.ti.com/lit/gpn/sn74LS32
+$ENDCMP
+#
+$CMP 74HCT374
+D 8-bit Register, 3-state outputs
+K TTL DFF DFF8 REG 3State
+F http://www.ti.com/lit/gpn/sn74LS374
+$ENDCMP
+#
+$CMP 74HCT540
+D 8-bit Buffer/Line Driver 3-state outputs
+K TTL BUFFER 3State BUS
+F https://assets.nexperia.com/documents/data-sheet/74HC_HCT540.pdf
+$ENDCMP
+#
+$CMP 74HCT541
+D 8-bit Buffer/Line Driver 3-state outputs
+K TTL BUFFER 3State BUS
+F https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf
+$ENDCMP
+#
+$CMP 74HCT573
+D 8-bit Latch 3-state outputs
+K TTL DFF DFF8 LATCH 3State
+F https://assets.nexperia.com/documents/data-sheet/74HC_HCT573.pdf
+$ENDCMP
+#
+$CMP 74HCT574
+D 8-bit Register, 3-state outputs
+K TTL REG DFF DFF8 3State
+F http://www.ti.com/lit/gpn/sn74HCT574
+$ENDCMP
+#
+$CMP 74HCT688
+D 8-bit Comparator
+K TTL DECOD Arith
+F http://www.ti.com/lit/gpn/sn74LS688
+$ENDCMP
+#
+$CMP 74HCT74
+D Dual D Flip-flop, Set & Reset
+K TTL DFF
+F 74xx/74hc_hct74.pdf
+$ENDCMP
+#
+$CMP 74HCT85
+D 4-bit Comparator
+K TTL COMP ARITH
+F http://www.ti.com/lit/gpn/sn74LS85
+$ENDCMP
+#
+$CMP 74HCT86
+D Quad 2-input XOR
+K TTL XOR2
+F 74xx/74ls86.pdf
+$ENDCMP
+#
+$CMP 74LS08
+D Quad Two Input And Gates
+K Quad And
+F http://www.ti.com/lit/gpn/sn74LS08
+$ENDCMP
+#
+$CMP 74LS112
+D dual JK Flip-Flop, Set & Reset
+K TTL JK
+F https://assets.nexperia.com/documents/data-sheet/74HC_HCT112.pdf
+$ENDCMP
+#
+$CMP 74LS14
+D Hex inverter schmitt trigger
+K TTL not inverter
+F http://www.ti.com/lit/gpn/sn74LS14
+$ENDCMP
+#
+$CMP 74LS157
+D Quad 2 to 1 line Multiplexer
+K TTL MUX MUX2
+F http://www.ti.com/lit/gpn/sn74LS157
+$ENDCMP
+#
+$CMP 74LS160
+D Synchronous 4-bit programmable decimal Counter
+K TTL CNT CNT4
+F http://www.ti.com/lit/gpn/sn74LS160
+$ENDCMP
+#
+$CMP 74LS161
+D Synchronous 4-bit programmable binary Counter
+K TTL CNT CNT4
+F http://www.ti.com/lit/gpn/sn74LS161
+$ENDCMP
+#
+$CMP 74LS162
+D Synchronous 4-bit programmable decimal Counter
+K TTL CNT CNT4
+F http://www.ti.com/lit/gpn/sn74LS162
+$ENDCMP
+#
+$CMP 74LS163
+D Synchronous 4-bit programmable binary Counter
+K TTL CNT CNT4
+F http://www.ti.com/lit/gpn/sn74LS163
+$ENDCMP
+#
+$CMP 74LS168
+D Synchronous 4-bit Up/Down Decimal counter
+K TTL CNT CNT4
+F http://www.ti.com/lit/gpn/sn74LS168
+$ENDCMP
+#
+$CMP 74LS169
+D Synchronous 4-bit Up/Down binary counter
+K TTL CNT CNT4
+F http://www.ti.com/lit/gpn/sn74LS169
+$ENDCMP
+#
+$CMP 74LS175
+D 4-bit D Flip-Flop, reset
+K TTL REG REG4 DFF
+F http://www.ti.com/lit/gpn/sn74LS175
+$ENDCMP
+#
+$CMP 74LS191
+D 4-bit Synchronous Up/Down binary Counter
+K TTL CNT CNT4
+F http://www.ti.com/lit/gpn/sn74LS190
+$ENDCMP
+#
+$CMP 74LS245
+D Octal BUS Transceivers, 3-State outputs
+K TTL BUS 3State
+F http://www.ti.com/lit/gpn/sn74LS245
+$ENDCMP
+#
+$CMP 74LS251
+D Multiplexer 8 to 1, 3-state Outputs
+K TTL MUX MUX8 3State
+F http://www.ti.com/lit/gpn/sn74LS251
+$ENDCMP
+#
+$CMP 74LS253
+D Dual Multiplexer 4 to 1, 3-State Outputs
+K TTL MUX MUX4 3State
+F http://www.ti.com/lit/gpn/sn74LS253
+$ENDCMP
+#
+$CMP 74LS283
+D 4-bit full Adder
+K TTL ADD Arith ALU
+F http://www.ti.com/lit/gpn/sn74LS283
+$ENDCMP
+#
+$CMP 74LS32
+D Quad 2-input OR Gate
+K TTL Or2
+F http://www.ti.com/lit/gpn/sn74LS32
+$ENDCMP
+#
+$CMP 74LS374
+D 8-bit Register, 3-state outputs
+K TTL DFF DFF8 REG 3State
+F http://www.ti.com/lit/gpn/sn74LS374
+$ENDCMP
+#
+$CMP 74LS541
+D 8-bit Buffer/Line Driver 3-state outputs
+K TTL BUFFER 3State BUS
+F http://www.ti.com/lit/gpn/sn74HC541
+$ENDCMP
+#
+$CMP 74LS573
+D 8-bit Latch 3-state outputs
+K TTL DFF DFF8 LATCH 3State
+F https://assets.nexperia.com/documents/data-sheet/74HC_HCT573.pdf
+$ENDCMP
+#
+$CMP 74LS590
+D 8-bit Binary Counter with Output Register 3-State Outputs, DIP-16/SOIC-16/SOIC-16W
+K TTL Counter 3State
+F http://www.ti.com/lit/gpn/sn74ls590
+$ENDCMP
+#
+$CMP 74LS670
+D 4 x 4 Register Files Open Collector
+K TTL Register OpenCol
+F http://www.ti.com/lit/gpn/sn74LS170
+$ENDCMP
+#
+$CMP 74LS85
+D 4-bit Comparator
+K TTL COMP ARITH
+F http://www.ti.com/lit/gpn/sn74LS85
+$ENDCMP
+#
+$CMP 74LS86
+D Quad 2-input XOR
+K TTL XOR2
+F 74xx/74ls86.pdf
+$ENDCMP
+#
+$CMP 74LVC1G00
+D Single AND Gate, Low-Voltage CMOS
+K Single Gate AND LVC CMOS
+F https://assets.nexperia.com/documents/data-sheet/74LVC1G00.pdf
+$ENDCMP
+#
+$CMP 74LVC1G04
+D Single NOT Gate, Low-Voltage CMOS
+K Single Gate NOT LVC CMOS
+F https://assets.nexperia.com/documents/data-sheet/74LVC1G04.pdf
+$ENDCMP
+#
+$CMP 74LVC1G06
+D Single NOT Gate w/ Open Drain, Low-Voltage CMOS
+K Single Gate NOT LVC CMOS Open Drain
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
+$CMP 74LVC1G07
+D Single Buffer Gate w/ Open Drain, Low-Voltage CMOS
+K Single Gate Buff LVC CMOS Open Drain
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
+$CMP 74LVC1G08
+D Single AND Gate, Low-Voltage CMOS
+K Single Gate AND LVC CMOS
+F https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf
+$ENDCMP
+#
+$CMP 74LVC1G0832
+D Single AND-OR Gate, Low-Voltage CMOS
+K Single Gate AND-OR LVC CMOS
+F http://www.ti.com/lit/ds/symlink/sn74lvc1g0832.pdf
+$ENDCMP
+#
+$CMP 74LVC1G10
+D Single NAND 3 Input Gate, Low-Voltage CMOS
+K Single Gate NAND triple LVC CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
+$CMP 74LVC1G11
+D Single AND 3 Input Gate, Low-Voltage CMOS
+K Single Gate AND triple LVC CMOS
+F https://assets.nexperia.com/documents/data-sheet/74LVC1G11.pdf
+$ENDCMP
+#
+$CMP 74LVC1G14
+D Single Schmitt NOT Gate, Low-Voltage CMOS
+K Single Gate NOT Schmitt LVC CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
+$CMP 74LVC1G17
+D Single Schmitt NOT Gate, Low-Voltage CMOS
+K Single Gate NOT Schmitt LVC CMOS
+F https://assets.nexperia.com/documents/data-sheet/74LVC1G11.pdf
+$ENDCMP
+#
+$CMP 74LVC1G27
+D Single NOR 3 Input Gate, Low-Voltage CMOS
+K Single Gate NOR triple LVC CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
+$CMP 74LVC1G32
+D Single OR Gate, Low-Voltage CMOS
+K Single Gate OR LVC CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
+$CMP 74LVC1G3208
+D Single OR-AND Gate, Low-Voltage CMOS
+K Single Gate OR-AND LVC CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
+$CMP 74LVC1G332
+D Single OR 3 Input Gate, Low-Voltage CMOS
+K Single Gate OR triple LVC CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
+$CMP 74LVC1G74
+D Single D Flip-Flop, Low-Voltage CMOS
+K Single D Flip-Flop D CMOS
+F https://assets.nexperia.com/documents/data-sheet/74LVC1G74.pdf
+$ENDCMP
+#
+$CMP 74LVC1G86
+D Single EX-OR Gate, Low-Voltage CMOS
+K Single Gate EX-OR LVC CMOS
+F https://assets.nexperia.com/documents/data-sheet/74LVC1G86.pdf
+$ENDCMP
+#
+$CMP 74LVC1GU04
+D Single NOT Gate, Low-Voltage CMOS
+K Single Gate NOT LVC CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
+$CMP 74LVC2G157
+D Single 2 to 1 Multiplexer, Low-Voltage CMOS
+K Single Mux CMOS
+F http://www.ti.com/lit/ds/symlink/sn74lvc2g157.pdf
+$ENDCMP
+#
+$CMP 74ac112
+D dual JK Flip-Flop, Set & Reset
+K TTL JK
+F http://www.ti.com/lit/gpn/sn74LS112
+$ENDCMP
+#
+$CMP 74act112
+D dual JK Flip-Flop, Set & Reset
+K TTL JK
+F http://www.ti.com/lit/gpn/sn74LS112
+$ENDCMP
+#
+$CMP 74hc112
+D dual JK Flip-Flop, Set & Reset
+K TTL JK
+F http://www.ti.com/lit/gpn/sn74LS112
+$ENDCMP
+#
+$CMP 74hct112
+D dual JK Flip-Flop, Set & Reset
+K TTL JK
+F http://www.ti.com/lit/gpn/sn74LS112
+$ENDCMP
+#
+$CMP AVR-ISP-6
+D Atmel 6-pin ISP connector
+K AVR ISP Connector
+F  ~
+$ENDCMP
+#
+$CMP CXO
+D Crystal Clock Oscillator, 7×5mm SMT
+K crystal clock oscillator surface mount smd smt
+F https://gr.mouser.com/datasheet/2/741/LFSPXO022296Bulk-985375.pdf
+$ENDCMP
+#
+$CMP CXO_DIP8
+D Crystal Clock Oscillator, DIP8-style metal package
+K Crystal Clock Oscillator
+F http://cdn-reichelt.de/documents/datenblatt/B400/OSZI.pdf
+$ENDCMP
+#
+$CMP FT231XS
+F https://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT231X.pdf
+$ENDCMP
+#
+$CMP SN74ACT1071
+D 8-bit Register, 3-state outputs
+K TTL REG DFF DFF8 3State
+F https://www.ti.com/lit/ds/symlink/sn74act1071.pdf
+$ENDCMP
+#
+$CMP SN74ACT1073
+D 8-bit Register, 3-state outputs
+K TTL REG DFF DFF8 3State
+F https://www.ti.com/lit/ds/symlink/sn74act1073.pdf
+$ENDCMP
+#
+$CMP TFT660
+D Crystal Clock Oscillator, DIP8-style metal package
+K Crystal Clock Oscillator
+F http://cdn-reichelt.de/documents/datenblatt/B400/OSZI.pdf
+$ENDCMP
+#
+$CMP TFT660_copy
+D Crystal Clock Oscillator, DIP8-style metal package
+K Crystal Clock Oscillator
+F http://cdn-reichelt.de/documents/datenblatt/B400/OSZI.pdf
+$ENDCMP
+#
+$CMP momentary_switch
+D Generic push button, normally open
+K switch normally-open pushbutton push-button (2 pins)
+$ENDCMP
+#
+$CMP tactile_switch
+D Generic push button, normally open
+K switch normally-open pushbutton push-button (4 pins)
+$ENDCMP
+#
+#End Doc Library
