@@ -6,6 +6,7 @@
 .#*
 .~lock.*.ods#
 *.tmp
+**/tmp/
 
 # File manager and editor droppings
 .directory
@@ -40,6 +41,7 @@ b.py
 .depends
 .git
 .svn
+*.vcd
 *.pyc
 __pycache__
 asm/*.bin
@@ -47,7 +49,7 @@ asm/*.list
 asm/*.map
 asm/*.pasm
 asm/*.sym
-asm/build/*
+asm/build/
 !asm/build/.directory
 
 ###############################################################################
@@ -118,7 +120,7 @@ documentation/latex/poster/*.png
 documentation/latex/poster/poster-2*.jpg
 documentation/latex/poster/poster-2*.png
 documentation/latex/poster/rect*.png
-documentation/latex/generated/*
+documentation/latex/generated/
 !documentation/latex/generated/.directory
 documentation/case/AutoSave_CFT.skp
 documentation/case/*.skb
@@ -133,6 +135,7 @@ documentation/notes/*/*.pdf
 documentation/bowen-6502-refcard
 documentation/.cft-refcard*
 documentation/cft-refcard
+documentation/logo/facebook/
 
 ###############################################################################
 #
@@ -180,8 +183,10 @@ eagle/**/*.xln
 eagle/**/*.drd
 eagle/**/*.drd.*
 
-eagle/**/*.s#*
-eagle/**/*.b#*
+*.s#?
+*.b#?
+*.s#?~
+*.b#?~
 
 eagle/**/*.info
 eagle/**/*.eps
@@ -226,7 +231,6 @@ eagle/**/*.scr
 eagle/**/*.svg
 eagle/**/*.tar
 eagle/**/*.tar.bz2
-eagle/**/*.tar.bz2
 eagle/**/*.tar.gz
 eagle/**/*.tif
 eagle/**/*.tiff
@@ -235,24 +239,30 @@ eagle/**/*.xcf
 eagle/**/*.zip
 eagle/**/*[0-9]
 
+eagle/*.svg
+eagle/*.xcf
+
 eagle/**/cft
 
 eagle/radiosity/
 eagle/render-out/
 eagle/saved.rad
-
+eagle/*.pov
 
 emulator/*.o
 emulator/cftemu
-experiments
-js/**/a.bin
-js/**/a.pasm
-js/**/a.map
-js/**/a.sym
-js/**/calibrate.bin
-js/**/calibrate.map
-js/**/calibrate.sym
-js/**/map.xpm
+experiments/**
+/js/**/a.bin
+/js/**/a.pasm
+/js/**/a.map
+/js/**/a.sym
+/js/**/calibrate.bin
+/js/**/calibrate.map
+/js/**/calibrate.sym
+/js/**/*-[0-9][0-9].list
+/js/**/map.xpm
+/js/**/rom.js
+/js/**/microcode.js
 
 ###############################################################################
 #
@@ -277,8 +287,8 @@ js/**/map.xpm
 **/firmware/[lh]fuse
 **/firmware/sim_dfp
 **/firmware/dfp.elf
-**/simavr/*
-**/simavr/simavr/obj-x86_64-linux-gnu/*
+**/simavr/
+**/simavr/simavr/obj-x86_64-linux-gnu/
 front-panel/lib/libdfp.so
 front-panel/lib/libdfp.so.*
 
@@ -325,10 +335,8 @@ kicad/**/*.sch-bak
 kicad/**/*.png.xmp
 
 # Board plots, ready for manufacture. Let's keep the zip files for those, and only those.
-kicad/**/Plots/[0-9]*/*
-kicad/**/Plots/[^0-9]*
-kicad/**/Plots/[^0-9]*/
-!kicad/**/Plots/[0-9]*/*zip
+/kicad/**/Plots/[0-9]/
+!/kicad/**/Plots/[0-9]*/*zip
 
 ###############################################################################
 #
@@ -341,76 +349,74 @@ microcode/*.bin
 microcode/*.list
 microcode/*.mif
 notes/*pdf
-testing/reports/*
-screenshots
-testing/.deps
-testing/sandbox/*
-tmp
+testing/reports/
+screenshots/
+testing/sandbox/
+tmp/
 tools/pygment*
 verification/filters/control
 verification/filters/disasm
 verification/filters/uaddr
-verification/img/*
-verification/vcd/*
-verilog/*.bin
-verilog/*.bmp
-verilog/*.bz2
-verilog/*.gz
-verilog/*.out
-verilog/*.pdf
-verilog/*.sav
-verilog/*.tar
-verilog/*.tar.*
-verilog/filters/control
-verilog/filters/disasm
-verilog/filters/uaddr
+verification/img/
+verification/vcd/
+/verilog/*.bin
+/verilog/*.bmp
+/verilog/*.bz2
+/verilog/*.gz
+/verilog/*.out
+/verilog/*.pdf
+/verilog/*.tar
+/verilog/*.tar.*
+/verilog/filters/control
+/verilog/filters/disasm
+/verilog/filters/uaddr
 verilog/img/*.list
 verilog/img/a.*
-verilog/vcd/*
-video-board/altera/*.cmp
-video-board/altera/*.done
-video-board/altera/*.eqn
-video-board/altera/*.hex
-video-board/altera/*.html
-video-board/altera/*.jdi
-video-board/altera/*.jpg
-video-board/altera/*.mif
-video-board/altera/*.pin
-video-board/altera/*.pof
-video-board/altera/*.ptf.*
-video-board/altera/*.qar
-video-board/altera/*.qarlog
-video-board/altera/*.qws
-video-board/altera/*.rpt
-video-board/altera/*.sdc
-video-board/altera/*.smsg
-video-board/altera/*.sof
-video-board/altera/*.sopc_builder
-video-board/altera/*.summary
-video-board/altera/*.tcl
-video-board/altera/*.txt
-video-board/altera/*/*_sim
-video-board/altera/*/db
-video-board/altera/*/incremental_db
-video-board/altera/*/simulation
-video-board/altera/*/testbench
-video-board/altera/*/timing
-video-board/altera/*_generation_script*
-video-board/altera/*_inst.vhd
-video-board/altera/*example*
-video-board/altera/*sopc_*
-video-board/altera/*~
-video-board/altera/PLLJ_PLLSPE_INFO.txt
-video-board/altera/_output_files/
-video-board/altera/output_files/
-video-board/altera/db
-video-board/altera/incremental_db
-video-board/verilog/sn*.pdf
-video-board/verilog/img
-video-board/verilog/vcd
-video-board/verilog/vdu-*.bmp
-videos/
-pub/
+/verilog/vcd/
+/video-board/altera/*.cmp
+/video-board/altera/*.done
+/video-board/altera/*.eqn
+/video-board/altera/*.hex
+/video-board/altera/*.html
+/video-board/altera/*.jdi
+/video-board/altera/*.jpg
+/video-board/altera/*.mif
+/video-board/altera/*.pin
+/video-board/altera/*.pof
+/video-board/altera/*.ptf.*
+/video-board/altera/*.qar
+/video-board/altera/*.qarlog
+/video-board/altera/*.qws
+/video-board/altera/*.rpt
+/video-board/altera/*.sdc
+/video-board/altera/*.smsg
+/video-board/altera/*.sof
+/video-board/altera/*.sopc_builder
+/video-board/altera/*.summary
+/video-board/altera/*.tcl
+/video-board/altera/*.txt
+/video-board/altera/*/*_sim
+/video-board/altera/*/db
+/video-board/altera/*/incremental_db
+/video-board/altera/*/simulation
+/video-board/altera/*/testbench
+/video-board/altera/*/timing
+/video-board/altera/*_generation_script*
+/video-board/altera/*_inst.vhd
+/video-board/altera/*example*
+/video-board/altera/*sopc_*
+/video-board/altera/*~
+/video-board/altera/PLLJ_PLLSPE_INFO.txt
+/video-board/altera/_output_files/
+/video-board/altera/output_files/
+/video-board/altera/db
+/video-board/altera/incremental_db
+/video-board/verilog/sn*.pdf
+/video-board/verilog/img
+/video-board/verilog/vcd
+/video-board/verilog/vdu-*.bmp
+/videos/
+/pub/
 
 ###############################################################################
 #
@@ -418,25 +424,25 @@ pub/
 #
 ###############################################################################
 
-rom/Untitled.xpm
-rom/*.bin
-rom/*.list
-rom/*png
-rom/*svg
-rom/*xcf
-rom/*xpm
-rom/a
-rom/build/*
-rom/generated/*
-rom/output
-rom/output[0-9]
+/rom/Untitled.xpm
+/rom/*.bin
+/rom/*.list
+/rom/*png
+/rom/*svg
+/rom/*xcf
+/rom/*xpm
+/rom/a
+/rom/build/
+/rom/generated/
+/rom/output
+/rom/output[0-9]
 
-forth*/*.bin
-forth*/*.list
-forth*/a
-forth*/forth.map
-forth*/forth.sym
-forth/_generated_*.asm
+/forth*/*.bin
+/forth*/*.list
+/forth*/a
+/forth*/forth.map
+/forth*/forth.sym
+/forth/_generated_*.asm
 
 ###############################################################################
 #
@@ -445,12 +451,12 @@ forth/_generated_*.asm
 ###############################################################################
 
 # Artifacts of running the emulator
-rom/hd0
+/rom/hd0
 dfp_pts
 output
 output[0-9]
-emulator/romfont.fnt
-emulator/romfont.h
+/emulator/romfont.fnt
+/emulator/romfont.h
 
 ###############################################################################
 #
@@ -459,5 +465,6 @@ emulator/romfont.h
 ###############################################################################
 
 *.pasm
+a-??.list
 
 # End of file.
