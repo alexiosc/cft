@@ -185,14 +185,14 @@ Software tools include:
    PDP-8 Assemblers, but with some modern extras like namespaces and
    simple macros.
 *  Too many emulators to speak of!
-        - A basic microcode-level emulator in Python to verify the original
+   * A basic microcode-level emulator in Python to verify the original
           design. This one is dead and buried, but still in the repository.
-        - A Verilog emulator used to verify the hardware.
-        - A C emulator that's fast enough to run software on.
-        - A [Javascript microcode-level emulator](https://www.bedroomlan.org/hardware/cft/microcode-emulator/)
+   * A Verilog emulator used to verify the hardware.
+   * A C emulator that's fast enough to run software on.
+   * A [Javascript microcode-level emulator](https://www.bedroomlan.org/hardware/cft/microcode-emulator/)
           that runs on the web. It's very slow, but it shows how the front
           panel works.
-        - A newer JS-based emulator meant to me much faster. Still
+   * A newer JS-based emulator meant to me much faster. Still
           largely in the works, because I prefer the C-based emulator for
           testing.
 * A testing framework that can run test suites on any emulator we can use.
