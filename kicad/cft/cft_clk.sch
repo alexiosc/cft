@@ -211,14 +211,14 @@ NoConn ~ 7850 4100
 $Comp
 L alexios:74HC139 U?
 U 2 1 5E38119D
-P 8700 4500
+P 8850 4500
 AR Path="/5E38119D" Ref="U?"  Part="2" 
 AR Path="/5E36D9C8/5E38119D" Ref="U801"  Part="2" 
-F 0 "U801" H 8700 4867 50  0000 C CNN
-F 1 "74HC139" H 8700 4776 50  0000 C CNN
-F 2 "" H 8700 4500 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS139" H 8700 4500 50  0001 C CNN
-	2    8700 4500
+F 0 "U801" H 8850 4867 50  0000 C CNN
+F 1 "74HC139" H 8850 4776 50  0000 C CNN
+F 2 "" H 8850 4500 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS139" H 8850 4500 50  0001 C CNN
+	2    8850 4500
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -250,29 +250,29 @@ $EndComp
 $Comp
 L power:GND #PWR?
 U 1 1 5E3811AF
-P 8150 4750
+P 8300 4750
 AR Path="/5E3811AF" Ref="#PWR?"  Part="1" 
 AR Path="/5E36D9C8/5E3811AF" Ref="#PWR0806"  Part="1" 
-F 0 "#PWR0806" H 8150 4500 50  0001 C CNN
-F 1 "GND" H 8155 4577 50  0000 C CNN
-F 2 "" H 8150 4750 50  0001 C CNN
-F 3 "" H 8150 4750 50  0001 C CNN
-	1    8150 4750
+F 0 "#PWR0806" H 8300 4500 50  0001 C CNN
+F 1 "GND" H 8305 4577 50  0000 C CNN
+F 2 "" H 8300 4750 50  0001 C CNN
+F 3 "" H 8300 4750 50  0001 C CNN
+	1    8300 4750
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	8200 4500 8150 4500
+	8350 4500 8300 4500
 Wire Wire Line
-	8150 4500 8150 4700
+	8300 4500 8300 4700
 Wire Wire Line
-	8200 4700 8150 4700
-Connection ~ 8150 4700
+	8350 4700 8300 4700
+Connection ~ 8300 4700
 Wire Wire Line
-	8150 4700 8150 4750
+	8300 4700 8300 4750
 Wire Wire Line
-	7850 3700 8000 3700
-NoConn ~ 9200 4400
-NoConn ~ 9200 4700
+	7850 3700 8150 3700
+NoConn ~ 9350 4400
+NoConn ~ 9350 4700
 $Comp
 L power:GND #PWR?
 U 1 1 5E3811BF
@@ -357,72 +357,70 @@ F 3 "" H 2850 7300 50  0001 C CNN
 	1    2850 7300
 	1    0    0    -1  
 $EndComp
-Text Label 8050 3600 0    50   ~ 0
+Text Label 8200 3600 0    50   ~ 0
 ÷2
-Text Label 8050 3700 0    50   ~ 0
+Text Label 8200 3700 0    50   ~ 0
 ÷4
 Wire Wire Line
-	9200 3600 10600 3600
+	9350 3600 10750 3600
 Wire Wire Line
-	9200 3700 10600 3700
+	9350 3700 10750 3700
 Wire Wire Line
-	9200 3800 9700 3800
-Text Label 9300 3600 0    50   ~ 0
+	9350 3800 9850 3800
+Text Label 9450 3600 0    50   ~ 0
 CLK1
 $Comp
 L alexios:74HC139 U?
 U 1 1 5E3811EE
-P 8700 3700
+P 8850 3700
 AR Path="/5E3811EE" Ref="U?"  Part="1" 
 AR Path="/5E36D9C8/5E3811EE" Ref="U801"  Part="1" 
-F 0 "U801" H 8700 4067 50  0000 C CNN
-F 1 "74HC139" H 8700 3976 50  0000 C CNN
-F 2 "" H 8700 3700 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS139" H 8700 3700 50  0001 C CNN
-	1    8700 3700
+F 0 "U801" H 8850 4067 50  0000 C CNN
+F 1 "74HC139" H 8850 3976 50  0000 C CNN
+F 2 "" H 8850 3700 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS139" H 8850 3700 50  0001 C CNN
+	1    8850 3700
 	1    0    0    -1  
 $EndComp
-Text Label 9300 3700 0    50   ~ 0
+Text Label 9450 3700 0    50   ~ 0
 CLK2
-Text Label 9300 3800 0    50   ~ 0
+Text Label 9450 3800 0    50   ~ 0
 CLK3
-Text Label 9300 3900 0    50   ~ 0
+Text Label 9450 3900 0    50   ~ 0
 CLK4
-Text HLabel 10600 3600 2    50   Output ~ 0
+Text HLabel 10750 3600 2    50   Output ~ 0
 CLK1
-Text HLabel 10600 3700 2    50   Output ~ 0
+Text HLabel 10750 3700 2    50   Output ~ 0
 CLK2
-Text HLabel 10600 3800 2    50   Output ~ 0
+Text HLabel 10750 3800 2    50   Output ~ 0
 CLK3
-Text HLabel 10600 3900 2    50   Output ~ 0
+Text HLabel 10750 3900 2    50   Output ~ 0
 CLK4
 Wire Wire Line
-	8000 4400 8200 4400
+	8150 4400 8350 4400
 Wire Wire Line
-	8200 3900 8150 3900
+	8350 3900 8300 3900
 Wire Wire Line
-	8150 3900 8150 3950
+	8300 3900 8300 3950
 $Comp
 L power:GND #PWR?
 U 1 1 5E381202
-P 8150 3950
+P 8300 3950
 AR Path="/5E381202" Ref="#PWR?"  Part="1" 
 AR Path="/5E36D9C8/5E381202" Ref="#PWR0802"  Part="1" 
-F 0 "#PWR0802" H 8150 3700 50  0001 C CNN
-F 1 "GND" H 8155 3777 50  0000 C CNN
-F 2 "" H 8150 3950 50  0001 C CNN
-F 3 "" H 8150 3950 50  0001 C CNN
-	1    8150 3950
+F 0 "#PWR0802" H 8300 3700 50  0001 C CNN
+F 1 "GND" H 8305 3777 50  0000 C CNN
+F 2 "" H 8300 3950 50  0001 C CNN
+F 3 "" H 8300 3950 50  0001 C CNN
+	1    8300 3950
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	9200 4500 10600 4500
-Text Label 9300 4500 0    50   ~ 0
+	9350 4500 10750 4500
+Text Label 9450 4500 0    50   ~ 0
 T34
-Text HLabel 10600 4500 2    50   Output ~ 0
+Text HLabel 10750 4500 2    50   Output ~ 0
 T34
-Wire Wire Line
-	6850 4100 6300 4100
 Wire Wire Line
 	4600 4100 4600 3200
 Wire Wire Line
@@ -641,14 +639,14 @@ F 3 "~" H 4250 1200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	9700 3800 9700 3150
+	9850 3800 9850 3150
 Wire Wire Line
-	9700 3150 7350 3150
+	9850 3150 7350 3150
 Wire Wire Line
 	7350 3150 7350 1050
-Connection ~ 9700 3800
+Connection ~ 9850 3800
 Wire Wire Line
-	9700 3800 10600 3800
+	9850 3800 10750 3800
 Wire Wire Line
 	7350 1050 7700 1050
 $Comp
@@ -804,15 +802,15 @@ Connection ~ 4250 1850
 Wire Wire Line
 	4250 2700 4250 3200
 Connection ~ 4250 2700
-NoConn ~ 9200 4600
+NoConn ~ 9350 4600
 Wire Wire Line
-	7850 3600 8200 3600
+	7850 3600 8050 3600
 Wire Wire Line
-	8000 4400 8000 3700
-Connection ~ 8000 3700
+	8150 4400 8150 3700
+Connection ~ 8150 3700
 Wire Wire Line
-	8000 3700 8200 3700
-Text Label 8050 4400 0    50   ~ 0
+	8150 3700 8350 3700
+Text Label 8200 4400 0    50   ~ 0
 ÷4
 Wire Notes Line style solid
 	3250 6000 3700 6000
@@ -1121,8 +1119,6 @@ Wire Wire Line
 	3150 3300 4500 3300
 Wire Wire Line
 	4400 4700 5150 4700
-Wire Wire Line
-	5850 4500 6200 4500
 Text Label 6650 4500 2    50   ~ 0
 CLKIN
 $Comp
@@ -1161,133 +1157,20 @@ Text Label 5100 4700 2    50   ~ 0
 ~FPCLK~⁄CLK
 Text Label 5050 4500 2    50   ~ 0
 FPCLK
-Wire Wire Line
-	6850 5000 6800 5000
-$Comp
-L power:GND #PWR?
-U 1 1 5D94BF66
-P 6800 6000
-AR Path="/5D94BF66" Ref="#PWR?"  Part="1" 
-AR Path="/5E36D9C8/5D94BF66" Ref="#PWR01826"  Part="1" 
-F 0 "#PWR01826" H 6800 5750 50  0001 C CNN
-F 1 "GND" H 6805 5827 50  0000 C CNN
-F 2 "" H 6800 6000 50  0001 C CNN
-F 3 "" H 6800 6000 50  0001 C CNN
-	1    6800 6000
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	6850 5100 6800 5100
-Wire Wire Line
-	6800 5100 6800 5200
-Wire Wire Line
-	6850 5200 6800 5200
-Connection ~ 6800 5200
-Wire Wire Line
-	6800 5200 6800 5300
-Wire Wire Line
-	6850 5300 6800 5300
-Connection ~ 6800 5300
-NoConn ~ 7850 5200
-NoConn ~ 7850 5300
-NoConn ~ 7850 5700
-NoConn ~ 7850 5500
-$Comp
-L alexios:74AC191 U?
-U 1 1 5D94BF7C
-P 7350 5400
-AR Path="/5CE09726/5D94BF7C" Ref="U?"  Part="1" 
-AR Path="/6A313729/5D94BF7C" Ref="U?"  Part="1" 
-AR Path="/5DC89E19/5D0A147D/5D94BF7C" Ref="U?"  Part="1" 
-AR Path="/5DC89E19/5D396E91/5D94BF7C" Ref="U?"  Part="1" 
-AR Path="/5E36D9C8/5D94BF7C" Ref="U1810"  Part="1" 
-F 0 "U1810" H 7350 4725 50  0000 C CNN
-F 1 "74AC191" H 7350 4634 50  0000 C CNN
-F 2 "" H 7325 5400 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS190" H 7325 5400 50  0001 C CNN
-	1    7350 5400
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	6800 5300 6800 5600
-Wire Wire Line
-	6850 5800 6800 5800
-Connection ~ 6800 5800
-Wire Wire Line
-	6800 5800 6800 6000
-Wire Wire Line
-	6850 5600 6800 5600
-Connection ~ 6800 5600
-Wire Wire Line
-	6800 5600 6800 5800
-Wire Wire Line
-	6300 4100 6300 5500
-Wire Wire Line
-	6300 5500 6850 5500
-Connection ~ 6300 4100
-Wire Wire Line
-	6300 4100 4600 4100
-Text Label 6650 5500 2    50   ~ 0
-~RESET
-Wire Wire Line
-	6200 4500 6200 5900
-Connection ~ 6200 4500
-Wire Wire Line
-	6200 4500 6850 4500
-Wire Wire Line
-	6200 5900 6850 5900
-Text Label 6650 5900 2    50   ~ 0
-CLKIN
-$Comp
-L power:+5V #PWR01825
-U 1 1 5D983482
-P 6800 5000
-F 0 "#PWR01825" H 6800 4850 50  0001 C CNN
-F 1 "+5V" V 6815 5128 50  0000 L CNN
-F 2 "" H 6800 5000 50  0001 C CNN
-F 3 "" H 6800 5000 50  0001 C CNN
-	1    6800 5000
-	0    -1   -1   0   
-$EndComp
-Wire Wire Line
-	7850 5000 9700 5000
-$Comp
-L alexios:74LVC1G08 U1811
-U 1 1 5D9A3743
-P 10000 4950
-F 0 "U1811" H 9950 4750 50  0000 C CNN
-F 1 "74LVC1G08" H 9950 4650 50  0000 C CNN
-F 2 "" H 9650 4950 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 9650 4950 50  0001 C CNN
-	1    10000 4950
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	10150 4950 10600 4950
-NoConn ~ 7850 5100
-Text HLabel 10600 4950 2    50   Output ~ 0
+Text HLabel 10750 5200 2    50   Output ~ 0
 WSTB
-Text Label 10300 4950 0    50   ~ 0
+Text Label 10450 5200 0    50   ~ 0
 WSTB
-Text Label 10500 4500 2    50   ~ 0
+Text Label 10650 4500 2    50   ~ 0
 T34
-Text Label 10500 3600 2    50   ~ 0
+Text Label 10650 3600 2    50   ~ 0
 CLK1
-Text Label 10500 3700 2    50   ~ 0
+Text Label 10650 3700 2    50   ~ 0
 CLK2
-Text Label 10500 3800 2    50   ~ 0
+Text Label 10650 3800 2    50   ~ 0
 CLK3
-Text Label 10500 3900 2    50   ~ 0
+Text Label 10650 3900 2    50   ~ 0
 CLK4
-Wire Wire Line
-	9600 4900 9700 4900
-Wire Wire Line
-	9600 3900 10600 3900
-Connection ~ 9600 3900
-Wire Wire Line
-	9200 3900 9600 3900
-Wire Wire Line
-	9600 3900 9600 4900
 Wire Wire Line
 	1500 2400 3750 2400
 Wire Wire Line
@@ -1298,4 +1181,153 @@ Connection ~ 3150 3300
 Wire Wire Line
 	1500 3400 3300 3400
 Connection ~ 3300 3400
+Wire Wire Line
+	5850 4500 6850 4500
+Wire Wire Line
+	4600 4100 6850 4100
+$Comp
+L alexios:74LVC1G04 U?
+U 1 1 5D606D47
+P 8850 5250
+F 0 "U?" H 8800 5517 50  0000 C CNN
+F 1 "74LVC1G04" H 8800 5426 50  0000 C CNN
+F 2 "" H 8850 5250 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G04.pdf" H 8850 5250 50  0001 C CNN
+	1    8850 5250
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74LVC1G32 U?
+U 1 1 5D6070DC
+P 10050 5200
+F 0 "U?" H 10100 5467 50  0000 C CNN
+F 1 "74LVC1G32" H 10100 5376 50  0000 C CNN
+F 2 "" H 10160 5180 50  0001 C CNN
+F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 10160 5180 50  0001 C CNN
+	1    10050 5200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	10350 5200 10750 5200
+Wire Wire Line
+	8050 3600 8050 5250
+Wire Wire Line
+	8050 5250 8550 5250
+Connection ~ 8050 3600
+Wire Wire Line
+	8050 3600 8350 3600
+Wire Wire Line
+	9050 5250 9850 5250
+Wire Wire Line
+	9350 3900 9750 3900
+Wire Wire Line
+	9850 5150 9750 5150
+Wire Wire Line
+	9750 5150 9750 3900
+Connection ~ 9750 3900
+Wire Wire Line
+	9750 3900 10750 3900
+$Comp
+L power:GND #PWR?
+U 1 1 5D635148
+P 8300 6100
+AR Path="/5D635148" Ref="#PWR?"  Part="1" 
+AR Path="/5E36D9C8/5D635148" Ref="#PWR?"  Part="1" 
+F 0 "#PWR?" H 8300 5850 50  0001 C CNN
+F 1 "GND" H 8305 5927 50  0000 C CNN
+F 2 "" H 8300 6100 50  0001 C CNN
+F 3 "" H 8300 6100 50  0001 C CNN
+	1    8300 6100
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 5D63514E
+P 8300 5900
+AR Path="/5D63514E" Ref="#PWR?"  Part="1" 
+AR Path="/5E36D9C8/5D63514E" Ref="#PWR?"  Part="1" 
+F 0 "#PWR?" H 8300 5750 50  0001 C CNN
+F 1 "+5V" H 8315 6073 50  0000 C CNN
+F 2 "" H 8300 5900 50  0001 C CNN
+F 3 "" H 8300 5900 50  0001 C CNN
+	1    8300 5900
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 5D635154
+P 8300 6000
+AR Path="/5CC0D65F/5D635154" Ref="C?"  Part="1" 
+AR Path="/5D635154" Ref="C?"  Part="1" 
+AR Path="/5E36D9C8/5D635154" Ref="C?"  Part="1" 
+F 0 "C?" H 8209 6046 50  0000 R CNN
+F 1 "100nF" H 8209 5955 50  0000 R CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 8300 6000 50  0001 C CNN
+F 3 "~" H 8300 6000 50  0001 C CNN
+	1    8300 6000
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 5D635164
+P 9650 5900
+F 0 "#PWR?" H 9650 5750 50  0001 C CNN
+F 1 "+5V" H 9665 6073 50  0000 C CNN
+F 2 "" H 9650 5900 50  0001 C CNN
+F 3 "" H 9650 5900 50  0001 C CNN
+	1    9650 5900
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5D63516A
+P 9650 6100
+F 0 "#PWR?" H 9650 5850 50  0001 C CNN
+F 1 "GND" H 9655 5927 50  0000 C CNN
+F 2 "" H 9650 6100 50  0001 C CNN
+F 3 "" H 9650 6100 50  0001 C CNN
+	1    9650 6100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 5D635170
+P 9650 6000
+AR Path="/5CC0D65F/5D635170" Ref="C?"  Part="1" 
+AR Path="/5D635170" Ref="C?"  Part="1" 
+AR Path="/5E4DDD44/5D635170" Ref="C?"  Part="1" 
+AR Path="/5E36D9C8/5D635170" Ref="C?"  Part="1" 
+F 0 "C?" H 9559 6046 50  0000 R CNN
+F 1 "100nF" H 9559 5955 50  0000 R CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 9650 6000 50  0001 C CNN
+F 3 "~" H 9650 6000 50  0001 C CNN
+	1    9650 6000
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74LVC1G04 U?
+U 2 1 5D63A62D
+P 8650 6000
+F 0 "U?" H 8830 6046 50  0000 L CNN
+F 1 "74LVC1G04" H 8830 5955 50  0000 L CNN
+F 2 "" H 8650 6000 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G04.pdf" H 8650 6000 50  0001 C CNN
+	2    8650 6000
+	1    0    0    -1  
+$EndComp
+Connection ~ 8300 6100
+Connection ~ 8300 5900
+$Comp
+L alexios:74LVC1G32 U?
+U 2 1 5D63A796
+P 10050 5750
+F 0 "U?" H 10180 5546 50  0000 L CNN
+F 1 "74LVC1G32" H 10180 5455 50  0000 L CNN
+F 2 "" H 10160 5730 50  0001 C CNN
+F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 10160 5730 50  0001 C CNN
+	2    10050 5750
+	1    0    0    -1  
+$EndComp
+Connection ~ 9650 6100
+Connection ~ 9650 5900
 $EndSCHEMATC
