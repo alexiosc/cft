@@ -1,6 +1,6 @@
-`include "flipflop.v"
+// REDESIGNED IN 2019
+
 `include "clock.v"
-`include "vibrator.v"
 
 `timescale 1ns/10ps
 
@@ -8,7 +8,6 @@ module clock_tb();
    reg nfpclk_or_clk;
    reg fpclk;
    reg nreset;
-   reg fpfast, fpslow;
 
    wire testclk, slowclk;
    wire clk1, clk2, clk3, clk4, t34, wstb;
@@ -18,8 +17,8 @@ module clock_tb();
    initial begin
       
       //$display ("time\t d pulse");
-      //$monitor ("%g\t  %b %b %b %b", 
-      // 	       $time, d, pulse1, pulse2, pulse);
+      // $monitor ("%f\t  %b %b %b %b %b %b", 
+      // 		$time, clk1, clk2, clk3, clk4, t34, wstb);
       $dumpfile ("vcd/clock_tb.vcd");
       $dumpvars (0, clock_tb);
       
@@ -28,16 +27,12 @@ module clock_tb();
       // Start off with the front panel disconnected
       nfpclk_or_clk = 1'b1;
       fpclk = 1'bz;
-      fpfast = 1'bz;
-      fpslow = 1'bz;
       
       #50 nreset = 1;
 
       // Let it run a while, then connect the front panel.
       #5000 nfpclk_or_clk = 1;
       fpclk = 0;
-      fpfast = 1;
-      fpslow = 0;
       
       // Then, stop the clock.
       #5000 nfpclk_or_clk = 0;
@@ -46,23 +41,19 @@ module clock_tb();
       #2000 fpclk = 1;
       #1000 fpclk = 0;
       for (i = 0; i < 40; i = i + 1) begin
-	 #(10000 + ($random % 4000) - 2000) fpclk = 1;
-	 #(10000 + ($random % 4000) - 2000) fpclk = 0;
+	 #(1000 + ($random % 400) - 200) fpclk = 1;
+	 #(1000 + ($random % 400) - 200) fpclk = 0;
       end
 
       // Change the clock speed to the slow clock and wait a LOT
       #1000 nfpclk_or_clk=0;
-      #1000 fpfast=0;
-      #1000 fpslow=0;
       #1000 nfpclk_or_clk = 1;
-      #10000000 nfpclk_or_clk = 0;
+      #10000 nfpclk_or_clk = 0;
 
       #1000 nfpclk_or_clk=0;
-      #1000 fpfast=0;
-      #1000 fpslow=1;
-      #100000 nfpclk_or_clk = 1;
+      #10000 nfpclk_or_clk = 1;
 
-      #10000000 $finish;
+      #10000 $finish;
       
    end // initial begin
    
@@ -74,5 +65,18 @@ module clock_tb();
 			.clk4(clk4),
 			.t34(t34),
 			.wstb(wstb));
+
+   wire [5:0] clkvec = { clk1, clk2, clk3, clk4, t34, wstb };
+   always @clkvec begin
+      if (clkvec != 6'b0111_1_1 && // Clock phase 1
+	  clkvec != 6'b1011_1_1 && // Clock phase 2
+	  clkvec != 6'b1101_0_1 && // Clock phase 3 (T34 low)
+	  clkvec != 6'b1110_0_1 && // Clock phase 4 (T34 low, WSTB high)
+	  clkvec != 6'b1110_0_0)   // Clock phase 4 (T34 low, WSTB low)
+	begin
+	 $error("Bad clock vector: CLK: %b %b %b %b T34: %b WSTB: %b",
+		clk1, clk2, clk3, clk4, t34, wstb);
+      end
+   end
 
 endmodule // clock_tb

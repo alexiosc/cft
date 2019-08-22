@@ -250,10 +250,6 @@ test_clock2:	clock2_tb.o clock.o
 		./clock2_tb.o
 		$(GTKWAVE) $(VCDDIR)/clock2_tb.vcd $(SAVDIR)/clock2_tb.sav
 
-test_clock:	clock_tb.o clock.o
-		./clock_tb.o
-		$(GTKWAVE) $(VCDDIR)/clock_tb.vcd $(SAVDIR)/clock_tb.sav
-
 test_step:	step_tb.o step.o clock.o
 		./step_tb.o
 		$(GTKWAVE) $(VCDDIR)/step_tb.vcd $(SAVDIR)/step_tb.sav
@@ -272,7 +268,7 @@ test_skip:	skip_unit_tb.o skip_unit.o
 
 test_rom:	rom_tb.o rom.o test_rom.bin
 		./rom_tb.o
-		$(GTKWAVE) $(VCDDIR)/out.vcd
+		$(GTKWAVE) $(VCDDIR)/rom_tb.vcd $(SAVDIR)/rom_tb.sav
 
 test_ram:	ram_tb.o ram.o test_rom.bin
 		./ram_tb.o
@@ -305,6 +301,19 @@ test_cu:	control_unit_tb.o control_unit.o test_rom.bin
 		./control_unit_tb.o
 		$(GTKWAVE) $(VCDDIR)/control_unit_tb.vcd $(SAVDIR)/control_unit_tb.sav
 
+###############################################################################
+#
+# 2019 REDESIGN TESTS
+#
+###############################################################################
+
+test_clock:	clock_tb.o clock.o
+		./clock_tb.o
+		$(GTKWAVE) $(VCDDIR)/clock_tb.vcd $(SAVDIR)/clock_tb.sav
+
+test_microcode_sequencer:	microcode_sequencer_tb.o microcode_sequencer.o rom.o
+		./clock_tb.o
+		$(GTKWAVE) $(VCDDIR)/microcode_sequencer.vcd $(SAVDIR)/microcode_sequencer.sav
 
 test_serial_shifter:	serial_shifter_tb.o serial_shifter.o
 		./serial_shifter_tb.o
