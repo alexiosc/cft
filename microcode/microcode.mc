@@ -190,7 +190,7 @@ signal read_cs_isrvec1 = ...................11011; // Constant Store: ISR Vector
 
 // WADDR FIELD
 
-FIX THESE ADDRESSES ACCORDING TO THE COMMENTS ABOVE!!!
+// TODO: FIX THESE ADDRESSES ACCORDING TO THE COMMENTS ABOVE!!!
 
 
 field  WRITE           = ______________XXXXX_____; // Write unit field
@@ -445,6 +445,7 @@ start RST=1, INT=0, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
       SET(pc, cs_isrvec0);			// 06 PC ← ISR vector low
       SET(mbp, cs_isrvec1), END;		// 08 MBP ← ISR vector high
 
+TODO: THIS jumps to address at [MBP:0000], no matter what the MBP. Maybe load it from MBZ?
 
 
 ///////////////////////////////////////////////////////////////////////////////
