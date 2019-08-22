@@ -1451,4 +1451,6 @@ Wire Wire Line
 	22000 4000 21350 4000
 Text Label 21350 4000 0    50   ~ 0
 FPFETCH∕~EXEC
+Text Notes 1300 1750 0    70   ~ 14
+Verified
 $EndSCHEMATC
