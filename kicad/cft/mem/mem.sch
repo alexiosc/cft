@@ -1,0 +1,1654 @@
+EESchema Schematic File Version 4
+LIBS:mem-cache
+EELAYER 26 0
+EELAYER END
+$Descr A3 16535 11693
+encoding utf-8
+Sheet 1 2
+Title "CFT Homebrew 16-bit Minicomputer"
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Sheet
+S 13250 1100 1150 4200
+U 5D34E810
+F0 "Left Edge Connector" 50
+F1 "bus.sch" 50
+F2 "AB[0..23]" U L 13250 1850 50 
+F3 "DB[0..15]" U L 13250 1950 50 
+F4 "FPD[0..7]" U L 13250 2250 50 
+F5 "IBUS[0..15]" U L 13250 1250 50 
+F6 "~RESET" U L 13250 1350 50 
+F7 "CLK1" U L 13250 1450 50 
+F8 "CLK2" U L 13250 1550 50 
+F9 "CLK3" U L 13250 1650 50 
+F10 "CLK4" U L 13250 1750 50 
+F11 "WSTB" U L 13250 2050 50 
+F12 "T34" U L 13250 2150 50 
+F13 "~IRQ" U L 13250 2350 50 
+F14 "~IRQS" U L 13250 2450 50 
+F15 "~IRQ[0..7]" U L 13250 2550 50 
+F16 "~RSTHOLD" U L 13250 2650 50 
+F17 "~SYSDEV" U L 13250 2750 50 
+F18 "~IODEV1xx" U L 13250 2850 50 
+F19 "~IODEV2xx" U L 13250 2950 50 
+F20 "~IODEV3xx" U L 13250 3050 50 
+F21 "~MEM" U L 13250 3150 50 
+F22 "~IO" U L 13250 3250 50 
+F23 "~R" U L 13250 3350 50 
+F24 "~W" U L 13250 3450 50 
+F25 "~WS" U L 13250 3550 50 
+F26 "~ENDEXT" U L 13250 3650 50 
+F27 "~SKIPEXT" U L 13250 3750 50 
+F28 "~HALT" U L 13250 3850 50 
+F29 "ACTION[0..3]" U L 13250 3950 50 
+F30 "WADDR[0..4]" U L 13250 4050 50 
+F31 "RADDR[0..4]" U L 13250 4150 50 
+F32 "RSVD[0..8]" U L 13250 4250 50 
+F33 "C1" U R 14400 1250 50 
+F34 "C2" U R 14400 1350 50 
+F35 "C3" U R 14400 1450 50 
+F36 "C4" U R 14400 1550 50 
+F37 "C5" U R 14400 1650 50 
+F38 "C6" U R 14400 1750 50 
+F39 "C7" U R 14400 1850 50 
+F40 "C8" U R 14400 1950 50 
+F41 "C9" U R 14400 2050 50 
+F42 "C10" U R 14400 2150 50 
+F43 "C11" U R 14400 2250 50 
+F44 "C12" U R 14400 2350 50 
+F45 "C13" U R 14400 2450 50 
+F46 "C14" U R 14400 2550 50 
+F47 "C15" U R 14400 2650 50 
+F48 "C16" U R 14400 2750 50 
+F49 "C17" U R 14400 2850 50 
+F50 "C18" U R 14400 2950 50 
+F51 "C19" U R 14400 3050 50 
+F52 "C20" U R 14400 3150 50 
+F53 "C21" U R 14400 3250 50 
+F54 "C22" U R 14400 3350 50 
+F55 "C23" U R 14400 3450 50 
+F56 "C24" U R 14400 3550 50 
+F57 "C25" U R 14400 3650 50 
+F58 "C26" U R 14400 3750 50 
+F59 "C27" U R 14400 3850 50 
+F60 "C28" U R 14400 3950 50 
+F61 "C29" U R 14400 4050 50 
+F62 "C30" U R 14400 4150 50 
+F63 "C31" U R 14400 4250 50 
+F64 "C32" U R 14400 4350 50 
+F65 "C33" U R 14400 4450 50 
+F66 "C34" U R 14400 4550 50 
+F67 "C35" U R 14400 4650 50 
+F68 "C36" U R 14400 4750 50 
+F69 "C37" U R 14400 4850 50 
+F70 "C38" U R 14400 4950 50 
+F71 "C39" U R 14400 5050 50 
+F72 "C40" U R 14400 5150 50 
+$EndSheet
+Wire Bus Line
+	13250 1850 12700 1850
+Wire Bus Line
+	13250 1950 12700 1950
+Text Label 12700 1850 0    50   ~ 0
+AB[0..23]
+Text Label 12700 1950 0    50   ~ 0
+DB[0..15]
+Wire Bus Line
+	12700 2250 13250 2250
+Text Label 12700 2250 0    50   ~ 0
+FPD[0..7]
+Wire Wire Line
+	13250 1450 12700 1450
+Wire Wire Line
+	13250 1550 12700 1550
+Wire Wire Line
+	13250 1650 12700 1650
+Wire Wire Line
+	13250 1750 12700 1750
+Wire Wire Line
+	13250 1350 12700 1350
+Wire Wire Line
+	13250 2650 12700 2650
+Wire Wire Line
+	13250 2750 12700 2750
+Wire Wire Line
+	13250 2850 12700 2850
+Wire Wire Line
+	13250 2350 12700 2350
+Wire Wire Line
+	13250 3150 12700 3150
+Wire Wire Line
+	13250 3250 12700 3250
+Wire Wire Line
+	13250 3350 12700 3350
+Wire Wire Line
+	13250 3450 12700 3450
+Wire Wire Line
+	13250 3050 12700 3050
+Wire Wire Line
+	13250 2950 12700 2950
+Wire Wire Line
+	13250 3750 12700 3750
+Wire Wire Line
+	13250 3850 12700 3850
+Wire Wire Line
+	13250 3650 12700 3650
+Wire Wire Line
+	13250 3550 12700 3550
+Wire Bus Line
+	12700 2550 13250 2550
+Text Label 12700 2550 0    50   ~ 0
+~IRQ[0..7]
+Text Label 12700 2350 0    50   ~ 0
+~IRQ
+Wire Wire Line
+	13250 2050 12700 2050
+Wire Wire Line
+	13250 2150 12700 2150
+Wire Bus Line
+	12700 1250 13250 1250
+Text Label 12700 1250 0    50   ~ 0
+IBUS[0..15]
+Text Label 12700 1350 0    50   ~ 0
+~RESET
+Text Label 12700 1450 0    50   ~ 0
+CLK1
+Text Label 12700 1550 0    50   ~ 0
+CLK2
+Text Label 12700 1650 0    50   ~ 0
+CLK3
+Text Label 12700 1750 0    50   ~ 0
+CLK4
+Text Label 12700 2050 0    50   ~ 0
+WSTB
+Text Label 12700 2150 0    50   ~ 0
+T34
+Wire Wire Line
+	13250 2450 12700 2450
+Text Label 12700 2450 0    50   ~ 0
+~IRQS
+Text Label 12700 2650 0    50   ~ 0
+~RSTHOLD
+Text Label 12700 2750 0    50   ~ 0
+~SYSDEV
+Text Label 12700 2850 0    50   ~ 0
+~IODEV1xx
+Text Label 12700 2950 0    50   ~ 0
+~IODEV2xx
+Text Label 12700 3050 0    50   ~ 0
+~IODEV3xx
+Text Label 12700 3150 0    50   ~ 0
+~MEM
+Text Label 12700 3250 0    50   ~ 0
+~IO
+Text Label 12700 3350 0    50   ~ 0
+~R
+Text Label 12700 3550 0    50   ~ 0
+~WS
+Text Label 12700 3650 0    50   ~ 0
+~ENDEXT
+Text Label 12700 3750 0    50   ~ 0
+~SKIPEXT
+Text Label 12700 3850 0    50   ~ 0
+~HALT
+Text Label 12700 3950 0    50   ~ 0
+ACTION[0..3]
+Text Label 12700 4050 0    50   ~ 0
+WADDR[0..4]
+Text Label 12700 4150 0    50   ~ 0
+RADDR[0..4]
+Wire Bus Line
+	13250 3950 12700 3950
+Wire Bus Line
+	13250 4050 12700 4050
+Wire Bus Line
+	13250 4150 12700 4150
+Wire Bus Line
+	12700 4250 13250 4250
+Text Label 12700 4250 0    50   ~ 0
+RSVD[0..8]
+Text Label 14950 1550 2    50   ~ 0
+FPA1
+$Comp
+L power:+5V #PWR0103
+U 1 1 5D61E85C
+P 14400 1350
+F 0 "#PWR0103" H 14400 1200 50  0001 C CNN
+F 1 "+5V" V 14415 1478 50  0000 L CNN
+F 2 "" H 14400 1350 50  0001 C CNN
+F 3 "" H 14400 1350 50  0001 C CNN
+	1    14400 1350
+	0    1    1    0   
+$EndComp
+Text Label 14950 3850 2    50   ~ 0
+POWER
+Text Label 14950 3750 2    50   ~ 0
+~LTSON
+Text Label 14950 3650 2    50   ~ 0
+SWD3
+Text Label 14950 3550 2    50   ~ 0
+SWD2
+Text Label 14950 3450 2    50   ~ 0
+SWD1
+Text Label 14950 3350 2    50   ~ 0
+SWD0
+Text Label 14950 3250 2    50   ~ 0
+SWA3
+Text Label 14950 3150 2    50   ~ 0
+SWA2
+Text Label 14950 3050 2    50   ~ 0
+SWA1
+Text Label 14950 2950 2    50   ~ 0
+SWA0
+Text Label 14950 2850 2    50   ~ 0
+~ROW5
+Text Label 14950 2750 2    50   ~ 0
+~ROW4
+Text Label 14950 2650 2    50   ~ 0
+~ROW3
+Text Label 14950 2550 2    50   ~ 0
+~ROW2
+Text Label 14950 2450 2    50   ~ 0
+~ROW1
+Wire Wire Line
+	14400 1550 14950 1550
+Wire Wire Line
+	14400 1450 14950 1450
+Wire Wire Line
+	14400 4550 14550 4550
+Wire Wire Line
+	14400 4450 14550 4450
+Wire Wire Line
+	14400 4350 14550 4350
+Wire Wire Line
+	14400 4250 14550 4250
+Wire Wire Line
+	14400 4150 14550 4150
+Wire Wire Line
+	14400 3750 14950 3750
+Wire Wire Line
+	14400 3650 14950 3650
+Wire Wire Line
+	14400 3550 14950 3550
+Wire Wire Line
+	14400 3450 14950 3450
+Wire Wire Line
+	14400 3350 14950 3350
+Wire Wire Line
+	14400 3250 14950 3250
+Wire Wire Line
+	14400 3150 14950 3150
+Wire Wire Line
+	14400 3050 14950 3050
+Wire Wire Line
+	14400 2950 14950 2950
+Wire Wire Line
+	14400 2850 14950 2850
+Wire Wire Line
+	14400 2750 14950 2750
+Wire Wire Line
+	14400 2650 14950 2650
+Wire Wire Line
+	14400 2550 14950 2550
+Wire Wire Line
+	14400 2450 14950 2450
+Text Label 14950 1450 2    50   ~ 0
+FPA0
+Wire Wire Line
+	14400 4050 14550 4050
+Wire Wire Line
+	14400 3950 14550 3950
+NoConn ~ 14550 3950
+NoConn ~ 14550 4050
+NoConn ~ 14550 4150
+NoConn ~ 14550 4250
+NoConn ~ 14550 4450
+$Comp
+L power:+5V #PWR0102
+U 1 1 5E5EDC51
+P 14400 1250
+F 0 "#PWR0102" H 14400 1100 50  0001 C CNN
+F 1 "+5V" V 14415 1378 50  0000 L CNN
+F 2 "" H 14400 1250 50  0001 C CNN
+F 3 "" H 14400 1250 50  0001 C CNN
+	1    14400 1250
+	0    1    1    0   
+$EndComp
+Text Notes 14000 3100 1    100  ~ 20
+Left Slot
+Entry Wire Line
+	14950 2950 15050 3050
+Entry Wire Line
+	14950 3050 15050 3150
+Entry Wire Line
+	14950 3150 15050 3250
+Entry Wire Line
+	14950 3250 15050 3350
+Entry Wire Line
+	14950 3350 15050 3450
+Entry Wire Line
+	14950 3450 15050 3550
+Entry Wire Line
+	14950 3550 15050 3650
+Entry Wire Line
+	14950 3650 15050 3750
+Text Label 15050 3050 0    50   ~ 0
+SWA[0..3]
+Text Label 15050 3450 0    50   ~ 0
+SWD[0..3]
+Text Notes 15100 3850 0    50   ~ 0
+Power switch from front pane
+Wire Wire Line
+	14400 4650 14550 4650
+Wire Wire Line
+	14400 4750 14550 4750
+Wire Wire Line
+	14400 4850 14550 4850
+NoConn ~ 14550 4650
+NoConn ~ 14550 4850
+Wire Wire Line
+	14400 5150 14550 5150
+NoConn ~ 14550 4350
+NoConn ~ 14550 4550
+NoConn ~ 14550 4750
+$Comp
+L power:GND #PWR0104
+U 1 1 63FCB1F1
+P 14550 5150
+F 0 "#PWR0104" H 14550 4900 50  0001 C CNN
+F 1 "GND" H 14555 4977 50  0000 C CNN
+F 2 "" H 14550 5150 50  0001 C CNN
+F 3 "" H 14550 5150 50  0001 C CNN
+	1    14550 5150
+	1    0    0    -1  
+$EndComp
+Text Label 14950 5050 2    50   ~ 0
+TXD
+Text Label 14950 4950 2    50   ~ 0
+RXD
+Wire Wire Line
+	14400 4950 14950 4950
+Wire Wire Line
+	14400 5050 14950 5050
+Wire Wire Line
+	14400 1650 14950 1650
+Wire Wire Line
+	14400 1750 14950 1750
+Wire Wire Line
+	14400 1850 14950 1850
+Wire Wire Line
+	14400 1950 14950 1950
+Wire Wire Line
+	14400 2050 14950 2050
+Wire Wire Line
+	14400 2150 14950 2150
+Wire Wire Line
+	14400 2250 14950 2250
+Wire Wire Line
+	14400 2350 14950 2350
+Text Label 14950 1650 2    50   ~ 0
+FPD0
+Text Label 14950 1750 2    50   ~ 0
+FPD1
+Text Label 14950 1850 2    50   ~ 0
+FPD2
+Text Label 14950 1950 2    50   ~ 0
+FPD3
+Text Label 14950 2050 2    50   ~ 0
+FPD4
+Text Label 14950 2150 2    50   ~ 0
+FPD5
+Text Label 14950 2250 2    50   ~ 0
+FPD6
+Text Label 14950 2350 2    50   ~ 0
+FPD7
+Wire Wire Line
+	14400 3850 14950 3850
+Text Label 12700 3450 0    50   ~ 0
+~W
+Text Label 900  6300 0    50   ~ 0
+~RBCE0
+Text Label 900  6500 0    50   ~ 0
+~W
+Text Label 900  6400 0    50   ~ 0
+~R
+Text Label 900  6100 0    50   ~ 0
+AB18
+Text Label 900  6000 0    50   ~ 0
+AB17
+Text Label 900  5900 0    50   ~ 0
+AB16
+Text Label 900  5800 0    50   ~ 0
+AB15
+Text Label 900  5700 0    50   ~ 0
+AB14
+Text Label 900  5600 0    50   ~ 0
+AB13
+Text Label 900  5500 0    50   ~ 0
+AB12
+Text Label 900  5400 0    50   ~ 0
+AB11
+Text Label 900  5300 0    50   ~ 0
+AB10
+Text Label 900  5200 0    50   ~ 0
+AB9
+Text Label 900  5100 0    50   ~ 0
+AB8
+Text Label 900  5000 0    50   ~ 0
+AB7
+Text Label 900  4900 0    50   ~ 0
+AB6
+Text Label 900  4800 0    50   ~ 0
+AB5
+Text Label 900  4700 0    50   ~ 0
+AB4
+Text Label 900  4600 0    50   ~ 0
+AB3
+Text Label 900  4500 0    50   ~ 0
+AB2
+Text Label 900  4400 0    50   ~ 0
+AB1
+Text Label 900  4300 0    50   ~ 0
+AB0
+Wire Wire Line
+	1250 6500 900  6500
+Wire Wire Line
+	1250 6400 900  6400
+Wire Wire Line
+	1250 6300 900  6300
+Wire Wire Line
+	1250 6100 900  6100
+Wire Wire Line
+	1250 6000 900  6000
+Wire Wire Line
+	1250 5900 900  5900
+Wire Wire Line
+	1250 5800 900  5800
+Wire Wire Line
+	1250 5700 900  5700
+Wire Wire Line
+	1250 5600 900  5600
+Wire Wire Line
+	1250 5500 900  5500
+Wire Wire Line
+	1250 5400 900  5400
+Wire Wire Line
+	1250 5300 900  5300
+Wire Wire Line
+	1250 5200 900  5200
+Wire Wire Line
+	1250 5100 900  5100
+Wire Wire Line
+	1250 5000 900  5000
+Wire Wire Line
+	1250 4900 900  4900
+Wire Wire Line
+	1250 4800 900  4800
+Wire Wire Line
+	1250 4700 900  4700
+Wire Wire Line
+	1250 4600 900  4600
+Wire Wire Line
+	1250 4500 900  4500
+Wire Wire Line
+	1250 4400 900  4400
+Wire Wire Line
+	1250 4300 900  4300
+Text Label 900  3150 0    50   ~ 0
+~RBCE0
+Text Label 900  3350 0    50   ~ 0
+~W
+Text Label 900  3250 0    50   ~ 0
+~R
+Text Label 900  2950 0    50   ~ 0
+AB18
+Text Label 900  2850 0    50   ~ 0
+AB17
+Text Label 900  2750 0    50   ~ 0
+AB16
+Text Label 900  2650 0    50   ~ 0
+AB15
+Text Label 900  2550 0    50   ~ 0
+AB14
+Text Label 900  2450 0    50   ~ 0
+AB13
+Text Label 900  2350 0    50   ~ 0
+AB12
+Text Label 900  2250 0    50   ~ 0
+AB11
+Text Label 900  2150 0    50   ~ 0
+AB10
+Text Label 900  2050 0    50   ~ 0
+AB9
+Text Label 900  1950 0    50   ~ 0
+AB8
+Text Label 900  1850 0    50   ~ 0
+AB7
+Text Label 900  1750 0    50   ~ 0
+AB6
+Text Label 900  1650 0    50   ~ 0
+AB5
+Text Label 900  1550 0    50   ~ 0
+AB4
+Text Label 900  1450 0    50   ~ 0
+AB3
+Text Label 900  1350 0    50   ~ 0
+AB2
+Text Label 900  1250 0    50   ~ 0
+AB1
+Text Label 900  1150 0    50   ~ 0
+AB0
+Wire Wire Line
+	1250 3350 900  3350
+Wire Wire Line
+	1250 3250 900  3250
+Wire Wire Line
+	1250 3150 900  3150
+Wire Wire Line
+	1250 2950 900  2950
+Wire Wire Line
+	1250 2850 900  2850
+Wire Wire Line
+	1250 2750 900  2750
+Wire Wire Line
+	1250 2650 900  2650
+Wire Wire Line
+	1250 2550 900  2550
+Wire Wire Line
+	1250 2450 900  2450
+Wire Wire Line
+	1250 2350 900  2350
+Wire Wire Line
+	1250 2250 900  2250
+Wire Wire Line
+	1250 2150 900  2150
+Wire Wire Line
+	1250 2050 900  2050
+Wire Wire Line
+	1250 1950 900  1950
+Wire Wire Line
+	1250 1850 900  1850
+Wire Wire Line
+	1250 1750 900  1750
+Wire Wire Line
+	1250 1650 900  1650
+Wire Wire Line
+	1250 1550 900  1550
+Wire Wire Line
+	1250 1450 900  1450
+Wire Wire Line
+	1250 1350 900  1350
+Wire Wire Line
+	1250 1250 900  1250
+Wire Wire Line
+	1250 1150 900  1150
+Text Label 2750 5000 2    50   ~ 0
+PB15
+Text Label 2750 4900 2    50   ~ 0
+PB14
+Text Label 2750 4800 2    50   ~ 0
+PB13
+Text Label 2750 4700 2    50   ~ 0
+PB12
+Text Label 2750 4600 2    50   ~ 0
+PB11
+Text Label 2750 4500 2    50   ~ 0
+PB10
+Text Label 2750 4400 2    50   ~ 0
+PB9
+Text Label 2750 4300 2    50   ~ 0
+PB8
+Wire Wire Line
+	2450 5000 2750 5000
+Wire Wire Line
+	2450 4900 2750 4900
+Wire Wire Line
+	2450 4800 2750 4800
+Wire Wire Line
+	2450 4700 2750 4700
+Wire Wire Line
+	2450 4600 2750 4600
+Wire Wire Line
+	2450 4500 2750 4500
+Wire Wire Line
+	2450 4400 2750 4400
+Wire Wire Line
+	2450 4300 2750 4300
+$Comp
+L power:GND #PWR?
+U 1 1 5D68FBC3
+P 1850 6700
+F 0 "#PWR?" H 1850 6450 50  0001 C CNN
+F 1 "GND" H 1855 6527 50  0000 C CNN
+F 2 "" H 1850 6700 50  0001 C CNN
+F 3 "" H 1850 6700 50  0001 C CNN
+	1    1850 6700
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 5D68FBBD
+P 1850 4100
+F 0 "#PWR?" H 1850 3950 50  0001 C CNN
+F 1 "+5V" H 1865 4273 50  0000 C CNN
+F 2 "" H 1850 4100 50  0001 C CNN
+F 3 "" H 1850 4100 50  0001 C CNN
+	1    1850 4100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Memory_RAM:IS64C5128AL-12KLA3 U?
+U 1 1 5D68FBB6
+P 1850 5400
+F 0 "U?" H 1850 6878 50  0000 C CNN
+F 1 "IS64C5128AL-12KLA3" H 1850 6787 50  0000 C CNN
+F 2 "Package_SO:SOJ-36_10.16x23.49mm_P1.27mm" H 1350 6550 50  0001 C CNN
+F 3 "http://www.issi.com/WW/pdf/61-64C5128AL.pdf" H 1850 5400 50  0001 C CNN
+	1    1850 5400
+	1    0    0    -1  
+$EndComp
+Text Label 2750 1850 2    50   ~ 0
+DB7
+Text Label 2750 1750 2    50   ~ 0
+DB6
+Text Label 2750 1650 2    50   ~ 0
+DB5
+Text Label 2750 1550 2    50   ~ 0
+DB4
+Text Label 2750 1450 2    50   ~ 0
+DB3
+Text Label 2750 1350 2    50   ~ 0
+DB2
+Text Label 2750 1250 2    50   ~ 0
+DB1
+Text Label 2750 1150 2    50   ~ 0
+DB0
+Wire Wire Line
+	2450 1850 2750 1850
+Wire Wire Line
+	2450 1750 2750 1750
+Wire Wire Line
+	2450 1650 2750 1650
+Wire Wire Line
+	2450 1550 2750 1550
+Wire Wire Line
+	2450 1450 2750 1450
+Wire Wire Line
+	2450 1350 2750 1350
+Wire Wire Line
+	2450 1250 2750 1250
+Wire Wire Line
+	2450 1150 2750 1150
+$Comp
+L power:GND #PWR?
+U 1 1 5D68DCF6
+P 1850 3550
+F 0 "#PWR?" H 1850 3300 50  0001 C CNN
+F 1 "GND" H 1855 3377 50  0000 C CNN
+F 2 "" H 1850 3550 50  0001 C CNN
+F 3 "" H 1850 3550 50  0001 C CNN
+	1    1850 3550
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 5D68DC6C
+P 1850 950
+F 0 "#PWR?" H 1850 800 50  0001 C CNN
+F 1 "+5V" H 1865 1123 50  0000 C CNN
+F 2 "" H 1850 950 50  0001 C CNN
+F 3 "" H 1850 950 50  0001 C CNN
+	1    1850 950 
+	1    0    0    -1  
+$EndComp
+$Comp
+L Memory_RAM:IS64C5128AL-12KLA3 U?
+U 1 1 5D68DB71
+P 1850 2250
+F 0 "U?" H 1850 3728 50  0000 C CNN
+F 1 "IS64C5128AL-12KLA3" H 1850 3637 50  0000 C CNN
+F 2 "Package_SO:SOJ-36_10.16x23.49mm_P1.27mm" H 1350 3400 50  0001 C CNN
+F 3 "http://www.issi.com/WW/pdf/61-64C5128AL.pdf" H 1850 2250 50  0001 C CNN
+	1    1850 2250
+	1    0    0    -1  
+$EndComp
+Text Label 2950 6300 0    50   ~ 0
+~RBCE1
+Text Label 2950 6500 0    50   ~ 0
+~W
+Text Label 2950 6400 0    50   ~ 0
+~R
+Text Label 2950 6100 0    50   ~ 0
+AB18
+Text Label 2950 6000 0    50   ~ 0
+AB17
+Text Label 2950 5900 0    50   ~ 0
+AB16
+Text Label 2950 5800 0    50   ~ 0
+AB15
+Text Label 2950 5700 0    50   ~ 0
+AB14
+Text Label 2950 5600 0    50   ~ 0
+AB13
+Text Label 2950 5500 0    50   ~ 0
+AB12
+Text Label 2950 5400 0    50   ~ 0
+AB11
+Text Label 2950 5300 0    50   ~ 0
+AB10
+Text Label 2950 5200 0    50   ~ 0
+AB9
+Text Label 2950 5100 0    50   ~ 0
+AB8
+Text Label 2950 5000 0    50   ~ 0
+AB7
+Text Label 2950 4900 0    50   ~ 0
+AB6
+Text Label 2950 4800 0    50   ~ 0
+AB5
+Text Label 2950 4700 0    50   ~ 0
+AB4
+Text Label 2950 4600 0    50   ~ 0
+AB3
+Text Label 2950 4500 0    50   ~ 0
+AB2
+Text Label 2950 4400 0    50   ~ 0
+AB1
+Text Label 2950 4300 0    50   ~ 0
+AB0
+Wire Wire Line
+	3300 6500 2950 6500
+Wire Wire Line
+	3300 6400 2950 6400
+Wire Wire Line
+	3300 6300 2950 6300
+Wire Wire Line
+	3300 6100 2950 6100
+Wire Wire Line
+	3300 6000 2950 6000
+Wire Wire Line
+	3300 5900 2950 5900
+Wire Wire Line
+	3300 5800 2950 5800
+Wire Wire Line
+	3300 5700 2950 5700
+Wire Wire Line
+	3300 5600 2950 5600
+Wire Wire Line
+	3300 5500 2950 5500
+Wire Wire Line
+	3300 5400 2950 5400
+Wire Wire Line
+	3300 5300 2950 5300
+Wire Wire Line
+	3300 5200 2950 5200
+Wire Wire Line
+	3300 5100 2950 5100
+Wire Wire Line
+	3300 5000 2950 5000
+Wire Wire Line
+	3300 4900 2950 4900
+Wire Wire Line
+	3300 4800 2950 4800
+Wire Wire Line
+	3300 4700 2950 4700
+Wire Wire Line
+	3300 4600 2950 4600
+Wire Wire Line
+	3300 4500 2950 4500
+Wire Wire Line
+	3300 4400 2950 4400
+Wire Wire Line
+	3300 4300 2950 4300
+Text Label 2950 3150 0    50   ~ 0
+~RBCE0
+Text Label 2950 3350 0    50   ~ 0
+~W
+Text Label 2950 3250 0    50   ~ 0
+~R
+Text Label 2950 2950 0    50   ~ 0
+AB18
+Text Label 2950 2850 0    50   ~ 0
+AB17
+Text Label 2950 2750 0    50   ~ 0
+AB16
+Text Label 2950 2650 0    50   ~ 0
+AB15
+Text Label 2950 2550 0    50   ~ 0
+AB14
+Text Label 2950 2450 0    50   ~ 0
+AB13
+Text Label 2950 2350 0    50   ~ 0
+AB12
+Text Label 2950 2250 0    50   ~ 0
+AB11
+Text Label 2950 2150 0    50   ~ 0
+AB10
+Text Label 2950 2050 0    50   ~ 0
+AB9
+Text Label 2950 1950 0    50   ~ 0
+AB8
+Text Label 2950 1850 0    50   ~ 0
+AB7
+Text Label 2950 1750 0    50   ~ 0
+AB6
+Text Label 2950 1650 0    50   ~ 0
+AB5
+Text Label 2950 1550 0    50   ~ 0
+AB4
+Text Label 2950 1450 0    50   ~ 0
+AB3
+Text Label 2950 1350 0    50   ~ 0
+AB2
+Text Label 2950 1250 0    50   ~ 0
+AB1
+Text Label 2950 1150 0    50   ~ 0
+AB0
+Wire Wire Line
+	3300 3350 2950 3350
+Wire Wire Line
+	3300 3250 2950 3250
+Wire Wire Line
+	3300 3150 2950 3150
+Wire Wire Line
+	3300 2950 2950 2950
+Wire Wire Line
+	3300 2850 2950 2850
+Wire Wire Line
+	3300 2750 2950 2750
+Wire Wire Line
+	3300 2650 2950 2650
+Wire Wire Line
+	3300 2550 2950 2550
+Wire Wire Line
+	3300 2450 2950 2450
+Wire Wire Line
+	3300 2350 2950 2350
+Wire Wire Line
+	3300 2250 2950 2250
+Wire Wire Line
+	3300 2150 2950 2150
+Wire Wire Line
+	3300 2050 2950 2050
+Wire Wire Line
+	3300 1950 2950 1950
+Wire Wire Line
+	3300 1850 2950 1850
+Wire Wire Line
+	3300 1750 2950 1750
+Wire Wire Line
+	3300 1650 2950 1650
+Wire Wire Line
+	3300 1550 2950 1550
+Wire Wire Line
+	3300 1450 2950 1450
+Wire Wire Line
+	3300 1350 2950 1350
+Wire Wire Line
+	3300 1250 2950 1250
+Wire Wire Line
+	3300 1150 2950 1150
+Text Label 4800 5000 2    50   ~ 0
+PB15
+Text Label 4800 4900 2    50   ~ 0
+PB14
+Text Label 4800 4800 2    50   ~ 0
+PB13
+Text Label 4800 4700 2    50   ~ 0
+PB12
+Text Label 4800 4600 2    50   ~ 0
+PB11
+Text Label 4800 4500 2    50   ~ 0
+PB10
+Text Label 4800 4400 2    50   ~ 0
+PB9
+Text Label 4800 4300 2    50   ~ 0
+PB8
+Wire Wire Line
+	4500 5000 4800 5000
+Wire Wire Line
+	4500 4900 4800 4900
+Wire Wire Line
+	4500 4800 4800 4800
+Wire Wire Line
+	4500 4700 4800 4700
+Wire Wire Line
+	4500 4600 4800 4600
+Wire Wire Line
+	4500 4500 4800 4500
+Wire Wire Line
+	4500 4400 4800 4400
+Wire Wire Line
+	4500 4300 4800 4300
+$Comp
+L power:GND #PWR?
+U 1 1 5D6D169D
+P 3900 6700
+F 0 "#PWR?" H 3900 6450 50  0001 C CNN
+F 1 "GND" H 3905 6527 50  0000 C CNN
+F 2 "" H 3900 6700 50  0001 C CNN
+F 3 "" H 3900 6700 50  0001 C CNN
+	1    3900 6700
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 5D6D16A3
+P 3900 4100
+F 0 "#PWR?" H 3900 3950 50  0001 C CNN
+F 1 "+5V" H 3915 4273 50  0000 C CNN
+F 2 "" H 3900 4100 50  0001 C CNN
+F 3 "" H 3900 4100 50  0001 C CNN
+	1    3900 4100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Memory_RAM:IS64C5128AL-12KLA3 U?
+U 1 1 5D6D16A9
+P 3900 5400
+F 0 "U?" H 3900 6878 50  0000 C CNN
+F 1 "IS64C5128AL-12KLA3" H 3900 6787 50  0000 C CNN
+F 2 "Package_SO:SOJ-36_10.16x23.49mm_P1.27mm" H 3400 6550 50  0001 C CNN
+F 3 "http://www.issi.com/WW/pdf/61-64C5128AL.pdf" H 3900 5400 50  0001 C CNN
+	1    3900 5400
+	1    0    0    -1  
+$EndComp
+Text Label 4800 1850 2    50   ~ 0
+DB7
+Text Label 4800 1750 2    50   ~ 0
+DB6
+Text Label 4800 1650 2    50   ~ 0
+DB5
+Text Label 4800 1550 2    50   ~ 0
+DB4
+Text Label 4800 1450 2    50   ~ 0
+DB3
+Text Label 4800 1350 2    50   ~ 0
+DB2
+Text Label 4800 1250 2    50   ~ 0
+DB1
+Text Label 4800 1150 2    50   ~ 0
+DB0
+Wire Wire Line
+	4500 1850 4800 1850
+Wire Wire Line
+	4500 1750 4800 1750
+Wire Wire Line
+	4500 1650 4800 1650
+Wire Wire Line
+	4500 1550 4800 1550
+Wire Wire Line
+	4500 1450 4800 1450
+Wire Wire Line
+	4500 1350 4800 1350
+Wire Wire Line
+	4500 1250 4800 1250
+Wire Wire Line
+	4500 1150 4800 1150
+$Comp
+L power:GND #PWR?
+U 1 1 5D6D16C0
+P 3900 3550
+F 0 "#PWR?" H 3900 3300 50  0001 C CNN
+F 1 "GND" H 3905 3377 50  0000 C CNN
+F 2 "" H 3900 3550 50  0001 C CNN
+F 3 "" H 3900 3550 50  0001 C CNN
+	1    3900 3550
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 5D6D16C6
+P 3900 950
+F 0 "#PWR?" H 3900 800 50  0001 C CNN
+F 1 "+5V" H 3915 1123 50  0000 C CNN
+F 2 "" H 3900 950 50  0001 C CNN
+F 3 "" H 3900 950 50  0001 C CNN
+	1    3900 950 
+	1    0    0    -1  
+$EndComp
+$Comp
+L Memory_RAM:IS64C5128AL-12KLA3 U?
+U 1 1 5D6D16CC
+P 3900 2250
+F 0 "U?" H 3900 3728 50  0000 C CNN
+F 1 "IS64C5128AL-12KLA3" H 3900 3637 50  0000 C CNN
+F 2 "Package_SO:SOJ-36_10.16x23.49mm_P1.27mm" H 3400 3400 50  0001 C CNN
+F 3 "http://www.issi.com/WW/pdf/61-64C5128AL.pdf" H 3900 2250 50  0001 C CNN
+	1    3900 2250
+	1    0    0    -1  
+$EndComp
+Text Label 4950 6250 0    50   ~ 0
+~RBCE2
+Text Label 4950 6450 0    50   ~ 0
+~W
+Text Label 4950 6350 0    50   ~ 0
+~R
+Text Label 4950 6050 0    50   ~ 0
+AB18
+Text Label 4950 5950 0    50   ~ 0
+AB17
+Text Label 4950 5850 0    50   ~ 0
+AB16
+Text Label 4950 5750 0    50   ~ 0
+AB15
+Text Label 4950 5650 0    50   ~ 0
+AB14
+Text Label 4950 5550 0    50   ~ 0
+AB13
+Text Label 4950 5450 0    50   ~ 0
+AB12
+Text Label 4950 5350 0    50   ~ 0
+AB11
+Text Label 4950 5250 0    50   ~ 0
+AB10
+Text Label 4950 5150 0    50   ~ 0
+AB9
+Text Label 4950 5050 0    50   ~ 0
+AB8
+Text Label 4950 4950 0    50   ~ 0
+AB7
+Text Label 4950 4850 0    50   ~ 0
+AB6
+Text Label 4950 4750 0    50   ~ 0
+AB5
+Text Label 4950 4650 0    50   ~ 0
+AB4
+Text Label 4950 4550 0    50   ~ 0
+AB3
+Text Label 4950 4450 0    50   ~ 0
+AB2
+Text Label 4950 4350 0    50   ~ 0
+AB1
+Text Label 4950 4250 0    50   ~ 0
+AB0
+Wire Wire Line
+	5300 6450 4950 6450
+Wire Wire Line
+	5300 6350 4950 6350
+Wire Wire Line
+	5300 6250 4950 6250
+Wire Wire Line
+	5300 6050 4950 6050
+Wire Wire Line
+	5300 5950 4950 5950
+Wire Wire Line
+	5300 5850 4950 5850
+Wire Wire Line
+	5300 5750 4950 5750
+Wire Wire Line
+	5300 5650 4950 5650
+Wire Wire Line
+	5300 5550 4950 5550
+Wire Wire Line
+	5300 5450 4950 5450
+Wire Wire Line
+	5300 5350 4950 5350
+Wire Wire Line
+	5300 5250 4950 5250
+Wire Wire Line
+	5300 5150 4950 5150
+Wire Wire Line
+	5300 5050 4950 5050
+Wire Wire Line
+	5300 4950 4950 4950
+Wire Wire Line
+	5300 4850 4950 4850
+Wire Wire Line
+	5300 4750 4950 4750
+Wire Wire Line
+	5300 4650 4950 4650
+Wire Wire Line
+	5300 4550 4950 4550
+Wire Wire Line
+	5300 4450 4950 4450
+Wire Wire Line
+	5300 4350 4950 4350
+Wire Wire Line
+	5300 4250 4950 4250
+Text Label 4950 3100 0    50   ~ 0
+~RBCE0
+Text Label 4950 3300 0    50   ~ 0
+~W
+Text Label 4950 3200 0    50   ~ 0
+~R
+Text Label 4950 2900 0    50   ~ 0
+AB18
+Text Label 4950 2800 0    50   ~ 0
+AB17
+Text Label 4950 2700 0    50   ~ 0
+AB16
+Text Label 4950 2600 0    50   ~ 0
+AB15
+Text Label 4950 2500 0    50   ~ 0
+AB14
+Text Label 4950 2400 0    50   ~ 0
+AB13
+Text Label 4950 2300 0    50   ~ 0
+AB12
+Text Label 4950 2200 0    50   ~ 0
+AB11
+Text Label 4950 2100 0    50   ~ 0
+AB10
+Text Label 4950 2000 0    50   ~ 0
+AB9
+Text Label 4950 1900 0    50   ~ 0
+AB8
+Text Label 4950 1800 0    50   ~ 0
+AB7
+Text Label 4950 1700 0    50   ~ 0
+AB6
+Text Label 4950 1600 0    50   ~ 0
+AB5
+Text Label 4950 1500 0    50   ~ 0
+AB4
+Text Label 4950 1400 0    50   ~ 0
+AB3
+Text Label 4950 1300 0    50   ~ 0
+AB2
+Text Label 4950 1200 0    50   ~ 0
+AB1
+Text Label 4950 1100 0    50   ~ 0
+AB0
+Wire Wire Line
+	5300 3300 4950 3300
+Wire Wire Line
+	5300 3200 4950 3200
+Wire Wire Line
+	5300 3100 4950 3100
+Wire Wire Line
+	5300 2900 4950 2900
+Wire Wire Line
+	5300 2800 4950 2800
+Wire Wire Line
+	5300 2700 4950 2700
+Wire Wire Line
+	5300 2600 4950 2600
+Wire Wire Line
+	5300 2500 4950 2500
+Wire Wire Line
+	5300 2400 4950 2400
+Wire Wire Line
+	5300 2300 4950 2300
+Wire Wire Line
+	5300 2200 4950 2200
+Wire Wire Line
+	5300 2100 4950 2100
+Wire Wire Line
+	5300 2000 4950 2000
+Wire Wire Line
+	5300 1900 4950 1900
+Wire Wire Line
+	5300 1800 4950 1800
+Wire Wire Line
+	5300 1700 4950 1700
+Wire Wire Line
+	5300 1600 4950 1600
+Wire Wire Line
+	5300 1500 4950 1500
+Wire Wire Line
+	5300 1400 4950 1400
+Wire Wire Line
+	5300 1300 4950 1300
+Wire Wire Line
+	5300 1200 4950 1200
+Wire Wire Line
+	5300 1100 4950 1100
+Text Label 6800 4950 2    50   ~ 0
+PB15
+Text Label 6800 4850 2    50   ~ 0
+PB14
+Text Label 6800 4750 2    50   ~ 0
+PB13
+Text Label 6800 4650 2    50   ~ 0
+PB12
+Text Label 6800 4550 2    50   ~ 0
+PB11
+Text Label 6800 4450 2    50   ~ 0
+PB10
+Text Label 6800 4350 2    50   ~ 0
+PB9
+Text Label 6800 4250 2    50   ~ 0
+PB8
+Wire Wire Line
+	6500 4950 6800 4950
+Wire Wire Line
+	6500 4850 6800 4850
+Wire Wire Line
+	6500 4750 6800 4750
+Wire Wire Line
+	6500 4650 6800 4650
+Wire Wire Line
+	6500 4550 6800 4550
+Wire Wire Line
+	6500 4450 6800 4450
+Wire Wire Line
+	6500 4350 6800 4350
+Wire Wire Line
+	6500 4250 6800 4250
+$Comp
+L power:GND #PWR?
+U 1 1 5D6F819D
+P 5900 6650
+F 0 "#PWR?" H 5900 6400 50  0001 C CNN
+F 1 "GND" H 5905 6477 50  0000 C CNN
+F 2 "" H 5900 6650 50  0001 C CNN
+F 3 "" H 5900 6650 50  0001 C CNN
+	1    5900 6650
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 5D6F81A3
+P 5900 4050
+F 0 "#PWR?" H 5900 3900 50  0001 C CNN
+F 1 "+5V" H 5915 4223 50  0000 C CNN
+F 2 "" H 5900 4050 50  0001 C CNN
+F 3 "" H 5900 4050 50  0001 C CNN
+	1    5900 4050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Memory_RAM:IS64C5128AL-12KLA3 U?
+U 1 1 5D6F81A9
+P 5900 5350
+F 0 "U?" H 5900 6828 50  0000 C CNN
+F 1 "IS64C5128AL-12KLA3" H 5900 6737 50  0000 C CNN
+F 2 "Package_SO:SOJ-36_10.16x23.49mm_P1.27mm" H 5400 6500 50  0001 C CNN
+F 3 "http://www.issi.com/WW/pdf/61-64C5128AL.pdf" H 5900 5350 50  0001 C CNN
+	1    5900 5350
+	1    0    0    -1  
+$EndComp
+Text Label 6800 1800 2    50   ~ 0
+DB7
+Text Label 6800 1700 2    50   ~ 0
+DB6
+Text Label 6800 1600 2    50   ~ 0
+DB5
+Text Label 6800 1500 2    50   ~ 0
+DB4
+Text Label 6800 1400 2    50   ~ 0
+DB3
+Text Label 6800 1300 2    50   ~ 0
+DB2
+Text Label 6800 1200 2    50   ~ 0
+DB1
+Text Label 6800 1100 2    50   ~ 0
+DB0
+Wire Wire Line
+	6500 1800 6800 1800
+Wire Wire Line
+	6500 1700 6800 1700
+Wire Wire Line
+	6500 1600 6800 1600
+Wire Wire Line
+	6500 1500 6800 1500
+Wire Wire Line
+	6500 1400 6800 1400
+Wire Wire Line
+	6500 1300 6800 1300
+Wire Wire Line
+	6500 1200 6800 1200
+Wire Wire Line
+	6500 1100 6800 1100
+$Comp
+L power:GND #PWR?
+U 1 1 5D6F81C0
+P 5900 3500
+F 0 "#PWR?" H 5900 3250 50  0001 C CNN
+F 1 "GND" H 5905 3327 50  0000 C CNN
+F 2 "" H 5900 3500 50  0001 C CNN
+F 3 "" H 5900 3500 50  0001 C CNN
+	1    5900 3500
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 5D6F81C6
+P 5900 900
+F 0 "#PWR?" H 5900 750 50  0001 C CNN
+F 1 "+5V" H 5915 1073 50  0000 C CNN
+F 2 "" H 5900 900 50  0001 C CNN
+F 3 "" H 5900 900 50  0001 C CNN
+	1    5900 900 
+	1    0    0    -1  
+$EndComp
+$Comp
+L Memory_RAM:IS64C5128AL-12KLA3 U?
+U 1 1 5D6F81CC
+P 5900 2200
+F 0 "U?" H 5900 3678 50  0000 C CNN
+F 1 "IS64C5128AL-12KLA3" H 5900 3587 50  0000 C CNN
+F 2 "Package_SO:SOJ-36_10.16x23.49mm_P1.27mm" H 5400 3350 50  0001 C CNN
+F 3 "http://www.issi.com/WW/pdf/61-64C5128AL.pdf" H 5900 2200 50  0001 C CNN
+	1    5900 2200
+	1    0    0    -1  
+$EndComp
+Text Label 7000 6250 0    50   ~ 0
+~RBCE3
+Text Label 7000 6450 0    50   ~ 0
+~W
+Text Label 7000 6350 0    50   ~ 0
+~R
+Text Label 7000 6050 0    50   ~ 0
+AB18
+Text Label 7000 5950 0    50   ~ 0
+AB17
+Text Label 7000 5850 0    50   ~ 0
+AB16
+Text Label 7000 5750 0    50   ~ 0
+AB15
+Text Label 7000 5650 0    50   ~ 0
+AB14
+Text Label 7000 5550 0    50   ~ 0
+AB13
+Text Label 7000 5450 0    50   ~ 0
+AB12
+Text Label 7000 5350 0    50   ~ 0
+AB11
+Text Label 7000 5250 0    50   ~ 0
+AB10
+Text Label 7000 5150 0    50   ~ 0
+AB9
+Text Label 7000 5050 0    50   ~ 0
+AB8
+Text Label 7000 4950 0    50   ~ 0
+AB7
+Text Label 7000 4850 0    50   ~ 0
+AB6
+Text Label 7000 4750 0    50   ~ 0
+AB5
+Text Label 7000 4650 0    50   ~ 0
+AB4
+Text Label 7000 4550 0    50   ~ 0
+AB3
+Text Label 7000 4450 0    50   ~ 0
+AB2
+Text Label 7000 4350 0    50   ~ 0
+AB1
+Text Label 7000 4250 0    50   ~ 0
+AB0
+Wire Wire Line
+	7350 6450 7000 6450
+Wire Wire Line
+	7350 6350 7000 6350
+Wire Wire Line
+	7350 6250 7000 6250
+Wire Wire Line
+	7350 6050 7000 6050
+Wire Wire Line
+	7350 5950 7000 5950
+Wire Wire Line
+	7350 5850 7000 5850
+Wire Wire Line
+	7350 5750 7000 5750
+Wire Wire Line
+	7350 5650 7000 5650
+Wire Wire Line
+	7350 5550 7000 5550
+Wire Wire Line
+	7350 5450 7000 5450
+Wire Wire Line
+	7350 5350 7000 5350
+Wire Wire Line
+	7350 5250 7000 5250
+Wire Wire Line
+	7350 5150 7000 5150
+Wire Wire Line
+	7350 5050 7000 5050
+Wire Wire Line
+	7350 4950 7000 4950
+Wire Wire Line
+	7350 4850 7000 4850
+Wire Wire Line
+	7350 4750 7000 4750
+Wire Wire Line
+	7350 4650 7000 4650
+Wire Wire Line
+	7350 4550 7000 4550
+Wire Wire Line
+	7350 4450 7000 4450
+Wire Wire Line
+	7350 4350 7000 4350
+Wire Wire Line
+	7350 4250 7000 4250
+Text Label 7000 3100 0    50   ~ 0
+~RBCE0
+Text Label 7000 3300 0    50   ~ 0
+~W
+Text Label 7000 3200 0    50   ~ 0
+~R
+Text Label 7000 2900 0    50   ~ 0
+AB18
+Text Label 7000 2800 0    50   ~ 0
+AB17
+Text Label 7000 2700 0    50   ~ 0
+AB16
+Text Label 7000 2600 0    50   ~ 0
+AB15
+Text Label 7000 2500 0    50   ~ 0
+AB14
+Text Label 7000 2400 0    50   ~ 0
+AB13
+Text Label 7000 2300 0    50   ~ 0
+AB12
+Text Label 7000 2200 0    50   ~ 0
+AB11
+Text Label 7000 2100 0    50   ~ 0
+AB10
+Text Label 7000 2000 0    50   ~ 0
+AB9
+Text Label 7000 1900 0    50   ~ 0
+AB8
+Text Label 7000 1800 0    50   ~ 0
+AB7
+Text Label 7000 1700 0    50   ~ 0
+AB6
+Text Label 7000 1600 0    50   ~ 0
+AB5
+Text Label 7000 1500 0    50   ~ 0
+AB4
+Text Label 7000 1400 0    50   ~ 0
+AB3
+Text Label 7000 1300 0    50   ~ 0
+AB2
+Text Label 7000 1200 0    50   ~ 0
+AB1
+Text Label 7000 1100 0    50   ~ 0
+AB0
+Wire Wire Line
+	7350 3300 7000 3300
+Wire Wire Line
+	7350 3200 7000 3200
+Wire Wire Line
+	7350 3100 7000 3100
+Wire Wire Line
+	7350 2900 7000 2900
+Wire Wire Line
+	7350 2800 7000 2800
+Wire Wire Line
+	7350 2700 7000 2700
+Wire Wire Line
+	7350 2600 7000 2600
+Wire Wire Line
+	7350 2500 7000 2500
+Wire Wire Line
+	7350 2400 7000 2400
+Wire Wire Line
+	7350 2300 7000 2300
+Wire Wire Line
+	7350 2200 7000 2200
+Wire Wire Line
+	7350 2100 7000 2100
+Wire Wire Line
+	7350 2000 7000 2000
+Wire Wire Line
+	7350 1900 7000 1900
+Wire Wire Line
+	7350 1800 7000 1800
+Wire Wire Line
+	7350 1700 7000 1700
+Wire Wire Line
+	7350 1600 7000 1600
+Wire Wire Line
+	7350 1500 7000 1500
+Wire Wire Line
+	7350 1400 7000 1400
+Wire Wire Line
+	7350 1300 7000 1300
+Wire Wire Line
+	7350 1200 7000 1200
+Wire Wire Line
+	7350 1100 7000 1100
+Text Label 8850 4950 2    50   ~ 0
+PB15
+Text Label 8850 4850 2    50   ~ 0
+PB14
+Text Label 8850 4750 2    50   ~ 0
+PB13
+Text Label 8850 4650 2    50   ~ 0
+PB12
+Text Label 8850 4550 2    50   ~ 0
+PB11
+Text Label 8850 4450 2    50   ~ 0
+PB10
+Text Label 8850 4350 2    50   ~ 0
+PB9
+Text Label 8850 4250 2    50   ~ 0
+PB8
+Wire Wire Line
+	8550 4950 8850 4950
+Wire Wire Line
+	8550 4850 8850 4850
+Wire Wire Line
+	8550 4750 8850 4750
+Wire Wire Line
+	8550 4650 8850 4650
+Wire Wire Line
+	8550 4550 8850 4550
+Wire Wire Line
+	8550 4450 8850 4450
+Wire Wire Line
+	8550 4350 8850 4350
+Wire Wire Line
+	8550 4250 8850 4250
+$Comp
+L power:GND #PWR?
+U 1 1 5D6F823B
+P 7950 6650
+F 0 "#PWR?" H 7950 6400 50  0001 C CNN
+F 1 "GND" H 7955 6477 50  0000 C CNN
+F 2 "" H 7950 6650 50  0001 C CNN
+F 3 "" H 7950 6650 50  0001 C CNN
+	1    7950 6650
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 5D6F8241
+P 7950 4050
+F 0 "#PWR?" H 7950 3900 50  0001 C CNN
+F 1 "+5V" H 7965 4223 50  0000 C CNN
+F 2 "" H 7950 4050 50  0001 C CNN
+F 3 "" H 7950 4050 50  0001 C CNN
+	1    7950 4050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Memory_RAM:IS64C5128AL-12KLA3 U?
+U 1 1 5D6F8247
+P 7950 5350
+F 0 "U?" H 7950 6828 50  0000 C CNN
+F 1 "IS64C5128AL-12KLA3" H 7950 6737 50  0000 C CNN
+F 2 "Package_SO:SOJ-36_10.16x23.49mm_P1.27mm" H 7450 6500 50  0001 C CNN
+F 3 "http://www.issi.com/WW/pdf/61-64C5128AL.pdf" H 7950 5350 50  0001 C CNN
+	1    7950 5350
+	1    0    0    -1  
+$EndComp
+Text Label 8850 1800 2    50   ~ 0
+DB7
+Text Label 8850 1700 2    50   ~ 0
+DB6
+Text Label 8850 1600 2    50   ~ 0
+DB5
+Text Label 8850 1500 2    50   ~ 0
+DB4
+Text Label 8850 1400 2    50   ~ 0
+DB3
+Text Label 8850 1300 2    50   ~ 0
+DB2
+Text Label 8850 1200 2    50   ~ 0
+DB1
+Text Label 8850 1100 2    50   ~ 0
+DB0
+Wire Wire Line
+	8550 1800 8850 1800
+Wire Wire Line
+	8550 1700 8850 1700
+Wire Wire Line
+	8550 1600 8850 1600
+Wire Wire Line
+	8550 1500 8850 1500
+Wire Wire Line
+	8550 1400 8850 1400
+Wire Wire Line
+	8550 1300 8850 1300
+Wire Wire Line
+	8550 1200 8850 1200
+Wire Wire Line
+	8550 1100 8850 1100
+$Comp
+L power:GND #PWR?
+U 1 1 5D6F825E
+P 7950 3500
+F 0 "#PWR?" H 7950 3250 50  0001 C CNN
+F 1 "GND" H 7955 3327 50  0000 C CNN
+F 2 "" H 7950 3500 50  0001 C CNN
+F 3 "" H 7950 3500 50  0001 C CNN
+	1    7950 3500
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 5D6F8264
+P 7950 900
+F 0 "#PWR?" H 7950 750 50  0001 C CNN
+F 1 "+5V" H 7965 1073 50  0000 C CNN
+F 2 "" H 7950 900 50  0001 C CNN
+F 3 "" H 7950 900 50  0001 C CNN
+	1    7950 900 
+	1    0    0    -1  
+$EndComp
+$Comp
+L Memory_RAM:IS64C5128AL-12KLA3 U?
+U 1 1 5D6F826A
+P 7950 2200
+F 0 "U?" H 7950 3678 50  0000 C CNN
+F 1 "IS64C5128AL-12KLA3" H 7950 3587 50  0000 C CNN
+F 2 "Package_SO:SOJ-36_10.16x23.49mm_P1.27mm" H 7450 3350 50  0001 C CNN
+F 3 "http://www.issi.com/WW/pdf/61-64C5128AL.pdf" H 7950 2200 50  0001 C CNN
+	1    7950 2200
+	1    0    0    -1  
+$EndComp
+Wire Bus Line
+	15050 3050 15050 3350
+Wire Bus Line
+	15050 3450 15050 3750
+$Comp
+L alexios:74HC138 U?
+U 1 1 5D7278DA
+P 2250 8050
+F 0 "U?" H 2250 8717 50  0000 C CNN
+F 1 "74HC138" H 2250 8626 50  0000 C CNN
+F 2 "" H 2250 8050 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 2250 8050 50  0001 C CNN
+	1    2250 8050
+	1    0    0    -1  
+$EndComp
+$EndSCHEMATC
