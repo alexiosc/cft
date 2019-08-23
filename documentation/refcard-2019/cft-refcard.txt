@@ -1,3 +1,101 @@
+# -*- markdown -*-
+
+| Instr     | Format              | 1234567 | What                                          |
+|-----------|---------------------|---------|-----------------------------------------------|
+| LIA       | 0000'0'0'AAAAAAAAAA | 12      | Set AC to literal local address A             |
+| LI        | 0000'0'1'LLLLLLLLLL |  L      | Set AC to literal L (0≤L≤1023)                |
+| LJSR I    | 0000'1'R'AAAAAAAAAA |   34    | Long jump to subroutine ¹                     |
+| LJMP I    | 0001'1'R'AAAAAAAAAA |   34    | Long Jump ¹                                   |
+| JSR       | 0010'I'R'AAAAAAAAAA |         | Jump to subroutine                            |
+| JMP       | 0011'I'R'AAAAAAAAAA |         | Jump                                          |
+| IOT       | 0100'I'1'ZZZZZZZZZZ |         | I/O transation. ²
+| IN R      | 0101'0'1'ZZZZZZZZZZ |         |                                               |
+| IN I R    | 0101'1'1'ZZZZZZZZZZ |         |                                               |
+| Reserved  | 0110'-'1'---------- |         | Do not use                                    |
+| OUT R     | 0110'0'1'ZZZZZZZZZZ |         |                                               |
+| OUT I R   | 0110'1'1'ZZZZZZZZZZ |         |                                               |
+| IRET      | 0111'0'0'000------- |         | Return from Interrupt                         |
+| LRET      | 0111'0'0'001------- |         | Return from long subroutine jump              |
+| RET       | 0111'0'0'010------- |         | Return from subroutine                        |
+| TAS       | 0111'0'0'011------- |         | SP←AC                                         |
+| TSA       | 0111'0'0'100------- |         | AC←SP                                         |
+| TAD       | 0111'0'0'101------- |         | DR←AC                                         |
+| TDA       | 0111'0'0'110------- |         | AC←DR                                         |
+| PHA       | 0111'0'0'111------- |         | Push AC                                       |
+| PPA       | 0111'0'1'000------- |         | Pop AC                                        |
+| PHF       | 0111'0'1'001------- |         | Push flags                                    |
+| PPF       | 0111'0'1'010------- |         | Pop flags                                     |
+| STI       | 0111'0'1'011------- |         | Set Interrupt Flag (allow interrupts)         |
+| CLI       | 0111'0'1'100------- |         | Clear Interrupt Flag (mask interrupts)        |
+| IFL       | 0111'0'1'101bbbbbbb |         | Execute minor operations B if L is set        |
+| IFV       | 0111'0'1'110bbbbbbb |         | Execute minor operations B if V is set        |
+| UOP       | 0111'0'1'111bbbbbbb |         | Execute minor operations B                    |
+| SHL       | 0111'1'0'000000dddd |         | Bitwise shift left by D bits                  |
+| SHR       | 0111'1'0'000001dddd |         | Bitwise shift right by D bits                 |
+| ASR       | 0111'1'0'000011dddd |         | Arithmetic shift shift right by D bits        |
+| ROL       | 0111'1'0'000100dddd |         | Roll <L,AC> left by D bits                    |
+| ROR       | 0111'1'0'000101dddd |         | Roll <L,AC> right by D bits                   |
+| NOP       | 0111'1'0'0010000000 |         | G1: Do nothing (aka skip never)               |
+| SNA       | 0111'1'0'001--01--- |         | G1:                                           |
+| SZA       | 0111'1'0'001--0-1-- |         | G1:                                           |
+| SSL       | 0111'1'0'001--0--1- |         | G1:                                           |
+| SSV       | 0111'1'0'001--0---1 |         | G1:                                           |
+| SKIP      | 0111'1'0'0010010000 |         | G2: Skip unconditionally                      |
+| SNN       | 0111'1'0'001--11--- |         | G2:                                           |
+| SNZ       | 0111'1'0'001--1-1-- |         | G2:                                           |
+| SCL       | 0111'1'0'001--1--1- |         | G2:                                           |
+| SCV       | 0111'1'0'001--1---1 |         | G2:                                           |
+| TAB       | 0111'1'0'010------- |         | Transfer AC to ALU B                          |
+| TBA       | 0111'1'0'011------- |         | AC←ALU Port B                                 |
+| RMB       | 0111'1'0'100----nnn |         | AC←MBn, 0≤n≤7                                 |
+| SMB       | 0111'1'0'101----nnn |         | MBn←AC, 0≤n≤7                                 |
+| IND       | 0111'1'0'111----nnn |         | AC←mem[MBn:AC]                                |
+| IND R     | 0111'1'0'111----011 |         | AC←mem[MBZ:AC]                                |
+| JPA       | 0111'1'1'000------- |         | PC←AC                                         |
+| JSA       | 0111'1'1'001------- |         | Push PC; PC←AC                                |
+| LOAD      | 1000'0'0'AAAAAAAAAA |         | AC←mem[MBP:A]                                 |
+| LOAD R    | 1000'0'1'AAAAAAAAAA |         | AC←mem[MBZ:A]                                 |
+| LOAD I    | 1000'1'0'AAAAAAAAAA |         | AC←mem[mem[MBP:A]]                            |
+| LOAD I R  | 1000'1'1'AAAAAAAAAA |         | AC←mem[mem[MBZ:A]]                            |
+| STORE     | 1001'0'0'AAAAAAAAAA |         | mem[MBP:A]←AC                                 |
+| STORE R   | 1001'0'1'AAAAAAAAAA |         | mem[MBZ:A]←AC                                 |
+| STORE I   | 1001'1'0'AAAAAAAAAA |         | mem[mem[MBP:A]]←AC                            |
+| STORE I R | 1001'1'1'AAAAAAAAAA |         | mem[mem[MBZ:A]]←AC                            |
+| ISZ       | 1010'0'0'AAAAAAAAAA |         | Increment mem[MBP:A]; if AC=0, PC++           |
+| ISZ R     | 1010'0'1'AAAAAAAAAA |         | Increment AC←mem[MBZ:A]; if AC=0, PC++        |
+| ISZ I     | 1010'1'0'AAAAAAAAAA |         | Increment AC←mem[mem[MBP:A]]; if AC=0, PC++   |
+| ISZ I R   | 1010'1'1'AAAAAAAAAA |         | Increment AC←mem[mem[MBZ:A]]; if AC=0, PC++   |
+| ADD       | 1100'0'0'AAAAAAAAAA |         | Add mem[MBP:A] to <L,AC>                      |
+| ADD R     | 1100'0'1'AAAAAAAAAA |         | Add mem[MBZ:A] to <L,AC>                      |
+| ADD I     | 1100'1'0'AAAAAAAAAA |         | Add mem[mem[MBP:A]] to <L,AC>                 |
+| ADD I R   | 1100'1'1'AAAAAAAAAA |         | Add mem[mem[MBZ:A]] to <L,AC>                 |
+| AND       | 1101'0'0'AAAAAAAAAA |         | Bitwise AND AC and mem[MBP:A]                 |
+| AND R     | 1101'0'1'AAAAAAAAAA |         | Bitwise AND AC and mem[MBZ:A]                 |
+| AND I     | 1101'1'0'AAAAAAAAAA |         | Bitwise AND AC and mem[mem[MBP:A]]            |
+| AND I R   | 1101'1'1'AAAAAAAAAA |         | Bitwise AND AC and mem[mem[MBZ:A]]            |
+| OR        | 1110'0'0'AAAAAAAAAA |         | Bitwise OR AC and mem[MBP:A]                  |
+| OR R      | 1110'0'1'AAAAAAAAAA |         | Bitwise OR AC and mem[MBZ:A]                  |
+| OR I      | 1110'1'0'AAAAAAAAAA |         | Bitwise OR AC and mem[mem[MBP:A]]             |
+| OR I R    | 1110'1'1'AAAAAAAAAA |         | Bitwise OR AC and mem[mem[MBZ:A]]             |
+| XOR       | 1111'0'0'AAAAAAAAAA |         | Bitwise XOR AC and mem[MBP:A]                 |
+| XOR R     | 1111'0'1'AAAAAAAAAA |         | Bitwise XOR AC and mem[MBZ:A]                 |
+| XOR I     | 1111'1'0'AAAAAAAAAA |         | Bitwise XOR AC and mem[mem[MBP:A]]            |
+| XOR I R   | 1111'1'1'AAAAAAAAAA |         | Bitwise XOR AC and mem[mem[MBZ:A]]            |
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 +----------------------------------------------------------------------------------------------------------------------------------+
 |                                                                                                                                  |
 |                                                                                                                                  |
