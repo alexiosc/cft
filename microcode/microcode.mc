@@ -1646,7 +1646,7 @@ start TAD;
 
 start PHA;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
-      STACK_PUSH(flags), END;			// 02 mem[SP++] ← flags
+      STACK_PUSH(ac), END;			// 02 mem[SP++] ← ac
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1962,13 +1962,16 @@ start JSA;
 start IND, R=0;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       SET(dr, ac);				// 02 DR ← AC
-      MEMREAD(mbp, ac, dr), END;		// 03 AC ← mem[MBP:DR]
+      MEMREAD(mbn, ac, dr), END;		// 03 AC ← mem[MBn:DR]
 
-// ② IND, register address addressing mode
+// ② IND, register address addressing mode.
+
+// Note: this is redundant (case ① above can handle it with an appropriate
+// operand). It's here because it allows the ‘R’ notation to work as expected,
+// at the cost of one micro-program (we can spare them these days).
 start IND, R=1;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       SET(dr, ac);				// 02 DR ← AC
       MEMREAD(mbz, ac, dr), END;		// 03 AC ← mem[MBZ:DR]
-
 
 // End of file.
