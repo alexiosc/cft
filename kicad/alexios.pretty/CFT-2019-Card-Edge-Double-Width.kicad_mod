@@ -1,4 +1,4 @@
-(module CFT-2019-Card-Edge-Double-Width locked (layer F.Cu) (tedit 5D45652C)
+(module CFT-2019-Card-Edge-Double-Width locked (layer F.Cu) (tedit 5D61322B)
   (descr "PCI Express x8 edge connector")
   (tags "pci express x8")
   (attr virtual)
@@ -114,7 +114,6 @@
   (fp_arc (start -85.475 7.425) (end -87.3 7.425) (angle -180) (layer Edge.Cuts) (width 0.1))
   (fp_line (start 1.2 -4.1) (end -11.9 -4.1) (layer F.CrtYd) (width 0.05))
   (fp_line (start -164.8 -4.1) (end -164.8 4.3) (layer F.CrtYd) (width 0.05))
-  (fp_line (start -165.6 4.3) (end -165.6 -4.1) (layer F.CrtYd) (width 0.05))
   (fp_line (start -11.9 -4.1) (end -84.2 -4.1) (layer F.CrtYd) (width 0.05))
   (fp_line (start -84.2 -4.1) (end -84.2 2.6) (layer F.CrtYd) (width 0.05))
   (fp_line (start 1.2 2.6) (end 1.2 -4.1) (layer F.CrtYd) (width 0.05))
