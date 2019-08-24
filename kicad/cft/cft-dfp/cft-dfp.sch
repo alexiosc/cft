@@ -1474,12 +1474,12 @@ Wire Wire Line
 	2050 5700 2250 5700
 Wire Wire Line
 	2050 5550 2100 5550
-Text Label 3800 2750 2    50   ~ 0
+Text Label 3600 2750 2    50   ~ 0
 FPµSTEP-IN
 Text Label 3600 2650 2    50   ~ 0
 FPCLKEN-IN
 Wire Wire Line
-	3200 2750 3800 2750
+	3000 2750 3600 2750
 Wire Wire Line
 	3000 2650 3600 2650
 Wire Wire Line
@@ -3992,17 +3992,6 @@ F 1 "4.7kΩ" V 5750 4500 50  0001 C CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5600 4350 50  0001 C CNN
 F 3 "~" H 5600 4350 50  0001 C CNN
 	1    5600 4350
-	0    1    1    0   
-$EndComp
-$Comp
-L Device:R_Small R?
-U 1 1 5D7690C2
-P 3100 2750
-F 0 "R?" V 3150 2950 50  0000 C CNN
-F 1 "4.7kΩ" V 3250 2900 50  0001 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3100 2750 50  0001 C CNN
-F 3 "~" H 3100 2750 50  0001 C CNN
-	1    3100 2750
 	0    1    1    0   
 $EndComp
 Wire Bus Line

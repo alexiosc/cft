@@ -516,18 +516,18 @@ F 3 "" H 6650 2450 50  0001 C CNN
 	1    6650 2450
 	0    1    1    0   
 $EndComp
-Text HLabel 8400 2450 2    50   3State ~ 0
+Text HLabel 8600 2450 2    50   3State ~ 0
 FPCLKEN
-Text HLabel 8400 3150 2    50   3State ~ 0
+Text HLabel 8600 3150 2    50   3State ~ 0
 FPµSTEP
-Text Label 8350 3150 2    50   ~ 0
+Text Label 8550 3150 2    50   ~ 0
 FPµSTEP
 Wire Wire Line
-	7650 3150 8400 3150
-Text Label 8350 2450 2    50   ~ 0
+	7850 3150 8600 3150
+Text Label 8550 2450 2    50   ~ 0
 FPCLKEN
 Wire Wire Line
-	7650 2450 8400 2450
+	7850 2450 8600 2450
 $Comp
 L alexios:74HC253 U?
 U 1 1 5EEDDE1A
@@ -582,4 +582,30 @@ Wire Wire Line
 Connection ~ 4000 4150
 Wire Wire Line
 	4000 4150 4000 4900
+$Comp
+L Device:R_Small R?
+U 1 1 5DB4499A
+P 7750 2450
+AR Path="/5DB4499A" Ref="R?"  Part="1" 
+AR Path="/5ED99F01/5DB4499A" Ref="R401"  Part="1" 
+F 0 "R401" V 7800 2650 50  0000 C CNN
+F 1 "30Ω" V 7700 2650 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7750 2450 50  0001 C CNN
+F 3 "~" H 7750 2450 50  0001 C CNN
+	1    7750 2450
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Small R?
+U 1 1 5DB45D45
+P 7750 3150
+AR Path="/5DB45D45" Ref="R?"  Part="1" 
+AR Path="/5ED99F01/5DB45D45" Ref="R402"  Part="1" 
+F 0 "R402" V 7800 3350 50  0000 C CNN
+F 1 "30Ω" V 7700 3350 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7750 3150 50  0001 C CNN
+F 3 "~" H 7750 3150 50  0001 C CNN
+	1    7750 3150
+	0    1    1    0   
+$EndComp
 $EndSCHEMATC
