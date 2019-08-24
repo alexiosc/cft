@@ -1474,12 +1474,12 @@ Wire Wire Line
 	2050 5700 2250 5700
 Wire Wire Line
 	2050 5550 2100 5550
-Text Label 3600 2750 2    50   ~ 0
+Text Label 3800 2750 2    50   ~ 0
 FPµSTEP-IN
 Text Label 3600 2650 2    50   ~ 0
 FPCLKEN-IN
 Wire Wire Line
-	3000 2750 3600 2750
+	3200 2750 3800 2750
 Wire Wire Line
 	3000 2650 3600 2650
 Wire Wire Line
@@ -3496,17 +3496,6 @@ F 3 "~" H 5800 4250 50  0001 C CNN
 	1    5800 4250
 	0    1    1    0   
 $EndComp
-$Comp
-L Device:R_Small R102
-U 1 1 66C6FB89
-P 5600 4350
-F 0 "R102" V 5650 4550 50  0000 C CNN
-F 1 "4.7kΩ" V 5750 4500 50  0001 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5600 4350 50  0001 C CNN
-F 3 "~" H 5600 4350 50  0001 C CNN
-	1    5600 4350
-	0    1    1    0   
-$EndComp
 Wire Wire Line
 	5700 4250 5450 4250
 Wire Wire Line
@@ -3994,6 +3983,28 @@ Text Label 10350 3950 0    50   ~ 0
 TXD
 Text Label 10350 4050 0    50   ~ 0
 RXD
+$Comp
+L Device:R_Small R102
+U 1 1 66C6FB89
+P 5600 4350
+F 0 "R102" V 5650 4550 50  0000 C CNN
+F 1 "4.7kΩ" V 5750 4500 50  0001 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5600 4350 50  0001 C CNN
+F 3 "~" H 5600 4350 50  0001 C CNN
+	1    5600 4350
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Small R?
+U 1 1 5D7690C2
+P 3100 2750
+F 0 "R?" V 3150 2950 50  0000 C CNN
+F 1 "4.7kΩ" V 3250 2900 50  0001 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3100 2750 50  0001 C CNN
+F 3 "~" H 3100 2750 50  0001 C CNN
+	1    3100 2750
+	0    1    1    0   
+$EndComp
 Wire Bus Line
 	1050 2450 1050 2750
 Wire Bus Line
