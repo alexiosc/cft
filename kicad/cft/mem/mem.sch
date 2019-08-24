@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:mem-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A3 16535 11693
 encoding utf-8
@@ -1994,12 +1994,70 @@ Wire Wire Line
 	3850 7650 3450 7650
 Text Label 5250 7650 2    50   ~ 0
 ~ROMCE
-Wire Bus Line
-	15050 3050 15050 3350
-Wire Bus Line
-	15050 3450 15050 3750
 Text Notes 6700 8050 0    100  ~ 20
 Notes
 Text Notes 6700 8900 0    50   ~ 0
 Use DIP40 sockets for first 1024×16 bank of SRAM (four 512K chips), then\nleave land patterns for another 7M in smaller packages, SOJ or Flash TSSOP.\n\nThis implies only one MEM board need be used. RAM can be mapped to\n00:0000–0F:FFFF for the first (DIP) Megaword, then extending up to 7F:FFFF\nwith all 8 Megawords installed.\n\nFlash devices are in PLCC32 sockets and form a single 512K×16 ROM Bank\nmapped to 80:0000–87:FFFF. This is hardwired.
+Wire Wire Line
+	1750 8950 1350 8950
+Wire Wire Line
+	1750 9050 1350 9050
+Wire Wire Line
+	1750 9150 1350 9150
+Wire Wire Line
+	1750 9650 1350 9650
+Wire Wire Line
+	1750 9550 1350 9550
+Text Label 1350 9550 0    50   ~ 0
+AB23
+Wire Wire Line
+	3150 8950 2750 8950
+Wire Wire Line
+	3150 9050 2750 9050
+Wire Wire Line
+	3150 9150 2750 9150
+Wire Wire Line
+	3150 9550 2750 9550
+Wire Wire Line
+	3150 9650 2750 9650
+Wire Wire Line
+	2750 9250 3150 9250
+Wire Wire Line
+	2750 9350 3150 9350
+Wire Wire Line
+	2750 9450 3150 9450
+$Comp
+L alexios:74HC138 U?
+U 1 1 5D65AD6B
+P 2250 9350
+F 0 "U?" H 2250 10017 50  0000 C CNN
+F 1 "74HC138" H 2250 9926 50  0000 C CNN
+F 2 "alexios:SOIC-16" H 2250 9350 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 2250 9350 50  0001 C CNN
+	1    2250 9350
+	1    0    0    -1  
+$EndComp
+Text Label 1350 9650 0    50   ~ 0
+AB22
+Text Label 1350 9150 0    50   ~ 0
+AB21
+Text Label 1350 9050 0    50   ~ 0
+AB20
+Text Label 1350 8950 0    50   ~ 0
+AB19
+$Comp
+L power:GND #PWR?
+U 1 1 5D6FAE34
+P 1750 9750
+F 0 "#PWR?" H 1750 9500 50  0001 C CNN
+F 1 "GND" H 1755 9577 50  0000 C CNN
+F 2 "" H 1750 9750 50  0001 C CNN
+F 3 "" H 1750 9750 50  0001 C CNN
+	1    1750 9750
+	1    0    0    -1  
+$EndComp
+Wire Bus Line
+	15050 3450 15050 3750
+Wire Bus Line
+	15050 3050 15050 3350
 $EndSCHEMATC
