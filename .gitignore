@@ -324,6 +324,7 @@ kicad/**/*.xml
 
 # Also some common files I find in my kicad directories
 kicad/**/*.drl
+kicad/**/*.gbrjob
 kicad/**/*.eps
 kicad/**/*.gbr
 kicad/**/*.jpg
@@ -336,7 +337,6 @@ kicad/**/*.png.xmp
 
 # Board plots, ready for manufacture. Let's keep the zip files for those, and only those.
 /kicad/**/Plots/[0-9]/
-/kicad/**/Plots/[0-9]/*gbrjob
 !/kicad/**/Plots/[0-9]*/*zip
 
 ###############################################################################
