@@ -2,70 +2,179 @@
 
 base=$1
 
-RES=470
-BG='#105010'
-HOLE='#000000'
-SILK='#ffffff'
-STOP='#ffdd44'
-COPPER='#3c8923'
+RES=600
+#BG='#b19946'		        # Colour of bare FR4
+BG='#105010' 			# Colour of the FR4 with soldermask
+COPPER='#3c8923ff'		# Colour of the FR4 with soldermask + copper
+#HOLE='#000000'
+SILK='#ffffffff'
+STOP='#ffdd44ff'
+CUTS='#000000ff'
 OPTS=""
-OPTS="$OPTS -a"
+#OPTS="$OPTS -a"
 
-for ext in G{B,T}{L,S,O,A}; do
-    if [ ! -r $base.$ext ]; then
-	echo "File not found: $base.$ext"
+KEY="#0000ff"
+HOLE="#ffffff80"
+
+DEBUG=1
+
+debug() {
+    [[ $DEBUG ]] && echo "$@"
+}
+
+for suffix in {N,}PTH.drl {F,B}_{Cu,Mask,SilkS}.gbr Edge_Cuts.gbr; do
+    f="$base-$suffix"
+    if [ ! -r "$f" ]; then
+	echo "File not found: $base-$suffix"
 	exit 2
     fi
 done
 
-# for a in TXT G{T,B}{O,S,L}; do
-#     echo $a
-#     case $a in
-# 	TXT) c=$HOLE;;
-# 	G?O) c=$SILK;;
-# 	G?S) c=$STOP;;
-# 	G?L) c=$COPPER;;
-#     esac
-#     ( gerbv $OPTS-B 0 -D $RES -o $base-$a.png -x png $base.$a
-# 	mogrify -threshold 5% -transparent 'rgb(0,0,0)' -fill $c -opaque '#ffffff' $base-$a.png ) &
-# done
+debug "Generating milling outline. Initialising mask."
+# Generate the milling outline and holes. Multi-thread.
+gerbv $OPTS -B 0 -D $RES -o $base-bg.png -x png -b "#ffffff" \
+      -f "#000000ff" $base-Edge_Cuts.gbr &
+gerbv $OPTS -B 0 -D $RES -o $base-holes.png -b "#000000" -x png \
+      -f "#000000ff" $base-Edge_Cuts.gbr \
+      -f "#ffffffff" $base-NPTH.drl \
+      -f "#ffffffff" $base-PTH.drl &
+wait
+cp $base-bg.png $base-mask.png
 
-# wait
+# Get the image dimensions.
+dimensions=$(file $base-bg.png | grep -oP '\d+ x \d+')
+w=${dimensions%% *}
+h=${dimensions##* }
+debug "Base geometry is ${w}x${h}."
 
-# convert -fill $base-{GBL,GBO,GBS,TXT} -layers flatten $base-bottom.png
+# Flood-fill the outline. This will only work if there's a single board and the
+# point at the centre of the image is inside it. It's a safe assumption for CFT
+# boards.
+debug "Creating alpha mask from milling and holes."
+mogrify -fill "#000000" -fuzz 0% -draw "color $((w/2)),$((h/2)) floodfill" $base-bg.png $base-mask.png
 
-#for fmt in png svg; do
-for fmt in png; do
-    gerbv $OPTS -B 0 -D $RES -o $base-bottom.$fmt -x $fmt -b $BG \
-	-f $HOLE $base.TXT \
-	-f $SILK $base.GBO \
-	-f $STOP $base.GBS \
-	-f $COPPER $base.GBL &
+# Update the masks with holes
+composite -compose Lighten $base-holes.png $base-mask.png $base-mask.png
+rm -f $base-holes.png
 
-    gerbv $OPTS -B 0 -D $RES -o $base-bottom-silk.$fmt -x $fmt -b '#ffffff' \
-	-f '#ffffff' $base.TXT \
-	-f '#000000' $base.GBA \
-	-f '#dddddd' $base.GBS \
-	-f '#dddddd' $base.GBL &
+for side in front back; do
+    debug "${side^} side copper and silk."
+    s=${side:0:1}
+    s=${s^}
+    
+    # Copper
+    gerbv $OPTS -B 0 -D $RES -o $base-$side-copper.png -b "$KEY" -x png \
+	  -f "${KEY}ff" $base-Edge_Cuts.gbr \
+	  -f $STOP $base-${s}_Mask.gbr \
+	  -f $COPPER $base-${s}_Cu.gbr &
 
-    gerbv $OPTS -B 0 -D $RES -o $base-top.$fmt -x $fmt -b $BG \
-	-f $HOLE $base.TXT \
-	-f $SILK $base.GTO \
-	-f $STOP $base.GTS \
-	-f $COPPER $base.GTL &
+    # Copper, black
+    gerbv $OPTS -B 0 -D $RES -o $base-$side-copper-black.png -b "#ffffff" -x png \
+	  -f "#000000ff" $base-Edge_Cuts.gbr \
+	  -f "#000000ff" $base-${s}_Mask.gbr \
+	  -f "#000000ff" $base-${s}_Cu.gbr &
+    
+    # Silkscreen
+    gerbv $OPTS -B 0 -D $RES -o $base-$side-silk.png -b "$KEY" -x png \
+	  -f "${KEY}ff" $base-Edge_Cuts.gbr \
+	  -f $SILK $base-${s}_SilkS.gbr &
 
-    gerbv $OPTS -B 0 -D $RES -o $base-top-silk.$fmt -x $fmt -b '#ffffff' \
-	-f '#ffffff' $base.TXT \
-	-f '#000000' $base.GTA \
-	-f '#dddddd' $base.GTS \
-	-f '#dddddd' $base.GTL &
+    # Silkscreen & fab
+    gerbv $OPTS -B 0 -D $RES -o $base-$side-silkfab.png -b "$KEY" -x png \
+	  -f "#ffff00ff" $base-Edge_Cuts.gbr \
+	  -f $SILK $base-${s}_SilkS.gbr \
+	  -f $SILK $base-${s}_Fab.gbr &
+done
+wait
 
-    wait
+debug "Creating filled board outline."
+# Fill the board outline with ImageMagick, remove the colour key.
+mogrify -fill "$BG" -fuzz 0% -draw "color $((w/2)),$((h/2)) floodfill" -fuzz 40% -transparent "#ffffff" $base-bg.png
+wait
+
+# Get the crop geometry of the silkfab images because the fab layers can extend
+# past the edges of the board. Beware: scary hack!
+debug "Finding milling bounding box for fabrication layers. (this takes a while)"
+for side in front back; do
+    (
+        geometry=$(convert $base-$side-silkfab.png text: |
+                       fgrep '#FFFF00' |
+                       tr ",:" "  " |
+                       awk -- 'BEGIN {
+                                   xmin=99999999; xmax=0; ymin=99999999; ymax=0;
+                               }
+                               {
+                                   xmin=$1 < xmin? $1: xmin;
+                                   xmax=$1 > xmax? $1: xmax;
+                                   ymin=$2 < ymin? $2: ymin;
+                                   ymax=$2 > ymax? $2: ymax
+                               }
+                               END {
+                                   printf("%dx%d+%d+%d\n", xmax-xmin, ymax-ymin, xmin, ymin);
+                               }')
+        debug "${side^} geometry: $geometry"
+        convert -crop $geometry $base-$side-silkfab.png $base-$side-silkfab.png
+    ) &
+done
+wait
+
+debug "Adding transparency."
+#mogrify -transparent "$KEY" $base-{front,back}-copper-black.png &
+# Add transparency to all our generated images.
+for a in $base-{front,back}-{copper,silk,silkfab}.png; do
+    (
+	mogrify -transparent "$KEY" $opts $a;
+	# Kicad (or my Kicad config) copies the Edge Cuts to the Silkscreen
+	# layer. Remove this.
+	[[ $a =~ silk\.png ]] && mogrify -fuzz 40% -transparent "#0000ff" $a
+	# Convert the milling outline to white on silkfab layers.
+	[[ $a =~ silkfab\.png ]] && mogrify -threshold 0 $a
+    ) &
+done
+wait
+
+echo "Generating final images."
+# Generate final images
+for side in front back; do
+
+    # The photorealistic image
+    rm -f $base-$side-1.png 2>/dev/null
+    (
+    	composite $base-$side-copper.png $base-bg.png $base-$side-1.png
+    	composite $base-$side-silk.png $base-$side-1.png $base-$side-1.png
+    	composite -compose CopyOpacity \( -negate $base-mask.png \) $base-$side-1.png $base-$side-1.png
+    ) &
+
+    # Just the copper, in black and white
+    rm -f $base-$side-2.png 2>/dev/null
+    (
+    	composite -compose CopyOpacity \( -negate $base-mask.png \) $base-$side-copper-black.png $base-$side-2.png
+    ) &
+
+    # The copper, in grey with silk superimposed.
+    rm -f $base-$side-3.png 2>/dev/null
+    (
+    	convert $base-$side-copper-black.png -brightness-contrast 90 $base-$side-3.png
+    	composite \( -negate $base-$side-silk.png \) $base-$side-3.png $base-$side-3.png
+    	composite -compose CopyOpacity \( -negate $base-mask.png \) $base-$side-3.png $base-$side-3.png
+    ) &
+
+    # The copper, in grey with silk and fabrication layers superimposed.
+    rm -f $base-$side-4.png 2>/dev/null
+    (
+	convert $base-$side-copper-black.png -brightness-contrast 90 $base-$side-4.png
+ 	composite \( -negate $base-$side-silkfab.png \) $base-$side-4.png $base-$side-4.png
+    	composite -compose CopyOpacity \( -negate $base-mask.png \) $base-$side-4.png $base-$side-4.png
+    ) &
 done
 
-mogrify -fuzz 5% -fill 'rgb(0,0,0)' -opaque 'rgb(58,58,17)' $base-{bottom,top}.png
-#mogrify -fuzz 5% -fill 'red' -opaque 'rgb(58,58,17)' $base-{bottom-silk,top-silk}.png
-mogrify -flop $base-{bottom,bottom-silk}.png
-#mogrify -geometry 50% $base-{bottom,bottom-silk,top,top-silk}.png
+wait
+
+# Finally, remove the intermediate ones
+\rm -f $base-{mask,holes}.png \
+    $base-{front,back}-copper{-black,}.png \
+    $base-mask.png \
+    $base-{front,back}-silk{,fab}.png \
+    $base-bg.png
 
 # End of file.

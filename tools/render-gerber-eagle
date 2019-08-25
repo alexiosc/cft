@@ -1,0 +1,71 @@
+#!/bin/bash
+
+base=$1
+
+RES=470
+BG='#105010'
+HOLE='#000000'
+SILK='#ffffff'
+STOP='#ffdd44'
+COPPER='#3c8923'
+OPTS=""
+OPTS="$OPTS -a"
+
+for ext in G{B,T}{L,S,O,A}; do
+    if [ ! -r $base.$ext ]; then
+	echo "File not found: $base.$ext"
+	exit 2
+    fi
+done
+
+# for a in TXT G{T,B}{O,S,L}; do
+#     echo $a
+#     case $a in
+# 	TXT) c=$HOLE;;
+# 	G?O) c=$SILK;;
+# 	G?S) c=$STOP;;
+# 	G?L) c=$COPPER;;
+#     esac
+#     ( gerbv $OPTS-B 0 -D $RES -o $base-$a.png -x png $base.$a
+# 	mogrify -threshold 5% -transparent 'rgb(0,0,0)' -fill $c -opaque '#ffffff' $base-$a.png ) &
+# done
+
+# wait
+
+# convert -fill $base-{GBL,GBO,GBS,TXT} -layers flatten $base-bottom.png
+
+#for fmt in png svg; do
+for fmt in png; do
+    gerbv $OPTS -B 0 -D $RES -o $base-bottom.$fmt -x $fmt -b $BG \
+	-f $HOLE $base.TXT \
+	-f $SILK $base.GBO \
+	-f $STOP $base.GBS \
+	-f $COPPER $base.GBL &
+
+    gerbv $OPTS -B 0 -D $RES -o $base-bottom-silk.$fmt -x $fmt -b '#ffffff' \
+	-f '#ffffff' $base.TXT \
+	-f '#000000' $base.GBA \
+	-f '#dddddd' $base.GBS \
+	-f '#dddddd' $base.GBL &
+
+    gerbv $OPTS -B 0 -D $RES -o $base-top.$fmt -x $fmt -b $BG \
+	-f $HOLE $base.TXT \
+	-f $SILK $base.GTO \
+	-f $STOP $base.GTS \
+	-f $COPPER $base.GTL &
+
+    gerbv $OPTS -B 0 -D $RES -o $base-top-silk.$fmt -x $fmt -b '#ffffff' \
+	-f '#ffffff' $base.TXT \
+	-f '#000000' $base.GTA \
+	-f '#dddddd' $base.GTS \
+	-f '#dddddd' $base.GTL &
+
+    wait
+done
+
+mogrify -fuzz 5% -fill 'rgb(0,0,0)' -opaque 'rgb(58,58,17)' $base-{bottom,top}.png
+#mogrify -fuzz 5% -fill 'red' -opaque 'rgb(58,58,17)' $base-{bottom-silk,top-silk}.png
+mogrify -flop $base-{bottom,bottom-silk}.png
+#mogrify -geometry 50% $base-{bottom,bottom-silk,top,top-silk}.png
+
+# End of file.
