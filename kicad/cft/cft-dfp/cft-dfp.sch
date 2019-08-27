@@ -3475,17 +3475,6 @@ $EndComp
 Connection ~ 5350 5650
 Connection ~ 5350 5850
 $Comp
-L Device:R_Small R101
-U 1 1 66C6F4B2
-P 5600 4150
-F 0 "R101" V 5500 4150 50  0000 C CNN
-F 1 "4.7kΩ" V 5950 4350 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5600 4150 50  0001 C CNN
-F 3 "~" H 5600 4150 50  0001 C CNN
-	1    5600 4150
-	0    1    1    0   
-$EndComp
-$Comp
 L Device:R_Small R103
 U 1 1 66C6F898
 P 5800 4250
@@ -3992,6 +3981,17 @@ F 1 "4.7kΩ" V 5750 4500 50  0001 C CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5600 4350 50  0001 C CNN
 F 3 "~" H 5600 4350 50  0001 C CNN
 	1    5600 4350
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Small R101
+U 1 1 66C6F4B2
+P 5600 4150
+F 0 "R101" V 5500 4150 50  0000 C CNN
+F 1 "4.7kΩ" V 5950 4350 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5600 4150 50  0001 C CNN
+F 3 "~" H 5600 4150 50  0001 C CNN
+	1    5600 4150
 	0    1    1    0   
 $EndComp
 Wire Bus Line

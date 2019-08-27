@@ -196,15 +196,7 @@ NoConn ~ 5050 5650
 Wire Wire Line
 	5050 3400 5250 3400
 Wire Wire Line
-	5250 3400 5250 4700
-Wire Wire Line
-	5250 4700 5350 4700
-Wire Wire Line
 	5050 4150 5150 4150
-Wire Wire Line
-	5150 4150 5150 4800
-Wire Wire Line
-	5150 4800 5350 4800
 Wire Wire Line
 	5050 4900 5350 4900
 Text Label 8350 4800 2    50   ~ 0
@@ -608,4 +600,12 @@ F 3 "~" H 7750 3150 50  0001 C CNN
 	1    7750 3150
 	0    1    1    0   
 $EndComp
+Wire Wire Line
+	5150 4150 5150 4800
+Wire Wire Line
+	5250 3400 5250 4700
+Wire Wire Line
+	5150 4800 5350 4800
+Wire Wire Line
+	5250 4700 5350 4700
 $EndSCHEMATC

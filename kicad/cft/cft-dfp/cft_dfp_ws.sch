@@ -131,10 +131,10 @@ Wire Wire Line
 Wire Wire Line
 	4600 2450 5200 2450
 Wire Wire Line
-	8500 2850 9000 2850
-Text Label 8950 2850 2    50   ~ 0
+	8800 2850 9250 2850
+Text Label 9200 2850 2    50   ~ 0
 ~WS
-Text HLabel 9000 2850 2    50   3State ~ 0
+Text HLabel 9250 2850 2    50   3State ~ 0
 ~WS
 $Comp
 L alexios:74HC112 U?
@@ -488,7 +488,7 @@ Wire Wire Line
 	6900 4200 7050 4200
 NoConn ~ 8050 3600
 Wire Wire Line
-	8050 3500 9000 3500
+	8050 3500 9250 3500
 Text Label 8950 3500 2    50   ~ 0
 ~DBOE1
 Text Label 2500 3600 0    50   ~ 0
@@ -496,11 +496,11 @@ CLRWS
 Wire Wire Line
 	6550 2450 6550 2050
 Wire Wire Line
-	6550 2050 9000 2050
+	6550 2050 9250 2050
 Connection ~ 6550 2450
-Text HLabel 9000 2050 2    50   Output ~ 0
+Text HLabel 9250 2050 2    50   Output ~ 0
 ~IOINT
-Text HLabel 9000 3500 2    50   Output ~ 0
+Text HLabel 9250 3500 2    50   Output ~ 0
 ~DBOE1
 Text Label 2500 4400 0    50   ~ 0
 ~DBOE
@@ -611,6 +611,19 @@ Connection ~ 5450 7000
 Connection ~ 5450 7200
 Connection ~ 4000 7000
 Connection ~ 4000 7200
+$Comp
+L Device:R_Small R501
+U 1 1 5DB1351D
+P 8700 2850
+F 0 "R501" V 8504 2850 50  0000 C CNN
+F 1 "30Ω" V 8595 2850 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 8700 2850 50  0001 C CNN
+F 3 "~" H 8700 2850 50  0001 C CNN
+	1    8700 2850
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	8500 2850 8600 2850
 Wire Bus Line
 	3000 2550 3000 2850
 $EndSCHEMATC
