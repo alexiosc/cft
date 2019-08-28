@@ -776,7 +776,7 @@ L alexios:74LVC1G07 U106
 U 1 1 61719DB4
 P 5100 9950
 F 0 "U106" H 5200 10050 50  0000 L CNN
-F 1 "74LVC1G07" H 5300 9900 50  0000 L CNN
+F 1 "74LVC1G07" H 4850 9800 50  0000 L CNN
 F 2 "alexios:SOT-23-5_HandSoldering" H 5200 9950 50  0001 C CNN
 F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 5200 9950 50  0001 C CNN
 	1    5100 9950
@@ -796,12 +796,9 @@ F 3 "~" H 6050 10050 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	5400 9950 5800 9950
-Wire Wire Line
 	5800 9950 5800 10050
 Wire Wire Line
 	5800 10150 5850 10150
-Connection ~ 5800 9950
 Wire Wire Line
 	5800 9950 5850 9950
 Wire Wire Line
@@ -810,16 +807,16 @@ Connection ~ 5800 10050
 Wire Wire Line
 	5800 10050 5800 10150
 Wire Wire Line
+	6350 10150 6600 10150
+Wire Wire Line
 	6350 9950 6600 9950
 Wire Wire Line
 	6350 10050 6600 10050
-Wire Wire Line
-	6350 10150 6600 10150
-Text Label 6600 9950 2    50   ~ 0
-~IRQ
-Text Label 6600 10050 2    50   ~ 0
-~IRQ7
 Text Label 6600 10150 2    50   ~ 0
+~IRQ
+Text Label 6600 9950 2    50   ~ 0
+~IRQ7
+Text Label 6600 10050 2    50   ~ 0
 ~IRQ6
 Text Label 4350 9250 0    50   ~ 0
 ~FPRESET
@@ -3527,13 +3524,13 @@ Wire Wire Line
 Text Label 6600 10300 2    50   ~ 0
 ~HALT
 Wire Wire Line
-	5400 10300 6600 10300
+	5600 10300 6600 10300
 $Comp
 L alexios:74LVC1G07 U115
 U 1 1 678EA6F2
 P 5100 10300
 F 0 "U115" H 5200 10400 50  0000 L CNN
-F 1 "74LVC1G07" H 5300 10250 50  0000 L CNN
+F 1 "74LVC1G07" H 5050 10150 50  0000 L CNN
 F 2 "alexios:SOT-23-5_HandSoldering" H 5200 10300 50  0001 C CNN
 F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 5200 10300 50  0001 C CNN
 	1    5100 10300
@@ -3992,6 +3989,33 @@ F 1 "4.7kΩ" V 5950 4350 50  0000 C CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5600 4150 50  0001 C CNN
 F 3 "~" H 5600 4150 50  0001 C CNN
 	1    5600 4150
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Small R105
+U 1 1 5E7D3367
+P 5600 9950
+F 0 "R105" V 5704 9950 50  0000 C CNN
+F 1 "30Ω" V 5795 9950 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5600 9950 50  0001 C CNN
+F 3 "~" H 5600 9950 50  0001 C CNN
+	1    5600 9950
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	5400 9950 5500 9950
+Wire Wire Line
+	5700 9950 5800 9950
+Connection ~ 5800 9950
+$Comp
+L Device:R_Small R104
+U 1 1 5E8F1EEA
+P 5500 10300
+F 0 "R104" V 5450 10500 50  0000 C CNN
+F 1 "30Ω" V 5550 10500 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5500 10300 50  0001 C CNN
+F 3 "~" H 5500 10300 50  0001 C CNN
+	1    5500 10300
 	0    1    1    0   
 $EndComp
 Wire Bus Line
