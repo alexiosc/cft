@@ -766,7 +766,7 @@ F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 5200 9450 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	5400 9450 6600 9450
+	5900 9450 6600 9450
 Text Label 6600 9450 2    50   ~ 0
 ~RESET
 Wire Wire Line
@@ -1772,114 +1772,6 @@ Wire Wire Line
 	3000 4150 3600 4150
 Text Label 3600 4150 2    50   ~ 0
 ~LTSON
-Wire Wire Line
-	14100 6450 14650 6450
-Wire Wire Line
-	14100 6550 14650 6550
-Wire Wire Line
-	14100 6650 14650 6650
-Wire Wire Line
-	14100 6750 14650 6750
-Wire Wire Line
-	14100 6850 14650 6850
-Wire Wire Line
-	14100 6950 14650 6950
-Wire Wire Line
-	14100 7050 14650 7050
-Wire Wire Line
-	14100 7150 14650 7150
-Wire Wire Line
-	14100 7250 14650 7250
-Wire Wire Line
-	14100 7350 14650 7350
-Wire Wire Line
-	14100 7450 14650 7450
-Wire Wire Line
-	14100 7550 14650 7550
-Text Label 14650 6450 2    50   ~ 0
-~FPOE0
-Text Label 14650 6550 2    50   ~ 0
-~FPOE1
-Text Label 14650 6650 2    50   ~ 0
-~FPOE2
-Text Label 14650 6750 2    50   ~ 0
-~FPOE3
-Text Label 14650 6850 2    50   ~ 0
-~FPOE4
-Text Label 14650 6950 2    50   ~ 0
-~FPOE5
-Text Label 14650 7050 2    50   ~ 0
-~FPOE6
-Text Label 14650 7150 2    50   ~ 0
-~FPOE7
-Text Label 14650 7250 2    50   ~ 0
-~FPOE8
-Text Label 14650 7350 2    50   ~ 0
-~FPOE9
-Text Label 14650 7450 2    50   ~ 0
-~FPOE10
-Text Label 14650 7550 2    50   ~ 0
-~FPOE11
-Text Notes 14850 6450 0    50   ~ 0
-µCV high
-Text Notes 14850 6550 0    50   ~ 0
-µCV mid
-Text Notes 14850 6650 0    50   ~ 0
-µCV low
-Text Notes 14850 6750 0    50   ~ 0
-IRQ requests
-Text Notes 14850 6850 0    50   ~ 0
-AEXT
-Text Notes 14850 6950 0    50   ~ 0
-PC high
-Text Notes 14850 7050 0    50   ~ 0
-PC low
-Text Notes 14850 7150 0    50   ~ 0
-IRQs enabled
-Text Notes 14850 7250 0    50   ~ 0
-Flags
-Text Notes 14850 7350 0    50   ~ 0
-AC high
-Text Notes 14850 7450 0    50   ~ 0
-AC low
-Text Notes 14850 7550 0    50   ~ 0
-(reserved)
-Wire Wire Line
-	14100 7650 14650 7650
-Text Label 14650 7650 2    50   ~ 0
-~FPOE12
-Text Notes 14850 7650 0    50   ~ 0
-(reserved)
-Wire Wire Line
-	14100 7750 14650 7750
-Wire Wire Line
-	14100 7850 14650 7850
-Wire Wire Line
-	14100 7950 14650 7950
-Wire Wire Line
-	14100 8050 14650 8050
-Text Label 14650 7750 2    50   ~ 0
-~FPDRHOE
-Text Label 14650 7850 2    50   ~ 0
-~FPDRLOE
-Text Label 14650 7950 2    50   ~ 0
-~FPSPHOE
-Text Label 14650 8050 2    50   ~ 0
-~FPSPLOE
-Text Notes 14850 7750 0    50   ~ 0
-MFD: DR high
-Text Notes 14850 7850 0    50   ~ 0
-MFD: DR low
-Text Notes 14850 7950 0    50   ~ 0
-MFD: SP high\n
-Text Notes 14850 8050 0    50   ~ 0
-MFD: SP low
-Wire Wire Line
-	14100 8150 14650 8150
-Text Label 14650 8150 2    50   ~ 0
-~FPOE15
-Text Notes 14850 8150 0    50   ~ 0
-(reserved)
 Text Notes 7050 7700 0    100  ~ 20
 State Lights (~FPOE16~)
 Text Label 7200 9000 0    50   ~ 0
@@ -1956,20 +1848,6 @@ Wire Wire Line
 Connection ~ 7550 9100
 Wire Wire Line
 	7550 9100 7550 8800
-Wire Wire Line
-	14100 8250 14650 8250
-Wire Wire Line
-	14100 8350 14650 8350
-Text Label 14650 8250 2    50   ~ 0
-~FPOE17
-Text Label 14650 8350 2    50   ~ 0
-~FPOE18
-Text Notes 14850 8250 0    50   ~ 0
-IR high
-Text Notes 14850 8350 0    50   ~ 0
-IR low\n
-Text Notes 14850 8450 0    50   ~ 0
-µAddress low
 Wire Wire Line
 	14100 6350 14650 6350
 Text Label 14650 6350 2    50   ~ 0
@@ -2077,10 +1955,6 @@ Wire Wire Line
 	1050 3750 1500 3750
 Wire Wire Line
 	1000 1450 1500 1450
-Wire Wire Line
-	14100 8450 14650 8450
-Text Label 14650 8450 2    50   ~ 0
-~FPOE19
 Text Label 8100 1350 2    50   ~ 0
 ~WABM
 Wire Wire Line
@@ -2786,44 +2660,6 @@ Text Label 14650 5550 2    50   ~ 0
 POWER
 Text Notes 14850 5550 0    50   ~ 0
 Power enable → backplane
-Wire Wire Line
-	14100 8550 14650 8550
-Wire Wire Line
-	14100 8650 14650 8650
-Wire Wire Line
-	14100 8750 14650 8750
-Wire Wire Line
-	14100 8850 14650 8850
-Wire Wire Line
-	14100 8950 14650 8950
-Wire Wire Line
-	14100 9050 14650 9050
-Wire Wire Line
-	14100 9150 14650 9150
-Wire Wire Line
-	14100 9250 14650 9250
-Wire Wire Line
-	14100 9350 14650 9350
-Text Label 14650 8550 2    50   ~ 0
-~FPOE21
-Text Label 14650 8650 2    50   ~ 0
-~FPOE22
-Text Label 14650 8750 2    50   ~ 0
-~FPOE23
-Text Label 14650 8850 2    50   ~ 0
-~FPOE24
-Text Label 14650 8950 2    50   ~ 0
-~FPOE25
-Text Label 14650 9050 2    50   ~ 0
-~FPOE26
-Text Label 14650 9150 2    50   ~ 0
-~FPOE27
-Text Label 14650 9250 2    50   ~ 0
-~FPOE28
-Text Label 14650 9350 2    50   ~ 0
-~FPOE29
-Wire Wire Line
-	14100 9450 14650 9450
 $Comp
 L power:+5V #PWR0127
 U 1 1 61445C6A
@@ -3064,8 +2900,6 @@ Wire Wire Line
 	14100 4750 14650 4750
 Wire Wire Line
 	14100 4850 14650 4850
-Text Label 14650 9450 2    50   ~ 0
-~FPOE30
 $Sheet
 S 15150 4600 500  400 
 U 64C48268
@@ -3505,7 +3339,7 @@ Wire Wire Line
 Text Label 6600 9700 2    50   ~ 0
 ~RSTHOLD
 Wire Wire Line
-	5400 9700 6600 9700
+	5900 9700 6600 9700
 $Comp
 L alexios:74LVC1G07 U105
 U 1 1 61555FB7
@@ -4018,6 +3852,202 @@ F 3 "~" H 5500 10300 50  0001 C CNN
 	1    5500 10300
 	0    1    1    0   
 $EndComp
+Text Label 14650 6950 2    50   ~ 0
+~FPOE29
+Text Label 14650 7250 2    50   ~ 0
+~FPOE25
+Text Label 14650 7150 2    50   ~ 0
+~FPOE21
+Wire Wire Line
+	14100 6950 14650 6950
+Wire Wire Line
+	14100 7250 14650 7250
+Wire Wire Line
+	14100 7150 14650 7150
+Text Notes 14850 7350 0    50   ~ 0
+IR high
+Text Label 14650 7350 2    50   ~ 0
+~FPOE17
+Wire Wire Line
+	14100 7350 14650 7350
+Text Notes 14850 7450 0    50   ~ 0
+AC high
+Text Notes 14850 7550 0    50   ~ 0
+PC high
+Text Notes 14850 7650 0    50   ~ 0
+µCV mid
+Text Label 14650 7450 2    50   ~ 0
+~FPOE9
+Text Label 14650 7550 2    50   ~ 0
+~FPOE5
+Text Label 14650 7650 2    50   ~ 0
+~FPOE1
+Wire Wire Line
+	14100 7450 14650 7450
+Wire Wire Line
+	14100 7550 14650 7550
+Wire Wire Line
+	14100 7650 14650 7650
+Text Label 14650 7750 2    50   ~ 0
+~FPOE30
+Wire Wire Line
+	14100 8050 14650 8050
+Text Label 14650 7850 2    50   ~ 0
+~FPOE26
+Wire Wire Line
+	14100 7850 14650 7850
+Text Notes 14850 7950 0    50   ~ 0
+IR low\n
+Text Notes 14850 8250 0    50   ~ 0
+AC low
+Text Notes 14850 8150 0    50   ~ 0
+PC low
+Text Notes 14850 8450 0    50   ~ 0
+µCV low
+Text Label 14650 8250 2    50   ~ 0
+~FPOE10
+Text Label 14650 8150 2    50   ~ 0
+~FPOE6
+Text Label 14650 8450 2    50   ~ 0
+~FPOE2
+Wire Wire Line
+	14100 8250 14650 8250
+Wire Wire Line
+	14100 8150 14650 8150
+Wire Wire Line
+	14100 8450 14650 8450
+Text Label 14650 9050 2    50   ~ 0
+~FPOE23
+Wire Wire Line
+	14100 9050 14650 9050
+Text Label 14650 8950 2    50   ~ 0
+~FPOE19
+Wire Wire Line
+	14100 8950 14650 8950
+Text Notes 15300 9050 0    50   ~ 0
+µAddress low
+Text Notes 15300 9150 0    50   ~ 0
+(reserved)
+Text Label 14650 9250 2    50   ~ 0
+~FPOE15
+Wire Wire Line
+	14100 9250 14650 9250
+Text Notes 15300 9250 0    50   ~ 0
+(reserved)
+Text Notes 14850 9450 0    50   ~ 0
+IRQs enabled
+Text Notes 14850 9350 0    50   ~ 0
+IRQ requests
+Text Label 14650 9150 2    50   ~ 0
+~FPOE11
+Text Label 14650 9450 2    50   ~ 0
+~FPOE7
+Text Label 14650 9350 2    50   ~ 0
+~FPOE3
+Wire Wire Line
+	14100 9150 14650 9150
+Wire Wire Line
+	14100 9450 14650 9450
+Wire Wire Line
+	14100 9350 14650 9350
+Wire Wire Line
+	14100 8850 14650 8850
+Wire Wire Line
+	14100 8650 14650 8650
+Wire Wire Line
+	14100 8550 14650 8550
+Wire Wire Line
+	14100 8350 14650 8350
+Text Label 14650 8650 2    50   ~ 0
+~FPSPHOE
+Text Label 14650 8350 2    50   ~ 0
+~FPSPLOE
+Text Notes 14850 8750 0    50   ~ 0
+MFD: DR high
+Text Notes 14850 8650 0    50   ~ 0
+MFD: DR low
+Text Notes 14850 8550 0    50   ~ 0
+MFD: SP high\n
+Text Notes 14850 8350 0    50   ~ 0
+MFD: SP low
+Wire Wire Line
+	14100 7050 14650 7050
+Text Label 14650 7050 2    50   ~ 0
+~FPOE0
+Text Notes 14850 7050 0    50   ~ 0
+µCV high
+Wire Wire Line
+	14100 6850 14650 6850
+Wire Wire Line
+	14100 6750 14650 6750
+Text Label 14650 6850 2    50   ~ 0
+~FPOE4
+Text Label 14650 6750 2    50   ~ 0
+~FPOE8
+Text Notes 14850 6850 0    50   ~ 0
+AEXT
+Text Notes 14850 6750 0    50   ~ 0
+Flags
+Wire Wire Line
+	14100 6650 14650 6650
+Text Label 14650 6650 2    50   ~ 0
+~FPOE12
+Text Notes 14850 6650 0    50   ~ 0
+(reserved)
+Wire Wire Line
+	14100 6550 14650 6550
+Text Label 14650 6550 2    50   ~ 0
+~FPOE24
+Wire Wire Line
+	14100 8750 14650 8750
+Text Label 14650 8750 2    50   ~ 0
+~FPOE27
+Wire Wire Line
+	14100 6450 14650 6450
+Text Label 14650 6450 2    50   ~ 0
+~FPOE28
+Wire Notes Line
+	14700 8500 14700 8850
+Wire Notes Line
+	14750 8750 14750 9450
+Text Label 14650 8850 2    50   ~ 0
+~FPDRHOE
+Text Label 14650 8550 2    50   ~ 0
+~FPDRLOE
+Wire Wire Line
+	14100 7950 14650 7950
+Text Label 14650 7950 2    50   ~ 0
+~FPOE18
+Wire Wire Line
+	14100 7750 14650 7750
+Text Label 14650 8050 2    50   ~ 0
+~FPOE22
+$Comp
+L Device:R_Small R106
+U 1 1 5D7E44A0
+P 5800 9700
+F 0 "R106" V 5750 9900 50  0000 C CNN
+F 1 "30Ω" V 5850 9900 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5800 9700 50  0001 C CNN
+F 3 "~" H 5800 9700 50  0001 C CNN
+	1    5800 9700
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	5400 9700 5700 9700
+$Comp
+L Device:R_Small R107
+U 1 1 5D9619DA
+P 5800 9450
+F 0 "R107" V 5750 9650 50  0000 C CNN
+F 1 "30Ω" V 5850 9650 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5800 9450 50  0001 C CNN
+F 3 "~" H 5800 9450 50  0001 C CNN
+	1    5800 9450
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	5400 9450 5700 9450
 Wire Bus Line
 	1050 2450 1050 2750
 Wire Bus Line
