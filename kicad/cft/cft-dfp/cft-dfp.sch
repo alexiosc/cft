@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:cft-dfp-cache
-EELAYER 30 0
+EELAYER 26 0
 EELAYER END
 $Descr A3 16535 11693
 encoding utf-8
@@ -664,8 +664,6 @@ $EndComp
 Wire Wire Line
 	7700 3850 8100 3850
 Wire Wire Line
-	7700 3950 8100 3950
-Wire Wire Line
 	7700 4050 8100 4050
 Wire Wire Line
 	7700 4150 8100 4150
@@ -673,21 +671,23 @@ Wire Wire Line
 	7700 4250 8100 4250
 Wire Wire Line
 	7700 4350 8100 4350
+Wire Wire Line
+	7700 4450 8100 4450
 Text Label 8100 3850 2    50   ~ 0
 ~RABL
 Wire Wire Line
 	6700 4550 6350 4550
 Text Label 6350 4550 0    50   ~ 0
 ~RD
-Text Label 8100 3950 2    50   ~ 0
-~RABH
 Text Label 8100 4050 2    50   ~ 0
-~RDBL
+~RABH
 Text Label 8100 4150 2    50   ~ 0
-~RDBH
+~RDBL
 Text Label 8100 4250 2    50   ~ 0
-~RIBL
+~RDBH
 Text Label 8100 4350 2    50   ~ 0
+~RIBL
+Text Label 8100 4450 2    50   ~ 0
 ~RIBH
 Wire Wire Line
 	6700 3850 6350 3850
@@ -709,10 +709,10 @@ Text Label 6350 4450 0    50   ~ 0
 FPA6
 Text Label 6350 4650 0    50   ~ 0
 FPA7
-Text Label 8100 4450 2    50   ~ 0
+Text Label 8100 4550 2    50   ~ 0
 ~RDSR
 Wire Wire Line
-	7700 4450 8100 4450
+	7700 4550 8100 4550
 $Comp
 L alexios:74HC138 U112
 U 1 1 5E9697CD
@@ -2830,7 +2830,6 @@ NoConn ~ 7700 2950
 NoConn ~ 7700 3050
 NoConn ~ 7700 3150
 NoConn ~ 7700 3250
-NoConn ~ 7700 4550
 NoConn ~ 7050 3050
 Wire Wire Line
 	8050 5400 8700 5400
@@ -4048,6 +4047,10 @@ F 3 "~" H 5800 9450 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	5400 9450 5700 9450
+Wire Wire Line
+	7700 3950 8100 3950
+Text Label 8100 3950 2    50   ~ 0
+~RABM
 Wire Bus Line
 	1050 2450 1050 2750
 Wire Bus Line
