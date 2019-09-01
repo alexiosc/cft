@@ -15,7 +15,7 @@ Free Time.
 ## Audience
 
 There isn't one, so I couldn't tell you what it's like. This project
-has been online for since 2005 and it's been noticed by four or five
+has been online since 2005 and it's been noticed by four or five
 people. Not quite enough for statistics.
 
 **This is a personal project, and the repository is made public as a
