@@ -1698,8 +1698,6 @@ Wire Wire Line
 	1800 4900 1800 5200
 Text Label 1900 5200 0    50   ~ 0
 µCCLK
-Text Label 14650 5650 2    50   ~ 0
-POWEROK
 Wire Wire Line
 	14100 5750 14650 5750
 Text Label 14650 5750 2    50   ~ 0
@@ -1730,8 +1728,6 @@ F 3 "" H 14100 6050 50  0001 C CNN
 	1    14100 6050
 	0    -1   -1   0   
 $EndComp
-Wire Wire Line
-	14100 5650 14650 5650
 Wire Wire Line
 	14100 6250 14650 6250
 Text Label 14650 6250 2    50   ~ 0
