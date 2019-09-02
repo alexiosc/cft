@@ -15,14 +15,6 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 Wire Wire Line
-	14500 2000 14100 2000
-Wire Wire Line
-	14500 1200 14100 1200
-Wire Wire Line
-	14500 1300 14100 1300
-Wire Wire Line
-	14500 1800 14100 1800
-Wire Wire Line
 	2600 2350 2200 2350
 Wire Wire Line
 	3800 1450 4200 1450
@@ -42,12 +34,6 @@ Wire Wire Line
 	3800 2150 4200 2150
 Wire Wire Line
 	3800 2250 4200 2250
-Text Label 14100 2000 0    50   ~ 0
-CLK1
-Text Label 14100 1300 0    50   ~ 0
-WSTB
-Text Label 14100 1800 0    50   ~ 0
-T34
 Text Label 2200 2350 0    50   ~ 0
 ~IRQS
 Text Label 4200 1450 2    50   ~ 0
@@ -298,13 +284,13 @@ Text Label 1500 5350 0    50   ~ 0
 IBUS[0..15]
 Text HLabel 1400 5350 0    50   UnSpc ~ 0
 IBUS[0..15]
-Text HLabel 14100 2000 0    50   UnSpc ~ 0
+Text HLabel 6050 9750 0    50   UnSpc ~ 0
 CLK1
-Text HLabel 14100 1200 0    50   UnSpc ~ 0
+Text HLabel 6050 9850 0    50   UnSpc ~ 0
 CLK2
-Text HLabel 14100 1300 0    50   UnSpc ~ 0
+Text HLabel 7950 9750 0    50   UnSpc ~ 0
 WSTB
-Text HLabel 14100 1800 0    50   UnSpc ~ 0
+Text HLabel 7950 9850 0    50   UnSpc ~ 0
 T34
 Text HLabel 2200 2350 0    50   UnSpc ~ 0
 ~IRQS
@@ -414,20 +400,10 @@ F 3 "" H 2600 11300 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	2600 10850 2600 10950
-Text HLabel 14100 1100 0    50   UnSpc ~ 0
+Text HLabel 4100 9750 0    50   UnSpc ~ 0
 CLK3
-Text Label 14100 1100 0    50   ~ 0
-CLK3
-Text Label 14100 1200 0    50   ~ 0
-CLK2
-Wire Wire Line
-	14500 1100 14100 1100
-Text HLabel 14100 1900 0    50   UnSpc ~ 0
+Text HLabel 4100 9850 0    50   UnSpc ~ 0
 CLK4
-Text Label 14100 1900 0    50   ~ 0
-CLK4
-Wire Wire Line
-	14500 1900 14100 1900
 $Comp
 L power:+5V #PWR?
 U 1 1 5DF06661
@@ -445,259 +421,16 @@ F 3 "" H 2600 10850 50  0001 C CNN
 $EndComp
 Wire Bus Line
 	4850 3250 4850 5350
-$Comp
-L Device:C_Small C?
-U 1 1 5DDEFE3E
-P 17650 5300
-AR Path="/5D78E680/5DDEFE3E" Ref="C?"  Part="1" 
-AR Path="/5D363063/5DDEFE3E" Ref="C?"  Part="1" 
-AR Path="/5D42FF4D/5DDEFE3E" Ref="C?"  Part="1" 
-AR Path="/5F1DB2E8/5DDEFE3E" Ref="C1111"  Part="1" 
-F 0 "C1111" H 17559 5346 50  0000 R CNN
-F 1 "100nF" H 17559 5255 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 17650 5300 50  0001 C CNN
-F 3 "~" H 17650 5300 50  0001 C CNN
-	1    17650 5300
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5DDEFE44
-P 17650 5550
-AR Path="/5D78E680/5DDEFE44" Ref="#PWR?"  Part="1" 
-AR Path="/5D363063/5DDEFE44" Ref="#PWR?"  Part="1" 
-AR Path="/5D42FF4D/5DDEFE44" Ref="#PWR?"  Part="1" 
-AR Path="/5F1DB2E8/5DDEFE44" Ref="#PWR01122"  Part="1" 
-F 0 "#PWR01122" H 17650 5300 50  0001 C CNN
-F 1 "GND" H 17655 5377 50  0000 C CNN
-F 2 "" H 17650 5550 50  0001 C CNN
-F 3 "" H 17650 5550 50  0001 C CNN
-	1    17650 5550
-	-1   0    0    -1  
-$EndComp
-Wire Wire Line
-	17650 5100 17650 5200
-$Comp
-L power:+5V #PWR?
-U 1 1 5DDEFE51
-P 17650 5100
-AR Path="/5D78E680/5DDEFE51" Ref="#PWR?"  Part="1" 
-AR Path="/5D363063/5DDEFE51" Ref="#PWR?"  Part="1" 
-AR Path="/5D42FF4D/5DDEFE51" Ref="#PWR?"  Part="1" 
-AR Path="/5F1DB2E8/5DDEFE51" Ref="#PWR01121"  Part="1" 
-F 0 "#PWR01121" H 17650 4950 50  0001 C CNN
-F 1 "+5V" H 17592 5137 50  0000 R CNN
-F 2 "" H 17650 5100 50  0001 C CNN
-F 3 "" H 17650 5100 50  0001 C CNN
-	1    17650 5100
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	17500 4750 17100 4750
-Wire Wire Line
-	17500 4650 17100 4650
-Wire Wire Line
-	17500 4250 17100 4250
-Wire Wire Line
-	17500 4350 17100 4350
-Wire Wire Line
-	17500 4150 17100 4150
-Wire Wire Line
-	17500 4550 17100 4550
-Wire Wire Line
-	17500 3850 17100 3850
-Text Label 17100 3850 0    50   ~ 0
-AB17
-Text Label 17100 4650 0    50   ~ 0
-AB18
-Text Label 17100 4550 0    50   ~ 0
-AB19
-Text Label 17100 4150 0    50   ~ 0
-AB20
-Text Label 17100 4250 0    50   ~ 0
-AB22
-Text Label 17100 4350 0    50   ~ 0
-AB23
-Text Label 17100 4750 0    50   ~ 0
-AB16
-Wire Wire Line
-	17500 4450 17100 4450
-Text Label 17100 4450 0    50   ~ 0
-AB21
 Text HLabel 1400 5850 0    50   UnSpc ~ 0
 FPD[0..7]
 Wire Bus Line
 	1400 5850 7250 5850
 Text Label 1500 5850 0    50   ~ 0
 FPD[0..7]
-Text Label 11450 4350 0    50   ~ 0
-WADDR2
-Text Label 11450 4250 0    50   ~ 0
-DB7
-Text Label 11450 4450 0    50   ~ 0
-WADDR1
-Text Label 11450 4150 0    50   ~ 0
-DB6
-Text Label 11450 4550 0    50   ~ 0
-WADDR0
-Text Label 11450 4050 0    50   ~ 0
-DB5
-Text Label 11450 4650 0    50   ~ 0
-RADDR4
-Text Label 11450 3950 0    50   ~ 0
-DB4
-Text Label 11450 4750 0    50   ~ 0
-RADDR3
-Text Label 11450 4850 0    50   ~ 0
-RADDR2
-Text Label 11450 4950 0    50   ~ 0
-RADDR1
-Text Label 11450 3850 0    50   ~ 0
-DB3
-Text Label 11450 3750 0    50   ~ 0
-DB2
-Text Label 11450 3650 0    50   ~ 0
-DB1
-Text Label 11450 5050 0    50   ~ 0
-RADDR0
-Text Label 11450 3550 0    50   ~ 0
-DB0
-Wire Wire Line
-	11800 5050 11450 5050
-Wire Wire Line
-	11800 4950 11450 4950
-Wire Wire Line
-	11800 4850 11450 4850
-Wire Wire Line
-	11800 4750 11450 4750
-Wire Wire Line
-	11800 4650 11450 4650
-Wire Wire Line
-	11800 4550 11450 4550
-Wire Wire Line
-	11800 4450 11450 4450
-Wire Wire Line
-	11800 4350 11450 4350
-Wire Wire Line
-	11800 4250 11450 4250
-Wire Wire Line
-	11800 4150 11450 4150
-Wire Wire Line
-	11800 4050 11450 4050
-Wire Wire Line
-	11800 3950 11450 3950
-Wire Wire Line
-	11800 3850 11450 3850
-Wire Wire Line
-	11800 3750 11450 3750
-Wire Wire Line
-	11800 3650 11450 3650
-Wire Wire Line
-	11800 3550 11450 3550
-Wire Wire Line
-	11950 5500 11950 5600
-$Comp
-L power:+5V #PWR?
-U 1 1 5DB2210A
-P 11950 5500
-AR Path="/5D78E680/5DB2210A" Ref="#PWR?"  Part="1" 
-AR Path="/5D363063/5DB2210A" Ref="#PWR?"  Part="1" 
-AR Path="/5D42FF4D/5DB2210A" Ref="#PWR?"  Part="1" 
-AR Path="/5F1DB2E8/5DB2210A" Ref="#PWR01113"  Part="1" 
-F 0 "#PWR01113" H 11950 5350 50  0001 C CNN
-F 1 "+5V" H 11892 5537 50  0000 R CNN
-F 2 "" H 11950 5500 50  0001 C CNN
-F 3 "" H 11950 5500 50  0001 C CNN
-	1    11950 5500
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5DB22104
-P 11950 5950
-AR Path="/5D78E680/5DB22104" Ref="#PWR?"  Part="1" 
-AR Path="/5D363063/5DB22104" Ref="#PWR?"  Part="1" 
-AR Path="/5D42FF4D/5DB22104" Ref="#PWR?"  Part="1" 
-AR Path="/5F1DB2E8/5DB22104" Ref="#PWR01114"  Part="1" 
-F 0 "#PWR01114" H 11950 5700 50  0001 C CNN
-F 1 "GND" H 11955 5777 50  0000 C CNN
-F 2 "" H 11950 5950 50  0001 C CNN
-F 3 "" H 11950 5950 50  0001 C CNN
-	1    11950 5950
-	-1   0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 5DB220FE
-P 11950 5700
-AR Path="/5D78E680/5DB220FE" Ref="C?"  Part="1" 
-AR Path="/5D363063/5DB220FE" Ref="C?"  Part="1" 
-AR Path="/5D42FF4D/5DB220FE" Ref="C?"  Part="1" 
-AR Path="/5F1DB2E8/5DB220FE" Ref="C1107"  Part="1" 
-F 0 "C1107" H 11859 5746 50  0000 R CNN
-F 1 "100nF" H 11859 5655 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 11950 5700 50  0001 C CNN
-F 3 "~" H 11950 5700 50  0001 C CNN
-	1    11950 5700
-	1    0    0    1   
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 5E4FE608
-P 17300 8000
-AR Path="/5D78E680/5E4FE608" Ref="C?"  Part="1" 
-AR Path="/5D363063/5E4FE608" Ref="C?"  Part="1" 
-AR Path="/5D42FF4D/5E4FE608" Ref="C?"  Part="1" 
-AR Path="/5F1DB2E8/5E4FE608" Ref="C1110"  Part="1" 
-F 0 "C1110" H 17209 8046 50  0000 R CNN
-F 1 "100nF" H 17209 7955 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 17300 8000 50  0001 C CNN
-F 3 "~" H 17300 8000 50  0001 C CNN
-	1    17300 8000
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5E4FE60E
-P 17300 8250
-AR Path="/5D78E680/5E4FE60E" Ref="#PWR?"  Part="1" 
-AR Path="/5D363063/5E4FE60E" Ref="#PWR?"  Part="1" 
-AR Path="/5D42FF4D/5E4FE60E" Ref="#PWR?"  Part="1" 
-AR Path="/5F1DB2E8/5E4FE60E" Ref="#PWR01120"  Part="1" 
-F 0 "#PWR01120" H 17300 8000 50  0001 C CNN
-F 1 "GND" H 17305 8077 50  0000 C CNN
-F 2 "" H 17300 8250 50  0001 C CNN
-F 3 "" H 17300 8250 50  0001 C CNN
-	1    17300 8250
-	-1   0    0    -1  
-$EndComp
-Wire Wire Line
-	17300 7800 17300 7900
-$Comp
-L power:+5V #PWR?
-U 1 1 5E4FE61B
-P 17300 7800
-AR Path="/5D78E680/5E4FE61B" Ref="#PWR?"  Part="1" 
-AR Path="/5D363063/5E4FE61B" Ref="#PWR?"  Part="1" 
-AR Path="/5D42FF4D/5E4FE61B" Ref="#PWR?"  Part="1" 
-AR Path="/5F1DB2E8/5E4FE61B" Ref="#PWR01119"  Part="1" 
-F 0 "#PWR01119" H 17300 7650 50  0001 C CNN
-F 1 "+5V" H 17242 7837 50  0000 R CNN
-F 2 "" H 17300 7800 50  0001 C CNN
-F 3 "" H 17300 7800 50  0001 C CNN
-	1    17300 7800
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	17150 6550 16750 6550
 Wire Wire Line
 	17150 6650 16750 6650
-Wire Wire Line
-	17150 6750 16750 6750
-Wire Wire Line
-	17150 6850 16750 6850
-Wire Wire Line
-	17150 6950 16750 6950
 Wire Wire Line
 	17150 7050 16750 7050
 Wire Wire Line
@@ -714,142 +447,14 @@ Text Label 16750 7450 0    50   ~ 0
 ~IODEV1xx
 Text Label 16750 7350 0    50   ~ 0
 ~IODEV2xx
-Text Label 16750 6750 0    50   ~ 0
-~IODEV3xx
 Text Label 16750 7250 0    50   ~ 0
 ~MEM
 Text Label 16750 7150 0    50   ~ 0
 ~IO
-Text Label 16750 6850 0    50   ~ 0
+Text Label 2200 9750 0    50   ~ 0
 ~R
-Text Label 16750 6950 0    50   ~ 0
+Text Label 2200 9850 0    50   ~ 0
 ~W
-$Comp
-L Device:C_Small C?
-U 1 1 5D562E4A
-P 19450 7900
-AR Path="/5D78E680/5D562E4A" Ref="C?"  Part="1" 
-AR Path="/5D363063/5D562E4A" Ref="C?"  Part="1" 
-AR Path="/5D42FF4D/5D562E4A" Ref="C?"  Part="1" 
-AR Path="/5F1DB2E8/5D562E4A" Ref="C1112"  Part="1" 
-F 0 "C1112" H 19359 7946 50  0000 R CNN
-F 1 "100nF" H 19359 7855 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 19450 7900 50  0001 C CNN
-F 3 "~" H 19450 7900 50  0001 C CNN
-	1    19450 7900
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5D562E51
-P 19450 8150
-AR Path="/5D78E680/5D562E51" Ref="#PWR?"  Part="1" 
-AR Path="/5D363063/5D562E51" Ref="#PWR?"  Part="1" 
-AR Path="/5D42FF4D/5D562E51" Ref="#PWR?"  Part="1" 
-AR Path="/5F1DB2E8/5D562E51" Ref="#PWR01124"  Part="1" 
-F 0 "#PWR01124" H 19450 7900 50  0001 C CNN
-F 1 "GND" H 19455 7977 50  0000 C CNN
-F 2 "" H 19450 8150 50  0001 C CNN
-F 3 "" H 19450 8150 50  0001 C CNN
-	1    19450 8150
-	-1   0    0    -1  
-$EndComp
-Wire Wire Line
-	19450 7700 19450 7800
-$Comp
-L power:+5V #PWR?
-U 1 1 5D562E5E
-P 19450 7700
-AR Path="/5D78E680/5D562E5E" Ref="#PWR?"  Part="1" 
-AR Path="/5D363063/5D562E5E" Ref="#PWR?"  Part="1" 
-AR Path="/5D42FF4D/5D562E5E" Ref="#PWR?"  Part="1" 
-AR Path="/5F1DB2E8/5D562E5E" Ref="#PWR01123"  Part="1" 
-F 0 "#PWR01123" H 19450 7550 50  0001 C CNN
-F 1 "+5V" H 19392 7737 50  0000 R CNN
-F 2 "" H 19450 7700 50  0001 C CNN
-F 3 "" H 19450 7700 50  0001 C CNN
-	1    19450 7700
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	19300 6450 18900 6450
-Wire Wire Line
-	19300 6550 18900 6550
-Wire Wire Line
-	19300 6650 18900 6650
-Wire Wire Line
-	19300 6750 18900 6750
-Wire Wire Line
-	19300 7050 18900 7050
-Wire Wire Line
-	19300 7150 18900 7150
-Wire Wire Line
-	19300 7250 18900 7250
-Wire Wire Line
-	19300 7350 18900 7350
-Text Label 18900 7350 0    50   ~ 0
-DB8
-Text Label 18900 6450 0    50   ~ 0
-DB9
-Text Label 18900 7250 0    50   ~ 0
-DB10
-Text Label 18900 6550 0    50   ~ 0
-DB11
-Text Label 18900 7150 0    50   ~ 0
-DB12
-Text Label 18900 6650 0    50   ~ 0
-DB13
-Text Label 18900 7050 0    50   ~ 0
-DB14
-Text Label 18900 6750 0    50   ~ 0
-DB15
-$Comp
-L Device:C_Small C?
-U 1 1 5D5FED87
-P 21500 7850
-AR Path="/5D78E680/5D5FED87" Ref="C?"  Part="1" 
-AR Path="/5D363063/5D5FED87" Ref="C?"  Part="1" 
-AR Path="/5D42FF4D/5D5FED87" Ref="C?"  Part="1" 
-AR Path="/5F1DB2E8/5D5FED87" Ref="C1113"  Part="1" 
-F 0 "C1113" H 21409 7896 50  0000 R CNN
-F 1 "100nF" H 21409 7805 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 21500 7850 50  0001 C CNN
-F 3 "~" H 21500 7850 50  0001 C CNN
-	1    21500 7850
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5D5FED8E
-P 21500 8100
-AR Path="/5D78E680/5D5FED8E" Ref="#PWR?"  Part="1" 
-AR Path="/5D363063/5D5FED8E" Ref="#PWR?"  Part="1" 
-AR Path="/5D42FF4D/5D5FED8E" Ref="#PWR?"  Part="1" 
-AR Path="/5F1DB2E8/5D5FED8E" Ref="#PWR01126"  Part="1" 
-F 0 "#PWR01126" H 21500 7850 50  0001 C CNN
-F 1 "GND" H 21505 7927 50  0000 C CNN
-F 2 "" H 21500 8100 50  0001 C CNN
-F 3 "" H 21500 8100 50  0001 C CNN
-	1    21500 8100
-	-1   0    0    -1  
-$EndComp
-Wire Wire Line
-	21500 7650 21500 7750
-$Comp
-L power:+5V #PWR?
-U 1 1 5D5FED9B
-P 21500 7650
-AR Path="/5D78E680/5D5FED9B" Ref="#PWR?"  Part="1" 
-AR Path="/5D363063/5D5FED9B" Ref="#PWR?"  Part="1" 
-AR Path="/5D42FF4D/5D5FED9B" Ref="#PWR?"  Part="1" 
-AR Path="/5F1DB2E8/5D5FED9B" Ref="#PWR01125"  Part="1" 
-F 0 "#PWR01125" H 21500 7500 50  0001 C CNN
-F 1 "+5V" H 21442 7687 50  0000 R CNN
-F 2 "" H 21500 7650 50  0001 C CNN
-F 3 "" H 21500 7650 50  0001 C CNN
-	1    21500 7650
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	21350 6400 20950 6400
 Wire Wire Line
@@ -867,12 +472,12 @@ ACTION3
 Text Label 20950 6500 0    50   ~ 0
 ACTION2
 Wire Wire Line
-	17500 3950 17100 3950
+	12450 3700 12050 3700
 Wire Wire Line
-	17500 4050 17100 4050
-Text Label 17100 3950 0    50   ~ 0
+	12450 3800 12050 3800
+Text Label 12050 3700 0    50   ~ 0
 RXD
-Text Label 17100 4050 0    50   ~ 0
+Text Label 12050 3800 0    50   ~ 0
 TXD
 Text HLabel 1400 6000 0    50   UnSpc ~ 0
 RXD
@@ -886,99 +491,6 @@ Text Label 1950 6100 2    50   ~ 0
 TXD
 Text Label 1950 6000 2    50   ~ 0
 RXD
-NoConn ~ 19300 6850
-NoConn ~ 19300 6950
-NoConn ~ 21350 6600
-NoConn ~ 21350 6700
-NoConn ~ 21350 6800
-NoConn ~ 21350 6900
-NoConn ~ 21350 7000
-NoConn ~ 21350 7100
-NoConn ~ 14500 1400
-NoConn ~ 14500 1500
-NoConn ~ 14500 1600
-NoConn ~ 14500 1700
-NoConn ~ 15450 4500
-NoConn ~ 15450 4400
-Text Label 15050 4300 0    50   ~ 0
-FPD7
-Text Label 15050 4200 0    50   ~ 0
-FPD6
-Text Label 15050 4100 0    50   ~ 0
-FPD5
-Text Label 15050 4600 0    50   ~ 0
-FPD4
-Text Label 15050 4700 0    50   ~ 0
-FPD3
-Text Label 15050 4000 0    50   ~ 0
-FPD2
-Text Label 15050 4800 0    50   ~ 0
-FPD1
-Text Label 15050 3900 0    50   ~ 0
-FPD0
-Wire Wire Line
-	15450 4800 15050 4800
-Wire Wire Line
-	15450 4700 15050 4700
-Wire Wire Line
-	15450 4600 15050 4600
-Wire Wire Line
-	15450 4300 15050 4300
-Wire Wire Line
-	15450 4200 15050 4200
-Wire Wire Line
-	15450 4100 15050 4100
-Wire Wire Line
-	15450 4000 15050 4000
-Wire Wire Line
-	15450 3900 15050 3900
-$Comp
-L power:+5V #PWR?
-U 1 1 5DC5EAB5
-P 15600 5150
-AR Path="/5D78E680/5DC5EAB5" Ref="#PWR?"  Part="1" 
-AR Path="/5D363063/5DC5EAB5" Ref="#PWR?"  Part="1" 
-AR Path="/5D42FF4D/5DC5EAB5" Ref="#PWR?"  Part="1" 
-AR Path="/5F1DB2E8/5DC5EAB5" Ref="#PWR01117"  Part="1" 
-F 0 "#PWR01117" H 15600 5000 50  0001 C CNN
-F 1 "+5V" H 15542 5187 50  0000 R CNN
-F 2 "" H 15600 5150 50  0001 C CNN
-F 3 "" H 15600 5150 50  0001 C CNN
-	1    15600 5150
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	15600 5150 15600 5250
-$Comp
-L power:GND #PWR?
-U 1 1 5DC5EAA1
-P 15600 5600
-AR Path="/5D78E680/5DC5EAA1" Ref="#PWR?"  Part="1" 
-AR Path="/5D363063/5DC5EAA1" Ref="#PWR?"  Part="1" 
-AR Path="/5D42FF4D/5DC5EAA1" Ref="#PWR?"  Part="1" 
-AR Path="/5F1DB2E8/5DC5EAA1" Ref="#PWR01118"  Part="1" 
-F 0 "#PWR01118" H 15600 5350 50  0001 C CNN
-F 1 "GND" H 15605 5427 50  0000 C CNN
-F 2 "" H 15600 5600 50  0001 C CNN
-F 3 "" H 15600 5600 50  0001 C CNN
-	1    15600 5600
-	-1   0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 5DC5EA9B
-P 15600 5350
-AR Path="/5D78E680/5DC5EA9B" Ref="C?"  Part="1" 
-AR Path="/5D363063/5DC5EA9B" Ref="C?"  Part="1" 
-AR Path="/5D42FF4D/5DC5EA9B" Ref="C?"  Part="1" 
-AR Path="/5F1DB2E8/5DC5EA9B" Ref="C1109"  Part="1" 
-F 0 "C1109" H 15509 5396 50  0000 R CNN
-F 1 "100nF" H 15509 5305 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 15600 5350 50  0001 C CNN
-F 3 "~" H 15600 5350 50  0001 C CNN
-	1    15600 5350
-	1    0    0    -1  
-$EndComp
 $Comp
 L alexios:SN74ACT1071 U1102
 U 1 1 5DD2D8B9
@@ -1037,18 +549,6 @@ Text Label 2200 9550 0    50   ~ 0
 DB6
 Text Label 2200 9650 0    50   ~ 0
 DB7
-Wire Wire Line
-	11950 5800 11950 5950
-Wire Wire Line
-	15600 5450 15600 5600
-Wire Wire Line
-	17650 5400 17650 5550
-Wire Wire Line
-	17300 8100 17300 8250
-Wire Wire Line
-	19450 8000 19450 8150
-Wire Wire Line
-	21500 7950 21500 8100
 Wire Wire Line
 	2600 11150 2600 11250
 Connection ~ 2600 10850
@@ -1492,17 +992,6 @@ F 3 "https://www.ti.com/lit/ds/symlink/sn74act1073.pdf" H 800 11700 50  0001 C C
 	2    1100 11350
 	1    0    0    -1  
 $EndComp
-$Comp
-L alexios:SN74ACT1073 U1101
-U 1 1 5D82DE62
-P 1100 9400
-F 0 "U1101" H 1430 9196 50  0000 L CNN
-F 1 "SN74ACT1073" H 1430 9105 50  0000 L CNN
-F 2 "alexios:SOIC-20W" H 800 9750 50  0001 C CNN
-F 3 "https://www.ti.com/lit/ds/symlink/sn74act1073.pdf" H 800 9750 50  0001 C CNN
-	1    1100 9400
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	100  10400 600  10400
 Text Label 100  10400 0    50   ~ 0
@@ -1544,8 +1033,8 @@ P 12600 10950
 AR Path="/5D78E680/5DFDF8A0" Ref="C?"  Part="1" 
 AR Path="/5D363063/5DFDF8A0" Ref="C?"  Part="1" 
 AR Path="/5D42FF4D/5DFDF8A0" Ref="C?"  Part="1" 
-AR Path="/5F1DB2E8/5DFDF8A0" Ref="C1108"  Part="1" 
-F 0 "C1108" H 12509 10996 50  0000 R CNN
+AR Path="/5F1DB2E8/5DFDF8A0" Ref="C1107"  Part="1" 
+F 0 "C1107" H 12509 10996 50  0000 R CNN
 F 1 "100nF" H 12509 10905 50  0000 R CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 12600 10950 50  0001 C CNN
 F 3 "~" H 12600 10950 50  0001 C CNN
@@ -1761,6 +1250,281 @@ Text Label 9850 9650 0    50   ~ 0
 DB15
 NoConn ~ 12600 9250
 NoConn ~ 12600 9650
+Text Label 4100 9750 0    50   ~ 0
+CLK3
+Text Label 4100 9850 0    50   ~ 0
+CLK4
+Text Label 6050 9750 0    50   ~ 0
+CLK1
+Text Label 6050 9850 0    50   ~ 0
+CLK2
+Text Label 7950 9750 0    50   ~ 0
+WSTB
+Text Label 7950 9850 0    50   ~ 0
+T34
+Wire Wire Line
+	11800 4350 11450 4350
+Wire Wire Line
+	11800 4450 11450 4450
+Wire Wire Line
+	11800 4550 11450 4550
+Wire Wire Line
+	11800 4650 11450 4650
+Wire Wire Line
+	11800 4750 11450 4750
+Wire Wire Line
+	11800 4850 11450 4850
+Wire Wire Line
+	11800 4950 11450 4950
+Wire Wire Line
+	11800 5050 11450 5050
+Text Label 11450 5050 0    50   ~ 0
+RADDR0
+Text Label 11450 4950 0    50   ~ 0
+RADDR1
+Text Label 11450 4850 0    50   ~ 0
+RADDR2
+Text Label 11450 4750 0    50   ~ 0
+RADDR3
+Text Label 11450 4650 0    50   ~ 0
+RADDR4
+Text Label 11450 4550 0    50   ~ 0
+WADDR0
+Text Label 11450 4450 0    50   ~ 0
+WADDR1
+Text Label 11450 4350 0    50   ~ 0
+WADDR2
+$Comp
+L Device:C_Small C?
+U 1 1 5D92539B
+P 14650 10850
+AR Path="/5D78E680/5D92539B" Ref="C?"  Part="1" 
+AR Path="/5D363063/5D92539B" Ref="C?"  Part="1" 
+AR Path="/5D42FF4D/5D92539B" Ref="C?"  Part="1" 
+AR Path="/5F1DB2E8/5D92539B" Ref="C1108"  Part="1" 
+F 0 "C1108" H 14559 10896 50  0000 R CNN
+F 1 "100nF" H 14559 10805 50  0000 R CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 14650 10850 50  0001 C CNN
+F 3 "~" H 14650 10850 50  0001 C CNN
+	1    14650 10850
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5D9253A2
+P 14650 11100
+AR Path="/5D78E680/5D9253A2" Ref="#PWR?"  Part="1" 
+AR Path="/5D363063/5D9253A2" Ref="#PWR?"  Part="1" 
+AR Path="/5D42FF4D/5D9253A2" Ref="#PWR?"  Part="1" 
+AR Path="/5F1DB2E8/5D9253A2" Ref="#PWR0136"  Part="1" 
+F 0 "#PWR0136" H 14650 10850 50  0001 C CNN
+F 1 "GND" H 14655 10927 50  0000 C CNN
+F 2 "" H 14650 11100 50  0001 C CNN
+F 3 "" H 14650 11100 50  0001 C CNN
+	1    14650 11100
+	-1   0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 5D9253A9
+P 14650 10650
+AR Path="/5D78E680/5D9253A9" Ref="#PWR?"  Part="1" 
+AR Path="/5D363063/5D9253A9" Ref="#PWR?"  Part="1" 
+AR Path="/5D42FF4D/5D9253A9" Ref="#PWR?"  Part="1" 
+AR Path="/5F1DB2E8/5D9253A9" Ref="#PWR0164"  Part="1" 
+F 0 "#PWR0164" H 14650 10500 50  0001 C CNN
+F 1 "+5V" H 14592 10687 50  0000 R CNN
+F 2 "" H 14650 10650 50  0001 C CNN
+F 3 "" H 14650 10650 50  0001 C CNN
+	1    14650 10650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	14800 8650 14400 8650
+Wire Wire Line
+	14800 8750 14400 8750
+Wire Wire Line
+	14800 8850 14400 8850
+Wire Wire Line
+	14800 8950 14400 8950
+Wire Wire Line
+	14800 9750 14400 9750
+Wire Wire Line
+	14800 9850 14400 9850
+Wire Wire Line
+	14800 9950 14400 9950
+Wire Wire Line
+	14400 10150 14800 10150
+Text Label 14400 8650 0    50   ~ 0
+RADDR0
+Text Label 14400 8750 0    50   ~ 0
+RADDR1
+Text Label 14400 8850 0    50   ~ 0
+RADDR2
+Text Label 14400 8950 0    50   ~ 0
+RADDR3
+Text Label 14400 9050 0    50   ~ 0
+RADDR4
+Wire Wire Line
+	14800 9050 14400 9050
+Wire Wire Line
+	14800 10050 14400 10050
+Text Label 14400 10150 0    50   ~ 0
+WADDR0
+Text Label 14400 10050 0    50   ~ 0
+WADDR1
+Text Label 14400 9950 0    50   ~ 0
+WADDR2
+Text Label 14400 9850 0    50   ~ 0
+WADDR3
+Text Label 14400 9750 0    50   ~ 0
+WADDR4
+$Comp
+L alexios:SN74ACT1073 U1101
+U 1 1 5D82DE62
+P 1100 9400
+F 0 "U1101" H 1430 9196 50  0000 L CNN
+F 1 "SN74ACT1073" H 1430 9105 50  0000 L CNN
+F 2 "alexios:SOIC-20W" H 800 9750 50  0001 C CNN
+F 3 "https://www.ti.com/lit/ds/symlink/sn74act1073.pdf" H 800 9750 50  0001 C CNN
+	1    1100 9400
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:SN74ACT1073 U1108
+U 1 1 5DAAD656
+P 15300 9150
+F 0 "U1108" H 15630 8946 50  0000 L CNN
+F 1 "SN74ACT1073" H 15630 8855 50  0000 L CNN
+F 2 "alexios:SOIC-20W" H 15000 9500 50  0001 C CNN
+F 3 "https://www.ti.com/lit/ds/symlink/sn74act1073.pdf" H 15000 9500 50  0001 C CNN
+	1    15300 9150
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:SN74ACT1073 U1108
+U 2 1 5DAD5BD2
+P 15000 11150
+F 0 "U1108" H 15180 11509 50  0000 L CNN
+F 1 "SN74ACT1073" H 15180 11418 50  0000 L CNN
+F 2 "alexios:SOIC-20W" H 14700 11500 50  0001 C CNN
+F 3 "https://www.ti.com/lit/ds/symlink/sn74act1073.pdf" H 14700 11500 50  0001 C CNN
+	2    15000 11150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	14650 11050 14650 11100
+Wire Wire Line
+	14650 11050 14650 10950
+Connection ~ 14650 11050
+Connection ~ 14650 10950
+Wire Wire Line
+	14650 10650 14650 10750
+Connection ~ 14650 10650
+Connection ~ 14650 10750
+$Comp
+L Device:C_Small C?
+U 1 1 5DBBDE43
+P 16800 10850
+AR Path="/5D78E680/5DBBDE43" Ref="C?"  Part="1" 
+AR Path="/5D363063/5DBBDE43" Ref="C?"  Part="1" 
+AR Path="/5D42FF4D/5DBBDE43" Ref="C?"  Part="1" 
+AR Path="/5F1DB2E8/5DBBDE43" Ref="CC1109"  Part="1" 
+F 0 "CC1109" H 16709 10896 50  0000 R CNN
+F 1 "100nF" H 16709 10805 50  0000 R CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 16800 10850 50  0001 C CNN
+F 3 "~" H 16800 10850 50  0001 C CNN
+	1    16800 10850
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5DBBDE4A
+P 16800 11100
+AR Path="/5D78E680/5DBBDE4A" Ref="#PWR?"  Part="1" 
+AR Path="/5D363063/5DBBDE4A" Ref="#PWR?"  Part="1" 
+AR Path="/5D42FF4D/5DBBDE4A" Ref="#PWR?"  Part="1" 
+AR Path="/5F1DB2E8/5DBBDE4A" Ref="#PWR0165"  Part="1" 
+F 0 "#PWR0165" H 16800 10850 50  0001 C CNN
+F 1 "GND" H 16805 10927 50  0000 C CNN
+F 2 "" H 16800 11100 50  0001 C CNN
+F 3 "" H 16800 11100 50  0001 C CNN
+	1    16800 11100
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	16800 10650 16800 10750
+$Comp
+L power:+5V #PWR?
+U 1 1 5DBBDE51
+P 16800 10650
+AR Path="/5D78E680/5DBBDE51" Ref="#PWR?"  Part="1" 
+AR Path="/5D363063/5DBBDE51" Ref="#PWR?"  Part="1" 
+AR Path="/5D42FF4D/5DBBDE51" Ref="#PWR?"  Part="1" 
+AR Path="/5F1DB2E8/5DBBDE51" Ref="#PWR0166"  Part="1" 
+F 0 "#PWR0166" H 16800 10500 50  0001 C CNN
+F 1 "+5V" H 16742 10687 50  0000 R CNN
+F 2 "" H 16800 10650 50  0001 C CNN
+F 3 "" H 16800 10650 50  0001 C CNN
+	1    16800 10650
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:SN74ACT1071 U1109
+U 1 1 5DBBDE57
+P 17300 9250
+F 0 "U1109" H 17630 9346 50  0000 L CNN
+F 1 "SN74ACT1071" H 17630 9255 50  0000 L CNN
+F 2 "alexios:SOIC-14" H 17000 9600 50  0001 C CNN
+F 3 "https://www.ti.com/lit/ds/symlink/sn74act1071.pdf" H 17000 9600 50  0001 C CNN
+	1    17300 9250
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	16800 8750 16400 8750
+Wire Wire Line
+	16800 8850 16400 8850
+Wire Wire Line
+	16800 8950 16400 8950
+Wire Wire Line
+	16800 9050 16400 9050
+Wire Wire Line
+	16800 9250 16400 9250
+Wire Wire Line
+	16800 9350 16400 9350
+Wire Wire Line
+	16800 9450 16400 9450
+Wire Wire Line
+	16400 9650 16800 9650
+$Comp
+L alexios:SN74ACT1071 U1109
+U 2 1 5DBBDE66
+P 17150 11150
+F 0 "U1109" H 17330 11509 50  0000 L CNN
+F 1 "SN74ACT1071" H 17330 11418 50  0000 L CNN
+F 2 "alexios:SOIC-14" H 16850 11500 50  0001 C CNN
+F 3 "https://www.ti.com/lit/ds/symlink/sn74act1071.pdf" H 16850 11500 50  0001 C CNN
+	2    17150 11150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	16800 10950 16800 11050
+Connection ~ 16800 10650
+Connection ~ 16800 10750
+Connection ~ 16800 10950
+Connection ~ 16800 11050
+Wire Wire Line
+	16800 11050 16800 11100
+NoConn ~ 16800 9150
+NoConn ~ 16800 9550
+Text Label 16400 8750 0    50   ~ 0
+ACTION0
+Text Label 16400 8850 0    50   ~ 0
+ACTION1
+Text Label 16400 8950 0    50   ~ 0
+ACTION2
+Text Label 16400 9050 0    50   ~ 0
+ACTION3
 Wire Bus Line
 	7050 3650 7050 5450
 Wire Bus Line
@@ -1773,4 +1537,6 @@ Wire Bus Line
 	4750 1550 4750 5250
 Wire Bus Line
 	2100 2550 2100 4950
+Text Label 9850 9850 0    50   ~ 0
+~IODEV1xx
 $EndSCHEMATC
