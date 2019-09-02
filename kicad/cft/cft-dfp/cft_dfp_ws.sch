@@ -66,7 +66,7 @@ F 3 "" H 3600 3250 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Text Label 2500 3150 0    50   ~ 0
-~IODEV3xx
+~IODEV1xx
 NoConn ~ 4600 2550
 NoConn ~ 4600 2650
 NoConn ~ 4600 2750
@@ -513,7 +513,7 @@ Text HLabel 2450 4400 0    50   Input ~ 0
 Text HLabel 2150 3600 0    50   Input ~ 0
 CLRWS
 Text HLabel 2450 3150 0    50   Input ~ 0
-~IODEV3xx
+~IODEV1xx
 Entry Wire Line
 	3100 2650 3000 2750
 Entry Wire Line
