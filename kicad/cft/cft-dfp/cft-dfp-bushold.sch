@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:cft-dfp-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -1089,15 +1089,15 @@ Wire Wire Line
 Wire Wire Line
 	12600 8950 12200 8950
 Wire Wire Line
-	12600 9050 12200 9050
+	12600 9550 12200 9550
 Wire Wire Line
 	12600 9150 12200 9150
 Wire Wire Line
-	12600 9350 12200 9350
+	12600 9250 12200 9250
 Wire Wire Line
-	12600 9450 12200 9450
+	12600 9050 12200 9050
 Wire Wire Line
-	12600 9550 12200 9550
+	12600 9650 12200 9650
 Wire Wire Line
 	12200 9750 12600 9750
 $Comp
@@ -1120,20 +1120,20 @@ Connection ~ 12600 11150
 Wire Wire Line
 	12600 11150 12600 11200
 Text Label 12200 9750 0    50   ~ 0
-FPD0
-Text Label 12200 8850 0    50   ~ 0
 FPD1
+Text Label 12200 8850 0    50   ~ 0
+FPD0
 Text Label 12200 8950 0    50   ~ 0
 FPD2
-Text Label 12200 9550 0    50   ~ 0
+Text Label 12200 9650 0    50   ~ 0
 FPD3
-Text Label 12200 9050 0    50   ~ 0
+Text Label 12200 9550 0    50   ~ 0
 FPD4
-Text Label 12200 9450 0    50   ~ 0
+Text Label 12200 9050 0    50   ~ 0
 FPD5
 Text Label 12200 9150 0    50   ~ 0
 FPD6
-Text Label 12200 9350 0    50   ~ 0
+Text Label 12200 9250 0    50   ~ 0
 FPD7
 $Comp
 L Device:C_Small C?
@@ -1248,8 +1248,8 @@ Text Label 9850 9550 0    50   ~ 0
 DB14
 Text Label 9850 9650 0    50   ~ 0
 DB15
-NoConn ~ 12600 9250
-NoConn ~ 12600 9650
+NoConn ~ 12600 9350
+NoConn ~ 12600 9450
 Text Label 4100 9750 0    50   ~ 0
 CLK3
 Text Label 4100 9850 0    50   ~ 0
@@ -1525,6 +1525,8 @@ Text Label 16400 8950 0    50   ~ 0
 ACTION2
 Text Label 16400 9050 0    50   ~ 0
 ACTION3
+Text Label 9850 9850 0    50   ~ 0
+~IODEV1xx
 Wire Bus Line
 	7050 3650 7050 5450
 Wire Bus Line
@@ -1537,6 +1539,4 @@ Wire Bus Line
 	4750 1550 4750 5250
 Wire Bus Line
 	2100 2550 2100 4950
-Text Label 9850 9850 0    50   ~ 0
-~IODEV1xx
 $EndSCHEMATC
