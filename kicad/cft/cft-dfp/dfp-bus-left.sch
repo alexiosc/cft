@@ -1220,6 +1220,7 @@ Wire Wire Line
 Connection ~ 9800 4800
 Wire Wire Line
 	9800 4800 9900 4800
+NoConn ~ 2600 -2950
 Wire Bus Line
 	7000 3950 7000 5750
 Wire Bus Line
