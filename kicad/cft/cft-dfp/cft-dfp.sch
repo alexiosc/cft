@@ -2816,7 +2816,6 @@ NoConn ~ 7700 2950
 NoConn ~ 7700 3050
 NoConn ~ 7700 3150
 NoConn ~ 7700 3250
-NoConn ~ 7050 3050
 Wire Wire Line
 	8050 5400 8700 5400
 Text Label 8700 5400 2    50   ~ 0
