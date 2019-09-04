@@ -447,10 +447,8 @@ Text Label 16750 7450 0    50   ~ 0
 ~IODEV1xx
 Text Label 16750 7350 0    50   ~ 0
 ~IODEV2xx
-Text Label 16750 7250 0    50   ~ 0
+Text Label 9850 9750 0    50   ~ 0
 ~MEM
-Text Label 16750 7150 0    50   ~ 0
-~IO
 Text Label 2200 9750 0    50   ~ 0
 ~R
 Text Label 2200 9850 0    50   ~ 0
@@ -1527,6 +1525,8 @@ Text Label 16400 9050 0    50   ~ 0
 ACTION3
 Text Label 9850 9850 0    50   ~ 0
 ~IODEV1xx
+Wire Wire Line
+	14800 9150 14400 9150
 Wire Bus Line
 	7050 3650 7050 5450
 Wire Bus Line
@@ -1539,4 +1539,6 @@ Wire Bus Line
 	4750 1550 4750 5250
 Wire Bus Line
 	2100 2550 2100 4950
+Text Label 14400 9150 0    50   ~ 0
+~IO
 $EndSCHEMATC
