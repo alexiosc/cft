@@ -50,6 +50,7 @@ F 0 "U1205" H 5350 4667 50  0000 C CNN
 F 1 "74HC138" H 5350 4576 50  0000 C CNN
 F 2 "alexios:SOIC-16" H 5350 4000 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 5350 4000 50  0001 C CNN
+F 4 "Yes" H 5350 4000 50  0001 C CNN "Verified"
 	1    5350 4000
 	1    0    0    -1  
 $EndComp

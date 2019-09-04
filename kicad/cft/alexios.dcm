@@ -1191,6 +1191,10 @@ K TTL JK
 F http://www.ti.com/lit/gpn/sn74LS112
 $ENDCMP
 #
+$CMP ATmega64L-8AU
+F http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2490-8-bit-avr-microcontroller-atmega64-l_datasheet.pdf
+$ENDCMP
+#
 $CMP AVR-ISP-6
 D Atmel 6-pin ISP connector
 K AVR ISP Connector

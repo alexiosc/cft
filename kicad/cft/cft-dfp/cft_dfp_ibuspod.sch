@@ -4,7 +4,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 8 13
+Sheet 7 13
 Title ""
 Date ""
 Rev ""
@@ -96,6 +96,7 @@ F 0 "U802" H 2979 7246 50  0000 L CNN
 F 1 "74HC574" H 2979 7155 50  0000 L CNN
 F 2 "alexios:SOIC-20W" H 2500 7150 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS574" H 2500 7150 50  0001 C CNN
+F 4 "Yes" H 0   0   50  0001 C CNN "Verified"
 	2    2800 7200
 	1    0    0    -1  
 $EndComp
@@ -155,6 +156,7 @@ F 0 "U803" H 4429 7246 50  0000 L CNN
 F 1 "74HC574" H 4429 7155 50  0000 L CNN
 F 2 "alexios:SOIC-20W" H 3950 7150 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS574" H 3950 7150 50  0001 C CNN
+F 4 "Yes" H 0   0   50  0001 C CNN "Verified"
 	2    4250 7200
 	1    0    0    -1  
 $EndComp
@@ -214,6 +216,7 @@ F 0 "U804" H 5879 7246 50  0000 L CNN
 F 1 "74HC574" H 5879 7155 50  0000 L CNN
 F 2 "alexios:SOIC-20W" H 5400 7150 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS574" H 5400 7150 50  0001 C CNN
+F 4 "Yes" H 0   0   50  0001 C CNN "Verified"
 	2    5700 7200
 	1    0    0    -1  
 $EndComp
@@ -565,6 +568,7 @@ F 0 "U804" H 6800 5117 50  0000 C CNN
 F 1 "74HC574" H 6800 5026 50  0000 C CNN
 F 2 "alexios:SOIC-20W" H 6500 4300 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS574" H 6500 4300 50  0001 C CNN
+F 4 "Yes" H 0   0   50  0001 C CNN "Verified"
 	1    6800 4350
 	1    0    0    -1  
 $EndComp
@@ -580,6 +584,7 @@ F 0 "U803" H 6800 3667 50  0000 C CNN
 F 1 "74HC574" H 6800 3576 50  0000 C CNN
 F 2 "alexios:SOIC-20W" H 6500 2850 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS574" H 6500 2850 50  0001 C CNN
+F 4 "Yes" H 0   0   50  0001 C CNN "Verified"
 	1    6800 2900
 	1    0    0    -1  
 $EndComp
@@ -595,6 +600,7 @@ F 0 "U802" H 4550 5117 50  0000 C CNN
 F 1 "74HC574" H 4550 5026 50  0000 C CNN
 F 2 "alexios:SOIC-20W" H 4250 4300 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS574" H 4250 4300 50  0001 C CNN
+F 4 "Yes" H 0   0   50  0001 C CNN "Verified"
 	1    4550 4350
 	1    0    0    -1  
 $EndComp
@@ -610,6 +616,7 @@ F 0 "U801" H 4550 3667 50  0000 C CNN
 F 1 "74HC574" H 4550 3576 50  0000 C CNN
 F 2 "alexios:SOIC-20W" H 4250 2850 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS574" H 4250 2850 50  0001 C CNN
+F 4 "Yes" H 0   0   50  0001 C CNN "Verified"
 	1    4550 2900
 	1    0    0    -1  
 $EndComp
@@ -754,6 +761,7 @@ F 0 "U801" H 1529 7246 50  0000 L CNN
 F 1 "74HC574" H 1529 7155 50  0000 L CNN
 F 2 "alexios:SOIC-20W" H 1050 7150 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS574" H 1050 7150 50  0001 C CNN
+F 4 "Yes" H 0   0   50  0001 C CNN "Verified"
 	2    1350 7200
 	1    0    0    -1  
 $EndComp

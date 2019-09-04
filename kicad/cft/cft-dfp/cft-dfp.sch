@@ -199,6 +199,7 @@ F 0 "U107" H 5300 2517 50  0000 C CNN
 F 1 "74AC573" H 5300 2426 50  0000 C CNN
 F 2 "alexios:SOIC-20W" H 5300 1750 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT573.pdf" H 5300 1750 50  0001 C CNN
+F 4 "Yes" H 0   0   50  0001 C CNN "Verified"
 	1    5300 1750
 	1    0    0    -1  
 $EndComp
@@ -210,6 +211,8 @@ F 0 "U101" H 2700 5000 50  0000 C CNN
 F 1 "ATmega64-16AU" H 2750 4900 50  0000 C CNN
 F 2 "alexios:TQFP-64" H 325 4625 50  0001 C CIN
 F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2490-8-bit-avr-microcontroller-atmega64-l_datasheet.pdf" H 2050 2950 50  0001 C CNN
+F 4 "556-ATMEGA64L-8AU" H 2300 2950 50  0001 C CNN "BOM-Mouser"
+F 5 "Yes" H 2300 2950 50  0001 C CNN "Verified"
 	1    2300 2950
 	1    0    0    -1  
 $EndComp
@@ -530,6 +533,7 @@ F 0 "U111" H 7200 2317 50  0000 C CNN
 F 1 "74HC138" H 7200 2226 50  0000 C CNN
 F 2 "alexios:SOIC-16" H 7200 1650 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 7200 1650 50  0001 C CNN
+F 4 "Yes" H 0   0   50  0001 C CNN "Verified"
 	1    7200 1650
 	1    0    0    -1  
 $EndComp
@@ -581,6 +585,7 @@ F 0 "U113" H 7200 4917 50  0000 C CNN
 F 1 "74HC138" H 7200 4826 50  0000 C CNN
 F 2 "alexios:SOIC-16" H 7200 4250 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 7200 4250 50  0001 C CNN
+F 4 "Yes" H 0   0   50  0001 C CNN "Verified"
 	1    7200 4250
 	1    0    0    -1  
 $EndComp
@@ -644,6 +649,7 @@ F 0 "U112" H 7200 3617 50  0000 C CNN
 F 1 "74HC138" H 7200 3526 50  0000 C CNN
 F 2 "alexios:SOIC-16" H 7200 2950 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 7200 2950 50  0001 C CNN
+F 4 "Yes" H 0   0   50  0001 C CNN "Verified"
 	1    7200 2950
 	1    0    0    -1  
 $EndComp
@@ -1356,7 +1362,7 @@ L Device:C_Small C101
 U 1 1 5EBDFC17
 P 950 5700
 F 0 "C101" H 850 5950 50  0000 R CNN
-F 1 "1uF" H 850 5700 50  0000 R CNN
+F 1 "1µF" H 850 5700 50  0000 R CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 950 5700 50  0001 C CNN
 F 3 "~" H 950 5700 50  0001 C CNN
 	1    950  5700
@@ -1893,7 +1899,7 @@ L Device:C_Small C102
 U 1 1 5E7927C4
 P 950 6600
 F 0 "C102" H 850 6850 50  0000 R CNN
-F 1 "1uF" H 850 6600 50  0000 R CNN
+F 1 "1µF" H 850 6600 50  0000 R CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 950 6600 50  0001 C CNN
 F 3 "~" H 950 6600 50  0001 C CNN
 	1    950  6600
@@ -2921,6 +2927,7 @@ F 0 "U111" H 3750 6000 50  0000 L CNN
 F 1 "74HC138" H 3750 5500 50  0000 L CNN
 F 2 "alexios:SOIC-16" H 3900 5750 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 3900 5750 50  0001 C CNN
+F 4 "Yes" H 0   0   50  0001 C CNN "Verified"
 	2    3900 5750
 	1    0    0    -1  
 $EndComp
@@ -3000,6 +3007,7 @@ F 0 "U107" H 2850 6800 50  0000 L CNN
 F 1 "74AC573" H 2850 6300 50  0000 L CNN
 F 2 "alexios:SOIC-20W" H 3150 6150 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT573.pdf" H 3150 6150 50  0001 C CNN
+F 4 "Yes" H 0   0   50  0001 C CNN "Verified"
 	2    3150 6150
 	1    0    0    -1  
 $EndComp
@@ -3013,6 +3021,7 @@ F 0 "U112" H 4650 6000 50  0000 L CNN
 F 1 "74HC138" H 4650 5500 50  0000 L CNN
 F 2 "alexios:SOIC-16" H 4800 5750 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 4800 5750 50  0001 C CNN
+F 4 "Yes" H 0   0   50  0001 C CNN "Verified"
 	2    4800 5750
 	1    0    0    -1  
 $EndComp
@@ -3059,6 +3068,7 @@ F 0 "U113" H 5550 6000 50  0000 L CNN
 F 1 "74HC138" H 5550 5500 50  0000 L CNN
 F 2 "alexios:SOIC-16" H 5700 5750 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 5700 5750 50  0001 C CNN
+F 4 "Yes" H 0   0   50  0001 C CNN "Verified"
 	2    5700 5750
 	1    0    0    -1  
 $EndComp
@@ -3252,6 +3262,8 @@ F 0 "X101" H 1650 6017 50  0000 C CNN
 F 1 "CXO" H 1650 5926 50  0000 C CNN
 F 2 "alexios:Crystal_SMD_7050-4Pin_7.0x5.0mm" H 1700 5250 50  0001 C CNN
 F 3 "https://gr.mouser.com/datasheet/2/741/LFSPXO022296Bulk-985375.pdf" H 1650 5600 50  0001 C CNN
+F 4 "449-LFSPXO022296BULK" H 1550 5650 50  0001 C CNN "BOM-Mouser"
+F 5 "Yes" H 1550 5650 50  0001 C CNN "Verified"
 	1    1550 5650
 	1    0    0    -1  
 $EndComp
@@ -4019,24 +4031,6 @@ Entry Wire Line
 	8750 7150 8850 7050
 Wire Wire Line
 	8750 7150 8350 7150
-Wire Bus Line
-	8850 5200 8850 7250
-Wire Bus Line
-	1050 2450 1050 2750
-Wire Bus Line
-	1050 2850 1050 3150
-Wire Bus Line
-	14750 2850 14750 3150
-Wire Bus Line
-	14750 3250 14750 3550
-Wire Bus Line
-	4250 1000 4250 1850
-Wire Bus Line
-	3550 1000 3550 1850
-Wire Bus Line
-	8950 1000 8950 8950
-Wire Bus Line
-	6250 1350 6250 5000
 Text Label 8700 7150 2    50   ~ 0
 ~FPOE31
 $Comp
@@ -4064,4 +4058,22 @@ $EndComp
 Connection ~ 8250 5400
 Wire Wire Line
 	8250 5400 8700 5400
+Wire Bus Line
+	8850 5200 8850 7250
+Wire Bus Line
+	1050 2450 1050 2750
+Wire Bus Line
+	1050 2850 1050 3150
+Wire Bus Line
+	14750 2850 14750 3150
+Wire Bus Line
+	14750 3250 14750 3550
+Wire Bus Line
+	4250 1000 4250 1850
+Wire Bus Line
+	3550 1000 3550 1850
+Wire Bus Line
+	8950 1000 8950 8950
+Wire Bus Line
+	6250 1350 6250 5000
 $EndSCHEMATC
