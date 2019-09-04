@@ -439,13 +439,14 @@ start RST=0, INT=X, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 // latency. The Return process will probably be identical.
 
 start RST=1, INT=0, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
-      STACK_PUSH(mbp_flags);	                // 00 mem[SP++] ← flags:MBP
-      /action_cli, STACK_PUSH(pc);		// 02 mem[SP++] ← PC; CLI
+      /action_cli, STACK_PUSH(mbp_flags);       // 00 mem[SP++] ← flags:MBP; CLI
+      STACK_PUSH(pc);			        // 02 mem[SP++] ← PC
       STACK_PUSH(ac);		                // 04 mem[SP++] ← AC
-      SET(pc, cs_isrvec0);			// 06 PC ← ISR vector low
-      SET(mbp, cs_isrvec1), END;		// 08 MBP ← ISR vector high
+      SET(pc, cs_isrvec0);			// 06 PC ← 0002
+      SET(mbp, cs_isrvec1), END;		// 08 MBP ← 0003
 
-TODO: THIS jumps to address at [MBP:0000], no matter what the MBP. Maybe load it from MBZ?
+// TODO: This jumps to [03:0002] which is a little inelegant. Rework
+// the constant source and jump to [00:0008] or something.
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1962,7 +1963,7 @@ start JSA;
 start IND, R=0;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       SET(dr, ac);				// 02 DR ← AC
-      MEMREAD(mbn, ac, dr), END;		// 03 AC ← mem[MBn:DR]
+      MEMREAD(mbp, ac, dr), END;		// 03 AC ← mem[MBP:DR]
 
 // ② IND, register address addressing mode.
 
