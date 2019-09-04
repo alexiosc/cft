@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# coding: utf-8
 # -*- python -*-
 """
 The CFT Assembler, version 2.4
@@ -162,7 +163,7 @@ _BUILTINS = """;;; CFT Assembler Built-ins, Microcode Version 7.x.
 .equ SSL   SKP       #--0--1-           ; Skip if L=1
 .equ SSV   SKP       #--0---1           ; Skip if V=1
 .equ SKIP  SKP       #--10000           ; Skip always
-.equ SNN   SKP       #--11---           ; Skip if A≥0
+.equ SPA   SKP       #--11---           ; Skip if A≥0
 .equ SNZ   SKP       #--1-1--           ; Skip if A≠0
 .equ SNN   SKP       #--111--           ; Skip if A>0
 .equ SCL   SKP       #--1--1-           ; Skip if L=0
