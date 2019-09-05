@@ -220,9 +220,9 @@ Entry Wire Line
 Entry Bus Bus
 	2150 700  2250 800 
 Text HLabel 1150 700  0    50   Input ~ 0
-FPA[0..4]
+FPA[0..7]
 Text Label 1250 700  0    50   ~ 0
-FPA[0..4]
+FPA[0..7]
 Text HLabel 7200 6250 2    50   Output ~ 0
 ~FPOE[0..31]
 Entry Wire Line
@@ -241,17 +241,6 @@ Entry Wire Line
 	6250 4950 6350 5050
 Entry Wire Line
 	6250 4850 6350 4950
-$Comp
-L power:GND #PWR01217
-U 1 1 62DDF4E6
-P 4850 1900
-F 0 "#PWR01217" H 4850 1650 50  0001 C CNN
-F 1 "GND" H 4855 1727 50  0000 C CNN
-F 2 "" H 4850 1900 50  0001 C CNN
-F 3 "" H 4850 1900 50  0001 C CNN
-	1    4850 1900
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	4350 3050 4850 3050
 $Comp
@@ -691,19 +680,6 @@ FPA3
 Text Label 2450 2600 0    50   ~ 0
 FPA4
 $Comp
-L power:GND #PWR?
-U 1 1 5F0F027C
-P 2600 3250
-AR Path="/5F0F027C" Ref="#PWR?"  Part="1" 
-AR Path="/6233F88C/5F0F027C" Ref="#PWR01212"  Part="1" 
-F 0 "#PWR01212" H 2600 3000 50  0001 C CNN
-F 1 "GND" H 2605 3077 50  0000 C CNN
-F 2 "" H 2600 3250 50  0001 C CNN
-F 3 "" H 2600 3250 50  0001 C CNN
-	1    2600 3250
-	1    0    0    -1  
-$EndComp
-$Comp
 L power:+5V #PWR?
 U 1 1 5F0F1103
 P 2600 3000
@@ -716,10 +692,6 @@ F 3 "" H 2600 3000 50  0001 C CNN
 	1    2600 3000
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	2650 3200 2600 3200
-Wire Wire Line
-	2600 3200 2600 3250
 Wire Wire Line
 	2650 3000 2600 3000
 Wire Wire Line
@@ -771,8 +743,6 @@ Text Label 7100 6350 2    50   ~ 0
 ~ROW[1..5]
 Text HLabel 7200 6350 2    50   Output ~ 0
 ~ROW[1..5]
-Text HLabel 1150 1800 0    50   Input ~ 0
-~PANELEN
 Text Label 4600 5050 0    50   ~ 0
 FPA4
 Text Label 4600 4950 0    50   ~ 0
@@ -823,8 +793,6 @@ Text Label 6200 4300 2    50   ~ 0
 ~FPOE30
 Text Label 6200 5550 2    50   ~ 0
 ~FPOE31
-Text Notes 12500 4400 0    50   ~ 0
-These OE lines aren't available to\nthe autonomic scan, but the DFP\nmicrocontroller can use them.
 $Comp
 L alexios:74HC138 U?
 U 1 1 624FF40C
@@ -838,8 +806,6 @@ F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 5350 5250 50  0001 C CNN
 	1    5350 5250
 	1    0    0    -1  
 $EndComp
-Text Notes 12500 5150 0    50   ~ 0
-TBD: Keep these for future expansion or remove them?
 $Comp
 L alexios:74HC138 U?
 U 1 1 5E660FE9
@@ -853,10 +819,6 @@ F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 3150 1500 50  0001 C CNN
 	1    3150 1500
 	1    0    0    -1  
 $EndComp
-Text Label 1250 1800 0    50   ~ 0
-~PANELEN
-Text Label 2650 1800 2    50   ~ 0
-~PANELEN
 $Comp
 L power:+5V #PWR01209
 U 1 1 5E670DB6
@@ -912,13 +874,6 @@ Entry Wire Line
 	6350 5850 6450 5950
 Text HLabel 7200 5950 2    50   Input ~ 0
 ~SCANCLR
-Wire Wire Line
-	1150 1800 2650 1800
-Wire Wire Line
-	2650 3100 2600 3100
-Wire Wire Line
-	2600 3100 2600 3200
-Connection ~ 2600 3200
 Text Notes 10250 5050 0    50   ~ 0
 xxxxxx11\n
 Text Notes 9700 5050 0    50   ~ 0
@@ -2458,14 +2413,45 @@ F 3 "" H 4850 3150 50  0001 C CNN
 	1    4850 3150
 	1    0    0    -1  
 $EndComp
+$Comp
+L power:GND #PWR01217
+U 1 1 62DDF4E6
+P 4850 1900
+F 0 "#PWR01217" H 4850 1650 50  0001 C CNN
+F 1 "GND" H 4855 1727 50  0000 C CNN
+F 2 "" H 4850 1900 50  0001 C CNN
+F 3 "" H 4850 1900 50  0001 C CNN
+	1    4850 1900
+	1    0    0    -1  
+$EndComp
+Text Label 2650 1800 2    50   ~ 0
+~PANELEN
+Wire Wire Line
+	1150 1800 2650 1800
+Text Label 1250 1800 0    50   ~ 0
+~PANELEN
+Text HLabel 1150 1800 0    50   Input ~ 0
+~PANELEN
+Entry Wire Line
+	2250 3000 2350 3100
+Entry Wire Line
+	2250 3100 2350 3200
+Wire Wire Line
+	2350 3100 2650 3100
+Wire Wire Line
+	2350 3200 2650 3200
 Wire Bus Line
 	4150 2500 4150 6250
 Wire Bus Line
-	2250 800  2250 2500
-Wire Bus Line
 	4250 1600 4250 5450
+Wire Bus Line
+	2250 800  2250 3100
 Wire Bus Line
 	4450 800  4450 4950
 Wire Bus Line
 	6350 1200 6350 6150
+Text Label 2450 3200 0    50   ~ 0
+FPA7
+Text Label 2450 3100 0    50   ~ 0
+FPA6
 $EndSCHEMATC

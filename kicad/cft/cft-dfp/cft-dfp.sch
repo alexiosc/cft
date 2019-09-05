@@ -203,19 +203,6 @@ F 4 "Yes" H 0   0   50  0001 C CNN "Verified"
 	1    5300 1750
 	1    0    0    -1  
 $EndComp
-$Comp
-L alexios:ATmega64-16AU U101
-U 1 1 5CCED7E0
-P 2300 2950
-F 0 "U101" H 2700 5000 50  0000 C CNN
-F 1 "ATmega64-16AU" H 2750 4900 50  0000 C CNN
-F 2 "alexios:TQFP-64" H 325 4625 50  0001 C CIN
-F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2490-8-bit-avr-microcontroller-atmega64-l_datasheet.pdf" H 2050 2950 50  0001 C CNN
-F 4 "556-ATMEGA64L-8AU" H 2300 2950 50  0001 C CNN "BOM-Mouser"
-F 5 "Yes" H 2300 2950 50  0001 C CNN "Verified"
-	1    2300 2950
-	1    0    0    -1  
-$EndComp
 Wire Bus Line
 	12950 1650 12400 1650
 Wire Bus Line
@@ -904,7 +891,7 @@ F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G04.pdf" H 3350 5100
 	1    0    0    -1  
 $EndComp
 Text Label 6450 5100 0    50   ~ 0
-FPA[0..4]
+FPA[0..7]
 Text Label 8700 5100 2    50   ~ 0
 ~FPOE[0..31]
 Text Label 6450 5250 0    50   ~ 0
@@ -2091,7 +2078,7 @@ S 6900 4950 1150 600
 U 6233F88C
 F0 "FP Scan Logic/Decoder" 50
 F1 "cft-dfp-scan.sch" 50
-F2 "FPA[0..4]" I L 6900 5100 50 
+F2 "FPA[0..7]" I L 6900 5100 50 
 F3 "~FPOE[0..31]" O R 8050 5100 50 
 F4 "~ROW[1..5]" O R 8050 5250 50 
 F5 "~PANELEN" I L 6900 5250 50 
@@ -2552,8 +2539,6 @@ NoConn ~ 9800 3500
 NoConn ~ 9800 3800
 Text Notes 9950 3250 2    100  ~ 20
 TTY
-Text Notes 8500 4650 1    100  ~ 20
-TO DO: COMPLETE ADDRESSING & ENABLES
 Text Notes 9700 5300 0    100  ~ 20
 Input/Output
 Text Notes 3700 6600 0    100  ~ 20
@@ -4076,4 +4061,17 @@ Wire Bus Line
 	8950 1000 8950 8950
 Wire Bus Line
 	6250 1350 6250 5000
+$Comp
+L alexios:ATmega64-16AU U101
+U 1 1 5CCED7E0
+P 2300 2950
+F 0 "U101" H 2700 5000 50  0000 C CNN
+F 1 "ATmega64-16AU" H 2750 4900 50  0000 C CNN
+F 2 "alexios:TQFP-64" H 325 4625 50  0001 C CIN
+F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2490-8-bit-avr-microcontroller-atmega64-l_datasheet.pdf" H 2050 2950 50  0001 C CNN
+F 4 "556-ATMEGA64L-8AU" H 2300 2950 50  0001 C CNN "BOM-Mouser"
+F 5 "Yes" H 2300 2950 50  0001 C CNN "Verified"
+	1    2300 2950
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
