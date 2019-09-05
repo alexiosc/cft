@@ -29,6 +29,7 @@ SRC =		counter.v counter_161_tb.v counter_590_tb.v counter_393h_tb.v counter_401
 		cft.v cft_tb.v cft_tb_testing.v \
 		step_tb.v \
 		test_panel_revC.v \
+		dfp_scan.v dfp_scan_tb.v
 # panel.v panel_tb.v test.v panel_autorepeat_tb.v
 
 #		Disused code:
@@ -318,6 +319,16 @@ test_microcode_sequencer:	microcode_sequencer_tb.o microcode_sequencer.o rom.o
 test_serial_shifter:	serial_shifter_tb.o serial_shifter.o
 		./serial_shifter_tb.o
 		$(GTKWAVE) $(VCDDIR)/serial_shifter_tb.vcd $(SAVDIR)/serial_shifter_tb.sav
+
+###############################################################################
+#
+# 2019 DFP 2 TESTS
+#
+###############################################################################
+
+test_dfp_scan:	dfp_scan_tb.o dfp_scan.o counter.o demux.o
+		./dfp_scan_tb.o
+		$(GTKWAVE) $(VCDDIR)/dfp_scan_tb.vcd $(SAVDIR)/dfp_scan_tb.sav
 
 ###############################################################################
 #

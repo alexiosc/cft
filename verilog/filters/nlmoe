@@ -1,0 +1,17 @@
+# Filters for the ~LMOE signals in the DFP.
+0000 ?red?ERR
+0001 ?red?ERR
+0010 ?red?ERR
+0011 ?red?ERR
+0100 ?red?ERR
+0101 ?red?ERR
+0110 ?red?ERR
+0111 ?magenta4?D
+1000 ?red?ERR
+1001 ?red?ERR
+1010 ?red?ERR
+1011 ?blue4?C
+1100 ?red?ERR
+1101 ?cyan4?B
+1110 ?green4?A
+1111 idle
