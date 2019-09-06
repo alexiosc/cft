@@ -44,6 +44,11 @@ module demux_138 (g1, g2a, g2b, a, y);
    
    // The 138 DOES NOT tri-state output. Instead, when disabled, all
    // its active-low outputs are high.
+
+   // 2019-09-06: the simulated propagation delay caused glitches
+   // during transitions of A while G1, G2A and G2B remained
+   // constant. The hardware '138 doesn't produce these, so this is a
+   // bug in this code. Removing delays for now.
    assign #delay y = (g1 && !g2a && !g2b) ? y0 : 8'b11111111;
    
    always @ (a) begin
