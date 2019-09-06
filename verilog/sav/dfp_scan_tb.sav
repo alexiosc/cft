@@ -1,32 +1,65 @@
 [*]
-[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Thu Sep  5 21:01:46 2019
+[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
+[*] Fri Sep  6 12:54:00 2019
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/dfp_scan_tb.vcd"
-[dumpfile_mtime] "Thu Sep  5 20:49:46 2019"
+[dumpfile_mtime] "Fri Sep  6 12:53:33 2019"
 [dumpfile_size] 310903
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/dfp_scan_tb.sav"
-[timestart] 420000
-[size] 2540 1062
+[timestart] 0
+[size] 1920 1019
 [pos] 3736 40
 *-22.808975 31440000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] dfp_scan_tb.
 [treeopen] dfp_scan_tb.dfp_scan.
-[sst_width] 226
-[signals_width] 431
+[sst_width] 258
+[signals_width] 235
 [sst_expanded] 1
 [sst_vpaned_height] 302
 @28
 dfp_scan_tb.dfp_scan.scanclk
 dfp_scan_tb.dfp_scan.nscanen
-@29
 dfp_scan_tb.dfp_scan.npanelen
-@28
 dfp_scan_tb.dfp_scan.nscanclr
 @200
 -
-@22
+@800023
 dfp_scan_tb.dfp_scan.nfpoe[31:0]
+@29
+(0)dfp_scan_tb.dfp_scan.nfpoe[31:0]
+(1)dfp_scan_tb.dfp_scan.nfpoe[31:0]
+(2)dfp_scan_tb.dfp_scan.nfpoe[31:0]
+(3)dfp_scan_tb.dfp_scan.nfpoe[31:0]
+(4)dfp_scan_tb.dfp_scan.nfpoe[31:0]
+(5)dfp_scan_tb.dfp_scan.nfpoe[31:0]
+(6)dfp_scan_tb.dfp_scan.nfpoe[31:0]
+(7)dfp_scan_tb.dfp_scan.nfpoe[31:0]
+(8)dfp_scan_tb.dfp_scan.nfpoe[31:0]
+(9)dfp_scan_tb.dfp_scan.nfpoe[31:0]
+(10)dfp_scan_tb.dfp_scan.nfpoe[31:0]
+(11)dfp_scan_tb.dfp_scan.nfpoe[31:0]
+(12)dfp_scan_tb.dfp_scan.nfpoe[31:0]
+(13)dfp_scan_tb.dfp_scan.nfpoe[31:0]
+(14)dfp_scan_tb.dfp_scan.nfpoe[31:0]
+(15)dfp_scan_tb.dfp_scan.nfpoe[31:0]
+(16)dfp_scan_tb.dfp_scan.nfpoe[31:0]
+(17)dfp_scan_tb.dfp_scan.nfpoe[31:0]
+(18)dfp_scan_tb.dfp_scan.nfpoe[31:0]
+(19)dfp_scan_tb.dfp_scan.nfpoe[31:0]
+(20)dfp_scan_tb.dfp_scan.nfpoe[31:0]
+(21)dfp_scan_tb.dfp_scan.nfpoe[31:0]
+(22)dfp_scan_tb.dfp_scan.nfpoe[31:0]
+(23)dfp_scan_tb.dfp_scan.nfpoe[31:0]
+(24)dfp_scan_tb.dfp_scan.nfpoe[31:0]
+(25)dfp_scan_tb.dfp_scan.nfpoe[31:0]
+(26)dfp_scan_tb.dfp_scan.nfpoe[31:0]
+(27)dfp_scan_tb.dfp_scan.nfpoe[31:0]
+(28)dfp_scan_tb.dfp_scan.nfpoe[31:0]
+(29)dfp_scan_tb.dfp_scan.nfpoe[31:0]
+(30)dfp_scan_tb.dfp_scan.nfpoe[31:0]
+(31)dfp_scan_tb.dfp_scan.nfpoe[31:0]
+@1001201
+-group_end
 @800022
 dfp_scan_tb.fpa_real[7:0]
 @28
