@@ -84,10 +84,10 @@
 // 81       Write to RADDR microcontrol. Read AB medium.
 // 82       Write to WADDR microcontrol. Read AB high.
 // 83       Write to ACTION microcontrol. Read DB low.
-// 84       Strobe TP104 (on DFP board). Read DB high.
-// 85       Strobe TP105 (on DFP board). Read IBus low.
-// 86       Strobe TP106 (on DFP board). Read IBus high.
-// 87       Strobe TP107 (on DFP board). Read DIP switches on DFP board.
+// 84       Write to strobe TP104 (on DFP board). Read DB high.
+// 85       Write to strobe TP105 (on DFP board). Read IBus low.
+// 86       Write to strobe TP106 (on DFP board). Read IBus high.
+// 87       Write to strobe TP107 (on DFP board). Read DIP switches on DFP board.
 // 88-ff    (15 copies of the above due to partial addressing. Do not use.)
 
 // ______    _______
