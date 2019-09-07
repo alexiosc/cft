@@ -29,7 +29,7 @@ SRC =		counter.v counter_161_tb.v counter_590_tb.v counter_393h_tb.v counter_401
 		cft.v cft_tb.v cft_tb_testing.v \
 		step_tb.v \
 		test_panel_revC.v \
-		dfp_scan.v dfp_scan_tb.v
+		dfp_scan.v dfp_scan_tb.v dfp_run_control.v \
 # panel.v panel_tb.v test.v panel_autorepeat_tb.v
 
 #		Disused code:
