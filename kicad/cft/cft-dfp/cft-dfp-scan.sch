@@ -868,8 +868,6 @@ NoConn ~ 3650 1300
 NoConn ~ 3650 1400
 Wire Wire Line
 	7200 5950 6450 5950
-Text Notes 2000 3950 0    50   ~ 0
-~ROW₁~ to ~ROW₅~ are decoded strobes for the front\npanel modules. The appropriate module is enabled\nfor writing using address FA₀–FA₁ and the desired\n8-bit register on that module is clocked using\nthe ~ROW~ strobes.
 Entry Wire Line
 	6350 5850 6450 5950
 Text HLabel 7200 5950 2    50   Input ~ 0
@@ -2454,4 +2452,8 @@ Wire Bus Line
 	4450 800  4450 4950
 Wire Bus Line
 	6350 1200 6350 6150
+Text Notes 2000 3950 0    50   ~ 0
+~ROW₁~ to ~ROW₅~ are decoded strobes for the front\npanel modules. The appropriate module is enabled\nfor writing using address FA₀–FA₁ and the desired\n8-bit register on that module is clocked using\nthe ~ROW~ strobes.
+Text Notes 750  2550 0    50   ~ 0
+When ~PANELEN~ is de-asserted,\nthe MCU can control the front panel\nlights directly.\n\n~PANELEN~ should ALWAYS be\nde-asserted when writing to MCU\naddresses &00–&03F.
 $EndSCHEMATC
