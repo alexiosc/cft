@@ -608,4 +608,6 @@ Wire Wire Line
 	5150 4800 5350 4800
 Wire Wire Line
 	5250 4700 5350 4700
+Text Notes 6300 4600 0    50   ~ 0
+The Clock Generator pulls FPCLKEN and FPµSTEP up, so when the '253's\noutputs are tri-stated, the processor runs at full speed. This allows\nresetting to run at the full clock speed, rather than whatever slow clock\nwe have set on the DFP.
 $EndSCHEMATC
