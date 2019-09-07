@@ -38,26 +38,26 @@
 //
 // Full list of addresses:
 //
-// 00       Write to FP byte A1. µCV high order.
-// 01       Write to FP byte B1.
-// 02       Write to FP byte C1.
-// 03       Write to FP byte D1.
-// 04       Write to FP byte A2.
-// 05       Write to FP byte B2.
-// 06       Write to FP byte C2.
-// 07       Write to FP byte D2.
-// 08       Write to FP byte A3
-// 09       Write to FP byte B3.
-// 0a       Write to FP byte C3.
-// 0b       Write to FP byte D3.
-// 0c       Write to FP byte A4.
-// 0d       Write to FP byte B4.
-// 0e       Write to FP byte C4.
-// 0f       Write to FP byte D4.
-// 10       Write to FP byte A5.
-// 11       Write to FP byte B5.
-// 12       Write to FP byte C5.
-// 13       Write to FP byte D5.
+// 00       Write to FP byte A1, µCV high order.
+// 01       Write to FP byte B1, µCV medium order.
+// 02       Write to FP byte C1, µCV low order.
+// 03       Write to FP byte D1, IRQs active
+// 04       Write to FP byte A2, AEXT.
+// 05       Write to FP byte B2, PC high order.
+// 06       Write to FP byte C2, PC low order.
+// 07       Write to FP byte D2, IRQs enabled.
+// 08       Write to FP byte A3, flags.
+// 09       Write to FP byte B3, AC high order.
+// 0a       Write to FP byte C3, AC low order.
+// 0b       Write to FP byte D3, (future expansion).
+// 0c       Write to FP byte A4, (TBD).
+// 0d       Write to FP byte B4, MFD high order.
+// 0e       Write to FP byte C4, MFD low order.
+// 0f       Write to FP byte D4, (TBD).
+// 10       Write to FP byte A5, machine state lights.
+// 11       Write to FP byte B5, IR high order.
+// 12       Write to FP byte C5, IR low order.
+// 13       Write to FP byte D5, µCA low order bits. (high order in IR).
 // 14       Reading or writing resets FP counter.
 // 15       Reading or writing strobes nFPOE21 (brought to backplane)
 // 16       Reading or writing strobes nFPOE22 (brought to backplane)
@@ -89,22 +89,31 @@
 // 86       Write to strobe TP106 (on DFP board). Read IBus high.
 // 87       Write to strobe TP107 (on DFP board). Read DIP switches on DFP board.
 // 88-ff    (15 copies of the above due to partial addressing. Do not use.)
-
+// -------------------------------------------------------------------------------
+//
+// Bus considerations:
 // ______    _______
 // SCANEN    PANELEN    Function
 // -------------------------------------------------------------------------------
 //   0          0       Normal operation. MCU should tri-state FPD.
-//   0          1       Front panel updates disabled. MCU can drive FPD now.
-//   1          0       MCU is accessing the bus, front panel updates. (*)
-//   1          1       MCU may access the bus, front panel does not update. (**)
+//   0          1       Do not use. (will turn off all panel lights)
+//   1          0       MCU may only READ from &00–&3F. Front panel snooping. (1)
+//   1          1       MCU has free access to bus. (2)
 //
-// (*)  The MCU can request data from processor modules. Front panel decoders
-//      and strobes will still be generated, so e.g. if the MCU asks for the
-//      µCV High byte to be put on the FPD bus, the front panel byte at
-//      coordinates 1A (top row of the leftmost module) will also update.
+// (1) Regardless of whether the MCU is reading or writing, accessing an
+//     address between &00 and &3F will cause an enable to be sent to a
+//     processor module, which will drive the FPD bus. The front panel lights
+//     corresponding to that 8-bit quantity will latch in the data. So the MCU
+//     can read from the bus in this case, and any value read will update the
+//     relevant portion of the front panel, but it can't write to addresses
+//     &00–&3F.
 //
-// (**) This mode allows the MCU to send custom data to the front panel
-//      modules, e.g. to test the lights.
+// (2) Scanning is disabled, and no enables are sent to the processor. Reading
+//     from OR WRITING TO addresses &00–&3F will set the corresponding front
+//     panel lights. If reading, the last value put on the FPD bus will be used
+//     (due to the bus hold circuitry). When writing, the MCU can freely
+//     control the front panel lights for as long as this mode is active. This
+//     can be used, e.g. to implement a ‘test lights’ function or light diagnostics.
 
 
 `ifndef dfp_scan_v
