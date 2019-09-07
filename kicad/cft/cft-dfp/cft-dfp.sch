@@ -669,33 +669,31 @@ RXD
 $Comp
 L alexios:74LVC1G07 U104
 U 1 1 61396628
-P 5100 9450
-F 0 "U104" H 5200 9550 50  0000 L CNN
-F 1 "74LVC1G07" H 5300 9400 50  0000 L CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 5200 9450 50  0001 C CNN
-F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 5200 9450 50  0001 C CNN
-	1    5100 9450
+P 4900 9450
+F 0 "U104" H 5000 9550 50  0000 L CNN
+F 1 "74LVC1G07" H 4400 9400 50  0000 L CNN
+F 2 "alexios:SOT-23-5_HandSoldering" H 5000 9450 50  0001 C CNN
+F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 5000 9450 50  0001 C CNN
+	1    4900 9450
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	5900 9450 6600 9450
+	5700 9450 6250 9450
 Text Label 6600 9450 2    50   ~ 0
 ~RESET
 Wire Wire Line
-	4900 9450 4800 9450
+	4700 9450 4600 9450
 $Comp
 L alexios:74LVC1G07 U106
 U 1 1 61719DB4
-P 5100 9950
-F 0 "U106" H 5200 10050 50  0000 L CNN
-F 1 "74LVC1G07" H 4850 9800 50  0000 L CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 5200 9950 50  0001 C CNN
-F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 5200 9950 50  0001 C CNN
-	1    5100 9950
+P 4900 9950
+F 0 "U106" H 5000 10050 50  0000 L CNN
+F 1 "74LVC1G07" H 4400 9900 50  0000 L CNN
+F 2 "alexios:SOT-23-5_HandSoldering" H 5000 9950 50  0001 C CNN
+F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 5000 9950 50  0001 C CNN
+	1    4900 9950
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	4900 9950 4350 9950
 $Comp
 L Connector_Generic:Conn_02x03_Odd_Even JP101
 U 1 1 617B139E
@@ -730,9 +728,9 @@ Text Label 6600 9950 2    50   ~ 0
 ~IRQ7
 Text Label 6600 10050 2    50   ~ 0
 ~IRQ6
-Text Label 4350 9250 0    50   ~ 0
+Text Label 4150 9250 0    50   ~ 0
 ~FPRESET
-Text Label 4350 9950 0    50   ~ 0
+Text Label 4150 9950 0    50   ~ 0
 ~FPIRQ
 Text Label 1000 3450 0    50   ~ 0
 ~FPIRQ
@@ -757,11 +755,11 @@ Text Label 1000 3850 0    50   ~ 0
 Text Label 1000 3950 0    50   ~ 0
 ~FPRSTHOLD
 Wire Wire Line
-	4800 9450 4800 9250
+	4600 9450 4600 9250
 Wire Wire Line
-	4800 9250 6600 9250
+	4600 9250 4850 9250
 Wire Wire Line
-	4800 9250 4350 9250
+	4600 9250 4150 9250
 Text Label 6600 9250 2    50   ~ 0
 ~FPRESET
 Wire Wire Line
@@ -990,7 +988,7 @@ Wire Wire Line
 	2750 10550 3250 10550
 Text Label 3250 10550 2    50   ~ 0
 ~DBOE1
-Connection ~ 4800 9250
+Connection ~ 4600 9250
 $Sheet
 S 9650 5500 1150 650 
 U 5D78E680
@@ -1665,34 +1663,34 @@ Text Label 14650 6350 2    50   ~ 0
 FPFETCH∕~EXEC
 Text Notes 14850 6350 0    50   ~ 0
 From Microcode Sequencer
-Text Label 4350 10550 0    50   ~ 0
+Text Label 4150 10550 0    50   ~ 0
 FPFETCH∕~EXEC
 Text Label 6600 10550 2    50   ~ 0
 ~LED-EXEC
 $Comp
 L alexios:74LVC1G04 U109
 U 1 1 5DED9999
-P 5350 10800
-F 0 "U109" H 5300 10625 50  0000 C CNN
-F 1 "74LVC1G04" H 5300 10534 50  0000 C CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 5350 10800 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G04.pdf" H 5350 10800 50  0001 C CNN
-	1    5350 10800
+P 5150 10800
+F 0 "U109" H 5100 10625 50  0000 C CNN
+F 1 "74LVC1G04" H 5100 10534 50  0000 C CNN
+F 2 "alexios:SOT-23-5_HandSoldering" H 5150 10800 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G04.pdf" H 5150 10800 50  0001 C CNN
+	1    5150 10800
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	4950 10550 4950 10800
+	4750 10550 4750 10800
 Wire Wire Line
-	4950 10800 5050 10800
-Connection ~ 4950 10550
+	4750 10800 4850 10800
+Connection ~ 4750 10550
 Wire Wire Line
-	4950 10550 6600 10550
+	4750 10550 6600 10550
 Wire Wire Line
-	5550 10800 6600 10800
+	5350 10800 6600 10800
 Text Label 6600 10800 2    50   ~ 0
 ~LED-FETCH
 Wire Wire Line
-	4350 10550 4950 10550
+	4150 10550 4750 10550
 Text Label 7200 8200 0    50   ~ 0
 STEP∕~RUN
 $Comp
@@ -3119,42 +3117,40 @@ Wire Wire Line
 Connection ~ 5450 4250
 Text Label 1000 1450 0    50   ~ 0
 ~FPHALT
-Text Label 4350 9700 0    50   ~ 0
+Text Label 4150 9700 0    50   ~ 0
 ~FPRSTHOLD
 Wire Wire Line
-	4900 9700 4350 9700
+	4700 9700 4150 9700
 Text Label 6600 9700 2    50   ~ 0
 ~RSTHOLD
 Wire Wire Line
-	5900 9700 6600 9700
+	5700 9700 6200 9700
 $Comp
 L alexios:74LVC1G07 U105
 U 1 1 61555FB7
-P 5100 9700
-F 0 "U105" H 5200 9800 50  0000 L CNN
-F 1 "74LVC1G07" H 5300 9650 50  0000 L CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 5200 9700 50  0001 C CNN
-F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 5200 9700 50  0001 C CNN
-	1    5100 9700
+P 4900 9700
+F 0 "U105" H 5000 9800 50  0000 L CNN
+F 1 "74LVC1G07" H 4400 9650 50  0000 L CNN
+F 2 "alexios:SOT-23-5_HandSoldering" H 5000 9700 50  0001 C CNN
+F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 5000 9700 50  0001 C CNN
+	1    4900 9700
 	1    0    0    -1  
 $EndComp
-Text Label 4350 10300 0    50   ~ 0
+Text Label 4150 10300 0    50   ~ 0
 ~FPHALT
-Wire Wire Line
-	4900 10300 4350 10300
 Text Label 6600 10300 2    50   ~ 0
 ~HALT
 Wire Wire Line
-	5600 10300 6600 10300
+	5400 10300 5900 10300
 $Comp
 L alexios:74LVC1G07 U115
 U 1 1 678EA6F2
-P 5100 10300
-F 0 "U115" H 5200 10400 50  0000 L CNN
-F 1 "74LVC1G07" H 5050 10150 50  0000 L CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 5200 10300 50  0001 C CNN
-F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 5200 10300 50  0001 C CNN
-	1    5100 10300
+P 4900 10300
+F 0 "U115" H 5000 10400 50  0000 L CNN
+F 1 "74LVC1G07" H 4400 10200 50  0000 L CNN
+F 2 "alexios:SOT-23-5_HandSoldering" H 5000 10300 50  0001 C CNN
+F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 5000 10300 50  0001 C CNN
+	1    4900 10300
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -3596,28 +3592,28 @@ $EndComp
 $Comp
 L Device:R_Small R105
 U 1 1 5E7D3367
-P 5600 9950
-F 0 "R105" V 5704 9950 50  0000 C CNN
-F 1 "30Ω" V 5795 9950 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5600 9950 50  0001 C CNN
-F 3 "~" H 5600 9950 50  0001 C CNN
-	1    5600 9950
+P 5400 9950
+F 0 "R105" V 5504 9950 50  0000 C CNN
+F 1 "30Ω" V 5595 9950 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5400 9950 50  0001 C CNN
+F 3 "~" H 5400 9950 50  0001 C CNN
+	1    5400 9950
 	0    1    1    0   
 $EndComp
 Wire Wire Line
-	5400 9950 5500 9950
+	5200 9950 5250 9950
 Wire Wire Line
-	5700 9950 5800 9950
+	5500 9950 5650 9950
 Connection ~ 5800 9950
 $Comp
 L Device:R_Small R104
 U 1 1 5E8F1EEA
-P 5500 10300
-F 0 "R104" V 5450 10500 50  0000 C CNN
-F 1 "30Ω" V 5550 10500 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5500 10300 50  0001 C CNN
-F 3 "~" H 5500 10300 50  0001 C CNN
-	1    5500 10300
+P 5300 10300
+F 0 "R104" V 5250 10500 50  0000 C CNN
+F 1 "30Ω" V 5350 10500 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5300 10300 50  0001 C CNN
+F 3 "~" H 5300 10300 50  0001 C CNN
+	1    5300 10300
 	0    1    1    0   
 $EndComp
 Text Label 14650 6950 2    50   ~ 0
@@ -3789,29 +3785,29 @@ Text Label 14650 8050 2    50   ~ 0
 $Comp
 L Device:R_Small R106
 U 1 1 5D7E44A0
-P 5800 9700
-F 0 "R106" V 5750 9900 50  0000 C CNN
-F 1 "30Ω" V 5850 9900 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5800 9700 50  0001 C CNN
-F 3 "~" H 5800 9700 50  0001 C CNN
-	1    5800 9700
+P 5600 9700
+F 0 "R106" V 5550 9900 50  0000 C CNN
+F 1 "30Ω" V 5650 9900 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5600 9700 50  0001 C CNN
+F 3 "~" H 5600 9700 50  0001 C CNN
+	1    5600 9700
 	0    1    1    0   
 $EndComp
 Wire Wire Line
-	5400 9700 5700 9700
+	5200 9700 5500 9700
 $Comp
 L Device:R_Small R107
 U 1 1 5D9619DA
-P 5800 9450
-F 0 "R107" V 5750 9650 50  0000 C CNN
-F 1 "30Ω" V 5850 9650 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5800 9450 50  0001 C CNN
-F 3 "~" H 5800 9450 50  0001 C CNN
-	1    5800 9450
+P 5600 9450
+F 0 "R107" V 5550 9650 50  0000 C CNN
+F 1 "30Ω" V 5650 9650 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5600 9450 50  0001 C CNN
+F 3 "~" H 5600 9450 50  0001 C CNN
+	1    5600 9450
 	0    1    1    0   
 $EndComp
 Wire Wire Line
-	5400 9450 5700 9450
+	5200 9450 5500 9450
 Wire Wire Line
 	7700 3950 8100 3950
 Text Label 8100 3950 2    50   ~ 0
@@ -3930,17 +3926,6 @@ NoConn ~ 5800 3550
 NoConn ~ 5800 3450
 NoConn ~ 5800 3350
 $Comp
-L Connector:TestPoint TP103
-U 1 1 5D976FC1
-P 1050 3750
-F 0 "TP103" V 1050 3938 50  0000 L CNN
-F 1 "TestPoint" V 1154 3822 50  0001 C CNN
-F 2 "TestPoint:TestPoint_THTPad_D1.0mm_Drill0.5mm" H 1250 3750 50  0001 C CNN
-F 3 "~" H 1250 3750 50  0001 C CNN
-	1    1050 3750
-	0    -1   -1   0   
-$EndComp
-$Comp
 L Connector:TestPoint TP107
 U 1 1 5E1D0B1C
 P 7700 3250
@@ -4043,6 +4028,104 @@ $EndComp
 Connection ~ 8250 5400
 Wire Wire Line
 	8250 5400 8700 5400
+$Comp
+L alexios:ATmega64-16AU U101
+U 1 1 5CCED7E0
+P 2300 2950
+F 0 "U101" H 2700 5000 50  0000 C CNN
+F 1 "ATmega64-16AU" H 2750 4900 50  0000 C CNN
+F 2 "alexios:TQFP-64" H 325 4625 50  0001 C CIN
+F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2490-8-bit-avr-microcontroller-atmega64-l_datasheet.pdf" H 2050 2950 50  0001 C CNN
+F 4 "556-ATMEGA64L-8AU" H 2300 2950 50  0001 C CNN "BOM-Mouser"
+F 5 "Yes" H 2300 2950 50  0001 C CNN "Verified"
+	1    2300 2950
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:TestPoint TP103
+U 1 1 5D976FC1
+P 1050 3750
+F 0 "TP103" V 1050 3938 50  0000 L CNN
+F 1 "TestPoint" V 1154 3822 50  0001 C CNN
+F 2 "TestPoint:TestPoint_THTPad_D1.0mm_Drill0.5mm" H 1250 3750 50  0001 C CNN
+F 3 "~" H 1250 3750 50  0001 C CNN
+	1    1050 3750
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Connector:TestPoint TP112
+U 1 1 5DEE97BC
+P 4850 9250
+F 0 "TP112" H 4950 9400 50  0000 L CNN
+F 1 "TestPoint" V 4954 9322 50  0001 C CNN
+F 2 "TestPoint:TestPoint_THTPad_D1.0mm_Drill0.5mm" H 5050 9250 50  0001 C CNN
+F 3 "~" H 5050 9250 50  0001 C CNN
+	1    4850 9250
+	1    0    0    -1  
+$EndComp
+Connection ~ 4850 9250
+Wire Wire Line
+	4850 9250 6600 9250
+$Comp
+L Connector:TestPoint TP114
+U 1 1 5DEEC4ED
+P 6250 9450
+F 0 "TP114" H 6350 9600 50  0000 L CNN
+F 1 "TestPoint" V 6354 9522 50  0001 C CNN
+F 2 "TestPoint:TestPoint_THTPad_D1.0mm_Drill0.5mm" H 6450 9450 50  0001 C CNN
+F 3 "~" H 6450 9450 50  0001 C CNN
+	1    6250 9450
+	1    0    0    -1  
+$EndComp
+Connection ~ 6250 9450
+Wire Wire Line
+	6250 9450 6600 9450
+$Comp
+L Connector:TestPoint TP113
+U 1 1 5DEEEC3A
+P 6200 9700
+F 0 "TP113" H 6300 9850 50  0000 L CNN
+F 1 "TestPoint" V 6304 9772 50  0001 C CNN
+F 2 "TestPoint:TestPoint_THTPad_D1.0mm_Drill0.5mm" H 6400 9700 50  0001 C CNN
+F 3 "~" H 6400 9700 50  0001 C CNN
+	1    6200 9700
+	1    0    0    -1  
+$EndComp
+Connection ~ 6200 9700
+Wire Wire Line
+	6200 9700 6600 9700
+$Comp
+L Connector:TestPoint TP110
+U 1 1 5DEEEF4B
+P 5650 9950
+F 0 "TP110" H 5550 9850 50  0000 L CNN
+F 1 "TestPoint" V 5754 10022 50  0001 C CNN
+F 2 "TestPoint:TestPoint_THTPad_D1.0mm_Drill0.5mm" H 5850 9950 50  0001 C CNN
+F 3 "~" H 5850 9950 50  0001 C CNN
+	1    5650 9950
+	-1   0    0    1   
+$EndComp
+$Comp
+L Connector:TestPoint TP111
+U 1 1 5DEEF33B
+P 5900 10300
+F 0 "TP111" H 5600 10400 50  0000 L CNN
+F 1 "TestPoint" V 6004 10372 50  0001 C CNN
+F 2 "TestPoint:TestPoint_THTPad_D1.0mm_Drill0.5mm" H 6100 10300 50  0001 C CNN
+F 3 "~" H 6100 10300 50  0001 C CNN
+	1    5900 10300
+	-1   0    0    1   
+$EndComp
+Connection ~ 5250 9950
+Wire Wire Line
+	5250 9950 5300 9950
+Wire Wire Line
+	4150 9950 4700 9950
+Connection ~ 5900 10300
+Wire Wire Line
+	5900 10300 6600 10300
+Wire Wire Line
+	4150 10300 4700 10300
 Wire Bus Line
 	8850 5200 8850 7250
 Wire Bus Line
@@ -4061,17 +4144,7 @@ Wire Bus Line
 	8950 1000 8950 8950
 Wire Bus Line
 	6250 1350 6250 5000
-$Comp
-L alexios:ATmega64-16AU U101
-U 1 1 5CCED7E0
-P 2300 2950
-F 0 "U101" H 2700 5000 50  0000 C CNN
-F 1 "ATmega64-16AU" H 2750 4900 50  0000 C CNN
-F 2 "alexios:TQFP-64" H 325 4625 50  0001 C CIN
-F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2490-8-bit-avr-microcontroller-atmega64-l_datasheet.pdf" H 2050 2950 50  0001 C CNN
-F 4 "556-ATMEGA64L-8AU" H 2300 2950 50  0001 C CNN "BOM-Mouser"
-F 5 "Yes" H 2300 2950 50  0001 C CNN "Verified"
-	1    2300 2950
-	1    0    0    -1  
-$EndComp
+Connection ~ 5650 9950
+Wire Wire Line
+	5650 9950 5800 9950
 $EndSCHEMATC

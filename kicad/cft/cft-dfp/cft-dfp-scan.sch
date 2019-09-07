@@ -2440,6 +2440,10 @@ Wire Wire Line
 	2350 3100 2650 3100
 Wire Wire Line
 	2350 3200 2650 3200
+Text Label 2450 3200 0    50   ~ 0
+FPA7
+Text Label 2450 3100 0    50   ~ 0
+FPA6
 Wire Bus Line
 	4150 2500 4150 6250
 Wire Bus Line
@@ -2450,8 +2454,4 @@ Wire Bus Line
 	4450 800  4450 4950
 Wire Bus Line
 	6350 1200 6350 6150
-Text Label 2450 3200 0    50   ~ 0
-FPA7
-Text Label 2450 3100 0    50   ~ 0
-FPA6
 $EndSCHEMATC
