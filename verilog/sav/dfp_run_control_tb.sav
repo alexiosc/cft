@@ -1,0 +1,128 @@
+[*]
+[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
+[*] Sun Sep  8 10:18:20 2019
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/dfp_run_control_tb.vcd"
+[dumpfile_mtime] "Sun Sep  8 10:17:32 2019"
+[dumpfile_size] 122904
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/dfp_run_control_tb.sav"
+[timestart] 0
+[size] 1920 1019
+[pos] -1 -1
+*-25.042524 116984000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] dfp_run_control_tb.
+[treeopen] dfp_run_control_tb.clock.
+[treeopen] dfp_run_control_tb.dfp_run_control.
+[sst_width] 258
+[signals_width] 206
+[sst_expanded] 1
+[sst_vpaned_height] 233
+@28
+[color] 1
+dfp_run_control_tb.nreset
+[color] 1
+dfp_run_control_tb.nrsthold
+[color] 3
+dfp_run_control_tb.clk4
+[color] 3
+dfp_run_control_tb.fpfetch_nexec
+@200
+-
+-DFP Controls
+@28
+[color] 1
+dfp_run_control_tb.nclr
+[color] 2
+dfp_run_control_tb.step_nrun
+[color] 3
+dfp_run_control_tb.nustep
+[color] 4
+dfp_run_control_tb.nwait
+@200
+-
+-DFP Clocks
+@28
+[color] 5
+dfp_run_control_tb.fpclken_in
+[color] 5
+dfp_run_control_tb.fpustep_in
+@200
+-
+-Clock Outputs
+@28
+[color] 7
+dfp_run_control_tb.dfp_run_control.fpclken_out
+[color] 7
+dfp_run_control_tb.dfp_run_control.fpustep_out
+@200
+-
+@c00200
+-Clock Generator
+@c00022
+dfp_run_control_tb.dfp_run_control.clk_mux.i1[3:0]
+@28
+(0)dfp_run_control_tb.dfp_run_control.clk_mux.i1[3:0]
+(1)dfp_run_control_tb.dfp_run_control.clk_mux.i1[3:0]
+(2)dfp_run_control_tb.dfp_run_control.clk_mux.i1[3:0]
+(3)dfp_run_control_tb.dfp_run_control.clk_mux.i1[3:0]
+@1401200
+-group_end
+@c00022
+dfp_run_control_tb.dfp_run_control.clk_mux.i2[3:0]
+@28
+(0)dfp_run_control_tb.dfp_run_control.clk_mux.i2[3:0]
+(1)dfp_run_control_tb.dfp_run_control.clk_mux.i2[3:0]
+(2)dfp_run_control_tb.dfp_run_control.clk_mux.i2[3:0]
+(3)dfp_run_control_tb.dfp_run_control.clk_mux.i2[3:0]
+@1401200
+-group_end
+@28
+dfp_run_control_tb.dfp_run_control.clk_mux.oe1
+dfp_run_control_tb.dfp_run_control.clk_mux.oe2
+dfp_run_control_tb.dfp_run_control.clk_mux.sel[1:0]
+dfp_run_control_tb.dfp_run_control.clk_mux.y1
+dfp_run_control_tb.dfp_run_control.clk_mux.y2
+dfp_run_control_tb.clock.clk
+dfp_run_control_tb.clock.clk1
+dfp_run_control_tb.clock.clk2
+dfp_run_control_tb.clock.clk3
+dfp_run_control_tb.clock.clk4
+dfp_run_control_tb.clock.clkin
+dfp_run_control_tb.clock.fpclk
+dfp_run_control_tb.clock.nfpclk_or_clk
+dfp_run_control_tb.clock.nq0
+dfp_run_control_tb.clock.nreset
+@22
+dfp_run_control_tb.clock.q[3:0]
+@28
+dfp_run_control_tb.clock.t34
+@22
+dfp_run_control_tb.clock.tmp[3:0]
+@28
+dfp_run_control_tb.clock.wstb
+@1401200
+-Clock Generator
+@c00200
+-FF1 (run/stop/step)
+@28
+dfp_run_control_tb.dfp_run_control.ff1.clk
+dfp_run_control_tb.dfp_run_control.ff1.d
+dfp_run_control_tb.dfp_run_control.ff1.q
+dfp_run_control_tb.dfp_run_control.ff1.qn
+dfp_run_control_tb.dfp_run_control.ff1.rst
+dfp_run_control_tb.dfp_run_control.ff1.set
+@1401200
+-FF1 (run/stop/step)
+@800200
+-FF3 (reset)
+@28
+dfp_run_control_tb.dfp_run_control.ff3.clk
+dfp_run_control_tb.dfp_run_control.ff3.d
+dfp_run_control_tb.dfp_run_control.ff3.q
+dfp_run_control_tb.dfp_run_control.ff3.qn
+dfp_run_control_tb.dfp_run_control.ff3.rst
+dfp_run_control_tb.dfp_run_control.ff3.set
+@1000200
+-FF3 (reset)
+[pattern_trace] 1
+[pattern_trace] 0

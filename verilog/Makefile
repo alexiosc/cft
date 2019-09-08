@@ -29,7 +29,7 @@ SRC =		counter.v counter_161_tb.v counter_590_tb.v counter_393h_tb.v counter_401
 		cft.v cft_tb.v cft_tb_testing.v \
 		step_tb.v \
 		test_panel_revC.v \
-		dfp_scan.v dfp_scan_tb.v dfp_run_control.v \
+		dfp_scan.v dfp_scan_tb.v dfp_run_control.v dfp_run_control_tb.v \
 # panel.v panel_tb.v test.v panel_autorepeat_tb.v
 
 #		Disused code:
@@ -329,6 +329,11 @@ test_serial_shifter:	serial_shifter_tb.o serial_shifter.o
 test_dfp_scan:	dfp_scan_tb.o dfp_scan.o counter.o demux.o
 		./dfp_scan_tb.o
 		$(GTKWAVE) $(VCDDIR)/dfp_scan_tb.vcd $(SAVDIR)/dfp_scan_tb.sav
+
+test_dfp_run_control:	dfp_run_control_tb.o dfp_run_control.o clock.o \
+			flipflop.o mux.o vibrator.o counter.o demux.o mux.o
+		./dfp_run_control_tb.o
+		$(GTKWAVE) $(VCDDIR)/dfp_run_control_tb.vcd $(SAVDIR)/dfp_run_control_tb.sav
 
 ###############################################################################
 #

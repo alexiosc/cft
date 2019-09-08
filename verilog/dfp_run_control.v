@@ -31,7 +31,8 @@
 module dfp_run_control (nreset, nrsthold, clk4,
 			step_nrun, fpfetch_nexec, nclr, nustep,
 			fpclken_in, fpustep_in,
-			fpclken_out, fpustep_out);
+			fpclken_out, fpustep_out,
+			nwait);
    
    input 	 clk4;		
    input 	 nreset;
@@ -67,7 +68,7 @@ module dfp_run_control (nreset, nrsthold, clk4,
    // control signals to the clock generator.
    mux_253 clk_mux (.sel({ustepping, stepping}),
 		    .i1({fpclken_in, fpclken_in, fpclken_in, 1'b0}), .oe1(resetting), .y1(fpclken_out),
-		    .i2({fpustep_in, fpustep_in, fpustep_in, 1'b0}), .oe2(resetting), .y2(fpclken_out));
+		    .i2({fpustep_in, fpustep_in, fpustep_in, 1'b0}), .oe2(resetting), .y2(fpustep_out));
 
    // Finally, generate the WAIT# output to the MCU. (worst case propagation
    // delay for LVC device at 5V)
