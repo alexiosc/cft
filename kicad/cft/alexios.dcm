@@ -615,6 +615,12 @@ K TTL DECOD DECOD8
 F http://www.ti.com/lit/gpn/sn74LS138
 $ENDCMP
 #
+$CMP 74HC138_0
+D Decoder 3 to 8 active low outputs
+K TTL DECOD DECOD8
+F http://www.ti.com/lit/gpn/sn74LS138
+$ENDCMP
+#
 $CMP 74HC139
 D Dual Decoder 1 of 4, Active low outputs
 K TTL DECOD4

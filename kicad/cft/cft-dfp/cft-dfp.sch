@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:cft-dfp-cache
-EELAYER 30 0
+EELAYER 26 0
 EELAYER END
 $Descr A3 16535 11693
 encoding utf-8
@@ -1149,15 +1149,15 @@ SWA1
 Text Label 14650 2750 2    50   ~ 0
 SWA0
 Text Label 14650 2650 2    50   ~ 0
-~ROW5
+ROW5
 Text Label 14650 2550 2    50   ~ 0
-~ROW4
+ROW4
 Text Label 14650 2450 2    50   ~ 0
-~ROW3
+ROW3
 Text Label 14650 2350 2    50   ~ 0
-~ROW2
+ROW2
 Text Label 14650 2250 2    50   ~ 0
-~ROW1
+ROW1
 Wire Wire Line
 	14100 1350 14650 1350
 Wire Wire Line
@@ -1776,7 +1776,7 @@ FPA=01xxxAAA
 Wire Bus Line
 	8050 5250 8700 5250
 Text Label 8250 5250 0    50   ~ 0
-~ROW[1..5]
+ROW[1..5]
 $Comp
 L alexios:74HC590 U108
 U 1 1 5E6F6CB0
@@ -2078,7 +2078,7 @@ F0 "FP Scan Logic/Decoder" 50
 F1 "cft-dfp-scan.sch" 50
 F2 "FPA[0..7]" I L 6900 5100 50 
 F3 "~FPOE[0..31]" O R 8050 5100 50 
-F4 "~ROW[1..5]" O R 8050 5250 50 
+F4 "ROW[1..5]" O R 8050 5250 50 
 F5 "~PANELEN" I L 6900 5250 50 
 F6 "~SCANCLR" I R 8050 5400 50 
 $EndSheet
@@ -3601,8 +3601,6 @@ F 3 "~" H 5400 9950 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 Wire Wire Line
-	5200 9950 5250 9950
-Wire Wire Line
 	5500 9950 5650 9950
 Connection ~ 5800 9950
 $Comp
@@ -4116,9 +4114,6 @@ F 3 "~" H 6100 10300 50  0001 C CNN
 	1    5900 10300
 	-1   0    0    1   
 $EndComp
-Connection ~ 5250 9950
-Wire Wire Line
-	5250 9950 5300 9950
 Wire Wire Line
 	4150 9950 4700 9950
 Connection ~ 5900 10300
@@ -4126,6 +4121,11 @@ Wire Wire Line
 	5900 10300 6600 10300
 Wire Wire Line
 	4150 10300 4700 10300
+Connection ~ 5650 9950
+Wire Wire Line
+	5650 9950 5800 9950
+Wire Wire Line
+	5200 9950 5300 9950
 Wire Bus Line
 	8850 5200 8850 7250
 Wire Bus Line
@@ -4144,7 +4144,4 @@ Wire Bus Line
 	8950 1000 8950 8950
 Wire Bus Line
 	6250 1350 6250 5000
-Connection ~ 5650 9950
-Wire Wire Line
-	5650 9950 5800 9950
 $EndSCHEMATC
