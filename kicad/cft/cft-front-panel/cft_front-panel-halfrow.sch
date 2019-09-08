@@ -1,10 +1,10 @@
 EESchema Schematic File Version 4
 LIBS:cft-front-panel-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 2 6
+Sheet 6 6
 Title ""
 Date ""
 Rev ""

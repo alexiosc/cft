@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:cft-front-panel-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -721,8 +721,6 @@ Wire Wire Line
 	2950 5600 3200 5600
 Wire Wire Line
 	2450 5600 2200 5600
-Text Label 2200 6800 0    50   ~ 0
-POWER
 Text Notes 2200 5250 0    50   ~ 0
 To Next Module
 $Comp
@@ -793,8 +791,6 @@ Wire Wire Line
 	2450 6500 2200 6500
 Wire Wire Line
 	2450 6600 2200 6600
-Wire Wire Line
-	2450 6800 2200 6800
 $Comp
 L power:+5V #PWR0103
 U 1 1 5DA1EBC3
