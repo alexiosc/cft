@@ -61,8 +61,6 @@ Wire Wire Line
 	9700 3200 9000 3200
 Wire Wire Line
 	9700 4100 9000 4100
-Wire Wire Line
-	9000 1400 9500 1400
 Connection ~ 9600 5300
 Text Label 9000 5000 0    50   ~ 0
 ~ROW5
@@ -1100,11 +1098,6 @@ Wire Wire Line
 Text Label 9000 1500 0    50   ~ 0
 ~LMEN
 Wire Wire Line
-	9500 1400 9500 2400
-Connection ~ 9500 1400
-Wire Wire Line
-	9500 1400 9700 1400
-Wire Wire Line
 	9700 4200 9500 4200
 Connection ~ 9500 4200
 Wire Wire Line
@@ -1116,11 +1109,10 @@ Wire Wire Line
 	9500 3300 9500 4200
 Wire Wire Line
 	9700 2400 9500 2400
-Connection ~ 9500 2400
 Wire Wire Line
 	9500 2400 9500 3300
 Wire Wire Line
-	3350 1500 9700 1500
+	3350 1500 9500 1500
 Connection ~ 3350 1500
 Wire Wire Line
 	3350 1500 3350 1600
@@ -1171,10 +1163,18 @@ Text Label 7000 3350 1    50   ~ 0
 Text Notes 3450 1400 0    50   ~ 0
 These configure the light module ID.
 NoConn ~ 2700 6600
+Wire Wire Line
+	9000 1400 9700 1400
+Wire Wire Line
+	9500 2400 9500 1500
 Wire Bus Line
 	8800 850  8800 4800
 Wire Bus Line
 	7000 2650 7000 5550
 Wire Bus Line
 	6700 2650 6700 3450
+Connection ~ 9500 2400
+Connection ~ 9500 1500
+Wire Wire Line
+	9500 1500 9700 1500
 $EndSCHEMATC

@@ -1,4 +1,4 @@
-update=Tue Sep 10 12:25:19 2019
+update=Tue Sep 10 18:47:54 2019
 version=1
 last_client=kicad
 [general]
@@ -35,7 +35,7 @@ TrackWidth4=0.3048
 TrackWidth5=0.4064
 TrackWidth6=0.6096
 TrackWidth7=0.7874
-ViaDiameter1=0.8
+ViaDiameter1=0.6096
 ViaDrill1=0.4
 ViaDiameter2=0.6096
 ViaDrill2=0.3
@@ -237,7 +237,7 @@ Enabled=0
 Name=Default
 Clearance=0.1524
 TrackWidth=0.1778
-ViaDiameter=0.8
+ViaDiameter=0.6096
 ViaDrill=0.4
 uViaDiameter=0.3
 uViaDrill=0.1
@@ -255,3 +255,13 @@ uViaDrill=0.1
 dPairWidth=0.2
 dPairGap=0.25
 dPairViaGap=0.25
+[schematic_editor]
+version=1
+PageLayoutDescrFile=
+PlotDirectoryName=
+SubpartIdSeparator=0
+SubpartFirstId=65
+NetFmtName=Pcbnew
+SpiceAjustPassiveValues=0
+LabSize=50
+ERC_TestSimilarLabels=1

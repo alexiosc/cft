@@ -1149,6 +1149,12 @@ K Single Gate OR triple LVC CMOS
 F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
 $ENDCMP
 #
+$CMP 74LVC1G373
+D Single D Latch, Low-Voltage CMOS
+K Single D Latch CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
 $CMP 74LVC1G74
 D Single D Flip-Flop, Low-Voltage CMOS
 K Single D Flip-Flop D CMOS

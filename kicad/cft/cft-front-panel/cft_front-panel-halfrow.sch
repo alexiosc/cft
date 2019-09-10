@@ -4,7 +4,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 6 6
+Sheet 5 6
 Title ""
 Date ""
 Rev ""
@@ -50,10 +50,6 @@ Text Label 3800 3450 0    50   ~ 0
 D3
 Text Label 3800 3350 0    50   ~ 0
 D2
-Text Label 3800 3250 0    50   ~ 0
-D1
-Text Label 3800 3150 0    50   ~ 0
-D0
 Wire Wire Line
 	4350 3850 3750 3850
 Wire Wire Line
@@ -68,12 +64,6 @@ Wire Wire Line
 	4350 3350 3750 3350
 Wire Wire Line
 	4350 3250 3750 3250
-Wire Wire Line
-	4350 3150 3750 3150
-Text HLabel 3300 4000 0    50   Input ~ 0
-~LE1
-Text Label 4100 4050 0    50   ~ 0
-LOAD
 $Comp
 L power:+5V #PWR?
 U 1 1 5CC30FA9
@@ -104,7 +94,7 @@ AR Path="/5D1E3367/5CC30FA9" Ref="#PWR?"  Part="1"
 AR Path="/5D1E336C/5CC30FA9" Ref="#PWR?"  Part="1" 
 AR Path="/5D1E3371/5CC30FA9" Ref="#PWR?"  Part="1" 
 AR Path="/5D1E338D/5CC30FA9" Ref="#PWR?"  Part="1" 
-F 0 "#PWR047" H 5800 7000 50  0001 C CNN
+F 0 "#PWR041" H 5800 7000 50  0001 C CNN
 F 1 "+5V" H 5815 7323 50  0000 C CNN
 F 2 "" H 5800 7150 50  0001 C CNN
 F 3 "" H 5800 7150 50  0001 C CNN
@@ -141,7 +131,7 @@ AR Path="/5D1E3367/5CC30FAF" Ref="#PWR?"  Part="1"
 AR Path="/5D1E336C/5CC30FAF" Ref="#PWR?"  Part="1" 
 AR Path="/5D1E3371/5CC30FAF" Ref="#PWR?"  Part="1" 
 AR Path="/5D1E338D/5CC30FAF" Ref="#PWR?"  Part="1" 
-F 0 "#PWR048" H 5800 7100 50  0001 C CNN
+F 0 "#PWR042" H 5800 7100 50  0001 C CNN
 F 1 "GND" H 5805 7177 50  0000 C CNN
 F 2 "" H 5800 7350 50  0001 C CNN
 F 3 "" H 5800 7350 50  0001 C CNN
@@ -178,7 +168,7 @@ AR Path="/5D1E3367/5CC30FB5" Ref="U?"  Part="2"
 AR Path="/5D1E336C/5CC30FB5" Ref="U?"  Part="2" 
 AR Path="/5D1E3371/5CC30FB5" Ref="U?"  Part="2" 
 AR Path="/5D1E338D/5CC30FB5" Ref="U?"  Part="2" 
-F 0 "U12" H 6330 8096 50  0000 L CNN
+F 0 "U10" H 6330 8096 50  0000 L CNN
 F 1 "74HC573" H 6330 8005 50  0000 L CNN
 F 2 "alexios:SOIC-20W" H 6300 7650 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT573.pdf" H 6300 7650 50  0001 C CNN
@@ -215,59 +205,16 @@ AR Path="/5D1E3367/5CC30FBB" Ref="U?"  Part="1"
 AR Path="/5D1E336C/5CC30FBB" Ref="U?"  Part="1" 
 AR Path="/5D1E3371/5CC30FBB" Ref="U?"  Part="1" 
 AR Path="/5D1E338D/5CC30FBB" Ref="U?"  Part="1" 
-F 0 "U12" H 4850 4417 50  0000 C CNN
+F 0 "U10" H 4850 4417 50  0000 C CNN
 F 1 "74HC573" H 4850 4326 50  0000 C CNN
 F 2 "alexios:SOIC-20W" H 4850 3650 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT573.pdf" H 4850 3650 50  0001 C CNN
 	1    4850 3650
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	4000 4050 4350 4050
-Wire Wire Line
-	4300 4150 4300 4350
-Wire Wire Line
-	4350 4150 4300 4150
 Connection ~ 6600 4550
 Wire Wire Line
 	6600 4600 6600 4550
-$Comp
-L power:GND #PWR?
-U 1 1 5CC30FC6
-P 6600 4600
-AR Path="/5CC30FC6" Ref="#PWR?"  Part="1" 
-AR Path="/5CC02B94/5CC30FC6" Ref="#PWR025"  Part="1" 
-AR Path="/5CC377D5/5CC30FC6" Ref="#PWR?"  Part="1" 
-AR Path="/5CC37D0C/5CC30FC6" Ref="#PWR049"  Part="1" 
-AR Path="/5CC37D11/5CC30FC6" Ref="#PWR?"  Part="1" 
-AR Path="/5CC382A2/5CC30FC6" Ref="#PWR043"  Part="1" 
-AR Path="/5CC382A7/5CC30FC6" Ref="#PWR?"  Part="1" 
-AR Path="/5CC382AC/5CC30FC6" Ref="#PWR037"  Part="1" 
-AR Path="/5CC382B1/5CC30FC6" Ref="#PWR?"  Part="1" 
-AR Path="/5CC38618/5CC30FC6" Ref="#PWR031"  Part="1" 
-AR Path="/5CC3861D/5CC30FC6" Ref="#PWR?"  Part="1" 
-AR Path="/5D17E5F6/5CC30FC6" Ref="#PWR?"  Part="1" 
-AR Path="/5D17E5FB/5CC30FC6" Ref="#PWR?"  Part="1" 
-AR Path="/5D17E600/5CC30FC6" Ref="#PWR?"  Part="1" 
-AR Path="/5D17E605/5CC30FC6" Ref="#PWR?"  Part="1" 
-AR Path="/5D17E622/5CC30FC6" Ref="#PWR?"  Part="1" 
-AR Path="/5D191B3C/5CC30FC6" Ref="#PWR?"  Part="1" 
-AR Path="/5D191B41/5CC30FC6" Ref="#PWR?"  Part="1" 
-AR Path="/5D191B46/5CC30FC6" Ref="#PWR?"  Part="1" 
-AR Path="/5D191B4B/5CC30FC6" Ref="#PWR?"  Part="1" 
-AR Path="/5D191B68/5CC30FC6" Ref="#PWR?"  Part="1" 
-AR Path="/5D1E3362/5CC30FC6" Ref="#PWR?"  Part="1" 
-AR Path="/5D1E3367/5CC30FC6" Ref="#PWR?"  Part="1" 
-AR Path="/5D1E336C/5CC30FC6" Ref="#PWR?"  Part="1" 
-AR Path="/5D1E3371/5CC30FC6" Ref="#PWR?"  Part="1" 
-AR Path="/5D1E338D/5CC30FC6" Ref="#PWR?"  Part="1" 
-F 0 "#PWR049" H 6600 4350 50  0001 C CNN
-F 1 "GND" H 6605 4427 50  0000 C CNN
-F 2 "" H 6600 4600 50  0001 C CNN
-F 3 "" H 6600 4600 50  0001 C CNN
-	1    6600 4600
-	1    0    0    -1  
-$EndComp
 Connection ~ 5800 7150
 Connection ~ 5800 7350
 $Comp
@@ -300,21 +247,13 @@ AR Path="/5D1E3367/5CC30FCE" Ref="C?"  Part="1"
 AR Path="/5D1E336C/5CC30FCE" Ref="C?"  Part="1" 
 AR Path="/5D1E3371/5CC30FCE" Ref="C?"  Part="1" 
 AR Path="/5D1E338D/5CC30FCE" Ref="C?"  Part="1" 
-F 0 "C13" H 5709 7204 50  0000 R CNN
+F 0 "C11" H 5709 7204 50  0000 R CNN
 F 1 "100nF" H 5709 7295 50  0000 R CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5800 7250 50  0001 C CNN
 F 3 "~" H 5800 7250 50  0001 C CNN
 	1    5800 7250
 	1    0    0    1   
 $EndComp
-Text HLabel 3300 4500 0    50   Input ~ 0
-~LTSON
-Text Label 3800 4500 0    50   ~ 0
-~LTSON
-Wire Wire Line
-	3300 4500 4050 4500
-Wire Wire Line
-	4550 4500 4550 4550
 Wire Wire Line
 	5400 4450 5400 4550
 Wire Wire Line
@@ -353,43 +292,6 @@ Wire Wire Line
 	7500 4450 7500 4550
 Wire Wire Line
 	7850 4550 7850 4450
-$Comp
-L Jumper:Jumper_3_Bridged12 JP?
-U 1 1 5CC30FEE
-P 4300 4500
-AR Path="/5CC30FEE" Ref="JP?"  Part="1" 
-AR Path="/5CC02B94/5CC30FEE" Ref="JP7"  Part="1" 
-AR Path="/5CC377D5/5CC30FEE" Ref="JP?"  Part="1" 
-AR Path="/5CC37D0C/5CC30FEE" Ref="JP11"  Part="1" 
-AR Path="/5CC37D11/5CC30FEE" Ref="JP?"  Part="1" 
-AR Path="/5CC382A2/5CC30FEE" Ref="JP10"  Part="1" 
-AR Path="/5CC382A7/5CC30FEE" Ref="JP?"  Part="1" 
-AR Path="/5CC382AC/5CC30FEE" Ref="JP9"  Part="1" 
-AR Path="/5CC382B1/5CC30FEE" Ref="JP?"  Part="1" 
-AR Path="/5CC38618/5CC30FEE" Ref="JP8"  Part="1" 
-AR Path="/5CC3861D/5CC30FEE" Ref="JP?"  Part="1" 
-AR Path="/5D17E5F6/5CC30FEE" Ref="JP?"  Part="1" 
-AR Path="/5D17E5FB/5CC30FEE" Ref="JP?"  Part="1" 
-AR Path="/5D17E600/5CC30FEE" Ref="JP?"  Part="1" 
-AR Path="/5D17E605/5CC30FEE" Ref="JP?"  Part="1" 
-AR Path="/5D17E622/5CC30FEE" Ref="JP?"  Part="1" 
-AR Path="/5D191B3C/5CC30FEE" Ref="JP?"  Part="1" 
-AR Path="/5D191B41/5CC30FEE" Ref="JP?"  Part="1" 
-AR Path="/5D191B46/5CC30FEE" Ref="JP?"  Part="1" 
-AR Path="/5D191B4B/5CC30FEE" Ref="JP?"  Part="1" 
-AR Path="/5D191B68/5CC30FEE" Ref="JP?"  Part="1" 
-AR Path="/5D1E3362/5CC30FEE" Ref="JP?"  Part="1" 
-AR Path="/5D1E3367/5CC30FEE" Ref="JP?"  Part="1" 
-AR Path="/5D1E336C/5CC30FEE" Ref="JP?"  Part="1" 
-AR Path="/5D1E3371/5CC30FEE" Ref="JP?"  Part="1" 
-AR Path="/5D1E338D/5CC30FEE" Ref="JP?"  Part="1" 
-F 0 "JP11" H 4300 4612 50  0000 C CNN
-F 1 "Jumper_3_Bridged12" H 4300 4300 50  0001 C CNN
-F 2 "Connector_PinSocket_2.54mm:PinSocket_1x03_P2.54mm_Vertical" H 4300 4500 50  0001 C CNN
-F 3 "~" H 4300 4500 50  0001 C CNN
-	1    4300 4500
-	-1   0    0    1   
-$EndComp
 Wire Wire Line
 	5400 3150 5400 3950
 Wire Wire Line
@@ -452,7 +354,7 @@ AR Path="/5D1E3367/5CC31004" Ref="R?"  Part="1"
 AR Path="/5D1E336C/5CC31004" Ref="R?"  Part="1" 
 AR Path="/5D1E3371/5CC31004" Ref="R?"  Part="1" 
 AR Path="/5D1E338D/5CC31004" Ref="R?"  Part="1" 
-F 0 "R40" H 7900 4100 50  0000 L CNN
+F 0 "R32" H 7900 4100 50  0000 L CNN
 F 1 "330Ω" H 7900 4000 50  0000 L CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7850 4050 50  0001 C CNN
 F 3 "~" H 7850 4050 50  0001 C CNN
@@ -489,7 +391,7 @@ AR Path="/5D1E3367/5CC3100A" Ref="LED?"  Part="1"
 AR Path="/5D1E336C/5CC3100A" Ref="LED?"  Part="1" 
 AR Path="/5D1E3371/5CC3100A" Ref="LED?"  Part="1" 
 AR Path="/5D1E338D/5CC3100A" Ref="LED?"  Part="1" 
-F 0 "LED40" V 7850 4050 50  0000 L CNN
+F 0 "LED32" V 7850 4050 50  0000 L CNN
 F 1 "LED_ALT" V 7800 3900 50  0001 L CNN
 F 2 "LED_SMD:LED_1210_3225Metric_Pad1.42x2.65mm_HandSolder" H 7850 4300 50  0001 C CNN
 F 3 "~" H 7850 4300 50  0001 C CNN
@@ -526,7 +428,7 @@ AR Path="/5D1E3367/5CC31010" Ref="R?"  Part="1"
 AR Path="/5D1E336C/5CC31010" Ref="R?"  Part="1" 
 AR Path="/5D1E3371/5CC31010" Ref="R?"  Part="1" 
 AR Path="/5D1E338D/5CC31010" Ref="R?"  Part="1" 
-F 0 "R39" H 7550 4100 50  0000 L CNN
+F 0 "R31" H 7550 4100 50  0000 L CNN
 F 1 "330Ω" H 7550 4000 50  0000 L CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7500 4050 50  0001 C CNN
 F 3 "~" H 7500 4050 50  0001 C CNN
@@ -563,7 +465,7 @@ AR Path="/5D1E3367/5CC31016" Ref="LED?"  Part="1"
 AR Path="/5D1E336C/5CC31016" Ref="LED?"  Part="1" 
 AR Path="/5D1E3371/5CC31016" Ref="LED?"  Part="1" 
 AR Path="/5D1E338D/5CC31016" Ref="LED?"  Part="1" 
-F 0 "LED39" V 7500 4050 50  0000 L CNN
+F 0 "LED31" V 7500 4050 50  0000 L CNN
 F 1 "LED_ALT" V 7450 3900 50  0001 L CNN
 F 2 "LED_SMD:LED_1210_3225Metric_Pad1.42x2.65mm_HandSolder" H 7500 4300 50  0001 C CNN
 F 3 "~" H 7500 4300 50  0001 C CNN
@@ -600,7 +502,7 @@ AR Path="/5D1E3367/5CC3101C" Ref="R?"  Part="1"
 AR Path="/5D1E336C/5CC3101C" Ref="R?"  Part="1" 
 AR Path="/5D1E3371/5CC3101C" Ref="R?"  Part="1" 
 AR Path="/5D1E338D/5CC3101C" Ref="R?"  Part="1" 
-F 0 "R38" H 7200 4100 50  0000 L CNN
+F 0 "R30" H 7200 4100 50  0000 L CNN
 F 1 "330Ω" H 7200 4000 50  0000 L CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7150 4050 50  0001 C CNN
 F 3 "~" H 7150 4050 50  0001 C CNN
@@ -637,7 +539,7 @@ AR Path="/5D1E3367/5CC31022" Ref="LED?"  Part="1"
 AR Path="/5D1E336C/5CC31022" Ref="LED?"  Part="1" 
 AR Path="/5D1E3371/5CC31022" Ref="LED?"  Part="1" 
 AR Path="/5D1E338D/5CC31022" Ref="LED?"  Part="1" 
-F 0 "LED38" V 7150 4050 50  0000 L CNN
+F 0 "LED30" V 7150 4050 50  0000 L CNN
 F 1 "LED_ALT" V 7100 3900 50  0001 L CNN
 F 2 "LED_SMD:LED_1210_3225Metric_Pad1.42x2.65mm_HandSolder" H 7150 4300 50  0001 C CNN
 F 3 "~" H 7150 4300 50  0001 C CNN
@@ -674,7 +576,7 @@ AR Path="/5D1E3367/5CC31028" Ref="R?"  Part="1"
 AR Path="/5D1E336C/5CC31028" Ref="R?"  Part="1" 
 AR Path="/5D1E3371/5CC31028" Ref="R?"  Part="1" 
 AR Path="/5D1E338D/5CC31028" Ref="R?"  Part="1" 
-F 0 "R37" H 6850 4100 50  0000 L CNN
+F 0 "R29" H 6850 4100 50  0000 L CNN
 F 1 "330Ω" H 6850 4000 50  0000 L CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 6800 4050 50  0001 C CNN
 F 3 "~" H 6800 4050 50  0001 C CNN
@@ -711,7 +613,7 @@ AR Path="/5D1E3367/5CC3102E" Ref="LED?"  Part="1"
 AR Path="/5D1E336C/5CC3102E" Ref="LED?"  Part="1" 
 AR Path="/5D1E3371/5CC3102E" Ref="LED?"  Part="1" 
 AR Path="/5D1E338D/5CC3102E" Ref="LED?"  Part="1" 
-F 0 "LED37" V 6800 4050 50  0000 L CNN
+F 0 "LED29" V 6800 4050 50  0000 L CNN
 F 1 "LED_ALT" V 6750 3900 50  0001 L CNN
 F 2 "LED_SMD:LED_1210_3225Metric_Pad1.42x2.65mm_HandSolder" H 6800 4300 50  0001 C CNN
 F 3 "~" H 6800 4300 50  0001 C CNN
@@ -748,7 +650,7 @@ AR Path="/5D1E3367/5CC31034" Ref="R?"  Part="1"
 AR Path="/5D1E336C/5CC31034" Ref="R?"  Part="1" 
 AR Path="/5D1E3371/5CC31034" Ref="R?"  Part="1" 
 AR Path="/5D1E338D/5CC31034" Ref="R?"  Part="1" 
-F 0 "R36" H 6500 4100 50  0000 L CNN
+F 0 "R28" H 6500 4100 50  0000 L CNN
 F 1 "330Ω" H 6500 4000 50  0000 L CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 6450 4050 50  0001 C CNN
 F 3 "~" H 6450 4050 50  0001 C CNN
@@ -785,7 +687,7 @@ AR Path="/5D1E3367/5CC3103A" Ref="LED?"  Part="1"
 AR Path="/5D1E336C/5CC3103A" Ref="LED?"  Part="1" 
 AR Path="/5D1E3371/5CC3103A" Ref="LED?"  Part="1" 
 AR Path="/5D1E338D/5CC3103A" Ref="LED?"  Part="1" 
-F 0 "LED36" V 6450 4050 50  0000 L CNN
+F 0 "LED28" V 6450 4050 50  0000 L CNN
 F 1 "LED_ALT" V 6400 3900 50  0001 L CNN
 F 2 "LED_SMD:LED_1210_3225Metric_Pad1.42x2.65mm_HandSolder" H 6450 4300 50  0001 C CNN
 F 3 "~" H 6450 4300 50  0001 C CNN
@@ -822,7 +724,7 @@ AR Path="/5D1E3367/5CC31040" Ref="R?"  Part="1"
 AR Path="/5D1E336C/5CC31040" Ref="R?"  Part="1" 
 AR Path="/5D1E3371/5CC31040" Ref="R?"  Part="1" 
 AR Path="/5D1E338D/5CC31040" Ref="R?"  Part="1" 
-F 0 "R35" H 6150 4100 50  0000 L CNN
+F 0 "R27" H 6150 4100 50  0000 L CNN
 F 1 "330Ω" H 6150 4000 50  0000 L CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 6100 4050 50  0001 C CNN
 F 3 "~" H 6100 4050 50  0001 C CNN
@@ -859,7 +761,7 @@ AR Path="/5D1E3367/5CC31046" Ref="LED?"  Part="1"
 AR Path="/5D1E336C/5CC31046" Ref="LED?"  Part="1" 
 AR Path="/5D1E3371/5CC31046" Ref="LED?"  Part="1" 
 AR Path="/5D1E338D/5CC31046" Ref="LED?"  Part="1" 
-F 0 "LED35" V 6100 4050 50  0000 L CNN
+F 0 "LED27" V 6100 4050 50  0000 L CNN
 F 1 "LED_ALT" V 6050 3900 50  0001 L CNN
 F 2 "LED_SMD:LED_1210_3225Metric_Pad1.42x2.65mm_HandSolder" H 6100 4300 50  0001 C CNN
 F 3 "~" H 6100 4300 50  0001 C CNN
@@ -896,7 +798,7 @@ AR Path="/5D1E3367/5CC3104C" Ref="R?"  Part="1"
 AR Path="/5D1E336C/5CC3104C" Ref="R?"  Part="1" 
 AR Path="/5D1E3371/5CC3104C" Ref="R?"  Part="1" 
 AR Path="/5D1E338D/5CC3104C" Ref="R?"  Part="1" 
-F 0 "R34" H 5800 4100 50  0000 L CNN
+F 0 "R26" H 5800 4100 50  0000 L CNN
 F 1 "330Ω" H 5800 4000 50  0000 L CNN
 F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5750 4050 50  0001 C CNN
 F 3 "~" H 5750 4050 50  0001 C CNN
@@ -933,148 +835,15 @@ AR Path="/5D1E3367/5CC31052" Ref="LED?"  Part="1"
 AR Path="/5D1E336C/5CC31052" Ref="LED?"  Part="1" 
 AR Path="/5D1E3371/5CC31052" Ref="LED?"  Part="1" 
 AR Path="/5D1E338D/5CC31052" Ref="LED?"  Part="1" 
-F 0 "LED34" V 5750 4050 50  0000 L CNN
+F 0 "LED26" V 5750 4050 50  0000 L CNN
 F 1 "LED_ALT" V 5700 3900 50  0001 L CNN
 F 2 "LED_SMD:LED_1210_3225Metric_Pad1.42x2.65mm_HandSolder" H 5750 4300 50  0001 C CNN
 F 3 "~" H 5750 4300 50  0001 C CNN
 	1    5750 4300
 	0    -1   -1   0   
 $EndComp
-$Comp
-L Device:R_Small R?
-U 1 1 5CC31058
-P 5400 4050
-AR Path="/5CC31058" Ref="R?"  Part="1" 
-AR Path="/5CC02B94/5CC31058" Ref="R1"  Part="1" 
-AR Path="/5CC377D5/5CC31058" Ref="R?"  Part="1" 
-AR Path="/5CC37D0C/5CC31058" Ref="R33"  Part="1" 
-AR Path="/5CC37D11/5CC31058" Ref="R?"  Part="1" 
-AR Path="/5CC382A2/5CC31058" Ref="R25"  Part="1" 
-AR Path="/5CC382A7/5CC31058" Ref="R?"  Part="1" 
-AR Path="/5CC382AC/5CC31058" Ref="R17"  Part="1" 
-AR Path="/5CC382B1/5CC31058" Ref="R?"  Part="1" 
-AR Path="/5CC38618/5CC31058" Ref="R9"  Part="1" 
-AR Path="/5CC3861D/5CC31058" Ref="R?"  Part="1" 
-AR Path="/5D17E5F6/5CC31058" Ref="R?"  Part="1" 
-AR Path="/5D17E5FB/5CC31058" Ref="R?"  Part="1" 
-AR Path="/5D17E600/5CC31058" Ref="R?"  Part="1" 
-AR Path="/5D17E605/5CC31058" Ref="R?"  Part="1" 
-AR Path="/5D17E622/5CC31058" Ref="R?"  Part="1" 
-AR Path="/5D191B3C/5CC31058" Ref="R?"  Part="1" 
-AR Path="/5D191B41/5CC31058" Ref="R?"  Part="1" 
-AR Path="/5D191B46/5CC31058" Ref="R?"  Part="1" 
-AR Path="/5D191B4B/5CC31058" Ref="R?"  Part="1" 
-AR Path="/5D191B68/5CC31058" Ref="R?"  Part="1" 
-AR Path="/5D1E3362/5CC31058" Ref="R?"  Part="1" 
-AR Path="/5D1E3367/5CC31058" Ref="R?"  Part="1" 
-AR Path="/5D1E336C/5CC31058" Ref="R?"  Part="1" 
-AR Path="/5D1E3371/5CC31058" Ref="R?"  Part="1" 
-AR Path="/5D1E338D/5CC31058" Ref="R?"  Part="1" 
-F 0 "R33" H 5450 4100 50  0000 L CNN
-F 1 "330Ω" H 5450 4000 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5400 4050 50  0001 C CNN
-F 3 "~" H 5400 4050 50  0001 C CNN
-	1    5400 4050
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:LED_ALT LED?
-U 1 1 5CC3105E
-P 5400 4300
-AR Path="/5CC3105E" Ref="LED?"  Part="1" 
-AR Path="/5CC02B94/5CC3105E" Ref="LED1"  Part="1" 
-AR Path="/5CC377D5/5CC3105E" Ref="LED?"  Part="1" 
-AR Path="/5CC37D0C/5CC3105E" Ref="LED33"  Part="1" 
-AR Path="/5CC37D11/5CC3105E" Ref="LED?"  Part="1" 
-AR Path="/5CC382A2/5CC3105E" Ref="LED25"  Part="1" 
-AR Path="/5CC382A7/5CC3105E" Ref="LED?"  Part="1" 
-AR Path="/5CC382AC/5CC3105E" Ref="LED17"  Part="1" 
-AR Path="/5CC382B1/5CC3105E" Ref="LED?"  Part="1" 
-AR Path="/5CC38618/5CC3105E" Ref="LED9"  Part="1" 
-AR Path="/5CC3861D/5CC3105E" Ref="LED?"  Part="1" 
-AR Path="/5D17E5F6/5CC3105E" Ref="LED?"  Part="1" 
-AR Path="/5D17E5FB/5CC3105E" Ref="LED?"  Part="1" 
-AR Path="/5D17E600/5CC3105E" Ref="LED?"  Part="1" 
-AR Path="/5D17E605/5CC3105E" Ref="LED?"  Part="1" 
-AR Path="/5D17E622/5CC3105E" Ref="LED?"  Part="1" 
-AR Path="/5D191B3C/5CC3105E" Ref="LED?"  Part="1" 
-AR Path="/5D191B41/5CC3105E" Ref="LED?"  Part="1" 
-AR Path="/5D191B46/5CC3105E" Ref="LED?"  Part="1" 
-AR Path="/5D191B4B/5CC3105E" Ref="LED?"  Part="1" 
-AR Path="/5D191B68/5CC3105E" Ref="LED?"  Part="1" 
-AR Path="/5D1E3362/5CC3105E" Ref="LED?"  Part="1" 
-AR Path="/5D1E3367/5CC3105E" Ref="LED?"  Part="1" 
-AR Path="/5D1E336C/5CC3105E" Ref="LED?"  Part="1" 
-AR Path="/5D1E3371/5CC3105E" Ref="LED?"  Part="1" 
-AR Path="/5D1E338D/5CC3105E" Ref="LED?"  Part="1" 
-F 0 "LED33" V 5400 4050 50  0000 L CNN
-F 1 "LED_ALT" V 5350 3900 50  0001 L CNN
-F 2 "LED_SMD:LED_1210_3225Metric_Pad1.42x2.65mm_HandSolder" H 5400 4300 50  0001 C CNN
-F 3 "~" H 5400 4300 50  0001 C CNN
-	1    5400 4300
-	0    -1   -1   0   
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5CC31064
-P 4550 4550
-AR Path="/5CC31064" Ref="#PWR?"  Part="1" 
-AR Path="/5CC02B94/5CC31064" Ref="#PWR022"  Part="1" 
-AR Path="/5CC377D5/5CC31064" Ref="#PWR?"  Part="1" 
-AR Path="/5CC37D0C/5CC31064" Ref="#PWR046"  Part="1" 
-AR Path="/5CC37D11/5CC31064" Ref="#PWR?"  Part="1" 
-AR Path="/5CC382A2/5CC31064" Ref="#PWR040"  Part="1" 
-AR Path="/5CC382A7/5CC31064" Ref="#PWR?"  Part="1" 
-AR Path="/5CC382AC/5CC31064" Ref="#PWR034"  Part="1" 
-AR Path="/5CC382B1/5CC31064" Ref="#PWR?"  Part="1" 
-AR Path="/5CC38618/5CC31064" Ref="#PWR028"  Part="1" 
-AR Path="/5CC3861D/5CC31064" Ref="#PWR?"  Part="1" 
-AR Path="/5D17E5F6/5CC31064" Ref="#PWR?"  Part="1" 
-AR Path="/5D17E5FB/5CC31064" Ref="#PWR?"  Part="1" 
-AR Path="/5D17E600/5CC31064" Ref="#PWR?"  Part="1" 
-AR Path="/5D17E605/5CC31064" Ref="#PWR?"  Part="1" 
-AR Path="/5D17E622/5CC31064" Ref="#PWR?"  Part="1" 
-AR Path="/5D191B3C/5CC31064" Ref="#PWR?"  Part="1" 
-AR Path="/5D191B41/5CC31064" Ref="#PWR?"  Part="1" 
-AR Path="/5D191B46/5CC31064" Ref="#PWR?"  Part="1" 
-AR Path="/5D191B4B/5CC31064" Ref="#PWR?"  Part="1" 
-AR Path="/5D191B68/5CC31064" Ref="#PWR?"  Part="1" 
-AR Path="/5D1E3362/5CC31064" Ref="#PWR?"  Part="1" 
-AR Path="/5D1E3367/5CC31064" Ref="#PWR?"  Part="1" 
-AR Path="/5D1E336C/5CC31064" Ref="#PWR?"  Part="1" 
-AR Path="/5D1E3371/5CC31064" Ref="#PWR?"  Part="1" 
-AR Path="/5D1E338D/5CC31064" Ref="#PWR?"  Part="1" 
-F 0 "#PWR046" H 4550 4300 50  0001 C CNN
-F 1 "GND" H 4555 4377 50  0000 C CNN
-F 2 "" H 4550 4550 50  0001 C CNN
-F 3 "" H 4550 4550 50  0001 C CNN
-	1    4550 4550
-	1    0    0    -1  
-$EndComp
 Text Label 3350 2850 0    50   ~ 0
 D[0..7]
-$Comp
-L alexios:74LVC1G00 U11
-U 1 1 5E9E95DE
-P 3850 4050
-AR Path="/5CC37D0C/5E9E95DE" Ref="U11"  Part="1" 
-AR Path="/5CC02B94/5E9E95DE" Ref="U3"  Part="1" 
-AR Path="/5CC38618/5E9E95DE" Ref="U5"  Part="1" 
-AR Path="/5CC382AC/5E9E95DE" Ref="U7"  Part="1" 
-AR Path="/5CC382A2/5E9E95DE" Ref="U9"  Part="1" 
-F 0 "U11" H 3775 3875 50  0000 C CNN
-F 1 "74LVC1G00" H 3775 3784 50  0000 C CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 3500 4050 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G00.pdf" H 3500 4050 50  0001 C CNN
-	1    3850 4050
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	3300 4000 3550 4000
-Wire Wire Line
-	3550 4100 3300 4100
-Text HLabel 3300 4100 0    50   Input ~ 0
-~LE2
 $Comp
 L power:+5V #PWR?
 U 1 1 5EC3F723
@@ -1105,7 +874,7 @@ AR Path="/5D1E3367/5EC3F723" Ref="#PWR?"  Part="1"
 AR Path="/5D1E336C/5EC3F723" Ref="#PWR?"  Part="1" 
 AR Path="/5D1E3371/5EC3F723" Ref="#PWR?"  Part="1" 
 AR Path="/5D1E338D/5EC3F723" Ref="#PWR?"  Part="1" 
-F 0 "#PWR044" H 4350 7000 50  0001 C CNN
+F 0 "#PWR038" H 4350 7000 50  0001 C CNN
 F 1 "+5V" H 4365 7323 50  0000 C CNN
 F 2 "" H 4350 7150 50  0001 C CNN
 F 3 "" H 4350 7150 50  0001 C CNN
@@ -1142,7 +911,7 @@ AR Path="/5D1E3367/5EC3F729" Ref="#PWR?"  Part="1"
 AR Path="/5D1E336C/5EC3F729" Ref="#PWR?"  Part="1" 
 AR Path="/5D1E3371/5EC3F729" Ref="#PWR?"  Part="1" 
 AR Path="/5D1E338D/5EC3F729" Ref="#PWR?"  Part="1" 
-F 0 "#PWR045" H 4350 7100 50  0001 C CNN
+F 0 "#PWR039" H 4350 7100 50  0001 C CNN
 F 1 "GND" H 4355 7177 50  0000 C CNN
 F 2 "" H 4350 7350 50  0001 C CNN
 F 3 "" H 4350 7350 50  0001 C CNN
@@ -1179,15 +948,13 @@ AR Path="/5D1E3367/5EC3F737" Ref="C?"  Part="1"
 AR Path="/5D1E336C/5EC3F737" Ref="C?"  Part="1" 
 AR Path="/5D1E3371/5EC3F737" Ref="C?"  Part="1" 
 AR Path="/5D1E338D/5EC3F737" Ref="C?"  Part="1" 
-F 0 "C12" H 4259 7204 50  0000 R CNN
+F 0 "C10" H 4259 7204 50  0000 R CNN
 F 1 "100nF" H 4259 7295 50  0000 R CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 4350 7250 50  0001 C CNN
 F 3 "~" H 4350 7250 50  0001 C CNN
 	1    4350 7250
 	1    0    0    1   
 $EndComp
-Wire Bus Line
-	3650 2950 3650 3750
 $Comp
 L alexios:74LVC1G00 U11
 U 2 1 5EC51DBC
@@ -1197,7 +964,7 @@ AR Path="/5CC02B94/5EC51DBC" Ref="U3"  Part="2"
 AR Path="/5CC38618/5EC51DBC" Ref="U5"  Part="2" 
 AR Path="/5CC382AC/5EC51DBC" Ref="U7"  Part="2" 
 AR Path="/5CC382A2/5EC51DBC" Ref="U9"  Part="2" 
-F 0 "U11" H 4880 7096 50  0000 L CNN
+F 0 "U9" H 4880 7096 50  0000 L CNN
 F 1 "74LVC1G00" H 4880 7005 50  0000 L CNN
 F 2 "alexios:SOT-23-5_HandSoldering" H 4450 7150 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G00.pdf" H 4450 7150 50  0001 C CNN
@@ -1206,4 +973,235 @@ F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G00.pdf" H 4450 7150
 $EndComp
 Connection ~ 4350 7350
 Connection ~ 4350 7150
+$Comp
+L power:GND #PWR?
+U 1 1 5CC31064
+P 4550 4550
+AR Path="/5CC31064" Ref="#PWR?"  Part="1" 
+AR Path="/5CC02B94/5CC31064" Ref="#PWR022"  Part="1" 
+AR Path="/5CC377D5/5CC31064" Ref="#PWR?"  Part="1" 
+AR Path="/5CC37D0C/5CC31064" Ref="#PWR046"  Part="1" 
+AR Path="/5CC37D11/5CC31064" Ref="#PWR?"  Part="1" 
+AR Path="/5CC382A2/5CC31064" Ref="#PWR040"  Part="1" 
+AR Path="/5CC382A7/5CC31064" Ref="#PWR?"  Part="1" 
+AR Path="/5CC382AC/5CC31064" Ref="#PWR034"  Part="1" 
+AR Path="/5CC382B1/5CC31064" Ref="#PWR?"  Part="1" 
+AR Path="/5CC38618/5CC31064" Ref="#PWR028"  Part="1" 
+AR Path="/5CC3861D/5CC31064" Ref="#PWR?"  Part="1" 
+AR Path="/5D17E5F6/5CC31064" Ref="#PWR?"  Part="1" 
+AR Path="/5D17E5FB/5CC31064" Ref="#PWR?"  Part="1" 
+AR Path="/5D17E600/5CC31064" Ref="#PWR?"  Part="1" 
+AR Path="/5D17E605/5CC31064" Ref="#PWR?"  Part="1" 
+AR Path="/5D17E622/5CC31064" Ref="#PWR?"  Part="1" 
+AR Path="/5D191B3C/5CC31064" Ref="#PWR?"  Part="1" 
+AR Path="/5D191B41/5CC31064" Ref="#PWR?"  Part="1" 
+AR Path="/5D191B46/5CC31064" Ref="#PWR?"  Part="1" 
+AR Path="/5D191B4B/5CC31064" Ref="#PWR?"  Part="1" 
+AR Path="/5D191B68/5CC31064" Ref="#PWR?"  Part="1" 
+AR Path="/5D1E3362/5CC31064" Ref="#PWR?"  Part="1" 
+AR Path="/5D1E3367/5CC31064" Ref="#PWR?"  Part="1" 
+AR Path="/5D1E336C/5CC31064" Ref="#PWR?"  Part="1" 
+AR Path="/5D1E3371/5CC31064" Ref="#PWR?"  Part="1" 
+AR Path="/5D1E338D/5CC31064" Ref="#PWR?"  Part="1" 
+F 0 "#PWR040" H 4550 4300 50  0001 C CNN
+F 1 "GND" H 4555 4377 50  0000 C CNN
+F 2 "" H 4550 4550 50  0001 C CNN
+F 3 "" H 4550 4550 50  0001 C CNN
+	1    4550 4550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Jumper:Jumper_3_Bridged12 JP?
+U 1 1 5CC30FEE
+P 4300 4500
+AR Path="/5CC30FEE" Ref="JP?"  Part="1" 
+AR Path="/5CC02B94/5CC30FEE" Ref="JP7"  Part="1" 
+AR Path="/5CC377D5/5CC30FEE" Ref="JP?"  Part="1" 
+AR Path="/5CC37D0C/5CC30FEE" Ref="JP11"  Part="1" 
+AR Path="/5CC37D11/5CC30FEE" Ref="JP?"  Part="1" 
+AR Path="/5CC382A2/5CC30FEE" Ref="JP10"  Part="1" 
+AR Path="/5CC382A7/5CC30FEE" Ref="JP?"  Part="1" 
+AR Path="/5CC382AC/5CC30FEE" Ref="JP9"  Part="1" 
+AR Path="/5CC382B1/5CC30FEE" Ref="JP?"  Part="1" 
+AR Path="/5CC38618/5CC30FEE" Ref="JP8"  Part="1" 
+AR Path="/5CC3861D/5CC30FEE" Ref="JP?"  Part="1" 
+AR Path="/5D17E5F6/5CC30FEE" Ref="JP?"  Part="1" 
+AR Path="/5D17E5FB/5CC30FEE" Ref="JP?"  Part="1" 
+AR Path="/5D17E600/5CC30FEE" Ref="JP?"  Part="1" 
+AR Path="/5D17E605/5CC30FEE" Ref="JP?"  Part="1" 
+AR Path="/5D17E622/5CC30FEE" Ref="JP?"  Part="1" 
+AR Path="/5D191B3C/5CC30FEE" Ref="JP?"  Part="1" 
+AR Path="/5D191B41/5CC30FEE" Ref="JP?"  Part="1" 
+AR Path="/5D191B46/5CC30FEE" Ref="JP?"  Part="1" 
+AR Path="/5D191B4B/5CC30FEE" Ref="JP?"  Part="1" 
+AR Path="/5D191B68/5CC30FEE" Ref="JP?"  Part="1" 
+AR Path="/5D1E3362/5CC30FEE" Ref="JP?"  Part="1" 
+AR Path="/5D1E3367/5CC30FEE" Ref="JP?"  Part="1" 
+AR Path="/5D1E336C/5CC30FEE" Ref="JP?"  Part="1" 
+AR Path="/5D1E3371/5CC30FEE" Ref="JP?"  Part="1" 
+AR Path="/5D1E338D/5CC30FEE" Ref="JP?"  Part="1" 
+F 0 "JP10" H 4300 4612 50  0000 C CNN
+F 1 "Jumper_3_Bridged12" H 4300 4300 50  0001 C CNN
+F 2 "Connector_PinSocket_2.54mm:PinSocket_1x03_P2.54mm_Vertical" H 4300 4500 50  0001 C CNN
+F 3 "~" H 4300 4500 50  0001 C CNN
+	1    4300 4500
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	4550 4500 4550 4550
+Wire Wire Line
+	3300 4500 4050 4500
+Text Label 3400 4500 0    50   ~ 0
+~LTSON
+Text HLabel 3300 4500 0    50   Input ~ 0
+~LTSON
+Text HLabel 3300 4100 0    50   Input ~ 0
+~LE2
+Wire Wire Line
+	3550 4100 3300 4100
+Wire Wire Line
+	3300 4000 3550 4000
+$Comp
+L alexios:74LVC1G00 U11
+U 1 1 5E9E95DE
+P 3850 4050
+AR Path="/5CC37D0C/5E9E95DE" Ref="U11"  Part="1" 
+AR Path="/5CC02B94/5E9E95DE" Ref="U3"  Part="1" 
+AR Path="/5CC38618/5E9E95DE" Ref="U5"  Part="1" 
+AR Path="/5CC382AC/5E9E95DE" Ref="U7"  Part="1" 
+AR Path="/5CC382A2/5E9E95DE" Ref="U9"  Part="1" 
+F 0 "U9" H 3775 3875 50  0000 C CNN
+F 1 "74LVC1G00" H 3775 3784 50  0000 C CNN
+F 2 "alexios:SOT-23-5_HandSoldering" H 3500 4050 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G00.pdf" H 3500 4050 50  0001 C CNN
+	1    3850 4050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4000 4050 4350 4050
+Text HLabel 3300 4000 0    50   Input ~ 0
+~LE1
+Wire Wire Line
+	4350 3150 3750 3150
+Text Label 3800 3150 0    50   ~ 0
+D0
+Text Label 3800 3250 0    50   ~ 0
+D1
+$Comp
+L power:GND #PWR?
+U 1 1 5CC30FC6
+P 6600 4600
+AR Path="/5CC30FC6" Ref="#PWR?"  Part="1" 
+AR Path="/5CC02B94/5CC30FC6" Ref="#PWR025"  Part="1" 
+AR Path="/5CC377D5/5CC30FC6" Ref="#PWR?"  Part="1" 
+AR Path="/5CC37D0C/5CC30FC6" Ref="#PWR049"  Part="1" 
+AR Path="/5CC37D11/5CC30FC6" Ref="#PWR?"  Part="1" 
+AR Path="/5CC382A2/5CC30FC6" Ref="#PWR043"  Part="1" 
+AR Path="/5CC382A7/5CC30FC6" Ref="#PWR?"  Part="1" 
+AR Path="/5CC382AC/5CC30FC6" Ref="#PWR037"  Part="1" 
+AR Path="/5CC382B1/5CC30FC6" Ref="#PWR?"  Part="1" 
+AR Path="/5CC38618/5CC30FC6" Ref="#PWR031"  Part="1" 
+AR Path="/5CC3861D/5CC30FC6" Ref="#PWR?"  Part="1" 
+AR Path="/5D17E5F6/5CC30FC6" Ref="#PWR?"  Part="1" 
+AR Path="/5D17E5FB/5CC30FC6" Ref="#PWR?"  Part="1" 
+AR Path="/5D17E600/5CC30FC6" Ref="#PWR?"  Part="1" 
+AR Path="/5D17E605/5CC30FC6" Ref="#PWR?"  Part="1" 
+AR Path="/5D17E622/5CC30FC6" Ref="#PWR?"  Part="1" 
+AR Path="/5D191B3C/5CC30FC6" Ref="#PWR?"  Part="1" 
+AR Path="/5D191B41/5CC30FC6" Ref="#PWR?"  Part="1" 
+AR Path="/5D191B46/5CC30FC6" Ref="#PWR?"  Part="1" 
+AR Path="/5D191B4B/5CC30FC6" Ref="#PWR?"  Part="1" 
+AR Path="/5D191B68/5CC30FC6" Ref="#PWR?"  Part="1" 
+AR Path="/5D1E3362/5CC30FC6" Ref="#PWR?"  Part="1" 
+AR Path="/5D1E3367/5CC30FC6" Ref="#PWR?"  Part="1" 
+AR Path="/5D1E336C/5CC30FC6" Ref="#PWR?"  Part="1" 
+AR Path="/5D1E3371/5CC30FC6" Ref="#PWR?"  Part="1" 
+AR Path="/5D1E338D/5CC30FC6" Ref="#PWR?"  Part="1" 
+F 0 "#PWR043" H 6600 4350 50  0001 C CNN
+F 1 "GND" H 6605 4427 50  0000 C CNN
+F 2 "" H 6600 4600 50  0001 C CNN
+F 3 "" H 6600 4600 50  0001 C CNN
+	1    6600 4600
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:LED_ALT LED?
+U 1 1 5CC3105E
+P 5400 4300
+AR Path="/5CC3105E" Ref="LED?"  Part="1" 
+AR Path="/5CC02B94/5CC3105E" Ref="LED1"  Part="1" 
+AR Path="/5CC377D5/5CC3105E" Ref="LED?"  Part="1" 
+AR Path="/5CC37D0C/5CC3105E" Ref="LED33"  Part="1" 
+AR Path="/5CC37D11/5CC3105E" Ref="LED?"  Part="1" 
+AR Path="/5CC382A2/5CC3105E" Ref="LED25"  Part="1" 
+AR Path="/5CC382A7/5CC3105E" Ref="LED?"  Part="1" 
+AR Path="/5CC382AC/5CC3105E" Ref="LED17"  Part="1" 
+AR Path="/5CC382B1/5CC3105E" Ref="LED?"  Part="1" 
+AR Path="/5CC38618/5CC3105E" Ref="LED9"  Part="1" 
+AR Path="/5CC3861D/5CC3105E" Ref="LED?"  Part="1" 
+AR Path="/5D17E5F6/5CC3105E" Ref="LED?"  Part="1" 
+AR Path="/5D17E5FB/5CC3105E" Ref="LED?"  Part="1" 
+AR Path="/5D17E600/5CC3105E" Ref="LED?"  Part="1" 
+AR Path="/5D17E605/5CC3105E" Ref="LED?"  Part="1" 
+AR Path="/5D17E622/5CC3105E" Ref="LED?"  Part="1" 
+AR Path="/5D191B3C/5CC3105E" Ref="LED?"  Part="1" 
+AR Path="/5D191B41/5CC3105E" Ref="LED?"  Part="1" 
+AR Path="/5D191B46/5CC3105E" Ref="LED?"  Part="1" 
+AR Path="/5D191B4B/5CC3105E" Ref="LED?"  Part="1" 
+AR Path="/5D191B68/5CC3105E" Ref="LED?"  Part="1" 
+AR Path="/5D1E3362/5CC3105E" Ref="LED?"  Part="1" 
+AR Path="/5D1E3367/5CC3105E" Ref="LED?"  Part="1" 
+AR Path="/5D1E336C/5CC3105E" Ref="LED?"  Part="1" 
+AR Path="/5D1E3371/5CC3105E" Ref="LED?"  Part="1" 
+AR Path="/5D1E338D/5CC3105E" Ref="LED?"  Part="1" 
+F 0 "LED25" V 5400 4050 50  0000 L CNN
+F 1 "LED_ALT" V 5350 3900 50  0001 L CNN
+F 2 "LED_SMD:LED_1210_3225Metric_Pad1.42x2.65mm_HandSolder" H 5400 4300 50  0001 C CNN
+F 3 "~" H 5400 4300 50  0001 C CNN
+	1    5400 4300
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:R_Small R?
+U 1 1 5CC31058
+P 5400 4050
+AR Path="/5CC31058" Ref="R?"  Part="1" 
+AR Path="/5CC02B94/5CC31058" Ref="R1"  Part="1" 
+AR Path="/5CC377D5/5CC31058" Ref="R?"  Part="1" 
+AR Path="/5CC37D0C/5CC31058" Ref="R33"  Part="1" 
+AR Path="/5CC37D11/5CC31058" Ref="R?"  Part="1" 
+AR Path="/5CC382A2/5CC31058" Ref="R25"  Part="1" 
+AR Path="/5CC382A7/5CC31058" Ref="R?"  Part="1" 
+AR Path="/5CC382AC/5CC31058" Ref="R17"  Part="1" 
+AR Path="/5CC382B1/5CC31058" Ref="R?"  Part="1" 
+AR Path="/5CC38618/5CC31058" Ref="R9"  Part="1" 
+AR Path="/5CC3861D/5CC31058" Ref="R?"  Part="1" 
+AR Path="/5D17E5F6/5CC31058" Ref="R?"  Part="1" 
+AR Path="/5D17E5FB/5CC31058" Ref="R?"  Part="1" 
+AR Path="/5D17E600/5CC31058" Ref="R?"  Part="1" 
+AR Path="/5D17E605/5CC31058" Ref="R?"  Part="1" 
+AR Path="/5D17E622/5CC31058" Ref="R?"  Part="1" 
+AR Path="/5D191B3C/5CC31058" Ref="R?"  Part="1" 
+AR Path="/5D191B41/5CC31058" Ref="R?"  Part="1" 
+AR Path="/5D191B46/5CC31058" Ref="R?"  Part="1" 
+AR Path="/5D191B4B/5CC31058" Ref="R?"  Part="1" 
+AR Path="/5D191B68/5CC31058" Ref="R?"  Part="1" 
+AR Path="/5D1E3362/5CC31058" Ref="R?"  Part="1" 
+AR Path="/5D1E3367/5CC31058" Ref="R?"  Part="1" 
+AR Path="/5D1E336C/5CC31058" Ref="R?"  Part="1" 
+AR Path="/5D1E3371/5CC31058" Ref="R?"  Part="1" 
+AR Path="/5D1E338D/5CC31058" Ref="R?"  Part="1" 
+F 0 "R25" H 5450 4100 50  0000 L CNN
+F 1 "330Ω" H 5450 4000 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5400 4050 50  0001 C CNN
+F 3 "~" H 5400 4050 50  0001 C CNN
+	1    5400 4050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4350 4150 4300 4150
+Wire Wire Line
+	4300 4150 4300 4350
+Wire Bus Line
+	3650 2950 3650 3750
 $EndSCHEMATC
