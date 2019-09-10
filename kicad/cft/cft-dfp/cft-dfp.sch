@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:cft-dfp-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A3 16535 11693
 encoding utf-8
@@ -1149,15 +1149,15 @@ SWA1
 Text Label 14650 2750 2    50   ~ 0
 SWA0
 Text Label 14650 2650 2    50   ~ 0
-ROW5
+~ROW5
 Text Label 14650 2550 2    50   ~ 0
-ROW4
+~ROW4
 Text Label 14650 2450 2    50   ~ 0
-ROW3
+~ROW3
 Text Label 14650 2350 2    50   ~ 0
-ROW2
+~ROW2
 Text Label 14650 2250 2    50   ~ 0
-ROW1
+~ROW1
 Wire Wire Line
 	14100 1350 14650 1350
 Wire Wire Line
@@ -1483,8 +1483,6 @@ Wire Wire Line
 	2000 650  2000 1000
 Wire Wire Line
 	2200 650  2200 1000
-Wire Wire Line
-	2400 650  2400 1000
 Entry Wire Line
 	6150 1250 6250 1350
 Entry Wire Line
@@ -1750,8 +1748,6 @@ Wire Wire Line
 Text Label 11300 8250 2    50   ~ 0
 ~ORHOE
 Wire Wire Line
-	1050 3750 1500 3750
-Wire Wire Line
 	1000 1450 1500 1450
 Text Label 8100 1350 2    50   ~ 0
 ~WABM
@@ -1776,7 +1772,7 @@ FPA=01xxxAAA
 Wire Bus Line
 	8050 5250 8700 5250
 Text Label 8250 5250 0    50   ~ 0
-ROW[1..5]
+~ROW[1..5]
 $Comp
 L alexios:74HC590 U108
 U 1 1 5E6F6CB0
@@ -2078,7 +2074,7 @@ F0 "FP Scan Logic/Decoder" 50
 F1 "cft-dfp-scan.sch" 50
 F2 "FPA[0..7]" I L 6900 5100 50 
 F3 "~FPOE[0..31]" O R 8050 5100 50 
-F4 "ROW[1..5]" O R 8050 5250 50 
+F4 "~ROW[1..5]" O R 8050 5250 50 
 F5 "~PANELEN" I L 6900 5250 50 
 F6 "~SCANCLR" I R 8050 5400 50 
 $EndSheet
@@ -2184,7 +2180,6 @@ F 3 "" H 5950 8900 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Connection ~ 5950 8700
-Connection ~ 5950 8900
 $Comp
 L alexios:74HC540 U110
 U 2 1 5D43A9C3
@@ -2721,9 +2716,6 @@ Wire Wire Line
 Connection ~ 1300 950 
 Wire Wire Line
 	1550 700  1550 650 
-Connection ~ 2400 650 
-Text Notes 550  2500 0    50   ~ 0
-OPTIONAL
 $Comp
 L Device:C_Small C116
 U 1 1 5CB8CAD9
@@ -2854,21 +2846,6 @@ Wire Wire Line
 Connection ~ 950  4650
 Wire Wire Line
 	950  4650 1100 4650
-Connection ~ 3900 5200
-Connection ~ 3900 5000
-$Comp
-L alexios:74HC590 U108
-U 2 1 6511161D
-P 4250 5450
-AR Path="/6511161D" Ref="U108"  Part="2" 
-AR Path="/6233F88C/6511161D" Ref="U?"  Part="1" 
-F 0 "U108" H 4100 6050 50  0000 L CNN
-F 1 "74HC590" H 4100 5550 50  0000 L CNN
-F 2 "alexios:SOIC-16" H 4550 5800 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74HC590.pdf" H 4550 5800 50  0001 C CNN
-	2    4250 5450
-	1    0    0    -1  
-$EndComp
 $Comp
 L Device:C_Small C114
 U 1 1 64FB2807
@@ -2889,17 +2866,6 @@ F 1 "+5V" H 3915 5173 50  0000 C CNN
 F 2 "" H 3900 5000 50  0001 C CNN
 F 3 "" H 3900 5000 50  0001 C CNN
 	1    3900 5000
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR0148
-U 1 1 64FB27FA
-P 3900 5200
-F 0 "#PWR0148" H 3900 4950 50  0001 C CNN
-F 1 "GND" H 3905 5027 50  0000 C CNN
-F 2 "" H 3900 5200 50  0001 C CNN
-F 3 "" H 3900 5200 50  0001 C CNN
-	1    3900 5200
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -3089,7 +3055,6 @@ F 3 "" H 5350 5850 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Connection ~ 5350 5650
-Connection ~ 5350 5850
 $Comp
 L Device:R_Small R103
 U 1 1 66C6F898
@@ -3253,31 +3218,7 @@ Wire Wire Line
 Text Label 12400 3250 0    50   ~ 0
 ~W
 Wire Wire Line
-	1500 1850 1000 1850
-Wire Wire Line
 	1500 1950 1000 1950
-$Comp
-L Connector:TestPoint TP101
-U 1 1 5DD51240
-P 1000 1850
-F 0 "TP101" V 1000 2038 50  0000 L CNN
-F 1 "TestPoint" V 1104 1922 50  0001 C CNN
-F 2 "TestPoint:TestPoint_THTPad_D1.0mm_Drill0.5mm" H 1200 1850 50  0001 C CNN
-F 3 "~" H 1200 1850 50  0001 C CNN
-	1    1000 1850
-	0    -1   -1   0   
-$EndComp
-$Comp
-L Connector:TestPoint TP102
-U 1 1 5DD51570
-P 1000 1950
-F 0 "TP102" V 1000 2138 50  0000 L CNN
-F 1 "TestPoint" V 1104 2022 50  0001 C CNN
-F 2 "TestPoint:TestPoint_THTPad_D1.0mm_Drill0.5mm" H 1200 1950 50  0001 C CNN
-F 3 "~" H 1200 1950 50  0001 C CNN
-	1    1000 1950
-	0    -1   -1   0   
-$EndComp
 $Comp
 L Device:CP_Small C124
 U 1 1 5D6D5C2A
@@ -3994,6 +3935,7 @@ F15 "~W" U R 11750 3250 50
 F16 "ACTION[0..3]" U R 11750 3750 50 
 F17 "WADDR[0..4]" U R 11750 3850 50 
 F18 "RADDR[0..4]" U R 11750 3950 50 
+F19 "~IODEV1xx" U R 11750 2650 50 
 $EndSheet
 Entry Wire Line
 	8750 7150 8850 7050
@@ -4038,17 +3980,6 @@ F 4 "556-ATMEGA64L-8AU" H 2300 2950 50  0001 C CNN "BOM-Mouser"
 F 5 "Yes" H 2300 2950 50  0001 C CNN "Verified"
 	1    2300 2950
 	1    0    0    -1  
-$EndComp
-$Comp
-L Connector:TestPoint TP103
-U 1 1 5D976FC1
-P 1050 3750
-F 0 "TP103" V 1050 3938 50  0000 L CNN
-F 1 "TestPoint" V 1154 3822 50  0001 C CNN
-F 2 "TestPoint:TestPoint_THTPad_D1.0mm_Drill0.5mm" H 1250 3750 50  0001 C CNN
-F 3 "~" H 1250 3750 50  0001 C CNN
-	1    1050 3750
-	0    -1   -1   0   
 $EndComp
 $Comp
 L Connector:TestPoint TP112
@@ -4126,6 +4057,74 @@ Wire Wire Line
 	5650 9950 5800 9950
 Wire Wire Line
 	5200 9950 5300 9950
+Wire Wire Line
+	14100 5650 14650 5650
+NoConn ~ 14650 5650
+Wire Wire Line
+	11750 2650 12300 2650
+Text Label 12300 2650 2    50   ~ 0
+~IODEV1xx
+Connection ~ 5950 8900
+Wire Wire Line
+	2400 650  2400 1000
+Connection ~ 2400 650 
+Connection ~ 5350 5850
+Connection ~ 3900 5000
+$Comp
+L alexios:74HC590 U108
+U 2 1 6511161D
+P 4250 5450
+AR Path="/6511161D" Ref="U108"  Part="2" 
+AR Path="/6233F88C/6511161D" Ref="U?"  Part="1" 
+F 0 "U108" H 4100 6050 50  0000 L CNN
+F 1 "74HC590" H 4100 5550 50  0000 L CNN
+F 2 "alexios:SOIC-16" H 4550 5800 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC590.pdf" H 4550 5800 50  0001 C CNN
+	2    4250 5450
+	1    0    0    -1  
+$EndComp
+Connection ~ 3900 5200
+$Comp
+L power:GND #PWR0148
+U 1 1 64FB27FA
+P 3900 5200
+F 0 "#PWR0148" H 3900 4950 50  0001 C CNN
+F 1 "GND" H 3905 5027 50  0000 C CNN
+F 2 "" H 3900 5200 50  0001 C CNN
+F 3 "" H 3900 5200 50  0001 C CNN
+	1    3900 5200
+	1    0    0    -1  
+$EndComp
+Text Notes 550  3000 0    50   ~ 0
+Pulled up\ninternally
+Text Label 1000 3750 0    50   ~ 0
+~µCVOE
+Wire Wire Line
+	1000 3750 1500 3750
+$Comp
+L Connector:TestPoint TP102
+U 1 1 5DD51570
+P 1000 1950
+F 0 "TP102" V 1000 2138 50  0000 L CNN
+F 1 "TestPoint" V 1104 2022 50  0001 C CNN
+F 2 "TestPoint:TestPoint_THTPad_D1.0mm_Drill0.5mm" H 1200 1950 50  0001 C CNN
+F 3 "~" H 1200 1950 50  0001 C CNN
+	1    1000 1950
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Connector:TestPoint TP101
+U 1 1 5E77BD30
+P 1000 1850
+F 0 "TP101" V 1000 2038 50  0000 L CNN
+F 1 "TestPoint" V 1104 1922 50  0001 C CNN
+F 2 "TestPoint:TestPoint_THTPad_D1.0mm_Drill0.5mm" H 1200 1850 50  0001 C CNN
+F 3 "~" H 1200 1850 50  0001 C CNN
+	1    1000 1850
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	1500 1850 1000 1850
 Wire Bus Line
 	8850 5200 8850 7250
 Wire Bus Line

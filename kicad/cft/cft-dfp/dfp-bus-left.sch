@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:cft-dfp-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -771,39 +771,23 @@ F 3 "" H 9300 3750 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+5V #PWR?
-U 1 1 5D360869
-P 8800 4800
-AR Path="/5F67D4B5/5D360869" Ref="#PWR?"  Part="1" 
-AR Path="/5D360869" Ref="#PWR?"  Part="1" 
-AR Path="/5D34E810/5D360869" Ref="#PWR0201"  Part="1" 
-AR Path="/5D36B851/5D360869" Ref="#PWR?"  Part="1" 
-AR Path="/5F1DB2E8/5D360869" Ref="#PWR?"  Part="1" 
-F 0 "#PWR0201" H 8800 4650 50  0001 C CNN
-F 1 "+5V" H 8742 4837 50  0000 R CNN
-F 2 "" H 8800 4800 50  0001 C CNN
-F 3 "" H 8800 4800 50  0001 C CNN
-	1    8800 4800
-	1    0    0    -1  
-$EndComp
-$Comp
 L power:GND #PWR?
 U 1 1 5D360863
-P 8800 5200
+P 8850 5200
 AR Path="/5F67D4B5/5D360863" Ref="#PWR?"  Part="1" 
 AR Path="/5D360863" Ref="#PWR?"  Part="1" 
 AR Path="/5D34E810/5D360863" Ref="#PWR0202"  Part="1" 
 AR Path="/5D36B851/5D360863" Ref="#PWR?"  Part="1" 
 AR Path="/5F1DB2E8/5D360863" Ref="#PWR?"  Part="1" 
-F 0 "#PWR0202" H 8800 4950 50  0001 C CNN
-F 1 "GND" H 8722 5163 50  0000 R CNN
-F 2 "" H 8800 5200 50  0001 C CNN
-F 3 "" H 8800 5200 50  0001 C CNN
-	1    8800 5200
+F 0 "#PWR0202" H 8850 4950 50  0001 C CNN
+F 1 "GND" H 8772 5163 50  0000 R CNN
+F 2 "" H 8850 5200 50  0001 C CNN
+F 3 "" H 8850 5200 50  0001 C CNN
+	1    8850 5200
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	8800 4800 8800 4900
+	8850 4800 8850 4900
 $Comp
 L power:+5V #PWR?
 U 1 1 5D360855
@@ -836,8 +820,6 @@ F 3 "" H 9900 5200 50  0001 C CNN
 	1    9900 5200
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	9900 4800 9900 4900
 Wire Wire Line
 	9900 5100 9900 5200
 Wire Wire Line
@@ -1073,15 +1055,15 @@ RSVD[0..8]
 $Comp
 L Device:CP_Small C?
 U 1 1 5D8FC46B
-P 8800 5000
+P 8850 5000
 AR Path="/5D8FC46B" Ref="C?"  Part="1" 
 AR Path="/5D34E810/5D8FC46B" Ref="C201"  Part="1" 
 AR Path="/5F1DB2E8/5D8FC46B" Ref="C?"  Part="1" 
-F 0 "C201" H 8712 5046 50  0000 R CNN
-F 1 "47µF" H 8712 4955 50  0000 R CNN
-F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 8800 5000 50  0001 C CNN
-F 3 "~" H 8800 5000 50  0001 C CNN
-	1    8800 5000
+F 0 "C201" H 8762 5046 50  0000 R CNN
+F 1 "47µF" H 8762 4955 50  0000 R CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 8850 5000 50  0001 C CNN
+F 3 "~" H 8850 5000 50  0001 C CNN
+	1    8850 5000
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -1179,48 +1161,62 @@ C39
 Text HLabel 10250 3700 2    50   UnSpc ~ 0
 C40
 Wire Wire Line
-	8950 4900 8900 4900
-Connection ~ 8800 4800
-Wire Wire Line
-	8800 5100 8800 5200
-Wire Wire Line
-	8950 5100 8900 5100
-Wire Wire Line
-	8900 5100 8900 5200
-Wire Wire Line
-	8900 5200 8950 5200
-Wire Wire Line
-	8900 5200 8800 5200
-Connection ~ 8900 5200
-Connection ~ 8800 5200
-Wire Wire Line
-	9750 5200 9800 5200
+	8850 5100 8850 5200
+Connection ~ 8850 5200
 Connection ~ 9900 5200
+NoConn ~ 2600 -2950
 Wire Wire Line
-	9750 5100 9800 5100
-Wire Wire Line
-	9800 5100 9800 5200
-Connection ~ 9800 5200
-Wire Wire Line
-	9800 5200 9900 5200
+	9900 4800 9900 4900
 Connection ~ 9900 4800
 Wire Wire Line
-	8900 4900 8900 4800
-Connection ~ 8900 4800
+	8850 4900 8950 4900
+Connection ~ 8850 4900
+Connection ~ 8850 5100
 Wire Wire Line
-	8900 4800 8950 4800
+	8850 5100 8950 5100
 Wire Wire Line
-	8800 4800 8900 4800
+	8850 5200 8950 5200
 Wire Wire Line
-	9750 4800 9800 4800
+	9750 4800 9900 4800
 Wire Wire Line
-	9800 4900 9800 4800
+	9750 4900 9900 4900
+Connection ~ 9900 4900
+Connection ~ 9900 5100
 Wire Wire Line
-	9750 4900 9800 4900
-Connection ~ 9800 4800
+	9750 5100 9900 5100
 Wire Wire Line
-	9800 4800 9900 4800
-NoConn ~ 2600 -2950
+	9750 5200 9900 5200
+Connection ~ 8850 4800
+$Comp
+L power:+5V #PWR?
+U 1 1 5D360869
+P 8850 4800
+AR Path="/5F67D4B5/5D360869" Ref="#PWR?"  Part="1" 
+AR Path="/5D360869" Ref="#PWR?"  Part="1" 
+AR Path="/5D34E810/5D360869" Ref="#PWR0201"  Part="1" 
+AR Path="/5D36B851/5D360869" Ref="#PWR?"  Part="1" 
+AR Path="/5F1DB2E8/5D360869" Ref="#PWR?"  Part="1" 
+F 0 "#PWR0201" H 8850 4650 50  0001 C CNN
+F 1 "+5V" H 8792 4837 50  0000 R CNN
+F 2 "" H 8850 4800 50  0001 C CNN
+F 3 "" H 8850 4800 50  0001 C CNN
+	1    8850 4800
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:PWR_FLAG #FLG0103
+U 1 1 5E6E99BE
+P 9750 5200
+F 0 "#FLG0103" H 9750 5275 50  0001 C CNN
+F 1 "PWR_FLAG" H 9750 5373 50  0001 C CNN
+F 2 "" H 9750 5200 50  0001 C CNN
+F 3 "~" H 9750 5200 50  0001 C CNN
+	1    9750 5200
+	-1   0    0    1   
+$EndComp
+Connection ~ 9750 5200
+Wire Wire Line
+	8850 4800 8950 4800
 Wire Bus Line
 	7000 3950 7000 5750
 Wire Bus Line

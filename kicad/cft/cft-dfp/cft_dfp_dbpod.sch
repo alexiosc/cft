@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:cft-dfp-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -217,7 +217,6 @@ F 3 "http://www.ti.com/lit/gpn/sn74LS574" H 5400 7150 50  0001 C CNN
 	2    5700 7200
 	1    0    0    -1  
 $EndComp
-Connection ~ 5350 7300
 Connection ~ 5350 7100
 Wire Wire Line
 	5650 4550 6300 4550
@@ -828,4 +827,5 @@ Wire Bus Line
 	3550 2050 3550 5050
 Wire Bus Line
 	7800 2500 7800 5050
+Connection ~ 5350 7300
 $EndSCHEMATC

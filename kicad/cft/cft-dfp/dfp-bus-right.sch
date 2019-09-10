@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:cft-dfp-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -1217,6 +1217,17 @@ F 1 "CFT-2019-Bus" H 3300 1726 50  0000 C CNN
 F 2 "alexios:CFT-2019-Card-Edge-P2-Connector" H 3250 750 50  0001 C CNN
 F 3 "" H 3250 750 50  0001 C CNN
 	1    3300 1650
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:PWR_FLAG #FLG0101
+U 1 1 5E675F81
+P 9000 4500
+F 0 "#FLG0101" H 9000 4575 50  0001 C CNN
+F 1 "PWR_FLAG" H 9000 4673 50  0000 C CNN
+F 2 "" H 9000 4500 50  0001 C CNN
+F 3 "~" H 9000 4500 50  0001 C CNN
+	1    9000 4500
 	1    0    0    -1  
 $EndComp
 Wire Bus Line

@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:cft-dfp-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -444,7 +444,6 @@ F 3 "" H 2400 7300 50  0001 C CNN
 	1    2400 7300
 	1    0    0    -1  
 $EndComp
-Connection ~ 2400 7500
 $Comp
 L power:GND #PWR?
 U 1 1 5D49B802
@@ -571,4 +570,5 @@ Wire Bus Line
 	5950 3800 5950 4450
 Wire Bus Line
 	3500 1000 3500 4850
+Connection ~ 2400 7500
 $EndSCHEMATC

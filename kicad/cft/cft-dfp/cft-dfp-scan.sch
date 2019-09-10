@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:cft-dfp-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -698,23 +698,23 @@ Wire Wire Line
 Wire Wire Line
 	3650 2800 4050 2800
 Text Label 3750 2400 0    50   ~ 0
-ROW1
+~ROW1
 Text Label 3750 2500 0    50   ~ 0
-ROW2
+~ROW2
 Text Label 3750 2600 0    50   ~ 0
-ROW3
+~ROW3
 Text Label 3750 2700 0    50   ~ 0
-ROW4
+~ROW4
 Text Label 3750 2800 0    50   ~ 0
-ROW5
+~ROW5
 Text Label 4150 3700 1    50   ~ 0
-ROW[1..5]
+~ROW[1..5]
 Entry Bus Bus
 	4150 6250 4250 6350
 Text Label 7100 6350 2    50   ~ 0
-ROW[1..5]
+~ROW[1..5]
 Text HLabel 7200 6350 2    50   Output ~ 0
-ROW[1..5]
+~ROW[1..5]
 Text Label 4600 5050 0    50   ~ 0
 FPA4
 Text Label 4600 4950 0    50   ~ 0
@@ -745,14 +745,14 @@ $EndComp
 $Comp
 L power:+5V #PWR?
 U 1 1 624FF43B
-P 4850 5450
+P 4850 5400
 AR Path="/624FF43B" Ref="#PWR?"  Part="1" 
 AR Path="/6233F88C/624FF43B" Ref="#PWR01222"  Part="1" 
-F 0 "#PWR01222" H 4850 5300 50  0001 C CNN
-F 1 "+5V" H 4865 5623 50  0000 C CNN
-F 2 "" H 4850 5450 50  0001 C CNN
-F 3 "" H 4850 5450 50  0001 C CNN
-	1    4850 5450
+F 0 "#PWR01222" H 4850 5250 50  0001 C CNN
+F 1 "+5V" H 4865 5573 50  0000 C CNN
+F 2 "" H 4850 5400 50  0001 C CNN
+F 3 "" H 4850 5400 50  0001 C CNN
+	1    4850 5400
 	1    0    0    -1  
 $EndComp
 Text Label 6200 4200 2    50   ~ 0
@@ -2185,7 +2185,7 @@ Wire Notes Line width 10 rgb(253, 26, 0)
 Text Notes 8550 3900 0    100  ~ 20
 Front Panel Light Modules
 Text Notes 8550 3450 0    50   ~ 0
-The front panel scanner synchronises two groups of\nsignals: the front panel output enables on various\nprocessor boards (using the ~FPOExx~ enables), and\nthe enables of the 8-bit latches on the front panel\nboards.\n\nThe front panel boards are organised in four modules\ntimes five rows. The module is enabled for writing by\nthe two-bit address FPA₀₋₁ and a specific row on that\nmodule is enabled for latching using ROW₁₋₅~.\n\nThese are in phase with the ~FPOExx~ enables, so the\nsame row on each module will always receive data from\nthe same processor board output buffer.\n\nThe addresses are scanned in increasing order,\nmodulo 21: ~FPOE20~ enables nothing, but is used to\nreset the count.\n\nAddresses over 20 are never reached by the autonomic\ncounter, but they may be put on the bus by the MCU to\nenable future units for debugging output (which however\nwon't appear on the front panel).\n\nHowever, addresses are decoded across modules first,\nthen down by row numbers: so the enables are inter-\nleaved across '138 decoders. (each decoder is responsible\nfor one front panel module)
+The front panel scanner synchronises two groups of\nsignals: the front panel output enables on various\nprocessor boards (using the ~FPOExx~ enables), and\nthe enables of the 8-bit latches on the front panel\nboards.\n\nThe front panel boards are organised in four modules\ntimes five rows. The module is enabled for writing by\nthe two-bit address FPA₀₋₁ and a specific row on that\nmodule is enabled for latching using ~ROW₁₋₅~.\n\nThese are in phase with the ~FPOExx~ enables, so the\nsame row on each module will always receive data from\nthe same processor board output buffer.\n\nThe addresses are scanned in increasing order,\nmodulo 21: ~FPOE20~ enables nothing, but is used to\nreset the count.\n\nAddresses over 20 are never reached by the autonomic\ncounter, but they may be put on the bus by the MCU to\nenable future units for debugging output (which however\nwon't appear on the front panel).\n\nHowever, addresses are decoded across modules first,\nthen down by row numbers: so the enables are inter-\nleaved across '138 decoders. (each decoder is responsible\nfor one front panel module)
 $Comp
 L alexios:74HC138 U?
 U 2 1 5D448D60
@@ -2418,6 +2418,36 @@ Text Notes 2000 3950 0    50   ~ 0
 ROW₁ to ROW₅ are decoded strobes for the front\npanel modules. The appropriate module is enabled\nfor writing using address FA₀–FA₁ and the desired\n8-bit register on that module is clocked using\nthe ROW strobes.
 Text Notes 750  2550 0    50   ~ 0
 When ~PANELEN~ is de-asserted,\nthe MCU can control the front panel\nlights directly.\n\n~PANELEN~ should ALWAYS be\nde-asserted when writing to MCU\naddresses &00–&03F.
+$Comp
+L alexios:74HC138 U?
+U 1 1 5E2960BD
+P 3150 2800
+AR Path="/5E2960BD" Ref="U?"  Part="1" 
+AR Path="/6233F88C/5E2960BD" Ref="U1202"  Part="1" 
+F 0 "U1202" H 3150 3467 50  0000 C CNN
+F 1 "74HC138" H 3150 3376 50  0000 C CNN
+F 2 "alexios:SOIC-16" H 3150 2800 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 3150 2800 50  0001 C CNN
+	1    3150 2800
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC138 U?
+U 2 1 5E296CDE
+P 1250 7400
+AR Path="/5E296CDE" Ref="U?"  Part="1" 
+AR Path="/6233F88C/5E296CDE" Ref="U1202"  Part="2" 
+F 0 "U1202" H 1250 8067 50  0000 C CNN
+F 1 "74HC138" H 1250 7976 50  0000 C CNN
+F 2 "alexios:SOIC-16" H 1250 7400 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 1250 7400 50  0001 C CNN
+	2    1250 7400
+	1    0    0    -1  
+$EndComp
+Connection ~ 900  7300
+Connection ~ 900  7500
+Wire Wire Line
+	4850 5400 4850 5450
 Wire Bus Line
 	4150 2500 4150 6250
 Wire Bus Line
@@ -2428,30 +2458,4 @@ Wire Bus Line
 	4450 800  4450 4950
 Wire Bus Line
 	6350 1200 6350 6150
-$Comp
-L alexios:74HC238 U1202
-U 1 1 5D8CFC7E
-P 3150 2800
-F 0 "U1202" H 3150 3467 50  0000 C CNN
-F 1 "74HC238" H 3150 3376 50  0000 C CNN
-F 2 "alexios:SOIC-16" H 3150 2800 50  0001 C CNN
-F 3 "" H 3150 2800 50  0001 C CNN
-F 4 "Yes" H 3075 1975 50  0001 C CNN "Verified"
-	1    3150 2800
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74HC238 U1202
-U 2 1 5D8D04B1
-P 1250 7400
-F 0 "U1202" H 1429 7446 50  0000 L CNN
-F 1 "74HC238" H 1429 7355 50  0000 L CNN
-F 2 "alexios:SOIC-16" H 1250 7400 50  0001 C CNN
-F 3 "" H 1250 7400 50  0001 C CNN
-F 4 "Yes" H 1175 6575 50  0001 C CNN "Verified"
-	2    1250 7400
-	1    0    0    -1  
-$EndComp
-Connection ~ 900  7300
-Connection ~ 900  7500
 $EndSCHEMATC

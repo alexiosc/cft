@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:cft-dfp-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -15,26 +15,26 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 Wire Bus Line
-	-7000 5150 -7600 5150
+	-300 950  -900 950 
 Wire Bus Line
-	-7600 5250 -4800 5250
-Text Label -7500 5150 0    50   ~ 0
+	-900 1050 -300 1050
+Text Label -800 950  0    50   ~ 0
 AB[0..23]
-Text Label -7500 5250 0    50   ~ 0
+Text Label -800 1050 0    50   ~ 0
 DB[0..15]
-Text HLabel -7600 5150 0    50   UnSpc ~ 0
+Text HLabel -900 950  0    50   UnSpc ~ 0
 AB[0..23]
-Text HLabel -7600 5250 0    50   UnSpc ~ 0
+Text HLabel -900 1050 0    50   UnSpc ~ 0
 DB[0..15]
 Wire Bus Line
-	-7600 5550 -4250 5550
-Text Label -7500 5550 0    50   ~ 0
+	-900 1350 -300 1350
+Text Label -800 1350 0    50   ~ 0
 FPD[0..7]
 Wire Bus Line
-	-4350 5450 -7600 5450
-Text Label -7500 5450 0    50   ~ 0
+	-300 1250 -900 1250
+Text Label -800 1250 0    50   ~ 0
 IBUS[0..15]
-Text HLabel -7600 5450 0    50   UnSpc ~ 0
+Text HLabel -900 1250 0    50   UnSpc ~ 0
 IBUS[0..15]
 Text HLabel 6800 1900 0    50   UnSpc ~ 0
 CLK1
@@ -45,22 +45,22 @@ WSTB
 Text HLabel 8900 2000 0    50   UnSpc ~ 0
 T34
 Wire Bus Line
-	-2050 5650 -7600 5650
+	-300 1450 -900 1450
 Wire Bus Line
-	-1950 5750 -7600 5750
+	-300 1550 -900 1550
 Wire Bus Line
-	-1850 5850 -7600 5850
-Text Label -7500 5650 0    50   ~ 0
+	-300 1650 -900 1650
+Text Label -800 1450 0    50   ~ 0
 ACTION[0..3]
-Text Label -7500 5750 0    50   ~ 0
+Text Label -800 1550 0    50   ~ 0
 WADDR[0..4]
-Text Label -7500 5850 0    50   ~ 0
+Text Label -800 1650 0    50   ~ 0
 RADDR[0..4]
-Text HLabel -7600 5650 0    50   UnSpc ~ 0
+Text HLabel -900 1450 0    50   UnSpc ~ 0
 ACTION[0..3]
-Text HLabel -7600 5750 0    50   UnSpc ~ 0
+Text HLabel -900 1550 0    50   UnSpc ~ 0
 WADDR[0..4]
-Text HLabel -7600 5850 0    50   UnSpc ~ 0
+Text HLabel -900 1650 0    50   UnSpc ~ 0
 RADDR[0..4]
 $Comp
 L Device:C_Small C?
@@ -92,8 +92,6 @@ F 3 "" H 3600 2850 50  0001 C CNN
 	1    3600 2850
 	-1   0    0    -1  
 $EndComp
-Wire Wire Line
-	3600 2400 3600 2500
 Text HLabel 4850 1900 0    50   UnSpc ~ 0
 CLK3
 Text HLabel 4850 2000 0    50   UnSpc ~ 0
@@ -113,11 +111,11 @@ F 3 "" H 3600 2400 50  0001 C CNN
 	1    3600 2400
 	1    0    0    -1  
 $EndComp
-Text HLabel -7600 5950 0    50   UnSpc ~ 0
+Text HLabel -900 1750 0    50   UnSpc ~ 0
 FPD[0..7]
 Wire Bus Line
-	-7600 5950 -1750 5950
-Text Label -7500 5950 0    50   ~ 0
+	-900 1750 -300 1750
+Text Label -800 1750 0    50   ~ 0
 FPD[0..7]
 Text Label 2750 4450 0    50   ~ 0
 ~MEM
@@ -183,12 +181,6 @@ Text Label 3050 1700 0    50   ~ 0
 DB6
 Text Label 3050 1800 0    50   ~ 0
 DB7
-Wire Wire Line
-	3600 2700 3600 2800
-Connection ~ 3600 2400
-Connection ~ 3600 2500
-Connection ~ 3600 2700
-Connection ~ 3600 2800
 Wire Wire Line
 	3600 2800 3600 2850
 $Comp
@@ -926,21 +918,6 @@ F 3 "" H 7550 5800 50  0001 C CNN
 	1    7550 5800
 	-1   0    0    -1  
 $EndComp
-$Comp
-L power:+5V #PWR?
-U 1 1 5D9253A9
-P 7550 5350
-AR Path="/5D78E680/5D9253A9" Ref="#PWR?"  Part="1" 
-AR Path="/5D363063/5D9253A9" Ref="#PWR?"  Part="1" 
-AR Path="/5D42FF4D/5D9253A9" Ref="#PWR?"  Part="1" 
-AR Path="/5F1DB2E8/5D9253A9" Ref="#PWR0164"  Part="1" 
-F 0 "#PWR0164" H 7550 5200 50  0001 C CNN
-F 1 "+5V" H 7492 5387 50  0000 R CNN
-F 2 "" H 7550 5350 50  0001 C CNN
-F 3 "" H 7550 5350 50  0001 C CNN
-	1    7550 5350
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	7700 3350 7300 3350
 Wire Wire Line
@@ -1014,16 +991,6 @@ F 3 "https://www.ti.com/lit/ds/symlink/sn74act1073.pdf" H 7600 6200 50  0001 C C
 	2    7900 5850
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	7550 5750 7550 5800
-Wire Wire Line
-	7550 5750 7550 5650
-Connection ~ 7550 5750
-Connection ~ 7550 5650
-Wire Wire Line
-	7550 5350 7550 5450
-Connection ~ 7550 5350
-Connection ~ 7550 5450
 $Comp
 L Device:C_Small C?
 U 1 1 5DBBDE43
@@ -1090,14 +1057,6 @@ Wire Wire Line
 	9700 3650 9300 3650
 Wire Wire Line
 	9700 3750 9300 3750
-Wire Wire Line
-	9700 3950 9300 3950
-Wire Wire Line
-	9700 4050 9300 4050
-Wire Wire Line
-	9700 4150 9300 4150
-Wire Wire Line
-	9300 4350 9700 4350
 $Comp
 L alexios:SN74ACT1071 U1109
 U 2 1 5DBBDE66
@@ -1148,4 +1107,37 @@ Text HLabel 2950 1900 0    50   UnSpc ~ 0
 ~R
 Text HLabel 2950 2000 0    50   UnSpc ~ 0
 ~W
+Wire Wire Line
+	3600 2400 3600 2500
+Connection ~ 3600 2400
+Connection ~ 3600 2500
+Wire Wire Line
+	3600 2700 3600 2800
+Connection ~ 3600 2700
+Connection ~ 3600 2800
+NoConn ~ 9700 3950
+NoConn ~ 9700 4050
+NoConn ~ 9700 4150
+NoConn ~ 9700 4350
+$Comp
+L power:+5V #PWR0164
+U 1 1 5E5D8E6A
+P 7550 5350
+F 0 "#PWR0164" H 7550 5200 50  0001 C CNN
+F 1 "+5V" H 7565 5523 50  0000 C CNN
+F 2 "" H 7550 5350 50  0001 C CNN
+F 3 "" H 7550 5350 50  0001 C CNN
+	1    7550 5350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7550 5350 7550 5450
+Connection ~ 7550 5350
+Connection ~ 7550 5450
+Wire Wire Line
+	7550 5650 7550 5750
+Connection ~ 7550 5650
+Connection ~ 7550 5750
+Wire Wire Line
+	7550 5750 7550 5800
 $EndSCHEMATC
