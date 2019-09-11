@@ -399,25 +399,8 @@ Text Label 9000 4900 0    50   ~ 0
 FPD[0..7]
 Wire Wire Line
 	1750 6600 1700 6600
-$Comp
-L Connector_Generic:Conn_02x14_Odd_Even CON1
-U 1 1 5D9DA3CB
-P 1400 5900
-F 0 "CON1" H 1450 6625 50  0000 C CNN
-F 1 "Conn_02x14_Odd_Even" H 1450 6626 50  0001 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_2x14_P2.54mm_Vertical" H 1400 5900 50  0001 C CNN
-F 3 "~" H 1400 5900 50  0001 C CNN
-	1    1400 5900
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	1200 6500 950  6500
-Text Label 950  6500 0    50   ~ 0
-SWD3
 Text Label 1950 6400 2    50   ~ 0
 SWD2
-Text Label 950  6400 0    50   ~ 0
-SWD1
 Text Label 1950 6300 2    50   ~ 0
 SWD0
 Text Label 950  6300 0    50   ~ 0
@@ -428,8 +411,6 @@ Text Label 950  6200 0    50   ~ 0
 SWA1
 Text Label 1950 6100 2    50   ~ 0
 SWA0
-Text Label 1950 6500 2    50   ~ 0
-~LTSON
 Text Label 950  6100 0    50   ~ 0
 ~ROW5
 Text Label 1950 6000 2    50   ~ 0
@@ -464,21 +445,8 @@ Wire Wire Line
 	1700 5400 1950 5400
 Wire Wire Line
 	1200 5400 950  5400
-Text Label 950  6600 0    50   ~ 0
-POWER
 Text Notes 950  5050 0    50   ~ 0
 From Controller/Previous Module
-$Comp
-L power:GND #PWR09
-U 1 1 5D75872E
-P 1750 6600
-F 0 "#PWR09" H 1750 6350 50  0001 C CNN
-F 1 "GND" H 1755 6427 50  0000 C CNN
-F 2 "" H 1750 6600 50  0001 C CNN
-F 3 "" H 1750 6600 50  0001 C CNN
-	1    1750 6600
-	-1   0    0    -1  
-$EndComp
 Wire Wire Line
 	1700 6400 1950 6400
 Wire Wire Line
@@ -496,8 +464,6 @@ F 3 "" H 1750 5300 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	1700 5500 1950 5500
-Wire Wire Line
-	1950 6500 1700 6500
 Wire Wire Line
 	1950 6300 1700 6300
 Wire Wire Line
@@ -536,8 +502,6 @@ Wire Wire Line
 	1200 6300 950  6300
 Wire Wire Line
 	1200 6400 950  6400
-Wire Wire Line
-	1200 6600 950  6600
 $Comp
 L power:+5V #PWR01
 U 1 1 5D7586E9
@@ -551,28 +515,17 @@ F 3 "" H 1150 5300 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	3250 6600 3200 6600
-$Comp
-L Connector_Generic:Conn_02x14_Odd_Even CON2
-U 1 1 5DA1EB7B
-P 2900 5900
-F 0 "CON2" H 2950 6625 50  0000 C CNN
-F 1 "Conn_02x14_Odd_Even" H 2950 6626 50  0001 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_2x14_P2.54mm_Vertical" H 2900 5900 50  0001 C CNN
-F 3 "~" H 2900 5900 50  0001 C CNN
-	1    2900 5900
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	2700 6500 2450 6500
-Text Label 2450 6500 0    50   ~ 0
+Text Label 2450 6400 0    50   ~ 0
 SWD3
 Text Label 3450 6300 2    50   ~ 0
 SWD2
-Text Label 2450 6300 0    50   ~ 0
+Text Label 2450 6500 0    50   ~ 0
 SWD1
 Text Label 3450 6400 2    50   ~ 0
 SWD0
-Text Label 2450 6400 0    50   ~ 0
+Text Label 2450 6300 0    50   ~ 0
 SWA3
 Text Label 3450 6200 2    50   ~ 0
 SWA2
@@ -580,8 +533,6 @@ Text Label 2450 6200 0    50   ~ 0
 SWA1
 Text Label 3450 6100 2    50   ~ 0
 SWA0
-Text Label 3450 6500 2    50   ~ 0
-~LTSON
 Text Label 2450 6100 0    50   ~ 0
 ~ROW5
 Text Label 3450 6000 2    50   ~ 0
@@ -618,17 +569,6 @@ Wire Wire Line
 	2700 5400 2450 5400
 Text Notes 2450 5050 0    50   ~ 0
 To Next Module
-$Comp
-L power:GND #PWR012
-U 1 1 5DA1EB9F
-P 3250 6600
-F 0 "#PWR012" H 3250 6350 50  0001 C CNN
-F 1 "GND" H 3255 6427 50  0000 C CNN
-F 2 "" H 3250 6600 50  0001 C CNN
-F 3 "" H 3250 6600 50  0001 C CNN
-	1    3250 6600
-	-1   0    0    -1  
-$EndComp
 Wire Wire Line
 	3200 6400 3450 6400
 Wire Wire Line
@@ -646,8 +586,6 @@ F 3 "" H 3250 5300 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	3200 5500 3450 5500
-Wire Wire Line
-	3450 6500 3200 6500
 Wire Wire Line
 	3450 6300 3200 6300
 Wire Wire Line
@@ -1162,19 +1100,172 @@ Text Label 7000 3350 1    50   ~ 0
 ~SW[0..7]
 Text Notes 3450 1400 0    50   ~ 0
 These configure the light module ID.
-NoConn ~ 2700 6600
 Wire Wire Line
 	9000 1400 9700 1400
 Wire Wire Line
 	9500 2400 9500 1500
+Connection ~ 9500 2400
+Connection ~ 9500 1500
+Wire Wire Line
+	9500 1500 9700 1500
+$Comp
+L Connector_Generic:Conn_02x02_Odd_Even J10
+U 1 1 5D9844EE
+P 5500 6950
+F 0 "J10" H 5550 7075 50  0000 C CNN
+F 1 "Conn_02x02_Odd_Even" H 5550 7076 50  0001 C CNN
+F 2 "Connector_Molex:Molex_Mini-Fit_Jr_5566-04A2_2x02_P4.20mm_Vertical" H 5500 6950 50  0001 C CNN
+F 3 "~" H 5500 6950 50  0001 C CNN
+	1    5500 6950
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR051
+U 1 1 5D98FB03
+P 5300 7050
+F 0 "#PWR051" H 5300 6800 50  0001 C CNN
+F 1 "GND" H 5305 6877 50  0000 C CNN
+F 2 "" H 5300 7050 50  0001 C CNN
+F 3 "" H 5300 7050 50  0001 C CNN
+	1    5300 7050
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR053
+U 1 1 5D98FD1F
+P 5800 7050
+F 0 "#PWR053" H 5800 6800 50  0001 C CNN
+F 1 "GND" H 5805 6877 50  0000 C CNN
+F 2 "" H 5800 7050 50  0001 C CNN
+F 3 "" H 5800 7050 50  0001 C CNN
+	1    5800 7050
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR050
+U 1 1 5D98FFC8
+P 5300 6950
+F 0 "#PWR050" H 5300 6800 50  0001 C CNN
+F 1 "+5V" H 5315 7123 50  0000 C CNN
+F 2 "" H 5300 6950 50  0001 C CNN
+F 3 "" H 5300 6950 50  0001 C CNN
+	1    5300 6950
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR052
+U 1 1 5D990357
+P 5800 6950
+F 0 "#PWR052" H 5800 6800 50  0001 C CNN
+F 1 "+5V" H 5815 7123 50  0000 C CNN
+F 2 "" H 5800 6950 50  0001 C CNN
+F 3 "" H 5800 6950 50  0001 C CNN
+	1    5800 6950
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector_Generic:Conn_02x15_Odd_Even CON1
+U 1 1 5D9AA51E
+P 1400 6000
+F 0 "CON1" H 1450 6825 50  0000 C CNN
+F 1 "Conn_02x15_Odd_Even" H 1450 6826 50  0001 C CNN
+F 2 "Connector_IDC:IDC-Header_2x15_P2.54mm_Vertical" H 1400 6000 50  0001 C CNN
+F 3 "~" H 1400 6000 50  0001 C CNN
+	1    1400 6000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3450 6500 3200 6500
+Text Label 3450 6500 2    50   ~ 0
+~LTSON
+Wire Wire Line
+	1950 6500 1700 6500
+Text Label 1950 6500 2    50   ~ 0
+~LTSON
+Text Label 950  6500 0    50   ~ 0
+SWD3
+Wire Wire Line
+	1200 6500 950  6500
+NoConn ~ 2700 6600
+$Comp
+L power:GND #PWR09
+U 1 1 5D75872E
+P 1750 6700
+F 0 "#PWR09" H 1750 6450 50  0001 C CNN
+F 1 "GND" H 1755 6527 50  0000 C CNN
+F 2 "" H 1750 6700 50  0001 C CNN
+F 3 "" H 1750 6700 50  0001 C CNN
+	1    1750 6700
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	1200 6600 950  6600
+Text Label 950  6600 0    50   ~ 0
+POWER
+$Comp
+L Connector_Generic:Conn_02x15_Odd_Even CON2
+U 1 1 5D99DFE9
+P 2900 6000
+F 0 "CON2" H 2950 6825 50  0000 C CNN
+F 1 "Conn_02x15_Odd_Even" H 2950 6826 50  0001 C CNN
+F 2 "Connector_IDC:IDC-Header_2x15_P2.54mm_Vertical" H 2900 6000 50  0001 C CNN
+F 3 "~" H 2900 6000 50  0001 C CNN
+	1    2900 6000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1750 6600 1750 6700
+Wire Wire Line
+	1750 6700 1700 6700
+Connection ~ 1750 6700
+$Comp
+L power:GND #PWR0101
+U 1 1 5DA3FDED
+P 1200 6700
+F 0 "#PWR0101" H 1200 6450 50  0001 C CNN
+F 1 "GND" H 1205 6527 50  0000 C CNN
+F 2 "" H 1200 6700 50  0001 C CNN
+F 3 "" H 1200 6700 50  0001 C CNN
+	1    1200 6700
+	-1   0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0102
+U 1 1 5DA40097
+P 2700 6700
+F 0 "#PWR0102" H 2700 6450 50  0001 C CNN
+F 1 "GND" H 2705 6527 50  0000 C CNN
+F 2 "" H 2700 6700 50  0001 C CNN
+F 3 "" H 2700 6700 50  0001 C CNN
+	1    2700 6700
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	3250 6600 3250 6700
+Wire Wire Line
+	3200 6700 3250 6700
 Wire Bus Line
 	8800 850  8800 4800
 Wire Bus Line
 	7000 2650 7000 5550
 Wire Bus Line
 	6700 2650 6700 3450
-Connection ~ 9500 2400
-Connection ~ 9500 1500
-Wire Wire Line
-	9500 1500 9700 1500
+$Comp
+L power:GND #PWR012
+U 1 1 5DA1EB9F
+P 3250 6700
+F 0 "#PWR012" H 3250 6450 50  0001 C CNN
+F 1 "GND" H 3255 6527 50  0000 C CNN
+F 2 "" H 3250 6700 50  0001 C CNN
+F 3 "" H 3250 6700 50  0001 C CNN
+	1    3250 6700
+	-1   0    0    -1  
+$EndComp
+Connection ~ 3250 6700
+Text Label 950  6400 0    50   ~ 0
+SWD1
+Text Notes 1950 7350 0    50   ~ 0
+Note: SWD0-1 and SWD2-3 are swapped between the two connectors.\nThis allows Modules A and B to send data on SWD0-1 and\nModules B and C on SWD2-3, so we get a 64×4 switch matrix. This\nreduces component count.
+Text Notes 7050 7000 0    250  ~ 50
+Front Panel Module
 $EndSCHEMATC
