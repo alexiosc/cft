@@ -1042,7 +1042,7 @@ AR Path="/5D1E3371/5CC30FEE" Ref="JP?"  Part="1"
 AR Path="/5D1E338D/5CC30FEE" Ref="JP?"  Part="1" 
 F 0 "JP7" H 4300 4612 50  0000 C CNN
 F 1 "Jumper_3_Bridged12" H 4300 4300 50  0001 C CNN
-F 2 "Connector_PinSocket_2.54mm:PinSocket_1x03_P2.54mm_Vertical" H 4300 4500 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 4300 4500 50  0001 C CNN
 F 3 "~" H 4300 4500 50  0001 C CNN
 	1    4300 4500
 	-1   0    0    1   

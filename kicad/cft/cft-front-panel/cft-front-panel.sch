@@ -921,7 +921,7 @@ U 1 1 5CC80080
 P 7600 5650
 F 0 "J9" H 7680 5692 50  0000 L CNN
 F 1 "Switch 7" H 7680 5601 50  0000 L CNN
-F 2 "Connector_PinSocket_2.54mm:PinSocket_1x03_P2.54mm_Vertical" H 7600 5650 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 7600 5650 50  0001 C CNN
 F 3 "~" H 7600 5650 50  0001 C CNN
 	1    7600 5650
 	1    0    0    -1  
@@ -932,7 +932,7 @@ U 1 1 5CC8007A
 P 7600 5250
 F 0 "J8" H 7680 5292 50  0000 L CNN
 F 1 "Switch 6" H 7680 5201 50  0000 L CNN
-F 2 "Connector_PinSocket_2.54mm:PinSocket_1x03_P2.54mm_Vertical" H 7600 5250 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 7600 5250 50  0001 C CNN
 F 3 "~" H 7600 5250 50  0001 C CNN
 	1    7600 5250
 	1    0    0    -1  
@@ -943,7 +943,7 @@ U 1 1 5CC80074
 P 7600 4850
 F 0 "J7" H 7680 4892 50  0000 L CNN
 F 1 "Switch 5" H 7680 4801 50  0000 L CNN
-F 2 "Connector_PinSocket_2.54mm:PinSocket_1x03_P2.54mm_Vertical" H 7600 4850 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 7600 4850 50  0001 C CNN
 F 3 "~" H 7600 4850 50  0001 C CNN
 	1    7600 4850
 	1    0    0    -1  
@@ -954,7 +954,7 @@ U 1 1 5CC8006E
 P 7600 4450
 F 0 "J6" H 7680 4492 50  0000 L CNN
 F 1 "Switch 4" H 7680 4401 50  0000 L CNN
-F 2 "Connector_PinSocket_2.54mm:PinSocket_1x03_P2.54mm_Vertical" H 7600 4450 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 7600 4450 50  0001 C CNN
 F 3 "~" H 7600 4450 50  0001 C CNN
 	1    7600 4450
 	1    0    0    -1  
@@ -965,7 +965,7 @@ U 1 1 5CC7D359
 P 7600 4050
 F 0 "J5" H 7680 4092 50  0000 L CNN
 F 1 "Switch 3" H 7680 4001 50  0000 L CNN
-F 2 "Connector_PinSocket_2.54mm:PinSocket_1x03_P2.54mm_Vertical" H 7600 4050 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 7600 4050 50  0001 C CNN
 F 3 "~" H 7600 4050 50  0001 C CNN
 	1    7600 4050
 	1    0    0    -1  
@@ -976,7 +976,7 @@ U 1 1 5CC7D1AD
 P 7600 3650
 F 0 "J4" H 7680 3692 50  0000 L CNN
 F 1 "Switch 2" H 7680 3601 50  0000 L CNN
-F 2 "Connector_PinSocket_2.54mm:PinSocket_1x03_P2.54mm_Vertical" H 7600 3650 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 7600 3650 50  0001 C CNN
 F 3 "~" H 7600 3650 50  0001 C CNN
 	1    7600 3650
 	1    0    0    -1  
@@ -987,7 +987,7 @@ U 1 1 5CC7CDFE
 P 7600 3250
 F 0 "J3" H 7680 3292 50  0000 L CNN
 F 1 "Switch 1" H 7680 3201 50  0000 L CNN
-F 2 "Connector_PinSocket_2.54mm:PinSocket_1x03_P2.54mm_Vertical" H 7600 3250 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 7600 3250 50  0001 C CNN
 F 3 "~" H 7600 3250 50  0001 C CNN
 	1    7600 3250
 	1    0    0    -1  
@@ -998,7 +998,7 @@ U 1 1 5CC763A5
 P 7600 2850
 F 0 "J2" H 7680 2892 50  0000 L CNN
 F 1 "Switch 0" H 7680 2801 50  0000 L CNN
-F 2 "Connector_PinSocket_2.54mm:PinSocket_1x03_P2.54mm_Vertical" H 7600 2850 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 7600 2850 50  0001 C CNN
 F 3 "~" H 7600 2850 50  0001 C CNN
 	1    7600 2850
 	1    0    0    -1  
@@ -1015,7 +1015,7 @@ U 1 1 5CCF6BC2
 P 1450 7150
 F 0 "J1" H 1530 7096 50  0000 L CNN
 F 1 "Conn_01x02" H 1530 7051 50  0001 L CNN
-F 2 "Connector_PinSocket_2.54mm:PinSocket_1x02_P2.54mm_Vertical" H 1450 7150 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 1450 7150 50  0001 C CNN
 F 3 "~" H 1450 7150 50  0001 C CNN
 	1    1450 7150
 	1    0    0    -1  
@@ -1244,12 +1244,6 @@ Wire Wire Line
 	3250 6600 3250 6700
 Wire Wire Line
 	3200 6700 3250 6700
-Wire Bus Line
-	8800 850  8800 4800
-Wire Bus Line
-	7000 2650 7000 5550
-Wire Bus Line
-	6700 2650 6700 3450
 $Comp
 L power:GND #PWR012
 U 1 1 5DA1EB9F
@@ -1268,4 +1262,10 @@ Text Notes 1950 7350 0    50   ~ 0
 Note: SWD0-1 and SWD2-3 are swapped between the two connectors.\nThis allows Modules A and B to send data on SWD0-1 and\nModules B and C on SWD2-3, so we get a 64×4 switch matrix. This\nreduces component count.
 Text Notes 7050 7000 0    250  ~ 50
 Front Panel Module
+Wire Bus Line
+	8800 850  8800 4800
+Wire Bus Line
+	7000 2650 7000 5550
+Wire Bus Line
+	6700 2650 6700 3450
 $EndSCHEMATC
