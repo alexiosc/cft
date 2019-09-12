@@ -170,6 +170,8 @@ done
 
 wait
 
+mogrify -verbose -flop ${base}-back-{1..4}.png
+
 # Finally, remove the intermediate ones
 \rm -f $base-{mask,holes}.png \
     $base-{front,back}-copper{-black,}.png \
