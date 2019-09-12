@@ -857,8 +857,8 @@ Wire Wire Line
 	4800 3550 4800 3750
 Wire Wire Line
 	4800 3550 5300 3550
-Text Notes 3900 4900 0    50   ~ 0
-Switch module configuration:\n\nModules A & B: short JP2A1\nModules C & D: short JP2B1.\nThe rest happens by swapping SWD0-1 and SWD2-3\non the next module output connector.
+Text Notes 4200 4950 0    50   ~ 0
+Switch module configuration:\n\nModules A & B: short JP5 1-2 and JP6 1-2.\nModules C & D: short JP5 2-3 and JP5 2-3.
 $Sheet
 S 9700 4750 1000 700 
 U 5CC02B94
