@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:cft-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -21,6 +21,7 @@ P 4200 4350
 AR Path="/5E726BB8/5DB02BF7" Ref="U?"  Part="1" 
 AR Path="/5E726BB8/5DAE4D17/5DB02BF7" Ref="U?"  Part="1" 
 AR Path="/5DB25C41/5DB02BF7" Ref="U?"  Part="1" 
+AR Path="/5DB02BF7" Ref="U?"  Part="1" 
 F 0 "U?" H 4200 5017 50  0000 C CNN
 F 1 "74HC138" H 4200 4926 50  0000 C CNN
 F 2 "" H 4200 4350 50  0001 C CNN
@@ -170,6 +171,7 @@ P 4200 2750
 AR Path="/5E726BB8/5DB02C4A" Ref="U?"  Part="1" 
 AR Path="/5E726BB8/5DAE4D17/5DB02C4A" Ref="U?"  Part="1" 
 AR Path="/5DB25C41/5DB02C4A" Ref="U?"  Part="1" 
+AR Path="/5DB02C4A" Ref="U?"  Part="1" 
 F 0 "U?" H 4200 3417 50  0000 C CNN
 F 1 "74HC138" H 4200 3326 50  0000 C CNN
 F 2 "" H 4200 2750 50  0001 C CNN
