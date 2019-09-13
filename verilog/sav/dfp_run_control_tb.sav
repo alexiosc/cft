@@ -1,22 +1,22 @@
 [*]
-[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
-[*] Sun Sep  8 10:18:20 2019
+[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
+[*] Thu Sep 12 18:07:40 2019
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/dfp_run_control_tb.vcd"
-[dumpfile_mtime] "Sun Sep  8 10:17:32 2019"
+[dumpfile_mtime] "Thu Sep 12 18:06:29 2019"
 [dumpfile_size] 122904
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/dfp_run_control_tb.sav"
-[timestart] 0
-[size] 1920 1019
-[pos] -1 -1
-*-25.042524 116984000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[timestart] 16370000
+[size] 1840 892
+[pos] 2199 55
+*-24.042524 116984000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] dfp_run_control_tb.
 [treeopen] dfp_run_control_tb.clock.
 [treeopen] dfp_run_control_tb.dfp_run_control.
 [sst_width] 258
-[signals_width] 206
+[signals_width] 252
 [sst_expanded] 1
-[sst_vpaned_height] 233
+[sst_vpaned_height] 196
 @28
 [color] 1
 dfp_run_control_tb.nreset
