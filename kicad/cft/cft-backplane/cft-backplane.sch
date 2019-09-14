@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:cft-backplane-cache
-EELAYER 29 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -218,7 +218,7 @@ P 5950 5100
 AR Path="/5D2CD990/5CE08A8B" Ref="J?"  Part="1" 
 AR Path="/5CE08A8B" Ref="J15"  Part="1" 
 F 0 "J15" H 6030 5142 50  0000 L CNN
-F 1 "Conn_01x03" H 6030 5051 50  0000 L CNN
+F 1 "Conn_01x03" H 6030 5051 50  0001 L CNN
 F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 5950 5100 50  0001 C CNN
 F 3 "~" H 5950 5100 50  0001 C CNN
 	1    5950 5100
@@ -844,10 +844,6 @@ F 3 "" H 9500 4100 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	10250 4100 10400 4100
-Wire Bus Line
-	3600 1550 3600 4700
-Wire Bus Line
-	1650 1350 1650 4500
 $Comp
 L Device:R R4
 U 1 1 5CD37F65
@@ -881,4 +877,8 @@ F 3 "~" H 9800 4100 50  0001 C CNN
 	1    9800 4100
 	0    1    1    0   
 $EndComp
+Wire Bus Line
+	3600 1550 3600 4700
+Wire Bus Line
+	1650 1350 1650 4500
 $EndSCHEMATC
