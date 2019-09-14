@@ -5,6 +5,11 @@ D Flash EEProm 512PP (TSOP 32) 3,3V
 K EEPROM FLASH 512KO
 $ENDCMP
 #
+$CMP 29W040
+D Flash EEProm 512PP (TSOP 32) 3,3V
+K EEPROM FLASH 512KO
+$ENDCMP
+#
 $CMP 74AC04
 D hex inverter
 K HCTMOS not inverter
@@ -1203,6 +1208,18 @@ K TTL JK
 F http://www.ti.com/lit/gpn/sn74LS112
 $ENDCMP
 #
+$CMP AS6C4008-55PCN
+D 512K x 8 Low Power CMOS RAM, DIP-32
+K RAM SRAM CMOS MEMORY
+F https://www.alliancememory.com/wp-content/uploads/pdf/AS6C4008.pdf
+$ENDCMP
+#
+$CMP AS6C8008-55ZIN
+D 512K x 8 Low Power CMOS RAM, DIP-32
+K RAM SRAM CMOS MEMORY
+F https://uk.mouser.com/datasheet/2/12/AS6C8008-1288432.pdf
+$ENDCMP
+#
 $CMP ATmega64L-8AU
 F http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2490-8-bit-avr-microcontroller-atmega64-l_datasheet.pdf
 $ENDCMP
@@ -1227,6 +1244,18 @@ $ENDCMP
 #
 $CMP FT231XS
 F https://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT231X.pdf
+$ENDCMP
+#
+$CMP IS61C5128AL
+D 512K × 8 High Speed CMOS RAM, SOJ-36
+K RAM SRAM CMOS MEMORY
+F https://uk.mouser.com/datasheet/2/12/AS6C8008-1288432.pdf
+$ENDCMP
+#
+$CMP IS61C5128AS
+D 512K x 8 Low Power CMOS RAM, SOJ-36
+K RAM SRAM CMOS MEMORY
+F https://uk.mouser.com/datasheet/2/12/AS6C8008-1288432.pdf
 $ENDCMP
 #
 $CMP SN74ACT1071
