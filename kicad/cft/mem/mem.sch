@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:mem-cache
-EELAYER 30 0
+EELAYER 26 0
 EELAYER END
 $Descr A3 16535 11693
 encoding utf-8
@@ -426,240 +426,240 @@ $EndComp
 $Comp
 L Memory_Flash:29W040 U1
 U 1 1 5D69C984
-P 19450 2150
-F 0 "U1" H 19450 3528 50  0000 C CNN
-F 1 "29W040" H 19450 3437 50  0000 C CNN
-F 2 "Sockets:PLCC32" H 19450 2150 50  0001 C CNN
-F 3 "" H 19450 2150 50  0001 C CNN
-	1    19450 2150
+P 17700 1950
+F 0 "U1" H 17700 3328 50  0000 C CNN
+F 1 "29W040" H 17700 3237 50  0000 C CNN
+F 2 "Sockets:PLCC32" H 17700 1950 50  0001 C CNN
+F 3 "" H 17700 1950 50  0001 C CNN
+	1    17700 1950
 	1    0    0    -1  
 $EndComp
-Text Label 18500 3150 0    50   ~ 0
+Text Label 16750 2950 0    50   ~ 0
 AB18
-Text Label 18500 3050 0    50   ~ 0
+Text Label 16750 2850 0    50   ~ 0
 AB17
-Text Label 18500 2950 0    50   ~ 0
+Text Label 16750 2750 0    50   ~ 0
 AB16
-Text Label 18500 2850 0    50   ~ 0
+Text Label 16750 2650 0    50   ~ 0
 AB15
-Text Label 18500 2750 0    50   ~ 0
+Text Label 16750 2550 0    50   ~ 0
 AB14
-Text Label 18500 2650 0    50   ~ 0
+Text Label 16750 2450 0    50   ~ 0
 AB13
-Text Label 18500 2550 0    50   ~ 0
+Text Label 16750 2350 0    50   ~ 0
 AB12
-Text Label 18500 2450 0    50   ~ 0
+Text Label 16750 2250 0    50   ~ 0
 AB11
-Text Label 18500 2350 0    50   ~ 0
+Text Label 16750 2150 0    50   ~ 0
 AB10
-Text Label 18500 2250 0    50   ~ 0
+Text Label 16750 2050 0    50   ~ 0
 AB9
-Text Label 18500 2150 0    50   ~ 0
+Text Label 16750 1950 0    50   ~ 0
 AB8
-Text Label 18500 2050 0    50   ~ 0
+Text Label 16750 1850 0    50   ~ 0
 AB7
-Text Label 18500 1950 0    50   ~ 0
+Text Label 16750 1750 0    50   ~ 0
 AB6
-Text Label 18500 1850 0    50   ~ 0
+Text Label 16750 1650 0    50   ~ 0
 AB5
-Text Label 18500 1750 0    50   ~ 0
+Text Label 16750 1550 0    50   ~ 0
 AB4
-Text Label 18500 1650 0    50   ~ 0
+Text Label 16750 1450 0    50   ~ 0
 AB3
-Text Label 18500 1550 0    50   ~ 0
+Text Label 16750 1350 0    50   ~ 0
 AB2
-Text Label 18500 1450 0    50   ~ 0
+Text Label 16750 1250 0    50   ~ 0
 AB1
-Text Label 18500 1350 0    50   ~ 0
+Text Label 16750 1150 0    50   ~ 0
 AB0
 Wire Wire Line
-	18850 3150 18500 3150
+	17100 2950 16750 2950
 Wire Wire Line
-	18850 3050 18500 3050
+	17100 2850 16750 2850
 Wire Wire Line
-	18850 2950 18500 2950
+	17100 2750 16750 2750
 Wire Wire Line
-	18850 2850 18500 2850
+	17100 2650 16750 2650
 Wire Wire Line
-	18850 2750 18500 2750
+	17100 2550 16750 2550
 Wire Wire Line
-	18850 2650 18500 2650
+	17100 2450 16750 2450
 Wire Wire Line
-	18850 2550 18500 2550
+	17100 2350 16750 2350
 Wire Wire Line
-	18850 2450 18500 2450
+	17100 2250 16750 2250
 Wire Wire Line
-	18850 2350 18500 2350
+	17100 2150 16750 2150
 Wire Wire Line
-	18850 2250 18500 2250
+	17100 2050 16750 2050
 Wire Wire Line
-	18850 2150 18500 2150
+	17100 1950 16750 1950
 Wire Wire Line
-	18850 2050 18500 2050
+	17100 1850 16750 1850
 Wire Wire Line
-	18850 1950 18500 1950
+	17100 1750 16750 1750
 Wire Wire Line
-	18850 1850 18500 1850
+	17100 1650 16750 1650
 Wire Wire Line
-	18850 1750 18500 1750
+	17100 1550 16750 1550
 Wire Wire Line
-	18850 1650 18500 1650
+	17100 1450 16750 1450
 Wire Wire Line
-	18850 1550 18500 1550
+	17100 1350 16750 1350
 Wire Wire Line
-	18850 1450 18500 1450
+	17100 1250 16750 1250
 Wire Wire Line
-	18850 1350 18500 1350
-Text Label 20350 2050 2    50   ~ 0
+	17100 1150 16750 1150
+Text Label 18600 1850 2    50   ~ 0
 DB7
-Text Label 20350 1950 2    50   ~ 0
+Text Label 18600 1750 2    50   ~ 0
 DB6
-Text Label 20350 1850 2    50   ~ 0
+Text Label 18600 1650 2    50   ~ 0
 DB5
-Text Label 20350 1750 2    50   ~ 0
+Text Label 18600 1550 2    50   ~ 0
 DB4
-Text Label 20350 1650 2    50   ~ 0
+Text Label 18600 1450 2    50   ~ 0
 DB3
-Text Label 20350 1550 2    50   ~ 0
+Text Label 18600 1350 2    50   ~ 0
 DB2
-Text Label 20350 1450 2    50   ~ 0
+Text Label 18600 1250 2    50   ~ 0
 DB1
-Text Label 20350 1350 2    50   ~ 0
+Text Label 18600 1150 2    50   ~ 0
 DB0
 Wire Wire Line
-	20050 2050 20350 2050
+	18300 1850 18600 1850
 Wire Wire Line
-	20050 1950 20350 1950
+	18300 1750 18600 1750
 Wire Wire Line
-	20050 1850 20350 1850
+	18300 1650 18600 1650
 Wire Wire Line
-	20050 1750 20350 1750
+	18300 1550 18600 1550
 Wire Wire Line
-	20050 1650 20350 1650
+	18300 1450 18600 1450
 Wire Wire Line
-	20050 1550 20350 1550
+	18300 1350 18600 1350
 Wire Wire Line
-	20050 1450 20350 1450
+	18300 1250 18600 1250
 Wire Wire Line
-	20050 1350 20350 1350
+	18300 1150 18600 1150
 $Comp
 L Memory_Flash:29W040 U2
 U 1 1 5D73F47C
-P 19450 5300
-F 0 "U2" H 19450 6678 50  0000 C CNN
-F 1 "29W040" H 19450 6587 50  0000 C CNN
-F 2 "Sockets:PLCC32" H 19450 5300 50  0001 C CNN
-F 3 "" H 19450 5300 50  0001 C CNN
-	1    19450 5300
+P 17700 5150
+F 0 "U2" H 17700 6528 50  0000 C CNN
+F 1 "29W040" H 17700 6437 50  0000 C CNN
+F 2 "Sockets:PLCC32" H 17700 5150 50  0001 C CNN
+F 3 "" H 17700 5150 50  0001 C CNN
+	1    17700 5150
 	1    0    0    -1  
 $EndComp
-Text Label 18500 6300 0    50   ~ 0
+Text Label 16750 6150 0    50   ~ 0
 AB18
-Text Label 18500 6200 0    50   ~ 0
+Text Label 16750 6050 0    50   ~ 0
 AB17
-Text Label 18500 6100 0    50   ~ 0
+Text Label 16750 5950 0    50   ~ 0
 AB16
-Text Label 18500 6000 0    50   ~ 0
+Text Label 16750 5850 0    50   ~ 0
 AB15
-Text Label 18500 5900 0    50   ~ 0
+Text Label 16750 5750 0    50   ~ 0
 AB14
-Text Label 18500 5800 0    50   ~ 0
+Text Label 16750 5650 0    50   ~ 0
 AB13
-Text Label 18500 5700 0    50   ~ 0
+Text Label 16750 5550 0    50   ~ 0
 AB12
-Text Label 18500 5600 0    50   ~ 0
+Text Label 16750 5450 0    50   ~ 0
 AB11
-Text Label 18500 5500 0    50   ~ 0
+Text Label 16750 5350 0    50   ~ 0
 AB10
-Text Label 18500 5400 0    50   ~ 0
+Text Label 16750 5250 0    50   ~ 0
 AB9
-Text Label 18500 5300 0    50   ~ 0
+Text Label 16750 5150 0    50   ~ 0
 AB8
-Text Label 18500 5200 0    50   ~ 0
+Text Label 16750 5050 0    50   ~ 0
 AB7
-Text Label 18500 5100 0    50   ~ 0
+Text Label 16750 4950 0    50   ~ 0
 AB6
-Text Label 18500 5000 0    50   ~ 0
+Text Label 16750 4850 0    50   ~ 0
 AB5
-Text Label 18500 4900 0    50   ~ 0
+Text Label 16750 4750 0    50   ~ 0
 AB4
-Text Label 18500 4800 0    50   ~ 0
+Text Label 16750 4650 0    50   ~ 0
 AB3
-Text Label 18500 4700 0    50   ~ 0
+Text Label 16750 4550 0    50   ~ 0
 AB2
-Text Label 18500 4600 0    50   ~ 0
+Text Label 16750 4450 0    50   ~ 0
 AB1
-Text Label 18500 4500 0    50   ~ 0
+Text Label 16750 4350 0    50   ~ 0
 AB0
 Wire Wire Line
-	18850 6300 18500 6300
+	17100 6150 16750 6150
 Wire Wire Line
-	18850 6200 18500 6200
+	17100 6050 16750 6050
 Wire Wire Line
-	18850 6100 18500 6100
+	17100 5950 16750 5950
 Wire Wire Line
-	18850 6000 18500 6000
+	17100 5850 16750 5850
 Wire Wire Line
-	18850 5900 18500 5900
+	17100 5750 16750 5750
 Wire Wire Line
-	18850 5800 18500 5800
+	17100 5650 16750 5650
 Wire Wire Line
-	18850 5700 18500 5700
+	17100 5550 16750 5550
 Wire Wire Line
-	18850 5600 18500 5600
+	17100 5450 16750 5450
 Wire Wire Line
-	18850 5500 18500 5500
+	17100 5350 16750 5350
 Wire Wire Line
-	18850 5400 18500 5400
+	17100 5250 16750 5250
 Wire Wire Line
-	18850 5300 18500 5300
+	17100 5150 16750 5150
 Wire Wire Line
-	18850 5200 18500 5200
+	17100 5050 16750 5050
 Wire Wire Line
-	18850 5100 18500 5100
+	17100 4950 16750 4950
 Wire Wire Line
-	18850 5000 18500 5000
+	17100 4850 16750 4850
 Wire Wire Line
-	18850 4900 18500 4900
+	17100 4750 16750 4750
 Wire Wire Line
-	18850 4800 18500 4800
+	17100 4650 16750 4650
 Wire Wire Line
-	18850 4700 18500 4700
+	17100 4550 16750 4550
 Wire Wire Line
-	18850 4600 18500 4600
+	17100 4450 16750 4450
 Wire Wire Line
-	18850 4500 18500 4500
+	17100 4350 16750 4350
 Wire Wire Line
-	20050 5200 20350 5200
+	18300 5050 18600 5050
 Wire Wire Line
-	20050 5100 20350 5100
+	18300 4950 18600 4950
 Wire Wire Line
-	20050 5000 20350 5000
+	18300 4850 18600 4850
 Wire Wire Line
-	20050 4900 20350 4900
+	18300 4750 18600 4750
 Wire Wire Line
-	20050 4800 20350 4800
+	18300 4650 18600 4650
 Wire Wire Line
-	20050 4700 20350 4700
+	18300 4550 18600 4550
 Wire Wire Line
-	20050 4600 20350 4600
+	18300 4450 18600 4450
 Wire Wire Line
-	20050 4500 20350 4500
-Text Label 20350 4500 2    50   ~ 0
+	18300 4350 18600 4350
+Text Label 18600 4350 2    50   ~ 0
 DB8
-Text Label 20350 4600 2    50   ~ 0
+Text Label 18600 4450 2    50   ~ 0
 DB9
-Text Label 20350 4700 2    50   ~ 0
+Text Label 18600 4550 2    50   ~ 0
 DB10
-Text Label 20350 4800 2    50   ~ 0
+Text Label 18600 4650 2    50   ~ 0
 DB11
-Text Label 20350 4900 2    50   ~ 0
+Text Label 18600 4750 2    50   ~ 0
 DB12
-Text Label 20350 5000 2    50   ~ 0
+Text Label 18600 4850 2    50   ~ 0
 DB13
-Text Label 20350 5100 2    50   ~ 0
+Text Label 18600 4950 2    50   ~ 0
 DB14
-Text Label 20350 5200 2    50   ~ 0
+Text Label 18600 5050 2    50   ~ 0
 DB15
 Wire Wire Line
 	24800 7250 24400 7250
@@ -729,22 +729,6 @@ Text Label 24400 7350 0    50   ~ 0
 AB20
 Text Label 24400 7250 0    50   ~ 0
 AB19
-Text Label 26200 7250 2    50   ~ 0
-~RBCE0
-Text Label 26200 7350 2    50   ~ 0
-~RBCE1
-Text Label 26200 7450 2    50   ~ 0
-~RBCE2
-Text Label 26200 7550 2    50   ~ 0
-~RBCE3
-Text Label 26200 7650 2    50   ~ 0
-~RBCE4
-Text Label 26200 7750 2    50   ~ 0
-~RBCE5
-Text Label 26200 7850 2    50   ~ 0
-~RBCE6
-Text Label 26200 7950 2    50   ~ 0
-~RBCE7
 Wire Wire Line
 	26900 7950 26500 7950
 Text Label 26500 7950 0    50   ~ 0
@@ -769,7 +753,7 @@ AB19
 Wire Wire Line
 	26900 7250 26500 7250
 Text Label 28300 7250 2    50   ~ 0
-~ROMCE
+~ROMCS
 Text Notes 18300 7550 0    100  ~ 20
 Notes
 Text Notes 18300 8400 0    50   ~ 0
@@ -1122,6 +1106,212 @@ Text Label 3650 5950 0    50   ~ 0
 ~R
 Text Label 3650 6050 0    50   ~ 0
 ~W
+$Comp
+L power:+5V #PWR0106
+U 1 1 5D847DE6
+P 17750 750
+F 0 "#PWR0106" H 17750 600 50  0001 C CNN
+F 1 "+5V" H 17765 923 50  0000 C CNN
+F 2 "" H 17750 750 50  0001 C CNN
+F 3 "" H 17750 750 50  0001 C CNN
+	1    17750 750 
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR0108
+U 1 1 5D847E40
+P 17750 3950
+F 0 "#PWR0108" H 17750 3800 50  0001 C CNN
+F 1 "+5V" H 17765 4123 50  0000 C CNN
+F 2 "" H 17750 3950 50  0001 C CNN
+F 3 "" H 17750 3950 50  0001 C CNN
+	1    17750 3950
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0107
+U 1 1 5D847EAB
+P 17750 3400
+F 0 "#PWR0107" H 17750 3150 50  0001 C CNN
+F 1 "GND" H 17755 3227 50  0000 C CNN
+F 2 "" H 17750 3400 50  0001 C CNN
+F 3 "" H 17750 3400 50  0001 C CNN
+	1    17750 3400
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0109
+U 1 1 5D847EE5
+P 17750 6600
+F 0 "#PWR0109" H 17750 6350 50  0001 C CNN
+F 1 "GND" H 17755 6427 50  0000 C CNN
+F 2 "" H 17750 6600 50  0001 C CNN
+F 3 "" H 17750 6600 50  0001 C CNN
+	1    17750 6600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	18300 2050 18600 2050
+Text Label 18600 2150 2    50   ~ 0
+~R
+Wire Wire Line
+	18300 2150 18600 2150
+Wire Wire Line
+	18300 2250 18600 2250
+Text Label 18600 2050 2    50   ~ 0
+~ROMCS
+Text Label 18600 2250 2    50   ~ 0
+~ROMWE
+Wire Wire Line
+	18300 5250 18600 5250
+Text Label 18600 5350 2    50   ~ 0
+~R
+Wire Wire Line
+	18300 5350 18600 5350
+Wire Wire Line
+	18300 5450 18600 5450
+Text Label 18600 5250 2    50   ~ 0
+~ROMCS
+Text Label 18600 5450 2    50   ~ 0
+~ROMWE
+$Comp
+L Jumper:Jumper_3_Bridged12 JP101
+U 1 1 5D8A2F99
+P 27500 5850
+F 0 "JP101" V 27500 5916 50  0000 L CNN
+F 1 "Jumper_3_Bridged12" V 27545 5916 50  0001 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 27500 5850 50  0001 C CNN
+F 3 "~" H 27500 5850 50  0001 C CNN
+	1    27500 5850
+	0    -1   1    0   
+$EndComp
+$Comp
+L power:+5V #PWR0110
+U 1 1 5D8DB890
+P 27500 5600
+F 0 "#PWR0110" H 27500 5450 50  0001 C CNN
+F 1 "+5V" H 27515 5773 50  0000 C CNN
+F 2 "" H 27500 5600 50  0001 C CNN
+F 3 "" H 27500 5600 50  0001 C CNN
+	1    27500 5600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	27500 6100 27000 6100
+Text Label 27000 6100 0    50   ~ 0
+~W
+Wire Wire Line
+	27650 5850 27950 5850
+Text Label 27950 5850 2    50   ~ 0
+~ROMWE
+Text Label 26200 7250 2    50   ~ 0
+~CS0
+Text Label 26200 7350 2    50   ~ 0
+~CS1
+Text Label 26200 7450 2    50   ~ 0
+~CS2
+Text Label 26200 7550 2    50   ~ 0
+~CS3
+Text Label 26200 7650 2    50   ~ 0
+~CS4
+Text Label 26200 7750 2    50   ~ 0
+~CS5
+Text Label 26200 7850 2    50   ~ 0
+~CS6
+Text Label 26200 7950 2    50   ~ 0
+~CS7
+Text Label 1450 1350 0    50   ~ 0
+~CS0
+Text Label 3650 1350 0    50   ~ 0
+~CS1
+Text Label 1450 2250 0    50   ~ 0
+~CS2
+Text Label 2700 2500 0    50   ~ 0
+~CS3
+Text Label 3650 2250 0    50   ~ 0
+~CS3
+Text Label 1450 3150 0    50   ~ 0
+~CS4
+Text Label 3650 3150 0    50   ~ 0
+~CS5
+Text Label 1450 4050 0    50   ~ 0
+~CS6
+Text Label 3650 4050 0    50   ~ 0
+~CS7
+Text Label 1450 4950 0    50   ~ 0
+~CS8
+Wire Wire Line
+	24800 8850 24400 8850
+Wire Wire Line
+	24800 8950 24400 8950
+Wire Wire Line
+	24800 9050 24400 9050
+Wire Wire Line
+	24800 9450 24400 9450
+Wire Wire Line
+	24800 9550 24400 9550
+Text Label 24400 9550 0    50   ~ 0
+AB23
+Wire Wire Line
+	26200 8850 25800 8850
+Wire Wire Line
+	26200 8950 25800 8950
+Wire Wire Line
+	26200 9050 25800 9050
+Wire Wire Line
+	25800 9150 26200 9150
+Text Label 24400 9450 0    50   ~ 0
+AB22
+Text Label 24400 9050 0    50   ~ 0
+AB21
+Text Label 24400 8950 0    50   ~ 0
+AB20
+Text Label 24400 8850 0    50   ~ 0
+AB19
+$Comp
+L alexios:74HC138 U29
+U 1 1 5D91AA0A
+P 25300 9250
+F 0 "U29" H 25300 9917 50  0000 C CNN
+F 1 "74HC138" H 25300 9826 50  0000 C CNN
+F 2 "alexios:SOIC-16" H 25300 9250 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 25300 9250 50  0001 C CNN
+	1    25300 9250
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0111
+U 1 1 5D959730
+P 24800 9650
+F 0 "#PWR0111" H 24800 9400 50  0001 C CNN
+F 1 "GND" H 24805 9477 50  0000 C CNN
+F 2 "" H 24800 9650 50  0001 C CNN
+F 3 "" H 24800 9650 50  0001 C CNN
+	1    24800 9650
+	1    0    0    -1  
+$EndComp
+Text Notes 24700 6900 0    50   ~ 0
+AB=00AAAxxx:xxxxxxxx:xxxxxxxx\n(0–4096K, chunks of 512K)
+Text Notes 24700 8500 0    50   ~ 0
+AB=01AAAxxx:xxxxxxxx:xxxxxxxx\n(4096–8192K, chunks of 512K)
+Text Label 26200 8850 2    50   ~ 0
+~CS8
+Text Label 26200 8950 2    50   ~ 0
+~CS9
+Text Label 26200 9050 2    50   ~ 0
+~CS10
+Text Label 26200 9150 2    50   ~ 0
+~CS11
+NoConn ~ 25800 9250
+NoConn ~ 25800 9350
+NoConn ~ 25800 9450
+NoConn ~ 25800 9550
+Text Label 3650 4950 0    50   ~ 0
+~CS9
+Text Label 1450 5850 0    50   ~ 0
+~CS10
+Text Label 3650 5850 0    50   ~ 0
+~CS11
 Wire Bus Line
 	23150 3250 23150 3550
 Wire Bus Line
