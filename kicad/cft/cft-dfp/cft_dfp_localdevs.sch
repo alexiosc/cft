@@ -543,7 +543,7 @@ AR Path="/5D42FF4D/5D4ACD6C" Ref="C?"  Part="1"
 AR Path="/5E4A8360/5D4ACD6C" Ref="C901"  Part="1" 
 F 0 "C901" H 859 7346 50  0000 R CNN
 F 1 "100nF" H 859 7255 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 950 7300 50  0001 C CNN
+F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 950 7300 50  0001 C CNN
 F 3 "~" H 950 7300 50  0001 C CNN
 	1    950  7300
 	1    0    0    -1  
@@ -606,7 +606,7 @@ AR Path="/5D42FF4D/5D4ACD88" Ref="C?"  Part="1"
 AR Path="/5E4A8360/5D4ACD88" Ref="C902"  Part="1" 
 F 0 "C902" H 2309 7346 50  0000 R CNN
 F 1 "100nF" H 2309 7255 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2400 7300 50  0001 C CNN
+F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2400 7300 50  0001 C CNN
 F 3 "~" H 2400 7300 50  0001 C CNN
 	1    2400 7300
 	1    0    0    -1  
@@ -669,7 +669,7 @@ AR Path="/5D42FF4D/5D4ACDA4" Ref="C?"  Part="1"
 AR Path="/5E4A8360/5D4ACDA4" Ref="C903"  Part="1" 
 F 0 "C903" H 3759 7346 50  0000 R CNN
 F 1 "100nF" H 3759 7255 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3850 7300 50  0001 C CNN
+F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3850 7300 50  0001 C CNN
 F 3 "~" H 3850 7300 50  0001 C CNN
 	1    3850 7300
 	1    0    0    -1  

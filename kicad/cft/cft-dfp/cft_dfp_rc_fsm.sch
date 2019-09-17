@@ -287,7 +287,7 @@ AR Path="/5EEE1D2C" Ref="C?"  Part="1"
 AR Path="/5ED99F01/5EEE1D2C" Ref="C401"  Part="1" 
 F 0 "C401" H 909 7346 50  0000 R CNN
 F 1 "100nF" H 909 7255 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1000 7300 50  0001 C CNN
+F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1000 7300 50  0001 C CNN
 F 3 "~" H 1000 7300 50  0001 C CNN
 	1    1000 7300
 	1    0    0    -1  
@@ -378,7 +378,7 @@ AR Path="/5EEE93F9" Ref="C?"  Part="1"
 AR Path="/5ED99F01/5EEE93F9" Ref="C403"  Part="1" 
 F 0 "C403" H 3809 7346 50  0000 R CNN
 F 1 "100nF" H 3809 7255 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3900 7300 50  0001 C CNN
+F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3900 7300 50  0001 C CNN
 F 3 "~" H 3900 7300 50  0001 C CNN
 	1    3900 7300
 	1    0    0    -1  
@@ -417,7 +417,7 @@ AR Path="/5EEEAA46" Ref="C?"  Part="1"
 AR Path="/5ED99F01/5EEEAA46" Ref="C404"  Part="1" 
 F 0 "C404" H 5259 7346 50  0000 R CNN
 F 1 "100nF" H 5259 7255 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5350 7300 50  0001 C CNN
+F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5350 7300 50  0001 C CNN
 F 3 "~" H 5350 7300 50  0001 C CNN
 	1    5350 7300
 	1    0    0    -1  
@@ -456,7 +456,7 @@ AR Path="/5EEEC43D" Ref="C?"  Part="1"
 AR Path="/5ED99F01/5EEEC43D" Ref="C402"  Part="1" 
 F 0 "C402" H 2359 7346 50  0000 R CNN
 F 1 "100nF" H 2359 7255 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2450 7300 50  0001 C CNN
+F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2450 7300 50  0001 C CNN
 F 3 "~" H 2450 7300 50  0001 C CNN
 	1    2450 7300
 	1    0    0    -1  
@@ -582,7 +582,7 @@ AR Path="/5DB4499A" Ref="R?"  Part="1"
 AR Path="/5ED99F01/5DB4499A" Ref="R401"  Part="1" 
 F 0 "R401" V 7800 2650 50  0000 C CNN
 F 1 "30Ω" V 7700 2650 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7750 2450 50  0001 C CNN
+F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7750 2450 50  0001 C CNN
 F 3 "~" H 7750 2450 50  0001 C CNN
 	1    7750 2450
 	0    1    1    0   
@@ -595,7 +595,7 @@ AR Path="/5DB45D45" Ref="R?"  Part="1"
 AR Path="/5ED99F01/5DB45D45" Ref="R402"  Part="1" 
 F 0 "R402" V 7800 3350 50  0000 C CNN
 F 1 "30Ω" V 7700 3350 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7750 3150 50  0001 C CNN
+F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7750 3150 50  0001 C CNN
 F 3 "~" H 7750 3150 50  0001 C CNN
 	1    7750 3150
 	0    1    1    0   

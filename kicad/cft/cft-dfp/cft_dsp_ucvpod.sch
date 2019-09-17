@@ -174,7 +174,7 @@ AR Path="/5D42FF4D/5D49B82A" Ref="C?"  Part="1"
 AR Path="/5E6A6F4A/5D49B82A" Ref="C1003"  Part="1" 
 F 0 "C1003" H 3759 7446 50  0000 R CNN
 F 1 "100nF" H 3759 7355 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3850 7400 50  0001 C CNN
+F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3850 7400 50  0001 C CNN
 F 3 "~" H 3850 7400 50  0001 C CNN
 	1    3850 7400
 	1    0    0    -1  
@@ -423,7 +423,7 @@ AR Path="/5D42FF4D/5D49B80E" Ref="C?"  Part="1"
 AR Path="/5E6A6F4A/5D49B80E" Ref="C1002"  Part="1" 
 F 0 "C1002" H 2309 7446 50  0000 R CNN
 F 1 "100nF" H 2309 7355 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2400 7400 50  0001 C CNN
+F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2400 7400 50  0001 C CNN
 F 3 "~" H 2400 7400 50  0001 C CNN
 	1    2400 7400
 	1    0    0    -1  
@@ -485,7 +485,7 @@ AR Path="/5D42FF4D/5D49B7F2" Ref="C?"  Part="1"
 AR Path="/5E6A6F4A/5D49B7F2" Ref="C1001"  Part="1" 
 F 0 "C1001" H 859 7446 50  0000 R CNN
 F 1 "100nF" H 859 7355 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 950 7400 50  0001 C CNN
+F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 950 7400 50  0001 C CNN
 F 3 "~" H 950 7400 50  0001 C CNN
 	1    950  7400
 	1    0    0    -1  
@@ -562,6 +562,7 @@ Wire Bus Line
 	6050 3700 6650 3700
 Text HLabel 6650 3700 2    50   3State ~ 0
 ACTION[0..3]
+Connection ~ 2400 7500
 Wire Bus Line
 	5950 2450 5950 3100
 Wire Bus Line
@@ -570,5 +571,4 @@ Wire Bus Line
 	5950 3800 5950 4450
 Wire Bus Line
 	3500 1000 3500 4850
-Connection ~ 2400 7500
 $EndSCHEMATC

@@ -37,7 +37,7 @@ AR Path="/5D363063/679AA9D4" Ref="C701"  Part="1"
 AR Path="/5D42FF4D/679AA9D4" Ref="C801"  Part="1" 
 F 0 "C701" H 909 7246 50  0000 R CNN
 F 1 "100nF" H 909 7155 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1000 7200 50  0001 C CNN
+F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1000 7200 50  0001 C CNN
 F 3 "~" H 1000 7200 50  0001 C CNN
 	1    1000 7200
 	1    0    0    -1  
@@ -79,7 +79,7 @@ AR Path="/5D363063/601CFD77" Ref="C702"  Part="1"
 AR Path="/5D42FF4D/601CFD77" Ref="C802"  Part="1" 
 F 0 "C702" H 2359 7246 50  0000 R CNN
 F 1 "100nF" H 2359 7155 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2450 7200 50  0001 C CNN
+F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2450 7200 50  0001 C CNN
 F 3 "~" H 2450 7200 50  0001 C CNN
 	1    2450 7200
 	1    0    0    -1  
@@ -138,7 +138,7 @@ AR Path="/5D363063/601CFD7B" Ref="C703"  Part="1"
 AR Path="/5D42FF4D/601CFD7B" Ref="C803"  Part="1" 
 F 0 "C703" H 3809 7246 50  0000 R CNN
 F 1 "100nF" H 3809 7155 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3900 7200 50  0001 C CNN
+F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3900 7200 50  0001 C CNN
 F 3 "~" H 3900 7200 50  0001 C CNN
 	1    3900 7200
 	1    0    0    -1  
@@ -197,7 +197,7 @@ AR Path="/5D363063/5D41017B" Ref="C704"  Part="1"
 AR Path="/5D42FF4D/5D41017B" Ref="C804"  Part="1" 
 F 0 "C704" H 5259 7246 50  0000 R CNN
 F 1 "100nF" H 5259 7155 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5350 7200 50  0001 C CNN
+F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5350 7200 50  0001 C CNN
 F 3 "~" H 5350 7200 50  0001 C CNN
 	1    5350 7200
 	1    0    0    -1  
@@ -821,11 +821,11 @@ Wire Wire Line
 	4050 4450 3650 4450
 Text HLabel 2550 5300 0    50   Input ~ 0
 BUSCP
+Connection ~ 5350 7300
 Wire Bus Line
 	5550 2050 5550 4450
 Wire Bus Line
 	3550 2050 3550 5050
 Wire Bus Line
 	7800 2500 7800 5050
-Connection ~ 5350 7300
 $EndSCHEMATC
