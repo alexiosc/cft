@@ -845,28 +845,28 @@ Text Label 18500 5450 2    50   ~ 0
 $Comp
 L Jumper:Jumper_3_Bridged12 JP101
 U 1 1 5D8A2F99
-P 25750 1950
-F 0 "JP101" V 25750 2016 50  0000 L CNN
-F 1 "Jumper_3_Bridged12" V 25795 2016 50  0001 L CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 25750 1950 50  0001 C CNN
-F 3 "~" H 25750 1950 50  0001 C CNN
-	1    25750 1950
+P 25800 2150
+F 0 "JP101" V 25800 2216 50  0000 L CNN
+F 1 "Jumper_3_Bridged12" V 25845 2216 50  0001 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 25800 2150 50  0001 C CNN
+F 3 "~" H 25800 2150 50  0001 C CNN
+	1    25800 2150
 	0    -1   -1   0   
 $EndComp
 $Comp
 L power:+5V #PWR0110
 U 1 1 5D8DB890
-P 25750 1700
-F 0 "#PWR0110" H 25750 1550 50  0001 C CNN
-F 1 "+5V" H 25765 1873 50  0000 C CNN
-F 2 "" H 25750 1700 50  0001 C CNN
-F 3 "" H 25750 1700 50  0001 C CNN
-	1    25750 1700
+P 25800 1900
+F 0 "#PWR0110" H 25800 1750 50  0001 C CNN
+F 1 "+5V" H 25815 2073 50  0000 C CNN
+F 2 "" H 25800 1900 50  0001 C CNN
+F 3 "" H 25800 1900 50  0001 C CNN
+	1    25800 1900
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	25900 1950 26200 1950
-Text Label 26200 1950 2    50   ~ 0
+	25950 2150 26250 2150
+Text Label 26250 2150 2    50   ~ 0
 ~ROMW
 Text Label -5150 1550 2    50   ~ 0
 ~CS0
@@ -1291,13 +1291,11 @@ F 3 "http://www.ti.com/lit/gpn/sn74LS32" H 27300 2800 50  0001 C CNN
 	5    27300 2800
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	25750 2600 26200 2600
-Text Label 26200 2600 2    50   ~ 0
+Text Label 26250 2600 2    50   ~ 0
 ~MEMR
 Wire Wire Line
-	25750 3050 26200 3050
-Text Label 26200 3050 2    50   ~ 0
+	25750 3050 25800 3050
+Text Label 26250 3050 2    50   ~ 0
 ~MEMW
 Wire Wire Line
 	25250 2650 25150 2650
@@ -1392,9 +1390,6 @@ F 3 "" H 26950 3000 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Connection ~ 26950 3000
-Wire Wire Line
-	25750 2200 25750 2600
-Connection ~ 25750 2600
 Text Label 1450 1450 0    50   ~ 0
 ~MEMR
 Wire Wire Line
@@ -1683,4 +1678,11 @@ Connection ~ 17300 6850
 Wire Wire Line
 	22500 5350 22650 5350
 NoConn ~ 22650 5350
+Wire Wire Line
+	25750 2600 26250 2600
+Wire Wire Line
+	25800 2400 25800 3050
+Connection ~ 25800 3050
+Wire Wire Line
+	25800 3050 26250 3050
 $EndSCHEMATC
