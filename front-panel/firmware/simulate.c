@@ -793,11 +793,11 @@ char avr_flash_path[1024];
 int avr_flash_fd = 0;
 
 // avr special flash initalization
-// here: open and map a file to enable a persistent storage for the flash memory
 void
 avr_special_init(avr_t * avr)
 {
 	printf("*** SUCCESS\n");
+        // // here: load a flash image
 	// // open the file
 	// avr_flash_fd = open(avr_flash_path, O_RDWR|O_CREAT, 0644);
 	// if (avr_flash_fd < 0) {
@@ -818,9 +818,11 @@ avr_special_init(avr_t * avr)
 }
 
 // avr special flash deinitalization
-// here: cleanup the persistent storage
-void avr_special_deinit( avr_t* avr)
+//void avr_special_deinit(avr_t* avr)
+void
+avr_special_deinit(avr_t * avr, void * data)
 {
+        // // here: cleanup the persistent storage
 	// puts(__func__);
 	// lseek(avr_flash_fd, SEEK_SET, 0);
 	// ssize_t r = write(avr_flash_fd, avr->flash, avr->flashend + 1);
@@ -1367,7 +1369,8 @@ init_avr()
 	}
 	avr_init(avr);
 	avr->frequency = F_CPU;
-	avr->special_deinit = avr_special_deinit;
+	//avr->special_deinit = avr_special_deinit;
+	avr->custom.deinit = avr_special_deinit;
 
 	// Initialise the UART
 	uart_pty_init(avr, &uart_pty);
