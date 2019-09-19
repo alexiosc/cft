@@ -287,8 +287,8 @@ experiments/**
 **/firmware/[lh]fuse
 **/firmware/sim_dfp
 **/firmware/dfp.elf
-**/simavr/
-**/simavr/simavr/obj-x86_64-linux-gnu/
+# **/simavr/
+# **/simavr/simavr/obj-x86_64-linux-gnu/
 front-panel/lib/libdfp.so
 front-panel/lib/libdfp.so.*
 
