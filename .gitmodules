@@ -1,0 +1,3 @@
+[submodule "simavr"]
+	path = front-panel/simavr
+	url = git://github.com/buserror/simavr.git
