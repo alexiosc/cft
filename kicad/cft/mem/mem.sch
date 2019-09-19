@@ -851,7 +851,7 @@ F 1 "Jumper_3_Bridged12" V 25845 2216 50  0001 L CNN
 F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 25800 2150 50  0001 C CNN
 F 3 "~" H 25800 2150 50  0001 C CNN
 	1    25800 2150
-	0    -1   -1   0   
+	0    -1   1    0   
 $EndComp
 $Comp
 L power:+5V #PWR0110
