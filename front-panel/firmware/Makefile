@@ -133,7 +133,7 @@ OBJDUMP        	=	avr-objdump
 SIMCFILES	=	simulate.c simulate_parts.c simulate_uart.c
 SIMHFILES	=	simulate_parts.h simulate_uart.h
 
-SIMAVRDIR	=	../simavr
+SIMAVRDIR	=	../../external/simavr
 SIMAVRLIBS	=	-lsimavr -lelf -lpthread -lutil -lncurses
 SIMAVRLIBDIR	=	$(SIMAVRDIR)/simavr/obj-$(shell arch)-linux-gnu/
 SIMAVRFLAGS	+=	$(DEFINES) -g -Wall -std=gnu99 -O0 \
@@ -141,7 +141,7 @@ SIMAVRFLAGS	+=	$(DEFINES) -g -Wall -std=gnu99 -O0 \
 			-DMCU_TARGET='"$(MCU_TARGET)"' -DFIRMWARE='"$(PROG).elf"' \
 			-L$(SIMAVRLIBDIR) $(SIMAVRLIBS) -Wl,-rpath,$(SIMAVRLIBDIR)
 
-.PHONY:		all dep download verify reset test fuses sim
+.PHONY:		all dep clean veryclean download verify reset test fuses sim
 
 all: 		sim_$(PROG) $(PROG).elf lst text eeprom $(TESTS)
 #all: 		test_$(PROG)
@@ -201,9 +201,12 @@ sim:			sim_$(PROG) $(PROG).elf
 			TERM=xterm-256color SIMAVR_UART_XTERM=1 ./sim_$(PROG) || true
 
 clean:
-	rm -rf *.o $(PROG).elf *.eps *.png *.pdf *.bak *.s
-	rm -rf *.lst *.map $(EXTRA_CLEAN_FILES) .stamp-dl
-	rm -rf $(TESTS)
+	rm -f *.o $(PROG).elf $(PROG).axf *.eps *.png *.pdf *.bak *.s 
+	rm -f *.lst *.map $(EXTRA_CLEAN_FILES) .stamp-dl uart[0-9].log log.out [hl]fuse
+
+veryclean: clean
+	rm -f $(PROG).bin $(PROG).hex $(PROG).srec \
+		$(PROG)_eeprom.bin $(PROG)_eeprom.hex $(PROG)_eeprom.srec sim_$(PROG)
 
 lst:  $(PROG).lst
 
