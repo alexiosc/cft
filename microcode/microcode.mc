@@ -46,6 +46,9 @@
 //   vectors, a new AGL, AIL and an all new Constant Store that's no
 //   longer in the ALU (freeing up space for better things!)
 
+//   Version 7b: (2019-09-21) moved instructions around a bit to ease
+//   memorisation.
+
 //              MODES
 // Instruction  Literal  Direct  Indirect  Autoindex    Special
 // ----------------------------------------------------------------------------
@@ -473,6 +476,15 @@ start RST=1, INT=0, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 // DONE:       IN     0101              .    X    .    X    ?    ?    ?
 // DONE:       OUT    0110              .    X    .    X    ?    ?    ?
 // --------------------------------------------------------------------------------------
+// DONE:       LOAD   1000              X    X    X    X    X    X    X
+// DONE:       STORE  1001              X    X    X    X    X    X    X
+// DONE:       ISZ    1010              X    X    X    3    3    3    3
+// --------------------------------------------------------------------------------------
+// DONE:       ADD    1100              X    X    X    X    X    X    X
+// DONE:       AND    1101              X    X    X    X    X    X    X
+// DONE:       OR     1110              X    X    X    X    X    X    X
+// DONE:       XOR    1111              X    X    X    X    X    X    X
+// --------------------------------------------------------------------------------------
 // DONE:       IRET   0111  0 0 000
 // DONE:       LRET   0111  0 0 001
 // DONE:       RET    0111  0 0 010
@@ -491,20 +503,11 @@ start RST=1, INT=0, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 // DONE:       UOP    0111  0 1 111
 // DONE:       SRU    0111  1 0 000
 // DONE:       SKP    0111  1 0 001
-// DONE:       TAB    0111  1 0 010
-// DONE:       TBA    0111  1 0 011
+// DONE:       TAB    0111  1 0 010 *REMOVED*
+// DONE:       TBA    0111  1 0 011 *REMOVED*
 // DONE:       RMB    0111  1 0 100
 // DONE:       SMB    0111  1 0 101
 // DONE:       IND    0111  1   111
-// --------------------------------------------------------------------------------------
-// DONE:       LOAD   1000              X    X    X    X    X    X    X
-// DONE:       STORE  1001              X    X    X    X    X    X    X
-// DONE:       ISZ    1010              X    X    X    3    3    3    3
-// --------------------------------------------------------------------------------------
-// DONE:       ADD    1100              X    X    X    X    X    X    X
-// DONE:       AND    1101              X    X    X    X    X    X    X
-// DONE:       OR     1110              X    X    X    X    X    X    X
-// DONE:       XOR    1111              X    X    X    X    X    X    X
 // --------------------------------------------------------------------------------------
 // X = Addressing mode implemented
 // . = Addressing mode makes no sense, TBD
@@ -539,49 +542,52 @@ start RST=1, INT=0, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 
 #define _INSTR(x) RST=1, INT=1, IN_RESERVED=X, OP=x
 
-#define LIA    _INSTR(0000), SUBOP=XXX, COND=X
+#define IRET   _INSTR(0000), I=0, R=0, SUBOP=000, COND=X, IDX=XX
+#define LRET   _INSTR(0000), I=0, R=0, SUBOP=001, COND=X, IDX=XX
+#define RET    _INSTR(0000), I=0, R=0, SUBOP=010, COND=X, IDX=XX
+#define TAS    _INSTR(0000), I=0, R=0, SUBOP=011, COND=X, IDX=XX
+#define TSA    _INSTR(0000), I=0, R=0, SUBOP=100, COND=X, IDX=XX
+#define TAD    _INSTR(0000), I=0, R=0, SUBOP=101, COND=X, IDX=XX
+#define TDA    _INSTR(0000), I=0, R=0, SUBOP=110, COND=X, IDX=XX
+//#define        _INSTR(0000), I=0, R=0, SUBOP=111, COND=X, IDX=XX // This is available
 
-#define LJSR   _INSTR(0000), SUBOP=XXX, COND=X
-#define LJMP   _INSTR(0001), SUBOP=XXX, COND=X
-#define JMP    _INSTR(0010), SUBOP=XXX, COND=X
+//#define        _INSTR(0000), I=0, R=1, SUBOP=000, COND=X, IDX=XX // This is available
+#define PHA    _INSTR(0000), I=0, R=1, SUBOP=001, COND=X, IDX=XX
+#define PPA    _INSTR(0000), I=0, R=1, SUBOP=010, COND=X, IDX=XX
+#define PHF    _INSTR(0000), I=0, R=1, SUBOP=011, COND=X, IDX=XX
+#define PPF    _INSTR(0000), I=0, R=1, SUBOP=100, COND=X, IDX=XX
+#define STI    _INSTR(0000), I=0, R=1, SUBOP=101, COND=X, IDX=XX
+#define CLI    _INSTR(0000), I=0, R=1, SUBOP=110, COND=X, IDX=XX
+#define WAIT   _INSTR(0000), I=0, R=1, SUBOP=111,         IDX=XX
+
+#define SRU    _INSTR(0000), I=1, R=0, SUBOP=000, COND=X, IDX=XX // All shifts and rolls are here.
+#define SKP    _INSTR(0000), I=1, R=0, SUBOP=001, COND=X, IDX=XX // Skips
+#define RMB    _INSTR(0000), I=1, R=0, SUBOP=010, COND=X, IDX=XX // Read a Memory Bank Register
+#define SMB    _INSTR(0000), I=1, R=0, SUBOP=011, COND=X, IDX=XX // Set an Memory Bank Register
+//#define      _INSTR(0000), I=1, R=0, SUBOP=100, COND=X, IDX=XX // This is available
+//#define      _INSTR(0000), I=1, R=0, SUBOP=101, COND=X, IDX=XX // This is available
+//#define      _INSTR(0000), I=1, R=0, SUBOP=110, COND=X, IDX=XX // This is available
+//#define IND  _INSTR(0000), I=1, R=0, SUBOP=111, COND=X, IDX=XX // THIS IS IND R (SEE BELOW)
+
+#define JPA    _INSTR(0000), I=1, R=1, SUBOP=000, COND=X, IDX=XX
+#define JSA    _INSTR(0000), I=1, R=1, SUBOP=001, COND=X, IDX=XX
+//#define      _INSTR(0000), I=1, R=1, SUBOP=010, COND=X, IDX=XX // This is available
+//#define      _INSTR(0000), I=1, R=1, SUBOP=011, COND=X, IDX=XX // This is available
+#define UOP    _INSTR(0000), I=1, R=1, SUBOP=100, COND=X, IDX=XX
+#define IFL    _INSTR(0000), I=1, R=1, SUBOP=101,         IDX=XX
+#define IFV    _INSTR(0000), I=1, R=1, SUBOP=110,         IDX=XX
+#define IND    _INSTR(0000), I=1,      SUBOP=111, COND=X, IDX=XX
+
+#define LIA    _INSTR(0001), SUBOP=XXX, COND=X
+
+#define LJSR   _INSTR(0001), SUBOP=XXX, COND=X
+#define LJMP   _INSTR(0010), SUBOP=XXX, COND=X
 #define JSR    _INSTR(0011), SUBOP=XXX, COND=X
+#define JMP    _INSTR(0100), SUBOP=XXX, COND=X
 
-#define IOT    _INSTR(0100), SUBOP=XXX
 #define IN     _INSTR(0101), SUBOP=XXX, COND=X
 #define OUT    _INSTR(0110), SUBOP=XXX, COND=X
-
-#define IRET   _INSTR(0111), I=0, R=0, SUBOP=000, COND=X, IDX=XX
-#define LRET   _INSTR(0111), I=0, R=0, SUBOP=001, COND=X, IDX=XX
-#define RET    _INSTR(0111), I=0, R=0, SUBOP=010, COND=X, IDX=XX
-#define TAS    _INSTR(0111), I=0, R=0, SUBOP=011, COND=X, IDX=XX
-#define TSA    _INSTR(0111), I=0, R=0, SUBOP=100, COND=X, IDX=XX
-#define TAD    _INSTR(0111), I=0, R=0, SUBOP=101, COND=X, IDX=XX
-#define TDA    _INSTR(0111), I=0, R=0, SUBOP=110, COND=X, IDX=XX
-#define PHA    _INSTR(0111), I=0, R=0, SUBOP=111, COND=X, IDX=XX
-#define PPA    _INSTR(0111), I=0, R=1, SUBOP=000, COND=X, IDX=XX
-#define PHF    _INSTR(0111), I=0, R=1, SUBOP=001, COND=X, IDX=XX
-#define PPF    _INSTR(0111), I=0, R=1, SUBOP=010, COND=X, IDX=XX
-#define STI    _INSTR(0111), I=0, R=1, SUBOP=011, COND=X, IDX=XX
-#define CLI    _INSTR(0111), I=0, R=1, SUBOP=100, COND=X, IDX=XX
-#define WAIT   _INSTR(0111), I=0, R=1, SUBOP=101,         IDX=XX
-//#define      _INSTR(0111), I=0, R=1, SUBOP=110, COND=X, IDX=XX // This is available
-//#define      _INSTR(0111), I=0, R=1, SUBOP=111, COND=X, IDX=XX // This is available
-#define SRU    _INSTR(0111), I=1, R=0, SUBOP=000, COND=X, IDX=XX // All shifts and rolls are here.
-#define SKP    _INSTR(0111), I=1, R=0, SUBOP=001, COND=X, IDX=XX // Skips
-#define TAB    _INSTR(0111), I=1, R=0, SUBOP=010, COND=X, IDX=XX
-#define TBA    _INSTR(0111), I=1, R=0, SUBOP=011, COND=X, IDX=XX
-#define RMB    _INSTR(0111), I=1, R=0, SUBOP=100, COND=X, IDX=XX // Read a Memory Bank Register
-#define SMB    _INSTR(0111), I=1, R=0, SUBOP=101, COND=X, IDX=XX // Set an Memory Bank Register
-//#define      _INSTR(0111), I=1, R=0, SUBOP=110, COND=X, IDX=XX // This is available
-//#define IND  _INSTR(0111), I=1, R=0, SUBOP=111, COND=X, IDX=XX // THIS IS IND R (SEE BELOW)
-#define JPA    _INSTR(0111), I=1, R=1, SUBOP=000, COND=X, IDX=XX
-#define JSA    _INSTR(0111), I=1, R=1, SUBOP=001, COND=X, IDX=XX
-//#define      _INSTR(0111), I=1, R=1, SUBOP=010, COND=X, IDX=XX // This is available
-//#define      _INSTR(0111), I=1, R=1, SUBOP=011, COND=X, IDX=XX // This is available
-#define UOP    _INSTR(0111), I=1, R=1, SUBOP=100, COND=X, IDX=XX
-#define IFL    _INSTR(0111), I=1, R=1, SUBOP=101,         IDX=XX
-#define IFV    _INSTR(0111), I=1, R=1, SUBOP=110,         IDX=XX
-#define IND    _INSTR(0111), I=1,      SUBOP=111, COND=X, IDX=XX
+#define IOT    _INSTR(0111), SUBOP=XXX
 
 #define LOAD   _INSTR(1000), SUBOP=XXX, COND=X
 #define STORE  _INSTR(1001), SUBOP=XXX, COND=X
@@ -602,6 +608,425 @@ start RST=1, INT=0, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 // #define INSTR_I_R_DEC(x)  _INSTR(x), I=0, R=0, SUBOP=XXX, IDX=IDX_DEC
 // #define INSTR_I_R_SP(x)   _INSTR(x), I=0, R=0, SUBOP=XXX, IDX=IDX_SP
 
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// THE IRET INSTRUCTION
+//
+///////////////////////////////////////////////////////////////////////////////
+
+start IRET;
+      FETCH_IR;                                 // 00 IR ← mem[PC++]
+      STACK_POP(ac), /action_sti;		// 02 AC ← mem[--SP]
+      STACK_POP(pc);				// 05 PC ← mem[--SP]
+      STACK_POP(mbp_flags), END;                // 08 flags:MBP ← mem[--SP]
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// THE LRET INSTRUCTION
+//
+///////////////////////////////////////////////////////////////////////////////
+
+start LRET;
+      FETCH_IR;                                 // 00 IR ← mem[PC++]
+      STACK_POP(pc);				// 02 PC ← mem[--SP]
+      STACK_POP(mbp), END;			// 05 MBP ← mem[--SP]
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// THE RET INSTRUCTION
+//
+///////////////////////////////////////////////////////////////////////////////
+
+start RET;
+      FETCH_IR;                                 // 00 IR ← mem[PC++]
+      STACK_POP(pc), END;			// 02 PC ← mem[--SP]
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// THE TSA INSTRUCTION
+//
+///////////////////////////////////////////////////////////////////////////////
+
+start TSA;
+      FETCH_IR;                                 // 00 IR ← mem[PC++]
+      SET(ac, sp), END;				// 02 AC ← SP
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// THE TAS INSTRUCTION
+//
+///////////////////////////////////////////////////////////////////////////////
+
+start TAS;
+      FETCH_IR;                                 // 00 IR ← mem[PC++]
+      SET(sp, ac), END;				// 02 SP ← AC
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// THE TDA INSTRUCTION
+//
+///////////////////////////////////////////////////////////////////////////////
+
+start TDA;
+      FETCH_IR;                                 // 00 IR ← mem[PC++]
+      SET(ac, dr), END;				// 02 AC ← DR
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// THE TAD INSTRUCTION
+//
+///////////////////////////////////////////////////////////////////////////////
+
+start TAD;
+      FETCH_IR;                                 // 00 IR ← mem[PC++]
+      SET(DR, AC), END;				// 02 DR ← AC
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// THE PHA INSTRUCTION
+//
+///////////////////////////////////////////////////////////////////////////////
+
+start PHA;
+      FETCH_IR;                                 // 00 IR ← mem[PC++]
+      STACK_PUSH(ac), END;			// 02 mem[SP++] ← ac
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// THE PPA INSTRUCTION
+//
+///////////////////////////////////////////////////////////////////////////////
+
+start PPA;
+      FETCH_IR;                                 // 00 IR ← mem[PC++]
+      STACK_POP(ac), END;			// 02 AC ← mem[--SP]
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// THE PHF INSTRUCTION
+//
+///////////////////////////////////////////////////////////////////////////////
+
+start PHF;
+      FETCH_IR;                                 // 00 IR ← mem[PC++]
+      STACK_PUSH(flags), END;			// 02 mem[SP++] ← flags
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// THE PPF INSTRUCTION
+//
+///////////////////////////////////////////////////////////////////////////////
+
+start PPF;
+      FETCH_IR;                                 // 00 IR ← mem[PC++]
+      STACK_POP(flags), END;			// 02 flags ← mem[--SP]
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// THE STI INSTRUCTION
+//
+///////////////////////////////////////////////////////////////////////////////
+
+start STI;
+      FETCH_IR;                                 // 00 IR ← mem[PC++]
+      /action_sti, END;		                // 02 STI
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// THE CLI INSTRUCTION
+//
+///////////////////////////////////////////////////////////////////////////////
+
+start CLI;
+      FETCH_IR;                                 // 00 IR ← mem[PC++]
+      /action_cli, END;		                // 02 CLI
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// THE WAIT INSTRUCTION
+//
+///////////////////////////////////////////////////////////////////////////////
+
+// The WAIT instruction stops execution until an interrupt arrives (in
+// case it's handled).
+//
+// There's no fetch cycle here! The instruction just executes END, but doesn't
+// fetch anything, which puts the microcode sequencer in an endless loop. It
+// will be broken out of that loop only when an interrupt arrives, and the
+// interrupt handler microprogram gets executed. That happens when END is
+// asserted, conveniently.
+//
+// While WAIT is active, the front panel will appear to be stuck in the ‘Fetch’
+// state with the µPC stuck to zero.
+
+start WAIT, COND=1;
+      END;			// 00
+      END;			// 01
+      END;			// 02
+      END;			// 03
+      END;			// 04
+      END;			// 05
+      END;			// 06
+      END;			// 07
+      END;			// 08
+      END;			// 09
+      END;			// 0a
+      END;			// 0b
+      END;			// 0c
+      END;			// 0d
+      END;			// 0e
+      END;			// 0f
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// THE UNARY OPERATION GROUP: IFL, IFV, UOP
+//
+///////////////////////////////////////////////////////////////////////////////
+
+//             9876543210
+// CLA = OP1  '----1-----		; if5: A <- 0
+// CLL = OP1  '-----1----		; if4: L <- 0
+// NOT = OP1  '------1---		; if3: A <- NOT A
+// INC = OP1  '-------1--		; if2: <L,A> <- <L,A> + 1
+// DEC = OP1  '--------1-		; if1: <L,A> <- <L,A> + 1
+// CPL = OP1  '---------1		; if0: L <- NOT L
+
+// L=1 ⇒ COND=0, so IFL takes action.
+
+start IFL, COND=0;
+      FETCH_IR, if_l;		                // 00 IR ← mem[PC++];
+      if_ir5;					// If L:
+      /action_cla, if_ir4;			// If IR5: AC ← 0
+      /action_cll, if_ir3;			// If IR4: L ← 0
+      SET(ac, alu_not), if_ir2;			// If IR3: AC ← ~AC
+      /action_incac, if_ir1;                    // IF IR2: AC++
+      /action_decac, if_ir0;                    // IF IR1: AC--
+      /action_cpl, END;				// IF IR0: L ← ¬L
+
+start IFL, COND=1;
+      FETCH_IR, if_l;		                // 00 IR ← mem[PC++];
+      END;
+      if_ir4;
+      if_ir3;
+      if_ir2;
+      if_ir1;
+      if_ir0;
+      END;
+
+start IFV, COND=0;
+      FETCH_IR, if_v;		                // 00 IR ← mem[PC++];
+      if_ir5;					// If V:
+      /action_cla, if_ir4;			// If IR5: AC ← 0
+      /action_cll, if_ir3;			// If IR4: L ← 0
+      SET(ac, alu_not), if_ir2;			// If IR3: AC ← ~AC
+      /action_incac, if_ir1;                    // IF IR2: AC++
+      /action_decac, if_ir0;                    // IF IR1: AC--
+      /action_cpl, END;				// IF IR0: L ← ¬L
+
+start IFV, COND=1;
+      FETCH_IR, if_v;		                // 00 IR ← mem[PC++];
+      END;
+      if_ir4;
+      if_ir3;
+      if_ir2;
+      if_ir1;
+      if_ir0;
+      END;
+
+start UOP, COND=0;
+      FETCH_IR, if_ir5;		                // 00 IR ← mem[PC++];
+      /action_cla, if_ir4;			// If IR5: AC ← 0
+      /action_cll, if_ir3;			// If IR4: L ← 0
+      SET(ac, alu_not), if_ir2;			// If IR3: AC ← ~AC
+      /action_incac, if_ir1;                    // IF IR2: AC++
+      /action_decac, if_ir0;                    // IF IR1: AC--
+      /action_cpl, END;				// IF IR0: L ← ¬L
+
+start UOP, COND=1;
+      FETCH_IR, if_ir5;		                // 00 IR ← mem[PC++];
+      if_ir4;
+      if_ir3;
+      if_ir2;
+      if_ir1;
+      if_ir0;
+      END;
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// SHIFTS AND ROTATIONS
+//
+///////////////////////////////////////////////////////////////////////////////
+
+//            OP   I R 987 654 3210
+// SHL = SRU  0111'1'0'000'000'dddd    ; Bitwise shift left by d bits
+// SHR = SRU  0111'1'0'000'001'dddd    ; Bitwise shift right by d bits
+// ASR = SRU  0111'1'0'000'011'dddd    ; Arithmetic shift right by d bits
+// ROL = SRU  0111'1'0'000'100'dddd    ; Rotate left by d bits
+// ROR = SRU  0111'1'0'000'101'dddd    ; Rotate right by d bits
+
+// L=1 ⇒ COND=0, so IFL takes action.
+
+// IR bits are directly linked to the shift/rotate unit, so all
+// of these instructions have the same microcode.
+start SRU;
+      FETCH_IR;                                 // 00 IR ← mem[PC++]
+      /action_sru;				// 02 SRU cycle #1 (sync wait)
+      ;				                // 03 SRU cycle #2
+      ;				                // 04 SRU cycle #3
+      ;				                // 05 SRU cycle #4
+      ;				                // 06 SRU cycle #5
+      SET(ac, alu_b), END;			// 07 AC ← ALU B Reg
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// SKIPS
+//
+///////////////////////////////////////////////////////////////////////////////
+
+//            OP   I R 987 6543210
+//       SKP  0111'1'0'001'000dddd    ; 
+//       NOP  0111'1'0'001'0000000    ; G1 Skip never (NOP)
+//       SNA  0111'1'0'001'--01---    ; G1 Skip if Negative AC: A < 0 => PC++
+//       SZA  0111'1'0'001'--0-1--    ; G1 Skip if Zero AC: A == 0 => PC++
+//       SSL  0111'1'0'001'--0--1-    ; G1 Skip if Link set: L == 1 ==> PC++
+//       SSV  0111'1'0'001'--0---1    ; G1 Skip if Overflow set: V == 1 ==> PC++ (1)
+//
+//       SKIP 0111'1'0'001'--10000    ; G2 Skip always: PC++
+//       SNN  0111'1'0'001'--11---    ; G2 Skip if Non-Negative AC: a >=0 ==> PC++  (2)
+//       SNZ  0111'1'0'001'--1-1--    ; G2 Skip if Non-Zero AC: AC != 0 ==> PC++ (2)
+//       SCL  0111'1'0'001'--1--1-    ; G2 Skip if Link clear: L == 0 ==> PC++ (2)
+//       SCV  0111'1'0'001'--1---1    ; G2 Skip if Overflow clear: V == 0 ==> PC++ (2)
+//
+// G1 and G2 sub-instructions may be combined, but not across groups.
+// G1 condition bits are ORred together.
+// G2 conditions bits are ANDed together.
+// 
+// The OR/AND logic isn't microcoded, it's part of the hardwired
+// decoding of the branch bits.
+
+// The skip mechanism is hard-wired, so the microcode here is fairly
+// simple here.
+
+// First, the version where the skip isn't taken.
+start SKP, COND=0;
+      FETCH_IR, if_branch;	                // 00 IR ← mem[PC++]
+      END;					// 02 IF not skip: END
+
+// Next, the version where the skip is taken.
+start SKP, COND=0;
+      FETCH_IR, if_branch;	                // 00 IR ← mem[PC++]
+      /action_incpc, END;			// 02 If skip: PC++
+
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// THE TBA INSTRUCTION
+//
+///////////////////////////////////////////////////////////////////////////////
+
+// Removed this as it's not easily feasible given the current architecture.
+// start TBA;
+//       FETCH_IR;                                 // 00 IR ← mem[PC++]
+//       SET(ac, alu_b), END;			// 02 AC ← ALU B
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// THE TAB INSTRUCTION
+//
+///////////////////////////////////////////////////////////////////////////////
+
+// Removed this as it's not easily feasible given the current architecture.
+// start TBA;
+//       FETCH_IR;                                 // 00 IR ← mem[PC++]
+//       SET(alu_b, ac), END;			// 02 ALU_B ← AC
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// THE RMB INSTRUCTION
+//
+///////////////////////////////////////////////////////////////////////////////
+
+start RMB;
+      FETCH_IR;                                 // 00 IR ← mem[PC++]
+      SET(ac, mbn), END;			// 02 AC ← MB[IR0..IR2]
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// THE SMB INSTRUCTION
+//
+///////////////////////////////////////////////////////////////////////////////
+
+start SMB;
+      FETCH_IR;                                 // 00 IR ← mem[PC++]
+      SET(mbn, ac), END;			// 02 MB[IR0..02] ← AC
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// THE JPA INSTRUCTION
+//
+///////////////////////////////////////////////////////////////////////////////
+
+start JPA;
+      FETCH_IR;                                 // 00 IR ← mem[PC++]
+      SET(pc, ac), END;				// 02 PC ← AC
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// THE JSA INSTRUCTION
+//
+///////////////////////////////////////////////////////////////////////////////
+
+start JSA;
+      FETCH_IR;                                 // 00 IR ← mem[PC++]
+      STACK_PUSH(pc);				// 02 mem[SP++] ← PC
+      SET(pc, ac), END;				// 04 PC ← AC
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// THE IND INSTRUCTION
+//
+///////////////////////////////////////////////////////////////////////////////
+
+// ① IND, local address addressing mode
+start IND, R=0;
+      FETCH_IR;                                 // 00 IR ← mem[PC++]
+      SET(dr, ac);				// 02 DR ← AC
+      MEMREAD(mbp, ac, dr), END;		// 03 AC ← mem[MBP:DR]
+
+// ② IND, register address addressing mode.
+
+// Note: this is redundant (case ① above can handle it with an appropriate
+// operand). It's here because it allows the ‘R’ notation to work as expected,
+// at the cost of one micro-program (we can spare them these days).
+start IND, R=1;
+      FETCH_IR;                                 // 00 IR ← mem[PC++]
+      SET(dr, ac);				// 02 DR ← AC
+      MEMREAD(mbz, ac, dr), END;		// 03 AC ← mem[MBZ:DR]
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -753,53 +1178,6 @@ start LJMP, I=1, R=1, IDX=IDX_SP;
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-// THE JMP INSTRUCTION
-//
-///////////////////////////////////////////////////////////////////////////////
-
-// ① & ②, local address addressing mode and register addressing mode
-// Note: with R=0, the address jumped to is relative to MBP, not MBZ!
-// TODO: examine if this should be fixed, and whether a fix is feasible.
-start JMP, I=0, R=X, IDX=XX;
-      FETCH_IR;			                // 00 IR ← mem[PC++]
-      SET(pc, agl), END;			// 02 PC ← AGL
-
-// ③ JMP, local indirect addressing mode.
-start JMP, I=1, R=0, IDX=XX;
-      FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD(mbp, agl, pc), END;		// 02 PC ← mem[MBP:AGL]
-
-// ④ JMP, register indirect addressing mode.
-start JMP, I=1, R=1, IDX=XX;
-      FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD(mbz, agl, pc), END;		// 02 PC ← mem[MBZ:AGL]
-
-// ⑤ JMP, double register indirect autoincrement addressing mode.
-start JMP, I=1, R=1, IDX=IDX_INC;
-      FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
-      MEMREAD(mbp, dr, pc), /action_incdr;	// 04 PC ← mem[MBP:DR]; DR++;
-      MEMWRITE(mbz, agl, dr), END;               // 06 mem[MBD:AGL] ← DR
-
-// ⑥ JMP, double register indirect autodecrement addressing mode.
-start JMP, I=1, R=1, IDX=IDX_DEC;
-      FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
-      MEMREAD(mbp, dr, pc), /action_decdr;	// 04 PC ← mem[MBP:DR]; DR--;
-      MEMWRITE(mbz, agl, dr), END;               // 06 mem[MBZ:AGL] ← DR
-
-// ⑦ JMP, double register indirect stack addressing mode.
-// Pops a 16-bit value from the specified stack register and jumps to it.
-start JMP, I=1, R=1, IDX=IDX_SP;
-      FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
-      /action_decdr;                            // 04 DR--;
-      MEMREAD(mbp, dr, pc);	                // 05 PC ← mem[MBP:DR]
-      MEMWRITE(mbz, agl, dr), END;               // 07 mem[MBZ:AGL] ← DR
-
-
-///////////////////////////////////////////////////////////////////////////////
-//
 // THE JSR INSTRUCTION
 //
 ///////////////////////////////////////////////////////////////////////////////
@@ -852,13 +1230,60 @@ start JSR, I=1, R=1, IDX=IDX_SP;
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-// THE ISZ INSTRUCTION
+// THE JMP INSTRUCTION
+//
+///////////////////////////////////////////////////////////////////////////////
+
+// ① & ②, local address addressing mode and register addressing mode
+// Note: with R=0, the address jumped to is relative to MBP, not MBZ!
+// TODO: examine if this should be fixed, and whether a fix is feasible.
+start JMP, I=0, R=X, IDX=XX;
+      FETCH_IR;			                // 00 IR ← mem[PC++]
+      SET(pc, agl), END;			// 02 PC ← AGL
+
+// ③ JMP, local indirect addressing mode.
+start JMP, I=1, R=0, IDX=XX;
+      FETCH_IR;			                // 00 IR ← mem[PC++]
+      MEMREAD(mbp, agl, pc), END;		// 02 PC ← mem[MBP:AGL]
+
+// ④ JMP, register indirect addressing mode.
+start JMP, I=1, R=1, IDX=XX;
+      FETCH_IR;			                // 00 IR ← mem[PC++]
+      MEMREAD(mbz, agl, pc), END;		// 02 PC ← mem[MBZ:AGL]
+
+// ⑤ JMP, double register indirect autoincrement addressing mode.
+start JMP, I=1, R=1, IDX=IDX_INC;
+      FETCH_IR;			                // 00 IR ← mem[PC++]
+      MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
+      MEMREAD(mbp, dr, pc), /action_incdr;	// 04 PC ← mem[MBP:DR]; DR++;
+      MEMWRITE(mbz, agl, dr), END;               // 06 mem[MBD:AGL] ← DR
+
+// ⑥ JMP, double register indirect autodecrement addressing mode.
+start JMP, I=1, R=1, IDX=IDX_DEC;
+      FETCH_IR;			                // 00 IR ← mem[PC++]
+      MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
+      MEMREAD(mbp, dr, pc), /action_decdr;	// 04 PC ← mem[MBP:DR]; DR--;
+      MEMWRITE(mbz, agl, dr), END;               // 06 mem[MBZ:AGL] ← DR
+
+// ⑦ JMP, double register indirect stack addressing mode.
+// Pops a 16-bit value from the specified stack register and jumps to it.
+start JMP, I=1, R=1, IDX=IDX_SP;
+      FETCH_IR;			                // 00 IR ← mem[PC++]
+      MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
+      /action_decdr;                            // 04 DR--;
+      MEMREAD(mbp, dr, pc);	                // 05 PC ← mem[MBP:DR]
+      MEMWRITE(mbz, agl, dr), END;               // 07 mem[MBZ:AGL] ← DR
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// THE DSZ INSTRUCTION
 //
 ///////////////////////////////////////////////////////////////////////////////
 
 // First, without skips. The last microinstruction is an END.
 
-// ① ISZ, local addressing mode.
+// ① DSZ, local addressing mode.
 start ISZ, COND=1, I=0, R=0, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       MEMREAD(mbp, agl, ac);	                // 02 AC ← mem[MBP:AGL]
@@ -866,7 +1291,7 @@ start ISZ, COND=1, I=0, R=0, IDX=XX;
       MEMWRITE(mbp, agl, ac), if_z;              // 05 mem[MBP:AGL] ← AC
       END;					// 07
 
-// ② ISZ, register addressing mode.
+// ② DSZ, register addressing mode.
 start ISZ, COND=1, I=0, R=1, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, ac);	                // 02 AC ← mem[MBZ:AGL]
@@ -874,7 +1299,7 @@ start ISZ, COND=1, I=0, R=1, IDX=XX;
       MEMWRITE(mbz, agl, ac), if_z;              // 05 mem[MBZ:AGL] ← AC
       END;					// 07
 
-// ③ ISZ, local indirect addressing mode.
+// ③ DSZ, local indirect addressing mode.
 start ISZ, COND=1, I=1, R=0, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       MEMREAD(mbp, agl, dr);			// 02 DR ← mem[MBP:AGL]
@@ -883,7 +1308,7 @@ start ISZ, COND=1, I=1, R=0, IDX=XX;
       MEMWRITE(mbd, dr, ac), if_z;		// 07 mem[MBD:DR] ← AC
       END;					// 09
 
-// ④ ISZ, register indirect addressing mode.
+// ④ DSZ, register indirect addressing mode.
 start ISZ, COND=1, I=1, R=1, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
@@ -892,7 +1317,7 @@ start ISZ, COND=1, I=1, R=1, IDX=XX;
       MEMWRITE(mbd, dr, ac), if_z;		// 07 mem[MBD:DR] ← AC
       END;					// 09
 
-// ⑤ ISZ, register indirect autoincrement addressing mode.
+// ⑤ DSZ, register indirect autoincrement addressing mode.
 start ISZ, COND=1, I=1, R=1, IDX=IDX_INC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
@@ -901,7 +1326,7 @@ start ISZ, COND=1, I=1, R=1, IDX=IDX_INC;
       MEMWRITE(mbd, dr, ac), if_z;		// 07 mem[MBD:DR] ← AC
       END;					// 09
 
-// ⑥ ISZ, register indirect autodecrement addressing mode.
+// ⑥ DSZ, register indirect autodecrement addressing mode.
 start ISZ, COND=1, I=1, R=1, IDX=IDX_DEC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
@@ -910,7 +1335,7 @@ start ISZ, COND=1, I=1, R=1, IDX=IDX_DEC;
       MEMWRITE(mbd, dr, ac), if_z;		// 07 mem[MBD:DR] ← AC
       END;					// 09
 
-// ⑦ ISZ, register indirect stack addressing mode.  This technically
+// ⑦ DSZ, register indirect stack addressing mode.  This technically
 // pops a value from the stack and writes it back. With no net change
 // in the stack pointer register, we don't need to increment or decrement.
 start ISZ, COND=1, I=1, R=1, IDX=IDX_SP;
@@ -924,7 +1349,7 @@ start ISZ, COND=1, I=1, R=1, IDX=IDX_SP;
 // And now the same, with skips taken: /action_incpc is executed in
 // the last microstep.
 
-// ① ISZ, local addressing mode.
+// ① DSZ, local addressing mode.
 start ISZ, COND=0, I=0, R=0, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       MEMREAD(mbp, agl, ac);	                // 02 AC ← mem[MBP:AGL]
@@ -932,7 +1357,7 @@ start ISZ, COND=0, I=0, R=0, IDX=XX;
       MEMWRITE(mbp, agl, ac), if_z;              // 05 mem[MBP:AGL] ← AC
       END;					// 07
 
-// ② ISZ, register addressing mode.
+// ② DSZ, register addressing mode.
 start ISZ, COND=0, I=0, R=1, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, ac);	                // 02 AC ← mem[MBZ:AGL]
@@ -940,7 +1365,7 @@ start ISZ, COND=0, I=0, R=1, IDX=XX;
       MEMWRITE(mbz, agl, ac), if_z;              // 05 mem[MBZ:AGL] ← AC
       /action_incpc, END;			// 07 PC++;
 
-// ③ ISZ, local indirect addressing mode.
+// ③ DSZ, local indirect addressing mode.
 start ISZ, COND=0, I=1, R=0, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       MEMREAD(mbp, agl, dr);			// 02 DR ← mem[MBP:AGL]
@@ -949,7 +1374,7 @@ start ISZ, COND=0, I=1, R=0, IDX=XX;
       MEMWRITE(mbd, dr, ac), if_z;		// 07 mem[MBD:DR] ← AC
       /action_incpc, END;			// 09 PC++;
 
-// ④ ISZ, register indirect addressing mode.
+// ④ DSZ, register indirect addressing mode.
 start ISZ, COND=0, I=1, R=1, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
@@ -958,7 +1383,7 @@ start ISZ, COND=0, I=1, R=1, IDX=XX;
       MEMWRITE(mbd, dr, ac), if_z;		// 07 mem[MBD:DR] ← AC
       /action_incpc, END;			// 09 PC++;
 
-// ⑤ ISZ, register indirect autoincrement addressing mode.
+// ⑤ DSZ, register indirect autoincrement addressing mode.
 start ISZ, COND=0, I=1, R=1, IDX=IDX_INC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
@@ -967,7 +1392,7 @@ start ISZ, COND=0, I=1, R=1, IDX=IDX_INC;
       MEMWRITE(mbd, dr, ac), if_z;		// 07 mem[MBD:DR] ← AC
       /action_incpc, END;			// 09 PC++;
 
-// ⑥ ISZ, register indirect autodecrement addressing mode.
+// ⑥ DSZ, register indirect autodecrement addressing mode.
 start ISZ, COND=0, I=1, R=1, IDX=IDX_DEC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
@@ -976,7 +1401,7 @@ start ISZ, COND=0, I=1, R=1, IDX=IDX_DEC;
       MEMWRITE(mbd, dr, ac), if_z;		// 07 mem[MBD:DR] ← AC
       /action_incpc, END;			// 09 PC++;
 
-// ⑦ ISZ, register indirect stack addressing mode.
+// ⑦ DSZ, register indirect stack addressing mode.
 start ISZ, COND=0, I=1, R=1, IDX=IDX_SP;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
@@ -1558,421 +1983,5 @@ start XOR, I=1, R=1, IDX=IDX_SP;
       MEMWRITE(mbz, agl, dr);	                // 07 mem[MBD:AGL] ← DR
       SET(ac, alu_xor), END;			// 09 AC ← AC ^ B
 
-
-///////////////////////////////////////////////////////////////////////////////
-//
-// THE IRET INSTRUCTION
-//
-///////////////////////////////////////////////////////////////////////////////
-
-start IRET;
-      FETCH_IR;                                 // 00 IR ← mem[PC++]
-      STACK_POP(ac), /action_sti;		// 02 AC ← mem[--SP]
-      STACK_POP(pc);				// 05 PC ← mem[--SP]
-      STACK_POP(mbp_flags), END;                // 08 flags:MBP ← mem[--SP]
-
-
-///////////////////////////////////////////////////////////////////////////////
-//
-// THE LRET INSTRUCTION
-//
-///////////////////////////////////////////////////////////////////////////////
-
-start LRET;
-      FETCH_IR;                                 // 00 IR ← mem[PC++]
-      STACK_POP(pc);				// 02 PC ← mem[--SP]
-      STACK_POP(mbp), END;			// 05 MBP ← mem[--SP]
-
-
-///////////////////////////////////////////////////////////////////////////////
-//
-// THE RET INSTRUCTION
-//
-///////////////////////////////////////////////////////////////////////////////
-
-start RET;
-      FETCH_IR;                                 // 00 IR ← mem[PC++]
-      STACK_POP(pc), END;			// 02 PC ← mem[--SP]
-
-
-///////////////////////////////////////////////////////////////////////////////
-//
-// THE TSA INSTRUCTION
-//
-///////////////////////////////////////////////////////////////////////////////
-
-start TSA;
-      FETCH_IR;                                 // 00 IR ← mem[PC++]
-      SET(ac, sp), END;				// 02 AC ← SP
-
-
-///////////////////////////////////////////////////////////////////////////////
-//
-// THE TAS INSTRUCTION
-//
-///////////////////////////////////////////////////////////////////////////////
-
-start TAS;
-      FETCH_IR;                                 // 00 IR ← mem[PC++]
-      SET(sp, ac), END;				// 02 SP ← AC
-
-
-///////////////////////////////////////////////////////////////////////////////
-//
-// THE TDA INSTRUCTION
-//
-///////////////////////////////////////////////////////////////////////////////
-
-start TDA;
-      FETCH_IR;                                 // 00 IR ← mem[PC++]
-      SET(ac, dr), END;				// 02 AC ← DR
-
-
-///////////////////////////////////////////////////////////////////////////////
-//
-// THE TAD INSTRUCTION
-//
-///////////////////////////////////////////////////////////////////////////////
-
-start TAD;
-      FETCH_IR;                                 // 00 IR ← mem[PC++]
-      SET(DR, AC), END;				// 02 DR ← AC
-
-
-///////////////////////////////////////////////////////////////////////////////
-//
-// THE PHA INSTRUCTION
-//
-///////////////////////////////////////////////////////////////////////////////
-
-start PHA;
-      FETCH_IR;                                 // 00 IR ← mem[PC++]
-      STACK_PUSH(ac), END;			// 02 mem[SP++] ← ac
-
-
-///////////////////////////////////////////////////////////////////////////////
-//
-// THE PPA INSTRUCTION
-//
-///////////////////////////////////////////////////////////////////////////////
-
-start PPA;
-      FETCH_IR;                                 // 00 IR ← mem[PC++]
-      STACK_POP(ac), END;			// 02 AC ← mem[--SP]
-
-
-///////////////////////////////////////////////////////////////////////////////
-//
-// THE PHF INSTRUCTION
-//
-///////////////////////////////////////////////////////////////////////////////
-
-start PHF;
-      FETCH_IR;                                 // 00 IR ← mem[PC++]
-      STACK_PUSH(flags), END;			// 02 mem[SP++] ← flags
-
-
-///////////////////////////////////////////////////////////////////////////////
-//
-// THE PPF INSTRUCTION
-//
-///////////////////////////////////////////////////////////////////////////////
-
-start PPF;
-      FETCH_IR;                                 // 00 IR ← mem[PC++]
-      STACK_POP(flags), END;			// 02 flags ← mem[--SP]
-
-
-///////////////////////////////////////////////////////////////////////////////
-//
-// THE STI INSTRUCTION
-//
-///////////////////////////////////////////////////////////////////////////////
-
-start STI;
-      FETCH_IR;                                 // 00 IR ← mem[PC++]
-      /action_sti, END;		                // 02 STI
-
-
-///////////////////////////////////////////////////////////////////////////////
-//
-// THE CLI INSTRUCTION
-//
-///////////////////////////////////////////////////////////////////////////////
-
-start CLI;
-      FETCH_IR;                                 // 00 IR ← mem[PC++]
-      /action_cli, END;		                // 02 CLI
-
-
-///////////////////////////////////////////////////////////////////////////////
-//
-// THE WAIT INSTRUCTION
-//
-///////////////////////////////////////////////////////////////////////////////
-
-// The WAIT instruction stops execution until an interrupt arrives (in
-// case it's handled).
-//
-// There's no fetch cycle here! The instruction just executes END, but doesn't
-// fetch anything, which puts the microcode sequencer in an endless loop. It
-// will be broken out of that loop only when an interrupt arrives, and the
-// interrupt handler microprogram gets executed. That happens when END is
-// asserted, conveniently.
-//
-// While WAIT is active, the front panel will appear to be stuck in the ‘Fetch’
-// state with the µPC stuck to zero.
-
-start WAIT, COND=1;
-      END;			// 00
-      END;			// 01
-      END;			// 02
-      END;			// 03
-      END;			// 04
-      END;			// 05
-      END;			// 06
-      END;			// 07
-      END;			// 08
-      END;			// 09
-      END;			// 0a
-      END;			// 0b
-      END;			// 0c
-      END;			// 0d
-      END;			// 0e
-      END;			// 0f
-
-
-///////////////////////////////////////////////////////////////////////////////
-//
-// THE UNARY OPERATION GROUP: IFL, IFV, UOP
-//
-///////////////////////////////////////////////////////////////////////////////
-
-//             9876543210
-// CLA = OP1  '----1-----		; if5: A <- 0
-// CLL = OP1  '-----1----		; if4: L <- 0
-// NOT = OP1  '------1---		; if3: A <- NOT A
-// INC = OP1  '-------1--		; if2: <L,A> <- <L,A> + 1
-// DEC = OP1  '--------1-		; if1: <L,A> <- <L,A> + 1
-// CPL = OP1  '---------1		; if0: L <- NOT L
-
-// L=1 ⇒ COND=0, so IFL takes action.
-
-start IFL, COND=0;
-      FETCH_IR, if_l;		                // 00 IR ← mem[PC++];
-      if_ir5;					// If L:
-      /action_cla, if_ir4;			// If IR5: AC ← 0
-      /action_cll, if_ir3;			// If IR4: L ← 0
-      SET(ac, alu_not), if_ir2;			// If IR3: AC ← ~AC
-      /action_incac, if_ir1;                    // IF IR2: AC++
-      /action_decac, if_ir0;                    // IF IR1: AC--
-      /action_cpl, END;				// IF IR0: L ← ¬L
-
-start IFL, COND=1;
-      FETCH_IR, if_l;		                // 00 IR ← mem[PC++];
-      END;
-      if_ir4;
-      if_ir3;
-      if_ir2;
-      if_ir1;
-      if_ir0;
-      END;
-
-start IFV, COND=0;
-      FETCH_IR, if_v;		                // 00 IR ← mem[PC++];
-      if_ir5;					// If V:
-      /action_cla, if_ir4;			// If IR5: AC ← 0
-      /action_cll, if_ir3;			// If IR4: L ← 0
-      SET(ac, alu_not), if_ir2;			// If IR3: AC ← ~AC
-      /action_incac, if_ir1;                    // IF IR2: AC++
-      /action_decac, if_ir0;                    // IF IR1: AC--
-      /action_cpl, END;				// IF IR0: L ← ¬L
-
-start IFV, COND=1;
-      FETCH_IR, if_v;		                // 00 IR ← mem[PC++];
-      END;
-      if_ir4;
-      if_ir3;
-      if_ir2;
-      if_ir1;
-      if_ir0;
-      END;
-
-start UOP, COND=0;
-      FETCH_IR, if_ir5;		                // 00 IR ← mem[PC++];
-      /action_cla, if_ir4;			// If IR5: AC ← 0
-      /action_cll, if_ir3;			// If IR4: L ← 0
-      SET(ac, alu_not), if_ir2;			// If IR3: AC ← ~AC
-      /action_incac, if_ir1;                    // IF IR2: AC++
-      /action_decac, if_ir0;                    // IF IR1: AC--
-      /action_cpl, END;				// IF IR0: L ← ¬L
-
-start UOP, COND=1;
-      FETCH_IR, if_ir5;		                // 00 IR ← mem[PC++];
-      if_ir4;
-      if_ir3;
-      if_ir2;
-      if_ir1;
-      if_ir0;
-      END;
-
-
-///////////////////////////////////////////////////////////////////////////////
-//
-// SHIFTS AND ROTATIONS
-//
-///////////////////////////////////////////////////////////////////////////////
-
-//            OP   I R 987 654 3210
-// SHL = SRU  0111'1'0'000'000'dddd    ; Bitwise shift left by d bits
-// SHR = SRU  0111'1'0'000'001'dddd    ; Bitwise shift right by d bits
-// ASR = SRU  0111'1'0'000'011'dddd    ; Arithmetic shift right by d bits
-// ROL = SRU  0111'1'0'000'100'dddd    ; Rotate left by d bits
-// ROR = SRU  0111'1'0'000'101'dddd    ; Rotate right by d bits
-
-// L=1 ⇒ COND=0, so IFL takes action.
-
-// IR bits are directly linked to the shift/rotate unit, so all
-// of these instructions have the same microcode.
-start SRU;
-      FETCH_IR;                                 // 00 IR ← mem[PC++]
-      /action_sru;				// 02 SRU cycle #1 (sync wait)
-      ;				                // 03 SRU cycle #2
-      ;				                // 04 SRU cycle #3
-      ;				                // 05 SRU cycle #4
-      ;				                // 06 SRU cycle #5
-      SET(ac, alu_b), END;			// 07 AC ← ALU B Reg
-
-
-///////////////////////////////////////////////////////////////////////////////
-//
-// SKIPS
-//
-///////////////////////////////////////////////////////////////////////////////
-
-//            OP   I R 987 6543210
-//       SKP  0111'1'0'001'000dddd    ; 
-//       NOP  0111'1'0'001'0000000    ; G1 Skip never (NOP)
-//       SNA  0111'1'0'001'--01---    ; G1 Skip if Negative AC: A < 0 => PC++
-//       SZA  0111'1'0'001'--0-1--    ; G1 Skip if Zero AC: A == 0 => PC++
-//       SSL  0111'1'0'001'--0--1-    ; G1 Skip if Link set: L == 1 ==> PC++
-//       SSV  0111'1'0'001'--0---1    ; G1 Skip if Overflow set: V == 1 ==> PC++ (1)
-//
-//       SKIP 0111'1'0'001'--10000    ; G2 Skip always: PC++
-//       SNN  0111'1'0'001'--11---    ; G2 Skip if Non-Negative AC: a >=0 ==> PC++  (2)
-//       SNZ  0111'1'0'001'--1-1--    ; G2 Skip if Non-Zero AC: AC != 0 ==> PC++ (2)
-//       SCL  0111'1'0'001'--1--1-    ; G2 Skip if Link clear: L == 0 ==> PC++ (2)
-//       SCV  0111'1'0'001'--1---1    ; G2 Skip if Overflow clear: V == 0 ==> PC++ (2)
-//
-// G1 and G2 sub-instructions may be combined, but not across groups.
-// G1 condition bits are ORred together.
-// G2 conditions bits are ANDed together.
-// 
-// The OR/AND logic isn't microcoded, it's part of the hardwired
-// decoding of the branch bits.
-
-// The skip mechanism is hard-wired, so the microcode here is fairly
-// simple here.
-
-// First, the version where the skip isn't taken.
-start SKP, COND=0;
-      FETCH_IR, if_branch;	                // 00 IR ← mem[PC++]
-      END;					// 02 IF not skip: END
-
-// Next, the version where the skip is taken.
-start SKP, COND=0;
-      FETCH_IR, if_branch;	                // 00 IR ← mem[PC++]
-      /action_incpc, END;			// 02 If skip: PC++
-
-
-
-///////////////////////////////////////////////////////////////////////////////
-//
-// THE TBA INSTRUCTION
-//
-///////////////////////////////////////////////////////////////////////////////
-
-start TBA;
-      FETCH_IR;                                 // 00 IR ← mem[PC++]
-      SET(ac, alu_b), END;			// 02 AC ← ALU B
-
-
-///////////////////////////////////////////////////////////////////////////////
-//
-// THE TAB INSTRUCTION
-//
-///////////////////////////////////////////////////////////////////////////////
-
-start TBA;
-      FETCH_IR;                                 // 00 IR ← mem[PC++]
-      SET(alu_b, ac), END;			// 02 ALU_B ← AC
-
-
-///////////////////////////////////////////////////////////////////////////////
-//
-// THE RMB INSTRUCTION
-//
-///////////////////////////////////////////////////////////////////////////////
-
-start RMB;
-      FETCH_IR;                                 // 00 IR ← mem[PC++]
-      SET(ac, mbn), END;			// 02 AC ← MB[IR0..IR2]
-
-
-///////////////////////////////////////////////////////////////////////////////
-//
-// THE SMB INSTRUCTION
-//
-///////////////////////////////////////////////////////////////////////////////
-
-start SMB;
-      FETCH_IR;                                 // 00 IR ← mem[PC++]
-      SET(mbn, ac), END;			// 02 MB[IR0..02] ← AC
-
-
-///////////////////////////////////////////////////////////////////////////////
-//
-// THE JPA INSTRUCTION
-//
-///////////////////////////////////////////////////////////////////////////////
-
-start JPA;
-      FETCH_IR;                                 // 00 IR ← mem[PC++]
-      SET(pc, ac), END;				// 02 PC ← AC
-
-
-///////////////////////////////////////////////////////////////////////////////
-//
-// THE JSA INSTRUCTION
-//
-///////////////////////////////////////////////////////////////////////////////
-
-start JSA;
-      FETCH_IR;                                 // 00 IR ← mem[PC++]
-      STACK_PUSH(pc);				// 02 mem[SP++] ← PC
-      SET(pc, ac), END;				// 04 PC ← AC
-
-
-///////////////////////////////////////////////////////////////////////////////
-//
-// THE IND INSTRUCTION
-//
-///////////////////////////////////////////////////////////////////////////////
-
-// ① IND, local address addressing mode
-start IND, R=0;
-      FETCH_IR;                                 // 00 IR ← mem[PC++]
-      SET(dr, ac);				// 02 DR ← AC
-      MEMREAD(mbp, ac, dr), END;		// 03 AC ← mem[MBP:DR]
-
-// ② IND, register address addressing mode.
-
-// Note: this is redundant (case ① above can handle it with an appropriate
-// operand). It's here because it allows the ‘R’ notation to work as expected,
-// at the cost of one micro-program (we can spare them these days).
-start IND, R=1;
-      FETCH_IR;                                 // 00 IR ← mem[PC++]
-      SET(dr, ac);				// 02 DR ← AC
-      MEMREAD(mbz, ac, dr), END;		// 03 AC ← mem[MBZ:DR]
 
 // End of file.
