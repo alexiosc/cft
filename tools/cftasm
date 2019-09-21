@@ -17,6 +17,12 @@ import optparse
 import subprocess
 import unicodedata
 
+# TODO for 2019 compatibility:
+#
+# [X] Add builtins for new instruction set.
+# [ ] Complete Python 3 compatibility.
+# [ ] Switch to using 24-bit addresses, OR
+# [ ] Add a linker to put together banks into a single large program.
 
 # Microcode 6 instruction set, the old one.
 _BUILTINS_OLD = """;;; CFT Assembler Built-ins
