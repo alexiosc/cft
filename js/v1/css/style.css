@@ -1,47 +1,9 @@
-@font-face {
-    font-family:Ubuntu;
-    font-weight:normal;
-    font-style:normal;
-    src:local('Ubuntu'),url('/themes/bedroomlan/fonts/Ubuntu-R.ttf.gz') format('truetype');
+:root {
+    --col-pitch: 35px;
 }
 
-@font-face {
-    font-family:Ubuntu;
-    font-weight:bold;
-    font-style:normal;
-    src:local('Ubuntu-Bold'), local('Ubuntu Bold'), local('Ubuntu-B.ttf'), local('Ubuntu-B.otf'), url('/themes/bedroomlan/fonts/Ubuntu-R.ttf.gz') format('truetype');
-}
-
-@font-face {
-    font-family:Ubuntu;
-    font-weight:bold;
-    font-style:italic;
-    src:local('Ubuntu-BoldItalic'), local('Ubuntu BoldItalic'), local('Ubuntu Bold Italic'), local('Ubuntu-BI.otf'), local('Ubuntu-BI.ttf'), url('/themes/bedroomlan/fonts/Ubuntu-BI.ttf.gz') format('truetype');
-}
-
-@font-face {
-    font-family:Ubuntu;
-    font-weight:normal;
-    font-style:italic;
-    src:local('Ubuntu-Italic'), local('Ubuntu Italic'), local('Ubuntu-RI.ttf'), local('Ubuntu-RI.otf'), url('/themes/bedroomlan/fonts/Ubuntu-RI.ttf.gz') format('truetype');
-}
-
-@font-face {
-    font-family:"Ubuntu Titling";
-    font-weight:bold;
-    font-style:normal;
-    src:local('UbuntuTitling-Bold'), local('Ubuntu Titling Bold'), local('Ubuntu Titling'), local('UbuntuTitling-Boldl.ttf'), local('UbuntuTitling-Boldl.otf'), url('/themes/bedroomlan/fonts/UbuntuTitling-Bold.ttf.gz') format('truetype');
-}
-
-
-
-body {
-    padding:0;
-    margin:0;
-    background:#222;
-    color:#ccc;
-    font-family:Ubuntu,myriad pro web, myriad pro, helvetica condensed, helvetica cond, arial, tahoma, impact, sans-serif;
-    overflow:hidden;
+body header#banner.custom-banner {
+    min-height:45rem;
 }
 
 #delayed {
@@ -50,6 +12,8 @@ body {
 #delayed.visible {
     visibility:visible;
 }
+
+#appheader { display: none; }
 
 #header {
     box-shadow: 0 0 20px 15px rgba(0,0,0,0.8);
@@ -62,30 +26,32 @@ body {
     z-index:10000;
     zoom:1;
 }
-h1 {
-    font-family: Ubuntu,"deja vu sans",helvetica,arial,tahoma,verdana,sans-serif;
-    font-size:30px;
-    line-height:45px;
-    font-weight:bold;
-    color:inherit;
-    text-decoration: none;
-    text-shadow: #fff 1px 1px 0px;
-    margin:0;
-    padding:0;
-}
-h2 {
-  font-size:15px;
-  line-height:22px;
-  font-weight:400;
-  margin:0;
-  padding:0 0 3px 0;
-}
+/* h1 { */
+/*     font-family: Ubuntu,"deja vu sans",helvetica,arial,tahoma,verdana,sans-serif; */
+/*     font-size:30px; */
+/*     line-height:45px; */
+/*     font-weight:bold; */
+/*     color:inherit; */
+/*     text-decoration: none; */
+/*     text-shadow: #fff 1px 1px 0px; */
+/*     margin:0; */
+/*     padding:0; */
+/* } */
+/* h2 { */
+/*   font-size:15px; */
+/*   line-height:22px; */
+/*   font-weight:400; */
+/*   margin:0; */
+/*   padding:0 0 3px 0; */
+/* } */
 
 #panelwrapper {
     display:block;
     overflow:hidden;
     margin:0;
     padding:0;
+
+    color:#a2a2a2;
 }
 
 #state th, #state td {
@@ -178,10 +144,12 @@ h2 {
 }
 
 .light, .space {
+    width:var(--col-pitch);
+    max-width:var(--col-pitch);
+    padding:0;
     font-family:Ubuntu;
     font-size:28px;
     line-height:28px;
-    width:30px;
     text-align:center;
     opacity:0.15;
 }
@@ -215,18 +183,21 @@ h2 {
 
 
 #panel .title {
-    font-size:90%;
+    font-size:0.8rem;
     text-align:left;
     padding-left:7px;
     line-height:100%;
     font-weight:normal;
 }
+
 #panel .pt {
-    font-size:70%;
+    font-size:0.62rem; /* From previous version of BedroomLAN, as calculated. */
     text-align:center;
     font-family:'Yanone Kaffeesatz', helvetica condensed, helvetica cond, arial, tahoma, impact, sans-serif;
     vertical-align:top;
-    padding-bottom:10px;
+    padding:0 0 10px 0;
+    width:var(--col-pitch);
+    max-width:var(--col-pitch);
 }
 #panel .pt.b {
     font-weight:bold;
@@ -236,8 +207,13 @@ h2 {
     
 }
 
+#panel .swwrap {
+    padding:0;
+}
+
 #panel .sw {
     height:40px;
+    padding:2px;
     overflow:hidden;
 }
 
@@ -367,8 +343,12 @@ padding-top:16px;
 }
 
 #panel .swwrap .swb {
-    height:5px;
-    border:solid 3px #000;
+    height:12px;
+    /*border:solid 3px #000;*/
+    border:none;
+    border-top:solid 3px rgba(0,0,0,0.75);
+    border-bottom:solid 1px #000;
+    
 }
 #panel .swwrap .swb { background:#ccc; }
 #panel .swwrap.r .swb { background:#f22; }
@@ -416,26 +396,34 @@ padding-top:16px;
     font-weight:bold;
 }
 
+#terminalrow {
+    background:#000;
+    padding-bottom:1rem;
+}
 #terminalwrapper {
 }
 #terminal {
-    position:absolute;
-    z-index:-100;
-    width:960px;
-    height:400px;
-    max-height:400px;
+    height:8rem;
+    max-height:8rem;
+
+    z-index:1;
+    width:100%;
     bottom:0;
 
     overflow:hidden;
     word-wrap:break-word;
 
     margin-top:0;
-    padding:0 10px;
 
-    font-family:inconsolata, consolas, aandale mono, courier, courier new, monospace; 
+    font-family:var(--font-family-monospace); /* inconsolata, consolas, aandale mono, courier, courier new, monospace; */
     font-weight:bold;
-    color:#666;
-    background:#222;
+    color:#555;
+    /* background:#222; */
+    background:transparent;
+    font-size:0.85rem;
+    line-height:1.25rem;
+    padding-left:4rem;
+    padding-bottom:0.5rem;
 }
 #cursor {
     width:0.6em;
@@ -443,8 +431,8 @@ padding-top:16px;
     background:orange;
 }
 #terminal .r {
-    background:#666;
-    color:#222;
+    background:#555;
+    color:#111;
 }
 
 #ptmfd14,

@@ -23,26 +23,24 @@ function rand(x)
 
 	//DEBUG: 1,
 
-	VERSION: '0.6',
+	VERSION: '0.7',
 
 	RST_HOLD: 3,		// Reset counter
 
 	cpu: {
 
-	    // Microcode engine state
+	    // Microcode ROM address (19 bits)
 	    ustate: {
-		uaddr: 0,	// uPC
-		inc: 0,		// Autoincrement
-		skip: 0,	// SKIP (0 = yes, 1 = no)
-		i: 0,		// Indirection
-		op: 0,		// Operation
-		l: 0,		// L flag
-		v: 0,		// V flag
+		upc: 0,	// uPC (4 bits)
+		idx: 0, 	// IDX (2 bits)
+		cond: 0,	// COND (1 bit)
+		rsvd: 0,	// 1 reserved bit (currently don't care)
+		op: 0,		// Microprogram number (9 MS bits from IR; not all used)
 		irqs: 0,	// Interrupt request
 		rst: 0		// Reset pending
 	    },
 
-	    upc: 0,		// Microcode address vector
+	    uaddr: 0,		// Microcode address vector
 	    control: 0,		// Microcode data vector
 
 	    ar: 0,		// Address register/bus
@@ -50,17 +48,19 @@ function rand(x)
 	    pc: 0,		// Program counter
 	    dr: 0,		// Data register
 	    ac: 0,		// Accumulator
-
+	    sp: 0,		// Stack pointer
 	    b: 0,		// ALU B Register
+
+	    mbr: [0, 0, 0, 0, 0, 0, 0, 0], // Memory Bank Registers
 	    
 	    dbus: 0,		// Data bus
 	    ibus: 0,		// Internal bus
 
-	    l: 0,		// Link reg
-	    i: 0,		// Interrupt mask reqg
-	    v: 0,		// oVerflow flag
 	    n: 0,		// Negative flag
+	    v: 0,		// oVerflow flag
+	    i: 0,		// Interrupt mask reqg
 	    i: 0,		// Zero flag
+	    l: 0,		// Link reg
 	    irq: 0,		// Interrupt requested (0 = yes, 1 = no)
 
 	    rsthold: 0,		// Reset counter
@@ -75,9 +75,10 @@ function rand(x)
 	    rom: null
 	},
 
-	mbu: {
-	    banks: [0, 1, 2, 3, 128, 129, 130, 131]
-	},
+	// No MBU on CFT 2019!
+	// mbu: {
+	//     banks: [0, 1, 2, 3, 128, 129, 130, 131]
+	// },
 
 	init: function(options) {
 	    
@@ -96,10 +97,10 @@ function rand(x)
 	    this.cpu.wait = 0;
 	    this.cpu.halt = 1;	// Start halted
 	    this.cpu.pause = 0;
-	    this.cpu.upc = rand(524288);
+	    this.cpu.uaddr = rand(524288);
 	    this.cpu.control = rand(16777216);
 	    
-	    this.set_ar(rand(65536));
+	    this.set_ar(rand(16777216));
 	    this.set_dbus(rand(65536));
 	    this.set_ac(rand(65536));
 	    this.set_ir(rand(65536));
@@ -169,50 +170,56 @@ function rand(x)
 		p.append('<tr id="row' + i + 'c" class="rowc"></tr>');
 	    }
 
+	    // Row 1
 	    this._addrow(1,
 			 'Micro-Instruction Control Vector', 'control', 'b',
-			 'yrgyyyyyyrrrryyyyrrrgggg',
-			 ['END', 'W', 'R', 'I/O', 'MEM', 'DEC', 'STP AC', 'STP DR',
-			  'INC PC', 'CLI', 'STI', 'CLL', 'CPL', 'IF3', 'IF2', 'IF1', 'IF0',
-			  'WU2', 'WU1', 'WU0', 'RU3', 'RU2', 'RU1', 'RU0']);
+			 'yrgyyyrrrryyyyrrrrrggggg',
+			 ['END', 'W', 'R', 'MEM', 'IO', 'DEC',
+			  'ACT3', 'ACT2', 'ACT1', 'ACT0',
+			  'COND3', 'COND2', 'COND1', 'COND1',
+			  'WA4', 'WA3', 'WA2', 'WA1', 'WA0',
+			  'RA4', 'RA3', 'RA2', 'RA1', 'RA0']);
 	    this._addSpace(1, 1);
-	    this._addrow(1, 'Interrupt Requests', 'irq', 'n', 'gggggggg', '76543210');
+	    this._addrow(1, 'Interrupts', 'irq', 'n', 'rrrrrrrr', '76543210');
 
-	    this._addrow(2,
-			 'Memory Bank Unit', 'aext', 'b',
-			 'yyyyyyyy',
-			 ['AEXT7<!--<br />ROM-->', 'AEXT6', 'AEXT5', 'AEXT4', 'AEXT3', 'AEXT2', 'AEXT1', 'AEXT0']);
-	    this._addrow(2, 'Program Counter', 'pc', 'n', 'rrrrrrrrrrrrrrrr', bits);
+	    // Row 2
+	    // The state lights are split in two subgroups
+	    this._addrow(2, 'State', 'state1', 'b', 'grryy', ['RUN', 'STOP', 'WS', 'FETCH', 'EXEC']);
 	    this._addSpace(2, 1);
-	    this._addrow(2, 'Enabled Interrupts', 'irqen', 'n', 'rrrrrrrr', '76543210');
-
-	    this._addrow(3, '', 'mben', 'b', 'g', ['MBEN']);
-	    this._addSpace(3, 1);
-	    this._addrow(3, 'Flags', 'flags', 'b', 'ggggg', 'NZVIL');
-	    this._addSpace(3, 1);
-	    this._addrow(3, 'Accumulator', 'ac', 'n', 'rrrrrrrrrrrrrrrr', bits);
-	    this._addSpace(3, 1);
-	    this._addrow(3, '', 'irq', 'n', 'gggggggg', '76543210');
-
-	    this._addrow(4, 'State', 'state', 'b', 'rgrryyy', ['RST', 'RUN', 'STOP', 'WS', 'FETCH', 'EXEC', 'INT']);
-	    this._addSpace(4, 1);
-	    this._addrow(4, 'Output Register/Data Register/Micro-address vector', 'mfd', 
-			 'n', 'rrrrrrrrrrrrrrrr',
-			['', 'RST', 'INT', 'V', 'L', 'OP3', 'OP2', 'OP1', 'OP0', 'I', 'SKIP', 'AIDX',
-			 'µA3', 'µA2', 'µA1', 'µA0']);
-	    this._addSpace(4, 1);
-	    this._addrow(4, '', 'gen1', 'n', 'rrrrrrrr', '76543210');
-
-	    this._addSpace(5, 3);
-	    this._addrow(5, 'Microcode Bnk', 'ucb', 'n', 'yyyy', ['UCB3', 'UCB2', 'UCB1', 'UCB0']);
-
-	    this._addSpace(5, 1);
-	    this._addrow(5, 'Instruction Register', 'ir',
+	    this._addrow(2, '', 'state2', 'b', 'rr', ['RESET', 'INT']);
+	    this._addrow(2, 'Instruction Register/Micro-Address', 'ir',
 			 'b', 'yyyyryrrrrrrrrrr', ['OP3', 'OP2', 'OP1', 'OP0', 'I', 'R',
-						  '9', '8', '7', '6', '5', '4', '3', '2', '1', '0'])
-	    // Moved in the newest version of the panel.
-	    // this._addSpace(5, 1);
-	    // this._addrow(5, 'Microcode Bank', 'ucb', 'n', 'yyyy', ['UCB3', 'UCB2', 'UCB1', 'UCB0']);
+						  'SUB2', 'SUB1', 'SUB0', '6', '5', '4', '3', '2', '1', '0'])
+	    this._addSpace(2, 1);
+	    this._addrow(2, 'Micro-Address Low', 'uaddr_lo',
+			 'b', 'yryyrrrr', ['7', 'COND', 'IDX1', 'IDX0', 'µPC3', 'µPC2', 'µPC1', 'µPC0']);
+
+
+	    // Row 3
+	    this._addrow(3,
+			 'Memory Bank', 'arhi', 'b',
+			 'yyyyyyyy',
+			 ['23', '22', '21', '20', '18', '18', '17', '16']);
+	    this._addrow(3, 'Program Counter', 'pc', 'n', 'rrrrrrrrrrrrrrrr', bits);
+
+	    this._addSpace(3, 1);
+	    this._addrow(3, '', 'user1', 'n', 'rrrrrrrr', '76543210');
+
+
+	    // Row 4
+	    this._addSpace(4, 2);
+	    this._addrow(4, 'Flags', 'flags', 'b', 'ggggg', 'NZVIL');
+	    this._addSpace(4, 1);
+	    this._addrow(4, 'Accumulator', 'ac', 'n', 'rrrrrrrrrrrrrrrr', bits);
+	    this._addSpace(4, 1);
+	    this._addrow(4, '', 'user2', 'n', 'rrrrrrrr', '76543210');
+
+	    // Row 5
+	    this._addrow(5, '', 'tbd', 'n', 'rrrrrrrr', '76543210'); // FUNCTION TO BE DECIDED
+	    this._addrow(5, 'Output Register/Data Register/Stack Pointer', 'mfd',
+					 'n', 'rrrrrrrrrrrrrrrr', bits);
+	    this._addSpace(5, 1);
+	    this._addrow(5, '', 'user2', 'n', 'rrrrrrrr', '76543210');
 
 	    // Switches
 	    var s1 = $('#panel #row6a');
@@ -235,9 +242,9 @@ function rand(x)
 	    this._addSwitch('swlts', 'sw2 o', 'LTS ON', 'OFF', null, null);
 
 	    // The MFD switch
-	    s1.append('<td class="pt b swmfd swon" id="swmfd_up">OR</td><td />');
-	    s2.append('<td id="swmfd" class="swwrap sw3 o" /><td class="pt b swmfd swmid" id="swmfd_mid">DR</td>');
-	    s3.append('<td class="pt b swmfd swoff" id="swmfd_dn">µADDR</td><td />');
+	    s1.append('<td class="pt b swmfd swon" id="swmfd_up">DR</td><td />');
+	    s2.append('<td id="swmfd" class="swwrap sw3 o" /><td class="pt b swmfd swmid" id="swmfd_mid">OR</td>');
+	    s3.append('<td class="pt b swmfd swoff" id="swmfd_dn">SP</td><td />');
 	    this.panel['swmfd_up'] = false;
 	    this.panel['swmfd_mid'] = false;
 	    this.panel['swmfd_dn'] = false;
@@ -257,14 +264,14 @@ function rand(x)
 	    this._addSpace(6, 1);
 
 	    // The programming group
-	    this._addSwitch('swirpc', 'swmom r', 'SR→IR', '→PC', null, null);
-	    this._addSwitch('swac', 'swmom r', '', '→AC', null, null);
+	    this._addSwitch('swirpc', 'swmom r', '→MBR', '→PC', null, null);
+	    this._addSwitch('swac', 'swmom r', 'TEST', '→AC', null, null);
 	    this._addSwitch('swmemw', 'swmom o', 'MEM W', 'W NEXT', null, null);
 	    this._addSwitch('swmemr', 'swmom o', 'MEM R', 'R NEXT', null, null);
 	    this._addSwitch('swiow', 'swmom r', 'I/O W', 'W NEXT', null, null);
 	    this._addSwitch('swior', 'swmom r', 'I/O R', 'R NEXT', null, null);
 	    this._addSwitch('swbnk', 'sw2 o', 'RAM BNK', 'ROM BNK', null, null);
-	    this._addSwitch('swirq', 'swmom o', 'IFR1', 'IFR6', null, null);
+	    this._addSwitch('swirq', 'swmom o', 'B', 'A', null, null);
 
 	    // Add switch content
 	    $('#panel .swwrap').html('<div class="sw"><a href="#" class="swa" />' + 
@@ -279,15 +286,15 @@ function rand(x)
 	    $('#panel .swa, #panel .swc').bind('mousedown', this.clickSwitch);
 	    $('#panel .swwrap').mouseup(this.releaseSwitch);
 
-	    // Initialise some buttons.
+	    // Initialise some switches.
 	    this._switchHandler($('#swspd'), 'up', true, false);
 	    this._switchHandler($('#swspd'), 'up', false, false);
 	    // this._switchHandler($('#swrun'), 'dn', true, false);
 	    // this._switchHandler($('#swrun'), 'dn', false, false);
 	    this._switchHandler($('#swlts'), 'up', true, false);
 	    this._switchHandler($('#swlts'), 'up', false, false);
-	    this._switchHandler($('#swmfd'), 'up', true, false);
-	    this._switchHandler($('#swmfd'), 'up', false, false);
+	    this._switchHandler($('#swmfd'), 'mid', true, false);
+	    this._switchHandler($('#swmfd'), 'mid', false, false);
 
 	    for (i = 0; i < 3; i++) {
 		this._switchHandler($('#swsr' + i), 'up', true, false);
@@ -306,10 +313,11 @@ function rand(x)
 	    var pressed = ev.type == 'mousedown' || ev.type == 'keydown';
 	    cft._switchHandler($('#' + data[0]), data[1], pressed, false);
 	    ev.preventDefault();
-	    return false;
+	    return true;
 	},
 
 	clickSwitch: function(ev) {
+	    ev.preventDefault();
 	    var tgt = $(ev.target);
 	    var pressed = ev.type == 'mousedown' || ev.type == 'keydown';
 	    var pos = -1;
@@ -317,14 +325,13 @@ function rand(x)
 	    if (tgt.hasClass('swa')) pos = 'up';
 	    else if (tgt.hasClass('mid')) pos = 'mid';
 	    else if (tgt.hasClass('swc')) pos = 'dn';
-	    ev.preventDefault();
 	    cft._switchHandler(tgt, pos, pressed, true);
-	    return false;
+	    return true;
 	},
 	releaseSwitch: function(ev) {
 	    cft._switchHandler(ev.target, -1, false, false)
 	    ev.preventDefault();
-	    return false;
+	    return true;
 	},
 
 	_switchHandler: function(el, pos, press, relative) {
@@ -365,7 +372,7 @@ function rand(x)
 
 	    if (this.cpu.halt == 0 &&
 		(this.panel.swstep_up || this.panel.swstep_dn || 
-		 this.panel.swac_dn || this.panel.swac_up ||
+		 this.panel.swac_dn || //this.panel.swac_up ||
 		 this.panel.swirpc_dn || this.panel.swirpc_up ||
 		 this.panel.swmemw_up || this.panel.swmemw_dn ||
 		 this.panel.swmemr_up || this.panel.swmemr_dn ||
@@ -909,7 +916,8 @@ function rand(x)
 	    this.show('ar', this.cpu.ar, 16, 4);
 	    return this.cpu.ar;
 	},
-	
+
+	// TODO: new instruction set!
 	_instr: ["TRAP", "TRAP I", "IOT", "IOT I", "LOAD", "LOAD I",
 		 "STORE", "STORE I", "IN", "IN I", "OUT", "OUT I",
 		 "JMP", "JMP I", "JSR", "JSR I", "ADD", "ADD I", "AND", "AND I",

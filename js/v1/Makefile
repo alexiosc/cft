@@ -2,8 +2,7 @@
 
 all: microcode.js rom.js
 
-CFTDIR =	../..
-SCRIPTDIR =	scripts
+CFTDIR =	/home/alexios/PROJECTS/HARDWARE/cft
 MCDIR =		$(CFTDIR)/microcode
 ROMDIR =	rom
 ROMBASE =	a
@@ -17,13 +16,13 @@ MICROCODE =	$(MCDIR)/microcode-00.bin \
 		$(MCDIR)/microcode-02.bin
 
 microcode.js:	$(MICROCODE)
-		scripts/microcode.py > microcode.js
+		( scripts/microcode.py $(MCDIR) > microcode.js )
 
 rom.js:		$(ROMDIR)/$(ROMBASE).bin
-		scripts/rom.py $^ > $@
+		( cd $(CFTDIR); scripts/rom.py $^ > $@ )
 
 $(ROMBIN):	$(ROMSRC)
-		(cd $(ROMDIR); ../$(CFTASM) -I ../../../asm $(notdir $(ROMSRC)))
+		( cd $(ROMDIR); $(CFTASM) $(notdir $(ROMSRC)) )
 
 clean:
 		rm -f rom.js microcode.js *~ $(OUT)*.list $(OUT).pasm $(OUT).sym $(OUT).bin $(OUT).map $(ROMDIR)/rom.js
