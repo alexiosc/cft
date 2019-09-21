@@ -1,8 +1,8 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # coding: utf-8
 # -*- python -*-
 """
-The CFT Assembler, version 2.4
+The CFT Assembler, version 3
 """
 
 import os
@@ -353,8 +353,8 @@ class CFTAssembler(object):
         # The memory image.
         self.mem = array.array('H')
         self.mem.fromlist([0x0000] * self.MEMSIZE)
-        self.sentinel = array.array('c')
-        self.sentinel.fromlist([' '] * self.MEMSIZE)
+        self.sentinel = array.array('b')
+        self.sentinel.fromlist([32] * self.MEMSIZE)
 
         self.opts, self.args = self.parseOpts()
 
@@ -376,7 +376,7 @@ class CFTAssembler(object):
         # Execute
         try:
             self.run()
-        except IOError, e:
+        except IOError as e:
             self.die(str(e))
 
 
@@ -424,7 +424,7 @@ class CFTAssembler(object):
 
         # Check mode of operation and act on it.
         if self.opts.show_builtins:
-            print self.BUILTINS
+            print(self.BUILTINS)
             sys.exit(0)
 
         # Sanity checking
@@ -483,10 +483,10 @@ class CFTAssembler(object):
                           (', '.join(self.ns)))
 
             if self.deferred:
-                print "Deferred symbols:", self.deferred
+                print("Deferred symbols:", self.deferred)
                 # Undefine any deferred symbols
                 for sym in self.deferred:
-                    print "deleting", sym
+                    print("deleting", sym)
                     try:
                         del self.symbols[sym]
                     except KeyError:
@@ -502,7 +502,7 @@ class CFTAssembler(object):
                 if not self.deferred:
                     self.passnum = self.PSN_ASSEMBLY
                 else:
-                    print "Deferred symbols:", self.deferred
+                    print("Deferred symbols:", self.deferred)
             elif self.passnum == self.PSN_ASSEMBLY:
                 # At the end of the last parse, print out the symbol table.
                 self.outmap()
@@ -526,8 +526,8 @@ class CFTAssembler(object):
 
             tokens = list(self.lexer(line))
             if self.opts.debugging:
-                print "D: %s:%d: %04x %s" % (self.filename, self.linenum, self.addr,
-                                         ', '.join('<%s>' % x for x in tokens))
+                print("D: %s:%d: %04x %s" % (self.filename, self.linenum, self.addr,
+                                         ', '.join('<%s>' % x for x in tokens)))
 
             # Hm, the line is all comments and white space.
             if not tokens:
@@ -630,7 +630,7 @@ class CFTAssembler(object):
 
         try:
             f = open(fn)
-        except IOError, e:
+        except IOError as e:
             self.fail(str(e))
 
         # Parse the specified file.
@@ -840,16 +840,16 @@ class CFTAssembler(object):
 
             for j, char in enumerate(chars):
                 # Convert it to an int. Try numerous things.
-                if type(char) == types.StringType:
+                if type(char) == bytes:
                     val = ord(char)
-                elif type(char) == types.UnicodeType:
+                elif type(char) == str:
                     val = ord(char)
-                elif type(char) == types.IntType:
+                elif type(char) == int:
                     val = char
-                    char = unichr(val)
+                    char = chr(val)
                 elif isinstance(char, Symbol):
                     val = char.assembly_val
-                    char = unichr(val)
+                    char = chr(val)
                 else:
                     self.fail('string/data element has weird type %s' % type(char))
                     
@@ -898,7 +898,7 @@ class CFTAssembler(object):
         the optional argument null=False is provided.
         """
         raise RuntimeError('Not fully implemented yet')
-        print tokens
+        print(tokens)
         if self.passnum == self.PSN_ASSEMBLY:
             self.logasm(None, msg='', orgline=orgline)
             #print 'A: %04x:      ; %s' % (self.addr, orgline)
@@ -925,7 +925,7 @@ class CFTAssembler(object):
             return state
 
         for i, token in enumerate(tokens):
-            print i, token
+            print(i, token)
             if token.startswith('"'):
                 # The lexer guarantees strings are enclosed in double
                 # quotes. Strip them.
@@ -1015,7 +1015,7 @@ class CFTAssembler(object):
                 except TypeError:
                     # It's already an int.
                     val = char
-                    char = unichr(char)
+                    char = chr(char)
                     #if ord(char) not in xrange(128):
                     #    self.fail("Packed strings can only contain 7-bit characters.")
                 if self.passnum == self.PSN_ASSEMBLY:
@@ -1055,7 +1055,7 @@ class CFTAssembler(object):
         self.jumped = False
         try:
             count = self.parseInt(tokens[1])
-        except Exception, e:
+        except Exception as e:
             self.fail(str(e))
 
         if self.passnum != self.PSN_ASSEMBLY:
@@ -1071,12 +1071,12 @@ class CFTAssembler(object):
                 word = word.val
             except AttributeError:
                 pass
-        except Exception, e:
+        except Exception as e:
             self.fail(str(e))
 
         self.logasm(None, msg=' .fill &%04x &%04x ; %s' % (count, word, orgline))
 
-        for x in xrange(count):
+        for x in range(count):
             self.poke(word, poketype=poketype)
             self.incaddr()
 
@@ -1131,12 +1131,12 @@ class CFTAssembler(object):
                     word = word.val
                 except AttributeError:
                     pass
-            except Exception, e:
+            except Exception as e:
                 self.fail(str(e))
 
         self.logasm(None, msg=' .fill &%04x &%04x ; %s' % (count, word, orgline))
 
-        for x in xrange(count):
+        for x in range(count):
             self.poke(word, poketype='P')
             self.incaddr()
 
@@ -1518,14 +1518,14 @@ class CFTAssembler(object):
         # Open the symbol output file.
         out = open(self.symbol_file, 'w')
         
-        maxnamelength = max(len(x) for x in self.symbols.keys())
+        maxnamelength = max(len(x) for x in list(self.symbols.keys()))
         
         fmt = "%%-%ds  %%04x  %%-6s  %%s:%%d\n" % maxnamelength
         hdr = "%%-%ds  %%-4s  %%-6s  %%s\n" % maxnamelength
         header = hdr % ('Name', 'Val', 'Type', 'Defined in')
 
         out.write(header + ('-' * 79) + '\n')
-        for sym in sorted(self.symbols.values(), cmp=symcmp):
+        for sym in sorted(list(self.symbols.values()), cmp=symcmp):
             out.write(fmt % (sym.name, sym.val,
                              sym.__class__.__name__.lower(),
                              sym.filename, sym.linenum))
@@ -1543,7 +1543,7 @@ class CFTAssembler(object):
             return cmp(a.val, b.val) or cmp(a.filename, b.filename) or \
                 cmp(a.linenum, b.linenum) or cmp(a.name, b.name)
 
-        labels = [ x for x in self.symbols.values() if isinstance(x, Label) ]
+        labels = [ x for x in list(self.symbols.values()) if isinstance(x, Label) ]
         if not labels:
             out.write('nothing  0000  <none>:0')
             return
@@ -1566,7 +1566,7 @@ class CFTAssembler(object):
         out = open(self.xpm_map_file, 'w')
         out.write(XPMHEAD)
 
-        for ofs in xrange(0, 65536, 256):
+        for ofs in range(0, 65536, 256):
             out.write(',\n"%s"' % ''.join(self.sentinel[ofs:ofs+256]))
 
         out.write(XPMFOOT)
@@ -1720,7 +1720,7 @@ class CFTAssembler(object):
             # Warn the second time this gets here to avoid a spurious
             # warning when 0xffff is written to (and no further).
             self.wrap = False
-            #self.warn('current address wrapped around.')
+            self.warn('64KW bank boundary crossed.')
 
 
     def yieldmem(self):
@@ -1728,7 +1728,7 @@ class CFTAssembler(object):
         command line) as an (addr, data) tuple."""
         a0 = self.opts.min_addr
         a1 = self.opts.max_addr + 1
-        for addr in xrange(a0, a1):
+        for addr in range(a0, a1):
             yield (addr, self.mem[self.mkaddr(addr)])
 
 
