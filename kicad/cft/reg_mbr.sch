@@ -378,7 +378,7 @@ Connection ~ 5150 3400
 Text Label 5150 3900 1    50   ~ 0
 AEXT7
 Wire Wire Line
-	3600 5500 5150 5500
+	3600 5650 5150 5650
 Wire Wire Line
 	1750 4700 1750 4900
 $Comp
@@ -665,8 +665,8 @@ Text Notes 2850 4600 0    50   ~ 0
 High after ~RESET~\nasserted.
 Text Notes 2850 5050 0    50   ~ 0
 High after ~BANKW0~\nasserted.
-Text Notes 1200 5850 0    50   ~ 0
-After ~RESET~ and before ~BANKW0~ is asserted, drive AEXT₀₋₇ with &00 (~RAM~/ROM position set to ~RAM~)\nor &80 (set to ROM). Use pull-down resistors for most of the vector.
+Text Notes 1200 6150 0    50   ~ 0
+After ~RESET~ and before ~BANKW0~ is asserted, drive AEXT₀₋₇ with &00 (~RAM~/ROM position set to ~RAM~)\nor &80 (set to ROM). Use pull-down resistors for most of the vector. After the first write to an MBR register,\nthis stops and random values can be expected to be present! So the minimum required registers should be\ninitialised as early as possible after reset.
 $Comp
 L power:GND #PWR02539
 U 1 1 5DA49867
@@ -741,7 +741,7 @@ Wire Wire Line
 Connection ~ 2850 3150
 Wire Wire Line
 	2850 3150 2850 3550
-Text Label 3650 5500 0    50   ~ 0
+Text Label 3650 5650 0    50   ~ 0
 AEXT7
 Wire Wire Line
 	2800 4450 2800 4800
@@ -758,7 +758,7 @@ Wire Wire Line
 Text HLabel 1200 4800 0    50   Input ~ 0
 ~RESET
 Wire Wire Line
-	3350 5100 3350 5300
+	3350 5100 3350 5450
 Wire Wire Line
 	2700 5100 3350 5100
 $Comp
@@ -826,12 +826,12 @@ $EndComp
 $Comp
 L alexios:74AHC1G125 U2520
 U 1 1 5D51C57C
-P 3300 5500
-F 0 "U2520" H 3400 5750 50  0000 L CNN
-F 1 "74AHC1G125" H 3400 5650 50  0000 L CNN
-F 2 "" H 3475 5750 50  0001 C CNN
-F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 3475 5750 50  0001 C CNN
-	1    3300 5500
+P 3300 5650
+F 0 "U2520" H 3400 5900 50  0000 L CNN
+F 1 "74AHC1G125" H 3400 5800 50  0000 L CNN
+F 2 "" H 3475 5900 50  0001 C CNN
+F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 3475 5900 50  0001 C CNN
+	1    3300 5650
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -864,12 +864,12 @@ Entry Wire Line
 Entry Wire Line
 	7550 3200 7650 3300
 Wire Wire Line
-	1200 5500 3100 5500
-Text Label 2500 5500 2    50   ~ 0
+	1200 5650 1350 5650
+Text Label 2500 5650 2    50   ~ 0
 ~FPRAM~∕ROM
 Text Label 1700 5100 2    50   ~ 0
 ~BANKW0
-Text HLabel 1200 5500 0    50   Input ~ 0
+Text HLabel 1200 5650 0    50   Input ~ 0
 ~FPRAM~∕ROM
 Text Label 1350 700  0    50   ~ 0
 IBUS[0..7]
@@ -1030,22 +1030,6 @@ Wire Wire Line
 	4150 3800 3800 3800
 Text Label 1550 3350 0    50   ~ 0
 ~WMBR
-Entry Wire Line
-	7750 3800 7650 3900
-Entry Wire Line
-	7750 3700 7650 3800
-Entry Wire Line
-	7750 3600 7650 3700
-Entry Wire Line
-	7750 3500 7650 3600
-Entry Wire Line
-	7750 3400 7650 3500
-Entry Wire Line
-	7750 3300 7650 3400
-Entry Wire Line
-	7750 3200 7650 3300
-Entry Wire Line
-	7750 3100 7650 3200
 Entry Wire Line
 	7750 2200 7650 2300
 Entry Wire Line
@@ -3536,9 +3520,44 @@ Wire Wire Line
 Text Notes 7850 6100 0    50   ~ 0
 MBn registers are accessed when:\n\n1. Write access when WADDR=00001 is selected (~WRITE-MBP+FLAGS~).\n2. Write access when WADDR=00011 is selected (~WRITE-MBn~).\n3. Read access when RADDR=00001 is selected (~READ-MBP+FLAGS~).\n4. Read access when RADDR=00011 is selected (~READ-MBn~).\n5. Read access when WADDR=001xx (~WRITE-AR:MBn~). Note, even though\nwe respond on WADDR, this is a READ operation.\n\nThe register to use is usually identified by IR₀₋₂, except in cases 1 and 3\n(which always use MB0 aka MBP), and case 5 where one of the first four\nregisters is selected by WADDR₀₋₁ unless WADDR=00111 (~WRITE-AR:MBZ~)\nand IR₁₁₋₈=1111 (I=1, R=1, Operand 3XX₁₆).
 Wire Wire Line
-	5150 3400 5150 5500
+	5150 3400 5150 5650
 Text Notes 14450 3600 0    197  ~ 39
 OLD, PLEASE DELETE BEFORE LAYOUT!
+$Comp
+L Device:R_Small R?
+U 1 1 5D8BACBF
+P 1350 5450
+AR Path="/5D8BACBF" Ref="R?"  Part="1" 
+AR Path="/5CC0D65F/5D8BACBF" Ref="R?"  Part="1" 
+AR Path="/5D54E677/5D8BACBF" Ref="R?"  Part="1" 
+AR Path="/5D62E1DC/5D8BACBF" Ref="R?"  Part="1" 
+AR Path="/5DEAC282/5D8BACBF" Ref="R?"  Part="1" 
+AR Path="/5F67D4B5/5D8BACBF" Ref="R?"  Part="1" 
+AR Path="/5D46B22D/5D8BACBF" Ref="R?"  Part="1" 
+AR Path="/61F95ACC/5D8BACBF" Ref="R?"  Part="1" 
+F 0 "R?" H 1409 5496 50  0000 L CNN
+F 1 "4.7kΩ" H 1409 5405 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 1350 5450 50  0001 C CNN
+F 3 "~" H 1350 5450 50  0001 C CNN
+	1    1350 5450
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 5D8E1171
+P 1350 5350
+F 0 "#PWR?" H 1350 5200 50  0001 C CNN
+F 1 "+5V" H 1200 5450 50  0000 C CNN
+F 2 "" H 1350 5350 50  0001 C CNN
+F 3 "" H 1350 5350 50  0001 C CNN
+	1    1350 5350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1350 5550 1350 5650
+Connection ~ 1350 5650
+Wire Wire Line
+	1350 5650 3100 5650
 Wire Bus Line
 	17500 750  17500 900 
 Wire Bus Line
@@ -3572,9 +3591,9 @@ Wire Bus Line
 Wire Bus Line
 	5700 4500 7550 4500
 Wire Bus Line
+	7650 1600 7650 4400
+Wire Bus Line
 	17550 6900 19400 6900
 Wire Bus Line
 	19500 4050 19500 6800
-Wire Bus Line
-	7650 1600 7650 4400
 $EndSCHEMATC
