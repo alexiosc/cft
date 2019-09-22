@@ -573,15 +573,15 @@ start RST=1, INT=0, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 #define JSA    _INSTR(0000), I=1, R=1, SUBOP=001, COND=X, IDX=XX
 //#define      _INSTR(0000), I=1, R=1, SUBOP=010, COND=X, IDX=XX // This is available
 //#define      _INSTR(0000), I=1, R=1, SUBOP=011, COND=X, IDX=XX // This is available
-#define UOP    _INSTR(0000), I=1, R=1, SUBOP=100, COND=X, IDX=XX
-#define IFL    _INSTR(0000), I=1, R=1, SUBOP=101,         IDX=XX
-#define IFV    _INSTR(0000), I=1, R=1, SUBOP=110,         IDX=XX
-#define IND    _INSTR(0000), I=1,      SUBOP=111, COND=X, IDX=XX
+#define UOP    _INSTR(0000), I=1, R=1, SUBOP=100, COND=X, IDX=XX // ** SUBOP is not arbitrary!
+#define IFL    _INSTR(0000), I=1, R=1, SUBOP=101,         IDX=XX // ** SUBOP is not arbitrary!
+#define IFV    _INSTR(0000), I=1, R=1, SUBOP=110,         IDX=XX // ** SUBOP is not arbitrary!
+#define IND    _INSTR(0000), I=1,      SUBOP=111, COND=X, IDX=XX // THIS INCLUDES AN R VARIANT
 
-#define LIA    _INSTR(0001), SUBOP=XXX, COND=X
+#define LIA    _INSTR(0001), SUBOP=XXX, COND=X                   // Only for I=0 
 
-#define LJSR   _INSTR(0001), SUBOP=XXX, COND=X
-#define LJMP   _INSTR(0010), SUBOP=XXX, COND=X
+#define LJSR   _INSTR(0001), SUBOP=XXX, COND=X                   // Only for I=1
+#define LJMP   _INSTR(0010), SUBOP=XXX, COND=X			 // Only for I=1
 #define JSR    _INSTR(0011), SUBOP=XXX, COND=X
 #define JMP    _INSTR(0100), SUBOP=XXX, COND=X
 
@@ -774,7 +774,7 @@ start CLI;
 // While WAIT is active, the front panel will appear to be stuck in the ‘Fetch’
 // state with the µPC stuck to zero.
 
-start WAIT, COND=1;
+start WAIT;
       END;			// 00
       END;			// 01
       END;			// 02
@@ -799,13 +799,13 @@ start WAIT, COND=1;
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-//             9876543210
-// CLA = OP1  '----1-----		; if5: A <- 0
-// CLL = OP1  '-----1----		; if4: L <- 0
-// NOT = OP1  '------1---		; if3: A <- NOT A
-// INC = OP1  '-------1--		; if2: <L,A> <- <L,A> + 1
-// DEC = OP1  '--------1-		; if1: <L,A> <- <L,A> + 1
-// CPL = OP1  '---------1		; if0: L <- NOT L
+//             6543210
+// CLA = UOP  '-1-----		; if5: A <- 0
+// CLL = UOP  '--1----		; if4: L <- 0
+// NOT = UOP  '---1---		; if3: A <- NOT A
+// INC = UOP  '----1--		; if2: <L,A> <- <L,A> + 1
+// DEC = UOP  '-----1-		; if1: <L,A> <- <L,A> + 1
+// CPL = UOP  '------1		; if0: L <- NOT L
 
 // L=1 ⇒ COND=0, so IFL takes action.
 
@@ -902,18 +902,18 @@ start SRU;
 ///////////////////////////////////////////////////////////////////////////////
 
 //            OP   I R 987 6543210
-//       SKP  0111'1'0'001'000dddd    ; 
-//       NOP  0111'1'0'001'0000000    ; G1 Skip never (NOP)
-//       SNA  0111'1'0'001'--01---    ; G1 Skip if Negative AC: A < 0 => PC++
-//       SZA  0111'1'0'001'--0-1--    ; G1 Skip if Zero AC: A == 0 => PC++
-//       SSL  0111'1'0'001'--0--1-    ; G1 Skip if Link set: L == 1 ==> PC++
-//       SSV  0111'1'0'001'--0---1    ; G1 Skip if Overflow set: V == 1 ==> PC++ (1)
+//       SKP  0000'1'0'001'000dddd    ; 
+//       NOP  0000'1'0'001'0000000    ; G1 Skip never (NOP)
+//       SNA  0000'1'0'001'--01---    ; G1 Skip if Negative AC: A < 0 => PC++
+//       SZA  0000'1'0'001'--0-1--    ; G1 Skip if Zero AC: A == 0 => PC++
+//       SSL  0000'1'0'001'--0--1-    ; G1 Skip if Link set: L == 1 ==> PC++
+//       SSV  0000'1'0'001'--0---1    ; G1 Skip if Overflow set: V == 1 ==> PC++ (1)
 //
-//       SKIP 0111'1'0'001'--10000    ; G2 Skip always: PC++
-//       SNN  0111'1'0'001'--11---    ; G2 Skip if Non-Negative AC: a >=0 ==> PC++  (2)
-//       SNZ  0111'1'0'001'--1-1--    ; G2 Skip if Non-Zero AC: AC != 0 ==> PC++ (2)
-//       SCL  0111'1'0'001'--1--1-    ; G2 Skip if Link clear: L == 0 ==> PC++ (2)
-//       SCV  0111'1'0'001'--1---1    ; G2 Skip if Overflow clear: V == 0 ==> PC++ (2)
+//       SKIP 0000'1'0'001'--10000    ; G2 Skip always: PC++
+//       SNN  0000'1'0'001'--11---    ; G2 Skip if Non-Negative AC: a >=0 ==> PC++  (2)
+//       SNZ  0000'1'0'001'--1-1--    ; G2 Skip if Non-Zero AC: AC != 0 ==> PC++ (2)
+//       SCL  0000'1'0'001'--1--1-    ; G2 Skip if Link clear: L == 0 ==> PC++ (2)
+//       SCV  0000'1'0'001'--1---1    ; G2 Skip if Overflow clear: V == 0 ==> PC++ (2)
 //
 // G1 and G2 sub-instructions may be combined, but not across groups.
 // G1 condition bits are ORred together.
@@ -922,8 +922,8 @@ start SRU;
 // The OR/AND logic isn't microcoded, it's part of the hardwired
 // decoding of the branch bits.
 
-// The skip mechanism is hard-wired, so the microcode here is fairly
-// simple here.
+// The skip mechanism is hard-wired, so the microcode is fairly simple
+// here.
 
 // First, the version where the skip isn't taken.
 start SKP, COND=0;
@@ -1076,6 +1076,8 @@ start LJSR, I=1, R=1, IDX=IDX_REG;
       MEMREAD(mbz, agl, pc), /action_incdr;	// 07 PC ← mem[MBZ:AGL]
       MEMREAD(mbz, dr, mbp), END;		// 09 MBP ← mem[MBZ:AGL+1]
 
+// TODO: NOTE: POSSIBLE BUG IN AGL FOUND MAKING THIS MICROPROGRAM FAIL BADLY.
+
 // ⑤ LJSR (always with I=1), register double indirect autoincrement addressing mode.
 // NOTE: If /action_incdr can happen fast enough, we can shave off two cycles here.
 start LJSR, I=1, R=1, IDX=IDX_INC;
@@ -1087,7 +1089,7 @@ start LJSR, I=1, R=1, IDX=IDX_INC;
       /action_incdr;                            // 10 DR++
       MEMREAD(mbd, dr, mbp);	                // 11 MBP ← mem[MBD:DR]
       /action_incdr;                            // 13 DR++
-      MEMWRITE(mbz, agl, dr), END;               // 14 mem[MBZ:AGL] ← DR
+      MEMWRITE(mbz, agl, dr), END;              // 14 mem[MBZ:AGL] ← DR
 
 // ⑥ LJSR (always with I=1), register indirect autodecrement addressing mode.
 start LJSR, I=1, R=1, IDX=IDX_DEC;
@@ -1099,7 +1101,7 @@ start LJSR, I=1, R=1, IDX=IDX_DEC;
       /action_decdr;                            // 10 DR--
       MEMREAD(mbd, dr, pc);	                // 11 PC ← mem[MBD:DR]
       /action_decdr;                            // 13 DR--
-      MEMWRITE(mbz, agl, dr), END;               // 14 mem[MBZ:AGL] ← DR
+      MEMWRITE(mbz, agl, dr), END;              // 14 mem[MBZ:AGL] ← DR
 
 // ⑦ LJSR (always with I=1), register indirect stack addressing mode.
 // NOTE: Pops pairs of (MBP, PC) tuples off a stack and jumps to
@@ -1191,19 +1193,19 @@ start JSR, I=0, R=X, IDX=XX;
 // ③ JSR, local indirect address addressing mode.
 start JSR, I=1, R=0, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      STACK_PUSH(pc);				// 02 mem[SP++] ← PC; CLI
+      STACK_PUSH(pc);				// 02 mem[SP++] ← PC
       MEMREAD(mbp, agl, pc), END;		// 04 PC ← mem[MBP:AGL]
 
 // ④ JSR, register indirect address addressing mode.
 start JSR, I=1, R=1, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      STACK_PUSH(pc);				// 02 mem[SP++] ← PC; CLI
+      STACK_PUSH(pc);				// 02 mem[SP++] ← PC
       MEMREAD(mbz, agl, pc), END;		// 04 PC ← mem[MBZ:AGL]
 
 // ⑤ JSR, double register indirect autoincrement addressing mode.
 start JSR, I=1, R=1, IDX=IDX_INC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      STACK_PUSH(pc);				// 02 mem[SP++] ← PC; CLI
+      STACK_PUSH(pc);				// 02 mem[SP++] ← PC
       MEMREAD(mbz, agl, dr);			// 04 DR ← mem[MBZ:AGL]
       MEMREAD(mbp, dr, pc), /action_incdr;	// 06 PC ← mem[MBP:DR]; DR++;
       MEMWRITE(mbz, agl, dr), END;		// 08 mem[MBZ:AGL] ← DR
@@ -1211,17 +1213,17 @@ start JSR, I=1, R=1, IDX=IDX_INC;
 // ⑥ JSR, double register indirect autodecrement addressing mode.
 start JSR, I=1, R=1, IDX=IDX_DEC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      STACK_PUSH(pc);				// 02 mem[SP++] ← PC; CLI
+      STACK_PUSH(pc);				// 02 mem[SP++] ← PC
       MEMREAD(mbz, agl, dr);			// 04 DR ← mem[MBZ:AGL]
       MEMREAD(mbp, dr, pc), /action_decdr;	// 06 AC ← mem[MBP:DR]; DR--;
       MEMWRITE(mbz, agl, dr), END;		// 08 mem[MBZ:AGL] ← DR
 
-// ⑦ JMP, double register indirect autoincrement addressing mode.
+// ⑦ JSR, double register indirect stack addressing mode.
 // NOTE: behaves like ⑥, popping subroutine locations from a stack
 // register and jumping to them.
 start JSR, I=1, R=1, IDX=IDX_SP;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      STACK_PUSH(pc);				// 02 mem[SP++] ← PC; CLI
+      STACK_PUSH(pc);				// 02 mem[SP++] ← PC
       MEMREAD(mbz, agl, dr);			// 04 DR ← mem[MBZ:AGL]
       /action_decdr;				// 06 DR--
       MEMREAD(mbp, dr, pc);	                // 07 AC ← mem[MBP:DR]; DR++;
