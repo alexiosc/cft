@@ -1,4 +1,4 @@
-(module PLCC32 (layer F.Cu) (tedit 5D80B636)
+(module PLCC32 (layer F.Cu) (tedit 5D88FE00)
   (descr "Socket PLCC 32 pins,  round pads")
   (tags PLCC)
   (fp_text reference REF** (at 0 12.065) (layer F.SilkS)
@@ -60,7 +60,7 @@
   (pad 32 thru_hole circle (at 1.27 -7.62) (size 1.397 1.397) (drill 0.8128) (layers *.Cu *.Mask))
   (pad 29 thru_hole circle (at 6.35 -5.08) (size 1.397 1.397) (drill 0.8128) (layers *.Cu *.Mask))
   (pad 30 thru_hole circle (at 3.81 -7.62) (size 1.397 1.397) (drill 0.8128) (layers *.Cu *.Mask))
-  (model ${MYLIBS}/jorgeAparicio-libKiCad/3d/pth_plcc/plcc32_pth-skt.wrl
+  (model ${CFTDIR}/kicad/alexios.pretty/plcc32_pth-skt.wrl
     (at (xyz 0 0 0))
     (scale (xyz 1 1 1))
     (rotate (xyz 0 0 180))
