@@ -881,4 +881,18 @@ Wire Bus Line
 	3600 1550 3600 4700
 Wire Bus Line
 	1650 1350 1650 4500
+Text Notes 9050 2050 0    50   ~ 0
+Dialight 599-0110-007F: green, 20mA, 2.1V\nDialight 599-0181-007F: red, 20mA, 3.2V\n\n
+Text Notes 10550 2350 0    50   ~ 0
+Green: 150Ω
+Text Notes 10550 3050 0    50   ~ 0
+Green: 68Ω
+Text Notes 10550 3750 0    50   ~ 0
+Green: 560Ω
+Text Notes 10550 4100 0    50   ~ 0
+Green: 560Ω
+Text Notes 10550 2700 0    50   ~ 0
+Green: 150Ω
+Text Notes 10550 3400 0    50   ~ 0
+Green: 150Ω
 $EndSCHEMATC
