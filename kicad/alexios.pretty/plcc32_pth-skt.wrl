@@ -3350,11 +3350,11 @@ DEF cube43_copy56 Transform {
     Shape {
       appearance Appearance {
         material DEF socket Material {
-          diffuseColor 0.4 0.26 0.13
-          emissiveColor 0.4 0.26 0.13
-          specularColor 0.5 0.5 0.15
-          ambientIntensity 0.44999999999999996
-          transparency 0.0
+          diffuseColor 0.25 0.16 0.07
+          emissiveColor 0.25 0.16 0.07
+          specularColor 0.25 0.16 0.07
+          ambientIntensity 0.5
+          transparency 0
           shininess 1.0
         }
       }
