@@ -34,7 +34,12 @@ except:
 #     m = re_num.match(s)
 #     return int(m.group(1))
     
-    
+
+try:
+    infile, outfile = sys.argv[1:3]
+except:
+    sys.stderr.write("Syntax:\n\t{} INPUT-XML-FILE OUTPUT-BOM-TEXT-FILE\n".format(sys.argv[0]))
+    sys.exit(1)
 
 # Generate an instance of a generic netlist, and load the netlist tree from
 # the command line option. If the file doesn't exist, execution will stop
