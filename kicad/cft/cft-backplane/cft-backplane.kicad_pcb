@@ -1,4 +1,4 @@
-(kicad_pcb (version 20171130) (host pcbnew 5.1.2-f72e74a~84~ubuntu18.04.1)
+(kicad_pcb (version 20171130) (host pcbnew 5.1.4-e60b266~84~ubuntu18.04.1)
 
   (general
     (thickness 1.6)
@@ -20,7 +20,7 @@
     (34 B.Paste user)
     (35 F.Paste user hide)
     (36 B.SilkS user)
-    (37 F.SilkS user hide)
+    (37 F.SilkS user)
     (38 B.Mask user hide)
     (39 F.Mask user)
     (40 Dwgs.User user hide)
@@ -5855,8 +5855,8 @@
     )
   )
 
-  (module Symbol:WEEE-Logo_5.6x8mm_SilkScreen (layer B.Cu) (tedit 0) (tstamp 5CD6962C)
-    (at 155.095 70.7 180)
+  (module Symbol:WEEE-Logo_5.6x8mm_SilkScreen (layer B.Cu) (tedit 0) (tstamp 5D8A2B5A)
+    (at 155.06 75.14 180)
     (descr "Waste Electrical and Electronic Equipment Directive")
     (tags "Logo WEEE")
     (attr virtual)
@@ -6628,6 +6628,11 @@
       (scale (xyz 1 1 1))
       (rotate (xyz 0 0 0))
     )
+    (model /home/alexios/PROJECTS/HARDWARE/cft/kicad/alexios.pretty/Molex_Mini-Fit_Jr_5566-04A2_2x02_P4.20mm_Vertical.wrl
+      (offset (xyz 2.1 -2.55 0))
+      (scale (xyz 0.395 0.395 0.395))
+      (rotate (xyz 0 0 0))
+    )
   )
 
   (module Connector_IDC:IDC-Header_2x20_P2.54mm_Vertical (layer B.Cu) (tedit 59DE12BE) (tstamp 5CDA65CF)
@@ -7325,10 +7330,10 @@
       (net 4 +12V) (clearance 0.6096))
     (pad "" np_thru_hole circle (at -4.7 -5.04 270) (size 3 3) (drill 3) (layers *.Cu *.Mask))
     (pad "" np_thru_hole circle (at 17.3 -5.04 270) (size 3 3) (drill 3) (layers *.Cu *.Mask))
-    (model ${KISYS3DMOD}/Connector_Molex.3dshapes/Molex_Mini-Fit_Jr_5566-08A2_2x04_P4.20mm_Vertical.wrl
-      (at (xyz 0 0 0))
-      (scale (xyz 1 1 1))
-      (rotate (xyz 0 0 0))
+    (model /home/alexios/PROJECTS/HARDWARE/cft/kicad/alexios.pretty/Molex_Mini-Fit_Jr_5566-08A2_2x04_P4.20mm_Vertical.wrl
+      (offset (xyz 6.3 -2.6 0))
+      (scale (xyz 0.395 0.395 0.395))
+      (rotate (xyz 0 0 180))
     )
   )
 
