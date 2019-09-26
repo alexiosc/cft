@@ -4,7 +4,7 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 //
-// microcode-sequencer.v -- Processor Board, Microcode sequencer and ROMs
+// microcode-store.v -- Processor Board, Microcode ROMs
 //
 // Copyright © 2011-2019 Alexios Chouchoulas
 //
@@ -40,17 +40,23 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-module microcode_store(uaddr, udata, nuce);
+module microcode_store(nreset, nhalt, uaddr, udata, nuce);
 
-   input [19:0]  uaddr;
+   input         nreset;
+   input         nhalt;
+   
+   input [18:0]  uaddr;
    input 	 nuce;
 
    output [23:0] udata;
 
+   wire 	 nuse;
+   assign #6 nuse = !(nreset & nhalt);
+
    // Connect the microcode ROM/Flash devices
-   rom #(19, 50) rom0 (.a(uaddr), .d(udata[7:0]),   .nce(0), .noe(nuce));
-   rom #(19, 50) rom1 (.a(uaddr), .d(udata[15:8]),  .nce(0), .noe(nuce));
-   rom #(19, 50) rom2 (.a(uaddr), .d(udata[23:16]), .nce(0), .noe(nuce));
+   rom #(19, 50) rom0 (.a(uaddr), .d(udata[7:0]),   .nce(1'b0), .noe(nuse));
+   rom #(19, 50) rom1 (.a(uaddr), .d(udata[15:8]),  .nce(1'b0), .noe(nuse));
+   rom #(19, 50) rom2 (.a(uaddr), .d(udata[23:16]), .nce(1'b0), .noe(nuse));
 
    reg [4096:0] basedir, s0, s1, s2;
    // Load ROM images
