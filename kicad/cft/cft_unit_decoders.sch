@@ -4,7 +4,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 8 35
+Sheet 7 35
 Title ""
 Date ""
 Rev ""
@@ -238,7 +238,7 @@ CLK1
 Text Label 4500 2000 2    50   ~ 0
 RUNIT3
 Text Label 4500 2100 2    50   ~ 0
-~RUEN
+RESET
 Wire Wire Line
 	4000 1300 4550 1300
 Wire Wire Line
@@ -373,18 +373,10 @@ Text HLabel 9600 1900 2    50   Output ~ 0
 ~R6
 Text HLabel 9600 2000 2    50   Output ~ 0
 ~R7
-Text Label 2150 2700 0    50   ~ 0
-~µCE
-Text HLabel 2050 2700 0    50   Input ~ 0
-~µCE
 Wire Wire Line
-	5800 2200 5800 2700
-Wire Wire Line
-	5800 2200 6050 2200
-Wire Wire Line
-	2050 2700 5800 2700
+	5750 2200 6050 2200
 Text Label 6050 2200 2    50   ~ 0
-~µCE
+RESET
 NoConn ~ 7450 3350
 NoConn ~ 8150 3350
 Text Label 9400 3450 2    50   ~ 0
@@ -464,12 +456,9 @@ Wire Wire Line
 Wire Wire Line
 	5600 4050 6050 4050
 Wire Wire Line
-	5800 2700 5800 4250
-Wire Wire Line
-	5800 4250 6050 4250
-Connection ~ 5800 2700
+	5750 4250 6050 4250
 Text Label 6050 4250 2    50   ~ 0
-~µCE
+RESET
 Wire Wire Line
 	2050 4050 4600 4050
 Text HLabel 2050 3950 0    50   Input ~ 0
@@ -512,8 +501,6 @@ Wire Wire Line
 	2850 3950 4600 3950
 Text Label 3000 2100 0    50   ~ 0
 ~RESET
-Text Label 4500 2700 2    50   ~ 0
-~µCE
 $Comp
 L alexios:74HC138 U1801
 U 2 1 5E730918
@@ -876,8 +863,6 @@ Text HLabel 2050 4950 0    50   Input ~ 0
 ~DEC
 Text HLabel 2050 5600 0    50   Input ~ 0
 ~STPAC
-Text Label 4500 2550 2    50   ~ 0
-RESET
 Text HLabel 9600 2550 2    50   Output ~ 0
 RESET
 Text Notes 6300 2800 0    50   ~ 0
@@ -941,14 +926,12 @@ Read Unit Decoder
 Text Notes 4200 2950 0    98   ~ 20
 Write Unit Decoder
 Wire Wire Line
-	3900 2550 9600 2550
+	4250 2100 4550 2100
+Connection ~ 4250 2100
 Wire Wire Line
-	3900 2100 4550 2100
-Connection ~ 3900 2100
+	3800 2100 4250 2100
 Wire Wire Line
-	3800 2100 3900 2100
-Wire Wire Line
-	3900 2100 3900 2550
+	4250 2100 4250 2300
 Text Notes 6000 4950 0    98   ~ 20
 Register Increment/Decrement Decoder
 Text HLabel 9550 5200 2    50   Output ~ 0
@@ -1085,8 +1068,22 @@ Wire Wire Line
 Connection ~ 8850 2000
 Wire Wire Line
 	8850 2000 9600 2000
+Wire Wire Line
+	5750 2200 5750 2300
+Connection ~ 5750 2550
+Wire Wire Line
+	5750 2550 9600 2550
+Wire Wire Line
+	5750 2550 5750 4250
+Wire Wire Line
+	4250 2300 5750 2300
+Connection ~ 5750 2300
+Wire Wire Line
+	5750 2300 5750 2550
 Wire Bus Line
 	3950 3150 3950 3450
 Wire Bus Line
 	3900 1100 3900 1900
+Text Notes 3900 300  0    200  ~ 40
+TODO: The outputs are WRONG now!\nRedo them!
 $EndSCHEMATC
