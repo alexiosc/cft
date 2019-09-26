@@ -27,9 +27,12 @@ SRC =		counter.v counter_161_tb.v counter_590_tb.v counter_393h_tb.v counter_401
 		addressing.v addressing_tb.v \
 		register.v register_tb.v register_reg_L_tb.v \
 		cft.v cft_tb.v cft_tb_testing.v \
-		step_tb.v \
+		microcode_store.v microcode_store_tb.v \
+		upc.v upc.v \
 		test_panel_revC.v \
-		dfp_scan.v dfp_scan_tb.v dfp_run_control.v dfp_run_control_tb.v \
+		dfp_step.v dfp_step_tb.v \
+		dfp_scan.v dfp_scan_tb.v \
+		dfp_run_control.v dfp_run_control_tb.v \
 # panel.v panel_tb.v test.v panel_autorepeat_tb.v
 
 #		Disused code:
@@ -312,9 +315,13 @@ test_clock:	clock_tb.o clock.o
 		./clock_tb.o
 		$(GTKWAVE) $(VCDDIR)/clock_tb.vcd $(SAVDIR)/clock_tb.sav
 
-test_microcode_sequencer:	microcode_sequencer_tb.o microcode_sequencer.o rom.o
-		./clock_tb.o
-		$(GTKWAVE) $(VCDDIR)/microcode_sequencer.vcd $(SAVDIR)/microcode_sequencer.sav
+test_upc:	upc_tb.o upc.o counter.o
+		./upc_tb.o
+		$(GTKWAVE) $(VCDDIR)/upc_tb.vcd $(SAVDIR)/upc_tb.sav
+
+test_microcode_store:	microcode_store_tb.o microcode_store.o rom.o
+		./microcode_store.o
+		$(GTKWAVE) $(VCDDIR)/microcode_store.vcd $(SAVDIR)/microcode_store.sav
 
 test_serial_shifter:	serial_shifter_tb.o serial_shifter.o
 		./serial_shifter_tb.o
