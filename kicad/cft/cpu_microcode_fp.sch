@@ -4,7 +4,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 33 35
+Sheet 32 35
 Title ""
 Date ""
 Rev ""
@@ -163,21 +163,21 @@ Wire Wire Line
 Wire Wire Line
 	6200 2150 6950 2150
 Text Label 7200 1450 2    50   ~ 0
-FPO0
+FPD0
 Text Label 7200 1550 2    50   ~ 0
-FPO1
+FPD1
 Text Label 7200 1650 2    50   ~ 0
-FPO2
+FPD2
 Text Label 7200 1750 2    50   ~ 0
-FPO3
+FPD3
 Text Label 7200 1850 2    50   ~ 0
-FPO4
+FPD4
 Text Label 7200 1950 2    50   ~ 0
-FPO5
+FPD5
 Text Label 7200 2050 2    50   ~ 0
-FPO6
+FPD6
 Text Label 7200 2150 2    50   ~ 0
-FPO7
+FPD7
 Wire Wire Line
 	6200 2250 6250 2250
 Wire Wire Line
@@ -259,21 +259,21 @@ Wire Wire Line
 Wire Wire Line
 	8900 1650 9150 1650
 Text Label 9900 1450 2    50   ~ 0
-FPO0
+FPD0
 Text Label 9900 1550 2    50   ~ 0
-FPO1
+FPD1
 Text Label 9900 1650 2    50   ~ 0
-FPO2
+FPD2
 Text Label 9900 1750 2    50   ~ 0
-FPO3
+FPD3
 Text Label 9900 1850 2    50   ~ 0
-FPO4
+FPD4
 Text Label 9900 1950 2    50   ~ 0
-FPO5
+FPD5
 Text Label 9900 2050 2    50   ~ 0
-FPO6
+FPD6
 Text Label 9900 2150 2    50   ~ 0
-FPO7
+FPD7
 Wire Wire Line
 	8900 2250 8950 2250
 Wire Wire Line
@@ -498,21 +498,21 @@ Wire Wire Line
 Wire Wire Line
 	3500 2150 4250 2150
 Text Label 4500 1450 2    50   ~ 0
-FPO0
+FPD0
 Text Label 4500 1550 2    50   ~ 0
-FPO1
+FPD1
 Text Label 4500 1650 2    50   ~ 0
-FPO2
+FPD2
 Text Label 4500 1750 2    50   ~ 0
-FPO3
+FPD3
 Text Label 4500 1850 2    50   ~ 0
-FPO4
+FPD4
 Text Label 4500 1950 2    50   ~ 0
-FPO5
+FPD5
 Text Label 4500 2050 2    50   ~ 0
-FPO6
+FPD6
 Text Label 4500 2150 2    50   ~ 0
-FPO7
+FPD7
 Wire Wire Line
 	3500 2250 3550 2250
 Wire Wire Line
@@ -1220,9 +1220,9 @@ Entry Bus Bus
 Wire Bus Line
 	10100 2450 10650 2450
 Text HLabel 10650 2450 2    50   Input ~ 0
-FPO[0..7]
+FPD[0..7]
 Text Label 10550 2450 2    50   ~ 0
-FPO[0..7]
+FPD[0..7]
 Text Label 2050 3350 0    50   ~ 0
 ~FPµA1
 Text Label 7200 3350 0    50   ~ 0
