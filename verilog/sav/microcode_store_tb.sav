@@ -1,0 +1,27 @@
+[*]
+[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
+[*] Thu Sep 26 19:49:40 2019
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/microcode_store_tb.vcd"
+[dumpfile_mtime] "Thu Sep 26 19:48:50 2019"
+[dumpfile_size] 300461
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/microcode_store_tb.sav"
+[timestart] 16203000
+[size] 1621 600
+[pos] 223 0
+*-19.000000 2256000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[sst_width] 226
+[signals_width] 118
+[sst_expanded] 1
+[sst_vpaned_height] 142
+@28
+microcode_store_tb.nreset
+microcode_store_tb.nhalt
+@22
+microcode_store_tb.uaddr[18:0]
+@200
+-
+@22
+microcode_store_tb.udata[23:0]
+[pattern_trace] 1
+[pattern_trace] 0
