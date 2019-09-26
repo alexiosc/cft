@@ -49,27 +49,27 @@
 //   Version 7b: (2019-09-21) moved instructions around a bit to ease
 //   memorisation.
 
-//              MODES
-// Instruction  Literal  Direct  Indirect  Autoindex    Special
-// ----------------------------------------------------------------------------
-// LJSR            X         X                 X
-// IOT             X         X                 X
-// LOAD            X         X                 X
-// STORE           X         X                 X
-// IN              X         X                 X
-// OUT             X         X                 X
-// JMP             X         X                 X
-// JSR             X         X                 X
-// ADD                       X       X         X
-// AND                       X       X         X
-// OR                        X       X         X
-// XOR                       X       X         X
-// OP1                                                    X
-// OP2                                                    X
-// DSZ                       X       X         X
-// LIA             X
-// JMPII           X*        X*                X*         (double indirection)
-// ----------------------------------------------------------------------------
+
+// ADDRESSING MODES
+//
+// It's time to standardise the names of the addressing modes. They've
+// been through too many names, and too many synonyms. Here are the
+// standard ones for memory-accessing instructions.
+//
+//  I   R   Operand   Addressing Mode
+// ---------------------------------------------------------------------------
+//  0   0   Any       ① Page-Local
+//  0   1   Any       ② Register
+//  1   0   Any       ③ Indirect
+//  1   1   000–2FF   ④ Register Indirect
+//  1   1   300–33F   ⑤ Memory Bank-Relative Indirect
+//  1   1   340–37F   ⑥ Auto-Increment
+//  1   1   380–3BF   ⑦ Auto-Decrement
+//  1   1   3C0–3FF   ⑧ Stack
+//
+// TODO: Go through all instructions, re-annotate them with the correct number
+// and name of addressing modes. For non-standard instrucitons, copy the table
+// above there and change it as necessary.
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1175,7 +1175,7 @@ start LJMP, I=1, R=1, IDX=IDX_SP;
       /action_decdr;                            // 06 DR--
       MEMREAD(mbd, dr, mbp);	                // 07 MBP ← mem[MBD:DR]
       /action_decdr;                            // 09 DR--
-      MEMWRITE(mbz, agl, dr), END;               // 10 mem[MBD:AGL] ← DR
+      MEMWRITE(mbz, agl, dr), END;              // 10 mem[MBD:AGL] ← DR
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1184,25 +1184,39 @@ start LJMP, I=1, R=1, IDX=IDX_SP;
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-// ① & ② JSR, local address addressing mode and register addressing mode
+// CAUTION: NON-STANDARD ADDRESSING MODES!
+//
+//  I   R   Operand   Addressing Mode
+// ---------------------------------------------------------------------------
+//  0   0   Any       ① Page-Local
+//  0   1   Any       ② Register
+//  1   0   Any       ③ Indirect
+//  1   1   000–2FF   ④ Register Indirect
+//  1   1   300–33F   ⑤ Memory Bank-Relative Indirect
+//  1   1   340–37F   ⑥ Auto-Increment
+//  1   1   380–3BF   ⑦ Auto-Decrement
+//  1   1   3C0–3FF   ⑧ Stack
+
+// ① & ② JSR, Page-local and Page Zero modes.
 start JSR, I=0, R=X, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       STACK_PUSH(pc);				// 02 mem[SP++] ← PC
       SET(pc, agl), END;			// 04 PC ← AGL
 
-// ③ JSR, local indirect address addressing mode.
+// ③ JSR, Indirect.
 start JSR, I=1, R=0, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       STACK_PUSH(pc);				// 02 mem[SP++] ← PC
       MEMREAD(mbp, agl, pc), END;		// 04 PC ← mem[MBP:AGL]
 
-// ④ JSR, register indirect address addressing mode.
+// ④ & ⑤ JSR, Register Indirect and Memory Bank-Relative Indirect.
 start JSR, I=1, R=1, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       STACK_PUSH(pc);				// 02 mem[SP++] ← PC
       MEMREAD(mbz, agl, pc), END;		// 04 PC ← mem[MBZ:AGL]
 
-// ⑤ JSR, double register indirect autoincrement addressing mode.
+// ⑥ JSR, Auto-Increment Double Indirect
+// TODO: The code for subsequent modes is NOT double indirect!!!
 start JSR, I=1, R=1, IDX=IDX_INC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       STACK_PUSH(pc);				// 02 mem[SP++] ← PC
