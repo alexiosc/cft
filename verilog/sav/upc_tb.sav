@@ -1,0 +1,50 @@
+[*]
+[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
+[*] Thu Sep 26 19:29:23 2019
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/upc_tb.vcd"
+[dumpfile_mtime] "Thu Sep 26 19:29:19 2019"
+[dumpfile_size] 26326
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/upc_tb.sav"
+[timestart] 114164000
+[size] 1275 609
+[pos] 468 19
+*-20.428146 125020000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] upc_tb.
+[sst_width] 226
+[signals_width] 182
+[sst_expanded] 1
+[sst_vpaned_height] 145
+@28
+[color] 1
+upc_tb.upc.clk4
+[color] 2
+upc_tb.upc.nreset
+[color] 2
+upc_tb.upc.nrsthold
+@200
+-
+-Halt if asserted
+@28
+[color] 3
+upc_tb.upc.nhalt
+[color] 3
+upc_tb.upc.nws
+@200
+-
+-Reset uPC
+@28
+[color] 4
+upc_tb.upc.nend
+[color] 4
+upc_tb.upc.nendext
+@200
+-
+@28
+[color] 6
+upc_tb.upc.nupcclr
+@2022
+^1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/upc
+upc_tb.upc.upc[3:0]
+[pattern_trace] 1
+[pattern_trace] 0
