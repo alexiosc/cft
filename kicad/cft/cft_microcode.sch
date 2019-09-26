@@ -91,8 +91,6 @@ Wire Wire Line
 	3550 1300 3550 1400
 Text Label 4300 1500 2    50   ~ 0
 ~WS
-Wire Wire Line
-	4350 1600 2250 1600
 Text Label 1350 1600 0    50   ~ 0
 ~HALT
 Text HLabel 950  1600 0    50   Input ~ 0
@@ -118,218 +116,15 @@ Text Label 5700 1100 2    50   ~ 0
 UPC2
 Text Label 5700 1200 2    50   ~ 0
 UPC3
-$Comp
-L alexios:74AHC1G00 U?
-U 1 1 5DEB2DB0
-P 2950 2250
-AR Path="/5DEB2DB0" Ref="U?"  Part="1" 
-AR Path="/5DEAC282/5DEB2DB0" Ref="U1703"  Part="1" 
-F 0 "U1703" H 2875 2075 50  0000 C CNN
-F 1 "74AHC1G00" H 2875 1984 50  0000 C CNN
-F 2 "" H 2600 2250 50  0001 C CNN
-F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 2600 2250 50  0001 C CNN
-	1    2950 2250
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
-	2650 2200 2250 2200
-Wire Wire Line
-	2250 2200 2250 1600
-Connection ~ 2250 1600
-Text Label 1350 2300 0    50   ~ 0
-~RESET
-Text HLabel 950  2300 0    50   Input ~ 0
-~RESET
-$Comp
-L Device:R_Small R?
-U 1 1 5DEB2DBB
-P 3200 2250
-AR Path="/5DEB2DBB" Ref="R?"  Part="1" 
-AR Path="/5CC0D65F/5DEB2DBB" Ref="R?"  Part="1" 
-AR Path="/5D54E677/5DEB2DBB" Ref="R?"  Part="1" 
-AR Path="/5D62E1DC/5DEB2DBB" Ref="R?"  Part="1" 
-AR Path="/5DEAC282/5DEB2DBB" Ref="R1701"  Part="1" 
-F 0 "R1701" V 3396 2250 50  0000 C CNN
-F 1 "30Ω" V 3305 2250 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric" H 3200 2250 50  0001 C CNN
-F 3 "~" H 3200 2250 50  0001 C CNN
-	1    3200 2250
-	0    -1   -1   0   
-$EndComp
-Text HLabel 3750 2250 2    50   Output ~ 0
-~µCE
-Text Label 3350 2250 0    50   ~ 0
-~µCE
-Text Notes 4100 2650 0    50   ~ 0
-~µCE~ enables microcode unit decoders\nunless the processor is resetting or halted.\n\nTODO: ~HALT~ may not be required here!\nWe need decoders to work during HALT\nif the DFP needs them.
-Wire Wire Line
-	950  1250 2650 1250
-Wire Wire Line
-	950  1600 2250 1600
-Wire Wire Line
-	950  2300 2650 2300
-Text Label 2600 2200 2    50   ~ 0
-~HALT
-Text Label 2600 2300 2    50   ~ 0
-~RESET
+	950  1250 1000 1250
 Text Label 4300 1600 2    50   ~ 0
 ~HALT
 Text Label 4300 1700 2    50   ~ 0
 CLK4
-$Comp
-L alexios:74AHC1G08 U?
-U 2 1 5DEB32A6
-P 1350 6500
-AR Path="/5DEB32A6" Ref="U?"  Part="1" 
-AR Path="/5DEAC282/5DEB32A6" Ref="U1403"  Part="2" 
-F 0 "U1403" H 1430 6446 50  0000 L CNN
-F 1 "74AHC1G08" H 1430 6355 50  0000 L CNN
-F 2 "" H 1000 6500 50  0001 C CNN
-F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 1000 6500 50  0001 C CNN
-	2    1350 6500
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74AHC1G00 U?
-U 2 1 5DEB36D4
-P 3000 6550
-AR Path="/5DEB36D4" Ref="U?"  Part="1" 
-AR Path="/5DEAC282/5DEB36D4" Ref="U1703"  Part="2" 
-F 0 "U1703" H 3080 6496 50  0000 L CNN
-F 1 "74AHC1G00" H 3080 6405 50  0000 L CNN
-F 2 "" H 2650 6550 50  0001 C CNN
-F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 2650 6550 50  0001 C CNN
-	2    3000 6550
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74HC161 U?
-U 2 1 5DEB3C99
-P 1250 7800
-AR Path="/5DEB3C99" Ref="U?"  Part="1" 
-AR Path="/5DEAC282/5DEB3C99" Ref="U1702"  Part="2" 
-F 0 "U1702" H 1430 8246 50  0000 L CNN
-F 1 "74HC161" H 1430 8155 50  0000 L CNN
-F 2 "" H 1550 8050 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS161" H 1550 8050 50  0001 C CNN
-	2    1250 7800
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 5DEB8F55
-P 900 6600
-AR Path="/5CC0D65F/5DEB8F55" Ref="C?"  Part="1" 
-AR Path="/5DEB8F55" Ref="C?"  Part="1" 
-AR Path="/5DEAC282/5DEB8F55" Ref="C1701"  Part="1" 
-F 0 "C1701" H 809 6646 50  0000 R CNN
-F 1 "100nF" H 809 6555 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 900 6600 50  0001 C CNN
-F 3 "~" H 900 6600 50  0001 C CNN
-	1    900  6600
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 5DEB9460
-P 2550 6650
-AR Path="/5CC0D65F/5DEB9460" Ref="C?"  Part="1" 
-AR Path="/5DEB9460" Ref="C?"  Part="1" 
-AR Path="/5DEAC282/5DEB9460" Ref="C1702"  Part="1" 
-F 0 "C1702" H 2459 6696 50  0000 R CNN
-F 1 "100nF" H 2459 6605 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 2550 6650 50  0001 C CNN
-F 3 "~" H 2550 6650 50  0001 C CNN
-	1    2550 6650
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 5DEB9AAE
-P 900 7400
-AR Path="/5CC0D65F/5DEB9AAE" Ref="C?"  Part="1" 
-AR Path="/5DEB9AAE" Ref="C?"  Part="1" 
-AR Path="/5DEAC282/5DEB9AAE" Ref="C1703"  Part="1" 
-F 0 "C1703" H 809 7446 50  0000 R CNN
-F 1 "100nF" H 809 7355 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 900 7400 50  0001 C CNN
-F 3 "~" H 900 7400 50  0001 C CNN
-	1    900  7400
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR01708
-U 1 1 5DEBA174
-P 900 6500
-F 0 "#PWR01708" H 900 6350 50  0001 C CNN
-F 1 "+5V" H 915 6673 50  0000 C CNN
-F 2 "" H 900 6500 50  0001 C CNN
-F 3 "" H 900 6500 50  0001 C CNN
-	1    900  6500
-	1    0    0    -1  
-$EndComp
-Connection ~ 900  6500
-$Comp
-L power:GND #PWR01711
-U 1 1 5DEBA8B7
-P 900 6700
-F 0 "#PWR01711" H 900 6450 50  0001 C CNN
-F 1 "GND" H 905 6527 50  0000 C CNN
-F 2 "" H 900 6700 50  0001 C CNN
-F 3 "" H 900 6700 50  0001 C CNN
-	1    900  6700
-	1    0    0    -1  
-$EndComp
-Connection ~ 900  6700
-$Comp
-L power:GND #PWR01712
-U 1 1 5DEBAB17
-P 2550 6750
-F 0 "#PWR01712" H 2550 6500 50  0001 C CNN
-F 1 "GND" H 2555 6577 50  0000 C CNN
-F 2 "" H 2550 6750 50  0001 C CNN
-F 3 "" H 2550 6750 50  0001 C CNN
-	1    2550 6750
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR01713
-U 1 1 5DEBC032
-P 900 7500
-F 0 "#PWR01713" H 900 7250 50  0001 C CNN
-F 1 "GND" H 905 7327 50  0000 C CNN
-F 2 "" H 900 7500 50  0001 C CNN
-F 3 "" H 900 7500 50  0001 C CNN
-	1    900  7500
-	1    0    0    -1  
-$EndComp
-Connection ~ 900  7500
-$Comp
-L power:+5V #PWR01709
-U 1 1 5DEBC5C9
-P 2550 6550
-F 0 "#PWR01709" H 2550 6400 50  0001 C CNN
-F 1 "+5V" H 2565 6723 50  0000 C CNN
-F 2 "" H 2550 6550 50  0001 C CNN
-F 3 "" H 2550 6550 50  0001 C CNN
-	1    2550 6550
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR01710
-U 1 1 5DEBC983
-P 900 7300
-F 0 "#PWR01710" H 900 7150 50  0001 C CNN
-F 1 "+5V" H 915 7473 50  0000 C CNN
-F 2 "" H 900 7300 50  0001 C CNN
-F 3 "" H 900 7300 50  0001 C CNN
-	1    900  7300
-	1    0    0    -1  
-$EndComp
-Connection ~ 900  7300
 Text Notes 7150 7000 0    197  ~ 39
 Microcode Sequencer
-Text Notes 6250 -450 0    50   ~ 0
+Text Notes 4250 2550 0    50   ~ 0
 The µPC controls the running of the processor. It counts up to 16, so\nmicroprograms can only have  up to 16 steps. It resets to 0000 when the\nControl Unit asserts ~END~ or a processor extension card asserts ~ENDEXT~\non the bus.  It increments at the end of a processor cycle (rising edge of\nCLK4), and only when ~RSTHOLD~, ~HALT~ and ~WS~ are all deasserted.
 Text Label 10450 3900 2    50   ~ 0
 COND[0..4]
@@ -341,10 +136,8 @@ Text HLabel 10500 3200 2    50   Output ~ 0
 WADDR[0..4]
 Text HLabel 10500 3900 2    50   Output ~ 0
 COND[0..4]
-Text Notes 3900 850  2    100  ~ 20
+Text Notes 4100 850  2    100  ~ 20
 Microprogram Counter (µPC)
-Wire Wire Line
-	3300 2250 3750 2250
 Text Label 10450 4600 2    50   ~ 0
 ACTION[0..3]
 Text HLabel 10500 4600 2    50   Output ~ 0
@@ -358,7 +151,7 @@ AR Path="/5DEAC282/5DEB2D71" Ref="U1702"  Part="1"
 F 0 "U1702" H 4850 2167 50  0000 C CNN
 F 1 "74HC161" H 4850 2076 50  0000 C CNN
 F 2 "" H 5150 1650 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS161" H 5150 1650 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC161.pdf" H 5150 1650 50  0001 C CNN
 	1    4850 1400
 	1    0    0    -1  
 $EndComp
@@ -366,8 +159,6 @@ Text Notes 3500 6350 0    50   ~ 0
 2019 Design Update: both micro-Address Vector and\nmicro-Control Vector have changed significantly in this\nversion. Fields are much more vertical now.
 Text Notes 3500 6050 0    63   ~ 13
 2019 Design Update
-Connection ~ 2550 6750
-Connection ~ 2550 6550
 Text HLabel 10500 5450 2    50   Output ~ 0
 ~MEM
 Text HLabel 10500 5550 2    50   Output ~ 0
@@ -639,50 +430,18 @@ FPD[0..7]
 Wire Bus Line
 	10500 6150 9300 6150
 $Comp
-L Device:C_Small C?
-U 1 1 5E28D9FA
-P 8200 4900
-AR Path="/5CC0D65F/5E28D9FA" Ref="C?"  Part="1" 
-AR Path="/5E28D9FA" Ref="C?"  Part="1" 
-AR Path="/5DEAC282/5E28D9FA" Ref="C1904"  Part="1" 
-AR Path="/5DEAC282/5DEAA264/5E28D9FA" Ref="C?"  Part="1" 
-F 0 "C1904" H 8108 4946 50  0000 R CNN
-F 1 "100nF" H 8108 4855 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 8200 4900 50  0001 C CNN
-F 3 "~" H 8200 4900 50  0001 C CNN
-	1    8200 4900
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR01904
-U 1 1 5E28DA00
-P 8200 5100
-AR Path="/5DEAC282/5E28DA00" Ref="#PWR01904"  Part="1" 
-AR Path="/5DEAC282/5DEAA264/5E28DA00" Ref="#PWR?"  Part="1" 
-F 0 "#PWR01904" H 8200 4850 50  0001 C CNN
-F 1 "GND" H 8205 4927 50  0000 C CNN
-F 2 "" H 8200 5100 50  0001 C CNN
-F 3 "" H 8200 5100 50  0001 C CNN
-	1    8200 5100
-	1    0    0    -1  
-$EndComp
-$Comp
 L power:+5V #PWR01903
 U 1 1 5E28DA06
-P 8200 4700
+P 8200 4950
 AR Path="/5DEAC282/5E28DA06" Ref="#PWR01903"  Part="1" 
 AR Path="/5DEAC282/5DEAA264/5E28DA06" Ref="#PWR?"  Part="1" 
-F 0 "#PWR01903" H 8200 4550 50  0001 C CNN
-F 1 "+5V" H 8215 4873 50  0000 C CNN
-F 2 "" H 8200 4700 50  0001 C CNN
-F 3 "" H 8200 4700 50  0001 C CNN
-	1    8200 4700
+F 0 "#PWR01903" H 8200 4800 50  0001 C CNN
+F 1 "+5V" H 8215 5123 50  0000 C CNN
+F 2 "" H 8200 4950 50  0001 C CNN
+F 3 "" H 8200 4950 50  0001 C CNN
+	1    8200 4950
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	8200 4800 8200 4700
-Wire Wire Line
-	8200 5000 8200 5100
 Entry Wire Line
 	1450 2900 1550 3000
 Entry Wire Line
@@ -1083,7 +842,7 @@ F41 "~IO" O R 4100 5300 50
 F42 "~R" O R 4100 5400 50 
 F43 "~WEN" O R 4100 5500 50 
 F44 "~END" O R 4100 5600 50 
-F45 "~µCE" I L 2950 5600 50 
+F45 "~µSE" I L 2950 5600 50 
 $EndSheet
 Wire Wire Line
 	4100 5500 4550 5500
@@ -1093,8 +852,6 @@ Wire Wire Line
 	4100 5400 4550 5400
 Wire Wire Line
 	4100 5300 4550 5300
-Wire Wire Line
-	2550 5600 2950 5600
 Text Label 2550 3300 0    50   ~ 0
 UPC0
 Text Label 2550 3400 0    50   ~ 0
@@ -1182,7 +939,7 @@ Wire Wire Line
 Wire Wire Line
 	2550 5100 2950 5100
 Text Label 2550 5600 0    50   ~ 0
-~µCE
+~µSE
 Wire Wire Line
 	4100 3800 4550 3800
 Wire Wire Line
@@ -1215,42 +972,6 @@ Wire Wire Line
 	4100 5200 4550 5200
 Text Notes 8750 2900 2    100  ~ 20
 Bus Hold
-Text HLabel 950  5550 0    50   Input ~ 0
-~FPµA0
-Text HLabel 950  5650 0    50   Input ~ 0
-~FPµA1
-Text HLabel 950  5750 0    50   Input ~ 0
-~FPµA2
-Text HLabel 950  5950 0    50   Input ~ 0
-~FPµC0
-Text HLabel 950  6050 0    50   Input ~ 0
-~FPµC1
-Text HLabel 950  6150 0    50   Input ~ 0
-~FPµC2
-Wire Wire Line
-	950  5550 1400 5550
-Wire Wire Line
-	950  5650 1400 5650
-Wire Wire Line
-	950  5750 1400 5750
-Wire Wire Line
-	950  5950 1400 5950
-Wire Wire Line
-	950  6050 1400 6050
-Wire Wire Line
-	950  6150 1400 6150
-Text Label 1400 5550 2    50   ~ 0
-~FPµA0
-Text Label 1400 5650 2    50   ~ 0
-~FPµA1
-Text Label 1400 5950 2    50   ~ 0
-~FPµĊ0
-Text Label 1400 6050 2    50   ~ 0
-~FPµĊ1
-Text Label 1400 6150 2    50   ~ 0
-~FPµĊ2
-Text Label 1400 5750 2    50   ~ 0
-~FPµA2
 Text HLabel 950  2650 0    50   Input ~ 0
 IDX[0..1]
 Text Label 1000 2650 0    50   ~ 0
@@ -1260,151 +981,151 @@ Wire Bus Line
 $Comp
 L alexios:74HC85 U?
 U 1 1 5FE49D00
-P 7550 1300
-F 0 "U?" H 7550 325 50  0000 C CNN
-F 1 "74HC85" H 7550 234 50  0000 C CNN
-F 2 "" H 7550 1325 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS85" H 7550 1325 50  0001 C CNN
-	1    7550 1300
+P 8750 1500
+F 0 "U?" H 8750 525 50  0000 C CNN
+F 1 "74HC85" H 8750 434 50  0000 C CNN
+F 2 "" H 8750 1525 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS85" H 8750 1525 50  0001 C CNN
+	1    8750 1500
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	7050 1900 6950 1900
-Connection ~ 6950 1900
+	8250 2100 8150 2100
+Connection ~ 8150 2100
 Wire Wire Line
-	6950 1900 6950 2100
+	8150 2100 8150 2300
 Wire Wire Line
-	7050 2100 6950 2100
-Connection ~ 6950 2100
+	8250 2300 8150 2300
+Connection ~ 8150 2300
 Wire Wire Line
-	6950 2100 6950 2150
+	8150 2300 8150 2350
 $Comp
 L power:GND #PWR?
 U 1 1 5FE9AF52
-P 6950 2150
-F 0 "#PWR?" H 6950 1900 50  0001 C CNN
-F 1 "GND" H 6955 1977 50  0000 C CNN
-F 2 "" H 6950 2150 50  0001 C CNN
-F 3 "" H 6950 2150 50  0001 C CNN
-	1    6950 2150
+P 8150 2350
+F 0 "#PWR?" H 8150 2100 50  0001 C CNN
+F 1 "GND" H 8155 2177 50  0000 C CNN
+F 2 "" H 8150 2350 50  0001 C CNN
+F 3 "" H 8150 2350 50  0001 C CNN
+	1    8150 2350
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:+5V #PWR?
 U 1 1 5FEA12FB
-P 6850 2000
-F 0 "#PWR?" H 6850 1850 50  0001 C CNN
-F 1 "+5V" V 6950 2000 50  0000 L CNN
-F 2 "" H 6850 2000 50  0001 C CNN
-F 3 "" H 6850 2000 50  0001 C CNN
-	1    6850 2000
+P 8050 2200
+F 0 "#PWR?" H 8050 2050 50  0001 C CNN
+F 1 "+5V" V 8150 2200 50  0000 L CNN
+F 2 "" H 8050 2200 50  0001 C CNN
+F 3 "" H 8050 2200 50  0001 C CNN
+	1    8050 2200
 	0    -1   -1   0   
 $EndComp
 Wire Wire Line
-	6850 2000 7050 2000
-Text Label 9200 1900 2    50   ~ 0
+	8050 2200 8250 2200
+Text Label 10400 2100 2    50   ~ 0
 FPFETCH
-Text HLabel 9300 1900 2    50   Output ~ 0
+Text HLabel 10500 2100 2    50   Output ~ 0
 FPFETCH
 Wire Wire Line
-	7050 900  6700 900 
+	8250 1100 7900 1100
 Wire Wire Line
-	7050 1000 6700 1000
+	8250 1200 7900 1200
 Wire Wire Line
-	7050 1700 6950 1700
+	8250 1900 8150 1900
 Wire Wire Line
-	6950 1700 6950 1900
+	8150 1900 8150 2100
 Wire Wire Line
-	7050 1100 6700 1100
+	8250 1300 7900 1300
 Wire Wire Line
-	7050 1200 6700 1200
-Text Label 6700 900  0    50   ~ 0
+	8250 1400 7900 1400
+Text Label 7900 1100 0    50   ~ 0
 UPC0
-Text Label 6700 1000 0    50   ~ 0
+Text Label 7900 1200 0    50   ~ 0
 UPC1
-Text Label 6700 1100 0    50   ~ 0
+Text Label 7900 1300 0    50   ~ 0
 UPC2
-Text Label 6700 1200 0    50   ~ 0
+Text Label 7900 1400 0    50   ~ 0
 UPC3
 $Comp
 L Switch:SW_DIP_x03 SW?
 U 1 1 5F1C726F
-P 6300 1050
-F 0 "SW?" V 6300 920 50  0000 R CNN
-F 1 "SW_DIP_x03" V 6345 1380 50  0001 L CNN
-F 2 "" H 6300 1050 50  0001 C CNN
-F 3 "" H 6300 1050 50  0001 C CNN
-	1    6300 1050
+P 7500 1250
+F 0 "SW?" V 7500 1120 50  0000 R CNN
+F 1 "SW_DIP_x03" V 7545 1580 50  0001 L CNN
+F 2 "" H 7500 1250 50  0001 C CNN
+F 3 "" H 7500 1250 50  0001 C CNN
+	1    7500 1250
 	0    1    1    0   
 $EndComp
 $Comp
 L Device:R_Network03 RN?
 U 1 1 5F1C7404
-P 6400 1900
-F 0 "RN?" H 6220 1854 50  0000 R CNN
-F 1 "4.7kΩ" H 6220 1945 50  0000 R CNN
-F 2 "Resistor_THT:R_Array_SIP4" V 6675 1900 50  0001 C CNN
-F 3 "http://www.vishay.com/docs/31509/csc.pdf" H 6400 1900 50  0001 C CNN
-	1    6400 1900
+P 7600 2100
+F 0 "RN?" H 7420 2054 50  0000 R CNN
+F 1 "4.7kΩ" H 7420 2145 50  0000 R CNN
+F 2 "Resistor_THT:R_Array_SIP4" V 7875 2100 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/31509/csc.pdf" H 7600 2100 50  0001 C CNN
+	1    7600 2100
 	1    0    0    1   
 $EndComp
 $Comp
 L power:GND #PWR?
 U 1 1 5F1C7514
-P 6300 2100
-F 0 "#PWR?" H 6300 1850 50  0001 C CNN
-F 1 "GND" H 6305 1927 50  0000 C CNN
-F 2 "" H 6300 2100 50  0001 C CNN
-F 3 "" H 6300 2100 50  0001 C CNN
-	1    6300 2100
+P 7500 2300
+F 0 "#PWR?" H 7500 2050 50  0001 C CNN
+F 1 "GND" H 7505 2127 50  0000 C CNN
+F 2 "" H 7500 2300 50  0001 C CNN
+F 3 "" H 7500 2300 50  0001 C CNN
+	1    7500 2300
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:+5V #PWR?
 U 1 1 5F1C75A1
-P 6300 700
-F 0 "#PWR?" H 6300 550 50  0001 C CNN
-F 1 "+5V" H 6150 750 50  0000 C CNN
-F 2 "" H 6300 700 50  0001 C CNN
-F 3 "" H 6300 700 50  0001 C CNN
-	1    6300 700 
+P 7500 900
+F 0 "#PWR?" H 7500 750 50  0001 C CNN
+F 1 "+5V" H 7350 950 50  0000 C CNN
+F 2 "" H 7500 900 50  0001 C CNN
+F 3 "" H 7500 900 50  0001 C CNN
+	1    7500 900 
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	6300 700  6400 700 
+	7500 900  7600 900 
 Wire Wire Line
-	6500 700  6500 750 
+	7700 900  7700 950 
 Wire Wire Line
-	6400 700  6400 750 
-Connection ~ 6400 700 
+	7600 900  7600 950 
+Connection ~ 7600 900 
 Wire Wire Line
-	6400 700  6500 700 
+	7600 900  7700 900 
 Wire Wire Line
-	6300 700  6300 750 
-Connection ~ 6300 700 
+	7500 900  7500 950 
+Connection ~ 7500 900 
 Wire Wire Line
-	6300 1350 6300 1400
+	7500 1550 7500 1600
 Wire Wire Line
-	6400 1350 6400 1500
+	7600 1550 7600 1700
 Wire Wire Line
-	6500 1350 6500 1600
+	7700 1550 7700 1800
 Wire Wire Line
-	6300 1400 7050 1400
-Connection ~ 6300 1400
+	7500 1600 8250 1600
+Connection ~ 7500 1600
 Wire Wire Line
-	6300 1400 6300 1700
+	7500 1600 7500 1900
 Wire Wire Line
-	6400 1500 7050 1500
-Connection ~ 6400 1500
+	7600 1700 8250 1700
+Connection ~ 7600 1700
 Wire Wire Line
-	6400 1500 6400 1700
+	7600 1700 7600 1900
 Wire Wire Line
-	6500 1600 7050 1600
-Connection ~ 6500 1600
+	7700 1800 8250 1800
+Connection ~ 7700 1800
 Wire Wire Line
-	6500 1600 6500 1700
-NoConn ~ 8050 2000
-NoConn ~ 8050 2100
+	7700 1800 7700 1900
+NoConn ~ 9250 2200
+NoConn ~ 9250 2300
 $Comp
 L alexios:74HC85 U?
 U 2 1 5F4A7223
@@ -1454,30 +1175,12 @@ F 3 "" H 5900 7300 50  0001 C CNN
 $EndComp
 Connection ~ 5900 7300
 Connection ~ 5900 7500
-Text Notes 8250 1750 0    50   ~ 0
-High = fetch. Low = Execute.\nThis is for the benefit of the front panel only.
-Text Notes 6600 700  0    50   ~ 0
+Text Notes 9200 1850 0    50   ~ 0
+High = Fetch.\nLow = Execute.\nThis is for the benefit of the front panel only.
+Text Notes 7800 900  0    50   ~ 0
 Set to 010 for Microcode v.7.
 Wire Wire Line
-	8050 1900 9300 1900
-$Comp
-L alexios:SN74ACT1071 U?
-U 2 1 5DA7AA39
-P 8550 5200
-AR Path="/5DEAC282/5DEAA264/5DA7AA39" Ref="U?"  Part="1" 
-AR Path="/5DEAC282/5DA7AA39" Ref="U1903"  Part="2" 
-AR Path="/5DA7AA39" Ref="U?"  Part="1" 
-F 0 "U1903" H 8400 4900 50  0000 L CNN
-F 1 "SN74ACT1071" H 8300 5000 50  0000 L CNN
-F 2 "" H 8250 5550 50  0001 C CNN
-F 3 "https://www.ti.com/lit/ds/symlink/sn74act1071.pdf" H 8250 5550 50  0001 C CNN
-	2    8550 5200
-	1    0    0    -1  
-$EndComp
-Connection ~ 8200 4700
-Connection ~ 8200 4800
-Connection ~ 8200 5000
-Connection ~ 8200 5100
+	9250 2100 10500 2100
 NoConn ~ 7900 4000
 NoConn ~ 7900 4100
 NoConn ~ 7900 4200
@@ -1493,6 +1196,13 @@ F 3 "" H 1500 5100 50  0001 C CNN
 	1    1500 5100
 	1    0    0    -1  
 $EndComp
+Wire Wire Line
+	1500 4900 1500 4850
+Connection ~ 1500 4850
+Wire Wire Line
+	1500 4850 1900 4850
+Wire Wire Line
+	950  1600 1150 1600
 $Comp
 L Device:R_Small R?
 U 1 1 5DB1C764
@@ -1511,8 +1221,400 @@ F 3 "~" H 1500 5000 50  0001 C CNN
 	1    1500 5000
 	-1   0    0    1   
 $EndComp
+$Comp
+L Device:R_Small R?
+U 1 1 5DD09005
+P 1000 950
+AR Path="/5DD09005" Ref="R?"  Part="1" 
+AR Path="/5CC0D65F/5DD09005" Ref="R?"  Part="1" 
+AR Path="/5D54E677/5DD09005" Ref="R?"  Part="1" 
+AR Path="/5D62E1DC/5DD09005" Ref="R?"  Part="1" 
+AR Path="/5DEAC282/5DD09005" Ref="R?"  Part="1" 
+AR Path="/5F67D4B5/5DD09005" Ref="R?"  Part="1" 
+AR Path="/5D46B22D/5DD09005" Ref="R?"  Part="1" 
+F 0 "R?" H 1059 996 50  0000 L CNN
+F 1 "4.7kΩ" H 1059 905 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 1000 950 50  0001 C CNN
+F 3 "~" H 1000 950 50  0001 C CNN
+	1    1000 950 
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:R_Small R?
+U 1 1 5DD0C349
+P 1150 950
+AR Path="/5DD0C349" Ref="R?"  Part="1" 
+AR Path="/5CC0D65F/5DD0C349" Ref="R?"  Part="1" 
+AR Path="/5D54E677/5DD0C349" Ref="R?"  Part="1" 
+AR Path="/5D62E1DC/5DD0C349" Ref="R?"  Part="1" 
+AR Path="/5DEAC282/5DD0C349" Ref="R?"  Part="1" 
+AR Path="/5F67D4B5/5DD0C349" Ref="R?"  Part="1" 
+AR Path="/5D46B22D/5DD0C349" Ref="R?"  Part="1" 
+F 0 "R?" H 1091 904 50  0000 R CNN
+F 1 "4.7kΩ" H 1091 995 50  0000 R CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 1150 950 50  0001 C CNN
+F 3 "~" H 1150 950 50  0001 C CNN
+	1    1150 950 
+	-1   0    0    1   
+$EndComp
 Wire Wire Line
-	1500 4900 1500 4850
+	1000 1050 1000 1250
+Connection ~ 1000 1250
+Wire Wire Line
+	1000 1250 2650 1250
+Wire Wire Line
+	1150 1050 1150 1600
+Connection ~ 1150 1600
+Wire Wire Line
+	1150 1600 2400 1600
+Text Notes 1550 1500 0    50   ~ 0
+(pulled up by the Wait State Handler circuitry)
+$Comp
+L power:+5V #PWR?
+U 1 1 5DD4145D
+P 1000 850
+F 0 "#PWR?" H 1000 700 50  0001 C CNN
+F 1 "+5V" H 850 950 50  0000 C CNN
+F 2 "" H 1000 850 50  0001 C CNN
+F 3 "" H 1000 850 50  0001 C CNN
+	1    1000 850 
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 5DD4162D
+P 1150 850
+F 0 "#PWR?" H 1150 700 50  0001 C CNN
+F 1 "+5V" H 1250 950 50  0000 C CNN
+F 2 "" H 1150 850 50  0001 C CNN
+F 3 "" H 1150 850 50  0001 C CNN
+	1    1150 850 
+	1    0    0    -1  
+$EndComp
+Text HLabel 950  1800 0    50   Input ~ 0
+~RESET
+Wire Wire Line
+	950  1800 2300 1800
+Wire Wire Line
+	2300 1800 2300 2250
+Wire Wire Line
+	2400 1600 2400 2250
+Wire Wire Line
+	2350 5600 2950 5600
+Connection ~ 2400 1600
+Wire Wire Line
+	2400 1600 4350 1600
+Text Label 1350 1800 0    50   ~ 0
+~RESET
+Text Label 2300 2250 1    50   ~ 0
+~RESET
+Text Label 2400 2250 1    50   ~ 0
+~HALT
+Text Notes 2500 2250 0    50   ~ 0
+The Microcode Store is enabled\nwhen ~RESET~ and ~HALT~\nare both deasserted.
+Text Label 1400 5750 2    50   ~ 0
+~FPµA2
+Text Label 1400 6150 2    50   ~ 0
+~FPµĊ2
+Text Label 1400 6050 2    50   ~ 0
+~FPµĊ1
+Text Label 1400 5950 2    50   ~ 0
+~FPµĊ0
+Text Label 1400 5650 2    50   ~ 0
+~FPµA1
+Text Label 1400 5550 2    50   ~ 0
+~FPµA0
+Wire Wire Line
+	950  6150 1400 6150
+Wire Wire Line
+	950  6050 1400 6050
+Wire Wire Line
+	950  5950 1400 5950
+Wire Wire Line
+	950  5750 1400 5750
+Wire Wire Line
+	950  5650 1400 5650
+Wire Wire Line
+	950  5550 1400 5550
+Text HLabel 950  6150 0    50   Input ~ 0
+~FPµC2
+Text HLabel 950  6050 0    50   Input ~ 0
+~FPµC1
+Text HLabel 950  5950 0    50   Input ~ 0
+~FPµC0
+Text HLabel 950  5750 0    50   Input ~ 0
+~FPµA2
+Text HLabel 950  5650 0    50   Input ~ 0
+~FPµA1
+Text HLabel 950  5550 0    50   Input ~ 0
+~FPµA0
+Connection ~ 900  6700
+$Comp
+L power:GND #PWR01711
+U 1 1 5DEBA8B7
+P 900 6700
+F 0 "#PWR01711" H 900 6450 50  0001 C CNN
+F 1 "GND" H 905 6527 50  0000 C CNN
+F 2 "" H 900 6700 50  0001 C CNN
+F 3 "" H 900 6700 50  0001 C CNN
+	1    900  6700
+	1    0    0    -1  
+$EndComp
+Connection ~ 900  6500
+$Comp
+L power:+5V #PWR01708
+U 1 1 5DEBA174
+P 900 6500
+F 0 "#PWR01708" H 900 6350 50  0001 C CNN
+F 1 "+5V" H 915 6673 50  0000 C CNN
+F 2 "" H 900 6500 50  0001 C CNN
+F 3 "" H 900 6500 50  0001 C CNN
+	1    900  6500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 5DEB8F55
+P 900 6600
+AR Path="/5CC0D65F/5DEB8F55" Ref="C?"  Part="1" 
+AR Path="/5DEB8F55" Ref="C?"  Part="1" 
+AR Path="/5DEAC282/5DEB8F55" Ref="C1701"  Part="1" 
+F 0 "C1701" H 809 6646 50  0000 R CNN
+F 1 "100nF" H 809 6555 50  0000 R CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 900 6600 50  0001 C CNN
+F 3 "~" H 900 6600 50  0001 C CNN
+	1    900  6600
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74AHC1G08 U?
+U 2 1 5DEB32A6
+P 1350 6500
+AR Path="/5DEB32A6" Ref="U?"  Part="1" 
+AR Path="/5DEAC282/5DEB32A6" Ref="U1403"  Part="2" 
+F 0 "U1403" H 1430 6446 50  0000 L CNN
+F 1 "74AHC1G08" H 1430 6355 50  0000 L CNN
+F 2 "" H 1000 6500 50  0001 C CNN
+F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 1000 6500 50  0001 C CNN
+	2    1350 6500
+	1    0    0    -1  
+$EndComp
+Connection ~ 900  7300
+$Comp
+L power:+5V #PWR01710
+U 1 1 5DEBC983
+P 900 7300
+F 0 "#PWR01710" H 900 7150 50  0001 C CNN
+F 1 "+5V" H 915 7473 50  0000 C CNN
+F 2 "" H 900 7300 50  0001 C CNN
+F 3 "" H 900 7300 50  0001 C CNN
+	1    900  7300
+	1    0    0    -1  
+$EndComp
+Connection ~ 900  7500
+$Comp
+L power:GND #PWR01713
+U 1 1 5DEBC032
+P 900 7500
+F 0 "#PWR01713" H 900 7250 50  0001 C CNN
+F 1 "GND" H 905 7327 50  0000 C CNN
+F 2 "" H 900 7500 50  0001 C CNN
+F 3 "" H 900 7500 50  0001 C CNN
+	1    900  7500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 5DEB9AAE
+P 900 7400
+AR Path="/5CC0D65F/5DEB9AAE" Ref="C?"  Part="1" 
+AR Path="/5DEB9AAE" Ref="C?"  Part="1" 
+AR Path="/5DEAC282/5DEB9AAE" Ref="C1703"  Part="1" 
+F 0 "C1703" H 809 7446 50  0000 R CNN
+F 1 "100nF" H 809 7355 50  0000 R CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 900 7400 50  0001 C CNN
+F 3 "~" H 900 7400 50  0001 C CNN
+	1    900  7400
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC161 U?
+U 2 1 5DEB3C99
+P 1250 7800
+AR Path="/5DEB3C99" Ref="U?"  Part="1" 
+AR Path="/5DEAC282/5DEB3C99" Ref="U1702"  Part="2" 
+F 0 "U1702" H 1430 8246 50  0000 L CNN
+F 1 "74HC161" H 1430 8155 50  0000 L CNN
+F 2 "" H 1550 8050 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS161" H 1550 8050 50  0001 C CNN
+	2    1250 7800
+	1    0    0    -1  
+$EndComp
+Connection ~ 2700 7300
+Connection ~ 2700 7500
+$Comp
+L power:+5V #PWR01709
+U 1 1 5DEBC5C9
+P 2700 7300
+F 0 "#PWR01709" H 2700 7150 50  0001 C CNN
+F 1 "+5V" H 2715 7473 50  0000 C CNN
+F 2 "" H 2700 7300 50  0001 C CNN
+F 3 "" H 2700 7300 50  0001 C CNN
+	1    2700 7300
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR01712
+U 1 1 5DEBAB17
+P 2700 7500
+F 0 "#PWR01712" H 2700 7250 50  0001 C CNN
+F 1 "GND" H 2705 7327 50  0000 C CNN
+F 2 "" H 2700 7500 50  0001 C CNN
+F 3 "" H 2700 7500 50  0001 C CNN
+	1    2700 7500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 5DEB9460
+P 2700 7400
+AR Path="/5CC0D65F/5DEB9460" Ref="C?"  Part="1" 
+AR Path="/5DEB9460" Ref="C?"  Part="1" 
+AR Path="/5DEAC282/5DEB9460" Ref="C1702"  Part="1" 
+F 0 "C1702" H 2609 7446 50  0000 R CNN
+F 1 "100nF" H 2609 7355 50  0000 R CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 2700 7400 50  0001 C CNN
+F 3 "~" H 2700 7400 50  0001 C CNN
+	1    2700 7400
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74AHC1G00 U?
+U 2 1 5DEB36D4
+P 3150 7300
+AR Path="/5DEB36D4" Ref="U?"  Part="1" 
+AR Path="/5DEAC282/5DEB36D4" Ref="U1703"  Part="2" 
+F 0 "U1703" H 3230 7246 50  0000 L CNN
+F 1 "74AHC1G00" H 3230 7155 50  0000 L CNN
+F 2 "" H 2800 7300 50  0001 C CNN
+F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 2800 7300 50  0001 C CNN
+	2    3150 7300
+	1    0    0    -1  
+$EndComp
+Text Notes 7550 4600 0    50   ~ 0
+Note: The DFP adds bus hold\nto all other outputs.
+Connection ~ 8200 4950
+Connection ~ 8200 5350
+Connection ~ 8200 5250
+Connection ~ 8200 5050
+$Comp
+L alexios:SN74ACT1071 U?
+U 2 1 5DA7AA39
+P 8550 5450
+AR Path="/5DEAC282/5DEAA264/5DA7AA39" Ref="U?"  Part="1" 
+AR Path="/5DEAC282/5DA7AA39" Ref="U1903"  Part="2" 
+AR Path="/5DA7AA39" Ref="U?"  Part="1" 
+F 0 "U1903" H 8400 5150 50  0000 L CNN
+F 1 "SN74ACT1071" H 8300 5250 50  0000 L CNN
+F 2 "" H 8250 5800 50  0001 C CNN
+F 3 "https://www.ti.com/lit/ds/symlink/sn74act1071.pdf" H 8250 5800 50  0001 C CNN
+	2    8550 5450
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8200 5250 8200 5350
+Wire Wire Line
+	8200 5050 8200 4950
+$Comp
+L power:GND #PWR01904
+U 1 1 5E28DA00
+P 8200 5350
+AR Path="/5DEAC282/5E28DA00" Ref="#PWR01904"  Part="1" 
+AR Path="/5DEAC282/5DEAA264/5E28DA00" Ref="#PWR?"  Part="1" 
+F 0 "#PWR01904" H 8200 5100 50  0001 C CNN
+F 1 "GND" H 8205 5177 50  0000 C CNN
+F 2 "" H 8200 5350 50  0001 C CNN
+F 3 "" H 8200 5350 50  0001 C CNN
+	1    8200 5350
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 5E28D9FA
+P 8200 5150
+AR Path="/5CC0D65F/5E28D9FA" Ref="C?"  Part="1" 
+AR Path="/5E28D9FA" Ref="C?"  Part="1" 
+AR Path="/5DEAC282/5E28D9FA" Ref="C1904"  Part="1" 
+AR Path="/5DEAC282/5DEAA264/5E28D9FA" Ref="C?"  Part="1" 
+F 0 "C1904" H 8108 5196 50  0000 R CNN
+F 1 "100nF" H 8108 5105 50  0000 R CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 8200 5150 50  0001 C CNN
+F 3 "~" H 8200 5150 50  0001 C CNN
+	1    8200 5150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2350 5600 2350 2700
+$Comp
+L alexios:74LVC1G00 U?
+U 1 1 5DD994A9
+P 2350 2550
+F 0 "U?" V 2229 2680 50  0000 L CNN
+F 1 "74LVC1G00" V 2320 2680 50  0000 L CNN
+F 2 "" H 2000 2550 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G00.pdf" H 2000 2550 50  0001 C CNN
+	1    2350 2550
+	0    1    1    0   
+$EndComp
+$Comp
+L alexios:74LVC1G00 U?
+U 2 1 5DF346BA
+P 4650 7300
+F 0 "U?" H 4730 7246 50  0000 L CNN
+F 1 "74LVC1G00" H 4730 7155 50  0000 L CNN
+F 2 "" H 4300 7300 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G00.pdf" H 4300 7300 50  0001 C CNN
+	2    4650 7300
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 5DF3702C
+P 4200 7400
+AR Path="/5CC0D65F/5DF3702C" Ref="C?"  Part="1" 
+AR Path="/5DF3702C" Ref="C?"  Part="1" 
+AR Path="/5DEAC282/5DF3702C" Ref="C?"  Part="1" 
+F 0 "C?" H 4109 7446 50  0000 R CNN
+F 1 "100nF" H 4109 7355 50  0000 R CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 4200 7400 50  0001 C CNN
+F 3 "~" H 4200 7400 50  0001 C CNN
+	1    4200 7400
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5DF37032
+P 4200 7500
+F 0 "#PWR?" H 4200 7250 50  0001 C CNN
+F 1 "GND" H 4205 7327 50  0000 C CNN
+F 2 "" H 4200 7500 50  0001 C CNN
+F 3 "" H 4200 7500 50  0001 C CNN
+	1    4200 7500
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 5DF37038
+P 4200 7300
+F 0 "#PWR?" H 4200 7150 50  0001 C CNN
+F 1 "+5V" H 4215 7473 50  0000 C CNN
+F 2 "" H 4200 7300 50  0001 C CNN
+F 3 "" H 4200 7300 50  0001 C CNN
+	1    4200 7300
+	1    0    0    -1  
+$EndComp
+Connection ~ 4200 7300
+Connection ~ 4200 7500
 Wire Bus Line
 	1450 2750 1450 2900
 Wire Bus Line
@@ -1525,7 +1627,4 @@ Wire Bus Line
 	9800 2600 9800 3050
 Wire Bus Line
 	1450 3500 1450 4350
-Connection ~ 1500 4850
-Wire Wire Line
-	1500 4850 1900 4850
 $EndSCHEMATC
