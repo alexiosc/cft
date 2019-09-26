@@ -49,7 +49,7 @@ $ENDCMP
 $CMP 74AC161
 D Synchronous 4-bit programmable binary Counter
 K TTL CNT CNT4
-F http://www.ti.com/lit/gpn/sn74LS161
+F https://assets.nexperia.com/documents/data-sheet/74HC161.pdf
 $ENDCMP
 #
 $CMP 74AC169
@@ -198,7 +198,7 @@ $ENDCMP
 $CMP 74ACT161
 D Synchronous 4-bit programmable binary Counter
 K TTL CNT CNT4
-F http://www.ti.com/lit/gpn/sn74LS161
+F https://assets.nexperia.com/documents/data-sheet/74HC161.pdf
 $ENDCMP
 #
 $CMP 74ACT16244
@@ -647,7 +647,7 @@ $ENDCMP
 $CMP 74HC161
 D Synchronous 4-bit programmable binary Counter
 K TTL CNT CNT4
-F http://www.ti.com/lit/gpn/sn74LS161
+F https://assets.nexperia.com/documents/data-sheet/74HC161.pdf
 $ENDCMP
 #
 $CMP 74HC169
@@ -809,7 +809,7 @@ $ENDCMP
 $CMP 74HCT161
 D Synchronous 4-bit programmable binary Counter
 K TTL CNT CNT4
-F http://www.ti.com/lit/gpn/sn74LS161
+F https://assets.nexperia.com/documents/data-sheet/74HC161.pdf
 $ENDCMP
 #
 $CMP 74HCT169
@@ -959,7 +959,7 @@ $ENDCMP
 $CMP 74LS161
 D Synchronous 4-bit programmable binary Counter
 K TTL CNT CNT4
-F http://www.ti.com/lit/gpn/sn74LS161
+F https://assets.nexperia.com/documents/data-sheet/74HC161.pdf
 $ENDCMP
 #
 $CMP 74LS162
