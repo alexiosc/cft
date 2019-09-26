@@ -1,8 +1,8 @@
 `include "flipflop.v"
 `include "clock.v"
 `include "vibrator.v"
-`include "step.v"
 `include "counter.v"
+`include "dfp_step.v"
 
 `timescale 1ns/10ps
 
