@@ -1,4 +1,4 @@
-`include "dfp_step.v"
+`include "upc.v"
 
 `timescale 1ns/10ps
 
@@ -14,15 +14,15 @@ module upc_tb();
    
    reg [18:0] uaddr;
 
-   wire       upc;
+   wire [3:0] upc_out;
       
    initial begin
       
       //$display ("time\t d pulse");
       //$monitor ("%g\t  %b %b %b %b", 
       // 	       $time, d, pulse1, pulse2, pulse);
-      $dumpfile ("vcd/step_tb.vcd");
-      $dumpvars (0, step_tb);
+      $dumpfile ("vcd/upc_tb.vcd");
+      $dumpvars (0, upc_tb);
 
       nreset = 1'b0;
       nrsthold = 1'b1;
@@ -40,7 +40,22 @@ module upc_tb();
       // time.
       #10000 nrsthold = 1'b1;
 
-      #10000 $finish;
+      // Make sure we don't count on WS#
+      #10000 nws = 1'b0;
+      #10000 nws = 1'b1;
+      
+      // Make sure we don't count on HALT#
+      #10000 nhalt = 1'b0;
+      #10000 nhalt = 1'b1;
+
+      // Assert a reset and let it run.
+      #10000 nreset = 1'b0;
+      #30 nrsthold = 1'b0;
+      #10000 nreset = 1'b1;
+      nrsthold = 1'b1;
+      
+
+      #50000 $finish;
       
    end // initial begin
 
@@ -50,8 +65,18 @@ module upc_tb();
       #63.5 clk4 = 1;
    end
 
+   // Simulate asynchronous END# and ENDEXT# strobes
+   always begin
+      #12400 nend = 0;
+      #250 nend = 1;
+   end
+   always begin
+      #14100 nendext = 0;
+      #250 nendext = 1;
+   end
+
    upc upc(.nreset(nreset), .nrsthold(nrsthold), .clk4(clk4),
 	   .nend(nend), .nendext(nendext), .nws(nws), .nhalt(nhalt),
-	   .upc(upc));
+	   .upc(upc_out));
    
 endmodule // step_tb
