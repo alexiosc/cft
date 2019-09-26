@@ -40,13 +40,11 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-module microcode_store(nreset, nhalt, uaddr, udata, nuce);
+module microcode_store(nreset, nhalt, uaddr, udata);
 
    input         nreset;
    input         nhalt;
-   
    input [18:0]  uaddr;
-   input 	 nuce;
 
    output [23:0] udata;
 

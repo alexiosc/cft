@@ -12,8 +12,6 @@ module upc_tb();
    reg nws;
    reg nhalt;
    
-   reg [18:0] uaddr;
-
    wire [3:0] upc_out;
       
    initial begin

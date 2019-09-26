@@ -319,9 +319,9 @@ test_upc:	upc_tb.o upc.o counter.o
 		./upc_tb.o
 		$(GTKWAVE) $(VCDDIR)/upc_tb.vcd $(SAVDIR)/upc_tb.sav
 
-test_microcode_store:	microcode_store_tb.o microcode_store.o rom.o
-		./microcode_store.o
-		$(GTKWAVE) $(VCDDIR)/microcode_store.vcd $(SAVDIR)/microcode_store.sav
+test_microcode_store:	microcode_store_tb.o microcode_store_tb.o rom.o
+		./microcode_store_tb.o
+		$(GTKWAVE) $(VCDDIR)/microcode_store_tb.vcd $(SAVDIR)/microcode_store_tb.sav
 
 test_serial_shifter:	serial_shifter_tb.o serial_shifter.o
 		./serial_shifter_tb.o
