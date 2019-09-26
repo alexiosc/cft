@@ -15,26 +15,26 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 Wire Bus Line
-	-300 950  -900 950 
+	1850 6650 1250 6650
 Wire Bus Line
-	-900 1050 -300 1050
-Text Label -800 950  0    50   ~ 0
+	1250 6750 1850 6750
+Text Label 1350 6650 0    50   ~ 0
 AB[0..23]
-Text Label -800 1050 0    50   ~ 0
+Text Label 1350 6750 0    50   ~ 0
 DB[0..15]
-Text HLabel -900 950  0    50   UnSpc ~ 0
+Text HLabel 1250 6650 0    50   UnSpc ~ 0
 AB[0..23]
-Text HLabel -900 1050 0    50   UnSpc ~ 0
+Text HLabel 1250 6750 0    50   UnSpc ~ 0
 DB[0..15]
 Wire Bus Line
-	-900 1350 -300 1350
-Text Label -800 1350 0    50   ~ 0
+	1250 7050 1850 7050
+Text Label 1350 7050 0    50   ~ 0
 FPD[0..7]
 Wire Bus Line
-	-300 1250 -900 1250
-Text Label -800 1250 0    50   ~ 0
+	1850 6950 1250 6950
+Text Label 1350 6950 0    50   ~ 0
 IBUS[0..15]
-Text HLabel -900 1250 0    50   UnSpc ~ 0
+Text HLabel 1250 6950 0    50   UnSpc ~ 0
 IBUS[0..15]
 Text HLabel 6800 1900 0    50   UnSpc ~ 0
 CLK1
@@ -45,22 +45,22 @@ WSTB
 Text HLabel 8900 2000 0    50   UnSpc ~ 0
 T34
 Wire Bus Line
-	-300 1450 -900 1450
+	1850 7150 1250 7150
 Wire Bus Line
-	-300 1550 -900 1550
+	1850 7250 1250 7250
 Wire Bus Line
-	-300 1650 -900 1650
-Text Label -800 1450 0    50   ~ 0
+	1850 7350 1250 7350
+Text Label 1350 7150 0    50   ~ 0
 ACTION[0..3]
-Text Label -800 1550 0    50   ~ 0
+Text Label 1350 7250 0    50   ~ 0
 WADDR[0..4]
-Text Label -800 1650 0    50   ~ 0
+Text Label 1350 7350 0    50   ~ 0
 RADDR[0..4]
-Text HLabel -900 1450 0    50   UnSpc ~ 0
+Text HLabel 1250 7150 0    50   UnSpc ~ 0
 ACTION[0..3]
-Text HLabel -900 1550 0    50   UnSpc ~ 0
+Text HLabel 1250 7250 0    50   UnSpc ~ 0
 WADDR[0..4]
-Text HLabel -900 1650 0    50   UnSpc ~ 0
+Text HLabel 1250 7350 0    50   UnSpc ~ 0
 RADDR[0..4]
 $Comp
 L Device:C_Small C?
@@ -111,11 +111,11 @@ F 3 "" H 3600 2400 50  0001 C CNN
 	1    3600 2400
 	1    0    0    -1  
 $EndComp
-Text HLabel -900 1750 0    50   UnSpc ~ 0
+Text HLabel 1250 7450 0    50   UnSpc ~ 0
 FPD[0..7]
 Wire Bus Line
-	-900 1750 -300 1750
-Text Label -800 1750 0    50   ~ 0
+	1250 7450 1850 7450
+Text Label 1350 7450 0    50   ~ 0
 FPD[0..7]
 Text Label 2750 4450 0    50   ~ 0
 ~MEM
