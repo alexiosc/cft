@@ -4,7 +4,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 21 35
+Sheet 33 35
 Title ""
 Date ""
 Rev ""
@@ -504,9 +504,9 @@ Text HLabel 10450 3050 2    50   Output ~ 0
 Text HLabel 10450 3150 2    50   Output ~ 0
 ~END
 Text HLabel 1150 4800 0    50   Input ~ 0
-~µCE
+~µSE
 Text Label 2250 4800 2    50   ~ 0
-~µCE
+~µSE
 Wire Wire Line
 	6000 4800 6000 4650
 $Comp
