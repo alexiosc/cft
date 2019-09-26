@@ -324,13 +324,11 @@ Wire Wire Line
 Wire Bus Line
 	1250 3200 650  3200
 Wire Wire Line
-	1250 3100 1100 3100
-Wire Wire Line
 	1250 3000 650  3000
 Wire Bus Line
 	1250 2900 650  2900
 Text Label 3000 4200 2    50   ~ 0
-FPO[0..7]
+FPD[0..7]
 Wire Bus Line
 	2400 4200 3000 4200
 Text Label 3000 3850 2    50   ~ 0
@@ -471,40 +469,6 @@ Wire Wire Line
 	1250 900  650  900 
 Wire Wire Line
 	1250 1500 650  1500
-$Comp
-L Device:R_Small R?
-U 1 1 5D316E0E
-P 1100 3500
-AR Path="/5D316E0E" Ref="R?"  Part="1" 
-AR Path="/5CC0D65F/5D316E0E" Ref="R?"  Part="1" 
-AR Path="/5D54E677/5D316E0E" Ref="R?"  Part="1" 
-AR Path="/5D62E1DC/5D316E0E" Ref="R?"  Part="1" 
-AR Path="/5DEAC282/5D316E0E" Ref="R?"  Part="1" 
-AR Path="/5F67D4B5/5D316E0E" Ref="R?"  Part="1" 
-AR Path="/5D46B22D/5D316E0E" Ref="R?"  Part="1" 
-F 0 "R?" H 1159 3546 50  0000 L CNN
-F 1 "4.7kΩ" H 1159 3455 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric" H 1100 3500 50  0001 C CNN
-F 3 "~" H 1100 3500 50  0001 C CNN
-	1    1100 3500
-	-1   0    0    1   
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5D31960E
-P 1100 3600
-F 0 "#PWR?" H 1100 3350 50  0001 C CNN
-F 1 "GND" H 1105 3427 50  0000 C CNN
-F 2 "" H 1100 3600 50  0001 C CNN
-F 3 "" H 1100 3600 50  0001 C CNN
-	1    1100 3600
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	1100 3400 1100 3100
-Connection ~ 1100 3100
-Wire Wire Line
-	1100 3100 650  3100
 Text Label 650  2900 0    50   ~ 0
 IDX[0..1]
 Text Label 650  3200 0    50   ~ 0
@@ -1416,7 +1380,7 @@ F18 "~IRQSUC" I L 1250 3300 50
 F19 "IN-RSVD" I L 1250 3100 50 
 F20 "COND" I L 1250 3000 50 
 F21 "IR[7..15]" I L 1250 3200 50 
-F22 "FPO[0..7]" T R 2400 4200 50 
+F22 "FPD[0..7]" T R 2400 4200 50 
 F23 "~FPµA0" I R 2400 3350 50 
 F24 "~FPµA1" I R 2400 3450 50 
 F25 "~FPµA2" I R 2400 3550 50 
@@ -1453,4 +1417,6 @@ Text Notes 1300 1750 0    70   ~ 14
 Verified
 Text Notes 12500 5500 0    100  ~ 20
 NOT ACTUAL PINOUT! Just testing what can fit.
+Wire Wire Line
+	650  3100 1250 3100
 $EndSCHEMATC
