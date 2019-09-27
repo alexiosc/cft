@@ -58,14 +58,14 @@
 //
 //  I   R   Operand   Addressing Mode
 // ---------------------------------------------------------------------------
-//  0   0   Any       ① Page-Local
-//  0   1   Any       ② Register
-//  1   0   Any       ③ Indirect
-//  1   1   000–2FF   ④ Register Indirect
-//  1   1   300–33F   ⑤ Memory Bank-Relative Indirect
-//  1   1   340–37F   ⑥ Auto-Increment
-//  1   1   380–3BF   ⑦ Auto-Decrement
-//  1   1   3C0–3FF   ⑧ Stack
+//  0   0   Any       (1) Page-Local
+//  0   1   Any       (2) Register
+//  1   0   Any       (3) Indirect
+//  1   1   000–2FF   (4) Register Indirect
+//  1   1   300–33F   (5) Memory Bank-Relative Indirect
+//  1   1   340–37F   (6) Auto-Increment
+//  1   1   380–3BF   (7) Auto-Decrement
+//  1   1   3C0–3FF   (8) Stack
 //
 // TODO: Go through all instructions, re-annotate them with the correct number
 // and name of addressing modes. For non-standard instrucitons, copy the table
@@ -1188,35 +1188,34 @@ start LJMP, I=1, R=1, IDX=IDX_SP;
 //
 //  I   R   Operand   Addressing Mode
 // ---------------------------------------------------------------------------
-//  0   0   Any       ① Page-Local
-//  0   1   Any       ② Register
-//  1   0   Any       ③ Indirect
-//  1   1   000–2FF   ④ Register Indirect
-//  1   1   300–33F   ⑤ Memory Bank-Relative Indirect
-//  1   1   340–37F   ⑥ Auto-Increment
-//  1   1   380–3BF   ⑦ Auto-Decrement
-//  1   1   3C0–3FF   ⑧ Stack
+//  0   0   Any       (1) Page-Local
+//  0   1   Any       (2) Register
+//  1   0   Any       (3) Indirect
+//  1   1   000–2FF   (4) Register Indirect
+//  1   1   300–33F   (5) Memory Bank-Relative Indirect
+//  1   1   340–37F   (6) Auto-Increment
+//  1   1   380–3BF   (7) Auto-Decrement
+//  1   1   3C0–3FF   (8) Stack
 
-// ① & ② JSR, Page-local and Page Zero modes.
+// (1) & (2) JSR, Page-local and Page Zero modes.
 start JSR, I=0, R=X, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       STACK_PUSH(pc);				// 02 mem[SP++] ← PC
       SET(pc, agl), END;			// 04 PC ← AGL
 
-// ③ JSR, Indirect.
+// (3) JSR, Indirect.
 start JSR, I=1, R=0, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       STACK_PUSH(pc);				// 02 mem[SP++] ← PC
       MEMREAD(mbp, agl, pc), END;		// 04 PC ← mem[MBP:AGL]
 
-// ④ & ⑤ JSR, Register Indirect and Memory Bank-Relative Indirect.
+// (4) & (5) JSR, Register Indirect and Memory Bank-Relative Indirect.
 start JSR, I=1, R=1, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       STACK_PUSH(pc);				// 02 mem[SP++] ← PC
       MEMREAD(mbz, agl, pc), END;		// 04 PC ← mem[MBZ:AGL]
 
-// ⑥ JSR, Auto-Increment Double Indirect
-// TODO: The code for subsequent modes is NOT double indirect!!!
+// (6) JSR, Auto-Increment Double Indirect
 start JSR, I=1, R=1, IDX=IDX_INC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       STACK_PUSH(pc);				// 02 mem[SP++] ← PC
@@ -1224,15 +1223,15 @@ start JSR, I=1, R=1, IDX=IDX_INC;
       MEMREAD(mbp, dr, pc), /action_incdr;	// 06 PC ← mem[MBP:DR]; DR++;
       MEMWRITE(mbz, agl, dr), END;		// 08 mem[MBZ:AGL] ← DR
 
-// ⑥ JSR, double register indirect autodecrement addressing mode.
+// (7) JSR, double register indirect autodecrement addressing mode.
 start JSR, I=1, R=1, IDX=IDX_DEC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       STACK_PUSH(pc);				// 02 mem[SP++] ← PC
       MEMREAD(mbz, agl, dr);			// 04 DR ← mem[MBZ:AGL]
-      MEMREAD(mbp, dr, pc), /action_decdr;	// 06 AC ← mem[MBP:DR]; DR--;
+      MEMREAD(mbp, dr, pc), /action_decdr;	// 06 PC ← mem[MBP:DR]; DR--;
       MEMWRITE(mbz, agl, dr), END;		// 08 mem[MBZ:AGL] ← DR
 
-// ⑦ JSR, double register indirect stack addressing mode.
+// (8) JSR, double register indirect stack addressing mode.
 // NOTE: behaves like ⑥, popping subroutine locations from a stack
 // register and jumping to them.
 start JSR, I=1, R=1, IDX=IDX_SP;
@@ -1240,7 +1239,7 @@ start JSR, I=1, R=1, IDX=IDX_SP;
       STACK_PUSH(pc);				// 02 mem[SP++] ← PC
       MEMREAD(mbz, agl, dr);			// 04 DR ← mem[MBZ:AGL]
       /action_decdr;				// 06 DR--
-      MEMREAD(mbp, dr, pc);	                // 07 AC ← mem[MBP:DR]; DR++;
+      MEMREAD(mbp, dr, pc);	                // 07 PC ← mem[MBP:DR]; DR++;
       MEMWRITE(mbz, agl, dr), END;		// 09 mem[MBZ:AGL] ← DR
 
 
