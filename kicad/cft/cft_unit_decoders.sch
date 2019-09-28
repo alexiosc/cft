@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:cft-cache
-EELAYER 30 0
+EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -1080,10 +1080,10 @@ Wire Wire Line
 Connection ~ 5750 2300
 Wire Wire Line
 	5750 2300 5750 2550
+Text Notes 3900 300  0    200  ~ 40
+TODO: The outputs are WRONG now!\nRedo them!
 Wire Bus Line
 	3950 3150 3950 3450
 Wire Bus Line
 	3900 1100 3900 1900
-Text Notes 3900 300  0    200  ~ 40
-TODO: The outputs are WRONG now!\nRedo them!
 $EndSCHEMATC

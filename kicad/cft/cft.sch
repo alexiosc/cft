@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:cft-cache
-EELAYER 30 0
+EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -1413,10 +1413,14 @@ Wire Wire Line
 	22000 4000 21350 4000
 Text Label 21350 4000 0    50   ~ 0
 FPFETCH∕~EXEC
-Text Notes 1300 1750 0    70   ~ 14
-Verified
 Text Notes 12500 5500 0    100  ~ 20
 NOT ACTUAL PINOUT! Just testing what can fit.
 Wire Wire Line
 	650  3100 1250 3100
+Text Notes 1300 1750 0    70   ~ 14
+Verilog
+Text Notes 1300 4300 0    70   ~ 14
+Verilog
+Text Notes 1300 5300 0    70   ~ 14
+Verilog
 $EndSCHEMATC

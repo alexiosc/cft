@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:cft-cache
-EELAYER 30 0
+EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -1587,4 +1587,6 @@ F 3 "~" H 7500 4500 50  0001 C CNN
 $EndComp
 Wire Bus Line
 	10000 1550 10000 2350
+Text Notes 3550 1050 0    100  ~ 20
+Only one buffer needed for U AV. (Uaddr low)\nHigh bits come from the IR. This saves one buffer.\n(and enough cash for a coffee)
 $EndSCHEMATC
