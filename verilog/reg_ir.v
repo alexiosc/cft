@@ -1,32 +1,49 @@
-`ifndef ir_v
-`define ir_v
+///////////////////////////////////////////////////////////////////////////////
+//
+// THE INSTRUCTION REGISTER
+//
+///////////////////////////////////////////////////////////////////////////////
+
+// REDESIGNED IN 2019
+
+`ifndef reg_ir_v
+`define reg_ir_v
 
 `include "flipflop.v"
+`include "buffer.v"
 
 `timescale 1ns/1ps
 
-///////////////////////////////////////////////////////////////////////////////
-//
-// BASED ON DRAWN SCHEMATICS
-//
-///////////////////////////////////////////////////////////////////////////////
+// This models both the IR register and the front line buffers.
+module reg_ir (nreset, ibus, nwrite_ir, ir,
+	       nfpirl, nfpirh, fpd);
 
-// The Instruction Register. Please note: the console buffers are not
-// modelled here.
-
-module reg_ir (ibus, nwir, nreset, ir);
-   inout [15:0] ibus;
-   input 	nwir;
-   input 	nreset;
-   
+   input 	 nreset;
+   inout [15:0]  ibus;
+   input 	 nwrite_ir,
    output [15:0] ir;
+
+   input 	 nfpirl;
+   input 	 nfpirh;
+   output [7:0]  fpd;
    
    wire [15:0] 	 ibus, ir;
-      
-   flipflop_273 ir_lo (ibus[7:0],  ir[7:0],  nwir, nreset);
-   flipflop_273 ir_hi (ibus[15:8], ir[15:8], nwir, nreset);
+   wire [7:0] 	 fpd;
+
+   // The original CFT used latches and worked. We'll move to flip-flops
+   // here. It should make no difference, but might protect us from some
+   // glitches. It also saves one NOT gate, since latch-enable signals are
+   // active high.
+
+   flipflop_573 ir_lo (ibus[7:0],  ir[7:0],  nwrite_ir, nreset);
+   flipflop_573 ir_hi (ibus[15:8], ir[15:8], nwrite_ir, nreset);
+
+   // The front panel buffers
+   buffer_541 ir_fpbuf_lo (.a(ir[7:0]),  .y(fpd), .oe1(nfpirl), .oe2(1'b0));
+   buffer_541 ir_fpbuf_hi (.a(ir[15:8]), .y(fpd), .oe1(nfpirh), .oe2(1'b0));
+
 endmodule // reg_ir
 
-`endif //  `ifndef ir_v
+`endif //  `ifndef reg_ir_v
 
 // End of file

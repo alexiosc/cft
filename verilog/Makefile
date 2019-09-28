@@ -1,3 +1,14 @@
+#!/usr/bin/make -f
+#
+# Copyright © 2011-2019 Alexios Chouchoulas
+#
+
+###############################################################################
+#
+# VERILOG SOURCE CODE
+#
+###############################################################################
+
 SRC =		counter.v counter_161_tb.v counter_590_tb.v counter_393h_tb.v counter_4017_tb.v \
 		buffer.v buffer_244_tb.v buffer_245_tb.v \
 		vibrator.v vibrator_123_tb.v vibrator_555_tb.v \
@@ -32,8 +43,14 @@ SRC =		counter.v counter_161_tb.v counter_590_tb.v counter_393h_tb.v counter_401
 		dfp_scan.v dfp_scan_tb.v \
 		dfp_run_control.v dfp_run_control_tb.v \
 
+# Basic 74 family tests.
+
 IC74XXX	=	buffer.v     buffer_244_tb.v buffer_245_tb.v buffer_541_tb.v \
 		flipflop.v                                                   \
+
+SRC += $(IC74XXX)
+
+# Stuff added or changed for for 2019 updates to the CFT architecture.
 
 CFT2019 = 	clock.v            clock_tb.v \
 		address_register.v address_register_tb.v \
@@ -42,12 +59,18 @@ CFT2019 = 	clock.v            clock_tb.v \
 		reg_l.v            reg_l_tb.v \
 		reg_v.v            reg_v_tb.v \
 
-SRC += $(IC74XXX) $(CFT2019)
+SRC += $(CFT2019)
 
-# panel.v panel_tb.v test.v panel_autorepeat_tb.v
+# Tests for parts of the DFP 2. The rest of the DFP is a relatively
+# simple implementation of an Atmega MCU (with lots of memory-mapped
+# I/O) and isn't verified here.
 
-#		Disused code:
-#		register_PR.v register_PR_tb.v
+DFP2 = 		dfp_run_control.v  dfp_run_control_tb.v \
+		dfp_scan.v         dfp_scan_tb.v \
+
+SRC += $(DFP2)
+
+###############################################################################
 
 OBJ =		$(SRC:.v=.o)
 
@@ -80,6 +103,13 @@ $(SUBDIRS):
 
 %.o:	%.v
 	$(VERILOG) -o $@ $<
+
+
+###############################################################################
+#
+# MANUAL TESTING/DEBUGGING OF INDIVIDUAL COMPONENTS
+#
+###############################################################################
 
 test_test:	test.o
 		./test.o
