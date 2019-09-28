@@ -17,14 +17,14 @@ module buffer_541_tb();
       $dumpvars (0, buffer_541_tb);
 
       for (j = 0; j < 4; j = j + 1) begin
-	 oe1 = j & 1;
-	 oe2 = j & 2;
+	 oe1 = j[0];
+	 oe2 = j[1];
 
 	 for (i = 0; i < 256; i = i + 1) begin
 	    #50 a = i;
 	 end
 
-	 #1000;
+	 #500;
       end
       
       #1000 $finish;      // Terminate simulation
