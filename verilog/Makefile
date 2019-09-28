@@ -7,7 +7,6 @@ SRC =		counter.v counter_161_tb.v counter_590_tb.v counter_393h_tb.v counter_401
 		latch_373_tb.v flipflop_374_tb.v \
 		alu.v alu_tb.v alu_roll_tb.v alu_add_tb.v \
 		alu_btb_add.v alu_btb_and.v alu_btb_or.v alu_btb_xor.v alu_btb_not.v alu_btb_roll.v alu_btb_cs.v \
-		clock.v clock_tb.v \
 		rom.v rom_tb.v \
 		ram.v ram_tb.v \
 		reset.v reset_tb.v \
@@ -22,7 +21,6 @@ SRC =		counter.v counter_161_tb.v counter_590_tb.v counter_393h_tb.v counter_401
 		constant_store.v constant_store_tb.v \
 		int.v int_tb.v intc_tb.v \
 		sequencer.v unit_decoder.v \
-		ir.v \
 		databus.v databus_tb.v \
 		addressing.v addressing_tb.v \
 		register.v register_tb.v register_reg_L_tb.v \
@@ -33,6 +31,19 @@ SRC =		counter.v counter_161_tb.v counter_590_tb.v counter_393h_tb.v counter_401
 		dfp_step.v dfp_step_tb.v \
 		dfp_scan.v dfp_scan_tb.v \
 		dfp_run_control.v dfp_run_control_tb.v \
+
+IC74XXX	=	buffer.v     buffer_244_tb.v buffer_245_tb.v buffer_541_tb.v \
+		flipflop.v                                                   \
+
+CFT2019 = 	clock.v            clock_tb.v \
+		address_register.v address_register_tb.v \
+		reg_ir.v           reg_ir_tb.v \
+		reg_mbr.v          reg_mbr_tb.v \
+		reg_l.v            reg_l_tb.v \
+		reg_v.v            reg_v_tb.v \
+
+SRC += $(IC74XXX) $(CFT2019)
+
 # panel.v panel_tb.v test.v panel_autorepeat_tb.v
 
 #		Disused code:
@@ -310,6 +321,10 @@ test_cu:	control_unit_tb.o control_unit.o test_rom.bin
 # 2019 REDESIGN TESTS
 #
 ###############################################################################
+
+test_541:	buffer.o buffer_541_tb.o
+		./buffer_541_tb.o
+		$(GTKWAVE) $(VCDDIR)/buffer_541_tb.vcd $(SAVDIR)/buffer_541_tb.sav
 
 test_clock:	clock_tb.o clock.o
 		./clock_tb.o

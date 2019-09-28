@@ -1,0 +1,28 @@
+[*]
+[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
+[*] Sat Sep 28 09:48:42 2019
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/buffer_541_tb.vcd"
+[dumpfile_mtime] "Sat Sep 28 09:48:19 2019"
+[dumpfile_size] 59182
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/buffer_541_tb.sav"
+[timestart] 0
+[size] 1398 667
+[pos] -1 -1
+*-24.000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[sst_width] 258
+[signals_width] 78
+[sst_expanded] 1
+[sst_vpaned_height] 161
+@29
+[color] 1
+buffer_541_tb.oe1
+[color] 2
+buffer_541_tb.oe2
+@23
+[color] 3
+buffer_541_tb.a[7:0]
+[color] 4
+buffer_541_tb.y[7:0]
+[pattern_trace] 1
+[pattern_trace] 0
