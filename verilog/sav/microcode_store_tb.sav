@@ -1,17 +1,17 @@
 [*]
-[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Thu Sep 26 19:49:40 2019
+[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
+[*] Sat Sep 28 17:17:39 2019
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/microcode_store_tb.vcd"
-[dumpfile_mtime] "Thu Sep 26 19:48:50 2019"
-[dumpfile_size] 300461
+[dumpfile_mtime] "Sat Sep 28 17:17:36 2019"
+[dumpfile_size] 471628
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/microcode_store_tb.sav"
-[timestart] 16203000
+[timestart] 1779200
 [size] 1621 600
 [pos] 223 0
-*-19.000000 2256000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
-[sst_width] 226
-[signals_width] 118
+*-17.101128 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[sst_width] 258
+[signals_width] 188
 [sst_expanded] 1
 [sst_vpaned_height] 142
 @28
@@ -23,5 +23,20 @@ microcode_store_tb.uaddr[18:0]
 -
 @22
 microcode_store_tb.udata[23:0]
+@200
+-
+-Front Panel
+@29
+[color] 1
+microcode_store_tb.nfpua0
+[color] 2
+microcode_store_tb.nfpuc0
+[color] 3
+microcode_store_tb.nfpuc1
+[color] 4
+microcode_store_tb.nfpuc2
+@23
+[color] 5
+microcode_store_tb.fpd[7:0]
 [pattern_trace] 1
 [pattern_trace] 0

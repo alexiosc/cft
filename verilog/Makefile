@@ -14,7 +14,6 @@ SRC =		counter.v counter_161_tb.v counter_590_tb.v counter_393h_tb.v counter_401
 		vibrator.v vibrator_123_tb.v vibrator_555_tb.v \
 		demux.v demux_138_tb.v demux_139_tb.v \
 		mux.v mux_253_tb.v \
-		flipflop.v flipflop_112_tb.v flipflop_74_tb.v flipflop_174_tb.v flipflop_574_tb.v flipflop_564_tb.v \
 		latch_373_tb.v flipflop_374_tb.v \
 		alu.v alu_tb.v alu_roll_tb.v alu_add_tb.v \
 		alu_btb_add.v alu_btb_and.v alu_btb_or.v alu_btb_xor.v alu_btb_not.v alu_btb_roll.v alu_btb_cs.v \
@@ -43,10 +42,10 @@ SRC =		counter.v counter_161_tb.v counter_590_tb.v counter_393h_tb.v counter_401
 		dfp_scan.v dfp_scan_tb.v \
 		dfp_run_control.v dfp_run_control_tb.v \
 
-# Basic 74 family tests.
+# Basic 74xxx family chips
 
 IC74XXX	=	buffer.v     buffer_244_tb.v buffer_245_tb.v buffer_541_tb.v \
-		flipflop.v                                                   \
+		flipflop.v   flipflop_112_tb.v flipflop_74_tb.v flipflop_174_tb.v flipflop_574_tb.v flipflop_564_tb.v \
 
 SRC += $(IC74XXX)
 
@@ -107,7 +106,7 @@ $(SUBDIRS):
 
 ###############################################################################
 #
-# MANUAL TESTING/DEBUGGING OF INDIVIDUAL COMPONENTS
+# MANUAL TESTING/DEBUGGING OF GENERIC COMPONENTS
 #
 ###############################################################################
 
@@ -115,41 +114,36 @@ test_test:	test.o
 		./test.o
 		$(GTKWAVE) $(VCDDIR)/test.vcd $(SAVDIR)/test.sav
 
-test_74:	flipflop_74_tb.o flipflop.o
-		./flipflop_74_tb.o
-		$(GTKWAVE) $(VCDDIR)/flipflop_74_tb.vcd $(SAVDIR)/flipflop_74_tb.sav
+# Buffers
 
-test_112:	flipflop_112_tb.o flipflop.o
-		./flipflop_112_tb.o
-		$(GTKWAVE) $(VCDDIR)/flipflop_112_tb.vcd $(SAVDIR)/flipflop_112_tb.sav
+test_244:	buffer_244_tb.o buffer.o
+		./buffer_244_tb.o
+		$(GTKWAVE) $(VCDDIR)/buffer_244_tb.vcd $(SAVDIR)/buffer_244_tb.sav
 
-test_138:	demux_138_tb.o demux.o
-		./demux_138_tb.o
-		$(GTKWAVE) $(VCDDIR)/demux_138_tb.vcd $(SAVDIR)/demux_138_tb.sav
+test_245:	buffer_245_tb.o buffer.o
+		./buffer_245_tb.o
+		$(GTKWAVE) $(VCDDIR)/buffer_245_tb.vcd $(SAVDIR)/buffer_245_tb.sav
 
-test_139:	demux_139_tb.o demux.o
-		./demux_139_tb.o
-		$(GTKWAVE) $(VCDDIR)/demux_139_tb.vcd $(SAVDIR)/demux_139_tb.sav
+test_541:	buffer.o buffer_541_tb.o
+		./buffer_541_tb.o
+		$(GTKWAVE) $(VCDDIR)/buffer_541_tb.vcd $(SAVDIR)/buffer_541_tb.sav
+
+
+# Comparators
+
+test_688:	comparator_688_tb.o comparator.o
+		./comparator_688_tb.o
+		$(GTKWAVE) $(VCDDIR)/comparator_688_tb.vcd $(SAVDIR)/comparator_688_tb.sav
+
+test_85:	comparator_85_tb.o comparator.o
+		./comparator_85_tb.o
+		$(GTKWAVE) $(VCDDIR)/comparator_85_tb.vcd $(SAVDIR)/comparator_85_tb.sav
+
+# Counters
 
 test_161:	counter_161_tb.o counter.o
 		./counter_161_tb.o
 		$(GTKWAVE) $(VCDDIR)/counter_161_tb.vcd $(SAVDIR)/counter_161_tb.sav
-
-test_174:	flipflop_174_tb.o flipflop.o
-		./flipflop_174_tb.o
-		$(GTKWAVE) $(VCDDIR)/flipflop_174_tb.vcd $(SAVDIR)/flipflop_174_tb.sav
-
-test_181:	alu_181_tb.o alu.o
-		./alu_181_tb.o
-		$(GTKWAVE) $(VCDDIR)/alu_181_tb.vcd $(SAVDIR)/alu_181_tb.sav
-
-test_251:	mux_251_tb.o mux.o
-		./mux_251_tb.o
-		$(GTKWAVE) $(VCDDIR)/mux_251_tb.vcd $(SAVDIR)/mux_251_tb.sav
-
-test_253:	mux_253_tb.o mux.o
-		./mux_253_tb.o
-		$(GTKWAVE) $(VCDDIR)/mux_253_tb.vcd $(SAVDIR)/mux_253_tb.sav
 
 test_191:	counter_191_tb.o counter.o
 		./counter_191_tb.o
@@ -167,13 +161,46 @@ test_590:	counter_590_tb.o counter.o
 		./counter_590_tb.o
 		$(GTKWAVE) $(VCDDIR)/counter_590_tb.vcd $(SAVDIR)/counter_590_tb.sav
 
+test_393h:	counter_393h_tb.o counter.o
+		./counter_393h_tb.o
+		$(GTKWAVE) $(VCDDIR)/counter_393h_tb.vcd $(SAVDIR)/counter_393h_tb.sav
+
 test_4017:	counter_4017_tb.o counter.o
 		./counter_4017_tb.o
 		$(GTKWAVE) $(VCDDIR)/counter_4017_tb.vcd $(SAVDIR)/counter_4017_tb.sav
 
-test_393h:	counter_393h_tb.o counter.o
-		./counter_393h_tb.o
-		$(GTKWAVE) $(VCDDIR)/counter_393h_tb.vcd $(SAVDIR)/counter_393h_tb.sav
+# Decoders/Demultiplexers
+
+test_138:	demux_138_tb.o demux.o
+		./demux_138_tb.o
+		$(GTKWAVE) $(VCDDIR)/demux_138_tb.vcd $(SAVDIR)/demux_138_tb.sav
+
+test_139:	demux_139_tb.o demux.o
+		./demux_139_tb.o
+		$(GTKWAVE) $(VCDDIR)/demux_139_tb.vcd $(SAVDIR)/demux_139_tb.sav
+
+test_251:	mux_251_tb.o mux.o
+		./mux_251_tb.o
+		$(GTKWAVE) $(VCDDIR)/mux_251_tb.vcd $(SAVDIR)/mux_251_tb.sav
+
+test_253:	mux_253_tb.o mux.o
+		./mux_253_tb.o
+		$(GTKWAVE) $(VCDDIR)/mux_253_tb.vcd $(SAVDIR)/mux_253_tb.sav
+
+
+# Flip-Flops
+
+test_74:	flipflop_74_tb.o flipflop.o
+		./flipflop_74_tb.o
+		$(GTKWAVE) $(VCDDIR)/flipflop_74_tb.vcd $(SAVDIR)/flipflop_74_tb.sav
+
+test_112:	flipflop_112_tb.o flipflop.o
+		./flipflop_112_tb.o
+		$(GTKWAVE) $(VCDDIR)/flipflop_112_tb.vcd $(SAVDIR)/flipflop_112_tb.sav
+
+test_174:	flipflop_174_tb.o flipflop.o
+		./flipflop_174_tb.o
+		$(GTKWAVE) $(VCDDIR)/flipflop_174_tb.vcd $(SAVDIR)/flipflop_174_tb.sav
 
 test_273:	flipflop_273_tb.o flipflop.o
 		./flipflop_273_tb.o
@@ -195,41 +222,39 @@ test_564:	flipflop_564_tb.o flipflop.o
 		./flipflop_564_tb.o
 		$(GTKWAVE) $(VCDDIR)/out.vcd
 
-test_244:	buffer_244_tb.o buffer.o
-		./buffer_244_tb.o
-		$(GTKWAVE) $(VCDDIR)/buffer_244_tb.vcd $(SAVDIR)/buffer_244_tb.sav
-
-test_245:	buffer_245_tb.o buffer.o
-		./buffer_245_tb.o
-		$(GTKWAVE) $(VCDDIR)/buffer_245_tb.vcd $(SAVDIR)/buffer_245_tb.sav
-
-test_123:	vibrator_123_tb.o buffer.o
-		./vibrator_123_tb.o
-		$(GTKWAVE) $(VCDDIR)/vibrator_123_tb.vcd $(SAVDIR)/vibrator_123_tb.sav
-
-test_555:	vibrator_555_tb.o buffer.o
-		./vibrator_555_tb.o
-		$(GTKWAVE) $(VCDDIR)/vibrator_555_tb.vcd $(SAVDIR)/vibrator_555_tb.sav
-
-test_670:	regfile_670_tb.o regfile.o
-		./regfile_670_tb.o
-		$(GTKWAVE) $(VCDDIR)/regfile_670_tb.vcd $(SAVDIR)/regfile_670_tb.sav
-
-test_688:	comparator_688_tb.o comparator.o
-		./comparator_688_tb.o
-		$(GTKWAVE) $(VCDDIR)/comparator_688_tb.vcd $(SAVDIR)/comparator_688_tb.sav
-
-test_85:	comparator_85_tb.o comparator.o
-		./comparator_85_tb.o
-		$(GTKWAVE) $(VCDDIR)/comparator_85_tb.vcd $(SAVDIR)/comparator_85_tb.sav
+# Shift Registers
 
 test_164:	shiftreg_164_tb.o serial.o
 		./shiftreg_164_tb.o
 		$(GTKWAVE) $(VCDDIR)/shiftreg_164_tb.vcd $(SAVDIR)/shiftreg_164_tb.sav
 
-test_demux:	demux_tb.o demux.o test_rom.bin
-		./demux_tb.o
-		$(GTKWAVE) $(VCDDIR)/demux_tb.vcd $(SAVDIR)/demux_tb.sav
+
+# Vibrators
+
+test_123:	vibrator_123_tb.o buffer.o
+		./vibrator_123_tb.o
+		$(GTKWAVE) $(VCDDIR)/vibrator_123_tb.vcd $(SAVDIR)/vibrator_123_tb.sav
+
+# This is obviously a very basic, digital implementation of the 555.
+test_555:	vibrator_555_tb.o buffer.o
+		./vibrator_555_tb.o
+		$(GTKWAVE) $(VCDDIR)/vibrator_555_tb.vcd $(SAVDIR)/vibrator_555_tb.sav
+
+# Miscellaneous, generic chips
+
+test_181:	alu_181_tb.o alu.o
+		./alu_181_tb.o
+		$(GTKWAVE) $(VCDDIR)/alu_181_tb.vcd $(SAVDIR)/alu_181_tb.sav
+
+test_670:	regfile_670_tb.o regfile.o
+		./regfile_670_tb.o
+		$(GTKWAVE) $(VCDDIR)/regfile_670_tb.vcd $(SAVDIR)/regfile_670_tb.sav
+
+###############################################################################
+#
+# MANUAL TESTBENCHES OF INDIVIDUAL CFT COMPONENTS
+#
+###############################################################################
 
 test_inc_reg16:	register_inc_reg16_tb.o register.o
 		./register_inc_reg16_tb.o
@@ -346,15 +371,12 @@ test_cu:	control_unit_tb.o control_unit.o test_rom.bin
 		./control_unit_tb.o
 		$(GTKWAVE) $(VCDDIR)/control_unit_tb.vcd $(SAVDIR)/control_unit_tb.sav
 
-###############################################################################
-#
-# 2019 REDESIGN TESTS
-#
-###############################################################################
 
-test_541:	buffer.o buffer_541_tb.o
-		./buffer_541_tb.o
-		$(GTKWAVE) $(VCDDIR)/buffer_541_tb.vcd $(SAVDIR)/buffer_541_tb.sav
+###############################################################################
+#
+# MANUAL TEST BENCHES OF 2019 REDESIGN
+#
+###############################################################################
 
 test_clock:	clock_tb.o clock.o
 		./clock_tb.o
@@ -364,9 +386,13 @@ test_upc:	upc_tb.o upc.o counter.o
 		./upc_tb.o
 		$(GTKWAVE) $(VCDDIR)/upc_tb.vcd $(SAVDIR)/upc_tb.sav
 
-test_microcode_store:	microcode_store_tb.o microcode_store_tb.o rom.o
+test_microcode_store:	microcode_store_tb.o microcode_store_tb.o buffer.o rom.o
 		./microcode_store_tb.o
 		$(GTKWAVE) $(VCDDIR)/microcode_store_tb.vcd $(SAVDIR)/microcode_store_tb.sav
+
+test_reg_ir:	reg_ir_tb.o reg_ir.o flipflop.o buffer.o 
+		./reg_ir_tb.o
+		$(GTKWAVE) $(VCDDIR)/reg_ir_tb.vcd $(SAVDIR)/reg_ir_tb.sav
 
 test_serial_shifter:	serial_shifter_tb.o serial_shifter.o
 		./serial_shifter_tb.o
