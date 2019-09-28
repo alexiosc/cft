@@ -24,6 +24,7 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
+`include "buffer.v"
 `include "rom.v"
 
 `timescale 1ns/1ps
@@ -40,13 +41,20 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-module microcode_store(nreset, nhalt, uaddr, udata);
+module microcode_store(nreset, nhalt, uaddr, udata,
+		       nfpua0, nfpuc0, nfpuc1, nfpuc2, fpd);
 
    input         nreset;
    input         nhalt;
    input [18:0]  uaddr;
 
    output [23:0] udata;
+
+   input 	 nfpua0;
+   input 	 nfpuc0;
+   input 	 nfpuc1;
+   input 	 nfpuc2;
+   output [7:0]  fpd;
 
    wire 	 nuse;
    assign #6 nuse = !(nreset & nhalt);
@@ -55,6 +63,17 @@ module microcode_store(nreset, nhalt, uaddr, udata);
    rom #(19, 50) rom0 (.a(uaddr), .d(udata[7:0]),   .nce(1'b0), .noe(nuse));
    rom #(19, 50) rom1 (.a(uaddr), .d(udata[15:8]),  .nce(1'b0), .noe(nuse));
    rom #(19, 50) rom2 (.a(uaddr), .d(udata[23:16]), .nce(1'b0), .noe(nuse));
+
+   // Uaddr is 19 bits. Of these, 2 are state bits and 9 come from the
+   // IR. These are displayed in their own sections of the front
+   // panel. The remaining 8 bits are displayed in the uADDR LOW front
+   // panel section, requiring just one buffer.
+   buffer_541 buf_ua0 (.a(uaddr[7:0]),   .y(fpd), .oe1(nfpua0), .oe2(1'b0));
+
+   buffer_541 buf_uc0 (.a(udata[7:0]),   .y(fpd), .oe1(nfpuc0), .oe2(1'b0));
+   buffer_541 buf_uc1 (.a(udata[15:8]),  .y(fpd), .oe1(nfpuc1), .oe2(1'b0));
+   buffer_541 buf_uc2 (.a(udata[23:16]), .y(fpd), .oe1(nfpuc2), .oe2(1'b0));
+   
 
    reg [4096:0] basedir, s0, s1, s2;
    // Load ROM images
