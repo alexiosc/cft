@@ -62,15 +62,15 @@ F6 "FPO[0..7]" T R 2400 5200 50
 F7 "~WRITE-IR" I L 1250 4900 50 
 $EndSheet
 $Sheet
-S 4250 -3950 1150 750 
+S 1250 6750 1150 750 
 U 5F3EA987
 F0 "Address Generation Logic (AGL)" 50
 F1 "cft_agl.sch" 50
-F2 "IBUS[0..15]" T R 5400 -3800 50 
-F3 "IR[0..10]" I L 4250 -3800 50 
-F4 "PC[10..15]" I L 4250 -3650 50 
-F5 "~END" I L 4250 -3500 50 
-F6 "~RAGL" I L 4250 -3350 50 
+F2 "IBUS[0..15]" T R 2400 6900 50 
+F3 "IR[0..10]" I L 1250 6900 50 
+F4 "PC[10..15]" I L 1250 7050 50 
+F5 "~END" I L 1250 7200 50 
+F6 "~READ-AGL" I L 1250 7350 50 
 $EndSheet
 $Sheet
 S -6300 350  1150 600 
@@ -1433,4 +1433,8 @@ Text Notes -3000 -2200 0    70   ~ 14
 Verilog
 Text Notes 1800 5900 0    70   ~ 14
 To Merge
+Text Notes 1300 6300 0    70   ~ 14
+Verilog
+Text Notes 1350 7450 0    70   ~ 14
+Verilog
 $EndSCHEMATC
