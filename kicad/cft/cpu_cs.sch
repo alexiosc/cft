@@ -235,24 +235,14 @@ Text Label 4850 2650 0    50   ~ 0
 ~CSOE
 Text Notes 5400 2750 2    50   ~ 0
 RADDR=110XX
-Wire Wire Line
-	6600 3450 6500 3450
 Text Label 6450 3450 2    50   ~ 0
 ~CSOE
 Wire Wire Line
-	6500 3450 6500 3550
-Wire Wire Line
 	6500 3550 6600 3550
-Connection ~ 6500 3450
-Wire Wire Line
-	6600 5000 6500 5000
 Text Label 6450 5000 2    50   ~ 0
 ~CSOE
 Wire Wire Line
-	6500 5000 6500 5100
-Wire Wire Line
 	6500 5100 6600 5100
-Connection ~ 6500 5000
 Wire Wire Line
 	6600 2750 6500 2750
 Wire Wire Line
@@ -447,10 +437,6 @@ Wire Bus Line
 	8150 2150 8750 2150
 Text Label 8250 2150 0    50   ~ 0
 IBUS[0..15]
-Wire Wire Line
-	6050 3450 6500 3450
-Wire Wire Line
-	6050 5000 6500 5000
 Entry Wire Line
 	2850 1950 2950 2050
 Entry Wire Line
@@ -615,4 +601,30 @@ Wire Bus Line
 	2850 1700 2850 3150
 Wire Bus Line
 	8050 2250 8050 4700
+Wire Wire Line
+	6050 3450 6600 3450
+Wire Wire Line
+	6050 5000 6600 5000
+$Comp
+L power:GND #PWR?
+U 1 1 5DC46A7B
+P 6500 3550
+F 0 "#PWR?" H 6500 3300 50  0001 C CNN
+F 1 "GND" H 6505 3377 50  0000 C CNN
+F 2 "" H 6500 3550 50  0001 C CNN
+F 3 "" H 6500 3550 50  0001 C CNN
+	1    6500 3550
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5DC46AA3
+P 6500 5100
+F 0 "#PWR?" H 6500 4850 50  0001 C CNN
+F 1 "GND" H 6505 4927 50  0000 C CNN
+F 2 "" H 6500 5100 50  0001 C CNN
+F 3 "" H 6500 5100 50  0001 C CNN
+	1    6500 5100
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
