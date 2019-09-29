@@ -730,7 +730,7 @@ Text Notes 7100 7000 0    197  ~ 39
 Flag Unit
 Text Label 7450 5400 0    50   ~ 0
 RSVD14
-Text Notes 550  4000 0    404  ~ 81
+Text Notes 600  750  0    404  ~ 81
 ADDRESSING HAS CHANGED, REDO!
 Wire Bus Line
 	2900 4800 2900 5550

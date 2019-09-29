@@ -289,7 +289,7 @@ F 4 "Yes" H 1325 6225 50  0001 C CNN "Verified"
 $EndComp
 Connection ~ 1050 6950
 Connection ~ 1050 7150
-Text HLabel 8600 4600 2    50   Input ~ 0
+Text HLabel 8550 4600 2    50   Input ~ 0
 IDX[0..1]
 Entry Bus Bus
 	7700 4500 7800 4600

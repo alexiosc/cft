@@ -1585,8 +1585,8 @@ F 3 "~" H 7500 4500 50  0001 C CNN
 	1    7500 4500
 	1    0    0    -1  
 $EndComp
+Text Notes 3550 1050 0    100  ~ 20
+Only one buffer needed for µAV. (Uaddr low)\nHigh bits come from the IR. This saves one buffer.\n(and enough cash for a coffee)
 Wire Bus Line
 	10000 1550 10000 2350
-Text Notes 3550 1050 0    100  ~ 20
-Only one buffer needed for U AV. (Uaddr low)\nHigh bits come from the IR. This saves one buffer.\n(and enough cash for a coffee)
 $EndSCHEMATC

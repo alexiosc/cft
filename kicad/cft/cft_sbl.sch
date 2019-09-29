@@ -1375,6 +1375,8 @@ F 3 "" H 7100 3300 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	7100 1900 7100 3300
+Text Label 6100 5150 1    50   ~ 0
+COND[0..3]
 Wire Bus Line
 	950  1500 6100 1500
 Wire Bus Line
@@ -1383,6 +1385,4 @@ Wire Bus Line
 	1600 1600 1600 5250
 Wire Bus Line
 	6100 2100 6100 5150
-Text Label 6100 5150 1    50   ~ 0
-COND[0..3]
 $EndSCHEMATC

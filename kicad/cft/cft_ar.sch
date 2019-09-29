@@ -1724,22 +1724,6 @@ Entry Wire Line
 	7600 4750 7500 4650
 Entry Wire Line
 	7600 4650 7500 4550
-Entry Wire Line
-	13400 6500 13300 6400
-Entry Wire Line
-	13400 6400 13300 6300
-Entry Wire Line
-	13400 6300 13300 6200
-Entry Wire Line
-	13400 6200 13300 6100
-Entry Wire Line
-	13400 6100 13300 6000
-Entry Wire Line
-	13400 6000 13300 5900
-Entry Wire Line
-	13400 5900 13300 5800
-Entry Wire Line
-	13400 5800 13300 5700
 Text Label 7500 5050 1    50   ~ 0
 AR[0..15]
 Wire Bus Line
@@ -1750,8 +1734,6 @@ Wire Bus Line
 	2650 1600 2650 5200
 Wire Bus Line
 	9150 4750 9150 5500
-Wire Bus Line
-	13300 5600 13300 6400
 Wire Bus Line
 	2800 1050 2800 3500
 Wire Bus Line
