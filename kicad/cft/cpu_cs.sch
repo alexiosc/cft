@@ -4,7 +4,7 @@ EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 10 35
+Sheet 15 35
 Title ""
 Date ""
 Rev ""
@@ -184,17 +184,17 @@ Entry Wire Line
 Entry Wire Line
 	2850 3150 2950 3250
 Entry Bus Bus
-	2750 2300 2850 2400
+	2750 1600 2850 1700
 Wire Wire Line
 	2150 3350 3750 3350
 Text HLabel 2150 3350 0    50   Input ~ 0
 ~RUEN
-Text Label 2250 2300 0    50   ~ 0
+Text Label 2250 1600 0    50   ~ 0
 RADDR[0..4]
-Text HLabel 2150 2300 0    50   Input ~ 0
+Text HLabel 2150 1600 0    50   Input ~ 0
 RADDR[0..4]
 Wire Bus Line
-	2750 2300 2150 2300
+	2750 1600 2150 1600
 Text Notes 4300 3150 1    50   ~ 10
 RADDR=110xx
 $Comp
@@ -232,7 +232,7 @@ RADDR2
 Wire Wire Line
 	4750 2650 5450 2650
 Text Label 4850 2650 0    50   ~ 0
-~READ-CSx
+~CSOE
 Text Notes 5400 2750 2    50   ~ 0
 RADDR=110XX
 Wire Wire Line
@@ -253,27 +253,6 @@ Wire Wire Line
 Wire Wire Line
 	6500 5100 6600 5100
 Connection ~ 6500 5000
-$Comp
-L power:GND #PWR01001
-U 1 1 5E6189E2
-P 3650 5400
-F 0 "#PWR01001" H 3650 5150 50  0001 C CNN
-F 1 "GND" H 3655 5227 50  0000 C CNN
-F 2 "" H 3650 5400 50  0001 C CNN
-F 3 "" H 3650 5400 50  0001 C CNN
-	1    3650 5400
-	1    0    0    -1  
-$EndComp
-Text Label 3000 4700 0    50   ~ 0
-RADDR1
-Text Label 3000 5300 0    50   ~ 0
-~RSTHOLD
-Text HLabel 2150 5300 0    50   Input ~ 0
-~RSTHOLD
-Wire Wire Line
-	5850 3800 5850 2550
-Wire Wire Line
-	5950 4500 5950 2650
 Wire Wire Line
 	6600 2750 6500 2750
 Wire Wire Line
@@ -360,14 +339,10 @@ Wire Wire Line
 Connection ~ 6500 4800
 Wire Wire Line
 	6500 4800 6500 4700
-Text Label 4850 3800 0    50   ~ 0
-CONST0
-Text Label 4850 4500 0    50   ~ 0
-CONST1
 Text Label 6450 2550 2    50   ~ 0
-CONST0
+RADDR0
 Text Label 6450 2650 2    50   ~ 0
-CONST1
+RADDR1
 Text Label 8050 3800 1    50   ~ 0
 IBUS[0..15]
 Text Label 7650 4800 0    50   ~ 0
@@ -476,75 +451,10 @@ Wire Wire Line
 	6050 3450 6500 3450
 Wire Wire Line
 	6050 5000 6500 5000
-Text Label 5850 3300 1    50   ~ 0
-CONST0
-Text Label 5950 3300 1    50   ~ 0
-CONST1
 Entry Wire Line
-	2850 4600 2950 4700
+	2850 1950 2950 2050
 Entry Wire Line
-	2850 3900 2950 4000
-Text Label 3000 4000 0    50   ~ 0
-RADDR0
-Wire Wire Line
-	2950 4000 3750 4000
-Wire Wire Line
-	2950 4700 3750 4700
-Wire Wire Line
-	4750 4500 5950 4500
-Wire Wire Line
-	4750 3800 5850 3800
-$Comp
-L alexios:74HC253 U1002
-U 1 1 5E691B7B
-P 4250 4500
-F 0 "U1002" H 4250 5467 50  0000 C CNN
-F 1 "74HC253" H 4250 5376 50  0000 C CNN
-F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 4550 5100 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT253.pdf" H 4550 5100 50  0001 C CNN
-	1    4250 4500
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	3650 5400 3650 5200
-Wire Wire Line
-	3750 4300 3650 4300
-Wire Wire Line
-	3750 5000 3650 5000
-Connection ~ 3650 5000
-Wire Wire Line
-	3750 5200 3650 5200
-Connection ~ 3650 5200
-Wire Wire Line
-	3650 5200 3650 5000
-Wire Wire Line
-	3750 4100 3750 4000
-Connection ~ 3750 4000
-Wire Wire Line
-	3750 3800 3650 3800
-Wire Wire Line
-	3650 3800 3650 3900
-Connection ~ 3650 4300
-Wire Wire Line
-	3750 3900 3650 3900
-Connection ~ 3650 3900
-Wire Wire Line
-	3650 3900 3650 4300
-Wire Wire Line
-	3650 4300 3650 4500
-Wire Wire Line
-	3750 4800 3750 4700
-Connection ~ 3750 4700
-Wire Wire Line
-	3750 4500 3650 4500
-Connection ~ 3650 4500
-Wire Wire Line
-	3650 4500 3650 4600
-Wire Wire Line
-	3750 4600 3650 4600
-Connection ~ 3650 4600
-Wire Wire Line
-	3650 4600 3650 5000
+	2850 1850 2950 1950
 $Comp
 L alexios:74HC138 U?
 U 2 1 5E89BF6D
@@ -652,125 +562,57 @@ NoConn ~ 4750 2950
 NoConn ~ 4750 3050
 NoConn ~ 4750 3150
 NoConn ~ 4750 3250
-Text Notes 8750 3600 0    50   ~ 0
-~RSTHOLD~\n\n    0\n    1\n    1\n    1\n    1\n    1\n    1\n    1\n    1
 Text Notes 9150 3600 0    50   ~ 0
-~RUEN~\n\n  X\n  1\n  0\n  0\n  0\n  0\n  0\n  0\n  0
+~RUEN~\n\n  1\n  0\n  0\n  0\n  0\n  0\n  0\n  0
 Text Notes 9400 3600 0    50   ~ 0
-RADDR\n\nXXXXX\nXXXXX\n0XXXX\n10XXX\n11000\n11001\n11010\n11011\n111XX
-Text Notes 9750 3600 0    50   ~ 0
-Output\n\n0000'0000'0000'0000\nHigh Impendance\nHigh Impendance\nHigh Impendance\n0000'0000'0000'0000\n0000'0000'0000'0001\n0000'0000'0000'0010\n0000'0000'0000'0011\nHigh Impendance
-$Comp
-L alexios:74LVC1G08 U1003
-U 1 1 5CF43FFC
-P 5800 2200
-F 0 "U1003" H 5725 2467 50  0000 C CNN
-F 1 "74LVC1G08" H 5725 2376 50  0000 C CNN
-F 2 "Package_TO_SOT_SMD:SOT-23-5_HandSoldering" H 5450 2200 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 5450 2200 50  0001 C CNN
-	1    5800 2200
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	2150 5300 3550 5300
-Wire Wire Line
-	3550 5300 3550 2150
-Wire Wire Line
-	3550 2150 5500 2150
-Connection ~ 3550 5300
-Wire Wire Line
-	3550 5300 3750 5300
-Wire Wire Line
-	5450 2650 5450 2250
-Wire Wire Line
-	5450 2250 5500 2250
-Wire Wire Line
-	5950 2200 6050 2200
-Wire Wire Line
-	6050 2200 6050 3450
-Connection ~ 6050 3450
+RADDR\n\nXXXXX\n0XXXX\n10XXX\n11000\n11001\n11010\n11011\n111XX
 Wire Wire Line
 	6050 3450 6050 5000
-Wire Wire Line
-	5850 2550 6600 2550
-Wire Wire Line
-	5950 2650 6600 2650
 Wire Notes Line width 20 style solid
-	8700 2650 10650 2650
+	9100 2750 10650 2750
 Wire Notes Line width 20 style solid
-	8700 3650 8700 2650
+	9100 3650 9100 2750
 Wire Notes Line style solid
-	8700 2850 10650 2850
+	9100 2900 10650 2900
 Wire Notes Line width 20 style solid
-	10650 3650 8700 3650
+	10650 3650 9100 3650
 Wire Notes Line
-	9700 2650 9700 3650
+	9700 2750 9700 3650
 Wire Notes Line width 20 style solid
-	10650 3650 10650 2650
+	10650 3650 10650 2750
 Text HLabel 8750 2150 2    50   BiDi ~ 0
 IBUS[0..15]
-Text Label 4850 2150 0    50   ~ 0
-~RSTHOLD
 Text Notes 8700 6000 0    50   ~ 0
-The constant store now needs to emit just three constants:\n0000, 0002 and 0003. We get 0001 for free because of the\ncombinational wiring. All of these are used as vector\naddresses, so it would be easy to change them to e.g.\n0000, 0001, 0008 and 0009 by moving the wiring around.\n\nJust like the previous design, the initial PC value (0000) is\nemitted while ~RSTHOLD~ is asserted. Getting this done\nis a little complicated and uses one extra chip compared\nto just using two separate '541 buffers, but it saves on PCB\ntraces.
+The constant store now needs to emit just three constants:\n0000, 0002 and 0003. We get 0001 for free because of the\ncombinational wiring. All of these are used as vector\naddresses, so it would be easy to change them to e.g.\n0000, 0001, 0008 and 0009 by moving the wiring around.\n\nUnlike the previous design, ~RSTHOLD~ does not drive the\nIBUS with a constant. The Reset microprogram is responsible\nfor that, and this is now possible because the Reset Vector\nis 0000 and it can be issues without wiring magic like on the\nprevious design.
 Text Notes 8700 4950 0    63   ~ 13
 2019 Design Update
-$Comp
-L Device:C_Small C?
-U 1 1 5D1999EA
-P 2450 6650
-AR Path="/5CC0D65F/5D1999EA" Ref="C?"  Part="1" 
-AR Path="/5D1999EA" Ref="C?"  Part="1" 
-AR Path="/5E4DDD44/5D1999EA" Ref="C?"  Part="1" 
-AR Path="/5E507DE3/5D1999EA" Ref="C1005"  Part="1" 
-F 0 "C1005" H 2359 6696 50  0000 R CNN
-F 1 "100nF" H 2359 6605 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 2450 6650 50  0001 C CNN
-F 3 "~" H 2450 6650 50  0001 C CNN
-	1    2450 6650
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR?
-U 1 1 5D1999F0
-P 2450 6550
-AR Path="/5E4DDD44/5D1999F0" Ref="#PWR?"  Part="1" 
-AR Path="/5E507DE3/5D1999F0" Ref="#PWR0103"  Part="1" 
-F 0 "#PWR0103" H 2450 6400 50  0001 C CNN
-F 1 "+5V" H 2465 6723 50  0000 C CNN
-F 2 "" H 2450 6550 50  0001 C CNN
-F 3 "" H 2450 6550 50  0001 C CNN
-	1    2450 6550
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5D1999F6
-P 2450 6750
-AR Path="/5E4DDD44/5D1999F6" Ref="#PWR?"  Part="1" 
-AR Path="/5E507DE3/5D1999F6" Ref="#PWR0104"  Part="1" 
-F 0 "#PWR0104" H 2450 6500 50  0001 C CNN
-F 1 "GND" H 2455 6577 50  0000 C CNN
-F 2 "" H 2450 6750 50  0001 C CNN
-F 3 "" H 2450 6750 50  0001 C CNN
-	1    2450 6750
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74LVC1G08 U1003
-U 2 1 5D1A8D36
-P 2900 6550
-F 0 "U1003" H 2825 6817 50  0000 C CNN
-F 1 "74LVC1G08" H 2825 6726 50  0000 C CNN
-F 2 "Package_TO_SOT_SMD:SOT-23-5_HandSoldering" H 2550 6550 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 2550 6550 50  0001 C CNN
-	2    2900 6550
-	1    0    0    -1  
-$EndComp
-Connection ~ 2450 6750
-Connection ~ 2450 6550
+Text Notes 4300 3200 1    50   ~ 10
+RADDR=110xx
+Wire Wire Line
+	5450 2650 5450 3450
+Wire Wire Line
+	5450 3450 6050 3450
+Connection ~ 6050 3450
+Wire Wire Line
+	5650 2050 2950 2050
+Wire Wire Line
+	5650 2650 6600 2650
+Text Label 3000 1950 0    50   ~ 0
+RADDR0
+Text Label 3000 2050 0    50   ~ 0
+RADDR1
+Text Notes 9750 3600 0    50   ~ 0
+Output\n\nHigh Impendance\nHigh Impendance\nHigh Impendance\n0000'0000'0000'0000\n0000'0000'0000'0001\n0000'0000'0000'0010\n0000'0000'0000'0011\nHigh Impendance
+Wire Wire Line
+	5650 2650 5650 2050
+Wire Wire Line
+	5750 1950 5750 2550
+Wire Wire Line
+	2950 1950 5750 1950
+Wire Wire Line
+	5750 2550 6600 2550
 Wire Bus Line
-	2850 2400 2850 4600
+	2850 1700 2850 3150
 Wire Bus Line
 	8050 2250 8050 4700
 $EndSCHEMATC
