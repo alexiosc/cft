@@ -288,12 +288,12 @@ endmodule // flipflop_273
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-module flipflop_574 (d, q, clk, oe);
+module flipflop_574 (d, q, clk, noe);
    parameter propagation_delay = 7;
    
-   input [7:0] d;		// Data
-   input       clk;		// Clock
-   input       oe;		// /OE (active low): output enable
+   input [7:0]  d;		// Data
+   input        clk;		// Clock
+   input        noe;		// /OE (active low): output enable
 
    output [7:0] q;		// Output
    
@@ -315,7 +315,7 @@ module flipflop_574 (d, q, clk, oe);
 	q0 <= d;
      end // FF574
 
-   assign #propagation_delay q = oe ? 8'bzzzzzzzz : q0;
+   assign #propagation_delay q = noe ? 8'bzzzzzzzz : q0;
 
 endmodule // End of Module counter
 

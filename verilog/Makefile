@@ -276,10 +276,6 @@ test_reg_I:	register_reg_I_tb.o register.o
 		./register_reg_I_tb.o
 		$(GTKWAVE) $(VCDDIR)/register_reg_I_tb.vcd $(SAVDIR)/register_reg_I_tb.sav
 
-test_agl:	agl_tb.o agl.o
-		./agl_tb.o
-		$(GTKWAVE) $(VCDDIR)/agl_tb.vcd $(SAVDIR)/agl_tb.sav
-
 test_addr test_addressing: addressing_tb.o addressing.o
 		./addressing_tb.o
 		$(GTKWAVE) $(VCDDIR)/addressing_tb.vcd $(SAVDIR)/addressing_tb.sav
@@ -405,6 +401,10 @@ test_constant_store:	constant_store_tb.o constant_store_tb.o buffer.o demux.o
 test_ail:	ail_tb.o ail_tb.o demux.o
 		./ail_tb.o
 		$(GTKWAVE) $(VCDDIR)/ail_tb.vcd $(SAVDIR)/ail_tb.sav
+
+test_agl:	agl_tb.o agl.o buffer.o flipflop.o
+		./agl_tb.o
+		$(GTKWAVE) $(VCDDIR)/agl_tb.vcd $(SAVDIR)/agl_tb.sav
 
 test_reg_ir:	reg_ir_tb.o reg_ir.o flipflop.o buffer.o 
 		./reg_ir_tb.o
