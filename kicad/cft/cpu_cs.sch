@@ -17,66 +17,10 @@ $EndDescr
 $Comp
 L power:+5V #PWR?
 U 1 1 5E51C06B
-P 1000 6550
+P 1000 7250
 AR Path="/5E4DDD44/5E51C06B" Ref="#PWR?"  Part="1" 
 AR Path="/5E507DE3/5E51C06B" Ref="#PWR01005"  Part="1" 
-F 0 "#PWR01005" H 1000 6400 50  0001 C CNN
-F 1 "+5V" H 1015 6723 50  0000 C CNN
-F 2 "" H 1000 6550 50  0001 C CNN
-F 3 "" H 1000 6550 50  0001 C CNN
-	1    1000 6550
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5E51C071
-P 1000 6750
-AR Path="/5E4DDD44/5E51C071" Ref="#PWR?"  Part="1" 
-AR Path="/5E507DE3/5E51C071" Ref="#PWR01006"  Part="1" 
-F 0 "#PWR01006" H 1000 6500 50  0001 C CNN
-F 1 "GND" H 1005 6577 50  0000 C CNN
-F 2 "" H 1000 6750 50  0001 C CNN
-F 3 "" H 1000 6750 50  0001 C CNN
-	1    1000 6750
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 5E51C077
-P 1000 6650
-AR Path="/5CC0D65F/5E51C077" Ref="C?"  Part="1" 
-AR Path="/5E51C077" Ref="C?"  Part="1" 
-AR Path="/5E4DDD44/5E51C077" Ref="C?"  Part="1" 
-AR Path="/5E507DE3/5E51C077" Ref="C1001"  Part="1" 
-F 0 "C1001" H 909 6696 50  0000 R CNN
-F 1 "100nF" H 909 6605 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 1000 6650 50  0001 C CNN
-F 3 "~" H 1000 6650 50  0001 C CNN
-	1    1000 6650
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 5E51C095
-P 1000 7350
-AR Path="/5CC0D65F/5E51C095" Ref="C?"  Part="1" 
-AR Path="/5E51C095" Ref="C?"  Part="1" 
-AR Path="/5E4DDD44/5E51C095" Ref="C?"  Part="1" 
-AR Path="/5E507DE3/5E51C095" Ref="C1002"  Part="1" 
-F 0 "C1002" H 909 7396 50  0000 R CNN
-F 1 "100nF" H 909 7305 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 1000 7350 50  0001 C CNN
-F 3 "~" H 1000 7350 50  0001 C CNN
-	1    1000 7350
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR?
-U 1 1 5E51C09B
-P 1000 7250
-AR Path="/5E4DDD44/5E51C09B" Ref="#PWR?"  Part="1" 
-AR Path="/5E507DE3/5E51C09B" Ref="#PWR01007"  Part="1" 
-F 0 "#PWR01007" H 1000 7100 50  0001 C CNN
+F 0 "#PWR01005" H 1000 7100 50  0001 C CNN
 F 1 "+5V" H 1015 7423 50  0000 C CNN
 F 2 "" H 1000 7250 50  0001 C CNN
 F 3 "" H 1000 7250 50  0001 C CNN
@@ -85,15 +29,30 @@ F 3 "" H 1000 7250 50  0001 C CNN
 $EndComp
 $Comp
 L power:GND #PWR?
-U 1 1 5E51C0A2
+U 1 1 5E51C071
 P 1000 7450
-AR Path="/5E4DDD44/5E51C0A2" Ref="#PWR?"  Part="1" 
-AR Path="/5E507DE3/5E51C0A2" Ref="#PWR01008"  Part="1" 
-F 0 "#PWR01008" H 1000 7200 50  0001 C CNN
+AR Path="/5E4DDD44/5E51C071" Ref="#PWR?"  Part="1" 
+AR Path="/5E507DE3/5E51C071" Ref="#PWR01006"  Part="1" 
+F 0 "#PWR01006" H 1000 7200 50  0001 C CNN
 F 1 "GND" H 1005 7277 50  0000 C CNN
 F 2 "" H 1000 7450 50  0001 C CNN
 F 3 "" H 1000 7450 50  0001 C CNN
 	1    1000 7450
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 5E51C077
+P 1000 7350
+AR Path="/5CC0D65F/5E51C077" Ref="C?"  Part="1" 
+AR Path="/5E51C077" Ref="C?"  Part="1" 
+AR Path="/5E4DDD44/5E51C077" Ref="C?"  Part="1" 
+AR Path="/5E507DE3/5E51C077" Ref="C1001"  Part="1" 
+F 0 "C1001" H 909 7396 50  0000 R CNN
+F 1 "100nF" H 909 7305 50  0000 R CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 1000 7350 50  0001 C CNN
+F 3 "~" H 1000 7350 50  0001 C CNN
+	1    1000 7350
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -444,26 +403,15 @@ Entry Wire Line
 $Comp
 L alexios:74HC138 U?
 U 2 1 5E89BF6D
-P 1350 6650
+P 1350 7350
 AR Path="/5DC89E19/5E89BF6D" Ref="U?"  Part="1" 
 AR Path="/5E507DE3/5E89BF6D" Ref="U1001"  Part="2" 
 AR Path="/5E89BF6D" Ref="U1001"  Part="2" 
-F 0 "U1001" H 1530 6696 50  0000 L CNN
-F 1 "74HC138" H 1530 6605 50  0000 L CNN
-F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 1350 6650 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 1350 6650 50  0001 C CNN
-	2    1350 6650
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74HC253 U1002
-U 2 1 5E89C71E
-P 1350 7950
-F 0 "U1002" H 1530 8596 50  0000 L CNN
-F 1 "74HC253" H 1530 8505 50  0000 L CNN
-F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 1650 8550 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT253.pdf" H 1650 8550 50  0001 C CNN
-	2    1350 7950
+F 0 "U1001" H 1530 7396 50  0000 L CNN
+F 1 "74HC138" H 1530 7305 50  0000 L CNN
+F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 1350 7350 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 1350 7350 50  0001 C CNN
+	2    1350 7350
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -479,8 +427,6 @@ F 3 "http://www.ti.com/lit/gpn/sn74AC541" H 2800 7350 50  0001 C CNN
 	2    2800 7350
 	1    0    0    -1  
 $EndComp
-Connection ~ 1000 6550
-Connection ~ 1000 6750
 Connection ~ 1000 7250
 Connection ~ 1000 7450
 Connection ~ 2450 7250
@@ -597,10 +543,6 @@ Wire Wire Line
 	2950 1950 5750 1950
 Wire Wire Line
 	5750 2550 6600 2550
-Wire Bus Line
-	2850 1700 2850 3150
-Wire Bus Line
-	8050 2250 8050 4700
 Wire Wire Line
 	6050 3450 6600 3450
 Wire Wire Line
@@ -627,4 +569,8 @@ F 3 "" H 6500 5100 50  0001 C CNN
 	1    6500 5100
 	1    0    0    -1  
 $EndComp
+Wire Bus Line
+	2850 1700 2850 3150
+Wire Bus Line
+	8050 2250 8050 4700
 $EndSCHEMATC
