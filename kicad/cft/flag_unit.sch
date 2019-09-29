@@ -4,7 +4,7 @@ EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 26 35
+Sheet 25 35
 Title ""
 Date ""
 Rev ""
@@ -730,6 +730,8 @@ Text Notes 7100 7000 0    197  ~ 39
 Flag Unit
 Text Label 7450 5400 0    50   ~ 0
 RSVD14
+Text Notes 550  4000 0    404  ~ 81
+ADDRESSING HAS CHANGED, REDO!
 Wire Bus Line
 	2900 4800 2900 5550
 Wire Bus Line
@@ -740,6 +742,4 @@ Wire Bus Line
 	9250 4900 9250 6150
 Wire Bus Line
 	9250 1250 9250 2550
-Text Notes 550  4000 0    404  ~ 81
-ADDRESSING HAS CHANGED, REDO!
 $EndSCHEMATC

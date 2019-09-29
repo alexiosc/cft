@@ -192,23 +192,21 @@ F9 "~FPPCL" I L 400 -4550 50
 F10 "PC[0..15]" I R 1550 -5300 50 
 $EndSheet
 $Sheet
-S 4250 -6050 1150 600 
+S 1250 5750 1150 600 
 U 5CD3AC27
 F0 "Auto-Index Logic (AIL)" 50
 F1 "cft_ail.sch" 50
-F2 "~RESET" I L 4250 -5900 50 
-F3 "~WRITE-IR" I L 4250 -5750 50 
-F4 "IBUS[7..11]" I L 4250 -5600 50 
+F2 "IR[6..11]" I L 1250 6050 50 
+F3 "IDX[0..1]" I R 2400 6050 50 
 $EndSheet
 $Sheet
 S -3050 -3000 1150 850 
 U 5E507DE3
 F0 "Constant Store" 50
 F1 "cpu_cs.sch" 50
-F2 "~RUEN" I L -3050 -2700 50 
-F3 "RADDR[0..4]" I L -3050 -2550 50 
-F4 "~RSTHOLD" I L -3050 -2850 50 
-F5 "IBUS[0..15]" B R -1900 -2850 50 
+F2 "~RUEN" I L -3050 -2850 50 
+F3 "RADDR[0..4]" I L -3050 -2700 50 
+F4 "IBUS[0..15]" B R -1900 -2850 50 
 $EndSheet
 $Sheet
 S 6300 -6100 1150 2100
@@ -1423,4 +1421,16 @@ Text Notes 1300 4300 0    70   ~ 14
 Verilog
 Text Notes 1300 5300 0    70   ~ 14
 Verilog
+Text Notes 350  -2150 0    70   ~ 14
+Verilog
+Text Notes 1800 -2150 0    70   ~ 14
+Verilog
+Text Notes 450  -4300 0    70   ~ 14
+Verilog
+Text Notes 1850 -4300 0    70   ~ 14
+Verilog
+Text Notes -3000 -2200 0    70   ~ 14
+Verilog
+Text Notes 1800 5900 0    70   ~ 14
+To Merge
 $EndSCHEMATC
