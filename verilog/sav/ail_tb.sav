@@ -1,0 +1,67 @@
+[*]
+[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
+[*] Sun Sep 29 12:39:18 2019
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/ail_tb.vcd"
+[dumpfile_mtime] "Sun Sep 29 12:08:04 2019"
+[dumpfile_size] 105715
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/ail_tb.sav"
+[timestart] 9400000
+[size] 1564 600
+[pos] -1 -1
+*-24.372536 27100000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] ail_tb.
+[treeopen] ail_tb.ail.
+[sst_width] 258
+[signals_width] 141
+[sst_expanded] 1
+[sst_vpaned_height] 138
+@800022
+[color] 1
+ail_tb.ir[15:0]
+@28
+[color] 7
+(0)ail_tb.ir[15:0]
+[color] 7
+(1)ail_tb.ir[15:0]
+[color] 7
+(2)ail_tb.ir[15:0]
+[color] 7
+(3)ail_tb.ir[15:0]
+[color] 2
+(4)ail_tb.ir[15:0]
+[color] 3
+(5)ail_tb.ir[15:0]
+[color] 4
+(6)ail_tb.ir[15:0]
+[color] 4
+(7)ail_tb.ir[15:0]
+[color] 3
+(8)ail_tb.ir[15:0]
+[color] 3
+(9)ail_tb.ir[15:0]
+@29
+[color] 7
+(10)ail_tb.ir[15:0]
+@28
+[color] 7
+(11)ail_tb.ir[15:0]
+[color] 7
+(12)ail_tb.ir[15:0]
+[color] 7
+(13)ail_tb.ir[15:0]
+[color] 7
+(14)ail_tb.ir[15:0]
+[color] 7
+(15)ail_tb.ir[15:0]
+@1001200
+-group_end
+@200
+-
+@28
+[color] 3
+ail_tb.idx[1:0]
+@22
+ail_tb.ail.ail_demux.y[7:0]
+[pattern_trace] 1
+[pattern_trace] 0

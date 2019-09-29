@@ -1,33 +1,44 @@
 [*]
-[*] GTKWave Analyzer v3.3.40 (w)1999-2012 BSI
-[*] Tue Oct 16 16:25:26 2012
+[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
+[*] Sun Sep 29 09:24:15 2019
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/counter_193_tb.vcd"
-[dumpfile_mtime] "Tue Oct 16 16:25:18 2012"
-[dumpfile_size] 6667
+[dumpfile_mtime] "Sun Sep 29 09:23:55 2019"
+[dumpfile_size] 6025
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/counter_193_tb.sav"
-[timestart] 5971000
+[timestart] 6180000
 [size] 1481 820
-[pos] -342 -255
-*-19.831556 6455000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[pos] -1 -1
+*-19.831556 9360000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] counter_193_tb.
-[sst_width] 245
+[sst_width] 258
 [signals_width] 309
 [sst_expanded] 1
 [sst_vpaned_height] 228
-@28
-counter_193_tb.c0.clear
-@22
-counter_193_tb.c0.p[3:0]
-@28
-counter_193_tb.c0.load
-counter_193_tb.c0.count_up
-counter_193_tb.c0.count_down
-@22
-counter_193_tb.c0.q[3:0]
-@28
-counter_193_tb.c0.carry
 @29
-counter_193_tb.c0.borrow
+[color] 1
+counter_193_tb.clr
+[color] 2
+counter_193_tb.cpu
+[color] 3
+counter_193_tb.cpd
+@200
+-
+@28
+[color] 4
+counter_193_tb.npl
+@22
+[color] 4
+counter_193_tb.p[3:0]
+@200
+-
+@28
+[color] 1
+counter_193_tb.ntcu
+[color] 2
+counter_193_tb.ntcd
+@22
+[color] 3
+counter_193_tb.q[3:0]
 [pattern_trace] 1
 [pattern_trace] 0

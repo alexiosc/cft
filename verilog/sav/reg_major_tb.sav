@@ -1,0 +1,75 @@
+[*]
+[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
+[*] Sun Sep 29 09:56:27 2019
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/reg_major_tb.vcd"
+[dumpfile_mtime] "Sun Sep 29 09:54:55 2019"
+[dumpfile_size] 55301959
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/reg_major_tb.sav"
+[timestart] 26456157530
+[size] 1510 600
+[pos] -1 -1
+*-14.209771 26456233220 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] reg_major_tb.
+[treeopen] reg_major_tb.reg_major.
+[sst_width] 258
+[signals_width] 210
+[sst_expanded] 1
+[sst_vpaned_height] 138
+@28
+[color] 1
+reg_major_tb.reset
+@22
+[color] 2
+reg_major_tb.ibus_real[15:0]
+@28
+[color] 3
+reg_major_tb.nread
+[color] 4
+reg_major_tb.nwrite
+[color] 5
+reg_major_tb.ninc
+[color] 6
+reg_major_tb.ndec
+@200
+-
+-Outputs
+@c00022
+[color] 1
+reg_major_tb.out[15:0]
+@28
+(0)reg_major_tb.out[15:0]
+(1)reg_major_tb.out[15:0]
+(2)reg_major_tb.out[15:0]
+(3)reg_major_tb.out[15:0]
+(4)reg_major_tb.out[15:0]
+(5)reg_major_tb.out[15:0]
+(6)reg_major_tb.out[15:0]
+(7)reg_major_tb.out[15:0]
+(8)reg_major_tb.out[15:0]
+(9)reg_major_tb.out[15:0]
+(10)reg_major_tb.out[15:0]
+(11)reg_major_tb.out[15:0]
+(12)reg_major_tb.out[15:0]
+(13)reg_major_tb.out[15:0]
+(14)reg_major_tb.out[15:0]
+(15)reg_major_tb.out[15:0]
+@1401200
+-group_end
+@28
+[color] 3
+reg_major_tb.fn
+[color] 4
+reg_major_tb.fz
+[color] 5
+reg_major_tb.naccpl
+@200
+-
+-Front Panel
+@28
+reg_major_tb.nfpl
+reg_major_tb.nfph
+@22
+reg_major_tb.fpd[7:0]
+[pattern_trace] 1
+[pattern_trace] 0

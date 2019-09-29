@@ -70,52 +70,52 @@ endmodule // counter_161
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-module counter_193 (clear, load, p, count_up, count_down, q, carry, borrow);
+module counter_193 (clr, npl, p, cpu, cpd, q, ntcu, ntcd);
 
-   parameter delay = 23;	// approxmate maximum delay at 25°C, 5V.
+   parameter delay = 43;	// approxmate maximum delay at 25°C, 5V.
    
-   input        clear;		// active high, on rising edge
-   input        load;		// active low, on falling edge
-   input [3:0]  p;
-   input        count_up;	// on rising edge
-   input        count_down;	// on rising edge
-   output [3:0] q;
-   output 	carry;
-   output 	borrow;
+   input        clr;		// Clear outputs (active high, on rising edge)
+   input        npl;		// Parallel load (active low, on falling edge)
+   input [3:0]  p;		// Parallel input value
+   input        cpu;		// Count up clock (rising edge)
+   input        cpd;		// Count down clock (rising edge)
+   output [3:0] q;		// Output
+   output 	ntcu;		// Carry out to next stage
+   output 	ntcd;		// Borrow out to next stage
 
-   wire 	clear;
-   wire 	load;
+   wire 	clr;
+   wire 	npl;
    wire [3:0] 	p;
-   wire 	count_up;
-   wire 	count_down;
+   wire 	cpu;
+   wire 	cpd;
 
    reg [3:0] 	q;
-   wire 	carry;
-   wire 	borrow;
+   wire 	ntcu;
+   wire 	ntcd;
 
    initial begin
-      // $display("BOM: 74x193");
+      $display("Initialising 74x193");
    end
 
-   always @(clear, load, p) begin
-      if (clear == 1) begin
+   always @(clr, npl, p) begin
+      if (clr == 1) begin
 	 #delay q <= 4'b0000;
-      end else if (load == 0) begin
+      end else if (npl == 0) begin
 	 #delay q <= p;
      end
    end
 
-   always @(posedge count_up) begin
-      if (clear == 0 && load == 1 && count_down == 1) #delay q <= q + 1;
+   always @(posedge cpu) begin
+      if (clr == 0 && npl == 1 && cpd == 1) #delay q <= q + 1;
    end
 
-   always @(posedge count_down) begin
-      if (clear == 0 && load == 1 && count_up == 1) #delay q <= q - 1;
+   always @(posedge cpd) begin
+      if (clr == 0 && npl == 1 && cpu == 1) #delay q <= q - 1;
    end
 
    // Calculate carry and borrow out
-   assign #delay borrow = (q == 4'b0000 && count_down == 0) ? 1'b0 : 1'b1;
-   assign #delay carry = (q == 4'b1111 && count_up == 0) ? 1'b0 : 1'b1;
+   assign #delay ntcd = (q == 4'b0000 && cpd == 0) ? 1'b0 : 1'b1;
+   assign #delay ntcu = (q == 4'b1111 && cpu == 0) ? 1'b0 : 1'b1;
 endmodule // counter_193
 
 

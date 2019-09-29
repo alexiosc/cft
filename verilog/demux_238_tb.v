@@ -1,12 +1,12 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// 74x541 BUFFER TESTBENCH
+// 74x238 BUFFER TESTBENCH
 //
 ///////////////////////////////////////////////////////////////////////////////
 //
 // REDESIGNED IN 2019
 //
-// buffer_541_tb.v -- 74x541 testbench
+// buffer_238_tb.v -- 74x238 testbench
 //
 // Copyright © 2011-2019 Alexios Chouchoulas
 //
@@ -26,40 +26,39 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-`include "buffer.v"
+`include "demux.v"
 `timescale 1ns/10ps
 
-module buffer_541_tb();
-   reg 	      oe1, oe2;
-   reg [7:0]  a;
+module demux_238_tb();
 
-   wire [7:0] y;
-
-   integer    i, j;
+// Declare inputs as regs and outputs as wires
+   wire [2:0]  a;
+   wire        g1, g2a, g2b;
+   wire [7:0]  y;
    
+   integer     i;
+
    // Initialize all variables
    initial begin        
-      $display ("time\t oe1 oe2 a y");	
-      $monitor ("%d | %b %b %b > %b", $time, oe1, oe2, a, y);
-      $dumpfile ("vcd/buffer_541_tb.vcd");
-      $dumpvars (0, buffer_541_tb);
+      $monitor ("%d | %b %b %b %h > %b", 
+		$time, g1, g2a, g2b, a, y);
 
-      for (j = 0; j < 4; j = j + 1) begin
-	 oe1 = j[0];
-	 oe2 = j[1];
+      $dumpfile ("vcd/demux_238_tb.vcd");
+      $dumpvars (0, demux_238_tb);
 
-	 for (i = 0; i < 256; i = i + 1) begin
-	    #50 a = i;
-	 end
-
-	 #500;
+      for (i = 0; i < 64; i = i + 1) begin
+	 #40 ;
       end
-      
-      #1000 $finish;      // Terminate simulation
-   end
+
+      #500 $finish;      // Terminate simulation
+   end // initial begin
+
+   assign g1 = i[5];
+   assign g2a = i[4];
+   assign g2b = i[3];
+   assign a = i[2:0];
 
    // Connect DUT to test bench
-   buffer_541 buffer (.oe1(oe1), .oe2(oe2), .a(a), .y(y));
-endmodule // buffer_541_tb
+   demux_238 demux (.g1(g1), .g2a(g2a), .g2b(g2b), .a(a), .y(y));
 
-// End of file.
+endmodule

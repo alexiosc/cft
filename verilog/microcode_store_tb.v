@@ -1,3 +1,9 @@
+// REDESIGNED IN 2019
+//
+// microcode-store_tb.v -- Testbench for Microcode ROMs
+//
+// Copyright © 2011-2019 Alexios Chouchoulas
+
 `include "microcode_store.v"
 
 `timescale 1ns/10ps
@@ -72,4 +78,6 @@ module microcode_store_tb();
 				   .nfpuc2(nfpuc2),
 				   .fpd(fpd));
    
-endmodule // step_tb
+endmodule // microcode_store_tb
+
+// End of file.

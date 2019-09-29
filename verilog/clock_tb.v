@@ -17,8 +17,8 @@ module clock_tb();
    initial begin
       
       //$display ("time\t d pulse");
-      // $monitor ("%f\t  %b %b %b %b %b %b", 
-      // 		$time, clk1, clk2, clk3, clk4, t34, wstb);
+      $monitor ("%d | > %b %b %b %b %b %b", 
+      		$time, clk1, clk2, clk3, clk4, t34, wstb);
       $dumpfile ("vcd/clock_tb.vcd");
       $dumpvars (0, clock_tb);
       

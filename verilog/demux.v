@@ -124,6 +124,64 @@ module demux_139h (g, a, y);
 
 endmodule // demux_139h
 
+// Just like a '138, but with active-high outputs
+module demux_238 (g1, g2a, g2b, a, y);
+   parameter delay = 18;
+   parameter delay_g1 = 21;
+   parameter delay_g2 = 20;
+
+   input        g1;		// Active high enable
+   input        g2a;		// Active low enable 1
+   input        g2b;		// Active low enable 2
+   input [2:0] 	a;		// Input vector (3 bits)
+   
+   output [7:0] y;		// Output.
+   
+   wire 	g1, g2a, g2b;
+   wire 	g10, g2a0, g2b0;
+   wire [2:0] 	a;
+   
+   reg [7:0] 	y0;
+   wire [7:0] 	y;
+   
+   wire 	q;
+
+   initial begin
+      // $display("BOM: 74x238");
+   end
+
+   // The enable inputs have slightly different propagation
+   // delays. This could cause glitches. Simulate this.
+   assign #delay_g1 g10 = g1;
+   assign #delay_g2 g2a0 = g2a;
+   assign #delay_g2 g2b0 = g2b;
+   
+   // The 138 DOES NOT tri-state output. Instead, when disabled, all
+   // its active-low outputs are high.
+
+   // 2019-09-06: the simulated propagation delay caused glitches
+   // during transitions of A while gG1, G2A and G2B remained
+   // constant. The hardware '138 doesn't produce these, so this is a
+   // bug in this code. Removing delays for now.
+   assign y = (g1 && !g2a && !g2b) ? y0 : 8'b00000000;
+   
+   always @ (a) begin
+      case (a)
+	0: y0 = 8'b00000001;
+	1: y0 = 8'b00000010;
+	2: y0 = 8'b00000100;
+	3: y0 = 8'b00001000;
+	4: y0 = 8'b00010000;
+	5: y0 = 8'b00100000;
+	6: y0 = 8'b01000000;
+	7: y0 = 8'b10000000;
+	default: y0 = 8'b00000000; // Could happen when a=X.
+      endcase // case (a)
+   end // always @ (a)
+
+endmodule // demux_138
+
+
 `endif //  `ifndef demux_v
 
 // End of file.

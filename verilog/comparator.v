@@ -13,7 +13,7 @@
 // 8-bit inverting identity comparator with enable.
 // 
 //     +---+--+---+
-// /EN |1  +--+ 20| VCC
+//  /G |1  +--+ 20| VCC
 //  A0 |2       19| /A=B
 //  B0 |3       18| B7
 //  A1 |4       17| A7
@@ -27,18 +27,17 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-module comparator_688 (a, b, en, equal);
-   input [7:0] a, b;
-   input       en;
-
-   output      equal;
+module comparator_688 (a, b,  ng, neq);
+   input [7:0] a, b;	// Inputs
+   input       ng;	// Enable (active low) or previous stage input
+   output      neq;	// A = B (active low)
 
    initial begin
       // $display("BOM: 74x688");
    end
 
-   assign #20 equal = (en == 1'b0) ? ~(a == b) : 1'b1;
-endmodule // comparator_jk
+   assign #20 neq = (ng == 1'b0) ? ~(a == b) : 1'b1;
+endmodule // comparator_688
 
 ///////////////////////////////////////////////////////////////////////////////
 //

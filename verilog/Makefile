@@ -15,7 +15,6 @@ SRC =		counter.v counter_161_tb.v counter_590_tb.v counter_393h_tb.v counter_401
 		demux.v demux_138_tb.v demux_139_tb.v \
 		mux.v mux_253_tb.v \
 		latch_373_tb.v flipflop_374_tb.v \
-		alu.v alu_tb.v alu_roll_tb.v alu_add_tb.v \
 		alu_btb_add.v alu_btb_and.v alu_btb_or.v alu_btb_xor.v alu_btb_not.v alu_btb_roll.v alu_btb_cs.v \
 		rom.v rom_tb.v \
 		ram.v ram_tb.v \
@@ -41,11 +40,15 @@ SRC =		counter.v counter_161_tb.v counter_590_tb.v counter_393h_tb.v counter_401
 		dfp_step.v dfp_step_tb.v \
 		dfp_scan.v dfp_scan_tb.v \
 		dfp_run_control.v dfp_run_control_tb.v \
+#		alu.v alu_tb.v alu_roll_tb.v alu_add_tb.v \
 
 # Basic 74xxx family chips
-
-IC74XXX	=	buffer.v     buffer_244_tb.v buffer_245_tb.v buffer_541_tb.v \
-		flipflop.v   flipflop_112_tb.v flipflop_74_tb.v flipflop_174_tb.v flipflop_574_tb.v flipflop_564_tb.v \
+#               TYPE           TEST BENCHES
+IC74XXX	=	buffer.v       buffer_244_tb.v buffer_245_tb.v buffer_541_tb.v \
+		comparator.v   comparator_688_tb.v \
+		counter.v      counter_193_tb.v \
+		demux.v        demux_138_tb.v demux_138_tb.v \
+		flipflop.v     flipflop_112_tb.v flipflop_74_tb.v flipflop_174_tb.v flipflop_574_tb.v flipflop_564_tb.v \
 
 SRC += $(IC74XXX)
 
@@ -57,6 +60,7 @@ CFT2019 = 	clock.v            clock_tb.v \
 		reg_mbr.v          reg_mbr_tb.v \
 		reg_l.v            reg_l_tb.v \
 		reg_v.v            reg_v_tb.v \
+		reg_major.v        reg_major_tb.v \
 
 SRC += $(CFT2019)
 
@@ -182,6 +186,10 @@ test_139:	demux_139_tb.o demux.o
 test_251:	mux_251_tb.o mux.o
 		./mux_251_tb.o
 		$(GTKWAVE) $(VCDDIR)/mux_251_tb.vcd $(SAVDIR)/mux_251_tb.sav
+
+test_238:	demux_238_tb.o demux.o
+		./demux_238_tb.o
+		$(GTKWAVE) $(VCDDIR)/demux_238_tb.vcd $(SAVDIR)/demux_238_tb.sav
 
 test_253:	mux_253_tb.o mux.o
 		./mux_253_tb.o
@@ -390,9 +398,21 @@ test_microcode_store:	microcode_store_tb.o microcode_store_tb.o buffer.o rom.o
 		./microcode_store_tb.o
 		$(GTKWAVE) $(VCDDIR)/microcode_store_tb.vcd $(SAVDIR)/microcode_store_tb.sav
 
+test_constant_store:	constant_store_tb.o constant_store_tb.o buffer.o demux.o
+		./constant_store_tb.o
+		$(GTKWAVE) $(VCDDIR)/constant_store_tb.vcd $(SAVDIR)/constant_store_tb.sav
+
+test_ail:	ail_tb.o ail_tb.o demux.o
+		./ail_tb.o
+		$(GTKWAVE) $(VCDDIR)/ail_tb.vcd $(SAVDIR)/ail_tb.sav
+
 test_reg_ir:	reg_ir_tb.o reg_ir.o flipflop.o buffer.o 
 		./reg_ir_tb.o
 		$(GTKWAVE) $(VCDDIR)/reg_ir_tb.vcd $(SAVDIR)/reg_ir_tb.sav
+
+test_reg_major:	reg_major_tb.o reg_major.o counter.o buffer.o comparator.o
+		./reg_major_tb.o >reg_major_tb.log
+		$(GTKWAVE) $(VCDDIR)/reg_major_tb.vcd $(SAVDIR)/reg_major_tb.sav
 
 test_serial_shifter:	serial_shifter_tb.o serial_shifter.o
 		./serial_shifter_tb.o

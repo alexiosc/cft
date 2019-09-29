@@ -1,42 +1,58 @@
 [*]
-[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Fri Sep  6 09:11:53 2019
+[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
+[*] Sun Sep 29 11:52:52 2019
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/demux_138_tb.vcd"
-[dumpfile_mtime] "Fri Sep  6 09:11:41 2019"
-[dumpfile_size] 1287
+[dumpfile_mtime] "Sun Sep 29 11:52:50 2019"
+[dumpfile_size] 3714
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/demux_138_tb.sav"
 [timestart] 0
 [size] 1743 600
 [pos] 2245 0
-*-20.000000 1426000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-19.074749 1301500 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] demux_138_tb.
-[sst_width] 226
-[signals_width] 86
+[sst_width] 258
+[signals_width] 185
 [sst_expanded] 1
 [sst_vpaned_height] 142
 @28
-demux_138_tb.demux.a[2:0]
+[color] 1
 demux_138_tb.demux.g1
+[color] 2
 demux_138_tb.demux.g2a
-demux_138_tb.demux.g2a0
+[color] 3
 demux_138_tb.demux.g2b
-demux_138_tb.demux.g2b0
-demux_138_tb.demux.g10
-@22
-demux_138_tb.demux.y0[7:0]
-@800023
-demux_138_tb.demux.y[7:0]
+@c00022
+demux_138_tb.demux.a[2:0]
+@28
+(0)demux_138_tb.demux.a[2:0]
+(1)demux_138_tb.demux.a[2:0]
+(2)demux_138_tb.demux.a[2:0]
+@1401200
+-group_end
+@200
+-
+@800028
+[color] 4
+demux_138_tb.y[7:0]
 @29
-(0)demux_138_tb.demux.y[7:0]
-(1)demux_138_tb.demux.y[7:0]
-(2)demux_138_tb.demux.y[7:0]
-(3)demux_138_tb.demux.y[7:0]
-(4)demux_138_tb.demux.y[7:0]
-(5)demux_138_tb.demux.y[7:0]
-(6)demux_138_tb.demux.y[7:0]
-(7)demux_138_tb.demux.y[7:0]
-@1001201
+[color] 4
+(0)demux_138_tb.y[7:0]
+[color] 5
+(1)demux_138_tb.y[7:0]
+[color] 6
+(2)demux_138_tb.y[7:0]
+[color] 7
+(3)demux_138_tb.y[7:0]
+[color] 1
+(4)demux_138_tb.y[7:0]
+[color] 2
+(5)demux_138_tb.y[7:0]
+[color] 3
+(6)demux_138_tb.y[7:0]
+[color] 4
+(7)demux_138_tb.y[7:0]
+@1001200
 -group_end
 [pattern_trace] 1
 [pattern_trace] 0
