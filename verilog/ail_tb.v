@@ -44,7 +44,7 @@ module ail_tb();
 
       i = 0;
             
-      for (i = 0; i < 2048; i = i + 1) begin
+      for (i = 0; i < 65536; i = i + 1) begin
 	 #63.5;
       end
       
