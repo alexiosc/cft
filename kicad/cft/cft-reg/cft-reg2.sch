@@ -349,12 +349,12 @@ IBUS13
 Text Label 5950 3000 0    50   ~ 0
 IBUS12
 Text Label 5950 2900 0    50   ~ 0
-IBUS11
-Text Label 5950 2800 0    50   ~ 0
 IBUS10
-Text Label 5950 2700 0    50   ~ 0
-IBUS9
+Text Label 5950 2800 0    50   ~ 0
+IBUS11
 Text Label 5950 2600 0    50   ~ 0
+IBUS9
+Text Label 5950 2700 0    50   ~ 0
 IBUS8
 Entry Wire Line
 	6350 3200 6250 3300
@@ -397,12 +397,12 @@ IBUS5
 Text Label 5950 1450 0    50   ~ 0
 IBUS4
 Text Label 5950 1350 0    50   ~ 0
-IBUS3
-Text Label 5950 1250 0    50   ~ 0
 IBUS2
-Text Label 5950 1150 0    50   ~ 0
-IBUS1
+Text Label 5950 1250 0    50   ~ 0
+IBUS3
 Text Label 5950 1050 0    50   ~ 0
+IBUS1
+Text Label 5950 1150 0    50   ~ 0
 IBUS0
 Entry Wire Line
 	6350 1650 6250 1750
@@ -1277,9 +1277,9 @@ Text Label 3500 6000 0    50   ~ 0
 Q14
 Text Label 3500 6100 0    50   ~ 0
 Q15
-Text Label 4300 1050 0    50   ~ 0
-Q0
 Text Label 4300 1150 0    50   ~ 0
+Q0
+Text Label 4300 1050 0    50   ~ 0
 Q1
 Text Label 4300 1250 0    50   ~ 0
 Q2
@@ -1293,9 +1293,9 @@ Text Label 4300 1650 0    50   ~ 0
 Q6
 Text Label 4300 1750 0    50   ~ 0
 Q7
-Text Label 4300 2600 0    50   ~ 0
-Q8
 Text Label 4300 2700 0    50   ~ 0
+Q8
+Text Label 4300 2600 0    50   ~ 0
 Q9
 Text Label 4300 2800 0    50   ~ 0
 Q10
@@ -1309,13 +1309,13 @@ Text Label 4300 3200 0    50   ~ 0
 Q14
 Text Label 4300 3300 0    50   ~ 0
 Q15
-Text Label 4300 4200 0    50   ~ 0
-Q0
 Text Label 4300 4300 0    50   ~ 0
+Q0
+Text Label 4300 4200 0    50   ~ 0
 Q1
-Text Label 4300 4400 0    50   ~ 0
-Q2
 Text Label 4300 4500 0    50   ~ 0
+Q2
+Text Label 4300 4400 0    50   ~ 0
 Q3
 Text Label 4300 4600 0    50   ~ 0
 Q4
@@ -1326,13 +1326,13 @@ Q6
 Text Label 4300 4900 0    50   ~ 0
 Q7
 Text Label 4300 5750 0    50   ~ 0
-Q8
-Text Label 4300 5850 0    50   ~ 0
 Q9
+Text Label 4300 5850 0    50   ~ 0
+Q8
 Text Label 4300 5950 0    50   ~ 0
-Q10
-Text Label 4300 6050 0    50   ~ 0
 Q11
+Text Label 4300 6050 0    50   ~ 0
+Q10
 Text Label 4300 6150 0    50   ~ 0
 Q12
 Text Label 4300 6250 0    50   ~ 0
@@ -1395,14 +1395,6 @@ Entry Wire Line
 	6400 6250 6500 6150
 Entry Wire Line
 	6400 6150 6500 6050
-Wire Wire Line
-	5900 6450 6400 6450
-Wire Wire Line
-	5900 6350 6400 6350
-Wire Wire Line
-	5900 6250 6400 6250
-Wire Wire Line
-	5900 6150 6400 6150
 Entry Wire Line
 	6400 6050 6500 5950
 Entry Wire Line
@@ -1411,14 +1403,6 @@ Entry Wire Line
 	6400 5850 6500 5750
 Entry Wire Line
 	6400 5750 6500 5650
-Wire Wire Line
-	5900 6050 6400 6050
-Wire Wire Line
-	5900 5950 6400 5950
-Wire Wire Line
-	5900 5850 6400 5850
-Wire Wire Line
-	5900 5750 6400 5750
 Text Notes 7100 6950 0    197  ~ 39
 Register 2 (DR or SP)
 $Comp
@@ -1572,13 +1556,13 @@ F 3 "" H 4900 2050 50  0001 C CNN
 $EndComp
 Text Label 6500 3800 1    50   ~ 0
 FPD[0..7]
-Text Label 5950 4200 0    50   ~ 0
-FPD0
 Text Label 5950 4300 0    50   ~ 0
+FPD0
+Text Label 5950 4200 0    50   ~ 0
 FPD1
-Text Label 5950 4400 0    50   ~ 0
-FPD2
 Text Label 5950 4500 0    50   ~ 0
+FPD2
+Text Label 5950 4400 0    50   ~ 0
 FPD3
 Text Label 5950 4600 0    50   ~ 0
 FPD4
@@ -1588,24 +1572,40 @@ Text Label 5950 4800 0    50   ~ 0
 FPD6
 Text Label 5950 4900 0    50   ~ 0
 FPD7
-Text Label 5950 5750 0    50   ~ 0
-FPD8
-Text Label 5950 5850 0    50   ~ 0
-FPD9
-Text Label 5950 5950 0    50   ~ 0
-FPD10
-Text Label 5950 6050 0    50   ~ 0
-FPD11
-Text Label 5950 6150 0    50   ~ 0
-FPD12
-Text Label 5950 6250 0    50   ~ 0
-FPD13
-Text Label 5950 6350 0    50   ~ 0
-FPD14
-Text Label 5950 6450 0    50   ~ 0
-FPD15
 NoConn ~ 3500 6500
 NoConn ~ 3500 6600
+Wire Wire Line
+	5900 6450 6400 6450
+Wire Wire Line
+	5900 6350 6400 6350
+Wire Wire Line
+	5900 6250 6400 6250
+Wire Wire Line
+	5900 6150 6400 6150
+Wire Wire Line
+	5900 6050 6400 6050
+Wire Wire Line
+	5900 5950 6400 5950
+Wire Wire Line
+	5900 5850 6400 5850
+Wire Wire Line
+	5900 5750 6400 5750
+Text Label 5950 5850 0    50   ~ 0
+FPD0
+Text Label 5950 5750 0    50   ~ 0
+FPD1
+Text Label 5950 6050 0    50   ~ 0
+FPD2
+Text Label 5950 5950 0    50   ~ 0
+FPD3
+Text Label 5950 6150 0    50   ~ 0
+FPD4
+Text Label 5950 6250 0    50   ~ 0
+FPD5
+Text Label 5950 6350 0    50   ~ 0
+FPD6
+Text Label 5950 6450 0    50   ~ 0
+FPD7
 Wire Bus Line
 	1100 650  6250 650 
 Wire Bus Line
