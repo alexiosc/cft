@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:cft-reg-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -330,9 +330,9 @@ IBUS15
 Text Label 5950 3200 0    50   ~ 0
 IBUS14
 Text Label 5950 3100 0    50   ~ 0
-IBUS13
+IBUS11
 Text Label 5950 3000 0    50   ~ 0
-IBUS12
+IBUS10
 Entry Wire Line
 	6350 3200 6250 3300
 Entry Wire Line
@@ -364,13 +364,13 @@ IBUS7
 Text Label 5950 1650 0    50   ~ 0
 IBUS6
 Text Label 5950 1550 0    50   ~ 0
-IBUS5
-Text Label 5950 1450 0    50   ~ 0
-IBUS4
-Text Label 5950 1350 0    50   ~ 0
-IBUS2
-Text Label 5950 1250 0    50   ~ 0
 IBUS3
+Text Label 5950 1450 0    50   ~ 0
+IBUS2
+Text Label 5950 1350 0    50   ~ 0
+IBUS4
+Text Label 5950 1250 0    50   ~ 0
+IBUS5
 Text Label 5950 1050 0    50   ~ 0
 IBUS1
 Text Label 5950 1150 0    50   ~ 0
@@ -455,22 +455,6 @@ Entry Wire Line
 	4200 5950 4100 6050
 Entry Wire Line
 	4200 5750 4100 5850
-Wire Wire Line
-	4900 6450 4200 6450
-Wire Wire Line
-	4900 6350 4200 6350
-Wire Wire Line
-	4900 6250 4200 6250
-Wire Wire Line
-	4900 6150 4200 6150
-Wire Wire Line
-	4900 6050 4200 6050
-Wire Wire Line
-	4900 5950 4200 5950
-Wire Wire Line
-	4900 5850 4200 5850
-Wire Wire Line
-	4900 5750 4200 5750
 $Comp
 L alexios:74HCT541 U?
 U 1 1 5D96D4B6
@@ -504,22 +488,6 @@ Entry Wire Line
 	4200 4400 4100 4500
 Entry Wire Line
 	4200 4200 4100 4300
-Wire Wire Line
-	4900 4900 4200 4900
-Wire Wire Line
-	4900 4800 4200 4800
-Wire Wire Line
-	4900 4700 4200 4700
-Wire Wire Line
-	4900 4600 4200 4600
-Wire Wire Line
-	4900 4500 4200 4500
-Wire Wire Line
-	4900 4400 4200 4400
-Wire Wire Line
-	4900 4300 4200 4300
-Wire Wire Line
-	4900 4200 4200 4200
 Wire Bus Line
 	4200 7050 6550 7050
 Entry Wire Line
@@ -1215,57 +1183,25 @@ Text Label 4300 1150 0    50   ~ 0
 Q0
 Text Label 4300 1050 0    50   ~ 0
 Q1
-Text Label 4300 1250 0    50   ~ 0
-Q3
-Text Label 4300 1350 0    50   ~ 0
-Q2
-Text Label 4300 1450 0    50   ~ 0
-Q4
 Text Label 4300 1550 0    50   ~ 0
+Q3
+Text Label 4300 1450 0    50   ~ 0
+Q2
+Text Label 4300 1350 0    50   ~ 0
+Q4
+Text Label 4300 1250 0    50   ~ 0
 Q5
 Text Label 4300 1650 0    50   ~ 0
 Q6
 Text Label 4300 1750 0    50   ~ 0
 Q7
 Text Label 4300 3000 0    50   ~ 0
-Q12
+Q10
 Text Label 4300 3100 0    50   ~ 0
-Q13
+Q11
 Text Label 4300 3200 0    50   ~ 0
 Q14
 Text Label 4300 3300 0    50   ~ 0
-Q15
-Text Label 4300 4200 0    50   ~ 0
-Q0
-Text Label 4300 4300 0    50   ~ 0
-Q1
-Text Label 4300 4400 0    50   ~ 0
-Q3
-Text Label 4300 4500 0    50   ~ 0
-Q2
-Text Label 4300 4600 0    50   ~ 0
-Q4
-Text Label 4300 4700 0    50   ~ 0
-Q5
-Text Label 4300 4800 0    50   ~ 0
-Q6
-Text Label 4300 4900 0    50   ~ 0
-Q7
-Text Label 4300 5850 0    50   ~ 0
-Q8
-Text Label 4300 5750 0    50   ~ 0
-Q9
-Text Label 4300 5950 0    50   ~ 0
-Q11
-Text Label 4300 6050 0    50   ~ 0
-Q10
-Text Label 4300 6150 0    50   ~ 0
-Q12
-Text Label 4300 6250 0    50   ~ 0
-Q13
-Text Label 4300 6350 0    50   ~ 0
-Q14
-Text Label 4300 6450 0    50   ~ 0
 Q15
 Connection ~ 9550 3050
 Connection ~ 9550 3250
@@ -1949,13 +1885,13 @@ FPD7
 Text Label 5950 4800 0    50   ~ 0
 FPD6
 Text Label 5950 4700 0    50   ~ 0
-FPD5
-Text Label 5950 4600 0    50   ~ 0
-FPD4
-Text Label 5950 4500 0    50   ~ 0
-FPD2
-Text Label 5950 4400 0    50   ~ 0
 FPD3
+Text Label 5950 4600 0    50   ~ 0
+FPD2
+Text Label 5950 4500 0    50   ~ 0
+FPD4
+Text Label 5950 4400 0    50   ~ 0
+FPD5
 Text Label 5950 4200 0    50   ~ 0
 FPD1
 Text Label 5950 4300 0    50   ~ 0
@@ -1976,18 +1912,110 @@ Wire Wire Line
 	5900 4800 6400 4800
 Wire Wire Line
 	5900 4900 6400 4900
+Wire Wire Line
+	4900 2800 4200 2800
+Wire Wire Line
+	4900 2700 4200 2700
+Wire Wire Line
+	4900 2600 4200 2600
+Text Label 4300 2600 0    50   ~ 0
+Q9
+Text Label 4300 2700 0    50   ~ 0
+Q8
+Text Label 4300 2800 0    50   ~ 0
+Q13
+Text Label 4300 2900 0    50   ~ 0
+Q12
+Text Label 5950 2900 0    50   ~ 0
+IBUS12
+Text Label 5950 2800 0    50   ~ 0
+IBUS13
+Text Label 5950 2600 0    50   ~ 0
+IBUS9
+Text Label 5950 2700 0    50   ~ 0
+IBUS8
+Wire Wire Line
+	6250 2800 5900 2800
+Wire Wire Line
+	6250 2700 5900 2700
+Wire Wire Line
+	5900 2600 6250 2600
+Wire Wire Line
+	4900 6450 4200 6450
+Wire Wire Line
+	4900 6350 4200 6350
+Wire Wire Line
+	4900 6250 4200 6250
+Wire Wire Line
+	4900 6150 4200 6150
+Wire Wire Line
+	4900 6050 4200 6050
+Wire Wire Line
+	4900 4900 4200 4900
+Wire Wire Line
+	4900 4800 4200 4800
+Wire Wire Line
+	4900 4700 4200 4700
+Wire Wire Line
+	4900 4600 4200 4600
+Wire Wire Line
+	4900 4500 4200 4500
+Wire Wire Line
+	4900 4400 4200 4400
+Wire Wire Line
+	4900 4300 4200 4300
+Wire Wire Line
+	4900 4200 4200 4200
+Text Label 4300 4300 0    50   ~ 0
+Q0
+Text Label 4300 4200 0    50   ~ 0
+Q1
+Text Label 4300 4700 0    50   ~ 0
+Q3
+Text Label 4300 4600 0    50   ~ 0
+Q2
+Text Label 4300 4500 0    50   ~ 0
+Q4
+Text Label 4300 4400 0    50   ~ 0
+Q5
+Text Label 4300 4800 0    50   ~ 0
+Q6
+Text Label 4300 4900 0    50   ~ 0
+Q7
+Text Label 4300 6150 0    50   ~ 0
+Q10
+Text Label 4300 6250 0    50   ~ 0
+Q11
+Text Label 4300 6350 0    50   ~ 0
+Q14
+Text Label 4300 6450 0    50   ~ 0
+Q15
+Wire Wire Line
+	4900 5950 4200 5950
+Wire Wire Line
+	4900 5850 4200 5850
+Wire Wire Line
+	4900 5750 4200 5750
+Text Label 4300 5750 0    50   ~ 0
+Q9
+Text Label 4300 5850 0    50   ~ 0
+Q8
+Text Label 4300 5950 0    50   ~ 0
+Q13
+Text Label 4300 6050 0    50   ~ 0
+Q12
 Text Label 5950 6450 0    50   ~ 0
 FPD7
 Text Label 5950 6350 0    50   ~ 0
 FPD6
 Text Label 5950 6250 0    50   ~ 0
-FPD5
-Text Label 5950 6150 0    50   ~ 0
-FPD4
-Text Label 5950 6050 0    50   ~ 0
-FPD2
-Text Label 5950 5950 0    50   ~ 0
 FPD3
+Text Label 5950 6150 0    50   ~ 0
+FPD2
+Text Label 5950 6050 0    50   ~ 0
+FPD4
+Text Label 5950 5950 0    50   ~ 0
+FPD5
 Text Label 5950 5750 0    50   ~ 0
 FPD1
 Text Label 5950 5850 0    50   ~ 0
@@ -2008,34 +2036,6 @@ Wire Wire Line
 	5900 6350 6400 6350
 Wire Wire Line
 	5900 6450 6400 6450
-Wire Wire Line
-	4900 2800 4200 2800
-Wire Wire Line
-	4900 2700 4200 2700
-Wire Wire Line
-	4900 2600 4200 2600
-Text Label 4300 2600 0    50   ~ 0
-Q8
-Text Label 4300 2700 0    50   ~ 0
-Q9
-Text Label 4300 2800 0    50   ~ 0
-Q10
-Text Label 4300 2900 0    50   ~ 0
-Q11
-Text Label 5950 2900 0    50   ~ 0
-IBUS10
-Text Label 5950 2800 0    50   ~ 0
-IBUS11
-Text Label 5950 2600 0    50   ~ 0
-IBUS9
-Text Label 5950 2700 0    50   ~ 0
-IBUS8
-Wire Wire Line
-	6250 2800 5900 2800
-Wire Wire Line
-	6250 2700 5900 2700
-Wire Wire Line
-	5900 2600 6250 2600
 Wire Bus Line
 	1100 650  6250 650 
 Wire Bus Line
