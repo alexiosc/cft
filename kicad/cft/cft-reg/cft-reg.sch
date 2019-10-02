@@ -1110,7 +1110,7 @@ Wire Wire Line
 Text Label 2900 3550 2    50   ~ 0
 ~WRITE-PC
 Text Label 2900 2400 2    50   ~ 0
-READ-SP
+~READ-SP
 Text Label 2900 2300 2    50   ~ 0
 ~READ-AC
 Text Label 2900 2200 2    50   ~ 0
@@ -1167,7 +1167,7 @@ Text Label 5050 4700 0    50   ~ 0
 Text Label 5050 4800 0    50   ~ 0
 ~ACTION-DECAC
 Text Label 5050 5800 0    50   ~ 0
-READ-SP
+~READ-SP
 Text Label 5050 5900 0    50   ~ 0
 ~WRITE-SP
 Text Label 5050 6000 0    50   ~ 0
@@ -1186,22 +1186,6 @@ Wire Wire Line
 	10400 2500 10900 2500
 Wire Wire Line
 	10400 2600 10900 2600
-Wire Wire Line
-	12350 4650 12850 4650
-Wire Wire Line
-	12350 4750 12850 4750
-Wire Wire Line
-	12350 4850 12850 4850
-Wire Wire Line
-	12350 4950 12850 4950
-Wire Wire Line
-	12350 5050 12850 5050
-Wire Wire Line
-	12350 5150 12850 5150
-Wire Wire Line
-	12350 5250 12850 5250
-Wire Wire Line
-	12350 5350 12850 5350
 Wire Wire Line
 	10400 3100 10900 3100
 Wire Wire Line
@@ -1246,19 +1230,37 @@ Text Label 10900 2500 2    50   ~ 0
 PC14
 Text Label 10900 2600 2    50   ~ 0
 PC15
-NoConn ~ 12850 4650
-NoConn ~ 12850 4750
-NoConn ~ 12850 4850
-NoConn ~ 12850 4950
-NoConn ~ 12850 5050
-NoConn ~ 12850 5150
-NoConn ~ 12850 5250
+Text Label 5050 2100 0    50   ~ 0
+~ACTION-INCPC
+NoConn ~ 10900 4000
+NoConn ~ 10900 3900
+NoConn ~ 10900 3800
+NoConn ~ 10900 3000
+NoConn ~ 10900 2900
+NoConn ~ 10900 2800
+NoConn ~ 10900 2700
+Wire Wire Line
+	10400 4100 10900 4100
+Wire Wire Line
+	10400 4000 10900 4000
+Wire Wire Line
+	10400 3900 10900 3900
+Wire Wire Line
+	10400 3000 10900 3000
+Wire Wire Line
+	10400 2900 10900 2900
+Wire Wire Line
+	10400 2800 10900 2800
+Wire Wire Line
+	10400 2700 10900 2700
+NoConn ~ 10900 4100
+Wire Wire Line
+	10400 4200 10900 4200
+NoConn ~ 10900 4200
 Wire Bus Line
 	850  3350 850  4150
 Wire Bus Line
 	850  1900 850  2700
 Wire Bus Line
 	850  4800 850  5500
-Text Label 5050 2100 0    50   ~ 0
-~ACTION-INCPC
 $EndSCHEMATC

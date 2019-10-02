@@ -1670,16 +1670,6 @@ Text Label 4300 6350 0    50   ~ 0
 Q14
 Text Label 4300 6450 0    50   ~ 0
 Q15
-Wire Bus Line
-	1100 650  6250 650 
-Wire Bus Line
-	6500 750  6500 6350
-Wire Bus Line
-	1700 750  1700 6000
-Wire Bus Line
-	6350 750  6350 3200
-Wire Bus Line
-	4100 1150 4100 6550
 $Comp
 L Device:C_Small C?
 U 1 1 5E24BF44
@@ -1704,4 +1694,14 @@ F 3 "~" H 10450 4550 50  0001 C CNN
 $EndComp
 Connection ~ 10450 4450
 Connection ~ 10450 4650
+Wire Bus Line
+	1100 650  6250 650 
+Wire Bus Line
+	6500 750  6500 6350
+Wire Bus Line
+	1700 750  1700 6000
+Wire Bus Line
+	6350 750  6350 3200
+Wire Bus Line
+	4100 1150 4100 6550
 $EndSCHEMATC
