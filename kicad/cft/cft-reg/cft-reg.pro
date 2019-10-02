@@ -1,4 +1,4 @@
-update=Mon Sep 23 14:29:55 2019
+update=Wed Oct  2 22:19:45 2019
 version=1
 last_client=kicad
 [general]
@@ -25,7 +25,7 @@ ERC_TestSimilarLabels=1
 [pcbnew]
 version=1
 PageLayoutDescrFile=
-LastNetListRead=reg.net
+LastNetListRead=cft-reg.net
 CopperLayerCount=2
 BoardThickness=1.6
 AllowMicroVias=0
@@ -47,12 +47,14 @@ TrackWidth6=1.778
 TrackWidth7=2.54
 ViaDiameter1=0.8
 ViaDrill1=0.4
-ViaDiameter2=0.635
-ViaDrill2=0.399796
-ViaDiameter3=0.7874
+ViaDiameter2=0.508
+ViaDrill2=0.3
+ViaDiameter3=0.6096
 ViaDrill3=0.399796
-ViaDiameter4=1.27
-ViaDrill4=0.5
+ViaDiameter4=0.7874
+ViaDrill4=0.399796
+ViaDiameter5=1.27
+ViaDrill5=0.5
 dPairWidth1=0.2
 dPairGap1=0.25
 dPairViaGap1=0.25
@@ -79,7 +81,7 @@ OthersTextUpright=1
 SolderMaskClearance=0.051
 SolderMaskMinWidth=0.25
 SolderPasteClearance=0
-SolderPasteRatio=0
+SolderPasteRatio=-0
 [pcbnew/Layer.F.Cu]
 Name=F.Cu
 Type=0
@@ -249,7 +251,7 @@ Enabled=0
 [pcbnew/Netclasses]
 [pcbnew/Netclasses/Default]
 Name=Default
-Clearance=0.1778
+Clearance=0.1524
 TrackWidth=0.25
 ViaDiameter=0.8
 ViaDrill=0.4

@@ -196,28 +196,6 @@ F 3 "" H 10450 4450 50  0001 C CNN
 $EndComp
 $Comp
 L Device:C_Small C?
-U 1 1 5D9BFF9F
-P 10450 4550
-AR Path="/5CC0D65F/5D9BFF9F" Ref="C?"  Part="1" 
-AR Path="/5CE16E65/5D9BFF9F" Ref="C?"  Part="1" 
-AR Path="/5D9BFF9F" Ref="C?"  Part="1" 
-AR Path="/5D54E677/5D9BFF9F" Ref="C?"  Part="1" 
-AR Path="/5D62E1DC/5D9BFF9F" Ref="C?"  Part="1" 
-AR Path="/5D79EA4B/5D9BFF9F" Ref="C?"  Part="1" 
-AR Path="/5D892D5E/5D9BFF9F" Ref="C?"  Part="1" 
-AR Path="/5D9672D4/5D9BFF9F" Ref="C?"  Part="1" 
-AR Path="/5D967A8B/5D9BFF9F" Ref="C35"  Part="1" 
-AR Path="/5D9746D0/5D9BFF9F" Ref="C?"  Part="1" 
-AR Path="/5D9BD2A8/5D9BFF9F" Ref="C43"  Part="1" 
-F 0 "C43" H 10359 4596 50  0000 R CNN
-F 1 "100nF" H 10359 4505 50  0000 R CNN
-F 2 "Jumper:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm" H 10450 4550 50  0001 C CNN
-F 3 "~" H 10450 4550 50  0001 C CNN
-	1    10450 4550
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
 U 1 1 5D9BFFA6
 P 10450 3850
 AR Path="/5CC0D65F/5D9BFFA6" Ref="C?"  Part="1" 
@@ -1213,8 +1191,6 @@ Connection ~ 10450 3050
 Connection ~ 10450 3250
 Connection ~ 10450 3750
 Connection ~ 10450 3950
-Connection ~ 10450 4450
-Connection ~ 10450 4650
 $Comp
 L alexios:74HCT541 U?
 U 1 1 5D9C01AD
@@ -1518,22 +1494,6 @@ Wire Wire Line
 	4200 3200 4900 3200
 Wire Wire Line
 	4200 3300 4900 3300
-Text Label 4300 2600 0    50   ~ 0
-Q0
-Text Label 4300 2700 0    50   ~ 0
-Q1
-Text Label 4300 2800 0    50   ~ 0
-Q2
-Text Label 4300 2900 0    50   ~ 0
-Q3
-Text Label 4300 3000 0    50   ~ 0
-Q4
-Text Label 4300 3100 0    50   ~ 0
-Q5
-Text Label 4300 3200 0    50   ~ 0
-Q6
-Text Label 4300 3300 0    50   ~ 0
-Q7
 Wire Wire Line
 	4200 4200 4900 4200
 Wire Wire Line
@@ -1565,38 +1525,6 @@ Q5
 Text Label 4300 4800 0    50   ~ 0
 Q6
 Text Label 4300 4900 0    50   ~ 0
-Q7
-Wire Wire Line
-	4200 5750 4900 5750
-Wire Wire Line
-	4200 5850 4900 5850
-Wire Wire Line
-	4200 5950 4900 5950
-Wire Wire Line
-	4200 6050 4900 6050
-Wire Wire Line
-	4200 6150 4900 6150
-Wire Wire Line
-	4200 6250 4900 6250
-Wire Wire Line
-	4200 6350 4900 6350
-Wire Wire Line
-	4200 6450 4900 6450
-Text Label 4300 5750 0    50   ~ 0
-Q0
-Text Label 4300 5850 0    50   ~ 0
-Q1
-Text Label 4300 5950 0    50   ~ 0
-Q2
-Text Label 4300 6050 0    50   ~ 0
-Q3
-Text Label 4300 6150 0    50   ~ 0
-Q4
-Text Label 4300 6250 0    50   ~ 0
-Q5
-Text Label 4300 6350 0    50   ~ 0
-Q6
-Text Label 4300 6450 0    50   ~ 0
 Q7
 Wire Wire Line
 	5900 5750 6400 5750
@@ -1694,6 +1622,54 @@ Text Label 5950 3200 0    50   ~ 0
 IBUS14
 Text Label 5950 3300 0    50   ~ 0
 IBUS15
+Text Label 4300 2600 0    50   ~ 0
+Q8
+Text Label 4300 2700 0    50   ~ 0
+Q9
+Text Label 4300 2800 0    50   ~ 0
+Q10
+Text Label 4300 2900 0    50   ~ 0
+Q11
+Text Label 4300 3000 0    50   ~ 0
+Q12
+Text Label 4300 3100 0    50   ~ 0
+Q13
+Text Label 4300 3200 0    50   ~ 0
+Q14
+Text Label 4300 3300 0    50   ~ 0
+Q15
+Wire Wire Line
+	4200 5750 4900 5750
+Wire Wire Line
+	4200 5850 4900 5850
+Wire Wire Line
+	4200 5950 4900 5950
+Wire Wire Line
+	4200 6050 4900 6050
+Wire Wire Line
+	4200 6150 4900 6150
+Wire Wire Line
+	4200 6250 4900 6250
+Wire Wire Line
+	4200 6350 4900 6350
+Wire Wire Line
+	4200 6450 4900 6450
+Text Label 4300 5750 0    50   ~ 0
+Q8
+Text Label 4300 5850 0    50   ~ 0
+Q9
+Text Label 4300 5950 0    50   ~ 0
+Q10
+Text Label 4300 6050 0    50   ~ 0
+Q11
+Text Label 4300 6150 0    50   ~ 0
+Q12
+Text Label 4300 6250 0    50   ~ 0
+Q13
+Text Label 4300 6350 0    50   ~ 0
+Q14
+Text Label 4300 6450 0    50   ~ 0
+Q15
 Wire Bus Line
 	1100 650  6250 650 
 Wire Bus Line
@@ -1704,4 +1680,28 @@ Wire Bus Line
 	6350 750  6350 3200
 Wire Bus Line
 	4100 1150 4100 6550
+$Comp
+L Device:C_Small C?
+U 1 1 5E24BF44
+P 10450 4550
+AR Path="/5CC0D65F/5E24BF44" Ref="C?"  Part="1" 
+AR Path="/5CE16E65/5E24BF44" Ref="C?"  Part="1" 
+AR Path="/5E24BF44" Ref="C?"  Part="1" 
+AR Path="/5D54E677/5E24BF44" Ref="C?"  Part="1" 
+AR Path="/5D62E1DC/5E24BF44" Ref="C?"  Part="1" 
+AR Path="/5D79EA4B/5E24BF44" Ref="C?"  Part="1" 
+AR Path="/5D892D5E/5E24BF44" Ref="C?"  Part="1" 
+AR Path="/5D9672D4/5E24BF44" Ref="C?"  Part="1" 
+AR Path="/5D967A8B/5E24BF44" Ref="C35"  Part="1" 
+AR Path="/5D9746D0/5E24BF44" Ref="C?"  Part="1" 
+AR Path="/5D9BD2A8/5E24BF44" Ref="C43"  Part="1" 
+F 0 "C43" H 10359 4596 50  0000 R CNN
+F 1 "100nF" H 10359 4505 50  0000 R CNN
+F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10450 4550 50  0001 C CNN
+F 3 "~" H 10450 4550 50  0001 C CNN
+	1    10450 4550
+	1    0    0    -1  
+$EndComp
+Connection ~ 10450 4450
+Connection ~ 10450 4650
 $EndSCHEMATC
