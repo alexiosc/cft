@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:cft-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -518,8 +518,6 @@ Text Notes 8700 6000 0    50   ~ 0
 The constant store now needs to emit just three constants:\n0000, 0002 and 0003. We get 0001 for free because of the\ncombinational wiring. All of these are used as vector\naddresses, so it would be easy to change them to e.g.\n0000, 0001, 0008 and 0009 by moving the wiring around.\n\nUnlike the previous design, ~RSTHOLD~ does not drive the\nIBUS with a constant. The Reset microprogram is responsible\nfor that, and this is now possible because the Reset Vector\nis 0000 and it can be issues without wiring magic like on the\nprevious design.
 Text Notes 8700 4950 0    63   ~ 13
 2019 Design Update
-Text Notes 4300 3200 1    50   ~ 10
-RADDR=110xx
 Wire Wire Line
 	5450 2650 5450 3450
 Wire Wire Line
