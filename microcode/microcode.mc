@@ -240,14 +240,19 @@ signal /action_cli     = .....0100...............; // Clear I flag
 signal /action_cla     = .....0101...............; // Clear the AC
 //signal /action_???   = .....0110...............; // 
 signal /action_sru     = .....0111...............; // Start the shift/roll engine
+
+// ACTION 1XXX is decoded by the REG board and is just increments and
+// decrements of each major register (except the PC which isn't wired
+// for decrementation).
+
 signal /action_incpc   = .....1000...............; // Step the PC
-signal /action_incdr   = .....1001...............; // Increment DR
-signal /action_decdr   = .....1010...............; // Decrement DR
-signal /action_incac   = .....1011...............; // Increment AC
-signal /action_decac   = .....1100...............; // Increment AC
-signal /action_incsp   = .....1101...............; // Increment SP
-signal /action_decsp   = .....1110...............; // Increment SP
-//signal /action_???   = .....1111...............; // 
+//signal /action_???   = .....1001...............; // 
+signal /action_incdr   = .....1010...............; // Increment DR
+signal /action_decdr   = .....1011...............; // Decrement DR
+signal /action_incac   = .....1100...............; // Increment AC
+signal /action_decac   = .....1101...............; // Increment AC
+signal /action_incsp   = .....1110...............; // Increment SP
+signal /action_decsp   = .....1111...............; // Increment SP
 
 // HORIZONTAL SIGNALS
 signal /MEM            = ....1...................; // Memory access
