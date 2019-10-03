@@ -420,19 +420,18 @@ Entry Wire Line
 	850  5500 950  5600
 Text Label 2900 5000 2    50   ~ 0
 ~ACTION-INCPC
-Text Label 2900 5100 2    50   ~ 0
+Text Label 2900 5200 2    50   ~ 0
 ~ACTION-INCDR
-Text Label 2900 5300 2    50   ~ 0
-~ACTION-INCAC
 Text Label 2900 5400 2    50   ~ 0
-~ACTION-DECAC
+~ACTION-INCAC
 Text Label 2900 5500 2    50   ~ 0
-~ACTION-INCSP
+~ACTION-DECAC
 Text Label 2900 5600 2    50   ~ 0
+~ACTION-INCSP
+Text Label 2900 5700 2    50   ~ 0
 ~ACTION-DECSP
 Wire Wire Line
 	2300 5000 2900 5000
-NoConn ~ 2300 5700
 Text Notes 1850 2750 1    50   ~ 10
 RADDR=010xx
 Wire Wire Line
@@ -1085,10 +1084,8 @@ F10 "FPD[0..7]" T R 7050 5900 50
 $EndSheet
 Text Notes 7100 6950 0    197  ~ 39
 4× Major Registers (REG)
-Text Label 2900 5200 2    50   ~ 0
+Text Label 2900 5300 2    50   ~ 0
 ~ACTION-DECDR
-Wire Wire Line
-	2300 5100 2900 5100
 Wire Wire Line
 	2300 5200 2900 5200
 Wire Wire Line
@@ -1099,6 +1096,8 @@ Wire Wire Line
 	2300 5500 2900 5500
 Wire Wire Line
 	2300 5600 2900 5600
+Wire Wire Line
+	2300 5700 2900 5700
 Wire Wire Line
 	2300 3550 2900 3550
 Wire Wire Line
@@ -1257,10 +1256,13 @@ NoConn ~ 10900 4100
 Wire Wire Line
 	10400 4200 10900 4200
 NoConn ~ 10900 4200
+NoConn ~ 2300 5100
 Wire Bus Line
 	850  3350 850  4150
 Wire Bus Line
 	850  1900 850  2700
 Wire Bus Line
 	850  4800 850  5500
+Text Notes 2950 5100 0    50   ~ 0
+The PC doesn't decrement
 $EndSCHEMATC
