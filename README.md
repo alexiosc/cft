@@ -1,7 +1,7 @@
 
 
 
-!(CFT Logo)[https://raw.githubusercontent.com/alexiosc/cft/master/documentation/logo/cft-logo-v2-banner-plain.svg]
+!(CFT Logo)[./documentation/logo/cft-logo-v2-banner-plain.svg]
 
 # The CFT Home-Brew 16-bit Mini-Computer
 
