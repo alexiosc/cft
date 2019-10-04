@@ -1,4 +1,4 @@
-!(CFT Logo)[https://www.bedroomlan.org/hardware/cft/log/banner-cft-logo-v2.svg]
+!(CFT Logo)[https://www.bedroomlan.org/hardware/cft/log/banner-cft-logo-v2-ws.png]
 
 # The CFT Home-Brew 16-bit Mini-Computer
 
