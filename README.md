@@ -2,7 +2,7 @@
 
 
 
-!(CFT Logo)[https://www.bedroomlan.org/hardware/cft/log/banner-cft-logo-v2-ws.png]
+![](https://www.bedroomlan.org/hardware/cft/log/banner-cft-logo-v2-ws.png)
 
 The CFT is a home-designed, home-built mini-computer made from
 scratch.
