@@ -1,7 +1,8 @@
 #!/usr/bin/make
 
 TOOLDIR	=	../tools
-MC =		$(TOOLDIR)/microcode.py
+#MC =		$(TOOLDIR)/microcode.py
+MC =		/usr/bin/mcasm
 MKALUB =	$(TOOLDIR)/mkbinaryrom.py
 MKALUU =	$(TOOLDIR)/mkunaryrom.py
 MCFLAGS += 	-ecsa
