@@ -49,6 +49,9 @@
 //   Version 7b: (2019-09-21) moved instructions around a bit to ease
 //   memorisation.
 
+//   Version 7c: (2019-10-05) added ISR instruction to call the interrupt
+//   handler programmatically for traps etc.
+
 
 // ADDRESSING MODES
 //
@@ -451,7 +454,7 @@ start RST=1, INT=0, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
       STACK_PUSH(pc);			        // 02 mem[MBS:SP++] ← PC
       STACK_PUSH(ac);		                // 04 mem[MBS:SP++] ← AC
       SET(pc, cs_isrvec0);			// 06 PC ← 0002
-      SET(mbp, cs_isrvec1), END;		// 08 MBP ← 0003
+      SET(mbp, cs_isrvec1), END;		// 07 MBP ← 0003
 
 // TODO: This jumps to [03:0002] which is a little inelegant. Rework
 // the constant source and jump to [00:0008] or something.
@@ -554,9 +557,9 @@ start RST=1, INT=0, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 #define TSA    _INSTR(0000), I=0, R=0, SUBOP=100, COND=X, IDX=XX
 #define TAD    _INSTR(0000), I=0, R=0, SUBOP=101, COND=X, IDX=XX
 #define TDA    _INSTR(0000), I=0, R=0, SUBOP=110, COND=X, IDX=XX
-//#define        _INSTR(0000), I=0, R=0, SUBOP=111, COND=X, IDX=XX // This is available
+//#define      _INSTR(0000), I=0, R=0, SUBOP=111, COND=X, IDX=XX // This is available
 
-//#define        _INSTR(0000), I=0, R=1, SUBOP=000, COND=X, IDX=XX // This is available
+#define ISR   _INSTR(0000), I=0, R=1, SUBOP=000, COND=X, IDX=XX // ** SUBOP AND R are not arbitrary!
 #define PHA    _INSTR(0000), I=0, R=1, SUBOP=001, COND=X, IDX=XX
 #define PPA    _INSTR(0000), I=0, R=1, SUBOP=010, COND=X, IDX=XX
 #define PHF    _INSTR(0000), I=0, R=1, SUBOP=011, COND=X, IDX=XX
@@ -621,6 +624,15 @@ start RST=1, INT=0, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 //
 ///////////////////////////////////////////////////////////////////////////////
 
+// MNEMONIC: IRET
+// NAME:     Interrupt Return
+// DESC:     Return from Interrupt
+// GROUP:    Flow Control
+// MODE:     Implied
+//
+// Pops the AC, PC and MBP from the Hardware Stack to return from an Interrupt
+// Service Routine.
+
 start IRET;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       STACK_POP(ac), /action_sti;		// 02 AC ← mem[--SP]
@@ -634,11 +646,19 @@ start IRET;
 //
 ///////////////////////////////////////////////////////////////////////////////
 
+// MNEMONIC: LRET
+// NAME:     Long Return
+// DESC:     Return from Long Subroutine Jump
+// GROUP:    Flow Control
+// MODE:     Implied
+//
+// Pops the PC and MBP from the Hardware Stack to return from an subroutine
+// entered with LJSR.
+
 start LRET;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       STACK_POP(pc);				// 02 PC ← mem[--SP]
       STACK_POP(mbp), END;			// 05 MBP ← mem[--SP]
-
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -675,6 +695,17 @@ start TAS;
 
 ///////////////////////////////////////////////////////////////////////////////
 //
+// THE TAD INSTRUCTION
+//
+///////////////////////////////////////////////////////////////////////////////
+
+start TAD;
+      FETCH_IR;                                 // 00 IR ← mem[PC++]
+      SET(DR, AC), END;				// 02 DR ← AC
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
 // THE TDA INSTRUCTION
 //
 ///////////////////////////////////////////////////////////////////////////////
@@ -686,13 +717,27 @@ start TDA;
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-// THE TAD INSTRUCTION
+// THE ISR INSTRUCTION
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-start TAD;
-      FETCH_IR;                                 // 00 IR ← mem[PC++]
-      SET(DR, AC), END;				// 02 DR ← AC
+// MNEMONIC: ISR
+// NAME:     Software Interrupt
+// DESC:     Call Interrupt Service Routine
+// GROUP:    Flow Control
+// MODE:     Literal
+//
+// Calls the Interrupt Service Routine. The 7-bit value in the operand is
+// written to the DR. An ISR can transfer this value to the AC to implement
+// custom software interrupts or traps.
+
+start ISR;
+      /action_cli, STACK_PUSH(mbp_flags);       // 00 mem[MBS:SP++] ← flags:MBP; CLI
+      STACK_PUSH(pc);			        // 02 mem[MBS:SP++] ← PC
+      STACK_PUSH(ac);		                // 04 mem[MBS:SP++] ← AC
+      SET(pc, cs_isrvec0);			// 06 PC ← 0002
+      SET(mbp, cs_isrvec1);			// 07 MBP ← 0003
+      SET(agl, dr), END;			// 08 DR ← AGL
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1039,15 +1084,39 @@ start IND, R=1;
 //
 ///////////////////////////////////////////////////////////////////////////////
 
+// MNEMONIC: LIA
+// NAME:     Literal Address
+// GROUP:    Miscellaneous
+//
+// Interprets operand as a Page-Local or Page Zero address and set the AC to
+// it.
+//
+// ---------------------------------------------------------------------------
+//
+// CAUTION:  Limited set of addressing modes.
+//
+//  I   R   Operand   (*) (#) Addressing Mode
+// ---------------------------------------------------------------------------
+//  0   0   Any           (1) Page-Local
+//  0   1   Any           (2) Register
+
+// MNEMONIC: LI
+// NAME:     Literal
+// GROUP:    Miscellaneous
+// MODE:     Literal
+//
+// Sets the AC to the 10-bit literal value in the operand. The top six bits in
+// the AC are cleared. This is the same instruction as LIA in Register mode.
+
 // NOTE: LIA makes no sense with I=1, so it shares opcodes with the
 // LJSR instruction, which makes no sense with I=1.
 
-// ① LIA, (always with I=0), local mode.
+// (1) LIA, Page-Local
 start LIA, I=0, R=0, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       SET(ac, agl), END;			// 02 AC ← AGL
 
-// ② LI, immediate mode. Also LIA, register mode.
+// (2) LIA, Register (also LI, Literal)
 start LIA, I=0, R=1, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       SET(ac, agl), END;			// 02 AC ← AGL
@@ -1188,20 +1257,29 @@ start LJMP, I=1, R=1, IDX=IDX_SP;
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-// CAUTION: NON-STANDARD ADDRESSING MODES!
+// MNEMONIC: JSR
+// NAME:     Jump to Subroutine
+// GROUP:    Flow Control
 //
-//  I   R   Operand   Addressing Mode
+// Push PC to the Hardware Stack and jump to a subroutine. Jumps are always
+// relative to the current value of the MBP.
+//
 // ---------------------------------------------------------------------------
-//  0   0   Any       (1) Page-Local
-//  0   1   Any       (2) Register
-//  1   0   Any       (3) Indirect
-//  1   1   000–2FF   (4) Register Indirect
-//  1   1   300–33F   (5) Memory Bank-Relative Indirect
-//  1   1   340–37F   (6) Auto-Increment Double Indirect
-//  1   1   380–3BF   (7) Auto-Decrement Double Indirect
-//  1   1   3C0–3FF   (8) Stack
+//
+// CAUTION:  Non-Standard addressing modes marked with *** below
+//
+//  I   R   Operand   (*) (#) Addressing Mode
+// ---------------------------------------------------------------------------
+//  0   0   Any           (1) Page-Local
+//  0   1   Any           (2) Register
+//  1   0   Any           (3) Indirect
+//  1   1   000–2FF       (4) Register Indirect
+//  1   1   300–33F       (5) Memory Bank-Relative Indirect
+//  1   1   340–37F   *** ( ) Auto-Increment Double Indirect
+//  1   1   380–3BF   *** ( ) Auto-Decrement Double Indirect
+//  1   1   3C0–3FF       (8) Stack
 
-// (1) & (2) JSR, Page-local and Page Zero modes.
+// (1) & (2) JSR, Page-local and Page Zero modes
 start JSR, I=0, R=X, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       STACK_PUSH(pc);				// 02 mem[MBS:SP++] ← PC
@@ -1213,37 +1291,37 @@ start JSR, I=1, R=0, IDX=XX;
       STACK_PUSH(pc);				// 02 mem[MBS:SP++] ← PC
       MEMREAD(mbp, agl, pc), END;		// 04 PC ← mem[MBP:AGL]
 
-// (4) & (5) JSR, Register Indirect and Memory Bank-Relative Indirect.
+// (4) & (5) JSR, Register Indirect and Memory Bank-Relative Indirect
 start JSR, I=1, R=1, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       STACK_PUSH(pc);				// 02 mem[MBS:SP++] ← PC
       MEMREAD(mbz, agl, pc), END;		// 04 PC ← mem[MBZ:AGL]
 
-// (6) JSR, Auto-Increment Double Indirect
+// NON-STANDARD: (6) JSR, Auto-Increment Double Indirect
 start JSR, I=1, R=1, IDX=IDX_INC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       STACK_PUSH(pc);				// 02 mem[MBS:SP++] ← PC
       MEMREAD(mbz, agl, dr);			// 04 DR ← mem[MBZ:AGL]
-      MEMREAD(mbp, dr, pc), /action_incdr;	// 06 PC ← mem[MBP:DR]; DR++;
+      MEMREAD(mbp, dr, pc), /action_incdr;	// 06 PC ← mem[MBP:DR]; DR++
       MEMWRITE(mbz, agl, dr), END;		// 08 mem[MBZ:AGL] ← DR
 
-// (7) JSR, double register indirect autodecrement addressing mode.
+// NON-STANDARD: (7) JSR, Auto-Decrement Double Indirect
 start JSR, I=1, R=1, IDX=IDX_DEC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       STACK_PUSH(pc);				// 02 mem[MBS:SP++] ← PC
       MEMREAD(mbz, agl, dr);			// 04 DR ← mem[MBZ:AGL]
-      MEMREAD(mbp, dr, pc), /action_decdr;	// 06 PC ← mem[MBP:DR]; DR--;
+      MEMREAD(mbp, dr, pc), /action_decdr;	// 06 PC ← mem[MBP:DR]; DR--
       MEMWRITE(mbz, agl, dr), END;		// 08 mem[MBZ:AGL] ← DR
 
-// (8) JSR, double register indirect stack addressing mode.
-// NOTE: behaves like ⑥, popping subroutine locations from a stack
-// register and jumping to them.
+// (8) JSR, indirect stack addressing mode.
+// Pops a 16-bit value from the specified stack register and jumps to the
+// subroutine there.
 start JSR, I=1, R=1, IDX=IDX_SP;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       STACK_PUSH(pc);				// 02 mem[MBS:SP++] ← PC
       MEMREAD(mbz, agl, dr);			// 04 DR ← mem[MBZ:AGL]
       /action_decdr;				// 06 DR--
-      MEMREAD(mbp, dr, pc);	                // 07 PC ← mem[MBP:DR]; DR++;
+      MEMREAD(mbp, dr, pc);	                // 07 PC ← mem[MBP:DR]
       MEMWRITE(mbz, agl, dr), END;		// 09 mem[MBZ:AGL] ← DR
 
 
@@ -1253,45 +1331,65 @@ start JSR, I=1, R=1, IDX=IDX_SP;
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-// ① & ②, local address addressing mode and register addressing mode
-// Note: with R=0, the address jumped to is relative to MBP, not MBZ!
-// TODO: examine if this should be fixed, and whether a fix is feasible.
+// MNEMONIC: JMP
+// NAME:     Jump
+// GROUP:    Flow Control
+//
+// Jump unconditionally. Jumps are always relative to the current value of the
+// MBP.
+//
+// ---------------------------------------------------------------------------
+//
+// CAUTION:  Non-Standard addressing modes marked with *** below
+//
+//  I   R   Operand   (*) (#) Addressing Mode
+// ---------------------------------------------------------------------------
+//  0   0   Any           (1) Page-Local
+//  0   1   Any           (2) Register
+//  1   0   Any           (3) Indirect
+//  1   1   000–2FF       (4) Register Indirect
+//  1   1   300–33F       (5) Memory Bank-Relative Indirect
+//  1   1   340–37F   *** ( ) Auto-Increment Double Indirect
+//  1   1   380–3BF   *** ( ) Auto-Decrement Double Indirect
+//  1   1   3C0–3FF       (8) Stack
+
+// (1) & (2), Page-Local and Register addressing modes
 start JMP, I=0, R=X, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       SET(pc, agl), END;			// 02 PC ← AGL
 
-// ③ JMP, local indirect addressing mode.
+// (3) JMP, Indirect
 start JMP, I=1, R=0, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       MEMREAD(mbp, agl, pc), END;		// 02 PC ← mem[MBP:AGL]
 
-// ④ JMP, register indirect addressing mode.
+// (4) & (5) JMP, Register Indirect and Memory Bank-Relative Indirect
 start JMP, I=1, R=1, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, pc), END;		// 02 PC ← mem[MBZ:AGL]
 
-// ⑤ JMP, double register indirect autoincrement addressing mode.
+// NON-STANDARD: (6) JMP, Auto-Increment Double Indirect
 start JMP, I=1, R=1, IDX=IDX_INC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
       MEMREAD(mbp, dr, pc), /action_incdr;	// 04 PC ← mem[MBP:DR]; DR++;
-      MEMWRITE(mbz, agl, dr), END;               // 06 mem[MBD:AGL] ← DR
+      MEMWRITE(mbz, agl, dr), END;              // 06 mem[MBD:AGL] ← DR
 
-// ⑥ JMP, double register indirect autodecrement addressing mode.
+// NON-STANDARD: (7) JMP, Auto-Decrement Double Indirect
 start JMP, I=1, R=1, IDX=IDX_DEC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
       MEMREAD(mbp, dr, pc), /action_decdr;	// 04 PC ← mem[MBP:DR]; DR--;
-      MEMWRITE(mbz, agl, dr), END;               // 06 mem[MBZ:AGL] ← DR
+      MEMWRITE(mbz, agl, dr), END;              // 06 mem[MBZ:AGL] ← DR
 
-// ⑦ JMP, double register indirect stack addressing mode.
+// (8) JMP, Stack.
 // Pops a 16-bit value from the specified stack register and jumps to it.
 start JMP, I=1, R=1, IDX=IDX_SP;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
       /action_decdr;                            // 04 DR--;
       MEMREAD(mbp, dr, pc);	                // 05 PC ← mem[MBP:DR]
-      MEMWRITE(mbz, agl, dr), END;               // 07 mem[MBZ:AGL] ← DR
+      MEMWRITE(mbz, agl, dr), END;              // 07 mem[MBZ:AGL] ← DR
 
 
 ///////////////////////////////////////////////////////////////////////////////
