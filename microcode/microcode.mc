@@ -212,7 +212,7 @@ signal write_dr        = ..............01001.....; // Write to DR
 signal write_ac        = ..............01010.....; // Write to AC
 signal write_sp        = ..............01011.....; // Write to AC
 signal write_alu_b     = ..............10101.....; // Write to ALU's B Port
-signal write_mbp       = ..............01100.....; // Read MBP
+signal write_mbp       = ..............01100.....; // Write MBP
 signal write_mbp_flags = ..............01101.....; // Read combination MBP+flags
 signal write_flags     = ..............01110.....; // Write flags (not all are written!)
 signal write_mbn       = ..............01111.....; // Write an MBn register (IR0..2 select reg)
@@ -464,93 +464,16 @@ start RST=1, INT=0, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-// THE INSTRUCTION SET
+// INSTRUCTION SET
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-//                                     (1)  (2)  (3)  (4)  (5)  (6)  (7)
-//                    I                 0    0    1    1    1    1    1	
-//                    R                 0    1    0    1    1    1    1	
-//             REG TYPE                     REG       REG  INC  DEC  SP   BIT
-//             INSTR  OP    I R SUB     :    :    :    :    :    :    :    :
-// --------------------------------------------------------------------------------------
-// DONE:       LIA    0000  0           X    X
-// DONE:       LI     0000  0                X
-// --------------------------------------------------------------------------------------
-// DONE:       LJSR   0000  1           1    1              2    2    2
-// DONE:       LJMP   0001  1                     X    X    2    2    2
-// DONE:       JSR    0010              X    X    X    X    2    2    2
-// DONE:       JMP    0011              X    X    X    X    2    2    2
-// --------------------------------------------------------------------------------------
-// DONE:       IOT    0100              .    X    .    X    ?    ?    ?
-// DONE:       IN     0101              .    X    .    X    ?    ?    ?
-// DONE:       OUT    0110              .    X    .    X    ?    ?    ?
-// --------------------------------------------------------------------------------------
-// DONE:       LOAD   1000              X    X    X    X    X    X    X
-// DONE:       STORE  1001              X    X    X    X    X    X    X
-// DONE:       DSZ    1010              X    X    X    3    3    3    3
-// --------------------------------------------------------------------------------------
-// DONE:       ADD    1100              X    X    X    X    X    X    X
-// DONE:       AND    1101              X    X    X    X    X    X    X
-// DONE:       OR     1110              X    X    X    X    X    X    X
-// DONE:       XOR    1111              X    X    X    X    X    X    X
-// --------------------------------------------------------------------------------------
-// DONE:       IRET   0111  0 0 000
-// DONE:       LRET   0111  0 0 001
-// DONE:       RET    0111  0 0 010
-// DONE:       TAS    0111  0 0 011
-// DONE:       TSA    0111  0 0 100
-// DONE:       TAD    0111  0 0 101
-// DONE:       TDA    0111  0 0 110
-// DONE:       PHA    0111  0 0 111
-// DONE:       PPA    0111  0 1 000
-// DONE:       PHF    0111  0 1 001
-// DONE:       PPF    0111  0 1 010
-// DONE:       STI    0111  0 1 011
-// DONE:       CLI    0111  0 1 100
-// DONE:       IFL    0111  0 1 101
-// DONE:       IFV    0111  0 1 110
-// DONE:       UOP    0111  0 1 111
-// DONE:       SRU    0111  1 0 000
-// DONE:       SKP    0111  1 0 001
-// DONE:       TAB    0111  1 0 010 *REMOVED*
-// DONE:       TBA    0111  1 0 011 *REMOVED*
-// DONE:       RMB    0111  1 0 100
-// DONE:       SMB    0111  1 0 101
-// DONE:       IND    0111  1   111
-// --------------------------------------------------------------------------------------
-// X = Addressing mode implemented
-// . = Addressing mode makes no sense, TBD
-// i = Double indirection mode
-// 1 = Despite I=0, these are indirect modes
-// 2 = (To be replaced with) Double Indirection
-// 3 = Autoindex behaviour is non-standard. (decrements AC for DEC & SP regs)
-
-
-// IFL = OP1  '1---------               ; if9: END if L=0
-// IFV = OP1  '-1--------               ; if8: END if V=0
-// CLA = OP1  '--1-------               ; if7: A <- 0
-// CLL = OP1  '---1------               ; if6: L <- 0
-// NOT = OP1  '----1-----               ; if5: A <- NOT A
-// INC = OP1  '-----1----               ; if4: <L,A> <- <L,A> + 1
-// CPL = OP1  '------1---               ; if3: L <- NOT L
-// RBL = OP1  '-------010               ; ifroll: <L,A> <- <L,A> << 1
-// RBR = OP1  '-------001               ; <L,A> <- <L,A> >> 1
-// RNL = OP1  '-------110               ; <L,A> <- <L,A> << 4
-// RNR = OP1  '-------101               ; <L,A> <- <L,A> >> 4
-
-// ROLLS/SHIFTS
-//
-// * Arithmetic/Logic
-// * Left/Right
-// * 1
-// * 2
-
-// Needs 4 bits, 3 bits left, 3 bits right + 4 bits
 
 // Define the opcodes for convenience.
 
 #define _INSTR(x) RST=1, INT=1, IN_RESERVED=X, OP=x
+
+// PART I: INSTRUCTION 0 (maximum 7-bit operands)
 
 #define IRET   _INSTR(0000), I=0, R=0, SUBOP=000,         IDX=XX
 #define LRET   _INSTR(0000), I=0, R=0, SUBOP=001, COND=X, IDX=XX
@@ -587,6 +510,8 @@ start RST=1, INT=0, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 #define IFL    _INSTR(0000), I=1, R=1, SUBOP=101,         IDX=XX // ** SUBOP is not arbitrary!
 #define IFV    _INSTR(0000), I=1, R=1, SUBOP=110,         IDX=XX // ** SUBOP is not arbitrary!
 #define IND    _INSTR(0000), I=1,      SUBOP=111, COND=X         // THIS INCLUDES AN R VARIANT (ABOVE)
+
+// PART II: INSTRUCTIONS 1–15, 10-bit operands
 
 #define LIA    _INSTR(0001), SUBOP=XXX, COND=X                   // Only for I=0
 
@@ -999,6 +924,93 @@ start WAIT;
 
 ///////////////////////////////////////////////////////////////////////////////
 //
+// THE SRU GROUP: SHIFTS AND ROTATIONS
+//
+///////////////////////////////////////////////////////////////////////////////
+
+//            OP   I R 987 654 3210
+// SHL = SRU  0111'1'0'000'000'dddd    ; Bitwise shift left by d bits
+// SHR = SRU  0111'1'0'000'001'dddd    ; Bitwise shift right by d bits
+// ASR = SRU  0111'1'0'000'011'dddd    ; Arithmetic shift right by d bits
+// ROL = SRU  0111'1'0'000'100'dddd    ; Rotate left by d bits
+// ROR = SRU  0111'1'0'000'101'dddd    ; Rotate right by d bits
+//
+// This results in the following instructions:
+
+// MNEMONIC: SHL
+// NAME:     Bitwise Shift Left
+// DESC:     Shift Accumulator left.
+// GROUP:    Arithmetic and Logic
+// MODE:     Literal (4 bits)
+// FLAGS:    *NZ---
+// FORMAT:   :000:LLLL
+//
+// Shifts the AC left by the number of bits specified in the operand. Shift
+// distances between 1 and 15 can be specified. A zero operand makes no sense
+// and should not be used.
+
+// MNEMONIC: (SRU) SHR
+// NAME:     Bitwise Shift Right
+// DESC:     Shift Accumulator right without sign extension.
+// GROUP:    Arithmetic and Logic
+// MODE:     Literal (4 bits)
+// FLAGS:    *NZ---
+// FORMAT:   :001:LLLL
+//
+// Shifts the AC right by the number of bits specified in the operand. Shift
+// distances between 1 and 15 can be specified. A zero operand makes no sense
+// and should not be used.
+
+// MNEMONIC: (SRU) ASR
+// NAME:     Arithmetic Shift Right
+// DESC:     Shift Accumulator right with sign extension.
+// GROUP:    Arithmetic and Logic
+// MODE:     Literal (4 bits)
+// FLAGS:    *NZ---
+// FORMAT:   :011:LLLL
+//
+// Shifts the AC right by the number of bits specified in the operand. Shift
+// distances between 1 and 15 can be specified. A zero operand makes no sense
+// and should not be used.
+
+// MNEMONIC: (SRU) ROL
+// NAME:     Roll Left
+// DESC:     Roll Link and Accumulator left.
+// GROUP:    Arithmetic and Logic
+// MODE:     Literal (4 bits)
+// FLAGS:    *NZL--
+// FORMAT:   :100:LLLL
+//
+// Treats the Link Register and the AC as a 17-bit vector (L being the most
+// significant bit) and rolls it left by the specified number of bits.
+
+// MNEMONIC: (SRU) ROR
+// NAME:     Roll Right
+// DESC:     Roll Link and Accumulator right.
+// GROUP:    Arithmetic and Logic
+// MODE:     Literal (4 bits)
+// FLAGS:    *NZL--
+// FORMAT:   :101:LLLL
+//
+// Treats the Link Register and the AC as a 17-bit vector (L being the most
+// significant bit) and rolls it right by the specified number of bits.
+
+// L=1 ⇒ COND=0, so IFL takes action.
+
+// IR bits are directly linked to the shift/rotate unit, so all
+// of these instructions have the same microcode.
+start SRU;
+      FETCH_IR;                                 // 00 IR ← mem[PC++]
+      /action_sru;				// 02 SRU cycle #1 (sync wait)
+      ;				                // 03 SRU cycle #2
+      ;				                // 04 SRU cycle #3
+      ;				                // 05 SRU cycle #4
+      ;				                // 06 SRU cycle #5
+      SET(ac, alu_b), END;			// 07 AC ← ALU B Reg
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
 // THE UNARY OPERATION GROUP: IFL, IFV, UOP
 //
 ///////////////////////////////////////////////////////////////////////////////
@@ -1008,8 +1020,289 @@ start WAIT;
 // CLL = UOP  '--1----		; if4: L <- 0
 // NOT = UOP  '---1---		; if3: A <- NOT A
 // INC = UOP  '----1--		; if2: <L,A> <- <L,A> + 1
-// DEC = UOP  '-----1-		; if1: <L,A> <- <L,A> + 1
+// DEC = UOP  '-----1-		; if1: <L,A> <- <L,A> - 1
 // CPL = UOP  '------1		; if0: L <- NOT L
+//
+// This allows for the following instructions (or combinations thereof):
+
+// MNEMONIC: (UOP) CLA
+// NAME:     Clear Accumulator
+// DESC:     Set the AC to zero.
+// GROUP:    Unary Operations, UOP
+// MODE:     Implied
+// FLAGS:    nZ---
+// FORMAT:   :-1-----
+//
+// Sets the AC to zero.
+
+// MNEMONIC: (UOP) CLL
+// NAME:     Clear Link
+// DESC:     Clear the Link Register.
+// GROUP:    Unary Operations, UOP
+// MODE:     Implied
+// FLAGS:    --l--
+// FORMAT:   :--1----
+//
+// Sets L to zero.
+
+// MNEMONIC: (UOP) NOT
+// NAME:     Complement Accumulator
+// DESC:     Invert all bits in the Accumulator.
+// GROUP:    Unary Operations, UOP
+// MODE:     Implied
+// FLAGS:    *NZ---
+// FORMAT:   :---1---
+//
+// Inverts all bits in the AC, producing a one's complement negation of AC or
+// evaluating -(AC-1) in two's complement arithmetic.
+
+// MNEMONIC: (UOP) INC
+// NAME:     Increment Accumulator
+// DESC:     Increment <L,AC> by one.
+// GROUP:    Unary Operations, UOP
+// MODE:     Implied
+// FLAGS:    *NZL--
+// FORMAT:   :----1--
+//
+// Treats <L,AC> as a 17-bit unsigned integer and adds one it. It can also be
+// seen as an incrementation of AC by one, where L is toggled on AC overflow.
+
+// MNEMONIC: (UOP) NEG
+// NAME:     Negate Accumulator
+// DESC:     Two's complement negation of the AC.
+// GROUP:    Unary Operations, UOP
+// MODE:     Implied
+// FLAGS:    *NZL--
+// FORMAT:   :---11--
+//
+// Negates the AC, then adds one to it. If the value wraps around during
+// incrementation, L will be complemented.
+
+// MNEMONIC: (UOP) DEC
+// NAME:     Decrement Accumulator
+// DESC:     Decrement <L,AC> by one.
+// GROUP:    Unary Operations, UOP
+// MODE:     Implied
+// FLAGS:    *NZL--
+// FORMAT:   :-----1-
+//
+// Treats <L,AC> as a 17-bit unsigned integer and subtracts one it. It can also
+// be seen as an decrementation of AC by one, where L is toggled on AC
+// underflow.
+
+// MNEMONIC: (UOP) CPL
+// NAME:     Complement Link
+// DESC:     Toggle the L Flag.
+// GROUP:    Unary Operations, UOP
+// MODE:     Implied
+// FLAGS:    *--L--
+// FORMAT:   :------1
+//
+// Complements (toggles) the L Flag or Link Register.
+
+// MNEMONIC: (UOP) SEL
+// NAME:     Set Link
+// DESC:     Set the L Flag.
+// GROUP:    Unary Operations, UOP
+// MODE:     Implied
+// FLAGS:    --L--
+// FORMAT:   :------1
+//
+// Sets the L Flag or Link Register. This instruction is a combination of the
+// `CLL` and `CPL` instructions.
+
+
+
+// MNEMONIC: IFL CLA
+// NAME:     Clear Accumulator If Link Set
+// DESC:     Set the AC to zero if L is set.
+// GROUP:    Unary Operations, IFL
+// MODE:     Implied
+// FLAGS:    *NZ---
+// FORMAT:   0000:11:101:-1-----
+//
+// If the L flag is set, sets the AC to zero.
+
+// MNEMONIC: IFL CLL
+// NAME:     Clear Link if Link Set
+// DESC:     Clear the Link Register if L is set.
+// GROUP:    Unary Operations, UOP
+// MODE:     Implied
+// FLAGS:    *--l--
+// FORMAT:   0000:11:101:--1----
+//
+// If the L flag is set, this sets it to zero. This is useless, unless part of
+// a more complicated bimap instruction.
+
+// MNEMONIC: IFL NOT
+// NAME:     Complement Accumulator If Link Set
+// DESC:     Invert all bits in the AC if L is set.
+// GROUP:    Unary Operations, IFL
+// MODE:     Implied
+// FLAGS:    *NZ---
+// FORMAT:   0000:11:101:---1---
+//
+// If the L flag is set, all bits in the AC are inverted.
+
+// MNEMONIC: IFL INC
+// NAME:     Increment Accumulator If Link Set
+// DESC:     Increment <L,AC> by one if L is set.
+// GROUP:    Unary Operations, IFL
+// MODE:     Implied
+// FLAGS:    *NZL--
+// FORMAT:   0000:11:101:----1--
+//
+// If the L Flag is set, this treats <L,AC> as a 17-bit unsigned integer and
+// adds one it. It can also be seen as an incrementation of AC by one, where L
+// is cleared on AC overflow. Clearing the L flag does not stop execution of
+// the IFL instruction. The check for L happens only once, before starting
+// instruction execution.
+
+// MNEMONIC: IFL NEG
+// NAME:     Negate Accumulator If Link Set
+// DESC:     Perform two's complement negation of the AC if L is set.
+// GROUP:    Unary Operations, IFL
+// MODE:     Implied
+// FLAGS:    *NZL--
+// FORMAT:   0000:11:101::---11--
+//
+// If the L Flag is set, this negates the AC, then adds one to it. If the value
+// wraps around during incrementation, L will be cleared. Clearing the L flag
+// does not stop execution of the IFL instruction. The check for L happens only
+// once, before starting instruction execution.
+
+// MNEMONIC: IFL DEC
+// NAME:     Decrement Accumulator If Link Set
+// DESC:     Decrement <L,AC> by one if L is set.
+// GROUP:    Unary Operations, IFL
+// MODE:     Implied
+// FLAGS:    *NZL--
+// FORMAT:   0000:11:101:-----1-
+//
+// If the L Flag is set, tihs treats <L,AC> as a 17-bit unsigned integer and
+// subtracts one it. It can also be seen as an decrementation of AC by one,
+// where L is cleared on AC underflow. Clearing the L flag does not stop
+// execution of the IFL instruction. The check for L happens only once, before
+// starting instruction execution.
+
+// MNEMONIC: IFL CPL
+// NAME:     Complement Link If Link Set ***
+// DESC:     Toggle the L Flag if L is set.
+// GROUP:    Unary Operations, IFL
+// MODE:     Implied
+// FLAGS:    *--L--
+// FORMAT:   0000:11:101:------1
+//
+// Complements (toggles) the L Flag or Link Register. If the complementation
+// clears the L flag, the instruction execution is not affected. The check for
+// L happens only once, before starting instruction execution and all selected
+// components of the instruction will be executed. `IFL CPL` is probably
+// useless on its own. It might be more useful as part of a more complicated
+// bimap instruction.
+
+// MNEMONIC: IFL SEL
+// NAME:     Set Link
+// DESC:     Set the L Flag.
+// GROUP:    Unary Operations, UOP
+// MODE:     Implied
+// FLAGS:    *--L--
+// FORMAT:   0000:11:101:------1
+//
+// If L i set, sets the L Flag or Link Register. This instruction is a
+// combination of the `IFL CLL` and `IFL CPL` instructions. It is all but
+// useless on its own, but can be useful as part of a more complex composite
+// `IFL` instruction.
+
+
+
+// MNEMONIC: IFV CLA
+// NAME:     Clear Accumulator on Overflow
+// DESC:     Set the Accumulator to zero if V is set.
+// GROUP:    Unary Operations, IFV
+// MODE:     Implied
+// FLAGS:    nZ---
+// FORMAT:   0000:11:110:-1-----
+//
+// If the Overflow Flag is set, the AC is cleared.
+
+// MNEMONIC: IFV CLL
+// NAME:     Clear Link on Overflow
+// DESC:     Clear the Link Register if V is set.
+// GROUP:    Unary Operations, IFV
+// MODE:     Implied
+// FLAGS:    *--L--
+// FORMAT:   0000:11:110:--1----
+//
+// If the Overlflow Flag is set, sets L to zero.
+
+// MNEMONIC: IFV NOT
+// NAME:     Complement Accumulator on Overflow
+// DESC:     Invert all bits in the Accumulator if V is set.
+// GROUP:    Unary Operations, IFV
+// MODE:     Implied
+// FLAGS:    *NZ---
+// FORMAT:   0000:11:110:---1---
+//
+// If the Overflow Flag is set, inverts all bits in the AC, producing a one's
+// complement negation of AC or evaluating -(AC-1) in two's complement
+// arithmetic.
+
+// MNEMONIC: IFV INC
+// NAME:     Increment Accumulator on Overflow
+// DESC:     Increment <L,AC> by one if V is set.
+// GROUP:    Unary Operations, UOP
+// MODE:     Implied
+// FLAGS:    *NZL--
+// FORMAT:   0000:11:110:----1--
+//
+// If the Overflow Flag is set, treats <L,AC> as a 17-bit unsigned integer and
+// adds one it. It can also be seen as an incrementation of AC by one, where L
+// is toggled on AC overflow.
+
+// MNEMONIC: IFV NEG
+// NAME:     Negate Accumulator on Overflow
+// DESC:     Two's complement negation of the AC if V is set.
+// GROUP:    Unary Operations, UOP
+// MODE:     Implied
+// FLAGS:    *NZL--
+// FORMAT:   0000:11:110:---11--
+//
+// Negates the AC, then adds one to it. If the value wraps around during
+// incrementation, L will be complemented.
+
+// MNEMONIC: IFV DEC
+// NAME:     Decrement Accumulator on Overflow
+// DESC:     Decrement <L,AC> by one if V is set.
+// GROUP:    Unary Operations, UOP
+// MODE:     Implied
+// FLAGS:    *NZL--
+// FORMAT:   0000:11:110:-----1-
+//
+// Treats <L,AC> as a 17-bit unsigned integer and subtracts one it. It can also
+// be seen as an decrementation of AC by one, where L is toggled on AC
+// underflow.
+
+// MNEMONIC: IFV CPL
+// NAME:     Complement Link on Overflow
+// DESC:     Toggle the L Flag if V is set.
+// GROUP:    Unary Operations, UOP
+// MODE:     Implied
+// FLAGS:    *--L--
+// FORMAT:   0000:11:110:------1
+//
+// Complements (toggles) the L Flag or Link Register.
+
+// MNEMONIC: IFV SEL
+// NAME:     Set Link on Overflow
+// DESC:     Toggle the L Flag if V is set.
+// GROUP:    Unary Operations, UOP
+// MODE:     Implied
+// FLAGS:    --L--
+// FORMAT:   0000:11:110:------1
+//
+// Sets the L Flag or Link Register. This instruction is a combination of the
+// `CLL` and `CPL` instructions.
+
 
 // L=1 ⇒ COND=0, so IFL takes action.
 
@@ -1070,33 +1363,6 @@ start UOP, COND=1;
       if_ir1;
       if_ir0;
       END;
-
-
-///////////////////////////////////////////////////////////////////////////////
-//
-// SHIFTS AND ROTATIONS
-//
-///////////////////////////////////////////////////////////////////////////////
-
-//            OP   I R 987 654 3210
-// SHL = SRU  0111'1'0'000'000'dddd    ; Bitwise shift left by d bits
-// SHR = SRU  0111'1'0'000'001'dddd    ; Bitwise shift right by d bits
-// ASR = SRU  0111'1'0'000'011'dddd    ; Arithmetic shift right by d bits
-// ROL = SRU  0111'1'0'000'100'dddd    ; Rotate left by d bits
-// ROR = SRU  0111'1'0'000'101'dddd    ; Rotate right by d bits
-
-// L=1 ⇒ COND=0, so IFL takes action.
-
-// IR bits are directly linked to the shift/rotate unit, so all
-// of these instructions have the same microcode.
-start SRU;
-      FETCH_IR;                                 // 00 IR ← mem[PC++]
-      /action_sru;				// 02 SRU cycle #1 (sync wait)
-      ;				                // 03 SRU cycle #2
-      ;				                // 04 SRU cycle #3
-      ;				                // 05 SRU cycle #4
-      ;				                // 06 SRU cycle #5
-      SET(ac, alu_b), END;			// 07 AC ← ALU B Reg
 
 
 ///////////////////////////////////////////////////////////////////////////////
