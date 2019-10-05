@@ -1358,7 +1358,7 @@ start UOP, COND=0;
 start UOP, COND=1;
       FETCH_IR, if_ir5;		                // 00 IR ← mem[PC++];
       if_ir4;
-      if_ir3;
+g      if_ir3;
       if_ir2;
       if_ir1;
       if_ir0;
@@ -1389,11 +1389,151 @@ start UOP, COND=1;
 // G1 condition bits are ORred together.
 // G2 conditions bits are ANDed together.
 //
-// The OR/AND logic isn't microcoded, it's part of the hardwired
-// decoding of the branch bits.
+// The OR/AND logic isn't microcoded, it's part of the hardwired decoding of
+// the branch bits: IR4 causes the result evaluated so far to be inverted, so
+// where we checked for (Z + N), we now check for ¬(Z + N), which by De
+// Morgan's Law is equal to (¬Z · ¬N). This is the way the PDP-8 seems to do
+// it, too.
 
 // The skip mechanism is hard-wired, so the microcode is fairly simple
-// here.
+// here. The bitmap nature still gives us a wide range of instructions,
+// including all possible comparisons of the Accumulator against zero.
+
+// MNEMONIC: (SKP) NOP
+// NAME:     No Operation
+// DESC:     Never skip (do nothing).
+// GROUP:    Flow Control, SKP
+// MODE:     Implied
+// FLAGS:    -----
+// FORMAT:   :--00000
+//
+// Never skips, which is tantamount to No Operation and used as such.
+
+// MNEMONIC: (SKP) SNA
+// NAME:     Skip on Negative Accumulator
+// DESC:     Skip next instruction if AC is less than zero.
+// GROUP:    Flow Control, SKP
+// MODE:     Implied
+// FLAGS:    -----
+// FORMAT:   :--01---
+//
+// Skips the next instruction if the N Flag is set. This can also be interpreted as:
+//
+// * SKip if AC < 0; or
+// * SKip if the AC's most significant bit is set.
+
+// MNEMONIC: (SKP) SZA
+// NAME:     Skip on Zero Accumulator
+// DESC:     Skip next instruction if AC is equal to zero.
+// GROUP:    Flow Control, SKP
+// MODE:     Implied
+// FLAGS:    -----
+// FORMAT:   :--0-1--
+//
+// Skips the next instruction if the Z Flag is set, i.e. skip if the AC is zero.
+
+// MNEMONIC: (SKP) SNP
+// NAME:     Skip on Non-Positive Accumulator
+// DESC:     Skip next instruction if AC is negative or zero.
+// GROUP:    Flow Control, SKP
+// MODE:     Implied
+// FLAGS:    -----
+// FORMAT:   :--011--
+//
+// Skips the next instruction if the N or Z Flag is set, i.e. skip if the AC is
+// less than or equal to zero.
+
+// MNEMONIC: (SKP) SSL
+// NAME:     Skip on Link
+// DESC:     Skip next instruction if L is set.
+// GROUP:    Flow Control, SKP
+// MODE:     Implied
+// FLAGS:    -----
+// FORMAT:   :--0--1-
+//
+// Skips the next instruction if the L Flag is set.
+
+// MNEMONIC: (SKP) SSV
+// NAME:     Skip on Overflow
+// DESC:     Skip next instruction if V is set.
+// GROUP:    Flow Control, SKP
+// MODE:     Implied
+// FLAGS:    -----
+// FORMAT:   :--0---1
+//
+// Skips the next instruction if the V Flag is set.
+
+
+
+// MNEMONIC: (SKP) SKIP
+// NAME:     Skip
+// DESC:     Always skip next instruction.
+// GROUP:    Flow Control, SKP
+// MODE:     Implied
+// FLAGS:    -----
+// FORMAT:   :--10000
+//
+// Always skips. This is the negation of `NOP`.
+
+// MNEMONIC: (SKP) SNN
+// NAME:     Skip on Non-Negative Accumulator
+// DESC:     Skip next instruction if AC is zero or greater.
+// GROUP:    Flow Control, SKP
+// MODE:     Implied
+// FLAGS:    -----
+// FORMAT:   :--11---
+//
+// Skips the next instruction if the N Flag is clear. This can also be interpreted as:
+//
+// * SKip if AC ≥ 0;
+// * Skip if the AC's most significant bit is clear; or
+// * Skip if the AC is in the range 0–32767.
+
+// MNEMONIC: (SKP) SNZ
+// NAME:     Skip on Non-Zero Accumulator
+// DESC:     Skip next instruction if AC is non-zero.
+// GROUP:    Flow Control, SKP
+// MODE:     Implied
+// FLAGS:    -----
+// FORMAT:   :--1-1--
+//
+// Skips the next instruction if the Z Flag is clear, i.e.:
+//
+// * Skip if the AC is non-zero; or
+// * Skip if any bits in the AC are set.
+
+// MNEMONIC: (SKP) SPA
+// NAME:     Skip on Positive Accumulator
+// DESC:     Skip next instruction if AC is positive.
+// GROUP:    Flow Control, SKP
+// MODE:     Implied
+// FLAGS:    -----
+// FORMAT:   :--111--
+//
+// Skips the next instruction if the N and Z Flag are both clear, i.e. the AC,
+// interpreted as a signed integer, is greater than zero or in the range
+// 1–32767.
+
+// MNEMONIC: (SKP) SCL
+// NAME:     Skip on Link Clear
+// DESC:     Skip next instruction if L is clear.
+// GROUP:    Flow Control, SKP
+// MODE:     Implied
+// FLAGS:    -----
+// FORMAT:   :--1--1-
+//
+// Skips the next instruction if the L Flag is clear.
+
+// MNEMONIC: (SKP) SCV
+// NAME:     Skip on Overflow
+// DESC:     Skip next instruction if V is clear.
+// GROUP:    Flow Control, SKP
+// MODE:     Implied
+// FLAGS:    -----
+// FORMAT:   :--1---1
+//
+// Skips the next instruction if the V Flag is clear.
+
 
 // First, the version where the skip isn't taken.
 start SKP, COND=0;
