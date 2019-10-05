@@ -50,7 +50,8 @@
 //   memorisation.
 
 //   Version 7c: (2019-10-05) added ISR instruction to call the interrupt
-//   handler programmatically for traps etc.
+//   handler programmatically for traps etc. WAIT also transfers its (7-bit
+//   operand) to the DR for software interrupt support.
 
 
 // ADDRESSING MODES
@@ -629,6 +630,7 @@ start RST=1, INT=0, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 // DESC:     Return from Interrupt
 // GROUP:    Flow Control
 // MODE:     Implied
+// FLAGS:    *NZVIL
 //
 // Pops the AC, PC and MBP from the Hardware Stack to return from an Interrupt
 // Service Routine.
@@ -651,8 +653,9 @@ start IRET;
 // DESC:     Return from Long Subroutine Jump
 // GROUP:    Flow Control
 // MODE:     Implied
+// FLAGS:    -----
 //
-// Pops the PC and MBP from the Hardware Stack to return from an subroutine
+// Pops the PC and MBP from the Hardware Stack to return from a subroutine
 // entered with LJSR.
 
 start LRET;
@@ -666,20 +669,19 @@ start LRET;
 //
 ///////////////////////////////////////////////////////////////////////////////
 
+// MNEMONIC: RET
+// NAME:     Return
+// DESC:     Return from Subroutine
+// GROUP:    Flow Control
+// MODE:     Implied
+// FLAGS:    -----
+//
+// Pops the PC from the Hardware Stack to return from a subroutine entered
+// with JSR.
+
 start RET;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       STACK_POP(pc), END;			// 02 PC ← mem[--SP]
-
-
-///////////////////////////////////////////////////////////////////////////////
-//
-// THE TSA INSTRUCTION
-//
-///////////////////////////////////////////////////////////////////////////////
-
-start TSA;
-      FETCH_IR;                                 // 00 IR ← mem[PC++]
-      SET(ac, sp), END;				// 02 AC ← SP
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -688,9 +690,34 @@ start TSA;
 //
 ///////////////////////////////////////////////////////////////////////////////
 
+// MNEMONIC: TAS
+// NAME:     Transfer Accumulator to Stack Pointer
+// DESC:     Sets SP to the current value of the AC.
+// GROUP:    Transfer
+// MODE:     Implied
+// FLAGS:    -----
+
 start TAS;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       SET(sp, ac), END;				// 02 SP ← AC
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// THE TSA INSTRUCTION
+//
+///////////////////////////////////////////////////////////////////////////////
+
+// MNEMONIC: TSA
+// NAME:     Transfer Stack Pointer to Accumulator
+// DESC:     Sets AC to the current value of the SP.
+// GROUP:    Transfer
+// MODE:     Implied
+// FLAGS:    *NZ---
+
+start TSA;
+      FETCH_IR;                                 // 00 IR ← mem[PC++]
+      SET(ac, sp), END;				// 02 AC ← SP
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -699,9 +726,16 @@ start TAS;
 //
 ///////////////////////////////////////////////////////////////////////////////
 
+// MNEMONIC: TAD
+// NAME:     Transfer Accumulator to Data Register
+// DESC:     Sets DR to the current value of the AC.
+// GROUP:    Transfer
+// MODE:     Implied
+// FLAGS:    -----
+
 start TAD;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
-      SET(DR, AC), END;				// 02 DR ← AC
+      SET(dr, ac), END;				// 02 DR ← AC
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -709,6 +743,13 @@ start TAD;
 // THE TDA INSTRUCTION
 //
 ///////////////////////////////////////////////////////////////////////////////
+
+// MNEMONIC: TDA
+// NAME:     Transfer Data Register to Accumulator
+// DESC:     Sets AC to the current value of the DR.
+// GROUP:    Transfer
+// MODE:     Implied
+// FLAGS:    *NZ---
 
 start TDA;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
@@ -726,6 +767,7 @@ start TDA;
 // DESC:     Call Interrupt Service Routine
 // GROUP:    Flow Control
 // MODE:     Literal
+// FLAGS:    ---i-
 //
 // Calls the Interrupt Service Routine. The 7-bit value in the operand is
 // written to the DR. An ISR can transfer this value to the AC to implement
@@ -746,6 +788,15 @@ start ISR;
 //
 ///////////////////////////////////////////////////////////////////////////////
 
+// MNEMONIC: PHA
+// NAME:     Push Accumulator
+// DESC:     Pushes AC onto the Hardware Stack.
+// GROUP:    Stack
+// MODE:     Implied
+// FLAGS:    -----
+//
+// Pushes the AC onto the Hardware Stack and increments the SP.
+
 start PHA;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       STACK_PUSH(ac), END;			// 02 mem[MBS:SP++] ← ac
@@ -756,6 +807,16 @@ start PHA;
 // THE PPA INSTRUCTION
 //
 ///////////////////////////////////////////////////////////////////////////////
+
+// MNEMONIC: PPA
+// NAME:     Pop Accumulator
+// DESC:     Pops the AC from the Hardware Stack.
+// GROUP:    Stack
+// MODE:     Implied
+// FLAGS:    *NZ---
+//
+// Decrements the SP and loads the AC from the memory location pointed to by
+// the SP.
 
 start PPA;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
@@ -768,6 +829,15 @@ start PPA;
 //
 ///////////////////////////////////////////////////////////////////////////////
 
+// MNEMONIC: PHF
+// NAME:     Push Flags
+// DESC:     Pushes Flags onto the Hardware Stack.
+// GROUP:    Stack
+// MODE:     Implied
+// FLAGS:    -----
+//
+// Pushes the Flags onto the Hardware Stack and increments the SP.
+
 start PHF;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       STACK_PUSH(flags), END;			// 02 mem[MBS:SP++] ← flags
@@ -778,6 +848,16 @@ start PHF;
 // THE PPF INSTRUCTION
 //
 ///////////////////////////////////////////////////////////////////////////////
+
+// MNEMONIC: PPF
+// NAME:     Pop Flags
+// DESC:     Pops the Flags from the Hardware Stack.
+// GROUP:    Stack
+// MODE:     Implied
+// FLAGS:    *--VIL
+//
+// Decrements the SP and loads the Flags from the memory location pointed to by
+// the SP. The Z and N flags will not be updated.
 
 start PPF;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
@@ -790,6 +870,17 @@ start PPF;
 //
 ///////////////////////////////////////////////////////////////////////////////
 
+// MNEMONIC: STI
+// NAME:     Set Interrupt Flag
+// DESC:     Enables interrupt servicing.
+// GROUP:    Flow Control
+// MODE:     Implied
+// FLAGS:    ---I-
+//
+// Sets the Interrupt Flag. If interrupts are already pending, control will
+// jump to the ISR immediately. Subsequent interrupts will be processed
+// asynchronously, after whatever instruction is executing has finished.
+
 start STI;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       /action_sti, END;		                // 02 STI
@@ -800,6 +891,17 @@ start STI;
 // THE CLI INSTRUCTION
 //
 ///////////////////////////////////////////////////////////////////////////////
+
+// MNEMONIC: CLI
+// NAME:     Clear Interrupt Flag
+// DESC:     Disables interrupt servicing.
+// GROUP:    Flow Control
+// MODE:     Implied
+// FLAGS:    ---i-
+//
+// Clears the Interrupt Flag. Any pending interrupts are ignored and the
+// pending interrupt flag is cleared. Subsequent interrupts will also be
+// ignored.
 
 start CLI;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
@@ -812,35 +914,54 @@ start CLI;
 //
 ///////////////////////////////////////////////////////////////////////////////
 
+// MNEMONIC: WAIT
+// NAME:     Wait for Interrupt
+// DESC:     Suspends program execution until an interrupt arrives.
+// GROUP:    Flow Control
+// MODE:     Literal
+// FLAGS:    ---I-
+//
+// Enables Interrupt Flag and stops program execution until an interrupt
+// arrives. The program will hang until an interrupt arrives. Control then
+// jumps to the Interrupt Service Routine. When the interrupt has been
+// serviced, program execution resumes with the instruction after WAIT.
+//
+// Like the ISR instruction, the 7-bit value in the operand is written to the
+// DR. An ISR can transfer this value to the AC to implement custom software
+// interrupts or traps.
+//
+// NOTES:
+//
 // The WAIT instruction stops execution until an interrupt arrives (in
 // case it's handled).
 //
 // There's no fetch cycle here! The instruction just executes END, but doesn't
 // fetch anything, which puts the microcode sequencer in an endless loop. It
 // will be broken out of that loop only when an interrupt arrives, and the
-// interrupt handler microprogram gets executed. That happens when END is
-// asserted, conveniently.
+// interrupt handler microprogram gets executed. That can only happen when END
+// is asserted. Conveniently, we're asserting END on every processor cycle.
 //
 // While WAIT is active, the front panel will appear to be stuck in the ‘Fetch’
-// state with the µPC stuck to zero.
+// state with the µPC stuck to zero and Interrupts enabled.
 
 start WAIT;
-      END;			// 00
-      END;			// 01
-      END;			// 02
-      END;			// 03
-      END;			// 04
-      END;			// 05
-      END;			// 06
-      END;			// 07
-      END;			// 08
-      END;			// 09
-      END;			// 10
-      END;			// 11
-      END;			// 12
-      END;			// 13
-      END;			// 14
-      END;			// 15
+      SET(agl, dr), /action_sti, END; // 00 DR ← AGL; STI; loop forever
+      hold;			      // And keep on doing this.
+      hold;			      //
+      hold;			      //
+      hold;			      //
+      hold;			      //
+      hold;			      //
+      hold;			      //
+      hold;			      //
+      hold;			      //
+      hold;			      //
+      hold;			      //
+      hold;			      //
+      hold;			      //
+      hold;			      //
+      hold;			      //
+      hold;			      //
 
 ///////////////////////////////////////////////////////////////////////////////
 //
