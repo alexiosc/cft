@@ -1121,8 +1121,8 @@ start SKP, COND=0;
 // FLAGS:    *NZ---
 //
 // Sets the AC to the value of the MBx register specified in the three least
-// significant bits of the operand. The top eight bits are currently
-// undefined. They could be zero, or any value at all.
+// significant bits of the operand. The value of the top eight bits is
+// currently undefined and should not be relied on.
 
 start RMB;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
