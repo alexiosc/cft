@@ -110,6 +110,9 @@ import StringIO
 import optparse
 import subprocess
 
+sys.stderr.write("%s: please don't use this, use the proper release of mcasm.\n" % (sys.argv[0], ))
+sys.exit(1)
+
 __code = """
 # This is an example of microcode.
 
