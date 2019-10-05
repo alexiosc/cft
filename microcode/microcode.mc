@@ -51,7 +51,8 @@
 
 //   Version 7c: (2019-10-05) added ISR instruction to call the interrupt
 //   handler programmatically for traps etc. WAIT also transfers its (7-bit
-//   operand) to the DR for software interrupt support.
+//   operand) to the DR for software interrupt support. Added IRETC instruction
+//   to return from Interrupt without enabling interrupts again.
 
 
 // ADDRESSING MODES
@@ -551,7 +552,7 @@ start RST=1, INT=0, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 
 #define _INSTR(x) RST=1, INT=1, IN_RESERVED=X, OP=x
 
-#define IRET   _INSTR(0000), I=0, R=0, SUBOP=000, COND=X, IDX=XX
+#define IRET   _INSTR(0000), I=0, R=0, SUBOP=000,         IDX=XX
 #define LRET   _INSTR(0000), I=0, R=0, SUBOP=001, COND=X, IDX=XX
 #define RET    _INSTR(0000), I=0, R=0, SUBOP=010, COND=X, IDX=XX
 #define TAS    _INSTR(0000), I=0, R=0, SUBOP=011, COND=X, IDX=XX
@@ -560,7 +561,7 @@ start RST=1, INT=0, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 #define TDA    _INSTR(0000), I=0, R=0, SUBOP=110, COND=X, IDX=XX
 //#define      _INSTR(0000), I=0, R=0, SUBOP=111, COND=X, IDX=XX // This is available
 
-#define ISR   _INSTR(0000), I=0, R=1, SUBOP=000, COND=X, IDX=XX // ** SUBOP AND R are not arbitrary!
+#define ISR    _INSTR(0000), I=0, R=1, SUBOP=000, COND=X, IDX=XX // ** SUBOP AND R are not arbitrary!
 #define PHA    _INSTR(0000), I=0, R=1, SUBOP=001, COND=X, IDX=XX
 #define PPA    _INSTR(0000), I=0, R=1, SUBOP=010, COND=X, IDX=XX
 #define PHF    _INSTR(0000), I=0, R=1, SUBOP=011, COND=X, IDX=XX
@@ -576,7 +577,7 @@ start RST=1, INT=0, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 //#define      _INSTR(0000), I=1, R=0, SUBOP=100, COND=X, IDX=XX // This is available
 //#define      _INSTR(0000), I=1, R=0, SUBOP=101, COND=X, IDX=XX // This is available
 //#define      _INSTR(0000), I=1, R=0, SUBOP=110, COND=X, IDX=XX // This is available
-//#define IND  _INSTR(0000), I=1, R=0, SUBOP=111, COND=X, IDX=XX // THIS IS IND R (SEE BELOW)
+//#define IND  _INSTR(0000), I=1, R=0, SUBOP=111, COND=X         // THIS IS IND R (SEE BELOW)
 
 #define JPA    _INSTR(0000), I=1, R=1, SUBOP=000, COND=X, IDX=XX
 #define JSA    _INSTR(0000), I=1, R=1, SUBOP=001, COND=X, IDX=XX
@@ -585,7 +586,7 @@ start RST=1, INT=0, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 #define UOP    _INSTR(0000), I=1, R=1, SUBOP=100, COND=X, IDX=XX // ** SUBOP is not arbitrary!
 #define IFL    _INSTR(0000), I=1, R=1, SUBOP=101,         IDX=XX // ** SUBOP is not arbitrary!
 #define IFV    _INSTR(0000), I=1, R=1, SUBOP=110,         IDX=XX // ** SUBOP is not arbitrary!
-#define IND    _INSTR(0000), I=1,      SUBOP=111, COND=X, IDX=XX // THIS INCLUDES AN R VARIANT
+#define IND    _INSTR(0000), I=1,      SUBOP=111, COND=X         // THIS INCLUDES AN R VARIANT (ABOVE)
 
 #define LIA    _INSTR(0001), SUBOP=XXX, COND=X                   // Only for I=0
 
@@ -631,13 +632,32 @@ start RST=1, INT=0, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 // GROUP:    Flow Control
 // MODE:     Implied
 // FLAGS:    *NZVIL
+// FORMAT:   :-------0
 //
 // Pops the AC, PC and MBP from the Hardware Stack to return from an Interrupt
-// Service Routine.
+// Service Routine. Interrupts are re-enabled atomically during this
+// command. The operand must have bit 0 clear.
 
-start IRET;
-      FETCH_IR;                                 // 00 IR ← mem[PC++]
-      STACK_POP(ac), /action_sti;		// 02 AC ← mem[--SP]
+// MNEMONIC: IRETC
+// NAME:     Return From Interrupt and Clear Interrupt Flag
+// DESC:     Return from Interrupt, disabling subsequent interrupts
+// GROUP:    Flow Control
+// MODE:     Implied
+// FLAGS:    *NZVIL
+// FORMAT:   :-------1
+//
+// Pops the AC, PC and MBP from the Hardware Stack to return from an Interrupt
+// Service Routine. Interrupts are disabled. The operand must have bit 0 set.
+
+start IRET, COND=1;
+      FETCH_IR, /if_ir0;	                // 00 IR ← mem[PC++]
+      STACK_POP(ac), /action_sti;		// 02 AC ← mem[--SP]; STI
+      STACK_POP(pc);				// 05 PC ← mem[--SP]
+      STACK_POP(mbp_flags), END;                // 08 flags:MBP ← mem[--SP]
+
+start IRET, COND=0;
+      FETCH_IR, /if_ir0;	                // 00 IR ← mem[PC++]
+      STACK_POP(ac);				// 02 AC ← mem[--SP]
       STACK_POP(pc);				// 05 PC ← mem[--SP]
       STACK_POP(mbp_flags), END;                // 08 flags:MBP ← mem[--SP]
 
@@ -654,6 +674,7 @@ start IRET;
 // GROUP:    Flow Control
 // MODE:     Implied
 // FLAGS:    -----
+// FORMAT:   :--------
 //
 // Pops the PC and MBP from the Hardware Stack to return from a subroutine
 // entered with LJSR.
@@ -675,6 +696,7 @@ start LRET;
 // GROUP:    Flow Control
 // MODE:     Implied
 // FLAGS:    -----
+// FORMAT:   :--------
 //
 // Pops the PC from the Hardware Stack to return from a subroutine entered
 // with JSR.
@@ -696,6 +718,7 @@ start RET;
 // GROUP:    Transfer
 // MODE:     Implied
 // FLAGS:    -----
+// FORMAT:   :--------
 
 start TAS;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
@@ -714,6 +737,7 @@ start TAS;
 // GROUP:    Transfer
 // MODE:     Implied
 // FLAGS:    *NZ---
+// FORMAT:   :--------
 
 start TSA;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
@@ -732,6 +756,7 @@ start TSA;
 // GROUP:    Transfer
 // MODE:     Implied
 // FLAGS:    -----
+// FORMAT:   :--------
 
 start TAD;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
@@ -750,6 +775,7 @@ start TAD;
 // GROUP:    Transfer
 // MODE:     Implied
 // FLAGS:    *NZ---
+// FORMAT:   :--------
 
 start TDA;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
@@ -768,6 +794,7 @@ start TDA;
 // GROUP:    Flow Control
 // MODE:     Literal (7-bit)
 // FLAGS:    ---i-
+// FORMAT:   :LLLLLLLL
 //
 // Calls the Interrupt Service Routine. The 7-bit value in the operand is
 // written to the DR. An ISR can transfer this value to the AC to implement
@@ -794,6 +821,7 @@ start ISR;
 // GROUP:    Stack
 // MODE:     Implied
 // FLAGS:    -----
+// FORMAT:   :-------
 //
 // Pushes the AC onto the Hardware Stack and increments the SP.
 
@@ -814,6 +842,7 @@ start PHA;
 // GROUP:    Stack
 // MODE:     Implied
 // FLAGS:    *NZ---
+// FORMAT:   :-------
 //
 // Decrements the SP and loads the AC from the memory location pointed to by
 // the SP.
@@ -835,6 +864,7 @@ start PPA;
 // GROUP:    Stack
 // MODE:     Implied
 // FLAGS:    -----
+// FORMAT:   :-------
 //
 // Pushes the Flags onto the Hardware Stack and increments the SP.
 
@@ -855,6 +885,7 @@ start PHF;
 // GROUP:    Stack
 // MODE:     Implied
 // FLAGS:    *--VIL
+// FORMAT:   :-------
 //
 // Decrements the SP and loads the Flags from the memory location pointed to by
 // the SP. The Z and N flags will not be updated.
@@ -876,6 +907,7 @@ start PPF;
 // GROUP:    Flow Control
 // MODE:     Implied
 // FLAGS:    ---I-
+// FORMAT:   :-------
 //
 // Sets the Interrupt Flag. If interrupts are already pending, control will
 // jump to the ISR immediately. Subsequent interrupts will be processed
@@ -898,6 +930,7 @@ start STI;
 // GROUP:    Flow Control
 // MODE:     Implied
 // FLAGS:    ---i-
+// FORMAT:   :-------
 //
 // Clears the Interrupt Flag. Any pending interrupts are ignored and the
 // pending interrupt flag is cleared. Subsequent interrupts will also be
@@ -920,6 +953,7 @@ start CLI;
 // GROUP:    Flow Control
 // MODE:     Literal (7-bit)
 // FLAGS:    ---I-
+// FORMAT:   :LLLLLLL
 //
 // Enables Interrupt Flag and stops program execution until an interrupt
 // arrives. The program will hang until an interrupt arrives. Control then
@@ -1119,6 +1153,7 @@ start SKP, COND=0;
 // GROUP:    Transfers
 // MODE:     Literal (3-bit)
 // FLAGS:    *NZ---
+// FORMAT:   :----LLL
 //
 // Sets the AC to the value of the MBx register specified in the three least
 // significant bits of the operand. The value of the top eight bits is
@@ -1141,6 +1176,7 @@ start RMB;
 // GROUP:    Transfers
 // MODE:     Literal (3-bit)
 // FLAGS:    -----
+// FORMAT:   :----LLL
 //
 // Sets the MBx register specified by the three least significant bits of the
 // operand to the value of AC, configuring a memory bank. The top 8 bits of the
@@ -1157,6 +1193,16 @@ start SMB;
 //
 ///////////////////////////////////////////////////////////////////////////////
 
+// MNEMONIC: JPA
+// NAME:     Jump to Accumulator
+// DESC:     Jump to address of AC relative to MBP.
+// GROUP:    Flow Control
+// MODE:     Accumulator
+// FLAGS:    -----
+// FORMAT:   :-------
+//
+// Jumps to the address held in the Accumulator. The MBP does not change.
+
 start JPA;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       SET(pc, ac), END;				// 02 PC ← AC
@@ -1167,6 +1213,17 @@ start JPA;
 // THE JSA INSTRUCTION
 //
 ///////////////////////////////////////////////////////////////////////////////
+
+// MNEMONIC: JSA
+// NAME:     Jump to Subroutine at Accumulator
+// DESC:     Jump to the subroutine address in AC relative to MBP.
+// GROUP:    Flow Control
+// MODE:     Accumulator
+// FLAGS:    -----
+// FORMAT:   :-------
+//
+// Pushes the PC onto the stack and jumps to the address held in the
+// Accumulator. The MBP does not change.
 
 start JSA;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
@@ -1180,17 +1237,37 @@ start JSA;
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-// ① IND, local address addressing mode
+// MNEMONIC: IND
+// NAME:     Indirect
+// DESC:     Load memory from Accumulator
+// GROUP:    Flow Control
+// MODE:     Accumulator Indirect
+// FLAGS:    -----
+// FORMAT:   R:-------
+//
+// Loads the value at the memory address held in the AC. The address is
+// interpreted as an offset relative to MBD if the R Field is clear, or
+// relative to MBZ if the R Field is set. The I Field must always be
+// set. Auto-indexing is not available!
+//
+// ---------------------------------------------------------------------------
+//
+// CAUTION:  Non-Standard addressing modes marked with *** below
+//
+//  I   R   Operand   (*) (#) Addressing Mode
+// ---------------------------------------------------------------------------
+//  1   0   Any       *** (3) Accumulator Indirect (MBD-relative)
+//  1   1   Any       *** (4) Accumulator Indirect (MBZ-relative)
+
+// TODO: It's likely the DR←AC transfer isn't necessary and can save a cycle.
+
+// IND, MBD-Relative Accumulator Indirect 
 start IND, R=0;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       SET(dr, ac);				// 02 DR ← AC
-      MEMREAD(mbp, ac, dr), END;		// 03 AC ← mem[MBP:DR]
+      MEMREAD(mbd, ac, dr), END;		// 03 AC ← mem[MBD:DR]
 
-// ② IND, register address addressing mode.
-
-// Note: this is redundant (case ① above can handle it with an appropriate
-// operand). It's here because it allows the ‘R’ notation to work as expected,
-// at the cost of one micro-program (we can spare them these days).
+// IND, MBZ-Relative Accumulator Indirect 
 start IND, R=1;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       SET(dr, ac);				// 02 DR ← AC
