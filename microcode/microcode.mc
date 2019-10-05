@@ -563,7 +563,7 @@ start RST=1, INT=0, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 #define PPF    _INSTR(0000), I=0, R=1, SUBOP=100, COND=X, IDX=XX
 #define STI    _INSTR(0000), I=0, R=1, SUBOP=101, COND=X, IDX=XX
 #define CLI    _INSTR(0000), I=0, R=1, SUBOP=110, COND=X, IDX=XX
-#define WAIT   _INSTR(0000), I=0, R=1, SUBOP=111,         IDX=XX
+#define WAIT   _INSTR(0000), I=0, R=1, SUBOP=111, COND=X  IDX=XX
 
 #define SRU    _INSTR(0000), I=1, R=0, SUBOP=000, COND=X, IDX=XX // All shifts and rolls are here.
 #define SKP    _INSTR(0000), I=1, R=0, SUBOP=001, COND=X, IDX=XX // Skips
@@ -790,13 +790,12 @@ start WAIT;
       END;			// 07
       END;			// 08
       END;			// 09
-      END;			// 0a
-      END;			// 0b
-      END;			// 0c
-      END;			// 0d
-      END;			// 0e
-      END;			// 0f
-
+      END;			// 10
+      END;			// 11
+      END;			// 12
+      END;			// 13
+      END;			// 14
+      END;			// 15
 
 ///////////////////////////////////////////////////////////////////////////////
 //
