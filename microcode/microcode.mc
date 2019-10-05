@@ -766,7 +766,7 @@ start TDA;
 // NAME:     Software Interrupt
 // DESC:     Call Interrupt Service Routine
 // GROUP:    Flow Control
-// MODE:     Literal
+// MODE:     Literal (7-bit)
 // FLAGS:    ---i-
 //
 // Calls the Interrupt Service Routine. The 7-bit value in the operand is
@@ -918,7 +918,7 @@ start CLI;
 // NAME:     Wait for Interrupt
 // DESC:     Suspends program execution until an interrupt arrives.
 // GROUP:    Flow Control
-// MODE:     Literal
+// MODE:     Literal (7-bit)
 // FLAGS:    ---I-
 //
 // Enables Interrupt Flag and stops program execution until an interrupt
@@ -1109,33 +1109,20 @@ start SKP, COND=0;
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-// THE TBA INSTRUCTION
-//
-///////////////////////////////////////////////////////////////////////////////
-
-// Removed this as it's not easily feasible given the current architecture.
-// start TBA;
-//       FETCH_IR;                                 // 00 IR ← mem[PC++]
-//       SET(ac, alu_b), END;			// 02 AC ← ALU B
-
-
-///////////////////////////////////////////////////////////////////////////////
-//
-// THE TAB INSTRUCTION
-//
-///////////////////////////////////////////////////////////////////////////////
-
-// Removed this as it's not easily feasible given the current architecture.
-// start TBA;
-//       FETCH_IR;                                 // 00 IR ← mem[PC++]
-//       SET(alu_b, ac), END;			// 02 ALU_B ← AC
-
-
-///////////////////////////////////////////////////////////////////////////////
-//
 // THE RMB INSTRUCTION
 //
 ///////////////////////////////////////////////////////////////////////////////
+
+// MNEMONIC: RMB
+// NAME:     Read Memory Bank
+// DESC:     Transfers a Memory Bank Register to AC.
+// GROUP:    Transfers
+// MODE:     Literal (3-bit)
+// FLAGS:    *NZ---
+//
+// Sets the AC to the value of the MBx register specified in the three least
+// significant bits of the operand. The top eight bits are currently
+// undefined. They could be zero, or any value at all.
 
 start RMB;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
@@ -1147,6 +1134,17 @@ start RMB;
 // THE SMB INSTRUCTION
 //
 ///////////////////////////////////////////////////////////////////////////////
+
+// MNEMONIC: SMB
+// NAME:     Set Memory Bank
+// DESC:     Transfers the AC to a Memory Bank Register.
+// GROUP:    Transfers
+// MODE:     Literal (3-bit)
+// FLAGS:    -----
+//
+// Sets the MBx register specified by the three least significant bits of the
+// operand to the value of AC, configuring a memory bank. The top 8 bits of the
+// AC are ignored.
 
 start SMB;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
