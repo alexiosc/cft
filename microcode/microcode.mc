@@ -138,24 +138,24 @@ cond uaddr:4;
 // 00110                 AR:MBS       Write to the AR, use Stack MBR.
 // 00111                 AR:MBZ       Write to the AR, use Zero Page MBR/addressing.
 // -------------------------------------------------------------------------------
-// 01000     PC          PC                                 
-// 01001     DR          DR                                      
-// 01010     AC          AC                                      
+// 01000     PC          PC
+// 01001     DR          DR
+// 01010     AC          AC
 // 01011     SP          SP           The CFT is a big boy now, it has a Stack Pointer!
 // -------------------------------------------------------------------------------
-// 11100                                      
-// 11101                                      
-// 11110                                      
+// 11100
+// 11101
+// 11110
 // 11111
 // -------------------------------------------------------------------------------
 // 10000     ALU:ADD
-// 10001     ALU:AND                                      
-// 10010     ALU:OR                                      
-// 10011     ALU:XOR                                      
-// 10100     ALU:NOT                                      
-// 10101     ALU:B       ALU:B        The ALU B port is treated as a major reg without increments.                          
-// 10110                                      
-// 10111                                      
+// 10001     ALU:AND
+// 10010     ALU:OR
+// 10011     ALU:XOR
+// 10100     ALU:NOT
+// 10101     ALU:B       ALU:B        The ALU B port is treated as a major reg without increments.
+// 10110
+// 10111
 // -------------------------------------------------------------------------------
 // 11000     CS0                      Read from constant store (0000)
 // 11001     CS1                      Read from constant store (0001)
@@ -232,13 +232,13 @@ signal if_branch       = .........01111..........; // SKIP = skip_logic(IR[3:0])
 
 // ACTION FIELD (UNDER REDESIGN)
 //                      76543210FEDCBA9876543210
-field  ACTION          = _____XXXX_______________; 
+field  ACTION          = _____XXXX_______________;
 signal /action_cpl     = .....0001...............; // Complement L
 signal /action_cll     = .....0010...............; // Clear L flag
 signal /action_sti     = .....0011...............; // Set I flag
 signal /action_cli     = .....0100...............; // Clear I flag
 signal /action_cla     = .....0101...............; // Clear the AC
-//signal /action_???   = .....0110...............; // 
+//signal /action_???   = .....0110...............; //
 signal /action_sru     = .....0111...............; // Start the shift/roll engine
 
 // ACTION 1XXX is decoded by the REG board and is just increments and
@@ -246,7 +246,7 @@ signal /action_sru     = .....0111...............; // Start the shift/roll engin
 // for decrementation).
 
 signal /action_incpc   = .....1000...............; // Step the PC
-//signal /action_???   = .....1001...............; // 
+//signal /action_???   = .....1001...............; //
 signal /action_incdr   = .....1010...............; // Increment DR
 signal /action_decdr   = .....1011...............; // Decrement DR
 signal /action_incac   = .....1100...............; // Increment AC
@@ -447,9 +447,9 @@ start RST=0, INT=X, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 // latency. The Return process will probably be identical.
 
 start RST=1, INT=0, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
-      /action_cli, STACK_PUSH(mbp_flags);       // 00 mem[SP++] ← flags:MBP; CLI
-      STACK_PUSH(pc);			        // 02 mem[SP++] ← PC
-      STACK_PUSH(ac);		                // 04 mem[SP++] ← AC
+      /action_cli, STACK_PUSH(mbp_flags);       // 00 mem[MBS:SP++] ← flags:MBP; CLI
+      STACK_PUSH(pc);			        // 02 mem[MBS:SP++] ← PC
+      STACK_PUSH(ac);		                // 04 mem[MBS:SP++] ← AC
       SET(pc, cs_isrvec0);			// 06 PC ← 0002
       SET(mbp, cs_isrvec1), END;		// 08 MBP ← 0003
 
@@ -463,7 +463,7 @@ start RST=1, INT=0, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-//                                     (1)  (2)  (3)  (4)  (5)  (6)  (7)     
+//                                     (1)  (2)  (3)  (4)  (5)  (6)  (7)
 //                    I                 0    0    1    1    1    1    1	
 //                    R                 0    1    0    1    1    1    1	
 //             REG TYPE                     REG       REG  INC  DEC  SP   BIT
@@ -541,7 +541,7 @@ start RST=1, INT=0, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 // * 1
 // * 2
 
-// Needs 4 bits, 3 bits left, 3 bits right + 4 bits 
+// Needs 4 bits, 3 bits left, 3 bits right + 4 bits
 
 // Define the opcodes for convenience.
 
@@ -583,7 +583,7 @@ start RST=1, INT=0, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 #define IFV    _INSTR(0000), I=1, R=1, SUBOP=110,         IDX=XX // ** SUBOP is not arbitrary!
 #define IND    _INSTR(0000), I=1,      SUBOP=111, COND=X, IDX=XX // THIS INCLUDES AN R VARIANT
 
-#define LIA    _INSTR(0001), SUBOP=XXX, COND=X                   // Only for I=0 
+#define LIA    _INSTR(0001), SUBOP=XXX, COND=X                   // Only for I=0
 
 #define LJSR   _INSTR(0001), SUBOP=XXX, COND=X                   // Only for I=1
 #define LJMP   _INSTR(0010), SUBOP=XXX, COND=X			 // Only for I=1
@@ -703,7 +703,7 @@ start TAD;
 
 start PHA;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
-      STACK_PUSH(ac), END;			// 02 mem[SP++] ← ac
+      STACK_PUSH(ac), END;			// 02 mem[MBS:SP++] ← ac
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -725,7 +725,7 @@ start PPA;
 
 start PHF;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
-      STACK_PUSH(flags), END;			// 02 mem[SP++] ← flags
+      STACK_PUSH(flags), END;			// 02 mem[MBS:SP++] ← flags
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -906,7 +906,7 @@ start SRU;
 ///////////////////////////////////////////////////////////////////////////////
 
 //            OP   I R 987 6543210
-//       SKP  0000'1'0'001'000dddd    ; 
+//       SKP  0000'1'0'001'000dddd    ;
 //       NOP  0000'1'0'001'0000000    ; G1 Skip never (NOP)
 //       SNA  0000'1'0'001'--01---    ; G1 Skip if Negative AC: A < 0 => PC++
 //       SZA  0000'1'0'001'--0-1--    ; G1 Skip if Zero AC: A == 0 => PC++
@@ -922,7 +922,7 @@ start SRU;
 // G1 and G2 sub-instructions may be combined, but not across groups.
 // G1 condition bits are ORred together.
 // G2 conditions bits are ANDed together.
-// 
+//
 // The OR/AND logic isn't microcoded, it's part of the hardwired
 // decoding of the branch bits.
 
@@ -1006,7 +1006,7 @@ start JPA;
 
 start JSA;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
-      STACK_PUSH(pc);				// 02 mem[SP++] ← PC
+      STACK_PUSH(pc);				// 02 mem[MBS:SP++] ← PC
       SET(pc, ac), END;				// 04 PC ← AC
 
 
@@ -1064,18 +1064,18 @@ start LIA, I=0, R=1, IDX=XX;
 
 // ③ LJSR (always with I=1), local indirect addressing mode.
 start LJSR, I=1, R=0, IDX=XX;
-      FETCH_IR;			                // 00 IR ← mem[PC++]      
-      STACK_PUSH(mbp);				// 02 mem[SP++] ← MBP     
-      STACK_PUSH(pc);				// 04 mem[SP++] ← PC      
-      SET(dr, agl);				// 06                     
-      MEMREAD(mbp, agl, pc), /action_incdr;	// 07 PC ← mem[MBP:AGL]   
+      FETCH_IR;			                // 00 IR ← mem[PC++]
+      STACK_PUSH(mbp);				// 02 mem[MBS:SP++] ← MBP
+      STACK_PUSH(pc);				// 04 mem[MBS:SP++] ← PC
+      SET(dr, agl);				// 06
+      MEMREAD(mbp, agl, pc), /action_incdr;	// 07 PC ← mem[MBP:AGL]
       MEMREAD(mbp, dr, mbp), END;		// 09 MBP ← mem[MBP:AGL+1]
 
 // ④ LJSR (always with I=1), register indirect addressing mode.
 start LJSR, I=1, R=1, IDX=IDX_REG;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      STACK_PUSH(mbp);				// 02 mem[SP++] ← MBP
-      STACK_PUSH(pc);				// 04 mem[SP++] ← PC
+      STACK_PUSH(mbp);				// 02 mem[MBS:SP++] ← MBP
+      STACK_PUSH(pc);				// 04 mem[MBS:SP++] ← PC
       SET(dr, agl);				// 06
       MEMREAD(mbz, agl, pc), /action_incdr;	// 07 PC ← mem[MBZ:AGL]
       MEMREAD(mbz, dr, mbp), END;		// 09 MBP ← mem[MBZ:AGL+1]
@@ -1086,8 +1086,8 @@ start LJSR, I=1, R=1, IDX=IDX_REG;
 // NOTE: If /action_incdr can happen fast enough, we can shave off two cycles here.
 start LJSR, I=1, R=1, IDX=IDX_INC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      STACK_PUSH(mbp);				// 02 mem[SP++] ← MBP     
-      STACK_PUSH(pc);				// 04 mem[SP++] ← PC      
+      STACK_PUSH(mbp);				// 02 mem[MBS:SP++] ← MBP
+      STACK_PUSH(pc);				// 04 mem[MBS:SP++] ← PC
       MEMREAD(mbz, agl, dr);	                // 06 DR ← mem[MBZ:AGL]
       MEMREAD(mbd, dr, pc);	                // 08 PC ← mem[MBD:DR]
       /action_incdr;                            // 10 DR++
@@ -1098,8 +1098,8 @@ start LJSR, I=1, R=1, IDX=IDX_INC;
 // ⑥ LJSR (always with I=1), register indirect autodecrement addressing mode.
 start LJSR, I=1, R=1, IDX=IDX_DEC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      STACK_PUSH(mbp);				// 02 mem[SP++] ← MBP     
-      STACK_PUSH(pc);				// 04 mem[SP++] ← PC      
+      STACK_PUSH(mbp);				// 02 mem[MBS:SP++] ← MBP
+      STACK_PUSH(pc);				// 04 mem[MBS:SP++] ← PC
       MEMREAD(mbz, agl, dr);	                // 06 DR ← mem[MBZ:AGL]
       MEMREAD(mbd, dr, mbp);	                // 08 MBP ← mem[MBD:DR]
       /action_decdr;                            // 10 DR--
@@ -1112,14 +1112,14 @@ start LJSR, I=1, R=1, IDX=IDX_DEC;
 // them. Push MBP onto the stack FIRST.
 start LJSR, I=1, R=1, IDX=IDX_SP;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      STACK_PUSH(mbp);				// 02 mem[SP++] ← MBP     
-      STACK_PUSH(pc);				// 04 mem[SP++] ← PC      
+      STACK_PUSH(mbp);				// 02 mem[MBS:SP++] ← MBP
+      STACK_PUSH(pc);				// 04 mem[MBS:SP++] ← PC
       MEMREAD(mbz, dr, pc);	                // 06 MBP ← mem[MBD:DR]
       MEMREAD(mbd, agl, dr);	                // 08 DR ← mem[MBD:AGL]
       /action_decdr;                            // 10 DR--
       MEMREAD(mbd, dr, mbp);	                // 11 PC ← mem[MBD:DR]
       /action_decdr;                            // 13 DR--
-      MEMWRITE(mbz, agl, dr), END;               // 14 mem[MBD:AGL] ← DR
+      MEMWRITE(mbz, agl, dr), END;              // 14 mem[MBD:AGL] ← DR
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1197,32 +1197,32 @@ start LJMP, I=1, R=1, IDX=IDX_SP;
 //  1   0   Any       (3) Indirect
 //  1   1   000–2FF   (4) Register Indirect
 //  1   1   300–33F   (5) Memory Bank-Relative Indirect
-//  1   1   340–37F   (6) Auto-Increment
-//  1   1   380–3BF   (7) Auto-Decrement
+//  1   1   340–37F   (6) Auto-Increment Double Indirect
+//  1   1   380–3BF   (7) Auto-Decrement Double Indirect
 //  1   1   3C0–3FF   (8) Stack
 
 // (1) & (2) JSR, Page-local and Page Zero modes.
 start JSR, I=0, R=X, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      STACK_PUSH(pc);				// 02 mem[SP++] ← PC
+      STACK_PUSH(pc);				// 02 mem[MBS:SP++] ← PC
       SET(pc, agl), END;			// 04 PC ← AGL
 
 // (3) JSR, Indirect.
 start JSR, I=1, R=0, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      STACK_PUSH(pc);				// 02 mem[SP++] ← PC
+      STACK_PUSH(pc);				// 02 mem[MBS:SP++] ← PC
       MEMREAD(mbp, agl, pc), END;		// 04 PC ← mem[MBP:AGL]
 
 // (4) & (5) JSR, Register Indirect and Memory Bank-Relative Indirect.
 start JSR, I=1, R=1, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      STACK_PUSH(pc);				// 02 mem[SP++] ← PC
+      STACK_PUSH(pc);				// 02 mem[MBS:SP++] ← PC
       MEMREAD(mbz, agl, pc), END;		// 04 PC ← mem[MBZ:AGL]
 
 // (6) JSR, Auto-Increment Double Indirect
 start JSR, I=1, R=1, IDX=IDX_INC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      STACK_PUSH(pc);				// 02 mem[SP++] ← PC
+      STACK_PUSH(pc);				// 02 mem[MBS:SP++] ← PC
       MEMREAD(mbz, agl, dr);			// 04 DR ← mem[MBZ:AGL]
       MEMREAD(mbp, dr, pc), /action_incdr;	// 06 PC ← mem[MBP:DR]; DR++;
       MEMWRITE(mbz, agl, dr), END;		// 08 mem[MBZ:AGL] ← DR
@@ -1230,7 +1230,7 @@ start JSR, I=1, R=1, IDX=IDX_INC;
 // (7) JSR, double register indirect autodecrement addressing mode.
 start JSR, I=1, R=1, IDX=IDX_DEC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      STACK_PUSH(pc);				// 02 mem[SP++] ← PC
+      STACK_PUSH(pc);				// 02 mem[MBS:SP++] ← PC
       MEMREAD(mbz, agl, dr);			// 04 DR ← mem[MBZ:AGL]
       MEMREAD(mbp, dr, pc), /action_decdr;	// 06 PC ← mem[MBP:DR]; DR--;
       MEMWRITE(mbz, agl, dr), END;		// 08 mem[MBZ:AGL] ← DR
@@ -1240,7 +1240,7 @@ start JSR, I=1, R=1, IDX=IDX_DEC;
 // register and jumping to them.
 start JSR, I=1, R=1, IDX=IDX_SP;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      STACK_PUSH(pc);				// 02 mem[SP++] ← PC
+      STACK_PUSH(pc);				// 02 mem[MBS:SP++] ← PC
       MEMREAD(mbz, agl, dr);			// 04 DR ← mem[MBZ:AGL]
       /action_decdr;				// 06 DR--
       MEMREAD(mbp, dr, pc);	                // 07 PC ← mem[MBP:DR]; DR++;
