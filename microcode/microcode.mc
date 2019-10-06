@@ -54,6 +54,8 @@
 //   operand) to the DR for software interrupt support. Added IRETC instruction
 //   to return from Interrupt without enabling interrupts again.
 
+//   Version 7d: (2019-10-06) added HCF instruction for a lark.
+
 
 // ADDRESSING MODES
 //
@@ -1022,10 +1024,10 @@ start SRU;
 // FLAGS:    *NZ-IL
 // FORMAT:   :-------
 //
-// Halts system execution. The processor becomes be unresponsive to interrupts
-// and all other means of flow control. This instruction has no Fetch cycle, so
-// it will be executed continuously until the processor is reset or the fire
-// put out.
+// HCF makes the processor becomes unresponsive to interrupts and all other
+// means of flow control. It includes no Instruction Fetch, so the program will
+// never move on to the next instruction and HCF will be executed continuously
+// until the processor is turned off, reset or the fire put out.
 //
 // During execution, the following things will happen:
 //
@@ -1034,8 +1036,8 @@ start SRU;
 //   cycles in parallel with everything else.  This should cause a lot of woe.
 // * The PC, DR, AC and SP will be incremented three times per instruction
 //   execution.
-// * The AR will be set relative to MBP:PC, MBD:PC, MBS:PC and MBZ:PC, cycling
-//   every four processor cycles.
+// * The AR will be set to MBP:PC, MBD:PC, MBS:PC and MBZ:PC, cycling every
+//   four processor cycles.
 // * A dummy memory read cycle will be performed every three out of four cycles
 //   using the address in the AR and the read data discarded.
 // * The L Flag is toggled making HCF easily identifiable on the front panel.
@@ -1761,6 +1763,7 @@ start IND, R=1;
 // NAME:     Literal
 // GROUP:    Miscellaneous
 // MODE:     Literal
+// Format:   0001:0:1:LLLLLLLLLL
 //
 // Sets the AC to the 10-bit literal value in the operand. The top six bits in
 // the AC are cleared. This is the same instruction as LIA in Register mode.
@@ -1785,10 +1788,34 @@ start LIA, I=0, R=1, IDX=XX;
 //
 ///////////////////////////////////////////////////////////////////////////////
 
+// MNEMONIC: LJSR
+// NAME:     Long Jump to Subroutine
+// DESC:     Jump to subroutine in a non-local memory bank.
+// GROUP:    Flow Control
+// FORMAT:   0001:1:R:AAAAAAAAAA
+//
+// Pushes the MBP and PC to the Hardware Stack. Then reads a new value of MBP
+// from the address specified in the operand, and new value for the PC from the
+// next address, allowing a subroutine anywhere in the 24-bit address space to
+// be called. This instruction only supports indirect addressing modes.
+//
+// ---------------------------------------------------------------------------
+//
+// CAUTION:  Limited and non-standard set of addressing modes.
+//
+//  I   R   Operand   (*) (#) Addressing Mode
+// ---------------------------------------------------------------------------
+//  1   0   Any           (3) Indirect
+//  1   1   000–2FF       (4) Register Indirect
+//  1   1   300–33F       (5) Memory Bank-Relative Indirect
+//  1   1   340–37F   *** ( ) Auto-Increment Double Indirect
+//  1   1   380–3BF   *** ( ) Auto-Decrement Double Indirect
+//  1   1   3C0–3FF       (8) Stack
+
 // NOTE: LJSR makes no sense with I=0, so it shares opcodes with the
 // LIA instruction, which makes no sense with I=0.
 
-// ③ LJSR (always with I=1), local indirect addressing mode.
+// (3) LJSR, Indirect
 start LJSR, I=1, R=0, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       STACK_PUSH(mbp);				// 02 mem[MBS:SP++] ← MBP
@@ -1797,7 +1824,7 @@ start LJSR, I=1, R=0, IDX=XX;
       MEMREAD(mbp, agl, pc), /action_incdr;	// 07 PC ← mem[MBP:AGL]
       MEMREAD(mbp, dr, mbp), END;		// 09 MBP ← mem[MBP:AGL+1]
 
-// ④ LJSR (always with I=1), register indirect addressing mode.
+// (4) & (5) LJSR, Register Indirect and Memory Bank-Relative Indirect
 start LJSR, I=1, R=1, IDX=IDX_REG;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       STACK_PUSH(mbp);				// 02 mem[MBS:SP++] ← MBP
@@ -1806,10 +1833,9 @@ start LJSR, I=1, R=1, IDX=IDX_REG;
       MEMREAD(mbz, agl, pc), /action_incdr;	// 07 PC ← mem[MBZ:AGL]
       MEMREAD(mbz, dr, mbp), END;		// 09 MBP ← mem[MBZ:AGL+1]
 
-// TODO: NOTE: POSSIBLE BUG IN AGL FOUND MAKING THIS MICROPROGRAM FAIL BADLY.
-
-// ⑤ LJSR (always with I=1), register double indirect autoincrement addressing mode.
-// NOTE: If /action_incdr can happen fast enough, we can shave off two cycles here.
+// NON-STANDARD: (6) LJSR, Auto-Increment Double Indirect
+// TODO: If /action_incdr can happen fast enough, we can shave off two cycles here.
+// TODO: Can't tell if this microprogram fails or not. Test before control unit is fabricated!
 start LJSR, I=1, R=1, IDX=IDX_INC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       STACK_PUSH(mbp);				// 02 mem[MBS:SP++] ← MBP
@@ -1821,7 +1847,7 @@ start LJSR, I=1, R=1, IDX=IDX_INC;
       /action_incdr;                            // 13 DR++
       MEMWRITE(mbz, agl, dr), END;              // 14 mem[MBZ:AGL] ← DR
 
-// ⑥ LJSR (always with I=1), register indirect autodecrement addressing mode.
+// NON-STANDARD: (7) LJSR, Auto-Decrement Double Indirect.
 start LJSR, I=1, R=1, IDX=IDX_DEC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       STACK_PUSH(mbp);				// 02 mem[MBS:SP++] ← MBP
@@ -1833,7 +1859,7 @@ start LJSR, I=1, R=1, IDX=IDX_DEC;
       /action_decdr;                            // 13 DR--
       MEMWRITE(mbz, agl, dr), END;              // 14 mem[MBZ:AGL] ← DR
 
-// ⑦ LJSR (always with I=1), register indirect stack addressing mode.
+// (8) LJSR, Stack
 // NOTE: Pops pairs of (MBP, PC) tuples off a stack and jumps to
 // them. Push MBP onto the stack FIRST.
 start LJSR, I=1, R=1, IDX=IDX_SP;
@@ -1854,25 +1880,48 @@ start LJSR, I=1, R=1, IDX=IDX_SP;
 //
 ///////////////////////////////////////////////////////////////////////////////
 
+// MNEMONIC: LJMP
+// NAME:     Long Jump
+// DESC:     Jump to an address in a non-local memory bank.
+// GROUP:    Flow Control
+// FORMAT:   0010:1:R:AAAAAAAAAA
+//
+// Reads a new value for the MBP from the address specified in the operand, and
+// a new value for the PC from the next address effectively jumping to any
+// 24-bit location. This instruction only supports indirect addressing modes.
+//
+// ---------------------------------------------------------------------------
+//
+// CAUTION:  Limited and non-standard set of addressing modes.
+//
+//  I   R   Operand   (*) (#) Addressing Mode
+// ---------------------------------------------------------------------------
+//  1   0   Any           (3) Indirect
+//  1   1   000–2FF       (4) Register Indirect
+//  1   1   300–33F       (5) Memory Bank-Relative Indirect
+//  1   1   340–37F   *** ( ) Auto-Increment Double Indirect
+//  1   1   380–3BF   *** ( ) Auto-Decrement Double Indirect
+//  1   1   3C0–3FF       (8) Stack
+
 // NOTE: LJMP makes no sense with I=0, so the ① and ② microprograms
 // are blank and available for another instruction where indirection
 // makes no sense.
 
-// ③ LJMP (always with I=1), local indirect addressing mode.
+// (3) LJMP, Indirect
 start LJMP, I=1, R=0, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       SET(dr, agl);				// 02 DR ← AGL
       MEMREAD(mbp, agl, pc), /action_incdr;	// 03 PC ← mem[MBP:AGL]; DR++
       MEMREAD(mbp, dr, mbp), END;		// 05 MBP ← mem[MBP:AGL+1]
 
-// ④ LJMP (always with I=1), register indirect addressing mode.
+// (4) & (5) LJMP, Register Indirect and Memory Bank-Relative Indirect
 start LJMP, I=1, R=1, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       SET(dr, agl);				// 02 DR ← AGL
       MEMREAD(mbz, agl, pc), /action_incdr;	// 03 PC ← mem[MBZ:AGL]; DR++
       MEMREAD(mbz, dr, mbp), END;		// 05 MBP ← mem[MBZ:AGL+1]
 
-// ⑤ LJMP (always with I=1), register double indirect autoincrement addressing mode.
+// NON-STANDARD: (6) LJMP, Auto-Increment Double Indirect
 // NOTE: If /action_incdr can happen fast enough, we can shave off two cycles here.
 start LJMP, I=1, R=1, IDX=IDX_INC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
@@ -1883,8 +1932,7 @@ start LJMP, I=1, R=1, IDX=IDX_INC;
       /action_incdr;                            // 09 DR++
       MEMWRITE(mbz, agl, dr), END;               // 10 mem[MBZ:AGL] ← DR
 
-
-// ⑥ LJMP (always with I=1), register indirect autodecrement addressing mode.
+// NON-STANDARD: (7) LJMP, Auto-Decrement Double Indirect
 start LJMP, I=1, R=1, IDX=IDX_DEC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);	                // 02 DR ← mem[MBD:AGL]
@@ -1894,10 +1942,9 @@ start LJMP, I=1, R=1, IDX=IDX_DEC;
       /action_decdr;                            // 09 DR--
       MEMWRITE(mbz, agl, dr), END;               // 10 mem[MBD:AGL] ← DR
 
-
-// ⑦ LJMP (always with I=1), register indirect stack addressing mode.
-// NOTE: Pops pairs of (MBP, PC) tuples off a stack and jumps to
-// them. Push MBP onto the stack first.
+// (8) LJMP, Stack.
+// NOTE: Pops pairs of (MBP, PC) tuples off a stack and jumps to them. Push MBP
+// onto the stack first.
 start LJMP, I=1, R=1, IDX=IDX_SP;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);	                // 02 DR ← mem[MBD:AGL]
