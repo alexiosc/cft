@@ -1032,8 +1032,8 @@ start SRU;
 // During execution, the following things will happen:
 //
 // * The I flag is cleared disabling interrupts.
-// * The Shift/Rotate Unit is cranked and will run for the five subsequent
-//   cycles in parallel with everything else.  This should cause a lot of woe.
+// * The Shift/Rotate Unit is cranked and will run for five cycles in parallel
+//   with everything else.  This should cause a lot of woe.
 // * The PC, DR, AC and SP will be incremented three times per instruction
 //   execution.
 // * The AR will be set to MBP:PC, MBD:PC, MBS:PC and MBZ:PC, cycling every
