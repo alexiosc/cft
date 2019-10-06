@@ -2,7 +2,7 @@
 
 emulator.c - Main emulator code
 
-Copyright (C) 2011 Alexios Chouchoulas
+Copyright (C) 2011–2019 Alexios Chouchoulas
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -291,16 +291,16 @@ int nvram = 0;
 void
 reset_cpu()
 {
-	cpu.pc = 0xdead;	/* Mangle things up; let reset logic work. */
-	cpu.ir = 0xbadd;	/* Ditto */
-	cpu.irq = 1;		/* Clear IRQ (1 = no IRQ received) */
+	cpu.pc = 0xdead;    // Mangle things up; let reset logic work.
+	cpu.ir = 0xbadd;    // Ditto
+	cpu.irq = 1;	    // Clear IRQ (1 = no IRQ received)
 	cpu.v = 0;
         cpu.ustate.rst = 0;	/* 0 = -RESET is ACTIVE */
         cpu.ustate.int_ = 1;	/* 1 = -INT is not active */
-        cpu.ustate.inc = 1; 	/* Just being thorough: the reset vector doesn't autoindex */
+        cpu.ustate.in_reserved = 0;	/* 1 = COND is not active */
+        cpu.ustate.cond = 1;	/* 1 = COND is not active */
+        cpu.ustate.idx = 0; 	/* Just being thorough: the reset vector doesn't autoindex */
 	cpu.ustate.uaddr = 0;	/* The uPC resets to 0 on power on/reset */
-	cpu.ustate.v = 0;
-	cpu.ustate.l = 0;
 
 	cpu.agl_page = get_page(cpu.pc);
 	cpu.rst_hold = RST_HOLD; /* Set up reset pulse */
@@ -531,27 +531,18 @@ handle_reset()
 static inline void
 decode_ifx()
 {
-	cpu.ustate.skip = 0;
-	if (IS_IF9(cpu.control)) {
-		cpu.ustate.skip = (cpu.ir & 0x200) != 0;
-		skipdebug("IF9");
-	} else if (IS_IF8(cpu.control)) {
-		cpu.ustate.skip = (cpu.ir & 0x100) != 0;
-		skipdebug("IF8");
-	} else if (IS_IF7(cpu.control)) {
-		cpu.ustate.skip = (cpu.ir & 0x80) != 0;
-		skipdebug("IF7");
-	} else if (IS_IF6(cpu.control)) {
-		cpu.ustate.skip = (cpu.ir & 0x40) != 0;
+	cpu.ustate.cond = 1;	// COND=1 means ‘do not skip’
+	if (IS_IF_IR6(cpu.control)) {
+		cpu.ustate.skip = (cpu.ir & 0x40) == 0;
 		skipdebug("IF6");
-	} else if (IS_IF5(cpu.control)) {
-		cpu.ustate.skip = (cpu.ir & 0x20) != 0;
+	} else if (IS_IF_IR5(cpu.control)) {
+		cpu.ustate.skip = (cpu.ir & 0x20) == 0;
 		skipdebug("IF5");
-	} else if (IS_IF4(cpu.control)) {
-		cpu.ustate.skip = (cpu.ir & 0x10) != 0;
+	} else if (IS_IF_IR4(cpu.control)) {
+		cpu.ustate.skip = (cpu.ir & 0x10) == 0;
 		skipdebug("IF4");
-	} else if (IS_IF3(cpu.control)) {
-		cpu.ustate.skip = (cpu.ir & 0x8) != 0;
+	} else if (IS_IF_IR3(cpu.control)) {
+		cpu.ustate.skip = (cpu.ir & 0x8) == 0;
 		skipdebug("IF3");
 	} else if (IS_IFBRANCH(cpu.control)) {
 		/*
