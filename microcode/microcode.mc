@@ -1049,7 +1049,7 @@ start HCF;
       /MEM, SET(ar_mbp, pc),  /action_cpl;   // 00 CPL
       /MEM, /R, write_ar_mbp, /action_sru;   // 01 Kick the Shift/Rotate Unit
       /MEM, /R, write_ar_mbp, /action_cli;   // 02 CLI (entry point)
-      /MEM, /R, write_ar_mbp, /action_incpc; // 03 PC+
+      /MEM, /R, write_ar_mbp, /action_incpc; // 03 PC++
 
       /MEM, SET(ar_mbd, pc),  /action_incac; // 04 Use MBD. AC++
       /MEM, /R, write_ar_mbd, /action_incsp; // 05 SP++
