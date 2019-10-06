@@ -559,7 +559,7 @@ start RST=1, INT=0, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 // GROUP:    Flow Control
 // MODE:     Implied
 // FLAGS:    *NZVIL
-// FORMAT:   :-------0
+// FORMAT:   :------0
 //
 // Pops the AC, PC and MBP from the Hardware Stack to return from an Interrupt
 // Service Routine. Interrupts are re-enabled atomically during this
@@ -571,7 +571,7 @@ start RST=1, INT=0, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 // GROUP:    Flow Control
 // MODE:     Implied
 // FLAGS:    *NZVIL
-// FORMAT:   :-------1
+// FORMAT:   :------1
 //
 // Pops the AC, PC and MBP from the Hardware Stack to return from an Interrupt
 // Service Routine. Interrupts are disabled. The operand must have bit 0 set.
@@ -601,7 +601,7 @@ start IRET, COND=0;
 // GROUP:    Flow Control
 // MODE:     Implied
 // FLAGS:    -----
-// FORMAT:   :--------
+// FORMAT:   :-------
 //
 // Pops the PC and MBP from the Hardware Stack to return from a subroutine
 // entered with LJSR.
@@ -623,7 +623,7 @@ start LRET;
 // GROUP:    Flow Control
 // MODE:     Implied
 // FLAGS:    -----
-// FORMAT:   :--------
+// FORMAT:   :-------
 //
 // Pops the PC from the Hardware Stack to return from a subroutine entered
 // with JSR.
@@ -645,7 +645,7 @@ start RET;
 // GROUP:    Transfer
 // MODE:     Implied
 // FLAGS:    -----
-// FORMAT:   :--------
+// FORMAT:   :-------
 
 start TAS;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
@@ -664,7 +664,7 @@ start TAS;
 // GROUP:    Transfer
 // MODE:     Implied
 // FLAGS:    *NZ---
-// FORMAT:   :--------
+// FORMAT:   :-------
 
 start TSA;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
@@ -683,7 +683,7 @@ start TSA;
 // GROUP:    Transfer
 // MODE:     Implied
 // FLAGS:    -----
-// FORMAT:   :--------
+// FORMAT:   :-------
 
 start TAD;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
@@ -702,7 +702,7 @@ start TAD;
 // GROUP:    Transfer
 // MODE:     Implied
 // FLAGS:    *NZ---
-// FORMAT:   :--------
+// FORMAT:   :-------
 
 start TDA;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
@@ -721,7 +721,7 @@ start TDA;
 // GROUP:    Flow Control
 // MODE:     Literal (7-bit)
 // FLAGS:    ---i-
-// FORMAT:   :LLLLLLLL
+// FORMAT:   :LLLLLLL
 //
 // Calls the Interrupt Service Routine. The 7-bit value in the operand is
 // written to the DR. An ISR can transfer this value to the AC to implement
@@ -1024,7 +1024,7 @@ start SRU;
 // FLAGS:    *NZ-IL
 // FORMAT:   :-------
 //
-// HCF makes the processor becomes unresponsive to interrupts and all other
+// HCF makes the processor become unresponsive to interrupts and all other
 // means of flow control. It includes no Instruction Fetch, so the program will
 // never move on to the next instruction and HCF will be executed continuously
 // until the processor is turned off, reset or the fire put out.
@@ -1176,7 +1176,7 @@ start HCF;
 // GROUP:    Unary Operations, IFL
 // MODE:     Implied
 // FLAGS:    *NZ---
-// FORMAT:   0000:11:101:-1-----
+// FORMAT:   0000:1:1:101:-1-----
 //
 // If the L flag is set, sets the AC to zero.
 
@@ -1186,7 +1186,7 @@ start HCF;
 // GROUP:    Unary Operations, UOP
 // MODE:     Implied
 // FLAGS:    *--l--
-// FORMAT:   0000:11:101:--1----
+// FORMAT:   0000:1:1:101:--1----
 //
 // If the L flag is set, this sets it to zero. This is useless, unless part of
 // a more complicated bimap instruction.
@@ -1197,7 +1197,7 @@ start HCF;
 // GROUP:    Unary Operations, IFL
 // MODE:     Implied
 // FLAGS:    *NZ---
-// FORMAT:   0000:11:101:---1---
+// FORMAT:   0000:1:1:101:---1---
 //
 // If the L flag is set, all bits in the AC are inverted.
 
@@ -1207,7 +1207,7 @@ start HCF;
 // GROUP:    Unary Operations, IFL
 // MODE:     Implied
 // FLAGS:    *NZL--
-// FORMAT:   0000:11:101:----1--
+// FORMAT:   0000:1:1:101:----1--
 //
 // If the L Flag is set, this treats <L,AC> as a 17-bit unsigned integer and
 // adds one it. It can also be seen as an incrementation of AC by one, where L
@@ -1221,7 +1221,7 @@ start HCF;
 // GROUP:    Unary Operations, IFL
 // MODE:     Implied
 // FLAGS:    *NZL--
-// FORMAT:   0000:11:101::---11--
+// FORMAT:   0000:1:1:101:---11--
 //
 // If the L Flag is set, this negates the AC, then adds one to it. If the value
 // wraps around during incrementation, L will be cleared. Clearing the L flag
@@ -1234,7 +1234,7 @@ start HCF;
 // GROUP:    Unary Operations, IFL
 // MODE:     Implied
 // FLAGS:    *NZL--
-// FORMAT:   0000:11:101:-----1-
+// FORMAT:   0000:1:1:101:-----1-
 //
 // If the L Flag is set, tihs treats <L,AC> as a 17-bit unsigned integer and
 // subtracts one it. It can also be seen as an decrementation of AC by one,
@@ -1248,7 +1248,7 @@ start HCF;
 // GROUP:    Unary Operations, IFL
 // MODE:     Implied
 // FLAGS:    *--L--
-// FORMAT:   0000:11:101:------1
+// FORMAT:   0000:1:1:101:------1
 //
 // Complements (toggles) the L Flag or Link Register. If the complementation
 // clears the L flag, the instruction execution is not affected. The check for
@@ -1263,7 +1263,7 @@ start HCF;
 // GROUP:    Unary Operations, UOP
 // MODE:     Implied
 // FLAGS:    *--L--
-// FORMAT:   0000:11:101:------1
+// FORMAT:   0000:1:1:101:------1
 //
 // If L i set, sets the L Flag or Link Register. This instruction is a
 // combination of the `IFL CLL` and `IFL CPL` instructions. It is all but
@@ -1278,7 +1278,7 @@ start HCF;
 // GROUP:    Unary Operations, IFV
 // MODE:     Implied
 // FLAGS:    nZ---
-// FORMAT:   0000:11:110:-1-----
+// FORMAT:   0000:1:1:110:-1-----
 //
 // If the Overflow Flag is set, the AC is cleared.
 
@@ -1288,7 +1288,7 @@ start HCF;
 // GROUP:    Unary Operations, IFV
 // MODE:     Implied
 // FLAGS:    *--L--
-// FORMAT:   0000:11:110:--1----
+// FORMAT:   0000:1:1:110:--1----
 //
 // If the Overlflow Flag is set, sets L to zero.
 
@@ -1298,7 +1298,7 @@ start HCF;
 // GROUP:    Unary Operations, IFV
 // MODE:     Implied
 // FLAGS:    *NZ---
-// FORMAT:   0000:11:110:---1---
+// FORMAT:   0000:1:1:110:---1---
 //
 // If the Overflow Flag is set, inverts all bits in the AC, producing a one's
 // complement negation of AC or evaluating -(AC-1) in two's complement
@@ -1310,7 +1310,7 @@ start HCF;
 // GROUP:    Unary Operations, UOP
 // MODE:     Implied
 // FLAGS:    *NZL--
-// FORMAT:   0000:11:110:----1--
+// FORMAT:   0000:1:1:110:----1--
 //
 // If the Overflow Flag is set, treats <L,AC> as a 17-bit unsigned integer and
 // adds one it. It can also be seen as an incrementation of AC by one, where L
@@ -1322,7 +1322,7 @@ start HCF;
 // GROUP:    Unary Operations, UOP
 // MODE:     Implied
 // FLAGS:    *NZL--
-// FORMAT:   0000:11:110:---11--
+// FORMAT:   0000:1:1:110:---11--
 //
 // Negates the AC, then adds one to it. If the value wraps around during
 // incrementation, L will be complemented.
@@ -1333,7 +1333,7 @@ start HCF;
 // GROUP:    Unary Operations, UOP
 // MODE:     Implied
 // FLAGS:    *NZL--
-// FORMAT:   0000:11:110:-----1-
+// FORMAT:   0000:1:1:110:-----1-
 //
 // Treats <L,AC> as a 17-bit unsigned integer and subtracts one it. It can also
 // be seen as an decrementation of AC by one, where L is toggled on AC
@@ -1345,7 +1345,7 @@ start HCF;
 // GROUP:    Unary Operations, UOP
 // MODE:     Implied
 // FLAGS:    *--L--
-// FORMAT:   0000:11:110:------1
+// FORMAT:   0000:1:1:110:------1
 //
 // Complements (toggles) the L Flag or Link Register.
 
@@ -1355,7 +1355,7 @@ start HCF;
 // GROUP:    Unary Operations, UOP
 // MODE:     Implied
 // FLAGS:    --L--
-// FORMAT:   0000:11:110:------1
+// FORMAT:   0000:1:1:110:------1
 //
 // Sets the L Flag or Link Register. This instruction is a combination of the
 // `CLL` and `CPL` instructions.
@@ -1706,7 +1706,7 @@ start JSA;
 // GROUP:    Flow Control
 // MODE:     Accumulator Indirect
 // FLAGS:    -----
-// FORMAT:   R:-------
+// FORMAT:   :-------
 //
 // Loads the value at the memory address held in the AC. The address is
 // interpreted as an offset relative to MBD if the R Field is clear, or
@@ -1763,7 +1763,7 @@ start IND, R=1;
 // NAME:     Literal
 // GROUP:    Miscellaneous
 // MODE:     Literal
-// Format:   0001:0:1:LLLLLLLLLL
+// FORMAT:   0001:0:1:LLLLLLLLLL
 //
 // Sets the AC to the 10-bit literal value in the operand. The top six bits in
 // the AC are cleared. This is the same instruction as LIA in Register mode.
@@ -1792,7 +1792,7 @@ start LIA, I=0, R=1, IDX=XX;
 // NAME:     Long Jump to Subroutine
 // DESC:     Jump to subroutine in a non-local memory bank.
 // GROUP:    Flow Control
-// FORMAT:   0001:1:R:AAAAAAAAAA
+// FORMAT:   0001:1:R:aaaaaaaaaa
 //
 // Pushes the MBP and PC to the Hardware Stack. Then reads a new value of MBP
 // from the address specified in the operand, and new value for the PC from the
@@ -1884,7 +1884,7 @@ start LJSR, I=1, R=1, IDX=IDX_SP;
 // NAME:     Long Jump
 // DESC:     Jump to an address in a non-local memory bank.
 // GROUP:    Flow Control
-// FORMAT:   0010:1:R:AAAAAAAAAA
+// FORMAT:   0010:1:R:aaaaaaaaaa
 //
 // Reads a new value for the MBP from the address specified in the operand, and
 // a new value for the PC from the next address effectively jumping to any
