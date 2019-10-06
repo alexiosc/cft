@@ -2102,52 +2102,84 @@ start JMP, I=1, R=1, IDX=IDX_SP;
 //
 ///////////////////////////////////////////////////////////////////////////////
 
+// MNEMONIC: DSZ
+// NAME:     Decrement and Skip if Zero
+// DESC:     Decrements memory by one and skips the next instruction if zero.
+// GROUP:    Flow Control, Memory
+//
+// This instruction interprets its operand as an address in memory. It loads a
+// value from that address into the AC, decrements it by one, and stores it
+// back. If the AC is zero, after decrementtion, the next instruction is
+// skipped. The ISZ instruction simplifies implementing loops.
+//
+// DSZ used to be called ISZ when the CFT could only increment the AC, but
+// decrementation is more practical.
+//
+// ---------------------------------------------------------------------------
+//
+// CAUTION:  Non-Standard addressing modes marked with *** below
+//
+//  I   R   Operand   (*) (#) Addressing Mode
+// ---------------------------------------------------------------------------
+//  0   0   Any           (1) Page-Local
+//  0   1   Any           (2) Register
+//  1   0   Any           (3) Indirect
+//  1   1   000–2FF       (4) Register Indirect
+//  1   1   300–33F       (5) Memory Bank-Relative Indirect
+//  1   1   340–37F       (6) Auto-Increment
+//  1   1   380–3BF       (7) Auto-Decrement
+//  1   1   3C0–3FF       (8) Stack
+
+// TODO: Make DSZ honour auto-indexing (increments and decrements).
+
 // First, without skips. The last microinstruction is an END.
 
-// ① DSZ, local addressing mode.
+// (1) DSZ, Page-Local
 start DSZ, COND=1, I=0, R=0, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       MEMREAD(mbp, agl, ac);	                // 02 AC ← mem[MBP:AGL]
-      /action_decac;				// 04 AC++;
-      MEMWRITE(mbp, agl, ac), if_z;              // 05 mem[MBP:AGL] ← AC
+      /action_decac;				// 04 AC++
+      MEMWRITE(mbp, agl, ac), if_z;		// 05 mem[MBP:AGL] ← AC
       END;					// 07
 
-// ② DSZ, register addressing mode.
+// (2) DSZ, Register
 start DSZ, COND=1, I=0, R=1, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, ac);	                // 02 AC ← mem[MBZ:AGL]
-      /action_decac;				// 04 AC++;
-      MEMWRITE(mbz, agl, ac), if_z;              // 05 mem[MBZ:AGL] ← AC
+      /action_decac;				// 04 AC++
+      MEMWRITE(mbz, agl, ac), if_z;		// 05 mem[MBZ:AGL] ← AC
       END;					// 07
 
-// ③ DSZ, local indirect addressing mode.
+// (3) DSZ, Indirect
 start DSZ, COND=1, I=1, R=0, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       MEMREAD(mbp, agl, dr);			// 02 DR ← mem[MBP:AGL]
       MEMREAD(mbd, dr, ac);	                // 04 AC ← mem[MBD:DR]
-      /action_decac;				// 06 AC++;
+      /action_decac;				// 06 AC++
       MEMWRITE(mbd, dr, ac), if_z;		// 07 mem[MBD:DR] ← AC
       END;					// 09
 
-// ④ DSZ, register indirect addressing mode.
+// (4) & (5) DSZ, Register Indirect and Memory Bank-Relative Indirect
 start DSZ, COND=1, I=1, R=1, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
       MEMREAD(mbd, dr, ac);	                // 04 AC ← mem[MBD:DR]
-      /action_decac;				// 06 AC++;
+      /action_decac;				// 06 AC++
       MEMWRITE(mbd, dr, ac), if_z;		// 07 mem[MBD:DR] ← AC
       END;					// 09
 
-// ⑤ DSZ, register indirect autoincrement addressing mode.
+// (6) DSZ, Auto-Increment
+// NOTE: this has reduced usefulness!
 start DSZ, COND=1, I=1, R=1, IDX=IDX_INC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
       MEMREAD(mbd, dr, ac);	                // 04 AC ← mem[MBD:DR]
-      /action_incac;				// 06 AC++;
+      /action_incac;				// 06 AC++
       MEMWRITE(mbd, dr, ac), if_z;		// 07 mem[MBD:DR] ← AC
       END;					// 09
 
-// ⑥ DSZ, register indirect autodecrement addressing mode.
+// (7) DSZ, Auto-Decrement
+// NOTE: this has reduced usefulness!
 start DSZ, COND=1, I=1, R=1, IDX=IDX_DEC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
@@ -2156,80 +2188,82 @@ start DSZ, COND=1, I=1, R=1, IDX=IDX_DEC;
       MEMWRITE(mbd, dr, ac), if_z;		// 07 mem[MBD:DR] ← AC
       END;					// 09
 
-// ⑦ DSZ, register indirect stack addressing mode.  This technically
-// pops a value from the stack and writes it back. With no net change
-// in the stack pointer register, we don't need to increment or decrement.
+// (8) DSZ, Stack.
+
+// NOTE: this technically pops a value from the stack and writes it back. With
+// no net change in the stack pointer register, we don't need to increment or
+// decrement.
 start DSZ, COND=1, I=1, R=1, IDX=IDX_SP;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
       MEMREAD(mbd, dr, ac);	                // 04 AC ← mem[MBD:DR]
-      /action_decac;				// 06 AC--;
+      /action_decac;				// 06 AC--
       MEMWRITE(mbd, dr, ac), if_z;		// 07 mem[MBD:DR] ← AC
       END;					// 09
 
 // And now the same, with skips taken: /action_incpc is executed in
 // the last microstep.
 
-// ① DSZ, local addressing mode.
+// (1) DSZ, Page-Local (with skip)
 start DSZ, COND=0, I=0, R=0, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       MEMREAD(mbp, agl, ac);	                // 02 AC ← mem[MBP:AGL]
-      /action_decac;				// 04 AC++;
-      MEMWRITE(mbp, agl, ac), if_z;              // 05 mem[MBP:AGL] ← AC
-      END;					// 07
+      /action_decac;				// 04 AC++
+      MEMWRITE(mbp, agl, ac), if_z;             // 05 mem[MBP:AGL] ← AC
+      /action_incpc, END;			// 07 PC+
 
-// ② DSZ, register addressing mode.
+// (2) DSZ, Register (with skip)
 start DSZ, COND=0, I=0, R=1, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, ac);	                // 02 AC ← mem[MBZ:AGL]
       /action_decac;				// 04 AC++;
-      MEMWRITE(mbz, agl, ac), if_z;              // 05 mem[MBZ:AGL] ← AC
-      /action_incpc, END;			// 07 PC++;
+      MEMWRITE(mbz, agl, ac), if_z;             // 05 mem[MBZ:AGL] ← AC
+      /action_incpc, END;			// 07 PC++
 
-// ③ DSZ, local indirect addressing mode.
+// (3) DSZ, Indirect (with skip)
 start DSZ, COND=0, I=1, R=0, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       MEMREAD(mbp, agl, dr);			// 02 DR ← mem[MBP:AGL]
       MEMREAD(mbd, dr, ac);	                // 04 AC ← mem[MBD:DR]
-      /action_decac;				// 06 AC++;
+      /action_decac;				// 06 AC++
       MEMWRITE(mbd, dr, ac), if_z;		// 07 mem[MBD:DR] ← AC
-      /action_incpc, END;			// 09 PC++;
+      /action_incpc, END;			// 09 PC++
 
-// ④ DSZ, register indirect addressing mode.
+// (4) & (5) DSZ, Register Indirect and Memory Bank-Relative Indirect (with skip)
 start DSZ, COND=0, I=1, R=1, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
       MEMREAD(mbd, dr, ac);	                // 04 AC ← mem[MBD:DR]
-      /action_decac;				// 06 AC++;
+      /action_decac;				// 06 AC++
       MEMWRITE(mbd, dr, ac), if_z;		// 07 mem[MBD:DR] ← AC
-      /action_incpc, END;			// 09 PC++;
+      /action_incpc, END;			// 09 PC++
 
-// ⑤ DSZ, register indirect autoincrement addressing mode.
+// (6) DSZ, Auto-Increment (with skip)
 start DSZ, COND=0, I=1, R=1, IDX=IDX_INC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
       MEMREAD(mbd, dr, ac);	                // 04 AC ← mem[MBD:DR]
-      /action_incac;				// 06 AC++;
+      /action_incac;				// 06 AC++
       MEMWRITE(mbd, dr, ac), if_z;		// 07 mem[MBD:DR] ← AC
-      /action_incpc, END;			// 09 PC++;
+      /action_incpc, END;			// 09 PC++
 
-// ⑥ DSZ, register indirect autodecrement addressing mode.
+// (7) DSZ, Auto-Decrement (with skip)
 start DSZ, COND=0, I=1, R=1, IDX=IDX_DEC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
       MEMREAD(mbd, dr, ac);	                // 04 AC ← mem[MBD:DR]
-      /action_decac;				// 06 AC--;
+      /action_decac;				// 06 AC--
       MEMWRITE(mbd, dr, ac), if_z;		// 07 mem[MBD:DR] ← AC
-      /action_incpc, END;			// 09 PC++;
+      /action_incpc, END;			// 09 PC++
 
-// ⑦ DSZ, register indirect stack addressing mode.
+// (7) DSZ, Stack (with skip)
 start DSZ, COND=0, I=1, R=1, IDX=IDX_SP;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
       MEMREAD(mbd, dr, ac);	                // 04 AC ← mem[MBD:DR]
-      /action_decac;				// 06 AC--;
+      /action_decac;				// 06 AC--
       MEMWRITE(mbd, dr, ac), if_z;		// 07 mem[MBD:DR] ← AC
-      /action_incpc, END;			// 09 PC++;
+      /action_incpc, END;			// 09 PC++
 
 
 ///////////////////////////////////////////////////////////////////////////////
