@@ -500,16 +500,16 @@ start RST=1, INT=0, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 //#define      _INSTR(0000), I=1, R=0, SUBOP=100, COND=X, IDX=XX // This is available
 //#define      _INSTR(0000), I=1, R=0, SUBOP=101, COND=X, IDX=XX // This is available
 //#define      _INSTR(0000), I=1, R=0, SUBOP=110, COND=X, IDX=XX // This is available
-//#define IND  _INSTR(0000), I=1, R=0, SUBOP=111, COND=X         // THIS IS IND R (SEE BELOW)
+//#define IND  _INSTR(0000), I=1, R=0, SUBOP=111, COND=X, IDX=XX // THIS IS IND R (SEE BELOW)
 
 #define JPA    _INSTR(0000), I=1, R=1, SUBOP=000, COND=X, IDX=XX
 #define JSA    _INSTR(0000), I=1, R=1, SUBOP=001, COND=X, IDX=XX
 //#define      _INSTR(0000), I=1, R=1, SUBOP=010, COND=X, IDX=XX // This is available
-//#define      _INSTR(0000), I=1, R=1, SUBOP=011, COND=X, IDX=XX // This is available
+#define HCF    _INSTR(0000), I=1, R=1, SUBOP=011, COND=X, IDX=XX // HCF instruction for commit #666! ;)
 #define UOP    _INSTR(0000), I=1, R=1, SUBOP=100, COND=X, IDX=XX // ** SUBOP is not arbitrary!
 #define IFL    _INSTR(0000), I=1, R=1, SUBOP=101,         IDX=XX // ** SUBOP is not arbitrary!
 #define IFV    _INSTR(0000), I=1, R=1, SUBOP=110,         IDX=XX // ** SUBOP is not arbitrary!
-#define IND    _INSTR(0000), I=1,      SUBOP=111, COND=X         // THIS INCLUDES AN R VARIANT (ABOVE)
+#define IND    _INSTR(0000), I=1,      SUBOP=111, COND=X, IDX=XX // THIS INCLUDES AN R VARIANT (ABOVE)
 
 // PART II: INSTRUCTIONS 1–15, 10-bit operands
 
@@ -575,13 +575,13 @@ start RST=1, INT=0, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 // Service Routine. Interrupts are disabled. The operand must have bit 0 set.
 
 start IRET, COND=1;
-      FETCH_IR, /if_ir0;	                // 00 IR ← mem[PC++]
+      FETCH_IR, if_ir0;	                        // 00 IR ← mem[PC++]
       STACK_POP(ac), /action_sti;		// 02 AC ← mem[--SP]; STI
       STACK_POP(pc);				// 05 PC ← mem[--SP]
       STACK_POP(mbp_flags), END;                // 08 flags:MBP ← mem[--SP]
 
 start IRET, COND=0;
-      FETCH_IR, /if_ir0;	                // 00 IR ← mem[PC++]
+      FETCH_IR, if_ir0;		                // 00 IR ← mem[PC++]
       STACK_POP(ac);				// 02 AC ← mem[--SP]
       STACK_POP(pc);				// 05 PC ← mem[--SP]
       STACK_POP(mbp_flags), END;                // 08 flags:MBP ← mem[--SP]
@@ -731,7 +731,7 @@ start ISR;
       STACK_PUSH(ac);		                // 04 mem[MBS:SP++] ← AC
       SET(pc, cs_isrvec0);			// 06 PC ← 0002
       SET(mbp, cs_isrvec1);			// 07 MBP ← 0003
-      SET(agl, dr), END;			// 08 DR ← AGL
+      SET(dr, agl), END;			// 08 DR ← AGL
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -904,9 +904,8 @@ start CLI;
 // state with the µPC stuck to zero and Interrupts enabled.
 
 start WAIT;
-      SET(agl, dr), /action_sti, END; // 00 DR ← AGL; STI; loop forever
+      SET(dr, agl), /action_sti, END; // 00 DR ← AGL; STI; loop forever
       hold;			      // And keep on doing this.
-      hold;			      //
       hold;			      //
       hold;			      //
       hold;			      //
@@ -1008,6 +1007,62 @@ start SRU;
       ;				                // 06 SRU cycle #5
       SET(ac, alu_b), END;			// 07 AC ← ALU B Reg
 
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// THE HCF INSTRUCTION
+//
+///////////////////////////////////////////////////////////////////////////////
+
+// MNEMONIC: HCF
+// NAME:     Halt and Catch Fire
+// DESC:     Terminate operation and burn-in registers, perhaps literally.
+// GROUP:    Miscellaneous
+// MODE:     Implied
+// FLAGS:    *NZ-IL
+// FORMAT:   :-------
+//
+// Halts system execution. The processor becomes be unresponsive to interrupts
+// and all other means of flow control. This instruction has no Fetch cycle, so
+// it will be executed continuously until the processor is reset or the fire
+// put out.
+//
+// During execution, the following things will happen:
+//
+// * The I flag is cleared disabling interrupts.
+// * The Shift/Rotate Unit is cranked and will run for the five subsequent
+//   cycles in parallel with everything else.  This should cause a lot of woe.
+// * The PC, DR, AC and SP will be incremented three times per instruction
+//   execution.
+// * The AR will be set relative to MBP:PC, MBD:PC, MBS:PC and MBZ:PC, cycling
+//   every four processor cycles.
+// * A dummy memory read cycle will be performed every three out of four cycles
+//   using the address in the AR and the read data discarded.
+// * The L Flag is toggled making HCF easily identifiable on the front panel.
+//
+// These are as likely to set a CMOS-based processor on fire as anything.
+
+// This is a joke instruction added for GitHub commit #666. May delete later.
+start HCF;
+      /MEM, SET(ar_mbp, pc),  /action_cpl;   // 00 CPL
+      /MEM, /R, write_ar_mbp, /action_sru;   // 01 Kick the Shift/Rotate Unit
+      /MEM, /R, write_ar_mbp, /action_cli;   // 02 CLI (entry point)
+      /MEM, /R, write_ar_mbp, /action_incpc; // 03 PC+
+
+      /MEM, SET(ar_mbd, pc),  /action_incac; // 04 Use MBD. AC++
+      /MEM, /R, write_ar_mbd, /action_incsp; // 05 SP++
+      /MEM, /R, write_ar_mbd, /action_incdr; // 06 DR++
+      /MEM, /R, write_ar_mbd, /action_incpc; // 07 PC++
+
+      /MEM, SET(ar_mbs, pc),  /action_incac; // 08 Use MBS. AC++
+      /MEM, /R, write_ar_mbs, /action_incsp; // 09 SP++
+      /MEM, /R, write_ar_mbs, /action_incdr; // 10 DR++
+      /MEM, /R, write_ar_mbs, /action_incpc; // 11 PC++
+
+      /MEM, SET(ar_mbz, pc),  /action_incac; // 12 Use MBZ. AC++
+      /MEM, /R, write_ar_mbz, /action_incsp; // 13 SP++
+      /MEM, /R, write_ar_mbz, /action_incdr; // 14 DR++
+      /MEM, /R, write_ar_mbz, /action_incpc; // 15 PC++ (and loop)
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -1358,7 +1413,7 @@ start UOP, COND=0;
 start UOP, COND=1;
       FETCH_IR, if_ir5;		                // 00 IR ← mem[PC++];
       if_ir4;
-g      if_ir3;
+      if_ir3;
       if_ir2;
       if_ir1;
       if_ir0;
