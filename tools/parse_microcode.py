@@ -201,7 +201,7 @@ class ParseMicrocode(object):
                 ('format', comm['format']),
                 ('disasm', OrderedDict([('instr', bin_opcode),
                                         ('mask', bin_mask),
-                                        ('weight', sum(int(x) for x in bin(bin_mask)[2:]))])),
+                                        ('priority', sum(int(x) for x in bin(bin_mask)[2:]))])),
                 ('name', comm.get('name', '')),
                 ('mode', comm.get('mode', '')),
                 ('desc', comm.get('desc', '')),
