@@ -2273,6 +2273,7 @@ start DSZ, COND=0, I=1, R=1, IDX=IDX_SP;
 // NAME:     Load Accumulator
 // DESC:     Loads AC from the specified memory address
 // GROUP:    Memory
+// FLAGS:    *NZ---
 //
 // This instruction interprets its operand as an address in memory. It reads
 // the value at that address and stores it into the AC.
@@ -2348,6 +2349,7 @@ start LOAD, I=1, R=1, IDX=IDX_SP;
 // NAME:     Store Accumulator
 // DESC:     Stores AC to the specified memory address
 // GROUP:    Memory
+// FLAGS:    -----
 //
 // This instruction interprets its operand as an address in memory and stores
 // the AC into it.
@@ -2418,6 +2420,7 @@ start STORE, I=1, R=1, IDX=IDX_SP;
 // NAME:     Input from I/O Space
 // DESC:     Loads AC from an I/O Space address
 // GROUP:    Input/Output
+// FLAGS:    *NZ---
 //
 // This instruction interprets its operand as an address in I/O Space. It reads
 // the value at that address and stores it into the AC. I/O Space is 16 bits
@@ -2494,6 +2497,7 @@ start IN, I=1, R=1, IDX=IDX_SP;
 // NAME:     Output to I/O Space
 // DESC:     Writes AC to an I/O Space address
 // GROUP:    Input/Output
+// FLAGS:    -----
 //
 // This instruction interprets its operand as an address in I/O Space. It
 // writes the current value of the AC to that address. I/O Space is 16 bits
@@ -2559,6 +2563,7 @@ start OUT, I=1, R=1, IDX=IDX_SP;
 // NAME:     I/O Transaction
 // DESC:     Writes AC to an I/O Space address and Reads it Back
 // GROUP:    Input/Output
+// FLAGS:    *NZ---
 //
 // This instruction interprets its operand as an address in I/O Space. It
 // writes the current value of the AC to that address, then immediately reads
@@ -2681,41 +2686,68 @@ start IOT, COND=0, I=1, R=1, IDX=IDX_DEC;
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-// All four ALU binary operations have microcode that looks very
-// similar to the LOAD one (the ALU B port is loaded rather then the
-// ACcumulator, and there's an additional processor cycle to perform
-// the operation.
+// MNEMONIC: ADD
+// NAME:     Add To Accumulator
+// DESC:     Adds the value at the specified memory address to the AC.
+// GROUP:    Arithmetic and Logic
+// FLAGS:    *NZV-L
 //
-// And all four ALU binary operations are nearly identical, only the
-// final microstep differs.
+// This instruction interprets its operand as an address in memory. It reads
+// the value at that address and adds it to the 17-bit vector <L,AC>. That is,
+// if the sum is greater than 65,635 the L Register will be toggled.
+//
+// After the addition, the Overflow flag will be set if and only if the two
+// addends (treated as signed 16-bit integers) have the same sign, but the sum
+// has the opposite sign. If only one of the addends is positive, or the sign
+// of addends and sum is the same, the Overflow Flag will be cleared.
+//
+// Like the PDP-8, the CFT lacks an explicit subtraction operation as of
+// Microcode version 7, but two's complement makes addition and subtraction
+// symmetric so only one instruction is needed.
+//
+// ---------------------------------------------------------------------------
+//  I   R   Operand   (*) (#) Addressing Mode
+// ---------------------------------------------------------------------------
+//  0   0   Any           (1) Page-Local
+//  0   1   Any           (2) Register
+//  1   0   Any           (3) Indirect
+//  1   1   000–2FF       (4) Register Indirect
+//  1   1   300–33F       (5) Memory Bank-Relative Indirect
+//  1   1   340–37F       (6) Auto-Increment
+//  1   1   380–3BF       (7) Auto-Decrement
+//  1   1   3C0–3FF       (8) Stack
 
-// ① ADD, local addressing mode.
+// All four ALU binary operations have microcode that looks very similar to the
+// LOAD one (the ALU B port is loaded rather then the Accumulator, and there's
+// an additional processor cycle to perform the operation.
+
+// (1) ADD, Page-Local
 start ADD, I=0, R=0, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       MEMREAD(mbp, agl, alu_b);                  // 02 B ← mem[MBP:AGL]
       SET(ac, alu_add), END;			// 04 AC ← AC + B
 
-// ② ADD, register addressing mode.
+// (2) ADD, Register
 start ADD, I=0, R=1, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, alu_b);                  // 02 B ← mem[MBZ:AGL]
       SET(ac, alu_add), END;			// 04 AC ← AC + B
 
-// ③ ADD, local indirect addressing mode.
+// (3) ADD, Indirect
 start ADD, I=1, R=0, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       MEMREAD(mbp, agl, dr);			// 02 DR ← mem[MBP:AGL]
       MEMREAD(mbd, dr, alu_b);			// 04 AC ← mem[MBD:DR]
       SET(ac, alu_add), END;			// 06 AC ← AC + B
 
-// ④ ADD, register indirect addressing mode.
+// (4) & (5) ADD, Register Indirect and Memory Bank-Relative Indirect
 start ADD, I=1, R=1, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
       MEMREAD(mbp, dr, alu_b);			// 04 B ← mem[MBP:DR]
       SET(ac, alu_add), END;			// 06 AC ← AC + B
 
-// ⑤ ADD, register indirect autoincrement addressing mode.
+// (6) ADD, Auto-Increment
 start ADD, I=1, R=1, IDX=IDX_INC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
@@ -2723,7 +2755,7 @@ start ADD, I=1, R=1, IDX=IDX_INC;
       MEMWRITE(mbz, agl, dr);	                // 06 mem[MBZ:AGL] ← DR
       SET(ac, alu_add), END;			// 08 AC ← AC + B
 
-// ⑥ ADD, register indirect autodecrement addressing mode.
+// (7) ADD, Auto-Decrement
 start ADD, I=1, R=1, IDX=IDX_DEC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
@@ -2731,7 +2763,7 @@ start ADD, I=1, R=1, IDX=IDX_DEC;
       MEMWRITE(mbz, agl, dr);	                // 06 mem[MBZ:AGL] ← DR
       SET(ac, alu_add), END;			// 08 AC ← AC + B
 
-// ⑦ ADD, register indirect stack addressing mode.
+// (8) ADD, Stack
 start ADD, I=1, R=1, IDX=IDX_SP;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBD:AGL]
@@ -2747,33 +2779,54 @@ start ADD, I=1, R=1, IDX=IDX_SP;
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-// ① AND, local addressing mode.
+// MNEMONIC: AND
+// NAME:     Bitwise AND With Accumulator
+// DESC:     Bitwise ANDs the value at the specified memory address and AC.
+// GROUP:    Arithmetic and Logic
+// FLAGS:    *NZ---
+//
+// This instruction interprets its operand as an address in memory. It reads
+// the value at that address and bitwise ANDs it to the AC.
+//
+// ---------------------------------------------------------------------------
+//  I   R   Operand   (*) (#) Addressing Mode
+// ---------------------------------------------------------------------------
+//  0   0   Any           (1) Page-Local
+//  0   1   Any           (2) Register
+//  1   0   Any           (3) Indirect
+//  1   1   000–2FF       (4) Register Indirect
+//  1   1   300–33F       (5) Memory Bank-Relative Indirect
+//  1   1   340–37F       (6) Auto-Increment
+//  1   1   380–3BF       (7) Auto-Decrement
+//  1   1   3C0–3FF       (8) Stack
+
+// (1) AND, Page-Local
 start AND, I=0, R=0, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD(mbp, agl, alu_b);                  // 02 B ← mem[MBP:AGL]
+      MEMREAD(mbp, agl, alu_b);                 // 02 B ← mem[MBP:AGL]
       SET(ac, alu_and), END;			// 04 AC ← AC & B
 
-// ② AND, register addressing mode.
+// (2) AND, Register
 start AND, I=0, R=1, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD(mbz, agl, alu_b);                  // 02 B ← mem[MBZ:AGL]
+      MEMREAD(mbz, agl, alu_b);                 // 02 B ← mem[MBZ:AGL]
       SET(ac, alu_and), END;			// 04 AC ← AC & B
 
-// ③ AND, local indirect addressing mode.
+// (3) AND, Indirect
 start AND, I=1, R=0, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       MEMREAD(mbp, agl, dr);			// 02 DR ← mem[MBP:AGL]
       MEMREAD(mbd, dr, alu_b);			// 04 AC ← mem[MBD:DR]
       SET(ac, alu_and), END;			// 06 AC ← AC & B
 
-// ④ AND, register indirect addressing mode.
+// (4) & (5) AND, Register Indirect and Memory Bank-Relative Indirect
 start AND, I=1, R=1, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
       MEMREAD(mbd, dr, alu_b);			// 04 B ← mem[MBD:DR]
       SET(ac, alu_and), END;			// 06 AC ← AC & B
 
-// ⑤ AND, register indirect autoincrement addressing mode.
+// (6) AND, Auto-Increment
 start AND, I=1, R=1, IDX=IDX_INC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
@@ -2781,7 +2834,7 @@ start AND, I=1, R=1, IDX=IDX_INC;
       MEMWRITE(mbz, agl, dr);	                // 06 mem[MBZ:AGL] ← DR
       SET(ac, alu_and), END;			// 08 AC ← AC & B
 
-// ⑥ AND, register indirect autodecrement addressing mode.
+// (7) AND, Auto-Decrement
 start AND, I=1, R=1, IDX=IDX_DEC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
@@ -2789,7 +2842,7 @@ start AND, I=1, R=1, IDX=IDX_DEC;
       MEMWRITE(mbz, agl, dr);	                // 06 mem[MBZ:AGL] ← DR
       SET(ac, alu_and), END;			// 08 AC ← AC & B
 
-// ⑦ AND, register indirect stack addressing mode.
+// (8) AND, Stack
 start AND, I=1, R=1, IDX=IDX_SP;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
@@ -2805,33 +2858,54 @@ start AND, I=1, R=1, IDX=IDX_SP;
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-// ① OR, local addressing mode.
+// MNEMONIC: OR
+// NAME:     Bitwise OR With Accumulator
+// DESC:     Bitwise ORs the value at the specified memory address and AC.
+// GROUP:    Arithmetic and Logic
+// FLAGS:    *NZ---
+//
+// This instruction interprets its operand as an address in memory. It reads
+// the value at that address and bitwise ORs it to the AC.
+//
+// ---------------------------------------------------------------------------
+//  I   R   Operand   (*) (#) Addressing Mode
+// ---------------------------------------------------------------------------
+//  0   0   Any           (1) Page-Local
+//  0   1   Any           (2) Register
+//  1   0   Any           (3) Indirect
+//  1   1   000–2FF       (4) Register Indirect
+//  1   1   300–33F       (5) Memory Bank-Relative Indirect
+//  1   1   340–37F       (6) Auto-Increment
+//  1   1   380–3BF       (7) Auto-Decrement
+//  1   1   3C0–3FF       (8) Stack
+
+// (1) OR, Page-Local
 start OR, I=0, R=0, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD(mbp, agl, alu_b);                  // 02 B ← mem[MBP:AGL]
+      MEMREAD(mbp, agl, alu_b);			// 02 B ← mem[MBP:AGL]
       SET(ac, alu_or), END;			// 04 AC ← AC | B
 
-// ② OR, register addressing mode.
+// (2) OR, Register
 start OR, I=0, R=1, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
-      MEMREAD(mbz, agl, alu_b);                  // 02 B ← mem[MBZ:AGL]
+      MEMREAD(mbz, agl, alu_b);			// 02 B ← mem[MBZ:AGL]
       SET(ac, alu_or), END;			// 04 AC ← AC | B
 
-// ③ OR, local indirect addressing mode.
+// (3) OR, Indirect
 start OR, I=1, R=0, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       MEMREAD(mbp, agl, dr);			// 02 DR ← mem[MBP:AGL]
       MEMREAD(mbd, dr, alu_b);			// 04 AC ← mem[MBD:DR]
       SET(ac, alu_or), END;			// 06 AC ← AC | B
 
-// ④ OR, register indirect addressing mode.
+// (4) & (5) OR, Register Indirect and Memory Bank-Relative Indirect
 start OR, I=1, R=1, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
       MEMREAD(mbz, dr, alu_b);			// 04 B ← mem[MBD:DR]
       SET(ac, alu_or), END;			// 06 AC ← AC | B
 
-// ⑤ OR, register indirect autoincrement addressing mode.
+// (6) OR, Auto-Increment
 start OR, I=1, R=1, IDX=IDX_INC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
@@ -2839,7 +2913,7 @@ start OR, I=1, R=1, IDX=IDX_INC;
       MEMWRITE(mbz, agl, dr);	                // 06 mem[MBZ:AGL] ← DR
       SET(ac, alu_or), END;			// 08 AC ← AC | B
 
-// ⑥ OR, register indirect autodecrement addressing mode.
+// (7) OR, Auto-Decrement
 start OR, I=1, R=1, IDX=IDX_DEC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
@@ -2847,7 +2921,7 @@ start OR, I=1, R=1, IDX=IDX_DEC;
       MEMWRITE(mbz, agl, dr);	                // 06 mem[MBZ:AGL] ← DR
       SET(ac, alu_or), END;			// 08 AC ← AC | B
 
-// ⑦ OR, register indirect stack addressing mode.
+// (8) OR, Stack
 start OR, I=1, R=1, IDX=IDX_SP;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
@@ -2863,33 +2937,54 @@ start OR, I=1, R=1, IDX=IDX_SP;
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-// ① XOR, local addressing mode.
+// MNEMONIC: XOR
+// NAME:     Bitwise XOR With Accumulator
+// DESC:     Bitwise XORs the value at the specified memory address and AC.
+// GROUP:    Arithmetic and Logic
+// FLAGS:    *NZ---
+//
+// This instruction interprets its operand as an address in memory. It reads
+// the value at that address and bitwise exclusive ORs it to the AC.
+//
+// ---------------------------------------------------------------------------
+//  I   R   Operand   (*) (#) Addressing Mode
+// ---------------------------------------------------------------------------
+//  0   0   Any           (1) Page-Local
+//  0   1   Any           (2) Register
+//  1   0   Any           (3) Indirect
+//  1   1   000–2FF       (4) Register Indirect
+//  1   1   300–33F       (5) Memory Bank-Relative Indirect
+//  1   1   340–37F       (6) Auto-Increment
+//  1   1   380–3BF       (7) Auto-Decrement
+//  1   1   3C0–3FF       (8) Stack
+
+// (1) XOR, Page-Local
 start XOR, I=0, R=0, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       MEMREAD(mbp, agl, alu_b);                  // 02 B ← mem[MBP:AGL]
       SET(ac, alu_xor), END;			// 04 AC ← AC ^ B
 
-// ② XOR, register addressing mode.
+// (2) XOR, Register
 start XOR, I=0, R=1, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, alu_b);                  // 02 B ← mem[MBP:AGL]
       SET(ac, alu_xor), END;			// 04 AC ← AC ^ B
 
-// ③ XOR, local indirect addressing mode.
+// (3) XOR, Indirect
 start XOR, I=1, R=0, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       MEMREAD(mbp, agl, dr);			// 02 DR ← mem[MBP:AGL]
       MEMREAD(mbd, dr, alu_b);			// 04 AC ← mem[MBD:DR]
       SET(ac, alu_xor), END;			// 06 AC ← AC ^ B
 
-// ④ XOR, register indirect addressing mode.
+// (4) & (5) XOR, Register Indirect and Memory Bank-Relative Indirect
 start XOR, I=1, R=1, IDX=XX;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
       MEMREAD(mbd, dr, alu_b);			// 04 B ← mem[MBD:DR]
       SET(ac, alu_xor), END;			// 06 AC ← AC ^ B
 
-// ⑤ XOR, register indirect autoincrement addressing mode.
+// (6) XOR, Auto-Increment
 start XOR, I=1, R=1, IDX=IDX_INC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
@@ -2897,7 +2992,7 @@ start XOR, I=1, R=1, IDX=IDX_INC;
       MEMWRITE(mbz, agl, dr);	                // 06 mem[MBD:AGL] ← DR
       SET(ac, alu_xor), END;			// 08 AC ← AC ^ B
 
-// ⑥ XOR, register indirect autodecrement addressing mode.
+// (7) XOR, Auto-Decrement
 start XOR, I=1, R=1, IDX=IDX_DEC;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
@@ -2905,7 +3000,7 @@ start XOR, I=1, R=1, IDX=IDX_DEC;
       MEMWRITE(mbz, agl, dr);	                // 06 mem[MBD:AGL] ← DR
       SET(ac, alu_xor), END;			// 08 AC ← AC ^ B
 
-// ⑦ XOR, register indirect stack addressing mode.
+// (8) XOR, Stack
 start XOR, I=1, R=1, IDX=IDX_SP;
       FETCH_IR;			                // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);			// 02 DR ← mem[MBZ:AGL]
