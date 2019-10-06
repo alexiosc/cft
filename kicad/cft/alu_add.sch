@@ -658,11 +658,11 @@ ADD6
 Text Label 6050 1900 0    50   ~ 0
 ADD7
 Text Notes 9850 4750 0    50   ~ 0
-Overflow flag set if A15 = B15\nbefore addition, and A15 ≠ ADD15\nafter.
+Overflow flag set if A15 = B15\nbefore addition, and A15 ≠ Y15\nafter.
 Text Notes 10200 5650 0    50   ~ 0
-Y15\n\n 0\n 0\n 0\n 0\n 1\n 1\n 1\n 1
+A15\n\n 0\n 0\n 0\n 0\n 1\n 1\n 1\n 1
 Text Notes 10400 5650 0    50   ~ 0
-A15\n\n 0\n 0\n 1\n 1\n 0\n 0\n 1\n 1\n
+B15\n\n 0\n 0\n 1\n 1\n 0\n 0\n 1\n 1\n
 Text Notes 10850 5650 0    50   ~ 0
 FV\n\n 0\n 1\n 0\n 0\n 0\n 0\n 1\n 0
 Wire Wire Line
@@ -691,7 +691,7 @@ F 3 "http://www.ti.com/lit/gpn/sn74LS251" H 9450 4850 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Text Notes 10600 5650 0    50   ~ 0
-B15\n\n 0\n 1\n X\n X\n X\n X\n 0\n 1\n
+Y15\n\n 0\n 1\n X\n X\n X\n X\n 0\n 1\n
 NoConn ~ 9950 4400
 $Comp
 L power:GND #PWR?
