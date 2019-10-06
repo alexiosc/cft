@@ -979,7 +979,7 @@ start WAIT;
 // DESC:     Roll Link and Accumulator left.
 // GROUP:    Arithmetic and Logic
 // MODE:     Literal (4 bits)
-// FLAGS:    *NZL--
+// FLAGS:    *NZ--L
 // FORMAT:   :100:LLLL
 //
 // Treats the Link Register and the AC as a 17-bit vector (L being the most
@@ -990,7 +990,7 @@ start WAIT;
 // DESC:     Roll Link and Accumulator right.
 // GROUP:    Arithmetic and Logic
 // MODE:     Literal (4 bits)
-// FLAGS:    *NZL--
+// FLAGS:    *NZ--L
 // FORMAT:   :101:LLLL
 //
 // Treats the Link Register and the AC as a 17-bit vector (L being the most
@@ -1097,7 +1097,7 @@ start HCF;
 // DESC:     Clear the Link Register.
 // GROUP:    Unary Operations, UOP
 // MODE:     Implied
-// FLAGS:    --l--
+// FLAGS:    ----l
 // FORMAT:   :--1----
 //
 // Sets L to zero.
@@ -1118,7 +1118,7 @@ start HCF;
 // DESC:     Increment <L,AC> by one.
 // GROUP:    Unary Operations, UOP
 // MODE:     Implied
-// FLAGS:    *NZL--
+// FLAGS:    *NZ--L
 // FORMAT:   :----1--
 //
 // Treats <L,AC> as a 17-bit unsigned integer and adds one it. It can also be
@@ -1129,7 +1129,7 @@ start HCF;
 // DESC:     Two's complement negation of the AC.
 // GROUP:    Unary Operations, UOP
 // MODE:     Implied
-// FLAGS:    *NZL--
+// FLAGS:    *NZ--L
 // FORMAT:   :---11--
 //
 // Negates the AC, then adds one to it. If the value wraps around during
@@ -1140,7 +1140,7 @@ start HCF;
 // DESC:     Decrement <L,AC> by one.
 // GROUP:    Unary Operations, UOP
 // MODE:     Implied
-// FLAGS:    *NZL--
+// FLAGS:    *NZ--L
 // FORMAT:   :-----1-
 //
 // Treats <L,AC> as a 17-bit unsigned integer and subtracts one it. It can also
@@ -1152,7 +1152,7 @@ start HCF;
 // DESC:     Toggle the L Flag.
 // GROUP:    Unary Operations, UOP
 // MODE:     Implied
-// FLAGS:    *--L--
+// FLAGS:    *----L
 // FORMAT:   :------1
 //
 // Complements (toggles) the L Flag or Link Register.
@@ -1162,7 +1162,7 @@ start HCF;
 // DESC:     Set the L Flag.
 // GROUP:    Unary Operations, UOP
 // MODE:     Implied
-// FLAGS:    --L--
+// FLAGS:    ----L
 // FORMAT:   :------1
 //
 // Sets the L Flag or Link Register. This instruction is a combination of the
@@ -1185,7 +1185,7 @@ start HCF;
 // DESC:     Clear the Link Register if L is set.
 // GROUP:    Unary Operations, UOP
 // MODE:     Implied
-// FLAGS:    *--l--
+// FLAGS:    *----l
 // FORMAT:   0000:1:1:101:--1----
 //
 // If the L flag is set, this sets it to zero. This is useless, unless part of
@@ -1206,7 +1206,7 @@ start HCF;
 // DESC:     Increment <L,AC> by one if L is set.
 // GROUP:    Unary Operations, IFL
 // MODE:     Implied
-// FLAGS:    *NZL--
+// FLAGS:    *NZ--L
 // FORMAT:   0000:1:1:101:----1--
 //
 // If the L Flag is set, this treats <L,AC> as a 17-bit unsigned integer and
@@ -1220,7 +1220,7 @@ start HCF;
 // DESC:     Perform two's complement negation of the AC if L is set.
 // GROUP:    Unary Operations, IFL
 // MODE:     Implied
-// FLAGS:    *NZL--
+// FLAGS:    *NZ--L
 // FORMAT:   0000:1:1:101:---11--
 //
 // If the L Flag is set, this negates the AC, then adds one to it. If the value
@@ -1233,7 +1233,7 @@ start HCF;
 // DESC:     Decrement <L,AC> by one if L is set.
 // GROUP:    Unary Operations, IFL
 // MODE:     Implied
-// FLAGS:    *NZL--
+// FLAGS:    *NZ--L
 // FORMAT:   0000:1:1:101:-----1-
 //
 // If the L Flag is set, tihs treats <L,AC> as a 17-bit unsigned integer and
@@ -1247,7 +1247,7 @@ start HCF;
 // DESC:     Toggle the L Flag if L is set.
 // GROUP:    Unary Operations, IFL
 // MODE:     Implied
-// FLAGS:    *--L--
+// FLAGS:    *----L
 // FORMAT:   0000:1:1:101:------1
 //
 // Complements (toggles) the L Flag or Link Register. If the complementation
@@ -1262,7 +1262,7 @@ start HCF;
 // DESC:     Set the L Flag.
 // GROUP:    Unary Operations, UOP
 // MODE:     Implied
-// FLAGS:    *--L--
+// FLAGS:    *----L
 // FORMAT:   0000:1:1:101:------1
 //
 // If L i set, sets the L Flag or Link Register. This instruction is a
@@ -1287,7 +1287,7 @@ start HCF;
 // DESC:     Clear the Link Register if V is set.
 // GROUP:    Unary Operations, IFV
 // MODE:     Implied
-// FLAGS:    *--L--
+// FLAGS:    *----L
 // FORMAT:   0000:1:1:110:--1----
 //
 // If the Overlflow Flag is set, sets L to zero.
@@ -1309,7 +1309,7 @@ start HCF;
 // DESC:     Increment <L,AC> by one if V is set.
 // GROUP:    Unary Operations, UOP
 // MODE:     Implied
-// FLAGS:    *NZL--
+// FLAGS:    *NZ--L
 // FORMAT:   0000:1:1:110:----1--
 //
 // If the Overflow Flag is set, treats <L,AC> as a 17-bit unsigned integer and
@@ -1321,7 +1321,7 @@ start HCF;
 // DESC:     Two's complement negation of the AC if V is set.
 // GROUP:    Unary Operations, UOP
 // MODE:     Implied
-// FLAGS:    *NZL--
+// FLAGS:    *NZ--L
 // FORMAT:   0000:1:1:110:---11--
 //
 // Negates the AC, then adds one to it. If the value wraps around during
@@ -1332,7 +1332,7 @@ start HCF;
 // DESC:     Decrement <L,AC> by one if V is set.
 // GROUP:    Unary Operations, UOP
 // MODE:     Implied
-// FLAGS:    *NZL--
+// FLAGS:    *NZ--L
 // FORMAT:   0000:1:1:110:-----1-
 //
 // Treats <L,AC> as a 17-bit unsigned integer and subtracts one it. It can also
@@ -1344,7 +1344,7 @@ start HCF;
 // DESC:     Toggle the L Flag if V is set.
 // GROUP:    Unary Operations, UOP
 // MODE:     Implied
-// FLAGS:    *--L--
+// FLAGS:    *----L
 // FORMAT:   0000:1:1:110:------1
 //
 // Complements (toggles) the L Flag or Link Register.
@@ -1354,7 +1354,7 @@ start HCF;
 // DESC:     Toggle the L Flag if V is set.
 // GROUP:    Unary Operations, UOP
 // MODE:     Implied
-// FLAGS:    --L--
+// FLAGS:    ----L
 // FORMAT:   0000:1:1:110:------1
 //
 // Sets the L Flag or Link Register. This instruction is a combination of the
@@ -1746,6 +1746,7 @@ start IND, R=1;
 // MNEMONIC: LIA
 // NAME:     Literal Address
 // GROUP:    Miscellaneous
+// FLAGS:    *NZ---
 //
 // Interprets operand as a Page-Local or Page Zero address and set the AC to
 // it.
@@ -1763,6 +1764,7 @@ start IND, R=1;
 // NAME:     Literal
 // GROUP:    Miscellaneous
 // MODE:     Literal
+// FLAGS:    *NZ---
 // FORMAT:   0001:0:1:LLLLLLLLLL
 //
 // Sets the AC to the 10-bit literal value in the operand. The top six bits in
@@ -1792,6 +1794,7 @@ start LIA, I=0, R=1, IDX=XX;
 // NAME:     Long Jump to Subroutine
 // DESC:     Jump to subroutine in a non-local memory bank.
 // GROUP:    Flow Control
+// FLAGS:    -----
 // FORMAT:   0001:1:R:aaaaaaaaaa
 //
 // Pushes the MBP and PC to the Hardware Stack. Then reads a new value of MBP
@@ -1884,6 +1887,7 @@ start LJSR, I=1, R=1, IDX=IDX_SP;
 // NAME:     Long Jump
 // DESC:     Jump to an address in a non-local memory bank.
 // GROUP:    Flow Control
+// FLAGS:    -----
 // FORMAT:   0010:1:R:aaaaaaaaaa
 //
 // Reads a new value for the MBP from the address specified in the operand, and
@@ -1963,6 +1967,7 @@ start LJMP, I=1, R=1, IDX=IDX_SP;
 
 // MNEMONIC: JSR
 // NAME:     Jump to Subroutine
+// FLAGS:    -----
 // GROUP:    Flow Control
 //
 // Push PC to the Hardware Stack and jump to a subroutine. Jumps are always
@@ -2037,6 +2042,7 @@ start JSR, I=1, R=1, IDX=IDX_SP;
 
 // MNEMONIC: JMP
 // NAME:     Jump
+// FLAGS:    -----
 // GROUP:    Flow Control
 //
 // Jump unconditionally. Jumps are always relative to the current value of the
@@ -2105,6 +2111,7 @@ start JMP, I=1, R=1, IDX=IDX_SP;
 // MNEMONIC: DSZ
 // NAME:     Decrement and Skip if Zero
 // DESC:     Decrements memory by one and skips the next instruction if zero.
+// FLAGS:    *N----, -Z---
 // GROUP:    Flow Control, Memory
 //
 // This instruction interprets its operand as an address in memory. It loads a
