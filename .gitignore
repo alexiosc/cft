@@ -346,6 +346,7 @@ kicad/**/*.png.xmp
 ###############################################################################
 
 microcode/*.[hv]
+microcode/*.json
 microcode/*.bin
 microcode/*.list
 microcode/*.mif
