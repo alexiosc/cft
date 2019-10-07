@@ -220,6 +220,7 @@ signal write_flags     = ..............01110.....; // Write flags (not all are w
 signal write_mbn       = ..............01111.....; // Write an MBn register (IR0..2 select reg)
 
 // COND FIELD (UNDER REDESIGN)
+// TODO: Rearrange the upper eight ones?
 field  IF              = _________XXXXX__________; // OPx IF field
 signal if_ir0          = .........00001..........; // SKIP = IR[0]
 signal if_ir1          = .........00010..........; // SKIP = IR[1]
