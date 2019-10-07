@@ -950,7 +950,7 @@ start WAIT;
 // distances between 1 and 15 can be specified. A zero operand makes no sense
 // and should not be used.
 
-// MNEMONIC: (SRU) SHR
+// MNEMONIC: SHR
 // NAME:     Bitwise Shift Right
 // DESC:     Shift Accumulator right without sign extension.
 // GROUP:    Arithmetic and Logic
@@ -962,7 +962,7 @@ start WAIT;
 // distances between 1 and 15 can be specified. A zero operand makes no sense
 // and should not be used.
 
-// MNEMONIC: (SRU) ASR
+// MNEMONIC: ASR
 // NAME:     Arithmetic Shift Right
 // DESC:     Shift Accumulator right with sign extension.
 // GROUP:    Arithmetic and Logic
@@ -974,7 +974,7 @@ start WAIT;
 // distances between 1 and 15 can be specified. A zero operand makes no sense
 // and should not be used.
 
-// MNEMONIC: (SRU) ROL
+// MNEMONIC: ROL
 // NAME:     Roll Left
 // DESC:     Roll Link and Accumulator left.
 // GROUP:    Arithmetic and Logic
@@ -985,7 +985,7 @@ start WAIT;
 // Treats the Link Register and the AC as a 17-bit vector (L being the most
 // significant bit) and rolls it left by the specified number of bits.
 
-// MNEMONIC: (SRU) ROR
+// MNEMONIC: ROR
 // NAME:     Roll Right
 // DESC:     Roll Link and Accumulator right.
 // GROUP:    Arithmetic and Logic
@@ -995,6 +995,18 @@ start WAIT;
 //
 // Treats the Link Register and the AC as a 17-bit vector (L being the most
 // significant bit) and rolls it right by the specified number of bits.
+
+// MNEMONIC: [SRU]
+// NAME:     An undefined SRU sub-instruction.
+// DESC:     Does nothing.
+// GROUP:    Unary Operations, SRU
+// MODE:     Implied
+// FLAGS:    -----
+// FORMAT:   :-------
+//
+// This instruction definition is here only for automatically generating
+// disassemblers. It makes it possible to catch and display an otherwise
+// invalid SRU bitmap.
 
 // L=1 ⇒ COND=0, so IFL takes action.
 
@@ -1082,13 +1094,23 @@ start HCF;
 //
 // This allows for the following instructions (or combinations thereof):
 
+// MNEMONIC: (UOP) NOP9
+// NAME:     No Operation, 9 Cycles
+// DESC:     Do nothing.
+// GROUP:    Unary Operations, UOP
+// MODE:     Implied
+// FLAGS:    nZ---
+// FORMAT:   0000:1:1:100:0000000
+//
+// Does nothing for 9 processor cycles.
+
 // MNEMONIC: (UOP) CLA
 // NAME:     Clear Accumulator
 // DESC:     Set the AC to zero.
 // GROUP:    Unary Operations, UOP
 // MODE:     Implied
 // FLAGS:    nZ---
-// FORMAT:   :-1-----
+// FORMAT:   0000:1:1:100:-1-----
 //
 // Sets the AC to zero.
 
@@ -1098,7 +1120,7 @@ start HCF;
 // GROUP:    Unary Operations, UOP
 // MODE:     Implied
 // FLAGS:    ----l
-// FORMAT:   :--1----
+// FORMAT:   0000:1:1:100:--1----
 //
 // Sets L to zero.
 
@@ -1108,7 +1130,7 @@ start HCF;
 // GROUP:    Unary Operations, UOP
 // MODE:     Implied
 // FLAGS:    *NZ---
-// FORMAT:   :---1---
+// FORMAT:   0000:1:1:100:---1---
 //
 // Inverts all bits in the AC, producing a one's complement negation of AC or
 // evaluating -(AC-1) in two's complement arithmetic.
@@ -1119,7 +1141,7 @@ start HCF;
 // GROUP:    Unary Operations, UOP
 // MODE:     Implied
 // FLAGS:    *NZ--L
-// FORMAT:   :----1--
+// FORMAT:   0000:1:1:100:----1--
 //
 // Treats <L,AC> as a 17-bit unsigned integer and adds one it. It can also be
 // seen as an incrementation of AC by one, where L is toggled on AC overflow.
@@ -1130,7 +1152,7 @@ start HCF;
 // GROUP:    Unary Operations, UOP
 // MODE:     Implied
 // FLAGS:    *NZ--L
-// FORMAT:   :---11--
+// FORMAT:   0000:1:1:100:---11--
 //
 // Negates the AC, then adds one to it. If the value wraps around during
 // incrementation, L will be complemented.
@@ -1141,7 +1163,7 @@ start HCF;
 // GROUP:    Unary Operations, UOP
 // MODE:     Implied
 // FLAGS:    *NZ--L
-// FORMAT:   :-----1-
+// FORMAT:   0000:1:1:100:-----1-
 //
 // Treats <L,AC> as a 17-bit unsigned integer and subtracts one it. It can also
 // be seen as an decrementation of AC by one, where L is toggled on AC
@@ -1153,7 +1175,7 @@ start HCF;
 // GROUP:    Unary Operations, UOP
 // MODE:     Implied
 // FLAGS:    *----L
-// FORMAT:   :------1
+// FORMAT:   0000:1:1:100:------1
 //
 // Complements (toggles) the L Flag or Link Register.
 
@@ -1163,10 +1185,22 @@ start HCF;
 // GROUP:    Unary Operations, UOP
 // MODE:     Implied
 // FLAGS:    ----L
-// FORMAT:   :------1
+// FORMAT:   0000:1:1:100:------1
 //
 // Sets the L Flag or Link Register. This instruction is a combination of the
 // `CLL` and `CPL` instructions.
+
+// MNEMONIC: [UOP]
+// NAME:     An undefined UOP sub-instruction.
+// DESC:     Does nothing.
+// GROUP:    Unary Operations, UOP
+// MODE:     Implied
+// FLAGS:    -----
+// FORMAT:   0000:1:1:100:-------
+//
+// This instruction definition is here only for automatically generating
+// disassemblers. It makes it possible to catch and display an otherwise
+// invalid UOP bitmap.
 
 
 
@@ -1270,6 +1304,18 @@ start HCF;
 // useless on its own, but can be useful as part of a more complex composite
 // `IFL` instruction.
 
+// MNEMONIC: [IFL]
+// NAME:     An undefined IFL sub-instruction.
+// DESC:     Does nothing.
+// GROUP:    Unary Operations, IFL
+// MODE:     Implied
+// FLAGS:    -----
+// FORMAT:   0000:1:1:101:-------
+//
+// This instruction definition is here only for automatically generating
+// disassemblers. It makes it possible to catch and display an otherwise
+// invalid IFL bitmap.
+
 
 
 // MNEMONIC: IFV CLA
@@ -1359,6 +1405,18 @@ start HCF;
 //
 // Sets the L Flag or Link Register. This instruction is a combination of the
 // `CLL` and `CPL` instructions.
+
+// MNEMONIC: [IFV]
+// NAME:     An undefined IFV sub-instruction.
+// DESC:     Does nothing.
+// GROUP:    Unary Operations, IFV
+// MODE:     Implied
+// FLAGS:    -----
+// FORMAT:   0000:1:1:110:-------
+//
+// This instruction definition is here only for automatically generating
+// disassemblers. It makes it possible to catch and display an otherwise
+// invalid IFV bitmap.
 
 
 // L=1 ⇒ COND=0, so IFL takes action.
@@ -1462,7 +1520,7 @@ start UOP, COND=1;
 // GROUP:    Flow Control, SKP
 // MODE:     Implied
 // FLAGS:    -----
-// FORMAT:   :--00000
+// FORMAT:   :0000000
 //
 // Never skips, which is tantamount to No Operation and used as such.
 
@@ -1590,6 +1648,18 @@ start UOP, COND=1;
 // FORMAT:   :--1---1
 //
 // Skips the next instruction if the V Flag is clear.
+
+// MNEMONIC: [SKP]
+// NAME:     An undefined SKP sub-instruction.
+// DESC:     Does nothing.
+// GROUP:    Unary Operations, SKP
+// MODE:     Implied
+// FLAGS:    -----
+// FORMAT:   :-------
+//
+// This instruction definition is here only for automatically generating
+// disassemblers. It makes it possible to catch and display an otherwise
+// invalid SKP bitmap.
 
 
 // First, the version where the skip isn't taken.
