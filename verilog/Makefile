@@ -57,6 +57,7 @@ SRC += $(IC74XXX)
 CFT2019 = 	clock.v            clock_tb.v \
 		address_register.v address_register_tb.v \
 		reg_ir.v           reg_ir_tb.v \
+		reg_ar.v           reg_ar_tb.v \
 		reg_mbr.v          reg_mbr_tb.v \
 		reg_l.v            reg_l_tb.v \
 		reg_v.v            reg_v_tb.v \
@@ -409,6 +410,10 @@ test_agl:	agl_tb.o agl.o buffer.o flipflop.o
 test_reg_ir:	reg_ir_tb.o reg_ir.o flipflop.o buffer.o 
 		./reg_ir_tb.o
 		$(GTKWAVE) $(VCDDIR)/reg_ir_tb.vcd $(SAVDIR)/reg_ir_tb.sav
+
+test_reg_ar:	reg_ar_tb.o reg_ar.o flipflop.o buffer.o comparator.o demux.o
+		./reg_ar_tb.o
+		$(GTKWAVE) $(VCDDIR)/reg_ar_tb.vcd $(SAVDIR)/reg_ar_tb.sav
 
 test_reg_major:	reg_major_tb.o reg_major.o counter.o buffer.o comparator.o
 		./reg_major_tb.o >reg_major_tb.log
