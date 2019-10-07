@@ -10,6 +10,30 @@ import argparse
 from collections import OrderedDict
 
 
+C_DISASM_PREAMBLE = """/* Automatically generated, do not modify! */
+
+#ifndef __DISASM_H__
+#define __DISASM_H__ 1
+
+typedef struct {
+        char *    mnemonic;
+        bool      bitmap;
+        uint16_t  instr;
+        uint16_t  instr_mask;
+        uint16_t  operand_mask;
+} __instruction_set_t;
+
+__instruction_set_t instruction_set[] = {
+"""
+
+C_DISASM_POSTAMBLE = """};
+
+#endif /* __DISASM_H__ */
+
+/* End of file. */
+"""
+
+
 class ParseMicrocode(object):
     def __init__(self):
         self.parse_command_line()
@@ -26,6 +50,12 @@ class ParseMicrocode(object):
 
         p.add_argument('-v', '--verbose', action='store_true',
                        help="""Print out lines as they are read.""")
+
+        p.add_argument('-j', '--json', action='store_true',
+                       help="""Print out the instruction set in JSON format.""")
+
+        p.add_argument('-d', '--disassembly-table', action='store_true',
+                       help="""Print out a C-format disassembly table.""")
 
         p.add_argument("filename", metavar="INPUT-FILENAME", nargs="?",
                        help="""An input file specifying proprocessed microcode to parse. The default is to
@@ -137,10 +167,6 @@ class ParseMicrocode(object):
                     progs[-1]['cycles'] = progs[-1].get('cycles', 0) + sum(int(x == ';') for x in new_line)
                 
                 #m = re_conds.findall(new_line)
-                
-                    
-                    
-            
 
         if obj:
             comms.append(obj)
@@ -181,6 +207,11 @@ class ParseMicrocode(object):
             elif len(cf) == 7:
                 comm['format'] = '{}:{}:{}:{}:{}'.format(opcode, ifield, rfield, subop, cf)
 
+            opw = 0
+            m = re.search('([a-zA-z]+)$', comm['format'])
+            if m:
+                opw = len(m.groups()[0])
+
             # For disassemblers, generate the opcode and mask.
             opc = comm['format'].replace(':', '')
             assert len(opc) == 16
@@ -199,6 +230,7 @@ class ParseMicrocode(object):
                 ('split_mnemonic', self.parse_mnemonic(mn)),
                 ('microprograms', progs),
                 ('format', comm['format']),
+                ('operand_width', opw),
                 ('disasm', OrderedDict([('instr', bin_opcode),
                                         ('mask', bin_mask),
                                         ('priority', sum(int(x) for x in bin(bin_mask)[2:]))])),
@@ -213,11 +245,82 @@ class ParseMicrocode(object):
 
     def report(self):
         #pprint.pprint(self.data, width=200)
-        print(json.dumps(self.data, indent=4))
+
+        if self.args.json:
+            self.report_json_instruction_set()
+
+        if self.args.disassembly_table:
+            self.report_disassembly_table()
+
+
+    def report_json_instruction_set(self):
+
+        # We'll be skipping instructions in brackets, because these are there
+        # only for disassembly and completeness, and not formally part of the
+        # instruction set.
+
+        jsout = json.dumps([x for x in self.data if '[' not in x['mnemonic']],
+                           indent=4)
+        self.out.write (jsout)
+
+
+    def report_disassembly_table(self):
+        rd = []
+        for datum in self.data:
+            m = datum['mnemonic']
+            instr = datum['disasm']['instr']
+            mask = datum['disasm']['mask']
+            pr = datum['disasm']['priority']
+            opmask = (1 << datum['operand_width']) - 1
+
+            # If this has a prefix, remove it and assume it's a bitmapped
+            # instruction.
+            disasm_m = re.sub(r'\(.+?\)\s*', '', m)
+            is_bitmap = int(disasm_m != m or ' ' in disasm_m or '[' in disasm_m)
+
+            # Provide I, I and I R variants if needed. Modify the mask and priority accordingly.
+            set_i = [("", 0)]
+            set_r = [("", 0)]
+            if (mask & 0b0000101111111111) == 0:
+                set_i.append((' I', 0x0800))
+                mask |= 0x0800
+                pr += 1
+            if (mask & 0b0000011111111111) == 0:
+                set_r.append((' R', 0x0400))
+                mask |= 0x0400
+                pr += 1
+
+            # Append all the combinations
+            for i, mode_i in set_i:
+                for r, mode_r in set_r:
+                    rd.append((disasm_m + i + r,
+                               is_bitmap,
+                               instr | mode_i | mode_r,
+                               mask,
+                               pr,
+                               opmask,
+                               "{:<21} {}".format(datum['format'], datum['name'])))
+
+        rd.sort(key=lambda x: (x[2] & 0xff80, -x[4], len(x[0])))
+        #pprint.pprint(rd, width=200)
+        maxlen = max(len(x[0]) for x in rd)
+        fmt = '\t{{ "{mn}",{pad}{is_bitmap}, 0x{instr:04x}, 0x{mask:04x}, 0x{opmask:04x}}}, /* {comment} */\n'
+
+        self.out.write(C_DISASM_PREAMBLE)
+        oldinstr = 0
+        for mn, is_bitmap, instr, mask, pr, opmask, comment in rd:
+            pad = " " * (maxlen - len(mn))
+            if oldinstr != instr & 0xf000:
+                self.out.write("\n")
+            oldinstr = instr &  0xf000
+            self.out.write(fmt.format(**locals()))
+        self.out.write('\t{ NULL, 0, 0 }\n')
+
+        self.out.write(C_DISASM_POSTAMBLE)
 
             
     def run(self):
-
+        self.out = sys.stdout
         self.data = []
 
         
