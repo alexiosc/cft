@@ -13,6 +13,7 @@ BASE =		microcode
 ALUB =		alu-binary
 ALUU =		alu-unary
 JSON = 		instruction-set.json
+DISASM = 	disasm.h
 
 ALUBL =		$(ALUB)-4bit-00.list $(ALUB)-6bit-00.list
 ALUBB =		$(ALUB)-4bit-00.bin $(ALUB)-6bit-00.bin
@@ -27,7 +28,7 @@ LISTS =		$(BASE)-00.list $(BASE)-01.list $(BASE)-02.list $(ALUBL) $(ALUUL)
 
 .PHONY: 	all clean microcode alu-binary alu-unary
 
-all:		microcode $(ALUUL) $(ALUUB) $(ALUBL) $(ALUBB) $(JSON)
+all:		microcode $(ALUUL) $(ALUUB) $(ALUBL) $(ALUBB) $(JSON) $(DISASM)
 
 clean:
 		rm -f *.h *.json
@@ -51,6 +52,9 @@ alu-binary $(ALUBL) $(ALUBB):
 		egrep -v '^(0|10)' $< | sed -e 's/32768;/8192;/' -e 's/^11//' >$@
 
 $(JSON):	microcode.mc
-		$(MC) -p $< | $(MCPARSER) >$@
+		$(MC) -p $< | $(MCPARSER) --json >$@
+
+$(DISASM):	microcode.mc
+		$(MC) -p $< | $(MCPARSER) --disassembly >$@
 
 # End of file.
