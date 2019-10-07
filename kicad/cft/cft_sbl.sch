@@ -24,7 +24,7 @@ AR Path="/5CD3AC27/5F0313EC" Ref="R?"  Part="1"
 AR Path="/5E36D9C8/5F0313EC" Ref="R?"  Part="1" 
 AR Path="/5EFCF155/5F0313EC" Ref="R902"  Part="1" 
 F 0 "R902" H 9092 946 50  0000 R CNN
-F 1 "10kΩ" H 9092 855 50  0000 R CNN
+F 1 "4.7kΩ" H 9092 855 50  0000 R CNN
 F 2 "Resistor_SMD:R_0805_2012Metric" H 9150 900 50  0001 C CNN
 F 3 "~" H 9150 900 50  0001 C CNN
 	1    9150 900 
@@ -61,7 +61,7 @@ AR Path="/5CD3AC27/5F031400" Ref="R?"  Part="1"
 AR Path="/5E36D9C8/5F031400" Ref="R?"  Part="1" 
 AR Path="/5EFCF155/5F031400" Ref="R901"  Part="1" 
 F 0 "R901" H 8742 946 50  0000 R CNN
-F 1 "10kΩ" H 8742 855 50  0000 R CNN
+F 1 "4.7kΩ" H 8742 855 50  0000 R CNN
 F 2 "Resistor_SMD:R_0805_2012Metric" H 8800 900 50  0001 C CNN
 F 3 "~" H 8800 900 50  0001 C CNN
 	1    8800 900 
@@ -89,12 +89,6 @@ Text Label 9150 2550 1    50   ~ 0
 SKIPMUXLO
 Text Label 9050 2550 1    50   ~ 0
 ~SKIPEXT
-Text Label 2850 3150 2    50   ~ 0
-IR2
-Text Label 2850 3350 2    50   ~ 0
-IR0
-Text Label 2850 3250 2    50   ~ 0
-IR1
 Text HLabel 950  2600 0    50   Input ~ 0
 FN
 Text Label 1000 2500 0    50   ~ 0
@@ -170,8 +164,6 @@ Text Label 950  6000 0    50   ~ 0
 CLK4
 Text Label 950  5800 0    50   ~ 0
 ~RESET
-NoConn ~ 8400 2000
-NoConn ~ 8400 4050
 NoConn ~ 10400 6100
 Text Label 9500 6000 2    50   ~ 0
 CLK4
@@ -191,9 +183,9 @@ $EndComp
 Text Label 9500 5800 2    50   ~ 0
 ~RESET
 Text Label 9050 5300 3    50   ~ 0
-~SKIP0
+~SKIP2
 Text Label 9500 5900 2    50   ~ 0
-~SKIP0
+~SKIP2
 Wire Wire Line
 	9050 5900 9500 5900
 Wire Wire Line
@@ -485,32 +477,12 @@ Wire Wire Line
 Connection ~ 2150 2300
 Wire Wire Line
 	2150 5450 2150 2300
-Text Label 6250 4550 0    50   ~ 0
-OP2-ROLL
-Wire Wire Line
-	5550 4550 7400 4550
-Wire Wire Line
-	5550 3250 5550 4550
-Text Label 7400 2600 2    50   ~ 0
-IR9
-Text Label 7400 2500 2    50   ~ 0
-IR8
-Text Label 7400 2400 2    50   ~ 0
-IR7
-Text Label 7400 2300 2    50   ~ 0
-IR6
-Text Label 7400 2200 2    50   ~ 0
-IR5
-Text Label 7400 2100 2    50   ~ 0
-IR4
-Text Label 7400 2000 2    50   ~ 0
-IR3
 Text Label 9050 4700 1    50   ~ 0
 ~SKIPEXT
 Text Label 9150 4700 1    50   ~ 0
-SKIPMUXLO
+~SKIP0
 Text Label 8950 4700 1    50   ~ 0
-SKIPMUXHI
+~SKIP1
 Text Label 8400 1100 0    50   ~ 0
 ~SKIPEXT
 Connection ~ 3650 7300
@@ -547,53 +519,24 @@ Wire Wire Line
 	7100 4050 7400 4050
 Text Label 7400 4650 2    50   ~ 0
 OP1-BRANCH
-Text Label 7400 4550 2    50   ~ 0
-OP2-ROLL
 Text Label 7400 4450 2    50   ~ 0
 FN
 Text Label 7400 4350 2    50   ~ 0
 FZ
 Text Label 7400 4150 2    50   ~ 0
 FV
-Wire Wire Line
-	6800 3950 7400 3950
 Text Label 7400 4250 2    50   ~ 0
 FL
 Wire Wire Line
-	6800 4050 6800 4700
-Wire Wire Line
 	6900 4050 6800 4050
-$Comp
-L power:GND #PWR?
-U 1 1 5F031501
-P 6800 4700
-AR Path="/5F031501" Ref="#PWR?"  Part="1" 
-AR Path="/5EFCF155/5F031501" Ref="#PWR0905"  Part="1" 
-F 0 "#PWR0905" H 6800 4450 50  0001 C CNN
-F 1 "GND" H 7050 4650 50  0000 R CNN
-F 2 "" H 6800 4700 50  0001 C CNN
-F 3 "" H 6800 4700 50  0001 C CNN
-	1    6800 4700
-	1    0    0    -1  
-$EndComp
-Text Label 8400 3950 0    50   ~ 0
-SKIPMUXHI
+Text Label 8400 4050 0    50   ~ 0
+~SKIP1
 Wire Wire Line
-	8950 3850 8950 3950
+	8400 4050 8950 4050
 Wire Wire Line
-	8950 3950 8950 4800
-Connection ~ 8950 3950
-Wire Wire Line
-	8400 3950 8950 3950
-Wire Wire Line
-	9150 1900 9150 1000
-Wire Wire Line
-	9150 1900 9150 4800
-Connection ~ 9150 1900
-Wire Wire Line
-	8400 1900 9150 1900
-Text Label 8400 1900 0    50   ~ 0
-SKIPMUXLO
+	8400 2000 9150 2000
+Text Label 8400 2000 0    50   ~ 0
+~SKIP0
 $Comp
 L power:+5V #PWR?
 U 1 1 5F031511
@@ -618,26 +561,12 @@ AR Path="/5CD3AC27/5F031517" Ref="R?"  Part="1"
 AR Path="/5E36D9C8/5F031517" Ref="R?"  Part="1" 
 AR Path="/5EFCF155/5F031517" Ref="R903"  Part="1" 
 F 0 "R903" H 8892 3796 50  0000 R CNN
-F 1 "10kΩ" H 8892 3705 50  0000 R CNN
+F 1 "4.7kΩ" H 8892 3705 50  0000 R CNN
 F 2 "Resistor_SMD:R_0805_2012Metric" H 8950 3750 50  0001 C CNN
 F 3 "~" H 8950 3750 50  0001 C CNN
 	1    8950 3750
 	1    0    0    -1  
 $EndComp
-Text Label 6450 2600 0    50   ~ 0
-IR9
-Text Label 6450 2500 0    50   ~ 0
-IR8
-Text Label 6450 2400 0    50   ~ 0
-IR7
-Text Label 6450 2300 0    50   ~ 0
-IR6
-Text Label 6450 2200 0    50   ~ 0
-IR5
-Text Label 6450 2100 0    50   ~ 0
-IR4
-Text Label 6450 2000 0    50   ~ 0
-IR3
 Entry Wire Line
 	6200 2500 6300 2600
 Entry Wire Line
@@ -710,24 +639,8 @@ Entry Wire Line
 	6100 2700 6200 2800
 Text Label 6100 3200 1    50   ~ 0
 COND[0..3]
-$Comp
-L alexios:74AHC1G04 U?
-U 1 1 5F031548
-P 6800 5250
-AR Path="/5F031548" Ref="U?"  Part="1" 
-AR Path="/5EFCF155/5F031548" Ref="U910"  Part="1" 
-F 0 "U910" H 6900 5150 50  0000 C CNN
-F 1 "74AHC1G04" H 6900 5050 50  0000 C CNN
-F 2 "" H 6800 5250 50  0001 C CNN
-F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 6800 5250 50  0001 C CNN
-	1    6800 5250
-	1    0    0    -1  
-$EndComp
 Text Label 7400 5250 2    50   ~ 0
 ~COND3
-Connection ~ 6800 4050
-Wire Wire Line
-	6800 3950 6800 4050
 Connection ~ 2300 7500
 Connection ~ 2300 7300
 $Comp
@@ -1240,7 +1153,7 @@ FN
 Text Label 5650 2800 1    50   ~ 0
 FN
 Text Notes 7200 7000 0    197  ~ 39
-Skip & Branch Logic
+Skip & Branch Unit
 Wire Wire Line
 	5500 4650 7400 4650
 Wire Wire Line
@@ -1275,25 +1188,6 @@ Wire Wire Line
 Connection ~ 6350 7450
 Wire Wire Line
 	6350 7450 6350 7550
-Wire Wire Line
-	2850 3150 1700 3150
-Wire Wire Line
-	3400 3250 5550 3250
-Wire Wire Line
-	2850 3350 1700 3350
-Wire Wire Line
-	2850 3250 1700 3250
-$Comp
-L alexios:74LVC1G332 U801
-U 1 1 60F12C9A
-P 3200 3200
-F 0 "U801" H 3125 3464 50  0000 C CNN
-F 1 "74LVC1G332" H 3125 3373 50  0000 C CNN
-F 2 "" H 4100 3250 50  0001 C CNN
-F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 4100 3250 50  0001 C CNN
-	1    3200 3200
-	1    0    0    -1  
-$EndComp
 $Comp
 L alexios:74LVC1G332 U801
 U 2 1 60F5E3DD
@@ -1360,23 +1254,114 @@ $EndComp
 Connection ~ 9850 4900
 Wire Wire Line
 	7400 1900 7100 1900
-$Comp
-L power:GND #PWR?
-U 1 1 5F0314EF
-P 7100 3300
-AR Path="/5F0314EF" Ref="#PWR?"  Part="1" 
-AR Path="/5EFCF155/5F0314EF" Ref="#PWR0903"  Part="1" 
-F 0 "#PWR0903" H 7100 3050 50  0001 C CNN
-F 1 "GND" H 7105 3127 50  0000 C CNN
-F 2 "" H 7100 3300 50  0001 C CNN
-F 3 "" H 7100 3300 50  0001 C CNN
-	1    7100 3300
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	7100 1900 7100 3300
 Text Label 6100 5150 1    50   ~ 0
 COND[0..3]
+$Comp
+L Device:R_Small R?
+U 1 1 5DEA3C4B
+P 7000 3950
+AR Path="/5DEA3C4B" Ref="R?"  Part="1" 
+AR Path="/5CC0D65F/5DEA3C4B" Ref="R?"  Part="1" 
+AR Path="/5CD3AC27/5DEA3C4B" Ref="R?"  Part="1" 
+AR Path="/5E36D9C8/5DEA3C4B" Ref="R?"  Part="1" 
+AR Path="/5EFCF155/5DEA3C4B" Ref="R?"  Part="1" 
+F 0 "R?" V 6804 3950 50  0000 C CNN
+F 1 "10kΩ" V 6895 3950 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 7000 3950 50  0001 C CNN
+F 3 "~" H 7000 3950 50  0001 C CNN
+	1    7000 3950
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	7400 3950 7100 3950
+Wire Wire Line
+	6900 3950 6800 3950
+Wire Wire Line
+	6800 3950 6800 4050
+Text Label 6500 2000 0    50   ~ 0
+IR0
+Text Label 6500 2100 0    50   ~ 0
+IR1
+Text Label 6500 2200 0    50   ~ 0
+IR2
+Text Label 6500 2300 0    50   ~ 0
+IR3
+Text Label 6500 2400 0    50   ~ 0
+IR4
+Text Label 6500 2500 0    50   ~ 0
+IR5
+Text Label 6500 2600 0    50   ~ 0
+IR6
+Text Label 7400 2000 2    50   ~ 0
+IR0
+Text Label 7400 2100 2    50   ~ 0
+IR1
+Text Label 7400 2200 2    50   ~ 0
+IR2
+Text Label 7400 2300 2    50   ~ 0
+IR3
+Text Label 7400 2400 2    50   ~ 0
+IR4
+Text Label 7400 2500 2    50   ~ 0
+IR5
+Text Label 7400 2600 2    50   ~ 0
+IR6
+$Comp
+L Device:R_Small R?
+U 1 1 5DEC44AB
+P 7000 4550
+AR Path="/5DEC44AB" Ref="R?"  Part="1" 
+AR Path="/5CC0D65F/5DEC44AB" Ref="R?"  Part="1" 
+AR Path="/5CD3AC27/5DEC44AB" Ref="R?"  Part="1" 
+AR Path="/5E36D9C8/5DEC44AB" Ref="R?"  Part="1" 
+AR Path="/5EFCF155/5DEC44AB" Ref="R?"  Part="1" 
+F 0 "R?" V 6800 4550 50  0000 C CNN
+F 1 "10kΩ" V 6900 4550 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 7000 4550 50  0001 C CNN
+F 3 "~" H 7000 4550 50  0001 C CNN
+	1    7000 4550
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	7400 4550 7100 4550
+Wire Wire Line
+	6900 4550 6800 4550
+Wire Wire Line
+	6800 4550 6800 4050
+Connection ~ 6800 4050
+Text Notes 7900 4900 1    50   ~ 10
+TODO: Rearrange these?
+Text Notes 6400 3500 0    50   ~ 0
+TODO: add a gate here to avoid hazards\nbecause of ~COND3~ below?
+Text Notes 2650 950  0    197  ~ 39
+Under Review! DO NOT IMPLEMENT
+Text Notes 7550 1450 0    50   ~ 10
+TODO: Check inversions here! E.g when IR0=1, we want to output 0!
+$Comp
+L power:GND #PWR?
+U 1 1 5DF0BAC9
+P 7100 1900
+F 0 "#PWR?" H 7100 1650 50  0001 C CNN
+F 1 "GND" V 7105 1772 50  0000 R CNN
+F 2 "" H 7100 1900 50  0001 C CNN
+F 3 "" H 7100 1900 50  0001 C CNN
+	1    7100 1900
+	0    1    1    0   
+$EndComp
+Connection ~ 9150 2000
+Wire Wire Line
+	9150 2000 9150 4800
+Wire Wire Line
+	9150 1000 9150 2000
+NoConn ~ 8400 1900
+Connection ~ 8950 4050
+Wire Wire Line
+	8950 4050 8950 4800
+Wire Wire Line
+	8950 3850 8950 4050
+NoConn ~ 8400 3950
+Wire Wire Line
+	6800 4550 6800 5450
 Wire Bus Line
 	950  1500 6100 1500
 Wire Bus Line
@@ -1385,4 +1370,16 @@ Wire Bus Line
 	1600 1600 1600 5250
 Wire Bus Line
 	6100 2100 6100 5150
+Connection ~ 6800 4550
+$Comp
+L power:GND #PWR?
+U 1 1 5DF4CE9C
+P 6800 5450
+F 0 "#PWR?" H 6800 5200 50  0001 C CNN
+F 1 "GND" H 6805 5277 50  0000 C CNN
+F 2 "" H 6800 5450 50  0001 C CNN
+F 3 "" H 6800 5450 50  0001 C CNN
+	1    6800 5450
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
