@@ -1,0 +1,137 @@
+[*]
+[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
+[*] Mon Oct  7 18:51:58 2019
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/reg_ar_tb.vcd"
+[dumpfile_mtime] "Mon Oct  7 18:51:57 2019"
+[dumpfile_size] 60775
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/reg_ar_tb.sav"
+[timestart] 0
+[size] 1920 1019
+[pos] 0 0
+*-20.643171 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] reg_ar_tb.
+[treeopen] reg_ar_tb.reg_ar.
+[treeopen] reg_ar_tb.reg_ar.ioad_cmp.
+[sst_width] 258
+[signals_width] 162
+[sst_expanded] 1
+[sst_vpaned_height] 275
+@22
+reg_ar_tb.aext[7:0]
+reg_ar_tb.ibus[15:0]
+@200
+-
+@28
+[color] 1
+reg_ar_tb.nio
+[color] 2
+reg_ar_tb.nmem
+[color] 3
+reg_ar_tb.nwrite_ar
+@200
+-
+@28
+[color] 5
+reg_ar_tb.nsysdev
+[color] 6
+reg_ar_tb.niodev1xx
+[color] 7
+reg_ar_tb.niodev2xx
+[color] 1
+reg_ar_tb.niodev3xx
+@200
+-
+@c00022
+[color] 3
+reg_ar_tb.reg_ar.ar[23:0]
+@28
+[color] 2
+(0)reg_ar_tb.reg_ar.ar[23:0]
+[color] 2
+(1)reg_ar_tb.reg_ar.ar[23:0]
+[color] 2
+(2)reg_ar_tb.reg_ar.ar[23:0]
+[color] 2
+(3)reg_ar_tb.reg_ar.ar[23:0]
+[color] 2
+(4)reg_ar_tb.reg_ar.ar[23:0]
+[color] 2
+(5)reg_ar_tb.reg_ar.ar[23:0]
+[color] 2
+(6)reg_ar_tb.reg_ar.ar[23:0]
+[color] 2
+(7)reg_ar_tb.reg_ar.ar[23:0]
+[color] 2
+(8)reg_ar_tb.reg_ar.ar[23:0]
+[color] 2
+(9)reg_ar_tb.reg_ar.ar[23:0]
+[color] 2
+(10)reg_ar_tb.reg_ar.ar[23:0]
+[color] 2
+(11)reg_ar_tb.reg_ar.ar[23:0]
+[color] 2
+(12)reg_ar_tb.reg_ar.ar[23:0]
+[color] 2
+(13)reg_ar_tb.reg_ar.ar[23:0]
+[color] 2
+(14)reg_ar_tb.reg_ar.ar[23:0]
+[color] 2
+(15)reg_ar_tb.reg_ar.ar[23:0]
+[color] 2
+(16)reg_ar_tb.reg_ar.ar[23:0]
+[color] 2
+(17)reg_ar_tb.reg_ar.ar[23:0]
+[color] 2
+(18)reg_ar_tb.reg_ar.ar[23:0]
+[color] 2
+(19)reg_ar_tb.reg_ar.ar[23:0]
+[color] 2
+(20)reg_ar_tb.reg_ar.ar[23:0]
+[color] 2
+(21)reg_ar_tb.reg_ar.ar[23:0]
+[color] 2
+(22)reg_ar_tb.reg_ar.ar[23:0]
+[color] 2
+(23)reg_ar_tb.reg_ar.ar[23:0]
+@1401200
+-group_end
+@c00023
+reg_ar_tb.ab[23:0]
+@29
+(0)reg_ar_tb.ab[23:0]
+(1)reg_ar_tb.ab[23:0]
+(2)reg_ar_tb.ab[23:0]
+(3)reg_ar_tb.ab[23:0]
+(4)reg_ar_tb.ab[23:0]
+(5)reg_ar_tb.ab[23:0]
+(6)reg_ar_tb.ab[23:0]
+(7)reg_ar_tb.ab[23:0]
+(8)reg_ar_tb.ab[23:0]
+(9)reg_ar_tb.ab[23:0]
+(10)reg_ar_tb.ab[23:0]
+(11)reg_ar_tb.ab[23:0]
+(12)reg_ar_tb.ab[23:0]
+(13)reg_ar_tb.ab[23:0]
+(14)reg_ar_tb.ab[23:0]
+(15)reg_ar_tb.ab[23:0]
+(16)reg_ar_tb.ab[23:0]
+(17)reg_ar_tb.ab[23:0]
+(18)reg_ar_tb.ab[23:0]
+(19)reg_ar_tb.ab[23:0]
+(20)reg_ar_tb.ab[23:0]
+(21)reg_ar_tb.ab[23:0]
+(22)reg_ar_tb.ab[23:0]
+(23)reg_ar_tb.ab[23:0]
+@1401201
+-group_end
+@200
+-
+@28
+reg_ar_tb.nfparh
+@22
+reg_ar_tb.fpd[7:0]
+@200
+-
+[pattern_trace] 1
+[pattern_trace] 0

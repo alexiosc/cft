@@ -200,7 +200,7 @@ module mux_151 (sel, d, e, y, w);
    wire        e, y, w;
 
    initial begin
-      // $display("BOM: 74x251");
+      // $display("BOM: 74x151");
    end
    
    assign #delay y = e ? 1'b0 : d[sel];
@@ -218,24 +218,24 @@ endmodule // mux_151
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-module mux_251 (sel, d, e, y, w);
+module mux_251 (sel, d, ne, y, ny);
    parameter delay = 20;
 
    input [2:0] sel;		// The signal selector
    input [7:0] d;		// 8 input lines
-   input       e;	        // Active low tri-state output enables.
-   output      y, w;
+   input       ne;	        // Active low tri-state output enables.
+   output      y, ny;
 
    wire [2:0]  sel;
    wire [7:0]  d;
-   wire        e, y, w;
+   wire        e, y, ny;
 
    initial begin
       // $display("BOM: 74x251");
    end
    
-   assign #delay y = e ? 1'bz : d[sel];
-   assign #delay w = e ? 1'bz : ~d[sel];
+   assign #delay y  = ne ? 1'bz : d[sel];
+   assign #delay ny = ne ? 1'bz : ~d[sel];
 
 endmodule // mux_251
 
