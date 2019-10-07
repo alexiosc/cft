@@ -345,7 +345,7 @@ UPC2
 Text Label 2050 1750 0    50   ~ 0
 UPC3
 Text Label 7450 2350 0    50   ~ 0
-~IRQSUC
+~IRQSµC
 Text Label 7450 2450 0    50   ~ 0
 ~RSTHOLD
 Text Label 2050 1850 0    50   ~ 0
@@ -1440,7 +1440,7 @@ IDX0
 Text Label 1550 3250 2    50   ~ 0
 ~RSTHOLD
 Text Label 1550 3150 2    50   ~ 0
-~IRQSUC
+~IRQSµC
 Text Label 1550 1750 2    50   ~ 0
 UPC3
 Text Label 1550 1650 2    50   ~ 0
@@ -1484,7 +1484,7 @@ IR14
 Text HLabel 1100 3050 0    50   Input ~ 0
 IR15
 Text HLabel 1100 3150 0    50   Input ~ 0
-~IRQSUC
+~IRQSµC
 Text HLabel 1100 3250 0    50   Input ~ 0
 ~RSTHOLD
 Wire Wire Line

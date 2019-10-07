@@ -125,7 +125,7 @@ $EndComp
 Text HLabel 2200 1500 0    50   Input ~ 0
 ~ACTION-STI
 Text Notes 4350 3900 0    50   ~ 0
-To avoid metastability, bring the asynchronous ~IRQ~ signal into the CFT's clock domain. To reduce\nlatency, and since all four clock phases are really in the same domain, we sample interrupts on\nthe rising edge of CLK1. The second stage clocks on the rising edge of CLK2 or CLK3. The final\n~IRQS~ state is reached on the raising edge of CLK4 when ~END~ is asserted. This reduces the\nminimum latency to 187.5 ns.
+To avoid metastability, bring the asynchronous ~IRQ~ signal into the CFT's clock domain. To reduce\nlatency, and since all four clock phases are really in the same domain, we sample interrupts on\nthe rising edge of CLK1. The second stage clocks on the rising edge of CLK2 or CLK3. The final\n~IRQS~ state is reached on the rising edge of CLK4 when ~END~ is asserted. This reduces the\nminimum latency to 187.5 ns.
 Text Notes 6650 1450 0    79   ~ 16
 Enabling Interrupts (~STI~)
 $Comp
@@ -164,7 +164,7 @@ F 3 "" H 1200 6450 50  0001 C CNN
 	1    1200 6450
 	1    0    0    -1  
 $EndComp
-Text HLabel 8600 5250 2    50   Output ~ 0
+Text HLabel 9300 5250 2    50   Output ~ 0
 ~IRQS
 Text Label 7650 5250 0    50   ~ 0
 ~IRQS
@@ -190,7 +190,7 @@ F 3 "~" H 7800 3150 50  0001 C CNN
 	1    7600 3150
 	0    1    1    0   
 $EndComp
-Text Notes 6950 5700 0    50   ~ 0
+Text Notes 7900 5050 0    50   ~ 0
 ~IRQS~ is Interrupt Seen. It's sent to the Control Unit\nto run the Interrupt microprogram. It also doubles\nas the Interrupt acknowledge signal on the CFT Bus.
 Text Notes 7150 6950 0    197  ~ 39
 Interrupt State Machine
@@ -351,17 +351,6 @@ F 3 "74xx/74hc_hct74.pdf" H 5300 5100 50  0001 C CNN
 	1    5300 5100
 	1    0    0    -1  
 $EndComp
-$Comp
-L alexios:74HC74 U903
-U 2 1 5D1DFCDB
-P 10100 1750
-F 0 "U903" H 10100 2167 50  0000 C CNN
-F 1 "74HC74" H 10100 2076 50  0000 C CNN
-F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 10100 1750 50  0001 C CNN
-F 3 "74xx/74hc_hct74.pdf" H 10100 1750 50  0001 C CNN
-	2    10100 1750
-	1    0    0    -1  
-$EndComp
 Text HLabel 2200 4600 0    50   Input ~ 0
 ~END
 Text Label 2350 4600 0    50   ~ 0
@@ -454,7 +443,7 @@ F 3 "~" H 5950 5250 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 Wire Wire Line
-	7650 5250 8600 5250
+	7650 5250 8350 5250
 Wire Wire Line
 	6250 1500 8600 1500
 Connection ~ 6250 1500
@@ -534,38 +523,8 @@ Text Label 2350 4500 0    50   ~ 0
 CLK4
 Wire Wire Line
 	3500 4550 6350 4550
-$Comp
-L power:+5V #PWR0907
-U 1 1 5D5E15D6
-P 9600 1500
-F 0 "#PWR0907" H 9600 1350 50  0001 C CNN
-F 1 "+5V" H 9615 1673 50  0000 C CNN
-F 2 "" H 9600 1500 50  0001 C CNN
-F 3 "" H 9600 1500 50  0001 C CNN
-	1    9600 1500
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	9600 1500 9600 1600
-Wire Wire Line
-	9600 1900 9650 1900
-Wire Wire Line
-	9650 1800 9600 1800
-Connection ~ 9600 1800
-Wire Wire Line
-	9600 1800 9600 1900
-Wire Wire Line
-	9600 1700 9650 1700
-Connection ~ 9600 1700
-Wire Wire Line
-	9600 1700 9600 1800
-Wire Wire Line
-	9650 1600 9600 1600
-Connection ~ 9600 1600
-Wire Wire Line
-	9600 1600 9600 1700
-NoConn ~ 10550 1600
-NoConn ~ 10550 1900
+NoConn ~ 7650 6050
+NoConn ~ 7650 6350
 $Comp
 L alexios:74HC74 U903
 U 3 1 5D5EE74B
@@ -692,4 +651,45 @@ CLK3
 Wire Wire Line
 	2200 3350 6350 3350
 NoConn ~ 7650 4950
+$Comp
+L alexios:74HC74 U903
+U 2 1 5D1DFCDB
+P 7200 6200
+F 0 "U903" H 7200 6617 50  0000 C CNN
+F 1 "74HC74" H 7200 6526 50  0000 C CNN
+F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 7200 6200 50  0001 C CNN
+F 3 "74xx/74hc_hct74.pdf" H 7200 6200 50  0001 C CNN
+	2    7200 6200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8350 5250 8350 6350
+Text HLabel 9200 6350 2    50   Output ~ 0
+~IRQSµC
+$Comp
+L Device:R_Small R?
+U 1 1 5DE59283
+P 8550 5250
+AR Path="/5DE59283" Ref="R?"  Part="1" 
+AR Path="/5CC0D65F/5DE59283" Ref="R?"  Part="1" 
+AR Path="/5D54E677/5DE59283" Ref="R?"  Part="1" 
+AR Path="/5D62E1DC/5DE59283" Ref="R?"  Part="1" 
+AR Path="/5DEAC282/5DE59283" Ref="R?"  Part="1" 
+AR Path="/5F67D4B5/5DE59283" Ref="R?"  Part="1" 
+F 0 "R?" V 8654 5250 50  0000 C CNN
+F 1 "30Ω" V 8745 5250 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 8550 5250 50  0001 C CNN
+F 3 "~" H 8550 5250 50  0001 C CNN
+	1    8550 5250
+	0    1    1    0   
+$EndComp
+Connection ~ 8350 5250
+Wire Wire Line
+	8450 5250 8350 5250
+Wire Wire Line
+	8650 5250 9300 5250
+Wire Wire Line
+	8350 6350 9200 6350
+Text Notes 8500 6250 0    50   ~ 0
+~IRQS~ and ~IRQµC~ are the same signal.\nThe former is output to the bus. The latter is\nfor the Microcode Store. We drive them separately\nto keep the capacitance down and because the one going\nto the Microcode Store is more important and must be\nless loaded (and thus rise faster).\n\nTODO: Drive ~IRQSµC using the leftover FF.
 $EndSCHEMATC
