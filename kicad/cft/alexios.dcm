@@ -761,7 +761,7 @@ $ENDCMP
 $CMP 74HC74
 D Dual D Flip-flop, Set & Reset
 K TTL DFF
-F 74xx/74hc_hct74.pdf
+F https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf
 $ENDCMP
 #
 $CMP 74HC85
