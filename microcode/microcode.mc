@@ -56,6 +56,9 @@
 
 //   Version 7d: (2019-10-06) added HCF instruction for a lark.
 
+//   Version 7e: (2019-10-08) rearranged /if_xxx controls signals to
+//   match those of the Skip & Branch Unit schematics.
+
 
 // ADDRESSING MODES
 //
@@ -222,21 +225,22 @@ signal write_mbn       = ..............01111.....; // Write an MBn register (IR0
 // COND FIELD (UNDER REDESIGN)
 // TODO: Rearrange the upper eight ones?
 field  IF              = _________XXXXX__________; // OPx IF field
-signal if_ir0          = .........00001..........; // SKIP = IR[0]
-signal if_ir1          = .........00010..........; // SKIP = IR[1]
-signal if_ir2          = .........00011..........; // SKIP = IR[2]
-signal if_ir3          = .........00100..........; // SKIP = IR[3]
-signal if_ir4          = .........00101..........; // SKIP = IR[4]
-signal if_ir5          = .........00110..........; // SKIP = IR[5]
-signal if_ir6          = .........00111..........; // SKIP = IR[6] (Currently unused)
-//signal if_xxx        = .........01000..........; // Not used
-//signal if_xxx        = .........01001..........; // Not used
-signal if_v            = .........01010..........; // SKIP = V
-signal if_l            = .........01011..........; // SKIP = L
-signal if_z            = .........01100..........; // SKIP = Z
-signal if_n            = .........01101..........; // SKIP = N (currently unused)
-//signal if_xxx        = .........01110..........; // Not used
-signal if_branch       = .........01111..........; // SKIP = skip_logic(IR[3:0])
+// signal if_idle      = .........00000..........; // COND high (false), SBU idle.
+signal if_ir0          = .........00001..........; // COND low (true) if IR[0] set
+signal if_ir1          = .........00010..........; // COND low (true) if IR[1] set
+signal if_ir2          = .........00011..........; // COND low (true) if IR[2] set
+signal if_ir3          = .........00100..........; // COND low (true) if IR[3] set
+signal if_ir4          = .........00101..........; // COND low (true) if IR[4] set
+signal if_ir5          = .........00110..........; // COND low (true) if IR[5] set
+signal if_ir6          = .........00111..........; // COND low (true) if IR[6] set (currently unused)
+signal if_cext8        = .........01000..........; // Not used
+signal if_cext9        = .........01001..........; // Not used
+signal if_cext10       = .........01010..........; // Not used
+signal if_v            = .........01011..........; // COND low if V set
+signal if_l            = .........01100..........; // COND low if L set
+signal if_z            = .........01101..........; // COND low if Z set
+signal if_n            = .........01110..........; // COND low if N set (currently unused)
+signal if_branch       = .........01111..........; // SKP instruction logic
 
 // ACTION FIELD (UNDER REDESIGN)
 //                      76543210FEDCBA9876543210
@@ -345,7 +349,7 @@ signal /END            = 1.......................; // Reset uaddr, go to fetch s
 
 #define END /END
 
-#define IFBIT(x) /if##x, /action_end;
+// #define IFBIT(x) /if##x, /action_end;
 
 
 // Set a register to another register. E.g. SET(pc,dr) will write the value of
