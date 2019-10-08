@@ -24,8 +24,8 @@ module sbu_tb();
    
    // Initialize all variables
    initial begin
-      $monitor ("%d | %b %b %b %b %b %b %b %b %b %b %b %b > %b | %d", $time,
-      		nreset, clk4, nskipext, cond, ir, fv, fl, fz, fn,
+      $monitor ("%d | %b %b %b %b %b %b %b %b %b %b %b > %b | %d", $time,
+      		nreset, nskipext, cond, ir, fv, fl, fz, fn,
 		cext1, cext2, cext3, nskip, i);
       $dumpfile ("vcd/sbu_tb.vcd");
       $dumpvars (0, sbu_tb);

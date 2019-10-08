@@ -407,6 +407,10 @@ test_agl:	agl_tb.o agl.o buffer.o flipflop.o
 		./agl_tb.o
 		$(GTKWAVE) $(VCDDIR)/agl_tb.vcd $(SAVDIR)/agl_tb.sav
 
+test_sbu:	sbu_tb.o sbu.o mux.o flipflop.o
+		./sbu_tb.o
+		$(GTKWAVE) $(VCDDIR)/sbu_tb.vcd $(SAVDIR)/sbu_tb.sav
+
 test_reg_ir:	reg_ir_tb.o reg_ir.o flipflop.o buffer.o 
 		./reg_ir_tb.o
 		$(GTKWAVE) $(VCDDIR)/reg_ir_tb.vcd $(SAVDIR)/reg_ir_tb.sav
