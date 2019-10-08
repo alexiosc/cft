@@ -169,17 +169,6 @@ Text HLabel 9300 5250 2    50   Output ~ 0
 Text Label 7650 5250 0    50   ~ 0
 ~IRQS
 $Comp
-L Connector:TestPoint TP802
-U 1 1 5F9307F3
-P 5750 3150
-F 0 "TP802" V 5750 3338 50  0000 L CNN
-F 1 "TestPoint" H 5808 3177 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Keystone_5010-5014_Multipurpose" H 5950 3150 50  0001 C CNN
-F 3 "~" H 5950 3150 50  0001 C CNN
-	1    5750 3150
-	0    1    1    0   
-$EndComp
-$Comp
 L Connector:TestPoint TP804
 U 1 1 5F9349A9
 P 7600 3150
@@ -224,7 +213,7 @@ P 5300 1650
 F 0 "U801" H 5300 2067 50  0000 C CNN
 F 1 "74HC74" H 5300 1976 50  0000 C CNN
 F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 5300 1650 50  0001 C CNN
-F 3 "74xx/74hc_hct74.pdf" H 5300 1650 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf" H 5300 1650 50  0001 C CNN
 	1    5300 1650
 	1    0    0    -1  
 $EndComp
@@ -235,7 +224,7 @@ P 5300 3000
 F 0 "U803" H 5300 3417 50  0000 C CNN
 F 1 "74HC74" H 5300 3326 50  0000 C CNN
 F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 5300 3000 50  0001 C CNN
-F 3 "74xx/74hc_hct74.pdf" H 5300 3000 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf" H 5300 3000 50  0001 C CNN
 	1    5300 3000
 	1    0    0    -1  
 $EndComp
@@ -246,14 +235,10 @@ P 7200 5100
 F 0 "U805" H 7200 5517 50  0000 C CNN
 F 1 "74HC74" H 7200 5426 50  0000 C CNN
 F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 7200 5100 50  0001 C CNN
-F 3 "74xx/74hc_hct74.pdf" H 7200 5100 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf" H 7200 5100 50  0001 C CNN
 	2    7200 5100
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	4850 2850 4250 2850
-Wire Wire Line
-	4250 2850 4250 2300
 Wire Wire Line
 	4250 2300 6250 2300
 Wire Wire Line
@@ -267,10 +252,6 @@ Text Label 2350 2950 0    50   ~ 0
 ~IRQ
 Text HLabel 2200 2950 0    50   Input ~ 0
 ~IRQ
-Wire Wire Line
-	5750 2850 6150 2850
-Wire Wire Line
-	6150 2850 6150 2950
 Wire Wire Line
 	6150 2950 6700 2950
 Wire Wire Line
@@ -317,17 +298,6 @@ Text Label 2350 1750 0    50   ~ 0
 Wire Wire Line
 	2200 1750 3000 1750
 $Comp
-L power:+5V #PWR0813
-U 1 1 5D1C81EC
-P 4800 3150
-F 0 "#PWR0813" H 4800 3000 50  0001 C CNN
-F 1 "+5V" V 4815 3278 50  0000 L CNN
-F 2 "" H 4800 3150 50  0001 C CNN
-F 3 "" H 4800 3150 50  0001 C CNN
-	1    4800 3150
-	0    -1   -1   0   
-$EndComp
-$Comp
 L power:+5V #PWR0815
 U 1 1 5D1C8231
 P 6700 3150
@@ -347,7 +317,7 @@ P 5300 5100
 F 0 "U805" H 5300 5517 50  0000 C CNN
 F 1 "74HC74" H 5300 5426 50  0000 C CNN
 F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 5300 5100 50  0001 C CNN
-F 3 "74xx/74hc_hct74.pdf" H 5300 5100 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf" H 5300 5100 50  0001 C CNN
 	1    5300 5100
 	1    0    0    -1  
 $EndComp
@@ -385,8 +355,6 @@ F 3 "" H 4800 5050 50  0001 C CNN
 	0    -1   -1   0   
 $EndComp
 Connection ~ 4800 5050
-Wire Wire Line
-	4800 3150 4850 3150
 Text Label 4200 5250 0    50   ~ 0
 ~RESET-OR-CLI
 Wire Wire Line
@@ -419,8 +387,6 @@ F 3 "" H 6750 4950 50  0001 C CNN
 $EndComp
 Text Label 4350 2300 0    50   ~ 0
 IRQEN
-Text Label 4350 2850 0    50   ~ 0
-FI
 Text Label 4350 2950 0    50   ~ 0
 ~IRQ
 Text Label 4350 3050 0    50   ~ 0
@@ -490,8 +456,6 @@ F 3 "" H 2950 2700 50  0001 C CNN
 	1    2950 2700
 	1    0    0    -1  
 $EndComp
-Text Label 5800 2850 0    50   ~ 0
-~INT₀
 Text Notes 6500 1700 0    50   ~ 0
 This is the Interrupt Flag (interrupt handling enabled)\ndisplayed on the front panel.
 Wire Wire Line
@@ -532,7 +496,7 @@ P 1550 7100
 F 0 "U801" H 1730 7146 50  0000 L CNN
 F 1 "74HC74" H 1730 7055 50  0000 L CNN
 F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 1550 7100 50  0001 C CNN
-F 3 "74xx/74hc_hct74.pdf" H 1550 7100 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf" H 1550 7100 50  0001 C CNN
 	3    1550 7100
 	1    0    0    -1  
 $EndComp
@@ -545,7 +509,7 @@ P 3000 7100
 F 0 "U803" H 3180 7146 50  0000 L CNN
 F 1 "74HC74" H 3180 7055 50  0000 L CNN
 F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 3000 7100 50  0001 C CNN
-F 3 "74xx/74hc_hct74.pdf" H 3000 7100 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf" H 3000 7100 50  0001 C CNN
 	3    3000 7100
 	1    0    0    -1  
 $EndComp
@@ -558,7 +522,7 @@ P 4450 7100
 F 0 "U805" H 4630 7146 50  0000 L CNN
 F 1 "74HC74" H 4630 7055 50  0000 L CNN
 F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 4450 7100 50  0001 C CNN
-F 3 "74xx/74hc_hct74.pdf" H 4450 7100 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf" H 4450 7100 50  0001 C CNN
 	3    4450 7100
 	1    0    0    -1  
 $EndComp
@@ -633,7 +597,7 @@ P 7150 3000
 F 0 "U803" H 7150 3417 50  0000 C CNN
 F 1 "74HC74" H 7150 3326 50  0000 C CNN
 F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 7150 3000 50  0001 C CNN
-F 3 "74xx/74hc_hct74.pdf" H 7150 3000 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf" H 7150 3000 50  0001 C CNN
 	2    7150 3000
 	1    0    0    -1  
 $EndComp
@@ -658,7 +622,7 @@ P 7200 6200
 F 0 "U801" H 7200 6617 50  0000 C CNN
 F 1 "74HC74" H 7200 6526 50  0000 C CNN
 F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 7200 6200 50  0001 C CNN
-F 3 "74xx/74hc_hct74.pdf" H 7200 6200 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf" H 7200 6200 50  0001 C CNN
 	2    7200 6200
 	1    0    0    -1  
 $EndComp
@@ -692,4 +656,42 @@ Wire Wire Line
 	8350 6350 9200 6350
 Text Notes 8500 6250 0    50   ~ 0
 ~IRQS~ and ~IRQµC~ are the same signal.\nThe former is output to the bus. The latter is\nfor the Microcode Store. We drive them separately\nto keep the capacitance down and because the one going\nto the Microcode Store is more important and must be\nless loaded (and thus rise faster).\n\nTODO: Drive ~IRQSµC using the leftover FF.
+Wire Wire Line
+	6150 2850 6150 2950
+Text Label 5800 2850 0    50   ~ 0
+~INT₀
+Wire Wire Line
+	5750 2850 6150 2850
+$Comp
+L Connector:TestPoint TP802
+U 1 1 5F9307F3
+P 5750 3150
+F 0 "TP802" V 5750 3338 50  0000 L CNN
+F 1 "TestPoint" H 5808 3177 50  0001 L CNN
+F 2 "TestPoint:TestPoint_Keystone_5010-5014_Multipurpose" H 5950 3150 50  0001 C CNN
+F 3 "~" H 5950 3150 50  0001 C CNN
+	1    5750 3150
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	4250 2850 4250 2300
+Text Label 4350 2850 0    50   ~ 0
+FI
+Wire Wire Line
+	4850 2850 4250 2850
+Wire Wire Line
+	4800 3150 4850 3150
+$Comp
+L power:+5V #PWR0813
+U 1 1 5D1C81EC
+P 4800 3150
+F 0 "#PWR0813" H 4800 3000 50  0001 C CNN
+F 1 "+5V" V 4815 3278 50  0000 L CNN
+F 2 "" H 4800 3150 50  0001 C CNN
+F 3 "" H 4800 3150 50  0001 C CNN
+	1    4800 3150
+	0    -1   -1   0   
+$EndComp
+Text Notes 3950 5650 0    100  ~ 20
+TODO: Merge U803B and U805A.
 $EndSCHEMATC
