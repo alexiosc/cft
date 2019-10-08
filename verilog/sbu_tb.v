@@ -5,6 +5,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 // REDESIGNED IN 2019
+// VERIFIED
 
 `include "sbu.v"
 `timescale 1ns/10ps
@@ -20,7 +21,7 @@ module sbu_tb();
 
    wire 	nskip;
    
-   integer 	i, j;
+   integer 	i, j, tst;
    
    // Initialize all variables
    initial begin
@@ -136,6 +137,92 @@ module sbu_tb();
    always begin
       #187.5 clk4 = 0;
       #62.5 clk4 = 1;
+   end
+
+   ///////////////////////////////////////////////////////////////////////////////
+   //
+   // CHECK OUR RESULTS
+   //
+   ///////////////////////////////////////////////////////////////////////////////
+
+   always @(posedge clk4) begin
+      #30 begin
+
+	 // nskipext overrides all the logic here.
+	 if (nskipext == 0) begin
+	    if (nskip != 0) begin
+	       $display("ASSERTION FAILED: at t=%0d, nskipext == 0 but nskip != 0", $time);
+	       $finish;
+	    end
+	 end else begin
+	    // Okay, nskipext is deasserted, so we can look at other things.
+	    casex (cond)
+	      // Idle
+	      4'b0000 : if (nskip != 1) begin
+		 $display("ASSERTION FAILED: at t=%0d, nskip asserted with cond == 0", $time);
+		 #100 $finish;
+	      end
+	      // IR0 to IR6: when asserted and the equivalent bit is 1, nskip should be 0
+	      4'b0??? : if (nskip != !ir[cond - 1]) begin
+		 $display("ASSERTION FAILED: at t=%0d, cond=%b, ir%1d=%b but nskip == %b",
+			  $time, cond, cond - 1, ir[cond - 1], nskip);
+		 #100 $finish;
+	      end
+	      4'b1000 : if (nskip != !sbu.cext1) begin
+		 $display("ASSERTION FAILED: at t=%0d, cond=%b, cext1=%b but nskip == %b",
+			  $time, cond, sbu.cext1, nskip);
+		 #100 $finish;
+	      end
+	      4'b1001 : if (nskip != !sbu.cext2) begin
+		 $display("ASSERTION FAILED: at t=%0d, cond=%b, cext2=%b but nskip == %b",
+			  $time, cond, sbu.cext2, nskip);
+		 #100 $finish;
+	      end
+	      4'b1010 : if (nskip != !sbu.cext3) begin
+		 $display("ASSERTION FAILED: at t=%0d, cond=%b, cext3=%b but nskip == %b",
+			  $time, cond, sbu.cext2, nskip);
+		 #100 $finish;
+	      end
+	      // FV
+	      4'b1011 : if (nskip != !fv) begin
+		 $display("ASSERTION FAILED: at t=%0d, cond=%b, fv=%b but nskip == %b",
+			  $time, cond, fv, nskip);
+		 #100 $finish;
+	      end
+	      // FL
+	      4'b1100 : if (nskip != !fl) begin
+		 $display("ASSERTION FAILED: at t=%0d, cond=%b, fl=%b but nskip == %b",
+			  $time, cond, fl, nskip);
+		 #100 $finish;
+	      end
+	      // FZ
+	      4'b1101 : if (nskip != !fz) begin
+		 $display("ASSERTION FAILED: at t=%0d, cond=%b, fz=%b but nskip == %b",
+			  $time, cond, fz, nskip);
+		 #100 $finish;
+	      end
+	      // FN
+	      4'b1110 : if (nskip != !fn) begin
+		 $display("ASSERTION FAILED: at t=%0d, cond=%b, fn=%b but nskip == %b",
+			  $time, cond, fn, nskip);
+		 #100 $finish;
+	      end
+	      4'b1111 : begin
+		 tst = 0;
+		 tst = tst | ir[0] & fv;
+		 tst = tst | ir[1] & fl;
+		 tst = tst | ir[2] & fz;
+		 tst = tst | ir[3] & fn;
+		 tst = tst ^ ir[4];
+		 if (nskip != !tst) begin
+		    $display("ASSERTION FAILED: at t=%0d, cond=%b, ir[4:0]=%b, flags=%b but nskip == %b",
+			     $time, cond, ir[4:0], {fn, fz, fl, fv}, nskip);
+		    #100 $finish;
+		 end
+	      end
+	    endcase
+	 end
+      end
    end
 
    // Connect DUT to test bench
