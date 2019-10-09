@@ -5,6 +5,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
 // REDESIGNED IN 2019
+// USES OK/FAIL OUTPUT
 //
 // comparator_688_tb.v -- 74x688 testbench
 //
@@ -42,7 +43,7 @@ module comparator_688_tb();
    // Initialize all variables
    initial begin        
       $dumpfile ("vcd/comparator_688_tb.vcd");
-      $monitor ("%d | %b %h %h > %b", $time, ng, a, b, neqg);
+      $monitor ("t: %7d | %b %h %h > %b", $time, ng, a, b, neq);
       $dumpvars (0, comparator_688_tb);
 
       for (k = 0; k < 2; k = k + 1) begin
@@ -50,7 +51,7 @@ module comparator_688_tb();
 	 for (j = 0; j < 256; j = j + 1) begin
 	    a = j;
 	    for (i = 0; i < 256; i = i + 1) begin
-	       #40 b = i;
+	       #100 b = i;
 	    end
 	 end
       end
@@ -61,4 +62,27 @@ module comparator_688_tb();
    // Connect DUT to test bench
    comparator_688 comparator (.a(a), .b(b), .ng(ng), .neq(neq));
 
+   // Verify our findings.
+   reg [8191:0] msg;
+   always @ (a, b, ng) begin
+      #30 begin
+	 msg[0] = "";		// Use the msg as a flag.
+
+	 // Check the Gate first. If it's high (previous result unequal), the
+	 // comparison should always be unequal.
+	 if (ng === 1) begin
+	    if (neq !== 1) $sformat(msg, "ng=%b, but neq=%b (should be 1)", ng, neq);
+	 end else begin
+	    if ((a === b) && neq !== 0) $sformat(msg, "ng=%b, a=%02x and b=%02x, but neq is %b (should be 0)", ng, a, b, neq);
+	    else if ((a !== b) && neq !== 1) $sformat(msg, "ng=%b, a=%02x, b=%02x, but neq is %b (should be 1)", ng, a, b, neq);
+	 end
+
+	 // Fail if we've logged an issue.
+	 if (msg[0]) begin
+	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+	    $error("assertion failure");
+	    #100 $finish;
+	 end
+      end
+   end
 endmodule

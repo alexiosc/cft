@@ -120,15 +120,15 @@ endmodule // End of Module buffer
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-module buffer_541 (oe1, oe2, a, y);
+module buffer_541 (noe1, noe2, a, y);
    parameter delay = 10;
    
-   input        oe1, oe2;	// /OE tri-state active-low enables
+   input        noe1, noe2;	// /OE tri-state active-low enables
    input [7:0] 	a;
 
    output [7:0] y;
 
-   assign #delay y = oe1 || oe2 ? 8'bzzzzzzzz : a;
+   assign #delay y = noe1 || noe2 ? 8'bzzzzzzzz : a;
 endmodule // buffer_541
 
 

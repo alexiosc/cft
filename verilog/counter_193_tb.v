@@ -117,9 +117,6 @@ module counter_193_tb();
    // Connect DUT to test bench
    counter_193 c0 (.clr(clr), .npl(npl), .p(p), .cpu(cpu), .cpd(cpd), .q(q), .ntcu(ntcu), .ntcd(ntcd));
 
-   // Ripple counting.
-   //not u0 (cet_in1, tc_out0);
-   //not u1 (cet_in2, tc_out1);
-   //not u2 (cet_in3, tc_out2);
+   
 
 endmodule

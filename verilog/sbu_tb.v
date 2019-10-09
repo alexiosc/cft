@@ -5,7 +5,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 // REDESIGNED IN 2019
-// VERIFIED
+// USES OK/FAIL OUTPUT
 
 `include "sbu.v"
 `timescale 1ns/10ps
@@ -22,7 +22,7 @@ module sbu_tb();
    wire 	nskip;
    
    integer 	i, j, tst;
-   
+
    // Initialize all variables
    initial begin
       $monitor ("t: %7d | %b %b %b %b %b %b %b %b %b %b %b %b > %b # [i=%0d]", $time,
@@ -155,92 +155,6 @@ module sbu_tb();
       #62.5 clk4 = 1;
    end
 
-   ///////////////////////////////////////////////////////////////////////////////
-   //
-   // CHECK OUR RESULTS
-   //
-   ///////////////////////////////////////////////////////////////////////////////
-
-   always @(posedge clk4) begin
-      #30 begin
-
-	 // nskipext overrides all the logic here.
-	 if (nskipext == 0) begin
-	    if (nskip != 0) begin
-	       $display("ASSERTION FAILED: at t=%0d, nskipext == 0 but nskip != 0", $time);
-	       $finish;
-	    end
-	 end else begin
-	    // Okay, nskipext is deasserted, so we can look at other things.
-	    casex (cond)
-	      // Idle
-	      4'b0000 : if (nskip != 1) begin
-		 $error("ASSERTION FAILED: at t=%0d, nskip asserted with cond == 0", $time);
-		 #100 $finish;
-	      end
-	      // IR0 to IR6: when asserted and the equivalent bit is 1, nskip should be 0
-	      4'b0??? : if (nskip != !ir[cond - 1]) begin
-		 $error("ASSERTION FAILED: at t=%0d, cond=%b, ir%1d=%b but nskip == %b",
-			  $time, cond, cond - 1, ir[cond - 1], nskip);
-		 #100 $finish;
-	      end
-	      4'b1000 : if (nskip != !sbu.cext1) begin
-		 $error("ASSERTION FAILED: at t=%0d, cond=%b, cext1=%b but nskip == %b",
-			  $time, cond, sbu.cext1, nskip);
-		 #100 $finish;
-	      end
-	      4'b1001 : if (nskip != !sbu.cext2) begin
-		 $error("ASSERTION FAILED: at t=%0d, cond=%b, cext2=%b but nskip == %b",
-			  $time, cond, sbu.cext2, nskip);
-		 #100 $finish;
-	      end
-	      4'b1010 : if (nskip != !sbu.cext3) begin
-		 $error("ASSERTION FAILED: at t=%0d, cond=%b, cext3=%b but nskip == %b",
-			  $time, cond, sbu.cext2, nskip);
-		 #100 $finish;
-	      end
-	      // FV
-	      4'b1011 : if (nskip != !fv) begin
-		 $error("ASSERTION FAILED: at t=%0d, cond=%b, fv=%b but nskip == %b",
-			  $time, cond, fv, nskip);
-		 #100 $finish;
-	      end
-	      // FL
-	      4'b1100 : if (nskip != !fl) begin
-		 $error("ASSERTION FAILED: at t=%0d, cond=%b, fl=%b but nskip == %b",
-			  $time, cond, fl, nskip);
-		 #100 $finish;
-	      end
-	      // FZ
-	      4'b1101 : if (nskip != !fz) begin
-		 $error("ASSERTION FAILED: at t=%0d, cond=%b, fz=%b but nskip == %b",
-			  $time, cond, fz, nskip);
-		 #100 $finish;
-	      end
-	      // FN
-	      4'b1110 : if (nskip != !fn) begin
-		 $error("ASSERTION FAILED: at t=%0d, cond=%b, fn=%b but nskip == %b",
-			  $time, cond, fn, nskip);
-		 #100 $finish;
-	      end
-	      4'b1111 : begin
-		 tst = 0;
-		 tst = tst | ir[0] & fv;
-		 tst = tst | ir[1] & fl;
-		 tst = tst | ir[2] & fz;
-		 tst = tst | ir[3] & fn;
-		 tst = tst ^ ir[4];
-		 if (nskip != !tst) begin
-		    $error("ASSERTION FAILED: at t=%0d, cond=%b, ir[4:0]=%b, flags=%b but nskip == %b",
-			     $time, cond, ir[4:0], {fn, fz, fl, fv}, nskip);
-		    #100 $finish;
-		 end
-	      end
-	    endcase
-	 end
-      end
-   end
-
    // Connect DUT to test bench
    sbu sbu(
 	   .nreset(nreset),
@@ -250,6 +164,86 @@ module sbu_tb();
 	   .cond(cond), .fv(fv), .fl(fl), .fz(fz), .fn(fn),
 	   .cext1(cext1), .cext2(cext2), .cext3(cext3),
 	   .nskip(nskip));
+
+   ///////////////////////////////////////////////////////////////////////////////
+   //
+   // CHECK OUR RESULTS
+   //
+   ///////////////////////////////////////////////////////////////////////////////
+
+   // This is horribly ugly because iverilog lacks full support for
+   // assertions.
+   reg [1023:0] msg;
+   always @(posedge clk4) begin
+      // Allow for propagation delay
+      #30 begin
+	 msg[0] = "";		// Clear the msg and use it as a flag.
+
+	 // nskipext overrides all the logic here.
+	 if (nskipext === 0) begin
+	    if (nskip !== 0) $sformat(msg, "nskipext=%b but nskip=%b", nskipext, nskip);
+
+	 end else begin
+	    // Okay, nskipext is deasserted, so we can look at other things.
+	    casex (cond)
+	      // Idle
+	      4'b0000 : if (nskip !== 1) begin
+		 $sformat(msg,
+			  "nskipext=%b but nskip=%b with cond=%b (shoule be idle)",
+			  nskipext, nskip, cond);
+	      end
+
+	      // IR0 to IR6: when asserted and the equivalent bit is 1, nskip should be 0
+	      4'b0??? : if (nskip !== !ir[cond - 1])
+		$sformat(msg, "cond=%b, ir%1d=%b but nskip=%b", cond, cond - 1, ir[cond - 1], nskip);
+
+	      // CEXT1 to CEXT3
+	      4'b1000 : if (nskip !== !sbu.cext1)
+		 $sformat(msg, "cond=%b, cext1=%b but nskip=%b", cond, sbu.cext1, nskip);
+
+	      4'b1001 : if (nskip !== !sbu.cext2)
+		 $sformat(msg, "cond=%b, cext2=%b but nskip=%b", cond, sbu.cext2, nskip);
+
+	      4'b1010 : if (nskip !== !sbu.cext3)
+		 $sformat(msg, "cond=%b, cext3=%b but nskip=%b", cond, sbu.cext3, nskip);
+	      
+	      // FV
+	      4'b1011 : if (nskip !== !fv)
+		 $sformat(msg, "cond=%b, fv=%b but nskip=%b", cond, fv, nskip);
+
+	      // FL
+	      4'b1100 : if (nskip !== !fl)
+		 $sformat(msg, "cond=%b, fl=%b but nskip=%b", cond, fl, nskip);
+
+	      // FZ
+	      4'b1101 : if (nskip !== !fz)
+		 $sformat(msg, "cond=%b, fz=%b but nskip=%b", cond, fz, nskip);
+
+	      // FN
+	      4'b1110 : if (nskip !== !fn)
+		 $sformat(msg, "cond=%b, fn=%b but nskip=%b", cond, fn, nskip);
+
+	      4'b1111 : begin
+		 tst = 0;
+		 tst = tst | ir[0] & fv;
+		 tst = tst | ir[1] & fl;
+		 tst = tst | ir[2] & fz;
+		 tst = tst | ir[3] & fn;
+		 tst = tst ^ ir[4];
+		 if (nskip !== !tst)
+		    $sformat(msg, "cond=%b, ir[4:0]=%b, flags=%b but nskip=%b", cond, ir[4:0], {fn, fz, fl, fv}, nskip);
+	      end
+	    endcase // casex (cond)
+	 end // else: !if(nskipext == 0)
+
+	 // Fail if we've logged an issue.
+	 if (msg[0]) begin
+	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+	    $error("assertion failure");
+	    #100 $finish;
+	 end
+      end // always @ (posedge clk4)
+   end // always @ (posedge clk4)
 
 endmodule // reg_ar_tb
 

@@ -5,6 +5,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
 // REDESIGNED IN 2019
+// USES OK/FAIL OUTPUT
 //
 // buffer_541_tb.v -- 74x541 testbench
 //
@@ -30,7 +31,7 @@
 `timescale 1ns/10ps
 
 module buffer_541_tb();
-   reg 	      oe1, oe2;
+   reg 	      noe1, noe2;
    reg [7:0]  a;
 
    wire [7:0] y;
@@ -39,17 +40,17 @@ module buffer_541_tb();
    
    // Initialize all variables
    initial begin        
-      $display ("time\t oe1 oe2 a y");	
-      $monitor ("%d | %b %b %b > %b", $time, oe1, oe2, a, y);
+      //$display ("time\t noe1 noe2 a y");	
+      $monitor ("t: %d | %b %b %b > %b", $time, noe1, noe2, a, y);
       $dumpfile ("vcd/buffer_541_tb.vcd");
       $dumpvars (0, buffer_541_tb);
 
       for (j = 0; j < 4; j = j + 1) begin
-	 oe1 = j[0];
-	 oe2 = j[1];
+	 noe1 = j[0];
+	 noe2 = j[1];
 
 	 for (i = 0; i < 256; i = i + 1) begin
-	    #50 a = i;
+	    #100 a = i;
 	 end
 
 	 #500;
@@ -59,7 +60,30 @@ module buffer_541_tb();
    end
 
    // Connect DUT to test bench
-   buffer_541 buffer (.oe1(oe1), .oe2(oe2), .a(a), .y(y));
+   buffer_541 buffer (.noe1(noe1), .noe2(noe2), .a(a), .y(y));
+
+   // Verify our findings.
+   reg [8191:0] msg;
+   always @ (noe1, noe2, a) begin
+      #30 begin
+	 msg[0] = "";		// Use the msg as a flag.
+
+	 // Check the Gate first. If it's high (previous result unequal), the
+	 // comparison should always be unequal.
+	 if (noe1 == 1 || noe2 == 1) begin
+	    if (y !== 8'bzzzzzzzz) $sformat(msg, "noe1=%b, noe2=%b, a=%02x, but y=%b (should be Z)", noe1, noe2, a, y);
+	 end else begin
+	    if (y !== a) $sformat(msg, "noe1=%b, noe2=%b, a=%02x, but y=%b (should be %02x)", noe1, noe2, a, y, a);
+	 end
+
+	 // Fail if we've logged an issue.
+	 if (msg[0]) begin
+	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+	    $error("assertion failure");
+	    #100 $finish;
+	 end
+      end
+   end
 endmodule // buffer_541_tb
 
 // End of file.
