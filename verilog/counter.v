@@ -114,8 +114,8 @@ module counter_193 (clr, npl, p, cpu, cpd, q, ntcu, ntcd);
    end
 
    // Calculate carry and borrow out
-   assign #delay ntcd = (q == 4'b0000 && cpd == 0) ? 1'b0 : 1'b1;
-   assign #delay ntcu = (q == 4'b1111 && cpu == 0) ? 1'b0 : 1'b1;
+   assign #delay ntcd = q == 4'b0000 ? cpd : 1'b1;
+   assign #delay ntcu = q == 4'b1111 ? cpu : 1'b1;
 endmodule // counter_193
 
 
