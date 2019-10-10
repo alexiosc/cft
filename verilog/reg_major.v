@@ -75,8 +75,8 @@ module reg_major (reset, ibus, nread, nwrite, ninc, ndec, out,
    counter_193 c3 (.clr(reset), .npl(nwrite), .p(ibus[15:12]), .cpu(nco[2]), .cpd(nbo[2]), .q(out[15:12]), .ntcu(nco[3]), .ntcd(nbo[3]));
 
    // The counters can't tri-state their outputs, so we add a couple of buffers.
-   buffer_541 b0 (.a(out[7:0]),  .y(ibus[7:0]),  .oe1(nread), .oe2(1'b0));
-   buffer_541 b1 (.a(out[15:8]), .y(ibus[15:8]), .oe1(nread), .oe2(1'b0));
+   buffer_541 b0 (.a(out[7:0]),  .y(ibus[7:0]),  .noe1(nread), .noe2(1'b0));
+   buffer_541 b1 (.a(out[15:8]), .y(ibus[15:8]), .noe1(nread), .noe2(1'b0));
 
    // The AC has an output to toggle the L register on underflow or
    // overflow. This is an active low output.
@@ -94,8 +94,8 @@ module reg_major (reset, ibus, nread, nwrite, ninc, ndec, out,
    assign #6 fz = ~nfz;
 
    // The front panel buffers
-   buffer_541 rm_fpbuf_lo (.a(out[7:0]),  .y(fpd), .oe1(nfpl), .oe2(1'b0));
-   buffer_541 rm_fpbuf_hi (.a(out[15:8]), .y(fpd), .oe1(nfph), .oe2(1'b0));
+   buffer_541 rm_fpbuf_lo (.a(out[7:0]),  .y(fpd), .noe1(nfpl), .noe2(1'b0));
+   buffer_541 rm_fpbuf_hi (.a(out[15:8]), .y(fpd), .noe1(nfph), .noe2(1'b0));
 endmodule // reg_major
 
 `endif //  `ifndef reg_major_v
