@@ -379,68 +379,68 @@ endmodule // End of Module counter
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-module flipflop_74 (d1, clk1, set1, rst1, q1, qn1,
-		    d2, clk2, set2, rst2, q2, qn2);
-   input  d1, clk1, set1, rst1;
-   input  d2, clk2, set2, rst2;
-   output q1, qn1;
-   output q2, qn2;
+module flipflop_74 (d1, clk1, nset1, nrst1, q1, nq1,
+		    d2, clk2, nset2, nrst2, q2, nq2);
+   input  d1, clk1, nset1, nrst1;
+   input  d2, clk2, nset2, nrst2;
+   output q1, nq1;
+   output q2, nq2;
 
-   wire   d1, clk1, set1, rst1;
-   wire   d2, clk2, set2, rst2;
-   wire   q1, qn1;
-   wire   q2, qn2;
+   wire   d1, clk1, nset1, nrst1;
+   wire   d2, clk2, nset2, nrst2;
+   wire   q1, nq1;
+   wire   q2, nq2;
 
    initial begin
       // $display("BOM: 74x74");
    end
 
-   flipflop_74h flipflop_74h1 (d1, clk1, set1, rst1, q1, qn1);
-   flipflop_74h flipflop_74h2 (d2, clk2, set2, rst2, q2, qn2);
+   flipflop_74h flipflop_74h1 (.d(d1), .clk(clk1), .nset(nset1), .nrst(nrst1), .q(q1), .nq(nq1));
+   flipflop_74h flipflop_74h2 (.d(d2), .clk(clk2), .nset(nset2), .nrst(nrst2), .q(q2), .nq(nq2));
 endmodule // flipflop_74
    
 
-module flipflop_74h (d, clk, set, rst, q, qn);
+module flipflop_74h (d, clk, nset, nrst, q, nq);
    parameter delay1 = 15;	// For HCT
    parameter delay2 = 18;
    
-   input d, clk, set, rst;
-   output q, qn;
+   input d, clk, nset, nrst;
+   output q, nq;
 
-   wire d, clk, set, rst;
-   reg 	q, qn;
+   wire d, clk, nset, nrst;
+   reg 	q, nq;
 
    initial begin
       q <= 0;
-      qn <= 1;
+      nq <= 1;
    end
 
    always @(posedge clk) begin
-      if ({set, rst} == 2'b11) #delay1 begin
+      if ({nset, nrst} == 2'b11) #delay1 begin
 	 q <= d;
-	 qn <= ~d;
+	 nq <= ~d;
       end
    end
 
-   always @ (set, rst) begin
-      case ({set, rst})
+   always @ (nset, nrst) begin
+      case ({nset, nrst})
 	2'b00:
 	  #delay2 begin
 	     q <= 1;
-	     qn <= 1;
+	     nq <= 1;
 	  end
 	2'b01:
 	  #delay2 begin
 	     q <= 1'b1;
-	     qn <= 1'b0;
+	     nq <= 1'b0;
 	  end
 	2'b10:
 	  #delay2 begin
 	     q <= 1'b0;
-	     qn <= 1'b1;
+	     nq <= 1'b1;
 	  end
-      endcase // case ({set, rst})
-   end // always @ (set, rst, posedge clk)
+      endcase // case ({nset, nrst})
+   end // always @ (nset, nrst)
 endmodule // flipflop_74h
 
 
