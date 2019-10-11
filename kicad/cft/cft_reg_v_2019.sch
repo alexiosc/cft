@@ -4,7 +4,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 32 35
+Sheet 24 35
 Title ""
 Date ""
 Rev ""
@@ -23,7 +23,7 @@ Text Label 6700 3650 2    50   ~ 0
 Text Label 9350 3250 0    50   ~ 0
 FV
 Text Label 6700 3550 2    50   ~ 0
-CLKL
+CLKV
 $Comp
 L alexios:74LVC1G08 U?
 U 1 1 5D366A62
