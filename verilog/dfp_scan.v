@@ -167,27 +167,27 @@ module dfp_scan (nscanen, npanelen,
 
    // The Light Module decoder
    wire [7:0] lmy;
-   demux_138 lm_demux (.g1(1'b1), .g2a(npanelen), .g2b(1'b0), .a({1'b1, fpa[1:0]}), .y(lmy));
+   demux_138 lm_demux (.g1(1'b1), .ng2a(npanelen), .ng2b(1'b0), .a({1'b1, fpa[1:0]}), .y(lmy));
    assign nlmoe = lmy[7:4];
 
    // The Light Row decoder decodes (FPA / 4) into five row enables.
    wire [7:0] rowy;
-   demux_138 row_demux (.g1(1'b1), .g2a(fpa[6]), .g2b(fpa[7]), .a(fpa[4:2]), .y(rowy));
+   demux_138 row_demux (.g1(1'b1), .ng2a(fpa[6]), .ng2b(fpa[7]), .a(fpa[4:2]), .y(rowy));
    assign nrow = rowy[4:0];
 
    // The four enable decoders. Their outputs are 4-way interleaved and each
    // decoder drives outputs corresponding to each light module. Remember:
    // vectors are high to low bit order, so the indexes are reversed on every row.
-   demux_138 fpoe_demux0 (.g1(1'b1), .g2a(nlmoe[0]), .g2b(1'b0), .a(fpa[4:2]),
+   demux_138 fpoe_demux0 (.g1(1'b1), .ng2a(nlmoe[0]), .ng2b(1'b0), .a(fpa[4:2]),
      .y({ nfpoe[28], nfpoe[24], nfpoe[20], nfpoe[16], nfpoe[12], nfpoe[8],  nfpoe[4], nfpoe[0] }));
 
-   demux_138 fpoe_demux1 (.g1(1'b1), .g2a(nlmoe[1]), .g2b(1'b0), .a(fpa[4:2]),
+   demux_138 fpoe_demux1 (.g1(1'b1), .ng2a(nlmoe[1]), .ng2b(1'b0), .a(fpa[4:2]),
      .y({ nfpoe[29], nfpoe[25], nfpoe[21], nfpoe[17], nfpoe[13], nfpoe[9],  nfpoe[5], nfpoe[1] }));
 
-   demux_138 fpoe_demux2 (.g1(1'b1), .g2a(nlmoe[2]), .g2b(1'b0), .a(fpa[4:2]),
+   demux_138 fpoe_demux2 (.g1(1'b1), .ng2a(nlmoe[2]), .ng2b(1'b0), .a(fpa[4:2]),
      .y({ nfpoe[30], nfpoe[26], nfpoe[22], nfpoe[18], nfpoe[14], nfpoe[10], nfpoe[6], nfpoe[2] }));
 
-   demux_138 fpoe_demux3 (.g1(1'b1), .g2a(nlmoe[3]), .g2b(1'b0), .a(fpa[4:2]),
+   demux_138 fpoe_demux3 (.g1(1'b1), .ng2a(nlmoe[3]), .ng2b(1'b0), .a(fpa[4:2]),
      .y({ nfpoe[31], nfpoe[27], nfpoe[23], nfpoe[19], nfpoe[15], nfpoe[11], nfpoe[7], nfpoe[3] }));
 
    // npfoe[20] is used to reset the counter and produce a mod 20 count.

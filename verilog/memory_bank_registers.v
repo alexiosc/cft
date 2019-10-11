@@ -62,13 +62,13 @@ module reg_ar (ibus, aext, nwrite_ar, nmem, nio,
 
    // The AR is just a bank of flip flops connected to a bank of buffers.
       
-   flipflop_574 ff0 (.d(ibus[7:0]),  .q(ar[7:0]),    .clk(nwrite_ar), .oe(1'b0));
-   flipflop_574 ff1 (.d(ibus[15:8]), .q(ar[15:8]),   .clk(nwrite_ar), .oe(1'b0));
-   flipflop_574 ff2 (.d(aext[7:0]),  .q(ar[23:16]),  .clk(nwrite_ar), .oe(1'b0));
+   flipflop_574 ff0 (.d(ibus[7:0]),  .q(ar[7:0]),    .clk(nwrite_ar), .noe(1'b0));
+   flipflop_574 ff1 (.d(ibus[15:8]), .q(ar[15:8]),   .clk(nwrite_ar), .noe(1'b0));
+   flipflop_574 ff2 (.d(aext[7:0]),  .q(ar[23:16]),  .clk(nwrite_ar), .noe(1'b0));
 
-   buffer_541 buf0 (.a(ar[7:0]),   .y(ab[7:0]),   .oe1(naben), .oe2(1'b0));
-   buffer_541 buf1 (.a(ar[15:8]),  .y(ab[15:8]),  .oe1(naben), .oe2(1'b0));
-   buffer_541 buf2 (.a(ar[23:16]), .y(ab[23:16]), .oe1(naben), .oe2(1'b0));
+   buffer_541 buf0 (.a(ar[7:0]),   .y(ab[7:0]),   .noe1(naben), .noe2(1'b0));
+   buffer_541 buf1 (.a(ar[15:8]),  .y(ab[15:8]),  .noe1(naben), .noe2(1'b0));
+   buffer_541 buf2 (.a(ar[23:16]), .y(ab[23:16]), .noe1(naben), .noe2(1'b0));
 
    // The I/O Device decoder outputs four enable signals for I/O space address
    // ranges 0000–00FF, 0100–01FF, 0200–02FF, and 0300–03FF when I/O
@@ -77,8 +77,8 @@ module reg_ar (ibus, aext, nwrite_ar, nmem, nio,
    // with the need to decode one enable signal plus 8 bits of address, which
    // most can do with a single '138, saving two ICs per card.
 
-   comparator_688 syscomp (.a({ab[15:11], 3'b0}), .b(8'b00000000), .en(nio), .equal(niocmp));
-   demux_138      sysdemux (.g1(1'b1), .g2a(nio), .g2b(niocmp), .a(ab[10:8]), .y(y));
+   comparator_688 syscomp (.a({ab[15:11], 3'b0}), .b(8'b00000000), .ng(nio), .neq(niocmp));
+   demux_138      sysdemux (.g1(1'b1), .ng2a(nio), .ng2b(niocmp), .a(ab[10:8]), .y(y));
    assign nsysdev = y[0];
    assign niodev1xx = y[1];
    assign niodev2xx = y[2];

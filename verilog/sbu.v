@@ -102,7 +102,7 @@ module sbu(nreset, clk4, nskipext,
    assign #7 nskip2 = nskip0 & nskip1 & nskipext; // Double the 3.5ns PD of the LVC family
 
    // Register SKIP# for the duration of this micro-instruction.
-   flipflop_74h skipff (.d(nskip2), .clk(clk4), .set(nreset), .rst(1'b1), .q(nskip));
+   flipflop_74h skipff (.d(nskip2), .clk(clk4), .nset(nreset), .nrst(1'b1), .q(nskip));
 
 endmodule // sbu
 

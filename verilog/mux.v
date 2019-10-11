@@ -20,47 +20,47 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-module mux_253 (sel, i1, oe1, y1, i2, oe2, y2);
+module mux_253 (sel, i1, noe1, y1, i2, noe2, y2);
    parameter delay = 16;
 
    input [1:0] sel;		// The signal selector
    input [3:0] i1, i2;		// Input signals.
-   input       oe1, oe2;	// Active low tri-state output enables.
+   input       noe1, noe2;	// Active low tri-state output enables.
    output      y1, y2;		// Outputs.
 
    wire [1:0]  sel;
    wire [3:0]  i1, i2;
-   wire        oe1, oe2;
+   wire        noe1, noe2;
    wire        y1, y2;
 
    initial begin
       // $display("BOM: 74x253");
    end
    
-   assign #delay y1 = oe1 ? 1'bz : i1[sel];
-   assign #delay y2 = oe2 ? 1'bz : i2[sel];
+   assign #delay y1 = noe1 ? 1'bz : i1[sel];
+   assign #delay y2 = noe2 ? 1'bz : i2[sel];
 
 endmodule // mux_253
 
 
-module mux_253h (sel, i, oe, y);
+module mux_253h (sel, i, noe, y);
    parameter delay = 16;
 
    input [1:0] sel;	// The signal selector
    input [3:0] i;	// Input signals.
-   input       oe;	// Active low tri-state output enables.
+   input       noe;	// Active low tri-state output enables.
    output      y;	// Outputs.
 
    wire [1:0]  sel;
    wire [3:0]  i;
-   wire        oe;
+   wire        noe;
    wire        y;
 
    initial begin
       // $display("BOM: 1/2 74x253");
    end
    
-   assign #delay y = oe ? 1'bz : i[sel];
+   assign #delay y = noe ? 1'bz : i[sel];
 
 endmodule // mux_253h
 
@@ -123,9 +123,9 @@ module mux_157 (sel, i1, i2, oe, y);
 
 endmodule // mux_157
 
-// The 74LVC2G157 is a 2:1 version of the '157. It has a complementary
-// output too though.
-module mux_1g_157 (sel, a, b, ng, y, ny);
+// The 74LVC2G157 is a 2:1 version of the '157 with a complementary
+// output.
+module mux_2g157 (sel, a, b, ng, y, ny);
    parameter delay = 20;
 
    input        sel;		// The signal selector
@@ -144,8 +144,8 @@ module mux_1g_157 (sel, a, b, ng, y, ny);
       // $display("BOM: 74x157");
    end
    
-   assign #delay y = ng ? 1'bz : (sel == 0? a : b);
-   assign #delay ny = ng ? 1'bz : (sel == 0? ~a : ~b);
+   assign #delay y = ng ? 1'b0 : (sel == 0? a : b);
+   assign #delay ny = ng ? 1'b1 : (sel == 0? ~a : ~b);
 
 endmodule // mux_157
 
@@ -157,24 +157,24 @@ endmodule // mux_157
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-module mux_1g157 (sel, i1, i2, oe, y);
+module mux_1g157 (sel, a, b, ng, y);
    parameter delay = 20;
 
    input        sel;		// The signal selector
-   input        i1, i2;		// Input signals.
-   input        oe;	        // Active low tri-state output enables.
+   input        a, b;		// Input signals.
+   input        ng;	        // Active low tri-state output enables.
    output       y;		// Outputs.
 
    wire        sel;
-   wire        i1, i2;
-   wire        oe;
+   wire        a, b;
+   wire        ng;
    wire        y;
 
    initial begin
       // $display("BOM: 74x1G157");
    end
    
-   assign #delay y = oe ? 1'bz : (sel == 0? i1 : i2);
+   assign #delay y = ng ? 1'bz : (sel == 0? a : b);
 
 endmodule // mux_1G157
 

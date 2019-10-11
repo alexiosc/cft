@@ -67,6 +67,8 @@ module ail (ir, idx);
    output [1:0]  idx;
 
    wire [7:0] 	 y;
+   wire 	 enable;
+	
    demux_238 ail_demux (.g1(ir[11]), .g2a(1'b0), .g2b(1'b0), .a(ir[10:8]), .y(y));
    assign enable = y[7];
 

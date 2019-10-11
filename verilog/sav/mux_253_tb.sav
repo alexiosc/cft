@@ -1,15 +1,30 @@
+[*]
+[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
+[*] Fri Oct 11 08:38:17 2019
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/mux_253_tb.vcd"
+[dumpfile_mtime] "Fri Oct 11 08:37:37 2019"
+[dumpfile_size] 176576
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/mux_253_tb.sav"
 [timestart] 0
 [size] 1284 589
-[pos] 381 361
-*-20.888924 7514000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
-@28
+[pos] 562 138
+*-26.888924 306900000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] mux_253_tb.
+[sst_width] 226
+[signals_width] 156
+[sst_expanded] 1
+[sst_vpaned_height] 138
+@29
 mux_253_tb.sel[1:0]
 @200
 -
 -MUX1
 @28
-mux_253_tb.oe1
+[color] 1
+mux_253_tb.noe1
 @c00028
+[color] 2
 mux_253_tb.i1[3:0]
 @28
 (0)mux_253_tb.i1[3:0]
@@ -19,22 +34,26 @@ mux_253_tb.i1[3:0]
 @1401200
 -group_end
 @28
+[color] 4
 mux_253_tb.y1
 @200
 -
 -MUX2
 @28
-mux_253_tb.oe2
-@c00029
+[color] 1
+mux_253_tb.noe2
+@c00028
+[color] 2
 mux_253_tb.i2[3:0]
-@29
+@28
 (0)mux_253_tb.i2[3:0]
 (1)mux_253_tb.i2[3:0]
 (2)mux_253_tb.i2[3:0]
 (3)mux_253_tb.i2[3:0]
-@1401201
+@1401200
 -group_end
 @28
+[color] 4
 mux_253_tb.y2
 [pattern_trace] 1
 [pattern_trace] 0

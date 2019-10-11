@@ -75,7 +75,7 @@ module reg_l(nreset, clk4, naction_cpl, ibus12, flin_add,
    wire   ld, ld0;
    mux_253h ld_mux (.sel({nflagwe, nread_alu_add}),
 		    .i({flin_sru, flin_add, ibus12, ibus12}),
-		    .oe(1'b0), .y(ld0));
+		    .noe(1'b0), .y(ld0));
    assign #21 ld = ld0;
 
    wire   nsetl, nclrl0, nclrl;
@@ -96,11 +96,11 @@ module reg_l(nreset, clk4, naction_cpl, ibus12, flin_add,
 
    // Finally, the L flip flop. This runs in the Shift/Roll Unit's clock domain
    // (which can be 4× the rest of the processor's)
-   flipflop_74h flfast_ff (.d(ld), .clk(clkl), .set(nsetl), .rst(nclrl), .q(flfast));
+   flipflop_74h flfast_ff (.d(ld), .clk(clkl), .nset(nsetl), .nrst(nclrl), .q(flfast));
 
    // And this FF runs in the processor's clock domain, filtering out transient
    // FL changes and also drastically reducing the risk of metastability.
-   flipflop_74h fl_ff (.d(flfast), .clk(clk4), .set(1'b1), .rst(nreset), .q(fl), .qn(nfl));
+   flipflop_74h fl_ff (.d(flfast), .clk(clk4), .nset(1'b1), .nrst(nreset), .q(fl), .nq(nfl));
    
 endmodule // reg_l
 

@@ -88,8 +88,8 @@ module clock_generator (nreset, fpclk, nfpclk_or_clk,
 
    // Phase clock generators ('139 decoders)
    wire [3:0] tmp;
-   demux_139h phasegen1 (.g(1'b0), .a({q[1], q[0]}), .y({clk4, clk3, clk2, clk1}));
-   demux_139h phasegen2 (.g(1'b0), .a({1'b0,  q[1]}), .y(tmp));
+   demux_139h phasegen1 (.ng(1'b0), .a({q[1], q[0]}), .y({clk4, clk3, clk2, clk1}));
+   demux_139h phasegen2 (.ng(1'b0), .a({1'b0,  q[1]}), .y(tmp));
    assign t34 = tmp[1];
 
    // Write strobe (WSTB) generation

@@ -52,23 +52,23 @@ module dfp_run_control (nreset, nrsthold, clk4,
    // FF 1 allows for stopping, running, and stepping through whole
    // instructions.
    wire 	 stepping, nstepping;
-   flipflop_74h ff1 (.d(1'b0), .clk(fpfetch_nexec), .set(step_nrun), .rst(nclr), .q(stepping), .qn(nstepping));
+   flipflop_74h ff1 (.d(1'b0), .clk(fpfetch_nexec), .nset(step_nrun), .nrst(nclr), .q(stepping), .nq(nstepping));
 
    // FF 2 allows for microsteps: one processor cycle at a time.
    wire 	 ustepping, nustepping;
-   flipflop_74h ff2 (.d(1'b0), .clk(clk4), .set(nustep), .rst(nclr), .q(ustepping), .qn(nustepping));
+   flipflop_74h ff2 (.d(1'b0), .clk(clk4), .nset(nustep), .nrst(nclr), .q(ustepping), .nq(nustepping));
    
    // FF 3 switches to the highest clock speed during resets. (because resets
    // last a large number of clock cycles and the DFP may have set a very slow
    // clock speed and the reset sequence may last for whole minutes.)
    wire 	 resetting, nresetting;
-   flipflop_74h ff3 (.d(1'b0), .clk(nrsthold), .set(nreset), .rst(nclr), .q(resetting), .qn(nresetting));
+   flipflop_74h ff3 (.d(1'b0), .clk(nrsthold), .nset(nreset), .nrst(nclr), .q(resetting), .nq(nresetting));
 
    // Use a '253 as an arbitrary function evaluator to select the correct clock
    // control signals to the clock generator.
    mux_253 clk_mux (.sel({ustepping, stepping}),
-		    .i1({fpclken_in, fpclken_in, fpclken_in, 1'b0}), .oe1(resetting), .y1(fpclken_out),
-		    .i2({fpustep_in, fpustep_in, fpustep_in, 1'b0}), .oe2(resetting), .y2(fpustep_out));
+		    .i1({fpclken_in, fpclken_in, fpclken_in, 1'b0}), .noe1(resetting), .y1(fpclken_out),
+		    .i2({fpustep_in, fpustep_in, fpustep_in, 1'b0}), .noe2(resetting), .y2(fpustep_out));
 
    // Finally, generate the WAIT# output to the MCU. (worst case propagation
    // delay for LVC device at 5V)

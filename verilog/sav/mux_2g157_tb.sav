@@ -1,0 +1,35 @@
+[*]
+[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
+[*] Fri Oct 11 09:20:10 2019
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/mux_2g157_tb.vcd"
+[dumpfile_mtime] "Fri Oct 11 09:20:08 2019"
+[dumpfile_size] 992
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/mux_2g157_tb.sav"
+[timestart] 0
+[size] 1000 600
+[pos] 974 130
+*-20.000000 1740000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[sst_width] 226
+[signals_width] 78
+[sst_expanded] 1
+[sst_vpaned_height] 142
+@28
+[color] 1
+mux_2g157_tb.ng
+[color] 2
+mux_2g157_tb.a
+[color] 3
+mux_2g157_tb.b
+[color] 4
+mux_2g157_tb.sel
+@200
+-
+@29
+[color] 3
+mux_2g157_tb.y
+@28
+[color] 2
+mux_2g157_tb.ny
+[pattern_trace] 1
+[pattern_trace] 0

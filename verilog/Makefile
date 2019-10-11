@@ -94,9 +94,11 @@ FONT =		/usr/share/fonts/truetype/ttf-bitstream-vera/VeraBd.ttf
 EMUMON =	../tools/emu-monitor
 EMUMONFLAGS =	-F $(FONT) -S 16
 
-.PHONY: all all-subdirs subdirs $(SUBDIRS) batch-test
+.PHONY: all all-subdirs subdirs $(SUBDIRS) batch-test 2019
 
 all: 	$(SUBDIRS) $(OBJ)
+
+2019:   $(patsubst %.v, %.o, $(shell grep -l 2019 *.v))
 
 clean:
 	rm -f $(OBJ) *.o a.out out.vcd test_rom.bin
@@ -174,6 +176,10 @@ test_4017:	counter_4017_tb.o counter.o
 		$(GTKWAVE) $(VCDDIR)/counter_4017_tb.vcd $(SAVDIR)/counter_4017_tb.sav
 
 # Encoders/Multiplexers
+
+test_1g157:	mux_1g157_tb.o mux.o
+		./mux_1g157_tb.o
+		$(GTKWAVE) $(VCDDIR)/mux_1g157_tb.vcd $(SAVDIR)/mux_1g157_tb.sav
 
 test_2g157:	mux_2g157_tb.o mux.o
 		./mux_2g157_tb.o

@@ -66,8 +66,8 @@ module agl(ir, pc, nread_agl, nend, ibus);
    assign page = q[5:0];
 
    // Address Generation Logic tri-stating buffers
-   buffer_541 buf_lo (.oe1(nread_agl), .oe2(1'b0), .a(ir[7:0]),         .y(ibus[7:0]));
-   buffer_541 buf_hi (.oe1(nread_agl), .oe2(1'b0), .a({page, ir[9:8]}), .y(ibus[15:8]));
+   buffer_541 buf_lo (.noe1(nread_agl), .noe2(1'b0), .a(ir[7:0]),         .y(ibus[7:0]));
+   buffer_541 buf_hi (.noe1(nread_agl), .noe2(1'b0), .a({page, ir[9:8]}), .y(ibus[15:8]));
 
 endmodule // agl
 

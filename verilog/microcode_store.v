@@ -68,11 +68,11 @@ module microcode_store(nreset, nhalt, uaddr, udata,
    // IR. These are displayed in their own sections of the front
    // panel. The remaining 8 bits are displayed in the uADDR LOW front
    // panel section, requiring just one buffer.
-   buffer_541 buf_ua0 (.a(uaddr[7:0]),   .y(fpd), .oe1(nfpua0), .oe2(1'b0));
+   buffer_541 buf_ua0 (.a(uaddr[7:0]),   .y(fpd), .noe1(nfpua0), .noe2(1'b0));
 
-   buffer_541 buf_uc0 (.a(udata[7:0]),   .y(fpd), .oe1(nfpuc0), .oe2(1'b0));
-   buffer_541 buf_uc1 (.a(udata[15:8]),  .y(fpd), .oe1(nfpuc1), .oe2(1'b0));
-   buffer_541 buf_uc2 (.a(udata[23:16]), .y(fpd), .oe1(nfpuc2), .oe2(1'b0));
+   buffer_541 buf_uc0 (.a(udata[7:0]),   .y(fpd), .noe1(nfpuc0), .noe2(1'b0));
+   buffer_541 buf_uc1 (.a(udata[15:8]),  .y(fpd), .noe1(nfpuc1), .noe2(1'b0));
+   buffer_541 buf_uc2 (.a(udata[23:16]), .y(fpd), .noe1(nfpuc2), .noe2(1'b0));
    
 
    reg [4096:0] basedir, s0, s1, s2;

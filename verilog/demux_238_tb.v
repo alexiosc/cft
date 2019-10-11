@@ -33,7 +33,7 @@ module demux_238_tb();
 
 // Declare inputs as regs and outputs as wires
    wire [2:0]  a;
-   wire        g1, g2a, g2b;
+   wire        g1, ng2a, ng2b;
    wire [7:0]  y;
    
    integer     i;
@@ -41,7 +41,7 @@ module demux_238_tb();
    // Initialize all variables
    initial begin        
       $monitor ("%d | %b %b %b %h > %b", 
-		$time, g1, g2a, g2b, a, y);
+		$time, g1, ng2a, ng2b, a, y);
 
       $dumpfile ("vcd/demux_238_tb.vcd");
       $dumpvars (0, demux_238_tb);
@@ -54,11 +54,11 @@ module demux_238_tb();
    end // initial begin
 
    assign g1 = i[5];
-   assign g2a = i[4];
-   assign g2b = i[3];
+   assign ng2a = i[4];
+   assign ng2b = i[3];
    assign a = i[2:0];
 
    // Connect DUT to test bench
-   demux_238 demux (.g1(g1), .g2a(g2a), .g2b(g2b), .a(a), .y(y));
+   demux_238 demux (.g1(g1), .ng2a(ng2a), .ng2b(ng2b), .a(a), .y(y));
 
 endmodule

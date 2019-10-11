@@ -37,14 +37,15 @@ module reg_v(nreset, clk4, ibus13, fvin_add,
    assign #21 vd = vd0;
 
    // The FF is clocked on the rising edge of nflagwe or nread_alu_add.
+   wire   clkv;
    assign #3 clkv = nflagwe & nread_alu_add;
 
    // Finally, the V flip flop.
-   flipflop_74h vff1 (.d(vd), .clk(clkv), .set(1'b1), .rst(nreset), .q(fv0));
+   flipflop_74h vff1 (.d(vd), .clk(clkv), .nset(1'b1), .nrst(nreset), .q(fv0));
 
    // And this FF runs in the processor's clock domain, filtering out transient
    // FL changes and also drastically reducing the risk of metastability.
-   flipflop_74h vff2 (.d(fv0), .clk(clk4), .set(1'b1), .rst(nreset), .q(fv));
+   flipflop_74h vff2 (.d(fv0), .clk(clk4), .nset(1'b1), .nrst(nreset), .q(fv));
    
 endmodule // reg_v
 

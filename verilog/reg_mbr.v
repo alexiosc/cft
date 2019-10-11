@@ -245,17 +245,17 @@ module reg_mbr (nreset, waddr, raddr, ir,
    wire 	nbankr0, nbankr1, nbankw0, nbankw1;
    
    // The addressing mode decoder
-   demux_138      addrdemux (.g1(waddr[2]), .g2a(waddr[3]), .g2b(waddr[4]), .a(3'b111), .y(yaddr));
+   demux_138      addrdemux (.g1(waddr[2]), .ng2a(waddr[3]), .ng2b(waddr[4]), .a(3'b111), .y(yaddr));
    assign nwrite_ar_mbx = yaddr[7];
 
    // The register write decoder
-   demux_138      writedemux (.g1(waddr[3]), .g2a(waddr[4]), .g2b(1'b0), .a(waddr[2:0]), .y(ywrite));
+   demux_138      writedemux (.g1(waddr[3]), .ng2a(waddr[4]), .ng2b(1'b0), .a(waddr[2:0]), .y(ywrite));
    assign nwrite_mbp = ywrite[4];
    assign nwrite_mbp_flags = ywrite[5];
    assign nwrite_mbn = ywrite[7];
 
    // The register read decoder
-   demux_138      readdemux (.g1(raddr[3]), .g2a(raddr[4]), .g2b(1'b0), .a(raddr[2:0]), .y(yread));
+   demux_138      readdemux (.g1(raddr[3]), .ng2a(raddr[4]), .ng2b(1'b0), .a(raddr[2:0]), .y(yread));
    assign nread_mbp = yread[4];
    assign nread_mbp_flags = yread[5];
    assign nread_mbn = yread[7];
@@ -291,8 +291,8 @@ module reg_mbr (nreset, waddr, raddr, ir,
    // fact quite simple:
 
    wire 	n139g, n125g;
-   flipflop_74h resetff (.d(1'b1), .clk(1'b1), .set(nreset), .rst(nbankw0),
-			 .q(n139g), .qn(n125g));
+   flipflop_74h resetff (.d(1'b1), .clk(1'b1), .nset(nreset), .nrst(nbankw0),
+			 .q(n139g), .nq(n125g));
    buffer_125q ramrombuf (.a(nfpram_fprom), .oe(n125g), .y(aext[7]));
    
 
@@ -319,7 +319,7 @@ module reg_mbr (nreset, waddr, raddr, ir,
 
    // The write decoder. Selects one bank of '670s for writing during an I/O
    // write transaction.
-   demux_139h iowdemux (.g(nwmbr), .a({sel[2], 1'b1}), .y(wy));
+   demux_139h iowdemux (.ng(nwmbr), .a({sel[2], 1'b1}), .y(wy));
    assign nbankw0 = wy[1];
    assign nbankw1 = wy[3];
 
@@ -327,7 +327,7 @@ module reg_mbr (nreset, waddr, raddr, ir,
    // is permanently selected, for speed. This implies that the AEXT bus will
    // always be driven. When the value needs to be put on the IBUS, an
    // additionan '541 buffer is enabled.
-   demux_139h iordemux (.g(n139g),  .a({sel[2], 1'b1}), .y(ry));
+   demux_139h iordemux (.ng(n139g),  .a({sel[2], 1'b1}), .y(ry));
    assign nbankr0 = ry[1];
    assign nbankr1 = ry[3];
 
@@ -341,11 +341,11 @@ module reg_mbr (nreset, waddr, raddr, ir,
    // Buffers to output the value of AEXT to the data bus when the
    // registers are read. Only the low order 8 bits are written to.
 
-   buffer_541 regbuf (.oe1(nrmbr), .oe2(1'b0), .a(aext), .y(ibus[7:0]));
+   buffer_541 regbuf (.noe1(nrmbr), .noe2(1'b0), .a(aext), .y(ibus[7:0]));
 
    // Also a buffer to output AEXT to the front panel
 
-   buffer_541 fpbuf (.oe1(nfpaext), .oe2(1'b0), .a(aext), .y(fpo[7:0]));
+   buffer_541 fpbuf (.noe1(nfpaext), .noe2(1'b0), .a(aext), .y(fpo[7:0]));
    
 
    

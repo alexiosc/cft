@@ -52,14 +52,14 @@ module reg_ar (nmem, nio, ibus, aext, nwrite_ar, ab,
    flipflop_574 ar_hi  (.d(aext),        .q(ar[23:16]), .clk(nwrite_ar), .noe(1'b0));
 
    // The Address Bus buffers
-   buffer_541 ar_ab_lo  (.a(ar[7:0]),   .y(ab[7:0]),   .oe1(naben), .oe2(1'b0));
-   buffer_541 ar_ab_mid (.a(ar[15:8]),  .y(ab[15:8]),  .oe1(naben), .oe2(1'b0));
-   buffer_541 ar_ab_hi  (.a(ar[23:16]), .y(ab[23:16]), .oe1(naben), .oe2(1'b0));
+   buffer_541 ar_ab_lo  (.a(ar[7:0]),   .y(ab[7:0]),   .noe1(naben), .noe2(1'b0));
+   buffer_541 ar_ab_mid (.a(ar[15:8]),  .y(ab[15:8]),  .noe1(naben), .noe2(1'b0));
+   buffer_541 ar_ab_hi  (.a(ar[23:16]), .y(ab[23:16]), .noe1(naben), .noe2(1'b0));
 
    // The Front Panel buffers. Note: the DFP can sample the whole AB (and thus,
    // the AR) directly. It just needs to output the top 8 bits of the AR onto
    // the FPD bus for the front panel, so only one buffer is needed.
-   buffer_541 ar_fpbuf_hi  (.a(ar[23:16]), .y(fpd),   .oe1(nfparh), .oe2(1'b0));
+   buffer_541 ar_fpbuf_hi  (.a(ar[23:16]), .y(fpd),   .noe1(nfparh), .noe2(1'b0));
 
    // The I/O Address Decoder isn't really part of the AR, but if
    // they're colocated it saves having to bus 8 lines. (AR[15:8])
@@ -77,7 +77,7 @@ module reg_ar (nmem, nio, ibus, aext, nwrite_ar, ab,
    
    comparator_688 ioad_cmp (.a({ar[15:10], 2'b00}), .b(8'd0), .ng(naben),
 			    .neq(nar_high_0));
-   demux_138 ioad_dec (.g1(1'b1), .g2a(nio), .g2b(nar_high_0),
+   demux_138 ioad_dec (.g1(1'b1), .ng2a(nio), .ng2b(nar_high_0),
 		       .a({ar[10:8]}), .y(y));
    assign nsysdev = y[0];
    assign niodev1xx = y[1];
