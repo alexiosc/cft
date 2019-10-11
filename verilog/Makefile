@@ -55,7 +55,6 @@ SRC += $(IC74XXX)
 # Stuff added or changed for for 2019 updates to the CFT architecture.
 
 CFT2019 = 	clock.v            clock_tb.v \
-		address_register.v address_register_tb.v \
 		reg_ir.v           reg_ir_tb.v \
 		reg_ar.v           reg_ar_tb.v \
 		reg_mbr.v          reg_mbr_tb.v \
@@ -174,6 +173,20 @@ test_4017:	counter_4017_tb.o counter.o
 		./counter_4017_tb.o
 		$(GTKWAVE) $(VCDDIR)/counter_4017_tb.vcd $(SAVDIR)/counter_4017_tb.sav
 
+# Encoders/Multiplexers
+
+test_2g157:	mux_2g157_tb.o mux.o
+		./mux_2g157_tb.o
+		$(GTKWAVE) $(VCDDIR)/mux_2g157_tb.vcd $(SAVDIR)/mux_2g157_tb.sav
+
+test_251:	mux_251_tb.o mux.o
+		./mux_251_tb.o
+		$(GTKWAVE) $(VCDDIR)/mux_251_tb.vcd $(SAVDIR)/mux_251_tb.sav
+
+test_253:	mux_253_tb.o mux.o
+		./mux_253_tb.o
+		$(GTKWAVE) $(VCDDIR)/mux_253_tb.vcd $(SAVDIR)/mux_253_tb.sav
+
 # Decoders/Demultiplexers
 
 test_138:	demux_138_tb.o demux.o
@@ -184,17 +197,9 @@ test_139:	demux_139_tb.o demux.o
 		./demux_139_tb.o
 		$(GTKWAVE) $(VCDDIR)/demux_139_tb.vcd $(SAVDIR)/demux_139_tb.sav
 
-test_251:	mux_251_tb.o mux.o
-		./mux_251_tb.o
-		$(GTKWAVE) $(VCDDIR)/mux_251_tb.vcd $(SAVDIR)/mux_251_tb.sav
-
 test_238:	demux_238_tb.o demux.o
 		./demux_238_tb.o
 		$(GTKWAVE) $(VCDDIR)/demux_238_tb.vcd $(SAVDIR)/demux_238_tb.sav
-
-test_253:	mux_253_tb.o mux.o
-		./mux_253_tb.o
-		$(GTKWAVE) $(VCDDIR)/mux_253_tb.vcd $(SAVDIR)/mux_253_tb.sav
 
 
 # Flip-Flops
@@ -422,6 +427,14 @@ test_reg_ar:	reg_ar_tb.o reg_ar.o flipflop.o buffer.o comparator.o demux.o
 test_reg_major:	reg_major_tb.o reg_major.o counter.o buffer.o comparator.o
 		./reg_major_tb.o >reg_major_tb.log
 		$(GTKWAVE) $(VCDDIR)/reg_major_tb.vcd $(SAVDIR)/reg_major_tb.sav
+
+test_reg_l:	reg_l_tb.o reg_l.o flipflop.o mux.o
+		./reg_l_tb.o
+		$(GTKWAVE) $(VCDDIR)/reg_l_tb.vcd $(SAVDIR)/reg_l_tb.sav
+
+test_reg_v:	reg_v_tb.o reg_v.o flipflop.o mux.o
+		./reg_v_tb.o
+		$(GTKWAVE) $(VCDDIR)/reg_v_tb.vcd $(SAVDIR)/reg_v_tb.sav
 
 test_serial_shifter:	serial_shifter_tb.o serial_shifter.o
 		./serial_shifter_tb.o
