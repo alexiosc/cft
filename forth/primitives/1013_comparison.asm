@@ -16,7 +16,7 @@
 
 	;; word:  TRUE
 	;; flags: CODE ROM
-	;; notes: TRUE ( -- f )
+	;; notes: TRUE ( -- t )
 	;;   Push TRUE
 	RPUSH(SP, MINUS1)	; Push &ffff
 	NEXT
