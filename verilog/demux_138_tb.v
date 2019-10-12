@@ -5,6 +5,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
 // REDESIGNED IN 2019
+// USES OK/FAIL OUTPUT
 //
 // buffer_138_tb.v -- 74x138 testbench
 //
@@ -50,7 +51,8 @@ module demux_138_tb();
 	 #40 ;
       end
 
-      #500 $finish;      // Terminate simulation
+      #500 $display("OK");
+      $finish;      // Terminate simulation
    end // initial begin
 
    assign g1 = i[5];
@@ -61,4 +63,46 @@ module demux_138_tb();
    // Connect DUT to test bench
    demux_138 demux (.g1(g1), .ng2a(ng2a), .ng2b(ng2b), .a(a), .y(y));
 
-endmodule
+   // Verify our findings.
+   reg [8191:0] msg;
+   reg [7:0] 	correct_y;
+   always @ (i) begin
+      #30 begin
+   	 msg[0] = "";		// Use the msg as a flag.
+
+	 if (g1 !== 1 && g1 !== 0) $sformat(msg, "testbench bug, g1=%b", g1);
+	 else if (ng2a !== 1 && ng2a !== 0) $sformat(msg, "testbench bug, ng2a=%b", ng2a);
+	 else if (ng2b !== 1 && ng2b !== 0) $sformat(msg, "testbench bug, ng2b=%b", ng2b);
+
+	 else if (g1 === 1 && ng2a === 0 && ng2b === 0) begin
+	    casex ({g1, ng2a, ng2b, a})
+	      6'b0_?_?_???: correct_y = 8'b11111111; // Not selected (g1 low)
+	      6'b1_1_?_???: correct_y = 8'b11111111; // Not selected (ng2a high)
+	      6'b1_?_1_???: correct_y = 8'b11111111; // Not selected (ng2b high)
+	      6'b1_0_0_000: correct_y = 8'b11111110; // A=0
+	      6'b1_0_0_001: correct_y = 8'b11111101; // A=1
+	      6'b1_0_0_010: correct_y = 8'b11111011; // A=2
+	      6'b1_0_0_011: correct_y = 8'b11110111; // A=3
+	      6'b1_0_0_100: correct_y = 8'b11101111; // A=4
+	      6'b1_0_0_101: correct_y = 8'b11011111; // A=5
+	      6'b1_0_0_110: correct_y = 8'b10111111; // A=6
+	      6'b1_0_0_111: correct_y = 8'b01111111; // A=7
+	      default:
+		$sformat(msg, "g1=%b, ng2a=%b, ng2b=%a, a=%b but y=%b", g1, ng2a, ng2b, a, y);
+	    endcase; // casex ({g1, ng2a, ng2b, a})
+
+	 end // if (g1 === 1 && ng2a === 0 && ng2b === 0)
+	 
+   	 // Fail if we've logged an issue.
+   	 if (msg[0]) begin
+   	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+   	    $error("assertion failure");
+   	    #100 $finish;
+   	 end
+      end
+   end // always @ (nset, nrst)e
+
+endmodule // demux_138_tb
+
+// End of file.
+

@@ -1,15 +1,15 @@
 [*]
-[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
-[*] Sun Sep 29 11:52:52 2019
+[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
+[*] Sat Oct 12 18:28:49 2019
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/demux_138_tb.vcd"
-[dumpfile_mtime] "Sun Sep 29 11:52:50 2019"
-[dumpfile_size] 3714
+[dumpfile_mtime] "Sat Oct 12 18:28:46 2019"
+[dumpfile_size] 3969
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/demux_138_tb.sav"
 [timestart] 0
 [size] 1743 600
 [pos] 2245 0
-*-19.074749 1301500 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-21.074749 1301500 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] demux_138_tb.
 [sst_width] 258
 [signals_width] 185
@@ -18,11 +18,8 @@
 @28
 [color] 1
 demux_138_tb.demux.g1
-[color] 2
-demux_138_tb.demux.g2a
-[color] 3
-demux_138_tb.demux.g2b
 @c00022
+[color] 3
 demux_138_tb.demux.a[2:0]
 @28
 (0)demux_138_tb.demux.a[2:0]

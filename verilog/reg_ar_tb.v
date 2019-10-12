@@ -3,8 +3,29 @@
 // TEST THE ADDRESS REGISTER
 //
 ///////////////////////////////////////////////////////////////////////////////
-
+//
 // REDESIGNED IN 2019
+// USES OK/FAIL OUTPUT
+//
+// reg_ar_tb.v -- Address Register testbench
+//
+// Copyright © 2011–2019 Alexios Chouchoulas
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2, or (at your option)
+// any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+// 
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software Foundation,
+// Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  
+//
+///////////////////////////////////////////////////////////////////////////////
 
 `include "reg_ar.v"
 `timescale 1ns/10ps
@@ -72,7 +93,8 @@ module reg_ar_tb();
 	 #125 nmem = 1;
       end
       
-      #2000 $finish;      // Terminate simulation
+      #2000 $display("OK");
+      $finish;      // Terminate simulation
    end // initial begin
 
    // Load the IR every now and then

@@ -52,7 +52,8 @@ module flipflop_574_tb();
 	 #100 {noe, d} = {i[9], i[8:1]};
       end
 
-      #200 $finish;      // Terminate simulation
+      #200 $display("OK");
+      $finish;      // Terminate simulation
    end
 
    assign #15 clk = i[10] === 0 ? i[0] : 1;

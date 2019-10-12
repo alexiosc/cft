@@ -60,7 +60,8 @@ module mux_2g157_tb();
 	 ng = i[3];
       end
 
-      #1000 $finish;      // Terminate simulation
+      #1000 $display("OK");
+      $finish;      // Terminate simulation
    end
    
    // Connect DUT to test bench

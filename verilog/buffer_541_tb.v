@@ -56,7 +56,8 @@ module buffer_541_tb();
 	 #500;
       end
       
-      #1000 $finish;      // Terminate simulation
+      #1000 $display("OK");
+      $finish;      // Terminate simulation
    end
 
    // Connect DUT to test bench

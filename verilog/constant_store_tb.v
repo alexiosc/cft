@@ -50,7 +50,8 @@ module constant_store_tb();
 	 #63.5;
       end
       
-      #500 $finish;      // Terminate simulation
+      #500 $display("OK");
+      $finish;      // Terminate simulation
    end // initial begin
 
    assign nruen = i[5];

@@ -80,7 +80,8 @@ module clock_tb();
       #1000 nfpclk_or_clk=0;
       #10000 nfpclk_or_clk = 1;
 
-      #10000 $finish;
+      #10000 $display("OK");
+      $finish;
       
    end // initial begin
 

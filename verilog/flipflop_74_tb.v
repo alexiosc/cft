@@ -51,7 +51,8 @@ module flipflop_74_tb();
       for (i = 0; i < 128; i = i + 1) begin
 	 #100 { nset, nrst, d } = {i[5:4], i[1]};
       end
-      #300 $finish;      // Terminate simulation
+      #300 $display("OK");
+      $finish;      // Terminate simulation
    end // initial begin
    
    assign #15 clk = i[6] === 0 ? i[0] : 1;

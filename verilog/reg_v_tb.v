@@ -94,7 +94,8 @@ module reg_v_tb();
       // 	 #100 nread_alu_add = 1;
       // end
 
-      #1000 $finish;
+      #1000 $display("OK");
+      $finish;
 
    end // initial begin
 

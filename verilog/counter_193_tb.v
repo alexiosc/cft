@@ -108,7 +108,8 @@ module counter_193_tb();
 	 end;
       end; // for (j = 0; j < 64; j = j + 1)
 
-      #2000 $finish;      // Terminate simulation
+      #2000 $display("OK");
+      $finish;      // Terminate simulation
    end
 
    // Connect DUT to test bench

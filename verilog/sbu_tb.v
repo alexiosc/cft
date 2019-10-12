@@ -144,9 +144,8 @@ module sbu_tb();
       end // for (i = 0; i < 512; i = i + 1)
       $display("OK (SKP)");
 
-      
-      $display("OK");
-      #2000 $finish;      // Terminate simulation
+      #2000 $display("OK");
+      $finish;      // Terminate simulation
    end // initial begin
 
    // Realistic clock ticks

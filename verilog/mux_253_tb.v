@@ -60,7 +60,8 @@ module mux_253_tb();
 	 noe2 = i[11];
       end
 
-      #200 $finish;      // Terminate simulation
+      #200 $display("OK");
+      $finish;      // Terminate simulation
    end
    
    // Connect DUT to test bench
