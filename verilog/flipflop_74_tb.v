@@ -40,7 +40,7 @@ module flipflop_74_tb();
    // Initialize all variables
    initial begin        
       //$display ("time\t d c s r q Q");
-      $monitor ("t: %d | %b %b %b %b > %b %b", $time, clk, nset, nrst, d, q, nq);
+      $monitor ("t: %7d | %b %b %b %b > %b %b", $time, clk, nset, nrst, d, q, nq);
       $dumpfile ("vcd/flipflop_74_tb.vcd");
       $dumpvars (0, flipflop_74_tb);
 

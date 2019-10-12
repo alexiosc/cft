@@ -48,7 +48,7 @@ module reg_v_tb();
    initial begin        
       $dumpfile ("vcd/reg_v_tb.vcd");
       $dumpvars (0, reg_v_tb);
-      $monitor ("t: %d | %b %b %b %b %b %b > %b", $time, nreset, clk4, ibus13, nflagwe, fvin_add, nread_alu_add, fv);
+      $monitor ("t: %7d | %b %b %b %b %b %b > %b", $time, nreset, clk4, ibus13, nflagwe, fvin_add, nread_alu_add, fv);
       
       nreset = 0;
       clk4 = 1;

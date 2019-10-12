@@ -41,7 +41,7 @@ module buffer_541_tb();
    // Initialize all variables
    initial begin        
       //$display ("time\t noe1 noe2 a y");	
-      $monitor ("t: %d | %b %b %b > %b", $time, noe1, noe2, a, y);
+      $monitor ("t: %7d | %b %b %b > %b", $time, noe1, noe2, a, y);
       $dumpfile ("vcd/buffer_541_tb.vcd");
       $dumpvars (0, buffer_541_tb);
 
@@ -70,11 +70,15 @@ module buffer_541_tb();
 
 	 // Check the Gate first. If it's high (previous result unequal), the
 	 // comparison should always be unequal.
-	 if (noe1 == 1 || noe2 == 1) begin
+	 if (noe1 === 1 || noe2 === 1) begin
 	    if (y !== 8'bzzzzzzzz) $sformat(msg, "noe1=%b, noe2=%b, a=%02x, but y=%b (should be Z)", noe1, noe2, a, y);
-	 end else begin
+	 end
+
+	 else if (noe1 === 0 && noe2 === 0) begin
 	    if (y !== a) $sformat(msg, "noe1=%b, noe2=%b, a=%02x, but y=%b (should be %02x)", noe1, noe2, a, y, a);
 	 end
+
+	 else $sformat(msg, "testbench bug, noe1=%b, noe2=%b", noe1, noe2);
 
 	 // Fail if we've logged an issue.
 	 if (msg[0]) begin

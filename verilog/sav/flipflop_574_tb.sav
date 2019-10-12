@@ -1,0 +1,27 @@
+[*]
+[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
+[*] Sat Oct 12 09:41:15 2019
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/flipflop_574_tb.vcd"
+[dumpfile_mtime] "Sat Oct 12 09:41:10 2019"
+[dumpfile_size] 171049
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/flipflop_574_tb.sav"
+[timestart] 149510000
+[size] 1575 600
+[pos] -1 -1
+*-23.163643 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] flipflop_574_tb.
+[sst_width] 258
+[signals_width] 86
+[sst_expanded] 1
+[sst_vpaned_height] 138
+@29
+flipflop_574_tb.flipflop.noe
+@28
+flipflop_574_tb.flipflop.clk
+@22
+flipflop_574_tb.flipflop.d[7:0]
+flipflop_574_tb.flipflop.q0[7:0]
+flipflop_574_tb.flipflop.q[7:0]
+[pattern_trace] 1
+[pattern_trace] 0

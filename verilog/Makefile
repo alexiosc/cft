@@ -3,6 +3,9 @@
 # Copyright © 2011-2019 Alexios Chouchoulas
 #
 
+SHELL=/bin/bash
+
+
 ###############################################################################
 #
 # VERILOG SOURCE CODE
@@ -94,7 +97,7 @@ FONT =		/usr/share/fonts/truetype/ttf-bitstream-vera/VeraBd.ttf
 EMUMON =	../tools/emu-monitor
 EMUMONFLAGS =	-F $(FONT) -S 16
 
-.PHONY: all all-subdirs subdirs $(SUBDIRS) batch-test 2019
+.PHONY: all all-subdirs subdirs $(SUBDIRS) batch-test inv 2019
 
 all: 	$(SUBDIRS) $(OBJ)
 
@@ -102,6 +105,15 @@ all: 	$(SUBDIRS) $(OBJ)
 
 clean:
 	rm -f $(OBJ) *.o a.out out.vcd test_rom.bin
+
+inv:
+	@printf "%-30s %-4.4s %s\n" "File" "2019" "testbench"
+	@echo "--------------------------------------------------------------------------------"
+	@for a in *.v; do \
+		[[ $$a =~ _tb.v$$ ]] && continue; \
+		printf "%-30s %-4.4s %s\n" $$a \
+		$$(grep -q "IN 2019" $$a && echo "yes" || echo "-"); \
+	done
 
 $(SUBDIRS):
 	$(MAKE) -C $@
@@ -236,7 +248,7 @@ test_374:	flipflop_374_tb.o flipflop.o
 
 test_574:	flipflop_574_tb.o flipflop.o
 		./flipflop_574_tb.o
-		$(GTKWAVE) $(VCDDIR)/out.vcd
+		$(GTKWAVE) $(VCDDIR)/flipflop_574_tb.vcd $(SAVDIR)/flipflop_574_tb.sav
 
 test_564:	flipflop_564_tb.o flipflop.o
 		./flipflop_564_tb.o

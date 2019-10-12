@@ -5,6 +5,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
 // REDESIGNED IN 2019
+// USES OK/FAIL OUTPUT
 //
 // agl_tb.v -- Address Generation Logic Testbench
 //
@@ -56,7 +57,7 @@ module agl_tb();
       #1000 nread_agl = 0;
 
       // the AGL only looks at ir[10:0]
-      for (j = 0; j < 2048; j = j + 1) begin
+      for (j = 16'h3fc; j < 2048; j = j + 1) begin
 	 #250 ir = j;
 	 
 	 for (i = 0; i < 65535 ; i = i + 1024) begin
@@ -66,8 +67,48 @@ module agl_tb();
 	 end
       end
 
-      #2000 $finish;      // Terminate simulation
+      #2000 $display("OK");
+      $finish;
    end
 
+   // The DUT
    agl agl_unit (.ir(ir), .pc(pc), .nread_agl(nread_agl), .nend(nend), .ibus(ibus));
+
+   // Verify our findings.
+   reg [8191:0] msg;
+   reg [15:0] 	lastpc;
+   always @ (nread_agl, ir, pc) begin
+      #30 begin
+	 msg[0] = "";		// Use the msg as a flag.
+
+	 // Check the Gate first. If it's high (previous result unequal), the
+	 // comparison should always be unequal.
+	 if (nread_agl === 1) begin
+	    if (ibus !== 16'bzzzzzzzzzzzzzzzz) $sformat(msg, "nread_agl=%b but ibus=%x (should be Z)", nread_agl, ibus);
+	 end
+
+	 else if (nread_agl === 0) begin
+	    if (ir[10] === 0 && ibus !== {lastpc[15:10], ir[9:0]}) begin
+	       $sformat(msg, "nread_agl=%b, lastpc[15:10]=%b, R=0, ir[9:0]=%b but ibus=%b", nread_agl, lastpc[15:10], ir[9:0], ibus);
+	    end else if (ir[10] === 1 && ibus != {6'd0, ir[9:0]}) begin
+	       $sformat(msg, "nread_agl=%b, lastpc[15:10]=%b, R=1, ir[9:0]=%b but ibus=%b", nread_agl, lastpc[15:10], ir[9:0], ibus);
+	    end
+	 end
+
+	 else $sformat(msg, "testbench bug, nrad_agl=%b", nread_agl);
+
+	 // Fail if we've logged an issue.
+	 if (msg[0]) begin
+	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+	    $error("assertion failure");
+	    #100 $finish;
+	 end
+      end
+   end // always @ (nread_agl, ir, pc)
+
+   always @(posedge nend) begin
+      if (nend === 1) lastpc = pc;
+   end
 endmodule
+
+// End of file

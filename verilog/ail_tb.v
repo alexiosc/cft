@@ -5,6 +5,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
 // REDESIGNED IN 2019
+// USES OK/FAIL OUTPUT
 //
 // ail_tb.v -- Auto-Index Logic Testbench
 //
@@ -48,12 +49,45 @@ module ail_tb();
 	 #63.5;
       end
       
-      #500 $finish;      // Terminate simulation
+      #500 $display("OK");
+      $finish;
    end // initial begin
 
    assign ir = i[15:0];
    
    // Connect DUT to test bench
    ail ail (.ir(ir), .idx(idx));
+
+   // Verify our findings.
+   reg [8191:0] msg;
+   reg [1:0] 	correct_idx;
+   always @ (ir) begin
+      #30 begin
+	 msg[0] = "";		// Use the msg as a flag.
+
+	 casex (ir)
+	   16'xxxx_0_x_xxxxxxxxxx: correct_idx = 2'b00;
+	   16'xxxx_x_0_xxxxxxxxxx: correct_idx = 2'b00;
+	   16'xxxx_1_1_00xxxxxxxx: correct_idx = 2'b00;
+	   16'xxxx_1_1_01xxxxxxxx: correct_idx = 2'b01;
+	   16'xxxx_1_1_10xxxxxxxx: correct_idx = 2'b10;
+	   16'xxxx_1_1_11xxxxxxxx: correct_idx = 2'b11;
+	 endcase // casex (ir)
+
+	 if (idx !== correct_idx) $sformat(msg, "ir=%b:%b:%b:%b but idx=%b (should be %b)",
+					 ir[15:12], ir[11], ir[10], ir[9:8], idx, correct_idx);
+
+	 // Fail if we've logged an issue.
+	 if (msg[0]) begin
+	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+	    $error("assertion failure");
+	    #100 $finish;
+	 end
+      end
+   end // always @ (nread_agl, ir, pc)
+
+   always @(posedge nend) begin
+      if (nend === 1) lastpc = pc;
+   end
 
 endmodule

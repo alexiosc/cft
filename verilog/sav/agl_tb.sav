@@ -1,25 +1,35 @@
 [*]
 [*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
-[*] Sun Sep 29 14:04:52 2019
+[*] Sat Oct 12 15:24:11 2019
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/agl_tb.vcd"
-[dumpfile_mtime] "Sun Sep 29 14:03:15 2019"
-[dumpfile_size] 21516482
+[dumpfile_mtime] "Sat Oct 12 15:24:05 2019"
+[dumpfile_size] 8346309
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/agl_tb.sav"
 [timestart] 0
 [size] 1723 675
 [pos] 72 93
-*-32.573845 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-27.978054 41350000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] agl_tb.
 [treeopen] agl_tb.agl_unit.
 [sst_width] 258
-[signals_width] 156
+[signals_width] 220
 [sst_expanded] 1
 [sst_vpaned_height] 174
+@28
+[color] 1
+agl_tb.nread_agl
 @22
+[color] 2
+agl_tb.lastpc[15:0]
 [color] 3
 agl_tb.pc[15:0]
-@800022
+@28
+[color] 1
+(5)agl_tb.ir[15:0]
+@200
+-
+@c00022
 agl_tb.ir[15:0]
 @28
 [color] 7
@@ -57,13 +67,13 @@ agl_tb.ir[15:0]
 @22
 [color] 2
 agl_tb.agl_unit.page[5:0]
-@1001200
+@1401200
 -group_end
 @28
 agl_tb.nend
 @200
 -
-@c00023
+@c00022
 agl_tb.ibus[15:0]
 @28
 (0)agl_tb.ibus[15:0]
@@ -82,7 +92,9 @@ agl_tb.ibus[15:0]
 (13)agl_tb.ibus[15:0]
 (14)agl_tb.ibus[15:0]
 (15)agl_tb.ibus[15:0]
-@1401201
+@1401200
 -group_end
+@200
+-
 [pattern_trace] 1
 [pattern_trace] 0

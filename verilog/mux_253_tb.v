@@ -42,7 +42,7 @@ module mux_253_tb();
    // Initialize all variables
    initial begin        
       //$display ("time\t oe1 sel i1  y1   oe2 sel i2   y2");
-      $monitor ("t: %d | %b %b   %b %b  %b > %b %b", $time, noe1, i1, noe2, i2, sel, y1, y2);
+      $monitor ("t: %7d | %b %b   %b %b  %b > %b %b", $time, noe1, i1, noe2, i2, sel, y1, y2);
       $dumpfile ("vcd/mux_253_tb.vcd");
       $dumpvars (0, mux_253_tb);
 

@@ -44,7 +44,7 @@ module mux_2g157_tb();
    // Initialize all variables
    initial begin
       // $display ("time\t oe1 sel i1  y1   oe2 sel i2   y2");
-      $monitor ("t: %d | %b %b %b %b > %b %b", $time, a, b, sel, ng, y, ny);
+      $monitor ("t: %7d | %b %b %b %b > %b %b", $time, a, b, sel, ng, y, ny);
       $dumpfile ("vcd/mux_2g157_tb.vcd");
       $dumpvars (0, mux_2g157_tb);
 
