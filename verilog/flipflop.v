@@ -439,6 +439,10 @@ module flipflop_74h (d, clk, nset, nrst, q, nq);
 	     q <= 1'b0;
 	     nq <= 1'b1;
 	  end
+	2'b11:
+	  #delay2 begin
+	     if (q !== ~nq) nq <= ~q;
+	  end
       endcase // case ({nset, nrst})
    end // always @ (nset, nrst)
 endmodule // flipflop_74h
