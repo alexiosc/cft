@@ -5,6 +5,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
 // REDESIGNED IN 2019
+// USES OK/FAIL OUTPUT
 //
 // constant_store_tb.v -- Constant Store Testbench
 //
@@ -58,5 +59,43 @@ module constant_store_tb();
    
    // Connect DUT to test bench
    constant_store constant_store (.nruen(nruen), .raddr(raddr), .ibus(ibus));
+
+   // Verify our findings.
+   reg [8191:0] msg;
+   reg [15:0] 	correct_value;
+   
+   always @ (nruen, raddr) begin
+      #30 begin
+	 msg[0] = "";		// Use the msg as a flag.
+
+	 if (nruen === 1) begin
+	    if (ibus !== 16'bzzzzzzzzzzzzzzzz) begin
+	       $sformat(msg, "nruen=%b, but ibus was ibus=%b, %04x (should be Z)", nruen, ibus, ibus);
+	    end
+	 end
+
+	 else if (nruen === 0) begin
+	    correct_value = 16'bzzzzzzzzzzzzzzzz;
+	    casex (raddr)
+	      5'b11000: correct_value = 16'd0;
+	      5'b11001: correct_value = 16'd1;
+	      5'b11010: correct_value = 16'd2;
+	      5'b11011: correct_value = 16'd3;
+	    endcase // case raddr
+
+	    if (ibus !== correct_value) $sformat(msg, "raddr=%b, ibus=%b (should be %b)", nruen, ibus, correct_value);
+	 end // if (nruen === 0)
+      
+	 else $sformat(msg, "testbench bug, nruen=%b", nruen);
+
+	 // Fail if we've logged an issue.
+	 if (msg[0]) begin
+	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+	    $error("assertion failure");
+	    #100 $finish;
+	 end
+      end
+   end
+
 
 endmodule

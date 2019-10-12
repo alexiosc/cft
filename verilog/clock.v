@@ -80,7 +80,7 @@ module clock_generator (nreset, fpclk, nfpclk_or_clk,
 
    // Clock source multiplexer
    wire clkin;
-   mux_1g157 clksource (.sel(nfpclk_or_clk), .i1(fpclk), .i2(clk), .oe(1'b0), .y(clkin));
+   mux_1g157 clksource (.sel(nfpclk_or_clk), .a(fpclk), .b(clk), .ng(1'b0), .y(clkin));
 
    // Two phase clock counters.
    wire [3:0] q;
