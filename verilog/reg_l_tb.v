@@ -1,6 +1,31 @@
+///////////////////////////////////////////////////////////////////////////////
+//
+// TEST THE L REGISTER
+//
+///////////////////////////////////////////////////////////////////////////////
 //
 // REDESIGNED IN 2019
+// USES OK/FAIL OUTPUT
 //
+// reg_l_tb.v -- L Register testbench
+//
+// Copyright © 2011–2019 Alexios Chouchoulas
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2, or (at your option)
+// any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+// 
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software Foundation,
+// Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  
+//
+///////////////////////////////////////////////////////////////////////////////
 
 `include "reg_l.v"
 
@@ -13,10 +38,10 @@ module reg_l_tb();
    reg naction_cpl;
    reg naction_cll;
    reg ibus12;
-   reg flout_add;
-   reg flout_sru;
+   reg flin_add;
+   reg flin_sru;
    reg nread_alu_add;
-   reg nwrite_flags;
+   reg nflagwe;
    reg bcp;
    reg clken;
 
@@ -31,16 +56,16 @@ module reg_l_tb();
       $dumpfile ("vcd/reg_l_tb.vcd");
       $dumpvars (0, reg_l_tb);
 
-      //$monitor ("%g\t %b %b %b %b %b", $time, waddr, raddr, ir[11:0] , ibus[7:0], reg_l.sel);
+      $monitor ("t:%7d | %b %b %b > %b", $time, nreset, naction_cll, naction_cpl, fl);
 
       nreset = 0;
       clk = 1;
       naction_cpl = 1;
       naction_cll = 1;
       ibus12 = 0;
-      nwrite_flags = 1;
-      flout_add = 0;
-      flout_sru = 0;
+      nflagwe = 1;
+      flin_add = 0;
+      flin_sru = 0;
       nread_alu_add = 1;
       bcp = 1;
       clken = 0;
@@ -71,37 +96,38 @@ module reg_l_tb();
       // Test write_flags from the bus.
       #400 for (i = 0; i < 4; i++) begin
 	 #400 ibus12 = 0;
-	 #50 nwrite_flags = 0;
-	 #50 nwrite_flags = 1;
+	 #50 nflagwe = 0;
+	 #50 nflagwe = 1;
 	 
 	 #400 ibus12 = 1;
-	 #50 nwrite_flags = 0;
-	 #50 nwrite_flags = 1;
+	 #50 nflagwe = 0;
+	 #50 nflagwe = 1;
       end
 
       // Test L loading from the ALU's adder
       #1000 for (i = 0; i < 4; i++) begin
-	 #400 flout_add = 0;
+	 #400 flin_add = 0;
 	 #50 nread_alu_add = 0;
 	 #50 nread_alu_add = 1;
 	 
-	 #400 flout_add = 1;
+	 #400 flin_add = 1;
 	 #50 nread_alu_add = 0;
 	 #50 nread_alu_add = 1;
       end
 
       // And also test fast toggling from the serial shifter.
       #1000 for (i = 0; i < 32; i++) begin
-	 #30 flout_sru = 0;
+	 #30 flin_sru = 0;
 	 bcp = 0;
 	 #30 bcp = 1;
 	 
-	 #30 flout_sru = 1;
+	 #30 flin_sru = 1;
 	 bcp = 0;
 	 #30 bcp = 1;
       end
 
-      #10000 $finish;
+      #1000 $display("OK");
+      $finish;
 
    end // initial begin
 
@@ -115,10 +141,128 @@ module reg_l_tb();
    reg_l reg_l (.nreset(nreset),
 		.clk4(clk4),
 		.naction_cpl(naction_cpl), .ibus12(ibus12),
-		.flout_add(flout_add), .flout_sru(flout_sru),
-		.nread_alu_add(nread_alu_add), .nwrite_flags(nwrite_flags),
+		.flin_add(flin_add), .flin_sru(flin_sru),
+		.nread_alu_add(nread_alu_add), .nflagwe(nflagwe),
 		.bcp(bcp), .naction_cll(naction_cll), 
 		.fl(fl), .flfast(flfast));
+
+   // Verify our findings.
+   reg [8191:0] msg;
+   reg 		old_fl;
+
+   // Check against FLFAST because it's simpler. We'll then check if
+   // FLFAST correctly updates FL synchronously with clk4.
+   always @ (nreset, naction_cll, naction_cpl) begin
+      #30 begin
+   	 msg[0] = "";		// Use the msg as a flag.
+
+	 // Reset
+	 if (nreset === 0) begin
+	    if (flfast !== 0) $sformat(msg, "nreset=%b, flfast=%b (should be 0)", nreset, flfast);
+	    old_fl = flfast;
+	 end
+	 
+	 else if (nreset !== 1) $sformat(msg, "testbench bug, nreset=%b", nreset);
+
+	 // CLL
+	 if (naction_cll === 0) begin
+	    if (flfast !== 0) $sformat(msg, "nreset=%b, naction_cll=%b, flfast=%b (should be 0)",
+				   nreset, naction_cll, flfast, old_fl);
+	    old_fl = flfast;
+	 end
+	 
+	 else if (naction_cll !== 1) $sformat(msg, "testbench bug, naction_cll=%b", naction_cll);
+
+	 // CPL
+	 if (naction_cpl === 0) begin
+	    if (flfast !== ~old_fl) begin
+	       $sformat(msg, "nreset=%b, naction_cpl=%b, flfast=%b (should be %b)",
+			nreset, naction_cpl, flfast, ~old_fl);
+	    end
+	    old_fl = flfast;
+	 end
+	 
+	 else if (naction_cpl !== 1) $sformat(msg, "testbench bug, naction_cpl=%b", naction_cpl);
+
+   	 // Fail if we've logged an issue.
+   	 if (msg[0]) begin
+   	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+   	    $error("assertion failure");
+   	    #100 $finish;
+   	 end
+	 else $display("OK reset/cll/cpl");
+      end
+   end // always @ (nmem, nio)
+
+   reg correct_flfast;
+   always @ (posedge nread_alu_add, posedge nflagwe, posedge bcp) begin
+      #30 begin
+   	 msg[0] = "";		// Use the msg as a flag.
+
+	 casex ({nflagwe, nread_alu_add})
+	   2'b00: correct_flfast = ibus12;
+	   2'b01: correct_flfast = ibus12;
+	   2'b10: correct_flfast = flin_add;
+	   2'b11: correct_flfast = flin_sru;
+	 endcase
+
+	 // nflagwe (setting flag from SRU)
+	 if (bcp === 0) begin
+	    if (flfast !== flin_sru)
+	      $sformat(msg, "nflagwe=%b, nread_alu_add=%b, bcp=%b, flfast=%b (should be %b)",
+		       nflagwe, nread_alu_add, bcp, flfast, flin_sru);
+	 end
+	 
+	 else if (bcp !== 1) $sformat(msg, "testbench bug, bcp=%b", bcp);
+
+
+	 // nflagwe (setting flag from IBUS)
+	 else if (nflagwe === 0) begin
+	    if (flfast !== ibus12)
+	      $sformat(msg, "nflagwe=%b, nread_alu_add=%b, bcp=%b, flfast=%b (should be %b)",
+		       nflagwe, nread_alu_add, bcp, flfast, ibus12);
+	 end
+	 else if (nflagwe !== 1) $sformat(msg, "testbench bug, nflagwe=%b", nflagwe);
+	    
+	 // nread_alu_add (toggling flag as a result of addition)
+	 else if (nread_alu_add === 0) begin
+	    if (flfast !== flin_add)
+	      $sformat(msg, "nflagwe=%b, nread_alu_add=%b, bcp=%b, flfast=%b (should be %b)",
+		       nflagwe, nread_alu_add, bcp, flfast, flin_add);
+	 end
+	 else if (nread_alu_add !== 1) $sformat(msg, "testbench bug, nread_alu_add=%b", nread_alu_add);
+	    
+
+	 // CLL
+	 if (naction_cll === 0) begin
+	    if (flfast !== 0) $sformat(msg, "nreset=%b, naction_cll=%b, flfast=%b (should be 0)",
+				   nreset, naction_cll, flfast, old_fl);
+	    old_fl = flfast;
+	 end
+	 
+	 else if (naction_cll !== 1) $sformat(msg, "testbench bug, naction_cll=%b", naction_cll);
+
+	 // CPL
+	 if (naction_cpl === 0) begin
+	    if (flfast !== ~old_fl) begin
+	       $sformat(msg, "nreset=%b, naction_cpl=%b, flfast=%b (should be %b)",
+			nreset, naction_cpl, flfast, ~old_fl);
+	    end
+	    old_fl = flfast;
+	 end
+	 
+	 else if (naction_cpl !== 1) $sformat(msg, "testbench bug, naction_cpl=%b", naction_cpl);
+
+   	 // Fail if we've logged an issue.
+   	 if (msg[0]) begin
+   	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+   	    $error("assertion failure");
+   	    #100 $finish;
+   	 end
+	 else $display("OK set");
+      end
+   end // always @ (nmem, nio)
+   
 
 endmodule // reg_l_tb
 

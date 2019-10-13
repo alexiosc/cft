@@ -52,7 +52,7 @@ module reg_ar_tb();
    
    // Initialize all variables
    initial begin
-      $monitor ("%d | %b %b %h:%h > %h %b %b %b %b | %b > %h", $time,
+      $monitor ("t: %7d | %b %b %h:%h > %h %b %b %b %b | %b > %h", $time,
 		nmem, nio, aext, ibus, nwrite_ar,
 		ab, nsysdev, niodev1xx, niodev2xx, niodev3xx,
 		nfparh, fpd);
