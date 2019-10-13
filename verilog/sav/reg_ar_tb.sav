@@ -1,22 +1,22 @@
 [*]
-[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
-[*] Sat Oct 12 16:03:19 2019
+[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
+[*] Sun Oct 13 11:19:21 2019
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/reg_ar_tb.vcd"
-[dumpfile_mtime] "Sat Oct 12 16:01:18 2019"
-[dumpfile_size] 61902
+[dumpfile_mtime] "Sun Oct 13 11:19:19 2019"
+[dumpfile_size] 62744
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/reg_ar_tb.sav"
-[timestart] 0
-[size] 1920 1019
-[pos] 0 0
-*-22.643171 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[timestart] 4580000
+[size] 1733 772
+[pos] 2172 0
+*-22.446970 754000 3143000 754000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] reg_ar_tb.
 [treeopen] reg_ar_tb.reg_ar.
 [treeopen] reg_ar_tb.reg_ar.ioad_cmp.
 [sst_width] 258
 [signals_width] 230
 [sst_expanded] 1
-[sst_vpaned_height] 275
+[sst_vpaned_height] 193
 @22
 reg_ar_tb.aext[7:0]
 reg_ar_tb.ibus[15:0]
@@ -96,9 +96,9 @@ reg_ar_tb.reg_ar.ar[23:0]
 (23)reg_ar_tb.reg_ar.ar[23:0]
 @1401200
 -group_end
-@c00023
+@c00022
 reg_ar_tb.ab[23:0]
-@29
+@28
 (0)reg_ar_tb.ab[23:0]
 (1)reg_ar_tb.ab[23:0]
 (2)reg_ar_tb.ab[23:0]
@@ -123,10 +123,11 @@ reg_ar_tb.ab[23:0]
 (21)reg_ar_tb.ab[23:0]
 (22)reg_ar_tb.ab[23:0]
 (23)reg_ar_tb.ab[23:0]
-@1401201
+@1401200
 -group_end
 @200
 -
+-Front Panel
 @28
 reg_ar_tb.nfparh
 @22

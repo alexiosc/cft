@@ -9,7 +9,7 @@
 //
 // buffer_138_tb.v -- 74x138 testbench
 //
-// Copyright © 2011-2019 Alexios Chouchoulas
+// Copyright © 2011–2019 Alexios Chouchoulas
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -41,8 +41,7 @@ module demux_138_tb();
 
    // Initialize all variables
    initial begin        
-      $monitor ("%d | %b %b %b %h > %b", 
-		$time, g1, ng2a, ng2b, a, y);
+      $monitor ("t=%7d | %b %b %b %h > %b", $time, g1, ng2a, ng2b, a, y);
 
       $dumpfile ("vcd/demux_138_tb.vcd");
       $dumpvars (0, demux_138_tb);
@@ -88,9 +87,12 @@ module demux_138_tb();
 	      6'b1_0_0_110: correct_y = 8'b10111111; // A=6
 	      6'b1_0_0_111: correct_y = 8'b01111111; // A=7
 	      default:
-		$sformat(msg, "g1=%b, ng2a=%b, ng2b=%a, a=%b but y=%b", g1, ng2a, ng2b, a, y);
+		$sformat(msg, "testbench bug, unmatched input g1=%b, ng2a=%b, ng2b=%a, a=%b", g1, ng2a, ng2b, a);
 	    endcase; // casex ({g1, ng2a, ng2b, a})
 
+	    if (y !== correct_y) begin
+	       $sformat(msg, "g1=%b, ng2a=%b, ng2b=%b, a=%b but y=%b (should be %b)", g1, ng2a, ng2b, a, y, correct_y);
+	    end
 	 end // if (g1 === 1 && ng2a === 0 && ng2b === 0)
 	 
    	 // Fail if we've logged an issue.

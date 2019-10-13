@@ -46,7 +46,7 @@ module reg_ir_tb();
    
    // Initialize all variables
    initial begin
-      $monitor ("%d | %b %b %h > %h | %b %b > %h", $time, nreset, nwrite_ir, ibus_real, ir, nfpirl, nfpirh, fpd);
+      $monitor ("t: %7d | %b %b %h > %h | %b %b > %h", $time, nreset, nwrite_ir, ibus_real, ir, nfpirl, nfpirh, fpd);
       $dumpfile ("vcd/reg_ir_tb.vcd");
       $dumpvars (0, reg_ir_tb);
 

@@ -125,6 +125,97 @@ module reg_ar_tb();
 		  .nfparh(nfparh),
 		  .fpd(fpd));
 
+   // Verify our findings.
+   reg [8191:0] msg;
+   integer 	ok, b;
+   
+   always @ (nmem, nio, posedge nwrite_ar) begin
+      #30 begin
+   	 msg[0] = "";		// Use the msg as a flag.
+
+	 // Address loading checks
+	 if (nwrite_ar === 0) begin
+	    $display("***");
+	    if ({aext, ibus} !== reg_ar.ar) begin
+	       $sformat(msg, "nwrite_ar=%b, aext=%x, ibus=%x, but ar=%x", nwrite_ar, aext, ibus, reg_ar.ar);
+	    end;
+	 end
+	 
+	 else if (nwrite_ar !== 1) $sformat(msg, "testbench bug, nwrite_ar=%b", nwrite_ar);
+
+	 // Address bus driver checks
+	 casex ({nmem, nio})
+	   // Address bus idle
+	   2'b11: begin
+	      if (ab !== 24'bzzzzzzzzzzzzzzzzzzzzzzzz) begin
+		 $sformat(msg, "nmem=%b, nio=%b, but AB is being driven with ab=%x", nmem, nio, ab);
+	      end
+	   end
+
+	   // Address bus driven during a memory or I/O transaction
+	   2'b10, 2'b01: begin
+	      if (ab !== reg_ar.ar) begin
+		 $sformat(msg, "nmem=%b, nio=%b, ar=%x, but ab=%x", nmem, nio, reg_ar.ar, ab);
+	      end
+	   end
+
+	   // Should never happen!
+	   2'b00: $sformat(msg, "nmem=%b and nio=%b should never happen!", nmem, nio);
+	   default: $sformat(msg, "testbench bug, nmem=%b, nio=%b", nmem, nio);
+	 endcase // casex ({nmem, nio})
+	 
+   	 // Fail if we've logged an issue.
+   	 if (msg[0]) begin
+   	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+   	    $error("assertion failure");
+   	    #100 $finish;
+   	 end
+      end
+   end // always @ (nmem, nio)
+   
+   always @ (nmem, nio, nsysdev, niodev1xx, niodev2xx, niodev3xx) begin
+      #30 begin
+   	 // I/O address decoder checks
+   	 casex ({nmem, nio, reg_ar.ar[15:8], nsysdev, niodev1xx, niodev2xx, niodev3xx})
+   	   30'b1_1_????????__1_1_1_1: ok=1; // No transaction
+   	   30'b0_?_????????__1_1_1_1: ok=1; // Memory accesses
+   	   30'b1_0_1???????__1_1_1_1: ok=1; // High I/O addr
+   	   30'b1_0_?1??????__1_1_1_1: ok=1; // High I/O addr
+   	   30'b1_0_??1?????__1_1_1_1: ok=1; // High I/O addr
+   	   30'b1_0_???1????__1_1_1_1: ok=1; // High I/O addr
+   	   30'b1_0_????1???__1_1_1_1: ok=1; // High I/O addr
+   	   30'b1_0_?????1??__1_1_1_1: ok=1; // High I/O addr
+
+   	   30'b1_0_00000000__0_1_1_1: ok=1; // I/O addr 000–0FF
+   	   30'b1_0_00000001__1_0_1_1: ok=1; // I/O addr 100–1FF
+   	   30'b1_0_00000010__1_1_0_1: ok=1; // I/O addr 200–2FF
+   	   30'b1_0_00000011__1_1_1_0: ok=1; // I/O addr 300–3FF
+
+   	   default: ok=0;
+   	 endcase // casex ({nmem, nio, ar[15:8], nsysdev, niodev1xx, niodev2xx, niodev3xx})
+	 
+   	 if (!ok) begin
+   	    $sformat(msg, "invalid I/O decoding: nmem=%b, nio=%b, ab=%x: nsysdev=%b, niodev1xx=%b, niodev2xx=%b, niodev3xx=%b",
+   		     nmem, nio, reg_ar.ar, nsysdev, niodev1xx, niodev2xx, niodev3xx);
+   	 end
+
+   	 // Front Panel checks
+   	 if (nfparh === 0) begin
+   	    if (fpd !== reg_ar.ar[23:16]) $sformat(msg, "nfparh=%b, ab=%x but fpd=%x", nfparh, reg_ar.ar, fpd);
+   	 end
+
+   	 else if (nfparh !== 1) $sformat(msg, "testbench bug, nfparh=%b", nfparh);
+	 
+   	 // Fail if we've logged an issue.
+   	 if (msg[0]) begin
+   	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+   	    $error("assertion failure");
+   	    #100 $finish;
+   	 end
+      end
+   end // always @ (nset, nrst)
+   
+
 endmodule // reg_ar_tb
 
 // End of file.
