@@ -95,6 +95,7 @@ module constant_store_tb();
 	    $error("assertion failure");
 	    #100 $finish;
 	 end
+	 else $display("OK constant");
       end
    end
 

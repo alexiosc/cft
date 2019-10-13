@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Wed Oct  9 15:47:42 2019
+[*] Sun Oct 13 11:24:21 2019
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/counter_193_tb.vcd"
-[dumpfile_mtime] "Wed Oct  9 15:47:38 2019"
+[dumpfile_mtime] "Sun Oct 13 11:24:08 2019"
 [dumpfile_size] 581999
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/counter_193_tb.sav"
-[timestart] 21000000
+[timestart] 2478200000
 [size] 1949 820
 [pos] 2015 162
-*-28.481342 2059680000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-22.481342 2059680000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] counter_193_tb.
 [sst_width] 258
 [signals_width] 309

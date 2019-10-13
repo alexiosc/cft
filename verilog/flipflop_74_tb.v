@@ -112,6 +112,7 @@ module flipflop_74_tb();
    	    $error("assertion failure");
    	    #100 $finish;
    	 end
+	 else $display("OK async");
       end
    end // always @ (nset, nrst)
 
@@ -132,6 +133,7 @@ module flipflop_74_tb();
    	    $error("assertion failure");
    	    #100 $finish;
    	 end
+	 else $display("OK sync");
       end
    end
 endmodule

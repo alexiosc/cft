@@ -69,10 +69,15 @@ module reg_major (reset, ibus, nread, nwrite, ninc, ndec, out,
    // Four '193 counters are used as registers. This lets us increment
    // and decrement on the cheap.
    wire [3:0] 	 nco, nbo;
-   counter_193 c0 (.clr(reset), .npl(nwrite), .p(ibus[3:0]),   .cpu(ninc),   .cpd(ndec),   .q(out[3:0]),   .ntcu(nco[0]), .ntcd(nbo[0]));
-   counter_193 c1 (.clr(reset), .npl(nwrite), .p(ibus[7:4]),   .cpu(nco[0]), .cpd(nbo[0]), .q(out[7:4]),   .ntcu(nco[1]), .ntcd(nbo[1]));
-   counter_193 c2 (.clr(reset), .npl(nwrite), .p(ibus[11:8]),  .cpu(nco[1]), .cpd(nbo[1]), .q(out[11:8]),  .ntcu(nco[2]), .ntcd(nbo[2]));
-   counter_193 c3 (.clr(reset), .npl(nwrite), .p(ibus[15:12]), .cpu(nco[2]), .cpd(nbo[2]), .q(out[15:12]), .ntcu(nco[3]), .ntcd(nbo[3]));
+
+   // The approximate maximum delay at 25°C, 5V is 43 ns, but this
+   // plays havoc with some of our testbenches. The typical delay is
+   // 18ns, but we'll make it 36ns just in case.
+
+   counter_193 #24 c0 (.clr(reset), .npl(nwrite), .p(ibus[3:0]),   .cpu(ninc),   .cpd(ndec),   .q(out[3:0]),   .ntcu(nco[0]), .ntcd(nbo[0]));
+   counter_193 #24 c1 (.clr(reset), .npl(nwrite), .p(ibus[7:4]),   .cpu(nco[0]), .cpd(nbo[0]), .q(out[7:4]),   .ntcu(nco[1]), .ntcd(nbo[1]));
+   counter_193 #24 c2 (.clr(reset), .npl(nwrite), .p(ibus[11:8]),  .cpu(nco[1]), .cpd(nbo[1]), .q(out[11:8]),  .ntcu(nco[2]), .ntcd(nbo[2]));
+   counter_193 #24 c3 (.clr(reset), .npl(nwrite), .p(ibus[15:12]), .cpu(nco[2]), .cpd(nbo[2]), .q(out[15:12]), .ntcu(nco[3]), .ntcd(nbo[3]));
 
    // The counters can't tri-state their outputs, so we add a couple of buffers.
    buffer_541 b0 (.a(out[7:0]),  .y(ibus[7:0]),  .noe1(nread), .noe2(1'b0));

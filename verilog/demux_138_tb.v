@@ -101,6 +101,7 @@ module demux_138_tb();
    	    $error("assertion failure");
    	    #100 $finish;
    	 end
+	 else $display("OK demux");
       end
    end // always @ (nset, nrst)e
 

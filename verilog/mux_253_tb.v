@@ -109,6 +109,7 @@ module mux_253_tb();
    	    $error("assertion failure");
    	    #100 $finish;
    	 end
+	 else $display("OK mux");
       end
    end
    

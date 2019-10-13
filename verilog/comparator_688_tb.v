@@ -84,6 +84,7 @@ module comparator_688_tb();
 	    $error("assertion failure");
 	    #100 $finish;
 	 end
+	 else $display("OK comparator");
       end
    end
 endmodule

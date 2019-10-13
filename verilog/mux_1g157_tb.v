@@ -98,6 +98,7 @@ module mux_1g157_tb();
 	    $error("assertion failure");
 	    #100 $finish;
 	 end
+	 else $display("OK mux");
       end
    end
    

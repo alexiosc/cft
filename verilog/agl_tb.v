@@ -103,6 +103,7 @@ module agl_tb();
 	    $error("assertion failure");
 	    #100 $finish;
 	 end
+	 else $display("OK agl");
       end
    end // always @ (nread_agl, ir, pc)
 

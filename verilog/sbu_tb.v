@@ -241,6 +241,7 @@ module sbu_tb();
 	    $error("assertion failure");
 	    #100 $finish;
 	 end
+	 else $display("OK SBU");
       end // always @ (posedge clk4)
    end // always @ (posedge clk4)
 

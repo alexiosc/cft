@@ -135,7 +135,6 @@ module reg_ar_tb();
 
 	 // Address loading checks
 	 if (nwrite_ar === 0) begin
-	    $display("***");
 	    if ({aext, ibus} !== reg_ar.ar) begin
 	       $sformat(msg, "nwrite_ar=%b, aext=%x, ibus=%x, but ar=%x", nwrite_ar, aext, ibus, reg_ar.ar);
 	    end;
@@ -170,6 +169,7 @@ module reg_ar_tb();
    	    $error("assertion failure");
    	    #100 $finish;
    	 end
+	 else $display("OK drive");
       end
    end // always @ (nmem, nio)
    
@@ -212,6 +212,7 @@ module reg_ar_tb();
    	    $error("assertion failure");
    	    #100 $finish;
    	 end
+	 else $display("OK decoder/fp");
       end
    end // always @ (nset, nrst)
    

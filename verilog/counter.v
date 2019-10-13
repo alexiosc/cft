@@ -71,7 +71,6 @@ endmodule // counter_161
 ///////////////////////////////////////////////////////////////////////////////
 
 module counter_193 (clr, npl, p, cpu, cpd, q, ntcu, ntcd);
-
    parameter delay = 43;	// approxmate maximum delay at 25°C, 5V.
    
    input        clr;		// Clear outputs (active high, on rising edge)

@@ -130,6 +130,7 @@ module clock_tb();
 	    $error("assertion failure");
 	    #100 $finish;
 	 end
+	 else $display("OK clock");
       end
    end
 endmodule // clock_tb

@@ -443,7 +443,7 @@ test_reg_ar:	reg_ar_tb.o reg_ar.o flipflop.o buffer.o comparator.o demux.o
 		$(GTKWAVE) $(VCDDIR)/reg_ar_tb.vcd $(SAVDIR)/reg_ar_tb.sav
 
 test_reg_major:	reg_major_tb.o reg_major.o counter.o buffer.o comparator.o
-		./reg_major_tb.o >reg_major_tb.log
+		./reg_major_tb.o # >reg_major_tb.log
 		$(GTKWAVE) $(VCDDIR)/reg_major_tb.vcd $(SAVDIR)/reg_major_tb.sav
 
 test_reg_l:	reg_l_tb.o reg_l.o flipflop.o mux.o

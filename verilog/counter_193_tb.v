@@ -148,6 +148,7 @@ module counter_193_tb();
    	    $error("assertion failure");
    	    #100 $finish;
    	 end
+	 else $display("OK count");
       end
    end
    

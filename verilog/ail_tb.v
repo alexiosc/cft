@@ -83,6 +83,7 @@ module ail_tb();
 	    $error("assertion failure");
 	    #100 $finish;
 	 end
+	 else $display("OK ail");
       end
    end // always @ (nread_agl, ir, pc)
 

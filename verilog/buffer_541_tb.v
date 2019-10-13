@@ -87,6 +87,7 @@ module buffer_541_tb();
 	    $error("assertion failure");
 	    #100 $finish;
 	 end
+	 else $display("OK buffer");
       end
    end
 endmodule // buffer_541_tb

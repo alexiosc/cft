@@ -85,6 +85,7 @@ module flipflop_574_tb();
    	    $error("assertion failure");
    	    #100 $finish;
    	 end
+	 else $display("OK output");
       end
    end // always @ (noe, posedge clk)
 
@@ -94,6 +95,14 @@ module flipflop_574_tb();
 	 lastq = d;
 	 if (noe !== 0 && d !== q) $sformat(msg, "noe=%b, d=%b, but q=%b", noe, d, q);
       end
+	 
+      // Fail if we've logged an issue.
+      if (msg[0]) begin
+   	 $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+   	 $error("assertion failure");
+   	 #100 $finish;
+      end
+      else $display("OK load");
    end
 
 endmodule
