@@ -273,22 +273,38 @@ module reg_mbr (nreset, waddr, raddr, ir,
    // before the MBRx registers are configured.
 
    // Asserting nreset asynchronously sets a '74 flip flop. The non-inverted
-   // output of the is connected to the gate of the '139 read decoder. When the
-   // FF sets, the Q output goes high, the '139 is disabled, and the outputs of
-   // all four '670 registers are tri-stated. All 8 AEXT lines are pulled low
-   // so AEXT resets to 0. This represents the first RAM bank.
+   // output (nq) of the FF is connected to the gate of the '139 read
+   // decoder. When the FF sets, the Q output goes high, the '139 is disabled,
+   // and the outputs of all four '670 registers are tri-stated. All 8 AEXT
+   // lines are pulled low so AEXT resets to 0. This represents the first RAM
+   // bank.
    //
    // If the front panel RAM/ROM switch is set to RAM (low), we need to map to
-   // ROM instead. To do this, the *inverted* output from the reset FF above
-   // drives the gate of a single '125 buffer, whose input is the FPRAM#/FPROM
-   // signal. This then drives AEXT₇. When FPROM is selected (1), AEXT becomes
-   // 128 decimal, which should map to the first ROM bank.
+   // ROM instead. To do this, the *non-inverted* (q) output from the reset FF
+   // above drives the gate of a single '125 buffer, whose input is the
+   // FPRAM#/FPROM signal. This then drives AEXT₇. When FPROM is selected (1),
+   // AEXT becomes 128 decimal, which maps to the first ROM bank.
    //
    // Finally: when BANKW0# signal is asserted (during the execution of an SMB
    // instruction), the reset FF clears. The '139 gate goes low, enabling the
    // '670 chip select lines, which then start driving AEXT. The inverted line
-   // goes high, and the '125 is tri-stated. This read too complex, but is in
-   // fact quite simple:
+   // goes high, and the '125 is tri-stated.
+   //
+   // The implication here is that to enable the memory banking unit, one of
+   // the first four bank registers must be written to. When the first one is
+   // written to, whatever value the '670 register files have reset to will be
+   // used, so all registers must be set to sane values. Early in the ROM
+   // initialisation, we'd probably expect to see something like:
+   //
+   // boot:   LI &80
+   //         SMB MBP  ; Set Program bank to first ROM bank
+   //         LI &00
+   //         SMB MBD  ; Set Data bank to first RAM bank
+   //         SMB MBZ  ; ... and Zero Page bank
+   //         LI &01
+   //         SMB MBS  ; Set stack bank
+   //
+   // Otherwise, no jumps or memory accesses will work as expected. Setting MB0 to 
 
    wire 	n139g, n125g;
    flipflop_74h resetff (.d(1'b1), .clk(1'b1), .nset(nreset), .nrst(nbankw0),
@@ -297,13 +313,12 @@ module reg_mbr (nreset, waddr, raddr, ir,
    
 
    // Decode addressing modes. Decide if the register to use will be derived
-   // from (zero padded) WADDR[1:0] or IR[2:0]. Usually, it's IR[0:0]. WADDR is
-   // use if WADDR is 001XX (write-ar-mbp, write-ar-mbs, write-ar-mbd or
-   // write-ar-mbz). One exception: if write-ar-mbz is selected (WADDR=00111)
-   // and I=1 and R=1 and OP=11xxxxxxxx (i.e. IR[11:8]=1111), the register is
-   // derived from IR[2:0].
+   // from WADDR[1:0] (zero-padded to 3 bits) or IR[2:0]. Usually, it's
+   // IR[2:0]. WADDR is used if WADDR is 001xx (write-ar-mb{p,s,d,z}). One
+   // exception: if write-ar-mbz is selected (WADDR=00111) and I=1 and R=1 and
+   // OP=11xxxxxxxx (i.e. IR[11:8]=1111), the register is derived from IR[2:0].
 
-   // The timings are VERY pessimistic. Typical 74LVC1g propagation delay will
+   // The timings are VERY pessimistic. Typical 74LVC1G propagation delay will
    // be in the order of 1.5ns.
    assign #6 and1 = waddr[0] & waddr[1] & ir[8];
    assign #6 and2 = ir[9] & ir[10] & ir[11];

@@ -454,6 +454,10 @@ test_reg_v:	reg_v_tb.o reg_v.o flipflop.o mux.o
 		./reg_v_tb.o
 		$(GTKWAVE) $(VCDDIR)/reg_v_tb.vcd $(SAVDIR)/reg_v_tb.sav
 
+test_reg_mbr:	reg_mbr_tb.o reg_mbr.o flipflop.o mux.o
+		./reg_mbr_tb.o
+		$(GTKWAVE) $(VCDDIR)/reg_mbr_tb.vcd $(SAVDIR)/reg_mbr_tb.sav
+
 test_serial_shifter:	serial_shifter_tb.o serial_shifter.o
 		./serial_shifter_tb.o
 		$(GTKWAVE) $(VCDDIR)/serial_shifter_tb.vcd $(SAVDIR)/serial_shifter_tb.sav
