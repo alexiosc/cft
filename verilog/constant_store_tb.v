@@ -78,10 +78,10 @@ module constant_store_tb();
 	 else if (nruen === 0) begin
 	    correct_value = 16'bzzzzzzzzzzzzzzzz;
 	    casex (raddr)
-	      5'b11000: correct_value = 16'd0;
-	      5'b11001: correct_value = 16'd1;
-	      5'b11010: correct_value = 16'd2;
-	      5'b11011: correct_value = 16'd3;
+	      5'b00100: correct_value = 16'd0;
+	      5'b00101: correct_value = 16'd1;
+	      5'b00110: correct_value = 16'd2;
+	      5'b00111: correct_value = 16'd3;
 	    endcase // case raddr
 
 	    if (ibus !== correct_value) $sformat(msg, "raddr=%b, ibus=%b (should be %b)", nruen, ibus, correct_value);
