@@ -928,8 +928,6 @@ Text Label 7400 2500 2    50   ~ 0
 IR5
 Text Label 7400 2600 2    50   ~ 0
 IR6
-Text Notes 7900 4900 1    50   ~ 10
-TODO: Rearrange these?
 Text Notes 9300 1900 0    50   ~ 0
 Before the MUX: high is true (skip).\nAfter the MUX:   low is true (skip).
 $Comp
@@ -1169,8 +1167,6 @@ Wire Wire Line
 Connection ~ 2400 2300
 Wire Wire Line
 	2400 2300 2200 2300
-Text Notes 3450 2200 2    50   ~ 0
-Conditions reserved for future expansion.
 Text HLabel 2200 2300 0    50   Input ~ 0
 CEXT1
 Text HLabel 2200 2400 0    50   Input ~ 0
@@ -1383,4 +1379,6 @@ Wire Bus Line
 	1600 1600 1600 5250
 Wire Bus Line
 	6100 1900 6100 5200
+Text Notes 1900 2050 0    50   ~ 0
+CEXT₁–CEXT₃ are here for future expansion.\nIt'd be a pity to waste three whole conditional sources!
 $EndSCHEMATC

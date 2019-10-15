@@ -136,50 +136,55 @@ cond uaddr:4;
 
 // IBUS address map:
 //
-// Address   Read from   Write to     Notes
+// Addr      Read from   Write to     Notes
 // -------------------------------------------------------------------------------
 // 00000     Idle        Idle         Needed to disable reading/writing
-// -------------------------------------------------------------------------------
-// 00001     MBP + flags MBP + flags  This is used in interrupt handlers for speed.
-// 00010     flags                    Just the flags.
-// 00011     MBn         MBn          IR[0..2] selects the register to read/write
-// 00100                 AR:MBP       Write to the Address Register, use Program MBR.
-// 00101                 AR:MBD       Write to the AR, use Data MBR.
-// 00110                 AR:MBS       Write to the AR, use Stack MBR.
-// 00111                 AR:MBZ       Write to the AR, use Zero Page MBR/addressing.
+// 00001
+// 00010     AGL         IR           Read AGL; write IR.
+// 00011
+// 00100     CS0         MBP:AR       Read &0000; write <MB0,IBUS> to AR
+// 00101     CS1         MBD:AR       Read &0001; write <MB1,IBUS> to AR
+// 00110     CS2         MBS:AR       Read &0002; write <MB2,IBUS> to AR
+// 00111     CS3         MBZ:AR       Read &0003; write <MB3,IBUS> to AR
 // -------------------------------------------------------------------------------
 // 01000     PC          PC
 // 01001     DR          DR
 // 01010     AC          AC
 // 01011     SP          SP           The CFT is a big boy now, it has a Stack Pointer!
+// 01100     MBP         MBP          
+// 01101     MBP+flags   MBP+flags    Pushed onto stack as a single 16-bit velue (for speed)
+// 01110     flags       flags        Pushed onto stack as a single 16-bit velue (for speed)
+// 01111     MBn         MBn          Loads/Stores MBn registers. IR[2:0] selects register.
 // -------------------------------------------------------------------------------
-// 11100
-// 11101
-// 11110
-// 11111
+// 10000     ALU:ADD     (ALU:B)      Read ADD result; write ALU B port (due to partial decoding)
+// 10001     ALU:AND     (ALU:B)      Read AND result; write ALU B port (partial decoding)
+// 10010     ALU:OR      (ALU:B)      Read OR result; write ALU B port (partial decoding)
+// 10011     ALU:XOR     (ALU:B)      Read XOR result; write ALU B port (partial decoding)
+// 10100     ALU:NOT     (ALU:B)      Read NOT result; write ALU B port (partial decoding)
+// 10101                              Reserved for ALU.
+// 10110                              Reserved for ALU.
+// 10111     ALU:B       ALU:B        Currently only used by the SRU.
 // -------------------------------------------------------------------------------
-// 10000     ALU:ADD
-// 10001     ALU:AND
-// 10010     ALU:OR
-// 10011     ALU:XOR
-// 10100     ALU:NOT
-// 10101     ALU:B       ALU:B        The ALU B port is treated as a major reg without increments.
-// 10110
-// 10111
+// 11000                              
+// 11001                              
+// 11010                              
+// 11011                              
+// 11100                              
+// 11101                              
+// 11110                              
+// 11111                              
 // -------------------------------------------------------------------------------
-// 11000     CS0                      Read from constant store (0000)
-// 11001     CS1                      Read from constant store (0001)
-// 11010     CS2                      Read from constant store (0002)
-// 11011     CS3                      Read from constant store (0003)
-// -------------------------------------------------------------------------------
-// 11100
-// 11101
-// 11110     AGL                      The AGL is read-only
-// 11111                 IR           The IR is write-only
 
 // RADDR FIELD
 field  READ            = ___________________XXXXX; // Read unit field
+//signal read_idle     = ...................00000; // No read
+//signal               = ...................00001; // (Available)
 signal read_agl        = ...................00010; // Read from address generation logic
+//signal               = ...................00011; // (Available)
+signal read_cs_rstvec  = ...................00100; // Constant Store: Reset Vector (0000)
+signal read_cs_rsvd1   = ...................00101; // Constant Store: Unused (0001)
+signal read_cs_isrvec0 = ...................00110; // Constant Store: ISR Vector (0002)
+signal read_cs_isrvec1 = ...................00111; // Constant Store: ISR Vector (0003)
 signal read_pc         = ...................01000; // Read from PC
 signal read_dr         = ...................01001; // Read from DR
 signal read_ac         = ...................01010; // Read from AC
@@ -193,21 +198,24 @@ signal read_alu_and    = ...................10001; // ALU: Read from ALU: AC AND
 signal read_alu_or     = ...................10010; // ALU: Read from ALU: AC OR B
 signal read_alu_xor    = ...................10011; // ALU: Read from ALU: AC XOR B
 signal read_alu_not    = ...................10100; // ALU: Read from ALU: NOT AC
-signal read_alu_b      = ...................10101; // ALU: Read B register from ALU
-signal read_cs_rstvec  = ...................11000; // Constant Store: Reset Vector (0000)
-signal read_cs_rsvd1   = ...................11001; // Constant Store: Unused (0001)
-signal read_cs_isrvec0 = ...................11010; // Constant Store: ISR Vector (0002)
-signal read_cs_isrvec1 = ...................11011; // Constant Store: ISR Vector (0003)
-// No longer used, there's a dedicated 1b6-bit stack pointer now.
-//signal read_cs_sp      = ...................11001; // Constant Store: Stack Pointer
+//signal               = ...................10101; // (Available)
+//signal               = ...................10110; // (Available)
+signal read_alu_b      = ...................10111; // Read the ALU B Port (SRU result)
+//signal               = ...................11000; // (Available)
+//signal               = ...................11001; // (Available)
+//signal               = ...................11010; // (Available)
+//signal               = ...................11011; // (Available)
+//signal               = ...................11100; // (Available)
+//signal               = ...................11101; // (Available)
+//signal               = ...................11110; // (Available)
+//signal               = ...................11111; // (Available)
 
 // WADDR FIELD
-
-// TODO: FIX THESE ADDRESSES ACCORDING TO THE COMMENTS ABOVE!!!
-
-
 field  WRITE           = ______________XXXXX_____; // Write unit field
+//signal write_idle    = ..............00000.....; // No write
+//signal               = ..............00001.....; // (Available)
 signal write_ir        = ..............00010.....; // Write to the Instruction Register
+//signal               = ..............00011.....; // (Available)
 signal write_ar_mbp    = ..............00100.....; // Write MBP:AR (program area, extend with MBP)
 signal write_ar_mbd    = ..............00101.....; // Write MBD:AR (data area, extend with MBD)
 signal write_ar_mbs    = ..............00110.....; // Write MBS:AR (stack area, extend with MBS)
@@ -216,11 +224,26 @@ signal write_pc        = ..............01000.....; // Write to PC
 signal write_dr        = ..............01001.....; // Write to DR
 signal write_ac        = ..............01010.....; // Write to AC
 signal write_sp        = ..............01011.....; // Write to AC
-signal write_alu_b     = ..............10101.....; // Write to ALU's B Port
 signal write_mbp       = ..............01100.....; // Write MBP
 signal write_mbp_flags = ..............01101.....; // Read combination MBP+flags
 signal write_flags     = ..............01110.....; // Write flags (not all are written!)
 signal write_mbn       = ..............01111.....; // Write an MBn register (IR0..2 select reg)
+signal write_alu_b     = ..............10000.....; // Write to ALU's B Port
+//signal               = ..............10001.....; // (Reserved for the ALU)
+//signal               = ..............10010.....; // (Reserved for the ALU)
+//signal               = ..............10011.....; // (Reserved for the ALU)
+//signal               = ..............10100.....; // (Reserved for the ALU)
+//signal               = ..............10101.....; // (Reserved for the ALU)
+//signal               = ..............10110.....; // (Reserved for the ALU)
+//signal               = ..............10111.....; // (Reserved for the ALU)
+//signal               = ..............11000.....; // (Available)
+//signal               = ..............11001.....; // (Available)
+//signal               = ..............11010.....; // (Available)
+//signal               = ..............11011.....; // (Available)
+//signal               = ..............11100.....; // (Available)
+//signal               = ..............11101.....; // (Available)
+//signal               = ..............11110.....; // (Available)
+//signal               = ..............11111.....; // (Available)
 
 // COND FIELD (UNDER REDESIGN)
 // TODO: Rearrange the upper eight ones?
@@ -233,14 +256,15 @@ signal if_ir3          = .........00100..........; // COND low (true) if IR[3] s
 signal if_ir4          = .........00101..........; // COND low (true) if IR[4] set
 signal if_ir5          = .........00110..........; // COND low (true) if IR[5] set
 signal if_ir6          = .........00111..........; // COND low (true) if IR[6] set (currently unused)
-signal if_cext8        = .........01000..........; // Not used
-signal if_cext9        = .........01001..........; // Not used
-signal if_cext10       = .........01010..........; // Not used
+//signal if_cext1      = .........01000..........; // CEXT1 (reserved for expansion)
+//signal if_cext2      = .........01001..........; // CEXT2 (reserved for expansion)
+//signal if_cext3      = .........01010..........; // CEXT3 (reserved for expansion)
 signal if_v            = .........01011..........; // COND low if V set
 signal if_l            = .........01100..........; // COND low if L set
 signal if_z            = .........01101..........; // COND low if Z set
 signal if_n            = .........01110..........; // COND low if N set (currently unused)
 signal if_branch       = .........01111..........; // SKP instruction logic
+// signal              = .........1xxxx..........; // (available)
 
 // ACTION FIELD (UNDER REDESIGN)
 //                      76543210FEDCBA9876543210
