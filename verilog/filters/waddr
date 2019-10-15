@@ -10,10 +10,10 @@
 01001 dr
 01010 ac
 01011 sp
-01100 mbp
-01101 mbp+flags
-01110 flags
-01111 mbn
+01100 ?blue4?mbp
+01101 ?blue4?mbp+flags
+01110 ?blue4?flags
+01111 ?blue4?mbn
 10000 ?orange4?(alu_b)
 10001 ?orange4?(alu_b)
 10010 ?orange4?(alu_b)

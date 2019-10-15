@@ -25,10 +25,10 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-module regfile_670 (d, re, we, ra, wa, q);
+module regfile_670 (d, nre, nwe, ra, wa, q);
    input [3:0] d;
-   input       we;
-   input       re;
+   input       nwe;
+   input       nre;
    input [1:0] ra;
    input [1:0] wa;
    
@@ -40,11 +40,11 @@ module regfile_670 (d, re, we, ra, wa, q);
       // $display("BOM: 74x670");
    end
 
-   always @(we, d) begin
-      if (we == 1'b0) #21 q0[wa] = d;
+   always @(nwe, d) begin
+      if (nwe == 1'b0) #21 q0[wa] = d;
    end
 
-   assign #17 q = (re == 1'b0) ? q0[ra] : 4'bzzzz;
+   assign #17 q = (nre == 1'b0) ? q0[ra] : 4'bzzzz;
    
 endmodule // regfile_jk
 

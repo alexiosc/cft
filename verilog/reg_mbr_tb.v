@@ -19,12 +19,14 @@ module reg_mbr_tb();
    wire [7:0] aext;
    
    integer    i, j, k;
+
+   reg [800:0] status;
    
    initial begin        
       $dumpfile ("vcd/reg_mbr_tb.vcd");
       $dumpvars (0, reg_mbr_tb);
 
-      $monitor ("%g\t %b %b %b %b %b", $time, waddr, raddr, ir[11:0] , ibus[7:0], reg_mbr.sel);
+      $monitor ("t: %7d | %b %b %b %b > %b", $time, waddr, raddr, ir[11:0] , ibus[7:0], reg_mbr.sel);
 
       nreset = 0;
       nfpram_fprom = 0;		// RAM
@@ -33,6 +35,8 @@ module reg_mbr_tb();
       waddr = 4'b0000;
       raddr = 4'b0000;
 
+      status = "reset";
+
       #250 nreset = 1;
 
       #1000 nfpram_fprom = 0;
@@ -40,18 +44,23 @@ module reg_mbr_tb();
       #1000 nfpram_fprom = 0;
 
       // First, let's configure the MBn registers.
+      status = "writing";
       raddr = 4'b0000;
       for (i = 0; i < 8 ; i = i + 1) begin
-	 #50 ibus = ((i ^ 15) << 4) | i; // test data on ibus
-	 ir = 16'd0 | i;	       // address on IR
-	 #50 waddr = 5'b01111;	       // write_mbn
-	 #200 waddr = 5'b00000;	       // idle again
-	 #50 ibus = 8'bzzzzzzzz; // test data on ibus
+	 #1000
+
+	 for (j = 0; j < 256; j = j + 1) begin
+	    #62.5 ibus = j;
+	    ir = i;
+	    #62.5 waddr = 5'b01111;
+	    #62.5 waddr = 5'b00000;
+	    #62.5 ibus = 8'bzzzzzzzz;
+	 end
       end
-      ibus = 8'bzzzzzzzz;
       #1000;
 
       // Then, let's read them back.
+      status = "reading";
       #1000 waddr = 4'b0000;
       for (i = 0; i < 8 ; i = i + 1) begin
 	 ibus = 8'bzzzzzzzz;

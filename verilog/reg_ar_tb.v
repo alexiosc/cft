@@ -49,6 +49,7 @@ module reg_ar_tb();
    wire 	niodev3xx;
    
    integer    i;
+   reg [800:0] status;
    
    // Initialize all variables
    initial begin
@@ -59,6 +60,8 @@ module reg_ar_tb();
       $dumpfile ("vcd/reg_ar_tb.vcd");
       $dumpvars (0, reg_ar_tb);
 
+
+      status = "reset";
       aext = 8'd0;
       ibus = 16'h0000;
       nwrite_ar = 1;
@@ -71,6 +74,7 @@ module reg_ar_tb();
       // First, test I/O transactions because they're easier. We only
       // have 1,024 I/O addresses, but test up to 2,048. NOTE: there's
       // a '138 glitch that causes a spurious nsysdev strobe 
+      status = "I/O space";
       for (i = 0; i < 2048; i = i + 37) begin
 	 #62.5 ibus = i[15:0];
 	 aext = 8'd0;
@@ -84,6 +88,7 @@ module reg_ar_tb();
       
       // Now to some of the memory. We'll just do 256K in big
       // increments. Should be enough!
+      status = "memory";
       for (i = 0; i < 262144; i = i + 3169) begin
 	 #62.5 ibus = i[15:0];
 	 aext = i[23:16];
