@@ -1,17 +1,17 @@
 [*]
-[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Tue Oct 15 18:08:36 2019
+[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
+[*] Thu Oct 17 16:44:31 2019
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/regfile_670_tb.vcd"
-[dumpfile_mtime] "Tue Oct 15 18:08:32 2019"
-[dumpfile_size] 2058
+[dumpfile_mtime] "Thu Oct 17 16:44:07 2019"
+[dumpfile_size] 211054
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/regfile_670_tb.sav"
 [timestart] 0
-[size] 1882 874
+[size] 1920 1019
 [pos] 3005 398
-*-21.055407 580000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-26.055407 100075000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] regfile_670_tb.
-[sst_width] 226
+[sst_width] 258
 [signals_width] 207
 [sst_expanded] 1
 [sst_vpaned_height] 237
@@ -29,6 +29,12 @@ regfile_670_tb.regfile.wa[1:0]
 @28
 [color] 3
 regfile_670_tb.nwe
+@22
+regfile_670_tb.q0_0[3:0]
+regfile_670_tb.q0_1[3:0]
+regfile_670_tb.q0_2[3:0]
+@23
+regfile_670_tb.q0_3[3:0]
 @200
 -
 -Reading
@@ -38,7 +44,7 @@ regfile_670_tb.regfile.ra[1:0]
 @28
 [color] 5
 regfile_670_tb.nre
-@23
+@22
 [color] 6
 regfile_670_tb.regfile.q[3:0]
 [pattern_trace] 1

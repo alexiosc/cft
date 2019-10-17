@@ -43,10 +43,24 @@ module regfile_670_tb();
    
    reg [800:0] status;
    integer     i, j;
+
+   // Use wires to associate with the regfiles's internal registers
+   // because GTKWave can't handle arrays.
+   wire [3:0]  q0_0, q0_1, q0_2, q0_3;
+
+   assign q0_0 = regfile.q0[0];
+   assign q0_1 = regfile.q0[1];
+   assign q0_2 = regfile.q0[2];
+   assign q0_3 = regfile.q0[3];
+   
    
    // Initialize all variables
    initial begin        
-      $monitor ("t: %7d | %b %b %b | %b %b %b (%b %b %b %b)", $time, d, wa, nwe,   ra, nre, q, lastd[0], lastd[1], lastd[2], lastd[3]);
+      $monitor ("t: %7d | %b %b %b | %b %b %b q0=(%b %b %b %b)", $time, d, wa, nwe,   ra, nre, q,
+		q0_0, 
+		q0_1, 
+		q0_2, 
+		q0_3);
       $dumpfile ("vcd/regfile_670_tb.vcd");
       $dumpvars (0, regfile_670_tb);
 
@@ -98,25 +112,20 @@ module regfile_670_tb();
 
    // Verify our findings.
    reg [8191:0] msg;
-   reg [3:0] 	lastd[0:3];	// An array of 4-bit values
 
    // Verify writing. We'll peer into the '670 to do this properly.
-   always @ (posedge nwe, d) begin
+   always @ (nwe, d) begin
       #30 begin
 	 msg[0] = "";		// Use the msg as a flag.
 
-	 // posedge!
-	 if (nwe === 1'b1) begin
-	    // Store the value for future reference.
-	    $display("*** wa=%b, d=%b, lastd[wa]=%b", wa, d, lastd[wa]);
-	    
-	    lastd[wa] = d;
-	    
+	 if (nwe === 1'b0) begin
 	    // Check the 670's guts.
-	    if (regfile.q0[wa] !== d) $sformat(msg, "nwe=%b, wa=%b, d=%b, but regfile.q0[wa]=%b", nwe, wa, d, regfile.q0[wa]);
+	    if (regfile.q0[wa] !== d) begin
+	       $sformat(msg, "nwe=%b, wa=%b, d=%b, but regfile.q0[wa]=%b", nwe, wa, d, regfile.q0[wa]);
+	    end
 	 end
 
-	 else if (nwe !== 1'b0) $sformat(msg, "testbench bug, new=%b", nwe);
+	 else if (nwe !== 1'b1) $sformat(msg, "testbench bug, new=%b", nwe);
 
 	 // Fail if we've logged an issue.
 	 if (msg[0]) begin
