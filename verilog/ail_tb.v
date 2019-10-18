@@ -63,22 +63,22 @@ module ail_tb();
    reg [1:0] 	correct_idx;
    always @ (ir) begin
       #30 begin
-	 msg[0] = "";		// Use the msg as a flag.
+	 msg[7:0] = "";		// Use the msg as a flag.
 
 	 casex (ir)
-	   16'xxxx_0_x_xxxxxxxxxx: correct_idx = 2'b00;
-	   16'xxxx_x_0_xxxxxxxxxx: correct_idx = 2'b00;
-	   16'xxxx_1_1_00xxxxxxxx: correct_idx = 2'b00;
-	   16'xxxx_1_1_01xxxxxxxx: correct_idx = 2'b01;
-	   16'xxxx_1_1_10xxxxxxxx: correct_idx = 2'b10;
-	   16'xxxx_1_1_11xxxxxxxx: correct_idx = 2'b11;
+	   16'b????_0_?_??????????: correct_idx = 2'b00;
+	   16'b????_x_0_??????????: correct_idx = 2'b00;
+	   16'b????_1_1_00????????: correct_idx = 2'b00;
+	   16'b????_1_1_01????????: correct_idx = 2'b01;
+	   16'b????_1_1_10????????: correct_idx = 2'b10;
+	   16'b????_1_1_11????????: correct_idx = 2'b11;
 	 endcase // casex (ir)
 
 	 if (idx !== correct_idx) $sformat(msg, "ir=%b:%b:%b:%b but idx=%b (should be %b)",
 					 ir[15:12], ir[11], ir[10], ir[9:8], idx, correct_idx);
 
 	 // Fail if we've logged an issue.
-	 if (msg[0]) begin
+	 if (msg[7:0]) begin
 	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
 	    $error("assertion failure");
 	    #100 $finish;
@@ -86,9 +86,5 @@ module ail_tb();
 	 else $display("OK ail");
       end
    end // always @ (nread_agl, ir, pc)
-
-   always @(posedge nend) begin
-      if (nend === 1) lastpc = pc;
-   end
 
 endmodule

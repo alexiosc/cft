@@ -176,7 +176,7 @@ module sbu_tb();
    always @(posedge clk4) begin
       // Allow for propagation delay
       #30 begin
-	 msg[0] = "";		// Clear the msg and use it as a flag.
+	 msg[7:0] = "";		// Clear the msg and use it as a flag.
 
 	 // nskipext overrides all the logic here.
 	 if (nskipext === 0) begin
@@ -236,7 +236,7 @@ module sbu_tb();
 	 end // else: !if(nskipext == 0)
 
 	 // Fail if we've logged an issue.
-	 if (msg[0]) begin
+	 if (msg[7:0]) begin
 	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
 	    $error("assertion failure");
 	    #100 $finish;

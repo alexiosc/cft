@@ -115,7 +115,7 @@ module reg_v_tb();
    reg [8191:0] msg;
    always @ (nreset, posedge clk4, ibus13, nflagwe, fvin_add, nread_alu_add, fv) begin
       #30 begin
-	 msg[0] = "";		// Use the msg as a flag.
+	 msg[7:0] = "";		// Use the msg as a flag.
 
 	 // FV should clear to zero on reset.
 	 if (nreset === 0) begin
@@ -129,7 +129,7 @@ module reg_v_tb();
 	    if (fv !== ibus13) $sformat(msg, "nflagwe=%b, ibus13=%b but fv=%b (should be same as ibus13)", nflagwe, ibus13, fv);
 	 end
 	 // Fail if we've logged an issue.
-	 if (msg[0]) begin
+	 if (msg[7:0]) begin
 	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
 	    $error("assertion failure");
 	    #1000 $finish;

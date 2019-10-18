@@ -1,41 +1,56 @@
 [*]
-[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Tue Oct 15 17:11:52 2019
+[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
+[*] Thu Oct 17 18:14:03 2019
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/reg_mbr_tb.vcd"
-[dumpfile_mtime] "Tue Oct 15 17:06:49 2019"
-[dumpfile_size] 1081020
+[dumpfile_mtime] "Thu Oct 17 18:14:01 2019"
+[dumpfile_size] 2024919
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/reg_mbr_tb.sav"
-[timestart] 301530000
-[size] 1920 1019
-[pos] 2101 27
-*-17.827108 303187500 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[timestart] 46293000
+[size] 1440 755
+[pos] 2492 27
+*-16.758411 46427100 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] reg_mbr_tb.
 [treeopen] reg_mbr_tb.reg_mbr.
 [sst_width] 258
 [signals_width] 235
 [sst_expanded] 1
-[sst_vpaned_height] 296
-@820
+[sst_vpaned_height] 200
+@821
 reg_mbr_tb.status[800:0]
-@c02028
-^1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/waddr
+@200
+-
+@29
+reg_mbr_tb.nreset
+@2029
+^1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/raddr
+reg_mbr_tb.raddr[4:0]
+@c02029
+^2 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/waddr
 reg_mbr_tb.waddr[4:0]
-@28
+@29
 (0)reg_mbr_tb.waddr[4:0]
 (1)reg_mbr_tb.waddr[4:0]
 (2)reg_mbr_tb.waddr[4:0]
 (3)reg_mbr_tb.waddr[4:0]
 (4)reg_mbr_tb.waddr[4:0]
-@1401200
+@1401201
 -group_end
-@2028
-^2 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/raddr
-reg_mbr_tb.raddr[4:0]
-@c04022
+@29
+reg_mbr_tb.nfpram_fprom
+@200
+-
+-Configuration
+@23
+reg_mbr_tb.ir[15:0]
+reg_mbr_tb.ibus[7:0]
+reg_mbr_tb.ibus_real[7:0]
+@200
+-
+@c04023
 ^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/disasm
 reg_mbr_tb.ir[15:0]
-@28
+@29
 (0)reg_mbr_tb.ir[15:0]
 (1)reg_mbr_tb.ir[15:0]
 (2)reg_mbr_tb.ir[15:0]
@@ -52,17 +67,19 @@ reg_mbr_tb.ir[15:0]
 (13)reg_mbr_tb.ir[15:0]
 (14)reg_mbr_tb.ir[15:0]
 (15)reg_mbr_tb.ir[15:0]
-@1401200
+@1401201
 -group_end
+@23
+reg_mbr_tb.reg_mbr.aext[7:0]
 @200
 -
-@c00024
+@c00025
 reg_mbr_tb.reg_mbr.sel[2:0]
-@28
+@29
 (0)reg_mbr_tb.reg_mbr.sel[2:0]
 (1)reg_mbr_tb.reg_mbr.sel[2:0]
 (2)reg_mbr_tb.reg_mbr.sel[2:0]
-@1401200
+@1401201
 -group_end
 @200
 -
@@ -113,16 +130,15 @@ reg_mbr_tb.reg_mbr.reg0lo.q[3:0]
 -group_end
 @1401201
 -group_end
-@22
-reg_mbr_tb.reg_mbr.aext[7:0]
 @200
 -
-@28
-reg_mbr_tb.nfpram_fprom
-reg_mbr_tb.reg_mbr.nbankw0
-reg_mbr_tb.reg_mbr.n125g
-reg_mbr_tb.reg_mbr.n139g
-@22
-reg_mbr_tb.reg_mbr.aext[7:0]
+-Front Panel
+@29
+reg_mbr_tb.nfpaext
+@23
+reg_mbr_tb.fpd[7:0]
+@29
+reg_mbr_tb.reg_mbr.regbuf.noe1
+reg_mbr_tb.reg_mbr.regbuf.noe2
 [pattern_trace] 1
 [pattern_trace] 0

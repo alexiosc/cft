@@ -154,7 +154,7 @@ module reg_l_tb();
    // FLFAST correctly updates FL synchronously with clk4.
    always @ (nreset, naction_cll, naction_cpl) begin
       #30 begin
-   	 msg[0] = "";		// Use the msg as a flag.
+   	 msg[7:0] = "";		// Use the msg as a flag.
 
 	 // Reset
 	 if (nreset === 0) begin
@@ -185,7 +185,7 @@ module reg_l_tb();
 	 else if (naction_cpl !== 1) $sformat(msg, "testbench bug, naction_cpl=%b", naction_cpl);
 
    	 // Fail if we've logged an issue.
-   	 if (msg[0]) begin
+   	 if (msg[7:0]) begin
    	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
    	    $error("assertion failure");
    	    #100 $finish;
@@ -197,7 +197,7 @@ module reg_l_tb();
    reg correct_flfast;
    always @ (posedge nread_alu_add, posedge nflagwe, posedge bcp) begin
       #30 begin
-   	 msg[0] = "";		// Use the msg as a flag.
+   	 msg[7:0] = "";		// Use the msg as a flag.
 
 	 casex ({nflagwe, nread_alu_add})
 	   2'b00: correct_flfast = ibus12;
@@ -254,7 +254,7 @@ module reg_l_tb();
 	 else if (naction_cpl !== 1) $sformat(msg, "testbench bug, naction_cpl=%b", naction_cpl);
 
    	 // Fail if we've logged an issue.
-   	 if (msg[0]) begin
+   	 if (msg[7:0]) begin
    	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
    	    $error("assertion failure");
    	    #100 $finish;

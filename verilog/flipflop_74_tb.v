@@ -65,7 +65,7 @@ module flipflop_74_tb();
    reg [8191:0] msg;
    always @ (nset, nrst, d) begin
       #30 begin
-   	 msg[0] = "";		// Use the msg as a flag.
+   	 msg[7:0] = "";		// Use the msg as a flag.
 
    	 // Check asynchronous set
 	 if (nset === 0 && nrst === 1) begin
@@ -107,7 +107,7 @@ module flipflop_74_tb();
 	 end
 	 
    	 // Fail if we've logged an issue.
-   	 if (msg[0]) begin
+   	 if (msg[7:0]) begin
    	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
    	    $error("assertion failure");
    	    #100 $finish;
@@ -119,7 +119,7 @@ module flipflop_74_tb();
    // clock-synchronous checks
    always @ (posedge clk) begin
       #30 begin
-   	 msg[0] = "";		// Use the msg as a flag.
+   	 msg[7:0] = "";		// Use the msg as a flag.
 
 	 if (clk == 1 && nset === 1 && nrst === 1) begin
 	    if (q !== d || nq !== ~d) begin
@@ -128,7 +128,7 @@ module flipflop_74_tb();
 	 end
 
    	 // Fail if we've logged an issue.
-   	 if (msg[0]) begin
+   	 if (msg[7:0]) begin
    	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
    	    $error("assertion failure");
    	    #100 $finish;

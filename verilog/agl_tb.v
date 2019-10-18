@@ -79,7 +79,7 @@ module agl_tb();
    reg [15:0] 	lastpc;
    always @ (nread_agl, ir, pc) begin
       #30 begin
-	 msg[0] = "";		// Use the msg as a flag.
+	 msg[7:0] = "";		// Use the msg as a flag.
 
 	 // Check the Gate first. If it's high (previous result unequal), the
 	 // comparison should always be unequal.
@@ -98,7 +98,7 @@ module agl_tb();
 	 else $sformat(msg, "testbench bug, nrad_agl=%b", nread_agl);
 
 	 // Fail if we've logged an issue.
-	 if (msg[0]) begin
+	 if (msg[7:0]) begin
 	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
 	    $error("assertion failure");
 	    #100 $finish;

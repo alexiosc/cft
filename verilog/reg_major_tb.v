@@ -138,7 +138,7 @@ module reg_major_tb();
    reg [15:0] 	old;
    always @ (reset, ibus_real, nread, nwrite) begin
       #45 begin
-   	 msg[0] = "";		// Use the msg as a flag.
+   	 msg[7:0] = "";		// Use the msg as a flag.
 
 	 // Resetting
 	 if (reset === 1) begin
@@ -157,7 +157,7 @@ module reg_major_tb();
 	 end
 
    	 // Fail if we've logged an issue.
-   	 if (msg[0]) begin
+   	 if (msg[7:0]) begin
    	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
    	    $error("assertion failure");
    	    #100 $finish;
@@ -170,7 +170,7 @@ module reg_major_tb();
    reg [15:0] correct_out;
    always @ (negedge ninc, negedge ndec) begin
       #100 begin
-   	 msg[0] = "";		// Use the msg as a flag.
+   	 msg[7:0] = "";		// Use the msg as a flag.
 
 	 casex ({ninc, ndec})
 	   2'b11: correct_out = out; // Idle
@@ -194,7 +194,7 @@ module reg_major_tb();
 	 end
 
    	 // Fail if we've logged an issue.
-   	 if (msg[0]) begin
+   	 if (msg[7:0]) begin
    	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
    	    $error("assertion failure");
    	    #100 $finish;
@@ -217,7 +217,7 @@ module reg_major_tb();
 	    else if (fn !== correct_fn) $sformat(msg, "out=%04x but fn=%b (should be %n)", out, fn, correct_fn);
 	    
    	    // Fail if we've logged an issue.
-   	    if (msg[0]) begin
+   	    if (msg[7:0]) begin
    	       $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
    	       $error("assertion failure");
    	       #100 $finish;
@@ -230,7 +230,7 @@ module reg_major_tb();
    // Front Panel
    always @ (posedge nfpl, posedge nfph) begin
       #30 begin
-   	 msg[0] = "";		// Use the msg as a flag.
+   	 msg[7:0] = "";		// Use the msg as a flag.
 
 	 casex ({nfph, nfpl})
 	   2'b11: if (fpd != 8'bzzzzzzzz) begin
@@ -249,7 +249,7 @@ module reg_major_tb();
 	 endcase
 	 
    	 // Fail if we've logged an issue.
-   	 if (msg[0]) begin
+   	 if (msg[7:0]) begin
    	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
    	    $error("assertion failure");
    	    #100 $finish;

@@ -119,7 +119,7 @@ module counter_193_tb();
    reg [8191:0] msg;
    always @ (clr, npl, p, cpu, cpd) begin
       #50 begin
-   	 msg[0] = "";		// Use the msg as a flag.
+   	 msg[7:0] = "";		// Use the msg as a flag.
 
 	 // Check for an async clear (clr, active high)
 	 if (clr === 1) begin
@@ -143,7 +143,7 @@ module counter_193_tb();
 	 end
 
    	 // Fail if we've logged an issue.
-   	 if (msg[0]) begin
+   	 if (msg[7:0]) begin
    	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
    	    $error("assertion failure");
    	    #100 $finish;

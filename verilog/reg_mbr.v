@@ -217,7 +217,7 @@
 // The Memory Bank Register File
 
 module reg_mbr (nreset, waddr, raddr, ir,
-		ibus, aext, nfpram_fprom, nfpaext, fpo);
+		ibus, aext, nfpram_fprom, nfpaext, fpd);
    input        nreset;
    input [4:0] 	waddr;
    input [4:0] 	raddr;
@@ -228,7 +228,7 @@ module reg_mbr (nreset, waddr, raddr, ir,
    inout [7:0] 	ibus;
    
    output [7:0] aext;
-   output [7:0] fpo;
+   output [7:0] fpd;
 
    wire 	nreset;
    wire [4:0] 	waddr;
@@ -347,20 +347,21 @@ module reg_mbr (nreset, waddr, raddr, ir,
    assign nbankr1 = ry[3];
 
    // Four '670 4×4 bit register files forming 8×8 bit registers.
-   regfile_670 reg0lo (.d(ibus[3:0]), .re(nbankr0), .we(nbankw0), .ra(sel[1:0]), .wa(ir[1:0]), .q(aext[3:0]));
-   regfile_670 reg0hi (.d(ibus[7:4]), .re(nbankr0), .we(nbankw0), .ra(sel[1:0]), .wa(ir[1:0]), .q(aext[7:4]));
+   regfile_670 reg0lo (.d(ibus[3:0]), .nre(nbankr0), .nwe(nbankw0), .ra(sel[1:0]), .wa(ir[1:0]), .q(aext[3:0]));
+   regfile_670 reg0hi (.d(ibus[7:4]), .nre(nbankr0), .nwe(nbankw0), .ra(sel[1:0]), .wa(ir[1:0]), .q(aext[7:4]));
 
-   regfile_670 reg1lo (.d(ibus[3:0]), .re(nbankr1), .we(nbankw1), .ra(sel[1:0]), .wa(ir[1:0]), .q(aext[3:0]));
-   regfile_670 reg1hi (.d(ibus[7:4]), .re(nbankr1), .we(nbankw1), .ra(sel[1:0]), .wa(ir[1:0]), .q(aext[7:4]));
+   regfile_670 reg1lo (.d(ibus[3:0]), .nre(nbankr1), .nwe(nbankw1), .ra(2'b00), .wa(ir[1:0]), .q(aext[3:0]));
+   regfile_670 reg1hi (.d(ibus[7:4]), .nre(nbankr1), .nwe(nbankw1), .ra(2'b00), .wa(ir[1:0]), .q(aext[7:4]));
 
-   // Buffers to output the value of AEXT to the data bus when the
+   // Buffers to output the value of AEXT to the IBus when the
    // registers are read. Only the low order 8 bits are written to.
 
-   buffer_541 regbuf (.noe1(nrmbr), .noe2(1'b0), .a(aext), .y(ibus[7:0]));
+   buffer_541 regbuf (.noe1(nrmbr), .noe2(1'b0), .a(aext), .y(ibus));
+
 
    // Also a buffer to output AEXT to the front panel
 
-   buffer_541 fpbuf (.noe1(nfpaext), .noe2(1'b0), .a(aext), .y(fpo[7:0]));
+   buffer_541 fpbuf (.noe1(nfpaext), .noe2(1'b0), .a(aext), .y(fpd[7:0]));
    
 
    

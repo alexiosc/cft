@@ -67,7 +67,7 @@ module constant_store_tb();
    
    always @ (nruen, raddr) begin
       #30 begin
-	 msg[0] = "";		// Use the msg as a flag.
+	 msg[7:0] = "";		// Use the msg as a flag.
 
 	 if (nruen === 1) begin
 	    if (ibus !== 16'bzzzzzzzzzzzzzzzz) begin
@@ -90,7 +90,7 @@ module constant_store_tb();
 	 else $sformat(msg, "testbench bug, nruen=%b", nruen);
 
 	 // Fail if we've logged an issue.
-	 if (msg[0]) begin
+	 if (msg[7:0]) begin
 	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
 	    $error("assertion failure");
 	    #100 $finish;

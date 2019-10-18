@@ -67,7 +67,7 @@ module buffer_541_tb();
    reg [8191:0] msg;
    always @ (noe1, noe2, a) begin
       #30 begin
-	 msg[0] = "";		// Use the msg as a flag.
+	 msg[7:0] = "";		// Use the msg as a flag.
 
 	 // Check the Gate first. If it's high (previous result unequal), the
 	 // comparison should always be unequal.
@@ -82,7 +82,7 @@ module buffer_541_tb();
 	 else $sformat(msg, "testbench bug, noe1=%b, noe2=%b", noe1, noe2);
 
 	 // Fail if we've logged an issue.
-	 if (msg[0]) begin
+	 if (msg[7:0]) begin
 	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
 	    $error("assertion failure");
 	    #100 $finish;

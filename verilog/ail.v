@@ -69,7 +69,7 @@ module ail (ir, idx);
    wire [7:0] 	 y;
    wire 	 enable;
 	
-   demux_238 ail_demux (.g1(ir[11]), .g2a(1'b0), .g2b(1'b0), .a(ir[10:8]), .y(y));
+   demux_238 ail_demux (.g1(ir[11]), .ng2a(1'b0), .ng2b(1'b0), .a(ir[10:8]), .y(y));
    assign enable = y[7];
 
    assign #7 idx[0] = ir[6] & enable;

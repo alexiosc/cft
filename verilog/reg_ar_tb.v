@@ -136,7 +136,7 @@ module reg_ar_tb();
    
    always @ (nmem, nio, posedge nwrite_ar) begin
       #30 begin
-   	 msg[0] = "";		// Use the msg as a flag.
+   	 msg[7:0] = "";		// Use the msg as a flag.
 
 	 // Address loading checks
 	 if (nwrite_ar === 0) begin
@@ -169,7 +169,7 @@ module reg_ar_tb();
 	 endcase // casex ({nmem, nio})
 	 
    	 // Fail if we've logged an issue.
-   	 if (msg[0]) begin
+   	 if (msg[7:0]) begin
    	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
    	    $error("assertion failure");
    	    #100 $finish;
@@ -212,7 +212,7 @@ module reg_ar_tb();
    	 else if (nfparh !== 1) $sformat(msg, "testbench bug, nfparh=%b", nfparh);
 	 
    	 // Fail if we've logged an issue.
-   	 if (msg[0]) begin
+   	 if (msg[7:0]) begin
    	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
    	    $error("assertion failure");
    	    #100 $finish;

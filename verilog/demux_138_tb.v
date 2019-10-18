@@ -67,7 +67,7 @@ module demux_138_tb();
    reg [7:0] 	correct_y;
    always @ (i) begin
       #30 begin
-   	 msg[0] = "";		// Use the msg as a flag.
+   	 msg[7:0] = "";		// Use the msg as a flag.
 
 	 if (g1 !== 1 && g1 !== 0) $sformat(msg, "testbench bug, g1=%b", g1);
 	 else if (ng2a !== 1 && ng2a !== 0) $sformat(msg, "testbench bug, ng2a=%b", ng2a);
@@ -96,7 +96,7 @@ module demux_138_tb();
 	 end // if (g1 === 1 && ng2a === 0 && ng2b === 0)
 	 
    	 // Fail if we've logged an issue.
-   	 if (msg[0]) begin
+   	 if (msg[7:0]) begin
    	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
    	    $error("assertion failure");
    	    #100 $finish;

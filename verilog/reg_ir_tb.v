@@ -94,7 +94,7 @@ module reg_ir_tb();
 
    always @ (nreset, posedge nwrite_ir) begin
       #30 begin
-	 msg[0] = "";		// Use the msg as a flag.
+	 msg[7:0] = "";		// Use the msg as a flag.
 
 	 // Check IR behaviour.
 	 if (nreset === 0) begin
@@ -143,7 +143,7 @@ module reg_ir_tb();
 
 
 	 // Fail if we've logged an issue.
-	 if (msg[0]) begin
+	 if (msg[7:0]) begin
 	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
 	    $error("assertion failure");
 	    #1000 $finish;

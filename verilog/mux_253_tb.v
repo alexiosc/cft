@@ -73,7 +73,7 @@ module mux_253_tb();
    reg [8191:0] msg;
    always @ (noe1, i1, noe2, i2, sel) begin
       #30 begin
-   	 msg[0] = "";		// Use the msg as a flag.
+   	 msg[7:0] = "";		// Use the msg as a flag.
 	 
 	 // Check unit 1
    	 if (noe1 === 1) begin
@@ -104,7 +104,7 @@ module mux_253_tb();
 
 
    	 // Fail if we've logged an issue.
-   	 if (msg[0]) begin
+   	 if (msg[7:0]) begin
    	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
    	    $error("assertion failure");
    	    #100 $finish;

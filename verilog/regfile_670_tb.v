@@ -116,7 +116,7 @@ module regfile_670_tb();
    // Verify writing. We'll peer into the '670 to do this properly.
    always @ (nwe, d) begin
       #30 begin
-	 msg[0] = "";		// Use the msg as a flag.
+	 msg[7:0] = "";		// Use the msg as a flag.
 
 	 if (nwe === 1'b0) begin
 	    // Check the 670's guts.
@@ -128,7 +128,7 @@ module regfile_670_tb();
 	 else if (nwe !== 1'b1) $sformat(msg, "testbench bug, new=%b", nwe);
 
 	 // Fail if we've logged an issue.
-	 if (msg[0]) begin
+	 if (msg[7:0]) begin
 	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
 	    $error("assertion failure");
 	    #100 $finish;
@@ -140,7 +140,7 @@ module regfile_670_tb();
    // Verify reading.
    always @ (nre, ra) begin
       #40 begin
-	 msg[0] = "";		// Use the msg as a flag.
+	 msg[7:0] = "";		// Use the msg as a flag.
 
 	 if (nre === 1'b0) begin
 	    // Check the 670's guts.
@@ -154,7 +154,7 @@ module regfile_670_tb();
 	 else if (nre !== 1'b1) $sformat(msg, "testbench bug, new=%b", nwe);
 
 	 // Fail if we've logged an issue.
-	 if (msg[0]) begin
+	 if (msg[7:0]) begin
 	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
 	    $error("assertion failure");
 	    #100 $finish;

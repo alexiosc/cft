@@ -66,7 +66,7 @@ module flipflop_574_tb();
    reg [7:0] 	lastq;
    always @ (noe, clk, d) begin
       #30 begin
-   	 msg[0] = "";		// Use the msg as a flag.
+   	 msg[7:0] = "";		// Use the msg as a flag.
 
    	 // Check asynchronous set
 	 if (noe === 1) begin
@@ -80,7 +80,7 @@ module flipflop_574_tb();
 	 end
 	 
    	 // Fail if we've logged an issue.
-   	 if (msg[0]) begin
+   	 if (msg[7:0]) begin
    	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
    	    $error("assertion failure");
    	    #100 $finish;
@@ -90,6 +90,7 @@ module flipflop_574_tb();
    end // always @ (noe, posedge clk)
 
    always @(posedge clk) begin
+      msg[7:0] = "";		// Use the msg as a flag.
       // noe === 0 implied here
       if (clk === 1) begin
 	 lastq = d;
@@ -97,7 +98,7 @@ module flipflop_574_tb();
       end
 	 
       // Fail if we've logged an issue.
-      if (msg[0]) begin
+      if (msg[7:0]) begin
    	 $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
    	 $error("assertion failure");
    	 #100 $finish;

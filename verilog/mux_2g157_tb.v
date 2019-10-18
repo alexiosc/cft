@@ -71,7 +71,7 @@ module mux_2g157_tb();
    reg [8191:0] msg;
    always @ (a, b, sel, ng) begin
       #30 begin
-	 msg[0] = "";		// Use the msg as a flag.
+	 msg[7:0] = "";		// Use the msg as a flag.
 
 	 // Always check that y and ny are complementary
 	 if (ny !== !y) begin
@@ -98,7 +98,7 @@ module mux_2g157_tb();
 	 else $sformat(msg, "testbench bug, sel=%b", sel);
 
 	 // Fail if we've logged an issue.
-	 if (msg[0]) begin
+	 if (msg[7:0]) begin
 	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
 	    $error("assertion failure");
 	    #100 $finish;

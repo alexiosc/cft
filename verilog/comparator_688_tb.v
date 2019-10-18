@@ -67,7 +67,7 @@ module comparator_688_tb();
    reg [8191:0] msg;
    always @ (a, b, ng) begin
       #30 begin
-	 msg[0] = "";		// Use the msg as a flag.
+	 msg[7:0] = "";		// Use the msg as a flag.
 
 	 // Check the Gate first. If it's high (previous result unequal), the
 	 // comparison should always be unequal.
@@ -79,7 +79,7 @@ module comparator_688_tb();
 	 end
 
 	 // Fail if we've logged an issue.
-	 if (msg[0]) begin
+	 if (msg[7:0]) begin
 	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
 	    $error("assertion failure");
 	    #100 $finish;

@@ -101,7 +101,7 @@ module clock_tb();
    reg [8191:0] msg;
    always @(clkvec, nreset) begin
       #30 begin
-	 msg[0] = "";		// Use the msg as a flag.
+	 msg[7:0] = "";		// Use the msg as a flag.
 
 	 if (nreset === 0) begin
 	    if (clkvec !== 6'b0111_1_1) $sformat(msg, "nreset=%b, but clocks are %b %b %b %b, t34=%b, wstb=%b",
@@ -125,7 +125,7 @@ module clock_tb();
 	 end
 
 	 // Fail if we've logged an issue.
-	 if (msg[0]) begin
+	 if (msg[7:0]) begin
 	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
 	    $error("assertion failure");
 	    #100 $finish;
