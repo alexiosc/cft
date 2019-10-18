@@ -1,0 +1,94 @@
+#!/bin/bash
+#
+# Run new-style OK/FAIL testbenches and summarises their results.
+
+PROGNAME=${0##*/}
+
+syntax() {
+    cat <<EOF >&2
+
+Syntax: ${PROGNAME} [ OPTIONS ] [ TESTBENCH_FILE ... ]
+
+Runs new-style OK/FAIL testbenches.
+
+OPTIONS:
+
+-h, --help          Show this.
+-l, --list          List testbenches and audit capabilities.
+-j, --jobs THREADS  Run this many threads in parallel.
+-v, --verbose       Output test results. VERY verbose.
+
+EOF
+}
+
+# Parse arguments
+ARGS=`getopt -o hlj:v --long help,list,jobs,verbose -n "$PROGNAME" -- "$@"`
+if [ $? != 0 ] ; then
+    #echo "${PROGNAME}: unrecognised option." >&2
+    syntax
+    exit 1
+fi
+eval set -- "$ARGS"
+
+jobs=$(grep -c ^processor /proc/cpuinfo)
+mode="test"
+export mode verbose jobs
+
+while true; do
+    #echo "Command line left: $1 ($@)"
+    case "$1" in
+        -h|--help) syntax; exit 0;;
+        -l|--list) mode=list; shift;;
+        -v|--verbose) verbose=1; shift;;
+        -j|--jobs) jobs=$2; shift 2;;
+        --) shift; break;;
+        *) echo "${progname}: internal error ($1)!"; exit 1;;
+    esac
+done
+#echo args leftover: "($@)"
+
+if [[ ! $jobs =~ ^[1-9][0-9]*$ ]]; then
+    echo 1>&2 "$PROGNAME: --jobs must be a positive integer, not '$jobs'"
+    exit 1
+fi
+
+
+do_list ()
+{
+    # Get the maximum length to help in formatting
+    declare -i maxlen
+    for f in "$@"; do
+	[[ maxlen -lt ${#f} ]] && maxlen=${#f}
+    done
+
+    # Audit stuff
+    declare -a okfail=( $(grep -l "USES OK/FAIL" "$@" | printf("['%s']=1 " ) )
+    declare -a printok=( $(grep -Fl '$display("OK' "$@") )
+    declare -a monitorok=( $(grep -Pl '^\s*\$monitor\s*\("t: %7d' "$@") )
+
+    echo ${okfail[*]}
+    echo -------------------------------------------------------------------------------
+    echo ${printok[*]}
+    echo -------------------------------------------------------------------------------
+    echo ${monitorok[*]}
+    echo -------------------------------------------------------------------------------
+
+    maxlen+=2
+    fmt="%-$maxlen.${maxlen}s foo\n"
+    for f in "$@"; do
+	printf "$fmt" "$f"
+    done
+}
+
+do_test ()
+{
+    echo "Testing not implemented yet"
+    true
+}
+
+case "$mode" in
+    list) do_list "$@";;
+    test) do_test "$@";;
+esac
+
+# End of file.
