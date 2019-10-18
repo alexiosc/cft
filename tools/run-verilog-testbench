@@ -4,6 +4,18 @@
 
 PROGNAME=${0##*/}
 
+# Create an FD #3, useful in TTY detection later.
+exec 3>&1
+
+die() {
+    echo 1>&2 "$PROGNAME: $@"
+    exit 1
+}
+
+warn() {
+    echo 1>&2 "$PROGNAME: Warning: $@"
+}
+
 syntax() {
     cat <<EOF >&2
 
@@ -11,18 +23,29 @@ Syntax: ${PROGNAME} [ OPTIONS ] [ TESTBENCH_FILE ... ]
 
 Runs new-style OK/FAIL testbenches.
 
-OPTIONS:
+MODES:
 
--h, --help          Show this.
 -l, --list          List testbenches and audit capabilities.
--j, --jobs THREADS  Run this many threads in parallel.
+-r, --raw           Simple version of --list, for script loops.
+
+TESTING OPTIONS:
+
+-c, --continue      Continue after failures.
+-j, --jobs THREADS  Run this many threads in parallel. (NOT IMPLEMENTED)
+
+GENERAL OPTIONS:
+
+-s, --skip-old      Skip tests earlier than CFT 2019.
+-S, --skip-bad      Skip any testbenches that don't fully support the new
+                    testbench output format.
 -v, --verbose       Output test results. VERY verbose.
+-h, --help          Show this.
 
 EOF
 }
 
 # Parse arguments
-ARGS=`getopt -o hlj:v --long help,list,jobs,verbose -n "$PROGNAME" -- "$@"`
+ARGS=`getopt -o hlj:vsSrc --long help,list,jobs,verbose,skip-old,skip-bad,raw,continue -n "$PROGNAME" -- "$@"`
 if [ $? != 0 ] ; then
     #echo "${PROGNAME}: unrecognised option." >&2
     syntax
@@ -32,62 +55,171 @@ eval set -- "$ARGS"
 
 jobs=$(grep -c ^processor /proc/cpuinfo)
 mode="test"
-export mode verbose jobs
+export mode verbose jobs cont
 
 while true; do
     #echo "Command line left: $1 ($@)"
     case "$1" in
         -h|--help) syntax; exit 0;;
         -l|--list) mode=list; shift;;
+        -r|--raw) mode=listraw; shift;;
         -v|--verbose) verbose=1; shift;;
+	-s|--skip-old) skip_old=1; shift;;
+	-S|--skip-bad) skip_bad=1; shift;;
         -j|--jobs) jobs=$2; shift 2;;
+        -c|--continue) cont=1; shift;;
         --) shift; break;;
-        *) echo "${progname}: internal error ($1)!"; exit 1;;
+        *) die "internal error ($1)!";;
     esac
 done
 #echo args leftover: "($@)"
 
-if [[ ! $jobs =~ ^[1-9][0-9]*$ ]]; then
-    echo 1>&2 "$PROGNAME: --jobs must be a positive integer, not '$jobs'"
-    exit 1
-fi
+colour ()
+{
+    local have_colour=
+    if [[ "$1" == -f ]]; then
+	shift
+	have_colour=1
+    elif [[ -t 3 ]]; then
+	# stdout is a terminal
+	have_colour=1
+    fi
+    [[ $have_colour ]] && echo -en "\e[${*:-0}m"
+    true
+}
 
+
+# Sanity checks
+[[ $jobs =~ ^[1-9][0-9]*$ ]] || die "--jobs must be a positive integer, not '$jobs'"
+
+declare -a to_process
+declare -A cft2019 okfail dispok monitor
+declare -i maxlen=1
+
+do_audit ()
+{
+    # Audit stuff
+    eval $(grep -l "IN 2019" "$@" | xargs -r printf "cft2019['%s']=YES;\n")
+    eval $(grep -l "USES OK/FAIL" "$@" | xargs -r printf "okfail['%s']=YES;\n")
+    eval $(grep -Fl '$display("OK' "$@" | xargs -r printf "dispok['%s']=YES;\n")
+    eval $(grep -Pl '^\s*\$monitor\s*\("t: %7d' "$@" | xargs -r printf "monitor['%s']=YES;\n")
+    
+    # Get the maximum length to help in formatting
+    for f in "$@"; do
+	if [[ ! -f "$f" ]]; then
+	    warn "$f: does not exist or is inaccessible."
+	    continue
+	fi
+	[[ $skip_old$skip_bad != "" && ${cft2019[$f]} != YES ]] && continue
+	[[ $skip_bad == 1 && ${okfail[$f]} != YES ]] && continue
+	[[ $skip_bad == 1 && ${dispok[$f]} != YES ]] && continue
+	[[ $skip_bad == 1 && ${monitor[$f]} != YES ]] && continue
+	[[ maxlen -lt ${#f} ]] && maxlen=${#f}
+	to_process+=( "$f" )
+    done
+}
 
 do_list ()
 {
-    # Get the maximum length to help in formatting
-    declare -i maxlen
-    for f in "$@"; do
-	[[ maxlen -lt ${#f} ]] && maxlen=${#f}
+    do_audit "$@"
+    
+    #maxlen+=2
+    fmt="%-$maxlen.${maxlen}s %8.8s  %8.8s  %8.8s  %8.8s\n"
+    printf "$fmt" "Testbench" "CFT-2019" "OK/FAIL" "Disp OK" "\$monitor"
+    local dashes=$(printf "%-${maxlen}s------------------------------------------------" "")
+    echo ${dashes// /-}
+
+    for f in "${to_process[@]}"; do
+	[[ $skip_old == 1 && ${cft2019[$f]} != YES ]] && continue
+    	printf "$fmt" "$f" \
+	       "${cft2019[$f]:-- }" \
+	       "${okfail[$f]:-- }" \
+	       "${dispok[$f]:-- }" \
+	       "${monitor[$f]:-- }"
     done
+    echo ${dashes// /-}
+}
 
-    # Audit stuff
-    declare -a okfail=( $(grep -l "USES OK/FAIL" "$@" | printf("['%s']=1 " ) )
-    declare -a printok=( $(grep -Fl '$display("OK' "$@") )
-    declare -a monitorok=( $(grep -Pl '^\s*\$monitor\s*\("t: %7d' "$@") )
+do_listraw()
+{
+    do_audit "$@"
+    printf "%s\n" "${to_process[@]}"
+}
 
-    echo ${okfail[*]}
-    echo -------------------------------------------------------------------------------
-    echo ${printok[*]}
-    echo -------------------------------------------------------------------------------
-    echo ${monitorok[*]}
-    echo -------------------------------------------------------------------------------
+runtest ()
+{
+    local maxlen="$1"; shift
+    local tb="$1"; shift
+    local tbsimple=${tb%_tb.[ov]}
 
-    maxlen+=2
-    fmt="%-$maxlen.${maxlen}s foo\n"
-    for f in "$@"; do
-	printf "$fmt" "$f"
-    done
+    printf "Testing %s%-$maxlen.${maxlen}s$(colour)%s " $(colour "0;1") "${tbsimple}:" $(colour)
+
+    if [[ ! -f "$tb" ]]; then
+	echo "$(colour '0;38;5;199')FAIL: $(colour)$tb does not exist."
+	return 1
+    elif [[ ! -x "$tb" ]]; then
+	echo "$(colour '0;38;5;199')FAIL: $(colour)$tb is not executable."
+	return 1
+    elif ! head -n1 "$tb" | grep -qwF $vvp; then
+	echo "$(colour '0;38;5;199')FAIL: $(colour)$tb is not an Icarus Verilog testbench."
+	return 1
+    fi
+
+    local tmpfile=$(mktemp /tmp/$PROGNAME-XXXXXXXXXX)
+    $(readlink -f $tb) &>$tmpfile
+    local num_ok=$(grep -c ^OK $tmpfile)
+    local num_fail=$(grep -c ^FAIL $tmpfile)
+    #echo -e "($num_fail,$num_ok) "
+    case "$num_fail,$num_ok" in
+	*,0) keeplog="${tb%.o}-failure.log"
+	     mv $tmpfile "$keeplog"
+	     colour "0;38;5;196"
+	     echo -n "FAIL."
+	     colour
+	     echo " Check $keeplog:"
+	     colour "0;38;5;241"
+	     stdbuf -oL grep -B5 -A10 "^FAIL:" "$keeplog" | sed 's/^/        /'
+	     colour
+	     return 1
+	     ;;
+	0,1) echo "$(colour '0;38;5;48')PASS: $(colour '0;1')1$(colour) test"
+	     return 0;;
+	0,*) echo "$(colour '0;38;5;48')PASS: $(colour '0;1')$num_ok$(colour) tests"
+	     return 0;;
+	0,0) echo "$(colour '0;38;5;202')FAIL: $(colour)Non-conformant test"
+	     return 1;;
+	*)   echo "$(colour '0;38;5;226')FAIL: $(colour)$PROGNAME bug"
+	     return 1;;
+    esac
 }
 
 do_test ()
 {
-    echo "Testing not implemented yet"
-    true
+    do_audit "$@"
+
+    local vvp
+    vvp=$(which vvp) || die "Icarus Verilog vvp is not available. Can't run testbenches."
+
+    local -i num_tb=0
+    local -i num_fail=0
+    local -i num_pass=0
+    for f in "${to_process[@]}"; do
+	local tb="${f%.v}.o"
+	num_tb+=1
+	runtest $maxlen $tb
+	code=$?
+	if [[ $code == 0 ]]; then
+	    num_pass+=1
+	else
+	    num_fail+=1
+	    [[ $cont ]] || die "test failure."
+	fi
+    done
 }
 
 case "$mode" in
     list) do_list "$@";;
+    listraw) do_listraw "$@";;
     test) do_test "$@";;
 esac
 
