@@ -4,6 +4,7 @@
 #
 
 SHELL=/bin/bash
+TESTTOOL=../tools/run-verilog-testbench -Sc
 
 
 ###############################################################################
@@ -51,6 +52,7 @@ IC74XXX	=	buffer.v       buffer_244_tb.v buffer_245_tb.v buffer_541_tb.v \
 		comparator.v   comparator_688_tb.v \
 		counter.v      counter_193_tb.v \
 		demux.v        demux_138_tb.v demux_138_tb.v \
+		mux.v          mux_1g157_tb.v mux_2g157_tb.v mux_157_tb.v mux_253_tb.v  \
 		flipflop.v     flipflop_112_tb.v flipflop_74_tb.v flipflop_174_tb.v flipflop_574_tb.v flipflop_564_tb.v \
 
 SRC += $(IC74XXX)
@@ -58,12 +60,15 @@ SRC += $(IC74XXX)
 # Stuff added or changed for for 2019 updates to the CFT architecture.
 
 CFT2019 = 	clock.v            clock_tb.v \
+		ail.v		   ail_tb.v \
+		agl.v		   agl_tb.v \
+		sbu.v		   sbu_tb.v \
 		reg_ir.v           reg_ir_tb.v \
 		reg_ar.v           reg_ar_tb.v \
 		reg_mbr.v          reg_mbr_tb.v \
 		reg_l.v            reg_l_tb.v \
 		reg_v.v            reg_v_tb.v \
-		reg_major.v        reg_major_tb.v \
+		reg_major.v        reg_major_tb.v \p
 
 SRC += $(CFT2019)
 
@@ -97,11 +102,12 @@ FONT =		/usr/share/fonts/truetype/ttf-bitstream-vera/VeraBd.ttf
 EMUMON =	../tools/emu-monitor
 EMUMONFLAGS =	-F $(FONT) -S 16
 
-.PHONY: all all-subdirs subdirs $(SUBDIRS) batch-test inv 2019
+.PHONY: all all-subdirs subdirs $(SUBDIRS) batch-test inv test-2019
 
 all: 	$(SUBDIRS) $(OBJ)
 
-2019:   $(patsubst %.v, %.o, $(shell grep -l 2019 *.v))
+test-2019:   $(patsubst %.v,%.o,$(shell $(TESTTOOL) -lr *_tb.v))
+	$(TESTTOOL) $(patsubst %.o,%.v,$^)
 
 clean:
 	rm -f $(OBJ) *.o a.out out.vcd test_rom.bin

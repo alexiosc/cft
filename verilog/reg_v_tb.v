@@ -68,7 +68,7 @@ module reg_v_tb();
 	    nreset = i[4];
 	    #19 nflagwe = i[3];	// Simulate WADDR decoding delay (12ns for '138 + 7ns for LCT AND gate)
 	 end;
-	 #187.5 clk4 = 0;
+	 #187.5 clk4 = 0; nflagwe = 1; nread_alu_add = 1;
 	 #62.5 clk4 = 1;
       end
 
@@ -113,7 +113,7 @@ module reg_v_tb();
 
    // Verify our findings.
    reg [8191:0] msg;
-   always @ (nreset, posedge clk4, ibus13, nflagwe, fvin_add, nread_alu_add, fv) begin
+   always @ (nreset, posedge clk4) begin // ibus13, nflagwe, fvin_add, nread_alu_add, fv) begin
       #30 begin
 	 msg[7:0] = "";		// Use the msg as a flag.
 
@@ -128,6 +128,31 @@ module reg_v_tb();
 	    // hardware stack.
 	    if (fv !== ibus13) $sformat(msg, "nflagwe=%b, ibus13=%b but fv=%b (should be same as ibus13)", nflagwe, ibus13, fv);
 	 end
+	 // Fail if we've logged an issue.
+	 if (msg[7:0]) begin
+	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+	    $error("assertion failure");
+	    #1000 $finish;
+	 end
+      end
+   end
+
+   always @ (posedge nflagwe, posedge nread_alu_add) begin
+      #30 begin
+	 if (nreset === 1 && clk4 === 1 && nflagwe === 0) begin
+	    // If #FLAGWE is low, the rising edge of clk4 should set FV to the
+	    // value in IBUS13. This is for retrieving the flag value from the
+	    // hardware stack.
+	    if (fv !== ibus13) $sformat(msg, "nflagwe=%b, ibus13=%b but fv=%b (should be same as ibus13)", nflagwe, ibus13, fv);
+	 end
+
+	 else if (nreset === 1 && clk4 === 1 && nread_alu_add === 0) begin
+	    // If #READ_ALU_ADD is low, the rising edge of clk4 should set FV
+	    // to the value in FVIN-ADD.
+	    if (fv !== fvin_add) $sformat(msg, "nread_alu_add=%b, fvin_add=%b but fv=%b (should be same as fvin_add)",
+					  nread_alu_add, ibus13, fvin_add);
+	 end
+
 	 // Fail if we've logged an issue.
 	 if (msg[7:0]) begin
 	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);

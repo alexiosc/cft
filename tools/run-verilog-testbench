@@ -171,24 +171,28 @@ runtest ()
     local num_fail=$(grep -c ^FAIL $tmpfile)
     #echo -e "($num_fail,$num_ok) "
     case "$num_fail,$num_ok" in
-	*,0) keeplog="${tb%.o}-failure.log"
-	     mv $tmpfile "$keeplog"
-	     colour "0;38;5;196"
-	     echo -n "FAIL."
-	     colour
-	     echo " Check $keeplog:"
-	     colour "0;38;5;241"
-	     stdbuf -oL grep -B5 -A10 "^FAIL:" "$keeplog" | sed 's/^/        /'
-	     colour
-	     return 1
-	     ;;
 	0,1) echo "$(colour '0;38;5;48')PASS: $(colour '0;1')1$(colour) test"
 	     return 0;;
 	0,*) echo "$(colour '0;38;5;48')PASS: $(colour '0;1')$num_ok$(colour) tests"
 	     return 0;;
 	0,0) echo "$(colour '0;38;5;202')FAIL: $(colour)Non-conformant test"
 	     return 1;;
-	*)   echo "$(colour '0;38;5;226')FAIL: $(colour)$PROGNAME bug"
+	*,*) keeplog="${tb%.o}-failure.log"
+	     mv $tmpfile "$keeplog"
+	     colour "0;38;5;196"
+	     echo -n "FAIL."
+	     colour
+	     case $num_ok in
+		 1) echo -n " (1 pass recorded)";;
+		 *) echo -n " ($num_ok passes recorded)";;
+	     esac
+	     echo " Logfile: $(colour '0;1')$keeplog$(colour)"
+	     colour "0;38;5;241"
+	     stdbuf -oL grep -B5 -A10 "^FAIL:" "$keeplog" | sed 's/^/        /'
+	     colour
+	     return 1
+	     ;;
+	*)   echo "$(colour '0;38;5;226')FAIL: $(colour)$PROGNAME bug ($num_fail,$num_ok)"
 	     return 1;;
     esac
 }

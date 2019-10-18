@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Fri Oct 11 07:45:22 2019
+[*] Fri Oct 18 19:14:53 2019
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/reg_v_tb.vcd"
-[dumpfile_mtime] "Fri Oct 11 07:44:11 2019"
-[dumpfile_size] 3139
+[dumpfile_mtime] "Fri Oct 18 19:12:56 2019"
+[dumpfile_size] 4411
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/reg_v_tb.sav"
 [timestart] 0
 [size] 1575 810
-[pos] 47 125
-*-21.308455 1240000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[pos] 4290 0
+*-21.895947 8760000 5728000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] reg_v_tb.
 [treeopen] reg_v_tb.reg_v.
 [sst_width] 226
@@ -39,34 +39,27 @@ reg_v_tb.fvin_add
 reg_v_tb.fv
 @200
 -
-@28
-reg_v_tb.reg_v.vd_mux.y
-reg_v_tb.reg_v.vd
-@200
--
-@29
-reg_v_tb.reg_v.vd_mux.a
-@28
-reg_v_tb.reg_v.vd_mux.b
-reg_v_tb.reg_v.vd_mux.ng
-reg_v_tb.reg_v.vd_mux.y
-@200
--
+@c00201
 -FF1
 @28
 reg_v_tb.reg_v.vff1.clk
+reg_v_tb.reg_v.vff1.nset
+reg_v_tb.reg_v.vff1.nrst
 reg_v_tb.reg_v.vff1.d
 reg_v_tb.reg_v.vff1.q
-reg_v_tb.reg_v.vff1.rst
-reg_v_tb.reg_v.vff1.set
+@1401201
+-FF1
 @200
 -
+@c00200
 -FF2
 @28
 reg_v_tb.reg_v.vff2.clk
+reg_v_tb.reg_v.vff2.nset
+reg_v_tb.reg_v.vff2.nrst
 reg_v_tb.reg_v.vff2.d
 reg_v_tb.reg_v.vff2.q
-reg_v_tb.reg_v.vff2.rst
-reg_v_tb.reg_v.vff2.set
+@1401200
+-FF2
 [pattern_trace] 1
 [pattern_trace] 0

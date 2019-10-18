@@ -46,6 +46,10 @@ module comparator_688_tb();
       $monitor ("t: %7d | %b %h %h > %b", $time, ng, a, b, neq);
       $dumpvars (0, comparator_688_tb);
 
+      ng = 1'b1;
+      a = 0;
+      b = 0;
+
       for (k = 0; k < 2; k = k + 1) begin
 	 ng = k[0];
 	 for (j = 0; j < 256; j = j + 1) begin

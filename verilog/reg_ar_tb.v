@@ -180,6 +180,8 @@ module reg_ar_tb();
    
    always @ (nmem, nio, nsysdev, niodev1xx, niodev2xx, niodev3xx) begin
       #30 begin
+   	 msg[7:0] = "";		// Use the msg as a flag.
+
    	 // I/O address decoder checks
    	 casex ({nmem, nio, reg_ar.ar[15:8], nsysdev, niodev1xx, niodev2xx, niodev3xx})
    	   30'b1_1_????????__1_1_1_1: ok=1; // No transaction
@@ -204,6 +206,18 @@ module reg_ar_tb();
    		     nmem, nio, reg_ar.ar, nsysdev, niodev1xx, niodev2xx, niodev3xx);
    	 end
 
+   	 // Fail if we've logged an issue.
+   	 if (msg[7:0]) begin
+   	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+   	    $error("assertion failure");
+   	    #100 $finish;
+   	 end
+	 else $display("OK decoder/fp");
+      end
+   end // always @ (nset, nrst)
+   
+   always @ (nfparh) begin
+      #30 begin
    	 // Front Panel checks
    	 if (nfparh === 0) begin
    	    if (fpd !== reg_ar.ar[23:16]) $sformat(msg, "nfparh=%b, ab=%x but fpd=%x", nfparh, reg_ar.ar, fpd);
@@ -220,8 +234,6 @@ module reg_ar_tb();
 	 else $display("OK decoder/fp");
       end
    end // always @ (nset, nrst)
-   
-
 endmodule // reg_ar_tb
 
 // End of file.

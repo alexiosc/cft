@@ -94,7 +94,7 @@ module flipflop_574_tb();
       // noe === 0 implied here
       if (clk === 1) begin
 	 lastq = d;
-	 if (noe !== 0 && d !== q) $sformat(msg, "noe=%b, d=%b, but q=%b", noe, d, q);
+	 if (noe !== 0 && q !== 8'bzzzzzzzz && d !== q) $sformat(msg, "noe=%b, d=%b, but q=%b", noe, d, q);
       end
 	 
       // Fail if we've logged an issue.
