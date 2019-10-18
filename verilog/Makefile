@@ -4,7 +4,7 @@
 #
 
 SHELL=/bin/bash
-TESTTOOL=../tools/run-verilog-testbench -Sc
+TESTTOOL=../tools/run-verilog-testbench
 
 
 ###############################################################################
@@ -106,20 +106,14 @@ EMUMONFLAGS =	-F $(FONT) -S 16
 
 all: 	$(SUBDIRS) $(OBJ)
 
-test-2019:   $(patsubst %.v,%.o,$(shell $(TESTTOOL) -lr *_tb.v))
-	$(TESTTOOL) $(patsubst %.o,%.v,$^)
+test-2019:   $(patsubst %.v,%.o,$(shell $(TESTTOOL) -lSr *_tb.v))
+	$(TESTTOOL) -Sc $(patsubst %.o,%.v,$^)
 
 clean:
 	rm -f $(OBJ) *.o a.out out.vcd test_rom.bin
 
 inv:
-	@printf "%-30s %-4.4s %s\n" "File" "2019" "testbench"
-	@echo "--------------------------------------------------------------------------------"
-	@for a in *.v; do \
-		[[ $$a =~ _tb.v$$ ]] && continue; \
-		printf "%-30s %-4.4s %s\n" $$a \
-		$$(grep -q "IN 2019" $$a && echo "yes" || echo "-"); \
-	done
+	$(TESTTOOL) -l *_tb.v
 
 $(SUBDIRS):
 	$(MAKE) -C $@
