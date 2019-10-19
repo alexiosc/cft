@@ -194,8 +194,7 @@ module reg_l_tb();
       end
    end // always @ (nmem, nio)
 
-   reg correct_flfast;
-   always @ (posedge nread_alu_add, posedge nflagwe, posedge bcp) begin
+   always @ (posedge nread_alu_add, posedge nflagwe) begin
       #30 begin
    	 msg[7:0] = "";		// Use the msg as a flag.
 
@@ -206,29 +205,19 @@ module reg_l_tb();
 	   2'b11: correct_flfast = flin_sru;
 	 endcase
 
-	 // nflagwe (setting flag from SRU)
-	 if (bcp === 0) begin
-	    if (flfast !== flin_sru)
-	      $sformat(msg, "nflagwe=%b, nread_alu_add=%b, bcp=%b, flfast=%b (should be %b)",
-		       nflagwe, nread_alu_add, bcp, flfast, flin_sru);
-	 end
-	 
-	 else if (bcp !== 1) $sformat(msg, "testbench bug, bcp=%b", bcp);
-
-
 	 // nflagwe (setting flag from IBUS)
-	 else if (nflagwe === 0) begin
+	 if (nflagwe === 0) begin
 	    if (flfast !== ibus12)
-	      $sformat(msg, "nflagwe=%b, nread_alu_add=%b, bcp=%b, flfast=%b (should be %b)",
-		       nflagwe, nread_alu_add, bcp, flfast, ibus12);
+	      $sformat(msg, "nflagwe=%b, nread_alu_add=%b, flfast=%b (should be %b)",
+		       nflagwe, nread_alu_add, flfast, ibus12);
 	 end
 	 else if (nflagwe !== 1) $sformat(msg, "testbench bug, nflagwe=%b", nflagwe);
 	    
 	 // nread_alu_add (toggling flag as a result of addition)
 	 else if (nread_alu_add === 0) begin
 	    if (flfast !== flin_add)
-	      $sformat(msg, "nflagwe=%b, nread_alu_add=%b, bcp=%b, flfast=%b (should be %b)",
-		       nflagwe, nread_alu_add, bcp, flfast, flin_add);
+	      $sformat(msg, "nflagwe=%b, nread_alu_add=%b, flfast=%b (should be %b)",
+		       nflagwe, nread_alu_add, flfast, flin_add);
 	 end
 	 else if (nread_alu_add !== 1) $sformat(msg, "testbench bug, nread_alu_add=%b", nread_alu_add);
 	    
@@ -260,6 +249,38 @@ module reg_l_tb();
    	    #100 $finish;
    	 end
 	 else $display("OK set");
+      end
+   end // always @ (nmem, nio)
+   
+
+   reg correct_flfast;
+   always @ (posedge bcp) begin
+      #50 begin
+   	 msg[7:0] = "";		// Use the msg as a flag.
+
+	 casex ({nflagwe, nread_alu_add})
+	   2'b00: correct_flfast = ibus12;
+	   2'b01: correct_flfast = ibus12;
+	   2'b10: correct_flfast = flin_add;
+	   2'b11: correct_flfast = flin_sru;
+	 endcase
+
+	 // nflagwe (setting flag from SRU)
+	 if (bcp === 1) begin
+	    if (flfast !== flin_sru)
+	      $sformat(msg, "bcp=%b, flfast=%b (should be %b)",
+		       bcp, flfast, flin_sru);
+	 end
+	 
+	 else if (bcp !== 0) $sformat(msg, "testbench bug, bcp=%b", bcp);
+
+   	 // Fail if we've logged an issue.
+   	 if (msg[7:0]) begin
+   	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+   	    $error("assertion failure");
+   	    #100 $finish;
+   	 end
+	 else $display("OK bcp");
       end
    end // always @ (nmem, nio)
    

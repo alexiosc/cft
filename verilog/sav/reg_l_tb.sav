@@ -1,21 +1,21 @@
 [*]
 [*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
-[*] Sun Oct 13 18:48:39 2019
+[*] Sat Oct 19 16:16:15 2019
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/reg_l_tb.vcd"
-[dumpfile_mtime] "Sun Oct 13 18:48:37 2019"
-[dumpfile_size] 7726
+[dumpfile_mtime] "Sat Oct 19 16:16:03 2019"
+[dumpfile_size] 14350
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/reg_l_tb.sav"
 [timestart] 0
 [size] 1920 1019
-[pos] -1 -1
-*-22.610689 4850400 4875000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[pos] 0 0
+*-22.283524 14547300 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] reg_l_tb.
 [treeopen] reg_l_tb.reg_l.
 [sst_width] 258
 [signals_width] 229
 [sst_expanded] 1
-[sst_vpaned_height] 283
+[sst_vpaned_height] 280
 @28
 reg_l_tb.nreset
 reg_l_tb.clk4
@@ -30,10 +30,9 @@ reg_l_tb.naction_cpl
 @200
 -
 -Write Flags
-@29
+@28
 [color] 1
 reg_l_tb.nflagwe
-@28
 [color] 2
 reg_l_tb.ibus12
 @200
@@ -41,10 +40,12 @@ reg_l_tb.ibus12
 -Adder Output
 @28
 reg_l_tb.nread_alu_add
+reg_l_tb.flin_add
 @200
 -
 -Shifter Output
 @28
+reg_l_tb.flin_sru
 reg_l_tb.reg_l.bcp
 @200
 -
@@ -54,7 +55,17 @@ reg_l_tb.fl
 reg_l_tb.flfast
 @200
 -
+-Debugging
 @28
-reg_l_tb.reg_l.ld_mux.sel[1:0]
+[color] 1
+reg_l_tb.flin_sru
+[color] 2
+reg_l_tb.reg_l.bcp
+[color] 3
+reg_l_tb.reg_l.ld
+[color] 4
+reg_l_tb.reg_l.clkl
+[color] 5
+reg_l_tb.flfast
 [pattern_trace] 1
 [pattern_trace] 0
