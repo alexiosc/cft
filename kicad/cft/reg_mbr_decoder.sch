@@ -1277,4 +1277,8 @@ Wire Bus Line
 	2800 4550 2800 5400
 Wire Bus Line
 	4700 1800 4700 2500
+Text Notes 3350 1350 0    50   ~ 0
+~READ_MBn~ and ~WRITE_AR_MB~ are never asserted\nsimultaneously. No microprogram calls for anything\nas exotic as this, though, so we're safe.
+Text Notes 3350 1000 0    66   ~ 13
+ASSUMPTION
 $EndSCHEMATC
