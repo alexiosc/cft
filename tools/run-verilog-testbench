@@ -91,6 +91,7 @@ colour ()
 
 # Sanity checks
 [[ $jobs =~ ^[1-9][0-9]*$ ]] || die "--jobs must be a positive integer, not '$jobs'"
+[[ ${#@} -gt 0 ]] || die "Please specify some files to process"
 
 declare -a to_process
 declare -A cft2019 okfail dispok monitor
@@ -99,10 +100,10 @@ declare -i maxlen=1
 do_audit ()
 {
     # Audit stuff
-    eval $(grep -l "IN 2019" "$@" | xargs -r printf "cft2019['%s']=YES;\n")
-    eval $(grep -l "USES OK/FAIL" "$@" | xargs -r printf "okfail['%s']=YES;\n")
-    eval $(grep -Fl '$display("OK' "$@" | xargs -r printf "dispok['%s']=YES;\n")
-    eval $(grep -Pl '^\s*\$monitor\s*\("t: %7d' "$@" | xargs -r printf "monitor['%s']=YES;\n")
+    eval $(grep -ls "IN 2019" "$@" | xargs -r printf "cft2019['%s']=YES;\n")
+    eval $(grep -ls "USES OK/FAIL" "$@" | xargs -r printf "okfail['%s']=YES;\n")
+    eval $(grep -Fls '$display("OK' "$@" | xargs -r printf "dispok['%s']=YES;\n")
+    eval $(grep -Pls '^\s*\$monitor\s*\("t: %7d' "$@" | xargs -r printf "monitor['%s']=YES;\n")
     
     # Get the maximum length to help in formatting
     for f in "$@"; do
@@ -122,6 +123,8 @@ do_audit ()
 do_list ()
 {
     do_audit "$@"
+
+    [[ ${#to_process} == 0 ]] && die "no files left to process."
     
     #maxlen+=2
     fmt="%-$maxlen.${maxlen}s %8.8s  %8.8s  %8.8s  %8.8s\n"
@@ -172,10 +175,13 @@ runtest ()
     #echo -e "($num_fail,$num_ok) "
     case "$num_fail,$num_ok" in
 	0,1) echo "$(colour '0;38;5;48')PASS: $(colour '0;1')1$(colour) test"
+	     rm -f "$tmpfile"
 	     return 0;;
 	0,*) echo "$(colour '0;38;5;48')PASS: $(colour '0;1')$num_ok$(colour) tests"
+	     rm -f "$tmpfile"
 	     return 0;;
 	0,0) echo "$(colour '0;38;5;202')FAIL: $(colour)Non-conformant test"
+	     rm -f "$tmpfile"
 	     return 1;;
 	*,*) keeplog="${tb%.o}-failure.log"
 	     mv $tmpfile "$keeplog"
@@ -193,6 +199,7 @@ runtest ()
 	     return 1
 	     ;;
 	*)   echo "$(colour '0;38;5;226')FAIL: $(colour)$PROGNAME bug ($num_fail,$num_ok)"
+	     rm -f "$tmpfile"
 	     return 1;;
     esac
 }
