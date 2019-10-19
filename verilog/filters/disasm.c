@@ -44,16 +44,32 @@ char * bin(int x)
 
 int main(int argc, char **argv)
 {
+	// Get our personality first. The method is a little naïve, but it
+	// works.
+	int full_dis = strstr(argv[0], "_ir10") == NULL;
+	char * operand_colours[4] = { "", "?blue4?", "?green4?", "?cyan4?" };
+	
 	while(!feof(stdin))
 	{
 		char buf[1025], buf2[1025];
 		buf[0] = 0;
-		fscanf(stdin, "%s", buf);
+		if (fscanf(stdin, "%s", buf) != 1) continue;
 		if(buf[0]) {
 			unsigned int hx, opcode;
 			sscanf(buf, "%x", &hx);
 			buf2[0] = '\0';
 			opcode = (hx >> 12) & 0xf;
+			if (!full_dis) {
+				printf("%s%s%s %03x\n",
+				       operand_colours[(hx >> 10) & 3],
+				       (hx & (1 << 11)) ? " I" : "",
+				       (hx & (1 << 10)) ? " R" : "",
+				       hx & 0x3ff);
+				fflush(stdout);
+				continue;
+			}
+
+			// Full disassembly
 			if (opcode == 12) {
 				sprintf (buf2, "%s ", instr[opcode]);
 				if (hx & 0x200) strcat(buf2, "IFL ");

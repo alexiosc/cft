@@ -56,9 +56,9 @@ int main(int argc, char **argv)
 	{
 		char buf[1025], buf2[1025];
 		buf[0] = 0;
-		fscanf(stdin, "%s", buf);
+		if (fscanf(stdin, "%s", buf) != 1) continue;
 		if(buf[0]) {
-			unsigned int hx, opcode;
+			unsigned int hx;
 			sscanf(buf, "%x", &hx);
 			buf2[0] = '\0';
 
@@ -73,7 +73,6 @@ int main(int argc, char **argv)
 			/*        12345S = >>5    */
 			/*         1234I = >>4    */
 			/*          xxxx = & 0xf  */
-			opcode = (hx >> 12) & 0xf;
 			int rst = (hx >> 14) & 1;
 			int irq = (hx >> 13) & 1;
 			int v = (hx >> 12) & 1;

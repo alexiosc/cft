@@ -28,7 +28,7 @@ int main(int argc, char **argv)
 		char buf[1025], buf2[1025], col[1024];
 		buf[0] = 0;
 		col[0] = 0;
-		fscanf(stdin, "%s", buf);
+		if (fscanf(stdin, "%s", buf) != 1) continue;
 		if(buf[0]) {
 			unsigned int hx;
 			sscanf(buf, "%x", &hx);
