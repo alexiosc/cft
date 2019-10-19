@@ -46,7 +46,7 @@ module agl_tb();
    // Initialize all variables
    initial begin        
       $dumpfile ("vcd/agl_tb.vcd");
-      $monitor ("%d | %b %h %h > %h", $time, nend, ir, pc, ibus);
+      $monitor ("t: %7d | %b %h %h > %h", $time, nend, ir, pc, ibus);
       $dumpvars (0, agl_tb);
 
       ir = 0;
@@ -76,7 +76,7 @@ module agl_tb();
 
    // Verify our findings.
    reg [8191:0] msg;
-   reg [15:0] 	lastpc;
+   reg [15:0] 	lastpc = 4'hffff;
    always @ (nread_agl, ir, pc) begin
       #30 begin
 	 msg[7:0] = "";		// Use the msg as a flag.

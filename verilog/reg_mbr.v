@@ -350,8 +350,8 @@ module reg_mbr (nreset, waddr, raddr, ir,
    regfile_670 reg0lo (.d(ibus[3:0]), .nre(nbankr0), .nwe(nbankw0), .ra(sel[1:0]), .wa(ir[1:0]), .q(aext[3:0]));
    regfile_670 reg0hi (.d(ibus[7:4]), .nre(nbankr0), .nwe(nbankw0), .ra(sel[1:0]), .wa(ir[1:0]), .q(aext[7:4]));
 
-   regfile_670 reg1lo (.d(ibus[3:0]), .nre(nbankr1), .nwe(nbankw1), .ra(2'b00), .wa(ir[1:0]), .q(aext[3:0]));
-   regfile_670 reg1hi (.d(ibus[7:4]), .nre(nbankr1), .nwe(nbankw1), .ra(2'b00), .wa(ir[1:0]), .q(aext[7:4]));
+   regfile_670 reg1lo (.d(ibus[3:0]), .nre(nbankr1), .nwe(nbankw1), .ra(sel[1:0]), .wa(ir[1:0]), .q(aext[3:0]));
+   regfile_670 reg1hi (.d(ibus[7:4]), .nre(nbankr1), .nwe(nbankw1), .ra(sel[1:0]), .wa(ir[1:0]), .q(aext[7:4]));
 
    // Buffers to output the value of AEXT to the IBus when the
    // registers are read. Only the low order 8 bits are written to.

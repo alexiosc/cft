@@ -37,7 +37,10 @@ module regfile_670 (d, nre, nwe, ra, wa, q);
    reg [3:0] 	q0[0:3];
 
    initial begin
-      // $display("BOM: 74x670");
+      q0[0] = 4'b0000;
+      q0[1] = 4'b1111;
+      q0[2] = 4'b0000;
+      q0[3] = 4'b1111;
    end
 
    always @(nwe, d) begin

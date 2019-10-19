@@ -26,7 +26,7 @@ module microcode_store_tb();
    initial begin
       
       //$display ("time\t d pulse");
-      $monitor ("%d | %b %b %h > %h | %b %b %b %b > %h", $time,
+      $monitor ("t: %7d | %b %b %h > %h | %b %b %b %b > %h", $time,
 		nreset, nhalt, uaddr, udata,
 		nfpua0, nfpuc0, nfpuc1, nfpuc2, fpd);
       $dumpfile ("vcd/microcode_store_tb.vcd");

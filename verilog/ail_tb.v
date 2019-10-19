@@ -39,7 +39,7 @@ module ail_tb();
    // Initialize all variables
    initial begin        
       //$display ("time\t rst oe cs q");	
-      $monitor ("%d | %b > %b", $time, ir, idx);
+      $monitor ("t: %7d | %b > %b", $time, ir, idx);
       $dumpfile ("vcd/ail_tb.vcd");
       $dumpvars (0, ail_tb);
 
@@ -65,17 +65,21 @@ module ail_tb();
       #30 begin
 	 msg[7:0] = "";		// Use the msg as a flag.
 
-	 casex (ir)
-	   16'b????_0_?_??????????: correct_idx = 2'b00;
-	   16'b????_x_0_??????????: correct_idx = 2'b00;
-	   16'b????_1_1_00????????: correct_idx = 2'b00;
-	   16'b????_1_1_01????????: correct_idx = 2'b01;
-	   16'b????_1_1_10????????: correct_idx = 2'b10;
-	   16'b????_1_1_11????????: correct_idx = 2'b11;
+	 // Table is from schematics
+	 casex (ir[11:0])
+	   12'b0?_??????????: correct_idx = 2'b00;
+	   12'b10_??????????: correct_idx = 2'b00;
+	   12'b11_00????????: correct_idx = 2'b00;
+	   12'b11_01????????: correct_idx = 2'b00;
+	   12'b11_10????????: correct_idx = 2'b00;
+	   12'b11_1100??????: correct_idx = 2'b00;
+	   12'b11_1101??????: correct_idx = 2'b01;
+	   12'b11_1110??????: correct_idx = 2'b10;
+	   12'b11_1111??????: correct_idx = 2'b11;
 	 endcase // casex (ir)
 
-	 if (idx !== correct_idx) $sformat(msg, "ir=%b:%b:%b:%b but idx=%b (should be %b)",
-					 ir[15:12], ir[11], ir[10], ir[9:8], idx, correct_idx);
+	 if (idx !== correct_idx) $sformat(msg, "ir[11:0]=%b%b_%b but idx=%b (should be %b)",
+					 ir[11], ir[10], ir[9:0], idx, correct_idx);
 
 	 // Fail if we've logged an issue.
 	 if (msg[7:0]) begin

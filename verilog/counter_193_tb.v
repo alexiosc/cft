@@ -47,7 +47,7 @@ module counter_193_tb();
    // Initialize all variables
    initial begin        
       $dumpfile ("vcd/counter_193_tb.vcd");
-      $monitor ("%d | %b %b %b %b %b > %b %b %b", $time, clr, npl, p, cpu, cpd, q, ntcu, ntcd);
+      $monitor ("t: %7d | %b %b %b %b %b > %b %b %b", $time, clr, npl, p, cpu, cpd, q, ntcu, ntcd);
       $dumpvars (0, counter_193_tb);
 
       clr = 0;       // initial value of clock

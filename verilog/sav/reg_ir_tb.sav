@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Sun Oct 13 11:21:31 2019
+[*] Sat Oct 19 09:08:30 2019
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/reg_ir_tb.vcd"
-[dumpfile_mtime] "Sun Oct 13 11:21:29 2019"
-[dumpfile_size] 12097604
+[dumpfile_mtime] "Sat Oct 19 09:08:27 2019"
+[dumpfile_size] 12097611
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/reg_ir_tb.sav"
-[timestart] 133580000
+[timestart] 209720000
 [size] 1841 671
 [pos] 2277 165
-*-20.908157 137746000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-21.908157 137746000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] reg_ir_tb.
 [sst_width] 258
 [signals_width] 163

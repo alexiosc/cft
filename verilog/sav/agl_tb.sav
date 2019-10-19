@@ -1,15 +1,15 @@
 [*]
-[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
-[*] Sat Oct 12 15:24:11 2019
+[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
+[*] Sat Oct 19 10:52:26 2019
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/agl_tb.vcd"
-[dumpfile_mtime] "Sat Oct 12 15:24:05 2019"
-[dumpfile_size] 8346309
+[dumpfile_mtime] "Sat Oct 19 10:52:03 2019"
+[dumpfile_size] 8344951
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/agl_tb.sav"
 [timestart] 0
 [size] 1723 675
-[pos] 72 93
-*-27.978054 41350000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[pos] 2110 190
+*-21.774626 91300 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] agl_tb.
 [treeopen] agl_tb.agl_unit.
 [sst_width] 258

@@ -49,18 +49,12 @@
 // 1 1 11:10XX:XXXX  10 Auto-decdement registers
 // 1 1 11:11XX:XXXX  11 Stack Pointers
 
-// Somewhat oddly, but because it saves an inverter and some
-// propagation delay, the decoding is done with an 74HC85 magnitude
-// comparator which outputs high when ir[11:8] > 4'b1100 (4'b1011
-// would work too).
-
-// NOTE: on the original CFT, this unit snooped the IBUS while the IR
-// was written to because it wasn't on the same board as the IR and
-// didn't have access to its signals. On the 2019 version, the IR and
-// AIL are colocated on the Control Unit board. (hopefully, I haven't
-// crammed everything together quite yet), so this isn't necessary and
-// we save another IC, some metastability risk, and plenty of
-// propagation delay.
+// NOTE: on the original CFT, this unit snooped the IBUS while the IR was
+// written to because it wasn't on the same board as the IR and didn't have
+// access to its signals. On the 2019 version, the IR and AIL are colocated on
+// the Control Unit board. (hopefully, I haven't crammed everything together
+// quite yet), so this isn't necessary and we save another IC, some
+// metastability risk, and plenty of propagation delay.
 
 module ail (ir, idx);
    input [15:0]  ir;

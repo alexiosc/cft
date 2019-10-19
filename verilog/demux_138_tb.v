@@ -41,7 +41,7 @@ module demux_138_tb();
 
    // Initialize all variables
    initial begin        
-      $monitor ("t=%7d | %b %b %b %h > %b", $time, g1, ng2a, ng2b, a, y);
+      $monitor ("t: %7d | %b %b %b %h > %b", $time, g1, ng2a, ng2b, a, y);
 
       $dumpfile ("vcd/demux_138_tb.vcd");
       $dumpvars (0, demux_138_tb);

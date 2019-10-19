@@ -56,7 +56,7 @@ module reg_l_tb();
       $dumpfile ("vcd/reg_l_tb.vcd");
       $dumpvars (0, reg_l_tb);
 
-      $monitor ("t:%7d | %b %b %b > %b", $time, nreset, naction_cll, naction_cpl, fl);
+      $monitor ("t: %7d | %b %b %b > %b", $time, nreset, naction_cll, naction_cpl, fl);
 
       nreset = 0;
       clk = 1;

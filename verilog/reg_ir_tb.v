@@ -120,6 +120,14 @@ module reg_ir_tb();
 		     nreset, nwrite_ir, ibus, prev_ir, ir);
 	 end
 
+	 // Fail if we've logged an issue.
+	 if (msg[7:0]) begin
+	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+	    $error("assertion failure");
+	    #1000 $finish;
+	 end
+	 else $display("OK IR");
+
       end // always @ (nreset, posedge nwrite_ir)
    end // always @ (nreset, posedge nwrite_ir)
 
@@ -148,6 +156,7 @@ module reg_ir_tb();
 	    $error("assertion failure");
 	    #1000 $finish;
 	 end
+	 else $display("OK Front Panel");
       end
    end
 endmodule // reg_ir_tb

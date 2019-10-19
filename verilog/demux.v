@@ -68,15 +68,15 @@ module demux_138 (g1, ng2a, ng2b, a, y);
 endmodule // demux_138
 
 
-module demux_139 (g1, a1, y1, g2, a2, y2);
+module demux_139 (ng1, a1, y1, ng2, a2, y2);
    parameter delay = 16;
 
-   input        g1, g2;		// Active high enable
+   input        ng1, ng2;	// Active low enables
    input [1:0] 	a1, a2;		// Input vector (3 bits)
    
    output [3:0] y1, y2;		// Output.
    
-   wire 	g1, g2;
+   wire 	ng1, ng2;
    wire [1:0] 	a1, a2;
    
    reg [3:0] 	y01, y02;
@@ -84,8 +84,8 @@ module demux_139 (g1, a1, y1, g2, a2, y2);
    
    wire 	q;
 
-   demux_139h h1 (g1, a1, y1);
-   demux_139h h2 (g2, a2, y2);
+   demux_139h h1 (.ng(ng1), .a(a1), .y(y1));
+   demux_139h h2 (.ng(ng2), .a(a2), .y(y2));
    
 endmodule // demux_138
 

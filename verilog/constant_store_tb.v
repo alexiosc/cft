@@ -40,7 +40,7 @@ module constant_store_tb();
    // Initialize all variables
    initial begin        
       //$display ("time\t rst oe cs q");	
-      $monitor ("%d | %b %b > %h", $time, nruen, raddr, ibus);
+      $monitor ("t: %7d | %b %b > %h", $time, nruen, raddr, ibus);
       $dumpfile ("vcd/constant_store_tb.vcd");
       $dumpvars (0, constant_store_tb);
 
