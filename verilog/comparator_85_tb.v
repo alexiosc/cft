@@ -3,7 +3,7 @@
 
 module comparator_85_tb();
 
-// Declare inputs as regs and outputs as wires
+   // Declare inputs as regs and outputs as wires
    reg [3:0] a, b;
    reg 	     en;
 
@@ -25,10 +25,9 @@ module comparator_85_tb();
       b =0;
 
       for (k = 0 ; k < 4; k = k + 1) begin
-	 #500
-	       ilt = k == 1 ? 1'b1 : 1'b0;
-	       ieq = k == 2 ? 1'b1 : 1'b0;
-	       igt = k == 3 ? 1'b1 : 1'b0;
+	 #500 ilt = k == 1 ? 1'b1 : 1'b0;
+	 ieq = k == 2 ? 1'b1 : 1'b0;
+	 igt = k == 3 ? 1'b1 : 1'b0;
 	 for (i = 0; i < 16; i = i + 1) begin
 	    for (j = 0; j < 16; j = j + 1) begin
 	       #100 a = i; b = j;

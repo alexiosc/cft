@@ -16,9 +16,7 @@
 `ifndef clock_v
 `define clock_v
 
-`include "flipflop.v"
 `include "mux.v"
-`include "vibrator.v"
 `include "counter.v"
 `include "demux.v"
 
