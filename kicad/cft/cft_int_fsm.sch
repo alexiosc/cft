@@ -418,7 +418,7 @@ F 3 "" H 6750 4950 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Text Label 4350 2300 0    50   ~ 0
-IRQEN
+FI
 Text Label 4350 2850 0    50   ~ 0
 FI
 Text Label 4350 2950 0    50   ~ 0

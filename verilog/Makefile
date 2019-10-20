@@ -422,7 +422,7 @@ test_constant_store:	constant_store_tb.o constant_store_tb.o buffer.o demux.o
 		./constant_store_tb.o
 		$(GTKWAVE) $(VCDDIR)/constant_store_tb.vcd $(SAVDIR)/constant_store_tb.sav
 
-test_ail:	ail_tb.o ail_tb.o demux.o
+test_ail:	ail_tb.o ail.o demux.o
 		./ail_tb.o
 		$(GTKWAVE) $(VCDDIR)/ail_tb.vcd $(SAVDIR)/ail_tb.sav
 
@@ -433,6 +433,10 @@ test_agl:	agl_tb.o agl.o buffer.o flipflop.o
 test_sbu:	sbu_tb.o sbu.o mux.o flipflop.o
 		./sbu_tb.o
 		$(GTKWAVE) $(VCDDIR)/sbu_tb.vcd $(SAVDIR)/sbu_tb.sav
+
+test_ism:	ism_tb.o ism.o flipflop.o
+		./ism_tb.o
+		$(GTKWAVE) $(VCDDIR)/ism_tb.vcd $(SAVDIR)/ism_tb.sav
 
 test_reg_ir:	reg_ir_tb.o reg_ir.o flipflop.o buffer.o 
 		./reg_ir_tb.o
