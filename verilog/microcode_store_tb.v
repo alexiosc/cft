@@ -1,8 +1,31 @@
+///////////////////////////////////////////////////////////////////////////////
+//
+// TEST THE MICROCODE STORE
+//
+///////////////////////////////////////////////////////////////////////////////
+//
 // REDESIGNED IN 2019
+// USES OK/FAIL OUTPUT
 //
-// microcode-store_tb.v -- Testbench for Microcode ROMs
+// microcode_store_tb.v -- Microcode Store testbench
 //
-// Copyright © 2011-2019 Alexios Chouchoulas
+// Copyright © 2011–2019 Alexios Chouchoulas
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2, or (at your option)
+// any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+// 
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software Foundation,
+// Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  
+//
+///////////////////////////////////////////////////////////////////////////////
 
 `include "microcode_store.v"
 
@@ -47,27 +70,27 @@ module microcode_store_tb();
       #1000 nhalt = 1'b0;
       #1000 nhalt = 1'b1;
 
-      #500000 $finish;
+      #1500000 $finish;
       
    end // initial begin
 
    // Simulate a realistic fast clock
    always begin
-      #250 uaddr = uaddr + 1;
+      #1000 uaddr = uaddr + 1;
    end
 
    // Asynchronous Front Panel functionality. 1817 + 4×30 = 1937 which
    // is prime. This makes it a more realistic test. (the CFT and FP
    // clock domains being out of phase)
    always begin
-      #1817 nfpua0 = 0;
-      #30   nfpua0 = 1; 
+      #1000 nfpua0 = 0;
+      #250  nfpua0 = 1; 
             nfpuc0 = 0;
-      #30   nfpuc0 = 1; 
+      #250  nfpuc0 = 1; 
             nfpuc1 = 0;
-      #30   nfpuc1 = 1; 
+      #250  nfpuc1 = 1; 
             nfpuc2 = 0;
-      #30   nfpuc2 = 1;
+      #250  nfpuc2 = 1;
    end
 
    microcode_store microcode_store(.nreset(nreset), .nhalt(nhalt), .uaddr(uaddr),
@@ -78,6 +101,64 @@ module microcode_store_tb();
 				   .nfpuc2(nfpuc2),
 				   .fpd(fpd));
    
+   // Verify our findings.
+   reg [8191:0] msg;
+   reg [7:0] 	fpval;
+   
+   always @ (nreset, nhalt) begin
+      #70 begin
+   	 msg[7:0] = "";		// Use the msg as a flag.
+
+   	 // Address loading checks
+   	 if (nreset === 0 || nhalt === 0) begin
+   	    if (udata !== 24'hZZZZ) begin
+   	       $sformat(msg, "nreset=%b, nhalt=%b, uaddr=%04x, but udata=%06x (should be Z)",
+			nreset, nhalt, uaddr, udata);
+   	    end;
+   	 end
+	 else if (nreset !== 1) $sformat(msg, "testbench bug, nreset=%b", nreset);
+	 else if (nhalt !== 1) $sformat(msg, "testbench bug, nhalt=%b", nhalt);
+	 
+   	 // Fail if we've logged an issue.
+   	 if (msg[7:0]) begin
+   	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+   	    $error("assertion failure");
+   	    #100 $finish;
+   	 end
+   	 else $display("OK microcode");
+      end
+   end // always @ (nreset, nhalt)
+
+   always @ (nfpua0, nfpuc0, nfpuc1, nfpuc2) begin
+      #30 begin
+   	 // Front Panel checks
+
+	 casex ({ nfpua0, nfpuc0, nfpuc1, nfpuc2 })
+	   4'b0111: fpval = uaddr[7:0];
+	   4'b1011: fpval = udata[7:0];
+	   4'b1101: fpval = udata[15:8];
+	   4'b1110: fpval = udata[23:16];
+	   4'b1111: fpval = 8'bzzzzzzzz;
+	   default: fpval = 8'bxxxxzzzz;
+	 endcase // casex ({ nfpua0, nfpuc0, nfpuc1, nfpuc2 })
+
+	 if (fpval === 8'bxxxxzzzz) begin
+	    $sformat(msg, "testbench bug, nfpua0=%b, nfpuc0=%b, nfpuc1=%b, nfpuc2=%b.",
+		     nfpua0, nfpuc0, nfpuc1, nfpuc2);
+	 end else if (fpval != -2 && fpd !== fpval) begin
+	    $sformat(msg, "nfpua0=%b, nfpuc0=%b, nfpuc1=%b, nfpuc2=%b, but fpd=%02x (should be %02x).",
+		     nfpua0, nfpuc0, nfpuc1, nfpuc2, fpd, fpval);
+	 end
+	 
+   	 // Fail if we've logged an issue.
+   	 if (msg[7:0]) begin
+   	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+   	    $error("assertion failure");
+   	    #100 $finish;
+   	 end
+	 else $display("OK front panel");
+      end
+   end // always @ (nset, nrst)
 endmodule // microcode_store_tb
 
 // End of file.

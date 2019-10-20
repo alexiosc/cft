@@ -1,4 +1,5 @@
-`include "serial_shifter.v"
+// REDESIGNED IN 2019
+// `include "serial_shifter.v"
 `include "flipflop.v"
 `timescale 1ns/10ps
 

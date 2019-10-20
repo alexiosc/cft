@@ -134,6 +134,7 @@ module reg_v_tb();
 	    $error("assertion failure");
 	    #1000 $finish;
 	 end
+	 else $display("OK reset");
       end
    end
 
@@ -159,6 +160,7 @@ module reg_v_tb();
 	    $error("assertion failure");
 	    #1000 $finish;
 	 end
+	 else $display("OK write");
       end
    end
 endmodule // reg_v_tb

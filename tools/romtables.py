@@ -165,7 +165,7 @@ class Rom(object):
         Write multiple ROM images using the file stem stem. Each ROM contains 8
         bits.
         """
-        for byte in xrange((self.dbits + 7) // 8):
+        for byte in range((self.dbits + 7) // 8):
             shift = 8 * byte
             fname = '%s-%02d.list' % (stem, byte)
             f = open(fname, 'w')
@@ -208,7 +208,7 @@ class Rom(object):
         Calculate the checksum.
         """
         self.checksum = 0
-        for i in xrange(self.amax):
+        for i in range(self.amax):
             self.checksum = self.checksum + (self.data[i] << (i % 8))
         return self.checksum
 
@@ -426,7 +426,7 @@ class FunctionTable(object):
             if high < low:
                 raise ValueError("The high bit number must come first in range '%s'.", item)
 
-            retval += [x for x in xrange(high, low - 1, -1)]
+            retval += [x for x in range(high, low - 1, -1)]
 
         return retval
             
@@ -464,7 +464,7 @@ class FunctionTable(object):
                 field = self.get_field(domain, bitspec)
                 if not field:
                     raise KeyError('Unknown field name.')
-                yield field, [x for x in xrange(field[1] - 1, -1, -1)]
+                yield field, [x for x in range(field[1] - 1, -1, -1)]
 
 
     def make_vector(self, domain, **kwargs):

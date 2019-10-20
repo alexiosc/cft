@@ -1,15 +1,15 @@
 [*]
-[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Sat Oct 12 17:55:36 2019
+[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
+[*] Sun Oct 20 07:37:34 2019
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/clock_tb.vcd"
-[dumpfile_mtime] "Sat Oct 12 17:55:09 2019"
-[dumpfile_size] 2466
+[dumpfile_mtime] "Sun Oct 20 07:37:12 2019"
+[dumpfile_size] 109339
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/clock_tb.sav"
 [timestart] 0
 [size] 1920 1019
 [pos] 2000 15
-*-18.719959 28000 13084000 45516000 363750 752485000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-23.719959 28000 13084000 45516000 363750 752485000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] clock_tb.
 [treeopen] clock_tb.clk.
 [sst_width] 258

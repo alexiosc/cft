@@ -1,10 +1,24 @@
-#!/usr/bin/env python2.6
+#!/usr/bin/env python3
 
 import os
 import sys
 import array
+import pprint
 import romtables
 import threading
+
+
+# # Generate a parity lookup (cache) table
+# _parity = dict()
+# for n in range(64):
+#     _parity[n] = len(bin(n)[2:].replace('0', '')) & 1
+
+# # pprint.pprint(_parity)
+# # exit(0)
+
+# def parity(x):
+#     return _parity[x]
+
 
 class Binary(threading.Thread):
     """
@@ -62,10 +76,10 @@ class Binary(threading.Thread):
         Run the thread.
         """
         tt = self.tt
-        for op in xrange(4):
-            for l_in in xrange(2):
-                for a in xrange(64):
-                    for b in xrange(64):
+        for op in range(4):
+            for l_in in range(2):
+                for a in range(64):
+                    for b in range(64):
 
                         l_out = l_in
                         v_out = 0
@@ -80,10 +94,13 @@ class Binary(threading.Thread):
                                 v_out = 1
                         elif op == self.AND:
                             x = a & b
+                            #v_out = parity(x)
                         elif op == self.OR:
                             x = a | b
+                            #v_out = parity(x)
                         elif op == self.XOR:
                             x = a ^ b
+                            #v_out = parity(x)
                         else:
                             raise RuntimeError("Should never happen")
 
@@ -97,7 +114,7 @@ class Binary(threading.Thread):
                         tt.put(addr, data)
         
                         if debug:
-                            print '%s %05x %d %s (%2d) %s %s (%2d) = %s (%2d) %s%s' % \
+                            print('%s %05x %d %s (%2d) %s %s (%2d) = %s (%2d) %s%s' % \
                                 (self.opcodes[op],
                                  addr,
                                  l_in,
@@ -107,7 +124,7 @@ class Binary(threading.Thread):
                                  romtables.mybin(x, 6), x,
                                  "-L"[l_out],
                                  "-V"[v_out],
-                                 )
+                                 ))
                         else:
                             tt.progress(dt=5)
 
@@ -122,15 +139,16 @@ class ShortBinary(Binary):
     strobes when addition is selected and should be ANDed with
     something like CLK5.
     """
+
     def run(self):
         """
         Run the thread.
         """
         tt = self.tt
-        for op in xrange(4):
-            for l_in in xrange(2):
-                for a in xrange(16):
-                    for b in xrange(16):
+        for op in range(4):
+            for l_in in range(2):
+                for a in range(16):
+                    for b in range(16):
 
                         l_out = l_in
                         v_out = 0
@@ -148,10 +166,13 @@ class ShortBinary(Binary):
                                 v_out = 1
                         elif op == self.AND:
                             x = a & b
+                            #v_out = parity(x)
                         elif op == self.OR:
                             x = a | b
+                            #v_out = parity(x)
                         elif op == self.XOR:
                             x = a ^ b
+                            #v_out = parity(x)
                         else:
                             raise RuntimeError("Should never happen")
 
@@ -165,7 +186,7 @@ class ShortBinary(Binary):
                         tt.put(addr, data)
         
                         if debug:
-                            print '%s %05x %d %s (%2d) %s %s (%2d) = %s (%2d) %s%s%s = %s' % \
+                            print('%s %05x %d %s (%2d) %s %s (%2d) = %s (%2d) %s%s%s = %s' % \
                                 (self.opcodes[op],
                                  addr,
                                  l_in,
@@ -177,7 +198,7 @@ class ShortBinary(Binary):
                                  "L-"[l_out],
                                  "-V"[v_out],
                                  romtables.mybin(data, 8)
-                                 )
+                                 ))
                         else:
                             tt.progress(dt=5)
 
@@ -188,26 +209,27 @@ class ShortBinary(Binary):
 debug = False
 #debug = True
 
-print "Generating 6-bit ROM"
+#debug = True
+print("Generating 6-bit ROM")
 # The main Binary ROM, as per the documentation above.
 binaryROM = romtables.FunctionTable('op:2 l_in a:6 b:6', 'v_out l_out x:6', singleROM=True)
 Binary(binaryROM).run()
 binaryROM.report()
-print 'Writing Verilog files.'
+print('Writing Verilog files.')
 binaryROM.writeVerilog('alu-binary-6bit')
-print 'Writing binary images.'
+print('Writing binary images.')
 binaryROM.writeBin('alu-binary-6bit')
 
 
-debug = True
-print "Generating 4-bit ROM"
+#debug = True
+print("Generating 4-bit ROM")
 # The short Binary ROM, as per the documentation above.
 shortBinaryROM = romtables.FunctionTable('op:2 l_in a:4 b:4', 'v_out l_out lvs pad:1 x:4', singleROM=True)
 ShortBinary(shortBinaryROM).run()
 shortBinaryROM.report()
-print 'Writing Verilog files.'
+print('Writing Verilog files.')
 shortBinaryROM.writeVerilog('alu-binary-4bit')
-print 'Writing binary images.'
+print('Writing binary images.')
 shortBinaryROM.writeBin('alu-binary-4bit')
 
 # End of file.

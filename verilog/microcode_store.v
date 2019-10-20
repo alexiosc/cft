@@ -79,9 +79,9 @@ module microcode_store(nreset, nhalt, uaddr, udata,
    // Load ROM images
    initial begin
       if (!$value$plusargs("basedir=%s", basedir)) basedir = `BASEDIR;
-      $sformat(s0, "%-0s/microcode/microcode-00.list", basedir);
-      $sformat(s1, "%-0s/microcode/microcode-01.list", basedir);
-      $sformat(s2, "%-0s/microcode/microcode-02.list", basedir);
+      $sformat(s0, "%-0s/microcode/build/microcode-00.list", basedir);
+      $sformat(s1, "%-0s/microcode/build/microcode-01.list", basedir);
+      $sformat(s2, "%-0s/microcode/build/microcode-02.list", basedir);
 
       $readmemb(s0, rom0.mem);
       $readmemb(s1, rom1.mem);
