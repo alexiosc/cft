@@ -27,8 +27,9 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-`include "counter.v"
 `timescale 1ns/10ps
+
+`include "counter.v"
 
 module counter_193_tb();
 
@@ -150,7 +151,7 @@ module counter_193_tb();
    	 end
 	 else $display("OK count");
       end
-   end
-   
+   end // always @ (clr, npl, p, cpu, cpd)
+endmodule // counter_193_tb
 
-endmodule
+// End of file.

@@ -1,31 +1,44 @@
 [*]
-[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Fri May 24 16:59:01 2019
+[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
+[*] Sun Oct 20 19:40:19 2019
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/counter_191_tb.vcd"
-[dumpfile_mtime] "Fri May 24 16:58:41 2019"
-[dumpfile_size] 4739
+[dumpfile_mtime] "Sun Oct 20 19:39:53 2019"
+[dumpfile_size] 69605
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/counter_191_tb.sav"
-[timestart] 0
-[size] 1743 917
+[timestart] 1328000
+[size] 1920 1019
 [pos] 0 15
-*-21.000000 4540000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-19.080685 2866000 1415000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] counter_191_tb.
-[sst_width] 226
+[sst_width] 258
 [signals_width] 269
 [sst_expanded] 1
 [sst_vpaned_height] 252
 @28
+[color] 1
 counter_191_tb.c0.cp
-counter_191_tb.c0.nce
+[color] 2
 counter_191_tb.c0.down
+[color] 3
+counter_191_tb.c0.nce
+@200
+-
+-Loading
+@28
 counter_191_tb.c0.npl
 @22
 counter_191_tb.c0.p[3:0]
+@200
+-
+-Output
+@22
+[color] 1
 counter_191_tb.c0.q[3:0]
 @28
+[color] 2
 counter_191_tb.c0.tc
-@29
+[color] 3
 counter_191_tb.c0.nrc
 [pattern_trace] 1
 [pattern_trace] 0

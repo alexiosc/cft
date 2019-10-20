@@ -138,7 +138,7 @@ module counter_191 (p, npl, down, nce, cp,
    output 	tc;		// Terminal count
 
    reg [3:0] 	q;
-   reg 		nrc;
+   wire 	nrc;
    wire 	npl;	        // Active low asynchronous parallel load
    wire 	down;		// 0 = count up, 1 = count down
    wire 	nce;		// Active low clock enable
@@ -147,12 +147,11 @@ module counter_191 (p, npl, down, nce, cp,
    initial begin
       // $display("BOM: 74x191");
       q <= 4'b0110;
-      nrc = 1;
    end
 
    // Async parallel load
    always @(npl) begin
-      #5.5 q <= p;
+      if (npl == 0) #5.5 q <= p;
    end
 
    // Synchronous counting
@@ -160,7 +159,6 @@ module counter_191 (p, npl, down, nce, cp,
       if (npl == 1 && nce == 0) begin
 	 if (down == 0) q <= q + 1;
 	 if (down == 1) q <= q - 1;
-	 nrc = ~tc;
       end
    end
 
@@ -168,7 +166,13 @@ module counter_191 (p, npl, down, nce, cp,
    // circuits reach zero in the count down mode or 15 in the count up
    // mode. The TC output will then remain HIGH until a state change occurs,
    // whether by counting or presetting or until U/D is changed.
-   assign #5 tc = (down == 0 && q == 15) ? 1 : (down == 1 && q == 0) ? 1 : 0;
+   assign #7 tc = (down == 1'b0 && q == 4'b1111) ? 1 : (down == 1'b1 && q == 4'b0000) ? 1 : 0;
+
+   // This is from the schematics of the '191 found at
+   // http://ee-classes.usc.edu/ee459/library/datasheets/DM74LS191.pdf
+   assign #9 nrc = cp == 1'b0 && nce == 1'b0 && tc == 1 ? 0 : 1;
+
+
 endmodule // counter_191
 
 
