@@ -138,8 +138,6 @@ Wire Notes Line
 	150  -1800 150  -5900
 Text Notes -3650 -550 0    118  ~ 24
 2019 Redesign To Do
-Text Notes -4000 -6000 0    118  ~ 24
-2019 Redesign Done
 $Sheet
 S 10550 -1900 1150 1350
 U 5CE09726
@@ -1439,5 +1437,7 @@ Verilog
 Text Notes 5050 -4250 0    70   ~ 14
 Verilog
 Text Notes 3900 6400 0    70   ~ 14
+Verilog
+Text Notes 5700 6050 0    70   ~ 14
 Verilog
 $EndSCHEMATC
