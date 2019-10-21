@@ -32,18 +32,20 @@
 `timescale 1ns/10ps
 
 module ism_tb();
-   reg      nreset;
-   reg 	    nend;
-   reg 	    naction_sti;
-   reg 	    naction_cli;
-   reg 	    nirq;
-
-   wire     clk1, clk2, clk3, clk4;
-   wire     fi;
-   wire     nirqs;
+   reg        nreset;
+   reg 	      nend;
+   reg 	      naction_sti;
+   reg 	      naction_cli;
+   reg 	      nirq;
    
-   integer  upc = 0;
-   integer  i;
+   wire       clk1, clk2, clk3, clk4;
+   wire       fi;
+   wire       nirqs;
+   
+   wire [4:0] state;
+   
+   integer    upc = 0;
+   integer    i;
    
    // Initialize all variables
    initial begin        
@@ -58,7 +60,11 @@ module ism_tb();
       naction_sti = 1;
       naction_cli = 1;
 
+      // Simulate the interrupt part of the reset sequence.
       #1000 nreset = 1;
+      naction_cli = 0;
+      #4000 naction_cli = 1;
+      
 
       for (i = 0; i < 10; i = i + 1) begin
 	 #5000 naction_sti = 0;
@@ -91,6 +97,9 @@ module ism_tb();
 	 upc = upc + 1;
       end
    end
+
+   // Create a state vector, which we can use to decode ISM states.
+   assign state = { fi, ism.nint0, ism.nint, ism.irqs0, nirqs };
 
    // Use the standard clock generator.
    clock_generator clock_generator (.nreset(nreset),

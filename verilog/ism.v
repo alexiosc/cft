@@ -20,6 +20,26 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
+// NOTES
+//
+// The ISM is state machine with 5 states, tradtionally numbered q1–q5.
+//
+// q0: the state on reset. Interrupts are disabled.
+//
+// q1: Entered on STI. Interrupts are enabled.
+//
+// q2: An interrupt request (IRQ) has been received at the rising edge
+//     of clk2.
+//
+// q3: The first rising edge of clk4 has been seen after entering
+//     q3. This is an additional state to avoid metastability and
+//     bring asynchronous interrupt requests into the CFT's clock
+//     domain. When the current instruction ends (CLK₄ goes high while
+//     nEND is low), q5 is entered.
+//
+// q4: Interrupt acknowledged, and the processor is running the
+//     Interrupt microprogram that will in turn
+
 module ism (nreset, clk2, clk3, clk4, nend,
 	    naction_sti, naction_cli, nirq,
 	    fi, nirqs);

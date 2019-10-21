@@ -1,23 +1,22 @@
 [*]
-[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
-[*] Sun Oct 20 18:35:13 2019
+[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
+[*] Mon Oct 21 20:15:33 2019
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/ism_tb.vcd"
-[dumpfile_mtime] "Sun Oct 20 17:59:04 2019"
-[dumpfile_size] 528631
+[dumpfile_mtime] "Mon Oct 21 20:08:36 2019"
+[dumpfile_size] 544188
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/ism_tb.sav"
-[timestart] 20920000
+[timestart] 161600000
 [size] 1750 817
-[pos] -1 -1
-*-22.283556 2057250 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[pos] 2105 51
+*-23.357178 106573800 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] ism_tb.
 [treeopen] ism_tb.ism.
 [sst_width] 258
-[signals_width] 222
+[signals_width] 262
 [sst_expanded] 1
 [sst_vpaned_height] 215
 @28
-[color] 1
 ism_tb.nreset
 [color] 2
 ism_tb.clk1
@@ -29,6 +28,30 @@ ism_tb.clk3
 ism_tb.clk4
 [color] 6
 ism_tb.nend
+ism_tb.ism.clk4_or_end
+@802029
+[color] 3
+^1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/ism_state
+ism_tb.state[4:0]
+@2029
+^1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/ism_state
+(0)ism_tb.state[4:0]
+^1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/ism_state
+(1)ism_tb.state[4:0]
+^1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/ism_state
+(2)ism_tb.state[4:0]
+^1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/ism_state
+(3)ism_tb.state[4:0]
+^1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/ism_state
+(4)ism_tb.state[4:0]
+@1001201
+-group_end
+@200
+-
+-q1 (reset)
+@28
+[color] 1
+ism_tb.nreset
 @200
 -
 @28
@@ -56,7 +79,7 @@ ism_tb.ism.nint
 ism_tb.ism.clk4_or_end
 @200
 -
-@c00200
+@800200
 -ff_irq1
 @28
 [color] 1
@@ -69,7 +92,7 @@ ism_tb.ism.ff_irq1.clk
 ism_tb.ism.ff_irq1.nrst
 [color] 5
 ism_tb.ism.ff_irq1.q
-@1401200
+@1000200
 -ff_irq1
 @c00200
 -ff_irq2
@@ -101,9 +124,9 @@ ism_tb.ism.ff_irq3.nrst
 ism_tb.ism.ff_irq3.q
 @1401200
 -ff_irq3
-@800200
+@c00200
 -ff_irq4
-@29
+@28
 [color] 1
 ism_tb.ism.ff_irq4.nset
 [color] 2
@@ -114,7 +137,7 @@ ism_tb.ism.ff_irq4.clk
 ism_tb.ism.ff_irq4.nrst
 [color] 6
 ism_tb.ism.ff_irq4.nq
-@1000200
+@1401200
 -ff_irq4
 [pattern_trace] 1
 [pattern_trace] 0
