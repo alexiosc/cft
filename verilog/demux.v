@@ -108,6 +108,10 @@ module demux_139h (ng, a, y);
    
    wire 	q;
 
+   initial begin
+     y0 = 4'b1111;
+   end
+
    // The 139 DOES NOT tri-state output. Instead, when disabled, all
    // its active-low outputs are high.
    assign #delay y = ng ? 4'b1111 : y0;

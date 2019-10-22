@@ -46,46 +46,77 @@ module ism_tb();
    
    integer    upc = 0;
    integer    i;
-   
+   reg [800:0] status;
+
    // Initialize all variables
    initial begin        
       //$display ("time\t rst oe cs q");
-      $monitor ("t: %7d | %b %b %b %b %b", $time, nreset, clk1, clk2, clk3, clk4, nend);
+      $monitor ("t: %7d | %b %b %b %b %b %b | %b %b > %b | %b > %b",
+		$time,
+		nreset, clk1, clk2, clk3, clk4, nend,
+		naction_sti, naction_cli, fi,
+		nirq, nirqs);
       $dumpfile ("vcd/ism_tb.vcd");
       $dumpvars (0, ism_tb);
 
+      status = "reset";
       nreset = 0;
       nend = 1;
       nirq = 1;
       naction_sti = 1;
       naction_cli = 1;
+      #250 nreset = 1;
 
       // Simulate the interrupt part of the reset sequence.
-      #1000 nreset = 1;
+
+      for (i = 0; i < 5; i = i + 1) begin
+	 #2000 status = "STI";
+	 naction_sti = 0;
+	 #250 naction_sti = 1;
+
+	 #2000 status = "CLI";
+	 naction_cli = 0;
+	 #250 naction_cli = 1;
+      end
+
+      #2000 status = "Masked INT";
+      nirq = 0;
+
+      #4000 status = "INT";
+      naction_sti = 0;
+      #250 naction_sti = 1;
+
+      #2000 nirq = 1;
+      
+      #4000 status = "CLI";
       naction_cli = 0;
-      #4000 naction_cli = 1;
+      #250 naction_cli = 1;
+
+      #2000 status = "STI";
+      naction_sti = 0;
+      #250 naction_sti = 1;
       
 
-      for (i = 0; i < 10; i = i + 1) begin
-	 #5000 naction_sti = 0;
-	 #1000 naction_sti = 1;
-	 #5000 naction_cli = 0;
-	 #1000 naction_cli = 1;
-      end;
+      // for (i = 0; i < 10; i = i + 1) begin
+      // 	 #5000 naction_sti = 0;
+      // 	 #1000 naction_sti = 1;
+      // 	 #5000 naction_cli = 0;
+      // 	 #1000 naction_cli = 1;
+      // end;
       
       // for (i = 0; i < 65536; i = i + 1) begin
       // 	 #63.5;
       // end
       
-      #100000 $display("OK");
+      #5000 $display("OK");
       $finish;
    end // initial begin
 
    // Simulate IRQs
-   always begin
-      #1933 nirq = 0;
-      #1933 nirq = 1;
-   end
+   // always begin
+   //    #1933 nirq = 0;
+   //    #1933 nirq = 1;
+   // end
 
    // Simulate nend
    always @(posedge clk1) begin
@@ -107,41 +138,39 @@ module ism_tb();
 				    .clk1(clk1), .clk2(clk2), .clk3(clk3), .clk4(clk4));
    
    // Connect DUT to test bench
-   ism ism (.nreset(nreset), .clk2(clk2), .clk3(clk3), .clk4(clk4),
+   ism ism (.nreset(nreset), .clk1(clk1), .clk3(clk3), .clk4(clk4),
 	    .nend(nend), .naction_cli(naction_cli), .naction_sti(naction_sti),
 	    .nirq(nirq), .fi(fi), .nirqs(nirqs));
 
-   // // Verify our findings.
-   // reg [8191:0] msg;
-   // reg [1:0] 	correct_idx;
-   // always @ (ir) begin
-   //    #30 begin
-   // 	 msg[7:0] = "";		// Use the msg as a flag.
+   // Verify our findings.
+   reg [8191:0] msg;
+   reg 		correct_fi = 0;
+   always @ (naction_cli, naction_sti) begin
+      #30 begin
+   	 msg[7:0] = "";		// Use the msg as a flag.
 
-   // 	 // Table is from schematics
-   // 	 casex (ir[11:0])
-   // 	   12'b0?_??????????: correct_idx = 2'b00;
-   // 	   12'b10_??????????: correct_idx = 2'b00;
-   // 	   12'b11_00????????: correct_idx = 2'b00;
-   // 	   12'b11_01????????: correct_idx = 2'b00;
-   // 	   12'b11_10????????: correct_idx = 2'b00;
-   // 	   12'b11_1100??????: correct_idx = 2'b00;
-   // 	   12'b11_1101??????: correct_idx = 2'b01;
-   // 	   12'b11_1110??????: correct_idx = 2'b10;
-   // 	   12'b11_1111??????: correct_idx = 2'b11;
-   // 	 endcase // casex (ir)
+	 if (naction_cli === 0 && naction_sti === 0) begin
+	    $sformat(msg, "testbench bug, naction_cli=%b, naction_sti=%b (should never happen)",
+		     naction_cli, naction_sti);
+	 end
+	 else if (naction_cli === 0) correct_fi = 0;
+	 else if (naction_sti === 0) correct_fi = 1;
+	 else if (naction_cli !== 1) $sformat(msg, "testbench bug, naction_cli=%b", naction_cli);
+	 else if (naction_sti !== 1) $sformat(msg, "testbench bug, naction_sti=%b", naction_sti);
 
-   // 	 if (idx !== correct_idx) $sformat(msg, "ir[11:0]=%b%b_%b but idx=%b (should be %b)",
-   // 					 ir[11], ir[10], ir[9:0], idx, correct_idx);
+	 if (fi !== correct_fi) begin
+	    $sformat(msg, "naction_cli=%b, naction_sti=%b, fi=%b (should be %b)",
+		     naction_cli, naction_sti, fi, correct_fi);
+	 end
 
-   // 	 // Fism if we've logged an issue.
-   // 	 if (msg[7:0]) begin
-   // 	    $display("FISM: assertion fismed at t=%0d: %0s", $time, msg);
-   // 	    $error("assertion fismure");
-   // 	    #100 $finish;
-   // 	 end
-   // 	 else $display("OK ism");
-   //    end
-   // end // always @ (nread_agl, ir, pc)
+   	 // Fail if we've logged an issue.
+   	 if (msg[7:0]) begin
+   	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+   	    $error("assertion failure");
+   	    #100 $finish;
+   	 end
+   	 else $display("OK fi");
+      end
+   end // always @ (nread_agl, ir, pc)
 
 endmodule
