@@ -5,7 +5,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
 // REDESIGNED IN 2019
-// USES OKxxxFAIL OUTPUT
+// USES OK/FAIL OUTPUT
 //
 // ism_tb.v -- Interrupt Logic Testbench
 //
@@ -138,7 +138,7 @@ module ism_tb();
 				    .clk1(clk1), .clk2(clk2), .clk3(clk3), .clk4(clk4));
    
    // Connect DUT to test bench
-   ism ism (.nreset(nreset), .clk1(clk1), .clk3(clk3), .clk4(clk4),
+   ism ism (.nreset(nreset), .clk1(clk1), .clk4(clk4),
 	    .nend(nend), .naction_cli(naction_cli), .naction_sti(naction_sti),
 	    .nirq(nirq), .fi(fi), .nirqs(nirqs));
 

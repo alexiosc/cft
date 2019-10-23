@@ -20,13 +20,12 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-module ism (nreset, clk1, clk3, clk4, nend,
+module ism (nreset, clk1, clk4, nend,
 	    naction_sti, naction_cli, nirq,
 	    fi, nirqs);
 
    input        nreset;
    input 	clk1;
-   input 	clk3;
    input 	clk4;
    input 	nend;
    input 	naction_sti;
