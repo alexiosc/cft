@@ -2136,12 +2136,6 @@ $EndComp
 Connection ~ 4800 3750
 Wire Wire Line
 	1750 5300 1850 5300
-Wire Bus Line
-	8800 850  8800 4800
-Wire Bus Line
-	7000 2650 7000 5550
-Wire Bus Line
-	6700 2650 6700 3450
 $Comp
 L power:PWR_FLAG #FLG0109
 U 1 1 5DA228A5
@@ -2154,4 +2148,10 @@ F 3 "~" H 1750 6600 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 Connection ~ 1750 6600
+Wire Bus Line
+	8800 850  8800 4800
+Wire Bus Line
+	7000 2650 7000 5550
+Wire Bus Line
+	6700 2650 6700 3450
 $EndSCHEMATC
