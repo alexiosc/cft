@@ -488,8 +488,8 @@ start RST=0, INT=X, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 // latency. The Return process will probably be identical.
 
 start RST=1, INT=0, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
-      /action_cli, STACK_PUSH(mbp_flags);       // 00 mem[MBS:SP++] ← flags:MBP; CLI
-      STACK_PUSH(pc);			        // 02 mem[MBS:SP++] ← PC
+      STACK_PUSH(mbp_flags);                    // 00 mem[MBS:SP++] ← flags:MBP
+      /action_cli, STACK_PUSH(pc);              // 02 mem[MBS:SP++] ← PC; CLI
       STACK_PUSH(ac);		                // 04 mem[MBS:SP++] ← AC
       SET(pc, cs_isrvec0);			// 06 PC ← 0002
       SET(mbp, cs_isrvec1), END;		// 07 MBP ← 0003
@@ -511,7 +511,7 @@ start RST=1, INT=0, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 
 // PART I: INSTRUCTION 0 (maximum 7-bit operands)
 
-#define IRET   _INSTR(0000), I=0, R=0, SUBOP=000,         IDX=XX
+#define IRET   _INSTR(0000), I=0, R=0, SUBOP=000, COND=X, IDX=XX
 #define LRET   _INSTR(0000), I=0, R=0, SUBOP=001, COND=X, IDX=XX
 #define RET    _INSTR(0000), I=0, R=0, SUBOP=010, COND=X, IDX=XX
 #define TAS    _INSTR(0000), I=0, R=0, SUBOP=011, COND=X, IDX=XX
@@ -593,34 +593,19 @@ start RST=1, INT=0, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 // GROUP:    Flow Control
 // MODE:     Implied
 // FLAGS:    *NZVIL
-// FORMAT:   :------0
+// FORMAT:   :-------
 //
-// Pops the AC, PC and MBP from the Hardware Stack to return from an Interrupt
-// Service Routine. Interrupts are re-enabled atomically during this
-// command. The operand must have bit 0 clear.
+// Pops the AC, PC, MBP and flags from the Hardware Stack to return
+// from an Interrupt Service Routine. Flags include the I flag, so
+// interrupts are re-enabled atomically during this command if they
+// were enabled when the ISR was called.
 
-// MNEMONIC: IRETC
-// NAME:     Return From Interrupt and Clear Interrupt Flag
-// DESC:     Return from Interrupt, disabling subsequent interrupts
-// GROUP:    Flow Control
-// MODE:     Implied
-// FLAGS:    *NZVIL
-// FORMAT:   :------1
-//
-// Pops the AC, PC and MBP from the Hardware Stack to return from an Interrupt
-// Service Routine. Interrupts are disabled. The operand must have bit 0 set.
-
-start IRET, COND=1;
-      FETCH_IR, if_ir0;	                        // 00 IR ← mem[PC++]
-      STACK_POP(ac), /action_sti;		// 02 AC ← mem[--SP]; STI
-      STACK_POP(pc);				// 05 PC ← mem[--SP]
-      STACK_POP(mbp_flags), END;                // 08 flags:MBP ← mem[--SP]
-
-start IRET, COND=0;
+start IRET;
       FETCH_IR, if_ir0;		                // 00 IR ← mem[PC++]
       STACK_POP(ac);				// 02 AC ← mem[--SP]
       STACK_POP(pc);				// 05 PC ← mem[--SP]
       STACK_POP(mbp_flags), END;                // 08 flags:MBP ← mem[--SP]
+
 
 
 ///////////////////////////////////////////////////////////////////////////////
