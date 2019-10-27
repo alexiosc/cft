@@ -63,6 +63,7 @@ CFT2019 = 	clock.v            clock_tb.v \
 		ail.v		   ail_tb.v \
 		agl.v		   agl_tb.v \
 		sbu.v		   sbu_tb.v \
+		flag_unit.v \
 		reg_ir.v           reg_ir_tb.v \
 		reg_ar.v           reg_ar_tb.v \
 		reg_mbr.v          reg_mbr_tb.v \
