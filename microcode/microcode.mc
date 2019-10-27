@@ -181,10 +181,10 @@ field  READ            = ___________________XXXXX; // Read unit field
 //signal               = ...................00001; // (Available)
 signal read_agl        = ...................00010; // Read from address generation logic
 //signal               = ...................00011; // (Available)
-signal read_cs_rstvec  = ...................00100; // Constant Store: Reset Vector (0000)
-signal read_cs_rsvd1   = ...................00101; // Constant Store: Unused (0001)
-signal read_cs_isrvec0 = ...................00110; // Constant Store: ISR Vector (0002)
-signal read_cs_isrvec1 = ...................00111; // Constant Store: ISR Vector (0003)
+signal read_cs0        = ...................00100; // Constant Store: 0000 (Zero; Reset)
+signal read_cs1        = ...................00101; // Constant Store: 0001 (Unused)
+signal read_cs2        = ...................00110; // Constant Store: 0002 (ISR Vector)
+signal read_cs3        = ...................00111; // Constant Store: 0003 (ISR Vector)
 signal read_pc         = ...................01000; // Read from PC
 signal read_dr         = ...................01001; // Read from DR
 signal read_ac         = ...................01010; // Read from AC
@@ -245,6 +245,11 @@ signal write_alu_b     = ..............10000.....; // Write to ALU's B Port
 //signal               = ..............11110.....; // (Available)
 //signal               = ..............11111.....; // (Available)
 
+// Convenient aliases for the constants in the Constant Store
+#define read_cs_rstvec  read_cs0
+#define read_cs_isrvec0 read_cs2
+#define read_cs_isrvec1 read_cs3
+
 // COND FIELD (UNDER REDESIGN)
 // TODO: Rearrange the upper eight ones?
 field  IF              = _________XXXXX__________; // OPx IF field
@@ -273,7 +278,7 @@ signal /action_cpl     = .....0001...............; // Complement L
 signal /action_cll     = .....0010...............; // Clear L flag
 signal /action_sti     = .....0011...............; // Set I flag
 signal /action_cli     = .....0100...............; // Clear I flag
-signal /action_cla     = .....0101...............; // Clear the AC
+//signal /action_???   = .....0101...............; // 
 //signal /action_???   = .....0110...............; //
 signal /action_sru     = .....0111...............; // Start the shift/roll engine
 
@@ -1453,7 +1458,7 @@ start HCF;
 start IFL, COND=0;
       FETCH_IR, if_l;		                // 00 IR ← mem[PC++];
       if_ir5;					// If L:
-      /action_cla, if_ir4;			// If IR5: AC ← 0
+      SET(ac, cs0), if_ir4;			// If IR5: AC ← 0
       /action_cll, if_ir3;			// If IR4: L ← 0
       SET(ac, alu_not), if_ir2;			// If IR3: AC ← ~AC
       /action_incac, if_ir1;                    // IF IR2: AC++
@@ -1473,7 +1478,7 @@ start IFL, COND=1;
 start IFV, COND=0;
       FETCH_IR, if_v;		                // 00 IR ← mem[PC++];
       if_ir5;					// If V:
-      /action_cla, if_ir4;			// If IR5: AC ← 0
+      SET(ac, cs0), if_ir4;			// If IR5: AC ← 0
       /action_cll, if_ir3;			// If IR4: L ← 0
       SET(ac, alu_not), if_ir2;			// If IR3: AC ← ~AC
       /action_incac, if_ir1;                    // IF IR2: AC++
@@ -1492,7 +1497,7 @@ start IFV, COND=1;
 
 start UOP, COND=0;
       FETCH_IR, if_ir5;		                // 00 IR ← mem[PC++];
-      /action_cla, if_ir4;			// If IR5: AC ← 0
+      SET(ac, cs0), if_ir4;			// If IR5: AC ← 0
       /action_cll, if_ir3;			// If IR4: L ← 0
       SET(ac, alu_not), if_ir2;			// If IR3: AC ← ~AC
       /action_incac, if_ir1;                    // IF IR2: AC++
