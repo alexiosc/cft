@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:cft-cache
-EELAYER 30 0
+EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -1451,4 +1451,6 @@ Wire Notes Line
 	7850 3750 7850 700 
 Text Notes 8050 950  0    75   ~ 15
 May not be needed as-is.
+Text Notes 5400 4150 0    70   ~ 14
+Verilog
 $EndSCHEMATC
