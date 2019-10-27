@@ -14,60 +14,6 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-Text Label 1600 7200 2    50   ~ 0
-RSVD8
-Text Label 1600 7350 2    50   ~ 0
-RSVD9
-Wire Wire Line
-	1050 7350 1600 7350
-Wire Wire Line
-	1050 7200 1600 7200
-$Comp
-L Jumper:SolderJumper_2_Open JP?
-U 1 1 5D676EFC
-P 900 7200
-AR Path="/5D676EFC" Ref="JP?"  Part="1" 
-AR Path="/5D65F6EF/5D676EFC" Ref="JP?"  Part="1" 
-AR Path="/5D69F3FD/5D676EFC" Ref="JP3301"  Part="1" 
-F 0 "JP3301" H 1100 7250 50  0000 C CNN
-F 1 "SolderJumper_2_Open" H 900 7314 50  0001 C CNN
-F 2 "" H 900 7200 50  0001 C CNN
-F 3 "~" H 900 7200 50  0001 C CNN
-	1    900  7200
-	1    0    0    -1  
-$EndComp
-$Comp
-L Jumper:SolderJumper_2_Open JP?
-U 1 1 5D676F02
-P 900 7350
-AR Path="/5D676F02" Ref="JP?"  Part="1" 
-AR Path="/5D65F6EF/5D676F02" Ref="JP?"  Part="1" 
-AR Path="/5D69F3FD/5D676F02" Ref="JP3302"  Part="1" 
-F 0 "JP3302" H 1100 7400 50  0000 C CNN
-F 1 "SolderJumper_2_Open" H 900 7464 50  0001 C CNN
-F 2 "" H 900 7350 50  0001 C CNN
-F 3 "~" H 900 7350 50  0001 C CNN
-	1    900  7350
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR?
-U 1 1 5D676F08
-P 700 7100
-AR Path="/5D676F08" Ref="#PWR?"  Part="1" 
-AR Path="/5D65F6EF/5D676F08" Ref="#PWR?"  Part="1" 
-AR Path="/5D69F3FD/5D676F08" Ref="#PWR03319"  Part="1" 
-F 0 "#PWR03319" H 700 6950 50  0001 C CNN
-F 1 "+5V" H 715 7273 50  0000 C CNN
-F 2 "" H 700 7100 50  0001 C CNN
-F 3 "" H 700 7100 50  0001 C CNN
-	1    700  7100
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	700  7350 750  7350
-Wire Wire Line
-	750  7200 700  7200
 Text Label 7450 1750 0    50   ~ 0
 RSVD14
 Text Label 7450 5500 0    50   ~ 0
@@ -81,9 +27,9 @@ FZ
 Text Label 7450 5000 0    50   ~ 0
 FN
 Text Label 7450 4900 0    50   ~ 0
-RSVD9
+FPRSVD9
 Text Label 7450 4800 0    50   ~ 0
-RSVD8
+FPRSVD8
 Wire Wire Line
 	7800 5400 7450 5400
 Wire Wire Line
@@ -569,26 +515,6 @@ Wire Wire Line
 	7050 5300 7800 5300
 Wire Wire Line
 	6950 5500 7800 5500
-Text Label 1600 7500 2    50   ~ 0
-RSVD14
-Wire Wire Line
-	1050 7500 1600 7500
-$Comp
-L Jumper:SolderJumper_2_Open JP?
-U 1 1 5D677023
-P 900 7500
-AR Path="/5D677023" Ref="JP?"  Part="1" 
-AR Path="/5D65F6EF/5D677023" Ref="JP?"  Part="1" 
-AR Path="/5D69F3FD/5D677023" Ref="JP3303"  Part="1" 
-F 0 "JP3303" H 1100 7550 50  0000 C CNN
-F 1 "SolderJumper_2_Open" H 900 7614 50  0001 C CNN
-F 2 "" H 900 7500 50  0001 C CNN
-F 3 "~" H 900 7500 50  0001 C CNN
-	1    900  7500
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	700  7500 750  7500
 Wire Wire Line
 	6950 1750 6950 1850
 Wire Wire Line
@@ -658,20 +584,10 @@ Text Label 2200 1650 0    50   ~ 0
 FV
 Text Label 2200 1750 0    50   ~ 0
 FI
-Wire Wire Line
-	700  7100 700  7200
-Connection ~ 700  7200
-Wire Wire Line
-	700  7200 700  7350
-Connection ~ 700  7350
-Wire Wire Line
-	700  7350 700  7500
 Text Notes 7100 7000 0    197  ~ 39
 Flag Unit
 Text Label 7450 5400 0    50   ~ 0
-RSVD14
-Text Notes 600  750  0    404  ~ 81
-ADDRESSING HAS CHANGED, REDO!
+FPRSVD14
 Wire Wire Line
 	3000 3050 3350 3050
 Wire Wire Line
@@ -704,8 +620,8 @@ F 3 "" H 3350 4500 50  0001 C CNN
 $EndComp
 Text Notes 4550 3550 0    50   ~ 0
 RADDR or WADDR = 01101 → Read/Write MBP & Flags\nRADDR or WADDR = 01110 → Read/Write Flags
-Text Notes 8350 3650 0    50   ~ 0
-Individual flags respond to ~FLAGWE~ assertions\nby sampling the appropriate bit of the IBUS and\nmodifying their values.\n\nThe only flags that can currently be set this way\nare FL and FV. FZ and FN are controlled by the\ncurrent value of the AC anyway, and FI ignores\nthis purposefully. (but probably shouldn't)
+Text Notes 8350 3700 0    50   ~ 0
+Individual flags respond to ~FLAGWE~ assertions\nby sampling the appropriate bit of the IBUS and\nmodifying their values.\n\nThe only flags that can currently be set this way\nare FI, FL and FV. FZ and FN are controlled by the\ncurrent value of the AC.
 NoConn ~ 4350 5450
 Text Label 8850 4800 0    50   ~ 0
 FPD0
@@ -723,6 +639,98 @@ Text Label 8850 5400 0    50   ~ 0
 FPD6
 Text Label 8850 5500 0    50   ~ 0
 FPD7
+Text Notes 3900 6650 0    50   ~ 0
+These solder jumpers can be used to change the meanings\nof the unused LEDs on the flag section of the front panel.\nThey should be bridged (ground, LED off) until this is required.
+$Comp
+L Jumper:SolderJumper_3_Bridged123 JP?
+U 1 1 5E0D2D96
+P 4150 7200
+F 0 "JP?" V 4150 7267 50  0000 L CNN
+F 1 "SolderJumper_3_Bridged123" V 4105 7267 50  0001 L CNN
+F 2 "" H 4150 7200 50  0001 C CNN
+F 3 "~" H 4150 7200 50  0001 C CNN
+	1    4150 7200
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	4300 7200 4650 7200
+Text Label 4650 7200 2    50   ~ 0
+FPRSVD8
+Wire Wire Line
+	4150 7000 3850 7000
+Text Label 3850 7000 0    50   ~ 0
+RSVD8
+$Comp
+L power:GND #PWR?
+U 1 1 5E0E6829
+P 4150 7400
+F 0 "#PWR?" H 4150 7150 50  0001 C CNN
+F 1 "GND" H 4155 7227 50  0000 C CNN
+F 2 "" H 4150 7400 50  0001 C CNN
+F 3 "" H 4150 7400 50  0001 C CNN
+	1    4150 7400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Jumper:SolderJumper_3_Bridged123 JP?
+U 1 1 5E0F938B
+P 5100 7200
+F 0 "JP?" V 5100 7267 50  0000 L CNN
+F 1 "SolderJumper_3_Bridged123" V 5055 7267 50  0001 L CNN
+F 2 "" H 5100 7200 50  0001 C CNN
+F 3 "~" H 5100 7200 50  0001 C CNN
+	1    5100 7200
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	5250 7200 5600 7200
+Text Label 5600 7200 2    50   ~ 0
+FPRSVD9
+Wire Wire Line
+	5100 7000 4800 7000
+Text Label 4800 7000 0    50   ~ 0
+RSVD9
+$Comp
+L power:GND #PWR?
+U 1 1 5E0F9395
+P 5100 7400
+F 0 "#PWR?" H 5100 7150 50  0001 C CNN
+F 1 "GND" H 5105 7227 50  0000 C CNN
+F 2 "" H 5100 7400 50  0001 C CNN
+F 3 "" H 5100 7400 50  0001 C CNN
+	1    5100 7400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Jumper:SolderJumper_3_Bridged123 JP?
+U 1 1 5E104138
+P 6050 7200
+F 0 "JP?" V 6050 7267 50  0000 L CNN
+F 1 "SolderJumper_3_Bridged123" V 6005 7267 50  0001 L CNN
+F 2 "" H 6050 7200 50  0001 C CNN
+F 3 "~" H 6050 7200 50  0001 C CNN
+	1    6050 7200
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	6200 7200 6550 7200
+Text Label 6550 7200 2    50   ~ 0
+FPRSVD14
+Wire Wire Line
+	6050 7000 5750 7000
+Text Label 5750 7000 0    50   ~ 0
+RSVD14
+$Comp
+L power:GND #PWR?
+U 1 1 5E104142
+P 6050 7400
+F 0 "#PWR?" H 6050 7150 50  0001 C CNN
+F 1 "GND" H 6055 7227 50  0000 C CNN
+F 2 "" H 6050 7400 50  0001 C CNN
+F 3 "" H 6050 7400 50  0001 C CNN
+	1    6050 7400
+	1    0    0    -1  
+$EndComp
 Wire Bus Line
 	2900 4800 2900 5550
 Wire Bus Line
