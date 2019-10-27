@@ -23,7 +23,7 @@ AR Path="/64C48268/64CFABCF" Ref="U1301"  Part="1"
 F 0 "U1301" H 5800 3167 50  0000 C CNN
 F 1 "74LVC1G17" H 5800 3076 50  0000 C CNN
 F 2 "alexios:SOT-23-5_HandSoldering" H 5850 2900 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G11.pdf" H 5850 2900 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G17.pdf" H 5850 2900 50  0001 C CNN
 	1    5850 2900
 	1    0    0    -1  
 $EndComp
@@ -34,7 +34,7 @@ P 6150 2900
 AR Path="/64CFABD5" Ref="R?"  Part="1" 
 AR Path="/64C48268/64CFABD5" Ref="R1303"  Part="1" 
 F 0 "R1303" V 6250 2900 50  0000 C CNN
-F 1 "1.2kΩ" V 6350 2900 50  0000 C CNN
+F 1 "150Ω" V 6350 2900 50  0000 C CNN
 F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 6150 2900 50  0001 C CNN
 F 3 "~" H 6150 2900 50  0001 C CNN
 	1    6150 2900
@@ -73,7 +73,7 @@ F 3 "" H 6650 2950 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	4800 2900 4350 2900
+	4700 2900 4250 2900
 $Comp
 L alexios:74LVC1G17 U?
 U 1 1 64CFABEB
@@ -83,7 +83,7 @@ AR Path="/64C48268/64CFABEB" Ref="U1302"  Part="1"
 F 0 "U1302" H 5800 4267 50  0000 C CNN
 F 1 "74LVC1G17" H 5800 4176 50  0000 C CNN
 F 2 "alexios:SOT-23-5_HandSoldering" H 5850 4000 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G11.pdf" H 5850 4000 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G17.pdf" H 5850 4000 50  0001 C CNN
 	1    5850 4000
 	1    0    0    -1  
 $EndComp
@@ -94,7 +94,7 @@ P 6150 4000
 AR Path="/64CFABF1" Ref="R?"  Part="1" 
 AR Path="/64C48268/64CFABF1" Ref="R1304"  Part="1" 
 F 0 "R1304" V 6250 4000 50  0000 C CNN
-F 1 "1.2kΩ" V 6350 4000 50  0000 C CNN
+F 1 "150Ω" V 6350 4000 50  0000 C CNN
 F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 6150 4000 50  0001 C CNN
 F 3 "~" H 6150 4000 50  0001 C CNN
 	1    6150 4000
@@ -133,157 +133,157 @@ F 3 "" H 6650 4050 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	4800 4000 4350 4000
-Text Label 4500 2900 0    50   ~ 0
+	4700 4000 4250 4000
+Text Label 4400 2900 0    50   ~ 0
 LED1
-Text Label 4500 4000 0    50   ~ 0
+Text Label 4400 4000 0    50   ~ 0
 LED2
 $Comp
 L Device:D_ALT D?
 U 1 1 64CFAC09
-P 4950 2900
+P 4850 2900
 AR Path="/64CFAC09" Ref="D?"  Part="1" 
 AR Path="/64C48268/64CFAC09" Ref="D1301"  Part="1" 
-F 0 "D1301" H 4950 2684 50  0000 C CNN
-F 1 "D_ALT" H 4950 2775 50  0000 C CNN
-F 2 "Diode_SMD:D_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 4950 2900 50  0001 C CNN
-F 3 "~" H 4950 2900 50  0001 C CNN
-	1    4950 2900
+F 0 "D1301" H 4850 2684 50  0000 C CNN
+F 1 "1N4148" H 4850 2775 50  0000 C CNN
+F 2 "Diode_SMD:D_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 4850 2900 50  0001 C CNN
+F 3 "~" H 4850 2900 50  0001 C CNN
+	1    4850 2900
 	-1   0    0    1   
 $EndComp
 $Comp
 L Device:D_ALT D?
 U 1 1 64CFAC0F
-P 4950 4000
+P 4850 4000
 AR Path="/64CFAC0F" Ref="D?"  Part="1" 
 AR Path="/64C48268/64CFAC0F" Ref="D1302"  Part="1" 
-F 0 "D1302" H 4950 3784 50  0000 C CNN
-F 1 "D_ALT" H 4950 3875 50  0000 C CNN
-F 2 "Diode_SMD:D_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 4950 4000 50  0001 C CNN
-F 3 "~" H 4950 4000 50  0001 C CNN
-	1    4950 4000
+F 0 "D1302" H 4850 3784 50  0000 C CNN
+F 1 "1N4148" H 4850 3875 50  0000 C CNN
+F 2 "Diode_SMD:D_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 4850 4000 50  0001 C CNN
+F 3 "~" H 4850 4000 50  0001 C CNN
+	1    4850 4000
 	-1   0    0    1   
 $EndComp
 Wire Wire Line
-	5100 2900 5250 2900
+	5000 2900 5150 2900
 Wire Wire Line
-	5250 3000 5250 2900
-Connection ~ 5250 2900
+	5150 3000 5150 2900
+Connection ~ 5150 2900
 Wire Wire Line
-	5450 2900 5450 3000
-Connection ~ 5450 2900
+	5350 2900 5350 3000
+Connection ~ 5350 2900
 Wire Wire Line
-	5450 2900 5550 2900
+	5350 2900 5550 2900
 Wire Wire Line
-	5250 2900 5450 2900
+	5150 2900 5350 2900
 Wire Wire Line
-	5350 3250 5450 3250
+	5250 3250 5350 3250
 $Comp
 L power:GND #PWR?
 U 1 1 64CFAC1D
-P 5350 3250
+P 5250 3250
 AR Path="/64CFAC1D" Ref="#PWR?"  Part="1" 
 AR Path="/64C48268/64CFAC1D" Ref="#PWR0142"  Part="1" 
-F 0 "#PWR0142" H 5350 3000 50  0001 C CNN
-F 1 "GND" H 5355 3077 50  0000 C CNN
-F 2 "" H 5350 3250 50  0001 C CNN
-F 3 "" H 5350 3250 50  0001 C CNN
-	1    5350 3250
+F 0 "#PWR0142" H 5250 3000 50  0001 C CNN
+F 1 "GND" H 5255 3077 50  0000 C CNN
+F 2 "" H 5250 3250 50  0001 C CNN
+F 3 "" H 5250 3250 50  0001 C CNN
+	1    5250 3250
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	5450 3250 5450 3200
-Connection ~ 5350 3250
+	5350 3250 5350 3200
+Connection ~ 5250 3250
 Wire Wire Line
-	5250 3250 5350 3250
+	5150 3250 5250 3250
 Wire Wire Line
-	5250 3200 5250 3250
+	5150 3200 5150 3250
 $Comp
 L Device:C_Small C?
 U 1 1 64CFAC27
-P 5450 3100
+P 5350 3100
 AR Path="/64CFAC27" Ref="C?"  Part="1" 
 AR Path="/64C48268/64CFAC27" Ref="C1302"  Part="1" 
-F 0 "C1302" H 5542 3146 50  0000 L CNN
-F 1 "100nF" H 5542 3055 50  0000 L CNN
-F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5450 3100 50  0001 C CNN
-F 3 "~" H 5450 3100 50  0001 C CNN
-	1    5450 3100
+F 0 "C1302" H 5442 3146 50  0000 L CNN
+F 1 "1µF" H 5442 3055 50  0000 L CNN
+F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5350 3100 50  0001 C CNN
+F 3 "~" H 5350 3100 50  0001 C CNN
+	1    5350 3100
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:R_Small R?
 U 1 1 64CFAC2D
-P 5250 3100
+P 5150 3100
 AR Path="/64CFAC2D" Ref="R?"  Part="1" 
 AR Path="/64C48268/64CFAC2D" Ref="R1302"  Part="1" 
-F 0 "R1302" H 5309 3054 50  0000 L CNN
-F 1 "220kΩ" H 5309 3145 50  0000 L CNN
-F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5250 3100 50  0001 C CNN
-F 3 "~" H 5250 3100 50  0001 C CNN
-	1    5250 3100
+F 0 "R1302" H 5209 3054 50  0000 L CNN
+F 1 "100kΩ" H 5209 3145 50  0000 L CNN
+F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5150 3100 50  0001 C CNN
+F 3 "~" H 5150 3100 50  0001 C CNN
+	1    5150 3100
 	-1   0    0    1   
 $EndComp
 Wire Wire Line
-	5300 4300 5400 4300
+	5200 4300 5300 4300
 $Comp
 L power:GND #PWR?
 U 1 1 64CFAC34
-P 5300 4300
+P 5200 4300
 AR Path="/64CFAC34" Ref="#PWR?"  Part="1" 
 AR Path="/64C48268/64CFAC34" Ref="#PWR0143"  Part="1" 
-F 0 "#PWR0143" H 5300 4050 50  0001 C CNN
-F 1 "GND" H 5305 4127 50  0000 C CNN
-F 2 "" H 5300 4300 50  0001 C CNN
-F 3 "" H 5300 4300 50  0001 C CNN
-	1    5300 4300
+F 0 "#PWR0143" H 5200 4050 50  0001 C CNN
+F 1 "GND" H 5205 4127 50  0000 C CNN
+F 2 "" H 5200 4300 50  0001 C CNN
+F 3 "" H 5200 4300 50  0001 C CNN
+	1    5200 4300
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	5400 4300 5400 4250
-Connection ~ 5300 4300
+	5300 4300 5300 4250
+Connection ~ 5200 4300
 Wire Wire Line
-	5200 4300 5300 4300
+	5100 4300 5200 4300
 Wire Wire Line
-	5200 4250 5200 4300
+	5100 4250 5100 4300
 $Comp
 L Device:C_Small C?
 U 1 1 64CFAC3E
-P 5400 4150
+P 5300 4150
 AR Path="/64CFAC3E" Ref="C?"  Part="1" 
 AR Path="/64C48268/64CFAC3E" Ref="C1301"  Part="1" 
-F 0 "C1301" H 5492 4196 50  0000 L CNN
-F 1 "100nF" H 5492 4105 50  0000 L CNN
-F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5400 4150 50  0001 C CNN
-F 3 "~" H 5400 4150 50  0001 C CNN
-	1    5400 4150
+F 0 "C1301" H 5392 4196 50  0000 L CNN
+F 1 "1µF" H 5392 4105 50  0000 L CNN
+F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5300 4150 50  0001 C CNN
+F 3 "~" H 5300 4150 50  0001 C CNN
+	1    5300 4150
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:R_Small R?
 U 1 1 64CFAC44
-P 5200 4150
+P 5100 4150
 AR Path="/64CFAC44" Ref="R?"  Part="1" 
 AR Path="/64C48268/64CFAC44" Ref="R1301"  Part="1" 
-F 0 "R1301" H 5259 4104 50  0000 L CNN
-F 1 "220kΩ" H 5259 4195 50  0000 L CNN
-F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5200 4150 50  0001 C CNN
-F 3 "~" H 5200 4150 50  0001 C CNN
-	1    5200 4150
+F 0 "R1301" H 5159 4104 50  0000 L CNN
+F 1 "100kΩ" H 5159 4195 50  0000 L CNN
+F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5100 4150 50  0001 C CNN
+F 3 "~" H 5100 4150 50  0001 C CNN
+	1    5100 4150
 	-1   0    0    1   
 $EndComp
 Wire Wire Line
-	5100 4000 5200 4000
+	5000 4000 5100 4000
 Wire Wire Line
-	5200 4050 5200 4000
-Connection ~ 5200 4000
+	5100 4050 5100 4000
+Connection ~ 5100 4000
 Wire Wire Line
-	5200 4000 5400 4000
+	5100 4000 5300 4000
 Wire Wire Line
-	5400 4000 5400 4050
-Connection ~ 5400 4000
+	5300 4000 5300 4050
+Connection ~ 5300 4000
 Wire Wire Line
-	5400 4000 5550 4000
+	5300 4000 5550 4000
 $Comp
 L Device:C_Small C?
 U 1 1 64CFAC51
@@ -332,7 +332,7 @@ AR Path="/64C48268/64CFAC63" Ref="U1302"  Part="2"
 F 0 "U1302" H 7880 3896 50  0000 L CNN
 F 1 "74LVC1G17" H 7880 3805 50  0000 L CNN
 F 2 "alexios:SOT-23-5_HandSoldering" H 7700 3950 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G11.pdf" H 7700 3950 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G17.pdf" H 7700 3950 50  0001 C CNN
 	2    7700 3950
 	1    0    0    -1  
 $EndComp
@@ -386,7 +386,7 @@ AR Path="/64C48268/64CFAC7D" Ref="U1301"  Part="2"
 F 0 "U1301" H 7880 2746 50  0000 L CNN
 F 1 "74LVC1G17" H 7880 2655 50  0000 L CNN
 F 2 "alexios:SOT-23-5_HandSoldering" H 7700 2800 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G11.pdf" H 7700 2800 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G17.pdf" H 7700 2800 50  0001 C CNN
 	2    7700 2800
 	1    0    0    -1  
 $EndComp
@@ -396,8 +396,10 @@ Text Notes 6450 4550 0    50   ~ 0
 1.2kΩ for I=2mA, Vf=2.65V.
 Wire Notes Line style solid
 	6150 4300 6350 4500
-Text HLabel 4350 2900 0    50   Input ~ 0
+Text HLabel 4250 2900 0    50   Input ~ 0
 LED1
-Text HLabel 4350 4000 0    50   Input ~ 0
+Text HLabel 4250 4000 0    50   Input ~ 0
 LED2
+Text Notes 6450 4700 0    50   ~ 0
+Vf=2.1V (red 0805 LEDs), I=20mA: R=145Ω (use 150Ω)\nVf=3.2V (green 0805 LEDs), I=20mA: R=90Ω (use 100Ω)
 $EndSCHEMATC
