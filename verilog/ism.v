@@ -21,12 +21,15 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 module ism (nreset, clk1, clk4, nend,
+	    ibus15, nflagwe,
 	    naction_sti, naction_cli, nirq,
 	    fi, nirqs);
 
    input        nreset;
    input 	clk1;
    input 	clk4;
+   input 	ibus15;
+   input 	nflagwe;
    input 	nend;
    input 	naction_sti;
    input 	naction_cli;
@@ -49,7 +52,7 @@ module ism (nreset, clk1, clk4, nend,
    assign #7 nirqsync = nfi | nirq | clk1;
    
    // The Interrupt Flag (FI)
-   flipflop_74h ff_fi (.nset(naction_sti), .d(1'b1), .clk(1'b1), .nrst(nreset_or_cli),
+   flipflop_74h ff_fi (.nset(naction_sti), .d(ibus15), .clk(nflagwe), .nrst(nreset_or_cli),
 		       .q(fi), .nq(nfi));
 
    // Incoming IRQs.

@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Tue Oct 22 18:20:14 2019
+[*] Sun Oct 27 11:11:38 2019
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/ism_tb.vcd"
-[dumpfile_mtime] "Tue Oct 22 18:20:06 2019"
-[dumpfile_size] 102200
+[dumpfile_mtime] "Sun Oct 27 11:11:25 2019"
+[dumpfile_size] 127456
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/ism_tb.sav"
 [timestart] 0
 [size] 1750 817
 [pos] 2078 13
-*-23.747147 42500000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-23.302664 2324000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] ism_tb.
 [treeopen] ism_tb.ism.
 [sst_width] 258
@@ -24,10 +24,14 @@ ism_tb.nreset
 -
 -FI Generation
 @28
+ism_tb.ibus15
+ism_tb.nflagwe
 [color] 2
 ism_tb.naction_sti
+@29
 [color] 1
 ism_tb.naction_cli
+@28
 [color] 3
 ism_tb.fi
 @200

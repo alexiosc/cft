@@ -34,6 +34,8 @@
 module ism_tb();
    reg        nreset;
    reg 	      nend;
+   reg 	      ibus15;
+   reg 	      nflagwe;
    reg 	      naction_sti;
    reg 	      naction_cli;
    reg 	      nirq;
@@ -51,10 +53,10 @@ module ism_tb();
    // Initialize all variables
    initial begin        
       //$display ("time\t rst oe cs q");
-      $monitor ("t: %7d | %b %b %b %b %b %b | %b %b > %b | %b > %b",
+      $monitor ("t: %7d | %b %b %b %b %b %b | %b %b %b %b > %b | %b > %b",
 		$time,
 		nreset, clk1, clk2, clk3, clk4, nend,
-		naction_sti, naction_cli, fi,
+		ibus15, nflagwe, naction_sti, naction_cli, fi,
 		nirq, nirqs);
       $dumpfile ("vcd/ism_tb.vcd");
       $dumpvars (0, ism_tb);
@@ -63,11 +65,11 @@ module ism_tb();
       nreset = 0;
       nend = 1;
       nirq = 1;
+      ibus15 = 0;
+      nflagwe = 1;
       naction_sti = 1;
       naction_cli = 1;
       #250 nreset = 1;
-
-      // Simulate the interrupt part of the reset sequence.
 
       for (i = 0; i < 5; i = i + 1) begin
 	 #2000 status = "STI";
@@ -79,6 +81,16 @@ module ism_tb();
 	 #250 naction_cli = 1;
       end
 
+      // Set the I flag from the flag unit.
+      #2000 status = "FLAGWE";
+      for (i = 0; i < 32; i = i + 1) begin
+	 ibus15 = ~i[1];
+	 #125 nflagwe = 0;
+	 #62.5 nflagwe = 1;
+	 #62.5;
+      end
+
+      
       #2000 status = "Masked INT";
       nirq = 0;
 
@@ -138,13 +150,43 @@ module ism_tb();
 				    .clk1(clk1), .clk2(clk2), .clk3(clk3), .clk4(clk4));
    
    // Connect DUT to test bench
-   ism ism (.nreset(nreset), .clk1(clk1), .clk4(clk4),
-	    .nend(nend), .naction_cli(naction_cli), .naction_sti(naction_sti),
+   ism ism (.nreset(nreset), .clk1(clk1), .clk4(clk4), .nend(nend),
+	    .ibus15(ibus15), .nflagwe(nflagwe),
+	    .naction_cli(naction_cli), .naction_sti(naction_sti),
 	    .nirq(nirq), .fi(fi), .nirqs(nirqs));
 
    // Verify our findings.
    reg [8191:0] msg;
    reg 		correct_fi = 0;
+
+   always @ (posedge nflagwe) begin
+      #30 begin
+   	 msg[7:0] = "";		// Use the msg as a flag.
+
+	 if (naction_cli === 0 && naction_sti === 0) begin
+	    $sformat(msg, "testbench bug, at posedge of nflagwe naction_cli=%b, naction_sti=%b (should never happen)",
+		     naction_cli, naction_sti);
+	 end
+
+	 else if (nflagwe !== 1) begin
+	    $sformat(msg, "testbench bug, nflagwe=%b", nflagwe);
+	 end
+
+	 else if (fi !== ibus15) begin
+	    $sformat(msg, "testbench bug, at posedge of nflagwe, ibus15=%b, but fi=%b (should be same as ibus15)",
+		     ibus15, fi);
+	 end
+
+   	 // Fail if we've logged an issue.
+   	 if (msg[7:0]) begin
+   	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+   	    $error("assertion failure");
+   	    #100 $finish;
+   	 end
+   	 else $display("OK nflagwe");
+      end
+   end
+   
    always @ (naction_cli, naction_sti) begin
       #30 begin
    	 msg[7:0] = "";		// Use the msg as a flag.
