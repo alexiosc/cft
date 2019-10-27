@@ -4,7 +4,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 25 35
+Sheet 24 35
 Title ""
 Date ""
 Rev ""
@@ -121,15 +121,15 @@ Wire Wire Line
 Text Label 7450 2050 0    50   ~ 0
 ~FLAGOE
 Text Label 9900 6250 2    50   ~ 0
-FPO[0..7]
+FPD[0..7]
 Text Label 9250 6050 1    50   ~ 0
-FPO[0..7]
+FPD[0..7]
 Text Label 9900 2650 2    50   ~ 0
 IBUS[8..15]
 Text Label 9250 2450 1    50   ~ 0
 IBUS[8..15]
 Text HLabel 10000 6250 2    50   3State ~ 0
-FPO[0..7]
+FPD[0..7]
 Text HLabel 10000 2650 2    50   3State ~ 0
 IBUS[8..15]
 Wire Bus Line
@@ -206,22 +206,6 @@ F 3 "" H 7800 2150 50  0001 C CNN
 	1    7800 2150
 	1    0    0    -1  
 $EndComp
-Text Label 9150 5500 2    50   ~ 0
-FPO7
-Text Label 9150 5400 2    50   ~ 0
-FPO6
-Text Label 9150 5300 2    50   ~ 0
-FPO5
-Text Label 9150 5200 2    50   ~ 0
-FPO4
-Text Label 9150 5100 2    50   ~ 0
-FPO3
-Text Label 9150 5000 2    50   ~ 0
-FPO2
-Text Label 9150 4900 2    50   ~ 0
-FPO1
-Text Label 9150 4800 2    50   ~ 0
-FPO0
 Wire Wire Line
 	8800 5500 9150 5500
 Wire Wire Line
@@ -298,7 +282,7 @@ F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 8300 16
 	1    8300 1650
 	1    0    0    -1  
 $EndComp
-Text Label 2900 3050 1    50   ~ 0
+Text Label 2900 2950 1    50   ~ 0
 WADDR[0..4]
 Text Label 2900 4300 1    50   ~ 0
 RADDR[0..4]
@@ -331,9 +315,9 @@ Entry Wire Line
 Entry Wire Line
 	2900 4850 3000 4950
 Entry Wire Line
-	2900 4400 3000 4500
-Entry Wire Line
 	2900 4300 3000 4400
+Entry Wire Line
+	2900 4200 3000 4300
 Entry Wire Line
 	2900 3800 3000 3900
 Entry Wire Line
@@ -341,9 +325,9 @@ Entry Wire Line
 Entry Wire Line
 	2900 3600 3000 3700
 Entry Wire Line
-	2900 3150 3000 3250
-Entry Wire Line
 	2900 3050 3000 3150
+Entry Wire Line
+	2900 2950 3000 3050
 Entry Wire Line
 	2900 2550 3000 2650
 Entry Wire Line
@@ -410,8 +394,6 @@ Wire Wire Line
 	4350 5250 6150 5250
 Wire Wire Line
 	4350 5350 6150 5350
-Wire Wire Line
-	4350 5450 6150 5450
 Text Label 5200 5050 2    50   ~ 0
 ~ACTION-CPL
 Text Label 5200 5150 2    50   ~ 0
@@ -420,13 +402,9 @@ Text Label 5200 5250 2    50   ~ 0
 ~ACTION-STI
 Text Label 5200 5350 2    50   ~ 0
 ~ACTION-CLI
-Text Label 5200 5450 2    50   ~ 0
-~ACTION-CLA
 NoConn ~ 4350 4950
 NoConn ~ 4350 5550
 NoConn ~ 4350 5650
-Text Notes 4500 5850 0    50   ~ 0
-~ACTION-CLA~ is needed by\nthe AC register, but it saves\none chip if we decode it\nhere, so why not?
 Text Notes 3900 5600 1    50   ~ 10
 ACTION=0xxx
 Text HLabel 6150 5050 2    50   Output ~ 0
@@ -437,8 +415,6 @@ Text HLabel 6150 5250 2    50   Output ~ 0
 ~ACTION-STI
 Text HLabel 6150 5350 2    50   Output ~ 0
 ~ACTION-CLI
-Text HLabel 6150 5450 2    50   Output ~ 0
-~ACTION-CLA
 Wire Wire Line
 	3350 5650 3000 5650
 Wire Wire Line
@@ -454,19 +430,15 @@ Wire Wire Line
 Wire Wire Line
 	3000 2650 3350 2650
 Wire Wire Line
-	3350 3150 3000 3150
-Wire Wire Line
-	3350 3250 3000 3250
-Wire Wire Line
 	3350 3700 3000 3700
 Wire Wire Line
 	3350 3800 3000 3800
 Wire Wire Line
 	3000 3900 3350 3900
 Wire Wire Line
-	3350 4500 3000 4500
-Wire Wire Line
 	3350 4400 3000 4400
+Wire Wire Line
+	3350 4300 3000 4300
 Text Label 5950 3000 2    50   ~ 0
 ~FLAGWE
 $Comp
@@ -519,9 +491,9 @@ NoConn ~ 4350 2750
 NoConn ~ 4350 2650
 NoConn ~ 4350 2550
 NoConn ~ 4350 2450
-Text Label 3000 4500 0    50   ~ 0
-RADDR4
 Text Label 3000 4400 0    50   ~ 0
+RADDR4
+Text Label 3000 4300 0    50   ~ 0
 RADDR3
 Text Label 3000 3900 0    50   ~ 0
 RADDR2
@@ -529,20 +501,6 @@ Text Label 3000 3800 0    50   ~ 0
 RADDR1
 Text Label 3000 3700 0    50   ~ 0
 RADDR0
-$Comp
-L power:+5V #PWR?
-U 1 1 5D676FF5
-P 3350 4300
-AR Path="/5D676FF5" Ref="#PWR?"  Part="1" 
-AR Path="/5D65F6EF/5D676FF5" Ref="#PWR?"  Part="1" 
-AR Path="/5D69F3FD/5D676FF5" Ref="#PWR03321"  Part="1" 
-F 0 "#PWR03321" H 3350 4150 50  0001 C CNN
-F 1 "+5V" H 3365 4473 50  0000 C CNN
-F 2 "" H 3350 4300 50  0001 C CNN
-F 3 "" H 3350 4300 50  0001 C CNN
-	1    3350 4300
-	1    0    0    -1  
-$EndComp
 $Comp
 L alexios:74HC138 U?
 U 1 1 5D676FFB
@@ -560,7 +518,7 @@ F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 3850 4100 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Text Notes 3900 4350 1    50   ~ 10
-RADDR=001xx
+RADDR=011xx
 Text Label 5200 3050 2    50   ~ 0
 ~WRITE-FLAGS
 Text Label 5200 2950 2    50   ~ 0
@@ -569,20 +527,6 @@ Wire Wire Line
 	4350 3050 5200 3050
 Wire Wire Line
 	4350 2950 5200 2950
-$Comp
-L power:+5V #PWR?
-U 1 1 5D677006
-P 3350 3050
-AR Path="/5D677006" Ref="#PWR?"  Part="1" 
-AR Path="/5D65F6EF/5D677006" Ref="#PWR?"  Part="1" 
-AR Path="/5D69F3FD/5D677006" Ref="#PWR03320"  Part="1" 
-F 0 "#PWR03320" H 3350 2900 50  0001 C CNN
-F 1 "+5V" H 3365 3223 50  0000 C CNN
-F 2 "" H 3350 3050 50  0001 C CNN
-F 3 "" H 3350 3050 50  0001 C CNN
-	1    3350 3050
-	1    0    0    -1  
-$EndComp
 Text Label 3000 2650 0    50   ~ 0
 WADDR2
 Text Label 3000 2550 0    50   ~ 0
@@ -605,12 +549,8 @@ F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 3850 2850 50  0001 C CNN
 	1    3850 2850
 	1    0    0    -1  
 $EndComp
-Text Label 3000 3150 0    50   ~ 0
-WADDR3
-Text Label 3000 3250 0    50   ~ 0
-WADDR4
 Text Notes 3900 3100 1    50   ~ 10
-WADDR=001xx
+WADDR=011xx
 Text HLabel 2100 2200 0    50   Input ~ 0
 WADDR[0..4]
 Text HLabel 2100 3450 0    50   Input ~ 0
@@ -732,12 +672,63 @@ Text Label 7450 5400 0    50   ~ 0
 RSVD14
 Text Notes 600  750  0    404  ~ 81
 ADDRESSING HAS CHANGED, REDO!
+Wire Wire Line
+	3000 3050 3350 3050
+Wire Wire Line
+	3000 3150 3350 3150
+$Comp
+L power:GND #PWR?
+U 1 1 5DFC5E58
+P 3350 3250
+F 0 "#PWR?" H 3350 3000 50  0001 C CNN
+F 1 "GND" H 3355 3077 50  0000 C CNN
+F 2 "" H 3350 3250 50  0001 C CNN
+F 3 "" H 3350 3250 50  0001 C CNN
+	1    3350 3250
+	1    0    0    -1  
+$EndComp
+Text Label 3000 3050 0    50   ~ 0
+WADDR3
+Text Label 3000 3150 0    50   ~ 0
+WADDR4
+$Comp
+L power:GND #PWR?
+U 1 1 5DFDCB26
+P 3350 4500
+F 0 "#PWR?" H 3350 4250 50  0001 C CNN
+F 1 "GND" H 3355 4327 50  0000 C CNN
+F 2 "" H 3350 4500 50  0001 C CNN
+F 3 "" H 3350 4500 50  0001 C CNN
+	1    3350 4500
+	1    0    0    -1  
+$EndComp
+Text Notes 4550 3550 0    50   ~ 0
+RADDR or WADDR = 01101 → Read/Write MBP & Flags\nRADDR or WADDR = 01110 → Read/Write Flags
+Text Notes 8350 3650 0    50   ~ 0
+Individual flags respond to ~FLAGWE~ assertions\nby sampling the appropriate bit of the IBUS and\nmodifying their values.\n\nThe only flags that can currently be set this way\nare FL and FV. FZ and FN are controlled by the\ncurrent value of the AC anyway, and FI ignores\nthis purposefully. (but probably shouldn't)
+NoConn ~ 4350 5450
+Text Label 8850 4800 0    50   ~ 0
+FPD0
+Text Label 8850 4900 0    50   ~ 0
+FPD1
+Text Label 8850 5000 0    50   ~ 0
+FPD2
+Text Label 8850 5100 0    50   ~ 0
+FPD3
+Text Label 8850 5200 0    50   ~ 0
+FPD4
+Text Label 8850 5300 0    50   ~ 0
+FPD5
+Text Label 8850 5400 0    50   ~ 0
+FPD6
+Text Label 8850 5500 0    50   ~ 0
+FPD7
 Wire Bus Line
 	2900 4800 2900 5550
 Wire Bus Line
-	2900 3550 2900 4400
+	2900 3550 2900 4300
 Wire Bus Line
-	2900 2300 2900 3150
+	2900 2300 2900 3050
 Wire Bus Line
 	9250 4900 9250 6150
 Wire Bus Line

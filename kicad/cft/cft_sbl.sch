@@ -1362,14 +1362,6 @@ Wire Wire Line
 NoConn ~ 8400 3950
 Wire Wire Line
 	6800 4550 6800 5450
-Wire Bus Line
-	950  1500 6100 1500
-Wire Bus Line
-	6200 1600 6200 2500
-Wire Bus Line
-	1600 1600 1600 5250
-Wire Bus Line
-	6100 2100 6100 5150
 Connection ~ 6800 4550
 $Comp
 L power:GND #PWR?
@@ -1382,4 +1374,12 @@ F 3 "" H 6800 5450 50  0001 C CNN
 	1    6800 5450
 	1    0    0    -1  
 $EndComp
+Wire Bus Line
+	950  1500 6100 1500
+Wire Bus Line
+	6200 1600 6200 2500
+Wire Bus Line
+	1600 1600 1600 5250
+Wire Bus Line
+	6100 2100 6100 5150
 $EndSCHEMATC

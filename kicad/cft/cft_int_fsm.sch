@@ -162,42 +162,28 @@ F 3 "" H 1050 6600 50  0001 C CNN
 $EndComp
 Text Notes 7050 6950 0    197  ~ 39
 Interrupt State Machine
-Text Label 1850 2450 0    50   ~ 0
+Text Label 1850 2500 0    50   ~ 0
 ~ACTION-CLI
 Text Label 1850 2100 0    50   ~ 0
 ~ACTION-STI
 $Comp
 L alexios:74LVC1G08 U901
 U 1 1 5D183FAB
-P 3500 2400
-F 0 "U901" H 3425 2225 50  0000 C CNN
-F 1 "74LVC1G08" H 3425 2134 50  0000 C CNN
-F 2 "Package_TO_SOT_SMD:SOT-23-5_HandSoldering" H 3150 2400 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 3150 2400 50  0001 C CNN
-	1    3500 2400
+P 3500 2450
+F 0 "U901" H 3425 2275 50  0000 C CNN
+F 1 "74LVC1G08" H 3425 2184 50  0000 C CNN
+F 2 "Package_TO_SOT_SMD:SOT-23-5_HandSoldering" H 3150 2450 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 3150 2450 50  0001 C CNN
+	1    3500 2450
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	4500 2200 4500 2300
-$Comp
-L power:+5V #PWR0902
-U 1 1 5D18C9E4
-P 4500 2200
-F 0 "#PWR0902" H 4500 2050 50  0001 C CNN
-F 1 "+5V" V 4515 2328 50  0000 L CNN
-F 2 "" H 4500 2200 50  0001 C CNN
-F 3 "" H 4500 2200 50  0001 C CNN
-	1    4500 2200
-	0    -1   -1   0   
-$EndComp
-Connection ~ 4500 2200
-Text HLabel 1700 2450 0    50   Input ~ 0
+Text HLabel 1700 2500 0    50   Input ~ 0
 ~ACTION-CLI
-Text HLabel 1700 2350 0    50   Input ~ 0
+Text HLabel 1700 2400 0    50   Input ~ 0
 ~RESET
 Wire Wire Line
-	1700 2450 3200 2450
-Text Label 1850 2350 0    50   ~ 0
+	1700 2500 3200 2500
+Text Label 1850 2400 0    50   ~ 0
 ~RESET
 Text Label 4550 2400 2    50   ~ 0
 ~RESET-OR-CLI
@@ -391,24 +377,17 @@ F 3 "~" H 7400 3350 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 Wire Wire Line
-	1700 2350 2800 2350
+	1700 2400 2800 2400
 Text Label 4550 3750 2    50   ~ 0
 ~RESET-OR-CLI
 Wire Wire Line
-	3650 2400 3800 2400
-Wire Wire Line
 	4550 3750 3800 3750
 Wire Wire Line
-	3800 3750 3800 2400
-Connection ~ 3800 2400
+	3800 3750 3800 2450
 Text Label 4550 2100 2    50   ~ 0
 ~ACTION-STI
 Wire Wire Line
 	1700 2100 4550 2100
-Wire Wire Line
-	4550 2300 4500 2300
-Wire Wire Line
-	4550 2200 4500 2200
 Wire Wire Line
 	3800 2400 4550 2400
 $Comp
@@ -566,11 +545,9 @@ Wire Wire Line
 	6050 3650 6050 4400
 Wire Wire Line
 	6050 4400 2800 4400
+Connection ~ 2800 2400
 Wire Wire Line
-	2800 4400 2800 2350
-Connection ~ 2800 2350
-Wire Wire Line
-	2800 2350 3200 2350
+	2800 2400 3200 2400
 Text Label 6300 3650 2    50   ~ 0
 ~RESET
 $Comp
@@ -610,4 +587,33 @@ Wire Wire Line
 	4550 3650 4500 3650
 Wire Wire Line
 	4550 3550 4500 3550
+Text HLabel 1700 2200 0    50   Input ~ 0
+IBUS15
+Wire Wire Line
+	1700 2200 4550 2200
+Text Label 1850 2200 0    50   ~ 0
+IBUS15
+Text Notes 2450 2200 0    50   ~ 0
+(FI bit for retrieving FI from stack)
+Wire Wire Line
+	2800 4400 2800 2400
+Wire Wire Line
+	3650 2450 3800 2450
+Connection ~ 3800 2450
+Wire Wire Line
+	3800 2450 3800 2400
+Text HLabel 1700 2300 0    50   Input ~ 0
+~FLAGWE
+Wire Wire Line
+	1700 2300 4550 2300
+Text Label 1850 2300 0    50   ~ 0
+~FLAGWE
+Text Label 4550 2300 2    50   ~ 0
+~FLAGWE
+Text Label 4550 2200 2    50   ~ 0
+IBUS15
+Text Notes 2400 1650 0    50   ~ 10
+Assumption
+Text Notes 2400 1900 0    50   ~ 0
+~ACTION_STI~ and ~ACTION_CLI~ remain de-asserted\nflags are being written using ~FLAGWE~.
 $EndSCHEMATC
