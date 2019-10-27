@@ -72,13 +72,13 @@ module flag_unit (waddr, raddr, action,
    wire 	  nwrite_mbp_flags, nwrite_flags;
    assign nwrite_mbp_flags = wy[5];
    assign nwrite_flags = wy[6];
-   assign #7 nflagwe = nwrite_mbp_flags | nwrite_flags;
+   assign #7 nflagwe = nwrite_mbp_flags & nwrite_flags;
 
    // Decode the read signals, generate nflagoe.
    wire 	  nread_mbp_flags, nread_flags, nflagoe;
    assign nread_mbp_flags = ry[5];
    assign nread_flags = ry[6];
-   assign #7 nflagoe = nread_mbp_flags | nread_flags;
+   assign #7 nflagoe = nread_mbp_flags & nread_flags;
 
    // The action decoder for flag-related actions is here too.
    demux_138 demux_action (.a(action[2:0]), .g1(1'b1), .ng2a(action[3]), .ng2b(1'b0), .y(ay));

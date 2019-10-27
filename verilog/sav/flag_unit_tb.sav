@@ -1,0 +1,73 @@
+[*]
+[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
+[*] Sun Oct 27 18:45:47 2019
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/flag_unit_tb.vcd"
+[dumpfile_mtime] "Sun Oct 27 18:44:38 2019"
+[dumpfile_size] 13067
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/flag_unit_tb.sav"
+[timestart] 0
+[size] 1469 600
+[pos] 164 0
+*-22.264969 3616000 17530200 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] flag_unit_tb.
+[treeopen] flag_unit_tb.flag_unit.
+[sst_width] 258
+[signals_width] 230
+[sst_expanded] 1
+[sst_vpaned_height] 138
+@820
+flag_unit_tb.status[800:0]
+@200
+-
+-Reading
+@2028
+^1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/raddr
+flag_unit_tb.raddr[4:0]
+@22
+flag_unit_tb.ibus_hi[7:0]
+@200
+-
+-Writing
+@2028
+^2 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/waddr
+flag_unit_tb.waddr[4:0]
+@28
+flag_unit_tb.waddr[4:0]
+[color] 3
+flag_unit_tb.nflagwe
+@200
+-
+-Action Decoder
+@2029
+^3 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/action
+flag_unit_tb.action[3:0]
+@28
+[color] 2
+flag_unit_tb.naction_cpl
+[color] 3
+flag_unit_tb.naction_cll
+[color] 4
+flag_unit_tb.naction_sti
+[color] 5
+flag_unit_tb.naction_cli
+@200
+-
+-Front Panel
+@28
+flag_unit_tb.nfpflags
+@c00022
+flag_unit_tb.fpd[7:0]
+@28
+(0)flag_unit_tb.fpd[7:0]
+(1)flag_unit_tb.fpd[7:0]
+(2)flag_unit_tb.fpd[7:0]
+(3)flag_unit_tb.fpd[7:0]
+(4)flag_unit_tb.fpd[7:0]
+(5)flag_unit_tb.fpd[7:0]
+(6)flag_unit_tb.fpd[7:0]
+(7)flag_unit_tb.fpd[7:0]
+@1401200
+-group_end
+[pattern_trace] 1
+[pattern_trace] 0

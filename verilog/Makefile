@@ -63,7 +63,8 @@ CFT2019 = 	clock.v            clock_tb.v \
 		ail.v		   ail_tb.v \
 		agl.v		   agl_tb.v \
 		sbu.v		   sbu_tb.v \
-		flag_unit.v \
+		ism.v		   ism_tb.v \
+		flag_unit.v        flag_unit_tb.v \
 		reg_ir.v           reg_ir_tb.v \
 		reg_ar.v           reg_ar_tb.v \
 		reg_mbr.v          reg_mbr_tb.v \
@@ -438,6 +439,10 @@ test_sbu:	sbu_tb.o sbu.o mux.o flipflop.o
 test_ism:	ism_tb.o ism.o flipflop.o
 		./ism_tb.o
 		$(GTKWAVE) $(VCDDIR)/ism_tb.vcd $(SAVDIR)/ism_tb.sav
+
+test_flag_unit:	flag_unit_tb.o flag_unit.o demux.o buffer.o
+		./flag_unit_tb.o
+		$(GTKWAVE) $(VCDDIR)/flag_unit_tb.vcd $(SAVDIR)/flag_unit_tb.sav
 
 test_reg_ir:	reg_ir_tb.o reg_ir.o flipflop.o buffer.o 
 		./reg_ir_tb.o
