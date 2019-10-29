@@ -51,7 +51,7 @@
 module clock_generator (nreset, fpclk, nfpclk_or_clk,
 			clk1, clk2, clk3, clk4, t34, wstb);
 
-   parameter cp = 63.5;
+   parameter cp = 62.5;
 
    input nreset;		// Reset input
    input fpclk;			// Front panel clock
