@@ -1,14 +1,43 @@
-[timestart] 0
+[*]
+[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
+[*] Tue Oct 29 12:08:19 2019
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/buffer_245_tb.vcd"
+[dumpfile_mtime] "Tue Oct 29 12:08:15 2019"
+[dumpfile_size] 67807
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/buffer_245_tb.sav"
+[timestart] 100115000
 [size] 1353 796
 [pos] 0 314
-*-19.228912 1686000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
-@22
-buffer_245_tb.a[7:0]
-buffer_245_tb.aw[7:0]
-buffer_245_tb.b[7:0]
-buffer_245_tb.bw[7:0]
+*-19.477987 52055000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] buffer_245_tb.
+[sst_width] 226
+[signals_width] 150
+[sst_expanded] 1
+[sst_vpaned_height] 210
+@820
+buffer_245_tb.status[800:0]
 @28
+[color] 1
+buffer_245_tb.nen
+[color] 2
 buffer_245_tb.dir
-buffer_245_tb.en
+@200
+-
+-Buses
+@22
+[color] 3
+buffer_245_tb.a[7:0]
+[color] 4
+buffer_245_tb.b[7:0]
+@200
+-
+-Drivers
+@22
+[color] 3
+buffer_245_tb.aw[7:0]
+@23
+[color] 4
+buffer_245_tb.bw[7:0]
 [pattern_trace] 1
 [pattern_trace] 0
