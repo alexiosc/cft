@@ -72,23 +72,23 @@ endmodule // End of Module buffer
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-module buffer_245 (dir, en, a, b);
+module buffer_245 (dir, nen, a, b);
    parameter delay = 7;
    
    input        dir;
-   input 	en;
+   input 	nen;
    inout [7:0] 	a, b;
 
    wire 	dir;
-   wire 	en;
+   wire 	nen;
    wire [7:0] 	a, b;
 
    initial begin
       // $display("BOM: 74x245");
    end
 
-   assign a = (!en && !dir) ? b : 8'bzzzzzzzz;
-   assign b = (!en && dir) ? a : 8'bzzzzzzzz;
+   assign #delay a = (!nen && !dir) ? b : 8'bzzzzzzzz;
+   assign #delay b = (!nen && dir) ? a : 8'bzzzzzzzz;
 endmodule // End of Module buffer
 
 ///////////////////////////////////////////////////////////////////////////////
