@@ -34,7 +34,6 @@ SRC =		counter.v counter_161_tb.v counter_590_tb.v counter_393h_tb.v counter_401
 		constant_store.v constant_store_tb.v \
 		int.v int_tb.v intc_tb.v \
 		sequencer.v unit_decoder.v \
-		databus.v databus_tb.v \
 		addressing.v addressing_tb.v \
 		register.v register_tb.v register_reg_L_tb.v \
 		cft.v cft_tb.v cft_tb_testing.v \
@@ -70,7 +69,8 @@ CFT2019 = 	clock.v            clock_tb.v \
 		reg_mbr.v          reg_mbr_tb.v \
 		reg_l.v            reg_l_tb.v \
 		reg_v.v            reg_v_tb.v \
-		reg_major.v        reg_major_tb.v \p
+		reg_major.v        reg_major_tb.v \
+		databus.v          databus_tb.v
 
 SRC += $(CFT2019)
 
@@ -306,10 +306,6 @@ test_addr test_addressing: addressing_tb.o addressing.o
 		./addressing_tb.o
 		$(GTKWAVE) $(VCDDIR)/addressing_tb.vcd $(SAVDIR)/addressing_tb.sav
 
-test_db test_databus: databus_tb.o databus.o
-		./databus_tb.o
-		$(GTKWAVE) $(VCDDIR)/databus_tb.vcd $(SAVDIR)/databus_tb.sav
-
 test_pc test_dr test_ac test_reg: register.o register_tb.o
 		./register_tb.o
 		$(GTKWAVE) $(VCDDIR)/register_tb.vcd $(SAVDIR)/register_tb.sav
@@ -471,6 +467,10 @@ test_reg_mbr:	reg_mbr_tb.o reg_mbr.o flipflop.o mux.o
 test_serial_shifter:	serial_shifter_tb.o serial_shifter.o
 		./serial_shifter_tb.o
 		$(GTKWAVE) $(VCDDIR)/serial_shifter_tb.vcd $(SAVDIR)/serial_shifter_tb.sav
+
+test_db test_databus: databus_tb.o databus.o
+		./databus_tb.o
+		$(GTKWAVE) $(VCDDIR)/databus_tb.vcd $(SAVDIR)/databus_tb.sav
 
 ###############################################################################
 #

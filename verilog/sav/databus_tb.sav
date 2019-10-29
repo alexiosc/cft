@@ -1,67 +1,213 @@
 [*]
-[*] GTKWave Analyzer v3.3.38 (w)1999-2012 BSI
-[*] Fri Jul 27 07:30:06 2012
+[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
+[*] Tue Oct 29 19:46:24 2019
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/databus_tb.vcd"
-[dumpfile_mtime] "Fri Jul 27 07:30:01 2012"
-[dumpfile_size] 59805
+[dumpfile_mtime] "Tue Oct 29 19:46:00 2019"
+[dumpfile_size] 1445330
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/databus_tb.sav"
-[timestart] 5726000
-[size] 1713 912
-[pos] 25 42
-*-18.331177 6271000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
-[treeopen] addressing_tb.
-[treeopen] addressing_tb.clock_generator.
-[treeopen] addressing_tb.db_iface.
+[timestart] 229200000
+[size] 1918 912
+[pos] 2075 97
+*-25.244013 106404750 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] databus_tb.
+[treeopen] databus_tb.databus.
 [sst_width] 245
 [signals_width] 279
 [sst_expanded] 1
 [sst_vpaned_height] 266
+@820
+databus_tb.status[800:0]
+@200
+-
+@c00200
+-Clock
 @28
-[color] 1
-addressing_tb.clock_generator.clk1
+databus_tb.clock_generator.clk1
 [color] 2
-addressing_tb.clock_generator.clk2
+databus_tb.clk2
 [color] 3
-addressing_tb.clock_generator.clk3
+databus_tb.clk3
 [color] 4
-addressing_tb.clock_generator.clk4
+databus_tb.clk4
 [color] 5
-addressing_tb.nt34
-@2022
-^1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/../filters/cycle_stage
-addressing_tb.clock_generator.demux_clk.y1[3:0]
+databus_tb.t34
+[color] 6
+databus_tb.wstb
+@1401200
+-Clock
 @200
 -
+@c00200
+-nW Tri-State
+@420
+databus_tb.i
 @28
-addressing_tb.nreset
-@200
--
-@22
-addressing_tb.db_real[15:0]
-addressing_tb.ibus_real[15:0]
-@200
--
-@28
-addressing_tb.db_iface.wshold
-addressing_tb.nmem
-addressing_tb.nio
-addressing_tb.nr
-addressing_tb.nwen
+[color] 7
+databus_tb.clk4
 [color] 1
-addressing_tb.nw
-@29
-addressing_tb.db_iface.en
-@28
-addressing_tb.nws
-addressing_tb.db_iface.waiting
+databus_tb.wstb
+[color] 3
+databus_tb.nwen
+[color] 4
+databus_tb.nw
+@1401200
+-nW Tri-State
 @200
 -
-@2022
-^1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/../filters/cycle_stage
-addressing_tb.clock_generator.demux_clk.y1[3:0]
+@c00200
+-Control Signals
 @28
-addressing_tb.db_iface.wff.set
-addressing_tb.db_iface.wff.clk
+[color] 1
+databus_tb.nreset
+[color] 2
+databus_tb.nhalt
+[color] 3
+databus_tb.nmem
+[color] 4
+databus_tb.nio
+[color] 5
+databus_tb.nr
+[color] 6
+databus_tb.nwen
+@1401200
+-Control Signals
+@200
+-
+@c00200
+-Wait States
+@28
+databus_tb.databus.nwaiting
+databus_tb.nw
+@2420
+^1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/wait_states
+databus_tb.num_ws
+@1401200
+-Wait States
+@200
+-
+@800200
+-Bus Enable
+@28
+[color] 1
+databus_tb.nmem
+[color] 2
+databus_tb.nio
+[color] 3
+databus_tb.databus.nwaiting
+[color] 4
+databus_tb.databus.nbusen
+@1000200
+-Bus Enable
+@200
+-
+@c00200
+-Bus Read Tests
+@28
+[color] 1
+databus_tb.nmem
+[color] 2
+databus_tb.nio
+[color] 3
+databus_tb.nr
+[color] 4
+databus_tb.nw
+[color] 6
+databus_tb.nws
+[color] 3
+databus_tb.clk3
+[color] 3
+databus_tb.t34
+databus_tb.databus.nwaiting
+[color] 4
+databus_tb.databus.nbusen
+@22
+[color] 5
+databus_tb.db_drv[15:0]
+[color] 6
+databus_tb.ibus[15:0]
+[color] 7
+databus_tb.db[15:0]
+@1401200
+-Bus Read Tests
+@200
+-
+@800200
+-Bus Write Tests
+@28
+[color] 1
+databus_tb.nmem
+[color] 2
+databus_tb.nio
+[color] 3
+databus_tb.nwen
+[color] 4
+databus_tb.nw
+[color] 5
+databus_tb.wstb
+[color] 6
+databus_tb.nws
+@29
+databus_tb.databus.nwaiting
+@28
+[color] 4
+databus_tb.databus.nbusen
+[color] 3
+databus_tb.clk3
+[color] 3
+databus_tb.t34
+@22
+[color] 5
+databus_tb.ibus_drv[15:0]
+[color] 6
+databus_tb.ibus[15:0]
+[color] 7
+databus_tb.db[15:0]
+@c02420
+^1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/wait_states
+databus_tb.num_ws
+@28
+(0)databus_tb.num_ws
+(1)databus_tb.num_ws
+(2)databus_tb.num_ws
+(3)databus_tb.num_ws
+(4)databus_tb.num_ws
+(5)databus_tb.num_ws
+(6)databus_tb.num_ws
+(7)databus_tb.num_ws
+(8)databus_tb.num_ws
+(9)databus_tb.num_ws
+(10)databus_tb.num_ws
+(11)databus_tb.num_ws
+(12)databus_tb.num_ws
+(13)databus_tb.num_ws
+(14)databus_tb.num_ws
+(15)databus_tb.num_ws
+(16)databus_tb.num_ws
+(17)databus_tb.num_ws
+(18)databus_tb.num_ws
+(19)databus_tb.num_ws
+(20)databus_tb.num_ws
+(21)databus_tb.num_ws
+(22)databus_tb.num_ws
+(23)databus_tb.num_ws
+(24)databus_tb.num_ws
+(25)databus_tb.num_ws
+(26)databus_tb.num_ws
+(27)databus_tb.num_ws
+(28)databus_tb.num_ws
+(29)databus_tb.num_ws
+(30)databus_tb.num_ws
+(31)databus_tb.num_ws
+@1401200
+>-434000
+-group_end
+@1000200
+>0
+-Bus Write Tests
+@200
+-
+@820
+databus_tb.status[800:0]
 [pattern_trace] 1
 [pattern_trace] 0

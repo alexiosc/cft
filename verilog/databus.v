@@ -1,3 +1,14 @@
+///////////////////////////////////////////////////////////////////////////////
+//
+// THE SKIP UNIT
+//
+// REDESINGED IN 2019
+//
+// NOTES:
+//
+///////////////////////////////////////////////////////////////////////////////
+
+
 `ifndef databus_v
 `define databus_v
 
@@ -6,67 +17,73 @@
 
 `timescale 1ns/1ps
 
-///////////////////////////////////////////////////////////////////////////////
-//
-// BASED ON DRAWN SCHEMATICS
-//
-///////////////////////////////////////////////////////////////////////////////
+module databus (nreset, nhalt, clk3, t34, wstb,
+		nmem, nio, nr, nwen,
+		nws, ibus,
+		nw, db);
 
-// The data bus driver. Bus hold circuitry is present on the hardware
-// implementation, but not modelled here.
+   input 	nreset;
+   input 	nhalt;
+   input 	clk3;
+   input 	t34;
+   input 	wstb;
+   input 	nmem;
+   input 	nio;
+   input 	nr;
+   input 	nwen;
+   input 	nws;
 
-module databus (nws, nreset, wshold, /*memguard, */clk2/* OK */, clk4/* OK */, nt34, ibus, nmem, nio, nr, nwen, db, nw);
+   inout [15:0] ibus;		// input & output!
 
-   // TOOD: MEMGUARD may be obsolete.
-   
-   input 	nws, nreset, wshold/*, memguard*/;
-   inout [15:0] ibus, db;
-   input 	clk2/* OK */, clk4/* OK */, nt34, nmem, nio, nr, nwen;
    output 	nw;
 
-   wire 	ws, nreset, wshold;
+   inout [15:0] db;		// input & output!
+
+   wire 	nreset;
+   wire 	nhalt;
+   wire 	clk3;
+   wire 	t34;
+   wire 	wstb;
+   wire 	nmem;
+   wire 	nio;
+   wire 	nr;
+   wire 	nwen;
+   tri1 	nws;		// Pulled up (may not be needed if Bus Hold is used)
+
+   wire [15:0] 	ibus;
    
-   wire [15:0] 	ibus, db;
-   wire 	clk3/* OK */, nmem, nio, nr, nwen;
+   wire 	nw;
 
-   wire 	nbusen, nw, en;
+   wire [15:0] 	db;
 
-   // Generate the W# signal from the microcode's WEN#. Use the
-   // leftover '74 FF to generate a short strobe pulse.
-   wire 	nw0, nw1, nnw, wffreset;
-   
-   or #6 (nw0, nt34/* OK */, nwen);
-   or #6 (nw1, nw0, waiting);
-   not #7 (nnw, nw1);
-   and #6 (wffreset, nreset, d3);
-   flipflop_74h wff (1, nnw, 1, wffreset, , nw);
+   // Wait states
 
-   // Delay clk4
-   wire 	d1, d2, d3;
-   and #6 (d1, clk4, clk4);
-   not #7 (d2, d1);
-   not #7 (d3, d2);
+   wire 	halt, nw0, nwaiting, nws_in_t34, nbusen;
 
-   //not #7 (nw2, nw);
-   //not #7 (nw3, nw2);
+   // The delays here are purposefully different, and all are much higher than
+   // the maximum propagation delays for LVC family little gates.
 
-   // Connect the IBUS and data bus (DB).
-   wire 	en0, en1, waiting;
-   and #6 (en0, nmem, nio);
-   or #6 (en1, nt34, ~waiting);
-   and #6 (en, en0, en1);
+   // nws_in_t34 ensures wait states are only requested during the last 50% of
+   // the clock cycle.
+   assign #7 nws_in_t34 = nws | t34;          // 74LVC1G32
 
-   // The Wait State itself
-   // TODO: reinstate this, make it work properly.
-   wire 	nws0;
-   or #6 (nws0, nws, nt34);
-   flipflop_74h wsff (0, clk2, nws0, nreset, waiting, );
+   // The nW driver. The Microcode Sequencer can tri-state all its outputs when
+   // nHALT is asserted, but we generate nW here, so we need to be able to tri-state it.
+   assign #6 halt = ~nhalt;		      // 74LVC1G04
+   //assign #8 nw0 = nwen | (wstb & nwaiting); // 74LVC1G0832
+   assign #8 nw0 = nwaiting & (nwen | wstb);
+   assign #6 nw = halt ? 1'bz : nw0;	      // 74LVC1G125
+
+   // The Wait State FF itself
+   flipflop_74h ff_ws (.nset(nws_in_t34), .d(1'b0), .clk(clk3), .nrst(nreset), .nq(nwaiting));
+
+   assign #7 nbusen = nwaiting & nio & nmem; // 74LVC1G11
 
    // Connect the buses.
-   buffer_245 buf_lo (nr, en, ibus[7:0], db[7:0]);
-   buffer_245 buf_hi (nr, en, ibus[15:8], db[15:8]);
+   buffer_245 buf_dblo (.a(ibus[7:0]),  .b(db[7:0]),  .dir(nr), .nen(nbusen));
+   buffer_245 buf_dbhi (.a(ibus[15:8]), .b(db[15:8]), .dir(nr), .nen(nbusen));
    
-endmodule // reg_ir
+endmodule // databus
 
 `endif //  `ifndef databus_v
 
