@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Tue Oct 29 19:46:24 2019
+[*] Wed Oct 30 09:51:59 2019
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/databus_tb.vcd"
-[dumpfile_mtime] "Tue Oct 29 19:46:00 2019"
-[dumpfile_size] 1445330
+[dumpfile_mtime] "Wed Oct 30 09:50:38 2019"
+[dumpfile_size] 1445609
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/databus_tb.sav"
-[timestart] 229200000
+[timestart] 62100000
 [size] 1918 912
-[pos] 2075 97
-*-25.244013 106404750 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[pos] 2080 183
+*-22.799170 429996750 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] databus_tb.
 [treeopen] databus_tb.databus.
 [sst_width] 245
@@ -147,9 +147,7 @@ databus_tb.nw
 databus_tb.wstb
 [color] 6
 databus_tb.nws
-@29
 databus_tb.databus.nwaiting
-@28
 [color] 4
 databus_tb.databus.nbusen
 [color] 3
@@ -207,7 +205,7 @@ databus_tb.num_ws
 -Bus Write Tests
 @200
 -
-@820
+@821
 databus_tb.status[800:0]
 [pattern_trace] 1
 [pattern_trace] 0

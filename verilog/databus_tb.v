@@ -98,7 +98,7 @@ module databus_tb();
       #187.5;			// This brings us back in phase with the clocks.
       
       for (j = 0; j < 2; j += 1) begin
-	 #5000 status = "Reading";
+	 #5000 $sformat(status, "%0s", j == 0 ? "LOAD" : "IN");
 	 ibus_drv = 16'bZ;
 	 nwen = 1;
 	 nhalt = 1;
@@ -116,7 +116,7 @@ module databus_tb();
 
       // Writing (0 wait states)
       for (j = 0; j < 2; j += 1) begin
-	 #5000 status = "Writing";
+	 #5000 $sformat(status, "%0s", j == 0 ? "STORE" : "OUT");
 	 ibus_drv = 16'bZ;
 	 nr = 1;
 	 nwen = 1;
@@ -138,7 +138,7 @@ module databus_tb();
 
 	 // Writing, one wait state
 	 for (j = 0; j < 2; j += 1) begin
-	    #5000 $sformat(status, "Write, %0d WS", k);
+	    #5000 $sformat(status, "%0s (%0d WS)", j == 0 ? "STORE" : "OUT", k);
 	    ibus_drv = 16'bZ;
 	    nr = 1;
 	    nwen = 1;
