@@ -1,10 +1,10 @@
 EESchema Schematic File Version 4
-LIBS:cft-pb0-cache
-EELAYER 26 0
+LIBS:cft-cache
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 8 11
+Sheet 12 12
 Title "CFT Homebrew 16-bit Minicomputer"
 Date ""
 Rev ""
@@ -17,679 +17,648 @@ $EndDescr
 $Comp
 L Device:C_Small C?
 U 1 1 5F68A0E8
-P 1200 7100
+P 1050 7250
 AR Path="/5CC0D65F/5F68A0E8" Ref="C?"  Part="1" 
 AR Path="/5F68A0E8" Ref="C?"  Part="1" 
-AR Path="/5F67D4B5/5F68A0E8" Ref="C402"  Part="1" 
-F 0 "C402" H 1109 7146 50  0000 R CNN
-F 1 "100nF" H 1109 7055 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 1200 7100 50  0001 C CNN
-F 3 "~" H 1200 7100 50  0001 C CNN
-	1    1200 7100
+AR Path="/5F67D4B5/5F68A0E8" Ref="C57"  Part="1" 
+F 0 "C57" H 959 7296 50  0000 R CNN
+F 1 "100nF" H 959 7205 50  0000 R CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 1050 7250 50  0001 C CNN
+F 3 "~" H 1050 7250 50  0001 C CNN
+	1    1050 7250
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+5V #PWR0403
+L power:+5V #PWR0160
 U 1 1 5F68A2D6
-P 1200 7000
-F 0 "#PWR0403" H 1200 6850 50  0001 C CNN
-F 1 "+5V" H 1215 7173 50  0000 C CNN
-F 2 "" H 1200 7000 50  0001 C CNN
-F 3 "" H 1200 7000 50  0001 C CNN
-	1    1200 7000
+P 1050 7150
+F 0 "#PWR0160" H 1050 7000 50  0001 C CNN
+F 1 "+5V" H 1065 7323 50  0000 C CNN
+F 2 "" H 1050 7150 50  0001 C CNN
+F 3 "" H 1050 7150 50  0001 C CNN
+	1    1050 7150
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR0404
+L power:GND #PWR0163
 U 1 1 5F68A4B4
-P 1200 7200
-F 0 "#PWR0404" H 1200 6950 50  0001 C CNN
-F 1 "GND" H 1205 7027 50  0000 C CNN
-F 2 "" H 1200 7200 50  0001 C CNN
-F 3 "" H 1200 7200 50  0001 C CNN
-	1    1200 7200
+P 1050 7350
+F 0 "#PWR0163" H 1050 7100 50  0001 C CNN
+F 1 "GND" H 1055 7177 50  0000 C CNN
+F 2 "" H 1050 7350 50  0001 C CNN
+F 3 "" H 1050 7350 50  0001 C CNN
+	1    1050 7350
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:C_Small C?
 U 1 1 5F6B4251
-P 2650 7100
+P 2500 7250
 AR Path="/5CC0D65F/5F6B4251" Ref="C?"  Part="1" 
 AR Path="/5F6B4251" Ref="C?"  Part="1" 
-AR Path="/5F67D4B5/5F6B4251" Ref="C404"  Part="1" 
-F 0 "C404" H 2559 7146 50  0000 R CNN
-F 1 "100nF" H 2559 7055 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 2650 7100 50  0001 C CNN
-F 3 "~" H 2650 7100 50  0001 C CNN
-	1    2650 7100
+AR Path="/5F67D4B5/5F6B4251" Ref="C58"  Part="1" 
+F 0 "C58" H 2409 7296 50  0000 R CNN
+F 1 "100nF" H 2409 7205 50  0000 R CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 2500 7250 50  0001 C CNN
+F 3 "~" H 2500 7250 50  0001 C CNN
+	1    2500 7250
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+5V #PWR0407
+L power:+5V #PWR0161
 U 1 1 5F6B47C5
-P 2650 7000
-F 0 "#PWR0407" H 2650 6850 50  0001 C CNN
-F 1 "+5V" H 2665 7173 50  0000 C CNN
-F 2 "" H 2650 7000 50  0001 C CNN
-F 3 "" H 2650 7000 50  0001 C CNN
-	1    2650 7000
+P 2500 7150
+F 0 "#PWR0161" H 2500 7000 50  0001 C CNN
+F 1 "+5V" H 2515 7323 50  0000 C CNN
+F 2 "" H 2500 7150 50  0001 C CNN
+F 3 "" H 2500 7150 50  0001 C CNN
+	1    2500 7150
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR0408
+L power:GND #PWR0164
 U 1 1 5F6B4C91
-P 2650 7200
-F 0 "#PWR0408" H 2650 6950 50  0001 C CNN
-F 1 "GND" H 2655 7027 50  0000 C CNN
-F 2 "" H 2650 7200 50  0001 C CNN
-F 3 "" H 2650 7200 50  0001 C CNN
-	1    2650 7200
+P 2500 7350
+F 0 "#PWR0164" H 2500 7100 50  0001 C CNN
+F 1 "GND" H 2505 7177 50  0000 C CNN
+F 2 "" H 2500 7350 50  0001 C CNN
+F 3 "" H 2500 7350 50  0001 C CNN
+	1    2500 7350
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:C_Small C?
 U 1 1 5F707BE7
-P 4100 7100
+P 3950 7250
 AR Path="/5CC0D65F/5F707BE7" Ref="C?"  Part="1" 
 AR Path="/5F707BE7" Ref="C?"  Part="1" 
-AR Path="/5F67D4B5/5F707BE7" Ref="C405"  Part="1" 
-F 0 "C405" H 4009 7146 50  0000 R CNN
-F 1 "100nF" H 4009 7055 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 4100 7100 50  0001 C CNN
-F 3 "~" H 4100 7100 50  0001 C CNN
-	1    4100 7100
+AR Path="/5F67D4B5/5F707BE7" Ref="C59"  Part="1" 
+F 0 "C59" H 3859 7296 50  0000 R CNN
+F 1 "100nF" H 3859 7205 50  0000 R CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 3950 7250 50  0001 C CNN
+F 3 "~" H 3950 7250 50  0001 C CNN
+	1    3950 7250
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+5V #PWR0410
+L power:+5V #PWR0162
 U 1 1 5F7083B1
-P 4100 7000
-F 0 "#PWR0410" H 4100 6850 50  0001 C CNN
-F 1 "+5V" H 4115 7173 50  0000 C CNN
-F 2 "" H 4100 7000 50  0001 C CNN
-F 3 "" H 4100 7000 50  0001 C CNN
-	1    4100 7000
+P 3950 7150
+F 0 "#PWR0162" H 3950 7000 50  0001 C CNN
+F 1 "+5V" H 3965 7323 50  0000 C CNN
+F 2 "" H 3950 7150 50  0001 C CNN
+F 3 "" H 3950 7150 50  0001 C CNN
+	1    3950 7150
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR0411
+L power:GND #PWR0165
 U 1 1 5F708D3E
-P 4100 7200
-F 0 "#PWR0411" H 4100 6950 50  0001 C CNN
-F 1 "GND" H 4105 7027 50  0000 C CNN
-F 2 "" H 4100 7200 50  0001 C CNN
-F 3 "" H 4100 7200 50  0001 C CNN
-	1    4100 7200
+P 3950 7350
+F 0 "#PWR0165" H 3950 7100 50  0001 C CNN
+F 1 "GND" H 3955 7177 50  0000 C CNN
+F 2 "" H 3950 7350 50  0001 C CNN
+F 3 "" H 3950 7350 50  0001 C CNN
+	1    3950 7350
 	1    0    0    -1  
 $EndComp
-Text HLabel 2200 1500 0    50   Input ~ 0
+Text HLabel 1700 2100 0    50   Input ~ 0
 ~ACTION-STI
-Text Notes 4350 3900 0    50   ~ 0
-To avoid metastability, bring the asynchronous ~IRQ~ signal into the CFT's clock domain. To reduce\nlatency, and since all four clock phases are really in the same domain, we sample interrupts on\nthe rising edge of CLK1. The second stage clocks on the rising edge of CLK2 or CLK3. The final\n~IRQS~ state is reached on the raising edge of CLK4 when ~END~ is asserted. This reduces the\nminimum latency to 187.5 ns.
-Text Notes 6650 1450 0    79   ~ 16
-Enabling Interrupts (~STI~)
 $Comp
 L Device:C_Small C?
 U 1 1 5F85ED41
-P 1200 6350
+P 1050 6500
 AR Path="/5CC0D65F/5F85ED41" Ref="C?"  Part="1" 
 AR Path="/5F85ED41" Ref="C?"  Part="1" 
-AR Path="/5F67D4B5/5F85ED41" Ref="C401"  Part="1" 
-F 0 "C401" H 1109 6396 50  0000 R CNN
-F 1 "100nF" H 1109 6305 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 1200 6350 50  0001 C CNN
-F 3 "~" H 1200 6350 50  0001 C CNN
-	1    1200 6350
+AR Path="/5F67D4B5/5F85ED41" Ref="C55"  Part="1" 
+F 0 "C55" H 959 6546 50  0000 R CNN
+F 1 "100nF" H 959 6455 50  0000 R CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 1050 6500 50  0001 C CNN
+F 3 "~" H 1050 6500 50  0001 C CNN
+	1    1050 6500
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+5V #PWR0401
+L power:+5V #PWR0156
 U 1 1 5F85F21B
-P 1200 6250
-F 0 "#PWR0401" H 1200 6100 50  0001 C CNN
-F 1 "+5V" H 1215 6423 50  0000 C CNN
-F 2 "" H 1200 6250 50  0001 C CNN
-F 3 "" H 1200 6250 50  0001 C CNN
-	1    1200 6250
+P 1050 6400
+F 0 "#PWR0156" H 1050 6250 50  0001 C CNN
+F 1 "+5V" H 1065 6573 50  0000 C CNN
+F 2 "" H 1050 6400 50  0001 C CNN
+F 3 "" H 1050 6400 50  0001 C CNN
+	1    1050 6400
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR0402
+L power:GND #PWR0158
 U 1 1 5F85F700
-P 1200 6450
-F 0 "#PWR0402" H 1200 6200 50  0001 C CNN
-F 1 "GND" H 1205 6277 50  0000 C CNN
-F 2 "" H 1200 6450 50  0001 C CNN
-F 3 "" H 1200 6450 50  0001 C CNN
-	1    1200 6450
+P 1050 6600
+F 0 "#PWR0158" H 1050 6350 50  0001 C CNN
+F 1 "GND" H 1055 6427 50  0000 C CNN
+F 2 "" H 1050 6600 50  0001 C CNN
+F 3 "" H 1050 6600 50  0001 C CNN
+	1    1050 6600
 	1    0    0    -1  
 $EndComp
-Text HLabel 8600 5250 2    50   Output ~ 0
-~IRQS
-Text Label 7650 5250 0    50   ~ 0
-~IRQS
-$Comp
-L Connector:TestPoint TP402
-U 1 1 5F9307F3
-P 5750 3150
-F 0 "TP402" V 5750 3338 50  0000 L CNN
-F 1 "TestPoint" H 5808 3177 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Keystone_5010-5014_Multipurpose" H 5950 3150 50  0001 C CNN
-F 3 "~" H 5950 3150 50  0001 C CNN
-	1    5750 3150
-	0    1    1    0   
-$EndComp
-$Comp
-L Connector:TestPoint TP404
-U 1 1 5F9349A9
-P 7600 3150
-F 0 "TP404" V 7600 3338 50  0000 L CNN
-F 1 "TestPoint" H 7658 3177 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Keystone_5010-5014_Multipurpose" H 7800 3150 50  0001 C CNN
-F 3 "~" H 7800 3150 50  0001 C CNN
-	1    7600 3150
-	0    1    1    0   
-$EndComp
-Text Notes 6950 5700 0    50   ~ 0
-~IRQS~ is Interrupt Seen. It's sent to the Control Unit\nto run the Interrupt microprogram. It also doubles\nas the Interrupt acknowledge signal on the CFT Bus.
-Text Notes 7150 6950 0    197  ~ 39
+Text Notes 7050 6950 0    197  ~ 39
 Interrupt State Machine
-Text Label 2350 1850 0    50   ~ 0
+Text Label 1850 2500 0    50   ~ 0
 ~ACTION-CLI
-Text Label 2350 1500 0    50   ~ 0
+Text Label 1850 2100 0    50   ~ 0
 ~ACTION-STI
-Wire Wire Line
-	4850 1600 4800 1600
-Wire Wire Line
-	2200 1500 4850 1500
-Wire Wire Line
-	5750 1500 6250 1500
-Text Label 5750 1500 0    50   ~ 0
-FI
 $Comp
-L Connector:TestPoint TP401
-U 1 1 5D12B3FF
-P 5750 1800
-F 0 "TP401" V 5750 1988 50  0000 L CNN
-F 1 "TestPoint" H 5808 1827 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Keystone_5010-5014_Multipurpose" H 5950 1800 50  0001 C CNN
-F 3 "~" H 5950 1800 50  0001 C CNN
-	1    5750 1800
-	0    1    1    0   
-$EndComp
-$Comp
-L alexios:74HC74 U401
-U 1 1 5D13AAD9
-P 5300 1650
-F 0 "U401" H 5300 2067 50  0000 C CNN
-F 1 "74HC74" H 5300 1976 50  0000 C CNN
-F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 5300 1650 50  0001 C CNN
-F 3 "74xx/74hc_hct74.pdf" H 5300 1650 50  0001 C CNN
-	1    5300 1650
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74HC74 U403
-U 1 1 5D13ACC5
-P 5300 3000
-F 0 "U403" H 5300 3417 50  0000 C CNN
-F 1 "74HC74" H 5300 3326 50  0000 C CNN
-F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 5300 3000 50  0001 C CNN
-F 3 "74xx/74hc_hct74.pdf" H 5300 3000 50  0001 C CNN
-	1    5300 3000
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74HC74 U403
-U 2 1 5D143497
-P 7200 5100
-F 0 "U403" H 7200 5517 50  0000 C CNN
-F 1 "74HC74" H 7200 5426 50  0000 C CNN
-F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 7200 5100 50  0001 C CNN
-F 3 "74xx/74hc_hct74.pdf" H 7200 5100 50  0001 C CNN
-	2    7200 5100
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	4850 2850 4250 2850
-Wire Wire Line
-	4250 2850 4250 2300
-Wire Wire Line
-	4250 2300 6250 2300
-Wire Wire Line
-	6250 2300 6250 2850
-Wire Wire Line
-	6250 2850 6700 2850
-Wire Wire Line
-	6250 1500 6250 2300
-Connection ~ 6250 2300
-Text Label 2350 2950 0    50   ~ 0
-~IRQ
-Text HLabel 2200 2950 0    50   Input ~ 0
-~IRQ
-Wire Wire Line
-	5750 2850 6150 2850
-Wire Wire Line
-	6150 2850 6150 2950
-Wire Wire Line
-	6150 2950 6700 2950
-Wire Wire Line
-	2200 2950 2950 2950
-Wire Wire Line
-	6350 3350 6350 3050
-Wire Wire Line
-	6350 3050 6700 3050
-$Comp
-L alexios:74LVC1G08 U402
+L alexios:74LVC1G08 U56
 U 1 1 5D183FAB
-P 3300 1800
-F 0 "U402" H 3225 1625 50  0000 C CNN
-F 1 "74LVC1G08" H 3225 1534 50  0000 C CNN
-F 2 "Package_TO_SOT_SMD:SOT-23-5_HandSoldering" H 2950 1800 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 2950 1800 50  0001 C CNN
-	1    3300 1800
+P 3500 2450
+F 0 "U56" H 3425 2275 50  0000 C CNN
+F 1 "74LVC1G08" H 3425 2184 50  0000 C CNN
+F 2 "Package_TO_SOT_SMD:SOT-23-5_HandSoldering" H 3150 2450 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 3150 2450 50  0001 C CNN
+	1    3500 2450
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	4800 1600 4800 1700
-Wire Wire Line
-	4850 1700 4800 1700
-$Comp
-L power:+5V #PWR0412
-U 1 1 5D18C9E4
-P 4800 1600
-F 0 "#PWR0412" H 4800 1450 50  0001 C CNN
-F 1 "+5V" V 4815 1728 50  0000 L CNN
-F 2 "" H 4800 1600 50  0001 C CNN
-F 3 "" H 4800 1600 50  0001 C CNN
-	1    4800 1600
-	0    -1   -1   0   
-$EndComp
-Connection ~ 4800 1600
-Text HLabel 2200 1850 0    50   Input ~ 0
+Text HLabel 1700 2500 0    50   Input ~ 0
 ~ACTION-CLI
-Text HLabel 2200 1750 0    50   Input ~ 0
+Text HLabel 1700 2400 0    50   Input ~ 0
 ~RESET
 Wire Wire Line
-	2200 1850 3000 1850
-Text Label 2350 1750 0    50   ~ 0
+	1700 2500 3200 2500
+Text Label 1850 2400 0    50   ~ 0
 ~RESET
-Wire Wire Line
-	2200 1750 3000 1750
-$Comp
-L power:+5V #PWR0413
-U 1 1 5D1C81EC
-P 4800 3150
-F 0 "#PWR0413" H 4800 3000 50  0001 C CNN
-F 1 "+5V" V 4815 3278 50  0000 L CNN
-F 2 "" H 4800 3150 50  0001 C CNN
-F 3 "" H 4800 3150 50  0001 C CNN
-	1    4800 3150
-	0    -1   -1   0   
-$EndComp
-$Comp
-L power:+5V #PWR0415
-U 1 1 5D1C8231
-P 6700 3150
-F 0 "#PWR0415" H 6700 3000 50  0001 C CNN
-F 1 "+5V" V 6715 3278 50  0000 L CNN
-F 2 "" H 6700 3150 50  0001 C CNN
-F 3 "" H 6700 3150 50  0001 C CNN
-	1    6700 3150
-	0    -1   -1   0   
-$EndComp
-Text Label 3500 1800 0    50   ~ 0
+Text Label 4550 2400 2    50   ~ 0
 ~RESET-OR-CLI
-$Comp
-L alexios:74HC74 U405
-U 1 1 5D1DFC5F
-P 5300 5100
-F 0 "U405" H 5300 5517 50  0000 C CNN
-F 1 "74HC74" H 5300 5426 50  0000 C CNN
-F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 5300 5100 50  0001 C CNN
-F 3 "74xx/74hc_hct74.pdf" H 5300 5100 50  0001 C CNN
-	1    5300 5100
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74HC74 U405
-U 2 1 5D1DFCDB
-P 10100 1750
-F 0 "U405" H 10100 2167 50  0000 C CNN
-F 1 "74HC74" H 10100 2076 50  0000 C CNN
-F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 10100 1750 50  0001 C CNN
-F 3 "74xx/74hc_hct74.pdf" H 10100 1750 50  0001 C CNN
-	2    10100 1750
-	1    0    0    -1  
-$EndComp
-Text HLabel 2200 4600 0    50   Input ~ 0
-~END
-Text Label 2350 4600 0    50   ~ 0
-~END
-Wire Wire Line
-	6350 5150 6750 5150
-Wire Wire Line
-	7600 2850 8350 2850
-Wire Wire Line
-	8350 4100 4250 4100
-Wire Wire Line
-	4250 4100 4250 4950
-Wire Wire Line
-	4250 4950 4850 4950
-Wire Wire Line
-	4150 5250 4850 5250
-Wire Wire Line
-	4850 5050 4800 5050
-Wire Wire Line
-	4800 5050 4800 5150
-Wire Wire Line
-	4850 5150 4800 5150
-$Comp
-L power:+5V #PWR0414
-U 1 1 5D216290
-P 4800 5050
-F 0 "#PWR0414" H 4800 4900 50  0001 C CNN
-F 1 "+5V" V 4815 5178 50  0000 L CNN
-F 2 "" H 4800 5050 50  0001 C CNN
-F 3 "" H 4800 5050 50  0001 C CNN
-	1    4800 5050
-	0    -1   -1   0   
-$EndComp
-Connection ~ 4800 5050
-Wire Wire Line
-	4800 3150 4850 3150
-Text Label 4200 5250 0    50   ~ 0
-~RESET-OR-CLI
-Wire Wire Line
-	6350 5150 6350 4550
-Wire Wire Line
-	4150 5250 4150 5450
-Wire Wire Line
-	4150 5450 6450 5450
-Wire Wire Line
-	6450 5450 6450 5250
-Wire Wire Line
-	6450 5250 6750 5250
-Connection ~ 4150 5250
-Wire Wire Line
-	5750 4950 6250 4950
-Wire Wire Line
-	6250 4950 6250 5050
-Wire Wire Line
-	6250 5050 6750 5050
-$Comp
-L power:+5V #PWR0416
-U 1 1 5D2F6551
-P 6750 4950
-F 0 "#PWR0416" H 6750 4800 50  0001 C CNN
-F 1 "+5V" H 6765 5123 50  0000 C CNN
-F 2 "" H 6750 4950 50  0001 C CNN
-F 3 "" H 6750 4950 50  0001 C CNN
-	1    6750 4950
-	1    0    0    -1  
-$EndComp
-Text Label 4350 2300 0    50   ~ 0
-IRQEN
-Text Label 4350 2850 0    50   ~ 0
+Text HLabel 9150 2100 2    50   Output ~ 0
 FI
-Text Label 4350 2950 0    50   ~ 0
-~IRQ
-Text Label 4350 3050 0    50   ~ 0
-CLK2
-Text Label 7650 2850 0    50   ~ 0
-~INT
-Text Label 4350 4100 0    50   ~ 0
-~INT
-Text Label 4350 3350 0    50   ~ 0
-CLK3
 $Comp
-L Connector:TestPoint TP403
-U 1 1 5D388553
-P 5750 5250
-F 0 "TP403" V 5750 5438 50  0000 L CNN
-F 1 "TestPoint" H 5808 5277 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Keystone_5010-5014_Multipurpose" H 5950 5250 50  0001 C CNN
-F 3 "~" H 5950 5250 50  0001 C CNN
-	1    5750 5250
-	0    1    1    0   
+L Device:C_Small C?
+U 1 1 5D5F498A
+P 2500 6500
+AR Path="/5CC0D65F/5D5F498A" Ref="C?"  Part="1" 
+AR Path="/5D5F498A" Ref="C?"  Part="1" 
+AR Path="/5F67D4B5/5D5F498A" Ref="C56"  Part="1" 
+F 0 "C56" H 2409 6546 50  0000 R CNN
+F 1 "100nF" H 2409 6455 50  0000 R CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 2500 6500 50  0001 C CNN
+F 3 "~" H 2500 6500 50  0001 C CNN
+	1    2500 6500
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR0157
+U 1 1 5D5F4991
+P 2500 6400
+F 0 "#PWR0157" H 2500 6250 50  0001 C CNN
+F 1 "+5V" H 2515 6573 50  0000 C CNN
+F 2 "" H 2500 6400 50  0001 C CNN
+F 3 "" H 2500 6400 50  0001 C CNN
+	1    2500 6400
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0159
+U 1 1 5D5F4997
+P 2500 6600
+F 0 "#PWR0159" H 2500 6350 50  0001 C CNN
+F 1 "GND" H 2505 6427 50  0000 C CNN
+F 2 "" H 2500 6600 50  0001 C CNN
+F 3 "" H 2500 6600 50  0001 C CNN
+	1    2500 6600
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC74 U58
+U 2 1 5D6227E0
+P 6750 3500
+F 0 "U58" H 6750 3917 50  0000 C CNN
+F 1 "74AC74" H 6750 3826 50  0000 C CNN
+F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 6750 3500 50  0001 C CNN
+F 3 "74xx/74hc_hct74.pdf" H 6750 3500 50  0001 C CNN
+	2    6750 3500
+	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	7650 5250 8600 5250
+	3700 4200 5950 4200
+Text Label 1900 4150 0    50   ~ 0
+CLK4
+Text HLabel 1750 4150 0    50   Input ~ 0
+CLK4
 Wire Wire Line
-	6250 1500 8600 1500
-Connection ~ 6250 1500
-Text HLabel 8600 1500 2    50   Output ~ 0
-FI
-Text Label 2350 3350 0    50   ~ 0
-CLK3
-Text Notes 6650 2450 0    79   ~ 16
-~IRQ~ Clock Domain Crossing
-Text Notes 6650 4400 0    79   ~ 16
-interrupt State
-Text Label 4350 4950 0    50   ~ 0
-~INT
+	3200 4150 1750 4150
+$Comp
+L alexios:74LVC1G32 U59
+U 1 1 5D5A4DFA
+P 3400 4200
+F 0 "U59" H 3450 4467 50  0000 C CNN
+F 1 "74LVC1G32" H 3450 4376 50  0000 C CNN
+F 2 "Package_TO_SOT_SMD:SOT-23-5_HandSoldering" H 3510 4180 50  0001 C CNN
+F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 3510 4180 50  0001 C CNN
+	1    3400 4200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1750 4250 3200 4250
+$Comp
+L power:+5V #PWR0153
+U 1 1 5D4D2882
+P 2200 3200
+F 0 "#PWR0153" H 2200 3050 50  0001 C CNN
+F 1 "+5V" H 2215 3373 50  0000 C CNN
+F 2 "" H 2200 3200 50  0001 C CNN
+F 3 "" H 2200 3200 50  0001 C CNN
+	1    2200 3200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2200 3400 2200 3450
 $Comp
 L Device:R_Small R?
 U 1 1 5D4C3580
-P 2950 2800
+P 2200 3300
 AR Path="/5D4C3580" Ref="R?"  Part="1" 
 AR Path="/5CC0D65F/5D4C3580" Ref="R?"  Part="1" 
 AR Path="/5D54E677/5D4C3580" Ref="R?"  Part="1" 
 AR Path="/5D62E1DC/5D4C3580" Ref="R?"  Part="1" 
 AR Path="/5DEAC282/5D4C3580" Ref="R?"  Part="1" 
-AR Path="/5F67D4B5/5D4C3580" Ref="R401"  Part="1" 
-F 0 "R401" H 3009 2846 50  0000 L CNN
-F 1 "4.7kΩ" H 3009 2755 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric" H 2950 2800 50  0001 C CNN
-F 3 "~" H 2950 2800 50  0001 C CNN
-	1    2950 2800
+AR Path="/5F67D4B5/5D4C3580" Ref="R28"  Part="1" 
+F 0 "R28" H 2259 3346 50  0000 L CNN
+F 1 "4.7kΩ" H 2259 3255 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 2200 3300 50  0001 C CNN
+F 3 "~" H 2200 3300 50  0001 C CNN
+	1    2200 3300
 	1    0    0    -1  
 $EndComp
+Text Label 1900 4250 0    50   ~ 0
+~END
+Text HLabel 1750 4250 0    50   Input ~ 0
+~END
 Wire Wire Line
-	2950 2900 2950 2950
-Connection ~ 2950 2950
+	5950 3550 6300 3550
 Wire Wire Line
-	2950 2950 4850 2950
+	1750 3450 2200 3450
+Text HLabel 1750 3450 0    50   Input ~ 0
+~IRQ
+Text Label 1900 3450 0    50   ~ 0
+~IRQ
+Wire Wire Line
+	2200 3450 3200 3450
+Connection ~ 2200 3450
+Wire Wire Line
+	2900 2900 2900 3350
+Wire Wire Line
+	2900 3350 3200 3350
+Text Label 3200 3350 2    50   ~ 0
+~FI
+Text Label 3200 3450 2    50   ~ 0
+~IRQ
 $Comp
-L power:+5V #PWR0409
-U 1 1 5D4D2882
-P 2950 2700
-F 0 "#PWR0409" H 2950 2550 50  0001 C CNN
-F 1 "+5V" H 2965 2873 50  0000 C CNN
-F 2 "" H 2950 2700 50  0001 C CNN
-F 3 "" H 2950 2700 50  0001 C CNN
-	1    2950 2700
+L Connector:TestPoint TP3
+U 1 1 5F9307F3
+P 5450 3750
+F 0 "TP3" V 5450 3938 50  0000 L CNN
+F 1 "TestPoint" H 5508 3777 50  0001 L CNN
+F 2 "TestPoint:TestPoint_Keystone_5010-5014_Multipurpose" H 5650 3750 50  0001 C CNN
+F 3 "~" H 5650 3750 50  0001 C CNN
+	1    5450 3750
+	0    1    1    0   
+$EndComp
+$Comp
+L alexios:74HC74 U55
+U 2 1 5D13ACC5
+P 5000 3600
+F 0 "U55" H 5000 4017 50  0000 C CNN
+F 1 "74AC74" H 5000 3926 50  0000 C CNN
+F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 5000 3600 50  0001 C CNN
+F 3 "74xx/74hc_hct74.pdf" H 5000 3600 50  0001 C CNN
+	2    5000 3600
 	1    0    0    -1  
 $EndComp
-Text Label 5800 2850 0    50   ~ 0
-~INT₀
-Text Notes 6500 1700 0    50   ~ 0
+Text Label 5500 3450 0    50   ~ 0
+INTERRUPT
+Text Label 3950 4200 0    50   ~ 0
+ENDCP
+Wire Wire Line
+	5950 3550 5950 4200
+Text Label 6300 3550 2    50   ~ 0
+ENDCP
+Wire Wire Line
+	3750 3450 4550 3450
+$Comp
+L alexios:74LVC1G332 U57
+U 1 1 5DCE02F5
+P 3550 3400
+F 0 "U57" H 3475 3664 50  0000 C CNN
+F 1 "74LVC1G332" H 3475 3573 50  0000 C CNN
+F 2 "alexios:SOT-23-6_Handsoldering" H 4450 3450 50  0001 C CNN
+F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 4450 3450 50  0001 C CNN
+	1    3550 3400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3200 3550 1750 3550
+Text HLabel 1750 3550 0    50   Input ~ 0
+CLK1
+Text Label 4550 3450 2    50   ~ 0
+~IRQSYNC
+Text Label 1900 3550 0    50   ~ 0
+CLK1
+Text Label 3200 3550 2    50   ~ 0
+CLK1
+Wire Wire Line
+	5450 3450 6300 3450
+$Comp
+L Connector:TestPoint TP2
+U 1 1 5F9349A9
+P 7200 3350
+F 0 "TP2" V 7200 3538 50  0000 L CNN
+F 1 "TestPoint" H 7258 3377 50  0001 L CNN
+F 2 "TestPoint:TestPoint_Keystone_5010-5014_Multipurpose" H 7400 3350 50  0001 C CNN
+F 3 "~" H 7400 3350 50  0001 C CNN
+	1    7200 3350
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	1700 2400 2800 2400
+Text Label 4550 3750 2    50   ~ 0
+~RESET-OR-CLI
+Wire Wire Line
+	4550 3750 3800 3750
+Wire Wire Line
+	3800 3750 3800 2450
+Text Label 4550 2100 2    50   ~ 0
+~ACTION-STI
+Wire Wire Line
+	1700 2100 4550 2100
+Wire Wire Line
+	3800 2400 4550 2400
+Wire Wire Line
+	5600 2400 5650 2400
+Connection ~ 5600 2400
+Wire Wire Line
+	5600 2900 2900 2900
+Wire Wire Line
+	5600 2400 5600 2900
+Text Label 5450 2400 0    50   ~ 0
+~FI
+Wire Wire Line
+	5450 2400 5600 2400
+$Comp
+L Connector:TestPoint TP1
+U 1 1 5D12B3FF
+P 5650 2400
+F 0 "TP1" V 5650 2588 50  0000 L CNN
+F 1 "TestPoint" H 5708 2427 50  0001 L CNN
+F 2 "TestPoint:TestPoint_Keystone_5010-5014_Multipurpose" H 5850 2400 50  0001 C CNN
+F 3 "~" H 5850 2400 50  0001 C CNN
+	1    5650 2400
+	0    1    1    0   
+$EndComp
+Text Notes 6200 2300 0    50   ~ 0
 This is the Interrupt Flag (interrupt handling enabled)\ndisplayed on the front panel.
-Wire Wire Line
-	2200 3050 4850 3050
-Text HLabel 2200 3050 0    50   Input ~ 0
-CLK2
-Wire Wire Line
-	3450 1800 4150 1800
-Wire Wire Line
-	8350 2850 8350 4100
-Wire Wire Line
-	2200 4600 3000 4600
+Text Label 5700 2100 0    50   ~ 0
+FI
+Text Notes 6350 2050 0    79   ~ 16
+Enabling Interrupts (~STI~)
 $Comp
-L alexios:74LVC1G32 U404
-U 1 1 5D5A4DFA
-P 3200 4550
-F 0 "U404" H 3250 4817 50  0000 C CNN
-F 1 "74LVC1G32" H 3250 4726 50  0000 C CNN
-F 2 "Package_TO_SOT_SMD:SOT-23-5_HandSoldering" H 3310 4530 50  0001 C CNN
-F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 3310 4530 50  0001 C CNN
-	1    3200 4550
+L power:+5V #PWR0154
+U 1 1 5DDA768D
+P 6300 3350
+F 0 "#PWR0154" H 6300 3200 50  0001 C CNN
+F 1 "+5V" V 6315 3478 50  0000 L CNN
+F 2 "" H 6300 3350 50  0001 C CNN
+F 3 "" H 6300 3350 50  0001 C CNN
+	1    6300 3350
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	7900 5150 9650 5150
+Text HLabel 9650 5150 2    50   Output ~ 0
+~IRQSµC
+Text HLabel 9700 3650 2    50   Output ~ 0
+~IRQS
+Text Notes 8050 4650 0    50   ~ 0
+~IRQS~ and ~IRQµC~ are the same signal.\nThe former is output to the bus. The latter is\nfor the Microcode Store. We drive them separately\nto keep the capacitance down and because the one going\nto the Microcode Store is more important and must be\nless loaded (and thus rise faster).\n\nTODO: Drive ~IRQSµC using the leftover FF.
+Wire Wire Line
+	8200 3650 9700 3650
+Wire Wire Line
+	8000 3650 7900 3650
+$Comp
+L Device:R_Small R?
+U 1 1 5DDB48AD
+P 8100 3650
+AR Path="/5DDB48AD" Ref="R?"  Part="1" 
+AR Path="/5CC0D65F/5DDB48AD" Ref="R?"  Part="1" 
+AR Path="/5D54E677/5DDB48AD" Ref="R?"  Part="1" 
+AR Path="/5D62E1DC/5DDB48AD" Ref="R?"  Part="1" 
+AR Path="/5DEAC282/5DDB48AD" Ref="R?"  Part="1" 
+AR Path="/5F67D4B5/5DDB48AD" Ref="R29"  Part="1" 
+F 0 "R29" V 8204 3650 50  0000 C CNN
+F 1 "30Ω" V 8295 3650 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 8100 3650 50  0001 C CNN
+F 3 "~" H 8100 3650 50  0001 C CNN
+	1    8100 3650
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	7900 3650 7900 5150
+Connection ~ 7900 3650
+Wire Wire Line
+	7200 3650 7900 3650
+$Comp
+L alexios:74LVC1G08 U56
+U 2 1 5DDC8304
+P 1500 6400
+F 0 "U56" H 1580 6346 50  0000 L CNN
+F 1 "74LVC1G08" H 1580 6255 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23-5_HandSoldering" H 1150 6400 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 1150 6400 50  0001 C CNN
+	2    1500 6400
+	1    0    0    -1  
+$EndComp
+Connection ~ 1050 6600
+Connection ~ 1050 6400
+$Comp
+L alexios:74LVC1G332 U57
+U 2 1 5DDC8CF0
+P 1500 7050
+F 0 "U57" H 1580 6896 50  0000 L CNN
+F 1 "74LVC1G332" H 1580 6805 50  0000 L CNN
+F 2 "alexios:SOT-23-6_Handsoldering" H 2400 7100 50  0001 C CNN
+F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 2400 7100 50  0001 C CNN
+	2    1500 7050
+	1    0    0    -1  
+$EndComp
+Connection ~ 1050 7350
+Connection ~ 1050 7150
+$Comp
+L alexios:74LVC1G32 U59
+U 2 1 5DDC95B7
+P 2900 6250
+F 0 "U59" H 3030 6046 50  0000 L CNN
+F 1 "74LVC1G32" H 3030 5955 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23-5_HandSoldering" H 3010 6230 50  0001 C CNN
+F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 3010 6230 50  0001 C CNN
+	2    2900 6250
+	1    0    0    -1  
+$EndComp
+Connection ~ 2500 6600
+Connection ~ 2500 6400
+Connection ~ 2500 7150
+Connection ~ 2500 7350
+Connection ~ 3950 7150
+Connection ~ 3950 7350
+Wire Wire Line
+	6300 3650 6050 3650
+Wire Wire Line
+	6050 3650 6050 4400
+Wire Wire Line
+	6050 4400 2800 4400
+Connection ~ 2800 2400
+Wire Wire Line
+	2800 2400 3200 2400
+Text Label 6300 3650 2    50   ~ 0
+~RESET
+$Comp
+L Device:R_Small R?
+U 1 1 5DEE33CE
+P 5550 2100
+AR Path="/5DEE33CE" Ref="R?"  Part="1" 
+AR Path="/5CC0D65F/5DEE33CE" Ref="R?"  Part="1" 
+AR Path="/5D54E677/5DEE33CE" Ref="R?"  Part="1" 
+AR Path="/5D62E1DC/5DEE33CE" Ref="R?"  Part="1" 
+AR Path="/5DEAC282/5DEE33CE" Ref="R?"  Part="1" 
+AR Path="/5F67D4B5/5DEE33CE" Ref="R27"  Part="1" 
+F 0 "R27" V 5354 2100 50  0000 C CNN
+F 1 "30Ω" V 5445 2100 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 5550 2100 50  0001 C CNN
+F 3 "~" H 5550 2100 50  0001 C CNN
+	1    5550 2100
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	5650 2100 9150 2100
+Wire Wire Line
+	4500 3550 4500 3650
+$Comp
+L power:+5V #PWR0155
+U 1 1 5DF03A6D
+P 4500 3550
+F 0 "#PWR0155" H 4500 3400 50  0001 C CNN
+F 1 "+5V" V 4515 3678 50  0000 L CNN
+F 2 "" H 4500 3550 50  0001 C CNN
+F 3 "" H 4500 3550 50  0001 C CNN
+	1    4500 3550
+	0    -1   -1   0   
+$EndComp
+Connection ~ 4500 3550
+Wire Wire Line
+	4550 3650 4500 3650
+Wire Wire Line
+	4550 3550 4500 3550
+Text HLabel 1700 2200 0    50   Input ~ 0
+IBUS15
+Wire Wire Line
+	1700 2200 4550 2200
+Text Label 1850 2200 0    50   ~ 0
+IBUS15
+Text Notes 2450 2200 0    50   ~ 0
+(FI bit for retrieving FI from stack)
+Wire Wire Line
+	2800 4400 2800 2400
+Wire Wire Line
+	3650 2450 3800 2450
+Connection ~ 3800 2450
+Wire Wire Line
+	3800 2450 3800 2400
+Text HLabel 1700 2300 0    50   Input ~ 0
+~FLAGWE
+Wire Wire Line
+	1700 2300 4550 2300
+Text Label 1850 2300 0    50   ~ 0
+~FLAGWE
+Text Label 4550 2300 2    50   ~ 0
+~FLAGWE
+Text Label 4550 2200 2    50   ~ 0
+IBUS15
+Text Notes 2400 1650 0    50   ~ 10
+Assumption
+Text Notes 2400 1900 0    50   ~ 0
+~ACTION_STI~ and ~ACTION_CLI~ remain de-asserted\nflags are being written using ~FLAGWE~.
+$Comp
+L alexios:74HC74 U60
+U 3 1 5DDCAF4B
+P 4300 7250
+F 0 "U60" H 4480 7296 50  0000 L CNN
+F 1 "74AC74" H 4480 7205 50  0000 L CNN
+F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 4300 7250 50  0001 C CNN
+F 3 "74xx/74hc_hct74.pdf" H 4300 7250 50  0001 C CNN
+	3    4300 7250
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC74 U55
+U 3 1 5DDCA2A2
+P 2850 7250
+F 0 "U55" H 3030 7296 50  0000 L CNN
+F 1 "74AC74" H 3030 7205 50  0000 L CNN
+F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 2850 7250 50  0001 C CNN
+F 3 "74xx/74hc_hct74.pdf" H 2850 7250 50  0001 C CNN
+	3    2850 7250
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC74 U55
+U 1 1 5D13AAD9
+P 5000 2250
+F 0 "U55" H 5000 2667 50  0000 C CNN
+F 1 "74AC74" H 5000 2576 50  0000 C CNN
+F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 5000 2250 50  0001 C CNN
+F 3 "74xx/74hc_hct74.pdf" H 5000 2250 50  0001 C CNN
+	1    5000 2250
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC74 U60
+U 2 1 5E4DB3A3
+P 5950 7150
+F 0 "U60" H 5950 7567 50  0000 C CNN
+F 1 "74AC74" H 5950 7476 50  0000 C CNN
+F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 5950 7150 50  0001 C CNN
+F 3 "74xx/74hc_hct74.pdf" H 5950 7150 50  0001 C CNN
+	2    5950 7150
+	1    0    0    -1  
+$EndComp
+NoConn ~ 6400 7000
+NoConn ~ 6400 7300
+Wire Wire Line
+	5500 7000 5400 7000
+Wire Wire Line
+	5400 7000 5400 7100
+$Comp
+L power:GND #PWR0166
+U 1 1 5E4DF1B3
+P 5400 7400
+F 0 "#PWR0166" H 5400 7150 50  0001 C CNN
+F 1 "GND" H 5405 7227 50  0000 C CNN
+F 2 "" H 5400 7400 50  0001 C CNN
+F 3 "" H 5400 7400 50  0001 C CNN
+	1    5400 7400
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	3000 4500 2200 4500
-Text HLabel 2200 4500 0    50   Input ~ 0
-CLK4
-Text Label 2350 4500 0    50   ~ 0
-CLK4
+	5500 7100 5400 7100
+Connection ~ 5400 7100
 Wire Wire Line
-	3500 4550 6350 4550
-$Comp
-L power:+5V #PWR0417
-U 1 1 5D5E15D6
-P 9600 1500
-F 0 "#PWR0417" H 9600 1350 50  0001 C CNN
-F 1 "+5V" H 9615 1673 50  0000 C CNN
-F 2 "" H 9600 1500 50  0001 C CNN
-F 3 "" H 9600 1500 50  0001 C CNN
-	1    9600 1500
-	1    0    0    -1  
-$EndComp
+	5400 7100 5400 7200
 Wire Wire Line
-	9600 1500 9600 1600
+	5500 7200 5400 7200
+Connection ~ 5400 7200
 Wire Wire Line
-	9600 1900 9650 1900
+	5400 7200 5400 7300
 Wire Wire Line
-	9650 1800 9600 1800
-Connection ~ 9600 1800
+	5500 7300 5400 7300
+Connection ~ 5400 7300
 Wire Wire Line
-	9600 1800 9600 1900
-Wire Wire Line
-	9600 1700 9650 1700
-Connection ~ 9600 1700
-Wire Wire Line
-	9600 1700 9600 1800
-Wire Wire Line
-	9650 1600 9600 1600
-Connection ~ 9600 1600
-Wire Wire Line
-	9600 1600 9600 1700
-NoConn ~ 10550 1600
-NoConn ~ 10550 1900
-$Comp
-L alexios:74HC74 U401
-U 3 1 5D5EE74B
-P 1550 7100
-F 0 "U401" H 1730 7146 50  0000 L CNN
-F 1 "74HC74" H 1730 7055 50  0000 L CNN
-F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 1550 7100 50  0001 C CNN
-F 3 "74xx/74hc_hct74.pdf" H 1550 7100 50  0001 C CNN
-	3    1550 7100
-	1    0    0    -1  
-$EndComp
-Connection ~ 1200 7000
-Connection ~ 1200 7200
-$Comp
-L alexios:74HC74 U403
-U 3 1 5D5EEA24
-P 3000 7100
-F 0 "U403" H 3180 7146 50  0000 L CNN
-F 1 "74HC74" H 3180 7055 50  0000 L CNN
-F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 3000 7100 50  0001 C CNN
-F 3 "74xx/74hc_hct74.pdf" H 3000 7100 50  0001 C CNN
-	3    3000 7100
-	1    0    0    -1  
-$EndComp
-Connection ~ 2650 7000
-Connection ~ 2650 7200
-$Comp
-L alexios:74HC74 U405
-U 3 1 5D5EEA84
-P 4450 7100
-F 0 "U405" H 4630 7146 50  0000 L CNN
-F 1 "74HC74" H 4630 7055 50  0000 L CNN
-F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 4450 7100 50  0001 C CNN
-F 3 "74xx/74hc_hct74.pdf" H 4450 7100 50  0001 C CNN
-	3    4450 7100
-	1    0    0    -1  
-$EndComp
-Connection ~ 4100 7000
-Connection ~ 4100 7200
-$Comp
-L alexios:74LVC1G08 U402
-U 2 1 5D5F45BD
-P 1650 6250
-F 0 "U402" H 1730 6196 50  0000 L CNN
-F 1 "74LVC1G08" H 1730 6105 50  0000 L CNN
-F 2 "Package_TO_SOT_SMD:SOT-23-5_HandSoldering" H 1300 6250 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 1300 6250 50  0001 C CNN
-	2    1650 6250
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74LVC1G32 U404
-U 2 1 5D5F462B
-P 3050 6100
-F 0 "U404" H 3180 5896 50  0000 L CNN
-F 1 "74LVC1G32" H 3180 5805 50  0000 L CNN
-F 2 "Package_TO_SOT_SMD:SOT-23-5_HandSoldering" H 3160 6080 50  0001 C CNN
-F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 3160 6080 50  0001 C CNN
-	2    3050 6100
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 5D5F498A
-P 2650 6350
-AR Path="/5CC0D65F/5D5F498A" Ref="C?"  Part="1" 
-AR Path="/5D5F498A" Ref="C?"  Part="1" 
-AR Path="/5F67D4B5/5D5F498A" Ref="C403"  Part="1" 
-F 0 "C403" H 2559 6396 50  0000 R CNN
-F 1 "100nF" H 2559 6305 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 2650 6350 50  0001 C CNN
-F 3 "~" H 2650 6350 50  0001 C CNN
-	1    2650 6350
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR0405
-U 1 1 5D5F4991
-P 2650 6250
-F 0 "#PWR0405" H 2650 6100 50  0001 C CNN
-F 1 "+5V" H 2665 6423 50  0000 C CNN
-F 2 "" H 2650 6250 50  0001 C CNN
-F 3 "" H 2650 6250 50  0001 C CNN
-	1    2650 6250
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR0406
-U 1 1 5D5F4997
-P 2650 6450
-F 0 "#PWR0406" H 2650 6200 50  0001 C CNN
-F 1 "GND" H 2655 6277 50  0000 C CNN
-F 2 "" H 2650 6450 50  0001 C CNN
-F 3 "" H 2650 6450 50  0001 C CNN
-	1    2650 6450
-	1    0    0    -1  
-$EndComp
-Connection ~ 1200 6450
-Connection ~ 1200 6250
-Connection ~ 2650 6450
-Connection ~ 2650 6250
-$Comp
-L alexios:74HC74 U401
-U 2 1 5D6227E0
-P 7150 3000
-F 0 "U401" H 7150 3417 50  0000 C CNN
-F 1 "74HC74" H 7150 3326 50  0000 C CNN
-F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 7150 3000 50  0001 C CNN
-F 3 "74xx/74hc_hct74.pdf" H 7150 3000 50  0001 C CNN
-	2    7150 3000
-	1    0    0    -1  
-$EndComp
-Text Notes 2200 5250 0    50   ~ 0
-Synchronise the interrupt assertion with\nthe end of the processor cycle. Otherwise,\n~IRQS~ will be asserted when the next micro-\ninstruction is fetched and ~END~ is deasserted,\nwhich is already too late to fetch the micro-\nprogram.
-Wire Wire Line
-	4150 1800 4150 5250
-Connection ~ 4150 1800
-Wire Wire Line
-	4150 1800 4850 1800
-Text Label 2350 3050 0    50   ~ 0
-CLK2
-Text HLabel 2200 3350 0    50   Input ~ 0
-CLK3
-Wire Wire Line
-	2200 3350 6350 3350
-NoConn ~ 7650 4950
+	5400 7300 5400 7400
+Text Notes 4650 1650 0    50   ~ 0
+Use LVC or AC family for flip-flops.\nIt reduces the chances of metastability.
 $EndSCHEMATC
