@@ -50,7 +50,7 @@ AR Path="/5D30488D/5D33F5D3" Ref="U1502"  Part="1"
 AR Path="/5D44ECB5/5D33F5D3" Ref="U?"  Part="1" 
 AR Path="/5D46B22D/5D33F5D3" Ref="U702"  Part="1" 
 F 0 "U702" H 4250 2567 50  0000 C CNN
-F 1 "74AUC1G74" H 4250 2476 50  0000 C CNN
+F 1 "74LVC1G74" H 4250 2476 50  0000 C CNN
 F 2 "" H 4700 2150 50  0001 C CNN
 F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 4700 2150 50  0001 C CNN
 	1    4250 2150
@@ -1166,8 +1166,34 @@ Connection ~ 2500 7350
 Connection ~ 2500 7150
 Text Notes 6500 2550 0    50   ~ 0
 WSTB\n\n  X\n  X\n  X\n  1\n  0
+Text Notes 7350 3000 0    50   ~ 0
+Wait States must be asserted:\n\n• In the first half of the processor cycle.\n• At the latest one flip-flop setup time before CLK3 goes high.\n• Remain low at least one hold time after CLK3 goes high.\n\nExecution of the current microinstruction will then be protracted by a whole\nnumber of processor cycles, ending on the cycle where ~WS~ was not asserted\non the rising edge of CLK3.\n\nTo generate wait states for slow devices, assert ~WS~ asynchronously when the device\nis addressed, and clear it synchronously when CLK4 or WSTB go high *after* the\ndevice has finished its work. (CLK4 is the better choice)\n\n\n\n\n
+Text Notes 1800 2500 0    50   ~ 0
+ToDo: make this more immune to metastability.
+Text Notes 2675 3550 0    50   ~ 10
+Choice of '74 flip-flop
+Text Notes 2675 4000 0    50   ~ 0
+Prefer LVC or AC families because of their metastability\ncharacteristics. Use dual FF if needed. Some '1G74 are\nonly available in tiny packages, and many won't work\nwith Vcc=5V.
+Wire Notes Line width 20 style solid
+	7250 1550 10700 1550
+Wire Notes Line width 20 style solid
+	7250 2800 10700 2800
+Wire Notes Line width 20 style solid
+	10700 2800 10700 1550
+Wire Notes Line width 20 style solid
+	7250 2800 7250 1550
+Wire Notes Line width 20 style solid
+	2550 3375 4950 3375
+Wire Notes Line width 20 style solid
+	2550 4100 4950 4100
+Wire Notes Line width 20 style solid
+	4950 4100 4950 3375
+Wire Notes Line width 20 style solid
+	2550 4100 2550 3375
 Wire Bus Line
 	6850 3250 6850 5600
 Wire Bus Line
 	8750 3250 8750 5600
+Text Label 6200 1400 0    50   ~ 0
+~W₀
 $EndSCHEMATC

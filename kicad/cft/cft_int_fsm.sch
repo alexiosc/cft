@@ -4,7 +4,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 35 34
+Sheet 34 34
 Title "CFT Homebrew 16-bit Minicomputer"
 Date ""
 Rev ""
@@ -230,7 +230,7 @@ L alexios:74HC74 U905
 U 2 1 5D6227E0
 P 6750 3500
 F 0 "U905" H 6750 3917 50  0000 C CNN
-F 1 "74HC74" H 6750 3826 50  0000 C CNN
+F 1 "74AC74" H 6750 3826 50  0000 C CNN
 F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 6750 3500 50  0001 C CNN
 F 3 "74xx/74hc_hct74.pdf" H 6750 3500 50  0001 C CNN
 	2    6750 3500
@@ -322,14 +322,14 @@ F 3 "~" H 5650 3750 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L alexios:74HC74 U905
-U 1 1 5D13ACC5
+L alexios:74HC74 U904
+U 2 1 5D13ACC5
 P 5000 3600
-F 0 "U905" H 5000 4017 50  0000 C CNN
-F 1 "74HC74" H 5000 3926 50  0000 C CNN
+F 0 "U904" H 5000 4017 50  0000 C CNN
+F 1 "74AC74" H 5000 3926 50  0000 C CNN
 F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 5000 3600 50  0001 C CNN
 F 3 "74xx/74hc_hct74.pdf" H 5000 3600 50  0001 C CNN
-	1    5000 3600
+	2    5000 3600
 	1    0    0    -1  
 $EndComp
 Text Label 5500 3450 0    50   ~ 0
@@ -390,17 +390,6 @@ Wire Wire Line
 	1700 2100 4550 2100
 Wire Wire Line
 	3800 2400 4550 2400
-$Comp
-L alexios:74HC74 U904
-U 1 1 5D13AAD9
-P 5000 2250
-F 0 "U904" H 5000 2667 50  0000 C CNN
-F 1 "74HC74" H 5000 2576 50  0000 C CNN
-F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 5000 2250 50  0001 C CNN
-F 3 "74xx/74hc_hct74.pdf" H 5000 2250 50  0001 C CNN
-	1    5000 2250
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	5600 2400 5650 2400
 Connection ~ 5600 2400
@@ -513,30 +502,8 @@ F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 3010 6230 50  0001 C CNN
 $EndComp
 Connection ~ 2500 6600
 Connection ~ 2500 6400
-$Comp
-L alexios:74HC74 U904
-U 3 1 5DDCA2A2
-P 2850 7250
-F 0 "U904" H 3030 7296 50  0000 L CNN
-F 1 "74HC74" H 3030 7205 50  0000 L CNN
-F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 2850 7250 50  0001 C CNN
-F 3 "74xx/74hc_hct74.pdf" H 2850 7250 50  0001 C CNN
-	3    2850 7250
-	1    0    0    -1  
-$EndComp
 Connection ~ 2500 7150
 Connection ~ 2500 7350
-$Comp
-L alexios:74HC74 U904
-U 3 1 5DDCAF4B
-P 4300 7250
-F 0 "U904" H 4300 7667 50  0000 C CNN
-F 1 "74HC74" H 4300 7576 50  0000 C CNN
-F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 4300 7250 50  0001 C CNN
-F 3 "74xx/74hc_hct74.pdf" H 4300 7250 50  0001 C CNN
-	3    4300 7250
-	1    0    0    -1  
-$EndComp
 Connection ~ 3950 7150
 Connection ~ 3950 7350
 Wire Wire Line
@@ -616,4 +583,82 @@ Text Notes 2400 1650 0    50   ~ 10
 Assumption
 Text Notes 2400 1900 0    50   ~ 0
 ~ACTION_STI~ and ~ACTION_CLI~ remain de-asserted\nflags are being written using ~FLAGWE~.
+$Comp
+L alexios:74HC74 U905
+U 3 1 5DDCAF4B
+P 4300 7250
+F 0 "U905" H 4480 7296 50  0000 L CNN
+F 1 "74AC74" H 4480 7205 50  0000 L CNN
+F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 4300 7250 50  0001 C CNN
+F 3 "74xx/74hc_hct74.pdf" H 4300 7250 50  0001 C CNN
+	3    4300 7250
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC74 U904
+U 3 1 5DDCA2A2
+P 2850 7250
+F 0 "U904" H 3030 7296 50  0000 L CNN
+F 1 "74AC74" H 3030 7205 50  0000 L CNN
+F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 2850 7250 50  0001 C CNN
+F 3 "74xx/74hc_hct74.pdf" H 2850 7250 50  0001 C CNN
+	3    2850 7250
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC74 U904
+U 1 1 5D13AAD9
+P 5000 2250
+F 0 "U904" H 5000 2667 50  0000 C CNN
+F 1 "74AC74" H 5000 2576 50  0000 C CNN
+F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 5000 2250 50  0001 C CNN
+F 3 "74xx/74hc_hct74.pdf" H 5000 2250 50  0001 C CNN
+	1    5000 2250
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC74 U905
+U 2 1 5E4DB3A3
+P 5950 7150
+F 0 "U905" H 5950 7567 50  0000 C CNN
+F 1 "74AC74" H 5950 7476 50  0000 C CNN
+F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 5950 7150 50  0001 C CNN
+F 3 "74xx/74hc_hct74.pdf" H 5950 7150 50  0001 C CNN
+	2    5950 7150
+	1    0    0    -1  
+$EndComp
+NoConn ~ 6400 7000
+NoConn ~ 6400 7300
+Wire Wire Line
+	5500 7000 5400 7000
+Wire Wire Line
+	5400 7000 5400 7100
+$Comp
+L power:GND #PWR?
+U 1 1 5E4DF1B3
+P 5400 7400
+F 0 "#PWR?" H 5400 7150 50  0001 C CNN
+F 1 "GND" H 5405 7227 50  0000 C CNN
+F 2 "" H 5400 7400 50  0001 C CNN
+F 3 "" H 5400 7400 50  0001 C CNN
+	1    5400 7400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5500 7100 5400 7100
+Connection ~ 5400 7100
+Wire Wire Line
+	5400 7100 5400 7200
+Wire Wire Line
+	5500 7200 5400 7200
+Connection ~ 5400 7200
+Wire Wire Line
+	5400 7200 5400 7300
+Wire Wire Line
+	5500 7300 5400 7300
+Connection ~ 5400 7300
+Wire Wire Line
+	5400 7300 5400 7400
+Text Notes 4650 1650 0    50   ~ 0
+Use LVC or AC family for flip-flops.\nIt reduces the chances of metastability.
 $EndSCHEMATC
