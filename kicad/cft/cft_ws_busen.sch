@@ -4,7 +4,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 24 34
+Sheet 24 35
 Title "CFT Homebrew 16-bit Minicomputer"
 Date ""
 Rev ""
@@ -1190,10 +1190,10 @@ Wire Notes Line width 20 style solid
 	4950 4100 4950 3375
 Wire Notes Line width 20 style solid
 	2550 4100 2550 3375
+Text Label 6200 1400 0    50   ~ 0
+~W₀
 Wire Bus Line
 	6850 3250 6850 5600
 Wire Bus Line
 	8750 3250 8750 5600
-Text Label 6200 1400 0    50   ~ 0
-~W₀
 $EndSCHEMATC
