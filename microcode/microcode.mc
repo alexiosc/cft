@@ -156,16 +156,16 @@ cond uaddr:4;
 // 01110     flags       flags        Pushed onto stack as a single 16-bit velue (for speed)
 // 01111     MBn         MBn          Loads/Stores MBn registers. IR[2:0] selects register.
 // -------------------------------------------------------------------------------
-// 10000     ALU:ADD     (ALU:B)      Read ADD result; write ALU B port (due to partial decoding)
-// 10001     ALU:AND     (ALU:B)      Read AND result; write ALU B port (partial decoding)
-// 10010     ALU:OR      (ALU:B)      Read OR result; write ALU B port (partial decoding)
-// 10011     ALU:XOR     (ALU:B)      Read XOR result; write ALU B port (partial decoding)
-// 10100     ALU:NOT     (ALU:B)      Read NOT result; write ALU B port (partial decoding)
+// 10000     ALU:ADD                  Read ADD result.
+// 10001     ALU:AND                  Read AND result.
+// 10010     ALU:OR                   Read OR result.
+// 10011     ALU:XOR                  Read XOR result.
+// 10100     ALU:NOT                  Read NOT result.
 // 10101                              Reserved for ALU.
 // 10110                              Reserved for ALU.
-// 10111     ALU:B       ALU:B        Currently only used by the SRU.
+// 10111                              Reserved for ALU.
 // -------------------------------------------------------------------------------
-// 11000                              
+// 11000     ALU:B       ALU:B        Currently only used by the SRU.                              
 // 11001                              
 // 11010                              
 // 11011                              
@@ -198,10 +198,10 @@ signal read_alu_and    = ...................10001; // ALU: Read from ALU: AC AND
 signal read_alu_or     = ...................10010; // ALU: Read from ALU: AC OR B
 signal read_alu_xor    = ...................10011; // ALU: Read from ALU: AC XOR B
 signal read_alu_not    = ...................10100; // ALU: Read from ALU: NOT AC
-//signal               = ...................10101; // (Available)
-//signal               = ...................10110; // (Available)
-signal read_alu_b      = ...................10111; // Read the ALU B Port (SRU result)
-//signal               = ...................11000; // (Available)
+//signal               = ...................10101; // ALU: reserved.
+//signal               = ...................10110; // ALU: reserved.
+//signal               = ...................10111; // ALU: reserved.
+signal read_alu_b      = ...................11000; // Read the ALU B Port (SRU result)
 //signal               = ...................11001; // (Available)
 //signal               = ...................11010; // (Available)
 //signal               = ...................11011; // (Available)
