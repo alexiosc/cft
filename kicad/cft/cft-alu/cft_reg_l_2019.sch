@@ -4,7 +4,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 9 9
+Sheet 8 9
 Title ""
 Date ""
 Rev ""
@@ -513,8 +513,6 @@ F 3 "" H 5250 7250 50  0001 C CNN
 $EndComp
 Connection ~ 5250 7250
 Connection ~ 5250 7450
-Text Label 1850 3050 0    50   ~ 0
-FLIN-ADD
 Wire Wire Line
 	4400 4900 4400 4100
 Wire Wire Line
@@ -755,11 +753,11 @@ Wire Wire Line
 Text HLabel 1650 2950 0    50   Input ~ 0
 IBUS12
 Text HLabel 1650 3050 0    50   Input ~ 0
-FLIN-ADD
+FLIN-ROM
 Text HLabel 1650 3150 0    50   Input ~ 0
 FLIN-SRU
 Text HLabel 1650 4250 0    50   Input ~ 0
-~READ-ALU-ADD
+~ROMCE
 Text HLabel 1650 4350 0    50   Input ~ 0
 ~FLAGWE
 Text HLabel 1650 2350 0    50   Input ~ 0
@@ -816,7 +814,7 @@ $EndComp
 Text Label 1850 4350 0    50   ~ 0
 ~FLAGWE
 Text Label 1850 4250 0    50   ~ 0
-~READ-ALU-ADD
+~ROMCE
 Wire Wire Line
 	6550 2850 7100 2850
 Wire Wire Line
@@ -1016,4 +1014,6 @@ F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 6000 3450
 	1    6350 3450
 	1    0    0    -1  
 $EndComp
+Text Label 1850 3050 0    50   ~ 0
+FLIN-ROM
 $EndSCHEMATC

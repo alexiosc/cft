@@ -4,7 +4,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 8 9
+Sheet 7 9
 Title ""
 Date ""
 Rev ""
@@ -306,9 +306,9 @@ ACP
 Text Label 4750 4350 1    50   ~ 0
 AC[0..15]
 Text Label 3600 3450 0    50   ~ 0
-ACP
+CP
 Text HLabel 3300 3450 0    50   Input ~ 0
-ACP
+CP
 Text HLabel 3300 2200 0    50   Input ~ 0
 AC[0..15]
 Text Notes 7100 7000 0    197  ~ 39

@@ -4,7 +4,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 6 9
+Sheet 5 9
 Title ""
 Date ""
 Rev ""
@@ -85,7 +85,7 @@ F 3 "74xx/74hc_hct74.pdf" H 9350 3350 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Text HLabel 1700 4400 0    50   Input ~ 0
-~READ-ALU-ADD
+~ROM-SET-V
 Wire Wire Line
 	8550 3250 8950 3250
 Text Notes 7100 7000 0    197  ~ 39
@@ -321,7 +321,7 @@ Wire Wire Line
 Wire Wire Line
 	2850 4300 1800 4300
 Text Label 1950 4400 0    50   ~ 0
-~READ-ALU-ADD
+~ROM-SET-VV
 Text Label 1950 4300 0    50   ~ 0
 ~FLAGWE
 Wire Wire Line
@@ -581,9 +581,9 @@ Text Label 1950 3650 0    50   ~ 0
 Wire Wire Line
 	1700 3550 2750 3550
 Text HLabel 1700 3550 0    50   Input ~ 0
-FV-IN
+FVIN-ROM
 Text Label 1950 3550 0    50   ~ 0
-FV-IN
+FVIN-ROM
 Wire Wire Line
 	1700 3450 2750 3450
 Text HLabel 1700 3450 0    50   Input ~ 0
