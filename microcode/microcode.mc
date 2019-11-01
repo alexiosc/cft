@@ -278,8 +278,8 @@ signal /action_cpl     = .....0001...............; // Complement L
 signal /action_cll     = .....0010...............; // Clear L flag
 signal /action_sti     = .....0011...............; // Set I flag
 signal /action_cli     = .....0100...............; // Clear I flag
-//signal /action_???   = .....0101...............; // 
-//signal /action_???   = .....0110...............; //
+//signal /action_???   = .....0101...............; // (possible ALU extension)
+//signal /action_???   = .....0110...............; // (possible ALU extension)
 signal /action_sru     = .....0111...............; // Start the shift/roll engine
 
 // ACTION 1XXX is decoded by the REG board and is just increments and
