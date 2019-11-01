@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:cft-alu-cache
-EELAYER 30 0
+EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -757,7 +757,7 @@ FLIN-ROM
 Text HLabel 1650 3150 0    50   Input ~ 0
 FLIN-SRU
 Text HLabel 1650 4250 0    50   Input ~ 0
-~ROMCE
+~ROM-SET-L
 Text HLabel 1650 4350 0    50   Input ~ 0
 ~FLAGWE
 Text HLabel 1650 2350 0    50   Input ~ 0
@@ -814,7 +814,7 @@ $EndComp
 Text Label 1850 4350 0    50   ~ 0
 ~FLAGWE
 Text Label 1850 4250 0    50   ~ 0
-~ROMCE
+~ROM-SET-L
 Wire Wire Line
 	6550 2850 7100 2850
 Wire Wire Line

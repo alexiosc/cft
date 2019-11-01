@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:cft-alu-cache
-EELAYER 30 0
+EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -220,13 +220,11 @@ Text Label 7100 2150 0    50   ~ 0
 ACTION0
 Text Label 7100 2750 0    50   ~ 0
 ACTION3
-NoConn ~ 8400 2750
 Wire Wire Line
 	8400 2850 9100 2850
 Text Label 8950 2850 2    50   ~ 0
 ~ACTION-SRU
 NoConn ~ 8400 2150
-NoConn ~ 8400 2650
 Text Label 7100 2350 0    50   ~ 0
 ACTION2
 Text Label 7100 2250 0    50   ~ 0
@@ -345,10 +343,22 @@ Text HLabel 9100 2350 2    50   Output ~ 0
 ~ACTION-CLL
 NoConn ~ 8400 2450
 NoConn ~ 8400 2550
+Wire Wire Line
+	8400 2650 9100 2650
 Wire Bus Line
 	6950 2000 6950 2650
 Wire Bus Line
 	6950 3800 6950 4550
 Wire Bus Line
 	2900 2500 2900 4550
+Wire Wire Line
+	8400 2750 9100 2750
+Text HLabel 9100 2650 2    50   Output ~ 0
+~ACTION-101
+Text HLabel 9100 2750 2    50   Output ~ 0
+~ACTION-110
+Text Label 8950 2750 2    50   ~ 0
+~ACTION-110
+Text Label 8950 2650 2    50   ~ 0
+~ACTION-101
 $EndSCHEMATC
