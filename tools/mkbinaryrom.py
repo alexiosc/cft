@@ -120,6 +120,9 @@ def op_not(a, b, c, bits, mask):
     # result, set_fl, fl, set_fv, fv
     return y, False, 0, False, 0
 
+def op_rsvd(a, b, c, bits, mask):
+    return 0, False, 0, False, 0
+
 
 
 class AluRom(threading.Thread):
@@ -132,11 +135,22 @@ class AluRom(threading.Thread):
     XOR = 3
     NOT = 4
 
-    ops = [
+    ops6 = [
         op_add,                 # 0: Full addition
         op_and,                 # 1: AND (and even parity?)
         op_or,                  # 2: OR (and odd parity?)
         op_xor,                 # 3: XOR (and odd parity?)
+        op_not,                 # 4: Bitwise negation (does not modify L/V)
+        op_rsvd,                # 5: reserved
+        op_rsvd,                # 6: reserved
+        op_rsvd                 # 7: reserved
+    ]
+
+    ops4 = [
+        op_add,                 # 0: Full addition
+        op_and4,                # 1: AND (and even parity?)
+        op_or4,                 # 2: OR (and odd parity?)
+        op_xor4,                # 3: XOR (and odd parity?)
         op_not,                 # 4: Bitwise negation (does not modify L/V)
         op_rsvd,                # 5: reserved
         op_rsvd,                # 6: reserved
@@ -150,6 +164,11 @@ class AluRom(threading.Thread):
         self.bits = bits
         self.tt = tt
         self.mask = (1 << bits) - 1
+
+        try:
+            self.ops = { 4: self.ops4, 6: self.ops6 }[bits]
+        except KeyError:
+            raise RuntimeError("Unknown number of bits ({})".format(bits))
 
         #print "Thread %s: (%d,%d)" % (self.name, a0, a1)
 
