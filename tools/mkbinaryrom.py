@@ -20,54 +20,137 @@ import threading
 #     return _parity[x]
 
 
-class Binary(threading.Thread):
-    """
+# 2019 ALU
+#
+# The original ALU supported ADD, AND, OR, XOR, 1- and 4-bit left and right
+# rotations, and negation (NOT).
+#
+# The 2019 ALU has a serial shifter/rotator, so only NOT is left of the
+# original unary operations. The four binary ops and NOT are now in one ROM.
+#
+# Inputs:
+#
+# Carry/FL in:       1 bit
+# AC (A Port):      16 bits
+# B Port:           16 bits
+# Operation:         3 bits
+# -------------------------
+# Total             34 bits
+#
+# Outputs:
+#
+# Y (result):       16 bits
+# FL Out:            1 bit
+# FL write enable:   1 bit¹
+# FV Out:            1 bit
+# FV write enable:   1 bit¹
+# --------------------------
+# Total             20 bits
+#
+# ¹ May be decoded from OP?
+#
+# Since this is obviously too big a table for one ROM, it's split into
+# three. This adds the need to propagate carry, so one additional input and one
+# additional output for the first two ROMs. So, the task is broken out into:
+#
+# ROM 0                    ROM 1                    ROM 2                
+# -----------------------------------------------------------------------------
+# FL-IN          1 bit     Carry in 1     1 bit     Carry in 2        1 bit 
+# A[5:0]         6 bits    A[11:6]        6 bits    A[12:15]          4 bits
+# B[5:0]         6 bits    B[11:6]        6 bits    B[12:15]          4 bits
+# OP             3 bits    OP             3 bits    OP                3 bits
+# -----------------------------------------------------------------------------
+# Y[5:0]         6 bits    Y[11:6]        6 bits    Y[12:15]          4 bits
+# Carry out 1    1 bit     Carry out 2    1 bit     FL-OUT            1 bit 
+# X0 (spare 0)   1 bit     X1 (spare 1)   1 bit     FL latch strobe¹  1 bit
+#                                                   FV-OUT            1 bit
+#                                                   FV latch strobe¹  1 bit
+#
+# ¹ Again, it may be possible to decode this from the OP field, but not
+#   necessarily desirable.
+#
+# ROMs 0 and 1 need 16 bits of addresses and 6 bits of output each. 512 kbit
+# parts are the smallest candidate.
+#
+# ROM 2 needs 12 bits of addresses and 8 bits of output. 32k bit parts are
+# best.
+#
+# Because ROMs propagate carry the naïve way, they should be fast. 50ns parts
+# will work, barely: it means an addition needs 150ns of the 250ns processor
+# cycle. The microcode store needs around 50ns to get the next microinstruction
+# (because that's another ROM!), so things are tight.
+#
+# Luckily, the major registers use latching, so no matter how late in the
+# processor cycle the result arrives, it'll be registered. And if for some
+# reason we need an extra cycle for some operations, so be it.
 
-    ==Binary ROM==
+sign = lambda n, bits: int((n & (1 << (bits - 1))) != 0)
 
-    The binary ROM evaluates our four binary operations (ADD, AND, OR,
-    XOR). Since we need 17 bits of output, we split it into three
-    identical ROMs implementing the binary operations on 6-bit
-    quantities with carry (L) in/out.
+def op_add(a, b, c, bits, mask):
+    y = (a & mask) + (b & mask) + (c & 1)
+    fl = int(out > mask)
 
-    Truth table inputs:
+    sign_a = sign(a, bits)
+    sign_b = sign(b, bits)
+    sign_y = sign(y, bits)
 
-    * OP (2 bits)
-    * L_IN (1 bit)
-    * A (16 bits)
-    * B (16 bits)
+    # The definition of Overflow
+    fv = int(sign_a == sign_b and sign_a != sign_y)
 
-    Truth table outputs:
-    
-    * X (16 bits)
-    * L_OUT (1 bit)
-    * V_OUT (1 bit)
+    # result, set_fl, fl, set_fv, fv
+    return y, True, fl, True, fv
 
-    Slice inputs:
+def op_and(a, b, c, bits, mask):
+    y = (a & mask) & (b & mask)
+    # result, set_fl, fl, set_fv, fv
+    return y, False, 0, False, 0
 
-    * OP (2 bits)
-    * L_IN (1 bit)
-    * A (6 bits)
-    * B (6 bits)
+def op_or(a, b, c, bits, mask):
+    y = (a & mask) | (b & mask)
+    # result, set_fl, fl, set_fv, fv
+    return y, False, 0, False, 0
 
-    Slice outputs:
-    
-    * X (6 bits)
-    * L_OUT (1 bit)
+def op_xor(a, b, c, bits, mask):
+    y = (a & mask) ^ (b & mask)
+    # result, set_fl, fl, set_fv, fv
+    return y, False, 0, False, 0
 
-    """
+def op_not(a, b, c, bits, mask):
+    y = a ^ mask
+    # result, set_fl, fl, set_fv, fv
+    return y, False, 0, False, 0
 
+
+
+class AluRom(threading.Thread):
+    """ALU ROMs, 2019 edition"""
+
+    # These also match the RADDRs for the ALU operations or 0b10000.
     ADD = 0
     AND = 1
-    OR = 2
+    OR  = 2
     XOR = 3
-    
-    opcodes = ['ADD', 'AND', 'OR', 'XOR']
+    NOT = 4
+
+    ops = [
+        op_add,                 # 0: Full addition
+        op_and,                 # 1: AND (and even parity?)
+        op_or,                  # 2: OR (and odd parity?)
+        op_xor,                 # 3: XOR (and odd parity?)
+        op_not,                 # 4: Bitwise negation (does not modify L/V)
+        op_rsvd,                # 5: reserved
+        op_rsvd,                # 6: reserved
+        op_rsvd                 # 7: reserved
+    ]
+
+    opcodes = ['ADD', 'AND', 'OR', 'XOR', 'NOT']
     syms = ['+', '&', '|', '^']
 
-    def __init__(self, tt):
+    def __init__(self, bits, tt):
+        self.bits = bits
         self.tt = tt
-        threading.Thread.__init__(self)
+        self.mask = (1 << bits) - 1
+
         #print "Thread %s: (%d,%d)" % (self.name, a0, a1)
 
 
@@ -75,8 +158,23 @@ class Binary(threading.Thread):
         """
         Run the thread.
         """
-        tt = self.tt
-        for op in range(4):
+        bits, tt = self.bits, self.tt
+
+        # Address format: op:3, cin:1, b:6, a:6 (in bits)
+        for addr in range(1 << (3 + 1 + 2 * bits)):
+            # Reconstruct the parameters from the address
+            a = addr & self.mask
+            b = (addr >> self.bits) & self.mask
+            c = (addr >> self.bits + 1) & 1
+            op = (addr > self.bits + 2) & 7
+
+            out = self.ops[op](a, b, c, bits, mask)
+
+            
+
+
+
+        for op in range(8):
             for l_in in range(2):
                 for a in range(64):
                     for b in range(64):
