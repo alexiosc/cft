@@ -113,7 +113,7 @@ def op_or(a, b, c, bits, mask):
 def op_xor(a, b, c, bits, mask):
     y = (a & mask) ^ (b & mask)
     # result, set_fl, fl, set_fv, fv
-    return y, 1, 0, 0, 0, 0
+    return y, 0, 0, 0, 0, 0
 
 def op_not(a, b, c, bits, mask):
     y = a ^ mask
