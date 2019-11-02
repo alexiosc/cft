@@ -32,7 +32,7 @@
 `timescale 1ns/10ps
 
 
-`define DELTA 3911
+`define DELTA 941
 
 
 module alu_rom_tb();
@@ -126,7 +126,7 @@ module alu_rom_tb();
    reg [15:0] correct_y;
    reg 	      correct_l, correct_v;
    
-   always @ (noe, op, ibus) begin
+   always @ (op, a, b) begin
       #250 begin
    	 msg[7:0] = "";		// Use the msg as a flag.
 
@@ -176,7 +176,7 @@ module alu_rom_tb();
    	    $error("assertion failure");
    	    #100 $finish;
    	 end
-   	 else $display("OK result");
+   	 else $display("OK result op%0d", op);
       end
    end // always @ (noe)
 
