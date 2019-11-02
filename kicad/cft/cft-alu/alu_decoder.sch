@@ -345,12 +345,6 @@ NoConn ~ 8400 2450
 NoConn ~ 8400 2550
 Wire Wire Line
 	8400 2650 9100 2650
-Wire Bus Line
-	6950 2000 6950 2650
-Wire Bus Line
-	6950 3800 6950 4550
-Wire Bus Line
-	2900 2500 2900 4550
 Wire Wire Line
 	8400 2750 9100 2750
 Text HLabel 9100 2650 2    50   Output ~ 0
@@ -361,4 +355,10 @@ Text Label 8950 2750 2    50   ~ 0
 ~ACTION-110
 Text Label 8950 2650 2    50   ~ 0
 ~ACTION-101
+Wire Bus Line
+	6950 2000 6950 2650
+Wire Bus Line
+	6950 3800 6950 4550
+Wire Bus Line
+	2900 2500 2900 4550
 $EndSCHEMATC
