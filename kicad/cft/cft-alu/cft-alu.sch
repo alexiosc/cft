@@ -1031,7 +1031,7 @@ FVIN-ROM
 Text Label 7050 2100 2    50   ~ 0
 FLOUT-ROM
 Text Label 7050 2000 2    50   ~ 0
-~ROM-SET-L
+~ROM-SET-V
 Text Label 7050 1900 2    50   ~ 0
 FVOUT-ROM
 Wire Wire Line
