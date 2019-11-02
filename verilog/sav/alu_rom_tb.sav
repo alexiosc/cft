@@ -1,0 +1,56 @@
+[*]
+[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
+[*] Sat Nov  2 17:13:35 2019
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/alu_rom_tb.vcd"
+[dumpfile_mtime] "Sat Nov  2 17:13:15 2019"
+[dumpfile_size] 3861625
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/alu_rom_tb.sav"
+[timestart] 0
+[size] 1340 600
+[pos] -1 -1
+*-30.794361 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] alu_rom_tb.
+[treeopen] alu_rom_tb.alu_rom.
+[sst_width] 258
+[signals_width] 192
+[sst_expanded] 1
+[sst_vpaned_height] 138
+@200
+-Control
+@2028
+^1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/alu_op
+alu_rom_tb.op[2:0]
+@29
+alu_rom_tb.op[2:0]
+@28
+[color] 1
+alu_rom_tb.noe
+[color] 2
+alu_rom_tb.xin
+[color] 3
+alu_rom_tb.flin
+@200
+-
+-Ports
+@22
+[color] 4
+alu_rom_tb.a[15:0]
+[color] 2
+alu_rom_tb.b[15:0]
+[color] 3
+alu_rom_tb.ibus[15:0]
+@200
+-
+-Flags
+@28
+[color] 6
+alu_rom_tb.nsetl
+[color] 6
+alu_rom_tb.flout
+[color] 7
+alu_rom_tb.nsetv
+[color] 7
+alu_rom_tb.fvout
+[pattern_trace] 1
+[pattern_trace] 0
