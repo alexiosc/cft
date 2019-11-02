@@ -70,7 +70,8 @@ CFT2019 = 	clock.v            clock_tb.v \
 		reg_l.v            reg_l_tb.v \
 		reg_v.v            reg_v_tb.v \
 		reg_major.v        reg_major_tb.v \
-		databus.v          databus_tb.v
+		databus.v          databus_tb.v \
+		alu_rom.v          alu_rom_tb.v \
 
 SRC += $(CFT2019)
 
@@ -471,6 +472,10 @@ test_serial_shifter:	serial_shifter_tb.o serial_shifter.o
 test_db test_databus: databus_tb.o databus.o
 		./databus_tb.o
 		$(GTKWAVE) $(VCDDIR)/databus_tb.vcd $(SAVDIR)/databus_tb.sav
+
+test_alu_rom: alu_rom_tb.o alu_rom.o rom.o
+		./alu_rom_tb.o
+		$(GTKWAVE) $(VCDDIR)/alu_rom_tb.vcd $(SAVDIR)/alu_rom_tb.sav
 
 ###############################################################################
 #
