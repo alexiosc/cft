@@ -534,37 +534,36 @@ Text Notes 10200 1450 0    50   ~ 0
 Text Notes 10200 5350 0    50   ~ 0
 From Flag Unit
 $Sheet
-S 5400 1300 1150 1050
+S 5400 1300 1150 1150
 U 5DE3C078
 F0 "sheet5DE3C026" 50
 F1 "cft_alu_rom.sch" 50
-F2 "A[0..15]" I L 5400 1700 50 
-F3 "B[0..15]" I L 5400 1850 50 
-F4 "IBUS[0..15]" I R 6550 1450 50 
-F5 "FL-IN" I L 5400 1550 50 
-F6 "OP0" I L 5400 2000 50 
-F7 "OP1" I L 5400 2100 50 
-F8 "OP2" I L 5400 2200 50 
-F9 "~ROMCE" I L 5400 1450 50 
-F10 "X2" T R 6550 1900 50 
-F11 "X3" T R 6550 2000 50 
-F12 "X4" T R 6550 2100 50 
-F13 "X5" T R 6550 2200 50 
-F14 "X1" T R 6550 1800 50 
-F15 "X0" T R 6550 1700 50 
+F2 "A[0..15]" I L 5400 1800 50 
+F3 "B[0..15]" I L 5400 1950 50 
+F4 "FL-IN" I L 5400 1550 50 
+F5 "OP0" I L 5400 2100 50 
+F6 "OP1" I L 5400 2200 50 
+F7 "OP2" I L 5400 2300 50 
+F8 "~ROMCE" I L 5400 1450 50 
+F9 "FVOUT" T R 6550 2000 50 
+F10 "~SET-V" T R 6550 2100 50 
+F11 "FLOUT" T R 6550 2200 50 
+F12 "~SET-L" T R 6550 2300 50 
+F13 "Y[0..15]" I R 6550 1450 50 
+F14 "X1" T R 6550 1900 50 
+F15 "X0" T R 6550 1800 50 
+F16 "X-IN" I L 5400 1650 50 
 $EndSheet
 Wire Bus Line
 	6550 1450 7050 1450
 Text Label 7050 1450 2    50   ~ 0
 IBUS[0..15]
-Text Label 4900 1700 0    50   ~ 0
+Text Label 4900 1800 0    50   ~ 0
 A[0..15]
-Text Label 4900 1850 0    50   ~ 0
+Text Label 4900 1950 0    50   ~ 0
 B[0..15]
 Text Label 4900 1450 0    50   ~ 0
 ~ROMCE
-Wire Wire Line
-	6550 1700 7050 1700
 Wire Wire Line
 	6550 1800 7050 1800
 Wire Wire Line
@@ -575,17 +574,19 @@ Wire Wire Line
 	6550 2100 7050 2100
 Wire Wire Line
 	6550 2200 7050 2200
-Text Label 7050 1700 2    50   ~ 0
-X0
+Wire Wire Line
+	6550 2300 7050 2300
 Text Label 7050 1800 2    50   ~ 0
+X0
+Text Label 7050 1900 2    50   ~ 0
 X1
-Text Label 7050 2200 2    50   ~ 0
+Text Label 7050 2300 2    50   ~ 0
 ~ROM-SET-L
-Text Label 4900 2000 0    50   ~ 0
-RADDR0
 Text Label 4900 2100 0    50   ~ 0
-RADDR1
+RADDR0
 Text Label 4900 2200 0    50   ~ 0
+RADDR1
+Text Label 4900 2300 0    50   ~ 0
 RADDR2
 Text Label 4900 1550 0    50   ~ 0
 FL
@@ -693,11 +694,11 @@ Text Label 4050 1550 2    50   ~ 0
 Text Label 4050 1650 2    50   ~ 0
 ~WRITE-ALU-B
 Wire Wire Line
+	4900 2200 5400 2200
+Wire Wire Line
 	4900 2100 5400 2100
 Wire Wire Line
-	4900 2000 5400 2000
-Wire Wire Line
-	5400 2200 4900 2200
+	5400 2300 4900 2300
 Text Notes 2300 950  0    197  ~ 39
 Control
 Text Label 4900 6250 0    50   ~ 0
@@ -843,7 +844,7 @@ Text Label 1700 6800 0    50   ~ 0
 Text Label 1700 6900 0    50   ~ 0
 ~ACTION-CLL
 Entry Bus Bus
-	4450 1950 4550 1850
+	4450 2050 4550 1950
 Entry Bus Bus
 	4450 4550 4550 4650
 Wire Bus Line
@@ -855,9 +856,9 @@ Entry Bus Bus
 Wire Bus Line
 	4450 4550 4450 4200
 Entry Bus Bus
-	4550 1700 4450 1800
+	4550 1800 4450 1900
 Wire Bus Line
-	4350 1900 4450 1800
+	4350 2000 4450 1900
 Entry Bus Bus
 	7050 1450 7150 1550
 Entry Bus Bus
@@ -962,13 +963,13 @@ A[0..15]
 Text Label 4250 2850 1    50   ~ 0
 IBUS[0..15]
 Wire Bus Line
-	4450 1950 4450 4000
+	4450 2050 4450 4000
 Wire Bus Line
 	3500 3350 4250 3350
 Entry Bus Bus
 	4350 3250 4250 3350
 Wire Bus Line
-	4350 1900 4350 3250
+	4350 2000 4350 3250
 Wire Wire Line
 	3500 1450 5400 1450
 Text Label 4450 4550 1    50   ~ 0
@@ -980,9 +981,9 @@ Wire Wire Line
 Wire Wire Line
 	3550 5600 4700 5600
 Wire Bus Line
-	4550 1700 5400 1700
+	4550 1800 5400 1800
 Wire Bus Line
-	4550 1850 5400 1850
+	4550 1950 5400 1950
 Wire Wire Line
 	5400 1550 4700 1550
 Wire Wire Line
@@ -1028,11 +1029,11 @@ Text Label 4900 5950 0    50   ~ 0
 ~ROM-SET-V
 Text Label 4900 6050 0    50   ~ 0
 FVIN-ROM
-Text Label 7050 2100 2    50   ~ 0
+Text Label 7050 2200 2    50   ~ 0
 FLOUT-ROM
-Text Label 7050 2000 2    50   ~ 0
+Text Label 7050 2100 2    50   ~ 0
 ~ROM-SET-V
-Text Label 7050 1900 2    50   ~ 0
+Text Label 7050 2000 2    50   ~ 0
 FVOUT-ROM
 Wire Wire Line
 	4600 2150 4600 4500
@@ -1054,18 +1055,23 @@ Wire Wire Line
 	2400 6800 1700 6800
 Wire Wire Line
 	3500 1950 4050 1950
-Wire Bus Line
-	800  4100 2350 4100
-Wire Bus Line
-	7150 1200 7150 4450
-Wire Bus Line
-	10100 1300 10100 1950
-Wire Bus Line
-	10100 3450 10100 5050
 Wire Wire Line
 	3500 2050 4050 2050
 Text Label 4050 1950 2    50   ~ 0
 ~ACTION-101
 Text Label 4050 2050 2    50   ~ 0
 ~ACTION-110
+Wire Wire Line
+	5400 1650 4900 1650
+Text Label 4900 1650 0    50   ~ 0
+X-IN
+NoConn ~ 4900 1650
+Wire Bus Line
+	7150 1200 7150 4450
+Wire Bus Line
+	800  4100 2350 4100
+Wire Bus Line
+	10100 1300 10100 1950
+Wire Bus Line
+	10100 3450 10100 5050
 $EndSCHEMATC

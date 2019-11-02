@@ -41,9 +41,9 @@ Wire Wire Line
 Wire Wire Line
 	2500 4000 1100 4000
 Wire Wire Line
-	2500 4100 1100 4100
-Wire Wire Line
 	2500 4200 1100 4200
+Wire Wire Line
+	2500 4300 1100 4300
 $Comp
 L power:GND #PWR?
 U 1 1 5E195CBC
@@ -59,8 +59,6 @@ F 3 "" H 2450 4650 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	2500 4400 2450 4400
-Wire Wire Line
 	2500 4500 2450 4500
 Wire Wire Line
 	2450 4500 2450 4600
@@ -69,31 +67,7 @@ Wire Wire Line
 Connection ~ 2450 4600
 Wire Wire Line
 	2450 4600 2450 4650
-Text Label 2050 2800 0    50   ~ 0
-B0
-Text Label 2050 2900 0    50   ~ 0
-B1
-Text Label 2050 3000 0    50   ~ 0
-B2
-Text Label 2050 3100 0    50   ~ 0
-B3
-Text Label 2050 3200 0    50   ~ 0
-B4
-Text Label 2050 3300 0    50   ~ 0
-B5
-Text Label 1850 3400 0    50   ~ 0
-A0
-Text Label 1850 3500 0    50   ~ 0
-A1
-Text Label 1850 3600 0    50   ~ 0
-A2
-Text Label 1850 3700 0    50   ~ 0
-A3
-Text Label 1850 3800 0    50   ~ 0
-A4
-Text Label 1850 3900 0    50   ~ 0
-A5
-Text Label 1250 4000 0    50   ~ 0
+Text Label 2150 4000 0    50   ~ 0
 FL-IN
 Wire Wire Line
 	3600 2800 4100 2800
@@ -107,7 +81,7 @@ Wire Wire Line
 	3600 3200 4100 3200
 Wire Wire Line
 	3600 3300 4100 3300
-Text Label 3900 3400 2    50   ~ 0
+Text Label 3650 3400 0    50   ~ 0
 CO1
 $Comp
 L power:+5V #PWR?
@@ -137,32 +111,6 @@ F 3 "" H 3600 3700 50  0001 C CNN
 	1    3600 3700
 	0    -1   -1   0   
 $EndComp
-Text Label 3900 2800 2    50   ~ 0
-IBUS0
-Text Label 3900 2900 2    50   ~ 0
-IBUS1
-Text Label 3900 3000 2    50   ~ 0
-IBUS2
-Text Label 3900 3100 2    50   ~ 0
-IBUS3
-Text Label 3900 3200 2    50   ~ 0
-IBUS4
-Text Label 3900 3300 2    50   ~ 0
-IBUS5
-$Comp
-L alexios:29W040 U?
-U 1 1 5E195CF4
-P 5900 3600
-AR Path="/5DC89E19/5E195CF4" Ref="U?"  Part="1" 
-AR Path="/5DC89E19/5E18A3E1/5E195CF4" Ref="U35"  Part="1" 
-AR Path="/5DE3C078/5E195CF4" Ref="U4"  Part="1" 
-F 0 "U4" H 5900 4667 50  0000 C CNN
-F 1 "29W040" H 5900 4576 50  0000 C CNN
-F 2 "alexios:PLCC32" H 5900 3600 50  0001 C CNN
-F 3 "" H 5900 3600 50  0001 C CNN
-	1    5900 3600
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	5350 2800 4900 2800
 Wire Wire Line
@@ -190,12 +138,7 @@ F 3 "" H 5300 4650 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	5350 4400 5300 4400
-Wire Wire Line
-	5300 4400 5300 4500
-Wire Wire Line
 	5350 4500 5300 4500
-Connection ~ 5300 4500
 Wire Wire Line
 	5300 4500 5300 4600
 Wire Wire Line
@@ -203,7 +146,7 @@ Wire Wire Line
 Connection ~ 5300 4600
 Wire Wire Line
 	5300 4600 5300 4650
-Text Label 4900 4000 0    50   ~ 0
+Text Label 5000 4000 0    50   ~ 0
 CO1
 Wire Wire Line
 	6450 2800 6950 2800
@@ -254,41 +197,17 @@ Wire Wire Line
 Wire Wire Line
 	4050 4000 5350 4000
 Text Label 6800 2800 2    50   ~ 0
-IBUS6
+Y6
 Text Label 6800 2900 2    50   ~ 0
-IBUS7
+Y7
 Text Label 6800 3000 2    50   ~ 0
-IBUS8
+Y8
 Text Label 6800 3100 2    50   ~ 0
-IBUS9
+Y9
 Text Label 6800 3200 2    50   ~ 0
-IBUS10
+Y10
 Text Label 6800 3300 2    50   ~ 0
-IBUS11
-Text Label 4900 2800 0    50   ~ 0
-B6
-Text Label 4900 2900 0    50   ~ 0
-B7
-Text Label 4900 3000 0    50   ~ 0
-B8
-Text Label 4900 3100 0    50   ~ 0
-B9
-Text Label 4900 3200 0    50   ~ 0
-B10
-Text Label 4900 3300 0    50   ~ 0
-B11
-Text Label 4900 3400 0    50   ~ 0
-A6
-Text Label 4900 3500 0    50   ~ 0
-A7
-Text Label 4900 3600 0    50   ~ 0
-A8
-Text Label 4900 3700 0    50   ~ 0
-A9
-Text Label 4900 3800 0    50   ~ 0
-A10
-Text Label 4900 3900 0    50   ~ 0
-A11
+Y11
 $Comp
 L alexios:29W040 U?
 U 1 1 5E195D45
@@ -344,16 +263,14 @@ Wire Wire Line
 Connection ~ 8150 4600
 Wire Wire Line
 	8150 4600 8150 4650
-Text Label 7750 3600 0    50   ~ 0
-CO2
 Wire Wire Line
-	9300 2800 9800 2800
+	9300 2800 10000 2800
 Wire Wire Line
-	9300 2900 9800 2900
+	9300 2900 10000 2900
 Wire Wire Line
-	9300 3000 9800 3000
+	9300 3000 10000 3000
 Wire Wire Line
-	9300 3100 9800 3100
+	9300 3100 10000 3100
 $Comp
 L power:+5V #PWR?
 U 1 1 5E195D70
@@ -376,7 +293,7 @@ AR Path="/5DC89E19/5E195D76" Ref="#PWR?"  Part="1"
 AR Path="/5DC89E19/5E18A3E1/5E195D76" Ref="#PWR062"  Part="1" 
 AR Path="/5DE3C078/5E195D76" Ref="#PWR0115"  Part="1" 
 F 0 "#PWR0115" H 9300 3450 50  0001 C CNN
-F 1 "GND" V 9305 3572 50  0000 R CNN
+F 1 "GND" V 9400 3750 50  0000 R CNN
 F 2 "" H 9300 3700 50  0001 C CNN
 F 3 "" H 9300 3700 50  0001 C CNN
 	1    9300 3700
@@ -388,29 +305,8 @@ Wire Wire Line
 	6900 3600 8200 3600
 Wire Wire Line
 	6450 3400 6900 3400
-Text Label 7750 2800 0    50   ~ 0
-B12
-Text Label 7750 2900 0    50   ~ 0
-B13
-Text Label 7750 3000 0    50   ~ 0
-B14
-Text Label 7750 3100 0    50   ~ 0
-B15
-Text Label 7750 3200 0    50   ~ 0
-A12
-Text Label 7750 3300 0    50   ~ 0
-A13
-Text Label 7750 3400 0    50   ~ 0
-A14
-Text Label 7750 3500 0    50   ~ 0
-A15
-Wire Wire Line
-	8200 4000 8150 4000
-Wire Wire Line
-	8150 4000 8150 4100
 Wire Wire Line
 	8200 4100 8150 4100
-Connection ~ 8150 4100
 Wire Wire Line
 	8150 4100 8150 4200
 Connection ~ 8150 4300
@@ -419,14 +315,14 @@ Wire Wire Line
 Connection ~ 8150 4200
 Wire Wire Line
 	8150 4200 8150 4300
-Text Label 9650 2800 2    50   ~ 0
-IBUS12
-Text Label 9650 2900 2    50   ~ 0
-IBUS13
-Text Label 9650 3000 2    50   ~ 0
-IBUS14
-Text Label 9650 3100 2    50   ~ 0
-IBUS15
+Text Label 9350 2800 0    50   ~ 0
+Y12
+Text Label 9350 2900 0    50   ~ 0
+Y13
+Text Label 9350 3000 0    50   ~ 0
+Y14
+Text Label 9350 3100 0    50   ~ 0
+Y15
 Wire Wire Line
 	3600 3800 3800 3800
 Wire Wire Line
@@ -564,13 +460,13 @@ Entry Wire Line
 Entry Wire Line
 	6950 3300 7050 3400
 Entry Wire Line
-	9800 2800 9900 2900
+	10000 2800 10100 2900
 Entry Wire Line
-	9800 2900 9900 3000
+	10000 2900 10100 3000
 Entry Wire Line
-	9800 3000 9900 3100
+	10000 3000 10100 3100
 Entry Wire Line
-	9800 3100 9900 3200
+	10000 3100 10100 3200
 Entry Bus Bus
 	4700 2150 4800 2250
 Entry Bus Bus
@@ -598,61 +494,61 @@ Wire Bus Line
 Wire Bus Line
 	1850 2150 1100 2150
 Text HLabel 1100 2300 0    50   Input ~ 0
-A[0..15]
-Text HLabel 1100 2150 0    50   Input ~ 0
 B[0..15]
-Text HLabel 10450 5150 2    50   Input ~ 0
-IBUS[0..15]
+Text HLabel 1100 2150 0    50   Input ~ 0
+A[0..15]
+Text HLabel 10650 5150 2    50   Input ~ 0
+Y[0..15]
 Entry Bus Bus
-	9900 5050 10000 5150
+	10100 5050 10200 5150
 Entry Bus Bus
-	9800 5150 9900 5050
+	10000 5150 10100 5050
 Wire Bus Line
-	10000 5150 10450 5150
+	10200 5150 10650 5150
 Entry Bus Bus
 	7050 5050 7150 5150
 Entry Bus Bus
 	6950 5150 7050 5050
 Wire Bus Line
-	7150 5150 9800 5150
+	7150 5150 10000 5150
 Entry Bus Bus
 	4200 5050 4300 5150
 Wire Bus Line
 	4300 5150 6950 5150
 Text Label 1200 2150 0    50   ~ 0
-B[0..15]
+A[0..15]
 Text Label 2900 2150 0    50   ~ 0
-B[0..15]
+A[0..15]
 Text Label 5750 2150 0    50   ~ 0
-B[0..15]
+A[0..15]
 Text Label 1200 2300 0    50   ~ 0
-A[0..15]
+B[0..15]
 Text Label 2900 2300 0    50   ~ 0
-A[0..15]
+B[0..15]
 Text Label 5750 2300 0    50   ~ 0
-A[0..15]
+B[0..15]
 Text Label 4800 2900 1    50   ~ 0
-B[0..15]
+A[0..15]
 Text Label 4600 2900 1    50   ~ 0
-A[0..15]
+B[0..15]
 Text Label 1750 2900 1    50   ~ 0
-A[0..15]
+B[0..15]
 Text Label 1950 2900 1    50   ~ 0
-B[0..15]
-Text Label 7650 2900 1    50   ~ 0
-B[0..15]
-Text Label 7450 2900 1    50   ~ 0
 A[0..15]
+Text Label 7650 2900 1    50   ~ 0
+A[0..15]
+Text Label 7450 2900 1    50   ~ 0
+B[0..15]
 Text Label 4200 4700 1    50   ~ 0
-IBUS[0..15]
+Y[0..15]
 Text Label 7050 4700 1    50   ~ 0
-IBUS[0..15]
-Text Label 9900 4700 1    50   ~ 0
-IBUS[0..15]
+Y[0..15]
+Text Label 10100 4700 1    50   ~ 0
+Y[0..15]
 Text Label 5700 5150 0    50   ~ 0
-IBUS[0..15]
+Y[0..15]
 Text Label 8600 5150 0    50   ~ 0
-IBUS[0..15]
+Y[0..15]
 Text HLabel 1100 4000 0    50   Input ~ 0
 FL-IN
 $Comp
@@ -669,111 +565,68 @@ F 3 "" H 3050 3600 50  0001 C CNN
 	1    3050 3600
 	1    0    0    -1  
 $EndComp
-Connection ~ 2450 4500
 Wire Wire Line
-	2450 4400 2450 4500
-Wire Wire Line
-	1100 4300 2500 4300
-Text Label 1250 4100 0    50   ~ 0
+	1100 4400 2500 4400
+Text Label 2150 4200 0    50   ~ 0
 OP0
-Text Label 1250 4200 0    50   ~ 0
+Text Label 2150 4300 0    50   ~ 0
 OP1
-Text Label 1250 4300 0    50   ~ 0
+Text Label 2150 4400 0    50   ~ 0
 OP2
 Wire Wire Line
-	5350 4100 4900 4100
+	5350 4200 5000 4200
 Wire Wire Line
-	5350 4200 4900 4200
+	5350 4300 5000 4300
 Wire Wire Line
-	5350 4300 4900 4300
-Text Label 4900 4100 0    50   ~ 0
+	5350 4400 5000 4400
+Text Label 5000 4200 0    50   ~ 0
 OP0
-Text Label 4900 4200 0    50   ~ 0
+Text Label 5000 4300 0    50   ~ 0
 OP1
-Text Label 4900 4300 0    50   ~ 0
+Text Label 5000 4400 0    50   ~ 0
 OP2
 Wire Wire Line
-	8200 3700 7750 3700
+	8200 3800 7850 3800
 Wire Wire Line
-	8200 3800 7750 3800
+	8200 3900 7850 3900
 Wire Wire Line
-	8200 3900 7750 3900
-Text Label 7750 3700 0    50   ~ 0
+	8200 4000 7850 4000
+Text Label 7850 3800 0    50   ~ 0
 OP0
-Text Label 7750 3800 0    50   ~ 0
+Text Label 7850 3900 0    50   ~ 0
 OP1
-Text Label 7750 3900 0    50   ~ 0
+Text Label 7850 4000 0    50   ~ 0
 OP2
-Text HLabel 1100 4100 0    50   Input ~ 0
-OP0
 Text HLabel 1100 4200 0    50   Input ~ 0
-OP1
+OP0
 Text HLabel 1100 4300 0    50   Input ~ 0
+OP1
+Text HLabel 1100 4400 0    50   Input ~ 0
 OP2
 Text HLabel 1100 5000 0    50   Input ~ 0
 ~ROMCE
 Wire Wire Line
 	1100 5000 3800 5000
 Wire Wire Line
-	9300 3200 9650 3200
-Wire Wire Line
-	9300 3300 9650 3300
-Text Label 9650 3200 2    50   ~ 0
-X2
-Text Label 9650 3300 2    50   ~ 0
-X3
-Text HLabel 10450 4700 2    50   3State ~ 0
-X2
-Text HLabel 10450 4800 2    50   3State ~ 0
-X3
-Text HLabel 10450 4900 2    50   3State ~ 0
-X4
-Text HLabel 10450 5000 2    50   3State ~ 0
-X5
-Wire Wire Line
 	6450 3500 6800 3500
 Text Label 6800 3500 2    50   ~ 0
 X1
-Text HLabel 10450 4600 2    50   3State ~ 0
+Text HLabel 10650 3700 2    50   3State ~ 0
 X1
-Text Label 3900 3500 2    50   ~ 0
+Text Label 3650 3500 0    50   ~ 0
 X0
-Text HLabel 10450 4500 2    50   3State ~ 0
+Text HLabel 10650 3600 2    50   3State ~ 0
 X0
 Wire Wire Line
-	10450 4500 10100 4500
+	10650 3600 10350 3600
 Wire Wire Line
-	10450 4600 10100 4600
-Wire Wire Line
-	10450 4700 10100 4700
-Wire Wire Line
-	10450 4800 10100 4800
-Wire Wire Line
-	10450 4900 10100 4900
-Wire Wire Line
-	10450 5000 10100 5000
-Text Label 10100 4500 0    50   ~ 0
+	10650 3700 10350 3700
+Text Label 10350 3600 0    50   ~ 0
 X0
-Text Label 10100 4600 0    50   ~ 0
+Text Label 10350 3700 0    50   ~ 0
 X1
-Text Label 10100 4700 0    50   ~ 0
-X2
-Text Label 10100 4800 0    50   ~ 0
-X3
-Text Label 10100 4900 0    50   ~ 0
-X4
-Text Label 10100 5000 0    50   ~ 0
-X5
-Text Label 9650 3500 2    50   ~ 0
-X5
-Text Label 9650 3400 2    50   ~ 0
-X4
 Wire Wire Line
-	9300 3500 9650 3500
-Wire Wire Line
-	9300 3400 9650 3400
-Wire Wire Line
-	3600 3500 3900 3500
+	9300 3500 9600 3500
 $Comp
 L alexios:29W040 U?
 U 2 1 5E426152
@@ -987,12 +840,170 @@ F 3 "" H 8400 5450 50  0001 C CNN
 $EndComp
 Connection ~ 8400 5650
 Connection ~ 8400 5450
+$Comp
+L alexios:29W040 U?
+U 1 1 5E195CF4
+P 5900 3600
+AR Path="/5DC89E19/5E195CF4" Ref="U?"  Part="1" 
+AR Path="/5DC89E19/5E18A3E1/5E195CF4" Ref="U35"  Part="1" 
+AR Path="/5DE3C078/5E195CF4" Ref="U4"  Part="1" 
+F 0 "U4" H 5900 4667 50  0000 C CNN
+F 1 "29W040" H 5900 4576 50  0000 C CNN
+F 2 "alexios:PLCC32" H 5900 3600 50  0001 C CNN
+F 3 "" H 5900 3600 50  0001 C CNN
+	1    5900 3600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5350 4100 3950 4100
+Wire Wire Line
+	3950 4100 3950 3500
+Wire Wire Line
+	3600 3500 3950 3500
+Wire Wire Line
+	6800 3700 8200 3700
+Wire Wire Line
+	6800 3500 6800 3700
+Text Label 5000 4100 0    50   ~ 0
+X0
+Text Label 7850 3700 0    50   ~ 0
+X1
+Wire Wire Line
+	9600 3500 9600 4100
+Wire Wire Line
+	9600 4100 10650 4100
+Wire Wire Line
+	9700 3400 9700 4000
+Wire Wire Line
+	9700 4000 10650 4000
+Wire Wire Line
+	9300 3400 9700 3400
+Wire Wire Line
+	9800 3300 9800 3900
+Wire Wire Line
+	9800 3900 10650 3900
+Wire Wire Line
+	9300 3300 9800 3300
+Wire Wire Line
+	9900 3200 9900 3800
+Wire Wire Line
+	9900 3800 10650 3800
+Wire Wire Line
+	9300 3200 9900 3200
+Text Label 10600 3800 2    50   ~ 0
+FVOUT
+Text HLabel 10650 3800 2    50   3State ~ 0
+FVOUT
+Text HLabel 10650 3900 2    50   3State ~ 0
+~SET-V
+Text HLabel 10650 4000 2    50   3State ~ 0
+FLOUT
+Text HLabel 10650 4100 2    50   3State ~ 0
+~SET-V
+Text Label 10600 3900 2    50   ~ 0
+~SET-V
+Text Label 10600 4000 2    50   ~ 0
+FLOUT
+Text Label 10600 4100 2    50   ~ 0
+~SET-V
+Text Label 9350 3500 0    50   ~ 0
+~SET-V
+Text Label 9350 3400 0    50   ~ 0
+FLOUT
+Text Label 9350 3300 0    50   ~ 0
+~SET-V
+Text Label 9350 3200 0    50   ~ 0
+FVOUT
+Wire Wire Line
+	2500 4100 1100 4100
+Text HLabel 1100 4100 0    50   Input ~ 0
+X-IN
+Text Label 2150 4100 0    50   ~ 0
+X-IN
+Text Label 2150 2800 0    50   ~ 0
+A0
+Text Label 2150 2900 0    50   ~ 0
+A1
+Text Label 2150 3000 0    50   ~ 0
+A2
+Text Label 2150 3100 0    50   ~ 0
+A3
+Text Label 2150 3200 0    50   ~ 0
+A4
+Text Label 2150 3300 0    50   ~ 0
+A5
+Text Label 2150 3400 0    50   ~ 0
+B0
+Text Label 2150 3500 0    50   ~ 0
+B1
+Text Label 2150 3600 0    50   ~ 0
+B2
+Text Label 2150 3700 0    50   ~ 0
+B3
+Text Label 2150 3800 0    50   ~ 0
+B4
+Text Label 2150 3900 0    50   ~ 0
+B5
+Text Label 3650 2800 0    50   ~ 0
+Y0
+Text Label 3650 2900 0    50   ~ 0
+Y1
+Text Label 3650 3000 0    50   ~ 0
+Y2
+Text Label 3650 3100 0    50   ~ 0
+Y3
+Text Label 3650 3200 0    50   ~ 0
+Y4
+Text Label 3650 3300 0    50   ~ 0
+Y5
+Text Label 5000 2800 0    50   ~ 0
+A6
+Text Label 5000 2900 0    50   ~ 0
+A7
+Text Label 5000 3000 0    50   ~ 0
+A8
+Text Label 5000 3100 0    50   ~ 0
+A9
+Text Label 5000 3200 0    50   ~ 0
+A10
+Text Label 5000 3300 0    50   ~ 0
+A11
+Text Label 5000 3400 0    50   ~ 0
+B6
+Text Label 5000 3500 0    50   ~ 0
+B7
+Text Label 5000 3600 0    50   ~ 0
+B8
+Text Label 5000 3700 0    50   ~ 0
+B9
+Text Label 5000 3800 0    50   ~ 0
+B10
+Text Label 5000 3900 0    50   ~ 0
+B11
+Text Label 7850 3600 0    50   ~ 0
+CO2
+Text Label 7850 2800 0    50   ~ 0
+A12
+Text Label 7850 2900 0    50   ~ 0
+A13
+Text Label 7850 3000 0    50   ~ 0
+A14
+Text Label 7850 3100 0    50   ~ 0
+A15
+Text Label 7850 3200 0    50   ~ 0
+B12
+Text Label 7850 3300 0    50   ~ 0
+B13
+Text Label 7850 3400 0    50   ~ 0
+B14
+Text Label 7850 3500 0    50   ~ 0
+B15
 Wire Bus Line
-	9900 2900 9900 5050
+	7650 2250 7650 3000
 Wire Bus Line
 	7450 2400 7450 3400
 Wire Bus Line
-	7650 2250 7650 3000
+	10100 2900 10100 5050
 Wire Bus Line
 	1950 2250 1950 3200
 Wire Bus Line
@@ -1005,4 +1016,6 @@ Wire Bus Line
 	4200 2900 4200 5050
 Wire Bus Line
 	7050 2900 7050 5050
+Text Notes 1650 6050 0    50   ~ 0
+X-IN is reserved for future expansion, but wired to allow this. It can be\ncascaded like carry using X0 and X1, or independent of them.
 $EndSCHEMATC
