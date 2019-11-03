@@ -1074,4 +1074,12 @@ Wire Bus Line
 	10100 1300 10100 1950
 Wire Bus Line
 	10100 3450 10100 5050
+Text Notes 2400 2250 0    70   ~ 14
+Verilog
+Text Notes 3100 3600 2    70   ~ 14
+Verilog
+Text Notes 3100 4450 2    70   ~ 14
+Verilog
+Text Notes 6100 2400 2    70   ~ 14
+Verilog
 $EndSCHEMATC

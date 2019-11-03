@@ -211,9 +211,9 @@ Entry Wire Line
 Entry Wire Line
 	6750 4150 6650 4050
 Text Label 4900 3450 0    50   ~ 0
-ACP
+CP
 Text Label 4900 4950 0    50   ~ 0
-ACP
+CP
 Text Label 5000 2550 0    50   ~ 0
 AC0
 Text Label 5000 2650 0    50   ~ 0

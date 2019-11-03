@@ -4,7 +4,7 @@ EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 7 9
+Sheet 6 9
 Title ""
 Date ""
 Rev ""
@@ -686,8 +686,8 @@ Entry Wire Line
 	7850 2350 7950 2250
 Text HLabel 2550 3600 0    50   Input ~ 0
 ~OE
-Text Label 6400 3250 0    50   ~ 0
-~BOE
+Text Label 6500 3250 2    50   ~ 0
+~OE
 $Comp
 L Device:C_Small C?
 U 1 1 5DEB8CDB
@@ -874,4 +874,6 @@ Wire Bus Line
 	6050 2450 6050 5200
 Wire Bus Line
 	7950 2000 7950 4450
+Text Label 6500 4750 2    50   ~ 0
+~OE
 $EndSCHEMATC

@@ -1386,10 +1386,16 @@ Wire Notes Line width 20 style solid
 	4050 5200 4050 4250
 Wire Notes Line width 20 style solid
 	800  5200 4050 5200
+Text Label 8550 2000 0    50   ~ 0
+~SETV
+Text Label 8550 2200 0    50   ~ 0
+~SETL
 Wire Bus Line
 	6400 5800 10200 5800
 Wire Bus Line
 	950  1000 6550 1000
+Wire Bus Line
+	1350 850  6750 850 
 Wire Bus Line
 	3900 3700 9200 3700
 Wire Bus Line
@@ -1398,8 +1404,6 @@ Wire Bus Line
 	6850 950  6850 1700
 Wire Bus Line
 	9300 1600 9300 3600
-Wire Bus Line
-	1350 850  7150 850 
 Wire Bus Line
 	1550 950  1550 1900
 Wire Bus Line
@@ -1420,8 +1424,4 @@ Wire Bus Line
 	6300 4200 6300 5700
 Wire Bus Line
 	8950 4200 8950 5700
-Text Label 8550 2000 0    50   ~ 0
-~SETV
-Text Label 8550 2200 0    50   ~ 0
-~SETL
 $EndSCHEMATC
