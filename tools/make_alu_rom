@@ -83,22 +83,83 @@ import threading
 # Luckily, the major registers use latching, so no matter how late in the
 # processor cycle the result arrives, it'll be registered. And if for some
 # reason we need an extra cycle for some operations, so be it.
+#
+#
+# NOTES ON OVERFLOW DETECTION
+#
+# We define overflow as SIGNED number overflow ONLY. The unsigned
+# ‘overflow’ bit is the L register output, which is technically equal
+# the carry-out from the addition.
+#
+# Signed number overflow is set iff the sign of the operands is the
+# same, but the sign of the result is different from the operands':
+#
+# A B   Y   V
+# -----------
+# + +   +   0
+# + +   -   1
+# + -   +   0
+# + -   -   0
+# - +   +   0
+# - +   -   0
+# - -   +   1
+# - -   -   0
+#
+# Since this calculation depends on the highest order bits of the
+# operands and result, it happens in ROM 2, and this discussion is
+# about 4-bit quantities.
+#
+# We have one complication: the carry in bit. In essence, we add three
+# numbers: a + b + carry in. The first two are in a 4-bit domain, the
+# last is a signed number in a 1-bit domain and this creates edge
+# cases.
+#
+# Because I'm a lazy bastard, rather than work out a full truth table, I'm
+# going to take advantage of the fact that the computer running this program
+# can do arithmetic with more than 4 bits. The op_add4 function below
+# calculates addition results for ROM2 in the 4-bit domain. It also calculates
+# it in the 64-bit signed integer domain and compares the results. If the
+# results differ, it indicates that the operation can't be represented in 4
+# bits, and this is the definition of an arithmetic overflow.
+#
+# The most complicated thing here is the tosigned4 function, that converts a
+# 4-bit unsigned integer to a native signed integer by calculating the two's
+# complement polynomial: b₀⁰ + b₁¹ + b₂² - b₃³.
 
 sign = lambda n, bits: int((n & (1 << (bits - 1))) != 0)
 
-def op_add(a, b, c, bits, mask):
+tosigned4 = lambda x: (x & 7) - (x & 8) # The parentheses are required
+
+def op_add6(a, b, c, bits, mask):
     y = (a & mask) + (b & mask) + (c & 1)
     fl = int(y > mask)
 
-    sign_a = sign(a, bits)
-    sign_b = sign(b, bits)
-    sign_y = sign(y, bits)
+    # result, set_fl, fl, set_fv, fv, reserved bit
+    return y, 1, fl, 0, 0, 0
 
-    # The definition of Overflow
-    fv = int(sign_a == sign_b and sign_a != sign_y)
+
+def op_add4(a, b, c, bits, mask):
+    y = ((a & mask) + (b & mask) + (c & 1))
+    fl = int(y > mask)
+    y = y & mask
+
+    # Calculate overflow in the formal way, by checking the 4-bit arithmetic
+    # using a longer bit width. Easy, we have 64 bits.
+    result = tosigned4(a) + tosigned4(b) + c
+    fv = int(tosigned4(y) != result)
+
+    if a in [ 15, 0] and b in [15, 0] and c == 1:
+        print("FV: {} | {:04b} + {:04b} + {} -> {:08b} ({:3d}). Signed: {} + {} + {} = {}.".
+              format(fv,
+                     a, b, c, y, tosigned4(y),
+                     tosigned4(a), tosigned4(b), c, result))
+        #sys.exit(0)
 
     # result, set_fl, fl, set_fv, fv, reserved bit
     return y, 1, fl, 1, fv, 0
+
+    # result, set_fl, fl, set_fv, fv, reserved bit
+    return y, 1, fl, 0, 0, 0
 
 def op_and(a, b, c, bits, mask):
     y = (a & mask) & (b & mask)
@@ -134,7 +195,7 @@ class AluRom6(threading.Thread):
 
     # The order match the RADDRs of the ALU (raddr = op | 0b10000).
     ops = [
-        op_add,                 # 0: Full addition
+        op_add6,                # 0: Full addition
         op_and,                 # 1: AND (and even parity?)
         op_or,                  # 2: OR (and odd parity?)
         op_xor,                 # 3: XOR (and odd parity?)
@@ -188,6 +249,8 @@ class AluRom6(threading.Thread):
             # Calculate the address. xn_in isn't used yet and is a don't care value.
             addr = tt.make_vector(tt.inputs, op=op, c=c, a=a, b=b, xn_in=xn_in)
             data = self.calculate(a, b, c, 0, op, bits, mask, tt)
+            if (a == 15 and b == 0 and c == 1):
+                print("ADDR={:x}, DATA={:b}".format(addr, data))
             tt.put(addr, data)
         
             if debug:
@@ -208,6 +271,10 @@ class AluRom4(AluRom6):
         self.tt = tt
         self.bits = 4
         self.mask = 0xf
+
+        # Patch the ops table to use the 4-bit addition with overflow
+        # detection.
+        self.ops[0] = op_add4
 
 
     def calculate(self, a, b, c, xn_in, op, bits, mask, tt):

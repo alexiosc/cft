@@ -31,35 +31,54 @@
 `include "alu_rom.v"
 `timescale 1ns/10ps
 
+//`define DELTA_A 21
+`define DELTA_A 89
+//`define DELTA_A 941
+//`define DELTA_A 1543
 
-`define DELTA 941
+//`define DELTA_B `DELTA_A
+`define DELTA_B 941
+//`define DELTA_B 1543
 
 
 module alu_rom_tb();
 
-   reg          noe;
-   reg 		flin;
-   reg 		xin;
-   reg [2:0] 	op;
-   reg [15:0] 	a, b;
-
-   wire [15:0] 	ibus;
-   wire 	fvout, nsetv;
-   wire 	flout, nsetl;
-
-   reg [15:0] 	ibus_drv, db_drv;
-
-   reg [800:0] 	status;
-   integer 	i, j, k;
+   reg            noe;
+   reg 		  flin;
+   reg 		  xin;
+   reg [2:0] 	  op;
+   reg [15:0] 	  a, b;
    
+   wire [15:0] 	  ibus;
+   wire 	  fvout, nsetv;
+   wire 	  flout, nsetl;
+   
+   reg [15:0] 	  ibus_drv, db_drv;
+   
+   integer 	  i, j, k;
+   integer 	  da, db;
+   
+   reg [23:0] 	  ops[0:7];
+   wire [23:0] 	  curop;
+   initial begin
+      ops[0] = "ADD";
+      ops[1] = "AND";
+      ops[2] = "OR";
+      ops[3] = "XOR";
+      ops[4] = "NOT";
+      ops[5] = "op5";
+      ops[6] = "op6";
+      ops[7] = "op7";
+   end
+   assign curop = ops[op];
+
    initial begin        
       $dumpfile ("vcd/alu_rom_tb.vcd");
       $dumpvars (0, alu_rom_tb);
-      $monitor ("t: %7d | %b %04x (%016b) %04x (%016b) %03b > %b %b %b %b %04x (%016b)",
+      $monitor ("t: %7d | %b %04x (%016b) %04x (%016b) %03b %03s > %b %b %b %b %04x (%016b)",
 		$time,
-		flin, a, a, b, b, op, nsetv, fvout, nsetl, flout, ibus, ibus);
+		flin, a, a, b, b, op, curop, nsetv, fvout, nsetl, flout, ibus, ibus);
 
-      status = "idle";
       noe = 1;
       flin = 1;
       xin = 0;
@@ -67,13 +86,25 @@ module alu_rom_tb();
       a = 0;
       b = 0;
 
-      for (k = 0; k < 32; k += 1) begin
-	 #5000 op = k[4:2];
-	 flin = k[0];
-	 xin = k[1];
+      da = 1;
+      db = 1;
+      
+      for (k = 0; k < 8; k += 1) begin
+	 #5000 op = k;
+	 flin = 0;
 
-	 #5000 for (j = 0; j < 65536; j += `DELTA) begin
-	    for (i = 0; i < 65536; i += `DELTA) begin
+	 da = `DELTA_A;
+	 db = `DELTA_B;
+
+	 #5000 for (j = 0; j <= 65535; j += db) begin
+	    for (i = 0; i <= 65535; i += da) begin
+	       flin = 0;
+	       #50 noe = 0;
+	       a = i;
+	       b = j;
+	       #450 noe = 1;
+
+	       flin = 1;
 	       #50 noe = 0;
 	       a = i;
 	       b = j;
@@ -95,8 +126,8 @@ module alu_rom_tb();
 
 
    // Verify our findings.
-   reg [8191:0] msg;
-   reg 		correct_nbusen;
+   reg [8191:0]   msg;
+   reg 		  correct_nbusen;
 
    // Check tri-stating
    always @ (noe) begin
@@ -123,11 +154,18 @@ module alu_rom_tb();
 
 
    // Check results
-   reg [15:0] correct_y;
-   reg 	      correct_l, correct_v;
-   
+   reg [31:0]          correct_y;
+   reg 	               correct_l, correct_v;
+   wire signed [15:0]  as, bs, ibuss, flins;
+   reg signed [31:0]   unbounded_ys;
+
+   assign as = a;
+   assign bs = b;
+   assign ibuss = ibus;
+   assign flins = { 14'b0, flin};
+
    always @ (op, a, b) begin
-      #250 begin
+      #350 begin
    	 msg[7:0] = "";		// Use the msg as a flag.
 
 	 if (noe === 0) begin
@@ -157,9 +195,23 @@ module alu_rom_tb();
 	       else if (nsetv !== 0) $sformat(msg, "testbench bug, nsetv=%b", nsetv);
 	       
 	       correct_l = a + b + flin > 65535 ? 1'b1 : 1'b0;
-	       if (correct_l !== flout) begin
+	       if (flout != correct_l) begin
 		  $sformat(msg, "%0d + %0d -> %0d, L=%b (should be %b)",
 			   a, b, ibus, flout, correct_l);
+	       end;
+
+	       // Overflow calculations using result comparison.
+	       unbounded_ys = as + bs + flins;
+	       correct_v = unbounded_ys != ibuss ? 1'b1 : 1'b0;
+	       if (correct_v !== fvout) begin
+		  $display("as=%0d, bs=%0d, flins=%0d, unbounded_ys=%0d, ibus=%0d. Equal? %d",
+			   as, bs, flins, unbounded_ys, ibuss, unbounded_ys == ibuss);
+
+		  $sformat(msg, "%0d + %0d + %0d -> %0d (%04x + %04x + %0d-> %04x), V=%b (should be %b, correct unbounded result is %0d)",
+			   as, bs, flins, ibuss,
+			   a, b, flins, ibus,
+			   fvout, correct_v,
+			   unbounded_ys);
 	       end;
 	       
 	    end else begin
@@ -176,7 +228,7 @@ module alu_rom_tb();
    	    $error("assertion failure");
    	    #100 $finish;
    	 end
-   	 else $display("OK result op%0d", op);
+   	 else $display("OK %s", curop);
       end
    end // always @ (noe)
 
