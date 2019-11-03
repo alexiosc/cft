@@ -71,6 +71,9 @@ CFT2019 = 	clock.v            clock_tb.v \
 		reg_v.v            reg_v_tb.v \
 		reg_major.v        reg_major_tb.v \
 		databus.v          databus_tb.v \
+		alu_decoder.v      alu_decoder_tb.v \
+		alu_porta.v        alu_porta_tb.v \
+		alu_portb.v        alu_portb_tb.v \
 		alu_rom.v          alu_rom_tb.v \
 
 SRC += $(CFT2019)
