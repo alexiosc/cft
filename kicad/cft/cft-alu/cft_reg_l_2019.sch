@@ -45,27 +45,13 @@ F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 2860 6330 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L alexios:74HC32 U?
-U 5 1 5D9BCA4B
-P 1300 7050
-AR Path="/5DC89E19/5D9BCA4B" Ref="U?"  Part="1" 
-AR Path="/5DC89E19/5D98F946/5D9BCA4B" Ref="U?"  Part="5" 
-AR Path="/5D121AA3/5D9BCA4B" Ref="U42"  Part="5" 
-F 0 "U42" H 1480 6796 50  0000 L CNN
-F 1 "74HC32" H 1480 6705 50  0000 L CNN
-F 2 "alexios:SOIC-14" H 1300 7050 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS32" H 1300 7050 50  0001 C CNN
-	5    1300 7050
-	1    0    0    -1  
-$EndComp
-$Comp
 L alexios:74LVC1G08 U?
 U 2 1 5D9BCCC6
 P 4250 6500
 AR Path="/5DC89E19/5D9BCCC6" Ref="U?"  Part="1" 
 AR Path="/5DC89E19/5D98F946/5D9BCCC6" Ref="U?"  Part="2" 
-AR Path="/5D121AA3/5D9BCCC6" Ref="U48"  Part="2" 
-F 0 "U48" H 4330 6446 50  0000 L CNN
+AR Path="/5D121AA3/5D9BCCC6" Ref="U6"  Part="2" 
+F 0 "U6" H 4330 6446 50  0000 L CNN
 F 1 "74LVC1G08" H 4330 6355 50  0000 L CNN
 F 2 "alexios:SOT-23-5_HandSoldering" H 3900 6500 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 3900 6500 50  0001 C CNN
@@ -78,8 +64,8 @@ U 2 1 5D9BCDED
 P 2800 7250
 AR Path="/5DC89E19/5D9BCDED" Ref="U?"  Part="1" 
 AR Path="/5DC89E19/5D98F946/5D9BCDED" Ref="U?"  Part="2" 
-AR Path="/5D121AA3/5D9BCDED" Ref="U49"  Part="2" 
-F 0 "U49" H 2880 7196 50  0000 L CNN
+AR Path="/5D121AA3/5D9BCDED" Ref="U44"  Part="2" 
+F 0 "U44" H 2880 7196 50  0000 L CNN
 F 1 "74LVC1G08" H 2880 7105 50  0000 L CNN
 F 2 "alexios:SOT-23-5_HandSoldering" H 2450 7250 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 2450 7250 50  0001 C CNN
@@ -322,61 +308,6 @@ F 3 "" H 2350 7250 50  0001 C CNN
 $EndComp
 $Comp
 L Device:C_Small C?
-U 1 1 5D9D0498
-P 950 7350
-AR Path="/5CC0D65F/5D9D0498" Ref="C?"  Part="1" 
-AR Path="/5D9D0498" Ref="C?"  Part="1" 
-AR Path="/5F597FD4/5D9D0498" Ref="C?"  Part="1" 
-AR Path="/5DC89E19/5CF23BD4/5D9D0498" Ref="C?"  Part="1" 
-AR Path="/5DC89E19/5CF5A95E/5D9D0498" Ref="C?"  Part="1" 
-AR Path="/5DC89E19/5D9D0498" Ref="C?"  Part="1" 
-AR Path="/5DC89E19/5D98F946/5D9D0498" Ref="C?"  Part="1" 
-AR Path="/5D121AA3/5D9D0498" Ref="C33"  Part="1" 
-F 0 "C33" H 859 7396 50  0000 R CNN
-F 1 "100nF" H 859 7305 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 950 7350 50  0001 C CNN
-F 3 "~" H 950 7350 50  0001 C CNN
-	1    950  7350
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5D9D049F
-P 950 7450
-AR Path="/5D9D049F" Ref="#PWR?"  Part="1" 
-AR Path="/5F597FD4/5D9D049F" Ref="#PWR?"  Part="1" 
-AR Path="/5DC89E19/5CF23BD4/5D9D049F" Ref="#PWR?"  Part="1" 
-AR Path="/5DC89E19/5CF5A95E/5D9D049F" Ref="#PWR?"  Part="1" 
-AR Path="/5DC89E19/5D9D049F" Ref="#PWR?"  Part="1" 
-AR Path="/5DC89E19/5D98F946/5D9D049F" Ref="#PWR?"  Part="1" 
-AR Path="/5D121AA3/5D9D049F" Ref="#PWR099"  Part="1" 
-F 0 "#PWR099" H 950 7200 50  0001 C CNN
-F 1 "GND" H 955 7277 50  0000 C CNN
-F 2 "" H 950 7450 50  0001 C CNN
-F 3 "" H 950 7450 50  0001 C CNN
-	1    950  7450
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR?
-U 1 1 5D9D04A5
-P 950 7250
-AR Path="/5D9D04A5" Ref="#PWR?"  Part="1" 
-AR Path="/5F597FD4/5D9D04A5" Ref="#PWR?"  Part="1" 
-AR Path="/5DC89E19/5CF23BD4/5D9D04A5" Ref="#PWR?"  Part="1" 
-AR Path="/5DC89E19/5CF5A95E/5D9D04A5" Ref="#PWR?"  Part="1" 
-AR Path="/5DC89E19/5D9D04A5" Ref="#PWR?"  Part="1" 
-AR Path="/5DC89E19/5D98F946/5D9D04A5" Ref="#PWR?"  Part="1" 
-AR Path="/5D121AA3/5D9D04A5" Ref="#PWR095"  Part="1" 
-F 0 "#PWR095" H 950 7100 50  0001 C CNN
-F 1 "+5V" H 965 7423 50  0000 C CNN
-F 2 "" H 950 7250 50  0001 C CNN
-F 3 "" H 950 7250 50  0001 C CNN
-	1    950  7250
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
 U 1 1 5D9D2863
 P 3800 7350
 AR Path="/5CC0D65F/5D9D2863" Ref="C?"  Part="1" 
@@ -438,8 +369,6 @@ Connection ~ 3800 6500
 Connection ~ 3800 6700
 Connection ~ 2350 7250
 Connection ~ 2350 7450
-Connection ~ 950  7250
-Connection ~ 950  7450
 Connection ~ 2350 6500
 Connection ~ 2350 6700
 $Comp
@@ -1016,4 +945,75 @@ F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 6000 3450
 $EndComp
 Text Label 1850 3050 0    50   ~ 0
 FLIN-ROM
+$Comp
+L Device:C_Small C?
+U 1 1 5E2DC514
+P 950 7350
+AR Path="/5CC0D65F/5E2DC514" Ref="C?"  Part="1" 
+AR Path="/5E2DC514" Ref="C?"  Part="1" 
+AR Path="/5F597FD4/5E2DC514" Ref="C?"  Part="1" 
+AR Path="/5DC89E19/5CF23BD4/5E2DC514" Ref="C?"  Part="1" 
+AR Path="/5DC89E19/5CF5A95E/5E2DC514" Ref="C?"  Part="1" 
+AR Path="/5DC89E19/5E2DC514" Ref="C?"  Part="1" 
+AR Path="/5DC89E19/5D98F946/5E2DC514" Ref="C?"  Part="1" 
+AR Path="/5D121AA3/5E2DC514" Ref="C39"  Part="1" 
+F 0 "C39" H 859 7396 50  0000 R CNN
+F 1 "100nF" H 859 7305 50  0000 R CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 950 7350 50  0001 C CNN
+F 3 "~" H 950 7350 50  0001 C CNN
+	1    950  7350
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5E2DC51B
+P 950 7450
+AR Path="/5E2DC51B" Ref="#PWR?"  Part="1" 
+AR Path="/5F597FD4/5E2DC51B" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5CF23BD4/5E2DC51B" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5CF5A95E/5E2DC51B" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5E2DC51B" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5D98F946/5E2DC51B" Ref="#PWR?"  Part="1" 
+AR Path="/5D121AA3/5E2DC51B" Ref="#PWR0183"  Part="1" 
+F 0 "#PWR0183" H 950 7200 50  0001 C CNN
+F 1 "GND" H 955 7277 50  0000 C CNN
+F 2 "" H 950 7450 50  0001 C CNN
+F 3 "" H 950 7450 50  0001 C CNN
+	1    950  7450
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 5E2DC521
+P 950 7250
+AR Path="/5E2DC521" Ref="#PWR?"  Part="1" 
+AR Path="/5F597FD4/5E2DC521" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5CF23BD4/5E2DC521" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5CF5A95E/5E2DC521" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5E2DC521" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5D98F946/5E2DC521" Ref="#PWR?"  Part="1" 
+AR Path="/5D121AA3/5E2DC521" Ref="#PWR0184"  Part="1" 
+F 0 "#PWR0184" H 950 7100 50  0001 C CNN
+F 1 "+5V" H 965 7423 50  0000 C CNN
+F 2 "" H 950 7250 50  0001 C CNN
+F 3 "" H 950 7250 50  0001 C CNN
+	1    950  7250
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC32 U?
+U 5 1 5E2E1118
+P 1300 7050
+AR Path="/5DC89E19/5E2E1118" Ref="U?"  Part="1" 
+AR Path="/5DC89E19/5D98F946/5E2E1118" Ref="U?"  Part="4" 
+AR Path="/5D121AA3/5E2E1118" Ref="U38"  Part="5" 
+F 0 "U38" H 1300 7125 50  0000 C CNN
+F 1 "74HC32" H 1300 7034 50  0000 C CNN
+F 2 "alexios:SOIC-14" H 1300 7050 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS32" H 1300 7050 50  0001 C CNN
+	5    1300 7050
+	1    0    0    -1  
+$EndComp
+Connection ~ 950  7250
+Connection ~ 950  7450
 $EndSCHEMATC

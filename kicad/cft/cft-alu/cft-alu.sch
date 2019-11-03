@@ -1028,7 +1028,7 @@ Wire Wire Line
 Text Label 4900 5950 0    50   ~ 0
 ~ROM-SET-V
 Text Label 4900 6050 0    50   ~ 0
-FVIN-ROM
+FVOUT-ROM
 Text Label 7050 2200 2    50   ~ 0
 FLOUT-ROM
 Text Label 7050 2100 2    50   ~ 0
@@ -1066,14 +1066,6 @@ Wire Wire Line
 Text Label 4900 1650 0    50   ~ 0
 X-IN
 NoConn ~ 4900 1650
-Wire Bus Line
-	7150 1200 7150 4450
-Wire Bus Line
-	800  4100 2350 4100
-Wire Bus Line
-	10100 1300 10100 1950
-Wire Bus Line
-	10100 3450 10100 5050
 Text Notes 2400 2250 0    70   ~ 14
 Verilog
 Text Notes 3100 3600 2    70   ~ 14
@@ -1082,4 +1074,84 @@ Text Notes 3100 4450 2    70   ~ 14
 Verilog
 Text Notes 6100 2400 2    70   ~ 14
 Verilog
+$Comp
+L alexios:74LVC1G08 U?
+U 2 1 5E2E7423
+P 6100 7250
+AR Path="/5DC89E19/5E2E7423" Ref="U?"  Part="1" 
+AR Path="/5DC89E19/5D98F946/5E2E7423" Ref="U?"  Part="2" 
+AR Path="/5D121AA3/5E2E7423" Ref="U?"  Part="2" 
+AR Path="/5E2E7423" Ref="U2"  Part="2" 
+F 0 "U2" H 6180 7196 50  0000 L CNN
+F 1 "74LVC1G08" H 6180 7105 50  0000 L CNN
+F 2 "alexios:SOT-23-5_HandSoldering" H 5750 7250 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 5750 7250 50  0001 C CNN
+	2    6100 7250
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 5E2E742A
+P 5650 7350
+AR Path="/5CC0D65F/5E2E742A" Ref="C?"  Part="1" 
+AR Path="/5E2E742A" Ref="C33"  Part="1" 
+AR Path="/5F597FD4/5E2E742A" Ref="C?"  Part="1" 
+AR Path="/5DC89E19/5CF23BD4/5E2E742A" Ref="C?"  Part="1" 
+AR Path="/5DC89E19/5CF5A95E/5E2E742A" Ref="C?"  Part="1" 
+AR Path="/5DC89E19/5E2E742A" Ref="C?"  Part="1" 
+AR Path="/5DC89E19/5D98F946/5E2E742A" Ref="C?"  Part="1" 
+AR Path="/5D121AA3/5E2E742A" Ref="C?"  Part="1" 
+F 0 "C33" H 5559 7396 50  0000 R CNN
+F 1 "100nF" H 5559 7305 50  0000 R CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 5650 7350 50  0001 C CNN
+F 3 "~" H 5650 7350 50  0001 C CNN
+	1    5650 7350
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0185
+U 1 1 5E2E7431
+P 5650 7450
+AR Path="/5E2E7431" Ref="#PWR0185"  Part="1" 
+AR Path="/5F597FD4/5E2E7431" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5CF23BD4/5E2E7431" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5CF5A95E/5E2E7431" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5E2E7431" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5D98F946/5E2E7431" Ref="#PWR?"  Part="1" 
+AR Path="/5D121AA3/5E2E7431" Ref="#PWR?"  Part="1" 
+F 0 "#PWR0185" H 5650 7200 50  0001 C CNN
+F 1 "GND" H 5655 7277 50  0000 C CNN
+F 2 "" H 5650 7450 50  0001 C CNN
+F 3 "" H 5650 7450 50  0001 C CNN
+	1    5650 7450
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR0186
+U 1 1 5E2E7437
+P 5650 7250
+AR Path="/5E2E7437" Ref="#PWR0186"  Part="1" 
+AR Path="/5F597FD4/5E2E7437" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5CF23BD4/5E2E7437" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5CF5A95E/5E2E7437" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5E2E7437" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5D98F946/5E2E7437" Ref="#PWR?"  Part="1" 
+AR Path="/5D121AA3/5E2E7437" Ref="#PWR?"  Part="1" 
+F 0 "#PWR0186" H 5650 7100 50  0001 C CNN
+F 1 "+5V" H 5665 7423 50  0000 C CNN
+F 2 "" H 5650 7250 50  0001 C CNN
+F 3 "" H 5650 7250 50  0001 C CNN
+	1    5650 7250
+	1    0    0    -1  
+$EndComp
+Connection ~ 5650 7250
+Connection ~ 5650 7450
+Wire Bus Line
+	7150 1200 7150 4450
+Wire Bus Line
+	800  4100 2350 4100
+Wire Bus Line
+	10100 1300 10100 1950
+Wire Bus Line
+	10100 3450 10100 5050
 $EndSCHEMATC

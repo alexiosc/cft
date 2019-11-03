@@ -23,7 +23,7 @@ Text Label 7300 3450 2    50   ~ 0
 Text Label 9950 3050 0    50   ~ 0
 FV
 Text Label 7300 3350 2    50   ~ 0
-CLK4
+CLKV
 Wire Wire Line
 	8950 3350 8450 3350
 Text Label 8900 3350 2    50   ~ 0
@@ -98,8 +98,8 @@ AR Path="/5DC89E19/5D366A83" Ref="U?"  Part="1"
 AR Path="/5DC89E19/5D98F946/5D366A83" Ref="U?"  Part="2" 
 AR Path="/5D121AA3/5D366A83" Ref="U?"  Part="2" 
 AR Path="/5D13B20C/5D366A83" Ref="U?"  Part="2" 
-AR Path="/5D35C694/5D366A83" Ref="U1"  Part="2" 
-F 0 "U1" H 4330 7246 50  0000 L CNN
+AR Path="/5D35C694/5D366A83" Ref="U40"  Part="2" 
+F 0 "U40" H 4330 7246 50  0000 L CNN
 F 1 "74LVC1G08" H 4330 7155 50  0000 L CNN
 F 2 "alexios:SOT-23-5_HandSoldering" H 3900 7300 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 3900 7300 50  0001 C CNN
@@ -349,8 +349,8 @@ L alexios:74LVC2G157 U?
 U 2 1 5D366AF7
 P 1250 7400
 AR Path="/5D13B20C/5D366AF7" Ref="U?"  Part="2" 
-AR Path="/5D35C694/5D366AF7" Ref="U41"  Part="2" 
-F 0 "U41" H 1430 7446 50  0000 L CNN
+AR Path="/5D35C694/5D366AF7" Ref="U24"  Part="2" 
+F 0 "U24" H 1430 7446 50  0000 L CNN
 F 1 "74LVC2G157" H 1430 7355 50  0000 L CNN
 F 2 "Package_SO:TSSOP-8_3x3mm_P0.65mm" H 1150 7525 50  0001 C CNN
 F 3 "http://www.ti.com/lit/ds/symlink/sn74lvc2g157.pdf" H 1150 7525 50  0001 C CNN
@@ -450,38 +450,17 @@ F 3 "" H 2350 7300 50  0001 C CNN
 	1    2350 7300
 	1    0    0    -1  
 $EndComp
-$Comp
-L power:+5V #PWR082
-U 1 1 5D8986AC
-P 6200 7350
-F 0 "#PWR082" H 6200 7200 50  0001 C CNN
-F 1 "+5V" H 6215 7523 50  0000 C CNN
-F 2 "" H 6200 7350 50  0001 C CNN
-F 3 "" H 6200 7350 50  0001 C CNN
-	1    6200 7350
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	6200 7350 6200 7400
-Wire Wire Line
-	6200 7500 6300 7500
-Wire Wire Line
-	6300 7400 6200 7400
-Connection ~ 6200 7400
-Wire Wire Line
-	6200 7400 6200 7500
-NoConn ~ 6800 7450
 Text Label 8200 3150 0    50   ~ 0
 FV0
 $Comp
-L alexios:74HC08 U32
-U 1 1 5E61248D
+L alexios:74HC08 U30
+U 3 1 5E61248D
 P 5250 3050
-F 0 "U32" H 5375 2925 50  0000 C CNN
+F 0 "U30" H 5375 2925 50  0000 C CNN
 F 1 "74HC08" H 5375 2834 50  0000 C CNN
-F 2 "" H 5450 2600 50  0001 C CNN
+F 2 "alexios:SOIC-14" H 5450 2600 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 5450 2600 50  0001 C CNN
-	1    5250 3050
+	3    5250 3050
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -502,28 +481,17 @@ F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 2800 4350
 $EndComp
 Text Notes 3850 4000 0    50   ~ 0
 This delay line gives us more hold time on rising edge of CLKV.\nStart with three gates.
-$Comp
-L alexios:74HC08 U33
-U 1 1 5E61825C
-P 6400 7050
-F 0 "U33" H 6525 6925 50  0000 C CNN
-F 1 "74HC08" H 6525 6834 50  0000 C CNN
-F 2 "" H 6600 6600 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 6600 6600 50  0001 C CNN
-	1    6400 7050
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	5100 3450 5150 3450
 $Comp
-L alexios:74HC08 U31
-U 1 1 5E61040A
+L alexios:74HC08 U30
+U 2 1 5E61040A
 P 4500 3050
-F 0 "U31" H 4625 2925 50  0000 C CNN
+F 0 "U30" H 4625 2925 50  0000 C CNN
 F 1 "74HC08" H 4625 2834 50  0000 C CNN
-F 2 "" H 4700 2600 50  0001 C CNN
+F 2 "alexios:SOIC-14" H 4700 2600 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 4700 2600 50  0001 C CNN
-	1    4500 3050
+	2    4500 3050
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -532,7 +500,7 @@ U 1 1 5E60DB8C
 P 3750 3050
 F 0 "U30" H 3875 2925 50  0000 C CNN
 F 1 "74HC08" H 3875 2834 50  0000 C CNN
-F 2 "" H 3950 2600 50  0001 C CNN
+F 2 "alexios:SOIC-14" H 3950 2600 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 3950 2600 50  0001 C CNN
 	1    3750 3050
 	1    0    0    -1  
@@ -617,7 +585,7 @@ U 4 1 5E6357B5
 P 6000 3050
 F 0 "U30" H 6125 2925 50  0000 C CNN
 F 1 "74HC08" H 6125 2834 50  0000 C CNN
-F 2 "" H 6200 2600 50  0001 C CNN
+F 2 "alexios:SOIC-14" H 6200 2600 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 6200 2600 50  0001 C CNN
 	4    6000 3050
 	1    0    0    -1  
@@ -628,7 +596,7 @@ U 1 1 5E63AF3F
 P 4250 3450
 F 0 "JP1" V 4400 3200 50  0000 L CNN
 F 1 "SolderJumper_3_Bridged12" V 4205 3518 50  0001 L CNN
-F 2 "" H 4250 3450 50  0001 C CNN
+F 2 "Jumper:SolderJumper-3_P1.3mm_Bridged12_RoundedPad1.0x1.5mm" H 4250 3450 50  0001 C CNN
 F 3 "~" H 4250 3450 50  0001 C CNN
 	1    4250 3450
 	0    1    1    0   
@@ -643,7 +611,7 @@ U 1 1 5E64AD46
 P 5000 3450
 F 0 "JP2" V 5150 3200 50  0000 L CNN
 F 1 "SolderJumper_3_Bridged12" V 4955 3518 50  0001 L CNN
-F 2 "" H 5000 3450 50  0001 C CNN
+F 2 "Jumper:SolderJumper-3_P1.3mm_Bridged12_RoundedPad1.0x1.5mm" H 5000 3450 50  0001 C CNN
 F 3 "~" H 5000 3450 50  0001 C CNN
 	1    5000 3450
 	0    1    1    0   
@@ -658,7 +626,7 @@ U 1 1 5E654230
 P 5750 3450
 F 0 "JP3" V 5900 3250 50  0000 L CNN
 F 1 "SolderJumper_3_Bridged12" V 5705 3518 50  0001 L CNN
-F 2 "" H 5750 3450 50  0001 C CNN
+F 2 "Jumper:SolderJumper-3_P1.3mm_Bridged12_RoundedPad1.0x1.5mm" H 5750 3450 50  0001 C CNN
 F 3 "~" H 5750 3450 50  0001 C CNN
 	1    5750 3450
 	0    1    1    0   
@@ -675,7 +643,7 @@ U 1 1 5E66061B
 P 6500 3450
 F 0 "JP4" V 6650 3250 50  0000 L CNN
 F 1 "SolderJumper_3_Bridged12" V 6455 3518 50  0001 L CNN
-F 2 "" H 6500 3450 50  0001 C CNN
+F 2 "Jumper:SolderJumper-3_P1.3mm_Bridged12_RoundedPad1.0x1.5mm" H 6500 3450 50  0001 C CNN
 F 3 "~" H 6500 3450 50  0001 C CNN
 	1    6500 3450
 	0    1    1    0   
@@ -688,7 +656,7 @@ U 1 1 5E6735D9
 P 4250 3000
 F 0 "R1" H 4309 3046 50  0000 L CNN
 F 1 "10kΩ" H 4309 2955 50  0000 L CNN
-F 2 "" H 4250 3000 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 4250 3000 50  0001 C CNN
 F 3 "~" H 4250 3000 50  0001 C CNN
 	1    4250 3000
 	1    0    0    -1  
@@ -713,7 +681,7 @@ U 1 1 5E677294
 P 5000 3000
 F 0 "R2" H 5059 3046 50  0000 L CNN
 F 1 "10kΩ" H 5059 2955 50  0000 L CNN
-F 2 "" H 5000 3000 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5000 3000 50  0001 C CNN
 F 3 "~" H 5000 3000 50  0001 C CNN
 	1    5000 3000
 	1    0    0    -1  
@@ -737,7 +705,7 @@ U 1 1 5E6784A4
 P 5750 3000
 F 0 "R3" H 5809 3046 50  0000 L CNN
 F 1 "10kΩ" H 5809 2955 50  0000 L CNN
-F 2 "" H 5750 3000 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5750 3000 50  0001 C CNN
 F 3 "~" H 5750 3000 50  0001 C CNN
 	1    5750 3000
 	1    0    0    -1  
@@ -761,7 +729,7 @@ U 1 1 5E679BBE
 P 6500 3000
 F 0 "R4" H 6559 3046 50  0000 L CNN
 F 1 "10kΩ" H 6559 2955 50  0000 L CNN
-F 2 "" H 6500 3000 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 6500 3000 50  0001 C CNN
 F 3 "~" H 6500 3000 50  0001 C CNN
 	1    6500 3000
 	1    0    0    -1  
@@ -806,4 +774,17 @@ Wire Wire Line
 Connection ~ 5750 3750
 Wire Wire Line
 	5750 3750 6500 3750
+$Comp
+L alexios:74HC08 U30
+U 5 1 5E2A7483
+P 2550 6850
+F 0 "U30" H 2880 6346 50  0000 L CNN
+F 1 "74HC08" H 2880 6255 50  0000 L CNN
+F 2 "alexios:SOIC-14" H 2750 6400 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 2750 6400 50  0001 C CNN
+	5    2550 6850
+	1    0    0    -1  
+$EndComp
+Connection ~ 2350 7300
+Connection ~ 2350 7500
 $EndSCHEMATC
