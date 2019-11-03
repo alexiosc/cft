@@ -45,6 +45,7 @@ module counter_191_tb();
    // Initialize all variables
    initial begin        
       $dumpfile ("vcd/counter_191_tb.vcd");
+      $monitor ("t: %7d | %b %b %b %b %b > %b %b %b", $time, npl, down, nce, cp, p, q, nrc, tc);
       $dumpvars (0, counter_191_tb);
 
       cp = 0;
