@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:cft-alu-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -317,42 +317,38 @@ Wire Wire Line
 	10550 6200 10550 6300
 Text Notes 8300 950  0    197  ~ 39
 Edge Connector
-Text Label 10000 3650 2    50   ~ 0
-AC0
-Text Label 10000 3750 2    50   ~ 0
-AC1
 Text Label 10000 3850 2    50   ~ 0
-AC2
+AC0
 Text Label 10000 3950 2    50   ~ 0
-AC3
+AC1
 Text Label 10000 4050 2    50   ~ 0
-AC4
+AC2
 Text Label 10000 4150 2    50   ~ 0
-AC5
+AC3
 Text Label 10000 4250 2    50   ~ 0
-AC6
+AC4
 Text Label 10000 4350 2    50   ~ 0
-AC7
+AC5
 Text Label 10000 4450 2    50   ~ 0
-AC8
+AC6
 Text Label 10000 4550 2    50   ~ 0
-AC9
+AC7
 Text Label 10000 4650 2    50   ~ 0
-AC10
+AC8
 Text Label 10000 4750 2    50   ~ 0
-AC11
+AC9
 Text Label 10000 4850 2    50   ~ 0
-AC12
+AC10
 Text Label 10000 4950 2    50   ~ 0
-AC13
+AC11
 Text Label 10000 5050 2    50   ~ 0
-AC14
+AC12
 Text Label 10000 5150 2    50   ~ 0
+AC13
+Text Label 10000 5250 2    50   ~ 0
+AC14
+Text Label 10000 5350 2    50   ~ 0
 AC15
-Wire Wire Line
-	9650 3650 10000 3650
-Wire Wire Line
-	9650 3750 10000 3750
 Wire Wire Line
 	9650 3850 10000 3850
 Wire Wire Line
@@ -385,6 +381,10 @@ Wire Wire Line
 	9650 5250 10000 5250
 Wire Wire Line
 	9650 5350 10000 5350
+Wire Wire Line
+	9650 3650 10000 3650
+Wire Wire Line
+	9650 2550 10000 2550
 NoConn ~ 7950 1650
 NoConn ~ 7950 1850
 NoConn ~ 7950 2050
@@ -412,7 +412,7 @@ Arithmetic & Logic (ALU)
 Wire Wire Line
 	9650 2450 10000 2450
 Wire Wire Line
-	9650 2550 10000 2550
+	9650 3750 10000 3750
 Wire Wire Line
 	9650 2650 10000 2650
 Wire Wire Line
@@ -444,7 +444,7 @@ NoConn ~ 10000 3450
 Wire Wire Line
 	9650 3550 10000 3550
 NoConn ~ 10000 3550
-NoConn ~ 10000 2550
+NoConn ~ 10000 3750
 NoConn ~ 10000 2650
 NoConn ~ 10000 2750
 NoConn ~ 10000 2850
@@ -498,9 +498,9 @@ Wire Bus Line
 	10200 1200 10500 1200
 Text Label 10500 1200 2    50   ~ 0
 IR[0..6]
-Text Label 10000 5350 2    50   ~ 0
+Text Label 10000 2550 2    50   ~ 0
 ~FLAGWE
-NoConn ~ 10000 5250
+NoConn ~ 10000 3650
 Text Label 10000 2150 2    50   ~ 0
 ~RUEN
 Text Label 10000 2250 2    50   ~ 0
@@ -531,8 +531,6 @@ Text Notes 10200 1550 0    50   ~ 0
 ← Control Unit
 Text Notes 10200 1450 0    50   ~ 0
 ← Control Unit
-Text Notes 10200 5350 0    50   ~ 0
-From Flag Unit
 $Sheet
 S 5400 1300 1150 1150
 U 5DE3C078
@@ -887,12 +885,8 @@ Wire Bus Line
 	4250 2950 4250 1400
 Wire Bus Line
 	4250 1400 4450 1200
-Text Notes 10250 4500 1    50   ~ 0
+Text Notes 10250 4700 1    50   ~ 0
 Input From REG Board
-Entry Wire Line
-	10100 3550 10000 3650
-Entry Wire Line
-	10100 3650 10000 3750
 Entry Wire Line
 	10100 3750 10000 3850
 Entry Wire Line
@@ -921,6 +915,10 @@ Entry Wire Line
 	10100 4950 10000 5050
 Entry Wire Line
 	10100 5050 10000 5150
+Entry Wire Line
+	10100 5150 10000 5250
+Entry Wire Line
+	10100 5250 10000 5350
 Text Label 10250 3350 0    50   ~ 0
 AC[0..15]
 Wire Bus Line
@@ -1146,6 +1144,8 @@ F 3 "" H 5650 7250 50  0001 C CNN
 $EndComp
 Connection ~ 5650 7250
 Connection ~ 5650 7450
+Text Notes 10200 2550 0    50   ~ 0
+← Control Unit
 Wire Bus Line
 	7150 1200 7150 4450
 Wire Bus Line
@@ -1153,5 +1153,5 @@ Wire Bus Line
 Wire Bus Line
 	10100 1300 10100 1950
 Wire Bus Line
-	10100 3450 10100 5050
+	10100 3450 10100 5250
 $EndSCHEMATC
