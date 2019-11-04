@@ -1,11 +1,10 @@
 EESchema Schematic File Version 4
-LIBS:cft-alu-cache
 LIBS:cft-reg-cache
 EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 8 8
+Sheet 2 6
 Title ""
 Date ""
 Rev ""
@@ -1031,10 +1030,6 @@ Wire Wire Line
 	6500 2450 7200 2450
 Wire Wire Line
 	6500 2550 7200 2550
-Wire Wire Line
-	6500 2650 7200 2650
-Wire Wire Line
-	6500 2750 7200 2750
 Text Label 7200 2050 2    50   ~ 0
 RSVD1
 Text Label 7200 2150 2    50   ~ 0
@@ -1047,10 +1042,6 @@ Text Label 7200 2450 2    50   ~ 0
 RSVD5
 Text Label 7200 2550 2    50   ~ 0
 RSVD6
-Text Label 7200 2650 2    50   ~ 0
-RSVD7
-Text Label 7200 2750 2    50   ~ 0
-RSVD8
 Entry Wire Line
 	7200 2050 7300 2150
 Entry Wire Line
@@ -1063,10 +1054,6 @@ Entry Wire Line
 	7200 2450 7300 2550
 Entry Wire Line
 	7200 2550 7300 2650
-Entry Wire Line
-	7200 2650 7300 2750
-Entry Wire Line
-	7200 2750 7300 2850
 Entry Bus Bus
 	7200 6150 7300 6050
 Wire Bus Line
@@ -1225,6 +1212,14 @@ Wire Wire Line
 Connection ~ 9800 4800
 Wire Wire Line
 	9800 4800 9900 4800
+Wire Wire Line
+	6500 2650 6800 2650
+Wire Wire Line
+	6500 2750 6800 2750
+Text Label 6800 2650 2    50   ~ 0
+~RUEN
+Text Label 6800 2750 2    50   ~ 0
+~WUEN
 Wire Bus Line
 	7000 3950 7000 5750
 Wire Bus Line
@@ -1243,4 +1238,8 @@ Wire Bus Line
 	4250 3650 4250 5350
 Wire Bus Line
 	2050 2850 2050 5250
+Text HLabel 6800 2650 2    50   UnSpc ~ 0
+~RUEN
+Text HLabel 6800 2750 2    50   UnSpc ~ 0
+~WUEN
 $EndSCHEMATC

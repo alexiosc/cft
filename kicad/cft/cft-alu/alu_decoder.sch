@@ -355,10 +355,306 @@ Text Label 8950 2750 2    50   ~ 0
 ~ACTION-110
 Text Label 8950 2650 2    50   ~ 0
 ~ACTION-101
+$Comp
+L Device:C_Small C?
+U 1 1 5DD30D3D
+P 1050 7350
+AR Path="/5CC0D65F/5DD30D3D" Ref="C?"  Part="1" 
+AR Path="/5DD30D3D" Ref="C?"  Part="1" 
+AR Path="/5F597FD4/5DD30D3D" Ref="C?"  Part="1" 
+AR Path="/5DC89E19/5CF23BD4/5DD30D3D" Ref="C?"  Part="1" 
+AR Path="/5DC89E19/5CF5A95E/5DD30D3D" Ref="C?"  Part="1" 
+AR Path="/5DC89E19/5DD30D3D" Ref="C?"  Part="1" 
+AR Path="/5DC89E19/5D98F946/5DD30D3D" Ref="C?"  Part="1" 
+AR Path="/5D121AA3/5DD30D3D" Ref="C?"  Part="1" 
+AR Path="/5E1C970B/5DD30D3D" Ref="C40"  Part="1" 
+F 0 "C40" H 959 7396 50  0000 R CNN
+F 1 "100nF" H 959 7305 50  0000 R CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 1050 7350 50  0001 C CNN
+F 3 "~" H 1050 7350 50  0001 C CNN
+	1    1050 7350
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5DD30D43
+P 1050 7450
+AR Path="/5DD30D43" Ref="#PWR?"  Part="1" 
+AR Path="/5F597FD4/5DD30D43" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5CF23BD4/5DD30D43" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5CF5A95E/5DD30D43" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5DD30D43" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5D98F946/5DD30D43" Ref="#PWR?"  Part="1" 
+AR Path="/5D121AA3/5DD30D43" Ref="#PWR?"  Part="1" 
+AR Path="/5E1C970B/5DD30D43" Ref="#PWR0187"  Part="1" 
+F 0 "#PWR0187" H 1050 7200 50  0001 C CNN
+F 1 "GND" H 1055 7277 50  0000 C CNN
+F 2 "" H 1050 7450 50  0001 C CNN
+F 3 "" H 1050 7450 50  0001 C CNN
+	1    1050 7450
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 5DD30D49
+P 1050 7250
+AR Path="/5DD30D49" Ref="#PWR?"  Part="1" 
+AR Path="/5F597FD4/5DD30D49" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5CF23BD4/5DD30D49" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5CF5A95E/5DD30D49" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5DD30D49" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5D98F946/5DD30D49" Ref="#PWR?"  Part="1" 
+AR Path="/5D121AA3/5DD30D49" Ref="#PWR?"  Part="1" 
+AR Path="/5E1C970B/5DD30D49" Ref="#PWR0188"  Part="1" 
+F 0 "#PWR0188" H 1050 7100 50  0001 C CNN
+F 1 "+5V" H 1065 7423 50  0000 C CNN
+F 2 "" H 1050 7250 50  0001 C CNN
+F 3 "" H 1050 7250 50  0001 C CNN
+	1    1050 7250
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC138 U?
+U 2 1 5DD31892
+P 1400 7350
+AR Path="/5DC89E19/5DD31892" Ref="U?"  Part="1" 
+AR Path="/5DD31892" Ref="U?"  Part="1" 
+AR Path="/5E1C970B/5DD31892" Ref="U26"  Part="2" 
+F 0 "U26" H 1580 7396 50  0000 L CNN
+F 1 "74AC138" H 1580 7305 50  0000 L CNN
+F 2 "alexios:SOIC-16" H 1400 7350 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 1400 7350 50  0001 C CNN
+	2    1400 7350
+	1    0    0    -1  
+$EndComp
+Connection ~ 1050 7250
+Connection ~ 1050 7450
+$Comp
+L Device:C_Small C?
+U 1 1 5DD377BE
+P 2400 7350
+AR Path="/5CC0D65F/5DD377BE" Ref="C?"  Part="1" 
+AR Path="/5DD377BE" Ref="C?"  Part="1" 
+AR Path="/5F597FD4/5DD377BE" Ref="C?"  Part="1" 
+AR Path="/5DC89E19/5CF23BD4/5DD377BE" Ref="C?"  Part="1" 
+AR Path="/5DC89E19/5CF5A95E/5DD377BE" Ref="C?"  Part="1" 
+AR Path="/5DC89E19/5DD377BE" Ref="C?"  Part="1" 
+AR Path="/5DC89E19/5D98F946/5DD377BE" Ref="C?"  Part="1" 
+AR Path="/5D121AA3/5DD377BE" Ref="C?"  Part="1" 
+AR Path="/5E1C970B/5DD377BE" Ref="C41"  Part="1" 
+F 0 "C41" H 2309 7396 50  0000 R CNN
+F 1 "100nF" H 2309 7305 50  0000 R CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 2400 7350 50  0001 C CNN
+F 3 "~" H 2400 7350 50  0001 C CNN
+	1    2400 7350
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5DD377C4
+P 2400 7450
+AR Path="/5DD377C4" Ref="#PWR?"  Part="1" 
+AR Path="/5F597FD4/5DD377C4" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5CF23BD4/5DD377C4" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5CF5A95E/5DD377C4" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5DD377C4" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5D98F946/5DD377C4" Ref="#PWR?"  Part="1" 
+AR Path="/5D121AA3/5DD377C4" Ref="#PWR?"  Part="1" 
+AR Path="/5E1C970B/5DD377C4" Ref="#PWR0189"  Part="1" 
+F 0 "#PWR0189" H 2400 7200 50  0001 C CNN
+F 1 "GND" H 2405 7277 50  0000 C CNN
+F 2 "" H 2400 7450 50  0001 C CNN
+F 3 "" H 2400 7450 50  0001 C CNN
+	1    2400 7450
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 5DD377CA
+P 2400 7250
+AR Path="/5DD377CA" Ref="#PWR?"  Part="1" 
+AR Path="/5F597FD4/5DD377CA" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5CF23BD4/5DD377CA" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5CF5A95E/5DD377CA" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5DD377CA" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5D98F946/5DD377CA" Ref="#PWR?"  Part="1" 
+AR Path="/5D121AA3/5DD377CA" Ref="#PWR?"  Part="1" 
+AR Path="/5E1C970B/5DD377CA" Ref="#PWR0190"  Part="1" 
+F 0 "#PWR0190" H 2400 7100 50  0001 C CNN
+F 1 "+5V" H 2415 7423 50  0000 C CNN
+F 2 "" H 2400 7250 50  0001 C CNN
+F 3 "" H 2400 7250 50  0001 C CNN
+	1    2400 7250
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 5DD3B114
+P 3800 7350
+AR Path="/5CC0D65F/5DD3B114" Ref="C?"  Part="1" 
+AR Path="/5DD3B114" Ref="C?"  Part="1" 
+AR Path="/5F597FD4/5DD3B114" Ref="C?"  Part="1" 
+AR Path="/5DC89E19/5CF23BD4/5DD3B114" Ref="C?"  Part="1" 
+AR Path="/5DC89E19/5CF5A95E/5DD3B114" Ref="C?"  Part="1" 
+AR Path="/5DC89E19/5DD3B114" Ref="C?"  Part="1" 
+AR Path="/5DC89E19/5D98F946/5DD3B114" Ref="C?"  Part="1" 
+AR Path="/5D121AA3/5DD3B114" Ref="C?"  Part="1" 
+AR Path="/5E1C970B/5DD3B114" Ref="C42"  Part="1" 
+F 0 "C42" H 3709 7396 50  0000 R CNN
+F 1 "100nF" H 3709 7305 50  0000 R CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 3800 7350 50  0001 C CNN
+F 3 "~" H 3800 7350 50  0001 C CNN
+	1    3800 7350
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5DD3B11A
+P 3800 7450
+AR Path="/5DD3B11A" Ref="#PWR?"  Part="1" 
+AR Path="/5F597FD4/5DD3B11A" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5CF23BD4/5DD3B11A" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5CF5A95E/5DD3B11A" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5DD3B11A" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5D98F946/5DD3B11A" Ref="#PWR?"  Part="1" 
+AR Path="/5D121AA3/5DD3B11A" Ref="#PWR?"  Part="1" 
+AR Path="/5E1C970B/5DD3B11A" Ref="#PWR0191"  Part="1" 
+F 0 "#PWR0191" H 3800 7200 50  0001 C CNN
+F 1 "GND" H 3805 7277 50  0000 C CNN
+F 2 "" H 3800 7450 50  0001 C CNN
+F 3 "" H 3800 7450 50  0001 C CNN
+	1    3800 7450
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 5DD3B120
+P 3800 7250
+AR Path="/5DD3B120" Ref="#PWR?"  Part="1" 
+AR Path="/5F597FD4/5DD3B120" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5CF23BD4/5DD3B120" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5CF5A95E/5DD3B120" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5DD3B120" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5D98F946/5DD3B120" Ref="#PWR?"  Part="1" 
+AR Path="/5D121AA3/5DD3B120" Ref="#PWR?"  Part="1" 
+AR Path="/5E1C970B/5DD3B120" Ref="#PWR0192"  Part="1" 
+F 0 "#PWR0192" H 3800 7100 50  0001 C CNN
+F 1 "+5V" H 3815 7423 50  0000 C CNN
+F 2 "" H 3800 7250 50  0001 C CNN
+F 3 "" H 3800 7250 50  0001 C CNN
+	1    3800 7250
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 5DD3B12E
+P 5150 7350
+AR Path="/5CC0D65F/5DD3B12E" Ref="C?"  Part="1" 
+AR Path="/5DD3B12E" Ref="C?"  Part="1" 
+AR Path="/5F597FD4/5DD3B12E" Ref="C?"  Part="1" 
+AR Path="/5DC89E19/5CF23BD4/5DD3B12E" Ref="C?"  Part="1" 
+AR Path="/5DC89E19/5CF5A95E/5DD3B12E" Ref="C?"  Part="1" 
+AR Path="/5DC89E19/5DD3B12E" Ref="C?"  Part="1" 
+AR Path="/5DC89E19/5D98F946/5DD3B12E" Ref="C?"  Part="1" 
+AR Path="/5D121AA3/5DD3B12E" Ref="C?"  Part="1" 
+AR Path="/5E1C970B/5DD3B12E" Ref="C43"  Part="1" 
+F 0 "C43" H 5059 7396 50  0000 R CNN
+F 1 "100nF" H 5059 7305 50  0000 R CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 5150 7350 50  0001 C CNN
+F 3 "~" H 5150 7350 50  0001 C CNN
+	1    5150 7350
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5DD3B134
+P 5150 7450
+AR Path="/5DD3B134" Ref="#PWR?"  Part="1" 
+AR Path="/5F597FD4/5DD3B134" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5CF23BD4/5DD3B134" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5CF5A95E/5DD3B134" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5DD3B134" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5D98F946/5DD3B134" Ref="#PWR?"  Part="1" 
+AR Path="/5D121AA3/5DD3B134" Ref="#PWR?"  Part="1" 
+AR Path="/5E1C970B/5DD3B134" Ref="#PWR0193"  Part="1" 
+F 0 "#PWR0193" H 5150 7200 50  0001 C CNN
+F 1 "GND" H 5155 7277 50  0000 C CNN
+F 2 "" H 5150 7450 50  0001 C CNN
+F 3 "" H 5150 7450 50  0001 C CNN
+	1    5150 7450
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 5DD3B13A
+P 5150 7250
+AR Path="/5DD3B13A" Ref="#PWR?"  Part="1" 
+AR Path="/5F597FD4/5DD3B13A" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5CF23BD4/5DD3B13A" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5CF5A95E/5DD3B13A" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5DD3B13A" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5D98F946/5DD3B13A" Ref="#PWR?"  Part="1" 
+AR Path="/5D121AA3/5DD3B13A" Ref="#PWR?"  Part="1" 
+AR Path="/5E1C970B/5DD3B13A" Ref="#PWR0194"  Part="1" 
+F 0 "#PWR0194" H 5150 7100 50  0001 C CNN
+F 1 "+5V" H 5165 7423 50  0000 C CNN
+F 2 "" H 5150 7250 50  0001 C CNN
+F 3 "" H 5150 7250 50  0001 C CNN
+	1    5150 7250
+	1    0    0    -1  
+$EndComp
 Wire Bus Line
 	6950 2000 6950 2650
 Wire Bus Line
 	6950 3800 6950 4550
 Wire Bus Line
 	2900 2500 2900 4550
+$Comp
+L alexios:74HC138 U?
+U 2 1 5DD3D389
+P 2750 7350
+AR Path="/5DC89E19/5DD3D389" Ref="U?"  Part="1" 
+AR Path="/5DD3D389" Ref="U?"  Part="1" 
+AR Path="/5E1C970B/5DD3D389" Ref="U28"  Part="2" 
+F 0 "U28" H 2930 7396 50  0000 L CNN
+F 1 "74HC138" H 2930 7305 50  0000 L CNN
+F 2 "alexios:SOIC-16" H 2750 7350 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 2750 7350 50  0001 C CNN
+	2    2750 7350
+	1    0    0    -1  
+$EndComp
+Connection ~ 2400 7250
+Connection ~ 2400 7450
+$Comp
+L alexios:74HC138 U?
+U 2 1 5DD3E064
+P 4150 7350
+AR Path="/5DC89E19/5DD3E064" Ref="U?"  Part="1" 
+AR Path="/5DD3E064" Ref="U?"  Part="1" 
+AR Path="/5E1C970B/5DD3E064" Ref="U27"  Part="2" 
+F 0 "U27" H 4330 7396 50  0000 L CNN
+F 1 "74HC138" H 4330 7305 50  0000 L CNN
+F 2 "alexios:SOIC-16" H 4150 7350 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 4150 7350 50  0001 C CNN
+	2    4150 7350
+	1    0    0    -1  
+$EndComp
+Connection ~ 3800 7250
+Connection ~ 3800 7450
+$Comp
+L alexios:74HC138 U?
+U 2 1 5DD3EDFA
+P 5500 7350
+AR Path="/5DC89E19/5DD3EDFA" Ref="U?"  Part="1" 
+AR Path="/5DD3EDFA" Ref="U?"  Part="1" 
+AR Path="/5E1C970B/5DD3EDFA" Ref="U29"  Part="2" 
+F 0 "U29" H 5680 7396 50  0000 L CNN
+F 1 "74HC138" H 5680 7305 50  0000 L CNN
+F 2 "alexios:SOIC-16" H 5500 7350 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 5500 7350 50  0001 C CNN
+	2    5500 7350
+	1    0    0    -1  
+$EndComp
+Connection ~ 5150 7250
+Connection ~ 5150 7450
 $EndSCHEMATC

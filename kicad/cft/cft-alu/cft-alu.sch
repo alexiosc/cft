@@ -46,10 +46,10 @@ F25 "~WS" U L 8500 3750 50
 F26 "~ENDEXT" U L 8500 3850 50 
 F27 "~SKIPEXT" U L 8500 3950 50 
 F28 "~HALT" U L 8500 4050 50 
-F29 "ACTION[0..3]" U L 8500 4150 50 
-F30 "WADDR[0..4]" U L 8500 4250 50 
-F31 "RADDR[0..4]" U L 8500 4350 50 
-F32 "RSVD[0..8]" U L 8500 4450 50 
+F29 "ACTION[0..3]" U L 8500 4350 50 
+F30 "WADDR[0..4]" U L 8500 4450 50 
+F31 "RADDR[0..4]" U L 8500 4550 50 
+F32 "RSVD[0..6]" U L 8500 4650 50 
 F33 "C1" U R 9650 1450 50 
 F34 "C2" U R 9650 1550 50 
 F35 "C3" U R 9650 1650 50 
@@ -90,6 +90,8 @@ F69 "C37" U R 9650 5050 50
 F70 "C38" U R 9650 5150 50 
 F71 "C39" U R 9650 5250 50 
 F72 "C40" U R 9650 5350 50 
+F73 "~RUEN" U L 8500 4150 50 
+F74 "~WUEN" U L 8500 4250 50 
 $EndSheet
 Wire Bus Line
 	8500 2050 7950 2050
@@ -195,22 +197,22 @@ Text Label 7950 3950 0    50   ~ 0
 ~SKIPEXT
 Text Label 7950 4050 0    50   ~ 0
 ~HALT
-Text Label 7950 4150 0    50   ~ 0
-ACTION[0..3]
-Text Label 7950 4250 0    50   ~ 0
-WADDR[0..4]
 Text Label 7950 4350 0    50   ~ 0
+ACTION[0..3]
+Text Label 7950 4450 0    50   ~ 0
+WADDR[0..4]
+Text Label 7950 4550 0    50   ~ 0
 RADDR[0..4]
-Wire Bus Line
-	8500 4150 7950 4150
-Wire Bus Line
-	8500 4250 7950 4250
 Wire Bus Line
 	8500 4350 7950 4350
 Wire Bus Line
-	7950 4450 8500 4450
-Text Label 7950 4450 0    50   ~ 0
-RSVD[0..8]
+	8500 4450 7950 4450
+Wire Bus Line
+	8500 4550 7950 4550
+Wire Bus Line
+	7950 4650 8500 4650
+Text Label 7950 4650 0    50   ~ 0
+RSVD[0..6]
 Text Notes 9250 3300 1    100  ~ 20
 Left Slot
 Text Label 7950 3650 0    50   ~ 0
@@ -317,38 +319,42 @@ Wire Wire Line
 	10550 6200 10550 6300
 Text Notes 8300 950  0    197  ~ 39
 Edge Connector
-Text Label 10000 3850 2    50   ~ 0
+Text Label 10000 3650 2    50   ~ 0
 AC0
-Text Label 10000 3950 2    50   ~ 0
+Text Label 10000 3750 2    50   ~ 0
 AC1
-Text Label 10000 4050 2    50   ~ 0
+Text Label 10000 3850 2    50   ~ 0
 AC2
-Text Label 10000 4150 2    50   ~ 0
+Text Label 10000 3950 2    50   ~ 0
 AC3
-Text Label 10000 4250 2    50   ~ 0
+Text Label 10000 4050 2    50   ~ 0
 AC4
-Text Label 10000 4350 2    50   ~ 0
+Text Label 10000 4150 2    50   ~ 0
 AC5
-Text Label 10000 4450 2    50   ~ 0
+Text Label 10000 4250 2    50   ~ 0
 AC6
-Text Label 10000 4550 2    50   ~ 0
+Text Label 10000 4350 2    50   ~ 0
 AC7
-Text Label 10000 4650 2    50   ~ 0
+Text Label 10000 4450 2    50   ~ 0
 AC8
-Text Label 10000 4750 2    50   ~ 0
+Text Label 10000 4550 2    50   ~ 0
 AC9
-Text Label 10000 4850 2    50   ~ 0
+Text Label 10000 4650 2    50   ~ 0
 AC10
-Text Label 10000 4950 2    50   ~ 0
+Text Label 10000 4750 2    50   ~ 0
 AC11
-Text Label 10000 5050 2    50   ~ 0
+Text Label 10000 4850 2    50   ~ 0
 AC12
-Text Label 10000 5150 2    50   ~ 0
+Text Label 10000 4950 2    50   ~ 0
 AC13
-Text Label 10000 5250 2    50   ~ 0
+Text Label 10000 5050 2    50   ~ 0
 AC14
-Text Label 10000 5350 2    50   ~ 0
+Text Label 10000 5150 2    50   ~ 0
 AC15
+Wire Wire Line
+	9650 3650 10000 3650
+Wire Wire Line
+	9650 3750 10000 3750
 Wire Wire Line
 	9650 3850 10000 3850
 Wire Wire Line
@@ -378,12 +384,6 @@ Wire Wire Line
 Wire Wire Line
 	9650 5150 10000 5150
 Wire Wire Line
-	9650 5250 10000 5250
-Wire Wire Line
-	9650 5350 10000 5350
-Wire Wire Line
-	9650 3650 10000 3650
-Wire Wire Line
 	9650 2550 10000 2550
 NoConn ~ 7950 1650
 NoConn ~ 7950 1850
@@ -406,13 +406,11 @@ NoConn ~ 7950 3750
 NoConn ~ 7950 3850
 NoConn ~ 7950 3950
 NoConn ~ 7950 4050
-NoConn ~ 7950 4450
+NoConn ~ 7950 4650
 Text Notes 7100 7000 0    197  ~ 39
 Arithmetic & Logic (ALU)
 Wire Wire Line
 	9650 2450 10000 2450
-Wire Wire Line
-	9650 3750 10000 3750
 Wire Wire Line
 	9650 2650 10000 2650
 Wire Wire Line
@@ -436,15 +434,10 @@ Wire Wire Line
 	9650 3250 10000 3250
 Wire Wire Line
 	9650 2350 10000 2350
-Wire Wire Line
-	9650 2250 10000 2250
-Wire Wire Line
-	9650 2150 10000 2150
 NoConn ~ 10000 3450
 Wire Wire Line
 	9650 3550 10000 3550
 NoConn ~ 10000 3550
-NoConn ~ 10000 3750
 NoConn ~ 10000 2650
 NoConn ~ 10000 2750
 NoConn ~ 10000 2850
@@ -500,11 +493,6 @@ Text Label 10500 1200 2    50   ~ 0
 IR[0..6]
 Text Label 10000 2550 2    50   ~ 0
 ~FLAGWE
-NoConn ~ 10000 3650
-Text Label 10000 2150 2    50   ~ 0
-~RUEN
-Text Label 10000 2250 2    50   ~ 0
-~WUEN
 Text Label 10000 2350 2    50   ~ 0
 FL
 Text Label 10000 2450 2    50   ~ 0
@@ -513,10 +501,6 @@ Text Notes 10200 2350 0    50   ~ 0
 → Control Unit
 Text Notes 10200 2450 0    50   ~ 0
 → Control Unit
-Text Notes 10200 2250 0    50   ~ 0
-← Control Unit
-Text Notes 10200 2150 0    50   ~ 0
-← Control Unit
 Text Notes 10200 2050 0    50   ~ 0
 ← Control Unit
 Text Notes 10200 1950 0    50   ~ 0
@@ -885,8 +869,12 @@ Wire Bus Line
 	4250 2950 4250 1400
 Wire Bus Line
 	4250 1400 4450 1200
-Text Notes 10250 4700 1    50   ~ 0
+Text Notes 10250 4500 1    50   ~ 0
 Input From REG Board
+Entry Wire Line
+	10100 3550 10000 3650
+Entry Wire Line
+	10100 3650 10000 3750
 Entry Wire Line
 	10100 3750 10000 3850
 Entry Wire Line
@@ -915,10 +903,6 @@ Entry Wire Line
 	10100 4950 10000 5050
 Entry Wire Line
 	10100 5050 10000 5150
-Entry Wire Line
-	10100 5150 10000 5250
-Entry Wire Line
-	10100 5250 10000 5350
 Text Label 10250 3350 0    50   ~ 0
 AC[0..15]
 Wire Bus Line
@@ -1146,12 +1130,34 @@ Connection ~ 5650 7250
 Connection ~ 5650 7450
 Text Notes 10200 2550 0    50   ~ 0
 ← Control Unit
-Wire Bus Line
-	7150 1200 7150 4450
+Wire Wire Line
+	9650 2150 10000 2150
+Wire Wire Line
+	9650 2250 10000 2250
+NoConn ~ 10000 2150
+NoConn ~ 10000 2250
+Wire Wire Line
+	9650 5250 10000 5250
+Wire Wire Line
+	9650 5350 10000 5350
+NoConn ~ 10000 5250
+NoConn ~ 10000 5350
+Wire Wire Line
+	8500 4150 7950 4150
+NoConn ~ 7950 4150
+Wire Wire Line
+	8500 4250 7950 4250
+NoConn ~ 7950 4250
 Wire Bus Line
 	800  4100 2350 4100
 Wire Bus Line
+	7150 1200 7150 4450
+Wire Bus Line
 	10100 1300 10100 1950
 Wire Bus Line
-	10100 3450 10100 5250
+	10100 3450 10100 5050
+Text Label 7950 4150 0    50   ~ 0
+~RUEN
+Text Label 7950 4250 0    50   ~ 0
+~WUEN
 $EndSCHEMATC

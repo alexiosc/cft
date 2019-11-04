@@ -1008,10 +1008,6 @@ Wire Wire Line
 	6500 2450 7200 2450
 Wire Wire Line
 	6500 2550 7200 2550
-Wire Wire Line
-	6500 2650 7200 2650
-Wire Wire Line
-	6500 2750 7200 2750
 Text Label 7200 2050 2    50   ~ 0
 RSVD1
 Text Label 7200 2150 2    50   ~ 0
@@ -1024,10 +1020,6 @@ Text Label 7200 2450 2    50   ~ 0
 RSVD5
 Text Label 7200 2550 2    50   ~ 0
 RSVD6
-Text Label 7200 2650 2    50   ~ 0
-RSVD7
-Text Label 7200 2750 2    50   ~ 0
-RSVD8
 Entry Wire Line
 	7200 2050 7300 2150
 Entry Wire Line
@@ -1040,18 +1032,14 @@ Entry Wire Line
 	7200 2450 7300 2550
 Entry Wire Line
 	7200 2550 7300 2650
-Entry Wire Line
-	7200 2650 7300 2750
-Entry Wire Line
-	7200 2750 7300 2850
 Entry Bus Bus
 	7200 6150 7300 6050
 Wire Bus Line
 	7200 6150 1350 6150
 Text HLabel 1350 6150 0    50   UnSpc ~ 0
-RSVD[0..8]
+RSVD[0..6]
 Text Label 1450 6150 0    50   ~ 0
-RSVD[0..8]
+RSVD[0..6]
 $Comp
 L Device:CP_Small C?
 U 1 1 5D8FC46B
@@ -1217,6 +1205,18 @@ $EndComp
 Connection ~ 9750 5200
 Wire Wire Line
 	8850 4800 8950 4800
+Wire Wire Line
+	6500 2650 6750 2650
+Wire Wire Line
+	6500 2750 6750 2750
+Text Label 6750 2650 2    50   ~ 0
+~RUEN
+Text Label 6750 2750 2    50   ~ 0
+~WUEN
+Text HLabel 6750 2650 2    50   UnSpc ~ 0
+~RUEN
+Text HLabel 6750 2750 2    50   UnSpc ~ 0
+~WUEN
 Wire Bus Line
 	7000 3950 7000 5750
 Wire Bus Line

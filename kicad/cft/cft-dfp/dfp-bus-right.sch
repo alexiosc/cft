@@ -740,10 +740,6 @@ Wire Wire Line
 	6650 2500 7350 2500
 Wire Wire Line
 	6650 2600 7350 2600
-Wire Wire Line
-	6650 2700 7350 2700
-Wire Wire Line
-	6650 2800 7350 2800
 Text Label 7350 2100 2    50   ~ 0
 RSVD1
 Text Label 7350 2200 2    50   ~ 0
@@ -756,10 +752,6 @@ Text Label 7350 2500 2    50   ~ 0
 RSVD5
 Text Label 7350 2600 2    50   ~ 0
 RSVD6
-Text Label 7350 2700 2    50   ~ 0
-RSVD7
-Text Label 7350 2800 2    50   ~ 0
-RSVD8
 Entry Wire Line
 	7350 2100 7450 2200
 Entry Wire Line
@@ -772,18 +764,14 @@ Entry Wire Line
 	7350 2500 7450 2600
 Entry Wire Line
 	7350 2600 7450 2700
-Entry Wire Line
-	7350 2700 7450 2800
-Entry Wire Line
-	7350 2800 7450 2900
 Entry Bus Bus
 	7350 6200 7450 6100
 Wire Bus Line
 	7350 6200 1500 6200
 Text HLabel 1500 6200 0    50   UnSpc ~ 0
-RSVD[0..8]
+RSVD[0..6]
 Text Label 1600 6200 0    50   ~ 0
-RSVD[0..7]
+RSVD[0..6]
 Wire Wire Line
 	8500 1850 8950 1850
 Wire Wire Line
@@ -1230,6 +1218,18 @@ F 3 "~" H 9000 4500 50  0001 C CNN
 	1    9000 4500
 	1    0    0    -1  
 $EndComp
+Wire Wire Line
+	6700 2700 6950 2700
+Wire Wire Line
+	6700 2800 6950 2800
+Text Label 6950 2700 2    50   ~ 0
+~RUEN
+Text Label 6950 2800 2    50   ~ 0
+~WUEN
+Text HLabel 6950 2700 2    50   UnSpc ~ 0
+~RUEN
+Text HLabel 6950 2800 2    50   UnSpc ~ 0
+~WUEN
 Wire Bus Line
 	7150 4000 7150 5800
 Wire Bus Line

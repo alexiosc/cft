@@ -46,10 +46,10 @@ F25 "~WS" U L 14100 7950 50
 F26 "~ENDEXT" U L 14100 8050 50 
 F27 "~SKIPEXT" U L 14100 8150 50 
 F28 "~HALT" U L 14100 8250 50 
-F29 "ACTION[0..3]" U L 14100 8350 50 
-F30 "WADDR[0..4]" U L 14100 8450 50 
-F31 "RADDR[0..4]" U L 14100 8550 50 
-F32 "RSVD[0..8]" U L 14100 8650 50 
+F29 "ACTION[0..3]" U L 14100 8550 50 
+F30 "WADDR[0..4]" U L 14100 8650 50 
+F31 "RADDR[0..4]" U L 14100 8750 50 
+F32 "RSVD[0..6]" U L 14100 8850 50 
 F33 "C1" U R 15250 5650 50 
 F34 "C2" U R 15250 5750 50 
 F35 "C3" U R 15250 5850 50 
@@ -90,6 +90,8 @@ F69 "C37" U R 15250 9250 50
 F70 "C38" U R 15250 9350 50 
 F71 "C39" U R 15250 9450 50 
 F72 "C40" U R 15250 9550 50 
+F73 "~RUEN" U L 14100 8350 50 
+F74 "~WUEN" U L 14100 8450 50 
 $EndSheet
 Wire Bus Line
 	14100 6250 13550 6250
@@ -197,22 +199,22 @@ Text Label 13550 8150 0    50   ~ 0
 ~SKIPEXT
 Text Label 13550 8250 0    50   ~ 0
 ~HALT
-Text Label 13550 8350 0    50   ~ 0
-ACTION[0..3]
-Text Label 13550 8450 0    50   ~ 0
-WADDR[0..4]
 Text Label 13550 8550 0    50   ~ 0
+ACTION[0..3]
+Text Label 13550 8650 0    50   ~ 0
+WADDR[0..4]
+Text Label 13550 8750 0    50   ~ 0
 RADDR[0..4]
-Wire Bus Line
-	14100 8350 13550 8350
-Wire Bus Line
-	14100 8450 13550 8450
 Wire Bus Line
 	14100 8550 13550 8550
 Wire Bus Line
-	13550 8650 14100 8650
-Text Label 13550 8650 0    50   ~ 0
-RSVD[0..8]
+	14100 8650 13550 8650
+Wire Bus Line
+	14100 8750 13550 8750
+Wire Bus Line
+	13550 8850 14100 8850
+Text Label 13550 8850 0    50   ~ 0
+RSVD[0..6]
 Wire Wire Line
 	15250 8950 15400 8950
 Wire Wire Line
@@ -1793,4 +1795,31 @@ Text Notes 6400 10250 0    50   ~ 0
 All devices are 512K which eases decoding. There is space for 24\n512K×8 SRAM packages which prodive between 512 kW and 6 MW.\nAll chips except the lowest bank are optional.\n\nROM is mapped at &800000.\n\n
 Text Notes 6400 9650 0    100  ~ 20
 Notes
+Wire Wire Line
+	14100 8350 13550 8350
+Wire Wire Line
+	14100 8450 13550 8450
+Text Label 13550 8350 0    50   ~ 0
+~RUEN
+Text Label 13550 8450 0    50   ~ 0
+~WUEN
+NoConn ~ 13550 8350
+NoConn ~ 13550 8450
+NoConn ~ 13550 6650
+NoConn ~ 13550 6750
+NoConn ~ 13550 6850
+NoConn ~ 13550 6950
+NoConn ~ 13550 7150
+NoConn ~ 13550 7250
+NoConn ~ 13550 7350
+NoConn ~ 13550 7450
+NoConn ~ 13550 7650
+NoConn ~ 13550 7950
+NoConn ~ 13550 8050
+NoConn ~ 13550 8150
+NoConn ~ 13550 8550
+NoConn ~ 13550 8650
+NoConn ~ 13550 8750
+NoConn ~ 13550 8850
+NoConn ~ 13550 5650
 $EndSCHEMATC
