@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:cft-alu-cache
-EELAYER 30 0
+EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -363,7 +363,7 @@ AR Path="/5DEA5E6C/5E6EEC6D" Ref="C?"  Part="1"
 AR Path="/5DE6D8E0/5E6EEC6D" Ref="C22"  Part="1" 
 F 0 "C22" H 7459 2946 50  0000 R CNN
 F 1 "100nF" H 7459 2855 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 7550 2900 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7550 2900 50  0001 C CNN
 F 3 "~" H 7550 2900 50  0001 C CNN
 	1    7550 2900
 	1    0    0    -1  
@@ -382,7 +382,7 @@ AR Path="/5DEA5E6C/5E6EEC73" Ref="C?"  Part="1"
 AR Path="/5DE6D8E0/5E6EEC73" Ref="C23"  Part="1" 
 F 0 "C23" H 7459 4496 50  0000 R CNN
 F 1 "100nF" H 7459 4405 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 7550 4450 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7550 4450 50  0001 C CNN
 F 3 "~" H 7550 4450 50  0001 C CNN
 	1    7550 4450
 	1    0    0    -1  

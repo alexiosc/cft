@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:cft-alu-cache
-EELAYER 30 0
+EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -343,10 +343,6 @@ Wire Wire Line
 	8000 3800 8650 3800
 Wire Wire Line
 	8000 2300 8000 3800
-Wire Wire Line
-	8000 4200 5900 4200
-Wire Wire Line
-	5900 4200 5900 3800
 Connection ~ 8000 3800
 Wire Wire Line
 	8000 3800 8000 4200
@@ -508,8 +504,6 @@ IBUS[0..15]
 Text HLabel 10650 3900 2    50   BiDi ~ 0
 IBUS[0..15]
 Wire Wire Line
-	4050 2500 4400 2500
-Wire Wire Line
 	4500 2850 5900 2850
 Wire Wire Line
 	2750 1350 4300 1350
@@ -662,7 +656,7 @@ AR Path="/5DC89E19/5D396E91/6A1AE895" Ref="U7"  Part="1"
 AR Path="/5DF75CDE/6A1AE895" Ref="U13"  Part="1" 
 F 0 "U13" H 2300 1917 50  0000 C CNN
 F 1 "74AUC1G74" H 2300 1826 50  0000 C CNN
-F 2 "Package_SO:TSSOP-8_3x3mm_P0.65mm" H 2750 1500 50  0001 C CNN
+F 2 "alexios:TSSOP-8_3x3mm_P0.65mm" H 2750 1500 50  0001 C CNN
 F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 2750 1500 50  0001 C CNN
 	1    2300 1500
 	1    0    0    -1  
@@ -733,8 +727,6 @@ Wire Wire Line
 Text Notes 4550 1300 0    100  ~ 20
 Repetition Counter
 Connection ~ 8100 3900
-Text Label 6500 4200 2    50   ~ 0
-~RIGHT
 Text Label 2350 5000 0    50   ~ 0
 ~LEFT
 Text Label 2350 5200 0    50   ~ 0
@@ -894,7 +886,7 @@ AR Path="/5DC89E19/5D396E91/5D182161" Ref="U17"  Part="1"
 AR Path="/5DF75CDE/5D182161" Ref="U41"  Part="1" 
 F 0 "U41" H 6950 5167 50  0000 C CNN
 F 1 "74LVC2G157" H 6950 5076 50  0000 C CNN
-F 2 "Package_SO:TSSOP-8_3x3mm_P0.65mm" H 6850 4925 50  0001 C CNN
+F 2 "alexios:TSSOP-8_3x3mm_P0.65mm" H 6850 4925 50  0001 C CNN
 F 3 "http://www.ti.com/lit/ds/symlink/sn74lvc2g157.pdf" H 6850 4925 50  0001 C CNN
 	1    6950 4800
 	1    0    0    -1  
@@ -968,12 +960,12 @@ AR Path="/6A313729/6A1AE713" Ref="U?"  Part="3"
 AR Path="/5DC89E19/5D0A147D/6A1AE713" Ref="U?"  Part="3" 
 AR Path="/5DC89E19/5D396E91/6A1AE713" Ref="U12"  Part="3" 
 AR Path="/5DF75CDE/6A1AE713" Ref="U18"  Part="3" 
-F 0 "U18" H 3750 2300 50  0000 C CNN
-F 1 "74AC86" H 3750 2200 50  0000 C CNN
+F 0 "U18" H 3775 2682 50  0000 C CNN
+F 1 "74AC86" H 3775 2773 50  0000 C CNN
 F 2 "alexios:SOIC-14" H 3275 2100 50  0001 C CNN
 F 3 "74xx/74ls86.pdf" H 3275 2100 50  0001 C CNN
 	3    3750 2500
-	1    0    0    -1  
+	1    0    0    1   
 $EndComp
 $Comp
 L alexios:74AC86 U?
@@ -1027,7 +1019,7 @@ Text Label 6550 5500 2    50   ~ 0
 Text Label 6550 5400 2    50   ~ 0
 TC
 Text Label 6550 5600 2    50   ~ 0
-~NSTART_SYNC
+~START_SYNC
 $Comp
 L alexios:74LVC1G0832 U?
 U 1 1 5D2B045A
@@ -1060,7 +1052,6 @@ Wire Wire Line
 Connection ~ 6000 3900
 Wire Wire Line
 	2250 5200 8100 5200
-Connection ~ 5900 4200
 Wire Wire Line
 	4400 2500 4400 2950
 Wire Wire Line
@@ -1078,7 +1069,7 @@ Connection ~ 4300 2100
 Wire Wire Line
 	5800 2950 5800 5500
 Text Label 5700 4800 1    50   ~ 0
-~NSTART_SYNC
+~START_SYNC
 Text Label 5800 4800 1    50   ~ 0
 4CLK
 Text Label 5900 4800 1    50   ~ 0
@@ -1103,13 +1094,11 @@ SHIFTCLK
 Wire Wire Line
 	5900 5400 6600 5400
 Wire Wire Line
-	5900 4200 5900 5400
-Wire Wire Line
 	5700 5600 6600 5600
 Wire Wire Line
 	5800 5500 6600 5500
 Wire Wire Line
-	7350 5500 10650 5500
+	7350 5500 10000 5500
 $Comp
 L alexios:74AUC1G74 U?
 U 2 1 5D854F77
@@ -1121,7 +1110,7 @@ AR Path="/5DC89E19/5D396E91/5D854F77" Ref="U25"  Part="2"
 AR Path="/5DF75CDE/5D854F77" Ref="U13"  Part="2" 
 F 0 "U13" H 5700 7800 50  0000 L CNN
 F 1 "74AUC1G74" H 5600 7700 50  0000 L CNN
-F 2 "Package_SO:TSSOP-8_3x3mm_P0.65mm" H 6250 7450 50  0001 C CNN
+F 2 "alexios:TSSOP-8_3x3mm_P0.65mm" H 6250 7450 50  0001 C CNN
 F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 6250 7450 50  0001 C CNN
 	2    5800 7450
 	1    0    0    -1  
@@ -1273,7 +1262,7 @@ AR Path="/5DC89E19/5D396E91/5D883250" Ref="U24"  Part="2"
 AR Path="/5DF75CDE/5D883250" Ref="U41"  Part="2" 
 F 0 "U41" H 3900 7800 50  0000 L CNN
 F 1 "74LVC2G157" H 3800 7700 50  0000 L CNN
-F 2 "Package_SO:TSSOP-8_3x3mm_P0.65mm" H 3900 7575 50  0001 C CNN
+F 2 "alexios:TSSOP-8_3x3mm_P0.65mm" H 3900 7575 50  0001 C CNN
 F 3 "http://www.ti.com/lit/ds/symlink/sn74lvc2g157.pdf" H 3900 7575 50  0001 C CNN
 	2    4000 7450
 	1    0    0    -1  
@@ -1291,7 +1280,7 @@ AR Path="/5DC89E19/5D396E91/5D88ED05" Ref="C5"  Part="1"
 AR Path="/5DF75CDE/5D88ED05" Ref="C10"  Part="1" 
 F 0 "C10" H 850 6650 50  0000 R CNN
 F 1 "100nF" H 900 6550 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 950 6650 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 950 6650 50  0001 C CNN
 F 3 "~" H 950 6650 50  0001 C CNN
 	1    950  6650
 	1    0    0    -1  
@@ -1345,7 +1334,7 @@ AR Path="/5DC89E19/5D396E91/5D8A6EF3" Ref="C6"  Part="1"
 AR Path="/5DF75CDE/5D8A6EF3" Ref="C11"  Part="1" 
 F 0 "C11" H 1750 6550 50  0000 R CNN
 F 1 "100nF" H 1750 6450 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 1850 6650 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1850 6650 50  0001 C CNN
 F 3 "~" H 1850 6650 50  0001 C CNN
 	1    1850 6650
 	1    0    0    -1  
@@ -1501,7 +1490,7 @@ AR Path="/5DC89E19/5D396E91/5D959194" Ref="C7"  Part="1"
 AR Path="/5DF75CDE/5D959194" Ref="C12"  Part="1" 
 F 0 "C12" H 2650 6550 50  0000 R CNN
 F 1 "100nF" H 2650 6450 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 2750 6650 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2750 6650 50  0001 C CNN
 F 3 "~" H 2750 6650 50  0001 C CNN
 	1    2750 6650
 	1    0    0    -1  
@@ -1519,7 +1508,7 @@ AR Path="/5DC89E19/5D396E91/5D9648DE" Ref="C8"  Part="1"
 AR Path="/5DF75CDE/5D9648DE" Ref="C13"  Part="1" 
 F 0 "C13" H 3550 6550 50  0000 R CNN
 F 1 "100nF" H 3550 6450 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 3650 6650 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3650 6650 50  0001 C CNN
 F 3 "~" H 3650 6650 50  0001 C CNN
 	1    3650 6650
 	1    0    0    -1  
@@ -1537,7 +1526,7 @@ AR Path="/5DC89E19/5D396E91/5D96FFA9" Ref="C9"  Part="1"
 AR Path="/5DF75CDE/5D96FFA9" Ref="C14"  Part="1" 
 F 0 "C14" H 4450 6550 50  0000 R CNN
 F 1 "100nF" H 4450 6450 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 4550 6650 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 4550 6650 50  0001 C CNN
 F 3 "~" H 4550 6650 50  0001 C CNN
 	1    4550 6650
 	1    0    0    -1  
@@ -1561,7 +1550,7 @@ AR Path="/5DC89E19/5D396E91/5D9EF8EE" Ref="C11"  Part="1"
 AR Path="/5DF75CDE/5D9EF8EE" Ref="C16"  Part="1" 
 F 0 "C16" H 859 7496 50  0000 R CNN
 F 1 "100nF" H 859 7405 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 950 7450 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 950 7450 50  0001 C CNN
 F 3 "~" H 950 7450 50  0001 C CNN
 	1    950  7450
 	1    0    0    -1  
@@ -1613,7 +1602,7 @@ AR Path="/5DC89E19/5D396E91/5D9FA61C" Ref="C12"  Part="1"
 AR Path="/5DF75CDE/5D9FA61C" Ref="C17"  Part="1" 
 F 0 "C17" H 1759 7496 50  0000 R CNN
 F 1 "100nF" H 1759 7405 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 1850 7450 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1850 7450 50  0001 C CNN
 F 3 "~" H 1850 7450 50  0001 C CNN
 	1    1850 7450
 	1    0    0    -1  
@@ -1665,7 +1654,7 @@ AR Path="/5DC89E19/5D396E91/5DA05823" Ref="C13"  Part="1"
 AR Path="/5DF75CDE/5DA05823" Ref="C18"  Part="1" 
 F 0 "C18" H 2659 7496 50  0000 R CNN
 F 1 "100nF" H 2659 7405 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 2750 7450 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2750 7450 50  0001 C CNN
 F 3 "~" H 2750 7450 50  0001 C CNN
 	1    2750 7450
 	1    0    0    -1  
@@ -1717,7 +1706,7 @@ AR Path="/5DC89E19/5D396E91/5DA108F0" Ref="C14"  Part="1"
 AR Path="/5DF75CDE/5DA108F0" Ref="C19"  Part="1" 
 F 0 "C19" H 3559 7496 50  0000 R CNN
 F 1 "100nF" H 3559 7405 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 3650 7450 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3650 7450 50  0001 C CNN
 F 3 "~" H 3650 7450 50  0001 C CNN
 	1    3650 7450
 	1    0    0    -1  
@@ -1769,7 +1758,7 @@ AR Path="/5DC89E19/5D396E91/5DA1B925" Ref="C15"  Part="1"
 AR Path="/5DF75CDE/5DA1B925" Ref="C20"  Part="1" 
 F 0 "C20" H 4459 7496 50  0000 R CNN
 F 1 "100nF" H 4459 7405 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 4550 7450 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 4550 7450 50  0001 C CNN
 F 3 "~" H 4550 7450 50  0001 C CNN
 	1    4550 7450
 	1    0    0    -1  
@@ -1821,7 +1810,7 @@ AR Path="/5DC89E19/5D396E91/5DA26793" Ref="C16"  Part="1"
 AR Path="/5DF75CDE/5DA26793" Ref="C21"  Part="1" 
 F 0 "C21" H 5359 7496 50  0000 R CNN
 F 1 "100nF" H 5359 7405 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 5450 7450 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5450 7450 50  0001 C CNN
 F 3 "~" H 5450 7450 50  0001 C CNN
 	1    5450 7450
 	1    0    0    -1  
@@ -1873,7 +1862,7 @@ AR Path="/5DC89E19/5D396E91/5DA3CE64" Ref="C10"  Part="1"
 AR Path="/5DF75CDE/5DA3CE64" Ref="C15"  Part="1" 
 F 0 "C15" H 5359 6696 50  0000 R CNN
 F 1 "100nF" H 5359 6605 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 5450 6650 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5450 6650 50  0001 C CNN
 F 3 "~" H 5450 6650 50  0001 C CNN
 	1    5450 6650
 	1    0    0    -1  
@@ -1959,25 +1948,6 @@ Wire Wire Line
 Wire Wire Line
 	7300 4700 10650 4700
 NoConn ~ 10100 6300
-Wire Wire Line
-	10250 6300 10300 6300
-Wire Wire Line
-	10250 6250 10250 6300
-$Comp
-L power:+5V #PWR?
-U 1 1 5DB9EE60
-P 10250 6250
-AR Path="/6A313729/5DB9EE60" Ref="#PWR?"  Part="1" 
-AR Path="/5DC89E19/5D0A147D/5DB9EE60" Ref="#PWR?"  Part="1" 
-AR Path="/5DC89E19/5D396E91/5DB9EE60" Ref="#PWR017"  Part="1" 
-AR Path="/5DF75CDE/5DB9EE60" Ref="#PWR0164"  Part="1" 
-F 0 "#PWR0164" H 10250 6100 50  0001 C CNN
-F 1 "+5V" H 10265 6423 50  0000 C CNN
-F 2 "" H 10250 6250 50  0001 C CNN
-F 3 "" H 10250 6250 50  0001 C CNN
-	1    10250 6250
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	9500 6300 9550 6300
 Wire Wire Line
@@ -2098,6 +2068,73 @@ Text Notes 8350 4550 0    50   ~ 0
 The IBus isn't used while the SRU is running, and remains\ntri-stated by the rest of the processor. Currently, the SRU\ninstruction just does nothing for a few processor cycles to\nmake sure.
 Text Notes 1600 5800 0    50   ~ 0
 This can theoretically cause glitches,\nbut probably not due to the way the\nControl Unit and instruction set are\ndesigned.
+$Comp
+L Connector:TestPoint TP9
+U 1 1 5DCF40D7
+P 3450 2300
+F 0 "TP9" H 3450 2550 50  0000 C CNN
+F 1 "TestPoint" H 3508 2327 50  0001 L CNN
+F 2 "TestPoint:TestPoint_Keystone_5000-5004_Miniature" H 3650 2300 50  0001 C CNN
+F 3 "~" H 3650 2300 50  0001 C CNN
+	1    3450 2300
+	1    0    0    -1  
+$EndComp
+Connection ~ 3450 2300
+$Comp
+L Connector:TestPoint TP11
+U 1 1 5DCF509A
+P 3450 2750
+F 0 "TP11" H 3450 3000 50  0000 C CNN
+F 1 "TestPoint" H 3508 2777 50  0001 L CNN
+F 2 "TestPoint:TestPoint_Keystone_5000-5004_Miniature" H 3650 2750 50  0001 C CNN
+F 3 "~" H 3650 2750 50  0001 C CNN
+	1    3450 2750
+	-1   0    0    1   
+$EndComp
+Connection ~ 3450 2750
+$Comp
+L Connector:TestPoint TP12
+U 1 1 5DCF567D
+P 10000 5500
+F 0 "TP12" H 10000 5750 50  0000 C CNN
+F 1 "TestPoint" H 10058 5527 50  0001 L CNN
+F 2 "TestPoint:TestPoint_Keystone_5000-5004_Miniature" H 10200 5500 50  0001 C CNN
+F 3 "~" H 10200 5500 50  0001 C CNN
+	1    10000 5500
+	1    0    0    -1  
+$EndComp
+Connection ~ 4050 2500
+Wire Wire Line
+	4050 2500 4400 2500
+Connection ~ 10000 5500
+Wire Wire Line
+	10000 5500 10650 5500
+$Comp
+L Connector:TestPoint TP10
+U 1 1 5DCF82BB
+P 4050 2500
+F 0 "TP10" H 4050 2750 50  0000 C CNN
+F 1 "TestPoint" H 4108 2527 50  0001 L CNN
+F 2 "TestPoint:TestPoint_Keystone_5000-5004_Miniature" H 4250 2500 50  0001 C CNN
+F 3 "~" H 4250 2500 50  0001 C CNN
+	1    4050 2500
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR0110
+U 1 1 5DD25E1C
+P 10300 6300
+F 0 "#PWR0110" H 10300 6050 50  0001 C CNN
+F 1 "GND" H 10305 6127 50  0000 C CNN
+F 2 "" H 10300 6300 50  0001 C CNN
+F 3 "" H 10300 6300 50  0001 C CNN
+	1    10300 6300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5900 3800 5900 4200
+Wire Wire Line
+	8000 4200 5900 4200
 Wire Bus Line
 	4400 1100 4400 1800
 Wire Bus Line
@@ -2108,4 +2145,9 @@ Wire Bus Line
 	10050 1100 10050 3800
 Wire Bus Line
 	6100 950  6100 4700
+Connection ~ 5900 4200
+Wire Wire Line
+	5900 4200 5900 5400
+Text Label 6500 4200 2    50   ~ 0
+TC
 $EndSCHEMATC

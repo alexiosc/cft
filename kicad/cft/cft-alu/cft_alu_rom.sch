@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:cft-alu-cache
-EELAYER 30 0
+EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -47,26 +47,17 @@ Wire Wire Line
 $Comp
 L power:GND #PWR?
 U 1 1 5E195CBC
-P 2050 3350
+P 1650 3350
 AR Path="/5DC89E19/5E195CBC" Ref="#PWR?"  Part="1" 
 AR Path="/5DC89E19/5E18A3E1/5E195CBC" Ref="#PWR066"  Part="1" 
 AR Path="/5DE3C078/5E195CBC" Ref="#PWR0107"  Part="1" 
-F 0 "#PWR0107" H 2050 3100 50  0001 C CNN
-F 1 "GND" H 2055 3177 50  0000 C CNN
-F 2 "" H 2050 3350 50  0001 C CNN
-F 3 "" H 2050 3350 50  0001 C CNN
-	1    2050 3350
+F 0 "#PWR0107" H 1650 3100 50  0001 C CNN
+F 1 "GND" H 1655 3177 50  0000 C CNN
+F 2 "" H 1650 3350 50  0001 C CNN
+F 3 "" H 1650 3350 50  0001 C CNN
+	1    1650 3350
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	2100 3200 2050 3200
-Wire Wire Line
-	2050 3200 2050 3300
-Wire Wire Line
-	2100 3300 2050 3300
-Connection ~ 2050 3300
-Wire Wire Line
-	2050 3300 2050 3350
 Text Label 1750 2700 0    50   ~ 0
 FL-IN
 Wire Wire Line
@@ -109,29 +100,6 @@ Wire Wire Line
 	4750 1900 4300 1900
 Wire Wire Line
 	4750 2000 4300 2000
-$Comp
-L power:GND #PWR?
-U 1 1 5E195D0A
-P 4700 3350
-AR Path="/5DC89E19/5E195D0A" Ref="#PWR?"  Part="1" 
-AR Path="/5DC89E19/5E18A3E1/5E195D0A" Ref="#PWR067"  Part="1" 
-AR Path="/5DE3C078/5E195D0A" Ref="#PWR0110"  Part="1" 
-F 0 "#PWR0110" H 4700 3100 50  0001 C CNN
-F 1 "GND" H 4705 3177 50  0000 C CNN
-F 2 "" H 4700 3350 50  0001 C CNN
-F 3 "" H 4700 3350 50  0001 C CNN
-	1    4700 3350
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	4750 3200 4700 3200
-Wire Wire Line
-	4700 3200 4700 3300
-Wire Wire Line
-	4750 3300 4700 3300
-Connection ~ 4700 3300
-Wire Wire Line
-	4700 3300 4700 3350
 Text Label 4400 2700 0    50   ~ 0
 C0
 Wire Wire Line
@@ -203,39 +171,6 @@ Wire Wire Line
 Wire Wire Line
 	7400 1800 6950 1800
 Wire Wire Line
-	7400 3000 7350 3000
-Wire Wire Line
-	7350 3000 7350 3100
-$Comp
-L power:GND #PWR?
-U 1 1 5E195D57
-P 7350 3350
-AR Path="/5DC89E19/5E195D57" Ref="#PWR?"  Part="1" 
-AR Path="/5DC89E19/5E18A3E1/5E195D57" Ref="#PWR068"  Part="1" 
-AR Path="/5DE3C078/5E195D57" Ref="#PWR0113"  Part="1" 
-F 0 "#PWR0113" H 7350 3100 50  0001 C CNN
-F 1 "GND" H 7355 3177 50  0000 C CNN
-F 2 "" H 7350 3350 50  0001 C CNN
-F 3 "" H 7350 3350 50  0001 C CNN
-	1    7350 3350
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	7400 3100 7350 3100
-Connection ~ 7350 3100
-Wire Wire Line
-	7350 3100 7350 3200
-Wire Wire Line
-	7400 3200 7350 3200
-Connection ~ 7350 3200
-Wire Wire Line
-	7350 3200 7350 3300
-Wire Wire Line
-	7400 3300 7350 3300
-Connection ~ 7350 3300
-Wire Wire Line
-	7350 3300 7350 3350
-Wire Wire Line
 	8500 1500 9200 1500
 Wire Wire Line
 	8500 1600 9200 1600
@@ -261,16 +196,6 @@ Wire Wire Line
 	6300 2100 6300 2300
 Wire Wire Line
 	5850 2100 6300 2100
-Wire Wire Line
-	7400 2800 7350 2800
-Wire Wire Line
-	7350 2800 7350 2900
-Connection ~ 7350 3000
-Wire Wire Line
-	7400 2900 7350 2900
-Connection ~ 7350 2900
-Wire Wire Line
-	7350 2900 7350 3000
 Text Label 8550 1500 0    50   ~ 0
 Y12
 Text Label 8550 1600 0    50   ~ 0
@@ -561,7 +486,7 @@ AR Path="/5DC89E19/5E18A3E1/5E42E1EE" Ref="C23"  Part="1"
 AR Path="/5DE3C078/5E42E1EE" Ref="C3"  Part="1" 
 F 0 "C3" H 809 7396 50  0000 R CNN
 F 1 "100nF" H 809 7305 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 900 7350 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 900 7350 50  0001 C CNN
 F 3 "~" H 900 7350 50  0001 C CNN
 	1    900  7350
 	1    0    0    -1  
@@ -632,7 +557,7 @@ AR Path="/5DC89E19/5E18A3E1/5E434AC6" Ref="C24"  Part="1"
 AR Path="/5DE3C078/5E434AC6" Ref="C4"  Part="1" 
 F 0 "C4" H 2059 7396 50  0000 R CNN
 F 1 "100nF" H 2059 7305 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 2150 7350 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2150 7350 50  0001 C CNN
 F 3 "~" H 2150 7350 50  0001 C CNN
 	1    2150 7350
 	1    0    0    -1  
@@ -703,7 +628,7 @@ AR Path="/5DC89E19/5E18A3E1/5E43A775" Ref="C25"  Part="1"
 AR Path="/5DE3C078/5E43A775" Ref="C5"  Part="1" 
 F 0 "C5" H 3359 7396 50  0000 R CNN
 F 1 "100nF" H 3359 7305 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 3450 7350 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3450 7350 50  0001 C CNN
 F 3 "~" H 3450 7350 50  0001 C CNN
 	1    3450 7350
 	1    0    0    -1  
@@ -804,8 +729,6 @@ Text Label 8550 2100 0    50   ~ 0
 FLOUT
 Text Label 8550 1900 0    50   ~ 0
 FVOUT
-Wire Wire Line
-	2100 2800 950  2800
 Text HLabel 950  2800 0    50   Input ~ 0
 X-IN
 Text Label 1750 2800 0    50   ~ 0
@@ -888,8 +811,6 @@ Text Label 7050 2100 0    50   ~ 0
 B14
 Text Label 7050 2200 0    50   ~ 0
 B15
-Text Notes 850  3900 0    50   ~ 0
-X-IN is reserved for future expansion, but wired to allow this. It can be\ncascaded like carry using X0 and X1, or independent of them.
 $Comp
 L alexios:74HC541 U34
 U 1 1 5DC85DD2
@@ -1088,22 +1009,6 @@ Entry Wire Line
 	7050 4600 7150 4700
 Entry Wire Line
 	7050 4700 7150 4800
-Text Label 7200 4100 0    50   ~ 0
-Y0
-Text Label 7200 4200 0    50   ~ 0
-Y1
-Text Label 7200 4300 0    50   ~ 0
-Y2
-Text Label 7200 4400 0    50   ~ 0
-Y3
-Text Label 7200 4500 0    50   ~ 0
-Y4
-Text Label 7200 4600 0    50   ~ 0
-Y5
-Text Label 7200 4700 0    50   ~ 0
-Y6
-Text Label 7200 4800 0    50   ~ 0
-Y7
 $Comp
 L power:GND #PWR0178
 U 1 1 5DCDF750
@@ -1263,7 +1168,7 @@ AR Path="/5DC89E19/5E18A3E1/5E1F0362" Ref="C?"  Part="1"
 AR Path="/5DE3C078/5E1F0362" Ref="C24"  Part="1" 
 F 0 "C24" H 4609 7396 50  0000 R CNN
 F 1 "100nF" H 4609 7305 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 4700 7350 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 4700 7350 50  0001 C CNN
 F 3 "~" H 4700 7350 50  0001 C CNN
 	1    4700 7350
 	1    0    0    -1  
@@ -1331,7 +1236,7 @@ AR Path="/5DC89E19/5E18A3E1/5E1F960A" Ref="C?"  Part="1"
 AR Path="/5DE3C078/5E1F960A" Ref="C25"  Part="1" 
 F 0 "C25" H 5909 7396 50  0000 R CNN
 F 1 "100nF" H 5909 7305 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 6000 7350 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 6000 7350 50  0001 C CNN
 F 3 "~" H 6000 7350 50  0001 C CNN
 	1    6000 7350
 	1    0    0    -1  
@@ -1390,38 +1295,247 @@ Text Label 8550 2000 0    50   ~ 0
 ~SETV
 Text Label 8550 2200 0    50   ~ 0
 ~SETL
-Wire Bus Line
-	6400 5800 10200 5800
-Wire Bus Line
-	950  1000 6550 1000
-Wire Bus Line
-	1350 850  6750 850 
-Wire Bus Line
-	3900 3700 9200 3700
-Wire Bus Line
-	6650 1100 6650 2100
-Wire Bus Line
-	6850 950  6850 1700
-Wire Bus Line
-	9300 1600 9300 3600
-Wire Bus Line
-	1550 950  1550 1900
-Wire Bus Line
-	1350 1100 1350 2500
-Wire Bus Line
-	4200 950  4200 1900
-Wire Bus Line
-	4000 1100 4000 2500
-Wire Bus Line
-	3800 1600 3800 3600
-Wire Bus Line
-	6450 1600 6450 3600
+Wire Wire Line
+	1700 3200 1650 3200
+Wire Wire Line
+	1650 3200 1650 3300
+Wire Wire Line
+	1700 3300 1650 3300
+Connection ~ 1650 3300
+Wire Wire Line
+	1650 3300 1650 3350
+Wire Wire Line
+	2000 3200 2100 3200
+Wire Wire Line
+	2000 3300 2100 3300
+$Comp
+L power:GND #PWR?
+U 1 1 5DC6A9F1
+P 4400 3350
+AR Path="/5DC89E19/5DC6A9F1" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5E18A3E1/5DC6A9F1" Ref="#PWR?"  Part="1" 
+AR Path="/5DE3C078/5DC6A9F1" Ref="#PWR05"  Part="1" 
+F 0 "#PWR05" H 4400 3100 50  0001 C CNN
+F 1 "GND" H 4405 3177 50  0000 C CNN
+F 2 "" H 4400 3350 50  0001 C CNN
+F 3 "" H 4400 3350 50  0001 C CNN
+	1    4400 3350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4450 3200 4400 3200
+Wire Wire Line
+	4400 3200 4400 3300
+Wire Wire Line
+	4450 3300 4400 3300
+Connection ~ 4400 3300
+Wire Wire Line
+	4400 3300 4400 3350
+$Comp
+L power:GND #PWR?
+U 1 1 5DC750E4
+P 7050 3350
+AR Path="/5DC89E19/5DC750E4" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5E18A3E1/5DC750E4" Ref="#PWR?"  Part="1" 
+AR Path="/5DE3C078/5DC750E4" Ref="#PWR06"  Part="1" 
+F 0 "#PWR06" H 7050 3100 50  0001 C CNN
+F 1 "GND" H 7055 3177 50  0000 C CNN
+F 2 "" H 7050 3350 50  0001 C CNN
+F 3 "" H 7050 3350 50  0001 C CNN
+	1    7050 3350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7100 3200 7050 3200
+Wire Wire Line
+	7050 3200 7050 3300
+Wire Wire Line
+	7100 3300 7050 3300
+Connection ~ 7050 3300
+Wire Wire Line
+	7050 3300 7050 3350
+Wire Wire Line
+	7050 3200 7050 3100
+Wire Wire Line
+	7050 2800 7100 2800
+Connection ~ 7050 3200
+Wire Wire Line
+	7100 2900 7050 2900
+Connection ~ 7050 2900
+Wire Wire Line
+	7050 2900 7050 2800
+Wire Wire Line
+	7100 3000 7050 3000
+Connection ~ 7050 3000
+Wire Wire Line
+	7050 3000 7050 2900
+Wire Wire Line
+	7100 3100 7050 3100
+Connection ~ 7050 3100
+Wire Wire Line
+	7050 3100 7050 3000
+Text Notes 850  4000 0    50   ~ 0
+X-IN is reserved for future expansion, but wired to allow this. It can be\ncascaded like carry using X0 and X1, or independent of them.\n\nLikewise, the solder jumpers are for future expansion:\ncut the trace to disconnect from ground, patch to another signal.
+$Comp
+L Jumper:SolderJumper_2_Bridged JP6
+U 1 1 5DD4B079
+P 1850 3300
+F 0 "JP6" H 1600 3300 50  0000 R CNN
+F 1 "SolderJumper_2_Bridged" H 1850 3414 50  0001 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 1850 3300 50  0001 C CNN
+F 3 "~" H 1850 3300 50  0001 C CNN
+	1    1850 3300
+	1    0    0    -1  
+$EndComp
+$Comp
+L Jumper:SolderJumper_2_Bridged JP7
+U 1 1 5DD4B2B6
+P 4600 3200
+F 0 "JP7" H 4350 3200 50  0000 R CNN
+F 1 "SolderJumper_2_Bridged" H 4600 3314 50  0001 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 4600 3200 50  0001 C CNN
+F 3 "~" H 4600 3200 50  0001 C CNN
+	1    4600 3200
+	1    0    0    -1  
+$EndComp
+$Comp
+L Jumper:SolderJumper_2_Bridged JP8
+U 1 1 5DD4B50E
+P 4600 3300
+F 0 "JP8" H 4350 3300 50  0000 R CNN
+F 1 "SolderJumper_2_Bridged" H 4600 3414 50  0001 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 4600 3300 50  0001 C CNN
+F 3 "~" H 4600 3300 50  0001 C CNN
+	1    4600 3300
+	1    0    0    -1  
+$EndComp
+$Comp
+L Jumper:SolderJumper_2_Bridged JP9
+U 1 1 5DD4D377
+P 7250 2800
+F 0 "JP9" H 7000 2800 50  0000 R CNN
+F 1 "SolderJumper_2_Bridged" H 7250 2914 50  0001 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 7250 2800 50  0001 C CNN
+F 3 "~" H 7250 2800 50  0001 C CNN
+	1    7250 2800
+	1    0    0    -1  
+$EndComp
+$Comp
+L Jumper:SolderJumper_2_Bridged JP10
+U 1 1 5DD4D37D
+P 7250 2900
+F 0 "JP10" H 7000 2900 50  0000 R CNN
+F 1 "SolderJumper_2_Bridged" H 7250 3014 50  0001 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 7250 2900 50  0001 C CNN
+F 3 "~" H 7250 2900 50  0001 C CNN
+	1    7250 2900
+	1    0    0    -1  
+$EndComp
+$Comp
+L Jumper:SolderJumper_2_Bridged JP11
+U 1 1 5DD574F3
+P 7250 3000
+F 0 "JP11" H 7000 3000 50  0000 R CNN
+F 1 "SolderJumper_2_Bridged" H 7250 3114 50  0001 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 7250 3000 50  0001 C CNN
+F 3 "~" H 7250 3000 50  0001 C CNN
+	1    7250 3000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Jumper:SolderJumper_2_Bridged JP12
+U 1 1 5DD574F9
+P 7250 3100
+F 0 "JP12" H 7000 3100 50  0000 R CNN
+F 1 "SolderJumper_2_Bridged" H 7250 3214 50  0001 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 7250 3100 50  0001 C CNN
+F 3 "~" H 7250 3100 50  0001 C CNN
+	1    7250 3100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Jumper:SolderJumper_2_Bridged JP13
+U 1 1 5DD61519
+P 7250 3200
+F 0 "JP13" H 7000 3200 50  0000 R CNN
+F 1 "SolderJumper_2_Bridged" H 7250 3314 50  0001 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 7250 3200 50  0001 C CNN
+F 3 "~" H 7250 3200 50  0001 C CNN
+	1    7250 3200
+	1    0    0    -1  
+$EndComp
+$Comp
+L Jumper:SolderJumper_2_Bridged JP14
+U 1 1 5DD6151F
+P 7250 3300
+F 0 "JP14" H 7000 3300 50  0000 R CNN
+F 1 "SolderJumper_2_Bridged" H 7250 3414 50  0001 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 7250 3300 50  0001 C CNN
+F 3 "~" H 7250 3300 50  0001 C CNN
+	1    7250 3300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	950  2800 2100 2800
 Wire Bus Line
 	4400 3800 4400 4700
 Wire Bus Line
-	7050 3800 7050 4700
-Wire Bus Line
 	6300 4200 6300 5700
 Wire Bus Line
+	7050 3800 7050 4700
+Wire Bus Line
 	8950 4200 8950 5700
+Wire Bus Line
+	6450 1600 6450 3600
+Wire Bus Line
+	3800 1600 3800 3600
+Wire Bus Line
+	4000 1100 4000 2500
+Wire Bus Line
+	4200 950  4200 1900
+Wire Bus Line
+	1350 1100 1350 2500
+Wire Bus Line
+	1550 950  1550 1900
+Wire Bus Line
+	6850 950  6850 1700
+Wire Bus Line
+	6650 1100 6650 2100
+Wire Bus Line
+	9300 1600 9300 3600
+Wire Bus Line
+	3900 3700 9200 3700
+Wire Bus Line
+	1350 850  6750 850 
+Wire Bus Line
+	950  1000 6550 1000
+Wire Bus Line
+	6400 5800 10200 5800
+$Comp
+L Jumper:SolderJumper_2_Bridged JP5
+U 1 1 5DC249EA
+P 1850 3200
+F 0 "JP5" H 1600 3200 50  0000 R CNN
+F 1 "SolderJumper_2_Bridged" H 1850 3314 50  0001 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 1850 3200 50  0001 C CNN
+F 3 "~" H 1850 3200 50  0001 C CNN
+	1    1850 3200
+	1    0    0    -1  
+$EndComp
+Text Label 7200 4100 0    50   ~ 0
+Y8
+Text Label 7200 4200 0    50   ~ 0
+Y9
+Text Label 7200 4300 0    50   ~ 0
+Y10
+Text Label 7200 4400 0    50   ~ 0
+Y11
+Text Label 7200 4500 0    50   ~ 0
+Y12
+Text Label 7200 4600 0    50   ~ 0
+Y13
+Text Label 7200 4700 0    50   ~ 0
+Y14
+Text Label 7200 4800 0    50   ~ 0
+Y15
 $EndSCHEMATC
