@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:cft-alu-cache
-EELAYER 30 0
+EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -384,7 +384,7 @@ Wire Wire Line
 Wire Wire Line
 	9650 5150 10000 5150
 Wire Wire Line
-	9650 2550 10000 2550
+	9650 2350 10000 2350
 NoConn ~ 7950 1650
 NoConn ~ 7950 1850
 NoConn ~ 7950 2050
@@ -410,39 +410,15 @@ NoConn ~ 7950 4650
 Text Notes 7100 7000 0    197  ~ 39
 Arithmetic & Logic (ALU)
 Wire Wire Line
-	9650 2450 10000 2450
-Wire Wire Line
-	9650 2650 10000 2650
-Wire Wire Line
-	9650 2750 10000 2750
-Wire Wire Line
-	9650 2850 10000 2850
-Wire Wire Line
-	9650 2950 10000 2950
-Wire Wire Line
-	9650 3050 10000 3050
-Wire Wire Line
-	9650 3150 10000 3150
-NoConn ~ 10000 3350
-NoConn ~ 10000 3250
-NoConn ~ 10000 3150
+	9650 2250 10000 2250
 Wire Wire Line
 	9650 3450 10000 3450
 Wire Wire Line
-	9650 3350 10000 3350
-Wire Wire Line
-	9650 3250 10000 3250
-Wire Wire Line
-	9650 2350 10000 2350
+	9650 2150 10000 2150
 NoConn ~ 10000 3450
 Wire Wire Line
 	9650 3550 10000 3550
 NoConn ~ 10000 3550
-NoConn ~ 10000 2650
-NoConn ~ 10000 2750
-NoConn ~ 10000 2850
-NoConn ~ 10000 2950
-NoConn ~ 10000 3050
 Wire Wire Line
 	9650 1450 10000 1450
 Wire Wire Line
@@ -491,15 +467,15 @@ Wire Bus Line
 	10200 1200 10500 1200
 Text Label 10500 1200 2    50   ~ 0
 IR[0..6]
-Text Label 10000 2550 2    50   ~ 0
-~FLAGWE
 Text Label 10000 2350 2    50   ~ 0
+~FLAGWE
+Text Label 10000 2150 2    50   ~ 0
 FL
-Text Label 10000 2450 2    50   ~ 0
+Text Label 10000 2250 2    50   ~ 0
 FV
-Text Notes 10200 2350 0    50   ~ 0
+Text Notes 10200 2150 0    50   ~ 0
 → Control Unit
-Text Notes 10200 2450 0    50   ~ 0
+Text Notes 10200 2250 0    50   ~ 0
 → Control Unit
 Text Notes 10200 2050 0    50   ~ 0
 ← Control Unit
@@ -1044,10 +1020,9 @@ Text Label 4050 1950 2    50   ~ 0
 Text Label 4050 2050 2    50   ~ 0
 ~ACTION-110
 Wire Wire Line
-	5400 1650 4900 1650
+	5400 1650 5250 1650
 Text Label 4900 1650 0    50   ~ 0
 X-IN
-NoConn ~ 4900 1650
 Text Notes 2400 2250 0    70   ~ 14
 Verilog
 Text Notes 3100 3600 2    70   ~ 14
@@ -1085,7 +1060,7 @@ AR Path="/5DC89E19/5D98F946/5E2E742A" Ref="C?"  Part="1"
 AR Path="/5D121AA3/5E2E742A" Ref="C?"  Part="1" 
 F 0 "C33" H 5559 7396 50  0000 R CNN
 F 1 "100nF" H 5559 7305 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 5650 7350 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5650 7350 50  0001 C CNN
 F 3 "~" H 5650 7350 50  0001 C CNN
 	1    5650 7350
 	1    0    0    -1  
@@ -1128,14 +1103,8 @@ F 3 "" H 5650 7250 50  0001 C CNN
 $EndComp
 Connection ~ 5650 7250
 Connection ~ 5650 7450
-Text Notes 10200 2550 0    50   ~ 0
+Text Notes 10200 2350 0    50   ~ 0
 ← Control Unit
-Wire Wire Line
-	9650 2150 10000 2150
-Wire Wire Line
-	9650 2250 10000 2250
-NoConn ~ 10000 2150
-NoConn ~ 10000 2250
 Wire Wire Line
 	9650 5250 10000 5250
 Wire Wire Line
@@ -1148,16 +1117,195 @@ NoConn ~ 7950 4150
 Wire Wire Line
 	8500 4250 7950 4250
 NoConn ~ 7950 4250
-Wire Bus Line
-	800  4100 2350 4100
-Wire Bus Line
-	7150 1200 7150 4450
-Wire Bus Line
-	10100 1300 10100 1950
-Wire Bus Line
-	10100 3450 10100 5050
 Text Label 7950 4150 0    50   ~ 0
 ~RUEN
 Text Label 7950 4250 0    50   ~ 0
 ~WUEN
+$Comp
+L Connector:TestPoint TP1
+U 1 1 5DCAA8B1
+P 10000 2450
+F 0 "TP1" V 10000 2638 50  0000 L CNN
+F 1 "TestPoint" V 10045 2638 50  0001 L CNN
+F 2 "TestPoint:TestPoint_Keystone_5000-5004_Miniature" H 10200 2450 50  0001 C CNN
+F 3 "~" H 10200 2450 50  0001 C CNN
+	1    10000 2450
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	9650 2450 10000 2450
+Wire Wire Line
+	9650 2550 10000 2550
+Wire Wire Line
+	9650 2650 10000 2650
+Wire Wire Line
+	9650 2750 10000 2750
+Wire Wire Line
+	9650 2850 10000 2850
+Wire Wire Line
+	9650 2950 10000 2950
+Wire Wire Line
+	9650 3250 10000 3250
+Wire Wire Line
+	9650 3350 10000 3350
+$Comp
+L Connector:TestPoint TP2
+U 1 1 5DCF8FE6
+P 10000 2550
+F 0 "TP2" V 10000 2738 50  0000 L CNN
+F 1 "TestPoint" V 10045 2738 50  0001 L CNN
+F 2 "TestPoint:TestPoint_Keystone_5000-5004_Miniature" H 10200 2550 50  0001 C CNN
+F 3 "~" H 10200 2550 50  0001 C CNN
+	1    10000 2550
+	0    1    1    0   
+$EndComp
+$Comp
+L Connector:TestPoint TP3
+U 1 1 5DCF9313
+P 10000 2650
+F 0 "TP3" V 10000 2838 50  0000 L CNN
+F 1 "TestPoint" V 10045 2838 50  0001 L CNN
+F 2 "TestPoint:TestPoint_Keystone_5000-5004_Miniature" H 10200 2650 50  0001 C CNN
+F 3 "~" H 10200 2650 50  0001 C CNN
+	1    10000 2650
+	0    1    1    0   
+$EndComp
+$Comp
+L Connector:TestPoint TP4
+U 1 1 5DCFA888
+P 10000 2750
+F 0 "TP4" V 10000 2938 50  0000 L CNN
+F 1 "TestPoint" V 10045 2938 50  0001 L CNN
+F 2 "TestPoint:TestPoint_Keystone_5000-5004_Miniature" H 10200 2750 50  0001 C CNN
+F 3 "~" H 10200 2750 50  0001 C CNN
+	1    10000 2750
+	0    1    1    0   
+$EndComp
+$Comp
+L Connector:TestPoint TP5
+U 1 1 5DCFA88E
+P 10000 2850
+F 0 "TP5" V 10000 3038 50  0000 L CNN
+F 1 "TestPoint" V 10045 3038 50  0001 L CNN
+F 2 "TestPoint:TestPoint_Keystone_5000-5004_Miniature" H 10200 2850 50  0001 C CNN
+F 3 "~" H 10200 2850 50  0001 C CNN
+	1    10000 2850
+	0    1    1    0   
+$EndComp
+$Comp
+L Connector:TestPoint TP6
+U 1 1 5DCFA894
+P 10000 2950
+F 0 "TP6" V 10000 3138 50  0000 L CNN
+F 1 "TestPoint" V 10045 3138 50  0001 L CNN
+F 2 "TestPoint:TestPoint_Keystone_5000-5004_Miniature" H 10200 2950 50  0001 C CNN
+F 3 "~" H 10200 2950 50  0001 C CNN
+	1    10000 2950
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	9650 3050 10000 3050
+Wire Wire Line
+	9650 3150 10000 3150
+$Comp
+L Connector:TestPoint TP7
+U 1 1 5DD216F9
+P 10000 3050
+F 0 "TP7" V 10000 3238 50  0000 L CNN
+F 1 "TestPoint" V 10045 3238 50  0001 L CNN
+F 2 "TestPoint:TestPoint_Keystone_5000-5004_Miniature" H 10200 3050 50  0001 C CNN
+F 3 "~" H 10200 3050 50  0001 C CNN
+	1    10000 3050
+	0    1    1    0   
+$EndComp
+$Comp
+L Connector:TestPoint TP8
+U 1 1 5DD216FF
+P 10000 3150
+F 0 "TP8" V 10000 3338 50  0000 L CNN
+F 1 "TestPoint" V 10045 3338 50  0001 L CNN
+F 2 "TestPoint:TestPoint_Keystone_5000-5004_Miniature" H 10200 3150 50  0001 C CNN
+F 3 "~" H 10200 3150 50  0001 C CNN
+	1    10000 3150
+	0    1    1    0   
+$EndComp
+NoConn ~ 10000 3250
+NoConn ~ 10000 3350
+Text Notes 10800 2450 3    50   ~ 0
+For ROM Expansion
+$Comp
+L Jumper:SolderJumper_2_Bridged JP?
+U 1 1 5DC7BFB4
+P 4500 1650
+AR Path="/5DE3C078/5DC7BFB4" Ref="JP?"  Part="1" 
+AR Path="/5DC7BFB4" Ref="JP15"  Part="1" 
+F 0 "JP15" H 4500 1763 50  0000 C CNN
+F 1 "SolderJumper_2_Bridged" H 4500 1764 50  0001 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 4500 1650 50  0001 C CNN
+F 3 "~" H 4500 1650 50  0001 C CNN
+	1    4500 1650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5250 2400 5250 1650
+Connection ~ 5250 1650
+$Comp
+L power:GND #PWR0113
+U 1 1 5DC97446
+P 4350 1700
+F 0 "#PWR0113" H 4350 1450 50  0001 C CNN
+F 1 "GND" H 4355 1527 50  0000 C CNN
+F 2 "" H 4350 1700 50  0001 C CNN
+F 3 "" H 4350 1700 50  0001 C CNN
+	1    4350 1700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4650 1650 5250 1650
+Wire Wire Line
+	4350 1650 4350 1700
+$Comp
+L Connector:TestPoint TP?
+U 1 1 5DCDEBA8
+P 9250 6000
+AR Path="/5DF75CDE/5DCDEBA8" Ref="TP?"  Part="1" 
+AR Path="/5DCDEBA8" Ref="TP13"  Part="1" 
+F 0 "TP13" V 9250 6188 50  0000 L CNN
+F 1 "TestPoint" H 9308 6027 50  0001 L CNN
+F 2 "TestPoint:TestPoint_Keystone_5000-5004_Miniature" H 9450 6000 50  0001 C CNN
+F 3 "~" H 9450 6000 50  0001 C CNN
+	1    9250 6000
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	9250 6000 8500 6000
+Text Label 8500 6100 0    50   ~ 0
+~ACTION-110
+Text Label 8500 6000 0    50   ~ 0
+~ACTION-110
+$Comp
+L Connector:TestPoint TP?
+U 1 1 5DCFA7A8
+P 9250 6100
+AR Path="/5DF75CDE/5DCFA7A8" Ref="TP?"  Part="1" 
+AR Path="/5DCFA7A8" Ref="TP14"  Part="1" 
+F 0 "TP14" V 9250 6288 50  0000 L CNN
+F 1 "TestPoint" H 9308 6127 50  0001 L CNN
+F 2 "TestPoint:TestPoint_Keystone_5000-5004_Miniature" H 9450 6100 50  0001 C CNN
+F 3 "~" H 9450 6100 50  0001 C CNN
+	1    9250 6100
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	9250 6100 8500 6100
+Wire Bus Line
+	7150 1200 7150 4450
+Wire Bus Line
+	800  4100 2350 4100
+Wire Bus Line
+	10100 1300 10100 1950
+Wire Bus Line
+	10100 3450 10100 5050
+Text Notes 8500 5850 0    50   ~ 0
+Actions for future expansion
 $EndSCHEMATC

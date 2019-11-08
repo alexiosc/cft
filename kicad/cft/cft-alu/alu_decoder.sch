@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:cft-alu-cache
-EELAYER 30 0
+EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -370,7 +370,7 @@ AR Path="/5D121AA3/5DD30D3D" Ref="C?"  Part="1"
 AR Path="/5E1C970B/5DD30D3D" Ref="C40"  Part="1" 
 F 0 "C40" H 959 7396 50  0000 R CNN
 F 1 "100nF" H 959 7305 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 1050 7350 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1050 7350 50  0001 C CNN
 F 3 "~" H 1050 7350 50  0001 C CNN
 	1    1050 7350
 	1    0    0    -1  
@@ -444,7 +444,7 @@ AR Path="/5D121AA3/5DD377BE" Ref="C?"  Part="1"
 AR Path="/5E1C970B/5DD377BE" Ref="C41"  Part="1" 
 F 0 "C41" H 2309 7396 50  0000 R CNN
 F 1 "100nF" H 2309 7305 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 2400 7350 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2400 7350 50  0001 C CNN
 F 3 "~" H 2400 7350 50  0001 C CNN
 	1    2400 7350
 	1    0    0    -1  
@@ -502,7 +502,7 @@ AR Path="/5D121AA3/5DD3B114" Ref="C?"  Part="1"
 AR Path="/5E1C970B/5DD3B114" Ref="C42"  Part="1" 
 F 0 "C42" H 3709 7396 50  0000 R CNN
 F 1 "100nF" H 3709 7305 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 3800 7350 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3800 7350 50  0001 C CNN
 F 3 "~" H 3800 7350 50  0001 C CNN
 	1    3800 7350
 	1    0    0    -1  
@@ -560,7 +560,7 @@ AR Path="/5D121AA3/5DD3B12E" Ref="C?"  Part="1"
 AR Path="/5E1C970B/5DD3B12E" Ref="C43"  Part="1" 
 F 0 "C43" H 5059 7396 50  0000 R CNN
 F 1 "100nF" H 5059 7305 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 5150 7350 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5150 7350 50  0001 C CNN
 F 3 "~" H 5150 7350 50  0001 C CNN
 	1    5150 7350
 	1    0    0    -1  
@@ -603,12 +603,6 @@ F 3 "" H 5150 7250 50  0001 C CNN
 	1    5150 7250
 	1    0    0    -1  
 $EndComp
-Wire Bus Line
-	6950 2000 6950 2650
-Wire Bus Line
-	6950 3800 6950 4550
-Wire Bus Line
-	2900 2500 2900 4550
 $Comp
 L alexios:74HC138 U?
 U 2 1 5DD3D389
@@ -657,4 +651,10 @@ F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 5500 7350 50  0001 C CNN
 $EndComp
 Connection ~ 5150 7250
 Connection ~ 5150 7450
+Wire Bus Line
+	6950 2000 6950 2650
+Wire Bus Line
+	6950 3800 6950 4550
+Wire Bus Line
+	2900 2500 2900 4550
 $EndSCHEMATC

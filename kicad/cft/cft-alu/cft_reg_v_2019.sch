@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:cft-alu-cache
-EELAYER 30 0
+EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -14,13 +14,13 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-Text HLabel 10550 3050 2    50   Output ~ 0
+Text HLabel 10750 3050 2    50   Output ~ 0
 FV
 Text Label 8900 3250 2    50   ~ 0
 CLK4
 Text Label 7300 3450 2    50   ~ 0
 ~RESET
-Text Label 9950 3050 0    50   ~ 0
+Text Label 10150 3050 0    50   ~ 0
 FV
 Text Label 7300 3350 2    50   ~ 0
 CLKV
@@ -122,7 +122,7 @@ AR Path="/5D13B20C/5D366A89" Ref="C?"  Part="1"
 AR Path="/5D35C694/5D366A89" Ref="C26"  Part="1" 
 F 0 "C26" H 809 7446 50  0000 R CNN
 F 1 "100nF" H 809 7355 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 900 7400 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 900 7400 50  0001 C CNN
 F 3 "~" H 900 7400 50  0001 C CNN
 	1    900  7400
 	1    0    0    -1  
@@ -183,7 +183,7 @@ AR Path="/5D13B20C/5D366A9B" Ref="C?"  Part="1"
 AR Path="/5D35C694/5D366A9B" Ref="C28"  Part="1" 
 F 0 "C28" H 3709 7446 50  0000 R CNN
 F 1 "100nF" H 3709 7355 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 3800 7400 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3800 7400 50  0001 C CNN
 F 3 "~" H 3800 7400 50  0001 C CNN
 	1    3800 7400
 	1    0    0    -1  
@@ -244,7 +244,7 @@ AR Path="/5D13B20C/5D366AAD" Ref="C?"  Part="1"
 AR Path="/5D35C694/5D366AAD" Ref="C29"  Part="1" 
 F 0 "C29" H 5159 7446 50  0000 R CNN
 F 1 "100nF" H 5159 7355 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 5250 7400 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5250 7400 50  0001 C CNN
 F 3 "~" H 5250 7400 50  0001 C CNN
 	1    5250 7400
 	1    0    0    -1  
@@ -310,7 +310,7 @@ Wire Wire Line
 Wire Wire Line
 	7250 3150 7300 3150
 Wire Wire Line
-	9850 3050 10550 3050
+	10050 3050 10750 3050
 NoConn ~ 9850 3350
 Wire Wire Line
 	8200 3150 8950 3150
@@ -352,7 +352,7 @@ AR Path="/5D13B20C/5D366AF7" Ref="U?"  Part="2"
 AR Path="/5D35C694/5D366AF7" Ref="U24"  Part="2" 
 F 0 "U24" H 1430 7446 50  0000 L CNN
 F 1 "74LVC2G157" H 1430 7355 50  0000 L CNN
-F 2 "Package_SO:TSSOP-8_3x3mm_P0.65mm" H 1150 7525 50  0001 C CNN
+F 2 "alexios:TSSOP-8_3x3mm_P0.65mm" H 1150 7525 50  0001 C CNN
 F 3 "http://www.ti.com/lit/ds/symlink/sn74lvc2g157.pdf" H 1150 7525 50  0001 C CNN
 	2    1250 7400
 	1    0    0    -1  
@@ -407,7 +407,7 @@ AR Path="/5D121AA3/5D880683" Ref="C?"  Part="1"
 AR Path="/5D35C694/5D880683" Ref="C27"  Part="1" 
 F 0 "C27" H 2259 7446 50  0000 R CNN
 F 1 "100nF" H 2259 7355 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 2350 7400 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2350 7400 50  0001 C CNN
 F 3 "~" H 2350 7400 50  0001 C CNN
 	1    2350 7400
 	1    0    0    -1  
@@ -566,7 +566,7 @@ AR Path="/5D13B20C/5D366AE1" Ref="U?"  Part="1"
 AR Path="/5D35C694/5D366AE1" Ref="U24"  Part="1" 
 F 0 "U24" H 3100 3917 50  0000 C CNN
 F 1 "74LVC2G157" H 3100 3826 50  0000 C CNN
-F 2 "Package_SO:TSSOP-8_3x3mm_P0.65mm" H 3000 3675 50  0001 C CNN
+F 2 "alexios:TSSOP-8_3x3mm_P0.65mm" H 3000 3675 50  0001 C CNN
 F 3 "http://www.ti.com/lit/ds/symlink/sn74lvc2g157.pdf" H 3000 3675 50  0001 C CNN
 	1    3100 3550
 	1    0    0    -1  
@@ -787,4 +787,15 @@ F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 2750 6400 50  0001 C CNN
 $EndComp
 Connection ~ 2350 7300
 Connection ~ 2350 7500
+$Comp
+L Device:R_Small R5
+U 1 1 5DD10E8A
+P 9950 3050
+F 0 "R5" V 9754 3050 50  0000 C CNN
+F 1 "30Ω" V 9845 3050 50  0000 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 9950 3050 50  0001 C CNN
+F 3 "~" H 9950 3050 50  0001 C CNN
+	1    9950 3050
+	0    1    1    0   
+$EndComp
 $EndSCHEMATC
