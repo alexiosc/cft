@@ -2434,7 +2434,7 @@ SWA[0..3]
 Text Label 14750 3250 0    50   ~ 0
 SWD[0..3]
 Text Notes 14800 3650 0    50   ~ 0
-Power switch from front pane
+Power switch from front panel
 Wire Wire Line
 	14100 5550 14650 5550
 Text Label 14650 5550 2    50   ~ 0
