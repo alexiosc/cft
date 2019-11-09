@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:cft-alu-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -321,7 +321,7 @@ Wire Wire Line
 Wire Wire Line
 	2850 4300 1800 4300
 Text Label 1950 4400 0    50   ~ 0
-~ROM-SET-VV
+~ROM-SET-V
 Text Label 1950 4300 0    50   ~ 0
 ~FLAGWE
 Wire Wire Line

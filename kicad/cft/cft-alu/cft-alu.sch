@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:cft-alu-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -1298,6 +1298,8 @@ F 3 "~" H 9450 6100 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	9250 6100 8500 6100
+Text Notes 8500 5850 0    50   ~ 0
+Actions for future expansion
 Wire Bus Line
 	7150 1200 7150 4450
 Wire Bus Line
@@ -1306,6 +1308,4 @@ Wire Bus Line
 	10100 1300 10100 1950
 Wire Bus Line
 	10100 3450 10100 5050
-Text Notes 8500 5850 0    50   ~ 0
-Actions for future expansion
 $EndSCHEMATC

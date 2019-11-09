@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:cft-alu-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -27,21 +27,15 @@ Wire Wire Line
 Text Label 1700 2700 2    50   ~ 0
 CLK4
 Wire Wire Line
-	3400 2750 3450 2750
+	3350 2750 3400 2750
 Wire Wire Line
-	2700 2800 2850 2800
+	2700 2800 2800 2800
 Wire Wire Line
-	2700 2350 2850 2350
+	2700 2350 2800 2350
 Wire Wire Line
-	3450 2750 3450 2550
+	3350 2300 3400 2300
 Wire Wire Line
-	3400 2300 3450 2300
-Wire Wire Line
-	3450 2300 3450 2450
-Wire Wire Line
-	3450 2550 3500 2550
-Wire Wire Line
-	3450 2450 3500 2450
+	3400 2300 3400 2450
 $Comp
 L alexios:74AC191 U?
 U 1 1 6A1AE719
@@ -75,7 +69,7 @@ F 3 "" H 4750 2200 50  0001 C CNN
 	0    -1   -1   0   
 $EndComp
 Text Label 4750 2500 2    50   ~ 0
-4CLK
+x4CLK
 Text HLabel 1150 2450 0    50   Input ~ 0
 CLK2
 Text HLabel 1150 2900 0    50   Input ~ 0
@@ -630,7 +624,7 @@ DIST[0..3]
 Wire Wire Line
 	1250 2450 2700 2450
 Wire Wire Line
-	1250 2250 1750 2250
+	1250 2250 1700 2250
 Connection ~ 1250 2250
 Wire Wire Line
 	1250 2250 1250 2450
@@ -638,7 +632,7 @@ Wire Wire Line
 	1250 2900 1250 2700
 Connection ~ 1250 2900
 Wire Wire Line
-	1250 2700 1750 2700
+	1250 2700 1700 2700
 Wire Wire Line
 	1250 2900 2700 2900
 Text HLabel 10650 4700 2    50   Output ~ 0
@@ -894,109 +888,109 @@ $EndComp
 $Comp
 L alexios:74HC04 U?
 U 1 1 5D1EFB24
-P 1950 2250
+P 1900 2250
 AR Path="/6A313729/5D1EFB24" Ref="U?"  Part="1" 
 AR Path="/5DC89E19/5D0A147D/5D1EFB24" Ref="U?"  Part="1" 
 AR Path="/5DC89E19/5D396E91/5D1EFB24" Ref="U11"  Part="1" 
 AR Path="/5DF75CDE/5D1EFB24" Ref="U17"  Part="1" 
-F 0 "U17" H 2025 2517 50  0000 C CNN
-F 1 "74HC04" H 2025 2426 50  0000 C CNN
-F 2 "alexios:SOIC-14" H 1950 2450 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT04.pdf" H 1950 2450 50  0001 C CNN
-	1    1950 2250
+F 0 "U17" H 1975 2517 50  0000 C CNN
+F 1 "74HC04" H 1975 2426 50  0000 C CNN
+F 2 "alexios:SOIC-14" H 1900 2450 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT04.pdf" H 1900 2450 50  0001 C CNN
+	1    1900 2250
 	1    0    0    -1  
 $EndComp
 $Comp
 L alexios:74HC04 U?
 U 2 1 5D1F0919
-P 2500 2250
+P 2450 2250
 AR Path="/6A313729/5D1F0919" Ref="U?"  Part="2" 
 AR Path="/5DC89E19/5D0A147D/5D1F0919" Ref="U?"  Part="2" 
 AR Path="/5DC89E19/5D396E91/5D1F0919" Ref="U11"  Part="2" 
 AR Path="/5DF75CDE/5D1F0919" Ref="U17"  Part="2" 
-F 0 "U17" H 2575 2517 50  0000 C CNN
-F 1 "74HC04" H 2575 2426 50  0000 C CNN
-F 2 "alexios:SOIC-14" H 2500 2450 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT04.pdf" H 2500 2450 50  0001 C CNN
-	2    2500 2250
+F 0 "U17" H 2525 2517 50  0000 C CNN
+F 1 "74HC04" H 2525 2426 50  0000 C CNN
+F 2 "alexios:SOIC-14" H 2450 2450 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT04.pdf" H 2450 2450 50  0001 C CNN
+	2    2450 2250
 	1    0    0    -1  
 $EndComp
 $Comp
 L alexios:74HC04 U?
 U 3 1 5D1F284E
-P 1950 2700
+P 1900 2700
 AR Path="/6A313729/5D1F284E" Ref="U?"  Part="3" 
 AR Path="/5DC89E19/5D0A147D/5D1F284E" Ref="U?"  Part="3" 
 AR Path="/5DC89E19/5D396E91/5D1F284E" Ref="U11"  Part="3" 
 AR Path="/5DF75CDE/5D1F284E" Ref="U17"  Part="3" 
-F 0 "U17" H 2100 2850 50  0000 C CNN
-F 1 "74HC04" H 2025 2876 50  0001 C CNN
-F 2 "alexios:SOIC-14" H 1950 2900 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT04.pdf" H 1950 2900 50  0001 C CNN
-	3    1950 2700
+F 0 "U17" H 2050 2850 50  0000 C CNN
+F 1 "74HC04" H 1975 2876 50  0001 C CNN
+F 2 "alexios:SOIC-14" H 1900 2900 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT04.pdf" H 1900 2900 50  0001 C CNN
+	3    1900 2700
 	1    0    0    -1  
 $EndComp
 $Comp
 L alexios:74HC04 U?
 U 4 1 5D1F2854
-P 2500 2700
+P 2450 2700
 AR Path="/6A313729/5D1F2854" Ref="U?"  Part="4" 
 AR Path="/5DC89E19/5D0A147D/5D1F2854" Ref="U?"  Part="4" 
 AR Path="/5DC89E19/5D396E91/5D1F2854" Ref="U11"  Part="4" 
 AR Path="/5DF75CDE/5D1F2854" Ref="U17"  Part="4" 
-F 0 "U17" H 2600 2850 50  0000 C CNN
-F 1 "74HC04" H 2575 2876 50  0001 C CNN
-F 2 "alexios:SOIC-14" H 2500 2900 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT04.pdf" H 2500 2900 50  0001 C CNN
-	4    2500 2700
+F 0 "U17" H 2550 2850 50  0000 C CNN
+F 1 "74HC04" H 2525 2876 50  0001 C CNN
+F 2 "alexios:SOIC-14" H 2450 2900 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT04.pdf" H 2450 2900 50  0001 C CNN
+	4    2450 2700
 	1    0    0    -1  
 $EndComp
 $Comp
 L alexios:74AC86 U?
 U 3 1 6A1AE713
-P 3750 2500
+P 3650 2500
 AR Path="/5CE09726/6A1AE713" Ref="U?"  Part="3" 
 AR Path="/6A313729/6A1AE713" Ref="U?"  Part="3" 
 AR Path="/5DC89E19/5D0A147D/6A1AE713" Ref="U?"  Part="3" 
 AR Path="/5DC89E19/5D396E91/6A1AE713" Ref="U12"  Part="3" 
 AR Path="/5DF75CDE/6A1AE713" Ref="U18"  Part="3" 
-F 0 "U18" H 3775 2682 50  0000 C CNN
-F 1 "74AC86" H 3775 2773 50  0000 C CNN
-F 2 "alexios:SOIC-14" H 3275 2100 50  0001 C CNN
-F 3 "74xx/74ls86.pdf" H 3275 2100 50  0001 C CNN
-	3    3750 2500
+F 0 "U18" H 3675 2682 50  0000 C CNN
+F 1 "74AC86" H 3675 2773 50  0000 C CNN
+F 2 "alexios:SOIC-14" H 3175 2100 50  0001 C CNN
+F 3 "74xx/74ls86.pdf" H 3175 2100 50  0001 C CNN
+	3    3650 2500
 	1    0    0    1   
 $EndComp
 $Comp
 L alexios:74AC86 U?
 U 2 1 6A1AE6FB
-P 3100 2750
+P 3050 2750
 AR Path="/5CE09726/6A1AE6FB" Ref="U?"  Part="2" 
 AR Path="/6A313729/6A1AE6FB" Ref="U?"  Part="2" 
 AR Path="/5DC89E19/5D0A147D/6A1AE6FB" Ref="U?"  Part="2" 
 AR Path="/5DC89E19/5D396E91/6A1AE6FB" Ref="U12"  Part="2" 
 AR Path="/5DF75CDE/6A1AE6FB" Ref="U18"  Part="2" 
-F 0 "U18" H 3125 3025 50  0000 C CNN
-F 1 "74AC86" H 3125 2934 50  0000 C CNN
-F 2 "alexios:SOIC-14" H 2625 2350 50  0001 C CNN
-F 3 "74xx/74ls86.pdf" H 2625 2350 50  0001 C CNN
-	2    3100 2750
+F 0 "U18" H 3075 3025 50  0000 C CNN
+F 1 "74AC86" H 3075 2934 50  0000 C CNN
+F 2 "alexios:SOIC-14" H 2575 2350 50  0001 C CNN
+F 3 "74xx/74ls86.pdf" H 2575 2350 50  0001 C CNN
+	2    3050 2750
 	1    0    0    -1  
 $EndComp
 $Comp
 L alexios:74AC86 U?
 U 1 1 6A1AE6E6
-P 3100 2300
+P 3050 2300
 AR Path="/5CE09726/6A1AE6E6" Ref="U?"  Part="1" 
 AR Path="/6A313729/6A1AE6E6" Ref="U?"  Part="1" 
 AR Path="/5DC89E19/5D0A147D/6A1AE6E6" Ref="U?"  Part="1" 
 AR Path="/5DC89E19/5D396E91/6A1AE6E6" Ref="U12"  Part="1" 
 AR Path="/5DF75CDE/6A1AE6E6" Ref="U18"  Part="1" 
-F 0 "U18" H 3125 2575 50  0000 C CNN
-F 1 "74AC86" H 3125 2484 50  0000 C CNN
-F 2 "alexios:SOIC-14" H 2625 1900 50  0001 C CNN
-F 3 "74xx/74ls86.pdf" H 2625 1900 50  0001 C CNN
-	1    3100 2300
+F 0 "U18" H 3075 2575 50  0000 C CNN
+F 1 "74AC86" H 3075 2484 50  0000 C CNN
+F 2 "alexios:SOIC-14" H 2575 1900 50  0001 C CNN
+F 3 "74xx/74ls86.pdf" H 2575 1900 50  0001 C CNN
+	1    3050 2300
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -1015,7 +1009,7 @@ F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G04.pdf" H 2050 5200
 	1    0    0    -1  
 $EndComp
 Text Label 6550 5500 2    50   ~ 0
-4CLK
+x4CLK
 Text Label 6550 5400 2    50   ~ 0
 TC
 Text Label 6550 5600 2    50   ~ 0
@@ -1071,7 +1065,7 @@ Wire Wire Line
 Text Label 5700 4800 1    50   ~ 0
 ~START_SYNC
 Text Label 5800 4800 1    50   ~ 0
-4CLK
+x4CLK
 Text Label 5900 4800 1    50   ~ 0
 TC
 Wire Wire Line
@@ -1082,7 +1076,7 @@ Wire Wire Line
 Text Label 6000 4800 1    50   ~ 0
 ~LEFT
 Text Label 4750 2950 0    50   ~ 0
-4CLK
+x4CLK
 Text Label 4750 2850 0    50   ~ 0
 TC
 Text Label 4750 3050 0    50   ~ 0
@@ -2002,8 +1996,6 @@ F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT04.pdf" H 10500 63
 $EndComp
 Text Notes 1900 3400 0    100  ~ 20
 Clock Quadruppler
-Text Label 4050 2500 0    50   ~ 0
-4CLK
 Entry Wire Line
 	7800 2100 7900 2000
 Entry Wire Line
@@ -2071,27 +2063,27 @@ This can theoretically cause glitches,\nbut probably not due to the way the\nCon
 $Comp
 L Connector:TestPoint TP9
 U 1 1 5DCF40D7
-P 3450 2300
-F 0 "TP9" H 3450 2550 50  0000 C CNN
-F 1 "TestPoint" H 3508 2327 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Keystone_5000-5004_Miniature" H 3650 2300 50  0001 C CNN
-F 3 "~" H 3650 2300 50  0001 C CNN
-	1    3450 2300
+P 3400 2300
+F 0 "TP9" H 3400 2550 50  0000 C CNN
+F 1 "TestPoint" H 3458 2327 50  0001 L CNN
+F 2 "TestPoint:TestPoint_Keystone_5000-5004_Miniature" H 3600 2300 50  0001 C CNN
+F 3 "~" H 3600 2300 50  0001 C CNN
+	1    3400 2300
 	1    0    0    -1  
 $EndComp
-Connection ~ 3450 2300
+Connection ~ 3400 2300
 $Comp
 L Connector:TestPoint TP11
 U 1 1 5DCF509A
-P 3450 2750
-F 0 "TP11" H 3450 3000 50  0000 C CNN
-F 1 "TestPoint" H 3508 2777 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Keystone_5000-5004_Miniature" H 3650 2750 50  0001 C CNN
-F 3 "~" H 3650 2750 50  0001 C CNN
-	1    3450 2750
+P 3400 2750
+F 0 "TP11" H 3400 3000 50  0000 C CNN
+F 1 "TestPoint" H 3458 2777 50  0001 L CNN
+F 2 "TestPoint:TestPoint_Keystone_5000-5004_Miniature" H 3600 2750 50  0001 C CNN
+F 3 "~" H 3600 2750 50  0001 C CNN
+	1    3400 2750
 	-1   0    0    1   
 $EndComp
-Connection ~ 3450 2750
+Connection ~ 3400 2750
 $Comp
 L Connector:TestPoint TP12
 U 1 1 5DCF567D
@@ -2103,23 +2095,9 @@ F 3 "~" H 10200 5500 50  0001 C CNN
 	1    10000 5500
 	1    0    0    -1  
 $EndComp
-Connection ~ 4050 2500
-Wire Wire Line
-	4050 2500 4400 2500
 Connection ~ 10000 5500
 Wire Wire Line
 	10000 5500 10650 5500
-$Comp
-L Connector:TestPoint TP10
-U 1 1 5DCF82BB
-P 4050 2500
-F 0 "TP10" H 4050 2750 50  0000 C CNN
-F 1 "TestPoint" H 4108 2527 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Keystone_5000-5004_Miniature" H 4250 2500 50  0001 C CNN
-F 3 "~" H 4250 2500 50  0001 C CNN
-	1    4050 2500
-	-1   0    0    1   
-$EndComp
 $Comp
 L power:GND #PWR0110
 U 1 1 5DD25E1C
@@ -2135,6 +2113,13 @@ Wire Wire Line
 	5900 3800 5900 4200
 Wire Wire Line
 	8000 4200 5900 4200
+Connection ~ 5900 4200
+Wire Wire Line
+	5900 4200 5900 5400
+Text Label 6500 4200 2    50   ~ 0
+TC
+Wire Wire Line
+	3400 2750 3400 2550
 Wire Bus Line
 	4400 1100 4400 1800
 Wire Bus Line
@@ -2145,9 +2130,20 @@ Wire Bus Line
 	10050 1100 10050 3800
 Wire Bus Line
 	6100 950  6100 4700
-Connection ~ 5900 4200
+Text Label 4000 2500 0    50   ~ 0
+x4CLK
+Connection ~ 3950 2500
 Wire Wire Line
-	5900 4200 5900 5400
-Text Label 6500 4200 2    50   ~ 0
-TC
+	3950 2500 4400 2500
+$Comp
+L Connector:TestPoint TP10
+U 1 1 5DCF82BB
+P 3950 2500
+F 0 "TP10" H 3950 2750 50  0000 C CNN
+F 1 "TestPoint" H 4008 2527 50  0001 L CNN
+F 2 "TestPoint:TestPoint_Keystone_5000-5004_Miniature" H 4150 2500 50  0001 C CNN
+F 3 "~" H 4150 2500 50  0001 C CNN
+	1    3950 2500
+	-1   0    0    1   
+$EndComp
 $EndSCHEMATC
