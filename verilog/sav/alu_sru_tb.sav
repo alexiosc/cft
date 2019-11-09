@@ -1,21 +1,23 @@
 [*]
-[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
-[*] Mon Jun 17 06:47:55 2019
+[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
+[*] Sat Nov  9 12:40:33 2019
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/alu_sru_tb.vcd"
-[dumpfile_mtime] "Mon Jun 17 06:47:36 2019"
-[dumpfile_size] 26327
+[dumpfile_mtime] "Sat Nov  9 12:40:23 2019"
+[dumpfile_size] 127370
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/alu_sru_tb.sav"
-[timestart] 188000
+[timestart] 0
 [size] 1920 1019
-[pos] 8192 0
-*-18.230942 574900 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[pos] 8188 30
+*-24.337687 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] alu_sru_tb.
 [treeopen] alu_sru_tb.alu_sru.
 [sst_width] 258
-[signals_width] 226
+[signals_width] 310
 [sst_expanded] 1
 [sst_vpaned_height] 314
+@820
+alu_sru_tb.status[800:0]
 @28
 [color] 2
 alu_sru_tb.alu_sru.nreset
@@ -34,14 +36,63 @@ alu_sru_tb.alu_sru.nstart
 alu_sru_tb.alu_sru.nstart_sync
 @200
 -
+@29
+alu_sru_tb.fl
+@22
+alu_sru_tb.ibus[15:0]
+@c00022
+alu_sru_tb.alu_sru.b[15:0]
+@28
+[color] 5
+alu_sru_tb.fl
+[color] 5
+alu_sru_tb.alu_sru.msb
+[color] 7
+(0)alu_sru_tb.alu_sru.b[15:0]
+[color] 7
+(1)alu_sru_tb.alu_sru.b[15:0]
+[color] 7
+(2)alu_sru_tb.alu_sru.b[15:0]
+[color] 7
+(3)alu_sru_tb.alu_sru.b[15:0]
+[color] 7
+(4)alu_sru_tb.alu_sru.b[15:0]
+[color] 7
+(5)alu_sru_tb.alu_sru.b[15:0]
+[color] 7
+(6)alu_sru_tb.alu_sru.b[15:0]
+[color] 7
+(7)alu_sru_tb.alu_sru.b[15:0]
+[color] 7
+(8)alu_sru_tb.alu_sru.b[15:0]
+[color] 7
+(9)alu_sru_tb.alu_sru.b[15:0]
+[color] 7
+(10)alu_sru_tb.alu_sru.b[15:0]
+[color] 7
+(11)alu_sru_tb.alu_sru.b[15:0]
+[color] 7
+(12)alu_sru_tb.alu_sru.b[15:0]
+[color] 7
+(13)alu_sru_tb.alu_sru.b[15:0]
+[color] 7
+(14)alu_sru_tb.alu_sru.b[15:0]
+[color] 7
+(15)alu_sru_tb.alu_sru.b[15:0]
+@1401200
+-group_end
 @2028
 ^1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/shift_op
 alu_sru_tb.shift_op[2:0]
-@22
+@24
 [color] 3
 alu_sru_tb.alu_sru.op_dist[3:0]
+@420
+alu_sru_tb.cycle_ctr
 @200
 -
+@420
+alu_sru_tb.tb_shift_ctr
 @22
 alu_sru_tb.alu_sru.ctr_state.q[3:0]
 @28
