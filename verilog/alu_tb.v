@@ -1,4 +1,4 @@
-`include "alu.v"
+g`include "alu.v"
 `include "clock.v"
 `include "register.v"
 

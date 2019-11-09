@@ -468,9 +468,9 @@ test_reg_mbr:	reg_mbr_tb.o reg_mbr.o flipflop.o mux.o
 		./reg_mbr_tb.o
 		$(GTKWAVE) $(VCDDIR)/reg_mbr_tb.vcd $(SAVDIR)/reg_mbr_tb.sav
 
-test_serial_shifter:	serial_shifter_tb.o serial_shifter.o
-		./serial_shifter_tb.o
-		$(GTKWAVE) $(VCDDIR)/serial_shifter_tb.vcd $(SAVDIR)/serial_shifter_tb.sav
+test_alu_sru:	alu_sru_tb.o alu_sru.o
+		./alu_sru_tb.o
+		$(GTKWAVE) $(VCDDIR)/alu_sru_tb.vcd $(SAVDIR)/alu_sru_tb.sav
 
 test_db test_databus: databus_tb.o databus.o
 		./databus_tb.o
