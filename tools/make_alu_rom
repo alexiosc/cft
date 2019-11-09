@@ -148,12 +148,12 @@ def op_add4(a, b, c, bits, mask):
     result = tosigned4(a) + tosigned4(b) + c
     fv = int(tosigned4(y) != result)
 
-    if a in [ 15, 0] and b in [15, 0] and c == 1:
-        print("FV: {} | {:04b} + {:04b} + {} -> {:08b} ({:3d}). Signed: {} + {} + {} = {}.".
-              format(fv,
-                     a, b, c, y, tosigned4(y),
-                     tosigned4(a), tosigned4(b), c, result))
-        #sys.exit(0)
+    # if a in [ 15, 0] and b in [15, 0] and c == 1:
+    #     print("FV: {} | {:04b} + {:04b} + {} -> {:08b} ({:3d}). Signed: {} + {} + {} = {}.".
+    #           format(fv,
+    #                  a, b, c, y, tosigned4(y),
+    #                  tosigned4(a), tosigned4(b), c, result))
+    #     #sys.exit(0)
 
     # result, set_fl, fl, set_fv, fv, reserved bit
     return y, 1, fl, 1, fv, 0
@@ -249,8 +249,8 @@ class AluRom6(threading.Thread):
             # Calculate the address. xn_in isn't used yet and is a don't care value.
             addr = tt.make_vector(tt.inputs, op=op, c=c, a=a, b=b, xn_in=xn_in)
             data = self.calculate(a, b, c, 0, op, bits, mask, tt)
-            if (a == 15 and b == 0 and c == 1):
-                print("ADDR={:x}, DATA={:b}".format(addr, data))
+            # if (a == 15 and b == 0 and c == 1):
+            #     print("ADDR={:x}, DATA={:b}".format(addr, data))
             tt.put(addr, data)
         
             if debug:
