@@ -601,7 +601,7 @@ start RST=1, INT=0, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 // were enabled when the ISR was called.
 
 start IRET;
-      FETCH_IR, if_ir0;		                // 00 IR ← mem[PC++]
+      FETCH_IR;		                        // 00 IR ← mem[PC++]
       STACK_POP(ac);				// 02 AC ← mem[--SP]
       STACK_POP(pc);				// 05 PC ← mem[--SP]
       STACK_POP(mbp_flags), END;                // 08 flags:MBP ← mem[--SP]
@@ -1033,7 +1033,7 @@ start WAIT;
 // of these instructions have the same microcode.
 start SRU;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
-      /action_sru;				// 02 SRU cycle #1 (sync wait)
+      SET(alu_b, ac), /action_sru;              // 02 B ← AC. (write B port, request SRU start)
       ;				                // 03 SRU cycle #2
       ;				                // 04 SRU cycle #3
       ;				                // 05 SRU cycle #4
@@ -1440,6 +1440,7 @@ start HCF;
 
 // L=1 ⇒ COND=0, so IFL takes action.
 
+// TODO: it's likely FETCH_IR and if_l/if_v can't happen on the same cycle!
 start IFL, COND=0;
       FETCH_IR, if_l;		                // 00 IR ← mem[PC++];
       if_ir5;					// If L:
