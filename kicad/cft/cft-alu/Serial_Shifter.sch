@@ -728,17 +728,17 @@ Operation\n\nBitwise Shift\nArithmetic Shift\nBitwise Rotate <L,AC>\nBitwise Rot
 Wire Notes Line width 20 style solid
 	3750 5500 5600 5500
 Wire Notes Line width 20 style solid
-	5600 5500 5600 6100
+	5600 5500 5600 6075
 Wire Notes Line width 20 style solid
-	5600 6100 3750 6100
+	5600 6075 3750 6075
 Wire Notes Line width 20 style solid
-	3750 6100 3750 5500
+	3750 6075 3750 5500
 Wire Notes Line style solid
 	3750 5650 5600 5650
 Wire Notes Line
-	4650 5500 4650 6100
+	4650 5500 4650 6075
 Wire Notes Line
-	4200 5500 4200 6100
+	4200 5500 4200 6075
 Text Notes 4000 6025 0    50   ~ 0
 ~L~/A\n\n 0\n 1\n 0\n 1
 Text Notes 3800 6025 0    50   ~ 0
@@ -1050,8 +1050,6 @@ Wire Wire Line
 Wire Wire Line
 	5700 3050 5700 5600
 Connection ~ 4300 2100
-Wire Wire Line
-	5800 2950 5800 5500
 Text Label 5700 4800 1    50   ~ 0
 ~START_SYNC
 Text Label 5800 4800 1    50   ~ 0
@@ -1169,12 +1167,12 @@ AR Path="/6A313729/5D858D00" Ref="U?"  Part="2"
 AR Path="/5DC89E19/5D0A147D/5D858D00" Ref="U?"  Part="2" 
 AR Path="/5DC89E19/5D396E91/5D858D00" Ref="U19"  Part="2" 
 AR Path="/5DF75CDE/5D858D00" Ref="U23"  Part="2" 
-F 0 "U23" H 4850 7100 50  0000 C CNN
-F 1 "74LVC1G0832" H 4900 7200 50  0000 C CNN
+F 0 "U23" H 4800 7800 50  0000 L CNN
+F 1 "74LVC1G0832" H 4750 7700 50  0000 L CNN
 F 2 "alexios:SOT-23-6_Handsoldering" H 4900 7450 50  0001 C CNN
 F 3 "http://www.ti.com/lit/ds/symlink/sn74lvc1g0832.pdf" H 4900 7450 50  0001 C CNN
 	2    4900 7450
-	1    0    0    1   
+	1    0    0    -1  
 $EndComp
 $Comp
 L alexios:74AC541 U?
@@ -1834,24 +1832,6 @@ F 3 "" H 5450 7550 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C_Small C?
-U 1 1 5DA3CE64
-P 5450 6650
-AR Path="/5CC0D65F/5DA3CE64" Ref="C?"  Part="1" 
-AR Path="/5DA3CE64" Ref="C?"  Part="1" 
-AR Path="/5EF76914/5DA3CE64" Ref="C?"  Part="1" 
-AR Path="/6A313729/5DA3CE64" Ref="C?"  Part="1" 
-AR Path="/5DC89E19/5D0A147D/5DA3CE64" Ref="C?"  Part="1" 
-AR Path="/5DC89E19/5D396E91/5DA3CE64" Ref="C10"  Part="1" 
-AR Path="/5DF75CDE/5DA3CE64" Ref="C15"  Part="1" 
-F 0 "C15" H 5359 6696 50  0000 R CNN
-F 1 "100nF" H 5359 6605 50  0000 R CNN
-F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5450 6650 50  0001 C CNN
-F 3 "~" H 5450 6650 50  0001 C CNN
-	1    5450 6650
-	1    0    0    -1  
-$EndComp
-$Comp
 L power:+5V #PWR?
 U 1 1 5DA3CE6A
 P 5450 6550
@@ -1866,23 +1846,6 @@ F 1 "+5V" H 5465 6723 50  0000 C CNN
 F 2 "" H 5450 6550 50  0001 C CNN
 F 3 "" H 5450 6550 50  0001 C CNN
 	1    5450 6550
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5DA3CE70
-P 5450 6750
-AR Path="/5DA3CE70" Ref="#PWR?"  Part="1" 
-AR Path="/5EF76914/5DA3CE70" Ref="#PWR?"  Part="1" 
-AR Path="/6A313729/5DA3CE70" Ref="#PWR?"  Part="1" 
-AR Path="/5DC89E19/5D0A147D/5DA3CE70" Ref="#PWR?"  Part="1" 
-AR Path="/5DC89E19/5D396E91/5DA3CE70" Ref="#PWR029"  Part="1" 
-AR Path="/5DF75CDE/5DA3CE70" Ref="#PWR0163"  Part="1" 
-F 0 "#PWR0163" H 5450 6500 50  0001 C CNN
-F 1 "GND" H 5455 6577 50  0000 C CNN
-F 2 "" H 5450 6750 50  0001 C CNN
-F 3 "" H 5450 6750 50  0001 C CNN
-	1    5450 6750
 	1    0    0    -1  
 $EndComp
 Connection ~ 950  7350
@@ -1912,8 +1875,6 @@ Connection ~ 4550 7350
 Connection ~ 4550 7550
 Connection ~ 5450 7550
 Connection ~ 5450 7350
-Connection ~ 5450 6550
-Connection ~ 5450 6750
 Text Label 6100 2750 1    50   ~ 0
 B[0..15]
 Text Label 8250 2800 1    50   ~ 0
@@ -2130,7 +2091,7 @@ U 1 1 5E022810
 P 9350 5200
 F 0 "U1" H 9275 5467 50  0000 C CNN
 F 1 "74LVC1G08" H 9275 5376 50  0000 C CNN
-F 2 "" H 9000 5200 50  0001 C CNN
+F 2 "alexios:SOT-23-5_HandSoldering" H 9000 5200 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 9000 5200 50  0001 C CNN
 	1    9350 5200
 	1    0    0    -1  
@@ -2179,14 +2140,116 @@ Wire Wire Line
 Connection ~ 4050 3400
 Wire Wire Line
 	4050 3400 3650 3400
+$Comp
+L alexios:74LVC1G08 U1
+U 2 1 5DE87F78
+P 8425 6075
+F 0 "U1" H 8350 6342 50  0000 C CNN
+F 1 "74LVC1G08" H 8350 6251 50  0000 C CNN
+F 2 "alexios:SOT-23-5_HandSoldering" H 8075 6075 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 8075 6075 50  0001 C CNN
+	2    8425 6075
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5DA3CE70
+P 5450 6750
+AR Path="/5DA3CE70" Ref="#PWR?"  Part="1" 
+AR Path="/5EF76914/5DA3CE70" Ref="#PWR?"  Part="1" 
+AR Path="/6A313729/5DA3CE70" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5D0A147D/5DA3CE70" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5D396E91/5DA3CE70" Ref="#PWR029"  Part="1" 
+AR Path="/5DF75CDE/5DA3CE70" Ref="#PWR0163"  Part="1" 
+F 0 "#PWR0163" H 5450 6500 50  0001 C CNN
+F 1 "GND" H 5455 6577 50  0000 C CNN
+F 2 "" H 5450 6750 50  0001 C CNN
+F 3 "" H 5450 6750 50  0001 C CNN
+	1    5450 6750
+	1    0    0    -1  
+$EndComp
+Connection ~ 5450 6750
+Connection ~ 5450 6550
+$Comp
+L Device:C_Small C?
+U 1 1 5DA3CE64
+P 5450 6650
+AR Path="/5CC0D65F/5DA3CE64" Ref="C?"  Part="1" 
+AR Path="/5DA3CE64" Ref="C?"  Part="1" 
+AR Path="/5EF76914/5DA3CE64" Ref="C?"  Part="1" 
+AR Path="/6A313729/5DA3CE64" Ref="C?"  Part="1" 
+AR Path="/5DC89E19/5D0A147D/5DA3CE64" Ref="C?"  Part="1" 
+AR Path="/5DC89E19/5D396E91/5DA3CE64" Ref="C10"  Part="1" 
+AR Path="/5DF75CDE/5DA3CE64" Ref="C15"  Part="1" 
+F 0 "C15" H 5359 6696 50  0000 R CNN
+F 1 "100nF" H 5359 6605 50  0000 R CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5450 6650 50  0001 C CNN
+F 3 "~" H 5450 6650 50  0001 C CNN
+	1    5450 6650
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 5DE93CAC
+P 7975 6075
+AR Path="/5DE93CAC" Ref="#PWR?"  Part="1" 
+AR Path="/5EF76914/5DE93CAC" Ref="#PWR?"  Part="1" 
+AR Path="/6A313729/5DE93CAC" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5D0A147D/5DE93CAC" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5D396E91/5DE93CAC" Ref="#PWR?"  Part="1" 
+AR Path="/5DF75CDE/5DE93CAC" Ref="#PWR07"  Part="1" 
+F 0 "#PWR07" H 7975 5925 50  0001 C CNN
+F 1 "+5V" H 7990 6248 50  0000 C CNN
+F 2 "" H 7975 6075 50  0001 C CNN
+F 3 "" H 7975 6075 50  0001 C CNN
+	1    7975 6075
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5DE93CB2
+P 7975 6275
+AR Path="/5DE93CB2" Ref="#PWR?"  Part="1" 
+AR Path="/5EF76914/5DE93CB2" Ref="#PWR?"  Part="1" 
+AR Path="/6A313729/5DE93CB2" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5D0A147D/5DE93CB2" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5D396E91/5DE93CB2" Ref="#PWR?"  Part="1" 
+AR Path="/5DF75CDE/5DE93CB2" Ref="#PWR08"  Part="1" 
+F 0 "#PWR08" H 7975 6025 50  0001 C CNN
+F 1 "GND" H 7980 6102 50  0000 C CNN
+F 2 "" H 7975 6275 50  0001 C CNN
+F 3 "" H 7975 6275 50  0001 C CNN
+	1    7975 6275
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 5DE93CBA
+P 7975 6175
+AR Path="/5CC0D65F/5DE93CBA" Ref="C?"  Part="1" 
+AR Path="/5DE93CBA" Ref="C?"  Part="1" 
+AR Path="/5EF76914/5DE93CBA" Ref="C?"  Part="1" 
+AR Path="/6A313729/5DE93CBA" Ref="C?"  Part="1" 
+AR Path="/5DC89E19/5D0A147D/5DE93CBA" Ref="C?"  Part="1" 
+AR Path="/5DC89E19/5D396E91/5DE93CBA" Ref="C?"  Part="1" 
+AR Path="/5DF75CDE/5DE93CBA" Ref="C44"  Part="1" 
+F 0 "C44" H 7884 6221 50  0000 R CNN
+F 1 "100nF" H 7884 6130 50  0000 R CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7975 6175 50  0001 C CNN
+F 3 "~" H 7975 6175 50  0001 C CNN
+	1    7975 6175
+	1    0    0    -1  
+$EndComp
+Connection ~ 7975 6275
+Connection ~ 7975 6075
 Wire Bus Line
 	4400 1100 4400 1800
 Wire Bus Line
 	8250 1500 8250 4000
 Wire Bus Line
-	7900 1100 7900 3500
+	6100 950  6100 4700
 Wire Bus Line
 	10050 1100 10050 3800
 Wire Bus Line
-	6100 950  6100 4700
+	7900 1100 7900 3500
 $EndSCHEMATC

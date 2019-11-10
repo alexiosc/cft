@@ -386,12 +386,10 @@ Wire Wire Line
 Wire Wire Line
 	1700 1950 8550 1950
 Wire Wire Line
-	5150 3450 5150 3400
+	5100 3450 5100 3400
 Wire Wire Line
-	5150 3450 5150 3500
-Connection ~ 5150 3450
-Text Label 6750 3250 2    50   ~ 0
-VD
+	5100 3450 5100 3500
+Connection ~ 5100 3450
 $Comp
 L Device:C_Small C?
 U 1 1 5D880683
@@ -455,12 +453,12 @@ FV0
 $Comp
 L alexios:74HC08 U30
 U 3 1 5E61248D
-P 5250 3050
-F 0 "U30" H 5375 2925 50  0000 C CNN
-F 1 "74HC08" H 5375 2834 50  0000 C CNN
-F 2 "alexios:SOIC-14" H 5450 2600 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 5450 2600 50  0001 C CNN
-	3    5250 3050
+P 5200 3050
+F 0 "U30" H 5325 2925 50  0000 C CNN
+F 1 "74HC08" H 5325 2834 50  0000 C CNN
+F 2 "alexios:SOIC-14" H 5400 2600 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 5400 2600 50  0001 C CNN
+	3    5200 3050
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -479,48 +477,37 @@ F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 2800 4350
 	1    3150 4350
 	1    0    0    -1  
 $EndComp
-Text Notes 3850 4000 0    50   ~ 0
-This delay line gives us more hold time on rising edge of CLKV.\nStart with three gates.
-Wire Wire Line
-	5100 3450 5150 3450
+Text Notes 3800 3950 0    50   ~ 0
+Delay VD by n×Tpd, 0≤n≤4.\nThis delay line gives us more hold time on rising edge of CLKV.\nStart with three, then change if V isn't set properly.
 $Comp
 L alexios:74HC08 U30
 U 2 1 5E61040A
-P 4500 3050
-F 0 "U30" H 4625 2925 50  0000 C CNN
-F 1 "74HC08" H 4625 2834 50  0000 C CNN
-F 2 "alexios:SOIC-14" H 4700 2600 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 4700 2600 50  0001 C CNN
-	2    4500 3050
+P 4550 3050
+F 0 "U30" H 4675 2925 50  0000 C CNN
+F 1 "74HC08" H 4675 2834 50  0000 C CNN
+F 2 "alexios:SOIC-14" H 4750 2600 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 4750 2600 50  0001 C CNN
+	2    4550 3050
 	1    0    0    -1  
 $EndComp
 $Comp
 L alexios:74HC08 U30
 U 1 1 5E60DB8C
-P 3750 3050
-F 0 "U30" H 3875 2925 50  0000 C CNN
-F 1 "74HC08" H 3875 2834 50  0000 C CNN
-F 2 "alexios:SOIC-14" H 3950 2600 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 3950 2600 50  0001 C CNN
-	1    3750 3050
+P 3900 3050
+F 0 "U30" H 4025 2925 50  0000 C CNN
+F 1 "74HC08" H 4025 2834 50  0000 C CNN
+F 2 "alexios:SOIC-14" H 4100 2600 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 4100 2600 50  0001 C CNN
+	1    3900 3050
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	3650 3450 3650 3500
-Connection ~ 3650 3450
+	3800 3450 3800 3500
+Connection ~ 3800 3450
 Wire Wire Line
-	3650 3400 3650 3450
-Wire Wire Line
-	3450 3450 3650 3450
-Wire Wire Line
-	4400 3450 4400 3500
-Connection ~ 4400 3450
-Wire Wire Line
-	4400 3450 4350 3450
-Wire Wire Line
-	4400 3400 4400 3450
+	3800 3400 3800 3450
 Text Label 3500 3450 0    50   ~ 0
-VD
+VD0
 Wire Wire Line
 	1800 3650 2750 3650
 Connection ~ 1800 3650
@@ -575,205 +562,21 @@ Wire Wire Line
 	7000 1850 8450 1850
 Connection ~ 7000 1850
 Wire Wire Line
-	5900 3450 5900 3400
+	5850 3450 5850 3400
 Wire Wire Line
-	5900 3450 5900 3500
-Connection ~ 5900 3450
+	5850 3450 5850 3500
+Connection ~ 5850 3450
 $Comp
 L alexios:74HC08 U30
 U 4 1 5E6357B5
-P 6000 3050
-F 0 "U30" H 6125 2925 50  0000 C CNN
-F 1 "74HC08" H 6125 2834 50  0000 C CNN
-F 2 "alexios:SOIC-14" H 6200 2600 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 6200 2600 50  0001 C CNN
-	4    6000 3050
+P 5950 3050
+F 0 "U30" H 6075 2925 50  0000 C CNN
+F 1 "74HC08" H 6075 2834 50  0000 C CNN
+F 2 "alexios:SOIC-14" H 6150 2600 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 6150 2600 50  0001 C CNN
+	4    5950 3050
 	1    0    0    -1  
 $EndComp
-$Comp
-L Jumper:SolderJumper_3_Bridged12 JP1
-U 1 1 5E63AF3F
-P 4250 3450
-F 0 "JP1" V 4400 3200 50  0000 L CNN
-F 1 "SolderJumper_3_Bridged12" V 4205 3518 50  0001 L CNN
-F 2 "Jumper:SolderJumper-3_P1.3mm_Bridged12_RoundedPad1.0x1.5mm" H 4250 3450 50  0001 C CNN
-F 3 "~" H 4250 3450 50  0001 C CNN
-	1    4250 3450
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	4250 3250 4350 3250
-Wire Wire Line
-	4350 3250 4350 3450
-$Comp
-L Jumper:SolderJumper_3_Bridged12 JP2
-U 1 1 5E64AD46
-P 5000 3450
-F 0 "JP2" V 5150 3200 50  0000 L CNN
-F 1 "SolderJumper_3_Bridged12" V 4955 3518 50  0001 L CNN
-F 2 "Jumper:SolderJumper-3_P1.3mm_Bridged12_RoundedPad1.0x1.5mm" H 5000 3450 50  0001 C CNN
-F 3 "~" H 5000 3450 50  0001 C CNN
-	1    5000 3450
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	5000 3250 5100 3250
-Wire Wire Line
-	5100 3250 5100 3450
-$Comp
-L Jumper:SolderJumper_3_Bridged12 JP3
-U 1 1 5E654230
-P 5750 3450
-F 0 "JP3" V 5900 3250 50  0000 L CNN
-F 1 "SolderJumper_3_Bridged12" V 5705 3518 50  0001 L CNN
-F 2 "Jumper:SolderJumper-3_P1.3mm_Bridged12_RoundedPad1.0x1.5mm" H 5750 3450 50  0001 C CNN
-F 3 "~" H 5750 3450 50  0001 C CNN
-	1    5750 3450
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	5750 3250 5850 3250
-Wire Wire Line
-	5850 3250 5850 3450
-Wire Wire Line
-	5850 3450 5900 3450
-$Comp
-L Jumper:SolderJumper_3_Bridged12 JP4
-U 1 1 5E66061B
-P 6500 3450
-F 0 "JP4" V 6650 3250 50  0000 L CNN
-F 1 "SolderJumper_3_Bridged12" V 6455 3518 50  0001 L CNN
-F 2 "Jumper:SolderJumper-3_P1.3mm_Bridged12_RoundedPad1.0x1.5mm" H 6500 3450 50  0001 C CNN
-F 3 "~" H 6500 3450 50  0001 C CNN
-	1    6500 3450
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	6500 3250 7300 3250
-$Comp
-L Device:R_Small R1
-U 1 1 5E6735D9
-P 4250 3000
-F 0 "R1" H 4309 3046 50  0000 L CNN
-F 1 "10kΩ" H 4309 2955 50  0000 L CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 4250 3000 50  0001 C CNN
-F 3 "~" H 4250 3000 50  0001 C CNN
-	1    4250 3000
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	4250 3100 4250 3250
-Connection ~ 4250 3250
-$Comp
-L power:+5V #PWR0169
-U 1 1 5E675541
-P 4250 2900
-F 0 "#PWR0169" H 4250 2750 50  0001 C CNN
-F 1 "+5V" H 4265 3073 50  0000 C CNN
-F 2 "" H 4250 2900 50  0001 C CNN
-F 3 "" H 4250 2900 50  0001 C CNN
-	1    4250 2900
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:R_Small R2
-U 1 1 5E677294
-P 5000 3000
-F 0 "R2" H 5059 3046 50  0000 L CNN
-F 1 "10kΩ" H 5059 2955 50  0000 L CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5000 3000 50  0001 C CNN
-F 3 "~" H 5000 3000 50  0001 C CNN
-	1    5000 3000
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	5000 3100 5000 3250
-$Comp
-L power:+5V #PWR0170
-U 1 1 5E67729B
-P 5000 2900
-F 0 "#PWR0170" H 5000 2750 50  0001 C CNN
-F 1 "+5V" H 5015 3073 50  0000 C CNN
-F 2 "" H 5000 2900 50  0001 C CNN
-F 3 "" H 5000 2900 50  0001 C CNN
-	1    5000 2900
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:R_Small R3
-U 1 1 5E6784A4
-P 5750 3000
-F 0 "R3" H 5809 3046 50  0000 L CNN
-F 1 "10kΩ" H 5809 2955 50  0000 L CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5750 3000 50  0001 C CNN
-F 3 "~" H 5750 3000 50  0001 C CNN
-	1    5750 3000
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	5750 3100 5750 3250
-$Comp
-L power:+5V #PWR0171
-U 1 1 5E6784AB
-P 5750 2900
-F 0 "#PWR0171" H 5750 2750 50  0001 C CNN
-F 1 "+5V" H 5765 3073 50  0000 C CNN
-F 2 "" H 5750 2900 50  0001 C CNN
-F 3 "" H 5750 2900 50  0001 C CNN
-	1    5750 2900
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:R_Small R4
-U 1 1 5E679BBE
-P 6500 3000
-F 0 "R4" H 6559 3046 50  0000 L CNN
-F 1 "10kΩ" H 6559 2955 50  0000 L CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 6500 3000 50  0001 C CNN
-F 3 "~" H 6500 3000 50  0001 C CNN
-	1    6500 3000
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	6500 3100 6500 3250
-$Comp
-L power:+5V #PWR0172
-U 1 1 5E679BC5
-P 6500 2900
-F 0 "#PWR0172" H 6500 2750 50  0001 C CNN
-F 1 "+5V" H 6515 3073 50  0000 C CNN
-F 2 "" H 6500 2900 50  0001 C CNN
-F 3 "" H 6500 2900 50  0001 C CNN
-	1    6500 2900
-	1    0    0    -1  
-$EndComp
-Connection ~ 5000 3250
-Connection ~ 5750 3250
-Connection ~ 6500 3250
-Text Notes 4200 2500 0    50   ~ 0
-Resistors are optional. Install only to keep '08 inputs from\nfloating after delay line has been calibrated.
-Wire Wire Line
-	3650 3750 4250 3750
-Wire Wire Line
-	6500 3750 6500 3650
-Connection ~ 3650 3500
-Wire Wire Line
-	3650 3500 3650 3750
-Wire Wire Line
-	4250 3650 4250 3750
-Connection ~ 4250 3750
-Wire Wire Line
-	4250 3750 5000 3750
-Wire Wire Line
-	5000 3650 5000 3750
-Connection ~ 5000 3750
-Wire Wire Line
-	5000 3750 5750 3750
-Wire Wire Line
-	5750 3650 5750 3750
-Connection ~ 5750 3750
-Wire Wire Line
-	5750 3750 6500 3750
 $Comp
 L alexios:74HC08 U30
 U 5 1 5E2A7483
@@ -798,4 +601,134 @@ F 3 "~" H 9950 3050 50  0001 C CNN
 	1    9950 3050
 	0    1    1    0   
 $EndComp
+Wire Wire Line
+	4450 3400 4450 3450
+Wire Wire Line
+	4450 3450 4450 3500
+Connection ~ 4450 3450
+Wire Wire Line
+	6900 3250 7300 3250
+$Comp
+L Jumper:SolderJumper_2_Bridged JP15
+U 1 1 5DE15A8C
+P 5750 3050
+F 0 "JP15" V 5750 3118 50  0000 L CNN
+F 1 "SolderJumper_2_Bridged" H 5750 3164 50  0001 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 5750 3050 50  0001 C CNN
+F 3 "~" H 5750 3050 50  0001 C CNN
+	1    5750 3050
+	0    1    1    0   
+$EndComp
+$Comp
+L Jumper:SolderJumper_2_Open JP12
+U 1 1 5DE15E69
+P 3700 3050
+F 0 "JP12" V 3700 3118 50  0000 L CNN
+F 1 "SolderJumper_2_Open" H 3700 3164 50  0001 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm" H 3700 3050 50  0001 C CNN
+F 3 "~" H 3700 3050 50  0001 C CNN
+	1    3700 3050
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	5550 3450 5750 3450
+Wire Wire Line
+	4900 3450 5000 3450
+Wire Wire Line
+	4250 3450 4350 3450
+Wire Wire Line
+	3700 3450 3700 3200
+Wire Wire Line
+	3450 3450 3700 3450
+Connection ~ 3700 3450
+Wire Wire Line
+	3700 3450 3800 3450
+$Comp
+L Jumper:SolderJumper_2_Open JP13
+U 1 1 5DE257A3
+P 4350 3050
+F 0 "JP13" V 4350 3118 50  0000 L CNN
+F 1 "SolderJumper_2_Open" H 4350 3164 50  0001 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm" H 4350 3050 50  0001 C CNN
+F 3 "~" H 4350 3050 50  0001 C CNN
+	1    4350 3050
+	0    1    1    0   
+$EndComp
+$Comp
+L Jumper:SolderJumper_2_Open JP14
+U 1 1 5DE265BF
+P 5000 3050
+F 0 "JP14" V 5000 3118 50  0000 L CNN
+F 1 "SolderJumper_2_Open" H 5000 3164 50  0001 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm" H 5000 3050 50  0001 C CNN
+F 3 "~" H 5000 3050 50  0001 C CNN
+	1    5000 3050
+	0    1    1    0   
+$EndComp
+$Comp
+L Jumper:SolderJumper_2_Open JP16
+U 1 1 5DE27451
+P 6400 3050
+F 0 "JP16" V 6400 3118 50  0000 L CNN
+F 1 "SolderJumper_2_Open" H 6400 3164 50  0001 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm" H 6400 3050 50  0001 C CNN
+F 3 "~" H 6400 3050 50  0001 C CNN
+	1    6400 3050
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	3700 2900 3700 2850
+Wire Wire Line
+	3700 2850 4350 2850
+Wire Wire Line
+	6900 2850 6900 3250
+Wire Wire Line
+	4350 2900 4350 2850
+Connection ~ 4350 2850
+Wire Wire Line
+	4350 2850 5000 2850
+Wire Wire Line
+	5000 2850 5000 2900
+Connection ~ 5000 2850
+Wire Wire Line
+	5000 2850 5750 2850
+Connection ~ 5750 2850
+Wire Wire Line
+	5750 2850 6400 2850
+Wire Wire Line
+	4350 3200 4350 3450
+Connection ~ 4350 3450
+Wire Wire Line
+	4350 3450 4450 3450
+Wire Wire Line
+	5000 3200 5000 3450
+Connection ~ 5000 3450
+Wire Wire Line
+	5000 3450 5100 3450
+Wire Wire Line
+	5750 3200 5750 3450
+Connection ~ 5750 3450
+Wire Wire Line
+	5750 3450 5850 3450
+Wire Wire Line
+	5750 2900 5750 2850
+Text Label 4350 3400 1    50   ~ 0
+VD1
+Text Label 5000 3400 1    50   ~ 0
+VD2
+Text Label 5750 3250 3    50   ~ 0
+VD3
+Wire Wire Line
+	6300 3450 6400 3450
+Text Label 6400 3400 1    50   ~ 0
+VD4
+Wire Wire Line
+	6400 3200 6400 3450
+Wire Wire Line
+	6400 2900 6400 2850
+Connection ~ 6400 2850
+Wire Wire Line
+	6400 2850 6900 2850
+Text Notes 5600 2800 0    50   ~ 10
+Bridged
 $EndSCHEMATC

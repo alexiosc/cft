@@ -566,6 +566,7 @@ F11 "FLOUT" O R 6550 4750 50
 F12 "FLFAST" I L 5400 4750 50 
 F13 "BCP" O R 6550 4650 50 
 F14 "~START" I L 5400 4500 50 
+F15 "FLCP" O R 6550 4850 50 
 $EndSheet
 Text Label 4900 4650 0    50   ~ 0
 B[0..15]
@@ -615,34 +616,24 @@ Text Notes 6500 3100 2    79   ~ 16
 SRU
 Text Label 1850 1450 0    50   ~ 0
 RADDR[0..4]
-Text HLabel 1800 1450 0    50   Input ~ 0
-RADDR[0..4]
 Wire Bus Line
 	2350 1450 1800 1450
-Text HLabel 1800 1550 0    50   Input ~ 0
-~RUEN
 Wire Wire Line
 	1800 1550 2350 1550
-Text Label 1850 1550 0    50   ~ 0
+Text Label 1800 1550 0    50   ~ 0
 ~RUEN
-Text Label 1850 1700 0    50   ~ 0
-WADDR[0..4]
-Text HLabel 1800 1700 0    50   Input ~ 0
+Text Label 1800 1700 0    50   ~ 0
 WADDR[0..4]
 Wire Bus Line
 	2350 1700 1800 1700
-Text HLabel 1800 1800 0    50   Input ~ 0
-~WUEN
 Wire Wire Line
 	1800 1800 2350 1800
-Text Label 1850 1800 0    50   ~ 0
+Text Label 1800 1800 0    50   ~ 0
 ~WUEN
-Text Label 1850 1950 0    50   ~ 0
+Text Label 1800 1950 0    50   ~ 0
 ACTION[0..3]
 Wire Bus Line
 	2350 1950 1800 1950
-Text HLabel 1800 1950 0    50   Input ~ 0
-ACTION[0..3]
 Wire Wire Line
 	3500 1550 4050 1550
 Wire Wire Line
@@ -691,10 +682,6 @@ Wire Wire Line
 	5400 5600 4900 5600
 Text Label 1700 5600 0    50   ~ 0
 ~RESET
-Text Notes 3500 7050 2    70   ~ 14
-Verilog
-Text Notes 6500 6500 2    70   ~ 14
-Verilog
 $Sheet
 S 5400 5450 1150 1100
 U 5D35C694
@@ -779,7 +766,7 @@ F7 "IBUS12" I L 2400 6600 50
 F8 "~RESET" I L 2400 5600 50 
 F9 "~ACTION-CLL" I L 2400 6900 50 
 F10 "~ACTION-CPL" I L 2400 6800 50 
-F11 "BCP" I L 2400 6250 50 
+F11 "FLCP-SRU" I L 2400 6250 50 
 F12 "FLIN-SRU" I L 2400 6350 50 
 F13 "FLFAST" O R 3550 5700 50 
 $EndSheet
@@ -788,7 +775,7 @@ FLFAST
 Wire Wire Line
 	2400 6250 1700 6250
 Text Label 1700 6250 0    50   ~ 0
-BCP-SRU
+FLCP-SRU
 Wire Wire Line
 	2400 6350 1700 6350
 Text Label 1700 6350 0    50   ~ 0
@@ -1019,18 +1006,8 @@ Text Label 4050 1950 2    50   ~ 0
 ~ACTION-101
 Text Label 4050 2050 2    50   ~ 0
 ~ACTION-110
-Wire Wire Line
-	5400 1650 5250 1650
 Text Label 4900 1650 0    50   ~ 0
 X-IN
-Text Notes 2400 2250 0    70   ~ 14
-Verilog
-Text Notes 3100 3600 2    70   ~ 14
-Verilog
-Text Notes 3100 4450 2    70   ~ 14
-Verilog
-Text Notes 6100 2400 2    70   ~ 14
-Verilog
 $Comp
 L alexios:74LVC1G08 U?
 U 2 1 5E2E7423
@@ -1113,10 +1090,8 @@ NoConn ~ 10000 5250
 NoConn ~ 10000 5350
 Wire Wire Line
 	8500 4150 7950 4150
-NoConn ~ 7950 4150
 Wire Wire Line
 	8500 4250 7950 4250
-NoConn ~ 7950 4250
 Text Label 7950 4150 0    50   ~ 0
 ~RUEN
 Text Label 7950 4250 0    50   ~ 0
@@ -1238,17 +1213,14 @@ L Jumper:SolderJumper_2_Bridged JP?
 U 1 1 5DC7BFB4
 P 4500 1650
 AR Path="/5DE3C078/5DC7BFB4" Ref="JP?"  Part="1" 
-AR Path="/5DC7BFB4" Ref="JP15"  Part="1" 
-F 0 "JP15" H 4500 1763 50  0000 C CNN
+AR Path="/5DC7BFB4" Ref="JP1"  Part="1" 
+F 0 "JP1" H 4500 1763 50  0000 C CNN
 F 1 "SolderJumper_2_Bridged" H 4500 1764 50  0001 C CNN
 F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 4500 1650 50  0001 C CNN
 F 3 "~" H 4500 1650 50  0001 C CNN
 	1    4500 1650
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	5250 2400 5250 1650
-Connection ~ 5250 1650
 $Comp
 L power:GND #PWR0113
 U 1 1 5DC97446
@@ -1260,8 +1232,6 @@ F 3 "" H 4350 1700 50  0001 C CNN
 	1    4350 1700
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	4650 1650 5250 1650
 Wire Wire Line
 	4350 1650 4350 1700
 $Comp
@@ -1300,6 +1270,14 @@ Wire Wire Line
 	9250 6100 8500 6100
 Text Notes 8500 5850 0    50   ~ 0
 Actions for future expansion
+Wire Wire Line
+	6550 4850 7050 4850
+Text Label 7050 4850 2    50   ~ 0
+FLCP-SRU
+Wire Wire Line
+	4650 1650 5400 1650
+NoConn ~ 4050 1950
+NoConn ~ 4050 2050
 Wire Bus Line
 	7150 1200 7150 4450
 Wire Bus Line

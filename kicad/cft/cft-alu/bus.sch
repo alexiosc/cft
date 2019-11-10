@@ -412,62 +412,10 @@ Text Label 2150 4950 0    50   ~ 0
 AB22
 Text Label 2150 5050 0    50   ~ 0
 AB23
-Entry Wire Line
-	2050 2850 2150 2750
-Entry Wire Line
-	2050 2950 2150 2850
-Entry Wire Line
-	2050 3050 2150 2950
-Entry Wire Line
-	2050 3150 2150 3050
-Entry Wire Line
-	2050 3250 2150 3150
-Entry Wire Line
-	2050 3350 2150 3250
-Entry Wire Line
-	2050 3450 2150 3350
-Entry Wire Line
-	2050 3550 2150 3450
-Entry Wire Line
-	2050 3650 2150 3550
-Entry Wire Line
-	2050 3750 2150 3650
-Entry Wire Line
-	2050 3850 2150 3750
-Entry Wire Line
-	2050 3950 2150 3850
-Entry Wire Line
-	2050 4050 2150 3950
-Entry Wire Line
-	2050 4150 2150 4050
-Entry Wire Line
-	2050 4250 2150 4150
-Entry Wire Line
-	2050 4350 2150 4250
-Entry Wire Line
-	2050 4450 2150 4350
-Entry Wire Line
-	2050 4550 2150 4450
-Entry Wire Line
-	2050 4650 2150 4550
-Entry Wire Line
-	2050 4750 2150 4650
-Entry Wire Line
-	2050 4850 2150 4750
-Entry Wire Line
-	2050 4950 2150 4850
-Entry Wire Line
-	2050 5050 2150 4950
-Entry Wire Line
-	2050 5150 2150 5050
-Entry Bus Bus
-	1950 5350 2050 5250
 Wire Bus Line
 	1950 5350 1350 5350
 Wire Bus Line
 	1350 5450 4150 5450
-Text Label 1450 5350 0    50   ~ 0
-AB[0..23]
 Text Label 1450 5450 0    50   ~ 0
 DB[0..15]
 Text HLabel 1350 5350 0    50   UnSpc ~ 0
@@ -646,8 +594,6 @@ Text HLabel 2150 2150 0    50   UnSpc ~ 0
 CLK3
 Text HLabel 2150 2250 0    50   UnSpc ~ 0
 CLK4
-Text HLabel 2150 2350 0    50   UnSpc ~ 0
-WSTB
 Text HLabel 2150 2450 0    50   UnSpc ~ 0
 T34
 Text HLabel 2150 2550 0    50   UnSpc ~ 0
@@ -1224,22 +1170,75 @@ Text HLabel 6750 2650 2    50   UnSpc ~ 0
 ~RUEN
 Text HLabel 6750 2750 2    50   UnSpc ~ 0
 ~WUEN
-Wire Bus Line
-	7000 3950 7000 5750
-Wire Bus Line
-	7100 3450 7100 5850
-Wire Bus Line
-	7200 2950 7200 5950
-Wire Bus Line
-	7300 2150 7300 6050
-Wire Bus Line
-	4350 2850 4350 5450
-Wire Bus Line
-	4800 3550 4800 5650
-Wire Bus Line
-	4700 1850 4700 5550
+NoConn ~ 2150 2350
+Text Label 1450 5350 0    50   ~ 0
+AB[0..23]
 Wire Bus Line
 	4250 3650 4250 5350
 Wire Bus Line
+	4700 1850 4700 5550
+Wire Bus Line
+	4800 3550 4800 5650
+Wire Bus Line
+	4350 2850 4350 5450
+Wire Bus Line
+	7300 2150 7300 6050
+Wire Bus Line
+	7200 2950 7200 5950
+Wire Bus Line
+	7100 3450 7100 5850
+Wire Bus Line
+	7000 3950 7000 5750
+Wire Bus Line
 	2050 2850 2050 5250
+Entry Bus Bus
+	1950 5350 2050 5250
+Entry Wire Line
+	2050 5150 2150 5050
+Entry Wire Line
+	2050 5050 2150 4950
+Entry Wire Line
+	2050 4950 2150 4850
+Entry Wire Line
+	2050 4850 2150 4750
+Entry Wire Line
+	2050 4750 2150 4650
+Entry Wire Line
+	2050 4650 2150 4550
+Entry Wire Line
+	2050 4550 2150 4450
+Entry Wire Line
+	2050 4450 2150 4350
+Entry Wire Line
+	2050 4350 2150 4250
+Entry Wire Line
+	2050 4250 2150 4150
+Entry Wire Line
+	2050 4150 2150 4050
+Entry Wire Line
+	2050 4050 2150 3950
+Entry Wire Line
+	2050 3950 2150 3850
+Entry Wire Line
+	2050 3850 2150 3750
+Entry Wire Line
+	2050 3750 2150 3650
+Entry Wire Line
+	2050 3650 2150 3550
+Entry Wire Line
+	2050 3550 2150 3450
+Entry Wire Line
+	2050 3450 2150 3350
+Entry Wire Line
+	2050 3350 2150 3250
+Entry Wire Line
+	2050 3250 2150 3150
+Entry Wire Line
+	2050 3150 2150 3050
+Entry Wire Line
+	2050 3050 2150 2950
+Entry Wire Line
+	2050 2950 2150 2850
+Entry Wire Line
+	2050 2850 2150 2750
 $EndSCHEMATC

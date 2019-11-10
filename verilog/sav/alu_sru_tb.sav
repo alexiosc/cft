@@ -1,15 +1,15 @@
 [*]
-[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Sat Nov  9 13:17:43 2019
+[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
+[*] Sun Nov 10 09:50:05 2019
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/alu_sru_tb.vcd"
-[dumpfile_mtime] "Sat Nov  9 13:17:31 2019"
-[dumpfile_size] 15287303
+[dumpfile_mtime] "Sun Nov 10 09:49:54 2019"
+[dumpfile_size] 22373083
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/alu_sru_tb.sav"
-[timestart] 785530000
+[timestart] 622140000
 [size] 1920 1019
 [pos] 8188 30
-*-20.337687 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-22.337687 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] alu_sru_tb.
 [treeopen] alu_sru_tb.alu_sru.
 [sst_width] 258

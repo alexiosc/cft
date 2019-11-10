@@ -1377,10 +1377,10 @@ Wire Wire Line
 Text Notes 850  4000 0    50   ~ 0
 X-IN is reserved for future expansion, but wired to allow this. It can be\ncascaded like carry using X0 and X1, or independent of them.\n\nLikewise, the solder jumpers are for future expansion:\ncut the trace to disconnect from ground, patch to another signal.
 $Comp
-L Jumper:SolderJumper_2_Bridged JP6
+L Jumper:SolderJumper_2_Bridged JP3
 U 1 1 5DD4B079
 P 1850 3300
-F 0 "JP6" H 1600 3300 50  0000 R CNN
+F 0 "JP3" H 1600 3300 50  0000 R CNN
 F 1 "SolderJumper_2_Bridged" H 1850 3414 50  0001 C CNN
 F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 1850 3300 50  0001 C CNN
 F 3 "~" H 1850 3300 50  0001 C CNN
@@ -1388,10 +1388,10 @@ F 3 "~" H 1850 3300 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Jumper:SolderJumper_2_Bridged JP7
+L Jumper:SolderJumper_2_Bridged JP4
 U 1 1 5DD4B2B6
 P 4600 3200
-F 0 "JP7" H 4350 3200 50  0000 R CNN
+F 0 "JP4" H 4350 3200 50  0000 R CNN
 F 1 "SolderJumper_2_Bridged" H 4600 3314 50  0001 C CNN
 F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 4600 3200 50  0001 C CNN
 F 3 "~" H 4600 3200 50  0001 C CNN
@@ -1399,10 +1399,10 @@ F 3 "~" H 4600 3200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Jumper:SolderJumper_2_Bridged JP8
+L Jumper:SolderJumper_2_Bridged JP5
 U 1 1 5DD4B50E
 P 4600 3300
-F 0 "JP8" H 4350 3300 50  0000 R CNN
+F 0 "JP5" H 4350 3300 50  0000 R CNN
 F 1 "SolderJumper_2_Bridged" H 4600 3414 50  0001 C CNN
 F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 4600 3300 50  0001 C CNN
 F 3 "~" H 4600 3300 50  0001 C CNN
@@ -1410,10 +1410,10 @@ F 3 "~" H 4600 3300 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Jumper:SolderJumper_2_Bridged JP9
+L Jumper:SolderJumper_2_Bridged JP6
 U 1 1 5DD4D377
 P 7250 2800
-F 0 "JP9" H 7000 2800 50  0000 R CNN
+F 0 "JP6" H 7000 2800 50  0000 R CNN
 F 1 "SolderJumper_2_Bridged" H 7250 2914 50  0001 C CNN
 F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 7250 2800 50  0001 C CNN
 F 3 "~" H 7250 2800 50  0001 C CNN
@@ -1421,10 +1421,10 @@ F 3 "~" H 7250 2800 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Jumper:SolderJumper_2_Bridged JP10
+L Jumper:SolderJumper_2_Bridged JP7
 U 1 1 5DD4D37D
 P 7250 2900
-F 0 "JP10" H 7000 2900 50  0000 R CNN
+F 0 "JP7" H 7000 2900 50  0000 R CNN
 F 1 "SolderJumper_2_Bridged" H 7250 3014 50  0001 C CNN
 F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 7250 2900 50  0001 C CNN
 F 3 "~" H 7250 2900 50  0001 C CNN
@@ -1432,10 +1432,10 @@ F 3 "~" H 7250 2900 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Jumper:SolderJumper_2_Bridged JP11
+L Jumper:SolderJumper_2_Bridged JP8
 U 1 1 5DD574F3
 P 7250 3000
-F 0 "JP11" H 7000 3000 50  0000 R CNN
+F 0 "JP8" H 7000 3000 50  0000 R CNN
 F 1 "SolderJumper_2_Bridged" H 7250 3114 50  0001 C CNN
 F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 7250 3000 50  0001 C CNN
 F 3 "~" H 7250 3000 50  0001 C CNN
@@ -1443,10 +1443,10 @@ F 3 "~" H 7250 3000 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Jumper:SolderJumper_2_Bridged JP12
+L Jumper:SolderJumper_2_Bridged JP9
 U 1 1 5DD574F9
 P 7250 3100
-F 0 "JP12" H 7000 3100 50  0000 R CNN
+F 0 "JP9" H 7000 3100 50  0000 R CNN
 F 1 "SolderJumper_2_Bridged" H 7250 3214 50  0001 C CNN
 F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 7250 3100 50  0001 C CNN
 F 3 "~" H 7250 3100 50  0001 C CNN
@@ -1454,10 +1454,10 @@ F 3 "~" H 7250 3100 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Jumper:SolderJumper_2_Bridged JP13
+L Jumper:SolderJumper_2_Bridged JP10
 U 1 1 5DD61519
 P 7250 3200
-F 0 "JP13" H 7000 3200 50  0000 R CNN
+F 0 "JP10" H 7000 3200 50  0000 R CNN
 F 1 "SolderJumper_2_Bridged" H 7250 3314 50  0001 C CNN
 F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 7250 3200 50  0001 C CNN
 F 3 "~" H 7250 3200 50  0001 C CNN
@@ -1465,10 +1465,10 @@ F 3 "~" H 7250 3200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Jumper:SolderJumper_2_Bridged JP14
+L Jumper:SolderJumper_2_Bridged JP11
 U 1 1 5DD6151F
 P 7250 3300
-F 0 "JP14" H 7000 3300 50  0000 R CNN
+F 0 "JP11" H 7000 3300 50  0000 R CNN
 F 1 "SolderJumper_2_Bridged" H 7250 3414 50  0001 C CNN
 F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 7250 3300 50  0001 C CNN
 F 3 "~" H 7250 3300 50  0001 C CNN
@@ -1478,10 +1478,10 @@ $EndComp
 Wire Wire Line
 	950  2800 2100 2800
 $Comp
-L Jumper:SolderJumper_2_Bridged JP5
+L Jumper:SolderJumper_2_Bridged JP2
 U 1 1 5DC249EA
 P 1850 3200
-F 0 "JP5" H 1600 3200 50  0000 R CNN
+F 0 "JP2" H 1600 3200 50  0000 R CNN
 F 1 "SolderJumper_2_Bridged" H 1850 3314 50  0001 C CNN
 F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 1850 3200 50  0001 C CNN
 F 3 "~" H 1850 3200 50  0001 C CNN
