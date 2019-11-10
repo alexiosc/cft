@@ -45,19 +45,21 @@
 //   memory space along with different microcode address and control
 //   vectors, a new AGL, AIL and an all new Constant Store that's no
 //   longer in the ALU (freeing up space for better things!)
-
+//
 //   Version 7b: (2019-09-21) moved instructions around a bit to ease
 //   memorisation.
-
+//
 //   Version 7c: (2019-10-05) added ISR instruction to call the interrupt
 //   handler programmatically for traps etc. WAIT also transfers its (7-bit
 //   operand) to the DR for software interrupt support. Added IRETC instruction
 //   to return from Interrupt without enabling interrupts again.
-
+//
 //   Version 7d: (2019-10-06) added HCF instruction for a lark.
-
+//
 //   Version 7e: (2019-10-08) rearranged /if_xxx controls signals to
 //   match those of the Skip & Branch Unit schematics.
+//
+//   Version 7f: (2019-11-10) added RRA and RLA instructions.
 
 
 // ADDRESSING MODES
@@ -952,8 +954,10 @@ start WAIT;
 // SHL = SRU  0111'1'0'000'000'dddd    ; Bitwise shift left by d bits
 // SHR = SRU  0111'1'0'000'001'dddd    ; Bitwise shift right by d bits
 // ASR = SRU  0111'1'0'000'011'dddd    ; Arithmetic shift right by d bits
-// ROL = SRU  0111'1'0'000'100'dddd    ; Rotate left by d bits
-// ROR = SRU  0111'1'0'000'101'dddd    ; Rotate right by d bits
+// ROL = SRU  0111'1'0'000'100'dddd    ; Rotate <L,AC> left by d bits
+// ROR = SRU  0111'1'0'000'101'dddd    ; Rotate <L,AC> right by d bits
+// RLA = SRU  0111'1'0'000'110'dddd    ; Rotate AC left by d bits
+// RRA = SRU  0111'1'0'000'111'dddd    ; Rotate AC right by d bits
 //
 // This results in the following instructions:
 
@@ -1014,6 +1018,30 @@ start WAIT;
 //
 // Treats the Link Register and the AC as a 17-bit vector (L being the most
 // significant bit) and rolls it right by the specified number of bits.
+
+// MNEMONIC: RLA
+// NAME:     Roll Left Accumulator
+// DESC:     Roll Accumulator left.
+// GROUP:    Arithmetic and Logic
+// MODE:     Literal (4 bits)
+// FLAGS:    *NZ--L
+// FORMAT:   :110:LLLL
+//
+// Rotates the Accumulator left by the specified number of bits. This
+// is a 16-bit left rotation, where ROL is a 17-bit rotation. L is set
+// to the most significant bit of the AC prior to rotation.
+
+// MNEMONIC: RRA
+// NAME:     Roll Right Accumulator
+// DESC:     Roll Accumulator right.
+// GROUP:    Arithmetic and Logic
+// MODE:     Literal (4 bits)
+// FLAGS:    *NZ--L
+// FORMAT:   :111:LLLL
+//
+// Rotates the Accumulator right by the specified number of bits. This
+// is a 16-bit right rotation, where ROR is a 17-bit rotation. L is set
+// to the most significant bit of the AC prior to rotation.
 
 // MNEMONIC: [SRU]
 // NAME:     An undefined SRU sub-instruction.
