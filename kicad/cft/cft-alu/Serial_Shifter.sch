@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:cft-alu-cache
-EELAYER 30 0
+EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -133,15 +133,11 @@ Text Label 3700 4800 0    50   ~ 0
 Wire Wire Line
 	4350 4700 1150 4700
 Wire Wire Line
-	4350 3400 3850 3400
-Text Label 3850 3400 0    50   ~ 0
+	4350 3400 4050 3400
+Text Label 3650 3400 0    50   ~ 0
 B15
 Wire Wire Line
 	4350 3500 4150 3500
-Wire Wire Line
-	4350 3600 4150 3600
-Wire Wire Line
-	4150 3600 4150 3500
 Wire Wire Line
 	4350 4100 4250 4100
 Connection ~ 4250 4100
@@ -149,12 +145,6 @@ Wire Wire Line
 	4250 4100 4250 4500
 Wire Wire Line
 	4350 4200 4150 4200
-Connection ~ 4150 3600
-Wire Wire Line
-	4350 4300 4150 4300
-Wire Wire Line
-	4150 4300 4150 4200
-Connection ~ 4150 4200
 Text HLabel 1150 4800 0    50   Input ~ 0
 ~SHIFT~∕ROTATE
 Text HLabel 1150 4700 0    50   Input ~ 0
@@ -714,7 +704,7 @@ Entry Wire Line
 	6100 4600 6200 4700
 Wire Wire Line
 	1150 4800 4350 4800
-Text Label 3850 3500 0    50   ~ 0
+Text Label 3650 3500 0    50   ~ 0
 FLFAST
 Wire Wire Line
 	4350 3300 4250 3300
@@ -727,32 +717,32 @@ Text Label 2350 5200 0    50   ~ 0
 ~RIGHT
 Text Notes 3700 2350 0    50   ~ 0
 16 MHz clock
-Text Notes 3900 5400 0    100  ~ 20
+Text Notes 3700 5400 0    100  ~ 20
 MSB and LSB Selector
-Text Notes 4450 5950 0    50   ~ 0
-MSB\n\n 0\n B₁₅\n FL
-Text Notes 4650 5950 0    50   ~ 0
-LSB\n\n 0\n 0\n FL
-Text Notes 4900 5950 0    50   ~ 0
-Operation\n\nBitwise Shift\nArithmetic Shift\nBitwise Rotate
+Text Notes 4250 6025 0    50   ~ 0
+MSB\n\n 0\n B₁₅\n FL\n B₀
+Text Notes 4450 6025 0    50   ~ 0
+LSB\n\n 0\n 0\n FL\n B₁₅
+Text Notes 4700 6025 0    50   ~ 0
+Operation\n\nBitwise Shift\nArithmetic Shift\nBitwise Rotate <L,AC>\nBitwise Rotate AC
 Wire Notes Line width 20 style solid
-	3950 5500 5550 5500
+	3750 5500 5600 5500
 Wire Notes Line width 20 style solid
-	5550 5500 5550 6000
+	5600 5500 5600 6100
 Wire Notes Line width 20 style solid
-	5550 6000 3950 6000
+	5600 6100 3750 6100
 Wire Notes Line width 20 style solid
-	3950 6000 3950 5500
+	3750 6100 3750 5500
 Wire Notes Line style solid
-	3950 5650 5550 5650
+	3750 5650 5600 5650
 Wire Notes Line
-	4850 5500 4850 6000
+	4650 5500 4650 6100
 Wire Notes Line
-	4400 5500 4400 6000
-Text Notes 4200 5950 0    50   ~ 0
-~L~/A\n\n 0\n 1\n X
-Text Notes 4000 5950 0    50   ~ 0
-~S~/R\n\n 0\n 0\n 1
+	4200 5500 4200 6100
+Text Notes 4000 6025 0    50   ~ 0
+~L~/A\n\n 0\n 1\n 0\n 1
+Text Notes 3800 6025 0    50   ~ 0
+~S~/R\n\n 0\n 0\n 1\n 1
 Text Notes 7100 7000 0    197  ~ 39
 17-bit Shift/Rotate Unit
 Text Notes 2850 1650 0    50   ~ 0
@@ -1092,7 +1082,7 @@ Wire Wire Line
 Wire Wire Line
 	5800 5500 6600 5500
 Wire Wire Line
-	7350 5500 10000 5500
+	7350 5500 8450 5500
 $Comp
 L alexios:74AUC1G74 U?
 U 2 1 5D854F77
@@ -1929,14 +1919,12 @@ B[0..15]
 Text Label 8250 2800 1    50   ~ 0
 B[0..15]
 Wire Wire Line
-	1150 3500 4150 3500
-Text Label 1250 3500 0    50   ~ 0
+	950  3500 4150 3500
+Text Label 1050 3500 0    50   ~ 0
 FLFAST
-Text HLabel 1150 3500 0    50   Input ~ 0
+Text HLabel 950  3500 0    50   Input ~ 0
 FLFAST
 Connection ~ 4150 3500
-Wire Wire Line
-	4150 3600 4150 4200
 Wire Wire Line
 	8100 3900 8100 5200
 Wire Wire Line
@@ -2120,16 +2108,6 @@ Text Label 6500 4200 2    50   ~ 0
 TC
 Wire Wire Line
 	3400 2750 3400 2550
-Wire Bus Line
-	4400 1100 4400 1800
-Wire Bus Line
-	8250 1500 8250 4000
-Wire Bus Line
-	7900 1100 7900 3500
-Wire Bus Line
-	10050 1100 10050 3800
-Wire Bus Line
-	6100 950  6100 4700
 Text Label 4000 2500 0    50   ~ 0
 x4CLK
 Connection ~ 3950 2500
@@ -2146,4 +2124,69 @@ F 3 "~" H 4150 2500 50  0001 C CNN
 	1    3950 2500
 	-1   0    0    1   
 $EndComp
+$Comp
+L alexios:74LVC1G08 U1
+U 1 1 5E022810
+P 9350 5200
+F 0 "U1" H 9275 5467 50  0000 C CNN
+F 1 "74LVC1G08" H 9275 5376 50  0000 C CNN
+F 2 "" H 9000 5200 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 9000 5200 50  0001 C CNN
+	1    9350 5200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9500 5200 9800 5200
+$Comp
+L Connector:TestPoint TP15
+U 1 1 5E02E561
+P 9800 5200
+F 0 "TP15" H 9800 5450 50  0000 C CNN
+F 1 "TestPoint" H 9858 5227 50  0001 L CNN
+F 2 "TestPoint:TestPoint_Keystone_5000-5004_Miniature" H 10000 5200 50  0001 C CNN
+F 3 "~" H 10000 5200 50  0001 C CNN
+	1    9800 5200
+	1    0    0    -1  
+$EndComp
+Connection ~ 9800 5200
+Wire Wire Line
+	9800 5200 10650 5200
+Text HLabel 10650 5200 2    50   Output ~ 0
+FLCP
+Connection ~ 8450 5500
+Wire Wire Line
+	8450 5500 10000 5500
+Wire Wire Line
+	9050 5150 8450 5150
+Wire Wire Line
+	8450 5250 8450 5500
+Wire Wire Line
+	8450 5250 9050 5250
+Text Label 8450 5250 0    50   ~ 0
+SHIFTCLK
+Text Label 8450 5150 0    50   ~ 0
+~SHIFT~∕ROTATE
+Wire Wire Line
+	4150 3500 4150 4200
+Wire Wire Line
+	4350 4300 4050 4300
+Wire Wire Line
+	4350 3600 3650 3600
+Text Label 3650 3600 0    50   ~ 0
+B0
+Wire Wire Line
+	4050 3400 4050 4300
+Connection ~ 4050 3400
+Wire Wire Line
+	4050 3400 3650 3400
+Wire Bus Line
+	4400 1100 4400 1800
+Wire Bus Line
+	8250 1500 8250 4000
+Wire Bus Line
+	7900 1100 7900 3500
+Wire Bus Line
+	10050 1100 10050 3800
+Wire Bus Line
+	6100 950  6100 4700
 $EndSCHEMATC

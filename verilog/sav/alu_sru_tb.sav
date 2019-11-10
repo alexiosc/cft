@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Sat Nov  9 12:40:33 2019
+[*] Sat Nov  9 13:17:43 2019
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/alu_sru_tb.vcd"
-[dumpfile_mtime] "Sat Nov  9 12:40:23 2019"
-[dumpfile_size] 127370
+[dumpfile_mtime] "Sat Nov  9 13:17:31 2019"
+[dumpfile_size] 15287303
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/alu_sru_tb.sav"
-[timestart] 0
+[timestart] 785530000
 [size] 1920 1019
 [pos] 8188 30
-*-24.337687 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-20.337687 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] alu_sru_tb.
 [treeopen] alu_sru_tb.alu_sru.
 [sst_width] 258
@@ -36,7 +36,7 @@ alu_sru_tb.alu_sru.nstart
 alu_sru_tb.alu_sru.nstart_sync
 @200
 -
-@29
+@28
 alu_sru_tb.fl
 @22
 alu_sru_tb.ibus[15:0]
@@ -99,6 +99,7 @@ alu_sru_tb.alu_sru.ctr_state.q[3:0]
 alu_sru_tb.alu_sru.ctr_state.tc
 alu_sru_tb.alu_sru.ctr_state.nrc
 alu_sru_tb.alu_sru.ctr_state.nce
+@29
 alu_sru_tb.alu_sru.shiftclk
 @c00022
 alu_sru_tb.alu_sru.b[15:0]

@@ -80,8 +80,8 @@ module alu_sru(nreset,
    // optional sign-extensions.
    wire 	lsb;
    wire 	msb;
-   mux_253h msb_mux(.sel({op_rotate, op_arithmetic}), .i({fl, fl, b[15], 1'b0}), .noe(1'b0), .y(msb));
-   mux_253h lsb_mux(.sel({op_rotate, op_arithmetic}), .i({fl, fl, 1'b0, 1'b0}),  .noe(1'b0), .y(lsb));
+   mux_253h msb_mux(.sel({op_rotate, op_arithmetic}), .i({b[0], fl, b[15], 1'b0}), .noe(1'b0), .y(msb));
+   mux_253h lsb_mux(.sel({op_rotate, op_arithmetic}), .i({b[15], fl, 1'b0, 1'b0}),  .noe(1'b0), .y(lsb));
    
    // The left rotator
    buffer_541   buf_rol_lo(.a({b[6:0], lsb}),  .y(ibus[7:0]),  .noe1(tc), .noe2(nleft));

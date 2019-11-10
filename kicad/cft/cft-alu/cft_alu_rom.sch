@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:cft-alu-cache
-EELAYER 30 0
+EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -1477,40 +1477,6 @@ F 3 "~" H 7250 3300 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	950  2800 2100 2800
-Wire Bus Line
-	4400 3800 4400 4700
-Wire Bus Line
-	6300 4200 6300 5700
-Wire Bus Line
-	7050 3800 7050 4700
-Wire Bus Line
-	8950 4200 8950 5700
-Wire Bus Line
-	6450 1600 6450 3600
-Wire Bus Line
-	3800 1600 3800 3600
-Wire Bus Line
-	4000 1100 4000 2500
-Wire Bus Line
-	4200 950  4200 1900
-Wire Bus Line
-	1350 1100 1350 2500
-Wire Bus Line
-	1550 950  1550 1900
-Wire Bus Line
-	6850 950  6850 1700
-Wire Bus Line
-	6650 1100 6650 2100
-Wire Bus Line
-	9300 1600 9300 3600
-Wire Bus Line
-	3900 3700 9200 3700
-Wire Bus Line
-	1350 850  6750 850 
-Wire Bus Line
-	950  1000 6550 1000
-Wire Bus Line
-	6400 5800 10200 5800
 $Comp
 L Jumper:SolderJumper_2_Bridged JP5
 U 1 1 5DC249EA
@@ -1538,4 +1504,38 @@ Text Label 7200 4700 0    50   ~ 0
 Y14
 Text Label 7200 4800 0    50   ~ 0
 Y15
+Wire Bus Line
+	6400 5800 10200 5800
+Wire Bus Line
+	950  1000 6550 1000
+Wire Bus Line
+	1350 850  6750 850 
+Wire Bus Line
+	6850 950  6850 1700
+Wire Bus Line
+	6650 1100 6650 2100
+Wire Bus Line
+	9300 1600 9300 3600
+Wire Bus Line
+	3900 3700 9200 3700
+Wire Bus Line
+	1550 950  1550 1900
+Wire Bus Line
+	1350 1100 1350 2500
+Wire Bus Line
+	4200 950  4200 1900
+Wire Bus Line
+	4000 1100 4000 2500
+Wire Bus Line
+	3800 1600 3800 3600
+Wire Bus Line
+	6450 1600 6450 3600
+Wire Bus Line
+	4400 3800 4400 4700
+Wire Bus Line
+	6300 4200 6300 5700
+Wire Bus Line
+	7050 3800 7050 4700
+Wire Bus Line
+	8950 4200 8950 5700
 $EndSCHEMATC
