@@ -33,10 +33,10 @@
 `include "flipflop.v"
 `timescale 1ns/10ps
 
-//`define DELTA 21
+`define DELTA 21
 //`define DELTA 89
 //`define DELTA 941
-`define DELTA 1543
+//`define DELTA 1543
 
 
 module alu_sru_tb();
