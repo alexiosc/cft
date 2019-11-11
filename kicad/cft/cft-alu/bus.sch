@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:cft-alu-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -1173,24 +1173,6 @@ Text HLabel 6750 2750 2    50   UnSpc ~ 0
 NoConn ~ 2150 2350
 Text Label 1450 5350 0    50   ~ 0
 AB[0..23]
-Wire Bus Line
-	4250 3650 4250 5350
-Wire Bus Line
-	4700 1850 4700 5550
-Wire Bus Line
-	4800 3550 4800 5650
-Wire Bus Line
-	4350 2850 4350 5450
-Wire Bus Line
-	7300 2150 7300 6050
-Wire Bus Line
-	7200 2950 7200 5950
-Wire Bus Line
-	7100 3450 7100 5850
-Wire Bus Line
-	7000 3950 7000 5750
-Wire Bus Line
-	2050 2850 2050 5250
 Entry Bus Bus
 	1950 5350 2050 5250
 Entry Wire Line
@@ -1241,4 +1223,22 @@ Entry Wire Line
 	2050 2950 2150 2850
 Entry Wire Line
 	2050 2850 2150 2750
+Wire Bus Line
+	7200 2950 7200 5950
+Wire Bus Line
+	7100 3450 7100 5850
+Wire Bus Line
+	7000 3950 7000 5750
+Wire Bus Line
+	7300 2150 7300 6050
+Wire Bus Line
+	4800 3550 4800 5650
+Wire Bus Line
+	4350 2850 4350 5450
+Wire Bus Line
+	4250 3650 4250 5350
+Wire Bus Line
+	4700 1850 4700 5550
+Wire Bus Line
+	2050 2850 2050 5250
 $EndSCHEMATC

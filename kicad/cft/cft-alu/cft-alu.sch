@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:cft-alu-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -412,13 +412,9 @@ Arithmetic & Logic (ALU)
 Wire Wire Line
 	9650 2250 10000 2250
 Wire Wire Line
-	9650 3450 10000 3450
-Wire Wire Line
 	9650 2150 10000 2150
-NoConn ~ 10000 3450
 Wire Wire Line
-	9650 3550 10000 3550
-NoConn ~ 10000 3550
+	9650 3550 9700 3550
 Wire Wire Line
 	9650 1450 10000 1450
 Wire Wire Line
@@ -1096,17 +1092,6 @@ Text Label 7950 4150 0    50   ~ 0
 ~RUEN
 Text Label 7950 4250 0    50   ~ 0
 ~WUEN
-$Comp
-L Connector:TestPoint TP1
-U 1 1 5DCAA8B1
-P 10000 2450
-F 0 "TP1" V 10000 2638 50  0000 L CNN
-F 1 "TestPoint" V 10045 2638 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Keystone_5000-5004_Miniature" H 10200 2450 50  0001 C CNN
-F 3 "~" H 10200 2450 50  0001 C CNN
-	1    10000 2450
-	0    1    1    0   
-$EndComp
 Wire Wire Line
 	9650 2450 10000 2450
 Wire Wire Line
@@ -1120,91 +1105,13 @@ Wire Wire Line
 Wire Wire Line
 	9650 2950 10000 2950
 Wire Wire Line
-	9650 3250 10000 3250
+	9650 3250 9700 3250
 Wire Wire Line
 	9650 3350 10000 3350
-$Comp
-L Connector:TestPoint TP2
-U 1 1 5DCF8FE6
-P 10000 2550
-F 0 "TP2" V 10000 2738 50  0000 L CNN
-F 1 "TestPoint" V 10045 2738 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Keystone_5000-5004_Miniature" H 10200 2550 50  0001 C CNN
-F 3 "~" H 10200 2550 50  0001 C CNN
-	1    10000 2550
-	0    1    1    0   
-$EndComp
-$Comp
-L Connector:TestPoint TP3
-U 1 1 5DCF9313
-P 10000 2650
-F 0 "TP3" V 10000 2838 50  0000 L CNN
-F 1 "TestPoint" V 10045 2838 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Keystone_5000-5004_Miniature" H 10200 2650 50  0001 C CNN
-F 3 "~" H 10200 2650 50  0001 C CNN
-	1    10000 2650
-	0    1    1    0   
-$EndComp
-$Comp
-L Connector:TestPoint TP4
-U 1 1 5DCFA888
-P 10000 2750
-F 0 "TP4" V 10000 2938 50  0000 L CNN
-F 1 "TestPoint" V 10045 2938 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Keystone_5000-5004_Miniature" H 10200 2750 50  0001 C CNN
-F 3 "~" H 10200 2750 50  0001 C CNN
-	1    10000 2750
-	0    1    1    0   
-$EndComp
-$Comp
-L Connector:TestPoint TP5
-U 1 1 5DCFA88E
-P 10000 2850
-F 0 "TP5" V 10000 3038 50  0000 L CNN
-F 1 "TestPoint" V 10045 3038 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Keystone_5000-5004_Miniature" H 10200 2850 50  0001 C CNN
-F 3 "~" H 10200 2850 50  0001 C CNN
-	1    10000 2850
-	0    1    1    0   
-$EndComp
-$Comp
-L Connector:TestPoint TP6
-U 1 1 5DCFA894
-P 10000 2950
-F 0 "TP6" V 10000 3138 50  0000 L CNN
-F 1 "TestPoint" V 10045 3138 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Keystone_5000-5004_Miniature" H 10200 2950 50  0001 C CNN
-F 3 "~" H 10200 2950 50  0001 C CNN
-	1    10000 2950
-	0    1    1    0   
-$EndComp
 Wire Wire Line
 	9650 3050 10000 3050
 Wire Wire Line
 	9650 3150 10000 3150
-$Comp
-L Connector:TestPoint TP7
-U 1 1 5DD216F9
-P 10000 3050
-F 0 "TP7" V 10000 3238 50  0000 L CNN
-F 1 "TestPoint" V 10045 3238 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Keystone_5000-5004_Miniature" H 10200 3050 50  0001 C CNN
-F 3 "~" H 10200 3050 50  0001 C CNN
-	1    10000 3050
-	0    1    1    0   
-$EndComp
-$Comp
-L Connector:TestPoint TP8
-U 1 1 5DD216FF
-P 10000 3150
-F 0 "TP8" V 10000 3338 50  0000 L CNN
-F 1 "TestPoint" V 10045 3338 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Keystone_5000-5004_Miniature" H 10200 3150 50  0001 C CNN
-F 3 "~" H 10200 3150 50  0001 C CNN
-	1    10000 3150
-	0    1    1    0   
-$EndComp
-NoConn ~ 10000 3250
 NoConn ~ 10000 3350
 Text Notes 10800 2450 3    50   ~ 0
 For ROM Expansion
@@ -1242,7 +1149,7 @@ AR Path="/5DF75CDE/5DCDEBA8" Ref="TP?"  Part="1"
 AR Path="/5DCDEBA8" Ref="TP13"  Part="1" 
 F 0 "TP13" V 9250 6188 50  0000 L CNN
 F 1 "TestPoint" H 9308 6027 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Keystone_5000-5004_Miniature" H 9450 6000 50  0001 C CNN
+F 2 "TestPoint:TestPoint_Pad_1.0x1.0mm" H 9450 6000 50  0001 C CNN
 F 3 "~" H 9450 6000 50  0001 C CNN
 	1    9250 6000
 	0    1    1    0   
@@ -1252,7 +1159,7 @@ Wire Wire Line
 Text Label 8500 6100 0    50   ~ 0
 ~ACTION-110
 Text Label 8500 6000 0    50   ~ 0
-~ACTION-110
+~ACTION-101
 $Comp
 L Connector:TestPoint TP?
 U 1 1 5DCFA7A8
@@ -1261,7 +1168,7 @@ AR Path="/5DF75CDE/5DCFA7A8" Ref="TP?"  Part="1"
 AR Path="/5DCFA7A8" Ref="TP14"  Part="1" 
 F 0 "TP14" V 9250 6288 50  0000 L CNN
 F 1 "TestPoint" H 9308 6127 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Keystone_5000-5004_Miniature" H 9450 6100 50  0001 C CNN
+F 2 "TestPoint:TestPoint_Pad_1.0x1.0mm" H 9450 6100 50  0001 C CNN
 F 3 "~" H 9450 6100 50  0001 C CNN
 	1    9250 6100
 	0    1    1    0   
@@ -1278,12 +1185,65 @@ Wire Wire Line
 	4650 1650 5400 1650
 NoConn ~ 4050 1950
 NoConn ~ 4050 2050
-Wire Bus Line
-	7150 1200 7150 4450
+$Comp
+L Connector:TestPoint TP3
+U 1 1 5DD216FF
+P 9700 3450
+F 0 "TP3" V 9700 3638 50  0000 L CNN
+F 1 "TestPoint" V 9745 3638 50  0001 L CNN
+F 2 "TestPoint:TestPoint_Pad_1.0x1.0mm" H 9900 3450 50  0001 C CNN
+F 3 "~" H 9900 3450 50  0001 C CNN
+	1    9700 3450
+	0    1    1    0   
+$EndComp
+$Comp
+L Connector:TestPoint TP1
+U 1 1 5DCAA8B1
+P 10000 3050
+F 0 "TP1" V 10000 3238 50  0000 L CNN
+F 1 "TestPoint" V 10045 3238 50  0001 L CNN
+F 2 "TestPoint:TestPoint_Pad_1.0x1.0mm" H 10200 3050 50  0001 C CNN
+F 3 "~" H 10200 3050 50  0001 C CNN
+	1    10000 3050
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	9650 3450 9700 3450
+$Comp
+L Connector:TestPoint TP2
+U 1 1 5DCF8FE6
+P 9700 3250
+F 0 "TP2" V 9700 3438 50  0000 L CNN
+F 1 "TestPoint" V 9745 3438 50  0001 L CNN
+F 2 "TestPoint:TestPoint_Pad_1.0x1.0mm" H 9900 3250 50  0001 C CNN
+F 3 "~" H 9900 3250 50  0001 C CNN
+	1    9700 3250
+	0    1    1    0   
+$EndComp
+NoConn ~ 10000 2450
+NoConn ~ 10000 2550
+NoConn ~ 10000 2650
+NoConn ~ 10000 2750
+NoConn ~ 10000 2850
+NoConn ~ 10000 2950
+NoConn ~ 10000 3150
 Wire Bus Line
 	800  4100 2350 4100
+Wire Bus Line
+	7150 1200 7150 4450
 Wire Bus Line
 	10100 1300 10100 1950
 Wire Bus Line
 	10100 3450 10100 5050
+$Comp
+L Connector:TestPoint TP4
+U 1 1 5DE16EEE
+P 9700 3550
+F 0 "TP4" V 9700 3738 50  0000 L CNN
+F 1 "TestPoint" V 9745 3738 50  0001 L CNN
+F 2 "TestPoint:TestPoint_Pad_1.0x1.0mm" H 9900 3550 50  0001 C CNN
+F 3 "~" H 9900 3550 50  0001 C CNN
+	1    9700 3550
+	0    1    1    0   
+$EndComp
 $EndSCHEMATC

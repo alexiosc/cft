@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:cft-alu-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -2015,7 +2015,7 @@ U 1 1 5DCF40D7
 P 3400 2300
 F 0 "TP9" H 3400 2550 50  0000 C CNN
 F 1 "TestPoint" H 3458 2327 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Keystone_5000-5004_Miniature" H 3600 2300 50  0001 C CNN
+F 2 "TestPoint:TestPoint_Pad_1.0x1.0mm" H 3600 2300 50  0001 C CNN
 F 3 "~" H 3600 2300 50  0001 C CNN
 	1    3400 2300
 	1    0    0    -1  
@@ -2027,7 +2027,7 @@ U 1 1 5DCF509A
 P 3400 2750
 F 0 "TP11" H 3400 3000 50  0000 C CNN
 F 1 "TestPoint" H 3458 2777 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Keystone_5000-5004_Miniature" H 3600 2750 50  0001 C CNN
+F 2 "TestPoint:TestPoint_Pad_1.0x1.0mm" H 3600 2750 50  0001 C CNN
 F 3 "~" H 3600 2750 50  0001 C CNN
 	1    3400 2750
 	-1   0    0    1   
@@ -2039,7 +2039,7 @@ U 1 1 5DCF567D
 P 10000 5500
 F 0 "TP12" H 10000 5750 50  0000 C CNN
 F 1 "TestPoint" H 10058 5527 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Keystone_5000-5004_Miniature" H 10200 5500 50  0001 C CNN
+F 2 "TestPoint:TestPoint_Pad_1.0x1.0mm" H 10200 5500 50  0001 C CNN
 F 3 "~" H 10200 5500 50  0001 C CNN
 	1    10000 5500
 	1    0    0    -1  
@@ -2080,7 +2080,7 @@ U 1 1 5DCF82BB
 P 3950 2500
 F 0 "TP10" H 3950 2750 50  0000 C CNN
 F 1 "TestPoint" H 4008 2527 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Keystone_5000-5004_Miniature" H 4150 2500 50  0001 C CNN
+F 2 "TestPoint:TestPoint_Pad_1.0x1.0mm" H 4150 2500 50  0001 C CNN
 F 3 "~" H 4150 2500 50  0001 C CNN
 	1    3950 2500
 	-1   0    0    1   
@@ -2104,7 +2104,7 @@ U 1 1 5E02E561
 P 9800 5200
 F 0 "TP15" H 9800 5450 50  0000 C CNN
 F 1 "TestPoint" H 9858 5227 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Keystone_5000-5004_Miniature" H 10000 5200 50  0001 C CNN
+F 2 "TestPoint:TestPoint_Pad_1.0x1.0mm" H 10000 5200 50  0001 C CNN
 F 3 "~" H 10000 5200 50  0001 C CNN
 	1    9800 5200
 	1    0    0    -1  
@@ -2242,6 +2242,8 @@ F 3 "~" H 7975 6175 50  0001 C CNN
 $EndComp
 Connection ~ 7975 6275
 Connection ~ 7975 6075
+Wire Wire Line
+	5800 2950 5800 5500
 Wire Bus Line
 	4400 1100 4400 1800
 Wire Bus Line
