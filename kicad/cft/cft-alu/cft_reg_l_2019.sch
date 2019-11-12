@@ -881,8 +881,6 @@ Text HLabel 1300 1100 0    50   Input ~ 0
 CLK4
 Text Label 8650 2850 2    50   ~ 0
 CLK4
-Text HLabel 10350 2650 2    50   Output ~ 0
-FL
 $Comp
 L power:GND #PWR?
 U 1 1 5D995A82
@@ -1104,4 +1102,6 @@ Text Label 5600 2750 1    50   ~ 0
 LD2
 Text Label 6250 2750 1    50   ~ 0
 LD3
+Text HLabel 10350 2650 2    50   Output ~ 0
+FL
 $EndSCHEMATC

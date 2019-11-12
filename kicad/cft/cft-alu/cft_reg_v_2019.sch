@@ -591,10 +591,10 @@ $EndComp
 Connection ~ 2350 7300
 Connection ~ 2350 7500
 $Comp
-L Device:R_Small R5
+L Device:R_Small R1
 U 1 1 5DD10E8A
 P 9950 3050
-F 0 "R5" V 9754 3050 50  0000 C CNN
+F 0 "R1" V 9754 3050 50  0000 C CNN
 F 1 "30Ω" V 9845 3050 50  0000 C CNN
 F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 9950 3050 50  0001 C CNN
 F 3 "~" H 9950 3050 50  0001 C CNN

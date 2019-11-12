@@ -412,7 +412,7 @@ Arithmetic & Logic (ALU)
 Wire Wire Line
 	9650 2250 10000 2250
 Wire Wire Line
-	9650 2150 10000 2150
+	9650 2150 10200 2150
 Wire Wire Line
 	9650 3550 9700 3550
 Wire Wire Line
@@ -465,8 +465,8 @@ Text Label 10500 1200 2    50   ~ 0
 IR[0..6]
 Text Label 10000 2350 2    50   ~ 0
 ~FLAGWE
-Text Label 10000 2150 2    50   ~ 0
-FL
+Text Label 10200 2150 2    50   ~ 0
+FL-OFFBOARD
 Text Label 10000 2250 2    50   ~ 0
 FV
 Text Notes 10200 2150 0    50   ~ 0
@@ -658,7 +658,7 @@ Text Label 7100 5600 2    50   ~ 0
 FV
 Wire Wire Line
 	6550 5600 7100 5600
-Text Label 4400 5600 2    50   ~ 0
+Text Label 4550 5600 2    50   ~ 0
 FL
 Text Label 1700 6500 0    50   ~ 0
 ~FLAGWE
@@ -766,7 +766,7 @@ F11 "FLCP-SRU" I L 2400 6250 50
 F12 "FLIN-SRU" I L 2400 6350 50 
 F13 "FLFAST" O R 3550 5700 50 
 $EndSheet
-Text Label 4400 5700 2    50   ~ 0
+Text Label 4550 5700 2    50   ~ 0
 FLFAST
 Wire Wire Line
 	2400 6250 1700 6250
@@ -920,7 +920,7 @@ Wire Wire Line
 Wire Wire Line
 	3550 5700 4800 5700
 Wire Wire Line
-	3550 5600 4700 5600
+	3550 5600 3650 5600
 Wire Bus Line
 	4550 1800 5400 1800
 Wire Bus Line
@@ -1227,14 +1227,6 @@ NoConn ~ 10000 2750
 NoConn ~ 10000 2850
 NoConn ~ 10000 2950
 NoConn ~ 10000 3150
-Wire Bus Line
-	800  4100 2350 4100
-Wire Bus Line
-	7150 1200 7150 4450
-Wire Bus Line
-	10100 1300 10100 1950
-Wire Bus Line
-	10100 3450 10100 5050
 $Comp
 L Connector:TestPoint TP4
 U 1 1 5DE16EEE
@@ -1246,4 +1238,34 @@ F 3 "~" H 9900 3550 50  0001 C CNN
 	1    9700 3550
 	0    1    1    0   
 $EndComp
+$Comp
+L Device:R_Small R?
+U 1 1 5DCC470D
+P 3800 5450
+F 0 "R?" V 3604 5450 50  0000 C CNN
+F 1 "30Ω" V 3695 5450 50  0000 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3800 5450 50  0001 C CNN
+F 3 "~" H 3800 5450 50  0001 C CNN
+	1    3800 5450
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	3700 5450 3650 5450
+Wire Wire Line
+	3650 5450 3650 5600
+Connection ~ 3650 5600
+Wire Wire Line
+	3650 5600 4700 5600
+Wire Wire Line
+	3900 5450 4550 5450
+Wire Bus Line
+	800  4100 2350 4100
+Wire Bus Line
+	7150 1200 7150 4450
+Wire Bus Line
+	10100 1300 10100 1950
+Wire Bus Line
+	10100 3450 10100 5050
+Text Label 4550 5450 2    50   ~ 0
+FL-OFFBOARD
 $EndSCHEMATC
