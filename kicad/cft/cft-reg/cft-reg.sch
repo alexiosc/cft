@@ -49,7 +49,7 @@ F28 "~HALT" U L 9250 4700 50
 F29 "ACTION[0..3]" U L 9250 5000 50 
 F30 "WADDR[0..4]" U L 9250 5100 50 
 F31 "RADDR[0..4]" U L 9250 5200 50 
-F32 "RSVD[0..8]" U L 9250 5300 50 
+F32 "RSVD[1..4]" U L 9250 5300 50 
 F33 "C1" U R 10400 2100 50 
 F34 "C2" U R 10400 2200 50 
 F35 "C3" U R 10400 2300 50 
@@ -203,8 +203,6 @@ Text Label 8700 5000 0    50   ~ 0
 ACTION[0..3]
 Text Label 8700 5100 0    50   ~ 0
 WADDR[0..4]
-Text Label 8700 5200 0    50   ~ 0
-RADDR[0..4]
 Wire Bus Line
 	9250 5000 8700 5000
 Wire Bus Line
@@ -214,7 +212,7 @@ Wire Bus Line
 Wire Bus Line
 	8700 5300 9250 5300
 Text Label 8700 5300 0    50   ~ 0
-RSVD[0..8]
+RSVD[1..4]
 Text Notes 10000 3950 1    100  ~ 20
 Left Slot
 Text Label 8700 4300 0    50   ~ 0
@@ -1267,14 +1265,16 @@ Wire Wire Line
 	9250 4900 8700 4900
 NoConn ~ 8700 4800
 NoConn ~ 8700 4900
+Text Label 8700 4800 0    50   ~ 0
+~RUEN
+Text Label 8700 4900 0    50   ~ 0
+~WUEN
 Wire Bus Line
 	850  3350 850  4150
 Wire Bus Line
 	850  1900 850  2700
 Wire Bus Line
 	850  4800 850  5500
-Text Label 8700 4800 0    50   ~ 0
-~RUEN
-Text Label 8700 4900 0    50   ~ 0
-~WUEN
+Text Label 8700 5200 0    50   ~ 0
+RADDR[0..4]
 $EndSCHEMATC
