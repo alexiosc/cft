@@ -4,7 +4,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 7 9
+Sheet 2 9
 Title ""
 Date ""
 Rev ""
@@ -568,7 +568,7 @@ AR Path="/5D7311B9/5D2F1B04" Ref="#PWR030"  Part="1"
 AR Path="/5D73148E/5D2F1B04" Ref="#PWR036"  Part="1" 
 AR Path="/5D7317C0/5D2F1B04" Ref="#PWR042"  Part="1" 
 AR Path="/5D731AE6/5D2F1B04" Ref="#PWR048"  Part="1" 
-F 0 "#PWR036" H 6300 5650 50  0001 C CNN
+F 0 "#PWR06" H 6300 5650 50  0001 C CNN
 F 1 "GND" H 6305 5727 50  0000 C CNN
 F 2 "" H 6300 5900 50  0001 C CNN
 F 3 "" H 6300 5900 50  0001 C CNN
@@ -613,7 +613,7 @@ AR Path="/5D7311B9/5D2F1B19" Ref="C5"  Part="1"
 AR Path="/5D73148E/5D2F1B19" Ref="C6"  Part="1" 
 AR Path="/5D7317C0/5D2F1B19" Ref="C7"  Part="1" 
 AR Path="/5D731AE6/5D2F1B19" Ref="C8"  Part="1" 
-F 0 "C6" H 3238 5596 50  0000 L CNN
+F 0 "C1" H 3238 5596 50  0000 L CNN
 F 1 "1µF" H 3238 5505 50  0000 L CNN
 F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 3150 5550 50  0001 C CNN
 F 3 "~" H 3150 5550 50  0001 C CNN
@@ -643,7 +643,7 @@ AR Path="/5D7311B9/5D2F1B1F" Ref="#PWR027"  Part="1"
 AR Path="/5D73148E/5D2F1B1F" Ref="#PWR033"  Part="1" 
 AR Path="/5D7317C0/5D2F1B1F" Ref="#PWR039"  Part="1" 
 AR Path="/5D731AE6/5D2F1B1F" Ref="#PWR045"  Part="1" 
-F 0 "#PWR033" H 3150 5300 50  0001 C CNN
+F 0 "#PWR03" H 3150 5300 50  0001 C CNN
 F 1 "+5V" H 3165 5623 50  0000 C CNN
 F 2 "" H 3150 5450 50  0001 C CNN
 F 3 "" H 3150 5450 50  0001 C CNN
@@ -673,7 +673,7 @@ AR Path="/5D7311B9/5D2F1B25" Ref="#PWR028"  Part="1"
 AR Path="/5D73148E/5D2F1B25" Ref="#PWR034"  Part="1" 
 AR Path="/5D7317C0/5D2F1B25" Ref="#PWR040"  Part="1" 
 AR Path="/5D731AE6/5D2F1B25" Ref="#PWR046"  Part="1" 
-F 0 "#PWR034" H 3150 5400 50  0001 C CNN
+F 0 "#PWR04" H 3150 5400 50  0001 C CNN
 F 1 "GND" H 3155 5477 50  0000 C CNN
 F 2 "" H 3150 5650 50  0001 C CNN
 F 3 "" H 3150 5650 50  0001 C CNN
@@ -718,7 +718,7 @@ AR Path="/5D7311B9/5D70B07D" Ref="#PWR025"  Part="1"
 AR Path="/5D73148E/5D70B07D" Ref="#PWR031"  Part="1" 
 AR Path="/5D7317C0/5D70B07D" Ref="#PWR037"  Part="1" 
 AR Path="/5D731AE6/5D70B07D" Ref="#PWR043"  Part="1" 
-F 0 "#PWR031" H 3800 1650 50  0001 C CNN
+F 0 "#PWR01" H 3800 1650 50  0001 C CNN
 F 1 "+5V" H 3815 1973 50  0000 C CNN
 F 2 "" H 3800 1800 50  0001 C CNN
 F 3 "" H 3800 1800 50  0001 C CNN
@@ -739,7 +739,7 @@ AR Path="/5D7311B9/5D70BA33" Ref="#PWR026"  Part="1"
 AR Path="/5D73148E/5D70BA33" Ref="#PWR032"  Part="1" 
 AR Path="/5D7317C0/5D70BA33" Ref="#PWR038"  Part="1" 
 AR Path="/5D731AE6/5D70BA33" Ref="#PWR044"  Part="1" 
-F 0 "#PWR032" H 5450 5550 50  0001 C CNN
+F 0 "#PWR02" H 5450 5550 50  0001 C CNN
 F 1 "+5V" H 5600 5750 50  0000 C CNN
 F 2 "" H 5450 5700 50  0001 C CNN
 F 3 "" H 5450 5700 50  0001 C CNN
@@ -758,7 +758,7 @@ AR Path="/5D7311B9/5D71E48F" Ref="SLOT5"  Part="1"
 AR Path="/5D73148E/5D71E48F" Ref="SLOT6"  Part="1" 
 AR Path="/5D7317C0/5D71E48F" Ref="SLOT7"  Part="1" 
 AR Path="/5D731AE6/5D71E48F" Ref="SLOT8"  Part="1" 
-F 0 "SLOT6" H 4100 3667 50  0000 C CNN
+F 0 "SLOT1" H 4100 3667 50  0000 C CNN
 F 1 "conn_2x82_ab" H 4100 3576 50  0001 C CNN
 F 2 "alexios:Amphenol_10018783-x0x03_2x82_P1.00mm_Socket_Vertical" H 4050 2650 50  0001 C CNN
 F 3 "https://gr.mouser.com/datasheet/2/18/Amphenol_05062019_10018783-1591569.pdf" H 4050 2650 50  0001 C CNN
@@ -778,7 +778,7 @@ AR Path="/5D7311B9/5D725E9E" Ref="SLOT5"  Part="2"
 AR Path="/5D73148E/5D725E9E" Ref="SLOT6"  Part="2" 
 AR Path="/5D7317C0/5D725E9E" Ref="SLOT7"  Part="2" 
 AR Path="/5D731AE6/5D725E9E" Ref="SLOT8"  Part="2" 
-F 0 "SLOT6" H 6000 3667 50  0000 C CNN
+F 0 "SLOT1" H 6000 3667 50  0000 C CNN
 F 1 "conn_2x82_ab" H 6000 3576 50  0001 C CNN
 F 2 "alexios:Amphenol_10018783-x0x03_2x82_P1.00mm_Socket_Vertical" H 5950 2650 50  0001 C CNN
 F 3 "https://gr.mouser.com/datasheet/2/18/Amphenol_05062019_10018783-1591569.pdf" H 5950 2650 50  0001 C CNN
@@ -803,7 +803,7 @@ Wire Wire Line
 $Comp
 L Connector_Generic:Conn_02x20_Top_Bottom J?
 U 1 1 5D2F1A67
-P 8950 4750
+P 8850 3450
 AR Path="/5D2F1A67" Ref="J?"  Part="1" 
 AR Path="/5D2CD990/5D2F1A67" Ref="J1"  Part="1" 
 AR Path="/5D46F03E/5D2F1A67" Ref="J?"  Part="1" 
@@ -823,11 +823,11 @@ AR Path="/5D7311B9/5D2F1A67" Ref="J5"  Part="1"
 AR Path="/5D73148E/5D2F1A67" Ref="J6"  Part="1" 
 AR Path="/5D7317C0/5D2F1A67" Ref="J7"  Part="1" 
 AR Path="/5D731AE6/5D2F1A67" Ref="J8"  Part="1" 
-F 0 "J6" H 9000 5775 50  0000 C CNN
-F 1 "Conn_02x20_Top_Bottom" H 9000 5776 50  0001 C CNN
-F 2 "Connector_IDC:IDC-Header_2x20_P2.54mm_Vertical" H 8950 4750 50  0001 C CNN
-F 3 "~" H 8950 4750 50  0001 C CNN
-	1    8950 4750
+F 0 "J1" H 8900 4475 50  0000 C CNN
+F 1 "Conn_02x20_Top_Bottom" H 8900 4476 50  0001 C CNN
+F 2 "Connector_IDC:IDC-Header_2x20_P2.54mm_Vertical" H 8850 3450 50  0001 C CNN
+F 3 "~" H 8850 3450 50  0001 C CNN
+	1    8850 3450
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
@@ -863,160 +863,160 @@ C35
 Text Label 5550 5350 0    50   ~ 0
 C33
 Wire Wire Line
-	9250 3850 9450 3850
+	9150 2550 9350 2550
 Wire Wire Line
-	9250 3950 9450 3950
+	9150 2650 9350 2650
 Wire Wire Line
-	9250 4050 9450 4050
+	9150 2750 9350 2750
 Wire Wire Line
-	9250 4150 9450 4150
+	9150 2850 9350 2850
 Wire Wire Line
-	9250 4250 9450 4250
+	9150 2950 9350 2950
 Wire Wire Line
-	9250 4350 9450 4350
+	9150 3050 9350 3050
 Wire Wire Line
-	9250 4450 9450 4450
+	9150 3150 9350 3150
 Wire Wire Line
-	9250 4550 9450 4550
+	9150 3250 9350 3250
 Wire Wire Line
-	9250 4650 9450 4650
+	9150 3350 9350 3350
 Wire Wire Line
-	9250 4750 9450 4750
+	9150 3450 9350 3450
 Wire Wire Line
-	9250 4850 9450 4850
+	9150 3550 9350 3550
 Wire Wire Line
-	9250 4950 9450 4950
+	9150 3650 9350 3650
 Wire Wire Line
-	9250 5050 9450 5050
+	9150 3750 9350 3750
 Wire Wire Line
-	9250 5150 9450 5150
+	9150 3850 9350 3850
 Wire Wire Line
-	9250 5250 9450 5250
+	9150 3950 9350 3950
 Wire Wire Line
-	9250 5350 9450 5350
+	9150 4050 9350 4050
 Wire Wire Line
-	9250 5450 9450 5450
+	9150 4150 9350 4150
 Wire Wire Line
-	9250 5550 9450 5550
+	9150 4250 9350 4250
 Wire Wire Line
-	9250 5650 9450 5650
+	9150 4350 9350 4350
 Wire Wire Line
-	9250 5750 9450 5750
+	9150 4450 9350 4450
 Wire Wire Line
-	8750 3850 8500 3850
+	8650 2550 8400 2550
 Wire Wire Line
-	8750 3950 8500 3950
+	8650 2650 8400 2650
 Wire Wire Line
-	8750 4050 8500 4050
+	8650 2750 8400 2750
 Wire Wire Line
-	8750 4150 8500 4150
+	8650 2850 8400 2850
 Wire Wire Line
-	8750 4250 8500 4250
+	8650 2950 8400 2950
 Wire Wire Line
-	8750 4350 8500 4350
+	8650 3050 8400 3050
 Wire Wire Line
-	8750 4450 8500 4450
+	8650 3150 8400 3150
 Wire Wire Line
-	8750 4550 8500 4550
+	8650 3250 8400 3250
 Wire Wire Line
-	8750 4650 8500 4650
+	8650 3350 8400 3350
 Wire Wire Line
-	8750 4750 8500 4750
+	8650 3450 8400 3450
 Wire Wire Line
-	8750 4850 8500 4850
+	8650 3550 8400 3550
 Wire Wire Line
-	8750 4950 8500 4950
+	8650 3650 8400 3650
 Wire Wire Line
-	8750 5050 8500 5050
+	8650 3750 8400 3750
 Wire Wire Line
-	8750 5150 8500 5150
+	8650 3850 8400 3850
 Wire Wire Line
-	8750 5250 8500 5250
+	8650 3950 8400 3950
 Wire Wire Line
-	8750 5350 8500 5350
+	8650 4050 8400 4050
 Wire Wire Line
-	8750 5450 8500 5450
+	8650 4150 8400 4150
 Wire Wire Line
-	8750 5550 8500 5550
+	8650 4250 8400 4250
 Wire Wire Line
-	8750 5650 8500 5650
-Text Label 8500 3850 0    50   ~ 0
+	8650 4350 8400 4350
+Text Label 8400 2550 0    50   ~ 0
 C1
-Text Label 8500 3950 0    50   ~ 0
+Text Label 8400 2650 0    50   ~ 0
 C2
-Text Label 8500 4050 0    50   ~ 0
+Text Label 8400 2750 0    50   ~ 0
 C3
-Text Label 8500 4150 0    50   ~ 0
+Text Label 8400 2850 0    50   ~ 0
 C4
-Text Label 8500 4250 0    50   ~ 0
+Text Label 8400 2950 0    50   ~ 0
 C5
-Text Label 8500 4350 0    50   ~ 0
+Text Label 8400 3050 0    50   ~ 0
 C6
-Text Label 8500 4450 0    50   ~ 0
+Text Label 8400 3150 0    50   ~ 0
 C7
-Text Label 8500 4550 0    50   ~ 0
+Text Label 8400 3250 0    50   ~ 0
 C8
-Text Label 8500 4650 0    50   ~ 0
+Text Label 8400 3350 0    50   ~ 0
 C9
-Text Label 8500 4750 0    50   ~ 0
+Text Label 8400 3450 0    50   ~ 0
 C10
-Text Label 8500 4850 0    50   ~ 0
+Text Label 8400 3550 0    50   ~ 0
 C11
-Text Label 8500 4950 0    50   ~ 0
+Text Label 8400 3650 0    50   ~ 0
 C12
-Text Label 8500 5050 0    50   ~ 0
+Text Label 8400 3750 0    50   ~ 0
 C13
-Text Label 8500 5150 0    50   ~ 0
+Text Label 8400 3850 0    50   ~ 0
 C14
-Text Label 8500 5250 0    50   ~ 0
+Text Label 8400 3950 0    50   ~ 0
 C15
-Text Label 8500 5350 0    50   ~ 0
+Text Label 8400 4050 0    50   ~ 0
 C16
-Text Label 8500 5450 0    50   ~ 0
+Text Label 8400 4150 0    50   ~ 0
 C17
-Text Label 8500 5550 0    50   ~ 0
+Text Label 8400 4250 0    50   ~ 0
 C18
-Text Label 8500 5650 0    50   ~ 0
+Text Label 8400 4350 0    50   ~ 0
 C19
-Text Label 9450 3850 2    50   ~ 0
+Text Label 9350 2550 2    50   ~ 0
 C21
-Text Label 9450 3950 2    50   ~ 0
+Text Label 9350 2650 2    50   ~ 0
 C22
-Text Label 9450 4050 2    50   ~ 0
+Text Label 9350 2750 2    50   ~ 0
 C23
-Text Label 9450 4150 2    50   ~ 0
+Text Label 9350 2850 2    50   ~ 0
 C24
-Text Label 9450 4250 2    50   ~ 0
+Text Label 9350 2950 2    50   ~ 0
 C25
-Text Label 9450 4350 2    50   ~ 0
+Text Label 9350 3050 2    50   ~ 0
 C26
-Text Label 9450 4450 2    50   ~ 0
+Text Label 9350 3150 2    50   ~ 0
 C27
-Text Label 9450 4550 2    50   ~ 0
+Text Label 9350 3250 2    50   ~ 0
 C28
-Text Label 9450 4650 2    50   ~ 0
+Text Label 9350 3350 2    50   ~ 0
 C29
-Text Label 9450 4750 2    50   ~ 0
+Text Label 9350 3450 2    50   ~ 0
 C30
-Text Label 9450 4850 2    50   ~ 0
+Text Label 9350 3550 2    50   ~ 0
 C31
-Text Label 9450 4950 2    50   ~ 0
+Text Label 9350 3650 2    50   ~ 0
 C32
-Text Label 9450 5050 2    50   ~ 0
+Text Label 9350 3750 2    50   ~ 0
 C33
-Text Label 9450 5150 2    50   ~ 0
+Text Label 9350 3850 2    50   ~ 0
 C34
-Text Label 9450 5250 2    50   ~ 0
+Text Label 9350 3950 2    50   ~ 0
 C35
-Text Label 9450 5350 2    50   ~ 0
+Text Label 9350 4050 2    50   ~ 0
 C36
-Text Label 9450 5450 2    50   ~ 0
+Text Label 9350 4150 2    50   ~ 0
 C37
-Text Label 9450 5550 2    50   ~ 0
+Text Label 9350 4250 2    50   ~ 0
 C38
-Text Label 9450 5650 2    50   ~ 0
+Text Label 9350 4350 2    50   ~ 0
 C39
-Text Label 9450 5750 2    50   ~ 0
+Text Label 9350 4450 2    50   ~ 0
 C40
 Wire Wire Line
 	6250 4750 6450 4750
@@ -1131,8 +1131,6 @@ C16
 Text Label 6450 3550 2    50   ~ 0
 C15
 Wire Wire Line
-	5750 4850 5500 4850
-Wire Wire Line
 	6250 3650 6500 3650
 Wire Wire Line
 	6250 3950 6500 3950
@@ -1196,8 +1194,6 @@ Text Label 4400 5750 0    50   ~ 0
 B40
 Text Label 4400 5850 0    50   ~ 0
 B41
-Text Label 5550 4850 0    50   ~ 0
-A72
 Text Label 6300 3650 0    50   ~ 0
 B60
 Text Label 6300 3950 0    50   ~ 0
@@ -1232,12 +1228,8 @@ Text Label 6450 1850 2    50   ~ 0
 B42
 Text Label 6450 1950 2    50   ~ 0
 B43
-Entry Wire Line
-	5400 4850 5500 4950
-Entry Wire Line
-	5400 4750 5500 4850
-Text Notes 6700 3350 0    50   ~ 10
-Caution: Cxx signals are not in strictly ascending order!
+Text Notes 7950 2050 0    50   ~ 0
+C1–C40 signals are not in strictly ascending order!\nThey are ordered in a way that makes sense for a\n20×2 socket to be installed.
 Text Label 5550 4050 0    50   ~ 0
 C19
 Text Label 5550 4250 0    50   ~ 0
@@ -1258,10 +1250,10 @@ Entry Wire Line
 	5400 4350 5500 4450
 Entry Wire Line
 	5400 4550 5500 4650
-Text Label 8500 5750 0    50   ~ 0
+Text Label 8400 4450 0    50   ~ 0
 C20
 Wire Wire Line
-	8750 5750 8500 5750
+	8650 4450 8400 4450
 Text Label 6450 3750 2    50   ~ 0
 C18
 Wire Wire Line
@@ -1307,10 +1299,6 @@ B69
 Entry Wire Line
 	6600 4550 6500 4450
 Wire Wire Line
-	5500 4950 5750 4950
-Text Label 5550 4950 0    50   ~ 0
-A73
-Wire Wire Line
 	6250 4950 6500 4950
 Text Label 6300 4950 0    50   ~ 0
 B73
@@ -1341,7 +1329,7 @@ AR Path="/5D7311B9/5CEE7C3B" Ref="#PWR065"  Part="1"
 AR Path="/5D73148E/5CEE7C3B" Ref="#PWR066"  Part="1" 
 AR Path="/5D7317C0/5CEE7C3B" Ref="#PWR067"  Part="1" 
 AR Path="/5D731AE6/5CEE7C3B" Ref="#PWR068"  Part="1" 
-F 0 "#PWR066" H 4750 1750 50  0001 C CNN
+F 0 "#PWR035" H 4750 1750 50  0001 C CNN
 F 1 "GND" H 4600 2050 50  0000 C CNN
 F 2 "" H 4750 2000 50  0001 C CNN
 F 3 "" H 4750 2000 50  0001 C CNN
@@ -1357,6 +1345,67 @@ Wire Wire Line
 	4350 1850 4750 1850
 Wire Wire Line
 	4350 1950 4750 1950
+Text Notes 7950 1700 0    66   ~ 13
+CAUTION
+Wire Notes Line width 12 style solid
+	7850 1500 7850 2150
+Wire Notes Line width 12 style solid
+	7850 2150 10050 2150
+Wire Notes Line width 12 style solid
+	10050 2150 10050 1500
+Wire Notes Line width 12 style solid
+	10050 1500 7850 1500
+Wire Wire Line
+	5750 4850 5450 4850
+Wire Wire Line
+	5450 4850 5450 4950
+Wire Wire Line
+	5750 4950 5450 4950
+Connection ~ 5450 4950
+Wire Wire Line
+	5450 4950 5450 5000
+$Comp
+L power:GND #PWR?
+U 1 1 5DEA3066
+P 5450 5000
+AR Path="/5DEA3066" Ref="#PWR?"  Part="1" 
+AR Path="/5D2CD990/5DEA3066" Ref="#PWR?"  Part="1" 
+AR Path="/5D46F03E/5DEA3066" Ref="#PWR?"  Part="1" 
+AR Path="/5D46F58C/5DEA3066" Ref="#PWR?"  Part="1" 
+AR Path="/5D46F753/5DEA3066" Ref="#PWR?"  Part="1" 
+AR Path="/5D46F8A8/5DEA3066" Ref="#PWR?"  Part="1" 
+AR Path="/5D46F9BD/5DEA3066" Ref="#PWR?"  Part="1" 
+AR Path="/5D46FC0D/5DEA3066" Ref="#PWR?"  Part="1" 
+AR Path="/5D4710A3/5DEA3066" Ref="#PWR?"  Part="1" 
+AR Path="/5D47138A/5DEA3066" Ref="#PWR?"  Part="1" 
+AR Path="/5D4B04A9/5DEA3066" Ref="#PWR?"  Part="1" 
+AR Path="/5D70D6BC/5DEA3066" Ref="#PWR?"  Part="1" 
+AR Path="/5D71C7AA/5DEA3066" Ref="#PWR?"  Part="1" 
+AR Path="/5D730B94/5DEA3066" Ref="#PWR?"  Part="1" 
+AR Path="/5D730E96/5DEA3066" Ref="#PWR?"  Part="1" 
+AR Path="/5D7311B9/5DEA3066" Ref="#PWR?"  Part="1" 
+AR Path="/5D73148E/5DEA3066" Ref="#PWR?"  Part="1" 
+AR Path="/5D7317C0/5DEA3066" Ref="#PWR?"  Part="1" 
+AR Path="/5D731AE6/5DEA3066" Ref="#PWR?"  Part="1" 
+F 0 "#PWR?" H 5450 4750 50  0001 C CNN
+F 1 "GND" H 5455 4827 50  0000 C CNN
+F 2 "" H 5450 5000 50  0001 C CNN
+F 3 "" H 5450 5000 50  0001 C CNN
+	1    5450 5000
+	-1   0    0    -1  
+$EndComp
+Text Notes 7200 6200 0    50   ~ 0
+A72 & A73 were bridged in Revision 1922 of the\nbackplane, shorting both bus lines. The decision\nwas made to convert those to additional Ground\ntraces.
+Text Notes 7200 5750 0    66   ~ 13
+LAYOUT ERROR ON A72 & A73
+Wire Notes Line width 12 style solid
+	7100 5550 7100 6350
+Wire Notes Line width 12 style solid
+	7100 6350 9300 6350
+Wire Notes Line width 12 style solid
+	9300 6350 9300 5550
+Wire Notes Line width 12 style solid
+	9300 5550 7100 5550
 Wire Bus Line
 	2950 6250 6500 6250
 Wire Bus Line
@@ -1364,9 +1413,9 @@ Wire Bus Line
 Wire Bus Line
 	6600 1950 6600 6150
 Wire Bus Line
-	4700 2150 4700 6150
+	5400 1400 5400 4550
 Wire Bus Line
-	5400 1400 5400 4850
+	4700 2150 4700 6150
 Wire Bus Line
 	3500 1400 3500 5750
 $EndSCHEMATC

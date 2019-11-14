@@ -877,10 +877,6 @@ F 3 "~" H 9800 4100 50  0001 C CNN
 	1    9800 4100
 	0    1    1    0   
 $EndComp
-Wire Bus Line
-	3600 1550 3600 4700
-Wire Bus Line
-	1650 1350 1650 4500
 Text Notes 9050 2050 0    50   ~ 0
 Dialight 599-0110-007F: green, 20mA, 2.1V\nDialight 599-0181-007F: red, 20mA, 3.2V\n\n
 Text Notes 10550 2350 0    50   ~ 0
@@ -895,4 +891,8 @@ Text Notes 10550 2700 0    50   ~ 0
 Green: 150Ω
 Text Notes 10550 3400 0    50   ~ 0
 Green: 150Ω
+Wire Bus Line
+	3600 1550 3600 4700
+Wire Bus Line
+	1650 1350 1650 4500
 $EndSCHEMATC
