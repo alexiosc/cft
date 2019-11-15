@@ -1,5 +1,4 @@
 EESchema Schematic File Version 4
-LIBS:cft-cache
 EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
@@ -303,4 +302,26 @@ Wire Bus Line
 	7700 3900 7700 4500
 Wire Bus Line
 	4100 2750 4100 4200
+$Comp
+L alexios:74HC08 U22
+U 3 1 5DD3D63D
+P 6600 4350
+F 0 "U22" H 6725 4225 50  0000 C CNN
+F 1 "74HC08" H 6725 4134 50  0000 C CNN
+F 2 "alexios:SOIC-14" H 6800 3900 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 6800 3900 50  0001 C CNN
+	3    6600 4350
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC08 U22
+U 4 1 5DD3E9BE
+P 6600 4750
+F 0 "U22" H 6725 4625 50  0000 C CNN
+F 1 "74HC08" H 6725 4534 50  0000 C CNN
+F 2 "alexios:SOIC-14" H 6800 4300 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 6800 4300 50  0001 C CNN
+	4    6600 4750
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

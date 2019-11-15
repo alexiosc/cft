@@ -1,5 +1,4 @@
 EESchema Schematic File Version 4
-LIBS:cft-cache
 EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
@@ -1043,8 +1042,8 @@ L alexios:74HC32 UU?
 U 2 1 5F031629
 P 3850 4950
 AR Path="/5F031629" Ref="UU?"  Part="1" 
-AR Path="/5EFCF155/5F031629" Ref="UU1"  Part="2" 
-F 0 "UU1" H 3850 5025 50  0000 C CNN
+AR Path="/5EFCF155/5F031629" Ref="U3"  Part="2" 
+F 0 "U3" H 3850 5025 50  0000 C CNN
 F 1 "74HC32" H 3850 4934 50  0000 C CNN
 F 2 "alexios:SOIC-14" H 3850 4950 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS32" H 3850 4950 50  0001 C CNN

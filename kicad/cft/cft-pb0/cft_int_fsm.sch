@@ -1,5 +1,4 @@
 EESchema Schematic File Version 4
-LIBS:cft-cache
 EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
@@ -84,42 +83,6 @@ F 1 "GND" H 2505 7177 50  0000 C CNN
 F 2 "" H 2500 7350 50  0001 C CNN
 F 3 "" H 2500 7350 50  0001 C CNN
 	1    2500 7350
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 5F707BE7
-P 3950 7250
-AR Path="/5CC0D65F/5F707BE7" Ref="C?"  Part="1" 
-AR Path="/5F707BE7" Ref="C?"  Part="1" 
-AR Path="/5F67D4B5/5F707BE7" Ref="C59"  Part="1" 
-F 0 "C59" H 3859 7296 50  0000 R CNN
-F 1 "100nF" H 3859 7205 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 3950 7250 50  0001 C CNN
-F 3 "~" H 3950 7250 50  0001 C CNN
-	1    3950 7250
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR0162
-U 1 1 5F7083B1
-P 3950 7150
-F 0 "#PWR0162" H 3950 7000 50  0001 C CNN
-F 1 "+5V" H 3965 7323 50  0000 C CNN
-F 2 "" H 3950 7150 50  0001 C CNN
-F 3 "" H 3950 7150 50  0001 C CNN
-	1    3950 7150
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR0165
-U 1 1 5F708D3E
-P 3950 7350
-F 0 "#PWR0165" H 3950 7100 50  0001 C CNN
-F 1 "GND" H 3955 7177 50  0000 C CNN
-F 2 "" H 3950 7350 50  0001 C CNN
-F 3 "" H 3950 7350 50  0001 C CNN
-	1    3950 7350
 	1    0    0    -1  
 $EndComp
 Text HLabel 1700 2100 0    50   Input ~ 0
@@ -226,14 +189,14 @@ F 3 "" H 2500 6600 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L alexios:74HC74 U58
-U 2 1 5D6227E0
+L alexios:74HC74 U60
+U 1 1 5D6227E0
 P 6750 3500
-F 0 "U58" H 6750 3917 50  0000 C CNN
+F 0 "U60" H 6750 3917 50  0000 C CNN
 F 1 "74AC74" H 6750 3826 50  0000 C CNN
 F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 6750 3500 50  0001 C CNN
 F 3 "74xx/74hc_hct74.pdf" H 6750 3500 50  0001 C CNN
-	2    6750 3500
+	1    6750 3500
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
@@ -504,8 +467,6 @@ Connection ~ 2500 6600
 Connection ~ 2500 6400
 Connection ~ 2500 7150
 Connection ~ 2500 7350
-Connection ~ 3950 7150
-Connection ~ 3950 7350
 Wire Wire Line
 	6300 3650 6050 3650
 Wire Wire Line
@@ -583,17 +544,6 @@ Text Notes 2400 1650 0    50   ~ 10
 Assumption
 Text Notes 2400 1900 0    50   ~ 0
 ~ACTION_STI~ and ~ACTION_CLI~ remain de-asserted\nflags are being written using ~FLAGWE~.
-$Comp
-L alexios:74HC74 U60
-U 3 1 5DDCAF4B
-P 4300 7250
-F 0 "U60" H 4480 7296 50  0000 L CNN
-F 1 "74AC74" H 4480 7205 50  0000 L CNN
-F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 4300 7250 50  0001 C CNN
-F 3 "74xx/74hc_hct74.pdf" H 4300 7250 50  0001 C CNN
-	3    4300 7250
-	1    0    0    -1  
-$EndComp
 $Comp
 L alexios:74HC74 U55
 U 3 1 5DDCA2A2

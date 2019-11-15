@@ -1,5 +1,4 @@
 EESchema Schematic File Version 4
-LIBS:cft-cache
 EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
@@ -77,61 +76,6 @@ Wire Wire Line
 Wire Wire Line
 	3100 4750 2950 4750
 Connection ~ 2950 4750
-$Comp
-L alexios:74HC253 U?
-U 2 1 5E381119
-P 1800 7950
-AR Path="/5E381119" Ref="U?"  Part="2" 
-AR Path="/5E36D9C8/5E381119" Ref="U42"  Part="2" 
-F 0 "U42" H 1980 8596 50  0000 L CNN
-F 1 "74HC253" H 1980 8505 50  0000 L CNN
-F 2 "alexios:SOIC-16" H 2100 8550 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS253" H 2100 8550 50  0001 C CNN
-	2    1800 7950
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR?
-U 1 1 5E38111F
-P 1450 7250
-AR Path="/5E38111F" Ref="#PWR?"  Part="1" 
-AR Path="/5E36D9C8/5E38111F" Ref="#PWR092"  Part="1" 
-F 0 "#PWR092" H 1450 7100 50  0001 C CNN
-F 1 "+5V" H 1465 7423 50  0000 C CNN
-F 2 "" H 1450 7250 50  0001 C CNN
-F 3 "" H 1450 7250 50  0001 C CNN
-	1    1450 7250
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 5E381125
-P 1450 7350
-AR Path="/5CC0D65F/5E381125" Ref="C?"  Part="1" 
-AR Path="/5E381125" Ref="C?"  Part="1" 
-AR Path="/5E36D9C8/5E381125" Ref="C29"  Part="1" 
-F 0 "C29" H 1359 7396 50  0000 R CNN
-F 1 "100nF" H 1359 7305 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 1450 7350 50  0001 C CNN
-F 3 "~" H 1450 7350 50  0001 C CNN
-	1    1450 7350
-	1    0    0    -1  
-$EndComp
-Connection ~ 1450 7250
-$Comp
-L power:GND #PWR?
-U 1 1 5E38112C
-P 1450 7450
-AR Path="/5E38112C" Ref="#PWR?"  Part="1" 
-AR Path="/5E36D9C8/5E38112C" Ref="#PWR097"  Part="1" 
-F 0 "#PWR097" H 1450 7200 50  0001 C CNN
-F 1 "GND" H 1455 7277 50  0000 C CNN
-F 2 "" H 1450 7450 50  0001 C CNN
-F 3 "" H 1450 7450 50  0001 C CNN
-	1    1450 7450
-	1    0    0    -1  
-$EndComp
-Connection ~ 1450 7450
 $Comp
 L Device:C_Small C?
 U 1 1 5E381133
@@ -235,19 +179,6 @@ F 3 "http://www.ti.com/lit/gpn/sn74LS139" H 4600 7400 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L alexios:74HC193 U?
-U 2 1 5E3811A9
-P 3200 7500
-AR Path="/5E3811A9" Ref="U?"  Part="2" 
-AR Path="/5E36D9C8/5E3811A9" Ref="U41"  Part="2" 
-F 0 "U41" H 3380 7646 50  0000 L CNN
-F 1 "74HC193" H 3380 7555 50  0000 L CNN
-F 2 "alexios:SOIC-16" H 3250 7500 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74HC193" H 3250 7500 50  0001 C CNN
-	2    3200 7500
-	1    0    0    -1  
-$EndComp
-$Comp
 L power:GND #PWR?
 U 1 1 5E3811AF
 P 7850 4750
@@ -340,8 +271,6 @@ F 3 "~" H 4250 7400 50  0001 C CNN
 	1    4250 7400
 	1    0    0    -1  
 $EndComp
-Connection ~ 2850 7300
-Connection ~ 2850 7500
 Connection ~ 4250 7300
 Connection ~ 4250 7500
 $Comp
@@ -1412,4 +1341,75 @@ Wire Wire Line
 	10400 5200 10800 5200
 Text Label 10500 5200 0    50   ~ 0
 WSTB
+$Comp
+L power:GND #PWR?
+U 1 1 5E38112C
+P 1450 7450
+AR Path="/5E38112C" Ref="#PWR?"  Part="1" 
+AR Path="/5E36D9C8/5E38112C" Ref="#PWR097"  Part="1" 
+F 0 "#PWR097" H 1450 7200 50  0001 C CNN
+F 1 "GND" H 1455 7277 50  0000 C CNN
+F 2 "" H 1450 7450 50  0001 C CNN
+F 3 "" H 1450 7450 50  0001 C CNN
+	1    1450 7450
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 5E381125
+P 1450 7350
+AR Path="/5CC0D65F/5E381125" Ref="C?"  Part="1" 
+AR Path="/5E381125" Ref="C?"  Part="1" 
+AR Path="/5E36D9C8/5E381125" Ref="C29"  Part="1" 
+F 0 "C29" H 1359 7396 50  0000 R CNN
+F 1 "100nF" H 1359 7305 50  0000 R CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 1450 7350 50  0001 C CNN
+F 3 "~" H 1450 7350 50  0001 C CNN
+	1    1450 7350
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 5E38111F
+P 1450 7250
+AR Path="/5E38111F" Ref="#PWR?"  Part="1" 
+AR Path="/5E36D9C8/5E38111F" Ref="#PWR092"  Part="1" 
+F 0 "#PWR092" H 1450 7100 50  0001 C CNN
+F 1 "+5V" H 1465 7423 50  0000 C CNN
+F 2 "" H 1450 7250 50  0001 C CNN
+F 3 "" H 1450 7250 50  0001 C CNN
+	1    1450 7250
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74LVC2G157 U38
+U 2 1 5DD5152F
+P 1800 7350
+F 0 "U38" H 1980 7396 50  0000 L CNN
+F 1 "74LVC2G157" H 1980 7305 50  0000 L CNN
+F 2 "" H 1700 7475 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/sn74lvc2g157.pdf" H 1700 7475 50  0001 C CNN
+	2    1800 7350
+	1    0    0    -1  
+$EndComp
+Connection ~ 1450 7450
+Connection ~ 1450 7250
+$Comp
+L alexios:74AC191 U?
+U 2 1 5DD549AB
+P 3200 7650
+AR Path="/5CE09726/5DD549AB" Ref="U?"  Part="1" 
+AR Path="/6A313729/5DD549AB" Ref="U?"  Part="1" 
+AR Path="/5DC89E19/5D0A147D/5DD549AB" Ref="U?"  Part="1" 
+AR Path="/5DC89E19/5D396E91/5DD549AB" Ref="U?"  Part="1" 
+AR Path="/5E36D9C8/5DD549AB" Ref="U37"  Part="2" 
+F 0 "U37" H 3380 7946 50  0000 L CNN
+F 1 "74AC191" H 3380 7855 50  0000 L CNN
+F 2 "alexios:SOIC-16" H 3175 7650 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS190" H 3175 7650 50  0001 C CNN
+	2    3200 7650
+	1    0    0    -1  
+$EndComp
+Connection ~ 2850 7300
+Connection ~ 2850 7500
 $EndSCHEMATC
