@@ -10,12 +10,6 @@ D JEDEC 4M Flash EEProm (512×8)
 K EEPROM FLASH 4M 512KB
 $ENDCMP
 #
-$CMP 74AC04
-D hex inverter
-K HCTMOS not inverter
-F https://assets.nexperia.com/documents/data-sheet/74HC_HCT04.pdf
-$ENDCMP
-#
 $CMP 74AC08
 D Quad Two Input And Gates
 K Quad And
@@ -38,6 +32,12 @@ $CMP 74AC139
 D Dual Decoder 1 of 4, Active low outputs
 K TTL DECOD4
 F http://www.ti.com/lit/gpn/sn74LS139
+$ENDCMP
+#
+$CMP 74AC14
+D hex inverter
+K HCTMOS not inverter
+F https://assets.nexperia.com/documents/data-sheet/74HC_HCT04.pdf
 $ENDCMP
 #
 $CMP 74AC157
@@ -159,12 +159,6 @@ K TTL XOR2
 F 74xx/74ls86.pdf
 $ENDCMP
 #
-$CMP 74ACT04
-D hex inverter
-K HCTMOS not inverter
-F https://assets.nexperia.com/documents/data-sheet/74HC_HCT04.pdf
-$ENDCMP
-#
 $CMP 74ACT08
 D Quad Two Input And Gates
 K Quad And
@@ -187,6 +181,12 @@ $CMP 74ACT139
 D Dual Decoder 1 of 4, Active low outputs
 K TTL DECOD4
 F http://www.ti.com/lit/gpn/sn74LS139
+$ENDCMP
+#
+$CMP 74ACT14
+D hex inverter
+K HCTMOS not inverter
+F https://assets.nexperia.com/documents/data-sheet/74HC_HCT04.pdf
 $ENDCMP
 #
 $CMP 74ACT157
@@ -588,12 +588,6 @@ $CMP 74AUP1GU04
 D 74AUP1G04, Single NOT Gate, Low-Voltage CMOS
 K Single Gate NOT LVC CMOS
 F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
-$ENDCMP
-#
-$CMP 74HC04
-D hex inverter
-K HCTMOS not inverter
-F https://assets.nexperia.com/documents/data-sheet/74HC_HCT04.pdf
 $ENDCMP
 #
 $CMP 74HC08
