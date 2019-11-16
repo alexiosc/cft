@@ -117,10 +117,6 @@ Wire Wire Line
 Wire Wire Line
 	5050 4200 5450 4200
 Wire Wire Line
-	6650 1800 7500 1800
-Wire Wire Line
-	6650 1900 7500 1900
-Wire Wire Line
 	6650 2000 7500 2000
 Text Label 2300 1800 0    50   ~ 0
 ~RESET
@@ -224,9 +220,9 @@ Text Label 5050 4100 0    50   ~ 0
 FPD6
 Text Label 5050 4200 0    50   ~ 0
 FPD7
-Text Label 7500 1800 2    50   ~ 0
+Text Label 7000 2500 2    50   ~ 0
 ~ENDEXT
-Text Label 7500 1900 2    50   ~ 0
+Text Label 7000 2600 2    50   ~ 0
 ~SKIPEXT
 Text Label 7500 2000 2    50   ~ 0
 ~HALT
@@ -670,9 +666,9 @@ Text HLabel 4300 2600 2    50   UnSpc ~ 0
 ~W
 Text HLabel 4300 2700 2    50   UnSpc ~ 0
 ~WS
-Text HLabel 7500 1800 2    50   UnSpc ~ 0
+Text HLabel 7000 2500 2    50   UnSpc ~ 0
 ~ENDEXT
-Text HLabel 7500 1900 2    50   UnSpc ~ 0
+Text HLabel 7000 2600 2    50   UnSpc ~ 0
 ~SKIPEXT
 Text HLabel 7500 2000 2    50   UnSpc ~ 0
 ~HALT
@@ -736,10 +732,6 @@ Wire Wire Line
 	6650 2300 7350 2300
 Wire Wire Line
 	6650 2400 7350 2400
-Wire Wire Line
-	6650 2500 7350 2500
-Wire Wire Line
-	6650 2600 7350 2600
 Text Label 7350 2100 2    50   ~ 0
 RSVD1
 Text Label 7350 2200 2    50   ~ 0
@@ -748,10 +740,6 @@ Text Label 7350 2300 2    50   ~ 0
 RSVD3
 Text Label 7350 2400 2    50   ~ 0
 RSVD4
-Text Label 7350 2500 2    50   ~ 0
-RSVD5
-Text Label 7350 2600 2    50   ~ 0
-RSVD6
 Entry Wire Line
 	7350 2100 7450 2200
 Entry Wire Line
@@ -760,10 +748,6 @@ Entry Wire Line
 	7350 2300 7450 2400
 Entry Wire Line
 	7350 2400 7450 2500
-Entry Wire Line
-	7350 2500 7450 2600
-Entry Wire Line
-	7350 2600 7450 2700
 Entry Bus Bus
 	7350 6200 7450 6100
 Wire Bus Line
@@ -1019,6 +1003,7 @@ P 9450 4350
 AR Path="/5D34E810/63F88C53" Ref="P?"  Part="4" 
 AR Path="/5D36B851/63F88C53" Ref="P2"  Part="4" 
 AR Path="/5F1DB2E8/63F88C53" Ref="P?"  Part="4" 
+AR Path="/63F88C53" Ref="P2"  Part="4" 
 F 0 "P2" H 9450 4517 50  0000 C CNN
 F 1 "CFT-2019-Bus" H 9450 4426 50  0000 C CNN
 F 2 "alexios:CFT-2019-Card-Edge-P2-Connector" H 9400 3450 50  0001 C CNN
@@ -1029,151 +1014,115 @@ $EndComp
 $Comp
 L power:+5V #PWR?
 U 1 1 63F88C59
-P 8900 4500
+P 9000 4500
 AR Path="/5F67D4B5/63F88C59" Ref="#PWR?"  Part="1" 
 AR Path="/63F88C59" Ref="#PWR?"  Part="1" 
 AR Path="/5D34E810/63F88C59" Ref="#PWR?"  Part="1" 
 AR Path="/5D36B851/63F88C59" Ref="#PWR0301"  Part="1" 
 AR Path="/5F1DB2E8/63F88C59" Ref="#PWR?"  Part="1" 
-F 0 "#PWR0301" H 8900 4350 50  0001 C CNN
-F 1 "+5V" H 8842 4537 50  0000 R CNN
-F 2 "" H 8900 4500 50  0001 C CNN
-F 3 "" H 8900 4500 50  0001 C CNN
-	1    8900 4500
+F 0 "#PWR0301" H 9000 4350 50  0001 C CNN
+F 1 "+5V" H 9050 4650 50  0000 R CNN
+F 2 "" H 9000 4500 50  0001 C CNN
+F 3 "" H 9000 4500 50  0001 C CNN
+	1    9000 4500
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR?
 U 1 1 63F88C5F
-P 8900 4900
+P 9000 5050
 AR Path="/5F67D4B5/63F88C5F" Ref="#PWR?"  Part="1" 
 AR Path="/63F88C5F" Ref="#PWR?"  Part="1" 
 AR Path="/5D34E810/63F88C5F" Ref="#PWR?"  Part="1" 
 AR Path="/5D36B851/63F88C5F" Ref="#PWR0302"  Part="1" 
 AR Path="/5F1DB2E8/63F88C5F" Ref="#PWR?"  Part="1" 
-F 0 "#PWR0302" H 8900 4650 50  0001 C CNN
-F 1 "GND" H 8822 4863 50  0000 R CNN
-F 2 "" H 8900 4900 50  0001 C CNN
-F 3 "" H 8900 4900 50  0001 C CNN
-	1    8900 4900
+F 0 "#PWR0302" H 9000 4800 50  0001 C CNN
+F 1 "GND" H 8922 5013 50  0000 R CNN
+F 2 "" H 9000 5050 50  0001 C CNN
+F 3 "" H 9000 5050 50  0001 C CNN
+	1    9000 5050
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	8900 4500 8900 4600
 $Comp
 L power:+5V #PWR?
 U 1 1 63F88C66
-P 10000 4500
+P 9900 4500
 AR Path="/5F67D4B5/63F88C66" Ref="#PWR?"  Part="1" 
 AR Path="/63F88C66" Ref="#PWR?"  Part="1" 
 AR Path="/5D34E810/63F88C66" Ref="#PWR?"  Part="1" 
 AR Path="/5D36B851/63F88C66" Ref="#PWR0303"  Part="1" 
 AR Path="/5F1DB2E8/63F88C66" Ref="#PWR?"  Part="1" 
-F 0 "#PWR0303" H 10000 4350 50  0001 C CNN
-F 1 "+5V" H 10015 4673 50  0000 C CNN
-F 2 "" H 10000 4500 50  0001 C CNN
-F 3 "" H 10000 4500 50  0001 C CNN
-	1    10000 4500
+F 0 "#PWR0303" H 9900 4350 50  0001 C CNN
+F 1 "+5V" H 9915 4673 50  0000 C CNN
+F 2 "" H 9900 4500 50  0001 C CNN
+F 3 "" H 9900 4500 50  0001 C CNN
+	1    9900 4500
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR?
 U 1 1 63F88C6C
-P 10000 4900
+P 9900 5050
 AR Path="/5F67D4B5/63F88C6C" Ref="#PWR?"  Part="1" 
 AR Path="/63F88C6C" Ref="#PWR?"  Part="1" 
 AR Path="/5D34E810/63F88C6C" Ref="#PWR?"  Part="1" 
 AR Path="/5D36B851/63F88C6C" Ref="#PWR0304"  Part="1" 
 AR Path="/5F1DB2E8/63F88C6C" Ref="#PWR?"  Part="1" 
-F 0 "#PWR0304" H 10000 4650 50  0001 C CNN
-F 1 "GND" H 10005 4727 50  0000 C CNN
-F 2 "" H 10000 4900 50  0001 C CNN
-F 3 "" H 10000 4900 50  0001 C CNN
-	1    10000 4900
+F 0 "#PWR0304" H 9900 4800 50  0001 C CNN
+F 1 "GND" H 9905 4877 50  0000 C CNN
+F 2 "" H 9900 5050 50  0001 C CNN
+F 3 "" H 9900 5050 50  0001 C CNN
+	1    9900 5050
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	10000 4500 10000 4600
-Wire Wire Line
-	10000 4800 10000 4900
 $Comp
 L Device:CP_Small C?
 U 1 1 63F88C74
-P 8900 4700
+P 9000 4700
 AR Path="/63F88C74" Ref="C?"  Part="1" 
 AR Path="/5D34E810/63F88C74" Ref="C?"  Part="1" 
 AR Path="/5F1DB2E8/63F88C74" Ref="C?"  Part="1" 
 AR Path="/5D36B851/63F88C74" Ref="C301"  Part="1" 
-F 0 "C301" H 8812 4746 50  0000 R CNN
-F 1 "47µF" H 8812 4655 50  0000 R CNN
-F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 8900 4700 50  0001 C CNN
-F 3 "~" H 8900 4700 50  0001 C CNN
-	1    8900 4700
+F 0 "C301" H 8912 4746 50  0000 R CNN
+F 1 "47µF" H 8912 4655 50  0000 R CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 9000 4700 50  0001 C CNN
+F 3 "~" H 9000 4700 50  0001 C CNN
+	1    9000 4700
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:CP_Small C?
 U 1 1 63F88C7A
-P 10000 4700
+P 9900 4700
 AR Path="/63F88C7A" Ref="C?"  Part="1" 
 AR Path="/5D34E810/63F88C7A" Ref="C?"  Part="1" 
 AR Path="/5F1DB2E8/63F88C7A" Ref="C?"  Part="1" 
 AR Path="/5D36B851/63F88C7A" Ref="C302"  Part="1" 
-F 0 "C302" H 10088 4746 50  0000 L CNN
-F 1 "47µF" H 10088 4655 50  0000 L CNN
-F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 10000 4700 50  0001 C CNN
-F 3 "~" H 10000 4700 50  0001 C CNN
-	1    10000 4700
+F 0 "C302" H 9988 4746 50  0000 L CNN
+F 1 "47µF" H 9988 4655 50  0000 L CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 9900 4700 50  0001 C CNN
+F 3 "~" H 9900 4700 50  0001 C CNN
+	1    9900 4700
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
 	9050 4600 9000 4600
-Connection ~ 8900 4500
-Wire Wire Line
-	8900 4800 8900 4900
 Wire Wire Line
 	9050 4800 9000 4800
 Wire Wire Line
-	9000 4800 9000 4900
-Wire Wire Line
-	9000 4900 9050 4900
-Wire Wire Line
-	9000 4900 8900 4900
-Connection ~ 9000 4900
-Connection ~ 8900 4900
-Wire Wire Line
-	9850 4900 9900 4900
-Connection ~ 10000 4900
-Wire Wire Line
 	9850 4800 9900 4800
-Wire Wire Line
-	9900 4800 9900 4900
-Connection ~ 9900 4900
-Wire Wire Line
-	9900 4900 10000 4900
-Connection ~ 10000 4500
-Wire Wire Line
-	9000 4600 9000 4500
 Connection ~ 9000 4500
 Wire Wire Line
 	9000 4500 9050 4500
 Wire Wire Line
-	8900 4500 9000 4500
-Wire Wire Line
-	9850 4500 9900 4500
-Wire Wire Line
-	9900 4600 9900 4500
-Wire Wire Line
 	9850 4600 9900 4600
-Connection ~ 9900 4500
-Wire Wire Line
-	9900 4500 10000 4500
 $Comp
 L alexios:CFT-2019-Bus P?
 U 3 1 6087C194
 P 9450 1700
 AR Path="/5D34E810/6087C194" Ref="P?"  Part="3" 
 AR Path="/5D36B851/6087C194" Ref="P2"  Part="3" 
+AR Path="/6087C194" Ref="P2"  Part="3" 
 F 0 "P2" H 9450 1867 50  0000 C CNN
 F 1 "CFT-2019-Bus" H 9450 1776 50  0000 C CNN
 F 2 "alexios:CFT-2019-Card-Edge-P2-Connector" H 9400 800 50  0001 C CNN
@@ -1187,6 +1136,7 @@ U 2 1 6087C17A
 P 6050 1650
 AR Path="/5D34E810/6087C17A" Ref="P?"  Part="2" 
 AR Path="/5D36B851/6087C17A" Ref="P2"  Part="2" 
+AR Path="/6087C17A" Ref="P2"  Part="2" 
 F 0 "P2" H 6050 1817 50  0000 C CNN
 F 1 "CFT-2019-Bus" H 6050 1726 50  0000 C CNN
 F 2 "alexios:CFT-2019-Card-Edge-P2-Connector" H 6000 750 50  0001 C CNN
@@ -1200,6 +1150,7 @@ U 1 1 6087C174
 P 3300 1650
 AR Path="/5D34E810/6087C174" Ref="P?"  Part="1" 
 AR Path="/5D36B851/6087C174" Ref="P2"  Part="1" 
+AR Path="/6087C174" Ref="P2"  Part="1" 
 F 0 "P2" H 3300 1817 50  0000 C CNN
 F 1 "CFT-2019-Bus" H 3300 1726 50  0000 C CNN
 F 2 "alexios:CFT-2019-Card-Edge-P2-Connector" H 3250 750 50  0001 C CNN
@@ -1212,24 +1163,60 @@ L power:PWR_FLAG #FLG0101
 U 1 1 5E675F81
 P 9000 4500
 F 0 "#FLG0101" H 9000 4575 50  0001 C CNN
-F 1 "PWR_FLAG" H 9000 4673 50  0000 C CNN
+F 1 "PWR_FLAG" V 9000 4900 50  0001 C CNN
 F 2 "" H 9000 4500 50  0001 C CNN
 F 3 "~" H 9000 4500 50  0001 C CNN
 	1    9000 4500
-	1    0    0    -1  
+	0    -1   -1   0   
 $EndComp
 Wire Wire Line
-	6700 2700 6950 2700
+	6650 2700 7000 2700
 Wire Wire Line
-	6700 2800 6950 2800
-Text Label 6950 2700 2    50   ~ 0
+	6650 2800 7000 2800
+Text Label 6900 2700 2    50   ~ 0
 ~RUEN
-Text Label 6950 2800 2    50   ~ 0
+Text Label 6900 2800 2    50   ~ 0
 ~WUEN
-Text HLabel 6950 2700 2    50   UnSpc ~ 0
+Text HLabel 7000 2700 2    50   UnSpc ~ 0
 ~RUEN
-Text HLabel 6950 2800 2    50   UnSpc ~ 0
+Text HLabel 7000 2800 2    50   UnSpc ~ 0
 ~WUEN
+Wire Wire Line
+	6650 2500 7000 2500
+Wire Wire Line
+	6650 2600 7000 2600
+Wire Wire Line
+	9000 4900 9050 4900
+Wire Wire Line
+	9000 4500 9000 4600
+Connection ~ 9000 4600
+Wire Wire Line
+	9000 4800 9000 4900
+Connection ~ 9000 4800
+Connection ~ 9000 4900
+Wire Wire Line
+	9000 4900 9000 5000
+Wire Wire Line
+	9050 5000 9000 5000
+Connection ~ 9000 5000
+Wire Wire Line
+	9000 5000 9000 5050
+Wire Wire Line
+	9900 5050 9900 5000
+Wire Wire Line
+	9850 4500 9900 4500
+Connection ~ 9900 4500
+Wire Wire Line
+	9900 4600 9900 4500
+Connection ~ 9900 4600
+Connection ~ 9900 4800
+Wire Wire Line
+	9850 4900 9900 4900
+Connection ~ 9900 4900
+Wire Wire Line
+	9900 4900 9900 4800
+Wire Wire Line
+	9850 5000 9900 5000
 Wire Bus Line
 	7150 4000 7150 5800
 Wire Bus Line
@@ -1248,4 +1235,7 @@ Wire Bus Line
 	4400 3700 4400 5400
 Wire Bus Line
 	2200 2900 2200 5300
+Connection ~ 9900 5000
+Wire Wire Line
+	9900 5000 9900 4900
 $EndSCHEMATC

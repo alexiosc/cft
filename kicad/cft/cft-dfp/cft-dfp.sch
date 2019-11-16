@@ -4151,20 +4151,12 @@ Wire Wire Line
 	12950 3850 12400 3850
 NoConn ~ 12400 3750
 NoConn ~ 12400 3850
-Text Label 12400 3750 0    50   ~ 0
-~RUEN
-Text Label 12400 3850 0    50   ~ 0
-~WUEN
 Wire Wire Line
 	12950 8250 12400 8250
 Wire Wire Line
 	12950 8350 12400 8350
 NoConn ~ 12400 8250
 NoConn ~ 12400 8350
-Text Label 12400 8250 0    50   ~ 0
-~RUEN
-Text Label 12400 8350 0    50   ~ 0
-~WUEN
 Wire Bus Line
 	8850 5200 8850 7250
 Wire Bus Line
