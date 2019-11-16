@@ -1258,6 +1258,12 @@ K RAM SRAM CMOS MEMORY
 F https://uk.mouser.com/datasheet/2/12/AS6C8008-1288432.pdf
 $ENDCMP
 #
+$CMP Jumper_3_Bridged12
+D Jumper, 3-pole, pins 1+2 closed/bridged
+K Jumper SPDT
+F ~
+$ENDCMP
+#
 $CMP SN74ACT1071
 D 8-bit Register, 3-state outputs
 K TTL REG DFF DFF8 3State
