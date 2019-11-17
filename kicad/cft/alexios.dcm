@@ -10,6 +10,12 @@ D JEDEC 4M Flash EEProm (512×8)
 K EEPROM FLASH 4M 512KB
 $ENDCMP
 #
+$CMP 74AC04
+D Hex inverter
+K not inverter
+F http://www.ti.com/lit/gpn/sn74LS14
+$ENDCMP
+#
 $CMP 74AC08
 D Quad Two Input And Gates
 K Quad And
@@ -35,7 +41,7 @@ F http://www.ti.com/lit/gpn/sn74LS139
 $ENDCMP
 #
 $CMP 74AC14
-D hex inverter
+D Hex inverter Schmitt trigger
 K HCTMOS not inverter
 F https://assets.nexperia.com/documents/data-sheet/74HC_HCT04.pdf
 $ENDCMP
@@ -159,6 +165,12 @@ K TTL XOR2
 F 74xx/74ls86.pdf
 $ENDCMP
 #
+$CMP 74ACT04
+D hex inverter
+K HCTMOS not inverter
+F https://assets.nexperia.com/documents/data-sheet/74HC_HCT04.pdf
+$ENDCMP
+#
 $CMP 74ACT08
 D Quad Two Input And Gates
 K Quad And
@@ -184,7 +196,7 @@ F http://www.ti.com/lit/gpn/sn74LS139
 $ENDCMP
 #
 $CMP 74ACT14
-D hex inverter
+D Hex inverter Schmitt trigger
 K HCTMOS not inverter
 F https://assets.nexperia.com/documents/data-sheet/74HC_HCT04.pdf
 $ENDCMP
@@ -590,6 +602,12 @@ K Single Gate NOT LVC CMOS
 F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
 $ENDCMP
 #
+$CMP 74HC04
+D Hex inverter schmitt trigger
+K HCMOS not inverter
+F http://www.ti.com/lit/gpn/sn74HC14
+$ENDCMP
+#
 $CMP 74HC08
 D Quad Two Input And Gates
 K Quad And
@@ -627,7 +645,7 @@ F http://www.ti.com/lit/gpn/sn74LS139
 $ENDCMP
 #
 $CMP 74HC14
-D Hex inverter schmitt trigger
+D Hex inverter Schmitt trigger
 K HCMOS not inverter
 F http://www.ti.com/lit/gpn/sn74HC14
 $ENDCMP
@@ -920,6 +938,12 @@ K TTL XOR2
 F 74xx/74ls86.pdf
 $ENDCMP
 #
+$CMP 74LS04
+D hex inverter
+K HCTMOS not inverter
+F https://assets.nexperia.com/documents/data-sheet/74HC_HCT04.pdf
+$ENDCMP
+#
 $CMP 74LS08
 D Quad Two Input And Gates
 K Quad And
@@ -933,7 +957,7 @@ F https://assets.nexperia.com/documents/data-sheet/74HC_HCT112.pdf
 $ENDCMP
 #
 $CMP 74LS14
-D Hex inverter schmitt trigger
+D Hex inverter Schmitt trigger
 K TTL not inverter
 F http://www.ti.com/lit/gpn/sn74LS14
 $ENDCMP
