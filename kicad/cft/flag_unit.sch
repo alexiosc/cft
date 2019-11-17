@@ -333,17 +333,9 @@ F 3 "" H 3350 5750 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	4350 5050 6150 5050
-Wire Wire Line
-	4350 5150 6150 5150
-Wire Wire Line
 	4350 5250 6150 5250
 Wire Wire Line
 	4350 5350 6150 5350
-Text Label 5200 5050 2    50   ~ 0
-~ACTION-CPL
-Text Label 5200 5150 2    50   ~ 0
-~ACTION-CLL
 Text Label 5200 5250 2    50   ~ 0
 ~ACTION-STI
 Text Label 5200 5350 2    50   ~ 0
@@ -353,10 +345,6 @@ NoConn ~ 4350 5550
 NoConn ~ 4350 5650
 Text Notes 3900 5600 1    50   ~ 10
 ACTION=0xxx
-Text HLabel 6150 5050 2    50   Output ~ 0
-~ACTION-CPL
-Text HLabel 6150 5150 2    50   Output ~ 0
-~ACTION-CLL
 Text HLabel 6150 5250 2    50   Output ~ 0
 ~ACTION-STI
 Text HLabel 6150 5350 2    50   Output ~ 0
@@ -731,6 +719,8 @@ F 3 "" H 6050 7400 50  0001 C CNN
 	1    6050 7400
 	1    0    0    -1  
 $EndComp
+NoConn ~ 4350 5050
+NoConn ~ 4350 5150
 Wire Bus Line
 	2900 4800 2900 5550
 Wire Bus Line
