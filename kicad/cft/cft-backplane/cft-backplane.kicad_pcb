@@ -1,8 +1,8 @@
-(kicad_pcb (version 20171130) (host pcbnew 5.1.4-e60b266~84~ubuntu18.04.1)
+(kicad_pcb (version 20171130) (host pcbnew 5.0.2+dfsg1-1~bpo9+1)
 
   (general
     (thickness 1.6)
-    (drawings 266)
+    (drawings 265)
     (tracks 8341)
     (zones 0)
     (modules 72)
@@ -12,6 +12,11 @@
   (page A4)
   (title_block
     (title "CFT 8 Slot Backplane")
+    (date 2019-11-13)
+    (rev 1945)
+    (comment 1 BPL)
+    (comment 2 "1922: Manufactured, A72 & A73 shorted by mistake.")
+    (comment 3 "1945: Reassigns A72 & A73 to GND")
   )
 
   (layers
@@ -35,8 +40,8 @@
     (45 Margin user)
     (46 B.CrtYd user)
     (47 F.CrtYd user)
-    (48 B.Fab user)
-    (49 F.Fab user)
+    (48 B.Fab user hide)
+    (49 F.Fab user hide)
   )
 
   (setup
@@ -49,6 +54,8 @@
     (zone_clearance 0.9144)
     (zone_45_only yes)
     (trace_min 0.127)
+    (segment_width 0.2)
+    (edge_width 0.05)
     (via_size 0.6096)
     (via_drill 0.4)
     (via_min_size 0.6)
@@ -58,8 +65,6 @@
     (uvias_allowed no)
     (uvia_min_size 0.2)
     (uvia_min_drill 0.1)
-    (edge_width 0.05)
-    (segment_width 0.2)
     (pcb_text_width 0.3)
     (pcb_text_size 1.5 1.5)
     (mod_edge_width 0.1524)
@@ -9474,9 +9479,6 @@
   )
   (gr_text Caution (at 193.55 59.27) (layer Dwgs.User) (tstamp 5DCDFCD4)
     (effects (font (size 3 3) (thickness 0.6)))
-  )
-  (gr_text "CFT 8-Slot Backplane" (at 223.43 174.38) (layer Dwgs.User)
-    (effects (font (size 5 5) (thickness 1)))
   )
   (gr_line (start 155.984 151.726) (end 155.984 143.471) (layer F.SilkS) (width 0.3048) (tstamp 5CEC081C))
   (gr_line (start 155.984 143.471) (end 159.794 143.471) (layer F.SilkS) (width 0.3048) (tstamp 5CEC0819))

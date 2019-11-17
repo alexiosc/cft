@@ -1,15 +1,15 @@
 EESchema Schematic File Version 4
 LIBS:mem-cache
-EELAYER 30 0
+EELAYER 26 0
 EELAYER END
 $Descr A3 16535 11693
 encoding utf-8
 Sheet 1 14
-Title "CFT Homebrew 16-bit Minicomputer"
+Title "6MW RAM, 512kW ROM Board"
 Date ""
-Rev ""
+Rev "1945"
 Comp ""
-Comment1 ""
+Comment1 "MEM"
 Comment2 ""
 Comment3 ""
 Comment4 ""
@@ -1716,8 +1716,6 @@ F65 "C40" U R 14200 8650 50
 F66 "~RUEN" U L 13050 7450 50 
 F67 "~WUEN" U L 13050 7550 50 
 $EndSheet
-Text Notes 11950 10400 0    198  ~ 40
-RAM & ROM Board (MEM)
 Text Notes 6000 1300 0    197  ~ 39
 Read/Write Decoding
 Text Notes 12750 4400 0    50   ~ 0

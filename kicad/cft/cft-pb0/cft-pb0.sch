@@ -1,14 +1,15 @@
 EESchema Schematic File Version 4
-EELAYER 30 0
+LIBS:cft-pb0-cache
+EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 12
-Title "CFT Homebrew 16-bit Minicomputer"
+Title "Control Unit Board"
 Date ""
 Rev ""
 Comp ""
-Comment1 ""
+Comment1 "CUB"
 Comment2 ""
 Comment3 ""
 Comment4 ""

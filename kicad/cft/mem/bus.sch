@@ -1,15 +1,15 @@
 EESchema Schematic File Version 4
 LIBS:mem-cache
-EELAYER 30 0
+EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 14 14
-Title ""
+Title "CFT Edge Connector"
 Date ""
-Rev ""
+Rev "1945"
 Comp ""
-Comment1 ""
+Comment1 "MEM"
 Comment2 ""
 Comment3 ""
 Comment4 ""
@@ -1129,8 +1129,6 @@ NoConn ~ 4150 3150
 NoConn ~ 4150 3250
 NoConn ~ 4150 3350
 NoConn ~ 4150 3450
-Text Notes 7100 7000 0    198  ~ 40
-CFT Edge Connector
 Wire Bus Line
 	4250 3650 4250 5350
 Wire Bus Line

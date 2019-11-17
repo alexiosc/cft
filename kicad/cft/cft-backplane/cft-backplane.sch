@@ -1,15 +1,15 @@
 EESchema Schematic File Version 4
 LIBS:cft-backplane-cache
-EELAYER 30 0
+EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 9
-Title "CFT Backplane"
+Title "CFT 8-Slot Backplane"
 Date ""
-Rev ""
+Rev "1945"
 Comp ""
-Comment1 ""
+Comment1 "BPL"
 Comment2 ""
 Comment3 ""
 Comment4 ""
@@ -883,10 +883,6 @@ Text Notes 8300 3050 0    50   ~ 0
 Green: 400Ω
 Text Notes 8300 3750 0    50   ~ 0
 Green: 3.3kΩ
-Wire Bus Line
-	3600 1550 3600 4700
-Wire Bus Line
-	1650 1350 1650 4500
 Text Notes 8300 2350 0    50   ~ 0
 Green: 1kΩ
 Text Notes 8300 2700 0    50   ~ 0
@@ -895,4 +891,20 @@ Text Notes 8300 3400 0    50   ~ 0
 Green: 1kΩ
 Text Notes 8300 4100 0    50   ~ 0
 Green: 3.3kΩ
+Text Notes 1600 5600 0    98   ~ 20
+Revision History
+Text Notes 1600 5950 0    50   ~ 0
+1922: Manufactured. A72 & A73 inadvertently shorted.\n\n1945: Corrects short and reassigns A72 & A73 to GND.
+Wire Notes Line width 12 style solid
+	3900 5350 3900 6050
+Wire Notes Line width 12 style solid
+	1500 5350 3900 5350
+Wire Notes Line width 12 style solid
+	1500 6050 3900 6050
+Wire Notes Line width 12 style solid
+	1500 5350 1500 6050
+Wire Bus Line
+	3600 1550 3600 4700
+Wire Bus Line
+	1650 1350 1650 4500
 $EndSCHEMATC

@@ -1,4 +1,4 @@
-(kicad_pcb (version 20171130) (host pcbnew 5.1.4-e60b266~84~ubuntu18.04.1)
+(kicad_pcb (version 20171130) (host pcbnew 5.0.2+dfsg1-1~bpo9+1)
 
   (general
     (thickness 1.6)
@@ -10,6 +10,13 @@
   )
 
   (page A3)
+  (title_block
+    (title "Debugging Front Panel")
+    (date 2019-11-15)
+    (rev 1945)
+    (comment 1 DFP)
+  )
+
   (layers
     (0 F.Cu mixed)
     (31 B.Cu mixed)
@@ -45,6 +52,8 @@
     (zone_clearance 0.381)
     (zone_45_only no)
     (trace_min 0.127)
+    (segment_width 0.2)
+    (edge_width 0.05)
     (via_size 0.8)
     (via_drill 0.4)
     (via_min_size 0.45)
@@ -56,8 +65,6 @@
     (uvias_allowed no)
     (uvia_min_size 0.2)
     (uvia_min_drill 0.1)
-    (edge_width 0.05)
-    (segment_width 0.2)
     (pcb_text_width 0.3)
     (pcb_text_size 1.5 1.5)
     (mod_edge_width 0.12)
@@ -14498,7 +14505,7 @@
   (gr_line (start 331.26016 215.06918) (end 331.26016 218.62518) (layer F.SilkS) (width 0.3048) (tstamp 5D68B19D))
   (gr_line (start 323.89416 218.62518) (end 323.89416 215.06918) (layer F.SilkS) (width 0.3048) (tstamp 5D68B260))
   (gr_line (start 323.89416 215.06918) (end 331.26016 215.06918) (layer F.SilkS) (width 0.3048) (tstamp 5D68B233))
-  (gr_text 1939 (at 327.57716 216.84718) (layer F.SilkS) (tstamp 5D68B134)
+  (gr_text 1945 (at 327.57716 216.84718) (layer F.SilkS) (tstamp 5D68B134)
     (effects (font (size 1.66 1.66) (thickness 0.3)))
   )
   (gr_text DFP (at 288.74 214.67) (layer F.SilkS) (tstamp 5D7CDD3D)
