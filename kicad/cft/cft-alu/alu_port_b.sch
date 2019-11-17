@@ -6,10 +6,10 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 6 9
 Title ""
-Date ""
+Date "2019-11-17"
 Rev ""
 Comp ""
-Comment1 ""
+Comment1 "ALU"
 Comment2 ""
 Comment3 ""
 Comment4 ""

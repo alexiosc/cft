@@ -5,11 +5,11 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 9
-Title "CFT Homebrew 16-bit Minicomputer"
-Date ""
+Title "Arithmetic & Logic Unit"
+Date "2019-11-17"
 Rev ""
 Comp ""
-Comment1 ""
+Comment1 "ALU"
 Comment2 ""
 Comment3 ""
 Comment4 ""
@@ -407,8 +407,6 @@ NoConn ~ 7950 3850
 NoConn ~ 7950 3950
 NoConn ~ 7950 4050
 NoConn ~ 7950 4650
-Text Notes 7100 7000 0    197  ~ 39
-Arithmetic & Logic (ALU)
 Wire Wire Line
 	9650 2250 10000 2250
 Wire Wire Line
