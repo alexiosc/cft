@@ -5,14 +5,14 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 3 12
-Title "CFT Homebrew 16-bit Minicomputer"
+Title "Instruction Register (IR)"
 Date ""
 Rev ""
 Comp ""
-Comment1 ""
+Comment1 "CUB"
 Comment2 ""
 Comment3 ""
-Comment4 ""
+Comment4 "reg_Ir.v"
 $EndDescr
 $Comp
 L alexios:74HC573 U?
@@ -917,8 +917,6 @@ Text HLabel 2950 1200 0    50   Input ~ 0
 ~FPIRL
 Text HLabel 2950 1300 0    50   Input ~ 0
 ~FPIRH
-Text Notes 7100 7000 0    197  ~ 39
-Instruction Register (IR)
 Text Label 6700 4150 0    50   ~ 0
 IR15
 Text Label 6700 4050 0    50   ~ 0

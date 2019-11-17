@@ -5,14 +5,14 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 8 12
-Title "CFT Homebrew 16-bit Minicomputer"
+Title "Clock Generator"
 Date ""
 Rev ""
 Comp ""
-Comment1 ""
+Comment1 "CUB"
 Comment2 ""
 Comment3 ""
-Comment4 ""
+Comment4 "clock.v"
 $EndDescr
 $Comp
 L Device:C_Small C?
@@ -117,8 +117,6 @@ Text Label 6200 4100 2    50   ~ 0
 ~RESET
 Text HLabel 1500 3300 0    50   Input ~ 0
 FPCLK
-Text Notes 7100 7000 0    197  ~ 39
-Clock & Reset
 Wire Wire Line
 	6400 3600 6350 3600
 Wire Wire Line

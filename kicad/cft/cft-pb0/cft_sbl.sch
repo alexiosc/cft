@@ -5,14 +5,14 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 2 12
-Title "CFT Homebrew 16-bit Minicomputer"
+Title "Skip/Branch Unit"
 Date ""
 Rev ""
 Comp ""
-Comment1 ""
+Comment1 "CUB"
 Comment2 ""
 Comment3 ""
-Comment4 ""
+Comment4 "sbu.v"
 $EndDescr
 $Comp
 L Device:R_Small R?
@@ -1152,8 +1152,6 @@ Text Label 1000 2600 0    50   ~ 0
 FN
 Text Label 5650 2800 1    50   ~ 0
 FN
-Text Notes 7200 7000 0    197  ~ 39
-Skip & Branch Unit
 Wire Wire Line
 	5500 4650 7400 4650
 Wire Wire Line
@@ -1374,6 +1372,14 @@ F 3 "" H 6800 5450 50  0001 C CNN
 	1    6800 5450
 	1    0    0    -1  
 $EndComp
+Wire Notes Line style solid rgb(255, 11, 2)
+	6350 5150 7300 5150
+Wire Notes Line style solid rgb(255, 5, 1)
+	6350 5350 6350 5150
+Wire Notes Line style solid rgb(255, 11, 2)
+	6350 5350 7300 5350
+Wire Notes Line style solid rgb(255, 5, 1)
+	7300 5350 7300 5150
 Wire Bus Line
 	950  1500 6100 1500
 Wire Bus Line

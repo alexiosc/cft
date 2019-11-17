@@ -5,14 +5,14 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 9 12
-Title "CFT Homebrew 16-bit Minicomputer"
+Title "Control Store"
 Date ""
 Rev ""
 Comp ""
-Comment1 ""
+Comment1 "CUB"
 Comment2 ""
 Comment3 ""
-Comment4 ""
+Comment4 "microcode_store.v"
 $EndDescr
 $Comp
 L alexios:74AHC1G08 U?
@@ -122,8 +122,6 @@ Text Label 4300 1600 2    50   ~ 0
 ~HALT
 Text Label 4300 1700 2    50   ~ 0
 CLK4
-Text Notes 7150 7000 0    197  ~ 39
-Microcode Sequencer
 Text Notes 4250 2550 0    50   ~ 0
 The µPC controls the running of the processor. It counts up to 16, so\nmicroprograms can only have  up to 16 steps. It resets to 0000 when the\nControl Unit asserts ~END~ or a processor extension card asserts ~ENDEXT~\non the bus.  It increments at the end of a processor cycle (rising edge of\nCLK4), and only when ~RSTHOLD~, ~HALT~ and ~WS~ are all deasserted.
 Text Label 10450 3900 2    50   ~ 0
