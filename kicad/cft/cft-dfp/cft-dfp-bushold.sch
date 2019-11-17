@@ -5,12 +5,12 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 13 13
-Title ""
-Date ""
-Rev ""
+Title "Bus Hold"
+Date "2019-11-17"
+Rev "1945"
 Comp ""
-Comment1 ""
-Comment2 ""
+Comment1 "DFP"
+Comment2 "Needs cleanup!"
 Comment3 ""
 Comment4 ""
 $EndDescr

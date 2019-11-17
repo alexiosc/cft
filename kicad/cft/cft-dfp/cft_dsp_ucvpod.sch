@@ -5,134 +5,134 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 9 13
-Title ""
-Date ""
-Rev ""
+Title "Control Unit Pod"
+Date "2019-11-17"
+Rev "1945"
 Comp ""
-Comment1 ""
+Comment1 "DFP"
 Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
 Wire Wire Line
-	3700 2350 3700 3800
-Text HLabel 2500 3700 0    50   Input ~ 0
+	4600 2950 4600 4400
+Text HLabel 3400 4300 0    50   Input ~ 0
 µCVCPM
-Text Label 2600 3700 0    50   ~ 0
+Text Label 3500 4300 0    50   ~ 0
 µCVCPM
 Entry Wire Line
-	3600 2800 3500 2700
+	4500 3400 4400 3300
 Entry Wire Line
-	3600 2900 3500 2800
+	4500 3500 4400 3400
 Entry Wire Line
-	3600 3500 3500 3400
+	4500 4100 4400 4000
 Entry Wire Line
-	3600 3400 3500 3300
+	4500 4000 4400 3900
 Entry Wire Line
-	3600 3300 3500 3200
+	4500 3900 4400 3800
 Entry Wire Line
-	3600 3200 3500 3100
+	4500 3800 4400 3700
 Entry Wire Line
-	3600 3100 3500 3000
+	4500 3700 4400 3600
 Entry Wire Line
-	3600 3000 3500 2900
-Text HLabel 2500 2250 0    50   Input ~ 0
+	4500 3600 4400 3500
+Text HLabel 3400 2850 0    50   Input ~ 0
 µCVCPL
-Text HLabel 2500 2350 0    50   Input ~ 0
+Text HLabel 3400 2950 0    50   Input ~ 0
 ~µCVOE
 Wire Wire Line
-	3700 2350 2500 2350
-Connection ~ 3700 2350
-Text HLabel 2500 900  0    50   3State ~ 0
+	4600 2950 3400 2950
+Connection ~ 4600 2950
+Text HLabel 3400 1500 0    50   3State ~ 0
 FPD[0..7]
-Text Label 2600 900  0    50   ~ 0
+Text Label 3500 1500 0    50   ~ 0
 FPD[0..7]
 Wire Bus Line
-	3400 900  2500 900 
+	4300 1500 3400 1500
 Entry Bus Bus
-	3400 900  3500 1000
-Text Label 2600 2250 0    50   ~ 0
+	4300 1500 4400 1600
+Text Label 3500 2850 0    50   ~ 0
 µCVCPL
 Wire Wire Line
-	4100 3800 3700 3800
-Text Label 2600 2350 0    50   ~ 0
+	5000 4400 4600 4400
+Text Label 3500 2950 0    50   ~ 0
 ~µCVOE
 Wire Wire Line
-	4100 2350 3700 2350
+	5000 2950 4600 2950
 $Comp
 L alexios:74HC574 U?
 U 1 1 5D492997
-P 4600 3300
+P 5500 3900
 AR Path="/5D492997" Ref="U?"  Part="1" 
 AR Path="/5D78E680/5D492997" Ref="U?"  Part="1" 
 AR Path="/5D363063/5D492997" Ref="U?"  Part="1" 
 AR Path="/5D42FF4D/5D492997" Ref="U?"  Part="1" 
 AR Path="/5E6A6F4A/5D492997" Ref="U1002"  Part="1" 
-F 0 "U1002" H 4600 4067 50  0000 C CNN
-F 1 "74HC574" H 4600 3976 50  0000 C CNN
-F 2 "alexios:SOIC-20W" H 4300 3250 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS574" H 4300 3250 50  0001 C CNN
-	1    4600 3300
+F 0 "U1002" H 5500 4667 50  0000 C CNN
+F 1 "74HC574" H 5500 4576 50  0000 C CNN
+F 2 "alexios:SOIC-20W" H 5200 3850 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS574" H 5200 3850 50  0001 C CNN
+	1    5500 3900
 	1    0    0    -1  
 $EndComp
 $Comp
 L alexios:74HC574 U?
 U 1 1 5D49299E
-P 4600 1850
+P 5500 2450
 AR Path="/5D49299E" Ref="U?"  Part="1" 
 AR Path="/5D78E680/5D49299E" Ref="U?"  Part="1" 
 AR Path="/5D363063/5D49299E" Ref="U?"  Part="1" 
 AR Path="/5D42FF4D/5D49299E" Ref="U?"  Part="1" 
 AR Path="/5E6A6F4A/5D49299E" Ref="U1001"  Part="1" 
-F 0 "U1001" H 4600 2617 50  0000 C CNN
-F 1 "74HC574" H 4600 2526 50  0000 C CNN
-F 2 "alexios:SOIC-20W" H 4300 1800 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS574" H 4300 1800 50  0001 C CNN
-	1    4600 1850
+F 0 "U1001" H 5500 3217 50  0000 C CNN
+F 1 "74HC574" H 5500 3126 50  0000 C CNN
+F 2 "alexios:SOIC-20W" H 5200 2400 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS574" H 5200 2400 50  0001 C CNN
+	1    5500 2450
 	1    0    0    -1  
 $EndComp
 Entry Wire Line
-	3600 1350 3500 1250
+	4500 1950 4400 1850
 Entry Wire Line
-	3600 1450 3500 1350
+	4500 2050 4400 1950
 Entry Wire Line
-	3600 2050 3500 1950
+	4500 2650 4400 2550
 Entry Wire Line
-	3600 1950 3500 1850
+	4500 2550 4400 2450
 Entry Wire Line
-	3600 1850 3500 1750
+	4500 2450 4400 2350
 Entry Wire Line
-	3600 1750 3500 1650
+	4500 2350 4400 2250
 Entry Wire Line
-	3600 1650 3500 1550
+	4500 2250 4400 2150
 Entry Wire Line
-	3600 1550 3500 1450
+	4500 2150 4400 2050
 Wire Wire Line
-	4100 5150 2500 5150
+	5000 5750 3400 5750
 Wire Wire Line
-	4100 5250 3700 5250
+	5000 5850 4600 5850
 $Comp
 L alexios:74HC574 U?
 U 1 1 5D4929F9
-P 4600 4750
+P 5500 5350
 AR Path="/5D4929F9" Ref="U?"  Part="1" 
 AR Path="/5D78E680/5D4929F9" Ref="U?"  Part="1" 
 AR Path="/5D363063/5D4929F9" Ref="U?"  Part="1" 
 AR Path="/5D42FF4D/5D4929F9" Ref="U?"  Part="1" 
 AR Path="/5E6A6F4A/5D4929F9" Ref="U1003"  Part="1" 
-F 0 "U1003" H 4600 5517 50  0000 C CNN
-F 1 "74HC574" H 4600 5426 50  0000 C CNN
-F 2 "alexios:SOIC-20W" H 4300 4700 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS574" H 4300 4700 50  0001 C CNN
-	1    4600 4750
+F 0 "U1003" H 5500 6117 50  0000 C CNN
+F 1 "74HC574" H 5500 6026 50  0000 C CNN
+F 2 "alexios:SOIC-20W" H 5200 5300 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS574" H 5200 5300 50  0001 C CNN
+	1    5500 5350
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	3700 3800 3700 5250
-Connection ~ 3700 3800
-Text HLabel 2500 5150 0    50   Input ~ 0
+	4600 4400 4600 5850
+Connection ~ 4600 4400
+Text HLabel 3400 5750 0    50   Input ~ 0
 µCVCPH
-Text Label 2600 5150 0    50   ~ 0
+Text Label 3500 5750 0    50   ~ 0
 µCVCPH
 $Comp
 L power:GND #PWR?
@@ -197,205 +197,205 @@ F 3 "http://www.ti.com/lit/gpn/sn74LS574" H 3900 7350 50  0001 C CNN
 $EndComp
 Connection ~ 3850 7500
 Connection ~ 3850 7300
-Text Label 4050 2250 2    50   ~ 0
+Text Label 4950 2850 2    50   ~ 0
 µCVCPL
-Text Label 4050 3700 2    50   ~ 0
+Text Label 4950 4300 2    50   ~ 0
 µCVCPM
 Wire Wire Line
-	2500 2250 4100 2250
+	3400 2850 5000 2850
 Wire Wire Line
-	2500 3700 4100 3700
-Text Label 4050 5150 2    50   ~ 0
+	3400 4300 5000 4300
+Text Label 4950 5750 2    50   ~ 0
 µCVCPH
-Text Label 4050 2350 2    50   ~ 0
+Text Label 4950 2950 2    50   ~ 0
 ~µCVOE
-Text Label 4050 3800 2    50   ~ 0
+Text Label 4950 4400 2    50   ~ 0
 ~µCVOE
-Text Label 4050 5250 2    50   ~ 0
+Text Label 4950 5850 2    50   ~ 0
 ~µCVOE
 Entry Wire Line
-	3600 4250 3500 4150
+	4500 4850 4400 4750
 Entry Wire Line
-	3600 4350 3500 4250
+	4500 4950 4400 4850
 Entry Wire Line
-	3600 4950 3500 4850
+	4500 5550 4400 5450
 Entry Wire Line
-	3600 4850 3500 4750
+	4500 5450 4400 5350
 Entry Wire Line
-	3600 4750 3500 4650
+	4500 5350 4400 5250
 Entry Wire Line
-	3600 4650 3500 4550
+	4500 5250 4400 5150
 Entry Wire Line
-	3600 4550 3500 4450
+	4500 5150 4400 5050
 Entry Wire Line
-	3600 4450 3500 4350
+	4500 5050 4400 4950
 Wire Wire Line
-	5100 1350 5850 1350
+	6000 1950 6750 1950
 Wire Wire Line
-	5100 1450 5850 1450
+	6000 2050 6750 2050
 Wire Wire Line
-	5100 1550 5850 1550
+	6000 2150 6750 2150
 Wire Wire Line
-	5100 1650 5850 1650
+	6000 2250 6750 2250
 Wire Wire Line
-	5100 1750 5850 1750
+	6000 2350 6750 2350
 Wire Wire Line
-	5100 2800 5850 2800
+	6000 3400 6750 3400
 Wire Wire Line
-	5100 2900 5850 2900
+	6000 3500 6750 3500
 Wire Wire Line
-	5100 3000 5850 3000
+	6000 3600 6750 3600
 Wire Wire Line
-	5100 3100 5850 3100
+	6000 3700 6750 3700
 Wire Wire Line
-	5100 3200 5850 3200
-Text Label 5850 2800 2    50   ~ 0
+	6000 3800 6750 3800
+Text Label 6750 3400 2    50   ~ 0
 WADDR0
-Text Label 5850 2900 2    50   ~ 0
+Text Label 6750 3500 2    50   ~ 0
 WADDR1
-Text Label 5850 3000 2    50   ~ 0
+Text Label 6750 3600 2    50   ~ 0
 WADDR2
-Text Label 5850 3100 2    50   ~ 0
+Text Label 6750 3700 2    50   ~ 0
 WADDR3
-Text Label 5850 3200 2    50   ~ 0
+Text Label 6750 3800 2    50   ~ 0
 WADDR4
-Text Label 5850 1350 2    50   ~ 0
+Text Label 6750 1950 2    50   ~ 0
 RADDR0
-Text Label 5850 1450 2    50   ~ 0
+Text Label 6750 2050 2    50   ~ 0
 RADDR1
-Text Label 5850 1550 2    50   ~ 0
+Text Label 6750 2150 2    50   ~ 0
 RADDR2
-Text Label 5850 1650 2    50   ~ 0
+Text Label 6750 2250 2    50   ~ 0
 RADDR3
-Text Label 5850 1750 2    50   ~ 0
+Text Label 6750 2350 2    50   ~ 0
 RADDR4
 Entry Wire Line
-	5950 1250 5850 1350
+	6850 1850 6750 1950
 Entry Wire Line
-	5950 1350 5850 1450
+	6850 1950 6750 2050
 Entry Wire Line
-	5950 1450 5850 1550
+	6850 2050 6750 2150
 Entry Wire Line
-	5950 1550 5850 1650
+	6850 2150 6750 2250
 Entry Wire Line
-	5950 1650 5850 1750
+	6850 2250 6750 2350
 Entry Wire Line
-	5950 2700 5850 2800
+	6850 3300 6750 3400
 Entry Wire Line
-	5950 2800 5850 2900
+	6850 3400 6750 3500
 Entry Wire Line
-	5950 2900 5850 3000
+	6850 3500 6750 3600
 Entry Wire Line
-	5950 3000 5850 3100
+	6850 3600 6750 3700
 Entry Wire Line
-	5950 3100 5850 3200
+	6850 3700 6750 3800
 Entry Bus Bus
-	5950 1000 6050 900 
+	6850 1600 6950 1500
 Wire Bus Line
-	6050 900  6650 900 
+	6950 1500 7550 1500
 Entry Bus Bus
-	5950 2450 6050 2350
+	6850 3050 6950 2950
 Wire Bus Line
-	6050 2350 6650 2350
-Text HLabel 6650 900  2    50   3State ~ 0
+	6950 2950 7550 2950
+Text HLabel 7550 1500 2    50   3State ~ 0
 RADDR[0..4]
-Text HLabel 6650 2350 2    50   3State ~ 0
+Text HLabel 7550 2950 2    50   3State ~ 0
 WADDR[0..4]
 Wire Wire Line
-	3600 1350 4100 1350
+	4500 1950 5000 1950
 Wire Wire Line
-	3600 1450 4100 1450
+	4500 2050 5000 2050
 Wire Wire Line
-	3600 1550 4100 1550
+	4500 2150 5000 2150
 Wire Wire Line
-	3600 1650 4100 1650
+	4500 2250 5000 2250
 Wire Wire Line
-	3600 1750 4100 1750
+	4500 2350 5000 2350
 Wire Wire Line
-	3600 1850 4100 1850
+	4500 2450 5000 2450
 Wire Wire Line
-	3600 1950 4100 1950
+	4500 2550 5000 2550
 Wire Wire Line
-	3600 2050 4100 2050
-Text Label 4050 1350 2    50   ~ 0
+	4500 2650 5000 2650
+Text Label 4950 1950 2    50   ~ 0
 FPD0
-Text Label 4050 1450 2    50   ~ 0
+Text Label 4950 2050 2    50   ~ 0
 FPD1
-Text Label 4050 1550 2    50   ~ 0
+Text Label 4950 2150 2    50   ~ 0
 FPD2
-Text Label 4050 1650 2    50   ~ 0
+Text Label 4950 2250 2    50   ~ 0
 FPD3
-Text Label 4050 1750 2    50   ~ 0
+Text Label 4950 2350 2    50   ~ 0
 FPD4
-Text Label 4050 1850 2    50   ~ 0
+Text Label 4950 2450 2    50   ~ 0
 FPD5
-Text Label 4050 1950 2    50   ~ 0
+Text Label 4950 2550 2    50   ~ 0
 FPD6
-Text Label 4050 2050 2    50   ~ 0
+Text Label 4950 2650 2    50   ~ 0
 FPD7
 Wire Wire Line
-	3600 2800 4100 2800
+	4500 3400 5000 3400
 Wire Wire Line
-	3600 2900 4100 2900
+	4500 3500 5000 3500
 Wire Wire Line
-	3600 3000 4100 3000
+	4500 3600 5000 3600
 Wire Wire Line
-	3600 3100 4100 3100
+	4500 3700 5000 3700
 Wire Wire Line
-	3600 3200 4100 3200
+	4500 3800 5000 3800
 Wire Wire Line
-	3600 3300 4100 3300
+	4500 3900 5000 3900
 Wire Wire Line
-	3600 3400 4100 3400
+	4500 4000 5000 4000
 Wire Wire Line
-	3600 3500 4100 3500
-Text Label 4050 2800 2    50   ~ 0
+	4500 4100 5000 4100
+Text Label 4950 3400 2    50   ~ 0
 FPD0
-Text Label 4050 2900 2    50   ~ 0
+Text Label 4950 3500 2    50   ~ 0
 FPD1
-Text Label 4050 3000 2    50   ~ 0
+Text Label 4950 3600 2    50   ~ 0
 FPD2
-Text Label 4050 3100 2    50   ~ 0
+Text Label 4950 3700 2    50   ~ 0
 FPD3
-Text Label 4050 3200 2    50   ~ 0
+Text Label 4950 3800 2    50   ~ 0
 FPD4
-Text Label 4050 3300 2    50   ~ 0
+Text Label 4950 3900 2    50   ~ 0
 FPD5
-Text Label 4050 3400 2    50   ~ 0
+Text Label 4950 4000 2    50   ~ 0
 FPD6
-Text Label 4050 3500 2    50   ~ 0
+Text Label 4950 4100 2    50   ~ 0
 FPD7
 Wire Wire Line
-	3600 4250 4100 4250
+	4500 4850 5000 4850
 Wire Wire Line
-	3600 4350 4100 4350
+	4500 4950 5000 4950
 Wire Wire Line
-	3600 4450 4100 4450
+	4500 5050 5000 5050
 Wire Wire Line
-	3600 4550 4100 4550
+	4500 5150 5000 5150
 Wire Wire Line
-	3600 4650 4100 4650
+	4500 5250 5000 5250
 Wire Wire Line
-	3600 4750 4100 4750
+	4500 5350 5000 5350
 Wire Wire Line
-	3600 4850 4100 4850
+	4500 5450 5000 5450
 Wire Wire Line
-	3600 4950 4100 4950
-Text Label 4050 4250 2    50   ~ 0
+	4500 5550 5000 5550
+Text Label 4950 4850 2    50   ~ 0
 FPD0
-Text Label 4050 4350 2    50   ~ 0
+Text Label 4950 4950 2    50   ~ 0
 FPD1
-Text Label 4050 4450 2    50   ~ 0
+Text Label 4950 5050 2    50   ~ 0
 FPD2
-Text Label 4050 4550 2    50   ~ 0
+Text Label 4950 5150 2    50   ~ 0
 FPD3
-Text Label 4050 4650 2    50   ~ 0
+Text Label 4950 5250 2    50   ~ 0
 FPD4
-Text Label 4050 4750 2    50   ~ 0
+Text Label 4950 5350 2    50   ~ 0
 FPD5
-Text Label 4050 4850 2    50   ~ 0
+Text Label 4950 5450 2    50   ~ 0
 FPD6
-Text Label 4050 4950 2    50   ~ 0
+Text Label 4950 5550 2    50   ~ 0
 FPD7
 $Comp
 L alexios:74HC574 U?
@@ -522,53 +522,53 @@ F 3 "" H 950 7500 50  0001 C CNN
 	1    950  7500
 	1    0    0    -1  
 $EndComp
-NoConn ~ 5100 1850
-NoConn ~ 5100 1950
-NoConn ~ 5100 2050
-NoConn ~ 5100 3300
-NoConn ~ 5100 3400
-NoConn ~ 5100 3500
-NoConn ~ 5100 4650
-NoConn ~ 5100 4750
-NoConn ~ 5100 4850
-NoConn ~ 5100 4950
+NoConn ~ 6000 2450
+NoConn ~ 6000 2550
+NoConn ~ 6000 2650
+NoConn ~ 6000 3900
+NoConn ~ 6000 4000
+NoConn ~ 6000 4100
+NoConn ~ 6000 5250
+NoConn ~ 6000 5350
+NoConn ~ 6000 5450
+NoConn ~ 6000 5550
 Wire Wire Line
-	5100 4250 5850 4250
+	6000 4850 6750 4850
 Wire Wire Line
-	5100 4350 5850 4350
+	6000 4950 6750 4950
 Wire Wire Line
-	5100 4450 5850 4450
+	6000 5050 6750 5050
 Wire Wire Line
-	5100 4550 5850 4550
-Text Label 5850 4250 2    50   ~ 0
+	6000 5150 6750 5150
+Text Label 6750 4850 2    50   ~ 0
 ACTION0
-Text Label 5850 4350 2    50   ~ 0
+Text Label 6750 4950 2    50   ~ 0
 ACTION1
-Text Label 5850 4450 2    50   ~ 0
+Text Label 6750 5050 2    50   ~ 0
 ACTION2
-Text Label 5850 4550 2    50   ~ 0
+Text Label 6750 5150 2    50   ~ 0
 ACTION3
 Entry Wire Line
-	5950 4150 5850 4250
+	6850 4750 6750 4850
 Entry Wire Line
-	5950 4250 5850 4350
+	6850 4850 6750 4950
 Entry Wire Line
-	5950 4350 5850 4450
+	6850 4950 6750 5050
 Entry Wire Line
-	5950 4450 5850 4550
+	6850 5050 6750 5150
 Entry Bus Bus
-	5950 3800 6050 3700
+	6850 4400 6950 4300
 Wire Bus Line
-	6050 3700 6650 3700
-Text HLabel 6650 3700 2    50   3State ~ 0
+	6950 4300 7550 4300
+Text HLabel 7550 4300 2    50   3State ~ 0
 ACTION[0..3]
 Connection ~ 2400 7500
 Wire Bus Line
-	5950 2450 5950 3100
+	6850 3050 6850 3700
 Wire Bus Line
-	5950 1000 5950 1650
+	6850 1600 6850 2250
 Wire Bus Line
-	5950 3800 5950 4450
+	6850 4400 6850 5050
 Wire Bus Line
-	3500 1000 3500 4850
+	4400 1600 4400 5450
 $EndSCHEMATC

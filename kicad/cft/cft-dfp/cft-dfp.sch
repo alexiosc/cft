@@ -5,13 +5,13 @@ EELAYER END
 $Descr A3 16535 11693
 encoding utf-8
 Sheet 1 13
-Title ""
-Date ""
-Rev ""
+Title "Debugging Front Panel"
+Date "2019-11-17"
+Rev "1945"
 Comp ""
-Comment1 ""
-Comment2 ""
-Comment3 ""
+Comment1 "DFP"
+Comment2 "Last revision manufacured: 1939."
+Comment3 "R1945 reallocates A72/A73 due to short."
 Comment4 ""
 $EndDescr
 $Sheet

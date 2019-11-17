@@ -5,11 +5,11 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 12 13
-Title ""
-Date ""
-Rev ""
+Title "Right Expansion Slot"
+Date "2019-11-17"
+Rev "1945"
 Comp ""
-Comment1 ""
+Comment1 "DFP"
 Comment2 ""
 Comment3 ""
 Comment4 ""
@@ -1217,6 +1217,9 @@ Wire Wire Line
 	9900 4900 9900 4800
 Wire Wire Line
 	9850 5000 9900 5000
+Connection ~ 9900 5000
+Wire Wire Line
+	9900 5000 9900 4900
 Wire Bus Line
 	7150 4000 7150 5800
 Wire Bus Line
@@ -1235,7 +1238,4 @@ Wire Bus Line
 	4400 3700 4400 5400
 Wire Bus Line
 	2200 2900 2200 5300
-Connection ~ 9900 5000
-Wire Wire Line
-	9900 5000 9900 4900
 $EndSCHEMATC

@@ -5,14 +5,14 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 10 13
-Title ""
-Date ""
-Rev ""
+Title "Front Panel Light Scanner"
+Date "2019-11-17"
+Rev "1945"
 Comp ""
-Comment1 ""
+Comment1 "DFP"
 Comment2 ""
 Comment3 ""
-Comment4 ""
+Comment4 "dfp_scan.v"
 $EndDescr
 $Comp
 L alexios:74HC138 U?
