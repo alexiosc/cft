@@ -48,12 +48,12 @@ module constant_store (nruen, raddr, ibus);
 
    wire 	 ncsoe;
 
-   // The constant store decodes RADDR 110aa, with aa being the least
+   // The constant store decodes RADDR 001aa, with aa being the least
    // significant bits of the constant to output.
 
    wire [7:0] 	 y;
-   demux_138 cs_demux (.g1(raddr[2]), .ng2a(raddr[4]), .ng2b(nruen), .a({2'b00, raddr[3]}), .y(y));
-   assign ncsoe = y[0];
+   demux_138 cs_demux (.g1(1'b1), .ng2a(nruen), .ng2b(1'b0), .a(raddr[4:2]), .y(y));
+   assign ncsoe = y[1];		// raddr == 010xx
 
    buffer_541 cs_lo (.a({6'b000000, raddr[1:0]}), .y(ibus[7:0]),  .noe1(ncsoe), .noe2(1'b0));
    buffer_541 cs_hi (.a(8'h00),                   .y(ibus[15:8]), .noe1(ncsoe), .noe2(1'b0));
