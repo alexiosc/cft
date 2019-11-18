@@ -84,7 +84,7 @@ $EndComp
 Wire Wire Line
 	9050 1100 9050 4800
 Text HLabel 10900 5800 2    50   Output ~ 0
-~SKIP
+~COND
 Text Label 9150 2550 1    50   ~ 0
 SKIPMUXLO
 Text Label 9050 2550 1    50   ~ 0
@@ -191,7 +191,7 @@ Wire Wire Line
 Wire Wire Line
 	9050 5300 9050 5900
 Text Label 10650 5800 0    50   ~ 0
-~SKIP
+~COND
 Wire Wire Line
 	10600 5800 10900 5800
 $Comp
@@ -1372,13 +1372,13 @@ F 3 "" H 6800 5450 50  0001 C CNN
 	1    6800 5450
 	1    0    0    -1  
 $EndComp
-Wire Notes Line style solid rgb(255, 11, 2)
+Wire Notes Line style solid rgb(255, 11, 0)
 	6350 5150 7300 5150
-Wire Notes Line style solid rgb(255, 5, 1)
+Wire Notes Line style solid rgb(255, 5, 0)
 	6350 5350 6350 5150
-Wire Notes Line style solid rgb(255, 11, 2)
+Wire Notes Line style solid rgb(255, 11, 0)
 	6350 5350 7300 5350
-Wire Notes Line style solid rgb(255, 5, 1)
+Wire Notes Line style solid rgb(255, 5, 0)
 	7300 5350 7300 5150
 Wire Bus Line
 	950  1500 6100 1500

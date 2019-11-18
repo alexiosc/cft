@@ -4,7 +4,7 @@ EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 11 12
+Sheet 10 12
 Title ""
 Date ""
 Rev ""
@@ -164,7 +164,7 @@ IR15
 Text Label 4950 3150 0    50   ~ 0
 IN-RSVD
 Text Label 4950 3050 0    50   ~ 0
-COND
+~COND
 Text Label 4950 3250 0    50   ~ 0
 IR7
 Text Label 4250 3150 2    50   ~ 0
@@ -303,7 +303,7 @@ Microcode ROMs are wired as a 512K×24 bit\ntable, so all address lines are the 
 Text Label 8000 3250 0    50   ~ 0
 IR7
 Text Label 8000 3050 0    50   ~ 0
-COND
+~COND
 Text Label 8000 3150 0    50   ~ 0
 IN-RSVD
 Text Label 8000 4050 0    50   ~ 0
@@ -805,7 +805,7 @@ IDX0
 Text HLabel 1100 2950 0    50   Input ~ 0
 IDX1
 Text HLabel 1100 3050 0    50   Input ~ 0
-COND
+~COND
 Text HLabel 1100 3150 0    50   Input ~ 0
 IN-RSVD
 Text HLabel 1100 3250 0    50   Input ~ 0
@@ -903,7 +903,7 @@ IR15
 Text Label 2200 3150 2    50   ~ 0
 IN-RSVD
 Text Label 2200 3050 2    50   ~ 0
-COND
+~COND
 Text Label 2200 3250 2    50   ~ 0
 IR7
 $EndSCHEMATC

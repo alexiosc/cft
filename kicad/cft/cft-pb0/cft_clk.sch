@@ -937,7 +937,7 @@ Wire Notes Line style solid
 Wire Notes Line style solid
 	3250 6250 3225 6250
 Text Notes 7650 2700 0    50   ~ 0
-After a ~RESET~ pulse, the clock starts and we count 128 processor cycles.\nAt a 4 MHz clock, this is 32 µs. During this time, ~RSTHOLD~ is asserted, and\nmost of the processor units remain tri-stated and in reset while everything\nstabilises, capacitors are charged, etc. During this time, the processor\nalso performs its reset microprogram to initialise the PC with the boot\nvector.
+After a ~RESET~ pulse, the clock starts and we count 128 processor cycles.\nAt a 4 MHz clock, this is 32 µs. During this time, ~RSTHOLD~ is asserted, and\nmost of the processor units remain tri-stated and in reset while everything\nstabilises, capacitors are charged, etc.\n\nWhile ~RSTHOLD~ is low, the processor also performs its reset microprogram\nto initialise the PC with the boot vector.
 Text Label 5050 4600 2    50   ~ 0
 CLK
 $Comp

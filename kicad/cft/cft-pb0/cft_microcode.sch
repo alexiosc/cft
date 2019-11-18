@@ -4,7 +4,7 @@ EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 9 12
+Sheet 8 12
 Title "Control Store"
 Date ""
 Rev ""
@@ -123,7 +123,7 @@ Text Label 4300 1600 2    50   ~ 0
 Text Label 4300 1700 2    50   ~ 0
 CLK4
 Text Notes 4250 2550 0    50   ~ 0
-The µPC controls the running of the processor. It counts up to 16, so\nmicroprograms can only have  up to 16 steps. It resets to 0000 when the\nControl Unit asserts ~END~ or a processor extension card asserts ~ENDEXT~\non the bus.  It increments at the end of a processor cycle (rising edge of\nCLK4), and only when ~RSTHOLD~, ~HALT~ and ~WS~ are all deasserted.
+The µPC controls the running of the processor. It counts up to 16, so\nmicroprograms can only have up to 16 steps. It resets to 0000 when the\nControl Unit asserts ~END~ or a processor extension card asserts ~ENDEXT~\non the bus.  It increments at the end of a processor cycle (rising edge of\nCLK4), and only when ~RSTHOLD~, ~HALT~ and ~WS~ are all deasserted.
 Text Label 10450 3900 2    50   ~ 0
 COND[0..4]
 Text Label 10450 3200 2    50   ~ 0
@@ -404,9 +404,9 @@ Wire Wire Line
 Wire Wire Line
 	950  3200 1900 3200
 Text Label 1900 3200 2    50   ~ 0
-COND
+~COND
 Text HLabel 950  3200 0    50   Input ~ 0
-COND
+~COND
 Entry Bus Bus
 	1450 3500 1350 3400
 Text Label 1000 3400 0    50   ~ 0
@@ -526,7 +526,7 @@ F35 "UPC2" I L 5450 3500 50
 F36 "UPC3" I L 5450 3600 50 
 F37 "IDX0" I L 5450 3700 50 
 F38 "IDX1" I L 5450 3800 50 
-F39 "COND" I L 5450 3900 50 
+F39 "~COND" I L 5450 3900 50 
 F40 "IN-RSVD" I L 5450 4000 50 
 F41 "IR7" I L 5450 4100 50 
 F42 "IR8" I L 5450 4200 50 
@@ -647,7 +647,7 @@ IR15
 Text Label 5050 4000 0    50   ~ 0
 IN-RSVD
 Text Label 5050 3900 0    50   ~ 0
-COND
+~COND
 Text Label 5050 4100 0    50   ~ 0
 IR7
 Wire Wire Line
@@ -803,7 +803,7 @@ F4 "UPC2" I L 2950 3500 50
 F5 "UPC3" I L 2950 3600 50 
 F6 "IDX0" I L 2950 3700 50 
 F7 "IDX1" I L 2950 3800 50 
-F8 "COND" I L 2950 3900 50 
+F8 "~COND" I L 2950 3900 50 
 F9 "IN-RSVD" I L 2950 4000 50 
 F10 "IR7" I L 2950 4100 50 
 F11 "IR8" I L 2950 4200 50 
@@ -885,7 +885,7 @@ IR15
 Text Label 2550 4000 0    50   ~ 0
 IN-RSVD
 Text Label 2550 3900 0    50   ~ 0
-COND
+~COND
 Text Label 2550 4100 0    50   ~ 0
 IR7
 Wire Wire Line
@@ -1308,7 +1308,7 @@ Text Label 2300 2250 1    50   ~ 0
 ~RESET
 Text Label 2400 2250 1    50   ~ 0
 ~HALT
-Text Notes 2500 2250 0    50   ~ 0
+Text Notes 2150 2250 2    50   ~ 0
 The Microcode Store is enabled\nwhen ~RESET~ and ~HALT~\nare both deasserted.
 Text Label 1400 5750 2    50   ~ 0
 ~FPµA2
@@ -1555,17 +1555,6 @@ Wire Wire Line
 	2350 5600 2350 2700
 $Comp
 L alexios:74LVC1G00 U46
-U 1 1 5DD994A9
-P 2350 2550
-F 0 "U46" V 2229 2680 50  0000 L CNN
-F 1 "74LVC1G00" V 2320 2680 50  0000 L CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 2000 2550 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G00.pdf" H 2000 2550 50  0001 C CNN
-	1    2350 2550
-	0    1    1    0   
-$EndComp
-$Comp
-L alexios:74LVC1G00 U46
 U 2 1 5DF346BA
 P 4650 7300
 F 0 "U46" H 4730 7246 50  0000 L CNN
@@ -1613,16 +1602,45 @@ F 3 "" H 4200 7300 50  0001 C CNN
 $EndComp
 Connection ~ 4200 7300
 Connection ~ 4200 7500
+$Comp
+L alexios:74LVC1G00 U46
+U 1 1 5DD994A9
+P 2350 2550
+F 0 "U46" V 2229 2421 50  0000 R CNN
+F 1 "74LVC1G00" V 2320 2421 50  0000 R CNN
+F 2 "alexios:SOT-23-5_HandSoldering" H 2000 2550 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G00.pdf" H 2000 2550 50  0001 C CNN
+	1    2350 2550
+	0    1    1    0   
+$EndComp
+Text Notes 2600 2500 0    50   ~ 0
+~RESET~\n\n  0\n  X\n  1
+Text Notes 2900 2500 0    50   ~ 0
+~HALT~\n\n  X\n  0\n  1
+Text Notes 3250 2500 0    50   ~ 0
+~µSE~\n\n  1\n  1\n  0
+Wire Notes Line width 12 style solid
+	2550 2050 3500 2050
+Wire Notes Line width 12 style solid
+	3500 2050 3500 2550
+Wire Notes Line width 12 style solid
+	2550 2050 2550 2550
+Wire Notes Line style solid
+	2550 2210 3500 2210
+Wire Notes Line
+	3140 2050 3140 2550
+Wire Notes Line width 12 style solid
+	2550 2550 3500 2550
 Wire Bus Line
 	1450 2750 1450 2900
 Wire Bus Line
-	9800 4700 9800 5050
-Wire Bus Line
-	9800 4000 9800 4450
+	9800 2600 9800 3050
 Wire Bus Line
 	9800 3300 9800 3750
 Wire Bus Line
-	9800 2600 9800 3050
+	9800 4000 9800 4450
+Wire Bus Line
+	9800 4700 9800 5050
 Wire Bus Line
 	1450 3500 1450 4350
 $EndSCHEMATC

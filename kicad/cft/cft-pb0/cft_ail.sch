@@ -4,15 +4,15 @@ EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 5 12
-Title "CFT Homebrew 16-bit Minicomputer"
+Sheet 4 12
+Title "Auto-Index Logic"
 Date ""
 Rev ""
 Comp ""
 Comment1 "CUB"
 Comment2 ""
 Comment3 ""
-Comment4 ""
+Comment4 "ail.v"
 $EndDescr
 $Comp
 L power:+5V #PWR?
@@ -98,8 +98,6 @@ F 3 "" H 2350 7150 50  0001 C CNN
 	1    2350 7150
 	1    0    0    -1  
 $EndComp
-Text Notes 7150 6950 0    197  ~ 39
-Auto-Index Logic (AIL)
 Wire Wire Line
 	4650 3700 4200 3700
 Wire Wire Line
@@ -299,10 +297,6 @@ Entry Wire Line
 	7600 3800 7700 3900
 Entry Wire Line
 	7600 4250 7700 4350
-Wire Bus Line
-	7700 3900 7700 4500
-Wire Bus Line
-	4100 2750 4100 4200
 $Comp
 L alexios:74HC08 U22
 U 3 1 5DD3D63D
@@ -325,4 +319,8 @@ F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 6800 4300 50  0001 C CNN
 	4    6600 4750
 	1    0    0    -1  
 $EndComp
+Wire Bus Line
+	7700 3900 7700 4500
+Wire Bus Line
+	4100 2750 4100 4200
 $EndSCHEMATC

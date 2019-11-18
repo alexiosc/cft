@@ -4,15 +4,15 @@ EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 6 12
-Title ""
+Sheet 5 12
+Title "Constant Store"
 Date ""
 Rev ""
 Comp ""
 Comment1 "CUB"
 Comment2 ""
 Comment3 ""
-Comment4 ""
+Comment4 "constant_store.v"
 $EndDescr
 $Comp
 L power:+5V #PWR?
@@ -96,8 +96,6 @@ F 3 "" H 2450 7250 50  0001 C CNN
 	1    2450 7250
 	1    0    0    -1  
 $EndComp
-Text Notes 7100 6950 0    197  ~ 39
-Constant Store
 $Comp
 L alexios:74AC541 U?
 U 1 1 5E55BF66
@@ -126,27 +124,17 @@ F 3 "http://www.ti.com/lit/gpn/sn74AC541" H 7100 4600 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	3750 2550 2950 2550
-Wire Wire Line
-	3750 3150 2950 3150
-Wire Wire Line
-	3750 3250 2950 3250
-Text Label 3000 3150 0    50   ~ 0
-RADDR4
 Text Label 3250 2550 2    50   ~ 0
-RADDR3
-Text Label 3000 3350 0    50   ~ 0
+RADDR2
+Text Label 3000 3250 0    50   ~ 0
 ~RUEN
 Entry Wire Line
 	2850 2450 2950 2550
-Entry Wire Line
-	2850 3050 2950 3150
-Entry Wire Line
-	2850 3150 2950 3250
 Entry Bus Bus
 	2750 1600 2850 1700
 Wire Wire Line
-	2150 3350 3750 3350
-Text HLabel 2150 3350 0    50   Input ~ 0
+	2150 3250 3750 3250
+Text HLabel 2150 3250 0    50   Input ~ 0
 ~RUEN
 Text Label 2250 1600 0    50   ~ 0
 RADDR[0..4]
@@ -156,44 +144,12 @@ Wire Bus Line
 	2750 1600 2150 1600
 Text Notes 4300 3150 1    50   ~ 10
 RADDR=110xx
-$Comp
-L alexios:74HC138 U?
-U 1 1 5E56A57B
-P 4250 2950
-AR Path="/5DC89E19/5E56A57B" Ref="U?"  Part="1" 
-AR Path="/5E507DE3/5E56A57B" Ref="U24"  Part="1" 
-AR Path="/5E56A57B" Ref="U?"  Part="1" 
-F 0 "U24" H 4250 3617 50  0000 C CNN
-F 1 "74HC138" H 4250 3526 50  0000 C CNN
-F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 4250 2950 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 4250 2950 50  0001 C CNN
-	1    4250 2950
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	3750 2650 3750 2750
-$Comp
-L power:GND #PWR055
-U 1 1 5E5D868B
-P 3750 2800
-F 0 "#PWR055" H 3750 2550 50  0001 C CNN
-F 1 "GND" H 3755 2627 50  0000 C CNN
-F 2 "" H 3750 2800 50  0001 C CNN
-F 3 "" H 3750 2800 50  0001 C CNN
-	1    3750 2800
-	1    0    0    -1  
-$EndComp
-Connection ~ 3750 2750
-Wire Wire Line
-	3750 2750 3750 2800
-Text Label 3300 3250 2    50   ~ 0
-RADDR2
 Wire Wire Line
 	4750 2650 5450 2650
 Text Label 4850 2650 0    50   ~ 0
 ~CSOE
 Text Notes 5400 2750 2    50   ~ 0
-RADDR=110XX
+RADDR=001XX
 Text Label 6450 3450 2    50   ~ 0
 ~CSOE
 Wire Wire Line
@@ -567,8 +523,56 @@ F 3 "" H 6500 5100 50  0001 C CNN
 	1    6500 5100
 	1    0    0    -1  
 $EndComp
+$Comp
+L alexios:74HC138 U?
+U 1 1 5E56A57B
+P 4250 2950
+AR Path="/5DC89E19/5E56A57B" Ref="U?"  Part="1" 
+AR Path="/5E507DE3/5E56A57B" Ref="U24"  Part="1" 
+AR Path="/5E56A57B" Ref="U?"  Part="1" 
+F 0 "U24" H 4250 3617 50  0000 C CNN
+F 1 "74HC138" H 4250 3526 50  0000 C CNN
+F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 4250 2950 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 4250 2950 50  0001 C CNN
+	1    4250 2950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3750 2650 2950 2650
+Text Label 3250 2650 2    50   ~ 0
+RADDR3
+Entry Wire Line
+	2850 2550 2950 2650
+Wire Wire Line
+	3750 2750 2950 2750
+Text Label 3250 2750 2    50   ~ 0
+RADDR4
+Entry Wire Line
+	2850 2650 2950 2750
+$Comp
+L power:+5V #PWR?
+U 1 1 5E03D7B4
+P 3750 3150
+F 0 "#PWR?" H 3750 3000 50  0001 C CNN
+F 1 "+5V" H 3765 3323 50  0000 C CNN
+F 2 "" H 3750 3150 50  0001 C CNN
+F 3 "" H 3750 3150 50  0001 C CNN
+	1    3750 3150
+	1    0    0    -1  
+$EndComp
 Wire Bus Line
-	2850 1700 2850 3150
+	2850 1700 2850 2650
 Wire Bus Line
 	8050 2250 8050 4700
+$Comp
+L power:GND #PWR?
+U 1 1 5E040054
+P 3750 3350
+F 0 "#PWR?" H 3750 3100 50  0001 C CNN
+F 1 "GND" H 3755 3177 50  0000 C CNN
+F 2 "" H 3750 3350 50  0001 C CNN
+F 3 "" H 3750 3350 50  0001 C CNN
+	1    3750 3350
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

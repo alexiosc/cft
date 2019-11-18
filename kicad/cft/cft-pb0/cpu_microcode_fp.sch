@@ -332,7 +332,7 @@ IR15
 Text Label 2050 2150 0    50   ~ 0
 IN-RSVD
 Text Label 2050 2050 0    50   ~ 0
-COND
+~COND
 Wire Wire Line
 	7900 1450 7450 1450
 Wire Wire Line
@@ -1041,7 +1041,7 @@ Wire Wire Line
 Text Label 1550 2250 2    50   ~ 0
 IR7
 Text Label 1550 2050 2    50   ~ 0
-COND
+~COND
 Text Label 1550 2150 2    50   ~ 0
 IN-RSVD
 Text Label 1550 3050 2    50   ~ 0
@@ -1089,7 +1089,7 @@ IDX0
 Text HLabel 1100 1950 0    50   Input ~ 0
 IDX1
 Text HLabel 1100 2050 0    50   Input ~ 0
-COND
+~COND
 Text HLabel 1100 2150 0    50   Input ~ 0
 IN-RSVD
 Text HLabel 1100 2250 0    50   Input ~ 0
