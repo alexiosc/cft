@@ -3658,7 +3658,7 @@ Text Label 14650 8650 2    50   ~ 0
 ~FPSPHOE
 Text Label 14650 8350 2    50   ~ 0
 ~FPSPLOE
-Text Notes 14850 8750 0    50   ~ 0
+Text Notes 14850 8850 0    50   ~ 0
 MFD: DR high
 Text Notes 14850 8650 0    50   ~ 0
 MFD: DR low

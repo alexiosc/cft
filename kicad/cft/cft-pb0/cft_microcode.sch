@@ -1,10 +1,10 @@
 EESchema Schematic File Version 4
 LIBS:cft-pb0-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 8 12
+Sheet 8 13
 Title "Control Store"
 Date ""
 Rev ""
@@ -752,8 +752,8 @@ Text Label 4550 5500 2    50   ~ 0
 ~WEN
 Text Label 4550 5600 2    50   ~ 0
 ~END
-Text Notes 4200 2950 2    100  ~ 20
-Microcode Store
+Text Notes 4050 2950 2    100  ~ 20
+Control Store
 Text Label 4550 3300 2    50   ~ 0
 RADDR0
 Text Label 4550 3400 2    50   ~ 0
@@ -840,7 +840,7 @@ F41 "~IO" O R 4100 5300 50
 F42 "~R" O R 4100 5400 50 
 F43 "~WEN" O R 4100 5500 50 
 F44 "~END" O R 4100 5600 50 
-F45 "~µSE" I L 2950 5600 50 
+F45 "~CSE" I L 2950 5600 50 
 $EndSheet
 Wire Wire Line
 	4100 5500 4550 5500
@@ -937,7 +937,7 @@ Wire Wire Line
 Wire Wire Line
 	2550 5100 2950 5100
 Text Label 2550 5600 0    50   ~ 0
-~µSE
+~CSE
 Wire Wire Line
 	4100 3800 4550 3800
 Wire Wire Line
@@ -1051,7 +1051,7 @@ U 1 1 5F1C726F
 P 7500 1250
 F 0 "SW2" V 7500 1120 50  0000 R CNN
 F 1 "SW_DIP_x03" V 7545 1580 50  0001 L CNN
-F 2 "" H 7500 1250 50  0001 C CNN
+F 2 "Button_Switch_THT:SW_Tactile_SPST_Angled_PTS645Vx39-2LFS" H 7500 1250 50  0001 C CNN
 F 3 "" H 7500 1250 50  0001 C CNN
 	1    7500 1250
 	0    1    1    0   
@@ -1618,7 +1618,7 @@ Text Notes 2600 2500 0    50   ~ 0
 Text Notes 2900 2500 0    50   ~ 0
 ~HALT~\n\n  X\n  0\n  1
 Text Notes 3250 2500 0    50   ~ 0
-~µSE~\n\n  1\n  1\n  0
+~CSE~\n\n  1\n  1\n  0
 Wire Notes Line width 12 style solid
 	2550 2050 3500 2050
 Wire Notes Line width 12 style solid

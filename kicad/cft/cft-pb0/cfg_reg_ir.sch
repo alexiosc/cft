@@ -1,10 +1,10 @@
 EESchema Schematic File Version 4
 LIBS:cft-pb0-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 12 12
+Sheet 12 13
 Title "Instruction Register (IR)"
 Date ""
 Rev ""
@@ -243,8 +243,8 @@ L alexios:74HC541 U?
 U 2 1 5F64423F
 P 4500 6400
 AR Path="/5F4B0011/5F64423F" Ref="U?"  Part="2" 
-AR Path="/5F63066B/5F64423F" Ref="U16"  Part="2" 
-F 0 "U16" H 4680 6446 50  0000 L CNN
+AR Path="/5F63066B/5F64423F" Ref="U11"  Part="2" 
+F 0 "U11" H 4680 6446 50  0000 L CNN
 F 1 "74HC541" H 4680 6355 50  0000 L CNN
 F 2 "alexios:SOIC-20W" H 4500 6400 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74HC541" H 4500 6400 50  0001 C CNN
@@ -256,8 +256,8 @@ L alexios:74HC541 U?
 U 2 1 5F644245
 P 4500 7150
 AR Path="/5F4B0011/5F644245" Ref="U?"  Part="2" 
-AR Path="/5F63066B/5F644245" Ref="U17"  Part="2" 
-F 0 "U17" H 4680 7196 50  0000 L CNN
+AR Path="/5F63066B/5F644245" Ref="U14"  Part="2" 
+F 0 "U14" H 4680 7196 50  0000 L CNN
 F 1 "74HC541" H 4680 7105 50  0000 L CNN
 F 2 "alexios:SOIC-20W" H 4500 7150 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74HC541" H 4500 7150 50  0001 C CNN
@@ -496,22 +496,6 @@ Wire Wire Line
 	7950 2450 8250 2450
 Wire Wire Line
 	7950 2550 8250 2550
-Text Label 8000 1850 0    50   ~ 0
-FP0
-Text Label 8000 1950 0    50   ~ 0
-FP1
-Text Label 8000 2050 0    50   ~ 0
-FP2
-Text Label 8000 2150 0    50   ~ 0
-FP3
-Text Label 8000 2250 0    50   ~ 0
-FP4
-Text Label 8000 2350 0    50   ~ 0
-FP5
-Text Label 8000 2450 0    50   ~ 0
-FP6
-Text Label 8000 2550 0    50   ~ 0
-FP7
 Entry Wire Line
 	8250 1850 8350 1950
 Entry Wire Line
@@ -544,22 +528,6 @@ Wire Wire Line
 	7950 4050 8250 4050
 Wire Wire Line
 	7950 4150 8250 4150
-Text Label 8000 3450 0    50   ~ 0
-FP0
-Text Label 8000 3550 0    50   ~ 0
-FP1
-Text Label 8000 3650 0    50   ~ 0
-FP2
-Text Label 8000 3750 0    50   ~ 0
-FP3
-Text Label 8000 3850 0    50   ~ 0
-FP4
-Text Label 8000 3950 0    50   ~ 0
-FP5
-Text Label 8000 4050 0    50   ~ 0
-FP6
-Text Label 8000 4150 0    50   ~ 0
-FP7
 Entry Wire Line
 	8250 3450 8350 3550
 Entry Wire Line
@@ -747,9 +715,9 @@ Entry Bus Bus
 Wire Bus Line
 	8450 4550 9050 4550
 Text Label 8950 4550 2    50   ~ 0
-FPO[0..7]
+FPD[0..7]
 Text HLabel 9050 4550 2    50   3State ~ 0
-FPO[0..7]
+FPD[0..7]
 Entry Bus Bus
 	6300 4900 6400 5000
 Text Label 8950 5000 2    50   ~ 0
@@ -975,6 +943,38 @@ Wire Wire Line
 	6950 2450 6400 2450
 Wire Wire Line
 	6950 2550 6400 2550
+Text Label 8000 1850 0    50   ~ 0
+FPD0
+Text Label 8000 1950 0    50   ~ 0
+FPD1
+Text Label 8000 2050 0    50   ~ 0
+FPD2
+Text Label 8000 2150 0    50   ~ 0
+FPD3
+Text Label 8000 2250 0    50   ~ 0
+FPD4
+Text Label 8000 2350 0    50   ~ 0
+FPD5
+Text Label 8000 2450 0    50   ~ 0
+FPD6
+Text Label 8000 2550 0    50   ~ 0
+FPD7
+Text Label 8000 3450 0    50   ~ 0
+FPD0
+Text Label 8000 3550 0    50   ~ 0
+FPD1
+Text Label 8000 3650 0    50   ~ 0
+FPD2
+Text Label 8000 3750 0    50   ~ 0
+FPD3
+Text Label 8000 3850 0    50   ~ 0
+FPD4
+Text Label 8000 3950 0    50   ~ 0
+FPD5
+Text Label 8000 4050 0    50   ~ 0
+FPD6
+Text Label 8000 4150 0    50   ~ 0
+FPD7
 Wire Bus Line
 	6300 1950 6300 4900
 Wire Bus Line

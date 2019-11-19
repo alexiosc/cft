@@ -1,11 +1,11 @@
 EESchema Schematic File Version 4
 LIBS:cft-pb0-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 10 12
-Title ""
+Sheet 9 13
+Title "Microcode Front Panel Buffers"
 Date ""
 Rev ""
 Comp ""
@@ -14,8 +14,6 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-Text Notes 6700 -2700 0    50   ~ 0
-Microcode ROMs are wired as a 512K×24 bit\ntable, so all address lines are the same but\ndata out lines differ.
 Text HLabel 1100 3450 0    50   Input ~ 0
 RADDR0
 Text HLabel 1100 3550 0    50   Input ~ 0
@@ -64,846 +62,38 @@ Text HLabel 1100 5650 0    50   Input ~ 0
 ~WEN
 Text HLabel 1100 5750 0    50   Input ~ 0
 ~END
-Text Notes 7050 7000 0    197  ~ 39
-µCode Front Panel Buffers
-Text Notes 3250 -2950 0    50   ~ 0
-2019 Design Update: both micro-Address Vector and\nmicro-Control Vector have changed significantly in this\nversion. Fields are much more vertical now.
-Text Notes 3250 -3250 0    63   ~ 13
-2019 Design Update
-$Comp
-L alexios:74ACT16244 U?
-U 1 1 5D9354F4
-P 5700 1950
-AR Path="/5DEAC282/5D9354F4" Ref="U?"  Part="1" 
-AR Path="/5DEAC282/5E34FD9B/5D9354F4" Ref="U?"  Part="1" 
-AR Path="/5DEAC282/5D82AC00/5D9354F4" Ref="U50"  Part="1" 
-F 0 "U50" H 5700 2717 50  0000 C CNN
-F 1 "74ACT16244" H 5700 2626 50  0000 C CNN
-F 2 "alexios:SSOP-48" H 5575 2325 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/74ac16244.pdf" H 5575 2325 50  0001 C CNN
-	1    5700 1950
-	1    0    0    -1  
-$EndComp
-Text Label 7450 1750 0    50   ~ 0
-~MEM
-Text Label 7450 1850 0    50   ~ 0
-~IO
-Text Label 7450 1950 0    50   ~ 0
-~R
-Text Label 7450 2050 0    50   ~ 0
-~WEN
-Text Label 7450 2150 0    50   ~ 0
-~END
-Text Label 4750 1450 0    50   ~ 0
-RADDR0
-Text Label 4750 1550 0    50   ~ 0
-RADDR1
-Text Label 4750 1650 0    50   ~ 0
-RADDR2
-Text Label 4750 1750 0    50   ~ 0
-RADDR3
-Text Label 4750 1850 0    50   ~ 0
-RADDR4
-Text Label 4750 1950 0    50   ~ 0
-WADDR0
-Text Label 4750 2050 0    50   ~ 0
-WADDR1
-Text Label 4750 2150 0    50   ~ 0
-WADDR2
-Text Label 4750 2250 0    50   ~ 0
-WADDR3
-Text Label 4750 2350 0    50   ~ 0
-WADDR4
-Text Label 4750 2450 0    50   ~ 0
-COND0
-Text Label 4750 2550 0    50   ~ 0
-COND1
-Text Label 4750 2650 0    50   ~ 0
-COND2
-Text Label 4750 2750 0    50   ~ 0
-COND3
-Text Label 4750 2850 0    50   ~ 0
-COND4
-Text Label 4750 2950 0    50   ~ 0
-ACTION0
-Text Label 7450 1450 0    50   ~ 0
-ACTION1
-Text Label 7450 1550 0    50   ~ 0
-ACTION2
-Text Label 7450 1650 0    50   ~ 0
-ACTION3
-$Comp
-L alexios:74ACT16244 U?
-U 1 1 5D935512
-P 8400 1950
-AR Path="/5DEAC282/5D935512" Ref="U?"  Part="1" 
-AR Path="/5DEAC282/5E34FD9B/5D935512" Ref="U?"  Part="1" 
-AR Path="/5DEAC282/5D82AC00/5D935512" Ref="U51"  Part="1" 
-F 0 "U51" H 8400 2717 50  0000 C CNN
-F 1 "74ACT16244" H 8400 2626 50  0000 C CNN
-F 2 "alexios:SSOP-48" H 8275 2325 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/74ac16244.pdf" H 8275 2325 50  0001 C CNN
-	1    8400 1950
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	6200 1450 6250 1450
-Wire Wire Line
-	6200 1550 6350 1550
-Wire Wire Line
-	6200 1650 6450 1650
-Wire Wire Line
-	6200 1750 6550 1750
-Wire Wire Line
-	6200 1850 6650 1850
-Wire Wire Line
-	6200 1950 6750 1950
-Wire Wire Line
-	6200 2050 6850 2050
-Wire Wire Line
-	6200 2150 6950 2150
-Text Label 7200 1450 2    50   ~ 0
-FPD0
-Text Label 7200 1550 2    50   ~ 0
-FPD1
-Text Label 7200 1650 2    50   ~ 0
-FPD2
-Text Label 7200 1750 2    50   ~ 0
-FPD3
-Text Label 7200 1850 2    50   ~ 0
-FPD4
-Text Label 7200 1950 2    50   ~ 0
-FPD5
-Text Label 7200 2050 2    50   ~ 0
-FPD6
-Text Label 7200 2150 2    50   ~ 0
-FPD7
-Wire Wire Line
-	6200 2250 6250 2250
-Wire Wire Line
-	6250 2250 6250 1450
-Connection ~ 6250 1450
-Wire Wire Line
-	6250 1450 7200 1450
-Wire Wire Line
-	6200 2350 6350 2350
-Wire Wire Line
-	6350 2350 6350 1550
-Connection ~ 6350 1550
-Wire Wire Line
-	6350 1550 7200 1550
-Wire Wire Line
-	6200 2450 6450 2450
-Wire Wire Line
-	6450 2450 6450 1650
-Connection ~ 6450 1650
-Wire Wire Line
-	6450 1650 7200 1650
-Wire Wire Line
-	6200 2550 6550 2550
-Wire Wire Line
-	6550 2550 6550 1750
-Connection ~ 6550 1750
-Wire Wire Line
-	6550 1750 7200 1750
-Wire Wire Line
-	6200 2650 6650 2650
-Wire Wire Line
-	6650 2650 6650 1850
-Connection ~ 6650 1850
-Wire Wire Line
-	6650 1850 7200 1850
-Wire Wire Line
-	6200 2750 6750 2750
-Wire Wire Line
-	6750 2750 6750 1950
-Connection ~ 6750 1950
-Wire Wire Line
-	6750 1950 7200 1950
-Wire Wire Line
-	6200 2850 6850 2850
-Wire Wire Line
-	6850 2850 6850 2050
-Connection ~ 6850 2050
-Wire Wire Line
-	6850 2050 7200 2050
-Wire Wire Line
-	6200 2950 6950 2950
-Wire Wire Line
-	6950 2950 6950 2150
-Connection ~ 6950 2150
-Wire Wire Line
-	6950 2150 7200 2150
-Wire Wire Line
-	8900 1450 8950 1450
-Wire Wire Line
-	8900 1550 9050 1550
-Wire Wire Line
-	8900 1650 9150 1650
-Text Label 9900 1450 2    50   ~ 0
-FPD0
-Text Label 9900 1550 2    50   ~ 0
-FPD1
-Text Label 9900 1650 2    50   ~ 0
-FPD2
-Text Label 9900 1750 2    50   ~ 0
-FPD3
-Text Label 9900 1850 2    50   ~ 0
-FPD4
-Text Label 9900 1950 2    50   ~ 0
-FPD5
-Text Label 9900 2050 2    50   ~ 0
-FPD6
-Text Label 9900 2150 2    50   ~ 0
-FPD7
-Wire Wire Line
-	8900 2250 8950 2250
-Wire Wire Line
-	8950 2250 8950 1450
-Connection ~ 8950 1450
-Wire Wire Line
-	8950 1450 9900 1450
-Wire Wire Line
-	8900 2350 9050 2350
-Wire Wire Line
-	9050 2350 9050 1550
-Connection ~ 9050 1550
-Wire Wire Line
-	9050 1550 9900 1550
-Wire Wire Line
-	8900 2450 9150 2450
-Wire Wire Line
-	9150 2450 9150 1650
-Connection ~ 9150 1650
-Wire Wire Line
-	9150 1650 9900 1650
-Wire Wire Line
-	7900 3250 7800 3250
-Wire Wire Line
-	5200 1450 4750 1450
-Wire Wire Line
-	5200 1550 4750 1550
-Wire Wire Line
-	5200 1650 4750 1650
-Wire Wire Line
-	5200 1750 4750 1750
-Wire Wire Line
-	5200 1850 4750 1850
-Wire Wire Line
-	5200 1950 4750 1950
-Wire Wire Line
-	5200 2050 4750 2050
-Wire Wire Line
-	5200 2150 4750 2150
-Wire Wire Line
-	5200 2250 4750 2250
-Wire Wire Line
-	5200 2350 4750 2350
-Wire Wire Line
-	5200 2450 4750 2450
-Wire Wire Line
-	5200 2550 4750 2550
-Wire Wire Line
-	5200 2650 4750 2650
-Wire Wire Line
-	5200 2750 4750 2750
-Wire Wire Line
-	5200 2850 4750 2850
-Wire Wire Line
-	5200 2950 4750 2950
-Text Label 2050 1450 0    50   ~ 0
+Text Label 3400 1800 0    50   ~ 0
 UPC0
-Text Label 2050 1550 0    50   ~ 0
+Text Label 3400 1900 0    50   ~ 0
 UPC1
-Text Label 2050 1650 0    50   ~ 0
+Text Label 3400 2000 0    50   ~ 0
 UPC2
-Text Label 2050 1750 0    50   ~ 0
+Text Label 3400 2100 0    50   ~ 0
 UPC3
-Text Label 7450 2350 0    50   ~ 0
-~IRQSµC
-Text Label 7450 2450 0    50   ~ 0
-~RSTHOLD
-Text Label 2050 1850 0    50   ~ 0
+Text Label 3400 2200 0    50   ~ 0
 IDX0
-Text Label 2050 1950 0    50   ~ 0
+Text Label 3400 2300 0    50   ~ 0
 IDX1
-Text Label 7450 2250 0    50   ~ 0
-IR15
-Text Label 2050 2150 0    50   ~ 0
+Text Label 3400 2500 0    50   ~ 0
 IN-RSVD
-Text Label 2050 2050 0    50   ~ 0
+Text Label 3400 2400 0    50   ~ 0
 ~COND
 Wire Wire Line
-	7900 1450 7450 1450
+	3850 1800 3400 1800
 Wire Wire Line
-	7900 1550 7450 1550
+	3850 1900 3400 1900
 Wire Wire Line
-	7900 1650 7450 1650
+	3850 2000 3400 2000
 Wire Wire Line
-	7900 1750 7450 1750
+	3850 2100 3400 2100
 Wire Wire Line
-	7900 1850 7450 1850
+	3850 2200 3400 2200
 Wire Wire Line
-	7900 1950 7450 1950
+	3850 2300 3400 2300
 Wire Wire Line
-	7900 2050 7450 2050
+	3850 2400 3400 2400
 Wire Wire Line
-	7900 2150 7450 2150
-Wire Wire Line
-	7900 2250 7450 2250
-Wire Wire Line
-	7900 2350 7450 2350
-Wire Wire Line
-	7900 2450 7450 2450
-Wire Wire Line
-	7900 2950 7800 2950
-Wire Wire Line
-	2500 1450 2050 1450
-Wire Wire Line
-	2500 1550 2050 1550
-Wire Wire Line
-	2500 1650 2050 1650
-Wire Wire Line
-	2500 1750 2050 1750
-Wire Wire Line
-	2500 1850 2050 1850
-Wire Wire Line
-	2500 1950 2050 1950
-Wire Wire Line
-	2500 2050 2050 2050
-Wire Wire Line
-	2500 2150 2050 2150
-Wire Wire Line
-	7800 2550 7900 2550
-Wire Wire Line
-	7900 2650 7800 2650
-Wire Wire Line
-	7800 2650 7800 2550
-Connection ~ 7800 2650
-Wire Wire Line
-	7900 2750 7800 2750
-Wire Wire Line
-	7800 2750 7800 2650
-Connection ~ 7800 2750
-Wire Wire Line
-	7900 2850 7800 2850
-Wire Wire Line
-	7800 2950 7800 2850
-Wire Wire Line
-	7800 2850 7800 2750
-Connection ~ 7800 2850
-Text Label 4500 1450 2    50   ~ 0
-FPD0
-Text Label 4500 1550 2    50   ~ 0
-FPD1
-Text Label 4500 1650 2    50   ~ 0
-FPD2
-Text Label 4500 1750 2    50   ~ 0
-FPD3
-Text Label 4500 1850 2    50   ~ 0
-FPD4
-Text Label 4500 1950 2    50   ~ 0
-FPD5
-Text Label 4500 2050 2    50   ~ 0
-FPD6
-Text Label 4500 2150 2    50   ~ 0
-FPD7
-$Comp
-L alexios:74ACT16244 U?
-U 2 1 5D93561D
-P 8400 4900
-AR Path="/5DEAC282/5D93561D" Ref="U?"  Part="2" 
-AR Path="/5DEAC282/5E34FD9B/5D93561D" Ref="U?"  Part="2" 
-AR Path="/5DEAC282/5D82AC00/5D93561D" Ref="U51"  Part="2" 
-F 0 "U51" H 8400 5667 50  0000 C CNN
-F 1 "74ACT16244" H 8400 5576 50  0000 C CNN
-F 2 "alexios:SSOP-48" H 8275 5275 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/74ac16244.pdf" H 8275 5275 50  0001 C CNN
-	2    8400 4900
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 5D935623
-P 7900 4500
-AR Path="/5CC0D65F/5D935623" Ref="C?"  Part="1" 
-AR Path="/5D935623" Ref="C?"  Part="1" 
-AR Path="/5DEAC282/5D935623" Ref="C?"  Part="1" 
-AR Path="/5DEAC282/5E34FD9B/5D935623" Ref="C?"  Part="1" 
-AR Path="/5DEAC282/5D82AC00/5D935623" Ref="C43"  Part="1" 
-F 0 "C43" H 7809 4546 50  0000 R CNN
-F 1 "100nF" H 7809 4455 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 7900 4500 50  0001 C CNN
-F 3 "~" H 7900 4500 50  0001 C CNN
-	1    7900 4500
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5D935629
-P 7900 4700
-AR Path="/5DEAC282/5D935629" Ref="#PWR?"  Part="1" 
-AR Path="/5DEAC282/5E34FD9B/5D935629" Ref="#PWR?"  Part="1" 
-AR Path="/5DEAC282/5D82AC00/5D935629" Ref="#PWR0131"  Part="1" 
-F 0 "#PWR0131" H 7900 4450 50  0001 C CNN
-F 1 "GND" H 7905 4527 50  0000 C CNN
-F 2 "" H 7900 4700 50  0001 C CNN
-F 3 "" H 7900 4700 50  0001 C CNN
-	1    7900 4700
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR?
-U 1 1 5D93562F
-P 7900 4400
-AR Path="/5DEAC282/5D93562F" Ref="#PWR?"  Part="1" 
-AR Path="/5DEAC282/5E34FD9B/5D93562F" Ref="#PWR?"  Part="1" 
-AR Path="/5DEAC282/5D82AC00/5D93562F" Ref="#PWR0127"  Part="1" 
-F 0 "#PWR0127" H 7900 4250 50  0001 C CNN
-F 1 "+5V" H 7915 4573 50  0000 C CNN
-F 2 "" H 7900 4400 50  0001 C CNN
-F 3 "" H 7900 4400 50  0001 C CNN
-	1    7900 4400
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	7900 4700 7900 4600
-$Comp
-L Device:C_Small C?
-U 1 1 5D935636
-P 8900 4500
-AR Path="/5CC0D65F/5D935636" Ref="C?"  Part="1" 
-AR Path="/5D935636" Ref="C?"  Part="1" 
-AR Path="/5DEAC282/5D935636" Ref="C?"  Part="1" 
-AR Path="/5DEAC282/5E34FD9B/5D935636" Ref="C?"  Part="1" 
-AR Path="/5DEAC282/5D82AC00/5D935636" Ref="C44"  Part="1" 
-F 0 "C44" H 8809 4546 50  0000 R CNN
-F 1 "100nF" H 8809 4455 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 8900 4500 50  0001 C CNN
-F 3 "~" H 8900 4500 50  0001 C CNN
-	1    8900 4500
-	-1   0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5D93563C
-P 8900 4700
-AR Path="/5DEAC282/5D93563C" Ref="#PWR?"  Part="1" 
-AR Path="/5DEAC282/5E34FD9B/5D93563C" Ref="#PWR?"  Part="1" 
-AR Path="/5DEAC282/5D82AC00/5D93563C" Ref="#PWR0132"  Part="1" 
-F 0 "#PWR0132" H 8900 4450 50  0001 C CNN
-F 1 "GND" H 8905 4527 50  0000 C CNN
-F 2 "" H 8900 4700 50  0001 C CNN
-F 3 "" H 8900 4700 50  0001 C CNN
-	1    8900 4700
-	-1   0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR?
-U 1 1 5D935642
-P 8900 4400
-AR Path="/5DEAC282/5D935642" Ref="#PWR?"  Part="1" 
-AR Path="/5DEAC282/5E34FD9B/5D935642" Ref="#PWR?"  Part="1" 
-AR Path="/5DEAC282/5D82AC00/5D935642" Ref="#PWR0128"  Part="1" 
-F 0 "#PWR0128" H 8900 4250 50  0001 C CNN
-F 1 "+5V" H 8915 4573 50  0000 C CNN
-F 2 "" H 8900 4400 50  0001 C CNN
-F 3 "" H 8900 4400 50  0001 C CNN
-	1    8900 4400
-	-1   0    0    -1  
-$EndComp
-Wire Wire Line
-	8900 4700 8900 4600
-$Comp
-L Device:C_Small C?
-U 1 1 5D935649
-P 7900 5300
-AR Path="/5CC0D65F/5D935649" Ref="C?"  Part="1" 
-AR Path="/5D935649" Ref="C?"  Part="1" 
-AR Path="/5DEAC282/5D935649" Ref="C?"  Part="1" 
-AR Path="/5DEAC282/5E34FD9B/5D935649" Ref="C?"  Part="1" 
-AR Path="/5DEAC282/5D82AC00/5D935649" Ref="C47"  Part="1" 
-F 0 "C47" H 7809 5346 50  0000 R CNN
-F 1 "100nF" H 7809 5255 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 7900 5300 50  0001 C CNN
-F 3 "~" H 7900 5300 50  0001 C CNN
-	1    7900 5300
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5D93564F
-P 7900 5500
-AR Path="/5DEAC282/5D93564F" Ref="#PWR?"  Part="1" 
-AR Path="/5DEAC282/5E34FD9B/5D93564F" Ref="#PWR?"  Part="1" 
-AR Path="/5DEAC282/5D82AC00/5D93564F" Ref="#PWR0139"  Part="1" 
-F 0 "#PWR0139" H 7900 5250 50  0001 C CNN
-F 1 "GND" H 7905 5327 50  0000 C CNN
-F 2 "" H 7900 5500 50  0001 C CNN
-F 3 "" H 7900 5500 50  0001 C CNN
-	1    7900 5500
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR?
-U 1 1 5D935655
-P 7900 5200
-AR Path="/5DEAC282/5D935655" Ref="#PWR?"  Part="1" 
-AR Path="/5DEAC282/5E34FD9B/5D935655" Ref="#PWR?"  Part="1" 
-AR Path="/5DEAC282/5D82AC00/5D935655" Ref="#PWR0135"  Part="1" 
-F 0 "#PWR0135" H 7900 5050 50  0001 C CNN
-F 1 "+5V" H 7915 5373 50  0000 C CNN
-F 2 "" H 7900 5200 50  0001 C CNN
-F 3 "" H 7900 5200 50  0001 C CNN
-	1    7900 5200
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	7900 5500 7900 5400
-$Comp
-L Device:C_Small C?
-U 1 1 5D93565C
-P 8900 5300
-AR Path="/5CC0D65F/5D93565C" Ref="C?"  Part="1" 
-AR Path="/5D93565C" Ref="C?"  Part="1" 
-AR Path="/5DEAC282/5D93565C" Ref="C?"  Part="1" 
-AR Path="/5DEAC282/5E34FD9B/5D93565C" Ref="C?"  Part="1" 
-AR Path="/5DEAC282/5D82AC00/5D93565C" Ref="C48"  Part="1" 
-F 0 "C48" H 8809 5346 50  0000 R CNN
-F 1 "100nF" H 8809 5255 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 8900 5300 50  0001 C CNN
-F 3 "~" H 8900 5300 50  0001 C CNN
-	1    8900 5300
-	-1   0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5D935662
-P 8900 5500
-AR Path="/5DEAC282/5D935662" Ref="#PWR?"  Part="1" 
-AR Path="/5DEAC282/5E34FD9B/5D935662" Ref="#PWR?"  Part="1" 
-AR Path="/5DEAC282/5D82AC00/5D935662" Ref="#PWR0140"  Part="1" 
-F 0 "#PWR0140" H 8900 5250 50  0001 C CNN
-F 1 "GND" H 8905 5327 50  0000 C CNN
-F 2 "" H 8900 5500 50  0001 C CNN
-F 3 "" H 8900 5500 50  0001 C CNN
-	1    8900 5500
-	-1   0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR?
-U 1 1 5D935668
-P 8900 5200
-AR Path="/5DEAC282/5D935668" Ref="#PWR?"  Part="1" 
-AR Path="/5DEAC282/5E34FD9B/5D935668" Ref="#PWR?"  Part="1" 
-AR Path="/5DEAC282/5D82AC00/5D935668" Ref="#PWR0136"  Part="1" 
-F 0 "#PWR0136" H 8900 5050 50  0001 C CNN
-F 1 "+5V" H 8915 5373 50  0000 C CNN
-F 2 "" H 8900 5200 50  0001 C CNN
-F 3 "" H 8900 5200 50  0001 C CNN
-	1    8900 5200
-	-1   0    0    -1  
-$EndComp
-Wire Wire Line
-	8900 5500 8900 5400
-Connection ~ 7900 4700
-Connection ~ 7900 5400
-Connection ~ 7900 5200
-Connection ~ 7900 5500
-Connection ~ 8900 5500
-Connection ~ 8900 5200
-Connection ~ 8900 5400
-Connection ~ 8900 4700
-Connection ~ 7900 4600
-Connection ~ 8900 4400
-Connection ~ 8900 4600
-Connection ~ 7900 4400
-Connection ~ 5200 4400
-Connection ~ 6200 4600
-Connection ~ 6200 4400
-Connection ~ 5200 4600
-Connection ~ 6200 4700
-Connection ~ 6200 5400
-Connection ~ 6200 5200
-Connection ~ 6200 5500
-Connection ~ 5200 5500
-Connection ~ 5200 5200
-Connection ~ 5200 5400
-Connection ~ 5200 4700
-Wire Wire Line
-	6200 5500 6200 5400
-$Comp
-L power:+5V #PWR?
-U 1 1 5D935688
-P 6200 5200
-AR Path="/5DEAC282/5D935688" Ref="#PWR?"  Part="1" 
-AR Path="/5DEAC282/5E34FD9B/5D935688" Ref="#PWR?"  Part="1" 
-AR Path="/5DEAC282/5D82AC00/5D935688" Ref="#PWR0134"  Part="1" 
-F 0 "#PWR0134" H 6200 5050 50  0001 C CNN
-F 1 "+5V" H 6215 5373 50  0000 C CNN
-F 2 "" H 6200 5200 50  0001 C CNN
-F 3 "" H 6200 5200 50  0001 C CNN
-	1    6200 5200
-	-1   0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5D93568E
-P 6200 5500
-AR Path="/5DEAC282/5D93568E" Ref="#PWR?"  Part="1" 
-AR Path="/5DEAC282/5E34FD9B/5D93568E" Ref="#PWR?"  Part="1" 
-AR Path="/5DEAC282/5D82AC00/5D93568E" Ref="#PWR0138"  Part="1" 
-F 0 "#PWR0138" H 6200 5250 50  0001 C CNN
-F 1 "GND" H 6205 5327 50  0000 C CNN
-F 2 "" H 6200 5500 50  0001 C CNN
-F 3 "" H 6200 5500 50  0001 C CNN
-	1    6200 5500
-	-1   0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 5D935694
-P 6200 5300
-AR Path="/5CC0D65F/5D935694" Ref="C?"  Part="1" 
-AR Path="/5D935694" Ref="C?"  Part="1" 
-AR Path="/5DEAC282/5D935694" Ref="C?"  Part="1" 
-AR Path="/5DEAC282/5E34FD9B/5D935694" Ref="C?"  Part="1" 
-AR Path="/5DEAC282/5D82AC00/5D935694" Ref="C46"  Part="1" 
-F 0 "C46" H 6109 5346 50  0000 R CNN
-F 1 "100nF" H 6109 5255 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 6200 5300 50  0001 C CNN
-F 3 "~" H 6200 5300 50  0001 C CNN
-	1    6200 5300
-	-1   0    0    -1  
-$EndComp
-Wire Wire Line
-	5200 5500 5200 5400
-$Comp
-L power:+5V #PWR?
-U 1 1 5D93569B
-P 5200 5200
-AR Path="/5DEAC282/5D93569B" Ref="#PWR?"  Part="1" 
-AR Path="/5DEAC282/5E34FD9B/5D93569B" Ref="#PWR?"  Part="1" 
-AR Path="/5DEAC282/5D82AC00/5D93569B" Ref="#PWR0133"  Part="1" 
-F 0 "#PWR0133" H 5200 5050 50  0001 C CNN
-F 1 "+5V" H 5215 5373 50  0000 C CNN
-F 2 "" H 5200 5200 50  0001 C CNN
-F 3 "" H 5200 5200 50  0001 C CNN
-	1    5200 5200
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5D9356A1
-P 5200 5500
-AR Path="/5DEAC282/5D9356A1" Ref="#PWR?"  Part="1" 
-AR Path="/5DEAC282/5E34FD9B/5D9356A1" Ref="#PWR?"  Part="1" 
-AR Path="/5DEAC282/5D82AC00/5D9356A1" Ref="#PWR0137"  Part="1" 
-F 0 "#PWR0137" H 5200 5250 50  0001 C CNN
-F 1 "GND" H 5205 5327 50  0000 C CNN
-F 2 "" H 5200 5500 50  0001 C CNN
-F 3 "" H 5200 5500 50  0001 C CNN
-	1    5200 5500
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 5D9356A7
-P 5200 5300
-AR Path="/5CC0D65F/5D9356A7" Ref="C?"  Part="1" 
-AR Path="/5D9356A7" Ref="C?"  Part="1" 
-AR Path="/5DEAC282/5D9356A7" Ref="C?"  Part="1" 
-AR Path="/5DEAC282/5E34FD9B/5D9356A7" Ref="C?"  Part="1" 
-AR Path="/5DEAC282/5D82AC00/5D9356A7" Ref="C45"  Part="1" 
-F 0 "C45" H 5109 5346 50  0000 R CNN
-F 1 "100nF" H 5109 5255 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 5200 5300 50  0001 C CNN
-F 3 "~" H 5200 5300 50  0001 C CNN
-	1    5200 5300
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	6200 4700 6200 4600
-$Comp
-L power:+5V #PWR?
-U 1 1 5D9356AE
-P 6200 4400
-AR Path="/5DEAC282/5D9356AE" Ref="#PWR?"  Part="1" 
-AR Path="/5DEAC282/5E34FD9B/5D9356AE" Ref="#PWR?"  Part="1" 
-AR Path="/5DEAC282/5D82AC00/5D9356AE" Ref="#PWR0126"  Part="1" 
-F 0 "#PWR0126" H 6200 4250 50  0001 C CNN
-F 1 "+5V" H 6215 4573 50  0000 C CNN
-F 2 "" H 6200 4400 50  0001 C CNN
-F 3 "" H 6200 4400 50  0001 C CNN
-	1    6200 4400
-	-1   0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5D9356B4
-P 6200 4700
-AR Path="/5DEAC282/5D9356B4" Ref="#PWR?"  Part="1" 
-AR Path="/5DEAC282/5E34FD9B/5D9356B4" Ref="#PWR?"  Part="1" 
-AR Path="/5DEAC282/5D82AC00/5D9356B4" Ref="#PWR0130"  Part="1" 
-F 0 "#PWR0130" H 6200 4450 50  0001 C CNN
-F 1 "GND" H 6205 4527 50  0000 C CNN
-F 2 "" H 6200 4700 50  0001 C CNN
-F 3 "" H 6200 4700 50  0001 C CNN
-	1    6200 4700
-	-1   0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 5D9356BA
-P 6200 4500
-AR Path="/5CC0D65F/5D9356BA" Ref="C?"  Part="1" 
-AR Path="/5D9356BA" Ref="C?"  Part="1" 
-AR Path="/5DEAC282/5D9356BA" Ref="C?"  Part="1" 
-AR Path="/5DEAC282/5E34FD9B/5D9356BA" Ref="C?"  Part="1" 
-AR Path="/5DEAC282/5D82AC00/5D9356BA" Ref="C41"  Part="1" 
-F 0 "C41" H 6109 4546 50  0000 R CNN
-F 1 "100nF" H 6109 4455 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 6200 4500 50  0001 C CNN
-F 3 "~" H 6200 4500 50  0001 C CNN
-	1    6200 4500
-	-1   0    0    -1  
-$EndComp
-Wire Wire Line
-	5200 4700 5200 4600
-$Comp
-L power:+5V #PWR?
-U 1 1 5D9356C1
-P 5200 4400
-AR Path="/5DEAC282/5D9356C1" Ref="#PWR?"  Part="1" 
-AR Path="/5DEAC282/5E34FD9B/5D9356C1" Ref="#PWR?"  Part="1" 
-AR Path="/5DEAC282/5D82AC00/5D9356C1" Ref="#PWR0125"  Part="1" 
-F 0 "#PWR0125" H 5200 4250 50  0001 C CNN
-F 1 "+5V" H 5215 4573 50  0000 C CNN
-F 2 "" H 5200 4400 50  0001 C CNN
-F 3 "" H 5200 4400 50  0001 C CNN
-	1    5200 4400
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5D9356C7
-P 5200 4700
-AR Path="/5DEAC282/5D9356C7" Ref="#PWR?"  Part="1" 
-AR Path="/5DEAC282/5E34FD9B/5D9356C7" Ref="#PWR?"  Part="1" 
-AR Path="/5DEAC282/5D82AC00/5D9356C7" Ref="#PWR0129"  Part="1" 
-F 0 "#PWR0129" H 5200 4450 50  0001 C CNN
-F 1 "GND" H 5205 4527 50  0000 C CNN
-F 2 "" H 5200 4700 50  0001 C CNN
-F 3 "" H 5200 4700 50  0001 C CNN
-	1    5200 4700
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 5D9356CD
-P 5200 4500
-AR Path="/5CC0D65F/5D9356CD" Ref="C?"  Part="1" 
-AR Path="/5D9356CD" Ref="C?"  Part="1" 
-AR Path="/5DEAC282/5D9356CD" Ref="C?"  Part="1" 
-AR Path="/5DEAC282/5E34FD9B/5D9356CD" Ref="C?"  Part="1" 
-AR Path="/5DEAC282/5D82AC00/5D9356CD" Ref="C40"  Part="1" 
-F 0 "C40" H 5109 4546 50  0000 R CNN
-F 1 "100nF" H 5109 4455 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 5200 4500 50  0001 C CNN
-F 3 "~" H 5200 4500 50  0001 C CNN
-	1    5200 4500
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74ACT16244 U?
-U 2 1 5D9356D3
-P 5700 4900
-AR Path="/5DEAC282/5D9356D3" Ref="U?"  Part="2" 
-AR Path="/5DEAC282/5E34FD9B/5D9356D3" Ref="U?"  Part="2" 
-AR Path="/5DEAC282/5D82AC00/5D9356D3" Ref="U50"  Part="2" 
-F 0 "U50" H 5700 5667 50  0000 C CNN
-F 1 "74ACT16244" H 5700 5576 50  0000 C CNN
-F 2 "alexios:SSOP-48" H 5575 5275 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/74ac16244.pdf" H 5575 5275 50  0001 C CNN
-	2    5700 4900
-	1    0    0    -1  
-$EndComp
-Entry Wire Line
-	9900 1450 10000 1550
-Entry Wire Line
-	9900 1550 10000 1650
-Entry Wire Line
-	9900 1650 10000 1750
-Entry Wire Line
-	9900 1750 10000 1850
-Entry Wire Line
-	9900 1850 10000 1950
-Entry Wire Line
-	9900 1950 10000 2050
-Entry Wire Line
-	9900 2050 10000 2150
-Entry Wire Line
-	9900 2150 10000 2250
-Entry Bus Bus
-	10000 2350 10100 2450
-Wire Bus Line
-	10100 2450 10650 2450
-Text HLabel 10650 2450 2    50   Input ~ 0
-FPD[0..7]
-Text Label 10550 2450 2    50   ~ 0
-FPD[0..7]
-Text Label 7200 3350 0    50   ~ 0
-~FPµA2
-Wire Wire Line
-	7200 3350 7900 3350
-$Comp
-L power:GND #PWR0122
-U 1 1 5D9EAE2C
-P 7800 2950
-F 0 "#PWR0122" H 7800 2700 50  0001 C CNN
-F 1 "GND" H 7650 2950 50  0000 C CNN
-F 2 "" H 7800 2950 50  0001 C CNN
-F 3 "" H 7800 2950 50  0001 C CNN
-	1    7800 2950
-	1    0    0    -1  
-$EndComp
-Connection ~ 7800 2950
-Wire Wire Line
-	8900 1850 9900 1850
-Wire Wire Line
-	8900 1950 9900 1950
-Wire Wire Line
-	8900 2050 9900 2050
-Wire Wire Line
-	8900 2150 9900 2150
-NoConn ~ 8900 2650
-NoConn ~ 8900 2750
-NoConn ~ 8900 2850
-NoConn ~ 8900 2950
-$Comp
-L power:GND #PWR0124
-U 1 1 5DA21D2C
-P 7800 3500
-F 0 "#PWR0124" H 7800 3250 50  0001 C CNN
-F 1 "GND" H 7805 3327 50  0000 C CNN
-F 2 "" H 7800 3500 50  0001 C CNN
-F 3 "" H 7800 3500 50  0001 C CNN
-	1    7800 3500
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	7900 3450 7800 3450
-Wire Wire Line
-	7800 3450 7800 3500
-Text Label 4750 3150 0    50   ~ 0
-~FPµĊ0
-Text Label 4750 3350 0    50   ~ 0
-~FPµĊ1
-Text Label 7200 3150 0    50   ~ 0
-~FPµĊ2
-Wire Wire Line
-	8900 1750 9900 1750
-NoConn ~ 8900 2550
+	3850 2500 3400 2500
 Text HLabel 1100 5950 0    50   Input ~ 0
 ~FPµA0
 Text HLabel 1100 6050 0    50   Input ~ 0
@@ -928,7 +118,7 @@ Wire Wire Line
 	1100 6450 1550 6450
 Wire Wire Line
 	1100 6550 1550 6550
-Text Label 2050 2350 0    50   ~ 0
+Text Label 3400 2700 0    50   ~ 0
 ~FPµA0
 Text Label 1550 5950 2    50   ~ 0
 ~FPµA0
@@ -1076,22 +266,6 @@ Text Label 1550 1550 2    50   ~ 0
 UPC1
 Text Label 1550 1450 2    50   ~ 0
 UPC0
-Text HLabel 1100 1450 0    50   Input ~ 0
-UPC0
-Text HLabel 1100 1550 0    50   Input ~ 0
-UPC1
-Text HLabel 1100 1650 0    50   Input ~ 0
-UPC2
-Text HLabel 1100 1750 0    50   Input ~ 0
-UPC3
-Text HLabel 1100 1850 0    50   Input ~ 0
-IDX0
-Text HLabel 1100 1950 0    50   Input ~ 0
-IDX1
-Text HLabel 1100 2050 0    50   Input ~ 0
-~COND
-Text HLabel 1100 2150 0    50   Input ~ 0
-IN-RSVD
 Text HLabel 1100 2250 0    50   Input ~ 0
 IR7
 Text HLabel 1100 2350 0    50   Input ~ 0
@@ -1152,119 +326,886 @@ Wire Wire Line
 	1100 3150 1550 3150
 Wire Wire Line
 	1100 3250 1550 3250
-Wire Wire Line
-	5200 4600 4800 4600
-Wire Wire Line
-	5200 4400 4800 4400
-$Comp
-L Device:C_Small C?
-U 1 1 5DFCE7B9
-P 4800 4500
-AR Path="/5CC0D65F/5DFCE7B9" Ref="C?"  Part="1" 
-AR Path="/5DFCE7B9" Ref="C?"  Part="1" 
-AR Path="/5DEAC282/5DFCE7B9" Ref="C?"  Part="1" 
-AR Path="/5DEAC282/5E34FD9B/5DFCE7B9" Ref="C?"  Part="1" 
-AR Path="/5DEAC282/5D82AC00/5DFCE7B9" Ref="C39"  Part="1" 
-F 0 "C39" H 4709 4546 50  0000 R CNN
-F 1 "10µF" H 4709 4455 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 4800 4500 50  0001 C CNN
-F 3 "~" H 4800 4500 50  0001 C CNN
-	1    4800 4500
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	7900 4600 7500 4600
-Wire Wire Line
-	7900 4400 7500 4400
-$Comp
-L Device:C_Small C?
-U 1 1 5DFE4560
-P 7500 4500
-AR Path="/5CC0D65F/5DFE4560" Ref="C?"  Part="1" 
-AR Path="/5DFE4560" Ref="C?"  Part="1" 
-AR Path="/5DEAC282/5DFE4560" Ref="C?"  Part="1" 
-AR Path="/5DEAC282/5E34FD9B/5DFE4560" Ref="C?"  Part="1" 
-AR Path="/5DEAC282/5D82AC00/5DFE4560" Ref="C42"  Part="1" 
-F 0 "C42" H 7409 4546 50  0000 R CNN
-F 1 "10µF" H 7409 4455 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 7500 4500 50  0001 C CNN
-F 3 "~" H 7500 4500 50  0001 C CNN
-	1    7500 4500
-	1    0    0    -1  
-$EndComp
-Text Notes 1900 3350 0    50   ~ 0
-Only one front panel buffer needed for µAV, µAddr Low.\nThe high bits come from the IR and the 2019 version of the\nfront panel doesn't display the redundant information anymore.\nThis saves one WideBus® buffer and enough cash for a\nmuch-needed coffee. Those things are *expensive*.\n(WideBus® buffers, not coffee)
-Wire Wire Line
-	3500 1450 4500 1450
-Wire Wire Line
-	3500 1550 4500 1550
-Wire Wire Line
-	3500 1650 4500 1650
-Wire Wire Line
-	3500 1750 4500 1750
-Wire Wire Line
-	3500 1850 4500 1850
-Wire Wire Line
-	3500 1950 4500 1950
-Wire Wire Line
-	3500 2050 4500 2050
-Wire Wire Line
-	3500 2150 4500 2150
 $Comp
 L alexios:74HC541 U16
 U 1 1 5E0A9015
-P 3000 1950
-F 0 "U16" H 3000 2717 50  0000 C CNN
-F 1 "74HC541" H 3000 2626 50  0000 C CNN
-F 2 "alexios:SOIC-20W" H 3000 1950 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 3000 1950 50  0001 C CNN
-	1    3000 1950
+P 4350 2300
+F 0 "U16" H 4350 3067 50  0000 C CNN
+F 1 "74HC541" H 4350 2976 50  0000 C CNN
+F 2 "alexios:SOIC-20W" H 4350 2300 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 4350 2300 50  0001 C CNN
+	1    4350 2300
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	2050 2350 2500 2350
+	3400 2700 3850 2700
 $Comp
 L power:GND #PWR0121
 U 1 1 5E0C6AD6
-P 2500 2450
-F 0 "#PWR0121" H 2500 2200 50  0001 C CNN
-F 1 "GND" H 2505 2277 50  0000 C CNN
-F 2 "" H 2500 2450 50  0001 C CNN
-F 3 "" H 2500 2450 50  0001 C CNN
-	1    2500 2450
+P 3850 2800
+F 0 "#PWR0121" H 3850 2550 50  0001 C CNN
+F 1 "GND" H 3855 2627 50  0000 C CNN
+F 2 "" H 3850 2800 50  0001 C CNN
+F 3 "" H 3850 2800 50  0001 C CNN
+	1    3850 2800
 	1    0    0    -1  
 $EndComp
+Text Label 7300 1800 2    50   ~ 0
+FPD0
+Text Label 7300 1900 2    50   ~ 0
+FPD1
+Text Label 7300 2000 2    50   ~ 0
+FPD2
+Text Label 7300 2100 2    50   ~ 0
+FPD3
+Text Label 7300 2200 2    50   ~ 0
+FPD4
+Text Label 7300 2300 2    50   ~ 0
+FPD5
+Text Label 7300 2400 2    50   ~ 0
+FPD6
+Text Label 7300 2500 2    50   ~ 0
+FPD7
 Wire Wire Line
-	4750 3150 5200 3150
+	7000 1800 7300 1800
 Wire Wire Line
-	4750 3350 5200 3350
+	7000 1900 7300 1900
+Wire Wire Line
+	7000 2000 7300 2000
+Wire Wire Line
+	7000 2100 7300 2100
+Wire Wire Line
+	7000 2200 7300 2200
+Wire Wire Line
+	7000 2300 7300 2300
+Wire Wire Line
+	7000 2400 7300 2400
+Wire Wire Line
+	7000 2500 7300 2500
 $Comp
-L power:GND #PWR0123
-U 1 1 5E0D547B
-P 5150 3500
-F 0 "#PWR0123" H 5150 3250 50  0001 C CNN
-F 1 "GND" H 5155 3327 50  0000 C CNN
-F 2 "" H 5150 3500 50  0001 C CNN
-F 3 "" H 5150 3500 50  0001 C CNN
-	1    5150 3500
+L alexios:74HC541 U17
+U 1 1 5DDD8FBA
+P 6500 2300
+F 0 "U17" H 6500 3067 50  0000 C CNN
+F 1 "74HC541" H 6500 2976 50  0000 C CNN
+F 2 "alexios:SOIC-20W" H 6500 2300 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 6500 2300 50  0001 C CNN
+	1    6500 2300
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0122
+U 1 1 5DDD8FC1
+P 6000 2800
+F 0 "#PWR0122" H 6000 2550 50  0001 C CNN
+F 1 "GND" H 6005 2627 50  0000 C CNN
+F 2 "" H 6000 2800 50  0001 C CNN
+F 3 "" H 6000 2800 50  0001 C CNN
+	1    6000 2800
+	1    0    0    -1  
+$EndComp
+Text Label 5550 1800 0    50   ~ 0
+RADDR0
+Text Label 5550 1900 0    50   ~ 0
+RADDR1
+Text Label 5550 2000 0    50   ~ 0
+RADDR2
+Text Label 5550 2100 0    50   ~ 0
+RADDR3
+Text Label 5550 2200 0    50   ~ 0
+RADDR4
+Text Label 5550 2300 0    50   ~ 0
+WADDR0
+Text Label 5550 2400 0    50   ~ 0
+WADDR1
+Text Label 5550 2500 0    50   ~ 0
+WADDR2
+Wire Wire Line
+	6000 1800 5550 1800
+Wire Wire Line
+	6000 1900 5550 1900
+Wire Wire Line
+	6000 2000 5550 2000
+Wire Wire Line
+	6000 2100 5550 2100
+Wire Wire Line
+	6000 2200 5550 2200
+Wire Wire Line
+	6000 2300 5550 2300
+Wire Wire Line
+	6000 2400 5550 2400
+Wire Wire Line
+	6000 2500 5550 2500
+Text Label 5550 2700 0    50   ~ 0
+~FPµĊ0
+Wire Wire Line
+	5550 2700 6000 2700
+$Comp
+L alexios:74HC541 U29
+U 2 1 5DE6612F
+P 4400 6150
+F 0 "U29" H 4580 6196 50  0000 L CNN
+F 1 "74HC541" H 4580 6105 50  0000 L CNN
+F 2 "alexios:SOIC-20W" H 4400 6150 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 4400 6150 50  0001 C CNN
+	2    4400 6150
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 5DE69EF0
+P 4050 6150
+AR Path="/5CC0D65F/5DE69EF0" Ref="C?"  Part="1" 
+AR Path="/5DE69EF0" Ref="C?"  Part="1" 
+AR Path="/5DEAC282/5DE69EF0" Ref="C?"  Part="1" 
+AR Path="/5DEAC282/5D82AC00/5DE69EF0" Ref="C42"  Part="1" 
+F 0 "C42" H 3959 6196 50  0000 R CNN
+F 1 "100nF" H 3959 6105 50  0000 R CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 4050 6150 50  0001 C CNN
+F 3 "~" H 4050 6150 50  0001 C CNN
+	1    4050 6150
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5DE69EF6
+P 4050 6250
+AR Path="/5DEAC282/5DE69EF6" Ref="#PWR?"  Part="1" 
+AR Path="/5DEAC282/5D82AC00/5DE69EF6" Ref="#PWR0123"  Part="1" 
+F 0 "#PWR0123" H 4050 6000 50  0001 C CNN
+F 1 "GND" H 4055 6077 50  0000 C CNN
+F 2 "" H 4050 6250 50  0001 C CNN
+F 3 "" H 4050 6250 50  0001 C CNN
+	1    4050 6250
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 5DE69EFC
+P 4050 6050
+AR Path="/5DEAC282/5DE69EFC" Ref="#PWR?"  Part="1" 
+AR Path="/5DEAC282/5D82AC00/5DE69EFC" Ref="#PWR0124"  Part="1" 
+F 0 "#PWR0124" H 4050 5900 50  0001 C CNN
+F 1 "+5V" H 4065 6223 50  0000 C CNN
+F 2 "" H 4050 6050 50  0001 C CNN
+F 3 "" H 4050 6050 50  0001 C CNN
+	1    4050 6050
+	1    0    0    -1  
+$EndComp
+Connection ~ 4050 6050
+Connection ~ 4050 6250
+Text Label 7300 3300 2    50   ~ 0
+FPD0
+Text Label 7300 3400 2    50   ~ 0
+FPD1
+Text Label 7300 3500 2    50   ~ 0
+FPD2
+Text Label 7300 3600 2    50   ~ 0
+FPD3
+Text Label 7300 3700 2    50   ~ 0
+FPD4
+Text Label 7300 3800 2    50   ~ 0
+FPD5
+Text Label 7300 3900 2    50   ~ 0
+FPD6
+Text Label 7300 4000 2    50   ~ 0
+FPD7
+Wire Wire Line
+	7000 3300 7300 3300
+Wire Wire Line
+	7000 3400 7300 3400
+Wire Wire Line
+	7000 3500 7300 3500
+Wire Wire Line
+	7000 3600 7300 3600
+Wire Wire Line
+	7000 3700 7300 3700
+Wire Wire Line
+	7000 3800 7300 3800
+Wire Wire Line
+	7000 3900 7300 3900
+Wire Wire Line
+	7000 4000 7300 4000
+$Comp
+L power:GND #PWR0125
+U 1 1 5DEA3445
+P 6000 4300
+F 0 "#PWR0125" H 6000 4050 50  0001 C CNN
+F 1 "GND" H 6005 4127 50  0000 C CNN
+F 2 "" H 6000 4300 50  0001 C CNN
+F 3 "" H 6000 4300 50  0001 C CNN
+	1    6000 4300
+	1    0    0    -1  
+$EndComp
+Text Label 5550 3300 0    50   ~ 0
+WADDR3
+Text Label 5550 3400 0    50   ~ 0
+WADDR4
+Text Label 5550 3500 0    50   ~ 0
+COND0
+Text Label 5550 3600 0    50   ~ 0
+COND1
+Text Label 5550 3700 0    50   ~ 0
+COND2
+Text Label 5550 3800 0    50   ~ 0
+COND3
+Text Label 5550 3900 0    50   ~ 0
+COND4
+Text Label 5550 4000 0    50   ~ 0
+ACTION0
+Wire Wire Line
+	6000 3300 5550 3300
+Wire Wire Line
+	6000 3400 5550 3400
+Wire Wire Line
+	6000 3500 5550 3500
+Wire Wire Line
+	6000 3600 5550 3600
+Wire Wire Line
+	6000 3700 5550 3700
+Wire Wire Line
+	6000 3800 5550 3800
+Wire Wire Line
+	6000 3900 5550 3900
+Wire Wire Line
+	6000 4000 5550 4000
+Text Label 5550 4200 0    50   ~ 0
+~FPµĊ1
+Wire Wire Line
+	5550 4200 6000 4200
+Text Label 9450 1800 2    50   ~ 0
+FPD0
+Text Label 9450 1900 2    50   ~ 0
+FPD1
+Text Label 9450 2000 2    50   ~ 0
+FPD2
+Text Label 9450 2100 2    50   ~ 0
+FPD3
+Text Label 9450 2200 2    50   ~ 0
+FPD4
+Text Label 9450 2300 2    50   ~ 0
+FPD5
+Text Label 9450 2400 2    50   ~ 0
+FPD6
+Text Label 9450 2500 2    50   ~ 0
+FPD7
+Wire Wire Line
+	9150 1800 9450 1800
+Wire Wire Line
+	9150 1900 9450 1900
+Wire Wire Line
+	9150 2000 9450 2000
+Wire Wire Line
+	9150 2100 9450 2100
+Wire Wire Line
+	9150 2200 9450 2200
+Wire Wire Line
+	9150 2300 9450 2300
+Wire Wire Line
+	9150 2400 9450 2400
+Wire Wire Line
+	9150 2500 9450 2500
+$Comp
+L alexios:74HC541 U21
+U 1 1 5DF1B315
+P 8650 2300
+F 0 "U21" H 8650 3067 50  0000 C CNN
+F 1 "74HC541" H 8650 2976 50  0000 C CNN
+F 2 "alexios:SOIC-20W" H 8650 2300 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 8650 2300 50  0001 C CNN
+	1    8650 2300
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0126
+U 1 1 5DF1B31B
+P 8150 2800
+F 0 "#PWR0126" H 8150 2550 50  0001 C CNN
+F 1 "GND" H 8155 2627 50  0000 C CNN
+F 2 "" H 8150 2800 50  0001 C CNN
+F 3 "" H 8150 2800 50  0001 C CNN
+	1    8150 2800
+	1    0    0    -1  
+$EndComp
+Text Label 7700 2100 0    50   ~ 0
+~MEM
+Text Label 7700 2200 0    50   ~ 0
+~IO
+Text Label 7700 2300 0    50   ~ 0
+~R
+Text Label 7700 2400 0    50   ~ 0
+~WEN
+Text Label 7700 2500 0    50   ~ 0
+~END
+Text Label 7700 1800 0    50   ~ 0
+ACTION1
+Text Label 7700 1900 0    50   ~ 0
+ACTION2
+Text Label 7700 2000 0    50   ~ 0
+ACTION3
+Wire Wire Line
+	8150 1800 7700 1800
+Wire Wire Line
+	8150 1900 7700 1900
+Wire Wire Line
+	8150 2000 7700 2000
+Wire Wire Line
+	8150 2100 7700 2100
+Wire Wire Line
+	8150 2200 7700 2200
+Wire Wire Line
+	8150 2300 7700 2300
+Wire Wire Line
+	8150 2400 7700 2400
+Wire Wire Line
+	8150 2500 7700 2500
+Text Label 7700 2700 0    50   ~ 0
+~FPµĊ2
+Wire Wire Line
+	7700 2700 8150 2700
+Text Label 5150 1800 2    50   ~ 0
+FPD0
+Text Label 5150 1900 2    50   ~ 0
+FPD1
+Text Label 5150 2000 2    50   ~ 0
+FPD2
+Text Label 5150 2100 2    50   ~ 0
+FPD3
+Text Label 5150 2200 2    50   ~ 0
+FPD4
+Text Label 5150 2300 2    50   ~ 0
+FPD5
+Text Label 5150 2400 2    50   ~ 0
+FPD6
+Text Label 5150 2500 2    50   ~ 0
+FPD7
+Wire Wire Line
+	4850 1800 5150 1800
+Wire Wire Line
+	4850 1900 5150 1900
+Wire Wire Line
+	4850 2000 5150 2000
+Wire Wire Line
+	4850 2100 5150 2100
+Wire Wire Line
+	4850 2200 5150 2200
+Wire Wire Line
+	4850 2300 5150 2300
+Wire Wire Line
+	4850 2400 5150 2400
+Wire Wire Line
+	4850 2500 5150 2500
+Entry Wire Line
+	5150 1800 5250 1900
+Entry Wire Line
+	5150 1900 5250 2000
+Entry Wire Line
+	5150 2000 5250 2100
+Entry Wire Line
+	5150 2100 5250 2200
+Entry Wire Line
+	5150 2200 5250 2300
+Entry Wire Line
+	5150 2300 5250 2400
+Entry Wire Line
+	5150 2400 5250 2500
+Entry Wire Line
+	5150 2500 5250 2600
+$Comp
+L alexios:74HC541 U16
+U 2 1 5E19A961
+P 4400 5400
+F 0 "U16" H 4580 5446 50  0000 L CNN
+F 1 "74HC541" H 4580 5355 50  0000 L CNN
+F 2 "alexios:SOIC-20W" H 4400 5400 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 4400 5400 50  0001 C CNN
+	2    4400 5400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 5E19A967
+P 4050 5400
+AR Path="/5CC0D65F/5E19A967" Ref="C?"  Part="1" 
+AR Path="/5E19A967" Ref="C?"  Part="1" 
+AR Path="/5DEAC282/5E19A967" Ref="C?"  Part="1" 
+AR Path="/5DEAC282/5D82AC00/5E19A967" Ref="C39"  Part="1" 
+F 0 "C39" H 3959 5446 50  0000 R CNN
+F 1 "100nF" H 3959 5355 50  0000 R CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 4050 5400 50  0001 C CNN
+F 3 "~" H 4050 5400 50  0001 C CNN
+	1    4050 5400
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5E19A96D
+P 4050 5500
+AR Path="/5DEAC282/5E19A96D" Ref="#PWR?"  Part="1" 
+AR Path="/5DEAC282/5D82AC00/5E19A96D" Ref="#PWR0127"  Part="1" 
+F 0 "#PWR0127" H 4050 5250 50  0001 C CNN
+F 1 "GND" H 4055 5327 50  0000 C CNN
+F 2 "" H 4050 5500 50  0001 C CNN
+F 3 "" H 4050 5500 50  0001 C CNN
+	1    4050 5500
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 5E19A973
+P 4050 5300
+AR Path="/5DEAC282/5E19A973" Ref="#PWR?"  Part="1" 
+AR Path="/5DEAC282/5D82AC00/5E19A973" Ref="#PWR0128"  Part="1" 
+F 0 "#PWR0128" H 4050 5150 50  0001 C CNN
+F 1 "+5V" H 4065 5473 50  0000 C CNN
+F 2 "" H 4050 5300 50  0001 C CNN
+F 3 "" H 4050 5300 50  0001 C CNN
+	1    4050 5300
+	1    0    0    -1  
+$EndComp
+Connection ~ 4050 5300
+Connection ~ 4050 5500
+Wire Wire Line
+	3400 4200 3850 4200
+Text Label 3400 4200 0    50   ~ 0
+~FPµA2
+Wire Wire Line
+	3300 4000 3300 4300
+Connection ~ 3300 4000
+Wire Wire Line
+	3550 4000 3300 4000
+Wire Wire Line
+	3300 3900 3300 4000
+Connection ~ 3300 3900
+Wire Wire Line
+	3550 3900 3300 3900
+Wire Wire Line
+	3300 3800 3300 3900
+Connection ~ 3300 3800
+Wire Wire Line
+	3550 3800 3300 3800
+Wire Wire Line
+	3300 3700 3300 3800
+Connection ~ 3300 3700
+Wire Wire Line
+	3550 3700 3300 3700
+Wire Wire Line
+	3300 3600 3300 3700
+Wire Wire Line
+	3550 3600 3300 3600
+$Comp
+L Jumper:SolderJumper_2_Bridged JP8
+U 1 1 5E028213
+P 3700 4000
+F 0 "JP8" H 3550 4050 50  0000 R CNN
+F 1 "SolderJumper_2_Bridged" H 3700 4114 50  0001 C CNN
+F 2 "" H 3700 4000 50  0001 C CNN
+F 3 "~" H 3700 4000 50  0001 C CNN
+	1    3700 4000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Jumper:SolderJumper_2_Bridged JP7
+U 1 1 5E027D16
+P 3700 3900
+F 0 "JP7" H 3550 3950 50  0000 R CNN
+F 1 "SolderJumper_2_Bridged" H 3700 4014 50  0001 C CNN
+F 2 "" H 3700 3900 50  0001 C CNN
+F 3 "~" H 3700 3900 50  0001 C CNN
+	1    3700 3900
+	1    0    0    -1  
+$EndComp
+$Comp
+L Jumper:SolderJumper_2_Bridged JP6
+U 1 1 5E027A6D
+P 3700 3800
+F 0 "JP6" H 3550 3850 50  0000 R CNN
+F 1 "SolderJumper_2_Bridged" H 3700 3914 50  0001 C CNN
+F 2 "" H 3700 3800 50  0001 C CNN
+F 3 "~" H 3700 3800 50  0001 C CNN
+	1    3700 3800
+	1    0    0    -1  
+$EndComp
+$Comp
+L Jumper:SolderJumper_2_Bridged JP5
+U 1 1 5E02777F
+P 3700 3700
+F 0 "JP5" H 3550 3750 50  0000 R CNN
+F 1 "SolderJumper_2_Bridged" H 3700 3814 50  0001 C CNN
+F 2 "" H 3700 3700 50  0001 C CNN
+F 3 "~" H 3700 3700 50  0001 C CNN
+	1    3700 3700
+	1    0    0    -1  
+$EndComp
+$Comp
+L Jumper:SolderJumper_2_Bridged JP4
+U 1 1 5DFD677A
+P 3700 3600
+F 0 "JP4" H 3550 3650 50  0000 R CNN
+F 1 "SolderJumper_2_Bridged" H 3700 3714 50  0001 C CNN
+F 2 "" H 3700 3600 50  0001 C CNN
+F 3 "~" H 3700 3600 50  0001 C CNN
+	1    3700 3600
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0129
+U 1 1 5DFC1F47
+P 3300 4300
+F 0 "#PWR0129" H 3300 4050 50  0001 C CNN
+F 1 "GND" H 3305 4127 50  0000 C CNN
+F 2 "" H 3300 4300 50  0001 C CNN
+F 3 "" H 3300 4300 50  0001 C CNN
+	1    3300 4300
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	5200 3250 5150 3250
+	3850 3500 3400 3500
 Wire Wire Line
-	5150 3250 5150 3450
+	3850 3400 3400 3400
 Wire Wire Line
-	5200 3450 5150 3450
-Connection ~ 5150 3450
+	3850 3300 3400 3300
+Text Label 3400 3300 0    50   ~ 0
+IR15
+Text Label 3400 3500 0    50   ~ 0
+~RSTHOLD
+Text Label 3400 3400 0    50   ~ 0
+~IRQSµC
+$Comp
+L power:GND #PWR0130
+U 1 1 5DF9B02E
+P 3850 4300
+F 0 "#PWR0130" H 3850 4050 50  0001 C CNN
+F 1 "GND" H 3855 4127 50  0000 C CNN
+F 2 "" H 3850 4300 50  0001 C CNN
+F 3 "" H 3850 4300 50  0001 C CNN
+	1    3850 4300
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC541 U29
+U 1 1 5DF9B028
+P 4350 3800
+F 0 "U29" H 4350 4567 50  0000 C CNN
+F 1 "74HC541" H 4350 4476 50  0000 C CNN
+F 2 "alexios:SOIC-20W" H 4350 3800 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 4350 3800 50  0001 C CNN
+	1    4350 3800
+	1    0    0    -1  
+$EndComp
 Wire Wire Line
-	5150 3450 5150 3500
+	4850 4000 5150 4000
 Wire Wire Line
-	7200 3150 7900 3150
+	4850 3900 5150 3900
 Wire Wire Line
-	7800 3250 7800 3450
-Connection ~ 7800 3450
-Text Notes 1900 2800 0    50   ~ 10
-EXPLANATION
+	4850 3800 5150 3800
+Wire Wire Line
+	4850 3700 5150 3700
+Wire Wire Line
+	4850 3600 5150 3600
+Wire Wire Line
+	4850 3500 5150 3500
+Wire Wire Line
+	4850 3400 5150 3400
+Wire Wire Line
+	4850 3300 5150 3300
+Text Label 5150 4000 2    50   ~ 0
+FPD7
+Text Label 5150 3900 2    50   ~ 0
+FPD6
+Text Label 5150 3800 2    50   ~ 0
+FPD5
+Text Label 5150 3700 2    50   ~ 0
+FPD4
+Text Label 5150 3600 2    50   ~ 0
+FPD3
+Text Label 5150 3500 2    50   ~ 0
+FPD2
+Text Label 5150 3400 2    50   ~ 0
+FPD1
+Text Label 5150 3300 2    50   ~ 0
+FPD0
+Entry Wire Line
+	7300 2500 7400 2600
+Entry Wire Line
+	7300 2400 7400 2500
+Entry Wire Line
+	7300 2300 7400 2400
+Entry Wire Line
+	7300 2200 7400 2300
+Entry Wire Line
+	7300 2100 7400 2200
+Entry Wire Line
+	7300 2000 7400 2100
+Entry Wire Line
+	7300 1900 7400 2000
+Entry Wire Line
+	7300 1800 7400 1900
+Entry Wire Line
+	5150 4000 5250 4100
+Entry Wire Line
+	5150 3900 5250 4000
+Entry Wire Line
+	5150 3800 5250 3900
+Entry Wire Line
+	5150 3700 5250 3800
+Entry Wire Line
+	5150 3600 5250 3700
+Entry Wire Line
+	5150 3500 5250 3600
+Entry Wire Line
+	5150 3400 5250 3500
+Entry Wire Line
+	5150 3300 5250 3400
+Entry Wire Line
+	7300 4000 7400 4100
+Entry Wire Line
+	7300 3900 7400 4000
+Entry Wire Line
+	7300 3800 7400 3900
+Entry Wire Line
+	7300 3700 7400 3800
+Entry Wire Line
+	7300 3600 7400 3700
+Entry Wire Line
+	7300 3500 7400 3600
+Entry Wire Line
+	7300 3400 7400 3500
+Entry Wire Line
+	7300 3300 7400 3400
+Entry Wire Line
+	9450 2500 9550 2600
+Entry Wire Line
+	9450 2400 9550 2500
+Entry Wire Line
+	9450 2300 9550 2400
+Entry Wire Line
+	9450 2200 9550 2300
+Entry Wire Line
+	9450 2100 9550 2200
+Entry Wire Line
+	9450 2000 9550 2100
+Entry Wire Line
+	9450 1900 9550 2000
+Entry Wire Line
+	9450 1800 9550 1900
+Entry Bus Bus
+	9550 4600 9650 4700
 Wire Bus Line
-	10000 1550 10000 2350
+	9650 4700 10200 4700
+Text HLabel 10200 4700 2    50   Input ~ 0
+FPD[0..7]
+Text Label 10100 4700 2    50   ~ 0
+FPD[0..7]
+Entry Bus Bus
+	7400 4600 7500 4700
+Text Label 7950 4700 2    50   ~ 0
+FPD[0..7]
+Entry Bus Bus
+	5250 4600 5350 4700
+Wire Bus Line
+	5350 4700 7300 4700
+Text Label 5800 4700 2    50   ~ 0
+FPD[0..7]
+Entry Bus Bus
+	7300 4700 7400 4600
+Entry Bus Bus
+	9450 4700 9550 4600
+Wire Bus Line
+	7500 4700 9450 4700
+$Comp
+L alexios:74HC541 U31
+U 2 1 5E3397F2
+P 5750 6150
+F 0 "U31" H 5930 6196 50  0000 L CNN
+F 1 "74HC541" H 5930 6105 50  0000 L CNN
+F 2 "alexios:SOIC-20W" H 5750 6150 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 5750 6150 50  0001 C CNN
+	2    5750 6150
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 5E3397F8
+P 5400 6150
+AR Path="/5CC0D65F/5E3397F8" Ref="C?"  Part="1" 
+AR Path="/5E3397F8" Ref="C?"  Part="1" 
+AR Path="/5DEAC282/5E3397F8" Ref="C?"  Part="1" 
+AR Path="/5DEAC282/5D82AC00/5E3397F8" Ref="C43"  Part="1" 
+F 0 "C43" H 5309 6196 50  0000 R CNN
+F 1 "100nF" H 5309 6105 50  0000 R CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 5400 6150 50  0001 C CNN
+F 3 "~" H 5400 6150 50  0001 C CNN
+	1    5400 6150
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5E3397FE
+P 5400 6250
+AR Path="/5DEAC282/5E3397FE" Ref="#PWR?"  Part="1" 
+AR Path="/5DEAC282/5D82AC00/5E3397FE" Ref="#PWR0131"  Part="1" 
+F 0 "#PWR0131" H 5400 6000 50  0001 C CNN
+F 1 "GND" H 5405 6077 50  0000 C CNN
+F 2 "" H 5400 6250 50  0001 C CNN
+F 3 "" H 5400 6250 50  0001 C CNN
+	1    5400 6250
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 5E339804
+P 5400 6050
+AR Path="/5DEAC282/5E339804" Ref="#PWR?"  Part="1" 
+AR Path="/5DEAC282/5D82AC00/5E339804" Ref="#PWR0132"  Part="1" 
+F 0 "#PWR0132" H 5400 5900 50  0001 C CNN
+F 1 "+5V" H 5415 6223 50  0000 C CNN
+F 2 "" H 5400 6050 50  0001 C CNN
+F 3 "" H 5400 6050 50  0001 C CNN
+	1    5400 6050
+	1    0    0    -1  
+$EndComp
+Connection ~ 5400 6050
+Connection ~ 5400 6250
+$Comp
+L alexios:74HC541 U17
+U 2 1 5E33980C
+P 5750 5400
+F 0 "U17" H 5930 5446 50  0000 L CNN
+F 1 "74HC541" H 5930 5355 50  0000 L CNN
+F 2 "alexios:SOIC-20W" H 5750 5400 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 5750 5400 50  0001 C CNN
+	2    5750 5400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 5E339812
+P 5400 5400
+AR Path="/5CC0D65F/5E339812" Ref="C?"  Part="1" 
+AR Path="/5E339812" Ref="C?"  Part="1" 
+AR Path="/5DEAC282/5E339812" Ref="C?"  Part="1" 
+AR Path="/5DEAC282/5D82AC00/5E339812" Ref="C40"  Part="1" 
+F 0 "C40" H 5309 5446 50  0000 R CNN
+F 1 "100nF" H 5309 5355 50  0000 R CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 5400 5400 50  0001 C CNN
+F 3 "~" H 5400 5400 50  0001 C CNN
+	1    5400 5400
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5E339818
+P 5400 5500
+AR Path="/5DEAC282/5E339818" Ref="#PWR?"  Part="1" 
+AR Path="/5DEAC282/5D82AC00/5E339818" Ref="#PWR0133"  Part="1" 
+F 0 "#PWR0133" H 5400 5250 50  0001 C CNN
+F 1 "GND" H 5405 5327 50  0000 C CNN
+F 2 "" H 5400 5500 50  0001 C CNN
+F 3 "" H 5400 5500 50  0001 C CNN
+	1    5400 5500
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 5E33981E
+P 5400 5300
+AR Path="/5DEAC282/5E33981E" Ref="#PWR?"  Part="1" 
+AR Path="/5DEAC282/5D82AC00/5E33981E" Ref="#PWR0134"  Part="1" 
+F 0 "#PWR0134" H 5400 5150 50  0001 C CNN
+F 1 "+5V" H 5415 5473 50  0000 C CNN
+F 2 "" H 5400 5300 50  0001 C CNN
+F 3 "" H 5400 5300 50  0001 C CNN
+	1    5400 5300
+	1    0    0    -1  
+$EndComp
+Connection ~ 5400 5300
+Connection ~ 5400 5500
+$Comp
+L alexios:74HC541 U21
+U 2 1 5E346E7D
+P 7100 5400
+F 0 "U21" H 7280 5446 50  0000 L CNN
+F 1 "74HC541" H 7280 5355 50  0000 L CNN
+F 2 "alexios:SOIC-20W" H 7100 5400 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 7100 5400 50  0001 C CNN
+	2    7100 5400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 5E346E83
+P 6750 5400
+AR Path="/5CC0D65F/5E346E83" Ref="C?"  Part="1" 
+AR Path="/5E346E83" Ref="C?"  Part="1" 
+AR Path="/5DEAC282/5E346E83" Ref="C?"  Part="1" 
+AR Path="/5DEAC282/5D82AC00/5E346E83" Ref="C41"  Part="1" 
+F 0 "C41" H 6659 5446 50  0000 R CNN
+F 1 "100nF" H 6659 5355 50  0000 R CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 6750 5400 50  0001 C CNN
+F 3 "~" H 6750 5400 50  0001 C CNN
+	1    6750 5400
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5E346E89
+P 6750 5500
+AR Path="/5DEAC282/5E346E89" Ref="#PWR?"  Part="1" 
+AR Path="/5DEAC282/5D82AC00/5E346E89" Ref="#PWR0135"  Part="1" 
+F 0 "#PWR0135" H 6750 5250 50  0001 C CNN
+F 1 "GND" H 6755 5327 50  0000 C CNN
+F 2 "" H 6750 5500 50  0001 C CNN
+F 3 "" H 6750 5500 50  0001 C CNN
+	1    6750 5500
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 5E346E8F
+P 6750 5300
+AR Path="/5DEAC282/5E346E8F" Ref="#PWR?"  Part="1" 
+AR Path="/5DEAC282/5D82AC00/5E346E8F" Ref="#PWR0136"  Part="1" 
+F 0 "#PWR0136" H 6750 5150 50  0001 C CNN
+F 1 "+5V" H 6765 5473 50  0000 C CNN
+F 2 "" H 6750 5300 50  0001 C CNN
+F 3 "" H 6750 5300 50  0001 C CNN
+	1    6750 5300
+	1    0    0    -1  
+$EndComp
+Connection ~ 6750 5300
+Connection ~ 6750 5500
+Text HLabel 1100 2150 0    50   Input ~ 0
+IN-RSVD
+Text HLabel 1100 2050 0    50   Input ~ 0
+~COND
+Text HLabel 1100 1950 0    50   Input ~ 0
+IDX1
+Text HLabel 1100 1850 0    50   Input ~ 0
+IDX0
+Text HLabel 1100 1750 0    50   Input ~ 0
+UPC3
+Text HLabel 1100 1650 0    50   Input ~ 0
+UPC2
+Text HLabel 1100 1550 0    50   Input ~ 0
+UPC1
+Text HLabel 1100 1450 0    50   Input ~ 0
+UPC0
+Wire Bus Line
+	9550 1900 9550 4600
+Wire Bus Line
+	7400 1900 7400 4600
+Wire Bus Line
+	5250 1900 5250 4600
+$Comp
+L alexios:74HC541 U31
+U 1 1 5E3E4299
+P 6500 3800
+F 0 "U31" H 6500 4567 50  0000 C CNN
+F 1 "74HC541" H 6500 4476 50  0000 C CNN
+F 2 "alexios:SOIC-20W" H 6500 3800 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 6500 3800 50  0001 C CNN
+	1    6500 3800
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

@@ -1,10 +1,10 @@
 EESchema Schematic File Version 4
 LIBS:cft-pb0-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 5 12
+Sheet 5 13
 Title "Constant Store"
 Date ""
 Rev ""
@@ -104,7 +104,7 @@ AR Path="/5E4DDD44/5E55BF66" Ref="U?"  Part="1"
 AR Path="/5E507DE3/5E55BF66" Ref="U25"  Part="1" 
 F 0 "U25" H 7100 3817 50  0000 C CNN
 F 1 "74AC541" H 7100 3726 50  0000 C CNN
-F 2 "Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm" H 7100 3050 50  0001 C CNN
+F 2 "alexios:SOIC-20W" H 7100 3050 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74AC541" H 7100 3050 50  0001 C CNN
 	1    7100 3050
 	1    0    0    -1  
@@ -117,7 +117,7 @@ AR Path="/5E4DDD44/5E55BF6C" Ref="U?"  Part="1"
 AR Path="/5E507DE3/5E55BF6C" Ref="U26"  Part="1" 
 F 0 "U26" H 7100 5367 50  0000 C CNN
 F 1 "74AC541" H 7100 5276 50  0000 C CNN
-F 2 "Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm" H 7100 4600 50  0001 C CNN
+F 2 "alexios:SOIC-20W" H 7100 4600 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74AC541" H 7100 4600 50  0001 C CNN
 	1    7100 4600
 	1    0    0    -1  
@@ -365,7 +365,7 @@ AR Path="/5E507DE3/5E89BF6D" Ref="U24"  Part="2"
 AR Path="/5E89BF6D" Ref="U?"  Part="2" 
 F 0 "U24" H 1530 7396 50  0000 L CNN
 F 1 "74HC138" H 1530 7305 50  0000 L CNN
-F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 1350 7350 50  0001 C CNN
+F 2 "alexios:SOIC-14" H 1350 7350 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 1350 7350 50  0001 C CNN
 	2    1350 7350
 	1    0    0    -1  
@@ -378,7 +378,7 @@ AR Path="/5E4DDD44/5E89CE71" Ref="U?"  Part="1"
 AR Path="/5E507DE3/5E89CE71" Ref="U25"  Part="2" 
 F 0 "U25" H 2980 7396 50  0000 L CNN
 F 1 "74AC541" H 2980 7305 50  0000 L CNN
-F 2 "Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm" H 2800 7350 50  0001 C CNN
+F 2 "alexios:SOIC-20W" H 2800 7350 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74AC541" H 2800 7350 50  0001 C CNN
 	2    2800 7350
 	1    0    0    -1  
@@ -436,7 +436,7 @@ AR Path="/5E4DDD44/5E8B297E" Ref="U?"  Part="1"
 AR Path="/5E507DE3/5E8B297E" Ref="U26"  Part="2" 
 F 0 "U26" H 4430 7396 50  0000 L CNN
 F 1 "74AC541" H 4430 7305 50  0000 L CNN
-F 2 "Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm" H 4250 7350 50  0001 C CNN
+F 2 "alexios:SOIC-20W" H 4250 7350 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74AC541" H 4250 7350 50  0001 C CNN
 	2    4250 7350
 	1    0    0    -1  
@@ -532,7 +532,7 @@ AR Path="/5E507DE3/5E56A57B" Ref="U24"  Part="1"
 AR Path="/5E56A57B" Ref="U?"  Part="1" 
 F 0 "U24" H 4250 3617 50  0000 C CNN
 F 1 "74HC138" H 4250 3526 50  0000 C CNN
-F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 4250 2950 50  0001 C CNN
+F 2 "alexios:SOIC-14" H 4250 2950 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 4250 2950 50  0001 C CNN
 	1    4250 2950
 	1    0    0    -1  
@@ -550,29 +550,29 @@ RADDR4
 Entry Wire Line
 	2850 2650 2950 2750
 $Comp
-L power:+5V #PWR?
+L power:+5V #PWR0165
 U 1 1 5E03D7B4
 P 3750 3150
-F 0 "#PWR?" H 3750 3000 50  0001 C CNN
+F 0 "#PWR0165" H 3750 3000 50  0001 C CNN
 F 1 "+5V" H 3765 3323 50  0000 C CNN
 F 2 "" H 3750 3150 50  0001 C CNN
 F 3 "" H 3750 3150 50  0001 C CNN
 	1    3750 3150
 	1    0    0    -1  
 $EndComp
-Wire Bus Line
-	2850 1700 2850 2650
-Wire Bus Line
-	8050 2250 8050 4700
 $Comp
-L power:GND #PWR?
+L power:GND #PWR0167
 U 1 1 5E040054
 P 3750 3350
-F 0 "#PWR?" H 3750 3100 50  0001 C CNN
+F 0 "#PWR0167" H 3750 3100 50  0001 C CNN
 F 1 "GND" H 3755 3177 50  0000 C CNN
 F 2 "" H 3750 3350 50  0001 C CNN
 F 3 "" H 3750 3350 50  0001 C CNN
 	1    3750 3350
 	1    0    0    -1  
 $EndComp
+Wire Bus Line
+	2850 1700 2850 2650
+Wire Bus Line
+	8050 2250 8050 4700
 $EndSCHEMATC

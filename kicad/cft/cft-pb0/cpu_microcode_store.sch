@@ -1,11 +1,11 @@
 EESchema Schematic File Version 4
 LIBS:cft-pb0-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 10 12
-Title ""
+Sheet 10 13
+Title "Control Store (24×512k ROM)"
 Date ""
 Rev ""
 Comp ""
@@ -504,9 +504,9 @@ Text HLabel 10450 3050 2    50   Output ~ 0
 Text HLabel 10450 3150 2    50   Output ~ 0
 ~END
 Text HLabel 1150 4800 0    50   Input ~ 0
-~µSE
+~CSE
 Text Label 2250 4800 2    50   ~ 0
-~µSE
+~CSE
 Wire Wire Line
 	6000 4800 6000 4650
 $Comp
@@ -752,8 +752,6 @@ F 3 "~" H 2100 5200 50  0001 C CNN
 	1    2100 5200
 	1    0    0    -1  
 $EndComp
-Text Notes 7150 7000 0    197  ~ 39
-Microcode Store
 Wire Wire Line
 	1150 4800 2950 4800
 Connection ~ 2950 4800

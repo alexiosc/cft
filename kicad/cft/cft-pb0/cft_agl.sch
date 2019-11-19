@@ -1,18 +1,18 @@
 EESchema Schematic File Version 4
 LIBS:cft-pb0-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 3 12
-Title "CFT Homebrew 16-bit Minicomputer"
+Sheet 3 13
+Title "Address Generation Logic"
 Date ""
 Rev ""
 Comp ""
 Comment1 "CUB"
 Comment2 ""
 Comment3 ""
-Comment4 ""
+Comment4 "agl.v"
 $EndDescr
 $Comp
 L Device:C_Small C?
@@ -55,10 +55,10 @@ F 3 "" H 1500 7250 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L alexios:74HC541 U11
+L alexios:74HC541 U18
 U 2 1 5F3FEF6F
 P 3200 7150
-F 0 "U11" H 3380 7196 50  0000 L CNN
+F 0 "U18" H 3380 7196 50  0000 L CNN
 F 1 "74HC541" H 3380 7105 50  0000 L CNN
 F 2 "alexios:SOIC-20W" H 3200 7150 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74HC541" H 3200 7150 50  0001 C CNN
@@ -66,10 +66,10 @@ F 3 "http://www.ti.com/lit/gpn/sn74HC541" H 3200 7150 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L alexios:74HC541 U14
+L alexios:74HC541 U19
 U 2 1 5F40011F
 P 4550 7150
-F 0 "U14" H 4730 7196 50  0000 L CNN
+F 0 "U19" H 4730 7196 50  0000 L CNN
 F 1 "74HC541" H 4730 7105 50  0000 L CNN
 F 2 "alexios:SOIC-20W" H 4550 7150 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74HC541" H 4550 7150 50  0001 C CNN
@@ -77,10 +77,10 @@ F 3 "http://www.ti.com/lit/gpn/sn74HC541" H 4550 7150 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L alexios:74HC574 U21
+L alexios:74HC574 U20
 U 2 1 5F4009C5
 P 1850 7150
-F 0 "U21" H 2030 7196 50  0000 L CNN
+F 0 "U20" H 2030 7196 50  0000 L CNN
 F 1 "74HC574" H 2030 7105 50  0000 L CNN
 F 2 "alexios:SOIC-20W" H 1550 7100 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS574" H 1550 7100 50  0001 C CNN
@@ -173,8 +173,6 @@ Connection ~ 4200 7250
 Connection ~ 4200 7050
 Connection ~ 2850 7250
 Connection ~ 2850 7050
-Text Notes 7150 7000 0    197  ~ 39
-Address Generation Logic
 Wire Wire Line
 	6350 4550 7050 4550
 Connection ~ 6350 4550

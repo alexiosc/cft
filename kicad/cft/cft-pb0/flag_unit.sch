@@ -1,18 +1,18 @@
 EESchema Schematic File Version 4
 LIBS:cft-pb0-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 7 12
-Title ""
+Sheet 6 13
+Title "Flag Unit"
 Date ""
 Rev ""
 Comp ""
 Comment1 "CUB"
 Comment2 ""
 Comment3 ""
-Comment4 ""
+Comment4 "flag_unit.v"
 $EndDescr
 Text Label 7450 1750 0    50   ~ 0
 RSVD14
@@ -387,20 +387,6 @@ Wire Wire Line
 	3350 4300 3000 4300
 Text Label 5950 3000 2    50   ~ 0
 ~FLAGWE
-$Comp
-L alexios:74LVC1G08 U?
-U 1 1 5D676FD3
-P 5500 3000
-AR Path="/5D676FD3" Ref="U?"  Part="1" 
-AR Path="/5D65F6EF/5D676FD3" Ref="U?"  Part="1" 
-AR Path="/5D69F3FD/5D676FD3" Ref="U29"  Part="1" 
-F 0 "U29" H 5425 3267 50  0000 C CNN
-F 1 "74LVC1G08" H 5425 3176 50  0000 C CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 5150 3000 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 5150 3000 50  0001 C CNN
-	1    5500 3000
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	4350 4200 5200 4200
 Wire Wire Line
@@ -409,20 +395,6 @@ Text Label 5200 4200 2    50   ~ 0
 ~READ-MBP+FLAGS
 Text Label 5200 4300 2    50   ~ 0
 ~READ-FLAGS
-$Comp
-L alexios:74LVC1G08 U?
-U 1 1 5D676FDD
-P 5500 4250
-AR Path="/5D676FDD" Ref="U?"  Part="1" 
-AR Path="/5D65F6EF/5D676FDD" Ref="U?"  Part="1" 
-AR Path="/5D69F3FD/5D676FDD" Ref="U31"  Part="1" 
-F 0 "U31" H 5425 4517 50  0000 C CNN
-F 1 "74LVC1G08" H 5425 4426 50  0000 C CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 5150 4250 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 5150 4250 50  0001 C CNN
-	1    5500 4250
-	1    0    0    -1  
-$EndComp
 Text Label 5950 4250 2    50   ~ 0
 ~FLAGOE
 NoConn ~ 4350 4400
@@ -584,8 +556,6 @@ Text Label 2200 1650 0    50   ~ 0
 FV
 Text Label 2200 1750 0    50   ~ 0
 FI
-Text Notes 7100 7000 0    197  ~ 39
-Flag Unit
 Text Label 7450 5400 0    50   ~ 0
 FPRSVD14
 Wire Wire Line
@@ -731,6 +701,152 @@ F 3 "" H 6050 7400 50  0001 C CNN
 	1    6050 7400
 	1    0    0    -1  
 $EndComp
+$Comp
+L alexios:74HC08 U22
+U 3 1 5DD7B0F2
+P 5300 2600
+F 0 "U22" H 5425 2475 50  0000 C CNN
+F 1 "74HC08" H 5425 2384 50  0000 C CNN
+F 2 "alexios:SOIC-14" H 5500 2150 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 5500 2150 50  0001 C CNN
+	3    5300 2600
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC08 U22
+U 4 1 5DD7CA1B
+P 5300 3850
+F 0 "U22" H 5425 3725 50  0000 C CNN
+F 1 "74HC08" H 5425 3634 50  0000 C CNN
+F 2 "alexios:SOIC-14" H 5500 3400 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 5500 3400 50  0001 C CNN
+	4    5300 3850
+	1    0    0    -1  
+$EndComp
+Text Notes 4800 4500 0    50   ~ 0
+AND gate IC shared with AIL.
+$Comp
+L power:+5V #PWR?
+U 1 1 5DDC2767
+P 9850 1500
+AR Path="/5F4B0011/5DDC2767" Ref="#PWR?"  Part="1" 
+AR Path="/5F63066B/5DDC2767" Ref="#PWR?"  Part="1" 
+AR Path="/5D69F3FD/5DDC2767" Ref="#PWR0176"  Part="1" 
+F 0 "#PWR0176" H 9850 1350 50  0001 C CNN
+F 1 "+5V" H 9865 1673 50  0000 C CNN
+F 2 "" H 9850 1500 50  0001 C CNN
+F 3 "" H 9850 1500 50  0001 C CNN
+	1    9850 1500
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5DDC276D
+P 9850 1700
+AR Path="/5DDC276D" Ref="#PWR?"  Part="1" 
+AR Path="/5F4B0011/5DDC276D" Ref="#PWR?"  Part="1" 
+AR Path="/5F63066B/5DDC276D" Ref="#PWR?"  Part="1" 
+AR Path="/5D69F3FD/5DDC276D" Ref="#PWR0177"  Part="1" 
+F 0 "#PWR0177" H 9850 1450 50  0001 C CNN
+F 1 "GND" H 9855 1527 50  0000 C CNN
+F 2 "" H 9850 1700 50  0001 C CNN
+F 3 "" H 9850 1700 50  0001 C CNN
+	1    9850 1700
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 5DDC2773
+P 9850 1600
+AR Path="/5CC0D65F/5DDC2773" Ref="C?"  Part="1" 
+AR Path="/5DDC2773" Ref="C?"  Part="1" 
+AR Path="/5F4B0011/5DDC2773" Ref="C?"  Part="1" 
+AR Path="/5F63066B/5DDC2773" Ref="C?"  Part="1" 
+AR Path="/5D69F3FD/5DDC2773" Ref="C63"  Part="1" 
+F 0 "C63" H 9759 1646 50  0000 R CNN
+F 1 "100nF" H 9759 1555 50  0000 R CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 9850 1600 50  0001 C CNN
+F 3 "~" H 9850 1600 50  0001 C CNN
+	1    9850 1600
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC541 U?
+U 2 1 5DDC2779
+P 10200 1600
+AR Path="/5F4B0011/5DDC2779" Ref="U?"  Part="2" 
+AR Path="/5F63066B/5DDC2779" Ref="U?"  Part="2" 
+AR Path="/5D69F3FD/5DDC2779" Ref="U27"  Part="2" 
+F 0 "U27" H 10380 1646 50  0000 L CNN
+F 1 "74HC541" H 10380 1555 50  0000 L CNN
+F 2 "alexios:SOIC-20W" H 10200 1600 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74HC541" H 10200 1600 50  0001 C CNN
+	2    10200 1600
+	1    0    0    -1  
+$EndComp
+Connection ~ 9850 1700
+Connection ~ 9850 1500
+$Comp
+L power:+5V #PWR?
+U 1 1 5DDC83A1
+P 9850 5100
+AR Path="/5F4B0011/5DDC83A1" Ref="#PWR?"  Part="1" 
+AR Path="/5F63066B/5DDC83A1" Ref="#PWR?"  Part="1" 
+AR Path="/5D69F3FD/5DDC83A1" Ref="#PWR0178"  Part="1" 
+F 0 "#PWR0178" H 9850 4950 50  0001 C CNN
+F 1 "+5V" H 9865 5273 50  0000 C CNN
+F 2 "" H 9850 5100 50  0001 C CNN
+F 3 "" H 9850 5100 50  0001 C CNN
+	1    9850 5100
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5DDC83A7
+P 9850 5300
+AR Path="/5DDC83A7" Ref="#PWR?"  Part="1" 
+AR Path="/5F4B0011/5DDC83A7" Ref="#PWR?"  Part="1" 
+AR Path="/5F63066B/5DDC83A7" Ref="#PWR?"  Part="1" 
+AR Path="/5D69F3FD/5DDC83A7" Ref="#PWR0179"  Part="1" 
+F 0 "#PWR0179" H 9850 5050 50  0001 C CNN
+F 1 "GND" H 9855 5127 50  0000 C CNN
+F 2 "" H 9850 5300 50  0001 C CNN
+F 3 "" H 9850 5300 50  0001 C CNN
+	1    9850 5300
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 5DDC83AD
+P 9850 5200
+AR Path="/5CC0D65F/5DDC83AD" Ref="C?"  Part="1" 
+AR Path="/5DDC83AD" Ref="C?"  Part="1" 
+AR Path="/5F4B0011/5DDC83AD" Ref="C?"  Part="1" 
+AR Path="/5F63066B/5DDC83AD" Ref="C?"  Part="1" 
+AR Path="/5D69F3FD/5DDC83AD" Ref="C64"  Part="1" 
+F 0 "C64" H 9759 5246 50  0000 R CNN
+F 1 "100nF" H 9759 5155 50  0000 R CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 9850 5200 50  0001 C CNN
+F 3 "~" H 9850 5200 50  0001 C CNN
+	1    9850 5200
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC541 U?
+U 2 1 5DDC83B3
+P 10200 5200
+AR Path="/5F4B0011/5DDC83B3" Ref="U?"  Part="2" 
+AR Path="/5F63066B/5DDC83B3" Ref="U?"  Part="2" 
+AR Path="/5D69F3FD/5DDC83B3" Ref="U32"  Part="2" 
+F 0 "U32" H 10380 5246 50  0000 L CNN
+F 1 "74HC541" H 10380 5155 50  0000 L CNN
+F 2 "alexios:SOIC-20W" H 10200 5200 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74HC541" H 10200 5200 50  0001 C CNN
+	2    10200 5200
+	1    0    0    -1  
+$EndComp
+Connection ~ 9850 5300
+Connection ~ 9850 5100
 Wire Bus Line
 	2900 4800 2900 5550
 Wire Bus Line

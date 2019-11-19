@@ -1,10 +1,10 @@
 EESchema Schematic File Version 4
 LIBS:cft-pb0-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 2 12
+Sheet 2 13
 Title "Skip/Branch Unit"
 Date ""
 Rev ""
@@ -175,7 +175,7 @@ AR Path="/5F03143E" Ref="U?"  Part="1"
 AR Path="/5EFCF155/5F03143E" Ref="U8"  Part="1" 
 F 0 "U8" H 9950 6367 50  0000 C CNN
 F 1 "74LVC1G74" H 9950 6276 50  0000 C CNN
-F 2 "" H 10400 5950 50  0001 C CNN
+F 2 "alexios:TSSOP-8_3x3mm_P0.65mm" H 10400 5950 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G74.pdf" H 10400 5950 50  0001 C CNN
 	1    9950 5950
 	1    0    0    -1  
@@ -218,7 +218,7 @@ AR Path="/5F031452" Ref="U?"  Part="2"
 AR Path="/5EFCF155/5F031452" Ref="U8"  Part="2" 
 F 0 "U8" H 5630 7446 50  0000 L CNN
 F 1 "74LVC1G74" H 5630 7355 50  0000 L CNN
-F 2 "" H 5900 7400 50  0001 C CNN
+F 2 "alexios:TSSOP-8_3x3mm_P0.65mm" H 5900 7400 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G74.pdf" H 5900 7400 50  0001 C CNN
 	2    5450 7400
 	1    0    0    -1  
