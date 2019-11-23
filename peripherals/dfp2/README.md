@@ -10,5 +10,5 @@ between:
 
 The third component is optional.
 
-<img align="center" src="http://pelican.bedroomlan.org/hardware/cft/" />
+<img align="center" src="https://www.bedroomlan.org/hardware/cft/" />
 
