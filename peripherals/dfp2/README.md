@@ -10,6 +10,6 @@ between:
 
 The third component is optional.
 
-<img align="center" src="http://pelican.bedroomlan.org/hardware/cft/2019-09-05-dfp2-render-rc2.jpg" />
+<img align="center" src="https://www.bedroomlan.org/hardware/cft/2019-09-05-dfp2-render-rc2.jpg" />
 
 
