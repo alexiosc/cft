@@ -1,0 +1,29 @@
+CFT COMBINATION FRONT PANEL AND REMOTE DEBUGGING / TESTING BOARD
+
+==NAME/DESIGNATION==
+
+To be decided.
+
+==FEATURES==
+
+The PFP combines and acts on instructions coming from three sources:
+
+* The front panel switches.
+* The debugging serial port.
+* The CFT processor itself.
+
+There are two modes of operation:
+
+* Processor mode: the processor is present and is mostly used as the
+  bus master by driving its control signals directly.
+
+* Standalone mode: the processor is absent. The board drives the
+  address and data buses directly.
+
+==STATE==
+
+===Power On State===
+
+* Start on power on?
+  - If FPRAM# switch in RAM position, start halted
+  - Otherwise, start running
