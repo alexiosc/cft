@@ -136,6 +136,10 @@ cond uaddr:4;
 // they often need to be performed in parallel with other actions. They're also
 // easier to read on the front panel.
 
+//
+// NOTE: THIS IS THE MASTER ADDRESS MAP! If the definitions below, schematics
+//       or Verilog sources differ, fix them to match this list.
+//
 // IBUS address map:
 //
 // Addr      Read from   Write to     Notes
