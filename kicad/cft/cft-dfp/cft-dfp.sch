@@ -1741,7 +1741,7 @@ Wire Wire Line
 Text Label 11300 8250 2    50   ~ 0
 ~ORHOE
 Wire Wire Line
-	1000 1450 1500 1450
+	650  1450 1300 1450
 Text Label 8100 1350 2    50   ~ 0
 ~WABM
 Wire Wire Line
@@ -2748,7 +2748,7 @@ L power:GND #PWR0105
 U 1 1 657A3637
 P 800 950
 F 0 "#PWR0105" H 800 700 50  0001 C CNN
-F 1 "GND" H 805 777 50  0000 C CNN
+F 1 "GND" H 650 900 50  0000 C CNN
 F 2 "" H 800 950 50  0001 C CNN
 F 3 "" H 800 950 50  0001 C CNN
 	1    800  950 
@@ -3073,7 +3073,7 @@ Wire Wire Line
 Wire Wire Line
 	5450 4150 5450 4250
 Connection ~ 5450 4250
-Text Label 1000 1450 0    50   ~ 0
+Text Label 650  1450 0    50   ~ 0
 ~FPHALT
 Text Label 4150 9700 0    50   ~ 0
 ~FPRSTHOLD
@@ -4119,7 +4119,7 @@ F 3 "~" H 1200 1850 50  0001 C CNN
 	0    -1   -1   0   
 $EndComp
 Wire Wire Line
-	1500 1850 1000 1850
+	1500 1850 1300 1850
 $Comp
 L power:GND #PWR0167
 U 1 1 5D8442FC
@@ -4157,6 +4157,18 @@ Wire Wire Line
 	12950 8350 12400 8350
 NoConn ~ 12400 8250
 NoConn ~ 12400 8350
+Wire Wire Line
+	1500 1450 1450 1450
+NoConn ~ 1450 1450
+Wire Wire Line
+	1300 1450 1300 1850
+Connection ~ 1300 1850
+Wire Wire Line
+	1300 1850 1000 1850
+Text Notes 1550 1350 2    50   ~ 0
+Erratum in R1939\n~PEN~ connected to ~FPHALT~.\nWire to TP101 instead.
+Wire Notes Line width 3 style dotted rgb(255, 0, 0)
+	1300 1450 1450 1450
 Wire Bus Line
 	8850 5200 8850 7250
 Wire Bus Line
