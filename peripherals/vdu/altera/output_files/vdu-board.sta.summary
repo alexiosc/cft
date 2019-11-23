@@ -1,0 +1,161 @@
+------------------------------------------------------------
+TimeQuest Timing Analyzer Summary
+------------------------------------------------------------
+
+Type  : Setup 'Sequencer:sequencer|counter:xPosCtr|q[0]'
+Slack : -11.559
+TNS   : -78.218
+
+Type  : Setup 'counter:clockDivider|q[0]'
+Slack : -7.926
+TNS   : -93.915
+
+Type  : Setup 'frameEngine:frameStateMachine|counter:clkDiv|q[3]'
+Slack : -4.305
+TNS   : -19.359
+
+Type  : Setup 'frameEngine:frameStateMachine|counter:hCounter|q[0]'
+Slack : -3.760
+TNS   : -25.752
+
+Type  : Setup 'frameEngine:frameStateMachine|ff_sr:ff_vs|q'
+Slack : -3.279
+TNS   : -10.039
+
+Type  : Setup 'clk'
+Slack : -3.155
+TNS   : -20.635
+
+Type  : Setup 'frameEngine:frameStateMachine|ff_sr:ff_hs|q'
+Slack : -2.356
+TNS   : -8.248
+
+Type  : Hold 'frameEngine:frameStateMachine|counter:hCounter|q[0]'
+Slack : -3.718
+TNS   : -16.547
+
+Type  : Hold 'frameEngine:frameStateMachine|counter:clkDiv|q[3]'
+Slack : -2.350
+TNS   : -4.320
+
+Type  : Hold 'clk'
+Slack : -1.715
+TNS   : -7.046
+
+Type  : Hold 'frameEngine:frameStateMachine|ff_sr:ff_hs|q'
+Slack : 1.275
+TNS   : 0.000
+
+Type  : Hold 'Sequencer:sequencer|counter:xPosCtr|q[0]'
+Slack : 1.702
+TNS   : 0.000
+
+Type  : Hold 'frameEngine:frameStateMachine|ff_sr:ff_vs|q'
+Slack : 2.000
+TNS   : 0.000
+
+Type  : Hold 'counter:clockDivider|q[0]'
+Slack : 2.012
+TNS   : 0.000
+
+Type  : Recovery 'counter:clockDivider|q[0]'
+Slack : -18.075
+TNS   : -208.472
+
+Type  : Recovery 'frameEngine:frameStateMachine|ff_sr:ff_vs|q'
+Slack : -17.092
+TNS   : -17.092
+
+Type  : Recovery 'frameEngine:frameStateMachine|ff_sr:ff_hs|q'
+Slack : -11.222
+TNS   : -44.400
+
+Type  : Recovery 'clk'
+Slack : -11.203
+TNS   : -112.361
+
+Type  : Recovery 'Sequencer:sequencer|counter:xPosCtr|q[0]'
+Slack : -9.973
+TNS   : -69.811
+
+Type  : Recovery 'frameEngine:frameStateMachine|counter:vCounter|q[0]'
+Slack : -9.842
+TNS   : -27.246
+
+Type  : Recovery 'frameEngine:frameStateMachine|counter:clkDiv|q[3]'
+Slack : -8.069
+TNS   : -56.483
+
+Type  : Recovery 'frameEngine:frameStateMachine|counter:hCounter|q[0]'
+Slack : -7.227
+TNS   : -82.783
+
+Type  : Removal 'frameEngine:frameStateMachine|counter:vCounter|q[0]'
+Slack : -1.626
+TNS   : -1.626
+
+Type  : Removal 'frameEngine:frameStateMachine|counter:hCounter|q[0]'
+Slack : -0.841
+TNS   : -8.012
+
+Type  : Removal 'counter:clockDivider|q[0]'
+Slack : 1.467
+TNS   : 0.000
+
+Type  : Removal 'Sequencer:sequencer|counter:xPosCtr|q[0]'
+Slack : 1.639
+TNS   : 0.000
+
+Type  : Removal 'frameEngine:frameStateMachine|counter:clkDiv|q[3]'
+Slack : 3.578
+TNS   : 0.000
+
+Type  : Removal 'frameEngine:frameStateMachine|ff_sr:ff_vs|q'
+Slack : 5.078
+TNS   : 0.000
+
+Type  : Removal 'frameEngine:frameStateMachine|ff_sr:ff_hs|q'
+Slack : 8.293
+TNS   : 0.000
+
+Type  : Removal 'clk'
+Slack : 10.057
+TNS   : 0.000
+
+Type  : Minimum Pulse Width 'ab[0]'
+Slack : -2.289
+TNS   : -2.289
+
+Type  : Minimum Pulse Width 'clk'
+Slack : -2.289
+TNS   : -2.289
+
+Type  : Minimum Pulse Width 'Sequencer:sequencer|counter:xPosCtr|q[0]'
+Slack : -0.306
+TNS   : -5.344
+
+Type  : Minimum Pulse Width 'counter:clockDivider|q[0]'
+Slack : 0.247
+TNS   : 0.000
+
+Type  : Minimum Pulse Width 'frameEngine:frameStateMachine|counter:clkDiv|q[3]'
+Slack : 0.247
+TNS   : 0.000
+
+Type  : Minimum Pulse Width 'frameEngine:frameStateMachine|counter:hCounter|q[0]'
+Slack : 0.247
+TNS   : 0.000
+
+Type  : Minimum Pulse Width 'frameEngine:frameStateMachine|counter:vCounter|q[0]'
+Slack : 0.247
+TNS   : 0.000
+
+Type  : Minimum Pulse Width 'frameEngine:frameStateMachine|ff_sr:ff_hs|q'
+Slack : 0.247
+TNS   : 0.000
+
+Type  : Minimum Pulse Width 'frameEngine:frameStateMachine|ff_sr:ff_vs|q'
+Slack : 0.247
+TNS   : 0.000
+
+------------------------------------------------------------

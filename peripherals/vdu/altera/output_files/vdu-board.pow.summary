@@ -1,0 +1,12 @@
+PowerPlay Power Analyzer Status : Successful - Mon Dec  3 09:40:56 2012
+Quartus II 32-bit Version : 12.1 Build 177 11/07/2012 SJ Web Edition
+Revision Name : vdu-board
+Top-level Entity Name : video
+Family : MAX V
+Device : 5M570ZT144C4
+Power Models : Final
+Total Thermal Power Dissipation : 0.07 mW
+Core Dynamic Thermal Power Dissipation : 0.00 mW
+Core Static Thermal Power Dissipation : 0.04 mW
+I/O Thermal Power Dissipation : 0.03 mW
+Power Estimation Confidence : Low: user provided insufficient toggle rate data

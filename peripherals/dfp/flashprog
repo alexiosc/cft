@@ -1,0 +1,617 @@
+#!/usr/bin/python
+# 
+# flashprog - Control the Flash Programmer
+# 
+# Copyright (C) 2011 Alexios Chouchoulas
+# 
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2, or (at your option)
+# any later version.
+# 
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software Foundation,
+# Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  
+
+
+import sys
+import os
+import re
+import serial
+import optparse
+import array
+import time
+
+
+def fail(msg):
+    """Output a message and exit."""
+    sys.stderr.write(msg + '\n')
+    sys.exit(1)
+
+
+def bare_hex(x):
+    """Return a hex representation of a number without the C-like '0x'
+    prefix."""
+    return hex(x)[2:]
+
+
+class UnableToCommunicate(BaseException):
+    """Three ping attempts failed to elicit the proper response from the
+    FlashProg. Check cables and hardware health."""
+    pass
+
+
+class TimeoutException(BaseException):
+    """Timeout while talking to the FlashProg."""
+    pass
+
+
+class ChecksumError(BaseException):
+    """Failed to match the expected checksum for a read block."""
+    pass
+
+
+class FlashProgError(BaseException):
+    """Error code received from FlashProg hardware."""
+    pass
+
+
+class UnsupportedFeature(BaseException):
+    """The requested function cannot be performed because this version
+    of the flash programmer is missing the required feature(s)."""
+    pass
+
+
+class FlashProg(object):
+    """
+    A class to talk to the FlashProg.
+    """
+
+    # FlashProg result codes
+    RES_READY = 200
+    RES_PARAMETER_INFO = 201
+    RES_HELLO = 202
+
+    RES_WORKING = 300
+    RES_DONE = 301
+    RES_CHECKSUM = 302
+    
+    RES_BAD_COMMAND = 400
+    RES_BAD_ADDRESS = 401
+
+
+    # FlashProg command codes
+    CMD_PING = ""
+    CMD_INFO_VERSION = "fpiv"
+    CMD_INFO_BUFSIZE = "fpib"
+    CMD_INFO_START = "fpis"
+    CMD_INFO_COUNT = "fpic"
+
+    CMD_SET_OUT_BIN = "fpob"
+    CMD_SET_OUT_TEXT = "fpot"
+    
+    CMD_SET_ECHO_ON = "fpe1"
+    CMD_SET_ECHO_OFF = "fpe0"
+    
+    CMD_SET_START = "fps"
+    CMD_SET_COUNT = "fpc"
+
+    CMD_DUMP = "fpd"
+    CMD_FLASH_SOFTWARE_ID = "fpisid"
+    CMD_FLASH_CMD = "fp!cmd"
+
+    CMD_WRITE_BYTE = "fp!wb"
+    CMD_WRITE_BYTE_JEDEC = "fp!wbj"
+    CMD_WRITE_BLOCK_JEDEC = "fp!wBj"
+    
+    FP_BLOCK_SIZE = 64
+
+
+    # Params we keep track of
+    STR_PARAMS = ['echo', 'version', 'output']
+    HEX_PARAMS = ['bufsize', 'start', 'count', 'checksum', 'vendor', 'device']
+    PARAMS = STR_PARAMS + HEX_PARAMS
+
+    
+    DEVICES = {
+        #              Vendor  Device    KB   VPP,   Erase time
+        (0xbf, 0xb6): ('SST', '39SF020', 256, False, 1), # alexios@bedroomlan.org
+        (0xbf, 0x07): ('SST', '29EE010', 128, False, 1), # datasheet
+        (0xbf, 0x08): ('SST', '29LE010/29VE010', 128, False, 1), # datasheet
+        (0xbf, 0x08): ('SST', 'PH29EE010-150-3CF', 128, False, 1), # alexios@bedroomlan.org
+        (0x37, 0x86): ('AMIC', 'A29040B', 512, False, 8), # alexios@bedroomlan.org
+        #(0xbf, 0xb6): ('SST', '39SF020', 256, False),
+        }
+    
+    
+    def __init__(self, port, rate, timeout=5, debug=False, debug_io=False):
+        self.port = port
+        self.rate = rate
+        self.timeout = timeout
+        self.debug = debug
+        self.debug_io = debug_io
+        self.ser = serial.Serial(self.port, self.rate, timeout=self.timeout)
+
+        self.feature_text = False
+        
+        self.version = None
+        self.echo = None
+        self.status = None
+        self.result = None
+        self.start = None
+        self.count = None
+        self.output = None
+        self.checksum = None
+        self.bufsize = None
+        self.vendor = None
+        self.device = None
+        
+        # Initialise the device.
+        self.ping()
+        self.cmd(self.CMD_SET_ECHO_OFF)
+        self.get_features()
+        self.get_full_status()
+        self.output_bin()
+
+
+    def ping(self):
+        """Query the FlashProg for its full status.
+        """
+        # Try pinging the programmer up to three times.
+        try:
+            self.cmd(self.CMD_PING)
+        except TimeoutException:
+            sys.stderr.write("Timeout, trying again...\n")
+            try:
+                self.cmd(self.CMD_PING)
+            except TimeoutException:
+                sys.stderr.write("Timeout, trying one final time...\n")
+                try:
+                    self.cmd(self.CMD_PING)
+                except TimeoutException:
+                    raise UnableToCommunicate("Unable to communicate with the FlashProg.")
+
+
+    def get_features(self):
+        """Detect available optional features.
+        """
+        if not self.version:
+            self.cmd(self.CMD_INFO_VERSION)
+        self.feature_text = "+t" in self.version
+        
+            
+
+    def get_full_status(self):
+        """Query the FlashProg for its full status.
+        """
+        self.cmd(self.CMD_INFO_VERSION)
+        self.cmd(self.CMD_INFO_BUFSIZE)
+        self.cmd(self.CMD_INFO_START)
+        self.cmd(self.CMD_INFO_COUNT)
+        if self.feature_text:
+            self.cmd(self.CMD_SET_OUT_BIN)
+
+        
+    def issue_cmd(self, cmd):
+        """Issue a command to the FlashProg."""
+        cmd = cmd + '\n'
+        if self.debug_io:
+            sys.stderr.write('OUT: ' + cmd)
+        self.ser.write(cmd)
+
+
+    def read_response(self, until=200):
+        """Read status responses from the FlashProg"""
+        def _read_response():
+            while True:
+                line = self.ser.readline()
+                if self.debug_io:
+                    sys.stderr.write('IN:  ' + line)
+                if line:
+                    datum = self.grok_result(line.strip().replace('\r', ''))
+                    if self.debug:
+                        sys.stderr.write(str(datum) + '\n')
+                    yield datum
+                    try:
+                        if datum['result'] in xrange(400, 500):
+                            raise FlashProgError(datum)
+                        if datum['result'] == until:
+                            return
+                    except TypeError:
+                        pass
+                if line is None:
+                    raise TimeoutException("Timeout waiting for results.")
+
+        return list(_read_response())
+        
+        
+        
+    def cmd(self, cmd, arg=None, until=RES_READY):
+        """Issue a command, and read its output until a particular
+        output code is seen. Yield output data one by one.
+        """
+        if arg is not None:
+            self.issue_cmd(cmd + ' ' + str(arg))
+        else:
+            self.issue_cmd(cmd)
+        return self.read_response(until=until)
+
+
+    def cmd2(self, cmd, arg1, arg2, until=RES_READY):
+        """Issue a command, and read its output until a particular
+        output code is seen. Yield output data one by one.
+        """
+        self.issue_cmd(cmd + ' ' + str(arg1) + ' ' + str(arg2))
+        return self.read_response(until=until)
+
+
+    def grok_result(self, line):
+        """Parse a FlashProg result code and return a dict of information.
+
+        If parameter information for a field in self.PARAMS is seen, update the
+        corresponding attribute (which has to exist in the object."""
+        def _parse_result(x):
+            try:
+                x = re.findall('(\d+)\s+(.+?):\s+(.+)', x)[0]
+                return dict(result=x[0], key=x[1].lower(), val=x[2])
+            except IndexError:
+                try:
+                    x = re.findall('(\d+)\s+(.+)', x)[0]
+                    return dict(result=int(x[0]), status=x[1])
+                except IndexError:
+                    return x
+
+        datum = _parse_result(line)
+
+        try:
+            self.result = datum.get('result', self.result)
+            self.status = datum.get('status', self.status)
+
+        except AttributeError:
+            return datum
+
+        if 'key' in datum \
+                and 'val' in datum \
+                and datum['key'] in self.PARAMS \
+                and hasattr(self, datum['key']):
+            if datum['key'] in self.HEX_PARAMS:
+                try:
+                    setattr(self, datum['key'], int(datum['val'], 16))
+                except ValueError:
+                    raise NumberFormatError("Value for %s should be a hex integer, saw '%s' instead." % \
+                                                (datum['key'], datum['val']))
+            else:
+                setattr(self, datum['key'], datum['val'])
+        return datum
+
+
+    def output_bin(self):
+        """Set output mode to binary."""
+        if self.feature_text:
+            self.cmd(self.CMD_SET_OUT_BIN)
+    
+
+    def output_text(self):
+        """Set output mode to a human-redable text dump."""
+        if self.feature_text:
+            self.cmd(self.CMD_SET_OUT_TEXT)
+    
+
+    def print_state(self):
+        """Print out the current state of the FlashProg."""
+        self.flash_identify()
+        for param in ['feature_text', 'result', 'status'] + self.PARAMS:
+            print "%-20s %s" % (param + ':', getattr(self, param))
+        x = self.get_device_info()
+        if x:
+            x = "%s %s. %s KBytes, %s" % (x[0], x[1], x[2], x[3] and 'needs VPP' or 'no VPP needed')
+            print "%-20s %s" % ('Device info', x)
+
+
+    def set_start(self, addr):
+        """Set starting address for chip I/O."""
+        self.cmd(self.CMD_SET_START, bare_hex(addr))
+
+
+    def set_count(self, count):
+        """Set byte count for chip I/O."""
+        self.cmd(self.CMD_SET_COUNT, bare_hex(count))
+
+
+    def flash_command(self, addr, cmd):
+        """Send one or more Flash commands to a Flash device."""
+        self.cmd2(self.CMD_FLASH_CMD, bare_hex(addr), bare_hex(cmd))
+
+
+    def flash_identify(self):
+        """Try to identify the Flash device."""
+        return self.cmd(self.CMD_FLASH_SOFTWARE_ID)
+
+
+    def get_device_info(self):
+        """Return a tuple of device information if the device is known
+        to us, None otherwise. flash_identify() must have been called
+        first."""
+        return self.DEVICES.get((self.vendor, self.device), None)
+
+
+    def dump(self, start=None, count=None, check=True):
+        """Dump data from the ROM. If the start address and/or byte count are
+        omitted, the last used values (perhaps the FlashProg hardware
+        defaults) will be used instead."""
+        if start is not None:
+            self.set_start(start)
+        if count is not None:
+            self.set_count(count)
+        self.cmd(self.CMD_DUMP, until=self.RES_WORKING)
+
+        data = self.ser.read(int(self.count))
+        x = self.read_response()
+
+        if check:
+            if sum(ord(x) for x in data) != self.checksum:
+                raise ChecksumError()
+            
+        return data
+
+
+    def dumptext(self, start=None, count=None):
+        """Dump data from the ROM in text mode. This is mostly used
+        for testing. No checksums will be checked."""
+        if not feature_text:
+            raise UnsupportedFeature("This flash programmer cannot make text dumps")
+        if start is not None:
+            self.set_start(start)
+        if count is not None:
+            self.set_count(count)
+        self.output_text()
+        data = self.dump(start=start, count=count, check=False)
+        self.output_bin()
+        return data
+
+
+    def write_byte(self, addr, data):
+        """Write the supplied data to the supplied addr.
+        """
+        self.cmd2(self.CMD_WRITE_BYTE, bare_hex(addr), bare_hex(data))
+
+
+    def write_byte_jedec(self, addr, data):
+        """Write the supplied data to the supplied addr using the
+        JEDEC(?) software write protection algorithm.
+        """
+        self.cmd2(self.CMD_WRITE_BYTE_JEDEC, bare_hex(addr), bare_hex(data))
+
+        
+    def write_block_jedec(self, addr, data):
+        """Write FP_BLOCK_SIZE bytes of data starting at the specified
+        address, using the JEDEC(?) software write protection
+        algorithm.
+        """
+        if len(data) != self.FP_BLOCK_SIZE:
+            raise ValueError("%s bytes expected in argument data" % self.FP_BLOCK_SIZE)
+        self.issue_cmd(' '.join([self.CMD_WRITE_BLOCK_JEDEC,
+                                 bare_hex(addr)] +
+                                [bare_hex(x) for x in data]))
+        return self.read_response(until=self.RES_READY)
+
+
+    def erase_sector_jedec(self, sector_addr):
+        """Erase a sector using the JEDEC sector erase sequence. The
+        sector size depends in the part being programmed. Check the
+        datasheet. The supplied sector_addr is any address within that
+        sector.
+
+        The JEDEC (?) standard sequence for this is:
+
+        write(0x5555, 0xaa)
+        write(0x2AAA, 0x55)
+        write(0x5555, 0x80)
+        write(0x5555, 0xaa)
+        write(0x2AAA, 0x55)
+        write(sector_addr, 0x30)
+        """
+        # Perform a sector erase of the sector starting at 0x00000000
+        self.flash_command(0x5555, 0x80)
+        self.flash_command(sector_addr, 0x30)
+
+
+    def erase_chip_jedec(self):
+        """Erase an entire chip using the JEDEC chip erase sequence.
+
+        The JEDEC (?) standard sequence for this is:
+
+        write(0x5555, 0xaa)
+        write(0x2AAA, 0x55)
+        write(0x5555, 0x80)
+        write(0x5555, 0xaa)
+        write(0x2AAA, 0x55)
+        write(0x5555, 0x10)
+        """
+        # Perform a full erase of the part
+        self.flash_command(0x5555, 0x80)
+        self.flash_command(0x5555, 0x10)
+
+
+port = os.environ.get('FLASHPROGPORT')
+
+p = optparse.OptionParser()
+p.add_option('-i', '--info', action='store_true',
+             help='Initialise the Flash Programmer and get as much information as possible from it.')
+p.add_option('-r', '--read', action='store_true',
+             help='Read a ROM image. Specify --start and --length.')
+p.add_option('-w', '--write', action='store_true',
+             help='Write a ROM image. Specify --start and --length.')
+p.add_option('-v', '--verify', action='store_true',
+             help='Verify a ROM image. Specify --start and --length.')
+#p.add_option('-t', '--text', action='store_true',
+#             help='Dump in ASCII mode.')
+p.add_option('', '--chip-erase', action='store_true',
+             help='Erase a Flash RAM chip using the JEDEC chip erase code.')
+p.add_option('-f', '--force', action='store_true',
+             help='Confirm that you wish to erase the Flash RAM chip.')
+p.add_option('-s', '--start', action='store', type='int', metavar='BYTE-OFFSET',
+             default=0,
+             help='Specify starting address (default: 0).')
+p.add_option('-l', '--length', action='store', type='int', metavar='BYTES',
+             help='Specify length of read or write.')
+p.add_option('-p', '--port', action='store', metavar='DEVICE',
+             default=port,
+             help='The device the Flash Programmer is attached to (default: ' + (port or 'none') + ')')
+p.add_option('-b', '--bps', action='store', type='int', metavar='BPS-RATE',
+             default=460800,
+             help='The bps rate to use to talk to the Flash Programmer (default: 460800).')
+p.add_option('-B', '--block', action='store', type='int', metavar='BYTES',
+             default=8192,
+             help='How many bytes to read from the chip at a time. (default: 8912)')
+p.add_option('', '--debug-io', action='store_true',
+             help='Print out the entire dialogue between the computer and programmer. Excessive output.')
+p.add_option('', '--debug', action='store_true',
+             help='Print out debugging information.')
+p.add_option('-T', '--timeout', type='int', action='store', default=5, metavar='SECONDS',
+             help='Set the communications timeout. (default: 5)')
+
+(options, args) = p.parse_args()
+options.text = False
+options.jedec = True
+
+if options.read and options.verify:
+    fail("Read and verify cannot be performed at the same time.")
+if options.verify and not args:
+    fail("You must specify a file to verify.")
+if options.length and options.length % FlashProg.FP_BLOCK_SIZE:
+    fail("Length must be a multiple of %s." % FlashProg.FP_BLOCK_SIZE)
+if options.block & 0xf:
+    fail("Block size must be a multiple of 16.")
+
+port = options.port
+if not options.port:
+    fail("Please specify a device for the Flash Programmer (on Linux, something like /dev/ttyUSB*).")
+
+# Initialise
+fp = FlashProg(port, options.bps, timeout=options.timeout,
+               debug=options.debug, debug_io=options.debug_io)
+
+# Print out information
+if options.info:
+    fp.print_state()
+    sys.exit(0)
+
+if options.read:
+    if not options.text and not args and os.isatty(sys.stdout.fileno()):
+        fail("Binary ROM read selected, but output is a TTY. This may not be what you want.")
+    if len(args) > 1:
+        fail("Please specify a single file to write to.")
+    if not options.length:
+        fail("Please specify the number of bytes to dump.")
+
+    # Create the file.
+    try:
+        outf = open(args[0], 'wb') or sys.stdout
+    except IOError, e:
+        fail("%s: %s" % (args[0], e))
+
+    # Dump
+    fp.set_start(options.start)
+    fp.output_bin()
+    fp.set_count(options.block)
+    if args[0]:
+        sys.stderr.write('Reading... ')
+        sys.stderr.flush()
+    for n in xrange(0, options.length, options.block):
+        outf.write(fp.dump()[:min(options.block, options.length)])
+        if args[0]:
+            sys.stderr.write('%d ' % n)
+            sys.stderr.flush()
+
+    sys.stderr.write("%d Done\n" % options.length)
+    sys.exit(0)
+
+
+if options.chip_erase:
+    if not options.write and not options.force:
+        fail("To confirm a chip erase, you must specify --force.")
+    sys.stderr.write('Perforing a JEDEC-style chip erase cycle... ')
+    fp.erase_chip_jedec()
+    # Sleep a bit for good measure.
+    time.sleep(8)
+    sys.stderr.write(' ...Done.\n')
+
+
+if options.write:
+    if not options.chip_erase and not options.force:
+        fail("To write without erasing first, you must specify --force.")
+    sys.stderr.write('Writing... ')
+    sys.stderr.flush()
+
+    # Read the file.
+    try:
+        inf = open(args[0], 'rb')
+
+        # Write
+        fp.set_start(options.start)
+        fp.output_bin()
+        for n in xrange(0, options.length, fp.FP_BLOCK_SIZE):
+            filedata = inf.read(fp.FP_BLOCK_SIZE)
+            assert len(filedata) == fp.FP_BLOCK_SIZE
+            
+            if options.jedec:
+                fp.write_block_jedec(n, [ord(x) for x in filedata])
+            else:
+                raise RuntimeError('Non-Jedec programming not implemented (yet).')
+
+            if ((n % 1024) == 0):
+                sys.stderr.write('%d ' % n)
+                sys.stderr.flush()
+
+        
+
+    except IOError, e:
+        fail("%s: %s" % (args[0], e))
+
+    sys.stderr.write("%d ...Done\n" % options.length)
+    sys.stderr.flush()
+    
+
+if options.verify:
+    if len(args) > 1:
+        fail("Please specify a single file.")
+    if not options.length:
+        fail("Please specify the number of bytes to verify.")
+
+    # Read the file.
+    try:
+        inf = open(args[0], 'rb')
+
+        # Read and compare
+        fp.set_start(options.start)
+        fp.output_bin()
+        fp.set_count(options.block)
+        if args[0]:
+            sys.stderr.write('Verifying... ')
+            sys.stderr.flush()
+        for n in xrange(0, options.length, options.block):
+            filedata = inf.read(min(options.block, options.length))
+            romdata = fp.dump()[:min(options.block, options.length)]
+    
+            if filedata != romdata:
+                sys.stderr.write('Failed!\nFile and ROM differ.\n')
+                sys.exit(2)
+            
+            if args[0]:
+                sys.stderr.write('%d ' % n)
+                sys.stderr.flush()
+
+    except IOError, e:
+        fail("%s: %s" % (args[0], e))
+
+    sys.stderr.write("%d ...Done\n" % options.length)
+    sys.stderr.write("File and ROM are identical.\n")
+
+    
+# End of file.

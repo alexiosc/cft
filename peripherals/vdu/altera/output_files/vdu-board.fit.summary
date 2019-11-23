@@ -1,0 +1,11 @@
+Fitter Status : Successful - Mon Dec  3 09:08:57 2012
+Quartus II 32-bit Version : 12.1 Build 177 11/07/2012 SJ Web Edition
+Revision Name : vdu-board
+Top-level Entity Name : video
+Family : MAX V
+Device : 5M570ZT144C4
+Timing Models : Final
+Total logic elements : 385 / 570 ( 68 % )
+Total pins : 87 / 114 ( 76 % )
+Total virtual pins : 0
+UFM blocks : 0 / 1 ( 0 % )

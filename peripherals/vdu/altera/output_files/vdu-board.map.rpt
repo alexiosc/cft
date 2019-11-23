@@ -1,0 +1,1032 @@
+Analysis & Synthesis report for vdu-board
+Mon Dec  3 08:55:50 2012
+Quartus II 32-bit Version 12.1 Build 177 11/07/2012 SJ Web Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Analysis & Synthesis Summary
+  3. Analysis & Synthesis Settings
+  4. Parallel Compilation
+  5. Analysis & Synthesis Source Files Read
+  6. Analysis & Synthesis Resource Usage Summary
+  7. Analysis & Synthesis Resource Utilization by Entity
+  8. Registers Removed During Synthesis
+  9. General Register Statistics
+ 10. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 11. Parameter Settings for User Entity Instance: Top-level Entity: |video
+ 12. Parameter Settings for User Entity Instance: registerFile:regFile
+ 13. Parameter Settings for User Entity Instance: registerFile:regFile|register:regmcr0a
+ 14. Parameter Settings for User Entity Instance: registerFile:regFile|register:regmcr0b
+ 15. Parameter Settings for User Entity Instance: registerFile:regFile|register:regmcr0c
+ 16. Parameter Settings for User Entity Instance: registerFile:regFile|register:regmcr0d
+ 17. Parameter Settings for User Entity Instance: registerFile:regFile|register:regmcr0e
+ 18. Parameter Settings for User Entity Instance: registerFile:regFile|register:regmcr0f
+ 19. Parameter Settings for User Entity Instance: registerFile:regFile|register:regmcr1a
+ 20. Parameter Settings for User Entity Instance: registerFile:regFile|register:regmcr1b
+ 21. Parameter Settings for User Entity Instance: registerFile:regFile|register:regmcr1c
+ 22. Parameter Settings for User Entity Instance: registerFile:regFile|register:regmcr1d
+ 23. Parameter Settings for User Entity Instance: registerFile:regFile|register:regmcr1e
+ 24. Parameter Settings for User Entity Instance: registerFile:regFile|register:regscr0a
+ 25. Parameter Settings for User Entity Instance: registerFile:regFile|register:regscr0b
+ 26. Parameter Settings for User Entity Instance: registerFile:regFile|register:regscr1a
+ 27. Parameter Settings for User Entity Instance: registerFile:regFile|register:regscr1b
+ 28. Parameter Settings for User Entity Instance: registerFile:regFile|register:regccra
+ 29. Parameter Settings for User Entity Instance: registerFile:regFile|register:regccrb
+ 30. Parameter Settings for User Entity Instance: registerFile:regFile|register:regccrc
+ 31. Parameter Settings for User Entity Instance: registerFile:regFile|register:regsar0
+ 32. Parameter Settings for User Entity Instance: registerFile:regFile|register:regsar1
+ 33. Parameter Settings for User Entity Instance: registerFile:regFile|register:regmar0
+ 34. Parameter Settings for User Entity Instance: registerFile:regFile|register:regmar1
+ 35. Parameter Settings for User Entity Instance: registerFile:regFile|register:regcar
+ 36. Parameter Settings for User Entity Instance: registerFile:regFile|counter193:hary
+ 37. Parameter Settings for User Entity Instance: registerFile:regFile|counter193:harx
+ 38. Parameter Settings for User Entity Instance: frameEngine:frameStateMachine
+ 39. Parameter Settings for User Entity Instance: frameEngine:frameStateMachine|counter:clkDiv
+ 40. Parameter Settings for User Entity Instance: frameEngine:frameStateMachine|counter:hCounter
+ 41. Parameter Settings for User Entity Instance: frameEngine:frameStateMachine|counter:vCounter
+ 42. Parameter Settings for User Entity Instance: counter:clockDivider
+ 43. Parameter Settings for User Entity Instance: Sequencer:sequencer|counter:xPosCtr
+ 44. Parameter Settings for User Entity Instance: PlaneAddressCounter:planeAddress|counter193:hAddressCounter
+ 45. Parameter Settings for User Entity Instance: PlaneAddressCounter:planeAddress|counter193:vAddressCounter
+ 46. Parameter Settings for User Entity Instance: fe_register:creg0FF
+ 47. Parameter Settings for User Entity Instance: fe_register:bregFF
+ 48. Parameter Settings for User Entity Instance: fe_register:cgregFF
+ 49. Parameter Settings for User Entity Instance: counter193:clcCounter
+ 50. Parameter Settings for User Entity Instance: counter:blinkcounter
+ 51. Parameter Settings for User Entity Instance: fe_register:cregFF
+ 52. Parameter Settings for User Entity Instance: shiftreg:pixelShiftreg
+ 53. Port Connectivity Checks: "counter:blinkcounter"
+ 54. Port Connectivity Checks: "PlaneAddressCounter:planeAddress"
+ 55. Port Connectivity Checks: "Sequencer:sequencer|counter:xPosCtr"
+ 56. Port Connectivity Checks: "Sequencer:sequencer"
+ 57. Port Connectivity Checks: "HorizontalPhase:hPhase|PhaseTable:phasetable"
+ 58. Port Connectivity Checks: "frameEngine:frameStateMachine|counter:clkDiv"
+ 59. Port Connectivity Checks: "frameEngine:frameStateMachine"
+ 60. Port Connectivity Checks: "registerFile:regFile|demux16:regsel"
+ 61. Port Connectivity Checks: "registerFile:regFile"
+ 62. Analysis & Synthesis Messages
+ 63. Analysis & Synthesis Suppressed Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 1991-2012 Altera Corporation
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, Altera MegaCore Function License 
+Agreement, or other applicable license agreement, including, 
+without limitation, that your use is for the sole purpose of 
+programming logic devices manufactured by Altera and sold by 
+Altera or its authorized distributors.  Please refer to the 
+applicable agreement for further details.
+
+
+
++------------------------------------------------------------------------+
+; Analysis & Synthesis Summary                                           ;
++-----------------------------+------------------------------------------+
+; Analysis & Synthesis Status ; Successful - Mon Dec  3 08:55:49 2012    ;
+; Quartus II 32-bit Version   ; 12.1 Build 177 11/07/2012 SJ Web Edition ;
+; Revision Name               ; vdu-board                                ;
+; Top-level Entity Name       ; video                                    ;
+; Family                      ; MAX V                                    ;
+; Total logic elements        ; 475                                      ;
+; Total pins                  ; 87                                       ;
+; Total virtual pins          ; 0                                        ;
+; UFM blocks                  ; 0 / 1 ( 0 % )                            ;
++-----------------------------+------------------------------------------+
+
+
++----------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Settings                                                                                        ;
++----------------------------------------------------------------------------+--------------------+--------------------+
+; Option                                                                     ; Setting            ; Default Value      ;
++----------------------------------------------------------------------------+--------------------+--------------------+
+; Top-level entity name                                                      ; video              ; vdu-board          ;
+; Family name                                                                ; MAX V              ; Cyclone IV GX      ;
+; Use smart compilation                                                      ; On                 ; Off                ;
+; Enable parallel Assembler and TimeQuest Timing Analyzer during compilation ; On                 ; On                 ;
+; Enable compact report table                                                ; Off                ; Off                ;
+; Restructure Multiplexers                                                   ; Auto               ; Auto               ;
+; Create Debugging Nodes for IP Cores                                        ; Off                ; Off                ;
+; Preserve fewer node names                                                  ; On                 ; On                 ;
+; Disable OpenCore Plus hardware evaluation                                  ; Off                ; Off                ;
+; Verilog Version                                                            ; Verilog_2001       ; Verilog_2001       ;
+; VHDL Version                                                               ; VHDL_1993          ; VHDL_1993          ;
+; State Machine Processing                                                   ; Auto               ; Auto               ;
+; Safe State Machine                                                         ; Off                ; Off                ;
+; Extract Verilog State Machines                                             ; On                 ; On                 ;
+; Extract VHDL State Machines                                                ; On                 ; On                 ;
+; Ignore Verilog initial constructs                                          ; Off                ; Off                ;
+; Iteration limit for constant Verilog loops                                 ; 5000               ; 5000               ;
+; Iteration limit for non-constant Verilog loops                             ; 250                ; 250                ;
+; Add Pass-Through Logic to Inferred RAMs                                    ; On                 ; On                 ;
+; Infer RAMs from Raw Logic                                                  ; On                 ; On                 ;
+; Parallel Synthesis                                                         ; On                 ; On                 ;
+; NOT Gate Push-Back                                                         ; On                 ; On                 ;
+; Power-Up Don't Care                                                        ; On                 ; On                 ;
+; Remove Redundant Logic Cells                                               ; Off                ; Off                ;
+; Remove Duplicate Registers                                                 ; On                 ; On                 ;
+; Ignore CARRY Buffers                                                       ; Off                ; Off                ;
+; Ignore CASCADE Buffers                                                     ; Off                ; Off                ;
+; Ignore GLOBAL Buffers                                                      ; Off                ; Off                ;
+; Ignore ROW GLOBAL Buffers                                                  ; Off                ; Off                ;
+; Ignore LCELL Buffers                                                       ; Off                ; Off                ;
+; Ignore SOFT Buffers                                                        ; On                 ; On                 ;
+; Limit AHDL Integers to 32 Bits                                             ; Off                ; Off                ;
+; Optimization Technique                                                     ; Balanced           ; Balanced           ;
+; Carry Chain Length                                                         ; 70                 ; 70                 ;
+; Auto Carry Chains                                                          ; On                 ; On                 ;
+; Auto Open-Drain Pins                                                       ; On                 ; On                 ;
+; Perform WYSIWYG Primitive Resynthesis                                      ; Off                ; Off                ;
+; Auto Shift Register Replacement                                            ; Auto               ; Auto               ;
+; Allow Shift Register Merging across Hierarchies                            ; Auto               ; Auto               ;
+; Auto Clock Enable Replacement                                              ; On                 ; On                 ;
+; Allow Synchronous Control Signals                                          ; On                 ; On                 ;
+; Force Use of Synchronous Clear Signals                                     ; Off                ; Off                ;
+; Auto Resource Sharing                                                      ; Off                ; Off                ;
+; Use LogicLock Constraints during Resource Balancing                        ; On                 ; On                 ;
+; Ignore translate_off and synthesis_off directives                          ; Off                ; Off                ;
+; Report Parameter Settings                                                  ; On                 ; On                 ;
+; Report Source Assignments                                                  ; On                 ; On                 ;
+; Report Connectivity Checks                                                 ; On                 ; On                 ;
+; Ignore Maximum Fan-Out Assignments                                         ; Off                ; Off                ;
+; Synchronization Register Chain Length                                      ; 2                  ; 2                  ;
+; PowerPlay Power Optimization                                               ; Normal compilation ; Normal compilation ;
+; HDL message level                                                          ; Level2             ; Level2             ;
+; Suppress Register Optimization Related Messages                            ; Off                ; Off                ;
+; Number of Removed Registers Reported in Synthesis Report                   ; 5000               ; 5000               ;
+; Number of Swept Nodes Reported in Synthesis Report                         ; 5000               ; 5000               ;
+; Number of Inverted Registers Reported in Synthesis Report                  ; 100                ; 100                ;
+; Clock MUX Protection                                                       ; On                 ; On                 ;
+; Block Design Naming                                                        ; Auto               ; Auto               ;
+; Synthesis Effort                                                           ; Auto               ; Auto               ;
+; Shift Register Replacement - Allow Asynchronous Clear Signal               ; On                 ; On                 ;
+; Pre-Mapping Resynthesis Optimization                                       ; Off                ; Off                ;
+; Analysis & Synthesis Message Level                                         ; Medium             ; Medium             ;
+; Disable Register Merging Across Hierarchies                                ; Auto               ; Auto               ;
+; Synthesis Seed                                                             ; 1                  ; 1                  ;
++----------------------------------------------------------------------------+--------------------+--------------------+
+
+
+Parallel compilation was disabled, but you have multiple processors available. Enable parallel compilation to reduce compilation time.
++-------------------------------------+
+; Parallel Compilation                ;
++----------------------------+--------+
+; Processors                 ; Number ;
++----------------------------+--------+
+; Number detected on machine ; 2      ;
+; Maximum allowed            ; 1      ;
++----------------------------+--------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                                 ;
++----------------------------------+-----------------+------------------------------+--------------------------------------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type                    ; File Name with Absolute Path                                             ; Library ;
++----------------------------------+-----------------+------------------------------+--------------------------------------------------------------------------+---------+
+; horizontalPhase.v                ; yes             ; User Verilog HDL File        ; /home/alexios/PROJECTS/HARDWARE/cft/video-board/altera/horizontalPhase.v ;         ;
+; flipflop.v                       ; yes             ; User Verilog HDL File        ; /home/alexios/PROJECTS/HARDWARE/cft/video-board/altera/flipflop.v        ;         ;
+; frameEngine.v                    ; yes             ; User Verilog HDL File        ; /home/alexios/PROJECTS/HARDWARE/cft/video-board/altera/frameEngine.v     ;         ;
+; video.v                          ; yes             ; User Verilog HDL File        ; /home/alexios/PROJECTS/HARDWARE/cft/video-board/altera/video.v           ;         ;
+; counter193.v                     ; yes             ; User Verilog HDL File        ; /home/alexios/PROJECTS/HARDWARE/cft/video-board/altera/counter193.v      ;         ;
+; counter.v                        ; yes             ; User Verilog HDL File        ; /home/alexios/PROJECTS/HARDWARE/cft/video-board/altera/counter.v         ;         ;
+; demux16.v                        ; yes             ; User Verilog HDL File        ; /home/alexios/PROJECTS/HARDWARE/cft/video-board/altera/demux16.v         ;         ;
+; register.v                       ; yes             ; User Verilog HDL File        ; /home/alexios/PROJECTS/HARDWARE/cft/video-board/altera/register.v        ;         ;
+; registerFile.v                   ; yes             ; User Verilog HDL File        ; /home/alexios/PROJECTS/HARDWARE/cft/video-board/altera/registerFile.v    ;         ;
+; registerNames.v                  ; yes             ; Auto-Found Verilog HDL File  ; /home/alexios/PROJECTS/HARDWARE/cft/video-board/altera/registerNames.v   ;         ;
+; shiftreg.v                       ; yes             ; Auto-Found Verilog HDL File  ; /home/alexios/PROJECTS/HARDWARE/cft/video-board/altera/shiftreg.v        ;         ;
++----------------------------------+-----------------+------------------------------+--------------------------------------------------------------------------+---------+
+
+
++-----------------------------------------------------+
+; Analysis & Synthesis Resource Usage Summary         ;
++---------------------------------------------+-------+
+; Resource                                    ; Usage ;
++---------------------------------------------+-------+
+; Total logic elements                        ; 475   ;
+;     -- Combinational with no register       ; 201   ;
+;     -- Register only                        ; 186   ;
+;     -- Combinational with a register        ; 88    ;
+;                                             ;       ;
+; Logic element usage by number of LUT inputs ;       ;
+;     -- 4 input functions                    ; 120   ;
+;     -- 3 input functions                    ; 72    ;
+;     -- 2 input functions                    ; 74    ;
+;     -- 1 input functions                    ; 14    ;
+;     -- 0 input functions                    ; 9     ;
+;                                             ;       ;
+; Logic elements by mode                      ;       ;
+;     -- normal mode                          ; 429   ;
+;     -- arithmetic mode                      ; 46    ;
+;     -- qfbk mode                            ; 0     ;
+;     -- register cascade mode                ; 0     ;
+;     -- synchronous clear/load mode          ; 0     ;
+;     -- asynchronous clear/load mode         ; 267   ;
+;                                             ;       ;
+; Total registers                             ; 274   ;
+; Total logic cells in carry chains           ; 55    ;
+; I/O pins                                    ; 87    ;
+; Maximum fan-out                             ; 237   ;
+; Total fan-out                               ; 1712  ;
+; Average fan-out                             ; 3.05  ;
++---------------------------------------------+-------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                                                            ;
++---------------------------------------+-------------+--------------+------------+------+--------------+--------------+-------------------+------------------+-----------------+------------+--------------------------------------------------------------------+--------------+
+; Compilation Hierarchy Node            ; Logic Cells ; LC Registers ; UFM Blocks ; Pins ; Virtual Pins ; LUT-Only LCs ; Register-Only LCs ; LUT/Register LCs ; Carry Chain LCs ; Packed LCs ; Full Hierarchy Name                                                ; Library Name ;
++---------------------------------------+-------------+--------------+------------+------+--------------+--------------+-------------------+------------------+-----------------+------------+--------------------------------------------------------------------+--------------+
+; |video                                ; 475 (70)    ; 274          ; 0          ; 87   ; 0            ; 201 (67)     ; 186 (0)           ; 88 (3)           ; 55 (0)          ; 0 (0)      ; |video                                                             ; work         ;
+;    |HorizontalPhase:hPhase|           ; 16 (12)     ; 6            ; 0          ; 0    ; 0            ; 10 (6)       ; 0 (0)             ; 6 (6)            ; 6 (6)           ; 0 (0)      ; |video|HorizontalPhase:hPhase                                      ; work         ;
+;       |PhaseTable:phasetable|         ; 4 (4)       ; 0            ; 0          ; 0    ; 0            ; 4 (4)        ; 0 (0)             ; 0 (0)            ; 0 (0)           ; 0 (0)      ; |video|HorizontalPhase:hPhase|PhaseTable:phasetable                ; work         ;
+;    |PlaneAddressCounter:planeAddress| ; 37 (14)     ; 16           ; 0          ; 0    ; 0            ; 21 (14)      ; 0 (0)             ; 16 (0)           ; 14 (0)          ; 0 (0)      ; |video|PlaneAddressCounter:planeAddress                            ; work         ;
+;       |counter193:hAddressCounter|    ; 10 (10)     ; 7            ; 0          ; 0    ; 0            ; 3 (3)        ; 0 (0)             ; 7 (7)            ; 6 (6)           ; 0 (0)      ; |video|PlaneAddressCounter:planeAddress|counter193:hAddressCounter ; work         ;
+;       |counter193:vAddressCounter|    ; 13 (13)     ; 9            ; 0          ; 0    ; 0            ; 4 (4)        ; 0 (0)             ; 9 (9)            ; 8 (8)           ; 0 (0)      ; |video|PlaneAddressCounter:planeAddress|counter193:vAddressCounter ; work         ;
+;    |RGBBuffer:rgbbuffer|              ; 18 (18)     ; 6            ; 0          ; 0    ; 0            ; 12 (12)      ; 0 (0)             ; 6 (6)            ; 0 (0)           ; 0 (0)      ; |video|RGBBuffer:rgbbuffer                                         ; work         ;
+;    |Sequencer:sequencer|              ; 18 (13)     ; 5            ; 0          ; 0    ; 0            ; 13 (13)      ; 0 (0)             ; 5 (0)            ; 4 (0)           ; 0 (0)      ; |video|Sequencer:sequencer                                         ; work         ;
+;       |counter:xPosCtr|               ; 5 (5)       ; 5            ; 0          ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 5 (5)            ; 4 (4)           ; 0 (0)      ; |video|Sequencer:sequencer|counter:xPosCtr                         ; work         ;
+;    |counter193:clcCounter|            ; 6 (6)       ; 4            ; 0          ; 0    ; 0            ; 2 (2)        ; 1 (1)             ; 3 (3)            ; 0 (0)           ; 0 (0)      ; |video|counter193:clcCounter                                       ; work         ;
+;    |counter:blinkcounter|             ; 4 (4)       ; 4            ; 0          ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 4 (4)            ; 3 (3)           ; 0 (0)      ; |video|counter:blinkcounter                                        ; work         ;
+;    |counter:clockDivider|             ; 2 (2)       ; 2            ; 0          ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 2 (2)            ; 0 (0)           ; 0 (0)      ; |video|counter:clockDivider                                        ; work         ;
+;    |fe_register:bregFF|               ; 8 (8)       ; 8            ; 0          ; 0    ; 0            ; 0 (0)        ; 8 (8)             ; 0 (0)            ; 0 (0)           ; 0 (0)      ; |video|fe_register:bregFF                                          ; work         ;
+;    |fe_register:cgregFF|              ; 8 (8)       ; 8            ; 0          ; 0    ; 0            ; 0 (0)        ; 8 (8)             ; 0 (0)            ; 0 (0)           ; 0 (0)      ; |video|fe_register:cgregFF                                         ; work         ;
+;    |fe_register:creg0FF|              ; 16 (16)     ; 16           ; 0          ; 0    ; 0            ; 0 (0)        ; 16 (16)           ; 0 (0)            ; 0 (0)           ; 0 (0)      ; |video|fe_register:creg0FF                                         ; work         ;
+;    |fe_register:cregFF|               ; 16 (16)     ; 16           ; 0          ; 0    ; 0            ; 0 (0)        ; 16 (16)           ; 0 (0)            ; 0 (0)           ; 0 (0)      ; |video|fe_register:cregFF                                          ; work         ;
+;    |frameEngine:frameStateMachine|    ; 49 (23)     ; 26           ; 0          ; 0    ; 0            ; 23 (23)      ; 0 (0)             ; 26 (0)           ; 14 (0)          ; 0 (0)      ; |video|frameEngine:frameStateMachine                               ; work         ;
+;       |counter:clkDiv|                ; 4 (4)       ; 4            ; 0          ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 4 (4)            ; 0 (0)           ; 0 (0)      ; |video|frameEngine:frameStateMachine|counter:clkDiv                ; work         ;
+;       |counter:hCounter|              ; 7 (7)       ; 7            ; 0          ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 7 (7)            ; 6 (6)           ; 0 (0)      ; |video|frameEngine:frameStateMachine|counter:hCounter              ; work         ;
+;       |counter:vCounter|              ; 9 (9)       ; 9            ; 0          ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 9 (9)            ; 8 (8)           ; 0 (0)      ; |video|frameEngine:frameStateMachine|counter:vCounter              ; work         ;
+;       |ff_sr:ff_hmemenable|           ; 1 (1)       ; 1            ; 0          ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 1 (1)            ; 0 (0)           ; 0 (0)      ; |video|frameEngine:frameStateMachine|ff_sr:ff_hmemenable           ; work         ;
+;       |ff_sr:ff_hs|                   ; 1 (1)       ; 1            ; 0          ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 1 (1)            ; 0 (0)           ; 0 (0)      ; |video|frameEngine:frameStateMachine|ff_sr:ff_hs                   ; work         ;
+;       |ff_sr:ff_hvideo|               ; 1 (1)       ; 1            ; 0          ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 1 (1)            ; 0 (0)           ; 0 (0)      ; |video|frameEngine:frameStateMachine|ff_sr:ff_hvideo               ; work         ;
+;       |ff_sr:ff_vmemenable|           ; 1 (1)       ; 1            ; 0          ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 1 (1)            ; 0 (0)           ; 0 (0)      ; |video|frameEngine:frameStateMachine|ff_sr:ff_vmemenable           ; work         ;
+;       |ff_sr:ff_vs|                   ; 1 (1)       ; 1            ; 0          ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 1 (1)            ; 0 (0)           ; 0 (0)      ; |video|frameEngine:frameStateMachine|ff_sr:ff_vs                   ; work         ;
+;       |ff_sr:ff_vvideo|               ; 1 (1)       ; 1            ; 0          ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 1 (1)            ; 0 (0)           ; 0 (0)      ; |video|frameEngine:frameStateMachine|ff_sr:ff_vvideo               ; work         ;
+;    |registerFile:regFile|             ; 198 (30)    ; 146          ; 0          ; 0    ; 0            ; 52 (30)      ; 130 (0)           ; 16 (0)           ; 14 (0)          ; 0 (0)      ; |video|registerFile:regFile                                        ; work         ;
+;       |counter193:harx|               ; 8 (8)       ; 7            ; 0          ; 0    ; 0            ; 1 (1)        ; 0 (0)             ; 7 (7)            ; 6 (6)           ; 0 (0)      ; |video|registerFile:regFile|counter193:harx                        ; work         ;
+;       |counter193:hary|               ; 9 (9)       ; 9            ; 0          ; 0    ; 0            ; 0 (0)        ; 0 (0)             ; 9 (9)            ; 8 (8)           ; 0 (0)      ; |video|registerFile:regFile|counter193:hary                        ; work         ;
+;       |demux16:regsel|                ; 21 (21)     ; 0            ; 0          ; 0    ; 0            ; 21 (21)      ; 0 (0)             ; 0 (0)            ; 0 (0)           ; 0 (0)      ; |video|registerFile:regFile|demux16:regsel                         ; work         ;
+;       |register:regcar|               ; 16 (16)     ; 16           ; 0          ; 0    ; 0            ; 0 (0)        ; 16 (16)           ; 0 (0)            ; 0 (0)           ; 0 (0)      ; |video|registerFile:regFile|register:regcar                        ; work         ;
+;       |register:regccra|              ; 6 (6)       ; 6            ; 0          ; 0    ; 0            ; 0 (0)        ; 6 (6)             ; 0 (0)            ; 0 (0)           ; 0 (0)      ; |video|registerFile:regFile|register:regccra                       ; work         ;
+;       |register:regccrb|              ; 2 (2)       ; 2            ; 0          ; 0    ; 0            ; 0 (0)        ; 2 (2)             ; 0 (0)            ; 0 (0)           ; 0 (0)      ; |video|registerFile:regFile|register:regccrb                       ; work         ;
+;       |register:regccrc|              ; 6 (6)       ; 6            ; 0          ; 0    ; 0            ; 0 (0)        ; 6 (6)             ; 0 (0)            ; 0 (0)           ; 0 (0)      ; |video|registerFile:regFile|register:regccrc                       ; work         ;
+;       |register:regmar0|              ; 16 (16)     ; 16           ; 0          ; 0    ; 0            ; 0 (0)        ; 16 (16)           ; 0 (0)            ; 0 (0)           ; 0 (0)      ; |video|registerFile:regFile|register:regmar0                       ; work         ;
+;       |register:regmar1|              ; 16 (16)     ; 16           ; 0          ; 0    ; 0            ; 0 (0)        ; 16 (16)           ; 0 (0)            ; 0 (0)           ; 0 (0)      ; |video|registerFile:regFile|register:regmar1                       ; work         ;
+;       |register:regmcr0a|             ; 1 (1)       ; 1            ; 0          ; 0    ; 0            ; 0 (0)        ; 1 (1)             ; 0 (0)            ; 0 (0)           ; 0 (0)      ; |video|registerFile:regFile|register:regmcr0a                      ; work         ;
+;       |register:regmcr0d|             ; 2 (2)       ; 2            ; 0          ; 0    ; 0            ; 0 (0)        ; 2 (2)             ; 0 (0)            ; 0 (0)           ; 0 (0)      ; |video|registerFile:regFile|register:regmcr0d                      ; work         ;
+;       |register:regmcr0e|             ; 1 (1)       ; 1            ; 0          ; 0    ; 0            ; 0 (0)        ; 1 (1)             ; 0 (0)            ; 0 (0)           ; 0 (0)      ; |video|registerFile:regFile|register:regmcr0e                      ; work         ;
+;       |register:regmcr0f|             ; 3 (3)       ; 3            ; 0          ; 0    ; 0            ; 0 (0)        ; 3 (3)             ; 0 (0)            ; 0 (0)           ; 0 (0)      ; |video|registerFile:regFile|register:regmcr0f                      ; work         ;
+;       |register:regmcr1a|             ; 8 (8)       ; 8            ; 0          ; 0    ; 0            ; 0 (0)        ; 8 (8)             ; 0 (0)            ; 0 (0)           ; 0 (0)      ; |video|registerFile:regFile|register:regmcr1a                      ; work         ;
+;       |register:regmcr1b|             ; 1 (1)       ; 1            ; 0          ; 0    ; 0            ; 0 (0)        ; 1 (1)             ; 0 (0)            ; 0 (0)           ; 0 (0)      ; |video|registerFile:regFile|register:regmcr1b                      ; work         ;
+;       |register:regmcr1c|             ; 2 (2)       ; 2            ; 0          ; 0    ; 0            ; 0 (0)        ; 2 (2)             ; 0 (0)            ; 0 (0)           ; 0 (0)      ; |video|registerFile:regFile|register:regmcr1c                      ; work         ;
+;       |register:regmcr1d|             ; 1 (1)       ; 1            ; 0          ; 0    ; 0            ; 0 (0)        ; 1 (1)             ; 0 (0)            ; 0 (0)           ; 0 (0)      ; |video|registerFile:regFile|register:regmcr1d                      ; work         ;
+;       |register:regmcr1e|             ; 3 (3)       ; 3            ; 0          ; 0    ; 0            ; 0 (0)        ; 3 (3)             ; 0 (0)            ; 0 (0)           ; 0 (0)      ; |video|registerFile:regFile|register:regmcr1e                      ; work         ;
+;       |register:regsar0|              ; 16 (16)     ; 16           ; 0          ; 0    ; 0            ; 0 (0)        ; 16 (16)           ; 0 (0)            ; 0 (0)           ; 0 (0)      ; |video|registerFile:regFile|register:regsar0                       ; work         ;
+;       |register:regsar1|              ; 16 (16)     ; 16           ; 0          ; 0    ; 0            ; 0 (0)        ; 16 (16)           ; 0 (0)            ; 0 (0)           ; 0 (0)      ; |video|registerFile:regFile|register:regsar1                       ; work         ;
+;       |register:regscr0a|             ; 4 (4)       ; 4            ; 0          ; 0    ; 0            ; 0 (0)        ; 4 (4)             ; 0 (0)            ; 0 (0)           ; 0 (0)      ; |video|registerFile:regFile|register:regscr0a                      ; work         ;
+;       |register:regscr0b|             ; 3 (3)       ; 3            ; 0          ; 0    ; 0            ; 0 (0)        ; 3 (3)             ; 0 (0)            ; 0 (0)           ; 0 (0)      ; |video|registerFile:regFile|register:regscr0b                      ; work         ;
+;       |register:regscr1a|             ; 4 (4)       ; 4            ; 0          ; 0    ; 0            ; 0 (0)        ; 4 (4)             ; 0 (0)            ; 0 (0)           ; 0 (0)      ; |video|registerFile:regFile|register:regscr1a                      ; work         ;
+;       |register:regscr1b|             ; 3 (3)       ; 3            ; 0          ; 0    ; 0            ; 0 (0)        ; 3 (3)             ; 0 (0)            ; 0 (0)           ; 0 (0)      ; |video|registerFile:regFile|register:regscr1b                      ; work         ;
+;    |shiftreg:pixelShiftreg|           ; 9 (9)       ; 8            ; 0          ; 0    ; 0            ; 1 (1)        ; 7 (7)             ; 1 (1)            ; 0 (0)           ; 0 (0)      ; |video|shiftreg:pixelShiftreg                                      ; work         ;
++---------------------------------------+-------------+--------------+------------+------+--------------+--------------+-------------------+------------------+-----------------+------------+--------------------------------------------------------------------+--------------+
+Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
++-------------------------------------------------------------------+
+; Registers Removed During Synthesis                                ;
++----------------------------------------------+--------------------+
+; Register name                                ; Reason for Removal ;
++----------------------------------------------+--------------------+
+; Sequencer:sequencer|counter:xPosCtr|q[5..10] ; Lost fanout        ;
+; counter:blinkcounter|q[4]                    ; Lost fanout        ;
+; Total Number of Removed Registers = 7        ;                    ;
++----------------------------------------------+--------------------+
+
+
++------------------------------------------------------+
+; General Register Statistics                          ;
++----------------------------------------------+-------+
+; Statistic                                    ; Value ;
++----------------------------------------------+-------+
+; Total registers                              ; 274   ;
+; Number of registers using Synchronous Clear  ; 0     ;
+; Number of registers using Synchronous Load   ; 0     ;
+; Number of registers using Asynchronous Clear ; 254   ;
+; Number of registers using Asynchronous Load  ; 57    ;
+; Number of registers using Clock Enable       ; 5     ;
+; Number of registers using Preset             ; 0     ;
++----------------------------------------------+-------+
+
+
++-------------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                  ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output        ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------------+
+; 8:1                ; 6 bits    ; 30 LEs        ; 18 LEs               ; 12 LEs                 ; Yes        ; |video|RGBBuffer:rgbbuffer|rgb[4] ;
+; 3:1                ; 14 bits   ; 28 LEs        ; 28 LEs               ; 0 LEs                  ; No         ; |video|pa                         ;
+; 4:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |video|pa                         ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------------+
+
+
++-----------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: Top-level Entity: |video ;
++----------------+-------+----------------------------------------------+
+; Parameter Name ; Value ; Type                                         ;
++----------------+-------+----------------------------------------------+
+; REG_MCR0       ; 0000  ; Unsigned Binary                              ;
+; REG_SR         ; 0000  ; Unsigned Binary                              ;
+; REG_MCR1       ; 0001  ; Unsigned Binary                              ;
+; REG_SCR0       ; 0010  ; Unsigned Binary                              ;
+; REG_SCR1       ; 0011  ; Unsigned Binary                              ;
+; REG_SAR0       ; 0100  ; Unsigned Binary                              ;
+; REG_SAR1       ; 0101  ; Unsigned Binary                              ;
+; REG_MAR0       ; 0110  ; Unsigned Binary                              ;
+; REG_MAR1       ; 0111  ; Unsigned Binary                              ;
+; REG_CCR        ; 1000  ; Unsigned Binary                              ;
+; REG_CAR        ; 1001  ; Unsigned Binary                              ;
+; REG_HAR        ; 1010  ; Unsigned Binary                              ;
+; REG_RSVD1      ; 1011  ; Unsigned Binary                              ;
+; REG_RSVD2      ; 1100  ; Unsigned Binary                              ;
+; REG_RSVD3      ; 1101  ; Unsigned Binary                              ;
+; REG_CPORT      ; 1110  ; Unsigned Binary                              ;
+; REG_CMD        ; 1111  ; Unsigned Binary                              ;
+; REG_BCGPORT    ; 1111  ; Unsigned Binary                              ;
++----------------+-------+----------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: registerFile:regFile ;
++----------------+-------+------------------------------------------+
+; Parameter Name ; Value ; Type                                     ;
++----------------+-------+------------------------------------------+
+; REG_MCR0       ; 0000  ; Unsigned Binary                          ;
+; REG_SR         ; 0000  ; Unsigned Binary                          ;
+; REG_MCR1       ; 0001  ; Unsigned Binary                          ;
+; REG_SCR0       ; 0010  ; Unsigned Binary                          ;
+; REG_SCR1       ; 0011  ; Unsigned Binary                          ;
+; REG_SAR0       ; 0100  ; Unsigned Binary                          ;
+; REG_SAR1       ; 0101  ; Unsigned Binary                          ;
+; REG_MAR0       ; 0110  ; Unsigned Binary                          ;
+; REG_MAR1       ; 0111  ; Unsigned Binary                          ;
+; REG_CCR        ; 1000  ; Unsigned Binary                          ;
+; REG_CAR        ; 1001  ; Unsigned Binary                          ;
+; REG_HAR        ; 1010  ; Unsigned Binary                          ;
+; REG_RSVD1      ; 1011  ; Unsigned Binary                          ;
+; REG_RSVD2      ; 1100  ; Unsigned Binary                          ;
+; REG_RSVD3      ; 1101  ; Unsigned Binary                          ;
+; REG_CPORT      ; 1110  ; Unsigned Binary                          ;
+; REG_CMD        ; 1111  ; Unsigned Binary                          ;
+; REG_BCGPORT    ; 1111  ; Unsigned Binary                          ;
++----------------+-------+------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: registerFile:regFile|register:regmcr0a ;
++----------------+-------+------------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                       ;
++----------------+-------+------------------------------------------------------------+
+; bits           ; 1     ; Signed Integer                                             ;
++----------------+-------+------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: registerFile:regFile|register:regmcr0b ;
++----------------+-------+------------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                       ;
++----------------+-------+------------------------------------------------------------+
+; bits           ; 1     ; Signed Integer                                             ;
++----------------+-------+------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: registerFile:regFile|register:regmcr0c ;
++----------------+-------+------------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                       ;
++----------------+-------+------------------------------------------------------------+
+; bits           ; 1     ; Signed Integer                                             ;
++----------------+-------+------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: registerFile:regFile|register:regmcr0d ;
++----------------+-------+------------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                       ;
++----------------+-------+------------------------------------------------------------+
+; bits           ; 2     ; Signed Integer                                             ;
++----------------+-------+------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: registerFile:regFile|register:regmcr0e ;
++----------------+-------+------------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                       ;
++----------------+-------+------------------------------------------------------------+
+; bits           ; 1     ; Signed Integer                                             ;
++----------------+-------+------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: registerFile:regFile|register:regmcr0f ;
++----------------+-------+------------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                       ;
++----------------+-------+------------------------------------------------------------+
+; bits           ; 3     ; Signed Integer                                             ;
++----------------+-------+------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: registerFile:regFile|register:regmcr1a ;
++----------------+-------+------------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                       ;
++----------------+-------+------------------------------------------------------------+
+; bits           ; 8     ; Signed Integer                                             ;
++----------------+-------+------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: registerFile:regFile|register:regmcr1b ;
++----------------+-------+------------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                       ;
++----------------+-------+------------------------------------------------------------+
+; bits           ; 1     ; Signed Integer                                             ;
++----------------+-------+------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: registerFile:regFile|register:regmcr1c ;
++----------------+-------+------------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                       ;
++----------------+-------+------------------------------------------------------------+
+; bits           ; 2     ; Signed Integer                                             ;
++----------------+-------+------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: registerFile:regFile|register:regmcr1d ;
++----------------+-------+------------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                       ;
++----------------+-------+------------------------------------------------------------+
+; bits           ; 1     ; Signed Integer                                             ;
++----------------+-------+------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: registerFile:regFile|register:regmcr1e ;
++----------------+-------+------------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                       ;
++----------------+-------+------------------------------------------------------------+
+; bits           ; 3     ; Signed Integer                                             ;
++----------------+-------+------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: registerFile:regFile|register:regscr0a ;
++----------------+-------+------------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                       ;
++----------------+-------+------------------------------------------------------------+
+; bits           ; 4     ; Signed Integer                                             ;
++----------------+-------+------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: registerFile:regFile|register:regscr0b ;
++----------------+-------+------------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                       ;
++----------------+-------+------------------------------------------------------------+
+; bits           ; 3     ; Signed Integer                                             ;
++----------------+-------+------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: registerFile:regFile|register:regscr1a ;
++----------------+-------+------------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                       ;
++----------------+-------+------------------------------------------------------------+
+; bits           ; 4     ; Signed Integer                                             ;
++----------------+-------+------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: registerFile:regFile|register:regscr1b ;
++----------------+-------+------------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                       ;
++----------------+-------+------------------------------------------------------------+
+; bits           ; 3     ; Signed Integer                                             ;
++----------------+-------+------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: registerFile:regFile|register:regccra ;
++----------------+-------+-----------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                      ;
++----------------+-------+-----------------------------------------------------------+
+; bits           ; 6     ; Signed Integer                                            ;
++----------------+-------+-----------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: registerFile:regFile|register:regccrb ;
++----------------+-------+-----------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                      ;
++----------------+-------+-----------------------------------------------------------+
+; bits           ; 2     ; Signed Integer                                            ;
++----------------+-------+-----------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: registerFile:regFile|register:regccrc ;
++----------------+-------+-----------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                      ;
++----------------+-------+-----------------------------------------------------------+
+; bits           ; 6     ; Signed Integer                                            ;
++----------------+-------+-----------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: registerFile:regFile|register:regsar0 ;
++----------------+-------+-----------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                      ;
++----------------+-------+-----------------------------------------------------------+
+; bits           ; 16    ; Signed Integer                                            ;
++----------------+-------+-----------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: registerFile:regFile|register:regsar1 ;
++----------------+-------+-----------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                      ;
++----------------+-------+-----------------------------------------------------------+
+; bits           ; 16    ; Signed Integer                                            ;
++----------------+-------+-----------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: registerFile:regFile|register:regmar0 ;
++----------------+-------+-----------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                      ;
++----------------+-------+-----------------------------------------------------------+
+; bits           ; 16    ; Signed Integer                                            ;
++----------------+-------+-----------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: registerFile:regFile|register:regmar1 ;
++----------------+-------+-----------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                      ;
++----------------+-------+-----------------------------------------------------------+
+; bits           ; 16    ; Signed Integer                                            ;
++----------------+-------+-----------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-----------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: registerFile:regFile|register:regcar ;
++----------------+-------+----------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                     ;
++----------------+-------+----------------------------------------------------------+
+; bits           ; 16    ; Signed Integer                                           ;
++----------------+-------+----------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-----------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: registerFile:regFile|counter193:hary ;
++----------------+-------+----------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                     ;
++----------------+-------+----------------------------------------------------------+
+; bits           ; 9     ; Signed Integer                                           ;
++----------------+-------+----------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-----------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: registerFile:regFile|counter193:harx ;
++----------------+-------+----------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                     ;
++----------------+-------+----------------------------------------------------------+
+; bits           ; 7     ; Signed Integer                                           ;
++----------------+-------+----------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++----------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: frameEngine:frameStateMachine ;
++----------------+-----------+-----------------------------------------------+
+; Parameter Name ; Value     ; Type                                          ;
++----------------+-----------+-----------------------------------------------+
+; HBP            ; 0000010   ; Unsigned Binary                               ;
+; HRES           ; 1010000   ; Unsigned Binary                               ;
+; HFP            ; 0000110   ; Unsigned Binary                               ;
+; HSW            ; 0001011   ; Unsigned Binary                               ;
+; CCEN80         ; 0000000   ; Unsigned Binary                               ;
+; CCEN40         ; 1100010   ; Unsigned Binary                               ;
+; VBP            ; 000001100 ; Unsigned Binary                               ;
+; VRES           ; 110010000 ; Unsigned Binary                               ;
+; VFP            ; 000100011 ; Unsigned Binary                               ;
+; VSW            ; 00000010  ; Unsigned Binary                               ;
++----------------+-----------+-----------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: frameEngine:frameStateMachine|counter:clkDiv ;
++----------------+-------+------------------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                             ;
++----------------+-------+------------------------------------------------------------------+
+; bits           ; 4     ; Signed Integer                                                   ;
++----------------+-------+------------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: frameEngine:frameStateMachine|counter:hCounter ;
++----------------+-------+--------------------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                               ;
++----------------+-------+--------------------------------------------------------------------+
+; bits           ; 7     ; Signed Integer                                                     ;
++----------------+-------+--------------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: frameEngine:frameStateMachine|counter:vCounter ;
++----------------+-------+--------------------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                               ;
++----------------+-------+--------------------------------------------------------------------+
+; bits           ; 9     ; Signed Integer                                                     ;
++----------------+-------+--------------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: counter:clockDivider ;
++----------------+-------+------------------------------------------+
+; Parameter Name ; Value ; Type                                     ;
++----------------+-------+------------------------------------------+
+; bits           ; 2     ; Signed Integer                           ;
++----------------+-------+------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++----------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: Sequencer:sequencer|counter:xPosCtr ;
++----------------+-------+---------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                    ;
++----------------+-------+---------------------------------------------------------+
+; bits           ; 11    ; Signed Integer                                          ;
++----------------+-------+---------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++----------------------------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: PlaneAddressCounter:planeAddress|counter193:hAddressCounter ;
++----------------+-------+---------------------------------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                                            ;
++----------------+-------+---------------------------------------------------------------------------------+
+; bits           ; 7     ; Signed Integer                                                                  ;
++----------------+-------+---------------------------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++----------------------------------------------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: PlaneAddressCounter:planeAddress|counter193:vAddressCounter ;
++----------------+-------+---------------------------------------------------------------------------------+
+; Parameter Name ; Value ; Type                                                                            ;
++----------------+-------+---------------------------------------------------------------------------------+
+; bits           ; 9     ; Signed Integer                                                                  ;
++----------------+-------+---------------------------------------------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: fe_register:creg0FF ;
++----------------+-------+-----------------------------------------+
+; Parameter Name ; Value ; Type                                    ;
++----------------+-------+-----------------------------------------+
+; bits           ; 16    ; Signed Integer                          ;
++----------------+-------+-----------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-----------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: fe_register:bregFF ;
++----------------+-------+----------------------------------------+
+; Parameter Name ; Value ; Type                                   ;
++----------------+-------+----------------------------------------+
+; bits           ; 8     ; Signed Integer                         ;
++----------------+-------+----------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: fe_register:cgregFF ;
++----------------+-------+-----------------------------------------+
+; Parameter Name ; Value ; Type                                    ;
++----------------+-------+-----------------------------------------+
+; bits           ; 8     ; Signed Integer                          ;
++----------------+-------+-----------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++--------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: counter193:clcCounter ;
++----------------+-------+-------------------------------------------+
+; Parameter Name ; Value ; Type                                      ;
++----------------+-------+-------------------------------------------+
+; bits           ; 4     ; Signed Integer                            ;
++----------------+-------+-------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: counter:blinkcounter ;
++----------------+-------+------------------------------------------+
+; Parameter Name ; Value ; Type                                     ;
++----------------+-------+------------------------------------------+
+; bits           ; 5     ; Signed Integer                           ;
++----------------+-------+------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-----------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: fe_register:cregFF ;
++----------------+-------+----------------------------------------+
+; Parameter Name ; Value ; Type                                   ;
++----------------+-------+----------------------------------------+
+; bits           ; 16    ; Signed Integer                         ;
++----------------+-------+----------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: shiftreg:pixelShiftreg ;
++----------------+-------+--------------------------------------------+
+; Parameter Name ; Value ; Type                                       ;
++----------------+-------+--------------------------------------------+
+; bits           ; 8     ; Signed Integer                             ;
++----------------+-------+--------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "counter:blinkcounter"                                                                  ;
++---------+--------+----------+-------------------------------------------------------------------------------------+
+; Port    ; Type   ; Severity ; Details                                                                             ;
++---------+--------+----------+-------------------------------------------------------------------------------------+
+; q[1..0] ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; q[4]    ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++---------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "PlaneAddressCounter:planeAddress"                                                                                                           ;
++------+-------+----------+----------------------------------------------------------------------------------------------------------------------------------------------+
+; Port ; Type  ; Severity ; Details                                                                                                                                      ;
++------+-------+----------+----------------------------------------------------------------------------------------------------------------------------------------------+
+; nrow ; Input ; Warning  ; Declared by entity but not connected by instance. If a default value exists, it will be used.  Otherwise, the port will be connected to GND. ;
++------+-------+----------+----------------------------------------------------------------------------------------------------------------------------------------------+
+
+
++--------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "Sequencer:sequencer|counter:xPosCtr"                                                    ;
++----------+--------+----------+-------------------------------------------------------------------------------------+
+; Port     ; Type   ; Severity ; Details                                                                             ;
++----------+--------+----------+-------------------------------------------------------------------------------------+
+; q[10..5] ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++----------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++--------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "Sequencer:sequencer"                                                                    ;
++----------+--------+----------+-------------------------------------------------------------------------------------+
+; Port     ; Type   ; Severity ; Details                                                                             ;
++----------+--------+----------+-------------------------------------------------------------------------------------+
+; nhost    ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; nhcmdstb ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++----------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "HorizontalPhase:hPhase|PhaseTable:phasetable"                                                                                                                         ;
++------+--------+----------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port ; Type   ; Severity ; Details                                                                                                                                                               ;
++------+--------+----------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; sc   ; Output ; Warning  ; Output or bidir port (4 bits) is smaller than the port expression (5 bits) it drives.  The 1 most-significant bit(s) in the port expression will be connected to GND. ;
++------+--------+----------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
++-------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "frameEngine:frameStateMachine|counter:clkDiv"                                          ;
++---------+--------+----------+-------------------------------------------------------------------------------------+
+; Port    ; Type   ; Severity ; Details                                                                             ;
++---------+--------+----------+-------------------------------------------------------------------------------------+
+; q[2..0] ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++---------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++----------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "frameEngine:frameStateMachine"                                                      ;
++------+--------+----------+-------------------------------------------------------------------------------------+
+; Port ; Type   ; Severity ; Details                                                                             ;
++------+--------+----------+-------------------------------------------------------------------------------------+
+; hcnt ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++---------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "registerFile:regFile|demux16:regsel"                                                     ;
++-----------+--------+----------+-------------------------------------------------------------------------------------+
+; Port      ; Type   ; Severity ; Details                                                                             ;
++-----------+--------+----------+-------------------------------------------------------------------------------------+
+; y[15..11] ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++-----------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "registerFile:regFile"                                                                 ;
++--------+--------+----------+-------------------------------------------------------------------------------------+
+; Port   ; Type   ; Severity ; Details                                                                             ;
++--------+--------+----------+-------------------------------------------------------------------------------------+
+; irqscl ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; irqvs  ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++--------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++-------------------------------+
+; Analysis & Synthesis Messages ;
++-------------------------------+
+Info: *******************************************************************
+Info: Running Quartus II 32-bit Analysis & Synthesis
+    Info: Version 12.1 Build 177 11/07/2012 SJ Web Edition
+    Info: Processing started: Mon Dec  3 08:55:42 2012
+Info: Command: quartus_map --read_settings_files=on --write_settings_files=off vdu-board -c vdu-board
+Warning (20028): Parallel compilation is not licensed and has been disabled
+Info (12021): Found 2 design units, including 2 entities, in source file horizontalPhase.v
+    Info (12023): Found entity 1: PhaseTable
+    Info (12023): Found entity 2: HorizontalPhase
+Info (12021): Found 2 design units, including 2 entities, in source file flipflop.v
+    Info (12023): Found entity 1: ff_jk
+    Info (12023): Found entity 2: ff_sr
+Info (12021): Found 5 design units, including 5 entities, in source file frameEngine.v
+    Info (12023): Found entity 1: counter
+    Info (12023): Found entity 2: counter_pr
+    Info (12023): Found entity 3: counter_fe
+    Info (12023): Found entity 4: counter_en
+    Info (12023): Found entity 5: frameEngine
+Info (12021): Found 5 design units, including 5 entities, in source file video.v
+    Info (12023): Found entity 1: registerFile
+    Info (12023): Found entity 2: RGBBuffer
+    Info (12023): Found entity 3: PlaneAddressCounter
+    Info (12023): Found entity 4: Sequencer
+    Info (12023): Found entity 5: video
+Info (12021): Found 1 design units, including 1 entities, in source file counter193.v
+    Info (12023): Found entity 1: counter193
+Info (12021): Found 0 design units, including 0 entities, in source file counter.v
+Info (12021): Found 1 design units, including 1 entities, in source file demux16.v
+    Info (12023): Found entity 1: demux16
+Info (12021): Found 2 design units, including 2 entities, in source file register.v
+    Info (12023): Found entity 1: register
+    Info (12023): Found entity 2: fe_register
+Info (12021): Found 0 design units, including 0 entities, in source file registerFile.v
+Warning (10236): Verilog HDL Implicit Net warning at video.v(414): created implicit net for "nsmstb"
+Info (12127): Elaborating entity "video" for the top level hierarchy
+Warning (10858): Verilog HDL warning at video.v(241): object bcgport used but never assigned
+Warning (10858): Verilog HDL warning at video.v(242): object cport used but never assigned
+Warning (10858): Verilog HDL warning at video.v(352): object nhmaskc used but never assigned
+Warning (10858): Verilog HDL warning at video.v(353): object nhmaskbcg used but never assigned
+Warning (10858): Verilog HDL warning at video.v(355): object har16 used but never assigned
+Warning (10036): Verilog HDL or VHDL warning at video.v(357): object "nrow" assigned a value but never read
+Warning (10230): Verilog HDL assignment warning at video.v(545): truncated value with size 32 to match size of target (1)
+Warning (10030): Net "bcgport" at video.v(241) has no driver or initial value, using a default initial value '0'
+Warning (10030): Net "cport" at video.v(242) has no driver or initial value, using a default initial value '0'
+Warning (10030): Net "nhmaskc" at video.v(352) has no driver or initial value, using a default initial value '0'
+Warning (10030): Net "nhmaskbcg" at video.v(353) has no driver or initial value, using a default initial value '0'
+Warning (10030): Net "har16" at video.v(355) has no driver or initial value, using a default initial value '0'
+Warning (10034): Output port "dir" at video.v(198) has no driver
+Warning (10034): Output port "irq" at video.v(207) has no driver
+Info (12128): Elaborating entity "registerFile" for hierarchy "registerFile:regFile"
+Info (12128): Elaborating entity "demux16" for hierarchy "registerFile:regFile|demux16:regsel"
+Info (12128): Elaborating entity "register" for hierarchy "registerFile:regFile|register:regmcr0a"
+Info (12128): Elaborating entity "register" for hierarchy "registerFile:regFile|register:regmcr0d"
+Info (12128): Elaborating entity "register" for hierarchy "registerFile:regFile|register:regmcr0f"
+Info (12128): Elaborating entity "register" for hierarchy "registerFile:regFile|register:regmcr1a"
+Info (12128): Elaborating entity "register" for hierarchy "registerFile:regFile|register:regscr0a"
+Info (12128): Elaborating entity "register" for hierarchy "registerFile:regFile|register:regccra"
+Info (12128): Elaborating entity "register" for hierarchy "registerFile:regFile|register:regsar0"
+Info (12128): Elaborating entity "counter193" for hierarchy "registerFile:regFile|counter193:hary"
+Warning (10230): Verilog HDL assignment warning at counter193.v(39): truncated value with size 32 to match size of target (9)
+Info (12128): Elaborating entity "counter193" for hierarchy "registerFile:regFile|counter193:harx"
+Warning (10230): Verilog HDL assignment warning at counter193.v(39): truncated value with size 32 to match size of target (7)
+Info (12128): Elaborating entity "frameEngine" for hierarchy "frameEngine:frameStateMachine"
+Info (12128): Elaborating entity "counter" for hierarchy "frameEngine:frameStateMachine|counter:clkDiv"
+Warning (10230): Verilog HDL assignment warning at counter.v(29): truncated value with size 32 to match size of target (4)
+Info (12128): Elaborating entity "counter" for hierarchy "frameEngine:frameStateMachine|counter:hCounter"
+Warning (10230): Verilog HDL assignment warning at counter.v(29): truncated value with size 32 to match size of target (7)
+Info (12128): Elaborating entity "ff_sr" for hierarchy "frameEngine:frameStateMachine|ff_sr:ff_hmemenable"
+Info (12128): Elaborating entity "counter" for hierarchy "frameEngine:frameStateMachine|counter:vCounter"
+Warning (10230): Verilog HDL assignment warning at counter.v(29): truncated value with size 32 to match size of target (9)
+Info (12128): Elaborating entity "counter" for hierarchy "counter:clockDivider"
+Warning (10230): Verilog HDL assignment warning at counter.v(29): truncated value with size 32 to match size of target (2)
+Info (12128): Elaborating entity "HorizontalPhase" for hierarchy "HorizontalPhase:hPhase"
+Warning (10230): Verilog HDL assignment warning at horizontalPhase.v(102): truncated value with size 32 to match size of target (6)
+Info (12128): Elaborating entity "PhaseTable" for hierarchy "HorizontalPhase:hPhase|PhaseTable:phasetable"
+Info (12128): Elaborating entity "Sequencer" for hierarchy "Sequencer:sequencer"
+Warning (10036): Verilog HDL or VHDL warning at video.v(131): object "xpos" assigned a value but never read
+Info (12128): Elaborating entity "counter" for hierarchy "Sequencer:sequencer|counter:xPosCtr"
+Warning (10230): Verilog HDL assignment warning at counter.v(29): truncated value with size 32 to match size of target (11)
+Info (12128): Elaborating entity "PlaneAddressCounter" for hierarchy "PlaneAddressCounter:planeAddress"
+Info (12128): Elaborating entity "fe_register" for hierarchy "fe_register:creg0FF"
+Info (12128): Elaborating entity "fe_register" for hierarchy "fe_register:bregFF"
+Info (12128): Elaborating entity "counter193" for hierarchy "counter193:clcCounter"
+Warning (10230): Verilog HDL assignment warning at counter193.v(39): truncated value with size 32 to match size of target (4)
+Info (12128): Elaborating entity "counter" for hierarchy "counter:blinkcounter"
+Warning (10230): Verilog HDL assignment warning at counter.v(29): truncated value with size 32 to match size of target (5)
+Warning (12125): Using design file shiftreg.v, which is not specified as a design file for the current project, but contains definitions for 1 design units and 1 entities in project
+    Info (12023): Found entity 1: shiftreg
+Info (12128): Elaborating entity "shiftreg" for hierarchy "shiftreg:pixelShiftreg"
+Info (12128): Elaborating entity "RGBBuffer" for hierarchy "RGBBuffer:rgbbuffer"
+Warning (19016): Clock multiplexers are found and protected
+    Warning (19017): Found clock multiplexer registerFile:regFile|col40
+    Warning (19017): Found clock multiplexer pixclk
+    Warning (19017): Found clock multiplexer Sequencer:sequencer|incaddr~synth
+Warning (12241): 2 hierarchies have connectivity warnings - see the Connectivity Checks report folder
+Warning (13039): The following bidir pins have no drivers
+    Warning (13040): Bidir "db[0]" has no driver
+    Warning (13040): Bidir "db[1]" has no driver
+    Warning (13040): Bidir "db[2]" has no driver
+    Warning (13040): Bidir "db[3]" has no driver
+    Warning (13040): Bidir "db[4]" has no driver
+    Warning (13040): Bidir "db[5]" has no driver
+    Warning (13040): Bidir "db[6]" has no driver
+    Warning (13040): Bidir "db[7]" has no driver
+    Warning (13040): Bidir "db[8]" has no driver
+    Warning (13040): Bidir "db[9]" has no driver
+    Warning (13040): Bidir "db[10]" has no driver
+    Warning (13040): Bidir "db[11]" has no driver
+    Warning (13040): Bidir "db[12]" has no driver
+    Warning (13040): Bidir "db[13]" has no driver
+    Warning (13040): Bidir "db[14]" has no driver
+    Warning (13040): Bidir "db[15]" has no driver
+Warning (13024): Output pins are stuck at VCC or GND
+    Warning (13410): Pin "ncs0" is stuck at GND
+    Warning (13410): Pin "ncs1" is stuck at GND
+    Warning (13410): Pin "ncs2" is stuck at GND
+    Warning (13410): Pin "dir" is stuck at GND
+    Warning (13410): Pin "irq" is stuck at GND
+Info (17049): 7 registers lost all their fanouts during netlist optimizations.
+Warning (21074): Design contains 1 input pin(s) that do not drive logic
+    Warning (15610): No output dependent on input pin "nr"
+Info (21057): Implemented 562 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 13 input pins
+    Info (21059): Implemented 34 output pins
+    Info (21060): Implemented 40 bidirectional pins
+    Info (21061): Implemented 475 logic cells
+Info (144001): Generated suppressed messages file /home/alexios/PROJECTS/HARDWARE/cft/video-board/altera/output_files/vdu-board.map.smsg
+Info: Quartus II 32-bit Analysis & Synthesis was successful. 0 errors, 58 warnings
+    Info: Peak virtual memory: 316 megabytes
+    Info: Processing ended: Mon Dec  3 08:55:50 2012
+    Info: Elapsed time: 00:00:08
+    Info: Total CPU time (on all processors): 00:00:04
+
+
++------------------------------------------+
+; Analysis & Synthesis Suppressed Messages ;
++------------------------------------------+
+The suppressed messages can be found in /home/alexios/PROJECTS/HARDWARE/cft/video-board/altera/output_files/vdu-board.map.smsg.
+
+
