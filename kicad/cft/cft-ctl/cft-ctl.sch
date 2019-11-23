@@ -1,5 +1,5 @@
 EESchema Schematic File Version 4
-LIBS:cft-pb0-cache
+LIBS:cft-ctl-cache
 EELAYER 30 0
 EELAYER END
 $Descr A3 16535 11693
@@ -9,7 +9,7 @@ Title "Control Unit Board"
 Date ""
 Rev ""
 Comp ""
-Comment1 "CUB"
+Comment1 "CTL"
 Comment2 ""
 Comment3 ""
 Comment4 ""

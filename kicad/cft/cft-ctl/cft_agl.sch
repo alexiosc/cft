@@ -1,5 +1,5 @@
 EESchema Schematic File Version 4
-LIBS:cft-pb0-cache
+LIBS:cft-ctl-cache
 EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
@@ -9,7 +9,7 @@ Title "Address Generation Logic"
 Date ""
 Rev ""
 Comp ""
-Comment1 "CUB"
+Comment1 "CTL"
 Comment2 ""
 Comment3 ""
 Comment4 "agl.v"
