@@ -1,4 +1,5 @@
 // -*- indent-c -*-
+#warning "TODO: Review this file for DFP2"
 
 #ifndef __SWITCHES_H__
 #define __SWITCHES_H__

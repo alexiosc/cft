@@ -1,4 +1,5 @@
 // -*- c -*-
+#warning "TODO: Review this file for DFP2"
 // AUTOMATICALLY GENERATED, DO NOT EDIT.
 
 #ifndef __PROTO_CMDS_H

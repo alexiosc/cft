@@ -1,12 +1,22 @@
-#SERIAL_BPS	= 921600
+#!/usr/bin/make -f
+
+###############################################################################
+#
+# THE DFP 2 FIRMWARE
+#
+###############################################################################
+
+
+#SERIAL_BPS	= 	921600
 SERIAL_BPS	=	460800
 #SERIAL_BPS	=	230400
 #SERIAL_BPS	=	9600
-VERSION		=	1.2
+VERSION		=	2.0
 BUFSIZE		=	512
 #CPU_FREQ	=	7372800 # Hz
 CPU_FREQ	=	14745600
 #CPU_FREQ	=	1000000 # Hz (Factory default)
+CPU_FREQ	=	16000000 # Hz (16.0 MHz crystal)
 
 DEFINES		=	-DDEBUG \
 			-DVERSION='"$(VERSION) $(shell date +%Y-%m-%d)"' \
@@ -18,61 +28,13 @@ DEFINES		+=	-DDISASSEMBLE
 
 
 PROG	=	dfp
-#MCU_TARGET     =	at90s2313
-#MCU_TARGET     =	at90s2333
-#MCU_TARGET     =	at90s4414
-#MCU_TARGET     =	at90s4433
-#MCU_TARGET     =	at90s4434
-#MCU_TARGET     =	at90s8515
-#MCU_TARGET     =	at90s8535
-#MCU_TARGET     =	atmega128
-#MCU_TARGET     =	atmega1280
-#MCU_TARGET     =	atmega1281
-#MCU_TARGET     =	atmega1284p
-#MCU_TARGET     =	atmega16
-#MCU_TARGET     =	atmega163
-#MCU_TARGET     =	atmega164p
-#MCU_TARGET     =	atmega165
-#MCU_TARGET     =	atmega165p
-###MCU_TARGET	=	atmega168
-#MCU_TARGET     =	atmega169
-#MCU_TARGET     =	atmega169p
-#MCU_TARGET     =	atmega2560
-#MCU_TARGET     =	atmega2561
-#MCU_TARGET     =	atmega32
-#MCU_TARGET     =	atmega324p
-#MCU_TARGET     =	atmega325
-#MCU_TARGET     =	atmega3250
-MCU_TARGET	=	atmega328p
-#MCU_TARGET     =	atmega329
-#MCU_TARGET     =	atmega3290
-#MCU_TARGET     =	atmega48
-#MCU_TARGET     =	atmega64
-#MCU_TARGET     =	atmega640
-#MCU_TARGET     =	atmega644
-#MCU_TARGET     =	atmega644p
-#MCU_TARGET     =	atmega645
-#MCU_TARGET     =	atmega6450
-#MCU_TARGET     =	atmega649
-#MCU_TARGET     =	atmega6490
-#MCU_TARGET     =	atmega8
-#MCU_TARGET     =	atmega8515
-#MCU_TARGET     =	atmega8535
-#MCU_TARGET     =	atmega88
-#MCU_TARGET     =	attiny2313
-#MCU_TARGET     =	attiny24
-#MCU_TARGET     =	attiny25
-#MCU_TARGET     =	attiny26
-#MCU_TARGET     =	attiny261
-#MCU_TARGET     =	attiny44
-#MCU_TARGET     =	attiny45
-#MCU_TARGET     =	attiny461
-#MCU_TARGET     =	attiny84
-#MCU_TARGET     =	attiny85
-#MCU_TARGET     =	attiny861
-OPTIMIZE	=	-Os -mcall-prologues
 
-#OPTFLAGS	=	--param inline-call-cost=2 -finline-limit=3
+# Hint: to list MCU targets, change the name of MCU_TARGET to an invalid value.
+###MCU_TARGET	=	atmega168
+###MCU_TARGET	=	atmega328p
+MCU_TARGET     =	atmega64
+
+OPTIMIZE	=	-Os -mcall-prologues
 
 AVRCFLAGS	+=	-DAVR
 AVRCFLAGS	+=	-std=gnu99
@@ -100,7 +62,7 @@ HOSTDEFS	+=	-O2 -Wall -pedantic
 
 # If you have a part with enough Flash memory, you can enable this to
 #allow text dumps for interactive use.
-DEFS +=	-DDUMP_TEXT
+DEFS 		+=	-DDUMP_TEXT
 
 LIBS		=
 
@@ -133,7 +95,7 @@ OBJDUMP        	=	avr-objdump
 SIMCFILES	=	simulate.c simulate_parts.c simulate_uart.c
 SIMHFILES	=	simulate_parts.h simulate_uart.h
 
-SIMAVRDIR	=	$(realpath ../../external/simavr)
+SIMAVRDIR	=	$(realpath ../../../external/simavr)
 SIMAVRLIBS	=	-lsimavr -lelf -lpthread -lutil -lncurses
 SIMAVRLIBDIR	=	$(SIMAVRDIR)/simavr/obj-$(shell arch)-linux-gnu/
 SIMAVRFLAGS	+=	$(DEFINES) -g -Wall -std=gnu99 -O0 \
