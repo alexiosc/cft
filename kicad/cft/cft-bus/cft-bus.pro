@@ -1,4 +1,4 @@
-update=Sun Jun 23 14:50:53 2019
+update=Thu Nov 21 10:26:33 2019
 version=1
 last_client=kicad
 [general]
@@ -33,7 +33,7 @@ LibDir=
 [eeschema/libraries]
 [schematic_editor]
 version=1
-PageLayoutDescrFile=
+PageLayoutDescrFile=/home/alexios/PROJECTS/HARDWARE/cft/kicad/layout/a3-layout.kicad_wks
 PlotDirectoryName=
 SubpartIdSeparator=0
 SubpartFirstId=65

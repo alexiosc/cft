@@ -1,15 +1,15 @@
 EESchema Schematic File Version 4
-LIBS:cft-cache
+LIBS:cft-ctl-cache
 EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 19 30
-Title ""
+Sheet 6 10
+Title "Flag Unit"
 Date ""
 Rev ""
 Comp ""
-Comment1 ""
+Comment1 "CTL"
 Comment2 ""
 Comment3 ""
 Comment4 ""
@@ -130,8 +130,9 @@ U 1 1 5D676F48
 P 7800 5800
 AR Path="/5D676F48" Ref="#PWR?"  Part="1" 
 AR Path="/5D65F6EF/5D676F48" Ref="#PWR?"  Part="1" 
-AR Path="/5D69F3FD/5D676F48" Ref="#PWR03325"  Part="1" 
-F 0 "#PWR03325" H 7800 5550 50  0001 C CNN
+AR Path="/5D69F3FD/5D676F48" Ref="#PWR?"  Part="1" 
+AR Path="/5DF0FECB/5D676F48" Ref="#PWR0132"  Part="1" 
+F 0 "#PWR0132" H 7800 5550 50  0001 C CNN
 F 1 "GND" H 7805 5627 50  0000 C CNN
 F 2 "" H 7800 5800 50  0001 C CNN
 F 3 "" H 7800 5800 50  0001 C CNN
@@ -144,8 +145,9 @@ U 1 1 5D676F4E
 P 7800 2150
 AR Path="/5D676F4E" Ref="#PWR?"  Part="1" 
 AR Path="/5D65F6EF/5D676F4E" Ref="#PWR?"  Part="1" 
-AR Path="/5D69F3FD/5D676F4E" Ref="#PWR03324"  Part="1" 
-F 0 "#PWR03324" H 7800 1900 50  0001 C CNN
+AR Path="/5D69F3FD/5D676F4E" Ref="#PWR?"  Part="1" 
+AR Path="/5DF0FECB/5D676F4E" Ref="#PWR0127"  Part="1" 
+F 0 "#PWR0127" H 7800 1900 50  0001 C CNN
 F 1 "GND" H 7805 1977 50  0000 C CNN
 F 2 "" H 7800 2150 50  0001 C CNN
 F 3 "" H 7800 2150 50  0001 C CNN
@@ -174,10 +176,11 @@ U 1 1 5D676F64
 P 8300 5300
 AR Path="/5D676F64" Ref="U?"  Part="1" 
 AR Path="/5D65F6EF/5D676F64" Ref="U?"  Part="1" 
-AR Path="/5D69F3FD/5D676F64" Ref="U1508"  Part="1" 
-F 0 "U1508" H 8300 6067 50  0000 C CNN
+AR Path="/5D69F3FD/5D676F64" Ref="U?"  Part="1" 
+AR Path="/5DF0FECB/5D676F64" Ref="U67"  Part="1" 
+F 0 "U67" H 8300 6067 50  0000 C CNN
 F 1 "74HC541" H 8300 5976 50  0000 C CNN
-F 2 "" H 8300 5300 50  0001 C CNN
+F 2 "alexios:SOIC-20W" H 8300 5300 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 8300 5300 50  0001 C CNN
 	1    8300 5300
 	1    0    0    -1  
@@ -220,10 +223,11 @@ U 1 1 5D676F7A
 P 8300 1650
 AR Path="/5D676F7A" Ref="U?"  Part="1" 
 AR Path="/5D65F6EF/5D676F7A" Ref="U?"  Part="1" 
-AR Path="/5D69F3FD/5D676F7A" Ref="U1507"  Part="1" 
-F 0 "U1507" H 8300 2417 50  0000 C CNN
+AR Path="/5D69F3FD/5D676F7A" Ref="U?"  Part="1" 
+AR Path="/5DF0FECB/5D676F7A" Ref="U62"  Part="1" 
+F 0 "U62" H 8300 2417 50  0000 C CNN
 F 1 "74HC541" H 8300 2326 50  0000 C CNN
-F 2 "" H 8300 1650 50  0001 C CNN
+F 2 "alexios:SOIC-20W" H 8300 1650 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 8300 1650 50  0001 C CNN
 	1    8300 1650
 	1    0    0    -1  
@@ -288,10 +292,11 @@ AR Path="/5F3EA987/5D676F9A" Ref="U?"  Part="1"
 AR Path="/5D676F9A" Ref="U?"  Part="1" 
 AR Path="/61F95ACC/5D676F9A" Ref="U?"  Part="1" 
 AR Path="/5D65F6EF/5D676F9A" Ref="U?"  Part="1" 
-AR Path="/5D69F3FD/5D676F9A" Ref="U3309"  Part="1" 
-F 0 "U3309" H 3850 6017 50  0000 C CNN
+AR Path="/5D69F3FD/5D676F9A" Ref="U?"  Part="1" 
+AR Path="/5DF0FECB/5D676F9A" Ref="U68"  Part="1" 
+F 0 "U68" H 3850 6017 50  0000 C CNN
 F 1 "74HC138" H 3850 5926 50  0000 C CNN
-F 2 "" H 3850 5350 50  0001 C CNN
+F 2 "alexios:SOIC-16" H 3850 5350 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 3850 5350 50  0001 C CNN
 	1    3850 5350
 	1    0    0    -1  
@@ -310,8 +315,9 @@ U 1 1 5D676FA4
 P 3350 5550
 AR Path="/5D676FA4" Ref="#PWR?"  Part="1" 
 AR Path="/5D65F6EF/5D676FA4" Ref="#PWR?"  Part="1" 
-AR Path="/5D69F3FD/5D676FA4" Ref="#PWR03322"  Part="1" 
-F 0 "#PWR03322" H 3350 5400 50  0001 C CNN
+AR Path="/5D69F3FD/5D676FA4" Ref="#PWR?"  Part="1" 
+AR Path="/5DF0FECB/5D676FA4" Ref="#PWR0130"  Part="1" 
+F 0 "#PWR0130" H 3350 5400 50  0001 C CNN
 F 1 "+5V" H 3365 5723 50  0000 C CNN
 F 2 "" H 3350 5550 50  0001 C CNN
 F 3 "" H 3350 5550 50  0001 C CNN
@@ -324,8 +330,9 @@ U 1 1 5D676FAA
 P 3350 5750
 AR Path="/5D676FAA" Ref="#PWR?"  Part="1" 
 AR Path="/5D65F6EF/5D676FAA" Ref="#PWR?"  Part="1" 
-AR Path="/5D69F3FD/5D676FAA" Ref="#PWR03323"  Part="1" 
-F 0 "#PWR03323" H 3350 5500 50  0001 C CNN
+AR Path="/5D69F3FD/5D676FAA" Ref="#PWR?"  Part="1" 
+AR Path="/5DF0FECB/5D676FAA" Ref="#PWR0131"  Part="1" 
+F 0 "#PWR0131" H 3350 5500 50  0001 C CNN
 F 1 "GND" H 3355 5577 50  0000 C CNN
 F 2 "" H 3350 5750 50  0001 C CNN
 F 3 "" H 3350 5750 50  0001 C CNN
@@ -381,10 +388,11 @@ U 1 1 5D676FD3
 P 5500 3000
 AR Path="/5D676FD3" Ref="U?"  Part="1" 
 AR Path="/5D65F6EF/5D676FD3" Ref="U?"  Part="1" 
-AR Path="/5D69F3FD/5D676FD3" Ref="U3310"  Part="1" 
-F 0 "U3310" H 5425 3267 50  0000 C CNN
+AR Path="/5D69F3FD/5D676FD3" Ref="U?"  Part="1" 
+AR Path="/5DF0FECB/5D676FD3" Ref="U64"  Part="1" 
+F 0 "U64" H 5425 3267 50  0000 C CNN
 F 1 "74LVC1G08" H 5425 3176 50  0000 C CNN
-F 2 "" H 5150 3000 50  0001 C CNN
+F 2 "alexios:SOT-23-5_HandSoldering" H 5150 3000 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 5150 3000 50  0001 C CNN
 	1    5500 3000
 	1    0    0    -1  
@@ -403,10 +411,11 @@ U 1 1 5D676FDD
 P 5500 4250
 AR Path="/5D676FDD" Ref="U?"  Part="1" 
 AR Path="/5D65F6EF/5D676FDD" Ref="U?"  Part="1" 
-AR Path="/5D69F3FD/5D676FDD" Ref="U3311"  Part="1" 
-F 0 "U3311" H 5425 4517 50  0000 C CNN
+AR Path="/5D69F3FD/5D676FDD" Ref="U?"  Part="1" 
+AR Path="/5DF0FECB/5D676FDD" Ref="U66"  Part="1" 
+F 0 "U66" H 5425 4517 50  0000 C CNN
 F 1 "74LVC1G08" H 5425 4426 50  0000 C CNN
-F 2 "" H 5150 4250 50  0001 C CNN
+F 2 "alexios:SOT-23-5_HandSoldering" H 5150 4250 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 5150 4250 50  0001 C CNN
 	1    5500 4250
 	1    0    0    -1  
@@ -443,10 +452,11 @@ AR Path="/5F3EA987/5D676FFB" Ref="U?"  Part="1"
 AR Path="/5D676FFB" Ref="U?"  Part="1" 
 AR Path="/61F95ACC/5D676FFB" Ref="U?"  Part="1" 
 AR Path="/5D65F6EF/5D676FFB" Ref="U?"  Part="1" 
-AR Path="/5D69F3FD/5D676FFB" Ref="U3308"  Part="1" 
-F 0 "U3308" H 3850 4767 50  0000 C CNN
+AR Path="/5D69F3FD/5D676FFB" Ref="U?"  Part="1" 
+AR Path="/5DF0FECB/5D676FFB" Ref="U65"  Part="1" 
+F 0 "U65" H 3850 4767 50  0000 C CNN
 F 1 "74HC138" H 3850 4676 50  0000 C CNN
-F 2 "" H 3850 4100 50  0001 C CNN
+F 2 "alexios:SOIC-16" H 3850 4100 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 3850 4100 50  0001 C CNN
 	1    3850 4100
 	1    0    0    -1  
@@ -475,10 +485,11 @@ AR Path="/5F3EA987/5D67700F" Ref="U?"  Part="1"
 AR Path="/5D67700F" Ref="U?"  Part="1" 
 AR Path="/61F95ACC/5D67700F" Ref="U?"  Part="1" 
 AR Path="/5D65F6EF/5D67700F" Ref="U?"  Part="1" 
-AR Path="/5D69F3FD/5D67700F" Ref="U3307"  Part="1" 
-F 0 "U3307" H 3850 3517 50  0000 C CNN
+AR Path="/5D69F3FD/5D67700F" Ref="U?"  Part="1" 
+AR Path="/5DF0FECB/5D67700F" Ref="U63"  Part="1" 
+F 0 "U63" H 3850 3517 50  0000 C CNN
 F 1 "74HC138" H 3850 3426 50  0000 C CNN
-F 2 "" H 3850 2850 50  0001 C CNN
+F 2 "alexios:SOIC-16" H 3850 2850 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 3850 2850 50  0001 C CNN
 	1    3850 2850
 	1    0    0    -1  
@@ -572,8 +583,6 @@ Text Label 2200 1650 0    50   ~ 0
 FV
 Text Label 2200 1750 0    50   ~ 0
 FI
-Text Notes 7100 7000 0    197  ~ 39
-Flag Unit
 Text Label 7450 5400 0    50   ~ 0
 FPRSVD14
 Wire Wire Line
@@ -581,10 +590,10 @@ Wire Wire Line
 Wire Wire Line
 	3000 3150 3350 3150
 $Comp
-L power:GND #PWR?
+L power:GND #PWR0128
 U 1 1 5DFC5E58
 P 3350 3250
-F 0 "#PWR?" H 3350 3000 50  0001 C CNN
+F 0 "#PWR0128" H 3350 3000 50  0001 C CNN
 F 1 "GND" H 3355 3077 50  0000 C CNN
 F 2 "" H 3350 3250 50  0001 C CNN
 F 3 "" H 3350 3250 50  0001 C CNN
@@ -596,10 +605,10 @@ WADDR3
 Text Label 3000 3150 0    50   ~ 0
 WADDR4
 $Comp
-L power:GND #PWR?
+L power:GND #PWR0129
 U 1 1 5DFDCB26
 P 3350 4500
-F 0 "#PWR?" H 3350 4250 50  0001 C CNN
+F 0 "#PWR0129" H 3350 4250 50  0001 C CNN
 F 1 "GND" H 3355 4327 50  0000 C CNN
 F 2 "" H 3350 4500 50  0001 C CNN
 F 3 "" H 3350 4500 50  0001 C CNN
@@ -630,10 +639,10 @@ FPD7
 Text Notes 3900 6650 0    50   ~ 0
 These solder jumpers can be used to change the meanings\nof the unused LEDs on the flag section of the front panel.\nThey should be bridged (ground, LED off) until this is required.
 $Comp
-L Jumper:SolderJumper_3_Bridged123 JP?
+L Jumper:SolderJumper_3_Bridged123 JP1
 U 1 1 5E0D2D96
 P 4150 7200
-F 0 "JP?" V 4150 7267 50  0000 L CNN
+F 0 "JP1" V 4150 7267 50  0000 L CNN
 F 1 "SolderJumper_3_Bridged123" V 4105 7267 50  0001 L CNN
 F 2 "" H 4150 7200 50  0001 C CNN
 F 3 "~" H 4150 7200 50  0001 C CNN
@@ -649,10 +658,10 @@ Wire Wire Line
 Text Label 3850 7000 0    50   ~ 0
 RSVD8
 $Comp
-L power:GND #PWR?
+L power:GND #PWR0133
 U 1 1 5E0E6829
 P 4150 7400
-F 0 "#PWR?" H 4150 7150 50  0001 C CNN
+F 0 "#PWR0133" H 4150 7150 50  0001 C CNN
 F 1 "GND" H 4155 7227 50  0000 C CNN
 F 2 "" H 4150 7400 50  0001 C CNN
 F 3 "" H 4150 7400 50  0001 C CNN
@@ -660,10 +669,10 @@ F 3 "" H 4150 7400 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Jumper:SolderJumper_3_Bridged123 JP?
+L Jumper:SolderJumper_3_Bridged123 JP2
 U 1 1 5E0F938B
 P 5100 7200
-F 0 "JP?" V 5100 7267 50  0000 L CNN
+F 0 "JP2" V 5100 7267 50  0000 L CNN
 F 1 "SolderJumper_3_Bridged123" V 5055 7267 50  0001 L CNN
 F 2 "" H 5100 7200 50  0001 C CNN
 F 3 "~" H 5100 7200 50  0001 C CNN
@@ -679,10 +688,10 @@ Wire Wire Line
 Text Label 4800 7000 0    50   ~ 0
 RSVD9
 $Comp
-L power:GND #PWR?
+L power:GND #PWR0134
 U 1 1 5E0F9395
 P 5100 7400
-F 0 "#PWR?" H 5100 7150 50  0001 C CNN
+F 0 "#PWR0134" H 5100 7150 50  0001 C CNN
 F 1 "GND" H 5105 7227 50  0000 C CNN
 F 2 "" H 5100 7400 50  0001 C CNN
 F 3 "" H 5100 7400 50  0001 C CNN
@@ -690,10 +699,10 @@ F 3 "" H 5100 7400 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Jumper:SolderJumper_3_Bridged123 JP?
+L Jumper:SolderJumper_3_Bridged123 JP3
 U 1 1 5E104138
 P 6050 7200
-F 0 "JP?" V 6050 7267 50  0000 L CNN
+F 0 "JP3" V 6050 7267 50  0000 L CNN
 F 1 "SolderJumper_3_Bridged123" V 6005 7267 50  0001 L CNN
 F 2 "" H 6050 7200 50  0001 C CNN
 F 3 "~" H 6050 7200 50  0001 C CNN
@@ -709,10 +718,10 @@ Wire Wire Line
 Text Label 5750 7000 0    50   ~ 0
 RSVD14
 $Comp
-L power:GND #PWR?
+L power:GND #PWR0135
 U 1 1 5E104142
 P 6050 7400
-F 0 "#PWR?" H 6050 7150 50  0001 C CNN
+F 0 "#PWR0135" H 6050 7150 50  0001 C CNN
 F 1 "GND" H 6055 7227 50  0000 C CNN
 F 2 "" H 6050 7400 50  0001 C CNN
 F 3 "" H 6050 7400 50  0001 C CNN
