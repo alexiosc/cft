@@ -290,8 +290,8 @@ experiments/**
 **/firmware/dfp.elf
 # **/simavr/
 # **/simavr/simavr/obj-x86_64-linux-gnu/
-peripherals/dfp1/lib/libdfp.so
-peripherals/dfp1/lib/libdfp.so.*
+**/lib*.so
+**/libdfp.so.[0-9]*
 
 
 ###############################################################################
