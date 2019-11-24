@@ -111,7 +111,7 @@ serial_init()
 uint8_t cmode = 8;
 
 // Serial receive interrupt handler.
-ISR(USART_RX_vect)
+ISR(USART0_RX_vect)
 {
 	uint8_t c;
 
