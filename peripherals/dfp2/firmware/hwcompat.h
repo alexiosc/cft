@@ -170,6 +170,64 @@
 
 
 
+///////////////////////////////////////////////////////////////////////////////
+//
+// SWITCHES
+//
+///////////////////////////////////////////////////////////////////////////////
+
+// The CFT has 30 switches. Some are double throw. Each front panel module
+// allows for 8 double-throw switches and the DFP scans 64 switch bits. The
+// switches are scanned using Port F of the MCU. Four bits are decoded to
+// address switch pairs in modules A and C and B and D.
+//
+// SWA    SWD0-SWD1   SWD2-SWD3
+//  0       SW A0        SW B0
+//  1       SW A1	 SW B1
+//  2       SW A2	 SW B2
+//  3       SW A3	 SW B3
+//  4       SW A4	 SW B4
+//  5       SW A5	 SW B5
+//  6       SW A6	 SW B6
+//  7       SW A7	 SW B7
+//  8       SW C0        SW D0
+//  9       SW C1        SW D1
+// 10       SW C2        SW D2
+// 11       SW C3        SW D3
+// 12       SW C4        SW D4
+// 13       SW C5        SW D5
+// 14       SW C6        SW D6
+// 15       SW C7        SW D7
+//
+// Switches:
+//   Module A:
+//     * Panel lock
+//     * START/RESET
+//     * STOP/RUN
+//     * STEP/µSTEP
+//     * SPEED: Creep
+//     * SPEED: Fast
+//     * LTS
+//     * MFD: SP
+//     * MFD: OR
+//
+//   Module B:
+//     * SR (8 switches)
+//
+//   Module C
+//     * SR (8 switches)
+//
+//   Module D
+//     * SR->PC/SR->IR
+//     * SR->AC/TEST
+//     * NEXT
+//     * MEM W
+//     * MEM R
+//     * IO W
+//     * IO R
+//     * ROM
+//     * A/B
+
 
 #ifdef AVR
 
