@@ -1,21 +1,27 @@
-#warning "TODO: Review this file for DFP2"
+// -*- indent-c -*-
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// ABSTRACT DEFINITIONS
+//
+///////////////////////////////////////////////////////////////////////////////
+
 #ifndef __ABSTRACT_H__
 #define __ABSTRACT_H__
 
 #include <stdint.h>
-
 #include "hwcompat.h"
 
 // Sanity check
 #ifdef AVR
-#ifdef HOST
-#error "Both -DAVR and -DHOST have been passed to the compiler."
-#endif // HOST
+#  ifdef HOST
+#    error "Both -DAVR and -DHOST have been passed to the compiler."
+#  endif // HOST
 #endif // AVR
-
 
 // Note: ICR_TTY is used to enable IRQ6# when console characters
 // received.
+#warning "Review these flags, IFR1/IFR6 are no longer available"
 #define ICR_IFR6 2
 #define ICR_IFR1 4
 #define ICR_TTY  8

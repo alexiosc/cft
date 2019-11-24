@@ -1,10 +1,16 @@
-#warning "TODO: Review this file for DFP2"
+// -*- indent-c -*-
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// THE DFP 2 FIRMWARE
+//
+///////////////////////////////////////////////////////////////////////////////
+
 #ifdef HOST
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
 #endif
-
 
 #include "abstract.h"
 #include "proto.h"
@@ -15,17 +21,9 @@
 
 
 inline void
-diag()
-{
-//#warning "TODO: Implement diags"
-}
-
-
-inline void
 init()
 {
 	hw_init();
-	diag();
 	proto_init();
 }
 
@@ -56,7 +54,6 @@ main(int argc, char **argv)
 	// First things first, clear the WDRF and reset the watchdog
 	MCUSR = 0;
 	wdt_disable();
-
 	init();
 	for (;;) run();
 #else

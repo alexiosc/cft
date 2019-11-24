@@ -738,7 +738,7 @@ faulty:
 	cli();
 
 	// Crash here. The watchdog will cold reset us in a bit.
-	wdt_enable(WDTO_8S);
+	wdt_enable(WATCHDOG_TIMEOUT);
 	for (;;) {
 		// Blink the STOP light slowly. Hopefully this will work.
 		cb[2] ^= CB2_FPSTOP;
@@ -897,7 +897,7 @@ hw_init()
 	}
 
 	// Enable the watchdog.
-	wdt_enable(WDTO_4S);
+	wdt_enable(WATCHDOG_TIMEOUT);
 
 	// Run diagnostics
 	dfp_diags();
