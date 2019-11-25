@@ -800,6 +800,8 @@ faulty:
 void
 hw_init()
 {
+#error "TODO: Write this for the DFP 2"
+
 	// Time = 1
 
 	// Set output pins and idle values. This will initialise with

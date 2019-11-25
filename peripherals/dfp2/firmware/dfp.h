@@ -77,40 +77,40 @@
 #define READ_UCV_L   _XMEM(0x02)        //  2 C1 C30: µCV bits 0–7
 #define READ_IRQ_ACT _XMEM(0x03)        //  3 D1 C39: IRQs active
 
-#define READ_UCV_H   _XMEM(0x04)        //  4 A2  C4: AEXT
-#define READ_UCV_M   _XMEM(0x05)        //  5 B2 C21: PC bits 8–15
-#define READ_UCV_L   _XMEM(0x06)        //  6 C2 C27: PC bits 0–7
-#define READ_IRQ_ACT _XMEM(0x07)        //  7 D2 C40: IRQs enabled
+#define READ_AEXT    _XMEM(0x04)        //  4 A2  C4: AEXT
+#define READ_PC_HI   _XMEM(0x05)        //  5 B2 C21: PC bits 8–15
+#define READ_PC_LO   _XMEM(0x06)        //  6 C2 C27: PC bits 0–7
+#define READ_IRQ_EN  _XMEM(0x07)        //  7 D2 C40: IRQs enabled
 
-#define READ_UCV_H   _XMEM(0x08)        //  8 A3 C13: flags
-#define READ_UCV_M   _XMEM(0x09)        //  9 B3 C20: AC bits 8–15
-#define READ_UCV_L   _XMEM(0x0a)        // 10 C3 C28: AC bits 0–7
-#define READ_IRQ_ACT _XMEM(0x0b)        // 11 D3 C37: TBD, for expansion
+#define READ_FLAGS   _XMEM(0x08)        //  8 A3 C13: flags
+#define READ_AC_HI   _XMEM(0x09)        //  9 B3 C20: AC bits 8–15
+#define READ_AC_LO   _XMEM(0x0a)        // 10 C3 C28: AC bits 0–7
+#define READ_FP_D3   _XMEM(0x0b)        // 11 D3 C37: TBD, for expansion
 
-#define READ_UCV_H   _XMEM(0x0c)        // 12 A4 C12: (TBD)
-#define READ_UCV_M   _XMEM(0x0d)        // 13 B4 C32/C34: DR/SP hi → MFD bits 8–15 (*)
-#define READ_UCV_L   _XMEM(0x0e)        // 14 C4 C29/C31: DR/SP lo → MFD bits 0–7  (*)
-#define READ_IRQ_ACT _XMEM(0x0f)        // 15 D4 C38: TBD, for expansion
+#define READ_FP_A4   _XMEM(0x0c)        // 12 A4 C12: (TBD)
+#define READ_MFD_HI  _XMEM(0x0d)        // 13 B4 C32/C34: DR/SP hi → MFD bits 8–15 (*)
+#define READ_MFD_LO  _XMEM(0x0e)        // 14 C4 C29/C31: DR/SP lo → MFD bits 0–7  (*)
+#define READ_FP_D4   _XMEM(0x0f)        // 15 D4 C38: TBD, for expansion
 
-#define READ_UCV_H   _XMEM(0x10)        // 16 A5 Cxx: state (run/stop etc)
-#define READ_UCV_M   _XMEM(0x11)        // 17 B5 C19: IR bits 8–15
-#define READ_UCV_L   _XMEM(0x12)        // 18 C5 C25: IR bits 0–7
-#define READ_IRQ_ACT _XMEM(0x13)        // 19 D5 C35: micro-address low bits
+#define READ_STATE   _XMEM(0x10)        // 16 A5 Cxx: state (run/stop etc)
+#define READ_IR_HI   _XMEM(0x11)        // 17 B5 C19: IR bits 8–15
+#define READ_IR_LO   _XMEM(0x12)        // 18 C5 C25: IR bits 0–7
+#define READ_UAV_LO  _XMEM(0x13)        // 19 D5 C35: micro-address low bits
 
-#define READ_UCV_H   _XMEM(0x14)        // 20 -- ---: SCANCLR#. Autonomic counter reset.
-#define READ_UCV_M   _XMEM(0x15)        // 21 -- C17: FPOE21#, future expansion
-#define READ_UCV_L   _XMEM(0x16)        // 22 -- C26: FPOE22#, future expansion
-#define READ_IRQ_ACT _XMEM(0x17)        // 23 -- C36: FPOE23#, future expansion
+#define READ_SCANCLR _XMEM(0x14)        // 20 -- ---: SCANCLR#. Autonomic counter reset.
+#define READ_FPOE21  _XMEM(0x15)        // 21 -- C17: FPOE21#, future expansion
+#define READ_FPOE22  _XMEM(0x16)        // 22 -- C26: FPOE22#, future expansion
+#define READ_FPOE23  _XMEM(0x17)        // 23 -- C36: FPOE23#, future expansion
 
-#define READ_UCV_H   _XMEM(0x18)        // 24 -- C11: FPOE24#, future expansion
-#define READ_UCV_M   _XMEM(0x19)        // 25 -- C18: FPOE25#, future expansion
-#define READ_UCV_L   _XMEM(0x1a)        // 26 -- C24: FPOE26#, future expansion
-#define READ_IRQ_ACT _XMEM(0x1b)        // 27 -- C33: FPOE27#, future expansion
+#define READ_FPOE24  _XMEM(0x18)        // 24 -- C11: FPOE24#, future expansion
+#define READ_FPOE25  _XMEM(0x19)        // 25 -- C18: FPOE25#, future expansion
+#define READ_FPOE26  _XMEM(0x1a)        // 26 -- C24: FPOE26#, future expansion
+#define READ_FPOE27  _XMEM(0x1b)        // 27 -- C33: FPOE27#, future expansion
 
-#define READ_UCV_H   _XMEM(0x1c)        // 28 -- C10: FPOE28#, future expansion
-#define READ_UCV_M   _XMEM(0x1d)        // 29 -- C15: FPOE29#, future expansion
-#define READ_UCV_L   _XMEM(0x1e)        // 30 -- C23: FPOE30#, future expansion
-#define READ_IRQ_ACT _XMEM(0x1f)        // 31 -- ---: FPOE31#, unrouted
+#define READ_FPOE28  _XMEM(0x1c)        // 28 -- C10: FPOE28#, future expansion
+#define READ_FPOE29  _XMEM(0x1d)        // 29 -- C15: FPOE29#, future expansion
+#define READ_FPOE30  _XMEM(0x1e)        // 30 -- C23: FPOE30#, future expansion
+#define READ_FPOE31T _XMEM(0x1f)        // 31 -- ---: FPOE31#, unrouted
 
 // (*) Addresses 0x13 and 0x14 are for the MFD. They always address FP lights
 // B4 (high order bits) and C4 (low order bits), but read from a different unit
@@ -250,6 +250,117 @@
 // (**) There is an erratum in the fabricated R1939 DFP board where FPHALT# is
 //      connected to the PEN pin, which can't be controlled by the MCU. This
 //      trace has been cut on the board and patched to TP101 (pin 18, PG3).
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// SWITCHES
+//
+///////////////////////////////////////////////////////////////////////////////
+
+// The CFT has 30 switches. Some are double throw. Each front panel module
+// allows for 8 double-throw switches and the DFP scans 64 switch bits. The
+// switches are scanned using Port F of the MCU. Four bits are decoded to
+// address switch pairs in modules A and C and B and D.
+//
+// SWA    SWD0-SWD1   SWD2-SWD3
+//  0       SW A0        SW B0
+//  1       SW A1	 SW B1
+//  2       SW A2	 SW B2
+//  3       SW A3	 SW B3
+//  4       SW A4	 SW B4
+//  5       SW A5	 SW B5
+//  6       SW A6	 SW B6
+//  7       SW A7	 SW B7
+//  8       SW C0        SW D0
+//  9       SW C1        SW D1
+// 10       SW C2        SW D2
+// 11       SW C3        SW D3
+// 12       SW C4        SW D4
+// 13       SW C5        SW D5
+// 14       SW C6        SW D6
+// 15       SW C7        SW D7
+//
+// Switches:
+//   Module A:
+//     * Panel lock
+//     * START/RESET
+//     * STOP/RUN
+//     * STEP/µSTEP
+//     * SPEED: Creep
+//     * SPEED: Fast
+//     * LTS
+//     * MFD: SP
+//     * MFD: OR
+//
+//   Module B:
+//     * SR (8 switches)
+//
+//   Module C
+//     * SR (8 switches)
+//
+//   Module D
+//     * SR->PC/SR->IR
+//     * SR->AC/TEST
+//     * NEXT
+//     * MEM W
+//     * MEM R
+//     * IO W
+//     * IO R
+//     * ROM
+//     * A/B
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// MCU init & notes
+//
+///////////////////////////////////////////////////////////////////////////////
+
+/*
+
+Fuse high = 11011001 (default flags, disable JTAG)
+Fuse low  = 11100000 (default flags, external clock)
+
+MCUCSR = 10000000 (disable JTAG)
+MCUCR  = 10000000 (enable XMEM, no wait states for now)
+XMCRB  = 10000111 (bus keepers enabled, 8-bit address bus)
+
+DDCRB  = 11110001 (port B direction)
+PORTB  = 00000000 (init #1)
+PORTB  = 10001000 (init #2, CLR# asserted and cleared)
+
+DDCRC  = 11111111 (port C direction)
+PORTC  = 11111110
+PORTC  = 11111111 (init #2, CLRWS raising edge)
+
+DDCRD  = 11111100 (port D direction)
+PORTD  = 11011100 (init)
+
+DDCRE  = 11111100 (port E direction)
+PORTE  = 10100100 (init, assert FPRESET#)
+
+DDCRF  = 00001111 (port F direction)
+
+DDCRG  = 00000011 (port F direction)
+PORTG  = 00000000 (init, assert FPHALT#)
+
+
+
+Functionality:
+
+* Diagnostics
+* Read all inputs
+* Read specific inputs
+* Perform bus transaction
+* Scan switches
+* Write to custom lights
+* Reset
+* Halt
+* Run
+* Step
+* Microstep
+* Interrupt computer
+
+*/
 
 #endif // AVR
 
