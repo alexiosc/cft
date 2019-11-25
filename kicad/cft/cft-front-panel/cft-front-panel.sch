@@ -1,15 +1,15 @@
 EESchema Schematic File Version 4
 LIBS:cft-front-panel-cache
-EELAYER 30 0
+EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 6
-Title ""
+Title "Front Panel Module"
 Date ""
-Rev ""
+Rev "1938"
 Comp ""
-Comment1 ""
+Comment1 "FPM"
 Comment2 ""
 Comment3 ""
 Comment4 ""
@@ -1089,8 +1089,6 @@ Text Label 950  6400 0    50   ~ 0
 SWD1
 Text Notes 1950 7350 0    50   ~ 0
 Note: SWD0-1 and SWD2-3 are swapped between the two connectors.\nThis allows Modules A and B to send data on SWD0-1 and\nModules B and C on SWD2-3, so we get a 64×4 switch matrix. This\nreduces component count.
-Text Notes 7050 7000 0    250  ~ 50
-Front Panel Module
 Text Notes 3500 4400 0    50   ~ 0
 SWSEL pulled down on purpose!\n(unplugging module disables switch decoder)
 Text Notes 2000 700  0    50   ~ 0
