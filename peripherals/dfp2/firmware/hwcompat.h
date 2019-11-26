@@ -18,8 +18,8 @@
 #include <avr/pgmspace.h>
 #include <util/delay.h>
 
-#if (F_CPU != 14745600)
-#  warning "The only supported clock speed is 14.7456 MHz (TODO: check why)"
+#if (F_CPU != 16000000)
+#  warning "The only supported clock speed is 16 MHz"
 #endif
 
 // At ~16 MHz and 2 cycles per NOP, this is a 125ns delay.
