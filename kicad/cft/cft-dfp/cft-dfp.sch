@@ -1,13 +1,13 @@
 EESchema Schematic File Version 4
 LIBS:cft-dfp-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A3 16535 11693
 encoding utf-8
 Sheet 1 13
 Title "Debugging Front Panel"
 Date "2019-11-17"
-Rev "1945"
+Rev "1948"
 Comp ""
 Comment1 "DFP"
 Comment2 "Last revision manufacured: 1939."
@@ -500,14 +500,6 @@ Wire Wire Line
 	3000 2250 3600 2250
 Text Label 3600 2250 2    50   ~ 0
 SCK
-Wire Wire Line
-	3000 2350 3600 2350
-Wire Wire Line
-	3000 2450 3600 2450
-Text Label 3600 2350 2    50   ~ 0
-MOSI
-Text Label 3600 2450 2    50   ~ 0
-MISO
 Wire Wire Line
 	3000 3950 3600 3950
 Text Label 3600 3950 2    50   ~ 0
@@ -3964,19 +3956,6 @@ Connection ~ 8250 5400
 Wire Wire Line
 	8250 5400 8700 5400
 $Comp
-L alexios:ATmega64-16AU U101
-U 1 1 5CCED7E0
-P 2300 2950
-F 0 "U101" H 2700 5000 50  0000 C CNN
-F 1 "ATmega64-16AU" H 2750 4900 50  0000 C CNN
-F 2 "alexios:TQFP-64" H 325 4625 50  0001 C CIN
-F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2490-8-bit-avr-microcontroller-atmega64-l_datasheet.pdf" H 2050 2950 50  0001 C CNN
-F 4 "556-ATMEGA64L-8AU" H 2300 2950 50  0001 C CNN "BOM-Mouser"
-F 5 "Yes" H 2300 2950 50  0001 C CNN "Verified"
-	1    2300 2950
-	1    0    0    -1  
-$EndComp
-$Comp
 L Connector:TestPoint TP112
 U 1 1 5DEE97BC
 P 4850 9250
@@ -4110,13 +4089,13 @@ $EndComp
 $Comp
 L Connector:TestPoint TP101
 U 1 1 5E77BD30
-P 1000 1850
-F 0 "TP101" V 1000 2038 50  0000 L CNN
-F 1 "TestPoint" V 1104 1922 50  0001 C CNN
-F 2 "TestPoint:TestPoint_THTPad_D1.0mm_Drill0.5mm" H 1200 1850 50  0001 C CNN
-F 3 "~" H 1200 1850 50  0001 C CNN
-	1    1000 1850
-	0    -1   -1   0   
+P 3450 2450
+F 0 "TP101" V 3450 2638 50  0000 L CNN
+F 1 "TestPoint" V 3554 2522 50  0001 C CNN
+F 2 "TestPoint:TestPoint_THTPad_D1.0mm_Drill0.5mm" H 3650 2450 50  0001 C CNN
+F 3 "~" H 3650 2450 50  0001 C CNN
+	1    3450 2450
+	0    1    1    0   
 $EndComp
 Wire Wire Line
 	1500 1850 1300 1850
@@ -4162,13 +4141,30 @@ Wire Wire Line
 NoConn ~ 1450 1450
 Wire Wire Line
 	1300 1450 1300 1850
-Connection ~ 1300 1850
-Wire Wire Line
-	1300 1850 1000 1850
 Text Notes 1550 1350 2    50   ~ 0
 Erratum in R1939\n~PEN~ connected to ~FPHALT~.\nWire to TP101 instead.
 Wire Notes Line width 3 style dotted rgb(255, 0, 0)
 	1300 1450 1450 1450
+NoConn ~ 3000 2350
+Text Label 1250 3250 0    50   ~ 0
+MOSI
+Text Label 1250 3350 0    50   ~ 0
+MISO
+$Comp
+L alexios:ATmega64-16AU U101
+U 1 1 5CCED7E0
+P 2300 2950
+F 0 "U101" H 2700 5000 50  0000 C CNN
+F 1 "ATmega64-16AU" H 2750 4900 50  0000 C CNN
+F 2 "alexios:TQFP-64" H 325 4625 50  0001 C CIN
+F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2490-8-bit-avr-microcontroller-atmega64-l_datasheet.pdf" H 2050 2950 50  0001 C CNN
+F 4 "556-ATMEGA64L-8AU" H 2300 2950 50  0001 C CNN "BOM-Mouser"
+F 5 "Yes" H 2300 2950 50  0001 C CNN "Verified"
+	1    2300 2950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3000 2450 3450 2450
 Wire Bus Line
 	8850 5200 8850 7250
 Wire Bus Line
