@@ -110,7 +110,7 @@
 #define READ_FPOE28  _XMEM(0x1c)        // 28 -- C10: FPOE28#, future expansion
 #define READ_FPOE29  _XMEM(0x1d)        // 29 -- C15: FPOE29#, future expansion
 #define READ_FPOE30  _XMEM(0x1e)        // 30 -- C23: FPOE30#, future expansion
-#define READ_FPOE31T _XMEM(0x1f)        // 31 -- ---: FPOE31#, unrouted
+#define READ_FPOE31  _XMEM(0x1f)        // 31 -- ---: FPOE31#, unrouted
 
 // (*) Addresses 0x13 and 0x14 are for the MFD. They always address FP lights
 // B4 (high order bits) and C4 (low order bits), but read from a different unit

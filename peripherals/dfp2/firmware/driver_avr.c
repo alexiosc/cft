@@ -30,85 +30,312 @@
 #include "switches.h"
 #include "panel.h"
 
+
+
+       	       	    
+
+
+void
+hw_init()
+{
+
+	MCUCSR = 0b10000000; // Disable JTAG
+	MCUCR =  0b10000000; // Enable XMEM
+	XMCRB =  0b10000111; // Enable Bus Hold, set 8-bit FPA.
+
+	DDRB =   0b11110001; // Port B direction
+	PORTB =  0b00000000; // Init, step 1
+	PORTB =  0b10001000; // Init, step 2, CLR# asserted and cleared
+
+	DDRC =   0b11111111; // Port C direction
+	PORTC =  0b11111110; // Init, step 1
+	PORTC =  0b11111111; // Init, step 2, CLRWS raising edge
+
+	DDRD =   0b11111100; // Port D direction
+	PORTD =  0b11011100; // Port D init.
+
+	DDRE =   0b11111100; // Port E direction
+	PORTE =  0b10100100; // Port E init, assert FPRESET#.
+
+	DDRF =   0b00001111; // (port F direction)
+
+	DDRG =   0b00000011; // (port F direction)
+	PORTG =  0b00000000; // (init, assert FPHALT#)
+
+
+
+
+	
+
+
+
+
+#warning "PORTED TO THIS POINT"
+
+	// Explicitly tristate everything again.
+	tristate_ibus();
+	tristate_db();
+	tristate_ab();
+
+	// write_ibus(0x1234);
+	// write_ab(0x5678);
+	// write_db(0xabcd);
+	// int i;
+	// for(i=0;;i++) {
+	// 	_delay_ms(1000);
+	// 	if ((i & 3) == 0) drive_ibus(); else tristate_ibus();
+	// 	if ((i & 3) == 1) drive_ab(); else tristate_ab();
+	// 	if ((i & 3) == 2) drive_db(); else tristate_db();
+	// }
+
+	// for(;;) {
+	// 	PORTB = 0;
+	// 	_delay_ms(500);
+	// 	PORTB = _BV(PB1) | _BV(PB2);
+	// 	_delay_ms(500);
+	// }
+
+	// Time = 3
+
+	// Reset all the drivers with MR# pins, and initialise the wait state
+	// state machine.
+	strobe_clr();
+	clr_ws();
+
+	// Time = 4
+
+	// Write the control bus, initialising all the control
+	// outputs. This will de-assert all the reset signals, among
+	// other things.
+	clearflag(cb[1], CB1_NFPRESET | CB1_NRESET);
+	setflag(cb[2], CB2_HALT | CB0_NIRQ6); // Assert HALT, clear NIRQ6.
+	write_cb();		      // Shift out all the values
+	clearbit(PORTD, D_NCTLOE);    // Enable the control bus drivers
+
+	// Enable INT0 (with negative edge sensitivity)
+	EICRA = (EICRA & 0xf0) | _BV(ISC01);
+	setbit(EIMSK, INT0);
+
+	// Set up the switch sampling/debouncing timer. Atmega168 datasheet,
+	// p. 104.
+	//
+	// Sampling rate: 14.7456 MHz / (2 * 1024 * 256) = 28.125 Hz
+	//
+	// That's 35.56 ms between samples, plenty of time for
+	// switches to stop bouncing.
+	
+	TCCR0A = _BV(WGM01);		// CTC Mode
+	TCCR0B = _BV(CS00) | _BV(CS02); // CLK/1024 prescaler
+	TIMSK0 = 2;			// Interrupt on compare match
+	OCR0A = 0xff;			// Lowest possible rate (256)
+
+	// Initialise the debugging serial port
+	serial_init();
+
+	// Timer 1 (the slow clock input to the CFT processor) is set further
+	// down, on demand.
+
+	// Time = 5
+
+	// Wait for signals to stabilise.
+	_delay_ms(1500);
+
+	// Is a processor attached to the system?
+	if (detect_cpu()) {
+		// Mark the processor as present
+		flags |= FL_PROC;
+		// Disable the bus pull-ups. Note: active low!
+		set_buspu(1);
+	} else {
+		// Enable the bus pull-ups. They start enabled after reset, but
+		// this couldn't hurt.
+		set_buspu(0);
+	}
+
+	// Enable the watchdog.
+	wdt_enable(WATCHDOG_TIMEOUT);
+
+	// Run diagnostics
+	dfp_diags();
+
+	// Read the initial state of the front panel switches.
+	deb_sample(0);
+
+	// Set the initial clock values on the speed switch. Don't start the
+	// clock yet.
+	uint8_t spd = (_swleft & (SWL_SLOW|SWL_FAST)) >> SWL_SPD_SHIFT;
+	if (spd == 2) {
+		_clk_prescale = PSV_1024;
+		_clk_div = 89;
+	} else if (spd == 3) {
+		_clk_prescale = PSV_1024;
+		_clk_div = 899;
+	} else {
+		_clk_prescale = 0;
+		_clk_div = 0;
+	}
+
+	// Don't write anything to the control bus just yet.
+	defercb = 255;
+
+	// Set the initial RAM/ROM values
+	panel_rom(_swright & SWR_ROM);
+	
+	// If the RAM mapping was selected, start halted. The machine is
+	// unprogrammed and the operator will take it from there. Otherwise,
+	// with ROM mapped, start running. (note: 0 = RAM, non-zero = ROM);
+	if (_swright & SWR_ROM) {
+		// Switch is in the ROM position. Start the processor.
+		clk_start();		    // Start the clock.
+		set_halt(0);		    // De-assert HALT#, set FPRAM signal
+		set_steprun(0);		    // Lock the run control FSM
+		set_fprunstop(1);	    // Set the LEDs.
+	} else {
+		// Switch is in the RAM position. Start halted.
+		clk_stop();		    // Already stopped, but do so anyway
+		set_halt(1);		    // Assert HALT#, set FPRAM signal
+		set_fprunstop(0);
+		flags |= FL_HALT;           // The debugging interface needs to know.
+	}
+
+	// Update the control bus
+	defercb = 0;
+	write_cb();
+
+	// Perform a full machine RESET cycle, which will either strobe
+	// FPRESET# (only the de-assertion of which is needed), or perform a
+	// standalone RESET#/RSTHOLD# cycle if the processor is missing.
+	perform_reset();
+
+	// Now de-assert the various reset signals explicitly. Can't hurt.
+	cb[0] |= CB0_NIRQ1 | CB0_NIRQ6;
+	cb[1] |= CB1_NFPRESET | CB1_NRESET;
+
+	// Set up the console ring buffer
+	ringbuf.ip = ringbuf.op = 0;
+	
+	// Enable the global interrupt flag
+	sei();
+}
+
+
+void
+hw_tick()
+{
+	// This is not needed.
+}
+
+
+void
+hw_done()
+{
+	// The AVR hardware is never uninitialised.
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// SWITCH SCANNING
+//
+///////////////////////////////////////////////////////////////////////////////
+
+static uint8_t _switches[64];
+
+// There are 64 switch data lines in total arranged in an unusual (but
+// convenient) 16×4 matrix. We use 64 bytes (optimising for speed rather than
+// space) and this way we offer 8-sample debouncing. To software debounce, we
+// shift the previous value to the right by one place and OR with the value
+// read from the switch.
+//
+// PORT F:
+//
+//     7      6       5     4      3      2      1     0
+// +------+------+------+------+------+------+------+------+
+// | SWD3 | SWD2 | SWD1 | SWD0 | SWA3 | SWA2 | SWA1 | SWA0 |
+// +------+------+------+------+------+------+------+------+
+// | INPUTS                    | OUTPUTS                   |
+// +---------------------------+---------------------------+
+
+inline void
+scan_switches()
+{
+	uint8_t swa, i = 0;
+	for (uint8_t swa = 0; swa < 16; swa++) {
+		PORTF = (PORTF & 0xf0) | (swa & 0x0f);
+		_switches[i] = (_switches[i] << 1) | (PORTF & 0x10 ? 1 : 0); i++;
+		_switches[i] = (_switches[i] << 1) | (PORTF & 0x20 ? 1 : 0); i++;
+		_switches[i] = (_switches[i] << 1) | (PORTF & 0x40 ? 1 : 0); i++;
+		_switches[i] = (_switches[i] << 1) | (PORTF & 0x80 ? 1 : 0); i++;
+	}
+}
+
+
+// To test if a switch has been pressed, the last four samples (one bit per
+// sample, so 0b1111, 0xf) must agree. So each switch may be in three states:
+// SWITCH_PRESSED, SWITCH_RELEASED, and bouncing (any other value).
+#define SWITCH_DEBOUNCE_MASK  0xf
+#define SWITCH_PRESSED        SWITCH_DEBOUNCE_MASK
+#define SWITCH_RELEASED       0
+
+inline uint8_t
+get_switch(uint8_t swidx)
+{
+	return _switches[swidx & 63] & SWITCH_DEBOUNCE_MASK;
+}
+
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
+
+
+
+// #define C_DEBIN     PC0
+// #define C_VPIN      PC1
+// #define C_ICLK      PC2
+// #define C_DOUT      PC3
+// #define C_CMD0      PC4
+// #define C_CMD1      PC5
+
+// #define C_IDLE      0
+// #define C_OUTPUTS   (_BV(C_ICLK) | _BV(C_DOUT) | _BV(C_CMD0) | _BV(C_CMD1))
+
+// #define D_IOCMD     PD2
+// #define D_NDBOE     PD3
+// #define D_NABOE     PD4
+// #define D_NIBUSOE   PD5
+// #define D_NCTLOE    PD6
+// #define D_COUT      PD7
+
+// #define D_IDLE      (_BV(D_NDBOE) | _BV(D_NABOE) | _BV(D_NIBUSOE) | _BV(D_NCTLOE))
+// #define D_OUTPUTS   (_BV(D_NDBOE) | _BV(D_NABOE) | _BV(D_NIBUSOE) | \
+// 		     _BV(D_NCTLOE) | _BV(D_COUT))
+
+// #define B_CLRWS     PB0
+// #define B_FPCLKEN   PB1
+// #define B_FPUSTEP   PB2
+// #define B_IOADDR0   PB3
+// #define B_IOADDR1   PB4
+// #define B_IOADDR2   PB5
+
+// #define B_IDLE      (_BV(B_CLRWS))
+// #define B_IOADDR    (_BV(B_IOADDR0) | _BV(B_IOADDR1) | _BV(B_IOADDR2))
+// #define B_OUTPUTS   (_BV(B_CLRWS) | _BV(B_FPCLKEN) | _BV(B_FPUSTEP) | B_IOADDR)
+
+
 /*
-
-  Pin assignments:
-
-  PC0: in  DEBIN
-  PC1: in  VPIN
-  PC2: out ICLK
-  PC3: out DOUT
-  PC4: out CMD0
-  PC5: out CMD1
-
-  PD0: USART
-  PD1: USART
-  PD2: in  IOCMD + int
-  PD3: out DB-OE#
-  PD4: out AB-OE#
-  PD5: out IBUS-OE#
-  PD6: out CTL-OE#
-  PD7: out COUT
-
-  PB0: out CLR-WS
-  PB1: out FPCLKEN-IN
-  PB2: out FPUSTEP-IN
-  PB3: out IOADDR0
-  PB4: out IOADDR1
-  PB5: out IOADDR2
-
- */
-
-#define C_DEBIN     PC0
-#define C_VPIN      PC1
-#define C_ICLK      PC2
-#define C_DOUT      PC3
-#define C_CMD0      PC4
-#define C_CMD1      PC5
-
-#define C_IDLE      0
-#define C_OUTPUTS   (_BV(C_ICLK) | _BV(C_DOUT) | _BV(C_CMD0) | _BV(C_CMD1))
-
-#define D_IOCMD     PD2
-#define D_NDBOE     PD3
-#define D_NABOE     PD4
-#define D_NIBUSOE   PD5
-#define D_NCTLOE    PD6
-#define D_COUT      PD7
-
-#define D_IDLE      (_BV(D_NDBOE) | _BV(D_NABOE) | _BV(D_NIBUSOE) | _BV(D_NCTLOE))
-#define D_OUTPUTS   (_BV(D_NDBOE) | _BV(D_NABOE) | _BV(D_NIBUSOE) | \
-		     _BV(D_NCTLOE) | _BV(D_COUT))
-
-#define B_CLRWS     PB0
-#define B_FPCLKEN   PB1
-#define B_FPUSTEP   PB2
-#define B_IOADDR0   PB3
-#define B_IOADDR1   PB4
-#define B_IOADDR2   PB5
-
-#define B_IDLE      (_BV(B_CLRWS))
-#define B_IOADDR    (_BV(B_IOADDR0) | _BV(B_IOADDR1) | _BV(B_IOADDR2))
-#define B_OUTPUTS   (_BV(B_CLRWS) | _BV(B_FPCLKEN) | _BV(B_FPUSTEP) | B_IOADDR)
-
-
-// Note: values in octal (the 259s have eight values each)
-#define CMD_SAMPLE  000
-#define CMD_VPEN    001
-#define CMD_DEBEN   002
-//#define CMD_CTLOE   003
-#define CMD_CLR     004
-#define CMD_STEPRUN 005		// 0 = Running
-#define CMD_USTEP   006
-#define CMD_ORCLK   007
-
-#define CMD_DBCLK   010
-#define CMD_ABCLK   011
-#define CMD_IBUSCLK 012
-#define CMD_CTLCLK  013
-#define CMD_STCP    015
-#define CMD_BUSPU   017
-
 // Prescaler values for CS10-12 bits.
 #define PSV_1       1
 #define PSV_8       2
@@ -130,166 +357,37 @@ uint8_t defercb = 0;
 static uint8_t _clk_prescale = PSV_1024;
 static uint16_t _clk_div = 89;
 static uint8_t _stopped = 1;
+*/
 
-static union {
-	uint8_t  uvec8[4];	// Microcode vector: 24 bits ([3] unused)
-	uint32_t uvec32;	// Microcode vector as a 32-bit integer
-} _uv;
+// static union {
+// 	uint8_t  uvec8[4];	// Microcode vector: 24 bits ([3] unused)
+// 	uint32_t uvec32;	// Microcode vector as a 32-bit integer
+// } _uv;
 
-uint8_t cb[3] = {
-	CB0_OUTPUTS,
-	CB1_OUTPUTS,
-	CB2_OUTPUTS
-};
+// uint8_t cb[3] = {
+// 	CB0_OUTPUTS,
+// 	CB1_OUTPUTS,
+// 	CB2_OUTPUTS
+// };
 
-uint16_t icr = 0;
-uint8_t ifr6_operated = 0;
-static uint8_t idle_addr = 0; // Used for diagnostics
+// uint16_t icr = 0;
+// uint8_t ifr6_operated = 0;
+// static uint8_t idle_addr = 0; // Used for diagnostics
 
 ringbuf_t ringbuf;
 
-#define actuated(bm, sw) (((bm) & (sw)) == 0)
+// #define actuated(bm, sw) (((bm) & (sw)) == 0)
 
-///////////////////////////////////////////////////////////////////////////////
-//
-// WRITING COMMANDS TO THE 74x259 ADDRESSABLE LATCHES
-//
-///////////////////////////////////////////////////////////////////////////////
-
-
-/*
-
-  Waveform:
-                         _________________
-  IOADDRx    XXXXXXXXXX><_________________>XXXX
-                                _______________
-  COUT       __________________/ val 
-                                   _______
-  CMDx       XXXXXXXXXXXXXXXXXXXXX<_______>XXXX
-
- */
-
-static void out_shift_registers(uint8_t val, uint8_t clk);
-
-static void
-outcmd(uint8_t addr, uint8_t val)
-{
-	// Interlock: never allow VPEN and DEBEN to be asserted
-	// simultaneously. If one is asserted, deassert the
-	// other. Note: these are inverted, so 1 = asserted, 0 =
-	// deasserted.
-	if (val) {
-		if (addr == CMD_VPEN) outcmd(CMD_DEBEN, 0);
-		else if (addr == CMD_DEBEN) outcmd(CMD_VPEN, 0);
-	}
-
-	// Clear the CMDx outputs.
-	PORTC = PORTC |= _BV(C_CMD0) | _BV(C_CMD1);
-	
-	// Set the value first. The '259s are latches.
-	bit(PORTD, D_COUT, val);
-	
-	// Then, set the address.
-	// Note: the shift makes assumptions about the IOADDRx pins.
-	PORTB = (PORTB & ~B_IOADDR) | ((addr & 7) << 3);
-
-	// Now, strobe the CMDx bit
-	clearbit(PORTC, addr & 8 ? C_CMD1 : C_CMD0);
-	PORTC |= _BV(C_CMD0) | _BV(C_CMD1);
-
-	// Clean up.
-	PORTB = PORTB & ~B_IOADDR;
-	PORTB = (PORTB & ~B_IOADDR) | ((idle_addr & 7) << 3);
-}
+// inline static void
+// clr_ws()
+// {
+// 	// Clear the WS# output.
+// 	PORTB &= ~ _BV(B_CLRWS);
+// 	PORTB |= _BV(B_CLRWS);
+// }
 
 
-/*
-
-  Waveform:
-                         _________________
-  IOADDRx    XXXXXXXXXX><_________________>XXXX
-                              ____________
-  CMDx       XXXXXX__________<____________>XXXX
-                                    __
-  COUT       XXXXXXXXXX____________/  \________
-
- */
-
-
-
-static inline void
-_multistrobe_start(uint8_t addr)
-{
-	// Clear the CMDx outputs (they're active low).
-	PORTC = PORTC |= _BV(C_CMD0) | _BV(C_CMD1);
-	
-	// Clear the value first. The '259s are latches.
-	bit(PORTD, D_COUT, 0);
-	
-	// Then, set the address.
-	// Note: the shift makes assumptions about the IOADDRx pins.
-	PORTB = (PORTB & ~B_IOADDR) | ((addr & 7) << 3);
-
-	// Enable the appropriate latch signal
-	clearbit(PORTC, addr & 8 ? C_CMD1 : C_CMD0);
-}
-
-static inline void
-_multistrobe_pulse()
-{
-	// Emit a positive pulse
-	setbit(PORTD, D_COUT);
-	asm("nop");		// Lengthen the pulse by ~140ns.
-	clearbit(PORTD, D_COUT);
-}
-
-
-static inline void
-_multistrobe_end()
-{
-	// Clear both enables for good measure.
-	PORTC |= _BV(C_CMD0) | _BV(C_CMD1);
-	PORTB = (PORTB & ~B_IOADDR) | ((idle_addr & 7) << 3);
-}
-
-
-static void
-strobecmd(uint8_t addr)
-{
-	// Prepare the command latches for strobing
-	_multistrobe_start(addr);
-
-	// The latch has now picked up the 0 value. Strobe it. We have two
-	// edges in total, so both types of edge sensitivity (rising/falling)
-	// are catered for.
-	_multistrobe_pulse();
-
-	// Clear both enables for good measure.
-	_multistrobe_end();
-}
-
-
-inline static void
-strobe_clr()
-{
-	// The CLR output is inverted and fed back to its own reset pin, so
-	// when it's set to 1 (high) the reset pin will go low, resetting the
-	// CLR (and most other drivers on the PFP/DEB) to zero. However, we
-	// also clear it manually just to be sure.
-	strobecmd(CMD_CLR);
-}
-
-
-inline static void
-clr_ws()
-{
-	// Clear the WS# output.
-	PORTB &= ~ _BV(B_CLRWS);
-	PORTB |= _BV(B_CLRWS);
-}
-
-
-#define CALC_FREQ(prescaler, hz) ((F_CPU) / (2 * (prescaler)) / (hz))
+// #define CALC_FREQ(prescaler, hz) ((F_CPU) / (2 * (prescaler)) / (hz))
 
 
 /*
@@ -794,194 +892,6 @@ faulty:
 // 1 All Control Bus signals floating while CTLOE# high.
 // 2 High if processor missing, low if present
 // 3 HALT 	    
-       	       	    
-
-
-void
-hw_init()
-{
-#error "TODO: Write this for the DFP 2"
-
-	// Time = 1
-
-	// Set output pins and idle values. This will initialise with
-	// all output banks idle and the processor clock stopped.
-	PORTB = B_IDLE;
-	DDRB = B_OUTPUTS;
-
-	PORTC = C_IDLE;
-	DDRC = C_OUTPUTS;
-
-	PORTD = D_IDLE;
-	DDRD = D_OUTPUTS;
-	PORTD = 0xff;
-
-	// Time = 2
-
-	// Explicitly tristate everything.
-	tristate_ibus();
-	tristate_db();
-	tristate_ab();
-
-	// write_ibus(0x1234);
-	// write_ab(0x5678);
-	// write_db(0xabcd);
-	// int i;
-	// for(i=0;;i++) {
-	// 	_delay_ms(1000);
-	// 	if ((i & 3) == 0) drive_ibus(); else tristate_ibus();
-	// 	if ((i & 3) == 1) drive_ab(); else tristate_ab();
-	// 	if ((i & 3) == 2) drive_db(); else tristate_db();
-	// }
-
-	// for(;;) {
-	// 	PORTB = 0;
-	// 	_delay_ms(500);
-	// 	PORTB = _BV(PB1) | _BV(PB2);
-	// 	_delay_ms(500);
-	// }
-
-	// Time = 3
-
-	// Reset all the drivers with MR# pins, and initialise the wait state
-	// state machine.
-	strobe_clr();
-	clr_ws();
-
-	// Time = 4
-
-	// Write the control bus, initialising all the control
-	// outputs. This will de-assert all the reset signals, among
-	// other things.
-	clearflag(cb[1], CB1_NFPRESET | CB1_NRESET);
-	setflag(cb[2], CB2_HALT | CB0_NIRQ6); // Assert HALT, clear NIRQ6.
-	write_cb();		      // Shift out all the values
-	clearbit(PORTD, D_NCTLOE);    // Enable the control bus drivers
-
-	// Enable INT0 (with negative edge sensitivity)
-	EICRA = (EICRA & 0xf0) | _BV(ISC01);
-	setbit(EIMSK, INT0);
-
-	// Set up the switch sampling/debouncing timer. Atmega168 datasheet,
-	// p. 104.
-	//
-	// Sampling rate: 14.7456 MHz / (2 * 1024 * 256) = 28.125 Hz
-	//
-	// That's 35.56 ms between samples, plenty of time for
-	// switches to stop bouncing.
-	
-	TCCR0A = _BV(WGM01);		// CTC Mode
-	TCCR0B = _BV(CS00) | _BV(CS02); // CLK/1024 prescaler
-	TIMSK0 = 2;			// Interrupt on compare match
-	OCR0A = 0xff;			// Lowest possible rate (256)
-
-	// Initialise the debugging serial port
-	serial_init();
-
-	// Timer 1 (the slow clock input to the CFT processor) is set further
-	// down, on demand.
-
-	// Time = 5
-
-	// Wait for signals to stabilise.
-	_delay_ms(1500);
-
-	// Is a processor attached to the system?
-	if (detect_cpu()) {
-		// Mark the processor as present
-		flags |= FL_PROC;
-		// Disable the bus pull-ups. Note: active low!
-		set_buspu(1);
-	} else {
-		// Enable the bus pull-ups. They start enabled after reset, but
-		// this couldn't hurt.
-		set_buspu(0);
-	}
-
-	// Enable the watchdog.
-	wdt_enable(WATCHDOG_TIMEOUT);
-
-	// Run diagnostics
-	dfp_diags();
-
-	// Read the initial state of the front panel switches.
-	deb_sample(0);
-
-	// Set the initial clock values on the speed switch. Don't start the
-	// clock yet.
-	uint8_t spd = (_swleft & (SWL_SLOW|SWL_FAST)) >> SWL_SPD_SHIFT;
-	if (spd == 2) {
-		_clk_prescale = PSV_1024;
-		_clk_div = 89;
-	} else if (spd == 3) {
-		_clk_prescale = PSV_1024;
-		_clk_div = 899;
-	} else {
-		_clk_prescale = 0;
-		_clk_div = 0;
-	}
-
-	// Don't write anything to the control bus just yet.
-	defercb = 255;
-
-	// Set the initial RAM/ROM values
-	panel_rom(_swright & SWR_ROM);
-	
-	// If the RAM mapping was selected, start halted. The machins is
-	// unprogrammed and the operator will take it from there. Otherwise,
-	// with ROM mapped, start running. (note: 0 = RAM, non-zero = ROM);
-	if (_swright & SWR_ROM) {
-		// Switch is in the ROM position. Start the processor.
-		clk_start();		    // Start the clock.
-		set_halt(0);		    // De-assert HALT#, set FPRAM signal
-		set_steprun(0);		    // Lock the run control FSM
-		set_fprunstop(1);	    // Set the LEDs.
-	} else {
-		// Switch is in the RAM position. Start halted.
-		clk_stop();		    // Already stopped, but do so anyway
-		set_halt(1);		    // Assert HALT#, set FPRAM signal
-		set_fprunstop(0);
-		flags |= FL_HALT;           // The debugging interface needs to know.
-	}
-
-	// Update the control bus
-	defercb = 0;
-	write_cb();
-
-	// Perform a full machine RESET cycle, which will either strobe
-	// FPRESET# (only the de-assertion of which is needed), or perform a
-	// standalone RESET#/RSTHOLD# cycle if the processor is missing.
-	perform_reset();
-
-	// Now de-assert the various reset signals explicitly. Can't hurt.
-	cb[0] |= CB0_NIRQ1 | CB0_NIRQ6;
-	cb[1] |= CB1_NFPRESET | CB1_NRESET;
-
-	// Write all the control bus signals just in case.
-	write_cb();
-
-	// Set up the console ring buffer
-	ringbuf.ip = ringbuf.op = 0;
-	
-	// Enable the global interrupt flag
-	sei();
-}
-
-
-void
-hw_tick()
-{
-	// This is not needed.
-}
-
-
-void
-hw_done()
-{
-	// The AVR hardware is never uninitialised.
-}
-
-
 ///////////////////////////////////////////////////////////////////////////////
 //
 // SERIAL I/O
@@ -1525,31 +1435,6 @@ addr_inc()
 	addr++;
 	_pc++;
 	strobe_incpc();
-}
-
-
-// Output Controls (three bytes)
-
-void
-write_cb()
-{
-	// Sometimes we need to defer control bus writes so some
-	// signals can be bundled together.
-	if (defercb) {
-		defercb--;
-		return;
-	}
-
-	ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
-		out_shift_registers(cb[2], CMD_CTLCLK);
-		out_shift_registers(cb[1], CMD_CTLCLK);
-		out_shift_registers(cb[0], CMD_CTLCLK);
-		
-		// Move data from ALL the shift registers to their respective
-		// output registers. Tristated output registers will of course
-		// not have any effects.
-		strobecmd(CMD_STCP);
-	}
 }
 
 
