@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:cft-front-panel-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -17,61 +17,61 @@ $EndDescr
 $Comp
 L alexios:74HC138 U2
 U 1 1 5CC738EE
-P 5800 3250
-F 0 "U2" H 5800 3917 50  0000 C CNN
-F 1 "74HC138" H 5800 3826 50  0000 C CNN
-F 2 "alexios:SOIC-16" H 5800 3250 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 5800 3250 50  0001 C CNN
-	1    5800 3250
+P 6050 3250
+F 0 "U2" H 6050 3917 50  0000 C CNN
+F 1 "74HC138" H 6050 3826 50  0000 C CNN
+F 2 "alexios:SOIC-16" H 6050 3250 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 6050 3250 50  0001 C CNN
+	1    6050 3250
 	1    0    0    -1  
 $EndComp
-Text Label 6550 2950 2    50   ~ 0
+Text Label 6850 2950 2    50   ~ 0
 ~SW1
-Text Label 6550 3050 2    50   ~ 0
+Text Label 6850 3050 2    50   ~ 0
 ~SW2
-Text Label 6550 3150 2    50   ~ 0
+Text Label 6850 3150 2    50   ~ 0
 ~SW3
-Text Label 6550 3250 2    50   ~ 0
+Text Label 6850 3250 2    50   ~ 0
 ~SW4
-Text Label 6550 3350 2    50   ~ 0
+Text Label 6850 3350 2    50   ~ 0
 ~SW5
-Text Label 6550 3450 2    50   ~ 0
+Text Label 6850 3450 2    50   ~ 0
 ~SW6
-Text Label 6550 3550 2    50   ~ 0
+Text Label 6850 3550 2    50   ~ 0
 ~SW7
 Text Label 7150 2850 0    50   ~ 0
 ~SW0
 Wire Wire Line
-	6300 3150 6600 3150
+	6550 3150 6900 3150
 Wire Wire Line
-	6300 3250 6600 3250
+	6550 3250 6900 3250
 Wire Wire Line
-	6300 3050 6600 3050
+	6550 3050 6900 3050
 Wire Wire Line
-	6300 2950 6600 2950
+	6550 2950 6900 2950
 Wire Wire Line
-	6300 3350 6600 3350
+	6550 3350 6900 3350
 Wire Wire Line
-	6300 3450 6600 3450
+	6550 3450 6900 3450
 Wire Wire Line
-	6300 3550 6600 3550
+	6550 3550 6900 3550
 Wire Wire Line
 	7150 2950 7400 2950
 Wire Wire Line
-	5300 2850 5000 2850
+	5550 2850 5250 2850
 Wire Wire Line
-	5300 2950 5000 2950
+	5550 2950 5250 2950
 Wire Wire Line
-	5300 3050 5000 3050
+	5550 3050 5250 3050
 $Comp
 L power:GND #PWR014
 U 1 1 5CCAF5E9
-P 5300 3650
-F 0 "#PWR014" H 5300 3400 50  0001 C CNN
-F 1 "GND" H 5305 3477 50  0000 C CNN
-F 2 "" H 5300 3650 50  0001 C CNN
-F 3 "" H 5300 3650 50  0001 C CNN
-	1    5300 3650
+P 5550 3650
+F 0 "#PWR014" H 5550 3400 50  0001 C CNN
+F 1 "GND" H 5555 3477 50  0000 C CNN
+F 2 "" H 5550 3650 50  0001 C CNN
+F 3 "" H 5550 3650 50  0001 C CNN
+	1    5550 3650
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -131,13 +131,13 @@ F 3 "" H 5750 4200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Connection ~ 5750 4200
-Text Label 5000 2850 0    50   ~ 0
+Text Label 5250 2850 0    50   ~ 0
 SWA0
-Text Label 5000 2950 0    50   ~ 0
+Text Label 5250 2950 0    50   ~ 0
 SWA1
-Text Label 5000 3050 0    50   ~ 0
+Text Label 5250 3050 0    50   ~ 0
 SWA2
-Text Label 6550 2850 2    50   ~ 0
+Text Label 6850 2850 2    50   ~ 0
 ~SW0
 Wire Wire Line
 	7400 2850 7100 2850
@@ -232,61 +232,61 @@ SWD1
 $Comp
 L Jumper:Jumper_3_Bridged12 JP5
 U 1 1 5DBC1466
-P 4300 3250
-F 0 "JP5" V 4300 3317 50  0000 L CNN
-F 1 "Jumper_3_Bridged12" V 4345 3317 50  0001 L CNN
-F 2 "Jumper:SolderJumper-3_P1.3mm_Open_Pad1.0x1.5mm" H 4300 3250 50  0001 C CNN
-F 3 "~" H 4300 3250 50  0001 C CNN
-	1    4300 3250
+P 4550 3250
+F 0 "JP5" V 4550 3317 50  0000 L CNN
+F 1 "Jumper_3_Bridged12" V 4595 3317 50  0001 L CNN
+F 2 "Jumper:SolderJumper-3_P1.3mm_Open_Pad1.0x1.5mm" H 4550 3250 50  0001 C CNN
+F 3 "~" H 4550 3250 50  0001 C CNN
+	1    4550 3250
 	0    -1   1    0   
 $EndComp
 $Comp
 L Jumper:Jumper_3_Bridged12 JP6
 U 1 1 5DBC146C
-P 4300 3750
-F 0 "JP6" V 4300 3817 50  0000 L CNN
-F 1 "Jumper_3_Bridged12" V 4345 3817 50  0001 L CNN
-F 2 "Jumper:SolderJumper-3_P1.3mm_Open_Pad1.0x1.5mm" H 4300 3750 50  0001 C CNN
-F 3 "~" H 4300 3750 50  0001 C CNN
-	1    4300 3750
+P 4550 3750
+F 0 "JP6" V 4550 3817 50  0000 L CNN
+F 1 "Jumper_3_Bridged12" V 4595 3817 50  0001 L CNN
+F 2 "Jumper:SolderJumper-3_P1.3mm_Open_Pad1.0x1.5mm" H 4550 3750 50  0001 C CNN
+F 3 "~" H 4550 3750 50  0001 C CNN
+	1    4550 3750
 	0    -1   1    0   
 $EndComp
 $Comp
 L power:+5V #PWR011
 U 1 1 5DBC1472
-P 4300 3000
-F 0 "#PWR011" H 4300 2850 50  0001 C CNN
-F 1 "+5V" H 4315 3173 50  0000 C CNN
-F 2 "" H 4300 3000 50  0001 C CNN
-F 3 "" H 4300 3000 50  0001 C CNN
-	1    4300 3000
+P 4550 3000
+F 0 "#PWR011" H 4550 2850 50  0001 C CNN
+F 1 "+5V" H 4565 3173 50  0000 C CNN
+F 2 "" H 4550 3000 50  0001 C CNN
+F 3 "" H 4550 3000 50  0001 C CNN
+	1    4550 3000
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	4300 3500 3900 3500
-Connection ~ 4300 3500
-Text Label 3900 3500 0    50   ~ 0
+	4550 3500 4150 3500
+Connection ~ 4550 3500
+Text Label 4150 3500 0    50   ~ 0
 SWA3
 $Comp
 L power:GND #PWR015
 U 1 1 5DBC147B
-P 4300 4000
-F 0 "#PWR015" H 4300 3750 50  0001 C CNN
-F 1 "GND" H 4305 3827 50  0000 C CNN
-F 2 "" H 4300 4000 50  0001 C CNN
-F 3 "" H 4300 4000 50  0001 C CNN
-	1    4300 4000
+P 4550 4000
+F 0 "#PWR015" H 4550 3750 50  0001 C CNN
+F 1 "GND" H 4555 3827 50  0000 C CNN
+F 2 "" H 4550 4000 50  0001 C CNN
+F 3 "" H 4550 4000 50  0001 C CNN
+	1    4550 4000
 	1    0    0    -1  
 $EndComp
-Text Label 4450 3250 0    50   ~ 0
+Text Label 4700 3250 0    50   ~ 0
 SWSEL
-Text Label 4450 3750 0    50   ~ 0
+Text Label 4700 3750 0    50   ~ 0
 ~SWSEL
 Wire Wire Line
-	4450 3250 4800 3250
-Text Label 5000 3450 0    50   ~ 0
+	4700 3250 5050 3250
+Text Label 5250 3450 0    50   ~ 0
 SWSEL
-Text Label 5000 3550 0    50   ~ 0
+Text Label 5250 3550 0    50   ~ 0
 ~SWSEL
 $Comp
 L Device:CP C3
@@ -766,13 +766,13 @@ F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 4950 900 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	4450 3750 4800 3750
+	4700 3750 5050 3750
 Wire Wire Line
-	4800 3250 4800 3450
+	5050 3250 5050 3450
 Wire Wire Line
-	4800 3550 4800 3750
+	5050 3550 5050 3750
 Wire Wire Line
-	4800 3550 5300 3550
+	5050 3550 5550 3550
 Text Notes 4200 4950 0    50   ~ 0
 Switch module configuration:\n\nModules A & B: short JP5 1-2 and JP6 1-2.\nModules C & D: short JP5 2-3 and JP5 2-3.
 $Comp
@@ -894,23 +894,7 @@ $EndComp
 Wire Wire Line
 	7400 2750 7150 2750
 Wire Wire Line
-	6300 2850 6600 2850
-Entry Wire Line
-	6600 3550 6700 3450
-Entry Wire Line
-	6600 3450 6700 3350
-Entry Wire Line
-	6600 3350 6700 3250
-Entry Wire Line
-	6600 3250 6700 3150
-Entry Wire Line
-	6600 3150 6700 3050
-Entry Wire Line
-	6600 3050 6700 2950
-Entry Wire Line
-	6600 2950 6700 2850
-Entry Wire Line
-	6600 2850 6700 2750
+	6550 2850 6900 2850
 Entry Wire Line
 	7000 5550 7100 5650
 Entry Wire Line
@@ -927,13 +911,7 @@ Entry Wire Line
 	7000 3150 7100 3250
 Entry Wire Line
 	7000 2750 7100 2850
-Entry Bus Bus
-	6700 2650 6800 2550
-Entry Bus Bus
-	6900 2550 7000 2650
-Wire Bus Line
-	6800 2550 6900 2550
-Text Label 7000 3350 1    50   ~ 0
+Text Label 7000 4500 1    50   ~ 0
 ~SW[0..7]
 Text Notes 3950 1400 0    50   ~ 0
 These configure the light module ID.
@@ -1612,7 +1590,7 @@ F 3 "~" H 1000 1450 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	4800 3450 5300 3450
+	5050 3450 5550 3450
 Connection ~ 3850 1500
 Wire Wire Line
 	3850 1500 3850 1600
@@ -2111,27 +2089,27 @@ $EndComp
 $Comp
 L power:PWR_FLAG #FLG0101
 U 1 1 5DA0DB97
-P 4800 3250
-F 0 "#FLG0101" H 4800 3325 50  0001 C CNN
-F 1 "PWR_FLAG" H 4800 3423 50  0001 C CNN
-F 2 "" H 4800 3250 50  0001 C CNN
-F 3 "~" H 4800 3250 50  0001 C CNN
-	1    4800 3250
+P 5050 3250
+F 0 "#FLG0101" H 5050 3325 50  0001 C CNN
+F 1 "PWR_FLAG" H 5050 3423 50  0001 C CNN
+F 2 "" H 5050 3250 50  0001 C CNN
+F 3 "~" H 5050 3250 50  0001 C CNN
+	1    5050 3250
 	1    0    0    -1  
 $EndComp
-Connection ~ 4800 3250
+Connection ~ 5050 3250
 $Comp
 L power:PWR_FLAG #FLG0103
 U 1 1 5DA0DF81
-P 4800 3750
-F 0 "#FLG0103" H 4800 3825 50  0001 C CNN
-F 1 "PWR_FLAG" H 4800 3923 50  0001 C CNN
-F 2 "" H 4800 3750 50  0001 C CNN
-F 3 "~" H 4800 3750 50  0001 C CNN
-	1    4800 3750
+P 5050 3750
+F 0 "#FLG0103" H 5050 3825 50  0001 C CNN
+F 1 "PWR_FLAG" H 5050 3923 50  0001 C CNN
+F 2 "" H 5050 3750 50  0001 C CNN
+F 3 "~" H 5050 3750 50  0001 C CNN
+	1    5050 3750
 	-1   0    0    1   
 $EndComp
-Connection ~ 4800 3750
+Connection ~ 5050 3750
 Wire Wire Line
 	1750 5300 1850 5300
 $Comp
@@ -2146,10 +2124,26 @@ F 3 "~" H 1750 6600 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 Connection ~ 1750 6600
+Entry Wire Line
+	6900 2850 7000 2750
+Entry Wire Line
+	6900 2950 7000 2850
+Entry Wire Line
+	6900 3050 7000 2950
+Entry Wire Line
+	6900 3150 7000 3050
+Entry Wire Line
+	6900 3250 7000 3150
+Entry Wire Line
+	6900 3350 7000 3250
+Entry Wire Line
+	6900 3450 7000 3350
+Entry Wire Line
+	6900 3550 7000 3450
 Wire Bus Line
 	8800 850  8800 4800
 Wire Bus Line
-	7000 2650 7000 5550
-Wire Bus Line
-	6700 2650 6700 3450
+	7000 2750 7000 5550
+Text Notes 1750 2700 0    50   ~ 0
+The pull-ups here are optional. The DFP MCU\nhas bus hold circuitry on FPD.
 $EndSCHEMATC
