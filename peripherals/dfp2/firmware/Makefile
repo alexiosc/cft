@@ -124,9 +124,13 @@ $(PROG).elf:	$(SOURCES)
 
 fuses:		.stamp-fuses
 
-# Fuses for 328P
+# Fuses for 64A (to double-check: http://eleccelerator.com/fusecalc/fusecalc.php?chip=atmega64)
+# Changes from defaults:
+# (a) set lfuse.CKSEL = 0000 (external clock)
+# (b) set lfuse.SUT = 10 (wait for 64ms for clock to stabilise)
+
 .stamp-fuses:
-		$(AVRDUDE) -s -u -v -U lfuse:w:0xff:m -U hfuse:w:0xdf:m -U efuse:w:0x07:m
+		$(AVRDUDE) -s -u -v -U lfuse:w:0xff:m -U hfuse:w:0x99:m -U efuse:w:0xff:m
 
 # Fuses for 168
 #.stamp-fuses:
