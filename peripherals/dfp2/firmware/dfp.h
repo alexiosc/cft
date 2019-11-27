@@ -9,9 +9,41 @@
 #ifndef __DFP_H__
 #define __DFP_H__
 
+#include <stdint.h>
 
-#ifdef HOST
-#endif
+///////////////////////////////////////////////////////////////////////////////
+//
+// BASIC DATA TYPES
+//
+///////////////////////////////////////////////////////////////////////////////
+
+typedef uint16_t word_t;	// A 16-bit CFT word
+typedef uint16_t addr_t;	// A 16-bit address (excludes AEXT)
+typedef uint16_t aext_t;	// 8-bit address extension
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// ERROR CODES
+//
+///////////////////////////////////////////////////////////////////////////////
+
+#define SUCCESS     0		// No error, all's well
+#define ERR_NMASTER 1		// We are not the bus master
+
+typedef uint8_t errno_t;	// Convenience name for error return type
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// BUS TRANSACTION DEFINITIONS
+//
+///////////////////////////////////////////////////////////////////////////////
+
+#define SPC_MEM 0		// A Memory space transaction
+#define SPC_IO  1		// An I/O space transaction
+
+typedef uint8_t space_t;	// For convenience and type checking
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -72,45 +104,45 @@
 // the comments show FPOE x number, FP light coordinates where available
 // (module/column A–D, rows 1–5), and edge connector pin (Cxx).
 
-#define READ_UCV_H   _XMEM(0x00)        //  0 A1 C16: µCV bits 16–23
-#define READ_UCV_M   _XMEM(0x01)        //  1 B1 C22: µCV bits 8–15
-#define READ_UCV_L   _XMEM(0x02)        //  2 C1 C30: µCV bits 0–7
-#define READ_IRQ_ACT _XMEM(0x03)        //  3 D1 C39: IRQs active
+#define XMEM_UCV_H   _XMEM(0x00)        //  0 A1 C16: µCV bits 16–23
+#define XMEM_UCV_M   _XMEM(0x01)        //  1 B1 C22: µCV bits 8–15
+#define XMEM_UCV_L   _XMEM(0x02)        //  2 C1 C30: µCV bits 0–7
+#define XMEM_IRQ_ACT _XMEM(0x03)        //  3 D1 C39: IRQs active
 
-#define READ_AEXT    _XMEM(0x04)        //  4 A2  C4: AEXT
-#define READ_PC_HI   _XMEM(0x05)        //  5 B2 C21: PC bits 8–15
-#define READ_PC_LO   _XMEM(0x06)        //  6 C2 C27: PC bits 0–7
-#define READ_IRQ_EN  _XMEM(0x07)        //  7 D2 C40: IRQs enabled
+#define XMEM_AEXT    _XMEM(0x04)        //  4 A2  C4: AEXT
+#define XMEM_PC_HI   _XMEM(0x05)        //  5 B2 C21: PC bits 8–15
+#define XMEM_PC_LO   _XMEM(0x06)        //  6 C2 C27: PC bits 0–7
+#define XMEM_IRQ_EN  _XMEM(0x07)        //  7 D2 C40: IRQs enabled
 
-#define READ_FLAGS   _XMEM(0x08)        //  8 A3 C13: flags
-#define READ_AC_HI   _XMEM(0x09)        //  9 B3 C20: AC bits 8–15
-#define READ_AC_LO   _XMEM(0x0a)        // 10 C3 C28: AC bits 0–7
-#define READ_FP_D3   _XMEM(0x0b)        // 11 D3 C37: TBD, for expansion
+#define XMEM_FLAGS   _XMEM(0x08)        //  8 A3 C13: flags
+#define XMEM_AC_HI   _XMEM(0x09)        //  9 B3 C20: AC bits 8–15
+#define XMEM_AC_LO   _XMEM(0x0a)        // 10 C3 C28: AC bits 0–7
+#define XMEM_FP_D3   _XMEM(0x0b)        // 11 D3 C37: TBD, for expansion
 
-#define READ_FP_A4   _XMEM(0x0c)        // 12 A4 C12: (TBD)
-#define READ_MFD_HI  _XMEM(0x0d)        // 13 B4 C32/C34: DR/SP hi → MFD bits 8–15 (*)
-#define READ_MFD_LO  _XMEM(0x0e)        // 14 C4 C29/C31: DR/SP lo → MFD bits 0–7  (*)
-#define READ_FP_D4   _XMEM(0x0f)        // 15 D4 C38: TBD, for expansion
+#define XMEM_FP_A4   _XMEM(0x0c)        // 12 A4 C12: (TBD)
+#define XMEM_MFD_HI  _XMEM(0x0d)        // 13 B4 C32/C34: DR/SP hi → MFD bits 8–15 (*)
+#define XMEM_MFD_LO  _XMEM(0x0e)        // 14 C4 C29/C31: DR/SP lo → MFD bits 0–7  (*)
+#define XMEM_FP_D4   _XMEM(0x0f)        // 15 D4 C38: TBD, for expansion
 
-#define READ_STATE   _XMEM(0x10)        // 16 A5 Cxx: state (run/stop etc)
-#define READ_IR_HI   _XMEM(0x11)        // 17 B5 C19: IR bits 8–15
-#define READ_IR_LO   _XMEM(0x12)        // 18 C5 C25: IR bits 0–7
-#define READ_UAV_LO  _XMEM(0x13)        // 19 D5 C35: micro-address low bits
+#define XMEM_STATE   _XMEM(0x10)        // 16 A5 Cxx: state (run/stop etc)
+#define XMEM_IR_HI   _XMEM(0x11)        // 17 B5 C19: IR bits 8–15
+#define XMEM_IR_LO   _XMEM(0x12)        // 18 C5 C25: IR bits 0–7
+#define XMEM_UAV_LO  _XMEM(0x13)        // 19 D5 C35: micro-address low bits
 
-#define READ_SCANCLR _XMEM(0x14)        // 20 -- ---: SCANCLR#. Autonomic counter reset.
-#define READ_FPOE21  _XMEM(0x15)        // 21 -- C17: FPOE21#, future expansion
-#define READ_FPOE22  _XMEM(0x16)        // 22 -- C26: FPOE22#, future expansion
-#define READ_FPOE23  _XMEM(0x17)        // 23 -- C36: FPOE23#, future expansion
+#define XMEM_SCANCLR _XMEM(0x14)        // 20 -- ---: SCANCLR#. Autonomic counter reset.
+#define XMEM_FPOE21  _XMEM(0x15)        // 21 -- C17: FPOE21#, future expansion
+#define XMEM_FPOE22  _XMEM(0x16)        // 22 -- C26: FPOE22#, future expansion
+#define XMEM_FPOE23  _XMEM(0x17)        // 23 -- C36: FPOE23#, future expansion
 
-#define READ_FPOE24  _XMEM(0x18)        // 24 -- C11: FPOE24#, future expansion
-#define READ_FPOE25  _XMEM(0x19)        // 25 -- C18: FPOE25#, future expansion
-#define READ_FPOE26  _XMEM(0x1a)        // 26 -- C24: FPOE26#, future expansion
-#define READ_FPOE27  _XMEM(0x1b)        // 27 -- C33: FPOE27#, future expansion
+#define XMEM_FPOE24  _XMEM(0x18)        // 24 -- C11: FPOE24#, future expansion
+#define XMEM_FPOE25  _XMEM(0x19)        // 25 -- C18: FPOE25#, future expansion
+#define XMEM_FPOE26  _XMEM(0x1a)        // 26 -- C24: FPOE26#, future expansion
+#define XMEM_FPOE27  _XMEM(0x1b)        // 27 -- C33: FPOE27#, future expansion
 
-#define READ_FPOE28  _XMEM(0x1c)        // 28 -- C10: FPOE28#, future expansion
-#define READ_FPOE29  _XMEM(0x1d)        // 29 -- C15: FPOE29#, future expansion
-#define READ_FPOE30  _XMEM(0x1e)        // 30 -- C23: FPOE30#, future expansion
-#define READ_FPOE31  _XMEM(0x1f)        // 31 -- ---: FPOE31#, unrouted
+#define XMEM_FPOE28  _XMEM(0x1c)        // 28 -- C10: FPOE28#, future expansion
+#define XMEM_FPOE29  _XMEM(0x1d)        // 29 -- C15: FPOE29#, future expansion
+#define XMEM_FPOE30  _XMEM(0x1e)        // 30 -- C23: FPOE30#, future expansion
+#define XMEM_FPOE31  _XMEM(0x1f)        // 31 -- ---: FPOE31#, unrouted
 
 // (*) Addresses 0x13 and 0x14 are for the MFD. They always address FP lights
 // B4 (high order bits) and C4 (low order bits), but read from a different unit
@@ -129,127 +161,35 @@
 // some are write ports.
 
 // U111 output decoder.
-#define WRITE_AB_L    _XMEM(0x40)	// Write to AB bits 0-7
-#define WRITE_AB_M    _XMEM(0x41)	// Write to AB bits 8-15
-#define WRITE_AB_H    _XMEM(0x42)	// Write to AB bits 16-23
-#define WRITE_DB_L    _XMEM(0x43)	// Write to DB bits 0-7
-#define WRITE_DB_H    _XMEM(0x44)	// Write to DB bits 8-15
-#define WRITE_IBUS_L  _XMEM(0x45)	// Write to IBUS bits 0-7
-#define WRITE_IBUS_H  _XMEM(0x46)	// Write to IBUS bits 8-15
-#define WRITE_OR_L    _XMEM(0x47)	// Write to OR, bits 0-7
+#define XMEM_AB_L    _XMEM(0x40)	// Write to AB bits 0-7
+#define XMEM_AB_M    _XMEM(0x41)	// Write to AB bits 8-15
+#define XMEM_AB_H    _XMEM(0x42)	// Write to AB bits 16-23
+#define XMEM_DB_L    _XMEM(0x43)	// Write to DB bits 0-7
+#define XMEM_DB_H    _XMEM(0x44)	// Write to DB bits 8-15
+#define XMEM_IBUS_L  _XMEM(0x45)	// Write to IBUS bits 0-7
+#define XMEM_IBUS_H  _XMEM(0x46)	// Write to IBUS bits 8-15
+#define XMEM_OR_L    _XMEM(0x47)	// Write to OR, bits 0-7
 
 // U112 output decoder.
-#define WRITE_OR_H    _XMEM(0x80)	// Write to OR, bits 8-15
-#define WRITE_RADDR   _XMEM(0x81)	// Output to µCV RADDR field
-#define WRITE_WADDR   _XMEM(0x82)	// Output to µCV WADDR field
-#define WRITE_MCV_H   _XMEM(0x83)	// Output to µCV ACTION field
-#define WRITE_TP104   _XMEM(0x84)	// TP104 output (reserved)
-#define WRITE_TP105   _XMEM(0x85)	// TP105 output (reserved)
-#define WRITE_TP106   _XMEM(0x86)	// TP106 output (reserved)
-#define WRITE_TP107   _XMEM(0x87)	// TP107 output (reserved)
+#define XMEM_OR_H    _XMEM(0x80)	// Write to OR, bits 8-15
+#define XMEM_RADDR   _XMEM(0x81)	// Output to µCV RADDR field
+#define XMEM_WADDR   _XMEM(0x82)	// Output to µCV WADDR field
+#define XMEM_MCV_H   _XMEM(0x83)	// Output to µCV ACTION field
+#define XMEM_TP104   _XMEM(0x84)	// TP104 output (reserved)
+#define XMEM_TP105   _XMEM(0x85)	// TP105 output (reserved)
+#define XMEM_TP106   _XMEM(0x86)	// TP106 output (reserved)
+#define XMEM_TP107   _XMEM(0x87)	// TP107 output (reserved)
 
-// U113 input decoder
-#define READ_AB_L     _XMEM(0x40)	// Read AB bits 0-7
-#define READ_AB_M     _XMEM(0x41)	// Read AB bits 8-15
-#define READ_AB_H     _XMEM(0x42)	// Read AB bits 16-23
-#define READ_DB_L     _XMEM(0x43)	// Read DB bits 0-7
-#define READ_DB_H     _XMEM(0x44)	// Read DB bits 8-15
-#define READ_IBUS_L   _XMEM(0x45)	// Read IBUS bits 0-7
-#define READ_IBUS_H   _XMEM(0x46)	// Read IBUS bits 8-15
-#define READ_DSR      _XMEM(0x47)	// Read DIP switches
+// U113 input decoder: same addresses as U111, but for reading.
+// #define XMEM_AB_L     _XMEM(0x40)	// Read AB bits 0-7
+// #define XMEM_AB_M     _XMEM(0x41)	// Read AB bits 8-15
+// #define XMEM_AB_H     _XMEM(0x42)	// Read AB bits 16-23
+// #define XMEM_DB_L     _XMEM(0x43)	// Read DB bits 0-7
+// #define XMEM_DB_H     _XMEM(0x44)	// Read DB bits 8-15
+// #define XMEM_IBUS_L   _XMEM(0x45)	// Read IBUS bits 0-7
+// #define XMEM_IBUS_H   _XMEM(0x46)	// Read IBUS bits 8-15
+// #define XMEM_DSR      _XMEM(0x47)	// Read DIP switches
 
-
-///////////////////////////////////////////////////////////////////////////////
-//
-// PORT MAP
-//
-///////////////////////////////////////////////////////////////////////////////
-
-// Key:
-//
-// O.     Output
-// I.     Input
-// AL.    Active Low
-// RE.    Rising Edge
-// OD.    Open Drain output.
-// I/OD.  Open drain, also used as input when in Z state.
-// FP     Front Panel
-
-// Port A: XMEM Address and Data Bus
-
-// Port B: Programming/Control
-
-#ifdef AVR
-
-#define B_nCLR       PB0	// O. AL: resets the run/stop/step state machine
-#define __SCK        PB1	// SCK (programming, not used)
-#define __MOSI       PB2	// MOSI (programming, not used)
-#define __MISO       PB3	// MISO (programming, not used)
-#define B_FPROM      PB4	// O. to MBR. 0=RAM-only, 1=ROM & RAM.
-#define B_FPCLKEN    PB5	// O. to clock generator. 1=Clock enable.
-#define B_BUSCP      PB7	// O. RE: input FFs sample data.
-		     
-// Port C: Bus Enables & Control
-
-#define C_CLRWS      PC0      	// O. RE: done with transaction, clear WS
-#define C_nIBOE      PC1 	// O. AL: drive IBUS
-#define C_nABOE      PC2 	// O. AL: drive AB (Address Bus)
-#define C_nDBOE      PC3 	// O. AL: drive DB (Data Bus)
-#define C_nMEM       PC4 	// I/OD. AL: drive MEM# bus signal.
-#define C_nIO        PC5 	// I/OD. AL: drive IO# bus signal.
-#define C_nR         PC6 	// I/OD. AL: drive R# bus signal.
-#define C_nW         PC7 	// I/OD. AL: drive W# bus signal.
-
-// Port D: Panel & Run Control
-
-#define D_nIOINT     PD0	// Used for incoming interrupts only.
-#define D_nWAIT      PD1	// I. AL: Run/Stop/Step FSM is (µ)stepping, or reset in progress
-#define D_nLTSON     PD2	// O. to FP. AL: all FP lights enabled.
-#define D_nSCANEN    PD3	// O. AL: lets FP scanner control the bus, FP updating (*)
-#define D_nPANELEN   PD4	// O. AL: connect FP scanner to computer. (*)
-#define D_LED_STOP   PD5	// O. to FP. Controls the STOP LED. (FP scanner must be running)
-#define D_nSTEP_RUN  PD6	// O. to FP and Run/Stop/Step FSM. 0 = running (RUN LED on)
-#define D_nuSTEP     PD7	// O. to Run/Stop/Step FSM. AL: request microstep.
-
-// (*) SCANEN# and PANELEN# work like this:
-//
-// SCANEN#   PANELEN#    What
-// ----------------------------------------------------------------------------------
-//    0          0       FP scanner samples the computer and updates the FP itself.
-//    0          1       FP scanner on, but no panel updates. Pointless.
-//    1          0       MCU can read from computer, panel updates as read.
-//    1          1       MCU can write to front panel.
-
-// Port E: Serial I/O, Panel, Control Vector enable
-
-#define E_RXD        PE0 	// USART, not used directly.
-#define E_TXD        PE1 	// USART, not used directly.
-#define E_nFPIRQ     PE2 	// O. AL: signal (jumper configurable) IRQ to processor
-#define E_MFD0       PE3 	// O. Set MFD value. (low bit)
-#define E_MFD1       PE4 	// O. Set MFD value. (high bit)
-#define E_nCVOE      PE5        // O. Drive Control Vector outputs (RADDR, WADDR & ACTION)
-#define E_nFPRESET   PE6        // O. AL: signals reset to processor.
-#define E_nFPRSTHOLD PE7        // O. AL: asserts RSTHOLD#. (use when CTL board is absent)
-
-// Port F: Front panel switches
-
-#define F_SWA0       PF0        // O. FP switch address, bit 0.
-#define F_SWA1       PF1        // O. FP switch address, bit 1.
-#define F_SWA2       PF2        // O. FP switch address, bit 2.
-#define F_SWA3       PF3        // O. FP switch address, bit 3.
-#define F_SWD0       PF4        // I. FP switch data, bit 0.
-#define F_SWD1       PF5        // I. FP switch data, bit 1.
-#define F_SWD2       PF6        // I. FP switch data, bit 2.
-#define F_SWD3       PF7        // I. FP switch data, bit 3.
-
-// Port G: XMEM bus control
-
-#define G_nFPHALT    PG3        // O. AL: asserts FPHALT#. Connected to TP101. (**)
-#define G_TP102      PG4        // Connected to TP102, unused.
-
-// (**) There is an erratum in the fabricated R1939 DFP board where FPHALT# is
-//      connected to the PEN pin, which can't be controlled by the MCU. This
-//      trace has been cut on the board and patched to TP101 (pin 18, PG3).
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -362,7 +302,290 @@ Functionality:
 
 */
 
-#endif // AVR
+///////////////////////////////////////////////////////////////////////////////
+//
+// LOW LEVEL I/O
+//
+///////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// HIGH LEVEL DFP-ORIGATING BUS TRANSACTIONS
+//
+///////////////////////////////////////////////////////////////////////////////
+
+// Sanity checks
+
+errno_t  bus_check_for_chatter();
+errno_t  bus_assert_halted();
+
+
+// Single transactions
+
+errno_t  bus_read(space_t space, addr_t addr, word_t * buf);
+errno_t  bus_write(space_t space, addr_t addr, word_t word);
+
+
+// Block I/O (faster, no need for excessive sanity checks)
+
+errno_t  bus_start_block_write(space_t space);
+errno_t  bus_block_write(addr_t addr, word_t word);
+errno_t  bus_block_read(addr_t base, int16_t n, word_t * buf);
+errno_t  bus_end_block_write(space_t space);
+
+
+// IBUS Transactions.
+
+// Note: as the units on the IBus aren't read-write symmetric, these
+// aren't either!
+
+errno_t  ibus_read(addr_t raddr, word_t * buf);
+errno_t  ibus_write(addr_t waddr, word_t * buf);
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// CFT-ORIGINATED BUS TRANSCACTIONS
+//
+///////////////////////////////////////////////////////////////////////////////
+
+// We only compare 8-bit addresses because our hardware address decoder has
+// already compared the most significant 8 bits. Receiving an bus command
+// interrupt means they match our base address already.
+
+//#define IOBASE 0x100
+//#define _IO(x) (IOBASE|(x))
+#define _IO(x) (x)
+
+#define IO_SOR      _IO(0x00)
+#define IO_LSR      IO_SOR
+#define IO_LDSR     _IO(0x01)
+#define IO_ENEF     _IO(0x08)
+#define IO_DISEF    _IO(0x09)
+#define IO_QEF1     IO_ENEF
+#define IO_QEF2     IO_DISEF
+#define IO_ICR      _IO(0x0A)
+#define IO_ISR      IO_ICR
+
+#define IO_SENTINEL _IO(0x0f)
+#define IO_PRINTA   _IO(0x10)
+#define IO_PRINTC   _IO(0x11)
+#define IO_READC    IO_PRINTC
+#define IO_PRINTD   _IO(0x12)
+#define IO_PRINTU   _IO(0x13)
+#define IO_PRINTH   _IO(0x14)
+#define IO_PRINTB   _IO(0x15)
+#define IO_PRINTSP  _IO(0x16)
+#define IO_PRINTNL  _IO(0x17)
+#define IO_DEBUGON  _IO(0x18)
+#define IO_DEBUGOFF _IO(0x19)
+#define IO_DUMP     _IO(0x1a)
+#define IO_PRINTHI  _IO(0x1b)
+#define IO_PRINTLO  _IO(0x1c)
+#define IO_HALT     _IO(0x1d)
+#define IO_SUCCESS  _IO(0x1e)
+#define IO_FAIL     _IO(0x1f)
+
+// Source: dfp.asm
+#define FTR_HOB  0x0001		// Halt on bus errors (emulator only)
+#define FTR_TRC  0x0010		// Assembly trace
+#define FTR_UTR  0x0020		// Microcode trace
+#define FTR_HOS  0x0200		// Halt on SENTINEL
+
+#define QEF_PFP  0x0001		// PFP: full front panel installed
+#define QEF_DEB  0x0002		// DEB functionality present
+#define QEF_TTY  0x0004		// Debug TTY present
+#define QEF_TST  0x0008		// Testing interface (PRINTx) present
+#define QEF_TRC  0x0010		// Tracing (DEBUGON/OFF) available
+#define QEF_UTR  0x0020		// Microcode tracing available
+#define QEF_DMP  0x0040		// DUMP available
+#define QEF_SNT  0x0080		// SENTINEL available
+#define QEF_HOF  0x0100		// Will halt on FAIL
+#define QEF_HOS  0x0200		// Will halt on SENTINEL
+#define QEF_LCK  0x0400		// Panel is locked
+
+#define QEF_VLE  0x0000         // Detection/version: verilog
+#define QEF_VHW  0x4000		// Detection/version: hardware
+#define QEF_VCE  0xc000		// Detection/version: emulated panel
+#define QEF_VJE  0xe000		// Detection/version: JS-emulated panel
+#define QEF_DET  0xe000		// detection mask
+
+#ifdef CFTEMU
+#define QEF_BASE (QEF_VCE|QEF_PFP|QEF_DEB|QEF_TTY|QEF_TST|QEF_TRC|QEF_UTR|QEF_DMP)
+#else
+#define QEF_BASE (QEF_VHW|QEF_PFP|QEF_DEB|QEF_TTY|QEF_TST|QEF_TRC|QEF_UTR|QEF_DMP)
+#endif // CFTEMU
+
+// Feature bits
+#define FTR_HOB  0x0001		// Halt on bus errors: emulator only
+#define FTR_TRC  0x0010		// Assembly trace
+#define FTR_UTR  0x0020		// Microcode trace
+#define FTR_HOS  0x0200		// Halt on SENTINEL
+
+// CFT Extended Instructions and I/O registers:
+// 
+//   I/O address space usage:
+// 
+//   REG OUT        IN
+//   ------------------------------
+//   100 SOR        LSR
+//   101 -          LDSR
+//   102 -          -
+//   103 -          -
+//   104 -          -
+//   105 -          -
+//   106 -          -
+//   107 -          -
+//   108 ENEF       QEF (*)
+//   109 DISEF      QEF
+//   10A ICR        ISR
+//   10B -          -
+//   10C -          -
+//   10D -          -
+//   10E -          -
+//   10F SENTINEL   SENTINEL
+//   110 PRINTA     -    
+//   111 PRINTC     READC
+//   112 PRINTD     -
+//   113 PRINTU     -
+//   114 PRINTH     -
+//   115 PRINTB     -
+//   116 PRINTSP    -
+//   117 PRINTNL    -
+//   118 DEBUGON    DEBUGON
+//   119 DEBUGOFF   DEBUGOFF
+//   11A DUMP       DUMP
+//   11B PRINTHI    -
+//   11C PRINTLO    -
+//   11D HALT       HALT
+//   11E SUCCESS    SUCCESS
+//   11F FAIL       FAIL
+// 
+// 
+// ENEF/DISEF
+// 
+//  Enable/disable features. Flags to enable.
+// 
+//  Bit 0:     Sanity checking (emulator only).
+//  Bit 1:     Enable/disable SENTINEL
+//  Bit 2:     Show assembly tracing when DEBUGON is active.
+//  Bit 3:     Show microcode tracing when DEBUGON is active.
+//  Bit 4:     Reserved (emulator only).
+//  Bit 5:     Enable DEB TTY interrupt on char receive.
+//  Bits 5-15: Reserved.
+// 
+// 
+// QEF
+// 
+//   Query Features. Bitmap.
+// 
+//   Bit  0:     PFP present.
+//   Bit  1:     DEB present.
+//   Bit  2:     Debug TTY present.
+//   Bit  3:     PRINTx (other than PRINTC) present.
+//   Bit  4:     Trace (DEBUGON/OFF) available.
+//   Bit  5:     DUMP available.
+//   Bit  6:     SENTINEL available.
+//   Bit  7:     Halt on fail.
+//   Bit  8:     Halt on sentinel.
+//   Bit  9:     Panel is locked.
+//   Bits 10-15: Always 010000.
+// 
+//   Starting value (before ORring with hof/hos/lock): 0100 0000 0111 1111
+// 
+// SENTINEL
+// 
+//  Execution halts with an appropriate message logged in the debugging
+//  console.
+// 
+// PRINTA
+// 
+//  Prints value of AC in hex (address format).
+// 
+// PRINTC
+// 
+//   Print out a single character to the debugging TTY.
+// 
+// READC
+// 
+//   Read a character from the debugging TTY. If no character is
+//   available, bit 15 is set (AC < 0). IRQ6 is signalled if the IRQ
+//   feature is enabled.
+// 
+// PRINTD
+// 
+//   Print a signed base 10 integer.
+// 
+// PRINTU
+// 
+//   Print an unsigned base 10 integer.
+// 
+// PRINTH
+// 
+//   Print AC as an unsigned hex integer.
+// 
+// PRINTB
+// 
+//   Print AC as 16-digit bitmap.
+// 
+// PRINTSP
+// 
+//   Print a single space.
+// 
+// PRINTNL
+// 
+//   Print a newline.
+// 
+// DEBUGON
+// 
+//   Start tracing (slows down processor).
+// 
+// DEBUGOFF
+// 
+//   Stop tracing.
+// 
+// DUMP
+// 
+//   Dump current CPU state.
+// 
+// PRINTHI
+// 
+//   Store AC into the HI registed.
+// 
+// PRINTLO
+// 
+//   Print HI:AC as a 32-bit hex value.
+// 
+// HALT
+// 
+//   Halt the computer.
+// 
+// SUCCESS
+// 
+//   Print out [ok].
+// 
+// FAIL
+// 
+//   Print out [fail]. Halt if halt-on-fail enabled.
+// 
+
+void buscmd_enef(uint16_t val);
+void buscmd_disef(uint16_t val);
+void buscmd_qef();
+void buscmd_print(char op, uint16_t val);
+void buscmd_printhi(uint16_t val);
+void buscmd_debugon();
+void buscmd_debugoff();
+void buscmd_dump();
+void buscmd_sentinel();
+void buscmd_halt();
+void buscmd_success();
+void buscmd_fail();
+
+// High-level bus transaction multiplexers
+
+void buscmd_write();
+void buscmd_read();
 
 #endif // __DFP_H__
 

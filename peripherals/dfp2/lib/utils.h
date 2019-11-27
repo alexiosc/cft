@@ -22,7 +22,7 @@
 #define _BV(x) (1<<(x))
 #endif // _BV
 
-#define bitset(port, bit) ((port) &= ~_BV(bit))
+#define is_bitset(port, bit) ((port) &= ~_BV(bit))
 #define clearbit(port, bit) ((port) &= ~_BV(bit))
 #define setbit(port, bit) ((port) |= _BV(bit))
 

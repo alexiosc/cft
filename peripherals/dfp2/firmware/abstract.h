@@ -2,7 +2,7 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-// ABSTRACT DEFINITIONS
+// ABSTRACT DEFINITIONS FOR DRIVERS
 //
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -28,8 +28,6 @@
 
 extern uint16_t icr;
 extern uint8_t ifr6_operated;
-extern uint8_t cb[3];
-extern uint8_t defercb;
 
 #define defer_cb_write() defercb++
 

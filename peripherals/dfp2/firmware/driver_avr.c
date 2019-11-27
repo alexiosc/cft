@@ -1,14 +1,24 @@
 // -*- indent-c++ -*-
+
+///////////////////////////////////////////////////////////////////////////////
 //
+// HARDWARE DRIVER FOR DFP ON ATMEGA64
+//
+///////////////////////////////////////////////////////////////////////////////
 
 #warning "TODO: Review this file for DFP2"
 
-#ifdef AVR
-
-#define USE_ATOMIC_BLOCKS
+#ifndef AVR
+#  error "This driver is meant for an AVR only."
+#endif // AVR
 
 #include <avr/interrupt.h>
 #include <avr/wdt.h>
+
+#include "dfp.h"
+#include "utils.h"
+
+#define USE_ATOMIC_BLOCKS
 
 #ifdef USE_ATOMIC_BLOCKS
 #include <util/atomic.h>
@@ -18,51 +28,428 @@
 
 // This 'driver' is only available on the AVR target.
 
-#include "hwcompat.h"
-#include "panel.h"
-#include "proto.h"
-#include "abstract.h"
-#include "bus.h"
-#include "buscmd.h"
-#include "utils.h"
-#include "serial.h"
-#include "output.h"
-#include "switches.h"
-#include "panel.h"
+// #include "hwcompat.h"
+// #include "panel.h"
+// #include "proto.h"
+// #include "abstract.h"
+// #include "bus.h"
+// #include "buscmd.h"
+// #include "utils.h"
+// #include "serial.h"
+// #include "output.h"
+// #include "switches.h"
+// #include "panel.h"
+
+// TODO: Adape the above one by one.
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// AVR PORTS
+//
+///////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// PORT MAP
+//
+///////////////////////////////////////////////////////////////////////////////
+
+// Key:
+//
+// O.     Output
+// I.     Input
+// AL.    Active Low
+// RE.    Rising Edge
+// OD.    Open Drain output.
+// I/OD.  Open drain, also used as input when in Z state.
+// FP     Front Panel
+
+// Port A: XMEM Address and Data Bus
+
+// Port B: Programming/Control
+
+#ifdef AVR
+
+#define B_NCLR       PB0	// O. AL: resets the run/stop/step state machine
+#define __SCK        PB1	// SCK (programming, not used)
+#define __MOSI       PB2	// MOSI (programming, not used)
+#define __MISO       PB3	// MISO (programming, not used)
+#define B_FPROM      PB4	// O. to MBR. 0=RAM-only, 1=ROM & RAM.
+#define B_FPCLKEN    PB5	// O. to clock generator. 1=Clock enable.
+#define B_BUSCP      PB7	// O. RE: input FFs sample data.
+		     
+// Port C: Bus Enables & Control
+
+#define C_CLRWS      PC0      	// O. RE: done with transaction, clear WS
+#define C_NIBOE      PC1 	// O. AL: drive IBUS
+#define C_NABOE      PC2 	// O. AL: drive AB (Address Bus)
+#define C_NDBOE      PC3 	// O. AL: drive DB (Data Bus)
+#define C_NMEM       PC4 	// I/OD. AL: drive MEM# bus signal.
+#define C_NIO        PC5 	// I/OD. AL: drive IO# bus signal.
+#define C_NR         PC6 	// I/OD. AL: drive R# bus signal.
+#define C_NW         PC7 	// I/OD. AL: drive W# bus signal.
+
+// Port D: Panel & Run Control
+
+#define D_NIOINT     PD0	// Used for incoming interrupts only.
+#define D_NWAIT      PD1	// I. AL: Run/Stop/Step FSM is (µ)stepping, or reset in progress
+#define D_NLTSON     PD2	// O. to FP. AL: all FP lights enabled.
+#define D_NSCANEN    PD3	// O. AL: lets FP scanner control the bus, FP updating (*)
+#define D_NPANELEN   PD4	// O. AL: connect FP scanner to computer. (*)
+#define D_LED_STOP   PD5	// O. to FP. Controls the STOP LED. (FP scanner must be running)
+#define D_NSTEP_RUN  PD6	// O. to FP and Run/Stop/Step FSM. 0 = running (RUN LED on)
+#define D_NuSTEP     PD7	// O. to Run/Stop/Step FSM. AL: request microstep.
+
+// (*) SCANEN# and PANELEN# work like this:
+//
+// SCANEN#   PANELEN#    What
+// ----------------------------------------------------------------------------------
+//    0          0       FP scanner samples the computer and updates the FP itself.
+//    0          1       FP scanner on, but no panel updates. Pointless.
+//    1          0       MCU can read from computer, panel updates as read.
+//    1          1       MCU can write to front panel.
+
+// Port E: Serial I/O, Panel, Control Vector enable
+
+#define E_RXD        PE0 	// USART, not used directly.
+#define E_TXD        PE1 	// USART, not used directly.
+#define E_NFPIRQ     PE2 	// O. AL: signal (jumper configurable) IRQ to processor
+#define E_MFD0       PE3 	// O. Set MFD value. (low bit)
+#define E_MFD1       PE4 	// O. Set MFD value. (high bit)
+#define E_NMCVOE     PE5        // O. Drive Control Vector outputs (RADDR, WADDR & ACTION)
+#define E_NFPRESET   PE6        // O. AL: signals reset to processor.
+#define E_NFPRSTHOLD PE7        // O. AL: asserts RSTHOLD#. (use when CTL board is absent)
+
+// Port F: Front panel switches
+
+#define F_SWA0       PF0        // O. FP switch address, bit 0.
+#define F_SWA1       PF1        // O. FP switch address, bit 1.
+#define F_SWA2       PF2        // O. FP switch address, bit 2.
+#define F_SWA3       PF3        // O. FP switch address, bit 3.
+#define F_SWD0       PF4        // I. FP switch data, bit 0.
+#define F_SWD1       PF5        // I. FP switch data, bit 1.
+#define F_SWD2       PF6        // I. FP switch data, bit 2.
+#define F_SWD3       PF7        // I. FP switch data, bit 3.
+
+// Port G: XMEM bus control
+
+#define G_NFPHALT    PG3        // O. AL: asserts FPHALT#. Connected to TP101. (**)
+#define G_TP102      PG4        // Connected to TP102, unused.
+
+// (**) There is an erratum in the fabricated R1939 DFP board where FPHALT# is
+//      connected to the PEN pin, which can't be controlled by the MCU. This
+//      trace has been cut on the board and patched to TP101 (pin 18, PG3).
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// UTILITIES
+//
+///////////////////////////////////////////////////////////////////////////////
+
+// Convenience/clarity macros for the Atmega.
+
+#define DDR_INP(bit)   (0)
+#define DDR_OUT(bit)   (BV(bit))
+#define DDR_HIZ(bit)   (BV(bit))
+
+#define PORT_PYES(bit) (0)
+#define PORT_PNNO(bit) (BV(bit))
+
+#define PORT_NYES(bit) (BV(bit))
+#define PORT_NNO(bit)  (0)
+
+#define PORT_PUP(bit)  (BV(BIT))
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// THE XMEM ADDRESSES
+//
+///////////////////////////////////////////////////////////////////////////////
+
+volatile uint8_t * ab_l = (uint8_t *)XMEM_AB_L;
+volatile uint8_t * ab_m = (uint8_t *)XMEM_AB_M;
+volatile uint8_t * ab_h = (uint8_t *)XMEM_AB_H;
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// BUSES
+//
+///////////////////////////////////////////////////////////////////////////////
+
+inline static void
+release_buses()
+{
+	// Release IBus, AB and DB and deassert bus control signals by setting
+	// all of their bits. They're active low.
+	PORTC |= BV(C_NIBOE) | BV(C_NABOE) | BV(C_NDBOE) |
+		BV(C_NMEM) | BV(C_NIO) | BV(C_NR) | BV(C_NW);
+
+	// Tristate bus control signals and the rest of control bus by clearing
+	// their NMEM, NIO, NR, NW and NMCVOE bits in the DDRC and 
+	DDRC &= ~(BV(C_NMEM) | BV(C_NIO) | BV(C_NR) | BV(C_NW));
+
+	// Tristate the µCV (control vector) outputs too.
+	PORTE |= BV(E_NMCVOE);
+}
+
+
+inline static void
+release_ibus()
+{
+	setbit(PORTC, C_NIBOE);
+}
+
+
+inline static void
+release_ucv()
+{
+	// Tristate bus control signals and the rest of control bus by clearing
+	// their NMEM, NIO, NR, NW and NMCVOE bits in the DDRC and 
+	DDRC &= ~(BV(C_NMEM) | BV(C_NIO) | BV(C_NR) | BV(C_NW));
+
+	// Tristate the µCV (control vector) outputs too.
+	PORTE |= BV(E_NMCVOE);
+}
+
+
+inline static errno_t
+drive_ibus()
+{
+	clearbit(PORTC, C_NIBOE);
+}
+
+
+inline static void
+drive_control()
+{
+	clearbit(PORTE, E_NMCVOE);
+}
 
 
 
-       	       	    
+// The Address Bus is a 24-bit bus driven by three '574 registers. They are
+// tristated directly by controlling the MCU's pin C_NABOE. To put a 24-bit
+// value on the AB, we just write the addresses to the registers one byte at a
+// time and clear the C_NABOE pin. (it's active low)
+
+inline errno_t
+drive_ab()
+{
+	// If the BUS board is present and the processor isn't halted, we can't
+	// drive the AB.
+	if (have_board(BRD_BUS) && !is_halted()) {
+		// Tristate the AB driver. Should already be tristated since
+		// drive_ab() is being called, but let's be safe.
+		tristate_ab();
+		return ERR_NMASTER;
+	}
+
+	// Enable the AB drivers. This will 
+	clearbit(PORTC, C_NABOE);
+	return SUCCESS;
+}
+
+
+inline errno_t
+write_ab(const uint16_t abus, const uint8_t aext)
+{
+	// If the BUS board is present and the processor isn't halted, we can't
+	// drive the AB.
+	if (have_board(BRD_BUS) && !is_halted()) {
+		tristate_ab();
+		return ERR_NMASTER;
+	}
+
+	// Drive the Address Bus ourselves.
+	*xmem_ab[0] = abus & 0xff;
+	*xmem_ab[1] = (abus >> 8) & 0xff;
+	*xmem_ab[2] = aext;
+}
+
+
+inline void
+tristate_ab()
+{
+	setbit(PORTC, C_nABOE);
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// DATA BUS
+//
+///////////////////////////////////////////////////////////////////////////////
+
+inline void
+drive_db()
+{
+	// The processor (if present) drives the DB.
+	if (flags & FL_PROC) {
+		// Just in case, tristate our DB drivers. And drive the IBUS
+		// instead.
+		setbit(PORTD, D_NDBOE);
+		drive_ibus();
+	} else {
+		setbit(PORTD, D_NIBUSOE); // Tristate the IBUS
+		clearbit(PORTD, D_NDBOE); // Drive the DBUS
+	}
+}
+
+
+void
+write_db(const uint16_t dbus)
+{
+	if (flags & FL_PROC) {
+		// The processor drives the DB using the IBUS. All we need to
+		// do is drive the IBUS.
+		write_ibus(dbus);
+	} else {
+		out_shift_registers16(dbus, CMD_DBCLK);
+	
+		// Move data from ALL the shift registers to their respective
+		// output registers. Tristated output registers will of course
+		// not have any effects.
+		strobecmd(CMD_STCP);
+	}
+}
+
+
+void
+tristate_db()
+{
+	if (flags & FL_PROC) tristate_ibus();
+	// Tristate the DB too, even if the processor is connected. Can't hurt.
+	setbit(PORTD, D_NDBOE);
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// RUN CONTROL (RUN/STEP/STOP FSM)
+//
+///////////////////////////////////////////////////////////////////////////////
+
+inline static void
+freeze_run_step_stop_fsm()
+{
+	clearbit(PORTB, C_NCLR);
+}
+
+
+inline static void
+thaw_run_step_stop_fsm()
+{
+	set(PORTB, C_NCLR);
+}
+
+
+inline static void
+reset_run_step_stop_fsm()
+{
+	freeze_run_step_stop_fsm();
+	thaw_run_step_stop_fsm();
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// TRANSACTIONS ORIGINATED BY THE CFT
+//
+///////////////////////////////////////////////////////////////////////////////
+
+inline static void
+clear_ws()
+{
+	clearbit(PORTC, C_CLRWS);
+	setbit(PORTC, C_CLRWS);
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// INITIALISATION
+//
+///////////////////////////////////////////////////////////////////////////////
+
+// Initialise essential AVR registers to sane (and idle) defaults.
+inline static void
+avr_init()
+{
+	MCUCSR = BV(JTD);	//  Disable JTAG
+
+	XMCRA = 0;		// No wait states
+	XMCRB = BV(XMBK) | 	// Enable Bus Keeper (hold) on Port A (FPA/FPD)
+		BV(XMM0) |	// 8-bit Address bus, recover all of Port C
+		BV(XMM1) |
+		BV(XMM2);
+
+	MCUCR =  BV(SRE);	// *NOW* we can enable XMEM.
+
+	// XMEM overrides our settings for Port A.
+
+	// Configure other ports. Use binary for brevity.
+
+	//         76543210
+	DDRB =   0b11110001; // PB1–3 left as inputs.
+	PORTB =  0b10000000; // Init, step 1.
+	PORTB =  0b10001000; // Init, step 2, CLR# rising edge
+
+	DDRC =   0b00001111; // Port C direction, bus control tristated
+	PORTC =  0b00001110; // Init, step 1. Disable pull-ups on bus control
+	PORTC =  0b00001111; // Init, step 2, CLRWS raising edge
+
+	DDRD =   0b11111100; // Port D direction
+	PORTD =  0b11011000; // Port D init. (Lights on, FP scan disabled, FPOE disabled)
+
+	DDRE =   0b11111100; // Port E direction
+	PORTE =  0b10100100; // Port E init, assert FPRESET#, deassert others.
+
+	DDRF =   0b00001111; // Port F direction (SWA/SWD)
+	PORTF =  0b00000000; // Disable pull-ups on outputs.
+
+	//         ---43210
+	DDRG =   0b00000000; // Port G direction, XMEM control pins
+	PORTG =  0b00000000; // Disable pull-ups.
+}
+
+
+static inline void
+enable_cft_interrupts()
+{
+	// Disable INT0
+	clearbit(EIMSK, INT0);
+	// Set falling edge sensitivity (ISC01=1, ISC00=0)
+	EICRA = (EICRA & 0b11111100) | BV(ISC01);
+	// Enable INT0
+	setbit(EIMSK, INT0);
+}
 
 
 void
 hw_init()
 {
+	avr_init();
 
-	MCUCSR = 0b10000000; // Disable JTAG
-	MCUCR =  0b10000000; // Enable XMEM
-	XMCRB =  0b10000111; // Enable Bus Hold, set 8-bit FPA.
+	release_buses();
+	tristate_ibus();
+	tristate_db();
+	tristate_ab();
+	tristate_ctl();
 
-	DDRB =   0b11110001; // Port B direction
-	PORTB =  0b00000000; // Init, step 1
-	PORTB =  0b10001000; // Init, step 2, CLR# asserted and cleared
+	enable_cft_interrupts();
 
-	DDRC =   0b11111111; // Port C direction
-	PORTC =  0b11111110; // Init, step 1
-	PORTC =  0b11111111; // Init, step 2, CLRWS raising edge
+	freeze_run_step_stop_fsm();
+	clear_ws();
 
-	DDRD =   0b11111100; // Port D direction
-	PORTD =  0b11011100; // Port D init.
+	init_switches;		// Initialise debouncing timer and interrupt
 
-	DDRE =   0b11111100; // Port E direction
-	PORTE =  0b10100100; // Port E init, assert FPRESET#.
+	
 
-	DDRF =   0b00001111; // (port F direction)
-
-	DDRG =   0b00000011; // (port F direction)
-	PORTG =  0b00000000; // (init, assert FPHALT#)
-
-
+	
 
 
 	
@@ -72,49 +459,7 @@ hw_init()
 
 #warning "PORTED TO THIS POINT"
 
-	// Explicitly tristate everything again.
-	tristate_ibus();
-	tristate_db();
-	tristate_ab();
-
-	// write_ibus(0x1234);
-	// write_ab(0x5678);
-	// write_db(0xabcd);
-	// int i;
-	// for(i=0;;i++) {
-	// 	_delay_ms(1000);
-	// 	if ((i & 3) == 0) drive_ibus(); else tristate_ibus();
-	// 	if ((i & 3) == 1) drive_ab(); else tristate_ab();
-	// 	if ((i & 3) == 2) drive_db(); else tristate_db();
-	// }
-
-	// for(;;) {
-	// 	PORTB = 0;
-	// 	_delay_ms(500);
-	// 	PORTB = _BV(PB1) | _BV(PB2);
-	// 	_delay_ms(500);
-	// }
-
-	// Time = 3
-
-	// Reset all the drivers with MR# pins, and initialise the wait state
-	// state machine.
-	strobe_clr();
-	clr_ws();
-
 	// Time = 4
-
-	// Write the control bus, initialising all the control
-	// outputs. This will de-assert all the reset signals, among
-	// other things.
-	clearflag(cb[1], CB1_NFPRESET | CB1_NRESET);
-	setflag(cb[2], CB2_HALT | CB0_NIRQ6); // Assert HALT, clear NIRQ6.
-	write_cb();		      // Shift out all the values
-	clearbit(PORTD, D_NCTLOE);    // Enable the control bus drivers
-
-	// Enable INT0 (with negative edge sensitivity)
-	EICRA = (EICRA & 0xf0) | _BV(ISC01);
-	setbit(EIMSK, INT0);
 
 	// Set up the switch sampling/debouncing timer. Atmega168 datasheet,
 	// p. 104.
@@ -124,11 +469,6 @@ hw_init()
 	// That's 35.56 ms between samples, plenty of time for
 	// switches to stop bouncing.
 	
-	TCCR0A = _BV(WGM01);		// CTC Mode
-	TCCR0B = _BV(CS00) | _BV(CS02); // CLK/1024 prescaler
-	TIMSK0 = 2;			// Interrupt on compare match
-	OCR0A = 0xff;			// Lowest possible rate (256)
-
 	// Initialise the debugging serial port
 	serial_init();
 
@@ -241,6 +581,23 @@ hw_done()
 
 static uint8_t _switches[64];
 
+
+// Initialise the switch data.
+
+static inline void
+init_switches()
+{
+	for (uint8_t i = 0; i < 64; i++) {
+		_switches[i] = 0;
+	}
+
+	TCCR0A = BV(WGM01);	      // CTC Mode
+	TCCR0B = BV(CS00) | BV(CS02); // CLK/1024 prescaler
+	TIMSK0 = 2;		      // Interrupt on compare match
+	OCR0 = 600;		      // 16 MHz / 1024 / 600 ≅ 26 Hz.
+}
+
+
 // There are 64 switch data lines in total arranged in an unusual (but
 // convenient) 16×4 matrix. We use 64 bytes (optimising for speed rather than
 // space) and this way we offer 8-sample debouncing. To software debounce, we
@@ -256,7 +613,7 @@ static uint8_t _switches[64];
 // | INPUTS                    | OUTPUTS                   |
 // +---------------------------+---------------------------+
 
-inline void
+static inline void
 scan_switches()
 {
 	uint8_t swa, i = 0;
@@ -267,6 +624,12 @@ scan_switches()
 		_switches[i] = (_switches[i] << 1) | (PORTF & 0x40 ? 1 : 0); i++;
 		_switches[i] = (_switches[i] << 1) | (PORTF & 0x80 ? 1 : 0); i++;
 	}
+}
+
+
+ISR(TIMER0_COMP_vect)
+{
+	// TODO
 }
 
 
@@ -284,6 +647,16 @@ get_switch(uint8_t swidx)
 }
 
 
+///////////////////////////////////////////////////////////////////////////////
+//
+// THE ADDRESS BUS
+//
+///////////////////////////////////////////////////////////////////////////////
+
+inline void
+tristate_ab()
+{
+}
 
 
 
@@ -298,6 +671,19 @@ get_switch(uint8_t swidx)
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
+
+void
+addr_inc()
+{
+	extern uint16_t addr;
+	addr++;
+	_pc++;
+	strobe_incpc();
+}
+
+
+
+
 
 
 
@@ -430,8 +816,6 @@ test_bushold(uint16_t val)
 	
 }
 
-void write_cb();		// Forward definition
-static void outcmd(uint8_t, bool_t); // Same
 
 
 // There are many ways to detect the presence of a processor:
@@ -1308,138 +1692,6 @@ tristate_ibus()
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-// ADDRESS BUS CODE
-//
-///////////////////////////////////////////////////////////////////////////////
-
-// Strategy: in standalone (no processor) mode, just drive the Address
-// Bus ourselves. Downside: we have no control over AEXT.
-//
-// When a processor is present, use its Address Register instead. This
-// has the advantage of operating the MBU and driving the AEXT lines,
-// so we have access to the whole 21 bit address space.
-//
-// To set the AR: drive IBUS, put value on IBUS, strobe WAR#.
-//
-// To drive/tristate the address bus with a processor present, all we
-// need to do is assert MEM# or IO# (which is done during bus access
-// cycles anyway).
-
-void
-drive_ab()
-{
-	// The processor (if present) drives the AB.
-	if (flags & FL_PROC) {
-		// Just in case, tristate our AB drivers.
-		setbit(PORTD, D_NABOE);
-	} else {
-		// Enable the AB drivers.
-		clearbit(PORTD, D_NABOE);
-	}
-}
-
-
-void
-write_ab(const uint16_t abus)
-{
-	if (flags & FL_PROC) {
-
-		//                 (1)(2)(3)(4)
-		// IBUS ZZZZZZZZZZZZ<  DATA  >ZZZZZZZZZZ
-		//      ________________   _____________
-		// WAR#                 \_/
-		//                       :
-		// AR   XXXXXXXXXXXXXXXXX< IBUS VALUE
-
-		write_ibus(abus); // Set IBUS value (drivers at Z)
-		drive_ibus();  	  // Drive the IBUS
-		setup();	  // Bus setup time
-		strobe_war();	  // Strobe WAR# 
-		hold();		  // Bus hold time
-		tristate_ibus();  // Release the IBUS
-
-	} else {
-		// Drive the Address Bus ourselves.
-		out_shift_registers16(abus, CMD_ABCLK);
-
-		// Move data from ALL the shift registers to their respective
-		// output registers. Tristated output registers will of course
-		// not have any effects.
-		strobecmd(CMD_STCP);
-	}
-}
-
-
-inline void
-tristate_ab()
-{
-	// Just in case something's gone wrong, we tristate the drivers whether
-	// a processor is present or not.
-	setbit(PORTD, D_NABOE);
-}
-
-
-///////////////////////////////////////////////////////////////////////////////
-//
-// DATA BUS
-//
-///////////////////////////////////////////////////////////////////////////////
-
-inline void
-drive_db()
-{
-	// The processor (if present) drives the DB.
-	if (flags & FL_PROC) {
-		// Just in case, tristate our DB drivers. And drive the IBUS
-		// instead.
-		setbit(PORTD, D_NDBOE);
-		drive_ibus();
-	} else {
-		setbit(PORTD, D_NIBUSOE); // Tristate the IBUS
-		clearbit(PORTD, D_NDBOE); // Drive the DBUS
-	}
-}
-
-
-void
-write_db(const uint16_t dbus)
-{
-	if (flags & FL_PROC) {
-		// The processor drives the DB using the IBUS. All we need to
-		// do is drive the IBUS.
-		write_ibus(dbus);
-	} else {
-		out_shift_registers16(dbus, CMD_DBCLK);
-	
-		// Move data from ALL the shift registers to their respective
-		// output registers. Tristated output registers will of course
-		// not have any effects.
-		strobecmd(CMD_STCP);
-	}
-}
-
-
-void
-tristate_db()
-{
-	if (flags & FL_PROC) tristate_ibus();
-	// Tristate the DB too, even if the processor is connected. Can't hurt.
-	setbit(PORTD, D_NDBOE);
-}
-
-
-void
-addr_inc()
-{
-	extern uint16_t addr;
-	addr++;
-	_pc++;
-	strobe_incpc();
-}
-
-
-///////////////////////////////////////////////////////////////////////////////
-//
 // STROBES AND MISCELLANEOUS SIGNALS
 //
 ///////////////////////////////////////////////////////////////////////////////
@@ -1688,16 +1940,6 @@ perform_ustep()
 }
 
 
-inline void
-set_buspu(const uint8_t x)
-{
-	ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
-		outcmd(CMD_BUSPU, x);
-	}
-}
-
-
-
 // Helper and sanity check
 #define do_cb(n, s, v) flag(cb[n], CB##n##_##s, v)
 
@@ -1890,22 +2132,6 @@ set_io(bool_t val)
 	// MEM/IO safety interlock.
 	clearflag(cb[2], CB2_MEM);
 	do_cb(2, IO, val);
-	write_cb();
-}
-
-
-void
-release_bus()
-{
-	defercb = 0;		// Always immediate!
-	tristate_ab();
-	tristate_db();
-	tristate_ibus();
-	clearflag(cb[2], CB2_MEM | CB2_IO | CB2_W | CB2_R);
-	
-	do_cb(2, HALT, 0);
-	write_cb();
-	do_cb(2, HALT, 1);
 	write_cb();
 }
 
@@ -2335,9 +2561,6 @@ ISR(TIMER0_COMPA_vect)
 		panel_ifr6();
 	}
 }
-
-
-#endif	// AVR
 
 
 // End of file.

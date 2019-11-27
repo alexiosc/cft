@@ -1,9 +1,13 @@
 // -*- indent-c -*-
-#warning "TODO: Review this file for DFP2"
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// UTILITIES
+//
+///////////////////////////////////////////////////////////////////////////////
 
 #ifndef __UTILS_H__
 #define __UTILS_H__
-
 
 // The PSTR macro defines literal strings to be stored in program
 // memory. On the host computer, the von Neumann distinction between
@@ -17,33 +21,34 @@
 #define wdt_reset() ;
 #endif // HOST
 
+// Convert a pin (bit) number to byte.
 
-#ifndef _BV
-#define _BV(x) (1<<(x))
-#endif // _BV
+#ifndef BV
+#define BV(x) (1<<(x))
+#endif // BIT
 
-#define bitset(port, bit) ((port) &= ~_BV(bit))
-#define clearbit(port, bit) ((port) &= ~_BV(bit))
-#define setbit(port, bit) ((port) |= _BV(bit))
+// Bit operations
+
+#define clearbit(port, bit) ((port) &= ~(1<<(bit)))
+#define setbit(port, bit)   ((port) |=  (1<<(bit)))
 
 #define bit(port, bit, yesno) \
 	((port) = (yesno)? (port) | _BV(bit) : (port) & ~_BV(bit))
 
-#define clearflag(var, flag) ((var) &= ~(flag))
-#define setflag(var, flag) ((var) |= (flag))
-#define flag(var, flag, yesno) \
-	((var) = (yesno)? (var) | (flag) : (var) & ~(flag))
+#define clearflags(var, flag) ((var) &= ~(flag))
+#define setflags(var, flag) ((var) |= (flag))
+
+/* #define flags(var, flag, yesno) \ */
+/* 	((var) = (yesno)? (var) | (flag) : (var) & ~(flag)) */
 
 #define max(a,b) (((a) > (b)) ? (a) : (b))
 #define min(a,b) (((a) < (b)) ? (a) : (b))
 #define limit(x,l,h) (min(h,max((x),(l))))
 
-
+// Hex digits used for printing out numbers.
 extern const char hex[16];
 
-
 //inline unsigned short int parse_hex(unsigned char *str);
-
 
 #endif // _UTILS_H__
 

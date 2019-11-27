@@ -45,7 +45,7 @@ AVRCFLAGS	+=	-ffunction-sections
 AVRCFLAGS	+=	-funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums
 AVRCFLAGS	+=	-fno-inline-small-functions -fno-tree-scev-cprop -fno-split-wide-types
 AVRCFLAGS	+=	-ffreestanding
-AVRCFLAGS	+=	-finline-limit=3
+AVRCFLAGS	+=	-finline-limit=5
 #AVRCFLAGS	+=	-flto -fwhole-program
 AVRCFLAGS	+=	-fverbose-asm
 
@@ -67,9 +67,13 @@ DEFS 		+=	-DDUMP_TEXT
 LIBS		=
 
 HFILES		=	dfp.h abstract.h hwcompat.h proto.h output.h input.h \
-			panel.h bus.h buscmd.h proto-cmds.h
-CFILES		=	dfp.c driver_test.c driver_avr.c proto.c output.c input.c \
-			panel.c bus.c buscmd.c serial.c
+			panel.h buscmd.h proto-cmds.h
+# CFILES		=	dfp.c driver_test.c driver_avr.c proto.c output.c input.c \
+# 			panel.c bus.c buscmd.c serial.c
+
+# TODO: Adapt sources from above one by one.
+CFILES		=	dfp.c driver_avr.c
+
 #HFILES		=	serial.h hw.h proto.h utils.h
 #CFILES		=	dfp.c serial.c hw.c proto.c utils.c
 SOURCES		=	$(CFILES) $(HFILES)
@@ -98,7 +102,7 @@ SIMHFILES	=	simulate_parts.h simulate_uart.h
 SIMAVRDIR	=	$(realpath ../../../external/simavr)
 SIMAVRLIBS	=	-lsimavr -lelf -lpthread -lutil -lncurses
 SIMAVRLIBDIR	=	$(SIMAVRDIR)/simavr/obj-$(shell arch)-linux-gnu/
-SIMAVRFLAGS	+=	$(DEFINES) -g -Wall -std=gnu99 -O0 \
+SIMAVRFLAGS	+=	$(DEFINES) -DSIMAVR -g -Wall -std=gnu99 -O0 \
 			-I$(SIMAVRDIR)/simavr/sim -I$(SIMAVRDIR)/examples/parts \
 			-DMCU_TARGET='"$(MCU_TARGET)"' -DFIRMWARE='"$(PROG).elf"' \
 			-L$(SIMAVRLIBDIR) $(SIMAVRLIBS) -Wl,-rpath,$(SIMAVRLIBDIR)
