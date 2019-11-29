@@ -169,9 +169,66 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-volatile uint8_t * ab_l = (uint8_t *)XMEM_AB_L;
-volatile uint8_t * ab_m = (uint8_t *)XMEM_AB_M;
-volatile uint8_t * ab_h = (uint8_t *)XMEM_AB_H;
+
+// NOTA BENE: Not all of these are read/write! Check schematics!
+
+volatile uint8_t * ab_l = (uint8_t *)XMEM_AB_L; // rw
+volatile uint8_t * ab_m = (uint8_t *)XMEM_AB_M; // rw
+volatile uint8_t * ab_h = (uint8_t *)XMEM_AB_H; // rw
+
+volatile uint8_t * db_l = (uint8_t *)XMEM_DB_L; // rw
+volatile uint8_t * db_h = (uint8_t *)XMEM_DB_H; // rw
+
+volatile uint8_t * ibus_l = (uint8_t *)XMEM_IBUS_L; // rw
+volatile uint8_t * ibus_h = (uint8_t *)XMEM_IBUS_H; // rw
+
+volatile uint8_t * or_l = (uint8_t *)XMEM_OR_L; // write-only
+volatile uint8_t * or_h = (uint8_t *)XMEM_OR_H; // write-only
+volatile uint8_t * dsr = (uint8_t *)XMEM_DSR;	// read-only; shares address with XMEM_OR_L
+
+volatile uint8_t * raddr = (uint8_t *)XMEM_RADDR; // write-only
+volatile uint8_t * waddr = (uint8_t *)XMEM_WADDR; // write-only
+volatile uint8_t * action = (uint8_t *)XMEM_ACTION; // write-only
+
+volatile uint8_t * cft_ucv_h = (uint8_t *)XMEM_UCV_H;           //  0 A1 C16: µCV bits 16–23
+volatile uint8_t * cft_ucv_m = (uint8_t *)XMEM_UCV_M;           //  1 B1 C22: µCV bits 8–15
+volatile uint8_t * cft_ucv_l = (uint8_t *)XMEM_UCV_L;           //  2 C1 C30: µCV bits 0–7
+volatile uint8_t * cft_irq_act (uint8_t *)XMEM_IRQ_ACT;         //  3 D1 C39: IRQs active
+		          
+volatile uint8_t * cft_aext = (uint8_t *)XMEM_AEXT;             //  4 A2  C4: AEXT
+volatile uint8_t * cft_pc_hi = (uint8_t *)XMEM_PC_HI;           //  5 B2 C21: PC bits 8–15
+volatile uint8_t * cft_pc_lo = (uint8_t *)XMEM_PC_LO;           //  6 C2 C27: PC bits 0–7
+volatile uint8_t * cft_irq_en = (uint8_t *)XMEM_IRQ_EN;         //  7 D2 C40: IRQs enabled
+		          
+volatile uint8_t * cft_flags = (uint8_t *)XMEM_FLAGS;           //  8 A3 C13: flags
+volatile uint8_t * cft_ac_hi = (uint8_t *)XMEM_AC_HI;           //  9 B3 C20: AC bits 8–15
+volatile uint8_t * cft_ac_lo = (uint8_t *)XMEM_AC_LO;           // 10 C3 C28: AC bits 0–7
+volatile uint8_t * cft_fp_d3 = (uint8_t *)XMEM_FP_D3;           // 11 D3 C37: TBD, for expansion
+t		          
+volatile uint8_t * cft_fp_a4 = (uint8_t *)XMEM_FP_A4;           // 12 A4 C12: (TBD)
+volatile uint8_t * cft_mfd_hi = (uint8_t *)XMEM_MFD_HI;         // 13 B4 C32/C34: DR/SP hi → MFD bits 8–15 (*)
+volatile uint8_t * cft_mfd_lo = (uint8_t *)XMEM_MFD_LO;         // 14 C4 C29/C31: DR/SP lo → MFD bits 0–7  (*)
+volatile uint8_t * cft_fp_d4 = (uint8_t *)XMEM_FP_D4;           // 15 D4 C38: TBD, for expansion
+		          
+volatile uint8_t * cft_state = (uint8_t *)XMEM_STATE;           // 16 A5 Cxx: state (run/stop etc)
+volatile uint8_t * cft_ir_hi = (uint8_t *)XMEM_IR_HI;           // 17 B5 C19: IR bits 8–15
+volatile uint8_t * cft_ir_lo = (uint8_t *)XMEM_IR_LO;           // 18 C5 C25: IR bits 0–7
+volatile uint8_t * cft_uav_lo = (uint8_t *)XMEM_UAV_LO;         // 19 D5 C35: micro-address low bits
+		          
+volatile uint8_t * cft_scanclr = (uint8_t *)XMEM_SCANCLR;       // 20 -- ---: SCANCLR#. Autonomic counter reset.
+volatile uint8_t * cft_fpoe21 = (uint8_t *)XMEM_FPOE21;         // 21 -- C17: FPOE21#, future expansion
+volatile uint8_t * cft_fpoe22 = (uint8_t *)XMEM_FPOE22;         // 22 -- C26: FPOE22#, future expansion
+volatile uint8_t * cft_fpoe23 = (uint8_t *)XMEM_FPOE23;         // 23 -- C36: FPOE23#, future expansion
+		          
+volatile uint8_t * cft_fpoe24 = (uint8_t *)XMEM_FPOE24;         // 24 -- C11: FPOE24#, future expansion
+volatile uint8_t * cft_fpoe25 = (uint8_t *)XMEM_FPOE25;         // 25 -- C18: FPOE25#, future expansion
+volatile uint8_t * cft_fpoe26 = (uint8_t *)XMEM_FPOE26;         // 26 -- C24: FPOE26#, future expansion
+volatile uint8_t * cft_fpoe27 = (uint8_t *)XMEM_FPOE27;         // 27 -- C33: FPOE27#, future expansion
+		          
+volatile uint8_t * cft_fpoe28 = (uint8_t *)XMEM_FPOE28;         // 28 -- C10: FPOE28#, future expansion
+volatile uint8_t * cft_fpoe29 = (uint8_t *)XMEM_FPOE29;         // 29 -- C15: FPOE29#, future expansion
+volatile uint8_t * cft_fpoe30 = (uint8_t *)XMEM_FPOE30;         // 30 -- C23: FPOE30#, future expansion
+volatile uint8_t * cft_fpoe31 = (uint8_t *)XMEM_FPOE31;         // 31 -- ---: FPOE31#, unrouted
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -291,11 +348,11 @@ drive_db()
 	if (flags & FL_PROC) {
 		// Just in case, tristate our DB drivers. And drive the IBUS
 		// instead.
-		setbit(PORTD, D_NDBOE);
+		setbit(PORTC, C_NDBOE);
 		drive_ibus();
 	} else {
-		setbit(PORTD, D_NIBUSOE); // Tristate the IBUS
-		clearbit(PORTD, D_NDBOE); // Drive the DBUS
+		setbit(PORTC, C_NIBUSOE); // Tristate the IBUS
+		clearbit(PORTC, C_NDBOE); // Drive the DBUS
 	}
 }
 
@@ -352,6 +409,51 @@ reset_run_step_stop_fsm()
 {
 	freeze_run_step_stop_fsm();
 	thaw_run_step_stop_fsm();
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// THE FRONT PANEL
+//
+///////////////////////////////////////////////////////////////////////////////
+
+inline static void
+set_fpscanner(bool_t enable)
+{
+	if (enable) {
+		clearbit(PORTD, D_NSCANEN);
+	} else {
+		setbit(PORTD, D_NSCANEN);
+	}
+}
+
+
+inline static void
+grab_fp()
+{
+	PORTD |= BV(D_NSCANEN) | BV(D_NPANELEN);
+}
+
+
+inline static void
+release_fp()
+{
+	PORTD &= ~(BV(D_NSCANEN) | BV(D_NPANELEN));
+}
+
+
+// FP addresses are in the range 0 to 19, first across then
+// down. Module A1 is top left (address 0), module D1 is top right
+// (address 3), module D5 is bottom right (address 19).
+
+#define fp_coords(row, col) ((((row) & 3) << 2) | (col))
+
+inline static void
+write_fp(uint8_t module, uint8_t row, uint8_t value)
+{
+	uint8_t * p = (uint8_t *)_XMEM((row << 2) | (module & 3));
+	*p = value;
 }
 
 
@@ -433,21 +535,22 @@ void
 hw_init()
 {
 	avr_init();
-
 	release_buses();
-	tristate_ibus();
-	tristate_db();
-	tristate_ab();
-	tristate_ctl();
-
-	enable_cft_interrupts();
-
 	freeze_run_step_stop_fsm();
 	clear_ws();
 
-	init_switches;		// Initialise debouncing timer and interrupt
+	// Initialise serial port and interrupts
+	init_serial();
 
+	// Enable interrupts for CFT-originated transactions
+	enable_cft_interrupts();
+
+	// Initialise switch deboucing and enable switch timer ISR
+	init_switches();
 	
+	// Enable the watchdog.
+	wdt_enable(WATCHDOG_TIMEOUT);
+
 
 	
 
@@ -469,9 +572,6 @@ hw_init()
 	// That's 35.56 ms between samples, plenty of time for
 	// switches to stop bouncing.
 	
-	// Initialise the debugging serial port
-	serial_init();
-
 	// Timer 1 (the slow clock input to the CFT processor) is set further
 	// down, on demand.
 
@@ -491,9 +591,6 @@ hw_init()
 		// this couldn't hurt.
 		set_buspu(0);
 	}
-
-	// Enable the watchdog.
-	wdt_enable(WATCHDOG_TIMEOUT);
 
 	// Run diagnostics
 	dfp_diags();

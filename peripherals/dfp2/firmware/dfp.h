@@ -21,6 +21,8 @@ typedef uint16_t word_t;	// A 16-bit CFT word
 typedef uint16_t addr_t;	// A 16-bit address (excludes AEXT)
 typedef uint16_t aext_t;	// 8-bit address extension
 
+typedef uint8_t  bool_t;	// Alias for a Boolean value
+
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -28,10 +30,15 @@ typedef uint16_t aext_t;	// 8-bit address extension
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-#define SUCCESS     0		// No error, all's well
-#define ERR_NMASTER 1		// We are not the bus master
+// Somewhat unusually, declare an enum for error codes. This helps me
+// avoid bugs by making the typing a little stronger. This is
+// efficient in this case because we compile with -fshort-enums (8 bit
+// storage rather than the default 16).
 
-typedef uint8_t errno_t;	// Convenience name for error return type
+typedef enum {
+	err_success = 0,		// No error, all's well
+	err_nmaster = 1		// We are not the bus master
+} errno_t;
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -40,10 +47,24 @@ typedef uint8_t errno_t;	// Convenience name for error return type
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-#define SPC_MEM 0		// A Memory space transaction
-#define SPC_IO  1		// An I/O space transaction
+typedef enum {
+	spc_mem,		// A Memory space transaction
+	spc_io			// An I/O space transaction
+} space_t;	// For convenience and type checking
 
-typedef uint8_t space_t;	// For convenience and type checking
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// MULTI-FUNCTION DISPLAY
+//
+///////////////////////////////////////////////////////////////////////////////
+
+// These enums match the hardware and should not be changed.
+typedef enum {
+	mfd_or = 0,		// The MFD displays the OR
+	mfd_dr = 1,		// The MFD displays the DR
+	mfd_sp = 1,		// The MFD displays the SP
+} mfd_t;
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -53,7 +74,7 @@ typedef uint8_t space_t;	// For convenience and type checking
 ///////////////////////////////////////////////////////////////////////////////
 
 #define _XMEMBASE 0x8000
-#define _XMEM(addr) ((_XMEMBASE) + (addr))
+#define _XMEM(addr) (_XMEMBASE + (addr))
 
 // WARNING: THE EXTERNAL BUS IS NOT AVAILABLE WHEN SCANEN# IS ASSERTED (LOW).
 
@@ -169,12 +190,13 @@ typedef uint8_t space_t;	// For convenience and type checking
 #define XMEM_IBUS_L  _XMEM(0x45)	// Write to IBUS bits 0-7
 #define XMEM_IBUS_H  _XMEM(0x46)	// Write to IBUS bits 8-15
 #define XMEM_OR_L    _XMEM(0x47)	// Write to OR, bits 0-7
+#define XMEM_DSR     _XMEM(0x47)	// Read DIP switches
 
 // U112 output decoder.
 #define XMEM_OR_H    _XMEM(0x80)	// Write to OR, bits 8-15
 #define XMEM_RADDR   _XMEM(0x81)	// Output to µCV RADDR field
 #define XMEM_WADDR   _XMEM(0x82)	// Output to µCV WADDR field
-#define XMEM_MCV_H   _XMEM(0x83)	// Output to µCV ACTION field
+#define XMEM_ACTION  _XMEM(0x83)	// Output to µCV ACTION field
 #define XMEM_TP104   _XMEM(0x84)	// TP104 output (reserved)
 #define XMEM_TP105   _XMEM(0x85)	// TP105 output (reserved)
 #define XMEM_TP106   _XMEM(0x86)	// TP106 output (reserved)
@@ -304,9 +326,21 @@ Functionality:
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-// LOW LEVEL I/O
+// LOW-ISH LEVEL I/O
 //
 ///////////////////////////////////////////////////////////////////////////////
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// HIGH LEVEL I/O
+//
+///////////////////////////////////////////////////////////////////////////////
+
+void set_mfd(mfd_t mfd);
+
+void set_or(word_t data);
+
 
 ///////////////////////////////////////////////////////////////////////////////
 //
