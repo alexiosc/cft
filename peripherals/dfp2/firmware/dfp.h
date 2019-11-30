@@ -36,8 +36,8 @@ typedef uint8_t  bool_t;	// Alias for a Boolean value
 // storage rather than the default 16).
 
 typedef enum {
-	err_success = 0,		// No error, all's well
-	err_nmaster = 1		// We are not the bus master
+	ERR_SUCCESS = 0,		// No error, all's well
+	ERR_NMASTER = 1		// We are not the bus master
 } errno_t;
 
 
@@ -48,8 +48,8 @@ typedef enum {
 ///////////////////////////////////////////////////////////////////////////////
 
 typedef enum {
-	spc_mem,		// A Memory space transaction
-	spc_io			// An I/O space transaction
+	SPC_MEM,		// A Memory space transaction
+	SPC_IO			// An I/O space transaction
 } space_t;	// For convenience and type checking
 
 
@@ -61,9 +61,9 @@ typedef enum {
 
 // These enums match the hardware and should not be changed.
 typedef enum {
-	mfd_or = 0,		// The MFD displays the OR
-	mfd_dr = 1,		// The MFD displays the DR
-	mfd_sp = 1,		// The MFD displays the SP
+	MFD_OR = 0,		// The MFD displays the OR
+	MFD_DR = 1,		// The MFD displays the DR
+	MFD_SP = 1,		// The MFD displays the SP
 } mfd_t;
 
 
@@ -72,9 +72,6 @@ typedef enum {
 // EXTERNAL MEMORY MAP
 //
 ///////////////////////////////////////////////////////////////////////////////
-
-#define _XMEMBASE 0x8000
-#define _XMEM(addr) (_XMEMBASE + (addr))
 
 // WARNING: THE EXTERNAL BUS IS NOT AVAILABLE WHEN SCANEN# IS ASSERTED (LOW).
 
@@ -125,45 +122,66 @@ typedef enum {
 // the comments show FPOE x number, FP light coordinates where available
 // (module/column A–D, rows 1–5), and edge connector pin (Cxx).
 
-#define XMEM_UCV_H   _XMEM(0x00)        //  0 A1 C16: µCV bits 16–23
-#define XMEM_UCV_M   _XMEM(0x01)        //  1 B1 C22: µCV bits 8–15
-#define XMEM_UCV_L   _XMEM(0x02)        //  2 C1 C30: µCV bits 0–7
-#define XMEM_IRQ_ACT _XMEM(0x03)        //  3 D1 C39: IRQs active
+typedef enum {
+	XMEM_UCV_H   = 0x00,	//  0 A1 C16: µCV bits 16–23
+	XMEM_UCV_M   = 0x01,	//  1 B1 C22: µCV bits 8–15
+	XMEM_UCV_L   = 0x02,	//  2 C1 C30: µCV bits 0–7
+	XMEM_IRQ_ACT = 0x03,	//  3 D1 C39: IRQs active
 
-#define XMEM_AEXT    _XMEM(0x04)        //  4 A2  C4: AEXT
-#define XMEM_PC_HI   _XMEM(0x05)        //  5 B2 C21: PC bits 8–15
-#define XMEM_PC_LO   _XMEM(0x06)        //  6 C2 C27: PC bits 0–7
-#define XMEM_IRQ_EN  _XMEM(0x07)        //  7 D2 C40: IRQs enabled
+	XMEM_AEXT    = 0x04,	//  4 A2  C4: AEXT
+	XMEM_PC_HI   = 0x05,	//  5 B2 C21: PC bits 8–15
+	XMEM_PC_LO   = 0x06,	//  6 C2 C27: PC bits 0–7
+	XMEM_IRQ_EN  = 0x07,	//  7 D2 C40: IRQs enabled
 
-#define XMEM_FLAGS   _XMEM(0x08)        //  8 A3 C13: flags
-#define XMEM_AC_HI   _XMEM(0x09)        //  9 B3 C20: AC bits 8–15
-#define XMEM_AC_LO   _XMEM(0x0a)        // 10 C3 C28: AC bits 0–7
-#define XMEM_FP_D3   _XMEM(0x0b)        // 11 D3 C37: TBD, for expansion
+	XMEM_FLAGS   = 0x08,	//  8 A3 C13: flags
+	XMEM_AC_HI   = 0x09,	//  9 B3 C20: AC bits 8–15
+	XMEM_AC_LO   = 0x0a,	// 10 C3 C28: AC bits 0–7
+	XMEM_FP_D3   = 0x0b,	// 11 D3 C37: TBD, for expansion
 
-#define XMEM_FP_A4   _XMEM(0x0c)        // 12 A4 C12: (TBD)
-#define XMEM_MFD_HI  _XMEM(0x0d)        // 13 B4 C32/C34: DR/SP hi → MFD bits 8–15 (*)
-#define XMEM_MFD_LO  _XMEM(0x0e)        // 14 C4 C29/C31: DR/SP lo → MFD bits 0–7  (*)
-#define XMEM_FP_D4   _XMEM(0x0f)        // 15 D4 C38: TBD, for expansion
+	XMEM_FP_A4   = 0x0c,	// 12 A4 C12: (TBD)
+	XMEM_MFD_HI  = 0x0d,    // 13 B4 C32/C34: DR/SP hi → MFD bits 8–15 (*)
+	XMEM_MFD_LO  = 0x0e,    // 14 C4 C29/C31: DR/SP lo → MFD bits 0–7  (*)
+	XMEM_FP_D4   = 0x0f,    // 15 D4 C38: TBD, for expansion
 
-#define XMEM_STATE   _XMEM(0x10)        // 16 A5 Cxx: state (run/stop etc)
-#define XMEM_IR_HI   _XMEM(0x11)        // 17 B5 C19: IR bits 8–15
-#define XMEM_IR_LO   _XMEM(0x12)        // 18 C5 C25: IR bits 0–7
-#define XMEM_UAV_LO  _XMEM(0x13)        // 19 D5 C35: micro-address low bits
+	XMEM_STATE   = 0x10,	// 16 A5 Cxx: state (run/stop etc)
+	XMEM_IR_HI   = 0x11,	// 17 B5 C19: IR bits 8–15
+	XMEM_IR_LO   = 0x12,	// 18 C5 C25: IR bits 0–7
+	XMEM_UAV_LO  = 0x13,	// 19 D5 C35: micro-address low bits
 
-#define XMEM_SCANCLR _XMEM(0x14)        // 20 -- ---: SCANCLR#. Autonomic counter reset.
-#define XMEM_FPOE21  _XMEM(0x15)        // 21 -- C17: FPOE21#, future expansion
-#define XMEM_FPOE22  _XMEM(0x16)        // 22 -- C26: FPOE22#, future expansion
-#define XMEM_FPOE23  _XMEM(0x17)        // 23 -- C36: FPOE23#, future expansion
+	XMEM_SCANCLR = 0x14,    // 20 -- ---: SCANCLR#. Autonomic counter reset.
+	XMEM_FPOE21  = 0x15,    // 21 -- C17: FPOE21#, future expansion
+	XMEM_FPOE22  = 0x16,    // 22 -- C26: FPOE22#, future expansion
+	XMEM_FPOE23  = 0x17,    // 23 -- C36: FPOE23#, future expansion
 
-#define XMEM_FPOE24  _XMEM(0x18)        // 24 -- C11: FPOE24#, future expansion
-#define XMEM_FPOE25  _XMEM(0x19)        // 25 -- C18: FPOE25#, future expansion
-#define XMEM_FPOE26  _XMEM(0x1a)        // 26 -- C24: FPOE26#, future expansion
-#define XMEM_FPOE27  _XMEM(0x1b)        // 27 -- C33: FPOE27#, future expansion
+	XMEM_FPOE24  = 0x18,    // 24 -- C11: FPOE24#, future expansion
+	XMEM_FPOE25  = 0x19,    // 25 -- C18: FPOE25#, future expansion
+	XMEM_FPOE26  = 0x1a,    // 26 -- C24: FPOE26#, future expansion
+	XMEM_FPOE27  = 0x1b,    // 27 -- C33: FPOE27#, future expansion
 
-#define XMEM_FPOE28  _XMEM(0x1c)        // 28 -- C10: FPOE28#, future expansion
-#define XMEM_FPOE29  _XMEM(0x1d)        // 29 -- C15: FPOE29#, future expansion
-#define XMEM_FPOE30  _XMEM(0x1e)        // 30 -- C23: FPOE30#, future expansion
-#define XMEM_FPOE31  _XMEM(0x1f)        // 31 -- ---: FPOE31#, unrouted
+	XMEM_FPOE28  = 0x1c,    // 28 -- C10: FPOE28#, future expansion
+	XMEM_FPOE29  = 0x1d,    // 29 -- C15: FPOE29#, future expansion
+	XMEM_FPOE30  = 0x1e,    // 30 -- C23: FPOE30#, future expansion
+	XMEM_FPOE31  = 0x1f,    // 31 -- ---: FPOE31#, unrouted
+
+	XMEM_AB_L    = 0x40,	// Write to AB bits 0-7
+	XMEM_AB_M    = 0x41,	// Write to AB bits 8-15
+	XMEM_AB_H    = 0x42,	// Write to AB bits 16-23
+	XMEM_DB_L    = 0x43,	// Write to DB bits 0-7
+	XMEM_DB_H    = 0x44,	// Write to DB bits 8-15
+	XMEM_IBUS_L  = 0x45,	// Write to IBUS bits 0-7
+	XMEM_IBUS_H  = 0x46,	// Write to IBUS bits 8-15
+	XMEM_OR_L    = 0x47,	// (write-only) Write to OR, bits 0-7
+	XMEM_DSR     = 0x47,	// (read-only) Read DIP switches
+
+	XMEM_OR_H    = 0x80,	// Write to OR, bits 8-15
+	XMEM_RADDR   = 0x81,	// output to µCV RADDR field
+	XMEM_WADDR   = 0x82,	// output to µCV WADDR field
+	XMEM_ACTION  = 0x83,	// output to µCV ACTION field
+	XMEM_TP104   = 0x84,	// tp104 output (reserved)
+	XMEM_TP105   = 0x85,	// tp105 output (reserved)
+	XMEM_TP106   = 0x86,	// tp106 output (reserved)
+	XMEM_TP107   = 0x87	// tp107 output (reserved)
+} xmem_addr_t;
 
 // (*) Addresses 0x13 and 0x14 are for the MFD. They always address FP lights
 // B4 (high order bits) and C4 (low order bits), but read from a different unit
@@ -174,44 +192,11 @@ typedef enum {
 //   0    1   DR (Data Register)
 //   1    0   SP (Stack Pointer)
 //   1    1   Nothing (can't be selected by 3-position switch)
-
-
+//
 // ADDRESSES ≥ 0x40
-
+//
 // These are decoded and handled locally on the DFP board. Some are read ports,
 // some are write ports.
-
-// U111 output decoder.
-#define XMEM_AB_L    _XMEM(0x40)	// Write to AB bits 0-7
-#define XMEM_AB_M    _XMEM(0x41)	// Write to AB bits 8-15
-#define XMEM_AB_H    _XMEM(0x42)	// Write to AB bits 16-23
-#define XMEM_DB_L    _XMEM(0x43)	// Write to DB bits 0-7
-#define XMEM_DB_H    _XMEM(0x44)	// Write to DB bits 8-15
-#define XMEM_IBUS_L  _XMEM(0x45)	// Write to IBUS bits 0-7
-#define XMEM_IBUS_H  _XMEM(0x46)	// Write to IBUS bits 8-15
-#define XMEM_OR_L    _XMEM(0x47)	// Write to OR, bits 0-7
-#define XMEM_DSR     _XMEM(0x47)	// Read DIP switches
-
-// U112 output decoder.
-#define XMEM_OR_H    _XMEM(0x80)	// Write to OR, bits 8-15
-#define XMEM_RADDR   _XMEM(0x81)	// Output to µCV RADDR field
-#define XMEM_WADDR   _XMEM(0x82)	// Output to µCV WADDR field
-#define XMEM_ACTION  _XMEM(0x83)	// Output to µCV ACTION field
-#define XMEM_TP104   _XMEM(0x84)	// TP104 output (reserved)
-#define XMEM_TP105   _XMEM(0x85)	// TP105 output (reserved)
-#define XMEM_TP106   _XMEM(0x86)	// TP106 output (reserved)
-#define XMEM_TP107   _XMEM(0x87)	// TP107 output (reserved)
-
-// U113 input decoder: same addresses as U111, but for reading.
-// #define XMEM_AB_L     _XMEM(0x40)	// Read AB bits 0-7
-// #define XMEM_AB_M     _XMEM(0x41)	// Read AB bits 8-15
-// #define XMEM_AB_H     _XMEM(0x42)	// Read AB bits 16-23
-// #define XMEM_DB_L     _XMEM(0x43)	// Read DB bits 0-7
-// #define XMEM_DB_H     _XMEM(0x44)	// Read DB bits 8-15
-// #define XMEM_IBUS_L   _XMEM(0x45)	// Read IBUS bits 0-7
-// #define XMEM_IBUS_H   _XMEM(0x46)	// Read IBUS bits 8-15
-// #define XMEM_DSR      _XMEM(0x47)	// Read DIP switches
-
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -270,6 +255,55 @@ typedef enum {
 //     * IO R
 //     * ROM
 //     * A/B
+
+
+// TODO: these don't yet map to actual hardware values. Values may be
+// planns and educated guesses. The coordinates in the comments list:
+// front panel module (for reference), SWA value, and what SWD bit
+// contains the switch state. The enum/DFP value is 4SWA+SWD.
+typedef enum {
+	SW_LOCK,		// A:
+	SW_RESET,
+	SW_RUN,
+	SW_STOP,
+	SW_STEP,
+	SW_USTEP,
+	SW_FAST,
+	SW_CREEP,
+	SW_LTSON,
+	SW_MFD0,
+	SW_MFD1,
+
+	SW_SR15,		// B,0,2
+	SW_SR14,		// B,1,2
+	SW_SR13,		// B,2,2
+	SW_SR12,		// B,3,2
+	SW_SR11,		// B,4,2
+	SW_SR10,		// B,5,2
+	SW_SR9,			// B,6,2
+	SW_SR8,			// B,7,2
+	SW_SR7,			// C,8,0
+	SW_SR6,			// C,9,0
+	SW_SR5,			// C,10,0
+	SW_SR4,			// C,11,0
+	SW_SR3,			// C,12,0
+	SW_SR2,			// C,13,0
+	SW_SR1,			// C,14,0
+	SW_SR0,			// C,15,0
+
+	SW_LOAD_IR,		// D,8,3
+	SW_LOAD_PC,		// D,8,2
+	SW_LOAD_AC,		// D,9
+	SW_TEST,		// D,9
+	SW_MEMW,		// D,10
+	SW_MEMR,		// D,11
+	SW_IOW,			// D,12
+	SW_IOR,			// D,13
+	SW_NEXT,		// D,14,3
+	SW_ROM,			// D,14,2
+	SW_USER_A,		// D,15,3
+	SW_USER_B		// D,15,2
+} switch_t;
 
 ///////////////////////////////////////////////////////////////////////////////
 //
