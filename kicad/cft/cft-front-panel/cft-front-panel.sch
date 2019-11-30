@@ -1,58 +1,41 @@
 EESchema Schematic File Version 4
 LIBS:cft-front-panel-cache
-EELAYER 30 0
+EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 6
 Title "Front Panel Module"
 Date ""
-Rev "1938"
+Rev "1949"
 Comp ""
 Comment1 "FPM"
 Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-$Comp
-L alexios:74HC138 U2
-U 1 1 5CC738EE
-P 6050 3250
-F 0 "U2" H 6050 3917 50  0000 C CNN
-F 1 "74HC138" H 6050 3826 50  0000 C CNN
-F 2 "alexios:SOIC-16" H 6050 3250 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 6050 3250 50  0001 C CNN
-	1    6050 3250
-	1    0    0    -1  
-$EndComp
 Text Label 6850 2950 2    50   ~ 0
-~SW1
+SW1
 Text Label 6850 3050 2    50   ~ 0
-~SW2
+SW2
 Text Label 6850 3150 2    50   ~ 0
-~SW3
+SW3
 Text Label 6850 3250 2    50   ~ 0
-~SW4
+SW4
 Text Label 6850 3350 2    50   ~ 0
-~SW5
+SW5
 Text Label 6850 3450 2    50   ~ 0
-~SW6
+SW6
 Text Label 6850 3550 2    50   ~ 0
-~SW7
+SW7
 Text Label 7150 2850 0    50   ~ 0
-~SW0
+SW0
 Wire Wire Line
 	6550 3150 6900 3150
-Wire Wire Line
-	6550 3250 6900 3250
-Wire Wire Line
-	6550 3050 6900 3050
 Wire Wire Line
 	6550 2950 6900 2950
 Wire Wire Line
 	6550 3350 6900 3350
-Wire Wire Line
-	6550 3450 6900 3450
 Wire Wire Line
 	6550 3550 6900 3550
 Wire Wire Line
@@ -72,17 +55,6 @@ F 1 "GND" H 5555 3477 50  0000 C CNN
 F 2 "" H 5550 3650 50  0001 C CNN
 F 3 "" H 5550 3650 50  0001 C CNN
 	1    5550 3650
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74HC138 U2
-U 2 1 5D335BA2
-P 6100 4300
-F 0 "U2" H 6280 4346 50  0000 L CNN
-F 1 "74HC138" H 6280 4255 50  0000 L CNN
-F 2 "alexios:SOIC-16" H 6100 4300 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 6100 4300 50  0001 C CNN
-	2    6100 4300
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -118,7 +90,6 @@ F 3 "" H 5750 4400 50  0001 C CNN
 	1    5750 4400
 	1    0    0    -1  
 $EndComp
-Connection ~ 5750 4400
 $Comp
 L power:+5V #PWR017
 U 1 1 5D335BB5
@@ -130,7 +101,6 @@ F 3 "" H 5750 4200 50  0001 C CNN
 	1    5750 4200
 	1    0    0    -1  
 $EndComp
-Connection ~ 5750 4200
 Text Label 5250 2850 0    50   ~ 0
 SWA0
 Text Label 5250 2950 0    50   ~ 0
@@ -138,93 +108,77 @@ SWA1
 Text Label 5250 3050 0    50   ~ 0
 SWA2
 Text Label 6850 2850 2    50   ~ 0
-~SW0
-Wire Wire Line
-	7400 2850 7100 2850
+SW0
 Text Label 7150 2750 0    50   ~ 0
 SWD0
 Text Label 7150 2950 0    50   ~ 0
 SWD1
 Text Label 7150 3250 0    50   ~ 0
-~SW1
+SW1
 Wire Wire Line
 	7400 3150 7150 3150
 Wire Wire Line
 	7150 3350 7400 3350
-Wire Wire Line
-	7400 3250 7100 3250
 Text Label 7150 3150 0    50   ~ 0
 SWD0
 Text Label 7150 3350 0    50   ~ 0
 SWD1
 Text Label 7150 3650 0    50   ~ 0
-~SW2
+SW2
 Wire Wire Line
 	7400 3550 7150 3550
 Wire Wire Line
 	7150 3750 7400 3750
-Wire Wire Line
-	7400 3650 7100 3650
 Text Label 7150 3550 0    50   ~ 0
 SWD0
 Text Label 7150 3750 0    50   ~ 0
 SWD1
 Text Label 7150 4050 0    50   ~ 0
-~SW3
+SW3
 Wire Wire Line
 	7400 3950 7150 3950
 Wire Wire Line
 	7150 4150 7400 4150
-Wire Wire Line
-	7400 4050 7100 4050
 Text Label 7150 3950 0    50   ~ 0
 SWD0
 Text Label 7150 4150 0    50   ~ 0
 SWD1
 Text Label 7150 4450 0    50   ~ 0
-~SW4
+SW4
 Wire Wire Line
 	7400 4350 7150 4350
 Wire Wire Line
 	7150 4550 7400 4550
-Wire Wire Line
-	7400 4450 7100 4450
 Text Label 7150 4350 0    50   ~ 0
 SWD0
 Text Label 7150 4550 0    50   ~ 0
 SWD1
 Text Label 7150 4850 0    50   ~ 0
-~SW5
+SW5
 Wire Wire Line
 	7400 4750 7150 4750
 Wire Wire Line
 	7150 4950 7400 4950
-Wire Wire Line
-	7400 4850 7100 4850
 Text Label 7150 4750 0    50   ~ 0
 SWD0
 Text Label 7150 4950 0    50   ~ 0
 SWD1
 Text Label 7150 5250 0    50   ~ 0
-~SW6
+SW6
 Wire Wire Line
 	7400 5150 7150 5150
 Wire Wire Line
 	7150 5350 7400 5350
-Wire Wire Line
-	7400 5250 7100 5250
 Text Label 7150 5150 0    50   ~ 0
 SWD0
 Text Label 7150 5350 0    50   ~ 0
 SWD1
 Text Label 7150 5650 0    50   ~ 0
-~SW7
+SW7
 Wire Wire Line
 	7400 5550 7150 5550
 Wire Wire Line
 	7150 5750 7400 5750
-Wire Wire Line
-	7400 5650 7100 5650
 Text Label 7150 5550 0    50   ~ 0
 SWD0
 Text Label 7150 5750 0    50   ~ 0
@@ -778,89 +732,89 @@ Switch module configuration:\n\nModules A & B: short JP5 1-2 and JP6 1-2.\nModul
 $Comp
 L Connector_Generic:Conn_01x03 J8
 U 1 1 5CC80080
-P 7600 5650
-F 0 "J8" H 7680 5692 50  0000 L CNN
-F 1 "Switch 7" H 7680 5601 50  0000 L CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 7600 5650 50  0001 C CNN
-F 3 "~" H 7600 5650 50  0001 C CNN
-	1    7600 5650
+P 8150 5650
+F 0 "J8" H 8230 5692 50  0000 L CNN
+F 1 "Switch 7" H 8230 5601 50  0000 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 8150 5650 50  0001 C CNN
+F 3 "~" H 8150 5650 50  0001 C CNN
+	1    8150 5650
 	1    0    0    -1  
 $EndComp
 $Comp
 L Connector_Generic:Conn_01x03 J7
 U 1 1 5CC8007A
-P 7600 5250
-F 0 "J7" H 7680 5292 50  0000 L CNN
-F 1 "Switch 6" H 7680 5201 50  0000 L CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 7600 5250 50  0001 C CNN
-F 3 "~" H 7600 5250 50  0001 C CNN
-	1    7600 5250
+P 8150 5250
+F 0 "J7" H 8230 5292 50  0000 L CNN
+F 1 "Switch 6" H 8230 5201 50  0000 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 8150 5250 50  0001 C CNN
+F 3 "~" H 8150 5250 50  0001 C CNN
+	1    8150 5250
 	1    0    0    -1  
 $EndComp
 $Comp
 L Connector_Generic:Conn_01x03 J6
 U 1 1 5CC80074
-P 7600 4850
-F 0 "J6" H 7680 4892 50  0000 L CNN
-F 1 "Switch 5" H 7680 4801 50  0000 L CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 7600 4850 50  0001 C CNN
-F 3 "~" H 7600 4850 50  0001 C CNN
-	1    7600 4850
+P 8150 4850
+F 0 "J6" H 8230 4892 50  0000 L CNN
+F 1 "Switch 5" H 8230 4801 50  0000 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 8150 4850 50  0001 C CNN
+F 3 "~" H 8150 4850 50  0001 C CNN
+	1    8150 4850
 	1    0    0    -1  
 $EndComp
 $Comp
 L Connector_Generic:Conn_01x03 J5
 U 1 1 5CC8006E
-P 7600 4450
-F 0 "J5" H 7680 4492 50  0000 L CNN
-F 1 "Switch 4" H 7680 4401 50  0000 L CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 7600 4450 50  0001 C CNN
-F 3 "~" H 7600 4450 50  0001 C CNN
-	1    7600 4450
+P 8150 4450
+F 0 "J5" H 8230 4492 50  0000 L CNN
+F 1 "Switch 4" H 8230 4401 50  0000 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 8150 4450 50  0001 C CNN
+F 3 "~" H 8150 4450 50  0001 C CNN
+	1    8150 4450
 	1    0    0    -1  
 $EndComp
 $Comp
 L Connector_Generic:Conn_01x03 J4
 U 1 1 5CC7D359
-P 7600 4050
-F 0 "J4" H 7680 4092 50  0000 L CNN
-F 1 "Switch 3" H 7680 4001 50  0000 L CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 7600 4050 50  0001 C CNN
-F 3 "~" H 7600 4050 50  0001 C CNN
-	1    7600 4050
+P 8150 4050
+F 0 "J4" H 8230 4092 50  0000 L CNN
+F 1 "Switch 3" H 8230 4001 50  0000 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 8150 4050 50  0001 C CNN
+F 3 "~" H 8150 4050 50  0001 C CNN
+	1    8150 4050
 	1    0    0    -1  
 $EndComp
 $Comp
 L Connector_Generic:Conn_01x03 J3
 U 1 1 5CC7D1AD
-P 7600 3650
-F 0 "J3" H 7680 3692 50  0000 L CNN
-F 1 "Switch 2" H 7680 3601 50  0000 L CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 7600 3650 50  0001 C CNN
-F 3 "~" H 7600 3650 50  0001 C CNN
-	1    7600 3650
+P 8150 3650
+F 0 "J3" H 8230 3692 50  0000 L CNN
+F 1 "Switch 2" H 8230 3601 50  0000 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 8150 3650 50  0001 C CNN
+F 3 "~" H 8150 3650 50  0001 C CNN
+	1    8150 3650
 	1    0    0    -1  
 $EndComp
 $Comp
 L Connector_Generic:Conn_01x03 J2
 U 1 1 5CC7CDFE
-P 7600 3250
-F 0 "J2" H 7680 3292 50  0000 L CNN
-F 1 "Switch 1" H 7680 3201 50  0000 L CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 7600 3250 50  0001 C CNN
-F 3 "~" H 7600 3250 50  0001 C CNN
-	1    7600 3250
+P 8150 3250
+F 0 "J2" H 8230 3292 50  0000 L CNN
+F 1 "Switch 1" H 8230 3201 50  0000 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 8150 3250 50  0001 C CNN
+F 3 "~" H 8150 3250 50  0001 C CNN
+	1    8150 3250
 	1    0    0    -1  
 $EndComp
 $Comp
 L Connector_Generic:Conn_01x03 J1
 U 1 1 5CC763A5
-P 7600 2850
-F 0 "J1" H 7680 2892 50  0000 L CNN
-F 1 "Switch 0" H 7680 2801 50  0000 L CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 7600 2850 50  0001 C CNN
-F 3 "~" H 7600 2850 50  0001 C CNN
-	1    7600 2850
+P 8150 2850
+F 0 "J1" H 8230 2892 50  0000 L CNN
+F 1 "Switch 0" H 8230 2801 50  0000 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 8150 2850 50  0001 C CNN
+F 3 "~" H 8150 2850 50  0001 C CNN
+	1    8150 2850
 	1    0    0    -1  
 $EndComp
 Text Label 1000 7150 0    50   ~ 0
@@ -893,8 +847,6 @@ F 3 "" H 1250 7250 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	7400 2750 7150 2750
-Wire Wire Line
-	6550 2850 6900 2850
 Entry Wire Line
 	7000 5550 7100 5650
 Entry Wire Line
@@ -2140,10 +2092,270 @@ Entry Wire Line
 	6900 3450 7000 3350
 Entry Wire Line
 	6900 3550 7000 3450
+Text Notes 1750 2700 0    50   ~ 0
+The pull-ups here are optional. The DFP MCU\nhas bus hold circuitry on FPD.
+Wire Wire Line
+	6550 3450 6900 3450
+Wire Wire Line
+	6550 3250 6900 3250
+Wire Wire Line
+	6550 3050 6900 3050
+Wire Wire Line
+	6550 2850 6900 2850
+Wire Wire Line
+	7100 2850 7950 2850
+Wire Wire Line
+	7700 2750 7950 2750
+Wire Wire Line
+	7700 2950 7950 2950
+Wire Wire Line
+	7700 3150 7950 3150
+Wire Wire Line
+	7700 3350 7950 3350
+Wire Wire Line
+	7100 3250 7950 3250
+Wire Wire Line
+	7700 3550 7950 3550
+Wire Wire Line
+	7700 3750 7950 3750
+Wire Wire Line
+	7100 3650 7950 3650
+Wire Wire Line
+	7700 3950 7950 3950
+Wire Wire Line
+	7700 4150 7950 4150
+Wire Wire Line
+	7100 4050 7950 4050
+Wire Wire Line
+	7700 4350 7950 4350
+Wire Wire Line
+	7700 4550 7950 4550
+Wire Wire Line
+	7100 4450 7950 4450
+Wire Wire Line
+	7700 4750 7950 4750
+Wire Wire Line
+	7700 4950 7950 4950
+Wire Wire Line
+	7100 4850 7950 4850
+Wire Wire Line
+	7700 5150 7950 5150
+Wire Wire Line
+	7700 5350 7950 5350
+Wire Wire Line
+	7700 5550 7950 5550
+Wire Wire Line
+	7700 5750 7950 5750
+$Comp
+L alexios:74HC138 U2
+U 1 1 5E7523BD
+P 6050 3250
+F 0 "U2" H 6050 3917 50  0000 C CNN
+F 1 "74HC138" H 6050 3826 50  0000 C CNN
+F 2 "alexios:SOIC-16" H 6050 3250 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 6050 3250 50  0001 C CNN
+F 4 "Yes" H 5975 2425 50  0001 C CNN "Verified"
+	1    6050 3250
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC138 U2
+U 2 1 5E752552
+P 6100 4300
+F 0 "U2" H 6279 4346 50  0000 L CNN
+F 1 "74HC138" H 6279 4255 50  0000 L CNN
+F 2 "alexios:SOIC-16" H 6100 4300 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 6100 4300 50  0001 C CNN
+F 4 "Yes" H 6025 3475 50  0001 C CNN "Verified"
+	2    6100 4300
+	1    0    0    -1  
+$EndComp
+Connection ~ 5750 4200
+Connection ~ 5750 4400
+$Comp
+L Device:D_Schottky_ALT D1
+U 1 1 5E75356B
+P 7550 2750
+F 0 "D1" H 7650 2800 50  0000 L CNN
+F 1 "BAT54J" H 7550 2875 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-323_HandSoldering" H 7550 2750 50  0001 C CNN
+F 3 "~" H 7550 2750 50  0001 C CNN
+	1    7550 2750
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:D_Schottky_ALT D2
+U 1 1 5E753C39
+P 7550 2950
+F 0 "D2" H 7650 3000 50  0000 L CNN
+F 1 "D_Schottky_ALT" H 7550 3075 50  0001 C CNN
+F 2 "Diode_SMD:D_SOD-323_HandSoldering" H 7550 2950 50  0001 C CNN
+F 3 "~" H 7550 2950 50  0001 C CNN
+	1    7550 2950
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:D_Schottky_ALT D3
+U 1 1 5E753D41
+P 7550 3150
+F 0 "D3" H 7650 3200 50  0000 L CNN
+F 1 "D_Schottky_ALT" H 7550 3275 50  0001 C CNN
+F 2 "Diode_SMD:D_SOD-323_HandSoldering" H 7550 3150 50  0001 C CNN
+F 3 "~" H 7550 3150 50  0001 C CNN
+	1    7550 3150
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:D_Schottky_ALT D5
+U 1 1 5E753DB5
+P 7550 3550
+F 0 "D5" H 7650 3600 50  0000 L CNN
+F 1 "D_Schottky_ALT" H 7550 3675 50  0001 C CNN
+F 2 "Diode_SMD:D_SOD-323_HandSoldering" H 7550 3550 50  0001 C CNN
+F 3 "~" H 7550 3550 50  0001 C CNN
+	1    7550 3550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:D_Schottky_ALT D6
+U 1 1 5E7540FF
+P 7550 3750
+F 0 "D6" H 7650 3800 50  0000 L CNN
+F 1 "D_Schottky_ALT" H 7550 3875 50  0001 C CNN
+F 2 "Diode_SMD:D_SOD-323_HandSoldering" H 7550 3750 50  0001 C CNN
+F 3 "~" H 7550 3750 50  0001 C CNN
+	1    7550 3750
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:D_Schottky_ALT D4
+U 1 1 5E75417B
+P 7550 3350
+F 0 "D4" H 7650 3400 50  0000 L CNN
+F 1 "D_Schottky_ALT" H 7550 3475 50  0001 C CNN
+F 2 "Diode_SMD:D_SOD-323_HandSoldering" H 7550 3350 50  0001 C CNN
+F 3 "~" H 7550 3350 50  0001 C CNN
+	1    7550 3350
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:D_Schottky_ALT D7
+U 1 1 5E7543A4
+P 7550 3950
+F 0 "D7" H 7650 4000 50  0000 L CNN
+F 1 "D_Schottky_ALT" H 7550 4075 50  0001 C CNN
+F 2 "Diode_SMD:D_SOD-323_HandSoldering" H 7550 3950 50  0001 C CNN
+F 3 "~" H 7550 3950 50  0001 C CNN
+	1    7550 3950
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:D_Schottky_ALT D8
+U 1 1 5E7543AB
+P 7550 4150
+F 0 "D8" H 7650 4200 50  0000 L CNN
+F 1 "D_Schottky_ALT" H 7550 4275 50  0001 C CNN
+F 2 "Diode_SMD:D_SOD-323_HandSoldering" H 7550 4150 50  0001 C CNN
+F 3 "~" H 7550 4150 50  0001 C CNN
+	1    7550 4150
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:D_Schottky_ALT D9
+U 1 1 5E7644E1
+P 7550 4350
+F 0 "D9" H 7650 4400 50  0000 L CNN
+F 1 "D_Schottky_ALT" H 7550 4475 50  0001 C CNN
+F 2 "Diode_SMD:D_SOD-323_HandSoldering" H 7550 4350 50  0001 C CNN
+F 3 "~" H 7550 4350 50  0001 C CNN
+	1    7550 4350
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:D_Schottky_ALT D10
+U 1 1 5E7644E8
+P 7550 4550
+F 0 "D10" H 7650 4600 50  0000 L CNN
+F 1 "D_Schottky_ALT" H 7550 4675 50  0001 C CNN
+F 2 "Diode_SMD:D_SOD-323_HandSoldering" H 7550 4550 50  0001 C CNN
+F 3 "~" H 7550 4550 50  0001 C CNN
+	1    7550 4550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:D_Schottky_ALT D11
+U 1 1 5E7745A4
+P 7550 4750
+F 0 "D11" H 7650 4800 50  0000 L CNN
+F 1 "D_Schottky_ALT" H 7550 4875 50  0001 C CNN
+F 2 "Diode_SMD:D_SOD-323_HandSoldering" H 7550 4750 50  0001 C CNN
+F 3 "~" H 7550 4750 50  0001 C CNN
+	1    7550 4750
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:D_Schottky_ALT D12
+U 1 1 5E7745AB
+P 7550 4950
+F 0 "D12" H 7650 5000 50  0000 L CNN
+F 1 "D_Schottky_ALT" H 7550 5075 50  0001 C CNN
+F 2 "Diode_SMD:D_SOD-323_HandSoldering" H 7550 4950 50  0001 C CNN
+F 3 "~" H 7550 4950 50  0001 C CNN
+	1    7550 4950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7100 5250 7950 5250
+Wire Wire Line
+	7100 5650 7950 5650
+$Comp
+L Device:D_Schottky_ALT D13
+U 1 1 5E7A3424
+P 7550 5150
+F 0 "D13" H 7650 5200 50  0000 L CNN
+F 1 "D_Schottky_ALT" H 7550 5275 50  0001 C CNN
+F 2 "Diode_SMD:D_SOD-323_HandSoldering" H 7550 5150 50  0001 C CNN
+F 3 "~" H 7550 5150 50  0001 C CNN
+	1    7550 5150
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:D_Schottky_ALT D14
+U 1 1 5E7A342B
+P 7550 5350
+F 0 "D14" H 7650 5400 50  0000 L CNN
+F 1 "D_Schottky_ALT" H 7550 5475 50  0001 C CNN
+F 2 "Diode_SMD:D_SOD-323_HandSoldering" H 7550 5350 50  0001 C CNN
+F 3 "~" H 7550 5350 50  0001 C CNN
+	1    7550 5350
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:D_Schottky_ALT D15
+U 1 1 5E7A3432
+P 7550 5550
+F 0 "D15" H 7650 5600 50  0000 L CNN
+F 1 "D_Schottky_ALT" H 7550 5675 50  0001 C CNN
+F 2 "Diode_SMD:D_SOD-323_HandSoldering" H 7550 5550 50  0001 C CNN
+F 3 "~" H 7550 5550 50  0001 C CNN
+	1    7550 5550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:D_Schottky_ALT D16
+U 1 1 5E7A3439
+P 7550 5750
+F 0 "D16" H 7650 5800 50  0000 L CNN
+F 1 "D_Schottky_ALT" H 7550 5875 50  0001 C CNN
+F 2 "Diode_SMD:D_SOD-323_HandSoldering" H 7550 5750 50  0001 C CNN
+F 3 "~" H 7550 5750 50  0001 C CNN
+	1    7550 5750
+	1    0    0    -1  
+$EndComp
+Text Notes 7200 2500 0    50   ~ 0
+Mouser 771-BAT54J115
 Wire Bus Line
 	8800 850  8800 4800
 Wire Bus Line
 	7000 2750 7000 5550
-Text Notes 1750 2700 0    50   ~ 0
-The pull-ups here are optional. The DFP MCU\nhas bus hold circuitry on FPD.
 $EndSCHEMATC
