@@ -6,8 +6,6 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-#warning "TODO: Review this file for DFP2"
-
 #ifndef AVR
 #  error "This driver is meant for an AVR only."
 #endif // AVR
@@ -41,6 +39,13 @@
 // #include "panel.h"
 
 // TODO: Adape the above one by one.
+
+
+typedef struct {
+	
+} hwstate_t;
+
+hwstate_t hwstate;
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -192,6 +197,47 @@ xmem_read(const xmem_addr_t addr)
 //
 ///////////////////////////////////////////////////////////////////////////////
 
+
+inline static void
+sample()
+{
+	// Strobe the BUSCP signal, which causes all the input flip-flops to
+	// simultaneously sample their respective buses.
+	clearbit(PORTB, B_BUSCP);
+	setbit(PORTB, B_BUSCP);
+}
+
+
+uint8_t state_addrs[] PROGMEM = {
+	XMEM_AB_H, XMEM_AB_M, XMEM_AB_L,    // The Address Bus
+	XMEM_DB_H, XMEM_DB_L,		    // The Data Bus
+	XMEM_IBUS_H, XMEM_IBUS_L,	    // The IBUS
+
+	XMEM_UCV_H, XMEM_UCV_M, XMEM_UCV_L, // The UCV
+};
+
+
+inline static void
+read_dfp_state()
+{
+	stop_fpscanner();
+	sample();		// Clock data into our own flip flops.
+
+	state.ab_h = xmem_read(XMEM_AB_H);
+	state.ab_m = xmem_read(XMEM_AB_M);
+	state.ab_l = xmem_read(XMEM_AB_L);
+	state.ab_l = xmem_read(XMEM_AB_L);
+
+	// Read from the computer's flip flops.
+	state.ucv_h = xmem_read(XMEM_UCV_H);
+	state.ucv_m = xmem_read(XMEM_UCV_M);
+	state.ucv_l = xmem_read(XMEM_UCV_L);
+	state.ucv_l = xmem_read(XMEM_UCV_L);
+
+	start_fpscanner();
+}
+
+
 inline static void
 release_buses()
 {
@@ -228,17 +274,27 @@ release_ucv()
 }
 
 
-inline static errno_t
+inline static MUST_CHECK errno_t
 drive_ibus()
 {
+	if (!is_halted()) {
+		return ERR_NHALTED;
+	}
+
 	clearbit(PORTC, C_NIBOE);
+	return ERR_SUCCESS;
 }
 
 
-inline static void
+inline static MUST_CHECK errno_t
 drive_control()
 {
+	if (!is_halted()) {
+		return ERR_NHALTED;
+	}
+
 	clearbit(PORTE, E_NMCVOE);
+	return ERR_SUCCESS;
 }
 
 
@@ -248,7 +304,7 @@ drive_control()
 // value on the AB, we just write the addresses to the registers one byte at a
 // time and clear the C_NABOE pin. (it's active low)
 
-inline errno_t
+inline MUST_CHECK errno_t
 drive_ab()
 {
 	// If the BUS board is present and the processor isn't halted, we can't
@@ -266,7 +322,7 @@ drive_ab()
 }
 
 
-inline static errno_t
+inline static MUST_CHECK errno_t
 write_ab(const uint16_t addr, const uint8_t aext)
 {
 	// If the BUS board is present and the processor isn't halted, we can't
@@ -374,13 +430,16 @@ reset_run_step_stop_fsm()
 ///////////////////////////////////////////////////////////////////////////////
 
 inline static void
-set_fpscanner(bool_t enable)
+stop_fpscanner()
 {
-	if (enable) {
-		clearbit(PORTD, D_NSCANEN);
-	} else {
-		setbit(PORTD, D_NSCANEN);
-	}
+	setbit(PORTD, D_NSCANEN);
+}
+
+
+inline static void
+start_fpscanner()
+{
+	clearbit(PORTD, D_NSCANEN);
 }
 
 
@@ -411,6 +470,13 @@ write_fp(uint8_t module, uint8_t row, uint8_t value)
 }
 
 
+inline static void
+write_fpaddr(xmem_addr_t addr, uint8_t value)
+{
+	write_xmem((row << 2) | (module & 3), value);
+}
+
+
 void
 set_mfd(mfd_t mfd)
 {
@@ -426,6 +492,24 @@ set_or(word_t value)
 	SET_XMEM(or_l, value & 0xff);
 	SET_XMEM(or_h, (value >> 8) & 0xff);
 }
+
+
+void
+start_fp_light_test()
+{
+	ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+		grab_fp();
+		for (xmem_addr_t a = 0; a < 20; a++) write_fpaddr(a, 0xff);
+	}
+}
+
+
+void
+start_fp_light_test()
+{
+	release_fp();
+}
+
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -721,10 +805,10 @@ get_switch(uint8_t swidx)
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-inline void
-tristate_ab()
-{
-}
+// inline void
+// tristate_ab()
+// {
+// }
 
 
 

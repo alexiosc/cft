@@ -1,5 +1,4 @@
 // -*- indent-c -*-
-#warning "TODO: Review this file for DFP2"
 
 #ifndef __PROTO_H__
 #define __PROTO_H__
@@ -8,10 +7,17 @@
 
 // Sanity check
 #ifdef AVR
-#ifdef HOST
-#error "Both -DAVR and -DHOST have been passed to the compiler."
-#endif // HOST
+#  ifdef HOST
+#    error "Both -DAVR and -DHOST have been passed to the compiler."
+#  endif // HOST
 #endif // AVR
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// USER INTERFACE STATE
+//
+///////////////////////////////////////////////////////////////////////////////
 
 #define FL_INPOK    0x0001
 #define FL_EOL      0x0002 	/* End of command line */
@@ -35,34 +41,33 @@
 
 #define in_console() (flags & FL_CONS)
 
-#ifdef DISASSEMBLE
-#define BANNER1 "201 Version: " VERSION "+dis\n"
-#else
-#define BANNER1 "201 Version: " VERSION "\n"
-#endif // DUMP_TEXT
-
-#define BANNER2 "202 (c) 2012-2016 Alexios Chouchoulas <alexios@bedroomlan.org>\n"
-#define BANNER3 "202 Licensed under the GNU Public License v.2.\n"
-#define BANNER4 "202 http://www.bedroomlan.org/cft\n202 All values base 16 unless otherwise noted.\n"
+#define AUTHOR "Alexios Chouchoulas <alexios@bedroomlan.org>"
+#define URL    "https://www.bedroomlan.org/cft"
+#define BANNER								\
+	"201 Version: " VERSION "+dis\n"				\
+	"202 (c) 2012-" THISYEAR " " AUTHOR "\n"			\
+	"202 Licensed under the GNU Public License v.3.\n"		\
+	"202 " URL "\n"							\
+	"202 All values base 16 unless otherwise noted.\n"
 
 #define STR_BUFSIZE "204 BufSize: "
 
 #define report_gs(x) report_char(x ? '3' : '2')
 
-#define STR_DETPROC "101 Processor: "
-#define STR_DETPROC0     "not found\n"
-#define STR_DETPROC1     "found\n"
+// #define STR_DETPROC "101 Processor: "
+// #define STR_DETPROC0     "not found\n"
+// #define STR_DETPROC1     "found\n"
 
-#define STR_D_VPIN  "102 VP Shift Reg chain: "
-#define STR_D_DEBIN "103 DEB Shift Reg chain: "
-#define STR_D_ABDRV "104 ABUS driver: "
-#define STR_D_ABTRI "105 ABUS tristate: "
-#define STR_D_DBDRV "106 DBUS driver: "
-#define STR_D_DBTRI "107 DBUS tristate: "
-#define STR_D_RSTBQ "108 Bus quiet during reset: "
-#define STR_D_ACCHK "109 AC: "
-#define STR_D_PCCHK "110 PC: "
-#define STR_D_IRCHK "111 IR: "
+// #define STR_D_VPIN  "102 VP Shift Reg chain: "
+// #define STR_D_DEBIN "103 DEB Shift Reg chain: "
+// #define STR_D_ABDRV "104 ABUS driver: "
+// #define STR_D_ABTRI "105 ABUS tristate: "
+// #define STR_D_DBDRV "106 DBUS driver: "
+// #define STR_D_DBTRI "107 DBUS tristate: "
+// #define STR_D_RSTBQ "108 Bus quiet during reset: "
+// #define STR_D_ACCHK "109 AC: "
+// #define STR_D_PCCHK "110 PC: "
+// #define STR_D_IRCHK "111 IR: "
 
 #define STR_D_OK    "OK\n"
 #define STR_D_FAIL  "faulty\n"
@@ -70,8 +75,8 @@
 
 #define STR_READY   "200 Ready\n"
 #define STR_ADDR    "203 Address: "
-#define STR_PROC1   "205 Processor found.\n"
-#define STR_PROC0   "206 No processor.\n"
+// #define STR_PROC1   "205 Processor found.\n"
+// #define STR_PROC0   "206 No processor.\n"
 #define STR_GSECHO   "10 Echo: "
 #define STR_GSMESG   "11 Async messages: "
 #define STR_GSTERM   "12 Terminal: "
@@ -123,12 +128,12 @@
 #define STR_FAST    "327 Full speed clock.\n"
 #define STR_SLOW    "328 Slow clock.\n"
 #define STR_CREEP   "329 Very slow clock.\n"
-#ifdef AVR
-#define STR_CLKSET  "330 Clock set to " F_CPU_S " Hz / ("
-#else
-#define STR_CLKSET  "330 Clock set to 14745600 Hz / ("
-#endif // VAR
-#define STR_CLKSET2      "*(1+"
+// #ifdef AVR
+// #define STR_CLKSET  "330 Clock set to " F_CPU_S " Hz / ("
+// #else
+// #define STR_CLKSET  "330 Clock set to 14745600 Hz / ("
+// #endif // VAR
+// #define STR_CLKSET2      "*(1+"
 #define STR_CONSBEG "331 Virtual console (press Enter # . to exit).\n"
 #define STR_CONSEND "332 Left virtual console.\n"
 #define STR_FPRAM   "333 ROM/RAM# switch: "
@@ -148,11 +153,11 @@
 #define STR_READ    "356 Read: "
 #define STR_OUT1    "357 OUT Address: "
 #define STR_OUT2    " Value: "
-#define STR_IFR1    "358 IRQ1 signaled\n"
-#define STR_IFR6    "359 IRQ6 signaled\n"
+// #define STR_IFR1    "358 IRQ1 signaled\n"
+// #define STR_IFR6    "359 IRQ6 signaled\n"
 
-#define STR_IFR1M   "458 IRQ1 masked by CFT\n"
-#define STR_IFR6M   "459 IRQ6 masked by CFT\n"
+// #define STR_IFR1M   "458 IRQ1 masked by CFT\n"
+// #define STR_IFR6M   "459 IRQ6 masked by CFT\n"
 
 #define STR_WMEM    "370 Write mem["
 #define STR_RMEM    "371 Read mem["
@@ -194,7 +199,7 @@
 #define STR_PROMPT  "> "
 #define STR_PRUN    "[running]" STR_PROMPT
 #define STR_PSTOP   "[halted] "
-#define STR_PNOPROC "[no processor]"
+// #define STR_PNOPROC "[no processor]"
 #define STR_ON      "on"
 #define STR_OFF     "off"
 

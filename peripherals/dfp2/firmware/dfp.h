@@ -11,6 +11,10 @@
 
 #include <stdint.h>
 
+// We use this a lot, but it's ugly.
+#define MUST_CHECK __attribute__((warn_unused_result))
+
+
 ///////////////////////////////////////////////////////////////////////////////
 //
 // BASIC DATA TYPES
@@ -37,7 +41,8 @@ typedef uint8_t  bool_t;	// Alias for a Boolean value
 
 typedef enum {
 	ERR_SUCCESS = 0,		// No error, all's well
-	ERR_NMASTER = 1		// We are not the bus master
+	ERR_NMASTER,			// We are not the bus master
+	ERR_NHALTED			// System is not halted
 } errno_t;
 
 
