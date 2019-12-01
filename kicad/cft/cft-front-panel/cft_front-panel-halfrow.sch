@@ -94,7 +94,7 @@ AR Path="/5D1E3367/5CC30FA9" Ref="#PWR?"  Part="1"
 AR Path="/5D1E336C/5CC30FA9" Ref="#PWR?"  Part="1" 
 AR Path="/5D1E3371/5CC30FA9" Ref="#PWR?"  Part="1" 
 AR Path="/5D1E338D/5CC30FA9" Ref="#PWR?"  Part="1" 
-F 0 "#PWR064" H 5800 7000 50  0001 C CNN
+F 0 "#PWR040" H 5800 7000 50  0001 C CNN
 F 1 "+5V" H 5815 7323 50  0000 C CNN
 F 2 "" H 5800 7150 50  0001 C CNN
 F 3 "" H 5800 7150 50  0001 C CNN
@@ -131,7 +131,7 @@ AR Path="/5D1E3367/5CC30FAF" Ref="#PWR?"  Part="1"
 AR Path="/5D1E336C/5CC30FAF" Ref="#PWR?"  Part="1" 
 AR Path="/5D1E3371/5CC30FAF" Ref="#PWR?"  Part="1" 
 AR Path="/5D1E338D/5CC30FAF" Ref="#PWR?"  Part="1" 
-F 0 "#PWR066" H 5800 7100 50  0001 C CNN
+F 0 "#PWR042" H 5800 7100 50  0001 C CNN
 F 1 "GND" H 5805 7177 50  0000 C CNN
 F 2 "" H 5800 7350 50  0001 C CNN
 F 3 "" H 5800 7350 50  0001 C CNN
@@ -874,7 +874,7 @@ AR Path="/5D1E3367/5EC3F723" Ref="#PWR?"  Part="1"
 AR Path="/5D1E336C/5EC3F723" Ref="#PWR?"  Part="1" 
 AR Path="/5D1E3371/5EC3F723" Ref="#PWR?"  Part="1" 
 AR Path="/5D1E338D/5EC3F723" Ref="#PWR?"  Part="1" 
-F 0 "#PWR063" H 4350 7000 50  0001 C CNN
+F 0 "#PWR039" H 4350 7000 50  0001 C CNN
 F 1 "+5V" H 4365 7323 50  0000 C CNN
 F 2 "" H 4350 7150 50  0001 C CNN
 F 3 "" H 4350 7150 50  0001 C CNN
@@ -911,7 +911,7 @@ AR Path="/5D1E3367/5EC3F729" Ref="#PWR?"  Part="1"
 AR Path="/5D1E336C/5EC3F729" Ref="#PWR?"  Part="1" 
 AR Path="/5D1E3371/5EC3F729" Ref="#PWR?"  Part="1" 
 AR Path="/5D1E338D/5EC3F729" Ref="#PWR?"  Part="1" 
-F 0 "#PWR065" H 4350 7100 50  0001 C CNN
+F 0 "#PWR041" H 4350 7100 50  0001 C CNN
 F 1 "GND" H 4355 7177 50  0000 C CNN
 F 2 "" H 4350 7350 50  0001 C CNN
 F 3 "" H 4350 7350 50  0001 C CNN
@@ -1003,7 +1003,7 @@ AR Path="/5D1E3367/5CC31064" Ref="#PWR?"  Part="1"
 AR Path="/5D1E336C/5CC31064" Ref="#PWR?"  Part="1" 
 AR Path="/5D1E3371/5CC31064" Ref="#PWR?"  Part="1" 
 AR Path="/5D1E338D/5CC31064" Ref="#PWR?"  Part="1" 
-F 0 "#PWR061" H 3900 4250 50  0001 C CNN
+F 0 "#PWR037" H 3900 4250 50  0001 C CNN
 F 1 "GND" H 3905 4327 50  0000 C CNN
 F 2 "" H 3900 4500 50  0001 C CNN
 F 3 "" H 3900 4500 50  0001 C CNN
@@ -1117,7 +1117,7 @@ AR Path="/5D1E3367/5CC30FC6" Ref="#PWR?"  Part="1"
 AR Path="/5D1E336C/5CC30FC6" Ref="#PWR?"  Part="1" 
 AR Path="/5D1E3371/5CC30FC6" Ref="#PWR?"  Part="1" 
 AR Path="/5D1E338D/5CC30FC6" Ref="#PWR?"  Part="1" 
-F 0 "#PWR062" H 5950 4300 50  0001 C CNN
+F 0 "#PWR038" H 5950 4300 50  0001 C CNN
 F 1 "GND" H 5955 4377 50  0000 C CNN
 F 2 "" H 5950 4550 50  0001 C CNN
 F 3 "" H 5950 4550 50  0001 C CNN
@@ -1211,7 +1211,7 @@ AR Path="/5CC382A2/5DA0F4ED" Ref="#FLG0105"  Part="1"
 AR Path="/5CC382AC/5DA0F4ED" Ref="#FLG0106"  Part="1" 
 AR Path="/5CC38618/5DA0F4ED" Ref="#FLG0107"  Part="1" 
 AR Path="/5CC02B94/5DA0F4ED" Ref="#FLG0108"  Part="1" 
-F 0 "#FLG0108" H 3650 4175 50  0001 C CNN
+F 0 "#FLG0104" H 3650 4175 50  0001 C CNN
 F 1 "PWR_FLAG" V 3650 4227 50  0001 L CNN
 F 2 "" H 3650 4100 50  0001 C CNN
 F 3 "~" H 3650 4100 50  0001 C CNN
@@ -1223,8 +1223,6 @@ Text Notes 8300 4700 0    50   ~ 10
 Resistor Values
 Text Notes 8300 5500 0    50   ~ 0
 LED Vf = 2.8V ± 0.7\nV = 5V\nI ≅ 4mA\n\nEvery pin can source or sink ±35mA, but the '573 can handle\na total of 70mA (supply or ground). The best choice is 620Ω\nresistors, then. The lighting-grade white LEDs I used on the\noriginal front panel will work just fine that way. In fact they're\ntoo bright to look at.
-Text Notes 7050 7000 0    250  ~ 50
-Single 8-LED Row
 Text Notes 8300 6250 0    50   ~ 0
 Resistor\n\n330Ω\n470Ω\n620Ω\n680Ω
 Text Notes 8700 6250 0    50   ~ 0
