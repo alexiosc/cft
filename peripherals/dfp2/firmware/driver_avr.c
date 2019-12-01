@@ -482,7 +482,7 @@ avr_init()
 	PORTE =  0b10100100; // Port E init, assert FPRESET#, deassert others.
 
 	DDRF =   0b00001111; // Port F direction (SWA/SWD)
-	PORTF =  0b00000000; // Disable pull-ups on outputs.
+	PORTF =  0b11110000; // Enable pull-ups on inputs.
 
 	//         ---43210
 	DDRG =   0b00000000; // Port G direction, XMEM control pins

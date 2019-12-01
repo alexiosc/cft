@@ -257,53 +257,80 @@ typedef enum {
 //     * A/B
 
 
-// TODO: these don't yet map to actual hardware values. Values may be
-// planns and educated guesses. The coordinates in the comments list:
-// front panel module (for reference), SWA value, and what SWD bit
-// contains the switch state. The enum/DFP value is 4SWA+SWD.
+// These reflect the hardware, but with so many twists and turns, half of them
+// could be wrong. Luckily this definition is pure software and I can redo it
+// as many times as I like until I get it right. ;) The coordinates in the
+// comments list as in the format: front panel module (for reference), SWA
+// value, and what SWD bit contains the switch state. The enum/DFP value is
+// 4×SWA+SWD so (3,1) → 13 and (15,2) → 62
+//
+// The switch positions are wired like this:
+//
+//   0 / 2: Down
+//   1 / 3: Up
+//
+// Actuated switches return a low value except the Switch Register that returns
+// the actual bit value of the respective bit.
+
 typedef enum {
-	SW_LOCK,		// A:
-	SW_RESET,
-	SW_RUN,
-	SW_STOP,
-	SW_STEP,
-	SW_USTEP,
-	SW_FAST,
-	SW_CREEP,
-	SW_LTSON,
-	SW_MFD0,
-	SW_MFD1,
+	SW_START    = 0,	// A,0,0
+	SW_RESET    = 1,	// A,0,1
+	SW_STOP     = 4,	// A,1,0
+	SW_RUN      = 5,	// A,1,1
 
-	SW_SR15,		// B,0,2
-	SW_SR14,		// B,1,2
-	SW_SR13,		// B,2,2
-	SW_SR12,		// B,3,2
-	SW_SR11,		// B,4,2
-	SW_SR10,		// B,5,2
-	SW_SR9,			// B,6,2
-	SW_SR8,			// B,7,2
-	SW_SR7,			// C,8,0
-	SW_SR6,			// C,9,0
-	SW_SR5,			// C,10,0
-	SW_SR4,			// C,11,0
-	SW_SR3,			// C,12,0
-	SW_SR2,			// C,13,0
-	SW_SR1,			// C,14,0
-	SW_SR0,			// C,15,0
+	// The panel lock switch is inserted here
+	SW_LOCK     = 8,	// A,2,0
 
-	SW_LOAD_IR,		// D,8,3
-	SW_LOAD_PC,		// D,8,2
-	SW_LOAD_AC,		// D,9
-	SW_TEST,		// D,9
-	SW_MEMW,		// D,10
-	SW_MEMR,		// D,11
-	SW_IOW,			// D,12
-	SW_IOR,			// D,13
-	SW_NEXT,		// D,14,3
-	SW_ROM,			// D,14,2
-	SW_USER_A,		// D,15,3
-	SW_USER_B		// D,15,2
+	SW_USTEP    = 12,	// A,3,0
+	SW_STEP     = 13,	// A,3,1
+
+	// The speed switch has three settings. When neither CREEP nor FAST are
+	// enabled, the speed is SLOW.
+	SW_CREEP    = 16,	// A,4,0
+	SW_FAST     = 17,	// A,4,1
+	SW_LTSON    = 20,	// 0,5,0
+
+	// The MFD has three settings. When neither OR nor SP are enabled, DR
+	// is enabled.
+	SW_MFD_SP    = 24,	// A,6,0
+	SW_MFD_OR    = 25,	// A,6,1
+
+	// The SR is wired in the reverse order to simplify extracting a 16-bit
+	// value from the switches. 
+	SW_SR15      = 2,	// B,0,2
+	SW_SR14      = 6,	// B,1,2
+	SW_SR13      = 10,	// B,2,2
+	SW_SR12      = 14,	// B,3,2
+	SW_SR11      = 18,	// B,4,2
+	SW_SR10      = 22,	// B,5,2
+	SW_SR9       = 26,	// B,6,2
+	SW_SR8       = 30,	// B,7,2
+	SW_SR        = 32,	// C,8,0
+	SW_SR6       = 36,	// C,9,0
+	SW_SR5       = 40,	// C,10,0
+	SW_SR4       = 44,	// C,11,0
+	SW_SR3       = 48,	// C,12,0
+	SW_SR2       = 52,	// C,13,0
+	SW_SR1       = 56,	// C,14,0
+	SW_SR0       = 60,	// C,15,0
+
+	SW_LOAD_PC   = 34,	// D,8,2
+	SW_LOAD_IR   = 35,	// D,8,3
+	SW_TEST      = 38,	// D,9,2
+	SW_LOAD_AC   = 39,	// D,9,3
+	SW_MEMW_NEXT = 42,	// D,10,2
+	SW_MEMW      = 43,	// D,10,3
+	SW_MEMR_NEXT = 46,	// D,11,2
+	SW_MEMR      = 47,	// D,11,3
+	SW_IOW_NEXT  = 50,	// D,12,2
+	SW_IOW       = 51,	// D,12,3
+	SW_IOR_NEXT  = 54,	// D,13,2
+	SW_IOR       = 55,	// D,13,3
+	SW_ROM       = 58,	// D,14,2
+	SW_USER_A    = 62,	// D,15,2
+	SW_USER_B    = 63	// D,15,3
 } switch_t;
+
 
 ///////////////////////////////////////////////////////////////////////////////
 //
