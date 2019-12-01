@@ -454,9 +454,9 @@ Text Label 11200 7500 1    50   ~ 0
 C.SW1-2
 Text Label 11600 7500 1    50   ~ 0
 C.SW0-2
-Text Notes 12300 7250 1    50   ~ 0
+Text Notes 12300 6650 1    50   ~ 0
 SR→IR
-Text Notes 12500 7250 1    50   ~ 0
+Text Notes 12500 6650 1    50   ~ 0
 SR→PC
 Wire Wire Line
 	12500 6700 12500 5650
@@ -543,33 +543,33 @@ F 3 "" H 14400 6900 50  0001 C CNN
 	1    14400 6900
 	0    -1   -1   0   
 $EndComp
-Text Notes 12900 7250 1    50   ~ 0
+Text Notes 12900 6650 1    50   ~ 0
 SR→AC
-Text Notes 12700 7250 1    50   ~ 0
+Text Notes 12700 6650 1    50   ~ 0
 TEST
-Text Notes 13100 7250 1    50   ~ 0
+Text Notes 13100 6650 1    50   ~ 0
 MEM W
-Text Notes 13300 7250 1    50   ~ 0
+Text Notes 13300 6650 1    50   ~ 0
 MEM W Next
-Text Notes 13500 7250 1    50   ~ 0
+Text Notes 13500 6650 1    50   ~ 0
 MEM R
-Text Notes 13700 7250 1    50   ~ 0
+Text Notes 13700 6650 1    50   ~ 0
 MEM R Next
-Text Notes 13900 7250 1    50   ~ 0
+Text Notes 13900 6650 1    50   ~ 0
 IO W
-Text Notes 14100 7250 1    50   ~ 0
+Text Notes 14100 6650 1    50   ~ 0
 IO W Next
-Text Notes 14300 7250 1    50   ~ 0
+Text Notes 14300 6650 1    50   ~ 0
 IO R
-Text Notes 14500 7250 1    50   ~ 0
+Text Notes 14500 6650 1    50   ~ 0
 IO R Next
-Text Notes 15200 7250 1    50   ~ 0
+Text Notes 15200 6650 1    50   ~ 0
 RAM
-Text Notes 15350 7500 1    50   ~ 0
+Text Notes 15300 6650 1    50   ~ 0
 (ROM is high, switch off)
-Text Notes 14700 7250 1    50   ~ 0
+Text Notes 14700 6650 1    50   ~ 0
 A
-Text Notes 14900 7250 1    50   ~ 0
+Text Notes 14900 6650 1    50   ~ 0
 B
 Text Label 12400 7500 1    50   ~ 0
 ~D.SW0
@@ -1131,9 +1131,9 @@ Text Label 12300 5650 3    50   ~ 0
 D.SW0-3
 Text Label 12500 5650 3    50   ~ 0
 D.SW0-1
-Text Label 12700 5650 3    50   ~ 0
-D.SW1-3
 Text Label 12900 5650 3    50   ~ 0
+D.SW1-1
+Text Label 12700 5650 3    50   ~ 0
 D.SW1-3
 Text Label 13100 5650 3    50   ~ 0
 D.SW2-3
