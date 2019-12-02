@@ -42,7 +42,9 @@ typedef uint8_t  bool_t;	// Alias for a Boolean value
 typedef enum {
 	ERR_SUCCESS = 0,		// No error, all's well
 	ERR_NMASTER,			// We are not the bus master
-	ERR_NHALTED			// System is not halted
+	ERR_NHALTED,			// System is not halted
+	ERR_HALTED,			// System is halted
+	ERR_TIMEOUT			// Timeout waiting for state machine
 } errno_t;
 
 

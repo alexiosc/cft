@@ -402,24 +402,99 @@ tristate_db()
 ///////////////////////////////////////////////////////////////////////////////
 
 inline static void
-freeze_run_step_stop_fsm()
+rc_freeze()
 {
 	clearbit(PORTB, C_NCLR);
 }
 
 
 inline static void
-thaw_run_step_stop_fsm()
+rc_thaw()
 {
 	set(PORTB, C_NCLR);
 }
 
 
 inline static void
-reset_run_step_stop_fsm()
+rc_reset()
 {
 	freeze_run_step_stop_fsm();
 	thaw_run_step_stop_fsm();
+}
+
+
+static errno_t
+rc_wait()
+{
+	for(;;) {
+		if (PIND & BV(D_NWAIT)) {
+			return ERR_SUCCESS;
+		}
+	}
+
+	// TODO: implement actual timeout
+	return ERR_TIMEOUT;
+}
+
+
+errno_t
+rc_halt()
+{
+	if (is_halted()) return ERR_HALTED;
+	setbit(PORTD, D_NSTEP_RUN); // Stop running
+
+	// The FSM will stop at the next fetch→execute transition. We
+	// should wait for that.
+	return rc_wait();
+}
+
+
+errno_t
+rc_run()
+{
+	if (!is_halted()) return ERR_NHALTED;
+	clearbit(PORTD, D_NSTEP_RUN); // Start running.
+	return ERR_SUCCESS;
+}
+
+
+errno_t
+rc_step()
+{
+	if (!is_halted()) return ERR_NHALTED;
+
+	// The only way to perform a single step using the FSM is to very
+	// briefly strobe the STEP/RUN# signal. The strobe must be shorter than
+	// a single CFT instruction. We cheat by stopping the clock while
+	// strobing. The CFT is a fully static design and doesn't mind clock
+	// variations.
+	
+	ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+		clk_stop();
+		clearbit(PORTD, D_NSTEP_RUN); // Start of strobe
+		setbit(PORTD, D_NSTEP_RUN);   // End of strobe
+		clk_start();
+	}
+
+	return rc_wait();
+}
+
+
+errno_t
+rc_ustep()
+{
+	if (!is_halted()) return ERR_NHALTED;
+
+	// Again, stop the clock while strobing the µSTEP# signal.
+
+	ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+		clk_stop();
+		clearbit(PORTD, D_NUSTEP); // Start of strobe
+		setbit(PORTD, D_NUSTEP);   // End of strobe
+		clk_start();
+	}
+
+	return rc_wait();
 }
 
 
@@ -428,6 +503,17 @@ reset_run_step_stop_fsm()
 // THE FRONT PANEL
 //
 ///////////////////////////////////////////////////////////////////////////////
+
+void
+set_fpramrom(bool_t rom)
+{
+	// Controls the FPRAM/ROM signal to the memory manager. High
+	// maps RAM+ROM on reset, Low maps RAM only.
+
+	if (rom) setbit(PORTB, B_FPROM);
+	else clearbit(PORTB, B_FPROM);
+}
+
 
 inline static void
 stop_fpscanner()
@@ -2119,16 +2205,6 @@ set_irq6(bool_t val, bool_t fromPanel)
 		ifr6_operated = 1;
 	}
 	do_cb(0, NIRQ6, !val);
-	write_cb();
-}
-
-
-void
-set_fpram(bool_t val)
-{
-	// ROM/RAM# signal. High = ROM, Low = RAM. Equivalent to the FPRAM#
-	// signal.
-	do_cb(1, NFPRAM, val);
 	write_cb();
 }
 
