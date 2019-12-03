@@ -8,16 +8,15 @@
 
 
 #SERIAL_BPS	= 	921600
-SERIAL_BPS	=	460800
+SERIAL_BPS      =       500000
+#SERIAL_BPS	=	460800
 #SERIAL_BPS	=	230400
 #SERIAL_BPS	=	9600
 VERSION		=	2.0
 THISYEAR	= 	"$(shell date +%Y)"
 BUFSIZE		=	512
-#CPU_FREQ	=	7372800 # Hz
-CPU_FREQ	=	14745600
-#CPU_FREQ	=	1000000 # Hz (Factory default)
-CPU_FREQ	=	16000000 # Hz (16.0 MHz crystal)
+#CPU_FREQ	=	1000000  # Hz (Factory default)
+CPU_FREQ	=	16000000 # Hz (DFP2, 16.0 MHz crystal)
 
 DEFINES		=	-DDEBUG
 DEFINES		+=	-DVERSION='"$(VERSION) $(shell date +%Y-%m-%d)"'
@@ -74,7 +73,7 @@ HFILES		=	dfp.h abstract.h hwcompat.h proto.h output.h input.h \
 # 			panel.c bus.c buscmd.c serial.c
 
 # TODO: Adapt sources from above one by one.
-CFILES		=	dfp.c driver_avr.c
+CFILES		=	dfp.c driver_avr.c serial.c proto.c
 
 #HFILES		=	serial.h hw.h proto.h utils.h
 #CFILES		=	dfp.c serial.c hw.c proto.c utils.c

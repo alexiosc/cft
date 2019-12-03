@@ -33,7 +33,7 @@
 // #include "bus.h"
 // #include "buscmd.h"
 // #include "utils.h"
-// #include "serial.h"
+#include "serial.h"
 // #include "output.h"
 // #include "switches.h"
 // #include "panel.h"

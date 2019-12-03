@@ -128,11 +128,6 @@ report_pstr(const char *msg)
 {
 	if (flags & FL_CONS) return (char *)msg;
 	register unsigned char c;
-	/* report_c('('); */
-	/* report_hex((uint16_t)msg, 4); */
-	/* report_c(')'); */
-	/* report_c(32); */
-	/* return; */
 #ifdef AVR
 	while ((c = (unsigned char) pgm_read_byte(msg++)) != '\0') {
 #else

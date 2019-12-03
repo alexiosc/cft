@@ -1,9 +1,14 @@
 // -*- indent-c++ -*-
-#warning "TODO: Review this file for DFP2"
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// THE SERIAL PORT PROTOCOL AND USER INTERFACE
+//
+///////////////////////////////////////////////////////////////////////////////
 
 #ifdef HOST
-#include <stdio.h>
-#include <unistd.h>
+#  include <stdio.h>
+#  include <unistd.h>
 #endif // HOST
 
 #include <stdlib.h>
@@ -11,23 +16,22 @@
 #include <string.h>
 
 #ifdef AVR
-#include <avr/io.h>
-#include <avr/interrupt.h>
-#include <avr/sleep.h>
-#include <avr/wdt.h>
-#include <util/delay.h>
-#include <avr/pgmspace.h>
-
+#  include <avr/io.h>
+#  include <avr/interrupt.h>
+#  include <avr/sleep.h>
+#  include <avr/wdt.h>
+#  include <util/delay.h>
+#  include <avr/pgmspace.h>
 #endif // AVR
 
 #include "proto.h"
-#include "abstract.h"
-#include "input.h"
-#include "output.h"
-#include "hwcompat.h"
-#include "panel.h"
-#include "bus.h"
-#include "utils.h"
+//#include "abstract.h"
+//#include "input.h"
+//#include "output.h"
+//#include "hwcompat.h"
+//#include "panel.h"
+//#include "bus.h"
+//#include "utils.h"
 
 #ifdef AVR
 #include <util/atomic.h>
@@ -46,12 +50,188 @@
 #endif // CFTEMU
 
 
-unsigned char buf[BUFSIZE];
+///////////////////////////////////////////////////////////////////////////////
+//
+// CONVENIENCE
+//
+///////////////////////////////////////////////////////////////////////////////
 
-uint16_t buflen, oldbuflen, bp;
+#define CTRL(c) ((c) - 64)
 
-volatile uint32_t flags = FL_BUSY | FL_MESG;
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// GLOBALS
+//
+///////////////////////////////////////////////////////////////////////////////
+
+unsigned char buf[BUFSIZE];	// The input buffer
+
+uint16_t buflen;		// The current input line length
+uint16_t oldbuflen;		// Length of previous input line
+
+volatile uint32_t flags = FL_BUSY | FL_MESG; // Protocol flags
 volatile uint8_t  abort_stepping = 0;
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// RECEIVE A CHARACTER
+//
+///////////////////////////////////////////////////////////////////////////////
+
+// This is the protocol entry point, called directly by the ISR. Keep
+// this as brief as can be.
+
+unsigned char
+proto_input(unsigned char c)
+{
+	flags &= ~FL_ASYNC;
+
+#ifdef AVR
+	// Is the virtual console being used? If so, flag the
+	// character and exit. The go_cons() loop will take care of
+	// the rest (we've been called by the ISR, so we're running on
+	// a separate 'thread').
+	if (flags & FL_CONS) {
+		flags |= FL_INPOK;
+		buf[0] = c;
+		return c;
+	}
+
+#endif // AVR
+
+	// Allow breaks at all times.
+	if (c == CTRL('C') || c == CTRL('X')) {
+		// Cancel input or operation (ASCII 24, Ctrl-X or Ctrl-C)
+		if (flags & FL_BUSY) {
+			flags |= FL_BREAK;
+		} else {
+			style_async();
+			report_pstr(PSTR("*** Aborted\n"));
+			buflen = 0;
+			flags |= FL_INPOK; // Force a Ready prompt
+			return '\n';
+		}
+	}
+	
+	// Don't echo characters if we're busy.
+	if (flags & FL_BUSY) return '\0';
+
+	// Is the buffer full?
+	if (buflen >= BUFSIZE) return flags & FL_ECHO ? '<' : '\0';
+
+	// Allow an old buffer to be repeated, but only if the repeat
+	// character is the first character received on the new
+	// line. Use Control N and Control P.
+	if ((c == CTRL('N') || c == CTRL('P')) && oldbuflen) {
+		buflen = oldbuflen;
+
+		// Change nulls before the end of the buffer back to spaces.
+		for (bp = 0; bp < oldbuflen; bp++) {
+			if (buf[bp] == '\0') buf[bp] = 32;
+		}
+
+		style_info();
+		report_pstr(PSTR("(repeat) "));
+		style_input();
+		report((char*)buf);
+
+		goto char_enter;
+	}
+
+	// End of line? (ignore multiple ones and blank lines)
+	if (c == CTRL('J') || c == CTRL('M')) {
+	char_enter:
+		flags |= FL_INPOK;
+		oldbuflen = buflen;
+		if (flags & FL_ECHO) {
+			serial_write('\r');
+			serial_write('\n');
+			return '\n';
+		}
+		return 0;
+	} else if ((c == CTRL('H')) || (c == 127)) {
+		if (buflen) {
+			buflen--;
+			oldbuflen = 0; // Invalidate the previous line.
+			if (flags & FL_ECHO) report_pstr(PSTR("\b \b"));
+		}
+		return 0;
+
+	} else if (c == CTRL('L')) {
+                // Resend the pending command line to the terminal (redraw)
+		say_break();
+		style_normal();
+		proto_prompt();
+		return 0;
+	} else if (c == CTRL('T')) {
+		// Toggle the terminal bells and whistles.
+		say_break();
+		style_normal();
+		flags ^= FL_TERM;
+		report_gs(1);
+		report_bool_value(PSTR(STR_GSTERM), (flags & FL_TERM) != 0);
+		proto_prompt();
+		return 0;
+	} else if (c == 30) {
+		// Controlling entity is a computer: disable human features
+		say_break();
+		style_normal();
+		flags &= ~(FL_TERM | FL_ECHO);
+		report_gs(1);
+		report_bool_value(PSTR(STR_GSTERM), (flags & FL_TERM) != 0);
+		report_gs(1);
+		report_bool_value(PSTR(STR_GSECHO), (flags & FL_ECHO) != 0);
+		report_pstr(PSTR(STR_MACHINE));
+		proto_prompt();
+		return 0;
+	}
+
+#ifdef HOST
+	else if (c == CTRL('D')) {
+		printf("\n\nQuitting (only on host).\n");
+		exit(0);
+	}
+#endif // HOST
+	
+	else if (c < 32 || c > 127) {
+		// Ignore unprintable/control characters
+		return 0;
+	}
+
+	// Store the character.
+	buf[buflen++] = c;
+	oldbuflen = 0;		// Invalidate the previous line.
+
+	// Echo the character
+	if (flags & FL_ECHO) {
+		report_char(c);
+	}
+	return c;
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// STILL TO CHECK AND ADAPT!
+//
+///////////////////////////////////////////////////////////////////////////////
 
 uint16_t addr;
 
@@ -1926,133 +2106,6 @@ void proto_loop()
 	}
 }
 
-
-unsigned char
-proto_input(unsigned char c)
-{
-	flags &= ~FL_ASYNC;
-
-#ifdef AVR
-	// Is the virtual console being used? If so, flag the
-	// character and exit. The go_cons() loop will take care of
-	// the rest (we've been called by the ISR, so we're running on
-	// a separate 'thread').
-	if (flags & FL_CONS) {
-		flags |= FL_INPOK;
-		buf[0] = c;
-		return c;
-	}
-
-#endif // AVR
-
-	// Allow breaks at all times.
-	if (c == 3 || c == 24) {
-		// Cancel input or operation (ASCII 24, Ctrl-X or Ctrl-C)
-		if (flags & FL_BUSY) {
-			flags |= FL_BREAK;
-		} else {
-			style_async();
-			report_pstr(PSTR("*** Aborted\n"));
-			buflen = 0;
-			flags |= FL_INPOK; // Force a Ready prompt
-			return '\n';
-		}
-	}
-	
-	// Don't echo characters if we're busy.
-	if (flags & FL_BUSY) return '\0';
-
-	// Is the buffer full?
-	if (buflen >= BUFSIZE) return flags & FL_ECHO ? '<' : '\0';
-
-	// Allow an old buffer to be repeated, but only if the repeat
-	// character is the first character received on the new
-	// line. Use Control N and Control P.
-	if ((c == 14 || c == 16) && oldbuflen) {
-		buflen = oldbuflen;
-
-		// Change nulls before the end of the buffer back to spaces.
-		for (bp = 0; bp < oldbuflen; bp++) {
-			if (buf[bp] == '\0') buf[bp] = 32;
-		}
-
-		style_info();
-		report_pstr(PSTR("(repeat) "));
-		style_input();
-		report((char*)buf);
-
-		goto char_enter;
-	}
-
-	// End of line? (ignore multiple ones and blank lines)
-	if (c == 10 || c == 13) {
-	char_enter:
-		flags |= FL_INPOK;
-		oldbuflen = buflen;
-		if (flags & FL_ECHO) {
-			serial_write('\r');
-			serial_write('\n');
-			return '\n';
-		}
-		return 0;
-	} else if ((c == 8) || (c == 127)) {
-		if (buflen) {
-			buflen--;
-			oldbuflen = 0; // Invalidate the previous line.
-			if (flags & FL_ECHO) report_pstr(PSTR("\b \b"));
-		}
-		return 0;
-
-	} else if (c == ('L' - '@')) {
-                // Resend the pending command line to the terminal (redraw)
-		say_break();
-		style_normal();
-		proto_prompt();
-		return 0;
-	} else if (c == ('T' - '@')) {
-		// Toggle the terminal bells and whistles.
-		say_break();
-		style_normal();
-		flags ^= FL_TERM;
-		report_gs(1);
-		report_bool_value(PSTR(STR_GSTERM), (flags & FL_TERM) != 0);
-		proto_prompt();
-		return 0;
-	} else if (c == 30) {
-		// Controlling entity is a computer: disable human features
-		say_break();
-		style_normal();
-		flags &= ~(FL_TERM | FL_ECHO);
-		report_gs(1);
-		report_bool_value(PSTR(STR_GSTERM), (flags & FL_TERM) != 0);
-		report_gs(1);
-		report_bool_value(PSTR(STR_GSECHO), (flags & FL_ECHO) != 0);
-		report_pstr(PSTR(STR_MACHINE));
-		proto_prompt();
-		return 0;
-	}
-
-#ifdef HOST
-	else if (c == 4) {
-		printf("\n\nQuitting (only on host).\n");
-		exit(0);
-	}
-#endif // HOST
-	
-	else if (c < 32 || c > 127) {
-		// Ignore unprintable/control characters
-		return 0;
-	}
-
-	// Store the character.
-	buf[buflen++] = c;
-	oldbuflen = 0;		// Invalidate the previous line.
-
-	if (flags & FL_ECHO) {
-		report_char(c);
-	}
-	return c;
-}
 
 uint8_t
 check_mismatch(uint16_t should_be, uint16_t was)
