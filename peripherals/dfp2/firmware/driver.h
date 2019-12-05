@@ -19,6 +19,82 @@
 #  endif // HOST
 #endif // AVR
 
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// THE BASICS
+//
+///////////////////////////////////////////////////////////////////////////////
+
+
+// The high-level state of the driver is represented using this structure which
+// includes fields for previously read computer registers etc.
+
+typedef struct {
+	uint8_t   ab_h, ab_m, ab_l;
+	uint8_t   ucv_h, ucv_m, ucv_l;
+
+	uint16_t  clk_div;	   // The slow clock divider.
+	uint8_t   clk_prescaler:3; // The slow clock prescaler.
+	uint8_t   clk_fast:1;	   // Using the full speed clock of the CFT.
+	uint8_t   clk_stopped:1;   // The clock has been stopped.
+
+	uint8_t   is_halted:1;	   // Set when the computer has been halted.
+
+	uint8_t   have_ctl:1;	   // The CTL processor board is present.
+	uint8_t   have_reg:1;	   // The REG processor board is present.
+	uint8_t   have_bus:1;	   // The BUS processor board is present.
+	uint8_t   have_alu:1;      // The ALU processor board is present.
+} hwstate_t;
+
+extern hwstate_t state;
+
+
+void hw_init();
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// THE USER INTERFACE SERIAL PORT
+//
+///////////////////////////////////////////////////////////////////////////////
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// THE TTYD SERIAL PORT
+//
+///////////////////////////////////////////////////////////////////////////////
+
+// This is a serial port as seen from the CFT, and is what we interact with
+// when in the console (cons command). We use a ring buffer for it. The ring
+// buffer has a size that's a power of two so we can use faster instructions on
+// the Atmega.
+
+// Ring buffer size in bits (we do not use modulo)
+#define RBSIZE_BITS 4
+#define RBMASK ((1 << RBSIZE_BITS) - 1)
+typedef struct {
+	uint8_t ip, op;
+	uint8_t b[(1 << RBSIZE_BITS)];
+} ringbuf_t;
+
+extern ringbuf_t ringbuf;
+
+
+
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
 // Note: ICR_TTY is used to enable IRQ6# when console characters
 // received.
 
@@ -33,15 +109,6 @@
 // #define defer_cb_write() defercb++
 
 
-// Ring buffer size in bits (we do not use modulo)
-#define RBSIZE_BITS 4
-#define RBMASK ((1 << RBSIZE_BITS) - 1)
-typedef struct {
-	uint8_t ip, op;
-	uint8_t b[(1 << RBSIZE_BITS)];
-} ringbuf_t;
-
-extern ringbuf_t ringbuf;
 
 
 // #define ISR_IRQ6 1

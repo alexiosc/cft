@@ -11,10 +11,12 @@
 #endif // AVR
 
 #include <avr/interrupt.h>
+#include <avr/pgmspace.h>
 #include <avr/wdt.h>
 
 #include "dfp.h"
 #include "utils.h"
+#include "driver.h"
 
 #define USE_ATOMIC_BLOCKS
 
@@ -33,26 +35,27 @@
 // #include "bus.h"
 // #include "buscmd.h"
 // #include "utils.h"
-#include "serial.h"
+//#include "serial.h"
 // #include "output.h"
 // #include "switches.h"
 // #include "panel.h"
 
-// TODO: Adape the above one by one.
 
-
-typedef struct {
-	
-} hwstate_t;
-
-hwstate_t hwstate;
+hwstate_t state;
 
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-// AVR PORTS
+// FORWARD DEFINITIONS (AS NEEDED)
 //
 ///////////////////////////////////////////////////////////////////////////////
+
+// These are added as needed.
+inline static void stop_fpscanner();
+inline static void start_fpscanner();
+
+
+
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -104,7 +107,7 @@ hwstate_t hwstate;
 #define D_NPANELEN   PD4	// O. AL: connect FP scanner to computer. (*)
 #define D_LED_STOP   PD5	// O. to FP. Controls the STOP LED. (FP scanner must be running)
 #define D_NSTEP_RUN  PD6	// O. to FP and Run/Stop/Step FSM. 0 = running (RUN LED on)
-#define D_NuSTEP     PD7	// O. to Run/Stop/Step FSM. AL: request microstep.
+#define D_NMSTEP     PD7	// O. to Run/Stop/Step FSM. AL: request microstep.
 
 // (*) SCANEN# and PANELEN# work like this:
 //
@@ -208,7 +211,7 @@ sample()
 }
 
 
-uint8_t state_addrs[] PROGMEM = {
+const uint8_t state_addrs[] PROGMEM = {
 	XMEM_AB_H, XMEM_AB_M, XMEM_AB_L,    // The Address Bus
 	XMEM_DB_H, XMEM_DB_L,		    // The Data Bus
 	XMEM_IBUS_H, XMEM_IBUS_L,	    // The IBUS
@@ -220,18 +223,21 @@ uint8_t state_addrs[] PROGMEM = {
 inline static void
 read_dfp_state()
 {
+	// Note: we stop the scanner but don't deselect the front panel. Any
+	// reads we perform that also map to FP lights will update the FP. For
+	// example, as we read the AC, the front panel's Accumulator lights
+	// will also update to the current value on the FPD bus.
 	stop_fpscanner();
 	sample();		// Clock data into our own flip flops.
 
+	// Read the buses directly.
 	state.ab_h = xmem_read(XMEM_AB_H);
 	state.ab_m = xmem_read(XMEM_AB_M);
 	state.ab_l = xmem_read(XMEM_AB_L);
-	state.ab_l = xmem_read(XMEM_AB_L);
 
-	// Read from the computer's flip flops.
+	// Read via buffers in the computer.
 	state.ucv_h = xmem_read(XMEM_UCV_H);
 	state.ucv_m = xmem_read(XMEM_UCV_M);
-	state.ucv_l = xmem_read(XMEM_UCV_L);
 	state.ucv_l = xmem_read(XMEM_UCV_L);
 
 	start_fpscanner();
@@ -277,7 +283,7 @@ release_ucv()
 inline static MUST_CHECK errno_t
 drive_ibus()
 {
-	if (!is_halted()) {
+	if (!state.is_halted) {
 		return ERR_NHALTED;
 	}
 
@@ -289,7 +295,7 @@ drive_ibus()
 inline static MUST_CHECK errno_t
 drive_control()
 {
-	if (!is_halted()) {
+	if (!state.is_halted) {
 		return ERR_NHALTED;
 	}
 
@@ -304,21 +310,28 @@ drive_control()
 // value on the AB, we just write the addresses to the registers one byte at a
 // time and clear the C_NABOE pin. (it's active low)
 
-inline MUST_CHECK errno_t
+inline void
+tristate_ab()
+{
+	setbit(PORTC, C_NABOE);
+}
+
+
+inline static MUST_CHECK errno_t
 drive_ab()
 {
 	// If the BUS board is present and the processor isn't halted, we can't
 	// drive the AB.
-	if (have_board(BRD_BUS) && !is_halted()) {
+	if (state.have_bus && !state.is_halted) {
 		// Tristate the AB driver. Should already be tristated since
 		// drive_ab() is being called, but let's be safe.
 		tristate_ab();
 		return ERR_NMASTER;
 	}
 
-	// Enable the AB drivers. This will 
+	// Enable the AB drivers. This will enable all three AB drivers.
 	clearbit(PORTC, C_NABOE);
-	return SUCCESS;
+	return ERR_SUCCESS;
 }
 
 
@@ -326,23 +339,16 @@ inline static MUST_CHECK errno_t
 write_ab(const uint16_t addr, const uint8_t aext)
 {
 	// If the BUS board is present and the processor isn't halted, we can't
-	// drive the AB.
-	if (have_board(BRD_BUS) && !is_halted()) {
+	// write to the AB.
+	if (state.have_bus && !state.is_halted) {
 		tristate_ab();
 		return ERR_NMASTER;
 	}
 
 	// Drive the Address Bus ourselves.
-	xmem_write(xmem_ab_l, abus & 0xff);
-	xmem_write(xmem_ab_m, (abus >> 8) & 0xff);
-	xmem_write(xmem_ab_h, aext);
-}
-
-
-inline void
-tristate_ab()
-{
-	setbit(PORTC, C_nABOE);
+	xmem_write(XMEM_AB_L, addr & 0xff);
+	xmem_write(XMEM_AB_M, (addr >> 8) & 0xff);
+	xmem_write(XMEM_AB_H, aext);
 }
 
 
@@ -353,45 +359,144 @@ tristate_ab()
 ///////////////////////////////////////////////////////////////////////////////
 
 inline static void
-drive_db()
-{
-	// The processor (if present) drives the DB.
-	if (flags & FL_PROC) {
-		// Just in case, tristate our DB drivers. And drive the IBUS
-		// instead.
-		setbit(PORTC, C_NDBOE);
-		drive_ibus();
-	} else {
-		setbit(PORTC, C_NIBUSOE); // Tristate the IBUS
-		clearbit(PORTC, C_NDBOE); // Drive the DBUS
-	}
-}
-
-
-void
-write_db(const uint16_t dbus)
-{
-	if (flags & FL_PROC) {
-		// The processor drives the DB using the IBUS. All we need to
-		// do is drive the IBUS.
-		write_ibus(dbus);
-	} else {
-		out_shift_registers16(dbus, CMD_DBCLK);
-	
-		// Move data from ALL the shift registers to their respective
-		// output registers. Tristated output registers will of course
-		// not have any effects.
-		strobecmd(CMD_STCP);
-	}
-}
-
-
-void
 tristate_db()
 {
-	if (flags & FL_PROC) tristate_ibus();
-	// Tristate the DB too, even if the processor is connected. Can't hurt.
-	setbit(PORTD, D_NDBOE);
+	setbit(PORTC, C_NDBOE);
+}
+
+
+inline static errno_t
+drive_db()
+{
+	// If the BUS board is present and the processor isn't halted, we can't
+	// drive the DB.
+	if (state.have_bus && !state.is_halted) {
+		// Tristate the DB driver. Should already be tristated since
+		// drive_db() is being called, but let's be safe.
+		tristate_db();
+		return ERR_NMASTER;
+	}
+
+	// Enable the DB drivers. This will enable both DB buffers.
+	clearbit(PORTC, C_NDBOE);
+	return ERR_SUCCESS;
+}
+
+
+static errno_t
+write_db(const word_t data)
+{
+	// If the BUS board is present and the processor isn't halted, we can't
+	// write to the DB.
+	if (state.have_bus && !state.is_halted) {
+		tristate_db();
+		return ERR_NMASTER;
+	}
+
+	// Drive the Data Bus ourselves.
+	xmem_write(XMEM_DB_L, data & 0xff);
+	xmem_write(XMEM_DB_H, (data >> 8) & 0xff);
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// CFT CLOCK CONTROL
+//
+///////////////////////////////////////////////////////////////////////////////
+
+// Prescaler values for CSn2:0 bits. Three-bit vectors ready to be written to a
+// register. (don't use BV).
+
+#define PSV_STOP    0b000	// No clock
+#define PSV_1       0b001	// No prescaling
+#define PSV_8       0b010	// CLKI/O / 8
+#define PSV_64      0b100	// CLKI/O / 64
+#define PSV_256     0b110       // CLKI/O / 256
+#define PSV_1024    0b111	// CLKI/O / 1024
+
+
+// This both starts the clock AND goes to full speed.
+inline static void
+clk_start_fast()
+{
+	state.clk_fast = 1;
+	state.clk_stopped = 0;
+	TCCR1A = 0;		  // Disable the MCU slow clock timer
+	setbit(PORTB, B_FPCLKEN); // Enable the CFT's clock generator.
+}
+
+
+static void
+clk_setfreq(uint8_t prescaler, uint16_t div)
+{
+	state.clk_prescaler = prescaler;
+	state.clk_div = div;
+
+	clearbit(PORTB, B_FPCLKEN); // Disable the CFT's own clock;
+
+	// COM1A = 00
+	// COM1B = 01 (toggle OC1B on compare match)
+	// WGM   = 0100 (CTC mode)
+
+	// TCCR1A = 0x10;			       // Toggle OC1B on compare match
+	// TCCR1B = 8 | (prescaler & 7);	       // CTC, prescaler
+	// TIMSK1 = 2;
+	// OCR1B = div;
+
+	// Program the timer to generate the requested rate.
+	TCCR1B = BV(WGM12) | (prescaler & 7); // Select CTC, set prescaler
+	OCR1A = div;			      // Note: automagic 16-bit register write!
+}
+
+
+inline static void
+clk_slow()
+{
+	// 16000000 / (2 * 1024 * (1 + 97)) ≅ 79.72 Hz.
+	clk_setfreq(PSV_1024, 97);
+
+	// Enable the clock output unless the clock is stopped.
+	if (!state.clk_stopped) TCCR1A = _BV(COM1B0);
+}
+
+
+inline void
+clk_creep()
+{
+	// 16000000 / (2 * 1024 * (1 + 976)) ≅ 8 Hz.
+	clk_setfreq(PSV_1024, 976);
+
+	// Enable the clock output unless the clock is stopped.
+	if (!state.clk_stopped) TCCR1A = _BV(COM1B0);
+}
+
+
+inline void
+clk_start()
+{
+	if (state.clk_fast) {
+		clk_start_fast();
+	} else {
+		// Restart with a slow clock.
+		clk_setfreq(state.clk_prescaler, state.clk_div);
+		TCCR1A = _BV(COM1B0); // Start toggling OC1B (FPµSTEP).
+		state.clk_stopped = 0;
+	}
+}
+
+
+static void
+clk_stop()
+{
+	// Disconnect the FPUSTEP-IN pin from the timer. The pin will stay
+	// in its last state.
+	TCCR1A = 0;		// Disconnect FPUSTEP-IN pin, no pulses.
+
+	// And now disable the processor's full-speed clock too.
+	clearbit(PORTB, B_FPCLKEN);
+
+	state.clk_stopped = 1;
 }
 
 
@@ -404,22 +509,22 @@ tristate_db()
 inline static void
 rc_freeze()
 {
-	clearbit(PORTB, C_NCLR);
+	clearbit(PORTB, B_NCLR);
 }
 
 
 inline static void
 rc_thaw()
 {
-	set(PORTB, C_NCLR);
+	setbit(PORTB, B_NCLR);
 }
 
 
 inline static void
 rc_reset()
 {
-	freeze_run_step_stop_fsm();
-	thaw_run_step_stop_fsm();
+	clearbit(PORTB, B_NCLR);
+	setbit(PORTB, B_NCLR);
 }
 
 
@@ -440,7 +545,7 @@ rc_wait()
 errno_t
 rc_halt()
 {
-	if (is_halted()) return ERR_HALTED;
+	if (state.is_halted) return ERR_HALTED;
 	setbit(PORTD, D_NSTEP_RUN); // Stop running
 
 	// The FSM will stop at the next fetch→execute transition. We
@@ -452,7 +557,7 @@ rc_halt()
 errno_t
 rc_run()
 {
-	if (!is_halted()) return ERR_NHALTED;
+	if (!state.is_halted) return ERR_NHALTED;
 	clearbit(PORTD, D_NSTEP_RUN); // Start running.
 	return ERR_SUCCESS;
 }
@@ -461,7 +566,7 @@ rc_run()
 errno_t
 rc_step()
 {
-	if (!is_halted()) return ERR_NHALTED;
+	if (!state.is_halted) return ERR_NHALTED;
 
 	// The only way to perform a single step using the FSM is to very
 	// briefly strobe the STEP/RUN# signal. The strobe must be shorter than
@@ -483,14 +588,14 @@ rc_step()
 errno_t
 rc_ustep()
 {
-	if (!is_halted()) return ERR_NHALTED;
+	if (!state.is_halted) return ERR_NHALTED;
 
 	// Again, stop the clock while strobing the µSTEP# signal.
 
 	ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
 		clk_stop();
-		clearbit(PORTD, D_NUSTEP); // Start of strobe
-		setbit(PORTD, D_NUSTEP);   // End of strobe
+		clearbit(PORTD, D_NMSTEP); // Start of strobe
+		setbit(PORTD, D_NMSTEP);   // End of strobe
 		clk_start();
 	}
 
@@ -702,7 +807,7 @@ hw_init()
 
 
 #warning "PORTED TO THIS POINT"
-
+#if 0
 	// Time = 4
 
 	// Set up the switch sampling/debouncing timer. Atmega168 datasheet,
@@ -794,6 +899,8 @@ hw_init()
 	
 	// Enable the global interrupt flag
 	sei();
+
+#endif // 0
 }
 
 
@@ -887,17 +994,102 @@ get_switch(uint8_t swidx)
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-// THE ADDRESS BUS
+// THE SERIAL PORT
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-// inline void
-// tristate_ab()
-// {
-// }
+// If running on a 1MHz clock, doubling the serial clock rate will give us much
+// better accuracy. For example, according to the Atmega168 datasheet, you get
+// -7% timing error with U2X0=0, and +0.2% with U2X1=1. The bps rate
+// calculation is different, of course.
+//
+// This is historical though. The current implementation of the DFP2 runs at
+// 16MHz.
+
+#if F_CPU == 1000000
+#  define INIT_UCSR0A _BV(U2X0)
+#  define INIT_RATE_DIV 8UL
+#else
+#  define INIT_UCSR0A 0
+#  define INIT_RATE_DIV 16UL
+#endif // F_CPU == 1000000
+
+#define INIT_RATE ((F_CPU / (INIT_RATE_DIV * SERIAL_BPS)) - 1)
+#define INIT_RATE_L (INIT_RATE & 0xff)
+#define INIT_RATE_H ((INIT_RATE & 0xf00) >> 8)
+
+#define BPSRATE(x) ((F_CPU / (INIT_RATE_DIV * (x))) - 1)
+#define BPS BPSRATE(SERIAL_BPS)
+
+
+inline void
+serial_init()
+{
+	UCSR0A = INIT_UCSR0A;
+
+	// Configure the serial port.
+	UCSR0B =
+		BV(TXEN0) |	// Enable data transmission
+		BV(RXEN0);	// Enable data reception
+
+	// Set asynchronous mode, no parity, 8 bits, 1 stop bit. This is the
+        // default, so we don't actually have to set UCSR0C for this
+	// configuration. This saves another 4 bytes of program memory.
+
+	//         -APPSCC-
+	UCSR0C = 0b00000110;	// Async, no parity, 1 stop bit, 8 data bits.
+
+	// Set the bps rate.
+	UBRR0L = BPS & 0xff;
+	UBRR0H = (BPS >> 8) & 0xff;
+
+	// TODO: check that this can be safely removed.
+	// report_pstr(PSTR("\033[0m\n\r\n\r"));
+
+        // We can enable interrupt handling now.
+	UCSR0B |= BV(RXCIE0);		// Enable RX complete interrupt
+}
+
+
+volatile uint8_t serial_errors = 0;
+
+// Wait until the serial port is ready, then send a character to it.
+inline void
+serial_send(unsigned char c)
+{
+	loop_until_bit_is_set(UCSR0A, UDRE0);
+	UDR0 = c;
+        //_delay_ms(11);
+}
+
+
+// Serial receive interrupt handler.
+ISR(USART0_RX_vect)
+{
+	uint8_t c;
+
+	// Ensure we don't have any framing errors. If we do, ignore the received
+	// character.
+	if (!bit_is_clear(UCSR0A, FE0)) {
+		serial_errors++;
+		c = UDR0;
+		return;
+	}
+	
+	// Process the character directly from its register.
+	c = UDR0;
+
+	// Dip into the protocol layer and add the character to the current
+	// line buffer. This also implements basic line editing.
+	proto_input(c);
+}
 
 
 
+
+
+
+
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
@@ -909,6 +1101,17 @@ get_switch(uint8_t swidx)
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+#if 0
+
+
+
+
+
 
 void
 addr_inc()
@@ -960,12 +1163,6 @@ addr_inc()
 
 
 /*
-// Prescaler values for CS10-12 bits.
-#define PSV_1       1
-#define PSV_8       2
-#define PSV_64      3
-#define PSV_256     4
-#define PSV_1024    5
 
 static uint16_t _ab;
 static uint16_t _db;
@@ -1993,85 +2190,6 @@ wait_for_halt(bool_t reckless)
 }
 
 
-void
-set_clkfreq(uint8_t prescaler, uint16_t div)
-{
-	_clk_prescale = prescaler;
-	_clk_div = div;
-
-	bit(PORTB, B_FPCLKEN, 0);
-
-	// COM1A = 00
-	// COM1B = 01 (toggle OC1B on compare match)
-	// WGM   = 0100 (CTC mode)
-
-	// TCCR1A = 0x10;			       // Toggle OC1B on compare match
-	// TCCR1B = 8 | (prescaler & 7);	       // CTC, prescaler
-	// TIMSK1 = 2;
-	// OCR1B = div;
-
-	TCCR1B = _BV(WGM12) | (prescaler & 7); // CTC, prescaler
-	OCR1A = div;
-}
-
-
-void
-clk_start()
-{
-	if (_clk_prescale == 0) clk_fast();
-	else {
-		set_clkfreq(_clk_prescale, _clk_div);
-		TCCR1A = _BV(COM1B0);
-	}
-	_stopped = 0;
-}
-
-
-void
-clk_stop()
-{
-	// Disable the processor's clock.
-	clearbit(PORTB, B_FPCLKEN);
-
-	// Also disconnect the FPUSTEP-IN pin from the timer. The pin
-	// will stay in its last state.
-	TCCR1A = 0x00;	// Disconnect FPUSTEP-IN pin, no pulses.
-	_stopped = 1;
-}
-
-
-inline void
-clk_fast()
-{
-	_clk_prescale = 0;
-	TCCR1A = 0x00;
-	bit(PORTB, B_FPCLKEN, 1);
-	// The rate of the slow clock is a Don't Care value.
-}
-
-
-inline void
-clk_slow()
-{
-	// 80 Hz = 14745600 / (2 * 1024 * (1 + 89))
-	set_clkfreq(PSV_1024, 89);
-	//if (_stopped) report_pstr(PSTR("stopped: true\n"));
-	//else report_pstr(PSTR("stopped: false\n"));
-	if (!_stopped) TCCR1A = _BV(COM1B0);
-}
-
-
-inline void
-clk_creep()
-{
-	// 8 Hz = 14745600 / (2 * 1024 * (1 + 890))
-	set_clkfreq(PSV_1024, 899);
-	//if (_stopped) report_pstr(PSTR("stopped: true\n"));
-	//else report_pstr(PSTR("stopped: false\n"));
-	if (!_stopped) TCCR1A = _BV(COM1B0);
-}
-
-
 inline void
 perform_step()
 {
@@ -2789,6 +2907,10 @@ ISR(TIMER0_COMPA_vect)
 		panel_ifr6();
 	}
 }
+
+
+
+#endif // 0
 
 
 // End of file.

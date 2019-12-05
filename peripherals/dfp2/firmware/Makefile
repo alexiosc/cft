@@ -67,7 +67,7 @@ DEFS 		+=	-DDUMP_TEXT
 
 LIBS		=
 
-HFILES		=	dfp.h abstract.h hwcompat.h proto.h output.h input.h \
+HFILES		=	dfp.h driver.h hwcompat.h proto.h output.h input.h \
 			panel.h buscmd.h proto-cmds.h
 # CFILES		=	dfp.c driver_test.c driver_avr.c proto.c output.c input.c \
 # 			panel.c bus.c buscmd.c serial.c

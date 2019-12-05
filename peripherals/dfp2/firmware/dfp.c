@@ -12,7 +12,7 @@
 #include <stdint.h>
 #endif
 
-#include "abstract.h"
+#include "driver.h"
 #include "proto.h"
 
 #ifdef AVR
