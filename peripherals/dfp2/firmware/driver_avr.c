@@ -51,9 +51,10 @@ hwstate_t state;
 ///////////////////////////////////////////////////////////////////////////////
 
 // These are added as needed.
-inline static void stop_fpscanner();
-inline static void start_fpscanner();
+inline static void fp_scanner_stop();
+inline static void fp_scanner_start();
 
+static inline void sw_init();
 
 
 
@@ -76,8 +77,6 @@ inline static void start_fpscanner();
 // Port A: XMEM Address and Data Bus
 
 // Port B: Programming/Control
-
-#ifdef AVR
 
 #define B_NCLR       PB0	// O. AL: resets the run/stop/step state machine
 #define __SCK        PB1	// SCK (programming, not used)
@@ -180,6 +179,18 @@ inline static void start_fpscanner();
 //
 ///////////////////////////////////////////////////////////////////////////////
 
+// !!! IMPORTANT !!! BUS CONTENTION !!!
+//
+// PRECONDITIONS:
+//
+//   * Call fp_scanner_stop() before using one of these functions!
+//
+//   * Wrap fp_scanner_stop() and any xmem_read() or xmem_write() calls in an
+//     ATOMIC_BLOCK or disable interrupts.
+//
+// The autonomic FP Scanner controls the FPD bus otherwise and bus contention
+// will occur.
+
 inline static void
 xmem_write(const xmem_addr_t addr, const uint8_t val)
 {
@@ -227,7 +238,7 @@ read_dfp_state()
 	// reads we perform that also map to FP lights will update the FP. For
 	// example, as we read the AC, the front panel's Accumulator lights
 	// will also update to the current value on the FPD bus.
-	stop_fpscanner();
+	fp_scanner_stop();
 	sample();		// Clock data into our own flip flops.
 
 	// Read the buses directly.
@@ -240,7 +251,7 @@ read_dfp_state()
 	state.ucv_m = xmem_read(XMEM_UCV_M);
 	state.ucv_l = xmem_read(XMEM_UCV_L);
 
-	start_fpscanner();
+	fp_scanner_start();
 }
 
 
@@ -417,7 +428,7 @@ write_db(const word_t data)
 
 
 // This both starts the clock AND goes to full speed.
-inline static void
+void
 clk_start_fast()
 {
 	state.clk_fast = 1;
@@ -427,7 +438,7 @@ clk_start_fast()
 }
 
 
-static void
+void
 clk_setfreq(uint8_t prescaler, uint16_t div)
 {
 	state.clk_prescaler = prescaler;
@@ -450,7 +461,7 @@ clk_setfreq(uint8_t prescaler, uint16_t div)
 }
 
 
-inline static void
+void
 clk_slow()
 {
 	// 16000000 / (2 * 1024 * (1 + 97)) ≅ 79.72 Hz.
@@ -461,7 +472,7 @@ clk_slow()
 }
 
 
-inline void
+void
 clk_creep()
 {
 	// 16000000 / (2 * 1024 * (1 + 976)) ≅ 8 Hz.
@@ -472,7 +483,7 @@ clk_creep()
 }
 
 
-inline void
+void
 clk_start()
 {
 	if (state.clk_fast) {
@@ -621,28 +632,28 @@ set_fpramrom(bool_t rom)
 
 
 inline static void
-stop_fpscanner()
+fp_scanner_stop()
 {
 	setbit(PORTD, D_NSCANEN);
 }
 
 
 inline static void
-start_fpscanner()
+fp_scanner_start()
 {
 	clearbit(PORTD, D_NSCANEN);
 }
 
 
 inline static void
-grab_fp()
+fp_grab()
 {
 	PORTD |= BV(D_NSCANEN) | BV(D_NPANELEN);
 }
 
 
 inline static void
-release_fp()
+fp_release()
 {
 	PORTD &= ~(BV(D_NSCANEN) | BV(D_NPANELEN));
 }
@@ -654,17 +665,18 @@ release_fp()
 
 #define fp_coords(row, col) ((((row) & 3) << 2) | (col))
 
+// PRECONDITION: call fp_grab() first.
 inline static void
-write_fp(uint8_t module, uint8_t row, uint8_t value)
+fp_write(uint8_t module, uint8_t row, uint8_t value)
 {
-	write_xmem((row << 2) | (module & 3), value);
+	xmem_write((row << 2) | (module & 3), value);
 }
 
 
 inline static void
-write_fpaddr(xmem_addr_t addr, uint8_t value)
+fp_write_addr(xmem_addr_t addr, uint8_t value)
 {
-	write_xmem((row << 2) | (module & 3), value);
+	xmem_write(addr & 0x1f, value);
 }
 
 
@@ -673,32 +685,39 @@ set_mfd(mfd_t mfd)
 {
 	// The two MFD bits (MFD0 & MFD1) are mapped to PE3 and PE4
 	// respectively, so this task is relatively simple.
-	PORTE = PORTE & ~MFD_MASK | (mfd & 3) << E_MFD0;
+	PORTE = (PORTE & (~E_MFDMASK)) | ((mfd & 3) << E_MFD0);
 }
 
 
 void
 set_or(word_t value)
 {
-	SET_XMEM(or_l, value & 0xff);
-	SET_XMEM(or_h, (value >> 8) & 0xff);
+	ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+		fp_scanner_stop();
+		xmem_write(XMEM_OR_L, value & 0xff);
+		xmem_write(XMEM_OR_H, (value >> 8) & 0xff);
+		fp_scanner_start();
+	}
 }
 
 
+// Implement the TEST functionality by grabbing the front panel and overriding
+// all the lights to ON. This will even light up LEDs hidden by the front
+// panel's fascia.
 void
-start_fp_light_test()
+fp_start_light_test()
 {
 	ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
-		grab_fp();
-		for (xmem_addr_t a = 0; a < 20; a++) write_fpaddr(a, 0xff);
+		fp_grab();
+		for (xmem_addr_t a = 0; a < 20; a++) fp_write_addr(a, 0xff);
 	}
 }
 
 
 void
-start_fp_light_test()
+fp_stop_light_test()
 {
-	release_fp();
+	fp_release();
 }
 
 
@@ -782,17 +801,17 @@ hw_init()
 {
 	avr_init();
 	release_buses();
-	freeze_run_step_stop_fsm();
+	rc_freeze();
 	clear_ws();
 
 	// Initialise serial port and interrupts
-	init_serial();
+	serial_init();
 
 	// Enable interrupts for CFT-originated transactions
 	enable_cft_interrupts();
 
 	// Initialise switch deboucing and enable switch timer ISR
-	init_switches();
+	sw_init();
 	
 	// Enable the watchdog.
 	wdt_enable(WATCHDOG_TIMEOUT);
@@ -930,16 +949,15 @@ static uint8_t _switches[64];
 // Initialise the switch data.
 
 static inline void
-init_switches()
+sw_init()
 {
 	for (uint8_t i = 0; i < 64; i++) {
 		_switches[i] = 0;
 	}
 
-	TCCR0A = BV(WGM01);	      // CTC Mode
-	TCCR0B = BV(CS00) | BV(CS02); // CLK/1024 prescaler
-	TIMSK0 = 2;		      // Interrupt on compare match
-	OCR0 = 600;		      // 16 MHz / 1024 / 600 ≅ 26 Hz.
+	TCCR0 = 0b01000111;	      // CTC mode, CLK÷1024 prescaler
+	OCR0 = 0xff;		      // CLKIO÷1024÷256 MHz ≅ 61 Hz.
+	TIMSK = BV(OCIE0);	      // Interrupt on compare match
 }
 
 
@@ -959,10 +977,9 @@ init_switches()
 // +---------------------------+---------------------------+
 
 static inline void
-scan_switches()
+sw_scan()
 {
-	uint8_t swa, i = 0;
-	for (uint8_t swa = 0; swa < 16; swa++) {
+	for (uint8_t swa = 0, i = 0; swa < 16; swa++) {
 		PORTF = (PORTF & 0xf0) | (swa & 0x0f);
 		_switches[i] = (_switches[i] << 1) | (PORTF & 0x10 ? 1 : 0); i++;
 		_switches[i] = (_switches[i] << 1) | (PORTF & 0x20 ? 1 : 0); i++;
@@ -985,7 +1002,7 @@ ISR(TIMER0_COMP_vect)
 #define SWITCH_PRESSED        SWITCH_DEBOUNCE_MASK
 #define SWITCH_RELEASED       0
 
-inline uint8_t
+inline static uint8_t
 get_switch(uint8_t swidx)
 {
 	return _switches[swidx & 63] & SWITCH_DEBOUNCE_MASK;
@@ -1145,6 +1162,7 @@ addr_inc()
 // #define D_NIBUSOE   PD5
 // #define D_NCTLOE    PD6
 // #define D_COUT      PD7
+
 
 // #define D_IDLE      (_BV(D_NDBOE) | _BV(D_NABOE) | _BV(D_NIBUSOE) | _BV(D_NCTLOE))
 // #define D_OUTPUTS   (_BV(D_NDBOE) | _BV(D_NABOE) | _BV(D_NIBUSOE) | \

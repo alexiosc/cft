@@ -84,6 +84,13 @@ typedef struct {
 extern ringbuf_t ringbuf;
 
 
+void serial_init();
+
+
+// This extern is required so that the protocol layer can be called from the
+// comms driver to receive a new character.
+extern unsigned char proto_input(unsigned char c);
+
 
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
