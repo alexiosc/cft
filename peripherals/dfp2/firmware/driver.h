@@ -31,9 +31,23 @@
 // includes fields for previously read computer registers etc.
 
 typedef struct {
-	uint8_t   ab_h, ab_m, ab_l;
+	// Direct Inputs
+	uint8_t   ab_h,  ab_m, ab_l; // Last sampled value of the Address Bus
+	uint8_t   db_h, db_l;        // Last sampled value of the Data Bus
+	uint8_t   ibus_h, ibus_l;    // Last sampled value from the IBUS
+	uint8_t   dsr;		     // The DIP switches (8 bits)
+
+	// Computer Inputs
+	uint8_t   pc_h, pc_l;
+	uint8_t   dr_h, dr_l;
+	uint8_t   ac_h, ac_l;
+	uint8_t   sp_h, sp_l;
 	uint8_t   ucv_h, ucv_m, ucv_l;
 
+	// Direct Outputs
+	uint8_t   or_h, or_l;	     // Last set value of the OR
+
+	// Internal DFP State
 	uint16_t  clk_div;	   // The slow clock divider.
 	uint8_t   clk_prescaler:3; // The slow clock prescaler.
 	uint8_t   clk_fast:1;	   // Using the full speed clock of the CFT.
@@ -86,6 +100,7 @@ extern ringbuf_t ringbuf;
 
 void serial_init();
 
+void serial_write(unsigned char c);
 
 // This extern is required so that the protocol layer can be called from the
 // comms driver to receive a new character.

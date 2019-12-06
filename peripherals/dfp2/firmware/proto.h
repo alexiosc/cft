@@ -25,27 +25,32 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-#define FL_INPOK    0x0001
-#define FL_EOL      0x0002 	/* End of command line */
-#define FL_ERROR    0x0004
-#define FL_BREAK    0x0008
-#define FL_ECHO     0x0010
-#define FL_TERM     0x0020	/* Terminal bells and whistles */
-#define FL_MESG     0x0040	/* Receive async messages */
-#define FL_CLEAR    0x0080
-#define FL_BUSY     0x0100	/* DFP Busy */
+// Use bitfields rather than explicit flag values, and let the compiler
+// optimise it.
+typedef struct uistate {
+	uint8_t is_inpok:1;	   // No errors, print out a READY prompt.
+	uint8_t is_eol:1;	   // A whole input line has been received
+	uint8_t is_error:1;	   // 
+	uint8_t is_break:1;	   //
+	uint8_t is_echo:1;	   // Echo is on
+	uint8_t is_term:1;	   // Terminal bells and whistles are on
+	uint8_t is_mesg:1;	   // Allow async messages
+	uint8_t is_clear:1;	   // 
+	uint8_t is_busy:1;	   // The DFP is busy
+	//uint8_t is_halted:1;     // Moved to machine state
+	uint8_t is_hof:1;	   // Halt on FAIL (TODO: Move elsewhere!)
+	uint8_t is_hos:1;	   // Halt on SENTINEL  (TODO: Move elsewhere!)
+	uint8_t is_stopping:1;	   // Computer stopping
+	uint8_t async_received:1;  // Received Async message
+	//uint8_t have_proc:1;     // Moved to machine state, split in four
+	uint8_t in_console:1;      // Virtual console (TTYD) running
+	uint8_t is_locked:1;       // Software lock of the front panel
 
-#define FL_HALT     0x0200	/* Halted */
-#define FL_HOF      0x0400	/* Halt-on-fail */
-#define FL_HOS      0x0800	/* Halt on sentinel */
-#define FL_STOPPING 0x1000	/* ??? Stop pressed */
-#define FL_ASYNC    0x2000	/* Async message printed */
-#define FL_PROC     0x4000	/* Processor is installed */
-#define FL_CONS     0x8000	/* The virtual console is running */
+	uint8_t abort_stepping:1;  // Stepping has been aborted.
+} uistate_t;
 
-#define FL_SWLOCK   0x10000     /* Software lock of the front panel */
+extern volatile uistate_t uistate;
 
-#define in_console() (flags & FL_CONS)
 
 #define AUTHOR "Alexios Chouchoulas <alexios@bedroomlan.org>"
 #define URL    "https://www.bedroomlan.org/cft"
@@ -59,6 +64,17 @@
 #define STR_BUFSIZE "204 BufSize: "
 
 #define report_gs(x) report_char(x ? '3' : '2')
+
+
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
+#if 0
+#warning "TODO: Review and potentially change these."
 
 // #define STR_DETPROC "101 Processor: "
 // #define STR_DETPROC0     "not found\n"
@@ -231,10 +247,14 @@
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 
+#endif // 0
+
+
+// The command line buffer (also used for computer-to-computer input, so needs
+// to be relatively big. Depending on MCU RAM size we usually use 512 bytes.
 extern unsigned char buf[BUFSIZE];
 
-extern volatile uint32_t flags;
-
+ 
 // TODO: Move this to input.c?
 //extern uint16_t bp;
 
@@ -250,6 +270,9 @@ void proto_init();
 void proto_loop();
 
 unsigned char proto_input(unsigned char c);
+
+#if 0
+#warning "TODO: Review and re-add these."
 
 void say_sr();
 
@@ -276,6 +299,8 @@ void go_slow();
 void go_creep();
 
 uint8_t check_mismatch(uint16_t, uint16_t);
+
+#endif // 0
 
 #endif // _PROTO_H__
 

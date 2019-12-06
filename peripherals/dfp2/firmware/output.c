@@ -1,4 +1,11 @@
-#warning "TODO: Review this file for DFP2"
+// -*- indent-c -*-
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// HUMAN-ORIENTED OUTPUT FUNCTIONALITY
+//
+///////////////////////////////////////////////////////////////////////////////
+
 #ifdef HOST
 #include <stdio.h>
 #endif // HOST
@@ -10,7 +17,7 @@
 #endif // AVR
 
 #include "output.h"
-#include "abstract.h"
+#include "driver.h"
 #include "hwcompat.h"
 #include "proto.h"
 
@@ -18,64 +25,65 @@
 void
 style_normal()
 {
-	if (flags & FL_TERM) report_pstr(PSTR("\033[0m"));
+	if (uistate.is_term) report_pstr(PSTR("\033[0m"));
 }
 
 
 void
 style_hibit()
 {
-	if (flags & FL_TERM) report_pstr(PSTR("\033[4m"));
+	if (uistate.is_term) report_pstr(PSTR("\033[4m"));
 }
 
 
 void
 style_input()
 {
-	if (flags & FL_TERM) report_pstr(PSTR("\033[0;1;33m"));
+	if (uistate.is_term) report_pstr(PSTR("\033[0;1;33m"));
 }
 
 
 void
 style_info()
 {
-	if (flags & FL_TERM) report_pstr(PSTR("\033[0;1m"));
+	if (uistate.is_term) report_pstr(PSTR("\033[0;1m"));
 }
 
 
 void
 style_on()
 {
-	if (flags & FL_TERM) report_pstr(PSTR("\033[0;1;32m"));
+	if (uistate.is_term) report_pstr(PSTR("\033[0;1;32m"));
 }
 
 
 void
 style_off()
 {
-	if (flags & FL_TERM) report_pstr(PSTR("\033[0;1;31m"));
+	if (uistate.is_term) report_pstr(PSTR("\033[0;1;31m"));
 }
 
 
 void
 style_async()
 {
-	if (flags & FL_TERM) report_pstr(PSTR("\033[0;1;35m"));
+	if (uistate.is_term) report_pstr(PSTR("\033[0;1;35m"));
 }
 
 
 void
 style_error()
 {
-	if (flags & FL_TERM) report_pstr(PSTR("\033[0;1;31m"));
+	if (uistate.is_term) report_pstr(PSTR("\033[0;1;31m"));
 }
 
 
-// Send a string message to the serial port.
+// Send a string message to the serial port. The message must be in
+// RAM, not Flash (program space).
 void
 report(const char *msg)
 {
-	if (flags & FL_CONS) return;
+	if (uistate.in_console) return;
 	register char c;
 	while ((c = *msg++) != '\0') {
 		// Convert \n to \r\n, which is fairly standard practice on
@@ -86,11 +94,12 @@ report(const char *msg)
 }
 
 
-// Send a string message to the serial port.
+// Send a string message to the serial port. Print up to n
+// characters. The buffer must be in RAM, not Flash (program space).
 void
 report_n(const char *msg, uint16_t n)
 {
-	if (flags & FL_CONS) return;
+	if (uistate.in_console) return;
 	register char c;
 	while ((c = *msg++) != '\0') {
 		if (!n--) return;
@@ -103,8 +112,8 @@ report_n(const char *msg, uint16_t n)
 
 
 // Output a program memory string. Don't suppress messages if the
-// virtual console is running.
-
+// virtual console is running. This prints out even when the console
+// is active. Special escape codes are not honoured.
 char *
 report_pstr_in_console(const char *msg)
 {
@@ -126,7 +135,7 @@ report_pstr_in_console(const char *msg)
 char *
 report_pstr(const char *msg)
 {
-	if (flags & FL_CONS) return (char *)msg;
+	if (uistate.in_console) return (char *)msg;
 	register unsigned char c;
 #ifdef AVR
 	while ((c = (unsigned char) pgm_read_byte(msg++)) != '\0') {
@@ -173,11 +182,11 @@ report_pstr(const char *msg)
 }
 
 
-// Like report_pstr, but sends at most n characters.
+// Like report_pstr(), but sends at most n characters.
 void
 report_npstr(const char *msg, uint16_t n)
 {
-	if (flags & FL_CONS) return;
+	if (uistate.in_console) return;
 	register unsigned char c;
 #ifdef AVR
 	while ((c = (unsigned char) pgm_read_byte(msg++)) != '\0') {
@@ -196,7 +205,7 @@ report_npstr(const char *msg, uint16_t n)
 // Send out a newline
 void
 report_nl() {
-	if (flags & FL_CONS) return;
+	if (uistate.in_console) return;
 	style_normal();
 	serial_write('\r');
 	serial_write('\n');
@@ -207,7 +216,7 @@ report_nl() {
 void
 report_hex(uint32_t val, uint8_t pad)
 {
-	if (flags & FL_CONS) return;
+	if (uistate.in_console) return;
 
 	// PAD=3, shift = f00 (0xf << 8)
 	// PAD=2, shift =  f0 (0xf << 4)
@@ -229,7 +238,7 @@ report_hex(uint32_t val, uint8_t pad)
 void
 report_uint(uint16_t val)
 {
-	if (flags & FL_CONS) return;
+	if (uistate.in_console) return;
 
 	// Avoid bringing in division and modulo library functions by
 	// using subtractions. Printing out numbers needn't be fast,
@@ -265,7 +274,7 @@ report_uint(uint16_t val)
 void
 report_int(int16_t val)
 {
-	if (flags & FL_CONS) return;
+	if (uistate.in_console) return;
 
 	if (val < 0) {
 		serial_write('-');
@@ -276,23 +285,10 @@ report_int(int16_t val)
 
 
 // Send a binary number to the serial port.
-/*
-void
-report_bin(uint16_t val)
-{
-	uint16_t i;
-	for (i = 0x8000; i; i >>= 1) {
-		serial_write(val & i ? '1' : '0');
-	}
-}
-*/
-
-
-// Send a binary number to the serial port.
 void
 report_bin_pad(uint16_t val, uint8_t bits)
 {
-	if (flags & FL_CONS) return;
+	if (uistate.in_console) return;
 
 	uint16_t i;
 	for (i = 1 << (uint16_t)(bits - 1); i; i >>= 1) {
@@ -301,11 +297,11 @@ report_bin_pad(uint16_t val, uint8_t bits)
 }
 
 
-void _report(const char *result, const char *msg)
+void
+_report(const char *result, const char *msg)
 {
-	if (flags & FL_CONS) return;
-
-	//report_pstr(PSTR("FLASHPROG: "));
+	if (uistate.in_console) return;
+	
 	if (result != NULL) report_pstr((char *)result);
 	if (msg != NULL) report_pstr((char *)msg);
 	report_nl();
@@ -315,7 +311,7 @@ void _report(const char *result, const char *msg)
 void
 report_hex_value(const char *msg, uint32_t val, uint8_t pad)
 {
-	if (flags & FL_CONS) return;
+	if (uistate.in_console) return;
 
 	report_pstr((char *)msg);
 	style_info();
@@ -328,7 +324,7 @@ report_hex_value(const char *msg, uint32_t val, uint8_t pad)
 void
 report_bool_value(const char *msg, char val)
 {
-	if (flags & FL_CONS) return;
+	if (uistate.in_console) return;
 
 	report_pstr((char *)msg);
 	if (val) {
@@ -341,6 +337,9 @@ report_bool_value(const char *msg, char val)
 	report_nl();
 }
 
+
+// Print out a mismatch message in the following format: should_be +
+// ", was " + was. End with a newline.
 void 
 report_mismatch(const char *msg, uint16_t should_be, uint16_t was)
 {

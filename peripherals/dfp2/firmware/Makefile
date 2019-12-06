@@ -73,7 +73,7 @@ HFILES		=	dfp.h driver.h hwcompat.h proto.h output.h input.h \
 # 			panel.c bus.c buscmd.c serial.c
 
 # TODO: Adapt sources from above one by one.
-CFILES		=	dfp.c driver_avr.c serial.c proto.c
+CFILES		=	dfp.c driver_avr.c serial.c proto.c output.c
 
 #HFILES		=	serial.h hw.h proto.h utils.h
 #CFILES		=	dfp.c serial.c hw.c proto.c utils.c

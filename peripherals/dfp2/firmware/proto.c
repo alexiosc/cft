@@ -25,9 +25,9 @@
 #endif // AVR
 
 #include "proto.h"
-//#include "abstract.h"
+#include "driver.h"
 //#include "input.h"
-//#include "output.h"
+#include "output.h"
 //#include "hwcompat.h"
 //#include "panel.h"
 //#include "bus.h"
@@ -56,12 +56,13 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
+#define ECHO_ON (uistate.is_echo)
 #define CTRL(c) ((c) - 64)
 
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-// GLOBALS
+// GLOBALS AND FORWARD DEFINITIONS
 //
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -70,10 +71,11 @@ unsigned char buf[BUFSIZE];	// The input buffer
 uint16_t buflen;		// The current input line length
 uint16_t oldbuflen;		// Length of previous input line
 
-volatile uint32_t flags = FL_BUSY | FL_MESG; // Protocol flags
-volatile uint8_t  abort_stepping = 0;
 
-
+static inline void say_bufsize();
+static inline void say_version();
+static inline void say_proc();
+void say_break();
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -83,20 +85,20 @@ volatile uint8_t  abort_stepping = 0;
 ///////////////////////////////////////////////////////////////////////////////
 
 // This is the protocol entry point, called directly by the ISR. Keep
-// this as brief as can be.
+// it as brief as can be.
 
 unsigned char
 proto_input(unsigned char c)
 {
-	flags &= ~FL_ASYNC;
+	uistate.async_received = 0;
 
 #ifdef AVR
 	// Is the virtual console being used? If so, flag the
 	// character and exit. The go_cons() loop will take care of
 	// the rest (we've been called by the ISR, so we're running on
 	// a separate 'thread').
-	if (flags & FL_CONS) {
-		flags |= FL_INPOK;
+	if (uistate.in_console) {
+		uistate.is_inpok = 1;
 		buf[0] = c;
 		return c;
 	}
@@ -106,22 +108,22 @@ proto_input(unsigned char c)
 	// Allow breaks at all times.
 	if (c == CTRL('C') || c == CTRL('X')) {
 		// Cancel input or operation (ASCII 24, Ctrl-X or Ctrl-C)
-		if (flags & FL_BUSY) {
-			flags |= FL_BREAK;
+		if (uistate.is_busy) {
+			uistate.is_break = 1;
 		} else {
 			style_async();
 			report_pstr(PSTR("*** Aborted\n"));
 			buflen = 0;
-			flags |= FL_INPOK; // Force a Ready prompt
+			uistate.is_inpok = 1; // Force a Ready prompt
 			return '\n';
 		}
 	}
 	
 	// Don't echo characters if we're busy.
-	if (flags & FL_BUSY) return '\0';
+	if (uistate.is_busy) return '\0';
 
 	// Is the buffer full?
-	if (buflen >= BUFSIZE) return flags & FL_ECHO ? '<' : '\0';
+	if (buflen >= BUFSIZE) return ECHO_ON ? '<' : '\0';
 
 	// Allow an old buffer to be repeated, but only if the repeat
 	// character is the first character received on the new
@@ -145,9 +147,9 @@ proto_input(unsigned char c)
 	// End of line? (ignore multiple ones and blank lines)
 	if (c == CTRL('J') || c == CTRL('M')) {
 	char_enter:
-		flags |= FL_INPOK;
+		uistate.is_inpok = 1;
 		oldbuflen = buflen;
-		if (flags & FL_ECHO) {
+		if (ECHO_ON) {
 			serial_write('\r');
 			serial_write('\n');
 			return '\n';
@@ -157,7 +159,7 @@ proto_input(unsigned char c)
 		if (buflen) {
 			buflen--;
 			oldbuflen = 0; // Invalidate the previous line.
-			if (flags & FL_ECHO) report_pstr(PSTR("\b \b"));
+			if (ECHO_ON) report_pstr(PSTR("\b \b"));
 		}
 		return 0;
 
@@ -171,20 +173,21 @@ proto_input(unsigned char c)
 		// Toggle the terminal bells and whistles.
 		say_break();
 		style_normal();
-		flags ^= FL_TERM;
+		uistate.is_term = !uistate.is_term;
 		report_gs(1);
-		report_bool_value(PSTR(STR_GSTERM), (flags & FL_TERM) != 0);
+		report_bool_value(PSTR(STR_GSTERM), uistate.is_term);
 		proto_prompt();
 		return 0;
 	} else if (c == 30) {
 		// Controlling entity is a computer: disable human features
 		say_break();
 		style_normal();
-		flags &= ~(FL_TERM | FL_ECHO);
+		uistate.is_term = 0;
+		uistate.is_echo = 0;
 		report_gs(1);
-		report_bool_value(PSTR(STR_GSTERM), (flags & FL_TERM) != 0);
+		report_bool_value(PSTR(STR_GSTERM), uistate.is_term);
 		report_gs(1);
-		report_bool_value(PSTR(STR_GSECHO), (flags & FL_ECHO) != 0);
+		report_bool_value(PSTR(STR_GSECHO), uistate.is_echo);
 		report_pstr(PSTR(STR_MACHINE));
 		proto_prompt();
 		return 0;
@@ -207,7 +210,7 @@ proto_input(unsigned char c)
 	oldbuflen = 0;		// Invalidate the previous line.
 
 	// Echo the character
-	if (flags & FL_ECHO) {
+	if (ECHO_ON) {
 		report_char(c);
 	}
 	return c;
@@ -215,6 +218,88 @@ proto_input(unsigned char c)
 
 
 ///////////////////////////////////////////////////////////////////////////////
+//
+// PROTOCOL FUNCTIONALITY
+//
+///////////////////////////////////////////////////////////////////////////////
+
+
+void
+proto_init()
+{
+	uistate.is_mesg = 1;
+	uistate.is_term = 1;
+	uistate.is_echo = 1;
+	uistate.is_busy = 1;
+	say_version();
+	report_pstr(PSTR(BANNER2 BANNER3 BANNER4));
+	say_bufsize();
+	say_proc();
+	buflen = 0;
+	uistate.is_busy = 0;
+	addr = 0;
+}
+
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// SOME BASIC STUFF WE PRINT OUT
+//
+///////////////////////////////////////////////////////////////////////////////
+
+
+static inline void
+say_done()
+{
+	report_pstr(PSTR(STR_DONE));
+}
+
+
+static inline void
+say_version()
+{
+	report_pstr(PSTR(BANNER1));
+}
+
+
+static inline void
+say_bufsize()
+{
+	report_hex_value(PSTR(STR_BUFSIZE), BUFSIZE, 3);
+}
+
+
+static inline void
+say_proc()
+{
+	report_pstr(flags & FL_PROC ? PSTR(STR_PROC1) : PSTR(STR_PROC0));
+}
+
+
+void inline
+say_cancel()
+{
+	say_break();
+	report_pstr(PSTR(STR_ABORT));
+}
+
+
+void
+say_break()
+{
+	if (uistate.in_console) return; // It's not asynchronous in the console.
+	style_async();
+	if (uistate.is_term) {
+		report_pstr(PSTR("\033[G\033[K"));
+	} else {
+		report_pstr(PSTR("***\n"));
+	}
+	uistate.async_received = 1;
+}
+
+
+
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
@@ -226,6 +311,10 @@ proto_input(unsigned char c)
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
+
+#if 0
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -241,86 +330,28 @@ uint8_t  bpflag = 0;
 
 //uint8_t progress[5] = {0, 1, 3, 7, 15};
 
+// TODO: This has gone away, replace with something that makes more sense. 
 
-static bool_t
-assert_proc_present()
-{
-// #warning "Remove this line."
-// 	return 1;
-
-	if (flags & FL_PROC) return 1;
-	style_error();
-	report_pstr(PSTR(STR_NOPROC));
-	return 0;
-}
-
-
-static void
-done()
-{
-	report_pstr(PSTR(STR_DONE));
-}
-
-
-static void
-say_version()
-{
-	report_pstr(PSTR(BANNER1));
-}
-
-
-static void
-say_bufsize()
-{
-	report_hex_value(PSTR(STR_BUFSIZE), BUFSIZE, 3);
-}
-
-static void
-say_proc()
-{
-	report_pstr(flags & FL_PROC ? PSTR(STR_PROC1) : PSTR(STR_PROC0));
-}
-
-
-void
-proto_init()
-{
-	flags |= FL_MESG | FL_TERM | FL_ECHO;
-	say_version();
-	report_pstr(PSTR(BANNER2 BANNER3 BANNER4));
-	say_bufsize();
-	say_proc();
-	buflen = 0;
-	//flags = (flags & FL_HALT) | FL_ECHO | FL_MESG;
-	flags &= ~FL_BUSY;
-	addr = 0;
-}
-
-
-
-/* static void */
-/* say_done() */
-/* { */
-/* 	report_pstr(PSTR(STR_DONE)); */
-/* } */
-
-
-void
-cancel()
-{
-	say_break();
-	report_pstr(PSTR(STR_ABORT));
-}
+// static bool_t
+// assert_proc_present()
+// {
+// // #warning "Remove this line."
+// // 	return 1;
+//
+// 	if (flags & FL_PROC) return 1;
+// 	style_error();
+// 	report_pstr(PSTR(STR_NOPROC));
+// 	return 0;
+// }
 
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-// PFP INFORMATION
+// DFP INFORMATION
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-
-
+// TODO: THIS NEED TO BE REWRITTEN
 static void
 gs_flag(uint32_t flag, const char *msg)
 {
@@ -373,6 +404,20 @@ gs_lock()
 {
 	gs_flag(FL_SWLOCK, PSTR(STR_GSLOCK));
 }
+
+
+
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
+#if 0
+
+
 
 
 
@@ -472,7 +517,7 @@ go_stop(){
 	if (flags & FL_MESG) {
 		//say_break();
 		report_pstr(PSTR(STR_AHALTED));
-		if (flags & FL_ASYNC) {
+		if (uistate.async_received) {
 			style_normal();
 			proto_prompt();
 		}
@@ -1976,20 +2021,6 @@ say_help()
 	
 
 void
-say_break()
-{
-	if (flags & FL_CONS) return; // It's not asynchronous in the console.
-	style_async();
-	if (flags & FL_TERM) {
-		report_pstr(PSTR("\033[G\033[K"));
-	} else {
-		report_pstr(PSTR("***\n"));
-	}
-	flags |= FL_ASYNC;
-}
-
-
-void
 proto_prompt()
 {
 	if (flags & FL_CONS) return; // No need to prompt in the virtual console
@@ -2012,7 +2043,7 @@ proto_prompt()
 	// If echo is on, print out the current input buffer. The
 	// buffer may have been left intact before the prompt is
 	// printed for, e.g. prompt redrawing (Ctrl-L).
-	if (flags & FL_ECHO) report_n((char *)buf, buflen);
+	if (ECHO_ON) report_n((char *)buf, buflen);
 
 	// If in ‘machine’ mode (echo off, term off), output a newline
 	// here. The front end is line-oriented, but parses
@@ -2114,5 +2145,11 @@ check_mismatch(uint16_t should_be, uint16_t was)
 	report_mismatch(PSTR(STR_NVMIS), should_be, was);
 	return 1;
 }
+
+
+#endif
+
+
+#endif // 0
 
 // End of file.

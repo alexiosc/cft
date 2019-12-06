@@ -231,8 +231,8 @@ const uint8_t state_addrs[] PROGMEM = {
 };
 
 
-inline static void
-read_dfp_state()
+void
+read_full_dfp_state()
 {
 	// Note: we stop the scanner but don't deselect the front panel. Any
 	// reads we perform that also map to FP lights will update the FP. For
@@ -245,6 +245,14 @@ read_dfp_state()
 	state.ab_h = xmem_read(XMEM_AB_H);
 	state.ab_m = xmem_read(XMEM_AB_M);
 	state.ab_l = xmem_read(XMEM_AB_L);
+
+	state.db_h = xmem_read(XMEM_DB_H);
+	state.db_l = xmem_read(XMEM_DB_L);
+
+	state.ibus_h = xmem_read(XMEM_DB_H);
+	state.ibus_l = xmem_read(XMEM_DB_L);
+
+	state.dsr = xmem_read(XMEM_DSR);
 
 	// Read via buffers in the computer.
 	state.ucv_h = xmem_read(XMEM_UCV_H);
@@ -1947,13 +1955,6 @@ inline void
 set_db(uint16_t db)
 {
 	_db = db;
-}
-
-
-inline uint16_t
-get_dsr()
-{
-	return ((_swleft & 0xff00) >> 8) | ((_swright & 0xf000) >> 4);
 }
 
 
