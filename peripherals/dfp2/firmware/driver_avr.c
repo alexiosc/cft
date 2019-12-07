@@ -712,8 +712,8 @@ void
 set_or(word_t value)
 {
 	ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
-		state.or_h = (value >> 8) & 0xff;
 		state.or_l = value & 0xff;
+		state.or_h = (value >> 8) & 0xff;
 		fp_scanner_stop();
 		xmem_write(XMEM_OR_H, state.or_h);
 		xmem_write(XMEM_OR_L, state.or_l);
