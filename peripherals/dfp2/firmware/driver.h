@@ -10,6 +10,7 @@
 #define __ABSTRACT_H__
 
 #include <stdint.h>
+#include "dfp.h"
 #include "hwcompat.h"
 
 // Sanity check
@@ -30,22 +31,25 @@
 // The high-level state of the driver is represented using this structure which
 // includes fields for previously read computer registers etc.
 
+// NOTE: the AVR is Little Endian, and the compiler will generate considerably
+// better code if fields are listed in least-to-most-significant order
+// (e.g. l→h).
 typedef struct {
 	// Direct Inputs
-	uint8_t   ab_h,  ab_m, ab_l; // Last sampled value of the Address Bus
-	uint8_t   db_h, db_l;        // Last sampled value of the Data Bus
-	uint8_t   ibus_h, ibus_l;    // Last sampled value from the IBUS
+	uint8_t   ab_l,  ab_m, ab_h; // Last sampled value of the Address Bus
+	uint8_t   db_l, db_h;        // Last sampled value of the Data Bus
+	uint8_t   ibus_l, ibus_h;    // Last sampled value from the IBUS
 	uint8_t   dsr;		     // The DIP switches (8 bits)
 
 	// Computer Inputs
-	uint8_t   pc_h, pc_l;
-	uint8_t   dr_h, dr_l;
-	uint8_t   ac_h, ac_l;
-	uint8_t   sp_h, sp_l;
-	uint8_t   ucv_h, ucv_m, ucv_l;
+	uint8_t   pc_l, pc_h;
+	uint8_t   dr_l, dr_h;
+	uint8_t   ac_l, ac_h;
+	uint8_t   sp_l, sp_h;
+	uint8_t   ucv_l, ucv_m, ucv_h;
 
 	// Direct Outputs
-	uint8_t   or_h, or_l;	     // Last set value of the OR
+	uint8_t   or_l, or_h;	     // Last set value of the OR
 
 	// Internal DFP State
 	uint16_t  clk_div;	   // The slow clock divider.
@@ -180,8 +184,8 @@ void hw_done();
 // // Output
 // void write_leds(const uint8_t);   // Set the diagnostic LEDs
 
-// uint16_t get_or();
-// void set_or(const uint16_t);	// Output (lights) register
+word_t get_or();
+void set_or(const word_t);	// Output (lights) register
 
 // void drive_ibus();		// Drive IBUS
 // void write_ibus(const uint16_t); // Output to IBUS
@@ -197,12 +201,12 @@ void hw_done();
 
 // void addr_inc();
 
-// void clk_stop();		// Stop clock
-// void clk_start();		// Start clock
-// void clk_fast();		// Set fast clock
-// void clk_slow();		// Set slow clock
-// void clk_creep();		// Set creep clock
-// void set_clkfreq(uint8_t prescaler, uint16_t div);// Clock frequency select
+void clk_stop();		// Stop clock
+void clk_start();		// Start clock
+void clk_fast();		// Set fast clock
+void clk_slow();		// Set slow clock
+void clk_creep();		// Set creep clock
+void clk_setfreq(uint8_t prescaler, uint16_t div);// Clock frequency select
 
 // void wait_for_halt(bool_t reckless); // Wait until the processor clock is stopped
 

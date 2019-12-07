@@ -102,6 +102,15 @@ static void gs_echo();
 static void gs_mesg();
 static void gs_lock();
 
+static void gs_addr();
+
+static void go_fast();
+static void go_slow();
+static void go_creep();
+
+static void gs_or();
+
+
 // Include the pre-processed list of commands and help.
 #include "proto-cmds.h"
 
@@ -732,8 +741,85 @@ gs_lock()
 }
 
 
+///////////////////////////////////////////////////////////////////////////////
+//
+// CFT RUN CONTROL
+//
+///////////////////////////////////////////////////////////////////////////////
 
 
+void
+go_fast()
+{
+	report_pstr(PSTR(STR_FAST));
+	clk_fast();
+}
+
+
+void
+go_slow()
+{
+	report_pstr(PSTR(STR_SLOW));
+	clk_slow();
+}
+
+
+void
+go_creep()
+{
+	report_pstr(PSTR(STR_CREEP));
+	clk_creep();
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// MEMORY AND I/O TOOLSET
+//
+///////////////////////////////////////////////////////////////////////////////
+
+// Get or set the current address.
+void
+gs_addr()
+{
+	char * s = get_arg();
+	if (s != NULL) {
+		uint16_t x = parse_hex(s);
+		if (uistate.is_error == 0) {
+			uistate.addr = x;
+		} else {
+			badval();
+			return;
+		}
+		report_gs(1);
+	} else {
+		report_gs(0);
+	}
+	report_hex_value(PSTR(STR_ADDR), uistate.addr, 4);
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// FRONT PANEL AND VIRTUAL FRONT PANEL
+//
+///////////////////////////////////////////////////////////////////////////////
+
+
+static void
+gs_or()
+{
+	int8_t res;
+	uint16_t v;
+	
+	res = optional_hex_val(&v);
+	if (res < 0) return;
+	if (res > 0) {
+		set_or(v);
+	} else v = get_or();
+	report_gs(res);
+	report_hex_value(PSTR(STR_GSOR), v, 4);
+}
 
 	
 
@@ -1476,30 +1562,6 @@ go_cons()
 }
 
 
-void
-go_fast()
-{
-	report_pstr(PSTR(STR_FAST));
-	clk_fast();
-}
-
-
-void
-go_slow()
-{
-	report_pstr(PSTR(STR_SLOW));
-	clk_slow();
-}
-
-
-void
-go_creep()
-{
-	report_pstr(PSTR(STR_CREEP));
-	clk_creep();
-}
-
-
 static uint16_t _divs [5] = { 2, 16, 128, 512, 2048 };
 
 
@@ -1796,32 +1858,6 @@ gs_ir()
 	// Need a processor
 	if (!assert_proc_present()) return;
 	_reg(REG_IR);
-}
-
-
-static void
-say_addr()
-{
-	// Report current setting.
-	report_hex_value(PSTR(STR_ADDR), addr, 4);
-}
-
-
-static void
-gs_addr()
-{
-	char * s = get_arg();
-	if (s != NULL) {
-		uint16_t x = parse_hex(s);
-		if ((flags & FL_ERROR) == 0) {
-			addr = x;
-		} else {
-			badval();
-			return;
-		}
-			
-	}
-	say_addr();
 }
 
 
@@ -2281,22 +2317,6 @@ say_sr()
 	_disassemble(sr, 1);
 #endif // DISASSEMBLE
 	report_nl();
-}
-
-
-static void
-gs_or()
-{
-	int8_t res;
-	uint16_t v;
-	
-	res = optional_hex_val(&v);
-	if (res < 0) return;
-	if (res > 0) {
-		set_or(v);
-	} else v = get_or();
-	report_gs(res);
-	report_hex_value(PSTR(STR_GSOR), v, 4);
 }
 
 

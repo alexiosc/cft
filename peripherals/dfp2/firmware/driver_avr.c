@@ -437,10 +437,14 @@ write_db(const word_t data)
 
 // This both starts the clock AND goes to full speed.
 void
-clk_start_fast()
+clk_fast()
 {
+	// Note: we can't set the clock to fast mode without starting it. So if
+	// the clock is currently stopped, do nothing here.
+
+	if (state.clk_stopped) return;
+
 	state.clk_fast = 1;
-	state.clk_stopped = 0;
 	TCCR1A = 0;		  // Disable the MCU slow clock timer
 	setbit(PORTB, B_FPCLKEN); // Enable the CFT's clock generator.
 }
@@ -505,7 +509,7 @@ clk_start()
 }
 
 
-static void
+void
 clk_stop()
 {
 	// Disconnect the FPUSTEP-IN pin from the timer. The pin will stay
@@ -697,13 +701,22 @@ set_mfd(mfd_t mfd)
 }
 
 
+inline word_t
+get_or()
+{
+	return (state.or_h << 8) | state.or_l;
+}
+
+
 void
 set_or(word_t value)
 {
 	ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+		state.or_h = (value >> 8) & 0xff;
+		state.or_l = value & 0xff;
 		fp_scanner_stop();
-		xmem_write(XMEM_OR_L, value & 0xff);
-		xmem_write(XMEM_OR_H, (value >> 8) & 0xff);
+		xmem_write(XMEM_OR_H, state.or_h);
+		xmem_write(XMEM_OR_L, state.or_l);
 		fp_scanner_start();
 	}
 }
@@ -2090,28 +2103,6 @@ get_ac()
 // OUTPUT
 //
 ///////////////////////////////////////////////////////////////////////////////
-
-inline uint16_t
-get_or()
-{
-	return _or;
-}
-
-
-inline void
-set_or(const uint16_t or)
-{
-	_or = or;
-
-	out_shift_registers16(_or, CMD_ORCLK);
-
-	// Move data from ALL the shift registers to their respective output
-	// registers. This will have no effect on tristated shift registers,
-	// and will be a NOP unless an output register has been clocked with
-	// new data.
-	strobecmd(CMD_STCP);
-}
-
 
 inline void
 drive_ibus()

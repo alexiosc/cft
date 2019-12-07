@@ -83,11 +83,17 @@ extern volatile uistate_t uistate;
 #define STR_DONE    "301 Done\n"
 #define STR_ABORT   "302 Aborted\n"
 
+#define STR_FAST    "327 Full speed clock.\n"
+#define STR_SLOW    "328 Slow clock.\n"
+#define STR_CREEP   "329 Very slow clock.\n"
+
 // These are get/set variants, and they can be either 2xx (get) or 3xx (set).
+#define STR_ADDR     "03 Address: "
 #define STR_GSECHO   "10 Echo: "
 #define STR_GSMESG   "11 Async messages: "
 #define STR_GSTERM   "12 Terminal: "
 #define STR_GSLOCK   "15 Front panel lock: "
+#define STR_GSOR     "21 Output Register: "
 
 // 5xx: Errors.
 #define STR_BADCMD  "500 Unknown command\n"
@@ -144,7 +150,6 @@ extern volatile uistate_t uistate;
 #define STR_D_FAIL  "faulty\n"
 
 
-#define STR_ADDR    "203 Address: "
 // #define STR_PROC1   "205 Processor found.\n"
 // #define STR_PROC0   "206 No processor.\n"
 #define STR_GSHOF    "13 On FAIL: "
@@ -154,7 +159,6 @@ extern volatile uistate_t uistate;
 #define STR_HOF_J        "Jump to: "
 
 #define STR_SR      "220 Switch Register: "
-#define STR_GSOR     "21 Output Register: "
 
 #define STR_IN1     "234 IN Address: "
 #define STR_IN2          " Value: "
@@ -189,9 +193,6 @@ extern volatile uistate_t uistate;
 #define STR_USTEP   "324 Microstep. "
 #define STR_TRACE   "325 Tracing.\n"
 #define STR_UTRACE  "326 Microtracing.\n"
-#define STR_FAST    "327 Full speed clock.\n"
-#define STR_SLOW    "328 Slow clock.\n"
-#define STR_CREEP   "329 Very slow clock.\n"
 // #ifdef AVR
 // #define STR_CLKSET  "330 Clock set to " F_CPU_S " Hz / ("
 // #else

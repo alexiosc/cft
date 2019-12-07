@@ -45,9 +45,9 @@ static const struct {
 
 	// // Clock speed
 
-	// {"fast",    go_fast,   "-- CPU at full speed"},
-	// {"slow",    go_slow,   "-- CPU at slow speed"},
-	// {"creep",   go_creep,  "-- CPU at creep speed"},
+	{"fast",    go_fast,   "-- CPU at full speed"},
+	{"slow",    go_slow,   "-- CPU at slow speed"},
+	{"creep",   go_creep,  "-- CPU at creep speed"},
 	// {"clk",     go_clk,    "PS DIV -- Arbitrary clock speed (see docs).\n201"},
 
 	// // Right switch bank (cycle operations)
@@ -55,7 +55,7 @@ static const struct {
 	// {"pc",      gs_pc,     "[ WORD ] -- Get/set PC"},
 	// {"ac",      gs_ac,     "[ WORD ] -- Get/set AC.\n201"},
 
-	// {"a",       gs_addr,   "[ WORD ] -- Get/set address"},
+	{"a",       gs_addr,   "[ WORD ] -- Get/set address"},
 	// {"r",       go_read,   "-- Read mem[a++]"},
 	// {"d",       go_dump_text,   "[ C ] -- Dump C words (default: 80)"},
 	// {"dis",     go_disassemble, "[ C ] -- Disassemble C words (default: 10)"},
@@ -73,7 +73,7 @@ static const struct {
 	// // Diagnostic I/O
 	// {"sr",      say_sr,   "-- Read front panel switches"},
 	// //{"leds",    gs_leds, "[ NYBBLE ] -- Get/set diagnostic LEDs (0-F)"},
-	// {"or",      gs_or,   "[ WORD ] -- Get/set OR lights"},
+	{"or",      gs_or,   "[ WORD ] -- Get/set OR lights"},
 
 	{"\0", (void*)-1}
 };
