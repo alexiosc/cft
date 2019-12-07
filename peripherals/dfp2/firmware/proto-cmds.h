@@ -11,9 +11,10 @@
 // ofsdata[term] = (4, 69, 46) 
 // ofsdata[echo] = (5, 115, 31) 
 // ofsdata[mesg] = (6, 146, 35) 
-// Total length of help before: 188
-// Total length of help after concat: 181
-// Final length of helpstr: 167
+// ofsdata[lock] = (7, 181, 46) 
+// Total length of help before: 235
+// Total length of help after concat: 227
+// Final length of helpstr: 204
 
 #include "hwcompat.h"
 
@@ -28,7 +29,7 @@
 
 
 
-#define _HELPSTR "\001Show help\0\001Show help\0\001Show version\0\001Show size of command buffer\0[ BOOL\007terminal bells & whistles.\0[ BOOL\007local echo.\0[ BOOL\007async messages.";
+#define _HELPSTR "\001Show help\0\001Show help\0\001Show version\0\001Show size of command buffer\0[ BOOL\007terminal bells & whistles.\0[ BOOL\007local echo.\0[ BOOL\007async messages.\0[ BOOL\007software switch lock.\005";
 
 const static const struct {
 	char cmd[CMD_SIZE];
@@ -46,7 +47,9 @@ const static const struct {
         {"term", gs_term},
         {"echo", gs_echo},
         {"mesg", gs_mesg},
+        {"lock", gs_lock},
         {"\0", (void*)-1}
 };
+
 
 #endif // __PROTO_CMDS_H

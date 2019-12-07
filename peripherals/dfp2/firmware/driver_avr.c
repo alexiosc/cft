@@ -953,19 +953,22 @@ hw_done()
 
 static uint8_t _switches[64];
 
-
-// Initialise the switch data.
-
 static inline void
 sw_init()
 {
+	// Initialise the switch state.
 	for (uint8_t i = 0; i < 64; i++) {
 		_switches[i] = 0;
 	}
 
-	TCCR0 = 0b01000111;	      // CTC mode, CLK÷1024 prescaler
-	OCR0 = 0xff;		      // CLKIO÷1024÷256 MHz ≅ 61 Hz.
-	TIMSK = BV(OCIE0);	      // Interrupt on compare match
+        // Program Timer 3 to scan switches and perform other housekeeping
+        // tasks.
+	TCCR3A = 0b00000000;	// Normal port operation, no pins driven.
+	TCCR3B = 0b00001101;    // CTC mode, CLK÷1024 prescaler
+
+	// Set the A count comparator and trigger an interrupt when it matches.
+	OCR3A = 259;		// CLKIO÷1024÷(259+1) MHz ≅ 60.09 Hz.
+	ETIMSK = BV(OCIE3A);	// Interrupt on timer compare match
 }
 
 
@@ -1080,7 +1083,7 @@ volatile uint8_t serial_errors = 0;
 
 // Wait until the serial port is ready, then send a character to it.
 inline void
-serial_send(unsigned char c)
+serial_write(unsigned char c)
 {
 	loop_until_bit_is_set(UCSR0A, UDRE0);
 	UDR0 = c;
@@ -1759,13 +1762,6 @@ read_next_char()
 	// The AVR version reads characters in the USART0 receive ISR
 	// (in serial.c). Nothing to do here.
 	return 0;
-}
-
-
-void
-serial_write(unsigned char c)
-{
-	serial_send(c);
 }
 
 

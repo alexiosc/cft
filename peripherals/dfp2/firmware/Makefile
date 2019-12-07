@@ -118,10 +118,9 @@ dep .depends:   $(GENERATED)
 
 $(PROG).elf:	$(SOURCES)
 		@/bin/echo -e "\n\n***  Compiling AVR Firmware  ***\n"
-#		@/bin/echo -e "\n\nASM\t$@"
 		-@$(CC) -S $(INCLUDES) $(CFLAGS) $(DEFINES) $(LDFLAGS) $(CFILES) $(LIBS) 2>/dev/null
-#		@/bin/echo -e "CC\t$@"
 		$(CC) $(INCLUDES) $(CFLAGS) $(DEFINES) $(LDFLAGS) -o $@ $(CFILES) $(LIBS)
+		@echo; avr-size -C --mcu=$(MCU_TARGET) $(PROG).elf
 
 fuses:		.stamp-fuses
 

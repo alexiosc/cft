@@ -24,7 +24,7 @@ static const struct {
        	// {"swtest",  go_swtest,   "-- Test switch assembly and OR"},
        	// {"dfps",    go_dfps,     "-- Show DFP state"},
 	// {"cons",    go_cons,     "-- Virtual console (<Enter> # . to exit)."},
-	// {"lock",    gs_lock,     "[ BOOL ] -- Get/set software switch lock.\n201"},
+	{"lock",    gs_lock,     "[ BOOL ] -- Get/set software switch lock.\n201"},
 
 	// // Left switch bank (computer control)
 

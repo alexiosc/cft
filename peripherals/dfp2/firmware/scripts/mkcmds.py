@@ -1,14 +1,14 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 import sys, re
 import pprint
 
-print """// -*- c -*-
+print("""// -*- c -*-
 // AUTOMATICALLY GENERATED, DO NOT EDIT.
 
 #ifndef __PROTO_CMDS_H
 #define __PROTO_CMDS_H
-"""
+""")
 
 source = sys.stdin.read()
 data = re.findall('\n\s*\{"(.+?)",\s*(\w+),\s*\"(.+?)\"\}', source)
@@ -27,7 +27,7 @@ for datum in data:
     #strtable += 'helpstring_t _cmdhelp%(i)d[] PROGMEM = "%(help)s";\n' % locals()
     #strtable += 'helpstring_t _cmdhelp%(i)d[] = "%(help)s";\n' % locals()
     ofsdata[cmd] = (i, len(fullhelp), len(help))
-    print "// ofsdata[%s] = %s " %(cmd, ofsdata[cmd])
+    print("// ofsdata[%s] = %s " %(cmd, ofsdata[cmd]))
     i += 1
     fullhelp += help
 
@@ -35,8 +35,8 @@ for datum in data:
 # pprint.pprint(ofsdata)
 # print "*/"
 
-print "// Total length of help before:", len0
-print "// Total length of help after concat:", len(fullhelp)
+print("// Total length of help before:", len0)
+print("// Total length of help after concat:", len(fullhelp))
 
 len1 = len(fullhelp) + 1
 
@@ -87,9 +87,9 @@ helpstr_len = len(helpstr) + 1
 #    .replace('\005', '\033[7m201   \033[0m') \
 
 helpstr = helpstr.replace('\n', '\\n').replace('\0', '\\0')
-print "// Final length of helpstr:", len(helpstr)
+print("// Final length of helpstr:", len(helpstr))
 
-print """
+print("""
 #include "hwcompat.h"
 
 #define CMD_SIZE 8
@@ -113,17 +113,19 @@ const static const struct {
 //#else
 //      char * help;
 //#endif
-} cmds[] PROGMEM = {""" % locals()
+} cmds[] PROGMEM = {""" % locals())
 
 for i, datum in enumerate(data):
     #print '        {"%s", %s, _cmdhelp%d},' % (datum[0], datum[1], i)
     #print '        {"%s", %s, "%s"},' % (datum[0], datum[1], datum[2])
-    print '        {"%s", %s},' % (datum[0], datum[1])
+    print('        {"%s", %s},' % (datum[0], datum[1]))
 
-print """        {"\\0", (void*)-1}
+print("""        {"\\0", (void*)-1}
 };
+""")
 
-#endif // __PROTO_CMDS_H""" % locals()
+print("""
+#endif // __PROTO_CMDS_H""" % locals())
 
 #pprint.pprint(ofsdata)
 # End of file.

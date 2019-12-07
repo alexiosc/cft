@@ -1,4 +1,4 @@
-// -*- indent-c++ -*-
+// -*- indent-c -*-
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -57,6 +57,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #define ECHO_ON (uistate.is_echo)
+#define TERM_ON (uistate.is_term)
 #define CTRL(c) ((c) - 64)
 
 
@@ -66,16 +67,48 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
+volatile uistate_t uistate;	// This holds the protocol state.
+
 unsigned char buf[BUFSIZE];	// The input buffer
 
+uint16_t bp;
 uint16_t buflen;		// The current input line length
 uint16_t oldbuflen;		// Length of previous input line
 
+// This is the entire (encoded) help string, stored in Flash.
 
+static        void say_help();
 static inline void say_bufsize();
 static inline void say_version();
 static inline void say_proc();
-void say_break();
+void               say_break();
+void proto_prompt();
+
+char * get_arg();
+uint32_t parse_hex(char *s);
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// PROTOCOL COMMMANDS
+//
+///////////////////////////////////////////////////////////////////////////////
+
+static void say_help();
+static void say_version();
+static void say_bufsize();
+static void gs_term();
+static void gs_echo();
+static void gs_mesg();
+static void gs_lock();
+
+// Include the pre-processed list of commands and help.
+#include "proto-cmds.h"
+
+// TODO: This is so long it scrolls the CFT's 30-line screen. And of
+// course the CFT doesn't have backscroll (yet?—it's possible on the
+// VDU card).
+static const char _helpstr[] PROGMEM = _HELPSTR;
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -219,11 +252,12 @@ proto_input(unsigned char c)
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-// PROTOCOL FUNCTIONALITY
+// BASIC PROTOCOL FUNCTIONALITY
 //
 ///////////////////////////////////////////////////////////////////////////////
 
 
+// Initialise the UI.
 void
 proto_init()
 {
@@ -232,14 +266,146 @@ proto_init()
 	uistate.is_echo = 1;
 	uistate.is_busy = 1;
 	say_version();
-	report_pstr(PSTR(BANNER2 BANNER3 BANNER4));
+	report_pstr(PSTR(BANNER));
 	say_bufsize();
 	say_proc();
 	buflen = 0;
 	uistate.is_busy = 0;
-	addr = 0;
+	uistate.addr = 0;
 }
 
+
+// Print the UI prompt.
+void
+proto_prompt()
+{
+	if (uistate.in_console) return; // No need to prompt in the virtual console
+
+	style_normal();
+	// report_hex(flags, 4);
+	// report_char(32);
+
+	// TODO: Reinstate this.
+	// if ((flags & FL_PROC) == 0) report_pstr(PSTR(STR_PNOPROC));
+	if (state.is_halted) {
+		style_info();
+		report_pstr(PSTR(STR_PSTOP));
+		style_normal();
+		report_hex(uistate.addr, 6);
+		report_pstr(PSTR(STR_PROMPT));
+	} else {
+		report_pstr(PSTR(STR_PRUN));
+	}
+	style_input();
+
+	// If echo is on, print out the current input buffer. The
+	// buffer may have been left intact before the prompt is
+	// printed for, e.g. prompt redrawing (Ctrl-L).
+	if (ECHO_ON) report_n((char *)buf, buflen);
+
+	// If in ‘machine’ mode (echo off, term off), output a newline
+	// here. The front end is line-oriented, but parses
+	// prompts. This helps a bit.
+	if (uistate.is_echo == 0 && uistate.is_term == 0) report_nl();
+}
+
+
+// The main protocol loop, and essentially the main µCU loop too. This
+// receives characters asynchronously from the serial port ISR via the
+// proto_input() function.
+
+void proto_loop()
+{
+	// TODO: examine this on running hardware and reinstate or delete.
+	//set_fprunstop((flags & FL_HALT) == 0);
+	buf[buflen] = 0;
+	oldbuflen = 0;
+	buflen = 0;
+
+	for(;;) {
+		proto_prompt();
+
+		// Wait for input to be complete.
+		while(!uistate.is_inpok) {
+#ifdef HOST
+			// The standalone version can't receive characters
+			// asynchronously via interrupts, so we must block and
+			// read/process characters synchronously, here.
+			unsigned char c = read_next_char();
+			if (c) c = proto_input(c);
+#endif // HOST
+			
+#ifdef CFTEMU
+			// The AVR sleeps for 35.56ms between samples, so we do
+			// the same. Note that this adds a maximum of 35.56ms
+			// between sending the DFP a command and it responding,
+			// though.
+			usleep(35560);
+			run_timer_interrupt();
+#endif // CFTEMU			
+		}
+
+		uistate.is_busy = 1;
+		uistate.is_error = 0;
+		uistate.is_eol = 0;
+		uistate.is_break = 0;
+		bp = 0;
+
+		style_normal();
+
+		// Process the input
+		//...
+		//report_pstr(PSTR("BUSY...\n"));
+		buf[buflen]=0;
+
+		if(uistate.is_error) {
+			goto error;
+		}
+
+		int i;
+		char *s = get_arg();
+		if (s == NULL) {
+			buflen = 0;
+		}
+		if (!buflen) {
+			report_pstr(PSTR(STR_READY));
+			goto done;
+		}
+
+#ifdef AVR
+		for(i=0; (uint16_t) pgm_read_word(&(cmds[i].handler)) != -1; i++)
+#else
+		for(i=0; cmds[i].handler != (void *)-1; i++)
+#endif // AVR
+		{
+			if(!strncmp_P(s, cmds[i].cmd, CMD_SIZE)) {
+				void (*handler)() = (void *)pgm_read_word(&(cmds[i].handler));
+				(*handler)();
+				goto done;
+			}
+		}
+
+		// If we get to this point, it's an unknown command.
+		report_pstr(PSTR(STR_BADCMD));
+		goto done;
+		
+	error:
+		report_pstr(PSTR("???\n"));
+		goto done;
+		
+	done:
+		// Clear the input okay and busy bits.
+		buflen = 0;
+		uistate.is_inpok = 0;
+		uistate.is_busy = 0;
+		uistate.is_break = 0;
+		
+		// Restore the state of the STOP light (which the ISR blinks
+		// while busy, and it may be left in the wrong state).
+		// TODO: Restore this.
+		// set_fprunstop((flags & FL_HALT) == 0);
+	}
+}
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -259,7 +425,7 @@ say_done()
 static inline void
 say_version()
 {
-	report_pstr(PSTR(BANNER1));
+	report_pstr(PSTR(STR_VERSION));
 }
 
 
@@ -270,10 +436,12 @@ say_bufsize()
 }
 
 
+// TODO: This differs on the DFP2. Rewrite.
 static inline void
 say_proc()
 {
-	report_pstr(flags & FL_PROC ? PSTR(STR_PROC1) : PSTR(STR_PROC0));
+	report_pstr(PSTR(STR_NIMPL));
+	//report_pstr(flags & FL_PROC ? PSTR(STR_PROC1) : PSTR(STR_PROC0));
 }
 
 
@@ -299,6 +467,277 @@ say_break()
 }
 
 
+// Decode and print out a help string. This is more complex than it
+// sounds, since we have to cater to both AVR (where the string is
+// stored in Flash and must be retrieved character-by-character) and
+// full-blown computers. Special characters in the help string are
+// decoded. This is a simple form of compression.
+static void
+say_help()
+{
+	int i;
+	char * hp = (char *)_helpstr;
+
+#ifdef HOST
+	int maxc = 0, maxd = 0;
+#endif // HOST
+	
+	report_pstr(PSTR("201 Available commands:"));
+#ifdef AVR
+	for(i=0; (uint16_t) pgm_read_word(&(cmds[i].handler)) != -1; i++) {
+#else
+	for(i=0; cmds[i].handler != (void*)-1; i++) {
+#endif
+		report_pstr(PSTR("\n201\t"));
+		report_npstr((char *)cmds[i].cmd, CMD_SIZE);
+		report_c(32);
+		hp = report_pstr(hp);
+
+#ifdef HOST
+		if (strlen(cmds[i].cmd) > maxc) maxc = strlen(cmds[i].cmd);
+		//if (strlen(cmds[i].help) > maxd) maxd = strlen(cmds[i].help);
+#endif // HOST
+	}
+	report_pstr(PSTR("\n201 \n"
+			 "201 Ctrl-C Ignore command line, stop output, abort command.\n"
+			 "201 Ctrl-X Ignore command line.\n"
+			 "201 Ctrl-T Toggle terminal mode.\n"
+			 "201 Consult documentation for more details.\n"));
+	//report_pstr(_helpstr);
+	
+#ifdef HOST
+	// This is for debugging!
+	printf("*** There are %d commands.\n", i);
+	printf("*** Longest command name: %d chars\n", maxc);
+	printf("*** Longest help test:    %d chars\n", maxd);
+	printf("*** Sizeof(cmds):         %lu\n", sizeof(cmds));
+#endif
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// BASIC INPUT HANDLING
+//	
+///////////////////////////////////////////////////////////////////////////////
+
+
+// This 
+	
+void
+badval()
+{
+	style_error();
+	report_pstr(PSTR(STR_BADVAL));
+}
+
+
+void
+badsyntax()
+{
+	style_error();
+	report_pstr(PSTR(STR_SYNTAX));
+}
+
+
+char *
+get_arg()
+{
+	register uint16_t i, j;
+
+	// Is there any input left?
+	if (bp >= buflen) {
+		uistate.is_eol = 1;
+		return NULL;
+	}
+	
+	// Skip blanks.
+	for (i=bp ; i < buflen; i++) {
+		if (buf[i] != ' ') break;
+	}
+	if (i >= buflen) {
+		uistate.is_eol = 1;
+		return NULL;
+	}
+	// Set the origin to the first non-blank character.
+	j = i;
+
+	// Now skip non-blanks.
+	for (; i < buflen; i++) {
+		if (buf[i] == ' ') break;
+	}
+	if (i < buflen) {
+		buf[i] = '\0';
+	}
+	
+	// Set the buf pointer past the \0.
+	bp = i + 1;
+
+#if 0
+	report("Got: (");
+	report(&buf[j]);
+	report("), flags=");
+	report_hex(flags, 2);
+	report_nl();
+#endif
+	
+	return (char*)&buf[j];
+}
+
+
+int32_t
+get_addr()
+{
+	register char * s = get_arg();
+	register uint32_t n;
+
+	if (uistate.is_eol) return -1;
+
+	if (uistate.is_error == 0) {
+		n = parse_hex(s);
+		if (uistate.is_error == 0) return n;
+	}
+
+	// Whoops, there was a parse error.
+	uistate.is_error = 1;
+	badval();
+	return -1;
+}
+
+
+uint32_t
+parse_hex(char *s)
+{
+	register uint32_t x;
+	x = 0;
+	while (*s) {
+		x = x << 4;
+		if ((*s) >= '0' && (*s) <= '9') x |= (*s - 48);
+		else if ((*s) >= 'a' && (*s) <= 'f') x |= (*s - 87);
+		else if ((*s) >= 'A' && (*s) <= 'F') x |= (*s - 55);
+		else {
+			uistate.is_error = 1;
+			return 0;
+		}
+		s++;
+	}
+	return x;
+}
+
+
+char
+parse_bool(char *s)
+{
+	// Minimalist parser for (0/1/on/off/true/false)
+	if (s[0] == '0') return 0; // 0
+	if (s[0] == 'f') return 0; // false
+	if (s[0] == 'o' && s[1] == 'f') return 0; // off
+	if (s[0] == 'n') return 0; // no
+	return 1;
+}
+
+
+int8_t
+optional_bool_val(uint8_t * bool)
+{
+	char * s = get_arg();
+	if (s == NULL) return 0;
+
+	*bool = parse_bool(s);
+	if (uistate.is_error) {
+		badval();
+		return -1;
+	}
+	return 1;
+}
+
+
+int8_t
+optional_hex_val(uint16_t * word)
+{
+	char * s = get_arg();
+	if (s == NULL) return 0;
+
+	*word = parse_hex(s);
+	if (uistate.is_error) {
+		badval();
+		return -1;
+	}
+	return 1;
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// GET AND SET ON/OFF SETTINGS
+//
+///////////////////////////////////////////////////////////////////////////////
+
+static void
+gs_echo()
+{
+	uint8_t v;
+	int8_t res;
+	res = optional_bool_val(&v);
+	if (res < 0) return;
+	if (res > 0) uistate.is_echo = v ? 1 : 0;
+	// Report current setting.
+	report_gs(res);
+	report_bool_value(PSTR(STR_GSECHO), uistate.is_echo != 0);
+}
+
+
+
+static void
+gs_mesg()
+{
+	uint8_t v;
+	int8_t res;
+	res = optional_bool_val(&v);
+	if (res < 0) return;
+	if (res > 0) uistate.is_mesg = v ? 1 : 0;
+	// Report current setting.
+	report_gs(res);
+	report_bool_value(PSTR(STR_GSMESG), uistate.is_mesg != 0);
+}
+
+
+
+static void
+gs_term()
+{
+	uint8_t v;
+	int8_t res;
+	res = optional_bool_val(&v);
+	if (res < 0) return;
+	if (res > 0) uistate.is_term = v ? 1 : 0;
+	// Report current setting.
+	report_gs(res);
+	report_bool_value(PSTR(STR_GSTERM), uistate.is_echo != 0);
+}
+
+
+
+static void
+gs_lock()
+{
+	uint8_t v;
+	int8_t res;
+	res = optional_bool_val(&v);
+	if (res < 0) return;
+	if (res > 0) uistate.is_locked = v ? 1 : 0;
+	// Report current setting.
+	report_gs(res);
+	report_bool_value(PSTR(STR_GSLOCK), uistate.is_locked != 0);
+}
+
+
+
+
+
+	
+
+
 
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
@@ -322,10 +761,9 @@ say_break()
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-uint16_t addr;
-
 uint16_t bpaddr[NUM_BP];
 uint8_t  bpflag = 0;
+
 
 
 //uint8_t progress[5] = {0, 1, 3, 7, 15};
@@ -343,68 +781,6 @@ uint8_t  bpflag = 0;
 // 	report_pstr(PSTR(STR_NOPROC));
 // 	return 0;
 // }
-
-
-///////////////////////////////////////////////////////////////////////////////
-//
-// DFP INFORMATION
-//
-///////////////////////////////////////////////////////////////////////////////
-
-// TODO: THIS NEED TO BE REWRITTEN
-static void
-gs_flag(uint32_t flag, const char *msg)
-{
-	uint8_t v;
-	int8_t res;
-	res = optional_bool_val(&v);
-	if (res < 0) return;
-	if (res > 0) {
-		if (v) {
-			// Enable echo
-			flags |= flag;
-		} else {
-			// Disable echo
-			flags &= ~flag;
-		}
-	}
-	// Report current setting.
-	report_gs(res);
-	report_bool_value(msg, (flags & flag) != 0);
-}
-
-
-
-static void
-gs_echo()
-{
-	gs_flag(FL_ECHO, PSTR(STR_GSECHO));
-}
-
-
-
-static void
-gs_mesg()
-{
-	gs_flag(FL_MESG, PSTR(STR_GSMESG));
-}
-
-
-
-static void
-gs_term()
-{
-	gs_flag(FL_TERM, PSTR(STR_GSTERM));
-}
-
-
-
-static void
-gs_lock()
-{
-	gs_flag(FL_SWLOCK, PSTR(STR_GSLOCK));
-}
-
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1004,8 +1380,10 @@ go_swtest()
 	// by the interrupt handler, effectively disabling the switch
 	// assembly. The in-console flag disables line buffering (but
 	// also normal output).
-	flags |= FL_BUSY | FL_CONS;
-	flags &= ~(FL_INPOK | FL_BREAK);
+	uistate.is_busy = 1;
+	uistate.in_console_busy = 1;
+	uistate.is_inpok = 0;
+	uistate.is_break = 0;
 
 	while ((flags & (FL_INPOK | FL_BREAK)) == 0) {
 		wdt_reset();
@@ -1969,173 +2347,6 @@ go_dfps()
 // #endif // HOST
 // }
 // #define gs_nop go_nop
-
-
-static void say_help();
-
-
-#include "proto-cmds.h"
-
-static const char _helpstr[] PROGMEM = _HELPSTR;
-
-static void
-say_help()
-{
-	int i;
-	char * hp = (char *)_helpstr;
-	
-#ifdef HOST
-	int maxc = 0, maxd = 0;
-#endif // HOST
-	
-	report_pstr(PSTR("201 Available commands:"));
-#ifdef AVR
-	for(i=0; (uint16_t) pgm_read_word(&(cmds[i].handler)) != -1; i++) {
-#else
-	for(i=0; cmds[i].handler != (void*)-1; i++) {
-#endif
-		report_pstr(PSTR("\n201\t"));
-		report_npstr((char *)cmds[i].cmd, CMD_SIZE);
-		report_c(32);
-		hp = report_pstr(hp);
-
-#ifdef HOST
-		if (strlen(cmds[i].cmd) > maxc) maxc = strlen(cmds[i].cmd);
-		//if (strlen(cmds[i].help) > maxd) maxd = strlen(cmds[i].help);
-#endif // HOST
-	}
-	report_pstr(PSTR("\n201 \n"
-			 "201 Ctrl-C Ignore command line, stop output, abort command.\n"
-			 "201 Ctrl-X Ignore command line.\n"
-			 "201 Ctrl-T Toggle terminal mode.\n"
-			 "201 Consult documentation for more details.\n"));
-	//report_pstr(_helpstr);
-	
-#ifdef HOST
-	printf("*** There are %d commands.\n", i);
-	printf("*** Longest command name: %d chars\n", maxc);
-	printf("*** Longest help test:    %d chars\n", maxd);
-	printf("*** Sizeof(cmds):         %lu\n", sizeof(cmds));
-#endif
-}
-	
-
-void
-proto_prompt()
-{
-	if (flags & FL_CONS) return; // No need to prompt in the virtual console
-
-	style_normal();
-	// report_hex(flags, 4);
-	// report_char(32);
-	if ((flags & FL_PROC) == 0) report_pstr(PSTR(STR_PNOPROC));
-	if (flags & FL_HALT) {
-		style_info();
-		report_pstr(PSTR(STR_PSTOP));
-		style_normal();
-		report_hex(addr, 4);
-		report_pstr(PSTR(STR_PROMPT));
-	} else {
-		report_pstr(PSTR(STR_PRUN));
-	}
-	style_input();
-
-	// If echo is on, print out the current input buffer. The
-	// buffer may have been left intact before the prompt is
-	// printed for, e.g. prompt redrawing (Ctrl-L).
-	if (ECHO_ON) report_n((char *)buf, buflen);
-
-	// If in ‘machine’ mode (echo off, term off), output a newline
-	// here. The front end is line-oriented, but parses
-	// prompts. This helps a bit.
-	if ((flags & (FL_TERM | FL_ECHO)) == 0) report_nl();
-}
-
-	
-void proto_loop()
-{
-	set_fprunstop((flags & FL_HALT) == 0);
-	buf[buflen] = 0;
-	oldbuflen = 0;
-	buflen = 0;
-	for(; (flags & FL_CLEAR) == 0;) {
-		proto_prompt();
-
-		// Wait for input to be complete.
-		while((flags & FL_INPOK) == 0)
-		{
-#ifdef HOST
-			// The standalone version doesn't use asynchronous
-			// input (via interrupts or an external thread), so we
-			// must trigger it ourselves.
-			unsigned char c = read_next_char();
-			if (c) c = proto_input(c);
-#endif // HOST
-
-#ifdef CFTEMU
-			// The AVR sleeps for 35.56ms between samples, so we do
-			// the same. Note that this adds a maximum of 35.56ms
-			// between sending the DFP a command and it responding,
-			// though.
-			usleep(35560);
-			run_timer_interrupt();
-#endif // CFTEMU			
-		}
-
-		flags |= FL_BUSY;
-		flags &= ~(FL_ERROR | FL_EOL | FL_BREAK);
-		bp = 0;
-
-		style_normal();
-
-		// Process the input
-		//...
-		//report_pstr(PSTR("BUSY...\n"));
-		buf[buflen]=0;
-
-		if(flags & FL_ERROR) {
-			goto error;
-		}
-
-		int i;
-		char *s = get_arg();
-		if (s == NULL) {
-			buflen = 0;
-		}
-		if (!buflen) {
-			report_pstr(PSTR(STR_READY));
-			goto done;
-		}
-
-#ifdef AVR
-		for(i=0; (uint16_t) pgm_read_word(&(cmds[i].handler)) != -1; i++) {
-#else
-		for(i=0; cmds[i].handler != (void *)-1; i++) {
-#endif // AVR
-			if(!strncmp_P(s, cmds[i].cmd, CMD_SIZE)) {
-				void (*handler)() = (void *)pgm_read_word(&(cmds[i].handler));
-				(*handler)();
-				goto done;
-			}
-		}
-
-		// If we get to this point, it's an unknown command.
-		report_pstr(PSTR(STR_BADCMD));
-		goto done;
-
-	error:
-		report_pstr(PSTR("???\n"));
-		goto done;
-
-	done:
-		// Clear the input okay and busy bits.
-		buflen = 0;
-		flags &= ~(FL_INPOK | FL_BUSY | FL_BREAK);
-		// Restore the state of the STOP light (which the ISR blinks
-		// while busy, and it may be left in the wrong state).
-		set_fprunstop((flags & FL_HALT) == 0);
-	}
-}
 
 
 uint8_t

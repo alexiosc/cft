@@ -69,9 +69,18 @@ void hw_init();
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-// THE USER INTERFACE SERIAL PORT
+// THE SERIAL PORT, BOTH PHYSICAL (PROTOCOL) AND VIRTUAL CONSOLE (TTYD)
 //
 ///////////////////////////////////////////////////////////////////////////////
+
+
+void serial_init();
+
+void serial_write(unsigned char c);
+
+// This extern is required so that the protocol layer can be called from the
+// comms driver to receive a new character.
+extern unsigned char proto_input(unsigned char c);
 
 
 
@@ -96,15 +105,6 @@ typedef struct {
 } ringbuf_t;
 
 extern ringbuf_t ringbuf;
-
-
-void serial_init();
-
-void serial_write(unsigned char c);
-
-// This extern is required so that the protocol layer can be called from the
-// comms driver to receive a new character.
-extern unsigned char proto_input(unsigned char c);
 
 
 ///////////////////////////////////////////////////////////////////////////////

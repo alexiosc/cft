@@ -28,25 +28,24 @@
 // Use bitfields rather than explicit flag values, and let the compiler
 // optimise it.
 typedef struct uistate {
-	uint8_t is_inpok:1;	   // No errors, print out a READY prompt.
-	uint8_t is_eol:1;	   // A whole input line has been received
-	uint8_t is_error:1;	   // 
-	uint8_t is_break:1;	   //
-	uint8_t is_echo:1;	   // Echo is on
-	uint8_t is_term:1;	   // Terminal bells and whistles are on
-	uint8_t is_mesg:1;	   // Allow async messages
-	uint8_t is_clear:1;	   // 
-	uint8_t is_busy:1;	   // The DFP is busy
-	//uint8_t is_halted:1;     // Moved to machine state
-	uint8_t is_hof:1;	   // Halt on FAIL (TODO: Move elsewhere!)
-	uint8_t is_hos:1;	   // Halt on SENTINEL  (TODO: Move elsewhere!)
-	uint8_t is_stopping:1;	   // Computer stopping
-	uint8_t async_received:1;  // Received Async message
-	//uint8_t have_proc:1;     // Moved to machine state, split in four
-	uint8_t in_console:1;      // Virtual console (TTYD) running
-	uint8_t is_locked:1;       // Software lock of the front panel
+	uint8_t  is_inpok:1;	    // No errors, print out a READY prompt.
+	uint8_t  is_eol:1;	    // Entire input line has been parsed.
+	uint8_t  is_error:1;	    // 
+	uint8_t  is_break:1;	    //
+	uint8_t  is_echo:1;	    // Echo is on
+	uint8_t  is_term:1;	    // Terminal bells and whistles are on
+	uint8_t  is_mesg:1;	    // Allow async messages
+	uint8_t  is_busy:1;	    // The DFP is busy
+	uint8_t  is_hof:1;	    // Halt on FAIL (TODO: Move elsewhere!)
+	uint8_t  is_hos:1;	    // Halt on SENTINEL  (TODO: Move elsewhere!)
+	uint8_t  is_stopping:1;	    // Computer stopping
+	uint8_t  async_received:1;  // Received Async message
+	uint8_t  in_console:1;      // Virtual console (TTYD) running
+	uint8_t  is_locked:1;       // Software lock of the front panel
 
-	uint8_t abort_stepping:1;  // Stepping has been aborted.
+	uint8_t  abort_stepping:1; // Stepping has been aborted.
+
+	uint32_t addr;		   // The current UI address.
 } uistate_t;
 
 extern volatile uistate_t uistate;
@@ -54,8 +53,10 @@ extern volatile uistate_t uistate;
 
 #define AUTHOR "Alexios Chouchoulas <alexios@bedroomlan.org>"
 #define URL    "https://www.bedroomlan.org/cft"
+#define STR_VERSION \
+	"201 Version: " VERSION "+dis\n"
+
 #define BANNER								\
-	"201 Version: " VERSION "+dis\n"				\
 	"202 (c) 2012-" THISYEAR " " AUTHOR "\n"			\
 	"202 Licensed under the GNU Public License v.3.\n"		\
 	"202 " URL "\n"							\
@@ -65,6 +66,54 @@ extern volatile uistate_t uistate;
 
 #define report_gs(x) report_char(x ? '3' : '2')
 
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// STRINGS OUTPUT BY THE PROTOCOL (STORED IN FLASH)
+//
+///////////////////////////////////////////////////////////////////////////////
+
+// 1xx: Boot-time Diagnostics
+
+// 2xx: Information retrieved
+#define STR_READY   "200 Ready\n"
+#define STR_MACHINE "299 T0sgQ09NUFVURVI=\n"
+
+// 3xx: Actions performed
+#define STR_DONE    "301 Done\n"
+#define STR_ABORT   "302 Aborted\n"
+
+// These are get/set variants, and they can be either 2xx (get) or 3xx (set).
+#define STR_GSECHO   "10 Echo: "
+#define STR_GSMESG   "11 Async messages: "
+#define STR_GSTERM   "12 Terminal: "
+#define STR_GSLOCK   "15 Front panel lock: "
+
+// 5xx: Errors.
+#define STR_BADCMD  "500 Unknown command\n"
+#define STR_BADVAL  "501 Bad value\n"
+#define STR_SYNTAX  "508 Syntax error\n"
+#define STR_NIMPL   "509 Not implemented\n"
+
+// 9xx: Diagnostic faults
+#define STR_NVMIS   "910 Value mismatch. Wrote "
+#define STR_WAS          ", was "
+
+#define STR_PROMPT  "> "
+#define STR_PRUN    "[running]" STR_PROMPT
+#define STR_PSTOP   "[halted] "
+// #define STR_PNOPROC "[no processor]"
+#define STR_ON      "on"
+#define STR_OFF     "off"
+
+// The blocksize for block-oriented writes.
+#define BLOCKSIZE ((BUFSIZE - 3) / 5)
+
+#define DIVIDER "|"
+
+// Warning: any more than 8 and the bpflag data type will have to
+// change!
+#define NUM_BP 8
 
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
@@ -95,16 +144,11 @@ extern volatile uistate_t uistate;
 #define STR_D_FAIL  "faulty\n"
 
 
-#define STR_READY   "200 Ready\n"
 #define STR_ADDR    "203 Address: "
 // #define STR_PROC1   "205 Processor found.\n"
 // #define STR_PROC0   "206 No processor.\n"
-#define STR_GSECHO   "10 Echo: "
-#define STR_GSMESG   "11 Async messages: "
-#define STR_GSTERM   "12 Terminal: "
 #define STR_GSHOF    "13 On FAIL: "
 #define STR_GSHOS    "14 On SENTINEL: "
-#define STR_GSLOCK   "15 Front panel lock: "
 #define STR_HOF_H        "HALT\n"
 #define STR_HOF_I        "Ignore\n"
 #define STR_HOF_J        "Jump to: "
@@ -130,11 +174,9 @@ extern volatile uistate_t uistate;
 #define STR_ABUS    "260 ABUS: "
 #define STR_DBUS    "261 DBUS: "
 
-#define STR_MACHINE "299 T0sgQ09NUFVURVI=\n"
 
 #define STR_DUMP    "300 Dumping\n"
-#define STR_DONE    "301 Done\n"
-#define STR_ABORT   "302 Aborted\n"
+
 #define STR_CKSUM   "303 Checksum: "
 
 //                   310-321 reserved
@@ -193,23 +235,17 @@ extern volatile uistate_t uistate;
 #define STR_WRAP    "401 Warning: write will wrap around.\n"
 #define STR_CLKWRN  "430 Warning: stopping/stepping will be REALLY slow.\n"
 
-// Errors.
-#define STR_BADCMD  "500 Unknown command\n"
-#define STR_BADVAL  "501 Bad value\n"
 // #define STR_COUNT8  "502 Count must be multiple of 8\n"
 #define STR_RUNNING "503 Halt host first\n"
 #define STR_CHATTER "504 Bus chatter\n"
 #define STR_ALRHALT "505 Already halted\n"
 #define STR_ALRRUN  "506 Already running\n"
 #define STR_NOPROC  "507 No processor\n"
-#define STR_SYNTAX  "508 Syntax error\n"
-#define STR_NIMPL   "509 Not implemented\n"
+
 #define STR_NSELF   "510 You talkin' to me?\n"
 
 // Hardware Faults.
 #define STR_DIAGF   "901 Diagnostics failed.\n"
-#define STR_NVMIS   "910 Value mismatch. Wrote "
-#define STR_WAS          ", was "
 #define STR_ABERR   "920 ABUS error. Wrote "
 #define STR_DBERR   "921 DBUS error. Wrote "
 #define STR_ACERR   "922 AC mismatch. Wrote "
@@ -217,22 +253,6 @@ extern volatile uistate_t uistate;
 #define STR_IRERR   "924 IR mismatch. Wrote "
 
 #define STR_HLTTO   "930 Timeout waiting for processor halt.\n"
-
-#define STR_PROMPT  "> "
-#define STR_PRUN    "[running]" STR_PROMPT
-#define STR_PSTOP   "[halted] "
-// #define STR_PNOPROC "[no processor]"
-#define STR_ON      "on"
-#define STR_OFF     "off"
-
-// The blocksize for block-oriented writes.
-#define BLOCKSIZE ((BUFSIZE - 3) / 5)
-
-#define DIVIDER "|"
-
-// Warning: any more than 8 and the bpflag data type will have to
-// change!
-#define NUM_BP 8
 
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
@@ -254,9 +274,7 @@ extern volatile uistate_t uistate;
 // to be relatively big. Depending on MCU RAM size we usually use 512 bytes.
 extern unsigned char buf[BUFSIZE];
 
- 
-// TODO: Move this to input.c?
-//extern uint16_t bp;
+extern uint16_t bp;
 
 extern uint16_t buflen;
 
