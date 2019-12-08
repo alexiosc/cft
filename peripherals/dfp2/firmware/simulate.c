@@ -293,16 +293,35 @@ pthread_mutex_t  changes_mutex;
 uint32_t clk = 0;
 uint32_t         disp_changes = 0;
 uint32_t         pin_changes = 0;
-uint8_t          pin_state[3] = {0,0,0};
+uint8_t          pin_state[7] = {0, 0, 0, 0, 0, 0, 0};
 uint32_t nnn = 0;
 
 void pin_changed_hook(struct avr_irq_t * irq, uint32_t value, void * param)
 {
+	// Param holds the port (lowest 3 bits) and pin number (upper
+	// three bits).
+	int portpin = (int)param;
 	pin_changes++;
 	if (value) {
-		pin_state[(uint64_t)param] |= (1 << irq->irq);
+		pin_state[(uint64_t)portpin & 3] |= (1 << (portpin >> 3));
 	} else {
-		pin_state[(uint64_t)param] &= ~(1 << irq->irq);
+		pin_state[(uint64_t)portpin & 3] &= ~(1 << (portpin >> 3));
+	}
+	return;
+	//printf("CHANGE: %02o value=%d, irq=%d\n", portpin, value, irq->irq);
+
+	putchar('\n');
+	for (int port = 0; port < 8; port++) {
+		printf("%c: %c%c%c%c%c%c%c%c  ",
+		       port + 'A',
+		       pin_state[port] & 0x80 ? '1' : '0',
+		       pin_state[port] & 0x40 ? '1' : '0',
+		       pin_state[port] & 0x20 ? '1' : '0',
+		       pin_state[port] & 0x10 ? '1' : '0',
+		       pin_state[port] & 0x08 ? '1' : '0',
+		       pin_state[port] & 0x04 ? '1' : '0',
+		       pin_state[port] & 0x02 ? '1' : '0',
+		       pin_state[port] & 0x01 ? '1' : '0');
 	}
 }
 
@@ -773,7 +792,8 @@ avr_run_thread(void * param)
 		if (pin_changes) {
 			pthread_mutex_lock(&changes_mutex);
 			pin_changes = 0;
-			act_on_changes();
+			#warning "TODO: reinstate this!"
+			//act_on_changes();
 		}
 		
 		// Should we run the CFT processor? Normally, it runs once
@@ -1382,22 +1402,22 @@ init_avr()
 	init_board();
 
 	// Register callbacks
-	for (int i = 0; i < 8; i++) {
-		avr_irq_register_notify(
-			avr_io_getirq(avr, AVR_IOCTL_IOPORT_GETIRQ('B'), i),
-			pin_changed_hook, 
-			(void *)0);
-		avr_irq_register_notify(
-			avr_io_getirq(avr, AVR_IOCTL_IOPORT_GETIRQ('C'), i),
-			pin_changed_hook, 
-			(void *)1);
-		avr_irq_register_notify(
-			avr_io_getirq(avr, AVR_IOCTL_IOPORT_GETIRQ('D'), i),
-			pin_changed_hook, 
-			(void *)2);
+	for (int port = 0; port < 8; port++) {
+		for (int i = 0; i < 8; i++) {
+			avr_irq_register_notify(
+				avr_io_getirq(avr, AVR_IOCTL_IOPORT_GETIRQ('A' + port), i),
+				pin_changed_hook, 
+				(void *)(port | (i << 3)));
+		}
 	}
 
 	avr_load_firmware(avr, &f);
+
+	// Initialise VCD dumping
+	// avr_vcd_init(avr, "sim_dfp.vcd", &vcd_file, 100000);
+	// avr_vcd_add_signal(&vcd_file, avr_io_get_irq(
+
+
 }
 
 
@@ -1435,13 +1455,14 @@ int main(int argc, char *argv[])
 	progname = argv[0];
 
 	init_avr();
-	init_menu();
+	////init_menu();
 
-	signal(SIGWINCH, SIG_IGN);
-	signal(SIGTERM, SIG_IGN);
+	////signal(SIGWINCH, SIG_IGN);
+	////signal(SIGTERM, SIG_IGN);
 
 	run_threaded();
 	atexit(done);
+	for(;;);
 
 	int c, dt = 0;
 	disp_changes++;

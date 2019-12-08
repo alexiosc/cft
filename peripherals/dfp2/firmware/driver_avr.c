@@ -43,6 +43,8 @@
 
 hwstate_t state;
 
+ringbuf_t ringbuf;
+
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -191,17 +193,18 @@ static inline void sw_init();
 // The autonomic FP Scanner controls the FPD bus otherwise and bus contention
 // will occur.
 
+#define XMEM_BASE 0x8000
 inline static void
 xmem_write(const xmem_addr_t addr, const uint8_t val)
 {
-	*((uint8_t *)(0x8000 + addr)) = val;
+	*((uint8_t *)(XMEM_BASE + addr)) = val;
 }
 
 
 inline static uint8_t
 xmem_read(const xmem_addr_t addr)
 {
-	return *((uint8_t *)(0x8000 + addr));
+	return *((uint8_t *)(XMEM_BASE + addr));
 }
 
 
@@ -838,13 +841,6 @@ hw_init()
 	wdt_enable(WATCHDOG_TIMEOUT);
 
 
-	
-
-
-	
-
-
-
 
 #warning "PORTED TO THIS POINT"
 #if 0
@@ -883,6 +879,7 @@ hw_init()
 
 	// Read the initial state of the front panel switches.
 	deb_sample(0);
+
 
 	// Set the initial clock values on the speed switch. Don't start the
 	// clock yet.
@@ -933,6 +930,7 @@ hw_init()
 	// Now de-assert the various reset signals explicitly. Can't hurt.
 	cb[0] |= CB0_NIRQ1 | CB0_NIRQ6;
 	cb[1] |= CB1_NFPRESET | CB1_NRESET;
+#endif // 0
 
 	// Set up the console ring buffer
 	ringbuf.ip = ringbuf.op = 0;
@@ -940,7 +938,6 @@ hw_init()
 	// Enable the global interrupt flag
 	sei();
 
-#endif // 0
 }
 
 
