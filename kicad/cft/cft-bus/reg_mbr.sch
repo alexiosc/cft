@@ -1,10 +1,10 @@
 EESchema Schematic File Version 4
-LIBS:cft-ctl-cache
-EELAYER 30 0
+LIBS:cft-bus-cache
+EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 9 10
+Sheet 9 11
 Title "Memory Bank Register File"
 Date ""
 Rev ""
@@ -1321,4 +1321,12 @@ Wire Bus Line
 	5700 4500 7550 4500
 Wire Bus Line
 	7650 1600 7650 4400
+$Sheet
+S 11900 1400 600  1300
+U 5E647D2E
+F0 "4×8 bit file" 50
+F1 "regfile4x8.sch" 50
+F2 "OUT[0..7]" T R 12500 1500 50 
+F3 "IN[0..7]" T L 11900 1500 50 
+$EndSheet
 $EndSCHEMATC

@@ -1,10 +1,10 @@
 EESchema Schematic File Version 4
-LIBS:cft-ctl-cache
-EELAYER 30 0
+LIBS:cft-bus-cache
+EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 1 10
+Sheet 1 11
 Title "CFT Homebrew 16-bit Minicomputer"
 Date ""
 Rev ""
@@ -1179,6 +1179,8 @@ Wire Wire Line
 	-2900 1650 -3200 1650
 Text Label -3200 1650 0    50   ~ 0
 ~RUEN
+Text Notes 950  2450 0    198  ~ 0
+Microcode Addressing under review, check\nwith microcode.mc and Verilog!
 Wire Bus Line
 	-3300 700  -3300 1450
 Wire Bus Line
@@ -1187,6 +1189,4 @@ Wire Bus Line
 	-3300 1950 -3300 3450
 Wire Bus Line
 	15900 4850 15900 6450
-Text Notes 950  2450 0    198  ~ 0
-Microcode Addressing under review, check\nwith microcode.mc and Verilog!
 $EndSCHEMATC
