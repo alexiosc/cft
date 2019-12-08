@@ -502,7 +502,7 @@ void
 clk_start()
 {
 	if (state.clk_fast) {
-		clk_start_fast();
+		clk_fast();
 	} else {
 		// Restart with a slow clock.
 		clk_setfreq(state.clk_prescaler, state.clk_div);
@@ -835,9 +835,9 @@ hw_init()
 	enable_cft_interrupts();
 
 	// Initialise switch deboucing and enable switch timer ISR
-	sw_init();
+	// sw_init();
 	
-	// Enable the watchdog.
+	// // Enable the watchdog.
 	wdt_enable(WATCHDOG_TIMEOUT);
 
 
@@ -1010,7 +1010,7 @@ sw_scan()
 }
 
 
-ISR(TIMER0_COMP_vect)
+ISR(TIMER3_COMPA_vect)
 {
 	// TODO
 }

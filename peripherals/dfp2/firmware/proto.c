@@ -133,7 +133,6 @@ unsigned char
 proto_input(unsigned char c)
 {
 	uistate.async_received = 0;
-
 #ifdef AVR
 	// Is the virtual console being used? If so, flag the
 	// character and exit. The go_cons() loop will take care of
@@ -336,6 +335,8 @@ void proto_loop()
 
 		// Wait for input to be complete.
 		while(!uistate.is_inpok) {
+			wdt_reset();
+
 #ifdef HOST
 			// The standalone version can't receive characters
 			// asynchronously via interrupts, so we must block and
@@ -821,7 +822,22 @@ gs_or()
 	report_hex_value(PSTR(STR_GSOR), v, 4);
 }
 
-	
+
+static void
+say_abus()
+{
+	report_hex_value(PSTR(STR_ABUS), get_ab(), 4);
+}
+
+
+static void
+say_dbus()
+{
+	report_hex_value(PSTR(STR_DBUS), get_db(), 4);
+}
+
+
+
 
 
 
@@ -1785,22 +1801,6 @@ go_utrace()
 // RIGHT SWITCH BANK AND BUS TRANSACTIONS
 //
 ///////////////////////////////////////////////////////////////////////////////
-
-
-static void
-say_abus()
-{
-	deb_sample(0);
-	report_hex_value(PSTR(STR_ABUS), get_ab(), 4);
-}
-
-
-static void
-say_dbus()
-{
-	deb_sample(0);
-	report_hex_value(PSTR(STR_DBUS), get_db(), 4);
-}
 
 
 static void
