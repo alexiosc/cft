@@ -398,6 +398,7 @@ detect_cpu()
 static void
 dfp_diags()
 {
+	return;
 	uint8_t i, j, errors;
 	uint16_t code;
 

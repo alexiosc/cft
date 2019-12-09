@@ -133,7 +133,7 @@ OBJDUMP        	=	avr-objdump
 SIMCFILES	=	simulate.c simulate_parts.c simulate_uart.c
 SIMHFILES	=	simulate_parts.h simulate_uart.h
 
-SIMAVRDIR	=	$(realpath ../../external/simavr)
+SIMAVRDIR	=	$(realpath ../../../external/simavr)
 SIMAVRLIBS	=	-lsimavr -lelf -lpthread -lutil -lncurses
 SIMAVRLIBDIR	=	$(SIMAVRDIR)/simavr/obj-$(shell arch)-linux-gnu/
 SIMAVRFLAGS	+=	$(DEFINES) -g -Wall -std=gnu99 -O0 \
