@@ -83,6 +83,9 @@ static inline void say_version();
 static inline void say_proc();
 void               say_break();
 void proto_prompt();
+static inline void say_ibus();
+static inline void say_abus();
+static inline void say_dbus();
 
 char * get_arg();
 uint32_t parse_hex(char *s);
@@ -336,7 +339,15 @@ void proto_loop()
 		// Wait for input to be complete.
 		while(!uistate.is_inpok) {
 			wdt_reset();
-
+#ifdef AVR
+			uint8_t c;
+			if (ringbuf_get(&c) == ERR_SUCCESS) {
+				serial_write('<');
+				proto_input(c);
+				serial_write('>');
+			}
+#endif //AVR
+			
 #ifdef HOST
 			// The standalone version can't receive characters
 			// asynchronously via interrupts, so we must block and
@@ -826,14 +837,21 @@ gs_or()
 static void
 say_abus()
 {
-	report_hex_value(PSTR(STR_ABUS), get_ab(), 4);
+//	report_hex_value(PSTR(STR_ABUS), get_ab(), 4);
 }
 
 
 static void
 say_dbus()
 {
-	report_hex_value(PSTR(STR_DBUS), get_db(), 4);
+//	report_hex_value(PSTR(STR_DBUS), get_db(), 4);
+}
+
+
+static void
+say_ibus()
+{
+//	report_hex_value(PSTR(STR_IBUS), get_ibus(), 4);
 }
 
 

@@ -1382,7 +1382,7 @@ init_avr()
 
 	printf("MCU:      %s\n", MCU_TARGET);
 	printf("Firmware: %s\n", fname);
-	printf("Clock:    %d.%06d Hz\n", F_CPU / 1000000, F_CPU % 1000000);
+	printf("Clock:    %d.%06d MHz\n", F_CPU / 1000000, F_CPU % 1000000);
 
 	avr = avr_make_mcu_by_name(MCU_TARGET);
 	if (!avr) {
@@ -1462,11 +1462,12 @@ int main(int argc, char *argv[])
 
 	run_threaded();
 	atexit(done);
-	for(;;);
+
 
 	int c, dt = 0;
 	disp_changes++;
 	timeout(20);
+	for(;;);
 	while ((c = getch()) != 'q') {
 		dt++;
 

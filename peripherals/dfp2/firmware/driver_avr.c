@@ -43,7 +43,7 @@
 
 hwstate_t state;
 
-ringbuf_t ringbuf;
+ringbuf_t rb;
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -173,6 +173,46 @@ static inline void sw_init();
 #define PORT_NNO(bit)  (0)
 
 #define PORT_PUP(bit)  (BV(BIT))
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// RING BUFFERS
+//
+///////////////////////////////////////////////////////////////////////////////
+
+static inline void
+ringbuf_init()
+{
+	rb.ip = 0;
+	rb.op = 0;
+}
+
+
+errno_t
+ringbuf_add(uint8_t c)
+{
+	// Bail out if the buffer is full
+	uint8_t new_ip = (rb.ip + 1) & RBMASK;
+	if (new_ip == rb.op) return ERR_RBFULL;
+	rb.b[rb.ip] = c;
+	rb.ip = new_ip;
+	// TODO: Move this back to the CFT console handler
+	//if (icr & ICR_TTY) set_irq6(1, 0);
+	return ERR_SUCCESS;
+}
+
+
+errno_t
+ringbuf_get(uint8_t *c)
+{
+	// Is it empty?
+	if (rb.ip == rb.op) return ERR_RBEMPTY;
+	*c = rb.b[rb.op];
+	rb.op = (rb.op + 1) & RBMASK;
+	return ERR_SUCCESS;
+}
+
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -828,18 +868,20 @@ hw_init()
 	rc_freeze();
 	clear_ws();
 
-	// Initialise serial port and interrupts
-	serial_init();
-
 	// Enable interrupts for CFT-originated transactions
 	enable_cft_interrupts();
 
-	// Initialise switch deboucing and enable switch timer ISR
-	// sw_init();
+	// Initialise switch debouncing and enable switch timer ISR
+	sw_init();
 	
 	// // Enable the watchdog.
 	wdt_enable(WATCHDOG_TIMEOUT);
 
+	// Initialise serial port and interrupts
+	serial_init();
+
+	// Wait for signals to stabilise.
+	_delay_ms(500);
 
 
 #warning "PORTED TO THIS POINT"
@@ -858,9 +900,6 @@ hw_init()
 	// down, on demand.
 
 	// Time = 5
-
-	// Wait for signals to stabilise.
-	_delay_ms(1500);
 
 	// Is a processor attached to the system?
 	if (detect_cpu()) {
@@ -933,7 +972,7 @@ hw_init()
 #endif // 0
 
 	// Set up the console ring buffer
-	ringbuf.ip = ringbuf.op = 0;
+	ringbuf_init();
 	
 	// Enable the global interrupt flag
 	sei();
@@ -1012,6 +1051,7 @@ sw_scan()
 
 ISR(TIMER3_COMPA_vect)
 {
+	//serial_write('.');
 	// TODO
 }
 
@@ -1082,7 +1122,7 @@ serial_init()
 	UBRR0H = (BPS >> 8) & 0xff;
 
 	// TODO: check that this can be safely removed.
-	// report_pstr(PSTR("\033[0m\n\r\n\r"));
+	report_pstr(PSTR("\033[0m\n\r\n\r"));
 
         // We can enable interrupt handling now.
 	UCSR0B |= BV(RXCIE0);		// Enable RX complete interrupt
@@ -1105,25 +1145,35 @@ serial_write(unsigned char c)
 ISR(USART0_RX_vect)
 {
 	uint8_t c;
+	serial_write('{');
 
 	// Ensure we don't have any framing errors. If we do, ignore the received
 	// character.
 	if (!bit_is_clear(UCSR0A, FE0)) {
 		serial_errors++;
 		c = UDR0;
+		serial_write('X');
 		return;
 	}
 	
 	// Process the character directly from its register.
 	c = UDR0;
 
-	// Dip into the protocol layer and add the character to the current
-	// line buffer. This also implements basic line editing.
-	proto_input(c);
+	// Add it to the ring buffer. No niceties here.
+	uint8_t new_ip = (rb.ip + 1) & RBMASK;
+	if (new_ip != rb.op) {
+		rb.b[rb.ip] = c;
+		rb.ip = new_ip;
+	}
+	serial_write('}');
 }
 
 
 
+ISR(BADISR_vect)
+{
+	for(;;) serial_write('?');
+}
 
 
 
@@ -2534,29 +2584,6 @@ set_fprunstop(bool_t run)
 	cb[2] &= ~(CB2_FPRUN | CB2_FPSTOP);
 	cb[2] |= run ? CB2_FPRUN : CB2_FPSTOP;
 	write_cb();
-}
-
-
-void
-queue_char(uint8_t c)
-{
-	// Bail out if the buffer is full
-	uint8_t new_ip = (ringbuf.ip + 1) & RBMASK;
-	if (new_ip == ringbuf.op) return;
-	ringbuf.b[ringbuf.ip] = c;
-	ringbuf.ip = new_ip;
-	if (icr & ICR_TTY) set_irq6(1, 0);
-}
-
-
-uint16_t
-maybe_dequeue_char()
-{
-	// Is it empty?
-	if (ringbuf.ip == ringbuf.op) return 0x8000;
-	uint8_t retval = ringbuf.b[ringbuf.op];
-	ringbuf.op = (ringbuf.op + 1) & RBMASK;
-	return retval;
 }
 
 

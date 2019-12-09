@@ -8,15 +8,17 @@
 
 
 #SERIAL_BPS	= 	921600
-SERIAL_BPS      =       500000
+#SERIAL_BPS      =       500000
 #SERIAL_BPS	=	460800
 #SERIAL_BPS	=	230400
+SERIAL_BPS	=	38400
 #SERIAL_BPS	=	9600
 VERSION		=	2.0
 THISYEAR	= 	"$(shell date +%Y)"
 BUFSIZE		=	512
 #CPU_FREQ	=	1000000  # Hz (Factory default)
 CPU_FREQ	=	16000000 # Hz (DFP2, 16.0 MHz crystal)
+#CPU_FREQ	=	14745600
 
 DEFINES		=	-DDEBUG
 DEFINES		+=	-DVERSION='"$(VERSION) $(shell date +%Y-%m-%d)"'

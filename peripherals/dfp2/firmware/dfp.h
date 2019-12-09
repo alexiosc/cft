@@ -44,7 +44,9 @@ typedef enum {
 	ERR_NMASTER,			// We are not the bus master
 	ERR_NHALTED,			// System is not halted
 	ERR_HALTED,			// System is halted
-	ERR_TIMEOUT			// Timeout waiting for state machine
+	ERR_TIMEOUT,			// Timeout waiting for state machine
+	ERR_RBFULL,			// Ring buffer is full
+	ERR_RBEMPTY			// Ring buffer is empty
 } errno_t;
 
 

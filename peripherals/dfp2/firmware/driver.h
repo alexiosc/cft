@@ -242,6 +242,11 @@ void clk_setfreq(uint8_t prescaler, uint16_t div);// Clock frequency select
 
 // void run_buscmd_interrupt();
 
-#endif // __ABSTRACT_H__
+errno_t ringbuf_add(uint8_t c);
+
+errno_t ringbuf_get(uint8_t *c);
+
+
+#endif // __DRIVER_H__
 
 // End of file.
