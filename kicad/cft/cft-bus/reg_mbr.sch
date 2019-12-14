@@ -9,7 +9,7 @@ Title "Memory Bank Register File"
 Date ""
 Rev ""
 Comp ""
-Comment1 "CTL"
+Comment1 "BUS"
 Comment2 ""
 Comment3 ""
 Comment4 ""
@@ -1309,6 +1309,236 @@ Text Notes 8250 3150 0    50   ~ 0
 IBUS[8..15] are purposefully not driven here!\nThey are handled by the flag unit.
 Text Notes 8250 2950 0    50   ~ 10
 Note
+$Sheet
+S 13400 1400 1150 1500
+U 5E647D2E
+F0 "4×8 bit file" 50
+F1 "regfile4x8.sch" 50
+F2 "WA0" I L 13400 2650 50 
+F3 "WA1" I L 13400 2750 50 
+F4 "RA0" I R 14550 2650 50 
+F5 "RA1" I R 14550 2750 50 
+F6 "~RE" I R 14550 2450 50 
+F7 "~WE" I L 13400 2450 50 
+F8 "IN0" I L 13400 1550 50 
+F9 "IN1" I L 13400 1650 50 
+F10 "IN2" I L 13400 1750 50 
+F11 "IN3" I L 13400 1850 50 
+F12 "IN4" I L 13400 1950 50 
+F13 "IN5" I L 13400 2050 50 
+F14 "IN6" I L 13400 2150 50 
+F15 "IN7" I L 13400 2250 50 
+F16 "OUT0" O R 14550 1550 50 
+F17 "OUT1" O R 14550 1650 50 
+F18 "OUT2" O R 14550 1750 50 
+F19 "OUT3" O R 14550 1850 50 
+F20 "OUT4" O R 14550 1950 50 
+F21 "OUT5" O R 14550 2050 50 
+F22 "OUT6" O R 14550 2150 50 
+F23 "OUT7" O R 14550 2250 50 
+$EndSheet
+Text Label 14700 1850 0    50   ~ 0
+AEXT3
+Text Label 14700 1750 0    50   ~ 0
+AEXT2
+Text Label 14700 1650 0    50   ~ 0
+AEXT1
+Text Label 14700 1550 0    50   ~ 0
+AEXT0
+Wire Wire Line
+	14550 1850 15000 1850
+Wire Wire Line
+	14550 1750 15000 1750
+Wire Wire Line
+	14550 1650 15000 1650
+Wire Wire Line
+	14550 1550 15000 1550
+Text Label 14700 1950 0    50   ~ 0
+AEXT4
+Text Label 14700 2050 0    50   ~ 0
+AEXT5
+Text Label 14700 2150 0    50   ~ 0
+AEXT6
+Text Label 14700 2250 0    50   ~ 0
+AEXT7
+Wire Wire Line
+	14550 1950 15000 1950
+Wire Wire Line
+	14550 2250 15000 2250
+Wire Wire Line
+	14550 2150 15000 2150
+Wire Wire Line
+	14550 2050 15000 2050
+Wire Wire Line
+	13400 1850 12950 1850
+Wire Wire Line
+	13400 1750 12950 1750
+Wire Wire Line
+	13400 1650 12950 1650
+Wire Wire Line
+	13400 1550 12950 1550
+Entry Wire Line
+	12950 1950 12850 1850
+Entry Wire Line
+	12950 2050 12850 1950
+Entry Wire Line
+	12950 2150 12850 2050
+Entry Wire Line
+	12950 2250 12850 2150
+Entry Wire Line
+	12950 1550 12850 1450
+Entry Wire Line
+	12950 1650 12850 1550
+Entry Wire Line
+	12950 1750 12850 1650
+Entry Wire Line
+	12950 1850 12850 1750
+Wire Wire Line
+	13400 1950 12950 1950
+Wire Wire Line
+	13400 2250 12950 2250
+Wire Wire Line
+	13400 2150 12950 2150
+Wire Wire Line
+	13400 2050 12950 2050
+Text Label 13050 1550 0    50   ~ 0
+IBUS0
+Text Label 13050 1650 0    50   ~ 0
+IBUS1
+Text Label 13050 1750 0    50   ~ 0
+IBUS2
+Text Label 13050 1850 0    50   ~ 0
+IBUS3
+Text Label 13050 1950 0    50   ~ 0
+IBUS4
+Text Label 13050 2050 0    50   ~ 0
+IBUS5
+Text Label 13050 2150 0    50   ~ 0
+IBUS6
+Text Label 13050 2250 0    50   ~ 0
+IBUS7
+Wire Wire Line
+	13400 2450 12950 2450
+Wire Wire Line
+	13400 2650 12950 2650
+Wire Wire Line
+	13400 2750 12950 2750
+Text Label 12950 2650 0    50   ~ 0
+SEL0
+Text Label 12950 2750 0    50   ~ 0
+SEL1
+Text Label 12950 2450 0    50   ~ 0
+~BANKW0
+Entry Wire Line
+	15000 1950 15100 1850
+Entry Wire Line
+	15000 2050 15100 1950
+Entry Wire Line
+	15000 2150 15100 2050
+Entry Wire Line
+	15000 2250 15100 2150
+Entry Wire Line
+	15000 1550 15100 1450
+Entry Wire Line
+	15000 1650 15100 1550
+Entry Wire Line
+	15000 1750 15100 1650
+Entry Wire Line
+	15000 1850 15100 1750
+Wire Wire Line
+	14550 2450 15000 2450
+Wire Wire Line
+	14550 2650 15000 2650
+Wire Wire Line
+	14550 2750 15000 2750
+Text Label 15000 2450 2    50   ~ 0
+~BANKR0
+Text Label 15000 2650 2    50   ~ 0
+IR0
+Text Label 15000 2750 2    50   ~ 0
+IR1
+$Comp
+L alexios:74AC161 U?
+U 1 1 5DF5E120
+P 13700 4950
+F 0 "U?" H 13700 5717 50  0000 C CNN
+F 1 "74AC161" H 13700 5626 50  0000 C CNN
+F 2 "" H 14000 5200 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC161.pdf" H 14000 5200 50  0001 C CNN
+	1    13700 4950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	14200 4450 14650 4450
+Wire Wire Line
+	14200 4550 14650 4550
+Wire Wire Line
+	14200 4650 14650 4650
+Text Label 14650 4450 2    50   ~ 0
+FPR0
+Text Label 14650 4550 2    50   ~ 0
+FPR1
+Text Label 14650 4650 2    50   ~ 0
+FPR2
+NoConn ~ 14200 4750
+NoConn ~ 14200 4950
+Wire Wire Line
+	13200 5050 13100 5050
+$Comp
+L power:+5V #PWR?
+U 1 1 5DFAEFFD
+P 13100 4350
+F 0 "#PWR?" H 13100 4200 50  0001 C CNN
+F 1 "+5V" H 13115 4523 50  0000 C CNN
+F 2 "" H 13100 4350 50  0001 C CNN
+F 3 "" H 13100 4350 50  0001 C CNN
+	1    13100 4350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	13200 5150 13100 5150
+Wire Wire Line
+	13200 5250 12700 5250
+Text Label 12700 5250 0    50   ~ 0
+~FPMBREN
+Wire Wire Line
+	13200 5450 12700 5450
+Text Label 12700 5450 0    50   ~ 0
+~FPMBRR
+Wire Wire Line
+	13100 5150 13100 5050
+Connection ~ 13100 5050
+Wire Wire Line
+	13100 5050 13100 4950
+Wire Wire Line
+	13200 4450 13100 4450
+Connection ~ 13100 4450
+Wire Wire Line
+	13100 4450 13100 4350
+Wire Wire Line
+	13200 4550 13100 4550
+Connection ~ 13100 4550
+Wire Wire Line
+	13100 4550 13100 4450
+Wire Wire Line
+	13200 4650 13100 4650
+Connection ~ 13100 4650
+Wire Wire Line
+	13100 4650 13100 4550
+Wire Wire Line
+	13200 4750 13100 4750
+Connection ~ 13100 4750
+Wire Wire Line
+	13100 4750 13100 4650
+Wire Wire Line
+	13200 4950 13100 4950
+Connection ~ 13100 4950
+Wire Wire Line
+	13100 4950 13100 4750
+Wire Bus Line
+	12850 1350 12850 2150
+Wire Bus Line
+	15100 1350 15100 2150
 Wire Bus Line
 	3700 800  3700 3300
 Wire Bus Line
@@ -1321,12 +1551,4 @@ Wire Bus Line
 	5700 4500 7550 4500
 Wire Bus Line
 	7650 1600 7650 4400
-$Sheet
-S 11900 1400 600  1300
-U 5E647D2E
-F0 "4×8 bit file" 50
-F1 "regfile4x8.sch" 50
-F2 "OUT[0..7]" T R 12500 1500 50 
-F3 "IN[0..7]" T L 11900 1500 50 
-$EndSheet
 $EndSCHEMATC
