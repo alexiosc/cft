@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:cft-ctl-cache
-EELAYER 30 0
+EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -262,27 +262,14 @@ Entry Bus Bus
 	8550 3500 8650 3400
 Entry Bus Bus
 	8550 3300 8650 3400
-$Comp
-L power:GND #PWR041
-U 1 1 5CD2978B
-P 4500 4750
-F 0 "#PWR041" H 4500 4500 50  0001 C CNN
-F 1 "GND" H 4422 4713 50  0000 R CNN
-F 2 "" H 4500 4750 50  0001 C CNN
-F 3 "" H 4500 4750 50  0001 C CNN
-	1    4500 4750
-	1    0    0    -1  
-$EndComp
-Text Label 3900 4700 3    50   ~ 0
+Text Label 3900 4450 3    50   ~ 0
 IR10
 Text Label 3900 3500 3    50   ~ 0
 IR10
 Entry Wire Line
 	3800 3400 3900 3500
 Wire Wire Line
-	3900 5050 4550 5050
-Wire Wire Line
-	3900 5050 3900 3500
+	3900 4850 4550 4850
 Wire Wire Line
 	4550 4050 4300 4050
 Wire Wire Line
@@ -343,12 +330,12 @@ Entry Bus Bus
 	6350 3400 6450 3300
 Entry Bus Bus
 	6350 3400 6450 3500
-Text HLabel 2650 4950 0    50   Input ~ 0
+Text HLabel 2650 4750 0    50   Input ~ 0
 ~END
-Text Label 3200 4950 0    50   ~ 0
+Text Label 3200 4750 0    50   ~ 0
 ~END
 Wire Wire Line
-	2650 4950 4550 4950
+	2650 4750 4550 4750
 Text HLabel 2650 3750 0    50   Input ~ 0
 PC[10..15]
 Text Label 3200 3750 0    50   ~ 0
@@ -561,30 +548,21 @@ F 3 "" H 7000 3350 50  0001 C CNN
 	1    7000 3350
 	1    0    0    -1  
 $EndComp
-Text Label 4300 4950 0    50   ~ 0
+Text Label 4350 4750 0    50   ~ 0
 ~END
-Text Label 4300 5050 0    50   ~ 0
+Text Label 4300 4850 0    50   ~ 0
 IR10
-NoConn ~ 5550 4750
-NoConn ~ 5550 4650
-Connection ~ 4500 4750
-Wire Wire Line
-	4550 4750 4500 4750
-Wire Wire Line
-	4500 4650 4500 4750
-Wire Wire Line
-	4550 4650 4500 4650
 Text Label 2800 3400 0    50   ~ 0
 IR[0..10]
 $Comp
 L alexios:74HC574 U20
 U 1 1 5CD296E9
-P 5050 4550
-F 0 "U20" H 5050 5317 50  0000 C CNN
-F 1 "74HC574" H 5050 5226 50  0000 C CNN
-F 2 "alexios:SOIC-20W" H 4750 4500 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS574" H 4750 4500 50  0001 C CNN
-	1    5050 4550
+P 5050 4350
+F 0 "U20" H 5050 5117 50  0000 C CNN
+F 1 "74HC574" H 5050 5026 50  0000 C CNN
+F 2 "alexios:SOIC-20W" H 4750 4300 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS574" H 4750 4300 50  0001 C CNN
+	1    5050 4350
 	1    0    0    -1  
 $EndComp
 Text HLabel 2650 5400 0    50   Input ~ 0
@@ -593,16 +571,40 @@ Text Label 6650 3200 0    50   ~ 0
 ~READ-AGL
 Text Notes 6350 5700 2    50   ~ 0
 Selects between Page 0 and Local addressing modes.
-Wire Bus Line
-	6450 3500 6450 3850
+NoConn ~ 5550 3850
+NoConn ~ 5550 3950
+$Comp
+L power:+5V #PWR0137
+U 1 1 5E58812D
+P 4500 3800
+F 0 "#PWR0137" H 4500 3650 50  0001 C CNN
+F 1 "+5V" H 4515 3973 50  0000 C CNN
+F 2 "" H 4500 3800 50  0001 C CNN
+F 3 "" H 4500 3800 50  0001 C CNN
+	1    4500 3800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4500 3800 4500 3850
+Wire Wire Line
+	4500 3950 4550 3950
+Wire Wire Line
+	4550 3850 4500 3850
+Connection ~ 4500 3850
+Wire Wire Line
+	4500 3850 4500 3950
+Wire Wire Line
+	3900 4850 3900 3500
 Wire Bus Line
 	2650 3400 6350 3400
 Wire Bus Line
+	6450 3500 6450 3850
+Wire Bus Line
 	4200 3850 4200 4450
 Wire Bus Line
-	8550 2400 8550 3300
+	8550 3500 8550 4450
 Wire Bus Line
 	6450 2400 6450 3300
 Wire Bus Line
-	8550 3500 8550 4450
+	8550 2400 8550 3300
 $EndSCHEMATC
