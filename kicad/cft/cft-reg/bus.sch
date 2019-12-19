@@ -5,39 +5,24 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 2 6
-Title ""
+Title "CFT Bus Connector"
 Date ""
-Rev ""
+Rev "1941"
 Comp ""
-Comment1 ""
+Comment1 "REG"
 Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L alexios:CFT-2019-Bus P?
-U 1 1 5D36087B
-P 3150 1600
-AR Path="/5D34E810/5D36087B" Ref="P?"  Part="1" 
-AR Path="/5D36B851/5D36087B" Ref="P?"  Part="1" 
-AR Path="/5F1DB2E8/5D36087B" Ref="P?"  Part="1" 
-AR Path="/5D36087B" Ref="P?"  Part="1" 
-F 0 "P?" H 3150 1767 50  0000 C CNN
-F 1 "CFT-2019-Bus" H 3150 1676 50  0000 C CNN
-F 2 "alexios:CFT-2019-Card-Edge" H 3100 700 50  0001 C CNN
-F 3 "" H 3100 700 50  0001 C CNN
-	1    3150 1600
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:CFT-2019-Bus P?
+L alexios:CFT-2019-Bus P1
 U 2 1 5D360881
 P 5900 1600
-AR Path="/5D34E810/5D360881" Ref="P?"  Part="2" 
+AR Path="/5D34E810/5D360881" Ref="P1"  Part="2" 
 AR Path="/5D36B851/5D360881" Ref="P?"  Part="2" 
 AR Path="/5F1DB2E8/5D360881" Ref="P?"  Part="2" 
 AR Path="/5D360881" Ref="P?"  Part="2" 
-F 0 "P?" H 5900 1767 50  0000 C CNN
+F 0 "P1" H 5900 1767 50  0000 C CNN
 F 1 "CFT-2019-Bus" H 5900 1676 50  0000 C CNN
 F 2 "alexios:CFT-2019-Card-Edge" H 5850 700 50  0001 C CNN
 F 3 "" H 5850 700 50  0001 C CNN
@@ -82,22 +67,6 @@ Wire Wire Line
 	3750 2550 4150 2550
 Wire Wire Line
 	3750 2650 4150 2650
-Wire Wire Line
-	3750 2750 4250 2750
-Wire Wire Line
-	3750 2850 4250 2850
-Wire Wire Line
-	3750 2950 4250 2950
-Wire Wire Line
-	3750 3050 4250 3050
-Wire Wire Line
-	3750 3150 4250 3150
-Wire Wire Line
-	3750 3250 4250 3250
-Wire Wire Line
-	3750 3350 4250 3350
-Wire Wire Line
-	3750 3450 4250 3450
 Wire Wire Line
 	4800 1750 5300 1750
 Wire Wire Line
@@ -186,22 +155,6 @@ Text Label 4150 2550 2    50   ~ 0
 ~W
 Text Label 4150 2650 2    50   ~ 0
 ~WS
-Text Label 4150 2750 2    50   ~ 0
-~IRQ0
-Text Label 4150 2850 2    50   ~ 0
-~IRQ1
-Text Label 4150 2950 2    50   ~ 0
-~IRQ2
-Text Label 4150 3050 2    50   ~ 0
-~IRQ3
-Text Label 4150 3150 2    50   ~ 0
-~IRQ4
-Text Label 4150 3250 2    50   ~ 0
-~IRQ5
-Text Label 4150 3350 2    50   ~ 0
-~IRQ6
-Text Label 4150 3450 2    50   ~ 0
-~IRQ7
 Text Label 4800 1750 0    50   ~ 0
 IBUS0
 Text Label 4800 1850 0    50   ~ 0
@@ -404,68 +357,6 @@ Text Label 2150 4950 0    50   ~ 0
 AB22
 Text Label 2150 5050 0    50   ~ 0
 AB23
-Entry Wire Line
-	2050 2850 2150 2750
-Entry Wire Line
-	2050 2950 2150 2850
-Entry Wire Line
-	2050 3050 2150 2950
-Entry Wire Line
-	2050 3150 2150 3050
-Entry Wire Line
-	2050 3250 2150 3150
-Entry Wire Line
-	2050 3350 2150 3250
-Entry Wire Line
-	2050 3450 2150 3350
-Entry Wire Line
-	2050 3550 2150 3450
-Entry Wire Line
-	2050 3650 2150 3550
-Entry Wire Line
-	2050 3750 2150 3650
-Entry Wire Line
-	2050 3850 2150 3750
-Entry Wire Line
-	2050 3950 2150 3850
-Entry Wire Line
-	2050 4050 2150 3950
-Entry Wire Line
-	2050 4150 2150 4050
-Entry Wire Line
-	2050 4250 2150 4150
-Entry Wire Line
-	2050 4350 2150 4250
-Entry Wire Line
-	2050 4450 2150 4350
-Entry Wire Line
-	2050 4550 2150 4450
-Entry Wire Line
-	2050 4650 2150 4550
-Entry Wire Line
-	2050 4750 2150 4650
-Entry Wire Line
-	2050 4850 2150 4750
-Entry Wire Line
-	2050 4950 2150 4850
-Entry Wire Line
-	2050 5050 2150 4950
-Entry Wire Line
-	2050 5150 2150 5050
-Entry Bus Bus
-	1950 5350 2050 5250
-Wire Bus Line
-	1950 5350 1350 5350
-Wire Bus Line
-	1350 5450 4150 5450
-Text Label 1450 5350 0    50   ~ 0
-AB[0..23]
-Text Label 1450 5450 0    50   ~ 0
-DB[0..15]
-Text HLabel 1350 5350 0    50   UnSpc ~ 0
-AB[0..23]
-Text HLabel 1350 5450 0    50   UnSpc ~ 0
-DB[0..15]
 Wire Wire Line
 	3750 3550 4150 3550
 Wire Wire Line
@@ -530,40 +421,6 @@ Text Label 4150 4950 2    50   ~ 0
 DB14
 Text Label 4150 5050 2    50   ~ 0
 DB15
-Entry Wire Line
-	4250 3650 4150 3550
-Entry Wire Line
-	4250 3750 4150 3650
-Entry Wire Line
-	4250 3850 4150 3750
-Entry Wire Line
-	4250 3950 4150 3850
-Entry Wire Line
-	4250 4050 4150 3950
-Entry Wire Line
-	4250 4150 4150 4050
-Entry Wire Line
-	4250 4250 4150 4150
-Entry Wire Line
-	4250 4350 4150 4250
-Entry Wire Line
-	4250 4450 4150 4350
-Entry Wire Line
-	4250 4550 4150 4450
-Entry Wire Line
-	4250 4650 4150 4550
-Entry Wire Line
-	4250 4750 4150 4650
-Entry Wire Line
-	4250 4850 4150 4750
-Entry Wire Line
-	4250 4950 4150 4850
-Entry Wire Line
-	4250 5050 4150 4950
-Entry Wire Line
-	4250 5150 4150 5050
-Entry Bus Bus
-	4150 5450 4250 5350
 Entry Wire Line
 	4900 3450 4800 3550
 Entry Wire Line
@@ -646,30 +503,6 @@ Text HLabel 2150 2550 0    50   UnSpc ~ 0
 ~IRQ
 Text HLabel 2150 2650 0    50   UnSpc ~ 0
 ~IRQS
-Entry Wire Line
-	4250 2750 4350 2850
-Entry Wire Line
-	4250 2850 4350 2950
-Entry Wire Line
-	4250 2950 4350 3050
-Entry Wire Line
-	4250 3050 4350 3150
-Entry Wire Line
-	4250 3150 4350 3250
-Entry Wire Line
-	4250 3250 4350 3350
-Entry Wire Line
-	4250 3350 4350 3450
-Entry Wire Line
-	4250 3450 4350 3550
-Entry Bus Bus
-	4250 5550 4350 5450
-Wire Bus Line
-	4250 5550 1350 5550
-Text Label 1450 5550 0    50   ~ 0
-~IRQ[0..7]
-Text HLabel 1350 5550 0    50   UnSpc ~ 0
-~IRQ[0..7]
 Text HLabel 4150 1750 2    50   UnSpc ~ 0
 ~RSTHOLD
 Text HLabel 4150 1850 2    50   UnSpc ~ 0
@@ -747,14 +580,14 @@ WADDR[0..4]
 Text HLabel 1350 6050 0    50   UnSpc ~ 0
 RADDR[0..4]
 $Comp
-L alexios:CFT-2019-Bus P?
+L alexios:CFT-2019-Bus P1
 U 4 1 5D360875
 P 9350 4650
-AR Path="/5D34E810/5D360875" Ref="P?"  Part="4" 
+AR Path="/5D34E810/5D360875" Ref="P1"  Part="4" 
 AR Path="/5D36B851/5D360875" Ref="P?"  Part="4" 
 AR Path="/5F1DB2E8/5D360875" Ref="P?"  Part="4" 
 AR Path="/5D360875" Ref="P?"  Part="4" 
-F 0 "P?" H 9350 4817 50  0000 C CNN
+F 0 "P1" H 9350 4817 50  0000 C CNN
 F 1 "CFT-2019-Bus" H 9350 4726 50  0000 C CNN
 F 2 "alexios:CFT-2019-Card-Edge" H 9300 3750 50  0001 C CNN
 F 3 "" H 9300 3750 50  0001 C CNN
@@ -767,10 +600,10 @@ U 1 1 5D360869
 P 8900 4800
 AR Path="/5F67D4B5/5D360869" Ref="#PWR?"  Part="1" 
 AR Path="/5D360869" Ref="#PWR?"  Part="1" 
-AR Path="/5D34E810/5D360869" Ref="#PWR?"  Part="1" 
+AR Path="/5D34E810/5D360869" Ref="#PWR0111"  Part="1" 
 AR Path="/5D36B851/5D360869" Ref="#PWR?"  Part="1" 
 AR Path="/5F1DB2E8/5D360869" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 8900 4650 50  0001 C CNN
+F 0 "#PWR0111" H 8900 4650 50  0001 C CNN
 F 1 "+5V" H 8842 4837 50  0000 R CNN
 F 2 "" H 8900 4800 50  0001 C CNN
 F 3 "" H 8900 4800 50  0001 C CNN
@@ -783,10 +616,10 @@ U 1 1 5D360863
 P 8900 5350
 AR Path="/5F67D4B5/5D360863" Ref="#PWR?"  Part="1" 
 AR Path="/5D360863" Ref="#PWR?"  Part="1" 
-AR Path="/5D34E810/5D360863" Ref="#PWR?"  Part="1" 
+AR Path="/5D34E810/5D360863" Ref="#PWR0112"  Part="1" 
 AR Path="/5D36B851/5D360863" Ref="#PWR?"  Part="1" 
 AR Path="/5F1DB2E8/5D360863" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 8900 5100 50  0001 C CNN
+F 0 "#PWR0112" H 8900 5100 50  0001 C CNN
 F 1 "GND" H 8822 5313 50  0000 R CNN
 F 2 "" H 8900 5350 50  0001 C CNN
 F 3 "" H 8900 5350 50  0001 C CNN
@@ -799,10 +632,10 @@ U 1 1 5D360855
 P 9800 4800
 AR Path="/5F67D4B5/5D360855" Ref="#PWR?"  Part="1" 
 AR Path="/5D360855" Ref="#PWR?"  Part="1" 
-AR Path="/5D34E810/5D360855" Ref="#PWR?"  Part="1" 
+AR Path="/5D34E810/5D360855" Ref="#PWR0113"  Part="1" 
 AR Path="/5D36B851/5D360855" Ref="#PWR?"  Part="1" 
 AR Path="/5F1DB2E8/5D360855" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 9800 4650 50  0001 C CNN
+F 0 "#PWR0113" H 9800 4650 50  0001 C CNN
 F 1 "+5V" H 9815 4973 50  0000 C CNN
 F 2 "" H 9800 4800 50  0001 C CNN
 F 3 "" H 9800 4800 50  0001 C CNN
@@ -815,10 +648,10 @@ U 1 1 5D36084F
 P 9800 5350
 AR Path="/5F67D4B5/5D36084F" Ref="#PWR?"  Part="1" 
 AR Path="/5D36084F" Ref="#PWR?"  Part="1" 
-AR Path="/5D34E810/5D36084F" Ref="#PWR?"  Part="1" 
+AR Path="/5D34E810/5D36084F" Ref="#PWR0114"  Part="1" 
 AR Path="/5D36B851/5D36084F" Ref="#PWR?"  Part="1" 
 AR Path="/5F1DB2E8/5D36084F" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 9800 5100 50  0001 C CNN
+F 0 "#PWR0114" H 9800 5100 50  0001 C CNN
 F 1 "GND" H 9805 5177 50  0000 C CNN
 F 2 "" H 9800 5350 50  0001 C CNN
 F 3 "" H 9800 5350 50  0001 C CNN
@@ -870,14 +703,14 @@ Wire Wire Line
 Wire Wire Line
 	8350 3700 8800 3700
 $Comp
-L alexios:CFT-2019-Bus P?
+L alexios:CFT-2019-Bus P1
 U 3 1 5D3608F9
 P 9300 1650
-AR Path="/5D34E810/5D3608F9" Ref="P?"  Part="3" 
+AR Path="/5D34E810/5D3608F9" Ref="P1"  Part="3" 
 AR Path="/5D36B851/5D3608F9" Ref="P?"  Part="3" 
 AR Path="/5F1DB2E8/5D3608F9" Ref="P?"  Part="3" 
 AR Path="/5D3608F9" Ref="P?"  Part="3" 
-F 0 "P?" H 9300 1817 50  0000 C CNN
+F 0 "P1" H 9300 1817 50  0000 C CNN
 F 1 "CFT-2019-Bus" H 9300 1726 50  0000 C CNN
 F 2 "alexios:CFT-2019-Card-Edge" H 9250 750 50  0001 C CNN
 F 3 "" H 9250 750 50  0001 C CNN
@@ -1020,14 +853,6 @@ Text Label 7200 2250 2    50   ~ 0
 RSVD3
 Text Label 7200 2350 2    50   ~ 0
 RSVD4
-Entry Wire Line
-	7200 2050 7300 2150
-Entry Wire Line
-	7200 2150 7300 2250
-Entry Wire Line
-	7200 2250 7300 2350
-Entry Wire Line
-	7200 2350 7300 2450
 Entry Bus Bus
 	7200 6150 7300 6050
 Wire Bus Line
@@ -1141,9 +966,9 @@ L Device:CP_Small C?
 U 1 1 5D908E0A
 P 9800 5000
 AR Path="/5D908E0A" Ref="C?"  Part="1" 
-AR Path="/5D34E810/5D908E0A" Ref="C?"  Part="1" 
+AR Path="/5D34E810/5D908E0A" Ref="C8"  Part="1" 
 AR Path="/5F1DB2E8/5D908E0A" Ref="C?"  Part="1" 
-F 0 "C?" H 9888 5046 50  0000 L CNN
+F 0 "C8" H 9888 5046 50  0000 L CNN
 F 1 "47µF" H 9888 4955 50  0000 L CNN
 F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 9800 5000 50  0001 C CNN
 F 3 "~" H 9800 5000 50  0001 C CNN
@@ -1168,7 +993,7 @@ Wire Wire Line
 Wire Wire Line
 	8900 4800 8950 4800
 Wire Wire Line
-	8900 4800 8900 4900
+	8900 4800 8900 4850
 Connection ~ 8900 4800
 Connection ~ 8900 4900
 Wire Wire Line
@@ -1178,9 +1003,9 @@ L Device:CP_Small C?
 U 1 1 5D8FC46B
 P 8900 5000
 AR Path="/5D8FC46B" Ref="C?"  Part="1" 
-AR Path="/5D34E810/5D8FC46B" Ref="C?"  Part="1" 
+AR Path="/5D34E810/5D8FC46B" Ref="C7"  Part="1" 
 AR Path="/5F1DB2E8/5D8FC46B" Ref="C?"  Part="1" 
-F 0 "C?" H 8812 5046 50  0000 R CNN
+F 0 "C7" H 8812 5046 50  0000 R CNN
 F 1 "47µF" H 8812 4955 50  0000 R CNN
 F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 8900 5000 50  0001 C CNN
 F 3 "~" H 8900 5000 50  0001 C CNN
@@ -1210,8 +1035,134 @@ Wire Wire Line
 	6500 2550 6900 2550
 Wire Wire Line
 	6500 2450 6900 2450
-Wire Bus Line
-	7300 2150 7300 6050
+$Comp
+L alexios:CFT-2019-Bus P1
+U 1 1 5D36087B
+P 3150 1600
+AR Path="/5D34E810/5D36087B" Ref="P1"  Part="1" 
+AR Path="/5D36B851/5D36087B" Ref="P?"  Part="1" 
+AR Path="/5F1DB2E8/5D36087B" Ref="P?"  Part="1" 
+AR Path="/5D36087B" Ref="P?"  Part="1" 
+F 0 "P1" H 3150 1767 50  0000 C CNN
+F 1 "CFT-2019-Bus" H 3150 1676 50  0000 C CNN
+F 2 "alexios:CFT-2019-Card-Edge" H 3100 700 50  0001 C CNN
+F 3 "" H 3100 700 50  0001 C CNN
+	1    3150 1600
+	1    0    0    -1  
+$EndComp
+Text Label 4150 3450 2    50   ~ 0
+~IRQ7
+Text Label 4150 3350 2    50   ~ 0
+~IRQ6
+Text Label 4150 3250 2    50   ~ 0
+~IRQ5
+Text Label 4150 3150 2    50   ~ 0
+~IRQ4
+Text Label 4150 3050 2    50   ~ 0
+~IRQ3
+Wire Wire Line
+	3750 3450 4250 3450
+Wire Wire Line
+	3750 3350 4250 3350
+Wire Wire Line
+	3750 3250 4250 3250
+Wire Wire Line
+	3750 3150 4250 3150
+Wire Wire Line
+	3750 3050 4250 3050
+Wire Wire Line
+	3750 2950 4250 2950
+Text Label 4150 2950 2    50   ~ 0
+~IRQ2
+Wire Wire Line
+	3750 2850 4250 2850
+Text Label 4150 2850 2    50   ~ 0
+~IRQ1
+Text Label 4150 2750 2    50   ~ 0
+~IRQ0
+Wire Wire Line
+	3750 2750 4250 2750
+NoConn ~ 4250 2750
+NoConn ~ 4250 2850
+NoConn ~ 4250 2950
+NoConn ~ 4250 3050
+NoConn ~ 4250 3150
+NoConn ~ 4250 3250
+NoConn ~ 4250 3350
+NoConn ~ 4250 3450
+NoConn ~ 2150 2750
+NoConn ~ 2150 2850
+NoConn ~ 2150 2950
+NoConn ~ 2150 3050
+NoConn ~ 2150 3150
+NoConn ~ 2150 3250
+NoConn ~ 2150 3350
+NoConn ~ 2150 3450
+NoConn ~ 2150 3550
+NoConn ~ 2150 3650
+NoConn ~ 2150 3750
+NoConn ~ 2150 3850
+NoConn ~ 2150 3950
+NoConn ~ 2150 4050
+NoConn ~ 2150 4150
+NoConn ~ 2150 4250
+NoConn ~ 2150 4350
+NoConn ~ 2150 4450
+NoConn ~ 2150 4550
+NoConn ~ 2150 4650
+NoConn ~ 2150 4750
+NoConn ~ 2150 4850
+NoConn ~ 2150 4950
+NoConn ~ 2150 5050
+NoConn ~ 4150 3550
+NoConn ~ 4150 3650
+NoConn ~ 4150 3750
+NoConn ~ 4150 3850
+NoConn ~ 4150 3950
+NoConn ~ 4150 4050
+NoConn ~ 4150 4150
+NoConn ~ 4150 4250
+NoConn ~ 4150 4350
+NoConn ~ 4150 4450
+NoConn ~ 4150 4550
+NoConn ~ 4150 4650
+NoConn ~ 4150 4750
+NoConn ~ 4150 4850
+NoConn ~ 4150 4950
+NoConn ~ 4150 5050
+NoConn ~ 7200 2050
+NoConn ~ 7200 2150
+NoConn ~ 7200 2250
+NoConn ~ 7200 2350
+$Comp
+L power:PWR_FLAG #FLG0101
+U 1 1 5EB1EF8C
+P 8700 4850
+F 0 "#FLG0101" H 8700 4925 50  0001 C CNN
+F 1 "PWR_FLAG" V 8700 5150 50  0000 C CNN
+F 2 "" H 8700 4850 50  0001 C CNN
+F 3 "~" H 8700 4850 50  0001 C CNN
+	1    8700 4850
+	0    -1   -1   0   
+$EndComp
+Connection ~ 8900 4850
+Wire Wire Line
+	8900 4850 8900 4900
+$Comp
+L power:PWR_FLAG #FLG0102
+U 1 1 5EB3E4B0
+P 9850 5300
+F 0 "#FLG0102" H 9850 5375 50  0001 C CNN
+F 1 "PWR_FLAG" V 9850 5428 50  0000 L CNN
+F 2 "" H 9850 5300 50  0001 C CNN
+F 3 "~" H 9850 5300 50  0001 C CNN
+	1    9850 5300
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	9800 5300 9850 5300
+Wire Wire Line
+	8700 4850 8900 4850
 Wire Bus Line
 	7000 3950 7000 5750
 Wire Bus Line
@@ -1219,13 +1170,7 @@ Wire Bus Line
 Wire Bus Line
 	7200 2950 7200 5950
 Wire Bus Line
-	4350 2850 4350 5450
-Wire Bus Line
 	4800 3550 4800 5650
 Wire Bus Line
 	4700 1850 4700 5550
-Wire Bus Line
-	4250 3650 4250 5350
-Wire Bus Line
-	2050 2850 2050 5250
 $EndSCHEMATC

@@ -5,14 +5,14 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 4 6
-Title ""
+Title "Accumulator (AC)"
 Date ""
-Rev ""
+Rev "1941"
 Comp ""
-Comment1 ""
+Comment1 "REG"
 Comment2 ""
 Comment3 ""
-Comment4 ""
+Comment4 "reg_ac.v"
 $EndDescr
 Wire Wire Line
 	1100 1900 1550 1900
@@ -1638,8 +1638,6 @@ F 3 "" H 9550 6100 50  0001 C CNN
 	1    9550 6100
 	1    0    0    -1  
 $EndComp
-Text Notes 7100 6950 0    197  ~ 39
-Accumulator (AC)
 Text Notes 6650 7450 2    50   ~ 0
 ~ACCPL~ toggles the L register whenever the Accumulator wraps around.
 $Comp

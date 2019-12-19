@@ -5,14 +5,14 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 6 6
-Title ""
+Title "Data Register (DR)"
 Date ""
-Rev ""
+Rev "1941"
 Comp ""
-Comment1 ""
+Comment1 "REG"
 Comment2 ""
 Comment3 ""
-Comment4 ""
+Comment4 "reg_sp.v"
 $EndDescr
 Wire Wire Line
 	1100 1900 1550 1900
@@ -1241,8 +1241,6 @@ Entry Wire Line
 	6400 5850 6500 5750
 Entry Wire Line
 	6400 5750 6500 5650
-Text Notes 7100 6950 0    197  ~ 39
-Data Register (DR)
 $Comp
 L alexios:74HCT541 U?
 U 2 1 5D9C029D

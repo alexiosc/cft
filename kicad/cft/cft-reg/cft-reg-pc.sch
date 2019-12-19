@@ -5,14 +5,14 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 3 6
-Title ""
+Title "Program Counter (PC)"
 Date ""
-Rev ""
+Rev "1941"
 Comp ""
-Comment1 ""
+Comment1 "REG"
 Comment2 ""
 Comment3 ""
-Comment4 ""
+Comment4 "reg_pc.v"
 $EndDescr
 Wire Wire Line
 	1100 1900 1550 1900
@@ -1209,8 +1209,6 @@ Entry Wire Line
 	6400 5850 6500 5750
 Entry Wire Line
 	6400 5750 6500 5650
-Text Notes 7100 6950 0    197  ~ 39
-Program Counter (PC)
 $Comp
 L alexios:74HCT541 U?
 U 2 1 5DE45C63
@@ -1502,8 +1500,8 @@ Text Label 5950 6350 0    50   ~ 0
 FPD6
 Text Label 5950 6450 0    50   ~ 0
 FPD7
-Text Notes 9150 1300 2    50   ~ 0
-Note: only bits 10–15 are output.\nThey are used by the AGL to form\nPage-Local addresses.
+Text Notes 9150 1200 2    50   ~ 0
+Note: only bits 10–15 are output this way.\nThey are used by the AGL to form Page-Local addresses.
 NoConn ~ 3500 6500
 NoConn ~ 3500 6600
 Wire Bus Line
@@ -1630,6 +1628,7 @@ Text Label 4350 6350 0    50   ~ 0
 PC14
 Text Label 4350 6450 0    50   ~ 0
 PC15
+NoConn ~ 2250 1850
 Wire Bus Line
 	1100 650  6250 650 
 Wire Bus Line
