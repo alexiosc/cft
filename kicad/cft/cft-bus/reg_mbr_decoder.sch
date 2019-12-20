@@ -1282,6 +1282,113 @@ Text HLabel 5100 4100 2    50   Output ~ 0
 ~READ-FLAGS
 Text HLabel 5100 4200 2    50   Output ~ 0
 ~WRITE-FLAGS
+Text Label 4300 3650 0    50   ~ 0
+~READ-FLAGS
+Wire Wire Line
+	-3300 2900 -3650 2900
+Wire Wire Line
+	-3300 3000 -3650 3000
+Wire Wire Line
+	-3300 3100 -3650 3100
+Wire Wire Line
+	-3300 3500 -3650 3500
+Wire Wire Line
+	-3300 3600 -3650 3600
+Wire Wire Line
+	-3300 3700 -3650 3700
+Text Label -3650 3700 0    50   ~ 0
+~SYSDEV
+$Comp
+L alexios:74HC138 U?
+U 1 1 5E15D334
+P -2800 3300
+AR Path="/5F3EA987/5E15D334" Ref="U?"  Part="1" 
+AR Path="/5E15D334" Ref="U?"  Part="1" 
+AR Path="/61F95ACC/5E15D334" Ref="U?"  Part="1" 
+AR Path="/61F95ACC/63C9F04D/5E15D334" Ref="U?"  Part="1" 
+F 0 "U?" H -2800 2725 50  0000 C CNN
+F 1 "74HC138" H -2800 2634 50  0000 C CNN
+F 2 "alexios:SOIC-16" H -2800 3300 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS138" H -2800 3300 50  0001 C CNN
+	1    -2800 3300
+	1    0    0    -1  
+$EndComp
+Text Label -1850 2700 2    50   ~ 0
+~MBRCE
+Text Label -3650 3500 0    50   ~ 0
+AB3
+Text Label -3650 2900 0    50   ~ 0
+AB4
+Text Label -3650 3000 0    50   ~ 0
+AB5
+Text Label -3650 3100 0    50   ~ 0
+AB6
+Text Label -3650 3600 0    50   ~ 0
+AB7
+Text Notes -2750 3700 1    50   ~ 10
+IOADDR=00:00001xxx
+$Comp
+L alexios:74LVC1G32 U?
+U 1 1 5E1BB508
+P -1600 2400
+F 0 "U?" H -1550 2667 50  0000 C CNN
+F 1 "74LVC1G32" H -1550 2576 50  0000 C CNN
+F 2 "" H -1490 2380 50  0001 C CNN
+F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H -1490 2380 50  0001 C CNN
+	1    -1600 2400
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74LVC1G32 U?
+U 1 1 5E1BC971
+P -1600 2650
+F 0 "U?" H -1550 2475 50  0000 C CNN
+F 1 "74LVC1G32" H -1550 2384 50  0000 C CNN
+F 2 "" H -1490 2630 50  0001 C CNN
+F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H -1490 2630 50  0001 C CNN
+	1    -1600 2650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	-2300 2900 -2200 2900
+Wire Wire Line
+	-2200 2900 -2200 2700
+Text Label -1850 2350 2    50   ~ 0
+~R
+Wire Wire Line
+	-1300 2400 -950 2400
+Text Label -950 2400 2    50   ~ 0
+~RMBR
+Wire Wire Line
+	-1300 2650 -950 2650
+Text Label -950 2650 2    50   ~ 0
+~WMBR
+NoConn ~ -2300 3000
+NoConn ~ -2300 3100
+NoConn ~ -2300 3200
+NoConn ~ -2300 3300
+NoConn ~ -2300 3400
+NoConn ~ -2300 3500
+NoConn ~ -2300 3600
+Text Label -1850 2600 2    50   ~ 0
+~W
+Text Label -3650 2350 0    50   ~ 0
+~R
+Text Label -3650 2600 0    50   ~ 0
+~W
+Text Notes -3300 4100 0    50   ~ 0
+I/O Address: &008–&00F.
+Wire Wire Line
+	-3650 2350 -1800 2350
+Wire Wire Line
+	-3650 2600 -1800 2600
+Wire Wire Line
+	-2200 2700 -1800 2700
+Wire Wire Line
+	-1800 2450 -2200 2450
+Wire Wire Line
+	-2200 2450 -2200 2700
+Connection ~ -2200 2700
 Wire Bus Line
 	7250 1800 7250 2150
 Wire Bus Line
@@ -1292,6 +1399,6 @@ Wire Bus Line
 	2800 4550 2800 5400
 Wire Bus Line
 	2800 3300 2800 4150
-Text Label 4300 3650 0    50   ~ 0
-~READ-FLAGS
+Text Notes -3450 1450 0    198  ~ 0
+Remap to I/O space for simplicity!
 $EndSCHEMATC

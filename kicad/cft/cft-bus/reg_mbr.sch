@@ -1637,6 +1637,8 @@ Wire Wire Line
 	8700 5750 8350 5750
 Text Notes 7150 4950 0    198  ~ 0
 ←
+Text Notes 650  2300 0    198  ~ 0
+Remapping to I/O space, redo stuff!
 Wire Bus Line
 	8300 4550 8300 5450
 Wire Bus Line
