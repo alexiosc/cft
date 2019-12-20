@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:cft-ctl-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -1191,12 +1191,6 @@ Text HLabel 1100 1550 0    50   Input ~ 0
 UPC1
 Text HLabel 1100 1450 0    50   Input ~ 0
 UPC0
-Wire Bus Line
-	9550 1900 9550 4600
-Wire Bus Line
-	7400 1900 7400 4600
-Wire Bus Line
-	5250 1900 5250 4600
 $Comp
 L alexios:74HC541 U31
 U 1 1 5E3E4299
@@ -1208,4 +1202,10 @@ F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 6500 38
 	1    6500 3800
 	1    0    0    -1  
 $EndComp
+Wire Bus Line
+	9550 1900 9550 4600
+Wire Bus Line
+	7400 1900 7400 4600
+Wire Bus Line
+	5250 1900 5250 4600
 $EndSCHEMATC
