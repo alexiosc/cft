@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:cft-reg-cache
-EELAYER 30 0
+EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -1257,8 +1257,6 @@ Wire Wire Line
 	9250 4800 8700 4800
 Wire Wire Line
 	9250 4900 8700 4900
-NoConn ~ 8700 4800
-NoConn ~ 8700 4900
 Text Label 8700 4800 0    50   ~ 0
 ~RUEN
 Text Label 8700 4900 0    50   ~ 0
