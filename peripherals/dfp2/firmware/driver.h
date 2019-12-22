@@ -108,6 +108,10 @@ typedef struct {
 	uint8_t b[(1 << RBSIZE_BITS)];
 } ringbuf_t;
 
+#if RBMASK == 0
+#  error "RBMASK is zero"
+#endif
+
 extern ringbuf_t ringbuf;
 
 

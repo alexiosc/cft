@@ -1468,6 +1468,9 @@ int main(int argc, char *argv[])
 	disp_changes++;
 	timeout(20);
 	for(;;);
+
+
+
 	while ((c = getch()) != 'q') {
 		dt++;
 

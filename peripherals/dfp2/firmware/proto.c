@@ -341,10 +341,13 @@ void proto_loop()
 			wdt_reset();
 #ifdef AVR
 			uint8_t c;
+			//unsigned char cn = '0' + ringbuf_get(&c);
+			//serial_write(cn);
+			//continue;
 			if (ringbuf_get(&c) == ERR_SUCCESS) {
-				serial_write('<');
+				//serial_write('<');
 				proto_input(c);
-				serial_write('>');
+				//serial_write('>');
 			}
 #endif //AVR
 			

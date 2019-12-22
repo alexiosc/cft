@@ -35,7 +35,7 @@
 // #include "bus.h"
 // #include "buscmd.h"
 // #include "utils.h"
-//#include "serial.h"
+// #include "serial.h"
 // #include "output.h"
 // #include "switches.h"
 // #include "panel.h"
@@ -192,14 +192,22 @@ ringbuf_init()
 errno_t
 ringbuf_add(uint8_t c)
 {
-	// Bail out if the buffer is full
-	uint8_t new_ip = (rb.ip + 1) & RBMASK;
-	if (new_ip == rb.op) return ERR_RBFULL;
-	rb.b[rb.ip] = c;
-	rb.ip = new_ip;
-	// TODO: Move this back to the CFT console handler
-	//if (icr & ICR_TTY) set_irq6(1, 0);
-	return ERR_SUCCESS;
+	uint8_t retval = ERR_SUCCESS;
+	ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+		// Bail out if the buffer is full
+		uint8_t new_ip = (rb.ip + 1) & RBMASK;
+		if (new_ip == rb.op) {
+			serial_write('\t');
+			retval = ERR_RBFULL;
+		} else {
+			//serial_write('\t');
+			rb.b[rb.ip] = c;
+			rb.ip = new_ip;
+		}
+		// TODO: Move this back to the CFT console handler
+		//if (icr & ICR_TTY) set_irq6(1, 0);
+	}
+	return retval;
 }
 
 
@@ -881,7 +889,7 @@ hw_init()
 	serial_init();
 
 	// Wait for signals to stabilise.
-	_delay_ms(500);
+	_delay_ms(100);
 
 
 #warning "PORTED TO THIS POINT"
@@ -1100,6 +1108,15 @@ get_switch(uint8_t swidx)
 #define BPS BPSRATE(SERIAL_BPS)
 
 
+void USART_TxString_P(const unsigned char *data)
+{
+	while (pgm_read_byte(data) != 0x00) {
+		unsigned char c = pgm_read_byte(data++);
+		loop_until_bit_is_set(UCSR0A, UDRE0);
+		UDR0 = c;
+	}
+}
+
 inline void
 serial_init()
 {
@@ -1121,11 +1138,10 @@ serial_init()
 	UBRR0L = BPS & 0xff;
 	UBRR0H = (BPS >> 8) & 0xff;
 
-	// TODO: check that this can be safely removed.
-	report_pstr(PSTR("\033[0m\n\r\n\r"));
+	report_pstr(PSTR("\017\033[0m\n\r\n\r"));
 
         // We can enable interrupt handling now.
-	UCSR0B |= BV(RXCIE0);		// Enable RX complete interrupt
+	UCSR0B = 0b10011000;	// Enable interrupts on received characters.
 }
 
 
@@ -1145,7 +1161,6 @@ serial_write(unsigned char c)
 ISR(USART0_RX_vect)
 {
 	uint8_t c;
-	serial_write('{');
 
 	// Ensure we don't have any framing errors. If we do, ignore the received
 	// character.
@@ -1155,24 +1170,28 @@ ISR(USART0_RX_vect)
 		serial_write('X');
 		return;
 	}
-	
-	// Process the character directly from its register.
-	c = UDR0;
 
-	// Add it to the ring buffer. No niceties here.
-	uint8_t new_ip = (rb.ip + 1) & RBMASK;
-	if (new_ip != rb.op) {
-		rb.b[rb.ip] = c;
-		rb.ip = new_ip;
+	// The Atmega64 has a two byte FIFO. Pretend it's a big boy and query
+	// as if the buffer is arbitrary size.
+	while (UCSR0A & _BV(RXC0)) {
+		// Process the character directly from its register.
+		c = UDR0;
+
+		// Add it to the ring buffer. No niceties here at all, just
+		// stuff it in.
+		uint8_t new_ip = (rb.ip + 1) & RBMASK;
+		if (new_ip != rb.op) {
+			rb.b[rb.ip] = c;
+			rb.ip = new_ip;
+		}
 	}
-	serial_write('}');
 }
 
 
 
 ISR(BADISR_vect)
 {
-	for(;;) serial_write('?');
+	while(1) UDR0 = '?';
 }
 
 
@@ -2778,6 +2797,10 @@ _readcycle(bool_t is_io)
 
 ISR(TIMER0_COMPA_vect)
 {
+
+
+	return;
+	
 	static uint8_t pause = 0;
 	static uint8_t autorepeat = 45;
 	static uint8_t accelerate = 0;

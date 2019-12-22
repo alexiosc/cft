@@ -52,7 +52,6 @@ main(int argc, char **argv)
 {
 #ifdef AVR
 	// First things first, clear the WDRF and reset the watchdog
-	MCUSR = 0;
 	wdt_disable();
 	init();
 	for (;;) run();

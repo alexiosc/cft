@@ -75,6 +75,7 @@ static void
 uart_pty_flush_incoming(
 		uart_pty_t * p)
 {
+	//printf("*** %s\n", __func__);
 	while (p->xon && !uart_pty_fifo_isempty(&p->pty.out)) {
 		uint8_t byte = uart_pty_fifo_read(&p->pty.out);
 		TRACE(printf("uart_pty_flush_incoming send %02x\n", byte);)
@@ -130,10 +131,12 @@ uart_pty_xoff_hook(
 	p->xon = 0;
 }
 
+
+//int __ctr__  =0;
 static void *
-uart_pty_thread(
-		void * param)
+uart_pty_thread(void * param)
 {
+	//printf("*** %s\n", __func__);
 	uart_pty_t * p = (uart_pty_t*)param;
 
 	while (1) {
@@ -143,53 +146,60 @@ uart_pty_thread(
 		FD_ZERO(&write_set);
 
 		for (int ti = 0; ti < 2; ti++) if (p->port[ti].s) {
-			// read more only if buffer was flushed
-			if (p->port[ti].buffer_len == p->port[ti].buffer_done) {
-				FD_SET(p->port[ti].s, &read_set);
-				max = p->port[ti].s > max ? p->port[ti].s : max;
-			}
-			if (!uart_pty_fifo_isempty(&p->port[ti].in)) {
-				FD_SET(p->port[ti].s, &write_set);
-				max = p->port[ti].s > max ? p->port[ti].s : max;
-			}
+				// read more only if buffer was flushed
+				if (p->port[ti].buffer_len == p->port[ti].buffer_done) {
+					FD_SET(p->port[ti].s, &read_set);
+					max = p->port[ti].s > max ? p->port[ti].s : max;
+				}
+				if (!uart_pty_fifo_isempty(&p->port[ti].in)) {
+					FD_SET(p->port[ti].s, &write_set);
+					max = p->port[ti].s > max ? p->port[ti].s : max;
+				}
 		}
 
-		struct timeval timo = { 0, 500 };	// short, but not too short interval
+		struct timeval timo = { 0, 250000 };	// short, but not too short interval
 		int ret = select(max+1, &read_set, &write_set, NULL, &timo);
+		//printf("%d select() = %d\n", getpid(), ret);
 
-		if (!ret)
+		if (!ret) {
 			continue;
-		if (ret < 0)
+		}
+		if (ret < 0) {
 			break;
+		}
 
 		for (int ti = 0; ti < 2; ti++) if (p->port[ti].s) {
-			if (FD_ISSET(p->port[ti].s, &read_set)) {
-				ssize_t r = read(p->port[ti].s, p->port[ti].buffer, sizeof(p->port[ti].buffer)-1);
-				p->port[ti].buffer_len = r;
-				p->port[ti].buffer_done = 0;
-				write(p->logfd, p->port[ti].buffer, r);
-				TRACE(hdump("pty recv", p->port[ti].buffer, r);)
+				TRACE(printf("*** %s:%d\n", __func__,__LINE__);)
+				if (FD_ISSET(p->port[ti].s, &read_set)) {
+					ssize_t r = read(p->port[ti].s, p->port[ti].buffer, sizeof(p->port[ti].buffer)-1);
+					p->port[ti].buffer_len = r;
+					p->port[ti].buffer_done = 0;
+					write(p->logfd, p->port[ti].buffer, r);
+					//printf("+++ CTR=%d\n", ++__ctr__);
+					TRACE(hdump("pty recv", p->port[ti].buffer, r);)
+						}
+				if (p->port[ti].buffer_done < p->port[ti].buffer_len) {
+					// write them in fifo
+					while (p->port[ti].buffer_done < p->port[ti].buffer_len &&
+					       !uart_pty_fifo_isfull(&p->port[ti].out))
+						uart_pty_fifo_write(&p->port[ti].out,
+								    p->port[ti].buffer[p->port[ti].buffer_done++]);
+				}
+				if (FD_ISSET(p->port[ti].s, &write_set)) {
+					uint8_t buffer[512];
+					// write them in fifo
+					uint8_t * dst = buffer;
+					while (!uart_pty_fifo_isempty(&p->port[ti].in) &&
+					       dst < (buffer + sizeof(buffer))) {
+						*dst++ = uart_pty_fifo_read(&p->port[ti].in);
+						//printf("*** buf=%p", buffer);
+					}
+					size_t len = dst - buffer;
+					TRACE(size_t r =) write(p->port[ti].s, buffer, len);
+					write(p->logfd, buffer, len);
+					TRACE(hdump("pty send", buffer, r);)
+						}
 			}
-			if (p->port[ti].buffer_done < p->port[ti].buffer_len) {
-				// write them in fifo
-				while (p->port[ti].buffer_done < p->port[ti].buffer_len &&
-						!uart_pty_fifo_isfull(&p->port[ti].out))
-					uart_pty_fifo_write(&p->port[ti].out,
-							p->port[ti].buffer[p->port[ti].buffer_done++]);
-			}
-			if (FD_ISSET(p->port[ti].s, &write_set)) {
-				uint8_t buffer[512];
-				// write them in fifo
-				uint8_t * dst = buffer;
-				while (!uart_pty_fifo_isempty(&p->port[ti].in) &&
-						dst < (buffer + sizeof(buffer)))
-					*dst++ = uart_pty_fifo_read(&p->port[ti].in);
-				size_t len = dst - buffer;
-				TRACE(size_t r =) write(p->port[ti].s, buffer, len);
-				write(p->logfd, buffer, len);
-				TRACE(hdump("pty send", buffer, r);)
-			}
-		}
 		uart_pty_flush_incoming(p);
 	}
 	return NULL;
@@ -201,10 +211,9 @@ static const char * irq_names[IRQ_UART_PTY_COUNT] = {
 };
 
 void
-uart_pty_init(
-		struct avr_t * avr,
-		uart_pty_t * p)
+uart_pty_init(struct avr_t * avr, uart_pty_t * p)
 {
+	//printf("*** %s\n", __func__);
 	memset(p, 0, sizeof(*p));
 
 	p->avr = avr;
@@ -237,9 +246,9 @@ uart_pty_init(
 }
 
 void
-uart_pty_stop(
-		uart_pty_t * p)
+uart_pty_stop(uart_pty_t * p)
 {
+	//printf("*** %s\n", __func__);
 	puts(__func__);
 	pthread_kill(p->thread, SIGINT);
 	for (int ti = 0; ti < 2; ti++)
@@ -254,6 +263,7 @@ uart_pty_connect(
 		uart_pty_t * p,
 		char uart)
 {
+	//printf("*** %s\n", __func__);
 	// disable the stdio dump, as we are sending binary there
 	uint32_t f = 0;
 	avr_ioctl(p->avr, AVR_IOCTL_UART_GET_FLAGS(uart), &f);
@@ -268,10 +278,14 @@ uart_pty_connect(
 		avr_connect_irq(src, p->irq + IRQ_UART_PTY_BYTE_IN);
 		avr_connect_irq(p->irq + IRQ_UART_PTY_BYTE_OUT, dst);
 	}
-	if (xon)
+	if (xon) {
+		printf("*** XON\n");
 		avr_irq_register_notify(xon, uart_pty_xon_hook, p);
-	if (xoff)
+	}
+	if (xoff) {
+		printf("*** XOFF\n");
 		avr_irq_register_notify(xoff, uart_pty_xoff_hook, p);
+	}
 
 	char fname[4096];
 	snprintf(fname, sizeof(fname), "uart%c.log", uart);
@@ -298,7 +312,9 @@ uart_pty_connect(
 			"-e screen %s >/dev/null 2>&1 &",
 			p->tap.slavename);
 		system(cmd);
-	} else
-		printf("note: export SIMAVR_UART_XTERM=1 and install picocom to get a terminal\n");
+	} else {
+		printf("note: export SIMAVR_UART_XTERM=1 to get a terminal in an xterm\n");
+	}
 }
 
+// End of file.
