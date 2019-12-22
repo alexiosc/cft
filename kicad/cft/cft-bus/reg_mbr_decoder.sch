@@ -1389,6 +1389,8 @@ Wire Wire Line
 Wire Wire Line
 	-2200 2450 -2200 2700
 Connection ~ -2200 2700
+Text Notes -3650 1950 0    198  ~ 0
+Remap to I/O space for simplicity!
 Wire Bus Line
 	7250 1800 7250 2150
 Wire Bus Line
@@ -1399,6 +1401,4 @@ Wire Bus Line
 	2800 4550 2800 5400
 Wire Bus Line
 	2800 3300 2800 4150
-Text Notes -3450 1450 0    198  ~ 0
-Remap to I/O space for simplicity!
 $EndSCHEMATC
