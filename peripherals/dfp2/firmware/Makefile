@@ -8,11 +8,13 @@
 
 
 #SERIAL_BPS	= 	921600
-#SERIAL_BPS      =       500000
+SERIAL_BPS      =       500000
 #SERIAL_BPS	=	460800
 #SERIAL_BPS	=	230400
-SERIAL_BPS	=	38400
+#SERIAL_BPS	=	250000
+#SERIAL_BPS	=	38400
 #SERIAL_BPS	=	9600
+#SERIAL_BPS	=	115200
 VERSION		=	2.0
 THISYEAR	= 	"$(shell date +%Y)"
 BUFSIZE		=	512
@@ -36,6 +38,7 @@ PROG	=	dfp
 ###MCU_TARGET	=	atmega168
 ###MCU_TARGET	=	atmega328p
 MCU_TARGET     =	atmega64
+#MCU_TARGET     =	atmega128
 
 OPTIMIZE	=	-Os -mcall-prologues
 
@@ -131,8 +134,11 @@ fuses:		.stamp-fuses
 # (a) set lfuse.CKSEL = 0000 (external clock)
 # (b) set lfuse.SUT = 10 (wait for 64ms for clock to stabilise)
 
+# .stamp-fuses:
+# 		$(AVRDUDE) -s -u -v -U lfuse:w:0xff:m -U hfuse:w:0x99:m -U efuse:w:0xff:m
+
 .stamp-fuses:
-		$(AVRDUDE) -s -u -v -U lfuse:w:0xff:m -U hfuse:w:0x99:m -U efuse:w:0xff:m
+		$(AVRDUDE) -s -u -v -U lfuse:w:0xe0:m -U hfuse:w:0x99:m -U efuse:w:0xff:m
 
 # Fuses for 168
 #.stamp-fuses:
