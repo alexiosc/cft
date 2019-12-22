@@ -882,7 +882,7 @@ hw_init()
 	// Initialise switch debouncing and enable switch timer ISR
 	sw_init();
 	
-	// // Enable the watchdog.
+	// Enable the watchdog.
 	wdt_enable(WATCHDOG_TIMEOUT);
 
 	// Initialise serial port and interrupts
