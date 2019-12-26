@@ -60,6 +60,10 @@
 //   match those of the Skip & Branch Unit schematics.
 //
 //   Version 7f: (2019-11-10) added RRA and RLA instructions.
+//
+//   Version 7g: (2019-12-26) removed RMB and SMB instructions. Memory banking
+//   configuration can be done using I/O space transactions. This releases one
+//   internal address.
 
 
 // ADDRESSING MODES
@@ -160,7 +164,7 @@ cond uaddr:4;
 // 01100     MBP         MBP          
 // 01101     MBP+flags   MBP+flags    Pushed onto stack as a single 16-bit velue (for speed)
 // 01110     flags       flags        Pushed onto stack as a single 16-bit velue (for speed)
-// 01111     MBn         MBn          Loads/Stores MBn registers. IR[2:0] selects register.
+// 01111     xxxMBn      xxxMBn       no longer needed. (Loads/Stores MBn registers. IR[2:0] selects register.)
 // -------------------------------------------------------------------------------
 // 10000     ALU:ADD                  Read ADD result.
 // 10001     ALU:AND                  Read AND result.
@@ -537,8 +541,8 @@ start RST=1, INT=0, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 
 #define SRU    _INSTR(0000), I=1, R=0, SUBOP=000, COND=X, IDX=XX // All shifts and rolls are here.
 #define SKP    _INSTR(0000), I=1, R=0, SUBOP=001, COND=X, IDX=XX // Skips
-#define RMB    _INSTR(0000), I=1, R=0, SUBOP=010, COND=X, IDX=XX // Read a Memory Bank Register
-#define SMB    _INSTR(0000), I=1, R=0, SUBOP=011, COND=X, IDX=XX // Set an Memory Bank Register
+//#define RMB  _INSTR(0000), I=1, R=0, SUBOP=010, COND=X, IDX=XX // Read a Memory Bank Register
+//#define SMB  _INSTR(0000), I=1, R=0, SUBOP=011, COND=X, IDX=XX // Set an Memory Bank Register
 //#define      _INSTR(0000), I=1, R=0, SUBOP=100, COND=X, IDX=XX // This is available
 //#define      _INSTR(0000), I=1, R=0, SUBOP=101, COND=X, IDX=XX // This is available
 //#define      _INSTR(0000), I=1, R=0, SUBOP=110, COND=X, IDX=XX // This is available
@@ -1732,21 +1736,21 @@ start SKP, COND=0;
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-// MNEMONIC: RMB
-// NAME:     Read Memory Bank
-// DESC:     Transfers a Memory Bank Register to AC.
-// GROUP:    Transfers
-// MODE:     Literal (3-bit)
-// FLAGS:    *NZ---
-// FORMAT:   :----LLL
+// xMNEMONIC: RMB
+// xNAME:     Read Memory Bank
+// xDESC:     Transfers a Memory Bank Register to AC.
+// xGROUP:    Transfers
+// xMODE:     Literal (3-bit)
+// xFLAGS:    *NZ---
+// xFORMAT:   :----LLL
 //
 // Sets the AC to the value of the MBx register specified in the three least
 // significant bits of the operand. The value of the top eight bits is
 // currently undefined and should not be relied on.
 
-start RMB;
-      FETCH_IR;                                 // 00 IR ← mem[PC++]
-      SET(ac, mbn), END;			// 02 AC ← MB[IR0..IR2]
+// start RMB;
+//       FETCH_IR;                                 // 00 IR ← mem[PC++]
+//       SET(ac, mbn), END;			// 02 AC ← MB[IR0..IR2]
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1755,21 +1759,21 @@ start RMB;
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-// MNEMONIC: SMB
-// NAME:     Set Memory Bank
-// DESC:     Transfers the AC to a Memory Bank Register.
-// GROUP:    Transfers
-// MODE:     Literal (3-bit)
-// FLAGS:    -----
-// FORMAT:   :----LLL
+// xMNEMONIC: SMB
+// xNAME:     Set Memory Bank
+// xDESC:     Transfers the AC to a Memory Bank Register.
+// xGROUP:    Transfers
+// xMODE:     Literal (3-bit)
+// xFLAGS:    -----
+// xFORMAT:   :----LLL
 //
 // Sets the MBx register specified by the three least significant bits of the
 // operand to the value of AC, configuring a memory bank. The top 8 bits of the
 // AC are ignored.
 
-start SMB;
-      FETCH_IR;                                 // 00 IR ← mem[PC++]
-      SET(mbn, ac), END;			// 02 MB[IR0..02] ← AC
+// start SMB;
+//       FETCH_IR;                                 // 00 IR ← mem[PC++]
+//       SET(mbn, ac), END;			// 02 MB[IR0..02] ← AC
 
 
 ///////////////////////////////////////////////////////////////////////////////
