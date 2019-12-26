@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:cft-bus-cache
-EELAYER 30 0
+EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -1637,18 +1637,274 @@ Wire Wire Line
 	8700 5750 8350 5750
 Text Notes 7150 4950 0    198  ~ 0
 ←
-Text Notes 650  2300 0    198  ~ 0
-Remapping to I/O space, redo stuff!
+$Comp
+L alexios:IS61C64AL U?
+U 1 1 5EA76CCD
+P 2000 4100
+F 0 "U?" H 2000 5267 50  0000 C CNN
+F 1 "IS61C64AL" H 2000 5176 50  0000 C CNN
+F 2 "Package_SO:SOJ-28_10.16x23.49mm_P1.27mm" V 1900 4125 50  0001 C CNN
+F 3 "https://www.mouser.co.uk/datasheet/2/198/61C64AL-258428.pdf" H 1900 4200 50  0001 C CNN
+F 4 "870-IS61C64AL10JLITR; €1.11" H 1350 3050 50  0001 L CNN "AC:BOM-Mouser"
+	1    2000 4100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1500 3500 1450 3500
+Wire Wire Line
+	1450 3500 1450 3600
+$Comp
+L power:GND #PWR?
+U 1 1 5EA872CC
+P 1450 5000
+F 0 "#PWR?" H 1450 4750 50  0001 C CNN
+F 1 "GND" H 1455 4827 50  0000 C CNN
+F 2 "" H 1450 5000 50  0001 C CNN
+F 3 "" H 1450 5000 50  0001 C CNN
+	1    1450 5000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1500 3600 1450 3600
+Connection ~ 1450 3600
+Wire Wire Line
+	1450 3600 1450 3700
+Wire Wire Line
+	1500 3700 1450 3700
+Connection ~ 1450 3700
+Wire Wire Line
+	1450 3700 1450 3800
+Wire Wire Line
+	1500 3800 1450 3800
+Connection ~ 1450 3800
+Wire Wire Line
+	1450 3800 1450 3900
+Wire Wire Line
+	1500 3900 1450 3900
+Connection ~ 1450 3900
+Wire Wire Line
+	1450 3900 1450 4000
+Wire Wire Line
+	1500 4000 1450 4000
+Connection ~ 1450 4000
+Wire Wire Line
+	1450 4000 1450 4100
+Wire Wire Line
+	1500 4100 1450 4100
+Connection ~ 1450 4100
+Wire Wire Line
+	1450 4100 1450 4200
+Wire Wire Line
+	1500 4200 1450 4200
+Connection ~ 1450 4200
+Wire Wire Line
+	1450 4200 1450 4300
+Wire Wire Line
+	1500 4300 1450 4300
+Connection ~ 1450 4300
+Wire Wire Line
+	1450 4300 1450 4400
+Wire Wire Line
+	1500 4400 1450 4400
+Connection ~ 1450 4400
+Wire Wire Line
+	1450 4400 1450 4600
+Wire Wire Line
+	1500 4600 1450 4600
+Connection ~ 1450 4600
+Wire Wire Line
+	1450 4600 1450 5000
+Wire Wire Line
+	1500 4700 1050 4700
+Text Label 1050 4700 0    50   ~ 0
+~RMBR
+Wire Wire Line
+	1500 4800 1050 4800
+Text Label 1050 4800 0    50   ~ 0
+~WMBR
+Entry Wire Line
+	3000 3700 2900 3600
+Entry Wire Line
+	3000 3800 2900 3700
+Entry Wire Line
+	3000 3900 2900 3800
+Entry Wire Line
+	3000 4000 2900 3900
+Entry Wire Line
+	3000 3300 2900 3200
+Entry Wire Line
+	3000 3400 2900 3300
+Entry Wire Line
+	3000 3500 2900 3400
+Entry Wire Line
+	3000 3600 2900 3500
+Text Label 2600 3200 0    50   ~ 0
+AEXT0
+Text Label 2600 3300 0    50   ~ 0
+AEXT1
+Text Label 2600 3400 0    50   ~ 0
+AEXT2
+Text Label 2600 3500 0    50   ~ 0
+AEXT3
+Text Label 2600 3600 0    50   ~ 0
+AEXT4
+Text Label 2600 3700 0    50   ~ 0
+AEXT5
+Text Label 2600 3800 0    50   ~ 0
+AEXT6
+Text Label 2600 3900 0    50   ~ 0
+AEXT7
+Wire Wire Line
+	3500 3500 3100 3500
+Wire Wire Line
+	3500 3400 3100 3400
+Wire Wire Line
+	3500 3300 3100 3300
+Wire Wire Line
+	3500 3200 3100 3200
+Wire Wire Line
+	3500 3600 3100 3600
+Wire Wire Line
+	3500 3900 3100 3900
+Wire Wire Line
+	3500 3800 3100 3800
+Wire Wire Line
+	3500 3700 3100 3700
+Entry Wire Line
+	3000 3700 3100 3600
+Entry Wire Line
+	3000 3800 3100 3700
+Entry Wire Line
+	3000 3900 3100 3800
+Entry Wire Line
+	3000 4000 3100 3900
+Entry Wire Line
+	3000 3300 3100 3200
+Entry Wire Line
+	3000 3400 3100 3300
+Entry Wire Line
+	3000 3500 3100 3400
+Entry Wire Line
+	3000 3600 3100 3500
+Text Label 3400 3200 2    50   ~ 0
+AEXT0
+Text Label 3400 3300 2    50   ~ 0
+AEXT1
+Text Label 3400 3400 2    50   ~ 0
+AEXT2
+Text Label 3400 3500 2    50   ~ 0
+AEXT3
+Text Label 3400 3600 2    50   ~ 0
+AEXT4
+Text Label 3400 3700 2    50   ~ 0
+AEXT5
+Text Label 3400 3800 2    50   ~ 0
+AEXT6
+Text Label 3400 3900 2    50   ~ 0
+AEXT7
+Wire Wire Line
+	2500 3200 2900 3200
+Text Label 3000 4450 1    50   ~ 0
+AEXT[0..7]
+Entry Wire Line
+	4850 3900 4950 3800
+Entry Wire Line
+	4850 3800 4950 3700
+Entry Wire Line
+	4850 3700 4950 3600
+Entry Wire Line
+	4850 3600 4950 3500
+Entry Wire Line
+	4850 3500 4950 3400
+Entry Wire Line
+	4850 3400 4950 3300
+Entry Wire Line
+	4850 3300 4950 3200
+Entry Wire Line
+	4850 3200 4950 3100
+Text Label 4750 3200 2    50   ~ 0
+IBUS0
+Text Label 4750 3300 2    50   ~ 0
+IBUS1
+Text Label 4750 3400 2    50   ~ 0
+IBUS2
+Text Label 4750 3500 2    50   ~ 0
+IBUS3
+Text Label 4750 3600 2    50   ~ 0
+IBUS4
+Text Label 4750 3700 2    50   ~ 0
+IBUS5
+Text Label 4750 3800 2    50   ~ 0
+IBUS6
+Text Label 4750 3900 2    50   ~ 0
+IBUS7
+Wire Wire Line
+	2500 3500 2900 3500
+Wire Wire Line
+	2500 3400 2900 3400
+Wire Wire Line
+	2500 3300 2900 3300
+Wire Wire Line
+	2500 3600 2900 3600
+Wire Wire Line
+	2500 3900 2900 3900
+Wire Wire Line
+	2500 3800 2900 3800
+Wire Wire Line
+	2500 3700 2900 3700
+Wire Wire Line
+	4500 3200 4850 3200
+Wire Wire Line
+	4500 3300 4850 3300
+Wire Wire Line
+	4500 3400 4850 3400
+Wire Wire Line
+	4500 3500 4850 3500
+Wire Wire Line
+	4500 3600 4850 3600
+Wire Wire Line
+	4500 3700 4850 3700
+Wire Wire Line
+	4500 3800 4850 3800
+Wire Wire Line
+	4500 3900 4850 3900
+Wire Wire Line
+	1500 3200 1050 3200
+Wire Wire Line
+	1500 3300 1050 3300
+Wire Wire Line
+	1500 3400 1050 3400
+Text Label 1050 3200 0    50   ~ 0
+SEL0
+Text Label 1050 3300 0    50   ~ 0
+SEL1
+Text Label 1050 3400 0    50   ~ 0
+SEL2
+$Comp
+L alexios:74HC245 U?
+U 1 1 5E2BA1D9
+P 4000 3700
+F 0 "U?" H 4000 4467 50  0000 C CNN
+F 1 "74HC245" H 4000 4376 50  0000 C CNN
+F 2 "" H 4000 3750 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74HC245" H 4000 3750 50  0001 C CNN
+	1    4000 3700
+	1    0    0    -1  
+$EndComp
 Wire Bus Line
 	8300 4550 8300 5450
 Wire Bus Line
+	4950 2900 4950 3800
+Wire Bus Line
 	10050 4950 10050 5800
+Wire Bus Line
+	3000 3300 3000 4500
 Wire Bus Line
 	8300 950  8300 3500
 Wire Bus Line
-	10100 1250 10100 4350
-Wire Bus Line
 	6400 950  6400 5450
+Wire Bus Line
+	10100 1250 10100 4350
 Wire Bus Line
 	8200 1250 8200 6250
 $EndSCHEMATC

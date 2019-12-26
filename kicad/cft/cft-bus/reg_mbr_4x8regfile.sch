@@ -1,10 +1,10 @@
 EESchema Schematic File Version 4
 LIBS:cft-bus-cache
-EELAYER 30 0
+EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 14 14
+Sheet 11 14
 Title ""
 Date ""
 Rev ""
