@@ -15,16 +15,27 @@
 
 ### Memory Bank Registers
 
-* MB0: code executes using this.
-* MB1: call stack pointer.
-* MB2: memory reads (also page zero offset).
-* MB3–7: user defined.
+* MB0:   MBP: program bank.
+* MB1:   MBD: data bank.
+* MB2:   MBS: stack bank.
+* MB3:   MBZ: page zero bank.
+* MB4–7: MBZ: user defined.
 
 8-bit address extension. 16 MW total memory space.
 
 * Switch to 1 MW RAM chips, up to 4 per card. We'll never need all of them.
 * Allow some devices to be memory mapped. E.g. VDU card should be
   memory mapped too. It'll just take one 64 KW bank anyway.
+  
+The MBU has very complex access patterns unfortunately:
+
+| Addr                              | Sel      | Notes                                 |
+|-----------------------------------|----------|---------------------------------------|
+| I/O = 008–00F                     | AB[2:0]  | Read/write registers programmatically |
+| WADDR = 0110x                     | Always 0 | Write MBP from microcode              |
+| WADDR = 01111, IR=…00:00:00000000 | IR[2:0]  |                                       |
+
+
 
 
 ### I/O Space Mapped stuff
