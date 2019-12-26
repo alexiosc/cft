@@ -211,8 +211,8 @@ module reg_mbr_tb();
    always @(waddr, ir, ibus_real) begin
       if (waddr === 5'b01111) #30 begin
 	 mbn[ir[2:0] ] = ibus_real[7:0];
-	 // If MB0 to MB3 is written to, the MBR is enabled. Default values are
-	 // no longer put on AEXT.
+	 // After the first MBR register is written to, the MBR is
+	 // enabled. Default values are no longer put on AEXT.
 	 if (ir[2:0] < 3'b100) default_values = 0;
       end
 
