@@ -348,7 +348,7 @@ signal /END            = 1.......................; // Reset uaddr, go to fetch s
 // old MBR to write to the AR, it doesn't matter.
 #define IOWRITE(addr, data)        \
     write_ar_mbp, read_##addr;     \
-/MEM, /WEN, read_##data
+    /IO, /WEN, read_##data
 
 
 ///////////////////////////////////////////////////////////////////////////////
