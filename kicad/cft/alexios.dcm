@@ -1,5 +1,17 @@
 EESchema-DOCLIB  Version 2.0
 #
+$CMP 27C256
+D OTP EPROM 256 KiBit
+K OTP EPROM 256 KiBit
+F https://gr.mouser.com/datasheet/2/268/doc0014-1280163.pdf
+$ENDCMP
+#
+$CMP 27C256-PLCC
+D OTP EPROM 256 KiBit
+K OTP EPROM 256 KiBit
+F https://gr.mouser.com/datasheet/2/268/doc0014-1280163.pdf
+$ENDCMP
+#
 $CMP 29F040
 D Flash EEProm 512PP (TSOP 32) 3,3V
 K EEPROM FLASH 512KO
