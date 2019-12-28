@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:cft-ctl-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -1458,4 +1458,6 @@ Wire Wire Line
 Wire Wire Line
 	9500 1550 10600 1550
 NoConn ~ 8750 1750
+Text Notes 8550 5600 0    100  ~ 20
+Does the hazard created by this NOT gate cause\nactual disruption?
 $EndSCHEMATC
