@@ -55,7 +55,7 @@ What we need to generate:
 
 * A 3-bit register address SEL₀–SEL₂.
 * Read strobes.
-* Write strobes.g
+* Write strobes.
 * To connect the SRAM's bus to the right bus (IBUS, AEXT) depending on
   operation. AEXT should be the default because its timing is more
   critical.
