@@ -7,6 +7,7 @@ MC =			/usr/bin/mcasm
 MCIN =			microcode.mc
 MCPARSER = 		$(TOOLDIR)/parse_microcode.py
 MKALUROM =		$(TOOLDIR)/make_alu_rom
+MKMBUROM =		$(TOOLDIR)/make_mbu_rom
 MCFLAGS += 		-ecsa
 #MCFLAGS += 		-r
 
@@ -24,6 +25,9 @@ ALUROMBIN =		$(ALUROMLIST:.list=.bin)
 ALUBL =			$(ALUROM)-4bit-00.list $(ALUB)-6bit-00.list
 ALUBB =			$(ALUB)-4bit-00.bin $(ALUB)-6bit-00.bin
 
+MBUROMLIST =		$(BUILDDIR)/mbu-rom.list
+MBUROMBIN =		$(MBUROMLIST:.list=.bin)
+
 # ALUUL =		$(ALUU)-00.bin $(ALUU)-01.bin $(ALUU)-02.bin
 # ALUUB =		$(ALUU)-00.list $(ALUU)-01.list $(ALUU)-02.list
 
@@ -35,7 +39,7 @@ LISTS =			$(BASE)-00.list $(BASE)-01.list $(BASE)-02.list $(ALUBL) $(ALUUL)
 .PHONY: 		all clean microcode json disasm alu-rom
 
 #all:			microcode $(ALUUL) $(ALUUB) $(ALUBL) $(ALUBB) $(JSON) $(DISASM)
-all:			$(MCOUT) $(HDROUT) $(MIFOUT) $(VOUT) $(JSON) $(DISASM) $(ALUROMLIST) $(ALUROMBIN) 
+all:			$(MCOUT) $(HDROUT) $(MIFOUT) $(VOUT) $(JSON) $(DISASM) $(ALUROMLIST) $(ALUROMBIN) $(MBUROMLIST) $(MBUROMBIN) 
 
 clean:
 			rm -f *.h *.json
@@ -48,6 +52,9 @@ $(BASE)%:		$(MC) $(MCIN)
 
 $(BUILDDIR)/alu-rom%list $(BUILDDIR)/alu-rom%bin:
 			cd $(BUILDDIR); ../$(MKALUROM)
+
+$(BUILDDIR)/mbu-rom%list $(BUILDDIR)/mbu-rom%bin:
+			cd $(BUILDDIR); ../$(MKMBUROM)
 
 # $(MIF8kOUT):		$(MIFOUT)
 # 			egrep -v '^(0|10)' $< | sed -e 's/32768;/8192;/' -e 's/^11//' >$@

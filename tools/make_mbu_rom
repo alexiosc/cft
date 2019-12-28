@@ -1,0 +1,209 @@
+#!/usr/bin/env python3
+
+import os
+import sys
+import array
+import shutil
+import pprint
+import itertools
+import romtables
+import threading
+
+
+# 2019 MEMORY MANAGER (MBU) ROM
+#
+# Basically implements this truth table:
+#
+# | group | SYSDEV | AB        | R | W | RADDR | WADDR | IR              |   | ABSEL | ZEROSEL | WADDRSEL | IRSEL | RMBR | WMBR | SEL | IBUSEN | IBUSW |
+# |-------|--------|-----------|---|---|-------|-------|-----------------|---|-------|---------|----------|-------|------|------|-----|--------|-------|
+# | 1     | 0      | 0000 1aaa | 0 | x | xxxxx | xxxxx | xx xx xxxx xxxx |   | 0     |         |          |       | 0    | 1    | aaa | 0      | 0     |
+# | 1     | 0      | 0000 1aaa | x | 0 | xxxxx | xxxxx | xx xx xxxx xxxx |   | 0     |         |          |       | 1    | 0    | aaa | 0      | 1     |
+# |-------|--------|-----------|---|---|-------|-------|-----------------|---|-------|---------|----------|-------|------|------|-----|--------|-------|
+# | 2     | 1      | xxxx xxxx | x | x | 0110x | xxxxx | xx xx xxxx xxxx |   |       | 0       |          |       | 0    | 1    | 000 | 0      | 0     |
+# | 2     | 1      | xxxx xxxx | x | x | xxxxx | 0110x | xx xx xxxx xxxx |   |       | 0       |          |       | 1    | 0    | 000 | 0      | 1     |
+# |-------|--------|-----------|---|---|-------|-------|-----------------|---|-------|---------|----------|-------|------|------|-----|--------|-------|
+# | 3     | 1      | xxxx xxxx | x | x | xxxxx | 00100 | xx xx xxxx xxxx |   |       |         | 0        | 1     | 0    | 1    | 000 | 1      | 1     |
+# | 3     | 1      | xxxx xxxx | x | x | xxxxx | 00101 | xx xx xxxx xxxx |   |       |         | 0        | 1     | 0    | 1    | 001 | 1      | 1     |
+# | 3     | 1      | xxxx xxxx | x | x | xxxxx | 00110 | xx xx xxxx xxxx |   |       |         | 0        | 1     | 0    | 1    | 010 | 1      | 1     |
+# |-------|--------|-----------|---|---|-------|-------|-----------------|---|-------|---------|----------|-------|------|------|-----|--------|-------|
+# | 4     | 1      | xxxx xxxx | x | x | xxxxx | 00111 | 0x xx xxxx xxxx |   |       |         | 0        | 1     | 0    | 1    | 011 | 1      | 1     |
+# | 4     | 1      | xxxx xxxx | x | x | xxxxx | 00111 | 00 xx xxxx xxxx |   |       |         | 0        | 1     | 0    | 1    | 011 | 1      | 1     |
+# | 4     | 1      | xxxx xxxx | x | x | xxxxx | 00111 | 00 0x xxxx xxxx |   |       |         | 0        | 1     | 0    | 1    | 011 | 1      | 1     |
+# | 4     | 1      | xxxx xxxx | x | x | xxxxx | 00111 | 00 00 xxxx xxxx |   |       |         | 0        | 1     | 0    | 1    | 011 | 1      | 1     |
+# |-------|--------|-----------|---|---|-------|-------|-----------------|---|-------|---------|----------|-------|------|------|-----|--------|-------|
+# | 5     | 1      | xxxx xxxx | x | x | xxxxx | 00111 | 11 11 xxxx x000 |   |       |         | 1        | 0     | 0    | 1    | 000 | 1      | 1     |
+# | 5     | 1      | xxxx xxxx | x | x | xxxxx | 00111 | 11 11 xxxx x001 |   |       |         | 1        | 0     | 0    | 1    | 001 | 1      | 1     |
+# | 5     | 1      | xxxx xxxx | x | x | xxxxx | 00111 | 11 11 xxxx x010 |   |       |         | 1        | 0     | 0    | 1    | 010 | 1      | 1     |
+# | 5     | 1      | xxxx xxxx | x | x | xxxxx | 00111 | 11 11 xxxx x011 |   |       |         | 1        | 0     | 0    | 1    | 011 | 1      | 1     |
+# | 5     | 1      | xxxx xxxx | x | x | xxxxx | 00111 | 11 11 xxxx x100 |   |       |         | 1        | 0     | 0    | 1    | 100 | 1      | 1     |
+# | 5     | 1      | xxxx xxxx | x | x | xxxxx | 00111 | 11 11 xxxx x101 |   |       |         | 1        | 0     | 0    | 1    | 101 | 1      | 1     |
+# | 5     | 1      | xxxx xxxx | x | x | xxxxx | 00111 | 11 11 xxxx x110 |   |       |         | 1        | 0     | 0    | 1    | 110 | 1      | 1     |
+# | 5     | 1      | xxxx xxxx | x | x | xxxxx | 00111 | 11 11 xxxx x111 |   |       |         | 1        | 0     | 0    | 1    | 111 | 1      | 1     |
+
+class MbuRom(threading.Thread):
+    """Generate the MBU ROM. This works as a fairly complex function generator,
+    selecting among four sources for the register address. The ROM solves
+    issues with hazards and takes less space than all the gates needed for
+    this.
+    """
+    
+    def __init__(self, tt):
+        self.tt = tt
+
+
+    def calculate(self, a, b, c, xn_in, op, bits, mask, tt):
+        y, _1, carry_out, _2, _3, xn = self.ops[op](a & mask, b & mask, c, bits, mask)
+        # if carry_out:
+        #     print("*** a+b+c=0 L", a, b, c, y, carry_out)
+        return tt.make_vector(tt.outputs, y=y, xn=xn, l=carry_out)
+
+
+    def run(self):
+        """
+        Run the thread.
+        """
+        global debug
+        tt = self.tt
+
+        # Address format: op:3, cin:1, xn_in:1, b:6, a:6 (in bits)
+        prod = itertools.product(range(2),       # R
+                                 range(2),       # W
+                                 range(2),       # IOMBR
+                                 range(2),       # READ_MBP
+                                 range(2),       # READ_MBP+FLAGS
+                                 range(2),       # WRITE_MBx
+                                 range(2),       # WRITE_MBP
+                                 range(2),       # WRITE_MBP+FLAGS
+                                 range(4),       # WADDR[0:1]
+                                 range(16))      # IR[8:11]
+        for nr, nw, niombr, nrmbp1, nrmbp2, nwmbx, nwmbp1, nwmbp2, waddr, ir in prod:
+            # Calculate the outputs (all default to unasserted, 1)
+            nrmbr = 1
+            nwmbr = 1
+            nab = 1
+            nzero = 1
+            nwaddr = 1
+            nir = 1
+            nibusen = 1
+            nibusw = 1        # 1 = AEXT -> IBUS
+
+            if niombr == 0:
+                # Group 1: I/O space bus transactions
+                group = 1       # For debugging info only
+                nibusen = 0     # ...so enable the IBUS driver
+
+                if nr == 0 and nw == 0:
+                    # This is a hazard. Lay off the IBUS just in case!
+                    nibusen, nibusw = 1, 1
+                                        
+                elif nr == 0:
+                    # IN: read register
+                    nrmbr, nab = 0, 0
+                    nibusw = 0  # Reading from device involves *writing* to the IBUS
+                elif nw == 0:
+                    # OUT: write register
+                    nwmbr, nab = 0, 0
+
+            elif nrmbp1 == 0 or nrmbp2 == 0:
+                # Group 2: read the MBP (aka MB0, address is a constant zero)
+                group = 2
+                nrmbr, nzero = 0, 0
+                nibusw = 0 # Reading from device involves *writing* to the IBUS
+                
+            elif nwmbp1 == 0 or nwmbp2 == 0:
+                # Group 2: write the MBP (aka MB0, address is a constant zero)
+                group = 2
+                nwmbr, nzero = 0, 0
+                
+            elif waddr in (0, 1, 2):
+                # Group 3: WRITE_AR_MBX asserted (MB0–MB2). Read using the two
+                # least significant bits of the WADDR.
+                group = 3
+                nrmbr, nwaddr = 0, 0
+                
+            elif waddr == 3:
+                # Group 4: WRITE_AR_MBZ asserted (MB3). This also depends on the IR.
+                if ir != 0b1111:
+                    group = 4
+                    # I=0, R=0, or Page Zero address less than the auto-index
+                    # register area. Use WADDR like Group 3.
+                    nrmbr, nwaddr = 0, 0
+                else:
+                    group = 5
+                    nrmbr, nir = 0, 0
+
+            # Sanity check: exactly one of the address selection lines should be enabled.
+            mux_vec = (nab << 3) | (nzero << 2) | (nir << 1) | nwaddr
+            if mux_vec == 15:
+                # No multipexed outputs asserted. Let's select the IR by default.
+                nir = 0
+            elif mux_vec not in (14, 13, 11, 7):
+                debug = True
+
+            addr = tt.make_vector(tt.inputs, nr=nr, nw=nw, niombr=niombr, nrmbp1=nrmbp1, nrmbp2=nrmbp2,
+                                  nwmbx=nwmbx, nwmbp1=nwmbp1, nwmbp2=nwmbp2, waddr=waddr, ir=ir)
+            data = tt.make_vector(tt.outputs, nrmbr=nrmbr, nwmbr=nwmbr, nab=nab, nzero=nzero, nwaddr=nwaddr, nir=nir,
+                                  nibusen=nibusen, nibusw=nibusw)
+            tt.put(addr, data)
+        
+            if debug:
+                if (addr % 50) == 0:
+                    print("                _  _  _____  _____  _______  _____  _____  _______               ____  ____  __  ____  _____  __  ______ _____")
+                    print("G  ADDR  DATA | R  W  IOMBR  R~MBP  R~MBP+F  R~MBx  W~MBP  W~MBP+F  WADDR   IR | RMBR  WMBR  AB  ZERO  WADDR  IR  IBUSEN IBUSW")
+            
+                #print("G  ADDR  DATA | R  W  IOMBR  R~MBP  R~MBP+F  R~MBx  W~MBP  W~MBP+F  WADDR  IR   | RMBR  WMBR  AB  ZERO  WADDR  IR")
+                print("{}  {:04x}   {:02x}  | {}  {}    {}      {}       {}       {}      {}       {}       {:02b}  {:04b} |   {}     {}    {}    {}      {}    {}     {}     {}".format(
+                    group, addr, data,
+                    nr, nw, niombr, nrmbp1, nrmbp2, nwmbx, nwmbp1, nwmbp2, waddr, ir,
+                    nrmbr, nwmbr, nab, nzero, nwaddr, nir, nibusen, nibusw))                    
+            else:
+                tt.progress(dt=5)
+
+            # Bail out unless exactly one mux enable is asserted (the case for
+            # 15 was fixed above, so we whitelist it here).
+            if mux_vec not in (15, 14, 13, 11, 7):
+                print("Whoops, multiple multiplexer outputs asserted! (mux_vec={:04b})".format(mux_vec))
+                sys.exit(1)
+                
+
+
+###############################################################################
+#
+# GENERATE ROMS
+#
+###############################################################################
+
+# Set debugging.
+
+try:
+    debug = False
+    #debug = True
+    print("Generating MBU Register Selection ROM")
+    ROM = romtables.FunctionTable('nr nw niombr nrmbp1 nrmbp2 nwmbx nwmbp1 nwmbp2 waddr:2 ir:4',
+                                  'nrmbr nwmbr nab nzero nwaddr nir nibusen nibusw', singleROM=True)
+    MbuRom(ROM).run()
+    ROM.report()
+
+except KeyboardInterrupt:
+    print("Interrupted.")
+    sys.exit(1)
+
+except BrokenPipeError:
+    sys.exit(0)
+
+
+###############################################################################
+#
+# WRITE OUTPUT
+#
+###############################################################################
+
+print('Writing MBU ROM Verilog files.')
+ROM.writeVerilog('mbu-rom')
+os.rename('mbu-rom-00.list', 'mbu-rom.list')
+
+print('Writing MBU ROM binary images.')
+ROM.writeBin('mbu-rom-00')
+os.rename('mbu-rom-00-00.bin', 'mbu-rom.bin')
+
+# End of file.
