@@ -4,7 +4,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 1 9
+Sheet 1 15
 Title "CFT Homebrew 16-bit Minicomputer"
 Date ""
 Rev ""
@@ -1189,4 +1189,10 @@ Wire Bus Line
 	-3300 1950 -3300 3450
 Wire Bus Line
 	15900 4850 15900 6450
+$Sheet
+S 4200 -1350 1750 950 
+U 6005A9A5
+F0 "Sheet6005A9A4" 50
+F1 "reg_mbr_old.sch" 50
+$EndSheet
 $EndSCHEMATC
