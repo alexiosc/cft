@@ -942,7 +942,8 @@ F10 "~READ-FLAGS" O R 6800 3300 50
 F11 "~WRITE-FLAGS" O R 6800 3200 50 
 F12 "~R" I R 6800 3100 50 
 F13 "~W" I R 6800 3000 50 
-F14 "IR[0..15]" I L 5650 3200 50 
+F14 "IR[0..11]" I L 5650 3200 50 
+F15 "~SYSDEV" I L 5650 3100 50 
 $EndSheet
 Wire Wire Line
 	5650 3200 5050 3200
@@ -1188,11 +1189,11 @@ Text Label -3200 1650 0    50   ~ 0
 Text Notes 950  2450 0    198  ~ 0
 Microcode Addressing under review, check\nwith microcode.mc and Verilog!
 Wire Bus Line
-	-3300 1950 -3300 3450
-Wire Bus Line
 	-3300 700  -3300 1450
 Wire Bus Line
-	15900 4850 15900 6450
-Wire Bus Line
 	15900 2700 15900 3350
+Wire Bus Line
+	-3300 1950 -3300 3450
+Wire Bus Line
+	15900 4850 15900 6450
 $EndSCHEMATC
