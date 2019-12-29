@@ -4,7 +4,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 9 15
+Sheet 9 9
 Title "Memory Bank Unit"
 Date ""
 Rev ""
@@ -2195,7 +2195,7 @@ $EndComp
 Wire Wire Line
 	8400 1800 8400 2250
 Text HLabel 3400 4850 0    50   Input ~ 0
-IR[0..15]
+IR[0..11]
 Wire Bus Line
 	3400 4850 4300 4850
 Entry Bus Bus
