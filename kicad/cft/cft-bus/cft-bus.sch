@@ -4,7 +4,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 1 15
+Sheet 1 9
 Title "CFT Homebrew 16-bit Minicomputer"
 Date ""
 Rev ""
@@ -53,7 +53,7 @@ F13 "FPD[0..7]" T R 6800 4450 50
 $EndSheet
 Text Notes 6000 4350 0    70   ~ 14
 Verilog
-Text Notes 6300 3100 0    70   ~ 14
+Text Notes 6000 3150 0    70   ~ 14
 Verilog
 Text Notes 3700 5650 0    70   ~ 14
 Verilog
@@ -929,14 +929,20 @@ $Sheet
 S 5650 2700 1150 750 
 U 61F95ACC
 F0 "Memory Bank Registers (MBR)" 50
-F1 "reg_mbr.sch" 50
+F1 "mbu.sch" 50
 F2 "~RESET" I L 5650 2800 50 
 F3 "AEXT[0..7]" O R 6800 2900 50 
 F4 "WADDR[0..4]" I L 5650 3000 50 
-F5 "IR[0..11]" I L 5650 3200 50 
-F6 "~FPRAM~∕ROM" I L 5650 3300 50 
-F7 "IBUS[0..7]" T R 6800 2800 50 
-F8 "RADDR[0..4]" I L 5650 2900 50 
+F5 "~FPRAM~∕ROM" I L 5650 3300 50 
+F6 "IBUS[0..7]" T R 6800 2800 50 
+F7 "RADDR[0..4]" I L 5650 2900 50 
+F8 "AB[0..7]" I R 6800 3400 50 
+F9 "WSTB" I L 5650 3400 50 
+F10 "~READ-FLAGS" O R 6800 3300 50 
+F11 "~WRITE-FLAGS" O R 6800 3200 50 
+F12 "~R" I R 6800 3100 50 
+F13 "~W" I R 6800 3000 50 
+F14 "IR[0..15]" I L 5650 3200 50 
 $EndSheet
 Wire Wire Line
 	5650 3200 5050 3200
@@ -1182,17 +1188,11 @@ Text Label -3200 1650 0    50   ~ 0
 Text Notes 950  2450 0    198  ~ 0
 Microcode Addressing under review, check\nwith microcode.mc and Verilog!
 Wire Bus Line
-	-3300 700  -3300 1450
-Wire Bus Line
-	15900 2700 15900 3350
-Wire Bus Line
 	-3300 1950 -3300 3450
 Wire Bus Line
+	-3300 700  -3300 1450
+Wire Bus Line
 	15900 4850 15900 6450
-$Sheet
-S 4200 -1350 1750 950 
-U 6005A9A5
-F0 "Sheet6005A9A4" 50
-F1 "reg_mbr_old.sch" 50
-$EndSheet
+Wire Bus Line
+	15900 2700 15900 3350
 $EndSCHEMATC
