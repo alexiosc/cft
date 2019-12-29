@@ -366,7 +366,7 @@ Wire Wire Line
 Wire Wire Line
 	2100 2050 1800 2050
 Wire Wire Line
-	2100 2150 1800 2150
+	2100 2150 1250 2150
 Text Label 1800 2150 0    50   ~ 0
 ~SYSDEV
 $Comp
@@ -452,7 +452,7 @@ Text Label 3150 4350 0    50   ~ 0
 Text Label 3150 4450 0    50   ~ 0
 ~WRITE-FLAGS
 Text Label 3150 5800 0    50   ~ 0
-~WRITE-MBx-AR
+~WRITE-AR-MBx
 Entry Wire Line
 	1700 5600 1800 5700
 Entry Wire Line
@@ -494,7 +494,7 @@ Text Label 4300 1450 0    50   ~ 0
 Text Label 4300 1350 0    50   ~ 0
 ~IOMBR
 Text Label 4300 1850 0    50   ~ 0
-~WRITE-MBx-AR
+~WRITE-AR-MBx
 $Comp
 L alexios:27C256 U?
 U 1 1 5EDE7DE9
@@ -1003,11 +1003,11 @@ Wire Wire Line
 	3100 4250 4100 4250
 Wire Wire Line
 	3100 4350 4200 4350
-Text HLabel 6200 7050 2    50   Output ~ 0
+Text HLabel 6050 7100 2    50   Output ~ 0
 ~READ-FLAGS
 Wire Wire Line
 	3100 3200 4000 3200
-Text HLabel 6200 7150 2    50   Output ~ 0
+Text HLabel 6050 7200 2    50   Output ~ 0
 ~WRITE-FLAGS
 Wire Wire Line
 	4100 1650 5000 1650
@@ -1145,63 +1145,63 @@ $EndComp
 $Comp
 L alexios:74HC138 U?
 U 2 1 5F84B8BC
-P 1300 1850
+P 1300 1700
 AR Path="/5F3EA987/5F84B8BC" Ref="U?"  Part="1" 
 AR Path="/5F84B8BC" Ref="U?"  Part="1" 
 AR Path="/61F95ACC/5F84B8BC" Ref="U1"  Part="2" 
 AR Path="/61F95ACC/63C9F04D/5F84B8BC" Ref="U?"  Part="1" 
-F 0 "U1" H 1200 2150 50  0000 L CNN
-F 1 "74HC138" H 1150 1600 50  0000 L CNN
-F 2 "alexios:SOIC-16" H 1300 1850 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 1300 1850 50  0001 C CNN
-	2    1300 1850
+F 0 "U1" H 1200 2000 50  0000 L CNN
+F 1 "74HC138" H 1150 1450 50  0000 L CNN
+F 2 "alexios:SOIC-16" H 1300 1700 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 1300 1700 50  0001 C CNN
+	2    1300 1700
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR?
 U 1 1 5F84D2EB
-P 950 1950
+P 950 1800
 AR Path="/5F84D2EB" Ref="#PWR?"  Part="1" 
 AR Path="/5F3EA987/5F84D2EB" Ref="#PWR?"  Part="1" 
 AR Path="/61F95ACC/5F84D2EB" Ref="#PWR02"  Part="1" 
-F 0 "#PWR02" H 950 1700 50  0001 C CNN
-F 1 "GND" H 955 1777 50  0000 C CNN
-F 2 "" H 950 1950 50  0001 C CNN
-F 3 "" H 950 1950 50  0001 C CNN
-	1    950  1950
+F 0 "#PWR02" H 950 1550 50  0001 C CNN
+F 1 "GND" H 955 1627 50  0000 C CNN
+F 2 "" H 950 1800 50  0001 C CNN
+F 3 "" H 950 1800 50  0001 C CNN
+	1    950  1800
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:+5V #PWR?
 U 1 1 5F84D2F1
-P 950 1750
+P 950 1600
 AR Path="/5F84D2F1" Ref="#PWR?"  Part="1" 
 AR Path="/5F3EA987/5F84D2F1" Ref="#PWR?"  Part="1" 
 AR Path="/61F95ACC/5F84D2F1" Ref="#PWR01"  Part="1" 
-F 0 "#PWR01" H 950 1600 50  0001 C CNN
-F 1 "+5V" H 965 1923 50  0000 C CNN
-F 2 "" H 950 1750 50  0001 C CNN
-F 3 "" H 950 1750 50  0001 C CNN
-	1    950  1750
+F 0 "#PWR01" H 950 1450 50  0001 C CNN
+F 1 "+5V" H 965 1773 50  0000 C CNN
+F 2 "" H 950 1600 50  0001 C CNN
+F 3 "" H 950 1600 50  0001 C CNN
+	1    950  1600
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:C_Small C?
 U 1 1 5F84D2F7
-P 950 1850
+P 950 1700
 AR Path="/5CC0D65F/5F84D2F7" Ref="C?"  Part="1" 
 AR Path="/5F84D2F7" Ref="C?"  Part="1" 
 AR Path="/5F3EA987/5F84D2F7" Ref="C?"  Part="1" 
 AR Path="/61F95ACC/5F84D2F7" Ref="C1"  Part="1" 
-F 0 "C1" H 859 1896 50  0000 R CNN
-F 1 "100nF" H 859 1805 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 950 1850 50  0001 C CNN
-F 3 "~" H 950 1850 50  0001 C CNN
-	1    950  1850
+F 0 "C1" H 859 1746 50  0000 R CNN
+F 1 "100nF" H 859 1655 50  0000 R CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 950 1700 50  0001 C CNN
+F 3 "~" H 950 1700 50  0001 C CNN
+	1    950  1700
 	1    0    0    -1  
 $EndComp
-Connection ~ 950  1750
-Connection ~ 950  1950
+Connection ~ 950  1600
+Connection ~ 950  1800
 $Comp
 L alexios:74HC138 U?
 U 2 1 5F8C5E3C
@@ -1538,15 +1538,15 @@ Text Label 6550 1750 2    50   ~ 0
 ~IBUSEN
 NoConn ~ 3100 4550
 Wire Wire Line
-	4000 7050 6200 7050
+	4000 7100 6050 7100
 Wire Wire Line
-	6200 7150 3900 7150
+	6050 7200 3900 7200
 Wire Wire Line
-	3900 4450 3900 7150
+	3900 4450 3900 7200
 Wire Wire Line
-	4000 3200 4000 7050
+	4000 3200 4000 7100
 NoConn ~ 3100 3300
-Text Notes 6750 7300 2    50   ~ 0
+Text Notes 5400 7000 0    50   ~ 0
 Convenience outputs to the Flag Unit
 $Comp
 L Device:LED_ALT D1
@@ -1855,7 +1855,6 @@ Text Notes 9200 6450 0    50   ~ 10
 Note
 Text Notes 9200 6650 0    50   ~ 0
 Signals IBUS[8..15] are purposefully not driven\nhere! They are handled by the flag unit.
-NoConn ~ 2650 7000
 Text Label 2650 7300 0    50   ~ 0
 ~DIS
 $Comp
@@ -2459,6 +2458,21 @@ Connection ~ 7050 5650
 Connection ~ 7050 5450
 Wire Wire Line
 	7050 5450 7050 5650
+Text HLabel 1250 2150 0    50   Input ~ 0
+~SYSDEV
+Text HLabel 6050 7300 2    50   Output ~ 0
+~READ-MBP+FLAGS
+Text HLabel 6050 7400 2    50   Output ~ 0
+~WRITE-MBP+FLAGS
+Wire Wire Line
+	6050 7300 4900 7300
+Wire Wire Line
+	6050 7400 4900 7400
+Text Label 4900 7300 0    50   ~ 0
+~READ-MBP+FLAGS
+Text Label 4900 7400 0    50   ~ 0
+~WRITE-MBP+FLAGS
+NoConn ~ 2650 7000
 Wire Bus Line
 	4400 4950 4400 6200
 Wire Bus Line
