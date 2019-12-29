@@ -20,10 +20,8 @@
 `ifndef mbu_v
 `define mbu_v
 
-`include "comparator.v"
+`include "rom.v"
 `include "demux.v"
-`include "mux.v"
-`include "regfile.v"
 `include "buffer.v"
 `include "flipflop.v"
 
@@ -125,6 +123,22 @@ module mbu (nreset,
    // If the RAM/ROM switch is in the ROM position (high), default all MBx
    // registers to &80 to address ROM.
    buffer_125q buf_aext7 (.a(nfpram_fprom), .oe(ndis), .y(aext[7]));
+
+
+   ///////////////////////////////////////////////////////////////////////////////
+   // 
+   // CONTROL ROM
+   //
+   ///////////////////////////////////////////////////////////////////////////////
+
+   // The ROM saves us using a ‘more modern’ (cough) PAL device. If the ROM
+   // isn't fast enough, a 20V10 PAL will need to replace it.
+   
+   wire [14:0] 	addr;
+   wire [7:0] 	data;
+
+   rom #(15, 45, "../microcode/build/mbu-rom.list") rom_ctl (.a(addr), .d(data), .nce(1'b0), .noe(1'b0));
+   
    
 endmodule // mbu
 `endif //  `ifndef mbu_v
