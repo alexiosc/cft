@@ -66,7 +66,8 @@ class MbuRom(threading.Thread):
         tt = self.tt
 
         # Address format: op:3, cin:1, xn_in:1, b:6, a:6 (in bits)
-        prod = itertools.product(range(2),       # R
+        prod = itertools.product(range(2),       # DIS(able)
+                                 range(2),       # R
                                  range(2),       # W
                                  range(2),       # IOMBR
                                  range(2),       # READ_MBP
@@ -76,7 +77,7 @@ class MbuRom(threading.Thread):
                                  range(2),       # WRITE_MBP+FLAGS
                                  range(4),       # WADDR[0:1]
                                  range(16))      # IR[8:11]
-        for nr, nw, niombr, nrmbp1, nrmbp2, nwmbx, nwmbp1, nwmbp2, waddr, ir in prod:
+        for ndis, nr, nw, niombr, nrmbp1, nrmbp2, nwmbx, nwmbp1, nwmbp2, waddr, ir in prod:
             # Calculate the outputs (all default to unasserted, 1)
             nrmbr = 1
             nwmbr = 1
@@ -87,7 +88,14 @@ class MbuRom(threading.Thread):
             nibusen = 1
             nibusw = 1        # 1 = AEXT -> IBUS
 
-            if niombr == 0:
+            if ndis == 0:
+                # Just after reset, initialise the MBU by disabling the
+                # register file. (outputs will be pulled low, except for AEXT7
+                # which will echo the setting of FPRAM/ROM switch)
+                group = 'R'
+                nzero = 0       # Always select zeroes
+
+            elif niombr == 0:
                 # Group 1: I/O space bus transactions
                 group = 1       # For debugging info only
                 nibusen = 0     # ...so enable the IBUS driver
@@ -133,14 +141,23 @@ class MbuRom(threading.Thread):
                     nrmbr, nir = 0, 0
 
             # Sanity check: exactly one of the address selection lines should be enabled.
+            failed = False
             mux_vec = (nab << 3) | (nzero << 2) | (nir << 1) | nwaddr
             if mux_vec == 15:
                 # No multipexed outputs asserted. Let's select the IR by default.
                 nir = 0
             elif mux_vec not in (14, 13, 11, 7):
                 debug = True
+                failed = True
+                print("Whoops, multiple multiplexer outputs asserted! (mux_vec={:04b})".format(mux_vec))
+            elif nrmbr == 0 and nwmbr == 0:
+                debug = True
+                failed = True
+                print("Whoops, nRMBR and nWMBR asserted simultaneously.")
 
-            addr = tt.make_vector(tt.inputs, nr=nr, nw=nw, niombr=niombr, nrmbp1=nrmbp1, nrmbp2=nrmbp2,
+            addr = tt.make_vector(tt.inputs, ndis=ndis,
+                                  nr=nr, nw=nw,
+                                  niombr=niombr, nrmbp1=nrmbp1, nrmbp2=nrmbp2,
                                   nwmbx=nwmbx, nwmbp1=nwmbp1, nwmbp2=nwmbp2, waddr=waddr, ir=ir)
             data = tt.make_vector(tt.outputs, nrmbr=nrmbr, nwmbr=nwmbr, nab=nab, nzero=nzero, nwaddr=nwaddr, nir=nir,
                                   nibusen=nibusen, nibusw=nibusw)
@@ -148,21 +165,20 @@ class MbuRom(threading.Thread):
         
             if debug:
                 if (addr % 50) == 0:
-                    print("                _  _  _____  _____  _______  _____  _____  _______               ____  ____  __  ____  _____  __  ______ _____")
-                    print("G  ADDR  DATA | R  W  IOMBR  R~MBP  R~MBP+F  R~MBx  W~MBP  W~MBP+F  WADDR   IR | RMBR  WMBR  AB  ZERO  WADDR  IR  IBUSEN IBUSW")
+                    print("                ___  _  _  _____  _____  _______  _____  _____  _______               ____  ____  __  ____  _____  __  ______ _____")
+                    print("G  ADDR  DATA | DIS  R  W  IOMBR  R~MBP  R~MBP+F  R~MBx  W~MBP  W~MBP+F  WADDR   IR | RMBR  WMBR  AB  ZERO  WADDR  IR  IBUSEN IBUSW")
             
-                #print("G  ADDR  DATA | R  W  IOMBR  R~MBP  R~MBP+F  R~MBx  W~MBP  W~MBP+F  WADDR  IR   | RMBR  WMBR  AB  ZERO  WADDR  IR")
+                #print("G  ADDR  DATA | DIS  R  W  IOMBR  R~MBP  R~MBP+F  R~MBx  W~MBP  W~MBP+F  WADDR  IR   | RMBR  WMBR  AB  ZERO  WADDR  IR")
                 print("{}  {:04x}   {:02x}  | {}  {}    {}      {}       {}       {}      {}       {}       {:02b}  {:04b} |   {}     {}    {}    {}      {}    {}     {}     {}".format(
                     group, addr, data,
                     nr, nw, niombr, nrmbp1, nrmbp2, nwmbx, nwmbp1, nwmbp2, waddr, ir,
-                    nrmbr, nwmbr, nab, nzero, nwaddr, nir, nibusen, nibusw))                    
+                    ndis, nrmbr, nwmbr, nab, nzero, nwaddr, nir, nibusen, nibusw))
             else:
                 tt.progress(dt=5)
 
-            # Bail out unless exactly one mux enable is asserted (the case for
-            # 15 was fixed above, so we whitelist it here).
-            if mux_vec not in (15, 14, 13, 11, 7):
-                print("Whoops, multiple multiplexer outputs asserted! (mux_vec={:04b})".format(mux_vec))
+            # Bail out if we've failed a sanity check. We wait until this
+            # point so the address and data vectors can be printed out.
+            if failed:
                 sys.exit(1)
                 
 
@@ -177,9 +193,9 @@ class MbuRom(threading.Thread):
 
 try:
     debug = False
-    #debug = True
+    debug = True
     print("Generating MBU Register Selection ROM")
-    ROM = romtables.FunctionTable('nr nw niombr nrmbp1 nrmbp2 nwmbx nwmbp1 nwmbp2 waddr:2 ir:4',
+    ROM = romtables.FunctionTable('ndis nr nw niombr nrmbp1 nrmbp2 nwmbx nwmbp1 nwmbp2 waddr:2 ir:4',
                                   'nrmbr nwmbr nab nzero nwaddr nir nibusen nibusw', singleROM=True)
     MbuRom(ROM).run()
     ROM.report()
