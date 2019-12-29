@@ -193,7 +193,7 @@ class MbuRom(threading.Thread):
 
 try:
     debug = False
-    debug = True
+    #debug = True
     print("Generating MBU Register Selection ROM")
     ROM = romtables.FunctionTable('ndis nr nw niombr nrmbp1 nrmbp2 nwmbx nwmbp1 nwmbp2 waddr:2 ir:4',
                                   'nrmbr nwmbr nab nzero nwaddr nir nibusen nibusw', singleROM=True)
