@@ -2,202 +2,23 @@
 //
 // REDESIGNED IN 2019
 //
-// FUNCTION: the Memory Bank Register File.
+// FUNCTION: the Memory Bank Unit.
 //
 // NOTES:
 //
-// 8 8-bit registers responsible for extending addresses from 16 bits
-// to 24.
-//
-// WADDR   REG   
-// 00100   00   MB0   Program Bank
-// 00101   01   MB1   Data Bank
-// 00110   10   MB2   Stack Bank
-// 00111   11   MB3   Page 0 Bank (conditionally overridden by address)
-//
-//                        ______
-// WADDR I R IR           SYSDEV  IBUS      SEL  Notes
-// ---vv-------------------------------------vv--------------------
-// 00100 X X XX XXXX XXXX    X    XXXXXXXX  000   MB0 (program bank)
-// 00101 X X XX XXXX XXXX    X    XXXXXXXX  001   MB1 (data bank)
-// 00110 X X XX XXXX XXXX    X    XXXXXXXX  010   MB2 (stack bank)
-// ---vv-------------------------------------vv--------------------
-// 00111 0 0 XX XXXX XXXX    X    XXXXXXXX  011   MB3 (P0 bank)
-// 00111 0 1 XX XXXX XXXX    X    XXXXXXXX  011   MB3 
-// 00111 1 0 XX XXXX XXXX    X    XXXXXXXX  011   MB3 
-// 00111 1 1 0X XXXX XXXX    X    XXXXXXXX  011   MB3 
-// 00111 1 1 10 XXXX XXXX    X    XXXXXXXX  011   MB3 
-// -------------------vvv-------------------vvv--------------------
-// 00111 1 1 11 XXXX X000    X    XXXXXXXX  000   MB0 P0 index regs
-// 00111 1 1 11 XXXX X001    X    XXXXXXXX  001   MB1 
-// 00111 1 1 11 XXXX X010    X    XXXXXXXX  010   MB2 
-// 00111 1 1 11 XXXX X011    X    XXXXXXXX  011   MB3 
-// 00111 1 1 11 XXXX X100    X    XXXXXXXX  100   MB4 
-// 00111 1 1 11 XXXX X101    X    XXXXXXXX  101   MB5 
-// 00111 1 1 11 XXXX X110    X    XXXXXXXX  110   MB6 
-// 00111 1 1 11 XXXX X111    X    XXXXXXXX  111   MB7 
-// ------------------------------------vvv--vvv----------------------
-// XXXXX X X XX XXXX XXXX    0    00000000  000   MB0 IN/OUT register
-// XXXXX X X XX XXXX XXXX    0    00000001  001   MB1 
-// XXXXX X X XX XXXX XXXX    0    00000010  010   MB2 
-// XXXXX X X XX XXXX XXXX    0    00000011  011   MB3 
-// XXXXX X X XX XXXX XXXX    0    00000100  100   MB4 
-// XXXXX X X XX XXXX XXXX    0    00000101  101   MB5 
-// XXXXX X X XX XXXX XXXX    0    00000110  110   MB6 
-// XXXXX X X XX XXXX XXXX    0    00000111  111   MB7
-// -----------------------------------------------------------------
-//
-// WADDR I R IR           SYSDEV  IBUS      USE-WADDR   USE-IR
-// ----------------------------------------------------------------
-// 00100 X X XX XXXX XXXX    X    XXXXXXXX      1
-// 00101 X X XX XXXX XXXX    X    XXXXXXXX      1
-// 00110 X X XX XXXX XXXX    X    XXXXXXXX      1
-// 00111 0 0 XX XXXX XXXX    X    XXXXXXXX      1
-// 00111 0 1 XX XXXX XXXX    X    XXXXXXXX      1
-// 00111 1 0 XX XXXX XXXX    X    XXXXXXXX      1
-// 00111 1 1 0X XXXX XXXX    X    XXXXXXXX      1
-// 00111 1 1 10 XXXX XXXX    X    XXXXXXXX      1
-// 
-// 00111 1 1 11 XXXX X000    X    XXXXXXXX                1
-// 00111 1 1 11 XXXX X001    X    XXXXXXXX                1
-// 00111 1 1 11 XXXX X010    X    XXXXXXXX                1
-// 00111 1 1 11 XXXX X011    X    XXXXXXXX                1
-// 00111 1 1 11 XXXX X100    X    XXXXXXXX                1
-// 00111 1 1 11 XXXX X101    X    XXXXXXXX                1
-// 00111 1 1 11 XXXX X110    X    XXXXXXXX                1
-// 00111 1 1 11 XXXX X111    X    XXXXXXXX                1
-// 
-// XXXXX X X XX XXXX XXXX    0    00000000                1
-// XXXXX X X XX XXXX XXXX    0    00000001                1
-// XXXXX X X XX XXXX XXXX    0    00000010                1
-// XXXXX X X XX XXXX XXXX    0    00000011                1
-// XXXXX X X XX XXXX XXXX    0    00000100                1
-// XXXXX X X XX XXXX XXXX    0    00000101                1
-// XXXXX X X XX XXXX XXXX    0    00000110                1
-// XXXXX X X XX XXXX XXXX    0    00000111                1
-// -----------------------------------------------------------------
-//
-// if waddr == 0010X:
-//     sel = {1'b0, waddr[1:0]}
-// elif waddr = 00110:
-//     sel = {1'b0, waddr[1:0]}
-// elif waddr = 00111 and ir[11:8] = {1,1,11}:
-//     sel = {1'b0, waddr[1:0]}
-// else:
-//     sel = ir[2:0]
-//
-// .i 8
-// .o 1
-// .ilb waddr4 waddr3 waddr2 waddr1 waddr0 I R iosel
-// .ob use_waddr
-// .p 4
-// 001---01 1
-// 0010---1 1
-// 001-0--1 1
-// 001--0-1 1
-// .e
-//
-// waddr[4:2] == 001 && (waddr1 == 0 || waddr0 == 0 || ir11 == 0 || ir10 == 0) && iosel == 1
-// waddr[4:2] == 001 && iosel == 1 && (waddr1 == 0 || waddr0 == 0 || ir11 == 0 || ir10 == 0) && iosel == 1
-//
-// WADDR I R IR            USE-WADDR   USE-IR    USE-ZERO    OUTPUT TO IBUS
-// ------------------------------------------------------------------------
-// 00100 X X XX XXXX XXXX      1
-// 00101 X X XX XXXX XXXX      1
-// 00110 X X XX XXXX XXXX      1
-// 00111 0 0 XX XXXX XXXX      1
-// 00111 0 1 XX XXXX XXXX      1
-// 00111 1 0 XX XXXX XXXX      1
-// 00111 1 1 0X XXXX XXXX      1
-// 00111 1 1 10 XXXX XXXX      1
-// 
-// 00111 1 1 11 XXXX X000                1
-// 00111 1 1 11 XXXX X001                1
-// 00111 1 1 11 XXXX X010                1
-// 00111 1 1 11 XXXX X011                1
-// 00111 1 1 11 XXXX X100                1
-// 00111 1 1 11 XXXX X101                1
-// 00111 1 1 11 XXXX X110                1
-// 00111 1 1 11 XXXX X111                1
-// 
-// 01111 X X XX XXXX XXXX                1          X              1
-// 0110X X X XX XXXX XXXX                           1              1
-// ------------------------------------------------------------------------
-// 
-// .i 14
-// .o 4
-// .ilb raddr4 raddr3 raddr2 raddr1 raddr0 waddr4 wadd4 waddr2 waddr1 waddr0 ir11 ir10 ir9 ir8
-// .ob nmb0 nuse_ir nw nr
-// .p 11
-// -----001---0-- 0100
-// -----0010----- 0100
-// -----0-111---- 1001
-// -----0-10----- 0001
-// -----001-0---- 0101
-// -----001--0--- 0100
-// 01111--------- 1010
-// -----001-----0 0100
-// 0110---------- 0010
-// -----001----0- 0100
-// -----001------ 1010
-// .e
-//
-//
-// ----- 0010- ---- 0 1 0 0
-// ----- 0-111 ---- 1 0 0 1
-// ----- 0-10- ---- 0 0 0 1
-// ----- 001-0 ---- 0 1 0 1
-// ----- 001-- 0--- 0 1 0 0
-// ----- 001-- -0-- 0 1 0 0
-// ----- 001-- --0- 0 1 0 0
-// ----- 001-- ---0 0 1 0 0
-// ----- 001-- ---- 1 0 1 0
-// 01111 ----- ---- 1 0 1 0
-// 0110- ----- ---- 0 0 1 0
-
-// ----- 0010- ---- 0 0 0 1 => 0 0----- -> WADDR
-// ----- 001-0 ---- 0 1 0 1 => 0 -0---- -> WADDR
-// ----- 001-- 0--- 0 1 0 0 => 0 --0--- -> WADDR
-// ----- 001-- -0-- 0 1 0 0 => 0 ---0-- -> WADDR
-// ----- 001-- --0- 0 1 0 0 => 0 ----0- -> WADDR
-// ----- 001-- ---0 0 1 0 0 => 0 -----0 -> WADDR
-
-//  ___________       ___   ___   ___   ___   ____   ____
-// (write_ar_mb) AND (WA0 + WA1 + IR8 + IR9 + IR10 + IR11) ⇒ derive sel from waddr
-// → Otherwise, use IR
-//
-// Use negative logic, so use_waddr = 0.
-//
-//
-// WADDR I R IR            USE-WADDR   USE-IR    USE-ZERO    OUTPUT TO IBUS
-// ------------------------------------------------------------------------
-// 00100 X X XX XXXX XXXX      1
-// 00101 X X XX XXXX XXXX      1
-// 00110 X X XX XXXX XXXX      1
-// 00111 0 0 XX XXXX XXXX      1
-// 00111 0 1 XX XXXX XXXX      1
-// 00111 1 0 XX XXXX XXXX      1
-// 00111 1 1 0X XXXX XXXX      1
-// 00111 1 1 10 XXXX XXXX      1
-// 
-// 00111 1 1 11 XXXX X000                1
-// 00111 1 1 11 XXXX X001                1
-// 00111 1 1 11 XXXX X010                1
-// 00111 1 1 11 XXXX X011                1
-// 00111 1 1 11 XXXX X100                1
-// 00111 1 1 11 XXXX X101                1
-// 00111 1 1 11 XXXX X110                1
-// 00111 1 1 11 XXXX X111                1
-// 
-// 01111 X X XX XXXX XXXX                1          X              1
-// 0110X X X XX XXXX XXXX                           1              1
-// ------------------------------------------------------------------------
+// The MBU is a complex unit accessible on various control unit read and write
+// addresses, and mapped to I/O space. It was initially implemened on nearly 30
+// control ICs and 74HC670 register file ICs. This version uses a 27C128 ROM
+// for the control logic and a 15ns, 32K SRAM to store the registers. The
+// latter is severe overkill: I'm using 8 of 32,768 bytes. But I have those ICs
+// lying around and I'm going to use them. (also, they no longer make smaller
+// ones)
 //
 ///////////////////////////////////////////////////////////////////////////////
 
 
-`ifndef reg_mbr_v
-`define reg_mbr_v
+`ifndef mbu_v
+`define mbu_v
 
 `include "comparator.v"
 `include "demux.v"
@@ -208,165 +29,104 @@
 
 `timescale 1ns/1ps
 
-///////////////////////////////////////////////////////////////////////////////
-//
-// BASED ON DRAWN SCHEMATICS
-//
-///////////////////////////////////////////////////////////////////////////////
-
 // The Memory Bank Register File
 
-module reg_mbr (nreset, waddr, raddr, ir,
-		ibus, aext, nfpram_fprom, nfpaext, fpd);
+module mbu (nreset,
+	    wstb,
+	    raddr, waddr,
+	    ir,			// Only bits 0–2 and 8–11 are used.
+	    ibus,		// Only bits 0–7 of the IBUS are used.
+	    aext,		//
+	    nr, nw,
+	    ab,	nsysdev,	// Only bits 0–7 are used.
+	    nwrite_flags,	// Convenience output to the flag unit
+	    nwrite_mbp_flags,	// Convenience output to the flag unit
+	    nread_flags,	// Convenience output to the flag unit
+	    nread_mbp_flags,	// Convenience output to the flag unit
+	    nfpram_fprom	// RAM/ROM switch from front panel
+	    );
+	    
    input        nreset;
+   input 	wstb;
    input [4:0] 	waddr;
    input [4:0] 	raddr;
    input [11:0] ir;
-   input 	nfpaext;
+   input 	nsysdev;
+   input 	nr;
+   input 	nw;
    input 	nfpram_fprom;
    
    inout [7:0] 	ibus;
+   inout [7:0] 	ab;
    
    output [7:0] aext;
-   output [7:0] fpd;
+   output 	nread_mbp_flags, nread_flags;
+   output 	nwrite_mbp_flags, nwrite_flags;
 
    wire 	nreset;
    wire [4:0] 	waddr;
    wire [4:0] 	raddr;
    wire [7:0] 	ibus;
+
    wire [2:0] 	sel;
    tri0 [7:0] 	aext;
 
-   wire 	nsel;
-   wire [7:0] 	yaddr, ywrite, yread;
-   wire 	nwrite_ar_mbx, nwrite_mbp, nwrite_mbp_flags, nwrite_mbn, nwmb0, nwmbr;
-   wire 	nread_ar_mbx, nread_mbp, nread_mbp_flags, nread_mbn, nrmb0, nrmbr;
-   wire 	and1, and2, nwaddr_or_ir, mb0;
-   wire 	nbankr0, nbankr1, nbankw0, nbankw1;
-   
-   // The addressing mode decoder
-   demux_138      addrdemux (.g1(waddr[2]), .ng2a(waddr[3]), .ng2b(waddr[4]), .a(3'b111), .y(yaddr));
-   assign nwrite_ar_mbx = yaddr[7];
-
-   // The register write decoder
-   demux_138      writedemux (.g1(waddr[3]), .ng2a(waddr[4]), .ng2b(1'b0), .a(waddr[2:0]), .y(ywrite));
-   assign nwrite_mbp = ywrite[4];
-   assign nwrite_mbp_flags = ywrite[5];
-   assign nwrite_mbn = ywrite[7];
-
-   // The register read decoder
-   demux_138      readdemux (.g1(raddr[3]), .ng2a(raddr[4]), .ng2b(1'b0), .a(raddr[2:0]), .y(yread));
-   assign nread_mbp = yread[4];
-   assign nread_mbp_flags = yread[5];
-   assign nread_mbn = yread[7];
-
-   // Derive enable signals from read/write decoders
-   assign #6 nwmb0 = nwrite_mbp & nwrite_mbp_flags;
-   assign #6 nwmbr = nwmb0 & nwrite_mbn;
-
-   assign #6 nrmb0 = nread_mbp & nread_mbp_flags;
-   assign #6 nrmbr = nrmb0 & nread_mbn;
-
-   assign #6 mb0 = ~(nwmb0 & nrmb0);
-
-   // Initialisation circuitry. This provides a default mapping for early boot,
-   // before the MBRx registers are configured.
-
-   // Asserting nreset asynchronously sets a '74 flip flop. The non-inverted
-   // output (nq) of the FF is connected to the gate of the '139 read
-   // decoder. When the FF sets, the Q output goes high, the '139 is disabled,
-   // and the outputs of all four '670 registers are tri-stated. All 8 AEXT
-   // lines are pulled low so AEXT resets to 0. This represents the first RAM
-   // bank.
+   ///////////////////////////////////////////////////////////////////////////////
+   // 
+   // DECODING		
    //
-   // If the front panel RAM/ROM switch is set to RAM (low), we need to map to
-   // ROM instead. To do this, the *non-inverted* (q) output from the reset FF
-   // above drives the gate of a single '125 buffer, whose input is the
-   // FPRAM#/FPROM signal. This then drives AEXT₇. When FPROM is selected (1),
-   // AEXT becomes 128 decimal, which maps to the first ROM bank.
-   //
-   // Finally: when BANKW0# signal is asserted (during the execution of an SMB
-   // instruction), the reset FF clears. The '139 gate goes low, enabling the
-   // '670 chip select lines, which then start driving AEXT. The inverted line
-   // goes high, and the '125 is tri-stated.
-   //
-   // The implication here is that to enable the memory banking unit, one of
-   // the first four bank registers must be written to. When the first one is
-   // written to, whatever value the '670 register files have reset to will be
-   // used, so all registers must be set to sane values. Early in the ROM
-   // initialisation, we'd probably expect to see something like:
-   //
-   // boot:   LI &80
-   //         SMB MBP  ; Set Program bank to first ROM bank
-   //         LI &00
-   //         SMB MBD  ; Set Data bank to first RAM bank
-   //         SMB MBZ  ; ... and Zero Page bank
-   //         LI &01
-   //         SMB MBS  ; Set stack bank
-   //
-   // Otherwise, no jumps or memory accesses will work as expected. Setting MB0 to 
+   ///////////////////////////////////////////////////////////////////////////////
 
-   wire 	n139g, n125g;
-   flipflop_74h resetff (.d(1'b1), .clk(1'b1), .nset(nreset), .nrst(nbankw0),
-			 .q(n139g), .nq(n125g));
-   buffer_125q ramrombuf (.a(nfpram_fprom), .oe(n125g), .y(aext[7]));
+   wire [7:0] 	dec_ab, dec_raddr, dec_waddr1, dec_waddr2;
+   wire 	niombr;
+   wire 	nread_mbp, nread_mbp_flags, nread_flags;
+   wire 	nwrite_mbp, nwrite_mbp_flags, nwrite_flags;
+   wire 	nwrite_ar_mbx;
+
+   // This decodes I/O addresses &008–&00F.
+   demux_138 demux_ab (.a(ab[6:4]), .g1(ab[3]), .ng2a(ab[7]), .ng2b(nsysdev), .y(dec_ab));
+   assign niombr = dec_ab[0];
    
+   // We decode RADDRs 01100, 01101, and 01110.
+   demux_138 demux_raddr (.a(raddr[2:0]), .g1(raddr[3]), .ng2a(raddr[4]), .ng2b(1'b0), .y(dec_raddr));
+   assign nread_mbp = dec_raddr[4];
+   assign nread_mbp_flags = dec_raddr[5];
+   assign nread_flags = dec_raddr[5];
 
-   // Decode addressing modes. Decide if the register to use will be derived
-   // from WADDR[1:0] (zero-padded to 3 bits) or IR[2:0]. Usually, it's
-   // IR[2:0]. WADDR is used if WADDR is 001xx (write-ar-mb{p,s,d,z}). One
-   // exception: if write-ar-mbz is selected (WADDR=00111) and I=1 and R=1 and
-   // OP=11xxxxxxxx (i.e. IR[11:8]=1111), the register is derived from IR[2:0].
+   // We decode WADDRs 01100, 01101, and 01110. Symmetric to the above '138.
+   demux_138 demux_waddr1 (.a(waddr[2:0]), .g1(waddr[3]), .ng2a(waddr[4]), .ng2b(1'b0), .y(dec_waddr1));
+   assign nwrite_mbp = dec_waddr1[4];
+   assign nwrite_mbp_flags = dec_waddr1[5];
+   assign nwrite_flags = dec_waddr1[5];
 
-   // The timings are VERY pessimistic. Typical 74LVC1G propagation delay will
-   // be in the order of 1.5ns.
-   assign #6 and1 = waddr[0] & waddr[1] & ir[8];
-   assign #6 and2 = ir[9] & ir[10] & ir[11];
-   assign #6 nwaddr_or_ir = (and1 & and2) | nwrite_ar_mbx;
+   // We decode WADDRs 01100, 01101, and 01110. Symmetric to the above '138.
+   demux_138 demux_waddr2 (.a(3'b111), .g1(waddr[2]), .ng2a(waddr[3]), .ng2b(waddr[4]), .y(dec_waddr2));
+   assign nwrite_ar_mbx = dec_waddr2[7];
 
-   // The multiplexer chooses the MBn address.
-   wire [3:0] 	sel4;
-   mux_157 selmux (.sel(nwaddr_or_ir), .oe(mb0), .i1({2'b00, waddr[1:0]}), .i2({1'b0, ir[2:0]}), .y(sel4));
-   assign sel = sel4[2:0];
+   ///////////////////////////////////////////////////////////////////////////////
+   // 
+   // POWER-ON DEFAULTS
+   //
+   ///////////////////////////////////////////////////////////////////////////////
 
-   // The MBR register file.
-   wire [3:0] 	wy, ry;
+   // Since the SRAM won't be reset to all zeroes, we disable its drivers after
+   // reset and rely on pull-down addresses to read all zeroes. The SRAM will
+   // be enabled on the first OUT instruction addressing it. Note that this
+   // will cause all other registers to change from &00 to random values, so if
+   // one register is configured, the first four (at least) must all be
+   // configured too.
 
-   // The write decoder. Selects one bank of '670s for writing during an I/O
-   // write transaction.
-   demux_139h iowdemux (.ng(nwmbr), .a({sel[2], 1'b1}), .y(wy));
-   assign nbankw0 = wy[1];
-   assign nbankw1 = wy[3];
+   wire 	nclr, ndis;
 
-   // The reading decoder. Selects one bank of '670s for reading. The decoder
-   // is permanently selected, for speed. This implies that the AEXT bus will
-   // always be driven. When the value needs to be put on the IBUS, an
-   // additionan '541 buffer is enabled.
-   demux_139h iordemux (.ng(n139g),  .a({sel[2], 1'b1}), .y(ry));
-   assign nbankr0 = ry[1];
-   assign nbankr1 = ry[3];
+   // TODO: Check if this is needed. Likely just niombr is enough!
+   assign #6 nclr = wstb | niombr;
+   flipflop_74h ff_init(.d(1'b1), .clk(1'b1), .nset(nreset), .nrst(nclr), .nq(ndis));
 
-   // Four '670 4×4 bit register files forming 8×8 bit registers.
-   regfile_670 reg0lo (.d(ibus[3:0]), .nre(nbankr0), .nwe(nbankw0), .ra(sel[1:0]), .wa(ir[1:0]), .q(aext[3:0]));
-   regfile_670 reg0hi (.d(ibus[7:4]), .nre(nbankr0), .nwe(nbankw0), .ra(sel[1:0]), .wa(ir[1:0]), .q(aext[7:4]));
-
-   regfile_670 reg1lo (.d(ibus[3:0]), .nre(nbankr1), .nwe(nbankw1), .ra(sel[1:0]), .wa(ir[1:0]), .q(aext[3:0]));
-   regfile_670 reg1hi (.d(ibus[7:4]), .nre(nbankr1), .nwe(nbankw1), .ra(sel[1:0]), .wa(ir[1:0]), .q(aext[7:4]));
-
-   // Buffers to output the value of AEXT to the IBus when the
-   // registers are read. Only the low order 8 bits are written to.
-
-   buffer_541 regbuf (.noe1(nrmbr), .noe2(1'b0), .a(aext), .y(ibus));
-
-
-   // Also a buffer to output AEXT to the front panel
-
-   buffer_541 fpbuf (.noe1(nfpaext), .noe2(1'b0), .a(aext), .y(fpd[7:0]));
+   // If the RAM/ROM switch is in the ROM position (high), default all MBx
+   // registers to &80 to address ROM.
+   buffer_125q buf_aext7 (.a(nfpram_fprom), .oe(ndis), .y(aext[7]));
    
-
-   
-   
-endmodule // reg_mbr
-`endif //  `ifndef reg_mbr_v
+endmodule // mbu
+`endif //  `ifndef mbu_v
 
 // End of file
