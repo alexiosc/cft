@@ -464,9 +464,9 @@ test_reg_v:	reg_v_tb.o reg_v.o flipflop.o mux.o
 		./reg_v_tb.o
 		$(GTKWAVE) $(VCDDIR)/reg_v_tb.vcd $(SAVDIR)/reg_v_tb.sav
 
-test_reg_mbr:	reg_mbr_tb.o reg_mbr.o flipflop.o mux.o
-		./reg_mbr_tb.o
-		$(GTKWAVE) $(VCDDIR)/reg_mbr_tb.vcd $(SAVDIR)/reg_mbr_tb.sav
+test_mbu:	mbu_tb.o mbu.o ram.o rom.o demux.o buffer.o flipflop.o
+		./mbu_tb.o
+		$(GTKWAVE) $(VCDDIR)/mbu_tb.vcd $(SAVDIR)/mbu_tb.sav
 
 test_alu_sru:	alu_sru_tb.o alu_sru.o
 		./alu_sru_tb.o

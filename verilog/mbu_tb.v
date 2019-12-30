@@ -27,7 +27,9 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-`include "reg_mbr.v"
+`include "mbu.v"
+`include "demux.v"
+`include "clock.v"
 
 `timescale 1ns/10ps
 
@@ -35,86 +37,117 @@
 module reg_mbr_tb();
    reg        nreset;
    reg        nfpram_fprom;
-   reg [7:0]  ibus;
-   reg [15:0] ir;
+   reg [15:0] ibus, ab, db, ir;
+   reg 	      nr, nw;
    reg [4:0]  waddr;
    reg [4:0]  raddr;
    
-   wire [7:0] ibus_real;
+   wire [15:0] ibus_real, ab_real, db_real;
    wire [7:0] aext;
-   wire [7:0] fpd;
-   reg 	      nfpaext;
    
    integer    i, j, k;
 
    reg [800:0] status;
 
+   wire        wstb;
+   wire        nsysdev;
+
+   // Convenience decoded outputs to the Flag unit.
+   wire        nwrite_flags;
+   wire        nwrite_mbp_flags;
+   wire        nread_flags;
+   wire        nread_mbp_flags;
+
    wire [7:0]  mb0, mb1, mb2, mb3, mb4, mb5, mb6, mb7;
 
    // Assemble the 8 registers. This makes strong assumptions about the
    // structure of the MBR circuitry!
-   assign mb0 = {reg_mbr.reg0hi.q0[0], reg_mbr.reg0lo.q0[0]};
-   assign mb1 = {reg_mbr.reg0hi.q0[1], reg_mbr.reg0lo.q0[1]};
-   assign mb2 = {reg_mbr.reg0hi.q0[2], reg_mbr.reg0lo.q0[2]};
-   assign mb3 = {reg_mbr.reg0hi.q0[3], reg_mbr.reg0lo.q0[3]};
-
-   assign mb4 = {reg_mbr.reg1hi.q0[0], reg_mbr.reg1lo.q0[0]};
-   assign mb5 = {reg_mbr.reg1hi.q0[1], reg_mbr.reg1lo.q0[1]};
-   assign mb6 = {reg_mbr.reg1hi.q0[2], reg_mbr.reg1lo.q0[2]};
-   assign mb7 = {reg_mbr.reg1hi.q0[3], reg_mbr.reg1lo.q0[3]};
+   assign mb0 = mbu.regfile.mem[0];
+   assign mb1 = mbu.regfile.mem[1];
+   assign mb2 = mbu.regfile.mem[2];
+   assign mb3 = mbu.regfile.mem[3];
+   assign mb4 = mbu.regfile.mem[4];
+   assign mb5 = mbu.regfile.mem[5];
+   assign mb6 = mbu.regfile.mem[6];
+   assign mb7 = mbu.regfile.mem[7];
    
    initial begin        
-      $dumpfile ("vcd/reg_mbr_tb.vcd");
+      $dumpfile ("vcd/mbu_tb.vcd");
       $dumpvars (0, reg_mbr_tb);
 
-      $monitor ("t: %7d | %b %b %b %b > %b (%02x %02x %02x %02x  %02x %02x %02x %02x)",
-		$time, waddr, raddr, ir[11:0], ibus[7:0], reg_mbr.sel,
-		mb0, mb1, mb2, mb3, mb4, mb5, mb6, mb7);
+      $monitor ("t: %7d | %b %b | init=%b rom=%b | IR: %04x | %d %02x | regs: %02x %02x %02x %02x %02x %02x %02x %02x",
+      		$time,
+		waddr, raddr,
+		mbu.nenable, nfpram_fprom,
+		ir, mbu.sel, aext,
+      		mb0, mb1, mb2, mb3, mb4, mb5, mb6, mb7);
+
+      // Before we begin, randomise the values of the eight registers to
+      // simulate an actual SRAM.
+      for (i = 0; i < 8 ; i = i + 1) begin
+	 mbu.regfile.mem[i] = $random & 255;
+      end;
 
       nreset = 0;
       nfpram_fprom = 0;		// RAM
-      ibus = 8'bzzzzzzzz;
-      ir = 16'b0000_0000_0000_0000;
+      ibus = 16'bzzzzzzzzzzzzzzzz;
+      ir = 16'd0;
+      ab = 16'd0;
+      db = 16'bZ;
+      nr = 1;
+      nw = 1;
+      
       waddr = 4'b0000;
       raddr = 4'b0000;
-      nfpaext = 1'b1;
 
       status = "reset";
 
       #250 nreset = 1;
 
-      // Read the first four power-on default registers. They should all be
-      // 8'h00 in RAM mode (nfpram_fprom low), or 8'h80 in ROM mode
-      // (nfpram_fprom high)
-      status = "read power-on default MBN";
-      #1000 waddr = 4'b0000;
-      for (i = 0; i < 8 ; i = i + 1) begin
-	 nfpram_fprom = i[0];
-      	 ibus = 8'bzzzzzzzz;
-      	 ir = 16'd0 | i[2:1];	       // address on IR
-      	 #50 raddr = 5'b01111;	       // read_mbn
-      	 #200 raddr = 5'b00000;	       // idle again
+      // Read the registers using simulated Page Zero accesses, which is fairly
+      // complicated but the best option this early in the test.
+      
+      status = "read power-on default MBx (IN)";
+      #1000 raddr = 4'd0;
+      waddr = 4'd0;
+      for (i = 0; i < 16 ; i = i + 1) begin
+   	 nfpram_fprom = i[0];
+      	 ibus = 16'bzzzzzzzzzzzzzzz;
+	 ir = 16'b0000_11_1100000000 | i[3:1];
+      	 #250 waddr = 5'b00111;	       // write_ar_mbx (reads from MBn)
+      	 #250 waddr = 5'b00000;	       // idle again
       end
       #1000;
 
-      // First, let's configure the MBn registers. Make sure all 256
-      // values × 8 regs work fine.
-      status = "write";
+
+      // First, let's configure the MBn registers. Test all 256 values on all 8
+      // registgers. We can only write to the registers using OUT instructions,
+      // and we'll simulate those. This will also take the MBU out of
+      // post-reset mode.
+
+      status = "write (OUT)";
       raddr = 4'b0000;
-      for (i = 0; i < 8 ; i = i + 1) begin
-	 #1000
+      waddr = 4'b0000;
 
-	 for (j = 0; j < 256; j = j + 1) begin
-	    #62.5 ibus = j;
-	    ir = i;
-	    #62.5 waddr = 5'b01111;
-	    #62.5 waddr = 5'b00000;
-	    #62.5 ibus = 8'bzzzzzzzz;
-	    #62.5 raddr = 5'b01111;
-	    #185.5 raddr = 5'b00000;
-	 end
+      // Note: We don't have a proper Data Bus Transceiver, so we'll simulate it.
+      for (i = 0; i < 8 ; i = i + 1) begin
+   	 #1000
+
+   	 for (j = 0; j < 8; j = j + 1) begin
+	    #250 ab = 8 | i;
+	    nw = 0;
+	    ibus = j;
+	    db = j;
+	    #250 nw = 1;
+	    ibus = 16'dZ;
+	    db = 16'dZ;
+   	 end
       end
       #1000;
+
+
+
+`ifdef never
 
       // Now let's configure a known set of registers to help with further
       // testing.
@@ -122,10 +155,10 @@ module reg_mbr_tb();
       
       #1000 raddr = 4'b0000;
       for (i = 0; i < 8 ; i = i + 1) begin
-	 #125 ibus = (i ^ 4'hf) << 4 | (i & 4'hf);
-	 ir = 16'd0 | i;	       // MBn address on IR
-	 #62.5 waddr = 5'b01111;	       // read_mbn
-	 #62.5 waddr = 5'b00000;	       // idle again
+   	 #125 ibus = (i ^ 4'hf) << 4 | (i & 4'hf);
+   	 ir = 16'd0 | i;	       // MBn address on IR
+   	 #62.5 waddr = 5'b01111;	       // read_mbn
+   	 #62.5 waddr = 5'b00000;	       // idle again
       end
       #1000;
 
@@ -133,7 +166,7 @@ module reg_mbr_tb();
       status = "read MBN";
       #1000 waddr = 4'b0000;
       for (i = 0; i < 8 ; i = i + 1) begin
-      	 ibus = 8'bzzzzzzzz;
+      	 ibus = 16'bzzzzzzzzzzzzzzzz;
       	 ir = 16'd0 | i;	       // address on IR
       	 #50 raddr = 5'b01111;	       // write_mbn
       	 #200 raddr = 5'b00000;	       // idle again
@@ -169,34 +202,55 @@ module reg_mbr_tb();
       	 //5'b00111;
       	 for (j = 16'b0000_1100_0000_0000; j < 16'b0000_1111_1111_1111 ; j = j + 1) begin
       	    #25 ir = j;
-	    // Temporarily drive the IBUS with the complement of the IR to
-	    // prove that the register selection isn't influenced by this. If
-	    // it were, MBn, n = ir[2:0] XOR 111 would be selected.
-	    #25 ibus = j ^ 8'hff;
-	    #50 ibus = 8'bzzzzzzzz;
+   	    // Temporarily drive the IBUS with the complement of the IR to
+   	    // prove that the register selection isn't influenced by this. If
+   	    // it were, MBn, n = ir[2:0] XOR 111 would be selected.
+   	    #25 ibus = j ^ 8'hff;
+   	    #50 ibus = 16'bzzzzzzzzzzzzzzzz;
       	 end;
       	 #1000;
       end; // for (i = 5'b00100; i <= 5b'00111; i++)
 
-      #1000 $finish;
 
+`endif //  `ifdef never
+
+      #1000 $finish;
    end // initial begin
 
-   always begin
-      #950 nfpaext = 1'b0;
-      #50 nfpaext = 1'b1;
-   end
+   // always begin
+   //    #950 nfpaext = 1'b0;
+   //    #50 nfpaext = 1'b1;
+   // end
+
+
 
    assign ibus_real = ibus;
+   assign ab_real = ab;
+   assign db_real = db;
 
-   // Instantiate all sub-modules.
-   reg_mbr reg_mbr (.nreset(nreset),
-		    .waddr(waddr), .raddr(raddr), .ir(ir[11:0]),
-		    .ibus(ibus_real[7:0]), .aext(aext),
-		    .nfpram_fprom(nfpram_fprom),
-		    .nfpaext(nfpaext), .fpd(fpd));
+   // Connect the DUT   
+   mbu mbu (.nreset(nreset),
+	    .wstb(wstb),
+	    .waddr(waddr), .raddr(raddr),
+	    .ir(ir[11:0]),
+	    .aext(aext),
+	    .nr(nr), .nw(nw),
+	    .ab(ab_real[7:0]),
+	    .db(db_real[7:0]),
+	    .nsysdev(nsysdev),
+	    .nwrite_flags(nwrite_flags),
+	    .nwrite_mbp_flags(nwrite_mbp_flags),
+	    .nread_flags(nread_flags),
+	    .nread_mbp_flags(nread_mbp_flags),
+	    .nfpram_fprom(nfpram_fprom)
+	    );
 
+   // Use the actual clock generator to make testing more accurate.
+   clock_generator clk (.nreset(nreset), .fpclk(1'b0), .nfpclk_or_clk(1'b1), .wstb(wstb));
 
+   // Simulate SYSDEV generation. Assume ALL bus transactions are I/O
+   // transactions for simplicity.
+   assign #14 nsysdev = ab < 256 ? 1'b0 : 1'b1;
 
 
    // Verify our findings.
@@ -207,6 +261,28 @@ module reg_mbr_tb();
    reg [2:0] 	n;
    wire [17:0] 	waddr_and_ir;
 
+   // Verify post-reset behaviour
+   always @(nfpram_fprom, aext, mbu.ndis) begin
+      if (nreset === 1'b1 && mbu.ndis === 1'b0) #50 begin
+	 if (nfpram_fprom == 0 && aext !== 8'h00) begin
+	    $sformat(msg, "post-reset, nfpram_fprom=%b (RAM) but AEXT was %02x (should be 00)",
+		     nfpram_fprom, aext);
+	 end;	      
+      end
+
+      // Fail if we've logged an issue.
+      if (msg[7:0]) begin
+	 $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+	 $error("assertion failure");
+	 #100 $finish;
+      end
+      else $display("OK post-reset");
+   end
+
+
+   
+
+`ifdef never
    // MBn register snooping to facilitate further testing.
    always @(waddr, ir, ibus_real) begin
       if (waddr === 5'b01111) #30 begin
@@ -292,7 +368,7 @@ module reg_mbr_tb();
 
 	    endcase // case (default_values)
 	 end
-
+	 
 	 // Fail if we've logged an issue.
 	 if (msg[7:0]) begin
 	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
@@ -303,6 +379,7 @@ module reg_mbr_tb();
       end
    end
 
+`endif //  `ifdef never
 endmodule // reg_mbr_tb
 
 

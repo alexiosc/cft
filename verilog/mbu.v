@@ -21,6 +21,7 @@
 `define mbu_v
 
 `include "rom.v"
+`include "ram.v"
 `include "demux.v"
 `include "buffer.v"
 `include "flipflop.v"
@@ -36,7 +37,7 @@ module mbu (nreset,
 	    ibus,		// Only bits 0–7 of the IBUS are used.
 	    aext,		//
 	    nr, nw,
-	    ab,	nsysdev,	// Only bits 0–7 are used.
+	    ab,	db, nsysdev,	// Only bits 0–7 of the AB and DB are used.
 	    nwrite_flags,	// Convenience output to the flag unit
 	    nwrite_mbp_flags,	// Convenience output to the flag unit
 	    nread_flags,	// Convenience output to the flag unit
@@ -56,6 +57,7 @@ module mbu (nreset,
    
    inout [7:0] 	ibus;
    inout [7:0] 	ab;
+   inout [7:0] 	db;
    
    output [7:0] aext;
    output 	nread_mbp_flags, nread_flags;
@@ -114,11 +116,12 @@ module mbu (nreset,
    // one register is configured, the first four (at least) must all be
    // configured too.
 
-   wire 	nclr, ndis;
+   wire 	nenable, ndis;
 
    // TODO: Check if this is needed. Likely just niombr is enough!
-   assign #6 nclr = wstb | niombr;
-   flipflop_74h ff_init(.d(1'b1), .clk(1'b1), .nset(nreset), .nrst(nclr), .nq(ndis));
+   //assign #6 nenable = wstb | niombr;
+   assign #6 nenable = niombr;
+   flipflop_74h ff_init(.d(1'b1), .clk(1'b1), .nset(nreset), .nrst(nenable), .nq(ndis));
 
    // If the RAM/ROM switch is in the ROM position (high), default all MBx
    // registers to &80 to address ROM.
@@ -136,10 +139,97 @@ module mbu (nreset,
    
    wire [14:0] 	addr;
    wire [7:0] 	data;
+   wire 	nibusw;
+   wire 	nibusen;
+   wire 	nuse_ir;
+   wire 	nuse_waddr;
+   wire 	nuse_zero;
+   wire 	nuse_ab;
+   wire 	nwmbr0, nwmbr;
+   wire 	nrmbr0, nrmbr;
 
+
+   assign addr = { ndis,	      // A14
+		   ir[11:8],	      // A13–A10
+		   waddr[1:0],	      // A9–A8
+		   nwrite_ar_mbx,     // A7
+		   nwrite_mbp_flags,  // A6
+		   nwrite_mbp,	      // A5
+		   nread_mbp_flags,   // A4
+		   nread_mbp,	      // A3
+		   niombr,	      // A2
+		   nw,		      // A1
+		   nr		      // A0
+		   };
+
+   assign { nibusw,	      // D7
+            nibusen,	      // D6
+            nuse_ir,	      // D5
+            nuse_waddr,	      // D4
+            nuse_zero,	      // D3
+            nuse_ab,	      // D2
+            nwmbr0,	      // D1
+            nrmbr0	      // D0
+	    } = data;
+   
    rom #(15, 45, "../microcode/build/mbu-rom.list") rom_ctl (.a(addr), .d(data), .nce(1'b0), .noe(1'b0));
-   
-   
+
+
+   // There are three OR gates of an 74AC32 delaying nRMBR. This is almost
+   // certainly not needed, but we have solder jumpers to configure the delay.
+   assign nrmbr = nrmbr0;	// Configuration 1
+   // assign #10 nrmbr = nrmbr0;	// Configuration 2
+   // assign #20 nrmbr = nrmbr0;	// Configuration 3
+   // assign #30 nrmbr = nrmbr0;	// Configuration 4
+
+   // Likewise, nWMBR can be gated by WSTB or not.
+   assign nwmbr = nwmbr0;	        // Direct drive
+   //assign #10 nwmbr = nwmbr0 | wstb;	// Only asserted during WSTB
+
+
+   ///////////////////////////////////////////////////////////////////////////////
+   // 
+   // REGISTER ADDRESS MULTIPLEXER
+   //
+   ///////////////////////////////////////////////////////////////////////////////
+
+   // The ‘multiplexer’ is actually made from two '244 buffers controlling 3
+   // bits each, outputs wired together. We'll do it with direct assignments
+   // rather than the '244 module because they're a little cleaner to code.
+
+   assign #7 sel = nuse_ab    ? 3'bzzz : ab[2:0];
+   assign #7 sel = nuse_zero  ? 3'bzzz : 3'b000;
+   assign #7 sel = nuse_waddr ? 3'bzzz : { 1'b0, waddr[1:0] };
+   assign #7 sel = nuse_ir    ? 3'bzzz : ir[2:0];
+
+
+   ///////////////////////////////////////////////////////////////////////////////
+   // 
+   // THE REGISTER FILE
+   //
+   ///////////////////////////////////////////////////////////////////////////////
+
+   // The register file is a 32K×8 static RAM chip.
+
+   sram #(13, 15) regfile (.a({10'd0, sel}), .d(aext),
+			   .nce(1'b0), .nwe(nwmbr), .noe(nrmbr));
+
+   // Note: AEXT is pulled low via its definition (tri0).
+
+   // The SRAMs data bus can connect to the IBUS (register reads/writes), AR
+   // (register reads) or DB (register writes).
+
+   // IN instructions: Drive the DB ← AEXT to avoid bus contention.
+   // OUT instructions: read from the IBUS directly. (DB == IBUS)
+   // Control Unit reads: Drive the IBus.
+   // Writes to the AR: Drive the AEXT bus (which drives ar[23:16].
+   // Other writes: Drive the IBus.
+
+   // The IBus transceiver.
+   buffer_245 buf_ibus (.dir(nibusw), .nen(nibusen), .a(ibus[7:0]), .b(aext));
+
+   // The DB Drivetr
+   buffer_541 buf_db (.noe1(nuse_ab), .noe2(nw), .a(aext), .y(db[7:0]));
 endmodule // mbu
 `endif //  `ifndef mbu_v
 
