@@ -16,7 +16,7 @@ import threading
 #
 # | group | SYSDEV | AB        | R | W | RADDR | WADDR | IR              |   | ABSEL | ZEROSEL | WADDRSEL | IRSEL | RMBR | WMBR | SEL | IBUSEN | IBUSW |
 # |-------|--------|-----------|---|---|-------|-------|-----------------|---|-------|---------|----------|-------|------|------|-----|--------|-------|
-# | 1     | 0      | 0000 1aaa | 0 | x | xxxxx | xxxxx | xx xx xxxx xxxx |   | 0     |         |          |       | 0    | 1    | aaa | 0      | 0     |
+# | 1     | 0      | 0000 1aaa | 0 | x | xxxxx | xxxxx | xx xx xxxx xxxx |   | 0     |         |          |       | 0    | 1    | aaa | 1 (*)  | 1     |
 # | 1     | 0      | 0000 1aaa | x | 0 | xxxxx | xxxxx | xx xx xxxx xxxx |   | 0     |         |          |       | 1    | 0    | aaa | 0      | 1     |
 # |-------|--------|-----------|---|---|-------|-------|-----------------|---|-------|---------|----------|-------|------|------|-----|--------|-------|
 # | 2     | 1      | xxxx xxxx | x | x | 0110x | xxxxx | xx xx xxxx xxxx |   |       | 0       |          |       | 0    | 1    | 000 | 0      | 0     |
@@ -39,6 +39,11 @@ import threading
 # | 5     | 1      | xxxx xxxx | x | x | xxxxx | 00111 | 11 11 xxxx x101 |   |       |         | 1        | 0     | 0    | 1    | 101 | 1      | 1     |
 # | 5     | 1      | xxxx xxxx | x | x | xxxxx | 00111 | 11 11 xxxx x110 |   |       |         | 1        | 0     | 0    | 1    | 110 | 1      | 1     |
 # | 5     | 1      | xxxx xxxx | x | x | xxxxx | 00111 | 11 11 xxxx x111 |   |       |         | 1        | 0     | 0    | 1    | 111 | 1      | 1     |
+#
+#  (*) For IN instructions, we put the AEXT value onto the Data Bus, not the
+#      IBus. Otherwise, there's bus contention as the BUS board's DB
+#      transceiver controls the IBus during this time. The buffer is gated by
+#      ABSEL and R. This adds a buffer chip to the MBU though. (argh)
 
 class MbuRom(threading.Thread):
     """Generate the MBU ROM. This works as a fairly complex function generator,
