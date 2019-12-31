@@ -183,8 +183,8 @@ module mbu (nreset,
    // assign #30 nrmbr = nrmbr0;	// Configuration 4
 
    // Likewise, nWMBR can be gated by WSTB or not.
-   assign nwmbr = nwmbr0;	        // Direct drive
-   //assign #10 nwmbr = nwmbr0 | wstb;	// Only asserted during WSTB
+   //assign nwmbr = nwmbr0;	        // Direct drive
+   assign #10 nwmbr = nwmbr0 | wstb;	// Only asserted during WSTB
 
 
    ///////////////////////////////////////////////////////////////////////////////
@@ -228,8 +228,8 @@ module mbu (nreset,
    // The IBus transceiver.
    buffer_245 buf_ibus (.dir(nibusw), .nen(nibusen), .a(ibus[7:0]), .b(aext));
 
-   // The DB Drivetr
-   buffer_541 buf_db (.noe1(nuse_ab), .noe2(nw), .a(aext), .y(db[7:0]));
+   // The DB Driver. Used in IN instructions (nr asserted).
+   buffer_541 buf_db (.noe1(nuse_ab), .noe2(nr), .a(aext), .y(db[7:0]));
 endmodule // mbu
 `endif //  `ifndef mbu_v
 

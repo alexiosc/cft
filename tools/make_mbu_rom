@@ -16,8 +16,8 @@ import threading
 #
 # | group | SYSDEV | AB        | R | W | RADDR | WADDR | IR              |   | ABSEL | ZEROSEL | WADDRSEL | IRSEL | RMBR | WMBR | SEL | IBUSEN | IBUSW |
 # |-------|--------|-----------|---|---|-------|-------|-----------------|---|-------|---------|----------|-------|------|------|-----|--------|-------|
-# | 1     | 0      | 0000 1aaa | 0 | x | xxxxx | xxxxx | xx xx xxxx xxxx |   | 0     |         |          |       | 0    | 1    | aaa | 1 (*)  | 1     |
-# | 1     | 0      | 0000 1aaa | x | 0 | xxxxx | xxxxx | xx xx xxxx xxxx |   | 0     |         |          |       | 1    | 0    | aaa | 0      | 1     |
+# | 1     | 0      | 0000 1aaa | 0 | x | xxxxx | xxxxx | xx xx xxxx xxxx |   | 0     |         |          |       | 0    | 1    | aaa | 1 (*)  | 1     | IN
+# | 1     | 0      | 0000 1aaa | x | 0 | xxxxx | xxxxx | xx xx xxxx xxxx |   | 0     |         |          |       | 1    | 0    | aaa | 0      | 1     | OUT
 # |-------|--------|-----------|---|---|-------|-------|-----------------|---|-------|---------|----------|-------|------|------|-----|--------|-------|
 # | 2     | 1      | xxxx xxxx | x | x | 0110x | xxxxx | xx xx xxxx xxxx |   |       | 0       |          |       | 0    | 1    | 000 | 0      | 0     |
 # | 2     | 1      | xxxx xxxx | x | x | xxxxx | 0110x | xx xx xxxx xxxx |   |       | 0       |          |       | 1    | 0    | 000 | 0      | 1     |
@@ -44,6 +44,15 @@ import threading
 #      IBus. Otherwise, there's bus contention as the BUS board's DB
 #      transceiver controls the IBus during this time. The buffer is gated by
 #      ABSEL and R. This adds a buffer chip to the MBU though. (argh)
+#
+# Clarifications:
+#
+# 1. IN: Reading from the I/O device means the device WRITES to the DB.
+#
+# 2. OUT: Writing to the I/O device means the device READS from the IBUS. (see below)
+#
+# 3. We can drive the DB, but we can't read from it, so we read
+#    from the IBUS. They're connected during I/O transactions.
 
 class MbuRom(threading.Thread):
     """Generate the MBU ROM. This works as a fairly complex function generator,
@@ -101,9 +110,18 @@ class MbuRom(threading.Thread):
                 nzero = 0       # Always select zeroes
 
             elif niombr == 0:
-                # Group 1: I/O space bus transactions
+                # Group 1: I/O space bus transactions.
+                #
+                # Clarifications:
+                #
+                # 1. IN: Reading from the I/O device means the device WRITES to the DB.
+                #
+                # 2. OUT: Writing to the I/O device means the device READS from the IBUS. (see below)
+                #
+                # 3. We can drive the DB, but we can't read from it, so we read
+                #    from the IBUS. They're connected during I/O transactions.
+                
                 group = 1       # For debugging info only
-                nibusen = 0     # ...so enable the IBUS driver
 
                 if nr == 0 and nw == 0:
                     # This is a hazard. Lay off the IBUS just in case!
@@ -113,9 +131,11 @@ class MbuRom(threading.Thread):
                     # IN: read register
                     nrmbr, nab = 0, 0
                     nibusw = 0  # Reading from device involves *writing* to the IBUS
+                    nibusen = 1
                 elif nw == 0:
                     # OUT: write register
                     nwmbr, nab = 0, 0
+                    nibusen = 0 # We can't drive the DB. Drive the IBUS instead.
 
             elif nrmbp1 == 0 or nrmbp2 == 0:
                 # Group 2: read the MBP (aka MB0, address is a constant zero)

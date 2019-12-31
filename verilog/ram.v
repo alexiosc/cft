@@ -49,6 +49,7 @@ module sram (a, d, nce, nwe, noe);
 	 // Most modern chips have Thd=0, so no delay is necessary here.
          mem[a] = d;
 	 if ($test$plusargs("debug-memwrites")) $display("D: mem[%x] <- %02x", a, mem[a]);
+	 //$display("D: mem[%x] <- %02x (%02x)", a, d, mem[a]);
       end
    end
 

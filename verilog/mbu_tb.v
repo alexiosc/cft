@@ -38,9 +38,10 @@ module reg_mbr_tb();
    reg        nreset;
    reg        nfpram_fprom;
    reg [15:0] ibus, ab, db, ir;
-   reg 	      nr, nw;
+   reg 	      nr, nwen;
    reg [4:0]  waddr;
    reg [4:0]  raddr;
+   wire       nw;
    
    wire [15:0] ibus_real, ab_real, db_real;
    wire [7:0] aext;
@@ -94,15 +95,21 @@ module reg_mbr_tb();
       ir = 16'd0;
       ab = 16'd0;
       db = 16'bZ;
+      ab_snoop = 0;
+      db_snoop = 0;
       nr = 1;
-      nw = 1;
+      nwen = 1;
       
       waddr = 4'b0000;
       raddr = 4'b0000;
 
       status = "reset";
 
-      #250 nreset = 1;
+      #5000 nreset = 1;
+
+      // The TB isn't synchronous to the clock, so adjust its phase difference.
+      #10;
+      
 
       // Read the registers using simulated Page Zero accesses, which is fairly
       // complicated but the best option this early in the test.
@@ -117,6 +124,7 @@ module reg_mbr_tb();
       	 #250 waddr = 5'b00111;	       // write_ar_mbx (reads from MBn)
       	 #250 waddr = 5'b00000;	       // idle again
       end
+
       #1000;
 
 
@@ -128,19 +136,20 @@ module reg_mbr_tb();
       status = "write (OUT)";
       raddr = 4'b0000;
       waddr = 4'b0000;
+      ibus = 16'bZ;
+      db = 16'bZ;
+      ir = 0;
 
-      // Note: We don't have a proper Data Bus Transceiver, so we'll simulate it.
+      // Note: to OUT, we drive the IBUS.
       for (i = 0; i < 8 ; i = i + 1) begin
    	 #1000
 
-   	 for (j = 0; j < 8; j = j + 1) begin
+   	 for (j = 0; j < 256; j = j + 1) begin
 	    #250 ab = 8 | i;
-	    nw = 0;
+	    nwen = 0;
 	    ibus = j;
-	    db = j;
-	    #250 nw = 1;
+	    #250 nwen = 1;
 	    ibus = 16'dZ;
-	    db = 16'dZ;
    	 end
       end
       #1000;
@@ -233,6 +242,7 @@ module reg_mbr_tb();
 	    .wstb(wstb),
 	    .waddr(waddr), .raddr(raddr),
 	    .ir(ir[11:0]),
+	    .ibus(ibus_real[7:0]),
 	    .aext(aext),
 	    .nr(nr), .nw(nw),
 	    .ab(ab_real[7:0]),
@@ -252,6 +262,10 @@ module reg_mbr_tb();
    // transactions for simplicity.
    assign #14 nsysdev = ab < 256 ? 1'b0 : 1'b1;
 
+   // Simulate the crucial parts of the BUS board.
+   assign ibus_real = nr ? 16'bZ : db;
+   assign db_real = nwen ? 16'bZ : ibus;
+   assign #6 nw = nwen | wstb;
 
    // Verify our findings.
    reg [8191:0] msg;
@@ -260,6 +274,7 @@ module reg_mbr_tb();
    reg [7:0] 	correct_value1, correct_value2;
    reg [2:0] 	n;
    wire [17:0] 	waddr_and_ir;
+   reg [15:0] 	db_snoop, ab_snoop;
 
    // Verify post-reset behaviour
    always @(nfpram_fprom, aext, mbu.ndis) begin
@@ -279,8 +294,38 @@ module reg_mbr_tb();
       else $display("OK post-reset");
    end
 
+   // Verify working OUT instructions.
+   always @(posedge nw) begin
+      // Don't test until 250ns after start, to allow the clock to work properly.
+      if ($time > 250) begin
+	 // After an OUT instruction, the MBU should come out of post-reset mode.
+	 if (nw === 1'b1) #50 begin
+   	    if (mbu.ndis !== 1'b1) begin
+   	       $sformat(msg, "After an OUT instruction, mbu.ndis = %b (should be 1).", mbu.ndis);
+   	    end
+	 end
 
-   
+	 // Test that the correct value was written.
+	 begin
+   	    ab_snoop = ab_real;
+   	    db_snoop = db_real;
+   	    if (mbu.regfile.regfile.mem[ab_real[2:0]] !== db_real[7:0]) begin
+   	       $sformat(msg, "OUT %03x <- %02x, but regfile.mem[%d] = %02x (should be %02x)",
+   			ab_real[10:0], db_real, ab_real[2:0],
+   			mbu.regfile.regfile.mem[ab_real[2:0]], db_real[2:0]);
+   	    end
+	 end
+
+	 // Fail if we've logged an issue.
+	 if (msg[7:0]) begin
+   	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+   	    $error("assertion failure");
+   	    #100 $finish;
+	 end
+	 else $display("OK OUT");
+      end
+   end
+
 
 `ifdef never
    // MBn register snooping to facilitate further testing.

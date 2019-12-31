@@ -905,7 +905,7 @@ F 3 "http://www.ti.com/lit/gpn/sn74LS32" H 9250 2100 50  0001 C CNN
 	4    9250 2100
 	1    0    0    -1  
 $EndComp
-Text HLabel 850  7200 0    50   Input ~ 0
+Text HLabel 8550 2550 0    50   Input ~ 0
 WSTB
 Connection ~ 7150 1150
 Wire Wire Line
@@ -2168,10 +2168,8 @@ Wire Wire Line
 	4300 4450 4300 1850
 Text Notes 1800 6350 0    100  ~ 20
 MBU Enable
-Text Label 850  7300 0    50   ~ 0
+Text Label 1400 7300 0    50   ~ 0
 ~IOMBR
-Wire Wire Line
-	850  7300 1150 7300
 Wire Wire Line
 	1750 7200 1700 7200
 Wire Wire Line
@@ -2179,22 +2177,14 @@ Wire Wire Line
 $Comp
 L alexios:74LVC1G32 U?
 U 1 1 6119F680
-P 1350 7250
-F 0 "U?" H 1350 7400 50  0000 C CNN
-F 1 "74LVC1G32" H 1050 7100 50  0000 C CNN
-F 2 "" H 1460 7230 50  0001 C CNN
-F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 1460 7230 50  0001 C CNN
-	1    1350 7250
+P -1000 6500
+F 0 "U?" H -1000 6650 50  0000 C CNN
+F 1 "74LVC1G32" H -1300 6350 50  0000 C CNN
+F 2 "" H -890 6480 50  0001 C CNN
+F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H -890 6480 50  0001 C CNN
+	1    -1000 6500
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	1150 7200 850  7200
-Text Label 850  7200 0    50   ~ 0
-WSTB
-Wire Wire Line
-	1650 7250 1650 7300
-Wire Wire Line
-	1650 7300 1750 7300
 Wire Wire Line
 	1750 7100 1700 7100
 Connection ~ 1700 7100
@@ -2214,12 +2204,12 @@ $EndComp
 $Comp
 L alexios:74LVC1G32 U?
 U 2 1 61220657
-P 1350 6300
-F 0 "U?" H 1480 6096 50  0000 L CNN
-F 1 "74LVC1G32" H 1480 6005 50  0000 L CNN
-F 2 "" H 1460 6280 50  0001 C CNN
-F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 1460 6280 50  0001 C CNN
-	2    1350 6300
+P -850 6850
+F 0 "U?" H -720 6646 50  0000 L CNN
+F 1 "74LVC1G32" H -720 6555 50  0000 L CNN
+F 2 "" H -740 6830 50  0001 C CNN
+F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H -740 6830 50  0001 C CNN
+	2    -850 6850
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -2254,48 +2244,48 @@ $EndComp
 $Comp
 L power:GND #PWR?
 U 1 1 6123A42A
-P 950 6650
+P -1250 7200
 AR Path="/6123A42A" Ref="#PWR?"  Part="1" 
 AR Path="/5F3EA987/6123A42A" Ref="#PWR?"  Part="1" 
 AR Path="/61F95ACC/6123A42A" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 950 6400 50  0001 C CNN
-F 1 "GND" H 955 6477 50  0000 C CNN
-F 2 "" H 950 6650 50  0001 C CNN
-F 3 "" H 950 6650 50  0001 C CNN
-	1    950  6650
+F 0 "#PWR?" H -1250 6950 50  0001 C CNN
+F 1 "GND" H -1245 7027 50  0000 C CNN
+F 2 "" H -1250 7200 50  0001 C CNN
+F 3 "" H -1250 7200 50  0001 C CNN
+	1    -1250 7200
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:C_Small C?
 U 1 1 6123A430
-P 950 6550
+P -1250 7100
 AR Path="/5CC0D65F/6123A430" Ref="C?"  Part="1" 
 AR Path="/6123A430" Ref="C?"  Part="1" 
 AR Path="/5F3EA987/6123A430" Ref="C?"  Part="1" 
 AR Path="/61F95ACC/6123A430" Ref="C?"  Part="1" 
-F 0 "C?" H 859 6596 50  0000 R CNN
-F 1 "100nF" H 859 6505 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 950 6550 50  0001 C CNN
-F 3 "~" H 950 6550 50  0001 C CNN
-	1    950  6550
+F 0 "C?" H -1341 7146 50  0000 R CNN
+F 1 "100nF" H -1341 7055 50  0000 R CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H -1250 7100 50  0001 C CNN
+F 3 "~" H -1250 7100 50  0001 C CNN
+	1    -1250 7100
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:+5V #PWR?
 U 1 1 6123A436
-P 950 6450
+P -1250 7000
 AR Path="/6123A436" Ref="#PWR?"  Part="1" 
 AR Path="/5F3EA987/6123A436" Ref="#PWR?"  Part="1" 
 AR Path="/61F95ACC/6123A436" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 950 6300 50  0001 C CNN
-F 1 "+5V" H 965 6623 50  0000 C CNN
-F 2 "" H 950 6450 50  0001 C CNN
-F 3 "" H 950 6450 50  0001 C CNN
-	1    950  6450
+F 0 "#PWR?" H -1250 6850 50  0001 C CNN
+F 1 "+5V" H -1235 7173 50  0000 C CNN
+F 2 "" H -1250 7000 50  0001 C CNN
+F 3 "" H -1250 7000 50  0001 C CNN
+	1    -1250 7000
 	1    0    0    -1  
 $EndComp
-Connection ~ 950  6650
-Connection ~ 950  6450
+Connection ~ -1250 7200
+Connection ~ -1250 7000
 Text Notes 2000 6600 0    50   ~ 0
 The MBU is disabled after reset and enabled\nwhen it's first written to.
 $Comp
@@ -2540,7 +2530,7 @@ Wire Wire Line
 Wire Wire Line
 	9650 6550 9350 6550
 Text Label 9350 6550 0    50   ~ 0
-~W
+~R
 Text Label 9350 6450 0    50   ~ 0
 ~USE_AB
 Text Label 8250 6700 0    50   ~ 0
@@ -2629,7 +2619,7 @@ Connection ~ 8250 5950
 Text Label 9250 6050 1    50   ~ 0
 AEXT[0..7]
 Wire Wire Line
-	2800 7000 2650 7000
+	2800 7300 2650 7300
 $Comp
 L Device:C_Small C?
 U 1 1 60C73294
@@ -2645,11 +2635,13 @@ F 3 "~" H 3250 6950 50  0001 C CNN
 	1    3250 6950
 	1    0    0    -1  
 $EndComp
-Text Label 2650 7000 0    50   ~ 0
+Text Label 2650 7300 0    50   ~ 0
 ~DIS
 Wire Wire Line
-	2800 7000 2800 7400
-NoConn ~ 2650 7300
+	1400 7300 1750 7300
+Wire Wire Line
+	2800 7300 2800 7400
+NoConn ~ 2650 7000
 Wire Bus Line
 	4400 4950 4400 6200
 Wire Bus Line

@@ -165,15 +165,15 @@ module mux_1g157 (sel, a, b, ng, y);
    input        ng;	        // Active low tri-state output enables.
    output       y;		// Outputs.
 
-   wire        sel;
-   wire        a, b;
-   wire        ng;
-   wire        y;
+   wire         sel;
+   wire         a, b;
+   wire         ng;
+   wire         y;
 
    initial begin
       // $display("BOM: 74x1G157");
    end
-   
+
    assign #delay y = ng ? 1'bz : (sel == 0? a : b);
 
 endmodule // mux_1G157
