@@ -21,7 +21,6 @@ SRC =		counter.v counter_161_tb.v counter_590_tb.v counter_393h_tb.v counter_401
 		latch_373_tb.v flipflop_374_tb.v \
 		alu_btb_add.v alu_btb_and.v alu_btb_or.v alu_btb_xor.v alu_btb_not.v alu_btb_roll.v alu_btb_cs.v \
 		rom.v rom_tb.v \
-		ram.v ram_tb.v \
 		reset.v reset_tb.v \
 		memory.v banked_memory_tb.v \
 		io.v \
@@ -53,6 +52,8 @@ IC74XXX	=	buffer.v       buffer_244_tb.v buffer_245_tb.v buffer_541_tb.v \
 		demux.v        demux_138_tb.v demux_138_tb.v \
 		mux.v          mux_1g157_tb.v mux_2g157_tb.v mux_157_tb.v mux_253_tb.v  \
 		flipflop.v     flipflop_112_tb.v flipflop_74_tb.v flipflop_174_tb.v flipflop_574_tb.v flipflop_564_tb.v \
+		ram.v          ram_tb.v \
+
 
 SRC += $(IC74XXX)
 
@@ -288,6 +289,13 @@ test_670:	regfile_670_tb.o regfile.o
 		./regfile_670_tb.o
 		$(GTKWAVE) $(VCDDIR)/regfile_670_tb.vcd $(SAVDIR)/regfile_670_tb.sav
 
+# Memory
+
+test_ram:	ram_tb.o ram.o
+		./ram_tb.o
+		$(GTKWAVE) $(VCDDIR)/ram_tb.vcd $(SAVDIR)/ram_tb.sav
+
+
 ###############################################################################
 #
 # MANUAL TESTBENCHES OF INDIVIDUAL CFT COMPONENTS
@@ -370,9 +378,9 @@ test_rom:	rom_tb.o rom.o test_rom.bin
 		./rom_tb.o
 		$(GTKWAVE) $(VCDDIR)/rom_tb.vcd $(SAVDIR)/rom_tb.sav
 
-test_ram:	ram_tb.o ram.o test_rom.bin
-		./ram_tb.o
-		$(GTKWAVE) $(VCDDIR)/ram_tb.vcd $(SAVDIR)/ram_tb.sav
+# test_ram:	ram_tb.o ram.o test_rom.bin
+# 		./ram_tb.o
+# 		$(GTKWAVE) $(VCDDIR)/ram_tb.vcd $(SAVDIR)/ram_tb.sav
 
 test_banked_memory:	memory.o ram.o demux.o comparator.o flipflop.o regfile.o mux.o banked_memory_tb.o
 		./banked_memory_tb.o

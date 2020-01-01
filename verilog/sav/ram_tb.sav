@@ -1,17 +1,35 @@
-[timestart] 0
-[size] 1511 1074
+[*]
+[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
+[*] Wed Jan  1 09:31:31 2020
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/ram_tb.vcd"
+[dumpfile_mtime] "Wed Jan  1 09:31:11 2020"
+[dumpfile_size] 94507
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/ram_tb.sav"
+[timestart] 263651000
+[size] 1511 1019
 [pos] -1 -1
-*-23.879906 57070000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-19.541193 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] ram_tb.
+[sst_width] 258
+[signals_width] 199
+[sst_expanded] 1
+[sst_vpaned_height] 284
+@820
+ram_tb.status[800:0]
+@28
+[color] 1
+ram_tb.nce
+[color] 2
+ram_tb.noe
+[color] 3
+ram_tb.nwe
+@23
+ram_tb.a[7:0]
 @22
-ram_tb.test_ram.a[12:0]
-ram_tb.test_ram.d[7:0]
+[color] 5
 ram_tb.d_write[7:0]
-@28
-ram_tb.test_ram.ce
-@29
-ram_tb.test_ram.oe
-@28
-ram_tb.test_ram.we
+[color] 6
+ram_tb.d[7:0]
 [pattern_trace] 1
 [pattern_trace] 0

@@ -27,8 +27,8 @@ module sram (a, d, nce, nwe, noe);
    inout [7:0]      d;          // Output
  
    wire [bits-1:0]  a;          // Address
-   wire             ce;
-   wire             oe;
+   wire             nce;
+   wire             noe;
    
    wire [7:0]       d;
 
