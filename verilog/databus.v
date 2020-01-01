@@ -1,6 +1,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// THE SKIP UNIT
+// THE DATA BUS INTERFACE (INCLUDING WAIT STATES)
 //
 // REDESINGED IN 2019
 //
@@ -31,7 +31,7 @@ module databus (nreset, nhalt, clk3, t34, wstb,
    input 	nio;
    input 	nr;
    input 	nwen;
-   input 	nws;
+   inout 	nws;
 
    inout [15:0] ibus;		// input & output!
 

@@ -39,10 +39,11 @@ module databus_tb();
    reg 		nhalt;
 
    reg 		nmem, nio, nr, nwen;
-   reg 		nws;
+   reg 		nws_drv;
 
    wire 	clk1, clk2, clk3, clk4, t34, wstb;
    wire 	nw;
+   wire 	nws;
 
    wire [15:0] 	ibus, db;
    reg [15:0] 	ibus_drv, db_drv;
@@ -50,6 +51,7 @@ module databus_tb();
    // Hack to allow bidirectional tri-state driving/reading.
    assign ibus = ibus_drv;
    assign db = db_drv;
+   assign nws = nws_drv;
 
    // Convenience
    wire 	nwaiting;
@@ -76,7 +78,7 @@ module databus_tb();
       nio = 1;
       nr = 1;
       nwen = 1;
-      nws = 1'bz;
+      nws_drv = 1'bz;
       ibus_drv = 16'bZ;
       db_drv = 16'bZ;
 
@@ -143,16 +145,16 @@ module databus_tb();
 	    nr = 1;
 	    nwen = 1;
 	    nhalt = 1;
-	    nws = 1'bz;
+	    nws_drv = 1'bz;
 	    for (i = 0; i < 65536; i += `DELTA) begin
 	       #62.5 if (j == 0) nmem = 0; else nio = 0;
 	       nwen = 0;
 	       ibus_drv = i;
-	       nws = 0;
+	       nws_drv = 0;
 	       #187.5 if (j == 0) nmem = 1; else nio = 1;
 	       nwen = 1;
 	       #((k - 1) * 250 + 12.5);	// 250 = 1 WS, 500 = 2 WS, etc.
-	       nws = 1'bz;	// Two cycle delay
+	       nws_drv = 1'bz;	// Two cycle delay
 	       #237.5;
 	    end
 	    ibus_drv = 16'bZ;

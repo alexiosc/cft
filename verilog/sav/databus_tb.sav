@@ -1,18 +1,18 @@
 [*]
-[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Wed Oct 30 09:51:59 2019
+[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
+[*] Wed Jan  1 10:22:37 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/databus_tb.vcd"
-[dumpfile_mtime] "Wed Oct 30 09:50:38 2019"
-[dumpfile_size] 1445609
+[dumpfile_mtime] "Wed Jan  1 10:19:34 2020"
+[dumpfile_size] 1445636
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/databus_tb.sav"
-[timestart] 62100000
-[size] 1918 912
+[timestart] 72499400
+[size] 1920 1019
 [pos] 2080 183
-*-22.799170 429996750 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-17.370026 72961250 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] databus_tb.
 [treeopen] databus_tb.databus.
-[sst_width] 245
+[sst_width] 258
 [signals_width] 279
 [sst_expanded] 1
 [sst_vpaned_height] 266
@@ -20,9 +20,9 @@
 databus_tb.status[800:0]
 @200
 -
-@c00200
+@800201
 -Clock
-@28
+@29
 databus_tb.clock_generator.clk1
 [color] 2
 databus_tb.clk2
@@ -34,11 +34,11 @@ databus_tb.clk4
 databus_tb.t34
 [color] 6
 databus_tb.wstb
-@1401200
+@1000201
 -Clock
 @200
 -
-@c00200
+@800200
 -nW Tri-State
 @420
 databus_tb.i
@@ -51,7 +51,7 @@ databus_tb.wstb
 databus_tb.nwen
 [color] 4
 databus_tb.nw
-@1401200
+@1000200
 -nW Tri-State
 @200
 -
@@ -205,7 +205,7 @@ databus_tb.num_ws
 -Bus Write Tests
 @200
 -
-@821
+@820
 databus_tb.status[800:0]
 [pattern_trace] 1
 [pattern_trace] 0
