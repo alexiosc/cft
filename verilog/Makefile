@@ -295,6 +295,10 @@ test_ram:	ram_tb.o ram.o
 		./ram_tb.o
 		$(GTKWAVE) $(VCDDIR)/ram_tb.vcd $(SAVDIR)/ram_tb.sav
 
+test_rom:	rom_tb.o rom.o
+		./rom_tb.o
+		$(GTKWAVE) $(VCDDIR)/rom_tb.vcd $(SAVDIR)/rom_tb.sav
+
 
 ###############################################################################
 #
@@ -374,9 +378,9 @@ test_skip:	skip_unit_tb.o skip_unit.o
 		./skip_unit_tb.o
 		$(GTKWAVE) $(VCDDIR)/skip_unit_tb.vcd $(SAVDIR)/skip_unit_tb.sav
 
-test_rom:	rom_tb.o rom.o test_rom.bin
-		./rom_tb.o
-		$(GTKWAVE) $(VCDDIR)/rom_tb.vcd $(SAVDIR)/rom_tb.sav
+# test_rom:	rom_tb.o rom.o test_rom.bin
+# 		./rom_tb.o
+# 		$(GTKWAVE) $(VCDDIR)/rom_tb.vcd $(SAVDIR)/rom_tb.sav
 
 # test_ram:	ram_tb.o ram.o test_rom.bin
 # 		./ram_tb.o

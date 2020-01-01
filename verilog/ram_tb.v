@@ -141,7 +141,6 @@ module ram_tb();
       #80 begin
 	 msg[7:0] = "";		// Use the msg as a flag.
 	 
-	 // Very during the "read" stage
 	 if (d_write !== 8'bZ && noe === 0) begin
 	    $sformat(msg, "testbench bug: d_write is not Z and noe is 0 (also driving d).");
 	 end
