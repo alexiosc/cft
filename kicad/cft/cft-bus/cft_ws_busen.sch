@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:cft-bus-cache
-EELAYER 30 0
+EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -14,33 +14,10 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-$Comp
-L alexios:74AHC1G32 U?
-U 1 1 5D33F5C7
-P 2800 2000
-AR Path="/5D33F5C7" Ref="U?"  Part="1" 
-AR Path="/5D30488D/5D33F5C7" Ref="U?"  Part="1" 
-AR Path="/5D44ECB5/5D33F5C7" Ref="U?"  Part="1" 
-AR Path="/5D46B22D/5D33F5C7" Ref="U4"  Part="1" 
-F 0 "U4" H 2750 2267 50  0000 C CNN
-F 1 "74AHC1G32" H 2750 2176 50  0000 C CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 2810 1980 50  0001 C CNN
-F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 2810 1980 50  0001 C CNN
-	1    2800 2000
-	1    0    0    -1  
-$EndComp
 Text Label 1750 1950 0    50   ~ 0
 ~WS
-Text Label 1750 2050 0    50   ~ 0
-T34
 Text HLabel 1650 1950 0    50   Input ~ 0
 ~WS
-Text HLabel 1650 2050 0    50   Input ~ 0
-T34
-Wire Wire Line
-	1650 2050 2600 2050
-Text Label 1750 2200 0    50   ~ 0
-CLK3
 $Comp
 L alexios:74AUC1G74 U?
 U 1 1 5D33F5D3
@@ -58,8 +35,6 @@ F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 4700 2150 50  0001 C CNN
 $EndComp
 Text Label 3650 2000 2    50   ~ 0
 ~WS-in-T34
-Text Label 3650 2200 2    50   ~ 0
-CLK3
 Text Label 1750 2300 0    50   ~ 0
 ~RESET
 Text Label 3650 2300 2    50   ~ 0
@@ -74,10 +49,6 @@ Text HLabel 1650 2200 0    50   Input ~ 0
 CLK3
 Text HLabel 1650 2300 0    50   Input ~ 0
 ~RESET
-Wire Wire Line
-	3100 2000 3750 2000
-Wire Wire Line
-	1650 2200 3800 2200
 Text Label 1750 1400 0    50   ~ 0
 WSTB
 Wire Wire Line
@@ -212,7 +183,6 @@ F 3 "~" H 4900 2000 50  0001 C CNN
 	1    4700 2000
 	0    1    1    0   
 $EndComp
-Connection ~ 3750 2000
 Wire Wire Line
 	3750 2000 3800 2000
 $Comp
@@ -606,8 +576,6 @@ Wire Wire Line
 Wire Wire Line
 	2100 1900 2100 1950
 Connection ~ 2100 1950
-Wire Wire Line
-	2100 1950 2600 1950
 $Comp
 L alexios:74HC245 U8
 U 2 1 5E214BF4
@@ -1190,8 +1158,40 @@ Wire Notes Line width 20 style solid
 	2550 4100 2550 3375
 Text Label 6200 1400 0    50   ~ 0
 ~W₀
-Wire Bus Line
-	6850 3250 6850 5600
+Connection ~ 3750 2000
+Wire Wire Line
+	3100 2000 3750 2000
+Wire Wire Line
+	2100 1950 2600 1950
+Text HLabel 1650 2050 0    50   Input ~ 0
+T34
+Text Label 1750 2050 0    50   ~ 0
+T34
+Wire Wire Line
+	1650 2050 2600 2050
+$Comp
+L alexios:74AHC1G32 U?
+U 1 1 5D33F5C7
+P 2800 2000
+AR Path="/5D33F5C7" Ref="U?"  Part="1" 
+AR Path="/5D30488D/5D33F5C7" Ref="U?"  Part="1" 
+AR Path="/5D44ECB5/5D33F5C7" Ref="U?"  Part="1" 
+AR Path="/5D46B22D/5D33F5C7" Ref="U4"  Part="1" 
+F 0 "U4" H 2750 2267 50  0000 C CNN
+F 1 "74AHC1G32" H 2750 2176 50  0000 C CNN
+F 2 "alexios:SOT-23-5_HandSoldering" H 2810 1980 50  0001 C CNN
+F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 2810 1980 50  0001 C CNN
+	1    2800 2000
+	1    0    0    -1  
+$EndComp
+Text Label 3650 2200 2    50   ~ 0
+CLK3
+Wire Wire Line
+	1650 2200 3800 2200
+Text Label 1750 2200 0    50   ~ 0
+CLK3
 Wire Bus Line
 	8750 3250 8750 5600
+Wire Bus Line
+	6850 3250 6850 5600
 $EndSCHEMATC
