@@ -1460,4 +1460,92 @@ Wire Wire Line
 NoConn ~ 8750 1750
 Text Notes 8550 5600 0    100  ~ 20
 Does the hazard created by this NOT gate cause\nactual disruption?
+$Comp
+L alexios:74LVC1G74 U?
+U 1 1 61E3CB28
+P 14900 5250
+F 0 "U?" H 14900 5667 50  0000 C CNN
+F 1 "74LVC1G74" H 14900 5576 50  0000 C CNN
+F 2 "" H 15350 5250 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G74.pdf" H 15350 5250 50  0001 C CNN
+	1    14900 5250
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC32 U?
+U 1 1 61E3DAF2
+P 14800 4250
+F 0 "U?" H 14800 4325 50  0000 C CNN
+F 1 "74HC32" H 14800 4234 50  0000 C CNN
+F 2 "" H 14800 4250 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS32" H 14800 4250 50  0001 C CNN
+	1    14800 4250
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	15050 4450 15150 4450
+Wire Wire Line
+	15150 4450 15150 4400
+Wire Wire Line
+	15150 4450 15150 4500
+Connection ~ 15150 4450
+Wire Wire Line
+	15150 4500 15200 4500
+Wire Wire Line
+	15150 4400 15200 4400
+$Comp
+L alexios:74HC32 U?
+U 1 1 61E40E14
+P 15450 4250
+F 0 "U?" H 15450 4325 50  0000 C CNN
+F 1 "74HC32" H 15450 4234 50  0000 C CNN
+F 2 "" H 15450 4250 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS32" H 15450 4250 50  0001 C CNN
+	1    15450 4250
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	15700 4450 15800 4450
+Wire Wire Line
+	15800 4450 15800 4400
+Wire Wire Line
+	15800 4450 15800 4500
+Connection ~ 15800 4450
+Wire Wire Line
+	15800 4500 15850 4500
+Wire Wire Line
+	15800 4400 15850 4400
+$Comp
+L alexios:74HC32 U?
+U 1 1 61E601D2
+P 16100 4250
+F 0 "U?" H 16100 4325 50  0000 C CNN
+F 1 "74HC32" H 16100 4234 50  0000 C CNN
+F 2 "" H 16100 4250 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS32" H 16100 4250 50  0001 C CNN
+	1    16100 4250
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	16350 4450 16450 4450
+Wire Wire Line
+	16450 4450 16450 4400
+Wire Wire Line
+	16450 4450 16450 4500
+Connection ~ 16450 4450
+Wire Wire Line
+	16450 4500 16500 4500
+Wire Wire Line
+	16450 4400 16500 4400
+$Comp
+L alexios:74HC32 U?
+U 1 1 61E67CEF
+P 16750 4250
+F 0 "U?" H 16750 4325 50  0000 C CNN
+F 1 "74HC32" H 16750 4234 50  0000 C CNN
+F 2 "" H 16750 4250 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS32" H 16750 4250 50  0001 C CNN
+	1    16750 4250
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
