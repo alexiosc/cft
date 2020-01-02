@@ -308,7 +308,7 @@ module databus_tb();
    // Check the values of nw.
    // reg correct_nw;
    // always @ (negedge wstb, nmem, nio, nr, nwen, nw) begin
-   //    #50 begin
+   //    #20 begin
    // 	 msg[7:0] = "";		// Use the msg as a flag.
 
    // 	 // Note: nmem/nio validity and mutual exclusion is tested above. Also
@@ -329,12 +329,12 @@ module databus_tb();
    // 	    casex ({ nwen, nwaiting, wstb, nw })
 
    // 	      4'b000_1, 4'b001_1, 4'b010_1, 4'b100_1, 4'b101_1:
-   // 		$sformat(msg, "nwen=%b, nwaiting=%b, but nw=%b (should be 0)",
-   // 			 nwen, nwaiting, nw);
+   // 		$sformat(msg, "nwen=%b, nwaiting=%b, wstb=%b, but nw=%b (should be 0)",
+   // 			 nwen, nwaiting, wstb, nw);
 
    // 	      4'b011_0, 4'b110_0, 4'b111_0: 
-   // 		$sformat(msg, "nwen=%b, nwaiting=%b, but nw=%b (should be 1)",
-   // 			 nwen, nwaiting, nw);
+   // 		$sformat(msg, "nwen=%b, nwaiting=%b, wstb=%b, but nw=%b (should be 1)",
+   // 			 nwen, nwaiting, wstb, nw);
    // 	    endcase // casex ({ nwen, nwaiting, nw })
    // 	 end
 		
