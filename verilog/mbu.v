@@ -31,7 +31,7 @@
 // The Memory Bank Register File
 
 module mbu (nreset,
-	    wstb,
+	    wstb, t34,
 	    raddr, waddr,
 	    ir,			// Only bits 0–2 and 8–11 are used.
 	    ibus,		// Only bits 0–7 of the IBUS are used.
@@ -47,6 +47,7 @@ module mbu (nreset,
 	    
    input        nreset;
    input 	wstb;
+   input 	t34;
    input [4:0] 	waddr;
    input [4:0] 	raddr;
    input [11:0] ir;
@@ -212,7 +213,7 @@ module mbu (nreset,
    // The register file is a 32K×8 static RAM chip.
 
    sram #(13, 15) regfile (.a({10'd0, sel}), .d(aext),
-			   .nce(1'b0), .nwe(nwmbr), .noe(nrmbr));
+			   .nce(t34), .nwe(nwmbr), .noe(nrmbr));
 
    // Note: AEXT is pulled low via its definition (tri0).
 
