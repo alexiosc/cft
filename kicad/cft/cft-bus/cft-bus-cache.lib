@@ -81,7 +81,7 @@ ENDDEF
 #
 # Device_R_Network04
 #
-DEF Device_R_Network04 RN 0 0 N N 1 F N
+DEF Device_R_Network04 RN 0 0 Y N 1 F N
 F0 "RN" -300 0 50 V V C CNN
 F1 "Device_R_Network04" 200 0 50 V V C CNN
 F2 "Resistor_THT:R_Array_SIP5" 275 0 50 V I C CNN
@@ -135,7 +135,7 @@ F1 "Jumper_Jumper_2_Bridged" 0 -100 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
- Jumper*
+ SolderJumper*Bridged*
 $ENDFPLIST
 DRAW
 A 0 -70 100 1269 531 0 1 0 N -60 10 60 10
@@ -154,7 +154,7 @@ F1 "Jumper_Jumper_2_Open" 0 -90 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
- Jumper*
+ SolderJumper*Open*
 $ENDFPLIST
 DRAW
 A 0 -30 100 1269 531 0 1 0 N -60 50 60 50
@@ -173,7 +173,7 @@ F1 "Jumper_Jumper_3_Bridged12" 0 110 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
- Jumper*Bridged12*
+ SolderJumper*Bridged12*
 $ENDFPLIST
 DRAW
 A -65 -50 89 1282 518 0 1 0 N -120 20 -10 20

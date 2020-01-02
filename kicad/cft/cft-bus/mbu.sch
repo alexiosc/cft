@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:cft-bus-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -85,10 +85,6 @@ Wire Wire Line
 	7050 5350 7050 5450
 Wire Wire Line
 	7100 5450 7050 5450
-Wire Wire Line
-	7100 5650 7050 5650
-Wire Wire Line
-	7050 5650 7050 5900
 Wire Wire Line
 	7100 5750 6800 5750
 Text Label 6800 5750 0    50   ~ 0
@@ -581,8 +577,6 @@ Wire Wire Line
 	9050 1150 9100 1150
 Text Label 9900 1150 2    50   ~ 0
 ~RMBR
-Text Label 9750 2300 2    50   ~ 0
-~WMBR
 $Comp
 L alexios:74AC32 U?
 U 1 1 5EDE7E21
@@ -782,48 +776,25 @@ Wire Wire Line
 Connection ~ 5300 4950
 Wire Wire Line
 	5300 4950 5300 5000
-Wire Wire Line
-	9250 2550 9250 2600
-Wire Wire Line
-	9200 2550 9250 2550
-$Comp
-L power:GND #PWR?
-U 1 1 5EDE7EC7
-P 9250 2600
-AR Path="/61F95ACC/63C9F04D/5EDE7EC7" Ref="#PWR?"  Part="1" 
-AR Path="/61F95ACC/5EDE7EC7" Ref="#PWR028"  Part="1" 
-F 0 "#PWR028" H 9250 2350 50  0001 C CNN
-F 1 "GND" H 9255 2427 50  0000 C CNN
-F 2 "" H 9250 2600 50  0001 C CNN
-F 3 "" H 9250 2600 50  0001 C CNN
-	1    9250 2600
-	1    0    0    -1  
-$EndComp
 $Comp
 L Jumper:Jumper_3_Bridged12 JP?
 U 1 1 5EDE7ECD
-P 8950 2550
+P 9300 2050
 AR Path="/61F95ACC/63C9F04D/5EDE7ECD" Ref="JP?"  Part="1" 
 AR Path="/61F95ACC/5EDE7ECD" Ref="JP3"  Part="1" 
-F 0 "JP3" H 8950 2662 50  0000 C CNN
-F 1 "Jumper_3_Bridged12" H 8950 2663 50  0001 C CNN
-F 2 "" H 8950 2550 50  0001 C CNN
-F 3 "~" H 8950 2550 50  0001 C CNN
-	1    8950 2550
-	1    0    0    1   
+F 0 "JP3" V 9450 1800 50  0000 L CNN
+F 1 "Jumper_3_Bridged12" H 9300 2163 50  0001 C CNN
+F 2 "" H 9300 2050 50  0001 C CNN
+F 3 "~" H 9300 2050 50  0001 C CNN
+	1    9300 2050
+	0    -1   1    0   
 $EndComp
-Text Label 8550 2550 0    50   ~ 0
+Text Label 8550 2350 0    50   ~ 0
 WSTB
-Wire Wire Line
-	8700 2550 8550 2550
-Wire Wire Line
-	8950 2350 8950 2400
 Text Notes 9550 1750 2    50   ~ 0
 Optional 0–3×Tpd delay line
 Wire Wire Line
-	8950 2350 9000 2350
-Wire Wire Line
-	9500 2300 9750 2300
+	9250 2300 9300 2300
 Wire Wire Line
 	5000 2750 4800 2750
 $Comp
@@ -889,23 +860,23 @@ Connection ~ 7200 1150
 Wire Wire Line
 	7200 1150 7200 1200
 Wire Wire Line
-	9000 2250 8400 2250
+	8750 2250 8300 2250
 Wire Wire Line
 	6000 1250 7050 1250
 $Comp
 L alexios:74AC32 U?
 U 4 1 5EDE7EDA
-P 9250 2100
+P 9000 2100
 AR Path="/61F95ACC/63C9F04D/5EDE7EDA" Ref="U?"  Part="4" 
 AR Path="/61F95ACC/5EDE7EDA" Ref="U9"  Part="4" 
-F 0 "U9" H 9350 1750 50  0000 C CNN
-F 1 "74AC32" H 9400 1650 50  0000 C CNN
-F 2 "" H 9250 2100 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS32" H 9250 2100 50  0001 C CNN
-	4    9250 2100
+F 0 "U9" H 8950 2100 50  0000 C CNN
+F 1 "74AC32" H 8950 2200 50  0000 C CNN
+F 2 "" H 9000 2100 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS32" H 9000 2100 50  0001 C CNN
+	4    9000 2100
 	1    0    0    -1  
 $EndComp
-Text HLabel 8550 2550 0    50   Input ~ 0
+Text HLabel 8500 2350 0    50   Input ~ 0
 WSTB
 Connection ~ 7150 1150
 Wire Wire Line
@@ -1674,7 +1645,7 @@ Connection ~ 8150 3100
 Text Notes 7250 2150 0    100  ~ 20
 MUX LEDs
 Wire Wire Line
-	7050 1800 8400 1800
+	7050 1800 8300 1800
 Wire Wire Line
 	7050 1800 7050 1250
 Text Notes 3750 4800 2    50   ~ 0
@@ -2151,7 +2122,7 @@ F 3 "http://www.ti.com/lit/gpn/sn74HC245" H 10500 3800 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	8400 1800 8400 2250
+	8300 1800 8300 2250
 Text HLabel 3400 4850 0    50   Input ~ 0
 IR[0..11]
 Wire Bus Line
@@ -2339,10 +2310,7 @@ Wire Wire Line
 	9100 5100 9100 4250
 Entry Wire Line
 	9150 4950 9250 5050
-Connection ~ 7050 5650
 Connection ~ 7050 5450
-Wire Wire Line
-	7050 5450 7050 5650
 Text HLabel 1250 2150 0    50   Input ~ 0
 ~SYSDEV
 Text HLabel 6050 7300 2    50   Output ~ 0
@@ -2642,6 +2610,27 @@ Wire Wire Line
 Wire Wire Line
 	2800 7300 2800 7400
 NoConn ~ 2650 7000
+Wire Wire Line
+	8500 2350 8750 2350
+Wire Wire Line
+	9450 2050 9650 2050
+Wire Wire Line
+	8300 1800 9300 1800
+Connection ~ 8300 1800
+Text Label 9650 2050 2    50   ~ 0
+WMBR
+Text Notes 8500 2600 0    50   ~ 0
+ORing with WSTB is almost\ncertainly a bad idea.
+Wire Wire Line
+	7050 5450 7050 5900
+Wire Wire Line
+	7100 5650 6800 5650
+Text Label 6800 5650 0    50   ~ 0
+T34
+Text HLabel 1250 950  0    50   Input ~ 0
+T34
+Wire Wire Line
+	1250 950  1600 950 
 Wire Bus Line
 	4400 4950 4400 6200
 Wire Bus Line
@@ -2660,4 +2649,6 @@ Wire Bus Line
 	6700 4350 6700 6200
 Wire Bus Line
 	9250 4350 9250 6150
+Text Label 1600 950  2    50   ~ 0
+T34
 $EndSCHEMATC
