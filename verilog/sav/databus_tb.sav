@@ -1,15 +1,15 @@
 [*]
-[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
-[*] Wed Jan  1 10:22:37 2020
+[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
+[*] Thu Jan  2 15:18:58 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/databus_tb.vcd"
-[dumpfile_mtime] "Wed Jan  1 10:19:34 2020"
-[dumpfile_size] 1445636
+[dumpfile_mtime] "Thu Jan  2 15:07:30 2020"
+[dumpfile_size] 1461726
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/databus_tb.sav"
-[timestart] 72499400
+[timestart] 3529000
 [size] 1920 1019
-[pos] 2080 183
-*-17.370026 72961250 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[pos] 2138 104
+*-20.775309 9360000 7510719 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] databus_tb.
 [treeopen] databus_tb.databus.
 [sst_width] 258
@@ -20,9 +20,9 @@
 databus_tb.status[800:0]
 @200
 -
-@800201
+@800200
 -Clock
-@29
+@28
 databus_tb.clock_generator.clk1
 [color] 2
 databus_tb.clk2
@@ -30,11 +30,17 @@ databus_tb.clk2
 databus_tb.clk3
 [color] 4
 databus_tb.clk4
+[color] 4
+databus_tb.nw
+@29
+databus_tb.databus.nwen
+@28
+databus_tb.databus.nwtest
 [color] 5
 databus_tb.t34
 [color] 6
 databus_tb.wstb
-@1000201
+@1000200
 -Clock
 @200
 -
@@ -86,7 +92,7 @@ databus_tb.num_ws
 -Wait States
 @200
 -
-@800200
+@c00200
 -Bus Enable
 @28
 [color] 1
@@ -97,7 +103,7 @@ databus_tb.nio
 databus_tb.databus.nwaiting
 [color] 4
 databus_tb.databus.nbusen
-@1000200
+@1401200
 -Bus Enable
 @200
 -
@@ -141,10 +147,10 @@ databus_tb.nmem
 databus_tb.nio
 [color] 3
 databus_tb.nwen
-[color] 4
-databus_tb.nw
 [color] 5
 databus_tb.wstb
+[color] 4
+databus_tb.nw
 [color] 6
 databus_tb.nws
 databus_tb.databus.nwaiting
