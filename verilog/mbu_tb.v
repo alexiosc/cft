@@ -44,13 +44,14 @@ module reg_mbr_tb();
    wire       nw;
    
    wire [15:0] ibus_real, ab_real, db_real;
-   wire [7:0] aext;
+   wire [7:0]  aext, db_low, ibus_low;
    
    integer    i, j, k;
 
    reg [800:0] status;
 
-   wire        wstb;
+   wire        wstb, t34;
+   
    wire        nsysdev;
 
    // Convenience decoded outputs to the Flag unit.
@@ -76,11 +77,14 @@ module reg_mbr_tb();
       $dumpfile ("vcd/mbu_tb.vcd");
       $dumpvars (0, reg_mbr_tb);
 
-      $monitor ("t: %7d | %b %b | init=%b rom=%b | IR: %04x | %d %02x | regs: %02x %02x %02x %02x %02x %02x %02x %02x",
+      $monitor ("t: %7d | %b %b | init=%b rom=%b | IR: %04x | %d %02x | waddr=%05b raddr=%05b ibus=%02x | regfile: %04x %02x ce=%b we=%b oe=%b | regs: %02x %02x %02x %02x %02x %02x %02x %02x",
       		$time,
 		waddr, raddr,
 		mbu.nenable, nfpram_fprom,
-		ir, mbu.sel, aext,
+		ir,
+		mbu.sel, aext,
+		waddr, raddr, ibus_low,
+		mbu.regfile.a, mbu.regfile.d, mbu.regfile.nce, mbu.regfile.nwe, mbu.regfile.noe,
       		mb0, mb1, mb2, mb3, mb4, mb5, mb6, mb7);
 
       // Before we begin, randomise the values of the eight registers to
@@ -109,7 +113,6 @@ module reg_mbr_tb();
 
       // The TB isn't synchronous to the clock, so adjust its phase difference.
       #10;
-      
 
       // Read the registers using simulated Page Zero accesses, which is fairly
       // complicated but the best option this early in the test.
@@ -126,7 +129,6 @@ module reg_mbr_tb();
       end
 
       #1000;
-
 
       // First, let's configure the MBn registers. Test all 256 values on all 8
       // registgers. We can only write to the registers using OUT instructions,
@@ -151,16 +153,107 @@ module reg_mbr_tb();
 	    #250 nwen = 1;
 	    ibus = 16'dZ;
    	 end
-      end
+
+	 // OUT a final value to configure the registers for subsequent testing.
+	 #250 nwen = 0;
+	 ibus = { i[3:0] ^ 4'hf, i[3:0] };
+	 #250 nwen = 1;
+	 ibus = 16'dZ;
+      end // for (i = 0; i < 8 ; i = i + 1)
+      // We don't have an nIO signal, so nSYSDEV only depends on the AB. Clear the address. to deselect the MBU.
+      ab = 16'd0;
       #1000;
+
+
+
+
+      // Read the registers using simulated IN instructions.
+      status = "read (IN)";
+      raddr = 4'b0000;
+      waddr = 4'b0000;
+      ibus = 16'bZ;
+      db = 16'bZ;
+      ir = 0;
+      nwen = 1;
+      
+      for (i = 0; i < 8 ; i = i + 1) begin
+   	 #1000 ab = 8 | i;
+	 #250 nr = 0;
+	 #250 if (db_low !== { i[3:0] ^ 4'hf, i[3:0] }) begin
+	    $display(msg, "read (IN): ab=%04x, reg %d = %02x (should be %02x)",
+		     ab, ab[2:0], db, { i[3:0] ^ 4'hf, i[3:0] });
+	    $error("assertion failure");
+	    #100 $finish;
+	 end else begin
+	    $display("OK IN");
+	 end
+	 nr = 1;
+      end
+      ab = 16'd0;
+
+      #1000;
+
+      // Test RADDRs.
+      status = "read (RADDR)";
+      for (i = 0; i < 32; i = i + 1) begin
+	 raddr = i[4:0];
+	 #250;
+
+	 if ((raddr === 5'b01100 || raddr === 5'b01101)) begin
+	    // The MBU responded here. It should put the value of MB0 on the IBUS. Check.
+	    if (ibus_real[7:0] !== mbu.regfile.mem[0]) begin
+	       $display("read (RADDR): raddr=%05b, ibus=%02x, (should be %02x)",
+			raddr, ibus[7:0], mbu.regfile.mem[0]);
+	       $error("assertion failure");
+	       #100 $finish;
+	    end else begin
+	       $display("OK RADDR");
+	    end
+	 end else begin
+	    // The MBU is decoding the wrong address!
+	    if (ibus_real !== 16'bZ) begin
+	       $display("read (RADDR): raddr=%05b, ibus=%04x, MBU drove the IBUS (it shouldn't have)",
+			raddr, ibus[7:0]);
+	       $error("assertion failure");
+	       #100 $finish;
+	    end else begin
+	       $display("OK RADDR");
+	    end
+	 end
+      end
+      raddr = 5'b0;
+
+      #1000;
+
+      // Test WADDRS.
+      status = "write (WADDR)";
+      for (i = 0; i < 32; i = i + 1) begin
+	 waddr = i;
+
+   	 for (j = 0; j < 256; j = j + 49) begin
+	    #125 ibus = j;
+	    waddr = i;
+	    #125 waddr = 0;
+	    ibus = 16'dZ;
+   	 end
+
+	 // Send out a final value to configure MB0 for subsequent
+	 // testing. (same value it had before)
+	 #125 ibus = 8'hf0;
+	 waddr = i;
+	 #125 waddr = 0;
+	 ibus = 16'dZ;
+	 
+      end // for (i = 0; i < 32; i = i + 1)
+
+      #1000;
+      
+
 
 
 
 `ifdef never
 
-      // Now let's configure a known set of registers to help with further
-      // testing.
-      status = "config";
       
       #1000 raddr = 4'b0000;
       for (i = 0; i < 8 ; i = i + 1) begin
@@ -236,10 +329,12 @@ module reg_mbr_tb();
    assign ibus_real = ibus;
    assign ab_real = ab;
    assign db_real = db;
+   assign db_low = db_real[7:0]; // This simplifies things with gtkwave
+   assign ibus_low = ibus_real[7:0]; // This simplifies things with gtkwave
 
    // Connect the DUT   
    mbu mbu (.nreset(nreset),
-	    .wstb(wstb),
+	    .wstb(wstb), .t34(t34),
 	    .waddr(waddr), .raddr(raddr),
 	    .ir(ir[11:0]),
 	    .ibus(ibus_real[7:0]),
@@ -256,7 +351,7 @@ module reg_mbr_tb();
 	    );
 
    // Use the actual clock generator to make testing more accurate.
-   clock_generator clk (.nreset(nreset), .fpclk(1'b0), .nfpclk_or_clk(1'b1), .wstb(wstb));
+   clock_generator clk (.nreset(nreset), .fpclk(1'b0), .nfpclk_or_clk(1'b1), .wstb(wstb), .t34(t34));
 
    // Simulate SYSDEV generation. Assume ALL bus transactions are I/O
    // transactions for simplicity.
@@ -265,10 +360,11 @@ module reg_mbr_tb();
    // Simulate the crucial parts of the BUS board.
    assign ibus_real = nr ? 16'bZ : db;
    assign db_real = nwen ? 16'bZ : ibus;
-   assign #6 nw = nwen | wstb;
+   assign #6 nw = nwen; // | wstb;
 
    // Verify our findings.
    reg [8191:0] msg;
+   reg 		contention = 0;
    reg 		default_values = 1'b1;
    reg [7:0] 	mbn[7:0];	// Snooped register values
    reg [7:0] 	correct_value1, correct_value2;
@@ -294,38 +390,130 @@ module reg_mbr_tb();
       else $display("OK post-reset");
    end
 
-   // Verify working OUT instructions.
-   always @(posedge nw) begin
-      // Don't test until 250ns after start, to allow the clock to work properly.
-      if ($time > 250) begin
-	 // After an OUT instruction, the MBU should come out of post-reset mode.
-	 if (nw === 1'b1) #50 begin
-   	    if (mbu.ndis !== 1'b1) begin
-   	       $sformat(msg, "After an OUT instruction, mbu.ndis = %b (should be 1).", mbu.ndis);
-   	    end
-	 end
+   // // Verify the MBU can be enabled by a write.
+   // always @(posedge nw) #80 begin
+   //    if ($time > 250 && mbu.ndis !== 1'b1) begin
+   // 	 $sformat(msg, "After an OUT instruction, mbu.ndis = %b (should be 1).", mbu.ndis);
+   //    end
 
-	 // Test that the correct value was written.
-	 begin
-   	    ab_snoop = ab_real;
-   	    db_snoop = db_real;
-   	    if (mbu.regfile.regfile.mem[ab_real[2:0]] !== db_real[7:0]) begin
-   	       $sformat(msg, "OUT %03x <- %02x, but regfile.mem[%d] = %02x (should be %02x)",
-   			ab_real[10:0], db_real, ab_real[2:0],
-   			mbu.regfile.regfile.mem[ab_real[2:0]], db_real[2:0]);
-   	    end
-	 end
+   //    // Fail if we've logged an issue.
+   //    if (msg[7:0]) begin
+   // 	 $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+   // 	 $error("assertion failure");
+   // 	 #100 $finish;
+   //    end
+   //    else begin
+   // 	 $display("OK INIT");
+   //    end
+   // end
 
-	 // Fail if we've logged an issue.
-	 if (msg[7:0]) begin
-   	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
-   	    $error("assertion failure");
-   	    #100 $finish;
-	 end
-	 else $display("OK OUT");
+
+   // // Verify OUT behaviour
+   // always @(nw) begin
+   //    // After an OUT instruction, the MBU should come out of post-reset mode.
+   //    if (nw === 1'b1) #500 begin
+   // 	 if (mbu.ndis !== 1'b1) begin
+   // 	    $sformat(msg, "After an OUT instruction, mbu.ndis = %b (should be 1).", mbu.ndis);
+   // 	 end
+   //    end
+
+   //    // Don't test until 250ns after start, to allow the clock to work properly.
+   //    if ($time > 250 && nw === 1'b0) begin
+   // 	 // Test that the correct value was written.
+   // 	 begin
+   // 	    ab_snoop = ab_real;
+   // 	    db_snoop = db_real;
+   // 	    #0 if (mbu.regfile.regfile.mem[ab_real[2:0]] !== db_real[7:0]) begin
+   // 	       $sformat(msg, "OUT %03x <- %02x, but regfile.mem[%d] = %02x (should be %02x)",
+   // 			ab_real[10:0], db_real, ab_real[2:0],
+   // 			mbu.regfile.regfile.mem[ab_real[2:0]], db_real[2:0]);
+   // 	    end
+   // 	 end
+
+   // 	 // Fail if we've logged an issue.
+   // 	 if (msg[7:0]) begin
+   // 	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+   // 	    $error("assertion failure");
+   // 	    #100 $finish;
+   // 	 end
+   // 	 else $display("OK OUT");
+   //    end
+   // end
+
+   // Verify writing to the MBP via WADDR
+   always @(waddr, ibus[7:0]) begin
+      if (waddr === 5'b01100 || waddr === 5'b01101) #250 begin
+	 if (ibus[7:0] !== 8'bZ && mbu.regfile.mem[0] !== ibus[7:0]) begin
+	    $sformat(msg, "waddr=%b, ibus=%02x but mbp=%02x (should be %02x)",
+		     waddr, ibus[7:0], mbu.regfile.mem[0], ibus[7:0]);
+	 end;	      
       end
+
+      // Fail if we've logged an issue.
+      if (msg[7:0]) begin
+	 $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+	 $error("assertion failure");
+	 #100 $finish;
+      end
+      else $display("OK post-reset");
    end
 
+   // Check for bus contention
+   always @(aext) begin
+      if ($time > 250) begin
+	 for (k = 0; k < 8; k++) begin
+	    if (aext[k] === 1'bX) begin
+	       $sformat(msg, "AEXT contention (%08b, %02x)", aext, aext);
+	       $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+	       $error("assertion failure");
+	       #100 $finish;
+	    end
+	 end
+      end // if ($time > 250)
+   end // always @ (aext)
+   
+   // Check for bus contention on DB[7:0]
+   always @(db_low) begin
+      if ($time > 250) begin
+	 for (k = 0; k < 8; k++) begin
+	    if (db_low[k] === 1'bX) begin
+	       $sformat(msg, "DB[7:0] (db_low) contention (%08b, %02x)", db_low, db_low);
+	       $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+	       $error("assertion failure");
+	       #100 $finish;
+	    end
+	 end
+      end
+   end // always @ (db_low)
+   
+   // Check for bus contention on AB[7:0]
+   always @(ab_real[7:0]) begin
+      if ($time > 250) begin
+	 for (k = 0; k < 8; k++) begin
+	    if (ab_real[k] === 1'bX) begin
+	       $sformat(msg, "AB[7:0] contention (%08b, %02x)", ab_real[7:0], ab_real[7:0]);
+	       $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+	       $error("assertion failure");
+	       #100 $finish;
+	    end
+	 end
+      end
+   end // always @ (ab_real)
+   
+   // Check for bus contention on SEL (the MBU register file's address)
+   always @(mbu.sel) begin
+      if ($time > 250) begin
+	 for (k = 0; k < 3; k++) begin
+	    if (mbu.sel[k] === 1'bX) begin
+	       $sformat(msg, "SEL contention (%03b)", mbu.sel);
+	       $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+	       $error("assertion failure");
+	       #100 $finish;
+	    end
+	 end
+      end
+   end // always @ (mbu.sel)
+   
 
 `ifdef never
    // MBn register snooping to facilitate further testing.
