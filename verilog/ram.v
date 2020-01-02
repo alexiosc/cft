@@ -27,8 +27,8 @@ module sram (a, d, nce, nwe, noe);
    inout [7:0]      d;          // Output
  
    wire [bits-1:0]  a;          // Address
-   wire             nce;
-   wire             noe;
+   wire             ce;
+   wire             oe;
    
    wire [7:0]       d;
 
@@ -49,7 +49,6 @@ module sram (a, d, nce, nwe, noe);
 	 // Most modern chips have Thd=0, so no delay is necessary here.
          mem[a] = d;
 	 if ($test$plusargs("debug-memwrites")) $display("D: mem[%x] <- %02x", a, mem[a]);
-	 //$display("D: mem[%x] <- %02x (%02x)", a, d, mem[a]);
       end
    end
 
