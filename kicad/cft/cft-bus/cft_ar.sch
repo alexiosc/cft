@@ -5,14 +5,14 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 3 9
-Title "Address Register (AR, 24 bits)"
+Title "24-bit Address Register (AR)"
 Date ""
 Rev ""
 Comp ""
 Comment1 "BUS"
 Comment2 ""
 Comment3 ""
-Comment4 ""
+Comment4 "reg_ar.v"
 $EndDescr
 $Comp
 L alexios:74HC574 U?
@@ -123,45 +123,6 @@ Wire Wire Line
 	4650 3500 4850 3500
 Wire Wire Line
 	4650 3600 4850 3600
-$Comp
-L power:GND #PWR?
-U 1 1 5CC20078
-P 4850 2250
-AR Path="/5CC0D65F/5CC20078" Ref="#PWR?"  Part="1" 
-AR Path="/5CC06F10/5CC20078" Ref="#PWR026"  Part="1" 
-F 0 "#PWR026" H 4850 2000 50  0001 C CNN
-F 1 "GND" H 4855 2077 50  0000 C CNN
-F 2 "" H 4850 2250 50  0001 C CNN
-F 3 "" H 4850 2250 50  0001 C CNN
-	1    4850 2250
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5CC2007E
-P 4850 3900
-AR Path="/5CC0D65F/5CC2007E" Ref="#PWR?"  Part="1" 
-AR Path="/5CC06F10/5CC2007E" Ref="#PWR033"  Part="1" 
-F 0 "#PWR033" H 4850 3650 50  0001 C CNN
-F 1 "GND" H 4855 3727 50  0000 C CNN
-F 2 "" H 4850 3900 50  0001 C CNN
-F 3 "" H 4850 3900 50  0001 C CNN
-	1    4850 3900
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5CC20084
-P 3250 2250
-AR Path="/5CC0D65F/5CC20084" Ref="#PWR?"  Part="1" 
-AR Path="/5CC06F10/5CC20084" Ref="#PWR025"  Part="1" 
-F 0 "#PWR025" H 3250 2000 50  0001 C CNN
-F 1 "GND" H 3255 2077 50  0000 C CNN
-F 2 "" H 3250 2250 50  0001 C CNN
-F 3 "" H 3250 2250 50  0001 C CNN
-	1    3250 2250
-	1    0    0    -1  
-$EndComp
 $Comp
 L power:GND #PWR?
 U 1 1 5CC2008A
@@ -344,9 +305,9 @@ Text Label 1100 2550 0    50   ~ 0
 Wire Wire Line
 	4850 2150 4200 2150
 Text Label 4850 2150 2    50   ~ 0
-~ABEN
+~ABEN1
 Text Label 4850 3800 2    50   ~ 0
-~ABEN
+~ABEN1
 Wire Wire Line
 	4200 3800 4200 4200
 Wire Wire Line
@@ -361,7 +322,7 @@ Connection ~ 2350 2500
 Wire Wire Line
 	2350 2500 2100 2500
 Text Label 2100 2500 0    50   ~ 0
-~ABEN
+~ABEN1
 Wire Bus Line
 	6300 6000 9750 6000
 Entry Wire Line
@@ -471,9 +432,9 @@ Text Label 2900 2150 0    50   ~ 0
 Text Label 2850 3800 0    50   ~ 0
 ~WRITE-AR
 Text Label 3650 2500 0    50   ~ 0
-~ABEN
+~ABEN1
 Text Label 3650 4200 0    50   ~ 0
-~ABEN
+~ABEN1
 Entry Bus Bus
 	6200 5900 6300 6000
 Text Label 6500 6000 0    50   ~ 0
@@ -483,7 +444,7 @@ AB[0..15]
 Text Label 4550 2750 1    50   ~ 0
 AR[0..15]
 Text Label 2350 3350 1    50   ~ 0
-~ABEN
+~ABEN1
 Text Label 2450 3350 1    50   ~ 0
 ~WRITE-AR
 Text Label 1100 950  0    50   ~ 0
@@ -501,19 +462,6 @@ F 1 "74HC574" H 3750 4076 50  0000 C CNN
 F 2 "alexios:SOIC-20W" H 3750 3400 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS574" H 3750 3400 50  0001 C CNN
 	1    3750 3400
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5D1B3A76
-P 4850 5600
-AR Path="/5CC0D65F/5D1B3A76" Ref="#PWR?"  Part="1" 
-AR Path="/5CC06F10/5D1B3A76" Ref="#PWR035"  Part="1" 
-F 0 "#PWR035" H 4850 5350 50  0001 C CNN
-F 1 "GND" H 4855 5427 50  0000 C CNN
-F 2 "" H 4850 5600 50  0001 C CNN
-F 3 "" H 4850 5600 50  0001 C CNN
-	1    4850 5600
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -578,7 +526,7 @@ Entry Wire Line
 Entry Wire Line
 	2650 5200 2750 5300
 Text Label 4850 5500 2    50   ~ 0
-~ABEN
+~ABEN1
 Wire Wire Line
 	4200 5500 4200 5900
 Wire Wire Line
@@ -606,7 +554,7 @@ Wire Wire Line
 Text Label 2850 5500 0    50   ~ 0
 ~WRITE-AR
 Text Label 3650 5900 0    50   ~ 0
-~ABEN
+~ABEN1
 Text Label 6200 4350 1    50   ~ 0
 AB[0..15]
 Text Label 4550 4350 1    50   ~ 0
@@ -1376,7 +1324,7 @@ AR Path="/5CC0D65F/5DF0558E" Ref="#PWR?"  Part="1"
 AR Path="/5CD91C88/5DF0558E" Ref="#PWR?"  Part="1" 
 AR Path="/5CC06F10/5DF0558E" Ref="#PWR031"  Part="1" 
 F 0 "#PWR031" H 6800 3250 50  0001 C CNN
-F 1 "GND" H 6650 3450 50  0000 C CNN
+F 1 "GND" H 6750 3350 50  0000 R CNN
 F 2 "" H 6800 3500 50  0001 C CNN
 F 3 "" H 6800 3500 50  0001 C CNN
 	1    6800 3500
@@ -1563,19 +1511,6 @@ F 3 "http://www.ti.com/lit/gpn/sn74HC541" H 5350 3400 50  0001 C CNN
 	1    5350 3400
 	1    0    0    -1  
 $EndComp
-$Comp
-L alexios:74HC541 U?
-U 1 1 5CC20114
-P 5350 1750
-AR Path="/5CC0D65F/5CC20114" Ref="U?"  Part="1" 
-AR Path="/5CC06F10/5CC20114" Ref="U17"  Part="1" 
-F 0 "U17" H 5350 2517 50  0000 C CNN
-F 1 "74HC541" H 5350 2426 50  0000 C CNN
-F 2 "alexios:SOIC-20W" H 5350 1750 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74HC541" H 5350 1750 50  0001 C CNN
-	1    5350 1750
-	1    0    0    -1  
-$EndComp
 Text HLabel 7250 5550 0    50   Input ~ 0
 ~FPAEXT
 Text HLabel 9750 5600 2    50   3State ~ 0
@@ -1713,17 +1648,131 @@ FPD6
 Text Label 8750 5350 0    50   ~ 0
 FPD7
 Wire Wire Line
-	6850 3700 6500 3700
-Text Label 6500 3700 0    50   ~ 0
-~ABEN
+	6600 4050 6350 4050
+Text Label 6350 4050 0    50   ~ 0
+~ABEN1
 Wire Wire Line
 	6850 1900 6600 1900
 Entry Wire Line
 	6500 1800 6600 1900
 Text Label 6650 1900 0    50   ~ 0
 AR10
+$Comp
+L Jumper:Jumper_3_Bridged12 JP?
+U 1 1 5E742AE8
+P 1300 3000
+AR Path="/61F95ACC/63C9F04D/5E742AE8" Ref="JP?"  Part="1" 
+AR Path="/61F95ACC/5E742AE8" Ref="JP?"  Part="1" 
+AR Path="/5CC06F10/5E742AE8" Ref="JP?"  Part="1" 
+F 0 "JP?" V 1300 3067 50  0000 L CNN
+F 1 "Jumper_3_Bridged12" H 1300 3113 50  0001 C CNN
+F 2 "" H 1300 3000 50  0001 C CNN
+F 3 "~" H 1300 3000 50  0001 C CNN
+	1    1300 3000
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	1300 2650 1000 2650
+Wire Wire Line
+	1300 2650 1300 2750
+$Comp
+L power:GND #PWR?
+U 1 1 5E75DBDE
+P 1300 3250
+F 0 "#PWR?" H 1300 3000 50  0001 C CNN
+F 1 "GND" H 1305 3077 50  0000 C CNN
+F 2 "" H 1300 3250 50  0001 C CNN
+F 3 "" H 1300 3250 50  0001 C CNN
+	1    1300 3250
+	1    0    0    -1  
+$EndComp
 Text Notes 7900 2600 0    50   ~ 0
-Note: AR10 is decoded TWICE in this setup, and the comparator is\nsuperfluously gated from ~ABEN~. This is done to avoid static hazards\nin the decoding. These manifest as spurious ~SYSDEV~ strobes when\nthe AB goes from e.g. &0000 to &0800.
+Note: AR10 is decoded TWICE in this setup, and the comparator is\nsuperfluously gated from ~ABEN1~ (or ~T34~). This is done to\navoid static hazards in the decoding. These manifest as spurious\n~SYSDEV~ strobes when the AB goes from e.g. &0000 to &0800.
+$Comp
+L Jumper:Jumper_3_Bridged12 JP?
+U 1 1 5E77C357
+P 6850 4050
+AR Path="/61F95ACC/63C9F04D/5E77C357" Ref="JP?"  Part="1" 
+AR Path="/61F95ACC/5E77C357" Ref="JP?"  Part="1" 
+AR Path="/5CC06F10/5E77C357" Ref="JP?"  Part="1" 
+F 0 "JP?" V 7000 3800 50  0000 L CNN
+F 1 "Jumper_3_Bridged12" H 6850 4163 50  0001 C CNN
+F 2 "" H 6850 4050 50  0001 C CNN
+F 3 "~" H 6850 4050 50  0001 C CNN
+	1    6850 4050
+	1    0    0    1   
+$EndComp
+Wire Wire Line
+	7100 4050 7300 4050
+Text Label 7300 4050 2    50   ~ 0
+T34
+Wire Wire Line
+	6850 3900 6850 3700
+Text Label 1700 3000 2    50   ~ 0
+~ABEN2
+Text HLabel 1000 2650 0    50   Input ~ 0
+T34
+Text Label 1100 2650 0    50   ~ 0
+T34
+$Comp
+L power:GND #PWR?
+U 1 1 5CC20084
+P 3250 2250
+AR Path="/5CC0D65F/5CC20084" Ref="#PWR?"  Part="1" 
+AR Path="/5CC06F10/5CC20084" Ref="#PWR025"  Part="1" 
+F 0 "#PWR025" H 3250 2000 50  0001 C CNN
+F 1 "GND" H 3255 2077 50  0000 C CNN
+F 2 "" H 3250 2250 50  0001 C CNN
+F 3 "" H 3250 2250 50  0001 C CNN
+	1    3250 2250
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC541 U?
+U 1 1 5CC20114
+P 5350 1750
+AR Path="/5CC0D65F/5CC20114" Ref="U?"  Part="1" 
+AR Path="/5CC06F10/5CC20114" Ref="U17"  Part="1" 
+F 0 "U17" H 5350 2517 50  0000 C CNN
+F 1 "74HC541" H 5350 2426 50  0000 C CNN
+F 2 "alexios:SOIC-20W" H 5350 1750 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74HC541" H 5350 1750 50  0001 C CNN
+	1    5350 1750
+	1    0    0    -1  
+$EndComp
+Text Label 4600 2250 0    50   ~ 0
+~ABEN2
+Text Label 4600 3900 0    50   ~ 0
+~ABEN2
+Text Label 4600 5600 0    50   ~ 0
+~ABEN2
+Wire Wire Line
+	2250 3000 2250 2600
+Wire Wire Line
+	2250 2600 4300 2600
+Wire Wire Line
+	4300 2600 4300 2250
+Wire Wire Line
+	1450 3000 2250 3000
+Wire Wire Line
+	4300 2250 4850 2250
+Wire Wire Line
+	2250 3000 2250 4300
+Wire Wire Line
+	2250 4300 4300 4300
+Wire Wire Line
+	4300 4300 4300 3900
+Wire Wire Line
+	4300 3900 4850 3900
+Connection ~ 2250 3000
+Wire Wire Line
+	2250 4300 2250 6000
+Wire Wire Line
+	2250 6000 4300 6000
+Wire Wire Line
+	4300 6000 4300 5600
+Wire Wire Line
+	4300 5600 4850 5600
 Wire Bus Line
 	7400 4550 7400 5250
 Wire Bus Line
@@ -1738,4 +1787,7 @@ Wire Bus Line
 	6200 1350 6200 5900
 Wire Bus Line
 	4550 950  4550 5200
+Connection ~ 2250 4300
+Text Label 2250 3350 1    50   ~ 0
+~ABEN2
 $EndSCHEMATC
