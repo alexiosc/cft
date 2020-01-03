@@ -121,7 +121,7 @@ module mbu (nreset,
 
    // TODO: Check if this is needed. Likely just niombr is enough!
    //assign #6 nenable = wstb | niombr;
-   assign #6 nenable = niombr;
+   assign nenable = niombr;
    flipflop_74h ff_init(.d(1'b1), .clk(1'b1), .nset(nreset), .nrst(nenable), .nq(ndis));
 
    // If the RAM/ROM switch is in the ROM position (high), default all MBx

@@ -87,6 +87,18 @@ module reg_mbr_tb();
 		mbu.regfile.a, mbu.regfile.d, mbu.regfile.nce, mbu.regfile.nwe, mbu.regfile.noe,
       		mb0, mb1, mb2, mb3, mb4, mb5, mb6, mb7);
 
+
+      // NOTE: Because of the complexity of how the MBU works, we have
+      // verification tests running both inside always() blocks like simpler
+      // units, but we also test our findings synchronously in this block.
+
+
+      ///////////////////////////////////////////////////////////////////////////////
+      //
+      // INITIALISE
+      //
+      ///////////////////////////////////////////////////////////////////////////////
+
       // Before we begin, randomise the values of the eight registers to
       // simulate an actual SRAM.
       for (i = 0; i < 8 ; i = i + 1) begin
@@ -114,10 +126,17 @@ module reg_mbr_tb();
       // The TB isn't synchronous to the clock, so adjust its phase difference.
       #10;
 
-      // Read the registers using simulated Page Zero accesses, which is fairly
-      // complicated but the best option this early in the test.
+      ///////////////////////////////////////////////////////////////////////////////
+      //
+      // VERIFY POWER-ON DEFAULTS
+      //
+      ///////////////////////////////////////////////////////////////////////////////
+
+      // Read the registers using simulated Page Zero accesses. This is a
+      // little more complicated than it should be, but I/O transactions bring
+      // the MBU out of its post-reset mode so we can't use them.
       
-      status = "read power-on default MBx (IN)";
+      status = "read power-on default MBx (via IR)";
       #1000 raddr = 4'd0;
       waddr = 4'd0;
       for (i = 0; i < 16 ; i = i + 1) begin
@@ -130,8 +149,15 @@ module reg_mbr_tb();
 
       #1000;
 
+
+      ///////////////////////////////////////////////////////////////////////////////
+      //
+      // WRITE TO REGISTERS USING ‘OUT’ INSTRUCTIONS
+      //
+      ///////////////////////////////////////////////////////////////////////////////
+
       // First, let's configure the MBn registers. Test all 256 values on all 8
-      // registgers. We can only write to the registers using OUT instructions,
+      // registers. We can only write to the registers using OUT instructions,
       // and we'll simulate those. This will also take the MBU out of
       // post-reset mode.
 
@@ -165,9 +191,12 @@ module reg_mbr_tb();
       #1000;
 
 
-
-
-      // Read the registers using simulated IN instructions.
+      ///////////////////////////////////////////////////////////////////////////////
+      //
+      // READ FROM REGISTERS USING ‘IN’ INSTRUCTIONS
+      //
+      ///////////////////////////////////////////////////////////////////////////////
+	
       status = "read (IN)";
       raddr = 4'b0000;
       waddr = 4'b0000;
@@ -193,7 +222,14 @@ module reg_mbr_tb();
 
       #1000;
 
-      // Test RADDRs.
+
+      ///////////////////////////////////////////////////////////////////////////////
+      //
+      // READ USING IBUS ADDRESSES (RADDR)
+      //
+      ///////////////////////////////////////////////////////////////////////////////
+
+      // This can only read the MBP (MB0), but also test RADDR decoding.
       status = "read (RADDR)";
       for (i = 0; i < 32; i = i + 1) begin
 	 raddr = i[4:0];
@@ -225,7 +261,14 @@ module reg_mbr_tb();
 
       #1000;
 
-      // Test WADDRS.
+
+      ///////////////////////////////////////////////////////////////////////////////
+      //
+      // WRITE USING IBUS ADDRESSES (WADDR)
+      //
+      ///////////////////////////////////////////////////////////////////////////////
+
+      // This can only write to the MBP (MB0), but we also test WADDR decoding.
       status = "write (WADDR)";
       for (i = 0; i < 32; i = i + 1) begin
 	 waddr = i;
@@ -249,82 +292,47 @@ module reg_mbr_tb();
       #1000;
       
 
+      ///////////////////////////////////////////////////////////////////////////////
+      //
+      // USE AS INDEX REGISTERS (VIA WRITE_AR_MBx)
+      //
+      ///////////////////////////////////////////////////////////////////////////////
 
+      // THIS is the most complex MBU behaviour. Depending on the value of the
+      // IR, different registers are selected.
 
+      // We won't scan WADDRs, we've already test this. Head straight to the
+      // four indexing values.
+      for (i = 5'b00100; i <= 5'b00111; i = i + 1) begin
+	 case (i)
+	   5'b00100: status = "index (write_ar_mbp)";
+	   5'b00101: status = "index (write_ar_mbd)";
+	   5'b00110: status = "index (write_ar_mbs)";
+	   5'b00111: status = "index (write_ar_mbz)";
+	 endcase; // case ({waddr[1:0], ir})
+	 
+	 // Even though these are IBUS write operations, the MBU is selected
+	 // for READING here. It drives AEXT which feeds to the Address
+	 // Register's highest 8 bits (ar[23:16]). These bits must always
+	 // receive a value from the MBU, so all AR writes are implicit MBU
+	 // reads anyway.
+	 waddr = i[4:0];
 
-`ifdef never
+	 for (j = 0; j < 4096; j = j + 1) begin
+	    // Iterate through the IR's operand, R, and I fields. That's a lot
+	    // of tests.
+	    ir [11:0] = j[11:0];
 
-      
-      #1000 raddr = 4'b0000;
-      for (i = 0; i < 8 ; i = i + 1) begin
-   	 #125 ibus = (i ^ 4'hf) << 4 | (i & 4'hf);
-   	 ir = 16'd0 | i;	       // MBn address on IR
-   	 #62.5 waddr = 5'b01111;	       // read_mbn
-   	 #62.5 waddr = 5'b00000;	       // idle again
-      end
-      #1000;
-
-      // Then, let's read them back.
-      status = "read MBN";
-      #1000 waddr = 4'b0000;
-      for (i = 0; i < 8 ; i = i + 1) begin
-      	 ibus = 16'bzzzzzzzzzzzzzzzz;
-      	 ir = 16'd0 | i;	       // address on IR
-      	 #50 raddr = 5'b01111;	       // write_mbn
-      	 #200 raddr = 5'b00000;	       // idle again
-      end
-      #1000;
-
-      #1000 ir = 16'b0000_0100_0000_0000;
-      status = "check raddr";
-      for (i = 0; i < 32 ; i = i + 1) begin
-      	 #100 raddr = i;
-      end
-
-      #1000 ir = 16'b0000_0100_0000_0000;
-      status = "reference IR";
-      for (i = 0; i < 32 ; i = i + 1) begin
-      	 #100 ir = i;
-      end
-
-      // Try the write_ar_mb addresses.
-      status = "reference AR:MBx";
-      #1000 ir = 16'b1111_0100_0000_0000;
-      raddr = 0;
-      #1000 for (j = 5'b00100; j <= 5'b00111 ; j = j + 1) begin
-      	 #250 waddr = j;
-      end
-
-      #1000 status="test AR:MBZ auto-index";
-
-      // Try the index registers. This uses an instruction like TRAP I R &0xx
-      // which should NOT select registers based on IR[2:0], just on WADDR.
-      for (i = 5'b00100; i <= 5'b00111; i++) begin
-      	 waddr = i;
-      	 //5'b00111;
-      	 for (j = 16'b0000_1100_0000_0000; j < 16'b0000_1111_1111_1111 ; j = j + 1) begin
-      	    #25 ir = j;
-   	    // Temporarily drive the IBUS with the complement of the IR to
-   	    // prove that the register selection isn't influenced by this. If
-   	    // it were, MBn, n = ir[2:0] XOR 111 would be selected.
-   	    #25 ibus = j ^ 8'hff;
-   	    #50 ibus = 16'bzzzzzzzzzzzzzzzz;
-      	 end;
-      	 #1000;
-      end; // for (i = 5'b00100; i <= 5b'00111; i++)
-
-
-`endif //  `ifdef never
+	    #250;
+	 end
+      end // for (i = 5'b00100; i <= 5'b00111; i = i + 1)
+      waddr = 0;
 
       #1000 $finish;
    end // initial begin
 
-   // always begin
-   //    #950 nfpaext = 1'b0;
-   //    #50 nfpaext = 1'b1;
-   // end
 
-
+   // Bi-directional buses and convenience
 
    assign ibus_real = ibus;
    assign ab_real = ab;
@@ -364,6 +372,7 @@ module reg_mbr_tb();
 
    // Verify our findings.
    reg [8191:0] msg;
+   reg [320:0] 	what;		// Used for WADDR index checks
    reg 		contention = 0;
    reg 		default_values = 1'b1;
    reg [7:0] 	mbn[7:0];	// Snooped register values
@@ -372,22 +381,29 @@ module reg_mbr_tb();
    wire [17:0] 	waddr_and_ir;
    reg [15:0] 	db_snoop, ab_snoop;
 
-   // Verify post-reset behaviour
+
+   ///////////////////////////////////////////////////////////////////////////////
+   //
+   // VERIFY POST-RESET BEHAVIOUR
+   //
+   ///////////////////////////////////////////////////////////////////////////////
+
    always @(nfpram_fprom, aext, mbu.ndis) begin
       if (nreset === 1'b1 && mbu.ndis === 1'b0) #50 begin
-	 if (nfpram_fprom == 0 && aext !== 8'h00) begin
-	    $sformat(msg, "post-reset, nfpram_fprom=%b (RAM) but AEXT was %02x (should be 00)",
-		     nfpram_fprom, aext);
-	 end;	      
+	 correct_value1 = { nfpram_fprom, 7'd0 };
+	 if (nfpram_fprom == 0 && aext !== correct_value1) begin
+	    $sformat(msg, "post-reset, nfpram_fprom=%b (RAM) but AEXT was %02x (should be %02x)",
+		     nfpram_fprom, aext, correct_value1);
+	 end
+	 
+	 // Fail if we've logged an issue.
+	 if (msg[7:0]) begin
+	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+	    $error("assertion failure");
+	    #100 $finish;
+	 end
+	 else $display("OK post-reset");
       end
-
-      // Fail if we've logged an issue.
-      if (msg[7:0]) begin
-	 $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
-	 $error("assertion failure");
-	 #100 $finish;
-      end
-      else $display("OK post-reset");
    end
 
    // // Verify the MBU can be enabled by a write.
@@ -440,23 +456,91 @@ module reg_mbr_tb();
    //    end
    // end
 
-   // Verify writing to the MBP via WADDR
+
+   ///////////////////////////////////////////////////////////////////////////////
+   //
+   // VERIFY WADDR WRITES
+   //
+   ///////////////////////////////////////////////////////////////////////////////
+   
    always @(waddr, ibus[7:0]) begin
       if (waddr === 5'b01100 || waddr === 5'b01101) #250 begin
 	 if (ibus[7:0] !== 8'bZ && mbu.regfile.mem[0] !== ibus[7:0]) begin
 	    $sformat(msg, "waddr=%b, ibus=%02x but mbp=%02x (should be %02x)",
 		     waddr, ibus[7:0], mbu.regfile.mem[0], ibus[7:0]);
 	 end;	      
-      end
 
-      // Fail if we've logged an issue.
-      if (msg[7:0]) begin
-	 $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
-	 $error("assertion failure");
-	 #100 $finish;
+	 // Fail if we've logged an issue.
+	 if (msg[7:0]) begin
+	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+	    $error("assertion failure");
+	    #100 $finish;
+	 end
+	 else $display("OK WADDR write");
       end
-      else $display("OK post-reset");
-   end
+   end // always @ (waddr, ibus[7:0])
+
+
+   ///////////////////////////////////////////////////////////////////////////////
+   //
+   // VERIFY INDEXING READS
+   //
+   ///////////////////////////////////////////////////////////////////////////////
+
+   always @(waddr, ir) begin
+      if ($time > 250 && mbu.ndis == 1 && waddr >= 5'b00100 && waddr <= 5'b00111) begin
+	 casex (waddr)
+	   5'b00100: begin
+	      what = "write_ar_mbp";
+	      correct_value1 = 0;
+	   end
+	   5'b00101: begin
+	      what = "write_ar_mbd";
+	      correct_value1 = 1;
+	   end
+	   5'b00110: begin
+	      what = "write_ar_mbs";
+	      correct_value1 = 2;
+	   end
+	   5'b00111: begin
+	      what = "write_ar_mbz";
+	      if (ir[11:0] < 12'b11_1100000000) begin
+		 correct_value1 = 3;
+	      end else begin
+		 // I & R set, op >= 0x300: the MBU register depends on IR[2:0].
+		 correct_value1 = ir[2:0];
+	      end
+	   end
+	 endcase // casex (waddr)
+
+	 #80 begin
+	    if (mbu.nibusen !== 1'b1) begin
+	       $sformat(msg, "waddr=%05b (%0s), mbu.nibusen=%b (should be 0, MBU should not be driving the IBUS!)",
+			waddr, what, mbu.nibusen);
+	    end
+	    
+	    else if (mbu.sel !== correct_value1) begin
+	       $sformat(msg, "waddr=%05b (%0s), ir=%b:%b:%02b_%04b_%04b, sel=%02b (should be %02b)",
+			waddr, what, ir[11], ir[10], ir[9:8], ir[7:4], ir[3:0], mbu.sel, correct_value1[2:0]);
+	    end
+
+	    // Fail if we've logged an issue.
+	    if (msg[7:0]) begin
+	       $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+	       $error("assertion failure");
+	       #100 $finish;
+	    end
+	    else $display("OK index");
+	 end
+      end
+   end // always @ (waddr, ir)
+
+
+   ///////////////////////////////////////////////////////////////////////////////
+   //
+   // BUS CONTENTION CHECKS
+   //
+   ///////////////////////////////////////////////////////////////////////////////
 
    // Check for bus contention
    always @(aext) begin
@@ -513,7 +597,12 @@ module reg_mbr_tb();
 	 end
       end
    end // always @ (mbu.sel)
-   
+
+///////////////////////////////////////////////////////////////////////////////   
+///////////////////////////////////////////////////////////////////////////////   
+///////////////////////////////////////////////////////////////////////////////   
+///////////////////////////////////////////////////////////////////////////////   
+///////////////////////////////////////////////////////////////////////////////   
 
 `ifdef never
    // MBn register snooping to facilitate further testing.
