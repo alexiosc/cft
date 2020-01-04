@@ -1,10 +1,9 @@
 EESchema Schematic File Version 4
-LIBS:cft-bus-cache
 EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 7 9
+Sheet 6 8
 Title "Interrupt State Machine"
 Date ""
 Rev ""
@@ -454,12 +453,8 @@ F 3 "~" H 5850 2400 50  0001 C CNN
 	1    5650 2400
 	0    1    1    0   
 $EndComp
-Text Notes 6200 2300 0    50   ~ 0
-This is the Interrupt Flag (interrupt handling enabled)\ndisplayed on the front panel.
 Text Label 5700 2100 0    50   ~ 0
 FI
-Text Notes 6350 2050 0    79   ~ 16
-Enabling Interrupts (~STI~)
 $Comp
 L power:+5V #PWR0102
 U 1 1 5DDA768D
@@ -586,8 +581,6 @@ F 3 "~" H 5550 2100 50  0001 C CNN
 	1    5550 2100
 	0    1    1    0   
 $EndComp
-Wire Wire Line
-	5650 2100 9150 2100
 Wire Wire Line
 	4500 3550 4500 3650
 $Comp
@@ -725,4 +718,10 @@ Wire Wire Line
 	5400 7300 5400 7400
 Text Notes 4650 1650 0    50   ~ 0
 Use LVC or AC family for flip-flops.\nIt reduces the chances of metastability.
+Wire Wire Line
+	5650 2100 9150 2100
+Text Notes 6350 2050 0    79   ~ 16
+Enabling Interrupts (~STI~)
+Text Notes 6200 2300 0    50   ~ 0
+This is the Interrupt Flag (interrupt handling enabled)\ndisplayed on the front panel.
 $EndSCHEMATC

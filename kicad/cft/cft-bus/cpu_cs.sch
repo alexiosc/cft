@@ -1,10 +1,9 @@
 EESchema Schematic File Version 4
-LIBS:cft-bus-cache
 EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 5 9
+Sheet 4 8
 Title "Constant Store"
 Date ""
 Rev ""
@@ -150,8 +149,8 @@ Text HLabel 2150 1600 0    50   Input ~ 0
 RADDR[0..4]
 Wire Bus Line
 	2750 1600 2150 1600
-Text Notes 4300 3150 1    50   ~ 10
-RADDR=110xx
+Text Notes 4300 3200 1    50   ~ 10
+RADDR=001xx
 Wire Wire Line
 	4750 2650 5450 2650
 Text Label 4850 2650 0    50   ~ 0
