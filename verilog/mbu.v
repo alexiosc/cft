@@ -32,7 +32,8 @@
 
 module mbu (nreset,
 	    wstb, t34,
-	    raddr, waddr,
+	    raddr, nruen,
+	    waddr, nwuen,
 	    ir,			// Only bits 0–2 and 8–11 are used.
 	    ibus,		// Only bits 0–7 of the IBUS are used.
 	    aext,		//
@@ -48,8 +49,8 @@ module mbu (nreset,
    input        nreset;
    input 	wstb;
    input 	t34;
-   input [4:0] 	waddr;
-   input [4:0] 	raddr;
+   input [4:0] 	waddr, raddr;
+   input 	nruen, nwuen;
    input [11:0] ir;
    input 	nsysdev;
    input 	nr;
@@ -89,20 +90,20 @@ module mbu (nreset,
    assign niombr = dec_ab[0];
    
    // We decode RADDRs 01100, 01101, and 01110.
-   demux_138 demux_raddr (.a(raddr[2:0]), .g1(raddr[3]), .ng2a(raddr[4]), .ng2b(1'b0), .y(dec_raddr));
+   demux_138 demux_raddr (.a(raddr[2:0]), .g1(raddr[3]), .ng2a(raddr[4]), .ng2b(nruen), .y(dec_raddr));
    assign nread_mbp = dec_raddr[4];
    assign nread_mbp_flags = dec_raddr[5];
    assign nread_flags = dec_raddr[5];
 
    // We decode WADDRs 01100, 01101, and 01110. Symmetric to the above '138.
-   demux_138 demux_waddr1 (.a(waddr[2:0]), .g1(waddr[3]), .ng2a(waddr[4]), .ng2b(1'b0), .y(dec_waddr1));
+   demux_138 demux_waddr1 (.a(waddr[2:0]), .g1(waddr[3]), .ng2a(waddr[4]), .ng2b(nwuen), .y(dec_waddr1));
    assign nwrite_mbp = dec_waddr1[4];
    assign nwrite_mbp_flags = dec_waddr1[5];
    assign nwrite_flags = dec_waddr1[5];
 
    // We decode WADDRs 01100, 01101, and 01110. Symmetric to the above '138.
-   demux_138 demux_waddr2 (.a(3'b111), .g1(waddr[2]), .ng2a(waddr[3]), .ng2b(waddr[4]), .y(dec_waddr2));
-   assign nwrite_ar_mbx = dec_waddr2[7];
+   demux_138 demux_waddr2 (.a({2'b00, waddr[3]}), .g1(waddr[2]), .ng2a(waddr[4]), .ng2b(nwuen), .y(dec_waddr2));
+   assign nwrite_ar_mbx = dec_waddr2[0];
 
    ///////////////////////////////////////////////////////////////////////////////
    // 
