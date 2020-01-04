@@ -344,6 +344,7 @@ module reg_mbr_tb();
    mbu mbu (.nreset(nreset),
 	    .wstb(wstb), .t34(t34),
 	    .waddr(waddr), .raddr(raddr),
+	    .nruen(1'b0), .nwuen(1'b0),
 	    .ir(ir[11:0]),
 	    .ibus(ibus_real[7:0]),
 	    .aext(aext),
