@@ -1,5 +1,4 @@
 EESchema Schematic File Version 4
-LIBS:cft-ctl-cache
 EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
@@ -42,26 +41,6 @@ F 3 "~" H 6750 3050 50  0001 C CNN
 	1    6750 3050
 	0    1    1    0   
 $EndComp
-Wire Wire Line
-	6950 2750 7400 2750
-Wire Wire Line
-	6950 2850 7400 2850
-Wire Wire Line
-	6950 2950 7400 2950
-Wire Wire Line
-	6950 3050 7400 3050
-Wire Wire Line
-	6950 3150 7400 3150
-Text Label 7300 2750 2    50   ~ 0
-~MEM
-Text Label 7300 2850 2    50   ~ 0
-~IO
-Text Label 7300 2950 2    50   ~ 0
-~R
-Text Label 7300 3050 2    50   ~ 0
-~WEN
-Text Label 7300 3150 2    50   ~ 0
-~END
 $Comp
 L power:+5V #PWR?
 U 1 1 5E37FA67
@@ -78,19 +57,7 @@ $EndComp
 Wire Wire Line
 	6150 4650 6250 4650
 Text Notes 5900 4100 0    100  ~ 20
-µ03
-Wire Wire Line
-	6950 2450 7400 2450
-Wire Wire Line
-	6950 2550 7400 2550
-Wire Wire Line
-	6950 2650 7400 2650
-Text Label 7300 2450 2    50   ~ 0
-ACTION1
-Text Label 7300 2550 2    50   ~ 0
-ACTION2
-Text Label 7300 2650 2    50   ~ 0
-ACTION3
+µ01
 Wire Wire Line
 	5300 2450 4950 2450
 Wire Wire Line
@@ -199,8 +166,6 @@ Wire Wire Line
 	3900 2550 4350 2550
 Wire Wire Line
 	3900 2450 4350 2450
-Text Notes 2800 4100 0    100  ~ 20
-µ01
 Wire Wire Line
 	2950 4650 2950 4800
 $Comp
@@ -376,9 +341,9 @@ Wire Wire Line
 	8350 2550 8000 2550
 Wire Wire Line
 	8350 2450 8000 2450
-Text Label 10350 3150 2    50   ~ 0
+Text Label 7300 3150 2    50   ~ 0
 ACTION0
-Text Label 10350 3050 2    50   ~ 0
+Text Label 7300 3050 2    50   ~ 0
 COND4
 $Comp
 L Device:R_Pack04 RN?
@@ -394,34 +359,34 @@ F 3 "~" H 9800 3050 50  0001 C CNN
 	1    9800 3050
 	0    1    1    0   
 $EndComp
-Text Label 10350 2950 2    50   ~ 0
+Text Label 7300 2950 2    50   ~ 0
 COND3
-Text Label 10350 2850 2    50   ~ 0
+Text Label 7300 2850 2    50   ~ 0
 COND2
-Text Label 10350 2750 2    50   ~ 0
+Text Label 7300 2750 2    50   ~ 0
 COND1
-Text Label 10350 2650 2    50   ~ 0
+Text Label 7300 2650 2    50   ~ 0
 COND0
-Text Label 10350 2550 2    50   ~ 0
+Text Label 7300 2550 2    50   ~ 0
 WADDR4
-Text Label 10350 2450 2    50   ~ 0
+Text Label 7300 2450 2    50   ~ 0
 WADDR3
 Wire Wire Line
-	10000 3150 10450 3150
+	6950 3150 7400 3150
 Wire Wire Line
-	10000 3050 10450 3050
+	6950 3050 7400 3050
 Wire Wire Line
-	10000 2950 10450 2950
+	6950 2950 7400 2950
 Wire Wire Line
-	10000 2850 10450 2850
+	6950 2850 7400 2850
 Wire Wire Line
-	10000 2750 10450 2750
+	6950 2750 7400 2750
 Wire Wire Line
-	10000 2650 10450 2650
+	6950 2650 7400 2650
 Wire Wire Line
-	10000 2550 10450 2550
+	6950 2550 7400 2550
 Wire Wire Line
-	10000 2450 10450 2450
+	6950 2450 7400 2450
 Text Notes 8950 4100 0    100  ~ 20
 µ02
 Wire Wire Line
@@ -904,4 +869,38 @@ Text Label 2200 3050 2    50   ~ 0
 ~COND
 Text Label 2200 3250 2    50   ~ 0
 IR7
+Text Notes 2800 4100 0    100  ~ 20
+µ00
+Text Label 10350 2950 2    50   ~ 0
+~R
+Text Label 10350 2850 2    50   ~ 0
+~IO
+Text Label 10350 2750 2    50   ~ 0
+~MEM
+Text Label 10350 3150 2    50   ~ 0
+~END
+Text Label 10350 3050 2    50   ~ 0
+~WEN
+Text Label 10350 2450 2    50   ~ 0
+ACTION1
+Text Label 10350 2550 2    50   ~ 0
+ACTION2
+Text Label 10350 2650 2    50   ~ 0
+ACTION3
+Wire Wire Line
+	10000 2650 10450 2650
+Wire Wire Line
+	10000 2550 10450 2550
+Wire Wire Line
+	10000 2450 10450 2450
+Wire Wire Line
+	10000 3150 10450 3150
+Wire Wire Line
+	10000 3050 10450 3050
+Wire Wire Line
+	10000 2950 10450 2950
+Wire Wire Line
+	10000 2850 10450 2850
+Wire Wire Line
+	10000 2750 10450 2750
 $EndSCHEMATC

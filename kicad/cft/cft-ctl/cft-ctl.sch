@@ -1,5 +1,4 @@
 EESchema Schematic File Version 4
-LIBS:cft-ctl-cache
 EELAYER 30 0
 EELAYER END
 $Descr A3 16535 11693
@@ -1186,22 +1185,22 @@ F 3 "~" H 20400 4400 50  0001 C CNN
 	1    20200 4400
 	0    1    1    0   
 $EndComp
-Text Notes 11450 4050 0    50   ~ 0
-TODO: REMOVE ~RUEN~ and ~WUEN.\nAND RADDR and WADDR with an appropriate signal to \ncause them to be idle (00000) when ~RUEN~ or ~WUEN~\nwould be high instead.\n\nRecover ~RUEN~ and ~WUEN~ bussed signals for other uses.\n\nUpdate all schematics.
-Text Notes 11450 3300 0    198  ~ 40
-To Do
-Wire Notes Line width 20 style solid rgb(255, 0, 0)
-	11100 4300 13950 4300
-Wire Notes Line width 20 style solid rgb(255, 0, 0)
-	11100 2900 11100 4300
-Wire Notes Line width 20 style solid rgb(255, 0, 0)
-	13950 2900 11100 2900
-Wire Notes Line width 20 style solid rgb(255, 0, 0)
-	13950 4300 13950 2900
 Wire Bus Line
-	5250 4800 7550 4800
+	20600 4300 20600 5900
 Wire Bus Line
 	20600 2150 20600 2800
 Wire Bus Line
-	20600 4300 20600 5900
+	5250 4800 7550 4800
+Wire Notes Line width 20 style solid rgb(255, 0, 0)
+	13950 4300 13950 2900
+Wire Notes Line width 20 style solid rgb(255, 0, 0)
+	13950 2900 11100 2900
+Wire Notes Line width 20 style solid rgb(255, 0, 0)
+	11100 2900 11100 4300
+Wire Notes Line width 20 style solid rgb(255, 0, 0)
+	11100 4300 13950 4300
+Text Notes 11450 3300 0    198  ~ 40
+To Do
+Text Notes 11450 4050 0    50   ~ 0
+TODO: REMOVE ~RUEN~ and ~WUEN.\nAND RADDR and WADDR with an appropriate signal to \ncause them to be idle (00000) when ~RUEN~ or ~WUEN~\nwould be high instead.\n\nRecover ~RUEN~ and ~WUEN~ bussed signals for other uses.\n\nUpdate all schematics.
 $EndSCHEMATC

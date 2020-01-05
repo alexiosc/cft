@@ -1,5 +1,4 @@
 EESchema Schematic File Version 4
-LIBS:cft-ctl-cache
 EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
@@ -1380,14 +1379,6 @@ Wire Notes Line style solid rgb(255, 11, 0)
 	6350 5350 7300 5350
 Wire Notes Line style solid rgb(255, 5, 0)
 	7300 5350 7300 5150
-Wire Bus Line
-	950  1500 6100 1500
-Wire Bus Line
-	6200 1600 6200 2500
-Wire Bus Line
-	1600 1600 1600 5250
-Wire Bus Line
-	6100 2100 6100 5150
 $Comp
 L alexios:74LVC1G373 U?
 U 1 1 5E115F0B
@@ -1403,4 +1394,12 @@ Text Notes 9450 3500 0    50   ~ 0
 add this before the FF to avoid metastability
 Text Notes 9200 5250 0    50   ~ 0
 consider replacing with wired AND
+Wire Bus Line
+	950  1500 6100 1500
+Wire Bus Line
+	6200 1600 6200 2500
+Wire Bus Line
+	1600 1600 1600 5250
+Wire Bus Line
+	6100 2100 6100 5150
 $EndSCHEMATC
