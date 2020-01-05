@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 2 8
+Sheet 7 8
 Title "Data Bus & Wait States"
 Date ""
 Rev ""
@@ -1193,4 +1193,6 @@ Wire Bus Line
 	8750 3250 8750 5600
 Wire Bus Line
 	6850 3250 6850 5600
+Text Notes 7150 1350 0    50   ~ 0
+No impedance matching here, we rely on Bus Hold.
 $EndSCHEMATC

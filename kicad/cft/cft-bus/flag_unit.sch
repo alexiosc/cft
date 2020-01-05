@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 6 8
+Sheet 4 8
 Title "Flag Unit"
 Date ""
 Rev ""
@@ -13,78 +13,84 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-Text Label 7450 1750 0    50   ~ 0
-RSVD14
-Text Label 7450 5500 0    50   ~ 0
-FI
-Text Label 7450 5300 0    50   ~ 0
-FV
-Text Label 7450 5200 0    50   ~ 0
-FL
-Text Label 7450 5100 0    50   ~ 0
-FZ
-Text Label 7450 5000 0    50   ~ 0
-FN
-Text Label 7450 4900 0    50   ~ 0
-FPRSVD9
-Text Label 7450 4800 0    50   ~ 0
-FPRSVD8
-Wire Wire Line
-	7800 5400 7450 5400
-Wire Wire Line
-	7800 4900 7450 4900
-Wire Wire Line
-	7800 4800 7450 4800
-Text Label 7450 1850 0    50   ~ 0
-FI
-Text Label 7450 1650 0    50   ~ 0
-FV
-Text Label 7450 1550 0    50   ~ 0
-FL
-Text Label 7450 1450 0    50   ~ 0
-FZ
-Text Label 7450 1350 0    50   ~ 0
-FN
-Wire Wire Line
-	7800 1650 7050 1650
-Text Label 7450 1250 0    50   ~ 0
-RSVD9
-Text Label 7450 1150 0    50   ~ 0
-RSVD8
-Wire Wire Line
-	7800 1850 6950 1850
-Wire Wire Line
-	7800 1750 7450 1750
-Wire Wire Line
-	7800 1550 7150 1550
-Wire Wire Line
-	7800 1450 7250 1450
-Wire Wire Line
-	7800 1250 7450 1250
-Wire Wire Line
-	7800 1150 7450 1150
 Text Label 7450 2050 0    50   ~ 0
+F14
+Text Label 7450 5800 0    50   ~ 0
+FI
+Text Label 7450 5600 0    50   ~ 0
+FV
+Text Label 7450 5500 0    50   ~ 0
+FL
+Text Label 7450 5400 0    50   ~ 0
+FZ
+Text Label 7450 5300 0    50   ~ 0
+FN
+Text Label 7450 5200 0    50   ~ 0
+FPF9
+Text Label 7450 5100 0    50   ~ 0
+FPF8
+Wire Wire Line
+	7800 5700 7450 5700
+Wire Wire Line
+	7800 5200 7450 5200
+Wire Wire Line
+	7800 5100 7450 5100
+Text Label 7450 2150 0    50   ~ 0
+FI
+Text Label 7450 1950 0    50   ~ 0
+FV
+Text Label 7450 1850 0    50   ~ 0
+FL
+Text Label 7450 1750 0    50   ~ 0
+FZ
+Text Label 7450 1650 0    50   ~ 0
+FN
+Wire Wire Line
+	7800 1950 7050 1950
+Text Label 7450 1550 0    50   ~ 0
+F9
+Text Label 7450 1450 0    50   ~ 0
+F8
+Wire Wire Line
+	7800 2150 6950 2150
+Wire Wire Line
+	7800 2050 7450 2050
+Wire Wire Line
+	7800 1850 7150 1850
+Wire Wire Line
+	7800 1750 7250 1750
+Wire Wire Line
+	7800 1550 7450 1550
+Wire Wire Line
+	7800 1450 7450 1450
+Text Label 7450 2350 0    50   ~ 0
 ~FLAGOE
-Text Label 9900 6250 2    50   ~ 0
+Text Label 9900 6550 2    50   ~ 0
 FPD[0..7]
-Text Label 9250 6050 1    50   ~ 0
+Text Label 9250 6350 1    50   ~ 0
 FPD[0..7]
-Text Label 9900 2650 2    50   ~ 0
+Text Label 9900 2950 2    50   ~ 0
 IBUS[8..15]
-Text Label 9250 2450 1    50   ~ 0
+Text Label 9250 2750 1    50   ~ 0
 IBUS[8..15]
-Text HLabel 10000 6250 2    50   3State ~ 0
+Text HLabel 10000 6550 2    50   3State ~ 0
 FPD[0..7]
-Text HLabel 10000 2650 2    50   3State ~ 0
+Text HLabel 10000 2950 2    50   3State ~ 0
 IBUS[8..15]
 Wire Bus Line
-	9350 6250 10000 6250
+	9350 6550 10000 6550
 Wire Bus Line
-	9350 2650 10000 2650
+	9350 2950 10000 2950
 Entry Bus Bus
-	9250 6150 9350 6250
+	9250 6450 9350 6550
 Entry Bus Bus
-	9250 2550 9350 2650
+	9250 2850 9350 2950
+Entry Wire Line
+	9150 2150 9250 2250
+Entry Wire Line
+	9150 2050 9250 2150
+Entry Wire Line
+	9150 1950 9250 2050
 Entry Wire Line
 	9150 1850 9250 1950
 Entry Wire Line
@@ -96,11 +102,11 @@ Entry Wire Line
 Entry Wire Line
 	9150 1450 9250 1550
 Entry Wire Line
-	9150 1350 9250 1450
+	9150 5800 9250 5900
 Entry Wire Line
-	9150 1250 9250 1350
+	9150 5700 9250 5800
 Entry Wire Line
-	9150 1150 9250 1250
+	9150 5600 9250 5700
 Entry Wire Line
 	9150 5500 9250 5600
 Entry Wire Line
@@ -111,48 +117,48 @@ Entry Wire Line
 	9150 5200 9250 5300
 Entry Wire Line
 	9150 5100 9250 5200
-Entry Wire Line
-	9150 5000 9250 5100
-Entry Wire Line
-	9150 4900 9250 5000
-Entry Wire Line
-	9150 4800 9250 4900
-Text HLabel 7450 5700 0    50   Input ~ 0
+Text HLabel 7450 6000 0    50   Input ~ 0
 ~FPFLAGS
-Text Label 7450 5700 0    50   ~ 0
+Text Label 7450 6000 0    50   ~ 0
 ~FPFLAGS
 Wire Wire Line
-	7800 5700 7450 5700
+	7800 6000 7450 6000
 $Comp
 L power:GND #PWR?
 U 1 1 5D676F48
-P 7800 5800
+P 7800 6100
 AR Path="/5D676F48" Ref="#PWR?"  Part="1" 
 AR Path="/5D65F6EF/5D676F48" Ref="#PWR?"  Part="1" 
 AR Path="/5D69F3FD/5D676F48" Ref="#PWR?"  Part="1" 
 AR Path="/5DF0FECB/5D676F48" Ref="#PWR0132"  Part="1" 
-F 0 "#PWR0132" H 7800 5550 50  0001 C CNN
-F 1 "GND" H 7805 5627 50  0000 C CNN
-F 2 "" H 7800 5800 50  0001 C CNN
-F 3 "" H 7800 5800 50  0001 C CNN
-	1    7800 5800
+F 0 "#PWR0132" H 7800 5850 50  0001 C CNN
+F 1 "GND" H 7805 5927 50  0000 C CNN
+F 2 "" H 7800 6100 50  0001 C CNN
+F 3 "" H 7800 6100 50  0001 C CNN
+	1    7800 6100
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR?
 U 1 1 5D676F4E
-P 7800 2150
+P 7800 2450
 AR Path="/5D676F4E" Ref="#PWR?"  Part="1" 
 AR Path="/5D65F6EF/5D676F4E" Ref="#PWR?"  Part="1" 
 AR Path="/5D69F3FD/5D676F4E" Ref="#PWR?"  Part="1" 
 AR Path="/5DF0FECB/5D676F4E" Ref="#PWR0127"  Part="1" 
-F 0 "#PWR0127" H 7800 1900 50  0001 C CNN
-F 1 "GND" H 7805 1977 50  0000 C CNN
-F 2 "" H 7800 2150 50  0001 C CNN
-F 3 "" H 7800 2150 50  0001 C CNN
-	1    7800 2150
+F 0 "#PWR0127" H 7800 2200 50  0001 C CNN
+F 1 "GND" H 7805 2277 50  0000 C CNN
+F 2 "" H 7800 2450 50  0001 C CNN
+F 3 "" H 7800 2450 50  0001 C CNN
+	1    7800 2450
 	1    0    0    -1  
 $EndComp
+Wire Wire Line
+	8800 5800 9150 5800
+Wire Wire Line
+	8800 5700 9150 5700
+Wire Wire Line
+	8800 5600 9150 5600
 Wire Wire Line
 	8800 5500 9150 5500
 Wire Wire Line
@@ -163,43 +169,43 @@ Wire Wire Line
 	8800 5200 9150 5200
 Wire Wire Line
 	8800 5100 9150 5100
-Wire Wire Line
-	8800 5000 9150 5000
-Wire Wire Line
-	8800 4900 9150 4900
-Wire Wire Line
-	8800 4800 9150 4800
 $Comp
 L alexios:74HC541 U?
 U 1 1 5D676F64
-P 8300 5300
+P 8300 5600
 AR Path="/5D676F64" Ref="U?"  Part="1" 
 AR Path="/5D65F6EF/5D676F64" Ref="U?"  Part="1" 
 AR Path="/5D69F3FD/5D676F64" Ref="U?"  Part="1" 
 AR Path="/5DF0FECB/5D676F64" Ref="U67"  Part="1" 
-F 0 "U67" H 8300 6067 50  0000 C CNN
-F 1 "74HC541" H 8300 5976 50  0000 C CNN
-F 2 "alexios:SOIC-20W" H 8300 5300 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 8300 5300 50  0001 C CNN
-	1    8300 5300
+F 0 "U67" H 8300 6367 50  0000 C CNN
+F 1 "74HC541" H 8300 6276 50  0000 C CNN
+F 2 "alexios:SOIC-20W" H 8300 5600 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 8300 5600 50  0001 C CNN
+	1    8300 5600
 	1    0    0    -1  
 $EndComp
-Text Label 9150 1850 2    50   ~ 0
+Text Label 9150 2150 2    50   ~ 0
 IBUS15
-Text Label 9150 1750 2    50   ~ 0
+Text Label 9150 2050 2    50   ~ 0
 IBUS14
-Text Label 9150 1650 2    50   ~ 0
+Text Label 9150 1950 2    50   ~ 0
 IBUS13
-Text Label 9150 1550 2    50   ~ 0
+Text Label 9150 1850 2    50   ~ 0
 IBUS12
-Text Label 9150 1450 2    50   ~ 0
+Text Label 9150 1750 2    50   ~ 0
 IBUS11
-Text Label 9150 1350 2    50   ~ 0
+Text Label 9150 1650 2    50   ~ 0
 IBUS10
-Text Label 9150 1250 2    50   ~ 0
+Text Label 9150 1550 2    50   ~ 0
 IBUS9
-Text Label 9150 1150 2    50   ~ 0
+Text Label 9150 1450 2    50   ~ 0
 IBUS8
+Wire Wire Line
+	8800 2150 9150 2150
+Wire Wire Line
+	8800 2050 9150 2050
+Wire Wire Line
+	8800 1950 9150 1950
 Wire Wire Line
 	8800 1850 9150 1850
 Wire Wire Line
@@ -210,417 +216,493 @@ Wire Wire Line
 	8800 1550 9150 1550
 Wire Wire Line
 	8800 1450 9150 1450
-Wire Wire Line
-	8800 1350 9150 1350
-Wire Wire Line
-	8800 1250 9150 1250
-Wire Wire Line
-	8800 1150 9150 1150
 $Comp
 L alexios:74HC541 U?
 U 1 1 5D676F7A
-P 8300 1650
+P 8300 1950
 AR Path="/5D676F7A" Ref="U?"  Part="1" 
 AR Path="/5D65F6EF/5D676F7A" Ref="U?"  Part="1" 
 AR Path="/5D69F3FD/5D676F7A" Ref="U?"  Part="1" 
 AR Path="/5DF0FECB/5D676F7A" Ref="U62"  Part="1" 
-F 0 "U62" H 8300 2417 50  0000 C CNN
-F 1 "74HC541" H 8300 2326 50  0000 C CNN
-F 2 "alexios:SOIC-20W" H 8300 1650 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 8300 1650 50  0001 C CNN
-	1    8300 1650
+F 0 "U62" H 8300 2717 50  0000 C CNN
+F 1 "74HC541" H 8300 2626 50  0000 C CNN
+F 2 "alexios:SOIC-20W" H 8300 1950 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 8300 1950 50  0001 C CNN
+	1    8300 1950
 	1    0    0    -1  
 $EndComp
-Text Label 5950 3000 2    50   ~ 0
+Text Label 6150 3300 0    50   ~ 0
 ~FLAGWE
 $Comp
 L alexios:74LVC1G08 U?
 U 1 1 5D676FD3
-P 5500 3000
+P 5500 3300
 AR Path="/5D676FD3" Ref="U?"  Part="1" 
 AR Path="/5D65F6EF/5D676FD3" Ref="U?"  Part="1" 
 AR Path="/5D69F3FD/5D676FD3" Ref="U?"  Part="1" 
 AR Path="/5DF0FECB/5D676FD3" Ref="U64"  Part="1" 
-F 0 "U64" H 5425 3267 50  0000 C CNN
-F 1 "74LVC1G08" H 5425 3176 50  0000 C CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 5150 3000 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 5150 3000 50  0001 C CNN
-	1    5500 3000
+F 0 "U64" H 5425 3567 50  0000 C CNN
+F 1 "74LVC1G08" H 5425 3476 50  0000 C CNN
+F 2 "alexios:SOT-23-5_HandSoldering" H 5150 3300 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 5150 3300 50  0001 C CNN
+	1    5500 3300
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	2100 2000 5200 2000
+	2100 2300 5200 2300
 Wire Wire Line
-	2100 2100 5200 2100
-Text Label 5200 2000 2    50   ~ 0
+	2100 2400 5200 2400
+Text Label 5200 2300 2    50   ~ 0
 ~READ-MBP+FLAGS
-Text Label 5200 2100 2    50   ~ 0
+Text Label 5200 2400 2    50   ~ 0
 ~READ-FLAGS
 $Comp
 L alexios:74LVC1G08 U?
 U 1 1 5D676FDD
-P 5500 2050
+P 5500 2350
 AR Path="/5D676FDD" Ref="U?"  Part="1" 
 AR Path="/5D65F6EF/5D676FDD" Ref="U?"  Part="1" 
 AR Path="/5D69F3FD/5D676FDD" Ref="U?"  Part="1" 
 AR Path="/5DF0FECB/5D676FDD" Ref="U66"  Part="1" 
-F 0 "U66" H 5425 2317 50  0000 C CNN
-F 1 "74LVC1G08" H 5425 2226 50  0000 C CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 5150 2050 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 5150 2050 50  0001 C CNN
-	1    5500 2050
+F 0 "U66" H 5425 2617 50  0000 C CNN
+F 1 "74LVC1G08" H 5425 2526 50  0000 C CNN
+F 2 "alexios:SOT-23-5_HandSoldering" H 5150 2350 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 5150 2350 50  0001 C CNN
+	1    5500 2350
 	1    0    0    -1  
 $EndComp
-Text Label 5950 2050 2    50   ~ 0
+Text Label 5950 2350 2    50   ~ 0
 ~FLAGOE
-Text Label 5200 3050 2    50   ~ 0
+Text Label 5200 3350 2    50   ~ 0
 ~WRITE-FLAGS
-Text Label 5200 2950 2    50   ~ 0
+Text Label 5200 3250 2    50   ~ 0
 ~WRITE-MBP+FLAGS
 Wire Wire Line
-	2100 3050 5200 3050
+	2100 3350 5200 3350
 Wire Wire Line
-	2100 2950 5200 2950
+	2100 3250 5200 3250
 Wire Wire Line
-	7800 1350 7350 1350
+	7800 1650 7350 1650
 Wire Wire Line
-	7350 5000 7800 5000
+	7350 5300 7800 5300
 Wire Wire Line
-	7250 5100 7800 5100
+	7250 5400 7800 5400
 Wire Wire Line
-	7150 5200 7800 5200
+	7150 5500 7800 5500
 Wire Wire Line
-	7050 5300 7800 5300
+	7050 5600 7800 5600
 Wire Wire Line
-	6950 5500 7800 5500
-Text HLabel 10000 3000 2    50   Output ~ 0
+	6950 5800 7800 5800
+Text HLabel 10000 3300 2    50   Output ~ 0
 ~FLAGWE
-Wire Wire Line
-	5650 3000 10000 3000
-Text Label 6950 4100 1    50   ~ 0
+Text Label 6950 4400 1    50   ~ 0
 FI
-Text Label 7050 4100 1    50   ~ 0
+Text Label 7050 4400 1    50   ~ 0
 FV
-Text Label 7150 4100 1    50   ~ 0
+Text Label 7150 4400 1    50   ~ 0
 FL
-Text Label 7250 4100 1    50   ~ 0
+Text Label 7250 4400 1    50   ~ 0
 FZ
-Text Label 7350 4100 1    50   ~ 0
+Text Label 7350 4400 1    50   ~ 0
 FN
-Text Label 7450 5400 0    50   ~ 0
-FPRSVD14
-Text Notes 7850 4200 0    50   ~ 0
-Some flags respond to ~FLAGWE~ assertions by\nsampling the appropriate bit of the IBUS and\nmodifying their values.\n\nThe only flags that can currently be set this way\nare FI, FL and FV (FI & FL are here, FV is on the\nALU board). FZ and FN are controlled by the\ncurrent value of the AC.
-Text Label 8850 4800 0    50   ~ 0
-FPD0
-Text Label 8850 4900 0    50   ~ 0
-FPD1
-Text Label 8850 5000 0    50   ~ 0
-FPD2
+Text Label 7450 5700 0    50   ~ 0
+FPF14
+Text Notes 4750 1800 0    50   ~ 0
+Some flags respond to ~FLAGWE~ assertions by\nsampling the appropriate bit of the IBUS and\nmodifying their values.\n\nThe only flags that can currently be set this way\nare FI, FL and FV (FI is here, FL & FV are on the\nALU board). FZ and FN are controlled by the\ncurrent value of the AC.
 Text Label 8850 5100 0    50   ~ 0
-FPD3
+FPD0
 Text Label 8850 5200 0    50   ~ 0
-FPD4
+FPD1
 Text Label 8850 5300 0    50   ~ 0
-FPD5
+FPD2
 Text Label 8850 5400 0    50   ~ 0
-FPD6
+FPD3
 Text Label 8850 5500 0    50   ~ 0
+FPD4
+Text Label 8850 5600 0    50   ~ 0
+FPD5
+Text Label 8850 5700 0    50   ~ 0
+FPD6
+Text Label 8850 5800 0    50   ~ 0
 FPD7
 Text Notes 3900 6650 0    50   ~ 0
 These solder jumpers can be used to change the meanings\nof the unused LEDs on the flag section of the front panel.\nThey should be bridged (ground, LED off) until this is required.
 $Comp
 L Jumper:SolderJumper_3_Bridged123 JP1
 U 1 1 5E0D2D96
-P 4150 7200
-F 0 "JP1" V 4150 7267 50  0000 L CNN
-F 1 "SolderJumper_3_Bridged123" V 4105 7267 50  0001 L CNN
-F 2 "" H 4150 7200 50  0001 C CNN
-F 3 "~" H 4150 7200 50  0001 C CNN
-	1    4150 7200
+P 4550 8850
+F 0 "JP1" V 4400 8600 50  0000 L CNN
+F 1 "SolderJumper_3_Bridged123" V 4505 8917 50  0001 L CNN
+F 2 "" H 4550 8850 50  0001 C CNN
+F 3 "~" H 4550 8850 50  0001 C CNN
+	1    4550 8850
 	0    -1   -1   0   
 $EndComp
 Wire Wire Line
-	4300 7200 4650 7200
-Text Label 4650 7200 2    50   ~ 0
-FPRSVD8
-Wire Wire Line
-	4150 7000 3850 7000
-Text Label 3850 7000 0    50   ~ 0
-RSVD8
+	4700 8850 5050 8850
+Text Label 5050 8850 2    50   ~ 0
+FPF8
 $Comp
 L power:GND #PWR0133
 U 1 1 5E0E6829
-P 4150 7400
-F 0 "#PWR0133" H 4150 7150 50  0001 C CNN
-F 1 "GND" H 4155 7227 50  0000 C CNN
-F 2 "" H 4150 7400 50  0001 C CNN
-F 3 "" H 4150 7400 50  0001 C CNN
-	1    4150 7400
+P 4550 9050
+F 0 "#PWR0133" H 4550 8800 50  0001 C CNN
+F 1 "GND" H 4555 8877 50  0000 C CNN
+F 2 "" H 4550 9050 50  0001 C CNN
+F 3 "" H 4550 9050 50  0001 C CNN
+	1    4550 9050
 	1    0    0    -1  
 $EndComp
 $Comp
 L Jumper:SolderJumper_3_Bridged123 JP2
 U 1 1 5E0F938B
-P 5100 7200
-F 0 "JP2" V 5100 7267 50  0000 L CNN
-F 1 "SolderJumper_3_Bridged123" V 5055 7267 50  0001 L CNN
-F 2 "" H 5100 7200 50  0001 C CNN
-F 3 "~" H 5100 7200 50  0001 C CNN
-	1    5100 7200
+P 4550 9600
+F 0 "JP2" V 4400 9500 50  0000 R CNN
+F 1 "SolderJumper_3_Bridged123" V 4505 9667 50  0001 L CNN
+F 2 "" H 4550 9600 50  0001 C CNN
+F 3 "~" H 4550 9600 50  0001 C CNN
+	1    4550 9600
 	0    -1   -1   0   
 $EndComp
 Wire Wire Line
-	5250 7200 5600 7200
-Text Label 5600 7200 2    50   ~ 0
-FPRSVD9
-Wire Wire Line
-	5100 7000 4800 7000
-Text Label 4800 7000 0    50   ~ 0
+	4700 9600 5050 9600
+Text Label 5050 9600 2    50   ~ 0
+FPF9
+Text Label 3300 9350 0    50   ~ 0
 RSVD9
 $Comp
 L power:GND #PWR0134
 U 1 1 5E0F9395
-P 5100 7400
-F 0 "#PWR0134" H 5100 7150 50  0001 C CNN
-F 1 "GND" H 5105 7227 50  0000 C CNN
-F 2 "" H 5100 7400 50  0001 C CNN
-F 3 "" H 5100 7400 50  0001 C CNN
-	1    5100 7400
+P 4550 9800
+F 0 "#PWR0134" H 4550 9550 50  0001 C CNN
+F 1 "GND" H 4555 9627 50  0000 C CNN
+F 2 "" H 4550 9800 50  0001 C CNN
+F 3 "" H 4550 9800 50  0001 C CNN
+	1    4550 9800
 	1    0    0    -1  
 $EndComp
+Text HLabel 2100 3250 0    50   Input ~ 0
+~WRITE-MBP+FLAGS
+Text HLabel 2100 3350 0    50   Input ~ 0
+~WRITE-FLAGS
+Text Label 2200 3250 0    50   ~ 0
+~WRITE-MBP+FLAGS
+Text Label 2200 3350 0    50   ~ 0
+~WRITE-FLAGS
+Text HLabel 2100 2300 0    50   Input ~ 0
+~READ-MBP+FLAGS
+Text HLabel 2100 2400 0    50   Input ~ 0
+~READ-FLAGS
+Text Label 2200 2300 0    50   ~ 0
+~READ-MBP+FLAGS
+Text Label 2200 2400 0    50   ~ 0
+~READ-FLAGS
+Text Label 9500 3300 0    50   ~ 0
+~FLAGWE
+Wire Notes Line width 20 style solid
+	4650 850  6850 850 
+Wire Notes Line width 20 style solid
+	4650 1900 4650 850 
+Wire Notes Line width 20 style solid
+	6850 1900 4650 1900
+Wire Notes Line width 20 style solid
+	6850 850  6850 1900
+Text Notes 4750 1050 0    63   ~ 13
+Writing to Flags
+Text Notes 2200 2850 0    50   ~ 0
+These signals are decoded in the MBU.
+Wire Wire Line
+	7350 1650 7350 3850
+Wire Wire Line
+	7250 1750 7250 3950
+Wire Wire Line
+	7150 1850 7150 4050
+Wire Wire Line
+	7050 1950 7050 4150
+Wire Wire Line
+	6950 2150 6950 4250
+Text Label 2200 4250 0    50   ~ 0
+FI
+Text Label 2200 4150 0    50   ~ 0
+FV
+Text Label 2200 4050 0    50   ~ 0
+FL
+Text Label 2200 3950 0    50   ~ 0
+FZ
+Text Label 2200 3850 0    50   ~ 0
+FN
+Text HLabel 2100 3850 0    50   Input ~ 0
+FN
+Text HLabel 2100 3950 0    50   Input ~ 0
+FZ
+Text HLabel 2100 4050 0    50   Input ~ 0
+FL
+Text HLabel 2100 4150 0    50   Input ~ 0
+FV
+Text HLabel 2100 4250 0    50   Input ~ 0
+FI
+Wire Wire Line
+	7350 3850 2100 3850
+Wire Wire Line
+	7250 3950 2100 3950
+Wire Wire Line
+	7150 4050 2100 4050
+Wire Wire Line
+	7050 4150 2100 4150
+Wire Wire Line
+	6950 4250 2100 4250
+Connection ~ 6950 4250
+Wire Wire Line
+	6950 4250 6950 5800
+Connection ~ 7050 4150
+Wire Wire Line
+	7050 4150 7050 5600
+Connection ~ 7150 4050
+Wire Wire Line
+	7150 4050 7150 5500
+Connection ~ 7250 3950
+Wire Wire Line
+	7250 3950 7250 5400
+Connection ~ 7350 3850
+Wire Wire Line
+	7350 3850 7350 5300
+Wire Wire Line
+	5650 2350 7800 2350
+Text Label 6600 4250 0    50   ~ 0
+FI
+Text Label 6600 4150 0    50   ~ 0
+FV
+Text Label 6600 4050 0    50   ~ 0
+FL
+Text Label 6600 3950 0    50   ~ 0
+FZ
+Text Label 6600 3850 0    50   ~ 0
+FN
+Text Notes 7850 1050 0    100  ~ 20
+Flag Output
+Text Notes 7550 4650 0    100  ~ 20
+Front Panel Buffer
+Text Notes 9500 2200 0    50   ~ 0
+Only the most significant 8 bits\nof the IBus are driven here.\nThe least significant 8 bits come\nfrom the MBU (which responds\non the same IBus addresses) and\ncontain the value of MBP.
+Wire Notes Line width 20 style solid
+	9400 1400 10950 1400
+Wire Notes Line width 20 style solid
+	9400 2300 9400 1400
+Wire Notes Line width 20 style solid
+	10950 2300 9400 2300
+Wire Notes Line width 20 style solid
+	10950 1400 10950 2300
+Text Notes 9500 1600 0    63   ~ 13
+Note
 $Comp
-L Jumper:SolderJumper_3_Bridged123 JP3
-U 1 1 5E104138
-P 6050 7200
-F 0 "JP3" V 6050 7267 50  0000 L CNN
-F 1 "SolderJumper_3_Bridged123" V 6005 7267 50  0001 L CNN
-F 2 "" H 6050 7200 50  0001 C CNN
-F 3 "~" H 6050 7200 50  0001 C CNN
-	1    6050 7200
+L Jumper:SolderJumper_3_Bridged123 JP?
+U 1 1 5E458A52
+P 3800 8850
+F 0 "JP?" V 3650 9000 50  0000 L CNN
+F 1 "SolderJumper_3_Bridged123" V 3755 8917 50  0001 L CNN
+F 2 "" H 3800 8850 50  0001 C CNN
+F 3 "~" H 3800 8850 50  0001 C CNN
+	1    3800 8850
 	0    -1   -1   0   
 $EndComp
 Wire Wire Line
-	6200 7200 6550 7200
-Text Label 6550 7200 2    50   ~ 0
-FPRSVD14
+	3950 8850 4250 8850
 Wire Wire Line
-	6050 7000 5750 7000
-Text Label 5750 7000 0    50   ~ 0
-RSVD14
-$Comp
-L power:GND #PWR0135
-U 1 1 5E104142
-P 6050 7400
-F 0 "#PWR0135" H 6050 7150 50  0001 C CNN
-F 1 "GND" H 6055 7227 50  0000 C CNN
-F 2 "" H 6050 7400 50  0001 C CNN
-F 3 "" H 6050 7400 50  0001 C CNN
-	1    6050 7400
-	1    0    0    -1  
-$EndComp
-Text HLabel 2100 2950 0    50   Input ~ 0
-~WRITE-MBP+FLAGS
-Text HLabel 2100 3050 0    50   Input ~ 0
-~WRITE-FLAGS
-Text Label 2200 2950 0    50   ~ 0
-~WRITE-MBP+FLAGS
-Text Label 2200 3050 0    50   ~ 0
-~WRITE-FLAGS
-Text HLabel 2100 2000 0    50   Input ~ 0
-~READ-MBP+FLAGS
-Text HLabel 2100 2100 0    50   Input ~ 0
-~READ-FLAGS
-Text Label 2200 2000 0    50   ~ 0
-~READ-MBP+FLAGS
-Text Label 2200 2100 0    50   ~ 0
-~READ-FLAGS
-Text Label 9500 3000 0    50   ~ 0
-~FLAGWE
-NoConn ~ 4350 5150
-NoConn ~ 4350 5050
-NoConn ~ 4350 5450
-Text HLabel 2100 4700 0    50   Input ~ 0
-ACTION[0..3]
-Wire Wire Line
-	3350 4950 3000 4950
-Wire Wire Line
-	3350 5050 3000 5050
-Wire Wire Line
-	3350 5150 3000 5150
-Wire Wire Line
-	3350 5650 3000 5650
-Text HLabel 6150 5350 2    50   Output ~ 0
-~ACTION-CLI
-Text HLabel 6150 5250 2    50   Output ~ 0
-~ACTION-STI
-Text Notes 3900 5600 1    50   ~ 10
-ACTION=0xxx
-NoConn ~ 4350 5650
-NoConn ~ 4350 5550
-NoConn ~ 4350 4950
-Text Label 5200 5350 2    50   ~ 0
-~ACTION-CLI
-Text Label 5200 5250 2    50   ~ 0
-~ACTION-STI
-Wire Wire Line
-	4350 5350 6150 5350
-Wire Wire Line
-	4350 5250 6150 5250
+	3800 8600 3300 8600
+Text Label 3300 8600 0    50   ~ 0
+RSVD8
 $Comp
 L power:GND #PWR?
-U 1 1 5D676FAA
-P 3350 5750
-AR Path="/5D676FAA" Ref="#PWR?"  Part="1" 
-AR Path="/5D65F6EF/5D676FAA" Ref="#PWR?"  Part="1" 
-AR Path="/5D69F3FD/5D676FAA" Ref="#PWR?"  Part="1" 
-AR Path="/5DF0FECB/5D676FAA" Ref="#PWR0131"  Part="1" 
-F 0 "#PWR0131" H 3350 5500 50  0001 C CNN
-F 1 "GND" H 3355 5577 50  0000 C CNN
-F 2 "" H 3350 5750 50  0001 C CNN
-F 3 "" H 3350 5750 50  0001 C CNN
-	1    3350 5750
+U 1 1 5E458A5C
+P 3800 9050
+F 0 "#PWR?" H 3800 8800 50  0001 C CNN
+F 1 "GND" H 3805 8877 50  0000 C CNN
+F 2 "" H 3800 9050 50  0001 C CNN
+F 3 "" H 3800 9050 50  0001 C CNN
+	1    3800 9050
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+5V #PWR?
-U 1 1 5D676FA4
-P 3350 5550
-AR Path="/5D676FA4" Ref="#PWR?"  Part="1" 
-AR Path="/5D65F6EF/5D676FA4" Ref="#PWR?"  Part="1" 
-AR Path="/5D69F3FD/5D676FA4" Ref="#PWR?"  Part="1" 
-AR Path="/5DF0FECB/5D676FA4" Ref="#PWR0130"  Part="1" 
-F 0 "#PWR0130" H 3350 5400 50  0001 C CNN
-F 1 "+5V" H 3365 5723 50  0000 C CNN
-F 2 "" H 3350 5550 50  0001 C CNN
-F 3 "" H 3350 5550 50  0001 C CNN
-	1    3350 5550
-	1    0    0    -1  
+L Jumper:SolderJumper_3_Bridged123 JP?
+U 1 1 5E472E1A
+P 3800 9600
+F 0 "JP?" V 3800 9700 50  0000 L CNN
+F 1 "SolderJumper_3_Bridged123" V 3755 9667 50  0001 L CNN
+F 2 "" H 3800 9600 50  0001 C CNN
+F 3 "~" H 3800 9600 50  0001 C CNN
+	1    3800 9600
+	0    -1   -1   0   
 $EndComp
-Text Label 3000 5650 0    50   ~ 0
-ACTION3
-Text Label 3000 5150 0    50   ~ 0
-ACTION2
-Text Label 3000 5050 0    50   ~ 0
-ACTION1
-Text Label 3000 4950 0    50   ~ 0
-ACTION0
+Wire Wire Line
+	3950 9600 4250 9600
+Wire Wire Line
+	3800 9350 3300 9350
 $Comp
-L alexios:74HC138 U?
-U 1 1 5D676F9A
-P 3850 5350
-AR Path="/5F3EA987/5D676F9A" Ref="U?"  Part="1" 
-AR Path="/5D676F9A" Ref="U?"  Part="1" 
-AR Path="/61F95ACC/5D676F9A" Ref="U?"  Part="1" 
-AR Path="/5D65F6EF/5D676F9A" Ref="U?"  Part="1" 
-AR Path="/5D69F3FD/5D676F9A" Ref="U?"  Part="1" 
-AR Path="/5DF0FECB/5D676F9A" Ref="U68"  Part="1" 
-F 0 "U68" H 3850 6017 50  0000 C CNN
-F 1 "74HC138" H 3850 5926 50  0000 C CNN
-F 2 "alexios:SOIC-16" H 3850 5350 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 3850 5350 50  0001 C CNN
-	1    3850 5350
+L power:GND #PWR?
+U 1 1 5E472E23
+P 3800 9800
+F 0 "#PWR?" H 3800 9550 50  0001 C CNN
+F 1 "GND" H 3805 9627 50  0000 C CNN
+F 2 "" H 3800 9800 50  0001 C CNN
+F 3 "" H 3800 9800 50  0001 C CNN
+	1    3800 9800
 	1    0    0    -1  
 $EndComp
-Entry Wire Line
-	2900 4850 3000 4950
-Entry Wire Line
-	2900 4950 3000 5050
-Entry Wire Line
-	2900 5050 3000 5150
-Entry Wire Line
-	2900 5550 3000 5650
-Entry Bus Bus
-	2800 4700 2900 4800
+Wire Wire Line
+	4550 8650 4550 8600
+Wire Wire Line
+	4550 8600 4250 8600
+Wire Wire Line
+	4250 8600 4250 8850
+Wire Wire Line
+	4550 9400 4550 9350
+Wire Wire Line
+	4550 9350 4250 9350
+Wire Wire Line
+	4250 9350 4250 9600
+Wire Wire Line
+	3800 8600 3800 8650
+Wire Wire Line
+	3800 9350 3800 9400
+Text Label 3950 8850 0    50   ~ 0
+F8
+Text Label 3950 9600 0    50   ~ 0
+F9
+$Comp
+L Jumper:SolderJumper_3_Bridged123 JP?
+U 1 1 5E4BF464
+P 4550 10350
+F 0 "JP?" V 4400 10250 50  0000 R CNN
+F 1 "SolderJumper_3_Bridged123" V 4505 10417 50  0001 L CNN
+F 2 "" H 4550 10350 50  0001 C CNN
+F 3 "~" H 4550 10350 50  0001 C CNN
+	1    4550 10350
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	4700 10350 5050 10350
+Text Label 5050 10350 2    50   ~ 0
+FPF14
+Text Label 3300 10100 0    50   ~ 0
+RSVD14
+$Comp
+L power:GND #PWR?
+U 1 1 5E4BF46D
+P 4550 10550
+F 0 "#PWR?" H 4550 10300 50  0001 C CNN
+F 1 "GND" H 4555 10377 50  0000 C CNN
+F 2 "" H 4550 10550 50  0001 C CNN
+F 3 "" H 4550 10550 50  0001 C CNN
+	1    4550 10550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Jumper:SolderJumper_3_Bridged123 JP?
+U 1 1 5E4BF473
+P 3800 10350
+F 0 "JP?" V 3800 10450 50  0000 L CNN
+F 1 "SolderJumper_3_Bridged123" V 3755 10417 50  0001 L CNN
+F 2 "" H 3800 10350 50  0001 C CNN
+F 3 "~" H 3800 10350 50  0001 C CNN
+	1    3800 10350
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	3950 10350 4250 10350
+Wire Wire Line
+	3800 10100 3300 10100
+$Comp
+L power:GND #PWR?
+U 1 1 5E4BF47B
+P 3800 10550
+F 0 "#PWR?" H 3800 10300 50  0001 C CNN
+F 1 "GND" H 3805 10377 50  0000 C CNN
+F 2 "" H 3800 10550 50  0001 C CNN
+F 3 "" H 3800 10550 50  0001 C CNN
+	1    3800 10550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4550 10150 4550 10100
+Wire Wire Line
+	4550 10100 4250 10100
+Wire Wire Line
+	4250 10100 4250 10350
+Wire Wire Line
+	3800 10100 3800 10150
+Text Label 3950 10350 0    50   ~ 0
+F14
+$Comp
+L Device:R_Small R?
+U 1 1 5E4CC2F9
+P 4250 10450
+F 0 "R?" H 4309 10496 50  0000 L CNN
+F 1 "4.7kΩ" H 4309 10405 50  0000 L CNN
+F 2 "" H 4250 10450 50  0001 C CNN
+F 3 "~" H 4250 10450 50  0001 C CNN
+	1    4250 10450
+	-1   0    0    -1  
+$EndComp
+Connection ~ 4250 10350
+$Comp
+L power:GND #PWR?
+U 1 1 5E4CD7D9
+P 4250 10550
+F 0 "#PWR?" H 4250 10300 50  0001 C CNN
+F 1 "GND" H 4255 10377 50  0000 C CNN
+F 2 "" H 4250 10550 50  0001 C CNN
+F 3 "" H 4250 10550 50  0001 C CNN
+	1    4250 10550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_Small R?
+U 1 1 5E4D2862
+P 4250 9700
+F 0 "R?" H 4309 9746 50  0000 L CNN
+F 1 "4.7kΩ" H 4309 9655 50  0000 L CNN
+F 2 "" H 4250 9700 50  0001 C CNN
+F 3 "~" H 4250 9700 50  0001 C CNN
+	1    4250 9700
+	-1   0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5E4D2868
+P 4250 9800
+F 0 "#PWR?" H 4250 9550 50  0001 C CNN
+F 1 "GND" H 4255 9627 50  0000 C CNN
+F 2 "" H 4250 9800 50  0001 C CNN
+F 3 "" H 4250 9800 50  0001 C CNN
+	1    4250 9800
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_Small R?
+U 1 1 5E4D5E9F
+P 4250 8950
+F 0 "R?" H 4309 8996 50  0000 L CNN
+F 1 "4.7kΩ" H 4309 8905 50  0000 L CNN
+F 2 "" H 4250 8950 50  0001 C CNN
+F 3 "~" H 4250 8950 50  0001 C CNN
+	1    4250 8950
+	-1   0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5E4D5EA5
+P 4250 9050
+F 0 "#PWR?" H 4250 8800 50  0001 C CNN
+F 1 "GND" H 4255 8877 50  0000 C CNN
+F 2 "" H 4250 9050 50  0001 C CNN
+F 3 "" H 4250 9050 50  0001 C CNN
+	1    4250 9050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5650 3300 10000 3300
 Wire Bus Line
-	2100 4700 2800 4700
-Text Label 2200 4700 0    50   ~ 0
-ACTION[0..3]
-Text Label 2900 5500 1    50   ~ 0
-ACTION[0..3]
-Wire Notes Line width 20 style solid
-	7750 3250 9950 3250
-Wire Notes Line width 20 style solid
-	7750 4300 7750 3250
-Wire Notes Line width 20 style solid
-	9950 4300 7750 4300
-Wire Notes Line width 20 style solid
-	9950 3250 9950 4300
-Text Notes 7850 3450 0    63   ~ 13
-Writing to Flags
-Text Notes 2200 2550 0    50   ~ 0
-These signals are decoded in the MBU.
-Wire Wire Line
-	7350 1350 7350 3550
-Wire Wire Line
-	7250 1450 7250 3650
-Wire Wire Line
-	7150 1550 7150 3750
-Wire Wire Line
-	7050 1650 7050 3850
-Wire Wire Line
-	6950 1850 6950 3950
-Text Label 2200 3950 0    50   ~ 0
-FI
-Text Label 2200 3850 0    50   ~ 0
-FV
-Text Label 2200 3750 0    50   ~ 0
-FL
-Text Label 2200 3650 0    50   ~ 0
-FZ
-Text Label 2200 3550 0    50   ~ 0
-FN
-Text HLabel 2100 3550 0    50   Input ~ 0
-FN
-Text HLabel 2100 3650 0    50   Input ~ 0
-FZ
-Text HLabel 2100 3750 0    50   Input ~ 0
-FL
-Text HLabel 2100 3850 0    50   Input ~ 0
-FV
-Text HLabel 2100 3950 0    50   Input ~ 0
-FI
-Wire Wire Line
-	7350 3550 2100 3550
-Wire Wire Line
-	7250 3650 2100 3650
-Wire Wire Line
-	7150 3750 2100 3750
-Wire Wire Line
-	7050 3850 2100 3850
-Wire Wire Line
-	6950 3950 2100 3950
-Connection ~ 6950 3950
-Wire Wire Line
-	6950 3950 6950 5500
-Connection ~ 7050 3850
-Wire Wire Line
-	7050 3850 7050 5300
-Connection ~ 7150 3750
-Wire Wire Line
-	7150 3750 7150 5200
-Connection ~ 7250 3650
-Wire Wire Line
-	7250 3650 7250 5100
-Connection ~ 7350 3550
-Wire Wire Line
-	7350 3550 7350 5000
-Wire Wire Line
-	5650 2050 7800 2050
-Text Label 6600 3950 0    50   ~ 0
-FI
-Text Label 6600 3850 0    50   ~ 0
-FV
-Text Label 6600 3750 0    50   ~ 0
-FL
-Text Label 6600 3650 0    50   ~ 0
-FZ
-Text Label 6600 3550 0    50   ~ 0
-FN
+	9250 5200 9250 6450
 Wire Bus Line
-	2900 4800 2900 5550
-Wire Bus Line
-	9250 4900 9250 6150
-Wire Bus Line
-	9250 1250 9250 2550
+	9250 1550 9250 2850
 $EndSCHEMATC
