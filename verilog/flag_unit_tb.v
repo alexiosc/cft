@@ -39,10 +39,10 @@ module flag_unit_tb();
    wire [15:0] 	ibus;
    wire [7:0] 	ibus_hi;
    wire 	nflagwe;
-   wire 	naction_cpl;
-   wire 	naction_cll;
-   wire 	naction_sti;
-   wire 	naction_cli;
+   // wire 	naction_cpl;
+   // wire 	naction_cll;
+   // wire 	naction_sti;
+   // wire 	naction_cli;
 
    reg 		nfpflags;
    wire [7:0] 	fpd;
@@ -55,11 +55,10 @@ module flag_unit_tb();
    
    initial begin        
       //$display ("time\t rst oe cs q");
-      $monitor ("t: %7d | %b > %b | %b > %04h | %b > %b %b %b %b | %b > %02x",
+      $monitor ("t: %7d | %b > %b | %b > %04h | %b > %02x",
 		$time,
 		waddr, nflagwe,
 		raddr, ibus,
-		action, naction_cpl, naction_cll, naction_sti, naction_cli,
 		nfpflags, fpd);
       $dumpfile ("vcd/flag_unit_tb.vcd");
       $dumpvars (0, flag_unit_tb);
@@ -100,14 +99,14 @@ module flag_unit_tb();
    // Connect DUT to test bench
    flag_unit flag_unit (.waddr(waddr),
 			.raddr(raddr),
-			.action(action),
 			.fn(fn), .fz(fz), .fl(fl), .fv(fv), .fi(fi),
 			.ibus(ibus[15:8]),
 			.nflagwe(nflagwe),
-			.naction_cpl(naction_cpl),
-			.naction_cll(naction_cll),
-			.naction_sti(naction_sti),
-			.naction_cli(naction_cli),
+			//.action(action),
+			//.naction_cpl(naction_cpl),
+			//.naction_cll(naction_cll),
+			//.naction_sti(naction_sti),
+			//.naction_cli(naction_cli),
 			.nfpflags(nfpflags), .fpd(fpd));
 
    // Front Panel emulation
@@ -170,47 +169,49 @@ module flag_unit_tb();
       end
    end
 
-   
+   // Note: (2019-01-06): the ALU decodes its own CPL/CLL signals. The
+   // interrupt state machine decodes STI/CLI. This is no longer
+   // needed here.
 
-   // Test the action decoder
-   always @ (action) begin
-      #30 begin
-   	 msg[7:0] = "";		// Use the msg as a flag.
+   // // Test the action decoder
+   // always @ (action) begin
+   //    #30 begin
+   // 	 msg[7:0] = "";		// Use the msg as a flag.
 
-	 casex ({ action, naction_cli, naction_sti, naction_cll, naction_cpl })
-	   8'b0000_1111: ca = 1; // Idle;
-	   8'b0001_1110: ca = 1; // CPL
-	   8'b0010_1101: ca = 1; // CLL
-	   8'b0011_1011: ca = 1; // STI
-	   8'b0100_0111: ca = 1; // CLI
-	   8'b0101_1111: ca = 1; // (not selected)
-	   8'b0110_1111: ca = 1; // (not selected)
-	   8'b0111_1111: ca = 1; // (not selected)
-	   8'b1000_1111: ca = 1; // (not selected)
-	   8'b1001_1111: ca = 1; // (not selected)
-	   8'b1010_1111: ca = 1; // (not selected)
-	   8'b1011_1111: ca = 1; // (not selected)
-	   8'b1100_1111: ca = 1; // (not selected)
-	   8'b1101_1111: ca = 1; // (not selected)
-	   8'b1110_1111: ca = 1; // (not selected)
-	   8'b1111_1111: ca = 1; // (not selected)
-	   default: ca = 0;
-	 endcase; // casex ({ action, naction_cli, naction_sti, naction_cll,naction_cpl })
+   // 	 casex ({ action, naction_cli, naction_sti, naction_cll, naction_cpl })
+   // 	   8'b0000_1111: ca = 1; // Idle;
+   // 	   8'b0001_1110: ca = 1; // CPL
+   // 	   8'b0010_1101: ca = 1; // CLL
+   // 	   8'b0011_1011: ca = 1; // STI
+   // 	   8'b0100_0111: ca = 1; // CLI
+   // 	   8'b0101_1111: ca = 1; // (not selected)
+   // 	   8'b0110_1111: ca = 1; // (not selected)
+   // 	   8'b0111_1111: ca = 1; // (not selected)
+   // 	   8'b1000_1111: ca = 1; // (not selected)
+   // 	   8'b1001_1111: ca = 1; // (not selected)
+   // 	   8'b1010_1111: ca = 1; // (not selected)
+   // 	   8'b1011_1111: ca = 1; // (not selected)
+   // 	   8'b1100_1111: ca = 1; // (not selected)
+   // 	   8'b1101_1111: ca = 1; // (not selected)
+   // 	   8'b1110_1111: ca = 1; // (not selected)
+   // 	   8'b1111_1111: ca = 1; // (not selected)
+   // 	   default: ca = 0;
+   // 	 endcase; // casex ({ action, naction_cli, naction_sti, naction_cll,naction_cpl })
 
-	 if (ca == 0) begin
-	    $sformat(msg, "action=%b but naction_cpl=%b, naction_cll=%b, naction_sti=%b, naction_cli=%b",
-		     action, naction_cpl, naction_cll, naction_sti, naction_cli);
-	 end
+   // 	 if (ca == 0) begin
+   // 	    $sformat(msg, "action=%b but naction_cpl=%b, naction_cll=%b, naction_sti=%b, naction_cli=%b",
+   // 		     action, naction_cpl, naction_cll, naction_sti, naction_cli);
+   // 	 end
 
-   	 // Fail if we've logged an issue.
-   	 if (msg[7:0]) begin
-   	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
-   	    $error("assertion failure");
-   	    #100 $finish;
-   	 end
-   	 else $display("OK nflagwe");
-      end
-   end
+   // 	 // Fail if we've logged an issue.
+   // 	 if (msg[7:0]) begin
+   // 	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+   // 	    $error("assertion failure");
+   // 	    #100 $finish;
+   // 	 end
+   // 	 else $display("OK nflagwe");
+   //    end
+   // end
 
    // Test the front panel interface
    always @ (nfpflags) begin
@@ -231,8 +232,8 @@ module flag_unit_tb();
 	 end
 
 	 else begin
-   	    $sformat(msg, "testbench bug, naction_cli=%b, naction_sti=%b (should never happen)",
-   		     naction_cli, naction_sti);
+   	    $sformat(msg, "testbench bug, nfpflags=%b (should never happen)",
+   		     nfpflags);
    	 end
 
    	 // Fail if we've logged an issue.
