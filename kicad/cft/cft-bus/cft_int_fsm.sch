@@ -1,5 +1,6 @@
 EESchema Schematic File Version 4
-EELAYER 30 0
+LIBS:cft-bus-cache
+EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -185,7 +186,7 @@ AR Path="/5F67D4B5/5DEFC7B2" Ref="U?"  Part="1"
 AR Path="/5DF0FEDA/5DEFC7B2" Ref="U25"  Part="1" 
 F 0 "U25" H 5225 3225 50  0000 C CNN
 F 1 "74LVC1G08" H 5225 3134 50  0000 C CNN
-F 2 "Package_TO_SOT_SMD:SOT-23-5_HandSoldering" H 4950 3400 50  0001 C CNN
+F 2 "alexios:SOT-23-5_HandSoldering" H 4950 3400 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 4950 3400 50  0001 C CNN
 	1    5300 3400
 	1    0    0    -1  
@@ -241,7 +242,7 @@ AR Path="/5F67D4B5/5DEFC7B9" Ref="U?"  Part="2"
 AR Path="/5DF0FEDA/5DEFC7B9" Ref="U27"  Part="1" 
 F 0 "U27" H 8950 4867 50  0000 C CNN
 F 1 "74AC74" H 8950 4776 50  0000 C CNN
-F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 8950 4450 50  0001 C CNN
+F 2 "alexios:SOIC-14" H 8950 4450 50  0001 C CNN
 F 3 "74xx/74hc_hct74.pdf" H 8950 4450 50  0001 C CNN
 	1    8950 4450
 	1    0    0    -1  
@@ -256,7 +257,7 @@ AR Path="/5F67D4B5/5D5A4DFA" Ref="U?"  Part="1"
 AR Path="/5DF0FEDA/5D5A4DFA" Ref="U29"  Part="1" 
 F 0 "U29" H 5250 5417 50  0000 C CNN
 F 1 "74LVC1G32" H 5250 5326 50  0000 C CNN
-F 2 "Package_TO_SOT_SMD:SOT-23-5_HandSoldering" H 5310 5130 50  0001 C CNN
+F 2 "alexios:SOT-23-5_HandSoldering" H 5310 5130 50  0001 C CNN
 F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 5310 5130 50  0001 C CNN
 	1    5200 5150
 	1    0    0    -1  
@@ -292,7 +293,7 @@ AR Path="/5F67D4B5/5DEFC7B1" Ref="U?"  Part="2"
 AR Path="/5DF0FEDA/5DEFC7B1" Ref="U24"  Part="2" 
 F 0 "U24" H 6800 4967 50  0000 C CNN
 F 1 "74AC74" H 6800 4876 50  0000 C CNN
-F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 6800 4550 50  0001 C CNN
+F 2 "alexios:SOIC-14" H 6800 4550 50  0001 C CNN
 F 3 "74xx/74hc_hct74.pdf" H 6800 4550 50  0001 C CNN
 	2    6800 4550
 	1    0    0    -1  
@@ -391,7 +392,7 @@ AR Path="/5F67D4B5/5DDC8304" Ref="U?"  Part="2"
 AR Path="/5DF0FEDA/5DDC8304" Ref="U25"  Part="2" 
 F 0 "U25" H 3030 6396 50  0000 L CNN
 F 1 "74LVC1G08" H 3030 6305 50  0000 L CNN
-F 2 "Package_TO_SOT_SMD:SOT-23-5_HandSoldering" H 2600 6450 50  0001 C CNN
+F 2 "alexios:SOT-23-5_HandSoldering" H 2600 6450 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 2600 6450 50  0001 C CNN
 	2    2950 6450
 	1    0    0    -1  
@@ -421,7 +422,7 @@ AR Path="/5F67D4B5/5DDC95B7" Ref="U?"  Part="2"
 AR Path="/5DF0FEDA/5DDC95B7" Ref="U29"  Part="2" 
 F 0 "U29" H 4480 6096 50  0000 L CNN
 F 1 "74LVC1G32" H 4480 6005 50  0000 L CNN
-F 2 "Package_TO_SOT_SMD:SOT-23-5_HandSoldering" H 4460 6280 50  0001 C CNN
+F 2 "alexios:SOT-23-5_HandSoldering" H 4460 6280 50  0001 C CNN
 F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 4460 6280 50  0001 C CNN
 	2    4350 6300
 	1    0    0    -1  
@@ -504,7 +505,7 @@ AR Path="/5F67D4B5/5DDCAF4B" Ref="U?"  Part="3"
 AR Path="/5DF0FEDA/5DDCAF4B" Ref="U28"  Part="3" 
 F 0 "U28" H 4480 7296 50  0000 L CNN
 F 1 "74AC74" H 4480 7205 50  0000 L CNN
-F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 4300 7250 50  0001 C CNN
+F 2 "alexios:SOIC-14" H 4300 7250 50  0001 C CNN
 F 3 "74xx/74hc_hct74.pdf" H 4300 7250 50  0001 C CNN
 	3    4300 7250
 	1    0    0    -1  
@@ -517,7 +518,7 @@ AR Path="/5F67D4B5/5DEFC7C2" Ref="U?"  Part="3"
 AR Path="/5DF0FEDA/5DEFC7C2" Ref="U24"  Part="3" 
 F 0 "U24" H 3030 7296 50  0000 L CNN
 F 1 "74AC74" H 3030 7205 50  0000 L CNN
-F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 2850 7250 50  0001 C CNN
+F 2 "alexios:SOIC-14" H 2850 7250 50  0001 C CNN
 F 3 "74xx/74hc_hct74.pdf" H 2850 7250 50  0001 C CNN
 	3    2850 7250
 	1    0    0    -1  
@@ -530,7 +531,7 @@ AR Path="/5F67D4B5/5DEFC7B0" Ref="U?"  Part="1"
 AR Path="/5DF0FEDA/5DEFC7B0" Ref="U24"  Part="1" 
 F 0 "U24" H 6800 3617 50  0000 C CNN
 F 1 "74AC74" H 6800 3526 50  0000 C CNN
-F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 6800 3200 50  0001 C CNN
+F 2 "alexios:SOIC-14" H 6800 3200 50  0001 C CNN
 F 3 "74xx/74hc_hct74.pdf" H 6800 3200 50  0001 C CNN
 	1    6800 3200
 	1    0    0    -1  
@@ -543,7 +544,7 @@ AR Path="/5F67D4B5/5E4DB3A3" Ref="U?"  Part="2"
 AR Path="/5DF0FEDA/5E4DB3A3" Ref="U28"  Part="2" 
 F 0 "U28" H 8950 4775 50  0000 C CNN
 F 1 "74AC74" H 8950 4684 50  0000 C CNN
-F 2 "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm" H 8950 5100 50  0001 C CNN
+F 2 "alexios:SOIC-14" H 8950 5100 50  0001 C CNN
 F 3 "74xx/74hc_hct74.pdf" H 8950 5100 50  0001 C CNN
 	2    8950 5100
 	1    0    0    -1  

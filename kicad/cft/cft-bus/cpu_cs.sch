@@ -1,5 +1,6 @@
 EESchema Schematic File Version 4
-EELAYER 30 0
+LIBS:cft-bus-cache
+EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -371,7 +372,7 @@ AR Path="/5DEFC7D3" Ref="U?"  Part="2"
 AR Path="/5DF0FEB9/5DEFC7D3" Ref="U2"  Part="2" 
 F 0 "U2" H 1530 7396 50  0000 L CNN
 F 1 "74HC138" H 1530 7305 50  0000 L CNN
-F 2 "alexios:SOIC-14" H 1350 7350 50  0001 C CNN
+F 2 "alexios:SOIC-16" H 1350 7350 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 1350 7350 50  0001 C CNN
 	2    1350 7350
 	1    0    0    -1  
@@ -527,7 +528,7 @@ AR Path="/5E56A57B" Ref="U?"  Part="1"
 AR Path="/5DF0FEB9/5E56A57B" Ref="U2"  Part="1" 
 F 0 "U2" H 4250 5167 50  0000 C CNN
 F 1 "74HC138" H 4250 5076 50  0000 C CNN
-F 2 "alexios:SOIC-14" H 4250 4500 50  0001 C CNN
+F 2 "alexios:SOIC-16" H 4250 4500 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 4250 4500 50  0001 C CNN
 	1    4250 4500
 	1    0    0    -1  

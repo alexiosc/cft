@@ -1,5 +1,6 @@
 EESchema Schematic File Version 4
-EELAYER 30 0
+LIBS:cft-bus-cache
+EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -21,7 +22,7 @@ U 1 1 5EA76CCD
 P 7600 5150
 F 0 "U15" H 7600 6317 50  0000 C CNN
 F 1 "IS61C64AL" H 7600 6226 50  0000 C CNN
-F 2 "Package_SO:SOJ-28_10.16x23.49mm_P1.27mm" V 7500 5175 50  0001 C CNN
+F 2 "alexios:SOJ-28_300mil_50mil" V 7500 5175 50  0001 C CNN
 F 3 "https://www.mouser.co.uk/datasheet/2/198/61C64AL-258428.pdf" H 7500 5250 50  0001 C CNN
 F 4 "870-IS61C64AL10JLITR; €1.11" H 6950 4100 50  0001 L CNN "AC:BOM-Mouser"
 	1    7600 5150
@@ -1374,7 +1375,7 @@ U 2 1 5F94D2B4
 P 9000 3900
 F 0 "U15" H 9080 3946 50  0000 L CNN
 F 1 "IS61C64AL" H 9080 3855 50  0000 L CNN
-F 2 "Package_SO:SOJ-28_10.16x23.49mm_P1.27mm" V 8900 3925 50  0001 C CNN
+F 2 "alexios:SOJ-28_300mil_50mil" V 8900 3925 50  0001 C CNN
 F 3 "https://www.mouser.co.uk/datasheet/2/198/61C64AL-258428.pdf" H 8900 4000 50  0001 C CNN
 F 4 "870-IS61C64AL10JLITR; €1.11" H 8350 2850 50  0001 L CNN "AC:BOM-Mouser"
 	2    9000 3900
@@ -2099,28 +2100,28 @@ The MBU is disabled after reset and enabled\nwhen it's first written to.
 $Comp
 L power:GND #PWR057
 U 1 1 60B7BF84
-P 8400 5500
-F 0 "#PWR057" H 8400 5250 50  0001 C CNN
-F 1 "GND" H 8405 5327 50  0000 C CNN
-F 2 "" H 8400 5500 50  0001 C CNN
-F 3 "" H 8400 5500 50  0001 C CNN
-	1    8400 5500
+P 8400 5400
+F 0 "#PWR057" H 8400 5150 50  0001 C CNN
+F 1 "GND" H 8405 5227 50  0000 C CNN
+F 2 "" H 8400 5400 50  0001 C CNN
+F 3 "" H 8400 5400 50  0001 C CNN
+	1    8400 5400
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	8500 5100 8500 4850
+	8500 5150 8500 4850
 Wire Wire Line
-	8600 5100 8600 4750
+	8600 5150 8600 4750
 Wire Wire Line
-	8700 5100 8700 4650
+	8700 5150 8700 4650
 Wire Wire Line
-	8800 5100 8800 4550
+	8800 5150 8800 4550
 Wire Wire Line
-	8900 5100 8900 4450
+	8900 5150 8900 4450
 Wire Wire Line
-	9000 5100 9000 4350
+	9000 5150 9000 4350
 Wire Wire Line
-	9100 5100 9100 4250
+	9100 5150 9100 4250
 Entry Wire Line
 	9150 4950 9250 5050
 Connection ~ 7050 5450
@@ -2145,7 +2146,7 @@ Wire Wire Line
 Wire Wire Line
 	8500 1350 8450 1350
 Wire Wire Line
-	8400 5100 8400 4950
+	8400 5150 8400 4950
 Connection ~ 8400 4950
 Wire Wire Line
 	8400 4950 9150 4950
@@ -2552,6 +2553,131 @@ Connection ~ 4100 5100
 Wire Wire Line
 	4100 5100 4100 7000
 NoConn ~ 3100 5200
+$Comp
+L Device:R_Small R15
+U 1 1 5E15E534
+P 8400 5250
+F 0 "R15" V 8450 5000 50  0000 L CNN
+F 1 "4.7kΩ" H 8450 5300 50  0000 L CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 8400 5250 50  0001 C CNN
+F 3 "~" H 8400 5250 50  0001 C CNN
+	1    8400 5250
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:R_Small R16
+U 1 1 5E17E585
+P 8500 5250
+F 0 "R16" V 8550 5000 50  0000 L CNN
+F 1 "4.7kΩ" H 8550 5300 50  0001 L CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 8500 5250 50  0001 C CNN
+F 3 "~" H 8500 5250 50  0001 C CNN
+	1    8500 5250
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:R_Small R17
+U 1 1 5E17F9AD
+P 8600 5250
+F 0 "R17" V 8650 5000 50  0000 L CNN
+F 1 "4.7kΩ" H 8650 5300 50  0001 L CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 8600 5250 50  0001 C CNN
+F 3 "~" H 8600 5250 50  0001 C CNN
+	1    8600 5250
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:R_Small R18
+U 1 1 5E17FAFF
+P 8700 5250
+F 0 "R18" V 8750 5000 50  0000 L CNN
+F 1 "4.7kΩ" H 8750 5300 50  0001 L CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 8700 5250 50  0001 C CNN
+F 3 "~" H 8700 5250 50  0001 C CNN
+	1    8700 5250
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:R_Small R19
+U 1 1 5E17FB89
+P 8800 5250
+F 0 "R19" V 8850 5000 50  0000 L CNN
+F 1 "4.7kΩ" H 8850 5300 50  0001 L CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 8800 5250 50  0001 C CNN
+F 3 "~" H 8800 5250 50  0001 C CNN
+	1    8800 5250
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:R_Small R20
+U 1 1 5E17FC15
+P 8900 5250
+F 0 "R20" V 8950 5000 50  0000 L CNN
+F 1 "4.7kΩ" H 8950 5300 50  0001 L CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 8900 5250 50  0001 C CNN
+F 3 "~" H 8900 5250 50  0001 C CNN
+	1    8900 5250
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:R_Small R21
+U 1 1 5E17FCA3
+P 9000 5250
+F 0 "R21" V 9050 5000 50  0000 L CNN
+F 1 "4.7kΩ" H 9050 5300 50  0001 L CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 9000 5250 50  0001 C CNN
+F 3 "~" H 9000 5250 50  0001 C CNN
+	1    9000 5250
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:R_Small R22
+U 1 1 5E17FD33
+P 9100 5250
+F 0 "R22" V 9150 5000 50  0000 L CNN
+F 1 "4.7kΩ" H 9150 5300 50  0001 L CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 9100 5250 50  0001 C CNN
+F 3 "~" H 9100 5250 50  0001 C CNN
+	1    9100 5250
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	8400 5350 8400 5400
+Wire Wire Line
+	8400 5400 8500 5400
+Wire Wire Line
+	9100 5400 9100 5350
+Connection ~ 8400 5400
+Wire Wire Line
+	8500 5350 8500 5400
+Connection ~ 8500 5400
+Wire Wire Line
+	8500 5400 8600 5400
+Wire Wire Line
+	8600 5350 8600 5400
+Connection ~ 8600 5400
+Wire Wire Line
+	8600 5400 8700 5400
+Wire Wire Line
+	8700 5350 8700 5400
+Connection ~ 8700 5400
+Wire Wire Line
+	8700 5400 8800 5400
+Wire Wire Line
+	8800 5350 8800 5400
+Connection ~ 8800 5400
+Wire Wire Line
+	8800 5400 8900 5400
+Wire Wire Line
+	8900 5350 8900 5400
+Connection ~ 8900 5400
+Wire Wire Line
+	8900 5400 9000 5400
+Wire Wire Line
+	9000 5350 9000 5400
+Connection ~ 9000 5400
+Wire Wire Line
+	9000 5400 9100 5400
 Wire Bus Line
 	4400 4950 4400 6200
 Wire Bus Line
@@ -2570,41 +2696,4 @@ Wire Bus Line
 	6700 4350 6700 6200
 Wire Bus Line
 	9250 4350 9250 6150
-$Comp
-L power:GND #PWR058
-U 1 1 60B7BFFD
-P 8800 5500
-F 0 "#PWR058" H 8800 5250 50  0001 C CNN
-F 1 "GND" H 8805 5327 50  0000 C CNN
-F 2 "" H 8800 5500 50  0001 C CNN
-F 3 "" H 8800 5500 50  0001 C CNN
-	1    8800 5500
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:R_Network04 RN?
-U 1 1 606FA32A
-P 9000 5300
-AR Path="/6005A9A5/606FA32A" Ref="RN?"  Part="1" 
-AR Path="/61F95ACC/606FA32A" Ref="RN2"  Part="1" 
-F 0 "RN2" H 9150 5500 50  0000 R CNN
-F 1 "4.7kΩ" H 9150 5600 50  0000 R CNN
-F 2 "Resistor_THT:R_Array_SIP5" V 9275 5300 50  0001 C CNN
-F 3 "http://www.vishay.com/docs/31509/csc.pdf" H 9000 5300 50  0001 C CNN
-	1    9000 5300
-	1    0    0    1   
-$EndComp
-$Comp
-L Device:R_Network04 RN?
-U 1 1 606FA330
-P 8600 5300
-AR Path="/6005A9A5/606FA330" Ref="RN?"  Part="1" 
-AR Path="/61F95ACC/606FA330" Ref="RN1"  Part="1" 
-F 0 "RN1" H 8300 5250 50  0000 R CNN
-F 1 "4.7kΩ" H 8300 5350 50  0000 R CNN
-F 2 "Resistor_THT:R_Array_SIP5" V 8875 5300 50  0001 C CNN
-F 3 "http://www.vishay.com/docs/31509/csc.pdf" H 8600 5300 50  0001 C CNN
-	1    8600 5300
-	1    0    0    1   
-$EndComp
 $EndSCHEMATC

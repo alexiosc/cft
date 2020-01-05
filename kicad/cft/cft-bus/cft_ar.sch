@@ -1,5 +1,6 @@
 EESchema Schematic File Version 4
-EELAYER 30 0
+LIBS:cft-bus-cache
+EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -1042,7 +1043,7 @@ AR Path="/5CD91C88/5DF054F6" Ref="U?"  Part="1"
 AR Path="/5CC06F10/5DF054F6" Ref="U34"  Part="1" 
 F 0 "U34" H 7350 3967 50  0000 C CNN
 F 1 "74HC688" H 7350 3876 50  0000 C CNN
-F 2 "Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm" H 7350 2800 50  0001 C CNN
+F 2 "alexios:SOIC-20W" H 7350 2800 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS688" H 7350 2800 50  0001 C CNN
 	1    7350 2800
 	1    0    0    -1  
@@ -1056,7 +1057,7 @@ AR Path="/5CD91C88/5DF054FC" Ref="U?"  Part="1"
 AR Path="/5CC06F10/5DF054FC" Ref="U30"  Part="1" 
 F 0 "U30" H 8900 2167 50  0000 C CNN
 F 1 "74HC138" H 8900 2076 50  0000 C CNN
-F 2 "Package_SO:SOIC-16_3.9x9.9mm_P1.27mm" H 8900 1500 50  0001 C CNN
+F 2 "alexios:SOIC-16" H 8900 1500 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 8900 1500 50  0001 C CNN
 	1    8900 1500
 	1    0    0    -1  
@@ -1257,7 +1258,7 @@ AR Path="/5CD91C88/5DF0556C" Ref="U?"  Part="2"
 AR Path="/5CC06F10/5DF0556C" Ref="U34"  Part="2" 
 F 0 "U34" H 10180 3296 50  0000 L CNN
 F 1 "74HC688" H 10180 3205 50  0000 L CNN
-F 2 "Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm" H 10000 3250 50  0001 C CNN
+F 2 "alexios:SOIC-20W" H 10000 3250 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS688" H 10000 3250 50  0001 C CNN
 	2    10000 3250
 	1    0    0    -1  
@@ -1271,7 +1272,7 @@ AR Path="/5CD91C88/5DF05572" Ref="U?"  Part="2"
 AR Path="/5CC06F10/5DF05572" Ref="U30"  Part="2" 
 F 0 "U30" H 8680 3296 50  0000 L CNN
 F 1 "74HC138" H 8680 3205 50  0000 L CNN
-F 2 "Package_SO:SOIC-16_3.9x9.9mm_P1.27mm" H 8500 3250 50  0001 C CNN
+F 2 "alexios:SOIC-16" H 8500 3250 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 8500 3250 50  0001 C CNN
 	2    8500 3250
 	1    0    0    -1  
