@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 4 8
+Sheet 3 8
 Title "Flag Unit"
 Date ""
 Rev ""
@@ -130,8 +130,8 @@ P 7800 6100
 AR Path="/5D676F48" Ref="#PWR?"  Part="1" 
 AR Path="/5D65F6EF/5D676F48" Ref="#PWR?"  Part="1" 
 AR Path="/5D69F3FD/5D676F48" Ref="#PWR?"  Part="1" 
-AR Path="/5DF0FECB/5D676F48" Ref="#PWR0132"  Part="1" 
-F 0 "#PWR0132" H 7800 5850 50  0001 C CNN
+AR Path="/5DF0FECB/5D676F48" Ref="#PWR018"  Part="1" 
+F 0 "#PWR018" H 7800 5850 50  0001 C CNN
 F 1 "GND" H 7805 5927 50  0000 C CNN
 F 2 "" H 7800 6100 50  0001 C CNN
 F 3 "" H 7800 6100 50  0001 C CNN
@@ -145,8 +145,8 @@ P 7800 2450
 AR Path="/5D676F4E" Ref="#PWR?"  Part="1" 
 AR Path="/5D65F6EF/5D676F4E" Ref="#PWR?"  Part="1" 
 AR Path="/5D69F3FD/5D676F4E" Ref="#PWR?"  Part="1" 
-AR Path="/5DF0FECB/5D676F4E" Ref="#PWR0127"  Part="1" 
-F 0 "#PWR0127" H 7800 2200 50  0001 C CNN
+AR Path="/5DF0FECB/5D676F4E" Ref="#PWR017"  Part="1" 
+F 0 "#PWR017" H 7800 2200 50  0001 C CNN
 F 1 "GND" H 7805 2277 50  0000 C CNN
 F 2 "" H 7800 2450 50  0001 C CNN
 F 3 "" H 7800 2450 50  0001 C CNN
@@ -176,8 +176,8 @@ P 8300 5600
 AR Path="/5D676F64" Ref="U?"  Part="1" 
 AR Path="/5D65F6EF/5D676F64" Ref="U?"  Part="1" 
 AR Path="/5D69F3FD/5D676F64" Ref="U?"  Part="1" 
-AR Path="/5DF0FECB/5D676F64" Ref="U67"  Part="1" 
-F 0 "U67" H 8300 6367 50  0000 C CNN
+AR Path="/5DF0FECB/5D676F64" Ref="U7"  Part="1" 
+F 0 "U7" H 8300 6367 50  0000 C CNN
 F 1 "74HC541" H 8300 6276 50  0000 C CNN
 F 2 "alexios:SOIC-20W" H 8300 5600 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 8300 5600 50  0001 C CNN
@@ -223,8 +223,8 @@ P 8300 1950
 AR Path="/5D676F7A" Ref="U?"  Part="1" 
 AR Path="/5D65F6EF/5D676F7A" Ref="U?"  Part="1" 
 AR Path="/5D69F3FD/5D676F7A" Ref="U?"  Part="1" 
-AR Path="/5DF0FECB/5D676F7A" Ref="U62"  Part="1" 
-F 0 "U62" H 8300 2717 50  0000 C CNN
+AR Path="/5DF0FECB/5D676F7A" Ref="U4"  Part="1" 
+F 0 "U4" H 8300 2717 50  0000 C CNN
 F 1 "74HC541" H 8300 2626 50  0000 C CNN
 F 2 "alexios:SOIC-20W" H 8300 1950 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 8300 1950 50  0001 C CNN
@@ -240,8 +240,8 @@ P 5500 3300
 AR Path="/5D676FD3" Ref="U?"  Part="1" 
 AR Path="/5D65F6EF/5D676FD3" Ref="U?"  Part="1" 
 AR Path="/5D69F3FD/5D676FD3" Ref="U?"  Part="1" 
-AR Path="/5DF0FECB/5D676FD3" Ref="U64"  Part="1" 
-F 0 "U64" H 5425 3567 50  0000 C CNN
+AR Path="/5DF0FECB/5D676FD3" Ref="U6"  Part="1" 
+F 0 "U6" H 5425 3567 50  0000 C CNN
 F 1 "74LVC1G08" H 5425 3476 50  0000 C CNN
 F 2 "alexios:SOT-23-5_HandSoldering" H 5150 3300 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 5150 3300 50  0001 C CNN
@@ -263,8 +263,8 @@ P 5500 2350
 AR Path="/5D676FDD" Ref="U?"  Part="1" 
 AR Path="/5D65F6EF/5D676FDD" Ref="U?"  Part="1" 
 AR Path="/5D69F3FD/5D676FDD" Ref="U?"  Part="1" 
-AR Path="/5DF0FECB/5D676FDD" Ref="U66"  Part="1" 
-F 0 "U66" H 5425 2617 50  0000 C CNN
+AR Path="/5DF0FECB/5D676FDD" Ref="U5"  Part="1" 
+F 0 "U5" H 5425 2617 50  0000 C CNN
 F 1 "74LVC1G08" H 5425 2526 50  0000 C CNN
 F 2 "alexios:SOT-23-5_HandSoldering" H 5150 2350 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 5150 2350 50  0001 C CNN
@@ -328,12 +328,12 @@ FPD7
 Text Notes 3900 6650 0    50   ~ 0
 These solder jumpers can be used to change the meanings\nof the unused LEDs on the flag section of the front panel.\nThey should be bridged (ground, LED off) until this is required.
 $Comp
-L Jumper:SolderJumper_3_Bridged123 JP1
+L Jumper:SolderJumper_3_Bridged123 JP2
 U 1 1 5E0D2D96
 P 4550 8850
-F 0 "JP1" V 4400 8600 50  0000 L CNN
+F 0 "JP2" V 4400 8600 50  0000 L CNN
 F 1 "SolderJumper_3_Bridged123" V 4505 8917 50  0001 L CNN
-F 2 "" H 4550 8850 50  0001 C CNN
+F 2 "Jumper:SolderJumper-3_P1.3mm_Bridged12_RoundedPad1.0x1.5mm" H 4550 8850 50  0001 C CNN
 F 3 "~" H 4550 8850 50  0001 C CNN
 	1    4550 8850
 	0    -1   -1   0   
@@ -343,10 +343,10 @@ Wire Wire Line
 Text Label 5050 8850 2    50   ~ 0
 FPF8
 $Comp
-L power:GND #PWR0133
+L power:GND #PWR021
 U 1 1 5E0E6829
 P 4550 9050
-F 0 "#PWR0133" H 4550 8800 50  0001 C CNN
+F 0 "#PWR021" H 4550 8800 50  0001 C CNN
 F 1 "GND" H 4555 8877 50  0000 C CNN
 F 2 "" H 4550 9050 50  0001 C CNN
 F 3 "" H 4550 9050 50  0001 C CNN
@@ -354,12 +354,12 @@ F 3 "" H 4550 9050 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Jumper:SolderJumper_3_Bridged123 JP2
+L Jumper:SolderJumper_3_Bridged123 JP4
 U 1 1 5E0F938B
 P 4550 9600
-F 0 "JP2" V 4400 9500 50  0000 R CNN
+F 0 "JP4" V 4400 9500 50  0000 R CNN
 F 1 "SolderJumper_3_Bridged123" V 4505 9667 50  0001 L CNN
-F 2 "" H 4550 9600 50  0001 C CNN
+F 2 "Jumper:SolderJumper-3_P1.3mm_Bridged12_RoundedPad1.0x1.5mm" H 4550 9600 50  0001 C CNN
 F 3 "~" H 4550 9600 50  0001 C CNN
 	1    4550 9600
 	0    -1   -1   0   
@@ -371,10 +371,10 @@ FPF9
 Text Label 3300 9350 0    50   ~ 0
 RSVD9
 $Comp
-L power:GND #PWR0134
+L power:GND #PWR024
 U 1 1 5E0F9395
 P 4550 9800
-F 0 "#PWR0134" H 4550 9550 50  0001 C CNN
+F 0 "#PWR024" H 4550 9550 50  0001 C CNN
 F 1 "GND" H 4555 9627 50  0000 C CNN
 F 2 "" H 4550 9800 50  0001 C CNN
 F 3 "" H 4550 9800 50  0001 C CNN
@@ -495,12 +495,12 @@ Wire Notes Line width 20 style solid
 Text Notes 9500 1600 0    63   ~ 13
 Note
 $Comp
-L Jumper:SolderJumper_3_Bridged123 JP?
+L Jumper:SolderJumper_3_Bridged123 JP1
 U 1 1 5E458A52
 P 3800 8850
-F 0 "JP?" V 3650 9000 50  0000 L CNN
+F 0 "JP1" V 3650 9000 50  0000 L CNN
 F 1 "SolderJumper_3_Bridged123" V 3755 8917 50  0001 L CNN
-F 2 "" H 3800 8850 50  0001 C CNN
+F 2 "Jumper:SolderJumper-3_P1.3mm_Bridged12_RoundedPad1.0x1.5mm" H 3800 8850 50  0001 C CNN
 F 3 "~" H 3800 8850 50  0001 C CNN
 	1    3800 8850
 	0    -1   -1   0   
@@ -512,10 +512,10 @@ Wire Wire Line
 Text Label 3300 8600 0    50   ~ 0
 RSVD8
 $Comp
-L power:GND #PWR?
+L power:GND #PWR019
 U 1 1 5E458A5C
 P 3800 9050
-F 0 "#PWR?" H 3800 8800 50  0001 C CNN
+F 0 "#PWR019" H 3800 8800 50  0001 C CNN
 F 1 "GND" H 3805 8877 50  0000 C CNN
 F 2 "" H 3800 9050 50  0001 C CNN
 F 3 "" H 3800 9050 50  0001 C CNN
@@ -523,12 +523,12 @@ F 3 "" H 3800 9050 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Jumper:SolderJumper_3_Bridged123 JP?
+L Jumper:SolderJumper_3_Bridged123 JP3
 U 1 1 5E472E1A
 P 3800 9600
-F 0 "JP?" V 3800 9700 50  0000 L CNN
+F 0 "JP3" V 3800 9700 50  0000 L CNN
 F 1 "SolderJumper_3_Bridged123" V 3755 9667 50  0001 L CNN
-F 2 "" H 3800 9600 50  0001 C CNN
+F 2 "Jumper:SolderJumper-3_P1.3mm_Bridged12_RoundedPad1.0x1.5mm" H 3800 9600 50  0001 C CNN
 F 3 "~" H 3800 9600 50  0001 C CNN
 	1    3800 9600
 	0    -1   -1   0   
@@ -538,10 +538,10 @@ Wire Wire Line
 Wire Wire Line
 	3800 9350 3300 9350
 $Comp
-L power:GND #PWR?
+L power:GND #PWR022
 U 1 1 5E472E23
 P 3800 9800
-F 0 "#PWR?" H 3800 9550 50  0001 C CNN
+F 0 "#PWR022" H 3800 9550 50  0001 C CNN
 F 1 "GND" H 3805 9627 50  0000 C CNN
 F 2 "" H 3800 9800 50  0001 C CNN
 F 3 "" H 3800 9800 50  0001 C CNN
@@ -569,12 +569,12 @@ F8
 Text Label 3950 9600 0    50   ~ 0
 F9
 $Comp
-L Jumper:SolderJumper_3_Bridged123 JP?
+L Jumper:SolderJumper_3_Bridged123 JP6
 U 1 1 5E4BF464
 P 4550 10350
-F 0 "JP?" V 4400 10250 50  0000 R CNN
+F 0 "JP6" V 4400 10250 50  0000 R CNN
 F 1 "SolderJumper_3_Bridged123" V 4505 10417 50  0001 L CNN
-F 2 "" H 4550 10350 50  0001 C CNN
+F 2 "Jumper:SolderJumper-3_P1.3mm_Bridged12_RoundedPad1.0x1.5mm" H 4550 10350 50  0001 C CNN
 F 3 "~" H 4550 10350 50  0001 C CNN
 	1    4550 10350
 	0    -1   -1   0   
@@ -586,10 +586,10 @@ FPF14
 Text Label 3300 10100 0    50   ~ 0
 RSVD14
 $Comp
-L power:GND #PWR?
+L power:GND #PWR027
 U 1 1 5E4BF46D
 P 4550 10550
-F 0 "#PWR?" H 4550 10300 50  0001 C CNN
+F 0 "#PWR027" H 4550 10300 50  0001 C CNN
 F 1 "GND" H 4555 10377 50  0000 C CNN
 F 2 "" H 4550 10550 50  0001 C CNN
 F 3 "" H 4550 10550 50  0001 C CNN
@@ -597,12 +597,12 @@ F 3 "" H 4550 10550 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Jumper:SolderJumper_3_Bridged123 JP?
+L Jumper:SolderJumper_3_Bridged123 JP5
 U 1 1 5E4BF473
 P 3800 10350
-F 0 "JP?" V 3800 10450 50  0000 L CNN
+F 0 "JP5" V 3800 10450 50  0000 L CNN
 F 1 "SolderJumper_3_Bridged123" V 3755 10417 50  0001 L CNN
-F 2 "" H 3800 10350 50  0001 C CNN
+F 2 "Jumper:SolderJumper-3_P1.3mm_Bridged12_RoundedPad1.0x1.5mm" H 3800 10350 50  0001 C CNN
 F 3 "~" H 3800 10350 50  0001 C CNN
 	1    3800 10350
 	0    -1   -1   0   
@@ -612,10 +612,10 @@ Wire Wire Line
 Wire Wire Line
 	3800 10100 3300 10100
 $Comp
-L power:GND #PWR?
+L power:GND #PWR025
 U 1 1 5E4BF47B
 P 3800 10550
-F 0 "#PWR?" H 3800 10300 50  0001 C CNN
+F 0 "#PWR025" H 3800 10300 50  0001 C CNN
 F 1 "GND" H 3805 10377 50  0000 C CNN
 F 2 "" H 3800 10550 50  0001 C CNN
 F 3 "" H 3800 10550 50  0001 C CNN
@@ -633,22 +633,22 @@ Wire Wire Line
 Text Label 3950 10350 0    50   ~ 0
 F14
 $Comp
-L Device:R_Small R?
+L Device:R_Small R4
 U 1 1 5E4CC2F9
 P 4250 10450
-F 0 "R?" H 4309 10496 50  0000 L CNN
+F 0 "R4" H 4309 10496 50  0000 L CNN
 F 1 "4.7kΩ" H 4309 10405 50  0000 L CNN
-F 2 "" H 4250 10450 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 4250 10450 50  0001 C CNN
 F 3 "~" H 4250 10450 50  0001 C CNN
 	1    4250 10450
 	-1   0    0    -1  
 $EndComp
 Connection ~ 4250 10350
 $Comp
-L power:GND #PWR?
+L power:GND #PWR026
 U 1 1 5E4CD7D9
 P 4250 10550
-F 0 "#PWR?" H 4250 10300 50  0001 C CNN
+F 0 "#PWR026" H 4250 10300 50  0001 C CNN
 F 1 "GND" H 4255 10377 50  0000 C CNN
 F 2 "" H 4250 10550 50  0001 C CNN
 F 3 "" H 4250 10550 50  0001 C CNN
@@ -656,21 +656,21 @@ F 3 "" H 4250 10550 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R_Small R?
+L Device:R_Small R3
 U 1 1 5E4D2862
 P 4250 9700
-F 0 "R?" H 4309 9746 50  0000 L CNN
+F 0 "R3" H 4309 9746 50  0000 L CNN
 F 1 "4.7kΩ" H 4309 9655 50  0000 L CNN
-F 2 "" H 4250 9700 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 4250 9700 50  0001 C CNN
 F 3 "~" H 4250 9700 50  0001 C CNN
 	1    4250 9700
 	-1   0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR?
+L power:GND #PWR023
 U 1 1 5E4D2868
 P 4250 9800
-F 0 "#PWR?" H 4250 9550 50  0001 C CNN
+F 0 "#PWR023" H 4250 9550 50  0001 C CNN
 F 1 "GND" H 4255 9627 50  0000 C CNN
 F 2 "" H 4250 9800 50  0001 C CNN
 F 3 "" H 4250 9800 50  0001 C CNN
@@ -678,21 +678,21 @@ F 3 "" H 4250 9800 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R_Small R?
+L Device:R_Small R2
 U 1 1 5E4D5E9F
 P 4250 8950
-F 0 "R?" H 4309 8996 50  0000 L CNN
+F 0 "R2" H 4309 8996 50  0000 L CNN
 F 1 "4.7kΩ" H 4309 8905 50  0000 L CNN
-F 2 "" H 4250 8950 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 4250 8950 50  0001 C CNN
 F 3 "~" H 4250 8950 50  0001 C CNN
 	1    4250 8950
 	-1   0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR?
+L power:GND #PWR020
 U 1 1 5E4D5EA5
 P 4250 9050
-F 0 "#PWR?" H 4250 8800 50  0001 C CNN
+F 0 "#PWR020" H 4250 8800 50  0001 C CNN
 F 1 "GND" H 4255 8877 50  0000 C CNN
 F 2 "" H 4250 9050 50  0001 C CNN
 F 3 "" H 4250 9050 50  0001 C CNN

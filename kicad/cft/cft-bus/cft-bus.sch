@@ -1011,10 +1011,10 @@ IR10
 Text Label 12750 2250 0    50   ~ 0
 IR11
 $Comp
-L Device:R_Small R?
+L Device:R_Small R1
 U 1 1 5E75298B
 P 6800 2300
-AR Path="/5E75298B" Ref="R?"  Part="1" 
+AR Path="/5E75298B" Ref="R1"  Part="1" 
 AR Path="/5CC0D65F/5E75298B" Ref="R?"  Part="1" 
 AR Path="/5D54E677/5E75298B" Ref="R?"  Part="1" 
 AR Path="/5D62E1DC/5E75298B" Ref="R?"  Part="1" 
@@ -1022,9 +1022,9 @@ AR Path="/5DEAC282/5E75298B" Ref="R?"  Part="1"
 AR Path="/5F67D4B5/5E75298B" Ref="R?"  Part="1" 
 AR Path="/5DF0FEDA/5E75298B" Ref="R?"  Part="1" 
 AR Path="/5DF0FECB/5E75298B" Ref="R?"  Part="1" 
-F 0 "R?" V 6604 2300 50  0000 C CNN
+F 0 "R1" V 6604 2300 50  0000 C CNN
 F 1 "30Ω" V 6695 2300 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric" H 6800 2300 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 6800 2300 50  0001 C CNN
 F 3 "~" H 6800 2300 50  0001 C CNN
 	1    6800 2300
 	0    1    1    0   
@@ -1198,10 +1198,10 @@ Text Notes 5350 3150 0    100  ~ 20
 Interrupts
 Text Notes 5350 800  0    100  ~ 20
 Flag Unit
+Text Notes 1700 3250 0    100  ~ 20
+Address Register
 Wire Bus Line
 	9950 1450 9950 2100
 Wire Bus Line
 	9950 3600 9950 5200
-Text Notes 1700 3250 0    100  ~ 20
-Address Register
 $EndSCHEMATC
