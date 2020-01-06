@@ -1,6 +1,5 @@
 EESchema Schematic File Version 4
-LIBS:cft-bus-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -702,6 +701,270 @@ F 3 "" H 4250 9050 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	5650 3300 10000 3300
+$Comp
+L Device:C_Small C?
+U 1 1 5E4432BE
+P 1050 7200
+AR Path="/5CC0D65F/5E4432BE" Ref="C?"  Part="1" 
+AR Path="/5E4432BE" Ref="C?"  Part="1" 
+AR Path="/5D30488D/5E4432BE" Ref="C?"  Part="1" 
+AR Path="/5D44ECB5/5E4432BE" Ref="C?"  Part="1" 
+AR Path="/5D46B22D/5E4432BE" Ref="C?"  Part="1" 
+AR Path="/5DF0FECB/5E4432BE" Ref="C45"  Part="1" 
+F 0 "C45" H 959 7246 50  0000 R CNN
+F 1 "100nF" H 959 7155 50  0000 R CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 1050 7200 50  0001 C CNN
+F 3 "~" H 1050 7200 50  0001 C CNN
+	1    1050 7200
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5E4432C5
+P 1050 7300
+AR Path="/5E4432C5" Ref="#PWR?"  Part="1" 
+AR Path="/5D30488D/5E4432C5" Ref="#PWR?"  Part="1" 
+AR Path="/5D44ECB5/5E4432C5" Ref="#PWR?"  Part="1" 
+AR Path="/5D46B22D/5E4432C5" Ref="#PWR?"  Part="1" 
+AR Path="/5DF0FECB/5E4432C5" Ref="#PWR0132"  Part="1" 
+F 0 "#PWR0132" H 1050 7050 50  0001 C CNN
+F 1 "GND" H 1055 7127 50  0000 C CNN
+F 2 "" H 1050 7300 50  0001 C CNN
+F 3 "" H 1050 7300 50  0001 C CNN
+	1    1050 7300
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 5E4432CB
+P 1050 7100
+AR Path="/5E4432CB" Ref="#PWR?"  Part="1" 
+AR Path="/5D30488D/5E4432CB" Ref="#PWR?"  Part="1" 
+AR Path="/5D44ECB5/5E4432CB" Ref="#PWR?"  Part="1" 
+AR Path="/5D46B22D/5E4432CB" Ref="#PWR?"  Part="1" 
+AR Path="/5DF0FECB/5E4432CB" Ref="#PWR0133"  Part="1" 
+F 0 "#PWR0133" H 1050 6950 50  0001 C CNN
+F 1 "+5V" H 1065 7273 50  0000 C CNN
+F 2 "" H 1050 7100 50  0001 C CNN
+F 3 "" H 1050 7100 50  0001 C CNN
+	1    1050 7100
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74LVC1G08 U?
+U 2 1 5E445753
+P 1500 7100
+AR Path="/5E445753" Ref="U?"  Part="1" 
+AR Path="/5D65F6EF/5E445753" Ref="U?"  Part="1" 
+AR Path="/5D69F3FD/5E445753" Ref="U?"  Part="1" 
+AR Path="/5DF0FECB/5E445753" Ref="U5"  Part="2" 
+F 0 "U5" H 1580 7046 50  0000 L CNN
+F 1 "74LVC1G08" H 1580 6955 50  0000 L CNN
+F 2 "alexios:SOT-23-5_HandSoldering" H 1150 7100 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 1150 7100 50  0001 C CNN
+	2    1500 7100
+	1    0    0    -1  
+$EndComp
+Connection ~ 1050 7300
+Connection ~ 1050 7100
+$Comp
+L Device:C_Small C?
+U 1 1 5E445909
+P 2500 7200
+AR Path="/5CC0D65F/5E445909" Ref="C?"  Part="1" 
+AR Path="/5E445909" Ref="C?"  Part="1" 
+AR Path="/5D30488D/5E445909" Ref="C?"  Part="1" 
+AR Path="/5D44ECB5/5E445909" Ref="C?"  Part="1" 
+AR Path="/5D46B22D/5E445909" Ref="C?"  Part="1" 
+AR Path="/5DF0FECB/5E445909" Ref="C46"  Part="1" 
+F 0 "C46" H 2409 7246 50  0000 R CNN
+F 1 "100nF" H 2409 7155 50  0000 R CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 2500 7200 50  0001 C CNN
+F 3 "~" H 2500 7200 50  0001 C CNN
+	1    2500 7200
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5E445910
+P 2500 7300
+AR Path="/5E445910" Ref="#PWR?"  Part="1" 
+AR Path="/5D30488D/5E445910" Ref="#PWR?"  Part="1" 
+AR Path="/5D44ECB5/5E445910" Ref="#PWR?"  Part="1" 
+AR Path="/5D46B22D/5E445910" Ref="#PWR?"  Part="1" 
+AR Path="/5DF0FECB/5E445910" Ref="#PWR0134"  Part="1" 
+F 0 "#PWR0134" H 2500 7050 50  0001 C CNN
+F 1 "GND" H 2505 7127 50  0000 C CNN
+F 2 "" H 2500 7300 50  0001 C CNN
+F 3 "" H 2500 7300 50  0001 C CNN
+	1    2500 7300
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 5E445916
+P 2500 7100
+AR Path="/5E445916" Ref="#PWR?"  Part="1" 
+AR Path="/5D30488D/5E445916" Ref="#PWR?"  Part="1" 
+AR Path="/5D44ECB5/5E445916" Ref="#PWR?"  Part="1" 
+AR Path="/5D46B22D/5E445916" Ref="#PWR?"  Part="1" 
+AR Path="/5DF0FECB/5E445916" Ref="#PWR0135"  Part="1" 
+F 0 "#PWR0135" H 2500 6950 50  0001 C CNN
+F 1 "+5V" H 2515 7273 50  0000 C CNN
+F 2 "" H 2500 7100 50  0001 C CNN
+F 3 "" H 2500 7100 50  0001 C CNN
+	1    2500 7100
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74LVC1G08 U?
+U 2 1 5E44591C
+P 2950 7100
+AR Path="/5E44591C" Ref="U?"  Part="1" 
+AR Path="/5D65F6EF/5E44591C" Ref="U?"  Part="1" 
+AR Path="/5D69F3FD/5E44591C" Ref="U?"  Part="1" 
+AR Path="/5DF0FECB/5E44591C" Ref="U6"  Part="2" 
+F 0 "U6" H 3030 7046 50  0000 L CNN
+F 1 "74LVC1G08" H 3030 6955 50  0000 L CNN
+F 2 "alexios:SOT-23-5_HandSoldering" H 2600 7100 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 2600 7100 50  0001 C CNN
+	2    2950 7100
+	1    0    0    -1  
+$EndComp
+Connection ~ 2500 7300
+Connection ~ 2500 7100
+$Comp
+L Device:C_Small C?
+U 1 1 5E44F860
+P 3950 7200
+AR Path="/5CC0D65F/5E44F860" Ref="C?"  Part="1" 
+AR Path="/5E44F860" Ref="C?"  Part="1" 
+AR Path="/5D30488D/5E44F860" Ref="C?"  Part="1" 
+AR Path="/5D44ECB5/5E44F860" Ref="C?"  Part="1" 
+AR Path="/5D46B22D/5E44F860" Ref="C?"  Part="1" 
+AR Path="/5DF0FECB/5E44F860" Ref="C47"  Part="1" 
+F 0 "C47" H 3859 7246 50  0000 R CNN
+F 1 "100nF" H 3859 7155 50  0000 R CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 3950 7200 50  0001 C CNN
+F 3 "~" H 3950 7200 50  0001 C CNN
+	1    3950 7200
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5E44F867
+P 3950 7300
+AR Path="/5E44F867" Ref="#PWR?"  Part="1" 
+AR Path="/5D30488D/5E44F867" Ref="#PWR?"  Part="1" 
+AR Path="/5D44ECB5/5E44F867" Ref="#PWR?"  Part="1" 
+AR Path="/5D46B22D/5E44F867" Ref="#PWR?"  Part="1" 
+AR Path="/5DF0FECB/5E44F867" Ref="#PWR0136"  Part="1" 
+F 0 "#PWR0136" H 3950 7050 50  0001 C CNN
+F 1 "GND" H 3955 7127 50  0000 C CNN
+F 2 "" H 3950 7300 50  0001 C CNN
+F 3 "" H 3950 7300 50  0001 C CNN
+	1    3950 7300
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 5E44F86D
+P 3950 7100
+AR Path="/5E44F86D" Ref="#PWR?"  Part="1" 
+AR Path="/5D30488D/5E44F86D" Ref="#PWR?"  Part="1" 
+AR Path="/5D44ECB5/5E44F86D" Ref="#PWR?"  Part="1" 
+AR Path="/5D46B22D/5E44F86D" Ref="#PWR?"  Part="1" 
+AR Path="/5DF0FECB/5E44F86D" Ref="#PWR0137"  Part="1" 
+F 0 "#PWR0137" H 3950 6950 50  0001 C CNN
+F 1 "+5V" H 3965 7273 50  0000 C CNN
+F 2 "" H 3950 7100 50  0001 C CNN
+F 3 "" H 3950 7100 50  0001 C CNN
+	1    3950 7100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 5E451E6A
+P 5400 7200
+AR Path="/5CC0D65F/5E451E6A" Ref="C?"  Part="1" 
+AR Path="/5E451E6A" Ref="C?"  Part="1" 
+AR Path="/5D30488D/5E451E6A" Ref="C?"  Part="1" 
+AR Path="/5D44ECB5/5E451E6A" Ref="C?"  Part="1" 
+AR Path="/5D46B22D/5E451E6A" Ref="C?"  Part="1" 
+AR Path="/5DF0FECB/5E451E6A" Ref="C48"  Part="1" 
+F 0 "C48" H 5309 7246 50  0000 R CNN
+F 1 "100nF" H 5309 7155 50  0000 R CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 5400 7200 50  0001 C CNN
+F 3 "~" H 5400 7200 50  0001 C CNN
+	1    5400 7200
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5E451E71
+P 5400 7300
+AR Path="/5E451E71" Ref="#PWR?"  Part="1" 
+AR Path="/5D30488D/5E451E71" Ref="#PWR?"  Part="1" 
+AR Path="/5D44ECB5/5E451E71" Ref="#PWR?"  Part="1" 
+AR Path="/5D46B22D/5E451E71" Ref="#PWR?"  Part="1" 
+AR Path="/5DF0FECB/5E451E71" Ref="#PWR0138"  Part="1" 
+F 0 "#PWR0138" H 5400 7050 50  0001 C CNN
+F 1 "GND" H 5405 7127 50  0000 C CNN
+F 2 "" H 5400 7300 50  0001 C CNN
+F 3 "" H 5400 7300 50  0001 C CNN
+	1    5400 7300
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 5E451E77
+P 5400 7100
+AR Path="/5E451E77" Ref="#PWR?"  Part="1" 
+AR Path="/5D30488D/5E451E77" Ref="#PWR?"  Part="1" 
+AR Path="/5D44ECB5/5E451E77" Ref="#PWR?"  Part="1" 
+AR Path="/5D46B22D/5E451E77" Ref="#PWR?"  Part="1" 
+AR Path="/5DF0FECB/5E451E77" Ref="#PWR0139"  Part="1" 
+F 0 "#PWR0139" H 5400 6950 50  0001 C CNN
+F 1 "+5V" H 5415 7273 50  0000 C CNN
+F 2 "" H 5400 7100 50  0001 C CNN
+F 3 "" H 5400 7100 50  0001 C CNN
+	1    5400 7100
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC541 U?
+U 2 1 5E4566AD
+P 4300 7200
+AR Path="/5E4566AD" Ref="U?"  Part="1" 
+AR Path="/5D65F6EF/5E4566AD" Ref="U?"  Part="1" 
+AR Path="/5D69F3FD/5E4566AD" Ref="U?"  Part="1" 
+AR Path="/5DF0FECB/5E4566AD" Ref="U4"  Part="2" 
+F 0 "U4" H 4479 7246 50  0000 L CNN
+F 1 "74HC541" H 4479 7155 50  0000 L CNN
+F 2 "alexios:SOIC-20W" H 4300 7200 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 4300 7200 50  0001 C CNN
+	2    4300 7200
+	1    0    0    -1  
+$EndComp
+Connection ~ 3950 7300
+Connection ~ 3950 7100
+$Comp
+L alexios:74HC541 U?
+U 2 1 5E45742B
+P 5750 7200
+AR Path="/5E45742B" Ref="U?"  Part="1" 
+AR Path="/5D65F6EF/5E45742B" Ref="U?"  Part="1" 
+AR Path="/5D69F3FD/5E45742B" Ref="U?"  Part="1" 
+AR Path="/5DF0FECB/5E45742B" Ref="U7"  Part="2" 
+F 0 "U7" H 5929 7246 50  0000 L CNN
+F 1 "74HC541" H 5929 7155 50  0000 L CNN
+F 2 "alexios:SOIC-20W" H 5750 7200 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 5750 7200 50  0001 C CNN
+	2    5750 7200
+	1    0    0    -1  
+$EndComp
+Connection ~ 5400 7300
+Connection ~ 5400 7100
 Wire Bus Line
 	9250 5200 9250 6450
 Wire Bus Line

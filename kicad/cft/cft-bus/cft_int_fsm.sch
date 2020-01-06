@@ -1,10 +1,9 @@
 EESchema Schematic File Version 4
-LIBS:cft-bus-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 5 8
+Sheet 6 8
 Title "Interrupt State Machine"
 Date ""
 Rev ""
@@ -254,8 +253,8 @@ L alexios:74LVC1G32 U?
 U 1 1 5D5A4DFA
 P 5200 5150
 AR Path="/5F67D4B5/5D5A4DFA" Ref="U?"  Part="1" 
-AR Path="/5DF0FEDA/5D5A4DFA" Ref="U29"  Part="1" 
-F 0 "U29" H 5250 5417 50  0000 C CNN
+AR Path="/5DF0FEDA/5D5A4DFA" Ref="U28"  Part="1" 
+F 0 "U28" H 5250 5417 50  0000 C CNN
 F 1 "74LVC1G32" H 5250 5326 50  0000 C CNN
 F 2 "alexios:SOT-23-5_HandSoldering" H 5310 5130 50  0001 C CNN
 F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 5310 5130 50  0001 C CNN
@@ -419,8 +418,8 @@ L alexios:74LVC1G32 U?
 U 2 1 5DDC95B7
 P 4350 6300
 AR Path="/5F67D4B5/5DDC95B7" Ref="U?"  Part="2" 
-AR Path="/5DF0FEDA/5DDC95B7" Ref="U29"  Part="2" 
-F 0 "U29" H 4480 6096 50  0000 L CNN
+AR Path="/5DF0FEDA/5DDC95B7" Ref="U28"  Part="2" 
+F 0 "U28" H 4480 6096 50  0000 L CNN
 F 1 "74LVC1G32" H 4480 6005 50  0000 L CNN
 F 2 "alexios:SOT-23-5_HandSoldering" H 4460 6280 50  0001 C CNN
 F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 4460 6280 50  0001 C CNN
@@ -502,8 +501,8 @@ L alexios:74HC74 U?
 U 3 1 5DDCAF4B
 P 4300 7250
 AR Path="/5F67D4B5/5DDCAF4B" Ref="U?"  Part="3" 
-AR Path="/5DF0FEDA/5DDCAF4B" Ref="U28"  Part="3" 
-F 0 "U28" H 4480 7296 50  0000 L CNN
+AR Path="/5DF0FEDA/5DDCAF4B" Ref="U27"  Part="3" 
+F 0 "U27" H 4480 7296 50  0000 L CNN
 F 1 "74AC74" H 4480 7205 50  0000 L CNN
 F 2 "alexios:SOIC-14" H 4300 7250 50  0001 C CNN
 F 3 "74xx/74hc_hct74.pdf" H 4300 7250 50  0001 C CNN
@@ -541,48 +540,14 @@ L alexios:74HC74 U?
 U 2 1 5E4DB3A3
 P 8950 5100
 AR Path="/5F67D4B5/5E4DB3A3" Ref="U?"  Part="2" 
-AR Path="/5DF0FEDA/5E4DB3A3" Ref="U28"  Part="2" 
-F 0 "U28" H 8950 4775 50  0000 C CNN
+AR Path="/5DF0FEDA/5E4DB3A3" Ref="U27"  Part="2" 
+F 0 "U27" H 8950 4775 50  0000 C CNN
 F 1 "74AC74" H 8950 4684 50  0000 C CNN
 F 2 "alexios:SOIC-14" H 8950 5100 50  0001 C CNN
 F 3 "74xx/74hc_hct74.pdf" H 8950 5100 50  0001 C CNN
 	2    8950 5100
 	1    0    0    -1  
 $EndComp
-NoConn ~ 6400 7000
-NoConn ~ 6400 7300
-Wire Wire Line
-	5500 7000 5400 7000
-Wire Wire Line
-	5400 7000 5400 7100
-$Comp
-L power:GND #PWR?
-U 1 1 5E4DF1B3
-P 5400 7400
-AR Path="/5F67D4B5/5E4DF1B3" Ref="#PWR?"  Part="1" 
-AR Path="/5DF0FEDA/5E4DF1B3" Ref="#PWR087"  Part="1" 
-F 0 "#PWR087" H 5400 7150 50  0001 C CNN
-F 1 "GND" H 5405 7227 50  0000 C CNN
-F 2 "" H 5400 7400 50  0001 C CNN
-F 3 "" H 5400 7400 50  0001 C CNN
-	1    5400 7400
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	5500 7100 5400 7100
-Connection ~ 5400 7100
-Wire Wire Line
-	5400 7100 5400 7200
-Wire Wire Line
-	5500 7200 5400 7200
-Connection ~ 5400 7200
-Wire Wire Line
-	5400 7200 5400 7300
-Wire Wire Line
-	5500 7300 5400 7300
-Connection ~ 5400 7300
-Wire Wire Line
-	5400 7300 5400 7400
 Text Notes 7250 2600 0    50   ~ 0
 Use LVC or AC family for flip-flops.\nIt reduces the chances of metastability.
 Text Notes 8150 3000 0    79   ~ 16

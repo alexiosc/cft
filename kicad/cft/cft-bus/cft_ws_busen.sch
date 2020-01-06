@@ -1,6 +1,5 @@
 EESchema Schematic File Version 4
-LIBS:cft-bus-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -462,8 +461,8 @@ P 1450 6300
 AR Path="/5D1B7CC1" Ref="U?"  Part="1" 
 AR Path="/5D30488D/5D1B7CC1" Ref="U?"  Part="1" 
 AR Path="/5D44ECB5/5D1B7CC1" Ref="U?"  Part="1" 
-AR Path="/5D46B22D/5D1B7CC1" Ref="U51"  Part="2" 
-F 0 "U51" H 1580 6096 50  0000 L CNN
+AR Path="/5D46B22D/5D1B7CC1" Ref="U46"  Part="2" 
+F 0 "U46" H 1580 6096 50  0000 L CNN
 F 1 "74AHC1G32" H 1580 6005 50  0000 L CNN
 F 2 "alexios:SOT-23-5_HandSoldering" H 1460 6280 50  0001 C CNN
 F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 1460 6280 50  0001 C CNN
@@ -473,31 +472,14 @@ $EndComp
 Connection ~ 1050 6650
 Connection ~ 1050 6450
 $Comp
-L alexios:74AUC1G74 U?
-U 2 1 5D1B8DEA
-P 2850 6550
-AR Path="/5D1B8DEA" Ref="U?"  Part="1" 
-AR Path="/5D30488D/5D1B8DEA" Ref="U?"  Part="1" 
-AR Path="/5D44ECB5/5D1B8DEA" Ref="U?"  Part="1" 
-AR Path="/5D46B22D/5D1B8DEA" Ref="U52"  Part="2" 
-F 0 "U52" H 3030 6596 50  0000 L CNN
-F 1 "74AUC1G74" H 3030 6505 50  0000 L CNN
-F 2 "alexios:TSSOP-8_3x3mm_P0.65mm" H 3300 6550 50  0001 C CNN
-F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 3300 6550 50  0001 C CNN
-	2    2850 6550
-	1    0    0    -1  
-$EndComp
-Connection ~ 2500 6650
-Connection ~ 2500 6450
-$Comp
 L alexios:74LVC1G11 U?
 U 2 1 5D1BEF9C
 P 1450 7150
 AR Path="/5D1BEF9C" Ref="U?"  Part="1" 
 AR Path="/5D30488D/5D1BEF9C" Ref="U?"  Part="1" 
 AR Path="/5D44ECB5/5D1BEF9C" Ref="U?"  Part="1" 
-AR Path="/5D46B22D/5D1BEF9C" Ref="U53"  Part="2" 
-F 0 "U53" H 1530 7046 50  0000 L CNN
+AR Path="/5D46B22D/5D1BEF9C" Ref="U49"  Part="2" 
+F 0 "U49" H 1530 7046 50  0000 L CNN
 F 1 "74LVC1G11" H 1530 6955 50  0000 L CNN
 F 2 "alexios:SOT-23-6_Handsoldering" H 1350 7075 50  0001 C CNN
 F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 1350 7075 50  0001 C CNN
@@ -507,10 +489,10 @@ $EndComp
 Connection ~ 1000 7400
 Connection ~ 1000 7200
 $Comp
-L alexios:74LVC1G04 U55
+L alexios:74LVC1G04 U43
 U 2 1 5D1C6D66
 P 4300 7250
-F 0 "U55" H 4480 7296 50  0000 L CNN
+F 0 "U43" H 4480 7296 50  0000 L CNN
 F 1 "74LVC1G04" H 4480 7205 50  0000 L CNN
 F 2 "alexios:SOT-23-5_HandSoldering" H 4300 7250 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G04.pdf" H 4300 7250 50  0001 C CNN
@@ -524,8 +506,8 @@ P 5750 7250
 AR Path="/5D1C70BE" Ref="U?"  Part="2" 
 AR Path="/5D30488D/5D1C70BE" Ref="U?"  Part="2" 
 AR Path="/5D44ECB5/5D1C70BE" Ref="U?"  Part="2" 
-AR Path="/5D46B22D/5D1C70BE" Ref="U56"  Part="2" 
-F 0 "U56" H 5930 7296 50  0000 L CNN
+AR Path="/5D46B22D/5D1C70BE" Ref="U45"  Part="2" 
+F 0 "U45" H 5930 7296 50  0000 L CNN
 F 1 "74AHC1G125" H 5930 7205 50  0000 L CNN
 F 2 "alexios:SOT-23-5_HandSoldering" H 5900 7500 50  0001 C CNN
 F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 5900 7500 50  0001 C CNN
@@ -1118,10 +1100,10 @@ F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 5650 750 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L alexios:74LVC1G3208 U54
+L alexios:74LVC1G3208 U44
 U 2 1 5E46F249
 P 2850 7250
-F 0 "U54" H 3030 7296 50  0000 L CNN
+F 0 "U44" H 3030 7296 50  0000 L CNN
 F 1 "74LVC1G3208" H 3030 7205 50  0000 L CNN
 F 2 "alexios:SOT-23-6_Handsoldering" H 2850 6600 50  0001 C CNN
 F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 2850 6600 50  0001 C CNN
@@ -1192,6 +1174,23 @@ Text Label 1750 2200 0    50   ~ 0
 CLK3
 Text Notes 7150 1350 0    50   ~ 0
 No impedance matching here, we rely on Bus Hold.
+$Comp
+L alexios:74AUC1G74 U?
+U 2 1 5E42EF6F
+P 2850 6550
+AR Path="/5E42EF6F" Ref="U?"  Part="1" 
+AR Path="/5D30488D/5E42EF6F" Ref="U?"  Part="1" 
+AR Path="/5D44ECB5/5E42EF6F" Ref="U?"  Part="1" 
+AR Path="/5D46B22D/5E42EF6F" Ref="U47"  Part="2" 
+F 0 "U47" H 2850 6967 50  0000 C CNN
+F 1 "74LVC1G74" H 2850 6876 50  0000 C CNN
+F 2 "alexios:TSSOP-8_3x3mm_P0.65mm" H 3300 6550 50  0001 C CNN
+F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 3300 6550 50  0001 C CNN
+	2    2850 6550
+	1    0    0    -1  
+$EndComp
+Connection ~ 2500 6650
+Connection ~ 2500 6450
 Wire Bus Line
 	8750 3250 8750 5600
 Wire Bus Line

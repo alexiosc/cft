@@ -1,6 +1,5 @@
 EESchema Schematic File Version 4
-LIBS:cft-bus-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -1594,8 +1593,8 @@ L alexios:74LVC1G74 U?
 U 1 1 60083AB7
 P 2200 7150
 AR Path="/6005A9A5/60083AB7" Ref="U?"  Part="1" 
-AR Path="/61F95ACC/60083AB7" Ref="U21"  Part="1" 
-F 0 "U21" H 2200 7567 50  0000 C CNN
+AR Path="/61F95ACC/60083AB7" Ref="U18"  Part="1" 
+F 0 "U18" H 2200 7567 50  0000 C CNN
 F 1 "74LVC1G74" H 2200 7476 50  0000 C CNN
 F 2 "alexios:TSSOP-8_3x3mm_P0.65mm" H 2650 7150 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G74.pdf" H 2650 7150 50  0001 C CNN
@@ -1709,8 +1708,8 @@ L alexios:74AHC1G125 U?
 U 1 1 60083AC7
 P 2750 7600
 AR Path="/6005A9A5/60083AC7" Ref="U?"  Part="1" 
-AR Path="/61F95ACC/60083AC7" Ref="U22"  Part="1" 
-F 0 "U22" H 2850 7850 50  0000 L CNN
+AR Path="/61F95ACC/60083AC7" Ref="U20"  Part="1" 
+F 0 "U20" H 2850 7850 50  0000 L CNN
 F 1 "74AHC1G125" H 2850 7750 50  0000 L CNN
 F 2 "alexios:SOT-23-5_HandSoldering" H 2925 7850 50  0001 C CNN
 F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 2925 7850 50  0001 C CNN

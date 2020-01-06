@@ -1,6 +1,5 @@
 EESchema Schematic File Version 4
-LIBS:cft-bus-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -391,72 +390,8 @@ F 3 "~" H 10400 6250 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	10400 6350 10400 6450
-Text Label 9850 3800 2    50   ~ 0
-AC0
-Text Label 9850 3900 2    50   ~ 0
-AC1
-Text Label 9850 4000 2    50   ~ 0
-AC2
-Text Label 9850 4100 2    50   ~ 0
-AC3
-Text Label 9850 4200 2    50   ~ 0
-AC4
-Text Label 9850 4300 2    50   ~ 0
-AC5
-Text Label 9850 4400 2    50   ~ 0
-AC6
-Text Label 9850 4500 2    50   ~ 0
-AC7
-Text Label 9850 4600 2    50   ~ 0
-AC8
-Text Label 9850 4700 2    50   ~ 0
-AC9
-Text Label 9850 4800 2    50   ~ 0
-AC10
-Text Label 9850 4900 2    50   ~ 0
-AC11
-Text Label 9850 5000 2    50   ~ 0
-AC12
-Text Label 9850 5100 2    50   ~ 0
-AC13
-Text Label 9850 5200 2    50   ~ 0
-AC14
-Text Label 9850 5300 2    50   ~ 0
-AC15
 Wire Wire Line
-	9500 3800 9850 3800
-Wire Wire Line
-	9500 3900 9850 3900
-Wire Wire Line
-	9500 4000 9850 4000
-Wire Wire Line
-	9500 4100 9850 4100
-Wire Wire Line
-	9500 4200 9850 4200
-Wire Wire Line
-	9500 4300 9850 4300
-Wire Wire Line
-	9500 4400 9850 4400
-Wire Wire Line
-	9500 4500 9850 4500
-Wire Wire Line
-	9500 4600 9850 4600
-Wire Wire Line
-	9500 4700 9850 4700
-Wire Wire Line
-	9500 4800 9850 4800
-Wire Wire Line
-	9500 4900 9850 4900
-Wire Wire Line
-	9500 5000 9850 5000
-Wire Wire Line
-	9500 5100 9850 5100
-Wire Wire Line
-	9500 5200 9850 5200
-Wire Wire Line
-	9500 5300 9850 5300
-Wire Wire Line
-	9500 2500 9850 2500
+	9500 3200 10000 3200
 NoConn ~ 7800 1800
 NoConn ~ 7800 2000
 NoConn ~ 7800 2500
@@ -478,39 +413,21 @@ NoConn ~ 7800 4100
 NoConn ~ 7800 4200
 NoConn ~ 7800 4800
 Wire Wire Line
-	9500 2400 9850 2400
+	9500 2400 10000 2400
 Wire Wire Line
-	9500 2300 10050 2300
-Wire Wire Line
-	9500 3700 9550 3700
+	9500 2300 10000 2300
 Wire Wire Line
 	9500 1600 9850 1600
 Wire Wire Line
 	9500 1700 9850 1700
 Wire Wire Line
 	9500 1800 9850 1800
-Wire Wire Line
-	9500 1900 9850 1900
-Wire Wire Line
-	9500 2000 9850 2000
-Wire Wire Line
-	9500 2100 9850 2100
-Wire Wire Line
-	9500 2200 9850 2200
 Text Label 9850 1600 2    50   ~ 0
 IR0
 Text Label 9850 1700 2    50   ~ 0
 IR1
 Text Label 9850 1800 2    50   ~ 0
 IR2
-Text Label 9850 1900 2    50   ~ 0
-IR3
-Text Label 9850 2000 2    50   ~ 0
-IR4
-Text Label 9850 2100 2    50   ~ 0
-IR5
-Text Label 9850 2200 2    50   ~ 0
-IR6
 Entry Wire Line
 	9850 2200 9950 2100
 Entry Wire Line
@@ -531,16 +448,16 @@ Wire Bus Line
 	10050 1350 10350 1350
 Text Label 10350 1350 2    50   ~ 0
 IR[0..6]
-Text Label 9850 2500 2    50   ~ 0
+Text Label 10000 3200 2    50   ~ 0
 ~FLAGWE
-Text Label 10050 2300 2    50   ~ 0
-FL-OFFBOARD
-Text Label 9850 2400 2    50   ~ 0
+Text Label 10000 2300 2    50   ~ 0
+FL
+Text Label 10000 2400 2    50   ~ 0
 FV
 Text Notes 10050 2300 0    50   ~ 0
-→ Control Unit
+→ ALU
 Text Notes 10050 2400 0    50   ~ 0
-→ Control Unit
+→ ALU
 Text Notes 10050 2200 0    50   ~ 0
 ← Control Unit
 Text Notes 10050 2100 0    50   ~ 0
@@ -557,54 +474,8 @@ Text Notes 10050 1600 0    50   ~ 0
 ← Control Unit
 Text Label 7800 2200 0    50   ~ 0
 AB[0..23]
-Text Notes 10100 4650 1    50   ~ 0
-Input From REG Board
-Entry Wire Line
-	9950 3700 9850 3800
-Entry Wire Line
-	9950 3800 9850 3900
-Entry Wire Line
-	9950 3900 9850 4000
-Entry Wire Line
-	9950 4000 9850 4100
-Entry Wire Line
-	9950 4100 9850 4200
-Entry Wire Line
-	9950 4200 9850 4300
-Entry Wire Line
-	9950 4300 9850 4400
-Entry Wire Line
-	9950 4400 9850 4500
-Entry Wire Line
-	9950 4500 9850 4600
-Entry Wire Line
-	9950 4600 9850 4700
-Entry Wire Line
-	9950 4700 9850 4800
-Entry Wire Line
-	9950 4800 9850 4900
-Entry Wire Line
-	9950 4900 9850 5000
-Entry Wire Line
-	9950 5000 9850 5100
-Entry Wire Line
-	9950 5100 9850 5200
-Entry Wire Line
-	9950 5200 9850 5300
-Text Label 10100 3500 0    50   ~ 0
-AC[0..15]
-Wire Bus Line
-	10050 3500 10450 3500
-Entry Bus Bus
-	9950 3600 10050 3500
 Text Notes 10050 2500 0    50   ~ 0
-← Control Unit
-Wire Wire Line
-	9500 5400 9850 5400
-Wire Wire Line
-	9500 5500 9850 5500
-NoConn ~ 9850 5400
-NoConn ~ 9850 5500
+← REG
 Wire Wire Line
 	8350 4300 7800 4300
 Wire Wire Line
@@ -613,29 +484,6 @@ Text Label 7800 4300 0    50   ~ 0
 ~RUEN
 Text Label 7800 4400 0    50   ~ 0
 ~WUEN
-Wire Wire Line
-	9500 2600 9850 2600
-Wire Wire Line
-	9500 2700 9850 2700
-Wire Wire Line
-	9500 2800 9850 2800
-Wire Wire Line
-	9500 2900 9850 2900
-Wire Wire Line
-	9500 3000 9850 3000
-Wire Wire Line
-	9500 3100 9850 3100
-Wire Wire Line
-	9500 3400 9550 3400
-Wire Wire Line
-	9500 3500 9850 3500
-Wire Wire Line
-	9500 3200 9850 3200
-Wire Wire Line
-	9500 3300 9850 3300
-NoConn ~ 9850 3500
-Text Notes 10650 2600 3    50   ~ 0
-For ROM Expansion
 $Comp
 L Connector:TestPoint TP?
 U 1 1 5DF10033
@@ -674,67 +522,6 @@ Wire Wire Line
 	9100 6250 8350 6250
 Text Notes 8350 6000 0    50   ~ 0
 Actions for future expansion
-$Comp
-L Connector:TestPoint TP?
-U 1 1 5DF10044
-P 9550 3600
-AR Path="/5DD3D79F/5DF10044" Ref="TP?"  Part="1" 
-AR Path="/5DF10044" Ref="TP3"  Part="1" 
-F 0 "TP3" V 9550 3788 50  0000 L CNN
-F 1 "TestPoint" V 9595 3788 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Pad_1.0x1.0mm" H 9750 3600 50  0001 C CNN
-F 3 "~" H 9750 3600 50  0001 C CNN
-	1    9550 3600
-	0    1    1    0   
-$EndComp
-$Comp
-L Connector:TestPoint TP?
-U 1 1 5DF1004A
-P 9850 3200
-AR Path="/5DD3D79F/5DF1004A" Ref="TP?"  Part="1" 
-AR Path="/5DF1004A" Ref="TP1"  Part="1" 
-F 0 "TP1" V 9850 3388 50  0000 L CNN
-F 1 "TestPoint" V 9895 3388 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Pad_1.0x1.0mm" H 10050 3200 50  0001 C CNN
-F 3 "~" H 10050 3200 50  0001 C CNN
-	1    9850 3200
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	9500 3600 9550 3600
-$Comp
-L Connector:TestPoint TP?
-U 1 1 5DF10051
-P 9550 3400
-AR Path="/5DD3D79F/5DF10051" Ref="TP?"  Part="1" 
-AR Path="/5DF10051" Ref="TP2"  Part="1" 
-F 0 "TP2" V 9550 3588 50  0000 L CNN
-F 1 "TestPoint" V 9595 3588 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Pad_1.0x1.0mm" H 9750 3400 50  0001 C CNN
-F 3 "~" H 9750 3400 50  0001 C CNN
-	1    9550 3400
-	0    1    1    0   
-$EndComp
-NoConn ~ 9850 2600
-NoConn ~ 9850 2700
-NoConn ~ 9850 2800
-NoConn ~ 9850 2900
-NoConn ~ 9850 3000
-NoConn ~ 9850 3100
-NoConn ~ 9850 3300
-$Comp
-L Connector:TestPoint TP?
-U 1 1 5DF1005E
-P 9550 3700
-AR Path="/5DD3D79F/5DF1005E" Ref="TP?"  Part="1" 
-AR Path="/5DF1005E" Ref="TP4"  Part="1" 
-F 0 "TP4" V 9550 3888 50  0000 L CNN
-F 1 "TestPoint" V 9595 3888 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Pad_1.0x1.0mm" H 9750 3700 50  0001 C CNN
-F 3 "~" H 9750 3700 50  0001 C CNN
-	1    9550 3700
-	0    1    1    0   
-$EndComp
 Wire Bus Line
 	1750 3700 900  3700
 Text Label 900  3700 0    50   ~ 0
@@ -878,15 +665,11 @@ Wire Wire Line
 	6300 2300 6650 2300
 Text Label 7300 2300 2    50   ~ 0
 ~FLAGWE
-Text Label 12000 1750 0    50   ~ 0
-~FLAGWE
-Text Label 12000 1650 0    50   ~ 0
+Text Label 10000 2800 2    50   ~ 0
 ~IRQSµC
-Text Notes 12000 1450 0    50   ~ 0
-Signals to connect to edge connector Cxx pins:
-Text Label 12000 1850 0    50   ~ 0
+Text Label 10000 3000 2    50   ~ 0
 ~ACTION-CPL
-Text Label 12000 1950 0    50   ~ 0
+Text Label 10000 3100 2    50   ~ 0
 ~ACTION-CLL
 Text Label 900  1950 0    50   ~ 0
 WADDR[0..4]
@@ -953,64 +736,16 @@ Text Label 4300 3800 0    50   ~ 0
 ACTION[0..3]
 Wire Bus Line
 	5150 3800 4300 3800
-Text Label 12000 2050 0    50   ~ 0
+Text Label 10000 2900 2    50   ~ 0
 ~END
-Text Label 12000 2150 0    50   ~ 0
-FV
-Text Label 12000 2250 0    50   ~ 0
-FL
-Text Label 12000 2350 0    50   ~ 0
+Text Label 10000 2500 2    50   ~ 0
 FZ
-Text Label 12000 2450 0    50   ~ 0
+Text Label 10000 2600 2    50   ~ 0
 FN
 Wire Wire Line
-	12550 2450 12000 2450
+	10000 2600 9500 2600
 Wire Wire Line
-	12550 2350 12000 2350
-Wire Wire Line
-	12550 2250 12000 2250
-Wire Wire Line
-	12550 2150 12000 2150
-Wire Wire Line
-	12550 2050 12000 2050
-Wire Wire Line
-	12550 1950 12000 1950
-Wire Wire Line
-	12550 1850 12000 1850
-Wire Wire Line
-	12550 1650 12000 1650
-Wire Wire Line
-	12550 1750 12000 1750
-Wire Wire Line
-	12750 1650 13300 1650
-Wire Wire Line
-	12750 1750 13300 1750
-Wire Wire Line
-	12750 1850 13300 1850
-Wire Wire Line
-	12750 1950 13300 1950
-Wire Wire Line
-	12750 2050 13300 2050
-Wire Wire Line
-	12750 2150 13300 2150
-Wire Wire Line
-	12750 2250 13300 2250
-Wire Wire Line
-	12750 2450 13300 2450
-Text Label 12750 1650 0    50   ~ 0
-IR0
-Text Label 12750 1750 0    50   ~ 0
-IR1
-Text Label 12750 1850 0    50   ~ 0
-IR2
-Text Label 12750 1950 0    50   ~ 0
-IR8
-Text Label 12750 2050 0    50   ~ 0
-IR9
-Text Label 12750 2150 0    50   ~ 0
-IR10
-Text Label 12750 2250 0    50   ~ 0
-IR11
+	10000 2500 9500 2500
 $Comp
 L Device:R_Small R1
 U 1 1 5E75298B
@@ -1112,10 +847,10 @@ Wire Wire Line
 	5150 1850 4300 1850
 Wire Wire Line
 	6300 1700 6550 1700
-Text Label 12750 2350 0    50   ~ 0
+Text Label 10000 5500 2    50   ~ 0
 ~FPFLAGS
 Wire Wire Line
-	12750 2350 13300 2350
+	9500 3300 10000 3300
 Text Notes 8300 1100 0    100  ~ 20
 Edge Connector
 Text Notes 1400 1150 0    100  ~ 20
@@ -1201,8 +936,94 @@ Text Notes 5350 800  0    100  ~ 20
 Flag Unit
 Text Notes 1700 3250 0    100  ~ 20
 Address Register
+Wire Wire Line
+	9500 2200 9850 2200
+Wire Wire Line
+	9500 2100 9850 2100
+Wire Wire Line
+	9500 2000 9850 2000
+Wire Wire Line
+	9500 1900 9850 1900
+Text Label 9850 1900 2    50   ~ 0
+IR8
+Text Label 9850 2000 2    50   ~ 0
+IR9
+Text Label 9850 2100 2    50   ~ 0
+IR10
+Text Label 9850 2200 2    50   ~ 0
+IR11
+Text Label 10000 2700 2    50   ~ 0
+FI
+Wire Wire Line
+	10000 2700 9500 2700
+Text Notes 10050 2600 0    50   ~ 0
+← REG
+Text Notes 10050 2700 0    50   ~ 0
+  for testing
+Wire Wire Line
+	10000 2800 9500 2800
+Wire Wire Line
+	10000 2900 9500 2900
+Wire Wire Line
+	10000 3000 9500 3000
+Wire Wire Line
+	10000 3100 9500 3100
+Wire Wire Line
+	10000 3400 9500 3400
+Wire Wire Line
+	10000 3500 9500 3500
+Wire Wire Line
+	10000 3600 9500 3600
+Wire Wire Line
+	10000 3700 9500 3700
+Wire Wire Line
+	10000 3800 9500 3800
+Wire Wire Line
+	10000 3900 9500 3900
+Wire Wire Line
+	10000 4000 9500 4000
+Wire Wire Line
+	10000 4100 9500 4100
+Wire Wire Line
+	10000 4200 9500 4200
+Wire Wire Line
+	10000 4300 9500 4300
+Wire Wire Line
+	10000 4400 9500 4400
+Wire Wire Line
+	10000 4500 9500 4500
+Wire Wire Line
+	10000 4600 9500 4600
+Wire Wire Line
+	10000 4700 9500 4700
+Wire Wire Line
+	10000 4800 9500 4800
+Wire Wire Line
+	10000 4900 9500 4900
+Wire Wire Line
+	10000 5000 9500 5000
+Wire Wire Line
+	10000 5100 9500 5100
+Wire Wire Line
+	10000 5200 9500 5200
+Wire Wire Line
+	10000 5300 9500 5300
+Wire Wire Line
+	10000 5400 9500 5400
+Wire Wire Line
+	10000 5500 9500 5500
+Text Notes 10050 2800 0    50   ~ 0
+→ Control Unit
+Text Notes 10050 2900 0    50   ~ 0
+← Control Unit
+Text Notes 10050 3000 0    50   ~ 0
+→ ALU
+Text Notes 10050 3100 0    50   ~ 0
+→ ALU
+Text Notes 10050 3200 0    50   ~ 0
+→ ALU
+Text Notes 10050 5500 0    50   ~ 0
+← Front Panel
 Wire Bus Line
 	9950 1450 9950 2100
-Wire Bus Line
-	9950 3600 9950 5200
 $EndSCHEMATC
