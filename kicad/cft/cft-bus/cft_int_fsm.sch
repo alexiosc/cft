@@ -244,7 +244,7 @@ F 1 "74AC74" H 8950 4776 50  0000 C CNN
 F 2 "alexios:SOIC-14" H 8950 4450 50  0001 C CNN
 F 3 "74xx/74hc_hct74.pdf" H 8950 4450 50  0001 C CNN
 	1    8950 4450
-	1    0    0    -1  
+	1    0    0    1   
 $EndComp
 Wire Wire Line
 	5500 5150 7900 5150
@@ -777,8 +777,6 @@ Wire Wire Line
 	7450 3050 10250 3050
 Text HLabel 10250 3050 2    50   Output ~ 0
 FI
-Wire Wire Line
-	9400 4600 9800 4600
 $Comp
 L Device:R_Small R?
 U 1 1 5DDB48AD
@@ -901,6 +899,8 @@ Wire Notes Line width 20 style solid
 	6800 1850 6800 2600
 Wire Notes Line width 20 style solid
 	4450 1850 6800 1850
+Wire Wire Line
+	9400 4600 9800 4600
 Wire Bus Line
 	1900 1400 1900 2150
 $EndSCHEMATC

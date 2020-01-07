@@ -1887,6 +1887,8 @@ F 3 "http://www.ti.com/lit/gpn/sn74HC541" H 5500 7400 50  0001 C CNN
 	2    5500 7400
 	1    0    0    -1  
 $EndComp
+Text Notes 6450 3100 1    50   ~ 0
+AR15 & AR14 purposefully swapped.
 Wire Bus Line
 	7400 4550 7400 5250
 Wire Bus Line
@@ -1901,6 +1903,4 @@ Wire Bus Line
 	6200 1350 6200 5900
 Wire Bus Line
 	4550 950  4550 5200
-Text Notes 6450 3100 1    50   ~ 0
-AR15 & AR14 purposefully swapped.
 $EndSCHEMATC

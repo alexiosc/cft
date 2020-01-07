@@ -1,4 +1,4 @@
-update=Mon Jan  6 22:35:49 2020
+update=Tue Jan  7 10:52:25 2020
 version=1
 last_client=kicad
 [general]
@@ -12,16 +12,6 @@ NetIExt=net
 version=1
 LibDir=
 [eeschema/libraries]
-[schematic_editor]
-version=1
-PageLayoutDescrFile=/home/alexios/PROJECTS/HARDWARE/cft/kicad/layout/a3-layout.kicad_wks
-PlotDirectoryName=
-SubpartIdSeparator=0
-SubpartFirstId=65
-NetFmtName=
-SpiceAjustPassiveValues=0
-LabSize=50
-ERC_TestSimilarLabels=1
 [pcbnew]
 version=1
 PageLayoutDescrFile=/home/alexios/PROJECTS/HARDWARE/cft/kicad/layout/a3-layout.kicad_wks
@@ -32,7 +22,7 @@ AllowMicroVias=0
 AllowBlindVias=0
 RequireCourtyardDefinitions=0
 ProhibitOverlappingCourtyards=1
-MinTrackWidth=0.07619999999999999
+MinTrackWidth=0.08889999999999999
 MinViaDiameter=0.4
 MinViaDrill=0.3
 MinMicroViaDiameter=0.2
@@ -47,8 +37,8 @@ TrackWidth6=0.6096
 TrackWidth7=0.7874
 TrackWidth8=1.27
 TrackWidth9=1.778
-ViaDiameter1=0.6096
-ViaDrill1=0.4
+ViaDiameter1=0.508
+ViaDrill1=0.3
 ViaDiameter2=0.508
 ViaDrill2=0.3
 ViaDiameter3=0.6096
@@ -251,12 +241,22 @@ Enabled=0
 [pcbnew/Netclasses]
 [pcbnew/Netclasses/Default]
 Name=Default
-Clearance=0.1778
+Clearance=0.0889
 TrackWidth=0.1778
-ViaDiameter=0.6096
-ViaDrill=0.4
+ViaDiameter=0.508
+ViaDrill=0.3
 uViaDiameter=0.3
 uViaDrill=0.1
 dPairWidth=0.2
 dPairGap=0.25
 dPairViaGap=0.25
+[schematic_editor]
+version=1
+PageLayoutDescrFile=/home/alexios/PROJECTS/HARDWARE/cft/kicad/layout/a3-layout.kicad_wks
+PlotDirectoryName=
+SubpartIdSeparator=0
+SubpartFirstId=65
+NetFmtName=Pcbnew
+SpiceAjustPassiveValues=0
+LabSize=50
+ERC_TestSimilarLabels=1
