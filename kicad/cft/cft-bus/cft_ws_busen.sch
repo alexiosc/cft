@@ -161,7 +161,7 @@ AR Path="/5D44ECB5/5D33F70F" Ref="TP?"  Part="1"
 AR Path="/5D46B22D/5D33F70F" Ref="TP12"  Part="1" 
 F 0 "TP12" H 6050 1650 50  0000 L CNN
 F 1 "TestPoint" H 6158 1427 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Plated_Hole_D2.0mm" H 6300 1400 50  0001 C CNN
+F 2 "TestPoint:TestPoint_Pad_1.5x1.5mm" H 6300 1400 50  0001 C CNN
 F 3 "~" H 6300 1400 50  0001 C CNN
 	1    6100 1400
 	-1   0    0    1   
@@ -177,7 +177,7 @@ AR Path="/5D44ECB5/5D33F718" Ref="TP?"  Part="1"
 AR Path="/5D46B22D/5D33F718" Ref="TP14"  Part="1" 
 F 0 "TP14" V 4600 2000 50  0000 L CNN
 F 1 "TestPoint" H 4758 2027 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Plated_Hole_D2.0mm" H 4900 2000 50  0001 C CNN
+F 2 "TestPoint:TestPoint_Pad_1.5x1.5mm" H 4900 2000 50  0001 C CNN
 F 3 "~" H 4900 2000 50  0001 C CNN
 	1    4700 2000
 	0    1    1    0   
@@ -195,7 +195,7 @@ AR Path="/5D44ECB5/5D33F721" Ref="TP?"  Part="1"
 AR Path="/5D46B22D/5D33F721" Ref="TP13"  Part="1" 
 F 0 "TP13" H 3750 2234 50  0000 C CNN
 F 1 "TestPoint" H 3808 2027 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Plated_Hole_D2.0mm" H 3950 2000 50  0001 C CNN
+F 2 "TestPoint:TestPoint_Pad_1.5x1.5mm" H 3950 2000 50  0001 C CNN
 F 3 "~" H 3950 2000 50  0001 C CNN
 	1    3750 2000
 	1    0    0    -1  
@@ -582,21 +582,6 @@ F 3 "http://www.ti.com/lit/gpn/sn74HC245" H 5750 6900 50  0001 C CNN
 $EndComp
 $Comp
 L Device:C_Small C?
-U 1 1 5E214C00
-P 3950 6550
-AR Path="/5CC0D65F/5E214C00" Ref="C?"  Part="1" 
-AR Path="/5E214C00" Ref="C?"  Part="1" 
-AR Path="/5D4D9B4A/5E214C00" Ref="C?"  Part="1" 
-AR Path="/5D46B22D/5E214C00" Ref="C38"  Part="1" 
-F 0 "C38" H 3859 6596 50  0000 R CNN
-F 1 "100nF" H 3859 6505 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 3950 6550 50  0001 C CNN
-F 3 "~" H 3950 6550 50  0001 C CNN
-	1    3950 6550
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
 U 1 1 5E214C06
 P 5400 6450
 AR Path="/5CC0D65F/5E214C06" Ref="C?"  Part="1" 
@@ -669,7 +654,7 @@ AR Path="/5D44ECB5/5E2DFCE5" Ref="TP?"  Part="1"
 AR Path="/5D46B22D/5E2DFCE5" Ref="TP11"  Part="1" 
 F 0 "TP11" H 6600 1200 50  0000 L CNN
 F 1 "TestPoint" H 6708 977 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Plated_Hole_D2.0mm" H 6850 950 50  0001 C CNN
+F 2 "TestPoint:TestPoint_Pad_1.5x1.5mm" H 6850 950 50  0001 C CNN
 F 3 "~" H 6850 950 50  0001 C CNN
 	1    6650 950 
 	1    0    0    -1  
@@ -704,7 +689,7 @@ AR Path="/5D44ECB5/5E2D2825" Ref="TP?"  Part="1"
 AR Path="/5D46B22D/5E2D2825" Ref="TP15"  Part="1" 
 F 0 "TP15" H 6250 4850 50  0000 R CNN
 F 1 "TestPoint" H 6208 4627 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Plated_Hole_D2.0mm" H 6350 4600 50  0001 C CNN
+F 2 "TestPoint:TestPoint_Pad_1.5x1.5mm" H 6350 4600 50  0001 C CNN
 F 3 "~" H 6350 4600 50  0001 C CNN
 	1    6150 4600
 	-1   0    0    1   
@@ -1114,8 +1099,6 @@ Connection ~ 2500 7350
 Connection ~ 2500 7150
 Text Notes 6500 2550 0    50   ~ 0
 WSTB\n\n  X\n  X\n  X\n  1\n  0
-Text Notes 7350 3000 0    50   ~ 0
-Wait States must be asserted:\n\n• In the first half of the processor cycle.\n• At the latest one flip-flop setup time before CLK3 goes high.\n• Remain low at least one hold time after CLK3 goes high.\n\nExecution of the current microinstruction will then be protracted by a whole\nnumber of processor cycles, ending on the cycle where ~WS~ was not asserted\non the rising edge of CLK3.\n\nTo generate wait states for slow devices, assert ~WS~ asynchronously when the device\nis addressed, and clear it synchronously when CLK4 or WSTB go high *after* the\ndevice has finished its work. (CLK4 is the better choice)\n\n\n\n\n
 Text Notes 1800 2500 0    50   ~ 0
 ToDo: make this more immune to metastability.
 Text Notes 2675 3550 0    50   ~ 10
@@ -1195,4 +1178,21 @@ Wire Bus Line
 	8750 3250 8750 5600
 Wire Bus Line
 	6850 3250 6850 5600
+Text Notes 7350 3000 0    50   ~ 0
+Wait States must be asserted:\n\n• In the first half of the processor cycle.\n• At the latest one flip-flop setup time before CLK3 goes high.\n• Remain low at least one hold time after CLK3 goes high.\n\nExecution of the current microinstruction will then be protracted by a whole\nnumber of processor cycles, ending on the cycle where ~WS~ was not asserted\non the rising edge of CLK3.\n\nTo generate wait states for slow devices, assert ~WS~ asynchronously when the device\nis addressed, and clear it synchronously when CLK4 or WSTB go high *after* the\ndevice has finished its work. (CLK4 is the better choice)\n\n\n\n\n
+$Comp
+L Device:C_Small C?
+U 1 1 5E7D5FA4
+P 3950 6550
+AR Path="/5CC0D65F/5E7D5FA4" Ref="C?"  Part="1" 
+AR Path="/5E7D5FA4" Ref="C?"  Part="1" 
+AR Path="/5D4D9B4A/5E7D5FA4" Ref="C?"  Part="1" 
+AR Path="/5D46B22D/5E7D5FA4" Ref="C38"  Part="1" 
+F 0 "C38" H 3859 6596 50  0000 R CNN
+F 1 "100nF" H 3859 6505 50  0000 R CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 3950 6550 50  0001 C CNN
+F 3 "~" H 3950 6550 50  0001 C CNN
+	1    3950 6550
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

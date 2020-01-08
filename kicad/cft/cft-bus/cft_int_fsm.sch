@@ -239,8 +239,8 @@ U 1 1 5DEFC7B9
 P 8950 4450
 AR Path="/5F67D4B5/5DEFC7B9" Ref="U?"  Part="2" 
 AR Path="/5DF0FEDA/5DEFC7B9" Ref="U27"  Part="1" 
-F 0 "U27" H 8950 4867 50  0000 C CNN
-F 1 "74AC74" H 8950 4776 50  0000 C CNN
+F 0 "U27" H 8950 4050 50  0000 C CNN
+F 1 "74AC74" H 8950 4150 50  0000 C CNN
 F 2 "alexios:SOIC-14" H 8950 4450 50  0001 C CNN
 F 3 "74xx/74hc_hct74.pdf" H 8950 4450 50  0001 C CNN
 	1    8950 4450
@@ -279,7 +279,7 @@ AR Path="/5F67D4B5/5F9307F3" Ref="TP?"  Part="1"
 AR Path="/5DF0FEDA/5F9307F3" Ref="TP9"  Part="1" 
 F 0 "TP9" V 7250 4888 50  0000 L CNN
 F 1 "TestPoint" H 7308 4727 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Keystone_5010-5014_Multipurpose" H 7450 4700 50  0001 C CNN
+F 2 "TestPoint:TestPoint_Pad_1.5x1.5mm" H 7450 4700 50  0001 C CNN
 F 3 "~" H 7450 4700 50  0001 C CNN
 	1    7250 4700
 	0    1    1    0   
@@ -355,7 +355,7 @@ AR Path="/5F67D4B5/5D12B3FF" Ref="TP?"  Part="1"
 AR Path="/5DF0FEDA/5D12B3FF" Ref="TP7"  Part="1" 
 F 0 "TP7" V 7450 3538 50  0000 L CNN
 F 1 "TestPoint" H 7508 3377 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Keystone_5010-5014_Multipurpose" H 7650 3350 50  0001 C CNN
+F 2 "TestPoint:TestPoint_Pad_1.5x1.5mm" H 7650 3350 50  0001 C CNN
 F 3 "~" H 7650 3350 50  0001 C CNN
 	1    7450 3350
 	0    1    1    0   
@@ -728,7 +728,7 @@ AR Path="/5F67D4B5/5DEFC7E4" Ref="TP?"  Part="1"
 AR Path="/5DF0FEDA/5DEFC7E4" Ref="TP8"  Part="1" 
 F 0 "TP8" V 9400 4488 50  0000 L CNN
 F 1 "TestPoint" H 9458 4327 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Keystone_5010-5014_Multipurpose" H 9600 4300 50  0001 C CNN
+F 2 "TestPoint:TestPoint_Pad_1.5x1.5mm" H 9600 4300 50  0001 C CNN
 F 3 "~" H 9600 4300 50  0001 C CNN
 	1    9400 4300
 	0    1    1    0   
@@ -741,7 +741,7 @@ AR Path="/5F67D4B5/5E5274EB" Ref="TP?"  Part="1"
 AR Path="/5DF0FEDA/5E5274EB" Ref="TP10"  Part="1" 
 F 0 "TP10" V 9400 5138 50  0000 L CNN
 F 1 "TestPoint" H 9458 4977 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Keystone_5010-5014_Multipurpose" H 9600 4950 50  0001 C CNN
+F 2 "TestPoint:TestPoint_Pad_1.5x1.5mm" H 9600 4950 50  0001 C CNN
 F 3 "~" H 9600 4950 50  0001 C CNN
 	1    9400 4950
 	0    1    1    0   

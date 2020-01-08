@@ -415,7 +415,7 @@ NoConn ~ 7800 4800
 Wire Wire Line
 	9500 2400 10000 2400
 Wire Wire Line
-	9500 2300 10000 2300
+	9500 4900 10000 4900
 Wire Wire Line
 	9500 1600 9850 1600
 Wire Wire Line
@@ -448,15 +448,15 @@ Wire Bus Line
 	10050 1350 10350 1350
 Text Label 10350 1350 2    50   ~ 0
 IR[0..6]
-Text Label 10000 3200 2    50   ~ 0
+Text Label 10000 5100 2    50   ~ 0
 ~FLAGWE
-Text Label 10000 2300 2    50   ~ 0
+Text Label 10000 4900 2    50   ~ 0
 FL
-Text Label 10000 2400 2    50   ~ 0
+Text Label 10000 5000 2    50   ~ 0
 FV
-Text Notes 10050 2300 0    50   ~ 0
+Text Notes 10050 4900 0    50   ~ 0
 → ALU
-Text Notes 10050 2400 0    50   ~ 0
+Text Notes 10050 5000 0    50   ~ 0
 → ALU
 Text Notes 10050 2200 0    50   ~ 0
 ← Control Unit
@@ -484,44 +484,6 @@ Text Label 7800 4300 0    50   ~ 0
 ~RUEN
 Text Label 7800 4400 0    50   ~ 0
 ~WUEN
-$Comp
-L Connector:TestPoint TP?
-U 1 1 5DF10033
-P 9100 6150
-AR Path="/5DF75CDE/5DF10033" Ref="TP?"  Part="1" 
-AR Path="/5DF10033" Ref="TP5"  Part="1" 
-AR Path="/5DD3D79F/5DF10033" Ref="TP?"  Part="1" 
-F 0 "TP5" V 9100 6338 50  0000 L CNN
-F 1 "TestPoint" H 9158 6177 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Pad_1.0x1.0mm" H 9300 6150 50  0001 C CNN
-F 3 "~" H 9300 6150 50  0001 C CNN
-	1    9100 6150
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	9100 6150 8350 6150
-Text Label 8350 6250 0    50   ~ 0
-~ACTION-110
-Text Label 8350 6150 0    50   ~ 0
-~ACTION-101
-$Comp
-L Connector:TestPoint TP?
-U 1 1 5DF1003C
-P 9100 6250
-AR Path="/5DF75CDE/5DF1003C" Ref="TP?"  Part="1" 
-AR Path="/5DF1003C" Ref="TP6"  Part="1" 
-AR Path="/5DD3D79F/5DF1003C" Ref="TP?"  Part="1" 
-F 0 "TP6" V 9100 6438 50  0000 L CNN
-F 1 "TestPoint" H 9158 6277 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Pad_1.0x1.0mm" H 9300 6250 50  0001 C CNN
-F 3 "~" H 9300 6250 50  0001 C CNN
-	1    9100 6250
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	9100 6250 8350 6250
-Text Notes 8350 6000 0    50   ~ 0
-Actions for future expansion
 Wire Bus Line
 	1750 3700 900  3700
 Text Label 900  3700 0    50   ~ 0
@@ -667,9 +629,9 @@ Text Label 7300 2300 2    50   ~ 0
 ~FLAGWE
 Text Label 10000 2800 2    50   ~ 0
 ~IRQSµC
-Text Label 10000 3000 2    50   ~ 0
+Text Label 10000 5200 2    50   ~ 0
 ~ACTION-CPL
-Text Label 10000 3100 2    50   ~ 0
+Text Label 10000 5300 2    50   ~ 0
 ~ACTION-CLL
 Text Label 900  1950 0    50   ~ 0
 WADDR[0..4]
@@ -736,7 +698,7 @@ Text Label 4300 3800 0    50   ~ 0
 ACTION[0..3]
 Wire Bus Line
 	5150 3800 4300 3800
-Text Label 10000 2900 2    50   ~ 0
+Text Label 10000 3000 2    50   ~ 0
 ~END
 Text Label 10000 2500 2    50   ~ 0
 FZ
@@ -965,9 +927,9 @@ Wire Wire Line
 Wire Wire Line
 	10000 2900 9500 2900
 Wire Wire Line
-	10000 3000 9500 3000
+	10000 5200 9500 5200
 Wire Wire Line
-	10000 3100 9500 3100
+	10000 5300 9500 5300
 Wire Wire Line
 	10000 3400 9500 3400
 Wire Wire Line
@@ -999,15 +961,9 @@ Wire Wire Line
 Wire Wire Line
 	10000 4800 9500 4800
 Wire Wire Line
-	10000 4900 9500 4900
-Wire Wire Line
 	10000 5000 9500 5000
 Wire Wire Line
 	10000 5100 9500 5100
-Wire Wire Line
-	10000 5200 9500 5200
-Wire Wire Line
-	10000 5300 9500 5300
 Wire Wire Line
 	10000 5400 9500 5400
 Wire Wire Line
@@ -1016,14 +972,26 @@ Text Notes 10050 2800 0    50   ~ 0
 → Control Unit
 Text Notes 10050 2900 0    50   ~ 0
 ← Control Unit
-Text Notes 10050 3000 0    50   ~ 0
+Text Notes 10050 5200 0    50   ~ 0
 → ALU
-Text Notes 10050 3100 0    50   ~ 0
+Text Notes 10050 5300 0    50   ~ 0
 → ALU
-Text Notes 10050 3200 0    50   ~ 0
+Text Notes 10050 5100 0    50   ~ 0
 → ALU
 Text Notes 10050 5500 0    50   ~ 0
 ← Front Panel
+Text Label 10000 2900 2    50   ~ 0
+~WEN
+Text Notes 10050 3000 0    50   ~ 0
+← Control Unit
+Wire Wire Line
+	10000 3000 9500 3000
+Wire Wire Line
+	10000 3100 9500 3100
+Wire Wire Line
+	10000 2300 9500 2300
+NoConn ~ 10000 2300
+NoConn ~ 10000 2400
 Wire Bus Line
 	9950 1450 9950 2100
 $EndSCHEMATC
