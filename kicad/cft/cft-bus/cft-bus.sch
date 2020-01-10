@@ -53,10 +53,10 @@ Wire Bus Line
 	6300 1100 7300 1100
 Text Label 7300 1100 2    50   ~ 0
 IBUS[0..15]
-Text Label 7300 2500 2    50   ~ 0
+Text Label 7450 2500 2    50   ~ 0
 FPD[0..7]
 Wire Bus Line
-	6300 2500 7300 2500
+	6300 2500 7450 2500
 Wire Wire Line
 	5150 3450 4300 3450
 Wire Wire Line
@@ -582,7 +582,7 @@ Wire Wire Line
 Text Label 3500 2850 3    50   ~ 0
 ~WRITE-AR-MBx
 Wire Wire Line
-	6300 3450 6550 3450
+	6300 3450 6700 3450
 Text Label 6350 3450 0    50   ~ 0
 FI
 Wire Wire Line
@@ -624,8 +624,8 @@ FN
 Text Label 4300 2500 0    50   ~ 0
 ~FPFLAGS
 Wire Wire Line
-	6300 2300 6650 2300
-Text Label 7300 2300 2    50   ~ 0
+	6300 2300 6800 2300
+Text Label 7450 2300 2    50   ~ 0
 ~FLAGWE
 Text Label 10000 2800 2    50   ~ 0
 ~IRQSµC
@@ -670,13 +670,13 @@ RADDR[0..4]
 Wire Bus Line
 	1750 5700 900  5700
 Wire Wire Line
-	6550 3450 6550 1700
+	6700 3450 6700 1700
 Wire Wire Line
-	6300 3550 6650 3550
+	6300 3550 6800 3550
 Wire Wire Line
-	6650 3550 6650 2300
+	6800 3550 6800 2300
 Wire Wire Line
-	6900 2300 7300 2300
+	7050 2300 7450 2300
 $Sheet
 S 5150 3350 1150 1050
 U 5DF0FEDA
@@ -711,7 +711,7 @@ Wire Wire Line
 $Comp
 L Device:R_Small R1
 U 1 1 5E75298B
-P 6800 2300
+P 6950 2300
 AR Path="/5E75298B" Ref="R1"  Part="1" 
 AR Path="/5CC0D65F/5E75298B" Ref="R?"  Part="1" 
 AR Path="/5D54E677/5E75298B" Ref="R?"  Part="1" 
@@ -720,16 +720,16 @@ AR Path="/5DEAC282/5E75298B" Ref="R?"  Part="1"
 AR Path="/5F67D4B5/5E75298B" Ref="R?"  Part="1" 
 AR Path="/5DF0FEDA/5E75298B" Ref="R?"  Part="1" 
 AR Path="/5DF0FECB/5E75298B" Ref="R?"  Part="1" 
-F 0 "R1" V 6604 2300 50  0000 C CNN
-F 1 "30Ω" V 6695 2300 50  0000 C CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 6800 2300 50  0001 C CNN
-F 3 "~" H 6800 2300 50  0001 C CNN
-	1    6800 2300
+F 0 "R1" V 6754 2300 50  0000 C CNN
+F 1 "30Ω" V 6845 2300 50  0000 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 6950 2300 50  0001 C CNN
+F 3 "~" H 6950 2300 50  0001 C CNN
+	1    6950 2300
 	0    1    1    0   
 $EndComp
 Wire Wire Line
-	6650 2300 6700 2300
-Connection ~ 6650 2300
+	6800 2300 6850 2300
+Connection ~ 6800 2300
 Wire Wire Line
 	2900 4050 3750 4050
 Wire Wire Line
@@ -808,7 +808,7 @@ Wire Wire Line
 Wire Wire Line
 	5150 1850 4300 1850
 Wire Wire Line
-	6300 1700 6550 1700
+	6300 1700 6700 1700
 Text Label 10000 5500 2    50   ~ 0
 ~FPFLAGS
 Wire Wire Line
@@ -992,6 +992,8 @@ Wire Wire Line
 	10000 2300 9500 2300
 NoConn ~ 10000 2300
 NoConn ~ 10000 2400
+Text Label 6350 2300 0    50   ~ 0
+~FLAGWE'
 Wire Bus Line
 	9950 1450 9950 2100
 $EndSCHEMATC

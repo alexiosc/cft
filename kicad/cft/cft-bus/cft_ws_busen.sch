@@ -69,7 +69,7 @@ AR Path="/5D44ECB5/5D33F674" Ref="C?"  Part="1"
 AR Path="/5D46B22D/5D33F674" Ref="C37"  Part="1" 
 F 0 "C37" H 2409 6596 50  0000 R CNN
 F 1 "100nF" H 2409 6505 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 2500 6550 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2500 6550 50  0001 C CNN
 F 3 "~" H 2500 6550 50  0001 C CNN
 	1    2500 6550
 	1    0    0    -1  
@@ -115,7 +115,7 @@ AR Path="/5D44ECB5/5D33F68E" Ref="C?"  Part="1"
 AR Path="/5D46B22D/5D33F68E" Ref="C41"  Part="1" 
 F 0 "C41" H 5309 7296 50  0000 R CNN
 F 1 "100nF" H 5309 7205 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 5400 7250 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5400 7250 50  0001 C CNN
 F 3 "~" H 5400 7250 50  0001 C CNN
 	1    5400 7250
 	1    0    0    -1  
@@ -213,7 +213,7 @@ AR Path="/5D44ECB5/5D33F777" Ref="C?"  Part="1"
 AR Path="/5D46B22D/5D33F777" Ref="C40"  Part="1" 
 F 0 "C40" H 3859 7296 50  0000 R CNN
 F 1 "100nF" H 3859 7205 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 3950 7250 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3950 7250 50  0001 C CNN
 F 3 "~" H 3950 7250 50  0001 C CNN
 	1    3950 7250
 	1    0    0    -1  
@@ -289,7 +289,7 @@ AR Path="/5D44ECB5/5D33F7C1" Ref="C?"  Part="1"
 AR Path="/5D46B22D/5D33F7C1" Ref="C42"  Part="1" 
 F 0 "C42" H 909 7346 50  0000 R CNN
 F 1 "100nF" H 909 7255 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 1000 7300 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1000 7300 50  0001 C CNN
 F 3 "~" H 1000 7300 50  0001 C CNN
 	1    1000 7300
 	1    0    0    -1  
@@ -335,7 +335,7 @@ AR Path="/5D44ECB5/5D33F5E1" Ref="C?"  Part="1"
 AR Path="/5D46B22D/5D33F5E1" Ref="C36"  Part="1" 
 F 0 "C36" H 959 6596 50  0000 R CNN
 F 1 "100nF" H 959 6505 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 1050 6550 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1050 6550 50  0001 C CNN
 F 3 "~" H 1050 6550 50  0001 C CNN
 	1    1050 6550
 	1    0    0    -1  
@@ -351,7 +351,7 @@ AR Path="/5D44ECB5/5D4281C6" Ref="C?"  Part="1"
 AR Path="/5D46B22D/5D4281C6" Ref="C39"  Part="1" 
 F 0 "C39" H 2409 7296 50  0000 R CNN
 F 1 "100nF" H 2409 7205 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 2500 7250 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2500 7250 50  0001 C CNN
 F 3 "~" H 2500 7250 50  0001 C CNN
 	1    2500 7250
 	1    0    0    -1  
@@ -590,7 +590,7 @@ AR Path="/5D4D9B4A/5E214C06" Ref="C?"  Part="1"
 AR Path="/5D46B22D/5E214C06" Ref="C35"  Part="1" 
 F 0 "C35" H 5309 6496 50  0000 R CNN
 F 1 "100nF" H 5309 6405 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 5400 6450 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5400 6450 50  0001 C CNN
 F 3 "~" H 5400 6450 50  0001 C CNN
 	1    5400 6450
 	1    0    0    -1  
@@ -1174,10 +1174,6 @@ F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 3300 6550 50  0001 C CNN
 $EndComp
 Connection ~ 2500 6650
 Connection ~ 2500 6450
-Wire Bus Line
-	8750 3250 8750 5600
-Wire Bus Line
-	6850 3250 6850 5600
 Text Notes 7350 3000 0    50   ~ 0
 Wait States must be asserted:\n\n• In the first half of the processor cycle.\n• At the latest one flip-flop setup time before CLK3 goes high.\n• Remain low at least one hold time after CLK3 goes high.\n\nExecution of the current microinstruction will then be protracted by a whole\nnumber of processor cycles, ending on the cycle where ~WS~ was not asserted\non the rising edge of CLK3.\n\nTo generate wait states for slow devices, assert ~WS~ asynchronously when the device\nis addressed, and clear it synchronously when CLK4 or WSTB go high *after* the\ndevice has finished its work. (CLK4 is the better choice)\n\n\n\n\n
 $Comp
@@ -1190,9 +1186,13 @@ AR Path="/5D4D9B4A/5E7D5FA4" Ref="C?"  Part="1"
 AR Path="/5D46B22D/5E7D5FA4" Ref="C38"  Part="1" 
 F 0 "C38" H 3859 6596 50  0000 R CNN
 F 1 "100nF" H 3859 6505 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 3950 6550 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3950 6550 50  0001 C CNN
 F 3 "~" H 3950 6550 50  0001 C CNN
 	1    3950 6550
 	1    0    0    -1  
 $EndComp
+Wire Bus Line
+	8750 3250 8750 5600
+Wire Bus Line
+	6850 3250 6850 5600
 $EndSCHEMATC
