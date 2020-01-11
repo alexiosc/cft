@@ -996,4 +996,8 @@ Text Label 6350 2300 0    50   ~ 0
 ~FLAGWE'
 Wire Bus Line
 	9950 1450 9950 2100
+Text Label 10000 5400 2    50   ~ 0
+~FPRAM~∕ROM
+Text Notes 10050 5400 0    50   ~ 0
+← Front Panel
 $EndSCHEMATC
