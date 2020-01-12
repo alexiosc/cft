@@ -415,7 +415,7 @@ NoConn ~ 7800 4800
 Wire Wire Line
 	9500 2400 10000 2400
 Wire Wire Line
-	9500 4900 10000 4900
+	9500 4800 10000 4800
 Wire Wire Line
 	9500 1600 9850 1600
 Wire Wire Line
@@ -448,15 +448,15 @@ Wire Bus Line
 	10050 1350 10350 1350
 Text Label 10350 1350 2    50   ~ 0
 IR[0..6]
-Text Label 10000 5100 2    50   ~ 0
-~FLAGWE
-Text Label 10000 4900 2    50   ~ 0
-FL
 Text Label 10000 5000 2    50   ~ 0
+~FLAGWE
+Text Label 10000 4800 2    50   ~ 0
+FL
+Text Label 10000 4900 2    50   ~ 0
 FV
-Text Notes 10050 4900 0    50   ~ 0
+Text Notes 10050 4800 0    50   ~ 0
 → ALU
-Text Notes 10050 5000 0    50   ~ 0
+Text Notes 10050 4900 0    50   ~ 0
 → ALU
 Text Notes 10050 2200 0    50   ~ 0
 ← Control Unit
@@ -629,10 +629,6 @@ Text Label 7450 2300 2    50   ~ 0
 ~FLAGWE
 Text Label 10000 2800 2    50   ~ 0
 ~IRQSµC
-Text Label 10000 5200 2    50   ~ 0
-~ACTION-CPL
-Text Label 10000 5300 2    50   ~ 0
-~ACTION-CLL
 Text Label 900  1950 0    50   ~ 0
 WADDR[0..4]
 Text Label 900  1850 0    50   ~ 0
@@ -927,10 +923,6 @@ Wire Wire Line
 Wire Wire Line
 	10000 2900 9500 2900
 Wire Wire Line
-	10000 5200 9500 5200
-Wire Wire Line
-	10000 5300 9500 5300
-Wire Wire Line
 	10000 3400 9500 3400
 Wire Wire Line
 	10000 3500 9500 3500
@@ -959,11 +951,9 @@ Wire Wire Line
 Wire Wire Line
 	10000 4700 9500 4700
 Wire Wire Line
-	10000 4800 9500 4800
+	10000 4900 9500 4900
 Wire Wire Line
 	10000 5000 9500 5000
-Wire Wire Line
-	10000 5100 9500 5100
 Wire Wire Line
 	10000 5400 9500 5400
 Wire Wire Line
@@ -972,11 +962,7 @@ Text Notes 10050 2800 0    50   ~ 0
 → Control Unit
 Text Notes 10050 2900 0    50   ~ 0
 ← Control Unit
-Text Notes 10050 5200 0    50   ~ 0
-→ ALU
-Text Notes 10050 5300 0    50   ~ 0
-→ ALU
-Text Notes 10050 5100 0    50   ~ 0
+Text Notes 10050 5000 0    50   ~ 0
 → ALU
 Text Notes 10050 5500 0    50   ~ 0
 ← Front Panel
@@ -994,10 +980,20 @@ NoConn ~ 10000 2300
 NoConn ~ 10000 2400
 Text Label 6350 2300 0    50   ~ 0
 ~FLAGWE'
-Wire Bus Line
-	9950 1450 9950 2100
-Text Label 10000 5400 2    50   ~ 0
+Text Label 10000 5300 2    50   ~ 0
 ~FPRAM~∕ROM
 Text Notes 10050 5400 0    50   ~ 0
 ← Front Panel
+Wire Wire Line
+	9500 5300 10000 5300
+Text Notes 10050 5300 0    50   ~ 0
+← Front Panel
+Text Label 10000 5400 2    50   ~ 0
+~FPAEXT
+Wire Wire Line
+	10000 5100 9500 5100
+Wire Wire Line
+	10000 5200 9500 5200
+Wire Bus Line
+	9950 1450 9950 2100
 $EndSCHEMATC
