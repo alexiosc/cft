@@ -1,9 +1,10 @@
 EESchema Schematic File Version 4
-EELAYER 30 0
+LIBS:cft-bus-cache
+EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 1 8
+Sheet 1 6
 Title "Peripheral Bus Interface etc."
 Date ""
 Rev ""
@@ -13,74 +14,6 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-$Sheet
-S 1750 5550 1150 450 
-U 5DF0FEB9
-F0 "Constant Store" 50
-F1 "cpu_cs.sch" 50
-F2 "~RUEN" I L 1750 5850 50 
-F3 "RADDR[0..4]" I L 1750 5700 50 
-F4 "IBUS[0..15]" B R 2900 5700 50 
-$EndSheet
-$Sheet
-S 5150 950  1150 1700
-U 5DF0FECB
-F0 "sheet5DF0FEB2" 50
-F1 "flag_unit.sch" 50
-F2 "FPD[0..7]" T R 6300 2500 50 
-F3 "IBUS[8..15]" T R 6300 1100 50 
-F4 "~FPFLAGS" I L 5150 2500 50 
-F5 "WADDR[0..4]" I L 5150 1100 50 
-F6 "RADDR[0..4]" I L 5150 1250 50 
-F7 "FI" I R 6300 1700 50 
-F8 "FV" I L 5150 1400 50 
-F9 "FL" I L 5150 1500 50 
-F10 "FZ" I L 5150 1600 50 
-F11 "FN" I L 5150 1700 50 
-F12 "~FLAGWE" O R 6300 2300 50 
-F13 "~WRITE-MBP+FLAGS" I L 5150 2100 50 
-F14 "~WRITE-FLAGS" I L 5150 2200 50 
-F15 "~READ-MBP+FLAGS" I L 5150 1850 50 
-F16 "~READ-FLAGS" I L 5150 1950 50 
-$EndSheet
-Text Notes 5500 4350 0    70   ~ 14
-Verilog
-Wire Bus Line
-	2900 5700 3750 5700
-Text Label 3750 5700 2    50   ~ 0
-IBUS[0..15]
-Wire Bus Line
-	6300 1100 7300 1100
-Text Label 7300 1100 2    50   ~ 0
-IBUS[0..15]
-Text Label 7450 2500 2    50   ~ 0
-FPD[0..7]
-Wire Bus Line
-	6300 2500 7450 2500
-Wire Wire Line
-	5150 3450 4300 3450
-Wire Wire Line
-	5150 3550 4300 3550
-Wire Wire Line
-	5150 3650 4300 3650
-Wire Wire Line
-	5150 3950 4300 3950
-Wire Wire Line
-	5150 4150 4300 4150
-Wire Wire Line
-	5150 4300 4300 4300
-Text Label 4300 3450 0    50   ~ 0
-~RESET
-Text Label 4300 3550 0    50   ~ 0
-CLK1
-Text Label 4300 3650 0    50   ~ 0
-CLK4
-Text Label 4300 3950 0    50   ~ 0
-IBUS15
-Text Label 4300 4150 0    50   ~ 0
-~END
-Text Label 4300 4300 0    50   ~ 0
-~IRQ
 $Sheet
 S 8350 1450 1150 4200
 U 5DF0FF3E
@@ -581,54 +514,6 @@ Wire Wire Line
 	2900 2750 3500 2750
 Text Label 3500 2850 3    50   ~ 0
 ~WRITE-AR-MBx
-Wire Wire Line
-	6300 3450 6700 3450
-Text Label 6350 3450 0    50   ~ 0
-FI
-Wire Wire Line
-	6300 4200 7300 4200
-Text Label 7300 4200 2    50   ~ 0
-~IRQS
-Wire Wire Line
-	6300 4300 7300 4300
-Text Label 7300 4300 2    50   ~ 0
-~IRQSµC
-Wire Bus Line
-	5150 1100 4300 1100
-Text Label 4300 1100 0    50   ~ 0
-WADDR[0..4]
-Wire Bus Line
-	5150 1250 4300 1250
-Text Label 4300 1250 0    50   ~ 0
-RADDR[0..4]
-Wire Wire Line
-	5150 1400 4300 1400
-Wire Wire Line
-	5150 1500 4300 1500
-Wire Wire Line
-	5150 1600 4300 1600
-Wire Wire Line
-	5150 1700 4300 1700
-Wire Wire Line
-	5150 2500 4300 2500
-Text Label 6350 1700 0    50   ~ 0
-FI
-Text Label 4300 1400 0    50   ~ 0
-FV
-Text Label 4300 1500 0    50   ~ 0
-FL
-Text Label 4300 1600 0    50   ~ 0
-FZ
-Text Label 4300 1700 0    50   ~ 0
-FN
-Text Label 4300 2500 0    50   ~ 0
-~FPFLAGS
-Wire Wire Line
-	6300 2300 6800 2300
-Text Label 7450 2300 2    50   ~ 0
-~FLAGWE
-Text Label 10000 2800 2    50   ~ 0
-~IRQSµC
 Text Label 900  1950 0    50   ~ 0
 WADDR[0..4]
 Text Label 900  1850 0    50   ~ 0
@@ -657,75 +542,12 @@ Text Label 900  2300 0    50   ~ 0
 ~RUEN
 Text Label 900  2400 0    50   ~ 0
 ~WUEN
-Wire Wire Line
-	1750 5850 900  5850
-Text Label 900  5850 0    50   ~ 0
-~RUEN
-Text Label 900  5700 0    50   ~ 0
-RADDR[0..4]
-Wire Bus Line
-	1750 5700 900  5700
-Wire Wire Line
-	6700 3450 6700 1700
-Wire Wire Line
-	6300 3550 6800 3550
-Wire Wire Line
-	6800 3550 6800 2300
-Wire Wire Line
-	7050 2300 7450 2300
-$Sheet
-S 5150 3350 1150 1050
-U 5DF0FEDA
-F0 "sheet5DF0FEB3" 50
-F1 "cft_int_fsm.sch" 50
-F2 "~IRQ" I L 5150 4300 50 
-F3 "~RESET" I L 5150 3450 50 
-F4 "FI" O R 6300 3450 50 
-F5 "~IRQS" O R 6300 4200 50 
-F6 "~END" I L 5150 4150 50 
-F7 "CLK4" I L 5150 3650 50 
-F8 "CLK1" I L 5150 3550 50 
-F9 "~IRQSµC" O R 6300 4300 50 
-F10 "IBUS15" I L 5150 3950 50 
-F11 "~FLAGWE" I R 6300 3550 50 
-F12 "ACTION[0..3]" I L 5150 3800 50 
-$EndSheet
-Text Label 4300 3800 0    50   ~ 0
-ACTION[0..3]
-Wire Bus Line
-	5150 3800 4300 3800
 Text Label 10000 3000 2    50   ~ 0
 ~END
-Text Label 10000 2500 2    50   ~ 0
-FZ
-Text Label 10000 2600 2    50   ~ 0
-FN
 Wire Wire Line
 	10000 2600 9500 2600
 Wire Wire Line
 	10000 2500 9500 2500
-$Comp
-L Device:R_Small R1
-U 1 1 5E75298B
-P 6950 2300
-AR Path="/5E75298B" Ref="R1"  Part="1" 
-AR Path="/5CC0D65F/5E75298B" Ref="R?"  Part="1" 
-AR Path="/5D54E677/5E75298B" Ref="R?"  Part="1" 
-AR Path="/5D62E1DC/5E75298B" Ref="R?"  Part="1" 
-AR Path="/5DEAC282/5E75298B" Ref="R?"  Part="1" 
-AR Path="/5F67D4B5/5E75298B" Ref="R?"  Part="1" 
-AR Path="/5DF0FEDA/5E75298B" Ref="R?"  Part="1" 
-AR Path="/5DF0FECB/5E75298B" Ref="R?"  Part="1" 
-F 0 "R1" V 6754 2300 50  0000 C CNN
-F 1 "30Ω" V 6845 2300 50  0000 C CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 6950 2300 50  0001 C CNN
-F 3 "~" H 6950 2300 50  0001 C CNN
-	1    6950 2300
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	6800 2300 6850 2300
-Connection ~ 6800 2300
 Wire Wire Line
 	2900 4050 3750 4050
 Wire Wire Line
@@ -787,24 +609,6 @@ Wire Wire Line
 	2900 2400 3750 2400
 Wire Wire Line
 	2900 2300 3750 2300
-Text Label 4300 1850 0    50   ~ 0
-~READ-MBP+FLAGS
-Text Label 4300 1950 0    50   ~ 0
-~READ-FLAGS
-Text Label 4300 2100 0    50   ~ 0
-~WRITE-MBP+FLAGS
-Text Label 4300 2200 0    50   ~ 0
-~WRITE-FLAGS
-Wire Wire Line
-	5150 2200 4300 2200
-Wire Wire Line
-	5150 2100 4300 2100
-Wire Wire Line
-	5150 1950 4300 1950
-Wire Wire Line
-	5150 1850 4300 1850
-Wire Wire Line
-	6300 1700 6700 1700
 Text Label 10000 5500 2    50   ~ 0
 ~FPFLAGS
 Wire Wire Line
@@ -813,8 +617,6 @@ Text Notes 8300 1100 0    100  ~ 20
 Edge Connector
 Text Notes 1400 1150 0    100  ~ 20
 Memory Bank Unit (MBU)
-Text Notes 1750 5350 0    100  ~ 20
-Constant Store
 $Sheet
 S 5150 5000 1150 1500
 U 5D46B22D
@@ -888,10 +690,6 @@ Text Notes 5825 6125 0    70   ~ 14
 Verilog
 Text Notes 4600 4800 0    100  ~ 20
 Data Bus Driver & Wait States
-Text Notes 5350 3150 0    100  ~ 20
-Interrupts
-Text Notes 5350 800  0    100  ~ 20
-Flag Unit
 Text Notes 1700 3250 0    100  ~ 20
 Address Register
 Wire Wire Line
@@ -910,8 +708,6 @@ Text Label 9850 2100 2    50   ~ 0
 IR10
 Text Label 9850 2200 2    50   ~ 0
 IR11
-Text Label 10000 2700 2    50   ~ 0
-FI
 Wire Wire Line
 	10000 2700 9500 2700
 Text Notes 10050 2600 0    50   ~ 0
@@ -978,8 +774,6 @@ Wire Wire Line
 	10000 2300 9500 2300
 NoConn ~ 10000 2300
 NoConn ~ 10000 2400
-Text Label 6350 2300 0    50   ~ 0
-~FLAGWE'
 Text Label 10000 5300 2    50   ~ 0
 ~FPRAM~∕ROM
 Text Notes 10050 5400 0    50   ~ 0
@@ -994,6 +788,31 @@ Wire Wire Line
 	10000 5100 9500 5100
 Wire Wire Line
 	10000 5200 9500 5200
+NoConn ~ 10000 2500
+NoConn ~ 10000 2600
+NoConn ~ 10000 2700
+NoConn ~ 10000 2800
+$Sheet
+S 1750 5350 1150 450 
+U 5E25A7FA
+F0 "Constant Store" 50
+F1 "cpu_cs.sch" 50
+F2 "~RUEN" I L 1750 5500 50 
+F3 "RADDR[0..4]" I L 1750 5650 50 
+F4 "IBUS[0..15]" B R 2900 5500 50 
+$EndSheet
+Wire Bus Line
+	2900 5500 3750 5500
+Text Label 3750 5500 2    50   ~ 0
+IBUS[0..15]
+Wire Wire Line
+	1750 5500 900  5500
+Text Label 900  5500 0    50   ~ 0
+~RUEN
+Text Label 900  5650 0    50   ~ 0
+RADDR[0..4]
+Wire Bus Line
+	1750 5650 900  5650
 Wire Bus Line
 	9950 1450 9950 2100
 $EndSCHEMATC

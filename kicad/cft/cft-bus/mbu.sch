@@ -1,9 +1,10 @@
 EESchema Schematic File Version 4
-EELAYER 30 0
+LIBS:cft-bus-cache
+EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 5 8
+Sheet 5 6
 Title "Memory Bank Unit"
 Date ""
 Rev ""
@@ -1301,7 +1302,7 @@ AR Path="/5CC0D65F/5F912FA2" Ref="C?"  Part="1"
 AR Path="/5F912FA2" Ref="C?"  Part="1" 
 AR Path="/5F3EA987/5F912FA2" Ref="C?"  Part="1" 
 AR Path="/61F95ACC/5F912FA2" Ref="C10"  Part="1" 
-F 0 "C10" H 11250 2000 50  0000 R CNN
+F 0 "C10" H 10059 2046 50  0000 R CNN
 F 1 "100nF" H 10059 1955 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10150 2000 50  0001 C CNN
 F 3 "~" H 10150 2000 50  0001 C CNN
