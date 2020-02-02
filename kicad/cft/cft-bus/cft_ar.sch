@@ -1,10 +1,9 @@
 EESchema Schematic File Version 4
-LIBS:cft-bus-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 7 6
+Sheet 4 6
 Title "24-bit Address Register (AR)"
 Date ""
 Rev ""
@@ -410,19 +409,6 @@ Wire Wire Line
 	2450 2150 1000 2150
 Text Label 1100 2150 0    50   ~ 0
 ~WRITE-AR
-$Comp
-L alexios:74AHC1G08 U?
-U 1 1 5CC20189
-P 1950 2500
-AR Path="/5CC0D65F/5CC20189" Ref="U?"  Part="1" 
-AR Path="/5CC06F10/5CC20189" Ref="U33"  Part="1" 
-F 0 "U33" H 1875 2767 50  0000 C CNN
-F 1 "74AHC1G08" H 1875 2676 50  0000 C CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 1600 2500 50  0001 C CNN
-F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 1600 2500 50  0001 C CNN
-	1    1950 2500
-	1    0    0    -1  
-$EndComp
 Text Label 1100 2450 0    50   ~ 0
 ~MEM
 Text HLabel 1000 2150 0    50   Input ~ 0
@@ -1655,20 +1641,6 @@ Entry Wire Line
 	6500 1800 6600 1900
 Text Label 6650 1900 0    50   ~ 0
 AR10
-$Comp
-L Jumper:Jumper_3_Bridged12 JP?
-U 1 1 5E742AE8
-P 1300 3000
-AR Path="/61F95ACC/63C9F04D/5E742AE8" Ref="JP?"  Part="1" 
-AR Path="/61F95ACC/5E742AE8" Ref="JP?"  Part="1" 
-AR Path="/5CC06F10/5E742AE8" Ref="JP13"  Part="1" 
-F 0 "JP13" V 1300 3067 50  0000 L CNN
-F 1 "Jumper_3_Bridged12" H 1300 3113 50  0001 C CNN
-F 2 "Jumper:SolderJumper-3_P1.3mm_Bridged12_RoundedPad1.0x1.5mm" H 1300 3000 50  0001 C CNN
-F 3 "~" H 1300 3000 50  0001 C CNN
-	1    1300 3000
-	0    -1   -1   0   
-$EndComp
 Wire Wire Line
 	1300 2650 1000 2650
 Wire Wire Line
@@ -1890,18 +1862,45 @@ F 3 "http://www.ti.com/lit/gpn/sn74HC541" H 5500 7400 50  0001 C CNN
 $EndComp
 Text Notes 6450 3100 1    50   ~ 0
 AR15 & AR14 purposefully swapped.
+$Comp
+L alexios:74AHC1G08 U?
+U 1 1 5CC20189
+P 1950 2500
+AR Path="/5CC0D65F/5CC20189" Ref="U?"  Part="1" 
+AR Path="/5CC06F10/5CC20189" Ref="U33"  Part="1" 
+F 0 "U33" H 1875 2233 50  0000 C CNN
+F 1 "74AHC1G08" H 1875 2324 50  0000 C CNN
+F 2 "alexios:SOT-23-5_HandSoldering" H 1600 2500 50  0001 C CNN
+F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 1600 2500 50  0001 C CNN
+	1    1950 2500
+	1    0    0    1   
+$EndComp
 Wire Bus Line
 	7400 4550 7400 5250
+Wire Bus Line
+	9150 4750 9150 5500
+Wire Bus Line
+	4550 950  4550 5200
 Wire Bus Line
 	6500 950  6500 2300
 Wire Bus Line
 	2650 1600 2650 5200
 Wire Bus Line
-	9150 4750 9150 5500
-Wire Bus Line
-	2800 1050 2800 3500
-Wire Bus Line
 	6200 1350 6200 5900
 Wire Bus Line
-	4550 950  4550 5200
+	2800 1050 2800 3500
+$Comp
+L Jumper:Jumper_3_Bridged12 JP?
+U 1 1 5E742AE8
+P 1300 3000
+AR Path="/61F95ACC/63C9F04D/5E742AE8" Ref="JP?"  Part="1" 
+AR Path="/61F95ACC/5E742AE8" Ref="JP?"  Part="1" 
+AR Path="/5CC06F10/5E742AE8" Ref="JP13"  Part="1" 
+F 0 "JP13" V 1300 3067 50  0000 L CNN
+F 1 "Jumper_3_Bridged12" H 1300 3113 50  0001 C CNN
+F 2 "Jumper:SolderJumper-3_P1.3mm_Bridged12_RoundedPad1.0x1.5mm" H 1300 3000 50  0001 C CNN
+F 3 "~" H 1300 3000 50  0001 C CNN
+	1    1300 3000
+	0    -1   -1   0   
+$EndComp
 $EndSCHEMATC

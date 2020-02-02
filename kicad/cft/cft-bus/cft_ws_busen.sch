@@ -1,10 +1,9 @@
 EESchema Schematic File Version 4
-LIBS:cft-bus-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 8 6
+Sheet 5 6
 Title "Data Bus & Wait States"
 Date ""
 Rev ""
@@ -159,10 +158,10 @@ AR Path="/5F67D4B5/5D33F70F" Ref="TP?"  Part="1"
 AR Path="/5D33F70F" Ref="TP?"  Part="1" 
 AR Path="/5D30488D/5D33F70F" Ref="TP?"  Part="1" 
 AR Path="/5D44ECB5/5D33F70F" Ref="TP?"  Part="1" 
-AR Path="/5D46B22D/5D33F70F" Ref="TP12"  Part="1" 
-F 0 "TP12" H 6050 1650 50  0000 L CNN
+AR Path="/5D46B22D/5D33F70F" Ref="TP2"  Part="1" 
+F 0 "TP2" H 6050 1650 50  0000 L CNN
 F 1 "TestPoint" H 6158 1427 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Pad_1.5x1.5mm" H 6300 1400 50  0001 C CNN
+F 2 "TestPoint:TestPoint_Pad_1.0x1.0mm" H 6300 1400 50  0001 C CNN
 F 3 "~" H 6300 1400 50  0001 C CNN
 	1    6100 1400
 	-1   0    0    1   
@@ -175,10 +174,10 @@ AR Path="/5F67D4B5/5D33F718" Ref="TP?"  Part="1"
 AR Path="/5D33F718" Ref="TP?"  Part="1" 
 AR Path="/5D30488D/5D33F718" Ref="TP?"  Part="1" 
 AR Path="/5D44ECB5/5D33F718" Ref="TP?"  Part="1" 
-AR Path="/5D46B22D/5D33F718" Ref="TP14"  Part="1" 
-F 0 "TP14" V 4600 2000 50  0000 L CNN
+AR Path="/5D46B22D/5D33F718" Ref="TP4"  Part="1" 
+F 0 "TP4" V 4600 2000 50  0000 L CNN
 F 1 "TestPoint" H 4758 2027 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Pad_1.5x1.5mm" H 4900 2000 50  0001 C CNN
+F 2 "TestPoint:TestPoint_Pad_1.0x1.0mm" H 4900 2000 50  0001 C CNN
 F 3 "~" H 4900 2000 50  0001 C CNN
 	1    4700 2000
 	0    1    1    0   
@@ -193,10 +192,10 @@ AR Path="/5F67D4B5/5D33F721" Ref="TP?"  Part="1"
 AR Path="/5D33F721" Ref="TP?"  Part="1" 
 AR Path="/5D30488D/5D33F721" Ref="TP?"  Part="1" 
 AR Path="/5D44ECB5/5D33F721" Ref="TP?"  Part="1" 
-AR Path="/5D46B22D/5D33F721" Ref="TP13"  Part="1" 
-F 0 "TP13" H 3750 2234 50  0000 C CNN
+AR Path="/5D46B22D/5D33F721" Ref="TP3"  Part="1" 
+F 0 "TP3" H 3750 2234 50  0000 C CNN
 F 1 "TestPoint" H 3808 2027 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Pad_1.5x1.5mm" H 3950 2000 50  0001 C CNN
+F 2 "TestPoint:TestPoint_Pad_1.0x1.0mm" H 3950 2000 50  0001 C CNN
 F 3 "~" H 3950 2000 50  0001 C CNN
 	1    3750 2000
 	1    0    0    -1  
@@ -652,10 +651,10 @@ AR Path="/5F67D4B5/5E2DFCE5" Ref="TP?"  Part="1"
 AR Path="/5E2DFCE5" Ref="TP?"  Part="1" 
 AR Path="/5D30488D/5E2DFCE5" Ref="TP?"  Part="1" 
 AR Path="/5D44ECB5/5E2DFCE5" Ref="TP?"  Part="1" 
-AR Path="/5D46B22D/5E2DFCE5" Ref="TP11"  Part="1" 
-F 0 "TP11" H 6600 1200 50  0000 L CNN
+AR Path="/5D46B22D/5E2DFCE5" Ref="TP1"  Part="1" 
+F 0 "TP1" H 6600 1200 50  0000 L CNN
 F 1 "TestPoint" H 6708 977 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Pad_1.5x1.5mm" H 6850 950 50  0001 C CNN
+F 2 "TestPoint:TestPoint_Pad_1.0x1.0mm" H 6850 950 50  0001 C CNN
 F 3 "~" H 6850 950 50  0001 C CNN
 	1    6650 950 
 	1    0    0    -1  
@@ -687,10 +686,10 @@ AR Path="/5F67D4B5/5E2D2825" Ref="TP?"  Part="1"
 AR Path="/5E2D2825" Ref="TP?"  Part="1" 
 AR Path="/5D30488D/5E2D2825" Ref="TP?"  Part="1" 
 AR Path="/5D44ECB5/5E2D2825" Ref="TP?"  Part="1" 
-AR Path="/5D46B22D/5E2D2825" Ref="TP15"  Part="1" 
-F 0 "TP15" H 6250 4850 50  0000 R CNN
+AR Path="/5D46B22D/5E2D2825" Ref="TP5"  Part="1" 
+F 0 "TP5" H 6250 4850 50  0000 R CNN
 F 1 "TestPoint" H 6208 4627 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Pad_1.5x1.5mm" H 6350 4600 50  0001 C CNN
+F 2 "TestPoint:TestPoint_Pad_1.0x1.0mm" H 6350 4600 50  0001 C CNN
 F 3 "~" H 6350 4600 50  0001 C CNN
 	1    6150 4600
 	-1   0    0    1   
