@@ -77,6 +77,12 @@ module reg_mbr_tb();
       $dumpfile ("vcd/mbu_tb.vcd");
       $dumpvars (0, reg_mbr_tb);
 
+      // Check if the ROM image was loaded
+      if (mbu.rom_ctl.mem[0] === 8'bxxxxxxxx) begin
+	 $error("FAIL: ROM image not found.");
+	 $finish;
+      end;
+
       $monitor ("t: %7d | %b %b | init=%b rom=%b | IR: %04x | %d %02x | waddr=%05b raddr=%05b ibus=%02x | regfile: %04x %02x ce=%b we=%b oe=%b | regs: %02x %02x %02x %02x %02x %02x %02x %02x",
       		$time,
 		waddr, raddr,
@@ -209,7 +215,7 @@ module reg_mbr_tb();
    	 #1000 ab = 8 | i;
 	 #250 nr = 0;
 	 #250 if (db_low !== { i[3:0] ^ 4'hf, i[3:0] }) begin
-	    $display(msg, "read (IN): ab=%04x, reg %d = %02x (should be %02x)",
+	    $display("read (IN): ab=%04x, reg %d = %02x (should be %02x)",
 		     ab, ab[2:0], db, { i[3:0] ^ 4'hf, i[3:0] });
 	    $error("assertion failure");
 	    #100 $finish;
@@ -388,6 +394,16 @@ module reg_mbr_tb();
    // VERIFY POST-RESET BEHAVIOUR
    //
    ///////////////////////////////////////////////////////////////////////////////
+
+   always @(mbu.sel) begin
+      if ((mbu.sel[0] !== 1'b0 && mbu.sel[0] !== 1'b1) ||
+	  (mbu.sel[1] !== 1'b0 && mbu.sel[1] !== 1'b1) ||
+	  (mbu.sel[2] !== 1'b0 && mbu.sel[2] !== 1'b1)) begin
+	 $display("FAIL: unacceptable value for mbu.sel: %b", mbu.sel);
+	 $error("assertion failure");
+	 #100 $finish;
+      end
+   end
 
    always @(nfpram_fprom, aext, mbu.ndis) begin
       if (nreset === 1'b1 && mbu.ndis === 1'b0) #50 begin

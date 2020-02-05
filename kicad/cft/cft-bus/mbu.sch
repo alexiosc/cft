@@ -1,12 +1,13 @@
 EESchema Schematic File Version 4
-EELAYER 30 0
+LIBS:cft-bus-cache
+EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 3 6
 Title "Memory Bank Unit"
 Date ""
-Rev ""
+Rev "2006"
 Comp ""
 Comment1 "BUS"
 Comment2 ""
@@ -217,8 +218,8 @@ F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 2600 5500 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	2100 5800 1800 5800
-Text Label 1800 5800 0    50   ~ 0
+	2100 5300 1800 5300
+Text Label 1800 5300 0    50   ~ 0
 WADDR4
 NoConn ~ 3100 5300
 NoConn ~ 3100 5400
@@ -366,7 +367,7 @@ Text Label 3150 4350 0    50   ~ 0
 ~WRITE-MBP+FLAGS
 Text Label 3150 4450 0    50   ~ 0
 ~WRITE-FLAGS
-Text Label 3150 5100 0    50   ~ 0
+Text Label 3150 5200 0    50   ~ 0
 ~WRITE-AR-MBx
 Text Notes 3250 1450 0    50   ~ 0
 &008–&00F
@@ -2446,7 +2447,7 @@ Text Label 5600 7100 2    50   ~ 0
 Text Label 5600 7200 2    50   ~ 0
 ~WRITE-FLAGS
 Wire Wire Line
-	3100 5100 4100 5100
+	3100 5200 4100 5200
 Wire Wire Line
 	4000 1550 5000 1550
 Wire Wire Line
@@ -2487,17 +2488,17 @@ Text HLabel 1250 4650 0    50   Input ~ 0
 Text Label 1800 4650 0    50   ~ 0
 ~WUEN
 Entry Wire Line
-	1700 5600 1800 5700
-Text Label 1800 5700 0    50   ~ 0
-WADDR2
+	1700 5100 1800 5200
+Text Label 1800 5200 0    50   ~ 0
+WADDR3
 Wire Wire Line
-	2100 5700 1800 5700
+	2100 5200 1800 5200
 Wire Wire Line
 	2100 5100 1800 5100
 Text Label 1800 5100 0    50   ~ 0
-WADDR3
+WADDR2
 Entry Wire Line
-	1700 5700 1800 5800
+	1700 5200 1800 5300
 Entry Wire Line
 	1700 5000 1800 5100
 Wire Wire Line
@@ -2507,35 +2508,10 @@ Wire Wire Line
 Connection ~ 1600 4650
 Wire Wire Line
 	1600 4650 1250 4650
-Text Label 1800 5900 0    50   ~ 0
+Text Label 1900 5900 2    50   ~ 0
 ~WUEN
-Wire Wire Line
-	2100 5200 2050 5200
-Wire Wire Line
-	2050 5200 2050 5300
-$Comp
-L power:GND #PWR056
-U 1 1 5E2B96B3
-P 2050 5350
-F 0 "#PWR056" H 2050 5100 50  0001 C CNN
-F 1 "GND" H 2055 5177 50  0000 C CNN
-F 2 "" H 2050 5350 50  0001 C CNN
-F 3 "" H 2050 5350 50  0001 C CNN
-	1    2050 5350
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	2100 5300 2050 5300
-Connection ~ 2050 5300
-Wire Wire Line
-	2050 5300 2050 5350
-Wire Wire Line
-	4100 4450 4100 5100
 NoConn ~ 3100 5800
-Connection ~ 4100 5100
-Wire Wire Line
-	4100 5100 4100 7000
-NoConn ~ 3100 5200
+NoConn ~ 3100 5100
 $Comp
 L Device:R_Small R15
 U 1 1 5E15E534
@@ -2720,6 +2696,37 @@ F 3 "~" H 2600 7000 50  0001 C CNN
 $EndComp
 Text Notes 2100 6600 0    50   ~ 0
 The MBU is disabled after reset and enabled\nwhen it's first written to.
+Connection ~ 4100 5200
+Wire Wire Line
+	4100 5200 4100 7000
+Wire Wire Line
+	4100 4450 4100 5200
+$Comp
+L power:+5V #PWR0145
+U 1 1 5E459A7C
+P 2050 5700
+F 0 "#PWR0145" H 2050 5550 50  0001 C CNN
+F 1 "+5V" V 2100 5800 50  0000 L CNN
+F 2 "" H 2050 5700 50  0001 C CNN
+F 3 "" H 2050 5700 50  0001 C CNN
+	1    2050 5700
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	2100 5800 2050 5800
+$Comp
+L power:GND #PWR0146
+U 1 1 5E49AA4F
+P 2050 5800
+F 0 "#PWR0146" H 2050 5550 50  0001 C CNN
+F 1 "GND" V 2000 5650 50  0000 R CNN
+F 2 "" H 2050 5800 50  0001 C CNN
+F 3 "" H 2050 5800 50  0001 C CNN
+	1    2050 5800
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	2050 5700 2100 5700
 Wire Bus Line
 	4400 4950 4400 6200
 Wire Bus Line
@@ -2733,7 +2740,7 @@ Wire Bus Line
 Wire Bus Line
 	11050 5650 11050 6350
 Wire Bus Line
-	1700 3700 1700 5700
+	1700 3700 1700 5200
 Wire Bus Line
 	6700 4350 6700 6200
 Wire Bus Line

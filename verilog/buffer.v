@@ -97,19 +97,19 @@ endmodule // End of Module buffer
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-module buffer_125q (a, oe, y);
+module buffer_125q (a, noe, y);
    parameter delay = 15;
    
-   input        a, oe;
+   input        a, noe;
    output       y;
 
-   wire 	a, oe, y;
+   wire 	a, noe, y;
 
    initial begin
       // $display("BOM: 1/4 74x125");
    end
 
-   assign #delay y = oe ? 1'bz : a;
+   assign #delay y = noe ? 1'bz : a;
 endmodule // End of Module buffer
 
 

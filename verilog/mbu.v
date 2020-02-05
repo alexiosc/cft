@@ -4,6 +4,8 @@
 //
 // FUNCTION: the Memory Bank Unit.
 //
+// MATCHES: Board Revision 2006, verified 2020-02-05.
+//
 // NOTES:
 //
 // The MBU is a complex unit accessible on various control unit read and write
@@ -85,25 +87,26 @@ module mbu (nreset,
    wire 	nwrite_mbp, nwrite_mbp_flags, nwrite_flags;
    wire 	nwrite_ar_mbx;
 
-   // This decodes I/O addresses &008–&00F.
+   // U10: This decodes I/O addresses &008–&00F.
    demux_138 demux_ab (.a(ab[6:4]), .g1(ab[3]), .ng2a(ab[7]), .ng2b(nsysdev), .y(dec_ab));
    assign niombr = dec_ab[0];
    
-   // We decode RADDRs 01100, 01101, and 01110.
+   // U12: We decode RADDRs 01100, 01101, and 01110.
    demux_138 demux_raddr (.a(raddr[2:0]), .g1(raddr[3]), .ng2a(raddr[4]), .ng2b(nruen), .y(dec_raddr));
    assign nread_mbp = dec_raddr[4];
    assign nread_mbp_flags = dec_raddr[5];
-   assign nread_flags = dec_raddr[5];
+   assign nread_flags = dec_raddr[6];
 
-   // We decode WADDRs 01100, 01101, and 01110. Symmetric to the above '138.
+   // U16: We decode WADDRs 01100, 01101, and 01110. Symmetric to the above '138.
    demux_138 demux_waddr1 (.a(waddr[2:0]), .g1(waddr[3]), .ng2a(waddr[4]), .ng2b(nwuen), .y(dec_waddr1));
    assign nwrite_mbp = dec_waddr1[4];
    assign nwrite_mbp_flags = dec_waddr1[5];
-   assign nwrite_flags = dec_waddr1[5];
+   assign nwrite_flags = dec_waddr1[6];
 
-   // We decode WADDRs 01100, 01101, and 01110. Symmetric to the above '138.
-   demux_138 demux_waddr2 (.a({2'b00, waddr[3]}), .g1(waddr[2]), .ng2a(waddr[4]), .ng2b(nwuen), .y(dec_waddr2));
-   assign nwrite_ar_mbx = dec_waddr2[0];
+   // U17: decode WADDR to get nwrite_ar_mbx.
+   demux_138 demux_waddr2 (.a(waddr[4:2]), .g1(1'b1), .ng2a(1'b0), .ng2b(nwuen), .y(dec_waddr2));
+   assign nwrite_ar_mbx = dec_waddr2[1];
+
 
    ///////////////////////////////////////////////////////////////////////////////
    // 
@@ -118,16 +121,19 @@ module mbu (nreset,
    // one register is configured, the first four (at least) must all be
    // configured too.
 
-   wire 	nenable, ndis;
+   wire 	ndis;
+   wire 	nenable;
 
-   // TODO: Check if this is needed. Likely just niombr is enough!
-   //assign #6 nenable = wstb | niombr;
+   // This is to ease debugging.
    assign nenable = niombr;
-   flipflop_74h ff_init(.d(1'b1), .clk(1'b1), .nset(nreset), .nrst(nenable), .nq(ndis));
 
-   // If the RAM/ROM switch is in the ROM position (high), default all MBx
+   // U18: the MBU enable FF
+   flipflop_74h ff_init(.d(1'b1), .clk(1'b1), .nset(nreset),
+			.nrst(nenable /* == niombr */), .nq(ndis));
+
+   // U20: If the RAM/ROM switch is in the ROM position (high), default all MBx
    // registers to &80 to address ROM.
-   buffer_125q buf_aext7 (.a(nfpram_fprom), .oe(ndis), .y(aext[7]));
+   buffer_125q buf_aext7 (.a(nfpram_fprom), .noe(ndis), .y(aext[7]));
 
 
    ///////////////////////////////////////////////////////////////////////////////
@@ -136,7 +142,7 @@ module mbu (nreset,
    //
    ///////////////////////////////////////////////////////////////////////////////
 
-   // The ROM saves us using a ‘more modern’ (cough) PAL device. If the ROM
+   // U9: The ROM saves us using a ‘more modern’ (cough) PAL device. If the ROM
    // isn't fast enough, a 20V10 PAL will need to replace it.
    
    wire [14:0] 	addr;
@@ -186,7 +192,7 @@ module mbu (nreset,
 
    // Likewise, nWMBR can be gated by WSTB or not.
    //assign nwmbr = nwmbr0;	        // Direct drive
-   assign #10 nwmbr = nwmbr0 | wstb;	// Only asserted during WSTB
+   //assign #10 nwmbr = nwmbr0 | wstb;	// Only asserted during WSTB
 
 
    ///////////////////////////////////////////////////////////////////////////////
@@ -199,11 +205,22 @@ module mbu (nreset,
    // bits each, outputs wired together. We'll do it with direct assignments
    // rather than the '244 module because they're a little cleaner to code.
 
-   assign #7 sel = nuse_ab    ? 3'bzzz : ab[2:0];
-   assign #7 sel = nuse_zero  ? 3'bzzz : 3'b000;
-   assign #7 sel = nuse_waddr ? 3'bzzz : { 1'b0, waddr[1:0] };
-   assign #7 sel = nuse_ir    ? 3'bzzz : ir[2:0];
+   // assign #7 sel = nuse_ab    ? 3'bzzz : ab[2:0];
+   // assign #7 sel = nuse_zero  ? 3'bzzz : 3'b000;
+   // assign #7 sel = nuse_waddr ? 3'bzzz : { 1'b0, waddr[1:0] };
+   // assign #7 sel = nuse_ir    ? 3'bzzz : ir[2:0];
 
+   // And now let's do it with '244s for better testing.
+
+   wire [3:0] 	sel_4bit;
+   assign sel = sel_4bit[2:0];
+
+   // U13: SEL multiplexer 1
+   buffer_244 #7 selmux1 (.oe1(nuse_ab),    .a1({1'b0, ab[2:0]}),     .y1(sel_4bit),
+		          .oe2(nuse_zero),  .a2(4'b0000),             .y2(sel_4bit));
+   // U11: SEL multiplexer 2
+   buffer_244 #7 selmux2 (.oe1(nuse_waddr), .a1({2'b0, waddr[1:0]}),  .y1(sel_4bit),
+			  .oe2(nuse_ir),    .a2({1'b0, ir[2:0]}),     .y2(sel_4bit));
 
    ///////////////////////////////////////////////////////////////////////////////
    // 
@@ -211,7 +228,7 @@ module mbu (nreset,
    //
    ///////////////////////////////////////////////////////////////////////////////
 
-   // The register file is a 32K×8 static RAM chip.
+   // U15: The register file is a 32K×8 static RAM chip.
 
    sram #(13, 15) regfile (.a({10'd0, sel}), .d(aext),
 			   .nce(t34), .nwe(nwmbr), .noe(nrmbr));
@@ -227,10 +244,10 @@ module mbu (nreset,
    // Writes to the AR: Drive the AEXT bus (which drives ar[23:16].
    // Other writes: Drive the IBus.
 
-   // The IBus transceiver.
+   // U14: The IBus transceiver.
    buffer_245 buf_ibus (.dir(nibusw), .nen(nibusen), .a(ibus[7:0]), .b(aext));
 
-   // The DB Driver. Used in IN instructions (nr asserted).
+   // U19: The DB Driver. Used in IN instructions (nr asserted).
    buffer_541 buf_db (.noe1(nuse_ab), .noe2(nr), .a(aext), .y(db[7:0]));
 endmodule // mbu
 `endif //  `ifndef mbu_v

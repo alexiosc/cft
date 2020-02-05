@@ -1,15 +1,15 @@
 [*]
-[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Sat Jan  4 15:46:38 2020
+[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
+[*] Wed Feb  5 19:16:02 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/mbu_tb.vcd"
-[dumpfile_mtime] "Sat Jan  4 15:46:36 2020"
-[dumpfile_size] 17341235
+[dumpfile_mtime] "Wed Feb  5 19:15:56 2020"
+[dumpfile_size] 3808731
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/mbu_tb.sav"
 [timestart] 0
-[size] 2048 1123
+[size] 1920 1019
 [pos] 22568 0
-*-30.469547 5227010000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-25.660542 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] reg_mbr_tb.
 [treeopen] reg_mbr_tb.mbu.
 [sst_width] 258
@@ -94,10 +94,9 @@ reg_mbr_tb.mb7[7:0]
 @200
 -
 -Power-On Defaults
-@29
+@28
 [color] 1
 reg_mbr_tb.nreset
-@28
 [color] 2
 reg_mbr_tb.mbu.nenable
 [color] 3
@@ -224,13 +223,13 @@ reg_mbr_tb.mbu.ir[11:0]
 (11)reg_mbr_tb.mbu.ir[11:0]
 @1401200
 -group_end
-@c00028
+@c00029
 reg_mbr_tb.mbu.sel[2:0]
-@28
+@29
 (0)reg_mbr_tb.mbu.sel[2:0]
 (1)reg_mbr_tb.mbu.sel[2:0]
 (2)reg_mbr_tb.mbu.sel[2:0]
-@1401200
+@1401201
 -group_end
 @c00022
 reg_mbr_tb.ibus[15:0]
