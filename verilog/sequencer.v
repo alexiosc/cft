@@ -1,55 +1,78 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// Microcode Sequencer
+// REDESIGNED IN 2019
 //
 ///////////////////////////////////////////////////////////////////////////////
+//
+// sequencer.v -- Control Board, Microcode Sequencer
+//
+// Copyright © 2011–2020 Alexios Chouchoulas
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2, or (at your option)
+// any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+// 
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software Foundation,
+// Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  
+//
+///////////////////////////////////////////////////////////////////////////////
+
 
 `include "buffer.v"
 `include "counter.v"
 `include "flipflop.v"
 `include "rom.v"
+`include "microcode_store.v"
 
 `timescale 1ns/10ps
 
-///////////////////////////////////////////////////////////////////////////////
-//
-// BASED ON DRAWN SCHEMATICS
-//
-///////////////////////////////////////////////////////////////////////////////
 
-module sequencer (clk4, nreset,
-		  naindex, nskip, fl, fv, nirqs, nrsthold, nws, nhalt, ir,
-		  runit, wunit, opif, ncpl, ncll, nsti, ncli,
-		  nincac, nincpc, nincdr,
-		  uinstr18, nmem, nio, nr, nwen, nend,
-		  nuce);
+module microcode_sequencer (nreset, nrsthold, clk4, nhalt, nendext, nws,
+			    idx, ncond, in_rsvd, ir, nirquc,
+			    raddr, waddr, cond, action, nmem, nio, nr, nwen, nend,
+			    nfpua0, nfpuc0, nfpuc1, nfpuc2, fpd);
 
-   input        clk4, nreset;
-   input        naindex, nskip, fl, fv, nirqs, nrsthold, nws, nhalt;
-   input [15:0] ir;
+   input        nreset;
+   input        nrsthold;
+   input        clk4;
+   tri1 	nhalt;		// Pulled up here
+   tri1         nendext;	// Pulled up here
+   input        nws;
 
-   output [3:0] runit;
-   output [2:0] wunit;
-   output [3:0] opif;
-   output 	ncpl, ncll, nsti, ncli;
-   output 	nincac, nincpc, nincdr;
-   output 	uinstr18, nmem, nio, nr, nwen, nend;
-   output 	nuce;
+   input [0:1]  idx;
+   input        ncond;
+   input        in_rsvd;
+   input [7:15] ir;		// IR is only used partially here!
+   input 	nirquc;
+
+   output [4:0] raddr;
+   output [4:0] waddr;
+   output [3:0] cond;
+   output [4:0] action;
+   output 	nmem;
+   output 	nio;
+   output 	nr;
+   output 	nwen;
+   output 	nend;
+
+   input 	nfpua0;
+   input 	nfpuc0;
+   input 	nfpuc1;
+   input 	nfpuc2;
+   output [7:0] fpd;
+
    
-   wire 	clk4;
-   wire 	naindex, nskip, fl, fv, nirqs, nrsthold;
-   tri1 	nws, nhalt;
-   wire [15:0] 	ir;
-   
-   tri0 [3:0] 	runit;
-   tri0 [2:0] 	wunit;
-   tri0 [3:0] 	opif;
-   tri1 	ncpl, ncll;
-   tri1 	nsti, ncli;
-   tri1 	nincac, nincpc, nincdr;
-   tri1 	uinstr18;
-   tri1 	nmem, nio, nr, nwen, nend;
-   tri1 	nuce;
+
+
+
+
 /*
    initial begin
       // These initial values are useful to resolve simulation-specific

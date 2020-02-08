@@ -70,7 +70,7 @@ module microcode_store_tb();
       #1000 nhalt = 1'b0;
       #1000 nhalt = 1'b1;
 
-      #1500000 $finish;
+      #3000000 $finish;
       
    end // initial begin
 

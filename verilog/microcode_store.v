@@ -56,13 +56,13 @@ module microcode_store(nreset, nhalt, uaddr, udata,
    input 	 nfpuc2;
    output [7:0]  fpd;
 
-   wire 	 nuse;
-   assign #6 nuse = !(nreset & nhalt);
+   wire 	 ncse;
+   assign #6 ncse = !(nreset & nhalt);
 
    // Connect the microcode ROM/Flash devices
-   rom #(19, 50) rom0 (.a(uaddr), .d(udata[7:0]),   .nce(1'b0), .noe(nuse));
-   rom #(19, 50) rom1 (.a(uaddr), .d(udata[15:8]),  .nce(1'b0), .noe(nuse));
-   rom #(19, 50) rom2 (.a(uaddr), .d(udata[23:16]), .nce(1'b0), .noe(nuse));
+   rom #(19, 50) rom0 (.a(uaddr), .d(udata[7:0]),   .nce(1'b0), .noe(ncse));
+   rom #(19, 50) rom1 (.a(uaddr), .d(udata[15:8]),  .nce(1'b0), .noe(ncse));
+   rom #(19, 50) rom2 (.a(uaddr), .d(udata[23:16]), .nce(1'b0), .noe(ncse));
 
    // Uaddr is 19 bits. Of these, 2 are state bits and 9 come from the
    // IR. These are displayed in their own sections of the front
@@ -74,7 +74,6 @@ module microcode_store(nreset, nhalt, uaddr, udata,
    buffer_541 buf_uc1 (.a(udata[15:8]),  .y(fpd), .noe1(nfpuc1), .noe2(1'b0));
    buffer_541 buf_uc2 (.a(udata[23:16]), .y(fpd), .noe1(nfpuc2), .noe2(1'b0));
    
-
    reg [4096:0] basedir, s0, s1, s2;
    // Load ROM images
    initial begin

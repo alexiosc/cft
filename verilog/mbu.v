@@ -192,7 +192,7 @@ module mbu (nreset,
 
    // Likewise, nWMBR can be gated by WSTB or not.
    //assign nwmbr = nwmbr0;	        // Direct drive
-   //assign #10 nwmbr = nwmbr0 | wstb;	// Only asserted during WSTB
+   assign #10 nwmbr = nwmbr0 | wstb;	// Only asserted during WSTB
 
 
    ///////////////////////////////////////////////////////////////////////////////
