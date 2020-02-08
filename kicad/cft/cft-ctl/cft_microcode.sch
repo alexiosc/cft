@@ -1,5 +1,6 @@
 EESchema Schematic File Version 4
-EELAYER 30 0
+LIBS:cft-ctl-cache
+EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -888,8 +889,6 @@ Text Label 2550 3900 0    50   ~ 0
 Text Label 2550 4100 0    50   ~ 0
 IR7
 Wire Wire Line
-	2550 4900 2950 4900
-Wire Wire Line
 	2550 4800 2950 4800
 Wire Wire Line
 	2550 4700 2950 4700
@@ -1630,6 +1629,8 @@ Wire Notes Line
 	3140 2050 3140 2550
 Wire Notes Line width 12 style solid
 	2550 2550 3500 2550
+Wire Wire Line
+	2950 4900 2550 4900
 Wire Bus Line
 	1450 2750 1450 2900
 Wire Bus Line
