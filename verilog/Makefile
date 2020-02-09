@@ -428,9 +428,9 @@ test_upc:	upc_tb.o upc.o counter.o
 		./upc_tb.o
 		$(GTKWAVE) $(VCDDIR)/upc_tb.vcd $(SAVDIR)/upc_tb.sav
 
-test_microcode_store:	microcode_store_tb.o microcode_store.o buffer.o rom.o
-		./microcode_store_tb.o
-		$(GTKWAVE) $(VCDDIR)/microcode_store_tb.vcd $(SAVDIR)/microcode_store_tb.sav
+test_control_store:	control_store_tb.o control_store.o buffer.o rom.o
+		./control_store_tb.o
+		$(GTKWAVE) $(VCDDIR)/control_store_tb.vcd $(SAVDIR)/control_store_tb.sav
 
 test_constant_store:	constant_store_tb.o constant_store_tb.o buffer.o demux.o
 		./constant_store_tb.o
