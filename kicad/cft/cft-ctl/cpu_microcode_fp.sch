@@ -1,6 +1,5 @@
 EESchema Schematic File Version 4
-LIBS:cft-ctl-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -96,10 +95,6 @@ Wire Wire Line
 	3850 2500 3400 2500
 Text HLabel 1100 5950 0    50   Input ~ 0
 ~FPµA0
-Text HLabel 1100 6050 0    50   Input ~ 0
-~FPµA1
-Text HLabel 1100 6150 0    50   Input ~ 0
-~FPµA2
 Text HLabel 1100 6350 0    50   Input ~ 0
 ~FPµC0
 Text HLabel 1100 6450 0    50   Input ~ 0
@@ -108,10 +103,6 @@ Text HLabel 1100 6550 0    50   Input ~ 0
 ~FPµC2
 Wire Wire Line
 	1100 5950 1550 5950
-Wire Wire Line
-	1100 6050 1550 6050
-Wire Wire Line
-	1100 6150 1550 6150
 Wire Wire Line
 	1100 6350 1550 6350
 Wire Wire Line
@@ -122,16 +113,12 @@ Text Label 3400 2700 0    50   ~ 0
 ~FPµA0
 Text Label 1550 5950 2    50   ~ 0
 ~FPµA0
-Text Label 1550 6050 2    50   ~ 0
-~FPµA1
 Text Label 1550 6350 2    50   ~ 0
 ~FPµĊ0
 Text Label 1550 6450 2    50   ~ 0
 ~FPµĊ1
 Text Label 1550 6550 2    50   ~ 0
 ~FPµĊ2
-Text Label 1550 6150 2    50   ~ 0
-~FPµA2
 Text Label 1550 3450 2    50   ~ 0
 RADDR0
 Text Label 1550 3550 2    50   ~ 0

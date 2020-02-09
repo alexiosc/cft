@@ -1,6 +1,5 @@
 EESchema Schematic File Version 4
-LIBS:cft-ctl-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -12,7 +11,7 @@ Comp ""
 Comment1 "CTL"
 Comment2 ""
 Comment3 ""
-Comment4 ""
+Comment4 "control_store.v"
 $EndDescr
 $Comp
 L Device:R_Pack04 RN?
