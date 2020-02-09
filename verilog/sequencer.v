@@ -35,9 +35,9 @@
 
 
 module microcode_sequencer (nreset, nrsthold, clk4, nhalt, nendext, nws,
-			    idx, ncond, in_rsvd, ir, nirquc,
+			    idx, ncond, in_rsvd, ir, nirqsuc,
 			    raddr, waddr, cond, action, nmem, nio, nr, nwen, nend,
-			    nfpua0, nfpuc0, nfpuc1, nfpuc2, fpd);
+			    nfpua0, nfpuc0, nfpuc1, nfpuc2, fpd, fpfetch);
 
    input        nreset;
    input        nrsthold;
@@ -50,7 +50,7 @@ module microcode_sequencer (nreset, nrsthold, clk4, nhalt, nendext, nws,
    input        ncond;
    input        in_rsvd;
    input [7:15] ir;		// IR is only used partially here!
-   input 	nirquc;
+   input 	nirqsuc;
 
    output [4:0] raddr;
    output [4:0] waddr;
@@ -67,65 +67,40 @@ module microcode_sequencer (nreset, nrsthold, clk4, nhalt, nendext, nws,
    input 	nfpuc1;
    input 	nfpuc2;
    output [7:0] fpd;
+   output 	fpfetch;
 
-   
+   wire 	ncse;
 
-
-
-
-/*
-   initial begin
-      // These initial values are useful to resolve simulation-specific
-      // issues. They are simulation-specific because the uPC starts at a known
-      // address, and the microcode ROM issues a known vector, so
-      // initialisation to a well-defined state is a given. Verilog doesn't
-      // know this, of course.
-      nmem = 1;
-      nio = 1;
-      nr = 1;
-      nw = 1;
-   end*/
-
-   // Microcode PC
+   // The µPC counter counts 0..15 to execute microprograms. It is reset while
+   // nrsthold is asserted and loaded with 0 (i.e. also reset) when either nend
+   // or nendext are asserted.
    wire [3:0] upc;
-   counter_161 counter (nrsthold, clk4, nws, nhalt, nend, 4'b0000, upc, );
-
-   // The Microcode ROMs
-   wire [14:0] uaddr;
-   wire [23:0] control_out;
-   assign uaddr = {nrsthold, nirqs, fv, fl, ir[15:12], ir[11], nskip, naindex, upc};
-
-   nand #6 (nuce, nhalt, nreset);
-   rom #(15, 70, "../microcode/microcode-00.list") rom0 (uaddr, control_out[7:0], 1'b0, nuce);
-   rom #(15, 70, "../microcode/microcode-01.list") rom1 (uaddr, control_out[15:8], 1'b0, nuce);
-   rom #(15, 70, "../microcode/microcode-02.list") rom2 (uaddr, control_out[23:16], 1'b0, nuce);
-
-   // Decode the control vector.
-   assign runit = control_out[3:0]; // RUNIT
-   assign wunit = control_out[6:4]; // WUNIT
-   assign opif = control_out[10:7]; // OPIF
-
-   // Flag control
-   assign ncpl = control_out[12];   // CPL#
-   assign ncll = control_out[13];   // CLL#
-   assign nsti = control_out[14];   // STI#
-   assign ncli = control_out[15];   // CLI#
-
-   // Increment controls
-   assign nincac = control_out[11]; // INCAC#
-   assign nincpc = control_out[16]; // INCPC#
-   assign nincdr = control_out[17]; // INCDR#
-
-   // Memory & I/O
-   assign nmem = control_out[19]; // MEM#
-   assign nio = control_out[20];  // IO#
-   assign nr = control_out[21];	  // R#
-   assign nwen = control_out[22]; // WEN#
-   assign nend = control_out[23]; // END#
-
-   // Reserved
-   assign uinstr18 = control_out[18]; // UINSTR18
+   wire       nupcclr;
+   assign #6 nupcclr = nend & nendext;
+   counter_161 upc_ctr (.mr(nrsthold), .cp(clk4), .cep(nws), .cet(nhalt),
+			.pe(nupcclr), .p(4'd0), .q(upc));
    
+
+   // Generate the nCSE signal to enable the ROMs. The ROMs are enable when
+   // both HALT and RESET are deasserted.
+   assign #6 ncse = !(nreset & nhalt);
+
+   // Set up the Address and Control vectors
+   assign uaddr = { nrsthold, nirqsuc, ir[15:7], in_rsvd, ncond, idx, upc };
+   assign { nend, nwen, nr, nio, nmem, action, cond, waddr, raddr  } = udata;
+   
+   // The Microcode Store.
+   microcode_store ucs(.ncse(ncse),
+		       .uaddr(uaddr), .udata(udata),
+		       .nfpua0(nfpua0), .nfpuc0(nfpuc0),
+		       .nfpuc1(nfpuc1), .nfpuc2(nfpuc2), .fpd(fpd));
+
+   // For the benefit of the DFP and Front Panel, decode fetch and execute
+   // states here.
+   comparator_85 fetch_exec_cmp (.a(upc), .b(3'b010),
+				 .ilt(1'b0), .ieq(1'b1), .igt(1'b0),
+				 .olt(fpfetch));
+
 endmodule // sequencer
 
 // End of file.
