@@ -4,7 +4,7 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 8 13
-Title "Control Store"
+Title "Microcode Sequencer"
 Date ""
 Rev ""
 Comp ""
@@ -1522,18 +1522,6 @@ F 3 "" H 7500 1250 50  0001 C CNN
 	1    7500 1250
 	0    1    1    0   
 $EndComp
-Wire Bus Line
-	1450 2750 1450 2900
-Wire Bus Line
-	9800 2600 9800 3050
-Wire Bus Line
-	9800 3300 9800 3750
-Wire Bus Line
-	9800 4000 9800 4450
-Wire Bus Line
-	9800 4700 9800 5050
-Wire Bus Line
-	1450 3500 1450 4350
 $Sheet
 S 5450 3150 1150 2750
 U 5D82AC00
@@ -1577,4 +1565,16 @@ F36 "IDX1" I L 5450 3800 50
 F37 "~COND" I L 5450 3900 50 
 F38 "IN-RSVD" I L 5450 4000 50 
 $EndSheet
+Wire Bus Line
+	1450 2750 1450 2900
+Wire Bus Line
+	9800 2600 9800 3050
+Wire Bus Line
+	9800 3300 9800 3750
+Wire Bus Line
+	9800 4000 9800 4450
+Wire Bus Line
+	9800 4700 9800 5050
+Wire Bus Line
+	1450 3500 1450 4350
 $EndSCHEMATC

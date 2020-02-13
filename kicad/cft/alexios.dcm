@@ -1284,6 +1284,12 @@ K Crystal Clock Oscillator
 F http://cdn-reichelt.de/documents/datenblatt/B400/OSZI.pdf
 $ENDCMP
 #
+$CMP DS1023
+D Programmable Digital Delay Line
+K serial parallel digital delay programmable
+F https://gr.mouser.com/datasheet/2/256/DS1023-1291890.pdf
+$ENDCMP
+#
 $CMP FT231XS
 F https://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT231X.pdf
 $ENDCMP

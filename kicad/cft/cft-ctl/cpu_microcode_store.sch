@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 10 13
+Sheet 9 13
 Title "Control Store (24×512k ROM)"
 Date ""
 Rev ""
@@ -468,7 +468,7 @@ Text HLabel 10450 3050 2    50   Output ~ 0
 ~WEN
 Text HLabel 10450 3150 2    50   Output ~ 0
 ~END
-Text HLabel 1150 4800 0    50   Input ~ 0
+Text HLabel 1750 4800 0    50   Input ~ 0
 ~CSE
 Text Label 2250 4800 2    50   ~ 0
 ~CSE
@@ -718,7 +718,7 @@ F 3 "~" H 2100 5200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	1150 4800 2950 4800
+	1750 4800 2950 4800
 Connection ~ 2950 4800
 Wire Wire Line
 	2950 4800 6000 4800
@@ -755,119 +755,119 @@ Text Notes 2300 -600 0    50   ~ 0
 2019 Design Update: both micro-Address Vector and\nmicro-Control Vector have changed significantly in this\nversion. Fields are much more vertical now.
 Text Notes 2300 -900 0    63   ~ 13
 2019 Design Update
-Text HLabel 1100 2450 0    50   Input ~ 0
+Text HLabel -2200 1900 0    50   Input ~ 0
 UPC0
-Text HLabel 1100 2550 0    50   Input ~ 0
+Text HLabel -2200 2000 0    50   Input ~ 0
 UPC1
-Text HLabel 1100 2650 0    50   Input ~ 0
+Text HLabel -2200 2100 0    50   Input ~ 0
 UPC2
-Text HLabel 1100 2750 0    50   Input ~ 0
+Text HLabel -2200 2200 0    50   Input ~ 0
 UPC3
-Text HLabel 1100 2850 0    50   Input ~ 0
+Text HLabel -2200 2300 0    50   Input ~ 0
 IDX0
-Text HLabel 1100 2950 0    50   Input ~ 0
+Text HLabel -2200 2400 0    50   Input ~ 0
 IDX1
-Text HLabel 1100 3050 0    50   Input ~ 0
+Text HLabel -2200 2500 0    50   Input ~ 0
 ~COND
-Text HLabel 1100 3150 0    50   Input ~ 0
+Text HLabel -2200 2600 0    50   Input ~ 0
 IN-RSVD
-Text HLabel 1100 3250 0    50   Input ~ 0
+Text HLabel -2200 3400 0    50   Input ~ 0
 IR7
-Text HLabel 1100 3350 0    50   Input ~ 0
+Text HLabel -2200 3500 0    50   Input ~ 0
 IR8
-Text HLabel 1100 3450 0    50   Input ~ 0
+Text HLabel -2200 3600 0    50   Input ~ 0
 IR9
-Text HLabel 1100 3550 0    50   Input ~ 0
+Text HLabel -2200 3700 0    50   Input ~ 0
 IR10
-Text HLabel 1100 3650 0    50   Input ~ 0
+Text HLabel -2200 3800 0    50   Input ~ 0
 IR11
-Text HLabel 1100 3750 0    50   Input ~ 0
+Text HLabel -2200 3900 0    50   Input ~ 0
 IR12
-Text HLabel 1100 3850 0    50   Input ~ 0
+Text HLabel -2200 4000 0    50   Input ~ 0
 IR13
-Text HLabel 1100 3950 0    50   Input ~ 0
+Text HLabel -2200 4100 0    50   Input ~ 0
 IR14
-Text HLabel 1100 4050 0    50   Input ~ 0
+Text HLabel -2200 4850 0    50   Input ~ 0
 IR15
-Text HLabel 1100 4150 0    50   Input ~ 0
+Text HLabel -2200 4950 0    50   Input ~ 0
 ~IRQSµC
-Text HLabel 1100 4250 0    50   Input ~ 0
+Text HLabel -2200 5050 0    50   Input ~ 0
 ~RSTHOLD
 Wire Wire Line
-	1100 2550 2250 2550
+	-2200 2000 -1700 2000
 Wire Wire Line
-	1100 2650 2250 2650
+	-2200 2100 -1700 2100
 Wire Wire Line
-	1100 2750 2250 2750
+	-2200 2200 -1700 2200
 Wire Wire Line
-	1100 2850 2250 2850
+	-2200 2300 -1700 2300
 Wire Wire Line
-	1100 2950 2250 2950
+	-2200 2400 -1700 2400
 Wire Wire Line
-	1100 3050 2250 3050
+	-2200 2500 -1700 2500
 Wire Wire Line
-	1100 3150 2250 3150
+	-2200 2600 -1700 2600
 Wire Wire Line
-	1100 3250 2250 3250
+	-2200 3400 -1700 3400
 Wire Wire Line
-	1100 3350 2250 3350
+	-2200 3500 -1700 3500
 Wire Wire Line
-	1100 3450 2250 3450
+	-2200 3600 -1700 3600
 Wire Wire Line
-	1100 3550 2250 3550
+	-2200 3700 -1700 3700
 Wire Wire Line
-	1100 3650 2250 3650
+	-2200 3800 -1700 3800
 Wire Wire Line
-	1100 3750 2250 3750
+	-2200 3900 -1700 3900
 Wire Wire Line
-	1100 3850 2250 3850
+	-2200 4000 -1700 4000
 Wire Wire Line
-	1100 3950 2250 3950
+	-2200 4100 -1700 4100
 Wire Wire Line
-	1100 4050 2250 4050
+	-2200 4850 -1700 4850
 Wire Wire Line
-	1100 4150 2250 4150
+	-2200 4950 -1700 4950
 Wire Wire Line
-	1100 4250 2250 4250
+	-2200 5050 -1700 5050
 Wire Wire Line
-	1100 2450 2250 2450
-Text Label 2200 2450 2    50   ~ 0
+	-2200 1900 -1700 1900
+Text Label -1750 1900 2    50   ~ 0
 UPC0
-Text Label 2200 2550 2    50   ~ 0
+Text Label -1750 2000 2    50   ~ 0
 UPC1
-Text Label 2200 2650 2    50   ~ 0
+Text Label -1750 2100 2    50   ~ 0
 UPC2
-Text Label 2200 2750 2    50   ~ 0
+Text Label -1750 2200 2    50   ~ 0
 UPC3
-Text Label 2200 4150 2    50   ~ 0
+Text Label -1750 4950 2    50   ~ 0
 ~IRQSµC
-Text Label 2200 4250 2    50   ~ 0
+Text Label -1750 5050 2    50   ~ 0
 ~RSTHOLD
-Text Label 2200 2850 2    50   ~ 0
+Text Label -1750 2300 2    50   ~ 0
 IDX0
-Text Label 2200 2950 2    50   ~ 0
+Text Label -1750 2400 2    50   ~ 0
 IDX1
-Text Label 2200 3350 2    50   ~ 0
+Text Label -1750 3500 2    50   ~ 0
 IR8
-Text Label 2200 3450 2    50   ~ 0
+Text Label -1750 3600 2    50   ~ 0
 IR9
-Text Label 2200 3550 2    50   ~ 0
+Text Label -1750 3700 2    50   ~ 0
 IR10
-Text Label 2200 3650 2    50   ~ 0
+Text Label -1750 3800 2    50   ~ 0
 IR11
-Text Label 2200 3750 2    50   ~ 0
+Text Label -1750 3900 2    50   ~ 0
 IR12
-Text Label 2200 3850 2    50   ~ 0
+Text Label -1750 4000 2    50   ~ 0
 IR13
-Text Label 2200 3950 2    50   ~ 0
+Text Label -1750 4100 2    50   ~ 0
 IR14
-Text Label 2200 4050 2    50   ~ 0
+Text Label -1750 4850 2    50   ~ 0
 IR15
-Text Label 2200 3150 2    50   ~ 0
+Text Label -1750 2600 2    50   ~ 0
 IN-RSVD
-Text Label 2200 3050 2    50   ~ 0
+Text Label -1750 2500 2    50   ~ 0
 ~COND
-Text Label 2200 3250 2    50   ~ 0
+Text Label -1750 3400 2    50   ~ 0
 IR7
 Text Notes 2800 4100 0    100  ~ 20
 µ00
@@ -903,4 +903,120 @@ Wire Wire Line
 	10000 2850 10450 2850
 Wire Wire Line
 	10000 2750 10450 2750
+$Comp
+L alexios:74AC374 U?
+U 1 1 5E6983DB
+P -1200 2400
+F 0 "U?" H -1200 3167 50  0000 C CNN
+F 1 "74AC374" H -1200 3076 50  0000 C CNN
+F 2 "" H -950 2625 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS374" H -950 2625 50  0001 C CNN
+	1    -1200 2400
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74AC374 U?
+U 1 1 5E6AC3FB
+P -1200 3900
+F 0 "U?" H -1200 4667 50  0000 C CNN
+F 1 "74AC374" H -1200 4576 50  0000 C CNN
+F 2 "" H -950 4125 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS374" H -950 4125 50  0001 C CNN
+	1    -1200 3900
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74AC374 U?
+U 1 1 5E6AD287
+P -1200 5350
+F 0 "U?" H -1200 6117 50  0000 C CNN
+F 1 "74AC374" H -1200 6026 50  0000 C CNN
+F 2 "" H -950 5575 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS374" H -950 5575 50  0001 C CNN
+	1    -1200 5350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	-1700 5150 -1800 5150
+Wire Wire Line
+	-1800 5150 -1800 5250
+$Comp
+L power:GND #PWR?
+U 1 1 5E6C80FA
+P -1800 5600
+F 0 "#PWR?" H -1800 5350 50  0001 C CNN
+F 1 "GND" H -1950 5550 50  0000 C CNN
+F 2 "" H -1800 5600 50  0001 C CNN
+F 3 "" H -1800 5600 50  0001 C CNN
+	1    -1800 5600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	-1700 5250 -1800 5250
+Connection ~ -1800 5250
+Wire Wire Line
+	-1800 5250 -1800 5350
+Wire Wire Line
+	-1700 5350 -1800 5350
+Connection ~ -1800 5350
+Wire Wire Line
+	-1800 5350 -1800 5450
+Wire Wire Line
+	-1700 5450 -1800 5450
+Connection ~ -1800 5450
+Wire Wire Line
+	-1800 5450 -1800 5550
+Wire Wire Line
+	-1700 5550 -1800 5550
+Connection ~ -1800 5550
+Wire Wire Line
+	-1800 5550 -1800 5600
+Wire Wire Line
+	-700 1900 -350 1900
+Wire Wire Line
+	-700 2000 -350 2000
+Wire Wire Line
+	-700 2100 -350 2100
+Wire Wire Line
+	-700 2200 -350 2200
+Wire Wire Line
+	-700 2300 -350 2300
+Wire Wire Line
+	-700 2400 -350 2400
+Wire Wire Line
+	-700 2500 -350 2500
+Wire Wire Line
+	-700 2600 -350 2600
+Wire Wire Line
+	-700 3400 -350 3400
+Wire Wire Line
+	-700 3500 -350 3500
+Wire Wire Line
+	-700 3600 -350 3600
+Wire Wire Line
+	-700 3700 -350 3700
+Wire Wire Line
+	-700 3800 -350 3800
+Wire Wire Line
+	-700 3900 -350 3900
+Wire Wire Line
+	-700 4000 -350 4000
+Wire Wire Line
+	-700 4100 -350 4100
+Wire Wire Line
+	-700 4850 -350 4850
+Wire Wire Line
+	-700 4950 -350 4950
+Wire Wire Line
+	-700 5050 -350 5050
+Wire Wire Line
+	-700 5150 -350 5150
+Wire Wire Line
+	-700 5250 -350 5250
+Wire Wire Line
+	-700 5350 -350 5350
+Wire Wire Line
+	-700 5450 -350 5450
+Wire Wire Line
+	-700 5550 -350 5550
 $EndSCHEMATC

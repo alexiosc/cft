@@ -1457,7 +1457,7 @@ Wire Wire Line
 Wire Wire Line
 	9500 1550 10600 1550
 NoConn ~ 8750 1750
-Text Notes 8550 5600 0    100  ~ 20
+Text Notes 12850 6700 0    100  ~ 20
 Does the hazard created by this NOT gate cause\nactual disruption?
 $Comp
 L alexios:74LVC1G74 U62
@@ -1547,4 +1547,198 @@ F 3 "http://www.ti.com/lit/gpn/sn74LS32" H 16750 4250 50  0001 C CNN
 	1    16750 4250
 	1    0    0    -1  
 $EndComp
+$Comp
+L alexios:DS1023 U?
+U 1 1 5E4A4EED
+P 7650 9750
+AR Path="/5DEAC282/5E34FD9B/5E4A4EED" Ref="U?"  Part="1" 
+AR Path="/5E36D9C8/5E4A4EED" Ref="U?"  Part="1" 
+F 0 "U?" H 7650 10417 50  0000 C CNN
+F 1 "DS1023" H 7650 10326 50  0000 C CNN
+F 2 "" H 7575 9475 50  0001 C CNN
+F 3 "https://gr.mouser.com/datasheet/2/256/DS1023-1291890.pdf" H 7575 9475 50  0001 C CNN
+F 4 "700-DS1023S-100" H 7650 10325 50  0001 C CNN "Mouser"
+	1    7650 9750
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 5E4B5A5E
+P 7050 10450
+F 0 "#PWR?" H 7050 10300 50  0001 C CNN
+F 1 "+5V" V 7150 10450 50  0000 L CNN
+F 2 "" H 7050 10450 50  0001 C CNN
+F 3 "" H 7050 10450 50  0001 C CNN
+	1    7050 10450
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	7050 10550 6950 10550
+Wire Wire Line
+	6950 10550 6950 10650
+Wire Wire Line
+	7050 10650 6950 10650
+Connection ~ 6950 10650
+Wire Wire Line
+	6950 10650 6950 10700
+$Comp
+L power:GND #PWR?
+U 1 1 5E4C58E2
+P 6950 10700
+F 0 "#PWR?" H 6950 10450 50  0001 C CNN
+F 1 "GND" H 6955 10527 50  0000 C CNN
+F 2 "" H 6950 10700 50  0001 C CNN
+F 3 "" H 6950 10700 50  0001 C CNN
+	1    6950 10700
+	1    0    0    -1  
+$EndComp
+Text Label 6900 9350 2    50   ~ 0
+CLKIN1
+Wire Wire Line
+	5350 9350 7050 9350
+$Comp
+L Switch:SW_DIP_x08 SW?
+U 1 1 5E4D17CF
+P 5750 9950
+F 0 "SW?" H 5750 9450 50  0000 C CNN
+F 1 "SW_DIP_x08" H 5750 9384 50  0001 C CNN
+F 2 "" H 5750 9950 50  0001 C CNN
+F 3 "~" H 5750 9950 50  0001 C CNN
+	1    5750 9950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6050 9550 6750 9550
+Wire Wire Line
+	6050 9650 6650 9650
+Wire Wire Line
+	6050 9750 6550 9750
+Wire Wire Line
+	6050 9850 6450 9850
+Wire Wire Line
+	6050 9950 6350 9950
+Wire Wire Line
+	6050 10050 6250 10050
+$Comp
+L Device:R_Network08 RN?
+U 1 1 5E521D0C
+P 6350 10500
+F 0 "RN?" H 6700 10700 50  0000 R CNN
+F 1 "4.7kΩ" H 6700 10800 50  0000 R CNN
+F 2 "Resistor_THT:R_Array_SIP9" V 6825 10500 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/31509/csc.pdf" H 6350 10500 50  0001 C CNN
+	1    6350 10500
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5E57A5C3
+P 6750 10700
+F 0 "#PWR?" H 6750 10450 50  0001 C CNN
+F 1 "GND" H 6755 10527 50  0000 C CNN
+F 2 "" H 6750 10700 50  0001 C CNN
+F 3 "" H 6750 10700 50  0001 C CNN
+	1    6750 10700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6050 10300 6050 10250
+Connection ~ 6050 10250
+Wire Wire Line
+	6050 10150 6150 10150
+Wire Wire Line
+	6050 10250 7050 10250
+Wire Wire Line
+	6150 10300 6150 10150
+Connection ~ 6150 10150
+Wire Wire Line
+	6150 10150 7050 10150
+Wire Wire Line
+	6250 10300 6250 10050
+Connection ~ 6250 10050
+Wire Wire Line
+	6250 10050 7050 10050
+Wire Wire Line
+	6350 10300 6350 9950
+Connection ~ 6350 9950
+Wire Wire Line
+	6350 9950 7050 9950
+Wire Wire Line
+	6450 10300 6450 9850
+Connection ~ 6450 9850
+Wire Wire Line
+	6450 9850 7050 9850
+Wire Wire Line
+	6550 10300 6550 9750
+Connection ~ 6550 9750
+Wire Wire Line
+	6550 9750 7050 9750
+Wire Wire Line
+	6650 10300 6650 9650
+Connection ~ 6650 9650
+Wire Wire Line
+	6650 9650 7050 9650
+Wire Wire Line
+	6750 10300 6750 9550
+Connection ~ 6750 9550
+Wire Wire Line
+	6750 9550 7050 9550
+$Comp
+L power:+5V #PWR?
+U 1 1 5E5FE8B1
+P 5400 9500
+F 0 "#PWR?" H 5400 9350 50  0001 C CNN
+F 1 "+5V" H 5342 9537 50  0000 R CNN
+F 2 "" H 5400 9500 50  0001 C CNN
+F 3 "" H 5400 9500 50  0001 C CNN
+	1    5400 9500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5400 9500 5400 9550
+Wire Wire Line
+	5400 10250 5450 10250
+Wire Wire Line
+	5450 9550 5400 9550
+Connection ~ 5400 9550
+Wire Wire Line
+	5400 9550 5400 9650
+Wire Wire Line
+	5450 9650 5400 9650
+Connection ~ 5400 9650
+Wire Wire Line
+	5400 9650 5400 9750
+Wire Wire Line
+	5450 9750 5400 9750
+Connection ~ 5400 9750
+Wire Wire Line
+	5400 9750 5400 9850
+Wire Wire Line
+	5450 9850 5400 9850
+Connection ~ 5400 9850
+Wire Wire Line
+	5400 9850 5400 9950
+Wire Wire Line
+	5450 9950 5400 9950
+Connection ~ 5400 9950
+Wire Wire Line
+	5400 9950 5400 10050
+Wire Wire Line
+	5450 10050 5400 10050
+Connection ~ 5400 10050
+Wire Wire Line
+	5400 10050 5400 10150
+Wire Wire Line
+	5450 10150 5400 10150
+Connection ~ 5400 10150
+Wire Wire Line
+	5400 10150 5400 10250
+Wire Wire Line
+	8250 9350 8700 9350
+Text Label 8700 9350 2    50   ~ 0
+~CSTB
+Wire Wire Line
+	8250 9550 8700 9550
+Text Label 8700 9550 2    50   ~ 0
+CLKIN2
 $EndSCHEMATC
