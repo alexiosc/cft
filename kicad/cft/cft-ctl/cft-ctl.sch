@@ -1,9 +1,10 @@
 EESchema Schematic File Version 4
-EELAYER 30 0
+LIBS:cft-ctl-cache
+EELAYER 26 0
 EELAYER END
 $Descr A3 16535 11693
 encoding utf-8
-Sheet 1 13
+Sheet 1 12
 Title "Control Unit Board"
 Date ""
 Rev ""
@@ -47,15 +48,6 @@ F0 "Auto-Index Logic (AIL)" 50
 F1 "cft_ail.sch" 50
 F2 "IR[6..11]" I L 7550 5800 50 
 F3 "IDX[0..1]" I R 8700 5800 50 
-$EndSheet
-$Sheet
-S 17950 -1450 1150 850 
-U 5E507DE3
-F0 "Constant Store" 50
-F1 "cpu_cs.sch" 50
-F2 "~RUEN" I L 17950 -1300 50 
-F3 "RADDR[0..4]" I L 17950 -1150 50 
-F4 "IBUS[0..15]" B R 19100 -1300 50 
 $EndSheet
 $Sheet
 S 20700 -3650 1150 1300
@@ -470,10 +462,6 @@ Wire Wire Line
 	7550 5250 6950 5250
 Text Label 6950 5250 0    50   ~ 0
 ~READ-AGL
-Wire Bus Line
-	19100 -1300 19700 -1300
-Text Label 19700 -1300 2    50   ~ 0
-IBUS[0..15]
 Wire Bus Line
 	21850 -3500 22450 -3500
 Text Label 22450 -3500 2    50   ~ 0
@@ -1193,4 +1181,6 @@ Wire Bus Line
 	20600 2150 20600 2800
 Wire Bus Line
 	20600 4300 20600 5900
+Text Label 6950 5800 0    50   ~ 0
+IR[6..11]
 $EndSCHEMATC

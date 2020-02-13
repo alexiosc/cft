@@ -1,9 +1,10 @@
 EESchema Schematic File Version 4
-EELAYER 30 0
+LIBS:cft-ctl-cache
+EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 7 13
+Sheet 6 12
 Title "Clock Generator"
 Date ""
 Rev ""
@@ -885,8 +886,8 @@ Wire Notes Line style solid
 	3250 6200 3250 6250
 Wire Notes Line style solid
 	3250 6250 3225 6250
-Text Notes 7650 2700 0    50   ~ 0
-After a ~RESET~ pulse, the clock starts and we count 128 processor cycles.\nAt a 4 MHz clock, this is 32 µs. During this time, ~RSTHOLD~ is asserted, and\nmost of the processor units remain tri-stated and in reset while everything\nstabilises, capacitors are charged, etc.\n\nWhile ~RSTHOLD~ is low, the processor also performs its reset microprogram\nto initialise the PC with the boot vector.
+Text Notes 7650 2900 0    50   ~ 0
+After a ~RESET~ pulse, the clock starts and we count 128 processor cycles.\nAt a 4 MHz clock, this is 32 µs. During this time, ~RSTHOLD~ is asserted, and\nmost of the processor units remain tri-stated and in reset while everything\nstabilises, capacitors are charged, etc.\n\nWhile ~RSTHOLD~ is low, the processor also performs its reset microprogram\nto initialise the PC with the boot vector.\n\nThe diode allows ~RSTHOLD~ to be asserted by other drivers, e.g. the DFP.
 Text Label 5050 4600 2    50   ~ 0
 CLK
 $Comp
@@ -1401,7 +1402,7 @@ AR Path="/5E381107" Ref="X?"  Part="1"
 AR Path="/5E36D9C8/5E381107" Ref="X1"  Part="1" 
 F 0 "X1" H 3500 4917 50  0000 C CNN
 F 1 "CXO_DIP8" H 3500 4826 50  0000 C CNN
-F 2 "Oscillator:Oscillator_DIP-8" H 3550 4150 50  0001 C CNN
+F 2 "alexios:Oscillator_DIP-8-socket" H 3550 4150 50  0001 C CNN
 F 3 "http://cdn-reichelt.de/documents/datenblatt/B400/OSZI.pdf" H 3500 4500 50  0001 C CNN
 	1    3400 4550
 	1    0    0    -1  
@@ -1455,7 +1456,7 @@ $EndComp
 Wire Wire Line
 	9250 1550 9300 1550
 Wire Wire Line
-	9500 1550 10600 1550
+	9500 1550 9600 1550
 NoConn ~ 8750 1750
 Text Notes 8550 5600 0    100  ~ 20
 Does the hazard created by this NOT gate cause\nactual disruption?
@@ -1547,4 +1548,33 @@ F 3 "http://www.ti.com/lit/gpn/sn74LS32" H 16750 4250 50  0001 C CNN
 	1    16750 4250
 	1    0    0    -1  
 $EndComp
+$Comp
+L power:+5V #PWR0201
+U 1 1 5E546BF1
+P 9600 1200
+F 0 "#PWR0201" H 9600 1050 50  0001 C CNN
+F 1 "+5V" H 9615 1373 50  0000 C CNN
+F 2 "" H 9600 1200 50  0001 C CNN
+F 3 "" H 9600 1200 50  0001 C CNN
+	1    9600 1200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9600 1400 9600 1550
+$Comp
+L Device:R_Small R?
+U 1 1 5E546BF8
+P 9600 1300
+AR Path="/5E4DDD44/5E546BF8" Ref="R?"  Part="1" 
+AR Path="/5E36D9C8/5E546BF8" Ref="R1"  Part="1" 
+F 0 "R1" H 9659 1346 50  0000 L CNN
+F 1 "4.7kΩ" H 9659 1255 50  0000 L CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 9600 1300 50  0001 C CNN
+F 3 "~" H 9600 1300 50  0001 C CNN
+	1    9600 1300
+	1    0    0    -1  
+$EndComp
+Connection ~ 9600 1550
+Wire Wire Line
+	9600 1550 10600 1550
 $EndSCHEMATC
