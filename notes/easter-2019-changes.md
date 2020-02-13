@@ -5,6 +5,57 @@
 * 24-bit address bus. Upgraded from 16 bits (and from 21 bits with SMB).
 * 16-bit data bus.
 
+### Timing
+
+Timing simplified with more things registered. Clocks are still four phase. The
+negative edge of each phase signals the following:
+
+## CLK1
+
+The microcode address vector is loaded from various sources:
+
+* µPC
+* IDX[1:0]
+* COND
+* reserved input
+* IR[15:7]
+* IRQSUC
+
+RSTHOLD is asynchronous and is not registered. This causes no hazards becausae
+the RSTHOLD microprogram takes no other inputs into consideration.
+
+Preconditions:
+
+* µPC has incremented and stabilised before CLK1.
+* All control store inputs have stabilised by end of CLK4.
+
+Once the address vector is set, the microcode store fetches the control
+vector. This takes 70ns, which is longer than one clock phase.
+
+
+## CLK2
+
+Control vector fetch continues. Around 70ns after the address vector is set,
+the microcode store will have fetched the control vector and the control store
+will have valid outputs.
+
+## CLK3
+
+The control vector is registered and output to the processor. Bus transactions
+begin here.
+
+This happens ~125ns after the address vector has been set, so enough time for
+the control store to fetch the control vector and avoid any chance of
+metastability.
+
+## CLK4
+
+Bus transactions continue. The rising edge of CLK4 signals writes. This implies
+WSTB and its complex generating circuitry is no longer required and may be
+dropped.
+
+
+
 ### Registers
 
 * PC
