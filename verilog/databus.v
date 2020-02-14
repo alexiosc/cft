@@ -17,7 +17,7 @@
 
 `timescale 1ns/1ps
 
-module databus (nreset, nhalt, clk3, t34, wstb,
+module databus (nreset, nhalt, clk3, t34,
 		nmem, nio, nr, nwen,
 		nws, ibus,
 		nw, db);
@@ -26,7 +26,6 @@ module databus (nreset, nhalt, clk3, t34, wstb,
    input 	nhalt;
    input 	clk3;
    input 	t34;
-   input 	wstb;
    input 	nmem;
    input 	nio;
    input 	nr;
@@ -43,7 +42,6 @@ module databus (nreset, nhalt, clk3, t34, wstb,
    wire 	nhalt;
    wire 	clk3;
    wire 	t34;
-   wire 	wstb;
    wire 	nmem;
    wire 	nio;
    wire 	nr;

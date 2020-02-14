@@ -43,13 +43,11 @@
 //  CLK4                   \___/                \___
 //  ___   _____________         ____________        
 //  T34                \_______/            \_______
-//        __________________   ___________________  
-//  WSTB                    |_|                   |_
 //
 ///////////////////////////////////////////////////////////////////////////////
 
 module clock_generator (nreset, fpclk, nfpclk_or_clk,
-			clk1, clk2, clk3, clk4, t34, wstb);
+			clk1, clk2, clk3, clk4, t34);
 
    parameter cp = 62.5;
 
@@ -64,7 +62,6 @@ module clock_generator (nreset, fpclk, nfpclk_or_clk,
    output clk4;			// 270° phase clock output
 
    output t34;
-   output wstb;
 
    reg clk;
 
@@ -90,11 +87,6 @@ module clock_generator (nreset, fpclk, nfpclk_or_clk,
    demux_139h phasegen2 (.ng(1'b0), .a({1'b0,  q[1]}), .y(tmp));
    assign t34 = tmp[1];
 
-   // Write strobe (WSTB) generation
-   wire       nq0;
-
-   assign #3 nq0 = ~q[0];
-   assign #5 wstb = clk4 | nq0;
 endmodule // clock_generator
 
 `endif //  `ifndef clock_v

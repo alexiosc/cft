@@ -37,15 +37,15 @@ module clock_tb();
    reg nreset;
 
    wire testclk, slowclk;
-   wire clk1, clk2, clk3, clk4, t34, wstb;
+   wire clk1, clk2, clk3, clk4, t34;
 
    integer i;
       
    initial begin
       
       //$display ("time\t d pulse");
-      $monitor ("t: %7d | > %b %b %b %b %b %b", 
-      		$time, clk1, clk2, clk3, clk4, t34, wstb);
+      $monitor ("t: %7d | > %b %b %b %b %b", 
+      		$time, clk1, clk2, clk3, clk4, t34);
       $dumpfile ("vcd/clock_tb.vcd");
       $dumpvars (0, clock_tb);
       
@@ -92,10 +92,9 @@ module clock_tb();
 			.clk2(clk2),
 			.clk3(clk3),
 			.clk4(clk4),
-			.t34(t34),
-			.wstb(wstb));
+			.t34(t34));
 
-   wire [5:0] clkvec = { clk1, clk2, clk3, clk4, t34, wstb };
+   wire [5:0] clkvec = { clk1, clk2, clk3, clk4, t34 };
 
 
    reg [8191:0] msg;
@@ -104,19 +103,18 @@ module clock_tb();
 	 msg[7:0] = "";		// Use the msg as a flag.
 
 	 if (nreset === 0) begin
-	    if (clkvec !== 6'b0111_1_1) $sformat(msg, "nreset=%b, but clocks are %b %b %b %b, t34=%b, wstb=%b",
-						 clk1, clk2, clk3, clk4, t34, wstb);
+	    if (clkvec !== 6'b0111_1) $sformat(msg, "nreset=%b, but clocks are %b %b %b %b, t34=%b",
+						 nreset, clk1, clk2, clk3, clk4, t34);
 	 end
 	 
 	 else if (nreset === 1) begin
-	    if (clkvec !== 6'b0111_1_1 && // Clock phase 1
-		clkvec !== 6'b1011_1_1 && // Clock phase 2
-		clkvec !== 6'b1101_0_1 && // Clock phase 3 (T34 low)
-		clkvec !== 6'b1110_0_1 && // Clock phase 4 (T34 low, WSTB high)
-		clkvec !== 6'b1110_0_0)   // Clock phase 4 (T34 low, WSTB low)
+	    if (clkvec !== 6'b0111_1 && // Clock phase 1
+		clkvec !== 6'b1011_1 && // Clock phase 2
+		clkvec !== 6'b1101_0 && // Clock phase 3 (T34 low)
+		clkvec !== 6'b1110_0)   // Clock phase 4 (T34 low, WSTB low)
 	      begin
-		 $sformat(msg, "bad clock vector: %b %b %b %b T34: %b WSTB: %b",
-			  clk1, clk2, clk3, clk4, t34, wstb);
+		 $sformat(msg, "bad clock vector: %b %b %b %b T34: %b",
+			  clk1, clk2, clk3, clk4, t34);
 	      end
 	 end
 
