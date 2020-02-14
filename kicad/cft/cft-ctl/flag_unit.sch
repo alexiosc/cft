@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 6 12
+Sheet 11 11
 Title "Flag Unit"
 Date ""
 Rev ""
@@ -231,34 +231,18 @@ Text Label 2900 2950 1    50   ~ 0
 WADDR[0..4]
 Text Label 2900 4300 1    50   ~ 0
 RADDR[0..4]
-Text Label 2900 5500 1    50   ~ 0
-ACTION[0..3]
-Text Label 2200 4700 0    50   ~ 0
-ACTION[0..3]
 Text Label 2200 3450 0    50   ~ 0
 RADDR[0..4]
 Text Label 2200 2200 0    50   ~ 0
 WADDR[0..4]
 Wire Bus Line
-	2100 4700 2800 4700
-Wire Bus Line
 	2100 3450 2800 3450
 Wire Bus Line
 	2100 2200 2800 2200
 Entry Bus Bus
-	2800 4700 2900 4800
-Entry Bus Bus
 	2800 3450 2900 3550
 Entry Bus Bus
 	2800 2200 2900 2300
-Entry Wire Line
-	2900 5550 3000 5650
-Entry Wire Line
-	2900 5050 3000 5150
-Entry Wire Line
-	2900 4950 3000 5050
-Entry Wire Line
-	2900 4850 3000 4950
 Entry Wire Line
 	2900 4300 3000 4400
 Entry Wire Line
@@ -279,95 +263,6 @@ Entry Wire Line
 	2900 2450 3000 2550
 Entry Wire Line
 	2900 2350 3000 2450
-$Comp
-L alexios:74HC138 U?
-U 1 1 5D676F9A
-P 3850 5350
-AR Path="/5F3EA987/5D676F9A" Ref="U?"  Part="1" 
-AR Path="/5D676F9A" Ref="U?"  Part="1" 
-AR Path="/61F95ACC/5D676F9A" Ref="U?"  Part="1" 
-AR Path="/5D65F6EF/5D676F9A" Ref="U?"  Part="1" 
-AR Path="/5D69F3FD/5D676F9A" Ref="U33"  Part="1" 
-F 0 "U33" H 3850 6017 50  0000 C CNN
-F 1 "74HC138" H 3850 5926 50  0000 C CNN
-F 2 "alexios:SOIC-16" H 3850 5350 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 3850 5350 50  0001 C CNN
-	1    3850 5350
-	1    0    0    -1  
-$EndComp
-Text Label 3000 4950 0    50   ~ 0
-ACTION0
-Text Label 3000 5050 0    50   ~ 0
-ACTION1
-Text Label 3000 5150 0    50   ~ 0
-ACTION2
-Text Label 3000 5650 0    50   ~ 0
-ACTION3
-$Comp
-L power:+5V #PWR?
-U 1 1 5D676FA4
-P 3350 5550
-AR Path="/5D676FA4" Ref="#PWR?"  Part="1" 
-AR Path="/5D65F6EF/5D676FA4" Ref="#PWR?"  Part="1" 
-AR Path="/5D69F3FD/5D676FA4" Ref="#PWR0165"  Part="1" 
-F 0 "#PWR0165" H 3350 5400 50  0001 C CNN
-F 1 "+5V" H 3365 5723 50  0000 C CNN
-F 2 "" H 3350 5550 50  0001 C CNN
-F 3 "" H 3350 5550 50  0001 C CNN
-	1    3350 5550
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5D676FAA
-P 3350 5750
-AR Path="/5D676FAA" Ref="#PWR?"  Part="1" 
-AR Path="/5D65F6EF/5D676FAA" Ref="#PWR?"  Part="1" 
-AR Path="/5D69F3FD/5D676FAA" Ref="#PWR0166"  Part="1" 
-F 0 "#PWR0166" H 3350 5500 50  0001 C CNN
-F 1 "GND" H 3355 5577 50  0000 C CNN
-F 2 "" H 3350 5750 50  0001 C CNN
-F 3 "" H 3350 5750 50  0001 C CNN
-	1    3350 5750
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	4350 5050 6150 5050
-Wire Wire Line
-	4350 5150 6150 5150
-Wire Wire Line
-	4350 5250 6150 5250
-Wire Wire Line
-	4350 5350 6150 5350
-Text Label 5200 5050 2    50   ~ 0
-~ACTION-CPL
-Text Label 5200 5150 2    50   ~ 0
-~ACTION-CLL
-Text Label 5200 5250 2    50   ~ 0
-~ACTION-STI
-Text Label 5200 5350 2    50   ~ 0
-~ACTION-CLI
-NoConn ~ 4350 4950
-NoConn ~ 4350 5550
-NoConn ~ 4350 5650
-Text Notes 3900 5600 1    50   ~ 10
-ACTION=0xxx
-Text HLabel 6150 5050 2    50   Output ~ 0
-~ACTION-CPL
-Text HLabel 6150 5150 2    50   Output ~ 0
-~ACTION-CLL
-Text HLabel 6150 5250 2    50   Output ~ 0
-~ACTION-STI
-Text HLabel 6150 5350 2    50   Output ~ 0
-~ACTION-CLI
-Wire Wire Line
-	3350 5650 3000 5650
-Wire Wire Line
-	3350 5150 3000 5150
-Wire Wire Line
-	3350 5050 3000 5050
-Wire Wire Line
-	3350 4950 3000 4950
 Wire Wire Line
 	3350 2450 3000 2450
 Wire Wire Line
@@ -472,8 +367,6 @@ Text HLabel 2100 2200 0    50   Input ~ 0
 WADDR[0..4]
 Text HLabel 2100 3450 0    50   Input ~ 0
 RADDR[0..4]
-Text HLabel 2100 4700 0    50   Input ~ 0
-ACTION[0..3]
 Wire Wire Line
 	7800 1350 7350 1350
 Wire Wire Line
@@ -561,17 +454,6 @@ Wire Wire Line
 	3000 3050 3350 3050
 Wire Wire Line
 	3000 3150 3350 3150
-$Comp
-L power:GND #PWR0167
-U 1 1 5DFC5E58
-P 3350 3250
-F 0 "#PWR0167" H 3350 3000 50  0001 C CNN
-F 1 "GND" H 3355 3077 50  0000 C CNN
-F 2 "" H 3350 3250 50  0001 C CNN
-F 3 "" H 3350 3250 50  0001 C CNN
-	1    3350 3250
-	1    0    0    -1  
-$EndComp
 Text Label 3000 3050 0    50   ~ 0
 WADDR3
 Text Label 3000 3150 0    50   ~ 0
@@ -591,7 +473,6 @@ Text Notes 4550 3550 0    50   ~ 0
 RADDR or WADDR = 01101 → Read/Write MBP & Flags\nRADDR or WADDR = 01110 → Read/Write Flags
 Text Notes 8350 3700 0    50   ~ 0
 Individual flags respond to ~FLAGWE~ assertions\nby sampling the appropriate bit of the IBUS and\nmodifying their values.\n\nThe only flags that can currently be set this way\nare FI, FL and FV. FZ and FN are controlled by the\ncurrent value of the AC.
-NoConn ~ 4350 5450
 Text Label 8850 4800 0    50   ~ 0
 FPD0
 Text Label 8850 4900 0    50   ~ 0
@@ -609,7 +490,7 @@ FPD6
 Text Label 8850 5500 0    50   ~ 0
 FPD7
 Text Notes 3900 6650 0    50   ~ 0
-These solder jumpers can be used to change the meanings\nof the unused LEDs on the flag section of the front panel.\nThey should be bridged (ground, LED off) until this is required.
+These solder jumpers can be used to change the meanings\nof the unused LEDs on the flag section of the front panel.\nThey should be fully bridged (ground, LED off) until this is required.
 $Comp
 L Jumper:SolderJumper_3_Bridged123 JP1
 U 1 1 5E0D2D96
@@ -698,28 +579,6 @@ F 1 "GND" H 6055 7227 50  0000 C CNN
 F 2 "" H 6050 7400 50  0001 C CNN
 F 3 "" H 6050 7400 50  0001 C CNN
 	1    6050 7400
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74HC08 U22
-U 3 1 5DD7B0F2
-P 5300 2600
-F 0 "U22" H 5425 2475 50  0000 C CNN
-F 1 "74HC08" H 5425 2384 50  0000 C CNN
-F 2 "alexios:SOIC-14" H 5500 2150 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 5500 2150 50  0001 C CNN
-	3    5300 2600
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74HC08 U22
-U 4 1 5DD7CA1B
-P 5300 3850
-F 0 "U22" H 5425 3725 50  0000 C CNN
-F 1 "74HC08" H 5425 3634 50  0000 C CNN
-F 2 "alexios:SOIC-14" H 5500 3400 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 5500 3400 50  0001 C CNN
-	4    5300 3850
 	1    0    0    -1  
 $EndComp
 Text Notes 4800 4500 0    50   ~ 0
@@ -846,8 +705,16 @@ F 3 "http://www.ti.com/lit/gpn/sn74HC541" H 10200 5200 50  0001 C CNN
 $EndComp
 Connection ~ 9850 5300
 Connection ~ 9850 5100
-Wire Bus Line
-	2900 4800 2900 5550
+Text Label 3000 3250 0    50   ~ 0
+CLK4
+Text HLabel 2100 3250 0    50   Input ~ 0
+CLK4
+Text Label 2200 3250 0    50   ~ 0
+CLK4
+Text Notes 7700 4400 0    98   ~ 20
+Front Panel Buffer
+Wire Wire Line
+	2100 3250 3350 3250
 Wire Bus Line
 	2900 3550 2900 4300
 Wire Bus Line
@@ -856,4 +723,26 @@ Wire Bus Line
 	9250 4900 9250 6150
 Wire Bus Line
 	9250 1250 9250 2550
+$Comp
+L alexios:74LVC1G08 U22
+U 1 1 610F8BD1
+P 5500 3000
+F 0 "U22" H 5425 3267 50  0000 C CNN
+F 1 "74LVC1G08" H 5425 3176 50  0000 C CNN
+F 2 "alexios:SOT-23-5_HandSoldering" H 5150 3000 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 5150 3000 50  0001 C CNN
+	1    5500 3000
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74LVC1G08 U29
+U 1 1 610F934E
+P 5500 4250
+F 0 "U29" H 5425 4517 50  0000 C CNN
+F 1 "74LVC1G08" H 5425 4426 50  0000 C CNN
+F 2 "alexios:SOT-23-5_HandSoldering" H 5150 4250 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 5150 4250 50  0001 C CNN
+	1    5500 4250
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

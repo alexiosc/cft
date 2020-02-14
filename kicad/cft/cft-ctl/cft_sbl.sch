@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 2 12
+Sheet 2 11
 Title "Skip/Branch Unit"
 Date ""
 Rev ""
@@ -949,7 +949,7 @@ U 1 1 5ECFB79E
 P 6800 5250
 F 0 "U6" H 6750 5075 50  0000 C CNN
 F 1 "74LVC1G04" H 6750 4984 50  0000 C CNN
-F 2 "" H 6800 5250 50  0001 C CNN
+F 2 "alexios:SOT-23-5_HandSoldering" H 6800 5250 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G04.pdf" H 6800 5250 50  0001 C CNN
 	1    6800 5250
 	1    0    0    -1  
@@ -1053,9 +1053,9 @@ L alexios:74AHC1G04 U?
 U 2 1 5ED7D013
 P 6850 5950
 AR Path="/5ED7D013" Ref="U?"  Part="1" 
-AR Path="/5EFCF155/5ED7D013" Ref="U57"  Part="2" 
-F 0 "U57" H 7030 5996 50  0000 L CNN
-F 1 "74AHC1G04" H 7030 5905 50  0000 L CNN
+AR Path="/5EFCF155/5ED7D013" Ref="U6"  Part="2" 
+F 0 "U6" H 7030 5996 50  0000 L CNN
+F 1 "74LVC1G04" H 7030 5905 50  0000 L CNN
 F 2 "alexios:SOT-23-5_HandSoldering" H 6850 5950 50  0001 C CNN
 F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 6850 5950 50  0001 C CNN
 	2    6850 5950
@@ -1346,6 +1346,8 @@ Wire Wire Line
 	7400 4050 7000 4050
 Text Label 7000 4050 0    50   ~ 0
 CRSVD9
+Text Notes 9800 6150 0    50   ~ 0
+Metastability protection.
 Wire Bus Line
 	950  1500 6100 1500
 Wire Bus Line
@@ -1354,6 +1356,4 @@ Wire Bus Line
 	6200 1600 6200 2500
 Wire Bus Line
 	6100 2100 6100 5150
-Text Notes 9800 6150 0    50   ~ 0
-Metastability protection.
 $EndSCHEMATC

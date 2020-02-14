@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 7 12
+Sheet 3 11
 Title "Clock Generator"
 Date ""
 Rev ""
@@ -481,7 +481,7 @@ $EndComp
 Text HLabel 1550 1450 0    50   3State ~ 0
 ~RESET
 Text Label 7450 1050 0    50   ~ 0
-CLK3
+CLK3ₒ
 Text Label 7450 1350 0    50   ~ 0
 ~RESET
 Wire Wire Line
@@ -1176,7 +1176,7 @@ AR Path="/5E381107" Ref="X?"  Part="1"
 AR Path="/5E36D9C8/5E381107" Ref="X1"  Part="1" 
 F 0 "X1" H 3500 4917 50  0000 C CNN
 F 1 "CXO_DIP8" H 3500 4826 50  0000 C CNN
-F 2 "Oscillator:Oscillator_DIP-8" H 3550 4150 50  0001 C CNN
+F 2 "alexios:Oscillator_DIP-8-socket" H 3550 4150 50  0001 C CNN
 F 3 "http://cdn-reichelt.de/documents/datenblatt/B400/OSZI.pdf" H 3500 4500 50  0001 C CNN
 	1    3400 4550
 	1    0    0    -1  
@@ -1255,7 +1255,7 @@ U 1 1 5D01818E
 P 1600 2400
 F 0 "J1" H 1600 2150 50  0000 C CNN
 F 1 "Conn_01x02" H 1900 2350 50  0001 C CNN
-F 2 "" H 1600 2400 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Horizontal" H 1600 2400 50  0001 C CNN
 F 3 "~" H 1600 2400 50  0001 C CNN
 	1    1600 2400
 	-1   0    0    1   

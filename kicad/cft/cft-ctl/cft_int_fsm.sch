@@ -3,8 +3,8 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 8 12
-Title "CFT Homebrew 16-bit Minicomputer"
+Sheet 4 11
+Title "Interrupt State Machine"
 Date ""
 Rev ""
 Comp ""
@@ -85,8 +85,6 @@ F 3 "" H 2500 7350 50  0001 C CNN
 	1    2500 7350
 	1    0    0    -1  
 $EndComp
-Text HLabel 1700 2100 0    50   Input ~ 0
-~ACTION-STI
 $Comp
 L Device:C_Small C?
 U 1 1 5DEFC7E0
@@ -123,11 +121,9 @@ F 3 "" H 1050 6600 50  0001 C CNN
 	1    1050 6600
 	1    0    0    -1  
 $EndComp
-Text Notes 7050 6950 0    197  ~ 39
-Interrupt State Machine
-Text Label 1850 2500 0    50   ~ 0
+Text Label 1700 2500 0    50   ~ 0
 ~ACTION-CLI
-Text Label 1850 2100 0    50   ~ 0
+Text Label 1700 2100 0    50   ~ 0
 ~ACTION-STI
 $Comp
 L alexios:74LVC1G08 U42
@@ -140,8 +136,6 @@ F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 3150 2450
 	1    3500 2450
 	1    0    0    -1  
 $EndComp
-Text HLabel 1700 2500 0    50   Input ~ 0
-~ACTION-CLI
 Text HLabel 1700 2400 0    50   Input ~ 0
 ~RESET
 Wire Wire Line
@@ -611,4 +605,92 @@ Wire Wire Line
 	5400 7300 5400 7400
 Text Notes 4650 1650 0    50   ~ 0
 Use LVC or AC family for flip-flops.\nIt reduces the chances of metastability.
+Text Label 2700 -1050 1    50   ~ 0
+ACTION[0..3]
+Text Label 2000 -1850 0    50   ~ 0
+ACTION[0..3]
+Wire Bus Line
+	1900 -1850 2600 -1850
+Entry Bus Bus
+	2600 -1850 2700 -1750
+Entry Wire Line
+	2700 -1000 2800 -900
+Entry Wire Line
+	2700 -1500 2800 -1400
+Entry Wire Line
+	2700 -1600 2800 -1500
+Entry Wire Line
+	2700 -1700 2800 -1600
+$Comp
+L alexios:74HC138 U?
+U 1 1 610B639A
+P 3650 -1200
+AR Path="/5F3EA987/610B639A" Ref="U?"  Part="1" 
+AR Path="/610B639A" Ref="U?"  Part="1" 
+AR Path="/61F95ACC/610B639A" Ref="U?"  Part="1" 
+AR Path="/5D65F6EF/610B639A" Ref="U?"  Part="1" 
+AR Path="/5D69F3FD/610B639A" Ref="U?"  Part="1" 
+AR Path="/5F67D4B5/610B639A" Ref="U15"  Part="1" 
+F 0 "U15" H 3650 -533 50  0000 C CNN
+F 1 "74HC138" H 3650 -624 50  0000 C CNN
+F 2 "alexios:SOIC-16" H 3650 -1200 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 3650 -1200 50  0001 C CNN
+	1    3650 -1200
+	1    0    0    -1  
+$EndComp
+Text Label 2800 -1600 0    50   ~ 0
+ACTION0
+Text Label 2800 -1500 0    50   ~ 0
+ACTION1
+Text Label 2800 -1400 0    50   ~ 0
+ACTION2
+Text Label 2800 -900 0    50   ~ 0
+ACTION3
+$Comp
+L power:+5V #PWR?
+U 1 1 610B63A4
+P 3150 -1000
+AR Path="/610B63A4" Ref="#PWR?"  Part="1" 
+AR Path="/5D65F6EF/610B63A4" Ref="#PWR?"  Part="1" 
+AR Path="/5D69F3FD/610B63A4" Ref="#PWR?"  Part="1" 
+AR Path="/5F67D4B5/610B63A4" Ref="#PWR0103"  Part="1" 
+F 0 "#PWR0103" H 3150 -1150 50  0001 C CNN
+F 1 "+5V" H 3165 -827 50  0000 C CNN
+F 2 "" H 3150 -1000 50  0001 C CNN
+F 3 "" H 3150 -1000 50  0001 C CNN
+	1    3150 -1000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4150 -1300 5950 -1300
+Wire Wire Line
+	4150 -1200 5950 -1200
+Text Label 5000 -1300 2    50   ~ 0
+~ACTION-STI
+Text Label 5000 -1200 2    50   ~ 0
+~ACTION-CLI
+NoConn ~ 4150 -1600
+NoConn ~ 4150 -1000
+NoConn ~ 4150 -900
+Text Notes 3700 -950 1    50   ~ 10
+ACTION=0xxx
+Wire Wire Line
+	3150 -900 2800 -900
+Wire Wire Line
+	3150 -1400 2800 -1400
+Wire Wire Line
+	3150 -1500 2800 -1500
+Wire Wire Line
+	3150 -1600 2800 -1600
+Text HLabel 1900 -1850 0    50   Input ~ 0
+ACTION[0..3]
+NoConn ~ 4150 -1100
+NoConn ~ 4150 -1500
+NoConn ~ 4150 -1400
+Wire Wire Line
+	3150 -800 2500 -800
+Text Label 2800 -800 0    50   ~ 0
+CLK4
+Wire Bus Line
+	2700 -1750 2700 -1000
 $EndSCHEMATC

@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 5 12
+Sheet 3 12
 Title "Constant Store"
 Date ""
 Rev ""
@@ -130,127 +130,85 @@ F 3 "http://www.ti.com/lit/gpn/sn74AC541" H 7100 4600 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	3750 2550 2950 2550
-Text Label 3250 2550 2    50   ~ 0
+	3750 3350 2950 3350
+Text Label 3250 3350 2    50   ~ 0
 RADDR2
-Text Label 3000 3250 0    50   ~ 0
-~RUEN
 Entry Wire Line
-	2850 2450 2950 2550
+	2850 3250 2950 3350
 Entry Bus Bus
-	2750 1600 2850 1700
-Wire Wire Line
-	2150 3250 3750 3250
-Text HLabel 2150 3250 0    50   Input ~ 0
-~RUEN
-Text Label 2250 1600 0    50   ~ 0
+	2750 2150 2850 2250
+Text Label 2250 2150 0    50   ~ 0
 RADDR[0..4]
-Text HLabel 2150 1600 0    50   Input ~ 0
+Text HLabel 2150 2150 0    50   Input ~ 0
 RADDR[0..4]
 Wire Bus Line
-	2750 1600 2150 1600
-Text Notes 4300 3150 1    50   ~ 10
-RADDR=110xx
-Wire Wire Line
-	4750 2650 5450 2650
-Text Label 4850 2650 0    50   ~ 0
-~CSOE
-Text Notes 5400 2750 2    50   ~ 0
-RADDR=001XX
+	2750 2150 2150 2150
+Text Notes 4300 3950 1    50   ~ 10
+RADDR=001xx
 Text Label 6450 3450 2    50   ~ 0
 ~CSOE
-Wire Wire Line
-	6500 3550 6600 3550
 Text Label 6450 5000 2    50   ~ 0
 ~CSOE
 Wire Wire Line
-	6500 5100 6600 5100
+	6600 2750 6550 2750
 Wire Wire Line
-	6600 2750 6500 2750
+	6550 2750 6550 2850
 Wire Wire Line
-	6500 2750 6500 2850
-$Comp
-L power:GND #PWR0154
-U 1 1 5DEFC7D1
-P 6500 3250
-F 0 "#PWR0154" H 6500 3000 50  0001 C CNN
-F 1 "GND" H 6350 3250 50  0000 C CNN
-F 2 "" H 6500 3250 50  0001 C CNN
-F 3 "" H 6500 3250 50  0001 C CNN
-	1    6500 3250
-	1    0    0    -1  
-$EndComp
+	6600 3250 6550 3250
 Wire Wire Line
-	6600 3250 6500 3250
-Connection ~ 6500 3250
+	6600 3150 6550 3150
+Connection ~ 6550 3150
 Wire Wire Line
-	6600 3150 6500 3150
-Connection ~ 6500 3150
+	6550 3150 6550 3250
 Wire Wire Line
-	6500 3150 6500 3250
+	6600 3050 6550 3050
+Connection ~ 6550 3050
 Wire Wire Line
-	6600 3050 6500 3050
-Connection ~ 6500 3050
+	6550 3050 6550 3150
 Wire Wire Line
-	6500 3050 6500 3150
+	6600 2950 6550 2950
+Connection ~ 6550 2950
 Wire Wire Line
-	6600 2950 6500 2950
-Connection ~ 6500 2950
+	6550 2950 6550 3050
 Wire Wire Line
-	6500 2950 6500 3050
+	6600 2850 6550 2850
+Connection ~ 6550 2850
 Wire Wire Line
-	6600 2850 6500 2850
-Connection ~ 6500 2850
+	6550 2850 6550 2950
 Wire Wire Line
-	6500 2850 6500 2950
-$Comp
-L power:GND #PWR0155
-U 1 1 5DEFC7D2
-P 6500 4800
-F 0 "#PWR0155" H 6500 4550 50  0001 C CNN
-F 1 "GND" H 6350 4800 50  0000 C CNN
-F 2 "" H 6500 4800 50  0001 C CNN
-F 3 "" H 6500 4800 50  0001 C CNN
-	1    6500 4800
-	1    0    0    -1  
-$EndComp
+	6550 4100 6600 4100
 Wire Wire Line
-	6500 4100 6600 4100
+	6600 4200 6550 4200
+Connection ~ 6550 4200
 Wire Wire Line
-	6600 4200 6500 4200
-Connection ~ 6500 4200
+	6550 4200 6550 4100
 Wire Wire Line
-	6500 4200 6500 4100
+	6600 4300 6550 4300
+Connection ~ 6550 4300
 Wire Wire Line
-	6600 4300 6500 4300
-Connection ~ 6500 4300
+	6550 4300 6550 4200
 Wire Wire Line
-	6500 4300 6500 4200
+	6600 4400 6550 4400
+Connection ~ 6550 4400
 Wire Wire Line
-	6600 4400 6500 4400
-Connection ~ 6500 4400
+	6550 4400 6550 4300
 Wire Wire Line
-	6500 4400 6500 4300
+	6600 4500 6550 4500
+Connection ~ 6550 4500
 Wire Wire Line
-	6600 4500 6500 4500
-Connection ~ 6500 4500
+	6550 4500 6550 4400
 Wire Wire Line
-	6500 4500 6500 4400
+	6550 4600 6600 4600
+Connection ~ 6550 4600
 Wire Wire Line
-	6500 4600 6600 4600
-Connection ~ 6500 4600
+	6550 4600 6550 4500
 Wire Wire Line
-	6500 4600 6500 4500
+	6600 4700 6550 4700
+Connection ~ 6550 4700
 Wire Wire Line
-	6600 4700 6500 4700
-Connection ~ 6500 4700
+	6550 4700 6550 4600
 Wire Wire Line
-	6500 4700 6500 4600
-Wire Wire Line
-	6500 4800 6600 4800
-Connection ~ 6500 4800
-Wire Wire Line
-	6500 4800 6500 4700
+	6550 4800 6550 4700
 Text Label 6450 2550 2    50   ~ 0
 RADDR0
 Text Label 6450 2650 2    50   ~ 0
@@ -360,9 +318,9 @@ Wire Bus Line
 Text Label 8250 2150 0    50   ~ 0
 IBUS[0..15]
 Entry Wire Line
-	2850 1950 2950 2050
+	2850 2550 2950 2650
 Entry Wire Line
-	2850 1850 2950 1950
+	2850 2450 2950 2550
 $Comp
 L alexios:74HC138 U?
 U 2 1 5DEFC7D3
@@ -456,137 +414,160 @@ F 3 "http://www.ti.com/lit/gpn/sn74AC541" H 4250 7350 50  0001 C CNN
 $EndComp
 Connection ~ 3900 7250
 Connection ~ 3900 7450
-NoConn ~ 4750 2550
-NoConn ~ 4750 2750
-NoConn ~ 4750 2850
-NoConn ~ 4750 2950
-NoConn ~ 4750 3050
-NoConn ~ 4750 3150
-NoConn ~ 4750 3250
-Text Notes 9150 3600 0    50   ~ 0
-~RUEN~\n\n  1\n  0\n  0\n  0\n  0\n  0\n  0\n  0
-Text Notes 9400 3600 0    50   ~ 0
+NoConn ~ 4750 3350
+NoConn ~ 4750 3550
+NoConn ~ 4750 3650
+NoConn ~ 4750 3750
+NoConn ~ 4750 3850
+NoConn ~ 4750 3950
+NoConn ~ 4750 4050
+Text Notes 4050 5250 0    50   ~ 0
 RADDR\n\nXXXXX\n0XXXX\n10XXX\n11000\n11001\n11010\n11011\n111XX
 Wire Wire Line
 	6050 3450 6050 5000
 Wire Notes Line width 20 style solid
-	9100 2750 10650 2750
+	3950 4400 5300 4400
 Wire Notes Line width 20 style solid
-	9100 3650 9100 2750
+	3950 5300 3950 4400
 Wire Notes Line style solid
-	9100 2900 10650 2900
+	3950 4550 5300 4550
 Wire Notes Line width 20 style solid
-	10650 3650 9100 3650
+	5300 5300 3950 5300
 Wire Notes Line
-	9700 2750 9700 3650
+	4350 4400 4350 5300
 Wire Notes Line width 20 style solid
-	10650 3650 10650 2750
+	5300 5300 5300 4400
 Text HLabel 8750 2150 2    50   BiDi ~ 0
 IBUS[0..15]
 Text Notes 8700 6000 0    50   ~ 0
 The constant store now needs to emit just three constants:\n0000, 0002 and 0003. We get 0001 for free because of the\ncombinational wiring. All of these are used as vector\naddresses, so it would be easy to change them to e.g.\n0000, 0001, 0008 and 0009 by moving the wiring around.\n\nUnlike the previous design, ~RSTHOLD~ does not drive the\nIBUS with a constant. The Reset microprogram is responsible\nfor that, and this is now possible because the Reset Vector\nis 0000 and it can be issues without wiring magic like on the\nprevious design.
 Text Notes 8700 4950 0    63   ~ 13
 2019 Design Update
-Wire Wire Line
-	5450 2650 5450 3450
-Wire Wire Line
-	5450 3450 6050 3450
 Connection ~ 6050 3450
-Wire Wire Line
-	5650 2050 2950 2050
-Wire Wire Line
-	5650 2650 6600 2650
-Text Label 3000 1950 0    50   ~ 0
+Text Label 3000 2550 0    50   ~ 0
 RADDR0
-Text Label 3000 2050 0    50   ~ 0
+Text Label 3000 2650 0    50   ~ 0
 RADDR1
-Text Notes 9750 3600 0    50   ~ 0
+Text Notes 4400 5250 0    50   ~ 0
 Output\n\nHigh Impendance\nHigh Impendance\nHigh Impendance\n0000'0000'0000'0000\n0000'0000'0000'0001\n0000'0000'0000'0010\n0000'0000'0000'0011\nHigh Impendance
-Wire Wire Line
-	5650 2650 5650 2050
-Wire Wire Line
-	5750 1950 5750 2550
-Wire Wire Line
-	2950 1950 5750 1950
-Wire Wire Line
-	5750 2550 6600 2550
 Wire Wire Line
 	6050 3450 6600 3450
 Wire Wire Line
 	6050 5000 6600 5000
 $Comp
-L power:GND #PWR0158
-U 1 1 5DEFC7BA
-P 6500 3550
-F 0 "#PWR0158" H 6500 3300 50  0001 C CNN
-F 1 "GND" H 6505 3377 50  0000 C CNN
-F 2 "" H 6500 3550 50  0001 C CNN
-F 3 "" H 6500 3550 50  0001 C CNN
-	1    6500 3550
-	1    0    0    -1  
-$EndComp
-$Comp
 L power:GND #PWR0159
 U 1 1 5DEFC7BB
-P 6500 5100
-F 0 "#PWR0159" H 6500 4850 50  0001 C CNN
-F 1 "GND" H 6505 4927 50  0000 C CNN
-F 2 "" H 6500 5100 50  0001 C CNN
-F 3 "" H 6500 5100 50  0001 C CNN
-	1    6500 5100
+P 6550 5150
+F 0 "#PWR0159" H 6550 4900 50  0001 C CNN
+F 1 "GND" H 6555 4977 50  0000 C CNN
+F 2 "" H 6550 5150 50  0001 C CNN
+F 3 "" H 6550 5150 50  0001 C CNN
+	1    6550 5150
 	1    0    0    -1  
 $EndComp
 $Comp
 L alexios:74HC138 U?
 U 1 1 5E56A57B
-P 4250 2950
+P 4250 3750
 AR Path="/5DC89E19/5E56A57B" Ref="U?"  Part="1" 
 AR Path="/5E507DE3/5E56A57B" Ref="U24"  Part="1" 
 AR Path="/5E56A57B" Ref="U?"  Part="1" 
 AR Path="/5DF0FEB9/5E56A57B" Ref="U?"  Part="1" 
-F 0 "U24" H 4250 3617 50  0000 C CNN
-F 1 "74HC138" H 4250 3526 50  0000 C CNN
-F 2 "alexios:SOIC-14" H 4250 2950 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 4250 2950 50  0001 C CNN
-	1    4250 2950
+F 0 "U24" H 4250 4417 50  0000 C CNN
+F 1 "74HC138" H 4250 4326 50  0000 C CNN
+F 2 "alexios:SOIC-14" H 4250 3750 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 4250 3750 50  0001 C CNN
+	1    4250 3750
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	3750 2650 2950 2650
-Text Label 3250 2650 2    50   ~ 0
+	3750 3450 2950 3450
+Text Label 3250 3450 2    50   ~ 0
 RADDR3
 Entry Wire Line
-	2850 2550 2950 2650
+	2850 3350 2950 3450
 Wire Wire Line
-	3750 2750 2950 2750
-Text Label 3250 2750 2    50   ~ 0
+	3750 3550 2950 3550
+Text Label 3250 3550 2    50   ~ 0
 RADDR4
 Entry Wire Line
-	2850 2650 2950 2750
-$Comp
-L power:+5V #PWR0160
-U 1 1 5E03D7B4
-P 3750 3150
-F 0 "#PWR0160" H 3750 3000 50  0001 C CNN
-F 1 "+5V" H 3765 3323 50  0000 C CNN
-F 2 "" H 3750 3150 50  0001 C CNN
-F 3 "" H 3750 3150 50  0001 C CNN
-	1    3750 3150
-	1    0    0    -1  
-$EndComp
+	2850 3450 2950 3550
 $Comp
 L power:GND #PWR0161
 U 1 1 5E040054
-P 3750 3350
-F 0 "#PWR0161" H 3750 3100 50  0001 C CNN
-F 1 "GND" H 3755 3177 50  0000 C CNN
-F 2 "" H 3750 3350 50  0001 C CNN
-F 3 "" H 3750 3350 50  0001 C CNN
-	1    3750 3350
+P 3700 4200
+F 0 "#PWR0161" H 3700 3950 50  0001 C CNN
+F 1 "GND" H 3705 4027 50  0000 C CNN
+F 2 "" H 3700 4200 50  0001 C CNN
+F 3 "" H 3700 4200 50  0001 C CNN
+	1    3700 4200
 	1    0    0    -1  
 $EndComp
-Wire Bus Line
-	2850 1700 2850 2650
+Wire Wire Line
+	3750 4050 3700 4050
+Wire Wire Line
+	3700 4050 3700 4150
+Wire Wire Line
+	3750 4150 3700 4150
+Connection ~ 3700 4150
+Wire Wire Line
+	3700 4150 3700 4200
+$Comp
+L power:+5V #PWR?
+U 1 1 60F94276
+P 3700 3900
+F 0 "#PWR?" H 3700 3750 50  0001 C CNN
+F 1 "+5V" H 3715 4073 50  0000 C CNN
+F 2 "" H 3700 3900 50  0001 C CNN
+F 3 "" H 3700 3900 50  0001 C CNN
+	1    3700 3900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3700 3900 3700 3950
+Wire Wire Line
+	3700 3950 3750 3950
+Text Notes 5400 3550 2    50   ~ 0
+RADDR=001XX
+Text Label 4850 3450 0    50   ~ 0
+~CSOE
+Wire Wire Line
+	4750 3450 6050 3450
+Wire Wire Line
+	2950 2650 6600 2650
+Wire Wire Line
+	2950 2550 6600 2550
+Wire Wire Line
+	6600 3550 6550 3550
+Wire Wire Line
+	6600 5100 6550 5100
+Wire Wire Line
+	6550 5100 6550 5150
+Wire Wire Line
+	6600 4800 6550 4800
+Wire Wire Line
+	6550 4800 6550 5100
+Connection ~ 6550 4800
+Connection ~ 6550 5100
+Wire Wire Line
+	6550 3250 6550 3550
+Connection ~ 6550 3250
+Connection ~ 6550 3550
+Wire Wire Line
+	6550 3550 6550 3600
 Wire Bus Line
 	8050 2250 8050 4700
+Wire Bus Line
+	2850 2250 2850 3450
+$Comp
+L power:GND #PWR0158
+U 1 1 5DEFC7BA
+P 6550 3600
+F 0 "#PWR0158" H 6550 3350 50  0001 C CNN
+F 1 "GND" H 6555 3427 50  0000 C CNN
+F 2 "" H 6550 3600 50  0001 C CNN
+F 3 "" H 6550 3600 50  0001 C CNN
+	1    6550 3600
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

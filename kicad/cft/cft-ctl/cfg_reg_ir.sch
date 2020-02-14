@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 13 12
+Sheet 9 11
 Title "Instruction Register (IR)"
 Date ""
 Rev ""
@@ -890,12 +890,12 @@ FPD6
 Text Label 8400 4800 0    50   ~ 0
 FPD7
 $Comp
-L alexios:74HC138 U?
+L alexios:74HC138 U23
 U 1 1 60BFC4E0
 P 2900 3800
-F 0 "U?" H 2900 4467 50  0000 C CNN
+F 0 "U23" H 2900 4467 50  0000 C CNN
 F 1 "74HC138" H 2900 4376 50  0000 C CNN
-F 2 "" H 2900 3800 50  0001 C CNN
+F 2 "alexios:SOIC-16" H 2900 3800 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 2900 3800 50  0001 C CNN
 F 4 "Yes" H 2825 2975 50  0001 C CNN "Verified"
 	1    2900 3800
@@ -904,12 +904,12 @@ $EndComp
 Text Notes 2850 4050 1    50   ~ 10
 WADDR=00010
 $Comp
-L alexios:74HC138 U?
+L alexios:74HC138 U15
 U 2 1 60C5EB83
 P 1400 6550
-F 0 "U?" H 1580 6596 50  0000 L CNN
+F 0 "U15" H 1580 6596 50  0000 L CNN
 F 1 "74HC138" H 1580 6505 50  0000 L CNN
-F 2 "" H 1400 6550 50  0001 C CNN
+F 2 "alexios:SOIC-16" H 1400 6550 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 1400 6550 50  0001 C CNN
 F 4 "Yes" H 1325 5725 50  0001 C CNN "Verified"
 	2    1400 6550
@@ -961,6 +961,8 @@ Wire Wire Line
 	2400 3500 2000 3500
 Wire Wire Line
 	2400 3400 2000 3400
+Text Label 1250 4200 0    50   ~ 0
+CLK4
 Wire Bus Line
 	1900 3150 1900 4000
 Wire Bus Line
@@ -969,6 +971,4 @@ Wire Bus Line
 	8750 2600 8750 5100
 Wire Bus Line
 	4650 2300 4650 4700
-Text Label 1250 4200 0    50   ~ 0
-CLK4
 $EndSCHEMATC

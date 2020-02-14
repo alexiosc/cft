@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 3 12
+Sheet 10 11
 Title "Page 0 & Indexed Addressing"
 Date ""
 Rev ""
@@ -228,8 +228,6 @@ F 3 "" H 4400 3700 50  0001 C CNN
 	1    4400 3700
 	1    0    0    -1  
 $EndComp
-Text Label 1350 4050 0    50   ~ 0
-~READ-AGL
 Connection ~ 5150 3400
 Wire Wire Line
 	5150 1850 5600 1850
@@ -239,8 +237,6 @@ Wire Wire Line
 	5150 3400 5600 3400
 Wire Wire Line
 	5150 4050 5150 3400
-Wire Wire Line
-	1200 4050 5150 4050
 Entry Wire Line
 	7000 3200 7100 3100
 Entry Wire Line
@@ -564,8 +560,6 @@ F 3 "http://www.ti.com/lit/gpn/sn74LS574" H 3300 2950 50  0001 C CNN
 	1    3600 3000
 	1    0    0    -1  
 $EndComp
-Text HLabel 1200 4050 0    50   Input ~ 0
-~READ_AGL
 Text Label 5200 1850 0    50   ~ 0
 ~READ-AGL
 Text Notes 4050 1650 2    50   ~ 0
@@ -594,31 +588,31 @@ Wire Wire Line
 	3050 2500 3050 2600
 Wire Wire Line
 	2450 3500 2450 2150
-Text Notes 3850 4650 2    100  ~ 20
+Text Notes 3850 5300 2    100  ~ 20
 Auto-Index Address Decoding
 Wire Notes Line width 20 style solid
-	1350 4750 4350 4750
+	1350 5400 4350 5400
 Wire Notes Line width 20 style solid
-	4350 4750 4350 5550
+	4350 5400 4350 6200
 Wire Notes Line style solid
-	1350 4900 4350 4900
-Wire Notes Line width 20 style solid
 	1350 5550 4350 5550
 Wire Notes Line width 20 style solid
-	1350 4750 1350 5550
+	1350 6200 4350 6200
+Wire Notes Line width 20 style solid
+	1350 5400 1350 6200
 Wire Notes Line
-	2600 4750 2600 5550
-Text Notes 1500 5950 0    50   ~ 0
+	2600 5400 2600 6200
+Text Notes 1500 6600 0    50   ~ 0
 When I and R are set, operands 300–33F generate addresses\nrelative to the bank register MBn, where n is taken from IR₂–IR₀.\nThis is implemented by the Address Generation Logic (AGL),\nnot here.
-Text Notes 1450 5700 2    50   ~ 0
+Text Notes 1450 6350 2    50   ~ 0
 *
-Text Notes 2850 5500 0    50   ~ 0
+Text Notes 2850 6150 0    50   ~ 0
 Meaning\n\nNormal Registers/Page Zero values\nNormal Registers/Page Zero values\nNormal Registers/Page Zero values\nNormal Registers *\nAuto-increment Registers *\nAuto-decrement Registers *\nStack Pointers *
-Text Notes 1950 5500 0    50   ~ 0
+Text Notes 1950 6150 0    50   ~ 0
 Binary Pattern\n\n1 1 00xxxxxxxx\n1 1 01xxxxxxxx\n1 1 10xxxxxxxx\n1 1 1100xxxxxx\n1 1 1101xxxxxx\n1 1 1110xxxxxx\n1 1 1111xxxxxx
-Text Notes 1400 5500 0    50   ~ 0
+Text Notes 1400 6150 0    50   ~ 0
 IR Value\n\nI R 000–0FF\nI R 100–1FF\nI R 200–2FF\nI R 300–33F\nI R 340–37F\nI R 380–3BF\nI R 3C0–3FF
-Text Notes 2650 5500 0    50   ~ 0
+Text Notes 2650 6150 0    50   ~ 0
 IDX\n\n00\n00\n00\n00\n01\n10\n11
 Text Notes 6550 5750 0    50   ~ 0
 IR[11..8] = 1111
@@ -652,8 +646,8 @@ L power:GND #PWR?
 U 1 1 60D17A3D
 P 5450 5800
 AR Path="/5CD3AC27/60D17A3D" Ref="#PWR?"  Part="1" 
-AR Path="/5F3EA987/60D17A3D" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 5450 5550 50  0001 C CNN
+AR Path="/5F3EA987/60D17A3D" Ref="#PWR0106"  Part="1" 
+F 0 "#PWR0106" H 5450 5550 50  0001 C CNN
 F 1 "GND" H 5455 5627 50  0000 C CNN
 F 2 "" H 5450 5800 50  0001 C CNN
 F 3 "" H 5450 5800 50  0001 C CNN
@@ -669,8 +663,8 @@ L alexios:74HC238 U?
 U 1 1 60D17A46
 P 6050 5350
 AR Path="/5CD3AC27/60D17A46" Ref="U?"  Part="1" 
-AR Path="/5F3EA987/60D17A46" Ref="U?"  Part="1" 
-F 0 "U?" H 6050 6017 50  0000 C CNN
+AR Path="/5F3EA987/60D17A46" Ref="U25"  Part="1" 
+F 0 "U25" H 6050 6017 50  0000 C CNN
 F 1 "74HC238" H 6050 5926 50  0000 C CNN
 F 2 "alexios:SOIC-16" H 6050 5350 50  0001 C CNN
 F 3 "" H 6050 5350 50  0001 C CNN
@@ -683,8 +677,8 @@ L alexios:74HC08 U?
 U 2 1 60D17A4C
 P 7500 5100
 AR Path="/5CD3AC27/60D17A4C" Ref="U?"  Part="2" 
-AR Path="/5F3EA987/60D17A4C" Ref="U?"  Part="2" 
-F 0 "U?" H 7625 4975 50  0000 C CNN
+AR Path="/5F3EA987/60D17A4C" Ref="U24"  Part="2" 
+F 0 "U24" H 7625 4975 50  0000 C CNN
 F 1 "74HC08" H 7625 4884 50  0000 C CNN
 F 2 "alexios:SOIC-14" H 7700 4650 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 7700 4650 50  0001 C CNN
@@ -738,24 +732,14 @@ L alexios:74HC08 U?
 U 1 1 60D17A6C
 P 7500 4650
 AR Path="/5CD3AC27/60D17A6C" Ref="U?"  Part="1" 
-AR Path="/5F3EA987/60D17A6C" Ref="U?"  Part="1" 
-F 0 "U?" H 7625 4525 50  0000 C CNN
+AR Path="/5F3EA987/60D17A6C" Ref="U24"  Part="1" 
+F 0 "U24" H 7625 4525 50  0000 C CNN
 F 1 "74HC08" H 7625 4434 50  0000 C CNN
 F 2 "alexios:SOIC-14" H 7700 4200 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 7700 4200 50  0001 C CNN
 	1    7500 4650
 	1    0    0    -1  
 $EndComp
-Entry Wire Line
-	8500 5500 8600 5600
-Entry Wire Line
-	8500 5050 8600 5150
-Wire Bus Line
-	8700 5850 9650 5850
-Entry Bus Bus
-	8600 5750 8700 5850
-Text HLabel 9650 5850 2    50   Input ~ 0
-IDX[0..1]
 $Comp
 L power:+5V #PWR?
 U 1 1 60D21D04
@@ -763,8 +747,8 @@ P 9850 -2400
 AR Path="/60D21D04" Ref="#PWR?"  Part="1" 
 AR Path="/5CC0D65F/60D21D04" Ref="#PWR?"  Part="1" 
 AR Path="/5CD3AC27/60D21D04" Ref="#PWR?"  Part="1" 
-AR Path="/5F3EA987/60D21D04" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 9850 -2550 50  0001 C CNN
+AR Path="/5F3EA987/60D21D04" Ref="#PWR0109"  Part="1" 
+F 0 "#PWR0109" H 9850 -2550 50  0001 C CNN
 F 1 "+5V" H 9865 -2227 50  0000 C CNN
 F 2 "" H 9850 -2400 50  0001 C CNN
 F 3 "" H 9850 -2400 50  0001 C CNN
@@ -777,8 +761,8 @@ U 1 1 60D21D0A
 P 11150 -2300
 AR Path="/5CC0D65F/60D21D0A" Ref="C?"  Part="1" 
 AR Path="/5CD3AC27/60D21D0A" Ref="C?"  Part="1" 
-AR Path="/5F3EA987/60D21D0A" Ref="C?"  Part="1" 
-F 0 "C?" H 11059 -2254 50  0000 R CNN
+AR Path="/5F3EA987/60D21D0A" Ref="C19"  Part="1" 
+F 0 "C19" H 11059 -2254 50  0000 R CNN
 F 1 "100nF" H 11059 -2345 50  0000 R CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric" H 11150 -2300 50  0001 C CNN
 F 3 "~" H 11150 -2300 50  0001 C CNN
@@ -791,8 +775,8 @@ U 1 1 60D21D10
 P 9850 -2300
 AR Path="/5CC0D65F/60D21D10" Ref="C?"  Part="1" 
 AR Path="/5CD3AC27/60D21D10" Ref="C?"  Part="1" 
-AR Path="/5F3EA987/60D21D10" Ref="C?"  Part="1" 
-F 0 "C?" H 9759 -2254 50  0000 R CNN
+AR Path="/5F3EA987/60D21D10" Ref="C18"  Part="1" 
+F 0 "C18" H 9759 -2254 50  0000 R CNN
 F 1 "100nF" H 9759 -2345 50  0000 R CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric" H 9850 -2300 50  0001 C CNN
 F 3 "~" H 9850 -2300 50  0001 C CNN
@@ -806,8 +790,8 @@ P 11150 -2400
 AR Path="/60D21D16" Ref="#PWR?"  Part="1" 
 AR Path="/5CC0D65F/60D21D16" Ref="#PWR?"  Part="1" 
 AR Path="/5CD3AC27/60D21D16" Ref="#PWR?"  Part="1" 
-AR Path="/5F3EA987/60D21D16" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 11150 -2550 50  0001 C CNN
+AR Path="/5F3EA987/60D21D16" Ref="#PWR0123"  Part="1" 
+F 0 "#PWR0123" H 11150 -2550 50  0001 C CNN
 F 1 "+5V" H 11165 -2227 50  0000 C CNN
 F 2 "" H 11150 -2400 50  0001 C CNN
 F 3 "" H 11150 -2400 50  0001 C CNN
@@ -822,8 +806,8 @@ AR Path="/60D21D1C" Ref="#PWR?"  Part="1"
 AR Path="/5CBF1647/60D21D1C" Ref="#PWR?"  Part="1" 
 AR Path="/5CC0D65F/60D21D1C" Ref="#PWR?"  Part="1" 
 AR Path="/5CD3AC27/60D21D1C" Ref="#PWR?"  Part="1" 
-AR Path="/5F3EA987/60D21D1C" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 9850 -2450 50  0001 C CNN
+AR Path="/5F3EA987/60D21D1C" Ref="#PWR0124"  Part="1" 
+F 0 "#PWR0124" H 9850 -2450 50  0001 C CNN
 F 1 "GND" H 9855 -2373 50  0000 C CNN
 F 2 "" H 9850 -2200 50  0001 C CNN
 F 3 "" H 9850 -2200 50  0001 C CNN
@@ -838,8 +822,8 @@ AR Path="/60D21D22" Ref="#PWR?"  Part="1"
 AR Path="/5CBF1647/60D21D22" Ref="#PWR?"  Part="1" 
 AR Path="/5CC0D65F/60D21D22" Ref="#PWR?"  Part="1" 
 AR Path="/5CD3AC27/60D21D22" Ref="#PWR?"  Part="1" 
-AR Path="/5F3EA987/60D21D22" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 11150 -2450 50  0001 C CNN
+AR Path="/5F3EA987/60D21D22" Ref="#PWR0129"  Part="1" 
+F 0 "#PWR0129" H 11150 -2450 50  0001 C CNN
 F 1 "GND" H 11155 -2373 50  0000 C CNN
 F 2 "" H 11150 -2200 50  0001 C CNN
 F 3 "" H 11150 -2200 50  0001 C CNN
@@ -851,8 +835,8 @@ L alexios:74HC08 U?
 U 5 1 60D21D28
 P 11350 -2850
 AR Path="/5CD3AC27/60D21D28" Ref="U?"  Part="5" 
-AR Path="/5F3EA987/60D21D28" Ref="U?"  Part="5" 
-F 0 "U?" H 11680 -3354 50  0000 L CNN
+AR Path="/5F3EA987/60D21D28" Ref="U24"  Part="5" 
+F 0 "U24" H 11680 -3354 50  0000 L CNN
 F 1 "74HC08" H 11680 -3445 50  0000 L CNN
 F 2 "alexios:SOIC-14" H 11550 -3300 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 11550 -3300 50  0001 C CNN
@@ -866,8 +850,8 @@ L alexios:74HC238 U?
 U 2 1 60D21D31
 P 10200 -2300
 AR Path="/5CD3AC27/60D21D31" Ref="U?"  Part="2" 
-AR Path="/5F3EA987/60D21D31" Ref="U?"  Part="2" 
-F 0 "U?" H 10379 -2254 50  0000 L CNN
+AR Path="/5F3EA987/60D21D31" Ref="U25"  Part="2" 
+F 0 "U25" H 10379 -2254 50  0000 L CNN
 F 1 "74HC238" H 10379 -2345 50  0000 L CNN
 F 2 "alexios:SOIC-16" H 10200 -2300 50  0001 C CNN
 F 3 "" H 10200 -2300 50  0001 C CNN
@@ -893,10 +877,96 @@ Text Notes 1450 1300 0    98   ~ 20
 Page Zero Address Generation Logic (AGL)
 Text Notes 5650 4250 0    98   ~ 20
 Auto-Indexing Logic (AIL)
+Text Notes 5350 5550 0    50   ~ 0
+(I)
+Text Notes 5350 5150 0    50   ~ 0
+(R)
+Text Notes 6050 6400 0    50   ~ 0
+IDX0 and IDX1 are not registered because they rely solely on the\ncurrent value of the IR. IR is latched during CLK4, so at worst\nIDX will be valid at CLK1 + ~20ns.
+Text HLabel 8500 5050 2    50   Output ~ 0
+IDX0
+Text HLabel 8500 5500 2    50   Output ~ 0
+IDX1
+$Comp
+L alexios:74HC138 U26
+U 1 1 60E11954
+P 3600 4350
+F 0 "U26" H 3600 5017 50  0000 C CNN
+F 1 "74HC138" H 3600 4926 50  0000 C CNN
+F 2 "alexios:SOIC-16" H 3600 4350 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 3600 4350 50  0001 C CNN
+F 4 "Yes" H 3525 3525 50  0001 C CNN "Verified"
+	1    3600 4350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3100 3950 2650 3950
+Wire Wire Line
+	3100 4050 2650 4050
+Wire Wire Line
+	3100 4150 2650 4150
+Wire Wire Line
+	3100 4650 2650 4650
+Wire Wire Line
+	3100 4750 2650 4750
+Text Label 2650 3950 0    50   ~ 0
+RADDR0
+Text Label 2650 4050 0    50   ~ 0
+RADDR1
+Text Label 2650 4150 0    50   ~ 0
+RADDR2
+Text Label 2650 4650 0    50   ~ 0
+RADDR3
+Text Label 2650 4750 0    50   ~ 0
+RADDR4
+$Comp
+L power:+5V #PWR0130
+U 1 1 60E537C0
+P 3050 4500
+F 0 "#PWR0130" H 3050 4350 50  0001 C CNN
+F 1 "+5V" H 3065 4673 50  0000 C CNN
+F 2 "" H 3050 4500 50  0001 C CNN
+F 3 "" H 3050 4500 50  0001 C CNN
+	1    3050 4500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3050 4500 3050 4550
+Wire Wire Line
+	3050 4550 3100 4550
+Text Notes 3650 4600 1    50   ~ 10
+RADDR=00010
+Text Label 4600 4050 2    50   ~ 0
+~READ-AGL
+NoConn ~ 4100 3950
+NoConn ~ 4100 4150
+NoConn ~ 4100 4250
+NoConn ~ 4100 4350
+NoConn ~ 4100 4450
+NoConn ~ 4100 4550
+NoConn ~ 4100 4650
+Wire Wire Line
+	4100 4050 5150 4050
+Entry Wire Line
+	2550 3850 2650 3950
+Entry Wire Line
+	2550 3950 2650 4050
+Entry Wire Line
+	2550 4050 2650 4150
+Entry Wire Line
+	2550 4550 2650 4650
+Entry Wire Line
+	2550 4650 2650 4750
+Entry Bus Bus
+	2450 3650 2550 3750
 Wire Bus Line
-	8600 5150 8600 5750
+	2450 3650 1200 3650
+Text HLabel 1200 3650 0    50   Input ~ 0
+RADDR[4..0]
 Wire Bus Line
 	1200 2050 4900 2050
+Wire Bus Line
+	2550 3750 2550 4650
 Wire Bus Line
 	2750 2500 2750 3100
 Wire Bus Line
@@ -907,10 +977,4 @@ Wire Bus Line
 	5000 1050 5000 1950
 Wire Bus Line
 	7100 2150 7100 3100
-Text Notes 5350 5550 0    50   ~ 0
-(I)
-Text Notes 5350 5150 0    50   ~ 0
-(R)
-Text Notes 6050 6400 0    50   ~ 0
-IDX0 and IDX1 are not registered because they rely solely on the\ncurrent value of the IR. IR is latched during CLK4, so at worst\nIDX will be valid at CLK1 + ~20ns.
 $EndSCHEMATC
