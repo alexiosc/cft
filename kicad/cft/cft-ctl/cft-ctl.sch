@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A3 16535 11693
 encoding utf-8
-Sheet 1 13
+Sheet 1 12
 Title "Control Unit Board"
 Date ""
 Rev ""
@@ -39,14 +39,6 @@ F3 "IR[0..10]" I L 7550 4800 50
 F4 "PC[10..15]" I L 7550 4950 50 
 F5 "~END" I L 7550 5100 50 
 F6 "~READ-AGL" I L 7550 5250 50 
-$EndSheet
-$Sheet
-S 7550 5650 1150 300 
-U 5CD3AC27
-F0 "Auto-Index Logic (AIL)" 50
-F1 "cft_ail.sch" 50
-F2 "IR[6..11]" I L 7550 5800 50 
-F3 "IDX[0..1]" I R 8700 5800 50 
 $EndSheet
 $Sheet
 S 17950 -1450 1150 850 
@@ -225,27 +217,23 @@ Text Label 3000 2500 2    50   ~ 0
 COND[0..4]
 Text Label 3000 2600 2    50   ~ 0
 ACTION[0..3]
-Text Label 5850 4800 2    50   ~ 0
+Text Label 3000 4900 2    50   ~ 0
 IR[0..15]
-Text Label 5850 5250 2    50   ~ 0
+Text Label 3000 5300 2    50   ~ 0
 FPD[0..7]
 Wire Bus Line
-	5250 5250 5850 5250
+	2400 5300 3000 5300
 Wire Bus Line
-	4100 4800 3500 4800
-Text Label 3500 4800 0    50   ~ 0
+	1250 5100 650  5100
+Text Label 650  5100 0    50   ~ 0
 IBUS[0..15]
 Wire Wire Line
-	4100 4950 3500 4950
+	2400 5100 3000 5100
 Wire Wire Line
-	4100 5100 3500 5100
-Wire Wire Line
-	4100 5250 3500 5250
-Text Label 3500 4950 0    50   ~ 0
-~WRITE-IR
-Text Label 3500 5100 0    50   ~ 0
+	2400 5200 3000 5200
+Text Label 3000 5100 2    50   ~ 0
 ~FPIRL
-Text Label 3500 5250 0    50   ~ 0
+Text Label 3000 5200 2    50   ~ 0
 ~FPIRH
 Wire Wire Line
 	2400 3800 3000 3800
@@ -273,12 +261,6 @@ F13 "~FLAGWE" I L 20700 -1200 50
 $EndSheet
 Text Notes 21150 -2800 0    70   ~ 14
 Verilog
-Entry Bus Bus
-	6050 5700 6150 5800
-Wire Bus Line
-	6150 5800 7550 5800
-Wire Bus Line
-	6050 5700 6050 4900
 Wire Bus Line
 	8700 4800 9300 4800
 Text Label 9300 4800 2    50   ~ 0
@@ -289,8 +271,6 @@ Wire Wire Line
 	9550 2900 9550 6500
 Text Label 8850 2900 0    50   ~ 0
 ~COND
-Entry Bus Bus
-	5950 4800 6050 4900
 Text Label 7000 2900 0    50   ~ 0
 ~RESET
 Wire Wire Line
@@ -299,12 +279,6 @@ Text Label 7000 3000 0    50   ~ 0
 CLK4
 Wire Wire Line
 	7550 3000 7000 3000
-Entry Bus Bus
-	5950 4800 6050 4700
-Wire Bus Line
-	6050 4700 6050 3300
-Entry Bus Bus
-	6050 3300 6150 3200
 Wire Bus Line
 	6150 3200 7550 3200
 Wire Bus Line
@@ -347,26 +321,6 @@ Wire Wire Line
 	7550 3900 7000 3900
 Text Label 7000 3900 0    50   ~ 0
 ~SKIPEXT
-$Sheet
-S 4100 4650 1150 750 
-U 5F63066B
-F0 "Instruction Register (IR)" 50
-F1 "cfg_reg_ir.sch" 50
-F2 "IBUS[0..15]" T L 4100 4800 50 
-F3 "IR[0..15]" B R 5250 4800 50 
-F4 "~FPIRL" I L 4100 5100 50 
-F5 "~FPIRH" I L 4100 5250 50 
-F6 "FPD[0..7]" T R 5250 5250 50 
-F7 "~WRITE-IR" I L 4100 4950 50 
-$EndSheet
-Entry Bus Bus
-	5950 5800 6050 5700
-Wire Bus Line
-	9400 6150 9400 5800
-Wire Bus Line
-	9400 5800 8700 5800
-Text Label 9300 5800 2    50   ~ 0
-IDX[0..1]
 Wire Wire Line
 	650  3300 1250 3300
 Wire Wire Line
@@ -1187,12 +1141,31 @@ Text Label 20750 6200 2    50   ~ 0
 IN-RSVD
 Text Notes 20850 6200 0    50   ~ 0
 For future expansion
-Wire Bus Line
-	6400 2450 6400 3100
 Wire Wire Line
 	1250 3200 650  3200
 Wire Bus Line
-	5250 4800 7550 4800
+	2400 4900 3000 4900
+Wire Bus Line
+	1250 5000 650  5000
+Text Label 650  5000 0    50   ~ 0
+WADDR[0..4]
+$Sheet
+S 1250 4750 1150 750 
+U 5F63066B
+F0 "Instruction Register (IR)" 50
+F1 "cfg_reg_ir.sch" 50
+F2 "IBUS[0..15]" T L 1250 5100 50 
+F3 "IR[0..15]" B R 2400 4900 50 
+F4 "~FPIRL" I R 2400 5100 50 
+F5 "~FPIRH" I R 2400 5200 50 
+F6 "FPD[0..7]" T R 2400 5300 50 
+F7 "CLK4" I L 1250 4900 50 
+F8 "WADDR[4..0]" T L 1250 5000 50 
+$EndSheet
+Wire Wire Line
+	1250 4900 650  4900
+Text Label 650  4900 0    50   ~ 0
+CLK4
 Wire Bus Line
 	20600 2150 20600 2800
 Wire Bus Line
