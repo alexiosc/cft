@@ -32,11 +32,12 @@
 `timescale 1ns/10ps
 
 module control_store_tb();
-   reg ncse;
+   reg noe;
+   reg clk;
    
    reg [18:0] uaddr;
 
-   wire [23:0] udata;
+   wire [23:0] ucontrol;
 
    // Front panel handling      
    reg 	        nfpua0;
@@ -49,12 +50,13 @@ module control_store_tb();
       
       //$display ("time\t d pulse");
       $monitor ("t: %7d | %b %h > %h | %b %b %b %b > %h", $time,
-		ncse, uaddr, udata,
+		noe, uaddr, ucontrol,
 		nfpua0, nfpuc0, nfpuc1, nfpuc2, fpd);
       $dumpfile ("vcd/control_store_tb.vcd");
       $dumpvars (0, control_store_tb);
 
-      ncse = 1'b0;
+      clk = 1'b1;
+      noe = 1'b0;
       uaddr = 24'b1100000000000000000; // That's where the good stuff starts.
 
       nfpua0 = 1;
@@ -63,16 +65,18 @@ module control_store_tb();
       nfpuc2 = 1;
 
       // Make sure we're not counting during reset.
-      #1000 ncse = 1'b1;
-      #1000 ncse = 1'b0;
+      #1000 noe = 1'b1;
+      #1000 noe = 1'b0;
 
       #3000000 $finish;
       
    end // initial begin
 
-   // Simulate a realistic fast clock
+   // Simulate a realistically fast clock
    always begin
-      #1000 uaddr = uaddr + 1;
+      #875 uaddr = uaddr + 1;
+      #62.5 clk = 0;
+      #62.5 clk = 1;
    end
 
    // Asynchronous Front Panel functionality. 1817 + 4×30 = 1937 which
@@ -89,9 +93,10 @@ module control_store_tb();
       #250  nfpuc2 = 1;
    end
 
-   control_store control_store(.ncse(ncse),
+   control_store control_store(.noe(noe),
+			       .clk(clk),
 			       .uaddr(uaddr),
-			       .udata(udata),
+			       .ucontrol(ucontrol),
 			       .nfpua0(nfpua0),
 			       .nfpuc0(nfpuc0), 
 			       .nfpuc1(nfpuc1),
@@ -102,18 +107,18 @@ module control_store_tb();
    reg [8191:0] msg;
    reg [7:0] 	fpval;
    
-   always @ (ncse) begin
+   always @ (noe) begin
       #70 begin
    	 msg[7:0] = "";		// Use the msg as a flag.
 
    	 // Address loading checks
-   	 if (ncse === 1) begin
-   	    if (udata !== 24'hZZZZ) begin
-   	       $sformat(msg, "ncse=%b, uaddr=%04x, but udata=%06x (should be Z)",
-			ncse, uaddr, udata);
+   	 if (noe === 1) begin
+   	    if (ucontrol !== 24'hZZZZ) begin
+   	       $sformat(msg, "noe=%b, uaddr=%04x, but ucontrol=%06x (should be Z)",
+			noe, uaddr, ucontrol);
    	    end;
    	 end
-	 else if (ncse !== 0) $sformat(msg, "testbench bug, ncse=%b", ncse);
+	 else if (noe !== 0) $sformat(msg, "testbench bug, noe=%b", noe);
 	 
    	 // Fail if we've logged an issue.
    	 if (msg[7:0]) begin
@@ -123,7 +128,7 @@ module control_store_tb();
    	 end
    	 else $display("OK microcode");
       end
-   end // always @ (ncse)
+   end // always @ (noe)
 
    always @ (nfpua0, nfpuc0, nfpuc1, nfpuc2) begin
       #30 begin
@@ -131,9 +136,9 @@ module control_store_tb();
 
 	 casex ({ nfpua0, nfpuc0, nfpuc1, nfpuc2 })
 	   4'b0111: fpval = uaddr[7:0];
-	   4'b1011: fpval = udata[7:0];
-	   4'b1101: fpval = udata[15:8];
-	   4'b1110: fpval = udata[23:16];
+	   4'b1011: fpval = ucontrol[7:0];
+	   4'b1101: fpval = ucontrol[15:8];
+	   4'b1110: fpval = ucontrol[23:16];
 	   4'b1111: fpval = 8'bzzzzzzzz;
 	   default: fpval = 8'bxxxxzzzz;
 	 endcase // casex ({ nfpua0, nfpuc0, nfpuc1, nfpuc2 })

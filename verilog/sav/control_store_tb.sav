@@ -1,54 +1,54 @@
 [*]
-[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
-[*] Sun Oct 20 08:48:14 2019
+[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
+[*] Fri Feb 14 17:18:17 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/control_store_tb.vcd"
-[dumpfile_mtime] "Sun Oct 20 08:48:04 2019"
-[dumpfile_size] 234910
+[dumpfile_mtime] "Fri Feb 14 17:09:24 2020"
+[dumpfile_size] 1505091
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/control_store_tb.sav"
 [timestart] 0
-[size] 1621 600
-[pos] 223 0
-*-22.101128 3074000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[size] 2019 906
+[pos] 47 55
+*-21.101128 1250000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] control_store_tb.
+[treeopen] control_store_tb.control_store.
 [sst_width] 258
-[signals_width] 188
+[signals_width] 455
 [sst_expanded] 1
-[sst_vpaned_height] 142
+[sst_vpaned_height] 246
 @28
-control_store_tb.nreset
-control_store_tb.nhalt
+control_store_tb.noe
+control_store_tb.clk
 @22
 control_store_tb.uaddr[18:0]
-@200
--
-@c00023
-control_store_tb.udata[23:0]
-@29
-(0)control_store_tb.udata[23:0]
-(1)control_store_tb.udata[23:0]
-(2)control_store_tb.udata[23:0]
-(3)control_store_tb.udata[23:0]
-(4)control_store_tb.udata[23:0]
-(5)control_store_tb.udata[23:0]
-(6)control_store_tb.udata[23:0]
-(7)control_store_tb.udata[23:0]
-(8)control_store_tb.udata[23:0]
-(9)control_store_tb.udata[23:0]
-(10)control_store_tb.udata[23:0]
-(11)control_store_tb.udata[23:0]
-(12)control_store_tb.udata[23:0]
-(13)control_store_tb.udata[23:0]
-(14)control_store_tb.udata[23:0]
-(15)control_store_tb.udata[23:0]
-(16)control_store_tb.udata[23:0]
-(17)control_store_tb.udata[23:0]
-(18)control_store_tb.udata[23:0]
-(19)control_store_tb.udata[23:0]
-(20)control_store_tb.udata[23:0]
-(21)control_store_tb.udata[23:0]
-(22)control_store_tb.udata[23:0]
-(23)control_store_tb.udata[23:0]
-@1401201
+@c00022
+control_store_tb.ucontrol[23:0]
+@28
+(0)control_store_tb.ucontrol[23:0]
+(1)control_store_tb.ucontrol[23:0]
+(2)control_store_tb.ucontrol[23:0]
+(3)control_store_tb.ucontrol[23:0]
+(4)control_store_tb.ucontrol[23:0]
+(5)control_store_tb.ucontrol[23:0]
+(6)control_store_tb.ucontrol[23:0]
+(7)control_store_tb.ucontrol[23:0]
+(8)control_store_tb.ucontrol[23:0]
+(9)control_store_tb.ucontrol[23:0]
+(10)control_store_tb.ucontrol[23:0]
+(11)control_store_tb.ucontrol[23:0]
+(12)control_store_tb.ucontrol[23:0]
+(13)control_store_tb.ucontrol[23:0]
+(14)control_store_tb.ucontrol[23:0]
+(15)control_store_tb.ucontrol[23:0]
+(16)control_store_tb.ucontrol[23:0]
+(17)control_store_tb.ucontrol[23:0]
+(18)control_store_tb.ucontrol[23:0]
+(19)control_store_tb.ucontrol[23:0]
+(20)control_store_tb.ucontrol[23:0]
+(21)control_store_tb.ucontrol[23:0]
+(22)control_store_tb.ucontrol[23:0]
+(23)control_store_tb.ucontrol[23:0]
+@1401200
 -group_end
 @200
 -
@@ -65,5 +65,7 @@ control_store_tb.nfpuc2
 @22
 [color] 5
 control_store_tb.fpd[7:0]
+@28
+control_store_tb.noe
 [pattern_trace] 1
 [pattern_trace] 0

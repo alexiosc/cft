@@ -25,6 +25,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 `include "buffer.v"
+`include "flipflop.v"
 `include "rom.v"
 
 `timescale 1ns/1ps
@@ -41,14 +42,15 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-module control_store(ncse, uaddr,
-		     udata,
+module control_store(noe, clk, uaddr,
+		     ucontrol,
 		     nfpua0, nfpuc0, nfpuc1, nfpuc2, fpd);
 
-   input         ncse;
+   input         noe;
+   input 	 clk;
    input [18:0]  uaddr;
 
-   output [23:0] udata;
+   output [23:0] ucontrol;
 
    input 	 nfpua0;
    input 	 nfpuc0;
@@ -57,9 +59,16 @@ module control_store(ncse, uaddr,
    output [7:0]  fpd;
 
    // Connect the microcode ROM/Flash devices
-   rom #(19, 50) rom0 (.a(uaddr), .d(udata[7:0]),   .nce(1'b0), .noe(ncse));
-   rom #(19, 50) rom1 (.a(uaddr), .d(udata[15:8]),  .nce(1'b0), .noe(ncse));
-   rom #(19, 50) rom2 (.a(uaddr), .d(udata[23:16]), .nce(1'b0), .noe(ncse));
+   wire [23:0] 	 udata;
+
+   rom #(19, 50) rom0 (.a(uaddr), .d(udata[7:0]),   .nce(1'b0), .noe(1'b0));
+   rom #(19, 50) rom1 (.a(uaddr), .d(udata[15:8]),  .nce(1'b0), .noe(1'b0));
+   rom #(19, 50) rom2 (.a(uaddr), .d(udata[23:16]), .nce(1'b0), .noe(1'b0));
+
+   // The control vector is registered on the rising edge of clk.
+   flipflop_574 ff1 (.d(udata[7:0]),   .q(ucontrol[7:0]),   .clk(clk), .noe(noe));
+   flipflop_574 ff2 (.d(udata[15:8]),  .q(ucontrol[15:8]),  .clk(clk), .noe(noe));
+   flipflop_574 ff3 (.d(udata[23:16]), .q(ucontrol[23:16]), .clk(clk), .noe(noe));
 
    // Uaddr is 19 bits. Of these, 2 are state bits and 9 come from the
    // IR. These are displayed in their own sections of the front
@@ -67,9 +76,9 @@ module control_store(ncse, uaddr,
    // panel section, requiring just one buffer.
    buffer_541 buf_ua0 (.a(uaddr[7:0]),   .y(fpd), .noe1(nfpua0), .noe2(1'b0));
 
-   buffer_541 buf_uc0 (.a(udata[7:0]),   .y(fpd), .noe1(nfpuc0), .noe2(1'b0));
-   buffer_541 buf_uc1 (.a(udata[15:8]),  .y(fpd), .noe1(nfpuc1), .noe2(1'b0));
-   buffer_541 buf_uc2 (.a(udata[23:16]), .y(fpd), .noe1(nfpuc2), .noe2(1'b0));
+   buffer_541 buf_uc0 (.a(ucontrol[7:0]),   .y(fpd), .noe1(nfpuc0), .noe2(1'b0));
+   buffer_541 buf_uc1 (.a(ucontrol[15:8]),  .y(fpd), .noe1(nfpuc1), .noe2(1'b0));
+   buffer_541 buf_uc2 (.a(ucontrol[23:16]), .y(fpd), .noe1(nfpuc2), .noe2(1'b0));
    
    reg [4096:0] basedir, s0, s1, s2;
    // Load ROM images
