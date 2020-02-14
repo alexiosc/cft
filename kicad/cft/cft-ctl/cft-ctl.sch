@@ -251,8 +251,6 @@ Wire Wire Line
 	2400 3800 3000 3800
 Text Label 3000 3800 2    50   ~ 0
 FPFETCH∕~EXEC
-Text Notes 1300 1750 0    70   ~ 14
-Verilog
 Text Notes 21050 -900 0    70   ~ 14
 Verilog
 $Sheet

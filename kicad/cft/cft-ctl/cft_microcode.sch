@@ -1314,10 +1314,10 @@ Wire Wire Line
 Wire Wire Line
 	6400 2100 6400 2200
 $Comp
-L power:GND #PWR?
+L power:GND #PWR041
 U 1 1 6047D252
 P 6400 2200
-F 0 "#PWR?" H 6400 1950 50  0001 C CNN
+F 0 "#PWR041" H 6400 1950 50  0001 C CNN
 F 1 "GND" H 6400 2050 50  0000 C CNN
 F 2 "" H 6400 2200 50  0001 C CNN
 F 3 "" H 6400 2200 50  0001 C CNN
@@ -1325,12 +1325,12 @@ F 3 "" H 6400 2200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R_Small R?
+L Device:R_Small R4
 U 1 1 6047D24C
 P 6400 2000
-F 0 "R?" H 6350 2150 50  0000 R CNN
+F 0 "R4" H 6350 2150 50  0000 R CNN
 F 1 "4.7kΩ" H 6341 2045 50  0001 R CNN
-F 2 "" H 6400 2000 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 6400 2000 50  0001 C CNN
 F 3 "~" H 6400 2000 50  0001 C CNN
 	1    6400 2000
 	1    0    0    1   
@@ -1338,10 +1338,10 @@ $EndComp
 Wire Wire Line
 	6200 2100 6200 2200
 $Comp
-L power:GND #PWR?
+L power:GND #PWR07
 U 1 1 6046CC8E
 P 6200 2200
-F 0 "#PWR?" H 6200 1950 50  0001 C CNN
+F 0 "#PWR07" H 6200 1950 50  0001 C CNN
 F 1 "GND" H 6200 2050 50  0000 C CNN
 F 2 "" H 6200 2200 50  0001 C CNN
 F 3 "" H 6200 2200 50  0001 C CNN
@@ -1349,12 +1349,12 @@ F 3 "" H 6200 2200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R_Small R?
+L Device:R_Small R3
 U 1 1 6046CC88
 P 6200 2000
-F 0 "R?" H 6150 2150 50  0000 R CNN
+F 0 "R3" H 6150 2150 50  0000 R CNN
 F 1 "4.7kΩ" H 6141 2045 50  0001 R CNN
-F 2 "" H 6200 2000 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 6200 2000 50  0001 C CNN
 F 3 "~" H 6200 2000 50  0001 C CNN
 	1    6200 2000
 	1    0    0    1   
@@ -1362,10 +1362,10 @@ $EndComp
 Wire Wire Line
 	6000 2100 6000 2200
 $Comp
-L power:GND #PWR?
+L power:GND #PWR04
 U 1 1 6044A2AC
 P 6000 2200
-F 0 "#PWR?" H 6000 1950 50  0001 C CNN
+F 0 "#PWR04" H 6000 1950 50  0001 C CNN
 F 1 "GND" H 6000 2050 50  0000 C CNN
 F 2 "" H 6000 2200 50  0001 C CNN
 F 3 "" H 6000 2200 50  0001 C CNN
@@ -1378,43 +1378,43 @@ Connection ~ 6000 1650
 Wire Wire Line
 	6000 1900 6000 1650
 $Comp
-L Device:R_Small R?
+L Device:R_Small R1
 U 1 1 603FB559
 P 6000 2000
-F 0 "R?" H 5950 2150 50  0000 R CNN
+F 0 "R1" H 5950 2150 50  0000 R CNN
 F 1 "4.7kΩ" H 5941 2045 50  0000 R CNN
-F 2 "" H 6000 2000 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 6000 2000 50  0001 C CNN
 F 3 "~" H 6000 2000 50  0001 C CNN
 	1    6000 2000
 	1    0    0    1   
 $EndComp
 $Comp
-L Jumper:SolderJumper_2_Open JP?
+L Jumper:SolderJumper_2_Open JP6
 U 1 1 602E0B7C
 P 6400 950
-F 0 "JP?" V 6400 1050 50  0000 L CNN
+F 0 "JP6" V 6400 1050 50  0000 L CNN
 F 1 "SolderJumper_2_Bridged" H 6400 1064 50  0001 C CNN
-F 2 "" H 6400 950 50  0001 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_Pad1.0x1.5mm" H 6400 950 50  0001 C CNN
 F 3 "~" H 6400 950 50  0001 C CNN
 	1    6400 950 
 	0    1    1    0   
 $EndComp
 $Comp
-L Jumper:SolderJumper_2_Bridged JP?
+L Jumper:SolderJumper_2_Bridged JP5
 U 1 1 602E0974
 P 6200 950
-F 0 "JP?" V 5900 900 50  0000 L CNN
+F 0 "JP5" V 5900 900 50  0000 L CNN
 F 1 "SolderJumper_2_Bridged" H 6200 1064 50  0001 C CNN
-F 2 "" H 6200 950 50  0001 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_Pad1.0x1.5mm" H 6200 950 50  0001 C CNN
 F 3 "~" H 6200 950 50  0001 C CNN
 	1    6200 950 
 	0    1    1    0   
 $EndComp
 $Comp
-L power:+5V #PWR?
+L power:+5V #PWR01
 U 1 1 602660E1
 P 6000 750
-F 0 "#PWR?" H 6000 600 50  0001 C CNN
+F 0 "#PWR01" H 6000 600 50  0001 C CNN
 F 1 "+5V" H 5850 800 50  0000 C CNN
 F 2 "" H 6000 750 50  0001 C CNN
 F 3 "" H 6000 750 50  0001 C CNN
@@ -1422,12 +1422,12 @@ F 3 "" H 6000 750 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Jumper:SolderJumper_2_Open JP?
+L Jumper:SolderJumper_2_Open JP4
 U 1 1 6025524A
 P 6000 950
-F 0 "JP?" V 6000 850 50  0000 R CNN
+F 0 "JP4" V 6000 850 50  0000 R CNN
 F 1 "SolderJumper_2_Bridged" H 6000 1064 50  0001 C CNN
-F 2 "" H 6000 950 50  0001 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_Pad1.0x1.5mm" H 6000 950 50  0001 C CNN
 F 3 "~" H 6000 950 50  0001 C CNN
 	1    6000 950 
 	0    1    1    0   
@@ -1558,10 +1558,10 @@ Wire Wire Line
 Text HLabel 1150 3900 0    50   Input ~ 0
 IN-RSVD
 $Comp
-L power:+5V #PWR?
+L power:+5V #PWR055
 U 1 1 6070CD65
 P 1650 3250
-F 0 "#PWR?" H 1650 3100 50  0001 C CNN
+F 0 "#PWR055" H 1650 3100 50  0001 C CNN
 F 1 "+5V" H 1665 3423 50  0000 C CNN
 F 2 "" H 1650 3250 50  0001 C CNN
 F 3 "" H 1650 3250 50  0001 C CNN
@@ -1593,8 +1593,12 @@ Entry Wire Line
 	4550 3400 4650 3500
 Entry Bus Bus
 	4550 2650 4650 2550
+Entry Bus Bus
+	4550 2650 4450 2550
 Wire Bus Line
-	2250 2550 5000 2550
+	5000 2550 4650 2550
+Wire Bus Line
+	4450 2550 2250 2550
 Wire Bus Line
 	2150 2650 2150 3400
 Wire Bus Line
