@@ -1,6 +1,5 @@
 EESchema Schematic File Version 4
-LIBS:cft-reg-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -162,8 +161,6 @@ Text Label 8700 2400 0    50   ~ 0
 CLK2
 Text Label 8700 2500 0    50   ~ 0
 CLK3
-Text Label 8700 2600 0    50   ~ 0
-CLK4
 Text Label 8700 2900 0    50   ~ 0
 WSTB
 Text Label 8700 3000 0    50   ~ 0
@@ -348,18 +345,6 @@ F 4 "Yes" H 1725 1675 50  0001 C CNN "Verified"
 	1    0    0    -1  
 $EndComp
 $Comp
-L alexios:74HC138 U3
-U 1 1 5DA31171
-P 1800 3950
-F 0 "U3" H 1800 4617 50  0000 C CNN
-F 1 "74HC138" H 1800 4526 50  0000 C CNN
-F 2 "alexios:SOIC-16" H 1800 3950 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 1800 3950 50  0001 C CNN
-F 4 "Yes" H 1725 3125 50  0001 C CNN "Verified"
-	1    1800 3950
-	1    0    0    -1  
-$EndComp
-$Comp
 L alexios:74HC138 U4
 U 1 1 5DA3323E
 P 1800 5400
@@ -484,17 +469,6 @@ Text Label 1000 4250 0    50   ~ 0
 WADDR4
 Text Label 1000 4150 0    50   ~ 0
 WADDR3
-$Comp
-L power:GND #PWR03
-U 1 1 5D9C951D
-P 1300 4350
-F 0 "#PWR03" H 1300 4100 50  0001 C CNN
-F 1 "GND" H 1305 4177 50  0000 C CNN
-F 2 "" H 1300 4350 50  0001 C CNN
-F 3 "" H 1300 4350 50  0001 C CNN
-	1    1300 4350
-	1    0    0    -1  
-$EndComp
 Entry Wire Line
 	850  2000 950  2100
 Entry Wire Line
@@ -947,7 +921,6 @@ Connection ~ 5050 7400
 NoConn ~ 8700 2300
 NoConn ~ 8700 2400
 NoConn ~ 8700 2500
-NoConn ~ 8700 2600
 NoConn ~ 8700 2700
 NoConn ~ 8700 2800
 NoConn ~ 8700 2900
@@ -1279,10 +1252,28 @@ Wire Notes Line style solid
 	2550 2850 3350 2850
 Wire Notes Line
 	3100 2675 3100 3250
+$Comp
+L alexios:74HC138 U3
+U 1 1 5DA31171
+P 1800 3950
+F 0 "U3" H 1800 4617 50  0000 C CNN
+F 1 "74HC138" H 1800 4526 50  0000 C CNN
+F 2 "alexios:SOIC-16" H 1800 3950 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 1800 3950 50  0001 C CNN
+F 4 "Yes" H 1725 3125 50  0001 C CNN "Verified"
+	1    1800 3950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1300 4350 1000 4350
 Wire Bus Line
 	850  3350 850  4150
 Wire Bus Line
 	850  1900 850  2700
 Wire Bus Line
 	850  4800 850  5500
+Text Label 1000 4350 0    50   ~ 0
+CLK4
+Text Label 8700 2600 0    50   ~ 0
+CLK4
 $EndSCHEMATC
