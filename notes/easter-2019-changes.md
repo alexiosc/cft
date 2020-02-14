@@ -54,6 +54,22 @@ Bus transactions continue. The rising edge of CLK4 signals writes. This implies
 WSTB and its complex generating circuitry is no longer required and may be
 dropped.
 
+## Timing diagram and pipelining
+
+              T4 T1 T2 T3 T4 T1 T2 T3 T4 T1 T2 T3 T4 T1 T2 T3 T4 T1 T2 T3 T4 T1 
+
+µC Address    ---00000000000011111111111122222222222233333333333344444444444455
+µC Control    ---------00000000000011111111111122222222222233333333333344444444
+Address       ---------000000000---111111111---222222222---333333333---44444444
+Read          -----------000000000---111111111---222222222---333333333---444444
+Write         ---------------000---------111---------222---------333---------44
+
+
+
+
+
+
+
 
 
 ### Registers
