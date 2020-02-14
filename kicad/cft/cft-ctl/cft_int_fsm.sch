@@ -1,10 +1,9 @@
 EESchema Schematic File Version 4
-LIBS:cft-ctl-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 11 12
+Sheet 11 13
 Title "CFT Homebrew 16-bit Minicomputer"
 Date ""
 Rev ""
@@ -124,6 +123,8 @@ F 3 "" H 1050 6600 50  0001 C CNN
 	1    1050 6600
 	1    0    0    -1  
 $EndComp
+Text Notes 7050 6950 0    197  ~ 39
+Interrupt State Machine
 Text Label 1850 2500 0    50   ~ 0
 ~ACTION-CLI
 Text Label 1850 2100 0    50   ~ 0
@@ -610,6 +611,4 @@ Wire Wire Line
 	5400 7300 5400 7400
 Text Notes 4650 1650 0    50   ~ 0
 Use LVC or AC family for flip-flops.\nIt reduces the chances of metastability.
-Text Notes 7050 6950 0    197  ~ 39
-Interrupt State Machine
 $EndSCHEMATC

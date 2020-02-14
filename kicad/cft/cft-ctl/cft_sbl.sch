@@ -1,10 +1,9 @@
 EESchema Schematic File Version 4
-LIBS:cft-ctl-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 2 12
+Sheet 2 13
 Title "Skip/Branch Unit"
 Date ""
 Rev ""
@@ -1355,4 +1354,6 @@ Wire Bus Line
 	6200 1600 6200 2500
 Wire Bus Line
 	6100 2100 6100 5150
+Text Notes 9800 6150 0    50   ~ 0
+Metastability protection.
 $EndSCHEMATC

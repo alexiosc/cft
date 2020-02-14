@@ -1,10 +1,9 @@
 EESchema Schematic File Version 4
-LIBS:cft-ctl-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 4 12
+Sheet 4 13
 Title "Auto-Index Logic"
 Date ""
 Rev ""
@@ -98,52 +97,6 @@ F 3 "" H 2350 7150 50  0001 C CNN
 	1    2350 7150
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	4650 3700 4200 3700
-Wire Wire Line
-	4650 3800 4200 3800
-Wire Wire Line
-	4650 3900 4200 3900
-Wire Wire Line
-	4650 4300 4200 4300
-Text Label 4250 3700 0    50   ~ 0
-IR8
-Text Label 4250 3800 0    50   ~ 0
-IR9
-Text Label 4250 3900 0    50   ~ 0
-IR10
-Text Label 4250 4300 0    50   ~ 0
-IR11
-Entry Wire Line
-	4100 3600 4200 3700
-Entry Wire Line
-	4100 3700 4200 3800
-Entry Wire Line
-	4100 3800 4200 3900
-Entry Wire Line
-	4100 4200 4200 4300
-$Comp
-L alexios:74HC08 U22
-U 1 1 5EAA464D
-P 6600 3400
-F 0 "U22" H 6725 3275 50  0000 C CNN
-F 1 "74HC08" H 6725 3184 50  0000 C CNN
-F 2 "alexios:SOIC-14" H 6800 2950 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 6800 2950 50  0001 C CNN
-	1    6600 3400
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74HC08 U22
-U 2 1 5EAA54C5
-P 6600 3850
-F 0 "U22" H 6725 3725 50  0000 C CNN
-F 1 "74HC08" H 6725 3634 50  0000 C CNN
-F 2 "alexios:SOIC-14" H 6800 3400 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 6800 3400 50  0001 C CNN
-	2    6600 3850
-	1    0    0    -1  
-$EndComp
 $Comp
 L alexios:74HC08 U22
 U 5 1 5EAA92F4
@@ -185,20 +138,53 @@ Text Notes 9000 1950 0    50   ~ 0
 IDX\n\n00\n00\n00\n00\n01\n10\n11
 $Comp
 L alexios:74HC238 U23
-U 1 1 5DC7460B
-P 5150 4100
-F 0 "U23" H 5150 4767 50  0000 C CNN
-F 1 "74HC238" H 5150 4676 50  0000 C CNN
-F 2 "alexios:SOIC-16" H 5150 4100 50  0001 C CNN
-F 3 "" H 5150 4100 50  0001 C CNN
-F 4 "Yes" H 5075 3275 50  0001 C CNN "Verified"
-	1    5150 4100
+U 2 1 5DD11854
+P 1400 7050
+F 0 "U23" H 1579 7096 50  0000 L CNN
+F 1 "74HC238" H 1579 7005 50  0000 L CNN
+F 2 "alexios:SOIC-16" H 1400 7050 50  0001 C CNN
+F 3 "" H 1400 7050 50  0001 C CNN
+F 4 "Yes" H 1325 6225 50  0001 C CNN "Verified"
+	2    1400 7050
 	1    0    0    -1  
 $EndComp
+Connection ~ 1050 6950
+Connection ~ 1050 7150
+Text HLabel 3850 2650 0    50   Input ~ 0
+IR[6..11]
+Wire Bus Line
+	4000 2650 3850 2650
+Entry Bus Bus
+	4000 2650 4100 2750
+Text Notes 5650 4500 0    50   ~ 0
+IR[11..8] = 1111
+Connection ~ 5950 4300
+Text Label 6400 4200 2    50   ~ 0
+IR7
+Text Label 4250 3150 0    50   ~ 0
+IR6
 Wire Wire Line
-	4650 4400 4550 4400
+	5850 4200 6500 4200
 Wire Wire Line
-	4550 4400 4550 4500
+	6500 4300 5950 4300
+Wire Wire Line
+	5950 4400 5950 4300
+Entry Wire Line
+	4100 3050 4200 3150
+NoConn ~ 5650 4300
+NoConn ~ 5650 4200
+NoConn ~ 5650 4100
+NoConn ~ 5650 4000
+NoConn ~ 5650 3900
+NoConn ~ 5650 3800
+NoConn ~ 5650 3700
+Wire Wire Line
+	5650 4400 5950 4400
+Wire Wire Line
+	4550 4500 4550 4550
+Connection ~ 4550 4500
+Wire Wire Line
+	4650 4500 4550 4500
 $Comp
 L power:GND #PWR050
 U 1 1 5DC82FC0
@@ -211,94 +197,107 @@ F 3 "" H 4550 4550 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	4650 4500 4550 4500
-Connection ~ 4550 4500
+	4550 4400 4550 4500
 Wire Wire Line
-	4550 4500 4550 4550
+	4650 4400 4550 4400
+$Comp
+L alexios:74HC238 U23
+U 1 1 5DC7460B
+P 5150 4100
+F 0 "U23" H 5150 4767 50  0000 C CNN
+F 1 "74HC238" H 5150 4676 50  0000 C CNN
+F 2 "alexios:SOIC-16" H 5150 4100 50  0001 C CNN
+F 3 "" H 5150 4100 50  0001 C CNN
+F 4 "Yes" H 5075 3275 50  0001 C CNN "Verified"
+	1    5150 4100
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC08 U22
+U 2 1 5EAA54C5
+P 6600 3850
+F 0 "U22" H 6725 3725 50  0000 C CNN
+F 1 "74HC08" H 6725 3634 50  0000 C CNN
+F 2 "alexios:SOIC-14" H 6800 3400 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 6800 3400 50  0001 C CNN
+	2    6600 3850
+	1    0    0    -1  
+$EndComp
+Entry Wire Line
+	4100 4200 4200 4300
+Entry Wire Line
+	4100 3800 4200 3900
+Entry Wire Line
+	4100 3700 4200 3800
+Entry Wire Line
+	4100 3600 4200 3700
+Text Label 4250 4300 0    50   ~ 0
+IR11
+Text Label 4250 3900 0    50   ~ 0
+IR10
+Text Label 4250 3800 0    50   ~ 0
+IR9
+Text Label 4250 3700 0    50   ~ 0
+IR8
 Wire Wire Line
-	5650 4400 5950 4400
-NoConn ~ 5650 3700
-NoConn ~ 5650 3800
-NoConn ~ 5650 3900
-NoConn ~ 5650 4000
-NoConn ~ 5650 4100
-NoConn ~ 5650 4200
-NoConn ~ 5650 4300
+	4650 4300 4200 4300
 Wire Wire Line
-	6950 3800 7600 3800
-Text Label 7550 3800 2    50   ~ 0
-IDX0
+	4650 3900 4200 3900
+Wire Wire Line
+	4650 3800 4200 3800
+Wire Wire Line
+	4650 3700 4200 3700
+Wire Wire Line
+	6950 4250 7600 4250
 Text Label 7550 4250 2    50   ~ 0
 IDX1
 Wire Wire Line
-	6950 4250 7600 4250
-Entry Wire Line
-	4100 3150 4200 3250
-Entry Wire Line
-	4100 3050 4200 3150
-Wire Wire Line
-	5950 4400 5950 4300
-Wire Wire Line
-	6500 4300 5950 4300
-Wire Wire Line
-	4200 3150 5950 3150
-Wire Wire Line
-	5950 3150 5950 3750
-Wire Wire Line
-	5950 3750 6500 3750
-Wire Wire Line
-	4200 3250 5850 3250
-Wire Wire Line
 	5850 3250 5850 4200
-Wire Wire Line
-	5850 4200 6500 4200
-Text Label 4250 3150 0    50   ~ 0
-IR6
 Text Label 4250 3250 0    50   ~ 0
 IR7
-Text Label 6400 3750 2    50   ~ 0
-IR6
-Text Label 6400 4200 2    50   ~ 0
-IR7
+Wire Wire Line
+	4200 3250 5850 3250
+Entry Wire Line
+	4100 3150 4200 3250
 Wire Wire Line
 	5950 4300 5950 3850
 Wire Wire Line
 	5950 3850 6500 3850
-Connection ~ 5950 4300
-Text Notes 5650 4500 0    50   ~ 0
-IR[11..8] = 1111
-Entry Bus Bus
-	4000 2650 4100 2750
-Wire Bus Line
-	4000 2650 3850 2650
-Text HLabel 3850 2650 0    50   Input ~ 0
-IR[6..11]
-Text HLabel 8550 4600 2    50   Input ~ 0
-IDX[0..1]
-Entry Bus Bus
-	7700 4500 7800 4600
-Wire Bus Line
-	7800 4600 8550 4600
-Entry Wire Line
-	7600 3800 7700 3900
-Entry Wire Line
-	7600 4250 7700 4350
-Wire Bus Line
-	7700 3900 7700 4500
-Wire Bus Line
-	4100 2750 4100 4200
+Wire Wire Line
+	4200 3150 5950 3150
+Wire Wire Line
+	5950 3150 5950 3750
+Text Label 6400 3750 2    50   ~ 0
+IR6
+Wire Wire Line
+	5950 3750 6500 3750
+Text Label 7550 3800 2    50   ~ 0
+IDX0
+Wire Wire Line
+	6950 3800 7600 3800
 $Comp
-L alexios:74HC238 U23
-U 2 1 5E597949
-P 1400 7050
-F 0 "U23" H 1579 7096 50  0000 L CNN
-F 1 "74HC238" H 1579 7005 50  0000 L CNN
-F 2 "alexios:SOIC-16" H 1400 7050 50  0001 C CNN
-F 3 "" H 1400 7050 50  0001 C CNN
-F 4 "Yes" H 1325 6225 50  0001 C CNN "Verified"
-	2    1400 7050
+L alexios:74HC08 U22
+U 1 1 5EAA464D
+P 6600 3400
+F 0 "U22" H 6725 3275 50  0000 C CNN
+F 1 "74HC08" H 6725 3184 50  0000 C CNN
+F 2 "alexios:SOIC-14" H 6800 2950 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 6800 2950 50  0001 C CNN
+	1    6600 3400
 	1    0    0    -1  
 $EndComp
-Connection ~ 1050 6950
-Connection ~ 1050 7150
+Wire Bus Line
+	4100 2750 4100 4200
+Wire Bus Line
+	7700 3900 7700 4500
+Entry Wire Line
+	7600 4250 7700 4350
+Entry Wire Line
+	7600 3800 7700 3900
+Wire Bus Line
+	7800 4600 8550 4600
+Entry Bus Bus
+	7700 4500 7800 4600
+Text HLabel 8550 4600 2    50   Input ~ 0
+IDX[0..1]
 $EndSCHEMATC

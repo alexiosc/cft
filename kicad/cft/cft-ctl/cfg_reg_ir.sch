@@ -1,10 +1,9 @@
 EESchema Schematic File Version 4
-LIBS:cft-ctl-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 12 12
+Sheet 12 13
 Title "Instruction Register (IR)"
 Date ""
 Rev ""
@@ -549,7 +548,7 @@ FPO[0..7]
 $Comp
 L power:GND #PWR?
 U 1 1 5F6442FF
-P 6900 4500
+P 6900 4700
 AR Path="/5F6442FF" Ref="#PWR?"  Part="1" 
 AR Path="/5CBF1647/5F6442FF" Ref="#PWR?"  Part="1" 
 AR Path="/5CC0D65F/5F6442FF" Ref="#PWR?"  Part="1" 
@@ -557,17 +556,34 @@ AR Path="/5D54E677/5F6442FF" Ref="#PWR?"  Part="1"
 AR Path="/5D62E1DC/5F6442FF" Ref="#PWR?"  Part="1" 
 AR Path="/5F4B0011/5F6442FF" Ref="#PWR?"  Part="1" 
 AR Path="/5F63066B/5F6442FF" Ref="#PWR029"  Part="1" 
-F 0 "#PWR029" H 6900 4250 50  0001 C CNN
-F 1 "GND" H 6905 4327 50  0000 C CNN
-F 2 "" H 6900 4500 50  0001 C CNN
-F 3 "" H 6900 4500 50  0001 C CNN
-	1    6900 4500
+F 0 "#PWR029" H 6900 4450 50  0001 C CNN
+F 1 "GND" H 6905 4527 50  0000 C CNN
+F 2 "" H 6900 4700 50  0001 C CNN
+F 3 "" H 6900 4700 50  0001 C CNN
+	1    6900 4700
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_Small R?
+U 1 1 5F644305
+P 6900 4600
+AR Path="/5F644305" Ref="R?"  Part="1" 
+AR Path="/5CC0D65F/5F644305" Ref="R?"  Part="1" 
+AR Path="/5D54E677/5F644305" Ref="R?"  Part="1" 
+AR Path="/5D62E1DC/5F644305" Ref="R?"  Part="1" 
+AR Path="/5F4B0011/5F644305" Ref="R?"  Part="1" 
+AR Path="/5F63066B/5F644305" Ref="R12"  Part="1" 
+F 0 "R12" H 6842 4646 50  0000 R CNN
+F 1 "10kΩ" H 6842 4555 50  0000 R CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 6900 4600 50  0001 C CNN
+F 3 "~" H 6900 4600 50  0001 C CNN
+	1    6900 4600
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR?
 U 1 1 5F64430B
-P 6900 2900
+P 6900 3100
 AR Path="/5F64430B" Ref="#PWR?"  Part="1" 
 AR Path="/5CBF1647/5F64430B" Ref="#PWR?"  Part="1" 
 AR Path="/5CC0D65F/5F64430B" Ref="#PWR?"  Part="1" 
@@ -575,11 +591,28 @@ AR Path="/5D54E677/5F64430B" Ref="#PWR?"  Part="1"
 AR Path="/5D62E1DC/5F64430B" Ref="#PWR?"  Part="1" 
 AR Path="/5F4B0011/5F64430B" Ref="#PWR?"  Part="1" 
 AR Path="/5F63066B/5F64430B" Ref="#PWR027"  Part="1" 
-F 0 "#PWR027" H 6900 2650 50  0001 C CNN
-F 1 "GND" H 6905 2727 50  0000 C CNN
-F 2 "" H 6900 2900 50  0001 C CNN
-F 3 "" H 6900 2900 50  0001 C CNN
-	1    6900 2900
+F 0 "#PWR027" H 6900 2850 50  0001 C CNN
+F 1 "GND" H 6905 2927 50  0000 C CNN
+F 2 "" H 6900 3100 50  0001 C CNN
+F 3 "" H 6900 3100 50  0001 C CNN
+	1    6900 3100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_Small R?
+U 1 1 5F644311
+P 6900 3000
+AR Path="/5F644311" Ref="R?"  Part="1" 
+AR Path="/5CC0D65F/5F644311" Ref="R?"  Part="1" 
+AR Path="/5D54E677/5F644311" Ref="R?"  Part="1" 
+AR Path="/5D62E1DC/5F644311" Ref="R?"  Part="1" 
+AR Path="/5F4B0011/5F644311" Ref="R?"  Part="1" 
+AR Path="/5F63066B/5F644311" Ref="R10"  Part="1" 
+F 0 "R10" H 6842 3046 50  0000 R CNN
+F 1 "10kΩ" H 6842 2955 50  0000 R CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 6900 3000 50  0001 C CNN
+F 3 "~" H 6900 3000 50  0001 C CNN
+	1    6900 3000
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
@@ -597,7 +630,7 @@ Text Label 6700 4350 0    50   ~ 0
 $Comp
 L power:GND #PWR?
 U 1 1 5F64431F
-P 4900 2900
+P 4900 3100
 AR Path="/5F64431F" Ref="#PWR?"  Part="1" 
 AR Path="/5CBF1647/5F64431F" Ref="#PWR?"  Part="1" 
 AR Path="/5CC0D65F/5F64431F" Ref="#PWR?"  Part="1" 
@@ -605,11 +638,28 @@ AR Path="/5D54E677/5F64431F" Ref="#PWR?"  Part="1"
 AR Path="/5D62E1DC/5F64431F" Ref="#PWR?"  Part="1" 
 AR Path="/5F4B0011/5F64431F" Ref="#PWR?"  Part="1" 
 AR Path="/5F63066B/5F64431F" Ref="#PWR026"  Part="1" 
-F 0 "#PWR026" H 4900 2650 50  0001 C CNN
-F 1 "GND" H 4905 2727 50  0000 C CNN
-F 2 "" H 4900 2900 50  0001 C CNN
-F 3 "" H 4900 2900 50  0001 C CNN
-	1    4900 2900
+F 0 "#PWR026" H 4900 2850 50  0001 C CNN
+F 1 "GND" H 4905 2927 50  0000 C CNN
+F 2 "" H 4900 3100 50  0001 C CNN
+F 3 "" H 4900 3100 50  0001 C CNN
+	1    4900 3100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_Small R?
+U 1 1 5F644325
+P 4900 3000
+AR Path="/5F644325" Ref="R?"  Part="1" 
+AR Path="/5CC0D65F/5F644325" Ref="R?"  Part="1" 
+AR Path="/5D54E677/5F644325" Ref="R?"  Part="1" 
+AR Path="/5D62E1DC/5F644325" Ref="R?"  Part="1" 
+AR Path="/5F4B0011/5F644325" Ref="R?"  Part="1" 
+AR Path="/5F63066B/5F644325" Ref="R9"  Part="1" 
+F 0 "R9" H 4842 3046 50  0000 R CNN
+F 1 "10kΩ" H 4842 2955 50  0000 R CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 4900 3000 50  0001 C CNN
+F 3 "~" H 4900 3000 50  0001 C CNN
+	1    4900 3000
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
@@ -617,7 +667,7 @@ Wire Wire Line
 $Comp
 L power:GND #PWR?
 U 1 1 5F64432C
-P 4850 4500
+P 4850 4700
 AR Path="/5F64432C" Ref="#PWR?"  Part="1" 
 AR Path="/5CBF1647/5F64432C" Ref="#PWR?"  Part="1" 
 AR Path="/5CC0D65F/5F64432C" Ref="#PWR?"  Part="1" 
@@ -625,11 +675,28 @@ AR Path="/5D54E677/5F64432C" Ref="#PWR?"  Part="1"
 AR Path="/5D62E1DC/5F64432C" Ref="#PWR?"  Part="1" 
 AR Path="/5F4B0011/5F64432C" Ref="#PWR?"  Part="1" 
 AR Path="/5F63066B/5F64432C" Ref="#PWR028"  Part="1" 
-F 0 "#PWR028" H 4850 4250 50  0001 C CNN
-F 1 "GND" H 4855 4327 50  0000 C CNN
-F 2 "" H 4850 4500 50  0001 C CNN
-F 3 "" H 4850 4500 50  0001 C CNN
-	1    4850 4500
+F 0 "#PWR028" H 4850 4450 50  0001 C CNN
+F 1 "GND" H 4855 4527 50  0000 C CNN
+F 2 "" H 4850 4700 50  0001 C CNN
+F 3 "" H 4850 4700 50  0001 C CNN
+	1    4850 4700
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_Small R?
+U 1 1 5F644332
+P 4850 4600
+AR Path="/5F644332" Ref="R?"  Part="1" 
+AR Path="/5CC0D65F/5F644332" Ref="R?"  Part="1" 
+AR Path="/5D54E677/5F644332" Ref="R?"  Part="1" 
+AR Path="/5D62E1DC/5F644332" Ref="R?"  Part="1" 
+AR Path="/5F4B0011/5F644332" Ref="R?"  Part="1" 
+AR Path="/5F63066B/5F644332" Ref="R11"  Part="1" 
+F 0 "R11" H 4792 4646 50  0000 R CNN
+F 1 "10kΩ" H 4792 4555 50  0000 R CNN
+F 2 "Resistor_SMD:R_0805_2012Metric" H 4850 4600 50  0001 C CNN
+F 3 "~" H 4850 4600 50  0001 C CNN
+	1    4850 4600
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
@@ -757,8 +824,8 @@ L alexios:74AHC1G04 U?
 U 2 1 5F644375
 P 1700 6400
 AR Path="/5F4B0011/5F644375" Ref="U?"  Part="2" 
-AR Path="/5F63066B/5F644375" Ref="U12"  Part="2" 
-F 0 "U12" H 1880 6446 50  0000 L CNN
+AR Path="/5F63066B/5F644375" Ref="U15"  Part="2" 
+F 0 "U15" H 1880 6446 50  0000 L CNN
 F 1 "74AHC1G04" H 1880 6355 50  0000 L CNN
 F 2 "alexios:SOT-23-5_HandSoldering" H 1700 6400 50  0001 C CNN
 F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 1700 6400 50  0001 C CNN

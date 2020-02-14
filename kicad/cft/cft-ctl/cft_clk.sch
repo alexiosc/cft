@@ -1,10 +1,9 @@
 EESchema Schematic File Version 4
-LIBS:cft-ctl-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 6 12
+Sheet 7 13
 Title "Clock Generator"
 Date ""
 Rev ""
@@ -492,28 +491,8 @@ Wire Wire Line
 Connection ~ 7700 1050
 Wire Wire Line
 	7700 1050 7750 1050
-Text HLabel 1500 2800 0    50   Input ~ 0
-POWEROK
-Text HLabel 1500 2500 0    50   Input ~ 0
+Text HLabel 1500 1700 0    50   Input ~ 0
 ~FPRESET
-$Comp
-L power:+5V #PWR?
-U 1 1 5D127395
-P 3050 1700
-AR Path="/5E4DDD44/5D127395" Ref="#PWR?"  Part="1" 
-AR Path="/5E36D9C8/5D127395" Ref="#PWR076"  Part="1" 
-F 0 "#PWR076" H 3050 1550 50  0001 C CNN
-F 1 "+5V" H 3200 1750 50  0000 C CNN
-F 2 "" H 3050 1700 50  0001 C CNN
-F 3 "" H 3050 1700 50  0001 C CNN
-	1    3050 1700
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	3050 1950 3150 1950
-Wire Wire Line
-	2900 1950 2950 1950
-Connection ~ 3050 1950
 $Comp
 L power:+5V #PWR075
 U 1 1 5D14C3C4
@@ -552,126 +531,8 @@ Wire Wire Line
 	9450 3800 10000 3800
 Wire Wire Line
 	6900 1050 7700 1050
-$Comp
-L alexios:tactile_switch SW1
-U 1 1 5CF80B1C
-P 2700 1950
-F 0 "SW1" H 2700 2149 50  0000 C CNN
-F 1 "tactile_switch" H 2700 1890 50  0001 C CNN
-F 2 "Button_Switch_THT:SW_Tactile_SPST_Angled_PTS645Vx39-2LFS" H 2700 2150 50  0001 C CNN
-F 3 "" H 2700 2150 50  0001 C CNN
-	1    2700 1950
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
-	3050 1900 3050 1950
-Wire Wire Line
-	2450 1950 2500 1950
-$Comp
-L power:GND #PWR078
-U 1 1 5CFA0680
-P 3150 2350
-F 0 "#PWR078" H 3150 2100 50  0001 C CNN
-F 1 "GND" H 3000 2300 50  0000 C CNN
-F 2 "" H 3150 2350 50  0001 C CNN
-F 3 "" H 3150 2350 50  0001 C CNN
-	1    3150 2350
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 5CFC28E8
-P 3150 2100
-AR Path="/5CC0D65F/5CFC28E8" Ref="C?"  Part="1" 
-AR Path="/5CFC28E8" Ref="C?"  Part="1" 
-AR Path="/5E36D9C8/5CFC28E8" Ref="C23"  Part="1" 
-F 0 "C23" H 3059 2146 50  0000 R CNN
-F 1 "100nF" H 3059 2055 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 3150 2100 50  0001 C CNN
-F 3 "~" H 3150 2100 50  0001 C CNN
-	1    3150 2100
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74LVC1G17 U35
-U 1 1 5CFCDA62
-P 3550 1950
-F 0 "U35" H 3500 1775 50  0000 C CNN
-F 1 "74LVC1G17" H 3500 1684 50  0000 C CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 3550 1950 50  0001 C CNN
-F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 3550 1950 50  0001 C CNN
-	1    3550 1950
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:R_Small R?
-U 1 1 5D12738E
-P 3050 1800
-AR Path="/5E4DDD44/5D12738E" Ref="R?"  Part="1" 
-AR Path="/5E36D9C8/5D12738E" Ref="R15"  Part="1" 
-F 0 "R15" H 3109 1846 50  0000 L CNN
-F 1 "4.7kΩ" H 3109 1755 50  0000 L CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3050 1800 50  0001 C CNN
-F 3 "~" H 3050 1800 50  0001 C CNN
-	1    3050 1800
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	3150 2000 3150 1950
-Connection ~ 3150 1950
-Wire Wire Line
-	3150 1950 3250 1950
-Wire Wire Line
-	2450 2250 2450 1950
-Wire Wire Line
-	3150 2200 3150 2250
-Wire Wire Line
-	3150 2250 2450 2250
-$Comp
-L Connector_Generic:Conn_01x02 J1
-U 1 1 5D01818E
-P 2200 1950
-F 0 "J1" H 2200 1700 50  0000 C CNN
-F 1 "Conn_01x02" H 2500 1900 50  0001 C CNN
-F 2 "" H 2200 1950 50  0001 C CNN
-F 3 "~" H 2200 1950 50  0001 C CNN
-	1    2200 1950
-	-1   0    0    1   
-$EndComp
-Wire Wire Line
-	2400 1950 2450 1950
-Connection ~ 2450 1950
-Wire Wire Line
-	2400 1850 2450 1850
-Wire Wire Line
-	2450 1850 2450 1650
-Wire Wire Line
-	2450 1650 2950 1650
-Wire Wire Line
-	2950 1650 2950 1950
-Connection ~ 2950 1950
-Wire Wire Line
-	2950 1950 3050 1950
-Wire Wire Line
-	4050 1950 4250 1950
-Wire Wire Line
-	4250 1950 4250 2500
-Wire Wire Line
-	4250 2800 4050 2800
-Wire Wire Line
-	4050 2500 4250 2500
-Connection ~ 4250 2500
-Wire Wire Line
-	4250 2500 4250 2800
-Wire Wire Line
-	3150 2350 3150 2250
-Connection ~ 3150 2250
-Wire Wire Line
-	4250 1950 4250 1450
-Connection ~ 4250 1950
-Wire Wire Line
-	4250 2800 4250 3200
-Connection ~ 4250 2800
+	4050 1700 4250 1700
 NoConn ~ 8900 4600
 Wire Wire Line
 	7400 3600 7600 3600
@@ -886,8 +747,8 @@ Wire Notes Line style solid
 	3250 6200 3250 6250
 Wire Notes Line style solid
 	3250 6250 3225 6250
-Text Notes 7650 2900 0    50   ~ 0
-After a ~RESET~ pulse, the clock starts and we count 128 processor cycles.\nAt a 4 MHz clock, this is 32 µs. During this time, ~RSTHOLD~ is asserted, and\nmost of the processor units remain tri-stated and in reset while everything\nstabilises, capacitors are charged, etc.\n\nWhile ~RSTHOLD~ is low, the processor also performs its reset microprogram\nto initialise the PC with the boot vector.\n\nThe diode allows ~RSTHOLD~ to be asserted by other drivers, e.g. the DFP.
+Text Notes 7650 2700 0    50   ~ 0
+After a ~RESET~ pulse, the clock starts and we count 128 processor cycles.\nAt a 4 MHz clock, this is 32 µs. During this time, ~RSTHOLD~ is asserted, and\nmost of the processor units remain tri-stated and in reset while everything\nstabilises, capacitors are charged, etc.\n\nWhile ~RSTHOLD~ is low, the processor also performs its reset microprogram\nto initialise the PC with the boot vector.
 Text Label 5050 4600 2    50   ~ 0
 CLK
 $Comp
@@ -1034,9 +895,7 @@ WSTB₀
 Text Label 10000 4500 2    50   ~ 0
 T34
 Wire Wire Line
-	1500 2500 3750 2500
-Wire Wire Line
-	1500 2800 3750 2800
+	1500 1700 3750 1700
 Wire Wire Line
 	1500 3300 3150 3300
 Connection ~ 3150 3300
@@ -1373,28 +1232,6 @@ F 3 "~" H 3900 1450 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:D_Schottky_ALT D2
-U 1 1 5E075BF1
-P 3900 1950
-F 0 "D2" H 3900 2074 50  0000 C CNN
-F 1 "D_Schottky_ALT" H 3900 2075 50  0001 C CNN
-F 2 "" H 3900 1950 50  0001 C CNN
-F 3 "~" H 3900 1950 50  0001 C CNN
-	1    3900 1950
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:D_Schottky_ALT D3
-U 1 1 5E075E86
-P 3900 2500
-F 0 "D3" H 3900 2624 50  0000 C CNN
-F 1 "D_Schottky_ALT" H 3900 2625 50  0001 C CNN
-F 2 "" H 3900 2500 50  0001 C CNN
-F 3 "~" H 3900 2500 50  0001 C CNN
-	1    3900 2500
-	1    0    0    -1  
-$EndComp
-$Comp
 L alexios:CXO_DIP8 X?
 U 1 1 5E381107
 P 3400 4550
@@ -1402,7 +1239,7 @@ AR Path="/5E381107" Ref="X?"  Part="1"
 AR Path="/5E36D9C8/5E381107" Ref="X1"  Part="1" 
 F 0 "X1" H 3500 4917 50  0000 C CNN
 F 1 "CXO_DIP8" H 3500 4826 50  0000 C CNN
-F 2 "alexios:Oscillator_DIP-8-socket" H 3550 4150 50  0001 C CNN
+F 2 "Oscillator:Oscillator_DIP-8" H 3550 4150 50  0001 C CNN
 F 3 "http://cdn-reichelt.de/documents/datenblatt/B400/OSZI.pdf" H 3500 4500 50  0001 C CNN
 	1    3400 4550
 	1    0    0    -1  
@@ -1424,17 +1261,6 @@ Wire Wire Line
 	3900 4450 3950 4450
 Wire Wire Line
 	3950 4450 3950 4400
-$Comp
-L Device:D_Schottky_ALT D4
-U 1 1 5E091A41
-P 3900 2800
-F 0 "D4" H 3900 2924 50  0000 C CNN
-F 1 "D_Schottky_ALT" H 3900 2925 50  0001 C CNN
-F 2 "" H 3900 2800 50  0001 C CNN
-F 3 "~" H 3900 2800 50  0001 C CNN
-	1    3900 2800
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	1550 1450 3750 1450
 Connection ~ 4250 1450
@@ -1456,105 +1282,15 @@ $EndComp
 Wire Wire Line
 	9250 1550 9300 1550
 Wire Wire Line
-	9500 1550 9600 1550
+	9500 1550 10600 1550
 NoConn ~ 8750 1750
-Text Notes 12850 6700 0    100  ~ 20
-Does the hazard created by this NOT gate cause\nactual disruption?
-$Comp
-L alexios:74LVC1G74 U62
-U 1 1 61E3CB28
-P 14900 5250
-F 0 "U62" H 14900 5667 50  0000 C CNN
-F 1 "74LVC1G74" H 14900 5576 50  0000 C CNN
-F 2 "" H 15350 5250 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G74.pdf" H 15350 5250 50  0001 C CNN
-	1    14900 5250
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74HC32 U58
-U 1 1 61E3DAF2
-P 14800 4250
-F 0 "U58" H 14800 4325 50  0000 C CNN
-F 1 "74HC32" H 14800 4234 50  0000 C CNN
-F 2 "" H 14800 4250 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS32" H 14800 4250 50  0001 C CNN
-	1    14800 4250
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	15050 4450 15150 4450
-Wire Wire Line
-	15150 4450 15150 4400
-Wire Wire Line
-	15150 4450 15150 4500
-Connection ~ 15150 4450
-Wire Wire Line
-	15150 4500 15200 4500
-Wire Wire Line
-	15150 4400 15200 4400
-$Comp
-L alexios:74HC32 U59
-U 1 1 61E40E14
-P 15450 4250
-F 0 "U59" H 15450 4325 50  0000 C CNN
-F 1 "74HC32" H 15450 4234 50  0000 C CNN
-F 2 "" H 15450 4250 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS32" H 15450 4250 50  0001 C CNN
-	1    15450 4250
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	15700 4450 15800 4450
-Wire Wire Line
-	15800 4450 15800 4400
-Wire Wire Line
-	15800 4450 15800 4500
-Connection ~ 15800 4450
-Wire Wire Line
-	15800 4500 15850 4500
-Wire Wire Line
-	15800 4400 15850 4400
-$Comp
-L alexios:74HC32 U60
-U 1 1 61E601D2
-P 16100 4250
-F 0 "U60" H 16100 4325 50  0000 C CNN
-F 1 "74HC32" H 16100 4234 50  0000 C CNN
-F 2 "" H 16100 4250 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS32" H 16100 4250 50  0001 C CNN
-	1    16100 4250
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	16350 4450 16450 4450
-Wire Wire Line
-	16450 4450 16450 4400
-Wire Wire Line
-	16450 4450 16450 4500
-Connection ~ 16450 4450
-Wire Wire Line
-	16450 4500 16500 4500
-Wire Wire Line
-	16450 4400 16500 4400
-$Comp
-L alexios:74HC32 U61
-U 1 1 61E67CEF
-P 16750 4250
-F 0 "U61" H 16750 4325 50  0000 C CNN
-F 1 "74HC32" H 16750 4234 50  0000 C CNN
-F 2 "" H 16750 4250 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS32" H 16750 4250 50  0001 C CNN
-	1    16750 4250
-	1    0    0    -1  
-$EndComp
 $Comp
 L alexios:DS1023 U?
 U 1 1 5E4A4EED
 P 7650 9750
 AR Path="/5DEAC282/5E34FD9B/5E4A4EED" Ref="U?"  Part="1" 
-AR Path="/5E36D9C8/5E4A4EED" Ref="U?"  Part="1" 
-F 0 "U?" H 7650 10417 50  0000 C CNN
+AR Path="/5E36D9C8/5E4A4EED" Ref="U29"  Part="1" 
+F 0 "U29" H 7650 10417 50  0000 C CNN
 F 1 "DS1023" H 7650 10326 50  0000 C CNN
 F 2 "" H 7575 9475 50  0001 C CNN
 F 3 "https://gr.mouser.com/datasheet/2/256/DS1023-1291890.pdf" H 7575 9475 50  0001 C CNN
@@ -1563,10 +1299,10 @@ F 4 "700-DS1023S-100" H 7650 10325 50  0001 C CNN "Mouser"
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+5V #PWR?
+L power:+5V #PWR0123
 U 1 1 5E4B5A5E
 P 7050 10450
-F 0 "#PWR?" H 7050 10300 50  0001 C CNN
+F 0 "#PWR0123" H 7050 10300 50  0001 C CNN
 F 1 "+5V" V 7150 10450 50  0000 L CNN
 F 2 "" H 7050 10450 50  0001 C CNN
 F 3 "" H 7050 10450 50  0001 C CNN
@@ -1583,10 +1319,10 @@ Connection ~ 6950 10650
 Wire Wire Line
 	6950 10650 6950 10700
 $Comp
-L power:GND #PWR?
+L power:GND #PWR0124
 U 1 1 5E4C58E2
 P 6950 10700
-F 0 "#PWR?" H 6950 10450 50  0001 C CNN
+F 0 "#PWR0124" H 6950 10450 50  0001 C CNN
 F 1 "GND" H 6955 10527 50  0000 C CNN
 F 2 "" H 6950 10700 50  0001 C CNN
 F 3 "" H 6950 10700 50  0001 C CNN
@@ -1598,10 +1334,10 @@ CLKIN1
 Wire Wire Line
 	5350 9350 7050 9350
 $Comp
-L Switch:SW_DIP_x08 SW?
+L Switch:SW_DIP_x08 SW3
 U 1 1 5E4D17CF
 P 5750 9950
-F 0 "SW?" H 5750 9450 50  0000 C CNN
+F 0 "SW3" H 5750 9450 50  0000 C CNN
 F 1 "SW_DIP_x08" H 5750 9384 50  0001 C CNN
 F 2 "" H 5750 9950 50  0001 C CNN
 F 3 "~" H 5750 9950 50  0001 C CNN
@@ -1621,10 +1357,10 @@ Wire Wire Line
 Wire Wire Line
 	6050 10050 6250 10050
 $Comp
-L Device:R_Network08 RN?
+L Device:R_Network08 RN9
 U 1 1 5E521D0C
 P 6350 10500
-F 0 "RN?" H 6700 10700 50  0000 R CNN
+F 0 "RN9" H 6700 10700 50  0000 R CNN
 F 1 "4.7kΩ" H 6700 10800 50  0000 R CNN
 F 2 "Resistor_THT:R_Array_SIP9" V 6825 10500 50  0001 C CNN
 F 3 "http://www.vishay.com/docs/31509/csc.pdf" H 6350 10500 50  0001 C CNN
@@ -1632,10 +1368,10 @@ F 3 "http://www.vishay.com/docs/31509/csc.pdf" H 6350 10500 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L power:GND #PWR?
+L power:GND #PWR0129
 U 1 1 5E57A5C3
 P 6750 10700
-F 0 "#PWR?" H 6750 10450 50  0001 C CNN
+F 0 "#PWR0129" H 6750 10450 50  0001 C CNN
 F 1 "GND" H 6755 10527 50  0000 C CNN
 F 2 "" H 6750 10700 50  0001 C CNN
 F 3 "" H 6750 10700 50  0001 C CNN
@@ -1685,10 +1421,10 @@ Connection ~ 6750 9550
 Wire Wire Line
 	6750 9550 7050 9550
 $Comp
-L power:+5V #PWR?
+L power:+5V #PWR0130
 U 1 1 5E5FE8B1
 P 5400 9500
-F 0 "#PWR?" H 5400 9350 50  0001 C CNN
+F 0 "#PWR0130" H 5400 9350 50  0001 C CNN
 F 1 "+5V" H 5342 9537 50  0000 R CNN
 F 2 "" H 5400 9500 50  0001 C CNN
 F 3 "" H 5400 9500 50  0001 C CNN
@@ -1742,4 +1478,179 @@ Wire Wire Line
 	8250 9550 8700 9550
 Text Label 8700 9550 2    50   ~ 0
 CLKIN2
+$Comp
+L Device:D_Schottky_ALT D3
+U 1 1 5E075E86
+P 3900 1700
+F 0 "D3" H 3900 1824 50  0000 C CNN
+F 1 "D_Schottky_ALT" H 3900 1825 50  0001 C CNN
+F 2 "" H 3900 1700 50  0001 C CNN
+F 3 "~" H 3900 1700 50  0001 C CNN
+	1    3900 1700
+	1    0    0    -1  
+$EndComp
+Connection ~ 2550 2700
+Wire Wire Line
+	2550 2800 2550 2700
+Wire Wire Line
+	2350 2400 2450 2400
+Connection ~ 2350 2400
+Wire Wire Line
+	2350 2100 2350 2400
+Wire Wire Line
+	1850 2100 2350 2100
+Wire Wire Line
+	1850 2300 1850 2100
+Wire Wire Line
+	1800 2300 1850 2300
+Connection ~ 1850 2400
+Wire Wire Line
+	1800 2400 1850 2400
+$Comp
+L Connector_Generic:Conn_01x02 J1
+U 1 1 5D01818E
+P 1600 2400
+F 0 "J1" H 1600 2150 50  0000 C CNN
+F 1 "Conn_01x02" H 1900 2350 50  0001 C CNN
+F 2 "" H 1600 2400 50  0001 C CNN
+F 3 "~" H 1600 2400 50  0001 C CNN
+	1    1600 2400
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	2550 2700 1850 2700
+Wire Wire Line
+	2550 2650 2550 2700
+Wire Wire Line
+	1850 2700 1850 2400
+Wire Wire Line
+	2550 2400 2750 2400
+Connection ~ 2550 2400
+Wire Wire Line
+	2550 2450 2550 2400
+$Comp
+L Device:R_Small R?
+U 1 1 5D12738E
+P 2450 2250
+AR Path="/5E4DDD44/5D12738E" Ref="R?"  Part="1" 
+AR Path="/5E36D9C8/5D12738E" Ref="R15"  Part="1" 
+F 0 "R15" H 2509 2296 50  0000 L CNN
+F 1 "4.7kΩ" H 2509 2205 50  0000 L CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2450 2250 50  0001 C CNN
+F 3 "~" H 2450 2250 50  0001 C CNN
+	1    2450 2250
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74LVC1G17 U35
+U 1 1 5CFCDA62
+P 3050 2400
+F 0 "U35" H 3000 2667 50  0000 C CNN
+F 1 "74LVC1G17" H 3000 2576 50  0000 C CNN
+F 2 "alexios:SOT-23-5_HandSoldering" H 3050 2400 50  0001 C CNN
+F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 3050 2400 50  0001 C CNN
+	1    3050 2400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 5CFC28E8
+P 2550 2550
+AR Path="/5CC0D65F/5CFC28E8" Ref="C?"  Part="1" 
+AR Path="/5CFC28E8" Ref="C?"  Part="1" 
+AR Path="/5E36D9C8/5CFC28E8" Ref="C23"  Part="1" 
+F 0 "C23" H 2459 2596 50  0000 R CNN
+F 1 "100nF" H 2459 2505 50  0000 R CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 2550 2550 50  0001 C CNN
+F 3 "~" H 2550 2550 50  0001 C CNN
+	1    2550 2550
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR078
+U 1 1 5CFA0680
+P 2550 2800
+F 0 "#PWR078" H 2550 2550 50  0001 C CNN
+F 1 "GND" H 2400 2750 50  0000 C CNN
+F 2 "" H 2550 2800 50  0001 C CNN
+F 3 "" H 2550 2800 50  0001 C CNN
+	1    2550 2800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1850 2400 1900 2400
+Wire Wire Line
+	2450 2350 2450 2400
+$Comp
+L alexios:tactile_switch SW1
+U 1 1 5CF80B1C
+P 2100 2400
+F 0 "SW1" H 2100 2599 50  0000 C CNN
+F 1 "tactile_switch" H 2100 2340 50  0001 C CNN
+F 2 "Button_Switch_THT:SW_Tactile_SPST_Angled_PTS645Vx39-2LFS" H 2100 2600 50  0001 C CNN
+F 3 "" H 2100 2600 50  0001 C CNN
+	1    2100 2400
+	1    0    0    -1  
+$EndComp
+Connection ~ 2450 2400
+Wire Wire Line
+	2300 2400 2350 2400
+Wire Wire Line
+	2450 2400 2550 2400
+$Comp
+L power:+5V #PWR?
+U 1 1 5D127395
+P 2450 2150
+AR Path="/5E4DDD44/5D127395" Ref="#PWR?"  Part="1" 
+AR Path="/5E36D9C8/5D127395" Ref="#PWR076"  Part="1" 
+F 0 "#PWR076" H 2450 2000 50  0001 C CNN
+F 1 "+5V" H 2600 2200 50  0000 C CNN
+F 2 "" H 2450 2150 50  0001 C CNN
+F 3 "" H 2450 2150 50  0001 C CNN
+	1    2450 2150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4250 1450 4250 1700
+Connection ~ 4250 1700
+Wire Wire Line
+	4250 1700 4250 1950
+$Comp
+L Device:D_Schottky_ALT D4
+U 1 1 5E091A41
+P 3900 1950
+F 0 "D4" H 3900 2074 50  0000 C CNN
+F 1 "D_Schottky_ALT" H 3900 2075 50  0001 C CNN
+F 2 "" H 3900 1950 50  0001 C CNN
+F 3 "~" H 3900 1950 50  0001 C CNN
+	1    3900 1950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1500 1950 3750 1950
+Wire Wire Line
+	4250 1950 4050 1950
+Text HLabel 1500 1950 0    50   Input ~ 0
+POWEROK
+Connection ~ 4250 1950
+Wire Wire Line
+	4250 1950 4250 2400
+Wire Wire Line
+	4050 2400 4250 2400
+Connection ~ 4250 2400
+Wire Wire Line
+	4250 2400 4250 3200
+$Comp
+L Device:D_Schottky_ALT D2
+U 1 1 5E075BF1
+P 3900 2400
+F 0 "D2" H 3900 2524 50  0000 C CNN
+F 1 "D_Schottky_ALT" H 3900 2525 50  0001 C CNN
+F 2 "" H 3900 2400 50  0001 C CNN
+F 3 "~" H 3900 2400 50  0001 C CNN
+	1    3900 2400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3250 2400 3750 2400
 $EndSCHEMATC

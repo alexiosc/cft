@@ -1,10 +1,9 @@
 EESchema Schematic File Version 4
-LIBS:cft-ctl-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A3 16535 11693
 encoding utf-8
-Sheet 1 12
+Sheet 1 13
 Title "Control Unit Board"
 Date ""
 Rev ""
@@ -50,6 +49,15 @@ F2 "IR[6..11]" I L 7550 5800 50
 F3 "IDX[0..1]" I R 8700 5800 50 
 $EndSheet
 $Sheet
+S 17950 -1450 1150 850 
+U 5E507DE3
+F0 "Constant Store" 50
+F1 "cpu_cs.sch" 50
+F2 "~RUEN" I L 17950 -1300 50 
+F3 "RADDR[0..4]" I L 17950 -1150 50 
+F4 "IBUS[0..15]" B R 19100 -1300 50 
+$EndSheet
+$Sheet
 S 20700 -3650 1150 1300
 U 5D69F3FD
 F0 "Flag Unit" 50
@@ -71,76 +79,72 @@ F15 "FZ" I L 20700 -2750 50
 F16 "FN" I L 20700 -2650 50 
 F17 "~FLAGWE" O R 21850 -2650 50 
 $EndSheet
-Text Label 3500 3150 0    50   ~ 0
+Text Label 650  3300 0    50   ~ 0
 IN-RSVD
-Text Label 3500 3050 0    50   ~ 0
+Text Label 650  3200 0    50   ~ 0
 ~COND
-Text Label 3500 3350 0    50   ~ 0
-~IRQSµC
-Wire Wire Line
-	4100 3350 3500 3350
-Text Label 5850 4250 2    50   ~ 0
+Text Label 3000 4300 2    50   ~ 0
 FPD[0..7]
 Wire Bus Line
-	5250 4250 5850 4250
-Text Label 3500 4250 0    50   ~ 0
+	2400 4300 3000 4300
+Text Label 3000 4200 2    50   ~ 0
 ~FPµC2
-Text Label 3500 4150 0    50   ~ 0
+Text Label 3000 4100 2    50   ~ 0
 ~FPµC1
-Text Label 3500 4050 0    50   ~ 0
+Text Label 3000 4000 2    50   ~ 0
 ~FPµC0
-Text Label 3500 3950 0    50   ~ 0
+Text Label 3000 3900 2    50   ~ 0
 ~FPµA0
 Wire Wire Line
-	4100 4250 3500 4250
+	2400 4200 3000 4200
 Wire Wire Line
-	4100 4150 3500 4150
+	2400 4100 3000 4100
 Wire Wire Line
-	4100 4050 3500 4050
+	2400 4000 3000 4000
 Wire Wire Line
-	4100 3950 3500 3950
-Text Label 5850 3100 2    50   ~ 0
+	2400 3900 3000 3900
+Text Label 3000 3100 2    50   ~ 0
 ~END
-Text Label 5850 3000 2    50   ~ 0
+Text Label 3000 3000 2    50   ~ 0
 ~WEN
-Text Label 5850 2900 2    50   ~ 0
+Text Label 3000 2900 2    50   ~ 0
 ~R
-Text Label 5850 2800 2    50   ~ 0
+Text Label 3000 2800 2    50   ~ 0
 ~IO
-Text Label 5850 2700 2    50   ~ 0
+Text Label 3000 2700 2    50   ~ 0
 ~MEM
 Wire Wire Line
-	5250 3000 5850 3000
+	2400 3000 3000 3000
 Wire Wire Line
-	5250 2900 5850 2900
+	2400 2900 3000 2900
 Wire Wire Line
-	5250 2800 5850 2800
+	2400 2800 3000 2800
 Wire Wire Line
-	5250 2700 5850 2700
-Text Label 3500 2750 0    50   ~ 0
+	2400 2700 3000 2700
+Text Label 650  2900 0    50   ~ 0
 ~WS
-Text Label 3500 2650 0    50   ~ 0
+Text Label 650  2800 0    50   ~ 0
 ~ENDEXT
 Wire Wire Line
-	3500 2750 4100 2750
+	650  2900 1250 2900
 Wire Wire Line
-	3500 2650 4100 2650
-Text Label 3500 2250 0    50   ~ 0
+	650  2800 1250 2800
+Text Label 650  2300 0    50   ~ 0
 ~RESET
 Wire Wire Line
-	4100 2250 3500 2250
-Text Label 3500 2350 0    50   ~ 0
+	1250 2300 650  2300
+Text Label 650  2400 0    50   ~ 0
 ~RSTHOLD
 Wire Wire Line
-	3500 2350 4100 2350
-Text Label 3500 2450 0    50   ~ 0
+	650  2400 1250 2400
+Text Label 650  2600 0    50   ~ 0
 CLK4
 Wire Wire Line
-	4100 2450 3500 2450
-Text Label 3500 2550 0    50   ~ 0
+	1250 2600 650  2600
+Text Label 650  2700 0    50   ~ 0
 ~HALT
 Wire Wire Line
-	4100 2550 3500 2550
+	1250 2700 650  2700
 Text Label 2850 1650 2    50   ~ 0
 WSTB
 Text Label 2850 1500 2    50   ~ 0
@@ -207,23 +211,19 @@ Wire Wire Line
 	1250 900  800  900 
 Wire Wire Line
 	1250 1500 800  1500
-Text Label 3500 2950 0    50   ~ 0
-IDX[0..1]
-Text Label 3500 3250 0    50   ~ 0
-IR[7..15]
 Wire Bus Line
-	5250 2400 5850 2400
+	2400 2400 3000 2400
 Wire Bus Line
-	5250 2600 5850 2600
-Text Label 5850 2300 2    50   ~ 0
+	2400 2600 3000 2600
+Text Label 3000 2300 2    50   ~ 0
 RADDR[0..4]
 Wire Bus Line
-	5250 2300 5850 2300
-Text Label 5850 2400 2    50   ~ 0
+	2400 2300 3000 2300
+Text Label 3000 2400 2    50   ~ 0
 WADDR[0..4]
-Text Label 5850 2500 2    50   ~ 0
+Text Label 3000 2500 2    50   ~ 0
 COND[0..4]
-Text Label 5850 2600 2    50   ~ 0
+Text Label 3000 2600 2    50   ~ 0
 ACTION[0..3]
 Text Label 5850 4800 2    50   ~ 0
 IR[0..15]
@@ -247,45 +247,11 @@ Text Label 3500 5100 0    50   ~ 0
 ~FPIRL
 Text Label 3500 5250 0    50   ~ 0
 ~FPIRH
-$Sheet
-S 4100 2100 1150 2300
-U 5DEAC282
-F0 "Microprogram Sequencer" 50
-F1 "cft_microcode.sch" 50
-F2 "~ENDEXT" I L 4100 2650 50 
-F3 "~RSTHOLD" I L 4100 2350 50 
-F4 "~WS" I L 4100 2750 50 
-F5 "~HALT" I L 4100 2550 50 
-F6 "CLK4" I L 4100 2450 50 
-F7 "~RESET" I L 4100 2250 50 
-F8 "RADDR[0..4]" O R 5250 2300 50 
-F9 "WADDR[0..4]" O R 5250 2400 50 
-F10 "COND[0..4]" O R 5250 2500 50 
-F11 "ACTION[0..3]" O R 5250 2600 50 
-F12 "~MEM" O R 5250 2700 50 
-F13 "~IO" O R 5250 2800 50 
-F14 "~R" O R 5250 2900 50 
-F15 "~WEN" O R 5250 3000 50 
-F16 "~END" O R 5250 3100 50 
-F17 "~IRQSµC" I L 4100 3350 50 
-F18 "IN-RSVD" I L 4100 3150 50 
-F19 "~COND" I L 4100 3050 50 
-F20 "IR[7..15]" I L 4100 3250 50 
-F21 "FPD[0..7]" T R 5250 4250 50 
-F22 "~FPµA0" I L 4100 3950 50 
-F23 "~FPµC0" I L 4100 4050 50 
-F24 "~FPµC1" I L 4100 4150 50 
-F25 "~FPµC2" I L 4100 4250 50 
-F26 "IDX[0..1]" I L 4100 2950 50 
-F27 "FPFETCH" O R 5250 4150 50 
-$EndSheet
 Wire Wire Line
-	5250 4150 5850 4150
-Text Label 5850 4150 2    50   ~ 0
+	2400 3800 3000 3800
+Text Label 3000 3800 2    50   ~ 0
 FPFETCH∕~EXEC
 Text Notes 1300 1750 0    70   ~ 14
-Verilog
-Text Notes 4800 3950 0    70   ~ 14
 Verilog
 Text Notes 21050 -900 0    70   ~ 14
 Verilog
@@ -323,12 +289,6 @@ Wire Wire Line
 	8700 2900 9550 2900
 Wire Wire Line
 	9550 2900 9550 6500
-Wire Wire Line
-	9550 6500 2400 6500
-Wire Wire Line
-	2400 6500 2400 3050
-Wire Wire Line
-	2400 3050 4100 3050
 Text Label 8850 2900 0    50   ~ 0
 ~COND
 Entry Bus Bus
@@ -354,9 +314,7 @@ Wire Bus Line
 Text Label 6950 4950 0    50   ~ 0
 PC[10..15]
 Wire Wire Line
-	6300 3100 6300 5100
-Wire Wire Line
-	5250 3100 6300 3100
+	2400 3100 3000 3100
 Wire Wire Line
 	6300 5100 7550 5100
 Text Label 6950 5100 0    50   ~ 0
@@ -380,9 +338,7 @@ FN
 Wire Bus Line
 	7550 3100 6400 3100
 Wire Bus Line
-	6400 3100 6400 2500
-Wire Bus Line
-	5250 2500 6400 2500
+	2400 2500 3000 2500
 Text Label 7000 3100 0    50   ~ 0
 COND[0..4]
 Text Label 7000 3200 0    50   ~ 0
@@ -408,60 +364,21 @@ $EndSheet
 Entry Bus Bus
 	5950 5800 6050 5700
 Wire Bus Line
-	5950 5800 2900 5800
-Wire Bus Line
-	2900 5800 2900 3250
-Wire Bus Line
-	2900 3250 4100 3250
-Wire Bus Line
-	2800 2950 2800 6150
-Wire Bus Line
-	2800 6150 9400 6150
-Wire Bus Line
 	9400 6150 9400 5800
 Wire Bus Line
 	9400 5800 8700 5800
-Wire Bus Line
-	2800 2950 4100 2950
 Text Label 9300 5800 2    50   ~ 0
 IDX[0..1]
-$Comp
-L Device:R_Small R30
-U 1 1 5E01FB7B
-P 2500 3350
-AR Path="/5E01FB7B" Ref="R30"  Part="1" 
-AR Path="/5CC0D65F/5E01FB7B" Ref="R?"  Part="1" 
-AR Path="/5D54E677/5E01FB7B" Ref="R?"  Part="1" 
-AR Path="/5D62E1DC/5E01FB7B" Ref="R?"  Part="1" 
-AR Path="/5DEAC282/5E01FB7B" Ref="R?"  Part="1" 
-AR Path="/5F67D4B5/5E01FB7B" Ref="R?"  Part="1" 
-AR Path="/5D46B22D/5E01FB7B" Ref="R?"  Part="1" 
-F 0 "R30" H 2559 3396 50  0000 L CNN
-F 1 "4.7kΩ" H 2559 3305 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric" H 2500 3350 50  0001 C CNN
-F 3 "~" H 2500 3350 50  0001 C CNN
-	1    2500 3350
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR0162
-U 1 1 5E02261A
-P 2500 3450
-F 0 "#PWR0162" H 2500 3200 50  0001 C CNN
-F 1 "GND" H 2588 3413 50  0000 L CNN
-F 2 "" H 2500 3450 50  0001 C CNN
-F 3 "" H 2500 3450 50  0001 C CNN
-	1    2500 3450
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
-	2500 3150 2500 3250
-Wire Wire Line
-	2500 3150 4100 3150
+	650  3300 1250 3300
 Wire Wire Line
 	7550 5250 6950 5250
 Text Label 6950 5250 0    50   ~ 0
 ~READ-AGL
+Wire Bus Line
+	19100 -1300 19700 -1300
+Text Label 19700 -1300 2    50   ~ 0
+IBUS[0..15]
 Wire Bus Line
 	21850 -3500 22450 -3500
 Text Label 22450 -3500 2    50   ~ 0
@@ -1030,9 +947,8 @@ Text Notes 20700 3200 0    50   ~ 0
 Wire Wire Line
 	20150 6100 20500 6100
 Wire Wire Line
-	20150 6200 20500 6200
+	20150 6200 20750 6200
 NoConn ~ 20500 6100
-NoConn ~ 20500 6200
 Wire Wire Line
 	19000 5000 18450 5000
 Wire Wire Line
@@ -1175,12 +1091,112 @@ Text Notes 11450 3300 0    198  ~ 40
 To Do
 Text Notes 11450 4050 0    50   ~ 0
 TODO: REMOVE ~RUEN~ and ~WUEN.\nAND RADDR and WADDR with an appropriate signal to \ncause them to be idle (00000) when ~RUEN~ or ~WUEN~\nwould be high instead.\n\nRecover ~RUEN~ and ~WUEN~ bussed signals for other uses.\n\nUpdate all schematics.
+Wire Wire Line
+	1250 3000 650  3000
+Wire Wire Line
+	1250 3100 650  3100
+Text Label 650  3000 0    50   ~ 0
+IDX0
+Text Label 650  3100 0    50   ~ 0
+IDX1
+$Sheet
+S 1250 2150 1150 2300
+U 5DEAC282
+F0 "Microprogram Sequencer" 50
+F1 "cft_microcode.sch" 50
+F2 "~ENDEXT" I L 1250 2800 50 
+F3 "~RSTHOLD" I L 1250 2400 50 
+F4 "~WS" I L 1250 2900 50 
+F5 "~HALT" I L 1250 2700 50 
+F6 "CLK4" I L 1250 2600 50 
+F7 "~RESET" I L 1250 2300 50 
+F8 "RADDR[0..4]" O R 2400 2300 50 
+F9 "WADDR[0..4]" O R 2400 2400 50 
+F10 "COND[0..4]" O R 2400 2500 50 
+F11 "ACTION[0..3]" O R 2400 2600 50 
+F12 "~MEM" O R 2400 2700 50 
+F13 "~IO" O R 2400 2800 50 
+F14 "~R" O R 2400 2900 50 
+F15 "~WEN" O R 2400 3000 50 
+F16 "~END" O R 2400 3100 50 
+F17 "~IRQSµC" I L 1250 4300 50 
+F18 "IN-RSVD" I L 1250 3300 50 
+F19 "~COND" I L 1250 3200 50 
+F20 "FPD[0..7]" T R 2400 4300 50 
+F21 "~FPµA0" I R 2400 3900 50 
+F22 "~FPµC0" I R 2400 4000 50 
+F23 "~FPµC1" I R 2400 4100 50 
+F24 "~FPµC2" I R 2400 4200 50 
+F25 "FPFETCH" O R 2400 3800 50 
+F26 "IDX0" I L 1250 3000 50 
+F27 "IDX1" I L 1250 3100 50 
+F28 "IR7" I L 1250 3400 50 
+F29 "IR8" I L 1250 3500 50 
+F30 "IR9" I L 1250 3600 50 
+F31 "IR10" I L 1250 3700 50 
+F32 "IR11" I L 1250 3800 50 
+F33 "IR12" I L 1250 3900 50 
+F34 "IR13" I L 1250 4000 50 
+F35 "IR14" I L 1250 4100 50 
+F36 "IR15" I L 1250 4200 50 
+F37 "CLK2" I L 1250 2500 50 
+$EndSheet
+Wire Wire Line
+	650  2500 1250 2500
+Text Label 650  2500 0    50   ~ 0
+CLK2
+Wire Wire Line
+	1250 3400 650  3400
+Wire Wire Line
+	1250 3500 650  3500
+Wire Wire Line
+	1250 3600 650  3600
+Wire Wire Line
+	1250 3700 650  3700
+Wire Wire Line
+	1250 3800 650  3800
+Wire Wire Line
+	1250 3900 650  3900
+Wire Wire Line
+	1250 4000 650  4000
+Wire Wire Line
+	1250 4100 650  4100
+Wire Wire Line
+	1250 4200 650  4200
+Wire Wire Line
+	1250 4300 650  4300
+Text Label 650  3400 0    50   ~ 0
+IR7
+Text Label 650  3500 0    50   ~ 0
+IR8
+Text Label 650  3600 0    50   ~ 0
+IR9
+Text Label 650  3700 0    50   ~ 0
+IR10
+Text Label 650  3800 0    50   ~ 0
+IR11
+Text Label 650  3900 0    50   ~ 0
+IR12
+Text Label 650  4000 0    50   ~ 0
+IR13
+Text Label 650  4100 0    50   ~ 0
+IR14
+Text Label 650  4200 0    50   ~ 0
+IR15
+Text Label 650  4300 0    50   ~ 0
+~IRQSµC
+Text Label 20750 6200 2    50   ~ 0
+IN-RSVD
+Text Notes 20850 6200 0    50   ~ 0
+For future expansion
+Wire Bus Line
+	6400 2450 6400 3100
+Wire Wire Line
+	1250 3200 650  3200
 Wire Bus Line
 	5250 4800 7550 4800
 Wire Bus Line
 	20600 2150 20600 2800
 Wire Bus Line
 	20600 4300 20600 5900
-Text Label 6950 5800 0    50   ~ 0
-IR[6..11]
 $EndSCHEMATC
