@@ -112,6 +112,12 @@ K TTL MUX MUX4 3State
 F http://www.mouser.com/ds/2/149/74act253-288382.pdf
 $ENDCMP
 #
+$CMP 74AC257
+D Quad 2 to 1 Multiplexer
+K TTL MUX MUX2
+F http://www.ti.com/lit/gpn/sn74LS257
+$ENDCMP
+#
 $CMP 74AC283
 D 4-bit full Adder
 K TTL ADD Arith ALU
@@ -277,6 +283,12 @@ $CMP 74ACT253
 D Dual Multiplexer 4 to 1, 3-State Outputs
 K TTL MUX MUX4 3State
 F http://www.mouser.com/ds/2/149/74act253-288382.pdf
+$ENDCMP
+#
+$CMP 74ACT257
+D Quad 2 to 1 Multiplexer
+K TTL MUX MUX2
+F http://www.ti.com/lit/gpn/sn74LS257
 $ENDCMP
 #
 $CMP 74ACT32
@@ -722,6 +734,12 @@ K TTL MUX MUX4 3State
 F https://assets.nexperia.com/documents/data-sheet/74HC_HCT253.pdf
 $ENDCMP
 #
+$CMP 74HC257
+D Quad 2 to 1 Multiplexer
+K TTL MUX MUX2
+F https://assets.nexperia.com/documents/data-sheet/74HC_HCT257.pdf
+$ENDCMP
+#
 $CMP 74HC32
 D Quad 2-input OR Gate
 K TTL Or2
@@ -755,7 +773,7 @@ $ENDCMP
 $CMP 74HC574
 D 8-bit Register, 3-state outputs
 K TTL REG DFF DFF8 3State
-F http://www.ti.com/lit/gpn/sn74LS574
+F http://www.ti.com/lit/ds/symlink/sn74hc574.pdf
 $ENDCMP
 #
 $CMP 74HC590
@@ -888,6 +906,12 @@ $CMP 74HCT253
 D Dual Multiplexer 4 to 1, 3-State Outputs
 K TTL MUX MUX4 3State
 F https://assets.nexperia.com/documents/data-sheet/74HC_HCT253.pdf
+$ENDCMP
+#
+$CMP 74HCT257
+D Quad 2 to 1 Multiplexer
+K TTL MUX MUX2
+F http://www.ti.com/lit/gpn/sn74LS257
 $ENDCMP
 #
 $CMP 74HCT32
@@ -1050,6 +1074,12 @@ $CMP 74LS253
 D Dual Multiplexer 4 to 1, 3-State Outputs
 K TTL MUX MUX4 3State
 F http://www.ti.com/lit/gpn/sn74LS253
+$ENDCMP
+#
+$CMP 74LS257
+D Quad 2 to 1 Multiplexer
+K TTL MUX MUX2
+F https://assets.nexperia.com/documents/data-sheet/74HC_HCT257.pdf
 $ENDCMP
 #
 $CMP 74LS283
