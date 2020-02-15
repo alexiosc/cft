@@ -920,8 +920,6 @@ Wire Bus Line
 	3300 4250 1600 4250
 Entry Bus Bus
 	1500 4350 1600 4250
-Text Label 3400 3350 1    50   ~ 0
-µCV[0..7]
 Wire Wire Line
 	5950 1800 6250 1800
 Wire Wire Line
@@ -1771,4 +1769,6 @@ Wire Bus Line
 	1500 4350 1500 5350
 Wire Bus Line
 	3400 1900 3400 4150
+Text Label 3400 3350 1    50   ~ 0
+µCV[0..7]
 $EndSCHEMATC
