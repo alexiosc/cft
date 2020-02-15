@@ -117,7 +117,7 @@ Text Label 3700 1850 2    50   ~ 0
 ~HALT
 Text Label 3700 1950 2    50   ~ 0
 CLK4
-Text Notes 4650 -700 0    50   ~ 0
+Text Notes 1600 -250 0    50   ~ 0
 The µPC controls the running of the processor. It counts up to 16, so\nmicroprograms can only have up to 16 steps. It resets to 0000 when the\nControl Unit asserts ~END~ or a processor extension card asserts ~ENDEXT~\non the bus.  It increments at the end of a processor cycle (rising edge of\nCLK4), and only when ~RSTHOLD~, ~HALT~ and ~WS~ are all deasserted.
 Text Label 10450 3900 2    50   ~ 0
 COND[0..4]
