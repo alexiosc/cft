@@ -664,10 +664,9 @@ Entry Wire Line
 Entry Wire Line
 	6700 4900 6800 4800
 Wire Wire Line
-	4500 5000 4500 3400
+	4500 5000 4500 4200
 Wire Wire Line
 	4500 5000 5300 5000
-Connection ~ 4500 3400
 Wire Wire Line
 	4500 3400 5300 3400
 $Comp
@@ -810,73 +809,56 @@ Text Label 8400 4700 0    50   ~ 0
 FPD6
 Text Label 8400 4800 0    50   ~ 0
 FPD7
-Text Notes 2950 4050 1    50   ~ 10
+Text Notes 2950 3800 1    50   ~ 10
 WADDR=00010
-Text HLabel 1200 3050 0    50   3State ~ 0
+Text HLabel 1200 2800 0    50   3State ~ 0
 WADDR[4..0]
-Text Label 1300 3050 0    50   ~ 0
+Text Label 1300 2800 0    50   ~ 0
 WADDR[4..0]
 Wire Bus Line
-	1200 3050 1800 3050
+	1200 2800 1800 2800
 Entry Bus Bus
-	1800 3050 1900 3150
+	1800 2800 1900 2900
 Entry Wire Line
-	1900 4000 2000 4100
+	1900 3850 2000 3950
 Entry Wire Line
-	1900 3900 2000 4000
+	1900 3750 2000 3850
 Entry Wire Line
-	1900 3500 2000 3600
+	1900 3250 2000 3350
 Entry Wire Line
-	1900 3400 2000 3500
+	1900 3150 2000 3250
 Entry Wire Line
-	1900 3300 2000 3400
-Text HLabel 1200 4200 0    50   Input ~ 0
+	1900 3050 2000 3150
+Text HLabel 1200 4250 0    50   Input ~ 0
 CLK4
-Text Label 2050 4200 0    50   ~ 0
-CLK4
-Text Label 2050 4100 0    50   ~ 0
+Text Label 2050 3950 0    50   ~ 0
 WADDR4
-Text Label 2050 3600 0    50   ~ 0
+Text Label 2050 3850 0    50   ~ 0
 WADDR3
-Text Label 2050 3500 0    50   ~ 0
+Text Label 2050 3350 0    50   ~ 0
 WADDR2
-Text Label 2050 4000 0    50   ~ 0
+Text Label 2050 3250 0    50   ~ 0
 WADDR1
-Text Label 2050 3400 0    50   ~ 0
+Text Label 2050 3150 0    50   ~ 0
 WADDR0
-Text Label 1250 4200 0    50   ~ 0
+Text Label 1250 4250 0    50   ~ 0
 CLK4
 Wire Wire Line
-	2400 4000 2000 4000
+	2400 3850 2000 3850
 Wire Wire Line
-	2400 4100 2000 4100
+	2400 3950 2000 3950
 Wire Wire Line
-	2400 4200 1200 4200
+	2400 3350 2000 3350
 Wire Wire Line
-	2400 3600 2000 3600
+	2400 3250 2000 3250
 Wire Wire Line
-	2400 3500 2000 3500
-Wire Wire Line
-	2400 3400 2000 3400
-Wire Wire Line
-	3400 3400 4500 3400
-Text Label 3500 3400 0    50   ~ 0
-~WRITE-IR
-NoConn ~ 3400 3500
-NoConn ~ 3400 3600
-NoConn ~ 3400 3700
-NoConn ~ 3400 3800
-NoConn ~ 3400 3900
-NoConn ~ 3400 4000
-NoConn ~ 3400 4100
-Wire Bus Line
-	1900 3150 1900 4000
-Wire Bus Line
-	6700 2600 6700 5550
-Wire Bus Line
-	8750 2600 8750 5100
-Wire Bus Line
-	4650 2300 4650 4700
+	2400 3150 2000 3150
+NoConn ~ 3400 3150
+NoConn ~ 3400 3450
+NoConn ~ 3400 3550
+NoConn ~ 3400 3650
+NoConn ~ 3400 3750
+NoConn ~ 3400 3850
 $Comp
 L alexios:74HC574 U12
 U 1 1 61409CF5
@@ -936,13 +918,13 @@ Text Label 4800 5000 0    50   ~ 0
 $Comp
 L alexios:74HC138 U23
 U 1 1 61410578
-P 2900 3800
-F 0 "U23" H 2900 4467 50  0000 C CNN
-F 1 "74HC138" H 2900 4376 50  0000 C CNN
-F 2 "" H 2900 3800 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 2900 3800 50  0001 C CNN
-F 4 "Yes" H 2825 2975 50  0001 C CNN "Verified"
-	1    2900 3800
+P 2900 3550
+F 0 "U23" H 2900 4217 50  0000 C CNN
+F 1 "74HC138" H 2900 4126 50  0000 C CNN
+F 2 "" H 2900 3550 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 2900 3550 50  0001 C CNN
+F 4 "Yes" H 2825 2725 50  0001 C CNN "Verified"
+	1    2900 3550
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -959,4 +941,107 @@ F 4 "Yes" H 1325 5725 50  0001 C CNN "Verified"
 $EndComp
 Connection ~ 1050 6450
 Connection ~ 1050 6650
+Wire Wire Line
+	4350 4200 4500 4200
+Connection ~ 4500 4200
+Wire Wire Line
+	4500 4200 4500 3400
+Wire Wire Line
+	3400 3350 3650 3350
+Wire Wire Line
+	3650 4150 3850 4150
+Wire Wire Line
+	3850 4250 1200 4250
+Wire Wire Line
+	2400 3750 2350 3750
+Wire Wire Line
+	2350 3750 2350 3700
+$Comp
+L power:+5V #PWR?
+U 1 1 614409DB
+P 2350 3700
+F 0 "#PWR?" H 2350 3550 50  0001 C CNN
+F 1 "+5V" H 2365 3873 50  0000 C CNN
+F 2 "" H 2350 3700 50  0001 C CNN
+F 3 "" H 2350 3700 50  0001 C CNN
+	1    2350 3700
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 6144DE30
+P 1050 7300
+AR Path="/5CC0D65F/6144DE30" Ref="C?"  Part="1" 
+AR Path="/6144DE30" Ref="C?"  Part="1" 
+AR Path="/5F4B0011/6144DE30" Ref="C?"  Part="1" 
+AR Path="/5F63066B/6144DE30" Ref="C?"  Part="1" 
+F 0 "C?" H 959 7346 50  0000 R CNN
+F 1 "100nF" H 959 7255 50  0000 R CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 1050 7300 50  0001 C CNN
+F 3 "~" H 1050 7300 50  0001 C CNN
+	1    1050 7300
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 6144DE36
+P 1050 7200
+AR Path="/5F4B0011/6144DE36" Ref="#PWR?"  Part="1" 
+AR Path="/5F63066B/6144DE36" Ref="#PWR?"  Part="1" 
+F 0 "#PWR?" H 1050 7050 50  0001 C CNN
+F 1 "+5V" H 1065 7373 50  0000 C CNN
+F 2 "" H 1050 7200 50  0001 C CNN
+F 3 "" H 1050 7200 50  0001 C CNN
+	1    1050 7200
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 6144DE3C
+P 1050 7400
+AR Path="/6144DE3C" Ref="#PWR?"  Part="1" 
+AR Path="/5F4B0011/6144DE3C" Ref="#PWR?"  Part="1" 
+AR Path="/5F63066B/6144DE3C" Ref="#PWR?"  Part="1" 
+F 0 "#PWR?" H 1050 7150 50  0001 C CNN
+F 1 "GND" H 1055 7227 50  0000 C CNN
+F 2 "" H 1050 7400 50  0001 C CNN
+F 3 "" H 1050 7400 50  0001 C CNN
+	1    1050 7400
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74LVC1G32 U?
+U 1 1 61458F47
+P 4050 4200
+F 0 "U?" H 4100 4467 50  0000 C CNN
+F 1 "74LVC1G32" H 4100 4376 50  0000 C CNN
+F 2 "" H 4160 4180 50  0001 C CNN
+F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 4160 4180 50  0001 C CNN
+	1    4050 4200
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74LVC1G32 U?
+U 2 1 61464092
+P 1450 7050
+F 0 "U?" H 1580 6846 50  0000 L CNN
+F 1 "74LVC1G32" H 1580 6755 50  0000 L CNN
+F 2 "" H 1560 7030 50  0001 C CNN
+F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 1560 7030 50  0001 C CNN
+	2    1450 7050
+	1    0    0    -1  
+$EndComp
+Connection ~ 1050 7400
+Connection ~ 1050 7200
+Wire Wire Line
+	3650 3350 3650 4150
+NoConn ~ 3400 3250
+Wire Bus Line
+	1900 2900 1900 3850
+Wire Bus Line
+	6700 2600 6700 5550
+Wire Bus Line
+	8750 2600 8750 5100
+Wire Bus Line
+	4650 2300 4650 4700
 $EndSCHEMATC
