@@ -326,62 +326,58 @@ Wire Wire Line
 	1150 1750 3750 1750
 Wire Wire Line
 	1150 1950 3750 1950
-Text HLabel 10500 6150 2    50   3State ~ 0
+Text HLabel 6650 5700 2    50   3State ~ 0
 FPD[0..7]
-Text Label 9300 6150 0    50   ~ 0
-FPD[0..7]
-Wire Bus Line
-	10500 6150 9300 6150
 $Comp
 L power:+5V #PWR0108
 U 1 1 5E28DA06
-P 8200 4950
+P 7650 4900
 AR Path="/5DEAC282/5E28DA06" Ref="#PWR0108"  Part="1" 
 AR Path="/5DEAC282/5DEAA264/5E28DA06" Ref="#PWR?"  Part="1" 
-F 0 "#PWR0108" H 8200 4800 50  0001 C CNN
-F 1 "+5V" H 8215 5123 50  0000 C CNN
-F 2 "" H 8200 4950 50  0001 C CNN
-F 3 "" H 8200 4950 50  0001 C CNN
-	1    8200 4950
+F 0 "#PWR0108" H 7650 4750 50  0001 C CNN
+F 1 "+5V" H 7665 5073 50  0000 C CNN
+F 2 "" H 7650 4900 50  0001 C CNN
+F 3 "" H 7650 4900 50  0001 C CNN
+	1    7650 4900
 	1    0    0    -1  
 $EndComp
-Text Label 7550 3400 0    50   ~ 0
+Text Label 7000 3350 0    50   ~ 0
 COND0
-Text Label 7550 3500 0    50   ~ 0
+Text Label 7000 3450 0    50   ~ 0
 COND1
-Text Label 7550 3600 0    50   ~ 0
+Text Label 7000 3550 0    50   ~ 0
 COND2
-Text Label 7550 3700 0    50   ~ 0
+Text Label 7000 3650 0    50   ~ 0
 COND3
-Text Label 7550 3800 0    50   ~ 0
+Text Label 7000 3750 0    50   ~ 0
 COND4
 Wire Wire Line
-	7900 3400 7550 3400
+	7350 3350 7000 3350
 Wire Wire Line
-	7900 3500 7550 3500
+	7350 3450 7000 3450
 Wire Wire Line
-	7900 3600 7550 3600
+	7350 3550 7000 3550
 Wire Wire Line
-	7900 3700 7550 3700
+	7350 3650 7000 3650
 Wire Wire Line
-	7900 3800 7550 3800
+	7350 3750 7000 3750
 $Comp
 L alexios:SN74ACT1071 U?
 U 1 1 5E1680B3
-P 8400 3900
+P 7850 3850
 AR Path="/5DEAC282/5DEAA264/5E1680B3" Ref="U?"  Part="1" 
 AR Path="/5DEAC282/5E1680B3" Ref="U47"  Part="1" 
 AR Path="/5E1680B3" Ref="U?"  Part="1" 
-F 0 "U47" H 8350 4700 50  0000 L CNN
-F 1 "SN74ACT1071" H 8150 4600 50  0000 L CNN
-F 2 "alexios:SOIC-14" H 8100 4250 50  0001 C CNN
-F 3 "https://www.ti.com/lit/ds/symlink/sn74act1071.pdf" H 8100 4250 50  0001 C CNN
-	1    8400 3900
+F 0 "U47" H 7800 4650 50  0000 L CNN
+F 1 "SN74ACT1071" H 7600 4550 50  0000 L CNN
+F 2 "alexios:SOIC-14" H 7550 4200 50  0001 C CNN
+F 3 "https://www.ti.com/lit/ds/symlink/sn74act1071.pdf" H 7550 4200 50  0001 C CNN
+	1    7850 3850
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	7900 3900 7550 3900
-Text Label 7550 3900 0    50   ~ 0
+	7350 3850 7000 3850
+Text Label 7000 3850 0    50   ~ 0
 ~END
 Text Label 6650 5100 2    50   ~ 0
 ~MEM
@@ -629,7 +625,7 @@ F41 "~IO" O R 3800 5200 50
 F42 "~R" O R 3800 5300 50 
 F43 "~WEN" O R 3800 5400 50 
 F44 "~END" O R 3800 5500 50 
-F45 "CLK" I L 2650 5400 50 
+F45 "CLK" I L 2650 5250 50 
 F46 "~OE" I L 2650 5500 50 
 $EndSheet
 Wire Wire Line
@@ -728,7 +724,7 @@ Wire Wire Line
 	3800 5000 4250 5000
 Wire Wire Line
 	3800 5100 4250 5100
-Text Notes 8750 2900 2    100  ~ 20
+Text Notes 8200 2850 2    100  ~ 20
 Bus Hold
 $Comp
 L alexios:74HC85 U45
@@ -779,10 +775,10 @@ F 3 "" H 5900 7300 50  0001 C CNN
 $EndComp
 Connection ~ 5900 7300
 Connection ~ 5900 7500
-NoConn ~ 7900 4000
-NoConn ~ 7900 4100
-NoConn ~ 7900 4200
-NoConn ~ 7900 4300
+NoConn ~ 7350 3950
+NoConn ~ 7350 4050
+NoConn ~ 7350 4150
+NoConn ~ 7350 4250
 Wire Wire Line
 	1150 1850 1350 1850
 $Comp
@@ -871,13 +867,11 @@ F 3 "" H 1350 1100 50  0001 C CNN
 	1    1350 1100
 	1    0    0    -1  
 $EndComp
-Text HLabel 1150 5600 0    50   Input ~ 0
+Text HLabel 1150 5450 0    50   Input ~ 0
 ~RESET
 Wire Wire Line
-	1150 5600 1550 5600
-Wire Wire Line
-	2200 5500 2650 5500
-Text Label 1200 5700 0    50   ~ 0
+	1150 5450 1550 5450
+Text Label 1200 5550 0    50   ~ 0
 ~HALT
 Text Notes 3000 6350 0    50   ~ 0
 The Microcode Store is enabled\nwhen ~RESET~ and ~HALT~\nare both deasserted.
@@ -1040,56 +1034,56 @@ F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 2800 7300 50  0001 C CNN
 	2    3150 7300
 	1    0    0    -1  
 $EndComp
-Text Notes 7550 4600 0    50   ~ 0
-Note: The DFP adds bus hold\nto all other outputs.
-Connection ~ 8200 4950
-Connection ~ 8200 5350
-Connection ~ 8200 5250
-Connection ~ 8200 5050
+Text Notes 7000 4550 0    50   ~ 0
+Note: The DFP adds bus hold\nto all other control outputs.
+Connection ~ 7650 4900
+Connection ~ 7650 5300
+Connection ~ 7650 5200
+Connection ~ 7650 5000
 $Comp
 L alexios:SN74ACT1071 U?
 U 2 1 5DA7AA39
-P 8550 5450
+P 8000 5400
 AR Path="/5DEAC282/5DEAA264/5DA7AA39" Ref="U?"  Part="1" 
 AR Path="/5DEAC282/5DA7AA39" Ref="U47"  Part="2" 
 AR Path="/5DA7AA39" Ref="U?"  Part="1" 
-F 0 "U47" H 8400 5150 50  0000 L CNN
-F 1 "SN74ACT1071" H 8300 5250 50  0000 L CNN
-F 2 "alexios:SOIC-14" H 8250 5800 50  0001 C CNN
-F 3 "https://www.ti.com/lit/ds/symlink/sn74act1071.pdf" H 8250 5800 50  0001 C CNN
-	2    8550 5450
+F 0 "U47" H 7900 5350 50  0000 L CNN
+F 1 "SN74ACT1071" H 7900 5250 50  0000 L CNN
+F 2 "alexios:SOIC-14" H 7700 5750 50  0001 C CNN
+F 3 "https://www.ti.com/lit/ds/symlink/sn74act1071.pdf" H 7700 5750 50  0001 C CNN
+	2    8000 5400
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	8200 5250 8200 5350
+	7650 5200 7650 5300
 Wire Wire Line
-	8200 5050 8200 4950
+	7650 5000 7650 4900
 $Comp
 L power:GND #PWR0110
 U 1 1 5E28DA00
-P 8200 5350
+P 7650 5300
 AR Path="/5DEAC282/5E28DA00" Ref="#PWR0110"  Part="1" 
 AR Path="/5DEAC282/5DEAA264/5E28DA00" Ref="#PWR?"  Part="1" 
-F 0 "#PWR0110" H 8200 5100 50  0001 C CNN
-F 1 "GND" H 8205 5177 50  0000 C CNN
-F 2 "" H 8200 5350 50  0001 C CNN
-F 3 "" H 8200 5350 50  0001 C CNN
-	1    8200 5350
+F 0 "#PWR0110" H 7650 5050 50  0001 C CNN
+F 1 "GND" H 7655 5127 50  0000 C CNN
+F 2 "" H 7650 5300 50  0001 C CNN
+F 3 "" H 7650 5300 50  0001 C CNN
+	1    7650 5300
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:C_Small C?
 U 1 1 5E28D9FA
-P 8200 5150
+P 7650 5100
 AR Path="/5CC0D65F/5E28D9FA" Ref="C?"  Part="1" 
 AR Path="/5E28D9FA" Ref="C?"  Part="1" 
 AR Path="/5DEAC282/5E28D9FA" Ref="C33"  Part="1" 
 AR Path="/5DEAC282/5DEAA264/5E28D9FA" Ref="C?"  Part="1" 
-F 0 "C33" H 8108 5196 50  0000 R CNN
-F 1 "100nF" H 8108 5105 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 8200 5150 50  0001 C CNN
-F 3 "~" H 8200 5150 50  0001 C CNN
-	1    8200 5150
+F 0 "C33" H 7558 5146 50  0000 R CNN
+F 1 "100nF" H 7558 5055 50  0000 R CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 7650 5100 50  0001 C CNN
+F 3 "~" H 7650 5100 50  0001 C CNN
+	1    7650 5100
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -1144,12 +1138,12 @@ Connection ~ 4200 7500
 $Comp
 L alexios:74LVC1G00 U46
 U 1 1 5DD994A9
-P 1850 5650
-F 0 "U46" H 1600 5450 50  0000 C CNN
-F 1 "74LVC1G00" H 1600 5350 50  0000 C CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 1500 5650 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G00.pdf" H 1500 5650 50  0001 C CNN
-	1    1850 5650
+P 1850 5500
+F 0 "U46" H 1600 5300 50  0000 C CNN
+F 1 "74LVC1G00" H 1600 5200 50  0000 C CNN
+F 2 "alexios:SOT-23-5_HandSoldering" H 1500 5500 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G00.pdf" H 1500 5500 50  0001 C CNN
+	1    1850 5500
 	1    0    0    -1  
 $EndComp
 Text Notes 1950 6300 0    50   ~ 0
@@ -1215,7 +1209,7 @@ F36 "IDX1" I L 5050 3700 50
 F37 "~COND" I L 5050 3800 50 
 F38 "IN-RSVD" I L 5050 3900 50 
 $EndSheet
-Text Label 2250 5400 0    50   ~ 0
+Text Label 2250 5250 0    50   ~ 0
 CLK2
 Text HLabel 1150 3600 0    50   Input ~ 0
 IDX0
@@ -1265,14 +1259,10 @@ Wire Wire Line
 	1150 4800 2650 4800
 Wire Wire Line
 	1150 4900 2650 4900
-Wire Wire Line
-	2200 5500 2200 5650
-Wire Wire Line
-	2200 5650 2000 5650
-Text Label 1200 5600 0    50   ~ 0
+Text Label 1200 5450 0    50   ~ 0
 ~RESET
 Wire Wire Line
-	1550 5700 1200 5700
+	1550 5550 1200 5550
 Wire Wire Line
 	1350 1850 3750 1850
 Wire Wire Line
@@ -1548,7 +1538,7 @@ Text Notes 6100 1950 0    98   ~ 20
 Text Notes 7750 1350 0    98   ~ 20
 *
 Text Notes 7900 1350 0    50   ~ 0
-Do not install this resistor by default.\nPopulate only if jumpers open.
+Do not install this resistor by default.\nPopulate resistors for open jumpers only.
 Text Notes 6750 900  0    100  ~ 20
 Fetch/Execute State Decoder
 Text Notes 1550 3450 2    50   ~ 0
@@ -1577,10 +1567,8 @@ Wire Wire Line
 Connection ~ 1650 3900
 Wire Wire Line
 	1650 3900 2650 3900
-Text HLabel 1150 5400 0    50   Input ~ 0
+Text HLabel 1150 5250 0    50   Input ~ 0
 CLK2
-Wire Wire Line
-	1150 5400 2650 5400
 Text HLabel 4700 5400 0    50   Input ~ 0
 ~FPµA0
 Entry Wire Line
@@ -1599,6 +1587,10 @@ Wire Bus Line
 	5000 2550 4650 2550
 Wire Bus Line
 	4450 2550 2250 2550
+Wire Wire Line
+	2000 5500 2650 5500
+Wire Wire Line
+	1150 5250 2650 5250
 Wire Bus Line
 	2150 2650 2150 3400
 Wire Bus Line
