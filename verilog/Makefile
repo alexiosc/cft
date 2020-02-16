@@ -60,23 +60,25 @@ SRC += $(IC74XXX)
 
 # Stuff added or changed for for 2019 updates to the CFT architecture.
 
-CFT2019 = 	clock.v            clock_tb.v \
-		ail.v		   ail_tb.v \
-		agl.v		   agl_tb.v \
-		sbu.v		   sbu_tb.v \
-		ism.v		   ism_tb.v \
-		mbu.v              mbu_tb.v \
-		flag_unit.v        flag_unit_tb.v \
-		reg_ir.v           reg_ir_tb.v \
-		reg_ar.v           reg_ar_tb.v \
-		reg_l.v            reg_l_tb.v \
-		reg_v.v            reg_v_tb.v \
-		reg_major.v        reg_major_tb.v \
-		databus.v          databus_tb.v \
-		alu_decoder.v      alu_decoder_tb.v \
-		alu_porta.v        alu_porta_tb.v \
-		alu_portb.v        alu_portb_tb.v \
-		alu_rom.v          alu_rom_tb.v \
+CFT2019 = 	clock.v                 clock_tb.v \
+		ail.v		        ail_tb.v \
+		agl.v		        agl_tb.v \
+		sbu.v		        sbu_tb.v \
+		ism.v		        ism_tb.v \
+		control_store.v         control_store_tb.v \
+		microcode_sequencer.v   microcode_sequencer.v   \
+		mbu.v                   mbu_tb.v \
+		flag_unit.v             flag_unit_tb.v \
+		reg_ir.v                reg_ir_tb.v \
+		reg_ar.v                reg_ar_tb.v \
+		reg_l.v                 reg_l_tb.v \
+		reg_v.v                 reg_v_tb.v \
+		reg_major.v             reg_major_tb.v \
+		databus.v               databus_tb.v \
+		alu_decoder.v           alu_decoder_tb.v \
+		alu_porta.v             alu_porta_tb.v \
+		alu_portb.v             alu_portb_tb.v \
+		alu_rom.v               alu_rom_tb.v \
 
 SRC += $(CFT2019)
 
@@ -497,9 +499,6 @@ test_alu_rom: alu_rom_tb.o alu_rom.o rom.o
 		./alu_rom_tb.o
 		$(GTKWAVE) $(VCDDIR)/alu_rom_tb.vcd $(SAVDIR)/alu_rom_tb.sav
 
-test_int_fsm: int_fsm_tb.o int_fsm.o flipflop.o demux.o
-		./int_fsm_tb.o	
-		$(GTKWAVE) $(VCDDIR)/int_fsm_tb.vcd $(SAVDIR)/int_fsm_tb.sav
 
 ###############################################################################
 #

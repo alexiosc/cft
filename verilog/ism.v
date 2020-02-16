@@ -1,68 +1,81 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// FUNCTION: the Interrupt State Machine.
+// THE INTERRUPT STATE MACHINE
 //
-// REDESIGNED IN 2019
+// REDESINGED IN 2019
+//
+// NOTES: 
 //
 ///////////////////////////////////////////////////////////////////////////////
 
 
-`ifndef ism_v
-`define ism_v
+`ifndef int_v
+`define int_v
 
 `include "flipflop.v"
+`include "buffer.v"
+`include "demux.v"
 
-`timescale 1ns/1ps
+`timescale 1ns/10ps
 
-///////////////////////////////////////////////////////////////////////////////
-//
-// BASED ON DRAWN SCHEMATICS
-//
-///////////////////////////////////////////////////////////////////////////////
+module int_fsm (nreset, clk4, nend,
+		ibus15, nflagwe,
+		action,
+		nirq,
+		fi,
+		nirqs,
+		nirqsuc);
 
-module ism (nreset, clk1, clk4, nend,
-	    ibus15, nflagwe,
-	    naction_sti, naction_cli, nirq,
-	    fi, nirqs);
+   input       nreset;
+   input       clk4;
+   input       nend;
+   input       ibus15;
+   input       nflagwe;
+   input [3:0] action;
+   inout       nirq;
 
-   input        nreset;
-   input 	clk1;
-   input 	clk4;
-   input 	ibus15;
-   input 	nflagwe;
-   input 	nend;
-   input 	naction_sti;
-   input 	naction_cli;
-   input 	nirq;
+   output      fi;
+   output      nirqs;		// IRQS signal for the bus
+   output      nirqsuc;		// Identical IRQµC signal for the Control Unit
 
-   output 	fi, nfi;
-   output 	nirqs;
 
-   wire 	nint0;
-   wire 	nint;
-   wire 	irqs0;
-   wire 	nreset_or_cli;
-   wire 	endcp;
-   wire 	interrupt;
-   wire 	nirqsync;
+   wire [7:0]  y;
+   wire        naction_sti;
+   wire        naction_cli;
 
-   // Note: the propagation delays are greatly exaggerated for LVC family parts.
-   assign #6 nreset_or_cli = nreset & naction_cli;
-   assign #6 endcp = clk4 | nend;
-   assign #7 nirqsync = nfi | nirq | clk1;
-   
-   // The Interrupt Flag (FI)
-   flipflop_74h ff_fi (.nset(naction_sti), .d(ibus15), .clk(nflagwe), .nrst(nreset_or_cli),
-		       .q(fi), .nq(nfi));
+   // Decode the ACTION microcode field to derive STI and CLI strobes.
+   demux_138 action_decoder (.g1(1'b1), .ng2a(action[3]), .ng2b(clk4), .a(action[2:0]), .y(y));
+   assign naction_sti = y[3];
+   assign naction_cli = y[4];
 
-   // Incoming IRQs.
-   flipflop_74h ff_irq1 (.nset(nirqsync), .d(1'b1), .clk(1'b1), .nrst(nreset_or_cli),
-   			 .q(interrupt));
-   
-   flipflop_74h ff_irq2 (.nset(1'b1), .d(interrupt), .clk(endcp), .nrst(nreset),
-			 .nq(nirqs));
-endmodule // ism
+   // Generate control strobes
+   wire        nreset_or_cli;
+   wire        endcp;
+   assign #6 nreset_or_cli = nreset & naction_cli; // Active low logic: & is ‘or’
+   assign #6 endcp = nend | clk4;		   // nEND asserted during CLK4.
 
-`endif //  `ifndef ism_v
+   // The Interrupt Flag.
+   flipflop_74h fi_ff    (.d(ibus15), .clk(nflagwe), .nset(naction_sti), .nrst(nreset_or_cli), .q(fi));
+   // Note: FI and nINH(IBIT) are the same signal.
 
-// End of file
+   // Incoming interrupts go through a latch and flip-flop to reduce the chances of metastability.
+   wire        nirq0, nirq1;
+   latch_1g373 irq_latch (.noe(1'b0), .le(clk4), .d(nirq), .q(nirq0));
+   flipflop_74h irq_ff   (.d(nirq0), .clk(clk4), .nset(fi), .nrst(1'b1), .q(nirq1));
+
+   // Once an IRQ has been registered, we wait until the end of the current
+   // instruction before we signal the Control Unit. Signalling the CU is
+   // always done on the rising edge of clk4, and signal endcp combines END and
+   // CLK4 to do this.
+   flipflop_74h irqs_ff (.d(nirq1), .clk(endcp), .nset(nreset_or_cli), .nrst(1'b1), .q(nirqsuc));
+
+   // IRQS and IRQµC are the same signal here. On the CFT, they're driven
+   // separately, with IRQS driven from the inverted flipflop output, through
+   // an '1G04 inverter to flip it back again.
+   assign #6 nirqs = nirqsuc;
+endmodule // int_unit
+
+
+`endif //  `ifndef int_v
+
+// End of file.

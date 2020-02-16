@@ -1,218 +1,233 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// INTERRUPT LOGIC TESTBENCH
+// TEST THE INTERRUPT LOGIC UNIT
 //
 ///////////////////////////////////////////////////////////////////////////////
-//
+
 // REDESIGNED IN 2019
 // USES OK/FAIL OUTPUT
-//
-// ism_tb.v -- Interrupt Logic Testbench
-//
-// Copyright © 2011–2019 Alexios Chouchoulas
-//
-// This program is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2, or (at your option)
-// any later version.
-// 
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-// 
-// You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software Foundation,
-// Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  
-//
-///////////////////////////////////////////////////////////////////////////////
 
-`include "ism.v"
-`include "clock.v"
+`include "int_fsm.v"
 `timescale 1ns/10ps
 
-module ism_tb();
-   reg        nreset;
-   reg 	      nend;
-   reg 	      ibus15;
-   reg 	      nflagwe;
-   reg 	      naction_sti;
-   reg 	      naction_cli;
-   reg 	      nirq;
+module int_tb();
+   reg          nreset;
+   reg 		clk4;
+   reg 		nend;
+   reg 		ibus15;
+   reg 		nflagwe;
+   reg [3:0] 	action;
+   reg 		nirq_drv;
+
+   wire 	fi;
+   wire 	nirqs;
+   wire 	nirqsuc;
    
-   wire       clk1, clk2, clk3, clk4;
-   wire       fi;
-   wire       nirqs;
+   integer 	i;
+   integer 	enable_nend;
+   reg [800:0] 	status;
+
+   // Hack to allow bidirectional tri-state driving/reading.
+   wire 	nirq;
+   assign nirq = nirq_drv;
+
    
-   wire [4:0] state;
-   
-   integer    upc = 0;
-   integer    i;
-   reg [800:0] status;
 
    // Initialize all variables
-   initial begin        
-      //$display ("time\t rst oe cs q");
-      $monitor ("t: %7d | %b %b %b %b %b %b | %b %b %b %b > %b | %b > %b",
+   initial begin
+      $monitor ("t: %7d | %b %b %b %b %b | %b %b > fi:%b nirqsuc:%b nirqs:%b\n",
 		$time,
-		nreset, clk1, clk2, clk3, clk4, nend,
-		ibus15, nflagwe, naction_sti, naction_cli, fi,
-		nirq, nirqs);
-      $dumpfile ("vcd/ism_tb.vcd");
-      $dumpvars (0, ism_tb);
+      		nreset, clk4, nend, nirq, action,
+		ibus15, nflagwe,
+		fi, nirqsuc, nirqs);
+      $dumpfile ("vcd/int_fsm_tb.vcd");
+      $dumpvars (0, int_tb);
 
       status = "reset";
-      nreset = 0;
+      clk4 = 1;
       nend = 1;
-      nirq = 1;
+      action = 0;
       ibus15 = 0;
       nflagwe = 1;
-      naction_sti = 1;
-      naction_cli = 1;
-      #250 nreset = 1;
+      nirq_drv = 1;
+      enable_nend = 1;
+     
+      status = "reset";
+      nreset = 0;
+      #1000 nreset = 1;
 
-      for (i = 0; i < 5; i = i + 1) begin
-	 #2000 status = "STI";
-	 naction_sti = 0;
-	 #250 naction_sti = 1;
+      #1000 status = "action decoding";
+      for (i = 0; i < 64; i = i + 1) begin
+	 #500 action = i[3:0];
+      end
+      #1000 action = 0;
 
-	 #2000 status = "CLI";
-	 naction_cli = 0;
-	 #250 naction_cli = 1;
+
+      #1000 status = "flag unit loading";
+      for (i = 0; i < 16; i = i + 1) begin
+	 #990 ibus15 = i[2];
+	 #10 nflagwe = i[0];
       end
 
-      // Set the I flag from the flag unit.
-      #2000 status = "FLAGWE";
-      for (i = 0; i < 32; i = i + 1) begin
-	 ibus15 = ~i[1];
-	 #125 nflagwe = 0;
-	 #62.5 nflagwe = 1;
-	 #62.5;
+
+      #1000 status = "interrupts";
+      for (i = 0; i < 16; i = i + 1) begin
+	 #1000 action = 4'b0100;
+	 #250 action = 0;
+	 #250 nirq_drv = 0;
+	 #250 nirq_drv = 1;
+
+	 #1000 action = 4'b0011;
+	 #250 action = 0;
+	 #250 nirq_drv = 0;
+	 #250 nirq_drv = 1;
       end
+      #1000 action = 0;
 
-      
-      #2000 status = "Masked INT";
-      nirq = 0;
+      enable_nend = 0;
+      #1125 status = "aborted interrupts";
+      for (i = 0; i < 16; i = i + 1) begin
+	 #1000 action = 4'b0011;
+	 #250 action = 0;
+	 #250 nirq_drv = 0;
+	 #250 nirq_drv = 1;
+	 #250 action = 4'b0100;
+	 #250 action = 0;
+      end
+      #1000 action = 0;
 
-      #4000 status = "INT";
-      naction_sti = 0;
-      #250 naction_sti = 1;
 
-      #2000 nirq = 1;
-      
-      #4000 status = "CLI";
-      naction_cli = 0;
-      #250 naction_cli = 1;
-
-      #2000 status = "STI";
-      naction_sti = 0;
-      #250 naction_sti = 1;
-      
-
-      // for (i = 0; i < 10; i = i + 1) begin
-      // 	 #5000 naction_sti = 0;
-      // 	 #1000 naction_sti = 1;
-      // 	 #5000 naction_cli = 0;
-      // 	 #1000 naction_cli = 1;
-      // end;
-      
-      // for (i = 0; i < 65536; i = i + 1) begin
-      // 	 #63.5;
-      // end
-      
-      #5000 $display("OK");
-      $finish;
+      #1000 $finish;
    end // initial begin
 
-   // Simulate IRQs
-   // always begin
-   //    #1933 nirq = 0;
-   //    #1933 nirq = 1;
-   // end
+   // Realistic clock ticks and somewhat realistic END assertions.
+   always begin
+      #125 clk4 = 0;
+      #62.5 clk4 = 1;
 
-   // Simulate nend
-   always @(posedge clk1) begin
-      if (upc == 3) begin
-	 #55 nend = 1'b0;
-	 upc = 0;
-      end else begin
-	 #55 nend = 1;
-	 upc = upc + 1;
-      end
+      #187.5 clk4 = 0;
+      #62.5 clk4 = 1;
+
+      #187.5 clk4 = 0;
+      #62.5 clk4 = 1;
+
+      #125 nend = enable_nend? 0: 1;
+      #62.5 clk4 = 0;
+      #62.5 clk4 = 1;
+      #62.5 nend = 1;
    end
 
-   // Create a state vector, which we can use to decode ISM states.
-   assign state = { fi, ism.nint0, ism.nint, ism.irqs0, nirqs };
-
-   // Use the standard clock generator.
-   clock_generator clock_generator (.nreset(nreset),
-				    .fpclk(1'b1), .nfpclk_or_clk(1'b1),
-				    .clk1(clk1), .clk2(clk2), .clk3(clk3), .clk4(clk4));
-   
    // Connect DUT to test bench
-   ism ism (.nreset(nreset), .clk1(clk1), .clk4(clk4), .nend(nend),
-	    .ibus15(ibus15), .nflagwe(nflagwe),
-	    .naction_cli(naction_cli), .naction_sti(naction_sti),
-	    .nirq(nirq), .fi(fi), .nirqs(nirqs));
+   int_fsm int_fsm (.nreset(nreset), .clk4(clk4), .nend(nend),
+		    .ibus15(ibus15), .nflagwe(nflagwe),
+		    .action(action), 
+		    .nirq(nirq), .fi(fi),
+		    .nirqs(nirqs), .nirqsuc(nirqsuc));
 
-   // Verify our findings.
-   reg [8191:0] msg;
-   reg 		correct_fi = 0;
 
-   always @ (posedge nflagwe) begin
+   ///////////////////////////////////////////////////////////////////////////////
+   //
+   // CHECK OUR RESULTS
+   //
+   ///////////////////////////////////////////////////////////////////////////////
+
+   // This is horribly ugly because iverilog lacks full support for
+   // assertions.
+   reg [1023:0] msg;
+
+   always @(action, clk4) begin
       #30 begin
-   	 msg[7:0] = "";		// Use the msg as a flag.
-
-	 if (naction_cli === 0 && naction_sti === 0) begin
-	    $sformat(msg, "testbench bug, at posedge of nflagwe naction_cli=%b, naction_sti=%b (should never happen)",
-		     naction_cli, naction_sti);
+	 if (clk4 !== 1'b0 && clk4 !== 1'b1) begin
+	    $sformat(msg, "testbench bug, clk4=%b", clk4);
 	 end
 
-	 else if (nflagwe !== 1) begin
-	    $sformat(msg, "testbench bug, nflagwe=%b", nflagwe);
+	 else if (action === 4'b0011 && clk4 === 1'b0 && int_fsm.naction_sti !== 1'b0) begin
+	    $sformat(msg, "naction_sti decoding failure: action=%b, clk4=%b, but naction_sti=%b (should be 0)",
+		     action, clk4, int_fsm.naction_sti);
 	 end
 
-	 else if (fi !== ibus15) begin
-	    $sformat(msg, "testbench bug, at posedge of nflagwe, ibus15=%b, but fi=%b (should be same as ibus15)",
-		     ibus15, fi);
+	 else if ((action !== 4'b0011 || clk4 !== 1'b0) && int_fsm.naction_sti !== 1'b1) begin
+	    $sformat(msg, "naction_sti decoding failure: action=%b, clk4=%b, but naction_sti=%b (should be 1)",
+		     action, clk4, int_fsm.naction_sti);
 	 end
 
-   	 // Fail if we've logged an issue.
-   	 if (msg[7:0]) begin
-   	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
-   	    $error("assertion failure");
-   	    #100 $finish;
-   	 end
-   	 else $display("OK nflagwe");
+	 else if (action === 4'b0100 && clk4 === 1'b0 && int_fsm.naction_cli !== 1'b0) begin
+	    $sformat(msg, "naction_cli decoding failure: action=%b, clk4=%b, but naction_cli=%b (should be 0)",
+		     action, clk4, int_fsm.naction_sti);
+	 end
+
+	 else if ((action !== 4'b0100 || clk4 !== 1'b0) && int_fsm.naction_cli !== 1'b1) begin
+	    $sformat(msg, "naction_cli decoding failure: action=%b, clk4=%b, but naction_cli=%b (should be 1)",
+		     action, clk4, int_fsm.naction_sti);
+	 end
+
+	 else if (int_fsm.naction_cli === 1'b0 && int_fsm.naction_cli) begin
+	    $sformat(msg, "naction_sti and naction_cli asserted simultaneously");
+	 end
+
+	 else if (int_fsm.naction_cli === 1'b0 && fi !== 1'b0) begin
+	    $sformat(msg, "FI failure: naction_cli=%b but fi=%b (should be 0)",int_fsm.naction_cli, fi);
+	 end
+
+	 else if (int_fsm.naction_sti === 1'b0 && fi !== 1'b1) begin
+	    $sformat(msg, "FI failure: naction_sti=%b but fi=%b (should be 1)",int_fsm.naction_sti, fi);
+	 end
       end
+
+      // Fail if we've logged an issue.
+      if (msg[7:0]) begin
+	 $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+	 $error("assertion failure");
+	 #100 $finish;
+      end
+      else $display("OK action");
    end
-   
-   always @ (naction_cli, naction_sti) begin
+
+   always @(posedge nflagwe) begin
       #30 begin
-   	 msg[7:0] = "";		// Use the msg as a flag.
-
-	 if (naction_cli === 0 && naction_sti === 0) begin
-	    $sformat(msg, "testbench bug, naction_cli=%b, naction_sti=%b (should never happen)",
-		     naction_cli, naction_sti);
+	 if (ibus15 !== fi) begin
+	    $sformat(msg, "flag loading failure: at nflagwe posedge, ibus15=%b but fi=%b (should be %b)",
+		     ibus15, fi, ibus15);
 	 end
-	 else if (naction_cli === 0) correct_fi = 0;
-	 else if (naction_sti === 0) correct_fi = 1;
-	 else if (naction_cli !== 1) $sformat(msg, "testbench bug, naction_cli=%b", naction_cli);
-	 else if (naction_sti !== 1) $sformat(msg, "testbench bug, naction_sti=%b", naction_sti);
-
-	 if (fi !== correct_fi) begin
-	    $sformat(msg, "naction_cli=%b, naction_sti=%b, fi=%b (should be %b)",
-		     naction_cli, naction_sti, fi, correct_fi);
-	 end
-
-   	 // Fail if we've logged an issue.
-   	 if (msg[7:0]) begin
-   	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
-   	    $error("assertion failure");
-   	    #100 $finish;
-   	 end
-   	 else $display("OK fi");
       end
-   end // always @ (nread_agl, ir, pc)
 
-endmodule
+      // Fail if we've logged an issue.
+      if (msg[7:0]) begin
+	 $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+	 $error("assertion failure");
+	 #100 $finish;
+      end
+      else $display("OK action");
+   end
+
+   always @(negedge nirqs) begin
+      #30 begin
+	 // There are reset-time artifacts, so wait until the FSM has reset
+	 // itself. This takes about 20ns.
+	 if ($time > 60) begin
+	    if (nend !== 1'b0) begin
+	       $sformat(msg, "IRQS failure: acknowledged interrupt while nend=%b", nend);
+	    end
+
+	    else if (nirq !== 1'b0) begin
+	       // This makes assumptions. On a real machine, a short IRQ pulse can
+	       // trigger an interrupt, but here, the testbench will be keeping
+	       // the IRQ line asserted throughout, so we can use that to see if
+	       // an interrupt has been triggered by mistake.
+	       $sformat(msg, "IRQS failure: spurious interrupt, nirq=%b", nirq);
+	    end
+	 end // if ($time > 60)
+      end
+
+      // Fail if we've logged an issue.
+      if (msg[7:0]) begin
+	 $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+	 $error("assertion failure");
+	 #100 $finish;
+      end
+      else $display("OK IRQS");
+   end
+
+endmodule // reg_ar_tb
+
+// End of file.

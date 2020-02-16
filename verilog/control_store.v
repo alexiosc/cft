@@ -28,6 +28,7 @@
 `include "flipflop.v"
 `include "rom.v"
 
+
 `timescale 1ns/1ps
 
 
@@ -38,25 +39,17 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-// The Control Store (a 24×512K ROM)
+// CONTROL STORE
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-module control_store(noe, clk, uaddr,
-		     ucontrol,
-		     nfpua0, nfpuc0, nfpuc1, nfpuc2, fpd);
+module control_store(noe, clk, uaddr, ucontrol);
 
    input         noe;
    input 	 clk;
    input [18:0]  uaddr;
 
    output [23:0] ucontrol;
-
-   input 	 nfpua0;
-   input 	 nfpuc0;
-   input 	 nfpuc1;
-   input 	 nfpuc2;
-   output [7:0]  fpd;
 
    // Connect the microcode ROM/Flash devices
    wire [23:0] 	 udata;
@@ -70,16 +63,6 @@ module control_store(noe, clk, uaddr,
    flipflop_574 ff2 (.d(udata[15:8]),  .q(ucontrol[15:8]),  .clk(clk), .noe(noe));
    flipflop_574 ff3 (.d(udata[23:16]), .q(ucontrol[23:16]), .clk(clk), .noe(noe));
 
-   // Uaddr is 19 bits. Of these, 2 are state bits and 9 come from the
-   // IR. These are displayed in their own sections of the front
-   // panel. The remaining 8 bits are displayed in the uADDR LOW front
-   // panel section, requiring just one buffer.
-   buffer_541 buf_ua0 (.a(uaddr[7:0]),   .y(fpd), .noe1(nfpua0), .noe2(1'b0));
-
-   buffer_541 buf_uc0 (.a(ucontrol[7:0]),   .y(fpd), .noe1(nfpuc0), .noe2(1'b0));
-   buffer_541 buf_uc1 (.a(ucontrol[15:8]),  .y(fpd), .noe1(nfpuc1), .noe2(1'b0));
-   buffer_541 buf_uc2 (.a(ucontrol[23:16]), .y(fpd), .noe1(nfpuc2), .noe2(1'b0));
-   
    reg [4096:0] basedir, s0, s1, s2;
    // Load ROM images
    initial begin
