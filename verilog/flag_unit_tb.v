@@ -31,6 +31,7 @@
 `timescale 1ns/10ps
 
 module flag_unit_tb();
+   reg          clk4;
    reg [4:0]    waddr;
    reg [4:0] 	raddr;
    reg [3:0] 	action;
@@ -72,6 +73,7 @@ module flag_unit_tb();
       fl = 1;
       fv = 1;
       fi = 1;
+      clk4 = 1;
 
       status = "raddr";
       for (i = 0; i < 32; i = i + 1) begin
@@ -81,13 +83,17 @@ module flag_unit_tb();
 
       #250 status = "waddr";
       for (i = 0; i < 32; i = i + 1) begin
-	 #250 waddr = i;
+	 #125 waddr = i;
+	 #62.5 clk4 = 0;
+	 #62.5 clk4 = 1;
       end
       #250 waddr = 0;
 
       #250 status = "action";
       for (i = 0; i < 16; i = i + 1) begin
-	 #250 action = i;
+	 #125 action = i;
+	 #62.5 clk4 = 0;
+	 #62.5 clk4 = 1;
       end
       #250 action = 0;
       #250 status = "";
@@ -97,7 +103,8 @@ module flag_unit_tb();
    end // initial begin
 
    // Connect DUT to test bench
-   flag_unit flag_unit (.waddr(waddr),
+   flag_unit flag_unit (.clk4(clk4),
+			.waddr(waddr),
 			.raddr(raddr),
 			.fn(fn), .fz(fz), .fl(fl), .fv(fv), .fi(fi),
 			.ibus(ibus[15:8]),

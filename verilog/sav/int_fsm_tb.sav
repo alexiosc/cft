@@ -1,0 +1,56 @@
+[*]
+[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
+[*] Sun Feb 16 18:00:59 2020
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/int_fsm_tb.vcd"
+[dumpfile_mtime] "Sun Feb 16 18:00:14 2020"
+[dumpfile_size] 77860
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/int_fsm_tb.sav"
+[timestart] 0
+[size] 1680 600
+[pos] -1 -1
+*-25.774582 103760000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] int_tb.
+[treeopen] int_tb.int_fsm.
+[sst_width] 258
+[signals_width] 212
+[sst_expanded] 1
+[sst_vpaned_height] 138
+@820
+int_tb.status[800:0]
+@28
+int_tb.nreset
+@200
+-
+@28
+int_tb.clk4
+@200
+-
+@22
+int_tb.action[3:0]
+@2028
+^1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/action
+int_tb.action[3:0]
+@28
+int_tb.int_fsm.naction_cli
+int_tb.int_fsm.naction_sti
+@200
+-
+@28
+int_tb.nflagwe
+int_tb.ibus15
+int_tb.int_fsm.fi
+@200
+-
+@28
+int_tb.clk4
+int_tb.nend
+int_tb.nirq
+int_tb.nirqs
+int_tb.int_fsm.nirqsuc
+@29
+int_tb.int_fsm.irq_latch.q
+@28
+int_tb.int_fsm.irq_ff.q
+[pattern_trace] 1
+[pattern_trace] 0

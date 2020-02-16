@@ -8,7 +8,7 @@
 //
 // flag-unit.v -- Flag Unit
 //
-// Copyright © 2011-2019 Alexios Chouchoulas
+// Copyright © 2011—2020 Alexios Chouchoulas
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -41,11 +41,12 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-module flag_unit (waddr, raddr
+module flag_unit (clk4, waddr, raddr,
 		  fn, fz, fl, fv, fi,
 		  ibus, nflagwe,
 		  nfpflags, fpd);
 
+   input          clk4;
    input [4:0]    waddr;
    input [4:0] 	  raddr;
    input 	  fn, fz, fl, fv, fi;
@@ -65,7 +66,7 @@ module flag_unit (waddr, raddr
    wire 	  nwrite_mbp_flags, nwrite_flags;
    assign nwrite_mbp_flags = wy[5];
    assign nwrite_flags = wy[6];
-   assign #7 nflagwe = nwrite_mbp_flags & nwrite_flags;
+   assign #7 nflagwe = nwrite_mbp_flags & nwrite_flags & clk4; // Writing only happens during T4
 
    // Decode the read signals, generate nflagoe.
    wire 	  nread_mbp_flags, nread_flags, nflagoe;

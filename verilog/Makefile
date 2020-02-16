@@ -497,6 +497,10 @@ test_alu_rom: alu_rom_tb.o alu_rom.o rom.o
 		./alu_rom_tb.o
 		$(GTKWAVE) $(VCDDIR)/alu_rom_tb.vcd $(SAVDIR)/alu_rom_tb.sav
 
+test_int_fsm: int_fsm_tb.o int_fsm.o flipflop.o demux.o
+		./int_fsm_tb.o	
+		$(GTKWAVE) $(VCDDIR)/int_fsm_tb.vcd $(SAVDIR)/int_fsm_tb.sav
+
 ###############################################################################
 #
 # 2019 DFP 2 TESTS
