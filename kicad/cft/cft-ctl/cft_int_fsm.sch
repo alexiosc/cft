@@ -116,8 +116,6 @@ Text HLabel 8850 5100 2    50   Output ~ 0
 ~IRQSµC
 Text HLabel 8850 5400 2    50   Output ~ 0
 ~IRQS
-Text Notes 1600 -2500 0    50   ~ 0
-~IRQS~ and ~IRQµC~ are the same signal.\nThe former is output to the bus. The latter is\nfor the Microcode Store. We drive them separately\nto keep the capacitance down and because the one going\nto the Microcode Store is more important and must be\nless loaded (and thus rise faster).\n\nTODO: Drive ~IRQSµC using the leftover FF.
 Wire Wire Line
 	8500 5400 8850 5400
 $Comp
@@ -147,12 +145,10 @@ Text HLabel 2250 2500 0    50   Input ~ 0
 ~FLAGWE
 Text Label 2350 2500 0    50   ~ 0
 ~FLAGWE
-Text Notes 4550 -3450 0    50   ~ 10
+Text Notes 5650 2300 0    63   ~ 13
 Assumption
-Text Notes 4550 -3200 0    50   ~ 0
+Text Notes 5650 2550 0    50   ~ 0
 ~ACTION_STI~ and ~ACTION_CLI~ remain de-asserted\nflags are being written using ~FLAGWE~.
-Text Notes 1900 -1050 0    50   ~ 0
-Use LVC or AC family for flip-flops.\nIt reduces the chances of metastability.
 Text Label 3050 3550 1    50   ~ 0
 ACTION[0..3]
 Text Label 2350 2750 0    50   ~ 0
@@ -914,8 +910,28 @@ Text Label 5600 3900 2    50   ~ 0
 ~ACTION-CLI
 Text Notes 800  850  0    98   ~ 20
 The Interrupt State Machine
-Text Notes 800  1650 0    50   ~ 0
-The interrupt state machine accepts interrupts and notifies the Control Unit about them. The CFT has a single maskable interrupt. It is signalled by a low level\non ~IRQ~. If the FI flag has been set with SEI, the interrupt request is registered and the state machine is armed. The Control Unit must be allowed to complete\nits current instruction, so we wait until ~END~ is asserted. On the rising edge of CLK4 during a low ~END~, the ~IRQSµC~ line is asserted and the Microcode\nSequencer enters the interrupt handling micro-program.\n\nExecuting the CLI instruction clears any pending interrupts and disables future ones.\n\nThe FI flag can be set from the Flag Unit. When ~FLAGWE~ is strobed, the value of IBUS15 is used to set FI.
+Text Notes 800  1700 0    50   ~ 0
+The interrupt state machine accepts interrupts and notifies the Control Unit about them. The CFT has a single maskable interrupt. It is signalled by a low level\non ~IRQ~. If the FI flag has been set with SEI, the interrupt request is registered and the state machine is armed. The Control Unit must be allowed to complete\nits current instruction, so we wait until ~END~ is asserted. On the rising edge of CLK4 while ~END~ is low, the ~IRQSµC~ line is asserted and the Microcode\nSequencer enters the interrupt handling micro-program.\n\nExecuting the CLI instruction clears any pending interrupts and disables future ones. The interrupt handling micro-program does this automatically before\njumping to the Interrupt Service Routine vector.\n\nThe FI flag can be set from the Flag Unit. When ~FLAGWE~ is strobed, the value of IBUS15 is used to set FI.
+Wire Notes Line width 24 style solid
+	5550 2100 7600 2100
+Wire Notes Line width 24 style solid
+	5550 2100 5550 2700
+Wire Notes Line width 24 style solid
+	7600 2700 5550 2700
+Wire Notes Line width 24 style solid
+	7600 2700 7600 2100
+Text Notes 8150 6550 0    50   ~ 0
+~IRQS~ and ~IRQµC~ are semantically the same signal. The former is\noutput to the bus. The latter is for the Microcode Store. We drive\nthem separately to keep the capacitance down and because the one\ngoing to the Microcode Sequencer is more important and must be\nless loaded (and thus rise faster). 
+Text Notes 8150 6050 0    63   ~ 13
+~IRQS~ and ~IRQSµC~
+Wire Notes Line width 24 style solid
+	8050 5800 11050 5800
+Wire Notes Line width 24 style solid
+	8050 5800 8050 6700
+Wire Notes Line width 24 style solid
+	11050 6700 8050 6700
+Wire Notes Line width 24 style solid
+	11050 6700 11050 5800
 Wire Bus Line
 	3050 2850 3050 3600
 $EndSCHEMATC
