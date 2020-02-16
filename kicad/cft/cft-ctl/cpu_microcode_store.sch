@@ -1758,6 +1758,8 @@ Text Label 4600 5350 0    50   ~ 0
 µCV14
 Text Label 4600 5450 0    50   ~ 0
 µCV15
+Text Label 3400 3350 1    50   ~ 0
+µCV[0..7]
 Wire Bus Line
 	9300 1900 9300 4150
 Wire Bus Line
@@ -1770,6 +1772,4 @@ Wire Bus Line
 	1500 4350 1500 5350
 Wire Bus Line
 	3400 1900 3400 4150
-Text Label 3400 3350 1    50   ~ 0
-µCV[0..7]
 $EndSCHEMATC
