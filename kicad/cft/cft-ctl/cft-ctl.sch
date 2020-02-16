@@ -15,10 +15,10 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Sheet
-S 4050 3200 1150 1300
+S 4050 3200 1150 1600
 U 5EFCF155
 F0 "Skip/Branch Unit" 50
-F1 "cft_sbl.sch" 50
+F1 "cft_sbu.sch" 50
 F2 "~COND" O R 5200 3350 50 
 F3 "FN" I L 4050 4150 50 
 F4 "~SKIPEXT" T L 4050 4350 50 
@@ -28,10 +28,10 @@ F7 "FZ" I L 4050 4050 50
 F8 "CLK4" I L 4050 3450 50 
 F9 "COND[0..4]" I L 4050 3550 50 
 F10 "~RESET" I L 4050 3350 50 
-F11 "IR[0..15]" I L 4050 3650 50 
-F12 "CSRSVD8" I R 5200 3850 50 
-F13 "CSRSVD9" I R 5200 3950 50 
-F14 "CSRSVD10" I R 5200 4050 50 
+F11 "IR[0..6]" I L 4050 3650 50 
+F12 "CEXT8" T L 4050 4450 50 
+F13 "CEXT9" T L 4050 4550 50 
+F14 "CEXT10" T L 4050 4650 50 
 $EndSheet
 Text Label 650  3300 0    50   ~ 0
 IN-RSVD
@@ -718,10 +718,7 @@ AB[0..23]
 Text Notes 14950 2800 0    50   ~ 0
 → ALU
 Wire Wire Line
-	14400 5700 14750 5700
-Wire Wire Line
-	14400 5800 15000 5800
-NoConn ~ 14750 5700
+	14400 5800 14950 5800
 Wire Wire Line
 	13250 4600 12700 4600
 Wire Wire Line
@@ -888,7 +885,7 @@ Text Label 650  4200 0    50   ~ 0
 IR15
 Text Label 650  4300 0    50   ~ 0
 ~IRQSµC
-Text Label 15000 5800 2    50   ~ 0
+Text Label 14950 5800 2    50   ~ 0
 IN-RSVD
 Text Notes 15100 5800 0    50   ~ 0
 For future expansion
@@ -1006,30 +1003,9 @@ Wire Wire Line
 	14400 4800 14750 4800
 Wire Wire Line
 	14400 4900 14750 4900
-Wire Wire Line
-	14400 5000 14750 5000
-Wire Wire Line
-	14400 5100 14750 5100
-Wire Wire Line
-	14400 5200 14750 5200
 NoConn ~ 14750 4700
 NoConn ~ 14750 4800
 NoConn ~ 14750 4900
-NoConn ~ 14750 5000
-NoConn ~ 14750 5100
-NoConn ~ 14750 5200
-Wire Wire Line
-	14400 5300 14750 5300
-Wire Wire Line
-	14400 5400 14750 5400
-Wire Wire Line
-	14400 5500 14750 5500
-Wire Wire Line
-	14400 5600 14750 5600
-NoConn ~ 14750 5300
-NoConn ~ 14750 5400
-NoConn ~ 14750 5500
-NoConn ~ 14750 5600
 Wire Wire Line
 	14400 3700 14750 3700
 NoConn ~ 14750 3700
@@ -1054,6 +1030,50 @@ Text Notes 14950 2500 0    50   ~ 0
 → BUS.MBU
 Text Notes 14950 2700 0    50   ~ 0
 ← ALU
+Wire Wire Line
+	4050 4450 3500 4450
+Wire Wire Line
+	4050 4550 3500 4550
+Wire Wire Line
+	4050 4650 3500 4650
+Text Label 3500 4450 0    50   ~ 0
+CEXT8
+Text Label 3500 4550 0    50   ~ 0
+CEXT9
+Text Label 3500 4650 0    50   ~ 0
+CEXT10
+Wire Wire Line
+	14400 5500 14950 5500
+Wire Wire Line
+	14400 5600 14950 5600
+Wire Wire Line
+	14400 5700 14950 5700
+Wire Wire Line
+	14400 5100 14950 5100
+Wire Wire Line
+	14400 5200 14950 5200
+Wire Wire Line
+	14400 5300 14950 5300
+Wire Wire Line
+	14400 5400 14950 5400
+Wire Wire Line
+	14400 5000 14950 5000
 Wire Bus Line
 	14850 1750 14850 2400
+Text Label 14950 5000 2    50   ~ 0
+COND0
+Text Label 14950 5100 2    50   ~ 0
+COND1
+Text Label 14950 5200 2    50   ~ 0
+COND2
+Text Label 14950 5300 2    50   ~ 0
+COND3
+Text Label 14950 5400 2    50   ~ 0
+COND4
+Text Label 14950 5500 2    50   ~ 0
+CEXT8
+Text Label 14950 5600 2    50   ~ 0
+CEXT9
+Text Label 14950 5700 2    50   ~ 0
+CEXT10
 $EndSCHEMATC

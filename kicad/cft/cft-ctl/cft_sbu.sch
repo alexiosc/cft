@@ -791,8 +791,6 @@ Wire Wire Line
 Connection ~ 8300 4050
 Text Label 8300 2350 3    50   ~ 0
 ~COND0
-Text Label 6600 4150 0    50   ~ 0
-CRSVD10
 $Comp
 L alexios:74HC251 U?
 U 1 1 5F031563
@@ -975,12 +973,8 @@ Text Notes 2150 2650 0    98   ~ 20
 Flag Conditionals (SKP)\n
 Wire Wire Line
 	6950 3950 6600 3950
-Text Label 6600 3950 0    50   ~ 0
-CRSVD8
 Wire Wire Line
 	6950 4050 6600 4050
-Text Label 6600 4050 0    50   ~ 0
-CRSVD9
 Text Notes 8400 6100 0    50   ~ 0
 Metastability protection latch
 $Comp
@@ -1335,12 +1329,6 @@ Wire Notes Line width 24 style solid
 	11000 2350 8550 2350
 Wire Notes Line width 24 style solid
 	8550 2350 8550 1550
-Text Label 8950 2950 0    50   ~ 0
-CRSVD10
-Text Label 8950 2750 0    50   ~ 0
-CRSVD8
-Text Label 8950 2850 0    50   ~ 0
-CRSVD9
 Entry Wire Line
 	6500 3850 6600 3950
 Entry Wire Line
@@ -1352,13 +1340,7 @@ Entry Bus Bus
 Entry Bus Bus
 	10100 3600 10200 3500
 Text Label 6750 3600 0    50   ~ 0
-CSRSVD[8..10]
-Text HLabel 8900 2750 0    50   3State ~ 0
-CSRSVD8
-Text HLabel 8900 2850 0    50   3State ~ 0
-CSRSVD9
-Text HLabel 8900 2950 0    50   3State ~ 0
-CSRSVD10
+CEXT[8..10]
 Text Notes 8450 2600 0    50   ~ 0
 Conditional inputs for future expansion
 $Comp
@@ -1630,4 +1612,22 @@ Wire Bus Line
 	1400 1800 1400 4350
 Wire Bus Line
 	5750 1800 5750 2500
+Text Label 8950 2750 0    50   ~ 0
+CEXT8
+Text Label 8950 2850 0    50   ~ 0
+CEXT9
+Text Label 8950 2950 0    50   ~ 0
+CEXT10
+Text HLabel 8900 2750 0    50   3State ~ 0
+CEXT8
+Text HLabel 8900 2850 0    50   3State ~ 0
+CEXT9
+Text HLabel 8900 2950 0    50   3State ~ 0
+CEXT10
+Text Label 6950 3950 2    50   ~ 0
+CEXT8
+Text Label 6950 4050 2    50   ~ 0
+CEXT9
+Text Label 6950 4150 2    50   ~ 0
+CEXT10
 $EndSCHEMATC
