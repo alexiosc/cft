@@ -1,0 +1,26 @@
+[*]
+[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
+[*] Sun Feb 16 10:41:42 2020
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/latch_1g373_tb.vcd"
+[dumpfile_mtime] "Sun Feb 16 10:41:28 2020"
+[dumpfile_size] 4374
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/latch_1g373_tb.sav"
+[timestart] 0
+[size] 1000 600
+[pos] -1 -1
+*-23.000000 7610000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[sst_width] 258
+[signals_width] 78
+[sst_expanded] 1
+[sst_vpaned_height] 138
+@28
+latch_1g373_tb.noe
+latch_1g373_tb.le
+latch_1g373_tb.d
+@200
+-
+@29
+latch_1g373_tb.q
+[pattern_trace] 1
+[pattern_trace] 0

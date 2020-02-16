@@ -1,53 +1,37 @@
 [*]
-[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Wed Oct  9 09:22:10 2019
+[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
+[*] Sun Feb 16 11:49:42 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/sbu_tb.vcd"
-[dumpfile_mtime] "Wed Oct  9 09:22:09 2019"
-[dumpfile_size] 154434
+[dumpfile_mtime] "Sun Feb 16 11:49:14 2020"
+[dumpfile_size] 240966
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/sbu_tb.sav"
-[timestart] 0
-[size] 1592 917
-[pos] 2217 106
-*-27.037849 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[timestart] 359500000
+[size] 1920 1019
+[pos] 1927 51
+*-26.525890 6030000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] sbu_tb.
 [treeopen] sbu_tb.sbu.
-[sst_width] 226
+[sst_width] 258
 [signals_width] 174
 [sst_expanded] 1
 [sst_vpaned_height] 251
+@820
+sbu_tb.status[800:0]
 @28
 [color] 1
 sbu_tb.nreset
 [color] 2
 sbu_tb.clk4
-@200
--
+@22
+sbu_tb.cond[4:0]
 @2028
 ^1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/cond
-sbu_tb.cond[3:0]
-@2024
-^1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/cond
-sbu_tb.cond[3:0]
+sbu_tb.cond[4:0]
 @200
 -
-@28
-[color] 1
-sbu_tb.cext3
-[color] 1
-sbu_tb.cext2
-[color] 1
-sbu_tb.cext1
-[color] 3
-sbu_tb.fn
-[color] 3
-sbu_tb.fz
-[color] 3
-sbu_tb.fl
-[color] 3
-sbu_tb.fv
-sbu_tb.nskipext
 @c00022
+[color] 3
 sbu_tb.ir[15:0]
 @28
 [color] 2
@@ -87,6 +71,28 @@ sbu_tb.ir[15:0]
 @200
 -
 @28
-sbu_tb.nskip
+[color] 3
+sbu_tb.fv
+[color] 3
+sbu_tb.fl
+[color] 3
+sbu_tb.fz
+[color] 3
+sbu_tb.fn
+[color] 3
+sbu_tb.cext8
+[color] 3
+sbu_tb.cext9
+[color] 3
+sbu_tb.cext10
+@200
+-
+@28
+[color] 2
+sbu_tb.nskipext
+@200
+-
+@28
+sbu_tb.ncond
 [pattern_trace] 1
 [pattern_trace] 0

@@ -51,7 +51,8 @@ IC74XXX	=	buffer.v       buffer_244_tb.v buffer_245_tb.v buffer_541_tb.v \
 		counter.v      counter_193_tb.v \
 		demux.v        demux_138_tb.v demux_138_tb.v \
 		mux.v          mux_1g157_tb.v mux_2g157_tb.v mux_157_tb.v mux_253_tb.v  \
-		flipflop.v     flipflop_112_tb.v flipflop_74_tb.v flipflop_174_tb.v flipflop_574_tb.v flipflop_564_tb.v \
+		flipflop.v     flipflop_112_tb.v flipflop_74_tb.v flipflop_174_tb.v \
+                               flipflop_574_tb.v flipflop_564_tb.v latch_1g373_tb.v \
 		ram.v          ram_tb.v \
 
 
@@ -248,6 +249,10 @@ test_273:	flipflop_273_tb.o flipflop.o
 test_373:	latch_373_tb.o flipflop.o
 		./latch_373_tb.o
 		$(GTKWAVE) $(VCDDIR)/latch_373_tb.vcd $(SAVDIR)/latch_373_tb.sav
+
+test_1g373:	latch_1g373_tb.o flipflop.o
+		./latch_1g373_tb.o
+		$(GTKWAVE) $(VCDDIR)/latch_1g373_tb.vcd $(SAVDIR)/latch_1g373_tb.sav
 
 test_374:	flipflop_374_tb.o flipflop.o
 		./flipflop_374_tb.o

@@ -17,6 +17,7 @@
 `define sbu_v
 
 `include "mux.v"
+`include "demux.v"
 `include "flipflop.v"
 
 `timescale 1ns/1ps
@@ -24,22 +25,21 @@
 
 module sbu(nreset, clk4, nskipext,
 	   ir, cond, fv, fl, fz, fn,
-	   cext1, cext2, cext3,
-	   nskip);
+	   cext8, cext9, cext10,
+	   ncond);
 
    input        clk4;
    input 	nreset;
    input [15:0] ir;
-   input [3:0] 	cond;
-   input 	nskipext;
+   input [4:0] 	cond;
+   inout 	nskipext;
    input 	fv, fl, fz, fn;
-   input 	cext1, cext2, cext3;
+   inout 	cext8, cext9, cext10;
 
    tri1  	nskipext;
-   tri0 	cext1, cext2, cext3; // Reserved (and pulled down) for future expansion.
+   tri0 	cext8, cext9, cext10; // Reserved (and pulled down) for future expansion.
 
-   output 	nskip;
-
+   output 	ncond;
 
    // Flag (macrocode) skip logic, for branch instructions. This simultaneously
    // detects if a branch instruction has been specified and if the branch
@@ -62,14 +62,16 @@ module sbu(nreset, clk4, nskipext,
    // Fourth stage: optionally negate the result with an XOR gate if IR4 is set.
    wire 	if_branch;
    xor #20 (if_branch, s, ir[4]); // Typ. 11ns @ 5V, 15pF for HC, but going with 6V max.
-   
-   // Use a couple of XOR gates to avoid hazards because we need to invert cond[3].
-   wire 	cond3_0, cond3_1;
-   xor #20 (cond3_0, cond[3], 1'b0);
-   xor #20 (cond3_1, cond[3], 1'b1);
+
+   // COND decoder. Enables mux 0 on COND=00xxx and mux 1 on
+   // COND=01xxx. We decode cond[4] but do not use it.
+   wire [3:0] 	y;
+   wire 	ncen0, ncen1;
+   demux_139h cond_decoder(.ng(1'b0), .a(cond[4:3]), .y(y));
+   assign { ncen1, ncen0 } = y[1:0];
 
    // Condition multiplexing
-   tri1 	nskip0, nskip1;
+   tri1 	ncond00, ncond01;
    mux_251 muxlo (.sel(cond[2:0]),
 		  .d({
 		      ir[6], // COND 0111, IR6
@@ -81,7 +83,7 @@ module sbu(nreset, clk4, nskipext,
 		      ir[0], // COND 0001, IR0
 		      1'b0   // COND 0000, idle (always true)
 		      }),
-		  .ne(cond3_0), .ny(nskip0));
+		  .ne(ncen0), .ny(ncond00));
    mux_251 muxhi (.sel(cond[2:0]),
 		  .d({
 		      if_branch, // COND 1111, SKP instruction logic
@@ -89,22 +91,24 @@ module sbu(nreset, clk4, nskipext,
 		      fz,        // COND 1101, FZ
 		      fl,        // COND 1100, FL
 		      fv,        // COND 1011, FV
-		      cext3,     // COND 1010, CEXT3 (Reserved)
-		      cext2,     // COND 1001, CEXT2 (Reserved)
-		      cext1	 // COND 1000, CEXT1 (Reserved)
+		      cext10,	 // COND 1010, CEXT10 (Reserved)
+		      cext9,     // COND 1001, CEXT9 (Reserved)
+		      cext8	 // COND 1000, CEXT8 (Reserved)
 		      }),
-		  .ne(cond3_1), .ny(nskip1));
+		  .ne(ncen1), .ny(ncond01));
 
    // Combine the outputs of the muxes and throw nskipext into the mix. We used
    // to use a wired OR here, but it went away many moons ago in favour of an
    // actual gate. Faster and cleaner.
-   wire 	nskip2;
-   assign #7 nskip2 = nskip0 & nskip1 & nskipext; // Double the 3.5ns PD of the LVC family
+   wire 	ncond0;
+   assign #7 ncond0 = ncond00 & ncond01 & nskipext; // Double the 3.5ns PD of the LVC family
 
-   // Register SKIP# for the duration of this micro-instruction.
-   flipflop_74h skipff (.d(nskip2), .clk(clk4), .nset(nreset), .nrst(1'b1), .q(nskip));
+   // Register SKIP# for the duration of this micro-instruction. Use a latch to
+   // protect against metastability.
 
+   wire 	ncond1;
+   latch_1g373  ncond_latch (.noe(1'b0), .le(clk4), .d(ncond0), .q(ncond1));
+   flipflop_74h ncond_ff    (.d(ncond1), .clk(clk4), .nset(nreset), .nrst(1'b1), .q(ncond));
 endmodule // sbu
-
      
 `endif //  `ifndef sbu_v

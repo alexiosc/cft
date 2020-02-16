@@ -480,6 +480,36 @@ endmodule // latch_373
 
 ///////////////////////////////////////////////////////////////////////////////
 //
+// 74LVC1G373 single-but 3-state latch
+//
+///////////////////////////////////////////////////////////////////////////////
+
+module latch_1g373 (d, noe, le, q);
+   parameter delay = 6;		// Max propagation delay for 5V is 5.3ns.
+   
+   input        d;
+   input        noe, le;
+
+   output       q;
+
+   wire       	d;
+   wire 	noe, le;
+
+   wire       	q;
+   reg       	q0;
+
+   always @(le or d) begin
+     if (le) begin
+       #(delay-2) q0 = d;
+     end
+   end
+
+   assign #delay q = noe ? 1'bz : q0;
+endmodule // latch_373
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
 // 74HC374 8-bit D-flip-flop
 //
 ///////////////////////////////////////////////////////////////////////////////

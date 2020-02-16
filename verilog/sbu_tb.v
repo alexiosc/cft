@@ -13,30 +13,39 @@
 module sbu_tb();
    reg          nreset;
    reg 		clk4;
-   reg 		nskipext;
+   reg 		nskipext_drv;
    reg [15:0] 	ir;
-   reg [3:0] 	cond;
+   reg [4:0] 	cond;
    reg 		fv, fl, fz, fn;
-   reg 		cext1, cext2, cext3;
+   reg 		cext8_drv, cext9_drv, cext10_drv;
 
-   wire 	nskip;
+   wire 	ncond;
    
    integer 	i, j, tst;
+   reg [800:0] 	status;
+
+   // Hack to allow bidirectional tri-state driving/reading.
+   wire 	cext8, cext9, cext10, nskipext;
+   assign cext8 = cext8_drv;
+   assign cext9 = cext9_drv;
+   assign cext10 = cext10_drv;
+   assign nskipext = nskipext_drv;
 
    // Initialize all variables
    initial begin
       $monitor ("t: %7d | %b %b %b %b %b %b %b %b %b %b %b %b > %b # [i=%0d]", $time,
       		nreset, clk4,
 		nskipext, cond, ir, fv, fl, fz, fn,
-		cext1, cext2, cext3, nskip, i);
+		cext8, cext9, cext10, ncond, i);
       $dumpfile ("vcd/sbu_tb.vcd");
       $dumpvars (0, sbu_tb);
 
+      status = "reset";
       clk4 = 1;
-      nskipext = 1'bz;
-      cext1 = 1'bz;
-      cext2 = 1'bz;
-      cext3 = 1'bz;
+      nskipext_drv = 1'bz;
+      cext8_drv = 1'bz;
+      cext9_drv = 1'bz;
+      cext10_drv = 1'bz;
       fv = 0;
       fl = 0;
       fz = 0;
@@ -56,6 +65,7 @@ module sbu_tb();
       //
       ///////////////////////////////////////////////////////////////////////////////
 
+      status = "idle";
       #2000 cond = 0;
       #500 fv = 1;
       fl = 1;
@@ -75,16 +85,17 @@ module sbu_tb();
       //
       ///////////////////////////////////////////////////////////////////////////////
 
-      for (i = 0; i < 15; i = i + 1) begin
+      status = "skipext";
+      for (i = 0; i < 32; i = i + 1) begin
 	 #500 cond = i;
-	 #500 nskipext = 1'b0;
-	 #500 nskipext = 1'bz;
+	 #500 nskipext_drv = 1'b0;
+	 #500 nskipext_drv = 1'bz;
 	 $display("OK (nskipext %0d)", i);
       end;
 
       ///////////////////////////////////////////////////////////////////////////////
       //
-      // Test IR bits, CEXT1..3 and flags: cond 1..14.
+      // Test IR bits, CEXT8..10 and flags: cond 1..31.
       //
       ///////////////////////////////////////////////////////////////////////////////
 
@@ -93,7 +104,8 @@ module sbu_tb();
       // one. #SKIP should be asserted only for #SKIPEXT and the correct bit of
       // IR.
 
-      for (i = 1; i < 15; i = i + 1) begin
+      status = "bit check conditionals";
+      for (i = 1; i < 32; i = i + 1) begin
 	 #1000 cond = i;
 	 for (j = 0; j < 16; j = j + 1) begin
 	    #500 ir[j] = 1;
@@ -107,12 +119,12 @@ module sbu_tb();
 	 #500 fz = 0;
 	 #500 fn = 1;
 	 #500 fn = 0;
-	 #500 cext1 = 1;
-	 #500 cext1 = 1'bz;
-	 #500 cext2 = 1;
-	 #500 cext2 = 1'bz;
-	 #500 cext3 = 1;
-	 #500 cext3 = 1'bz;
+	 #500 cext8_drv = 1;
+	 #500 cext8_drv = 1'bz;
+	 #500 cext9_drv = 1;
+	 #500 cext9_drv = 1'bz;
+	 #500 cext10_drv = 1;
+	 #500 cext10_drv = 1'bz;
 	 $display("OK (cond %0d)", i);
       end // for (i = 1; i < 15; i = i + 1)
       $display("OK (flags and cext)");
@@ -123,6 +135,7 @@ module sbu_tb();
       //
       ///////////////////////////////////////////////////////////////////////////////
 
+      status = "SKP instruction";
       #1000 cond = 15;
       ir = 0;
       j = 0;
@@ -161,8 +174,8 @@ module sbu_tb();
 	   .nskipext(nskipext),
 	   .ir(ir),
 	   .cond(cond), .fv(fv), .fl(fl), .fz(fz), .fn(fn),
-	   .cext1(cext1), .cext2(cext2), .cext3(cext3),
-	   .nskip(nskip));
+	   .cext8(cext8), .cext9(cext9), .cext10(cext10),
+	   .ncond(ncond));
 
    ///////////////////////////////////////////////////////////////////////////////
    //
@@ -180,57 +193,64 @@ module sbu_tb();
 
 	 // nskipext overrides all the logic here.
 	 if (nskipext === 0) begin
-	    if (nskip !== 0) $sformat(msg, "nskipext=%b but nskip=%b", nskipext, nskip);
+	    if (ncond !== 0) $sformat(msg, "nskipext=%b but ncond=%b", nskipext, ncond);
 
 	 end else begin
 	    // Okay, nskipext is deasserted, so we can look at other things.
 	    casex (cond)
 	      // Idle
-	      4'b0000 : if (nskip !== 1) begin
+	      5'b00000 : if (ncond !== 1) begin
 		 $sformat(msg,
-			  "nskipext=%b but nskip=%b with cond=%b (shoule be idle)",
-			  nskipext, nskip, cond);
+			  "nskipext=%b but ncond=%b with cond=%b (should be idle)",
+			  nskipext, ncond, cond);
 	      end
 
-	      // IR0 to IR6: when asserted and the equivalent bit is 1, nskip should be 0
-	      4'b0??? : if (nskip !== !ir[cond - 1])
-		$sformat(msg, "cond=%b, ir%1d=%b but nskip=%b", cond, cond - 1, ir[cond - 1], nskip);
+	      // Unused COND addresses
+	      5'b1???? : if (ncond !== 1) begin
+		 $sformat(msg,
+			  "nskipext=%b but ncond=%b with cond=%b (unused address, should be 1)",
+			  nskipext, ncond, cond);
+	      end
 
-	      // CEXT1 to CEXT3
-	      4'b1000 : if (nskip !== !sbu.cext1)
-		 $sformat(msg, "cond=%b, cext1=%b but nskip=%b", cond, sbu.cext1, nskip);
+	      // IR0 to IR6: when asserted and the equivalent bit is 1, ncond should be 0
+	      5'b00??? : if (ncond !== !ir[cond - 1])
+		$sformat(msg, "cond=%b, ir%1d=%b but ncond=%b", cond, cond - 1, ir[cond - 1], ncond);
 
-	      4'b1001 : if (nskip !== !sbu.cext2)
-		 $sformat(msg, "cond=%b, cext2=%b but nskip=%b", cond, sbu.cext2, nskip);
+	      // CEXT8 to CEXT10
+	      5'b01000 : if (ncond !== !sbu.cext8)
+		 $sformat(msg, "cond=%b, cext8=%b but ncond=%b", cond, sbu.cext8, ncond);
 
-	      4'b1010 : if (nskip !== !sbu.cext3)
-		 $sformat(msg, "cond=%b, cext3=%b but nskip=%b", cond, sbu.cext3, nskip);
+	      5'b01001 : if (ncond !== !sbu.cext9)
+		 $sformat(msg, "cond=%b, cext9=%b but ncond=%b", cond, sbu.cext9, ncond);
+
+	      5'b01010 : if (ncond !== !sbu.cext10)
+		 $sformat(msg, "cond=%b, cext10=%b but ncond=%b", cond, sbu.cext10, ncond);
 	      
 	      // FV
-	      4'b1011 : if (nskip !== !fv)
-		 $sformat(msg, "cond=%b, fv=%b but nskip=%b", cond, fv, nskip);
+	      5'b01011 : if (ncond !== !fv)
+		 $sformat(msg, "cond=%b, fv=%b but ncond=%b", cond, fv, ncond);
 
 	      // FL
-	      4'b1100 : if (nskip !== !fl)
-		 $sformat(msg, "cond=%b, fl=%b but nskip=%b", cond, fl, nskip);
+	      5'b01100 : if (ncond !== !fl)
+		 $sformat(msg, "cond=%b, fl=%b but ncond=%b", cond, fl, ncond);
 
 	      // FZ
-	      4'b1101 : if (nskip !== !fz)
-		 $sformat(msg, "cond=%b, fz=%b but nskip=%b", cond, fz, nskip);
+	      5'b01101 : if (ncond !== !fz)
+		 $sformat(msg, "cond=%b, fz=%b but ncond=%b", cond, fz, ncond);
 
 	      // FN
-	      4'b1110 : if (nskip !== !fn)
-		 $sformat(msg, "cond=%b, fn=%b but nskip=%b", cond, fn, nskip);
+	      5'b01110 : if (ncond !== !fn)
+		 $sformat(msg, "cond=%b, fn=%b but ncond=%b", cond, fn, ncond);
 
-	      4'b1111 : begin
+	      5'b01111 : begin
 		 tst = 0;
 		 tst = tst | ir[0] & fv;
 		 tst = tst | ir[1] & fl;
 		 tst = tst | ir[2] & fz;
 		 tst = tst | ir[3] & fn;
 		 tst = tst ^ ir[4];
-		 if (nskip !== !tst)
-		    $sformat(msg, "cond=%b, ir[4:0]=%b, flags=%b but nskip=%b", cond, ir[4:0], {fn, fz, fl, fv}, nskip);
+		 if (ncond !== !tst)
+		   $sformat(msg, "cond=%b, ir[4:0]=%b, flags=%b but ncond=%b", cond, ir[4:0], {fn, fz, fl, fv}, ncond);
 	      end
 	    endcase // casex (cond)
 	 end // else: !if(nskipext == 0)
