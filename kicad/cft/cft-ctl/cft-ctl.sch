@@ -174,8 +174,6 @@ Wire Wire Line
 	2650 5150 3250 5150
 Text Label 3250 5150 2    50   ~ 0
 FPFETCH∕~EXEC
-Text Notes 4550 7250 0    70   ~ 14
-TO DO
 $Sheet
 S 4200 6250 1150 1050
 U 5F67D4B5
