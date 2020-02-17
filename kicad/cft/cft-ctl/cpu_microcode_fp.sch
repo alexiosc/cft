@@ -1,10 +1,9 @@
 EESchema Schematic File Version 4
-LIBS:cft-ctl-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 8 11
+Sheet 7 11
 Title "Microcode Front Panel Buffers"
 Date ""
 Rev ""
@@ -456,7 +455,7 @@ AR Path="/5DEAC282/5E19A967" Ref="C?"  Part="1"
 AR Path="/5DEAC282/5D82AC00/5E19A967" Ref="C39"  Part="1" 
 F 0 "C39" H 3959 5446 50  0000 R CNN
 F 1 "100nF" H 3959 5355 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 4050 5400 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 4050 5400 50  0001 C CNN
 F 3 "~" H 4050 5400 50  0001 C CNN
 	1    4050 5400
 	1    0    0    -1  
@@ -574,7 +573,7 @@ AR Path="/5DEAC282/5E3397F8" Ref="C?"  Part="1"
 AR Path="/5DEAC282/5D82AC00/5E3397F8" Ref="C43"  Part="1" 
 F 0 "C43" H 5259 5446 50  0000 R CNN
 F 1 "100nF" H 5259 5355 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 5350 5400 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5350 5400 50  0001 C CNN
 F 3 "~" H 5350 5400 50  0001 C CNN
 	1    5350 5400
 	1    0    0    -1  
@@ -628,7 +627,7 @@ AR Path="/5DEAC282/5E339812" Ref="C?"  Part="1"
 AR Path="/5DEAC282/5D82AC00/5E339812" Ref="C40"  Part="1" 
 F 0 "C40" H 3959 6146 50  0000 R CNN
 F 1 "100nF" H 3959 6055 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 4050 6100 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 4050 6100 50  0001 C CNN
 F 3 "~" H 4050 6100 50  0001 C CNN
 	1    4050 6100
 	1    0    0    -1  
@@ -682,7 +681,7 @@ AR Path="/5DEAC282/5E346E83" Ref="C?"  Part="1"
 AR Path="/5DEAC282/5D82AC00/5E346E83" Ref="C41"  Part="1" 
 F 0 "C41" H 5259 6146 50  0000 R CNN
 F 1 "100nF" H 5259 6055 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 5350 6100 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5350 6100 50  0001 C CNN
 F 3 "~" H 5350 6100 50  0001 C CNN
 	1    5350 6100
 	1    0    0    -1  

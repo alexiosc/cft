@@ -1,6 +1,5 @@
 EESchema Schematic File Version 4
-LIBS:cft-ctl-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -23,7 +22,7 @@ AR Path="/5E3810F5" Ref="C?"  Part="1"
 AR Path="/5E36D9C8/5E3810F5" Ref="C25"  Part="1" 
 F 0 "C25" H 2859 4646 50  0000 R CNN
 F 1 "100nF" H 2859 4555 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 2950 4600 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2950 4600 50  0001 C CNN
 F 3 "~" H 2950 4600 50  0001 C CNN
 	1    2950 4600
 	1    0    0    -1  
@@ -73,7 +72,7 @@ AR Path="/5E381133" Ref="C?"  Part="1"
 AR Path="/5E36D9C8/5E381133" Ref="C24"  Part="1" 
 F 0 "C24" H 2409 4646 50  0000 R CNN
 F 1 "10µF" H 2409 4555 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 2500 4600 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2500 4600 50  0001 C CNN
 F 3 "~" H 2500 4600 50  0001 C CNN
 	1    2500 4600
 	1    0    0    -1  
@@ -100,8 +99,6 @@ Wire Wire Line
 	2500 4500 2500 4450
 Text Label 1550 3300 0    50   ~ 0
 FPCLK
-Text Label 6200 4100 2    50   ~ 0
-~RESET
 Text HLabel 1500 3300 0    50   Input ~ 0
 FPCLK
 Wire Wire Line
@@ -154,14 +151,14 @@ $EndComp
 $Comp
 L alexios:74HC139 U?
 U 3 1 5E3811A3
-P 4600 7400
+P 4850 7400
 AR Path="/5E3811A3" Ref="U?"  Part="3" 
 AR Path="/5E36D9C8/5E3811A3" Ref="U36"  Part="3" 
-F 0 "U36" H 4780 7446 50  0000 L CNN
-F 1 "74HC139" H 4780 7355 50  0000 L CNN
-F 2 "alexios:SOIC-16" H 4600 7400 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS139" H 4600 7400 50  0001 C CNN
-	3    4600 7400
+F 0 "U36" H 5030 7446 50  0000 L CNN
+F 1 "74HC139" H 5030 7355 50  0000 L CNN
+F 2 "alexios:SOIC-16" H 4850 7400 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS139" H 4850 7400 50  0001 C CNN
+	3    4850 7400
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -193,83 +190,83 @@ NoConn ~ 8900 4700
 $Comp
 L power:GND #PWR?
 U 1 1 5E3811BF
-P 2850 7500
+P 3100 7500
 AR Path="/5E3811BF" Ref="#PWR?"  Part="1" 
 AR Path="/5E36D9C8/5E3811BF" Ref="#PWR098"  Part="1" 
-F 0 "#PWR098" H 2850 7250 50  0001 C CNN
-F 1 "GND" H 2855 7327 50  0000 C CNN
-F 2 "" H 2850 7500 50  0001 C CNN
-F 3 "" H 2850 7500 50  0001 C CNN
-	1    2850 7500
+F 0 "#PWR098" H 3100 7250 50  0001 C CNN
+F 1 "GND" H 3105 7327 50  0000 C CNN
+F 2 "" H 3100 7500 50  0001 C CNN
+F 3 "" H 3100 7500 50  0001 C CNN
+	1    3100 7500
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR?
 U 1 1 5E3811C5
-P 4250 7500
+P 4500 7500
 AR Path="/5E3811C5" Ref="#PWR?"  Part="1" 
 AR Path="/5E36D9C8/5E3811C5" Ref="#PWR099"  Part="1" 
-F 0 "#PWR099" H 4250 7250 50  0001 C CNN
-F 1 "GND" H 4255 7327 50  0000 C CNN
-F 2 "" H 4250 7500 50  0001 C CNN
-F 3 "" H 4250 7500 50  0001 C CNN
-	1    4250 7500
+F 0 "#PWR099" H 4500 7250 50  0001 C CNN
+F 1 "GND" H 4505 7327 50  0000 C CNN
+F 2 "" H 4500 7500 50  0001 C CNN
+F 3 "" H 4500 7500 50  0001 C CNN
+	1    4500 7500
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:+5V #PWR?
 U 1 1 5E3811CB
-P 4250 7300
+P 4500 7300
 AR Path="/5E3811CB" Ref="#PWR?"  Part="1" 
 AR Path="/5E36D9C8/5E3811CB" Ref="#PWR094"  Part="1" 
-F 0 "#PWR094" H 4250 7150 50  0001 C CNN
-F 1 "+5V" H 4265 7473 50  0000 C CNN
-F 2 "" H 4250 7300 50  0001 C CNN
-F 3 "" H 4250 7300 50  0001 C CNN
-	1    4250 7300
+F 0 "#PWR094" H 4500 7150 50  0001 C CNN
+F 1 "+5V" H 4515 7473 50  0000 C CNN
+F 2 "" H 4500 7300 50  0001 C CNN
+F 3 "" H 4500 7300 50  0001 C CNN
+	1    4500 7300
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:C_Small C?
 U 1 1 5E3811D1
-P 2850 7400
+P 3100 7400
 AR Path="/5CC0D65F/5E3811D1" Ref="C?"  Part="1" 
 AR Path="/5E3811D1" Ref="C?"  Part="1" 
 AR Path="/5E36D9C8/5E3811D1" Ref="C30"  Part="1" 
-F 0 "C30" H 2759 7446 50  0000 R CNN
-F 1 "100nF" H 2759 7355 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 2850 7400 50  0001 C CNN
-F 3 "~" H 2850 7400 50  0001 C CNN
-	1    2850 7400
+F 0 "C30" H 3009 7446 50  0000 R CNN
+F 1 "100nF" H 3009 7355 50  0000 R CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3100 7400 50  0001 C CNN
+F 3 "~" H 3100 7400 50  0001 C CNN
+	1    3100 7400
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:C_Small C?
 U 1 1 5E3811D7
-P 4250 7400
+P 4500 7400
 AR Path="/5CC0D65F/5E3811D7" Ref="C?"  Part="1" 
 AR Path="/5E3811D7" Ref="C?"  Part="1" 
 AR Path="/5E36D9C8/5E3811D7" Ref="C31"  Part="1" 
-F 0 "C31" H 4159 7446 50  0000 R CNN
-F 1 "100nF" H 4159 7355 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 4250 7400 50  0001 C CNN
-F 3 "~" H 4250 7400 50  0001 C CNN
-	1    4250 7400
+F 0 "C31" H 4409 7446 50  0000 R CNN
+F 1 "100nF" H 4409 7355 50  0000 R CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 4500 7400 50  0001 C CNN
+F 3 "~" H 4500 7400 50  0001 C CNN
+	1    4500 7400
 	1    0    0    -1  
 $EndComp
-Connection ~ 4250 7300
-Connection ~ 4250 7500
+Connection ~ 4500 7300
+Connection ~ 4500 7500
 $Comp
 L power:+5V #PWR?
 U 1 1 5E3811E1
-P 2850 7300
+P 3100 7300
 AR Path="/5E3811E1" Ref="#PWR?"  Part="1" 
 AR Path="/5E36D9C8/5E3811E1" Ref="#PWR093"  Part="1" 
-F 0 "#PWR093" H 2850 7150 50  0001 C CNN
-F 1 "+5V" H 2865 7473 50  0000 C CNN
-F 2 "" H 2850 7300 50  0001 C CNN
-F 3 "" H 2850 7300 50  0001 C CNN
-	1    2850 7300
+F 0 "#PWR093" H 3100 7150 50  0001 C CNN
+F 1 "+5V" H 3115 7473 50  0000 C CNN
+F 2 "" H 3100 7300 50  0001 C CNN
+F 3 "" H 3100 7300 50  0001 C CNN
+	1    3100 7300
 	1    0    0    -1  
 $EndComp
 Text Label 7750 3600 0    50   ~ 0
@@ -341,7 +338,7 @@ AR Path="/5CF0ABAA" Ref="C?"  Part="1"
 AR Path="/5E36D9C8/5CF0ABAA" Ref="C28"  Part="1" 
 F 0 "C28" H 709 7396 50  0000 R CNN
 F 1 "47µF" H 709 7305 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 800 7350 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 800 7350 50  0001 C CNN
 F 3 "~" H 800 7350 50  0001 C CNN
 	1    800  7350
 	1    0    0    -1  
@@ -397,53 +394,53 @@ NoConn ~ 8750 1450
 $Comp
 L alexios:74HC590 U34
 U 2 1 5D0FD6CB
-P 5950 7750
-F 0 "U34" H 6130 8146 50  0000 L CNN
-F 1 "74HC590" H 6130 8055 50  0000 L CNN
-F 2 "alexios:SOIC-16" H 5950 7800 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74HC590.pdf" H 5950 7800 50  0001 C CNN
-	2    5950 7750
+P 6200 7750
+F 0 "U34" H 6380 8146 50  0000 L CNN
+F 1 "74HC590" H 6380 8055 50  0000 L CNN
+F 2 "alexios:SOIC-16" H 6200 7800 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC590.pdf" H 6200 7800 50  0001 C CNN
+	2    6200 7750
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:+5V #PWR095
 U 1 1 5D0FD6D2
-P 5600 7300
-F 0 "#PWR095" H 5600 7150 50  0001 C CNN
-F 1 "+5V" H 5615 7473 50  0000 C CNN
-F 2 "" H 5600 7300 50  0001 C CNN
-F 3 "" H 5600 7300 50  0001 C CNN
-	1    5600 7300
+P 5850 7300
+F 0 "#PWR095" H 5850 7150 50  0001 C CNN
+F 1 "+5V" H 5865 7473 50  0000 C CNN
+F 2 "" H 5850 7300 50  0001 C CNN
+F 3 "" H 5850 7300 50  0001 C CNN
+	1    5850 7300
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR0100
 U 1 1 5D0FD6D8
-P 5600 7500
-F 0 "#PWR0100" H 5600 7250 50  0001 C CNN
-F 1 "GND" H 5605 7327 50  0000 C CNN
-F 2 "" H 5600 7500 50  0001 C CNN
-F 3 "" H 5600 7500 50  0001 C CNN
-	1    5600 7500
+P 5850 7500
+F 0 "#PWR0100" H 5850 7250 50  0001 C CNN
+F 1 "GND" H 5855 7327 50  0000 C CNN
+F 2 "" H 5850 7500 50  0001 C CNN
+F 3 "" H 5850 7500 50  0001 C CNN
+	1    5850 7500
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:C_Small C?
 U 1 1 5D0FD6DE
-P 5600 7400
+P 5850 7400
 AR Path="/5CC0D65F/5D0FD6DE" Ref="C?"  Part="1" 
 AR Path="/5D0FD6DE" Ref="C?"  Part="1" 
 AR Path="/5E4DDD44/5D0FD6DE" Ref="C?"  Part="1" 
 AR Path="/5E36D9C8/5D0FD6DE" Ref="C32"  Part="1" 
-F 0 "C32" H 5509 7446 50  0000 R CNN
-F 1 "100nF" H 5509 7355 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 5600 7400 50  0001 C CNN
-F 3 "~" H 5600 7400 50  0001 C CNN
-	1    5600 7400
+F 0 "C32" H 5759 7446 50  0000 R CNN
+F 1 "100nF" H 5759 7355 50  0000 R CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5850 7400 50  0001 C CNN
+F 3 "~" H 5850 7400 50  0001 C CNN
+	1    5850 7400
 	1    0    0    -1  
 $EndComp
-Connection ~ 5600 7300
-Connection ~ 5600 7500
+Connection ~ 5850 7300
+Connection ~ 5850 7500
 Wire Wire Line
 	8900 1550 8950 1550
 Connection ~ 8900 1550
@@ -479,14 +476,8 @@ F 3 "" H 7750 1750 50  0001 C CNN
 	1    7750 1750
 	1    0    0    -1  
 $EndComp
-Text HLabel 1550 1450 0    50   3State ~ 0
-~RESET
 Text Label 7450 1050 0    50   ~ 0
 CLK3ₒ
-Text Label 7450 1350 0    50   ~ 0
-~RESET
-Wire Wire Line
-	7750 1350 4250 1350
 Wire Wire Line
 	7700 1150 7700 1050
 Connection ~ 7700 1050
@@ -746,7 +737,7 @@ Wire Notes Line style solid
 	3250 6200 3250 6250
 Wire Notes Line style solid
 	3250 6250 3225 6250
-Text Notes 7650 2700 0    50   ~ 0
+Text Notes 7650 2950 0    50   ~ 0
 After a ~RESET~ pulse, the clock starts and we count 128 processor cycles.\nAt a 4 MHz clock, this is 32 µs. During this time, ~RSTHOLD~ is asserted, and\nmost of the processor units remain tri-stated and in reset while everything\nstabilises, capacitors are charged, etc.\n\nWhile ~RSTHOLD~ is low, the processor also performs its reset microprogram\nto initialise the PC with the boot vector.
 Text Label 5050 4600 2    50   ~ 0
 CLK
@@ -901,56 +892,6 @@ Wire Wire Line
 	5850 4500 6400 4500
 Wire Wire Line
 	4600 4100 6400 4100
-$Comp
-L power:+5V #PWR088
-U 1 1 5D635164
-P 9200 5900
-F 0 "#PWR088" H 9200 5750 50  0001 C CNN
-F 1 "+5V" H 9215 6073 50  0000 C CNN
-F 2 "" H 9200 5900 50  0001 C CNN
-F 3 "" H 9200 5900 50  0001 C CNN
-	1    9200 5900
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR090
-U 1 1 5D63516A
-P 9200 6100
-F 0 "#PWR090" H 9200 5850 50  0001 C CNN
-F 1 "GND" H 9205 5927 50  0000 C CNN
-F 2 "" H 9200 6100 50  0001 C CNN
-F 3 "" H 9200 6100 50  0001 C CNN
-	1    9200 6100
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 5D635170
-P 9200 6000
-AR Path="/5CC0D65F/5D635170" Ref="C?"  Part="1" 
-AR Path="/5D635170" Ref="C?"  Part="1" 
-AR Path="/5E4DDD44/5D635170" Ref="C?"  Part="1" 
-AR Path="/5E36D9C8/5D635170" Ref="C27"  Part="1" 
-F 0 "C27" H 9109 6046 50  0000 R CNN
-F 1 "100nF" H 9109 5955 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 9200 6000 50  0001 C CNN
-F 3 "~" H 9200 6000 50  0001 C CNN
-	1    9200 6000
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74LVC1G32 U39
-U 2 1 5D63A796
-P 9600 5750
-F 0 "U39" H 9730 5546 50  0000 L CNN
-F 1 "74LVC1G32" H 9730 5455 50  0000 L CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 9710 5730 50  0001 C CNN
-F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 9710 5730 50  0001 C CNN
-	2    9600 5750
-	1    0    0    -1  
-$EndComp
-Connection ~ 9200 6100
-Connection ~ 9200 5900
 Text Label 9000 3600 0    50   ~ 0
 CLK1₀
 Text Label 9000 3700 0    50   ~ 0
@@ -1037,85 +978,74 @@ T34
 $Comp
 L power:GND #PWR?
 U 1 1 5E38112C
-P 1450 7450
+P 1700 7450
 AR Path="/5E38112C" Ref="#PWR?"  Part="1" 
 AR Path="/5E36D9C8/5E38112C" Ref="#PWR097"  Part="1" 
-F 0 "#PWR097" H 1450 7200 50  0001 C CNN
-F 1 "GND" H 1455 7277 50  0000 C CNN
-F 2 "" H 1450 7450 50  0001 C CNN
-F 3 "" H 1450 7450 50  0001 C CNN
-	1    1450 7450
+F 0 "#PWR097" H 1700 7200 50  0001 C CNN
+F 1 "GND" H 1705 7277 50  0000 C CNN
+F 2 "" H 1700 7450 50  0001 C CNN
+F 3 "" H 1700 7450 50  0001 C CNN
+	1    1700 7450
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:C_Small C?
 U 1 1 5E381125
-P 1450 7350
+P 1700 7350
 AR Path="/5CC0D65F/5E381125" Ref="C?"  Part="1" 
 AR Path="/5E381125" Ref="C?"  Part="1" 
 AR Path="/5E36D9C8/5E381125" Ref="C29"  Part="1" 
-F 0 "C29" H 1359 7396 50  0000 R CNN
-F 1 "100nF" H 1359 7305 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 1450 7350 50  0001 C CNN
-F 3 "~" H 1450 7350 50  0001 C CNN
-	1    1450 7350
+F 0 "C29" H 1609 7396 50  0000 R CNN
+F 1 "100nF" H 1609 7305 50  0000 R CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1700 7350 50  0001 C CNN
+F 3 "~" H 1700 7350 50  0001 C CNN
+	1    1700 7350
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:+5V #PWR?
 U 1 1 5E38111F
-P 1450 7250
+P 1700 7250
 AR Path="/5E38111F" Ref="#PWR?"  Part="1" 
 AR Path="/5E36D9C8/5E38111F" Ref="#PWR092"  Part="1" 
-F 0 "#PWR092" H 1450 7100 50  0001 C CNN
-F 1 "+5V" H 1465 7423 50  0000 C CNN
-F 2 "" H 1450 7250 50  0001 C CNN
-F 3 "" H 1450 7250 50  0001 C CNN
-	1    1450 7250
+F 0 "#PWR092" H 1700 7100 50  0001 C CNN
+F 1 "+5V" H 1715 7423 50  0000 C CNN
+F 2 "" H 1700 7250 50  0001 C CNN
+F 3 "" H 1700 7250 50  0001 C CNN
+	1    1700 7250
 	1    0    0    -1  
 $EndComp
 $Comp
 L alexios:74LVC2G157 U38
 U 2 1 5DD5152F
-P 1800 7350
-F 0 "U38" H 1980 7396 50  0000 L CNN
-F 1 "74LVC2G157" H 1980 7305 50  0000 L CNN
-F 2 "alexios:TSSOP-8_3x3mm_P0.65mm" H 1700 7475 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/sn74lvc2g157.pdf" H 1700 7475 50  0001 C CNN
-	2    1800 7350
+P 2050 7350
+F 0 "U38" H 2230 7396 50  0000 L CNN
+F 1 "74LVC2G157" H 2230 7305 50  0000 L CNN
+F 2 "alexios:TSSOP-8_3x3mm_P0.65mm" H 1950 7475 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/sn74lvc2g157.pdf" H 1950 7475 50  0001 C CNN
+	2    2050 7350
 	1    0    0    -1  
 $EndComp
-Connection ~ 1450 7450
-Connection ~ 1450 7250
+Connection ~ 1700 7450
+Connection ~ 1700 7250
 $Comp
 L alexios:74AC191 U?
 U 2 1 5DD549AB
-P 3200 7650
+P 3450 7650
 AR Path="/5CE09726/5DD549AB" Ref="U?"  Part="1" 
 AR Path="/6A313729/5DD549AB" Ref="U?"  Part="1" 
 AR Path="/5DC89E19/5D0A147D/5DD549AB" Ref="U?"  Part="1" 
 AR Path="/5DC89E19/5D396E91/5DD549AB" Ref="U?"  Part="1" 
 AR Path="/5E36D9C8/5DD549AB" Ref="U37"  Part="2" 
-F 0 "U37" H 3380 7946 50  0000 L CNN
-F 1 "74AC191" H 3380 7855 50  0000 L CNN
-F 2 "alexios:SOIC-16" H 3175 7650 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS190" H 3175 7650 50  0001 C CNN
-	2    3200 7650
+F 0 "U37" H 3630 7946 50  0000 L CNN
+F 1 "74AC191" H 3630 7855 50  0000 L CNN
+F 2 "alexios:SOIC-16" H 3425 7650 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS190" H 3425 7650 50  0001 C CNN
+	2    3450 7650
 	1    0    0    -1  
 $EndComp
-Connection ~ 2850 7300
-Connection ~ 2850 7500
-$Comp
-L Device:D_Schottky_ALT D1
-U 1 1 5E063619
-P 3900 1450
-F 0 "D1" H 3900 1574 50  0000 C CNN
-F 1 "CUS520" H 3900 1575 50  0001 C CNN
-F 2 "alexios:SOD-323" H 3900 1450 50  0001 C CNN
-F 3 "~" H 3900 1450 50  0001 C CNN
-	1    3900 1450
-	1    0    0    -1  
-$EndComp
+Connection ~ 3100 7300
+Connection ~ 3100 7500
 $Comp
 L alexios:CXO_DIP8 X?
 U 1 1 5E381107
@@ -1146,19 +1076,15 @@ Wire Wire Line
 	3900 4450 3950 4450
 Wire Wire Line
 	3950 4450 3950 4400
-Wire Wire Line
-	1550 1450 3750 1450
 Connection ~ 4250 1450
 Wire Wire Line
 	4250 1450 4250 1350
-Wire Wire Line
-	4050 1450 4250 1450
 $Comp
 L Device:D_Schottky_ALT D5
 U 1 1 5E0B90C2
 P 9100 1550
 F 0 "D5" H 9100 1674 50  0000 C CNN
-F 1 "CUS520" H 9100 1675 50  0001 C CNN
+F 1 "CUS520" H 9100 1400 50  0000 C CNN
 F 2 "alexios:SOD-323" H 9100 1550 50  0001 C CNN
 F 3 "~" H 9100 1550 50  0001 C CNN
 	1    9100 1550
@@ -1173,8 +1099,8 @@ $Comp
 L Device:D_Schottky_ALT D3
 U 1 1 5E075E86
 P 3900 1700
-F 0 "D3" H 3900 1824 50  0000 C CNN
-F 1 "CUS520" H 3900 1825 50  0001 C CNN
+F 0 "D3" H 4100 1600 50  0000 R CNN
+F 1 "CUS520" H 3800 1600 50  0000 R CNN
 F 2 "alexios:SOD-323" H 3900 1700 50  0001 C CNN
 F 3 "~" H 3900 1700 50  0001 C CNN
 	1    3900 1700
@@ -1197,17 +1123,6 @@ Wire Wire Line
 Connection ~ 1850 2400
 Wire Wire Line
 	1800 2400 1850 2400
-$Comp
-L Connector_Generic:Conn_01x02 J1
-U 1 1 5D01818E
-P 1600 2400
-F 0 "J1" H 1600 2150 50  0000 C CNN
-F 1 "Conn_01x02" H 1900 2350 50  0001 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Horizontal" H 1600 2400 50  0001 C CNN
-F 3 "~" H 1600 2400 50  0001 C CNN
-	1    1600 2400
-	-1   0    0    1   
-$EndComp
 Wire Wire Line
 	2550 2700 1850 2700
 Wire Wire Line
@@ -1252,7 +1167,7 @@ AR Path="/5CFC28E8" Ref="C?"  Part="1"
 AR Path="/5E36D9C8/5CFC28E8" Ref="C23"  Part="1" 
 F 0 "C23" H 2459 2596 50  0000 R CNN
 F 1 "100nF" H 2459 2505 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 2550 2550 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2550 2550 50  0001 C CNN
 F 3 "~" H 2550 2550 50  0001 C CNN
 	1    2550 2550
 	1    0    0    -1  
@@ -1281,7 +1196,7 @@ F 1 "tactile_switch" H 2100 2340 50  0001 C CNN
 F 2 "Button_Switch_THT:SW_Tactile_SPST_Angled_PTS645Vx39-2LFS" H 2100 2600 50  0001 C CNN
 F 3 "" H 2100 2600 50  0001 C CNN
 	1    2100 2400
-	1    0    0    -1  
+	-1   0    0    -1  
 $EndComp
 Connection ~ 2450 2400
 Wire Wire Line
@@ -1310,8 +1225,8 @@ $Comp
 L Device:D_Schottky_ALT D4
 U 1 1 5E091A41
 P 3900 1950
-F 0 "D4" H 3900 2074 50  0000 C CNN
-F 1 "CUS520" H 3900 2075 50  0001 C CNN
+F 0 "D4" H 3900 1826 50  0000 C CNN
+F 1 "CUS520" H 3900 1735 50  0000 C CNN
 F 2 "alexios:SOD-323" H 3900 1950 50  0001 C CNN
 F 3 "~" H 3900 1950 50  0001 C CNN
 	1    3900 1950
@@ -1335,8 +1250,8 @@ $Comp
 L Device:D_Schottky_ALT D2
 U 1 1 5E075BF1
 P 3900 2400
-F 0 "D2" H 3900 2524 50  0000 C CNN
-F 1 "CUS520" H 3900 2525 50  0001 C CNN
+F 0 "D2" H 3900 2276 50  0000 C CNN
+F 1 "CUS520" H 3900 2185 50  0000 C CNN
 F 2 "alexios:SOD-323" H 3900 2400 50  0001 C CNN
 F 3 "~" H 3900 2400 50  0001 C CNN
 	1    3900 2400
@@ -1348,4 +1263,46 @@ Wire Wire Line
 	7400 3600 7900 3600
 Wire Wire Line
 	8900 3900 10000 3900
+$Comp
+L alexios:74LVC1G17 U35
+U 2 1 6157DD36
+P 1150 7250
+F 0 "U35" H 1100 7517 50  0000 C CNN
+F 1 "74LVC1G17" H 1100 7426 50  0000 C CNN
+F 2 "alexios:SOT-23-5_HandSoldering" H 1150 7250 50  0001 C CNN
+F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 1150 7250 50  0001 C CNN
+	2    1150 7250
+	1    0    0    -1  
+$EndComp
+Connection ~ 800  7450
+Connection ~ 800  7250
+Text Label 6200 4100 2    50   ~ 0
+~RESET
+Text Label 7450 1350 0    50   ~ 0
+~RESET
+Text HLabel 1500 1450 0    50   3State ~ 0
+~RESET
+$Comp
+L Connector_Generic:Conn_01x02 J1
+U 1 1 5D01818E
+P 1600 2400
+F 0 "J1" H 1518 2167 50  0000 C CNN
+F 1 "Conn_01x02" H 1900 2350 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Horizontal" H 1600 2400 50  0001 C CNN
+F 3 "~" H 1600 2400 50  0001 C CNN
+	1    1600 2400
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	7750 1350 4250 1350
+Wire Wire Line
+	1500 1450 4250 1450
+Text Label 1600 1450 0    50   ~ 0
+~RESET
+Text Label 1600 1700 0    50   ~ 0
+~FPRESET
+Text Label 1600 1950 0    50   ~ 0
+POWEROK
+Text Notes 1450 1250 0    50   ~ 0
+There are four reset sources for the ~RESET~ signal: devices\non the bus, the ~FPRESET~ from the DFP, the POWEROK signal\nfrom the PSU, and an optional tactile switch and/or 2-pin jumper.\nThese are ORred together with diode logic and fed back to the\nbus ~RESET~ signal. All ~RESET~ drivers are open drain, so that's\nokay.
 $EndSCHEMATC

@@ -1,10 +1,9 @@
 EESchema Schematic File Version 4
-LIBS:cft-ctl-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 9 11
+Sheet 8 11
 Title "Instruction Register (IR)"
 Date ""
 Rev ""
@@ -51,7 +50,7 @@ AR Path="/5F4B0011/5F6441F3" Ref="C?"  Part="1"
 AR Path="/5F63066B/5F6441F3" Ref="C11"  Part="1" 
 F 0 "C11" H 2409 6596 50  0000 R CNN
 F 1 "100nF" H 2409 6505 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 2500 6550 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2500 6550 50  0001 C CNN
 F 3 "~" H 2500 6550 50  0001 C CNN
 	1    2500 6550
 	1    0    0    -1  
@@ -87,13 +86,13 @@ $Comp
 L Device:C_Small C?
 U 1 1 5F644205
 P 2500 7300
-AR Path="/5CC0D65F/5F644205" Ref="C?"  Part="1" 
-AR Path="/5F644205" Ref="C?"  Part="1" 
-AR Path="/5F4B0011/5F644205" Ref="C?"  Part="1" 
-AR Path="/5F63066B/5F644205" Ref="C13"  Part="1" 
-F 0 "C13" H 2409 7346 50  0000 R CNN
+AR Path="/5CC0D65F/5F4036ED" Ref="C?"  Part="1" 
+AR Path="/5F4036ED" Ref="C?"  Part="1" 
+AR Path="/5F3EA987/5F4036ED" Ref="C16"  Part="1" 
+AR Path="/5F63066B/5F644205" Ref="C16"  Part="1" 
+F 0 "C16" H 2409 7346 50  0000 R CNN
 F 1 "100nF" H 2409 7255 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 2500 7300 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2500 7300 50  0001 C CNN
 F 3 "~" H 2500 7300 50  0001 C CNN
 	1    2500 7300
 	1    0    0    -1  
@@ -135,7 +134,7 @@ AR Path="/5F4B0011/5F64421B" Ref="C?"  Part="1"
 AR Path="/5F63066B/5F64421B" Ref="C12"  Part="1" 
 F 0 "C12" H 3759 6596 50  0000 R CNN
 F 1 "100nF" H 3759 6505 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 3850 6550 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3850 6550 50  0001 C CNN
 F 3 "~" H 3850 6550 50  0001 C CNN
 	1    3850 6550
 	1    0    0    -1  
@@ -177,7 +176,7 @@ AR Path="/5F4B0011/5F64422D" Ref="C?"  Part="1"
 AR Path="/5F63066B/5F64422D" Ref="C14"  Part="1" 
 F 0 "C14" H 3759 7346 50  0000 R CNN
 F 1 "100nF" H 3759 7255 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 3850 7300 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3850 7300 50  0001 C CNN
 F 3 "~" H 3850 7300 50  0001 C CNN
 	1    3850 7300
 	1    0    0    -1  
@@ -813,7 +812,7 @@ AR Path="/5F4B0011/6144DE30" Ref="C?"  Part="1"
 AR Path="/5F63066B/6144DE30" Ref="C65"  Part="1" 
 F 0 "C65" H 959 7346 50  0000 R CNN
 F 1 "100nF" H 959 7255 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 1050 7300 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1050 7300 50  0001 C CNN
 F 3 "~" H 1050 7300 50  0001 C CNN
 	1    1050 7300
 	1    0    0    -1  
@@ -857,10 +856,10 @@ F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 4160 4680 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L alexios:74LVC1G32 U57
+L alexios:74LVC1G32 U39
 U 2 1 61464092
 P 1450 7050
-F 0 "U57" H 1580 6846 50  0000 L CNN
+F 0 "U39" H 1580 6846 50  0000 L CNN
 F 1 "74LVC1G32" H 1580 6755 50  0000 L CNN
 F 2 "alexios:SOT-23-5_HandSoldering" H 1560 7030 50  0001 C CNN
 F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 1560 7030 50  0001 C CNN

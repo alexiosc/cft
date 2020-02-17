@@ -1,10 +1,9 @@
 EESchema Schematic File Version 4
-LIBS:cft-ctl-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 6 11
+Sheet 5 11
 Title "Microcode Sequencer"
 Date ""
 Rev ""
@@ -747,7 +746,7 @@ AR Path="/5F4ADA60" Ref="C?"  Part="1"
 AR Path="/5DEAC282/5F4ADA60" Ref="C38"  Part="1" 
 F 0 "C38" H 5809 7446 50  0000 R CNN
 F 1 "100nF" H 5809 7355 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 5900 7400 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5900 7400 50  0001 C CNN
 F 3 "~" H 5900 7400 50  0001 C CNN
 	1    5900 7400
 	1    0    0    -1  
@@ -882,7 +881,6 @@ Text HLabel 4700 5600 0    50   Input ~ 0
 ~FPµC1
 Text HLabel 4700 5500 0    50   Input ~ 0
 ~FPµC0
-Connection ~ 900  6700
 $Comp
 L power:GND #PWR0112
 U 1 1 5DEBA8B7
@@ -894,7 +892,6 @@ F 3 "" H 900 6700 50  0001 C CNN
 	1    900  6700
 	1    0    0    -1  
 $EndComp
-Connection ~ 900  6500
 $Comp
 L power:+5V #PWR0111
 U 1 1 5DEBA174
@@ -915,22 +912,9 @@ AR Path="/5DEB8F55" Ref="C?"  Part="1"
 AR Path="/5DEAC282/5DEB8F55" Ref="C34"  Part="1" 
 F 0 "C34" H 809 6646 50  0000 R CNN
 F 1 "100nF" H 809 6555 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 900 6600 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 900 6600 50  0001 C CNN
 F 3 "~" H 900 6600 50  0001 C CNN
 	1    900  6600
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74AHC1G08 U?
-U 2 1 5DEB32A6
-P 1350 6500
-AR Path="/5DEB32A6" Ref="U?"  Part="1" 
-AR Path="/5DEAC282/5DEB32A6" Ref="U48"  Part="2" 
-F 0 "U48" H 1430 6446 50  0000 L CNN
-F 1 "74AHC1G08" H 1430 6355 50  0000 L CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 1000 6500 50  0001 C CNN
-F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 1000 6500 50  0001 C CNN
-	2    1350 6500
 	1    0    0    -1  
 $EndComp
 Connection ~ 900  7300
@@ -966,7 +950,7 @@ AR Path="/5DEB9AAE" Ref="C?"  Part="1"
 AR Path="/5DEAC282/5DEB9AAE" Ref="C35"  Part="1" 
 F 0 "C35" H 809 7446 50  0000 R CNN
 F 1 "100nF" H 809 7355 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 900 7400 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 900 7400 50  0001 C CNN
 F 3 "~" H 900 7400 50  0001 C CNN
 	1    900  7400
 	1    0    0    -1  
@@ -982,57 +966,6 @@ F 1 "74HC161" H 1430 8155 50  0000 L CNN
 F 2 "alexios:SOIC-16" H 1550 8050 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS161" H 1550 8050 50  0001 C CNN
 	2    1250 7800
-	1    0    0    -1  
-$EndComp
-Connection ~ 2700 7300
-Connection ~ 2700 7500
-$Comp
-L power:+5V #PWR0114
-U 1 1 5DEBC5C9
-P 2700 7300
-F 0 "#PWR0114" H 2700 7150 50  0001 C CNN
-F 1 "+5V" H 2715 7473 50  0000 C CNN
-F 2 "" H 2700 7300 50  0001 C CNN
-F 3 "" H 2700 7300 50  0001 C CNN
-	1    2700 7300
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR0118
-U 1 1 5DEBAB17
-P 2700 7500
-F 0 "#PWR0118" H 2700 7250 50  0001 C CNN
-F 1 "GND" H 2705 7327 50  0000 C CNN
-F 2 "" H 2700 7500 50  0001 C CNN
-F 3 "" H 2700 7500 50  0001 C CNN
-	1    2700 7500
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 5DEB9460
-P 2700 7400
-AR Path="/5CC0D65F/5DEB9460" Ref="C?"  Part="1" 
-AR Path="/5DEB9460" Ref="C?"  Part="1" 
-AR Path="/5DEAC282/5DEB9460" Ref="C36"  Part="1" 
-F 0 "C36" H 2609 7446 50  0000 R CNN
-F 1 "100nF" H 2609 7355 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 2700 7400 50  0001 C CNN
-F 3 "~" H 2700 7400 50  0001 C CNN
-	1    2700 7400
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74AHC1G00 U?
-U 2 1 5DEB36D4
-P 3150 7300
-AR Path="/5DEB36D4" Ref="U?"  Part="1" 
-AR Path="/5DEAC282/5DEB36D4" Ref="U49"  Part="2" 
-F 0 "U49" H 3230 7246 50  0000 L CNN
-F 1 "74AHC1G00" H 3230 7155 50  0000 L CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 2800 7300 50  0001 C CNN
-F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 2800 7300 50  0001 C CNN
-	2    3150 7300
 	1    0    0    -1  
 $EndComp
 Text Notes 7000 4550 0    50   ~ 0
@@ -1082,7 +1015,7 @@ AR Path="/5DEAC282/5E28D9FA" Ref="C33"  Part="1"
 AR Path="/5DEAC282/5DEAA264/5E28D9FA" Ref="C?"  Part="1" 
 F 0 "C33" H 7558 5146 50  0000 R CNN
 F 1 "100nF" H 7558 5055 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 7650 5100 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7650 5100 50  0001 C CNN
 F 3 "~" H 7650 5100 50  0001 C CNN
 	1    7650 5100
 	1    0    0    -1  
@@ -1107,7 +1040,7 @@ AR Path="/5DF3702C" Ref="C?"  Part="1"
 AR Path="/5DEAC282/5DF3702C" Ref="C37"  Part="1" 
 F 0 "C37" H 4109 7446 50  0000 R CNN
 F 1 "100nF" H 4109 7355 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 4200 7400 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 4200 7400 50  0001 C CNN
 F 3 "~" H 4200 7400 50  0001 C CNN
 	1    4200 7400
 	1    0    0    -1  
@@ -1592,6 +1525,21 @@ Wire Wire Line
 	2000 5500 2650 5500
 Wire Wire Line
 	1150 5250 2650 5250
+Connection ~ 900  6500
+Connection ~ 900  6700
+$Comp
+L alexios:74AHC1G08 U?
+U 2 1 5DEB32A6
+P 1350 6500
+AR Path="/5DEB32A6" Ref="U?"  Part="1" 
+AR Path="/5DEAC282/5DEB32A6" Ref="U43"  Part="2" 
+F 0 "U43" H 1430 6446 50  0000 L CNN
+F 1 "74AHC1G08" H 1430 6355 50  0000 L CNN
+F 2 "alexios:SOT-23-5_HandSoldering" H 1000 6500 50  0001 C CNN
+F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 1000 6500 50  0001 C CNN
+	2    1350 6500
+	1    0    0    -1  
+$EndComp
 Wire Bus Line
 	4550 2650 4550 3400
 Wire Bus Line

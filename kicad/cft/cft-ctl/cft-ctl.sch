@@ -1,6 +1,5 @@
 EESchema Schematic File Version 4
-LIBS:cft-ctl-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -134,8 +133,6 @@ Text Label 900  2500 0    50   ~ 0
 FPCLK
 Text Label 900  2400 0    50   ~ 0
 ~FPRESET
-Text Label 900  2250 0    50   ~ 0
-~RESET
 Wire Wire Line
 	1500 2600 900  2600
 Wire Wire Line
@@ -174,23 +171,6 @@ Wire Wire Line
 	2650 5150 3250 5150
 Text Label 3250 5150 2    50   ~ 0
 FPFETCH∕~EXEC
-$Sheet
-S 4200 6250 1150 1050
-U 5F67D4B5
-F0 "Interrupt State Machine" 50
-F1 "cft_int_fsm.sch" 50
-F2 "~IRQ" I L 4200 7200 50 
-F3 "~RESET" I L 4200 6350 50 
-F4 "FI" O R 5350 6350 50 
-F5 "~IRQS" O R 5350 7100 50 
-F6 "~END" I L 4200 7050 50 
-F7 "CLK4" I L 4200 6550 50 
-F8 "CLK1" I L 4200 6450 50 
-F9 "~IRQSµC" O R 5350 7200 50 
-F10 "IBUS15" I L 4200 6850 50 
-F11 "~FLAGWE" I L 4200 6950 50 
-F12 "ACTION[0..3]" I L 4200 6650 50 
-$EndSheet
 Wire Bus Line
 	5350 3350 5950 3350
 Text Label 5950 3350 2    50   ~ 0
@@ -261,8 +241,6 @@ Wire Wire Line
 	4200 6950 3600 6950
 Wire Wire Line
 	4200 7200 3600 7200
-Text Label 3600 6350 0    50   ~ 0
-~RESET
 Text Label 3600 6450 0    50   ~ 0
 CLK1
 Text Label 3600 6550 0    50   ~ 0
@@ -846,6 +824,7 @@ F11 "FN" I L 1500 7200 50
 F12 "~FLAGWE" O R 2650 6450 50 
 F13 "CLK4" I L 1500 6350 50 
 F14 "~READ-AGL" O R 2650 6850 50 
+F15 "~WRITE-IR" O R 2650 6950 50 
 $EndSheet
 Wire Bus Line
 	1500 6450 900  6450
@@ -1169,6 +1148,27 @@ Wire Wire Line
 	2650 6950 3250 6950
 Text Label 3250 6950 2    50   ~ 0
 ~WRITE-IR
+$Sheet
+S 4200 6250 1150 1050
+U 5F67D4B5
+F0 "Interrupt State Machine" 50
+F1 "cft_int_fsm.sch" 50
+F2 "~IRQ" I L 4200 7200 50 
+F3 "~RESET" I L 4200 6350 50 
+F4 "FI" O R 5350 6350 50 
+F5 "~IRQS" O R 5350 7100 50 
+F6 "~END" I L 4200 7050 50 
+F7 "CLK4" I L 4200 6550 50 
+F8 "CLK1" I L 4200 6450 50 
+F9 "~IRQSµC" O R 5350 7200 50 
+F10 "IBUS15" I L 4200 6850 50 
+F11 "~FLAGWE" I L 4200 6950 50 
+F12 "ACTION[0..3]" I L 4200 6650 50 
+$EndSheet
+Text Label 3600 6350 0    50   ~ 0
+~RESET
+Text Label 900  2250 0    50   ~ 0
+~RESET
 Wire Bus Line
 	9950 1450 9950 2100
 Wire Bus Line

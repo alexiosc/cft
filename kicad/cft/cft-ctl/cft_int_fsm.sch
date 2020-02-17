@@ -1,10 +1,9 @@
 EESchema Schematic File Version 4
-LIBS:cft-ctl-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 4 11
+Sheet 11 11
 Title "Interrupt State Machine"
 Date ""
 Rev ""
@@ -23,7 +22,7 @@ AR Path="/5DEFC7E0" Ref="C?"  Part="1"
 AR Path="/5F67D4B5/5DEFC7E0" Ref="C46"  Part="1" 
 F 0 "C46" H 959 7346 50  0000 R CNN
 F 1 "100nF" H 959 7255 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 1050 7300 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1050 7300 50  0001 C CNN
 F 3 "~" H 1050 7300 50  0001 C CNN
 	1    1050 7300
 	1    0    0    -1  
@@ -533,7 +532,7 @@ AR Path="/5ED8212B" Ref="C?"  Part="1"
 AR Path="/5F67D4B5/5ED8212B" Ref="C22"  Part="1" 
 F 0 "C22" H 959 6496 50  0000 R CNN
 F 1 "100nF" H 959 6405 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 1050 6450 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1050 6450 50  0001 C CNN
 F 3 "~" H 1050 6450 50  0001 C CNN
 	1    1050 6450
 	1    0    0    -1  
@@ -593,7 +592,7 @@ AR Path="/5ED85E2E" Ref="C?"  Part="1"
 AR Path="/5F67D4B5/5ED85E2E" Ref="C47"  Part="1" 
 F 0 "C47" H 2459 6496 50  0000 R CNN
 F 1 "100nF" H 2459 6405 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 2550 6450 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2550 6450 50  0001 C CNN
 F 3 "~" H 2550 6450 50  0001 C CNN
 	1    2550 6450
 	1    0    0    -1  
@@ -664,7 +663,7 @@ AR Path="/5ED8B8B1" Ref="C?"  Part="1"
 AR Path="/5F67D4B5/5ED8B8B1" Ref="C64"  Part="1" 
 F 0 "C64" H 2459 7346 50  0000 R CNN
 F 1 "100nF" H 2459 7255 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 2550 7300 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2550 7300 50  0001 C CNN
 F 3 "~" H 2550 7300 50  0001 C CNN
 	1    2550 7300
 	1    0    0    -1  
@@ -700,7 +699,7 @@ AR Path="/5ED8C825" Ref="C?"  Part="1"
 AR Path="/5F67D4B5/5ED8C825" Ref="C48"  Part="1" 
 F 0 "C48" H 3959 6496 50  0000 R CNN
 F 1 "100nF" H 3959 6405 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 4050 6450 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 4050 6450 50  0001 C CNN
 F 3 "~" H 4050 6450 50  0001 C CNN
 	1    4050 6450
 	1    0    0    -1  
@@ -736,7 +735,7 @@ AR Path="/5ED8F21F" Ref="C?"  Part="1"
 AR Path="/5F67D4B5/5ED8F21F" Ref="C63"  Part="1" 
 F 0 "C63" H 3959 7296 50  0000 R CNN
 F 1 "100nF" H 3959 7205 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 4050 7250 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 4050 7250 50  0001 C CNN
 F 3 "~" H 4050 7250 50  0001 C CNN
 	1    4050 7250
 	1    0    0    -1  
@@ -783,7 +782,7 @@ AR Path="/5ED908A1" Ref="C?"  Part="1"
 AR Path="/5F67D4B5/5ED908A1" Ref="C55"  Part="1" 
 F 0 "C55" H 5459 6496 50  0000 R CNN
 F 1 "100nF" H 5459 6405 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 5550 6450 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5550 6450 50  0001 C CNN
 F 3 "~" H 5550 6450 50  0001 C CNN
 	1    5550 6450
 	1    0    0    -1  
@@ -819,7 +818,7 @@ AR Path="/5ED919E5" Ref="C?"  Part="1"
 AR Path="/5F67D4B5/5ED919E5" Ref="C62"  Part="1" 
 F 0 "C62" H 5459 7246 50  0000 R CNN
 F 1 "100nF" H 5459 7155 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 5550 7200 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5550 7200 50  0001 C CNN
 F 3 "~" H 5550 7200 50  0001 C CNN
 	1    5550 7200
 	1    0    0    -1  

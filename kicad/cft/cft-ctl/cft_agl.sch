@@ -1,10 +1,9 @@
 EESchema Schematic File Version 4
-LIBS:cft-ctl-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 10 11
+Sheet 9 11
 Title "Addressing Modes"
 Date ""
 Rev ""
@@ -23,7 +22,7 @@ AR Path="/5F3ED3E1" Ref="C?"  Part="1"
 AR Path="/5F3EA987/5F3ED3E1" Ref="C15"  Part="1" 
 F 0 "C15" H 859 7346 50  0000 R CNN
 F 1 "100nF" H 859 7255 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 950 7300 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 950 7300 50  0001 C CNN
 F 3 "~" H 950 7300 50  0001 C CNN
 	1    950  7300
 	1    0    0    -1  
@@ -93,13 +92,13 @@ U 1 1 5F4036ED
 P 2300 7300
 AR Path="/5CC0D65F/5F4036ED" Ref="C?"  Part="1" 
 AR Path="/5F4036ED" Ref="C?"  Part="1" 
-AR Path="/5F3EA987/5F4036ED" Ref="C16"  Part="1" 
-F 0 "C16" H 2209 7346 50  0000 R CNN
-F 1 "100nF" H 2209 7255 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 2300 7300 50  0001 C CNN
+AR Path="/5F3EA987/5F4036ED" Ref="C8"  Part="1" 
+F 0 "C8" H 2392 7346 50  0000 L CNN
+F 1 "100nF" H 2392 7255 50  0000 L CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2300 7300 50  0001 C CNN
 F 3 "~" H 2300 7300 50  0001 C CNN
 	1    2300 7300
-	1    0    0    -1  
+	-1   0    0    -1  
 $EndComp
 $Comp
 L power:+5V #PWR?
@@ -136,7 +135,7 @@ AR Path="/5F403F53" Ref="C?"  Part="1"
 AR Path="/5F3EA987/5F403F53" Ref="C17"  Part="1" 
 F 0 "C17" H 3559 7346 50  0000 R CNN
 F 1 "100nF" H 3559 7255 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 3650 7300 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3650 7300 50  0001 C CNN
 F 3 "~" H 3650 7300 50  0001 C CNN
 	1    3650 7300
 	1    0    0    -1  
@@ -171,8 +170,6 @@ Connection ~ 950  7400
 Connection ~ 950  7200
 Connection ~ 3650 7400
 Connection ~ 3650 7200
-Connection ~ 2300 7400
-Connection ~ 2300 7200
 Wire Wire Line
 	4300 3300 4300 2700
 Connection ~ 5600 3400
@@ -575,7 +572,7 @@ AR Path="/5CD3AC27/60D21D0A" Ref="C?"  Part="1"
 AR Path="/5F3EA987/60D21D0A" Ref="C19"  Part="1" 
 F 0 "C19" H 10109 6446 50  0000 R CNN
 F 1 "100nF" H 10109 6355 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 10200 6400 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10200 6400 50  0001 C CNN
 F 3 "~" H 10200 6400 50  0001 C CNN
 	1    10200 6400
 	1    0    0    -1  
@@ -589,7 +586,7 @@ AR Path="/5CD3AC27/60D21D10" Ref="C?"  Part="1"
 AR Path="/5F3EA987/60D21D10" Ref="C18"  Part="1" 
 F 0 "C18" H 5909 7346 50  0000 R CNN
 F 1 "100nF" H 5909 7255 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 6000 7300 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 6000 7300 50  0001 C CNN
 F 3 "~" H 6000 7300 50  0001 C CNN
 	1    6000 7300
 	1    0    0    -1  
@@ -1084,6 +1081,8 @@ Text HLabel 1200 4050 0    50   Input ~ 0
 ~READ-AGL
 Text Notes 1400 4150 0    50   ~ 0
 This is decoded by the flag unit.
+Connection ~ 2300 7400
+Connection ~ 2300 7200
 Wire Bus Line
 	1200 2050 5350 2050
 Wire Bus Line
