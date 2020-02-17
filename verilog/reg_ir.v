@@ -16,12 +16,13 @@
 `timescale 1ns/1ps
 
 // This models both the IR register and the front line buffers.
-module reg_ir (clk4, waddr,
+module reg_ir (clk4, nwrite_ir,
 	       ibus, ir,
 	       nfpirl, nfpirh, fpd);
 
    input 	 clk4;
-   input [4:0] 	 waddr;
+   //input [4:0] waddr;
+   input 	 nwrite_ir;
 
    output [15:0] ibus;
    output [15:0] ir;
@@ -33,14 +34,17 @@ module reg_ir (clk4, waddr,
    wire [15:0] 	 ibus, ir;
    wire [7:0] 	 fpd;
 
-   // Decode WADDR address 00010. The nwrite_ir output is only active during
-   // clk4, so its raising edge is at the end of the clock cycle, as is
-   // standard of all writable units.
-   wire [7:0] 	 y;
-   wire 	 nwrite_ir;
-   demux_138 waddr_dec (.g1(1'b1), .ng2a(waddr[3]), .ng2b(waddr[4]),
-			.a(waddr[2:0]), .y(y));
-   assign #6 nwrite_ir = y[2] | clk4;
+   // WADDR is now decoded by the WADDR devoder in the flag unit, and
+   // provided to us as nwrite_ir.
+
+   // // Decode WADDR address 00010. The nwrite_ir output is only active during
+   // // clk4, so its raising edge is at the end of the clock cycle, as is
+   // // standard of all writable units.
+   // wire [7:0] 	 y;
+   // wire 	 nwrite_ir;
+   // demux_138 waddr_dec (.g1(1'b1), .ng2a(waddr[3]), .ng2b(waddr[4]),
+   // 			.a(waddr[2:0]), .y(y));
+   // assign #6 nwrite_ir = y[2] | clk4;
 
    // The original CFT used latches for the IR—and it worked! We'll move to
    // flip-flops here. It should make no difference, but might protect us from
