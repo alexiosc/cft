@@ -20,7 +20,7 @@ P 2150 1550
 AR Path="/5DEB2D66" Ref="U?"  Part="1" 
 AR Path="/5DEAC282/5DEB2D66" Ref="U43"  Part="1" 
 F 0 "U43" H 2075 1817 50  0000 C CNN
-F 1 "74AHC1G08" H 2075 1726 50  0000 C CNN
+F 1 "74LVC1G08" H 2075 1726 50  0000 C CNN
 F 2 "alexios:SOT-23-5_HandSoldering" H 1800 1550 50  0001 C CNN
 F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 1800 1550 50  0001 C CNN
 	1    2150 1550
@@ -1534,7 +1534,7 @@ P 1350 6500
 AR Path="/5DEB32A6" Ref="U?"  Part="1" 
 AR Path="/5DEAC282/5DEB32A6" Ref="U43"  Part="2" 
 F 0 "U43" H 1430 6446 50  0000 L CNN
-F 1 "74AHC1G08" H 1430 6355 50  0000 L CNN
+F 1 "74LVC1G08" H 1430 6355 50  0000 L CNN
 F 2 "alexios:SOT-23-5_HandSoldering" H 1000 6500 50  0001 C CNN
 F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 1000 6500 50  0001 C CNN
 	2    1350 6500

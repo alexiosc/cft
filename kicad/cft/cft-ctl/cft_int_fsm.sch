@@ -55,7 +55,7 @@ U 1 1 5D183FAB
 P 5900 3850
 F 0 "U42" H 5825 3675 50  0000 C CNN
 F 1 "74LVC1G08" H 5825 3584 50  0000 C CNN
-F 2 "Package_TO_SOT_SMD:SOT-23-5_HandSoldering" H 5550 3850 50  0001 C CNN
+F 2 "alexios:SOT-23-5_HandSoldering" H 5550 3850 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 5550 3850 50  0001 C CNN
 	1    5900 3850
 	1    0    0    -1  
@@ -72,7 +72,7 @@ U 1 1 5DEFC7B5
 P 5350 5700
 F 0 "U51" H 5400 5525 50  0000 C CNN
 F 1 "74LVC1G32" H 5400 5434 50  0000 C CNN
-F 2 "Package_TO_SOT_SMD:SOT-23-5_HandSoldering" H 5460 5680 50  0001 C CNN
+F 2 "alexios:SOT-23-5_HandSoldering" H 5460 5680 50  0001 C CNN
 F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 5460 5680 50  0001 C CNN
 	1    5350 5700
 	1    0    0    -1  
@@ -578,7 +578,7 @@ U 2 1 5ED85C6A
 P 3000 6350
 F 0 "U42" H 3080 6296 50  0000 L CNN
 F 1 "74LVC1G08" H 3080 6205 50  0000 L CNN
-F 2 "Package_TO_SOT_SMD:SOT-23-5_HandSoldering" H 2650 6350 50  0001 C CNN
+F 2 "alexios:SOT-23-5_HandSoldering" H 2650 6350 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 2650 6350 50  0001 C CNN
 	2    3000 6350
 	1    0    0    -1  
@@ -768,7 +768,7 @@ U 2 1 5ED906EB
 P 5950 6200
 F 0 "U51" H 6080 5996 50  0000 L CNN
 F 1 "74LVC1G32" H 6080 5905 50  0000 L CNN
-F 2 "Package_TO_SOT_SMD:SOT-23-5_HandSoldering" H 6060 6180 50  0001 C CNN
+F 2 "alexios:SOT-23-5_HandSoldering" H 6060 6180 50  0001 C CNN
 F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 6060 6180 50  0001 C CNN
 	2    5950 6200
 	1    0    0    -1  

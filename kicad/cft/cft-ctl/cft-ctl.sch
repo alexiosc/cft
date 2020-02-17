@@ -563,7 +563,7 @@ Wire Wire Line
 Text Notes 8300 1200 0    100  ~ 20
 Edge Connector
 Wire Wire Line
-	9500 2500 10100 2500
+	9500 2600 10100 2600
 NoConn ~ 7800 1800
 NoConn ~ 7800 2000
 NoConn ~ 7800 2200
@@ -587,9 +587,9 @@ NoConn ~ 7800 4100
 NoConn ~ 7800 4200
 NoConn ~ 7800 4800
 Wire Wire Line
-	9500 2400 10100 2400
+	9500 2500 10100 2500
 Wire Wire Line
-	9500 2300 10100 2300
+	9500 2400 10100 2400
 Wire Wire Line
 	9500 1600 9850 1600
 Wire Wire Line
@@ -638,19 +638,19 @@ Wire Bus Line
 	10050 1350 10350 1350
 Text Label 10350 1350 2    50   ~ 0
 IR[0..6]
-Text Label 10100 2500 2    50   ~ 0
+Text Label 10100 2600 2    50   ~ 0
 ~FLAGWE
-Text Label 10100 2300 2    50   ~ 0
-FL
 Text Label 10100 2400 2    50   ~ 0
+FL
+Text Label 10100 2500 2    50   ~ 0
 FV
-Text Notes 10150 2300 0    50   ~ 0
+Text Notes 10150 2400 0    50   ~ 0
 ← ALU
 Text Notes 10150 1600 0    50   ~ 0
 → BUS.MBU
 Text Label 7800 2200 0    50   ~ 0
 AB[0..23]
-Text Notes 10150 2500 0    50   ~ 0
+Text Notes 10150 2600 0    50   ~ 0
 → ALU
 Wire Wire Line
 	9500 5500 10100 5500
@@ -842,12 +842,6 @@ Wire Wire Line
 	1500 6350 900  6350
 Text Label 900  6350 0    50   ~ 0
 CLK4
-Wire Wire Line
-	9500 4400 9850 4400
-Wire Wire Line
-	9500 4500 9850 4500
-NoConn ~ 9850 4400
-NoConn ~ 9850 4500
 Text Notes 10150 1700 0    50   ~ 0
 → BUS.MBU
 Text Notes 10150 1800 0    50   ~ 0
@@ -860,7 +854,7 @@ Text Notes 10150 2100 0    50   ~ 0
 → BUS.MBU
 Text Notes 10150 2200 0    50   ~ 0
 → BUS.MBU
-Text Notes 10150 2400 0    50   ~ 0
+Text Notes 10150 2500 0    50   ~ 0
 ← ALU
 Wire Wire Line
 	4200 5550 3600 5550
@@ -935,19 +929,17 @@ FZ
 Text Label 900  7200 0    50   ~ 0
 FN
 Wire Wire Line
-	9500 2600 10100 2600
-Wire Wire Line
 	9500 2700 10100 2700
-Text Label 10100 2600 2    50   ~ 0
-FZ
-Text Label 10100 2700 2    50   ~ 0
-FN
-Text Notes 10150 2600 0    50   ~ 0
-← REG
-Text Notes 10150 2700 0    50   ~ 0
-← REG
 Wire Wire Line
 	9500 2800 10100 2800
+Text Label 10100 2700 2    50   ~ 0
+FZ
+Text Label 10100 2800 2    50   ~ 0
+FN
+Text Notes 10150 2700 0    50   ~ 0
+← REG
+Text Notes 10150 2800 0    50   ~ 0
+← REG
 Wire Wire Line
 	9500 2900 10100 2900
 Wire Wire Line
@@ -958,20 +950,20 @@ Wire Wire Line
 	9500 3200 10100 3200
 Wire Wire Line
 	9500 3300 10100 3300
-Text Label 10100 2800 2    50   ~ 0
-PC10
+Wire Wire Line
+	9500 3400 10100 3400
 Text Label 10100 2900 2    50   ~ 0
-PC11
+PC10
 Text Label 10100 3000 2    50   ~ 0
-PC12
+PC11
 Text Label 10100 3100 2    50   ~ 0
-PC13
+PC12
 Text Label 10100 3200 2    50   ~ 0
-PC14
+PC13
 Text Label 10100 3300 2    50   ~ 0
+PC14
+Text Label 10100 3400 2    50   ~ 0
 PC15
-Text Notes 10150 2800 0    50   ~ 0
-← REG
 Text Notes 10150 2900 0    50   ~ 0
 ← REG
 Text Notes 10150 3000 0    50   ~ 0
@@ -982,19 +974,21 @@ Text Notes 10150 3200 0    50   ~ 0
 ← REG
 Text Notes 10150 3300 0    50   ~ 0
 ← REG
+Text Notes 10150 3400 0    50   ~ 0
+← REG
 Wire Wire Line
 	2650 2400 3100 2400
 Wire Wire Line
-	9500 3400 10100 3400
-Text Label 10100 3400 2    50   ~ 0
-FPRESET
-Wire Wire Line
 	9500 3500 10100 3500
 Text Label 10100 3500 2    50   ~ 0
-FPCLK
+FPRESET
 Wire Wire Line
 	9500 3600 10100 3600
 Text Label 10100 3600 2    50   ~ 0
+FPCLK
+Wire Wire Line
+	9500 3700 10100 3700
+Text Label 10100 3700 2    50   ~ 0
 FPCLKEN
 Wire Wire Line
 	9500 4600 10100 4600
@@ -1027,18 +1021,18 @@ Wire Bus Line
 Wire Bus Line
 	2650 3750 3250 3750
 Wire Wire Line
-	9500 3700 10100 3700
-Text Label 10100 3700 2    50   ~ 0
+	9500 3800 10100 3800
+Text Label 10100 3800 2    50   ~ 0
 FPFETCH∕~EXEC
-Text Notes 10150 3400 0    50   ~ 0
-← DFP
 Text Notes 10150 3500 0    50   ~ 0
 ← DFP
 Text Notes 10150 3600 0    50   ~ 0
 ← DFP
+Text Notes 10150 3700 0    50   ~ 0
+← DFP
 Text Notes 10150 4600 0    50   ~ 0
 ← PSU (backplane)
-Text Notes 10150 3700 0    50   ~ 0
+Text Notes 10150 3800 0    50   ~ 0
 → DFP
 Wire Bus Line
 	4200 4650 3600 4650
@@ -1094,41 +1088,41 @@ Text Notes 10200 5000 0    50   ~ 0
 For future expansion
 Text Notes 9400 4900 0    50   ~ 0
 For future expansion
-Text Label 10100 4100 2    50   ~ 0
+Text Label 10100 4200 2    50   ~ 0
 ~FPµC2
-Text Label 10100 4000 2    50   ~ 0
+Text Label 10100 4100 2    50   ~ 0
 ~FPµC1
-Text Label 10100 3900 2    50   ~ 0
+Text Label 10100 4000 2    50   ~ 0
 ~FPµC0
-Text Label 10100 3800 2    50   ~ 0
+Text Label 10100 3900 2    50   ~ 0
 ~FPµA0
+Wire Wire Line
+	9500 4200 10100 4200
 Wire Wire Line
 	9500 4100 10100 4100
 Wire Wire Line
 	9500 4000 10100 4000
 Wire Wire Line
 	9500 3900 10100 3900
-Wire Wire Line
-	9500 3800 10100 3800
-Text Notes 10150 3800 0    50   ~ 0
-← DFP
 Text Notes 10150 3900 0    50   ~ 0
 ← DFP
 Text Notes 10150 4000 0    50   ~ 0
 ← DFP
 Text Notes 10150 4100 0    50   ~ 0
 ← DFP
-Wire Wire Line
-	9500 4200 10100 4200
-Wire Wire Line
-	9500 4300 10100 4300
-Text Label 10100 4200 2    50   ~ 0
-~FPIRL
-Text Label 10100 4300 2    50   ~ 0
-~FPIRH
 Text Notes 10150 4200 0    50   ~ 0
 ← DFP
+Wire Wire Line
+	9500 4300 10100 4300
+Wire Wire Line
+	9500 4400 10100 4400
+Text Label 10100 4300 2    50   ~ 0
+~FPIRL
+Text Label 10100 4400 2    50   ~ 0
+~FPIRH
 Text Notes 10150 4300 0    50   ~ 0
+← DFP
+Text Notes 10150 4400 0    50   ~ 0
 ← DFP
 Wire Wire Line
 	2650 6850 3250 6850
@@ -1169,8 +1163,14 @@ Text Label 3600 6350 0    50   ~ 0
 ~RESET
 Text Label 900  2250 0    50   ~ 0
 ~RESET
+Wire Wire Line
+	9500 2300 10100 2300
+Text Label 10100 2300 2    50   ~ 0
+~WEN
 Wire Bus Line
 	9950 1450 9950 2100
 Wire Bus Line
 	800  4850 800  5650
+Text Notes 10150 2300 0    50   ~ 0
+← BUS
 $EndSCHEMATC
