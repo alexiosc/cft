@@ -260,8 +260,6 @@ Wire Wire Line
 Wire Wire Line
 	4200 6950 3600 6950
 Wire Wire Line
-	4200 7050 3600 7050
-Wire Wire Line
 	4200 7200 3600 7200
 Text Label 3600 6350 0    50   ~ 0
 ~RESET
@@ -788,8 +786,6 @@ Wire Wire Line
 	1500 4550 900  4550
 Wire Bus Line
 	5350 2250 5950 2250
-Text Label 3600 2350 0    50   ~ 0
-WADDR[0..4]
 $Sheet
 S 4200 2100 1150 750 
 U 5F63066B
@@ -801,7 +797,7 @@ F4 "~FPIRL" I R 5350 2450 50
 F5 "~FPIRH" I R 5350 2550 50 
 F6 "FPD[0..7]" T R 5350 2650 50 
 F7 "CLK4" I L 4200 2250 50 
-F8 "WADDR[4..0]" T L 4200 2350 50 
+F8 "~WRITE-IR" I L 4200 2350 50 
 $EndSheet
 Wire Wire Line
 	4200 2250 3600 2250
@@ -815,8 +811,6 @@ Text Label 5950 3700 2    50   ~ 0
 IDX0
 Text Label 5950 3800 2    50   ~ 0
 IDX1
-Text Label 3600 3350 0    50   ~ 0
-RADDR[4..0]
 Wire Bus Line
 	3600 3700 4200 3700
 Text Label 3600 3700 0    50   ~ 0
@@ -832,7 +826,7 @@ F4 "PC[10..15]" I L 4200 3800 50
 F5 "~END" I L 4200 3450 50 
 F6 "IDX0" O R 5350 3700 50 
 F7 "IDX1" O R 5350 3800 50 
-F8 "RADDR[4..0]" I L 4200 3350 50 
+F8 "~READ-AGL" I L 4200 3350 50 
 $EndSheet
 $Sheet
 S 1500 6200 1150 1300
@@ -851,6 +845,7 @@ F10 "FZ" I L 1500 7100 50
 F11 "FN" I L 1500 7200 50 
 F12 "~FLAGWE" O R 2650 6450 50 
 F13 "CLK4" I L 1500 6350 50 
+F14 "~READ-AGL" O R 2650 6850 50 
 $EndSheet
 Wire Bus Line
 	1500 6450 900  6450
@@ -869,29 +864,11 @@ Wire Wire Line
 Text Label 900  6350 0    50   ~ 0
 CLK4
 Wire Wire Line
-	9500 3900 9850 3900
-Wire Wire Line
-	9500 4000 9850 4000
-Wire Wire Line
-	9500 4100 9850 4100
-Wire Wire Line
-	9500 4200 9850 4200
-Wire Wire Line
-	9500 4300 9850 4300
-NoConn ~ 9850 3900
-NoConn ~ 9850 4000
-NoConn ~ 9850 4100
-NoConn ~ 9850 4200
-NoConn ~ 9850 4300
-Wire Wire Line
 	9500 4400 9850 4400
 Wire Wire Line
 	9500 4500 9850 4500
-Wire Wire Line
-	9500 4600 9850 4600
 NoConn ~ 9850 4400
 NoConn ~ 9850 4500
-NoConn ~ 9850 4600
 Text Notes 10150 1700 0    50   ~ 0
 → BUS.MBU
 Text Notes 10150 1800 0    50   ~ 0
@@ -1041,8 +1018,8 @@ Wire Wire Line
 Text Label 10100 3600 2    50   ~ 0
 FPCLKEN
 Wire Wire Line
-	9500 3800 10100 3800
-Text Label 10100 3800 2    50   ~ 0
+	9500 4600 10100 4600
+Text Label 10100 4600 2    50   ~ 0
 POWEROK
 Entry Wire Line
 	800  5550 900  5450
@@ -1080,14 +1057,10 @@ Text Notes 10150 3500 0    50   ~ 0
 ← DFP
 Text Notes 10150 3600 0    50   ~ 0
 ← DFP
-Text Notes 10150 3800 0    50   ~ 0
+Text Notes 10150 4600 0    50   ~ 0
 ← PSU (backplane)
 Text Notes 10150 3700 0    50   ~ 0
 → DFP
-Wire Bus Line
-	4200 2350 3600 2350
-Wire Bus Line
-	4200 3350 3600 3350
 Wire Bus Line
 	4200 4650 3600 4650
 Wire Wire Line
@@ -1140,8 +1113,62 @@ Text Notes 10200 4900 0    50   ~ 0
 For future expansion
 Text Notes 10200 5000 0    50   ~ 0
 For future expansion
-Text Notes 10200 4700 0    50   ~ 0
+Text Notes 9400 4900 0    50   ~ 0
 For future expansion
+Text Label 10100 4100 2    50   ~ 0
+~FPµC2
+Text Label 10100 4000 2    50   ~ 0
+~FPµC1
+Text Label 10100 3900 2    50   ~ 0
+~FPµC0
+Text Label 10100 3800 2    50   ~ 0
+~FPµA0
+Wire Wire Line
+	9500 4100 10100 4100
+Wire Wire Line
+	9500 4000 10100 4000
+Wire Wire Line
+	9500 3900 10100 3900
+Wire Wire Line
+	9500 3800 10100 3800
+Text Notes 10150 3800 0    50   ~ 0
+← DFP
+Text Notes 10150 3900 0    50   ~ 0
+← DFP
+Text Notes 10150 4000 0    50   ~ 0
+← DFP
+Text Notes 10150 4100 0    50   ~ 0
+← DFP
+Wire Wire Line
+	9500 4200 10100 4200
+Wire Wire Line
+	9500 4300 10100 4300
+Text Label 10100 4200 2    50   ~ 0
+~FPIRL
+Text Label 10100 4300 2    50   ~ 0
+~FPIRH
+Text Notes 10150 4200 0    50   ~ 0
+← DFP
+Text Notes 10150 4300 0    50   ~ 0
+← DFP
+Wire Wire Line
+	2650 6850 3250 6850
+Text Label 3250 6850 2    50   ~ 0
+~READ-AGL
+Wire Wire Line
+	4200 3350 3600 3350
+Text Label 3600 3350 0    50   ~ 0
+~READ-AGL
+Text Label 3600 2350 0    50   ~ 0
+~WRITE-IR
+Wire Wire Line
+	4200 2350 3600 2350
+Wire Wire Line
+	4200 7050 3600 7050
+Wire Wire Line
+	2650 6950 3250 6950
+Text Label 3250 6950 2    50   ~ 0
+~WRITE-IR
 Wire Bus Line
 	9950 1450 9950 2100
 Wire Bus Line

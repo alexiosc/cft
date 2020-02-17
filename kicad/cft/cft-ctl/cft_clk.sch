@@ -804,7 +804,7 @@ AR Path="/5CD3AC27/5E38120E" Ref="R?"  Part="1"
 AR Path="/5E36D9C8/5E38120E" Ref="R17"  Part="1" 
 F 0 "R17" H 3092 3596 50  0000 R CNN
 F 1 "4.7kΩ" H 3092 3505 50  0000 R CNN
-F 2 "Resistor_SMD:R_0805_2012Metric" H 3150 3550 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3150 3550 50  0001 C CNN
 F 3 "~" H 3150 3550 50  0001 C CNN
 	1    3150 3550
 	1    0    0    -1  
@@ -834,7 +834,7 @@ AR Path="/5CD3AC27/5E381214" Ref="R?"  Part="1"
 AR Path="/5E36D9C8/5E381214" Ref="R16"  Part="1" 
 F 0 "R16" H 3242 3196 50  0000 R CNN
 F 1 "4.7kΩ" H 3242 3105 50  0000 R CNN
-F 2 "Resistor_SMD:R_0805_2012Metric" H 3300 3150 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3300 3150 50  0001 C CNN
 F 3 "~" H 3300 3150 50  0001 C CNN
 	1    3300 3150
 	1    0    0    -1  
@@ -902,46 +902,6 @@ Wire Wire Line
 Wire Wire Line
 	4600 4100 6400 4100
 $Comp
-L power:GND #PWR?
-U 1 1 5D635148
-P 7850 6100
-AR Path="/5D635148" Ref="#PWR?"  Part="1" 
-AR Path="/5E36D9C8/5D635148" Ref="#PWR089"  Part="1" 
-F 0 "#PWR089" H 7850 5850 50  0001 C CNN
-F 1 "GND" H 7855 5927 50  0000 C CNN
-F 2 "" H 7850 6100 50  0001 C CNN
-F 3 "" H 7850 6100 50  0001 C CNN
-	1    7850 6100
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR?
-U 1 1 5D63514E
-P 7850 5900
-AR Path="/5D63514E" Ref="#PWR?"  Part="1" 
-AR Path="/5E36D9C8/5D63514E" Ref="#PWR087"  Part="1" 
-F 0 "#PWR087" H 7850 5750 50  0001 C CNN
-F 1 "+5V" H 7865 6073 50  0000 C CNN
-F 2 "" H 7850 5900 50  0001 C CNN
-F 3 "" H 7850 5900 50  0001 C CNN
-	1    7850 5900
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 5D635154
-P 7850 6000
-AR Path="/5CC0D65F/5D635154" Ref="C?"  Part="1" 
-AR Path="/5D635154" Ref="C?"  Part="1" 
-AR Path="/5E36D9C8/5D635154" Ref="C26"  Part="1" 
-F 0 "C26" H 7759 6046 50  0000 R CNN
-F 1 "100nF" H 7759 5955 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 7850 6000 50  0001 C CNN
-F 3 "~" H 7850 6000 50  0001 C CNN
-	1    7850 6000
-	1    0    0    -1  
-$EndComp
-$Comp
 L power:+5V #PWR088
 U 1 1 5D635164
 P 9200 5900
@@ -978,19 +938,6 @@ F 3 "~" H 9200 6000 50  0001 C CNN
 	1    9200 6000
 	1    0    0    -1  
 $EndComp
-$Comp
-L alexios:74LVC1G04 U40
-U 2 1 5D63A62D
-P 8200 6000
-F 0 "U40" H 8380 6046 50  0000 L CNN
-F 1 "74LVC1G04" H 8380 5955 50  0000 L CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 8200 6000 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G04.pdf" H 8200 6000 50  0001 C CNN
-	2    8200 6000
-	1    0    0    -1  
-$EndComp
-Connection ~ 7850 6100
-Connection ~ 7850 5900
 $Comp
 L alexios:74LVC1G32 U39
 U 2 1 5D63A796

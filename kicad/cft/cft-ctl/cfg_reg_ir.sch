@@ -15,32 +15,6 @@ Comment3 ""
 Comment4 "reg_Ir.v"
 $EndDescr
 $Comp
-L alexios:74HC573 U?
-U 2 1 5F6441DB
-P 3000 6950
-AR Path="/5F4B0011/5F6441DB" Ref="U?"  Part="2" 
-AR Path="/5F63066B/5F6441DB" Ref="U12"  Part="2" 
-F 0 "U12" H 3030 7396 50  0000 L CNN
-F 1 "74HC573" H 3030 7305 50  0000 L CNN
-F 2 "alexios:SOIC-20W" H 3000 6950 50  0001 C CNN
-F 3 "74xx/74hc573.pdf" H 3000 6950 50  0001 C CNN
-	2    3000 6950
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74HC573 U?
-U 2 1 5F6441E1
-P 3000 7700
-AR Path="/5F4B0011/5F6441E1" Ref="U?"  Part="2" 
-AR Path="/5F63066B/5F6441E1" Ref="U33"  Part="2" 
-F 0 "U33" H 3030 8146 50  0000 L CNN
-F 1 "74HC573" H 3030 8055 50  0000 L CNN
-F 2 "alexios:SOIC-20W" H 3000 7700 50  0001 C CNN
-F 3 "74xx/74hc573.pdf" H 3000 7700 50  0001 C CNN
-	2    3000 7700
-	1    0    0    -1  
-$EndComp
-$Comp
 L power:+5V #PWR?
 U 1 1 5F6441E7
 P 2500 6450
@@ -124,10 +98,6 @@ F 3 "~" H 2500 7300 50  0001 C CNN
 	1    2500 7300
 	1    0    0    -1  
 $EndComp
-Connection ~ 2500 6650
-Connection ~ 2500 6450
-Connection ~ 2500 7400
-Connection ~ 2500 7200
 $Comp
 L power:+5V #PWR?
 U 1 1 5F64420F
@@ -665,53 +635,9 @@ Entry Wire Line
 Entry Wire Line
 	6700 5400 6800 5300
 Wire Wire Line
-	4500 5500 4500 4700
-Wire Wire Line
 	4500 5500 5300 5500
 Wire Wire Line
 	4500 3900 5300 3900
-$Comp
-L Device:C_Small C?
-U 1 1 5F64437B
-P 1050 6550
-AR Path="/5CC0D65F/5F64437B" Ref="C?"  Part="1" 
-AR Path="/5F64437B" Ref="C?"  Part="1" 
-AR Path="/5F4B0011/5F64437B" Ref="C?"  Part="1" 
-AR Path="/5F63066B/5F64437B" Ref="C10"  Part="1" 
-F 0 "C10" H 959 6596 50  0000 R CNN
-F 1 "100nF" H 959 6505 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 1050 6550 50  0001 C CNN
-F 3 "~" H 1050 6550 50  0001 C CNN
-	1    1050 6550
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR?
-U 1 1 5F644381
-P 1050 6450
-AR Path="/5F4B0011/5F644381" Ref="#PWR?"  Part="1" 
-AR Path="/5F63066B/5F644381" Ref="#PWR030"  Part="1" 
-F 0 "#PWR030" H 1050 6300 50  0001 C CNN
-F 1 "+5V" H 1065 6623 50  0000 C CNN
-F 2 "" H 1050 6450 50  0001 C CNN
-F 3 "" H 1050 6450 50  0001 C CNN
-	1    1050 6450
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5F644388
-P 1050 6650
-AR Path="/5F644388" Ref="#PWR?"  Part="1" 
-AR Path="/5F4B0011/5F644388" Ref="#PWR?"  Part="1" 
-AR Path="/5F63066B/5F644388" Ref="#PWR033"  Part="1" 
-F 0 "#PWR033" H 1050 6400 50  0001 C CNN
-F 1 "GND" H 1055 6477 50  0000 C CNN
-F 2 "" H 1050 6650 50  0001 C CNN
-F 3 "" H 1050 6650 50  0001 C CNN
-	1    1050 6650
-	1    0    0    -1  
-$EndComp
 Text Label 1250 2350 0    50   ~ 0
 ~FPIRL
 Text Label 1250 2450 0    50   ~ 0
@@ -810,63 +736,17 @@ Text Label 8400 5200 0    50   ~ 0
 FPD6
 Text Label 8400 5300 0    50   ~ 0
 FPD7
-Text Notes 2950 4300 1    50   ~ 10
-WADDR=00010
-Text HLabel 1200 3300 0    50   3State ~ 0
-WADDR[4..0]
-Text Label 1300 3300 0    50   ~ 0
-WADDR[4..0]
-Wire Bus Line
-	1200 3300 1800 3300
-Entry Bus Bus
-	1800 3300 1900 3400
-Entry Wire Line
-	1900 4350 2000 4450
-Entry Wire Line
-	1900 4250 2000 4350
-Entry Wire Line
-	1900 3750 2000 3850
-Entry Wire Line
-	1900 3650 2000 3750
-Entry Wire Line
-	1900 3550 2000 3650
 Text HLabel 1200 4750 0    50   Input ~ 0
 CLK4
-Text Label 2050 4450 0    50   ~ 0
-WADDR4
-Text Label 2050 4350 0    50   ~ 0
-WADDR3
-Text Label 2050 3850 0    50   ~ 0
-WADDR2
-Text Label 2050 3750 0    50   ~ 0
-WADDR1
-Text Label 2050 3650 0    50   ~ 0
-WADDR0
 Text Label 1250 4750 0    50   ~ 0
 CLK4
-Wire Wire Line
-	2400 4350 2000 4350
-Wire Wire Line
-	2400 4450 2000 4450
-Wire Wire Line
-	2400 3850 2000 3850
-Wire Wire Line
-	2400 3750 2000 3750
-Wire Wire Line
-	2400 3650 2000 3650
-NoConn ~ 3400 3650
-NoConn ~ 3400 3950
-NoConn ~ 3400 4050
-NoConn ~ 3400 4150
-NoConn ~ 3400 4250
-NoConn ~ 3400 4350
 $Comp
 L alexios:74HC574 U12
 U 1 1 61409CF5
 P 5800 3500
 F 0 "U12" H 5800 4267 50  0000 C CNN
 F 1 "74HC574" H 5800 4176 50  0000 C CNN
-F 2 "" H 5500 3450 50  0001 C CNN
+F 2 "alexios:SOIC-20W" H 5500 3450 50  0001 C CNN
 F 3 "http://www.ti.com/lit/ds/symlink/sn74hc574.pdf" H 5500 3450 50  0001 C CNN
 F 4 "Yes" H 5650 2550 50  0001 C CNN "Verified"
 	1    5800 3500
@@ -878,7 +758,7 @@ U 1 1 6140A7F8
 P 5800 5100
 F 0 "U33" H 5800 5867 50  0000 C CNN
 F 1 "74HC574" H 5800 5776 50  0000 C CNN
-F 2 "" H 5500 5050 50  0001 C CNN
+F 2 "alexios:SOIC-20W" H 5500 5050 50  0001 C CNN
 F 3 "http://www.ti.com/lit/ds/symlink/sn74hc574.pdf" H 5500 5050 50  0001 C CNN
 F 4 "Yes" H 5650 4150 50  0001 C CNN "Verified"
 	1    5800 5100
@@ -887,25 +767,25 @@ $EndComp
 $Comp
 L alexios:74HC574 U33
 U 2 1 6140C507
-P 4200 7300
-F 0 "U33" H 4380 7346 50  0000 L CNN
-F 1 "74HC574" H 4380 7255 50  0000 L CNN
-F 2 "" H 3900 7250 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/sn74hc574.pdf" H 3900 7250 50  0001 C CNN
-F 4 "Yes" H 4050 6350 50  0001 C CNN "Verified"
-	2    4200 7300
+P 2850 7300
+F 0 "U33" H 3030 7346 50  0000 L CNN
+F 1 "74HC574" H 3030 7255 50  0000 L CNN
+F 2 "alexios:SOIC-20W" H 2550 7250 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/sn74hc574.pdf" H 2550 7250 50  0001 C CNN
+F 4 "Yes" H 2700 6350 50  0001 C CNN "Verified"
+	2    2850 7300
 	1    0    0    -1  
 $EndComp
 $Comp
 L alexios:74HC574 U12
 U 2 1 6140CC9F
-P 4200 6550
-F 0 "U12" H 4380 6596 50  0000 L CNN
-F 1 "74HC574" H 4380 6505 50  0000 L CNN
-F 2 "" H 3900 6500 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/sn74hc574.pdf" H 3900 6500 50  0001 C CNN
-F 4 "Yes" H 4050 5600 50  0001 C CNN "Verified"
-	2    4200 6550
+P 2850 6550
+F 0 "U12" H 3030 6596 50  0000 L CNN
+F 1 "74HC574" H 3030 6505 50  0000 L CNN
+F 2 "alexios:SOIC-20W" H 2550 6500 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/sn74hc574.pdf" H 2550 6500 50  0001 C CNN
+F 4 "Yes" H 2700 5600 50  0001 C CNN "Verified"
+	2    2850 6550
 	1    0    0    -1  
 $EndComp
 Connection ~ 3850 6650
@@ -916,58 +796,13 @@ Text Label 4800 3900 0    50   ~ 0
 ~WRITE-IR
 Text Label 4800 5500 0    50   ~ 0
 ~WRITE-IR
-$Comp
-L alexios:74HC138 U23
-U 1 1 61410578
-P 2900 4050
-F 0 "U23" H 2900 4717 50  0000 C CNN
-F 1 "74HC138" H 2900 4626 50  0000 C CNN
-F 2 "" H 2900 4050 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 2900 4050 50  0001 C CNN
-F 4 "Yes" H 2825 3225 50  0001 C CNN "Verified"
-	1    2900 4050
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74HC138 U23
-U 2 1 61411009
-P 1400 6550
-F 0 "U23" H 1580 6596 50  0000 L CNN
-F 1 "74HC138" H 1580 6505 50  0000 L CNN
-F 2 "" H 1400 6550 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 1400 6550 50  0001 C CNN
-F 4 "Yes" H 1325 5725 50  0001 C CNN "Verified"
-	2    1400 6550
-	1    0    0    -1  
-$EndComp
-Connection ~ 1050 6450
-Connection ~ 1050 6650
 Wire Wire Line
 	4350 4700 4500 4700
 Connection ~ 4500 4700
 Wire Wire Line
 	4500 4700 4500 3900
 Wire Wire Line
-	3400 3850 3650 3850
-Wire Wire Line
-	3650 4650 3850 4650
-Wire Wire Line
 	3850 4750 1200 4750
-Wire Wire Line
-	2400 4250 2350 4250
-Wire Wire Line
-	2350 4250 2350 4200
-$Comp
-L power:+5V #PWR?
-U 1 1 614409DB
-P 2350 4200
-F 0 "#PWR?" H 2350 4050 50  0001 C CNN
-F 1 "+5V" H 2365 4373 50  0000 C CNN
-F 2 "" H 2350 4200 50  0001 C CNN
-F 3 "" H 2350 4200 50  0001 C CNN
-	1    2350 4200
-	1    0    0    -1  
-$EndComp
 $Comp
 L Device:C_Small C?
 U 1 1 6144DE30
@@ -975,8 +810,8 @@ P 1050 7300
 AR Path="/5CC0D65F/6144DE30" Ref="C?"  Part="1" 
 AR Path="/6144DE30" Ref="C?"  Part="1" 
 AR Path="/5F4B0011/6144DE30" Ref="C?"  Part="1" 
-AR Path="/5F63066B/6144DE30" Ref="C?"  Part="1" 
-F 0 "C?" H 959 7346 50  0000 R CNN
+AR Path="/5F63066B/6144DE30" Ref="C65"  Part="1" 
+F 0 "C65" H 959 7346 50  0000 R CNN
 F 1 "100nF" H 959 7255 50  0000 R CNN
 F 2 "Capacitor_SMD:C_0805_2012Metric" H 1050 7300 50  0001 C CNN
 F 3 "~" H 1050 7300 50  0001 C CNN
@@ -988,8 +823,8 @@ L power:+5V #PWR?
 U 1 1 6144DE36
 P 1050 7200
 AR Path="/5F4B0011/6144DE36" Ref="#PWR?"  Part="1" 
-AR Path="/5F63066B/6144DE36" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 1050 7050 50  0001 C CNN
+AR Path="/5F63066B/6144DE36" Ref="#PWR0162"  Part="1" 
+F 0 "#PWR0162" H 1050 7050 50  0001 C CNN
 F 1 "+5V" H 1065 7373 50  0000 C CNN
 F 2 "" H 1050 7200 50  0001 C CNN
 F 3 "" H 1050 7200 50  0001 C CNN
@@ -1002,8 +837,8 @@ U 1 1 6144DE3C
 P 1050 7400
 AR Path="/6144DE3C" Ref="#PWR?"  Part="1" 
 AR Path="/5F4B0011/6144DE3C" Ref="#PWR?"  Part="1" 
-AR Path="/5F63066B/6144DE3C" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 1050 7150 50  0001 C CNN
+AR Path="/5F63066B/6144DE3C" Ref="#PWR0165"  Part="1" 
+F 0 "#PWR0165" H 1050 7150 50  0001 C CNN
 F 1 "GND" H 1055 7227 50  0000 C CNN
 F 2 "" H 1050 7400 50  0001 C CNN
 F 3 "" H 1050 7400 50  0001 C CNN
@@ -1011,38 +846,71 @@ F 3 "" H 1050 7400 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L alexios:74LVC1G32 U?
+L alexios:74LVC1G32 U39
 U 1 1 61458F47
 P 4050 4700
-F 0 "U?" H 4100 4967 50  0000 C CNN
+F 0 "U39" H 4100 4967 50  0000 C CNN
 F 1 "74LVC1G32" H 4100 4876 50  0000 C CNN
-F 2 "" H 4160 4680 50  0001 C CNN
+F 2 "alexios:SOT-23-5_HandSoldering" H 4160 4680 50  0001 C CNN
 F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 4160 4680 50  0001 C CNN
 	1    4050 4700
 	1    0    0    -1  
 $EndComp
 $Comp
-L alexios:74LVC1G32 U?
+L alexios:74LVC1G32 U57
 U 2 1 61464092
 P 1450 7050
-F 0 "U?" H 1580 6846 50  0000 L CNN
+F 0 "U57" H 1580 6846 50  0000 L CNN
 F 1 "74LVC1G32" H 1580 6755 50  0000 L CNN
-F 2 "" H 1560 7030 50  0001 C CNN
+F 2 "alexios:SOT-23-5_HandSoldering" H 1560 7030 50  0001 C CNN
 F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 1560 7030 50  0001 C CNN
 	2    1450 7050
 	1    0    0    -1  
 $EndComp
 Connection ~ 1050 7400
 Connection ~ 1050 7200
-Wire Wire Line
-	3650 3850 3650 4650
-NoConn ~ 3400 3750
 Text Notes 950  2100 0    50   ~ 0
 The IR is a minor write-only register, and an integral part of the Control Unit. It holds the instruction being\nexecuted. It is written to from the IBus when WADDR is 00010. Data is clocked on the rising edge of CLK4,\nas with all writable units.\n\nIt's configured to output permanently, and its outputs are routed to the Control Store, where it is\ninterpreted. Parts of the IR are also routed off-board because they need to be intepreted by other units,\nlike the Memory Banking Unit (MBU).\n\nFor something as crucial as this, the design is trivial.\n\nThe IR has a couple of front panel buffers so it can be read by the DFP and displayed on the front panel.
 Text Notes 950  1050 0    98   ~ 20
 The Instruction Register
-Wire Bus Line
-	1900 3400 1900 4350
+Wire Wire Line
+	4500 5500 4500 4700
+Connection ~ 2500 6650
+Connection ~ 2500 6450
+Connection ~ 2500 7400
+Connection ~ 2500 7200
+$Comp
+L alexios:74HC541 U?
+U 2 1 5EE39DDA
+P 4200 6550
+AR Path="/5F4B0011/5EE39DDA" Ref="U?"  Part="1" 
+AR Path="/5F63066B/5EE39DDA" Ref="U11"  Part="2" 
+F 0 "U11" H 4379 6596 50  0000 L CNN
+F 1 "74HC541" H 4379 6505 50  0000 L CNN
+F 2 "alexios:SOIC-20W" H 4200 6550 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74HC541" H 4200 6550 50  0001 C CNN
+	2    4200 6550
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC541 U?
+U 2 1 5EE3A123
+P 4200 7300
+AR Path="/5F4B0011/5EE3A123" Ref="U?"  Part="1" 
+AR Path="/5F63066B/5EE3A123" Ref="U14"  Part="2" 
+F 0 "U14" H 4379 7346 50  0000 L CNN
+F 1 "74HC541" H 4379 7255 50  0000 L CNN
+F 2 "alexios:SOIC-20W" H 4200 7300 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74HC541" H 4200 7300 50  0001 C CNN
+	2    4200 7300
+	1    0    0    -1  
+$EndComp
+Text HLabel 1200 4650 0    50   Input ~ 0
+~WRITE-IR
+Text Label 1250 4650 0    50   ~ 0
+~WRITE-IR
+Wire Wire Line
+	1200 4650 3850 4650
 Wire Bus Line
 	6700 3100 6700 6050
 Wire Bus Line

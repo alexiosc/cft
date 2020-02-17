@@ -525,31 +525,31 @@ Wire Wire Line
 	3050 2500 3050 2600
 Wire Wire Line
 	2450 3500 2450 2150
-Text Notes 4600 5500 2    100  ~ 20
+Text Notes 4300 4850 2    100  ~ 20
 Auto-Index Address Decoding
 Wire Notes Line width 20 style solid
-	2100 5600 5100 5600
+	1800 4950 4800 4950
 Wire Notes Line width 20 style solid
-	5100 5600 5100 6400
+	4800 4950 4800 5750
 Wire Notes Line style solid
-	2100 5750 5100 5750
+	1800 5100 4800 5100
 Wire Notes Line width 20 style solid
-	2100 6400 5100 6400
+	1800 5750 4800 5750
 Wire Notes Line width 20 style solid
-	2100 5600 2100 6400
+	1800 4950 1800 5750
 Wire Notes Line
-	3350 5600 3350 6400
-Text Notes 2250 6800 0    50   ~ 0
+	3050 4950 3050 5750
+Text Notes 1950 6150 0    50   ~ 0
 When I and R are set, operands 300–33F generate addresses\nrelative to the bank register MBn, where n is taken from IR₂–IR₀.\nThis is implemented by the Address Generation Logic (AGL),\nnot here.
-Text Notes 2200 6550 2    50   ~ 0
+Text Notes 1900 5900 2    50   ~ 0
 *
-Text Notes 3600 6350 0    50   ~ 0
+Text Notes 3300 5700 0    50   ~ 0
 Meaning\n\nNormal Registers/Page Zero values\nNormal Registers/Page Zero values\nNormal Registers/Page Zero values\nNormal Registers *\nAuto-increment Registers *\nAuto-decrement Registers *\nStack Pointers *
-Text Notes 2700 6350 0    50   ~ 0
+Text Notes 2400 5700 0    50   ~ 0
 Binary Pattern\n\n1 1 00xxxxxxxx\n1 1 01xxxxxxxx\n1 1 10xxxxxxxx\n1 1 1100xxxxxx\n1 1 1101xxxxxx\n1 1 1110xxxxxx\n1 1 1111xxxxxx
-Text Notes 2150 6350 0    50   ~ 0
+Text Notes 1850 5700 0    50   ~ 0
 IR Value\n\nI R 000–0FF\nI R 100–1FF\nI R 200–2FF\nI R 300–33F\nI R 340–37F\nI R 380–3BF\nI R 3C0–3FF
-Text Notes 3400 6350 0    50   ~ 0
+Text Notes 3100 5700 0    50   ~ 0
 IDX\n\n00\n00\n00\n00\n01\n10\n11
 $Comp
 L power:+5V #PWR?
@@ -569,15 +569,15 @@ $EndComp
 $Comp
 L Device:C_Small C?
 U 1 1 60D21D0A
-P 9850 6150
+P 10200 6400
 AR Path="/5CC0D65F/60D21D0A" Ref="C?"  Part="1" 
 AR Path="/5CD3AC27/60D21D0A" Ref="C?"  Part="1" 
 AR Path="/5F3EA987/60D21D0A" Ref="C19"  Part="1" 
-F 0 "C19" H 9759 6196 50  0000 R CNN
-F 1 "100nF" H 9759 6105 50  0000 R CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric" H 9850 6150 50  0001 C CNN
-F 3 "~" H 9850 6150 50  0001 C CNN
-	1    9850 6150
+F 0 "C19" H 10109 6446 50  0000 R CNN
+F 1 "100nF" H 10109 6355 50  0000 R CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 10200 6400 50  0001 C CNN
+F 3 "~" H 10200 6400 50  0001 C CNN
+	1    10200 6400
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -597,16 +597,16 @@ $EndComp
 $Comp
 L power:+5V #PWR?
 U 1 1 60D21D16
-P 9850 6050
+P 10200 6300
 AR Path="/60D21D16" Ref="#PWR?"  Part="1" 
 AR Path="/5CC0D65F/60D21D16" Ref="#PWR?"  Part="1" 
 AR Path="/5CD3AC27/60D21D16" Ref="#PWR?"  Part="1" 
 AR Path="/5F3EA987/60D21D16" Ref="#PWR0123"  Part="1" 
-F 0 "#PWR0123" H 9850 5900 50  0001 C CNN
-F 1 "+5V" H 9865 6223 50  0000 C CNN
-F 2 "" H 9850 6050 50  0001 C CNN
-F 3 "" H 9850 6050 50  0001 C CNN
-	1    9850 6050
+F 0 "#PWR0123" H 10200 6150 50  0001 C CNN
+F 1 "+5V" H 10215 6473 50  0000 C CNN
+F 2 "" H 10200 6300 50  0001 C CNN
+F 3 "" H 10200 6300 50  0001 C CNN
+	1    10200 6300
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -628,34 +628,34 @@ $EndComp
 $Comp
 L power:GND #PWR?
 U 1 1 60D21D22
-P 9850 6250
+P 10200 6500
 AR Path="/60D21D22" Ref="#PWR?"  Part="1" 
 AR Path="/5CBF1647/60D21D22" Ref="#PWR?"  Part="1" 
 AR Path="/5CC0D65F/60D21D22" Ref="#PWR?"  Part="1" 
 AR Path="/5CD3AC27/60D21D22" Ref="#PWR?"  Part="1" 
 AR Path="/5F3EA987/60D21D22" Ref="#PWR0129"  Part="1" 
-F 0 "#PWR0129" H 9850 6000 50  0001 C CNN
-F 1 "GND" H 9855 6077 50  0000 C CNN
-F 2 "" H 9850 6250 50  0001 C CNN
-F 3 "" H 9850 6250 50  0001 C CNN
-	1    9850 6250
+F 0 "#PWR0129" H 10200 6250 50  0001 C CNN
+F 1 "GND" H 10205 6327 50  0000 C CNN
+F 2 "" H 10200 6500 50  0001 C CNN
+F 3 "" H 10200 6500 50  0001 C CNN
+	1    10200 6500
 	1    0    0    -1  
 $EndComp
 $Comp
 L alexios:74HC08 U?
 U 5 1 60D21D28
-P 10050 5600
+P 10400 5850
 AR Path="/5CD3AC27/60D21D28" Ref="U?"  Part="5" 
 AR Path="/5F3EA987/60D21D28" Ref="U24"  Part="5" 
-F 0 "U24" H 10380 5096 50  0000 L CNN
-F 1 "74HC08" H 10380 5005 50  0000 L CNN
-F 2 "alexios:SOIC-14" H 10250 5150 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 10250 5150 50  0001 C CNN
-	5    10050 5600
+F 0 "U24" H 10730 5346 50  0000 L CNN
+F 1 "74HC08" H 10730 5255 50  0000 L CNN
+F 2 "alexios:SOIC-14" H 10600 5400 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 10600 5400 50  0001 C CNN
+	5    10400 5850
 	1    0    0    -1  
 $EndComp
-Connection ~ 9850 6050
-Connection ~ 9850 6250
+Connection ~ 10200 6300
+Connection ~ 10200 6500
 $Comp
 L alexios:74HC238 U?
 U 2 1 60D21D31
@@ -678,80 +678,8 @@ Text Notes 5900 4200 0    98   ~ 20
 Auto-Indexing Logic (AIL)
 Text Notes 8000 5300 0    50   ~ 0
 IDX0 and IDX1 are not registered because they rely solely on the\ncurrent value of the IR. IR is latched during CLK4, so at worst\nIDX will be valid at CLK1 + ~20ns.
-$Comp
-L alexios:74HC138 U26
-U 1 1 60E11954
-P 3600 4350
-F 0 "U26" H 3600 5017 50  0000 C CNN
-F 1 "74HC138" H 3600 4926 50  0000 C CNN
-F 2 "alexios:SOIC-16" H 3600 4350 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 3600 4350 50  0001 C CNN
-F 4 "Yes" H 3525 3525 50  0001 C CNN "Verified"
-	1    3600 4350
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	3100 3950 2650 3950
-Wire Wire Line
-	3100 4050 2650 4050
-Wire Wire Line
-	3100 4150 2650 4150
-Wire Wire Line
-	3100 4650 2650 4650
-Wire Wire Line
-	3100 4750 2650 4750
-Text Label 2650 3950 0    50   ~ 0
-RADDR0
-Text Label 2650 4050 0    50   ~ 0
-RADDR1
-Text Label 2650 4150 0    50   ~ 0
-RADDR2
-Text Label 2650 4650 0    50   ~ 0
-RADDR3
-Text Label 2650 4750 0    50   ~ 0
-RADDR4
-$Comp
-L power:+5V #PWR0130
-U 1 1 60E537C0
-P 3050 4500
-F 0 "#PWR0130" H 3050 4350 50  0001 C CNN
-F 1 "+5V" H 3065 4673 50  0000 C CNN
-F 2 "" H 3050 4500 50  0001 C CNN
-F 3 "" H 3050 4500 50  0001 C CNN
-	1    3050 4500
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	3050 4500 3050 4550
-Wire Wire Line
-	3050 4550 3100 4550
-Text Notes 3650 4600 1    50   ~ 10
-RADDR=00010
-Text Label 4600 4050 2    50   ~ 0
+Text Label 1350 4050 0    50   ~ 0
 ~READ-AGL
-NoConn ~ 4100 3950
-NoConn ~ 4100 4150
-NoConn ~ 4100 4250
-NoConn ~ 4100 4350
-NoConn ~ 4100 4450
-NoConn ~ 4100 4550
-NoConn ~ 4100 4650
-Entry Wire Line
-	2550 3850 2650 3950
-Entry Wire Line
-	2550 3950 2650 4050
-Entry Wire Line
-	2550 4050 2650 4150
-Entry Wire Line
-	2550 4550 2650 4650
-Entry Wire Line
-	2550 4650 2650 4750
-Entry Bus Bus
-	2450 3650 2550 3750
-Wire Bus Line
-	2450 3650 1200 3650
-Text HLabel 1200 3650 0    50   Input ~ 0
-RADDR[4..0]
 Wire Bus Line
 	7650 2050 8950 2050
 Text Notes 2950 3500 0    50   ~ 0
@@ -762,7 +690,7 @@ U 1 1 61212E27
 P 4300 3400
 F 0 "R9" H 4275 3250 50  0000 R CNN
 F 1 "4.7kΩ" H 4000 3400 50  0000 L CNN
-F 2 "" H 4300 3400 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 4300 3400 50  0001 C CNN
 F 3 "~" H 4300 3400 50  0001 C CNN
 	1    4300 3400
 	1    0    0    -1  
@@ -775,7 +703,7 @@ U 1 1 61228AC4
 P 4500 3400
 F 0 "R10" H 4475 3250 50  0000 R CNN
 F 1 "4.7kΩ" H 4250 3550 50  0001 L CNN
-F 2 "" H 4500 3400 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 4500 3400 50  0001 C CNN
 F 3 "~" H 4500 3400 50  0001 C CNN
 	1    4500 3400
 	1    0    0    -1  
@@ -786,7 +714,7 @@ U 1 1 61228EC4
 P 4700 3400
 F 0 "R11" H 4675 3250 50  0000 R CNN
 F 1 "4.7kΩ" H 4450 3550 50  0001 L CNN
-F 2 "" H 4700 3400 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 4700 3400 50  0001 C CNN
 F 3 "~" H 4700 3400 50  0001 C CNN
 	1    4700 3400
 	1    0    0    -1  
@@ -797,7 +725,7 @@ U 1 1 6122919F
 P 4900 3400
 F 0 "R12" H 4875 3250 50  0000 R CNN
 F 1 "4.7kΩ" H 4650 3550 50  0001 L CNN
-F 2 "" H 4900 3400 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 4900 3400 50  0001 C CNN
 F 3 "~" H 4900 3400 50  0001 C CNN
 	1    4900 3400
 	1    0    0    -1  
@@ -808,7 +736,7 @@ U 1 1 61229459
 P 5100 3400
 F 0 "R23" H 5075 3250 50  0000 R CNN
 F 1 "4.7kΩ" H 4850 3550 50  0001 L CNN
-F 2 "" H 5100 3400 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5100 3400 50  0001 C CNN
 F 3 "~" H 5100 3400 50  0001 C CNN
 	1    5100 3400
 	1    0    0    -1  
@@ -819,7 +747,7 @@ U 1 1 61229788
 P 5300 3400
 F 0 "R51" H 5275 3250 50  0000 R CNN
 F 1 "4.7kΩ" H 5050 3550 50  0001 L CNN
-F 2 "" H 5300 3400 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5300 3400 50  0001 C CNN
 F 3 "~" H 5300 3400 50  0001 C CNN
 	1    5300 3400
 	1    0    0    -1  
@@ -912,8 +840,6 @@ Wire Notes Line width 24 style solid
 	10850 3150 10850 2550
 Wire Notes Line width 24 style solid
 	10850 3150 7800 3150
-Wire Wire Line
-	4100 4050 5600 4050
 Text Notes 5900 4600 0    50   ~ 0
 The Auto-Index Unit decodes the instruction operand and indicates to the Control Unit which (if any) auto-index\naddressing mode should be used. IDX is usually 00 (no indexing), unless the instruction has fields I and R set,\nand the operand is in the range &300–&3FF, i.e. IR8 and IR9 are set. In that case, the vector IR[6..7] sets\nIDX[0..1].
 Text HLabel 8950 6300 2    50   Output ~ 0
@@ -1084,10 +1010,82 @@ Wire Notes Line width 24 style solid
 	10850 1700 10850 800 
 Wire Notes Line width 24 style solid
 	10850 1700 7800 1700
+$Comp
+L alexios:74HC08 U?
+U 3 1 5EE44F45
+P 9950 5400
+AR Path="/5CD3AC27/5EE44F45" Ref="U?"  Part="1" 
+AR Path="/5F3EA987/5EE44F45" Ref="U24"  Part="3" 
+F 0 "U24" H 10075 5275 50  0000 C CNN
+F 1 "74HC08" H 10075 5184 50  0000 C CNN
+F 2 "alexios:SOIC-14" H 10150 4950 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 10150 4950 50  0001 C CNN
+	3    9950 5400
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC08 U?
+U 4 1 5EE45013
+P 10600 5400
+AR Path="/5CD3AC27/5EE45013" Ref="U?"  Part="1" 
+AR Path="/5F3EA987/5EE45013" Ref="U24"  Part="4" 
+F 0 "U24" H 10725 5275 50  0000 C CNN
+F 1 "74HC08" H 10725 5184 50  0000 C CNN
+F 2 "alexios:SOIC-14" H 10800 4950 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 10800 4950 50  0001 C CNN
+	4    10600 5400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9850 5750 9800 5750
+Wire Wire Line
+	9800 5750 9800 5850
+$Comp
+L power:GND #PWR0183
+U 1 1 5EE49357
+P 9800 5900
+F 0 "#PWR0183" H 9800 5650 50  0001 C CNN
+F 1 "GND" H 9805 5727 50  0000 C CNN
+F 2 "" H 9800 5900 50  0001 C CNN
+F 3 "" H 9800 5900 50  0001 C CNN
+	1    9800 5900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9850 5850 9800 5850
+Connection ~ 9800 5850
+Wire Wire Line
+	9800 5850 9800 5900
+Wire Wire Line
+	10500 5750 10450 5750
+Wire Wire Line
+	10450 5750 10450 5850
+$Comp
+L power:GND #PWR0186
+U 1 1 5EE4ED6F
+P 10450 5900
+F 0 "#PWR0186" H 10450 5650 50  0001 C CNN
+F 1 "GND" H 10455 5727 50  0000 C CNN
+F 2 "" H 10450 5900 50  0001 C CNN
+F 3 "" H 10450 5900 50  0001 C CNN
+	1    10450 5900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	10500 5850 10450 5850
+Connection ~ 10450 5850
+Wire Wire Line
+	10450 5850 10450 5900
+NoConn ~ 10300 5800
+NoConn ~ 10950 5800
+Wire Wire Line
+	1200 4050 5600 4050
+Text HLabel 1200 4050 0    50   Input ~ 0
+~READ-AGL
+Text Notes 1400 4150 0    50   ~ 0
+This is decoded by the flag unit.
 Wire Bus Line
 	1200 2050 5350 2050
-Wire Bus Line
-	2550 3750 2550 4650
 Wire Bus Line
 	2750 2500 2750 3100
 Wire Bus Line
