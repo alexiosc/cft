@@ -792,9 +792,9 @@ Connection ~ 3850 6450
 Connection ~ 3850 7400
 Connection ~ 3850 7200
 Text Label 4800 3900 0    50   ~ 0
-~WRITE-IR
+~WIR
 Text Label 4800 5500 0    50   ~ 0
-~WRITE-IR
+~WIR
 Wire Wire Line
 	4350 4700 4500 4700
 Connection ~ 4500 4700

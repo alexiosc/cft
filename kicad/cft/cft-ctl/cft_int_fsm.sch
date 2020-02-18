@@ -496,7 +496,7 @@ U 1 1 5ED75C31
 P 6050 5100
 F 0 "TP2" H 6050 5334 50  0000 C CNN
 F 1 "TestPoint" H 6108 5127 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Keystone_5010-5014_Multipurpose" H 6250 5100 50  0001 C CNN
+F 2 "TestPoint:TestPoint_Pad_1.0x1.0mm" H 6250 5100 50  0001 C CNN
 F 3 "~" H 6250 5100 50  0001 C CNN
 	1    6050 5100
 	1    0    0    -1  

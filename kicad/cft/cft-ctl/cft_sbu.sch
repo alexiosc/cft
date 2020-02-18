@@ -1048,13 +1048,13 @@ $EndComp
 $Comp
 L alexios:74AC32 U3
 U 3 1 5E77741B
-P 3900 3600
-F 0 "U3" H 3900 3675 50  0000 C CNN
-F 1 "74AC32" H 3900 3584 50  0000 C CNN
-F 2 "alexios:SOIC-14" H 3900 3600 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS32" H 3900 3600 50  0001 C CNN
-	3    3900 3600
-	1    0    0    -1  
+P 3900 4000
+F 0 "U3" H 3900 3533 50  0000 C CNN
+F 1 "74AC32" H 3900 3624 50  0000 C CNN
+F 2 "alexios:SOIC-14" H 3900 4000 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS32" H 3900 4000 50  0001 C CNN
+	3    3900 4000
+	1    0    0    1   
 $EndComp
 $Comp
 L alexios:74AC32 U3

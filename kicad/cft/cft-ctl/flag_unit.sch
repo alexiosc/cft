@@ -29,12 +29,6 @@ Text Label 7250 4900 0    50   ~ 0
 FPRSVD9
 Text Label 7250 4800 0    50   ~ 0
 FPRSVD8
-Wire Wire Line
-	7600 5400 7250 5400
-Wire Wire Line
-	7600 4900 7250 4900
-Wire Wire Line
-	7600 4800 7250 4800
 Text Label 7250 2150 0    50   ~ 0
 FI
 Text Label 7250 1950 0    50   ~ 0
@@ -57,10 +51,6 @@ Wire Wire Line
 	7600 1850 6950 1850
 Wire Wire Line
 	7600 1750 7050 1750
-Wire Wire Line
-	7600 1550 7250 1550
-Wire Wire Line
-	7600 1450 7250 1450
 Text Label 7250 2350 0    50   ~ 0
 ~FLAGOE
 Text Label 9700 6250 2    50   ~ 0
@@ -374,7 +364,7 @@ Wire Wire Line
 Wire Wire Line
 	6750 5500 7600 5500
 Wire Wire Line
-	6750 5400 1900 5400
+	6750 5500 1900 5500
 Wire Wire Line
 	6850 5300 1900 5300
 Wire Wire Line
@@ -383,7 +373,7 @@ Wire Wire Line
 	7050 5100 1900 5100
 Wire Wire Line
 	7150 5000 1900 5000
-Text HLabel 1900 5400 0    50   Input ~ 0
+Text HLabel 1900 5500 0    50   Input ~ 0
 FI
 Text HLabel 1900 5300 0    50   Input ~ 0
 FV
@@ -419,7 +409,7 @@ Text Label 2000 5200 0    50   ~ 0
 FL
 Text Label 2000 5300 0    50   ~ 0
 FV
-Text Label 2000 5400 0    50   ~ 0
+Text Label 2000 5500 0    50   ~ 0
 FI
 Text Label 7250 5400 0    50   ~ 0
 FPRSVD14
@@ -460,98 +450,6 @@ Text Label 8650 5400 0    50   ~ 0
 FPD6
 Text Label 8650 5500 0    50   ~ 0
 FPD7
-Text Notes 4000 6700 0    50   ~ 0
-These solder jumpers can be used to change the meanings\nof the unused LEDs on the flag section of the front panel.\nThey should be fully bridged (ground, LED off) until this is required.\n\nThe bridge between pads 2 and 3 can be cut to change a bit on the\nIBus but not on the front panel.\n\nTo change it for both, cut the bridge between pads 1 and 2.
-$Comp
-L Jumper:SolderJumper_3_Bridged123 JP1
-U 1 1 5E0D2D96
-P 4300 7150
-F 0 "JP1" V 4300 7217 50  0000 L CNN
-F 1 "SolderJumper_3_Bridged123" V 4255 7217 50  0001 L CNN
-F 2 "Jumper:SolderJumper-3_P1.3mm_Bridged2Bar12_Pad1.0x1.5mm" H 4300 7150 50  0001 C CNN
-F 3 "~" H 4300 7150 50  0001 C CNN
-	1    4300 7150
-	0    -1   -1   0   
-$EndComp
-Wire Wire Line
-	4450 7150 4800 7150
-Text Label 4800 7150 2    50   ~ 0
-FPRSVD8
-Wire Wire Line
-	4300 6950 4000 6950
-Text Label 4000 6950 0    50   ~ 0
-RSVD8
-$Comp
-L power:GND #PWR0173
-U 1 1 5E0E6829
-P 4300 7350
-F 0 "#PWR0173" H 4300 7100 50  0001 C CNN
-F 1 "GND" H 4305 7177 50  0000 C CNN
-F 2 "" H 4300 7350 50  0001 C CNN
-F 3 "" H 4300 7350 50  0001 C CNN
-	1    4300 7350
-	1    0    0    -1  
-$EndComp
-$Comp
-L Jumper:SolderJumper_3_Bridged123 JP2
-U 1 1 5E0F938B
-P 5250 7150
-F 0 "JP2" V 5250 7217 50  0000 L CNN
-F 1 "SolderJumper_3_Bridged123" V 5205 7217 50  0001 L CNN
-F 2 "Jumper:SolderJumper-3_P1.3mm_Bridged2Bar12_Pad1.0x1.5mm" H 5250 7150 50  0001 C CNN
-F 3 "~" H 5250 7150 50  0001 C CNN
-	1    5250 7150
-	0    -1   -1   0   
-$EndComp
-Wire Wire Line
-	5400 7150 5750 7150
-Text Label 5750 7150 2    50   ~ 0
-FPRSVD9
-Wire Wire Line
-	5250 6950 4950 6950
-Text Label 4950 6950 0    50   ~ 0
-RSVD9
-$Comp
-L power:GND #PWR0174
-U 1 1 5E0F9395
-P 5250 7350
-F 0 "#PWR0174" H 5250 7100 50  0001 C CNN
-F 1 "GND" H 5255 7177 50  0000 C CNN
-F 2 "" H 5250 7350 50  0001 C CNN
-F 3 "" H 5250 7350 50  0001 C CNN
-	1    5250 7350
-	1    0    0    -1  
-$EndComp
-$Comp
-L Jumper:SolderJumper_3_Bridged123 JP3
-U 1 1 5E104138
-P 6200 7150
-F 0 "JP3" V 6200 7217 50  0000 L CNN
-F 1 "SolderJumper_3_Bridged123" V 6155 7217 50  0001 L CNN
-F 2 "Jumper:SolderJumper-3_P1.3mm_Bridged2Bar12_Pad1.0x1.5mm" H 6200 7150 50  0001 C CNN
-F 3 "~" H 6200 7150 50  0001 C CNN
-	1    6200 7150
-	0    -1   -1   0   
-$EndComp
-Wire Wire Line
-	6350 7150 6700 7150
-Text Label 6700 7150 2    50   ~ 0
-FPRSVD14
-Wire Wire Line
-	6200 6950 5900 6950
-Text Label 5900 6950 0    50   ~ 0
-RSVD14
-$Comp
-L power:GND #PWR0175
-U 1 1 5E104142
-P 6200 7350
-F 0 "#PWR0175" H 6200 7100 50  0001 C CNN
-F 1 "GND" H 6205 7177 50  0000 C CNN
-F 2 "" H 6200 7350 50  0001 C CNN
-F 3 "" H 6200 7350 50  0001 C CNN
-	1    6200 7350
-	1    0    0    -1  
-$EndComp
 $Comp
 L power:+5V #PWR?
 U 1 1 5DDC2767
@@ -695,8 +593,6 @@ Wire Wire Line
 	8600 2050 8950 2050
 Wire Wire Line
 	5500 3250 9800 3250
-Wire Wire Line
-	7600 2050 7250 2050
 Text Notes 7650 2950 0    98   ~ 20
 IBus Buffer
 $Comp
@@ -825,15 +721,10 @@ Connection ~ 2550 6450
 Connection ~ 2550 6650
 Connection ~ 1050 6450
 Connection ~ 1050 6650
-Connection ~ 6750 5400
-Wire Wire Line
-	6750 5400 6750 5500
 Connection ~ 6850 5300
 Connection ~ 6950 5200
 Connection ~ 7050 5100
 Connection ~ 7150 5000
-Wire Wire Line
-	6750 2150 6750 5400
 Wire Wire Line
 	6850 1950 6850 5300
 Wire Wire Line
@@ -873,11 +764,11 @@ Wire Wire Line
 Wire Wire Line
 	6650 2350 6650 4500
 Wire Wire Line
-	4150 4650 6400 4650
+	4150 4650 6000 4650
 Wire Wire Line
-	6400 4650 6400 4050
+	6000 4650 6000 4050
 Wire Wire Line
-	6400 4050 9800 4050
+	6000 4050 9800 4050
 Text Label 5000 4650 2    50   ~ 0
 ~READ-AGL
 Text HLabel 9800 4050 2    50   Output ~ 0
@@ -1012,12 +903,145 @@ Text HLabel 9800 3650 2    50   Output ~ 0
 ~WRITE-IR
 Text Label 9700 3650 2    50   ~ 0
 ~WRITE-IR
-Wire Bus Line
-	2700 3800 2700 4550
+Connection ~ 6750 5500
+Wire Wire Line
+	6750 2150 6750 5500
+Text Notes 4000 6700 0    50   ~ 0
+These solder jumpers can be used to change the meanings\nof the unused LEDs on the flag section of the front panel.\nThey should be fully bridged (ground, LED off) until this is required.\n\nThe bridge between pads 2 and 3 can be cut to change a bit on the\nIBus but not on the front panel.\n\nTo change it for both, cut the bridge between pads 1 and 2.
+Connection ~ 6200 4900
+Connection ~ 6200 5400
+Wire Wire Line
+	6200 4800 6200 4900
+Wire Wire Line
+	6200 4900 6200 5400
+Wire Wire Line
+	6200 5400 6200 5750
+$Comp
+L power:GND #PWR06
+U 1 1 61E0C769
+P 6200 5750
+F 0 "#PWR06" H 6200 5500 50  0001 C CNN
+F 1 "GND" H 6205 5577 50  0000 C CNN
+F 2 "" H 6200 5750 50  0001 C CNN
+F 3 "" H 6200 5750 50  0001 C CNN
+	1    6200 5750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6500 1450 7600 1450
+Wire Wire Line
+	6500 2050 7600 2050
+Wire Wire Line
+	6500 1550 7600 1550
+Wire Wire Line
+	6150 1550 6150 2050
+Connection ~ 6150 1550
+Wire Wire Line
+	6200 1550 6150 1550
+Wire Wire Line
+	6150 2050 6150 2100
+Connection ~ 6150 2050
+Wire Wire Line
+	6200 2050 6150 2050
+$Comp
+L power:GND #PWR05
+U 1 1 61DEC249
+P 6150 2100
+F 0 "#PWR05" H 6150 1850 50  0001 C CNN
+F 1 "GND" H 6155 1927 50  0000 C CNN
+F 2 "" H 6150 2100 50  0001 C CNN
+F 3 "" H 6150 2100 50  0001 C CNN
+	1    6150 2100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6150 1450 6150 1550
+Wire Wire Line
+	6200 1450 6150 1450
+$Comp
+L Jumper:SolderJumper_2_Bridged JP9
+U 1 1 61DDEA8A
+P 6350 2050
+F 0 "JP9" H 6550 2100 50  0000 L CNN
+F 1 "SolderJumper_2_Bridged" H 6350 2164 50  0001 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 6350 2050 50  0001 C CNN
+F 3 "~" H 6350 2050 50  0001 C CNN
+	1    6350 2050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Jumper:SolderJumper_2_Bridged JP8
+U 1 1 61DDCD31
+P 6350 1550
+F 0 "JP8" H 6550 1600 50  0000 L CNN
+F 1 "SolderJumper_2_Bridged" H 6350 1664 50  0001 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 6350 1550 50  0001 C CNN
+F 3 "~" H 6350 1550 50  0001 C CNN
+	1    6350 1550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Jumper:SolderJumper_2_Bridged JP7
+U 1 1 61DDC47B
+P 6350 1450
+F 0 "JP7" H 6550 1500 50  0000 L CNN
+F 1 "SolderJumper_2_Bridged" H 6350 1564 50  0001 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 6350 1450 50  0001 C CNN
+F 3 "~" H 6350 1450 50  0001 C CNN
+	1    6350 1450
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6250 5400 6200 5400
+Wire Wire Line
+	6550 5400 7600 5400
+Wire Wire Line
+	6250 4900 6200 4900
+Wire Wire Line
+	6550 4900 7600 4900
+Wire Wire Line
+	6250 4800 6200 4800
+Wire Wire Line
+	6550 4800 7600 4800
 Wire Bus Line
 	2700 2500 2700 3250
 Wire Bus Line
-	9050 1550 9050 2850
+	2700 3800 2700 4550
 Wire Bus Line
 	9050 4900 9050 6150
+Wire Bus Line
+	9050 1550 9050 2850
+$Comp
+L Jumper:SolderJumper_2_Bridged JP12
+U 1 1 61E0C761
+P 6400 5400
+F 0 "JP12" H 5950 5400 50  0000 L CNN
+F 1 "SolderJumper_2_Bridged" H 6400 5514 50  0001 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 6400 5400 50  0001 C CNN
+F 3 "~" H 6400 5400 50  0001 C CNN
+	1    6400 5400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Jumper:SolderJumper_2_Bridged JP11
+U 1 1 61E0C75B
+P 6400 4900
+F 0 "JP11" H 5950 4900 50  0000 L CNN
+F 1 "SolderJumper_2_Bridged" H 6400 5014 50  0001 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 6400 4900 50  0001 C CNN
+F 3 "~" H 6400 4900 50  0001 C CNN
+	1    6400 4900
+	1    0    0    -1  
+$EndComp
+$Comp
+L Jumper:SolderJumper_2_Bridged JP10
+U 1 1 61E0C755
+P 6400 4800
+F 0 "JP10" H 5950 4800 50  0000 L CNN
+F 1 "SolderJumper_2_Bridged" H 6400 4914 50  0001 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 6400 4800 50  0001 C CNN
+F 3 "~" H 6400 4800 50  0001 C CNN
+	1    6400 4800
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
