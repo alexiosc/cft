@@ -1,5 +1,6 @@
 EESchema Schematic File Version 4
-EELAYER 30 0
+LIBS:cft-ctl-cache
+EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -1171,12 +1172,12 @@ Text Notes 10150 2300 0    50   ~ 0
 ← BUS
 Wire Wire Line
 	9500 4500 10100 4500
-Wire Bus Line
-	9950 1450 9950 2100
-Wire Bus Line
-	800  4850 800  5650
 Text Notes 10150 4500 0    50   ~ 0
 ← DFP
 Text Label 10100 4500 2    50   ~ 0
 ~FPFLAGS
+Wire Bus Line
+	9950 1450 9950 2100
+Wire Bus Line
+	800  4850 800  5650
 $EndSCHEMATC

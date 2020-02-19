@@ -1,5 +1,6 @@
 EESchema Schematic File Version 4
-EELAYER 30 0
+LIBS:cft-ctl-cache
+EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -63,40 +64,16 @@ Wire Wire Line
 Wire Wire Line
 	3100 4750 2950 4750
 Connection ~ 2950 4750
-$Comp
-L Device:C_Small C?
-U 1 1 5E381133
-P 2500 4600
-AR Path="/5CC0D65F/5E381133" Ref="C?"  Part="1" 
-AR Path="/5E381133" Ref="C?"  Part="1" 
-AR Path="/5E36D9C8/5E381133" Ref="C24"  Part="1" 
-F 0 "C24" H 2409 4646 50  0000 R CNN
-F 1 "10µF" H 2409 4555 50  0000 R CNN
-F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2500 4600 50  0001 C CNN
-F 3 "~" H 2500 4600 50  0001 C CNN
-	1    2500 4600
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	2500 4450 2750 4450
-Wire Wire Line
-	2500 4750 2750 4750
 Wire Wire Line
 	2750 4400 2750 4450
-Connection ~ 2750 4450
 Wire Wire Line
 	2750 4450 2950 4450
 Wire Wire Line
 	2750 4800 2750 4750
-Connection ~ 2750 4750
 Wire Wire Line
 	2750 4750 2950 4750
 Text Label 3950 4600 0    50   ~ 0
 CLK
-Wire Wire Line
-	2500 4700 2500 4750
-Wire Wire Line
-	2500 4500 2500 4450
 Text Label 1550 3300 0    50   ~ 0
 FPCLK
 Text HLabel 1500 3300 0    50   Input ~ 0
@@ -1047,19 +1024,6 @@ $EndComp
 Connection ~ 3100 7300
 Connection ~ 3100 7500
 $Comp
-L alexios:CXO_DIP8 X?
-U 1 1 5E381107
-P 3400 4550
-AR Path="/5E381107" Ref="X?"  Part="1" 
-AR Path="/5E36D9C8/5E381107" Ref="X1"  Part="1" 
-F 0 "X1" H 3500 4917 50  0000 C CNN
-F 1 "CXO_DIP8" H 3500 4826 50  0000 C CNN
-F 2 "alexios:Oscillator_DIP-8-socket" H 3550 4150 50  0001 C CNN
-F 3 "http://cdn-reichelt.de/documents/datenblatt/B400/OSZI.pdf" H 3500 4500 50  0001 C CNN
-	1    3400 4550
-	1    0    0    -1  
-$EndComp
-$Comp
 L power:+5V #PWR?
 U 1 1 5E0821E1
 P 3950 4400
@@ -1305,4 +1269,41 @@ Text Label 1600 1950 0    50   ~ 0
 POWEROK
 Text Notes 1450 1250 0    50   ~ 0
 There are four reset sources for the ~RESET~ signal: devices\non the bus, the ~FPRESET~ from the DFP, the POWEROK signal\nfrom the PSU, and an optional tactile switch and/or 2-pin jumper.\nThese are ORred together with diode logic and fed back to the\nbus ~RESET~ signal. All ~RESET~ drivers are open drain, so that's\nokay.
+Wire Wire Line
+	2500 4500 2500 4450
+Wire Wire Line
+	2500 4700 2500 4750
+Connection ~ 2750 4750
+Wire Wire Line
+	2500 4750 2750 4750
+Connection ~ 2750 4450
+Wire Wire Line
+	2500 4450 2750 4450
+$Comp
+L Device:C_Small C?
+U 1 1 5E381133
+P 2500 4600
+AR Path="/5CC0D65F/5E381133" Ref="C?"  Part="1" 
+AR Path="/5E381133" Ref="C?"  Part="1" 
+AR Path="/5E36D9C8/5E381133" Ref="C24"  Part="1" 
+F 0 "C24" H 2409 4646 50  0000 R CNN
+F 1 "10µF" H 2409 4555 50  0000 R CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2500 4600 50  0001 C CNN
+F 3 "~" H 2500 4600 50  0001 C CNN
+	1    2500 4600
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:CXO X1
+U 1 1 5E4EF57E
+P 3400 4550
+F 0 "X1" H 3500 4917 50  0000 C CNN
+F 1 "16 MHz" H 3500 4826 50  0000 C CNN
+F 2 "alexios:Crystal_SMD_7050-4Pin_7.0x5.0mm" H 3550 3950 50  0001 C CNN
+F 3 "https://gr.mouser.com/datasheet/2/741/LFSPXO022296Bulk-985375.pdf" H 3500 4500 50  0001 C CNN
+F 4 "Yes" H 3500 4825 50  0001 C CNN "Verified"
+F 5 "449-LFSPXO022296BULK" H 3200 3850 50  0001 C CNN "BOM-Mouser"
+	1    3400 4550
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
