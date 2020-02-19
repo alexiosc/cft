@@ -361,20 +361,6 @@ Wire Wire Line
 	7350 3650 7000 3650
 Wire Wire Line
 	7350 3750 7000 3750
-$Comp
-L alexios:SN74ACT1071 U?
-U 1 1 5E1680B3
-P 7850 3850
-AR Path="/5DEAC282/5DEAA264/5E1680B3" Ref="U?"  Part="1" 
-AR Path="/5DEAC282/5E1680B3" Ref="U47"  Part="1" 
-AR Path="/5E1680B3" Ref="U?"  Part="1" 
-F 0 "U47" H 7800 4650 50  0000 L CNN
-F 1 "SN74ACT1071" H 7600 4550 50  0000 L CNN
-F 2 "alexios:SOIC-14" H 7550 4200 50  0001 C CNN
-F 3 "https://www.ti.com/lit/ds/symlink/sn74act1071.pdf" H 7550 4200 50  0001 C CNN
-	1    7850 3850
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	7350 3850 7000 3850
 Text Label 7000 3850 0    50   ~ 0
@@ -775,10 +761,6 @@ F 3 "" H 5900 7300 50  0001 C CNN
 $EndComp
 Connection ~ 5900 7300
 Connection ~ 5900 7500
-NoConn ~ 7350 3950
-NoConn ~ 7350 4050
-NoConn ~ 7350 4150
-NoConn ~ 7350 4250
 Wire Wire Line
 	1150 1850 1350 1850
 $Comp
@@ -1540,6 +1522,50 @@ F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 1000 6500 50  0001 C CNN
 	2    1350 6500
 	1    0    0    -1  
 $EndComp
+$Comp
+L alexios:SN74ACT1071 U?
+U 1 1 5E1680B3
+P 7850 3850
+AR Path="/5DEAC282/5DEAA264/5E1680B3" Ref="U?"  Part="1" 
+AR Path="/5DEAC282/5E1680B3" Ref="U47"  Part="1" 
+AR Path="/5E1680B3" Ref="U?"  Part="1" 
+F 0 "U47" H 7800 4650 50  0000 L CNN
+F 1 "SN74ACT1071" H 7600 4550 50  0000 L CNN
+F 2 "alexios:SOIC-14" H 7550 4200 50  0001 C CNN
+F 3 "https://www.ti.com/lit/ds/symlink/sn74act1071.pdf" H 7550 4200 50  0001 C CNN
+	1    7850 3850
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR0114
+U 1 1 61FE2DF7
+P 7200 3950
+F 0 "#PWR0114" H 7200 3800 50  0001 C CNN
+F 1 "+5V" V 7215 4078 50  0000 L CNN
+F 2 "" H 7200 3950 50  0001 C CNN
+F 3 "" H 7200 3950 50  0001 C CNN
+	1    7200 3950
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	7200 3950 7300 3950
+Wire Wire Line
+	7300 3950 7300 4050
+Wire Wire Line
+	7300 4250 7350 4250
+Connection ~ 7300 3950
+Wire Wire Line
+	7300 3950 7350 3950
+Wire Wire Line
+	7350 4050 7300 4050
+Connection ~ 7300 4050
+Wire Wire Line
+	7300 4050 7300 4150
+Wire Wire Line
+	7350 4150 7300 4150
+Connection ~ 7300 4150
+Wire Wire Line
+	7300 4150 7300 4250
 Wire Bus Line
 	4550 2650 4550 3400
 Wire Bus Line

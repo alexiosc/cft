@@ -981,7 +981,7 @@ Wire Wire Line
 Wire Wire Line
 	9500 3500 10100 3500
 Text Label 10100 3500 2    50   ~ 0
-FPRESET
+~FPRESET
 Wire Wire Line
 	9500 3600 10100 3600
 Text Label 10100 3600 2    50   ~ 0

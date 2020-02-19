@@ -58,7 +58,7 @@ Entry Bus Bus
 Text Label 1100 1500 0    50   ~ 0
 ~SKIPEXT
 Text Label 8300 4600 3    50   ~ 0
-~COND0
+~COND₀
 $Comp
 L alexios:74LVC1G74 U?
 U 2 1 5F031452
@@ -525,8 +525,6 @@ F 3 "" H 9900 5800 50  0001 C CNN
 $EndComp
 Text Label 9900 5700 2    50   ~ 0
 CLK4
-Text Label 8650 5600 2    50   ~ 0
-~COND0
 Text HLabel 10700 4050 2    50   Output ~ 0
 ~COND
 NoConn ~ 10800 5800
@@ -631,7 +629,7 @@ Wire Wire Line
 	8300 4050 8300 5600
 Connection ~ 8300 4050
 Text Label 8300 2350 3    50   ~ 0
-~COND0
+~COND₀
 $Comp
 L alexios:74AHC1G86 U?
 U 1 1 5F03165A
@@ -1115,7 +1113,7 @@ Wire Wire Line
 Text Label 9900 5500 2    50   ~ 0
 ~RESET
 Text Label 9900 5600 2    50   ~ 0
-~COND1
+~COND₁
 Wire Notes Line width 24 style solid
 	8450 3750 10100 3750
 Wire Notes Line width 24 style solid
@@ -1471,4 +1469,6 @@ Wire Bus Line
 	1400 1800 1400 4350
 Wire Bus Line
 	5750 1800 5750 2500
+Text Label 8650 5600 2    50   ~ 0
+~COND₀
 $EndSCHEMATC
