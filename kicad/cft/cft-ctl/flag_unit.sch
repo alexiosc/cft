@@ -266,7 +266,7 @@ Wire Wire Line
 	3150 4650 2800 4650
 Wire Wire Line
 	3150 4550 2800 4550
-Text Label 5550 3250 0    50   ~ 0
+Text Label 6000 3250 0    50   ~ 0
 ~FLAGWE
 Wire Wire Line
 	4150 4450 5000 4450
@@ -316,14 +316,10 @@ F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 3650 4350 50  0001 C CNN
 $EndComp
 Text Notes 3700 4600 1    50   ~ 10
 RADDR=011xx
-Text Label 5000 3250 2    50   ~ 0
+Text Label 4900 3250 2    50   ~ 0
 ~WRITE-FLAGS
-Text Label 5000 3150 2    50   ~ 0
+Text Label 4900 3150 2    50   ~ 0
 ~WRITE-MBP+FLAGS
-Wire Wire Line
-	4150 3250 5000 3250
-Wire Wire Line
-	4150 3150 5000 3150
 Text Label 2800 2850 0    50   ~ 0
 WADDR2
 Text Label 2800 2750 0    50   ~ 0
@@ -573,9 +569,9 @@ F 3 "http://www.ti.com/lit/gpn/sn74HC541" H 9900 5250 50  0001 C CNN
 $EndComp
 Connection ~ 9550 5350
 Connection ~ 9550 5150
-Text HLabel 4750 3350 0    50   Input ~ 0
+Text HLabel 4900 2950 0    50   Input ~ 0
 CLK4
-Text Label 5000 3350 2    50   ~ 0
+Text Label 5450 3250 2    50   ~ 0
 CLK4
 Text Notes 7500 4400 0    98   ~ 20
 Front Panel Buffer
@@ -583,17 +579,17 @@ $Comp
 L alexios:74LVC1G08 U29
 U 1 1 610F934E
 P 5300 4500
-F 0 "U29" H 5225 4767 50  0000 C CNN
-F 1 "74LVC1G08" H 5225 4676 50  0000 C CNN
+F 0 "U29" H 5225 4233 50  0000 C CNN
+F 1 "74LVC1G08" H 5225 4324 50  0000 C CNN
 F 2 "alexios:SOT-23-5_HandSoldering" H 4950 4500 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 4950 4500 50  0001 C CNN
 	1    5300 4500
-	1    0    0    -1  
+	1    0    0    1   
 $EndComp
 Wire Wire Line
 	8600 2050 8950 2050
 Wire Wire Line
-	5500 3250 9800 3250
+	5950 3250 10250 3250
 Text Notes 7650 2950 0    98   ~ 20
 IBus Buffer
 $Comp
@@ -752,16 +748,16 @@ $EndComp
 $Comp
 L alexios:74LVC1G11 U7
 U 1 1 5E604CC6
-P 5300 3200
-F 0 "U7" H 5250 3464 50  0000 C CNN
-F 1 "74LVC1G11" H 5250 3373 50  0000 C CNN
-F 2 "alexios:SOT-23-6_Handsoldering" H 5200 3125 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G11.pdf" H 5200 3125 50  0001 C CNN
-	1    5300 3200
+P 5750 3200
+F 0 "U7" H 5700 3464 50  0000 C CNN
+F 1 "74LVC1G11" H 5700 3373 50  0000 C CNN
+F 2 "alexios:SOT-23-6_Handsoldering" H 5650 3125 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G11.pdf" H 5650 3125 50  0001 C CNN
+	1    5750 3200
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	4750 3350 5000 3350
+	5200 3250 5450 3250
 Wire Wire Line
 	6650 2350 6650 4500
 Wire Wire Line
@@ -961,6 +957,18 @@ Wire Wire Line
 	6150 1550 7600 1550
 Text Notes 6150 1150 0    50   ~ 0
 These traces are named, but connected to ground directly.\nThe traces on the board are long so they can be cut and the\nsignals repurposed (e.g. tied to Vcc).
+Wire Wire Line
+	5200 2950 5200 3250
+Wire Wire Line
+	5100 3250 5100 3350
+Wire Wire Line
+	5100 3350 5450 3350
+Wire Wire Line
+	4150 3250 5100 3250
+Wire Wire Line
+	4150 3150 5450 3150
+Wire Wire Line
+	4900 2950 5200 2950
 Wire Bus Line
 	2700 3800 2700 4550
 Wire Bus Line
