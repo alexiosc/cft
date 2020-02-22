@@ -1306,4 +1306,23 @@ F 5 "449-LFSPXO022296BULK" H 3200 3850 50  0001 C CNN "BOM-Mouser"
 	1    3400 4550
 	1    0    0    -1  
 $EndComp
+Text HLabel 10800 4850 2    50   UnSpc ~ 0
+WSTB
+$Comp
+L Connector:TestPoint TP1
+U 1 1 5E57D314
+P 10250 4850
+F 0 "TP1" V 10353 4924 50  0000 C CNN
+F 1 "TestPoint" V 10354 4924 50  0001 C CNN
+F 2 "TestPoint:TestPoint_Pad_1.0x1.0mm" H 10450 4850 50  0001 C CNN
+F 3 "~" H 10450 4850 50  0001 C CNN
+	1    10250 4850
+	0    -1   -1   0   
+$EndComp
+Text Label 10350 4850 0    50   ~ 0
+WSTB
+Wire Wire Line
+	10250 4850 10800 4850
+Text Notes 9950 5100 0    50   ~ 0
+Just in case it's necessary\nfor future clock uses.
 $EndSCHEMATC

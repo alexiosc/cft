@@ -123,6 +123,7 @@ F9 "POWEROK" I L 1500 2850 50
 F10 "~FPRESET" I L 1500 2400 50 
 F11 "~FPCLK~⁄CLK" I L 1500 2600 50 
 F12 "T34" O R 2650 2850 50 
+F13 "WSTB" U R 2650 2950 50 
 $EndSheet
 Wire Wire Line
 	3100 2250 2650 2250
@@ -1087,7 +1088,7 @@ Text Notes 10200 4900 0    50   ~ 0
 For future expansion
 Text Notes 10200 5000 0    50   ~ 0
 For future expansion
-Text Notes 9400 4900 0    50   ~ 0
+Text Notes 10200 4700 0    50   ~ 0
 For future expansion
 Text Label 10100 4200 2    50   ~ 0
 ~FPµC2
@@ -1176,8 +1177,12 @@ Text Notes 10150 4500 0    50   ~ 0
 ← DFP
 Text Label 10100 4500 2    50   ~ 0
 ~FPFLAGS
+Wire Wire Line
+	2650 2950 3100 2950
 Wire Bus Line
 	9950 1450 9950 2100
 Wire Bus Line
 	800  4850 800  5650
+Text Label 3100 2950 2    50   ~ 0
+WSTB
 $EndSCHEMATC

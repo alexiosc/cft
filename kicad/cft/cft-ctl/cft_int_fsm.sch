@@ -476,12 +476,12 @@ Text Notes 8150 2500 0    63   ~ 13
 Text Notes 8150 2800 0    50   ~ 0
 On the CFT, the semantics of FI (and thus, STI and CLI) are reversed!\nThe FI is te interrupt ALLOW flag. STI sets it, allowing interrupts; CLI\nclears it, masking interrupts.
 $Comp
-L Connector:TestPoint TP1
+L Connector:TestPoint TP2
 U 1 1 5ECB8174
 P 8150 3500
-F 0 "TP1" V 8150 3688 50  0000 L CNN
+F 0 "TP2" V 8150 3688 50  0000 L CNN
 F 1 "TestPoint" H 8208 3527 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Keystone_5010-5014_Multipurpose" H 8350 3500 50  0001 C CNN
+F 2 "TestPoint:TestPoint_Pad_1.0x1.0mm" H 8350 3500 50  0001 C CNN
 F 3 "~" H 8350 3500 50  0001 C CNN
 	1    8150 3500
 	0    1    1    0   
@@ -492,10 +492,10 @@ Connection ~ 8050 3500
 Wire Wire Line
 	8050 3500 8050 4300
 $Comp
-L Connector:TestPoint TP2
+L Connector:TestPoint TP3
 U 1 1 5ED75C31
 P 6050 5100
-F 0 "TP2" H 6050 5334 50  0000 C CNN
+F 0 "TP3" H 6050 5334 50  0000 C CNN
 F 1 "TestPoint" H 6108 5127 50  0001 L CNN
 F 2 "TestPoint:TestPoint_Pad_1.0x1.0mm" H 6250 5100 50  0001 C CNN
 F 3 "~" H 6250 5100 50  0001 C CNN
