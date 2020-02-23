@@ -589,7 +589,7 @@ $EndComp
 Wire Wire Line
 	8600 2050 8950 2050
 Wire Wire Line
-	5950 3250 10250 3250
+	5950 3250 9800 3250
 Text Notes 7650 2950 0    98   ~ 20
 IBus Buffer
 $Comp

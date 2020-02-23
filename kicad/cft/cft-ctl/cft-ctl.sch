@@ -1179,10 +1179,10 @@ Text Label 10100 4500 2    50   ~ 0
 ~FPFLAGS
 Wire Wire Line
 	2650 2950 3100 2950
+Text Label 3100 2950 2    50   ~ 0
+WSTB
 Wire Bus Line
 	9950 1450 9950 2100
 Wire Bus Line
 	800  4850 800  5650
-Text Label 3100 2950 2    50   ~ 0
-WSTB
 $EndSCHEMATC
