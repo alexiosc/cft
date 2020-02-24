@@ -1323,7 +1323,7 @@ ENDDEF
 #
 # alexios_tactile_switch
 #
-DEF ~alexios_tactile_switch SW 0 40 N N 1 F N
+DEF alexios_tactile_switch SW 0 40 N N 1 F N
 F0 "SW" -50 200 50 H V L CNN
 F1 "alexios_tactile_switch" 0 -60 50 H I C CNN
 F2 "" 0 200 50 H I C CNN

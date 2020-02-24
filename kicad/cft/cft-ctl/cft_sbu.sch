@@ -1,6 +1,5 @@
 EESchema Schematic File Version 4
-LIBS:cft-ctl-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -1454,6 +1453,8 @@ F 3 "http://www.ti.com/lit/gpn/sn74LS251" H 7450 4500 50  0001 C CNN
 	1    7450 4550
 	1    0    0    -1  
 $EndComp
+Text Label 8650 5600 2    50   ~ 0
+~COND₀
 Wire Bus Line
 	1050 5750 5650 5750
 Wire Bus Line
@@ -1470,6 +1471,4 @@ Wire Bus Line
 	1400 1800 1400 4350
 Wire Bus Line
 	5750 1800 5750 2500
-Text Label 8650 5600 2    50   ~ 0
-~COND₀
 $EndSCHEMATC

@@ -1,6 +1,5 @@
 EESchema Schematic File Version 4
-LIBS:cft-ctl-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -566,27 +565,14 @@ Text Notes 8300 1200 0    100  ~ 20
 Edge Connector
 Wire Wire Line
 	9500 2600 10100 2600
-NoConn ~ 7800 1800
-NoConn ~ 7800 2000
 NoConn ~ 7800 2200
 NoConn ~ 7800 2300
-NoConn ~ 7800 2500
-NoConn ~ 7800 2700
-NoConn ~ 7800 2800
 NoConn ~ 7800 2900
 NoConn ~ 7800 3000
 NoConn ~ 7800 3100
 NoConn ~ 7800 3200
 NoConn ~ 7800 3300
 NoConn ~ 7800 3400
-NoConn ~ 7800 3500
-NoConn ~ 7800 3600
-NoConn ~ 7800 3700
-NoConn ~ 7800 3800
-NoConn ~ 7800 3900
-NoConn ~ 7800 4000
-NoConn ~ 7800 4100
-NoConn ~ 7800 4200
 NoConn ~ 7800 4800
 Wire Wire Line
 	9500 2500 10100 2500
