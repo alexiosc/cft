@@ -1,9 +1,9 @@
 [*]
 [*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Wed Feb 26 17:52:03 2020
+[*] Wed Feb 26 18:06:26 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/databus_tb.vcd"
-[dumpfile_mtime] "Wed Feb 26 17:51:19 2020"
+[dumpfile_mtime] "Wed Feb 26 18:06:24 2020"
 [dumpfile_size] 1284391
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/databus_tb.sav"
 [timestart] 113500000
