@@ -59,11 +59,16 @@ module agl(ir, pc, nread_agl, nend, ibus);
 
    wire [15:0] 	ibus;
 
-   // Zero Page Logic
+   // Zero Page Logic. We configure an octal FF as a (sluggish) hex 1-of-2
+   // multiplexer that selects between PC[15:10] and 6'b000000 by pulling down
+   // the outputs and using the output enable as the output selector. The
+   // pull-down resistors slow down selecting page zero, but that's fine: the
+   // lines have at least 125ns to go low and the PAGEn traces have around 1pF
+   // of parasitic capacitance.
    wire [5:0] 	page;
    tri0 [7:0] 	q;		// Pull down the outputs.
-   flipflop_574 zpff (.d({2'b0, pc[15:10]}), .noe(ir[10]), .clk(nend), .q(q));
-   assign page = q[5:0];
+   flipflop_574 zpff (.d({pc[15:10], 2'b00}), .noe(ir[10]), .clk(nend), .q(q));
+   assign page = q[7:2];
 
    // Address Generation Logic tri-stating buffers
    buffer_541 buf_lo (.noe1(nread_agl), .noe2(1'b0), .a(ir[7:0]),         .y(ibus[7:0]));

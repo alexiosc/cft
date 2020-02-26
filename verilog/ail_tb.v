@@ -90,5 +90,8 @@ module ail_tb();
 	 else $display("OK ail");
       end
    end // always @ (nread_agl, ir, pc)
+endmodule // ail_tb
 
-endmodule
+// End of file.
+
+

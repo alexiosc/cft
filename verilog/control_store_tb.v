@@ -1,15 +1,15 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// TEST THE MICROCODE STORE
+// TEST THE CONTROL STORE
 //
 ///////////////////////////////////////////////////////////////////////////////
 //
 // REDESIGNED IN 2019
 // USES OK/FAIL OUTPUT
 //
-// microcode_store_tb.v -- Microcode Store testbench
+// control_store_tb.v -- Control Store testbench
 //
-// Copyright © 2011–2019 Alexios Chouchoulas
+// Copyright © 2011–2020 Alexios Chouchoulas
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by

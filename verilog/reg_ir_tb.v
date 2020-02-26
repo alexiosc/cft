@@ -32,7 +32,6 @@
 
 module reg_ir_tb();
    reg 	       clk4;
-   //reg [4:0]   waddr;
    reg 	       nwrite_ir;
    reg [15:0]  ibus;
    wire [15:0] ibus_real;
@@ -47,7 +46,7 @@ module reg_ir_tb();
    
    // Initialize all variables
    initial begin
-      $monitor ("t: %7d | %b %h > %h | %b %b > %h", $time, nwrite_ir, ibus_real, ir, nfpirl, nfpirh, fpd);
+      $monitor ("t: %7d | %b %b %h > %h | %b %b > %h", $time, clk4, nwrite_ir, ibus_real, ir, nfpirl, nfpirh, fpd);
       $dumpfile ("vcd/reg_ir_tb.vcd");
       $dumpvars (0, reg_ir_tb);
 
@@ -59,31 +58,13 @@ module reg_ir_tb();
       clk4 = 0;
       #250;
 
-      // // Make sure it only responds to wa = 5'b0010.
-      // for (wa = 0; wa < 32; wa = wa + 1) begin
-      // 	 for (i = 0; i < 65536; i = i + 9502) begin
-      // 	    #62.5 ibus = i;	// T3
-      // 	    waddr = wa;
-      // 	    #62.5 clk4 = 0;	// T4
-      // 	    #62.5 clk4 = 1;	// T1
-      // 	    #62.5 waddr = 0;	// T2
-
-      // 	    #62.5 nfpirl = 0;
-      // 	    #62.5 nfpirl = 1;
-      // 	    #62.5 nfpirh = 0;
-      // 	    #62.5 nfpirh = 1;
-      // 	 end
-      // end
-      // $display("OK");
-
-      #1000000;
-
-      for (i = 0; i < 65536; i = i + 1) begin
+      // Let it wrap around
+      for (i = 0; i < 65600; i = i + 1) begin
 	 #62.5 ibus = i;	// T3
 	 nwrite_ir = 0;
 	 #62.5 clk4 = 0;	// T4
 	 #62.5 clk4 = 1;	// T1
-	 #62.5 nwrite_ir = 1;   // T2
+	 #62.5 nwrite_ir = 1;	// T2
 
 	 #62.5 nfpirl = 0;
 	 #62.5 nfpirl = 1;
@@ -121,10 +102,6 @@ module reg_ir_tb();
 	 else if (clk4 !== 1'b0 && clk4 !== 1'b1) begin
 	    $sformat(msg, "testbench bug, clk4=%b", clk4);
 	 end
-
-	 // else if (waddr !== 5'b00010) begin
-	 //    $sformat(msg, "testbench bug, waddr=%b", nwrite_ir);
-	 // end
 
 	 else if (prev_ir != ir) begin
 	    $sformat(msg, "nwrite_ir=%b, ibus=%x, ir changed unexpectedly from %x to %x",

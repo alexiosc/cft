@@ -48,7 +48,7 @@ module microcode_sequencer(nreset, nrsthold, clk2, clk4,
 			   idx, ncond, in_rsvd, ir, nirqsuc,
 			   raddr, waddr, cond, action,
 			   nmem, nio, nr, nwen, nend,
-			   fpfetch_exec,
+			   fpfetch,
 			   nfpua0, nfpuc0, nfpuc1, nfpuc2, fpd);
 
    input        nreset;
@@ -74,7 +74,7 @@ module microcode_sequencer(nreset, nrsthold, clk2, clk4,
    output 	nwen;
    output 	nend;
 
-   output 	fpfetch_exec;
+   output 	fpfetch;
    input        nfpua0;
    input        nfpuc0;
    input        nfpuc1;
@@ -131,7 +131,7 @@ module microcode_sequencer(nreset, nrsthold, clk2, clk4,
 
    // Output enable for the Control Store
    wire        ncse;
-   assign #7 ncse = nreset & nhalt;
+   assign #7 ncse = ~(nreset & nhalt);
    
    control_store control_store(.noe(ncse), .clk(clk2),
 			       .uaddr(uaddr),
@@ -148,7 +148,7 @@ module microcode_sequencer(nreset, nrsthold, clk2, clk4,
    // when single-stepping, so HALT can be asserted when an instruction fetch
    // is done. The front panel displays the fetch/exec state on two LEDs.
    comparator_85 cmp_fe (.a(upc), .b(4'b0010), .ilt(1'b0), .ieq(1'b1), .igt(1'b0),
-			 .olt(fpfetch_exec));
+			 .olt(fpfetch));
 
 
    ///////////////////////////////////////////////////////////////////////////////
@@ -158,9 +158,9 @@ module microcode_sequencer(nreset, nrsthold, clk2, clk4,
    ///////////////////////////////////////////////////////////////////////////////
 
    // Uaddr is 19 bits. Of these, 2 are state bits and 9 come from the
-   // IR. These are displayed in their own sections of the front
-   // panel. The remaining 8 bits are displayed in the uADDR LOW front
-   // panel section, requiring just one buffer.
+   // IR. These are displayed in their own sections of the front panel. The
+   // remaining 8 bits are displayed in the uADDR LOW front panel section,
+   // requiring just one buffer.
    buffer_541 buf_ua0 (.a(uaddr[7:0]),   .y(fpd), .noe1(nfpua0), .noe2(1'b0));
 
    buffer_541 buf_uc0 (.a(ucontrol[7:0]),   .y(fpd), .noe1(nfpuc0), .noe2(1'b0));

@@ -33,6 +33,7 @@ module reg_ir (clk4, nwrite_ir,
    
    wire [15:0] 	 ibus, ir;
    wire [7:0] 	 fpd;
+   wire 	 nwir;
 
    // WADDR is now decoded by the WADDR devoder in the flag unit, and
    // provided to us as nwrite_ir.
@@ -44,13 +45,13 @@ module reg_ir (clk4, nwrite_ir,
    // wire 	 nwrite_ir;
    // demux_138 waddr_dec (.g1(1'b1), .ng2a(waddr[3]), .ng2b(waddr[4]),
    // 			.a(waddr[2:0]), .y(y));
-   // assign #6 nwrite_ir = y[2] | clk4;
+   assign #6 nwir = nwrite_ir | clk4;
 
    // The original CFT used latches for the IR—and it worked! We'll move to
    // flip-flops here. It should make no difference, but might protect us from
    // some glitches.
-   flipflop_574 ir_lo (.d(ibus[7:0]),   .q(ir[7:0]),  .clk(nwrite_ir), .noe(1'b0));
-   flipflop_574 ir_hi (.d(ibus[15:8]),  .q(ir[15:8]), .clk(nwrite_ir), .noe(1'b0));
+   flipflop_574 ir_lo (.d(ibus[7:0]),   .q(ir[7:0]),  .clk(nwir), .noe(1'b0));
+   flipflop_574 ir_hi (.d(ibus[15:8]),  .q(ir[15:8]), .clk(nwir), .noe(1'b0));
    // latch_573 ir_lo (ibus[7:0],  ir[7:0],  nwrite_ir, nreset);
    // latch_573 ir_hi (ibus[15:8], ir[15:8], nwrite_ir, nreset);
 

@@ -499,6 +499,10 @@ test_alu_rom: alu_rom_tb.o alu_rom.o rom.o
 		./alu_rom_tb.o
 		$(GTKWAVE) $(VCDDIR)/alu_rom_tb.vcd $(SAVDIR)/alu_rom_tb.sav
 
+test_microcode_sequencer:	microcode_sequencer_tb.o microcode_sequencer.o reset.o clock.o
+		./microcode_sequencer_tb.o
+		$(GTKWAVE) $(VCDDIR)/microcode_sequencer_tb.vcd $(SAVDIR)/microcode_sequencer_tb.sav
+
 
 ###############################################################################
 #

@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Sat Feb 15 11:35:54 2020
+[*] Wed Feb 26 08:35:29 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/reg_ir_tb.vcd"
-[dumpfile_mtime] "Sat Feb 15 11:35:31 2020"
-[dumpfile_size] 41920200
+[dumpfile_mtime] "Wed Feb 26 08:35:08 2020"
+[dumpfile_size] 35278115
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/reg_ir_tb.sav"
-[timestart] 0
+[timestart] 32745506000
 [size] 1841 671
 [pos] 2281 165
-*-24.028814 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-20.493107 3140500000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] reg_ir_tb.
 [treeopen] reg_ir_tb.reg_ir.
 [sst_width] 258
@@ -19,8 +19,10 @@
 @28
 [color] 1
 reg_ir_tb.clk4
-reg_ir_tb.waddr[4:0]
+@29
 reg_ir_tb.reg_ir.nwrite_ir
+@28
+reg_ir_tb.reg_ir.nwir
 @200
 -
 @22
@@ -39,6 +41,5 @@ reg_ir_tb.nfpirl
 @22
 reg_ir_tb.fpd[7:0]
 reg_ir_tb.reg_ir.fpd[7:0]
-reg_ir_tb.reg_ir.waddr_dec.y[7:0]
 [pattern_trace] 1
 [pattern_trace] 0

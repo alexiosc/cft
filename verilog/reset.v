@@ -53,7 +53,8 @@ module reset_logic (nreset, nrsthold, clk3, fpreset, powerok, ibus);
    wire [7:0] q;
    counter_590 reset_counter (clk3, nrsthold, nreset, clk3, 1'b0, q,);
 
-   // Allow different reset timings.
+   // Allow different reset timings. We use 2ms for test purposes. We make damn
+   // sure we're reset on realy hardware: there, we wait for 32ms.
    assign nrsthold = q[3];	// 16 ticks (2ms @ 4 MHz processor clock)
    //assign nrsthold = q[4];	// 16 ticks (4ms @ 4 MHz processor clock)
    //assign nrsthold = q[5];	// 32 ticks (8ms)

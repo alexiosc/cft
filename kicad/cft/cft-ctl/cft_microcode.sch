@@ -762,7 +762,7 @@ $EndComp
 Connection ~ 5900 7300
 Connection ~ 5900 7500
 Wire Wire Line
-	1150 1850 1350 1850
+	1150 1850 1250 1850
 $Comp
 L Device:R_Small R?
 U 1 1 5DB1C764
@@ -825,7 +825,7 @@ Wire Wire Line
 Wire Wire Line
 	1350 1300 1350 1850
 Connection ~ 1350 1850
-Text Notes 1250 2300 0    50   ~ 0
+Text Notes 1350 2300 0    50   ~ 0
 ~WS~ is pulled up by the Wait State Handler circuitry.
 $Comp
 L power:+5V #PWR0101
@@ -853,7 +853,7 @@ Text HLabel 1150 5450 0    50   Input ~ 0
 ~RESET
 Wire Wire Line
 	1150 5450 1550 5450
-Text Label 1200 5550 0    50   ~ 0
+Text Label 1500 5550 2    50   ~ 0
 ~HALT
 Text Notes 3000 6350 0    50   ~ 0
 The Microcode Store is enabled\nwhen ~RESET~ and ~HALT~\nare both deasserted.
@@ -1175,12 +1175,8 @@ Wire Wire Line
 	1150 4800 2650 4800
 Wire Wire Line
 	1150 4900 2650 4900
-Text Label 1200 5450 0    50   ~ 0
+Text Label 1500 5450 2    50   ~ 0
 ~RESET
-Wire Wire Line
-	1550 5550 1200 5550
-Wire Wire Line
-	1350 1850 3750 1850
 Wire Wire Line
 	3750 1650 2700 1650
 Entry Wire Line
@@ -1457,8 +1453,8 @@ Text Notes 7900 1350 0    50   ~ 0
 Do not install this resistor by default.\nPopulate resistors for open jumpers only.
 Text Notes 6750 900  0    100  ~ 20
 Fetch/Execute State Decoder
-Text Notes 1550 3450 2    50   ~ 0
-Remove if\nIN-RSVD used.
+Text Notes 1400 3000 0    50   ~ 0
+Remove\npull-up if\nIN-RSVD used.
 Wire Wire Line
 	1150 5000 2650 5000
 Text HLabel 1150 3900 0    50   Input ~ 0
@@ -1566,18 +1562,27 @@ Wire Wire Line
 Connection ~ 7300 4150
 Wire Wire Line
 	7300 4150 7300 4250
+Wire Wire Line
+	1550 5550 1250 5550
+Wire Wire Line
+	1350 1850 3750 1850
+Wire Wire Line
+	1250 5550 1250 1850
 Wire Bus Line
 	4550 2650 4550 3400
 Wire Bus Line
-	9800 2600 9800 3050
-Wire Bus Line
-	9800 3300 9800 3750
-Wire Bus Line
-	9800 4000 9800 4450
-Wire Bus Line
-	9800 4700 9800 5050
+	2150 2650 2150 3400
 Wire Bus Line
 	5100 1250 5100 2450
 Wire Bus Line
-	2150 2650 2150 3400
+	9800 4700 9800 5050
+Wire Bus Line
+	9800 4000 9800 4450
+Wire Bus Line
+	9800 3300 9800 3750
+Wire Bus Line
+	9800 2600 9800 3050
+Connection ~ 1250 1850
+Wire Wire Line
+	1250 1850 1350 1850
 $EndSCHEMATC
