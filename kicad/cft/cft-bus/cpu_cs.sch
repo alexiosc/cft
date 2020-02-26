@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 6 6
+Sheet 5 6
 Title "Constant Store"
 Date ""
 Rev ""
@@ -141,16 +141,10 @@ Wire Wire Line
 	3750 4100 2950 4100
 Text Label 3250 4100 2    50   ~ 0
 RADDR2
-Text Label 3000 4800 0    50   ~ 0
-~RUEN
 Entry Wire Line
 	2850 4000 2950 4100
 Entry Bus Bus
 	2750 2250 2850 2350
-Wire Wire Line
-	2150 4800 3750 4800
-Text HLabel 2150 4800 0    50   Input ~ 0
-~RUEN
 Text Label 2250 2250 0    50   ~ 0
 RADDR[0..4]
 Text HLabel 2150 2250 0    50   Input ~ 0
@@ -573,12 +567,12 @@ $EndComp
 $Comp
 L power:GND #PWR0144
 U 1 1 5E040054
-P 3750 4900
-F 0 "#PWR0144" H 3750 4650 50  0001 C CNN
-F 1 "GND" H 3755 4727 50  0000 C CNN
-F 2 "" H 3750 4900 50  0001 C CNN
-F 3 "" H 3750 4900 50  0001 C CNN
-	1    3750 4900
+P 3700 4950
+F 0 "#PWR0144" H 3700 4700 50  0001 C CNN
+F 1 "GND" H 3705 4777 50  0000 C CNN
+F 2 "" H 3700 4950 50  0001 C CNN
+F 3 "" H 3700 4950 50  0001 C CNN
+	1    3700 4950
 	1    0    0    -1  
 $EndComp
 Wire Notes Line width 20 style solid
@@ -598,8 +592,17 @@ Wire Wire Line
 	2950 2550 6600 2550
 Wire Wire Line
 	2950 2650 6600 2650
+Wire Wire Line
+	3750 4800 3700 4800
+Wire Wire Line
+	3700 4800 3700 4900
+Wire Wire Line
+	3750 4900 3700 4900
 Wire Bus Line
 	2850 2350 2850 4200
 Wire Bus Line
 	8050 2250 8050 4700
+Connection ~ 3700 4900
+Wire Wire Line
+	3700 4900 3700 4950
 $EndSCHEMATC

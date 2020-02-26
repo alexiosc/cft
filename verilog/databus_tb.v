@@ -41,7 +41,7 @@ module databus_tb();
    reg 		nmem, nio, nr, nwen;
    reg 		nws_drv;
 
-   wire 	clk1, clk2, clk3, clk4, t34, wstb;
+   wire 	clk1, clk2, clk3, clk4, t34;
    wire 	nw;
    wire 	nws;
 
@@ -64,7 +64,7 @@ module databus_tb();
       $dumpfile ("vcd/databus_tb.vcd");
       $dumpvars (0, databus_tb);
       $monitor ("t: %7d | %b %b %b %b %b  %b %b %b %b | %b | %04x %04x (%0s)",
-		$time, nreset, nhalt, clk3, t34, wstb,
+		$time, nreset, nhalt, clk3, clk4, t34,
 		nmem, nio, nr, nwen,
 		nws,
 		ibus, db,
@@ -168,7 +168,7 @@ module databus_tb();
 
    // A wait state counter
    integer num_ws = 0;
-   always @(posedge wstb) begin
+   always @(posedge clk4) begin
       if (nwaiting === 0) num_ws += 1;
       else num_ws = 0;
    end
@@ -177,13 +177,13 @@ module databus_tb();
    clock_generator clock_generator (.nreset(nreset),
 				    .fpclk(1'b1), .nfpclk_or_clk(1'b1),
 				    .clk1(clk1), .clk2(clk2), .clk3(clk3), .clk4(clk4),
-				    .t34(t34), .wstb(wstb));
+				    .t34(t34));
    
    // Connect DUT to test bench
 
    databus databus (.nreset(nreset),
 		    .nhalt(nhalt), 
-		    .clk3(clk3), .t34(t34), .wstb(wstb),
+		    .clk3(clk3), .clk4(clk4), .t34(t34),
 		    .nmem(nmem), .nio(nio), .nr(nr), .nwen(nwen),
 		    .nws(nws), .ibus(ibus), .nw(nw), .db(db));
 
@@ -229,7 +229,7 @@ module databus_tb();
    end // always @ (nmem, nio, nwaiting, databus.nbusen)
 
    // Check the Data Bus connection
-   always @ (wstb, nmem, nio, nr, nwen, nw) begin
+   always @ (clk4, nmem, nio, nr, nwen, nw) begin
       #30 begin
    	 msg[7:0] = "";		// Use the msg as a flag.
 
@@ -256,8 +256,8 @@ module databus_tb();
 	    end
 	 end
 
-	 else if (nhalt === 1 && nwen === 0 && wstb === 0 && nw !== 0) begin
-	    $sformat(msg, "nhalt=%b, nwen=%b, wstb=%b, but nw=%b", nhalt, nwen, wstb, nw);
+	 else if (nhalt === 1 && nwen === 0 && clk4 === 0 && nw !== 0) begin
+	    $sformat(msg, "nhalt=%b, nwen=%b, clk4=%b, but nw=%b", nhalt, nwen, clk4, nw);
 	 end
 
    	 // Fail if we've logged an issue.
@@ -268,7 +268,7 @@ module databus_tb();
    	 end
    	 else $display("OK busen");
       end
-   end // always @ (wstb, nmem, nio, nr, nwen, nw)
+   end // always @ (clk4, nmem, nio, nr, nwen, nw)
 
 
    // Make sure wait states are registered and cleared

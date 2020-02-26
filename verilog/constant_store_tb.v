@@ -31,7 +31,6 @@
 `timescale 1ns/10ps
 
 module constant_store_tb();
-   wire         nruen;
    wire [4:0]   raddr;
    wire [15:0] 	ibus;
    
@@ -40,7 +39,7 @@ module constant_store_tb();
    // Initialize all variables
    initial begin        
       //$display ("time\t rst oe cs q");	
-      $monitor ("t: %7d | %b %b > %h", $time, nruen, raddr, ibus);
+      $monitor ("t: %7d | %b > %h", $time, raddr, ibus);
       $dumpfile ("vcd/constant_store_tb.vcd");
       $dumpvars (0, constant_store_tb);
 
@@ -54,40 +53,39 @@ module constant_store_tb();
       $finish;      // Terminate simulation
    end // initial begin
 
-   assign nruen = i[5];
    assign raddr = i[4:0];
    
    
    // Connect DUT to test bench
-   constant_store constant_store (.nruen(nruen), .raddr(raddr), .ibus(ibus));
+   constant_store constant_store (.raddr(raddr), .ibus(ibus));
 
    // Verify our findings.
    reg [8191:0] msg;
    reg [15:0] 	correct_value;
    
-   always @ (nruen, raddr) begin
+   always @ (raddr) begin
       #30 begin
 	 msg[7:0] = "";		// Use the msg as a flag.
 
-	 if (nruen === 1) begin
-	    if (ibus !== 16'bzzzzzzzzzzzzzzzz) begin
-	       $sformat(msg, "nruen=%b, but ibus was ibus=%b, %04x (should be Z)", nruen, ibus, ibus);
-	    end
-	 end
+	 // if (nruen === 1) begin
+	 //    if (ibus !== 16'bzzzzzzzzzzzzzzzz) begin
+	 //       $sformat(msg, "nruen=%b, but ibus was ibus=%b, %04x (should be Z)", nruen, ibus, ibus);
+	 //    end
+	 // end
+	 //
+	 //else 
 
-	 else if (nruen === 0) begin
-	    correct_value = 16'bzzzzzzzzzzzzzzzz;
-	    casex (raddr)
-	      5'b00100: correct_value = 16'd0;
-	      5'b00101: correct_value = 16'd1;
-	      5'b00110: correct_value = 16'd2;
-	      5'b00111: correct_value = 16'd3;
-	    endcase // case raddr
+	 correct_value = 16'bzzzzzzzzzzzzzzzz;
+	 casex (raddr)
+	   5'b00100: correct_value = 16'd0;
+	   5'b00101: correct_value = 16'd1;
+	   5'b00110: correct_value = 16'd2;
+	   5'b00111: correct_value = 16'd3;
+	 endcase // case raddr
+	 
+	 if (ibus !== correct_value) $sformat(msg, "raddr=%b, ibus=%b (should be %b)", raddr, ibus, correct_value);
 
-	    if (ibus !== correct_value) $sformat(msg, "raddr=%b, ibus=%b (should be %b)", nruen, ibus, correct_value);
-	 end // if (nruen === 0)
-      
-	 else $sformat(msg, "testbench bug, nruen=%b", nruen);
+	 // else $sformat(msg, "testbench bug, nruen=%b", nruen);
 
 	 // Fail if we've logged an issue.
 	 if (msg[7:0]) begin

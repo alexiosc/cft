@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Thu Jan  2 15:18:58 2020
+[*] Wed Feb 26 17:52:03 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/databus_tb.vcd"
-[dumpfile_mtime] "Thu Jan  2 15:07:30 2020"
-[dumpfile_size] 1461726
+[dumpfile_mtime] "Wed Feb 26 17:51:19 2020"
+[dumpfile_size] 1284391
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/databus_tb.sav"
-[timestart] 3529000
+[timestart] 113500000
 [size] 1920 1019
 [pos] 2138 104
-*-20.775309 9360000 7510719 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-25.775309 250300000 7510719 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] databus_tb.
 [treeopen] databus_tb.databus.
 [sst_width] 258
@@ -32,14 +32,9 @@ databus_tb.clk3
 databus_tb.clk4
 [color] 4
 databus_tb.nw
-@29
 databus_tb.databus.nwen
-@28
-databus_tb.databus.nwtest
 [color] 5
 databus_tb.t34
-[color] 6
-databus_tb.wstb
 @1000200
 -Clock
 @200
@@ -51,8 +46,6 @@ databus_tb.i
 @28
 [color] 7
 databus_tb.clk4
-[color] 1
-databus_tb.wstb
 [color] 3
 databus_tb.nwen
 [color] 4
@@ -61,7 +54,7 @@ databus_tb.nw
 -nW Tri-State
 @200
 -
-@c00200
+@800200
 -Control Signals
 @28
 [color] 1
@@ -76,7 +69,7 @@ databus_tb.nio
 databus_tb.nr
 [color] 6
 databus_tb.nwen
-@1401200
+@1000200
 -Control Signals
 @200
 -
@@ -92,7 +85,7 @@ databus_tb.num_ws
 -Wait States
 @200
 -
-@c00200
+@800200
 -Bus Enable
 @28
 [color] 1
@@ -103,7 +96,7 @@ databus_tb.nio
 databus_tb.databus.nwaiting
 [color] 4
 databus_tb.databus.nbusen
-@1401200
+@1000200
 -Bus Enable
 @200
 -
@@ -138,7 +131,7 @@ databus_tb.db[15:0]
 -Bus Read Tests
 @200
 -
-@800200
+@c00200
 -Bus Write Tests
 @28
 [color] 1
@@ -147,8 +140,6 @@ databus_tb.nmem
 databus_tb.nio
 [color] 3
 databus_tb.nwen
-[color] 5
-databus_tb.wstb
 [color] 4
 databus_tb.nw
 [color] 6
@@ -206,12 +197,7 @@ databus_tb.num_ws
 @1401200
 >-434000
 -group_end
-@1000200
 >0
 -Bus Write Tests
-@200
--
-@820
-databus_tb.status[800:0]
 [pattern_trace] 1
 [pattern_trace] 0

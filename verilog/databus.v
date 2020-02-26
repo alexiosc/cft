@@ -17,7 +17,7 @@
 
 `timescale 1ns/1ps
 
-module databus (nreset, nhalt, clk3, t34,
+module databus (nreset, nhalt, clk3, clk4, t34,
 		nmem, nio, nr, nwen,
 		nws, ibus,
 		nw, db);
@@ -25,6 +25,7 @@ module databus (nreset, nhalt, clk3, t34,
    input 	nreset;
    input 	nhalt;
    input 	clk3;
+   input 	clk4;
    input 	t34;
    input 	nmem;
    input 	nio;
@@ -69,7 +70,7 @@ module databus (nreset, nhalt, clk3, t34,
    // nHALT is asserted, but we generate nW here, so we need to be able to tri-state it.
    assign #6 halt = ~nhalt;		      // 74LVC1G04
    //assign #8 nw0 = nwen | (wstb & nwaiting); // 74LVC1G0832
-   assign #8 nw0 = nwaiting & (nwen | wstb);
+   assign #8 nw0 = nwaiting & (nwen | clk4);
    assign #6 nw = halt ? 1'bz : nw0;	      // 74LVC1G125
 
    // The Wait State FF itself

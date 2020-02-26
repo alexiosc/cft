@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 5 6
+Sheet 4 6
 Title "Data Bus & Wait States"
 Date ""
 Rev ""
@@ -49,7 +49,7 @@ CLK3
 Text HLabel 1650 2300 0    50   Input ~ 0
 ~RESET
 Text Label 1750 1400 0    50   ~ 0
-WSTB
+CLK4
 Wire Wire Line
 	5300 1300 2350 1300
 Text Label 1750 1300 0    50   ~ 0
@@ -57,7 +57,7 @@ Text Label 1750 1300 0    50   ~ 0
 Text HLabel 1650 1300 0    50   Input ~ 0
 ~WEN
 Text HLabel 1650 1400 0    50   Input ~ 0
-WSTB
+CLK4
 $Comp
 L Device:C_Small C?
 U 1 1 5D33F674
@@ -451,7 +451,7 @@ Wire Wire Line
 Text Label 5050 1300 2    50   ~ 0
 ~WEN
 Text Label 5050 1400 2    50   ~ 0
-WSTB
+CLK4
 Text Notes 5550 2550 0    50   ~ 0
 ~HALT~\n\n 0\n 1\n 1\n 1\n 1
 $Comp

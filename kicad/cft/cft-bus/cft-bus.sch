@@ -533,10 +533,10 @@ S 5150 5000 1150 1500
 U 5D46B22D
 F0 "Wait States & Write Strobes" 50
 F1 "cft_ws_busen.sch" 50
-F2 "WSTB" I L 5150 5550 50 
+F2 "T34" I L 5150 5550 50 
 F3 "~RESET" I L 5150 5150 50 
 F4 "CLK3" I L 5150 5350 50 
-F5 "T34" I L 5150 5450 50 
+F5 "CLK4" I L 5150 5450 50 
 F6 "~MEM" I L 5150 5700 50 
 F7 "~IO" I L 5150 5800 50 
 F8 "~HALT" I L 5150 5250 50 
@@ -558,9 +558,9 @@ Text Label 4300 5800 0    50   ~ 0
 Text Label 4300 5700 0    50   ~ 0
 ~MEM
 Text Label 4300 5550 0    50   ~ 0
-WSTB
-Text Label 4300 5450 0    50   ~ 0
 T34
+Text Label 4300 5450 0    50   ~ 0
+CLK4
 Text Label 4300 5350 0    50   ~ 0
 CLK3
 Text Label 4300 5250 0    50   ~ 0

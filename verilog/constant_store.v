@@ -40,8 +40,7 @@
 `include "demux.v"
 `timescale 1ns/10ps
 
-module constant_store (nruen, raddr, ibus);
-   input         nruen;
+module constant_store (raddr, ibus);
    input [4:0]   raddr;
 
    output [15:0] ibus;
@@ -52,7 +51,7 @@ module constant_store (nruen, raddr, ibus);
    // significant bits of the constant to output.
 
    wire [7:0] 	 y;
-   demux_138 cs_demux (.g1(1'b1), .ng2a(nruen), .ng2b(1'b0), .a(raddr[4:2]), .y(y));
+   demux_138 cs_demux (.g1(1'b1), .ng2a(1'b0), .ng2b(1'b0), .a(raddr[4:2]), .y(y));
    assign ncsoe = y[1];		// raddr == 010xx
 
    buffer_541 cs_lo (.a({6'b000000, raddr[1:0]}), .y(ibus[7:0]),  .noe1(ncsoe), .noe2(1'b0));
