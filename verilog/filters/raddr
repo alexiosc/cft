@@ -13,7 +13,7 @@
 01100 ?blue4?mbp
 01101 ?blue4?mbp+flags
 01110 ?blue4?flags
-01111 ?blue4?agl
+01111 ?magenta4?agl
 10000 alu_add
 10001 alu_and
 10010 alu_or

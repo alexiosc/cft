@@ -13,7 +13,7 @@
 01100 ?blue4?mbp
 01101 ?blue4?mbp+flags
 01110 ?blue4?flags
-01111 ?blue4?ir
+01111 ?magenta4?ir
 10000 ?orange4?(alu_b)
 10001 ?orange4?(alu_b)
 10010 ?orange4?(alu_b)
