@@ -43,7 +43,7 @@
 
 module flag_unit (clk4, waddr, raddr,
 		  fn, fz, fl, fv, fi,
-		  ibus, nflagwe,
+		  ibus, nflagwe, nwrite_ir, nread_agl,
 		  nfpflags, fpd);
 
    input          clk4;
@@ -53,6 +53,8 @@ module flag_unit (clk4, waddr, raddr,
 
    output [15:8]  ibus;
    output 	  nflagwe;
+   output 	  nwrite_ir;
+   output 	  nread_agl;
    
    input 	  nfpflags;
    output [7:0]   fpd;
@@ -67,12 +69,14 @@ module flag_unit (clk4, waddr, raddr,
    assign nwrite_mbp_flags = wy[5];
    assign nwrite_flags = wy[6];
    assign #7 nflagwe = nwrite_mbp_flags & nwrite_flags & clk4; // Writing only happens during T4
+   assign nwrite_ir = wy[7];
 
    // Decode the read signals, generate nflagoe.
    wire 	  nread_mbp_flags, nread_flags, nflagoe;
    assign nread_mbp_flags = ry[5];
    assign nread_flags = ry[6];
    assign #7 nflagoe = nread_mbp_flags & nread_flags;
+   assign nread_agl = ry[7];
 
    // Note: (2019-01-06): the ALU decodes its own CPL/CLL signals. The
    // interrupt state machine decodes STI/CLI. This is no longer

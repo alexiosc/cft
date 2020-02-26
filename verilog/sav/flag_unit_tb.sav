@@ -1,21 +1,21 @@
 [*]
-[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
-[*] Sun Feb 16 13:04:00 2020
+[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
+[*] Wed Feb 26 11:11:01 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/flag_unit_tb.vcd"
-[dumpfile_mtime] "Sun Feb 16 13:03:10 2020"
-[dumpfile_size] 13902
+[dumpfile_mtime] "Wed Feb 26 11:10:05 2020"
+[dumpfile_size] 14036
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/flag_unit_tb.sav"
-[timestart] 12536000
-[size] 1469 600
-[pos] 164 0
-*-19.264969 14750000 17530200 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[timestart] 3940000
+[size] 2048 1123
+[pos] 0 0
+*-21.111130 12501000 17530200 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] flag_unit_tb.
 [treeopen] flag_unit_tb.flag_unit.
 [sst_width] 258
 [signals_width] 230
 [sst_expanded] 1
-[sst_vpaned_height] 138
+[sst_vpaned_height] 315
 @820
 flag_unit_tb.status[800:0]
 @200
@@ -24,12 +24,14 @@ flag_unit_tb.status[800:0]
 @2028
 ^1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/raddr
 flag_unit_tb.raddr[4:0]
+@28
+flag_unit_tb.nread_agl
 @22
 flag_unit_tb.ibus_hi[7:0]
 @200
 -
 -Writing
-@29
+@28
 flag_unit_tb.clk4
 @2028
 ^2 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/waddr
@@ -38,6 +40,8 @@ flag_unit_tb.waddr[4:0]
 flag_unit_tb.waddr[4:0]
 [color] 3
 flag_unit_tb.nflagwe
+@29
+flag_unit_tb.nwrite_ir
 @200
 -
 -Action Decoder

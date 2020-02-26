@@ -40,6 +40,8 @@ module flag_unit_tb();
    wire [15:0] 	ibus;
    wire [7:0] 	ibus_hi;
    wire 	nflagwe;
+   wire 	nwrite_ir;
+   wire 	nread_agl;
    // wire 	naction_cpl;
    // wire 	naction_cll;
    // wire 	naction_sti;
@@ -56,10 +58,10 @@ module flag_unit_tb();
    
    initial begin        
       //$display ("time\t rst oe cs q");
-      $monitor ("t: %7d | %b > %b | %b > %04h | %b > %02x",
+      $monitor ("t: %7d | %b > %b %b | %b > %04h %b | %b > %02x",
 		$time,
-		waddr, nflagwe,
-		raddr, ibus,
+		waddr, nflagwe, nwrite_ir,
+		raddr, ibus, nread_agl,
 		nfpflags, fpd);
       $dumpfile ("vcd/flag_unit_tb.vcd");
       $dumpvars (0, flag_unit_tb);
@@ -109,6 +111,8 @@ module flag_unit_tb();
 			.fn(fn), .fz(fz), .fl(fl), .fv(fv), .fi(fi),
 			.ibus(ibus[15:8]),
 			.nflagwe(nflagwe),
+			.nread_agl(nread_agl),
+			.nwrite_ir(nwrite_ir),
 			//.action(action),
 			//.naction_cpl(naction_cpl),
 			//.naction_cll(naction_cll),
@@ -136,6 +140,17 @@ module flag_unit_tb();
 	       $sformat(msg, "raddr=%b but ibus[15:8]=%b (should be %b)",
 			waddr, ibus[15:8], { fi, 1'b0, fv, fl, fz, fn, 2'b00 });
 	    end
+	 end
+
+	 else if (raddr === 5'b01111 && nread_agl !== 1'b0) begin
+	    $sformat(msg, "nread_agl decode error: raddr=%b but nread_agl=%b (should be 0)",
+		     raddr, nread_agl);
+	 end
+
+	 // Purposefully not else-if!
+	 if (raddr !== 5'b01111 && nread_agl !== 1'b1) begin
+	    $sformat(msg, "nread_agl decode error: raddr=%b but nread_agl=%b (should be 1)",
+		     raddr, nread_agl);
 	 end
 
    	 // Fail if we've logged an issue.
@@ -166,6 +181,16 @@ module flag_unit_tb();
 			waddr, nflagwe);
 	 end
 
+	 else if (waddr === 5'b01111 && nwrite_ir !== 1'b0) begin
+	    $sformat(msg, "nwrite_ir decode error: waddr=%b but nwrite_ir=%b (should be 0)",
+		     waddr, nwrite_ir);
+	 end
+
+	 // Purposefully not else-if!
+	 if (waddr !== 5'b01111 && nwrite_ir !== 1'b1) begin
+	    $sformat(msg, "nwrite_ir decode error: waddr=%b but nwrite_ir=%b (should be 1)",
+		     waddr, nwrite_ir);
+	 end
    	 // Fail if we've logged an issue.
    	 if (msg[7:0]) begin
    	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
