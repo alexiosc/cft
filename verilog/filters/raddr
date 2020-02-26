@@ -1,6 +1,6 @@
 00000 idle
 00001 ?red4?00001
-00010 agl
+00010 ?red4?00010
 00011 ?red4?00011
 00100 ?green4?cs0
 00101 ?green4?cs1
@@ -13,7 +13,7 @@
 01100 ?blue4?mbp
 01101 ?blue4?mbp+flags
 01110 ?blue4?flags
-01111 ?blue4?mbn
+01111 ?blue4?agl
 10000 alu_add
 10001 alu_and
 10010 alu_or

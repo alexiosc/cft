@@ -1,6 +1,6 @@
 00000 idle
 00001 ?red4?00001
-00010 ir
+00010 ?red4?00010
 00011 ?red4?00011
 00100 ?cyan4?ar:MBP
 00101 ?cyan4?ar:MBD
@@ -13,7 +13,7 @@
 01100 ?blue4?mbp
 01101 ?blue4?mbp+flags
 01110 ?blue4?flags
-01111 ?blue4?mbn
+01111 ?blue4?ir
 10000 ?orange4?(alu_b)
 10001 ?orange4?(alu_b)
 10010 ?orange4?(alu_b)
