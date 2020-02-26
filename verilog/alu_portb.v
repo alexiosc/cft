@@ -2,7 +2,7 @@
 //
 // PORT B OF THE ALU
 //
-// REDESINGED IN 2019
+// REDESIGNED IN 2019
 //
 // NOTES: 
 //

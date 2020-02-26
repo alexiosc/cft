@@ -2,7 +2,7 @@
 //
 // THE SKIP UNIT
 //
-// REDESINGED IN 2019
+// REDESIGNED IN 2019
 //
 // NOTES: the Skip/Branch Unit allows the Control Unit to make decisions and to
 // allow code to make decisions.

@@ -2,7 +2,7 @@
 //
 // THE ALU ROM
 //
-// REDESINGED IN 2019
+// REDESIGNED IN 2019
 //
 // NOTES: This is a 24-bit ROM that implements all ALU operations including
 //        output L and V flags.
