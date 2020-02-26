@@ -455,10 +455,6 @@ test_sbu:	sbu_tb.o sbu.o mux.o flipflop.o
 		./sbu_tb.o
 		$(GTKWAVE) $(VCDDIR)/sbu_tb.vcd $(SAVDIR)/sbu_tb.sav
 
-test_ism:	ism_tb.o ism.o flipflop.o
-		./ism_tb.o
-		$(GTKWAVE) $(VCDDIR)/ism_tb.vcd $(SAVDIR)/ism_tb.sav
-
 test_flag_unit:	flag_unit_tb.o flag_unit.o demux.o buffer.o
 		./flag_unit_tb.o
 		$(GTKWAVE) $(VCDDIR)/flag_unit_tb.vcd $(SAVDIR)/flag_unit_tb.sav
@@ -498,6 +494,10 @@ test_db test_databus: databus_tb.o databus.o
 test_alu_rom: alu_rom_tb.o alu_rom.o rom.o
 		./alu_rom_tb.o
 		$(GTKWAVE) $(VCDDIR)/alu_rom_tb.vcd $(SAVDIR)/alu_rom_tb.sav
+
+test_ism:	ism_tb.o ism.o flipflop.o
+		./ism_tb.o
+		$(GTKWAVE) $(VCDDIR)/ism_tb.vcd $(SAVDIR)/ism_tb.sav
 
 test_microcode_sequencer:	microcode_sequencer_tb.o microcode_sequencer.o reset.o clock.o
 		./microcode_sequencer_tb.o

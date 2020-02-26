@@ -7,7 +7,7 @@
 // REDESIGNED IN 2019
 // USES OK/FAIL OUTPUT
 
-`include "int_fsm.v"
+`include "ism.v"
 `timescale 1ns/10ps
 
 module int_tb();
@@ -35,7 +35,7 @@ module int_tb();
 
    // Initialize all variables
    initial begin
-      $monitor ("t: %7d | %b %b %b %b %b | %b %b > fi:%b nirqsuc:%b nirqs:%b\n",
+      $monitor ("t: %7d | %b %b %b %b %b | %b %b > fi:%b nirqsuc:%b nirqs:%b",
 		$time,
       		nreset, clk4, nend, nirq, action,
 		ibus15, nflagwe,
@@ -180,7 +180,7 @@ module int_tb();
 	 $error("assertion failure");
 	 #100 $finish;
       end
-      else $display("OK action");
+      else $display("OK action/fi");
    end
 
    always @(posedge nflagwe) begin
@@ -197,7 +197,7 @@ module int_tb();
 	 $error("assertion failure");
 	 #100 $finish;
       end
-      else $display("OK action");
+      else $display("OK nflagwe");
    end
 
    always @(negedge nirqs) begin

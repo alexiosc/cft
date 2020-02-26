@@ -1,15 +1,15 @@
 [*]
-[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
-[*] Sun Feb 16 11:49:42 2020
+[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
+[*] Wed Feb 26 14:51:34 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/sbu_tb.vcd"
-[dumpfile_mtime] "Sun Feb 16 11:49:14 2020"
-[dumpfile_size] 240966
+[dumpfile_mtime] "Wed Feb 26 14:37:28 2020"
+[dumpfile_size] 240962
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/sbu_tb.sav"
-[timestart] 359500000
-[size] 1920 1019
-[pos] 1927 51
-*-26.525890 6030000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[timestart] 0
+[size] 1865 1019
+[pos] 2172 75
+*-27.490135 705302000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] sbu_tb.
 [treeopen] sbu_tb.sbu.
 [sst_width] 258
@@ -94,5 +94,14 @@ sbu_tb.nskipext
 -
 @28
 sbu_tb.ncond
+sbu_tb.sbu.skp
+sbu_tb.sbu.s
+sbu_tb.sbu.skp
+sbu_tb.sbu.sl
+sbu_tb.sbu.sn
+sbu_tb.sbu.sv
+sbu_tb.sbu.svl
+sbu_tb.sbu.sz
+sbu_tb.sbu.szn
 [pattern_trace] 1
 [pattern_trace] 0

@@ -18,26 +18,21 @@
 
 `timescale 1ns/10ps
 
-module int_fsm (nreset, clk4, nend,
-		ibus15, nflagwe,
-		action,
-		nirq,
-		fi,
-		nirqs,
-		nirqsuc);
+module int_fsm (nreset, clk1, clk4, action, ibus15, nflagwe, nend, nirq,
+		fi, nirqs, nirqsuc);
 
    input       nreset;
+   input       clk1;
    input       clk4;
-   input       nend;
+   input [3:0] action;
    input       ibus15;
    input       nflagwe;
-   input [3:0] action;
+   input       nend;
    inout       nirq;
 
    output      fi;
    output      nirqs;		// IRQS signal for the bus
    output      nirqsuc;		// Identical IRQµC signal for the Control Unit
-
 
    wire [7:0]  y;
    wire        naction_sti;
