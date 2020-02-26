@@ -56,18 +56,18 @@
 // quite yet), so this isn't necessary and we save another IC, some
 // metastability risk, and plenty of propagation delay.
 
-module ail (ir, idx);
+module ail (ir, idx, idxen);
    input [15:0]  ir;
    output [1:0]  idx;
+   output 	 idxen;
 
    wire [7:0] 	 y;
-   wire 	 nidxen;
 	
    demux_238 ail_demux (.g1(ir[11]), .ng2a(1'b0), .ng2b(1'b0), .a(ir[10:8]), .y(y));
-   assign nidxen = y[7];
+   assign idxen = y[7];
 
-   assign #7 idx[0] = ir[6] & nidxen;
-   assign #7 idx[1] = ir[7] & nidxen;
+   assign #7 idx[0] = ir[6] & idxen;
+   assign #7 idx[1] = ir[7] & idxen;
 
 endmodule // constant_store
 

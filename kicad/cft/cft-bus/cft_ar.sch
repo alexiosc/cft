@@ -1,6 +1,5 @@
 EESchema Schematic File Version 4
-LIBS:cft-bus-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -1876,20 +1875,6 @@ F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 1600 2500 50  0001 C CNN
 	1    1950 2500
 	1    0    0    1   
 $EndComp
-Wire Bus Line
-	7400 4550 7400 5250
-Wire Bus Line
-	9150 4750 9150 5500
-Wire Bus Line
-	4550 950  4550 5200
-Wire Bus Line
-	6500 950  6500 2300
-Wire Bus Line
-	2650 1600 2650 5200
-Wire Bus Line
-	6200 1350 6200 5900
-Wire Bus Line
-	2800 1050 2800 3500
 $Comp
 L Jumper:Jumper_3_Bridged12 JP?
 U 1 1 5E742AE8
@@ -1904,4 +1889,20 @@ F 3 "~" H 1300 3000 50  0001 C CNN
 	1    1300 3000
 	0    -1   -1   0   
 $EndComp
+Wire Bus Line
+	7400 4550 7400 5250
+Wire Bus Line
+	9150 4750 9150 5500
+Wire Bus Line
+	6500 950  6500 2300
+Wire Bus Line
+	2650 1600 2650 5200
+Wire Bus Line
+	2800 1050 2800 3500
+Wire Bus Line
+	6200 1350 6200 5900
+Wire Bus Line
+	4550 950  4550 5200
+Text Label 3900 6000 2    50   ~ 0
+~ABEN2
 $EndSCHEMATC

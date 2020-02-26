@@ -1,15 +1,15 @@
 [*]
-[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
-[*] Wed Feb  5 19:16:02 2020
+[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
+[*] Wed Feb 26 17:32:00 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/mbu_tb.vcd"
-[dumpfile_mtime] "Wed Feb  5 19:15:56 2020"
-[dumpfile_size] 3808731
+[dumpfile_mtime] "Wed Feb 26 17:31:55 2020"
+[dumpfile_size] 16229186
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/mbu_tb.sav"
 [timestart] 0
 [size] 1920 1019
 [pos] 22568 0
-*-25.660542 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-30.108686 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] reg_mbr_tb.
 [treeopen] reg_mbr_tb.mbu.
 [sst_width] 258
@@ -23,13 +23,13 @@ reg_mbr_tb.status[800:0]
 @28
 [color] 1
 reg_mbr_tb.nreset
-@c00028
+@c00029
 reg_mbr_tb.mbu.sel[2:0]
-@28
+@29
 (0)reg_mbr_tb.mbu.sel[2:0]
 (1)reg_mbr_tb.mbu.sel[2:0]
 (2)reg_mbr_tb.mbu.sel[2:0]
-@1401200
+@1401201
 -group_end
 @200
 -
@@ -44,14 +44,10 @@ reg_mbr_tb.clk.clk2
 reg_mbr_tb.clk.clk3
 [color] 4
 reg_mbr_tb.clk.clk4
-[color] 5
-reg_mbr_tb.clk.wstb
 [color] 6
 reg_mbr_tb.nwen
 [color] 7
 reg_mbr_tb.nw
-@22
-reg_mbr_tb.mbu.ir[11:0]
 @200
 -
 @c00022
@@ -108,8 +104,6 @@ reg_mbr_tb.nfpram_fprom
 -Control ROM
 @c00200
 -Control ROM
-@22
-reg_mbr_tb.mbu.rom_ctl.a[14:0]
 @c00022
 reg_mbr_tb.mbu.rom_ctl.d[7:0]
 @28
@@ -142,14 +136,6 @@ reg_mbr_tb.mbu.nwrite_mbp_flags
 (4)reg_mbr_tb.mbu.waddr[4:0]
 [color] 4
 (3)reg_mbr_tb.mbu.waddr[4:0]
-[color] 5
-(3)reg_mbr_tb.mbu.ir[11:0]
-[color] 5
-(2)reg_mbr_tb.mbu.ir[11:0]
-[color] 5
-(1)reg_mbr_tb.mbu.ir[11:0]
-[color] 5
-(0)reg_mbr_tb.mbu.ir[11:0]
 [color] 6
 reg_mbr_tb.mbu.ndis
 @200
@@ -206,30 +192,17 @@ reg_mbr_tb.waddr[4:0]
 (4)reg_mbr_tb.waddr[4:0]
 @1401200
 -group_end
-@c00022
-reg_mbr_tb.mbu.ir[11:0]
-@28
-(0)reg_mbr_tb.mbu.ir[11:0]
-(1)reg_mbr_tb.mbu.ir[11:0]
-(2)reg_mbr_tb.mbu.ir[11:0]
-(3)reg_mbr_tb.mbu.ir[11:0]
-(4)reg_mbr_tb.mbu.ir[11:0]
-(5)reg_mbr_tb.mbu.ir[11:0]
-(6)reg_mbr_tb.mbu.ir[11:0]
-(7)reg_mbr_tb.mbu.ir[11:0]
-(8)reg_mbr_tb.mbu.ir[11:0]
-(9)reg_mbr_tb.mbu.ir[11:0]
-(10)reg_mbr_tb.mbu.ir[11:0]
-(11)reg_mbr_tb.mbu.ir[11:0]
+@c00200
+-reg_mbr_tb.mbu.ir
 @1401200
 -group_end
-@c00029
+@c00028
 reg_mbr_tb.mbu.sel[2:0]
-@29
+@28
 (0)reg_mbr_tb.mbu.sel[2:0]
 (1)reg_mbr_tb.mbu.sel[2:0]
 (2)reg_mbr_tb.mbu.sel[2:0]
-@1401201
+@1401200
 -group_end
 @c00022
 reg_mbr_tb.ibus[15:0]
@@ -288,7 +261,6 @@ reg_mbr_tb.mbu.nw
 [color] 3
 reg_mbr_tb.mbu.niombr
 reg_mbr_tb.nsysdev
-reg_mbr_tb.clk.wstb
 @1401200
 -I/O Peripheral
 @200
@@ -330,14 +302,10 @@ reg_mbr_tb.mbu.nwrite_ar_mbx
 -Address Selection
 @28
 reg_mbr_tb.mbu.nuse_ab
-@22
-reg_mbr_tb.mbu.rom_ctl.a[14:0]
-@28
 reg_mbr_tb.mbu.nuse_zero
 reg_mbr_tb.mbu.nuse_waddr
 reg_mbr_tb.mbu.nuse_ir
 @22
-reg_mbr_tb.mbu.rom_ctl.a[14:0]
 reg_mbr_tb.mbu.rom_ctl.d[7:0]
 @200
 -

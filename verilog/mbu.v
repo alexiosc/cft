@@ -33,10 +33,11 @@
 // The Memory Bank Register File
 
 module mbu (nreset,
-	    wstb, t34,
-	    raddr, nruen,
-	    waddr, nwuen,
-	    ir,			// Only bits 0–2 and 8–11 are used.
+	    clk3, t34,
+	    raddr,
+	    waddr,
+	    idxen,		// 1 iff ir[11:8] == 1'b1111
+	    ir,			// Only bits 0–2 are used.
 	    ibus,		// Only bits 0–7 of the IBUS are used.
 	    aext,		//
 	    nr, nw,
@@ -49,11 +50,11 @@ module mbu (nreset,
 	    );
 	    
    input        nreset;
-   input 	wstb;
+   input 	clk3;
    input 	t34;
    input [4:0] 	waddr, raddr;
-   input 	nruen, nwuen;
-   input [11:0] ir;
+   input 	idxen;
+   input [2:0] ir;
    input 	nsysdev;
    input 	nr;
    input 	nw;
@@ -92,19 +93,19 @@ module mbu (nreset,
    assign niombr = dec_ab[0];
    
    // U12: We decode RADDRs 01100, 01101, and 01110.
-   demux_138 demux_raddr (.a(raddr[2:0]), .g1(raddr[3]), .ng2a(raddr[4]), .ng2b(nruen), .y(dec_raddr));
+   demux_138 demux_raddr (.a(raddr[2:0]), .g1(raddr[3]), .ng2a(raddr[4]), .ng2b(t34), .y(dec_raddr));
    assign nread_mbp = dec_raddr[4];
    assign nread_mbp_flags = dec_raddr[5];
    assign nread_flags = dec_raddr[6];
 
    // U16: We decode WADDRs 01100, 01101, and 01110. Symmetric to the above '138.
-   demux_138 demux_waddr1 (.a(waddr[2:0]), .g1(waddr[3]), .ng2a(waddr[4]), .ng2b(nwuen), .y(dec_waddr1));
+   demux_138 demux_waddr1 (.a(waddr[2:0]), .g1(waddr[3]), .ng2a(waddr[4]), .ng2b(1'b0), .y(dec_waddr1));
    assign nwrite_mbp = dec_waddr1[4];
    assign nwrite_mbp_flags = dec_waddr1[5];
    assign nwrite_flags = dec_waddr1[6];
 
    // U17: decode WADDR to get nwrite_ar_mbx.
-   demux_138 demux_waddr2 (.a(waddr[4:2]), .g1(1'b1), .ng2a(1'b0), .ng2b(nwuen), .y(dec_waddr2));
+   demux_138 demux_waddr2 (.a(waddr[4:2]), .g1(1'b1), .ng2a(1'b0), .ng2b(1'b0), .y(dec_waddr2));
    assign nwrite_ar_mbx = dec_waddr2[1];
 
 
@@ -145,7 +146,7 @@ module mbu (nreset,
    // U9: The ROM saves us using a ‘more modern’ (cough) PAL device. If the ROM
    // isn't fast enough, a 20V10 PAL will need to replace it.
    
-   wire [14:0] 	addr;
+   wire [11:0] 	addr;
    wire [7:0] 	data;
    wire 	nibusw;
    wire 	nibusen;
@@ -157,8 +158,8 @@ module mbu (nreset,
    wire 	nrmbr0, nrmbr;
 
 
-   assign addr = { ndis,	      // A14
-		   ir[11:8],	      // A13–A10
+   assign addr = { ndis,	      // A11
+		   idxen,	      // A10
 		   waddr[1:0],	      // A9–A8
 		   nwrite_ar_mbx,     // A7
 		   nwrite_mbp_flags,  // A6
@@ -180,7 +181,7 @@ module mbu (nreset,
             nrmbr0	      // D0
 	    } = data;
    
-   rom #(15, 45, "../microcode/build/mbu-rom.list") rom_ctl (.a(addr), .d(data), .nce(1'b0), .noe(1'b0));
+   rom #(12, 45, "../microcode/build/mbu-rom.list") rom_ctl (.a(addr), .d(data), .nce(1'b0), .noe(1'b0));
 
 
    // There are three OR gates of an 74AC32 delaying nRMBR. This is almost
@@ -192,7 +193,7 @@ module mbu (nreset,
 
    // Likewise, nWMBR can be gated by WSTB or not.
    //assign nwmbr = nwmbr0;	        // Direct drive
-   assign #10 nwmbr = nwmbr0 | wstb;	// Only asserted during WSTB
+   assign #10 nwmbr = nwmbr0 | clk3;	// Only asserted during WSTB
 
 
    ///////////////////////////////////////////////////////////////////////////////

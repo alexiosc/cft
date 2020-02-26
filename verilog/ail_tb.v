@@ -33,13 +33,14 @@
 module ail_tb();
    wire [15:0] ir;
    wire [1:0]  idx;
+   wire        idxen;
    
    integer    i;
    
    // Initialize all variables
    initial begin        
       //$display ("time\t rst oe cs q");	
-      $monitor ("t: %7d | %b > %b", $time, ir, idx);
+      $monitor ("t: %7d | %b > %b %b", $time, ir, idx, idxen);
       $dumpfile ("vcd/ail_tb.vcd");
       $dumpvars (0, ail_tb);
 
@@ -56,7 +57,7 @@ module ail_tb();
    assign ir = i[15:0];
    
    // Connect DUT to test bench
-   ail ail (.ir(ir), .idx(idx));
+   ail ail (.ir(ir), .idx(idx), .idxen(idxen));
 
    // Verify our findings.
    reg [8191:0] msg;
@@ -78,8 +79,15 @@ module ail_tb();
 	   12'b11_1111??????: correct_idx = 2'b11;
 	 endcase // casex (ir)
 
-	 if (idx !== correct_idx) $sformat(msg, "ir[11:0]=%b%b_%b but idx=%b (should be %b)",
-					 ir[11], ir[10], ir[9:0], idx, correct_idx);
+	 if (idx !== correct_idx) begin
+	    $sformat(msg, "ir[11:0]=%b%b_%b but idx=%b (should be %b)",
+		     ir[11], ir[10], ir[9:0], idx, correct_idx);
+	 end
+
+	 else if (idxen !== ir[11:8] === 4'b1111 ? 1'b1 : 1'b0) begin
+	    $sformat(msg, "idxen decoding failure: ir[11:8]=%b, but nindxen=%b",
+		     ir[11:8], idxen);
+	 end
 
 	 // Fail if we've logged an issue.
 	 if (msg[7:0]) begin
@@ -93,5 +101,3 @@ module ail_tb();
 endmodule // ail_tb
 
 // End of file.
-
-

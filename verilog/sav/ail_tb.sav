@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Wed Feb 26 08:26:55 2020
+[*] Wed Feb 26 15:46:25 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/ail_tb.vcd"
-[dumpfile_mtime] "Wed Feb 26 08:26:47 2020"
-[dumpfile_size] 4449052
+[dumpfile_mtime] "Wed Feb 26 15:46:03 2020"
+[dumpfile_size] 4449076
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/ail_tb.sav"
 [timestart] 0
 [size] 2048 1123
 [pos] 2051 0
-*-27.041637 7000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-30.041637 7000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] ail_tb.
 [treeopen] ail_tb.ail.
 [sst_width] 258
@@ -56,11 +56,11 @@ ail_tb.ir[15:0]
 -group_end
 @200
 -
-@c04023
+@c04022
 [color] 1
 ^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/disasm
 ail_tb.ir[15:0]
-@29
+@28
 [color] 7
 (0)ail_tb.ir[15:0]
 [color] 7
@@ -93,7 +93,7 @@ ail_tb.ir[15:0]
 (14)ail_tb.ir[15:0]
 [color] 7
 (15)ail_tb.ir[15:0]
-@1401201
+@1401200
 -group_end
 @c00028
 [color] 3
@@ -107,5 +107,7 @@ ail_tb.idx[1:0]
 -group_end
 @22
 ail_tb.ail.ir[15:0]
+@29
+ail_tb.idxen
 [pattern_trace] 1
 [pattern_trace] 0

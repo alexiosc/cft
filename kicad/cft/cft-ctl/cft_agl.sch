@@ -671,7 +671,7 @@ Connection ~ 6000 7200
 Connection ~ 6000 7400
 Text Notes 800  1000 0    98   ~ 20
 Page Zero Address Generation Logic (AGL)
-Text Notes 5900 4200 0    98   ~ 20
+Text Notes 12300 3700 0    98   ~ 20
 Auto-Indexing Logic (AIL)
 Text Notes 8000 5300 0    50   ~ 0
 IDX0 and IDX1 are not registered because they rely solely on the\ncurrent value of the IR. IR is latched during CLK4, so at worst\nIDX will be valid at CLK1 + ~20ns.
@@ -837,7 +837,7 @@ Wire Notes Line width 24 style solid
 	10850 3150 10850 2550
 Wire Notes Line width 24 style solid
 	10850 3150 7800 3150
-Text Notes 5900 4600 0    50   ~ 0
+Text Notes 12300 4100 0    50   ~ 0
 The Auto-Index Unit decodes the instruction operand and indicates to the Control Unit which (if any) auto-index\naddressing mode should be used. IDX is usually 00 (no indexing), unless the instruction has fields I and R set,\nand the operand is in the range &300–&3FF, i.e. IR8 and IR9 are set. In that case, the vector IR[6..7] sets\nIDX[0..1].
 Text HLabel 8950 6300 2    50   Output ~ 0
 IDX1
@@ -973,7 +973,7 @@ NoConn ~ 7000 6050
 NoConn ~ 7000 6150
 NoConn ~ 7000 6250
 Wire Wire Line
-	7850 6350 7450 6350
+	7850 6350 7750 6350
 Wire Wire Line
 	7350 6250 7850 6250
 Text Label 5600 5100 0    50   ~ 0
@@ -994,7 +994,7 @@ Wire Notes Line width 24 style solid
 Wire Notes Line width 24 style solid
 	10700 5400 7900 5400
 Text Label 7050 6350 0    50   ~ 0
-~IDXEN
+IDXEN
 Text Notes 7900 1000 0    63   ~ 13
 Addressing Modes are only partly implemented here
 Text Notes 7900 1600 0    50   ~ 0
@@ -1083,6 +1083,10 @@ Text Notes 1400 4150 0    50   ~ 0
 This is decoded by the flag unit.
 Connection ~ 2300 7400
 Connection ~ 2300 7200
+Wire Wire Line
+	7750 6350 7750 6500
+Wire Wire Line
+	7750 6500 8950 6500
 Wire Bus Line
 	1200 2050 5350 2050
 Wire Bus Line
@@ -1095,4 +1099,11 @@ Wire Bus Line
 	5450 1050 5450 1950
 Wire Bus Line
 	7550 2150 7550 3100
+Connection ~ 7750 6350
+Wire Wire Line
+	7750 6350 7450 6350
+Text HLabel 8950 6500 2    50   Output ~ 0
+IDXEN
+Text Label 8900 6500 2    50   ~ 0
+IDXEN
 $EndSCHEMATC

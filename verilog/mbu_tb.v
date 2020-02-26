@@ -28,6 +28,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 `include "mbu.v"
+`include "clock.v"
 `include "demux.v"
 `include "clock.v"
 
@@ -42,6 +43,7 @@ module reg_mbr_tb();
    reg [4:0]  waddr;
    reg [4:0]  raddr;
    wire       nw;
+   wire       idxen;
    
    wire [15:0] ibus_real, ab_real, db_real;
    wire [7:0]  aext, db_low, ibus_low;
@@ -50,7 +52,7 @@ module reg_mbr_tb();
 
    reg [800:0] status;
 
-   wire        wstb, t34;
+   wire        clk1, clk2, clk3, clk4, t34;
    
    wire        nsysdev;
 
@@ -257,7 +259,7 @@ module reg_mbr_tb();
 	       $display("read (RADDR): raddr=%05b, ibus=%04x, MBU drove the IBUS (it shouldn't have)",
 			raddr, ibus[7:0]);
 	       $error("assertion failure");
-	       #100 $finish;
+	       $finish;
 	    end else begin
 	       $display("OK RADDR");
 	    end
@@ -348,10 +350,10 @@ module reg_mbr_tb();
 
    // Connect the DUT   
    mbu mbu (.nreset(nreset),
-	    .wstb(wstb), .t34(t34),
+	    .clk3(clk3), .t34(t34),
 	    .waddr(waddr), .raddr(raddr),
-	    .nruen(1'b0), .nwuen(1'b0),
-	    .ir(ir[11:0]),
+	    .ir(ir[2:0]),
+	    .idxen(idxen),
 	    .ibus(ibus_real[7:0]),
 	    .aext(aext),
 	    .nr(nr), .nw(nw),
@@ -365,8 +367,11 @@ module reg_mbr_tb();
 	    .nfpram_fprom(nfpram_fprom)
 	    );
 
+   // Make the idxen signal work
+   assign #15 idxen = ir[11:8] === 4'b1111 ? 1'b1 : 1'b0;
+
    // Use the actual clock generator to make testing more accurate.
-   clock_generator clk (.nreset(nreset), .fpclk(1'b0), .nfpclk_or_clk(1'b1), .wstb(wstb), .t34(t34));
+   clock_generator clk (.nreset(nreset), .fpclk(1'b0), .nfpclk_or_clk(1'b1), .clk1(clk1), .clk2(clk2), .clk3(clk3), .clk4(clk4), .t34(t34));
 
    // Simulate SYSDEV generation. Assume ALL bus transactions are I/O
    // transactions for simplicity.

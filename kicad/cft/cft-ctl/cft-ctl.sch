@@ -793,6 +793,7 @@ F5 "~END" I L 4200 3450 50
 F6 "IDX0" O R 5350 3700 50 
 F7 "IDX1" O R 5350 3800 50 
 F8 "~READ-AGL" I L 4200 3350 50 
+F9 "IDXEN" O R 5350 3550 50 
 $EndSheet
 $Sheet
 S 1500 6200 1150 1300
@@ -840,8 +841,6 @@ Text Notes 10150 2000 0    50   ~ 0
 → BUS.MBU
 Text Notes 10150 2100 0    50   ~ 0
 → BUS.MBU
-Text Notes 10150 2200 0    50   ~ 0
-→ BUS.MBU
 Text Notes 10150 2500 0    50   ~ 0
 ← ALU
 Wire Wire Line
@@ -849,7 +848,7 @@ Wire Wire Line
 Wire Wire Line
 	4200 5650 3600 5650
 Wire Wire Line
-	4200 5750 3600 5750
+	4200 5750 3550 5750
 Text Label 3600 5550 0    50   ~ 0
 CEXT8
 Text Label 3600 5650 0    50   ~ 0
@@ -886,8 +885,6 @@ Text Label 10100 5200 2    50   ~ 0
 CEXT8
 Text Label 10100 5300 2    50   ~ 0
 CEXT9
-Text Label 10100 5400 2    50   ~ 0
-CEXT10
 Wire Wire Line
 	2650 6450 3250 6450
 Text Label 3250 6450 2    50   ~ 0
@@ -1064,8 +1061,6 @@ Text Notes 10200 5200 0    50   ~ 0
 For future expansion
 Text Notes 10200 5300 0    50   ~ 0
 For future expansion
-Text Notes 10200 5400 0    50   ~ 0
-For future expansion
 Text Notes 10200 5100 0    50   ~ 0
 For future expansion
 Text Notes 10200 4800 0    50   ~ 0
@@ -1167,6 +1162,27 @@ Wire Wire Line
 	2650 2950 3100 2950
 Text Label 3100 2950 2    50   ~ 0
 WSTB
+Wire Wire Line
+	5350 3550 5950 3550
+Text Label 5950 3550 2    50   ~ 0
+IDXEN
+Text Label 10100 5400 2    50   ~ 0
+IDXEN
+Text Notes 10150 2200 0    50   ~ 0
+→ BUS.MBU
+Text Notes 10200 5400 0    50   ~ 0
+→ BUS.MBU
+$Comp
+L Connector:TestPoint TP4
+U 1 1 5E9C8A8F
+P 3550 5750
+F 0 "TP4" V 3653 5822 50  0000 C CNN
+F 1 "TestPoint" V 3654 5822 50  0001 C CNN
+F 2 "TestPoint:TestPoint_Pad_1.0x1.0mm" H 3750 5750 50  0001 C CNN
+F 3 "~" H 3750 5750 50  0001 C CNN
+	1    3550 5750
+	0    -1   -1   0   
+$EndComp
 Wire Bus Line
 	9950 1450 9950 2100
 Wire Bus Line

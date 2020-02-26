@@ -1,10 +1,9 @@
 EESchema Schematic File Version 4
-LIBS:cft-bus-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 3 6
+Sheet 6 6
 Title "Memory Bank Unit"
 Date ""
 Rev "2006"
@@ -373,22 +372,6 @@ Text Notes 3250 1450 0    50   ~ 0
 &008–&00F
 Text Label 3150 1350 0    50   ~ 0
 ~IOMBR
-Wire Wire Line
-	4500 2150 5000 2150
-Text Label 4600 2250 0    50   ~ 0
-IR9
-Text Label 4600 2150 0    50   ~ 0
-IR8
-Wire Wire Line
-	5000 2250 4500 2250
-Text Label 4600 2350 0    50   ~ 0
-IR10
-Wire Wire Line
-	5000 2350 4500 2350
-Text Label 4600 2450 0    50   ~ 0
-IR11
-Wire Wire Line
-	5000 2450 4500 2450
 Text Label 4600 2050 0    50   ~ 0
 WADDR1
 Wire Wire Line
@@ -454,7 +437,7 @@ F 3 "" H 4900 3000 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	5000 1250 3900 1250
+	5000 1250 3700 1250
 Text Label 4300 1250 0    50   ~ 0
 ~W
 Text Label 4300 1150 0    50   ~ 0
@@ -719,7 +702,7 @@ F 3 "~" H 9300 2050 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 Text Label 8250 2100 0    50   ~ 0
-WSTB
+CLK3
 Text Notes 9550 1750 2    50   ~ 0
 Optional 0–3×Tpd delay line
 Wire Wire Line
@@ -893,19 +876,11 @@ Wire Wire Line
 Wire Wire Line
 	4300 1850 5000 1850
 Wire Wire Line
-	5000 1150 3900 1150
-Text HLabel 3900 1150 0    50   Input ~ 0
+	5000 1150 3700 1150
+Text HLabel 3700 1150 0    50   Input ~ 0
 ~R
-Text HLabel 3900 1250 0    50   Input ~ 0
+Text HLabel 3700 1250 0    50   Input ~ 0
 ~W
-Entry Wire Line
-	4400 2250 4500 2150
-Entry Wire Line
-	4400 2350 4500 2250
-Entry Wire Line
-	4400 2450 4500 2350
-Entry Wire Line
-	4400 2550 4500 2450
 Entry Wire Line
 	4400 6200 4500 6300
 Entry Wire Line
@@ -1563,8 +1538,6 @@ Wire Wire Line
 	7050 1800 8700 1800
 Wire Wire Line
 	7050 1800 7050 1250
-Text Notes 3750 4800 2    50   ~ 0
-IR[0:2], IR[8:11]
 Wire Wire Line
 	5350 4250 4950 4250
 Wire Wire Line
@@ -1707,8 +1680,8 @@ $EndComp
 Wire Wire Line
 	1300 7500 1350 7500
 Wire Wire Line
-	4600 2550 5000 2550
-Text Label 4600 2550 0    50   ~ 0
+	4600 2250 5000 2250
+Text Label 4600 2250 0    50   ~ 0
 ~DIS
 Text Label 1250 7000 0    50   ~ 0
 ~RESET
@@ -2020,13 +1993,11 @@ $EndComp
 Wire Wire Line
 	8700 1800 8700 2250
 Text HLabel 3400 4850 0    50   Input ~ 0
-IR[0..11]
+IR[0..2]
 Wire Bus Line
 	3400 4850 4300 4850
 Entry Bus Bus
 	4300 4850 4400 4950
-Entry Bus Bus
-	4300 4850 4400 4750
 Wire Wire Line
 	4300 4450 4300 1850
 Text Notes 2050 6350 0    100  ~ 20
@@ -2399,11 +2370,11 @@ Wire Wire Line
 	7100 5650 6800 5650
 Text Label 6800 5650 0    50   ~ 0
 T34
-Text Label 1600 850  2    50   ~ 0
+Text Label 1600 950  2    50   ~ 0
 T34
 Wire Wire Line
-	1250 850  1600 850 
-Text HLabel 1250 850  0    50   Input ~ 0
+	1250 950  1600 950 
+Text HLabel 1250 950  0    50   Input ~ 0
 T34
 $Comp
 L Jumper:Jumper_3_Bridged12 JP?
@@ -2418,18 +2389,12 @@ F 3 "~" H 8500 2350 50  0001 C CNN
 	1    8500 2350
 	0    -1   -1   0   
 $EndComp
-Text HLabel 1250 950  0    50   Input ~ 0
-WSTB
 Wire Wire Line
 	8650 2350 8750 2350
 Wire Wire Line
 	8500 2600 8250 2600
 Text Label 8250 2600 0    50   ~ 0
 T34
-Text Label 1600 950  2    50   ~ 0
-WSTB
-Wire Wire Line
-	1250 950  1600 950 
 Text HLabel 6050 7000 2    50   Output ~ 0
 ~WRITE-AR
 Wire Wire Line
@@ -2460,10 +2425,6 @@ Wire Wire Line
 	3100 3000 3900 3000
 Wire Wire Line
 	3900 3000 3900 1450
-Wire Wire Line
-	2100 3400 1250 3400
-Text HLabel 1250 3400 0    50   Input ~ 0
-~RUEN
 $Comp
 L alexios:74HC138 U?
 U 1 1 5EDE7D3C
@@ -2479,14 +2440,8 @@ F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 2600 3000 50  0001 C CNN
 	1    2600 3000
 	1    0    0    -1  
 $EndComp
-Text Label 1800 3400 0    50   ~ 0
-~RUEN
 Wire Wire Line
-	2100 4650 1600 4650
-Text HLabel 1250 4650 0    50   Input ~ 0
-~WUEN
-Text Label 1800 4650 0    50   ~ 0
-~WUEN
+	2100 4650 2050 4650
 Entry Wire Line
 	1700 5100 1800 5200
 Text Label 1800 5200 0    50   ~ 0
@@ -2501,15 +2456,6 @@ Entry Wire Line
 	1700 5200 1800 5300
 Entry Wire Line
 	1700 5000 1800 5100
-Wire Wire Line
-	1600 4650 1600 5900
-Wire Wire Line
-	1600 5900 2100 5900
-Connection ~ 1600 4650
-Wire Wire Line
-	1600 4650 1250 4650
-Text Label 1900 5900 2    50   ~ 0
-~WUEN
 NoConn ~ 3100 5800
 NoConn ~ 3100 5100
 $Comp
@@ -2714,23 +2660,76 @@ F 3 "" H 2050 5700 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	2100 5800 2050 5800
-$Comp
-L power:GND #PWR0146
-U 1 1 5E49AA4F
-P 2050 5800
-F 0 "#PWR0146" H 2050 5550 50  0001 C CNN
-F 1 "GND" V 2000 5650 50  0000 R CNN
-F 2 "" H 2050 5800 50  0001 C CNN
-F 3 "" H 2050 5800 50  0001 C CNN
-	1    2050 5800
-	0    1    1    0   
-$EndComp
 Wire Wire Line
 	2050 5700 2100 5700
+Text Notes 5900 2800 0    50   ~ 0
+Note: 27C32 is\nenough, but\nvery rare\nthese days.
+Text Label 4600 2150 0    50   ~ 0
+IDXEN
+Wire Wire Line
+	5000 2350 4900 2350
+Wire Wire Line
+	4900 2350 4900 2450
+Connection ~ 4900 2850
+Wire Wire Line
+	5000 2450 4900 2450
+Connection ~ 4900 2450
+Wire Wire Line
+	4900 2450 4900 2550
+Wire Wire Line
+	5000 2550 4900 2550
+Connection ~ 4900 2550
+Wire Wire Line
+	4900 2550 4900 2850
+Wire Wire Line
+	3700 2150 5000 2150
+Text HLabel 3700 2150 0    50   Input ~ 0
+IDXEN
+Text Label 4400 5850 1    50   ~ 0
+IR[0..2]
+Wire Wire Line
+	2100 3400 1250 3400
+Text HLabel 1250 3400 0    50   Input ~ 0
+T34
+Wire Wire Line
+	1250 850  1600 850 
+Wire Wire Line
+	2050 4650 2050 4700
+$Comp
+L power:GND #PWR?
+U 1 1 5E8B792F
+P 2050 4700
+F 0 "#PWR?" H 2050 4450 50  0001 C CNN
+F 1 "GND" H 2055 4527 50  0000 C CNN
+F 2 "" H 2050 4700 50  0001 C CNN
+F 3 "" H 2050 4700 50  0001 C CNN
+	1    2050 4700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2100 5900 2050 5900
+Wire Wire Line
+	2050 5900 2050 5950
+$Comp
+L power:GND #PWR?
+U 1 1 5E8B7ED4
+P 2050 5950
+F 0 "#PWR?" H 2050 5700 50  0001 C CNN
+F 1 "GND" H 2055 5777 50  0000 C CNN
+F 2 "" H 2050 5950 50  0001 C CNN
+F 3 "" H 2050 5950 50  0001 C CNN
+	1    2050 5950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2050 5800 2050 5900
+Connection ~ 2050 5900
+Text HLabel 1250 850  0    50   Input ~ 0
+CLK3
+Text Label 1600 850  2    50   ~ 0
+CLK3
 Wire Bus Line
 	4400 4950 4400 6200
-Wire Bus Line
-	4400 2250 4400 4750
 Wire Bus Line
 	1700 1150 1700 1950
 Wire Bus Line

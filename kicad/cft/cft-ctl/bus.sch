@@ -1223,6 +1223,8 @@ Wire Wire Line
 	9800 5200 9800 5300
 Connection ~ 9800 5200
 Connection ~ 9800 5300
+Text HLabel 2150 2350 0    50   UnSpc ~ 0
+WSTB
 Wire Bus Line
 	7200 2950 7200 5950
 Wire Bus Line
@@ -1241,6 +1243,4 @@ Wire Bus Line
 	4700 1850 4700 5550
 Wire Bus Line
 	2050 2850 2050 5250
-Text HLabel 2150 2350 0    50   UnSpc ~ 0
-WSTB
 $EndSCHEMATC

@@ -14,31 +14,31 @@ import threading
 #
 # Basically implements this truth table:
 #
-# | group | SYSDEV | AB        | R | W | RADDR | WADDR | IR              |   | ABSEL | ZEROSEL | WADDRSEL | IRSEL | RMBR | WMBR | SEL | IBUSEN | IBUSW |
-# |-------|--------|-----------|---|---|-------|-------|-----------------|---|-------|---------|----------|-------|------|------|-----|--------|-------|
-# | 1     | 0      | 0000 1aaa | 0 | x | xxxxx | xxxxx | xx xx xxxx xxxx |   | 0     |         |          |       | 0    | 1    | aaa | 1 (*)  | 1     | IN
-# | 1     | 0      | 0000 1aaa | x | 0 | xxxxx | xxxxx | xx xx xxxx xxxx |   | 0     |         |          |       | 1    | 0    | aaa | 0      | 1     | OUT
-# |-------|--------|-----------|---|---|-------|-------|-----------------|---|-------|---------|----------|-------|------|------|-----|--------|-------|
-# | 2     | 1      | xxxx xxxx | x | x | 0110x | xxxxx | xx xx xxxx xxxx |   |       | 0       |          |       | 0    | 1    | 000 | 0      | 0     |
-# | 2     | 1      | xxxx xxxx | x | x | xxxxx | 0110x | xx xx xxxx xxxx |   |       | 0       |          |       | 1    | 0    | 000 | 0      | 1     |
-# |-------|--------|-----------|---|---|-------|-------|-----------------|---|-------|---------|----------|-------|------|------|-----|--------|-------|
-# | 3     | 1      | xxxx xxxx | x | x | xxxxx | 00100 | xx xx xxxx xxxx |   |       |         | 0        | 1     | 0    | 1    | 000 | 1      | 1     |
-# | 3     | 1      | xxxx xxxx | x | x | xxxxx | 00101 | xx xx xxxx xxxx |   |       |         | 0        | 1     | 0    | 1    | 001 | 1      | 1     |
-# | 3     | 1      | xxxx xxxx | x | x | xxxxx | 00110 | xx xx xxxx xxxx |   |       |         | 0        | 1     | 0    | 1    | 010 | 1      | 1     |
-# |-------|--------|-----------|---|---|-------|-------|-----------------|---|-------|---------|----------|-------|------|------|-----|--------|-------|
-# | 4     | 1      | xxxx xxxx | x | x | xxxxx | 00111 | 0x xx xxxx xxxx |   |       |         | 0        | 1     | 0    | 1    | 011 | 1      | 1     |
-# | 4     | 1      | xxxx xxxx | x | x | xxxxx | 00111 | 00 xx xxxx xxxx |   |       |         | 0        | 1     | 0    | 1    | 011 | 1      | 1     |
-# | 4     | 1      | xxxx xxxx | x | x | xxxxx | 00111 | 00 0x xxxx xxxx |   |       |         | 0        | 1     | 0    | 1    | 011 | 1      | 1     |
-# | 4     | 1      | xxxx xxxx | x | x | xxxxx | 00111 | 00 00 xxxx xxxx |   |       |         | 0        | 1     | 0    | 1    | 011 | 1      | 1     |
-# |-------|--------|-----------|---|---|-------|-------|-----------------|---|-------|---------|----------|-------|------|------|-----|--------|-------|
-# | 5     | 1      | xxxx xxxx | x | x | xxxxx | 00111 | 11 11 xxxx x000 |   |       |         | 1        | 0     | 0    | 1    | 000 | 1      | 1     |
-# | 5     | 1      | xxxx xxxx | x | x | xxxxx | 00111 | 11 11 xxxx x001 |   |       |         | 1        | 0     | 0    | 1    | 001 | 1      | 1     |
-# | 5     | 1      | xxxx xxxx | x | x | xxxxx | 00111 | 11 11 xxxx x010 |   |       |         | 1        | 0     | 0    | 1    | 010 | 1      | 1     |
-# | 5     | 1      | xxxx xxxx | x | x | xxxxx | 00111 | 11 11 xxxx x011 |   |       |         | 1        | 0     | 0    | 1    | 011 | 1      | 1     |
-# | 5     | 1      | xxxx xxxx | x | x | xxxxx | 00111 | 11 11 xxxx x100 |   |       |         | 1        | 0     | 0    | 1    | 100 | 1      | 1     |
-# | 5     | 1      | xxxx xxxx | x | x | xxxxx | 00111 | 11 11 xxxx x101 |   |       |         | 1        | 0     | 0    | 1    | 101 | 1      | 1     |
-# | 5     | 1      | xxxx xxxx | x | x | xxxxx | 00111 | 11 11 xxxx x110 |   |       |         | 1        | 0     | 0    | 1    | 110 | 1      | 1     |
-# | 5     | 1      | xxxx xxxx | x | x | xxxxx | 00111 | 11 11 xxxx x111 |   |       |         | 1        | 0     | 0    | 1    | 111 | 1      | 1     |
+# | group | SYSDEV | AB        | R | W | RADDR | WADDR | IDXEN | IR        |   | ABSEL | ZEROSEL | WADDRSEL | IRSEL | RMBR | WMBR | SEL | IBUSEN | IBUSW |
+# |-------|--------|-----------|---|---|-------|-------|-------|-----------|---|-------|---------|----------|-------|------|------|-----|--------|-------|
+# | 1     | 0      | 0000 1aaa | 0 | x | xxxxx | xxxxx |   x   | xxxx xxxx |   | 0     |         |          |       | 0    | 1    | aaa | 1 (*)  | 1     | IN
+# | 1     | 0      | 0000 1aaa | x | 0 | xxxxx | xxxxx |   x   | xxxx xxxx |   | 0     |         |          |       | 1    | 0    | aaa | 0      | 1     | OUT
+# |-------|--------|-----------|---|---|-------|-------|-------|-----------|---|-------|---------|----------|-------|------|------|-----|--------|-------|
+# | 2     | 1      | xxxx xxxx | x | x | 0110x | xxxxx |   x   | xxxx xxxx |   |       | 0       |          |       | 0    | 1    | 000 | 0      | 0     |
+# | 2     | 1      | xxxx xxxx | x | x | xxxxx | 0110x |   x   | xxxx xxxx |   |       | 0       |          |       | 1    | 0    | 000 | 0      | 1     |
+# |-------|--------|-----------|---|---|-------|-------|-------|-----------|---|-------|---------|----------|-------|------|------|-----|--------|-------|
+# | 3     | 1      | xxxx xxxx | x | x | xxxxx | 00100 |   x   | xxxx xxxx |   |       |         | 0        | 1     | 0    | 1    | 000 | 1      | 1     |
+# | 3     | 1      | xxxx xxxx | x | x | xxxxx | 00101 |   x   | xxxx xxxx |   |       |         | 0        | 1     | 0    | 1    | 001 | 1      | 1     |
+# | 3     | 1      | xxxx xxxx | x | x | xxxxx | 00110 |   x   | xxxx xxxx |   |       |         | 0        | 1     | 0    | 1    | 010 | 1      | 1     |
+# |-------|--------|-----------|---|---|-------|-------|-------|-----------|---|-------|---------|----------|-------|------|------|-----|--------|-------|
+# | 4     | 1      | xxxx xxxx | x | x | xxxxx | 00111 |   0   | xxxx xxxx |   |       |         | 0        | 1     | 0    | 1    | 011 | 1      | 1     |
+# | 4     | 1      | xxxx xxxx | x | x | xxxxx | 00111 |   0   | xxxx xxxx |   |       |         | 0        | 1     | 0    | 1    | 011 | 1      | 1     |
+# | 4     | 1      | xxxx xxxx | x | x | xxxxx | 00111 |   0   | xxxx xxxx |   |       |         | 0        | 1     | 0    | 1    | 011 | 1      | 1     |
+# | 4     | 1      | xxxx xxxx | x | x | xxxxx | 00111 |   0   | xxxx xxxx |   |       |         | 0        | 1     | 0    | 1    | 011 | 1      | 1     |
+# |-------|--------|-----------|---|---|-------|-------|-------|-----------|---|-------|---------|----------|-------|------|------|-----|--------|-------|
+# | 5     | 1      | xxxx xxxx | x | x | xxxxx | 00111 |   1   | xxxx x000 |   |       |         | 1        | 0     | 0    | 1    | 000 | 1      | 1     |
+# | 5     | 1      | xxxx xxxx | x | x | xxxxx | 00111 |   1   | xxxx x001 |   |       |         | 1        | 0     | 0    | 1    | 001 | 1      | 1     |
+# | 5     | 1      | xxxx xxxx | x | x | xxxxx | 00111 |   1   | xxxx x010 |   |       |         | 1        | 0     | 0    | 1    | 010 | 1      | 1     |
+# | 5     | 1      | xxxx xxxx | x | x | xxxxx | 00111 |   1   | xxxx x011 |   |       |         | 1        | 0     | 0    | 1    | 011 | 1      | 1     |
+# | 5     | 1      | xxxx xxxx | x | x | xxxxx | 00111 |   1   | xxxx x100 |   |       |         | 1        | 0     | 0    | 1    | 100 | 1      | 1     |
+# | 5     | 1      | xxxx xxxx | x | x | xxxxx | 00111 |   1   | xxxx x101 |   |       |         | 1        | 0     | 0    | 1    | 101 | 1      | 1     |
+# | 5     | 1      | xxxx xxxx | x | x | xxxxx | 00111 |   1   | xxxx x110 |   |       |         | 1        | 0     | 0    | 1    | 110 | 1      | 1     |
+# | 5     | 1      | xxxx xxxx | x | x | xxxxx | 00111 |   1   | xxxx x111 |   |       |         | 1        | 0     | 0    | 1    | 111 | 1      | 1     |
 #
 #  (*) For IN instructions, we put the AEXT value onto the Data Bus, not the
 #      IBus. Otherwise, there's bus contention as the BUS board's DB
@@ -53,6 +53,10 @@ import threading
 #
 # 3. We can drive the DB, but we can't read from it, so we read
 #    from the IBUS. They're connected during I/O transactions.
+#
+# 4. IDXEN is an output from the AIL. It is an active high signal
+#    that's asserted (1) when IR[11:8] = 1111. This is exported to us
+#    from the CTL board and saves 3 bits in the MBU control ROM.
 
 class MbuRom(threading.Thread):
     """Generate the MBU ROM. This works as a fairly complex function generator,
@@ -90,8 +94,9 @@ class MbuRom(threading.Thread):
                                  range(2),       # WRITE_MBP
                                  range(2),       # WRITE_MBP+FLAGS
                                  range(4),       # WADDR[0:1]
-                                 range(16))      # IR[8:11]
-        for ndis, nr, nw, niombr, nrmbp1, nrmbp2, nwmbx, nwmbp1, nwmbp2, waddr, ir in prod:
+                                 #range(16))      # IR[8:11]
+                                 range(2))       # IDXEN (1 when IR[8:11] = 1111)
+        for ndis, nr, nw, niombr, nrmbp1, nrmbp2, nwmbx, nwmbp1, nwmbp2, waddr, idxen in prod:
             # Calculate the outputs (all default to unasserted, 1)
             nrmbr = 1
             nwmbr = 1
@@ -159,7 +164,8 @@ class MbuRom(threading.Thread):
                 
             elif nwmbx == 0 and waddr == 3:
                 # Group 4: WRITE_AR_MBZ asserted (MB3). This also depends on the IR.
-                if ir != 0b1111:
+                #if ir != 0b1111:
+                if idxen == 0:
                     group = 4
                     # I=0, R=0, or Page Zero address less than the auto-index
                     # register area. Use WADDR like Group 3.
@@ -186,20 +192,20 @@ class MbuRom(threading.Thread):
             addr = tt.make_vector(tt.inputs, ndis=ndis,
                                   nr=nr, nw=nw,
                                   niombr=niombr, nrmbp1=nrmbp1, nrmbp2=nrmbp2,
-                                  nwmbx=nwmbx, nwmbp1=nwmbp1, nwmbp2=nwmbp2, waddr=waddr, ir=ir)
+                                  nwmbx=nwmbx, nwmbp1=nwmbp1, nwmbp2=nwmbp2, waddr=waddr, idxen=idxen)
             data = tt.make_vector(tt.outputs, nrmbr=nrmbr, nwmbr=nwmbr, nab=nab, nzero=nzero, nwaddr=nwaddr, nir=nir,
                                   nibusen=nibusen, nibusw=nibusw)
             tt.put(addr, data)
         
             if debug:
                 if (addr % 50) == 0:
-                    print("                ___  _  _  _____  _____  _______  _____  _____  _______               ____  ____  __  ____  _____  __  ______ _____")
-                    print("G  ADDR  DATA | DIS  R  W  IOMBR  R~MBP  R~MBP+F  R~MBx  W~MBP  W~MBP+F  WADDR   IR | RMBR  WMBR  AB  ZERO  WADDR  IR  IBUSEN IBUSW")
+                    print("                ___  _  _  _____  _____  _______  _____  _____  _______                  ____  ____  __  ____  _____  __  ______ _____")
+                    print("G  ADDR  DATA | DIS  R  W  IOMBR  R~MBP  R~MBP+F  R~MBx  W~MBP  W~MBP+F  WADDR   IDXEN | RMBR  WMBR  AB  ZERO  WADDR  IR  IBUSEN IBUSW")
             
                 #print("G  ADDR  DATA | DIS  R  W  IOMBR  R~MBP  R~MBP+F  R~MBx  W~MBP  W~MBP+F  WADDR  IR   | RMBR  WMBR  AB  ZERO  WADDR  IR")
-                print("{}  {:04x}   {:02x}  | {}    {}  {}    {}      {}       {}       {}      {}       {}       {:02b}  {:04b} |   {}     {}    {}    {}      {}    {}     {}     {}".format(
+                print("{}  {:04x}   {:02x}  | {}    {}  {}    {}      {}       {}       {}      {}       {}       {:02b}    {}  |   {}     {}    {}    {}      {}    {}     {}     {}".format(
                     group, addr, data,
-                    ndis, nr, nw, niombr, nrmbp1, nrmbp2, nwmbx, nwmbp1, nwmbp2, waddr, ir,
+                    ndis, nr, nw, niombr, nrmbp1, nrmbp2, nwmbx, nwmbp1, nwmbp2, waddr, idxen,
                     ndis, nrmbr, nwmbr, nab, nzero, nwaddr, nir, nibusen, nibusw))
             else:
                 tt.progress(dt=5)
@@ -223,7 +229,9 @@ try:
     debug = False
     debug = True
     print("Generating MBU Register Selection ROM")
-    ROM = romtables.FunctionTable('ndis ir:4 waddr:2 nwmbx nwmbp2 nwmbp1 nrmbp2 nrmbp1 niombr nw nr',
+    # ROM = romtables.FunctionTable('ndis ir:4 waddr:2 nwmbx nwmbp2 nwmbp1 nrmbp2 nrmbp1 niombr nw nr',
+    #                               'nibusw nibusen nir nwaddr nzero nab nwmbr nrmbr', singleROM=True)
+    ROM = romtables.FunctionTable('ndis idxen waddr:2 nwmbx nwmbp2 nwmbp1 nrmbp2 nrmbp1 niombr nw nr',
                                   'nibusw nibusen nir nwaddr nzero nab nwmbr nrmbr', singleROM=True)
     MbuRom(ROM).run()
     ROM.report()
