@@ -597,8 +597,6 @@ Text Label 4300 6350 0    50   ~ 0
 IBUS[0..15]
 Wire Bus Line
 	5150 6350 4300 6350
-Text Notes 5825 6125 0    70   ~ 14
-Verilog
 Text Notes 4600 4800 0    100  ~ 20
 Data Bus Driver & Wait States
 Text Notes 1700 3250 0    100  ~ 20
