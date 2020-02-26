@@ -150,7 +150,7 @@ cond uaddr:4;
 // -------------------------------------------------------------------------------
 // 00000     Idle        Idle         Needed to disable reading/writing
 // 00001
-// 00010     AGL         IR           Read AGL; write IR.
+// 00010                                                 
 // 00011
 // 00100     CS0         MBP:AR       Read &0000; write <MB0,IBUS> to AR
 // 00101     CS1         MBD:AR       Read &0001; write <MB1,IBUS> to AR
@@ -164,7 +164,7 @@ cond uaddr:4;
 // 01100     MBP         MBP          
 // 01101     MBP+flags   MBP+flags    Pushed onto stack as a single 16-bit velue (for speed)
 // 01110     flags       flags        Pushed onto stack as a single 16-bit velue (for speed)
-// 01111     xxxMBn      xxxMBn       no longer needed. (Loads/Stores MBn registers. IR[2:0] selects register.)
+// 01111     AGL         IR           Read AGL; write IR.
 // -------------------------------------------------------------------------------
 // 10000     ALU:ADD                  Read ADD result.
 // 10001     ALU:AND                  Read AND result.
