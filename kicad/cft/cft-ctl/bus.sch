@@ -1136,7 +1136,6 @@ Text HLabel 6850 2650 2    50   UnSpc ~ 0
 ~RUEN
 Text HLabel 6850 2750 2    50   UnSpc ~ 0
 ~WUEN
-NoConn ~ 2150 2350
 Text Label 1450 5350 0    50   ~ 0
 AB[0..23]
 Entry Bus Bus
@@ -1242,4 +1241,6 @@ Wire Bus Line
 	4700 1850 4700 5550
 Wire Bus Line
 	2050 2850 2050 5250
+Text HLabel 2150 2350 0    50   UnSpc ~ 0
+WSTB
 $EndSCHEMATC
