@@ -951,10 +951,6 @@ Text Label 6850 2650 2    50   ~ 0
 ~RUEN
 Text Label 6850 2750 2    50   ~ 0
 ~WUEN
-Text HLabel 6900 2650 2    50   UnSpc ~ 0
-~RUEN
-Text HLabel 6900 2750 2    50   UnSpc ~ 0
-~WUEN
 Wire Wire Line
 	9750 4800 9800 4800
 Connection ~ 9800 4900
@@ -1162,6 +1158,8 @@ Wire Wire Line
 	9800 5300 9850 5300
 Wire Wire Line
 	8700 4850 8900 4850
+NoConn ~ 6900 2650
+NoConn ~ 6900 2750
 Wire Bus Line
 	7000 3950 7000 5750
 Wire Bus Line
