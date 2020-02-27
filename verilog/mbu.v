@@ -43,7 +43,7 @@ module mbu (nreset,
 	    nr, nw,
 	    ab,	db, nsysdev,	// Only bits 0–7 of the AB and DB are used.
 	    nwrite_ar_mbx,	// Convenience output to the AR
-	    nfpram_fprom	// RAM/ROM switch from front panel
+	    nfpram_rom		// RAM/ROM switch from front panel
 	    );
 	    
    input        nreset;
@@ -55,7 +55,7 @@ module mbu (nreset,
    input 	nsysdev;
    input 	nr;
    input 	nw;
-   input 	nfpram_fprom;
+   input 	nfpram_rom;
    
    inout [7:0] 	ibus;
    inout [7:0] 	ab;
@@ -128,7 +128,7 @@ module mbu (nreset,
 
    // U20: If the RAM/ROM switch is in the ROM position (high), default all MBx
    // registers to &80 to address ROM.
-   buffer_125q buf_aext7 (.a(nfpram_fprom), .noe(ndis), .y(aext[7]));
+   buffer_125q buf_aext7 (.a(nfpram_rom), .noe(ndis), .y(aext[7]));
 
 
    ///////////////////////////////////////////////////////////////////////////////

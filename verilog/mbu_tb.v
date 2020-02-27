@@ -37,7 +37,7 @@
 
 module reg_mbr_tb();
    reg        nreset;
-   reg        nfpram_fprom;
+   reg        nfpram_rom;
    reg [15:0] ibus, ab, db, ir;
    reg 	      nr, nwen;
    reg [4:0]  waddr;
@@ -85,7 +85,7 @@ module reg_mbr_tb();
       $monitor ("t: %7d | %b %b | init=%b rom=%b | IR: %04x | %d %02x | waddr=%05b raddr=%05b ibus=%02x | regfile: %04x %02x ce=%b we=%b oe=%b | regs: %02x %02x %02x %02x %02x %02x %02x %02x",
       		$time,
 		waddr, raddr,
-		mbu.nenable, nfpram_fprom,
+		mbu.nenable, nfpram_rom,
 		ir,
 		mbu.sel, aext,
 		waddr, raddr, ibus_low,
@@ -111,7 +111,7 @@ module reg_mbr_tb();
       end;
 
       nreset = 0;
-      nfpram_fprom = 0;		// RAM
+      nfpram_rom = 0;		// RAM
       ibus = 16'bzzzzzzzzzzzzzzzz;
       ir = 16'd0;
       ab = 16'd0;
@@ -145,7 +145,7 @@ module reg_mbr_tb();
       #1000 raddr = 4'd0;
       waddr = 4'd0;
       for (i = 0; i < 16 ; i = i + 1) begin
-   	 nfpram_fprom = i[0];
+   	 nfpram_rom = i[0];
       	 ibus = 16'bzzzzzzzzzzzzzzz;
 	 ir = 16'b0000_11_1100000000 | i[3:1];
       	 #250 waddr = 5'b00111;	       // write_ar_mbx (reads from MBn)
@@ -358,7 +358,7 @@ module reg_mbr_tb();
 	    .db(db_real[7:0]),
 	    .nsysdev(nsysdev),
 	    .nwrite_ar_mbx(nwrite_ar_mbx),
-	    .nfpram_fprom(nfpram_fprom)
+	    .nfpram_rom(nfpram_rom)
 	    );
 
    // Make the idxen signal work
@@ -404,12 +404,12 @@ module reg_mbr_tb();
       end
    end
 
-   always @(nfpram_fprom, aext, mbu.ndis) begin
+   always @(nfpram_rom, aext, mbu.ndis) begin
       if (nreset === 1'b1 && mbu.ndis === 1'b0) #50 begin
-	 correct_value1 = { nfpram_fprom, 7'd0 };
-	 if (nfpram_fprom == 0 && aext !== correct_value1) begin
-	    $sformat(msg, "post-reset, nfpram_fprom=%b (RAM) but AEXT was %02x (should be %02x)",
-		     nfpram_fprom, aext, correct_value1);
+	 correct_value1 = { nfpram_rom, 7'd0 };
+	 if (nfpram_rom == 0 && aext !== correct_value1) begin
+	    $sformat(msg, "post-reset, nfpram_rom=%b (RAM) but AEXT was %02x (should be %02x)",
+		     nfpram_rom, aext, correct_value1);
 	 end
 	 
 	 // Fail if we've logged an issue.
@@ -735,7 +735,7 @@ module reg_mbr_tb();
 	    // Snoop the MBn register to compare against later
 
 	    if (default_values) begin
-	       correct_value2 = { nfpram_fprom, 7'd0 };
+	       correct_value2 = { nfpram_rom, 7'd0 };
 	    end else begin
 	       // The stupid way round
 	       case (ir[2:0])
