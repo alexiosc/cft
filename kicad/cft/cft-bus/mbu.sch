@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 6 6
+Sheet 5 6
 Title "Memory Bank Unit"
 Date ""
 Rev "2006"
@@ -352,20 +352,14 @@ NoConn ~ 3100 3850
 NoConn ~ 3100 3950
 NoConn ~ 3100 4050
 NoConn ~ 3100 4150
-Wire Wire Line
-	3100 4450 3900 4450
 Text Label 3150 3000 0    50   ~ 0
 ~READ-MBP
 Text Label 3150 3100 0    50   ~ 0
 ~READ-MBP+FLAGS
-Text Label 3150 3200 0    50   ~ 0
-~READ-FLAGS
 Text Label 3150 4250 0    50   ~ 0
 ~WRITE-MBP
 Text Label 3150 4350 0    50   ~ 0
 ~WRITE-MBP+FLAGS
-Text Label 3150 4450 0    50   ~ 0
-~WRITE-FLAGS
 Text Label 3150 5200 0    50   ~ 0
 ~WRITE-AR-MBx
 Text Notes 3250 1450 0    50   ~ 0
@@ -859,12 +853,6 @@ Wire Wire Line
 	3100 4250 4100 4250
 Wire Wire Line
 	3100 4350 4200 4350
-Text HLabel 6050 7100 2    50   Output ~ 0
-~READ-FLAGS
-Wire Wire Line
-	3100 3200 4000 3200
-Text HLabel 6050 7200 2    50   Output ~ 0
-~WRITE-FLAGS
 Wire Wire Line
 	4100 1650 5000 1650
 Wire Wire Line
@@ -1383,13 +1371,7 @@ Text Label 6550 1850 2    50   ~ 0
 Text Label 6550 1750 2    50   ~ 0
 ~IBUSEN
 NoConn ~ 3100 4550
-Wire Wire Line
-	6050 7200 3900 7200
-Wire Wire Line
-	3900 4450 3900 7200
 NoConn ~ 3100 3300
-Text Notes 5100 7550 0    50   ~ 0
-Convenience outputs to other Units
 $Comp
 L Device:LED_ALT D1
 U 1 1 5FB8F590
@@ -2083,18 +2065,6 @@ Entry Wire Line
 Connection ~ 7050 5450
 Text HLabel 1250 2150 0    50   Input ~ 0
 ~SYSDEV
-Text HLabel 6050 7300 2    50   Output ~ 0
-~READ-MBP+FLAGS
-Text HLabel 6050 7400 2    50   Output ~ 0
-~WRITE-MBP+FLAGS
-Wire Wire Line
-	6050 7300 4900 7300
-Wire Wire Line
-	6050 7400 4900 7400
-Text Label 4900 7300 0    50   ~ 0
-~READ-MBP+FLAGS
-Text Label 4900 7400 0    50   ~ 0
-~WRITE-MBP+FLAGS
 Wire Wire Line
 	8250 1500 9550 1500
 Wire Wire Line
@@ -2398,19 +2368,11 @@ T34
 Text HLabel 6050 7000 2    50   Output ~ 0
 ~WRITE-AR
 Wire Wire Line
-	4000 7100 6050 7100
-Wire Wire Line
-	4000 3200 4000 7100
-Wire Wire Line
 	4100 7000 6050 7000
 Wire Wire Line
 	4300 4450 4100 4450
 Text Label 5600 7000 2    50   ~ 0
 ~WRITE-AR
-Text Label 5600 7100 2    50   ~ 0
-~READ-FLAGS
-Text Label 5600 7200 2    50   ~ 0
-~WRITE-FLAGS
 Wire Wire Line
 	3100 5200 4100 5200
 Wire Wire Line
@@ -2728,6 +2690,8 @@ Text HLabel 1250 850  0    50   Input ~ 0
 CLK3
 Text Label 1600 850  2    50   ~ 0
 CLK3
+NoConn ~ 3100 3200
+NoConn ~ 3100 4450
 Wire Bus Line
 	4400 4950 4400 6200
 Wire Bus Line

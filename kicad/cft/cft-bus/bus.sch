@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 2 6
+Sheet 6 6
 Title "Foobar"
 Date "2019-11-17"
 Rev ""
@@ -87,22 +87,6 @@ Wire Wire Line
 	3750 2550 4150 2550
 Wire Wire Line
 	3750 2650 4150 2650
-Wire Wire Line
-	3750 2750 4250 2750
-Wire Wire Line
-	3750 2850 4250 2850
-Wire Wire Line
-	3750 2950 4250 2950
-Wire Wire Line
-	3750 3050 4250 3050
-Wire Wire Line
-	3750 3150 4250 3150
-Wire Wire Line
-	3750 3250 4250 3250
-Wire Wire Line
-	3750 3350 4250 3350
-Wire Wire Line
-	3750 3450 4250 3450
 Wire Wire Line
 	4800 1750 5300 1750
 Wire Wire Line
@@ -195,22 +179,6 @@ Text Label 4150 2550 2    50   ~ 0
 ~W
 Text Label 4150 2650 2    50   ~ 0
 ~WS
-Text Label 4150 2750 2    50   ~ 0
-~IRQ0
-Text Label 4150 2850 2    50   ~ 0
-~IRQ1
-Text Label 4150 2950 2    50   ~ 0
-~IRQ2
-Text Label 4150 3050 2    50   ~ 0
-~IRQ3
-Text Label 4150 3150 2    50   ~ 0
-~IRQ4
-Text Label 4150 3250 2    50   ~ 0
-~IRQ5
-Text Label 4150 3350 2    50   ~ 0
-~IRQ6
-Text Label 4150 3450 2    50   ~ 0
-~IRQ7
 Text Label 4800 1750 0    50   ~ 0
 IBUS0
 Text Label 4800 1850 0    50   ~ 0
@@ -265,13 +233,13 @@ Text Label 6800 2550 2    50   ~ 0
 ~SKIPEXT
 Text Label 7200 1950 2    50   ~ 0
 ~HALT
-Text Label 6900 4150 2    50   ~ 0
+Text Label 6850 4150 2    50   ~ 0
 ACTION3
-Text Label 6900 4050 2    50   ~ 0
+Text Label 6850 4050 2    50   ~ 0
 ACTION2
-Text Label 6900 3950 2    50   ~ 0
+Text Label 6850 3950 2    50   ~ 0
 ACTION1
-Text Label 6900 3850 2    50   ~ 0
+Text Label 6850 3850 2    50   ~ 0
 ACTION0
 Text Label 7000 3750 2    50   ~ 0
 WADDR4
@@ -294,13 +262,13 @@ RADDR1
 Text Label 7100 2850 2    50   ~ 0
 RADDR0
 Wire Wire Line
-	6500 4150 6900 4150
+	6500 4150 6850 4150
 Wire Wire Line
-	6500 4050 6900 4050
+	6500 4050 6850 4050
 Wire Wire Line
-	6500 3950 6900 3950
+	6500 3950 6850 3950
 Wire Wire Line
-	6500 3850 6900 3850
+	6500 3850 6850 3850
 Wire Wire Line
 	6500 3750 7000 3750
 Wire Wire Line
@@ -605,30 +573,6 @@ Text HLabel 2150 2550 0    50   UnSpc ~ 0
 ~IRQ
 Text HLabel 2150 2650 0    50   UnSpc ~ 0
 ~IRQS
-Entry Wire Line
-	4250 2750 4350 2850
-Entry Wire Line
-	4250 2850 4350 2950
-Entry Wire Line
-	4250 2950 4350 3050
-Entry Wire Line
-	4250 3050 4350 3150
-Entry Wire Line
-	4250 3150 4350 3250
-Entry Wire Line
-	4250 3250 4350 3350
-Entry Wire Line
-	4250 3350 4350 3450
-Entry Wire Line
-	4250 3450 4350 3550
-Entry Bus Bus
-	4250 5550 4350 5450
-Wire Bus Line
-	4250 5550 1350 5550
-Text Label 1450 5550 0    50   ~ 0
-~IRQ[0..7]
-Text HLabel 1350 5550 0    50   UnSpc ~ 0
-~IRQ[0..7]
 Text HLabel 4150 1750 2    50   UnSpc ~ 0
 ~RSTHOLD
 Text HLabel 4150 1850 2    50   UnSpc ~ 0
@@ -677,34 +621,18 @@ Entry Wire Line
 	7000 3650 7100 3750
 Entry Wire Line
 	7000 3750 7100 3850
-Entry Wire Line
-	6900 3850 7000 3950
-Entry Wire Line
-	6900 3950 7000 4050
-Entry Wire Line
-	6900 4050 7000 4150
-Entry Wire Line
-	6900 4150 7000 4250
-Entry Bus Bus
-	6900 5850 7000 5750
 Entry Bus Bus
 	7000 5950 7100 5850
 Entry Bus Bus
 	7100 6050 7200 5950
 Wire Bus Line
-	6900 5850 1350 5850
-Wire Bus Line
 	7000 5950 1350 5950
 Wire Bus Line
 	7100 6050 1350 6050
-Text Label 1450 5850 0    50   ~ 0
-ACTION[0..3]
 Text Label 1450 5950 0    50   ~ 0
 WADDR[0..4]
 Text Label 1450 6050 0    50   ~ 0
 RADDR[0..4]
-Text HLabel 1350 5850 0    50   UnSpc ~ 0
-ACTION[0..3]
 Text HLabel 1350 5950 0    50   UnSpc ~ 0
 WADDR[0..4]
 Text HLabel 1350 6050 0    50   UnSpc ~ 0
@@ -963,41 +891,25 @@ C39
 Text Label 10200 3700 2    50   ~ 0
 C40
 Wire Wire Line
-	6500 2050 7200 2050
+	6500 2050 6850 2050
 Wire Wire Line
-	6500 2150 7200 2150
+	6500 2150 6850 2150
 Wire Wire Line
-	6500 2250 7200 2250
+	6500 2250 6850 2250
 Wire Wire Line
-	6500 2350 7200 2350
+	6500 2350 6850 2350
 Wire Wire Line
 	6500 2650 6850 2650
 Wire Wire Line
 	6500 2750 6850 2750
-Text Label 7200 2050 2    50   ~ 0
+Text Label 6850 2050 2    50   ~ 0
 RSVD1
-Text Label 7200 2150 2    50   ~ 0
+Text Label 6850 2150 2    50   ~ 0
 RSVD2
-Text Label 7200 2250 2    50   ~ 0
+Text Label 6850 2250 2    50   ~ 0
 RSVD3
-Text Label 7200 2350 2    50   ~ 0
+Text Label 6850 2350 2    50   ~ 0
 RSVD4
-Entry Wire Line
-	7200 2050 7300 2150
-Entry Wire Line
-	7200 2150 7300 2250
-Entry Wire Line
-	7200 2250 7300 2350
-Entry Wire Line
-	7200 2350 7300 2450
-Entry Bus Bus
-	7200 6150 7300 6050
-Wire Bus Line
-	7200 6150 1350 6150
-Text HLabel 1350 6150 0    50   UnSpc ~ 0
-RSVD[1..4]
-Text Label 1450 6150 0    50   ~ 0
-RSVD[1..4]
 $Comp
 L Device:CP_Small C?
 U 1 1 5D8FC46B
@@ -1117,7 +1029,7 @@ Wire Wire Line
 Wire Wire Line
 	8950 5100 8900 5100
 Wire Wire Line
-	8900 5100 8900 5200
+	8900 5100 8900 5150
 Wire Wire Line
 	8900 5200 8950 5200
 Connection ~ 8900 5200
@@ -1128,7 +1040,7 @@ Wire Wire Line
 Wire Wire Line
 	9800 5100 9800 5200
 Wire Wire Line
-	8900 4900 8900 4800
+	8900 4900 8900 4850
 Wire Wire Line
 	8900 4800 8950 4800
 Wire Wire Line
@@ -1140,10 +1052,6 @@ Wire Wire Line
 Text Label 6750 2650 2    50   ~ 0
 ~RUEN
 Text Label 6750 2750 2    50   ~ 0
-~WUEN
-Text HLabel 6850 2650 2    50   UnSpc ~ 0
-~RUEN
-Text HLabel 6850 2750 2    50   UnSpc ~ 0
 ~WUEN
 NoConn ~ 2150 2350
 Text Label 1450 5350 0    50   ~ 0
@@ -1234,22 +1142,102 @@ Wire Wire Line
 	9800 5200 9800 5300
 Connection ~ 9800 5200
 Connection ~ 9800 5300
-Wire Bus Line
-	7200 2950 7200 5950
+$Comp
+L power:PWR_FLAG #FLG0101
+U 1 1 5E9BF8D1
+P 8600 4750
+F 0 "#FLG0101" H 8600 4825 50  0001 C CNN
+F 1 "PWR_FLAG" H 8600 4923 50  0000 C CNN
+F 2 "" H 8600 4750 50  0001 C CNN
+F 3 "~" H 8600 4750 50  0001 C CNN
+	1    8600 4750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8600 4750 8600 4850
+Wire Wire Line
+	8600 4850 8900 4850
+Connection ~ 8900 4850
+Wire Wire Line
+	8900 4850 8900 4800
+$Comp
+L power:PWR_FLAG #FLG0102
+U 1 1 5E9D104F
+P 8600 5300
+F 0 "#FLG0102" H 8600 5375 50  0001 C CNN
+F 1 "PWR_FLAG" H 8600 5473 50  0000 C CNN
+F 2 "" H 8600 5300 50  0001 C CNN
+F 3 "~" H 8600 5300 50  0001 C CNN
+	1    8600 5300
+	1    0    0    1   
+$EndComp
+Wire Wire Line
+	8600 5300 8600 5150
+Wire Wire Line
+	8600 5150 8900 5150
+Connection ~ 8900 5150
+Wire Wire Line
+	8900 5150 8900 5200
+NoConn ~ 6850 2050
+NoConn ~ 6850 2150
+NoConn ~ 6850 2250
+NoConn ~ 6850 2350
+NoConn ~ 6850 2650
+NoConn ~ 6850 2750
+Text Label 4050 3450 2    50   ~ 0
+~IRQ7
+Text Label 4050 3350 2    50   ~ 0
+~IRQ6
+Text Label 4050 3250 2    50   ~ 0
+~IRQ5
+Text Label 4050 3150 2    50   ~ 0
+~IRQ4
+Text Label 4050 3050 2    50   ~ 0
+~IRQ3
+Text Label 4050 2950 2    50   ~ 0
+~IRQ2
+Text Label 4050 2850 2    50   ~ 0
+~IRQ1
+Text Label 4050 2750 2    50   ~ 0
+~IRQ0
+Wire Wire Line
+	3750 3450 4150 3450
+Wire Wire Line
+	3750 3350 4150 3350
+Wire Wire Line
+	3750 3250 4150 3250
+Wire Wire Line
+	3750 3150 4150 3150
+Wire Wire Line
+	3750 3050 4150 3050
+Wire Wire Line
+	3750 2950 4150 2950
+Wire Wire Line
+	3750 2850 4150 2850
+Wire Wire Line
+	3750 2750 4150 2750
+NoConn ~ 4150 2750
+NoConn ~ 4150 2850
+NoConn ~ 4150 2950
+NoConn ~ 4150 3050
+NoConn ~ 4150 3150
+NoConn ~ 4150 3250
+NoConn ~ 4150 3350
+NoConn ~ 4150 3450
+NoConn ~ 6850 3850
+NoConn ~ 6850 3950
+NoConn ~ 6850 4050
+NoConn ~ 6850 4150
 Wire Bus Line
 	7100 3450 7100 5850
 Wire Bus Line
-	7000 3950 7000 5750
-Wire Bus Line
-	7300 2150 7300 6050
+	7200 2950 7200 5950
 Wire Bus Line
 	4800 3550 4800 5650
 Wire Bus Line
-	4350 2850 4350 5450
+	4700 1850 4700 5550
 Wire Bus Line
 	4250 3650 4250 5350
-Wire Bus Line
-	4700 1850 4700 5550
 Wire Bus Line
 	2050 2850 2050 5250
 $EndSCHEMATC

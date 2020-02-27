@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 4 6
+Sheet 2 6
 Title "24-bit Address Register (AR)"
 Date ""
 Rev ""
@@ -1889,6 +1889,8 @@ F 3 "~" H 1300 3000 50  0001 C CNN
 	1    1300 3000
 	0    -1   -1   0   
 $EndComp
+Text Label 3900 6000 2    50   ~ 0
+~ABEN2
 Wire Bus Line
 	7400 4550 7400 5250
 Wire Bus Line
@@ -1903,6 +1905,4 @@ Wire Bus Line
 	6200 1350 6200 5900
 Wire Bus Line
 	4550 950  4550 5200
-Text Label 3900 6000 2    50   ~ 0
-~ABEN2
 $EndSCHEMATC
