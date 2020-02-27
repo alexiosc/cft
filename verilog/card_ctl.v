@@ -154,29 +154,29 @@ module card_ctl(
 
    assign cport[7:1] = ir[6:0];
    assign cport[8] = nwen;
-   assign cport[9] = fl;
-   assign cport[10] = fv;
-   assign cport[11] = nflagwe;
-   assign cport[12] = fz;
-   assign cport[13] = fn;
-   assign cport[19:14] = pc[15:10];
-   assign cport[20] = nfpreset;
-   assign cport[21] = fpclk;
-   assign cport[22] = nfpclk_or_clk;
+   assign fl = cport[9];
+   assign fv = cport[10];
+   assign nflagwe = cport[11];
+   assign fz = cport[12];
+   assign fn = cport[13];
+   assign pc[15:10] = cport[19:14];
+   assign nfpreset = cport[20];
+   assign fpclk = cport[21] = fpclk;
+   assign nfpclk_or_clk = cport[22];
    assign cport[23] = fpfetch;
-   assign cport[24] = nfpua0;
-   assign cport[25] = nfpuc0;
-   assign cport[26] = nfpuc1;
-   assign cport[27] = nfpuc2;
-   assign cport[28] = nfpirl;
-   assign cport[29] = nfpirh;
-   assign cport[30] = nfpflags;
-   assign cport[31] = powerok;
+   assign nfpua0 = cport[24];
+   assign nfpuc0 = cport[25];
+   assign nfpuc1 = cport[26];
+   assign nfpuc2 = cport[27];
+   assign nfpirl = cport[28];
+   assign nfpirh = cport[29];
+   assign nfpflags = cport[30];
+   assign powerok = cport[31];
    assign cport[36:32] = cond[4:0];
    assign cport[37] = cext8;
    assign cport[38] = cext9;
    assign cport[39] = idxen;
-   assign cport[40] = in_rsvd;
+   assign in_rsvd = cport[40];
 
    ///////////////////////////////////////////////////////////////////////////////
    //

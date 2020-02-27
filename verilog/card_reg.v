@@ -136,14 +136,14 @@ module card_reg(
    wire 	 naccpl;
 
    assign cport[6:1] = pc[15:10];
-   assign cport[11] = nfppch;
-   assign cport[12] = nfppcl;
-   assign cport[13] = nfpdrh;
-   assign cport[14] = nfpdrl;
-   assign cport[15] = nfpach;
-   assign cport[16] = nfpacl;
-   assign cport[17] = nfpsph;
-   assign cport[18] = nfpspl;
+   assign nfppch = cport[11];
+   assign nfppcl = cport[12];
+   assign nfpdrh = cport[13];
+   assign nfpdrl = cport[14];
+   assign nfpach = cport[15];
+   assign nfpacl = cport[16];
+   assign nfpsph = cport[17];
+   assign nfpspl = cport[18];
    assign cport[38:23] = ac[15:0];
    assign cport[39] = fz;
    assign cport[40] = naccpl;
