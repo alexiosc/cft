@@ -86,8 +86,6 @@ F66 "C37" U R 10400 5700 50
 F67 "C38" U R 10400 5800 50 
 F68 "C39" U R 10400 5900 50 
 F69 "C40" U R 10400 6000 50 
-F70 "~RUEN" U L 9250 4800 50 
-F71 "~WUEN" U L 9250 4900 50 
 $EndSheet
 Wire Bus Line
 	9250 2700 8700 2700
@@ -1226,14 +1224,6 @@ NoConn ~ 10900 4200
 NoConn ~ 2300 5100
 Text Notes 2950 5100 0    50   ~ 0
 The PC doesn't decrement
-Wire Wire Line
-	9250 4800 8700 4800
-Wire Wire Line
-	9250 4900 8700 4900
-Text Label 8700 4800 0    50   ~ 0
-~RUEN
-Text Label 8700 4900 0    50   ~ 0
-~WUEN
 Text Label 8700 5200 0    50   ~ 0
 RADDR[0..4]
 Text Notes 2600 3200 0    50   ~ 0
@@ -1266,14 +1256,16 @@ F 4 "Yes" H 1725 3125 50  0001 C CNN "Verified"
 $EndComp
 Wire Wire Line
 	1300 4350 1000 4350
+Text Label 1000 4350 0    50   ~ 0
+CLK4
+Text Label 8700 2600 0    50   ~ 0
+CLK4
 Wire Bus Line
 	850  3350 850  4150
 Wire Bus Line
 	850  1900 850  2700
 Wire Bus Line
 	850  4800 850  5500
-Text Label 1000 4350 0    50   ~ 0
-CLK4
-Text Label 8700 2600 0    50   ~ 0
-CLK4
+Text Notes 10700 5800 2    50   ~ 0
+FN≡
 $EndSCHEMATC
