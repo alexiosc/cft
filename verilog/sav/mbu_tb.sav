@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Wed Feb 26 17:32:00 2020
+[*] Thu Feb 27 17:37:29 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/mbu_tb.vcd"
-[dumpfile_mtime] "Wed Feb 26 17:31:55 2020"
-[dumpfile_size] 16229186
+[dumpfile_mtime] "Thu Feb 27 17:36:56 2020"
+[dumpfile_size] 16229085
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/mbu_tb.sav"
-[timestart] 0
+[timestart] 1084256000
 [size] 1920 1019
-[pos] 22568 0
-*-30.108686 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[pos] 18336 64
+*-18.323507 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] reg_mbr_tb.
 [treeopen] reg_mbr_tb.mbu.
 [sst_width] 258
@@ -23,13 +23,13 @@ reg_mbr_tb.status[800:0]
 @28
 [color] 1
 reg_mbr_tb.nreset
-@c00029
+@c00028
 reg_mbr_tb.mbu.sel[2:0]
-@29
+@28
 (0)reg_mbr_tb.mbu.sel[2:0]
 (1)reg_mbr_tb.mbu.sel[2:0]
 (2)reg_mbr_tb.mbu.sel[2:0]
-@1401201
+@1401200
 -group_end
 @200
 -
@@ -192,6 +192,8 @@ reg_mbr_tb.waddr[4:0]
 (4)reg_mbr_tb.waddr[4:0]
 @1401200
 -group_end
+@29
+reg_mbr_tb.nwrite_ar_mbx
 @c00200
 -reg_mbr_tb.mbu.ir
 @1401200
@@ -295,9 +297,6 @@ reg_mbr_tb.mbu.nwrite_mbp_flags
 reg_mbr_tb.mbu.nwrite_flags
 @200
 -
-@28
-reg_mbr_tb.mbu.nwrite_ar_mbx
-@200
 -
 -Address Selection
 @28

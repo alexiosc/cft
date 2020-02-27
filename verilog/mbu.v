@@ -42,10 +42,7 @@ module mbu (nreset,
 	    aext,		//
 	    nr, nw,
 	    ab,	db, nsysdev,	// Only bits 0–7 of the AB and DB are used.
-	    nwrite_flags,	// Convenience output to the flag unit
-	    nwrite_mbp_flags,	// Convenience output to the flag unit
-	    nread_flags,	// Convenience output to the flag unit
-	    nread_mbp_flags,	// Convenience output to the flag unit
+	    nwrite_ar_mbx,	// Convenience output to the AR
 	    nfpram_fprom	// RAM/ROM switch from front panel
 	    );
 	    
@@ -65,8 +62,7 @@ module mbu (nreset,
    inout [7:0] 	db;
    
    output [7:0] aext;
-   output 	nread_mbp_flags, nread_flags;
-   output 	nwrite_mbp_flags, nwrite_flags;
+   output 	nwrite_ar_mbx;
 
    wire 	nreset;
    wire [4:0] 	waddr;
@@ -84,8 +80,8 @@ module mbu (nreset,
 
    wire [7:0] 	dec_ab, dec_raddr, dec_waddr1, dec_waddr2;
    wire 	niombr;
-   wire 	nread_mbp, nread_mbp_flags, nread_flags;
-   wire 	nwrite_mbp, nwrite_mbp_flags, nwrite_flags;
+   wire 	nread_mbp, nread_mbp_flags;
+   wire 	nwrite_mbp, nwrite_mbp_flags;
    wire 	nwrite_ar_mbx;
 
    // U10: This decodes I/O addresses &008–&00F.
@@ -96,13 +92,11 @@ module mbu (nreset,
    demux_138 demux_raddr (.a(raddr[2:0]), .g1(raddr[3]), .ng2a(raddr[4]), .ng2b(t34), .y(dec_raddr));
    assign nread_mbp = dec_raddr[4];
    assign nread_mbp_flags = dec_raddr[5];
-   assign nread_flags = dec_raddr[6];
 
    // U16: We decode WADDRs 01100, 01101, and 01110. Symmetric to the above '138.
    demux_138 demux_waddr1 (.a(waddr[2:0]), .g1(waddr[3]), .ng2a(waddr[4]), .ng2b(1'b0), .y(dec_waddr1));
    assign nwrite_mbp = dec_waddr1[4];
    assign nwrite_mbp_flags = dec_waddr1[5];
-   assign nwrite_flags = dec_waddr1[6];
 
    // U17: decode WADDR to get nwrite_ar_mbx.
    demux_138 demux_waddr2 (.a(waddr[4:2]), .g1(1'b1), .ng2a(1'b0), .ng2b(1'b0), .y(dec_waddr2));

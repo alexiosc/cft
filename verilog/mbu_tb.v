@@ -57,10 +57,7 @@ module reg_mbr_tb();
    wire        nsysdev;
 
    // Convenience decoded outputs to the Flag unit.
-   wire        nwrite_flags;
-   wire        nwrite_mbp_flags;
-   wire        nread_flags;
-   wire        nread_mbp_flags;
+   wire        nwrite_ar_mbx;
 
    wire [7:0]  mb0, mb1, mb2, mb3, mb4, mb5, mb6, mb7;
 
@@ -360,10 +357,7 @@ module reg_mbr_tb();
 	    .ab(ab_real[7:0]),
 	    .db(db_real[7:0]),
 	    .nsysdev(nsysdev),
-	    .nwrite_flags(nwrite_flags),
-	    .nwrite_mbp_flags(nwrite_mbp_flags),
-	    .nread_flags(nread_flags),
-	    .nread_mbp_flags(nread_mbp_flags),
+	    .nwrite_ar_mbx(nwrite_ar_mbx),
 	    .nfpram_fprom(nfpram_fprom)
 	    );
 
@@ -425,6 +419,63 @@ module reg_mbr_tb();
 	    #100 $finish;
 	 end
 	 else $display("OK post-reset");
+      end
+   end
+
+   always @(waddr) begin
+      if ($time > 100) #30 begin
+	  if (nwrite_ar_mbx !== (waddr[4:2] === 3'b001 ? 1'b0 : 1'b1)) begin
+	    $display("FAIL: waddr decoding failure, waddr=%b, nwrite_ar_mbx=%b (should be %b)",
+		     waddr, nwrite_ar_mbx, (waddr[4:2] === 3'b001 ? 1'b0 : 1'b1));
+	    $error("assertion failure");
+	    #100 $finish;
+	  end
+
+	  else if (mbu.nwrite_mbp !== (waddr === 5'b01100 ? 1'b0 : 1'b1)) begin
+	    $display("FAIL: waddr decoding failure, waddr=%b, nwrite_mbp=%b (should be %b)",
+		     waddr, mbu.nwrite_mbp, (waddr === 5'b01100 ? 1'b0 : 1'b1));
+	    $error("assertion failure");
+	    #100 $finish;
+	  end
+
+	  else if (mbu.nwrite_mbp_flags !== (waddr === 5'b01101 ? 1'b0 : 1'b1)) begin
+	    $display("FAIL: waddr decoding failure, waddr=%b, nwrite_mbp_flags=%b (should be %b)",
+		     waddr, mbu.nwrite_mbp, (waddr === 5'b01101 ? 1'b0 : 1'b1));
+	    $error("assertion failure");
+	    #100 $finish;
+	  end
+	  else $display("OK waddr");
+      end
+   end
+
+   always @(raddr, t34) begin
+      if ($time > 100) #30 begin
+	 if (t34 === 1'b1 && mbu.nread_mbp !== 1'b1) begin
+	    $display("FAIL: nread_mbp went low outside of t34");
+	    $error("assertion failure");
+	    #100 $finish;
+	 end
+	 
+	 else if (t34 === 1'b1 && mbu.nread_mbp_flags !== 1'b1) begin
+	    $display("FAIL: nread_mbp_flags went low outside of t34");
+	    $error("assertion failure");
+	    #100 $finish;
+	 end
+
+	 if (t34 === 1'b0 && mbu.nread_mbp !== (raddr === 5'b01100 ? 1'b0 : 1'b1)) begin
+	    $display("FAIL: raddr decoding failure, raddr=%b, nread_mbp=%b (should be %b)",
+		     raddr, mbu.nread_mbp, (raddr === 5'b01100 ? 1'b0 : 1'b1));
+	    $error("assertion failure");
+	    #100 $finish;
+	 end
+	 
+	 else if (t34 === 1'b0 && mbu.nread_mbp_flags !== (raddr === 5'b01101 ? 1'b0 : 1'b1)) begin
+	    $display("FAIL: raddr decoding failure, raddr=%b, nread_mbp_flags=%b (should be %b)",
+		     raddr, mbu.nread_mbp, (raddr === 5'b01101 ? 1'b0 : 1'b1));
+	    $error("assertion failure");
+	    #100 $finish;
+	 end
+	 else $display("OK raddr");
       end
    end
 
