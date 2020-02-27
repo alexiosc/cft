@@ -72,7 +72,7 @@ module agl_tb();
    end
 
    // The DUT
-   agl agl_unit (.ir(ir), .pc(pc), .nread_agl(nread_agl), .nend(nend), .ibus(ibus));
+   agl agl_unit (.ir(ir[10:0]), .pc(pc[15:10]), .nread_agl(nread_agl), .nend(nend), .ibus(ibus));
 
    // Verify our findings.
    reg [8191:0] msg;

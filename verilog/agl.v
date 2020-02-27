@@ -47,17 +47,19 @@
 
 module agl(ir, pc, nread_agl, nend, ibus);
 
-   input [15:0]  pc, ir;
+   input [15:10] pc;
+   input [10:0]  ir;
    input 	 nread_agl;
    input 	 nend;
 
    output [15:0] ibus;
 
-   wire [15:0] 	pc, ir;
-   wire 	nragl;
-   wire 	nend;
+   wire [15:10]  pc;
+   wire [10:0] 	 ir;
+   wire 	 nragl;
+   wire 	 nend;
 
-   wire [15:0] 	ibus;
+   wire [15:0] 	 ibus;
 
    // Zero Page Logic. We configure an octal FF as a (sluggish) hex 1-of-2
    // multiplexer that selects between PC[15:10] and 6'b000000 by pulling down
