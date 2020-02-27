@@ -8,7 +8,7 @@
 //
 // reg_major.v -- One Major Register
 //
-// Copyright © 2011-2019 Alexios Chouchoulas
+// Copyright © 2011–2020 Alexios Chouchoulas
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -47,7 +47,7 @@
 //    SP      Y    Y    -     -
 
 module reg_major (reset, ibus, nread, nwrite, ninc, ndec, out,
-		  fz, fn, naccpl,
+		  fz, naccpl,
 		  nfpl, nfph, fpd);
    
    input 	 reset;		// Active high reset
@@ -86,10 +86,6 @@ module reg_major (reset, ibus, nread, nwrite, ninc, ndec, out,
    // The AC has an output to toggle the L register on underflow or
    // overflow. This is an active low output.
    assign #6 naccpl = nco[3] & nbo[3];
-
-   // The AC outputs the FZ (zero) and FN (negative) flags. The FN flag is
-   // really easy, but the FZ one needs two comparators.
-   assign fn = out[15];
 
    // Comparison to zero using two cascaded comparators to get !(AC == 0),
    // which we then invert to get the active high zero flag.

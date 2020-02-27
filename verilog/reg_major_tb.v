@@ -40,7 +40,6 @@ module reg_major_tb();
    wire [15:0] out;
 
    wire        fz;
-   wire        fn;
    wire        naccpl;
    
    reg 	       nfpl;
@@ -52,9 +51,9 @@ module reg_major_tb();
    // Initialize all variables
    initial begin        
       $display ("time\t oe1 oe2 a y");	
-      $monitor ("t: %7d | %b %b %b %b %b %h > %h %h %b %b %b | %b %b %h", $time,
+      $monitor ("t: %7d | %b %b %b %b %h > %h %h %b %b %b | %b %b %h", $time,
 		reset, nread, nwrite, ninc, ndec, ibus,
-		ibus_real, out, fz, fn, naccpl,
+		ibus_real, out, fz, naccpl,
 		nfpl, nfph, fpd);
       $dumpfile ("vcd/reg_major_tb.vcd");
       $dumpvars (0, reg_major_tb);
@@ -131,7 +130,7 @@ module reg_major_tb();
    reg_major reg_major (.reset(reset), .ibus(ibus_real),
 			.nread(nread), .nwrite(nwrite),
 			.ninc(ninc), .ndec(ndec), .out(out),
-			.fz(fz), .fn(fn), .naccpl(naccpl),
+			.fz(fz), .naccpl(naccpl),
 			.nfpl(nfpl), .nfph(nfph), .fpd(fpd));
 
    // Verify Reset and loading behaviour.
@@ -206,16 +205,16 @@ module reg_major_tb();
 
 
    // Verify flag outputs
-   reg  correct_fz, correct_fn;
+   reg  correct_fz;
    always @ (out) begin
       if ($time > 100) begin
 	 #100 begin
 	    
 	    correct_fz = out === 16'd0 ? 1'b1 : 1'b0;
-	    correct_fn = out[15] === 1 ? 1'b1 : 1'b0;
+	    //correct_fn = out[15] === 1 ? 1'b1 : 1'b0;
 	    
 	    if (fz !== correct_fz) $sformat(msg, "out=%04x but fz=%b (should be %b)", out, fz, correct_fz);
-	    else if (fn !== correct_fn) $sformat(msg, "out=%04x but fn=%b (should be %n)", out, fn, correct_fn);
+	    //else if (fn !== correct_fn) $sformat(msg, "out=%04x but fn=%b (should be %n)", out, fn, correct_fn);
 	    
    	    // Fail if we've logged an issue.
    	    if (msg[7:0]) begin
@@ -223,7 +222,7 @@ module reg_major_tb();
    	       $error("assertion failure");
    	       #100 $finish;
    	    end
-	    else $display("OK fz/fn");
+	    else $display("OK flags");
 	 end // if ($time > 10)
       end // if ($time > 10)
    end
