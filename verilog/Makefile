@@ -1,6 +1,6 @@
 #!/usr/bin/make -f
 #
-# Copyright © 2011-2019 Alexios Chouchoulas
+# Copyright © 2011—2020 Alexios Chouchoulas
 #
 
 SHELL=/bin/bash
@@ -79,6 +79,7 @@ CFT2019 = 	clock.v                 clock_tb.v \
 		alu_porta.v             alu_porta_tb.v \
 		alu_portb.v             alu_portb_tb.v \
 		alu_rom.v               alu_rom_tb.v \
+		card_ctl.v		             \
 
 SRC += $(CFT2019)
 
@@ -518,6 +519,18 @@ test_dfp_run_control:	dfp_run_control_tb.o dfp_run_control.o clock.o \
 			flipflop.o mux.o vibrator.o counter.o demux.o mux.o
 		./dfp_run_control_tb.o
 		$(GTKWAVE) $(VCDDIR)/dfp_run_control_tb.vcd $(SAVDIR)/dfp_run_control_tb.sav
+
+
+###############################################################################
+#
+# 2019 CARDS
+#
+###############################################################################
+
+# card_ctl
+# card_bus
+# card_reg
+# card_alu
 
 ###############################################################################
 #
