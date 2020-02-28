@@ -1,12 +1,11 @@
 EESchema Schematic File Version 4
-LIBS:cft-pb0-cache
 LIBS:cft-alu-cache
-EELAYER 30 0
+EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 4 21
-Title ""
+Sheet 4 9
+Title "17-bit Shift/Rotate Unit"
 Date "2019-11-17"
 Rev ""
 Comp ""
@@ -744,8 +743,6 @@ Text Notes 4000 6025 0    50   ~ 0
 ~L~/A\n\n 0\n 1\n 0\n 1
 Text Notes 3800 6025 0    50   ~ 0
 ~S~/R\n\n 0\n 0\n 1\n 1
-Text Notes 7100 7000 0    197  ~ 39
-17-bit Shift/Rotate Unit
 Text Notes 2850 1650 0    50   ~ 0
 State machine
 Wire Wire Line

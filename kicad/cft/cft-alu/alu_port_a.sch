@@ -1,11 +1,10 @@
 EESchema Schematic File Version 4
-LIBS:cft-pb0-cache
 LIBS:cft-alu-cache
-EELAYER 30 0
+EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 7 21
+Sheet 7 9
 Title ""
 Date "2019-11-17"
 Rev ""

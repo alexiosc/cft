@@ -1,11 +1,10 @@
 EESchema Schematic File Version 4
-LIBS:cft-pb0-cache
 LIBS:cft-alu-cache
-EELAYER 30 0
+EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 6 21
+Sheet 6 9
 Title ""
 Date "2019-11-17"
 Rev ""
@@ -869,12 +868,12 @@ Text Label 2650 3600 0    50   ~ 0
 ~OE
 Text Notes 7100 7000 0    197  ~ 39
 ALU Port B
+Text Label 6500 4750 2    50   ~ 0
+~OE
 Wire Bus Line
 	4000 2000 4000 4450
 Wire Bus Line
 	6050 2450 6050 5200
 Wire Bus Line
 	7950 2000 7950 4450
-Text Label 6500 4750 2    50   ~ 0
-~OE
 $EndSCHEMATC

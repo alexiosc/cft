@@ -1,6 +1,6 @@
 EESchema Schematic File Version 4
 LIBS:cft-alu-cache
-EELAYER 30 0
+EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -615,7 +615,7 @@ Wire Bus Line
 Wire Wire Line
 	1800 1550 2350 1550
 Text Label 1800 1550 0    50   ~ 0
-~RUEN
+T34
 Text Label 1800 1700 0    50   ~ 0
 WADDR[0..4]
 Wire Bus Line
@@ -888,7 +888,7 @@ F3 "RADDR[0..4]" I L 2350 1450 50
 F4 "WADDR[0..4]" I L 2350 1700 50 
 F5 "~ROMCE" O R 3500 1450 50 
 F6 "~READ-ALU-B" O R 3500 1550 50 
-F7 "~RUEN" I L 2350 1550 50 
+F7 "T34" I L 2350 1550 50 
 F8 "ACTION[0..4]" I L 2350 1950 50 
 F9 "~WRITE-ALU-B" O R 3500 1650 50 
 F10 "~ACTION-SRU" O R 3500 2150 50 

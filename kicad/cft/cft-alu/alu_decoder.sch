@@ -1,11 +1,10 @@
 EESchema Schematic File Version 4
-LIBS:cft-pb0-cache
 LIBS:cft-alu-cache
-EELAYER 30 0
+EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 9 21
+Sheet 9 9
 Title ""
 Date "2019-11-17"
 Rev ""
@@ -55,12 +54,8 @@ Text Label 7100 4650 0    50   ~ 0
 WADDR2
 Text Label 7100 4550 0    50   ~ 0
 WADDR4
-Wire Wire Line
-	6250 4750 7400 4750
-Text HLabel 6250 4750 0    50   Input ~ 0
-~WUEN
-Text Label 6350 4750 0    50   ~ 0
-~WUEN
+Text Label 7100 4750 0    50   ~ 0
+T34
 NoConn ~ 8400 4050
 NoConn ~ 8400 4150
 NoConn ~ 8400 4250
@@ -132,7 +127,7 @@ Entry Wire Line
 Entry Wire Line
 	2900 2650 3000 2750
 Text Label 3050 2950 0    50   ~ 0
-~RUEN
+T34
 Text Label 3050 2850 0    50   ~ 0
 RADDR3
 Text Label 3050 2750 0    50   ~ 0
@@ -288,11 +283,11 @@ Wire Wire Line
 Wire Wire Line
 	2800 2950 2800 4750
 Text Label 3050 4750 0    50   ~ 0
-~RUEN
+T34
 Text Label 2800 3700 1    50   ~ 0
 ~RUEN
 Text Label 2300 2950 0    50   ~ 0
-~RUEN
+T34
 Text Label 2900 3700 1    50   ~ 0
 RADDR[0..4]
 Text HLabel 6250 1900 0    50   Input ~ 0
@@ -652,10 +647,19 @@ F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 5500 7350 50  0001 C CNN
 $EndComp
 Connection ~ 5150 7250
 Connection ~ 5150 7450
+Wire Wire Line
+	2800 5000 7050 5000
+Wire Wire Line
+	7050 5000 7050 4750
+Wire Wire Line
+	2800 4750 2800 5000
+Connection ~ 2800 4750
+Wire Wire Line
+	7050 4750 7400 4750
 Wire Bus Line
-	6950 2000 6950 2650
+	2900 2500 2900 4550
 Wire Bus Line
 	6950 3800 6950 4550
 Wire Bus Line
-	2900 2500 2900 4550
+	6950 2000 6950 2650
 $EndSCHEMATC
