@@ -33,7 +33,9 @@
 `include "alu_porta.v"
 `include "alu_portb.v"
 `include "alu_rom.v"
+`include "alu_sru.v"
 `include "reg_l.v"
+`include "reg_v.v"
 
 `timescale 1ns/1ps
 
@@ -125,6 +127,17 @@ module card_alu(
    //
    ///////////////////////////////////////////////////////////////////////////////
 
+   wire [6:0] 	 ir_6_0;
+   wire 	 fl_offboard;	// This is an impedance matched copy of FL.
+   wire 	 fv;
+   wire 	 nflagwe;
+   wire [15:0] 	 ac;
+
+   assign ir_6_0 = cport[7:1];
+   assign fl_offboard = cport[8];
+   assign cport[9] = fv;
+   assign nflagwe = cport[10];
+   assign ac = cport[38:23];
 
    ///////////////////////////////////////////////////////////////////////////////
    //
@@ -140,14 +153,31 @@ module card_alu(
    wire 	 naction_sru;
    wire 	 naction_101;	// For future expansion
    wire 	 naction_110;	// For future expansion
+
+   wire [15:0] 	 a;		// ALU Port A
+   wire [15:0] 	 b;		// ALU Port B
    
+   wire 	 bcp;
+   wire 	 bcp_sru;
+
+   wire 	 fvout_rom;
+   wire 	 nsetv_rom;
+   wire 	 flout_rom;
+   wire 	 nsetl_rom;
+
+   wire 	 flout_sru;
+   wire 	 flcp_sru;
+   
+   wire 	 fl;		// This is a local signal (fl_offboard is exported)
+   wire 	 flfast;
+
    ///////////////////////////////////////////////////////////////////////////////
    //
    // RADDR, WADDR & ACTION DECODER
    //
    ///////////////////////////////////////////////////////////////////////////////
 
-   alu_decoder (.t34(t34),
+   alu_decoder decoder (.t34(t34),
 		.raddr(raddr),
 		.waddr(waddr),
 		.action(action), 
@@ -162,30 +192,108 @@ module card_alu(
 
    ///////////////////////////////////////////////////////////////////////////////
    //
+   // ALU PORTS A & B
+   //
+   ///////////////////////////////////////////////////////////////////////////////
+
+   // TODO: check if clk4 is too early. The AC is set on the rising
+   // edge of clk4 too. Maybe go for the rising edge of clk1?
+
+   alu_porta port_a (.ac(ac), .cp(clk4), .a());
+
+   assign #7 bcp = nwrite_alu_b & bcp_sru;
+   alu_portb port_b (.ibus(ibus), .cp(bcp), .noe(nread_alu_b), .b(b));
+
+   ///////////////////////////////////////////////////////////////////////////////
+   //
+   // THE ALU OPERATIONS ROM
+   //
+   ///////////////////////////////////////////////////////////////////////////////
+
+   // TODO: Refactor names in alu_rom.v and schematics to match signals
+   tri0 	 xin;		// Spare Op ROM input
+
+   alu_rom alu_rom (.noe(nromce),
+		    .flin(fl),
+		    .xin(xin),
+		    .a(a),
+		    .b(b),
+		    .op(raddr[2:0]),
+		    .ibus(ibus),
+		    .fvout(fvout_rom),
+		    .nsetv(nsetv_rom),
+		    .flout(flout_rom),
+		    .nsetl(nsetl_rom));
+
+   ///////////////////////////////////////////////////////////////////////////////
+   //
+   // THE SERIAL SHIFTER/ROTATOR
+   //
+   ///////////////////////////////////////////////////////////////////////////////
+
+   // TODO: Refactor names in alu_rom.v and schematics to match signals
+   wire 	 nstart;
+   wire [3:0] 	 op_dist;	// 4-bit shift/rotate distance
+   wire 	 op_right;	// shift/rotate direction (0=left, 1=right)
+   wire 	 op_arithmetic;	// right shift type (0=logic, 1=arithmetic)
+   wire 	 op_rotate;	// operation (0=shift, 1=rotate)
+
+   // Map the SRU inputs to IR fields. This hardwires the fields in the operand
+   // of the SRU instruction.
+   assign op_dist = ir_6_0[3:0];
+   assign op_right = ir_6_0[4];
+   assign op_arithmetic = ir_6_0[5];
+   assign op_rotate = ir_6_0[6];
+
+   alu_sru alu_sru (.nreset(nreset),
+		    .clk2(clk2),
+		    .clk4(clk4),
+		    .b(b),
+		    .fl(flfast),
+		    .op_dist(op_dist),
+		    .op_right(op_right),
+		    .op_arithmetic(op_arithmetic),
+		    .op_rotate(op_rotate),
+		    .nstart(naction_sru),
+		    .ibus(ibus),
+		    .bcp(bcp_sru),	// Set ALU B to temporary result of SRU
+		    .flout(flout_sru),
+		    .flcp(flcp_sru));
+
+   ///////////////////////////////////////////////////////////////////////////////
+   //
    // THE LINK REGISTER/FLAG
    //
    ///////////////////////////////////////////////////////////////////////////////
 
-   wire 	 flin_add;
-   wire 	 flin_sru;
-   wire 	 nflagwe;
-   wire 	 bcp;
-   wire 	 fl;
-   wire 	 flfast;
-   
+   // TODO: synchronise the signal names with those in the schematic
    reg_l reg_l (.nreset(nreset),
 		.clk4(clk4),
 		.naction_cpl(naction_cpl),
 		.ibus12(ibus[12]),
-		.flin_add(flin_add),
-		.flin_sru(flin_sru),
-		.nread_alu_add(nread_alu_add),
+		.flin_add(flout_rom),
+		.flin_sru(flout_sru),
+		.nread_alu_add(nsetl_rom),
 		.nflagwe(nflagwe),
 		.bcp(bcp),
 		.naction_cll(naction_cll), 
 		.fl(fl),
 		.flfast(flfast));
 
+   ///////////////////////////////////////////////////////////////////////////////
+   //
+   // THE OVERFLOW FLAG
+   //
+   ///////////////////////////////////////////////////////////////////////////////
+
+   // TODO: Synchronise this with schematics!
+   reg_v reg_v (.nreset(nreset),
+		.clk4(clk4),
+		.fvin_add(fvout_rom),
+		.nread_alu_add(nsetv_rom),
+		.ibus13(ibus[13]),
+		.nflagwe(nflagwe),
+		.fv(fv));
 
 endmodule // card_alu
 

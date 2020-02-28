@@ -79,6 +79,7 @@ CFT2019 = 	clock.v                 clock_tb.v \
 		alu_porta.v             alu_porta_tb.v \
 		alu_portb.v             alu_portb_tb.v \
 		alu_rom.v               alu_rom_tb.v \
+		alu_sru.v               alu_sru_tb.v \
 		card_ctl.v		             \
 		card_reg.v		             \
 

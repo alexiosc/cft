@@ -137,7 +137,7 @@ module reg_l_tb();
    end
    assign clk4 = clken == 1 ? _clk4 : clk;
 
-  // Instantiate all sub-modules.
+   // Instantiate the DUT.
    reg_l reg_l (.nreset(nreset),
 		.clk4(clk4),
 		.naction_cpl(naction_cpl), .ibus12(ibus12),

@@ -27,37 +27,33 @@
 module alu_sru(nreset,
 		      clk2, clk4,
 		      nstart,
-		      b, fl, nwrite_alu,
+		      b, fl,
 		      op_arithmetic, op_rotate, op_right, op_dist,
-		      noe,
-		      ibus, b_cp, flout);
+		      ibus, bcp, flout, flcp);
 
    input         nreset;
    input         clk2, clk4;
    input         nstart;
    input [15:0]  b;
    input 	 fl;
-   input 	 nwrite_alu;
    input 	 op_arithmetic;
    input 	 op_rotate;
    input	 op_right;
    input [3:0] 	 op_dist;
-   input         noe;
 
    output [15:0] ibus;
-   output        b_cp;		// B register write clock;
+   output        bcp;		// B register write clock;
    output 	 flout;		// FL output
+   output 	 flcp;		// FL clock
 
    wire          nreset;
    wire          clk2, clk4;
    wire [15:0] 	 b;
    wire 	 fl;
-   wire 	 nwrite_alu;
    wire 	 op_arithmetic;
    wire 	 op_rotate;
    wire	         op_right;
    wire [3:0] 	 op_dist;
-   wire          noe;
 
    // The clock quadruppler
    wire 	 clk2_delay, clk4_delay, x4clk;
@@ -94,7 +90,11 @@ module alu_sru(nreset,
    // Generate write pulses at every step.
    wire 	shiftclk;
    assign #9 shiftclk = (nstart_sync & x4clk) | tc;
-   assign b_cp = shiftclk;
+   assign bcp = shiftclk;
+
+   // Generate the FL clock output
+   // TODO: TEST THIS!
+   assign #7 flcp = shiftclk & op_rotate;
 
    // Generate the L output
    //wire 	lmuxout;

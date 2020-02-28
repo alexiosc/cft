@@ -47,7 +47,6 @@ module alu_sru_tb();
    reg 	         op_rotate;
    reg 	         op_right;
    reg [3:0]     op_dist;
-   reg 	         noe;
    reg           nstart;
    reg           nwrite_alu;
    reg [15:0]    ibus;
@@ -104,9 +103,7 @@ module alu_sru_tb();
       op_rotate = 0;
       op_right = 0;
       op_dist = 0;
-      noe = 1;
       nstart = 1;
-      noe = 0;
       nreset = 0;
       ibus = 16'h0000;
       nwrite_alu = 0;
@@ -165,17 +162,16 @@ module alu_sru_tb();
    // microcode).
    alu_portb alu_b (.ibus(ibus_real), .cp(nwrite_alu & b_cp), .noe(1'b1), .b(b));
 
+   // Instantiate the DUT
    alu_sru alu_sru (.nreset(nreset),
 		    .clk2(clk2), .clk4(clk4),
 		    .b(b),
 		    .fl(fl),
-		    .nwrite_alu(nwrite_alu),
 		    .nstart(nstart),
 		    .op_arithmetic(op_arithmetic),
 		    .op_rotate(op_rotate),
 		    .op_right(op_right),
 		    .op_dist(op_dist),
-		    .noe(noe),
 		    .ibus(ibus_real),
 		    .b_cp(b_cp),
 		    .flout(flin));
@@ -213,7 +209,7 @@ module alu_sru_tb();
    	 end
    	 else if (nreset === 0 || nstart === 0) $display("OK nstart");
       end
-   end // always @ (noe)
+   end // always @ (posedge clk2)
 
    // Count the number of SRU pulses
    integer tb_shift_ctr;

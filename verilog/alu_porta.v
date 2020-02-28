@@ -9,8 +9,8 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 
-`ifndef alu_rom_v
-`define alu_rom_v
+`ifndef alu_porta_v
+`define alu_porta_v
 
 `include "flipflop.v"
 
@@ -28,6 +28,6 @@ module alu_porta (ac, cp, a);
 
 endmodule // alu_rom
 
-`endif //  `ifndef alu_rom_v
+`endif //  `ifndef alu_porta_v
 
 // End of file
