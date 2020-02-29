@@ -145,7 +145,7 @@ module card_alu(
    //
    ///////////////////////////////////////////////////////////////////////////////
 
-   wire 	 nromce;
+   wire 	 nromoe;
    wire 	 nread_alu_b;
    wire 	 nwrite_alu_b;
    wire 	 naction_cpl;
@@ -181,7 +181,7 @@ module card_alu(
 		.raddr(raddr),
 		.waddr(waddr),
 		.action(action), 
-		.nromce(nromce),
+		.nromoe(nromoe),
 		.nread_alu_b(nread_alu_b),
 		.nwrite_alu_b(nwrite_alu_b),
 		.naction_cpl(naction_cpl),
@@ -199,10 +199,10 @@ module card_alu(
    // TODO: check if clk4 is too early. The AC is set on the rising
    // edge of clk4 too. Maybe go for the rising edge of clk1?
 
-   alu_porta port_a (.ac(ac), .cp(clk4), .a());
+   alu_porta port_a (.ac(ac), .clk4(clk4), .a(a));
 
    assign #7 bcp = nwrite_alu_b & bcp_sru;
-   alu_portb port_b (.ibus(ibus), .cp(bcp), .noe(nread_alu_b), .b(b));
+   alu_portb port_b (.ibus(ibus), .bcp(bcp), .nread_alu_b(nread_alu_b), .b(b));
 
    ///////////////////////////////////////////////////////////////////////////////
    //
@@ -210,20 +210,19 @@ module card_alu(
    //
    ///////////////////////////////////////////////////////////////////////////////
 
-   // TODO: Refactor names in alu_rom.v and schematics to match signals
-   tri0 	 xin;		// Spare Op ROM input
+   tri0 	 x_in;		// Spare Op ROM input
 
-   alu_rom alu_rom (.noe(nromce),
-		    .flin(fl),
-		    .xin(xin),
+   alu_rom alu_rom (.nromoe(nromoe),
+		    .fl(fl),
+		    .x_in(x_in),
 		    .a(a),
 		    .b(b),
 		    .op(raddr[2:0]),
 		    .ibus(ibus),
-		    .fvout(fvout_rom),
-		    .nsetv(nsetv_rom),
-		    .flout(flout_rom),
-		    .nsetl(nsetl_rom));
+		    .fvout_rom(fvout_rom),
+		    .nsetv_rom(nsetv_rom),
+		    .flout_rom(flout_rom),
+		    .nsetl_rom(nsetl_rom));
 
    ///////////////////////////////////////////////////////////////////////////////
    //
@@ -231,7 +230,8 @@ module card_alu(
    //
    ///////////////////////////////////////////////////////////////////////////////
 
-   // TODO: Refactor names in alu_rom.v and schematics to match signals
+   // Note: for clarity, the op_ signals in th schematic are named slightly
+   // differently.
    wire 	 nstart;
    wire [3:0] 	 op_dist;	// 4-bit shift/rotate distance
    wire 	 op_right;	// shift/rotate direction (0=left, 1=right)
@@ -266,7 +266,6 @@ module card_alu(
    //
    ///////////////////////////////////////////////////////////////////////////////
 
-   // TODO: synchronise the signal names with those in the schematic
    reg_l reg_l (.nreset(nreset),
 		.clk4(clk4),
 		.naction_cpl(naction_cpl),
@@ -286,7 +285,6 @@ module card_alu(
    //
    ///////////////////////////////////////////////////////////////////////////////
 
-   // TODO: Synchronise this with schematics!
    reg_v reg_v (.nreset(nreset),
 		.clk4(clk4),
 		.fvin_add(fvout_rom),

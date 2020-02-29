@@ -36,7 +36,7 @@ module reg_v_tb();
    reg    nreset;
    reg 	  ibus13;
    reg 	  fvin_add;
-   reg 	  nread_alu_add;
+   reg 	  nsetv_rom;
    reg 	  nflagwe;
    reg 	  clken;
    
@@ -48,14 +48,14 @@ module reg_v_tb();
    initial begin        
       $dumpfile ("vcd/reg_v_tb.vcd");
       $dumpvars (0, reg_v_tb);
-      $monitor ("t: %7d | %b %b %b %b %b %b > %b", $time, nreset, clk4, ibus13, nflagwe, fvin_add, nread_alu_add, fv);
+      $monitor ("t: %7d | %b %b %b %b %b %b > %b", $time, nreset, clk4, ibus13, nflagwe, fvin_add, nsetv_rom, fv);
       
       nreset = 0;
       clk4 = 1;
       ibus13 = 0;
       nflagwe = 1;
       fvin_add = 0;
-      nread_alu_add = 1;
+      nsetv_rom = 1;
       clken = 0;
       // #1000 nreset = 1;
       // #1000 clken = 1;
@@ -64,11 +64,11 @@ module reg_v_tb();
 	 #62.5 begin
 	    ibus13 = i[0];
 	    fvin_add = i[1];
-	    nread_alu_add = i[2];
+	    nsetv_rom = i[2];
 	    nreset = i[4];
 	    #19 nflagwe = i[3];	// Simulate WADDR decoding delay (12ns for '138 + 7ns for LCT AND gate)
 	 end;
-	 #187.5 clk4 = 0; nflagwe = 1; nread_alu_add = 1;
+	 #187.5 clk4 = 0; nflagwe = 1; nsetv_rom = 1;
 	 #62.5 clk4 = 1;
       end
 
@@ -86,12 +86,12 @@ module reg_v_tb();
       // // Test L loading from the ALU's adder
       // #1000 for (i = 0; i < 4; i++) begin
       // 	 #400 fvin_add = 0;
-      // 	 #100 nread_alu_add = 0;
-      // 	 #100 nread_alu_add = 1;
+      // 	 #100 nsetv_rom = 0;
+      // 	 #100 nsetv_rom = 1;
 	 
       // 	 #400 fvin_add = 1;
-      // 	 #100 nread_alu_add = 0;
-      // 	 #100 nread_alu_add = 1;
+      // 	 #100 nsetv_rom = 0;
+      // 	 #100 nsetv_rom = 1;
       // end
 
       #1000 $display("OK");
@@ -107,13 +107,14 @@ module reg_v_tb();
 
    // Instantiate the DUT.
    reg_v reg_v (.nreset(nreset), .clk4(clk4),
-		.ibus13(ibus13), .fvin_add(fvin_add),
-		.nread_alu_add(nread_alu_add), .nflagwe(nflagwe),
+		.fvout_rom(fvout_rom),
+		.nsetv_rom(nsetv_rom),
+		.ibus13(ibus13), .nflagwe(nflagwe),
 		.fv(fv));
 
    // Verify our findings.
    reg [8191:0] msg;
-   always @ (nreset, posedge clk4) begin // ibus13, nflagwe, fvin_add, nread_alu_add, fv) begin
+   always @ (nreset, posedge clk4) begin // ibus13, nflagwe, fvout_rom, nsetv_rom, fv) begin
       #30 begin
 	 msg[7:0] = "";		// Use the msg as a flag.
 
@@ -138,7 +139,7 @@ module reg_v_tb();
       end
    end
 
-   always @ (posedge nflagwe, posedge nread_alu_add) begin
+   always @ (posedge nflagwe, posedge nsetv_rom) begin
       #30 begin
 	 if (nreset === 1 && clk4 === 1 && nflagwe === 0) begin
 	    // If #FLAGWE is low, the rising edge of clk4 should set FV to the
@@ -147,11 +148,11 @@ module reg_v_tb();
 	    if (fv !== ibus13) $sformat(msg, "nflagwe=%b, ibus13=%b but fv=%b (should be same as ibus13)", nflagwe, ibus13, fv);
 	 end
 
-	 else if (nreset === 1 && clk4 === 1 && nread_alu_add === 0) begin
+	 else if (nreset === 1 && clk4 === 1 && nsetv_rom === 0) begin
 	    // If #READ_ALU_ADD is low, the rising edge of clk4 should set FV
 	    // to the value in FVIN-ADD.
-	    if (fv !== fvin_add) $sformat(msg, "nread_alu_add=%b, fvin_add=%b but fv=%b (should be same as fvin_add)",
-					  nread_alu_add, ibus13, fvin_add);
+	    if (fv !== fvout_rom) $sformat(msg, "nsetv_rom=%b, fvout_rom=%b but fv=%b (should be same as fvout_rom)",
+					  nsetv_rom, ibus13, fvout_rom);
 	 end
 
 	 // Fail if we've logged an issue.

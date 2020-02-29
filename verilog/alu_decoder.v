@@ -17,7 +17,7 @@
 `timescale 1ns/1ps
 
 module alu_decoder (t34, raddr, waddr, action, 
-		    nromce,
+		    nromoe,
 		    nread_alu_b, nwrite_alu_b,
 		    naction_cpl, naction_cll, naction_sru,
 		    naction_101, naction_110);
@@ -25,10 +25,9 @@ module alu_decoder (t34, raddr, waddr, action,
    input       t34;
    input [4:0] raddr;
    input [4:0] waddr;
-   input       nwuen;
    input [3:0] action;
 
-   output      nromce;
+   output      nromoe;
    output      nread_alu_b;
    output      nwrite_alu_b;
    output      naction_cpl;
@@ -40,7 +39,7 @@ module alu_decoder (t34, raddr, waddr, action,
    wire [7:0]  y1, y2, y3, y4;
 
    demux_138 demux_rom (.a(3'b000), .g1(raddr[4]), .ng2a(raddr[3]), .ng2b(t34), .y(y1));
-   assign nromce = y1[0];
+   assign nromoe = y1[0];
 
    // These decode RADDR and WADDR 11000
    demux_138 demux_rb (.a({ raddr[3], raddr[1:0]}), .g1(raddr[4]), .ng2a(raddr[2]), .ng2b(t34), .y(y2));

@@ -5,14 +5,14 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 9 9
-Title ""
+Title "ALU Address Decoders"
 Date "2019-11-17"
 Rev ""
 Comp ""
 Comment1 "ALU"
 Comment2 ""
 Comment3 ""
-Comment4 ""
+Comment4 "alu_decoder.v"
 $EndDescr
 $Comp
 L alexios:74HC138 U?
@@ -62,13 +62,13 @@ NoConn ~ 8400 4250
 NoConn ~ 8400 4550
 NoConn ~ 8400 4650
 Wire Wire Line
-	8400 4350 9100 4350
+	8400 4350 9450 4350
 Text Label 8500 4350 0    50   ~ 0
 ~WRITE-ALU-B
 NoConn ~ 8400 3950
 NoConn ~ 8400 4450
 Text Label 4650 2150 2    50   ~ 0
-~ROMCE
+~ROMOE
 Text Notes 3550 3150 0    50   ~ 0
 NOTE: Use 74AC!
 NoConn ~ 4350 2650
@@ -94,8 +94,8 @@ U 1 1 5E1CEE43
 P 3300 2400
 AR Path="/5DC89E19/5E1CEE43" Ref="#PWR?"  Part="1" 
 AR Path="/5E1CEE43" Ref="#PWR?"  Part="1" 
-AR Path="/5E1C970B/5E1CEE43" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 3300 2150 50  0001 C CNN
+AR Path="/5E1C970B/5E1CEE43" Ref="#PWR0207"  Part="1" 
+F 0 "#PWR0207" H 3300 2150 50  0001 C CNN
 F 1 "GND" H 3305 2227 50  0000 C CNN
 F 2 "" H 3300 2400 50  0001 C CNN
 F 3 "" H 3300 2400 50  0001 C CNN
@@ -217,7 +217,7 @@ ACTION0
 Text Label 7100 2750 0    50   ~ 0
 ACTION3
 Wire Wire Line
-	8400 2850 9100 2850
+	8400 2850 9450 2850
 Text Label 8950 2850 2    50   ~ 0
 ~ACTION-SRU
 NoConn ~ 8400 2150
@@ -230,8 +230,8 @@ L power:GND #PWR?
 U 1 1 5E1CEEB5
 P 7350 3000
 AR Path="/5E1CEEB5" Ref="#PWR?"  Part="1" 
-AR Path="/5E1C970B/5E1CEEB5" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 7350 2750 50  0001 C CNN
+AR Path="/5E1C970B/5E1CEEB5" Ref="#PWR0208"  Part="1" 
+F 0 "#PWR0208" H 7350 2750 50  0001 C CNN
 F 1 "GND" H 7355 2827 50  0000 C CNN
 F 2 "" H 7350 3000 50  0001 C CNN
 F 3 "" H 7350 3000 50  0001 C CNN
@@ -263,16 +263,16 @@ Wire Wire Line
 Connection ~ 7350 2950
 Entry Bus Bus
 	6850 1900 6950 2000
-Text Notes 8850 4700 0    50   ~ 0
+Text Notes 9000 4850 0    50   ~ 0
 1X0XX\nX1X00\n----\n11000
-Text Notes 8800 4700 2    50   ~ 0
+Text Notes 8950 4850 2    50   ~ 0
 Base\n~Y4~\n\nFinal
 Wire Wire Line
-	4350 2150 5050 2150
-Text HLabel 5050 2150 2    50   Output ~ 0
-~ROMCE
+	4350 2150 5250 2150
+Text HLabel 5250 2150 2    50   Output ~ 0
+~ROMOE
 Text HLabel 2200 2950 0    50   Input ~ 0
-~RUEN
+T34
 Wire Wire Line
 	2800 4750 3350 4750
 Wire Wire Line
@@ -292,24 +292,22 @@ Text Label 2900 3700 1    50   ~ 0
 RADDR[0..4]
 Text HLabel 6250 1900 0    50   Input ~ 0
 ACTION[0..4]
-Text HLabel 9100 4350 2    50   Output ~ 0
+Text HLabel 9450 4350 2    50   Output ~ 0
 ~WRITE-ALU-B
-Text HLabel 9100 2850 2    50   Output ~ 0
+Text HLabel 9450 2850 2    50   Output ~ 0
 ~ACTION-SRU
 NoConn ~ 4350 3950
 Text Label 4400 4350 0    50   ~ 0
 ~READ-ALU-B
-Text HLabel 5050 4350 2    50   Output ~ 0
+Text HLabel 5250 4350 2    50   Output ~ 0
 ~READ-ALU-B
 Wire Wire Line
-	4350 4350 5050 4350
+	4350 4350 5250 4350
 NoConn ~ 4350 4650
 NoConn ~ 4350 4550
 NoConn ~ 4350 4450
 NoConn ~ 4350 4250
 NoConn ~ 4350 4150
-Text Notes 7100 7000 0    197  ~ 39
-ALU Address Decoders
 NoConn ~ 4350 4050
 $Comp
 L alexios:74HC138 U?
@@ -326,26 +324,26 @@ F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 7900 2550 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	8400 2250 9100 2250
+	8400 2250 9450 2250
 Wire Wire Line
-	8400 2350 9100 2350
+	8400 2350 9450 2350
 Text Label 8500 2250 0    50   ~ 0
 ~ACTION-CPL
 Text Label 8500 2350 0    50   ~ 0
 ~ACTION-CLL
-Text HLabel 9100 2250 2    50   Output ~ 0
+Text HLabel 9450 2250 2    50   Output ~ 0
 ~ACTION-CPL
-Text HLabel 9100 2350 2    50   Output ~ 0
+Text HLabel 9450 2350 2    50   Output ~ 0
 ~ACTION-CLL
 NoConn ~ 8400 2450
 NoConn ~ 8400 2550
 Wire Wire Line
-	8400 2650 9100 2650
+	8400 2650 9450 2650
 Wire Wire Line
-	8400 2750 9100 2750
-Text HLabel 9100 2650 2    50   Output ~ 0
+	8400 2750 9450 2750
+Text HLabel 9450 2650 2    50   Output ~ 0
 ~ACTION-101
-Text HLabel 9100 2750 2    50   Output ~ 0
+Text HLabel 9450 2750 2    50   Output ~ 0
 ~ACTION-110
 Text Label 8950 2750 2    50   ~ 0
 ~ACTION-110
@@ -382,8 +380,8 @@ AR Path="/5DC89E19/5CF5A95E/5DD30D43" Ref="#PWR?"  Part="1"
 AR Path="/5DC89E19/5DD30D43" Ref="#PWR?"  Part="1" 
 AR Path="/5DC89E19/5D98F946/5DD30D43" Ref="#PWR?"  Part="1" 
 AR Path="/5D121AA3/5DD30D43" Ref="#PWR?"  Part="1" 
-AR Path="/5E1C970B/5DD30D43" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 1050 7200 50  0001 C CNN
+AR Path="/5E1C970B/5DD30D43" Ref="#PWR0209"  Part="1" 
+F 0 "#PWR0209" H 1050 7200 50  0001 C CNN
 F 1 "GND" H 1055 7277 50  0000 C CNN
 F 2 "" H 1050 7450 50  0001 C CNN
 F 3 "" H 1050 7450 50  0001 C CNN
@@ -401,8 +399,8 @@ AR Path="/5DC89E19/5CF5A95E/5DD30D49" Ref="#PWR?"  Part="1"
 AR Path="/5DC89E19/5DD30D49" Ref="#PWR?"  Part="1" 
 AR Path="/5DC89E19/5D98F946/5DD30D49" Ref="#PWR?"  Part="1" 
 AR Path="/5D121AA3/5DD30D49" Ref="#PWR?"  Part="1" 
-AR Path="/5E1C970B/5DD30D49" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 1050 7100 50  0001 C CNN
+AR Path="/5E1C970B/5DD30D49" Ref="#PWR0210"  Part="1" 
+F 0 "#PWR0210" H 1050 7100 50  0001 C CNN
 F 1 "+5V" H 1065 7423 50  0000 C CNN
 F 2 "" H 1050 7250 50  0001 C CNN
 F 3 "" H 1050 7250 50  0001 C CNN
@@ -456,8 +454,8 @@ AR Path="/5DC89E19/5CF5A95E/5DD377C4" Ref="#PWR?"  Part="1"
 AR Path="/5DC89E19/5DD377C4" Ref="#PWR?"  Part="1" 
 AR Path="/5DC89E19/5D98F946/5DD377C4" Ref="#PWR?"  Part="1" 
 AR Path="/5D121AA3/5DD377C4" Ref="#PWR?"  Part="1" 
-AR Path="/5E1C970B/5DD377C4" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 2400 7200 50  0001 C CNN
+AR Path="/5E1C970B/5DD377C4" Ref="#PWR0211"  Part="1" 
+F 0 "#PWR0211" H 2400 7200 50  0001 C CNN
 F 1 "GND" H 2405 7277 50  0000 C CNN
 F 2 "" H 2400 7450 50  0001 C CNN
 F 3 "" H 2400 7450 50  0001 C CNN
@@ -475,8 +473,8 @@ AR Path="/5DC89E19/5CF5A95E/5DD377CA" Ref="#PWR?"  Part="1"
 AR Path="/5DC89E19/5DD377CA" Ref="#PWR?"  Part="1" 
 AR Path="/5DC89E19/5D98F946/5DD377CA" Ref="#PWR?"  Part="1" 
 AR Path="/5D121AA3/5DD377CA" Ref="#PWR?"  Part="1" 
-AR Path="/5E1C970B/5DD377CA" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 2400 7100 50  0001 C CNN
+AR Path="/5E1C970B/5DD377CA" Ref="#PWR0212"  Part="1" 
+F 0 "#PWR0212" H 2400 7100 50  0001 C CNN
 F 1 "+5V" H 2415 7423 50  0000 C CNN
 F 2 "" H 2400 7250 50  0001 C CNN
 F 3 "" H 2400 7250 50  0001 C CNN
@@ -514,8 +512,8 @@ AR Path="/5DC89E19/5CF5A95E/5DD3B11A" Ref="#PWR?"  Part="1"
 AR Path="/5DC89E19/5DD3B11A" Ref="#PWR?"  Part="1" 
 AR Path="/5DC89E19/5D98F946/5DD3B11A" Ref="#PWR?"  Part="1" 
 AR Path="/5D121AA3/5DD3B11A" Ref="#PWR?"  Part="1" 
-AR Path="/5E1C970B/5DD3B11A" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 3800 7200 50  0001 C CNN
+AR Path="/5E1C970B/5DD3B11A" Ref="#PWR0213"  Part="1" 
+F 0 "#PWR0213" H 3800 7200 50  0001 C CNN
 F 1 "GND" H 3805 7277 50  0000 C CNN
 F 2 "" H 3800 7450 50  0001 C CNN
 F 3 "" H 3800 7450 50  0001 C CNN
@@ -533,8 +531,8 @@ AR Path="/5DC89E19/5CF5A95E/5DD3B120" Ref="#PWR?"  Part="1"
 AR Path="/5DC89E19/5DD3B120" Ref="#PWR?"  Part="1" 
 AR Path="/5DC89E19/5D98F946/5DD3B120" Ref="#PWR?"  Part="1" 
 AR Path="/5D121AA3/5DD3B120" Ref="#PWR?"  Part="1" 
-AR Path="/5E1C970B/5DD3B120" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 3800 7100 50  0001 C CNN
+AR Path="/5E1C970B/5DD3B120" Ref="#PWR0214"  Part="1" 
+F 0 "#PWR0214" H 3800 7100 50  0001 C CNN
 F 1 "+5V" H 3815 7423 50  0000 C CNN
 F 2 "" H 3800 7250 50  0001 C CNN
 F 3 "" H 3800 7250 50  0001 C CNN
@@ -572,8 +570,8 @@ AR Path="/5DC89E19/5CF5A95E/5DD3B134" Ref="#PWR?"  Part="1"
 AR Path="/5DC89E19/5DD3B134" Ref="#PWR?"  Part="1" 
 AR Path="/5DC89E19/5D98F946/5DD3B134" Ref="#PWR?"  Part="1" 
 AR Path="/5D121AA3/5DD3B134" Ref="#PWR?"  Part="1" 
-AR Path="/5E1C970B/5DD3B134" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 5150 7200 50  0001 C CNN
+AR Path="/5E1C970B/5DD3B134" Ref="#PWR0215"  Part="1" 
+F 0 "#PWR0215" H 5150 7200 50  0001 C CNN
 F 1 "GND" H 5155 7277 50  0000 C CNN
 F 2 "" H 5150 7450 50  0001 C CNN
 F 3 "" H 5150 7450 50  0001 C CNN
@@ -591,8 +589,8 @@ AR Path="/5DC89E19/5CF5A95E/5DD3B13A" Ref="#PWR?"  Part="1"
 AR Path="/5DC89E19/5DD3B13A" Ref="#PWR?"  Part="1" 
 AR Path="/5DC89E19/5D98F946/5DD3B13A" Ref="#PWR?"  Part="1" 
 AR Path="/5D121AA3/5DD3B13A" Ref="#PWR?"  Part="1" 
-AR Path="/5E1C970B/5DD3B13A" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 5150 7100 50  0001 C CNN
+AR Path="/5E1C970B/5DD3B13A" Ref="#PWR0216"  Part="1" 
+F 0 "#PWR0216" H 5150 7100 50  0001 C CNN
 F 1 "+5V" H 5165 7423 50  0000 C CNN
 F 2 "" H 5150 7250 50  0001 C CNN
 F 3 "" H 5150 7250 50  0001 C CNN
@@ -656,10 +654,36 @@ Wire Wire Line
 Connection ~ 2800 4750
 Wire Wire Line
 	7050 4750 7400 4750
+Text Notes 4550 2350 0    50   ~ 0
+RADDR = 10xxx\n(8 addresses)
+Text Notes 3150 1700 0    50   ~ 0
+This decoder drives the IBus with the ALU result for all ALU\noperations except shifts and rotates. It responds to any\nRADDR like 10xxx, so activates for 8 RADDR addresses.
+Text Notes 3150 5550 0    50   ~ 0
+This decoder responds to RADDR=11000. It's used to retrieve\nthe result of an SRU (shift/rotate) operation after the SRU has\nfinished cranking. The microcode could also theoretically use\nthe B port as a very temporary scratch register of limited\nutility—since every ALU operation clobbers it.
+Text Notes 4900 4850 0    50   ~ 0
+1X0XX\nX1X00\n----\n11000
+Text Notes 4850 4850 2    50   ~ 0
+Base\n~Y4~\n\nFinal
 Wire Bus Line
-	2900 2500 2900 4550
+	6950 2000 6950 2650
 Wire Bus Line
 	6950 3800 6950 4550
 Wire Bus Line
-	6950 2000 6950 2650
+	2900 2500 2900 4550
+Text Notes 9050 2250 0    50   ~ 0
+0001
+Text Notes 9050 2350 0    50   ~ 0
+0010
+Text Notes 9050 2150 0    50   ~ 0
+0000
+Text Notes 9050 2650 0    50   ~ 0
+0101
+Text Notes 9050 2450 0    50   ~ 0
+0011
+Text Notes 9050 2550 0    50   ~ 0
+0100
+Text Notes 9050 2750 0    50   ~ 0
+0110
+Text Notes 9050 2850 0    50   ~ 0
+0111
 $EndSCHEMATC

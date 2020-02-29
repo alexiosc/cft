@@ -33,12 +33,26 @@
 `include "mux.v"
 `timescale 1ns/10ps
 
-
-// #READ-ALU-ADD = clock for FLIN-ADD
-// ____________                              ______          ___   ___
-// READ-ALU-ADD  FLIN-ADD   BCP    FLIN-SRU  FLAGWE   IBUS   CLL   CPL  |   FF IN    CLKSEL
-//      0            0       X        X         X       X     X     X   |     0      READ-ALU-ADD
-//      0            1       X        X         X       X     X     X   |     1      READ-ALU-ADD
+// The Link Register is a complex register:
+//
+// * It can acquire its value from the ALU ROM as a result of addition.
+// * It can acquire its value from the SRU (shifts and rotations)
+// * It can acquire its value from the Flag Unit (IBUS12)
+// * It can be cleared by the Control Unit.
+// * It can be toggled by the Control Unit.
+//
+// Slow paths: ACTION_CLL, ACTION_CPL, NFLAGWE
+// Fast paths: ALU ROM, SRU
+//
+// The SRU is the most critical, fastest path and is given special dispensation
+// in the schematics. (e.g. it's the ‘default’ value for the multiplexer)
+//
+// This makes the logic quite complicated and the L register currently has a
+// chip count of seven.
+//   ________                                ______          ___   ___
+//   SETL-ROM    FLOUT-ROM  BCP  FLOUT-SRU   FLAGWE   IBUS   CLL   CPL  |   FF IN    CLKSEL
+//      0            0       X        X         X       X     X     X   |     0      SETL-ROM
+//      0            1       X        X         X       X     X     X   |     1      SETL-ROM
 //      1            X       0        0         X       X     X     X   |     0      BCP
 //      1            X       0        1         X       X     X     X   |     1      BCP
 //      1            X       1        X         0       0     X     X   |     0      #WRITE-FLAGS
@@ -48,11 +62,11 @@
 //
 // Default: BCP
 // If #READ-ALU-ADD:
-//     * select #READ-ALU-ADD for clock
-//     * select FLIN-ADD for data
+//     * select #SETL-ROM for clock
+//     * select FLOUT-ROM for data
 // Else if #WRITE-FLAGS:
 //     * select #WRITE-FLAGS for clock
-//     * select FLIN-ADD for data
+//     * select IBUS12 for data
 // Else:
 //     * select BCP for clock
 //     * select FLIN-SRU for data

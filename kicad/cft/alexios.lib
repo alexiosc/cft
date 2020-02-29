@@ -402,7 +402,7 @@ F0 "U" 0 -300 50 H V C CNN
 F1 "74AHC1G125" 0 -400 50 H V C CNN
 F2 "" 175 250 50 H I C CNN
 F3 "" 175 250 50 H I C CNN
-ALIAS 74AHCT1G125 74AUC1G125 74AUP1G125
+ALIAS 74AHCT1G125 74AUC1G125 74AUP1G125 74LVC1G125
 $FPLIST
  SOT*
  SG-*
@@ -2994,7 +2994,7 @@ ENDDEF
 #
 # Jumper_3_Bridged12
 #
-DEF Jumper_3_Bridged12 JP 0 0 Y N 1 F N
+DEF ~Jumper_3_Bridged12 JP 0 0 Y N 1 F N
 F0 "JP" -100 -100 50 H V C CNN
 F1 "Jumper_3_Bridged12" 0 110 50 H I C CNN
 F2 "" 0 0 50 H I C CNN
@@ -3427,7 +3427,7 @@ ENDDEF
 #
 # momentary_switch
 #
-DEF momentary_switch SW 0 40 N N 1 F N
+DEF ~momentary_switch SW 0 40 N N 1 F N
 F0 "SW" -50 200 50 H V L CNN
 F1 "momentary_switch" 0 -60 50 H I C CNN
 F2 "" 0 200 50 H I C CNN
@@ -3448,7 +3448,7 @@ ENDDEF
 #
 # tactile_switch
 #
-DEF tactile_switch SW 0 40 N N 1 F N
+DEF ~tactile_switch SW 0 40 N N 1 F N
 F0 "SW" -50 200 50 H V L CNN
 F1 "tactile_switch" 0 -60 50 H I C CNN
 F2 "" 0 200 50 H I C CNN

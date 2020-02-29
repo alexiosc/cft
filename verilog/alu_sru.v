@@ -25,11 +25,11 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 module alu_sru(nreset,
-		      clk2, clk4,
-		      nstart,
-		      b, fl,
-		      op_arithmetic, op_rotate, op_right, op_dist,
-		      ibus, bcp, flout, flcp);
+	       clk2, clk4,
+	       nstart,
+	       b, fl,
+	       op_arithmetic, op_rotate, op_right, op_dist,
+	       ibus, bcp_sru, flout_sru, flcp_sru);
 
    input         nreset;
    input         clk2, clk4;
@@ -42,9 +42,9 @@ module alu_sru(nreset,
    input [3:0] 	 op_dist;
 
    output [15:0] ibus;
-   output        bcp;		// B register write clock;
-   output 	 flout;		// FL output
-   output 	 flcp;		// FL clock
+   output        bcp_sru;		// B register write clock;
+   output 	 flout_sru;		// FL output
+   output 	 flcp_sru;		// FL clock
 
    wire          nreset;
    wire          clk2, clk4;
@@ -90,15 +90,15 @@ module alu_sru(nreset,
    // Generate write pulses at every step.
    wire 	shiftclk;
    assign #9 shiftclk = (nstart_sync & x4clk) | tc;
-   assign bcp = shiftclk;
+   assign bcp_sru = shiftclk;
 
    // Generate the FL clock output
    // TODO: TEST THIS!
-   assign #7 flcp = shiftclk & op_rotate;
+   assign #7 flcp_sru = shiftclk & op_rotate;
 
    // Generate the L output
    //wire 	lmuxout;
-   mux_1g157 l_mux (.sel(nleft), .a(b[15]), .b(b[0]), .ng(1'b0), .y(flout));
+   mux_1g157 l_mux (.sel(nleft), .a(b[15]), .b(b[0]), .ng(1'b0), .y(flout_sru));
 
 endmodule // alu_sru
 
