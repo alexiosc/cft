@@ -146,11 +146,12 @@ module card_ctl(
    wire 	 fz;		// ← REG, Zero flag
    wire 	 fn;		// ← ALU, Negative flag
    wire 	 nfpflags;	// ← DFP, request flags group
+   wire 	 nflagwe;	// → ALU/REG, strobe to write flags from IBus
 
    wire [15:10]  pc;		// Used by the AGL.
 
    wire 	 powerok;	// Power Good signal from the PSU (backplane)
-   
+   wire 	 in_rsvd;	// microcode addrress vector spare input
 
    assign cport[7:1] = ir[6:0];
    assign cport[8] = nwen;
@@ -161,7 +162,7 @@ module card_ctl(
    assign fn = cport[13];
    assign pc[15:10] = cport[19:14];
    assign nfpreset = cport[20];
-   assign fpclk = cport[21] = fpclk;
+   assign fpclk = cport[21];
    assign nfpclk_or_clk = cport[22];
    assign cport[23] = fpfetch;
    assign nfpua0 = cport[24];
@@ -188,12 +189,10 @@ module card_ctl(
    wire 	 nend;		// End of instruction
    wire [1:0] 	 idx;		// autoindex mode, input from the AIL
    wire 	 ncond;		// conditional result, input from the SBU
-   wire 	 in_rsvd;	// microcode addrress vector spare input
    wire 	 nirqsuc;	// interrupt seen, input from the ISM
    wire 	 nwen;		// write enable, output to the BUS board
    wire [15:0] 	 ir;		// The IR output (read by many units!)
    wire 	 nwrite_ir;	// WADDR decoder output (flag unit): write to IR
-   wire 	 nflagwe;	// output strobe: read from IBUS, update flags
    wire 	 nread_agl;	// RADDR decoder output: read from the AGL
    wire 	 fi;		// output to the flag unit
    wire 	 idxen;		// → BUS.MBU, enables auto-index memory bank selection

@@ -256,9 +256,9 @@ module card_alu(
 		    .op_rotate(op_rotate),
 		    .nstart(naction_sru),
 		    .ibus(ibus),
-		    .bcp(bcp_sru),	// Set ALU B to temporary result of SRU
-		    .flout(flout_sru),
-		    .flcp(flcp_sru));
+		    .bcp_sru(bcp_sru),	// Set ALU B to temporary result of SRU
+		    .flout_sru(flout_sru),
+		    .flcp_sru(flcp_sru));
 
    ///////////////////////////////////////////////////////////////////////////////
    //
@@ -287,8 +287,8 @@ module card_alu(
 
    reg_v reg_v (.nreset(nreset),
 		.clk4(clk4),
-		.fvin_add(fvout_rom),
-		.nread_alu_add(nsetv_rom),
+		.fvout_rom(fvout_rom),
+		.nsetv_rom(nsetv_rom),
 		.ibus13(ibus[13]),
 		.nflagwe(nflagwe),
 		.fv(fv));
