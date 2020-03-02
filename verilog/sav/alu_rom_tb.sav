@@ -1,15 +1,15 @@
 [*]
-[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Sat Nov  9 07:32:20 2019
+[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
+[*] Mon Mar  2 08:48:44 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/alu_rom_tb.vcd"
-[dumpfile_mtime] "Sat Nov  9 07:20:36 2019"
-[dumpfile_size] 287687698
+[dumpfile_mtime] "Mon Mar  2 08:46:15 2020"
+[dumpfile_size] 287687732
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/alu_rom_tb.sav"
 [timestart] 0
 [size] 1340 600
 [pos] 254 36
-*-36.831543 10397000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-31.831543 10397000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] alu_rom_tb.
 [treeopen] alu_rom_tb.alu_rom.
 [sst_width] 258
@@ -23,12 +23,6 @@
 alu_rom_tb.op[2:0]
 @28
 alu_rom_tb.op[2:0]
-[color] 1
-alu_rom_tb.noe
-[color] 2
-alu_rom_tb.xin
-[color] 3
-alu_rom_tb.flin
 @200
 -
 -Ports
@@ -50,7 +44,7 @@ alu_rom_tb.b[15:0]
 alu_rom_tb.ibus[15:0]
 @200
 -
-@800022
+@c00022
 alu_rom_tb.alu_rom.romb2.a[18:0]
 @28
 [color] 1
@@ -73,20 +67,17 @@ alu_rom_tb.alu_rom.romb2.a[18:0]
 (18)alu_rom_tb.alu_rom.romb2.a[18:0]
 @22
 alu_rom_tb.alu_rom.romb2.d[7:0]
-@1001200
+@1401200
 -group_end
 @200
 -
 -Flags
-@29
-[color] 6
-alu_rom_tb.nsetl
 @28
-[color] 6
-alu_rom_tb.flout
-[color] 7
-alu_rom_tb.nsetv
-[color] 7
-alu_rom_tb.fvout
+alu_rom_tb.fl
+alu_rom_tb.flout_rom
+alu_rom_tb.nsetl_rom
+alu_rom_tb.fvout_rom
+@29
+alu_rom_tb.nsetv_rom
 [pattern_trace] 1
 [pattern_trace] 0
