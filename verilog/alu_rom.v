@@ -37,13 +37,19 @@ module alu_rom (nromoe, fl, x_in, a, b, op,
    // The three ROMs. Pretend they're much slower for testing. The
    // hardware uses 50ns units.
 
-   wire [18:0] 	  ba0, ba1, ba2;
+   wire [16:0] 	  ba0;
+   wire [16:0] 	  ba1;
+   wire [12:0] 	  ba2;
    wire [7:0] 	  bd0, bd1, bd2;
    wire 	  c0, c1;
 
-   rom #(19, 70, "../microcode/build/alu-rom-00.list") romb0 (.a(ba0), .d(bd0), .nce(1'b0), .noe(1'b0));
-   rom #(19, 70, "../microcode/build/alu-rom-01.list") romb1 (.a(ba1), .d(bd1), .nce(1'b0), .noe(1'b0));
-   rom #(19, 70, "../microcode/build/alu-rom-02.list") romb2 (.a(ba2), .d(bd2), .nce(1'b0), .noe(1'b0));
+   // All three ROMs are 512K×8 units. ROMs 00 & 01 only use 17 bits (the top
+   // two are tied to ground via solder jumpers). ROM 02 uses 13 bits (again,
+   // the top six bits are tied to groun). We declare smaller ROMs here to
+   // avoid warnings.
+   rom #(17, 70, "../microcode/build/alu-rom-00.list") romb0 (.a(ba0), .d(bd0), .nce(1'b0), .noe(1'b0));
+   rom #(17, 70, "../microcode/build/alu-rom-01.list") romb1 (.a(ba1), .d(bd1), .nce(1'b0), .noe(1'b0));
+   rom #(13, 70, "../microcode/build/alu-rom-02.list") romb2 (.a(ba2), .d(bd2), .nce(1'b0), .noe(1'b0));
 
    // Connect address buses appropriately.
 
