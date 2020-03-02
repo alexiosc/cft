@@ -197,7 +197,7 @@ Wire Wire Line
 Wire Wire Line
 	7400 2350 7050 2350
 Wire Wire Line
-	7400 2750 7050 2750
+	7400 2850 7050 2850
 Entry Wire Line
 	6950 2050 7050 2150
 Entry Wire Line
@@ -205,7 +205,7 @@ Entry Wire Line
 Entry Wire Line
 	6950 2250 7050 2350
 Entry Wire Line
-	6950 2650 7050 2750
+	6950 2750 7050 2850
 Text Label 6350 1900 0    50   ~ 0
 ACTION[0..3]
 Wire Bus Line
@@ -214,7 +214,7 @@ Wire Wire Line
 	7400 2150 7050 2150
 Text Label 7100 2150 0    50   ~ 0
 ACTION0
-Text Label 7100 2750 0    50   ~ 0
+Text Label 7100 2850 0    50   ~ 0
 ACTION3
 Wire Wire Line
 	8400 2850 9450 2850
@@ -253,14 +253,9 @@ WADDR[0..4]
 Entry Bus Bus
 	6850 3700 6950 3800
 Wire Wire Line
-	7400 2850 7350 2850
-Wire Wire Line
 	7400 2950 7350 2950
 Wire Wire Line
-	7350 2850 7350 2950
-Wire Wire Line
 	7350 2950 7350 3000
-Connection ~ 7350 2950
 Entry Bus Bus
 	6850 1900 6950 2000
 Text Notes 9000 4850 0    50   ~ 0
@@ -664,12 +659,6 @@ Text Notes 4900 4850 0    50   ~ 0
 1X0XX\nX1X00\n----\n11000
 Text Notes 4850 4850 2    50   ~ 0
 Base\n~Y4~\n\nFinal
-Wire Bus Line
-	6950 2000 6950 2650
-Wire Bus Line
-	6950 3800 6950 4550
-Wire Bus Line
-	2900 2500 2900 4550
 Text Notes 9050 2250 0    50   ~ 0
 0001
 Text Notes 9050 2350 0    50   ~ 0
@@ -686,4 +675,25 @@ Text Notes 9050 2750 0    50   ~ 0
 0110
 Text Notes 9050 2850 0    50   ~ 0
 0111
+$Comp
+L power:+5V #PWR?
+U 1 1 5E85E279
+P 7350 2700
+F 0 "#PWR?" H 7350 2550 50  0001 C CNN
+F 1 "+5V" H 7365 2873 50  0000 C CNN
+F 2 "" H 7350 2700 50  0001 C CNN
+F 3 "" H 7350 2700 50  0001 C CNN
+	1    7350 2700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7350 2700 7350 2750
+Wire Wire Line
+	7350 2750 7400 2750
+Wire Bus Line
+	6950 2000 6950 2750
+Wire Bus Line
+	6950 3800 6950 4550
+Wire Bus Line
+	2900 2500 2900 4550
 $EndSCHEMATC
