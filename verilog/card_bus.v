@@ -80,9 +80,9 @@ module card_bus(
    input 	 nio;		// Microcode store output
    output 	 nw;		// Driven by the databus unit.
    input 	 nr;		// Microcode store output
-   input 	 nws;		// Open drain, handled by BUS board
+   inout 	 nws;		// Open drain, handled by BUS board
 
-   input [23:0]  ab;		// 24-bit address bus
+   output [23:0] ab;		// 24-bit address bus
    input [15:0]  db;		// 16-bit data bus
 
    input [7:0] 	 nirqn;		// Open drain extended IRQs (INT board)

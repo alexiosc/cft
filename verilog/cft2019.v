@@ -123,41 +123,20 @@ module cft2019(
    //
    ///////////////////////////////////////////////////////////////////////////////
    
-   card_ctl ctl(
-		.nreset(nreset), 
-		.nrsthold(nrsthold),
-		.clk1(clk1),
-		.clk2(clk2),
-		.clk3(clk3),
-		.clk4(clk4),
-		.t34(t34),
-		.nirq(nirq),
-		.nirqs(nirqs),
-		.nsysdev(nsysdev),
-		.niodev1xx(niodev1xx),
-		.niodev2xx(niodev2xx),
-		.niodev3xx(niodev3xx),
-		.nmem(nmem),
-		.nio(nio),
-		.nw(nw),
-		.nr(nr),
-		.nws(nws),
-		.ab(ab),
-		.db(db),
+   card_ctl card_ctl(
+		.nreset(nreset), .nrsthold(nrsthold),
+		.clk1(clk1), .clk2(clk2), .clk3(clk3), .clk4(clk4), .t34(t34),
+		.nirq(nirq), .nirqs(nirqs),
+		.nsysdev(nsysdev), .niodev1xx(niodev1xx),
+		.niodev2xx(niodev2xx), .niodev3xx(niodev3xx),
+		.nmem(nmem), .nio(nio), .nw(nw), .nr(nr), .nws(nws),
+		.ab(ab), .db(db),
 		.nirqn(nirqn),
-		.nhalt(nhalt),
-		.nendext(nendext),
-		.nskipext(nskipext),
-		.ibus(ibus),
-		.raddr(raddr),
-		.waddr(waddr),
-		.action(action),
+		.nhalt(nhalt), .nendext(nendext), .nskipext(nskipext),
+		.ibus(ibus), .raddr(raddr), .waddr(waddr), .action(action),
 		.fpd(fpd),
 		.cport(cport_ctl),
-		.rsvd(rsvd),
-		.wstb(wstb),
-		.nruen(nruen),
-		.nwuen(nwuen),
+		.rsvd(rsvd), .wstb(wstb), .nruen(nruen), .nwuen(nwuen)
                 );
 
    ///////////////////////////////////////////////////////////////////////////////
@@ -166,84 +145,20 @@ module cft2019(
    //
    ///////////////////////////////////////////////////////////////////////////////
    
-   card_reg reg(
-		.nreset(nreset), 
-		.nrsthold(nrsthold),
-		.clk1(clk1),
-		.clk2(clk2),
-		.clk3(clk3),
-		.clk4(clk4),
-		.t34(t34),
-		.nirq(nirq),
-		.nirqs(nirqs),
-		.nsysdev(nsysdev),
-		.niodev1xx(niodev1xx),
-		.niodev2xx(niodev2xx),
-		.niodev3xx(niodev3xx),
-		.nmem(nmem),
-		.nio(nio),
-		.nw(nw),
-		.nr(nr),
-		.nws(nws),
-		.ab(ab),
-		.db(db),
+   card_reg card_reg(
+		.nreset(nreset), .nrsthold(nrsthold),
+		.clk1(clk1), .clk2(clk2), .clk3(clk3), .clk4(clk4), .t34(t34),
+		.nirq(nirq), .nirqs(nirqs),
+		.nsysdev(nsysdev), .niodev1xx(niodev1xx),
+		.niodev2xx(niodev2xx), .niodev3xx(niodev3xx),
+		.nmem(nmem), .nio(nio), .nw(nw), .nr(nr), .nws(nws),
+		.ab(ab), .db(db),
 		.nirqn(nirqn),
-		.nhalt(nhalt),
-		.nendext(nendext),
-		.nskipext(nskipext),
-		.ibus(ibus),
-		.raddr(raddr),
-		.waddr(waddr),
-		.action(action),
+		.nhalt(nhalt), .nendext(nendext), .nskipext(nskipext),
+		.ibus(ibus), .raddr(raddr), .waddr(waddr), .action(action),
 		.fpd(fpd),
 		.cport(cport_reg),
-		.rsvd(rsvd),
-		.wstb(wstb),
-		.nruen(nruen),
-		.nwuen(nwuen),
-                );
-
-   ///////////////////////////////////////////////////////////////////////////////
-   //
-   // THE ALU CARD
-   //
-   ///////////////////////////////////////////////////////////////////////////////
-   
-   card_alu alu(
-		.nreset(nreset), 
-		.nrsthold(nrsthold),
-		.clk1(clk1),
-		.clk2(clk2),
-		.clk3(clk3),
-		.clk4(clk4),
-		.t34(t34),
-		.nirq(nirq),
-		.nirqs(nirqs),
-		.nsysdev(nsysdev),
-		.niodev1xx(niodev1xx),
-		.niodev2xx(niodev2xx),
-		.niodev3xx(niodev3xx),
-		.nmem(nmem),
-		.nio(nio),
-		.nw(nw),
-		.nr(nr),
-		.nws(nws),
-		.ab(ab),
-		.db(db),
-		.nirqn(nirqn),
-		.nhalt(nhalt),
-		.nendext(nendext),
-		.nskipext(nskipext),
-		.ibus(ibus),
-		.raddr(raddr),
-		.waddr(waddr),
-		.action(action),
-		.fpd(fpd),
-		.cport(cport_alu),
-		.rsvd(rsvd),
-		.wstb(wstb),
-		.nruen(nruen),
-		.nwuen(nwuen),
+		.rsvd(rsvd), .wstb(wstb), .nruen(nruen), .nwuen(nwuen)
                 );
 
    ///////////////////////////////////////////////////////////////////////////////
@@ -252,41 +167,65 @@ module cft2019(
    //
    ///////////////////////////////////////////////////////////////////////////////
    
-   card_bus bus(
-		.nreset(nreset), 
-		.nrsthold(nrsthold),
-		.clk1(clk1),
-		.clk2(clk2),
-		.clk3(clk3),
-		.clk4(clk4),
-		.t34(t34),
-		.nirq(nirq),
-		.nirqs(nirqs),
-		.nsysdev(nsysdev),
-		.niodev1xx(niodev1xx),
-		.niodev2xx(niodev2xx),
-		.niodev3xx(niodev3xx),
-		.nmem(nmem),
-		.nio(nio),
-		.nw(nw),
-		.nr(nr),
-		.nws(nws),
-		.ab(ab),
-		.db(db),
+   card_bus card_bus(
+		.nreset(nreset), .nrsthold(nrsthold),
+		.clk1(clk1), .clk2(clk2), .clk3(clk3), .clk4(clk4), .t34(t34),
+		.nirq(nirq), .nirqs(nirqs),
+		.nsysdev(nsysdev), .niodev1xx(niodev1xx),
+		.niodev2xx(niodev2xx), .niodev3xx(niodev3xx),
+		.nmem(nmem), .nio(nio), .nw(nw), .nr(nr), .nws(nws),
+		.ab(ab), .db(db),
 		.nirqn(nirqn),
-		.nhalt(nhalt),
-		.nendext(nendext),
-		.nskipext(nskipext),
-		.ibus(ibus),
-		.raddr(raddr),
-		.waddr(waddr),
-		.action(action),
+		.nhalt(nhalt), .nendext(nendext), .nskipext(nskipext),
+		.ibus(ibus), .raddr(raddr), .waddr(waddr), .action(action),
 		.fpd(fpd),
 		.cport(cport_bus),
-		.rsvd(rsvd),
-		.wstb(wstb),
-		.nruen(nruen),
-		.nwuen(nwuen),
+		.rsvd(rsvd), .wstb(wstb), .nruen(nruen), .nwuen(nwuen)
+                );
+
+   ///////////////////////////////////////////////////////////////////////////////
+   //
+   // THE ALU CARD
+   //
+   ///////////////////////////////////////////////////////////////////////////////
+   
+   card_alu card_alu(
+		.nreset(nreset), .nrsthold(nrsthold),
+		.clk1(clk1), .clk2(clk2), .clk3(clk3), .clk4(clk4), .t34(t34),
+		.nirq(nirq), .nirqs(nirqs),
+		.nsysdev(nsysdev), .niodev1xx(niodev1xx),
+		.niodev2xx(niodev2xx), .niodev3xx(niodev3xx),
+		.nmem(nmem), .nio(nio), .nw(nw), .nr(nr), .nws(nws),
+		.ab(ab), .db(db),
+		.nirqn(nirqn),
+		.nhalt(nhalt), .nendext(nendext), .nskipext(nskipext),
+		.ibus(ibus), .raddr(raddr), .waddr(waddr), .action(action),
+		.fpd(fpd),
+		.cport(cport_alu),
+		.rsvd(rsvd), .wstb(wstb), .nruen(nruen), .nwuen(nwuen)
+                );
+
+   ///////////////////////////////////////////////////////////////////////////////
+   //
+   // A MEMORY CARD
+   //
+   ///////////////////////////////////////////////////////////////////////////////
+
+   wire [40:1] 	 cport_mem;	// MEM board doesn't use local connections
+   card_mem card_mem(
+		.nreset(nreset), .nrsthold(nrsthold),
+		.clk1(clk1), .clk2(clk2), .clk3(clk3), .clk4(clk4), .t34(t34),
+		.nirq(nirq), .nirqs(nirqs),
+		.nsysdev(nsysdev), .niodev1xx(niodev1xx),
+		.niodev2xx(niodev2xx), .niodev3xx(niodev3xx),
+		.nmem(nmem), .nio(nio), .nw(nw), .nr(nr), .nws(nws),
+		.ab(ab), .db(db),
+		.nirqn(nirqn),
+		.nhalt(nhalt), .nendext(nendext), .nskipext(nskipext),
+		.ibus(ibus), .raddr(raddr), .waddr(waddr), .action(action),
+		.fpd(fpd),
+		.cport(cport_mem),
+		.rsvd(rsvd), .wstb(wstb), .nruen(nruen), .nwuen(nwuen)
                 );
 
 endmodule // cft2019

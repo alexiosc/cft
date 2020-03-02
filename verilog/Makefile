@@ -84,7 +84,7 @@ CFT2019 = 	clock.v                 clock_tb.v \
 		card_reg.v		             \
 		card_bus.v		             \
 		card_alu.v		             \
-		cft2019.v		             \
+		cft2019.v               cft2019_tb.v \
 
 SRC += $(CFT2019)
 
@@ -540,6 +540,16 @@ test_dfp_run_control:	dfp_run_control_tb.o dfp_run_control.o clock.o \
 # card_bus
 # card_reg
 # card_alu
+
+###############################################################################
+#
+# CFT 2019 HIGH-LEVEL TESTS (WHOLE COMPUTER)
+#
+###############################################################################
+
+test_cft2019:	cft2019_tb.o cft2019.o
+		./cft2019_tb.o
+		$(GTKWAVE) $(VCDDIR)/cft2019_tb.vcd $(SAVDIR)/cft2019_tb.sav
 
 ###############################################################################
 #

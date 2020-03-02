@@ -1,0 +1,69 @@
+[*]
+[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
+[*] Mon Mar  2 17:55:04 2020
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/cft2019_tb.vcd"
+[dumpfile_mtime] "Mon Mar  2 17:54:27 2020"
+[dumpfile_size] 533670
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/cft2019_tb.sav"
+[timestart] 46360000
+[size] 1920 1019
+[pos] -46 -46
+*-22.000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] cft2019_tb.
+[treeopen] cft2019_tb.cft.
+[sst_width] 258
+[signals_width] 150
+[sst_expanded] 1
+[sst_vpaned_height] 284
+@22
+cft2019_tb.cft.ab[23:0]
+cft2019_tb.cft.action[3:0]
+@29
+cft2019_tb.cft.clk1
+@28
+cft2019_tb.cft.clk2
+cft2019_tb.cft.clk3
+cft2019_tb.cft.clk4
+@22
+cft2019_tb.cft.cport_alu[40:1]
+cft2019_tb.cft.cport_bus[40:1]
+cft2019_tb.cft.cport_ctl[40:1]
+cft2019_tb.cft.cport_mem[40:1]
+cft2019_tb.cft.cport_reg[40:1]
+cft2019_tb.cft.db[15:0]
+cft2019_tb.cft.fpd[7:0]
+cft2019_tb.cft.ibus[15:0]
+@28
+cft2019_tb.cft.nendext
+cft2019_tb.cft.nhalt
+cft2019_tb.cft.nio
+cft2019_tb.cft.niodev1xx
+cft2019_tb.cft.niodev2xx
+cft2019_tb.cft.niodev3xx
+cft2019_tb.cft.nirq
+@22
+cft2019_tb.cft.nirqn[7:0]
+@28
+cft2019_tb.cft.nirqs
+cft2019_tb.cft.nmem
+cft2019_tb.cft.nr
+cft2019_tb.cft.nreset
+cft2019_tb.cft.nrsthold
+cft2019_tb.cft.nruen
+cft2019_tb.cft.nskipext
+cft2019_tb.cft.nsysdev
+cft2019_tb.cft.nw
+cft2019_tb.cft.nws
+cft2019_tb.cft.nwuen
+@22
+cft2019_tb.cft.raddr[4:0]
+cft2019_tb.cft.rsvd[4:1]
+@28
+cft2019_tb.cft.t34
+@22
+cft2019_tb.cft.waddr[4:0]
+@28
+cft2019_tb.cft.wstb
+[pattern_trace] 1
+[pattern_trace] 0

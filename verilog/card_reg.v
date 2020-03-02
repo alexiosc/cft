@@ -57,7 +57,7 @@ module card_reg(
 		wstb, nruen, nwuen,          // Removed, kept for expansion
                 );
 
-   input         nreset;	// Open drain, various drivers.
+   inout         nreset;	// Open drain, various drivers.
    input 	 nrsthold;	// Driven by the reset unit.
 
    input 	 clk1;		// Output by the clock unit.
