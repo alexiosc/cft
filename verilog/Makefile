@@ -84,6 +84,7 @@ CFT2019 = 	clock.v                 clock_tb.v \
 		card_reg.v		             \
 		card_bus.v		             \
 		card_alu.v		             \
+		cft2019.v		             \
 
 SRC += $(CFT2019)
 
