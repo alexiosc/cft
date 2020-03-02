@@ -48,7 +48,7 @@ module alu_decoder (t34, raddr, waddr, action,
    assign nwrite_alu_b = y3[4];
 
    // This decodes actions 0xxx.
-   demux_138 demux_action (.a(action[2:0]), .g1(action[3]), .ng2a(1'b0), .ng2b(1'b0), .y(y4));
+   demux_138 demux_action (.a(action[2:0]), .g1(1'b1), .ng2a(action[3]), .ng2b(1'b0), .y(y4));
    assign naction_cpl = y4[1];	// 0001: action_cpl
    assign naction_cll = y4[2]; 	// 0010: action_cll
    assign naction_101 = y4[5]; 	// 0101: reserved

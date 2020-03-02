@@ -1,0 +1,61 @@
+[*]
+[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
+[*] Mon Mar  2 08:21:22 2020
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/alu_decoder_tb.vcd"
+[dumpfile_mtime] "Mon Mar  2 08:21:04 2020"
+[dumpfile_size] 20484
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/alu_decoder_tb.sav"
+[timestart] 0
+[size] 1600 600
+[pos] 87 0
+*-24.283672 60047000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[sst_width] 258
+[signals_width] 134
+[sst_expanded] 1
+[sst_vpaned_height] 138
+@821
+alu_decoder_tb.status[800:0]
+@28
+alu_decoder_tb.t34
+@200
+-
+@2028
+[color] 4
+^1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/raddr
+alu_decoder_tb.raddr[4:0]
+@28
+[color] 3
+alu_decoder_tb.nromoe
+[color] 3
+alu_decoder_tb.nread_alu_b
+@200
+-
+@2028
+[color] 1
+^2 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/waddr
+alu_decoder_tb.waddr[4:0]
+@28
+[color] 3
+alu_decoder_tb.nwrite_alu_b
+@200
+-
+@2028
+[color] 3
+^3 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/action
+alu_decoder_tb.action[3:0]
+@28
+[color] 1
+alu_decoder_tb.naction_cpl
+[color] 2
+alu_decoder_tb.naction_cll
+[color] 3
+alu_decoder_tb.naction_101
+[color] 4
+alu_decoder_tb.naction_110
+[color] 5
+alu_decoder_tb.naction_sru
+@200
+-
+[pattern_trace] 1
+[pattern_trace] 0

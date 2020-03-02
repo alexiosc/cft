@@ -82,6 +82,8 @@ CFT2019 = 	clock.v                 clock_tb.v \
 		alu_sru.v               alu_sru_tb.v \
 		card_ctl.v		             \
 		card_reg.v		             \
+		card_bus.v		             \
+		card_alu.v		             \
 
 SRC += $(CFT2019)
 
@@ -493,6 +495,10 @@ test_alu_sru:	alu_sru_tb.o alu_sru.o
 test_db test_databus: databus_tb.o databus.o
 		./databus_tb.o
 		$(GTKWAVE) $(VCDDIR)/databus_tb.vcd $(SAVDIR)/databus_tb.sav
+
+test_alu_decoder: alu_decoder_tb.o alu_decoder.o
+		./alu_decoder_tb.o
+		$(GTKWAVE) $(VCDDIR)/alu_decoder_tb.vcd $(SAVDIR)/alu_decoder_tb.sav
 
 test_alu_rom: alu_rom_tb.o alu_rom.o rom.o
 		./alu_rom_tb.o
