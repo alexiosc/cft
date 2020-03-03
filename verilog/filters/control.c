@@ -4,21 +4,6 @@
 
 #include "../../microcode/build/microcode.h"
 
-
-
-char *to_unit[8] = {
-	"", "dbus=", "mar=", "pc=", "ir=", "dr=", "a=", "b="
-};
-char *from_unit[16] = {
-	"", "", "agl", "pc", "dr", "a", "?", "?", "add", "and", "or", "xor", "roll", "not",
-	"cs1", "cs2"
-};
-char *skip_unit[] = {
-	"", "if3", "if4", "if5", "if6", "if7", "if8", "if9", /* 0-7 */
-	"ifroll", "ifroll", "ifroll", "ifroll", /* 8-11 */
-	"ifbranch", "ifbranch", "ifbranch", "ifbranch" /* 12-15 */
-};
-
 #define add(t,s) { \
 		if(t[0] && s[0]) {		\
 			strcat(t," ");		\
