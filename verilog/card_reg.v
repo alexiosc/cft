@@ -184,7 +184,7 @@ module card_reg(
    ///////////////////////////////////////////////////////////////////////////////
 
    // First, the RESET signal: inverted from nRESET
-   assign #7 nreset = ~reset;
+   assign #7 reset = ~nreset;
 
    // Now, the three decoders
    demux_138 raddr_decoder (.g1(raddr[3]), .ng2a(raddr[4]), .ng2b(1'b0), .a(raddr[2:0]), .y(raddr_y));
@@ -193,7 +193,7 @@ module card_reg(
 
    assign nread_pc = raddr_y[0];
    assign nread_dr = raddr_y[1];
-   assign nread_pc = raddr_y[2];
+   assign nread_ac = raddr_y[2];
    assign nread_sp = raddr_y[3];
 
    assign nwrite_pc = waddr_y[0];

@@ -1,21 +1,21 @@
 [*]
 [*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Tue Mar  3 15:38:05 2020
+[*] Tue Mar  3 18:41:58 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/card_ctl_tb.vcd"
-[dumpfile_mtime] "Tue Mar  3 15:37:30 2020"
+[dumpfile_mtime] "Tue Mar  3 18:40:38 2020"
 [dumpfile_size] 565050
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/card_ctl_tb.sav"
-[timestart] 63920000
-[size] 1547 897
-[pos] 152 143
-*-18.257736 64846000 24000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[timestart] 78650000
+[size] 1708 1098
+[pos] 2287 0
+*-21.149981 5769800 24000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] card_ctl_tb.
 [treeopen] card_ctl_tb.card_ctl.
 [sst_width] 258
 [signals_width] 214
 [sst_expanded] 1
-[sst_vpaned_height] 241
+[sst_vpaned_height] 309
 @200
 -Reset
 @28
@@ -25,8 +25,9 @@ card_ctl_tb.nrsthold
 card_ctl_tb.powerok
 [color] 7
 card_ctl_tb.nfpreset
-@200
+@201
 -
+@200
 -Clock
 @28
 [color] 1
@@ -58,7 +59,7 @@ card_ctl_tb.card_ctl.reg_ir.ir[15:0]
 @200
 -
 -Control
-@29
+@28
 card_ctl_tb.card_ctl.microcode_sequencer.nrsthold
 @c00022
 card_ctl_tb.card_ctl.microcode_sequencer.uaddr[18:0]
@@ -243,34 +244,32 @@ card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
 card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
 @200
 -
+@2028
+[color] 1
+^1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/raddr
+card_ctl_tb.card_ctl.microcode_sequencer.raddr[4:0]
+[color] 2
+^2 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/waddr
+card_ctl_tb.card_ctl.microcode_sequencer.waddr[4:0]
+[color] 3
+^3 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/cond
+card_ctl_tb.card_ctl.microcode_sequencer.cond[4:0]
+[color] 4
+^4 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/action
+card_ctl_tb.card_ctl.microcode_sequencer.action[3:0]
+@28
+[color] 5
+card_ctl_tb.card_ctl.microcode_sequencer.nio
+[color] 6
+card_ctl_tb.card_ctl.microcode_sequencer.nmem
+[color] 7
+card_ctl_tb.card_ctl.microcode_sequencer.nr
+[color] 1
+card_ctl_tb.card_ctl.microcode_sequencer.nwen
+[color] 2
+card_ctl_tb.card_ctl.microcode_sequencer.nend
+@200
+-
 -Debugging
-@28
-card_ctl_tb.card_ctl.nmem
-card_ctl_tb.card_ctl.nr
-card_ctl_tb.card_ctl.nwen
-card_ctl_tb.card_ctl.agl.nread_agl
-@c00022
-card_ctl_tb.card_ctl.ibus[15:0]
-@28
-(0)card_ctl_tb.card_ctl.ibus[15:0]
-(1)card_ctl_tb.card_ctl.ibus[15:0]
-(2)card_ctl_tb.card_ctl.ibus[15:0]
-(3)card_ctl_tb.card_ctl.ibus[15:0]
-(4)card_ctl_tb.card_ctl.ibus[15:0]
-(5)card_ctl_tb.card_ctl.ibus[15:0]
-(6)card_ctl_tb.card_ctl.ibus[15:0]
-(7)card_ctl_tb.card_ctl.ibus[15:0]
-(8)card_ctl_tb.card_ctl.ibus[15:0]
-(9)card_ctl_tb.card_ctl.ibus[15:0]
-(10)card_ctl_tb.card_ctl.ibus[15:0]
-(11)card_ctl_tb.card_ctl.ibus[15:0]
-(12)card_ctl_tb.card_ctl.ibus[15:0]
-(13)card_ctl_tb.card_ctl.ibus[15:0]
-(14)card_ctl_tb.card_ctl.ibus[15:0]
-(15)card_ctl_tb.card_ctl.ibus[15:0]
-@1401200
--group_end
-@22
-card_ctl_tb.card_ctl.reg_ir.ir[15:0]
 [pattern_trace] 1
 [pattern_trace] 0

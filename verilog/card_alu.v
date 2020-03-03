@@ -134,7 +134,7 @@ module card_alu(
    wire [15:0] 	 ac;
 
    assign ir_6_0 = cport[7:1];
-   assign fl_offboard = cport[8];
+   assign cport[8] = fl_offboard;
    assign cport[9] = fv;
    assign nflagwe = cport[10];
    assign ac = cport[38:23];
@@ -278,6 +278,10 @@ module card_alu(
 		.naction_cll(naction_cll), 
 		.fl(fl),
 		.flfast(flfast));
+
+   // This is an impedance-matched version of FL on real hardware. In Verilog,
+   // it's just a copy of fl.
+   assign fl_offboard = fl;
 
    ///////////////////////////////////////////////////////////////////////////////
    //

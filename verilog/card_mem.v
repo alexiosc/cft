@@ -140,14 +140,14 @@ module card_mem(
    assign #7 nmemw = nmem | nw;
 
    // 512K RAM
-   sram #(19) ramlo (.a(ab[18:0]), .d(ibus[7:0]), .nce(ncs[0]), .nwe(nmemw), .noe(nmemr));
-   sram #(19) ramhi (.a(ab[18:0]), .d(ibus[15:8]), .nce(ncs[0]), .nwe(nmemw), .noe(nmemr));
+   sram #(19) ramlo (.a(ab[18:0]), .d(db[7:0]), .nce(ncs[0]), .nwe(nmemw), .noe(nmemr));
+   sram #(19) ramhi (.a(ab[18:0]), .d(db[15:8]), .nce(ncs[0]), .nwe(nmemw), .noe(nmemr));
 
    // Another 512K RAM where the ROM should be is, so that individual
    // testbenches can load their own ROM images at will with
    // $readmemb(). Obviously, writing is disabled.
-   sram #(19) romlo (.a(ab[18:0]), .d(ibus[7:0]), .nce(nromcs[0]), .nwe(1'b1), .noe(nmemr));
-   sram #(19) romhi (.a(ab[18:0]), .d(ibus[15:8]), .nce(nromcs[0]), .nwe(1'b1), .noe(nmemr));
+   sram #(19) romlo (.a(ab[18:0]), .d(db[7:0]), .nce(nromcs[0]), .nwe(1'b1), .noe(nmemr));
+   sram #(19) romhi (.a(ab[18:0]), .d(db[15:8]), .nce(nromcs[0]), .nwe(1'b1), .noe(nmemr));
 
 endmodule // card_mem
 
