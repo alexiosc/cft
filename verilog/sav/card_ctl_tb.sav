@@ -1,19 +1,17 @@
 [*]
 [*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Tue Mar  3 15:10:40 2020
+[*] Tue Mar  3 15:38:05 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/card_ctl_tb.vcd"
-[dumpfile_mtime] "Tue Mar  3 15:10:11 2020"
+[dumpfile_mtime] "Tue Mar  3 15:37:30 2020"
 [dumpfile_size] 565050
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/card_ctl_tb.sav"
-[timestart] 83886000
+[timestart] 63920000
 [size] 1547 897
 [pos] 152 143
-*-20.257736 84481000 24000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-18.257736 64846000 24000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] card_ctl_tb.
 [treeopen] card_ctl_tb.card_ctl.
-[treeopen] card_ctl_tb.card_ctl.microcode_sequencer.
-[treeopen] card_ctl_tb.card_ctl.reg_ir.
 [sst_width] 258
 [signals_width] 214
 [sst_expanded] 1
@@ -54,35 +52,14 @@ card_ctl_tb.card_ctl.microcode_sequencer.upc[3:0]
 card_ctl_tb.card_ctl.microcode_sequencer.nws
 @200
 -
--Debugging
-@28
-card_ctl_tb.card_ctl.nmem
-card_ctl_tb.card_ctl.nr
-card_ctl_tb.card_ctl.nwen
-card_ctl_tb.card_ctl.agl.nread_agl
-@c00023
-card_ctl_tb.card_ctl.ibus[15:0]
-@29
-(0)card_ctl_tb.card_ctl.ibus[15:0]
-(1)card_ctl_tb.card_ctl.ibus[15:0]
-(2)card_ctl_tb.card_ctl.ibus[15:0]
-(3)card_ctl_tb.card_ctl.ibus[15:0]
-(4)card_ctl_tb.card_ctl.ibus[15:0]
-(5)card_ctl_tb.card_ctl.ibus[15:0]
-(6)card_ctl_tb.card_ctl.ibus[15:0]
-(7)card_ctl_tb.card_ctl.ibus[15:0]
-(8)card_ctl_tb.card_ctl.ibus[15:0]
-(9)card_ctl_tb.card_ctl.ibus[15:0]
-(10)card_ctl_tb.card_ctl.ibus[15:0]
-(11)card_ctl_tb.card_ctl.ibus[15:0]
-(12)card_ctl_tb.card_ctl.ibus[15:0]
-(13)card_ctl_tb.card_ctl.ibus[15:0]
-(14)card_ctl_tb.card_ctl.ibus[15:0]
-(15)card_ctl_tb.card_ctl.ibus[15:0]
-@1401201
--group_end
+-IR
 @22
 card_ctl_tb.card_ctl.reg_ir.ir[15:0]
+@200
+-
+-Control
+@29
+card_ctl_tb.card_ctl.microcode_sequencer.nrsthold
 @c00022
 card_ctl_tb.card_ctl.microcode_sequencer.uaddr[18:0]
 @28
@@ -135,6 +112,103 @@ card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
 @1401200
 -group_end
 -group_end
+@c04022
+^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/uaddr
+card_ctl_tb.card_ctl.microcode_sequencer.uaddr[18:0]
+@4028
+^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/uaddr
+(0)card_ctl_tb.card_ctl.microcode_sequencer.uaddr[18:0]
+^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/uaddr
+(1)card_ctl_tb.card_ctl.microcode_sequencer.uaddr[18:0]
+^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/uaddr
+(2)card_ctl_tb.card_ctl.microcode_sequencer.uaddr[18:0]
+^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/uaddr
+(3)card_ctl_tb.card_ctl.microcode_sequencer.uaddr[18:0]
+^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/uaddr
+(4)card_ctl_tb.card_ctl.microcode_sequencer.uaddr[18:0]
+^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/uaddr
+(5)card_ctl_tb.card_ctl.microcode_sequencer.uaddr[18:0]
+^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/uaddr
+(6)card_ctl_tb.card_ctl.microcode_sequencer.uaddr[18:0]
+^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/uaddr
+(7)card_ctl_tb.card_ctl.microcode_sequencer.uaddr[18:0]
+^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/uaddr
+(8)card_ctl_tb.card_ctl.microcode_sequencer.uaddr[18:0]
+^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/uaddr
+(9)card_ctl_tb.card_ctl.microcode_sequencer.uaddr[18:0]
+^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/uaddr
+(10)card_ctl_tb.card_ctl.microcode_sequencer.uaddr[18:0]
+^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/uaddr
+(11)card_ctl_tb.card_ctl.microcode_sequencer.uaddr[18:0]
+^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/uaddr
+(12)card_ctl_tb.card_ctl.microcode_sequencer.uaddr[18:0]
+^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/uaddr
+(13)card_ctl_tb.card_ctl.microcode_sequencer.uaddr[18:0]
+^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/uaddr
+(14)card_ctl_tb.card_ctl.microcode_sequencer.uaddr[18:0]
+^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/uaddr
+(15)card_ctl_tb.card_ctl.microcode_sequencer.uaddr[18:0]
+^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/uaddr
+(16)card_ctl_tb.card_ctl.microcode_sequencer.uaddr[18:0]
+^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/uaddr
+(17)card_ctl_tb.card_ctl.microcode_sequencer.uaddr[18:0]
+^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/uaddr
+(18)card_ctl_tb.card_ctl.microcode_sequencer.uaddr[18:0]
+@c04022
+^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/uaddr
+card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+@4028
+^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/uaddr
+(0)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/uaddr
+(1)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/uaddr
+(2)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/uaddr
+(3)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/uaddr
+(4)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/uaddr
+(5)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/uaddr
+(6)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/uaddr
+(7)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/uaddr
+(8)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/uaddr
+(9)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/uaddr
+(10)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/uaddr
+(11)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/uaddr
+(12)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/uaddr
+(13)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/uaddr
+(14)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/uaddr
+(15)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/uaddr
+(16)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/uaddr
+(17)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/uaddr
+(18)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/uaddr
+(19)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/uaddr
+(20)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/uaddr
+(21)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/uaddr
+(22)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/uaddr
+(23)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+@1401200
+-group_end
+-group_end
 @c00022
 card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
 @28
@@ -165,7 +239,38 @@ card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
 @1401200
 -group_end
 @4022
-^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/control
+^>2 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/control
 card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+@200
+-
+-Debugging
+@28
+card_ctl_tb.card_ctl.nmem
+card_ctl_tb.card_ctl.nr
+card_ctl_tb.card_ctl.nwen
+card_ctl_tb.card_ctl.agl.nread_agl
+@c00022
+card_ctl_tb.card_ctl.ibus[15:0]
+@28
+(0)card_ctl_tb.card_ctl.ibus[15:0]
+(1)card_ctl_tb.card_ctl.ibus[15:0]
+(2)card_ctl_tb.card_ctl.ibus[15:0]
+(3)card_ctl_tb.card_ctl.ibus[15:0]
+(4)card_ctl_tb.card_ctl.ibus[15:0]
+(5)card_ctl_tb.card_ctl.ibus[15:0]
+(6)card_ctl_tb.card_ctl.ibus[15:0]
+(7)card_ctl_tb.card_ctl.ibus[15:0]
+(8)card_ctl_tb.card_ctl.ibus[15:0]
+(9)card_ctl_tb.card_ctl.ibus[15:0]
+(10)card_ctl_tb.card_ctl.ibus[15:0]
+(11)card_ctl_tb.card_ctl.ibus[15:0]
+(12)card_ctl_tb.card_ctl.ibus[15:0]
+(13)card_ctl_tb.card_ctl.ibus[15:0]
+(14)card_ctl_tb.card_ctl.ibus[15:0]
+(15)card_ctl_tb.card_ctl.ibus[15:0]
+@1401200
+-group_end
+@22
+card_ctl_tb.card_ctl.reg_ir.ir[15:0]
 [pattern_trace] 1
 [pattern_trace] 0
