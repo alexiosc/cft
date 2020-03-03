@@ -314,7 +314,7 @@ class ParseMicrocode(object):
                 self.out.write("\n")
             oldinstr = instr &  0xf000
             self.out.write(fmt.format(**locals()))
-        self.out.write('\t{ NULL, 0, 0 }\n')
+        self.out.write('\n\t{{ NULL,     {pad}0,      0,      0,      0}}  /* End. */\n'.format(**locals()))
 
         self.out.write(C_DISASM_POSTAMBLE)
 
