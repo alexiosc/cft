@@ -1,5 +1,10 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdint.h>
+
+#include "../../microcode/build/microcode.h"
+
+
 
 char *to_unit[8] = {
 	"", "dbus=", "mar=", "pc=", "ir=", "dr=", "a=", "b="
@@ -34,38 +39,82 @@ int main(int argc, char **argv)
 			sscanf(buf, "%x", &hx);
 			buf2[0] = '\0';
 
-			add(buf2, to_unit[(hx >> 4) & 7]);
-			strcat(buf2, from_unit[hx & 15]);
-			if ((hx & (1<<19)) == 0) add(buf2, "mem");
-			if ((hx & (1<<20)) == 0) add(buf2, "io");
+			if (IS_READ_CS0(hx)) add(buf2, "read-cs0");
+			if (IS_READ_CS1(hx)) add(buf2, "read-cs1");
+			if (IS_READ_CS2(hx)) add(buf2, "read-cs2");
+			if (IS_READ_CS3(hx)) add(buf2, "read-cs3");
+			if (IS_READ_PC(hx)) add(buf2, "read-pc");
+			if (IS_READ_DR(hx)) add(buf2, "read-dr");
+			if (IS_READ_AC(hx)) add(buf2, "read-ac");
+			if (IS_READ_SP(hx)) add(buf2, "read-sp");
+			if (IS_READ_MBP(hx)) add(buf2, "read-mbp");
+			if (IS_READ_MBP_FLAGS(hx)) add(buf2, "read-mbp+flags");
+			if (IS_READ_FLAGS(hx)) add(buf2, "read-flags");
+			if (IS_READ_AGL(hx)) add(buf2, "read-agl");
+			if (IS_READ_ALU_ADD(hx)) add(buf2, "read-alu-add");
+			if (IS_READ_ALU_AND(hx)) add(buf2, "read-alu-and");
+			if (IS_READ_ALU_OR(hx)) add(buf2, "read-alu-or");
+			if (IS_READ_ALU_XOR(hx)) add(buf2, "read-alu-xor");
+			if (IS_READ_ALU_NOT(hx)) add(buf2, "read-alu-not");
+			if (IS_READ_ALU_B(hx)) add(buf2, "read-alu-b");
+			    
+			if (IS_WRITE_AR_MBP(hx)) add(buf2, "write-ar-mbp");
+			if (IS_WRITE_AR_MBD(hx)) add(buf2, "write-ar-mbd");
+			if (IS_WRITE_AR_MBS(hx)) add(buf2, "write-ar-mbs");
+			if (IS_WRITE_AR_MBZ(hx)) add(buf2, "write-ar-mbz");
+			if (IS_WRITE_PC(hx)) add(buf2, "write-pc");
+			if (IS_WRITE_DR(hx)) add(buf2, "write-dr");
+			if (IS_WRITE_AC(hx)) add(buf2, "write-ac");
+			if (IS_WRITE_SP(hx)) add(buf2, "write-sp");
+			if (IS_WRITE_MBP(hx)) add(buf2, "write-mbp");
+			if (IS_WRITE_MBP_FLAGS(hx)) add(buf2, "write-mbp+flags");
+			if (IS_WRITE_FLAGS(hx)) add(buf2, "write-flags");
+			if (IS_WRITE_IR(hx)) add(buf2, "write-ir");
+			if (IS_WRITE_ALU_B(hx)) add(buf2, "write-alu-b");
 
-			if ((hx & (1<<11)) == 0) add(buf2, "cpl");
-			if ((hx & (1<<12)) == 0) add(buf2, "cll");
-			if ((hx & (1<<13)) == 0) add(buf2, "sti");
-			if ((hx & (1<<14)) == 0) add(buf2, "cli");
+			if (IS_IF_IR0(hx)) add(buf2, "if-ir0");
+			if (IS_IF_IR1(hx)) add(buf2, "if-ir1");
+			if (IS_IF_IR2(hx)) add(buf2, "if-ir2");
+			if (IS_IF_IR3(hx)) add(buf2, "if-ir3");
+			if (IS_IF_IR4(hx)) add(buf2, "if-ir4");
+			if (IS_IF_IR5(hx)) add(buf2, "if-ir5");
+			if (IS_IF_IR6(hx)) add(buf2, "if-ir6");
+			if (IS_IF_V(hx)) add(buf2, "if-v");
+			if (IS_IF_L(hx)) add(buf2, "if-l");
+			if (IS_IF_Z(hx)) add(buf2, "if-z");
+			if (IS_IF_N(hx)) add(buf2, "if-n");
+			if (IS_IF_BRANCH(hx)) add(buf2, "if-branch");
 
-			if ((hx & (1<<15)) == 0) add(buf2, "pc++");
-			if ((hx & (1<<16)) == 0) add(buf2, "step_ac");
-			if ((hx & (1<<17)) == 0) add(buf2, "step_dr");
-			/*if ((hx & (1<<18)) == 0) add(buf2, "dr--");*/
-			if ((hx & (1<<21)) == 0) {
+			if (IS_ACTION_CPL(hx)) add(buf2, "cpl");
+			if (IS_ACTION_CLL(hx)) add(buf2, "cll");
+			if (IS_ACTION_STI(hx)) add(buf2, "sti");
+			if (IS_ACTION_CLI(hx)) add(buf2, "cli");
+			if (IS_ACTION_SRU(hx)) add(buf2, "sru");
+
+			if (IS_ACTION_INCPC(hx)) add(buf2, "pc++");
+			if (IS_ACTION_INCDR(hx)) add(buf2, "dr++");
+			if (IS_ACTION_DECDR(hx)) add(buf2, "dr--");
+			if (IS_ACTION_INCAC(hx)) add(buf2, "ac++");
+			if (IS_ACTION_DECAC(hx)) add(buf2, "ac--");
+			if (IS_ACTION_INCSP(hx)) add(buf2, "sp++");
+			if (IS_ACTION_DECSP(hx)) add(buf2, "sp--");
+
+			if (IS_MEM(hx)) add(buf2, "mem");
+			if (IS_IO(hx)) add(buf2, "io");
+			if (IS_R(hx)) {
 				strcpy(col, "?green4?");
 				add(buf2, "r");
 			}
-			if ((hx & (1<<22)) == 0) {
+			if (IS_WEN(hx)) {
 				strcpy(col, "?orange4?");
-				add(buf2, "w");
+				add(buf2, "wen");
 			}
-
-			add(buf2, skip_unit[(hx >> 7) & 15]);
-
-			if ((hx & (1<<23)) == 0) {
+			if (IS_END(hx)) {
 				strcpy(col, "?cyan4?");
 				add(buf2, "end");
 			}
-			/*if ((hx & (1<<23)) == 0) add(buf2, "halt");*/
 			
-			if (!buf2[0]) add(buf2, "?red4?wait");
+			if (!buf2[0]) add(buf2, "?red4?huh");
 			printf("%s%s\n", col, buf2);
 			fflush(stdout);
 		}
