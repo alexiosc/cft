@@ -1,17 +1,17 @@
 [*]
-[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Fri May 31 10:13:59 2019
+[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
+[*] Tue Mar  3 08:37:37 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/reset_tb.vcd"
-[dumpfile_mtime] "Fri May 31 10:13:38 2019"
-[dumpfile_size] 7038
+[dumpfile_mtime] "Tue Mar  3 08:37:35 2020"
+[dumpfile_size] 7707
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/reset_tb.sav"
 [timestart] 0
 [size] 1442 899
 [pos] 231 151
 *-22.999521 14590000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] reset_logic_tb.
-[sst_width] 245
+[sst_width] 258
 [signals_width] 220
 [sst_expanded] 1
 [sst_vpaned_height] 253

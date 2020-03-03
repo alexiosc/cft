@@ -28,17 +28,19 @@
 
 module reset_logic (nreset, nrsthold, clk3, fpreset, powerok, ibus);
 
-   inout nreset;
+   inout  nreset;
    output nrsthold;
-   input clk3;
+   input  clk3;
 
-   input fpreset;
-   input powerok;
+   inout  fpreset;
+   inout  powerok;
 
-   inout [15:0] ibus;
+   inout  [15:0] ibus;
 
-   wand nreset;
-   tri1  nrsthold, fpreset;
+   wand   nreset;
+   tri1   nrsthold;
+   tri1   fpreset;
+   tri0   powerok;
 
    wire [15:0] ibus;
 

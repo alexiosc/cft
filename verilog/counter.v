@@ -93,7 +93,7 @@ module counter_193 (clr, npl, p, cpu, cpd, q, ntcu, ntcd);
    wire 	ntcd;
 
    initial begin
-      $display("Initialising 74x193");
+      //$display("Initialising 74x193");
    end
 
    always @(clr, npl, p) begin

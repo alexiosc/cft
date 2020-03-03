@@ -80,10 +80,10 @@ CFT2019 = 	clock.v                 clock_tb.v \
 		alu_portb.v             alu_portb_tb.v \
 		alu_rom.v               alu_rom_tb.v \
 		alu_sru.v               alu_sru_tb.v \
-		card_ctl.v		             \
-		card_reg.v		             \
-		card_bus.v		             \
-		card_alu.v		             \
+		card_ctl.v              card_ctl_tb.v \
+		card_reg.v		              \
+		card_bus.v		              \
+		card_alu.v		              \
 		cft2019.v               cft2019_tb.v \
 
 SRC += $(CFT2019)
@@ -536,7 +536,9 @@ test_dfp_run_control:	dfp_run_control_tb.o dfp_run_control.o clock.o \
 #
 ###############################################################################
 
-# card_ctl
+test_card_ctl:	card_ctl_tb.o card_ctl.o
+		./card_ctl_tb.o
+		$(GTKWAVE) $(VCDDIR)/card_ctl_tb.vcd $(SAVDIR)/card_ctl_tb.sav
 # card_bus
 # card_reg
 # card_alu

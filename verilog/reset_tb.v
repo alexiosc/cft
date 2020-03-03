@@ -40,7 +40,16 @@ module reset_logic_tb();
    always begin
       #125 clk1 = ~clk1;
    end
+
+   wire nreset_real;
+   wire fpreset_real;
+   wire powerok_real;
    
-   reset_logic reset_logic(nreset, nrsthold, clk1, fpreset, powerok, ibus);
+   assign nreset_real = nreset;
+   assign fpreset_real = fpreset;
+   assign powerok_real = powerok;
+   
+   // Connect the DUT
+   reset_logic reset_logic(nreset_real, nrsthold, clk1, fpreset_real, powerok_real, ibus);
 
 endmodule

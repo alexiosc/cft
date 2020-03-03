@@ -51,9 +51,9 @@ module clock_generator (nreset, fpclk, nfpclk_or_clk,
 
    parameter cp = 62.5;
 
-   input nreset;		// Reset input
-   input fpclk;			// Front panel clock
-   input nfpclk_or_clk;		// low = fpclk, high = 4 MHz clock
+   inout nreset;		// Reset input
+   inout fpclk;			// Front panel clock
+   inout nfpclk_or_clk;		// low = fpclk, high = 4 MHz clock
 
    // 75% duty cycle clock outputs
    output clk1;			// 0° phase clock output
@@ -63,7 +63,11 @@ module clock_generator (nreset, fpclk, nfpclk_or_clk,
 
    output t34;
 
-   reg clk;
+   reg    clk;
+
+   tri1   nreset;
+   tri1   nfpclk_or_clk;
+   tri1   fpclk;
 
    // Simulate the oscillator
    initial begin

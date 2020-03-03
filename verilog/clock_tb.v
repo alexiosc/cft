@@ -85,9 +85,18 @@ module clock_tb();
       
    end // initial begin
 
-   // Connect the DUT   
-   clock_generator clk (.nreset(nreset), .fpclk(fpclk),
-			.nfpclk_or_clk(nfpclk_or_clk),
+   // Assign tri-state wires
+   wire nreset_real;
+   wire fpclk_real;
+   wire nfpclk_or_clk_real;
+
+   assign nreset_real = nreset;
+   assign fpclk_real = fpclk;
+   assign nfpclk_or_clk_real = nfpclk_or_clk;
+
+   // Connect the DUT
+   clock_generator clk (.nreset(nreset_real), .fpclk(fpclk_real),
+			.nfpclk_or_clk(nfpclk_or_clk_real),
 			.clk1(clk1),
 			.clk2(clk2),
 			.clk3(clk3),

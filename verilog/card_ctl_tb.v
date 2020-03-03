@@ -1,12 +1,12 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// A BASIC CFT COMPUTER, 2019 EDITION
+// BASIC TESTBENCH FOR THE CTL BOARD
 //
 ///////////////////////////////////////////////////////////////////////////////
 //
 // REDESIGNED IN 2019
 //
-// cft2019.v -- A basic CFT setup
+// card_ctl_tb.v -- The CTL Board
 //
 // Copyright © 2011–2020 Alexios Chouchoulas
 //
@@ -30,16 +30,10 @@
 `define cft2019_v
 
 `include "card_ctl.v"
-`include "card_reg.v"
-`include "card_bus.v"
-`include "card_alu.v"
-`include "card_mem.v"
 
 `timescale 1ns/1ps
 
-// All cards start with card_ and have identical port definitions.
-
-module cft2019(
+module card_ctl_tb(
 		nreset, nrsthold,            // Reset
 		clk1, clk2, clk3, clk4, t34, // Clock
 		nirq, nirqs,                 // Unexpanded Interrupts
@@ -144,6 +138,20 @@ module cft2019(
    wire 	 nfpflags;
    wire 	 powerok;
 
+   // Simulate things
+   assign nfpreset = 1'b1;
+   assign nfpclk_or_clk = 1'b1;
+   assign fpclk = 1'b0;
+
+   always begin
+      $dumpfile ("vcd/card_ctl_tb.vcd");
+      $dumpvars (0, card_ctl_tb);
+
+      #100000 $finish;
+   end
+
+   // Connect the DUT and its many signals
+
    assign cport_ctl[7:1] = ir_6_0[6:0];
    assign cport_ctl[8] = nwen;
    assign fl = cport_ctl[9];
@@ -191,153 +199,9 @@ module cft2019(
 		.rsvd(rsvd), .wstb(wstb), .nruen(nruen), .nwuen(nwuen)
                 );
 
-   ///////////////////////////////////////////////////////////////////////////////
-   //
-   // THE REG CARD
-   //
-   ///////////////////////////////////////////////////////////////////////////////
-   
-   wire [40:1] 	 cport_reg;
-   wire 	 nfppch;
-   wire 	 nfppcl;
-   wire 	 nfpdrh;
-   wire 	 nfpdrl;
-   wire 	 nfpach;
-   wire 	 nfpacl;
-   wire 	 nfpsph;
-   wire 	 nfpspl;
-   wire [15:0] 	 ac;
-   wire 	 naccpl;
+endmodule // card_ctl_tb
 
-   assign pc_15_10 = cport_reg[6:1];
-   assign cport_reg[11] = nfppch;
-   assign cport_reg[12] = nfppcl;
-   assign cport_reg[13] = nfpdrh;
-   assign cport_reg[14] = nfpdrl;
-   assign cport_reg[15] = nfpach;
-   assign cport_reg[16] = nfpacl;
-   assign cport_reg[17] = nfpsph;
-   assign cport_reg[18] = nfpspl;
-   assign ac = cport_reg[38:23];
-   assign fz = cport_reg[39];
-   assign naccpl = cport_reg[40];
-   card_reg card_reg(
-		.nreset(nreset), .nrsthold(nrsthold),
-		.clk1(clk1), .clk2(clk2), .clk3(clk3), .clk4(clk4), .t34(t34),
-		.nirq(nirq), .nirqs(nirqs),
-		.nsysdev(nsysdev), .niodev1xx(niodev1xx),
-		.niodev2xx(niodev2xx), .niodev3xx(niodev3xx),
-		.nmem(nmem), .nio(nio), .nw(nw), .nr(nr), .nws(nws),
-		.ab(ab), .db(db),
-		.nirqn(nirqn),
-		.nhalt(nhalt), .nendext(nendext), .nskipext(nskipext),
-		.ibus(ibus), .raddr(raddr), .waddr(waddr), .action(action),
-		.fpd(fpd),
-		.cport(cport_reg),
-		.rsvd(rsvd), .wstb(wstb), .nruen(nruen), .nwuen(nwuen)
-                );
-
-   ///////////////////////////////////////////////////////////////////////////////
-   //
-   // THE BUS CARD
-   //
-   ///////////////////////////////////////////////////////////////////////////////
-   
-   wire [40:1] 	 cport_bus;
-
-   wire 	 nfparh;	// FP request for ar[23:16]
-   wire 	 idxen;		// Input from AIL, auto-indexing enabled
-   wire 	 nfpram_rom;	// Input from DFP to MBU. 0=RAM layout, 1=RAM/ROM
-   wire 	 nfpaext;	// FP request for AEXT
-
-   assign cport_reg[3:1] = ir_6_0[2:0]; // IR[2:0] is needed here
-   assign cport_reg[4] = idxen;
-   assign cport_reg[14] = nwen;
-   assign cport_reg[38] = nfpram_rom;
-   assign cport_reg[39] = nfpaext;
-
-   card_bus card_bus(
-		.nreset(nreset), .nrsthold(nrsthold),
-		.clk1(clk1), .clk2(clk2), .clk3(clk3), .clk4(clk4), .t34(t34),
-		.nirq(nirq), .nirqs(nirqs),
-		.nsysdev(nsysdev), .niodev1xx(niodev1xx),
-		.niodev2xx(niodev2xx), .niodev3xx(niodev3xx),
-		.nmem(nmem), .nio(nio), .nw(nw), .nr(nr), .nws(nws),
-		.ab(ab), .db(db),
-		.nirqn(nirqn),
-		.nhalt(nhalt), .nendext(nendext), .nskipext(nskipext),
-		.ibus(ibus), .raddr(raddr), .waddr(waddr), .action(action),
-		.fpd(fpd),
-		.cport(cport_bus),
-		.rsvd(rsvd), .wstb(wstb), .nruen(nruen), .nwuen(nwuen)
-                );
-
-   ///////////////////////////////////////////////////////////////////////////////
-   //
-   // THE ALU CARD
-   //
-   ///////////////////////////////////////////////////////////////////////////////
-   
-   wire [40:1] 	 cport_alu;
-
-   assign cport_alu[7:1] = ir_6_0;
-   assign fl = cport_alu[8];
-   assign fv = cport_alu[9];
-   assign cport_alu[10] = nflagwe;
-   assign cport_alu[38:23] = ac;
-   card_alu card_alu(
-		.nreset(nreset), .nrsthold(nrsthold),
-		.clk1(clk1), .clk2(clk2), .clk3(clk3), .clk4(clk4), .t34(t34),
-		.nirq(nirq), .nirqs(nirqs),
-		.nsysdev(nsysdev), .niodev1xx(niodev1xx),
-		.niodev2xx(niodev2xx), .niodev3xx(niodev3xx),
-		.nmem(nmem), .nio(nio), .nw(nw), .nr(nr), .nws(nws),
-		.ab(ab), .db(db),
-		.nirqn(nirqn),
-		.nhalt(nhalt), .nendext(nendext), .nskipext(nskipext),
-		.ibus(ibus), .raddr(raddr), .waddr(waddr), .action(action),
-		.fpd(fpd),
-		.cport(cport_alu),
-		.rsvd(rsvd), .wstb(wstb), .nruen(nruen), .nwuen(nwuen)
-                );
-
-   ///////////////////////////////////////////////////////////////////////////////
-   //
-   // A FAKE DFP AND BACKPLANE
-   //
-   ///////////////////////////////////////////////////////////////////////////////
-
-   assign powerok = 1'b1;
-   assign nfpreset = 1'b1;
-   assign nfpclk_or_clk = 1'b1;
-   assign fpclk = 1'b0;
-   
-   ///////////////////////////////////////////////////////////////////////////////
-   //
-   // A MEMORY CARD
-   //
-   ///////////////////////////////////////////////////////////////////////////////
-
-   wire [40:1] 	 cport_mem;	// MEM board doesn't use local connections
-   card_mem card_mem(
-		.nreset(nreset), .nrsthold(nrsthold),
-		.clk1(clk1), .clk2(clk2), .clk3(clk3), .clk4(clk4), .t34(t34),
-		.nirq(nirq), .nirqs(nirqs),
-		.nsysdev(nsysdev), .niodev1xx(niodev1xx),
-		.niodev2xx(niodev2xx), .niodev3xx(niodev3xx),
-		.nmem(nmem), .nio(nio), .nw(nw), .nr(nr), .nws(nws),
-		.ab(ab), .db(db),
-		.nirqn(nirqn),
-		.nhalt(nhalt), .nendext(nendext), .nskipext(nskipext),
-		.ibus(ibus), .raddr(raddr), .waddr(waddr), .action(action),
-		.fpd(fpd),
-		.cport(cport_mem),
-		.rsvd(rsvd), .wstb(wstb), .nruen(nruen), .nwuen(nwuen)
-                );
-
-endmodule // cft2019
-
-`endif //  `ifndef cft2019_v
+`endif //  `ifndef card_ctl_tb_v
 
 // End of file.
 

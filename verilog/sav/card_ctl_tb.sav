@@ -1,0 +1,47 @@
+[*]
+[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
+[*] Tue Mar  3 08:35:08 2020
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/card_ctl_tb.vcd"
+[dumpfile_mtime] "Tue Mar  3 08:34:11 2020"
+[dumpfile_size] 292300
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/card_ctl_tb.sav"
+[timestart] 0
+[size] 1547 897
+[pos] 207 41
+*-21.000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] card_ctl_tb.
+[treeopen] card_ctl_tb.card_ctl.
+[treeopen] card_ctl_tb.card_ctl.clock_generator.
+[sst_width] 258
+[signals_width] 134
+[sst_expanded] 1
+[sst_vpaned_height] 241
+@28
+card_ctl_tb.nreset
+card_ctl_tb.nrsthold
+card_ctl_tb.nfpreset
+@200
+-
+@28
+card_ctl_tb.clk1
+card_ctl_tb.clk2
+card_ctl_tb.clk3
+card_ctl_tb.clk4
+card_ctl_tb.fpclk
+card_ctl_tb.nfpclk_or_clk
+@200
+-
+@28
+card_ctl_tb.card_ctl.clock_generator.ctr1.cp
+card_ctl_tb.card_ctl.clock_generator.ctr1.down
+card_ctl_tb.card_ctl.clock_generator.ctr1.nce
+card_ctl_tb.card_ctl.clock_generator.ctr1.npl
+card_ctl_tb.card_ctl.clock_generator.ctr1.nrc
+@22
+card_ctl_tb.card_ctl.clock_generator.ctr1.p[3:0]
+card_ctl_tb.card_ctl.clock_generator.ctr1.q[3:0]
+@28
+card_ctl_tb.card_ctl.clock_generator.ctr1.tc
+[pattern_trace] 1
+[pattern_trace] 0
