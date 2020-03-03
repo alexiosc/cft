@@ -45,24 +45,24 @@ int main(int argc, char **argv)
 			// 18 40000: reset
 
 			if ((hx & 0x40000) == 0) {
-				strcpy(col, "?red4?");
+				strcpy(col, "?magenta4?");
 				add(buf2, "reset");
+			} else {
+				if ((hx & 0x20000) == 0) {
+					strcpy(col, "?orange4?");
+					add(buf2, "irq");
+				} else {
+					snprintf(buf3, sizeof(buf3), "IR=%03x-", (hx & 0x1ff00) >> 5);
+					add(buf2, buf3);
+					
+					if ((hx & 0x80) != 0) add(buf2, "(in_rsvd)");
+					if ((hx & 0x40) == 0) add(buf2, "cond=true");
+					
+					if ((hx & 0x30) == 3) add(buf2, "idx-stack");
+					if ((hx & 0x30) == 2) add(buf2, "idx-adec");
+					if ((hx & 0x30) == 1) add(buf2, "idx-ainc");
+				}
 			}
-			
-			if ((hx & 0x20000) == 0) {
-				strcpy(col, "?orange4?");
-				add(buf2, "irq");
-			}
-
-			snprintf(buf3, sizeof(buf3), "IR=%03x-", (hx & 0x1ff00) >> 5);
-			add(buf2, buf3);
-
-			if ((hx & 0x80) != 0) add(buf2, "(in_rsvd)");
-			if ((hx & 0x40) == 0) add(buf2, "cond=true");
-
-			if ((hx & 0x30) == 3) add(buf2, "idx-stack");
-			if ((hx & 0x30) == 2) add(buf2, "idx-adec");
-			if ((hx & 0x30) == 1) add(buf2, "idx-ainc");
 
 			if (!buf2[0]) add(buf2, "?red4?huh");
 			printf("%s%s\n", col, buf2);
