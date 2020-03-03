@@ -1,47 +1,171 @@
 [*]
-[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
-[*] Tue Mar  3 08:35:08 2020
+[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
+[*] Tue Mar  3 15:10:40 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/card_ctl_tb.vcd"
-[dumpfile_mtime] "Tue Mar  3 08:34:11 2020"
-[dumpfile_size] 292300
+[dumpfile_mtime] "Tue Mar  3 15:10:11 2020"
+[dumpfile_size] 565050
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/card_ctl_tb.sav"
-[timestart] 0
+[timestart] 83886000
 [size] 1547 897
-[pos] 207 41
-*-21.000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[pos] 152 143
+*-20.257736 84481000 24000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] card_ctl_tb.
 [treeopen] card_ctl_tb.card_ctl.
-[treeopen] card_ctl_tb.card_ctl.clock_generator.
+[treeopen] card_ctl_tb.card_ctl.microcode_sequencer.
+[treeopen] card_ctl_tb.card_ctl.reg_ir.
 [sst_width] 258
-[signals_width] 134
+[signals_width] 214
 [sst_expanded] 1
 [sst_vpaned_height] 241
+@200
+-Reset
 @28
 card_ctl_tb.nreset
 card_ctl_tb.nrsthold
+[color] 7
+card_ctl_tb.powerok
+[color] 7
 card_ctl_tb.nfpreset
 @200
 -
+-Clock
 @28
+[color] 1
 card_ctl_tb.clk1
+[color] 2
 card_ctl_tb.clk2
+[color] 3
 card_ctl_tb.clk3
+[color] 4
 card_ctl_tb.clk4
+[color] 5
+card_ctl_tb.t34
+[color] 7
 card_ctl_tb.fpclk
+[color] 7
 card_ctl_tb.nfpclk_or_clk
 @200
 -
-@28
-card_ctl_tb.card_ctl.clock_generator.ctr1.cp
-card_ctl_tb.card_ctl.clock_generator.ctr1.down
-card_ctl_tb.card_ctl.clock_generator.ctr1.nce
-card_ctl_tb.card_ctl.clock_generator.ctr1.npl
-card_ctl_tb.card_ctl.clock_generator.ctr1.nrc
+-µPC
 @22
-card_ctl_tb.card_ctl.clock_generator.ctr1.p[3:0]
-card_ctl_tb.card_ctl.clock_generator.ctr1.q[3:0]
+card_ctl_tb.card_ctl.microcode_sequencer.upc[3:0]
 @28
-card_ctl_tb.card_ctl.clock_generator.ctr1.tc
+card_ctl_tb.card_ctl.microcode_sequencer.nws
+@200
+-
+-Debugging
+@28
+card_ctl_tb.card_ctl.nmem
+card_ctl_tb.card_ctl.nr
+card_ctl_tb.card_ctl.nwen
+card_ctl_tb.card_ctl.agl.nread_agl
+@c00023
+card_ctl_tb.card_ctl.ibus[15:0]
+@29
+(0)card_ctl_tb.card_ctl.ibus[15:0]
+(1)card_ctl_tb.card_ctl.ibus[15:0]
+(2)card_ctl_tb.card_ctl.ibus[15:0]
+(3)card_ctl_tb.card_ctl.ibus[15:0]
+(4)card_ctl_tb.card_ctl.ibus[15:0]
+(5)card_ctl_tb.card_ctl.ibus[15:0]
+(6)card_ctl_tb.card_ctl.ibus[15:0]
+(7)card_ctl_tb.card_ctl.ibus[15:0]
+(8)card_ctl_tb.card_ctl.ibus[15:0]
+(9)card_ctl_tb.card_ctl.ibus[15:0]
+(10)card_ctl_tb.card_ctl.ibus[15:0]
+(11)card_ctl_tb.card_ctl.ibus[15:0]
+(12)card_ctl_tb.card_ctl.ibus[15:0]
+(13)card_ctl_tb.card_ctl.ibus[15:0]
+(14)card_ctl_tb.card_ctl.ibus[15:0]
+(15)card_ctl_tb.card_ctl.ibus[15:0]
+@1401201
+-group_end
+@22
+card_ctl_tb.card_ctl.reg_ir.ir[15:0]
+@c00022
+card_ctl_tb.card_ctl.microcode_sequencer.uaddr[18:0]
+@28
+(0)card_ctl_tb.card_ctl.microcode_sequencer.uaddr[18:0]
+(1)card_ctl_tb.card_ctl.microcode_sequencer.uaddr[18:0]
+(2)card_ctl_tb.card_ctl.microcode_sequencer.uaddr[18:0]
+(3)card_ctl_tb.card_ctl.microcode_sequencer.uaddr[18:0]
+(4)card_ctl_tb.card_ctl.microcode_sequencer.uaddr[18:0]
+(5)card_ctl_tb.card_ctl.microcode_sequencer.uaddr[18:0]
+(6)card_ctl_tb.card_ctl.microcode_sequencer.uaddr[18:0]
+(7)card_ctl_tb.card_ctl.microcode_sequencer.uaddr[18:0]
+(8)card_ctl_tb.card_ctl.microcode_sequencer.uaddr[18:0]
+(9)card_ctl_tb.card_ctl.microcode_sequencer.uaddr[18:0]
+(10)card_ctl_tb.card_ctl.microcode_sequencer.uaddr[18:0]
+(11)card_ctl_tb.card_ctl.microcode_sequencer.uaddr[18:0]
+(12)card_ctl_tb.card_ctl.microcode_sequencer.uaddr[18:0]
+(13)card_ctl_tb.card_ctl.microcode_sequencer.uaddr[18:0]
+(14)card_ctl_tb.card_ctl.microcode_sequencer.uaddr[18:0]
+(15)card_ctl_tb.card_ctl.microcode_sequencer.uaddr[18:0]
+(16)card_ctl_tb.card_ctl.microcode_sequencer.uaddr[18:0]
+(17)card_ctl_tb.card_ctl.microcode_sequencer.uaddr[18:0]
+(18)card_ctl_tb.card_ctl.microcode_sequencer.uaddr[18:0]
+@c00022
+card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+@28
+(0)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+(1)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+(2)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+(3)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+(4)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+(5)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+(6)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+(7)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+(8)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+(9)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+(10)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+(11)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+(12)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+(13)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+(14)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+(15)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+(16)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+(17)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+(18)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+(19)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+(20)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+(21)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+(22)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+(23)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+@1401200
+-group_end
+-group_end
+@c00022
+card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+@28
+(0)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+(1)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+(2)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+(3)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+(4)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+(5)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+(6)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+(7)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+(8)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+(9)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+(10)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+(11)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+(12)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+(13)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+(14)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+(15)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+(16)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+(17)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+(18)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+(19)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+(20)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+(21)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+(22)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+(23)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
+@1401200
+-group_end
+@4022
+^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/control
+card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
 [pattern_trace] 1
 [pattern_trace] 0

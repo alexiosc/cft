@@ -216,7 +216,8 @@ module card_ctl(
 				    .clk2(clk2),
 				    .clk3(clk3),
 				    .clk4(clk4),
-				    .t34(t34));
+				    .t34(t34),
+				    .nrsthold(nrsthold));
 
    ///////////////////////////////////////////////////////////////////////////////
    //
@@ -268,6 +269,17 @@ module card_ctl(
 		  .nfpirl(nfpirl),
 		  .nfpirh(nfpirh),
 		  .fpd(fpd));
+
+   // The IR starts in an indeterminate state, but in order for the
+   // machine to start, we need it to have a good value. So we hack
+   // it. This doesn't compromise realism. On real hardware, the IR
+   // will have a valid random value at startup, and this value is
+   // effectively ignored by the control unit while it runs its reset
+   // microprogram.
+   initial begin
+      #50 reg_ir.ir_lo.q0 <= 8'hef;
+      reg_ir.ir_hi.q0 <= 8'hbe;
+   end
    
    ///////////////////////////////////////////////////////////////////////////////
    //
@@ -276,19 +288,19 @@ module card_ctl(
    ///////////////////////////////////////////////////////////////////////////////
 
    flag_unit flag_unit (.clk4(clk4),
-			.waddr(waddr),
-			.raddr(raddr),
-			.fn(fn),
-			.fz(fz),
-			.fl(fl),
-			.fv(fv),
-			.fi(fi),
-			.ibus(ibus[15:8]),
-			.nflagwe(nflagwe),
-			.nread_agl(nread_agl),
-			.nwrite_ir(nwrite_ir),
-			.nfpflags(nfpflags),
-			.fpd(fpd));
+   			.waddr(waddr),
+   			.raddr(raddr),
+   			.fn(fn),
+   			.fz(fz),
+   			.fl(fl),
+   			.fv(fv),
+   			.fi(fi),
+   			.ibus(ibus[15:8]),
+   			.nflagwe(nflagwe),
+   			.nread_agl(nread_agl),
+   			.nwrite_ir(nwrite_ir),
+   			.nfpflags(nfpflags),
+   			.fpd(fpd));
    
    ///////////////////////////////////////////////////////////////////////////////
    //
@@ -300,8 +312,9 @@ module card_ctl(
 	    .ir(ir[10:0]), 
 	    .pc(pc), 
 	    .nread_agl(nread_agl),
-	    .nend(nend),
-	    .ibus(ibus));
+	    .nend(nend), 
+	    .ibus(ibus)
+	    );
 
    ail ail (
 	    .ir(ir), 

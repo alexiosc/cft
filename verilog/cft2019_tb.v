@@ -64,23 +64,30 @@ module cft2019_tb();
    // Wire definitions for the above.
 
    wire          nreset, nrsthold, clk1, clk2, clk3, clk4, t34;
-   wire 	 nirq, nirqs, nsysdev, niodev1xx, niodev2xx, niodev3xx;
-   wire   	 nmem, nio, nw, nr, nws, nhalt, nendext, nskipext;
+   wire 	 nirqs, nsysdev, niodev1xx, niodev2xx, niodev3xx;
+   wire   	 nmem, nio, nw, nr;
+   tri1 	 nws, nhalt, nendext, nskipext, nirq;
    wire  	 wstb, nruen, nwuen;
    wire [23:0] 	 ab;
    wire [15:0] 	 db;
    wire [7:0] 	 nirqn;
    wire [15:0] 	 ibus;
    wire [7:0] 	 fpd;
-   wire [40:1] 	 cport_ctl, cport_reg, cport_bus, cport_alu;
    wire [4:1] 	 rsvd;
+
+   reg 		 nreset_drv;
 
    initial begin
       $dumpfile ("vcd/cft2019_tb.vcd");
       $dumpvars (0, cft2019_tb);
+
+      nreset_drv = 1'b0;
+      #1000 nreset_drv = 1'b1;
       
       #1000000 $finish();
    end
+
+   assign nreset = nreset_drv;
 
    // Connect the DUT
    cft2019 cft (

@@ -100,8 +100,9 @@ module card_ctl_tb(
    // Wire definitions for the above.
 
    wire          nreset, nrsthold, clk1, clk2, clk3, clk4, t34;
-   wire 	 nirq, nirqs, nsysdev, niodev1xx, niodev2xx, niodev3xx;
-   wire   	 nmem, nio, nw, nr, nws, nhalt, nendext, nskipext;
+   wire 	 nirqs, nsysdev, niodev1xx, niodev2xx, niodev3xx;
+   wire   	 nmem, nio, nw, nr;
+   tri1 	 nws, nhalt, nendext, nskipext, nirq;
    wire  	 wstb, nruen, nwuen;
    wire [23:0] 	 ab;
    wire [15:0] 	 db;
@@ -138,6 +139,9 @@ module card_ctl_tb(
    wire 	 nfpflags;
    wire 	 powerok;
 
+   reg 		 nreset_drv;
+   reg [15:0] 	 ibus_drv;
+
    // Simulate things
    assign nfpreset = 1'b1;
    assign nfpclk_or_clk = 1'b1;
@@ -147,7 +151,23 @@ module card_ctl_tb(
       $dumpfile ("vcd/card_ctl_tb.vcd");
       $dumpvars (0, card_ctl_tb);
 
+      nreset_drv = 0;
+      ibus_drv = 16'hZZZZ;
+      #1000 nreset_drv = 1;
+
       #100000 $finish;
+   end
+
+   assign nreset = nreset_drv;
+   assign ibus = ibus_drv;
+   
+   // Fake the Data Bus
+   always @(nmem, nio, nr) begin
+      if ((nmem == 1'b0 || nio == 1'b0) && (nr == 1'b0)) begin
+	 #30 ibus_drv = 16'h2176; // NOP.
+      end else begin
+	 #30 ibus_drv = 16'hZZZZ;
+      end
    end
 
    // Connect the DUT and its many signals

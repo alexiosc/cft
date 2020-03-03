@@ -1,15 +1,15 @@
 [*]
-[*] GTKWave Analyzer v3.3.40 (w)1999-2012 BSI
-[*] Wed Oct 31 16:29:31 2012
+[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
+[*] Tue Mar  3 13:38:02 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/counter_590_tb.vcd"
-[dumpfile_mtime] "Wed Oct 31 16:29:24 2012"
-[dumpfile_size] 72920
+[dumpfile_mtime] "Tue Mar  3 13:37:58 2020"
+[dumpfile_size] 65087
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/counter_590_tb.sav"
-[timestart] 0
+[timestart] 64830000
 [size] 1742 670
 [pos] 34 203
-*-20.974836 12393000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-21.974836 46907000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] counter_590_tb.
 [sst_width] 245
 [signals_width] 164
@@ -19,9 +19,7 @@
 counter_590_tb.clk
 counter_590_tb.rck
 counter_590_tb.ccken
-@29
 counter_590_tb.cclr
-@28
 counter_590_tb.g
 @200
 -

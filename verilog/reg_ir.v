@@ -24,7 +24,7 @@ module reg_ir (clk4, nwrite_ir,
    //input [4:0] waddr;
    input 	 nwrite_ir;
 
-   output [15:0] ibus;
+   inout [15:0]  ibus;
    output [15:0] ir;
 
    input 	 nfpirl;
@@ -34,6 +34,11 @@ module reg_ir (clk4, nwrite_ir,
    wire [15:0] 	 ibus, ir;
    wire [7:0] 	 fpd;
    wire 	 nwir;
+
+   // initial begin
+   //    #10 ir_lo.q0 <= 8'h34;
+   //    ir_hi.q0 <= 8'h12;
+   // end
 
    // WADDR is now decoded by the WADDR devoder in the flag unit, and
    // provided to us as nwrite_ir.

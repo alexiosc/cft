@@ -47,7 +47,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 module clock_generator (nreset, fpclk, nfpclk_or_clk,
-			clk1, clk2, clk3, clk4, t34);
+			clk1, clk2, clk3, clk4, t34, nrsthold);
 
    parameter cp = 62.5;
 
@@ -62,6 +62,7 @@ module clock_generator (nreset, fpclk, nfpclk_or_clk,
    output clk4;			// 270° phase clock output
 
    output t34;
+   output nrsthold;		// nRSTHOLD output to Control Unit
 
    reg    clk;
 
@@ -91,6 +92,13 @@ module clock_generator (nreset, fpclk, nfpclk_or_clk,
    demux_139h phasegen2 (.ng(1'b0), .a({1'b0,  q[1]}), .y(tmp));
    assign t34 = tmp[1];
 
+   // The Reset Counter forces the Control Unit to execute its reset
+   // microprogram for a few hunder cycles after RESET has deasserted. This
+   // gives everything ample time to stabilise.
+   wire [7:0] resetq;
+   assign nrsthold = resetq[4];	// 32 cycles
+   //assign nrsthold = resetq[7];	// 128 cycles, true to hardware
+   counter_590 reset (.clk(clk3), .rck(clk3), .ccken(nrsthold), .cclr(nreset), .g(1'b0), .q(resetq));
 endmodule // clock_generator
 
 `endif //  `ifndef clock_v

@@ -38,6 +38,7 @@ module clock_tb();
 
    wire testclk, slowclk;
    wire clk1, clk2, clk3, clk4, t34;
+   wire nrsthold;
 
    integer i;
       
@@ -57,6 +58,9 @@ module clock_tb();
       
       #100 nreset = 1;
 
+      // Wait for Reset Hold
+      #10000;
+      
       // Let it run a while, then connect the front panel.
       #5000 nfpclk_or_clk = 1;
       fpclk = 0;
@@ -101,10 +105,10 @@ module clock_tb();
 			.clk2(clk2),
 			.clk3(clk3),
 			.clk4(clk4),
-			.t34(t34));
+			.t34(t34),
+			.nrsthold(nrsthold));
 
    wire [5:0] clkvec = { clk1, clk2, clk3, clk4, t34 };
-
 
    reg [8191:0] msg;
    always @(clkvec, nreset) begin

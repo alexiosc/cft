@@ -64,6 +64,10 @@ module microcode_sequencer(nreset, nrsthold, clk2, clk4,
    input [15:7] ir;
    input 	nirqsuc;
 
+   tri1 	nendext;
+   tri1 	halt;
+   tri0 	in_rsvd;
+
    output [4:0] raddr;
    output [4:0] waddr;
    output [4:0] cond;
