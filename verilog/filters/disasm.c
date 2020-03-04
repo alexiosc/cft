@@ -25,7 +25,8 @@ int main(int argc, char **argv)
 
         // Store offsets in the instruction set table to the first instruction
         // (by top nibble). Any instructions not used (e.g. instruction 0xb)
-        // will have an index of -1.
+        // will have an index of -1. This speeds up lookups by a maximum factor
+        // of 16.
 	int offsets[16] = { -1, -1, -1, -1, -1, -1, -1, -1,
 			    -1, -1, -1, -1, -1, -1, -1, -1 };
 	for (i = NUM_INSTRUCTIONS - 1; i >= 0; i--) {
