@@ -55,7 +55,7 @@ module mbu (nreset,
    input 	nsysdev;
    input 	nr;
    input 	nw;
-   input 	nfpram_rom;
+   inout 	nfpram_rom;
    
    inout [7:0] 	ibus;
    inout [7:0] 	ab;

@@ -60,7 +60,7 @@ module microcode_sequencer(nreset, nrsthold, clk2, clk4,
    inout 	nws;
    input [1:0] 	idx;
    input 	ncond;
-   input 	in_rsvd;
+   inout 	in_rsvd;
    input [15:7] ir;
    input 	nirqsuc;
 

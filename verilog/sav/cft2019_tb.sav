@@ -1,22 +1,22 @@
 [*]
 [*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Wed Mar  4 09:36:29 2020
+[*] Wed Mar  4 14:06:12 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/cft2019_tb.vcd"
-[dumpfile_mtime] "Wed Mar  4 09:36:03 2020"
-[dumpfile_size] 13745318
+[dumpfile_mtime] "Wed Mar  4 14:03:18 2020"
+[dumpfile_size] 13557151
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/cft2019_tb.sav"
-[timestart] 6366000
+[timestart] 25680000
 [size] 1869 1019
-[pos] 2226 0
-*-20.334644 10830000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[pos] 74 -32
+*-19.334644 22146750 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] cft2019_tb.
 [treeopen] cft2019_tb.cft.
 [treeopen] cft2019_tb.cft.card_ctl.
 [treeopen] cft2019_tb.cft.card_ctl.sbu.
 [treeopen] cft2019_tb.cft.card_mem.romhi.
 [sst_width] 258
-[signals_width] 249
+[signals_width] 357
 [sst_expanded] 1
 [sst_vpaned_height] 284
 @200
@@ -56,6 +56,11 @@ cft2019_tb.cft.card_ctl.nfpclk_or_clk
 @22
 [color] 1
 cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
+@4022
+[color] 1
+^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/disasm
+cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
+@22
 [color] 2
 +{pc[15:0]} cft2019_tb.cft.card_reg.reg_pc.out[15:0]
 [color] 3
@@ -100,7 +105,7 @@ cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
 @22
 [color] 1
 cft2019_tb.cft.ibus[15:0]
-@c00022
+@c00023
 [color] 2
 cft2019_tb.cft.ab[23:0]
 @28
@@ -128,7 +133,7 @@ cft2019_tb.cft.ab[23:0]
 (21)cft2019_tb.cft.ab[23:0]
 (22)cft2019_tb.cft.ab[23:0]
 (23)cft2019_tb.cft.ab[23:0]
-@1401200
+@1401201
 -group_end
 @22
 [color] 4
@@ -155,11 +160,11 @@ cft2019_tb.cft.card_ctl.microcode_sequencer.upc[3:0]
 @28
 [color] 3
 cft2019_tb.cft.card_ctl.microcode_sequencer.fpfetch
-@4023
-^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/uaddr
+@4022
+^>2 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/uaddr
 cft2019_tb.cft.card_ctl.microcode_sequencer.uaddr[18:0]
 @c04022
-^>2 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/control
+^>3 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/control
 cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
 @28
 (0)cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
@@ -217,6 +222,15 @@ cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
 (23)cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
 @1401200
 -group_end
+@2028
+^2 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/raddr
+cft2019_tb.cft.card_ctl.raddr[4:0]
+^3 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/waddr
+cft2019_tb.cft.card_ctl.waddr[4:0]
+^4 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/cond
+cft2019_tb.cft.card_ctl.cond[4:0]
+^5 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/action
+cft2019_tb.cft.card_ctl.action[3:0]
 @200
 -
 -Addressing
@@ -236,11 +250,38 @@ cft2019_tb.cft.card_ctl.reg_ir.nwir
 cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
 @200
 -
+-Flags
+@28
+cft2019_tb.cft.card_ctl.flag_unit.nflagwe
+cft2019_tb.cft.card_ctl.flag_unit.nwrite_flags
+cft2019_tb.cft.card_ctl.flag_unit.nwrite_mbp_flags
+cft2019_tb.cft.card_ctl.flag_unit.nwrite_ir
+@200
+-
+-Interrupts
+@28
+cft2019_tb.cft.card_ctl.ism.nflagwe
+cft2019_tb.cft.card_ctl.ism.naction_cli
+cft2019_tb.cft.card_ctl.ism.naction_sti
+cft2019_tb.cft.card_ctl.ism.nreset_or_cli
+cft2019_tb.cft.card_ctl.ism.endcp
+@2028
+^5 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/action
+cft2019_tb.cft.card_ctl.action[3:0]
+@28
+cft2019_tb.cft.card_ctl.ism.ibus15
+cft2019_tb.cft.card_ctl.ism.fi
+cft2019_tb.cft.card_ctl.ism.nirq
+cft2019_tb.cft.card_ctl.ism.nirqs
+@200
+-
 -MEM Card
 @28
 cft2019_tb.cft.card_mem.nmemr
 cft2019_tb.cft.card_mem.nmemw
 (15)cft2019_tb.cft.card_mem.ncs[15:0]
 (7)cft2019_tb.cft.card_mem.nromcs[7:0]
+@200
+-
 [pattern_trace] 1
 [pattern_trace] 0
