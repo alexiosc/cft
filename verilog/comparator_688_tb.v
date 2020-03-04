@@ -90,5 +90,8 @@ module comparator_688_tb();
 	 end
 	 else $display("OK comparator");
       end
-   end
-endmodule
+   end // always @ (a, b, ng)
+endmodule // comparator_688_tb
+
+// End of file.
+

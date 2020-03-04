@@ -63,17 +63,58 @@ module comparator_85 (a, b, ilt, ieq, igt, olt, oeq, ogt);
 
    output      olt, oeq, ogt;
 
+   reg 	       olt, oeq, ogt;
+
    wire [4:0]  csl, csg;
 
    initial begin
       // $display("BOM: 74x85");
    end
 
-  assign csl = ~a + b + ilt;
-  assign olt = ~csl[4];
-  assign csg = a + ~b + igt;
-  assign ogt = ~csg[4];
-  assign oeq = ((a == b) && ieq);
+   // Follow the definitions on the datasheet. This will never be
+   // synthesised and we only use a single one on the CFT, so
+   // whatever, do it the stupid way.
+
+   always @(a, b, ilt, igt, ieq) begin
+      if (a[3] > b[3]) { ogt, olt, oeq } <= 3'b100;
+      else if (a[3] < b[3]) { ogt, olt, oeq } <= 3'b010;
+      else if (a[3] === b[3]) begin
+	 
+	 if (a[2] > b[2]) { ogt, olt, oeq } <= 3'b100;
+	 else if (a[2] < b[2]) { ogt, olt, oeq } <= 3'b010;
+	 else if (a[2] === b[2]) begin
+	    
+	    if (a[1] > b[1]) { ogt, olt, oeq } <= 3'b100;
+	    else if (a[1] < b[1]) { ogt, olt, oeq } <= 3'b010;
+	    else if (a[1] === b[1]) begin
+	       
+	       if (a[0] > b[0]) { ogt, olt, oeq } <= 3'b100;
+	       else if (a[0] < b[0]) { ogt, olt, oeq } <= 3'b010;
+	       else if (a[0] === b[0]) begin
+		  case ({ igt, ilt, ieq })
+		    // These two cases are invalid, but are included nonetheless
+		    3'b000: { ogt, olt, oeq } = 3'b110;
+		    3'b110: { ogt, olt, oeq } = 3'b000;
+		    
+		    3'b001: { ogt, olt, oeq } = 3'b001;
+		    3'b010: { ogt, olt, oeq } = 3'b010;
+		    3'b100: { ogt, olt, oeq } = 3'b100;
+		    
+		    3'b011: { ogt, olt, oeq } = 3'b001;
+		    3'b101: { ogt, olt, oeq } = 3'b001;
+		    3'b111: { ogt, olt, oeq } = 3'b001;
+		  endcase // case ({ igt, ilt, ieq })
+	       end // if (a[0] === b[0])
+	    end // if (a[1] === b[1])
+	 end // if (a[2] === b[2])
+      end // if (a[3] === b[3])
+   end // always @ (a, b, ilt, igt, ieq)
+
+  // assign csl = ~a + b + ilt;
+  // assign olt = ~csl[4];
+  // assign csg = a + ~b + igt;
+  // assign ogt = ~csg[4];
+  // assign oeq = ((a == b) && ieq);
 
 endmodule // comparator_85
 
