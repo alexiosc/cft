@@ -1,114 +1,150 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdint.h>
 
-char *instr[] = {
-	"TRAP",
-	"?red4?XXX",
-	"LOAD",
-	"STORE",
-	"IN",
-	"OUT",
-	"JMP",
-	"JSR",
-	"ADD",
-	"AND",
-	"OR",
-	"XOR",
-	"?cyan4?OP1",
-	"?magenta4?OP2",
-	"ISN",
-	"LI",
-};
+#define bool unsigned char
+#define __instruction_set_t instruction_t
 
-char *roll[] = {
-	"",			/* 000 */
-	"RBR ",			/* 001 */
-	"RBL ",			/* 010 */
-	"ROLL3? ",		/* 011 */
-	"ROLL4? ",		/* 100 */
-	"RNR ",			/* 101 */
-	"RNL ",			/* 110 */
-	"ROLL7? "		/* 111 */
-};
+#include "../../microcode/build/disasm.h"
 
-char * bin(int x)
+char * bin(int x, uint8_t numbits)
 {
 	static char res [16];
-	int i;
-	for (i = 9; i >= 0; i--) {
-		res[9-i] = (x & (1<<i)) ? '1': '0';
+	char *cp = res;
+	for (int i = 0x8000; i; i>>=1) {
+		*cp++ = (x & i) ? '1': '0';
 	}
-	res[10] = 0;
-	return res;
+	*cp = 0;
+	if (numbits < 0 || numbits > 16) numbits = 16;
+	return numbits > 16 ? &res[16 - numbits] : res;
 }
 
 int main(int argc, char **argv)
 {
-	// Get our personality first. The method is a little naïve, but it
+	int i;
+
+        // Store offsets in the instruction set table to the first instruction
+        // (by top nibble). Any instructions not used (e.g. instruction 0xb)
+        // will have an index of -1.
+	int offsets[16] = { -1, -1, -1, -1, -1, -1, -1, -1,
+			    -1, -1, -1, -1, -1, -1, -1, -1 };
+	for (i = NUM_INSTRUCTIONS - 1; i >= 0; i--) {
+		offsets[(instruction_set[i].instr >> 12) & 0xf] = i;
+	}
+
+	// Next, get our personality. The method is a little naïve, but it
 	// works.
 	int full_dis = strstr(argv[0], "_ir10") == NULL;
-	char * operand_colours[4] = { "", "?blue4?", "?green4?", "?cyan4?" };
-	
+
 	while(!feof(stdin))
 	{
-		char buf[1025], buf2[1025];
+		char buf[1025];
 		buf[0] = 0;
 		if (fscanf(stdin, "%s", buf) != 1) continue;
 		if(buf[0]) {
-			unsigned int hx, opcode;
+			unsigned int hx;
 			sscanf(buf, "%x", &hx);
-			buf2[0] = '\0';
-			opcode = (hx >> 12) & 0xf;
-			if (!full_dis) {
-				printf("%s%s%s %03x\n",
-				       operand_colours[(hx >> 10) & 3],
-				       (hx & (1 << 11)) ? " I" : "",
-				       (hx & (1 << 10)) ? " R" : "",
-				       hx & 0x3ff);
+
+			int i = offsets[(hx >> 12) & 0xf];
+
+			// The easy work first
+			if (i < 0) {
+				printf("?red4?%04x\n", hx);
 				fflush(stdout);
 				continue;
 			}
 
-			// Full disassembly
-			if (opcode == 12) {
-				sprintf (buf2, "%s ", instr[opcode]);
-				if (hx & 0x200) strcat(buf2, "IFL ");
-				if (hx & 0x100) strcat(buf2, "IFV ");
-				if (hx & 0x080) strcat(buf2, "CLA ");
-				if (hx & 0x040) strcat(buf2, "CLL ");
-				if (hx & 0x020) strcat(buf2, "NOT ");
-				if (hx & 0x010) strcat(buf2, "INC ");
-				if (hx & 0x008) strcat(buf2, "CPL ");
-				if (hx & 0x007) {
-					/* Decode rolls */
-					strcat(buf2, roll[hx & 7]);
+			// Okay, now we search.
+			while (instruction_set[i].mnemonic != NULL) {
+				instruction_t * instr = &instruction_set[i];
+				if ((hx & instr->instr_mask) ==  instr->instr) {
+					if (full_dis) {
+						if (instr->bitmap) {
+							// Not really properly implemented, so red colour
+							printf("?red4?%s %s\n", instr->mnemonic, bin(hx, 7));
+						} else {
+							switch (instr->operand_mask) {
+							case 0:
+								// No operand
+								printf("%s\n", instr->mnemonic);
+								break;
+								
+							case 0xf:
+								// Mostly used for rolls, so use integers
+								printf("%s %d\n", instr->mnemonic, hx & 0xf);
+								break;
+								
+							default:
+								// software interrupt operand
+								printf("%s &%x\n", instr->mnemonic, hx & instr->operand_mask);
+								break;
+							}
+						}
+					} else {
+						// Simple disassembly, just the instruction
+						printf("%s\n", instr->mnemonic);
+					}
+					fflush(stdout);
+					goto nextline;
 				}
-			} else if (opcode == 13) {
-				/* Decode OP2 */
-				sprintf (buf2, "%s ", instr[opcode]);
-				if (hx & 0x01f) {
-					strcat(buf2, "skip:");
-					/* Decode braches. */
-					if (hx & 0x10) strcat(buf2, "!");
-					if (hx & 0x8) strcat(buf2, "N");
-					if (hx & 0x4) strcat(buf2, "Z");
-					if (hx & 0x2) strcat(buf2, "L");
-					if (hx & 0x1) strcat(buf2, "V");
-					strcat(buf2, "?");
-				}
-				if (hx & 0x080) strcat(buf2, "CLA ");
-				if (hx & 0x040) strcat(buf2, "CLI ");
-				if (hx & 0x020) strcat(buf2, "STI ");
-			} else {
-				sprintf(buf2, "%s%s%s %03x",
-					instr[opcode],
-					(hx & (1 << 11)) ? " I" : "",
-					(hx & (1 << 10)) ? " R" : "",
-					hx & 0x3ff);
+				i++;
 			}
-			printf("%s\n", buf2);
+			printf("?red4?%04x\n", hx);
 			fflush(stdout);
+			continue;
+			
+			// if (!full_dis) {
+			// 	printf("%s%s%s %03x\n",
+			// 	       operand_colours[(hx >> 10) & 3],
+			// 	       (hx & (1 << 11)) ? " I" : "",
+			// 	       (hx & (1 << 10)) ? " R" : "",
+			// 	       hx & 0x3ff);
+			// 	fflush(stdout);
+			// 	continue;
+			// }
+
+			// // Full disassembly
+			// if (opcode == 12) {
+			// 	sprintf (buf2, "%s ", instr[opcode]);
+			// 	if (hx & 0x200) strcat(buf2, "IFL ");
+			// 	if (hx & 0x100) strcat(buf2, "IFV ");
+			// 	if (hx & 0x080) strcat(buf2, "CLA ");
+			// 	if (hx & 0x040) strcat(buf2, "CLL ");
+			// 	if (hx & 0x020) strcat(buf2, "NOT ");
+			// 	if (hx & 0x010) strcat(buf2, "INC ");
+			// 	if (hx & 0x008) strcat(buf2, "CPL ");
+			// 	if (hx & 0x007) {
+			// 		/* Decode rolls */
+			// 		strcat(buf2, roll[hx & 7]);
+			// 	}
+			// } else if (opcode == 13) {
+			// 	/* Decode OP2 */
+			// 	sprintf (buf2, "%s ", instr[opcode]);
+			// 	if (hx & 0x01f) {
+			// 		strcat(buf2, "skip:");
+			// 		/* Decode braches. */
+			// 		if (hx & 0x10) strcat(buf2, "!");
+			// 		if (hx & 0x8) strcat(buf2, "N");
+			// 		if (hx & 0x4) strcat(buf2, "Z");
+			// 		if (hx & 0x2) strcat(buf2, "L");
+			// 		if (hx & 0x1) strcat(buf2, "V");
+			// 		strcat(buf2, "?");
+			// 	}
+			// 	if (hx & 0x080) strcat(buf2, "CLA ");
+			// 	if (hx & 0x040) strcat(buf2, "CLI ");
+			// 	if (hx & 0x020) strcat(buf2, "STI ");
+			// } else {
+			// 	sprintf(buf2, "%s%s%s %03x",
+			// 		instr[opcode],
+			// 		(hx & (1 << 11)) ? " I" : "",
+			// 		(hx & (1 << 10)) ? " R" : "",
+			// 		hx & 0x3ff);
+			// }
+			// printf("%s\n", buf2);
+			// fflush(stdout);
 		}
+
+	nextline:;
 	}
  	return(0);
 }
