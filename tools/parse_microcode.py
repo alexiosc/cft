@@ -26,7 +26,9 @@ typedef struct {
 __instruction_set_t instruction_set[] = {
 """
 
-C_DISASM_POSTAMBLE = """};
+C_DISASM_POSTAMBLE = """}};
+
+#define NUM_INSTRUCTIONS {num_instr}
 
 #endif /* __DISASM_H__ */
 
@@ -316,7 +318,7 @@ class ParseMicrocode(object):
             self.out.write(fmt.format(**locals()))
         self.out.write('\n\t{{ NULL,     {pad}0,      0,      0,      0}}  /* End. */\n'.format(**locals()))
 
-        self.out.write(C_DISASM_POSTAMBLE)
+        self.out.write(C_DISASM_POSTAMBLE.format(num_instr=len(rd)))
 
             
     def run(self):
