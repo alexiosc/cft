@@ -70,12 +70,26 @@ module clock_generator (nreset, fpclk, nfpclk_or_clk,
    tri1   nfpclk_or_clk;
    tri1   fpclk;
 
+   reg [15:0] state;		// For debugging, a two-character ASCII
+				// register with the current cycle state. (T1-T4)
+
    // Simulate the oscillator
    initial begin
       clk = 0;
    end
    always begin
       #(cp / 2) clk = ~clk;
+   end
+
+   // This is only used for debugging.
+   always @(clk1, clk2, clk3, clk4) begin
+      case ({clk1, clk2, clk3, clk4})
+	4'b0111: state <= "T1";
+	4'b1011: state <= "T2";
+	4'b1101: state <= "T3";
+	4'b1110: state <= "T4";
+	default: state <= "??";
+      endcase
    end
 
    // Clock source multiplexer
