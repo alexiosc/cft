@@ -43,6 +43,7 @@ module alu_sru_tb();
    // Declare inputs as regs and outputs as wires
    reg           clk2, clk4;
    reg           nreset;
+   reg           nrsthold;
    reg 	         op_arithmetic;
    reg 	         op_rotate;
    reg 	         op_right;
@@ -97,6 +98,7 @@ module alu_sru_tb();
 		fl, b, fl, b, status);
       $dumpvars (0, alu_sru_tb);
 
+      cycle_ctr = 0;
       tb_shift_ctr = 0;
       status = "reset";
       op_arithmetic = 0;
@@ -105,6 +107,7 @@ module alu_sru_tb();
       op_dist = 0;
       nstart = 1;
       nreset = 0;
+      nrsthold = 0;
       ibus = 16'h0000;
       nwrite_alu = 0;
       #250 nwrite_alu = 1;
@@ -116,6 +119,7 @@ module alu_sru_tb();
 
       // Now stop resetting and let's test.
       nreset = 1;
+      #2000 nrsthold = 1;
 
       // There are 80 possible operations this unit can perform, represented as
       // a total of 7 bits (4 for the distance, 1 for logit/arithmetic, 1 for
@@ -163,7 +167,7 @@ module alu_sru_tb();
    alu_portb alu_b (.ibus(ibus_real), .bcp(nwrite_alu & bcp_sru), .nread_alu_b(1'b1), .b(b));
 
    // Instantiate the DUT
-   alu_sru alu_sru (.nreset(nreset),
+   alu_sru alu_sru (.nreset(nreset), .nrsthold(nrsthold),
 		    .clk2(clk2), .clk4(clk4),
 		    .b(b),
 		    .fl(fl),

@@ -141,6 +141,7 @@ module microcode_sequencer(nreset, nrsthold, clk2, clk4,
 			       .uaddr(uaddr),
 			       .ucontrol(ucontrol));
 
+   // FIXME: ensure nmem and nio are never asserted while nrsthold is active.
 
    ///////////////////////////////////////////////////////////////////////////////
    //

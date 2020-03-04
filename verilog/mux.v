@@ -158,7 +158,7 @@ endmodule // mux_157
 ///////////////////////////////////////////////////////////////////////////////
 
 module mux_1g157 (sel, a, b, ng, y);
-   parameter delay = 20;
+   parameter delay = 4;
 
    input        sel;		// The signal selector
    input        a, b;		// Input signals.

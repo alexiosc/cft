@@ -84,10 +84,15 @@ module cft2019_tb();
       nreset_drv = 1'b0;
       #1000 nreset_drv = 1'b1;
       
-      #1000000 $finish();
+      #20000 $finish;
    end
 
    assign nreset = nreset_drv;
+
+   always @(cft.card_dfp.halting) begin
+      //->cft.mem.dump_core;
+      #10000 $finish;      // Terminate simulation
+   end
 
    // Connect the DUT
    cft2019 cft (

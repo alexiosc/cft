@@ -63,6 +63,12 @@ module control_store(noe, clk, uaddr, ucontrol);
    flipflop_574 ff2 (.d(udata[15:8]),  .q(ucontrol[15:8]),  .clk(clk), .noe(noe));
    flipflop_574 ff3 (.d(udata[23:16]), .q(ucontrol[23:16]), .clk(clk), .noe(noe));
 
+   initial begin
+      #30 ff1.q0 <= $random;
+      ff2.q0 <= $random;
+      ff3.q0 <= $random;
+   end
+
    reg [4096:0] basedir, s0, s1, s2;
    // Load ROM images
    initial begin

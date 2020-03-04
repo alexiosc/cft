@@ -1,24 +1,28 @@
 [*]
 [*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Wed Mar  4 18:43:05 2020
+[*] Wed Mar  4 20:31:59 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/cft2019_tb.vcd"
-[dumpfile_mtime] "Wed Mar  4 18:42:56 2020"
-[dumpfile_size] 13763642
+[dumpfile_mtime] "Wed Mar  4 20:30:49 2020"
+[dumpfile_size] 281997
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/cft2019_tb.sav"
-[timestart] 57551000
+[timestart] 891400
 [size] 1869 1019
-[pos] 93 34
-*-20.334644 26680000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[pos] 2204 37
+*-15.711743 1049300 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] cft2019_tb.
 [treeopen] cft2019_tb.cft.
+[treeopen] cft2019_tb.cft.card_ctl.
+[treeopen] cft2019_tb.cft.card_ctl.clock_generator.
+[treeopen] cft2019_tb.cft.card_ctl.microcode_sequencer.
+[treeopen] cft2019_tb.cft.card_ctl.microcode_sequencer.control_store.
 [treeopen] cft2019_tb.cft.card_ctl.sbu.
 [treeopen] cft2019_tb.cft.card_mem.romhi.
 [sst_width] 258
 [signals_width] 357
 [sst_expanded] 1
 [sst_vpaned_height] 284
-@c00200
+@800200
 -Reset
 @28
 [color] 1
@@ -29,9 +33,9 @@ cft2019_tb.cft.nrsthold
 cft2019_tb.cft.nfpreset
 [color] 4
 cft2019_tb.cft.powerok
-@1401200
+@1000200
 -Reset
-@c00200
+@800200
 -Clock
 @820
 cft2019_tb.cft.card_ctl.clock_generator.state[15:0]
@@ -50,11 +54,11 @@ cft2019_tb.cft.card_ctl.t34
 cft2019_tb.cft.card_ctl.fpclk
 [color] 7
 cft2019_tb.cft.card_ctl.nfpclk_or_clk
-@1401200
+@1000200
 -Clock
-@800200
+@c00200
 -Registers
-@23
+@22
 [color] 1
 cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
 @4022
@@ -100,9 +104,8 @@ cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
 (23)cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
 @1401200
 -group_end
-@1000200
 -Registers
-@c00200
+@800200
 -Buses
 @22
 [color] 1
@@ -151,9 +154,9 @@ cft2019_tb.cft.nr
 cft2019_tb.cft.nwen
 [color] 1
 cft2019_tb.cft.nw
-@1401200
+@1000200
 -Buses
-@c00200
+@800200
 -Control Unit
 @820
 cft2019_tb.cft.card_ctl.clock_generator.state[15:0]
@@ -165,11 +168,37 @@ cft2019_tb.cft.card_ctl.microcode_sequencer.upc[3:0]
 cft2019_tb.cft.card_ctl.microcode_sequencer.fpfetch
 @200
 -
-@4022
+@c04022
 ^>2 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/uaddr
 cft2019_tb.cft.card_ctl.microcode_sequencer.uaddr[18:0]
+@28
+(0)cft2019_tb.cft.card_ctl.microcode_sequencer.uaddr[18:0]
+(1)cft2019_tb.cft.card_ctl.microcode_sequencer.uaddr[18:0]
+(2)cft2019_tb.cft.card_ctl.microcode_sequencer.uaddr[18:0]
+(3)cft2019_tb.cft.card_ctl.microcode_sequencer.uaddr[18:0]
+(4)cft2019_tb.cft.card_ctl.microcode_sequencer.uaddr[18:0]
+(5)cft2019_tb.cft.card_ctl.microcode_sequencer.uaddr[18:0]
+(6)cft2019_tb.cft.card_ctl.microcode_sequencer.uaddr[18:0]
+(7)cft2019_tb.cft.card_ctl.microcode_sequencer.uaddr[18:0]
+(8)cft2019_tb.cft.card_ctl.microcode_sequencer.uaddr[18:0]
+(9)cft2019_tb.cft.card_ctl.microcode_sequencer.uaddr[18:0]
+(10)cft2019_tb.cft.card_ctl.microcode_sequencer.uaddr[18:0]
+(11)cft2019_tb.cft.card_ctl.microcode_sequencer.uaddr[18:0]
+(12)cft2019_tb.cft.card_ctl.microcode_sequencer.uaddr[18:0]
+(13)cft2019_tb.cft.card_ctl.microcode_sequencer.uaddr[18:0]
+(14)cft2019_tb.cft.card_ctl.microcode_sequencer.uaddr[18:0]
+(15)cft2019_tb.cft.card_ctl.microcode_sequencer.uaddr[18:0]
+(16)cft2019_tb.cft.card_ctl.microcode_sequencer.uaddr[18:0]
+(17)cft2019_tb.cft.card_ctl.microcode_sequencer.uaddr[18:0]
+(18)cft2019_tb.cft.card_ctl.microcode_sequencer.uaddr[18:0]
+@1401200
+-group_end
 @200
 -
+@28
+cft2019_tb.cft.card_ctl.microcode_sequencer.control_store.clk
+@22
+cft2019_tb.cft.card_ctl.microcode_sequencer.control_store.ff1.q0[7:0]
 @c04022
 ^>3 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/control
 cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
@@ -219,7 +248,7 @@ cft2019_tb.cft.nr
 [color] 2
 cft2019_tb.cft.nwen
 cft2019_tb.cft.card_ctl.microcode_sequencer.nend
-@1401200
+@1000200
 -Control Unit
 @c00200
 -Addressing
@@ -297,7 +326,5 @@ cft2019_tb.cft.card_mem.ab[23:0]
 cft2019_tb.cft.card_mem.db[15:0]
 @1401200
 -MEM Card
-@200
--
 [pattern_trace] 1
 [pattern_trace] 0

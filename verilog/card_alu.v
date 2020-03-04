@@ -245,7 +245,7 @@ module card_alu(
    assign op_arithmetic = ir_6_0[5];
    assign op_rotate = ir_6_0[6];
 
-   alu_sru alu_sru (.nreset(nreset),
+   alu_sru alu_sru (.nreset(nreset), .nrsthold(nrsthold),
 		    .clk2(clk2),
 		    .clk4(clk4),
 		    .b(b),

@@ -172,7 +172,7 @@ module cft2019(
    //
    ///////////////////////////////////////////////////////////////////////////////
    
-   assign cport_ctl[7:1] = ir_6_0[6:0];
+   assign ir_6_0[6:0] = cport_ctl[7:1];
    assign nwen = cport_ctl[8];
    assign cport_ctl[9] = fl;
    assign cport_ctl[10] = fv;
@@ -296,6 +296,8 @@ module cft2019(
    assign cport_alu[10] = nflagwe;
    assign cport_alu[38:23] = ac;
 
+   wire [15:0] 	 ibus_alu;
+
    card_alu card_alu(
                 .nreset(nreset), .nrsthold(nrsthold),
                 .clk1(clk1), .clk2(clk2), .clk3(clk3), .clk4(clk4), .t34(t34),
@@ -306,7 +308,7 @@ module cft2019(
                 .ab(ab), .db(db),
                 .nirqn(nirqn),
                 .nhalt(nhalt), .nendext(nendext), .nskipext(nskipext),
-//              .ibus(ibus),
+		     .ibus(ibus_alu), // TODO: Change this to ibus!
                      .raddr(raddr), .waddr(waddr), .action(action),
                 .fpd(fpd),
                 .cport(cport_alu),

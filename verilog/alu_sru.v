@@ -24,7 +24,7 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-module alu_sru(nreset,
+module alu_sru(nreset, nrsthold,
 	       clk2, clk4,
 	       nstart,
 	       b, fl,
@@ -32,6 +32,7 @@ module alu_sru(nreset,
 	       ibus, bcp_sru, flout_sru, flcp_sru);
 
    input         nreset;
+   input         nrsthold;
    input         clk2, clk4;
    input         nstart;
    input [15:0]  b;
@@ -64,6 +65,20 @@ module alu_sru(nreset,
    // Main state machine
    wire 	nstart_sync, tc;
    flipflop_74h ff_state(.d(nstart), .clk(clk2), .nset(nreset), .nrst(1'b1), .q(nstart_sync));
+
+   // FIXME: during reset, the counter can run, driving the IBus and causing
+   // bus contention. Potential solutions:
+   //
+   // 1. Add a flip-flop to stop this. The FF should be driving the count
+   // enable signal and/or the rotator output enables.
+   //
+   // 2. The rotators should enable their outputs on (tc | nrsthold), which
+   // provides a long interlock to allow the counter to terminate, no matter
+   // what value it resets to.
+   //
+   // 3. Force a counter load with zero during reset. (this may have a high
+   // chip count: a MUX plus one gate or five gates).
+
    counter_191  ctr_state(.p(op_dist), .npl(nstart_sync), .down(1'b1), .nce(tc), .cp(x4clk), .tc(tc));
 
    // Operation decoder
@@ -78,18 +93,26 @@ module alu_sru(nreset,
    wire 	msb;
    mux_253h msb_mux(.sel({op_rotate, op_arithmetic}), .i({b[0], fl, b[15], 1'b0}), .noe(1'b0), .y(msb));
    mux_253h lsb_mux(.sel({op_rotate, op_arithmetic}), .i({b[15], fl, 1'b0, 1'b0}),  .noe(1'b0), .y(lsb));
+
+   // TODO: ADD THIS TO THE SCHEMATICS (ALSO ITS CONNECTIONS BELOW)
+   wire 	nen;
+   assign #7 nen = nrsthold == 1'b1 ? tc : 1'b1;
+
+   initial begin
+      #100 ctr_state.q <= 6;
+   end
    
    // The left rotator
-   buffer_541   buf_rol_lo(.a({b[6:0], lsb}),  .y(ibus[7:0]),  .noe1(tc), .noe2(nleft));
-   buffer_541   buf_rol_hi(.a({b[14:7]}),      .y(ibus[15:8]), .noe1(tc), .noe2(nleft));
+   buffer_541   buf_rol_lo(.a({b[6:0], lsb}),  .y(ibus[7:0]),  .noe1(nen), .noe2(nleft));
+   buffer_541   buf_rol_hi(.a({b[14:7]}),      .y(ibus[15:8]), .noe1(nen), .noe2(nleft));
    
    // The right rotator
-   buffer_541   buf_ror_lo(.a(b[8:1]),         .y(ibus[7:0]),  .noe1(tc), .noe2(nright));
-   buffer_541   buf_ror_hi(.a({msb, b[15:9]}), .y(ibus[15:8]), .noe1(tc), .noe2(nright));
+   buffer_541   buf_ror_lo(.a(b[8:1]),         .y(ibus[7:0]),  .noe1(nen), .noe2(nright));
+   buffer_541   buf_ror_hi(.a({msb, b[15:9]}), .y(ibus[15:8]), .noe1(nen), .noe2(nright));
 
    // Generate write pulses at every step.
    wire 	shiftclk;
-   assign #9 shiftclk = (nstart_sync & x4clk) | tc;
+   assign #9 shiftclk = (nstart_sync & x4clk) | nen;
    assign bcp_sru = shiftclk;
 
    // Generate the FL clock output
