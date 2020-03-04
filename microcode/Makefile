@@ -14,6 +14,7 @@ MCFLAGS += 		-ecsa
 BASE =			$(BUILDDIR)/microcode
 JSON = 			$(BUILDDIR)/instruction-set.json
 DISASM = 		$(BUILDDIR)/disasm.h
+CFTASM = 		$(BUILDDIR)/builtins.asm
 HDROUT =		$(BASE).h
 VOUT =			$(BASE).v
 MCOUT = 		$(BASE)-00.bin $(BASE)-01.bin $(BASE)-02.bin 
@@ -38,8 +39,8 @@ LISTS =			$(BASE)-00.list $(BASE)-01.list $(BASE)-02.list $(ALUBL) $(ALUUL)
 #.PHONY: 		all clean microcode alu-binary alu-unary
 .PHONY: 		all clean microcode json disasm alu-rom
 
-#all:			microcode $(ALUUL) $(ALUUB) $(ALUBL) $(ALUBB) $(JSON) $(DISASM)
-all:			$(MCOUT) $(HDROUT) $(MIFOUT) $(VOUT) $(JSON) $(DISASM) $(ALUROMLIST) $(ALUROMBIN) $(MBUROMLIST) $(MBUROMBIN) 
+#all:			microcode $(ALUUL) $(ALUUB) $(ALUBL) $(ALUBB) $(JSON) $(DISASM) $(CFTASM)
+all:			$(MCOUT) $(HDROUT) $(MIFOUT) $(VOUT) $(JSON) $(DISASM) $(CFTASM) $(ALUROMLIST) $(ALUROMBIN) $(MBUROMLIST) $(MBUROMBIN) 
 
 clean:
 			rm -f *.h *.json
@@ -64,5 +65,8 @@ json $(JSON):		microcode.mc
 
 disasm	$(DISASM):	microcode.mc
 			$(MC) -p $< | $(MCPARSER) --disassembly >$@
+
+cftasm	$(CFTASM):	microcode.mc
+			$(MC) -p $< | $(MCPARSER) --cftasm >$@
 
 # End of file.
