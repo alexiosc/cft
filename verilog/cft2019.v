@@ -33,6 +33,7 @@
 `include "card_reg.v"
 `include "card_bus.v"
 `include "card_alu.v"
+`include "card_dfp.v"
 `include "card_mem.v"
 
 `timescale 1ns/1ps
@@ -314,7 +315,7 @@ module cft2019(
 
    ///////////////////////////////////////////////////////////////////////////////
    //
-   // A FAKE DFP AND BACKPLANE
+   // A FAKE DFP AND BACKPLANE, WITH SOME (BASIC) REAL FUNCTIONALITY
    //
    ///////////////////////////////////////////////////////////////////////////////
 
@@ -323,7 +324,24 @@ module cft2019(
    assign nfpclk_or_clk = 1'b1;
    assign fpclk = 1'b0;
    assign nfpram_rom = 1'b1;
-   
+
+   wire [40:1] 	 cport_dfp;
+   card_dfp card_dfp(
+                .nreset(nreset), .nrsthold(nrsthold),
+                .clk1(clk1), .clk2(clk2), .clk3(clk3), .clk4(clk4), .t34(t34),
+                .nirq(nirq), .nirqs(nirqs),
+                .nsysdev(nsysdev), .niodev1xx(niodev1xx),
+                .niodev2xx(niodev2xx), .niodev3xx(niodev3xx),
+                .nmem(nmem), .nio(nio), .nw(nw), .nr(nr), .nws(nws),
+                .ab(ab), .db(db),
+                .nirqn(nirqn),
+                .nhalt(nhalt), .nendext(nendext), .nskipext(nskipext),
+                .ibus(ibus), .raddr(raddr), .waddr(waddr), .action(action),
+                .fpd(fpd),
+                .cport(cport_dfp),
+                .rsvd(rsvd), .wstb(wstb), .nruen(nruen), .nwuen(nwuen)
+                );
+
    ///////////////////////////////////////////////////////////////////////////////
    //
    // A MEMORY CARD
