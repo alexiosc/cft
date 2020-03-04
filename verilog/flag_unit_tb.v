@@ -165,11 +165,11 @@ module flag_unit_tb();
 
    
    // Test the writer (strobing nflagwe)
-   always @ (waddr) begin
+   always @ (waddr, clk4) begin
       #30 begin
    	 msg[7:0] = "";		// Use the msg as a flag.
 
-	 if (waddr === 5'b01101 || waddr === 5'b01110) begin
+	 if (clk4 === 1'b0 && (waddr === 5'b01101 || waddr === 5'b01110)) begin
 	    if (nflagwe !== 0) begin
 	       $sformat(msg, "waddr=%b but nflagwe=%b (should be 0)",
 			waddr, nflagwe);

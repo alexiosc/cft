@@ -68,7 +68,7 @@ module flag_unit (clk4, waddr, raddr,
    wire 	  nwrite_mbp_flags, nwrite_flags;
    assign nwrite_mbp_flags = wy[5];
    assign nwrite_flags = wy[6];
-   assign #7 nflagwe = nwrite_mbp_flags & nwrite_flags & clk4; // Writing only happens during T4
+   assign #7 nflagwe = (nwrite_mbp_flags & nwrite_flags) | clk4; // Writing only happens during T4
    assign nwrite_ir = wy[7];
 
    // Decode the read signals, generate nflagoe.
