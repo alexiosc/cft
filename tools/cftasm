@@ -121,96 +121,91 @@ _BUILTINS_OLD = """;;; CFT Assembler Built-ins
 # Registers and a Stack Pointer.
 _BUILTINS = """;;; CFT Assembler Built-ins, Microcode Version 7.x.
 
-;;; 1. Machine mnemonics
+;;; Native Instruction Mnemonics
 
-;;; 1.1. Basic mnemonics and essential macros
+.equ    IRET    &0000            ; 0000:0:0:000:-------  Interrupt Return
+.equ    LRET    &0080            ; 0000:0:0:001:-------  Long Return
+.equ    RET     &0100            ; 0000:0:0:010:-------  Return
+.equ    TAS     &0180            ; 0000:0:0:011:-------  Transfer Accumulator to Stack Pointer
+.equ    TSA     &0200            ; 0000:0:0:100:-------  Transfer Stack Pointer to Accumulator
+.equ    TAD     &0280            ; 0000:0:0:101:-------  Transfer Accumulator to Data Register
+.equ    TDA     &0300            ; 0000:0:0:110:-------  Transfer Data Register to Accumulator
+.equ    ISR     &0400            ; 0000:0:1:000:LLLLLLL  Software Interrupt
+.equ    PHA     &0480            ; 0000:0:1:001:-------  Push Accumulator
+.equ    PPA     &0500            ; 0000:0:1:010:-------  Pop Accumulator
+.equ    PHF     &0580            ; 0000:0:1:011:-------  Push Flags
+.equ    PPF     &0600            ; 0000:0:1:100:-------  Pop Flags
+.equ    STI     &0680            ; 0000:0:1:101:-------  Set Interrupt Flag
+.equ    CLI     &0700            ; 0000:0:1:110:-------  Clear Interrupt Flag
+.equ    WAIT    &0780            ; 0000:0:1:111:LLLLLLL  Wait for Interrupt
+.equ    SHL     &0800            ; 0000:1:0:000:000LLLL  Bitwise Shift Left
+.equ    SHR     &0810            ; 0000:1:0:000:001LLLL  Bitwise Shift Right
+.equ    ASR     &0830            ; 0000:1:0:000:011LLLL  Arithmetic Shift Right
+.equ    ROL     &0840            ; 0000:1:0:000:100LLLL  Roll Left
+.equ    ROR     &0850            ; 0000:1:0:000:101LLLL  Roll Right
+.equ    RLA     &0860            ; 0000:1:0:000:110LLLL  Roll Left Accumulator
+.equ    RRA     &0870            ; 0000:1:0:000:111LLLL  Roll Right Accumulator
 
-;           OP..IR SUB/OPERAND
-;          -----|| |||-------
-.equ LIA   #00000-'----------           ; Load Address (low order 16 bits only)
-.equ LI    #000001'----------           ; Load Literal
-.equ LJSR  #00001-'----------           ; Long jump to subroutine, indirect
-.equ LJMP  #00011-'----------           ; Long jump, indirect
-.equ JSR   #0010--'----------           ; Jump to subroutine
-.equ JMP   #0011--'----------           ; Jump
-.equ IOT   #0100--'----------           ; I/O transaction (write AC to I/O, read back)
-.equ IN    #0101--'----------           ; Read AC from I/O space
-.equ OUT   #0110--'----------           ; Write AC to I/O space
-.equ IRET  #011100'000-------           ; Return from Interrupt Service Routine
-.equ LRET  #011100'001-------           ; Return from LJSR subroutine
-.equ RET   #011100'010-------           ; Return from subroutine
-.equ TAS   #011100'011-------           ; SP <- AC
-.equ TSA   #011100'100-------           ; AC <- SP
-.equ TAD   #011100'101-------           ; DR <- AC
-.equ TDA   #011100'110-------           ; AC <- DR
-.equ PHA   #011100'111-------           ; Push AC to stack
-.equ PPA   #011101'000-------           ; Pop AC from stack
-.equ PHF   #011101'001-------           ; Push Flags to stack
-.equ PPF   #011101'010-------           ; Pop Flags from stack
-.equ STI   #011101'011-------           ; Set interrupt flag (allow interrupts)
-.equ CLI   #011101'100-------           ; Clear interrupt flag (block interrupts)
+.equ    SKP     &0880            ; SKP bitmap instruction
+.equ    NOP     SKP     #0000000 ; 0000:1:0:001:0000000  No Operation
+.equ    SKIP    SKP     #0010000 ; 0000:1:0:001:--10000  Skip
+.equ    SNP     SKP     #0001100 ; 0000:1:0:001:--011--  Skip on Non-Positive Accumulator
+.equ    SPA     SKP     #0011100 ; 0000:1:0:001:--111--  Skip on Positive Accumulator
+.equ    SNA     SKP     #0001000 ; 0000:1:0:001:--01---  Skip on Negative Accumulator
+.equ    SZA     SKP     #0000100 ; 0000:1:0:001:--0-1--  Skip on Zero Accumulator
+.equ    SSL     SKP     #0000010 ; 0000:1:0:001:--0--1-  Skip on Link
+.equ    SSV     SKP     #0000001 ; 0000:1:0:001:--0---1  Skip on Overflow
+.equ    SNN     SKP     #0011000 ; 0000:1:0:001:--11---  Skip on Non-Negative Accumulator
+.equ    SNZ     SKP     #0010100 ; 0000:1:0:001:--1-1--  Skip on Non-Zero Accumulator
+.equ    SCL     SKP     #0010010 ; 0000:1:0:001:--1--1-  Skip on Link Clear
+.equ    SCV     SKP     #0010001 ; 0000:1:0:001:--1---1  Skip on Overflow
 
-; Shifts and rolls
-;                        dddd
-.equ SRU   #011110'000-------           ; Generic shift/roll instruction, use one from below
-.equ SHL   SRU       #000----           ; Shift <L,AC> left by dddd bits.
-.equ SHR   SRU       #001----           ; Shift <L,AC> right by dddd bits.
-.equ ASR   SRU       #011----           ; Arithmetic (sign-extending) shift <L,AC> right by dddd bits.
-.equ ROL   SRU       #100----           ; Roll <L,AC> left by dddd bits.
-.equ ROR   SRU       #101----           ; Roll <L,AC> right by dddd bits.
+.equ    IND     &0b80            ; 0000:1:0:111:-------  Indirect
+.equ    JPA     &0c00            ; 0000:1:1:000:-------  Jump to Accumulator
+.equ    JSA     &0c80            ; 0000:1:1:001:-------  Jump to Subroutine at Accumulator
+.equ    HCF     &0d80            ; 0000:1:1:011:-------  Halt and Catch Fire
 
-; Skips
-;                       gNZLV
-.equ SKP   #011110'001-------
-.equ NOP   SKP       #0000000           ; Skip never (3 cycle NOP)
-.equ SNA   SKP       #--01---           ; Skip if A<0
-.equ SZA   SKP       #--0-1--           ; Skip if A=0
-.equ SNP   SKP       #--011--           ; Skip if A≤0
-.equ SSL   SKP       #--0--1-           ; Skip if L=1
-.equ SSV   SKP       #--0---1           ; Skip if V=1
-.equ SKIP  SKP       #--10000           ; Skip always
-.equ SPA   SKP       #--11---           ; Skip if A≥0
-.equ SNZ   SKP       #--1-1--           ; Skip if A≠0
-.equ SNN   SKP       #--111--           ; Skip if A>0
-.equ SCL   SKP       #--1--1-           ; Skip if L=0
-.equ SCV   SKP       #--1---1           ; Skip if V=0
+; Note: the sub-instructions here can be used either with UOP (in which case
+; the UOP mnemonic can be left out) or with either the IFL or IFV bitmap
+; instructions. IFL and IFV must be specified.
 
-.equ TAB   #011110'010-------           ; ALU B <- AC
-.equ TBA   #011110'011-------           ; AC -> ALU B
-.equ RMB   #011110'100-------           ; Read Memory Bank Register 0-7
-.equ SMB   #011110'101-------           ; Write Memory Bank Register 0-7
+.equ    UOP     &0e00            ; UOP bitmap instruction
+.equ    IFL     &0e8c            ; IFL bitmap instruction
+.equ    IFV     &0f0c            ; IFV bitmap instruction
+.equ    NOP9    UOP     #0000000 ; 0000:1:1:100:0000000  No Operation, 9 Cycles
+.equ    CLA     UOP     #0100000 ; 0000:1:1:100:-1-----  Clear Accumulator
+.equ    CLL     UOP     #0010000 ; 0000:1:1:100:--1----  Clear Link
+.equ    SEL     UOP     #0000001 ; 0000:1:1:100:--1---1  Set Link
+.equ    NOT     UOP     #0001000 ; 0000:1:1:100:---1---  Complement Accumulator
+.equ    NEG     UOP     #0001100 ; 0000:1:1:100:---11--  Negate Accumulator
+.equ    INC     UOP     #0000100 ; 0000:1:1:100:----1--  Increment Accumulator
+.equ    DEC     UOP     #0000010 ; 0000:1:1:100:-----1-  Decrement Accumulator
+.equ    CPL     UOP     #0000001 ; 0000:1:1:100:------1  Complement Link
 
-.equ JPA   #011111'000-------           ; Jump to location in AC
-.equ JSA   #011111'001-------           ; Jump to subroutine at AC
+.equ    LIA     &1000            ; 0001:I:R:mmmmmmmmmm   Literal Address
+.equ    LI      &1400            ; 0001:0:1:LLLLLLLLLL   Literal
+.equ    LJSR    &1800            ; 0001:1:R:aaaaaaaaaa   Long Jump to Subroutine
+.equ    LJMP    &2800            ; 0010:1:R:aaaaaaaaaa   Long Jump
+.equ    JSR     &3000            ; 0011:I:R:mmmmmmmmmm   Jump to Subroutine
+.equ    JMP     &4000            ; 0100:I:R:mmmmmmmmmm   Jump
+.equ    IN      &5000            ; 0101:I:R:mmmmmmmmmm   Input from I/O Space
+.equ    OUT     &6000            ; 0110:I:R:mmmmmmmmmm   Output to I/O Space
+.equ    IOT     &7000            ; 0111:I:R:mmmmmmmmmm   I/O Transaction
+.equ    LOAD    &8000            ; 1000:I:R:mmmmmmmmmm   Load Accumulator
+.equ    STORE   &9000            ; 1001:I:R:mmmmmmmmmm   Store Accumulator
+.equ    DSZ     &a000            ; 1010:I:R:mmmmmmmmmm   Decrement and Skip if Zero
+.equ    ADD     &c000            ; 1100:I:R:mmmmmmmmmm   Add To Accumulator
+.equ    AND     &d000            ; 1101:I:R:mmmmmmmmmm   Bitwise AND With Accumulator
+.equ    OR      &e000            ; 1110:I:R:mmmmmmmmmm   Bitwise OR With Accumulator
+.equ    XOR     &f000            ; 1111:I:R:mmmmmmmmmm   Bitwise XOR With Accumulator
 
-.equ UOP   #011111'100-------           ; Execute bitmapped instructions
-.equ IFL   #011111'101-------           ; Execute bitmapped if L set
-.equ IFV   #011111'110-------           ; Execute bitmapped if V set
-.equ CLA   UOP       #-1-----		; AC <- 0
-.equ CLL   UOP       #--1----		; L <- 0
-.equ NOT   UOP       #---1---        	; AC <- ~A
-.equ INC   UOP       #----1--	        ; <L,AC> <- <L,AC> + 1
-.equ DEC   UOP       #-----1-		; <L,AC> <- <L,AC> - 1
-.equ CPL   UOP       #------1		; L <- ~L
-.equ SEL   UOP       #--1---1           ; L <- 1
-.equ NEG   UOP       #---11--           ; AC <- -AC
+;;; Instruction flags. These only make sense for instructions with I or R in
+;;; their bitfields.
 
-.equ IND   #01111-'111-------           ; Indirection
+.equ    R       &0400            ; Zero Page ('register') reference
+.equ    I       &0800            ; Indirection
 
-.equ LOAD  #1000--'----------           ; Load from memory
-.equ STORE #1001--'----------           ; Write to memory
-.equ ISZ   #1010--'----------           ; Increment memory and skip if zero
-
-.equ ADD   #1100--'----------           ; Add memory to <L,AC>
-.equ AND   #1101--'----------           ; AND memory and AC
-.equ OR    #1110--'----------           ; OR memory and AC
-.equ XOR   #1111--'----------           ; XOR memory and AC
-
-;;; 1.1.1. Instruction flags.
-
-.equ R     0x0400 ; Specify to reference a register (zero page).
-.equ I     0x0800 ; Indirection
-
+;;; End of file.
 """
 
 
