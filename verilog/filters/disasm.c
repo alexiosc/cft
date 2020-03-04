@@ -16,7 +16,7 @@ char * bin(int x, uint8_t numbits)
 	}
 	*cp = 0;
 	if (numbits < 0 || numbits > 16) numbits = 16;
-	return numbits > 16 ? &res[16 - numbits] : res;
+	return &res[16 - numbits];
 }
 
 int main(int argc, char **argv)
@@ -50,7 +50,7 @@ int main(int argc, char **argv)
 
 			// The easy work first
 			if (i < 0) {
-				printf("?red4?%04x\n", hx);
+				printf("?red4?%04x?\n", hx);
 				fflush(stdout);
 				continue;
 			}
@@ -61,8 +61,8 @@ int main(int argc, char **argv)
 				if ((hx & instr->instr_mask) ==  instr->instr) {
 					if (full_dis) {
 						if (instr->bitmap) {
-							// Not really properly implemented, so red colour
-							printf("?red4?%s %s\n", instr->mnemonic, bin(hx, 7));
+							// Not really properly implemented, so orange colour
+							printf("?orange4?%s %s\n", instr->mnemonic, bin(hx, 7));
 						} else {
 							switch (instr->operand_mask) {
 							case 0:
