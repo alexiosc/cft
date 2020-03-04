@@ -1,27 +1,32 @@
 [*]
 [*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Sat Oct 19 12:07:28 2019
+[*] Wed Mar  4 09:32:49 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/comparator_85_tb.vcd"
-[dumpfile_mtime] "Sat Oct 19 12:07:24 2019"
-[dumpfile_size] 51023
+[dumpfile_mtime] "Wed Mar  4 09:32:48 2020"
+[dumpfile_size] 115995
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/comparator_85_tb.sav"
 [timestart] 0
-[size] 1281 854
-[pos] 51 0
-*-25.103830 78947000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[size] 1648 854
+[pos] 2484 49
+*-26.103830 84000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [sst_width] 226
-[signals_width] 78
+[signals_width] 160
 [sst_expanded] 1
 [sst_vpaned_height] 230
 @22
+[color] 1
 comparator_85_tb.a[3:0]
+[color] 2
 comparator_85_tb.b[3:0]
 @200
 -
-@24
+@25
+[color] 3
 comparator_85_tb.ilt
+[color] 3
 comparator_85_tb.ieq
+[color] 3
 comparator_85_tb.igt
 @200
 -
@@ -31,7 +36,7 @@ comparator_85_tb.oeq
 comparator_85_tb.ogt
 @200
 -
-@25
+@24
 comparator_85_tb.n[2:0]
 [pattern_trace] 1
 [pattern_trace] 0
