@@ -36,6 +36,27 @@ C_DISASM_POSTAMBLE = """}};
 """
 
 
+CFTASM_PREAMBLE = """;;; -*- cftasm -*-
+;;; CFT Assembler Built-ins, Microcode Version 7.x.
+
+;;; Machine mnemonics
+
+;           OP..IR SUB/OPERAND
+;          -----|| |||-------
+
+"""
+
+CFTASM_POSTAMBLE = """
+
+;;; 1.1.1. Instruction flags.
+
+.equ R     0x0400 ; Specify to reference a register (zero page).
+.equ I     0x0800 ; Indirection
+
+;;; End of file.
+"""
+
+
 class ParseMicrocode(object):
     def __init__(self):
         self.parse_command_line()
@@ -58,6 +79,9 @@ class ParseMicrocode(object):
 
         p.add_argument('-d', '--disassembly-table', action='store_true',
                        help="""Print out a C-format disassembly table.""")
+
+        p.add_argument('-a', '--cftasm', action='store_true',
+                       help="""Print out an include file for cftasm to define the builtins for the current microcode.""")
 
         p.add_argument("filename", metavar="INPUT-FILENAME", nargs="?",
                        help="""An input file specifying proprocessed microcode to parse. The default is to
@@ -254,6 +278,9 @@ class ParseMicrocode(object):
         if self.args.disassembly_table:
             self.report_disassembly_table()
 
+        if self.args.cftasm:
+            self.report_cftasm()
+
 
     def report_json_instruction_set(self):
 
@@ -319,6 +346,71 @@ class ParseMicrocode(object):
         self.out.write('\n\t{{ NULL,     {pad}0,      0,      0,      0}}  /* End. */\n'.format(**locals()))
 
         self.out.write(C_DISASM_POSTAMBLE.format(num_instr=len(rd)))
+
+            
+    def report_cftasm(self):
+        rd = []
+        for datum in self.data:
+            m = datum['mnemonic']
+            instr = datum['disasm']['instr']
+            mask = datum['disasm']['mask']
+            pr = datum['disasm']['priority']
+            opmask = (1 << datum['operand_width']) - 1
+
+            # If this has a prefix, remove it and assume it's a bitmapped
+            # instruction.
+            #disasm_m = re.sub(r'\(.+?\)\s*', '', m)
+            disasm_m = m
+            is_bitmap = int(disasm_m != m or ' ' in disasm_m or '[' in disasm_m)
+
+            if is_bitmap and '[' not in m:
+                print("***", m, datum['split_mnemonic'])
+
+            if '[' in m:
+                continue
+
+            rd.append((disasm_m,
+                       is_bitmap,
+                       instr,
+                       mask,
+                       pr,
+                       opmask,
+                       "{:<21} {}".format(datum['format'], datum['name'])))
+
+        rd.sort(key=lambda x: (x[2] & 0xff80, -x[4], len(x[0])))
+        #pprint.pprint(rd, width=200)
+        maxlen = max(len(x[0]) for x in rd)
+        fmt1 = ".equ    {mn:<7} &{instr:04x}            ; {comment}\n"
+        fmt2 = ".equ    {mn1:<7} {mn0:<7} #{mnb} ; {comment}\n"
+        #fmt = '\t{{ "{mn}",{pad}{is_bitmap}, 0x{instr:04x}, 0x{mask:04x}, 0x{opmask:04x}}}, /* {comment} */\n'
+
+        self.out.write(CFTASM_PREAMBLE)
+
+        superinstrs = dict()
+        subinstrs = dict()
+        
+        oldinstr = 0
+        for mn, is_bitmap, instr, mask, pr, opmask, comment in rd:
+            pad = " " * (maxlen - len(mn))
+            # if oldinstr != instr & 0xf000:
+            #     self.out.write("\n")
+            oldinstr = instr &  0xf000
+
+            if is_bitmap:
+                mn0, mn1 = mn.split()
+                mn0 = re.sub(r'\(.+?\)\s*', '', mn0)
+
+                if mn0 not in superinstrs:
+                    superinstrs[mn0] = instr
+                    self.out.write("\n" + fmt1.format(mn=mn0, instr=instr, comment=mn0 + " bitmap instruction"))
+
+                #print("---", mn, mn0, mn1)
+                mnb = bin(instr & 0x7f)[2:].zfill(7)
+                self.out.write(fmt2.format(**locals()))
+            else:
+                self.out.write(fmt1.format(**locals()))
+
+        self.out.write(CFTASM_POSTAMBLE.format(num_instr=len(rd)))
 
             
     def run(self):
