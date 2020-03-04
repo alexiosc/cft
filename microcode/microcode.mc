@@ -1240,7 +1240,7 @@ start HCF;
 // GROUP:    Unary Operations, UOP
 // MODE:     Implied
 // FLAGS:    ----L
-// FORMAT:   0000:1:1:100:------1
+// FORMAT:   0000:1:1:100:--1---1
 //
 // Sets the L Flag or Link Register. This instruction is a combination of the
 // `CLL` and `CPL` instructions.
@@ -1352,7 +1352,7 @@ start HCF;
 // GROUP:    Unary Operations, UOP
 // MODE:     Implied
 // FLAGS:    *----L
-// FORMAT:   0000:1:1:101:------1
+// FORMAT:   0000:1:1:101:--1---1
 //
 // If L i set, sets the L Flag or Link Register. This instruction is a
 // combination of the `IFL CLL` and `IFL CPL` instructions. It is all but
@@ -1456,7 +1456,7 @@ start HCF;
 // GROUP:    Unary Operations, UOP
 // MODE:     Implied
 // FLAGS:    ----L
-// FORMAT:   0000:1:1:110:------1
+// FORMAT:   0000:1:1:110:--1---1
 //
 // Sets the L Flag or Link Register. This instruction is a combination of the
 // `CLL` and `CPL` instructions.
