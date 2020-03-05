@@ -205,20 +205,20 @@ module cft2019(
    // assign in_rsvd = cport_ctl[40];
 
    card_ctl card_ctl(
-                .nreset(nreset), .nrsthold(nrsthold),
-                .clk1(clk1), .clk2(clk2), .clk3(clk3), .clk4(clk4), .t34(t34),
-                .nirq(nirq), .nirqs(nirqs),
-                .nsysdev(nsysdev), .niodev1xx(niodev1xx),
-                .niodev2xx(niodev2xx), .niodev3xx(niodev3xx),
-                .nmem(nmem), .nio(nio), .nw(nw), .nr(nr), .nws(nws),
-                .ab(ab), .db(db),
-                .nirqn(nirqn),
-                .nhalt(nhalt), .nendext(nendext), .nskipext(nskipext),
-                .ibus(ibus), .raddr(raddr), .waddr(waddr), .action(action),
-                .fpd(fpd),
-                .cport(cport_ctl),
-                .rsvd(rsvd), .wstb(wstb), .nruen(nruen), .nwuen(nwuen)
-                );
+                     .nreset(nreset), .nrsthold(nrsthold),
+                     .clk1(clk1), .clk2(clk2), .clk3(clk3), .clk4(clk4), .t34(t34),
+                     .nirq(nirq), .nirqs(nirqs),
+                     .nsysdev(nsysdev), .niodev1xx(niodev1xx),
+                     .niodev2xx(niodev2xx), .niodev3xx(niodev3xx),
+                     .nmem(nmem), .nio(nio), .nw(nw), .nr(nr), .nws(nws),
+                     .ab(ab), .db(db),
+                     .nirqn(nirqn),
+                     .nhalt(nhalt), .nendext(nendext), .nskipext(nskipext),
+                     .ibus(ibus), .raddr(raddr), .waddr(waddr), .action(action),
+                     .fpd(fpd),
+                     .cport(cport_ctl),
+                     .rsvd(rsvd), .wstb(wstb), .nruen(nruen), .nwuen(nwuen)
+                     );
 
    ///////////////////////////////////////////////////////////////////////////////
    //
@@ -240,20 +240,20 @@ module cft2019(
    assign fz = cport_reg[39];
    assign naccpl = cport_reg[40];
    card_reg card_reg(
-                .nreset(nreset), .nrsthold(nrsthold),
-                .clk1(clk1), .clk2(clk2), .clk3(clk3), .clk4(clk4), .t34(t34),
-                .nirq(nirq), .nirqs(nirqs),
-                .nsysdev(nsysdev), .niodev1xx(niodev1xx),
-                .niodev2xx(niodev2xx), .niodev3xx(niodev3xx),
-                .nmem(nmem), .nio(nio), .nw(nw), .nr(nr), .nws(nws),
-                .ab(ab), .db(db),
-                .nirqn(nirqn),
-                .nhalt(nhalt), .nendext(nendext), .nskipext(nskipext),
-                .ibus(ibus), .raddr(raddr), .waddr(waddr), .action(action),
-                .fpd(fpd),
-                .cport(cport_reg),
-                .rsvd(rsvd), .wstb(wstb), .nruen(nruen), .nwuen(nwuen)
-                );
+                     .nreset(nreset), .nrsthold(nrsthold),
+                     .clk1(clk1), .clk2(clk2), .clk3(clk3), .clk4(clk4), .t34(t34),
+                     .nirq(nirq), .nirqs(nirqs),
+                     .nsysdev(nsysdev), .niodev1xx(niodev1xx),
+                     .niodev2xx(niodev2xx), .niodev3xx(niodev3xx),
+                     .nmem(nmem), .nio(nio), .nw(nw), .nr(nr), .nws(nws),
+                     .ab(ab), .db(db),
+                     .nirqn(nirqn),
+                     .nhalt(nhalt), .nendext(nendext), .nskipext(nskipext),
+                     .ibus(ibus), .raddr(raddr), .waddr(waddr), .action(action),
+                     .fpd(fpd),
+                     .cport(cport_reg),
+                     .rsvd(rsvd), .wstb(wstb), .nruen(nruen), .nwuen(nwuen)
+                     );
 
    ///////////////////////////////////////////////////////////////////////////////
    //
@@ -296,24 +296,22 @@ module cft2019(
    assign cport_alu[10] = nflagwe;
    assign cport_alu[38:23] = ac;
 
-   wire [15:0] 	 ibus_alu;
-
    card_alu card_alu(
-                .nreset(nreset), .nrsthold(nrsthold),
-                .clk1(clk1), .clk2(clk2), .clk3(clk3), .clk4(clk4), .t34(t34),
-                .nirq(nirq), .nirqs(nirqs),
-                .nsysdev(nsysdev), .niodev1xx(niodev1xx),
-                .niodev2xx(niodev2xx), .niodev3xx(niodev3xx),
-                .nmem(nmem), .nio(nio), .nw(nw), .nr(nr), .nws(nws),
-                .ab(ab), .db(db),
-                .nirqn(nirqn),
-                .nhalt(nhalt), .nendext(nendext), .nskipext(nskipext),
-		     .ibus(ibus_alu), // TODO: Change this to ibus!
+                     .nreset(nreset), .nrsthold(nrsthold),
+                     .clk1(clk1), .clk2(clk2), .clk3(clk3), .clk4(clk4), .t34(t34),
+                     .nirq(nirq), .nirqs(nirqs),
+                     .nsysdev(nsysdev), .niodev1xx(niodev1xx),
+                     .niodev2xx(niodev2xx), .niodev3xx(niodev3xx),
+                     .nmem(nmem), .nio(nio), .nw(nw), .nr(nr), .nws(nws),
+                     .ab(ab), .db(db),
+                     .nirqn(nirqn),
+                     .nhalt(nhalt), .nendext(nendext), .nskipext(nskipext),
+		     .ibus(ibus),
                      .raddr(raddr), .waddr(waddr), .action(action),
-                .fpd(fpd),
-                .cport(cport_alu),
-                .rsvd(rsvd), .wstb(wstb), .nruen(nruen), .nwuen(nwuen)
-                );
+                     .fpd(fpd),
+                     .cport(cport_alu),
+                     .rsvd(rsvd), .wstb(wstb), .nruen(nruen), .nwuen(nwuen)
+                     );
 
    ///////////////////////////////////////////////////////////////////////////////
    //
@@ -329,20 +327,20 @@ module cft2019(
 
    wire [40:1] 	 cport_dfp;
    card_dfp card_dfp(
-                .nreset(nreset), .nrsthold(nrsthold),
-                .clk1(clk1), .clk2(clk2), .clk3(clk3), .clk4(clk4), .t34(t34),
-                .nirq(nirq), .nirqs(nirqs),
-                .nsysdev(nsysdev), .niodev1xx(niodev1xx),
-                .niodev2xx(niodev2xx), .niodev3xx(niodev3xx),
-                .nmem(nmem), .nio(nio), .nw(nw), .nr(nr), .nws(nws),
-                .ab(ab), .db(db),
-                .nirqn(nirqn),
-                .nhalt(nhalt), .nendext(nendext), .nskipext(nskipext),
-                .ibus(ibus), .raddr(raddr), .waddr(waddr), .action(action),
-                .fpd(fpd),
-                .cport(cport_dfp),
-                .rsvd(rsvd), .wstb(wstb), .nruen(nruen), .nwuen(nwuen)
-                );
+                     .nreset(nreset), .nrsthold(nrsthold),
+                     .clk1(clk1), .clk2(clk2), .clk3(clk3), .clk4(clk4), .t34(t34),
+                     .nirq(nirq), .nirqs(nirqs),
+                     .nsysdev(nsysdev), .niodev1xx(niodev1xx),
+                     .niodev2xx(niodev2xx), .niodev3xx(niodev3xx),
+                     .nmem(nmem), .nio(nio), .nw(nw), .nr(nr), .nws(nws),
+                     .ab(ab), .db(db),
+                     .nirqn(nirqn),
+                     .nhalt(nhalt), .nendext(nendext), .nskipext(nskipext),
+                     .ibus(ibus), .raddr(raddr), .waddr(waddr), .action(action),
+                     .fpd(fpd),
+                     .cport(cport_dfp),
+                     .rsvd(rsvd), .wstb(wstb), .nruen(nruen), .nwuen(nwuen)
+                     );
 
    ///////////////////////////////////////////////////////////////////////////////
    //
@@ -352,20 +350,20 @@ module cft2019(
 
    wire [40:1]   cport_mem;     // MEM board doesn't use local connections
    card_mem card_mem(
-                .nreset(nreset), .nrsthold(nrsthold),
-                .clk1(clk1), .clk2(clk2), .clk3(clk3), .clk4(clk4), .t34(t34),
-                .nirq(nirq), .nirqs(nirqs),
-                .nsysdev(nsysdev), .niodev1xx(niodev1xx),
-                .niodev2xx(niodev2xx), .niodev3xx(niodev3xx),
-                .nmem(nmem), .nio(nio), .nw(nw), .nr(nr), .nws(nws),
-                .ab(ab), .db(db),
-                .nirqn(nirqn),
-                .nhalt(nhalt), .nendext(nendext), .nskipext(nskipext),
-                .ibus(ibus), .raddr(raddr), .waddr(waddr), .action(action),
-                .fpd(fpd),
-                .cport(cport_mem),
-                .rsvd(rsvd), .wstb(wstb), .nruen(nruen), .nwuen(nwuen)
-                );
+                     .nreset(nreset), .nrsthold(nrsthold),
+                     .clk1(clk1), .clk2(clk2), .clk3(clk3), .clk4(clk4), .t34(t34),
+                     .nirq(nirq), .nirqs(nirqs),
+                     .nsysdev(nsysdev), .niodev1xx(niodev1xx),
+                     .niodev2xx(niodev2xx), .niodev3xx(niodev3xx),
+                     .nmem(nmem), .nio(nio), .nw(nw), .nr(nr), .nws(nws),
+                     .ab(ab), .db(db),
+                     .nirqn(nirqn),
+                     .nhalt(nhalt), .nendext(nendext), .nskipext(nskipext),
+                     .ibus(ibus), .raddr(raddr), .waddr(waddr), .action(action),
+                     .fpd(fpd),
+                     .cport(cport_mem),
+                     .rsvd(rsvd), .wstb(wstb), .nruen(nruen), .nwuen(nwuen)
+                     );
 
 endmodule // cft2019
 
