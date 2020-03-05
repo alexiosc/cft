@@ -1,21 +1,19 @@
 [*]
 [*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Wed Mar  4 20:31:59 2020
+[*] Thu Mar  5 15:26:55 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/cft2019_tb.vcd"
-[dumpfile_mtime] "Wed Mar  4 20:30:49 2020"
-[dumpfile_size] 281997
+[dumpfile_mtime] "Thu Mar  5 15:25:49 2020"
+[dumpfile_size] 285964
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/cft2019_tb.sav"
-[timestart] 891400
+[timestart] 0
 [size] 1869 1019
 [pos] 2204 37
-*-15.711743 1049300 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-20.711742 1120750 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] cft2019_tb.
 [treeopen] cft2019_tb.cft.
 [treeopen] cft2019_tb.cft.card_ctl.
-[treeopen] cft2019_tb.cft.card_ctl.clock_generator.
 [treeopen] cft2019_tb.cft.card_ctl.microcode_sequencer.
-[treeopen] cft2019_tb.cft.card_ctl.microcode_sequencer.control_store.
 [treeopen] cft2019_tb.cft.card_ctl.sbu.
 [treeopen] cft2019_tb.cft.card_mem.romhi.
 [sst_width] 258

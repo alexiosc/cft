@@ -120,13 +120,15 @@ module microcode_sequencer(nreset, nrsthold, clk2, clk4,
 		   upc[3:0]	   // bits 3-0
 		   };
 
+   wire        nmem0, nio0, nr0, nwen0;
+
    // Break out the Micro-Control Vector
    assign {
 	   nend,	   // bit 23
-	   nwen,	   // bit 22
-	   nr,   	   // bit 21
-	   nio,	   // bit 20
-	   nmem,	   // bit 19
+	   nwen0,	   // bit 22
+	   nr0,   	   // bit 21
+	   nio0,	   // bit 20
+	   nmem0,	   // bit 19
 	   action[3:0], // bits 18-15
 	   cond[4:0],   // bits 14-10
 	   waddr[4:0],  // bits 9-5
@@ -141,7 +143,10 @@ module microcode_sequencer(nreset, nrsthold, clk2, clk4,
 			       .uaddr(uaddr),
 			       .ucontrol(ucontrol));
 
-   // FIXME: ensure nmem and nio are never asserted while nrsthold is active.
+   // The reset interlock multiplexer disables
+   mux_157 reset_interlock (.sel(nrsthold), .i1(4'b1111),
+			    .i2({nio0, nwen0, nr0, nmem0}), .oe(1'b0),
+			    .y({nio, nwen, nr, nmem}));
 
    ///////////////////////////////////////////////////////////////////////////////
    //
