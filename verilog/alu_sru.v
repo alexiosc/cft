@@ -94,9 +94,11 @@ module alu_sru(nreset, nrsthold,
    mux_253h msb_mux(.sel({op_rotate, op_arithmetic}), .i({b[0], fl, b[15], 1'b0}), .noe(1'b0), .y(msb));
    mux_253h lsb_mux(.sel({op_rotate, op_arithmetic}), .i({b[15], fl, 1'b0, 1'b0}),  .noe(1'b0), .y(lsb));
 
-   // TODO: ADD THIS TO THE SCHEMATICS (ALSO ITS CONNECTIONS BELOW)
+   // The counter may reset to any value. If that value is non-zero, it'll
+   // start counting down (and driving the IBus). This will cause bus contention
+   // during reset. So disable the IBus drivers while nrsthold is asserted (0).
    wire 	nen;
-   assign #7 nen = nrsthold == 1'b1 ? tc : 1'b1;
+   mux_1g157 reset_interlock (.sel(nrsthold), .ng(1'b0), .a(1'b1), .b(tc), .y(nen));
 
    initial begin
       #100 ctr_state.q <= 6;
