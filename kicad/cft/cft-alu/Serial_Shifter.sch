@@ -1,6 +1,5 @@
 EESchema Schematic File Version 4
-LIBS:cft-alu-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -44,8 +43,8 @@ AR Path="/5CE09726/6A1AE719" Ref="U?"  Part="1"
 AR Path="/6A313729/6A1AE719" Ref="U?"  Part="1" 
 AR Path="/5DC89E19/5D0A147D/6A1AE719" Ref="U?"  Part="1" 
 AR Path="/5DC89E19/5D396E91/6A1AE719" Ref="U?"  Part="1" 
-AR Path="/5DF75CDE/6A1AE719" Ref="U?"  Part="1" 
-F 0 "U?" H 5250 1325 50  0000 C CNN
+AR Path="/5DF75CDE/6A1AE719" Ref="U10"  Part="1" 
+F 0 "U10" H 5250 1325 50  0000 C CNN
 F 1 "74AC191" H 5250 1234 50  0000 C CNN
 F 2 "alexios:SOIC-16" H 5225 2000 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS190" H 5225 2000 50  0001 C CNN
@@ -169,8 +168,6 @@ Text HLabel 1150 5000 0    50   Input ~ 0
 ~LEFT~∕RIGHT
 Wire Wire Line
 	1750 5200 1700 5200
-Text Label 6500 2300 2    50   ~ 0
-TC
 Wire Wire Line
 	4750 1600 4500 1600
 Wire Wire Line
@@ -225,8 +222,6 @@ Entry Wire Line
 	6100 3300 6200 3400
 Entry Wire Line
 	6100 3400 6200 3500
-Text Label 6500 3800 2    50   ~ 0
-TC
 Text Label 8650 2900 2    50   ~ 0
 B9
 Text Label 8650 3000 2    50   ~ 0
@@ -289,13 +284,6 @@ Wire Wire Line
 	5900 2850 5900 2300
 Wire Wire Line
 	5900 2300 5750 2300
-Wire Wire Line
-	5900 2300 6500 2300
-Connection ~ 5900 2300
-Wire Wire Line
-	5900 2850 5900 3800
-Wire Wire Line
-	5900 3800 6500 3800
 Connection ~ 5900 2850
 Wire Wire Line
 	9950 1400 9650 1400
@@ -314,9 +302,9 @@ Wire Wire Line
 Wire Wire Line
 	9950 2100 9650 2100
 Text Label 8650 2300 2    50   ~ 0
-TC
+~EN
 Text Label 8650 3800 2    50   ~ 0
-TC
+~EN
 Text Label 8650 2400 2    50   ~ 0
 ~RIGHT
 Text Label 8650 3900 2    50   ~ 0
@@ -325,12 +313,6 @@ Wire Wire Line
 	8000 2300 8650 2300
 Wire Wire Line
 	8000 3800 8650 3800
-Wire Wire Line
-	8000 2300 8000 3800
-Connection ~ 8000 3800
-Wire Wire Line
-	8000 3800 8000 4200
-Connection ~ 5900 3800
 Wire Wire Line
 	6000 2400 6500 2400
 Wire Wire Line
@@ -601,7 +583,7 @@ Text Notes 8650 800  0    100  ~ 20
 Right Rotator
 Wire Wire Line
 	5350 4000 5500 4000
-Text Label 7900 2250 3    50   ~ 0
+Text Label 7900 2100 3    50   ~ 0
 IBUS[0..15]
 Text Label 1300 850  0    50   ~ 0
 B[0..15]
@@ -637,8 +619,8 @@ AR Path="/5CE09726/6A1AE895" Ref="U?"  Part="1"
 AR Path="/6A313729/6A1AE895" Ref="U?"  Part="1" 
 AR Path="/5DC89E19/5D0A147D/6A1AE895" Ref="U?"  Part="1" 
 AR Path="/5DC89E19/5D396E91/6A1AE895" Ref="U?"  Part="1" 
-AR Path="/5DF75CDE/6A1AE895" Ref="U?"  Part="1" 
-F 0 "U?" H 2300 1917 50  0000 C CNN
+AR Path="/5DF75CDE/6A1AE895" Ref="U7"  Part="1" 
+F 0 "U7" H 2300 1917 50  0000 C CNN
 F 1 "74AUC1G74" H 2300 1826 50  0000 C CNN
 F 2 "alexios:TSSOP-8_3x3mm_P0.65mm" H 2750 1500 50  0001 C CNN
 F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 2750 1500 50  0001 C CNN
@@ -784,8 +766,8 @@ P 4850 4000
 AR Path="/6A313729/5D078841" Ref="U?"  Part="1" 
 AR Path="/5DC89E19/5D0A147D/5D078841" Ref="U?"  Part="1" 
 AR Path="/5DC89E19/5D396E91/5D078841" Ref="U?"  Part="1" 
-AR Path="/5DF75CDE/5D078841" Ref="U?"  Part="1" 
-F 0 "U?" H 5300 3650 50  0000 C CNN
+AR Path="/5DF75CDE/5D078841" Ref="U15"  Part="1" 
+F 0 "U15" H 5300 3650 50  0000 C CNN
 F 1 "74AC253" H 5400 3550 50  0000 C CNN
 F 2 "alexios:SOIC-16" H 5150 4600 50  0001 C CNN
 F 3 "http://www.mouser.com/ds/2/149/74act253-288382.pdf" H 5150 4600 50  0001 C CNN
@@ -799,8 +781,8 @@ P 7000 1900
 AR Path="/6A313729/5D0A8249" Ref="U?"  Part="1" 
 AR Path="/5DC89E19/5D0A147D/5D0A8249" Ref="U?"  Part="1" 
 AR Path="/5DC89E19/5D396E91/5D0A8249" Ref="U?"  Part="1" 
-AR Path="/5DF75CDE/5D0A8249" Ref="U?"  Part="1" 
-F 0 "U?" H 7000 2667 50  0000 C CNN
+AR Path="/5DF75CDE/5D0A8249" Ref="U8"  Part="1" 
+F 0 "U8" H 7000 2667 50  0000 C CNN
 F 1 "74AC541" H 7000 2576 50  0000 C CNN
 F 2 "alexios:SOIC-20W" H 7000 1900 50  0001 C CNN
 F 3 "https://www.mouser.com/ds/2/149/74AC541-74146.pdf" H 7000 1900 50  0001 C CNN
@@ -814,8 +796,8 @@ P 7000 3400
 AR Path="/6A313729/5D0A905B" Ref="U?"  Part="1" 
 AR Path="/5DC89E19/5D0A147D/5D0A905B" Ref="U?"  Part="1" 
 AR Path="/5DC89E19/5D396E91/5D0A905B" Ref="U?"  Part="1" 
-AR Path="/5DF75CDE/5D0A905B" Ref="U?"  Part="1" 
-F 0 "U?" H 7000 4167 50  0000 C CNN
+AR Path="/5DF75CDE/5D0A905B" Ref="U13"  Part="1" 
+F 0 "U13" H 7000 4167 50  0000 C CNN
 F 1 "74AC541" H 7000 4076 50  0000 C CNN
 F 2 "alexios:SOIC-20W" H 7000 3400 50  0001 C CNN
 F 3 "https://www.mouser.com/ds/2/149/74AC541-74146.pdf" H 7000 3400 50  0001 C CNN
@@ -829,8 +811,8 @@ P 9150 1900
 AR Path="/6A313729/5D0ABB14" Ref="U?"  Part="1" 
 AR Path="/5DC89E19/5D0A147D/5D0ABB14" Ref="U?"  Part="1" 
 AR Path="/5DC89E19/5D396E91/5D0ABB14" Ref="U?"  Part="1" 
-AR Path="/5DF75CDE/5D0ABB14" Ref="U?"  Part="1" 
-F 0 "U?" H 9150 2667 50  0000 C CNN
+AR Path="/5DF75CDE/5D0ABB14" Ref="U9"  Part="1" 
+F 0 "U9" H 9150 2667 50  0000 C CNN
 F 1 "74AC541" H 9150 2576 50  0000 C CNN
 F 2 "alexios:SOIC-20W" H 9150 1900 50  0001 C CNN
 F 3 "https://www.mouser.com/ds/2/149/74AC541-74146.pdf" H 9150 1900 50  0001 C CNN
@@ -844,8 +826,8 @@ P 9150 3400
 AR Path="/6A313729/5D0ABB1A" Ref="U?"  Part="1" 
 AR Path="/5DC89E19/5D0A147D/5D0ABB1A" Ref="U?"  Part="1" 
 AR Path="/5DC89E19/5D396E91/5D0ABB1A" Ref="U?"  Part="1" 
-AR Path="/5DF75CDE/5D0ABB1A" Ref="U?"  Part="1" 
-F 0 "U?" H 9150 4167 50  0000 C CNN
+AR Path="/5DF75CDE/5D0ABB1A" Ref="U14"  Part="1" 
+F 0 "U14" H 9150 4167 50  0000 C CNN
 F 1 "74AC541" H 9150 4076 50  0000 C CNN
 F 2 "alexios:SOIC-20W" H 9150 3400 50  0001 C CNN
 F 3 "https://www.mouser.com/ds/2/149/74AC541-74146.pdf" H 9150 3400 50  0001 C CNN
@@ -863,8 +845,8 @@ P 6950 4800
 AR Path="/6A313729/5D182161" Ref="U?"  Part="1" 
 AR Path="/5DC89E19/5D0A147D/5D182161" Ref="U?"  Part="1" 
 AR Path="/5DC89E19/5D396E91/5D182161" Ref="U?"  Part="1" 
-AR Path="/5DF75CDE/5D182161" Ref="U?"  Part="1" 
-F 0 "U?" H 6950 5167 50  0000 C CNN
+AR Path="/5DF75CDE/5D182161" Ref="U17"  Part="1" 
+F 0 "U17" H 6950 5167 50  0000 C CNN
 F 1 "74LVC2G157" H 6950 5076 50  0000 C CNN
 F 2 "alexios:TSSOP-8_3x3mm_P0.65mm" H 6850 4925 50  0001 C CNN
 F 3 "http://www.ti.com/lit/ds/symlink/sn74lvc2g157.pdf" H 6850 4925 50  0001 C CNN
@@ -878,9 +860,9 @@ P 1900 2250
 AR Path="/6A313729/5D1EFB24" Ref="U?"  Part="1" 
 AR Path="/5DC89E19/5D0A147D/5D1EFB24" Ref="U?"  Part="1" 
 AR Path="/5DC89E19/5D396E91/5D1EFB24" Ref="U?"  Part="1" 
-AR Path="/5DF75CDE/5D1EFB24" Ref="U?"  Part="1" 
+AR Path="/5DF75CDE/5D1EFB24" Ref="U11"  Part="1" 
 AR Path="/5D1EFB24" Ref="U?"  Part="1" 
-F 0 "U?" H 1975 2517 50  0000 C CNN
+F 0 "U11" H 1975 2517 50  0000 C CNN
 F 1 "74HC04" H 1975 2426 50  0000 C CNN
 F 2 "alexios:SOIC-14" H 1900 2450 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT04.pdf" H 1900 2450 50  0001 C CNN
@@ -894,9 +876,9 @@ P 2450 2250
 AR Path="/6A313729/5D1F0919" Ref="U?"  Part="2" 
 AR Path="/5DC89E19/5D0A147D/5D1F0919" Ref="U?"  Part="2" 
 AR Path="/5DC89E19/5D396E91/5D1F0919" Ref="U?"  Part="2" 
-AR Path="/5DF75CDE/5D1F0919" Ref="U?"  Part="2" 
+AR Path="/5DF75CDE/5D1F0919" Ref="U11"  Part="2" 
 AR Path="/5D1F0919" Ref="U?"  Part="2" 
-F 0 "U?" H 2525 2517 50  0000 C CNN
+F 0 "U11" H 2525 2517 50  0000 C CNN
 F 1 "74HC04" H 2525 2426 50  0000 C CNN
 F 2 "alexios:SOIC-14" H 2450 2450 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT04.pdf" H 2450 2450 50  0001 C CNN
@@ -910,9 +892,9 @@ P 1900 2700
 AR Path="/6A313729/5D1F284E" Ref="U?"  Part="3" 
 AR Path="/5DC89E19/5D0A147D/5D1F284E" Ref="U?"  Part="3" 
 AR Path="/5DC89E19/5D396E91/5D1F284E" Ref="U?"  Part="3" 
-AR Path="/5DF75CDE/5D1F284E" Ref="U?"  Part="3" 
+AR Path="/5DF75CDE/5D1F284E" Ref="U11"  Part="3" 
 AR Path="/5D1F284E" Ref="U?"  Part="3" 
-F 0 "U?" H 2050 2850 50  0000 C CNN
+F 0 "U11" H 2050 2850 50  0000 C CNN
 F 1 "74HC04" H 1975 2876 50  0001 C CNN
 F 2 "alexios:SOIC-14" H 1900 2900 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT04.pdf" H 1900 2900 50  0001 C CNN
@@ -926,9 +908,9 @@ P 2450 2700
 AR Path="/6A313729/5D1F2854" Ref="U?"  Part="4" 
 AR Path="/5DC89E19/5D0A147D/5D1F2854" Ref="U?"  Part="4" 
 AR Path="/5DC89E19/5D396E91/5D1F2854" Ref="U?"  Part="4" 
-AR Path="/5DF75CDE/5D1F2854" Ref="U?"  Part="4" 
+AR Path="/5DF75CDE/5D1F2854" Ref="U11"  Part="4" 
 AR Path="/5D1F2854" Ref="U?"  Part="4" 
-F 0 "U?" H 2550 2850 50  0000 C CNN
+F 0 "U11" H 2550 2850 50  0000 C CNN
 F 1 "74HC04" H 2525 2876 50  0001 C CNN
 F 2 "alexios:SOIC-14" H 2450 2900 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT04.pdf" H 2450 2900 50  0001 C CNN
@@ -943,8 +925,8 @@ AR Path="/5CE09726/6A1AE713" Ref="U?"  Part="3"
 AR Path="/6A313729/6A1AE713" Ref="U?"  Part="3" 
 AR Path="/5DC89E19/5D0A147D/6A1AE713" Ref="U?"  Part="3" 
 AR Path="/5DC89E19/5D396E91/6A1AE713" Ref="U?"  Part="3" 
-AR Path="/5DF75CDE/6A1AE713" Ref="U?"  Part="3" 
-F 0 "U?" H 3675 2682 50  0000 C CNN
+AR Path="/5DF75CDE/6A1AE713" Ref="U12"  Part="3" 
+F 0 "U12" H 3675 2682 50  0000 C CNN
 F 1 "74AC86" H 3675 2773 50  0000 C CNN
 F 2 "alexios:SOIC-14" H 3175 2100 50  0001 C CNN
 F 3 "74xx/74ls86.pdf" H 3175 2100 50  0001 C CNN
@@ -959,8 +941,8 @@ AR Path="/5CE09726/6A1AE6FB" Ref="U?"  Part="2"
 AR Path="/6A313729/6A1AE6FB" Ref="U?"  Part="2" 
 AR Path="/5DC89E19/5D0A147D/6A1AE6FB" Ref="U?"  Part="2" 
 AR Path="/5DC89E19/5D396E91/6A1AE6FB" Ref="U?"  Part="2" 
-AR Path="/5DF75CDE/6A1AE6FB" Ref="U?"  Part="2" 
-F 0 "U?" H 3075 3025 50  0000 C CNN
+AR Path="/5DF75CDE/6A1AE6FB" Ref="U12"  Part="2" 
+F 0 "U12" H 3075 3025 50  0000 C CNN
 F 1 "74AC86" H 3075 2934 50  0000 C CNN
 F 2 "alexios:SOIC-14" H 2575 2350 50  0001 C CNN
 F 3 "74xx/74ls86.pdf" H 2575 2350 50  0001 C CNN
@@ -975,8 +957,8 @@ AR Path="/5CE09726/6A1AE6E6" Ref="U?"  Part="1"
 AR Path="/6A313729/6A1AE6E6" Ref="U?"  Part="1" 
 AR Path="/5DC89E19/5D0A147D/6A1AE6E6" Ref="U?"  Part="1" 
 AR Path="/5DC89E19/5D396E91/6A1AE6E6" Ref="U?"  Part="1" 
-AR Path="/5DF75CDE/6A1AE6E6" Ref="U?"  Part="1" 
-F 0 "U?" H 3075 2575 50  0000 C CNN
+AR Path="/5DF75CDE/6A1AE6E6" Ref="U12"  Part="1" 
+F 0 "U12" H 3075 2575 50  0000 C CNN
 F 1 "74AC86" H 3075 2484 50  0000 C CNN
 F 2 "alexios:SOIC-14" H 2575 1900 50  0001 C CNN
 F 3 "74xx/74ls86.pdf" H 2575 1900 50  0001 C CNN
@@ -990,8 +972,8 @@ P 2050 5200
 AR Path="/6A313729/5D23FF09" Ref="U?"  Part="1" 
 AR Path="/5DC89E19/5D0A147D/5D23FF09" Ref="U?"  Part="1" 
 AR Path="/5DC89E19/5D396E91/5D23FF09" Ref="U?"  Part="1" 
-AR Path="/5DF75CDE/5D23FF09" Ref="U?"  Part="1" 
-F 0 "U?" H 2200 5100 50  0000 C CNN
+AR Path="/5DF75CDE/5D23FF09" Ref="U18"  Part="1" 
+F 0 "U18" H 2200 5100 50  0000 C CNN
 F 1 "74LVC1G04" H 2200 5000 50  0000 C CNN
 F 2 "alexios:SOT-23-5_HandSoldering" H 2050 5200 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G04.pdf" H 2050 5200 50  0001 C CNN
@@ -1011,8 +993,8 @@ P 6950 5500
 AR Path="/6A313729/5D2B045A" Ref="U?"  Part="1" 
 AR Path="/5DC89E19/5D0A147D/5D2B045A" Ref="U?"  Part="1" 
 AR Path="/5DC89E19/5D396E91/5D2B045A" Ref="U?"  Part="1" 
-AR Path="/5DF75CDE/5D2B045A" Ref="U?"  Part="1" 
-F 0 "U?" H 6950 5700 50  0000 C CNN
+AR Path="/5DF75CDE/5D2B045A" Ref="U20"  Part="1" 
+F 0 "U20" H 6950 5700 50  0000 C CNN
 F 1 "74LVC1G0832" H 6950 5800 50  0000 C CNN
 F 2 "alexios:SOT-23-6_Handsoldering" H 6950 5500 50  0001 C CNN
 F 3 "http://www.ti.com/lit/ds/symlink/sn74lvc1g0832.pdf" H 6950 5500 50  0001 C CNN
@@ -1059,8 +1041,6 @@ TC
 Wire Wire Line
 	6000 4900 6600 4900
 Connection ~ 6000 4900
-Wire Wire Line
-	6000 4900 6000 3900
 Text Label 6000 4800 1    50   ~ 0
 ~LEFT
 Text Label 4750 2950 0    50   ~ 0
@@ -1089,8 +1069,8 @@ AR Path="/5CE09726/5D854F77" Ref="U?"  Part="1"
 AR Path="/6A313729/5D854F77" Ref="U?"  Part="2" 
 AR Path="/5DC89E19/5D0A147D/5D854F77" Ref="U?"  Part="2" 
 AR Path="/5DC89E19/5D396E91/5D854F77" Ref="U?"  Part="2" 
-AR Path="/5DF75CDE/5D854F77" Ref="U?"  Part="2" 
-F 0 "U?" H 5700 7800 50  0000 L CNN
+AR Path="/5DF75CDE/5D854F77" Ref="U7"  Part="2" 
+F 0 "U7" H 5700 7800 50  0000 L CNN
 F 1 "74AUC1G74" H 5600 7700 50  0000 L CNN
 F 2 "alexios:TSSOP-8_3x3mm_P0.65mm" H 6250 7450 50  0001 C CNN
 F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 6250 7450 50  0001 C CNN
@@ -1104,9 +1084,9 @@ P 3100 6550
 AR Path="/6A313729/5D85540D" Ref="U?"  Part="7" 
 AR Path="/5DC89E19/5D0A147D/5D85540D" Ref="U?"  Part="7" 
 AR Path="/5DC89E19/5D396E91/5D85540D" Ref="U?"  Part="7" 
-AR Path="/5DF75CDE/5D85540D" Ref="U?"  Part="7" 
+AR Path="/5DF75CDE/5D85540D" Ref="U11"  Part="7" 
 AR Path="/5D85540D" Ref="U?"  Part="7" 
-F 0 "U?" H 3050 6800 50  0000 L CNN
+F 0 "U11" H 3050 6800 50  0000 L CNN
 F 1 "74HC04" H 2950 6700 50  0000 L CNN
 F 2 "alexios:SOIC-14" H 3100 6750 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT04.pdf" H 3100 6750 50  0001 C CNN
@@ -1121,8 +1101,8 @@ AR Path="/5CE09726/5D855EC9" Ref="U?"  Part="1"
 AR Path="/6A313729/5D855EC9" Ref="U?"  Part="5" 
 AR Path="/5DC89E19/5D0A147D/5D855EC9" Ref="U?"  Part="5" 
 AR Path="/5DC89E19/5D396E91/5D855EC9" Ref="U?"  Part="5" 
-AR Path="/5DF75CDE/5D855EC9" Ref="U?"  Part="5" 
-F 0 "U?" H 1300 7600 50  0000 C CNN
+AR Path="/5DF75CDE/5D855EC9" Ref="U12"  Part="5" 
+F 0 "U12" H 1300 7600 50  0000 C CNN
 F 1 "74AC86" H 1300 7500 50  0000 C CNN
 F 2 "alexios:SOIC-14" H 825 6950 50  0001 C CNN
 F 3 "74xx/74ls86.pdf" H 825 6950 50  0001 C CNN
@@ -1137,8 +1117,8 @@ AR Path="/5CE09726/5D85699B" Ref="U?"  Part="1"
 AR Path="/6A313729/5D85699B" Ref="U?"  Part="2" 
 AR Path="/5DC89E19/5D0A147D/5D85699B" Ref="U?"  Part="2" 
 AR Path="/5DC89E19/5D396E91/5D85699B" Ref="U?"  Part="2" 
-AR Path="/5DF75CDE/5D85699B" Ref="U?"  Part="2" 
-F 0 "U?" H 1250 7500 50  0000 L CNN
+AR Path="/5DF75CDE/5D85699B" Ref="U10"  Part="2" 
+F 0 "U10" H 1250 7500 50  0000 L CNN
 F 1 "74AC191" H 1150 7400 50  0000 L CNN
 F 2 "alexios:SOIC-16" H 1275 6900 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS190" H 1275 6900 50  0001 C CNN
@@ -1152,8 +1132,8 @@ P 3100 7450
 AR Path="/6A313729/5D8588CB" Ref="U?"  Part="2" 
 AR Path="/5DC89E19/5D0A147D/5D8588CB" Ref="U?"  Part="2" 
 AR Path="/5DC89E19/5D396E91/5D8588CB" Ref="U?"  Part="2" 
-AR Path="/5DF75CDE/5D8588CB" Ref="U?"  Part="2" 
-F 0 "U?" H 3100 7800 50  0000 C CNN
+AR Path="/5DF75CDE/5D8588CB" Ref="U18"  Part="2" 
+F 0 "U18" H 3100 7800 50  0000 C CNN
 F 1 "74LVC1G04" H 3100 7700 50  0000 C CNN
 F 2 "alexios:SOT-23-5_HandSoldering" H 3100 7450 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G04.pdf" H 3100 7450 50  0001 C CNN
@@ -1167,8 +1147,8 @@ P 4900 7450
 AR Path="/6A313729/5D858D00" Ref="U?"  Part="2" 
 AR Path="/5DC89E19/5D0A147D/5D858D00" Ref="U?"  Part="2" 
 AR Path="/5DC89E19/5D396E91/5D858D00" Ref="U?"  Part="2" 
-AR Path="/5DF75CDE/5D858D00" Ref="U?"  Part="2" 
-F 0 "U?" H 4800 7800 50  0000 L CNN
+AR Path="/5DF75CDE/5D858D00" Ref="U20"  Part="2" 
+F 0 "U20" H 4800 7800 50  0000 L CNN
 F 1 "74LVC1G0832" H 4750 7700 50  0000 L CNN
 F 2 "alexios:SOT-23-6_Handsoldering" H 4900 7450 50  0001 C CNN
 F 3 "http://www.ti.com/lit/ds/symlink/sn74lvc1g0832.pdf" H 4900 7450 50  0001 C CNN
@@ -1182,8 +1162,8 @@ P 2200 6650
 AR Path="/6A313729/5D859329" Ref="U?"  Part="2" 
 AR Path="/5DC89E19/5D0A147D/5D859329" Ref="U?"  Part="2" 
 AR Path="/5DC89E19/5D396E91/5D859329" Ref="U?"  Part="2" 
-AR Path="/5DF75CDE/5D859329" Ref="U?"  Part="2" 
-F 0 "U?" H 2150 7000 50  0000 L CNN
+AR Path="/5DF75CDE/5D859329" Ref="U8"  Part="2" 
+F 0 "U8" H 2150 7000 50  0000 L CNN
 F 1 "74AC541" H 2050 6900 50  0000 L CNN
 F 2 "alexios:SOIC-20W" H 2200 6650 50  0001 C CNN
 F 3 "https://www.mouser.com/ds/2/149/74AC541-74146.pdf" H 2200 6650 50  0001 C CNN
@@ -1197,8 +1177,8 @@ P 4900 6650
 AR Path="/6A313729/5D859A89" Ref="U?"  Part="2" 
 AR Path="/5DC89E19/5D0A147D/5D859A89" Ref="U?"  Part="2" 
 AR Path="/5DC89E19/5D396E91/5D859A89" Ref="U?"  Part="2" 
-AR Path="/5DF75CDE/5D859A89" Ref="U?"  Part="2" 
-F 0 "U?" H 4800 7000 50  0000 L CNN
+AR Path="/5DF75CDE/5D859A89" Ref="U13"  Part="2" 
+F 0 "U13" H 4800 7000 50  0000 L CNN
 F 1 "74AC541" H 4750 6900 50  0000 L CNN
 F 2 "alexios:SOIC-20W" H 4900 6650 50  0001 C CNN
 F 3 "https://www.mouser.com/ds/2/149/74AC541-74146.pdf" H 4900 6650 50  0001 C CNN
@@ -1212,8 +1192,8 @@ P 4000 6650
 AR Path="/6A313729/5D85A16E" Ref="U?"  Part="2" 
 AR Path="/5DC89E19/5D0A147D/5D85A16E" Ref="U?"  Part="2" 
 AR Path="/5DC89E19/5D396E91/5D85A16E" Ref="U?"  Part="2" 
-AR Path="/5DF75CDE/5D85A16E" Ref="U?"  Part="2" 
-F 0 "U?" H 3900 7000 50  0000 L CNN
+AR Path="/5DF75CDE/5D85A16E" Ref="U9"  Part="2" 
+F 0 "U9" H 3900 7000 50  0000 L CNN
 F 1 "74AC541" H 3850 6900 50  0000 L CNN
 F 2 "alexios:SOIC-20W" H 4000 6650 50  0001 C CNN
 F 3 "https://www.mouser.com/ds/2/149/74AC541-74146.pdf" H 4000 6650 50  0001 C CNN
@@ -1227,8 +1207,8 @@ P 5800 6650
 AR Path="/6A313729/5D85AD1E" Ref="U?"  Part="2" 
 AR Path="/5DC89E19/5D0A147D/5D85AD1E" Ref="U?"  Part="2" 
 AR Path="/5DC89E19/5D396E91/5D85AD1E" Ref="U?"  Part="2" 
-AR Path="/5DF75CDE/5D85AD1E" Ref="U?"  Part="2" 
-F 0 "U?" H 5700 7000 50  0000 L CNN
+AR Path="/5DF75CDE/5D85AD1E" Ref="U14"  Part="2" 
+F 0 "U14" H 5700 7000 50  0000 L CNN
 F 1 "74AC541" H 5650 6900 50  0000 L CNN
 F 2 "alexios:SOIC-20W" H 5800 6650 50  0001 C CNN
 F 3 "https://www.mouser.com/ds/2/149/74AC541-74146.pdf" H 5800 6650 50  0001 C CNN
@@ -1242,8 +1222,8 @@ P 4000 7450
 AR Path="/6A313729/5D883250" Ref="U?"  Part="2" 
 AR Path="/5DC89E19/5D0A147D/5D883250" Ref="U?"  Part="2" 
 AR Path="/5DC89E19/5D396E91/5D883250" Ref="U?"  Part="2" 
-AR Path="/5DF75CDE/5D883250" Ref="U?"  Part="2" 
-F 0 "U?" H 3900 7800 50  0000 L CNN
+AR Path="/5DF75CDE/5D883250" Ref="U16"  Part="2" 
+F 0 "U16" H 3900 7800 50  0000 L CNN
 F 1 "74LVC2G157" H 3800 7700 50  0000 L CNN
 F 2 "alexios:TSSOP-8_3x3mm_P0.65mm" H 3900 7575 50  0001 C CNN
 F 3 "http://www.ti.com/lit/ds/symlink/sn74lvc2g157.pdf" H 3900 7575 50  0001 C CNN
@@ -1260,8 +1240,8 @@ AR Path="/5EF76914/5D88ED05" Ref="C?"  Part="1"
 AR Path="/6A313729/5D88ED05" Ref="C?"  Part="1" 
 AR Path="/5DC89E19/5D0A147D/5D88ED05" Ref="C?"  Part="1" 
 AR Path="/5DC89E19/5D396E91/5D88ED05" Ref="C?"  Part="1" 
-AR Path="/5DF75CDE/5D88ED05" Ref="C?"  Part="1" 
-F 0 "C?" H 850 6650 50  0000 R CNN
+AR Path="/5DF75CDE/5D88ED05" Ref="C11"  Part="1" 
+F 0 "C11" H 850 6650 50  0000 R CNN
 F 1 "100nF" H 900 6550 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 950 6650 50  0001 C CNN
 F 3 "~" H 950 6650 50  0001 C CNN
@@ -1314,8 +1294,8 @@ AR Path="/5EF76914/5D8A6EF3" Ref="C?"  Part="1"
 AR Path="/6A313729/5D8A6EF3" Ref="C?"  Part="1" 
 AR Path="/5DC89E19/5D0A147D/5D8A6EF3" Ref="C?"  Part="1" 
 AR Path="/5DC89E19/5D396E91/5D8A6EF3" Ref="C?"  Part="1" 
-AR Path="/5DF75CDE/5D8A6EF3" Ref="C?"  Part="1" 
-F 0 "C?" H 1750 6550 50  0000 R CNN
+AR Path="/5DF75CDE/5D8A6EF3" Ref="C12"  Part="1" 
+F 0 "C12" H 1750 6550 50  0000 R CNN
 F 1 "100nF" H 1750 6450 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1850 6650 50  0001 C CNN
 F 3 "~" H 1850 6650 50  0001 C CNN
@@ -1470,8 +1450,8 @@ AR Path="/5EF76914/5D959194" Ref="C?"  Part="1"
 AR Path="/6A313729/5D959194" Ref="C?"  Part="1" 
 AR Path="/5DC89E19/5D0A147D/5D959194" Ref="C?"  Part="1" 
 AR Path="/5DC89E19/5D396E91/5D959194" Ref="C?"  Part="1" 
-AR Path="/5DF75CDE/5D959194" Ref="C?"  Part="1" 
-F 0 "C?" H 2650 6550 50  0000 R CNN
+AR Path="/5DF75CDE/5D959194" Ref="C13"  Part="1" 
+F 0 "C13" H 2650 6550 50  0000 R CNN
 F 1 "100nF" H 2650 6450 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2750 6650 50  0001 C CNN
 F 3 "~" H 2750 6650 50  0001 C CNN
@@ -1488,8 +1468,8 @@ AR Path="/5EF76914/5D9648DE" Ref="C?"  Part="1"
 AR Path="/6A313729/5D9648DE" Ref="C?"  Part="1" 
 AR Path="/5DC89E19/5D0A147D/5D9648DE" Ref="C?"  Part="1" 
 AR Path="/5DC89E19/5D396E91/5D9648DE" Ref="C?"  Part="1" 
-AR Path="/5DF75CDE/5D9648DE" Ref="C?"  Part="1" 
-F 0 "C?" H 3550 6550 50  0000 R CNN
+AR Path="/5DF75CDE/5D9648DE" Ref="C14"  Part="1" 
+F 0 "C14" H 3550 6550 50  0000 R CNN
 F 1 "100nF" H 3550 6450 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3650 6650 50  0001 C CNN
 F 3 "~" H 3650 6650 50  0001 C CNN
@@ -1506,8 +1486,8 @@ AR Path="/5EF76914/5D96FFA9" Ref="C?"  Part="1"
 AR Path="/6A313729/5D96FFA9" Ref="C?"  Part="1" 
 AR Path="/5DC89E19/5D0A147D/5D96FFA9" Ref="C?"  Part="1" 
 AR Path="/5DC89E19/5D396E91/5D96FFA9" Ref="C?"  Part="1" 
-AR Path="/5DF75CDE/5D96FFA9" Ref="C?"  Part="1" 
-F 0 "C?" H 4450 6550 50  0000 R CNN
+AR Path="/5DF75CDE/5D96FFA9" Ref="C15"  Part="1" 
+F 0 "C15" H 4450 6550 50  0000 R CNN
 F 1 "100nF" H 4450 6450 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 4550 6650 50  0001 C CNN
 F 3 "~" H 4550 6650 50  0001 C CNN
@@ -1530,8 +1510,8 @@ AR Path="/5EF76914/5D9EF8EE" Ref="C?"  Part="1"
 AR Path="/6A313729/5D9EF8EE" Ref="C?"  Part="1" 
 AR Path="/5DC89E19/5D0A147D/5D9EF8EE" Ref="C?"  Part="1" 
 AR Path="/5DC89E19/5D396E91/5D9EF8EE" Ref="C?"  Part="1" 
-AR Path="/5DF75CDE/5D9EF8EE" Ref="C?"  Part="1" 
-F 0 "C?" H 859 7496 50  0000 R CNN
+AR Path="/5DF75CDE/5D9EF8EE" Ref="C17"  Part="1" 
+F 0 "C17" H 859 7496 50  0000 R CNN
 F 1 "100nF" H 859 7405 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 950 7450 50  0001 C CNN
 F 3 "~" H 950 7450 50  0001 C CNN
@@ -1582,8 +1562,8 @@ AR Path="/5EF76914/5D9FA61C" Ref="C?"  Part="1"
 AR Path="/6A313729/5D9FA61C" Ref="C?"  Part="1" 
 AR Path="/5DC89E19/5D0A147D/5D9FA61C" Ref="C?"  Part="1" 
 AR Path="/5DC89E19/5D396E91/5D9FA61C" Ref="C?"  Part="1" 
-AR Path="/5DF75CDE/5D9FA61C" Ref="C?"  Part="1" 
-F 0 "C?" H 1759 7496 50  0000 R CNN
+AR Path="/5DF75CDE/5D9FA61C" Ref="C18"  Part="1" 
+F 0 "C18" H 1759 7496 50  0000 R CNN
 F 1 "100nF" H 1759 7405 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1850 7450 50  0001 C CNN
 F 3 "~" H 1850 7450 50  0001 C CNN
@@ -1634,8 +1614,8 @@ AR Path="/5EF76914/5DA05823" Ref="C?"  Part="1"
 AR Path="/6A313729/5DA05823" Ref="C?"  Part="1" 
 AR Path="/5DC89E19/5D0A147D/5DA05823" Ref="C?"  Part="1" 
 AR Path="/5DC89E19/5D396E91/5DA05823" Ref="C?"  Part="1" 
-AR Path="/5DF75CDE/5DA05823" Ref="C?"  Part="1" 
-F 0 "C?" H 2659 7496 50  0000 R CNN
+AR Path="/5DF75CDE/5DA05823" Ref="C19"  Part="1" 
+F 0 "C19" H 2659 7496 50  0000 R CNN
 F 1 "100nF" H 2659 7405 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2750 7450 50  0001 C CNN
 F 3 "~" H 2750 7450 50  0001 C CNN
@@ -1686,8 +1666,8 @@ AR Path="/5EF76914/5DA108F0" Ref="C?"  Part="1"
 AR Path="/6A313729/5DA108F0" Ref="C?"  Part="1" 
 AR Path="/5DC89E19/5D0A147D/5DA108F0" Ref="C?"  Part="1" 
 AR Path="/5DC89E19/5D396E91/5DA108F0" Ref="C?"  Part="1" 
-AR Path="/5DF75CDE/5DA108F0" Ref="C?"  Part="1" 
-F 0 "C?" H 3559 7496 50  0000 R CNN
+AR Path="/5DF75CDE/5DA108F0" Ref="C20"  Part="1" 
+F 0 "C20" H 3559 7496 50  0000 R CNN
 F 1 "100nF" H 3559 7405 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3650 7450 50  0001 C CNN
 F 3 "~" H 3650 7450 50  0001 C CNN
@@ -1738,8 +1718,8 @@ AR Path="/5EF76914/5DA1B925" Ref="C?"  Part="1"
 AR Path="/6A313729/5DA1B925" Ref="C?"  Part="1" 
 AR Path="/5DC89E19/5D0A147D/5DA1B925" Ref="C?"  Part="1" 
 AR Path="/5DC89E19/5D396E91/5DA1B925" Ref="C?"  Part="1" 
-AR Path="/5DF75CDE/5DA1B925" Ref="C?"  Part="1" 
-F 0 "C?" H 4459 7496 50  0000 R CNN
+AR Path="/5DF75CDE/5DA1B925" Ref="C21"  Part="1" 
+F 0 "C21" H 4459 7496 50  0000 R CNN
 F 1 "100nF" H 4459 7405 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 4550 7450 50  0001 C CNN
 F 3 "~" H 4550 7450 50  0001 C CNN
@@ -1790,8 +1770,8 @@ AR Path="/5EF76914/5DA26793" Ref="C?"  Part="1"
 AR Path="/6A313729/5DA26793" Ref="C?"  Part="1" 
 AR Path="/5DC89E19/5D0A147D/5DA26793" Ref="C?"  Part="1" 
 AR Path="/5DC89E19/5D396E91/5DA26793" Ref="C?"  Part="1" 
-AR Path="/5DF75CDE/5DA26793" Ref="C?"  Part="1" 
-F 0 "C?" H 5359 7496 50  0000 R CNN
+AR Path="/5DF75CDE/5DA26793" Ref="C22"  Part="1" 
+F 0 "C22" H 5359 7496 50  0000 R CNN
 F 1 "100nF" H 5359 7405 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5450 7450 50  0001 C CNN
 F 3 "~" H 5450 7450 50  0001 C CNN
@@ -1858,8 +1838,8 @@ P 2200 8050
 AR Path="/6A313729/5D85728B" Ref="U?"  Part="2" 
 AR Path="/5DC89E19/5D0A147D/5D85728B" Ref="U?"  Part="2" 
 AR Path="/5DC89E19/5D396E91/5D85728B" Ref="U?"  Part="2" 
-AR Path="/5DF75CDE/5D85728B" Ref="U?"  Part="2" 
-F 0 "U?" H 2150 9000 50  0000 L CNN
+AR Path="/5DF75CDE/5D85728B" Ref="U15"  Part="2" 
+F 0 "U15" H 2150 9000 50  0000 L CNN
 F 1 "74AC253" H 2050 8900 50  0000 L CNN
 F 2 "alexios:SOIC-16" H 2500 8650 50  0001 C CNN
 F 3 "http://www.mouser.com/ds/2/149/74act253-288382.pdf" H 2500 8650 50  0001 C CNN
@@ -1920,9 +1900,9 @@ AR Path="/5CE09726/5D5F1690" Ref="U?"  Part="6"
 AR Path="/6A313729/5D5F1690" Ref="U?"  Part="6" 
 AR Path="/5DC89E19/5D0A147D/5D5F1690" Ref="U?"  Part="6" 
 AR Path="/5DC89E19/5D396E91/5D5F1690" Ref="U?"  Part="6" 
-AR Path="/5DF75CDE/5D5F1690" Ref="U?"  Part="6" 
+AR Path="/5DF75CDE/5D5F1690" Ref="U11"  Part="6" 
 AR Path="/5D5F1690" Ref="U?"  Part="6" 
-F 0 "U?" H 9825 6567 50  0000 C CNN
+F 0 "U11" H 9825 6567 50  0000 C CNN
 F 1 "74HC04" H 9825 6476 50  0000 C CNN
 F 2 "alexios:SOIC-14" H 9750 6300 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT04.pdf" H 9750 6300 50  0001 C CNN
@@ -1937,9 +1917,9 @@ AR Path="/5CE09726/6A1AE772" Ref="U?"  Part="6"
 AR Path="/6A313729/6A1AE772" Ref="U?"  Part="5" 
 AR Path="/5DC89E19/5D0A147D/6A1AE772" Ref="U?"  Part="5" 
 AR Path="/5DC89E19/5D396E91/6A1AE772" Ref="U?"  Part="5" 
-AR Path="/5DF75CDE/6A1AE772" Ref="U?"  Part="5" 
+AR Path="/5DF75CDE/6A1AE772" Ref="U11"  Part="5" 
 AR Path="/6A1AE772" Ref="U?"  Part="5" 
-F 0 "U?" H 10575 6567 50  0000 C CNN
+F 0 "U11" H 10575 6567 50  0000 C CNN
 F 1 "74HC04" H 10575 6476 50  0000 C CNN
 F 2 "alexios:SOIC-14" H 10500 6300 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT04.pdf" H 10500 6300 50  0001 C CNN
@@ -1975,8 +1955,8 @@ AR Path="/5CE09726/5DD00E89" Ref="U?"  Part="3"
 AR Path="/6A313729/5DD00E89" Ref="U?"  Part="3" 
 AR Path="/5DC89E19/5D0A147D/5DD00E89" Ref="U?"  Part="3" 
 AR Path="/5DC89E19/5D396E91/5DD00E89" Ref="U?"  Part="4" 
-AR Path="/5DF75CDE/5DD00E89" Ref="U?"  Part="4" 
-F 0 "U?" H 9075 6575 50  0000 C CNN
+AR Path="/5DF75CDE/5DD00E89" Ref="U12"  Part="4" 
+F 0 "U12" H 9075 6575 50  0000 C CNN
 F 1 "74AC86" H 9075 6484 50  0000 C CNN
 F 2 "alexios:SOIC-14" H 8575 5900 50  0001 C CNN
 F 3 "74xx/74ls86.pdf" H 8575 5900 50  0001 C CNN
@@ -2013,10 +1993,10 @@ The IBus isn't used while the SRU is running, and remains\ntri-stated by the res
 Text Notes 1600 5800 0    50   ~ 0
 This can theoretically cause glitches,\nbut probably not due to the way the\nControl Unit and instruction set are\ndesigned.
 $Comp
-L Connector:TestPoint TP?
+L Connector:TestPoint TP5
 U 1 1 5DCF40D7
 P 3400 2300
-F 0 "TP?" H 3400 2550 50  0000 C CNN
+F 0 "TP5" H 3400 2550 50  0000 C CNN
 F 1 "TestPoint" H 3458 2327 50  0001 L CNN
 F 2 "TestPoint:TestPoint_Pad_1.0x1.0mm" H 3600 2300 50  0001 C CNN
 F 3 "~" H 3600 2300 50  0001 C CNN
@@ -2025,10 +2005,10 @@ F 3 "~" H 3600 2300 50  0001 C CNN
 $EndComp
 Connection ~ 3400 2300
 $Comp
-L Connector:TestPoint TP?
+L Connector:TestPoint TP7
 U 1 1 5DCF509A
 P 3400 2750
-F 0 "TP?" H 3400 3000 50  0000 C CNN
+F 0 "TP7" H 3400 3000 50  0000 C CNN
 F 1 "TestPoint" H 3458 2777 50  0001 L CNN
 F 2 "TestPoint:TestPoint_Pad_1.0x1.0mm" H 3600 2750 50  0001 C CNN
 F 3 "~" H 3600 2750 50  0001 C CNN
@@ -2037,10 +2017,10 @@ F 3 "~" H 3600 2750 50  0001 C CNN
 $EndComp
 Connection ~ 3400 2750
 $Comp
-L Connector:TestPoint TP?
+L Connector:TestPoint TP9
 U 1 1 5DCF567D
 P 10000 5500
-F 0 "TP?" H 10000 5750 50  0000 C CNN
+F 0 "TP9" H 10000 5750 50  0000 C CNN
 F 1 "TestPoint" H 10058 5527 50  0001 L CNN
 F 2 "TestPoint:TestPoint_Pad_1.0x1.0mm" H 10200 5500 50  0001 C CNN
 F 3 "~" H 10200 5500 50  0001 C CNN
@@ -2062,15 +2042,6 @@ F 3 "" H 10300 6300 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	5900 3800 5900 4200
-Wire Wire Line
-	8000 4200 5900 4200
-Connection ~ 5900 4200
-Wire Wire Line
-	5900 4200 5900 5400
-Text Label 6500 4200 2    50   ~ 0
-TC
-Wire Wire Line
 	3400 2750 3400 2550
 Text Label 4000 2500 0    50   ~ 0
 x4CLK
@@ -2078,10 +2049,10 @@ Connection ~ 3950 2500
 Wire Wire Line
 	3950 2500 4400 2500
 $Comp
-L Connector:TestPoint TP?
+L Connector:TestPoint TP6
 U 1 1 5DCF82BB
 P 3950 2500
-F 0 "TP?" H 3950 2750 50  0000 C CNN
+F 0 "TP6" H 3950 2750 50  0000 C CNN
 F 1 "TestPoint" H 4008 2527 50  0001 L CNN
 F 2 "TestPoint:TestPoint_Pad_1.0x1.0mm" H 4150 2500 50  0001 C CNN
 F 3 "~" H 4150 2500 50  0001 C CNN
@@ -2089,10 +2060,10 @@ F 3 "~" H 4150 2500 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L alexios:74LVC1G08 U?
+L alexios:74LVC1G08 U19
 U 1 1 5E022810
 P 9350 5200
-F 0 "U?" H 9275 5467 50  0000 C CNN
+F 0 "U19" H 9275 5467 50  0000 C CNN
 F 1 "74LVC1G08" H 9275 5376 50  0000 C CNN
 F 2 "alexios:SOT-23-5_HandSoldering" H 9000 5200 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 9000 5200 50  0001 C CNN
@@ -2102,10 +2073,10 @@ $EndComp
 Wire Wire Line
 	9500 5200 9800 5200
 $Comp
-L Connector:TestPoint TP?
+L Connector:TestPoint TP8
 U 1 1 5E02E561
 P 9800 5200
-F 0 "TP?" H 9800 5450 50  0000 C CNN
+F 0 "TP8" H 9800 5450 50  0000 C CNN
 F 1 "TestPoint" H 9858 5227 50  0001 L CNN
 F 2 "TestPoint:TestPoint_Pad_1.0x1.0mm" H 10000 5200 50  0001 C CNN
 F 3 "~" H 10000 5200 50  0001 C CNN
@@ -2144,10 +2115,10 @@ Connection ~ 4050 3400
 Wire Wire Line
 	4050 3400 3650 3400
 $Comp
-L alexios:74LVC1G08 U?
+L alexios:74LVC1G08 U19
 U 2 1 5DE87F78
 P 8425 6075
-F 0 "U?" H 8350 6342 50  0000 C CNN
+F 0 "U19" H 8350 6342 50  0000 C CNN
 F 1 "74LVC1G08" H 8350 6251 50  0000 C CNN
 F 2 "alexios:SOT-23-5_HandSoldering" H 8075 6075 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 8075 6075 50  0001 C CNN
@@ -2183,8 +2154,8 @@ AR Path="/5EF76914/5DA3CE64" Ref="C?"  Part="1"
 AR Path="/6A313729/5DA3CE64" Ref="C?"  Part="1" 
 AR Path="/5DC89E19/5D0A147D/5DA3CE64" Ref="C?"  Part="1" 
 AR Path="/5DC89E19/5D396E91/5DA3CE64" Ref="C?"  Part="1" 
-AR Path="/5DF75CDE/5DA3CE64" Ref="C?"  Part="1" 
-F 0 "C?" H 5359 6696 50  0000 R CNN
+AR Path="/5DF75CDE/5DA3CE64" Ref="C16"  Part="1" 
+F 0 "C16" H 5359 6696 50  0000 R CNN
 F 1 "100nF" H 5359 6605 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5450 6650 50  0001 C CNN
 F 3 "~" H 5450 6650 50  0001 C CNN
@@ -2235,8 +2206,8 @@ AR Path="/5EF76914/5DE93CBA" Ref="C?"  Part="1"
 AR Path="/6A313729/5DE93CBA" Ref="C?"  Part="1" 
 AR Path="/5DC89E19/5D0A147D/5DE93CBA" Ref="C?"  Part="1" 
 AR Path="/5DC89E19/5D396E91/5DE93CBA" Ref="C?"  Part="1" 
-AR Path="/5DF75CDE/5DE93CBA" Ref="C?"  Part="1" 
-F 0 "C?" H 7884 6221 50  0000 R CNN
+AR Path="/5DF75CDE/5DE93CBA" Ref="C10"  Part="1" 
+F 0 "C10" H 7884 6221 50  0000 R CNN
 F 1 "100nF" H 7884 6130 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7975 6175 50  0001 C CNN
 F 3 "~" H 7975 6175 50  0001 C CNN
@@ -2247,16 +2218,173 @@ Connection ~ 7975 6275
 Connection ~ 7975 6075
 Wire Wire Line
 	5800 2950 5800 5500
+Text Notes 2900 1700 0    100  ~ 20
+State Machine
+Text Label 5750 2300 0    50   ~ 0
+TC
+Wire Wire Line
+	5900 2850 5900 5400
+Text Label 6350 2300 0    50   ~ 0
+~EN
+Text Label 6350 3800 0    50   ~ 0
+~EN
+Text HLabel 1050 4200 0    50   Input ~ 0
+~RSTHOLD
+Wire Wire Line
+	1050 4200 1600 4200
+$Comp
+L alexios:74LVC2G157 U?
+U 1 1 5F6B6E6D
+P 1950 4100
+AR Path="/6A313729/5F6B6E6D" Ref="U?"  Part="1" 
+AR Path="/5DC89E19/5D0A147D/5F6B6E6D" Ref="U?"  Part="1" 
+AR Path="/5DC89E19/5D396E91/5F6B6E6D" Ref="U?"  Part="1" 
+AR Path="/5DF75CDE/5F6B6E6D" Ref="U16"  Part="1" 
+F 0 "U16" H 1950 4467 50  0000 C CNN
+F 1 "74LVC2G157" H 1950 4376 50  0000 C CNN
+F 2 "alexios:TSSOP-8_3x3mm_P0.65mm" H 1850 4225 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/sn74lvc2g157.pdf" H 1850 4225 50  0001 C CNN
+	1    1950 4100
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR0217
+U 1 1 5F6C4D27
+P 1550 3950
+F 0 "#PWR0217" H 1550 3800 50  0001 C CNN
+F 1 "+5V" H 1565 4123 50  0000 C CNN
+F 2 "" H 1550 3950 50  0001 C CNN
+F 3 "" H 1550 3950 50  0001 C CNN
+	1    1550 3950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1550 3950 1550 4000
+Wire Wire Line
+	1550 4000 1600 4000
+Wire Wire Line
+	1600 4100 1250 4100
+Text Label 1250 4100 0    50   ~ 0
+TC
+Wire Wire Line
+	2300 4000 2500 4000
+Text Label 2500 4000 2    50   ~ 0
+~EN
+NoConn ~ 2300 4300
+$Comp
+L power:GND #PWR0218
+U 1 1 5F6FBC68
+P 1550 4350
+F 0 "#PWR0218" H 1550 4100 50  0001 C CNN
+F 1 "GND" H 1555 4177 50  0000 C CNN
+F 2 "" H 1550 4350 50  0001 C CNN
+F 3 "" H 1550 4350 50  0001 C CNN
+	1    1550 4350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1550 4300 1550 4350
+Wire Wire Line
+	1550 4300 1600 4300
+Text Label 1250 4200 0    50   ~ 0
+~RSTHOLD
+Wire Wire Line
+	6250 2300 6500 2300
+Wire Wire Line
+	6250 3800 6500 3800
+Connection ~ 8000 3800
+Text Notes 2550 4300 0    50   ~ 0
+Disables all IBus outputs during\nreset, as the counter starts in an\nindeterminate random state and\ncould be counting!
+Wire Wire Line
+	6000 3900 6000 4900
+Wire Wire Line
+	8000 2300 8000 3800
+Wire Wire Line
+	6250 2300 6250 3800
+Wire Wire Line
+	6250 3800 6250 4200
+Wire Wire Line
+	6250 4200 8000 4200
+Wire Wire Line
+	8000 3800 8000 4200
+Connection ~ 6250 3800
+$Comp
+L alexios:74LVC2G157 U?
+U 2 1 5F7A2DF3
+P 6950 6400
+AR Path="/6A313729/5F7A2DF3" Ref="U?"  Part="2" 
+AR Path="/5DC89E19/5D0A147D/5F7A2DF3" Ref="U?"  Part="2" 
+AR Path="/5DC89E19/5D396E91/5F7A2DF3" Ref="U?"  Part="2" 
+AR Path="/5DF75CDE/5F7A2DF3" Ref="U17"  Part="2" 
+F 0 "U17" H 6850 6750 50  0000 L CNN
+F 1 "74LVC2G157" H 6750 6650 50  0000 L CNN
+F 2 "alexios:TSSOP-8_3x3mm_P0.65mm" H 6850 6525 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/sn74lvc2g157.pdf" H 6850 6525 50  0001 C CNN
+	2    6950 6400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 5F7A2DF9
+P 6600 6400
+AR Path="/5CC0D65F/5F7A2DF9" Ref="C?"  Part="1" 
+AR Path="/5F7A2DF9" Ref="C?"  Part="1" 
+AR Path="/5EF76914/5F7A2DF9" Ref="C?"  Part="1" 
+AR Path="/6A313729/5F7A2DF9" Ref="C?"  Part="1" 
+AR Path="/5DC89E19/5D0A147D/5F7A2DF9" Ref="C?"  Part="1" 
+AR Path="/5DC89E19/5D396E91/5F7A2DF9" Ref="C?"  Part="1" 
+AR Path="/5DF75CDE/5F7A2DF9" Ref="C45"  Part="1" 
+F 0 "C45" H 6509 6446 50  0000 R CNN
+F 1 "100nF" H 6509 6355 50  0000 R CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 6600 6400 50  0001 C CNN
+F 3 "~" H 6600 6400 50  0001 C CNN
+	1    6600 6400
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 5F7A2DFF
+P 6600 6300
+AR Path="/5F7A2DFF" Ref="#PWR?"  Part="1" 
+AR Path="/5EF76914/5F7A2DFF" Ref="#PWR?"  Part="1" 
+AR Path="/6A313729/5F7A2DFF" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5D0A147D/5F7A2DFF" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5D396E91/5F7A2DFF" Ref="#PWR?"  Part="1" 
+AR Path="/5DF75CDE/5F7A2DFF" Ref="#PWR05"  Part="1" 
+F 0 "#PWR05" H 6600 6150 50  0001 C CNN
+F 1 "+5V" H 6615 6473 50  0000 C CNN
+F 2 "" H 6600 6300 50  0001 C CNN
+F 3 "" H 6600 6300 50  0001 C CNN
+	1    6600 6300
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5F7A2E05
+P 6600 6500
+AR Path="/5F7A2E05" Ref="#PWR?"  Part="1" 
+AR Path="/5EF76914/5F7A2E05" Ref="#PWR?"  Part="1" 
+AR Path="/6A313729/5F7A2E05" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5D0A147D/5F7A2E05" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5D396E91/5F7A2E05" Ref="#PWR?"  Part="1" 
+AR Path="/5DF75CDE/5F7A2E05" Ref="#PWR06"  Part="1" 
+F 0 "#PWR06" H 6600 6250 50  0001 C CNN
+F 1 "GND" H 6605 6327 50  0000 C CNN
+F 2 "" H 6600 6500 50  0001 C CNN
+F 3 "" H 6600 6500 50  0001 C CNN
+	1    6600 6500
+	1    0    0    -1  
+$EndComp
+Connection ~ 6600 6500
+Connection ~ 6600 6300
 Wire Bus Line
 	4400 1100 4400 1800
 Wire Bus Line
 	8250 1500 8250 4000
 Wire Bus Line
-	6100 950  6100 4700
+	7900 1100 7900 3500
 Wire Bus Line
 	10050 1100 10050 3800
 Wire Bus Line
-	7900 1100 7900 3500
-Text Notes 2900 1700 0    100  ~ 20
-State Machine
+	6100 950  6100 4700
 $EndSCHEMATC

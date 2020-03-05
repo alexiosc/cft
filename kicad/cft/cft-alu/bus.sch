@@ -1,10 +1,9 @@
 EESchema Schematic File Version 4
-LIBS:cft-alu-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 13 9
+Sheet 2 9
 Title "Edge Connector"
 Date "2019-11-17"
 Rev ""
@@ -15,16 +14,16 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L alexios:CFT-2019-Bus P?
+L alexios:CFT-2019-Bus P1
 U 1 1 5D36087B
 P 3150 1600
-AR Path="/5D34E810/5D36087B" Ref="P?"  Part="1" 
+AR Path="/5D34E810/5D36087B" Ref="P1"  Part="1" 
 AR Path="/5D36B851/5D36087B" Ref="P?"  Part="1" 
 AR Path="/5F1DB2E8/5D36087B" Ref="P?"  Part="1" 
 AR Path="/5D36087B" Ref="P?"  Part="1" 
 AR Path="/5DD3D79F/5D34E810/5D36087B" Ref="P?"  Part="1" 
 AR Path="/5DD5525C/5D36087B" Ref="P?"  Part="1" 
-F 0 "P?" H 3150 1767 50  0000 C CNN
+F 0 "P1" H 3150 1767 50  0000 C CNN
 F 1 "CFT-2019-Bus" H 3150 1676 50  0000 C CNN
 F 2 "alexios:CFT-2019-Card-Edge" H 3100 700 50  0001 C CNN
 F 3 "" H 3100 700 50  0001 C CNN
@@ -32,16 +31,16 @@ F 3 "" H 3100 700 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L alexios:CFT-2019-Bus P?
+L alexios:CFT-2019-Bus P1
 U 2 1 5D360881
 P 5900 1600
-AR Path="/5D34E810/5D360881" Ref="P?"  Part="2" 
+AR Path="/5D34E810/5D360881" Ref="P1"  Part="2" 
 AR Path="/5D36B851/5D360881" Ref="P?"  Part="2" 
 AR Path="/5F1DB2E8/5D360881" Ref="P?"  Part="2" 
 AR Path="/5D360881" Ref="P?"  Part="2" 
 AR Path="/5DD3D79F/5D34E810/5D360881" Ref="P?"  Part="2" 
 AR Path="/5DD5525C/5D360881" Ref="P?"  Part="2" 
-F 0 "P?" H 5900 1767 50  0000 C CNN
+F 0 "P1" H 5900 1767 50  0000 C CNN
 F 1 "CFT-2019-Bus" H 5900 1676 50  0000 C CNN
 F 2 "alexios:CFT-2019-Card-Edge" H 5850 700 50  0001 C CNN
 F 3 "" H 5850 700 50  0001 C CNN
@@ -709,16 +708,16 @@ WADDR[0..4]
 Text HLabel 1350 6050 0    50   UnSpc ~ 0
 RADDR[0..4]
 $Comp
-L alexios:CFT-2019-Bus P?
+L alexios:CFT-2019-Bus P1
 U 4 1 5D360875
 P 9350 4650
-AR Path="/5D34E810/5D360875" Ref="P?"  Part="4" 
+AR Path="/5D34E810/5D360875" Ref="P1"  Part="4" 
 AR Path="/5D36B851/5D360875" Ref="P?"  Part="4" 
 AR Path="/5F1DB2E8/5D360875" Ref="P?"  Part="4" 
 AR Path="/5D360875" Ref="P?"  Part="4" 
 AR Path="/5DD3D79F/5D34E810/5D360875" Ref="P?"  Part="4" 
 AR Path="/5DD5525C/5D360875" Ref="P?"  Part="4" 
-F 0 "P?" H 9350 4817 50  0000 C CNN
+F 0 "P1" H 9350 4817 50  0000 C CNN
 F 1 "CFT-2019-Bus" H 9350 4726 50  0000 C CNN
 F 2 "alexios:CFT-2019-Card-Edge" H 9300 3750 50  0001 C CNN
 F 3 "" H 9300 3750 50  0001 C CNN
@@ -820,16 +819,16 @@ Wire Wire Line
 Wire Wire Line
 	8350 3700 8800 3700
 $Comp
-L alexios:CFT-2019-Bus P?
+L alexios:CFT-2019-Bus P1
 U 3 1 5D3608F9
 P 9300 1650
-AR Path="/5D34E810/5D3608F9" Ref="P?"  Part="3" 
+AR Path="/5D34E810/5D3608F9" Ref="P1"  Part="3" 
 AR Path="/5D36B851/5D3608F9" Ref="P?"  Part="3" 
 AR Path="/5F1DB2E8/5D3608F9" Ref="P?"  Part="3" 
 AR Path="/5D3608F9" Ref="P?"  Part="3" 
 AR Path="/5DD3D79F/5D34E810/5D3608F9" Ref="P?"  Part="3" 
 AR Path="/5DD5525C/5D3608F9" Ref="P?"  Part="3" 
-F 0 "P?" H 9300 1817 50  0000 C CNN
+F 0 "P1" H 9300 1817 50  0000 C CNN
 F 1 "CFT-2019-Bus" H 9300 1726 50  0000 C CNN
 F 2 "alexios:CFT-2019-Card-Edge" H 9250 750 50  0001 C CNN
 F 3 "" H 9250 750 50  0001 C CNN
@@ -997,11 +996,11 @@ L Device:CP_Small C?
 U 1 1 5D8FC46B
 P 8900 5000
 AR Path="/5D8FC46B" Ref="C?"  Part="1" 
-AR Path="/5D34E810/5D8FC46B" Ref="C?"  Part="1" 
+AR Path="/5D34E810/5D8FC46B" Ref="C3"  Part="1" 
 AR Path="/5F1DB2E8/5D8FC46B" Ref="C?"  Part="1" 
 AR Path="/5DD3D79F/5D34E810/5D8FC46B" Ref="C?"  Part="1" 
 AR Path="/5DD5525C/5D8FC46B" Ref="C?"  Part="1" 
-F 0 "C?" H 8812 5046 50  0000 R CNN
+F 0 "C3" H 8812 5046 50  0000 R CNN
 F 1 "47µF" H 8812 4955 50  0000 R CNN
 F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 8900 5000 50  0001 C CNN
 F 3 "~" H 8900 5000 50  0001 C CNN
@@ -1013,11 +1012,11 @@ L Device:CP_Small C?
 U 1 1 5D908E0A
 P 9800 5000
 AR Path="/5D908E0A" Ref="C?"  Part="1" 
-AR Path="/5D34E810/5D908E0A" Ref="C?"  Part="1" 
+AR Path="/5D34E810/5D908E0A" Ref="C4"  Part="1" 
 AR Path="/5F1DB2E8/5D908E0A" Ref="C?"  Part="1" 
 AR Path="/5DD3D79F/5D34E810/5D908E0A" Ref="C?"  Part="1" 
 AR Path="/5DD5525C/5D908E0A" Ref="C?"  Part="1" 
-F 0 "C?" H 9888 5046 50  0000 L CNN
+F 0 "C4" H 9888 5046 50  0000 L CNN
 F 1 "47µF" H 9888 4955 50  0000 L CNN
 F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 9800 5000 50  0001 C CNN
 F 3 "~" H 9800 5000 50  0001 C CNN

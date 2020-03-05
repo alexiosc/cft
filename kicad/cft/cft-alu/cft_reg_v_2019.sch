@@ -1,6 +1,5 @@
 EESchema Schematic File Version 4
-LIBS:cft-alu-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -60,8 +59,8 @@ AR Path="/5DC89E19/5D366A74" Ref="U?"  Part="1"
 AR Path="/5DC89E19/5D98F946/5D366A74" Ref="U?"  Part="1" 
 AR Path="/5D121AA3/5D366A74" Ref="U?"  Part="1" 
 AR Path="/5D13B20C/5D366A74" Ref="U?"  Part="1" 
-AR Path="/5D35C694/5D366A74" Ref="U?"  Part="1" 
-F 0 "U?" H 7750 3717 50  0000 C CNN
+AR Path="/5D35C694/5D366A74" Ref="U23"  Part="1" 
+F 0 "U23" H 7750 3717 50  0000 C CNN
 F 1 "74AC74" H 7750 3626 50  0000 C CNN
 F 2 "alexios:SOIC-14" H 7700 3450 50  0001 C CNN
 F 3 "74xx/74hc_hct74.pdf" H 7700 3450 50  0001 C CNN
@@ -76,8 +75,8 @@ AR Path="/5DC89E19/5D366A7A" Ref="U?"  Part="2"
 AR Path="/5DC89E19/5D98F946/5D366A7A" Ref="U?"  Part="2" 
 AR Path="/5D121AA3/5D366A7A" Ref="U?"  Part="2" 
 AR Path="/5D13B20C/5D366A7A" Ref="U?"  Part="2" 
-AR Path="/5D35C694/5D366A7A" Ref="U?"  Part="2" 
-F 0 "U?" H 9400 3617 50  0000 C CNN
+AR Path="/5D35C694/5D366A7A" Ref="U23"  Part="2" 
+F 0 "U23" H 9400 3617 50  0000 C CNN
 F 1 "74AC74" H 9400 3526 50  0000 C CNN
 F 2 "alexios:SOIC-14" H 9350 3350 50  0001 C CNN
 F 3 "74xx/74hc_hct74.pdf" H 9350 3350 50  0001 C CNN
@@ -98,8 +97,8 @@ AR Path="/5DC89E19/5D366A83" Ref="U?"  Part="1"
 AR Path="/5DC89E19/5D98F946/5D366A83" Ref="U?"  Part="2" 
 AR Path="/5D121AA3/5D366A83" Ref="U?"  Part="2" 
 AR Path="/5D13B20C/5D366A83" Ref="U?"  Part="2" 
-AR Path="/5D35C694/5D366A83" Ref="U?"  Part="2" 
-F 0 "U?" H 4330 7246 50  0000 L CNN
+AR Path="/5D35C694/5D366A83" Ref="U25"  Part="2" 
+F 0 "U25" H 4330 7246 50  0000 L CNN
 F 1 "74LVC1G08" H 4330 7155 50  0000 L CNN
 F 2 "alexios:SOT-23-5_HandSoldering" H 3900 7300 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 3900 7300 50  0001 C CNN
@@ -119,8 +118,8 @@ AR Path="/5DC89E19/5D366A89" Ref="C?"  Part="1"
 AR Path="/5DC89E19/5D98F946/5D366A89" Ref="C?"  Part="1" 
 AR Path="/5D121AA3/5D366A89" Ref="C?"  Part="1" 
 AR Path="/5D13B20C/5D366A89" Ref="C?"  Part="1" 
-AR Path="/5D35C694/5D366A89" Ref="C?"  Part="1" 
-F 0 "C?" H 809 7446 50  0000 R CNN
+AR Path="/5D35C694/5D366A89" Ref="C23"  Part="1" 
+F 0 "C23" H 809 7446 50  0000 R CNN
 F 1 "100nF" H 809 7355 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 900 7400 50  0001 C CNN
 F 3 "~" H 900 7400 50  0001 C CNN
@@ -180,8 +179,8 @@ AR Path="/5DC89E19/5D366A9B" Ref="C?"  Part="1"
 AR Path="/5DC89E19/5D98F946/5D366A9B" Ref="C?"  Part="1" 
 AR Path="/5D121AA3/5D366A9B" Ref="C?"  Part="1" 
 AR Path="/5D13B20C/5D366A9B" Ref="C?"  Part="1" 
-AR Path="/5D35C694/5D366A9B" Ref="C?"  Part="1" 
-F 0 "C?" H 3709 7446 50  0000 R CNN
+AR Path="/5D35C694/5D366A9B" Ref="C25"  Part="1" 
+F 0 "C25" H 3709 7446 50  0000 R CNN
 F 1 "100nF" H 3709 7355 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3800 7400 50  0001 C CNN
 F 3 "~" H 3800 7400 50  0001 C CNN
@@ -241,8 +240,8 @@ AR Path="/5DC89E19/5D366AAD" Ref="C?"  Part="1"
 AR Path="/5DC89E19/5D98F946/5D366AAD" Ref="C?"  Part="1" 
 AR Path="/5D121AA3/5D366AAD" Ref="C?"  Part="1" 
 AR Path="/5D13B20C/5D366AAD" Ref="C?"  Part="1" 
-AR Path="/5D35C694/5D366AAD" Ref="C?"  Part="1" 
-F 0 "C?" H 5159 7446 50  0000 R CNN
+AR Path="/5D35C694/5D366AAD" Ref="C26"  Part="1" 
+F 0 "C26" H 5159 7446 50  0000 R CNN
 F 1 "100nF" H 5159 7355 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5250 7400 50  0001 C CNN
 F 3 "~" H 5250 7400 50  0001 C CNN
@@ -349,8 +348,8 @@ L alexios:74LVC2G157 U?
 U 2 1 5D366AF7
 P 1250 7400
 AR Path="/5D13B20C/5D366AF7" Ref="U?"  Part="2" 
-AR Path="/5D35C694/5D366AF7" Ref="U?"  Part="2" 
-F 0 "U?" H 1430 7446 50  0000 L CNN
+AR Path="/5D35C694/5D366AF7" Ref="U24"  Part="2" 
+F 0 "U24" H 1430 7446 50  0000 L CNN
 F 1 "74LVC2G157" H 1430 7355 50  0000 L CNN
 F 2 "alexios:TSSOP-8_3x3mm_P0.65mm" H 1150 7525 50  0001 C CNN
 F 3 "http://www.ti.com/lit/ds/symlink/sn74lvc2g157.pdf" H 1150 7525 50  0001 C CNN
@@ -371,8 +370,8 @@ AR Path="/5DC89E19/5D366B05" Ref="U?"  Part="1"
 AR Path="/5DC89E19/5D98F946/5D366B05" Ref="U?"  Part="1" 
 AR Path="/5D121AA3/5D366B05" Ref="U?"  Part="1" 
 AR Path="/5D13B20C/5D366B05" Ref="U?"  Part="3" 
-AR Path="/5D35C694/5D366B05" Ref="U?"  Part="3" 
-F 0 "U?" H 5780 7446 50  0000 L CNN
+AR Path="/5D35C694/5D366B05" Ref="U23"  Part="3" 
+F 0 "U23" H 5780 7446 50  0000 L CNN
 F 1 "74AC74" H 5780 7355 50  0000 L CNN
 F 2 "alexios:SOIC-14" H 5550 7550 50  0001 C CNN
 F 3 "74xx/74hc_hct74.pdf" H 5550 7550 50  0001 C CNN
@@ -402,8 +401,8 @@ AR Path="/5DC89E19/5CF5A95E/5D880683" Ref="C?"  Part="1"
 AR Path="/5DC89E19/5D880683" Ref="C?"  Part="1" 
 AR Path="/5DC89E19/5D98F946/5D880683" Ref="C?"  Part="1" 
 AR Path="/5D121AA3/5D880683" Ref="C?"  Part="1" 
-AR Path="/5D35C694/5D880683" Ref="C?"  Part="1" 
-F 0 "C?" H 2259 7446 50  0000 R CNN
+AR Path="/5D35C694/5D880683" Ref="C24"  Part="1" 
+F 0 "C24" H 2259 7446 50  0000 R CNN
 F 1 "100nF" H 2259 7355 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2350 7400 50  0001 C CNN
 F 3 "~" H 2350 7400 50  0001 C CNN
@@ -451,10 +450,10 @@ $EndComp
 Text Label 8200 3150 0    50   ~ 0
 FV0
 $Comp
-L alexios:74HC08 U?
+L alexios:74HC08 U22
 U 3 1 5E61248D
 P 5200 3050
-F 0 "U?" H 5325 2925 50  0000 C CNN
+F 0 "U22" H 5325 2925 50  0000 C CNN
 F 1 "74HC08" H 5325 2834 50  0000 C CNN
 F 2 "alexios:SOIC-14" H 5400 2600 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 5400 2600 50  0001 C CNN
@@ -469,8 +468,8 @@ AR Path="/5DC89E19/5D366A62" Ref="U?"  Part="1"
 AR Path="/5DC89E19/5D98F946/5D366A62" Ref="U?"  Part="1" 
 AR Path="/5D121AA3/5D366A62" Ref="U?"  Part="1" 
 AR Path="/5D13B20C/5D366A62" Ref="U?"  Part="1" 
-AR Path="/5D35C694/5D366A62" Ref="U?"  Part="1" 
-F 0 "U?" H 3075 4617 50  0000 C CNN
+AR Path="/5D35C694/5D366A62" Ref="U25"  Part="1" 
+F 0 "U25" H 3075 4617 50  0000 C CNN
 F 1 "74LVC1G08" H 3075 4526 50  0000 C CNN
 F 2 "alexios:SOT-23-5_HandSoldering" H 2800 4350 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 2800 4350 50  0001 C CNN
@@ -480,10 +479,10 @@ $EndComp
 Text Notes 3800 3950 0    50   ~ 0
 Delay VD by n×Tpd, 0≤n≤4.\nThis delay line gives us more hold time on rising edge of CLKV.\nStart with three, then change if V isn't set properly.
 $Comp
-L alexios:74HC08 U?
+L alexios:74HC08 U22
 U 2 1 5E61040A
 P 4550 3050
-F 0 "U?" H 4675 2925 50  0000 C CNN
+F 0 "U22" H 4675 2925 50  0000 C CNN
 F 1 "74HC08" H 4675 2834 50  0000 C CNN
 F 2 "alexios:SOIC-14" H 4750 2600 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 4750 2600 50  0001 C CNN
@@ -491,10 +490,10 @@ F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 4750 2600 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L alexios:74HC08 U?
+L alexios:74HC08 U22
 U 1 1 5E60DB8C
 P 3900 3050
-F 0 "U?" H 4025 2925 50  0000 C CNN
+F 0 "U22" H 4025 2925 50  0000 C CNN
 F 1 "74HC08" H 4025 2834 50  0000 C CNN
 F 2 "alexios:SOIC-14" H 4100 2600 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 4100 2600 50  0001 C CNN
@@ -550,8 +549,8 @@ L alexios:74LVC2G157 U?
 U 1 1 5D366AE1
 P 3100 3550
 AR Path="/5D13B20C/5D366AE1" Ref="U?"  Part="1" 
-AR Path="/5D35C694/5D366AE1" Ref="U?"  Part="1" 
-F 0 "U?" H 3100 3917 50  0000 C CNN
+AR Path="/5D35C694/5D366AE1" Ref="U24"  Part="1" 
+F 0 "U24" H 3100 3917 50  0000 C CNN
 F 1 "74LVC2G157" H 3100 3826 50  0000 C CNN
 F 2 "alexios:TSSOP-8_3x3mm_P0.65mm" H 3000 3675 50  0001 C CNN
 F 3 "http://www.ti.com/lit/ds/symlink/sn74lvc2g157.pdf" H 3000 3675 50  0001 C CNN
@@ -567,10 +566,10 @@ Wire Wire Line
 	5850 3450 5850 3500
 Connection ~ 5850 3450
 $Comp
-L alexios:74HC08 U?
+L alexios:74HC08 U22
 U 4 1 5E6357B5
 P 5950 3050
-F 0 "U?" H 6075 2925 50  0000 C CNN
+F 0 "U22" H 6075 2925 50  0000 C CNN
 F 1 "74HC08" H 6075 2834 50  0000 C CNN
 F 2 "alexios:SOIC-14" H 6150 2600 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 6150 2600 50  0001 C CNN
@@ -578,10 +577,10 @@ F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 6150 2600 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L alexios:74HC08 U?
+L alexios:74HC08 U22
 U 5 1 5E2A7483
 P 2550 6850
-F 0 "U?" H 2880 6346 50  0000 L CNN
+F 0 "U22" H 2880 6346 50  0000 L CNN
 F 1 "74HC08" H 2880 6255 50  0000 L CNN
 F 2 "alexios:SOIC-14" H 2750 6400 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 2750 6400 50  0001 C CNN
@@ -591,10 +590,10 @@ $EndComp
 Connection ~ 2350 7300
 Connection ~ 2350 7500
 $Comp
-L Device:R_Small R?
+L Device:R_Small R1
 U 1 1 5DD10E8A
 P 9950 3050
-F 0 "R?" V 9754 3050 50  0000 C CNN
+F 0 "R1" V 9754 3050 50  0000 C CNN
 F 1 "30Ω" V 9845 3050 50  0000 C CNN
 F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 9950 3050 50  0001 C CNN
 F 3 "~" H 9950 3050 50  0001 C CNN
@@ -609,10 +608,10 @@ Connection ~ 4450 3450
 Wire Wire Line
 	6900 3250 7300 3250
 $Comp
-L Jumper:SolderJumper_2_Bridged JP?
+L Jumper:SolderJumper_2_Bridged JP15
 U 1 1 5DE15A8C
 P 5750 3050
-F 0 "JP?" V 5750 3118 50  0000 L CNN
+F 0 "JP15" V 5750 3118 50  0000 L CNN
 F 1 "SolderJumper_2_Bridged" H 5750 3164 50  0001 C CNN
 F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 5750 3050 50  0001 C CNN
 F 3 "~" H 5750 3050 50  0001 C CNN
@@ -620,10 +619,10 @@ F 3 "~" H 5750 3050 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L Jumper:SolderJumper_2_Open JP?
+L Jumper:SolderJumper_2_Open JP12
 U 1 1 5DE15E69
 P 3700 3050
-F 0 "JP?" V 3700 3118 50  0000 L CNN
+F 0 "JP12" V 3700 3118 50  0000 L CNN
 F 1 "SolderJumper_2_Open" H 3700 3164 50  0001 C CNN
 F 2 "Jumper:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm" H 3700 3050 50  0001 C CNN
 F 3 "~" H 3700 3050 50  0001 C CNN
@@ -644,10 +643,10 @@ Connection ~ 3700 3450
 Wire Wire Line
 	3700 3450 3800 3450
 $Comp
-L Jumper:SolderJumper_2_Open JP?
+L Jumper:SolderJumper_2_Open JP13
 U 1 1 5DE257A3
 P 4350 3050
-F 0 "JP?" V 4350 3118 50  0000 L CNN
+F 0 "JP13" V 4350 3118 50  0000 L CNN
 F 1 "SolderJumper_2_Open" H 4350 3164 50  0001 C CNN
 F 2 "Jumper:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm" H 4350 3050 50  0001 C CNN
 F 3 "~" H 4350 3050 50  0001 C CNN
@@ -655,10 +654,10 @@ F 3 "~" H 4350 3050 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L Jumper:SolderJumper_2_Open JP?
+L Jumper:SolderJumper_2_Open JP14
 U 1 1 5DE265BF
 P 5000 3050
-F 0 "JP?" V 5000 3118 50  0000 L CNN
+F 0 "JP14" V 5000 3118 50  0000 L CNN
 F 1 "SolderJumper_2_Open" H 5000 3164 50  0001 C CNN
 F 2 "Jumper:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm" H 5000 3050 50  0001 C CNN
 F 3 "~" H 5000 3050 50  0001 C CNN
@@ -666,10 +665,10 @@ F 3 "~" H 5000 3050 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L Jumper:SolderJumper_2_Open JP?
+L Jumper:SolderJumper_2_Open JP16
 U 1 1 5DE27451
 P 6400 3050
-F 0 "JP?" V 6400 3118 50  0000 L CNN
+F 0 "JP16" V 6400 3118 50  0000 L CNN
 F 1 "SolderJumper_2_Open" H 6400 3164 50  0001 C CNN
 F 2 "Jumper:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm" H 6400 3050 50  0001 C CNN
 F 3 "~" H 6400 3050 50  0001 C CNN

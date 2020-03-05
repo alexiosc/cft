@@ -1,6 +1,5 @@
 EESchema Schematic File Version 4
-LIBS:cft-alu-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -547,8 +546,8 @@ S 5400 2950 1150 2100
 U 5DF75CDE
 F0 "sheet5DF75CCD" 50
 F1 "Serial_Shifter.sch" 50
-F2 "CLK2" I L 5400 3200 50 
-F3 "CLK4" I L 5400 3300 50 
+F2 "CLK2" I L 5400 3300 50 
+F3 "CLK4" I L 5400 3400 50 
 F4 "DIST[0..3]" I L 5400 3900 50 
 F5 "~SHIFT~∕ROTATE" I L 5400 4350 50 
 F6 "~LOGIC~∕ARITH" I L 5400 4200 50 
@@ -561,6 +560,7 @@ F12 "FLFAST" I L 5400 4750 50
 F13 "BCP-SRU" O R 6550 4650 50 
 F14 "~START" I L 5400 4500 50 
 F15 "FLCP-SRU" O R 6550 4850 50 
+F16 "~RSTHOLD" I L 5400 3200 50 
 $EndSheet
 Text Label 4900 4650 0    50   ~ 0
 B[0..15]
@@ -583,10 +583,10 @@ IR6
 Wire Wire Line
 	4900 3100 5400 3100
 Wire Wire Line
-	5400 3300 4900 3300
+	5400 3400 4900 3400
 Wire Wire Line
-	5400 3200 4900 3200
-Text Label 4900 3300 0    50   ~ 0
+	5400 3300 4900 3300
+Text Label 4900 3400 0    50   ~ 0
 CLK4
 Wire Wire Line
 	6550 4650 7050 4650
@@ -594,7 +594,7 @@ Text Label 7050 4650 2    50   ~ 0
 BCP-SRU
 Text Label 4900 3100 0    50   ~ 0
 ~RESET
-Text Label 4900 3200 0    50   ~ 0
+Text Label 4900 3300 0    50   ~ 0
 CLK2
 Text Label 4900 4750 0    50   ~ 0
 FLFAST
@@ -1253,14 +1253,18 @@ Wire Wire Line
 	3900 5450 4550 5450
 Text Label 4550 5450 2    50   ~ 0
 FL-OFFBOARD
+Text Notes 550  400  0    197  ~ 39
+TODO: Clean up schematics, annotate and reassociate with PCB!
+Wire Wire Line
+	5400 3200 4900 3200
 Wire Bus Line
-	10100 3450 10100 5050
-Wire Bus Line
-	10100 1300 10100 1950
+	800  4100 2350 4100
 Wire Bus Line
 	7150 1200 7150 4450
 Wire Bus Line
-	800  4100 2350 4100
-Text Notes 550  400  0    197  ~ 39
-TODO: Clean up schematics, annotate and reassociate with PCB!
+	10100 1300 10100 1950
+Wire Bus Line
+	10100 3450 10100 5050
+Text Label 4900 3200 0    50   ~ 0
+~RSTHOLD
 $EndSCHEMATC
