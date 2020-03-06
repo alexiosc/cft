@@ -150,7 +150,11 @@ module card_dfp (
 	   // virtual DFP the same way. This lets us run the same tests on
 	   // Verilog, C emulator and real hardware.
 
-	   8'h00: OR = db; $display("321 Output Register: %04x", OR); // SOR
+	   8'h00: begin
+	      OR = db;
+	      $display("321 Output Register: %04x", OR);
+	   end
+
 	   8'h08: $display("509 ENEF not implemented");	              // ENEF
 	   8'h09: $display("509 DISEF not implemented");              // DISEF
 
@@ -179,7 +183,7 @@ module card_dfp (
 	   8'h1d: begin
 	      $display("305 Halted");
 	      //$display("D: TIME: %d ns", $time);
-	      nhalt <= 1'b0;
+	      nhalt_drv <= 1'b0;
 	      -> halting;
 	   end
 	     
@@ -190,7 +194,7 @@ module card_dfp (
 	      $display("509 Address &%03h not implemented", ab[9:0]);
 	      -> assertion_failed;
 	      -> halting;
-	   end;
+	   end
 	 endcase // casex (addr[7:0])
       end // if (niodev1xx == 1'b0)
    end // always @ (posedge nw)
