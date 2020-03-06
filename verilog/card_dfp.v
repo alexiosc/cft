@@ -144,53 +144,53 @@ module card_dfp (
       if (niodev1xx == 1'b0) begin
 	 casex (ab[7:0])
 
-	   // SOR
-	   8'h00: begin
-	      OR = db;
-	      $display("T: OR: %04x", OR);
-	   end
+	   // Note: the three digit codes here are taken from
+	   // peripherals/dfp2/firmware/proto.h and are used so that the
+	   // verification framework can understand the output of both real and
+	   // virtual DFP the same way. This lets us run the same tests on
+	   // Verilog, C emulator and real hardware.
 
-	   8'h08: $display("T: ENEF: not implemented");      // ENEF
-	   8'h09: $display("T: DISEF: not implemented");     // DISEF
+	   8'h00: OR = db; $display("321 Output Register: %04x", OR); // SOR
+	   8'h08: $display("509 ENEF not implemented");	              // ENEF
+	   8'h09: $display("509 DISEF not implemented");              // DISEF
 
 	   // SENTINEL
 	   8'h0f: begin
-	      $display("T: SENTINEL");
+	      $display("341 SENTINEL");
 	      -> assertion_failed;
 	      -> halting;
 	   end
 	     
-	   8'h10: $display("T: PRINTA: %h", db);             // PRINTA
-	   8'h11: $display("T: PRINTc: %d", db);             // PRINTC
-	   8'h12: $display("T: PRINTD: %d", $signed(db));    // PRINTD
-	   8'h13: $display("T: PRINTU: %d", db);             // PRINTU
-	   8'h14: $display("T: PRINTH: %x", db);             // PRINTH
-	   8'h15: $display("T: PRINTB: %b", db);             // PRINTB
-	   8'h16: $display("T: PRINTc: 32");                 // PRINTSP
-	   8'h17: $display("T: PRINTc: 10");                 // PRINTNL
-	   8'h18: $display("T: DEBUGON: not implemented");   // DEBUGON
-	   8'h19: $display("T: DEBUGOFF: not implemented");  // DEBUGOFF
-	   8'h1a: $display("T: DUMP: not implemented");      // DUMP
-	   8'h1b: hidb = db;				     // PRINTHI
-	   8'h1c: $display("T: PRINTL: %h%04h", hidb, db);   // PRINTLO
+	   8'h10: $display("340 PRINTA: %h", db);              // PRINTA
+	   8'h11: $display("340 PRINTc: %d", db);              // PRINTC
+	   8'h12: $display("340 PRINTD: %d", $signed(db));     // PRINTD
+	   8'h13: $display("340 PRINTU: %d", db);              // PRINTU
+	   8'h14: $display("340 PRINTH: %x", db);              // PRINTH
+	   8'h15: $display("340 PRINTB: %b", db);              // PRINTB
+	   8'h16: $display("340 PRINTc: 32");                  // PRINTSP
+	   8'h17: $display("340 PRINTc: 10");                  // PRINTNL
+	   8'h18: $display("509 DEBUGON is not implemented");  // DEBUGON
+	   8'h19: $display("509 DEBUGOFF is not implemented"); // DEBUGOFF
+	   8'h1a: $display("509 DUMP is not implemented");     // DUMP
+	   8'h1b: hidb = db;				       // PRINTHI
+	   8'h1c: $display("340 PRINTL: %h%04h", hidb, db);    // PRINTLO
 
 	   // HALT
 	   8'h1d: begin
-	      $display("D: *** HALTING ***");
-	      $display("D: TIME: %d ns", $time);
-	      nhalt_drv <= 1'b0;
+	      $display("305 Halted");
+	      //$display("D: TIME: %d ns", $time);
+	      nhalt <= 1'b0;
 	      -> halting;
 	   end
 	     
-	   8'h1e: $display("T: ASSERT: TRUE");               // SUCCESS
-	   8'h1f: $display("T: ASSERT: FALSE");              // FAIL
+	   8'h1e: $display("345 SUCCESS");	               // SUCCESS
+	   8'h1f: $display("346 FAIL");                        // FAIL
 
-	   default:
-	     begin
-		$display("T: UNKNOWN DFP ADDR %h", ab[9:0]);
-		-> assertion_failed;
-		-> halting;
-	     end
+	   default: begin
+	      $display("509 Address &%03h not implemented", ab[9:0]);
+	      -> assertion_failed;
+	      -> halting;
+	   end;
 	 endcase // casex (addr[7:0])
       end // if (niodev1xx == 1'b0)
    end // always @ (posedge nw)
