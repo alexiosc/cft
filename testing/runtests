@@ -47,6 +47,9 @@ p.add_argument('-w', '--wave', action='store_true',
 p.add_argument('-v', '--verbose', action='store_true',
                help='Print out simulation output.')
 
+p.add_argument(metavar='TEST-FILENAME', dest='tests', nargs='+',
+               help='The test or tests to run.')
+
 args = p.parse_args()
 
 if sum((int(x) for x in (args.list, args.list_xargs, args.make_deps,
@@ -150,7 +153,7 @@ if not args.framework:
 
 allTests = tuple(allTests)
 tests = []
-for name in sorted(args):
+for name in sorted(args.tests):
     test = os.path.splitext(os.path.basename(name))[0]
     if test not in allTests:
         continue

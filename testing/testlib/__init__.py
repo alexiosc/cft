@@ -437,7 +437,7 @@ class BaseTest(unittest.TestCase):
 
     def assertNoFail(self, simout, msg):
         """Ensure the simulator hasn't returned any failures."""
-        #soupself.assertFalse('[FAIL!]' in simout)
+        #self.assertFalse('[FAIL!]' in simout)
 
 
     def assertStr(self, simout, substr, msg):
@@ -490,6 +490,63 @@ class BaseTest(unittest.TestCase):
 #         return subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE).stdout
 
 
+class VerilogTestbench(BaseTest):
+    """Execute a new (2019 style) Verilog testbench and harvest its results."""
+    
+    VERILOG_DIR = os.path.join(BASEDIR, 'verilog')
+
+    """
+    The base test class for running gets on the Verilog models.
+    """
+
+    def __init__(self, *args, **kwargs):
+        self._source = list()
+        self._simulator = os.path.join(BASEDIR, 'tools', 'run-verilog-testbench')
+        self._simargs = ''
+        BaseTest.__init__(self, *args, **kwargs)
+
+
+    def getFrameworkPrefix(self):
+        """Return a single character prefix identifying this testing framework."""
+        return 'v'
+
+
+    # def addArg(self, arg):
+    #     """Add a command-line argument to the testbed command."""
+    #     self._simargs += ' ' + arg
+
+
+    def setUp(self):
+        """Set up the test by creating a temporary testbench with Verilog code."""
+        BaseTest.setUp(self)
+
+    def runFramework(self, getall=False, debug=False):
+        """Run the standard testbed (a simple CFT computer) and return its
+        output."""
+        try:
+            return self.runTestbed(self._simulator, basedir=BASEDIR,
+                                   ramlo='a-00.list', ramhi='a-01.list')
+        except KeyboardInterrupt:
+            os.system('stty sane')
+            raise
+
+    def runTestbench(self, testbench, *args, **kwargs):
+        """Run an arbitrary Verilog testbed"""
+
+        m = re.match("^(.+?)(_tb)?(\.[ov])?$", testbench)
+        testbench = m.group(0) + "_tb.v"
+
+        curdir = os.getcwd()
+        os.chdir(os.path.join(BASEDIR, 'verilog'))
+
+        self.cmd = 'stdbuf -o0 {} {} {}'.format(self._simulator, testbench, ' '.join(args))
+        
+        if verbose:
+            sys.stderr.write("Executing: %s\n" % self.cmd)
+        return subprocess.Popen(self.cmd, shell=True, stdout=subprocess.PIPE)
+
+
+
 class VerilogTest(BaseTest):
     
     VERILOG_DIR = os.path.join(BASEDIR, 'verification', 'tests')
@@ -531,7 +588,7 @@ class VerilogTest(BaseTest):
 
 
     def setUp(self):
-        """Set up the test by creating a temporary testbed with Verilog code."""
+        """Set up the test by creating a temporary testbench with Verilog code."""
         BaseTest.setUp(self)
 
         # Install a bare instance of the CFT simulator
