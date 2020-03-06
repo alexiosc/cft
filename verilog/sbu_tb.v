@@ -77,7 +77,7 @@ module sbu_tb();
       fz = 0;
       fn = 0;
       ir = 16'h0000;
-      $display("OK (Idle mode)");
+      $display("345 OK (Idle mode)");
 
       ///////////////////////////////////////////////////////////////////////////////
       //
@@ -90,7 +90,7 @@ module sbu_tb();
 	 #500 cond = i;
 	 #500 nskipext_drv = 1'b0;
 	 #500 nskipext_drv = 1'bz;
-	 $display("OK (nskipext %0d)", i);
+	 $display("345 OK (nskipext %0d)", i);
       end;
 
       ///////////////////////////////////////////////////////////////////////////////
@@ -125,9 +125,9 @@ module sbu_tb();
 	 #500 cext9_drv = 1'bz;
 	 #500 cext10_drv = 1;
 	 #500 cext10_drv = 1'bz;
-	 $display("OK (cond %0d)", i);
+	 $display("345 OK (cond %0d)", i);
       end // for (i = 1; i < 15; i = i + 1)
-      $display("OK (flags and cext)");
+      $display("345 OK (flags and cext)");
 
       ///////////////////////////////////////////////////////////////////////////////
       //
@@ -149,15 +149,15 @@ module sbu_tb();
 	    fn = i[3];
 
 	    if (j != ir) begin
-	       $display("OK (SKP &%03x)", ir[9:0]);
+	       $display("345 OK (SKP &%03x)", ir[9:0]);
 	       j = ir;
 	    end
 	    
 	 end // for (i = 0; i < 512; i = i + 1)
       end // for (i = 0; i < 512; i = i + 1)
-      $display("OK (SKP)");
+      $display("345 OK (SKP)");
 
-      #2000 $display("OK");
+      #2000 $display("345 OK");
       $finish;      // Terminate simulation
    end // initial begin
 
@@ -257,11 +257,11 @@ module sbu_tb();
 
 	 // Fail if we've logged an issue.
 	 if (msg[7:0]) begin
-	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+	    $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
 	    $error("assertion failure");
 	    #100 $finish;
 	 end
-	 else $display("OK SBU");
+	 else $display("345 OK SBU");
       end // always @ (posedge clk4)
    end // always @ (posedge clk4)
 

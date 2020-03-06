@@ -67,7 +67,7 @@ module agl_tb();
 	 end
       end
 
-      #2000 $display("OK");
+      #2000 $display("345 OK");
       $finish;
    end
 
@@ -99,11 +99,11 @@ module agl_tb();
 
 	 // Fail if we've logged an issue.
 	 if (msg[7:0]) begin
-	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+	    $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
 	    $error("assertion failure");
 	    #100 $finish;
 	 end
-	 else $display("OK agl");
+	 else $display("345 OK agl");
       end
    end // always @ (nread_agl, ir, pc)
 

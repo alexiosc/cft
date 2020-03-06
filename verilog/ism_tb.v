@@ -176,11 +176,11 @@ module int_tb();
 
       // Fail if we've logged an issue.
       if (msg[7:0]) begin
-	 $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+	 $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
 	 $error("assertion failure");
 	 #100 $finish;
       end
-      else $display("OK action/fi");
+      else $display("345 OK action/fi");
    end
 
    always @(posedge nflagwe) begin
@@ -193,11 +193,11 @@ module int_tb();
 
       // Fail if we've logged an issue.
       if (msg[7:0]) begin
-	 $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+	 $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
 	 $error("assertion failure");
 	 #100 $finish;
       end
-      else $display("OK nflagwe");
+      else $display("345 OK nflagwe");
    end
 
    always @(negedge nirqs) begin
@@ -221,11 +221,11 @@ module int_tb();
 
       // Fail if we've logged an issue.
       if (msg[7:0]) begin
-	 $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+	 $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
 	 $error("assertion failure");
 	 #100 $finish;
       end
-      else $display("OK IRQS");
+      else $display("345 OK IRQS");
    end
 
 endmodule // reg_ar_tb

@@ -220,11 +220,11 @@ module databus_tb();
 
    	 // Fail if we've logged an issue.
    	 if (msg[7:0]) begin
-   	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+   	    $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
    	    $error("assertion failure");
    	    #100 $finish;
    	 end
-   	 else $display("OK busen");
+   	 else $display("345 OK busen");
       end
    end // always @ (nmem, nio, nwaiting, databus.nbusen)
 
@@ -262,11 +262,11 @@ module databus_tb();
 
    	 // Fail if we've logged an issue.
    	 if (msg[7:0]) begin
-   	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+   	    $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
    	    $error("assertion failure");
    	    #100 $finish;
    	 end
-   	 else $display("OK busen");
+   	 else $display("345 OK busen");
       end
    end // always @ (clk4, nmem, nio, nr, nwen, nw)
 
@@ -294,11 +294,11 @@ module databus_tb();
 
    	 // Fail if we've logged an issue.
    	 if (msg[7:0]) begin
-   	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+   	    $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
    	    $error("assertion failure");
    	    #100 $finish;
    	 end
-   	 else $display("OK nws");
+   	 else $display("345 OK nws");
       end // always @ (nreset, negedge nws, posedge clk3)
    end // always @ (nreset, negedge nws, posedge clk3)
 
@@ -340,11 +340,11 @@ module databus_tb();
 		
    // 	 // Fail if we've logged an issue.
    // 	 if (msg[7:0]) begin
-   // 	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+   // 	    $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
    // 	    $error("assertion failure");
    // 	    #100 $finish;
    // 	 end
-   // 	 else $display("OK nw");
+   // 	 else $display("345 OK nw");
    //    end
    // end
 

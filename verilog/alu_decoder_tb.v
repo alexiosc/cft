@@ -152,12 +152,12 @@ module alu_decoder_tb();
 
       // Fail if we've logged an issue.
       if (msg[7:0]) begin
-   	 $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+   	 $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
    	 $error("assertion failure");
    	 #100 $finish;
       end
       else begin
-   	 $display("OK raddr");
+   	 $display("345 OK raddr");
       end
    end
 
@@ -187,12 +187,12 @@ module alu_decoder_tb();
 
       // Fail if we've logged an issue.
       if (msg[7:0]) begin
-   	 $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+   	 $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
    	 $error("assertion failure");
    	 #100 $finish;
       end
       else begin
-   	 $display("OK waddr");
+   	 $display("345 OK waddr");
       end
    end
 
@@ -233,12 +233,12 @@ module alu_decoder_tb();
 
       // Fail if we've logged an issue.
       if (msg[7:0]) begin
-      	 $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+      	 $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
       	 $error("assertion failure");
       	 #100 $finish;
       end
       else begin
-      	 $display("OK action");
+      	 $display("345 OK action");
       end
    end
 

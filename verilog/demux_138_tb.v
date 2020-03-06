@@ -50,7 +50,7 @@ module demux_138_tb();
 	 #40 ;
       end
 
-      #500 $display("OK");
+      #500 $display("345 OK");
       $finish;      // Terminate simulation
    end // initial begin
 
@@ -97,11 +97,11 @@ module demux_138_tb();
 	 
    	 // Fail if we've logged an issue.
    	 if (msg[7:0]) begin
-   	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+   	    $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
    	    $error("assertion failure");
    	    #100 $finish;
    	 end
-	 else $display("OK demux");
+	 else $display("345 OK demux");
       end
    end // always @ (nset, nrst)e
 

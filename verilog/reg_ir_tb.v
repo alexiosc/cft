@@ -71,7 +71,7 @@ module reg_ir_tb();
 	 #62.5 nfpirh = 0;
 	 #62.5 nfpirh = 1;
       end
-      #1000 $display("OK");
+      #1000 $display("345 OK");
       $finish;      // Terminate simulation
    end // initial begin
 
@@ -110,11 +110,11 @@ module reg_ir_tb();
 
 	 // Fail if we've logged an issue.
 	 if (msg[7:0]) begin
-	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+	    $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
 	    $error("assertion failure");
 	    #1000 $finish;
 	 end
-	 else $display("OK IR");
+	 else $display("345 OK IR");
 
       end // always @ (posedge clk4)
    end // always @ (posedge clk4)
@@ -140,11 +140,11 @@ module reg_ir_tb();
 
 	 // Fail if we've logged an issue.
 	 if (msg[7:0]) begin
-	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+	    $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
 	    $error("assertion failure");
 	    #1000 $finish;
 	 end
-	 else $display("OK Front Panel");
+	 else $display("345 OK Front Panel");
       end
    end
 endmodule // reg_ir_tb

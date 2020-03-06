@@ -54,7 +54,7 @@ module latch_1g373_tb();
 	 d = i[2];
 	 le = i[4];
       end
-      #300 $display("OK");
+      #300 $display("345 OK");
       $finish;      // Terminate simulation
    end // initial begin
    
@@ -90,11 +90,11 @@ module latch_1g373_tb();
 	 
    	 // Fail if we've logged an issue.
    	 if (msg[7:0]) begin
-   	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+   	    $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
    	    $error("assertion failure");
    	    #100 $finish;
    	 end
-	 else $display("OK latch");
+	 else $display("345 OK latch");
       end
    end // always @ (noe, le, d)
 endmodule

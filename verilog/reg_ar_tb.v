@@ -98,7 +98,7 @@ module reg_ar_tb();
 	 #125 nmem = 1;
       end
       
-      #2000 $display("OK");
+      #2000 $display("345 OK");
       $finish;      // Terminate simulation
    end // initial begin
 
@@ -170,11 +170,11 @@ module reg_ar_tb();
 	 
    	 // Fail if we've logged an issue.
    	 if (msg[7:0]) begin
-   	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+   	    $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
    	    $error("assertion failure");
    	    #100 $finish;
    	 end
-	 else $display("OK drive");
+	 else $display("345 OK drive");
       end
    end // always @ (nmem, nio)
    
@@ -208,11 +208,11 @@ module reg_ar_tb();
 
    	 // Fail if we've logged an issue.
    	 if (msg[7:0]) begin
-   	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+   	    $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
    	    $error("assertion failure");
    	    #100 $finish;
    	 end
-	 else $display("OK decoder/fp");
+	 else $display("345 OK decoder/fp");
       end
    end // always @ (nset, nrst)
    
@@ -227,11 +227,11 @@ module reg_ar_tb();
 	 
    	 // Fail if we've logged an issue.
    	 if (msg[7:0]) begin
-   	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+   	    $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
    	    $error("assertion failure");
    	    #100 $finish;
    	 end
-	 else $display("OK decoder/fp");
+	 else $display("345 OK decoder/fp");
       end
    end // always @ (nset, nrst)
 endmodule // reg_ar_tb

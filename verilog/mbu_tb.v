@@ -219,7 +219,7 @@ module reg_mbr_tb();
 	    $error("assertion failure");
 	    #100 $finish;
 	 end else begin
-	    $display("OK IN");
+	    $display("345 OK IN");
 	 end
 	 nr = 1;
       end
@@ -248,7 +248,7 @@ module reg_mbr_tb();
 	       $error("assertion failure");
 	       #100 $finish;
 	    end else begin
-	       $display("OK RADDR");
+	       $display("345 OK RADDR");
 	    end
 	 end else begin
 	    // The MBU is decoding the wrong address!
@@ -258,7 +258,7 @@ module reg_mbr_tb();
 	       $error("assertion failure");
 	       $finish;
 	    end else begin
-	       $display("OK RADDR");
+	       $display("345 OK RADDR");
 	    end
 	 end
       end
@@ -398,7 +398,7 @@ module reg_mbr_tb();
       if ((mbu.sel[0] !== 1'b0 && mbu.sel[0] !== 1'b1) ||
 	  (mbu.sel[1] !== 1'b0 && mbu.sel[1] !== 1'b1) ||
 	  (mbu.sel[2] !== 1'b0 && mbu.sel[2] !== 1'b1)) begin
-	 $display("FAIL: unacceptable value for mbu.sel: %b", mbu.sel);
+	 $display("346 FAIL unacceptable value for mbu.sel: %b", mbu.sel);
 	 $error("assertion failure");
 	 #100 $finish;
       end
@@ -414,68 +414,68 @@ module reg_mbr_tb();
 	 
 	 // Fail if we've logged an issue.
 	 if (msg[7:0]) begin
-	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+	    $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
 	    $error("assertion failure");
 	    #100 $finish;
 	 end
-	 else $display("OK post-reset");
+	 else $display("345 OK post-reset");
       end
    end
 
    always @(waddr) begin
       if ($time > 100) #30 begin
 	  if (nwrite_ar_mbx !== (waddr[4:2] === 3'b001 ? 1'b0 : 1'b1)) begin
-	    $display("FAIL: waddr decoding failure, waddr=%b, nwrite_ar_mbx=%b (should be %b)",
+	    $display("346 FAIL waddr decoding failure, waddr=%b, nwrite_ar_mbx=%b (should be %b)",
 		     waddr, nwrite_ar_mbx, (waddr[4:2] === 3'b001 ? 1'b0 : 1'b1));
 	    $error("assertion failure");
 	    #100 $finish;
 	  end
 
 	  else if (mbu.nwrite_mbp !== (waddr === 5'b01100 ? 1'b0 : 1'b1)) begin
-	    $display("FAIL: waddr decoding failure, waddr=%b, nwrite_mbp=%b (should be %b)",
+	    $display("346 FAIL waddr decoding failure, waddr=%b, nwrite_mbp=%b (should be %b)",
 		     waddr, mbu.nwrite_mbp, (waddr === 5'b01100 ? 1'b0 : 1'b1));
 	    $error("assertion failure");
 	    #100 $finish;
 	  end
 
 	  else if (mbu.nwrite_mbp_flags !== (waddr === 5'b01101 ? 1'b0 : 1'b1)) begin
-	    $display("FAIL: waddr decoding failure, waddr=%b, nwrite_mbp_flags=%b (should be %b)",
+	    $display("346 FAIL waddr decoding failure, waddr=%b, nwrite_mbp_flags=%b (should be %b)",
 		     waddr, mbu.nwrite_mbp, (waddr === 5'b01101 ? 1'b0 : 1'b1));
 	    $error("assertion failure");
 	    #100 $finish;
 	  end
-	  else $display("OK waddr");
+	  else $display("345 OK waddr");
       end
    end
 
    always @(raddr, t34) begin
       if ($time > 100) #30 begin
 	 if (t34 === 1'b1 && mbu.nread_mbp !== 1'b1) begin
-	    $display("FAIL: nread_mbp went low outside of t34");
+	    $display("346 FAIL nread_mbp went low outside of t34");
 	    $error("assertion failure");
 	    #100 $finish;
 	 end
 	 
 	 else if (t34 === 1'b1 && mbu.nread_mbp_flags !== 1'b1) begin
-	    $display("FAIL: nread_mbp_flags went low outside of t34");
+	    $display("346 FAIL nread_mbp_flags went low outside of t34");
 	    $error("assertion failure");
 	    #100 $finish;
 	 end
 
 	 if (t34 === 1'b0 && mbu.nread_mbp !== (raddr === 5'b01100 ? 1'b0 : 1'b1)) begin
-	    $display("FAIL: raddr decoding failure, raddr=%b, nread_mbp=%b (should be %b)",
+	    $display("346 FAIL raddr decoding failure, raddr=%b, nread_mbp=%b (should be %b)",
 		     raddr, mbu.nread_mbp, (raddr === 5'b01100 ? 1'b0 : 1'b1));
 	    $error("assertion failure");
 	    #100 $finish;
 	 end
 	 
 	 else if (t34 === 1'b0 && mbu.nread_mbp_flags !== (raddr === 5'b01101 ? 1'b0 : 1'b1)) begin
-	    $display("FAIL: raddr decoding failure, raddr=%b, nread_mbp_flags=%b (should be %b)",
+	    $display("346 FAIL raddr decoding failure, raddr=%b, nread_mbp_flags=%b (should be %b)",
 		     raddr, mbu.nread_mbp, (raddr === 5'b01101 ? 1'b0 : 1'b1));
 	    $error("assertion failure");
 	    #100 $finish;
 	 end
-	 else $display("OK raddr");
+	 else $display("345 OK raddr");
       end
    end
 
@@ -487,12 +487,12 @@ module reg_mbr_tb();
 
    //    // Fail if we've logged an issue.
    //    if (msg[7:0]) begin
-   // 	 $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+   // 	 $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
    // 	 $error("assertion failure");
    // 	 #100 $finish;
    //    end
    //    else begin
-   // 	 $display("OK INIT");
+   // 	 $display("345 OK INIT");
    //    end
    // end
 
@@ -521,11 +521,11 @@ module reg_mbr_tb();
 
    // 	 // Fail if we've logged an issue.
    // 	 if (msg[7:0]) begin
-   // 	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+   // 	    $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
    // 	    $error("assertion failure");
    // 	    #100 $finish;
    // 	 end
-   // 	 else $display("OK OUT");
+   // 	 else $display("345 OK OUT");
    //    end
    // end
 
@@ -545,11 +545,11 @@ module reg_mbr_tb();
 
 	 // Fail if we've logged an issue.
 	 if (msg[7:0]) begin
-	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+	    $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
 	    $error("assertion failure");
 	    #100 $finish;
 	 end
-	 else $display("OK WADDR write");
+	 else $display("345 OK WADDR write");
       end
    end // always @ (waddr, ibus[7:0])
 
@@ -599,11 +599,11 @@ module reg_mbr_tb();
 
 	    // Fail if we've logged an issue.
 	    if (msg[7:0]) begin
-	       $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+	       $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
 	       $error("assertion failure");
 	       #100 $finish;
 	    end
-	    else $display("OK index");
+	    else $display("345 OK index");
 	 end
       end
    end // always @ (waddr, ir)
@@ -621,7 +621,7 @@ module reg_mbr_tb();
 	 for (k = 0; k < 8; k++) begin
 	    if (aext[k] === 1'bX) begin
 	       $sformat(msg, "AEXT contention (%08b, %02x)", aext, aext);
-	       $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+	       $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
 	       $error("assertion failure");
 	       #100 $finish;
 	    end
@@ -635,7 +635,7 @@ module reg_mbr_tb();
 	 for (k = 0; k < 8; k++) begin
 	    if (db_low[k] === 1'bX) begin
 	       $sformat(msg, "DB[7:0] (db_low) contention (%08b, %02x)", db_low, db_low);
-	       $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+	       $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
 	       $error("assertion failure");
 	       #100 $finish;
 	    end
@@ -649,7 +649,7 @@ module reg_mbr_tb();
 	 for (k = 0; k < 8; k++) begin
 	    if (ab_real[k] === 1'bX) begin
 	       $sformat(msg, "AB[7:0] contention (%08b, %02x)", ab_real[7:0], ab_real[7:0]);
-	       $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+	       $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
 	       $error("assertion failure");
 	       #100 $finish;
 	    end
@@ -663,7 +663,7 @@ module reg_mbr_tb();
 	 for (k = 0; k < 3; k++) begin
 	    if (mbu.sel[k] === 1'bX) begin
 	       $sformat(msg, "SEL contention (%03b)", mbu.sel);
-	       $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+	       $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
 	       $error("assertion failure");
 	       #100 $finish;
 	    end
@@ -718,11 +718,11 @@ module reg_mbr_tb();
 
 	 // Fail if we've logged an issue.
 	 if (msg[7:0]) begin
-	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+	    $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
 	    $error("assertion failure");
 	    #100 $finish;
 	 end
-	 else $display("OK write");
+	 else $display("345 OK write");
       end // if (waddr[4:2] == 3'b001)
    end
 
@@ -766,11 +766,11 @@ module reg_mbr_tb();
 	 
 	 // Fail if we've logged an issue.
 	 if (msg[7:0]) begin
-	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+	    $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
 	    $error("assertion failure");
 	    #100 $finish;
 	 end
-	 else $display("OK read");
+	 else $display("345 OK read");
       end
    end
 

@@ -94,7 +94,7 @@ module reg_v_tb();
       // 	 #100 nsetv_rom = 1;
       // end
 
-      #1000 $display("OK");
+      #1000 $display("345 OK");
       $finish;
 
    end // initial begin
@@ -131,11 +131,11 @@ module reg_v_tb();
 	 end
 	 // Fail if we've logged an issue.
 	 if (msg[7:0]) begin
-	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+	    $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
 	    $error("assertion failure");
 	    #1000 $finish;
 	 end
-	 else $display("OK reset");
+	 else $display("345 OK reset");
       end
    end
 
@@ -157,11 +157,11 @@ module reg_v_tb();
 
 	 // Fail if we've logged an issue.
 	 if (msg[7:0]) begin
-	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+	    $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
 	    $error("assertion failure");
 	    #1000 $finish;
 	 end
-	 else $display("OK write");
+	 else $display("345 OK write");
       end
    end
 endmodule // reg_v_tb

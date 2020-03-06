@@ -51,7 +51,7 @@ module flipflop_74_tb();
       for (i = 0; i < 128; i = i + 1) begin
 	 #100 { nset, nrst, d } = {i[5:4], i[1]};
       end
-      #300 $display("OK");
+      #300 $display("345 OK");
       $finish;      // Terminate simulation
    end // initial begin
    
@@ -108,11 +108,11 @@ module flipflop_74_tb();
 	 
    	 // Fail if we've logged an issue.
    	 if (msg[7:0]) begin
-   	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+   	    $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
    	    $error("assertion failure");
    	    #100 $finish;
    	 end
-	 else $display("OK async");
+	 else $display("345 OK async");
       end
    end // always @ (nset, nrst)
 
@@ -129,11 +129,11 @@ module flipflop_74_tb();
 
    	 // Fail if we've logged an issue.
    	 if (msg[7:0]) begin
-   	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+   	    $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
    	    $error("assertion failure");
    	    #100 $finish;
    	 end
-	 else $display("OK sync");
+	 else $display("345 OK sync");
       end
    end
 endmodule

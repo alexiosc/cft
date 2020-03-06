@@ -126,7 +126,7 @@ module reg_l_tb();
 	 #30 bcp = 1;
       end
 
-      #1000 $display("OK");
+      #1000 $display("345 OK");
       $finish;
 
    end // initial begin
@@ -186,11 +186,11 @@ module reg_l_tb();
 
    	 // Fail if we've logged an issue.
    	 if (msg[7:0]) begin
-   	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+   	    $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
    	    $error("assertion failure");
    	    #100 $finish;
    	 end
-	 else $display("OK reset/cll/cpl");
+	 else $display("345 OK reset/cll/cpl");
       end
    end // always @ (nmem, nio)
 
@@ -244,11 +244,11 @@ module reg_l_tb();
 
    	 // Fail if we've logged an issue.
    	 if (msg[7:0]) begin
-   	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+   	    $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
    	    $error("assertion failure");
    	    #100 $finish;
    	 end
-	 else $display("OK set");
+	 else $display("345 OK set");
       end
    end // always @ (nmem, nio)
    
@@ -276,11 +276,11 @@ module reg_l_tb();
 
    	 // Fail if we've logged an issue.
    	 if (msg[7:0]) begin
-   	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+   	    $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
    	    $error("assertion failure");
    	    #100 $finish;
    	 end
-	 else $display("OK bcp");
+	 else $display("345 OK bcp");
       end
    end // always @ (nmem, nio)
    

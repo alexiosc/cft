@@ -207,11 +207,11 @@ module alu_sru_tb();
 
    	 // Fail if we've logged an issue.
    	 if (msg[7:0]) begin
-   	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+   	    $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
    	    $error("assertion failure");
    	    #100 $finish;
    	 end
-   	 else if (nreset === 0 || nstart === 0) $display("OK nstart");
+   	 else if (nreset === 0 || nstart === 0) $display("345 OK nstart");
       end
    end // always @ (posedge clk2)
 
@@ -261,11 +261,11 @@ module alu_sru_tb();
 
    	 // Fail if we've logged an issue.
    	 if (msg[7:0]) begin
-   	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+   	    $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
    	    $error("assertion failure");
    	    #100 $finish;
    	 end
-   	 else $display("OK result");
+   	 else $display("345 OK result");
       end
    end // always @ (posedge alu_sru.nstart_sync)
 

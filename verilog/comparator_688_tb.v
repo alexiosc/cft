@@ -60,7 +60,7 @@ module comparator_688_tb();
 	 end
       end
 
-      #200 $display("OK");
+      #200 $display("345 OK");
       $finish;      // Terminate simulation
    end
 
@@ -84,11 +84,11 @@ module comparator_688_tb();
 
 	 // Fail if we've logged an issue.
 	 if (msg[7:0]) begin
-	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+	    $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
 	    $error("assertion failure");
 	    #100 $finish;
 	 end
-	 else $display("OK comparator");
+	 else $display("345 OK comparator");
       end
    end // always @ (a, b, ng)
 endmodule // comparator_688_tb

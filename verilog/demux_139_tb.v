@@ -81,11 +81,11 @@ module demux_139_tb();
 	 
    	 // Fail if we've logged an issue.
    	 if (msg[7:0]) begin
-   	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+   	    $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
    	    $error("assertion failure");
    	    #100 $finish;
    	 end
-   	 else $display("OK unit1");
+   	 else $display("345 OK unit1");
       end
    end // always @ (ng1, a1)
 
@@ -106,11 +106,11 @@ module demux_139_tb();
 	 
    	 // Fail if we've logged an issue.
    	 if (msg[7:0]) begin
-   	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+   	    $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
    	    $error("assertion failure");
    	    #100 $finish;
    	 end
-   	 else $display("OK unit2");
+   	 else $display("345 OK unit2");
       end
    end // always @ (ng2, a2)
 

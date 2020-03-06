@@ -111,7 +111,7 @@ module reg_major_tb();
 	 #63.5 ndec = 1;
       end
 
-      #1000 $display("OK");
+      #1000 $display("345 OK");
       $finish;      // Terminate simulation
    end // initial begin
 
@@ -158,11 +158,11 @@ module reg_major_tb();
 
    	 // Fail if we've logged an issue.
    	 if (msg[7:0]) begin
-   	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+   	    $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
    	    $error("assertion failure");
    	    #100 $finish;
    	 end
-	 else $display("OK reset/load");
+	 else $display("345 OK reset/load");
       end
    end // always @ (reset, ibus_real, nread, nwrite)
 
@@ -195,11 +195,11 @@ module reg_major_tb();
 
    	 // Fail if we've logged an issue.
    	 if (msg[7:0]) begin
-   	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+   	    $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
    	    $error("assertion failure");
    	    #100 $finish;
 	 end
-	 else $display("OK INC/DEC");
+	 else $display("345 OK INC/DEC");
       end
    end // always @ (reset, ibus_real, nread, nwrite)
 
@@ -218,11 +218,11 @@ module reg_major_tb();
 	    
    	    // Fail if we've logged an issue.
    	    if (msg[7:0]) begin
-   	       $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+   	       $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
    	       $error("assertion failure");
    	       #100 $finish;
    	    end
-	    else $display("OK flags");
+	    else $display("345 OK flags");
 	 end // if ($time > 10)
       end // if ($time > 10)
    end
@@ -250,11 +250,11 @@ module reg_major_tb();
 	 
    	 // Fail if we've logged an issue.
    	 if (msg[7:0]) begin
-   	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+   	    $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
    	    $error("assertion failure");
    	    #100 $finish;
    	 end
-	 else $display("OK front panel");
+	 else $display("345 OK front panel");
       end
    end // always @ (nmem, nio)
    

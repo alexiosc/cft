@@ -50,7 +50,7 @@ module ail_tb();
 	 #63.5;
       end
       
-      #500 $display("OK");
+      #500 $display("345 OK");
       $finish;
    end // initial begin
 
@@ -91,11 +91,11 @@ module ail_tb();
 
 	 // Fail if we've logged an issue.
 	 if (msg[7:0]) begin
-	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+	    $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
 	    $error("assertion failure");
 	    #100 $finish;
 	 end
-	 else $display("OK ail");
+	 else $display("345 OK ail");
       end
    end // always @ (nread_agl, ir, pc)
 endmodule // ail_tb

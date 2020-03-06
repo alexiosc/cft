@@ -109,7 +109,7 @@ module counter_193_tb();
 	 end;
       end; // for (j = 0; j < 64; j = j + 1)
 
-      #2000 $display("OK");
+      #2000 $display("345 OK");
       $finish;      // Terminate simulation
    end
 
@@ -145,11 +145,11 @@ module counter_193_tb();
 
    	 // Fail if we've logged an issue.
    	 if (msg[7:0]) begin
-   	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+   	    $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
    	    $error("assertion failure");
    	    #100 $finish;
    	 end
-	 else $display("OK count");
+	 else $display("345 OK count");
       end
    end // always @ (clr, npl, p, cpu, cpd)
 endmodule // counter_193_tb

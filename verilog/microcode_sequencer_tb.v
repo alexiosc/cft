@@ -229,11 +229,11 @@ module microcode_sequencer_tb();
 
    	    // Fail if we've logged an issue.
    	    if (msg[7:0]) begin
-   	       $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+   	       $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
    	       $error("assertion failure");
    	       #100 $finish;
    	    end
-   	    else $display("OK µPC");
+   	    else $display("345 OK µPC");
 	 end // if ($time > 100)
       end
    end // always @ (posedge clk4)
@@ -251,11 +251,11 @@ module microcode_sequencer_tb();
 
 	 // Fail if we've logged an issue.
 	 if (msg[7:0]) begin
-   	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+   	    $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
    	    $error("assertion failure");
    	    #100 $finish;
 	 end
-	 else $display("OK Halt");
+	 else $display("345 OK Halt");
       end
    end // always @ (nhalt)
 
@@ -284,11 +284,11 @@ module microcode_sequencer_tb();
 	    
    	    // Fail if we've logged an issue.
    	    if (msg[7:0]) begin
-   	       $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+   	       $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
    	       $error("assertion failure");
    	       #100 $finish;
    	    end
-   	    else $display("OK front panel");
+   	    else $display("345 OK front panel");
 	 end // if ($time > 2000)
       end
    end // always @ (nset, nrst)

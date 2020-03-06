@@ -52,7 +52,7 @@ module flipflop_574_tb();
 	 #100 {noe, d} = {i[9], i[8:1]};
       end
 
-      #200 $display("OK");
+      #200 $display("345 OK");
       $finish;      // Terminate simulation
    end
 
@@ -81,11 +81,11 @@ module flipflop_574_tb();
 	 
    	 // Fail if we've logged an issue.
    	 if (msg[7:0]) begin
-   	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+   	    $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
    	    $error("assertion failure");
    	    #100 $finish;
    	 end
-	 else $display("OK output");
+	 else $display("345 OK output");
       end
    end // always @ (noe, posedge clk)
 
@@ -99,11 +99,11 @@ module flipflop_574_tb();
 	 
       // Fail if we've logged an issue.
       if (msg[7:0]) begin
-   	 $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+   	 $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
    	 $error("assertion failure");
    	 #100 $finish;
       end
-      else $display("OK load");
+      else $display("345 OK load");
    end
 
 endmodule

@@ -102,24 +102,15 @@ endmodule // mux_257
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-module mux_157 (sel, i1, i2, oe, y);
+module mux_157 (sel, a, b, noe, y);
    parameter delay = 20;
 
    input        sel;		// The signal selector
-   input [3:0]  i1, i2;		// Input signals.
-   input        oe;	        // Active low tri-state output enables.
+   input [3:0]  a, b;		// Input signals.
+   input        noe;	        // Active low tri-state output enables.
    output [3:0] y;		// Outputs.
 
-   wire        sel;
-   wire [3:0]  i1, i2;
-   wire        oe;
-   wire [3:0]  y;
-
-   initial begin
-      // $display("BOM: 74x157");
-   end
-   
-   assign #delay y = oe ? 4'bzzzz : (sel == 0? i1 : i2);
+   assign #delay y = noe ? 4'bzzzz : (sel == 0? a : b);
 
 endmodule // mux_157
 

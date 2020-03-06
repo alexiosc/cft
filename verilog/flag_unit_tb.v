@@ -100,7 +100,7 @@ module flag_unit_tb();
       #250 action = 0;
       #250 status = "";
 
-      #5000 $display("OK");
+      #5000 $display("345 OK");
       $finish;
    end // initial begin
 
@@ -155,11 +155,11 @@ module flag_unit_tb();
 
    	 // Fail if we've logged an issue.
    	 if (msg[7:0]) begin
-   	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+   	    $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
    	    $error("assertion failure");
    	    #100 $finish;
    	 end
-   	 else $display("OK raddr");
+   	 else $display("345 OK raddr");
       end
    end
 
@@ -193,11 +193,11 @@ module flag_unit_tb();
 	 end
    	 // Fail if we've logged an issue.
    	 if (msg[7:0]) begin
-   	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+   	    $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
    	    $error("assertion failure");
    	    #100 $finish;
    	 end
-   	 else $display("OK waddr");
+   	 else $display("345 OK waddr");
       end
    end
 
@@ -237,11 +237,11 @@ module flag_unit_tb();
 
    // 	 // Fail if we've logged an issue.
    // 	 if (msg[7:0]) begin
-   // 	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+   // 	    $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
    // 	    $error("assertion failure");
    // 	    #100 $finish;
    // 	 end
-   // 	 else $display("OK nflagwe");
+   // 	 else $display("345 OK nflagwe");
    //    end
    // end
 
@@ -270,11 +270,11 @@ module flag_unit_tb();
 
    	 // Fail if we've logged an issue.
    	 if (msg[7:0]) begin
-   	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+   	    $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
    	    $error("assertion failure");
    	    #100 $finish;
    	 end
-   	 else $display("OK fp");
+   	 else $display("345 OK fp");
       end
    end // always @ (nread_agl, ir, pc)
 

@@ -122,11 +122,11 @@ module control_store_tb();
 	 
    	 // Fail if we've logged an issue.
    	 if (msg[7:0]) begin
-   	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+   	    $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
    	    $error("assertion failure");
    	    #100 $finish;
    	 end
-   	 else $display("OK microcode");
+   	 else $display("345 OK microcode");
       end
    end // always @ (noe)
 
@@ -153,11 +153,11 @@ module control_store_tb();
 	 
    	 // Fail if we've logged an issue.
    	 if (msg[7:0]) begin
-   	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+   	    $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
    	    $error("assertion failure");
    	    #100 $finish;
    	 end
-	 else $display("OK front panel");
+	 else $display("345 OK front panel");
       end
    end // always @ (nset, nrst)
 endmodule // control_store_tb

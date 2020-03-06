@@ -56,7 +56,7 @@ module buffer_541_tb();
 	 #500;
       end
       
-      #1000 $display("OK");
+      #1000 $display("345 OK");
       $finish;      // Terminate simulation
    end
 
@@ -83,11 +83,11 @@ module buffer_541_tb();
 
 	 // Fail if we've logged an issue.
 	 if (msg[7:0]) begin
-	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+	    $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
 	    $error("assertion failure");
 	    #100 $finish;
 	 end
-	 else $display("OK buffer");
+	 else $display("345 OK buffer");
       end
    end
 endmodule // buffer_541_tb

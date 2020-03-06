@@ -60,7 +60,7 @@ module mux_253_tb();
 	 noe2 = i[11];
       end
 
-      #200 $display("OK");
+      #200 $display("345 OK");
       $finish;      // Terminate simulation
    end
    
@@ -105,11 +105,11 @@ module mux_253_tb();
 
    	 // Fail if we've logged an issue.
    	 if (msg[7:0]) begin
-   	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+   	    $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
    	    $error("assertion failure");
    	    #100 $finish;
    	 end
-	 else $display("OK mux");
+	 else $display("345 OK mux");
       end
    end
    

@@ -84,7 +84,7 @@ module clock_tb();
       #1000 nfpclk_or_clk=0;
       #10000 nfpclk_or_clk = 1;
 
-      #10000 $display("OK");
+      #10000 $display("345 OK");
       $finish;
       
    end // initial begin
@@ -137,11 +137,11 @@ module clock_tb();
 
 	 // Fail if we've logged an issue.
 	 if (msg[7:0]) begin
-	    $display("FAIL: assertion failed at t=%0d: %0s", $time, msg);
+	    $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
 	    $error("assertion failure");
 	    #100 $finish;
 	 end
-	 else $display("OK clock");
+	 else $display("345 OK clock");
       end
    end
 endmodule // clock_tb
