@@ -18,10 +18,10 @@
 
 ;;; I/O Registers 
 	
-.equ RX   DFP &11		        ; Last read byte from DFP console
-.equ TX   DFP &11		        ; Write to the DFP console
-.equ ICR  DFP &0a		        ; ICR: interrupt control register
-.equ ISR  DFP &0a		        ; ISR: interrupt status register
+.equ RX   DFP_BASE &11		        ; Last read byte from DFP console
+.equ TX   DFP_BASE &11		        ; Write to the DFP console
+.equ ICR  DFP_BASE &0a		        ; ICR: interrupt control register
+.equ ISR  DFP_BASE &0a		        ; ISR: interrupt status register
 
 ;;; Other extended instructions have been moved to the DFP namespace to keep the
 ;;; global namespace clean.
