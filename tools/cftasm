@@ -1513,9 +1513,6 @@ class CFTAssembler(object):
 
     def outsym(self):
         """Print out the symbol table."""
-        symcmp = lambda a, b: cmp(a.filename, b.filename) \
-            or cmp(a.linenum, b.linenum)
-
         # Open the symbol output file.
         out = open(self.symbol_file, 'w')
         
@@ -1526,7 +1523,7 @@ class CFTAssembler(object):
         header = hdr % ('Name', 'Val', 'Type', 'Defined in')
 
         out.write(header + ('-' * 79) + '\n')
-        for sym in sorted(list(self.symbols.values()), cmp=symcmp):
+        for sym in sorted(list(self.symbols.values()), key=lambda x: (x.filename, x.linenum)):
             out.write(fmt % (sym.name, sym.val,
                              sym.__class__.__name__.lower(),
                              sym.filename, sym.linenum))
@@ -1551,7 +1548,7 @@ class CFTAssembler(object):
 
         fmt = '%%-%ds  %%04x  %%s:%%d\n' % max(len(x.name) for x in labels)
 
-        for sym in sorted(labels, cmp=mapcmp):
+        for sym in sorted(labels, key=lambda x: (x.val, x.filename, x.linenum, x.name)):
             out.write(fmt % (sym.name, sym.val, sym.filename, sym.linenum))
 
         # Close it, just in case.
@@ -1743,8 +1740,8 @@ class CFTAssembler(object):
         if True or self.opts.verilog:
             # Also write two Verilog ROM images (low and high half-words)
             basename = os.path.splitext(self.opts.out_file)[0]
-            lo = file('%s-00.list' % basename, 'wb')
-            hi = file('%s-01.list' % basename, 'wb')
+            lo = open('%s-00.list' % basename, 'wt')
+            hi = open('%s-01.list' % basename, 'wt')
             if self.opts.verbose:
                 for addr, val in self.yieldmem():
                     lo.write("%s\t// %04x: %04x\n" % (bin(val & 0xff)[2:].zfill(8), addr, val))
