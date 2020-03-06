@@ -33,7 +33,7 @@ def findBaseDir():
     d = os.path.abspath(sys.argv[0])
 
     # Files that must all exist for this to be the top project directory
-    lookFor = ['COPYING', 'README', 'tools/cftasm']
+    lookFor = ['LICENSE', 'README.md', 'tools/cftasm']
 
     while d != '/':
         # How many of the look_for names found?
@@ -71,8 +71,8 @@ def summariseReports(tests, col=None):
     if col is None:
         col = os.isatty(sys.stdout.fileno())
 
-    print '%-30.30s %-20.20s %-20.20s %-20.20s %-20.20s' % ('Test', 'Verilog', 'Emulator', 'Emulator (DFP)', 'Hardware')
-    print "-" * 121
+    print('%-30.30s %-20.20s %-20.20s %-20.20s %-20.20s' % ('Test', 'Verilog', 'Emulator', 'Emulator (DFP)', 'Hardware'))
+    print("-" * 121)
     for test in sorted(tests):
         sys.stdout.write('%-30.30s ' % test)
         for framework in ('verilog', 'emulator', 'emu_dfp', 'hardware'):
@@ -105,7 +105,7 @@ def summariseReports(tests, col=None):
                             col0 = '\033[0;1;33m'
                             res = data.split('\n')[-1]
 
-                except OSError, e:
+                except OSError as e:
                     res = '? (errno %d)' % e.errno
                 
             #print test, framework, os.path.exists(fname)
@@ -280,7 +280,7 @@ class BaseTest(unittest.TestCase):
             locals()
         self.asm_cmd = self.cmd
         if os.system(self.cmd):
-            print "Assembly failed."
+            print("Assembly failed.")
             raise RuntimeError('Assembly step failed')
 
 
@@ -417,7 +417,7 @@ class BaseTest(unittest.TestCase):
         #    raise RuntimeError('Test returned error code %d' % simout.returncode)
 
         if debug:
-            print res
+            print(res)
         return res
 
 
@@ -431,7 +431,7 @@ class BaseTest(unittest.TestCase):
             raise RuntimeError("Test returned error code %d" % exitcode)
 
         if debug:
-            print res
+            print(res)
         return res
 
 
@@ -454,9 +454,9 @@ class BaseTest(unittest.TestCase):
             self.assertEqual(sim, expected, 'Unexpected output.')
 
         except:
-            print "Expected: ", expected
-            print "Simulated:", sim
-            print "Command:\n          ", self.cmd
+            print("Expected: ", expected)
+            print("Simulated:", sim)
+            print("Command:\n          ", self.cmd)
             raise
 
 
@@ -629,7 +629,7 @@ class EmulatorTest(BaseTest):
         try:
             return subprocess.Popen(self.cmd, shell=True, stdout=subprocess.PIPE)
         except:
-            print cmd
+            print(cmd)
             raise
 
 

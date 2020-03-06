@@ -1,11 +1,11 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- python -*-
 
 import os
 import re
 import sys
+import argparse
 import unittest
-import optparse
 import testlib
 
 def die(msg):
@@ -13,45 +13,44 @@ def die(msg):
     sys.exit(1)
     
 
-usage = "Usage: %prog [-h|-l|-L|-M] [OPTIONS]... [TEST]..."
-p = optparse.OptionParser(usage=usage)
+p = argparse.ArgumentParser()
 
-#p.add_option('-v', '--verbose', action='store_true',
+#p.add_argument('-v', '--verbose', action='store_true',
 #             help='Print out assembled code')
-#p.add_option('-l', '--leave', action='store_true',
+#p.add_argument('-l', '--leave', action='store_true',
 #             help='Do not delete the test directory at the end of the test.')
 
-p.add_option('-l', '--list', action='store_true',
-             help='List available tests and exit.')
-p.add_option('-L', '--list-xargs', action='store_true',
-             help='List available tests (in raw format, for xargs) and exit.')
-p.add_option('-M', '--make-deps', action='store_true',
-             help='List available tests (in raw format, for xargs) and exit.')
-p.add_option('-s', '--summary', action='store_true',
-             help='Summarise test reports.')
+p.add_argument('-l', '--list', action='store_true',
+               help='List available tests and exit.')
+p.add_argument('-L', '--list-xargs', action='store_true',
+               help='List available tests (in raw format, for xargs) and exit.')
+p.add_argument('-M', '--make-deps', action='store_true',
+               help='List available tests (in raw format, for xargs) and exit.')
+p.add_argument('-s', '--summary', action='store_true',
+               help='Summarise test reports.')
 
 # Filtering options
-p.add_option('-b', '--basedir', metavar='PATH', type='string', default='.',
-             help='Set the testsuite base directory (default: .).')
-p.add_option('-f', '--framework', type='choice',
-             choices=['verilog', 'emulator', 'emu_dfp', 'hardware'],
-             help='Choose emulator framework to test on. ' + \
-             'May be one of verilog, emulator, emu_dfp, or hardware. Mandatory.')
-#p.add_option('-j', '--jobs', metavar='N', type='int',
+p.add_argument('-b', '--basedir', metavar='PATH', type=str, default='.',
+               help='Set the testsuite base directory (default: .).')
+p.add_argument('-f', '--framework',
+               choices=['verilog', 'emulator', 'emu_dfp', 'hardware'],
+               help='Choose emulator framework to test on. ' + \
+               'May be one of verilog, emulator, emu_dfp, or hardware. Mandatory.')
+#p.add_argument('-j', '--jobs', metavar='N', type='int',
 #             help='Run N threads at once.')
-p.add_option('-n', '--dry-run',
-             help='Do everything but run the test suites.')
-p.add_option('-k', '--keep', action='store_true',
-             help='Keep sandbox subdirectories even on successful testing.')
-p.add_option('-w', '--wave', action='store_true',
-             help='Log waveforms and run gtkwave to display them.')
-p.add_option('-v', '--verbose', action='store_true',
-             help='Print out simulation output.')
+p.add_argument('-n', '--dry-run',
+               help='Do everything but run the test suites.')
+p.add_argument('-k', '--keep', action='store_true',
+               help='Keep sandbox subdirectories even on successful testing.')
+p.add_argument('-w', '--wave', action='store_true',
+               help='Log waveforms and run gtkwave to display them.')
+p.add_argument('-v', '--verbose', action='store_true',
+               help='Print out simulation output.')
 
-opts, args = p.parse_args()
+args = p.parse_args()
 
-if sum((int(x) for x in (opts.list, opts.list_xargs, opts.make_deps,
-                         opts.summary) if x)) > 1:
+if sum((int(x) for x in (args.list, args.list_xargs, args.make_deps,
+                         args.summary) if x)) > 1:
     sys.stderr.write('%s: options -l, -L, -M and -s are mutually exclusive.\n' % sys.argv[0])
     sys.exit(1)
 
@@ -60,7 +59,7 @@ if sum((int(x) for x in (opts.list, opts.list_xargs, opts.make_deps,
 shouldTest = lambda x: True
 
 # Get list of valid tests
-allTests = (os.path.basename(x) for x in testlib.listTests(opts.basedir))
+allTests = (os.path.basename(x) for x in testlib.listTests(args.basedir))
 
 # Make dependency patterns
 MAKEPATTERN0 = """
@@ -88,22 +87,22 @@ def getFrameworksForTest(fname):
     
 
 # List tests
-if opts.list:
-    print "Available tests:"
+if args.list:
+    print("Available tests:")
 
-    pat = testlib.FRAMEWORK_PATTERNS.get(opts.framework, None)
+    pat = testlib.FRAMEWORK_PATTERNS.get(args.framework, None)
     shouldTest = lambda x: (pat is None) or re.search(pat, x)
 
     for x in sorted(allTests):
         if shouldTest(x):
-            print "    ", os.path.basename(x)
+            print("    ", os.path.basename(x))
     sys.exit(0)
 
-elif opts.list_xargs:
-    print ' '.join(x for x in sorted(allTests) if shouldTest(x))
+elif args.list_xargs:
+    print(' '.join(x for x in sorted(allTests) if shouldTest(x)))
     sys.exit(0)
 
-elif opts.make_deps:
+elif args.make_deps:
     allTests = list(allTests)
     fwTests = dict()
     for test in sorted(allTests):
@@ -113,39 +112,39 @@ elif opts.make_deps:
             testlist.append(t)
             fwTests.setdefault(prefix, []).append(t)
             prefix_upper = prefix.upper()
-            print MAKEPATTERN_FRAMEWORK % locals()
+            print(MAKEPATTERN_FRAMEWORK % locals())
         testlist = ' '.join(testlist)
-        print MAKEPATTERN1 % locals()
-    print MAKEPATTERN0 % ('ALL', ' '.join(allTests))
+        print(MAKEPATTERN1 % locals())
+    print(MAKEPATTERN0 % ('ALL', ' '.join(allTests)))
     for prefix, tests in fwTests.items():
-        print MAKEPATTERN0 % (prefix.upper(), ' '.join(tests))
+        print(MAKEPATTERN0 % (prefix.upper(), ' '.join(tests)))
     sys.exit(0)
 
-elif opts.summary:
+elif args.summary:
     testlib.summariseReports(list(allTests))
     sys.exit(0)
 
 # Set the test name
-testlib.setVerbose(opts.verbose)
-testlib.setKeep(opts.keep)
-testlib.setWave(opts.wave)
-#testlib.guessTestName(opts.name)
+testlib.setVerbose(args.verbose)
+testlib.setKeep(args.keep)
+testlib.setWave(args.wave)
+#testlib.guessTestName(args.name)
 
-if not opts.framework:
+if not args.framework:
     die("Option -f is mandatory")
 
 try:
     cls = dict(v=testlib.VerilogTest,
-               e=testlib.EmulatorTest)[opts.framework[0]]
+               e=testlib.EmulatorTest)[args.framework[0]]
     testlib.setTestClass(cls)
 
 except KeyError:
-    die("Unknown framework type '%s'" % opts.framework)
+    die("Unknown framework type '%s'" % args.framework)
 
 if not args:
     die('specify the filenames of one or more Python test programs.')
 
-if not opts.framework:
+if not args.framework:
     die('specify the testing framework to use.')
 
 
@@ -155,7 +154,7 @@ for name in sorted(args):
     test = os.path.splitext(os.path.basename(name))[0]
     if test not in allTests:
         continue
-    fname = os.path.join(opts.basedir, test + '.py')
+    fname = os.path.join(args.basedir, test + '.py')
     if not os.path.exists(fname):
         continue
     #print test, fname
@@ -179,14 +178,14 @@ for test, fname in sorted(tests):
         # Run the tests.    
         unittest.TextTestRunner(verbosity=2).run(suite)
 
-    except IOError, e:
+    except IOError as e:
         die(str(e))
 
     except KeyboardInterrupt:
         sys.stderr.write('Keyboard interrupt\n')
         sys.exit(1)
 
-    except Exception, e:
+    except Exception as e:
         raise
         #sys.stderr.write('%s\n' % e.__class__.__name__)
 
