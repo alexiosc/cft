@@ -101,10 +101,14 @@ module dfp_run_control_tb();
    reg nustep;
    wire fpclken_out;
    wire fpustep_out;
+   wire nwait;
 
    // Instantiate DUT.
    wire clk4;
-   dfp_run_control dfp_run_control (.nreset(nreset), .nrsthold(nrsthold), .clk4(clk4),
+   wire nreset_real;
+   assign nreset_real = nreset;
+   
+   dfp_run_control dfp_run_control (.nreset(nreset_real), .nrsthold(nrsthold), .clk4(clk4),
 				    .step_nrun(step_nrun), .fpfetch_nexec(fpfetch_nexec), .nclr(nclr), .nustep(nustep),
 				    .fpclken_in(fpclken_in), .fpustep_in(fpustep_in),
 				    .fpclken_out(fpclken_out), .fpustep_out(fpustep_out),
@@ -112,7 +116,7 @@ module dfp_run_control_tb();
    
 
    // Instantiate the clock generator for verification, and also because its clk4 output feeds back to us.
-   clock_generator clock(.nreset(nreset), .fpclk(fpustep_out), .nfpclk_or_clk(fpclken_out),
+   clock_generator clock(.nreset(nreset_real), .fpclk(fpustep_out), .nfpclk_or_clk(fpclken_out),
 			.clk4(clk4));
 
 

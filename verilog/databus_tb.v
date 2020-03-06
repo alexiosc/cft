@@ -35,7 +35,7 @@
 
 module databus_tb();
 
-   reg          nreset;
+   reg          nreset_drv;
    reg 		nhalt;
 
    reg 		nmem, nio, nr, nwen;
@@ -72,7 +72,7 @@ module databus_tb();
 
       status = "reset";
       i = 0;
-      nreset = 0;
+      nreset_drv = 0;
       nhalt = 0;
       nmem = 1;
       nio = 1;
@@ -84,7 +84,7 @@ module databus_tb();
 
       #5000 status = "Write Strobes";
 
-      nreset = 1;
+      nreset_drv = 1;
 
       // Get us to a more plausible phase difference with the clock. Normally,
       // this is all done by the microcode sequencer, so it's *basically*
@@ -173,14 +173,18 @@ module databus_tb();
       else num_ws = 0;
    end
 
+   wire nreset;
+   assign nreset = nreset_drv;
+
    // Use the standard clock generator.
    clock_generator clock_generator (.nreset(nreset),
-				    .fpclk(1'b1), .nfpclk_or_clk(1'b1),
 				    .clk1(clk1), .clk2(clk2), .clk3(clk3), .clk4(clk4),
 				    .t34(t34));
    
    // Connect DUT to test bench
 
+   wire nreset_real;
+   
    databus databus (.nreset(nreset),
 		    .nhalt(nhalt), 
 		    .clk3(clk3), .clk4(clk4), .t34(t34),

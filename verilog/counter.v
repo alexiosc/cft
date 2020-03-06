@@ -9,7 +9,7 @@
 `ifndef counter_v
 `define counter_v
 
-//`timescale 1ns/10ps
+`timescale 1ns/10ps
 
 module counter_161 (
 		    mr,		// /MR: Reset

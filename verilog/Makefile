@@ -493,6 +493,14 @@ test_mbu:	mbu_tb.o mbu.o ram.o rom.o demux.o buffer.o flipflop.o
 		./mbu_tb.o
 		$(GTKWAVE) $(VCDDIR)/mbu_tb.vcd $(SAVDIR)/mbu_tb.sav
 
+test_alu_porta:	alu_porta.o alu_porta.o
+		./alu_porta_tb.o
+		$(GTKWAVE) $(VCDDIR)/alu_porta_tb.vcd $(SAVDIR)/alu_porta_tb.sav
+
+test_alu_portb:	alu_portb.o alu_portb.o
+		./alu_portb_tb.o
+		$(GTKWAVE) $(VCDDIR)/alu_portb_tb.vcd $(SAVDIR)/alu_portb_tb.sav
+
 test_alu_sru:	alu_sru_tb.o alu_sru.o
 		./alu_sru_tb.o
 		$(GTKWAVE) $(VCDDIR)/alu_sru_tb.vcd $(SAVDIR)/alu_sru_tb.sav

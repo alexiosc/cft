@@ -28,6 +28,7 @@
 `include "comparator.v"
 `include "buffer.v"
 `include "counter.v"
+`include "mux.v"
 
 `timescale 1ns/1ps
 
@@ -144,8 +145,8 @@ module microcode_sequencer(nreset, nrsthold, clk2, clk4,
 			       .ucontrol(ucontrol));
 
    // The reset interlock multiplexer disables
-   mux_157 reset_interlock (.sel(nrsthold), .i1(4'b1111),
-			    .i2({nio0, nwen0, nr0, nmem0}), .oe(1'b0),
+   mux_157 reset_interlock (.sel(nrsthold), .a(4'b1111),
+			    .b({nio0, nwen0, nr0, nmem0}), .noe(1'b0),
 			    .y({nio, nwen, nr, nmem}));
 
    ///////////////////////////////////////////////////////////////////////////////

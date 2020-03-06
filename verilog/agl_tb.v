@@ -52,7 +52,12 @@ module agl_tb();
       ir = 0;
       pc = 0;
       nread_agl = 1;
-      nend = 1;
+
+      // Make the AGL read the current PC to initialise it. On real hardware,
+      // the end of the reset microprogram would implicitly do this when the
+      // control unit asserts END# after setting the PC to 0000.
+      nend = 0;
+      #5 nend = 1;
 
       #1000 nread_agl = 0;
 
@@ -76,7 +81,7 @@ module agl_tb();
 
    // Verify our findings.
    reg [8191:0] msg;
-   reg [15:0] 	lastpc = 4'hffff;
+   reg [15:0] 	lastpc = 16'hffff;
    always @ (nread_agl, ir, pc) begin
       #30 begin
 	 msg[7:0] = "";		// Use the msg as a flag.

@@ -35,7 +35,7 @@
 module reg_v_tb();
    reg    nreset;
    reg 	  ibus13;
-   reg 	  fvin_add;
+   reg 	  fvout_rom;		// Output FROM the ROM; input to us.
    reg 	  nsetv_rom;
    reg 	  nflagwe;
    reg 	  clken;
@@ -48,13 +48,13 @@ module reg_v_tb();
    initial begin        
       $dumpfile ("vcd/reg_v_tb.vcd");
       $dumpvars (0, reg_v_tb);
-      $monitor ("t: %7d | %b %b %b %b %b %b > %b", $time, nreset, clk4, ibus13, nflagwe, fvin_add, nsetv_rom, fv);
+      $monitor ("t: %7d | %b %b %b %b %b %b > %b", $time, nreset, clk4, ibus13, nflagwe, fvout_rom, nsetv_rom, fv);
       
       nreset = 0;
       clk4 = 1;
       ibus13 = 0;
       nflagwe = 1;
-      fvin_add = 0;
+      fvout_rom = 0;
       nsetv_rom = 1;
       clken = 0;
       // #1000 nreset = 1;
@@ -63,7 +63,7 @@ module reg_v_tb();
       for (i = 0 ; i < 32; i = i + 1) begin
 	 #62.5 begin
 	    ibus13 = i[0];
-	    fvin_add = i[1];
+	    fvout_rom = i[1];
 	    nsetv_rom = i[2];
 	    nreset = i[4];
 	    #19 nflagwe = i[3];	// Simulate WADDR decoding delay (12ns for '138 + 7ns for LCT AND gate)
@@ -85,11 +85,11 @@ module reg_v_tb();
 
       // // Test L loading from the ALU's adder
       // #1000 for (i = 0; i < 4; i++) begin
-      // 	 #400 fvin_add = 0;
+      // 	 #400 fvout_rom = 0;
       // 	 #100 nsetv_rom = 0;
       // 	 #100 nsetv_rom = 1;
 	 
-      // 	 #400 fvin_add = 1;
+      // 	 #400 fvout_rom = 1;
       // 	 #100 nsetv_rom = 0;
       // 	 #100 nsetv_rom = 1;
       // end

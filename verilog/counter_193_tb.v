@@ -30,6 +30,7 @@
 `timescale 1ns/10ps
 
 `include "counter.v"
+`timescale 1ns/10ps
 
 module counter_193_tb();
 

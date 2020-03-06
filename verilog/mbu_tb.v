@@ -44,7 +44,8 @@ module reg_mbr_tb();
    reg [4:0]  raddr;
    wire       nw;
    wire       idxen;
-   
+
+   wire       nreset_real, nfpram_rom_real;
    wire [15:0] ibus_real, ab_real, db_real;
    wire [7:0]  aext, db_low, ibus_low;
    
@@ -339,6 +340,8 @@ module reg_mbr_tb();
 
    // Bi-directional buses and convenience
 
+   assign nreset_real = nreset;
+   assign nfpram_rom_real = nfpram_rom;
    assign ibus_real = ibus;
    assign ab_real = ab;
    assign db_real = db;
@@ -346,7 +349,7 @@ module reg_mbr_tb();
    assign ibus_low = ibus_real[7:0]; // This simplifies things with gtkwave
 
    // Connect the DUT   
-   mbu mbu (.nreset(nreset),
+   mbu mbu (.nreset(nreset_real),
 	    .clk3(clk3), .t34(t34),
 	    .waddr(waddr), .raddr(raddr),
 	    .ir(ir[2:0]),
@@ -358,14 +361,15 @@ module reg_mbr_tb();
 	    .db(db_real[7:0]),
 	    .nsysdev(nsysdev),
 	    .nwrite_ar_mbx(nwrite_ar_mbx),
-	    .nfpram_rom(nfpram_rom)
+	    .nfpram_rom(nfpram_rom_real)
 	    );
 
    // Make the idxen signal work
    assign #15 idxen = ir[11:8] === 4'b1111 ? 1'b1 : 1'b0;
 
    // Use the actual clock generator to make testing more accurate.
-   clock_generator clk (.nreset(nreset), .fpclk(1'b0), .nfpclk_or_clk(1'b1), .clk1(clk1), .clk2(clk2), .clk3(clk3), .clk4(clk4), .t34(t34));
+   clock_generator clk (.nreset(nreset_real), .clk1(clk1), .clk2(clk2),
+			.clk3(clk3), .clk4(clk4), .t34(t34));
 
    // Simulate SYSDEV generation. Assume ALL bus transactions are I/O
    // transactions for simplicity.
@@ -407,9 +411,9 @@ module reg_mbr_tb();
    always @(nfpram_rom, aext, mbu.ndis) begin
       if (nreset === 1'b1 && mbu.ndis === 1'b0) #50 begin
 	 correct_value1 = { nfpram_rom, 7'd0 };
-	 if (nfpram_rom == 0 && aext !== correct_value1) begin
-	    $sformat(msg, "post-reset, nfpram_rom=%b (RAM) but AEXT was %02x (should be %02x)",
-		     nfpram_rom, aext, correct_value1);
+	 if (nfpram_rom_real == 0 && aext !== correct_value1) begin
+	    $sformat(msg, "post-reset, nfpram_rom_real=%b (RAM) but AEXT was %02x (should be %02x)",
+		     nfpram_rom_real, aext, correct_value1);
 	 end
 	 
 	 // Fail if we've logged an issue.

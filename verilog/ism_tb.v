@@ -118,7 +118,7 @@ module int_tb();
    end
 
    // Connect DUT to test bench
-   int_fsm int_fsm (.nreset(nreset), .clk1(clk1), .clk4(clk4), .nend(nend),
+   int_fsm int_fsm (.nreset(nreset), .clk4(clk4), .nend(nend),
 		    .ibus15(ibus15), .nflagwe(nflagwe),
 		    .action(action), 
 		    .nirq(nirq), .fi(fi),
