@@ -48,12 +48,14 @@ OLDSRC =	counter.v counter_161_tb.v counter_590_tb.v counter_393h_tb.v counter_4
 #               TYPE           TEST BENCHES
 IC74XXX	=	buffer.v       buffer_244_tb.v buffer_245_tb.v buffer_541_tb.v \
 		comparator.v   comparator_688_tb.v comparator_85_tb.v \
-		counter.v      counter_193_tb.v counter_590_tb.v \
-		demux.v        demux_138_tb.v demux_138_tb.v \
+		counter.v      counter_191_tb.v counter_193_tb.v counter_590_tb.v \
+		demux.v        demux_138_tb.v demux_139_tb.v demux_139h_tb.v demux_238_tb.v \
 		mux.v          mux_1g157_tb.v mux_2g157_tb.v mux_157_tb.v mux_253_tb.v  \
 		flipflop.v     flipflop_112_tb.v flipflop_74_tb.v flipflop_174_tb.v \
-                               flipflop_574_tb.v flipflop_564_tb.v latch_1g373_tb.v \
+                               flipflop_574_tb.v flipflop_564_tb.v \
+                               latch_1g373_tb.v latch_373_tb.v \
 		ram.v          ram_tb.v \
+		rom.v          rom_tb.v \
 
 
 SRC += $(IC74XXX)

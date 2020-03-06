@@ -1,15 +1,15 @@
 [*]
-[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
-[*] Wed Jan  1 10:04:42 2020
+[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
+[*] Fri Mar  6 19:15:48 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/rom_tb.vcd"
-[dumpfile_mtime] "Wed Jan  1 10:04:35 2020"
-[dumpfile_size] 52972
+[dumpfile_mtime] "Fri Mar  6 19:15:43 2020"
+[dumpfile_size] 53030
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/rom_tb.sav"
-[timestart] 238470000
+[timestart] 241239000
 [size] 1000 600
 [pos] -1 -1
-*-21.227217 40800000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-19.227217 40800000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] rom_tb.
 [sst_width] 258
 [signals_width] 134
