@@ -1,0 +1,24 @@
+[*]
+[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
+[*] Fri Mar  6 09:27:40 2020
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/alu_porta_tb.vcd"
+[dumpfile_mtime] "Fri Mar  6 09:27:34 2020"
+[dumpfile_size] 14075677
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/alu_porta_tb.sav"
+[timestart] 0
+[size] 1255 589
+[pos] 238 90
+*-20.000000 137000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[sst_width] 226
+[signals_width] 94
+[sst_expanded] 1
+[sst_vpaned_height] 138
+@28
+alu_porta_tb.clk4
+@23
+alu_porta_tb.ac[15:0]
+@22
+alu_porta_tb.a[15:0]
+[pattern_trace] 1
+[pattern_trace] 0
