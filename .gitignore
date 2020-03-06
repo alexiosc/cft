@@ -353,6 +353,7 @@ microcode/*.list
 microcode/*.mif
 notes/*pdf
 testing/reports/
+testing/.cache/
 screenshots/
 testing/sandbox/
 tmp/
