@@ -168,19 +168,28 @@ runtest ()
 	return 1
     fi
 
+    real_tb=$(readlink -f $tb)
+
+    pushd $(dirname $real_tb) >&/dev/null
     local tmpfile=$(mktemp /tmp/$PROGNAME-XXXXXXXXXX)
-    $(readlink -f $tb) &>$tmpfile
+    if [[ $verbose ]]; then
+	$real_tb | tee $tmpfile
+    else
+        $real_tb &>$tmpfile
+    fi
+    popd >&/dev/null
+    
     local num_ok=$(grep -c "^345 OK" $tmpfile)
     local num_fail=$(grep -c "^346 FAIL" $tmpfile)
     #echo -e "($num_fail,$num_ok) "
     case "$num_fail,$num_ok" in
-	0,1) echo "$(colour '0;38;5;48')345 OK: passed $(colour '0;1')1$(colour) test"
+	0,1) echo "$(colour '0;38;5;48')OK: passed $(colour '0;1')1$(colour) test"
 	     rm -f "$tmpfile"
 	     return 0;;
-	0,*) echo "$(colour '0;38;5;48')345 OK: passed $(colour '0;1')$num_ok$(colour) tests"
+	0,*) echo "$(colour '0;38;5;48')OK: passed $(colour '0;1')$num_ok$(colour) tests"
 	     rm -f "$tmpfile"
 	     return 0;;
-	0,0) echo "$(colour '0;38;5;202')346 FAIL: $(colour)Non-conformant test"
+	0,0) echo "$(colour '0;38;5;202')FAIL: $(colour)Non-conformant test"
 	     rm -f "$tmpfile"
 	     return 1;;
 	*,*) keeplog="${tb%.o}-failure.log"
@@ -198,7 +207,7 @@ runtest ()
 	     colour
 	     return 1
 	     ;;
-	*)   echo "$(colour '0;38;5;226')346 FAIL: $(colour)$PROGNAME bug ($num_fail,$num_ok)"
+	*)   echo "$(colour '0;38;5;226')FAIL: $(colour)$PROGNAME bug ($num_fail,$num_ok)"
 	     rm -f "$tmpfile"
 	     return 1;;
     esac
