@@ -13,7 +13,7 @@ TESTTOOL=../tools/run-verilog-testbench
 #
 ###############################################################################
 
-SRC =		counter.v counter_161_tb.v counter_590_tb.v counter_393h_tb.v counter_4017_tb.v \
+OLDSRC =	counter.v counter_161_tb.v counter_590_tb.v counter_393h_tb.v counter_4017_tb.v \
 		buffer.v buffer_244_tb.v buffer_245_tb.v \
 		vibrator.v vibrator_123_tb.v vibrator_555_tb.v \
 		demux.v demux_138_tb.v demux_139_tb.v \
@@ -204,6 +204,10 @@ test_4017:	counter_4017_tb.o counter.o
 		$(GTKWAVE) $(VCDDIR)/counter_4017_tb.vcd $(SAVDIR)/counter_4017_tb.sav
 
 # Encoders/Multiplexers
+
+test_157:	mux_157_tb.o mux.o
+		./mux_157_tb.o
+		$(GTKWAVE) $(VCDDIR)/mux_157_tb.vcd $(SAVDIR)/mux_157_tb.sav
 
 test_1g157:	mux_1g157_tb.o mux.o
 		./mux_1g157_tb.o
