@@ -1,1 +1,1 @@
-pytest-3 --tb=short --forked *py
+pytest-3 --tb=short *py

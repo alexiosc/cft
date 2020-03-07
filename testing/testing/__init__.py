@@ -65,7 +65,14 @@ def run_verilog_test(capsys, name, *args):
 
     cmd = '{} {} -v {}'.format(RUN_VERILOG_TEST, testbench, ' '.join(args))
     os.system(cmd)
-    for line in capsys.readouterr().out.split('\n'):
+    result = capsys.readouterr()
+    try:
+        out = result.out
+    except:
+        # This is for older pytest installations
+        out = result[0]
+
+    for line in out.split('\n'):
         m = re.match('^(\d\d\d) (\S+):?(?: (.+))$', line.strip())
         if not m:
             continue
