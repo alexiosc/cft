@@ -1,15 +1,15 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// 74x574 FLIP-FLOP TESTBENCH
+// 74x573 LATCH TESTBENCH
 //
 ///////////////////////////////////////////////////////////////////////////////
 //
 // REDESIGNED IN 2019
 // USES OK/FAIL OUTPUT
 //
-// flipflop_574_tb.v -- 74x574 testbench
+// latch_573_tb.v -- 74x573 testbench
 //
-// Copyright © 2011–2019 Alexios Chouchoulas
+// Copyright © 2011–2020 Alexios Chouchoulas
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -27,57 +27,79 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-`include "flipflop.v"
+`include "latch.v"
 `timescale 1ns/10ps
 
-module flipflop_574_tb();
-   reg 	      noe;
-   reg [7:0]  d;
+module latch_573_tb();
 
-   wire       clk;
+// Declare inputs as regs and outputs as wires
+   reg [7:0] d;
+   reg 	     noe, le;
+   
    wire [7:0] q;
+   reg [7:0]  oldq;
+   
    integer    i;
    
-
    // Initialize all variables
    initial begin        
-      $monitor ("t: %7d | %b %b %x > %x", $time, clk, noe, d, q);
-      $dumpfile ("vcd/flipflop_574_tb.vcd");
-      $dumpvars (0, flipflop_574_tb);
+      $monitor ("t: %7d | %b %b %x > %x", $time, d, noe, le, q);
+      $dumpfile ("vcd/latch_573_tb.vcd");
+      $dumpvars (0, latch_573_tb);
 
-      d = 0;
       noe = 1;
+      le = 1;
+      d = 0;
+      oldq = latch_573.q0;
 
-      for (i = 0; i < 2048; i = i + 1) begin
-	 #100 {noe, d} = {i[9], i[8:1]};
+      for (i = 0; i < 2048 ; i = i + 1) begin
+	 #100 d = i[7:0];
+	 noe = i[8];
+	 le = ~i[9];
       end
 
-      #200 $display("345 OK");
-      $finish;      // Terminate simulation
+      #2000 $finish;      // Terminate simulation
    end
 
-   assign #15 clk = i[10] === 0 ? i[0] : 1;
-   
-   // Connect DUT to test bench
-   flipflop_574 flipflop (.noe(noe), .clk(clk), .d(d), .q(q));
+   latch_573 latch_573 (.d(d), .le(le), .noe(noe), .q(q));
 
+   
    // Verify our findings.
    reg [8191:0] msg;
-   reg [7:0] 	lastq;
-   always @ (noe, clk, d) begin
+   always @ (noe) begin
       #30 begin
    	 msg[7:0] = "";		// Use the msg as a flag.
 
-   	 // Check asynchronous set
 	 if (noe === 1) begin
-	    if (q != 8'bzzzzzzzz) $sformat(msg, "noe=%b but q=%x (should be Z)", noe, q);
+	    if (q != 8'bzzzzzzzz) $sformat(msg, "noe=%b but q=%b (should be Z)", noe, q);
 	 end
 
 	 else if (noe !== 0) $sformat(msg, "testbench bug, noe=%b", noe);
+	 
+   	 // Fail if we've logged an issue.
+   	 if (msg[7:0]) begin
+   	    $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
+   	    $error("assertion failure");
+   	    #100 $finish;
+   	 end
+	 else $display("345 OK output");
+      end
+   end // always @ (noe)
+   
+   always @ (le, d) begin
+      #30 begin
+   	 msg[7:0] = "";		// Use the msg as a flag.
 
-	 else if (lastq != 8'bxxxxxxxx && q !== lastq) begin
-	    $sformat(msg, "q changed from %b to %b without clock positive edge!", lastq, q);
+	 if (le === 1) begin
+	    if (q != d) $sformat(msg, "incorrect q: le=0 but q=%b (should be %b)", q, oldq);
+	    oldq = d;
 	 end
+
+	 else if (le === 0) begin
+	    if (q != oldq) $sformat(msg, "q changed with le=0: q=%b (should be %b)", q, oldq);
+	 end
+
+	 else if (noe !== 0) $sformat(msg, "testbench bug, noe=%b", noe);
 	 
    	 // Fail if we've logged an issue.
    	 if (msg[7:0]) begin
@@ -88,24 +110,5 @@ module flipflop_574_tb();
 	 else $display("345 OK output");
       end
    end // always @ (noe, posedge clk)
-
-   always @(posedge clk) begin
-      msg[7:0] = "";		// Use the msg as a flag.
-      // noe === 0 implied here
-      if (clk === 1) begin
-	 lastq = d;
-	 if (noe !== 0 && q !== 8'bzzzzzzzz && d !== q) $sformat(msg, "noe=%b, d=%b, but q=%b", noe, d, q);
-      end
-	 
-      // Fail if we've logged an issue.
-      if (msg[7:0]) begin
-   	 $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
-   	 $error("assertion failure");
-   	 #100 $finish;
-      end
-      else $display("345 OK load");
-   end
-
-endmodule // flipflop_574_tb
-
-// End of file.
+   
+endmodule

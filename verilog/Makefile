@@ -53,7 +53,8 @@ IC74XXX	=	buffer.v       buffer_244_tb.v buffer_245_tb.v buffer_541_tb.v \
 		mux.v          mux_1g157_tb.v mux_2g157_tb.v mux_157_tb.v mux_253_tb.v  \
 		flipflop.v     flipflop_112_tb.v flipflop_74_tb.v flipflop_174_tb.v \
                                flipflop_574_tb.v flipflop_564_tb.v \
-                               latch_1g373_tb.v latch_373_tb.v \
+                latch.v        latch_1g373_tb.v latch_373_tb.v latch_573_tb.v \
+		regfile.v      regfile_670_tb.v \
 		ram.v          ram_tb.v \
 		rom.v          rom_tb.v \
 
@@ -242,7 +243,7 @@ test_238:	demux_238_tb.o demux.o
 		$(GTKWAVE) $(VCDDIR)/demux_238_tb.vcd $(SAVDIR)/demux_238_tb.sav
 
 
-# Flip-Flops
+# Flip-Flops & latches
 
 test_74:	flipflop_74_tb.o flipflop.o
 		./flipflop_74_tb.o
@@ -260,17 +261,21 @@ test_273:	flipflop_273_tb.o flipflop.o
 		./flipflop_273_tb.o
 		$(GTKWAVE) $(VCDDIR)/flipflop_273_tb.vcd $(SAVDIR)/flipflop_273_tb.sav
 
-test_373:	latch_373_tb.o flipflop.o
+test_373:	latch_373_tb.o latch.o
 		./latch_373_tb.o
 		$(GTKWAVE) $(VCDDIR)/latch_373_tb.vcd $(SAVDIR)/latch_373_tb.sav
 
-test_1g373:	latch_1g373_tb.o flipflop.o
+test_1g373:	latch_1g373_tb.o latch.o
 		./latch_1g373_tb.o
 		$(GTKWAVE) $(VCDDIR)/latch_1g373_tb.vcd $(SAVDIR)/latch_1g373_tb.sav
 
 test_374:	flipflop_374_tb.o flipflop.o
 		./flipflop_374_tb.o
 		$(GTKWAVE) $(VCDDIR)/flipflop_374_tb.vcd $(SAVDIR)/flipflop_374_tb.sav
+
+test_573:	latch_573_tb.o latch.o
+		./latch_573_tb.o
+		$(GTKWAVE) $(VCDDIR)/latch_573_tb.vcd $(SAVDIR)/latch_573_tb.sav
 
 test_574:	flipflop_574_tb.o flipflop.o
 		./flipflop_574_tb.o

@@ -247,41 +247,6 @@ endmodule // flipflop_273
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-// Function: 74x573 8-bit D latch/bus driver with clear
-//
-///////////////////////////////////////////////////////////////////////////////
-
-module latch_573 (d, q, nle, nclr);
-   parameter propagation_delay = 7;
-   
-   input [7:0] d;		// Data
-   input       nle;		// Latch enable (active low)
-   input       nclr;		// /CLR (active low): reset
-
-   output [7:0] q;		// Output
-   
-   wire [7:0] 	d;
-   wire 	nclr;
- 	
-   reg [7:0] 	q;
-
-   initial begin
-      q <= $random;
-   end
-
-   always @(negedge nclr, nle, d)
-     begin
-	if (nclr == 1'b0) begin
-	   q <= #propagation_delay 8'b00000000;
-	end else if (nle == 1'b0) begin
-	   q <= #propagation_delay d;
-	end
-     end
-endmodule // flipflop_273
-
-
-///////////////////////////////////////////////////////////////////////////////
-//
 // Function: 74x574 8-bit synchronous D flip-flop
 //
 // Dataset: 
@@ -446,66 +411,6 @@ module flipflop_74h (d, clk, nset, nrst, q, nq);
       endcase // case ({nset, nrst})
    end // always @ (nset, nrst)
 endmodule // flipflop_74h
-
-
-///////////////////////////////////////////////////////////////////////////////
-//
-// 74HC373 8-bit 3-state latch
-//
-///////////////////////////////////////////////////////////////////////////////
-
-module latch_373 (d, oc, enc, q);
-   parameter delay = 14;
-   
-   input [7:0]  d;
-   input        oc, enc;
-
-   output [7:0] q;
-
-   wire [7:0] 	d;
-   wire 	oc, enc;
-
-   wire [7:0] 	q;
-   reg [7:0] 	q0;
-
-   always @(enc or d) begin
-     if (enc) begin
-       #(delay-2) q0 = d;
-     end
-   end
-
-   assign #delay q = oc ? 8'bzzzzzzzz : q0;
-endmodule // latch_373
-
-
-///////////////////////////////////////////////////////////////////////////////
-//
-// 74LVC1G373 single-but 3-state latch
-//
-///////////////////////////////////////////////////////////////////////////////
-
-module latch_1g373 (d, noe, le, q);
-   parameter delay = 6;		// Max propagation delay for 5V is 5.3ns.
-   
-   input        d;
-   input        noe, le;
-
-   output       q;
-
-   wire       	d;
-   wire 	noe, le;
-
-   wire       	q;
-   reg       	q0;
-
-   always @(le or d) begin
-     if (le) begin
-       #(delay-2) q0 = d;
-     end
-   end
-
-   assign #delay q = noe ? 1'bz : q0;
-endmodule // latch_373
 
 
 ///////////////////////////////////////////////////////////////////////////////
