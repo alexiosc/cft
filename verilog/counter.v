@@ -178,34 +178,49 @@ endmodule // counter_191
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-// Function: 74x590 8-bit counter. CAUTION: buggy/incomplete implementation
+// Function: 74x590 8-bit counter.
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-module counter_590 (clk, ccken, cclr, rck, g, q, rco);
+// NOTE: These follow Nexperia nomenclature:
+//
+// https://assets.nexperia.com/documents/data-sheet/74HC590.pdf
+
+module counter_590 (nmrc, cpc, cpr, nce, noe, q, nrco);
    parameter delay = 16;
-		    
-   input clk, ccken, cclr, rck, g;
-   output [7:0] q;
-   output rco;
 
-   reg 	  [7:0] count;
-   reg    [7:0] oreg;
+   input 	nmrc;			// Reset (active low)
+   input 	cpc;			// Count clock (raising edge)
+   input 	cpr;			// Register clodk (raising edge)
+   input 	nce;			// Count enable (active low)
+   input 	noe;			// Output enabel (active low)
 
-   assign #delay q = g ? 8'bzzzzzzzz : oreg;
-   assign #delay rco = count == 255 ? 1'b0 : 1'b1;
+   output [7:0] q;			// Count output
+   output 	nrco;			// Ripple output (active low)
 
-   always @(cclr) begin
-      if (cclr == 0) count = 0;
+   reg [7:0] 	count;
+   reg [7:0] 	oreg;
+
+   assign #delay q = noe ? 8'bzzzzzzzz : oreg;
+   assign #delay nrco = count == 255 ? 1'b0 : 1'b1;
+
+   initial begin
+      count <= $random;
+      oreg <= $random;
    end
 
-   always @(posedge clk) begin
-      if (ccken == 1'b0 && cclr == 1'b1) begin
-	 #(delay + 2) count = cclr ? (count + 1) & 255 : 0;
-      end
+   // The count stage. #delay+2 is used to simulate what happens when
+   // both cpc and cpr are driven from the same signal: the register
+   // lags one count behind the counter.
+   always @(nmrc) begin
+      if (nmrc == 1'b0) #(delay+1) count = 0;
+   end
+   always @(posedge cpc) begin
+      if (nmrc == 1'b1 && nce == 1'b0 && cpc == 1'b1) #(delay + 2) count = count + 1;
    end
 
-   always @(posedge rck) begin
+   // The register stage
+   always @(posedge cpr) begin
       #delay oreg = count;
    end
 endmodule // counter_590

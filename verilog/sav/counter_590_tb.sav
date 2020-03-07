@@ -1,35 +1,44 @@
 [*]
 [*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Tue Mar  3 13:38:02 2020
+[*] Sat Mar  7 09:25:07 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/counter_590_tb.vcd"
-[dumpfile_mtime] "Tue Mar  3 13:37:58 2020"
-[dumpfile_size] 65087
+[dumpfile_mtime] "Sat Mar  7 09:24:54 2020"
+[dumpfile_size] 2377601
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/counter_590_tb.sav"
-[timestart] 64830000
+[timestart] 10391000000
 [size] 1742 670
-[pos] 34 203
-*-21.974836 46907000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[pos] 2149 96
+*-28.824480 8320018000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] counter_590_tb.
 [sst_width] 245
 [signals_width] 164
 [sst_expanded] 1
 [sst_vpaned_height] 172
+@820
+counter_590_tb.status[800:0]
+@420
+counter_590_tb.i
 @28
-counter_590_tb.clk
-counter_590_tb.rck
-counter_590_tb.ccken
-counter_590_tb.cclr
-counter_590_tb.g
+[color] 1
+counter_590_tb.nmrc
+[color] 2
+counter_590_tb.cpr
+[color] 3
+counter_590_tb.cpc
+[color] 4
+counter_590_tb.nce
 @200
 -
 -Output
+@420
+counter_590_tb.oldcount
+@23
+counter_590_tb.counter_590.count[7:0]
 @22
-counter_590_tb.c0.count[7:0]
 counter_590_tb.q[7:0]
-counter_590_tb.q1[7:0]
 @28
-counter_590_tb.c1.clk
-counter_590_tb.rco
+[color] 2
+counter_590_tb.nrco
 [pattern_trace] 1
 [pattern_trace] 0

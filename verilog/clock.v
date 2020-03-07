@@ -112,7 +112,7 @@ module clock_generator (nreset, fpclk, nfpclk_or_clk,
    wire [7:0] resetq;
    assign nrsthold = resetq[4];	// 32 cycles
    //assign nrsthold = resetq[7];	// 128 cycles, true to hardware
-   counter_590 reset (.clk(clk3), .rck(clk3), .ccken(nrsthold), .cclr(nreset), .g(1'b0), .q(resetq));
+   counter_590 reset (.cpc(clk3), .cpr(clk3), .nce(nrsthold), .nmrc(nreset), .noe(1'b0), .q(resetq));
 endmodule // clock_generator
 
 `endif //  `ifndef clock_v
