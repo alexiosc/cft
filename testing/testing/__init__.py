@@ -21,6 +21,15 @@ def pytest_configure(config):
     config.addinivalue_line(
         "markers", "hardware: this test applies to hardware testing.")
 
+    config.addinivalue_line(
+        "markers", "ctl: the CTL Board.")
+    config.addinivalue_line(
+        "markers", "reg: the REG Board.")
+    config.addinivalue_line(
+        "markers", "bus: the BUS Board.")
+    config.addinivalue_line(
+        "markers", "alu: the ALU Board.")
+
 
 def findBaseDir():
     """Locate the base directory of the project"""

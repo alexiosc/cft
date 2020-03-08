@@ -11,6 +11,17 @@ from testing import *
 
 
 @pytest.mark.slow
+@pytest.mark.verilog
+@pytest.mark.reg
+def test_reg_major(capsys):
+    name = inspect.stack()[0][3].replace('test_', '')
+    for code, state, comment in run_verilog_test(capsys, name):
+        assert code != FAIL
+
+
+@pytest.mark.slow
+@pytest.mark.verilog
+@pytest.mark.reg
 def test_card_reg(capsys):
     name = inspect.stack()[0][3].replace('test_', '')
     for code, state, comment in run_verilog_test(capsys, name):

@@ -7,43 +7,35 @@ import pytest
 import inspect
 import subprocess
 
-from testing import *
-
-BASEDIR = findBaseDir()
-VERILOGDIR = os.path.join(BASEDIR, "verilog")
-RUN_VERILOG_TEST = os.path.join(BASEDIR, "tools", "run-verilog-testbench")
-SUCCESS = 345
-FAIL = 346
+from testing import * 
 
 
-def test_paths():
-    assert os.path.exists(BASEDIR) and os.path.isdir(BASEDIR), \
-        "BASEDIR not found"
-    assert os.path.exists(VERILOGDIR) and os.path.isdir(VERILOGDIR), \
-        "VERILOGDIR not found"
-    assert os.path.exists(RUN_VERILOG_TEST) and os.access(RUN_VERILOG_TEST, os.X_OK), \
-        "tools/run-verilog-testbench not found or not executable"
-
-
+@pytest.mark.verilog
+@pytest.mark.bus
 def test_reg_ar(capsys):
     name = inspect.stack()[0][3].replace('test_', '')
     for code, state, comment in run_verilog_test(capsys, name):
         assert code != FAIL
 
-
-def test_reg_ir(capsys):
+@pytest.mark.verilog
+@pytest.mark.bus
+def test_mbu(capsys):
     name = inspect.stack()[0][3].replace('test_', '')
     for code, state, comment in run_verilog_test(capsys, name):
         assert code != FAIL
 
 
-def test_reg_l(capsys):
+@pytest.mark.verilog
+@pytest.mark.bus
+def test_constant_store(capsys):
     name = inspect.stack()[0][3].replace('test_', '')
     for code, state, comment in run_verilog_test(capsys, name):
         assert code != FAIL
 
 
-def test_reg_v(capsys):
+@pytest.mark.verilog
+@pytest.mark.bus
+def test_databus(capsys):
     name = inspect.stack()[0][3].replace('test_', '')
     for code, state, comment in run_verilog_test(capsys, name):
         assert code != FAIL
