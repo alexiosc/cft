@@ -94,6 +94,7 @@ module counter_193 (clr, npl, p, cpu, cpd, q, ntcu, ntcd);
 
    initial begin
       //$display("Initialising 74x193");
+      q <= $random;
    end
 
    always @(clr, npl, p) begin
