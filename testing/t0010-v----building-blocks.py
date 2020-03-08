@@ -101,18 +101,15 @@ def test_mux_157(capsys):
     for code, state, comment in run_verilog_test(capsys, name):
         assert code != FAIL
 
-
 def test_mux_1g157(capsys):
     name = inspect.stack()[0][3].replace('test_', '')
     for code, state, comment in run_verilog_test(capsys, name):
         assert code != FAIL
 
-
 def test_mux_2g157(capsys):
     name = inspect.stack()[0][3].replace('test_', '')
     for code, state, comment in run_verilog_test(capsys, name):
         assert code != FAIL
-
 
 def test_mux_253(capsys):
     name = inspect.stack()[0][3].replace('test_', '')
@@ -121,10 +118,11 @@ def test_mux_253(capsys):
 
 # Flip-Flops
 
-def test_flipflop_112(capsys):
-    name = inspect.stack()[0][3].replace('test_', '')
-    for code, state, comment in run_verilog_test(capsys, name):
-        assert code != FAIL
+# IC not used!
+# def test_flipflop_112(capsys):
+#     name = inspect.stack()[0][3].replace('test_', '')
+#     for code, state, comment in run_verilog_test(capsys, name):
+#         assert code != FAIL
 
 def test_flipflop_74(capsys):
     name = inspect.stack()[0][3].replace('test_', '')
@@ -159,6 +157,14 @@ def test_latch_1g373(capsys):
     name = inspect.stack()[0][3].replace('test_', '')
     for code, state, comment in run_verilog_test(capsys, name):
         assert code != FAIL
+
+# The '670 register file (not used any more, but check anyway)
+
+def test_regfile_670(capsys):
+    name = inspect.stack()[0][3].replace('test_', '')
+    for code, state, comment in run_verilog_test(capsys, name):
+        assert code != FAIL
+
 
 # Memory
 
