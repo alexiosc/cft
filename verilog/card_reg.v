@@ -188,7 +188,7 @@ module card_reg(
 
    // Now, the three decoders
    demux_138 raddr_decoder (.g1(raddr[3]), .ng2a(raddr[4]), .ng2b(1'b0), .a(raddr[2:0]), .y(raddr_y));
-   demux_138 waddr_decoder (.g1(raddr[3]), .ng2a(raddr[4]), .ng2b(clk4), .a(raddr[2:0]), .y(waddr_y));
+   demux_138 waddr_decoder (.g1(waddr[3]), .ng2a(waddr[4]), .ng2b(clk4), .a(waddr[2:0]), .y(waddr_y));
    demux_138 action_decoder (.g1(action[3]), .ng2a(1'b0), .ng2b(1'b0), .a(action[2:0]), .y(action_y));
 
    assign nread_pc = raddr_y[0];
@@ -198,7 +198,7 @@ module card_reg(
 
    assign nwrite_pc = waddr_y[0];
    assign nwrite_dr = waddr_y[1];
-   assign nwrite_pc = waddr_y[2];
+   assign nwrite_ac = waddr_y[2];
    assign nwrite_sp = waddr_y[3];
    
    assign naction_incpc = action_y[0];
@@ -216,6 +216,9 @@ module card_reg(
    ///////////////////////////////////////////////////////////////////////////////
 
    // The Program Counter (PC): increment and output
+   wire 	 naction_incpc1;
+
+   assign #20 naction_incpc1 = (action == 4'b1000) ? 1'b0 : 1'b1;
    reg_major reg_pc (
 		     .reset(reset),
 		     .ibus(ibus),
@@ -223,7 +226,6 @@ module card_reg(
 		     .nwrite(nwrite_pc),
 		     .ninc(naction_incpc),
 		     .ndec(1'b1),
-		     .out(pc),
 		     .nfpl(nfppcl),
 		     .nfph(nfppch),
 		     .fpd(fpd));
@@ -255,7 +257,7 @@ module card_reg(
 		     .nfph(nfpach),
 		     .fpd(fpd));
 
-   // The Stack Pointer (PC): increment & decrement
+   // The Stack Pointer (SP): increment & decrement
    reg_major reg_sp (
 		     .reset(reset),
 		     .ibus(ibus),

@@ -1,0 +1,123 @@
+[*]
+[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
+[*] Sun Mar  8 13:26:06 2020
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/card_reg_tb.vcd"
+[dumpfile_mtime] "Sun Mar  8 13:25:15 2020"
+[dumpfile_size] 10243499
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/card_reg_tb.sav"
+[timestart] 6031600000
+[size] 1920 1019
+[pos] 20 53
+*-27.194674 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] card_reg_tb.
+[treeopen] card_reg_tb.card_reg.
+[sst_width] 258
+[signals_width] 222
+[sst_expanded] 1
+[sst_vpaned_height] 231
+@820
+card_reg_tb.status[800:0]
+@28
+card_reg_tb.nreset
+card_reg_tb.card_reg.clk4
+@200
+-
+@2028
+[color] 4
+^1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/raddr
+card_reg_tb.raddr[4:0]
+@c00022
+[color] 4
+card_reg_tb.ibus[15:0]
+@28
+(0)card_reg_tb.ibus[15:0]
+(1)card_reg_tb.ibus[15:0]
+(2)card_reg_tb.ibus[15:0]
+(3)card_reg_tb.ibus[15:0]
+(4)card_reg_tb.ibus[15:0]
+(5)card_reg_tb.ibus[15:0]
+(6)card_reg_tb.ibus[15:0]
+(7)card_reg_tb.ibus[15:0]
+(8)card_reg_tb.ibus[15:0]
+(9)card_reg_tb.ibus[15:0]
+(10)card_reg_tb.ibus[15:0]
+(11)card_reg_tb.ibus[15:0]
+(12)card_reg_tb.ibus[15:0]
+(13)card_reg_tb.ibus[15:0]
+(14)card_reg_tb.ibus[15:0]
+(15)card_reg_tb.ibus[15:0]
+@1401200
+-group_end
+@200
+-
+@2028
+[color] 2
+^2 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/waddr
+card_reg_tb.waddr[4:0]
+@22
+[color] 2
+card_reg_tb.ibus_drv[15:0]
+@200
+-
+@2028
+^3 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/action
+card_reg_tb.action[3:0]
+@200
+-
+@22
+[color] 1
++{PC} card_reg_tb.card_reg.reg_pc.out[15:0]
+[color] 2
++{DR} card_reg_tb.card_reg.reg_dr.out[15:0]
+[color] 3
++{AC} card_reg_tb.card_reg.reg_ac.out[15:0]
+[color] 4
++{SP} card_reg_tb.card_reg.reg_sp.out[15:0]
+@28
+card_reg_tb.card_reg.fz
+card_reg_tb.card_reg.naccpl
+@200
+-
+@800200
+-Decoded RADDR
+@28
+[color] 1
+card_reg_tb.card_reg.nread_pc
+[color] 2
+card_reg_tb.card_reg.nread_dr
+[color] 3
+card_reg_tb.card_reg.nread_ac
+[color] 4
+card_reg_tb.card_reg.nread_sp
+@1000200
+-Decoded RADDR
+@200
+-
+@800200
+-Decoded WADDR
+@28
+[color] 1
+card_reg_tb.card_reg.nwrite_pc
+[color] 2
+card_reg_tb.card_reg.nwrite_dr
+[color] 3
+card_reg_tb.card_reg.nwrite_ac
+[color] 4
+card_reg_tb.card_reg.nwrite_sp
+@1000200
+-Decoded WADDR
+@800200
+-Decoded ACTION
+@28
+card_reg_tb.card_reg.naction_incpc
+card_reg_tb.card_reg.naction_incdr
+card_reg_tb.card_reg.naction_decdr
+card_reg_tb.card_reg.naction_incac
+card_reg_tb.card_reg.naction_decac
+card_reg_tb.card_reg.naction_incsp
+card_reg_tb.card_reg.naction_decsp
+@1000200
+-Decoded ACTION
+[pattern_trace] 1
+[pattern_trace] 0
