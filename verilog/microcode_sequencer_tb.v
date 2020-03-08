@@ -134,27 +134,26 @@ module microcode_sequencer_tb();
    end // initial begin
 
    // Assign tristatable wires
-   wire nreset_real, nhalt_real, nws_real, nendext_real;
+   wire nreset_real, nhalt_real, nws_real, nendext_real, in_rsvd_real;
    assign nreset_real = nreset;
    assign nhalt_real = nhalt;
    assign nws_real = nws;
    assign nendext_real = nendext;
+   assign in_rsvd_real = in_rsvd;
 
    // Use the clock generator, configured to run without a DFP at full
    // speed. We only use clk2 and clk4 outputs here.
    clock_generator clock_generator(.nreset(nreset_real),
-				   .fpclk(1'b0), .nfpclk_or_clk(1'b1),
 				   .clk2(clk2), .clk3(clk3), .clk4(clk4));
 
    // Use the reset unit as it's an important part of the sequencer.
-   reset_logic reset_logic(.nreset(nreset_real), .nrsthold(nrsthold), .clk3(clk3),
-			   .fpreset(1'b1), .powerok(1'b1));
+   reset_logic reset_logic(.nreset(nreset_real), .nrsthold(nrsthold), .clk3(clk3));
 
    // The DUT
    microcode_sequencer microcode_sequencer(.nreset(nreset), .nrsthold(nrsthold),
 		       .clk2(clk2), .clk4(clk4),
 		       .nhalt(nhalt_real), .nendext(nendext_real), .nws(nws_real),
-		       .idx(idx), .ncond(ncond), .in_rsvd(in_rsvd),
+		       .idx(idx), .ncond(ncond), .in_rsvd(in_rsvd_real),
 		       .ir(ir[15:7]), .nirqsuc(nirqsuc),
 		       .raddr(raddr), .waddr(waddr), .cond(cond), .action(action),
 		       .nmem(nmem), .nio(nio), .nr(nr), .nwen(nwen), .nend(nend),

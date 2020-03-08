@@ -140,8 +140,13 @@ module card_ctl_tb(
    wire 	 powerok;
 
    reg 		 nreset_drv;
+   reg 		 nendext_drv;
+   reg 		 nhalt_drv;
    reg [15:0] 	 ibus_drv;
-
+   reg [800:0] 	 status;
+   integer 	 i, j;
+   
+   
    // Simulate things
    assign nfpreset = 1'b1;
    assign nfpclk_or_clk = 1'b1;
@@ -151,14 +156,27 @@ module card_ctl_tb(
       $dumpfile ("vcd/card_ctl_tb.vcd");
       $dumpvars (0, card_ctl_tb);
 
+      status = "Reset";
       nreset_drv = 0;
       ibus_drv = 16'hZZZZ;
       #1000 nreset_drv = 1;
 
+      // We can only test the uPC partially: nrsthold has already been
+      // tested during reset, and the control store drives nend.
+      #1000 status = "uPC test";
+      for (i = 0; i < 512; i++) begin
+	 #250 nendext_drv = i[5] ? 1'b0 : 1'bz;
+	 nhalt_drv = i[6] ? 1'b0 : 1'bz;
+      end
+
+      #1000 status = "Done";
       #100000 $finish;
    end
 
    assign nreset = nreset_drv;
+   assign nhalt = nhalt_drv;
+   assign nendext = nendext_drv;
+   
    assign ibus = ibus_drv;
    
    // Fake the Data Bus

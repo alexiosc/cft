@@ -1,15 +1,15 @@
 [*]
-[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Fri Feb 14 17:18:17 2020
+[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
+[*] Sun Mar  8 16:46:21 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/control_store_tb.vcd"
-[dumpfile_mtime] "Fri Feb 14 17:09:24 2020"
-[dumpfile_size] 1505091
+[dumpfile_mtime] "Sun Mar  8 16:46:14 2020"
+[dumpfile_size] 711622
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/control_store_tb.sav"
 [timestart] 0
-[size] 2019 906
+[size] 1920 1019
 [pos] 47 55
-*-21.101128 1250000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-23.101128 1250000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] control_store_tb.
 [treeopen] control_store_tb.control_store.
 [sst_width] 258
@@ -54,18 +54,7 @@ control_store_tb.ucontrol[23:0]
 -
 -Front Panel
 @28
-[color] 1
-control_store_tb.nfpua0
-[color] 2
-control_store_tb.nfpuc0
-[color] 3
-control_store_tb.nfpuc1
-[color] 4
-control_store_tb.nfpuc2
-@22
 [color] 5
-control_store_tb.fpd[7:0]
-@28
 control_store_tb.noe
 [pattern_trace] 1
 [pattern_trace] 0

@@ -69,7 +69,8 @@ CFT2019 = 	clock.v                 clock_tb.v \
 		sbu.v		        sbu_tb.v \
 		ism.v		        ism_tb.v \
 		control_store.v         control_store_tb.v \
-		microcode_sequencer.v   microcode_sequencer.v   \
+		microcode_sequencer.v   microcode_sequencer_tb.v   \
+		constant_store.v        constant_store_tb.v   \
 		mbu.v                   mbu_tb.v \
 		flag_unit.v             flag_unit_tb.v \
 		reg_ir.v                reg_ir_tb.v \
