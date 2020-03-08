@@ -1,10 +1,10 @@
 [*]
-[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Sun Oct 13 09:46:46 2019
+[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
+[*] Sun Mar  8 12:50:24 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/demux_238_tb.vcd"
-[dumpfile_mtime] "Sun Oct 13 09:46:43 2019"
-[dumpfile_size] 3623
+[dumpfile_mtime] "Sun Mar  8 12:50:21 2020"
+[dumpfile_size] 3015
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/demux_238_tb.sav"
 [timestart] 0
 [size] 1743 600

@@ -1,15 +1,15 @@
 [*]
-[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Sun Oct 13 09:46:52 2019
+[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
+[*] Sun Mar  8 12:44:17 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/demux_138_tb.vcd"
-[dumpfile_mtime] "Sun Oct 13 09:46:48 2019"
-[dumpfile_size] 3969
+[dumpfile_mtime] "Sun Mar  8 12:44:15 2020"
+[dumpfile_size] 3976
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/demux_138_tb.sav"
 [timestart] 0
 [size] 1743 600
 [pos] 2245 0
-*-19.074749 1301500 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-19.074749 1131000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] demux_138_tb.
 [sst_width] 258
 [signals_width] 185
@@ -18,6 +18,8 @@
 @28
 [color] 1
 demux_138_tb.demux.g1
+demux_138_tb.ng2a
+demux_138_tb.ng2b
 @c00022
 [color] 3
 demux_138_tb.demux.a[2:0]
@@ -29,7 +31,7 @@ demux_138_tb.demux.a[2:0]
 -group_end
 @200
 -
-@800028
+@800029
 [color] 4
 demux_138_tb.y[7:0]
 @29
@@ -49,7 +51,7 @@ demux_138_tb.y[7:0]
 (6)demux_138_tb.y[7:0]
 [color] 4
 (7)demux_138_tb.y[7:0]
-@1001200
+@1001201
 -group_end
 [pattern_trace] 1
 [pattern_trace] 0
