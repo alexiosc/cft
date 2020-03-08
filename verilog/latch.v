@@ -1,5 +1,5 @@
-`ifndef flipflop_v
-`define flipflop_v
+`ifndef latch_v
+`define latch_v
 
 
 `timescale 1ns/10ps
@@ -90,7 +90,7 @@ module latch_1g373 (d, noe, le, q);
 endmodule // latch_373
 
 
-`endif //  `ifndef flipflop_v
+`endif //  `ifndef latch_v
 
 
 // End of file.

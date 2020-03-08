@@ -19,6 +19,7 @@
 `include "mux.v"
 `include "demux.v"
 `include "flipflop.v"
+`include "latch.v"
 
 `timescale 1ns/1ps
 

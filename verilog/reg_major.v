@@ -73,6 +73,10 @@ module reg_major (reset, ibus, nread, nwrite, ninc, ndec, out,
    // The approximate maximum delay at 25°C, 5V is 43 ns, but this
    // plays havoc with some of our testbenches. The typical delay is
    // 18ns, but we'll make it 36ns just in case.
+   //
+   // Timing verification: we have 250ns. Worst case scenario is full
+   // wrap-around (e.g FFFF→0000) which has three cascade increment/decrement
+   // strobes, so 4×43ns = 172ns.
 
    counter_193 #24 c0 (.clr(reset), .npl(nwrite), .p(ibus[3:0]),   .cpu(ninc),   .cpd(ndec),   .q(out[3:0]),   .ntcu(nco[0]), .ntcd(nbo[0]));
    counter_193 #24 c1 (.clr(reset), .npl(nwrite), .p(ibus[7:4]),   .cpu(nco[0]), .cpd(nbo[0]), .q(out[7:4]),   .ntcu(nco[1]), .ntcd(nbo[1]));

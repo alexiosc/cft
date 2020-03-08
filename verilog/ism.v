@@ -13,6 +13,7 @@
 `define int_v
 
 `include "flipflop.v"
+`include "latch.v"
 `include "buffer.v"
 `include "demux.v"
 
