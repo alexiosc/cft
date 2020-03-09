@@ -1,1 +1,1 @@
-pytest-3 --tb=short *py
+pytest-3 "$@" *py

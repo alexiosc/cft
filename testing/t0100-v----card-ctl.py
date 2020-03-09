@@ -82,6 +82,14 @@ def test_sbu(capsys):
         assert code != FAIL
 
 
+@pytest.mark.verilog
+@pytest.mark.ctl
+def test_card_ctl(capsys):
+    name = inspect.stack()[0][3].replace('test_', '')
+    for code, state, comment in run_verilog_test(capsys, name):
+        assert code != FAIL
+
+
 if __name__ == "__main__":
     print("Run this with pytest-3!")
 
