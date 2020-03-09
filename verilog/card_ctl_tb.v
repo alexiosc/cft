@@ -5,6 +5,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
 // REDESIGNED IN 2019
+// USES OK/FAIL OUTPUT
 //
 // card_ctl_tb.v -- The CTL Board
 //
@@ -237,9 +238,159 @@ module card_ctl_tb(
 		.rsvd(rsvd), .wstb(wstb), .nruen(nruen), .nwuen(nwuen)
                 );
 
+   ///////////////////////////////////////////////////////////////////////////////
+   //
+   // VERIFICATION
+   //
+   ///////////////////////////////////////////////////////////////////////////////
+
+   // We have individual testbenches for most of the modules here, so no need
+   // to test their particular behaviours. We do test how they integrate
+   // together though.
+
+   // if ({x} !== 1'b1 && {x} !== 1'b0) begin
+   //    $sformat(msg, "{x} drive failure: nreset=%b", {x});
+   // end
+
+   reg [8000:0] msg;
+   integer 	vi, vj;
+   always @ (nreset, fpclk, nfpclk_or_clk, clk1, clk2, clk3, clk4, t34, nrsthold) begin
+      #30 begin
+   	 msg[7:0] = "";		// Use the msg as a flag.
+
+	 if (nreset !== 1'b1 && nreset !== 1'b0) begin
+	    $sformat(msg, "nreset drive failure: nreset=%b", nreset);
+	 end
+
+	 else if (fpclk !== 1'b1 && fpclk !== 1'b0) begin
+	    $sformat(msg, "fpclk drive failure: nreset=%b", fpclk);
+	 end
+
+	 else if (nfpclk_or_clk !== 1'b1 && nfpclk_or_clk !== 1'b0) begin
+	    $sformat(msg, "nfpclk_or_clk drive failure: nreset=%b", nfpclk_or_clk);
+	 end
+
+	 else if (clk1 !== 1'b1 && clk1 !== 1'b0) begin
+	    $sformat(msg, "clk1 drive failure: nreset=%b", clk1);
+	 end
+
+	 else if (clk2 !== 1'b1 && clk2 !== 1'b0) begin
+	    $sformat(msg, "clk2 drive failure: nreset=%b", clk2);
+	 end
+
+	 else if (clk3 !== 1'b1 && clk3 !== 1'b0) begin
+	    $sformat(msg, "clk3 drive failure: nreset=%b", clk3);
+	 end
+
+	 else if (clk4 !== 1'b1 && clk4 !== 1'b0) begin
+	    $sformat(msg, "clk4 drive failure: nreset=%b", clk4);
+	 end
+
+	 else if (t34 !== 1'b1 && t34 !== 1'b0) begin
+	    $sformat(msg, "t34 drive failure: nreset=%b", t34);
+	 end
+
+	 else if (nrsthold !== 1'b1 && nrsthold !== 1'b0) begin
+	    $sformat(msg, "nrsthold drive failure: nreset=%b", nrsthold);
+	 end
+
+   	 // Fail if we've logged an issue.
+   	 if (msg[7:0]) begin
+   	    $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
+   	    $error("assertion failure");
+   	    #100 $finish;
+   	 end
+	 else $display("345 OK clock");
+      end
+   end // always @ (clr, npl, p, cpu, cpd)
+   
+   
+   always @ (card_ctl.ir) begin
+      if ($time > 100) #30 begin
+   	 msg[7:0] = "";		// Use the msg as a flag.
+
+	 for (vi = 0; msg[7:0] == "" && vi < 16; vi++) begin
+	    if (card_ctl.ir[vi] !== 1'b1 && card_ctl.ir[vi] !== 1'b0) begin
+	       $sformat(msg, "IR fault: ir=%b", card_ctl.ir);
+	    end;
+	 end;
+
+   	 // Fail if we've logged an issue.
+   	 if (msg[7:0]) begin
+   	    $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
+   	    $error("assertion failure");
+   	    #100 $finish;
+   	 end
+	 else $display("345 OK IR");
+      end // if ($time > 100)
+   end // always @ (card_ctl.ir)
+   
+   
+   always @ (ibus) begin
+      if ($time > 100) #30 begin
+   	 msg[7:0] = "";		// Use the msg as a flag.
+
+	 // Allow the IBus to be at high impedance, or allow it to have a full
+	 // 16-bit value.
+	 if (ibus != 16'bZ) begin
+	    for (vi = 0; msg[7:0] == "" && vi < 16; vi++) begin
+	       if (ibus[vi] !== 1'b1 && ibus[vi] !== 1'b0) begin
+		  $sformat(msg, "IBus fault: ibus=%b", ibus);
+	       end;
+	    end;
+	 end
+
+   	 // Fail if we've logged an issue.
+   	 if (msg[7:0]) begin
+   	    $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
+   	    $error("assertion failure");
+   	    #100 $finish;
+   	 end
+	 else $display("345 OK IBus");
+      end // if ($time > 100)
+   end // always @ (ibus)
+   
+   
+   always @ (card_ctl.microcode_sequencer.uaddr, card_ctl.microcode_sequencer.ucontrol) begin
+      if ($time > 100) #30 begin
+   	 msg[7:0] = "";		// Use the msg as a flag.
+
+	 for (vi = 0; msg[7:0] == "" && vi < 19; vi++) begin
+	    if (card_ctl.microcode_sequencer.uaddr[vi] !== 1'b1 &&
+		card_ctl.microcode_sequencer.uaddr[vi] !== 1'b0) begin
+	       $sformat(msg, "uAddr fault: uaddr=%b", card_ctl.microcode_sequencer.uaddr);
+	    end;
+	 end
+
+	 if (card_ctl.microcode_sequencer.ncse == 1'b0) begin
+	    for (vi = 0; msg[7:0] == "" && vi < 24; vi++) begin
+	       if (card_ctl.microcode_sequencer.ucontrol[vi] !== 1'b1 &&
+		   card_ctl.microcode_sequencer.ucontrol[vi] !== 1'b0) begin
+		  $sformat(msg, "uAddr fault: ucontrol=%b", card_ctl.microcode_sequencer.ucontrol);
+	       end;
+	    end;
+	 end
+
+	 else if (card_ctl.microcode_sequencer.ncse == 1'b0 &&
+		  card_ctl.microcode_sequencer.ucontrol !== 24'bZ) begin
+	    $sformat(msg, "uAddr tri-state fault: ncse=%b, ucontrol=%b",
+		     card_ctl.microcode_sequencer.ncse,
+		     card_ctl.microcode_sequencer.ucontrol);
+	 end
+
+   	 // Fail if we've logged an issue.
+   	 if (msg[7:0]) begin
+   	    $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
+   	    $error("assertion failure");
+   	    #100 $finish;
+   	 end
+	 else $display("345 OK Control Store");
+      end // if ($time > 100)
+   end // always @ (ibus)
+   
+   
 endmodule // card_ctl_tb
 
 `endif //  `ifndef card_ctl_tb_v
 
 // End of file.
-

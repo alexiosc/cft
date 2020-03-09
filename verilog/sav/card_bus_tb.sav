@@ -1,0 +1,56 @@
+[*]
+[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
+[*] Mon Mar  9 08:25:35 2020
+[*]
+[dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/card_bus_tb.vcd"
+[dumpfile_mtime] "Mon Mar  9 08:25:12 2020"
+[dumpfile_size] 804120
+[savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/card_bus_tb.sav"
+[timestart] 0
+[size] 1258 805
+[pos] -1 -1
+*-21.542358 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[sst_width] 258
+[signals_width] 134
+[sst_expanded] 1
+[sst_vpaned_height] 210
+@820
+card_bus_tb.status[800:0]
+@200
+-
+@28
+card_bus_tb.nreset
+card_bus_tb.nrsthold
+@200
+-
+@28
+card_bus_tb.clk1
+card_bus_tb.clk2
+card_bus_tb.clk3
+card_bus_tb.clk4
+card_bus_tb.t34
+@200
+-
+@22
+card_bus_tb.ibus[15:0]
+card_bus_tb.ab[23:0]
+@23
+card_bus_tb.db[15:0]
+@28
+card_bus_tb.nsysdev
+card_bus_tb.nmem
+card_bus_tb.nio
+card_bus_tb.nr
+@200
+-
+@28
+card_bus_tb.nw
+card_bus_tb.nws
+card_bus_tb.nwen
+@200
+-
+@22
+card_bus_tb.raddr[4:0]
+card_bus_tb.waddr[4:0]
+[pattern_trace] 1
+[pattern_trace] 0

@@ -151,7 +151,7 @@ module card_reg_tb(
    reg [4:0] 	 raddr_drv;
    reg [4:0] 	 waddr_drv;
    reg [3:0] 	 action_drv;
-   reg [3:0] 	 clk4_drv; // This enables write strobing
+   reg       	 clk4_drv; // This enables write strobing
 
    reg [800:0] 	 status;
    integer 	 i, j;

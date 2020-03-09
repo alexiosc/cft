@@ -86,7 +86,7 @@ CFT2019 = 	clock.v                 clock_tb.v \
 		alu_sru.v               alu_sru_tb.v \
 		card_ctl.v              card_ctl_tb.v \
 		card_reg.v              card_reg_tb.v \
-		card_bus.v		              \
+		card_bus.v              card_bus_tb.v \
 		card_alu.v		              \
 		cft2019.v               cft2019_tb.v \
 
@@ -563,6 +563,10 @@ test_card_ctl:	card_ctl_tb.o card_ctl.o
 test_card_reg:	card_reg_tb.o card_reg.o
 		./card_reg_tb.o
 		$(GTKWAVE) $(VCDDIR)/card_reg_tb.vcd $(SAVDIR)/card_reg_tb.sav
+
+test_card_bus:	card_bus_tb.o card_bus.o
+		./card_bus_tb.o
+		$(GTKWAVE) $(VCDDIR)/card_bus_tb.vcd $(SAVDIR)/card_bus_tb.sav
 # card_bus
 # card_reg
 # card_alu
