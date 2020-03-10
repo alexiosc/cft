@@ -14,14 +14,14 @@ from testing import *
 @pytest.mark.bus
 def test_reg_ar(capsys):
     name = inspect.stack()[0][3].replace('test_', '')
-    for code, state, comment in run_verilog_test(capsys, name):
+    for code, state, comment in run_verilog_testbench(capsys, name):
         assert code != FAIL
 
 @pytest.mark.verilog
 @pytest.mark.bus
 def test_mbu(capsys):
     name = inspect.stack()[0][3].replace('test_', '')
-    for code, state, comment in run_verilog_test(capsys, name):
+    for code, state, comment in run_verilog_testbench(capsys, name):
         assert code != FAIL
 
 
@@ -29,7 +29,7 @@ def test_mbu(capsys):
 @pytest.mark.bus
 def test_constant_store(capsys):
     name = inspect.stack()[0][3].replace('test_', '')
-    for code, state, comment in run_verilog_test(capsys, name):
+    for code, state, comment in run_verilog_testbench(capsys, name):
         assert code != FAIL
 
 
@@ -37,7 +37,7 @@ def test_constant_store(capsys):
 @pytest.mark.bus
 def test_databus(capsys):
     name = inspect.stack()[0][3].replace('test_', '')
-    for code, state, comment in run_verilog_test(capsys, name):
+    for code, state, comment in run_verilog_testbench(capsys, name):
         assert code != FAIL
 
 

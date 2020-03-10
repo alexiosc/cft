@@ -30,6 +30,9 @@ def pytest_configure(config):
     config.addinivalue_line(
         "markers", "alu: the ALU Board.")
 
+    config.addinivalue_line(
+        "markers", "cftasm: the CFT Assembler.")
+
 
 def findBaseDir():
     """Locate the base directory of the project"""
@@ -52,7 +55,7 @@ def findBaseDir():
     raise RuntimeError('Base directory not found (looked for %s.' % ', '.join(lookFor))
 
 
-def run_verilog_test(capsys, name, *args):
+def run_verilog_testbench(capsys, name, *args):
     m = re.match("^(.+?)(_tb)?(\.[ov])?$", name)
     testbench = m.group(0) + "_tb.v"
     binary = m.group(0) + "_tb.o"
@@ -87,6 +90,43 @@ def run_verilog_test(capsys, name, *args):
             continue
         code, state, comment = m.groups()
         yield((int(code), state, comment))
+
+
+def assemble(capsys, tmpdir, source, args=None):
+    """Assemble some source (a string), and make it available to the CFT
+    testbed. If source is not give, use the contents of self.source
+    instead.
+    """
+
+    fname = 'a.asm'
+    
+    with open(tmpdir.join(fname), "wt") as f:
+        f.write(source)
+        
+    cftasm = os.path.join(BASEDIR, "tools", "cftasm")
+    assert os.path.exists(cftasm), "cftasm not found, can't assemble."
+
+    cmd = [cftasm]
+    if args is not None:
+        assert type(args) in [tuple, list], "args must be a tuple or list"
+        args += list(args)
+    cmd.append(fname)
+
+    # Assemble
+    code = subprocess.call(cmd, cwd=tmpdir)
+    assert code == 0, "cftasm failed with exit code {}".format(code)
+
+    # Make sure we have assembly output
+    assert os.path.exists(tmpdir.join('a.bin')), \
+        "cftasm did not generate {}/a.bin.".format(tmpdir)
+
+    # Check that the assembly step produced the expected files.
+    dir_contents = ['a-00.list', 'a-01.list', 'a.asm',
+                    'a.bin', 'a.map', 'a.pasm', 'a.sym']
+    for f in dir_contents:
+        assert os.path.isfile(tmpdir.join(f)), "file {}/{} was not created".format(tmpdir, f)
+
+    #subprocess.call("ls -la", shell=True, cwd=tmpdir)
 
 
 def test_paths():

@@ -15,7 +15,7 @@ from testing import *
 @pytest.mark.reg
 def test_reg_major(capsys):
     name = inspect.stack()[0][3].replace('test_', '')
-    for code, state, comment in run_verilog_test(capsys, name):
+    for code, state, comment in run_verilog_testbench(capsys, name):
         assert code != FAIL
 
 
@@ -24,7 +24,7 @@ def test_reg_major(capsys):
 @pytest.mark.reg
 def test_card_reg(capsys):
     name = inspect.stack()[0][3].replace('test_', '')
-    for code, state, comment in run_verilog_test(capsys, name):
+    for code, state, comment in run_verilog_testbench(capsys, name):
         assert code != FAIL
 
 

@@ -14,7 +14,7 @@ from testing import *
 @pytest.mark.ctl
 def test_clock(capsys):
     name = inspect.stack()[0][3].replace('test_', '')
-    for code, state, comment in run_verilog_test(capsys, name):
+    for code, state, comment in run_verilog_testbench(capsys, name):
         assert code != FAIL
 
 
@@ -22,7 +22,7 @@ def test_clock(capsys):
 @pytest.mark.ctl
 def test_agl(capsys):
     name = inspect.stack()[0][3].replace('test_', '')
-    for code, state, comment in run_verilog_test(capsys, name):
+    for code, state, comment in run_verilog_testbench(capsys, name):
         assert code != FAIL
 
 
@@ -30,7 +30,7 @@ def test_agl(capsys):
 @pytest.mark.ctl
 def test_ail(capsys):
     name = inspect.stack()[0][3].replace('test_', '')
-    for code, state, comment in run_verilog_test(capsys, name):
+    for code, state, comment in run_verilog_testbench(capsys, name):
         assert code != FAIL
 
 
@@ -38,7 +38,7 @@ def test_ail(capsys):
 @pytest.mark.ctl
 def test_control_store(capsys):
     name = inspect.stack()[0][3].replace('test_', '')
-    for code, state, comment in run_verilog_test(capsys, name):
+    for code, state, comment in run_verilog_testbench(capsys, name):
         assert code != FAIL
 
 
@@ -46,7 +46,7 @@ def test_control_store(capsys):
 @pytest.mark.ctl
 def test_flag_unit(capsys):
     name = inspect.stack()[0][3].replace('test_', '')
-    for code, state, comment in run_verilog_test(capsys, name):
+    for code, state, comment in run_verilog_testbench(capsys, name):
         assert code != FAIL
 
 
@@ -54,7 +54,7 @@ def test_flag_unit(capsys):
 @pytest.mark.ctl
 def test_ism(capsys):
     name = inspect.stack()[0][3].replace('test_', '')
-    for code, state, comment in run_verilog_test(capsys, name):
+    for code, state, comment in run_verilog_testbench(capsys, name):
         assert code != FAIL
 
 
@@ -62,7 +62,7 @@ def test_ism(capsys):
 @pytest.mark.ctl
 def test_microcode_sequencer(capsys):
     name = inspect.stack()[0][3].replace('test_', '')
-    for code, state, comment in run_verilog_test(capsys, name):
+    for code, state, comment in run_verilog_testbench(capsys, name):
         assert code != FAIL
 
 
@@ -70,7 +70,7 @@ def test_microcode_sequencer(capsys):
 @pytest.mark.ctl
 def test_reg_ir(capsys):
     name = inspect.stack()[0][3].replace('test_', '')
-    for code, state, comment in run_verilog_test(capsys, name):
+    for code, state, comment in run_verilog_testbench(capsys, name):
         assert code != FAIL
 
 
@@ -78,7 +78,7 @@ def test_reg_ir(capsys):
 @pytest.mark.ctl
 def test_sbu(capsys):
     name = inspect.stack()[0][3].replace('test_', '')
-    for code, state, comment in run_verilog_test(capsys, name):
+    for code, state, comment in run_verilog_testbench(capsys, name):
         assert code != FAIL
 
 
@@ -86,7 +86,7 @@ def test_sbu(capsys):
 @pytest.mark.ctl
 def test_card_ctl(capsys):
     name = inspect.stack()[0][3].replace('test_', '')
-    for code, state, comment in run_verilog_test(capsys, name):
+    for code, state, comment in run_verilog_testbench(capsys, name):
         assert code != FAIL
 
 

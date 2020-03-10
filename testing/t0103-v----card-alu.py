@@ -14,21 +14,21 @@ from testing import *
 @pytest.mark.alu
 def test_alu_decoder(capsys):
     name = inspect.stack()[0][3].replace('test_', '')
-    for code, state, comment in run_verilog_test(capsys, name):
+    for code, state, comment in run_verilog_testbench(capsys, name):
         assert code != FAIL
 
 @pytest.mark.verilog
 @pytest.mark.alu
 def test_alu_porta(capsys):
     name = inspect.stack()[0][3].replace('test_', '')
-    for code, state, comment in run_verilog_test(capsys, name):
+    for code, state, comment in run_verilog_testbench(capsys, name):
         assert code != FAIL
 
 @pytest.mark.verilog
 @pytest.mark.alu
 def test_alu_portb(capsys):
     name = inspect.stack()[0][3].replace('test_', '')
-    for code, state, comment in run_verilog_test(capsys, name):
+    for code, state, comment in run_verilog_testbench(capsys, name):
         assert code != FAIL
 
 @pytest.mark.slow
@@ -36,7 +36,7 @@ def test_alu_portb(capsys):
 @pytest.mark.alu
 def test_alu_rom(capsys):
     name = inspect.stack()[0][3].replace('test_', '')
-    for code, state, comment in run_verilog_test(capsys, name):
+    for code, state, comment in run_verilog_testbench(capsys, name):
         assert code != FAIL
 
 @pytest.mark.slow
@@ -44,7 +44,7 @@ def test_alu_rom(capsys):
 @pytest.mark.alu
 def test_alu_sru(capsys):
     name = inspect.stack()[0][3].replace('test_', '')
-    for code, state, comment in run_verilog_test(capsys, name):
+    for code, state, comment in run_verilog_testbench(capsys, name):
         assert code != FAIL
 
 
@@ -52,14 +52,14 @@ def test_alu_sru(capsys):
 @pytest.mark.alu
 def test_reg_l(capsys):
     name = inspect.stack()[0][3].replace('test_', '')
-    for code, state, comment in run_verilog_test(capsys, name):
+    for code, state, comment in run_verilog_testbench(capsys, name):
         assert code != FAIL
 
 @pytest.mark.verilog
 @pytest.mark.alu
 def test_reg_v(capsys):
     name = inspect.stack()[0][3].replace('test_', '')
-    for code, state, comment in run_verilog_test(capsys, name):
+    for code, state, comment in run_verilog_testbench(capsys, name):
         assert code != FAIL
 
 

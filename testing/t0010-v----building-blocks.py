@@ -30,19 +30,19 @@ def test_paths():
 # IC not used
 # def test_buffer_244(capsys):
 #     name = inspect.stack()[0][3].replace('test_', '')
-#     for code, state, comment in run_verilog_test(capsys, name):
+#     for code, state, comment in run_verilog_testbench(capsys, name):
 #         assert code != FAIL
 
 @pytest.mark.verilog
 def test_buffer_245(capsys):
     name = inspect.stack()[0][3].replace('test_', '')
-    for code, state, comment in run_verilog_test(capsys, name):
+    for code, state, comment in run_verilog_testbench(capsys, name):
         assert code != FAIL
 
 @pytest.mark.verilog
 def test_buffer_541(capsys):
     name = inspect.stack()[0][3].replace('test_', '')
-    for code, state, comment in run_verilog_test(capsys, name):
+    for code, state, comment in run_verilog_testbench(capsys, name):
         assert code != FAIL
 
 # Comparators
@@ -50,13 +50,13 @@ def test_buffer_541(capsys):
 @pytest.mark.verilog
 def test_comparator_688(capsys):
     name = inspect.stack()[0][3].replace('test_', '')
-    for code, state, comment in run_verilog_test(capsys, name):
+    for code, state, comment in run_verilog_testbench(capsys, name):
         assert code != FAIL
 
 @pytest.mark.verilog
 def test_comparator_85(capsys):
     name = inspect.stack()[0][3].replace('test_', '')
-    for code, state, comment in run_verilog_test(capsys, name):
+    for code, state, comment in run_verilog_testbench(capsys, name):
         assert code != FAIL
 
 # Counters
@@ -64,19 +64,19 @@ def test_comparator_85(capsys):
 @pytest.mark.verilog
 def test_counter_191(capsys):
     name = inspect.stack()[0][3].replace('test_', '')
-    for code, state, comment in run_verilog_test(capsys, name):
+    for code, state, comment in run_verilog_testbench(capsys, name):
         assert code != FAIL
 
 @pytest.mark.verilog
 def test_counter_193(capsys):
     name = inspect.stack()[0][3].replace('test_', '')
-    for code, state, comment in run_verilog_test(capsys, name):
+    for code, state, comment in run_verilog_testbench(capsys, name):
         assert code != FAIL
 
 @pytest.mark.verilog
 def test_counter_590(capsys):
     name = inspect.stack()[0][3].replace('test_', '')
-    for code, state, comment in run_verilog_test(capsys, name):
+    for code, state, comment in run_verilog_testbench(capsys, name):
         assert code != FAIL
 
 # Demultiplexers
@@ -84,25 +84,25 @@ def test_counter_590(capsys):
 @pytest.mark.verilog
 def test_demux_138(capsys):
     name = inspect.stack()[0][3].replace('test_', '')
-    for code, state, comment in run_verilog_test(capsys, name):
+    for code, state, comment in run_verilog_testbench(capsys, name):
         assert code != FAIL
 
 @pytest.mark.verilog
 def test_demux_139(capsys):
     name = inspect.stack()[0][3].replace('test_', '')
-    for code, state, comment in run_verilog_test(capsys, name):
+    for code, state, comment in run_verilog_testbench(capsys, name):
         assert code != FAIL
 
 @pytest.mark.verilog
 def test_demux_139h(capsys):
     name = inspect.stack()[0][3].replace('test_', '')
-    for code, state, comment in run_verilog_test(capsys, name):
+    for code, state, comment in run_verilog_testbench(capsys, name):
         assert code != FAIL
 
 @pytest.mark.verilog
 def test_demux_238(capsys):
     name = inspect.stack()[0][3].replace('test_', '')
-    for code, state, comment in run_verilog_test(capsys, name):
+    for code, state, comment in run_verilog_testbench(capsys, name):
         assert code != FAIL
 
 # Multiplexers
@@ -110,25 +110,25 @@ def test_demux_238(capsys):
 @pytest.mark.verilog
 def test_mux_157(capsys):
     name = inspect.stack()[0][3].replace('test_', '')
-    for code, state, comment in run_verilog_test(capsys, name):
+    for code, state, comment in run_verilog_testbench(capsys, name):
         assert code != FAIL
 
 @pytest.mark.verilog
 def test_mux_1g157(capsys):
     name = inspect.stack()[0][3].replace('test_', '')
-    for code, state, comment in run_verilog_test(capsys, name):
+    for code, state, comment in run_verilog_testbench(capsys, name):
         assert code != FAIL
 
 @pytest.mark.verilog
 def test_mux_2g157(capsys):
     name = inspect.stack()[0][3].replace('test_', '')
-    for code, state, comment in run_verilog_test(capsys, name):
+    for code, state, comment in run_verilog_testbench(capsys, name):
         assert code != FAIL
 
 @pytest.mark.verilog
 def test_mux_253(capsys):
     name = inspect.stack()[0][3].replace('test_', '')
-    for code, state, comment in run_verilog_test(capsys, name):
+    for code, state, comment in run_verilog_testbench(capsys, name):
         assert code != FAIL
 
 # Flip-Flops
@@ -136,31 +136,31 @@ def test_mux_253(capsys):
 # IC not used!
 # def test_flipflop_112(capsys):
 #     name = inspect.stack()[0][3].replace('test_', '')
-#     for code, state, comment in run_verilog_test(capsys, name):
+#     for code, state, comment in run_verilog_testbench(capsys, name):
 #         assert code != FAIL
 
 @pytest.mark.verilog
 def test_flipflop_74(capsys):
     name = inspect.stack()[0][3].replace('test_', '')
-    for code, state, comment in run_verilog_test(capsys, name):
+    for code, state, comment in run_verilog_testbench(capsys, name):
         assert code != FAIL
 
 # IC not used!
 # def test_flipflop_174(capsys):
 #     name = inspect.stack()[0][3].replace('test_', '')
-#     for code, state, comment in run_verilog_test(capsys, name):
+#     for code, state, comment in run_verilog_testbench(capsys, name):
 #         assert code != FAIL
 
 @pytest.mark.verilog
 def test_flipflop_574(capsys):
     name = inspect.stack()[0][3].replace('test_', '')
-    for code, state, comment in run_verilog_test(capsys, name):
+    for code, state, comment in run_verilog_testbench(capsys, name):
         assert code != FAIL
 
 # IC not used!
 # def test_flipflop_564(capsys):
 #     name = inspect.stack()[0][3].replace('test_', '')
-#     for code, state, comment in run_verilog_test(capsys, name):
+#     for code, state, comment in run_verilog_testbench(capsys, name):
 #         assert code != FAIL
 
 # Latches
@@ -168,13 +168,13 @@ def test_flipflop_574(capsys):
 @pytest.mark.verilog
 def test_latch_373(capsys):
     name = inspect.stack()[0][3].replace('test_', '')
-    for code, state, comment in run_verilog_test(capsys, name):
+    for code, state, comment in run_verilog_testbench(capsys, name):
         assert code != FAIL
 
 @pytest.mark.verilog
 def test_latch_1g373(capsys):
     name = inspect.stack()[0][3].replace('test_', '')
-    for code, state, comment in run_verilog_test(capsys, name):
+    for code, state, comment in run_verilog_testbench(capsys, name):
         assert code != FAIL
 
 # The '670 register file (not used any more, but check anyway)
@@ -182,7 +182,7 @@ def test_latch_1g373(capsys):
 @pytest.mark.verilog
 def test_regfile_670(capsys):
     name = inspect.stack()[0][3].replace('test_', '')
-    for code, state, comment in run_verilog_test(capsys, name):
+    for code, state, comment in run_verilog_testbench(capsys, name):
         assert code != FAIL
 
 
@@ -191,13 +191,13 @@ def test_regfile_670(capsys):
 @pytest.mark.verilog
 def test_ram(capsys):
     name = inspect.stack()[0][3].replace('test_', '')
-    for code, state, comment in run_verilog_test(capsys, name):
+    for code, state, comment in run_verilog_testbench(capsys, name):
         assert code != FAIL
 
 @pytest.mark.verilog
 def test_rom(capsys):
     name = inspect.stack()[0][3].replace('test_', '')
-    for code, state, comment in run_verilog_test(capsys, name):
+    for code, state, comment in run_verilog_testbench(capsys, name):
         assert code != FAIL
 
 
