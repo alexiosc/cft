@@ -144,7 +144,8 @@ module microcode_sequencer(nreset, nrsthold, clk2, clk4,
 			       .uaddr(uaddr),
 			       .ucontrol(ucontrol));
 
-   // The reset interlock multiplexer disables
+   // The reset interlock multiplexer disables bus transaction strobes during
+   // reset. This is to avoid glitches causing side-effects right after reset.
    mux_157 reset_interlock (.sel(nrsthold), .a(4'b1111),
 			    .b({nio0, nwen0, nr0, nmem0}), .noe(1'b0),
 			    .y({nio, nwen, nr, nmem}));

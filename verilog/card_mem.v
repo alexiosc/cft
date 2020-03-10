@@ -149,6 +149,27 @@ module card_mem(
    sram #(19) romlo (.a(ab[18:0]), .d(db[7:0]), .nce(nromcs[0]), .nwe(1'b1), .noe(nmemr));
    sram #(19) romhi (.a(ab[18:0]), .d(db[15:8]), .nce(nromcs[0]), .nwe(1'b1), .noe(nmemr));
 
+   // If instructed, load ROM and/or ROM images for simulation.
+   reg [4096:0]  basename, imglo, imghi;
+   initial begin
+      // Load a RAM image
+      if ($value$plusargs("ram=%s", basename)) begin
+	 $sformat(imglo, "%-0s-00.list", basename);
+	 $sformat(imghi, "%-0s-01.list", basename);
+	 // We have two groups of srams, so read in two halves.
+	 $readmemb(imglo, ramlo);
+	 $readmemb(imghi, ramhi);
+      end
+      // Load a ROM image
+      if ($value$plusargs("rom=%s", basename)) begin
+	 $sformat(imglo, "%-0s-00.list", basename);
+	 $sformat(imghi, "%-0s-01.list", basename);
+	 // We have two groups of srams, so read in two halves.
+	 $readmemb(imglo, romlo);
+	 $readmemb(imghi, romhi);
+      end
+   end
+
 endmodule // card_mem
 
 `endif // card_mem_v
