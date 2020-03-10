@@ -20,7 +20,7 @@ import unicodedata
 # TODO for 2019 compatibility:
 #
 # [X] Add builtins for new instruction set.
-# [ ] Complete Python 3 compatibility.
+# [X] Complete Python 3 compatibility.
 # [ ] Switch to using 24-bit addresses, OR
 # [ ] Add a linker to put together banks into a single large program.
 
@@ -414,7 +414,7 @@ class CFTAssembler(object):
                      help='Set the ending address for dumping objects, verilog output ' + \
                          'et cetera (default: 65535)')
         p.add_option('-B', '--banked', action='store_true',
-                     help='Assemble for extended address space. All addresses are ' + \
+                     help='Assemble for extended 24-bit address space. All addresses are ' + \
                          'mod 8192, and you must use the .bank directive at least once.')
         
         return p.parse_args()
@@ -1565,7 +1565,7 @@ class CFTAssembler(object):
         out.write(XPMHEAD)
 
         for ofs in range(0, 65536, 256):
-            out.write(',\n"%s"' % ''.join(self.sentinel[ofs:ofs+256]))
+            out.write(',\n"%s"' % ''.join(chr(self.sentinel[ofs:ofs+256])))
 
         out.write(XPMFOOT)
 
@@ -1645,11 +1645,19 @@ class CFTAssembler(object):
         self.symbols[sym] = cls(sym, val, self.filename, self.linenum)
 
         
-    def mkaddr(self, addr):
+    def mkaddr21(self, addr):
         """Make a full 21-bit physical address based on the current bank and an
         address, or return just the address."""
         if self.opts.banked:
             return ((self.bank << 13) + (addr & 0x1fff)) & 0x1fffff
+        return addr & 0xffff
+
+
+    def mkaddr24(self, addr):
+        """Make a full 24-bit physical address based on the current bank and an
+        address, or return just the address."""
+        if self.opts.banked:
+            return (((self.bank & 0xff) << 16) + (addr & 0xffff)) & 0xffffff
         return addr & 0xffff
 
 
@@ -1666,11 +1674,11 @@ class CFTAssembler(object):
         if poketype == 'I':
             if (addr < self.opts.min_addr) and not self.boundwarn_low:
                 self.boundwarn_low = True
-                self.warn('Assembling code at address %04x, object file contains %04x-%04x' % \
+                self.warn('Assembling code at address %06x, object file contains %06x-%06x' % \
                               (addr, self.opts.min_addr, self.opts.max_addr))
             elif (addr > self.opts.max_addr) and not self.boundwarn_high:
                 self.boundwarn_high = True
-                self.warn('Assembling code at address %04x, object file contains %04x-%04x' % \
+                self.warn('Assembling code at address %06x, object file contains %06x-%06x' % \
                               (addr, self.opts.min_addr, self.opts.max_addr))
 
         self.minaddr = min(self.minaddr, self.addr)
@@ -1692,8 +1700,8 @@ class CFTAssembler(object):
         #        self.warn('Code at address %04x overrides previous %s data.' %
         #                  (addr, datatype))
 
-        self.mem[self.mkaddr(addr or self.addr)] = val & 0xffff
-        self.sentinel[self.mkaddr(addr)] = poketype
+        self.mem[self.mkaddr24(addr or self.addr)] = val & 0xffff
+        self.sentinel[self.mkaddr24(addr)] = ord(poketype)
 
 
     def setaddr(self, a):
@@ -1727,7 +1735,7 @@ class CFTAssembler(object):
         a0 = self.opts.min_addr
         a1 = self.opts.max_addr + 1
         for addr in range(a0, a1):
-            yield (addr, self.mem[self.mkaddr(addr)])
+            yield (addr, self.mem[self.mkaddr24(addr)])
 
 
     def outobj(self):
@@ -1774,10 +1782,15 @@ class CFTAssembler(object):
         else:
             orgline = ''
 
-        if val is None:
-            line = "&%04x:      %s%s\n" % (self.addr, msg, orgline)
+        if self.opts.banked:
+            fmt = "&{:>06x}:"
         else:
-            line = "&%04x: &%04x%s\n" % (self.addr, val, orgline)
+            fmt = "&{:>04x}:"
+            
+        if val is None:
+            line = (fmt + "      {}{}\n").format(self.addr, msg, orgline)
+        else:
+            line = (fmt + " &{:>04x}{}\n").format(self.addr, val, orgline)
         if self.opts.verbose:
             sys.stdout.write(line)
         self.pasm.write(line)
