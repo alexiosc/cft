@@ -152,15 +152,14 @@ class CFTAssembler(object):
 
 
     def __init__(self):
-        pass
         # self.linenum = 1
         # self.out = sys.stderr.write
 
         # # The symbol table.
         # self.symbols = dict()
 
-        # # The namespace stack.
-        # self.ns = list()
+        # The namespace stack.
+        self.ns = list()
 
         # # The macro table and macro context stack
         self.macros = dict()
@@ -356,12 +355,22 @@ class CFTAssembler(object):
 
     ###############################################################################
     #
-    # NAMESPACES
+    # UTILITIES
     #
     ###############################################################################
 
-    def make_nsname(self, symbol):
+    def get_nsname(self, symbol=None):
+        if symbol is None and self.ns == []:
+            return '.'
+        elif symbol is None:
+            return '.'.join(self.ns)
         return '.'.join(self.ns + [symbol])
+
+
+    def is_word(self, token, word=None):
+        """Return True if the specified token is a bare word. With an optional second
+        argument, return True if it's the exact word specified."""
+        return token[0] == self.TKT_WORD and ((word is None) or (token[1] == word))
             
     
     ###############################################################################
@@ -579,7 +588,64 @@ class CFTAssembler(object):
         self.longstring = None # This holds long strings
         self.compstring = None # This holds compressed strings
         self.jumped = False    # The address has changed, don't increment.
-        self.ns = []
+
+
+    def parse_dot_pushns(self, tokens):
+        if len(tokens) != 2:
+            self.fail("incorrect use of .pushns")
+        elif not self.is_word(tokens[1]):
+            self.fail("expected namespace identifier after .pushns")
+        else:
+            self.ns.append(tokens[1][1])
+            self.debug_macros("Namespace set to {}".format(self.get_nsname()))
+
+
+    def parse_dot_popns(self, tokens):
+        if not self.ns:
+            self.fail(".popns seen before .pushns")
+        elif len(tokens) == 1:
+            self.warn("missing namespace to pop, assuming {}. (this will be an error soon)".format(self.ns[-1]))
+            self.ns.pop(-1)
+            self.debug_macros("Namespace popped back to {}".format(self.get_nsname()))
+        elif not self.is_word(tokens[1]):
+            self.fail("expected namespace identifier after .popns")
+        elif tokens[1][1] != self.ns[-1]:
+            self.fail(".popns {} seen but last namespace pushed was {}".format(tokens[1][1], self.ns[-1]))
+        else:
+            self.ns.pop(-1)
+            self.debug_macros("Namespace popped back to {}".format(self.get_nsname()))
+
+
+    def parse_dot_macro(self, tokens, macro_def):
+        self.debug_macros(tokens)
+        # Check it
+        if macro_def is not None:
+            self.fail("nested .macro definition. Probably a missing .end.")
+        elif tokens[1][0] != self.TKT_WORD:
+            self.fail("Expected macro name")
+        elif tokens[2] != (self.TKT_LPAREN, '('):
+            self.fail("Expected macro definition argument list")
+        elif tokens[-1] != (self.TKT_RPAREN, ')'):
+            self.fail("Parse error reading macro definition: garbage after argument list")
+        else:
+            # Ensure all the args are the right type.
+            for arg in tokens[3:-2]:
+                if arg[0] != self.TKT_WORD:
+                    self.fail("Parse error reading macro argument '{}'. Word expected.".format(arg[1]))
+        macro_def = ''
+        macro_start = self.linenum
+        macro_name = tokens[1][1]
+        macro_args = list(x[1] for x in tokens[3:-2])
+        self.debug_macros("macro name={}, args={}".format(macro_name, macro_args))
+        return macro_name, macro_args, macro_start, macro_def
+
+
+    def parse_dot_endmacro(self, tokens, macro_name, macro_args, macro_start, macro_def):
+        if macro_def is None:
+            self.fail(".end seen before .macro")
+        self.debug_macros(".end seen")
+        print(macro_def)
+        self.macros[self.get_nsname(macro_name)] = (self.filename, macro_start, macro_args, macro_def)
 
 
     def pass_macro_discovery(self):
@@ -589,35 +655,20 @@ class CFTAssembler(object):
             for tokens in self.preprocessor(filename):
                 self.debug_parser(tokens)
 
+                # Parse namespaces. We need those to qualify any macro names we
+                # encounter.
+                if self.is_word(tokens[0], ".pushns"):
+                    self.parse_dot_pushns(tokens)
+
+                elif self.is_word(tokens[0], ".popns"):
+                    self.parse_dot_popns(tokens)
+
                 # Parse a macro definition
                 if tokens[0] == (self.TKT_WORD, ".macro"):
-                    self.debug_macros(tokens)
-                    # Check it
-                    if macro_def is not None:
-                        self.fail("nested .macro definition. Probably a missing .end.")
-                    elif tokens[1][0] != self.TKT_WORD:
-                        self.fail("Expected macro name")
-                    elif tokens[2] != (self.TKT_LPAREN, '('):
-                        self.fail("Expected macro definition argument list")
-                    elif tokens[-1] != (self.TKT_RPAREN, ')'):
-                        self.fail("Parse error reading macro definition: garbage after argument list")
-                    else:
-                        # Ensure all the args are the right type.
-                        for arg in tokens[3:-2]:
-                            if arg[0] != self.TKT_WORD:
-                                self.fail("Parse error reading macro argument '{}'. Word expected.".format(arg[1]))
-                    macro_def = ''
-                    macro_start = self.linenum
-                    macro_name = tokens[1][1]
-                    macro_args = list(x[1] for x in tokens[3:-2])
-                    self.debug_macros("macro name={}, args={}".format(macro_name, macro_args))
+                    macro_name, macro_args, macro_start, macro_def = self.parse_dot_macro(tokens, macro_def)
 
                 elif tokens[0] == (self.TKT_WORD, '.end'):
-                    if macro_def is None:
-                        self.fail(".end seen before .macro")
-                    self.debug_macros(".end seen")
-                    print(macro_def)
-                    self.macros[self.make_nsname(macro_name)] = (self.filename, macro_start, macro_args, macro_def)
+                    self.parse_dot_endmacro(tokens, macro_name, macro_args, macro_start, macro_def)
                     macro_def = None
 
                 elif macro_def is not None:
@@ -640,7 +691,7 @@ class CFTAssembler(object):
         # This is a three-pass assembler.
         self.pass_macro_discovery()
 
-        pprint.pprint(self.macros, width=200)
+        #pprint.pprint(self.macros, width=200)
         # self.pass_symbol_discovery()
         # self.pass_assembly()
 
