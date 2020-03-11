@@ -110,6 +110,63 @@ _BUILTINS = """;;; CFT Assembler Built-ins, Microcode Version 7.x.
 """
 
 
+class UndefinedSymbolException(Exception):
+    pass
+
+
+class Symbol(object):
+    """A member of the symbol table."""
+    def __init__(self, filename, linenum, name, val=None, tokens=None):
+        self.filename = filename
+        self.linenum = linenum
+        self.name = name
+        self.val = val
+        self.tokens = tokens
+
+
+    def __str__(self):
+        return '<%s %s = %04x>' % (self.__class__.__name__, self.name, self.val)
+
+    def __repr__(self):
+        if self.val is None:
+            return '<Unresolved_{} {}={}>'.format(self.__class__.__name__, self.name, self.tokens)
+        else:
+            return '<{} {}={} ({})>'.format(self.__class__.__name__, self.name, self.val, self.tokens)
+
+
+    @property
+    def unresolved(self):
+        return self.val is None
+
+
+    # @property
+    # def page(self):
+    #     """Provide the middle 6 bits of the value."""
+    #     return self.val & 0xfc00
+
+
+    # @property
+    # def offset(self):
+    #     """Provide the lower 10 bits of the value."""
+    #     return self.val & 0x03ff
+
+
+    # @property
+    # def assembly_val(self):
+    #     """Provide a field for instruction assembly. For non-labels
+    #     (i.e. instructions, EQUs, etc), we return the whole word."""
+    #     return self.val
+
+
+    # def inaccessible(self, addr):
+    #     """Returns True if the value represents an address
+    #     inaccessible from the current address due to them being on
+    #     different pages.
+
+    #     For non-label symbols, always return False. They don't
+    #     necessarily represent addresses."""
+    #     return False
+
 
 class CFTAssembler(object):
 
@@ -156,7 +213,7 @@ class CFTAssembler(object):
         # self.out = sys.stderr.write
 
         # # The symbol table.
-        # self.symbols = dict()
+        self.symbols = dict()
 
         # The namespace stack.
         self.ns = list()
@@ -164,6 +221,9 @@ class CFTAssembler(object):
         # # The macro table and macro context stack
         self.macros = dict()
         # self.mcallno = 0
+
+        self.regexp_hex = re.compile('^(?:&|0x)([0-9A-Fa-f]+)$')
+        self.regexp_bin = re.compile('^#([0-9A-Fa-f]+)$')
 
         # # Filename and line numbers.
         # self.filename = '<none>'
@@ -302,6 +362,12 @@ class CFTAssembler(object):
     #
     ###############################################################################
 
+
+    def _msg(self, msg, filename=None, linenum=None):
+        """Output a message, along with file and line number info."""
+        sys.stderr.write('%s:%d: %s\n' % (filename or self.filename,
+                                         linenum or self.linenum,
+                                         msg))
     def warn(self, msg):
         """Output a warning message."""
         self._msg('warning: ' + msg)
@@ -309,7 +375,7 @@ class CFTAssembler(object):
 
     def fail(self, msg):
         """Output an error message and fail."""
-        # Is there a macro context we should print out?
+        # Is there a macro/file context we should print out?
         for (n, f, ln, mdef) in self.ctx:
             if mdef:
                 self._msg("error: (in macro '%s' invocation)" % n,
@@ -371,6 +437,21 @@ class CFTAssembler(object):
         """Return True if the specified token is a bare word. With an optional second
         argument, return True if it's the exact word specified."""
         return token[0] == self.TKT_WORD and ((word is None) or (token[1] == word))
+
+
+    def get_symbol(self, sym):
+        """Return the value of a symbol from the symbol table. Return None if it
+        couldn't be found.
+        """
+        for x in range(len(self.ns), -1, -1):
+            try:
+                nssym = '.'.join(self.ns[0:x] + [sym])
+                #print "Pass", self.passnum, ", Looking up", nssym, self.ns
+                return self.symbols[nssym]
+            except KeyError:
+                continue
+        return None
+
             
     
     ###############################################################################
@@ -576,6 +657,96 @@ class CFTAssembler(object):
 
     ###############################################################################
     #
+    # PARSING TOKENS INTO VALUES
+    #
+    ###############################################################################
+
+    BINDICT = {
+        ":": "", ",": "", "'": "",
+        "0": "0", "-": "0", "_": "0", ".": "0",
+        "1": "1"
+    }
+        
+    def parse_literal(self, literal):
+        """Parse an integer literal.
+    
+        Base Conventions and sigils:
+    
+        * default base: 10 (e.g. 64, 0001). No sigil for this one.
+        * base 16: "&" sigil. E.g. &20 == 32
+        * base 2: "#. E.g. #10:1100_ = 88. Ony of "0-._" are parsed as '0'. '1'
+          is parsed as 1. ":,'" are ignored entirely. Useful for building
+          human-readable bitfields.
+
+        >>> x = CFTAssembler()
+        >>> x.parse_literal('&10')
+        16
+        >>> x.parse_literal('&fffe')
+        65534
+        >>> x.parse_literal('16')
+        16
+        >>> x.parse_literal('#10000')
+        16
+        >>> x.parse_literal('#1____')
+        16
+        >>> x.parse_literal('#1....')
+        16
+        >>> x.parse_literal('#1----')
+        16
+        >>> x.parse_literal('#1--:--')
+        16
+        >>> x.parse_literal('foobar')
+        Traceback (most recent call last):
+        ValueError: unable to parse literal 'foobar'
+
+        """
+        if literal.startswith('#'):
+            try:
+                newlit = ''.join(self.BINDICT[x] for x in literal[1:])
+                newint = int(newlit, 2)
+            except:
+                self.fail("Unable to parse binary literal '{}'".format(literal))
+            print("lit={}, conv={}".format(newlit, newint))
+            return int(newlit, 2)
+
+        elif literal.startswith('&'):
+            try:
+                return int(literal[1:], 16)
+            except:
+                self.fail("Unable to parse hexadecimal literal '{}'".format(literal))
+
+        elif literal.startswith('0x'):
+            try:
+                return int(literal[2:], 16)
+            except:
+                self.fail("Unable to parse hexadecimal literal '{}'".format(literal))
+
+        elif literal[0] in "0123456789":
+            try:
+                return int(literal)
+            except:
+                self.fail("Unable to parse decimal literal '{}'".format(literal))
+
+        return None
+        
+
+    def parse_fields(self, tokens):
+        for tkt, token in tokens:
+            parsed_literal = self.parse_literal(token)
+            if parsed_literal is not None:
+                yield parsed_literal
+            else:
+                # Do we have a resolved symbol in the symbol table?
+                sym = self.get_symbol(token)
+                if sym is not None and sym.val is not None:
+                    yield sym.val
+                else:
+                    # self.warn("Unresolved symbol {} in .equ".format(token))
+                    yield token
+        
+
+    ###############################################################################
+    #
     # THE PARSER
     #
     ###############################################################################
@@ -585,6 +756,7 @@ class CFTAssembler(object):
         # Clear our parse state
         self.ns = []           # The namespace stack
         self.scope = 0         # The scope number counter
+        self.scopedepth = 0    # Scope depth (for sanity checking)
         self.longstring = None # This holds long strings
         self.compstring = None # This holds compressed strings
         self.jumped = False    # The address has changed, don't increment.
@@ -595,6 +767,8 @@ class CFTAssembler(object):
             self.fail("incorrect use of .pushns")
         elif not self.is_word(tokens[1]):
             self.fail("expected namespace identifier after .pushns")
+        elif tokens[1][1][0] == '_':
+            self.fail("namespace names may not start with _")
         else:
             self.ns.append(tokens[1][1])
             self.debug_macros("Namespace set to {}".format(self.get_nsname()))
@@ -609,11 +783,62 @@ class CFTAssembler(object):
             self.debug_macros("Namespace popped back to {}".format(self.get_nsname()))
         elif not self.is_word(tokens[1]):
             self.fail("expected namespace identifier after .popns")
+        elif tokens[1][1][0] == '_':
+            self.fail("namespace names may not start with _")
+        elif self.ns[-1].startswith("_s"):
+            self.fail("missing .endscope before .popns")
         elif tokens[1][1] != self.ns[-1]:
             self.fail(".popns {} seen but last namespace pushed was {}".format(tokens[1][1], self.ns[-1]))
         else:
             self.ns.pop(-1)
             self.debug_macros("Namespace popped back to {}".format(self.get_nsname()))
+
+
+    def parse_dot_scope(self, tokens):
+        if len(tokens) != 1:
+            self.fail("error parsing .scope, no arguments expected")
+        else:
+            self.scope += 1
+            self.scopedepth += 1
+            self.ns.append("_s" + str(self.scope))
+            self.debug_parser(".scope {}, depth {}".format(self.scope, self.scopedepth))
+
+
+    def parse_dot_endscope(self, tokens):
+        if not self.ns:
+                self.fail(".endscope seen before .scope")
+        elif len(tokens) != 1:
+            self.fail("error parsing .endscope, no arguments expected")
+        else:
+            if not self.ns[-1].startswith("_s"):
+                self.fail(".endscope seen before .scope (depth={})".format(self.scopedepth))
+            self.ns.pop(-1)
+            self.scopedepth -= 1
+            if (self.scopedepth < 0):
+                self.fail("internal error, scope level is negative")
+        self.debug_parser(".endscope {}, depth {}, ns={}".format(self.scope, self.scopedepth, self.ns))
+
+
+    def parse_dot_equ(self, tokens):
+        if len(tokens) < 3:
+            self.fail("error parsing .equ, expecting at least two arguments.")
+        if not all(self.is_word(x) for x in tokens[1:]):
+            self.fail("error parsing .equ, expecting bareword.")
+
+        sym, definition = tokens[1][1], list(x[1] for x in tokens[2:])
+        nssym = self.get_nsname(sym)
+
+        parsed = list(self.parse_fields(tokens[2:]))
+
+        # Has this symbol been resolved fully at this time?
+        if all(type(x) == int for x in parsed):
+            value = parsed[0]
+            for x in parsed[1:]:
+                value = value | x
+            self.symbols[nssym] = Symbol(self.filename, self.linenum, nssym, val=value, tokens=" ".join(definition))
+        else:
+            self.symbols[nssym] = Symbol(self.filename, self.linenum, nssym, tokens=parsed)
+        self.debug_parser(".equ seen: sym={}, nssym={}, def={}, parsed={}".format(sym, nssym, definition, parsed))
 
 
     def parse_dot_macro(self, tokens, macro_def):
@@ -644,7 +869,6 @@ class CFTAssembler(object):
         if macro_def is None:
             self.fail(".end seen before .macro")
         self.debug_macros(".end seen")
-        print(macro_def)
         self.macros[self.get_nsname(macro_name)] = (self.filename, macro_start, macro_args, macro_def)
 
 
@@ -663,6 +887,18 @@ class CFTAssembler(object):
                 elif self.is_word(tokens[0], ".popns"):
                     self.parse_dot_popns(tokens)
 
+                elif self.is_word(tokens[0], ".scope"):
+                    self.parse_dot_scope(tokens)
+                    self.debug_parser("scope now {}".format(self.ns[-1]))
+
+                elif self.is_word(tokens[0], ".endscope"):
+                    self.debug_parser("endscope {}".format(self.ns[-1]))
+                    self.parse_dot_endscope(tokens)
+
+                # Opportunistically parse .equs too, while we're at it
+                elif self.is_word(tokens[0], ".equ"):
+                    self.parse_dot_equ(tokens)
+
                 # Parse a macro definition
                 if tokens[0] == (self.TKT_WORD, ".macro"):
                     macro_name, macro_args, macro_start, macro_def = self.parse_dot_macro(tokens, macro_def)
@@ -678,6 +914,9 @@ class CFTAssembler(object):
             # Sanity checks at end of file.
             if macro_def is not None:
                 self.fail("File ended before .end was seen.")
+            print("ns={}".format(self.ns))
+            if self.ns and self.ns[-1].startswith("_ns"):
+                self.fail("File ended before .endscope was seen.")
 
 
     def parse(self):
@@ -692,6 +931,7 @@ class CFTAssembler(object):
         self.pass_macro_discovery()
 
         #pprint.pprint(self.macros, width=200)
+        pprint.pprint(self.symbols, width=200)
         # self.pass_symbol_discovery()
         # self.pass_assembly()
 
@@ -1520,53 +1760,6 @@ class CFTAssembler(object):
             yield str(''.join(buf))
 
         
-    def parseInt(self, x):
-        """Parse an integer.
-    
-        Base Conventions:
-    
-        * default base: 16 (e.g. fffe, 0001).
-        * base 10: # (e.g. #32 == 20)
-        * base 2: : (e.g. :1111 == f). 1 = '1', zero = any of 0, -, ., _.
-          Useful for building human-readable bitfields.
-
-        >>> x = CFTAssembler()
-        >>> x.parseInt('&10')
-        16
-        >>> x.parseInt('&fffe')
-        65534
-        >>> x.parseInt('16')
-        16
-        >>> x.parseInt(':10000')
-        16
-        >>> x.parseInt(':1____')
-        16
-        >>> x.parseInt(':1....')
-        16
-        >>> x.parseInt(':1----')
-        16
-        >>> x.parseInt('foobar')
-        Traceback (most recent call last):
-        ValueError: unable to parse literal 'foobar'
-        """
-        if x.startswith('#'):
-            x = x[1:]
-            for zero in "-_.":
-                x = x.replace(zero, '0')
-            for zero in "',":
-                x = x.replace(zero, '')
-            return int(x, 2)
-        elif x.startswith('&'):
-            return int(x[1:], 16)
-        elif x.startswith('0x'):
-            return int(x[2:], 16)
-        else:
-            try:
-                return int(x) & 0xffff
-            except:
-                raise ValueError("unable to parse literal '%s'" % x)
-
-
     def parseToken(self, x, pageboundary=True):
         """Parse a lexical token, be it literal or symbolic.
 
@@ -2006,13 +2199,6 @@ class CFTAssembler(object):
         if self.opts.verbose:
             sys.stdout.write(line)
         self.pasm.write(line)
-
-
-    def _msg(self, msg, filename=None, linenum=None):
-        """Output a message, along with file and line number info."""
-        sys.stderr.write('%s:%d:%s\n' % (filename or self.filename,
-                                         linenum or self.linenum,
-                                         msg))
 
 
 if __name__ == "__main__":
