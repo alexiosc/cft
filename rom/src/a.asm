@@ -1823,7 +1823,7 @@ loop:	        NOP
 .endscope
 
 postfail:
-.scope:
+.scope
 		NOT
 		SEL
 		SOR
