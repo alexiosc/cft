@@ -127,6 +127,7 @@ class Symbol(object):
     def __str__(self):
         return '<%s %s = %04x>' % (self.__class__.__name__, self.name, self.val)
 
+
     def __repr__(self):
         if self.val is None:
             return '<Unresolved_{} {}={}>'.format(self.__class__.__name__, self.name, self.tokens)
@@ -166,6 +167,19 @@ class Symbol(object):
     #     For non-label symbols, always return False. They don't
     #     necessarily represent addresses."""
     #     return False
+
+
+class Label(Symbol):
+    def __str__(self):
+        return '<%s %s = %04x>' % (self.__class__.__name__, self.name, self.val)
+
+
+    def __repr__(self):
+        if self.val is None:
+            return '<Unresolved_{} {}={}>'.format(self.__class__.__name__, self.name, self.tokens)
+        else:
+            return '<{} {}={} ({})>'.format(self.__class__.__name__, self.name, self.val, self.tokens)
+
 
 
 class CFTAssembler(object):
@@ -531,6 +545,33 @@ class CFTAssembler(object):
             return self.ctx.pop()
         except IndexError:
             self.die('Attempted pop from empty context stack.')
+
+
+    def set_addr(self, a):
+        """Set the assembly address."""
+        self.addr = a & self.addr_mask
+        self.jumped = True
+        self.wrap = False
+
+
+    def inc_addr(self, by=1):
+        """Increment the address."""
+        # If the address has just been set and no data has been written to
+        # memory, don't increment yet.
+        if self.jumped:
+            return
+
+        self.addr = (self.addr + by) & self.addr_mask
+        if self.addr == 0:
+            self.wrap = True
+        elif self.wrap and self.addr == 1:
+            # Warn the second time this gets here to avoid a spurious
+            # warning when 0xffff is written to (and no further).
+            self.wrap = False
+            self.warn('64KW bank boundary crossed.')
+
+
+    
             
     
     ###############################################################################
@@ -830,12 +871,14 @@ class CFTAssembler(object):
     def prepare_for_parse(self):
         """Initialise parse state."""
         # Clear our parse state
-        self.ns = []           # The namespace stack
-        self.scope = 0         # The scope number counter
-        self.scopedepth = 0    # Scope depth (for sanity checking)
-        self.longstring = None # This holds long strings
-        self.compstring = None # This holds compressed strings
-        self.jumped = False    # The address has changed, don't increment.
+        self.ns = []              # The namespace stack
+        self.scope = 0            # The scope number counter
+        self.scopedepth = 0       # Scope depth (for sanity checking)
+        self.longstring = None    # This holds long strings
+        self.compstring = None    # This holds compressed strings
+        self.jumped = False       # The address has changed, don't increment.
+        self.addr_mask = 0xffffff # Set a 24-bit mask
+        self.set_addr(0)
 
 
     def parse_dot_pushns(self, tokens):
@@ -955,7 +998,7 @@ class CFTAssembler(object):
         macro_def = None
         for filename in ['<builtins>'] + self.args.input_files:
             for tokens in self.preprocessor(filename):
-                self.debug_parser(tokens)
+                #self.debug_parser(tokens)
 
                 # Parse namespaces. We need those to qualify any macro names we
                 # encounter.
@@ -991,10 +1034,6 @@ class CFTAssembler(object):
                     # Append another line to the macro definition.
                     macro_def += self.line
 
-                elif self.is_label(tokens[0]):
-                    # Ignore labels and code.
-                    continue
-
                 elif tokens[0][1] == '.':
                     # But report unknown directives
                     self.check_valid_directive(tokens[0])
@@ -1014,7 +1053,7 @@ class CFTAssembler(object):
         macro_def = None
         for filename in ['<builtins>'] + self.args.input_files:
             for tokens in self.preprocessor(filename):
-                self.debug_parser(tokens)
+                #self.debug_parser(tokens)
 
                 # Parse namespaces. We need those to qualify any macro names we
                 # encounter.
@@ -1051,17 +1090,12 @@ class CFTAssembler(object):
                     # Ignore macro definitions here.
                     continue
 
-                elif self.is_label(tokens[0]):
-                    print("TODO: parse label: {}".format(self.line.strip()))
-                    continue
-
                 elif tokens[0][1] == '.':
                     # But report unknown directives
                     self.check_valid_directive(tokens[0])
 
                 else:
-                    print("TODO: parse assembly: {}".format(self.line.strip()))
-                    continue
+                    self.assemble(tokens, dryrun=True)
 
             # Sanity checks at end of file.
             pass
@@ -1096,7 +1130,6 @@ class CFTAssembler(object):
             # # First, parse the builtins.
             # self.filename = '<builtins>'
             # self.linenum = 0
-            # self.setaddr(0)
             # self.assembly_pass(self.BUILTINS.split('\n'))
 
             # # Then, parse each input file in order.
@@ -1139,6 +1172,42 @@ class CFTAssembler(object):
             #     self.outsym()
             #     self.outxpm()
             #     break
+
+
+    def parse_label(self, token):
+        """Parse a label or address definition."""
+
+        # Try to parse the specification. Use parse_fields
+        name = token[1][:-1]
+        tokenlist = [[ self.TKT_WORD, name ]]
+        n = list(self.parse_fields(tokenlist))
+
+        # If we did everything right, we should have a singleton list with
+        # either an integer address or a string.
+        assert len(n) == 1
+
+        # If a number was specified, n[0] will be an integer and this will
+        # work.
+        if type(n[0]) == int:
+            self.set_addr(n[0])
+            self.debug_parser("Address &{:04x}".format(self.addr))
+        else:
+            nssym = self.get_nsname(name)
+            self.symbols[nssym] = Label(self.filename, self.linenum,
+                                        nssym, val=self.addr)
+            self.debug_parser("Label {} ({})".format(name, nssym))
+
+
+    def assemble(self, tokens, dryrun=False):
+        """Assemble a line."""
+        # The first token could be label
+        if self.is_label(tokens[0]):
+            self.parse_label(tokens[0])
+            tokens = tokens[1:]
+
+        if not tokens:
+            return
+        self.debug_parser("Assemble: {}".format(tokens))
 
 
     ###############################################################################
@@ -2280,31 +2349,6 @@ class CFTAssembler(object):
 
         self.mem[self.mkaddr24(addr or self.addr)] = val & 0xffff
         self.sentinel[self.mkaddr24(addr)] = ord(poketype)
-
-
-    def setaddr(self, a):
-        """Set the address."""
-        self.addr = a & 0xffff
-        self.jumped = True
-        self.wrap = False
-
-
-    def incaddr(self, by=1):
-        """Increment the address."""
-        # If the address has just been set and no data has been written to
-        # memory, don't increment yet.
-        if self.jumped:
-            #print "JUMPED"
-            return
-
-        self.addr = (self.addr + by) & 0xffff
-        if self.addr == 0:
-            self.wrap = True
-        elif self.wrap and self.addr == 1:
-            # Warn the second time this gets here to avoid a spurious
-            # warning when 0xffff is written to (and no further).
-            self.wrap = False
-            self.warn('64KW bank boundary crossed.')
 
 
     def yieldmem(self):
