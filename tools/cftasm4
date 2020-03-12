@@ -204,8 +204,37 @@ class CFTAssembler(object):
         "@": '\0',
         }
 
+    # Valid Assembly directives
+    DIRECTIVES = [
+        '.bank',
+        '.data',
+        '.endmacro', '.end',
+        '.endscope',
+        '.endstring',
+        '.equ',
+        '.fill',
+        '.include',
+        '.longstring'
+        '.macro',
+        '.page',
+        '.popns',
+        '.pushns',
+        '.reg',
+        '.regfill',
+        '.scope',
+        '.str',
+        '.strn',
+        '.page',
+        '.strp',
+        '.word',
+        ]
 
-
+    # Binary bitfield character mapping
+    BINDICT = {
+        ":": "", ",": "", "'": "",
+        "0": "0", "-": "0", "_": "0", ".": "0",
+        "1": "1"
+    }
 
 
     def __init__(self):
@@ -220,10 +249,11 @@ class CFTAssembler(object):
 
         # # The macro table and macro context stack
         self.macros = dict()
+
         # self.mcallno = 0
 
-        self.regexp_hex = re.compile('^(?:&|0x)([0-9A-Fa-f]+)$')
-        self.regexp_bin = re.compile('^#([0-9A-Fa-f]+)$')
+        # self.regexp_hex = re.compile('^(?:&|0x)([0-9A-Fa-f]+)$')
+        # self.regexp_bin = re.compile('^#([0-9A-Fa-f]+)$')
 
         # # Filename and line numbers.
         # self.filename = '<none>'
@@ -243,13 +273,6 @@ class CFTAssembler(object):
         # self.sentinel.fromlist([32] * self.MEMSIZE)
 
         # self.opts, self.args = self.parseOpts()
-
-        # # Update the various filenames.
-        # base = os.path.splitext(self.opts.out_file)[0]
-        # self.map_file = self.opts.map_file or (base + '.map')
-        # self.asm_file = self.opts.asm_file or (base + '.pasm')
-        # self.symbol_file = self.opts.symbol_file or (base + '.sym')
-        # self.xpm_map_file = self.opts.xpm or (base + '.xpm')
 
         # # Create the processed assembly output file.
         # self.pasm = open(self.asm_file, 'w')
@@ -277,8 +300,8 @@ class CFTAssembler(object):
         #              help='Set processed assembly file output (default: OUTPUT-FILE.pasm).')
         # p.add_option('-m', '--map-file',
         #              help='Set map file output (default: OUTPUT-FILE.map).')
-        # p.add_option('-s', '--symbol-file',
-        #              help='Set symbol file output (default: OUTPUT-FILE.sym).')
+        p.add_argument('-s', '--symbol-file',
+                       help='Set symbol file output (default: OUTPUT-FILE.sym).')
         # p.add_option('', '--xpm',
         #              help='Output an XPM file mapping the memory image. ' + 
         #              'This is merely a visualisation toy. (default: output nothing).')
@@ -287,8 +310,6 @@ class CFTAssembler(object):
         #              help='Start with no built-in symbols at all.')
         # p.add_option('-v', '--verbose', action='store_true',
         #              help='Print out assembled code')
-        # p.add_option('-d', '--debugging', action='store_true',
-        #              help='Print out parsed code and debugging info.')
         # p.add_option('', '--min-addr', action='store', type='int', default=0x0000,
         #              help='Set the starting address for dumping objects, verilog output ' + \
         #                  'et cetera (default: 0)')
@@ -325,6 +346,9 @@ class CFTAssembler(object):
         p.add_argument('--debug-macros', action='store_true',
                        help="""Debug macro definitions and use.""")
 
+        p.add_argument('-D', '--debug', action='store_true',
+                       help="""Raise full exception dumps on unexpected failures.""")
+
         p.add_argument(metavar="INPUT-FILE", dest="input_files",
                        nargs="*", help="Provide one or more files to assemble.")
 
@@ -334,7 +358,15 @@ class CFTAssembler(object):
     def run(self):
         """Run the assembler."""
 
+        # Parse the command line
         self.parse_command_line()
+
+        # Set our various output filenames.
+        base = os.path.splitext(self.args.out_file)[0]
+        self.symbol_file = self.args.symbol_file or (base + '.sym')
+        # self.map_file = self.args.map_file or (base + '.map')
+        # self.asm_file = self.args.asm_file or (base + '.pasm')
+        # self.xpm_map_file = self.args.xpm or (base + '.xpm')
 
         # Check mode of operation and act on it.
         if self.args.show_builtins:
@@ -368,12 +400,13 @@ class CFTAssembler(object):
         sys.stderr.write('%s:%d: %s\n' % (filename or self.filename,
                                          linenum or self.linenum,
                                          msg))
+
     def warn(self, msg):
         """Output a warning message."""
         self._msg('warning: ' + msg)
 
 
-    def fail(self, msg):
+    def error(self, msg):
         """Output an error message and fail."""
         # Is there a macro/file context we should print out?
         for (n, f, ln, mdef) in self.ctx:
@@ -385,6 +418,11 @@ class CFTAssembler(object):
                           filename=f, linenum=ln)
 
         self._msg('error: ' + msg)
+
+
+    def fail(self, msg):
+        """Output an error message and fail."""
+        self.error(msg)
         sys.exit(1)
 
 
@@ -439,10 +477,32 @@ class CFTAssembler(object):
         return token[0] == self.TKT_WORD and ((word is None) or (token[1] == word))
 
 
+    def is_label(self, token):
+        """Return True if the specified token represents a label."""
+        return token[0] == self.TKT_WORD and token[1][-1] == ':'
+
+
+    def check_valid_directive(self, token):
+        """Ensure a token represents a valid dot directive. Report a fatal parse error
+        otherwise. Allow either a string or a token tuple to be provided."""
+        if type(token) == tuple:
+            token = token[1]
+        if token not in self.DIRECTIVES:
+            self.fail("Unknown directive {}.".format(token))
+
+
     def get_symbol(self, sym):
         """Return the value of a symbol from the symbol table. Return None if it
         couldn't be found.
         """
+        # # if the symbol has a '.' in it, it should fully qualified. Look for it first.
+        # if '.' in sym:
+        #     return self.symbols.get(sym)
+
+        # # Maybe it's a global symbol with no '.'.
+        # if sym in self.symbols:
+        #     return self.symbols[sym]
+
         for x in range(len(self.ns), -1, -1):
             try:
                 nssym = '.'.join(self.ns[0:x] + [sym])
@@ -452,6 +512,25 @@ class CFTAssembler(object):
                 continue
         return None
 
+
+    def pushParseContext(self, macro, filename, linenum, mdef):
+        """Push a macro context onto the context stack. This is used for reporting the
+        exact location of file inclusions and macro expansions.
+
+        This is used for error reporting.
+
+        """
+        self.ctx.append((macro, filename, linenum, mdef))
+
+
+    def popParseContext(self):
+        """Pop a macro context from the context stack.
+
+        This is used for error reporting."""
+        try:
+            return self.ctx.pop()
+        except IndexError:
+            self.die('Attempted pop from empty context stack.')
             
     
     ###############################################################################
@@ -499,6 +578,8 @@ class CFTAssembler(object):
                     elif c == '(':
                         tokens.append((self.TKT_LPAREN, '('))
                         state = self.TOK_PAREN
+                    elif c == ':':
+                        self.fail("Parse error. If this is label, delete white spaec before the colon.")
                     else:
                         state = self.TOK_WORD
                         tmptoken = c
@@ -661,12 +742,6 @@ class CFTAssembler(object):
     #
     ###############################################################################
 
-    BINDICT = {
-        ":": "", ",": "", "'": "",
-        "0": "0", "-": "0", "_": "0", ".": "0",
-        "1": "1"
-    }
-        
     def parse_literal(self, literal):
         """Parse an integer literal.
     
@@ -706,7 +781,7 @@ class CFTAssembler(object):
                 newint = int(newlit, 2)
             except:
                 self.fail("Unable to parse binary literal '{}'".format(literal))
-            print("lit={}, conv={}".format(newlit, newint))
+            #print("lit={}, conv={}".format(newlit, newint))
             return int(newlit, 2)
 
         elif literal.startswith('&'):
@@ -750,6 +825,7 @@ class CFTAssembler(object):
     # THE PARSER
     #
     ###############################################################################
+
 
     def prepare_for_parse(self):
         """Initialise parse state."""
@@ -845,7 +921,7 @@ class CFTAssembler(object):
         self.debug_macros(tokens)
         # Check it
         if macro_def is not None:
-            self.fail("nested .macro definition. Probably a missing .end.")
+            self.fail("nested .macro definition. Probably a missing .endmacro.")
         elif tokens[1][0] != self.TKT_WORD:
             self.fail("Expected macro name")
         elif tokens[2] != (self.TKT_LPAREN, '('):
@@ -867,13 +943,15 @@ class CFTAssembler(object):
 
     def parse_dot_endmacro(self, tokens, macro_name, macro_args, macro_start, macro_def):
         if macro_def is None:
-            self.fail(".end seen before .macro")
-        self.debug_macros(".end seen")
+            self.fail(".endmacro seen before .macro")
+        self.debug_macros(".endmacro seen")
         self.macros[self.get_nsname(macro_name)] = (self.filename, macro_start, macro_args, macro_def)
 
-
+    
     def pass_macro_discovery(self):
+        self.dots = dict()
         self.prepare_for_parse()
+        self.expand_macros = False # Don't expand any macros for this passduring this pass
         macro_def = None
         for filename in ['<builtins>'] + self.args.input_files:
             for tokens in self.preprocessor(filename):
@@ -900,10 +978,12 @@ class CFTAssembler(object):
                     self.parse_dot_equ(tokens)
 
                 # Parse a macro definition
-                if tokens[0] == (self.TKT_WORD, ".macro"):
+                elif tokens[0] == (self.TKT_WORD, ".macro"):
                     macro_name, macro_args, macro_start, macro_def = self.parse_dot_macro(tokens, macro_def)
 
-                elif tokens[0] == (self.TKT_WORD, '.end'):
+                elif tokens[0] in [ (self.TKT_WORD, '.end'), (self.TKT_WORD, '.endmacro') ]:
+                    if tokens[0][1] == '.end':
+                        self.warn(".end is deprecated. Change to .endmacro.")
                     self.parse_dot_endmacro(tokens, macro_name, macro_args, macro_start, macro_def)
                     macro_def = None
 
@@ -911,12 +991,80 @@ class CFTAssembler(object):
                     # Append another line to the macro definition.
                     macro_def += self.line
 
+                elif self.is_label(tokens[0]):
+                    # Ignore labels and code.
+                    continue
+
+                elif tokens[0][1] == '.':
+                    # But report unknown directives
+                    self.check_valid_directive(tokens[0])
+
             # Sanity checks at end of file.
             if macro_def is not None:
-                self.fail("File ended before .end was seen.")
-            print("ns={}".format(self.ns))
+                self.fail("File ended before .endmacro was seen.")
             if self.ns and self.ns[-1].startswith("_ns"):
                 self.fail("File ended before .endscope was seen.")
+
+
+    def pass_symbols_and_label_resolution(self):
+        self.dots = dict()
+        self.prepare_for_parse()
+        self.expand_macros = True
+
+        macro_def = None
+        for filename in ['<builtins>'] + self.args.input_files:
+            for tokens in self.preprocessor(filename):
+                self.debug_parser(tokens)
+
+                # Parse namespaces. We need those to qualify any macro names we
+                # encounter.
+                if self.is_word(tokens[0], ".pushns"):
+                    self.parse_dot_pushns(tokens)
+
+                elif self.is_word(tokens[0], ".popns"):
+                    self.parse_dot_popns(tokens)
+
+                elif self.is_word(tokens[0], ".scope"):
+                    self.parse_dot_scope(tokens)
+                    self.debug_parser("scope now {}".format(self.ns[-1]))
+
+                elif self.is_word(tokens[0], ".endscope"):
+                    self.debug_parser("endscope {}".format(self.ns[-1]))
+                    self.parse_dot_endscope(tokens)
+
+                # Opportunistically parse .equs too, while we're at it
+                elif self.is_word(tokens[0], ".equ"):
+                    self.parse_dot_equ(tokens)
+
+                # Parse a macro definition
+                elif tokens[0] == (self.TKT_WORD, ".macro"):
+                    # .macro was parsed and verified on the previous pass. Just
+                    # update our state here.
+                    macro_def = True
+
+                elif tokens[0] in [ (self.TKT_WORD, '.end'), (self.TKT_WORD, '.endmacro') ]:
+                    # .endmacro was parsed and verified on the previous
+                    # pass. Just update our state here.
+                    macro_def = None
+
+                elif macro_def is not None:
+                    # Ignore macro definitions here.
+                    continue
+
+                elif self.is_label(tokens[0]):
+                    print("TODO: parse label: {}".format(self.line.strip()))
+                    continue
+
+                elif tokens[0][1] == '.':
+                    # But report unknown directives
+                    self.check_valid_directive(tokens[0])
+
+                else:
+                    print("TODO: parse assembly: {}".format(self.line.strip()))
+                    continue
+
+            # Sanity checks at end of file.
+            pass
 
 
     def parse(self):
@@ -929,11 +1077,21 @@ class CFTAssembler(object):
 
         # This is a three-pass assembler.
         self.pass_macro_discovery()
+        self.pass_symbols_and_label_resolution()
+        #self.pass_assembly()
 
         #pprint.pprint(self.macros, width=200)
-        pprint.pprint(self.symbols, width=200)
+        #pprint.pprint(self.symbols, width=200)
         # self.pass_symbol_discovery()
         # self.pass_assembly()
+
+        print(self.dots.keys())
+        
+        # Sanity checks
+        self.sanity_checks()
+
+        # Output stuff
+        self.write_symbol_table()
 
             # # First, parse the builtins.
             # self.filename = '<builtins>'
@@ -983,21 +1141,57 @@ class CFTAssembler(object):
             #     break
 
 
-    def pushParseContext(self, macro, filename, linenum, mdef):
-        """Push a macro context onto the context stack.
+    ###############################################################################
+    #
+    # SANITY CHECKING THE PARSED ASSEMBLY
+    #
+    ###############################################################################
 
-        This is used for error reporting."""
-        self.ctx.append((macro, filename, linenum, mdef))
+    def sanity_checks(self):
+        unresolved_symbols = [ x for x in self.symbols.values() if x.unresolved ]
+        if unresolved_symbols:
+            tmp_filename, tmp_linenum = self.filename, self.linenum
+            for sym in unresolved_symbols:
+                self.filename, self.linenum = sym.filename, sym.linenum
+                self.error("Unresolved symbol: {} ({} undefined)".format(
+                    sym.name,
+                    ', '.join(x for x in sym.tokens if type(x) == str )))
+            sys.exit(1)
 
 
-    def popParseContext(self):
-        """Pop a macro context from the context stack.
+    ###############################################################################
+    #
+    # OUTPUT FUNCTIONALITY
+    #
+    ###############################################################################
 
-        This is used for error reporting."""
+    def write_symbol_table(self):
+        """Print out the symbol table."""
+        # Open the symbol output file.
         try:
-            return self.ctx.pop()
-        except IndexError:
-            self.die('Attempted pop from empty context stack.')
+            with open(self.symbol_file, 'wt') as out:
+
+                maxnamelength = max(len(x) for x in list(self.symbols.keys()))
+
+                # TODO: make this more Python-3
+                fmt = "%%-%ds  %%04x  %%-6s  %%s:%%d\n" % maxnamelength
+                hdr = "%%-%ds  %%-4s  %%-6s  %%s\n" % maxnamelength
+                header = hdr % ('Name', 'Val', 'Type', 'Defined in')
+
+                out.write(header + ('-' * 79) + '\n')
+                for sym in sorted(list(self.symbols.values()), key=lambda x: (x.filename, x.linenum)):
+                    out.write(fmt % (sym.name, sym.val,
+                                     sym.__class__.__name__.lower(),
+                                     sym.filename, sym.linenum or '?'))
+
+        except Exception as e:
+            if self.args.debug:
+                raise
+            self.die("Whoops, failed to write symbol table: {}".format(e))
+            
+            
+
+    
 
 
     ###############################################################################
@@ -1915,27 +2109,6 @@ class CFTAssembler(object):
                     res |= val.assembly_val
         return res
 
-
-    def outsym(self):
-        """Print out the symbol table."""
-        # Open the symbol output file.
-        out = open(self.symbol_file, 'w')
-        
-        maxnamelength = max(len(x) for x in list(self.symbols.keys()))
-        
-        fmt = "%%-%ds  %%04x  %%-6s  %%s:%%d\n" % maxnamelength
-        hdr = "%%-%ds  %%-4s  %%-6s  %%s\n" % maxnamelength
-        header = hdr % ('Name', 'Val', 'Type', 'Defined in')
-
-        out.write(header + ('-' * 79) + '\n')
-        for sym in sorted(list(self.symbols.values()), key=lambda x: (x.filename, x.linenum)):
-            out.write(fmt % (sym.name, sym.val,
-                             sym.__class__.__name__.lower(),
-                             sym.filename, sym.linenum))
-
-        # Close it, just in case.
-        out.close()
-            
 
     def outmap(self):
         """Print out the map file."""
