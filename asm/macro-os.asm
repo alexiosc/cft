@@ -26,7 +26,7 @@
 .macro errno(name)
 		LI err.%name		; errno(%literal)
 		STORE p0.ERRNO
-.end
+.endmacro
 
 
 ;;; Macro: clear_errno()
@@ -35,7 +35,7 @@
 
 .macro clear_errno()
 		errno(NOERROR)		; clear_errno()
-.end
+.endmacro
 
 
 ;;; Macro: rtt_errno(%error)
@@ -45,7 +45,7 @@
 .macro rtt_errno(name)
 		errno(%name)		; rtt_errno(%name)
 		JMP os.rtterr
-.end
+.endmacro
 
 
 ;;; Macro: call(name)
@@ -54,7 +54,7 @@
 
 .macro call(name)
 		JSR I %name		; call(%addr)
-.end
+.endmacro
 
 
 ;;; Macro: lcall(name, literal)
@@ -65,7 +65,7 @@
 		LI %lit			; call(%name, %lit)
 		STORE ARG0
 		JSR I %name
-.end
+.endmacro
 
 
 ;;; Macro: rcall(name, addr)
@@ -76,7 +76,7 @@
 		LOAD %addr		; call(%name, %addr)
 		STORE ARG0
 		JSR I %name
-.end
+.endmacro
 
 
 ;;; Macro: syscall(name)
@@ -86,7 +86,7 @@
 
 .macro syscall(name)
 		TRAP I %name		; syscall(%name)
-.end
+.endmacro
 
 
 ;;; Macro: lsyscall(name, lit)
@@ -97,7 +97,7 @@
 		LI %lit			; lsyscall(%name, %lit)
 		STORE ARG0
 		TRAP I %name
-.end
+.endmacro
 
 
 ;;; Macro: rsyscall(name, addr)
@@ -108,7 +108,7 @@
 		LOAD %addr		; rsyscall(%name, %addr)
 		STORE ARG0
 		TRAP I %name
-.end
+.endmacro
 
 
 ;;; Macro: asyscall(name)
@@ -118,7 +118,7 @@
 .macro asyscall(name)
 		STORE ARG0		; asyscall(%name)
 		TRAP I %name
-.end
+.endmacro
 
 
 ;;; Macro: callcdrv(handle, call)
@@ -131,7 +131,7 @@
 		LOAD %handle
 		STORE ARG0		; ARG0 = driver handle (unit number)
 		TRAP I %call
-.end
+.endmacro
 
 ;;; Macro: rcalldrv(handle, call, reg)
 ;;;
@@ -144,7 +144,7 @@
 		LOAD %reg
 		STORE ARG1
 		TRAP I %call
-.end
+.endmacro
 
 ;;; Macro: lcalldrv(handle, ofs, lit)
 ;;;
@@ -157,6 +157,6 @@
 		LI %lit
 		STORE ARG1		; ARG1 = literal argument
 		TRAP I %call
-.end
+.endmacro
 
 ;;; End of file.

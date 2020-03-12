@@ -57,7 +57,7 @@
 .macro JNA(addr)
 		IFNA			; JNA(%addr)
 		JMP %addr
-.end
+.endmacro
 
 ;;; Macro: JNP (addr)
 ;;;
@@ -69,7 +69,7 @@
 .macro JNP(addr)
 		IFNP			; JNP(%addr)
 		JMP %addr
-.end
+.endmacro
 
 ;;; Macro: JZA (addr)
 ;;;
@@ -81,7 +81,7 @@
 .macro JZA(addr)
 		IFZA			; JZA(%addr)
 		JMP %addr
-.end
+.endmacro
 
 		
 ;;; Macro: JZA (addr)
@@ -94,7 +94,7 @@
 .macro JNZ(addr)
 		IFNZ			; JNZ(%addr)
 		JMP %addr
-.end
+.endmacro
 
 		
 ;;; Macro: JNN (addr)
@@ -107,7 +107,7 @@
 .macro JNN(addr)
 		IFNN			; JNN(%addr)
 		JMP %addr
-.end
+.endmacro
 
 		
 ;;; Macro: JPA (addr)
@@ -120,7 +120,7 @@
 .macro JPA(addr)
 		IFPA			; JPA(%addr)
 		JMP %addr
-.end
+.endmacro
 
 		
 ;;; Macro: IFEQJMP (addr, then)
@@ -135,7 +135,7 @@
 		XOR %addr		; IFEQJMP(%addr, %then)
 		IFZA
 		JMP %then
-.end
+.endmacro
 
 
 ;;; Macro: IFNEQJMP (addr, then)
@@ -150,7 +150,7 @@
 		XOR %addr		; IFNEQJMP(%addr, %then)
 		IFNZ
 		JMP %then
-.end
+.endmacro
 
 		
 ///////////////////////////////////////////////////////////////////////////////
@@ -177,7 +177,7 @@
 		ADD %ofs
 		STORE %tmp
 		JMPII %tmp
-.end		
+.endmacro		
 		
 ;;; Macro: CASETAB (ofs)
 ;;;
@@ -195,7 +195,7 @@
 		ADD %ofs
 		STORE %ofs
 		JMPII %ofs
-.end		
+.endmacro		
 		
 ;;; Macro: JSRTAB (table, tmp, ofs)
 ;;;
@@ -220,6 +220,6 @@
 		LOAD I %tmp
 		STORE %tmp
 		JSR I %tmp
-.end		
+.endmacro		
 		
 ;;; End of file.

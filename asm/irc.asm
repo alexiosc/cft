@@ -12,17 +12,17 @@
 .macro enable(irq)
 		LI irc.ICR_EN irc.ICR_IRQ%irq
 		OUT irc.ICR
-.end
+.endmacro
 
 .macro disable(irq)
 		LI irc.ICR_DIS irc.ICR_IRQ%irq
 		OUT irc.ICR
-.end
+.endmacro
 
 .macro ack(irq)
 		irc.disable(%irq)
 		irc.enable(%irq)
-.end
+.endmacro
 
 ;;; Definitions
 

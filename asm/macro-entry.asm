@@ -16,7 +16,7 @@
 .macro enter_sub()
 		LOAD RETV		; enter_sub()
 		PUSH RP
-.end
+.endmacro
 
 		
 ;;; Macro: enter_sub_ac()
@@ -29,7 +29,7 @@
 ;;;   AC = return vector
 .macro enter_sub_ac()
 		enter_sub_acr(TMP15)
-.end
+.endmacro
 
 		
 ;;; Macro: enter_sub_acr(reg)
@@ -43,7 +43,7 @@
 .macro enter_sub_acr(reg)
 		STORE %reg		; enter_sub_acr(%reg)
 		enter_sub()
-.end
+.endmacro
 
 		
 ;;; Macro: return()
@@ -57,7 +57,7 @@
 		POP RP			; return()
 		STORE RETV
 		RET
-.end
+.endmacro
 
 		
 ;;; Macro: pop_retv()
@@ -71,7 +71,7 @@
 .macro pop_retv()
 		POP RP			; pop_retv()
 		STORE RETV
-.end
+.endmacro
 
 		
 ;;; Macro: return_ac(addr)
@@ -89,6 +89,6 @@
 		STORE TMP15
 		LOAD TMP14		; restore AC
 		JMP I TMP15
-.end
+.endmacro
 
 ;;; End of file.

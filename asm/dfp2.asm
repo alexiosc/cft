@@ -100,7 +100,7 @@
 .macro enef (lit)
 		LI %lit			; enef(%lit)
 		ENEF
-.end
+.endmacro
 					; TTY characters available
 
 ;;; Macro: disef(lit)
@@ -114,7 +114,7 @@
 .macro disef (lit)
 		LI %lit			; disef(%lit)
 		DISEF
-.end
+.endmacro
 		
 
 

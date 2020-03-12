@@ -46,12 +46,12 @@
 .macro LSMB(bank, phys)
 		LI %phys
 		SMB %bank
-.end
+.endmacro
 
 .macro RSMB(bank, addr)
 		LOAD %addr
 		SMB %bank
-.end
+.endmacro
 
 ; .macro MAPMEM(bank)
 ; 		SMB %bank

@@ -26,7 +26,7 @@
 
 .macro PUSH (stack)
 		PUSH %stack		; Legacy macro: mem[%stack++] <- AC
-.end
+.endmacro
 
 
 	
@@ -46,7 +46,7 @@
 .macro RPUSH (stack, src)
 		LOAD %src		; RPUSH(%stack,%src)
 		PUSH %stack
-.end
+.endmacro
 
 
 	
@@ -66,7 +66,7 @@
 .macro LPUSH (stack, lit)
 		LI %lit			; RPUSH(%stack,%lit)
 		PUSH %stack		; mem[%stack++] <- AC
-.end
+.endmacro
 
 
 	
@@ -87,7 +87,7 @@
 	
 .macro POP (stack)
 		POP %stack		; POP(%stack)
-.end
+.endmacro
 
 
 ;;; Macro: RPOP (tgt, stack)
@@ -107,7 +107,7 @@
 .macro RPOP (tgt, stack)
 		POP %stack		; POP(%tgt, %stack)
 		STORE %tgt
-.end
+.endmacro
 
 
 	
@@ -125,7 +125,7 @@
 .macro PEEK (stack)
 		POP %stack		; PEEK(%stack)
 		PUSH %stack
-.end
+.endmacro
 
 
 	
@@ -144,7 +144,7 @@
 		POP %stack		; RPEEK(%reg, %stack)
 		PUSH %stack
 		STORE %reg
-.end
+.endmacro
 
 
 	
@@ -168,7 +168,7 @@
 		ADD @MINUS%n+1		; Macro/register/memory map hackery!
 		STORE MTMP0		; Store for indirection
 		LOAD I MTMP0		; AC <- mem[%stack-1]
-.end
+.endmacro
 
 
 		
@@ -190,7 +190,7 @@
 		POP %stack		; Pop and discard
 		LOAD MTMP0
 		PUSH %stack
-.end
+.endmacro
 
 
 	
@@ -217,7 +217,7 @@
 		STORE MTMP0		; Store for indirection
 		LOAD TMP1		; Get initial AC again
 		STORE I MTMP0		; mem[%stack-1] <- AC
-.end
+.endmacro
 
 	
 	
@@ -237,7 +237,7 @@
 		LOAD %stack		; DROPn(%stack, %n)
 		ADD @MINUS%n
 		STORE %stack
-.end
+.endmacro
 
 	
 
@@ -255,7 +255,7 @@
 
 .macro DROP (stack)
 	POP %stack			; DROP(%stack, %n)
-.end
+.endmacro
 
 	
 

@@ -32,7 +32,7 @@
 .macro CMPEQ (a, b)
 		LOAD %a			; CMPEQ(%a, %b)
 		XOR %b
-.end
+.endmacro
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
@@ -57,7 +57,7 @@
 .macro LSET(tgt, literal)
 		LI %literal		; LSET(%tgt, %literal)
 		STORE %tgt
-.end
+.endmacro
 
 	
 
@@ -77,7 +77,7 @@
 		LI %n			; LINC(%addr, %n)
 		ADD %addr
 		STORE %addr
-.end
+.endmacro
 
 ;;; Macro: RINC (addr)
 ;;;
@@ -93,7 +93,7 @@
 ;;;   L
 .macro RINC (addr)
 		LINC(%addr, 1)
-.end
+.endmacro
 
 ;;; Macro: LDECn (addr)
 ;;;
@@ -110,7 +110,7 @@
 		LOAD %addr		; LDECn(%addr, %n)
 		ADD MINUS%n
 		STORE %addr
-.end
+.endmacro
 
 ;;; Macro: DECM (addr)
 ;;;
@@ -122,7 +122,7 @@
 ;;;   L
 .macro DECM (addr)
 		LDECn (%addr, 1)
-.end
+.endmacro
 
 
 
@@ -136,7 +136,7 @@
 .macro SIA (reg, addr)
 		LIA %addr		; SIA(%reg, %addr)
 		STORE %reg
-.end
+.endmacro
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
@@ -145,7 +145,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 .macro ROMTRAP1(trap, arg1)
-.end
+.endmacro
 
 
 ;;; Macro: ENTTRAP (reg)
@@ -162,7 +162,7 @@
 		LOAD I RTTV		; ENTTRAP(%reg)
 		STORE %reg
 		LOAD RTTV
-.end
+.endmacro
 
 ;;; Macro: RETTRAP (argc)
 ;;;
@@ -179,7 +179,7 @@
 		STORE TR0
 		LOAD TR1
 		JMP I TR0
-.end
+.endmacro
 
 
 
@@ -204,7 +204,7 @@
 		LOAD %src		; _RAPPLY1(%tgt, %src)
 		%op
 		STORE %tgt
-.end
+.endmacro
 
 	
 
@@ -220,7 +220,7 @@
 		LOAD %tgt		; _RAPPLY1B(%tgt, %src)
 		%op %src
 		STORE %tgt
-.end
+.endmacro
 
 	
 
@@ -236,7 +236,7 @@
 		LOAD %a			; _RAPPLY2(%op, %tgt, %a, %b)
 		%op %b
 		STORE %tgt
-.end
+.endmacro
 
 	
 
@@ -250,7 +250,7 @@
 .macro RMOV(tgt, src)
 		LOAD %src		; RMOV(%tgt, %src)
 		STORE %tgt
-.end
+.endmacro
 
 
 ;;; Macro: RADD(tgt,a,b)
@@ -263,7 +263,7 @@
 ;;;   L
 .macro RADD(tgt, a, b)
 		_RAPPLY2(ADD, %tgt, %a, %b)
-.end
+.endmacro
 
 
 	
@@ -277,7 +277,7 @@
 ;;;   L
 .macro RADD1(tgt, a)
 		_RAPPLY1B(ADD, %tgt, %a)
-.end
+.endmacro
 
 
 	
@@ -294,7 +294,7 @@
 		LOAD %a			; RADD(%tgt, %a, %b)
 		ADC(%b)
 		STORE %tgt
-.end
+.endmacro
 
 
 	
@@ -311,7 +311,7 @@
 		LOAD %tgt		; RADC1(%tgt, %a)
 		ADC(%a)
 		STORE %tgt
-.end
+.endmacro
 
 
 	
@@ -328,7 +328,7 @@
 		NEG
 		ADD %a
 		STORE %tgt
-.end
+.endmacro
 
 
 	
@@ -345,7 +345,7 @@
 		NEG
 		ADD %tgt
 		STORE %tgt
-.end
+.endmacro
 
 
 	
@@ -359,7 +359,7 @@
 ;;;   L
 .macro RAND(tgt, a, b)
 		_RAPPLY2(AND, %tgt, %a, %b)
-.end
+.endmacro
 
 
 	
@@ -373,7 +373,7 @@
 ;;;   L
 .macro RAND1(tgt, a)
 		_RAPPLY1B(AND, %tgt, %a)
-.end
+.endmacro
 
 
 	
@@ -387,7 +387,7 @@
 ;;;   L
 .macro ROR(tgt, a, b)
 		_RAPPLY2(OR, %tgt, %a, %b)
-.end
+.endmacro
 
 
 	
@@ -401,7 +401,7 @@
 ;;;   L
 .macro ROR1(tgt, a)
 		_RAPPLY1B(OR, %tgt, %a)
-.end
+.endmacro
 
 
 	
@@ -415,7 +415,7 @@
 ;;;   L
 .macro RXOR(tgt, a, b)
 		_RAPPLY2(XOR, %tgt, %a, %b)
-.end
+.endmacro
 
 
 	
@@ -429,7 +429,7 @@
 ;;;   L
 .macro RXOR1(tgt, a)
 		_RAPPLY1B(XOR, %tgt, %a)
-.end
+.endmacro
 
 
 	
@@ -443,7 +443,7 @@
 ;;;   L (as per roll instructions)
 .macro RSBL(tgt, src)
 		_RAPPLY1(SBL, %tgt, %src)
-.end
+.endmacro
 
 	
 
@@ -457,7 +457,7 @@
 ;;;   L (as per roll instructions)
 .macro RSBR(tgt, src)
 		_RAPPLY1(SBR, %tgt, %src)
-.end
+.endmacro
 
 	
 
@@ -471,7 +471,7 @@
 ;;;   L (as per roll instructions)
 .macro RRBL(tgt, src)
 		_RAPPLY1(RBL, %tgt, %src)
-.end
+.endmacro
 
 	
 
@@ -485,7 +485,7 @@
 ;;;   L (as per roll instructions)
 .macro RRBR(tgt, src)
 		_RAPPLY1(RBR, %tgt, %src)
-.end
+.endmacro
 
 	
 
@@ -499,7 +499,7 @@
 ;;;   L (as per roll instructions)
 .macro RRNL(tgt, src)
 		_RAPPLY1(RNL, %tgt, %src)
-.end
+.endmacro
 
 	
 
@@ -513,7 +513,7 @@
 ;;;   L (as per roll instructions)
 .macro RRNR(tgt, src)
 		_RAPPLY1(RNR, %tgt, %src)
-.end
+.endmacro
 
 
 
@@ -527,7 +527,7 @@
 ;;;   L (as per roll instructions)
 .macro RNOT(tgt, src)
 		_RAPPLY1(NOT, %tgt, %src)
-.end
+.endmacro
 
 
 
@@ -541,7 +541,7 @@
 ;;;   L (as per roll instructions)
 .macro RNEG(tgt, src)
 		_RAPPLY1(NEG, %tgt, %src)
-.end
+.endmacro
 
 
 
@@ -555,7 +555,7 @@
 .macro ROUT(tgt, src)
 		LOAD %src		; ROUT(%tgt, %src)
 		OUT %tgt
-.end
+.endmacro
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -578,7 +578,7 @@
 		LI %lit			; _RAPPLY1(%tgt, %lit)
 		%op
 		STORE %tgt
-.end
+.endmacro
 
 	
 
@@ -594,7 +594,7 @@
 		LI %lit			; _LAPPLY2(%op, %tgt, %reg, %lit)
 		%op %reg
 		STORE %tgt
-.end
+.endmacro
 
 	
 
@@ -608,7 +608,7 @@
 .macro LMOV(tgt, lit)
 		LI %lit 		; LMOV(%tgt, %lit)
 		STORE %tgt
-.end
+.endmacro
 
 
 ;;; Macro: LADD(tgt,a,lit)
@@ -621,7 +621,7 @@
 ;;;   L
 .macro LADD(tgt, a, lit)
 		_LAPPLY2(ADD, %tgt, %a, %lit)
-.end
+.endmacro
 
 
 	
@@ -638,7 +638,7 @@
 		LI %lit			; RADD(%tgt, %a, %lit)
 		ADC(%a)
 		STORE %tgt
-.end
+.endmacro
 
 
 	
@@ -655,7 +655,7 @@
 		NEG
 		ADD %a
 		STORE %tgt
-.end
+.endmacro
 
 
 	
@@ -669,7 +669,7 @@
 ;;;   L
 .macro LAND(tgt, a, lit)
 		_LAPPLY2(AND, %tgt, %a, %lit)
-.end
+.endmacro
 
 
 	
@@ -683,7 +683,7 @@
 ;;;   L
 .macro LAND1(tgt, lit)
 		_LAPPLY2(AND, %tgt, %tgt, %lit)
-.end
+.endmacro
 
 
 	
@@ -697,7 +697,7 @@
 ;;;   L
 .macro LOR(tgt, a, lit)
 		_LAPPLY2(OR, %tgt, %a, %lit)
-.end
+.endmacro
 
 
 	
@@ -711,7 +711,7 @@
 ;;;   L
 .macro LOR1(tgt, lit)
 		_LAPPLY2(OR, %tgt, %tgt, %lit)
-.end
+.endmacro
 
 
 	
@@ -725,7 +725,7 @@
 ;;;   L
 .macro LXOR(tgt, a, lit)
 		_LAPPLY2(XOR, %tgt, %a, %lit)
-.end
+.endmacro
 
 
 	
@@ -739,7 +739,7 @@
 ;;;   L (as per roll instructions)
 .macro LSBL(tgt, lit)
 		_LAPPLY1(SBL, %tgt, %lit)
-.end
+.endmacro
 
 
 
@@ -753,7 +753,7 @@
 ;;;   L (as per roll instructions)
 .macro LRBL(tgt, lit)
 		_LAPPLY1(RBL, %tgt, %lit)
-.end
+.endmacro
 
 
 
@@ -767,7 +767,7 @@
 ;;;   L (as per roll instructions)
 .macro LRNL(tgt, lit)
 		_LAPPLY1(RNL, %tgt, %lit)
-.end
+.endmacro
 
 	
 
@@ -781,7 +781,7 @@
 ;;;   L (as per roll instructions)
 .macro LRNR(tgt, lit)
 		_LAPPLY1(RNR, %tgt, %lit)
-.end
+.endmacro
 
 
 
@@ -795,7 +795,7 @@
 ;;;   L (as per roll instructions)
 .macro LNOT(tgt, lit)
 		_LAPPLY1(NOT, %tgt, %lit)
-.end
+.endmacro
 
 
 
@@ -809,7 +809,7 @@
 ;;;   L (as per roll instructions)
 .macro LNEG(tgt, lit)
 		_LAPPLY1(NEG, %tgt, %lit)
-.end
+.endmacro
 
 
 
@@ -823,7 +823,7 @@
 .macro LOUT(tgt, lit)
 		LI %lit			; LOUT(%tgt, %lit)
 		OUT %tgt
-.end
+.endmacro
 
 
 ;;; Macro: LOUTX(base,ofs,lit)
@@ -841,7 +841,7 @@
 		STORE MTMP0
 		LI %lit
 		OUT I MTMP0
-.end
+.endmacro
 
 
 ;;; Macro: INX(base,ofs)
@@ -857,7 +857,7 @@
 		ADD %base
 		STORE MTMP0
 		IN I MTMP0
-.end
+.endmacro
 
 
 ;;; Macro: LRET(literal)
@@ -870,7 +870,7 @@
 .macro LRET(literal)
 		LI %literal		; LRET(%literal)
 		RET
-.end
+.endmacro
 
 
 ;;; Macro: RRET(addr)
@@ -883,7 +883,7 @@
 .macro RRET(addr)
 		LOAD %addr		; RRET(%addr)
 		RET
-.end
+.endmacro
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -908,7 +908,7 @@
 		ADD %addr
 		STORE %addr
 		LOAD I %tmp 
-.end
+.endmacro
 
 ;;; Macro: RINDEX(addr, ofs, tmp)
 ;;;
@@ -926,7 +926,7 @@
 		ADD %addr
 		STORE %tmp
 		LOAD I %tmp
-.end
+.endmacro
 
 ;;; Macro: LINDEX(addr, ofs, tmp)
 ;;;
@@ -947,7 +947,7 @@
 		ADD %addr
 		STORE %tmp
 		LOAD I %tmp
-.end
+.endmacro
 
 		
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -979,7 +979,7 @@
 		LOAD bl
 		NEG
 		ADD al			; Calculate %al - %bl
-.end
+.endmacro
 		
 ;;; Macro: DSBR1(hi,lo)
 ;;;
@@ -996,7 +996,7 @@
 		LOAD %lo
 		RBR
 		STORE %lo
-.end
+.endmacro
 
 
 ;;; Macro: DSBL1(hi,lo)
@@ -1014,7 +1014,7 @@
 		LOAD %hi
 		RBR
 		STORE %hi
-.end
+.endmacro
 
 		
 ;;; Macro: DADD(xh, xl, ah, al, bh, bl)
@@ -1039,7 +1039,7 @@
 		STORE %xh
 		; DEBUGOFF
 		; HALT
-.end
+.endmacro
 
 	
 ;;; Macro: DINC(regh, regl)
@@ -1059,7 +1059,7 @@
 		LOAD %regh
 		IFL INC                 ; Propagate carry.
 		STORE %regh
-.end
+.endmacro
 
 	
 	
@@ -1080,7 +1080,7 @@
 		XOR R MINUS1            ; Fast complementation
 		IFL INC                 ; Propagate the carry
 		STORE %tgth
-.end
+.endmacro
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
@@ -1096,7 +1096,7 @@
 ;;;   AC = AC & 0xff
 .macro GETLOCHAR()
 		AND BYTELO		; AND &00ff
-.end
+.endmacro
 
 
 	
@@ -1112,7 +1112,7 @@
 		RNR			; GETHICHAR()
 		RNR
 		AND BYTELO		; AND &00ff
-.end
+.endmacro
 
 
 	
@@ -1128,7 +1128,7 @@
 		RNL			; MAKEHICHAR()
 		RNL
 		AND BYTEHI		; AND &ff00
-.end
+.endmacro
 
 	
 
@@ -1150,7 +1150,7 @@
 .macro OUTL(addr, literal)
 		LI %literal		; OUTL(%addr, %literal)
 		OUT %addr
-.end
+.endmacro
 
 
 
@@ -1164,7 +1164,7 @@
 .macro RIN(reg, addr)
 		IN %addr		; RIN(%reg, %addr)
 		STORE %reg
-.end
+.endmacro
 
 
 
@@ -1182,7 +1182,7 @@
  		LI %char		; PUTC(%char)
 		PUSH(SP)
 		FORTH(dw_EMIT)
-.end
+.endmacro
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1202,7 +1202,7 @@
 .macro FARJMP(label)
 		JMP I @+1		; LJMP(%label)
 		.word %label
-.end
+.endmacro
 
 
 ;;; Macro: FARCALL (page, addr)
@@ -1219,7 +1219,7 @@
 		.data @%page&255	; Page number
 		.data @%addr>>13	; Bank to map it to
 		.data @%addr		; Address to jump to
-.end
+.endmacro
 		
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
@@ -1240,7 +1240,7 @@
 		PRINTHI
 		LOAD %lo
 		PRINTLO
-.end
+.endmacro
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
@@ -1281,6 +1281,6 @@
 		.word @-1		; Origin addr.
 		.word %numprograms	; Number of programs
 		.word 0			; Reserved
-.end
+.endmacro
 
 ;;; End of file.
