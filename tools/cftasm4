@@ -188,7 +188,7 @@ class CFTAssembler(object):
     BUILTINS = _BUILTINS
 
     # This protects against endless includes
-    MAX_INCLUDE_LEVEL = 100
+    MAX_INCLUDE_LEVEL = 10
 
     # Lexer states
     TOK_SP = 0                  # Start of line, scanning for word
@@ -218,31 +218,6 @@ class CFTAssembler(object):
         "@": '\0',
         }
 
-    # Valid Assembly directives
-    DIRECTIVES = [
-        '.bank',
-        '.data',
-        '.endmacro', '.end',
-        '.endscope',
-        '.endstring',
-        '.equ',
-        '.fill',
-        '.include',
-        '.longstring'
-        '.macro',
-        '.page',
-        '.popns',
-        '.pushns',
-        '.reg',
-        '.regfill',
-        '.scope',
-        '.str',
-        '.strn',
-        '.page',
-        '.strp',
-        '.word',
-        ]
-
     # Binary bitfield character mapping
     BINDICT = {
         ":": "", ",": "", "'": "",
@@ -250,6 +225,28 @@ class CFTAssembler(object):
         "1": "1"
     }
 
+    # Assembly models
+    MODEL_SHORT = 16
+    MODEL_LONG = 24
+
+    # Poke types. These help us figure out what each memory address is used
+    # for. Note, 0 isn't used.
+    PKT_UNUSED = 0
+    PKT_INSTR = 1
+    PKT_DATA = 2
+    PKT_STR = 3
+    PKT_REG = 4
+    PKT_UNRESOLVED = 254        # An unresolved symbol would go here
+    PKT_UNKNOWN = 255
+
+    POKETYPES = {
+        PKT_UNUSED: "not used",
+        PKT_INSTR:  "instruction",
+        PKT_DATA:   "word data",
+        PKT_STR:    "string",
+        PKT_REG:    "global register",
+    }
+    
 
     def __init__(self):
         # self.linenum = 1
@@ -273,19 +270,6 @@ class CFTAssembler(object):
         # self.filename = '<none>'
         # self.linenum = 1
 
-        # # The current address in memory.
-        # self.minaddr = self.MEMSIZE
-        # self.maxaddr = 0
-        # self.boundwarn_low = False
-        # self.boundwarn_high = False
-        # self.setaddr(0)
-
-        # # The memory image.
-        # self.mem = array.array('H')
-        # self.mem.fromlist([0x0000] * self.MEMSIZE)
-        # self.sentinel = array.array('b')
-        # self.sentinel.fromlist([32] * self.MEMSIZE)
-
         # self.opts, self.args = self.parseOpts()
 
         # # Create the processed assembly output file.
@@ -302,6 +286,34 @@ class CFTAssembler(object):
         # except IOError as e:
         #     self.die(str(e))
 
+        # Valid Assembly directives
+        self.DIRECTIVES = {
+            '.bank': self.deprecated_directive,
+            '.data': self.parse_dot_data,
+            '.endmacro': None,
+            '.end': None,            # Deprecated
+            '.endscope': None,
+            '.endstring': None,
+            '.equ': self.parse_dot_equ,
+            '.fill': None,
+            '.include': None,
+            '.longstring': None,
+            '.macro': None,
+            '.page': None,
+            '.popns': None,
+            '.pushns': None,
+            '.reg': None,
+            '.regfill': None,
+            '.scope': None,
+            '.str': None,
+            '.strn': None,
+            '.page': None,
+            '.strp': None,
+            '.word': None,
+            }
+
+        
+
 
     def parse_command_line(self):
         """Parse command-line options."""
@@ -309,6 +321,12 @@ class CFTAssembler(object):
 
         p.add_argument('-o', '--out-file', metavar='OUTPUT-FILE', default='a.bin',
                      help='Output object file to OUTPUT-FILE (default: a.bin).')
+
+        p.add_argument('-m', '--model', choices=["short", "long"],
+                       default="short", help="""Choose an assembly model. --model=short produces
+                       relocatable images that can be a maximum of 64KW . --model=long allows the
+                       full 24-bit memory to be written to. This affects object code sizes,
+                       sanity checks, warnings and how addresses are printed. (default: %(default)s)""")
 
         # p.add_option('-a', '--asm-file',
         #              help='Set processed assembly file output (default: OUTPUT-FILE.pasm).')
@@ -330,9 +348,6 @@ class CFTAssembler(object):
         # p.add_option('', '--max-addr', action='store', type='int', default=0xffff,
         #              help='Set the ending address for dumping objects, verilog output ' + \
         #                  'et cetera (default: 65535)')
-        # p.add_option('-B', '--banked', action='store_true',
-        #              help='Assemble for extended 24-bit address space. All addresses are ' + \
-        #                  'mod 8192, and you must use the .bank directive at least once.')
         # p.add_option('-B', '--banked', action='store_true',
         #              help='Assemble for extended 24-bit address space. All addresses are ' + \
         #                  'mod 8192, and you must use the .bank directive at least once.')
@@ -360,6 +375,9 @@ class CFTAssembler(object):
         p.add_argument('--debug-macros', action='store_true',
                        help="""Debug macro definitions and use.""")
 
+        p.add_argument('--debug-pokes', action='store_true',
+                       help="""Debug memory image writes.""")
+
         p.add_argument('-D', '--debug', action='store_true',
                        help="""Raise full exception dumps on unexpected failures.""")
 
@@ -367,6 +385,39 @@ class CFTAssembler(object):
                        nargs="*", help="Provide one or more files to assemble.")
 
         self.args = p.parse_args()
+
+
+    def setup_address_space(self):
+        """Set up the assembler for the specified assembly model."""
+        if self.args.model == "short":
+            memsize = 65536
+            self.model = self.MODEL_SHORT
+            self.addr_mask = 0xffff
+            self.minaddr = memsize
+            self.maxaddr = 0
+
+        elif self.args.model == "long":
+            memsize = 16777216
+            self.model = self.MODEL_LONG
+            self.addr_mask = 0xffffff
+            self.minaddr = memsize
+            self.maxaddr = 0
+            # self.boundwarn_low = False
+            # self.boundwarn_high = False
+            # self.set_addr(0)
+
+        else:
+            self.die("Unknown model '{}'".format(self.args.model))
+
+        # The memory image. The multiplication voodoo proves to be a very fast
+        # way to initialise an array in Python: about 10 times faster than
+        # passing [0] * self.MEMSIZE as the array initialiser.
+        self.mem = array.array('H', [0]) * memsize
+        self.sentinel = array.array('B', [self.PKT_UNUSED]) * memsize
+
+        # self.boundwarn_low = False
+        # self.boundwarn_high = False
+        # self.set_addr(0)
 
 
     def run(self):
@@ -394,6 +445,8 @@ class CFTAssembler(object):
         # For everything else, we need a filename to assemble.
         if not self.args:
             self.die('an input file must be provided.')
+
+        self.setup_address_space()
 
         # Run the assembler.
         self.parse()
@@ -471,11 +524,29 @@ class CFTAssembler(object):
         if self.args.debug_macros:
             print("{}:{}: [macros] {}".format(self.filename, self.linenum, s))
 
+    def debug_pokes(self, s):
+        if self.args.debug_pokes:
+            print("{}:{}: [poke] {}".format(self.filename, self.linenum, s))
+
+
     ###############################################################################
     #
     # UTILITIES
     #
     ###############################################################################
+
+    def fmt_addr(self, addr=None):
+        """Format the specified address according to the current assembly model. If the
+        address is left out, the current assembly address is formatted."""
+        if addr is None:
+            addr = self.addr
+
+        # TODO: Also format 24-bit addresses
+        if self.model == self.MODEL_SHORT:
+            return hex(addr)[2:].zfill(4)
+        else:
+            return hex(addr)[2:].zfill(6)
+
 
     def get_nsname(self, symbol=None):
         if symbol is None and self.ns == []:
@@ -496,12 +567,20 @@ class CFTAssembler(object):
         return token[0] == self.TKT_WORD and token[1][-1] == ':'
 
 
+    def is_directive(self, token):
+        """Return True if the specified token represents a label."""
+        return token[0] == self.TKT_WORD and token[1][0] == '.'
+
+
     def check_valid_directive(self, token):
-        """Ensure a token represents a valid dot directive. Report a fatal parse error
-        otherwise. Allow either a string or a token tuple to be provided."""
+        """Return the handler method for a token representing a dot
+        directive. If the token is not a valid dot directive, fail the
+        parse."""
         if type(token) == tuple:
             token = token[1]
-        if token not in self.DIRECTIVES:
+        try:
+            return self.DIRECTIVES[token]
+        except KeyError:
             self.fail("Unknown directive {}.".format(token))
 
 
@@ -837,7 +916,7 @@ class CFTAssembler(object):
             except:
                 self.fail("Unable to parse hexadecimal literal '{}'".format(literal))
 
-        elif literal[0] in "0123456789":
+        elif literal[0] in "0123456789-":
             try:
                 return int(literal)
             except:
@@ -846,19 +925,35 @@ class CFTAssembler(object):
         return None
         
 
-    def parse_fields(self, tokens):
+    def parse_fields(self, tokens, strings_too=False):
+        """Parse tokens into numbers and return them. Tokens can be numeric literals in
+        binary, decimal or hexadecimal, symbols that are resolved into numbers,
+        symbolic @-expressions, or (if strings_too=True is specified)
+        codepoints of individual characters in a string. The parsed fields are
+        yielded to the caller.
+
+        If this is the final assembly pass, unresolved symbols cause a fatal error.
+        """
         for tkt, token in tokens:
-            parsed_literal = self.parse_literal(token)
-            if parsed_literal is not None:
-                yield parsed_literal
-            else:
-                # Do we have a resolved symbol in the symbol table?
-                sym = self.get_symbol(token)
-                if sym is not None and sym.val is not None:
-                    yield sym.val
+            if tkt == self.TKT_WORD:
+                parsed_literal = self.parse_literal(token)
+                if parsed_literal is not None:
+                    yield parsed_literal
                 else:
-                    # self.warn("Unresolved symbol {} in .equ".format(token))
-                    yield token
+                    # Do we have a resolved symbol in the symbol table?
+                    sym = self.get_symbol(token)
+                    if sym is not None and sym.val is not None:
+                        yield sym.val
+                    else:
+                        if self.final_pass:
+                            self.fatal("Unresolved symbol {} in .equ".format(token))
+                        yield token
+
+            elif tkt == self.TKT_STR:
+                if not strings_too:
+                    self.fail("Strings are not allowed here")
+                for c in token:
+                    yield(ord(c))
         
 
     ###############################################################################
@@ -877,8 +972,14 @@ class CFTAssembler(object):
         self.longstring = None    # This holds long strings
         self.compstring = None    # This holds compressed strings
         self.jumped = False       # The address has changed, don't increment.
-        self.addr_mask = 0xffffff # Set a 24-bit mask
         self.set_addr(0)
+
+
+    def deprecated_directive(self, tokens):
+        """Handler for deprecated directives. Just issues a warning."""
+        if len(tokens) < 1:
+            self.fail("sanity check failed.")
+        self.warn("directive {} is deprecated.".format(tokens[0][1]))
 
 
     def parse_dot_pushns(self, tokens):
@@ -990,7 +1091,28 @@ class CFTAssembler(object):
         self.debug_macros(".endmacro seen")
         self.macros[self.get_nsname(macro_name)] = (self.filename, macro_start, macro_args, macro_def)
 
-    
+
+    def parse_dot_data(self, tokens):
+        if len(tokens) < 2:
+            self.fail(".data expects at least one data field.")
+
+        if self.is_word(tokens[0], ".data"):
+            pkt = self.PKT_DATA
+        else:
+            self.fail("Unhandled directive {}".tokens[0][1])
+
+        fields = tokens[1:]
+        for token in self.parse_fields(fields):
+            # Sanity check (parse_fields takes care of better error reporting)
+            if type(token) != int:
+                assert not self.final_pass or type(token) == int, "undefined symbol"
+                self.poke(0xdead, poketype=self.PKT_UNRESOLVED)
+                self.inc_addr()
+            else:
+                self.poke(token, poketype=pkt)
+                self.inc_addr()
+
+
     def pass_macro_discovery(self):
         self.dots = dict()
         self.prepare_for_parse()
@@ -1034,9 +1156,8 @@ class CFTAssembler(object):
                     # Append another line to the macro definition.
                     macro_def += self.line
 
-                elif tokens[0][1] == '.':
-                    # But report unknown directives
-                    self.check_valid_directive(tokens[0])
+                # We ignore all other directives and assembly code in this pass.
+
 
             # Sanity checks at end of file.
             if macro_def is not None:
@@ -1045,10 +1166,17 @@ class CFTAssembler(object):
                 self.fail("File ended before .endscope was seen.")
 
 
-    def pass_symbols_and_label_resolution(self):
+    def pass_assembly(self, final_pass=False):
+        """Perform an Assembly pass. In this pass, macros are expanded, but labels and
+        .equs are still discovered if needded. If final_pass=True, this is the
+        final pass and all symbols are expected to be fully resolved into
+        values.
+        """
+        
         self.dots = dict()
         self.prepare_for_parse()
         self.expand_macros = True
+        self.final_pass = final_pass
 
         macro_def = None
         for filename in ['<builtins>'] + self.args.input_files:
@@ -1090,9 +1218,13 @@ class CFTAssembler(object):
                     # Ignore macro definitions here.
                     continue
 
-                elif tokens[0][1] == '.':
+                elif self.is_directive(tokens[0]):
                     # But report unknown directives
-                    self.check_valid_directive(tokens[0])
+                    directive_parser = self.check_valid_directive(tokens[0])
+                    if directive_parser is not None:
+                        directive_parser(tokens)
+                    else:
+                        self.warn("Unimplemented directive {}".format(tokens[0][1]))
 
                 else:
                     self.assemble(tokens, dryrun=True)
@@ -1108,11 +1240,12 @@ class CFTAssembler(object):
         self.filename = '<none>'
         self.linenum = -1
         self.include_level = 0
+        self.final_pass = False
 
         # This is a three-pass assembler.
         self.pass_macro_discovery()
-        self.pass_symbols_and_label_resolution()
-        #self.pass_assembly()
+        self.pass_assembly()
+        #self.pass_assembly(final=True)
 
         #pprint.pprint(self.macros, width=200)
         #pprint.pprint(self.symbols, width=200)
@@ -1196,6 +1329,55 @@ class CFTAssembler(object):
             self.symbols[nssym] = Label(self.filename, self.linenum,
                                         nssym, val=self.addr)
             self.debug_parser("Label {} ({})".format(name, nssym))
+
+
+    ###############################################################################
+    #
+    # THE ASSEMBLER PROPER
+    #
+    ###############################################################################
+    
+    def poke(self, val, addr=None, poketype=PKT_UNKNOWN):
+        """Store an value in the memory image. The optional address may be used to
+        override the current address.
+        """
+        self.jumped = False
+
+        # if poketype != self.PKT_REG and self.opts.banked and self.bank is None:
+        #     self.fail("assembling code before setting a bank (use .bank XX).")
+
+        # Sanity check.
+        # if poketype == self.PKT_INSTR:
+        #     if (addr < self.opts.min_addr) and not self.boundwarn_low:
+        #         self.boundwarn_low = True
+        #         self.warn('Assembling code at address %06x, object file contains %06x-%06x' % \
+        #                       (addr, self.opts.min_addr, self.opts.max_addr))
+        #     elif (addr > self.opts.max_addr) and not self.boundwarn_high:
+        #         self.boundwarn_high = True
+        #         self.warn('Assembling code at address %06x, object file contains %06x-%06x' % \
+        #                       (addr, self.opts.min_addr, self.opts.max_addr))
+
+        self.minaddr = min(self.minaddr, self.addr)
+        self.maxaddr = max(self.maxaddr, self.addr)
+
+        if self.final_pass and self.sentinel[addr] != PKT_UNUSED:
+            self.warn("Code at address {} overrides previous {}".format(
+                self.fmt_addr(addr),
+                self.POKETYPES.get(self.sentinel[addr], 'unknown data')))
+
+        # Okay, write it.
+        if addr is None:
+            addr = self.addr
+        addr = addr & self.addr_mask
+
+        # Debug it
+        if self.args.debug_pokes:
+            self.debug_pokes("{}: {:>04x} ; type={} ({})".format(
+                self.fmt_addr(addr), val & 0xffff,
+                poketype, self.POKETYPES.get(poketype, "unknown data")))
+        
+        self.mem[addr] = val & 0xffff
+        self.sentinel[addr] = poketype
 
 
     def assemble(self, tokens, dryrun=False):
@@ -1952,77 +2134,6 @@ class CFTAssembler(object):
             self.logasm(val, orgline=orgline)
 
 
-    def lexer(self, line):
-        r"""Tokenise a line.
-
-        >>> x = CFTAssembler()
-        >>> list(x.lexer('foo bar'))
-        ['foo', 'bar']
-        >>> list(x.lexer('foo bar "baz"'))
-        ['foo', 'bar', '"baz"']
-        >>> list(x.lexer('foo bar "baz;\\n" ; a test'))
-        ['foo', 'bar', '"baz;\n"']
-        """
-        buf = list()
-        inquote = False
-        esc = False
-        for char in line.strip():
-            if not inquote:
-                if char == '"':
-                    if buf:
-                        yield str(''.join(buf))
-                    inquote = True
-                    buf = [char]
-                    continue
-                elif char in ';/':
-                    if buf:
-                        yield str(''.join(buf))
-                    buf = list()
-                    break
-                elif char in ':[]()':
-                    if buf:
-                        yield str(''.join(buf))
-                    yield char
-                    buf = list()
-                    continue
-                elif char in "\t ":
-                    if buf:
-                        yield str(''.join(buf))
-                    buf = list()
-                    continue
-                else:
-                    buf.append(char)
-
-            if inquote:
-                if not esc:
-                    if char == '\\':
-                        esc = True
-                        continue
-                    elif char == '"':
-                        buf.append(char)
-                        inquote = False
-                        yield str(''.join(buf))
-                        buf = list()
-                        continue
-                    else:
-                        buf.append(char)
-                else:
-                    if char == 'n':
-                        buf.append('\n')
-                    elif char == 't':
-                        buf.append('\t')
-                    elif char == 'b':
-                        buf.append('\b')
-                    elif char == '\\':
-                        buf.append('\\')
-                    elif char == '"':
-                        buf.append('"')
-                    esc = False
-
-        if buf:
-            yield str(''.join(buf))
-
-        
     def parseToken(self, x, pageboundary=True):
         """Parse a lexical token, be it literal or symbolic.
 
@@ -2292,72 +2403,13 @@ class CFTAssembler(object):
         self.symbols[sym] = cls(sym, val, self.filename, self.linenum)
 
         
-    def mkaddr21(self, addr):
-        """Make a full 21-bit physical address based on the current bank and an
-        address, or return just the address."""
-        if self.opts.banked:
-            return ((self.bank << 13) + (addr & 0x1fff)) & 0x1fffff
-        return addr & 0xffff
-
-
-    def mkaddr24(self, addr):
-        """Make a full 24-bit physical address based on the current bank and an
-        address, or return just the address."""
-        if self.opts.banked:
-            return (((self.bank & 0xff) << 16) + (addr & 0xffff)) & 0xffffff
-        return addr & 0xffff
-
-
-    def poke(self, val, addr=None, poketype="?"):
-        """Store an address in the memory image. The optional address may be
-        used to override the current address."""
-        self.jumped = False
-        addr = addr or self.addr
-
-        if poketype not in 'R' and self.opts.banked and self.bank is None:
-            self.fail("assembling code before setting a bank (use .bank XX).")
-
-        # Sanity check.
-        if poketype == 'I':
-            if (addr < self.opts.min_addr) and not self.boundwarn_low:
-                self.boundwarn_low = True
-                self.warn('Assembling code at address %06x, object file contains %06x-%06x' % \
-                              (addr, self.opts.min_addr, self.opts.max_addr))
-            elif (addr > self.opts.max_addr) and not self.boundwarn_high:
-                self.boundwarn_high = True
-                self.warn('Assembling code at address %06x, object file contains %06x-%06x' % \
-                              (addr, self.opts.min_addr, self.opts.max_addr))
-
-        self.minaddr = min(self.minaddr, self.addr)
-        self.maxaddr = max(self.maxaddr, self.addr)
-
-        try:
-            poketype = chr(poketype)
-        except:
-            pass
-
-        #if self.passnum == self.PSN_ASSEMBLY:
-        #    if self.sentinel[addr] != '\0':
-        #        datatype = {
-        #            'I': 'instruction',
-        #            'W': '.word',
-        #            'S': 'string',
-        #            'F': '.fill',
-        #            }.get(self.sentinel[addr], '(unknown type)')
-        #        self.warn('Code at address %04x overrides previous %s data.' %
-        #                  (addr, datatype))
-
-        self.mem[self.mkaddr24(addr or self.addr)] = val & 0xffff
-        self.sentinel[self.mkaddr24(addr)] = ord(poketype)
-
-
     def yieldmem(self):
         """Yield each word of memory (in the range specified on the
         command line) as an (addr, data) tuple."""
         a0 = self.opts.min_addr
         a1 = self.opts.max_addr + 1
         for addr in range(a0, a1):
-            yield (addr, self.mem[self.mkaddr24(addr)])
+            yield (addr, self.mem[addr & self.addr_mask])
 
 
     def outobj(self):
