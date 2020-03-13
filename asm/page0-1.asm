@@ -259,7 +259,7 @@
 
 ;;; DFP variables
 
-.reg DFP_LASTC				; Result of last read (IN dfp.RX)
+.reg DFP_LASTC R @			; Result of last read (IN dfp.RX)
 		
 ;;; 
 ;;; 
