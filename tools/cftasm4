@@ -170,15 +170,12 @@ class Symbol(object):
 
 
 class Label(Symbol):
-    def __str__(self):
-        return '<%s %s = %04x>' % (self.__class__.__name__, self.name, self.val)
+    pass
 
 
-    def __repr__(self):
-        if self.val is None:
-            return '<Unresolved_{} {}={}>'.format(self.__class__.__name__, self.name, self.tokens)
-        else:
-            return '<{} {}={} ({})>'.format(self.__class__.__name__, self.name, self.val, self.tokens)
+
+class Register(Symbol):
+    pass
 
 
 
@@ -197,7 +194,9 @@ class CFTAssembler(object):
     TOK_QUOTEESC = 3            # Escape '\' character in quoted string
     TOK_PAREN = 4               # Look for first argument in arg list
     TOK_PARENWORD = 5           # Parsing argument in arg list
-    TOK_PARENSEP = 5            # Looking for comma or ')' in arg lits
+    TOK_PARENSEP = 6            # Looking for comma or ')' in arg lits
+    TOK_ATEXPR = 7              # Found an @-expression
+    TOK_ATEXPRLONG = 8          # Found an @{} expression
 
     # Lexer types in token lists
     TKT_WORD = 0                # A bare word was found
@@ -232,19 +231,24 @@ class CFTAssembler(object):
     # Poke types. These help us figure out what each memory address is used
     # for. Note, 0 isn't used.
     PKT_UNUSED = 0
-    PKT_INSTR = 1
-    PKT_DATA = 2
-    PKT_STR = 3
-    PKT_REG = 4
+    PKT_INSTR = ord('I')
+    PKT_DATA = ord('D')
+    PKT_WORD = ord('W')
+    PKT_STR = ord('S')
+    PKT_STRP = ord('P')
+    PKT_REG = ord('R')
     PKT_UNRESOLVED = 254        # An unresolved symbol would go here
     PKT_UNKNOWN = 255
 
     POKETYPES = {
-        PKT_UNUSED: "not used",
-        PKT_INSTR:  "instruction",
-        PKT_DATA:   "word data",
-        PKT_STR:    "string",
-        PKT_REG:    "global register",
+        PKT_UNUSED:     "not used",
+        PKT_INSTR:      "instruction",
+        PKT_DATA:       ".data block",
+        PKT_WORD:       "word data",
+        PKT_STR:        "string",
+        PKT_STRP:       "packed string",
+        PKT_REG:        "global register",
+        PKT_UNRESOLVED: "undefined symbolic value",
     }
     
 
@@ -290,26 +294,27 @@ class CFTAssembler(object):
         self.DIRECTIVES = {
             '.bank': self.deprecated_directive,
             '.data': self.parse_dot_data,
-            '.endmacro': None,
-            '.end': None,            # Deprecated
-            '.endscope': None,
-            '.endstring': None,
+            '.endstring': self.parse_dot_endstring,
             '.equ': self.parse_dot_equ,
             '.fill': None,
             '.include': None,
-            '.longstring': None,
-            '.macro': None,
+            '.longstring': self.parse_dot_longstring,
             '.page': None,
+            '.reg': self.parse_dot_reg,
+            '.regfill': None,
+            '.str': self.parse_dot_data, # same handler as .data
+            '.strn': None,
+            '.strp': self.parse_dot_strp,
+            '.word': self.parse_dot_word,
+
+            # These are implemented in the preprocessor
+            '.macro': None,
+            '.endmacro': None,
+            '.end': None,            # Deprecated
             '.popns': None,
             '.pushns': None,
-            '.reg': None,
-            '.regfill': None,
             '.scope': None,
-            '.str': None,
-            '.strn': None,
-            '.page': None,
-            '.strp': None,
-            '.word': None,
+            '.endscope': None,
             }
 
         
@@ -360,7 +365,7 @@ class CFTAssembler(object):
                        directory will always take precedence.""")
 
         p.add_argument('--show-builtins', action='store_true',
-                     help='Print out built-ins and exit without assembling anything.')
+                       help='Print out built-ins and exit without assembling anything.')
 
         p.add_argument('--debug-lexer', action='store_true',
                        help="""Debug the lexer by printing out its state of the lexer for every parsed
@@ -562,6 +567,11 @@ class CFTAssembler(object):
         return token[0] == self.TKT_WORD and ((word is None) or (token[1] == word))
 
 
+    def is_str(self, token):
+        """Return True if the specified token is a string."""
+        return token[0] == self.TKT_STR
+
+
     def is_label(self, token):
         """Return True if the specified token represents a label."""
         return token[0] == self.TKT_WORD and token[1][-1] == ':'
@@ -674,6 +684,9 @@ class CFTAssembler(object):
         self.filename = filename
         self.debug_lexer(fmt("\n--- START FILENAME: {}'").format(filename))
 
+        whitespace = "\t\r\n "
+        comments = ";/"
+
         for i, line in enumerate(f, 1):
             (self.linenum, self.line) = (i, line)
             line = line.strip()
@@ -687,9 +700,9 @@ class CFTAssembler(object):
                 # The state machine (warning: sprawling code!)
                 if state == self.TOK_SP:
                     # Ignore white space, look for the beginning of a word
-                    if c in "\t\r\n ":
+                    if c in whitespace:
                         continue
-                    elif c in ";/":
+                    elif c in comments:
                         # Comment. Ignore rest of line.
                         break
                     elif c == '"':
@@ -698,8 +711,11 @@ class CFTAssembler(object):
                     elif c == '(':
                         tokens.append((self.TKT_LPAREN, '('))
                         state = self.TOK_PAREN
+                    elif c == '@':
+                        tmptoken = "@"
+                        state = self.TOK_ATEXPR
                     elif c == ':':
-                        self.fail("Parse error. If this is label, delete white spaec before the colon.")
+                        self.fail("Parse error. If this is label, delete white space before the colon.")
                     else:
                         state = self.TOK_WORD
                         tmptoken = c
@@ -722,11 +738,42 @@ class CFTAssembler(object):
                     tmptoken += self.ESCAPED_CHARS.get(c, c)
                     state = self.TOK_QUOTE
 
-                elif state == self.TOK_WORD:
-                    # Add letters to a word until we meet whitespace
-                    if c in "\t\r\n ":
+                elif state == self.TOK_ATEXPR:
+                    # An @-expression has been seen.
+                    if c in whitespace:
                         tokens.append((self.TKT_WORD, tmptoken))
                         state = self.TOK_SP
+                    elif c in comments:
+                        # Start of comment. Ignore rest of line.
+                        if tmptoken:
+                            tokens.append((self.TKT_WORD, tmptoken))
+                        break
+                    elif c == '{':
+                        # Transition to a long @-expression. Keep tokens. Don't
+                        # bother with the '{' though.
+                        state = self.TOK_ATEXPRLONG
+                    else:
+                        tmptoken += c
+
+                elif state == self.TOK_ATEXPRLONG:
+                    # An @-expression has been seen.
+                    if c == '}':
+                        # Done with expression. Don't bother adding the trailing }.
+                        tokens.append((self.TKT_WORD, tmptoken))
+                        state = self.TOK_SP
+                    else:
+                        tmptoken += c
+
+                elif state == self.TOK_WORD:
+                    # Add letters to a word until we meet whitespace
+                    if c in whitespace:
+                        tokens.append((self.TKT_WORD, tmptoken))
+                        state = self.TOK_SP
+                    elif c in comments:
+                        # Start of comment. Ignore rest of line.
+                        if tmptoken:
+                            tokens.append((self.TKT_WORD, tmptoken))
+                        break
                     elif c == '(':
                         if tmptoken:
                             tokens.append((self.TKT_WORD, tmptoken))
@@ -739,8 +786,13 @@ class CFTAssembler(object):
 
                 elif state == self.TOK_PAREN:
                     # We just start an arg list.
-                    if c in "\t\r\n ":
+                    if c in whitespace:
                         continue
+                    elif c in comments:
+                        # Start of comment. Ignore rest of line.
+                        if tmptoken:
+                            tokens.append((self.TKT_PARENWORD, tmptoken))
+                        break
                     elif c in ')':
                         # End of arg list
                         tokens.append((self.TKT_RPAREN, ')'))
@@ -753,7 +805,7 @@ class CFTAssembler(object):
 
                 elif state == self.TOK_PARENWORD:
                     # im in ur parens lists parsing ur words
-                    if c in "\t\r\n ":
+                    if c in whitespace:
                         if tmptoken:
                             tokens.append((self.TKT_WORD, tmptoken))
                     elif c == ',':
@@ -771,17 +823,18 @@ class CFTAssembler(object):
                         # We'll allow any character here.
                         tmptoken += c
 
-            # Finish lexing the last parsed word, if there is one.
-            if state == self.TOK_WORD and tmptoken:
+            # Finish lexing the last parsed word, if there is one. Ending a
+            # line in some states is a parse error. Handle those too.
+            if state in (self.TOK_WORD, self.TOK_ATEXPR) and tmptoken:
                 tokens.append((self.TKT_WORD, tmptoken))
-
-            # End of line. Perform sanity checks.
-            if state == self.TOK_QUOTEESC:
-                self.fail("Missing closing double quote.")
-            elif state == self.TOK_QUOTE:
+            elif state == self.TOK_QUOTEESC:
                 self.fail("Line ended in backspace. Were you escaping something?")
-            elif state != self.TOK_SP and state != self.TOK_WORD:
-                self.fail("Parse error.")
+            elif state == self.TOK_QUOTE:
+                self.fail("Missing closing double quote.")
+            elif state == self.TOK_ATEXPRLONG:
+                self.fail("Missing closing brace while parsing @-expression.")
+            elif state != self.TOK_SP:
+                self.fail("Parse error")
 
             # Done.
             if tokens:
@@ -862,6 +915,56 @@ class CFTAssembler(object):
     #
     ###############################################################################
 
+    def parse_expression(self, token):
+        """Parse an @-expression."""
+        if token == '@':
+            return self.addr & 0xffff
+
+        # CFTASM3 only supported simple expressions. We'll cover those for now
+        # and parse using a regexp.
+
+        m = re.match('@\s*(?:(\S+?)\s*)?(\+|-|\*|/|\||&|^|<<|>>)\s*(\S+?)\s*$', token)
+        if not m:
+            self.fail("Invalid @-expression {}".format(token))
+        else:
+            try:
+                tok_left, op, tok_right = m.groups()
+
+                # Parse the left operand (which may be missing)
+                if tok_left == '':
+                    left = self.addr
+                else:
+                    lparsed = list(self.parse_fields([[ self.TKT_WORD, tok_left ]]))
+                    if len(lparsed) != 1:
+                        self.fail("sanity check, expected a single lparsed result, not {}".format(lparsed))
+                    left = lparsed[0]
+
+                # Parse the right operand
+                rparsed = list(self.parse_fields([[ self.TKT_WORD, tok_right ]]))
+                if len(rparsed) != 1:
+                    self.fail("sanity check, expected a single rparsed result, not {}".format(rparsed))
+                right = rparsed[0]
+
+                # Apply the operator
+                val = {
+                    '+': lambda a, b: a + b,
+                    '-': lambda a, b: a - b,
+                    '|': lambda a, b: a | b,
+                    '&': lambda a, b: a & b,
+                    '*': lambda a, b: a * b,
+                    '/': lambda a, b: a // b,
+                    '^': lambda a, b: a ^ b,
+                    '<<': lambda a, b: a << b,
+                    '>>': lambda a, b: a >> b,
+                }[op](left, right)
+                
+                return val & 0xffff
+                
+            except Exception as e:
+                raise
+                self.fail("Parse error.")
+
+
     def parse_literal(self, literal):
         """Parse an integer literal.
     
@@ -936,7 +1039,10 @@ class CFTAssembler(object):
         """
         for tkt, token in tokens:
             if tkt == self.TKT_WORD:
-                parsed_literal = self.parse_literal(token)
+                if token[0] == '@':
+                    parsed_literal = self.parse_expression(token)
+                else:
+                    parsed_literal = self.parse_literal(token)
                 if parsed_literal is not None:
                     yield parsed_literal
                 else:
@@ -946,7 +1052,7 @@ class CFTAssembler(object):
                         yield sym.val
                     else:
                         if self.final_pass:
-                            self.fatal("Unresolved symbol {} in .equ".format(token))
+                            self.fatal("Undefined symbol {}".format(token))
                         yield token
 
             elif tkt == self.TKT_STR:
@@ -954,6 +1060,18 @@ class CFTAssembler(object):
                     self.fail("Strings are not allowed here")
                 for c in token:
                     yield(ord(c))
+
+
+    def assemble_single_field(self, tokens):
+        value = 0
+        for token in self.parse_fields(tokens):
+            if type(token) != int:
+                # In the final pass, parse_fields() throws a parse error on
+                # undefined fields. So we're safe to do this here.
+                return None
+            else:
+                value = value | token
+        return value & 0xffff
         
 
     ###############################################################################
@@ -1098,6 +1216,8 @@ class CFTAssembler(object):
 
         if self.is_word(tokens[0], ".data"):
             pkt = self.PKT_DATA
+        elif self.is_word(tokens[0], ".str"):
+            pkt = self.PKT_STR
         else:
             self.fail("Unhandled directive {}".tokens[0][1])
 
@@ -1113,6 +1233,108 @@ class CFTAssembler(object):
                 self.inc_addr()
 
 
+    def parse_dot_longstring(self, tokens):
+        if self.longstring is not None:
+            self.fail(".longstring seen before last .longstring was complete.")
+        self.longstring = []
+
+        # The string can optionally start on the same line as .longstring, so
+        # process it.
+        if len(tokens) > 1:
+            self.parse_dot_strp(tokens)
+
+
+    def parse_dot_strp(self, tokens):
+        if len(tokens) < 2:
+            self.fail("{} expects at least one string field.".format(tokens[0][1]))
+
+        s = list(self.parse_fields(tokens[1:], strings_too=True))
+
+        if self.longstring is not None:
+            self.longstring += s
+        else:
+            self.poke_packed_string(s)
+
+
+    def parse_dot_endstring(self, tokens):
+        if self.longstring is None:
+            self.fail(".endstring seen before .longstring.")
+        self.poke_packed_string(self.longstring)
+        self.longstring = None
+
+
+    def parse_dot_reg(self, tokens):
+        if len(tokens) < 3:
+            self.fail("error parsing .reg, expecting at least two arguments.")
+        if not all(self.is_word(x) for x in tokens[1:]):
+            self.fail("error parsing .reg, expecting bareword.")
+
+        sym, definition = tokens[1][1], list(x[1] for x in tokens[2:])
+        nssym = self.get_nsname(sym)
+
+        parsed = list(self.parse_fields(tokens[2:]))
+
+        # Has this symbol been resolved fully at this time?
+        if all(type(x) == int for x in parsed):
+            value = parsed[0]
+            for x in parsed[1:]:
+                value = value | x
+            self.symbols[nssym] = Register(self.filename, self.linenum, nssym, val=value, tokens=" ".join(definition))
+        else:
+            self.symbols[nssym] = Register(self.filename, self.linenum, nssym, tokens=parsed)
+        self.debug_parser(".reg seen: sym={}, nssym={}, def={}, parsed={}".format(sym, nssym, definition, parsed))
+
+        # Unlike .equ, a .reg will also step the address and mark the memory map.
+        self.poke(0xdead, poketype=self.PKT_REG)
+        self.inc_addr()
+        
+
+    def parse_dot_word(self, tokens):
+        """Parse a .word directive. Multiple fields are allowed, and they are all ORred
+        into a single 16-bit value.
+        """
+        if len(tokens) < 2:
+            self.fail(".word expects at least one data field.")
+
+        pkt = self.PKT_WORD
+
+        value = self.assemble_single_field(tokens[1:])
+        if value is None:
+            # One or more values are undefined. In the final pass, a parse
+            # error will be thrown and we never get here.
+            self.poke(0xdead, poketype=self.PKT_UNRESOLVED)
+            self.inc_addr()
+        else:
+            self.poke(value, poketype=pkt)
+            self.inc_addr()
+
+
+    def maybe_parse_label(self, tokens):
+        """Parse a label or address definition."""
+
+        # Bail out early if there's no label here.
+        if not self.is_label(tokens[0]):
+            return tokens
+
+        # Consume the first token
+        token = tokens.pop(0)
+        no_colon = token[1].rstrip(':')
+
+        # Try to parse the specification. We don't use parse_fields because label syntax is very specific.
+        numeric_val = self.parse_literal(no_colon)
+        if numeric_val is not None:
+            self.set_addr(numeric_val)
+            self.debug_parser("Address {}".format(self.fmt_addr()))
+        else:
+            nssym = self.get_nsname(no_colon)
+            self.symbols[nssym] = Label(self.filename, self.linenum,
+                                        nssym, val=self.addr)
+            self.debug_parser("Label {} = {} ({})".format(no_colon, self.fmt_addr(), nssym))
+
+        # Return the rest of the tokens
+        return tokens
+
+
     def pass_macro_discovery(self):
         self.dots = dict()
         self.prepare_for_parse()
@@ -1121,6 +1343,13 @@ class CFTAssembler(object):
         for filename in ['<builtins>'] + self.args.input_files:
             for tokens in self.preprocessor(filename):
                 #self.debug_parser(tokens)
+
+                # Always allow a label as the first token.
+                tokens = self.maybe_parse_label(tokens)
+
+                # Nothing else left on this line
+                if not tokens:
+                    continue
 
                 # Parse namespaces. We need those to qualify any macro names we
                 # encounter.
@@ -1183,6 +1412,13 @@ class CFTAssembler(object):
             for tokens in self.preprocessor(filename):
                 #self.debug_parser(tokens)
 
+                # Always allow a label as the first token.
+                tokens = self.maybe_parse_label(tokens)
+
+                # Nothing else left on this line
+                if not tokens:
+                    continue
+
                 # Parse namespaces. We need those to qualify any macro names we
                 # encounter.
                 if self.is_word(tokens[0], ".pushns"):
@@ -1227,7 +1463,7 @@ class CFTAssembler(object):
                         self.warn("Unimplemented directive {}".format(tokens[0][1]))
 
                 else:
-                    self.assemble(tokens, dryrun=True)
+                    self.assemble(tokens)
 
             # Sanity checks at end of file.
             pass
@@ -1307,30 +1543,6 @@ class CFTAssembler(object):
             #     break
 
 
-    def parse_label(self, token):
-        """Parse a label or address definition."""
-
-        # Try to parse the specification. Use parse_fields
-        name = token[1][:-1]
-        tokenlist = [[ self.TKT_WORD, name ]]
-        n = list(self.parse_fields(tokenlist))
-
-        # If we did everything right, we should have a singleton list with
-        # either an integer address or a string.
-        assert len(n) == 1
-
-        # If a number was specified, n[0] will be an integer and this will
-        # work.
-        if type(n[0]) == int:
-            self.set_addr(n[0])
-            self.debug_parser("Address &{:04x}".format(self.addr))
-        else:
-            nssym = self.get_nsname(name)
-            self.symbols[nssym] = Label(self.filename, self.linenum,
-                                        nssym, val=self.addr)
-            self.debug_parser("Label {} ({})".format(name, nssym))
-
-
     ###############################################################################
     #
     # THE ASSEMBLER PROPER
@@ -1380,16 +1592,45 @@ class CFTAssembler(object):
         self.sentinel[addr] = poketype
 
 
-    def assemble(self, tokens, dryrun=False):
-        """Assemble a line."""
-        # The first token could be label
-        if self.is_label(tokens[0]):
-            self.parse_label(tokens[0])
-            tokens = tokens[1:]
-
-        if not tokens:
+    def poke_packed_string(self, ps):
+        """Assemble a packed string at the current address."""
+        # Do nothing if there's nothing to be done.
+        if len(ps) == 0:
             return
-        self.debug_parser("Assemble: {}".format(tokens))
+
+        # Warning: minor acts of voodoo
+        wordval, shift = 0, 8
+        for char in ps:
+            wordval |= (char & 0xff) << shift
+            shift = shift ^ 8
+            if shift == 8:
+                self.poke(wordval, poketype=self.PKT_STRP)
+                self.inc_addr()
+                wordval = 0
+
+        # An odd number of characters were output.
+        if shift == 0:
+            self.poke(wordval, poketype=self.PKT_STRP)
+            self.inc_addr()
+
+
+    def assemble(self, tokens):
+        """Assemble a line."""
+
+        # The parser has already isolated and parsed label definitions. All we
+        # get here is assembly.
+        
+        value = self.assemble_single_field(tokens[1:])
+        self.debug_parser("Assemble: &{}: &{} ; {}".format(self.fmt_addr(), value, tokens))
+
+        if value is None:
+            # One or more values are undefined. In the final pass, a parse
+            # error will be thrown and we never get here.
+            self.poke(0xdead, poketype=self.PKT_UNRESOLVED)
+            self.inc_addr()
+        else:
+            self.poke(value, poketype=self.PKT_INSTR)
+            self.inc_addr()
 
 
     ###############################################################################
@@ -1431,6 +1672,8 @@ class CFTAssembler(object):
 
                 out.write(header + ('-' * 79) + '\n')
                 for sym in sorted(list(self.symbols.values()), key=lambda x: (x.filename, x.linenum)):
+                    if sym.filename == '<builtins>':
+                        continue
                     out.write(fmt % (sym.name, sym.val,
                                      sym.__class__.__name__.lower(),
                                      sym.filename, sym.linenum or '?'))
