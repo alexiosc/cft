@@ -185,7 +185,7 @@ class CFTAssembler(object):
     BUILTINS = _BUILTINS
 
     # This protects against endless includes
-    MAX_INCLUDE_LEVEL = 10
+    MAX_PREPROCESSOR_DEPTH = 20
 
     # Lexer states
     TOK_SP = 0                  # Start of line, scanning for word
@@ -202,8 +202,9 @@ class CFTAssembler(object):
     TKT_WORD = 0                # A bare word was found
     TKT_STR = 1                 # A double-quoted string
     TKT_LPAREN = 2              # Left parenthesis
-    TKT_RPAREN = 3              # Right parenthesis
-    TKT_PARENSEP = 3            # Comma in a parenthetic list
+    TKT_ARGSEP = 3              # Argument separator
+    TKT_RPAREN = 4              # Right parenthesis
+    TKT_PARENSEP = 5            # Comma in a parenthetic list
 
     # Lexer: escape character map
     ESCAPED_CHARS = {
@@ -598,19 +599,24 @@ class CFTAssembler(object):
         """Return the value of a symbol from the symbol table. Return None if it
         couldn't be found.
         """
-        # # if the symbol has a '.' in it, it should fully qualified. Look for it first.
-        # if '.' in sym:
-        #     return self.symbols.get(sym)
-
-        # # Maybe it's a global symbol with no '.'.
-        # if sym in self.symbols:
-        #     return self.symbols[sym]
-
         for x in range(len(self.ns), -1, -1):
             try:
                 nssym = '.'.join(self.ns[0:x] + [sym])
                 #print "Pass", self.passnum, ", Looking up", nssym, self.ns
                 return self.symbols[nssym]
+            except KeyError:
+                continue
+        return None
+
+
+    def get_macro(self, sym):
+        """Return the definition tuple of a macro. Return None if it couldn't
+        be found.
+        """
+        for x in range(len(self.ns), -1, -1):
+            try:
+                nssym = '.'.join(self.ns[0:x] + [sym])
+                return self.macros[nssym]
             except KeyError:
                 continue
         return None
@@ -810,8 +816,9 @@ class CFTAssembler(object):
                             tokens.append((self.TKT_WORD, tmptoken))
                     elif c == ',':
                         if not tmptoken:
-                            self.fail("Unexpected closing parenthesis.")
+                            self.fail("Unexpected comma.")
                         tokens.append((self.TKT_WORD, tmptoken))
+                        tokens.append((self.TKT_ARGSEP, ','))
                         state = self.TOK_PAREN
                     elif c == ')':
                         if not tmptoken:
@@ -853,12 +860,22 @@ class CFTAssembler(object):
     def preprocessor(self, filename):
         """A very basic preprocessor: just handle file inclusions."""
         for tokens in self.tokeniser(filename):
-            #self.debug_parser("tokens: {}".format(tokens))
-            
+            self.debug_parser("*** tokens: {}".format(tokens))
+
             # Is this an include directive?
             if tokens[0] == (self.TKT_WORD, '.include'):
                 for tokens in self.preprocessor_dot_include(tokens):
                     yield tokens
+                continue
+
+            # Is there what appears to be a macro call?
+            elif self.expand_macros and \
+               (self.TKT_WORD, '.macro') not in tokens and \
+               (self.TKT_LPAREN, '(') in tokens:
+                for tokens in self.preprocessor_expand_macro(tokens):
+                    yield tokens
+
+            # Nope, just yield the tokenised line
             else:
                 yield tokens
 
@@ -866,9 +883,9 @@ class CFTAssembler(object):
     def preprocessor_dot_include(self, tokens):
         """Include an .asm file."""
 
-        if self.include_level >= self.MAX_INCLUDE_LEVEL:
-            self.fail("Too many include levels.")
-        self.include_level += 1
+        if self.preprocessor_depth >= self.MAX_PREPROCESSOR_DEPTH:
+            self.fail("Too many nested includes or macro calls.")
+        self.preprocessor_depth += 1
 
         try:
             include, include_fname = tokens
@@ -906,7 +923,103 @@ class CFTAssembler(object):
         self.popParseContext()
         self.filename, self.linenum = savedState
         self.debug_preprocessor("end of included file {}".format(fname))
-        self.include_level -= 1
+        self.preprocessor_depth -= 1
+
+
+    def preprocessor_expand_macro(self, tokens):
+        """Expand the macro call in this tokenised line."""
+
+        # Use the include depth to make sure we're not in some deep
+        # mutual macro recursion.
+        if self.preprocessor_depth >= self.MAX_PREPROCESSOR_DEPTH:
+            self.fail("Too many nested includes or macro calls.")
+        self.preprocessor_depth += 1
+
+        # There may be a label at the start of this line. If so, yield
+        # it as a line of its own and we'll be processing the rest of
+        # the line here.
+        if self.is_label(tokens[0]):
+            yield [tokens[0]]
+            tokens = tokens[1:]
+
+        # The syntax for the rest of the line should be: macro name,
+        # lparen, zero or more args, rparen.
+        macro_name = tokens[0][1]
+        if not self.is_word(tokens[0]):
+            self.fail("Macro name expected")
+        elif tokens[1] != (self.TKT_LPAREN, '('):
+            self.fail("Left parenthesis expected")
+        elif tokens[-1] != (self.TKT_RPAREN, ')'):
+            self.fail("Left parenthesis expected")
+
+        # Now we know that tokens[2:-1] contain the argument list.
+        arglist = tokens[2:-1]
+
+        print("-"*80)
+        self.debug_macros("Macro call {} arglist={} (tokenlist={})".format(
+            macro_name, arglist, tokens))
+
+        # Get the macro definition.soup
+        try:
+            macro = self.get_macro(macro_name)
+        except KeyError:
+            pprint.pprint(self.macros, width=200)
+            self.fail("Undefined macro '{}'".format(macro_name))
+
+        self.debug_macros("Macro definition {}".format(macro))
+        print("-"*80)
+        print("\n\n")
+
+        macro_filename, macro_start, macro_args, macro_def = macro
+
+
+        # Dummy, remove later
+        yield tokens
+        
+
+
+
+
+
+
+
+        # try:
+        #     include, include_fname = tokens
+        #     assert include[0] == self.TKT_WORD # Sanity check; this has been checked already
+        #     assert include_fname[0] == self.TKT_STR
+
+        # except:
+        #     self.fail("Error parsing .include directive.")
+
+        # # Look for the file in the specified include path
+        # fname = include_fname[1]
+        # class FoundFile(Exception):
+        #     pass
+
+        # try:
+        #     for pathcomp in self.args.include:
+        #         fname = os.path.join(pathcomp, include_fname[1])
+        #         if os.path.exists(fname):
+        #             raise FoundFile
+        #     self.fail("File {} not found in include path {}".format(
+        #         include_fname[1], ':'.join(self.args.include)))
+        # except FoundFile:
+        #     pass
+
+        # # Get a parse state and return it to the preprocessor
+        # self.debug_preprocessor("include file {} ({})".format(include_fname[1], fname))
+        # savedState = self.filename, self.linenum # Why is this necessary?
+        # self.pushParseContext(fname, self.filename, self.linenum, None)
+
+        # # Note: mutual recursion!
+        # for tokens in self.preprocessor(fname):
+        #     yield tokens
+
+        # # Done, pop the parse context
+        # self.popParseContext()
+        # self.filename, self.linenum = savedState
+        # self.debug_preprocessor("end of included file {}".format(fname))
+        self.preprocessor_depth -= 1
 
 
     ###############################################################################
@@ -1109,7 +1222,7 @@ class CFTAssembler(object):
             self.fail("namespace names may not start with _")
         else:
             self.ns.append(tokens[1][1])
-            self.debug_macros("Namespace set to {}".format(self.get_nsname()))
+            self.debug_parser("Namespace set to {}".format(self.get_nsname()))
 
 
     def parse_dot_popns(self, tokens):
@@ -1118,7 +1231,7 @@ class CFTAssembler(object):
         elif len(tokens) == 1:
             self.warn("missing namespace to pop, assuming {}. (this will be an error soon)".format(self.ns[-1]))
             self.ns.pop(-1)
-            self.debug_macros("Namespace popped back to {}".format(self.get_nsname()))
+            self.debug_parser("Namespace popped back to {}".format(self.get_nsname()))
         elif not self.is_word(tokens[1]):
             self.fail("expected namespace identifier after .popns")
         elif tokens[1][1][0] == '_':
@@ -1129,7 +1242,7 @@ class CFTAssembler(object):
             self.fail(".popns {} seen but last namespace pushed was {}".format(tokens[1][1], self.ns[-1]))
         else:
             self.ns.pop(-1)
-            self.debug_macros("Namespace popped back to {}".format(self.get_nsname()))
+            self.debug_parser("Namespace popped back to {}".format(self.get_nsname()))
 
 
     def parse_dot_scope(self, tokens):
@@ -1180,7 +1293,6 @@ class CFTAssembler(object):
 
 
     def parse_dot_macro(self, tokens, macro_def):
-        self.debug_macros(tokens)
         # Check it
         if macro_def is not None:
             self.fail("nested .macro definition. Probably a missing .endmacro.")
@@ -1193,13 +1305,13 @@ class CFTAssembler(object):
         else:
             # Ensure all the args are the right type.
             for arg in tokens[3:-2]:
-                if arg[0] != self.TKT_WORD:
+                if arg[0] not in (self.TKT_WORD, self.TKT_ARGSEP):
                     self.fail("Parse error reading macro argument '{}'. Word expected.".format(arg[1]))
         macro_def = ''
         macro_start = self.linenum
         macro_name = tokens[1][1]
-        macro_args = list(x[1] for x in tokens[3:-2])
-        self.debug_macros("macro name={}, args={}".format(macro_name, macro_args))
+        macro_args = list(x[1] for x in tokens[3:-1] if x != (self.TKT_ARGSEP, ','))
+        self.debug_macros("defined macro name={}, args={}".format(macro_name, macro_args))
         return macro_name, macro_args, macro_start, macro_def
 
 
@@ -1338,7 +1450,7 @@ class CFTAssembler(object):
     def pass_macro_discovery(self):
         self.dots = dict()
         self.prepare_for_parse()
-        self.expand_macros = False # Don't expand any macros for this passduring this pass
+        self.expand_macros = False # Don't expand any macros here
         macro_def = None
         for filename in ['<builtins>'] + self.args.input_files:
             for tokens in self.preprocessor(filename):
@@ -1442,13 +1554,15 @@ class CFTAssembler(object):
                 # Parse a macro definition
                 elif tokens[0] == (self.TKT_WORD, ".macro"):
                     # .macro was parsed and verified on the previous pass. Just
-                    # update our state here.
+                    # update our state here, and temporarily suspend macro *expansion*.
                     macro_def = True
+                    self.expand_macros = False
 
                 elif tokens[0] in [ (self.TKT_WORD, '.end'), (self.TKT_WORD, '.endmacro') ]:
                     # .endmacro was parsed and verified on the previous
                     # pass. Just update our state here.
                     macro_def = None
+                    self.expand_macros = True
 
                 elif macro_def is not None:
                     # Ignore macro definitions here.
@@ -1475,7 +1589,7 @@ class CFTAssembler(object):
         self.ctx = list()
         self.filename = '<none>'
         self.linenum = -1
-        self.include_level = 0
+        self.preprocessor_depth = 0
         self.final_pass = False
 
         # This is a three-pass assembler.
