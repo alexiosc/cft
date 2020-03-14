@@ -83,7 +83,7 @@
 ;;;   TMP15 = return vector
 ;;;   TMP14 = copy of AC
 ;;;   AC = return value
-.macro return_ac(%addr)
+.macro return_ac()
 		STORE TMP14		; return_ac(%addr)
 		POP RP
 		STORE TMP15

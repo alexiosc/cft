@@ -622,7 +622,7 @@ class CFTAssembler(object):
         return None
 
 
-    def pushParseContext(self, macro, filename, linenum, mdef):
+    def push_parse_context(self, macro, filename, linenum, mdef):
         """Push a macro context onto the context stack. This is used for reporting the
         exact location of file inclusions and macro expansions.
 
@@ -632,7 +632,7 @@ class CFTAssembler(object):
         self.ctx.append((macro, filename, linenum, mdef))
 
 
-    def popParseContext(self):
+    def pop_parse_context(self):
         """Pop a macro context from the context stack.
 
         This is used for error reporting."""
@@ -675,25 +675,18 @@ class CFTAssembler(object):
     #
     ###############################################################################
 
-    def tokeniser(self, filename):
-        if filename == '<builtins>':
-            f = self.BUILTINS.split('\n')
-        else:
-            try:
-                f = open(filename, 'rt')
-            except Exception as e:
-                self.die("Unable to open {}: {}".format(filename, e))
+    def lexer(self, iterable):
+        """Lex an iterable containing lines. This could be a file-like object or
+        iterable of strings, one string per line. Yield lists of tuples
+        (token_type, string) for each lexed component of the line.
 
+        """
         fmt = lambda x: x.replace('{', '\033[1m{').replace('}', '}\033[0m')
-
-        # Set the parse context.
-        self.filename = filename
-        self.debug_lexer(fmt("\n--- START FILENAME: {}'").format(filename))
 
         whitespace = "\t\r\n "
         comments = ";/"
 
-        for i, line in enumerate(f, 1):
+        for i, line in enumerate(iterable, 1):
             (self.linenum, self.line) = (i, line)
             line = line.strip()
             tokens = []
@@ -851,7 +844,8 @@ class CFTAssembler(object):
                 yield(tokens)
 
             # Next line.
-        self.debug_lexer(fmt("\n--- END FILENAME: {}'").format(filename))
+        # End of parse
+    # End of laxer
 
 
     ###############################################################################
@@ -860,9 +854,23 @@ class CFTAssembler(object):
     #
     ###############################################################################
 
-    def preprocessor(self, filename):
+    def preprocess_file(self, filename):
+        try:
+            f = open(filename, 'rt')
+        except Exception as e:
+            self.die("Unable to open {}: {}".format(filename, e))
+
+        # Set the parse context.
+        self.filename = filename
+        self.debug_lexer("\n--- START FILENAME: {}'".format(filename))
+        for tokens in self.preprocessor(f):
+            yield tokens
+        self.debug_lexer("\n--- END FILENAME: {}'".format(filename))
+
+
+    def preprocessor(self, line_iterable):
         """A very basic preprocessor: just handle file inclusions."""
-        for tokens in self.tokeniser(filename):
+        for tokens in self.lexer(line_iterable):
             self.debug_parser("*** tokens: {}".format(tokens))
 
             # Is this an include directive?
@@ -916,10 +924,10 @@ class CFTAssembler(object):
         # Get a parse state and return it to the preprocessor
         self.debug_preprocessor("include file {} ({})".format(include_fname[1], fname))
         savedState = self.filename, self.linenum # Why is this necessary?
-        self.pushParseContext(fname, self.filename, self.linenum, None)
+        self.push_parse_context(fname, self.filename, self.linenum, None)
 
         # Note: mutual recursion!
-        for tokens in self.preprocessor(fname):
+        for tokens in self.preprocess_file(fname):
             yield tokens
 
         # Done, pop the parse context
@@ -959,13 +967,16 @@ class CFTAssembler(object):
 
         # Now we know that tokens[2:-1] contain the argument list. Form them into strings
         #arglist = tokens[2:-1]
-        arglist, argnum = [[]], 0
-        for token in tokens[2:-1]:
-            if token == (self.TKT_ARGSEP, ','):
-                argnum += 1
-                arglist.append([])
-            else:
-                arglist[argnum].append(token[1])
+        if tokens[2:-1]:
+            arglist, argnum = [[]], 0
+            for token in tokens[2:-1]:
+                if token == (self.TKT_ARGSEP, ','):
+                    argnum += 1
+                    arglist.append([])
+                else:
+                    arglist[argnum].append(token[1])
+        else:
+            arglist = []
 
         print("-"*80)
         self.debug_macros("Macro call {} tokenlist={} split_arglist={}".format(
@@ -983,14 +994,25 @@ class CFTAssembler(object):
 
         macro_filename, macro_start, macro_args, macro_def = macro
 
+        if len(macro_args) != len(arglist):
+            self.fail("macro {} (definition at {}:{}) expects {} arguments ({}) but {} given".format(
+                macro_name, macro_filename, macro_start,
+                len(macro_args), ', '.join(macro_args), len(arglist)))
 
-        # Dummy, remove later
-        yield tokens
-        
+        # Now pretend we're including a very small file in this
+        # location. Preprocess it and yield tokens.
+        savedState = self.filename, self.linenum # Why is this necessary?
+        self.push_parse_context(macro_name, self.filename, self.linenum, macro_name)
 
+        # Note: mutual recursion!
+        for tokens in self.preprocessor(macro_def.split('\n')):
+            yield tokens
 
-
-
+        # Done, pop the parse context
+        self.popParseContext()
+        self.filename, self.linenum = savedState
+        self.debug_preprocessor("end of macro expansion {}".format(macro_name))
+        self.preprocessor_depth -= 1
 
 
 
@@ -1465,8 +1487,14 @@ class CFTAssembler(object):
         self.prepare_for_parse()
         self.expand_macros = False # Don't expand any macros here
         macro_def = None
-        for filename in ['<builtins>'] + self.args.input_files:
-            for tokens in self.preprocessor(filename):
+        for filename in [ None ] + self.args.input_files:
+            if filename is None:
+                self.filename = '<builtins>'
+                token_generator = self.preprocessor(self.BUILTINS.split('\n'))
+            else:
+                token_generator = self.preprocess_file(filename)
+            
+            for tokens in token_generator:
                 #self.debug_parser(tokens)
 
                 # Always allow a label as the first token.
@@ -1533,8 +1561,14 @@ class CFTAssembler(object):
         self.final_pass = final_pass
 
         macro_def = None
-        for filename in ['<builtins>'] + self.args.input_files:
-            for tokens in self.preprocessor(filename):
+        for filename in [ None ] + self.args.input_files:
+            if filename is None:
+                self.filename = '<builtins>'
+                token_generator = self.preprocessor(self.BUILTINS.split('\n'))
+            else:
+                token_generator = self.preprocess_file(filename)
+            
+            for tokens in token_generator:
                 #self.debug_parser(tokens)
 
                 # Always allow a label as the first token.
