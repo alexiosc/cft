@@ -28,7 +28,8 @@
 .include "asm/post.asm"			; POST patterns
 .include "asm/macro-generic.asm"	; General use macros
 .include "asm/macro-stack.asm"		; Stack macros
-.include "asm/macro-entry.asm"		; Stack macros
+.include "asm/macro-entry.asm"		; Entry/exit convention macros
+.include "asm/macro-cond.asm"		; Conditional macros
 .include "asm/config.asm"		; OS configuration
 
 .pushns earlyBoot

@@ -812,8 +812,11 @@ class CFTAssembler(object):
                 elif state == self.TOK_PARENWORD:
                     # im in ur parens lists parsing ur words
                     if c in whitespace:
+                        # Allow multiple tokens to be provided as a single
+                        # argument, separated by spaces.
                         if tmptoken:
                             tokens.append((self.TKT_WORD, tmptoken))
+                            tmptoken = ''
                     elif c == ',':
                         if not tmptoken:
                             self.fail("Unexpected comma.")
@@ -950,19 +953,27 @@ class CFTAssembler(object):
         elif tokens[1] != (self.TKT_LPAREN, '('):
             self.fail("Left parenthesis expected")
         elif tokens[-1] != (self.TKT_RPAREN, ')'):
-            self.fail("Left parenthesis expected")
+            # This is mostly a sanity check, the lexer/tokeniser has already
+            # taken care of this.
+            self.fail("Right parenthesis expected")
 
-        # Now we know that tokens[2:-1] contain the argument list.
-        arglist = tokens[2:-1]
+        # Now we know that tokens[2:-1] contain the argument list. Form them into strings
+        #arglist = tokens[2:-1]
+        arglist, argnum = [[]], 0
+        for token in tokens[2:-1]:
+            if token == (self.TKT_ARGSEP, ','):
+                argnum += 1
+                arglist.append([])
+            else:
+                arglist[argnum].append(token[1])
 
         print("-"*80)
-        self.debug_macros("Macro call {} arglist={} (tokenlist={})".format(
-            macro_name, arglist, tokens))
+        self.debug_macros("Macro call {} tokenlist={} split_arglist={}".format(
+            macro_name, tokens[2:-1], arglist))
 
-        # Get the macro definition.soup
-        try:
-            macro = self.get_macro(macro_name)
-        except KeyError:
+        # Get the macro definition.
+        macro = self.get_macro(macro_name)
+        if macro is None:
             pprint.pprint(self.macros, width=200)
             self.fail("Undefined macro '{}'".format(macro_name))
 
@@ -1030,6 +1041,7 @@ class CFTAssembler(object):
 
     def parse_expression(self, token):
         """Parse an @-expression."""
+        self.debug_lexer("@-Expression '{}'".format(token))
         if token == '@':
             return self.addr & 0xffff
 
@@ -1042,9 +1054,10 @@ class CFTAssembler(object):
         else:
             try:
                 tok_left, op, tok_right = m.groups()
+                self.debug_lexer("@-Expression '{}', left='{}', op='{}', right='{}'".format(token, tok_left, op, tok_right))
 
                 # Parse the left operand (which may be missing)
-                if tok_left == '':
+                if tok_left is None or tok_left == '':
                     left = self.addr
                 else:
                     lparsed = list(self.parse_fields([[ self.TKT_WORD, tok_left ]]))
