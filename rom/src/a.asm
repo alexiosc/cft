@@ -32,6 +32,22 @@
 .include "asm/macro-cond.asm"		; Conditional macros
 .include "asm/config.asm"		; OS configuration
 
+
+
+.equ PUSH PHA
+.equ POP PPA
+.equ RNR NOP
+.equ ISZ NOP
+.equ SBL NOP
+.equ ING NOP
+.equ RNL NOP
+.equ RBR NOP
+.equ SBR NOP
+.equ SEI NOP
+.equ RTI NOP
+.equ JMPII NOP
+.equ RBL NOP
+		
 .pushns earlyBoot
 
 		.bank &80
@@ -72,7 +88,7 @@
 		JMP @+3			; Skip to first instruction after macro
 		JMP @+3			; Skip to 2nd instruction after macro
 		.word %bitvalue
-.end
+.endmacro
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -211,7 +227,7 @@ post_d0:
 again:		SOR
 		LIA 0
 		JSR I DELAY
-		ISZ R15
+;		ISZ R15
 		JMP again
 done:		
 .endscope
@@ -264,7 +280,7 @@ parse_program:
 		LOAD I I15		; Entry point
 		PRINTH
 		PRINTNL
-		ISZ TMP14
+;		ISZ TMP14
 		JMP parse_program
 		
 		
@@ -305,7 +321,7 @@ magic:		.word &0cf7		; Magic (CFT)
 		JMP I R 3
 
 welcome:	.word _welcome
-vectable:	.word null_isr		; Vector: ISR (Interrupt Service Routine)
+vectable:	.word 0		; Vector: ISR (Interrupt Service Routine)
 		.word putsp		; Vector: PUTSP (print out packed string)
 		.word putud		; Vector: PUTUD (print unsigned decimal)
 		.word puth		; Vector: PUTH (print 16-bit hex)
@@ -375,8 +391,8 @@ detect_dfp:
 		
 		RET
 detect_dfp1:	.word dfp.QEF_DET
-detect_dfp2:	.word dfp.QEF_EMU
-		.word dfp.QEF_JS
+detect_dfp2:	.word dfp.QEF_DCE
+		.word dfp.QEF_DJE
 
 on_c_emu:       LMOV(p0.HWENV, p0.HWE_C)
 		RET
@@ -1868,6 +1884,6 @@ _sieve_instr1:	.longstring
 		.strp "used)\nThen, press RUN.\n"
 		.endstring
 
-.popns
+.popns earlyBoot
 
 ;;; End of file.

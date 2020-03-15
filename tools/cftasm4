@@ -312,7 +312,7 @@ class CFTAssembler(object):
             '.str': self.parse_dot_data,     # same handler as .data
             '.strp': self.parse_dot_strp,
             '.word': self.parse_dot_word,
-            '.page': None,
+            '.page': self.parse_dot_page,
             '.strn': None,
 
             # These are implemented in the preprocessor
@@ -348,6 +348,10 @@ class CFTAssembler(object):
                        help='Set map file output (default: OUTPUT-FILE.map).')
         p.add_argument('-s', '--symbol-file',
                        help='Set symbol file output (default: OUTPUT-FILE.sym).')
+
+        p.add_argument('-V', '--verilog', action="store_true",
+                       help="""Output verilog .list files.""")
+
         # p.add_option('', '--xpm',
         #              help='Output an XPM file mapping the memory image. ' + 
         #              'This is merely a visualisation toy. (default: output nothing).')
@@ -365,6 +369,9 @@ class CFTAssembler(object):
         # p.add_option('-B', '--banked', action='store_true',
         #              help='Assemble for extended 24-bit address space. All addresses are ' + \
         #                  'mod 8192, and you must use the .bank directive at least once.')
+
+        p.add_argument('-p', '--page-warning', action='store', type=int, default=256,
+                     help="""Warn when using .page generates more this many slack words. (default: %(default)s)""")
 
         p.add_argument('-I', '--include', metavar='DIRECTORY', action='append', default=['.'],
                        help="""Add to the include path. Can be specified multiple times to add multiple
@@ -501,13 +508,13 @@ class CFTAssembler(object):
     def error(self, msg):
         """Output an error message and fail."""
         # Is there a macro/file context we should print out?
-        for (n, f, ln, mdef) in self.ctx:
-            if mdef:
-                self._msg("error: (in macro '%s' invocation)" % n,
-                          filename=f, linenum=ln-1)
+        #pprint.pprint(self.ctx)
+        for (ctx_filename, ctx_linenumber, ctx_macro) in self.ctx:
+            if ctx_macro:
+                self._msg("error: (in macro '{}' invocation from {}:{})".format(
+                    ctx_macro, ctx_filename, ctx_linenumber))
             else:
-                self._msg("error: (included from %s on line %d)" % (f, ln),
-                          filename=f, linenum=ln)
+                self._msg("error: (included from {}:{})".format(ctx_filename, ctx_linenumber))
 
         self._msg('error: ' + msg)
 
@@ -662,22 +669,45 @@ class CFTAssembler(object):
         return None
 
 
-    def push_parse_context(self, macro, filename, linenum, mdef):
+    # def push_parse_context(self, macro, filename, linenum, mdef):
+    #     """Push a macro context onto the context stack. This is used for reporting the
+    #     exact location of file inclusions and macro expansions.
+
+    #     This is used for error reporting.
+
+    #     """
+    #     self.ctx.append((macro, filename, linenum, mdef))
+
+
+    # def pop_parse_context(self):
+    #     """Pop a macro context from the context stack.
+
+    #     This is used for error reporting."""
+    #     try:
+    #         return self.ctx.pop()
+    #     except IndexError:
+    #         self.die('Attempted pop from empty context stack.')
+
+
+    def enter_parse_context(self, filename, linenum, macro):
         """Push a macro context onto the context stack. This is used for reporting the
         exact location of file inclusions and macro expansions.
 
         This is used for error reporting.
 
         """
-        self.ctx.append((macro, filename, linenum, mdef))
+        self.ctx.append((self.filename, self.linenum, self.current_macro))
+        self.filename = filename
+        self.linenum = linenum
+        self.current_macro = macro
 
 
-    def pop_parse_context(self):
+    def leave_parse_context(self):
         """Pop a macro context from the context stack.
 
         This is used for error reporting."""
         try:
-            return self.ctx.pop()
+            (self.filename, self.linenum, self.current_macro) = self.ctx.pop()
         except IndexError:
             self.die('Attempted pop from empty context stack.')
 
@@ -727,7 +757,8 @@ class CFTAssembler(object):
         comments = ";/"
 
         for i, line in enumerate(iterable, 1):
-            (self.linenum, self.line) = (i, line)
+            self.line = line
+            self.linenum += 1
             line = line.strip()
             tokens = []
             tmptoken = ''
@@ -902,6 +933,7 @@ class CFTAssembler(object):
 
         # Set the parse context.
         self.filename = filename
+        self.linenum = 0
         self.debug_lexer("\n--- START FILENAME: {}'".format(filename))
         for tokens in self.preprocessor(f):
             yield tokens
@@ -963,16 +995,14 @@ class CFTAssembler(object):
 
         # Get a parse state and return it to the preprocessor
         self.debug_preprocessor("include file {} ({})".format(include_fname[1], fname))
-        savedState = self.filename, self.linenum # Why is this necessary?
-        self.push_parse_context(fname, self.filename, self.linenum, None)
+        self.enter_parse_context(self.filename, self.linenum, None)
 
         # Note: mutual recursion!
         for tokens in self.preprocess_file(fname):
             yield tokens
 
         # Done, pop the parse context
-        self.popParseContext()
-        self.filename, self.linenum = savedState
+        self.leave_parse_context()
         self.debug_preprocessor("end of included file {}".format(fname))
         self.preprocessor_depth -= 1
 
@@ -1024,9 +1054,9 @@ class CFTAssembler(object):
         # Get the macro definition.
         macro = self.get_macro(macro_name)
         if macro is None:
-            pprint.pprint(self.macros, width=200)
             self.fail("Undefined macro '{}'".format(macro_name))
 
+        #pprint.pprint(macro, width=200)
         macro_filename, macro_start, macro_args, macro_def = macro
         self.debug_macros("Macro call {}: defined in {}:{}, args={}, def={}".format(
             macro_name, macro_filename, macro_start, macro_args, repr(macro_def)))
@@ -1047,16 +1077,16 @@ class CFTAssembler(object):
 
         # Now pretend we're including a very small file in this
         # location. Preprocess it and yield tokens.
-        savedState = self.filename, self.linenum # Why is this necessary?
-        self.push_parse_context(macro_name, self.filename, self.linenum, macro_name)
+        #savedState = self.filename, self.linenum # Why is this necessary?
+        self.enter_parse_context(macro_filename, macro_start, macro_name)
 
         # Note: mutual recursion!
         for tokens in self.preprocessor(macro_exp.split('\n')):
             yield tokens
 
         # Done, pop the parse context
-        self.popParseContext()
-        self.filename, self.linenum = savedState
+        self.leave_parse_context()
+        #self.filename, self.linenum = savedState
         self.debug_preprocessor("Macro call {}: end of macro expansion".format(macro_name))
         self.preprocessor_depth -= 1
 
@@ -1293,6 +1323,7 @@ class CFTAssembler(object):
         self.compstring = None    # This holds compressed strings
         self.jumped = False       # The address has changed, don't increment.
         self.set_addr(0)
+        self.current_macro = None
 
 
     def deprecated_directive(self, tokens):
@@ -1442,7 +1473,7 @@ class CFTAssembler(object):
         macro_start = self.linenum
         macro_name = tokens[1][1]
         macro_args = list(x[1] for x in tokens[3:-1] if x != (self.TKT_ARGSEP, ','))
-        self.debug_macros("defined macro name={}, args={}".format(macro_name, macro_args))
+        self.debug_macros("defined macro name={}, args={}, start={}".format(macro_name, macro_args, macro_start))
         return macro_name, macro_args, macro_start, macro_def
 
 
@@ -1455,6 +1486,7 @@ class CFTAssembler(object):
         if ext:
             ext = self.macros[nsname]
             self.fail("redefining macro {} (defined in {}:{})".format(nsname, ext[0], ext[1]))
+        #print("***", nsname, (self.filename, macro_start, macro_args, macro_def))
         self.macros[nsname] = (self.filename, macro_start, macro_args, macro_def)
 
 
@@ -1490,6 +1522,34 @@ class CFTAssembler(object):
         # process it.
         if len(tokens) > 1:
             self.parse_dot_strp(tokens)
+
+
+    def parse_dot_page(self, tokens):
+        """Assemble a page directive.
+
+        Syntax: .page [WORD]
+
+        The .page directive automatically fills memory with WORD (which can be
+        any parseable assembler expression, and defaults to zero) until the end
+        of the current page is reached. This is useful for keeping code with
+        relative addressing in the same memory area.
+
+        Using .page allows code to run without rearranging during development.
+
+        If more than 16 words are filled as a result of .page, a message is
+        output during assembly. If more than 64 words are filled, a warning is
+        output. If more than 128 words are filled, an error is raised.
+        """
+        self.jumped = False
+        nextpage = (self.addr + 0x400) & 0xfc00
+        slack = nextpage - self.addr
+        self.debug_assembly(".page transition: &{:>04x} to &{:>04x}, {} slack word(s)".format(self.addr, nextpage, slack))
+        if slack == 0:
+            # Already at the beginning of a page. Do nothing.
+            return
+        elif slack >= self.args.page_warning:
+            if self.final_pass:
+                self.warn(".page generated {} word(s) of slack space.".format(slack))
 
 
     def parse_dot_strp(self, tokens):
@@ -1631,6 +1691,7 @@ class CFTAssembler(object):
                 elif tokens[0] in [ (self.TKT_WORD, '.end'), (self.TKT_WORD, '.endmacro') ]:
                     if tokens[0][1] == '.end':
                         self.warn(".end is deprecated. Change to .endmacro.")
+                    #print("***", tokens, macro_name, macro_args, macro_start, macro_def)
                     self.parse_dot_endmacro(tokens, macro_name, macro_args, macro_start, macro_def)
                     macro_def = None
 
@@ -1749,13 +1810,12 @@ class CFTAssembler(object):
         # self.pass_symbol_discovery()
         # self.pass_assembly()
 
-        print(self.dots.keys())
-        
         # Sanity checks
         self.sanity_checks()
 
         # Output stuff
         self.write_symbol_table()
+        self.write_object()
 
             # # First, parse the builtins.
             # self.filename = '<builtins>'
@@ -1990,6 +2050,39 @@ class CFTAssembler(object):
             if self.args.debug:
                 raise
             self.die("Whoops, failed to write symbol table: {}".format(e))
+
+
+    def write_object(self):
+        """Write object code."""
+        with open(self.args.out_file, 'wb') as f:
+            self.mem[self.minaddr : self.maxaddr + 1].tofile(f)
+
+
+        def yieldmem():
+            a0 = self.minaddr
+            a1 = self.maxaddr + 1
+            for addr in range(a0, a1):
+                yield (addr, self.mem[addr & self.addr_mask])
+
+
+        if self.args.verilog:
+            # Also write two Verilog ROM images (low and high half-words)
+            basename = os.path.splitext(self.args.out_file)[0]
+            lo = open('{}-00.list'.format(basename), 'wt')
+            hi = open('{}-01.list'.format(basename), 'wt')
+            for addr, val in yieldmem():
+                lo.write("{}\t// {:>04x}: {:>04x}\n".format(bin(val & 0xff)[2:].zfill(8), addr, val))
+                hi.write("{}\t// {:>04x}: {:>04x}\n".format(bin((val >> 8) & 0xff)[2:].zfill(8), addr, val))
+            # else:
+            #     for addr, val in self.yieldmem():
+            #         lo.write(bin(val & 0xff)[2:].zfill(8) + '\n')
+            #         hi.write(bin((val >> 8) & 0xff)[2:].zfill(8) + '\n')
+
+            lo.close()
+            hi.close()
+
+
+        
             
             
 
@@ -2534,65 +2627,6 @@ class CFTAssembler(object):
 
 
         
-    def assemblePage(self, tokens, orgline):
-        """Assemble a page directive.
-
-        Syntax: .page [WORD]
-
-        The .page directive automatically fills memory with WORD (which can be
-        any parseable assembler expression, and defaults to zero) until the end
-        of the current page is reached. This is useful for keeping code with
-        relative addressing in the same memory area.
-
-        Using .page allows code to run without rearranging during development.
-
-        If more than 16 words are filled as a result of .page, a message is
-        output during assembly. If more than 64 words are filled, a warning is
-        output. If more than 128 words are filled, an error is raised.
-        """
-        self.jumped = False
-
-        nextpage = (((self.addr >> 10) + 1) << 10)
-        count = nextpage - self.addr
-
-        # Already at the beginning of a page. Do nothing.
-        if count == 0:
-            return
-        #elif count > 512:
-        #    if self.passnum == self.PSN_ASSEMBLY:
-        #        self.fail(".page generated %d words of slack space. Rearrange your code!" % count)
-        elif count > 256:
-            if self.passnum == self.PSN_ASSEMBLY:
-                self.warn(".page generated %d words of slack space." % count)
-
-        if self.passnum != self.PSN_ASSEMBLY:
-            # We use count - 1 because the caller will increment the address
-            # too.
-            self.incaddr(count - 1)
-            return
-        
-        # Assembly pass: do actual work.
-        word = 0
-        if len(tokens) >= 2:
-            try:
-                word = self.parseField(tokens[2:], allbits=True)
-                try:
-                    word = word.val
-                except AttributeError:
-                    pass
-            except Exception as e:
-                self.fail(str(e))
-
-        self.logasm(None, msg=' .fill &%04x &%04x ; %s' % (count, word, orgline))
-
-        for x in range(count):
-            self.poke(word, poketype='P')
-            self.incaddr()
-
-        # Inhibit the next address increase.
-        self.jumped = True
-
-
     def assembleBank(self, tokens, orgline):
         """Assemble a bank directive.
 
@@ -2919,40 +2953,6 @@ class CFTAssembler(object):
         # Failed to find it.
         raise KeyError
             
-
-    def yieldmem(self):
-        """Yield each word of memory (in the range specified on the
-        command line) as an (addr, data) tuple."""
-        a0 = self.opts.min_addr
-        a1 = self.opts.max_addr + 1
-        for addr in range(a0, a1):
-            yield (addr, self.mem[addr & self.addr_mask])
-
-
-    def outobj(self):
-        """Write object code."""
-        a0 = self.opts.min_addr
-        a1 = self.opts.max_addr + 1
-        self.mem[a0:a1].tofile(open(self.opts.out_file, 'wb'))
-
-        # In this version, we always output Verilog files.
-        if True or self.opts.verilog:
-            # Also write two Verilog ROM images (low and high half-words)
-            basename = os.path.splitext(self.opts.out_file)[0]
-            lo = open('%s-00.list' % basename, 'wt')
-            hi = open('%s-01.list' % basename, 'wt')
-            if self.opts.verbose:
-                for addr, val in self.yieldmem():
-                    lo.write("%s\t// %04x: %04x\n" % (bin(val & 0xff)[2:].zfill(8), addr, val))
-                    hi.write("%s\t// %04x: %04x\n" % (bin((val >> 8) & 0xff)[2:].zfill(8), addr, val))
-            else:
-                for addr, val in self.yieldmem():
-                    lo.write(bin(val & 0xff)[2:].zfill(8) + '\n')
-                    hi.write(bin((val >> 8) & 0xff)[2:].zfill(8) + '\n')
-
-            lo.close()
-            hi.close()
-
 
 if __name__ == "__main__":
     CFTAssembler().run()
