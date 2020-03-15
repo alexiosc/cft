@@ -140,6 +140,11 @@ class Symbol(object):
         return self.val is None
 
 
+    @property
+    def resolved(self):
+        return self.val is not None
+
+
     # @property
     # def page(self):
     #     """Provide the middle 6 bits of the value."""
@@ -235,6 +240,7 @@ class CFTAssembler(object):
     PKT_INSTR = ord('I')
     PKT_DATA = ord('D')
     PKT_WORD = ord('W')
+    PKT_FILL = ord('F')
     PKT_STR = ord('S')
     PKT_STRP = ord('P')
     PKT_REG = ord('R')
@@ -263,8 +269,11 @@ class CFTAssembler(object):
         # The namespace stack.
         self.ns = list()
 
-        # # The macro table and macro context stack
+        # The macro table and macro context stack
         self.macros = dict()
+
+        # This is used by logasm so as not to repeat lines unnecessarily.
+        self.logasm_state = (None, None)
 
         # self.mcallno = 0
 
@@ -278,7 +287,6 @@ class CFTAssembler(object):
         # self.opts, self.args = self.parseOpts()
 
         # # Create the processed assembly output file.
-        # self.pasm = open(self.asm_file, 'w')
 
         # # State
         # self.wrap = False
@@ -297,18 +305,18 @@ class CFTAssembler(object):
             '.data': self.parse_dot_data,
             '.endstring': self.parse_dot_endstring,
             '.equ': self.parse_dot_equ,
-            '.fill': None,
-            '.include': None,
+            '.fill': self.parse_dot_fill,
             '.longstring': self.parse_dot_longstring,
-            '.page': None,
             '.reg': self.parse_dot_reg,
-            '.regfill': None,
-            '.str': self.parse_dot_data, # same handler as .data
-            '.strn': None,
+            '.regfill': self.parse_dot_fill, # Same handler as .fill
+            '.str': self.parse_dot_data,     # same handler as .data
             '.strp': self.parse_dot_strp,
             '.word': self.parse_dot_word,
+            '.page': None,
+            '.strn': None,
 
             # These are implemented in the preprocessor
+            '.include': None,
             '.macro': None,
             '.endmacro': None,
             '.end': None,            # Deprecated
@@ -334,10 +342,10 @@ class CFTAssembler(object):
                        full 24-bit memory to be written to. This affects object code sizes,
                        sanity checks, warnings and how addresses are printed. (default: %(default)s)""")
 
-        # p.add_option('-a', '--asm-file',
-        #              help='Set processed assembly file output (default: OUTPUT-FILE.pasm).')
-        # p.add_option('-m', '--map-file',
-        #              help='Set map file output (default: OUTPUT-FILE.map).')
+        p.add_argument('-a', '--asm-file',
+                       help='Set processed assembly file output (default: OUTPUT-FILE.pasm).')
+        p.add_argument('-M', '--map-file',
+                       help='Set map file output (default: OUTPUT-FILE.map).')
         p.add_argument('-s', '--symbol-file',
                        help='Set symbol file output (default: OUTPUT-FILE.sym).')
         # p.add_option('', '--xpm',
@@ -368,6 +376,11 @@ class CFTAssembler(object):
         p.add_argument('--show-builtins', action='store_true',
                        help='Print out built-ins and exit without assembling anything.')
 
+        p.add_argument('--debug-assembly', action='store_true',
+                       help="""Output all object code and data writes in a fully pre-processed format that
+                       can be fed back to the assembler, if needed. This will echo the same data written to the
+                       .pasm file set with --asm-file or -a.""")
+
         p.add_argument('--debug-lexer', action='store_true',
                        help="""Debug the lexer by printing out its state of the lexer for every parsed
                        character. Extremely verbose.""")
@@ -396,17 +409,17 @@ class CFTAssembler(object):
     def setup_address_space(self):
         """Set up the assembler for the specified assembly model."""
         if self.args.model == "short":
-            memsize = 65536
+            self.memsize = 65536
             self.model = self.MODEL_SHORT
             self.addr_mask = 0xffff
-            self.minaddr = memsize
+            self.minaddr = self.memsize
             self.maxaddr = 0
 
         elif self.args.model == "long":
-            memsize = 16777216
+            self.memsize = 16777216
             self.model = self.MODEL_LONG
             self.addr_mask = 0xffffff
-            self.minaddr = memsize
+            self.minaddr = self.memsize
             self.maxaddr = 0
             # self.boundwarn_low = False
             # self.boundwarn_high = False
@@ -418,8 +431,8 @@ class CFTAssembler(object):
         # The memory image. The multiplication voodoo proves to be a very fast
         # way to initialise an array in Python: about 10 times faster than
         # passing [0] * self.MEMSIZE as the array initialiser.
-        self.mem = array.array('H', [0]) * memsize
-        self.sentinel = array.array('B', [self.PKT_UNUSED]) * memsize
+        self.mem = array.array('H', [0]) * self.memsize
+        self.sentinel = array.array('B', [self.PKT_UNUSED]) * self.memsize
 
         # self.boundwarn_low = False
         # self.boundwarn_high = False
@@ -434,10 +447,16 @@ class CFTAssembler(object):
 
         # Set our various output filenames.
         base = os.path.splitext(self.args.out_file)[0]
+        self.asm_file = self.args.asm_file or (base + '.pasm')
         self.symbol_file = self.args.symbol_file or (base + '.sym')
         # self.map_file = self.args.map_file or (base + '.map')
-        # self.asm_file = self.args.asm_file or (base + '.pasm')
         # self.xpm_map_file = self.args.xpm or (base + '.xpm')
+
+        # Open the pasm file early.
+        try:
+            self.pasm = open(self.asm_file, 'wt')
+        except Exception as e:
+            self.die("unable to open {}: {}".format(self.asm_file, e))
 
         # Check mode of operation and act on it.
         if self.args.show_builtins:
@@ -530,6 +549,12 @@ class CFTAssembler(object):
         if self.args.debug_macros:
             print("{}:{}: [macros] {}".format(self.filename, self.linenum, s))
 
+
+    def debug_assembly(self, s):
+        if self.args.debug_assembly:
+            print("{}:{}: [assembly] {}".format(self.filename, self.linenum, s))
+            
+    
     def debug_pokes(self, s):
         if self.args.debug_pokes:
             print("{}:{}: [poke] {}".format(self.filename, self.linenum, s))
@@ -609,6 +634,21 @@ class CFTAssembler(object):
         return None
 
 
+    def add_symbol(self, nssym, symbol_object):
+        """Add a symbol to the symbol table. Argument sym should be a symbol name fully
+        qualified with its namespace; symbol_object should be an instance of a
+        class derived from class Symbol.
+        """
+        existing = self.symbols.get(nssym)
+        if existing is not None:
+            if self.final_pass and existing.resolved and symbol_object.resolved and \
+               existing.val != symbol_object.val:
+                self.warn("redefining symbol {} (defined on {}:{}) from &{:>04x} to &{:>04x}".format(
+                    nssym, existing.filename, existing.linenum, existing.val, symbol_object.val))
+
+        self.symbols[nssym] = symbol_object
+
+        
     def get_macro(self, sym):
         """Return the definition tuple of a macro. Return None if it couldn't
         be found.
@@ -978,7 +1018,6 @@ class CFTAssembler(object):
         else:
             arglist = []
 
-        print("-"*80)
         self.debug_macros("Macro call {} tokenlist={} split_arglist={}".format(
             macro_name, tokens[2:-1], arglist))
 
@@ -988,16 +1027,23 @@ class CFTAssembler(object):
             pprint.pprint(self.macros, width=200)
             self.fail("Undefined macro '{}'".format(macro_name))
 
-        self.debug_macros("Macro definition {}".format(macro))
-        print("-"*80)
-        print("\n\n")
-
         macro_filename, macro_start, macro_args, macro_def = macro
+        self.debug_macros("Macro call {}: defined in {}:{}, args={}, def={}".format(
+            macro_name, macro_filename, macro_start, macro_args, repr(macro_def)))
 
         if len(macro_args) != len(arglist):
             self.fail("macro {} (definition at {}:{}) expects {} arguments ({}) but {} given".format(
                 macro_name, macro_filename, macro_start,
                 len(macro_args), ', '.join(macro_args), len(arglist)))
+
+        # Expand arguments
+        macro_exp = macro_def
+        for arg_name, arg_valuelist in zip(macro_args, arglist):
+            arg_value = ' '.join(arg_valuelist)
+            self.debug_macros("Macro call {}: expand %{} to {}".format(macro_name, arg_name, arg_value))
+            macro_exp = re.sub('%' + arg_name + r'\b', arg_value, macro_exp)
+
+        self.debug_macros("Macro call {}: expanded to '{}'".format(macro_name, repr(macro_exp)))
 
         # Now pretend we're including a very small file in this
         # location. Preprocess it and yield tokens.
@@ -1005,13 +1051,13 @@ class CFTAssembler(object):
         self.push_parse_context(macro_name, self.filename, self.linenum, macro_name)
 
         # Note: mutual recursion!
-        for tokens in self.preprocessor(macro_def.split('\n')):
+        for tokens in self.preprocessor(macro_exp.split('\n')):
             yield tokens
 
         # Done, pop the parse context
         self.popParseContext()
         self.filename, self.linenum = savedState
-        self.debug_preprocessor("end of macro expansion {}".format(macro_name))
+        self.debug_preprocessor("Macro call {}: end of macro expansion".format(macro_name))
         self.preprocessor_depth -= 1
 
 
@@ -1185,22 +1231,29 @@ class CFTAssembler(object):
 
         If this is the final assembly pass, unresolved symbols cause a fatal error.
         """
+        self.debug_parser("Parse tokens: {}".format(tokens))
         for tkt, token in tokens:
+            self.debug_parser("Parse token: ({},{})".format(tkt, token))
             if tkt == self.TKT_WORD:
                 if token[0] == '@':
+                    self.debug_parser("Parse expression: {}".format(token))
                     parsed_literal = self.parse_expression(token)
                 else:
+                    self.debug_parser("Parse literal: {}".format(token))
                     parsed_literal = self.parse_literal(token)
                 if parsed_literal is not None:
+                    self.debug_parser("Yield as-is: {}".format(token))
                     yield parsed_literal
                 else:
                     # Do we have a resolved symbol in the symbol table?
                     sym = self.get_symbol(token)
                     if sym is not None and sym.val is not None:
+                        self.debug_parser("Looked up symbol {}: value {}".format(token, sym))
                         yield sym.val
                     else:
+                        self.debug_parser("Looked up symbol {}: not found".format(token))
                         if self.final_pass:
-                            self.fatal("Undefined symbol {}".format(token))
+                            self.fail("Undefined symbol {}".format(token))
                         yield token
 
             elif tkt == self.TKT_STR:
@@ -1208,6 +1261,7 @@ class CFTAssembler(object):
                     self.fail("Strings are not allowed here")
                 for c in token:
                     yield(ord(c))
+        self.debug_parser("End of token parse.")
 
 
     def assemble_single_field(self, tokens):
@@ -1264,7 +1318,9 @@ class CFTAssembler(object):
         if not self.ns:
             self.fail(".popns seen before .pushns")
         elif len(tokens) == 1:
-            self.warn("missing namespace to pop, assuming {}. (this will be an error soon)".format(self.ns[-1]))
+            # Only warn about this on the first pass
+            if self.expand_macros == False:
+                self.warn("missing namespace to pop, assuming {}. (this will be an error soon)".format(self.ns[-1]))
             self.ns.pop(-1)
             self.debug_parser("Namespace popped back to {}".format(self.get_nsname()))
         elif not self.is_word(tokens[1]):
@@ -1321,10 +1377,50 @@ class CFTAssembler(object):
             value = parsed[0]
             for x in parsed[1:]:
                 value = value | x
-            self.symbols[nssym] = Symbol(self.filename, self.linenum, nssym, val=value, tokens=" ".join(definition))
+            self.add_symbol(nssym, Symbol(self.filename, self.linenum, nssym, val=value, tokens=" ".join(definition)))
         else:
-            self.symbols[nssym] = Symbol(self.filename, self.linenum, nssym, tokens=parsed)
+            self.add_symbol(nssym, Symbol(self.filename, self.linenum, nssym, tokens=parsed))
         self.debug_parser(".equ seen: sym={}, nssym={}, def={}, parsed={}".format(sym, nssym, definition, parsed))
+
+
+    def parse_dot_fill(self, tokens):
+        directive = tokens[0][1]
+        if len(tokens) < 3:
+            self.fail("error parsing {}, expecting at least two arguments.".format(directive))
+        if not self.is_word(tokens[1]):
+            self.fail("{} expects a positive number as its first argument.".format(directive))
+
+        if directive  == '.regfill':
+            pkt = self.PKT_REG
+        else:
+            pkt = self.PKT_FILL
+
+        count = self.parse_literal(tokens[1][1])
+        if not count or count < 1:
+            self.fail("{} expects a positive number as its first argument.".format(directive))
+
+        addr = self.addr
+        value = self.assemble_single_field(tokens[2:])
+
+        self.debug_assembly("{} directive: count={} value=&{:>04x}".format(directive, count, value))
+
+        # Quick sanity check
+        if any(x != self.PKT_UNUSED for x in self.sentinel[addr:(addr+count)]):
+            self.warn("{} overwrites previously assembled data.".format(directive))
+
+        # Don't bother poking, just assign to the memory directly. It's much
+        # faster. Warning: voodoo! Also, we only do this on the final pass.
+        if self.final_pass:
+            self.mem[addr:(addr + count)] = array.array('H', [value]) * count
+            self.sentinel[addr:(addr + count)] = array.array('B', [pkt]) * count
+
+            for n in range(count):
+                self.logasm(addr + n, value, orgline=self.line)
+
+        self.addr += count
+
+        if self.addr > self.memsize:
+            self.fail("Filled past end of memory space.")
 
 
     def parse_dot_macro(self, tokens, macro_def):
@@ -1354,7 +1450,12 @@ class CFTAssembler(object):
         if macro_def is None:
             self.fail(".endmacro seen before .macro")
         self.debug_macros(".endmacro seen")
-        self.macros[self.get_nsname(macro_name)] = (self.filename, macro_start, macro_args, macro_def)
+        nsname = self.get_nsname(macro_name)
+        ext = self.macros.get(nsname)
+        if ext:
+            ext = self.macros[nsname]
+            self.fail("redefining macro {} (defined in {}:{})".format(nsname, ext[0], ext[1]))
+        self.macros[nsname] = (self.filename, macro_start, macro_args, macro_def)
 
 
     def parse_dot_data(self, tokens):
@@ -1369,7 +1470,7 @@ class CFTAssembler(object):
             self.fail("Unhandled directive {}".tokens[0][1])
 
         fields = tokens[1:]
-        for token in self.parse_fields(fields):
+        for token in self.parse_fields(fields, strings_too=pkt == self.PKT_STR):
             # Sanity check (parse_fields takes care of better error reporting)
             if type(token) != int:
                 assert not self.final_pass or type(token) == int, "undefined symbol"
@@ -1426,9 +1527,9 @@ class CFTAssembler(object):
             value = parsed[0]
             for x in parsed[1:]:
                 value = value | x
-            self.symbols[nssym] = Register(self.filename, self.linenum, nssym, val=value, tokens=" ".join(definition))
+            self.add_symbol(nssym, Register(self.filename, self.linenum, nssym, val=value, tokens=" ".join(definition)))
         else:
-            self.symbols[nssym] = Register(self.filename, self.linenum, nssym, tokens=parsed)
+            self.add_symbol(nssym, Register(self.filename, self.linenum, nssym, tokens=parsed))
         self.debug_parser(".reg seen: sym={}, nssym={}, def={}, parsed={}".format(sym, nssym, definition, parsed))
 
         # Unlike .equ, a .reg will also step the address and mark the memory map.
@@ -1474,8 +1575,7 @@ class CFTAssembler(object):
             self.debug_parser("Address {}".format(self.fmt_addr()))
         else:
             nssym = self.get_nsname(no_colon)
-            self.symbols[nssym] = Label(self.filename, self.linenum,
-                                        nssym, val=self.addr)
+            self.add_symbol(nssym, Label(self.filename, self.linenum, nssym, val=self.addr))
             self.debug_parser("Label {} = {} ({})".format(no_colon, self.fmt_addr(), nssym))
 
         # Return the rest of the tokens
@@ -1642,7 +1742,7 @@ class CFTAssembler(object):
         # This is a three-pass assembler.
         self.pass_macro_discovery()
         self.pass_assembly()
-        #self.pass_assembly(final=True)
+        self.pass_assembly(final_pass=True)
 
         #pprint.pprint(self.macros, width=200)
         #pprint.pprint(self.symbols, width=200)
@@ -1716,6 +1816,10 @@ class CFTAssembler(object):
         """
         self.jumped = False
 
+        # Write nothing before the final pass
+        if not self.final_pass:
+            return
+
         # if poketype != self.PKT_REG and self.opts.banked and self.bank is None:
         #     self.fail("assembling code before setting a bank (use .bank XX).")
 
@@ -1733,21 +1837,26 @@ class CFTAssembler(object):
         self.minaddr = min(self.minaddr, self.addr)
         self.maxaddr = max(self.maxaddr, self.addr)
 
-        if self.final_pass and self.sentinel[addr] != PKT_UNUSED:
-            self.warn("Code at address {} overrides previous {}".format(
-                self.fmt_addr(addr),
-                self.POKETYPES.get(self.sentinel[addr], 'unknown data')))
-
         # Okay, write it.
         if addr is None:
             addr = self.addr
         addr = addr & self.addr_mask
+
+        if self.final_pass and self.sentinel[addr] not in (self.PKT_UNUSED, self.PKT_FILL):
+            self.warn("Writing {} &{:>04x} to address {} overwrites previous {} &{:>04x}".format(
+                self.POKETYPES.get(poketype, 'unknown_data'),
+                val,
+                self.fmt_addr(addr),
+                self.POKETYPES.get(self.sentinel[addr], 'unknown data'),
+                self.mem[addr]))
 
         # Debug it
         if self.args.debug_pokes:
             self.debug_pokes("{}: {:>04x} ; type={} ({})".format(
                 self.fmt_addr(addr), val & 0xffff,
                 poketype, self.POKETYPES.get(poketype, "unknown data")))
+
+        self.logasm(addr, val, orgline=self.line)
         
         self.mem[addr] = val & 0xffff
         self.sentinel[addr] = poketype
@@ -1780,9 +1889,9 @@ class CFTAssembler(object):
 
         # The parser has already isolated and parsed label definitions. All we
         # get here is assembly.
-        
-        value = self.assemble_single_field(tokens[1:])
-        self.debug_parser("Assemble: &{}: &{} ; {}".format(self.fmt_addr(), value, tokens))
+        value = self.assemble_single_field(tokens)
+        if self.final_pass:
+            self.debug_assembly("Assemble: &{}: &{:>04x} ; {}".format(self.fmt_addr(), value, tokens))
 
         if value is None:
             # One or more values are undefined. In the final pass, a parse
@@ -1817,6 +1926,44 @@ class CFTAssembler(object):
     # OUTPUT FUNCTIONALITY
     #
     ###############################################################################
+
+    def logasm(self, addr, val, msg=None, orgline=None):
+        """Logs assembled data.
+
+        Assembly messages log the entire program in a format that is
+        human-readable but may be parsed by both the assembler and other
+        machine tools.
+
+        If val is None, then no machine-code value is dumped for this
+        line. This is used to log multi-word directives etc.
+
+        """
+        # This only works for the final pass, where everything is fully
+        # resolved.
+        if not self.final_pass:
+            return
+        
+        if val is not None and msg is not None:
+            raise ValueError('Exactly one of val, msg may be set.')
+
+        if msg is None:
+          msg = ''
+
+        orgline = orgline or ''
+        if self.logasm_state == (self.linenum, orgline):
+            orgline = ''
+        else:
+            self.logasm_state = (self.linenum, orgline)
+
+        if val is None:
+            line = ("{}:      {} ;\t{}").format(self.fmt_addr(addr), msg, orgline.rstrip())
+        else:
+            line = ("{}: &{:>04x} ;\t{}").format(self.fmt_addr(addr), val, orgline.rstrip())
+
+        # if self.args.debug_assembly:
+        #     print(line)
+        self.pasm.write(line + '\n')
+
 
     def write_symbol_table(self):
         """Print out the symbol table."""
@@ -2773,40 +2920,6 @@ class CFTAssembler(object):
         raise KeyError
             
 
-    def addSymbol(self, sym, val, symtype=None):
-        """Add a symbol to the symbol table.
-
-        >>> x = CFTAssembler()
-        >>> x.addSymbol('spam', 42)
-        >>> x.addSymbol('spam', 43)
-        <none>:1:warning: redefining symbol spam (#42) to different value (#43).
-        """
-        # Prefix the symbol with all namespaces
-        sym0 = sym
-        sym = '.'.join(self.ns + [sym])
-        
-        # Add local symbols to the current scope, if necessary
-        #if sym0.startswith('_') and len(self.scope) > 0:
-        #    self.scope[-1].append(sym)
-
-        #print "File", self.filename, "Pass", self.passnum, ", adding symbol", sym
-
-        # TODO: issue a warning if redefining a symbol.
-        if sym in self.symbols:
-            old = self.symbols[sym]
-            if val != old.val and self.passnum == self.PSN_SYMBOL_DISCOVERY \
-                    and (old.filename, old.linenum) != (self.filename, self.linenum):
-                self.warn('redefining symbol %s (#%d) to different value (#%d).' % \
-                              (sym, old.val, val))
-                self.warn('previous declaration of %s in file %s line %d.' % \
-                              (sym, old.filename, old.linenum))
-        cls = symtype or Symbol
-        if self.opts.debugging:
-            sys.stderr.write('D: %s:%d: %04x addSymbol %s = %d, type=%s\n' % \
-                                 (self.filename, self.linenum, self.addr, sym, val, str(cls)))
-        self.symbols[sym] = cls(sym, val, self.filename, self.linenum)
-
-        
     def yieldmem(self):
         """Yield each word of memory (in the range specified on the
         command line) as an (addr, data) tuple."""
@@ -2839,39 +2952,6 @@ class CFTAssembler(object):
 
             lo.close()
             hi.close()
-
-
-    def logasm(self, val, msg=None, orgline=None):
-        """Logs an assembly message.
-
-        Assembly messages log the entire program
-        in a format that is human-readable but may be parsed by both the
-        assembler and other machine tools.
-
-        If val is None, then no machine-code value is dumped for this
-        line. This is used to log multi-word directives etc.
-        """
-        if val is not None and msg is not None:
-            raise ValueError('Exactly one of val, msg may be set.')
-
-        msg = msg or ''
-        if orgline:
-            orgline = ' ; ' + orgline
-        else:
-            orgline = ''
-
-        if self.opts.banked:
-            fmt = "&{:>06x}:"
-        else:
-            fmt = "&{:>04x}:"
-            
-        if val is None:
-            line = (fmt + "      {}{}\n").format(self.addr, msg, orgline)
-        else:
-            line = (fmt + " &{:>04x}{}\n").format(self.addr, val, orgline)
-        if self.opts.verbose:
-            sys.stdout.write(line)
-        self.pasm.write(line)
 
 
 if __name__ == "__main__":
