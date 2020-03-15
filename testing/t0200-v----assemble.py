@@ -21,7 +21,25 @@ def test_assemble(capsys, tmpdir):
 
 
 @pytest.mark.cftasm
-def test_addrsize_large(capsys, tmpdir):
+def test_addrsize_short(capsys, tmpdir):
+    assemble(capsys, tmpdir, """
+    &:     .fill 32768 &1234
+           .fill 32768 &5678
+    """, args=["--model", "short"])
+
+    assert os.path.getsize(tmpdir.join("a.bin")) == 131072, \
+        "Wrong object size generated (64K expected)"
+
+    with open(tmpdir.join("a.bin"), "rb") as f:
+        assembled_data = array.array('H')
+        assembled_data.fromfile(f, 65536)
+        expected_data = array.array('H', [0x1234]) * 32768
+        expected_data += array.array('H', [0x5678]) * 32768
+        assert assembled_data == expected_data
+
+
+@pytest.mark.cftasm
+def test_addrsize_long(capsys, tmpdir):
     assemble(capsys, tmpdir, """
     &000000:     .fill 32768 &1234
                  .fill 32768 &1234
