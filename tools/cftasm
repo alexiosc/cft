@@ -470,6 +470,9 @@ class CFTAssembler(object):
             print(self.BUILTINS.strip())
             sys.exit(0)
 
+        if not self.args.input_files:
+            self.die("no input files")
+
         # # Sanity checking
         # if self.opts.min_addr > self.opts.max_addr:
         #     self.die('--min-addr must be less than or equal to --max-addr.')
