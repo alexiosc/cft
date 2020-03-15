@@ -99,18 +99,19 @@
 (defconst cftasm-instructions
   (concat "\\<"
 	  (regexp-opt
-	   (split-string "TRAP IOT LOAD STORE IN OUT JMP JSR ADD AND OR XOR
-                          OP1 OP2 POP ISZ LIA JMPII IFL IFV CLA CLL NOT INC
-                          CPL RBL RBR RNL RNR NOP SNA SZA SSL SSV SKIP SNN
-                          SNZ SCL SCV CLI SEI SEL NEG ING LI SPA SNP RET RTT
-                          RTI SBL SBR PUSH R I SMB"))
+	   (split-string "IRET LRET RET TAS TSA TAD TDA ISR PHA PPA PHF PPF
+                          STI CLI WAIT SHL SHR ASR ROL ROR RLA RRA SKP NOP SKIP
+                          SNP SPA SNA SZA SSL SSV SNN SNZ SCL SCV IND JPA JSA
+                          HCF UOP IFL IFV NOP9 CLA CLL SEL NOT NEG INC DEC CPL
+                          LIA LI LJSR LJMP JSR JMP IN OUT IOT LOAD STORE DSZ
+                          ADD AND OR XOR R I"))
 	  "\\>"))
 	  
 (defconst cftasm-preprocess-directives
   (concat "^[ \t]*\\."
 	  (regexp-opt
 	   ; .macro, .equ and .reg are handled separately
-	   (split-string "macro end include pushns popns page bank equ scope endscope")
+	   (split-string "macro endmacro include pushns popns page bank equ scope endscope")
 	   )
 	  "[ \t]*"))
 
