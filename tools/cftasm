@@ -456,7 +456,7 @@ class CFTAssembler(object):
         base = os.path.splitext(self.args.out_file)[0]
         self.asm_file = self.args.asm_file or (base + '.pasm')
         self.symbol_file = self.args.symbol_file or (base + '.sym')
-        # self.map_file = self.args.map_file or (base + '.map')
+        self.map_file = self.args.map_file or (base + '.map')
         # self.xpm_map_file = self.args.xpm or (base + '.xpm')
 
         # Open the pasm file early.
@@ -1453,6 +1453,9 @@ class CFTAssembler(object):
         if self.addr > self.memsize:
             self.fail("Filled past end of memory space.")
 
+        self.minaddr = min(self.minaddr, addr)
+        self.maxaddr = max(self.maxaddr, self.addr)
+
 
     def parse_dot_macro(self, tokens, macro_def):
         # Check it
@@ -1815,6 +1818,7 @@ class CFTAssembler(object):
 
         # Output stuff
         self.write_symbol_table()
+        self.write_map_file()
         self.write_object()
 
             # # First, parse the builtins.
@@ -1929,17 +1933,17 @@ class CFTAssembler(object):
             return
 
         # Warning: minor acts of voodoo
-        wordval, shift = 0, 8
+        wordval, shift = 0, 0
         for char in ps:
             wordval |= (char & 0xff) << shift
             shift = shift ^ 8
-            if shift == 8:
+            if shift == 0:
                 self.poke(wordval, poketype=self.PKT_STRP)
                 self.inc_addr()
                 wordval = 0
 
         # An odd number of characters were output.
-        if shift == 0:
+        if shift == 8:
             self.poke(wordval, poketype=self.PKT_STRP)
             self.inc_addr()
 
@@ -2052,6 +2056,25 @@ class CFTAssembler(object):
             self.die("Whoops, failed to write symbol table: {}".format(e))
 
 
+    def write_map_file(self):
+        """Print out the map file."""
+        # Open the map output file.
+        with open(self.map_file, "wt") as out:
+            labels = [ x for x in list(self.symbols.values())
+                       if isinstance(x, Label) ]
+            if not labels:
+                out.write('nothing  0000  <none>:0')
+                return
+
+            fmt = '%%-%ds  %%04x  %%s:%%d\n' % max(len(x.name) for x in labels)
+
+            for sym in sorted(labels, key=lambda x: (x.val, x.filename, x.linenum, x.name)):
+                out.write(fmt % (sym.name, sym.val, sym.filename, sym.linenum))
+
+            # Close it, just in case.
+            out.close()
+            
+
     def write_object(self):
         """Write object code."""
         with open(self.args.out_file, 'wb') as f:
@@ -2070,9 +2093,12 @@ class CFTAssembler(object):
             basename = os.path.splitext(self.args.out_file)[0]
             lo = open('{}-00.list'.format(basename), 'wt')
             hi = open('{}-01.list'.format(basename), 'wt')
-            for addr, val in yieldmem():
-                lo.write("{}\t// {:>04x}: {:>04x}\n".format(bin(val & 0xff)[2:].zfill(8), addr, val))
-                hi.write("{}\t// {:>04x}: {:>04x}\n".format(bin((val >> 8) & 0xff)[2:].zfill(8), addr, val))
+            # for addr, val in yieldmem():
+            #     lo.write("{}\t// {:>04x}: {:>04x}\n".format(bin(val & 0xff)[2:].zfill(8), addr, val))
+            #     hi.write("{}\t// {:>04x}: {:>04x}\n".format(bin((val >> 8) & 0xff)[2:].zfill(8), addr, val))
+            for val in self.mem[self.minaddr : self.maxaddr + 1]:
+                lo.write("{:>08b}\n".format(val & 0xff))
+                hi.write("{:>08b}\n".format(val >> 8))
             # else:
             #     for addr, val in self.yieldmem():
             #         lo.write(bin(val & 0xff)[2:].zfill(8) + '\n')
