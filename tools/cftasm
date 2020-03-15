@@ -2,10 +2,11 @@
 # coding: utf-8
 # -*- python -*-
 """
-The CFT Assembler, version 3
+The CFT Assembler, version 4
 """
 
 import os
+import io
 import re
 import sys
 import copy
@@ -13,109 +14,9 @@ import types
 import array
 import pprint
 import doctest
-import optparse
+import argparse
 import subprocess
 import unicodedata
-
-# TODO for 2019 compatibility:
-#
-# [X] Add builtins for new instruction set.
-# [X] Complete Python 3 compatibility.
-# [ ] Switch to using 24-bit addresses, OR
-# [ ] Add a linker to put together banks into a single large program.
-
-# Microcode 6 instruction set, the old one.
-_BUILTINS_OLD = """;;; CFT Assembler Built-ins
-
-;;; 1. Machine mnemonics
-
-;;; 1.1. Basic mnemonics
-
-.equ TRAP  0x0000
-.equ IOT   0x1000
-.equ LOAD  0x2000
-.equ STORE 0x3000
-.equ IN    0x4000
-.equ OUT   0x5000
-.equ JMP   0x6000
-.equ JSR   0x7000
-.equ ADD   0x8000
-.equ AND   0x9000
-.equ OR    0xA000
-.equ XOR   0xB000
-.equ OP1   0xC000
-.equ OP2   0xD000
-.equ POP   0xD800               // POP = OP2 I
-.equ ISZ   0xE000
-.equ LIA   0xF000
-.equ JMPII 0xF800
-
-;;; 1.1.1. Instruction flags.
-
-.equ R     0x0400 ; Specify to reference a register (zero page).
-.equ I     0x0800 ; Indirection
-
-
-;;; 2. OP1 Mnemonics, in order of execution.
-
-.equ IFL OP1  #1---------		; Execute the rest only if L is set.
-.equ IFV OP1  #-1--------		; Execute the rest only if V is set.
-.equ CLA OP1  #--1-------		; AC <- 0
-.equ CLL OP1  #---1------		; L <- 0
-.equ NOT OP1  #----1-----		; AC <- NOT A
-.equ INC OP1  #-----1----		; <L,AC> <- <L,AC> + 1
-.equ CPL OP1  #------1---		; L <- NOT L
-.equ RBL OP1  #-------010		; <L,AC> <- <L,AC> >> 1
-.equ RBR OP1  #-------001		; <L,AC> <- <L,AC> << 1
-.equ RNL OP1  #-------110		; <L,AC> <- <L,AC> >> 4
-.equ RNR OP1  #-------101		; <L,AC> <- <L,AC> << 4
-
-
-;;; 3. OP2 Mnemonics, in order of execution.
-
-.equ NOP  OP2 #-----00000		; (no semantics)
-.equ SNA  OP2 #-----01---		; AC & 0x8000 == 1 ==> PC := PC + 1  }
-.equ SZA  OP2 #-----0-1--		; AC == 0 ==> PC := PC + 1           } ORred together
-.equ SSL  OP2 #-----0--1-		; L == 1 ==> PC := PC + 1            }
-.equ SSV  OP2 #-----0---1		; V == 1 ==> PC := PC + 1            }
-.equ SKIP OP2 #-----10000		; PC := PC + 1
-.equ SNN  OP2 #-----11---		; AC & 0x8000 == 0 ==> PC := PC + 1  }
-.equ SNZ  OP2 #-----1-1--		; AC != 0 ==> PC := PC + 1           } ANDed together
-.equ SCL  OP2 #-----1--1-		; L == 0 ==> PC := PC + 1            }
-.equ SCV  OP2 #-----1---1		; V == 0 ==> PC := PC + 1            }
-;.equ CLA OP2 #--1-------		; AC <- 0
-.equ CLI  OP2 #---1------		; INT <= 0
-.equ SEI  OP2 #----1-----		; INT <= 1
-
-
-;;; 4. Common macros
-
-.equ SEL CLL CPL                        ; Set L
-.equ NEG NOT INC			; Negate AC, in two's complement.
-.equ ING NOT			        ; AC = -(AC+1) Increment and negate A, in two's complement
-.equ LI    LIA R                        ; Load immediate (0 to &3ff)
-.equ SPA SNN SNZ			; Skip on positive AC
-.equ SNP SNA SZA                        ; Skip on non-positive AC
-
-.equ IFNN SNA                           ; (don't skip) if AC >= 0
-.equ IFPA SNA SZA                       ; (don't skip) if AC > 0
-.equ IFNZ SZA                           ; (don't skip) if AC != 0
-.equ IFZA SNZ                           ; (don't skip) if AC == 0
-.equ IFNA SNN                           ; (don't skip) if AC < 0
-.equ IFNP SNN SNZ                       ; (don't skip) if AC <= 0
-
-.equ RET JMP I R 0                      ; Return from a subroutine
-.equ RTT JMP I R 1                      ; Return from a trap
-.equ RTI JMP I R 2                      ; Return from the ISR
-
-.equ SBL CLL RBL                        ; Shift bit left
-.equ SBR CLL RBR                        ; Shift bit right
-
-.equ PUSH STORE I                       ; To mirror POP in Microcode v6 (autoinc only)
-
-
-"""
-
 
 # Microcode 7 instruction set. This is the current one, with Memory Bank
 # Registers and a Stack Pointer.
@@ -209,94 +110,78 @@ _BUILTINS = """;;; CFT Assembler Built-ins, Microcode Version 7.x.
 """
 
 
-XPMHEAD = """/* XPM */
-static char * cfg_mem_xpm[] = {
-  "256 256 8 1",
-  "  c #222222",
-  "I c #FF5555",
-  "S c #55FF55",
-  "C c #55FF55",
-  "s c #FFA555",
-  "F c #55FFFF"
-  "W c #4433FF",
-  "P c #000000",
-  "R c #FF55FF",
-"""
-
-XPMFOOT = """};
-
-/* End of file */
-"""
-
-
-def isprint(c, encoding=None):
-    """Return True if the specified character is printable (by a rather naive
-    set of criteria). Can be unicode."""
-    if ord(c) < 32 or ord(c) > 127:
-        return False
-    cat = unicodedata.category(c.decode(encoding or 'utf-8'))
-    return cat[0] in ['L', 'N', 'P', 'S', 'Z']
+class UndefinedSymbolException(Exception):
+    pass
 
 
 class Symbol(object):
-    """A symbol table symbol."""
-    def __init__(self, name, val, filename, linenum):
-        self.name = name
-        self.val = val
+    """A member of the symbol table."""
+    def __init__(self, filename, linenum, name, val=None, tokens=None):
         self.filename = filename
         self.linenum = linenum
+        self.name = name
+        self.val = val
+        self.tokens = tokens
+
 
     def __str__(self):
         return '<%s %s = %04x>' % (self.__class__.__name__, self.name, self.val)
 
 
-    @property
-    def page(self):
-        """Provide the middle 6 bits of the value."""
-        return self.val & 0xfc00
+    def __repr__(self):
+        if self.val is None:
+            return '<Unresolved_{} {}={}>'.format(self.__class__.__name__, self.name, self.tokens)
+        else:
+            return '<{} {}={} ({})>'.format(self.__class__.__name__, self.name, self.val, self.tokens)
 
 
     @property
-    def offset(self):
-        """Provide the lower 10 bits of the value."""
-        return self.val & 0x03ff
+    def unresolved(self):
+        return self.val is None
 
 
     @property
-    def assembly_val(self):
-        """Provide a field for instruction assembly. For non-labels
-        (i.e. instructions, EQUs, etc), we return the whole word."""
-        return self.val
+    def resolved(self):
+        return self.val is not None
 
 
-    def inaccessible(self, addr):
-        """Returns True if the value represents an address
-        inaccessible from the current address due to them being on
-        different pages.
+    # @property
+    # def page(self):
+    #     """Provide the middle 6 bits of the value."""
+    #     return self.val & 0xfc00
 
-        For non-label symbols, always return False. They don't
-        necessarily represent addresses."""
-        return False
+
+    # @property
+    # def offset(self):
+    #     """Provide the lower 10 bits of the value."""
+    #     return self.val & 0x03ff
+
+
+    # @property
+    # def assembly_val(self):
+    #     """Provide a field for instruction assembly. For non-labels
+    #     (i.e. instructions, EQUs, etc), we return the whole word."""
+    #     return self.val
+
+
+    # def inaccessible(self, addr):
+    #     """Returns True if the value represents an address
+    #     inaccessible from the current address due to them being on
+    #     different pages.
+
+    #     For non-label symbols, always return False. They don't
+    #     necessarily represent addresses."""
+    #     return False
 
 
 class Label(Symbol):
-    """A label in the symbol table. Labels are treated specially when they're
-    used in an assembly instruction: only the offset may be used."""
-    @property
-    def assembly_val(self):
-        """Only return the offset of this label, not the entire value."""
-        return self.offset
+    pass
 
 
-    def inaccessible(self, addr):
-        """Returns True if the value represents an address
-        inaccessible from the current address due to them being on
-        different pages."""
-        return (addr & 0xfc00) != self.page
 
+class Register(Symbol):
+    pass
 
-class Register(Label):
-    """A label denoting a register defined with the .reg directive."""
 
 
 class CFTAssembler(object):
@@ -304,32 +189,81 @@ class CFTAssembler(object):
     # The Assembler built-ins.
     BUILTINS = _BUILTINS
 
-    # Pass numbers.
-    PSN_MACRO_DISCOVERY = 0
-    PSN_SYMBOL_DISCOVERY = 1
-    PSN_ASSEMBLY = 2
-    PSN_LAST_PASS = PSN_ASSEMBLY
+    # This protects against endless includes
+    MAX_PREPROCESSOR_DEPTH = 20
 
-    # All assembled instructions (not data) are XORred with this.
-    R_FLAG = 0x0400
-    I_FLAG = 0x0800
+    # Lexer states
+    TOK_SP = 0                  # Start of line, scanning for word
+    TOK_WORD = 1                # Start of a word
+    TOK_QUOTE = 2               # Tokenising a quoted string
+    TOK_QUOTEESC = 3            # Escape '\' character in quoted string
+    TOK_PAREN = 4               # Look for first argument in arg list
+    TOK_PARENWORD = 5           # Parsing argument in arg list
+    TOK_PARENSEP = 6            # Looking for comma or ')' in arg lits
+    TOK_ATEXPR = 7              # Found an @-expression
+    TOK_ATEXPRLONG = 8          # Found an @{} expression
 
-    #MEMSIZE = 65536
-    MEMSIZE = 2 << 20           # Use entire address space
+    # Lexer types in token lists
+    TKT_WORD = 0                # A bare word was found
+    TKT_STR = 1                 # A double-quoted string
+    TKT_LPAREN = 2              # Left parenthesis
+    TKT_ARGSEP = 3              # Argument separator
+    TKT_RPAREN = 4              # Right parenthesis
+    TKT_PARENSEP = 5            # Comma in a parenthetic list
 
-    # Default location of the C Preprocessor.
-    CPP_LOCATION = '/usr/bin/cpp'
+    # Lexer: escape character map
+    ESCAPED_CHARS = {
+        "a": '\a',
+        "b": '\b',
+        "t": '\t',
+        "n": '\n',
+        "v": '\v',
+        "f": '\f',
+        "r": '\r',
+        "@": '\0',
+        }
 
+    # Binary bitfield character mapping
+    BINDICT = {
+        ":": "", ",": "", "'": "",
+        "0": "0", "-": "0", "_": "0", ".": "0",
+        "1": "1"
+    }
+
+    # Assembly models
+    MODEL_SHORT = 16
+    MODEL_LONG = 24
+
+    # Poke types. These help us figure out what each memory address is used
+    # for. Note, 0 isn't used.
+    PKT_UNUSED = 0
+    PKT_INSTR = ord('I')
+    PKT_DATA = ord('D')
+    PKT_WORD = ord('W')
+    PKT_FILL = ord('F')
+    PKT_STR = ord('S')
+    PKT_STRP = ord('P')
+    PKT_REG = ord('R')
+    PKT_UNRESOLVED = 254        # An unresolved symbol would go here
+    PKT_UNKNOWN = 255
+
+    POKETYPES = {
+        PKT_UNUSED:     "not used",
+        PKT_INSTR:      "instruction",
+        PKT_DATA:       ".data block",
+        PKT_WORD:       "word data",
+        PKT_STR:        "string",
+        PKT_STRP:       "packed string",
+        PKT_REG:        "global register",
+        PKT_UNRESOLVED: "undefined symbolic value",
+    }
     
+
     def __init__(self):
-        self.linenum = 1
-        self.filename = '<none>'
-        self.out = sys.stderr.write
+        # self.linenum = 1
+        # self.out = sys.stderr.write
 
-        # Locate the C Preprocessor
-        self.cpp = os.environ.get('CPP', self.CPP_LOCATION)
-
-        # The symbol table.
+        # # The symbol table.
         self.symbols = dict()
 
         # The namespace stack.
@@ -337,756 +271,1260 @@ class CFTAssembler(object):
 
         # The macro table and macro context stack
         self.macros = dict()
-        self.ctx = list()
-        self.mcallno = 0
 
-        # Filename and line numbers.
-        self.filename = '<none>'
-        self.linenum = 1
+        # This is used by logasm so as not to repeat lines unnecessarily.
+        self.logasm_state = (None, None)
 
-        # The current address in memory.
-        self.minaddr = self.MEMSIZE
-        self.maxaddr = 0
-        self.boundwarn_low = False
-        self.boundwarn_high = False
-        self.setaddr(0)
+        # self.mcallno = 0
 
-        # The memory image.
-        self.mem = array.array('H')
-        self.mem.fromlist([0x0000] * self.MEMSIZE)
-        self.sentinel = array.array('b')
-        self.sentinel.fromlist([32] * self.MEMSIZE)
+        # self.regexp_hex = re.compile('^(?:&|0x)([0-9A-Fa-f]+)$')
+        # self.regexp_bin = re.compile('^#([0-9A-Fa-f]+)$')
 
-        self.opts, self.args = self.parseOpts()
+        # # Filename and line numbers.
+        # self.filename = '<none>'
+        # self.linenum = 1
 
-        # Update the various filenames.
-        base = os.path.splitext(self.opts.out_file)[0]
-        self.map_file = self.opts.map_file or (base + '.map')
-        self.asm_file = self.opts.asm_file or (base + '.pasm')
-        self.symbol_file = self.opts.symbol_file or (base + '.sym')
-        self.xpm_map_file = self.opts.xpm or (base + '.xpm')
+        # self.opts, self.args = self.parseOpts()
 
-        # Create the processed assembly output file.
-        self.pasm = open(self.asm_file, 'w')
+        # # Create the processed assembly output file.
 
-        # State
-        self.wrap = False
-        self.jumped = False
-        self.bank = None
+        # # State
+        # self.wrap = False
+        # self.jumped = False
+        # self.bank = None
         
-        # Execute
-        try:
-            self.run()
-        except IOError as e:
-            self.die(str(e))
+        # # Execute
+        # try:
+        #     self.run()
+        # except IOError as e:
+        #     self.die(str(e))
+
+        # Valid Assembly directives
+        self.DIRECTIVES = {
+            '.bank': self.deprecated_directive,
+            '.data': self.parse_dot_data,
+            '.endstring': self.parse_dot_endstring,
+            '.equ': self.parse_dot_equ,
+            '.fill': self.parse_dot_fill,
+            '.longstring': self.parse_dot_longstring,
+            '.reg': self.parse_dot_reg,
+            '.regfill': self.parse_dot_fill, # Same handler as .fill
+            '.str': self.parse_dot_data,     # same handler as .data
+            '.strp': self.parse_dot_strp,
+            '.word': self.parse_dot_word,
+            '.page': self.parse_dot_page,
+            '.strn': None,
+
+            # These are implemented in the preprocessor
+            '.include': None,
+            '.macro': None,
+            '.endmacro': None,
+            '.end': None,            # Deprecated
+            '.popns': None,
+            '.pushns': None,
+            '.scope': None,
+            '.endscope': None,
+            }
+
+        
 
 
-    def parseOpts(self):
+    def parse_command_line(self):
         """Parse command-line options."""
-        p = optparse.OptionParser()
-        p.add_option('-a', '--asm-file',
-                     help='Set processed assembly file output (default: OUTPUT-FILE.pasm).')
-        p.add_option('-m', '--map-file',
-                     help='Set map file output (default: OUTPUT-FILE.map).')
-        p.add_option('-o', '--out-file', metavar='OUTPUT-FILE', default='a.bin',
-                     help='Output object file to OUTPUT-FILE (default: a.bin).')
-        p.add_option('-s', '--symbol-file',
-                     help='Set symbol file output (default: OUTPUT-FILE.sym).')
-        p.add_option('', '--xpm',
-                     help='Output an XPM file mapping the memory image. ' + 
-                     'This is merely a visualisation toy. (default: output nothing).')
+        p = argparse.ArgumentParser(description="An Assembler for the 2019 revision of the CFT.")
 
-        p.add_option('', '--no-builtins', action='store_true',
-                     help='Start with no built-in symbols at all.')
-        p.add_option('-v', '--verbose', action='store_true',
-                     help='Print out assembled code')
-        p.add_option('-d', '--debugging', action='store_true',
-                     help='Print out parsed code and debugging info.')
-        p.add_option('', '--show-builtins', action='store_true',
-                     help='Print out built-ins and exit.')
-        p.add_option('-I', '--include', metavar='PATH', action='append', default=[],
-                     help='Set include path. Can be specified multiple times ' + \
-                         '(paths in current directory always take precedence).')
-        p.add_option('', '--min-addr', action='store', type='int', default=0x0000,
-                     help='Set the starting address for dumping objects, verilog output ' + \
-                         'et cetera (default: 0)')
-        p.add_option('', '--max-addr', action='store', type='int', default=0xffff,
-                     help='Set the ending address for dumping objects, verilog output ' + \
-                         'et cetera (default: 65535)')
-        p.add_option('-B', '--banked', action='store_true',
-                     help='Assemble for extended 24-bit address space. All addresses are ' + \
-                         'mod 8192, and you must use the .bank directive at least once.')
-        
-        return p.parse_args()
+        p.add_argument('-o', '--out-file', metavar='OUTPUT-FILE', default='a.bin',
+                     help='Output object file to OUTPUT-FILE (default: a.bin).')
+
+        p.add_argument('-m', '--model', choices=["short", "long"],
+                       default="short", help="""Choose an assembly model. --model=short produces
+                       relocatable images that can be a maximum of 64KW . --model=long allows the
+                       full 24-bit memory to be written to. This affects object code sizes,
+                       sanity checks, warnings and how addresses are printed. (default: %(default)s)""")
+
+        p.add_argument('-a', '--asm-file',
+                       help='Set processed assembly file output (default: OUTPUT-FILE.pasm).')
+        p.add_argument('-M', '--map-file',
+                       help='Set map file output (default: OUTPUT-FILE.map).')
+        p.add_argument('-s', '--symbol-file',
+                       help='Set symbol file output (default: OUTPUT-FILE.sym).')
+
+        p.add_argument('-V', '--verilog', action="store_true",
+                       help="""Output verilog .list files.""")
+
+        # p.add_option('', '--xpm',
+        #              help='Output an XPM file mapping the memory image. ' + 
+        #              'This is merely a visualisation toy. (default: output nothing).')
+
+        # p.add_option('', '--no-builtins', action='store_true',
+        #              help='Start with no built-in symbols at all.')
+        # p.add_option('-v', '--verbose', action='store_true',
+        #              help='Print out assembled code')
+        # p.add_option('', '--min-addr', action='store', type='int', default=0x0000,
+        #              help='Set the starting address for dumping objects, verilog output ' + \
+        #                  'et cetera (default: 0)')
+        # p.add_option('', '--max-addr', action='store', type='int', default=0xffff,
+        #              help='Set the ending address for dumping objects, verilog output ' + \
+        #                  'et cetera (default: 65535)')
+        # p.add_option('-B', '--banked', action='store_true',
+        #              help='Assemble for extended 24-bit address space. All addresses are ' + \
+        #                  'mod 8192, and you must use the .bank directive at least once.')
+
+        p.add_argument('-p', '--page-warning', action='store', type=int, default=256,
+                     help="""Warn when using .page generates more this many slack words. (default: %(default)s)""")
+
+        p.add_argument('-I', '--include', metavar='DIRECTORY', action='append', default=['.'],
+                       help="""Add to the include path. Can be specified multiple times to add multiple
+                       search directories. Directories will be searched in the
+                       order specified. The include path contains only the
+                       current directory by default. Files in the current
+                       directory will always take precedence.""")
+
+        p.add_argument('--show-builtins', action='store_true',
+                       help='Print out built-ins and exit without assembling anything.')
+
+        p.add_argument('--debug-assembly', action='store_true',
+                       help="""Output all object code and data writes in a fully pre-processed format that
+                       can be fed back to the assembler, if needed. This will echo the same data written to the
+                       .pasm file set with --asm-file or -a.""")
+
+        p.add_argument('--debug-lexer', action='store_true',
+                       help="""Debug the lexer by printing out its state of the lexer for every parsed
+                       character. Extremely verbose.""")
+
+        p.add_argument('--debug-preprocessor', action='store_true',
+                       help="""Debug the preprocessor. This will print out includes and macro expansion info.""")
+
+        p.add_argument('--debug-parser', action='store_true',
+                       help="""Debug the parser by printing out every line in tokenised form. Extremely verbose.""")
+
+        p.add_argument('--debug-macros', action='store_true',
+                       help="""Debug macro definitions and use.""")
+
+        p.add_argument('--debug-pokes', action='store_true',
+                       help="""Debug memory image writes.""")
+
+        p.add_argument('-D', '--debug', action='store_true',
+                       help="""Raise full exception dumps on unexpected failures.""")
+
+        p.add_argument(metavar="INPUT-FILE", dest="input_files",
+                       nargs="*", help="Provide one or more files to assemble.")
+
+        self.args = p.parse_args()
+
+
+    def setup_address_space(self):
+        """Set up the assembler for the specified assembly model."""
+        if self.args.model == "short":
+            self.memsize = 65536
+            self.model = self.MODEL_SHORT
+            self.addr_mask = 0xffff
+            self.minaddr = self.memsize
+            self.maxaddr = 0
+
+        elif self.args.model == "long":
+            self.memsize = 16777216
+            self.model = self.MODEL_LONG
+            self.addr_mask = 0xffffff
+            self.minaddr = self.memsize
+            self.maxaddr = 0
+            # self.boundwarn_low = False
+            # self.boundwarn_high = False
+            # self.set_addr(0)
+
+        else:
+            self.die("Unknown model '{}'".format(self.args.model))
+
+        # The memory image. The multiplication voodoo proves to be a very fast
+        # way to initialise an array in Python: about 10 times faster than
+        # passing [0] * self.MEMSIZE as the array initialiser.
+        self.mem = array.array('H', [0]) * self.memsize
+        self.sentinel = array.array('B', [self.PKT_UNUSED]) * self.memsize
+
+        # self.boundwarn_low = False
+        # self.boundwarn_high = False
+        # self.set_addr(0)
 
 
     def run(self):
         """Run the assembler."""
 
+        # Parse the command line
+        self.parse_command_line()
+
+        # Set our various output filenames.
+        base = os.path.splitext(self.args.out_file)[0]
+        self.asm_file = self.args.asm_file or (base + '.pasm')
+        self.symbol_file = self.args.symbol_file or (base + '.sym')
+        # self.map_file = self.args.map_file or (base + '.map')
+        # self.xpm_map_file = self.args.xpm or (base + '.xpm')
+
+        # Open the pasm file early.
+        try:
+            self.pasm = open(self.asm_file, 'wt')
+        except Exception as e:
+            self.die("unable to open {}: {}".format(self.asm_file, e))
+
         # Check mode of operation and act on it.
-        if self.opts.show_builtins:
-            print(self.BUILTINS)
+        if self.args.show_builtins:
+            print(self.BUILTINS.strip())
             sys.exit(0)
 
-        # Sanity checking
-        if self.opts.min_addr > self.opts.max_addr:
-            self.die('--min-addr must be less than or equal to --max-addr.')
+        # # Sanity checking
+        # if self.opts.min_addr > self.opts.max_addr:
+        #     self.die('--min-addr must be less than or equal to --max-addr.')
         
         # For everything else, we need a filename to assemble.
         if not self.args:
             self.die('an input file must be provided.')
 
+        self.setup_address_space()
+
         # Run the assembler.
         self.parse()
 
-        # Output the object code.
-        self.outobj()
+        # # Output the object code.
+        # self.outobj()
 
 
-    def parse(self):
-        """Assemble the input files.
+    ###############################################################################
+    #
+    # ERROR REPORTING
+    #
+    ###############################################################################
 
-        We perform a two-pass assembly:
-        
-        * Pass 1: compile symbol table.
-        * Pass 2: assemble code.
-        """
-        self.passnum = self.PSN_MACRO_DISCOVERY
 
-        while True:
-            #print "New pass", self.passnum
+    def _msg(self, msg, filename=None, linenum=None):
+        """Output a message, along with file and line number info."""
+        sys.stderr.write('%s:%d: %s\n' % (filename or self.filename,
+                                         linenum or self.linenum,
+                                         msg))
 
-            # Clear the namespace stack
-            self.ns = []
-            self.deferred = []
-            self.scope = 0
-            self.longstring = None
-            self.compstring = None
+    def warn(self, msg):
+        """Output a warning message."""
+        self._msg('warning: ' + msg)
+
+
+    def error(self, msg):
+        """Output an error message and fail."""
+        # Is there a macro/file context we should print out?
+        #pprint.pprint(self.ctx)
+        for (ctx_filename, ctx_linenumber, ctx_macro) in self.ctx:
+            if ctx_macro:
+                self._msg("error: (in macro '{}' invocation from {}:{})".format(
+                    ctx_macro, ctx_filename, ctx_linenumber))
+            else:
+                self._msg("error: (included from {}:{})".format(ctx_filename, ctx_linenumber))
+
+        self._msg('error: ' + msg)
+
+
+    def fail(self, msg):
+        """Output an error message and fail."""
+        self.error(msg)
+        sys.exit(1)
+
+
+    def die(self, msg):
+        """Output an interal, fatal error and fail."""
+        sys.stderr.write('%s: %s\n' % (sys.argv[0], msg))
+        sys.exit(1)
+
+
+    ###############################################################################
+    #
+    # DEBUGGING
+    #
+    ###############################################################################
+
+    def debug_lexer(self, s):
+        if self.args.debug_lexer:
+            print("{}:{}: [lexer] {}".format(self.filename, self.linenum, s))
             
-            # First, parse the builtins.
-            self.filename = '<builtins>'
-            self.linenum = 0
-            self.setaddr(0)
-            self.jumped = False
-            self.assembly_pass(self.BUILTINS.split('\n'))
-
-            # Then, parse each input file in order.
-            for filename in self.args:
-                self.filename = filename
-                self.linenum = 0
-                self.mcallno = 0
-
-                self.assembly_pass(open(filename))
-
-            # Warn about unbalanced namespaces
-            if len(self.ns):
-                self.warn("Namespace stack not empty at end of document (%s)" %
-                          (', '.join(self.ns)))
-
-            if self.deferred:
-                print("Deferred symbols:", self.deferred)
-                # Undefine any deferred symbols
-                for sym in self.deferred:
-                    print("deleting", sym)
-                    try:
-                        del self.symbols[sym]
-                    except KeyError:
-                        continue
-                
-
-            # Move on to the next pass. There can be multiple symbol discovery
-            # passes, depending on whether there are deferred symbols (forward
-            # definitions that couldn't be resolved in one pass).
-            if self.passnum == self.PSN_MACRO_DISCOVERY:
-                self.passnum = self.PSN_SYMBOL_DISCOVERY
-            elif self.passnum == self.PSN_SYMBOL_DISCOVERY:
-                if not self.deferred:
-                    self.passnum = self.PSN_ASSEMBLY
-                else:
-                    print("Deferred symbols:", self.deferred)
-            elif self.passnum == self.PSN_ASSEMBLY:
-                # At the end of the last parse, print out the symbol table.
-                self.outmap()
-                self.outsym()
-                self.outxpm()
-                break
-
-
-    def assembly_pass(self, stuff):
-        """Perform a single pass of the assembler."""
     
-        for line in stuff:
-            orgline = line.rstrip().expandtabs()
-            self.linenum += 1
-
-            line = line.strip()
-
-            # Strip blank lines.
-            if not line:
-                continue
-
-            tokens = list(self.lexer(line))
-            if self.opts.debugging:
-                print("D: %s:%d: %04x %s" % (self.filename, self.linenum, self.addr,
-                                         ', '.join('<%s>' % x for x in tokens)))
-
-            # Hm, the line is all comments and white space.
-            if not tokens:
-                continue
-
-            # Process address-less directives
-            if tokens[0].startswith('.'):
-                if tokens[0] == '.equ':
-                    if len(tokens) < 2:
-                        self.fail('Value expected after .equ')
-                    # Allow forward definitions: don't parse the token unless it's the last pass.
-                    # TODO: Verify this code and remove 'True or'.
-                    val = self.parseField(tokens[2:], allbits=True)
-                    # if self.passnum == self.PSN_ASSEMBLY:
-                    #     val = self.parseField(tokens[2:], allbits=True)
-                    #     #print self.passnum, tokens[1], hex(val)
-                    # else:
-                    #     print self.parseField(tokens[2:], allbits=True)
-                    #     val = 0xbeef
-                    #     print self.passnum, tokens[1], hex(val)
-                    self.addSymbol(tokens[1], val)
-                    continue
-                elif tokens[0] == '.macro':
-                    self.parseMacroDef(line, stuff)
-                    continue
-                elif tokens[0] == '.include':
-                    self.includeFile(line)
-                    continue
-                elif tokens[0] == '.pushns':
-                    self.pushNamespace(line)
-                    continue
-                elif tokens[0] == '.popns':
-                    self.popNamespace(line)
-                    continue
-                elif tokens[0] == '.scope':
-                    self.startScope(line)
-                    continue
-                elif tokens[0] == '.endscope':
-                    self.endScope(line)
-                    continue
-
-            # Is there a label or address?
-            if len(tokens) > 1 and tokens[1] == ':':
-                label = tokens[0]
-                try:
-                    self.setaddr(self.parseInt(label))
-                    tokens = tokens[2:]
-                except ValueError:
-                    # It's a label.
-                    self.addSymbol(tokens[0], self.addr, symtype=Label)
-                    tokens = tokens[2:]
-
-            # We purposefully don't _continue_ after a successful label parse.
-            # There may be an instruction on the same line as the label.
+    def debug_parser(self, s):
+        if self.args.debug_parser:
+            print("{}:{}: [parser] {}".format(self.filename, self.linenum, s))
+            
+    
+    def debug_preprocessor(self, s):
+        if self.args.debug_preprocessor:
+            print("{}:{}: [preprocessor] {}".format(self.filename, self.linenum, s))
+            
+    
+    def debug_macros(self, s):
+        if self.args.debug_macros:
+            print("{}:{}: [macros] {}".format(self.filename, self.linenum, s))
 
 
-            # Is this a macro call? If so, it should be the only thing on a
-            # line, and be invoked like macro() or macro(a,b,c,...).
-            x = re.findall('^\s*([\w.]+)\s*\((.+)\)\s*$', ' '.join(tokens))
-            if x:
-                #print "assemble macro", x[0]
-                self.assembleMacro(x[0])
-                continue
-
-            # It must be an instruction, then. Only assemble after the symbol
-            # discovery pass, otherwise some labels won't be defined.
-            if tokens:
-
-                # Is this an address-ful directive?
-                if tokens[0].startswith('.'):
-                    self.assembleDataDirective(tokens, orgline)
-                else:
-                    self.assembleInstruction(tokens, orgline)
-
-                # The address increases regardless of the pass number.
-                #sys.stderr.write('+++INC+++\n')
-                self.incaddr()
+    def debug_assembly(self, s):
+        if self.args.debug_assembly:
+            print("{}:{}: [assembly] {}".format(self.filename, self.linenum, s))
+            
+    
+    def debug_pokes(self, s):
+        if self.args.debug_pokes:
+            print("{}:{}: [poke] {}".format(self.filename, self.linenum, s))
 
 
-    def includeFile(self, line):
-        """Include an .asm file."""
+    ###############################################################################
+    #
+    # UTILITIES
+    #
+    ###############################################################################
+
+    def fmt_addr(self, addr=None):
+        """Format the specified address according to the current assembly model. If the
+        address is left out, the current assembly address is formatted."""
+        if addr is None:
+            addr = self.addr
+
+        # TODO: Also format 24-bit addresses
+        if self.model == self.MODEL_SHORT:
+            return hex(addr)[2:].zfill(4)
+        else:
+            return hex(addr)[2:].zfill(6)
+
+
+    def get_nsname(self, symbol=None):
+        if symbol is None and self.ns == []:
+            return '.'
+        elif symbol is None:
+            return '.'.join(self.ns)
+        return '.'.join(self.ns + [symbol])
+
+
+    def is_word(self, token, word=None):
+        """Return True if the specified token is a bare word. With an optional second
+        argument, return True if it's the exact word specified."""
+        return token[0] == self.TKT_WORD and ((word is None) or (token[1] == word))
+
+
+    def is_str(self, token):
+        """Return True if the specified token is a string."""
+        return token[0] == self.TKT_STR
+
+
+    def is_label(self, token):
+        """Return True if the specified token represents a label."""
+        return token[0] == self.TKT_WORD and token[1][-1] == ':'
+
+
+    def is_directive(self, token):
+        """Return True if the specified token represents a label."""
+        return token[0] == self.TKT_WORD and token[1][0] == '.'
+
+
+    def check_valid_directive(self, token):
+        """Return the handler method for a token representing a dot
+        directive. If the token is not a valid dot directive, fail the
+        parse."""
+        if type(token) == tuple:
+            token = token[1]
         try:
-            fname = re.findall('^\.include\s+"(\S+?)"', line)[0]
-        except (TypeError, IndexError):
-            self.fail('syntax error parsing .include directive')
-
-        fn = fname
-        class FoundFile(Exception):
-            pass
-
-        try:
-            for pathcomp in ['.'] + self.opts.include:
-                fn = os.path.join(pathcomp, fname)
-                if os.path.exists(fn):
-                    raise FoundFile
-            self.fail("File %s not found in include path .:%s" \
-                          % (fname, ':'.join(self.opts.include)))
-        except FoundFile:
-            pass
-
-        try:
-            f = open(fn)
-        except IOError as e:
-            self.fail(str(e))
-
-        # Parse the specified file.
-        if self.opts.debugging:
-            sys.stderr.write('D: %s:%d: include file %s (%s)\n' % \
-                                 (self.filename, self.linenum, fname, fn))
-        savedState = self.filename, self.linenum
-        self.pushParseContext(fn, self.filename, self.linenum, None)
-        self.filename = fn
-        self.linenum = 1
-        self.assembly_pass(f)
-        self.popParseContext()
-        self.filename, self.linenum = savedState
-        if self.opts.debugging:
-            sys.stderr.write('D: %s:%d: end of included file %s\n' % \
-                                 (self.filename, self.linenum, fname))
+            return self.DIRECTIVES[token]
+        except KeyError:
+            self.fail("Unknown directive {}.".format(token))
 
 
-    def parseMacroDef(self, line, stuff):
-        """Parse a macro definition."""
+    def get_symbol(self, sym):
+        """Return the value of a symbol from the symbol table. Return None if it
+        couldn't be found.
+        """
+        for x in range(len(self.ns), -1, -1):
+            try:
+                nssym = '.'.join(self.ns[0:x] + [sym])
+                #print "Pass", self.passnum, ", Looking up", nssym, self.ns
+                return self.symbols[nssym]
+            except KeyError:
+                continue
+        return None
+
+
+    def add_symbol(self, nssym, symbol_object):
+        """Add a symbol to the symbol table. Argument sym should be a symbol name fully
+        qualified with its namespace; symbol_object should be an instance of a
+        class derived from class Symbol.
+        """
+        existing = self.symbols.get(nssym)
+        if existing is not None:
+            if self.final_pass and existing.resolved and symbol_object.resolved and \
+               existing.val != symbol_object.val:
+                self.warn("redefining symbol {} (defined on {}:{}) from &{:>04x} to &{:>04x}".format(
+                    nssym, existing.filename, existing.linenum, existing.val, symbol_object.val))
+
+        self.symbols[nssym] = symbol_object
+
         
-        start = self.linenum
-
-        # Parse the macro definition
-        try:
-            name, arglist = re.findall('^\.macro\s+(\w+)\s*\((.*?)\)\s*', line)[0]
-            arglist = re.split('\s*,\s*', arglist)
-
-        except (TypeError, IndexError):
-            self.fail('syntax error parsing macro definition')
-
-        macrodef = []
-        for line in stuff:
-            orgline = line.rstrip().expandtabs()
-            self.linenum += 1
-
-            if line.strip() == '.end':
-                if self.passnum == self.PSN_MACRO_DISCOVERY:
-                    try:
-                        pf, pl = self.getMacro(name)[:2]
-                        self.fail("macro '%s' previously defined in %s, line %d." % (name, pf, pl))
-                    except KeyError:
-                        # New macro. Store it.
-                        nsname = '.'.join(self.ns + [name])
-                        self.macros[nsname] = (self.filename, start, arglist, macrodef)
-                        #print "Defined macro", nsname
-                return
-            macrodef.append(line)
-
-        self.fail("Macro without .end (started on line %d)" % start)
+    def get_macro(self, sym):
+        """Return the definition tuple of a macro. Return None if it couldn't
+        be found.
+        """
+        for x in range(len(self.ns), -1, -1):
+            try:
+                nssym = '.'.join(self.ns[0:x] + [sym])
+                return self.macros[nssym]
+            except KeyError:
+                continue
+        return None
 
 
-    def pushParseContext(self, macro, filename, linenum, mdef):
-        """Push a macro context onto the context stack.
+    # def push_parse_context(self, macro, filename, linenum, mdef):
+    #     """Push a macro context onto the context stack. This is used for reporting the
+    #     exact location of file inclusions and macro expansions.
 
-        This is used for error reporting."""
-        self.ctx.append((macro, filename, linenum, mdef))
+    #     This is used for error reporting.
+
+    #     """
+    #     self.ctx.append((macro, filename, linenum, mdef))
 
 
-    def popParseContext(self):
+    # def pop_parse_context(self):
+    #     """Pop a macro context from the context stack.
+
+    #     This is used for error reporting."""
+    #     try:
+    #         return self.ctx.pop()
+    #     except IndexError:
+    #         self.die('Attempted pop from empty context stack.')
+
+
+    def enter_parse_context(self, filename, linenum, macro):
+        """Push a macro context onto the context stack. This is used for reporting the
+        exact location of file inclusions and macro expansions.
+
+        This is used for error reporting.
+
+        """
+        self.ctx.append((self.filename, self.linenum, self.current_macro))
+        self.filename = filename
+        self.linenum = linenum
+        self.current_macro = macro
+
+
+    def leave_parse_context(self):
         """Pop a macro context from the context stack.
 
         This is used for error reporting."""
         try:
-            return self.ctx.pop()
+            (self.filename, self.linenum, self.current_macro) = self.ctx.pop()
         except IndexError:
             self.die('Attempted pop from empty context stack.')
 
 
-    def assembleMacro(self, match):
-        """Assemble a macro call.
-
-        Macro calls are assembled in all passes by temporarily reading input
-        from the macro definition, not the current file.
-        """
-        name, arglist = match
-        arglist = [x.strip() for x in re.split('\s*,\s*', arglist)]
-
-        try:
-            #print "Assembling macro", name
-            mf, mln, mal, mdef = self.getMacro(name)
-        except KeyError:
-            self.fail("undefined macro '%s'" % name)
-
-        if len(arglist) != len(mal):
-            self.fail("macro '%s' expects exactly %d arguments" % (name, len(mal)))
-
-        # Copy the macro definition, because we'll be making changes
-        mdef_inst = copy.copy(mdef)
-
-        # Add a unique serial number argument. Useful for namespacing labels.
-        self.mcallno += 1
-        for i, line in enumerate(mdef_inst):
-            mdef_inst[i] = line.replace('%_', str(self.mcallno))
-
-        # Replace placeholders with actual arguments
-        for argname, argval in zip(mal, arglist):
-            for i, line in enumerate(mdef_inst):
-                # WARNING: this will mess up with args like %n and
-                # %num.
-                #mdef_inst[i] = line.replace('%' + argname, argval)
-                mdef_inst[i] = re.sub(r'%{?' + argname + r'(}|\b)', argval, line)
-
-        # Set us up to parse the macro definition.
-        if self.opts.debugging:
-            sys.stderr.write('D: %s:%d: execute macro %s, arglist: %s\n' % \
-                                 (self.filename, self.linenum, name, ', '.join(arglist)))
-        fn, nl = self.filename, self.linenum
-        self.pushParseContext(name, self.filename, self.linenum, self.getMacro(name))
-        self.filename = mf
-        self.linenum = mln
-        self.assembly_pass(mdef_inst)
-        self.popParseContext()
-        self.filename, self.linenum = fn, nl
-        if self.opts.debugging:
-            sys.stderr.write('D: %s:%d: end of macro %s, arglist: %s\n' % \
-                                 (self.filename, self.linenum, name, ', '.join(arglist)))
+    def set_addr(self, a):
+        """Set the assembly address."""
+        self.addr = a & self.addr_mask
+        self.jumped = True
+        self.wrap = False
 
 
-    def assembleDataDirective(self, tokens, orgline):
-        """Assemble a data directive.
-        
-        A data directive is anything that starts with a . (e.g. .word, .str)
-        and includes data for the output file (as opposed to other directives,
-        which modify the behaviour of the assembler.
-        """
-        if tokens[0] == '.word':
-            self.jumped = False
-            if self.passnum == self.PSN_ASSEMBLY:
-                val = self.parseField(tokens[1:], allbits=True, pageboundary=False)
-                self.poke(val, poketype='W')
-                self.logasm(val, orgline=orgline)
-
-        elif tokens[0] == '.reg':
-            if len(tokens) < 2:
-                self.fail('Value expected after .reg')
-            # Allow forward definitions: don't parse the token unless it's the last pass.
-            # TODO: Verify this code and remove 'True or'.
-            if self.passnum == self.PSN_ASSEMBLY:
-                val = self.parseField(tokens[2:], allbits=True)
-                #print self.passnum, tokens[1], hex(val)
-            else:
-                val = 0xdead
-                #print self.passnum, tokens[1], hex(val)
-            self.addSymbol('$' + tokens[1], self.addr, symtype=Register)
-            self.addSymbol(tokens[1], val)
-
-            self.poke(0x0000, poketype='R')
-            if self.passnum == self.PSN_ASSEMBLY:
-                self.logasm(val, orgline=orgline)
-        elif tokens[0] in ('.str', '.data'):
-            self.assembleString(tokens, orgline)
-        elif tokens[0] == '.strn':
-            self.assembleString(tokens, orgline, neg=True)
-        elif tokens[0] == '.strp':
-            self.assemblePackedString(tokens, orgline)
-        elif tokens[0] in ('.longstring', '.compstring'):
-            self.compstring = tokens[0] == '.compstring'
-            if self.longstring is not None:
-                self.fail(".longstring inside another .longstring.")
-            if self.passnum == self.PSN_ASSEMBLY:
-                self.logasm(None, msg='', orgline=orgline)
-            self.longstring = []
-            if len(tokens) > 1:
-                self.assemblePackedString(tokens, orgline)
-            # The address won't be incremented yet.
-            self.incaddr(-1)
-        elif tokens[0] == '.endstring':
-            if self.compstring:
-                self.assembleCompString(tokens, orgline)
-            else:
-                self.assembleLongString(tokens, orgline)
-        elif tokens[0] == '.fill':
-            self.assembleFill(tokens, orgline)
-        elif tokens[0] == '.regfill':
-            self.assembleFill(tokens, orgline, poketype='R')
-        elif tokens[0] == '.page':
-            self.assemblePage(tokens, orgline)
-        elif tokens[0] == '.bank':
-            self.assembleBank(tokens, orgline)
-        elif tokens[0].startswith('.'):
-            self.fail("Unknown assembler directive '%s'." % tokens[0])
-
-
-    def assembleString(self, tokens, orgline, neg=False):
-        """Assemble a string directive.
-
-        A string directive places each value specified as a token in
-        memory. Values can be strings enclosed in double-quotes or symbols,
-        e.g.:
-
-        .str "Hello, world!" 0   ; A null-terminated string.
-        """
-        if self.passnum == self.PSN_ASSEMBLY:
-            self.logasm(None, msg='', orgline=orgline)
-            #print 'A: %04x:      ; %s' % (self.addr, orgline)
-
-        tokens = tokens[1:]
-        for i, token in enumerate(tokens):
-            if token.startswith('"'):
-                # The lexer guarantees strings are enclosed in double
-                # quotes. Strip them.
-                chars = token[1:-1]
-            else:
-                # If it's not a string token, it should parse to an integer of sorts.
-                chars = [self.parseToken(token)]
-
-            for j, char in enumerate(chars):
-                # Convert it to an int. Try numerous things.
-                if type(char) == bytes:
-                    val = ord(char)
-                elif type(char) == str:
-                    val = ord(char)
-                elif type(char) == int:
-                    val = char
-                    char = chr(val)
-                elif isinstance(char, Symbol):
-                    val = char.assembly_val
-                    char = chr(val)
-                else:
-                    self.fail('string/data element has weird type %s' % type(char))
-                    
-                if self.passnum == self.PSN_ASSEMBLY:
-                    char = isprint(char) and char or ' '
-
-                    # If this is the last character of the last token, and
-                    # we're storing negative-terminated strings, OR the value
-                    # with 0x8000.
-                    if neg and ((i + 1) == len(tokens)) and ((j + 1) == len(chars)):
-                        val |= 0x8000
-                        self.logasm(val, orgline='"%s" (U+%04x) | 0x8000' % (char, val))
-                    else:
-                        self.logasm(val, orgline='"%s" (U+%04x)' % (char, val))
-
-                self.poke(val, poketype='S')
-                self.incaddr()
-
-        # Our caller will increment the address, so adjust here.
-        self.incaddr(-1)
-
-
-    def assembleLongString(self, tokens, orgline):
-        """Assemble the previously gathered tokens of a long string."""
-        if self.longstring is None:
-            self.fail(".endstring without matching .longstring!")
+    def inc_addr(self, by=1):
+        """Increment the address."""
+        # If the address has just been set and no data has been written to
+        # memory, don't increment yet.
+        if self.jumped:
             return
 
-        tokens = [ '.strp' ] + self.longstring + ['0']
-        #print "*** TOKENS:", tokens
-        self.longstring = None
-        self.assemblePackedString(tokens, orgline)
+        self.addr = (self.addr + by) & self.addr_mask
+        if self.addr == 0:
+            self.wrap = True
+        elif self.wrap and self.addr == 1:
+            # Warn the second time this gets here to avoid a spurious
+            # warning when 0xffff is written to (and no further).
+            self.wrap = False
+            self.warn('64KW bank boundary crossed.')
 
 
-    def assembleCompString(self, tokens, orgline, null=True):
-        """Assemble a run-length, VDU-style packed string (.compstring
-        directive).
+    
+            
+    
+    ###############################################################################
+    #
+    # THE TOKENISER
+    #
+    ###############################################################################
 
-        A compressed string stores byte values, one byte per word,
-        with an off-by-one repetition count in the high-order
-        bits. For instance, a value of &0041 decompresses to 'A'. A
-        value of &0242 decompresses to 'CCC'. The repetition count is
-        purposefully compatible to the VDU's CRR register.
+    def lexer(self, iterable):
+        """Lex an iterable containing lines. This could be a file-like object or
+        iterable of strings, one string per line. Yield lists of tuples
+        (token_type, string) for each lexed component of the line.
 
-        The string is null-terminated with a word value &0000 unless
-        the optional argument null=False is provided.
         """
-        raise RuntimeError('Not fully implemented yet')
-        print(tokens)
-        if self.passnum == self.PSN_ASSEMBLY:
-            self.logasm(None, msg='', orgline=orgline)
-            #print 'A: %04x:      ; %s' % (self.addr, orgline)
+        fmt = lambda x: x.replace('{', '\033[1m{').replace('}', '}\033[0m')
 
-        tokens = tokens[1:]
-        state = (0, None)
+        whitespace = "\t\r\n "
+        comments = ";/"
 
-        def _storeChar(byteVal, state):
-            if state[1] == byteVal and state[1] <= 256:
-                state = (state[0] + 1, state[1])
-            else:
-                if state[1] is not None:
-                    if self.passnum == self.PSN_ASSEMBLY:
-                        val = ((state[0] - 1) << 8) | (state[1] & 0xff)
-                        if state[0] < 40 and isprint(chr(state[1])):
-                            s = '"%s"' % (chr(state[1]) * state[0])
-                        else:
-                            s = '"."'
-                        self.logasm(val, orgline='%s %(U+%04x) x %d' % (s, state[1], state[0]))
-                    self.poke(val, poketype='C')
-                    self.incaddr()
-                state = (1, byteVal)
+        for i, line in enumerate(iterable, 1):
+            self.line = line
+            self.linenum += 1
+            line = line.strip()
+            tokens = []
+            tmptoken = ''
+            state = self.TOK_SP
+            self.debug_lexer(fmt("\n+++ LINE: '{}'").format(line))
+            for c in line.rstrip('\n'):
+                self.debug_lexer(fmt("*** c='{c}', state={state}, tmptoken={tmptoken}, tokens={tokens}").format(**locals()))
 
-            return state
+                # The state machine (warning: sprawling code!)
+                if state == self.TOK_SP:
+                    # Ignore white space, look for the beginning of a word
+                    if c in whitespace:
+                        continue
+                    elif c in comments:
+                        # Comment. Ignore rest of line.
+                        break
+                    elif c == '"':
+                        state = self.TOK_QUOTE
+                        tmptoken = ''
+                    elif c == '(':
+                        tokens.append((self.TKT_LPAREN, '('))
+                        state = self.TOK_PAREN
+                    elif c == '@':
+                        tmptoken = "@"
+                        state = self.TOK_ATEXPR
+                    elif c == ':':
+                        self.fail("Parse error. If this is label, delete white space before the colon.")
+                    else:
+                        state = self.TOK_WORD
+                        tmptoken = c
 
-        for i, token in enumerate(tokens):
-            print(i, token)
-            if token.startswith('"'):
-                # The lexer guarantees strings are enclosed in double
-                # quotes. Strip them.
-                chars = token[1:-1]
-            else:
-                # If it's not a string token, it should parse to an integer of sorts.
-                chars = [self.parseToken(token)]
+                elif state == self.TOK_QUOTE:
+                    # Read until a closing double quote is found
+                    if c == '\\':
+                        state = self.TOK_QUOTEESC
+                        continue
+                    elif c == '"':
+                        state = self.TOK_SP
+                        tokens.append((self.TKT_STR, tmptoken))
+                    else:
+                        tmptoken += c
 
-            for j, char in enumerate(chars):
-                try:
-                    val = ord(char)
-                except TypeError:
-                    # It's already an int.
-                    val = char
-                state = _storeChar(val, state)
+                elif state == self.TOK_QUOTEESC:
+                    # An escape character has been seen in a string. Some
+                    # characters (e.g \n) are treated specially. All others are
+                    # inserted into the string as-is.
+                    tmptoken += self.ESCAPED_CHARS.get(c, c)
+                    state = self.TOK_QUOTE
 
-        if null:
-            _storeChar(0, state)
-        # Our caller will increment the address, so adjust here.
-        self.incaddr(-1)
+                elif state == self.TOK_ATEXPR:
+                    # An @-expression has been seen.
+                    if c in whitespace:
+                        tokens.append((self.TKT_WORD, tmptoken))
+                        state = self.TOK_SP
+                    elif c in comments:
+                        # Start of comment. Ignore rest of line.
+                        if tmptoken:
+                            tokens.append((self.TKT_WORD, tmptoken))
+                        break
+                    elif c == '{':
+                        # Transition to a long @-expression. Keep tokens. Don't
+                        # bother with the '{' though.
+                        state = self.TOK_ATEXPRLONG
+                    else:
+                        tmptoken += c
 
-    def assemblePackedString(self, tokens, orgline):
-        """Assemble a packed null-terminated string directive.
+                elif state == self.TOK_ATEXPRLONG:
+                    # An @-expression has been seen.
+                    if c == '}':
+                        # Done with expression. Don't bother adding the trailing }.
+                        tokens.append((self.TKT_WORD, tmptoken))
+                        state = self.TOK_SP
+                    else:
+                        tmptoken += c
 
-        A packed string is a string in which 8-bit bytes are
-        word-packed. Even characters of a string (including the first
-        one) use the least significant 8 bits of a word. Odd
-        characters use the most significant 8 bits.
+                elif state == self.TOK_WORD:
+                    # Add letters to a word until we meet whitespace
+                    if c in whitespace:
+                        tokens.append((self.TKT_WORD, tmptoken))
+                        state = self.TOK_SP
+                    elif c in comments:
+                        # Start of comment. Ignore rest of line.
+                        if tmptoken:
+                            tokens.append((self.TKT_WORD, tmptoken))
+                        break
+                    elif c == '(':
+                        if tmptoken:
+                            tokens.append((self.TKT_WORD, tmptoken))
+                            tmptoken = ''
+                        tokens.append((self.TKT_LPAREN, '('))
+                        state = self.TOK_PAREN
+                    else:
+                        # We'll allow any character here.
+                        tmptoken += c
 
-        The string is terminated by the bit sequence 00000000. The
-        user is responsible for including this! Use something like:
+                elif state == self.TOK_PAREN:
+                    # We just start an arg list.
+                    if c in whitespace:
+                        continue
+                    elif c in comments:
+                        # Start of comment. Ignore rest of line.
+                        if tmptoken:
+                            tokens.append((self.TKT_PARENWORD, tmptoken))
+                        break
+                    elif c in ')':
+                        # End of arg list
+                        tokens.append((self.TKT_RPAREN, ')'))
+                        state = self.TOK_SP
+                    elif c == ',':
+                        self.fail("Unexpected comma in parameter list.")
+                    else:
+                        state = self.TOK_PARENWORD
+                        tmptoken = c
 
-        .strp "Spam, spam, spam and spam." 0
+                elif state == self.TOK_PARENWORD:
+                    # im in ur parens lists parsing ur words
+                    if c in whitespace:
+                        # Allow multiple tokens to be provided as a single
+                        # argument, separated by spaces.
+                        if tmptoken:
+                            tokens.append((self.TKT_WORD, tmptoken))
+                            tmptoken = ''
+                    elif c == ',':
+                        if not tmptoken:
+                            self.fail("Unexpected comma.")
+                        tokens.append((self.TKT_WORD, tmptoken))
+                        tokens.append((self.TKT_ARGSEP, ','))
+                        state = self.TOK_PAREN
+                    elif c == ')':
+                        if not tmptoken:
+                            self.fail("Unexpected closing parenthesis.")
+                        tokens.append((self.TKT_WORD, tmptoken))
+                        tokens.append((self.TKT_RPAREN, ')'))
+                        state = self.TOK_SP
+                    else:
+                        # We'll allow any character here.
+                        tmptoken += c
 
-        where the last '0' is the string terminator.
+            # Finish lexing the last parsed word, if there is one. Ending a
+            # line in some states is a parse error. Handle those too.
+            if state in (self.TOK_WORD, self.TOK_ATEXPR) and tmptoken:
+                tokens.append((self.TKT_WORD, tmptoken))
+            elif state == self.TOK_QUOTEESC:
+                self.fail("Line ended in backspace. Were you escaping something?")
+            elif state == self.TOK_QUOTE:
+                self.fail("Missing closing double quote.")
+            elif state == self.TOK_ATEXPRLONG:
+                self.fail("Missing closing brace while parsing @-expression.")
+            elif state != self.TOK_SP:
+                self.fail("Parse error")
 
-        Packed strings can contain any byte-encoded character set
-        (including Unicode, encoded in UTF-8 or UTF-7). Even-sized
-        strings need an extra word for their terminating null.
-        """
-        if self.passnum == self.PSN_ASSEMBLY:
-            self.logasm(None, msg='', orgline=orgline)
-            #print 'A: %04x:      ; %s' % (self.addr, orgline)
+            # Done.
+            if tokens:
+                yield(tokens)
 
-        def _storechar(wordval):
-            if self.passnum == self.PSN_ASSEMBLY:
-                if wordval & 0x80:
-                    self.logasm(wordval, orgline='"%s" (U+%04x) | 0x80' % \
-                                    (chr(wordval & 0x7f), wordval & 0x7f))
-                elif wordval & 0x8000:
-                    self.logasm(wordval, orgline='"%s%s" (U+%04x U+%04x) | 0x8000' % \
-                                    (chr(wordval & 0x7f), chr((wordval & 0x7f00) >> 8),
-                                     wordval & 0x7f, (wordval & 0x7f00) >> 8))
-                else:
-                    self.logasm(wordval, orgline='"%s%s" (U+%04x U+%04x)' % \
-                                    (chr(wordval & 0x7f), chr((wordval & 0x7f00) >> 8),
-                                     wordval & 0x7f, (wordval & 0x7f00) >> 8))
+            # Next line.
+        # End of parse
+    # End of laxer
 
-            self.poke(wordval, poketype='s')
-            self.incaddr()
 
-        tokens = tokens[1:]
-        numchars = 0
-        wordval = 0
-        #pprint.pprint(tokens)
-        for i, token in enumerate(tokens):
-            #if len(tokens) > 1:
-            #    print "\t***", i, token.replace('\n', r'\n')
+    ###############################################################################
+    #
+    # THE PREPROCESSOR
+    #
+    ###############################################################################
 
-            # If we're in longstring mode, just gather all the tokens
-            # for later processing.
-            if self.longstring is not None:
-                self.longstring.append(token)
+    def preprocess_file(self, filename):
+        try:
+            f = open(filename, 'rt')
+        except Exception as e:
+            self.die("Unable to open {}: {}".format(filename, e))
+
+        # Set the parse context.
+        self.filename = filename
+        self.linenum = 0
+        self.debug_lexer("\n--- START FILENAME: {}'".format(filename))
+        for tokens in self.preprocessor(f):
+            yield tokens
+        self.debug_lexer("\n--- END FILENAME: {}'".format(filename))
+
+
+    def preprocessor(self, line_iterable):
+        """A very basic preprocessor: just handle file inclusions."""
+        for tokens in self.lexer(line_iterable):
+            self.debug_parser("*** tokens: {}".format(tokens))
+
+            # Is this an include directive?
+            if tokens[0] == (self.TKT_WORD, '.include'):
+                for tokens in self.preprocessor_dot_include(tokens):
+                    yield tokens
                 continue
 
-            if token.startswith('"'):
-                # The lexer guarantees strings are enclosed in double
-                # quotes. Strip them.
-                chars = token[1:-1]
+            # Is there what appears to be a macro call?
+            elif self.expand_macros and \
+               (self.TKT_WORD, '.macro') not in tokens and \
+               (self.TKT_LPAREN, '(') in tokens:
+                for tokens in self.preprocessor_expand_macro(tokens):
+                    yield tokens
+
+            # Nope, just yield the tokenised line
             else:
-                # If it's not a string token, it should parse to an integer of sorts.
-                chars = [self.parseToken(token)]
+                yield tokens
 
-            for j, char in enumerate(chars):
-                try:
-                    val = ord(char)
-                except TypeError:
-                    # It's already an int.
-                    val = char
-                    char = chr(char)
-                    #if ord(char) not in xrange(128):
-                    #    self.fail("Packed strings can only contain 7-bit characters.")
-                if self.passnum == self.PSN_ASSEMBLY:
-                    char = isprint(char) and char or ' '
 
-                    # If this is the last character of the last token, set the
-                    # high bit.
-                    #if ((i + 1) == len(tokens)) and ((j + 1) == len(chars)):
-                    #    val |= 0x80
+    def preprocessor_dot_include(self, tokens):
+        """Include an .asm file."""
 
-                if (numchars & 1) == 0:
-                    wordval = val
+        if self.preprocessor_depth >= self.MAX_PREPROCESSOR_DEPTH:
+            self.fail("Too many nested includes or macro calls.")
+        self.preprocessor_depth += 1
+
+        try:
+            include, include_fname = tokens
+            assert include[0] == self.TKT_WORD # Sanity check; this has been checked already
+            assert include_fname[0] == self.TKT_STR
+
+        except:
+            self.fail("Error parsing .include directive.")
+
+        # Look for the file in the specified include path
+        fname = include_fname[1]
+        class FoundFile(Exception):
+            pass
+
+        try:
+            for pathcomp in self.args.include:
+                fname = os.path.join(pathcomp, include_fname[1])
+                if os.path.exists(fname):
+                    raise FoundFile
+            self.fail("File {} not found in include path {}".format(
+                include_fname[1], ':'.join(self.args.include)))
+        except FoundFile:
+            pass
+
+        # Get a parse state and return it to the preprocessor
+        self.debug_preprocessor("include file {} ({})".format(include_fname[1], fname))
+        self.enter_parse_context(self.filename, self.linenum, None)
+
+        # Note: mutual recursion!
+        for tokens in self.preprocess_file(fname):
+            yield tokens
+
+        # Done, pop the parse context
+        self.leave_parse_context()
+        self.debug_preprocessor("end of included file {}".format(fname))
+        self.preprocessor_depth -= 1
+
+
+    def preprocessor_expand_macro(self, tokens):
+        """Expand the macro call in this tokenised line."""
+
+        # Use the include depth to make sure we're not in some deep
+        # mutual macro recursion.
+        if self.preprocessor_depth >= self.MAX_PREPROCESSOR_DEPTH:
+            self.fail("Too many nested includes or macro calls.")
+        self.preprocessor_depth += 1
+
+        # There may be a label at the start of this line. If so, yield
+        # it as a line of its own and we'll be processing the rest of
+        # the line here.
+        if self.is_label(tokens[0]):
+            yield [tokens[0]]
+            tokens = tokens[1:]
+
+        # The syntax for the rest of the line should be: macro name,
+        # lparen, zero or more args, rparen.
+        macro_name = tokens[0][1]
+        if not self.is_word(tokens[0]):
+            self.fail("Macro name expected")
+        elif tokens[1] != (self.TKT_LPAREN, '('):
+            self.fail("Left parenthesis expected")
+        elif tokens[-1] != (self.TKT_RPAREN, ')'):
+            # This is mostly a sanity check, the lexer/tokeniser has already
+            # taken care of this.
+            self.fail("Right parenthesis expected")
+
+        # Now we know that tokens[2:-1] contain the argument list. Form them into strings
+        #arglist = tokens[2:-1]
+        if tokens[2:-1]:
+            arglist, argnum = [[]], 0
+            for token in tokens[2:-1]:
+                if token == (self.TKT_ARGSEP, ','):
+                    argnum += 1
+                    arglist.append([])
                 else:
-                    wordval = wordval | (val << 8)
-                    _storechar(wordval)
-                numchars += 1
+                    arglist[argnum].append(token[1])
+        else:
+            arglist = []
 
-        # There may be a leftover character when we're done.
-        if (numchars & 1) != 0: # Note, numchars already increased: reverse semantics
-            _storechar(val)
+        self.debug_macros("Macro call {} tokenlist={} split_arglist={}".format(
+            macro_name, tokens[2:-1], arglist))
 
-        # Our caller will increment the address, so adjust here.
-        self.incaddr(-1)
+        # Get the macro definition.
+        macro = self.get_macro(macro_name)
+        if macro is None:
+            self.fail("Undefined macro '{}'".format(macro_name))
+
+        #pprint.pprint(macro, width=200)
+        macro_filename, macro_start, macro_args, macro_def = macro
+        self.debug_macros("Macro call {}: defined in {}:{}, args={}, def={}".format(
+            macro_name, macro_filename, macro_start, macro_args, repr(macro_def)))
+
+        if len(macro_args) != len(arglist):
+            self.fail("macro {} (definition at {}:{}) expects {} arguments ({}) but {} given".format(
+                macro_name, macro_filename, macro_start,
+                len(macro_args), ', '.join(macro_args), len(arglist)))
+
+        # Expand arguments
+        macro_exp = macro_def
+        for arg_name, arg_valuelist in zip(macro_args, arglist):
+            arg_value = ' '.join(arg_valuelist)
+            self.debug_macros("Macro call {}: expand %{} to {}".format(macro_name, arg_name, arg_value))
+            macro_exp = re.sub('%' + arg_name + r'\b', arg_value, macro_exp)
+
+        self.debug_macros("Macro call {}: expanded to '{}'".format(macro_name, repr(macro_exp)))
+
+        # Now pretend we're including a very small file in this
+        # location. Preprocess it and yield tokens.
+        #savedState = self.filename, self.linenum # Why is this necessary?
+        self.enter_parse_context(macro_filename, macro_start, macro_name)
+
+        # Note: mutual recursion!
+        for tokens in self.preprocessor(macro_exp.split('\n')):
+            yield tokens
+
+        # Done, pop the parse context
+        self.leave_parse_context()
+        #self.filename, self.linenum = savedState
+        self.debug_preprocessor("Macro call {}: end of macro expansion".format(macro_name))
+        self.preprocessor_depth -= 1
 
 
-    def assembleFill(self, tokens, orgline, poketype='F'):
-        """Assemble a fill directive.
 
-        Syntax: .fill COUNT WORD
+        # try:
+        #     include, include_fname = tokens
+        #     assert include[0] == self.TKT_WORD # Sanity check; this has been checked already
+        #     assert include_fname[0] == self.TKT_STR
 
-        This will fill COUNT words starting at the current location with WORD,
-        which can be any symbol that parses to a word (instruction, mnemonic,
-        label, literal, etc).
-        
-        The COUNT must be a literal.
-        """
-        self.jumped = False
-        try:
-            count = self.parseInt(tokens[1])
-        except Exception as e:
-            self.fail(str(e))
+        # except:
+        #     self.fail("Error parsing .include directive.")
 
-        if self.passnum != self.PSN_ASSEMBLY:
-            # We use count - 1 because the caller will increment the address
-            # too.
-            self.incaddr(count - 1)
-            return
-        
-        # Assembly pass: do actual work.
-        try:
-            word = self.parseField(tokens[2:], allbits=True)
+        # # Look for the file in the specified include path
+        # fname = include_fname[1]
+        # class FoundFile(Exception):
+        #     pass
+
+        # try:
+        #     for pathcomp in self.args.include:
+        #         fname = os.path.join(pathcomp, include_fname[1])
+        #         if os.path.exists(fname):
+        #             raise FoundFile
+        #     self.fail("File {} not found in include path {}".format(
+        #         include_fname[1], ':'.join(self.args.include)))
+        # except FoundFile:
+        #     pass
+
+        # # Get a parse state and return it to the preprocessor
+        # self.debug_preprocessor("include file {} ({})".format(include_fname[1], fname))
+        # savedState = self.filename, self.linenum # Why is this necessary?
+        # self.pushParseContext(fname, self.filename, self.linenum, None)
+
+        # # Note: mutual recursion!
+        # for tokens in self.preprocessor(fname):
+        #     yield tokens
+
+        # # Done, pop the parse context
+        # self.popParseContext()
+        # self.filename, self.linenum = savedState
+        # self.debug_preprocessor("end of included file {}".format(fname))
+        self.preprocessor_depth -= 1
+
+
+    ###############################################################################
+    #
+    # PARSING TOKENS INTO VALUES
+    #
+    ###############################################################################
+
+    def parse_expression(self, token):
+        """Parse an @-expression."""
+        self.debug_lexer("@-Expression '{}'".format(token))
+        if token == '@':
+            return self.addr & 0xffff
+
+        # CFTASM3 only supported simple expressions. We'll cover those for now
+        # and parse using a regexp.
+
+        m = re.match('@\s*(?:(\S+?)\s*)?(\+|-|\*|/|\||&|^|<<|>>)\s*(\S+?)\s*$', token)
+        if not m:
+            self.fail("Invalid @-expression {}".format(token))
+        else:
             try:
-                word = word.val
-            except AttributeError:
-                pass
-        except Exception as e:
-            self.fail(str(e))
+                tok_left, op, tok_right = m.groups()
+                self.debug_lexer("@-Expression '{}', left='{}', op='{}', right='{}'".format(token, tok_left, op, tok_right))
 
-        self.logasm(None, msg=' .fill &%04x &%04x ; %s' % (count, word, orgline))
+                # Parse the left operand (which may be missing)
+                if tok_left is None or tok_left == '':
+                    left = self.addr
+                else:
+                    lparsed = list(self.parse_fields([[ self.TKT_WORD, tok_left ]]))
+                    if len(lparsed) != 1:
+                        self.fail("sanity check, expected a single lparsed result, not {}".format(lparsed))
+                    left = lparsed[0]
 
-        for x in range(count):
-            self.poke(word, poketype=poketype)
-            self.incaddr()
+                # Parse the right operand
+                rparsed = list(self.parse_fields([[ self.TKT_WORD, tok_right ]]))
+                if len(rparsed) != 1:
+                    self.fail("sanity check, expected a single rparsed result, not {}".format(rparsed))
+                right = rparsed[0]
 
-        # Inhibit the next address increase.
-        self.jumped = True
+                # Apply the operator
+                val = {
+                    '+': lambda a, b: a + b,
+                    '-': lambda a, b: a - b,
+                    '|': lambda a, b: a | b,
+                    '&': lambda a, b: a & b,
+                    '*': lambda a, b: a * b,
+                    '/': lambda a, b: a // b,
+                    '^': lambda a, b: a ^ b,
+                    '<<': lambda a, b: a << b,
+                    '>>': lambda a, b: a >> b,
+                }[op](left, right)
+                
+                return val & 0xffff
+                
+            except Exception as e:
+                raise
+                self.fail("Parse error.")
 
 
+    def parse_literal(self, literal):
+        """Parse an integer literal.
+    
+        Base Conventions and sigils:
+    
+        * default base: 10 (e.g. 64, 0001). No sigil for this one.
+        * base 16: "&" sigil. E.g. &20 == 32
+        * base 2: "#. E.g. #10:1100_ = 88. Ony of "0-._" are parsed as '0'. '1'
+          is parsed as 1. ":,'" are ignored entirely. Useful for building
+          human-readable bitfields.
+
+        >>> x = CFTAssembler()
+        >>> x.parse_literal('&10')
+        16
+        >>> x.parse_literal('&fffe')
+        65534
+        >>> x.parse_literal('16')
+        16
+        >>> x.parse_literal('#10000')
+        16
+        >>> x.parse_literal('#1____')
+        16
+        >>> x.parse_literal('#1....')
+        16
+        >>> x.parse_literal('#1----')
+        16
+        >>> x.parse_literal('#1--:--')
+        16
+        >>> x.parse_literal('foobar')
+        Traceback (most recent call last):
+        ValueError: unable to parse literal 'foobar'
+
+        """
+        if literal.startswith('#'):
+            try:
+                newlit = ''.join(self.BINDICT[x] for x in literal[1:])
+                newint = int(newlit, 2)
+            except:
+                self.fail("Unable to parse binary literal '{}'".format(literal))
+            #print("lit={}, conv={}".format(newlit, newint))
+            return int(newlit, 2)
+
+        elif literal.startswith('&'):
+            try:
+                return int(literal[1:], 16)
+            except:
+                self.fail("Unable to parse hexadecimal literal '{}'".format(literal))
+
+        elif literal.startswith('0x'):
+            try:
+                return int(literal[2:], 16)
+            except:
+                self.fail("Unable to parse hexadecimal literal '{}'".format(literal))
+
+        elif literal[0] in "0123456789-":
+            try:
+                return int(literal)
+            except:
+                self.fail("Unable to parse decimal literal '{}'".format(literal))
+
+        return None
         
-    def assemblePage(self, tokens, orgline):
+
+    def parse_fields(self, tokens, strings_too=False):
+        """Parse tokens into numbers and return them. Tokens can be numeric literals in
+        binary, decimal or hexadecimal, symbols that are resolved into numbers,
+        symbolic @-expressions, or (if strings_too=True is specified)
+        codepoints of individual characters in a string. The parsed fields are
+        yielded to the caller.
+
+        If this is the final assembly pass, unresolved symbols cause a fatal error.
+        """
+        self.debug_parser("Parse tokens: {}".format(tokens))
+        for tkt, token in tokens:
+            self.debug_parser("Parse token: ({},{})".format(tkt, token))
+            if tkt == self.TKT_WORD:
+                if token[0] == '@':
+                    self.debug_parser("Parse expression: {}".format(token))
+                    parsed_literal = self.parse_expression(token)
+                else:
+                    self.debug_parser("Parse literal: {}".format(token))
+                    parsed_literal = self.parse_literal(token)
+                if parsed_literal is not None:
+                    self.debug_parser("Yield as-is: {}".format(token))
+                    yield parsed_literal
+                else:
+                    # Do we have a resolved symbol in the symbol table?
+                    sym = self.get_symbol(token)
+                    if sym is not None and sym.val is not None:
+                        self.debug_parser("Looked up symbol {}: value {}".format(token, sym))
+                        yield sym.val
+                    else:
+                        self.debug_parser("Looked up symbol {}: not found".format(token))
+                        if self.final_pass:
+                            self.fail("Undefined symbol {}".format(token))
+                        yield token
+
+            elif tkt == self.TKT_STR:
+                if not strings_too:
+                    self.fail("Strings are not allowed here")
+                for c in token:
+                    yield(ord(c))
+        self.debug_parser("End of token parse.")
+
+
+    def assemble_single_field(self, tokens):
+        value = 0
+        for token in self.parse_fields(tokens):
+            if type(token) != int:
+                # In the final pass, parse_fields() throws a parse error on
+                # undefined fields. So we're safe to do this here.
+                return None
+            else:
+                value = value | token
+        return value & 0xffff
+        
+
+    ###############################################################################
+    #
+    # THE PARSER
+    #
+    ###############################################################################
+
+
+    def prepare_for_parse(self):
+        """Initialise parse state."""
+        # Clear our parse state
+        self.ns = []              # The namespace stack
+        self.scope = 0            # The scope number counter
+        self.scopedepth = 0       # Scope depth (for sanity checking)
+        self.longstring = None    # This holds long strings
+        self.compstring = None    # This holds compressed strings
+        self.jumped = False       # The address has changed, don't increment.
+        self.set_addr(0)
+        self.current_macro = None
+
+
+    def deprecated_directive(self, tokens):
+        """Handler for deprecated directives. Just issues a warning."""
+        if len(tokens) < 1:
+            self.fail("sanity check failed.")
+        self.warn("directive {} is deprecated.".format(tokens[0][1]))
+
+
+    def parse_dot_pushns(self, tokens):
+        if len(tokens) != 2:
+            self.fail("incorrect use of .pushns")
+        elif not self.is_word(tokens[1]):
+            self.fail("expected namespace identifier after .pushns")
+        elif tokens[1][1][0] == '_':
+            self.fail("namespace names may not start with _")
+        else:
+            self.ns.append(tokens[1][1])
+            self.debug_parser("Namespace set to {}".format(self.get_nsname()))
+
+
+    def parse_dot_popns(self, tokens):
+        if not self.ns:
+            self.fail(".popns seen before .pushns")
+        elif len(tokens) == 1:
+            # Only warn about this on the first pass
+            if self.expand_macros == False:
+                self.warn("missing namespace to pop, assuming {}. (this will be an error soon)".format(self.ns[-1]))
+            self.ns.pop(-1)
+            self.debug_parser("Namespace popped back to {}".format(self.get_nsname()))
+        elif not self.is_word(tokens[1]):
+            self.fail("expected namespace identifier after .popns")
+        elif tokens[1][1][0] == '_':
+            self.fail("namespace names may not start with _")
+        elif self.ns[-1].startswith("_s"):
+            self.fail("missing .endscope before .popns")
+        elif tokens[1][1] != self.ns[-1]:
+            self.fail(".popns {} seen but last namespace pushed was {}".format(tokens[1][1], self.ns[-1]))
+        else:
+            self.ns.pop(-1)
+            self.debug_parser("Namespace popped back to {}".format(self.get_nsname()))
+
+
+    def parse_dot_scope(self, tokens):
+        if len(tokens) != 1:
+            self.fail("error parsing .scope, no arguments expected")
+        else:
+            self.scope += 1
+            self.scopedepth += 1
+            self.ns.append("_s" + str(self.scope))
+            self.debug_parser(".scope {}, depth {}".format(self.scope, self.scopedepth))
+
+
+    def parse_dot_endscope(self, tokens):
+        if not self.ns:
+                self.fail(".endscope seen before .scope")
+        elif len(tokens) != 1:
+            self.fail("error parsing .endscope, no arguments expected")
+        else:
+            if not self.ns[-1].startswith("_s"):
+                self.fail(".endscope seen before .scope (depth={})".format(self.scopedepth))
+            self.ns.pop(-1)
+            self.scopedepth -= 1
+            if (self.scopedepth < 0):
+                self.fail("internal error, scope level is negative")
+        self.debug_parser(".endscope {}, depth {}, ns={}".format(self.scope, self.scopedepth, self.ns))
+
+
+    def parse_dot_equ(self, tokens):
+        if len(tokens) < 3:
+            self.fail("error parsing .equ, expecting at least two arguments.")
+        if not all(self.is_word(x) for x in tokens[1:]):
+            self.fail("error parsing .equ, expecting bareword.")
+
+        sym, definition = tokens[1][1], list(x[1] for x in tokens[2:])
+        nssym = self.get_nsname(sym)
+
+        parsed = list(self.parse_fields(tokens[2:]))
+
+        # Has this symbol been resolved fully at this time?
+        if all(type(x) == int for x in parsed):
+            value = parsed[0]
+            for x in parsed[1:]:
+                value = value | x
+            self.add_symbol(nssym, Symbol(self.filename, self.linenum, nssym, val=value, tokens=" ".join(definition)))
+        else:
+            self.add_symbol(nssym, Symbol(self.filename, self.linenum, nssym, tokens=parsed))
+        self.debug_parser(".equ seen: sym={}, nssym={}, def={}, parsed={}".format(sym, nssym, definition, parsed))
+
+
+    def parse_dot_fill(self, tokens):
+        directive = tokens[0][1]
+        if len(tokens) < 3:
+            self.fail("error parsing {}, expecting at least two arguments.".format(directive))
+        if not self.is_word(tokens[1]):
+            self.fail("{} expects a positive number as its first argument.".format(directive))
+
+        if directive  == '.regfill':
+            pkt = self.PKT_REG
+        else:
+            pkt = self.PKT_FILL
+
+        count = self.parse_literal(tokens[1][1])
+        if not count or count < 1:
+            self.fail("{} expects a positive number as its first argument.".format(directive))
+
+        addr = self.addr
+        value = self.assemble_single_field(tokens[2:])
+
+        self.debug_assembly("{} directive: count={} value=&{:>04x}".format(directive, count, value))
+
+        # Quick sanity check
+        if any(x != self.PKT_UNUSED for x in self.sentinel[addr:(addr+count)]):
+            self.warn("{} overwrites previously assembled data.".format(directive))
+
+        # Don't bother poking, just assign to the memory directly. It's much
+        # faster. Warning: voodoo! Also, we only do this on the final pass.
+        if self.final_pass:
+            self.mem[addr:(addr + count)] = array.array('H', [value]) * count
+            self.sentinel[addr:(addr + count)] = array.array('B', [pkt]) * count
+
+            for n in range(count):
+                self.logasm(addr + n, value, orgline=self.line)
+
+        self.addr += count
+
+        if self.addr > self.memsize:
+            self.fail("Filled past end of memory space.")
+
+
+    def parse_dot_macro(self, tokens, macro_def):
+        # Check it
+        if macro_def is not None:
+            self.fail("nested .macro definition. Probably a missing .endmacro.")
+        elif tokens[1][0] != self.TKT_WORD:
+            self.fail("Expected macro name")
+        elif tokens[2] != (self.TKT_LPAREN, '('):
+            self.fail("Expected macro definition argument list")
+        elif tokens[-1] != (self.TKT_RPAREN, ')'):
+            self.fail("Parse error reading macro definition: garbage after argument list")
+        else:
+            # Ensure all the args are the right type.
+            for arg in tokens[3:-2]:
+                if arg[0] not in (self.TKT_WORD, self.TKT_ARGSEP):
+                    self.fail("Parse error reading macro argument '{}'. Word expected.".format(arg[1]))
+        macro_def = ''
+        macro_start = self.linenum
+        macro_name = tokens[1][1]
+        macro_args = list(x[1] for x in tokens[3:-1] if x != (self.TKT_ARGSEP, ','))
+        self.debug_macros("defined macro name={}, args={}, start={}".format(macro_name, macro_args, macro_start))
+        return macro_name, macro_args, macro_start, macro_def
+
+
+    def parse_dot_endmacro(self, tokens, macro_name, macro_args, macro_start, macro_def):
+        if macro_def is None:
+            self.fail(".endmacro seen before .macro")
+        self.debug_macros(".endmacro seen")
+        nsname = self.get_nsname(macro_name)
+        ext = self.macros.get(nsname)
+        if ext:
+            ext = self.macros[nsname]
+            self.fail("redefining macro {} (defined in {}:{})".format(nsname, ext[0], ext[1]))
+        #print("***", nsname, (self.filename, macro_start, macro_args, macro_def))
+        self.macros[nsname] = (self.filename, macro_start, macro_args, macro_def)
+
+
+    def parse_dot_data(self, tokens):
+        if len(tokens) < 2:
+            self.fail(".data expects at least one data field.")
+
+        if self.is_word(tokens[0], ".data"):
+            pkt = self.PKT_DATA
+        elif self.is_word(tokens[0], ".str"):
+            pkt = self.PKT_STR
+        else:
+            self.fail("Unhandled directive {}".tokens[0][1])
+
+        fields = tokens[1:]
+        for token in self.parse_fields(fields, strings_too=pkt == self.PKT_STR):
+            # Sanity check (parse_fields takes care of better error reporting)
+            if type(token) != int:
+                assert not self.final_pass or type(token) == int, "undefined symbol"
+                self.poke(0xdead, poketype=self.PKT_UNRESOLVED)
+                self.inc_addr()
+            else:
+                self.poke(token, poketype=pkt)
+                self.inc_addr()
+
+
+    def parse_dot_longstring(self, tokens):
+        if self.longstring is not None:
+            self.fail(".longstring seen before last .longstring was complete.")
+        self.longstring = []
+
+        # The string can optionally start on the same line as .longstring, so
+        # process it.
+        if len(tokens) > 1:
+            self.parse_dot_strp(tokens)
+
+
+    def parse_dot_page(self, tokens):
         """Assemble a page directive.
 
         Syntax: .page [WORD]
@@ -1103,732 +1541,548 @@ class CFTAssembler(object):
         output. If more than 128 words are filled, an error is raised.
         """
         self.jumped = False
-
-        nextpage = (((self.addr >> 10) + 1) << 10)
-        count = nextpage - self.addr
-
-        # Already at the beginning of a page. Do nothing.
-        if count == 0:
+        nextpage = (self.addr + 0x400) & 0xfc00
+        slack = nextpage - self.addr
+        self.debug_assembly(".page transition: &{:>04x} to &{:>04x}, {} slack word(s)".format(self.addr, nextpage, slack))
+        if slack == 0:
+            # Already at the beginning of a page. Do nothing.
             return
-        #elif count > 512:
-        #    if self.passnum == self.PSN_ASSEMBLY:
-        #        self.fail(".page generated %d words of slack space. Rearrange your code!" % count)
-        elif count > 256:
-            if self.passnum == self.PSN_ASSEMBLY:
-                self.warn(".page generated %d words of slack space." % count)
-
-        if self.passnum != self.PSN_ASSEMBLY:
-            # We use count - 1 because the caller will increment the address
-            # too.
-            self.incaddr(count - 1)
-            return
-        
-        # Assembly pass: do actual work.
-        word = 0
-        if len(tokens) >= 2:
-            try:
-                word = self.parseField(tokens[2:], allbits=True)
-                try:
-                    word = word.val
-                except AttributeError:
-                    pass
-            except Exception as e:
-                self.fail(str(e))
-
-        self.logasm(None, msg=' .fill &%04x &%04x ; %s' % (count, word, orgline))
-
-        for x in range(count):
-            self.poke(word, poketype='P')
-            self.incaddr()
-
-        # Inhibit the next address increase.
-        self.jumped = True
+        elif slack >= self.args.page_warning:
+            if self.final_pass:
+                self.warn(".page generated {} word(s) of slack space.".format(slack))
 
 
-    def assembleBank(self, tokens, orgline):
-        """Assemble a bank directive.
+    def parse_dot_strp(self, tokens):
+        if len(tokens) < 2:
+            self.fail("{} expects at least one string field.".format(tokens[0][1]))
 
-        Syntax: .bank BYTE
+        s = list(self.parse_fields(tokens[1:], strings_too=True))
 
-        The .bank directive sets the ROM bank being assembled to. The BYTE
-        value, which must be from 0 to 255, sets the 8 high order bits of the
-        address. This allows cftasm to assemble multi-bank code.
-        """
-
-        bank = self.parseField(tokens[2:], allbits=True)
-        if bank < 0 or bank > 255:
-            self.fail('bank should be in the range &00-&FF')
-            
-        self.bank = bank & 0xff
-        # TODO: reinstate this after bank support is completed (and *if*)
-        #self.pasm.write('\n\n.bank %02x\n\n' % self.bank)
-
-        # Inhibit the next address increase.
-        self.jumped = True
-
-
-    def pushNamespace(self, line):
-        """Enter a new namespace.
-
-        Namespaces segregate symbols to avoid name polution and allow
-        semi-private symbols to be defined.
-        """
-        try:
-            name = re.findall('^\.pushns\s+(\w+)\s*', line)[0]
-        except (TypeError, IndexError):
-            self.fail('syntax error parsing .pushns')
-
-        self.ns.append(name)
-
-
-        
-    def popNamespace(self, line):
-        """Leave the last namespace.
-        """
-        try:
-            assert re.findall('^(\.popns)\s*', line)[0] != ''
-        except (TypeError, IndexError):
-            self.fail('syntax error parsing .popns')
-
-        if len(self.ns) == 0:
-            self.fail('namespace/scope stack already empty!')
-
-        self.ns = self.ns[:-1]
-
-
-    def startScope(self, line):
-        """Start a new scope.
-        """
-        self.scope += 1
-        self.pushNamespace('.pushns _s%d' % self.scope)
-    
-
-    def endScope(self, line):
-        """End the last scope.
-        """
-        self.popNamespace('.popns')
-        # if len(self.scope) > 0:
-        #     for sym in self.scope.pop():
-        #         try:
-        #             print "Deleting scope-local symbol %s" % sym
-        #             del self.symbols[sym]
-        #         except KeyError:
-        #             continue
-        # else:
-        #     self.fail('.endscope without matching .scope.')
-        
-    def assembleInstruction(self, tokens, orgline):
-        """Assemble a single instruction.
-
-        The output is XORred with 0x400, the R flag, which is active LOW in the
-        machine. This is to simplify assembly by ORring values (obviously: you
-        can't turn 1 into 0 through OR).
-        """
-        self.jumped = False
-        # Only assemble if we're on the assembly pass.
-        if self.passnum == self.PSN_ASSEMBLY:
-            # This will raise appropriate exceptions.
-
-            # Alexios (2012-01-23) the R flag has reversed semantics in
-            # microcode version 4, so we no longer need to toggle it. Code will
-            # work as expected now.
-            val = self.parseField(tokens) # ^ self.R_FLAG
-            self.poke(val, poketype='I')
-            self.logasm(val, orgline=orgline)
-
-
-    def lexer(self, line):
-        r"""Tokenise a line.
-
-        >>> x = CFTAssembler()
-        >>> list(x.lexer('foo bar'))
-        ['foo', 'bar']
-        >>> list(x.lexer('foo bar "baz"'))
-        ['foo', 'bar', '"baz"']
-        >>> list(x.lexer('foo bar "baz;\\n" ; a test'))
-        ['foo', 'bar', '"baz;\n"']
-        """
-        buf = list()
-        inquote = False
-        esc = False
-        for char in line.strip():
-            if not inquote:
-                if char == '"':
-                    if buf:
-                        yield str(''.join(buf))
-                    inquote = True
-                    buf = [char]
-                    continue
-                elif char in ';/':
-                    if buf:
-                        yield str(''.join(buf))
-                    buf = list()
-                    break
-                elif char in ':[]()':
-                    if buf:
-                        yield str(''.join(buf))
-                    yield char
-                    buf = list()
-                    continue
-                elif char in "\t ":
-                    if buf:
-                        yield str(''.join(buf))
-                    buf = list()
-                    continue
-                else:
-                    buf.append(char)
-
-            if inquote:
-                if not esc:
-                    if char == '\\':
-                        esc = True
-                        continue
-                    elif char == '"':
-                        buf.append(char)
-                        inquote = False
-                        yield str(''.join(buf))
-                        buf = list()
-                        continue
-                    else:
-                        buf.append(char)
-                else:
-                    if char == 'n':
-                        buf.append('\n')
-                    elif char == 't':
-                        buf.append('\t')
-                    elif char == 'b':
-                        buf.append('\b')
-                    elif char == '\\':
-                        buf.append('\\')
-                    elif char == '"':
-                        buf.append('"')
-                    esc = False
-
-        if buf:
-            yield str(''.join(buf))
-
-        
-    def parseInt(self, x):
-        """Parse an integer.
-    
-        Base Conventions:
-    
-        * default base: 16 (e.g. fffe, 0001).
-        * base 10: # (e.g. #32 == 20)
-        * base 2: : (e.g. :1111 == f). 1 = '1', zero = any of 0, -, ., _.
-          Useful for building human-readable bitfields.
-
-        >>> x = CFTAssembler()
-        >>> x.parseInt('&10')
-        16
-        >>> x.parseInt('&fffe')
-        65534
-        >>> x.parseInt('16')
-        16
-        >>> x.parseInt(':10000')
-        16
-        >>> x.parseInt(':1____')
-        16
-        >>> x.parseInt(':1....')
-        16
-        >>> x.parseInt(':1----')
-        16
-        >>> x.parseInt('foobar')
-        Traceback (most recent call last):
-        ValueError: unable to parse literal 'foobar'
-        """
-        if x.startswith('#'):
-            x = x[1:]
-            for zero in "-_.":
-                x = x.replace(zero, '0')
-            for zero in "',":
-                x = x.replace(zero, '')
-            return int(x, 2)
-        elif x.startswith('&'):
-            return int(x[1:], 16)
-        elif x.startswith('0x'):
-            return int(x[2:], 16)
+        if self.longstring is not None:
+            self.longstring += s
         else:
-            try:
-                return int(x) & 0xffff
-            except:
-                raise ValueError("unable to parse literal '%s'" % x)
+            self.poke_packed_string(s)
 
 
-    def parseToken(self, x, pageboundary=True):
-        """Parse a lexical token, be it literal or symbolic.
+    def parse_dot_endstring(self, tokens):
+        if self.longstring is None:
+            self.fail(".endstring seen before .longstring.")
+        self.poke_packed_string(self.longstring)
+        self.longstring = None
 
-        >>> x = CFTAssembler()
-        >>> x.addSymbol('spam', 42)
-        >>> x.addSymbol('eggs', 65535)
-        >>> x.parseToken('spam')
-        42
-        >>> x.parseToken('eggs')
-        65535
-        >>> x.parseToken('&1000')
-        4096
-        >>> x.parseToken('#1000')
-        1000
-        >>> x.parseToken(':1000')
-        8
-        >>> x.addr = 32
-        >>> x.parseToken('@-10')
-        22
-        >>> x.parseToken('@-&10')
-        16
-        >>> x.parseToken('@+&10')
-        48
+
+    def parse_dot_reg(self, tokens):
+        if len(tokens) < 3:
+            self.fail("error parsing .reg, expecting at least two arguments.")
+        if not all(self.is_word(x) for x in tokens[1:]):
+            self.fail("error parsing .reg, expecting bareword.")
+
+        sym, definition = tokens[1][1], list(x[1] for x in tokens[2:])
+        nssym = self.get_nsname(sym)
+
+        parsed = list(self.parse_fields(tokens[2:]))
+
+        # Has this symbol been resolved fully at this time?
+        if all(type(x) == int for x in parsed):
+            value = parsed[0]
+            for x in parsed[1:]:
+                value = value | x
+            self.add_symbol(nssym, Register(self.filename, self.linenum, nssym, val=value, tokens=" ".join(definition)))
+        else:
+            self.add_symbol(nssym, Register(self.filename, self.linenum, nssym, tokens=parsed))
+        self.debug_parser(".reg seen: sym={}, nssym={}, def={}, parsed={}".format(sym, nssym, definition, parsed))
+
+        # Unlike .equ, a .reg will also step the address and mark the memory map.
+        self.poke(0xdead, poketype=self.PKT_REG)
+        self.inc_addr()
+        
+
+    def parse_dot_word(self, tokens):
+        """Parse a .word directive. Multiple fields are allowed, and they are all ORred
+        into a single 16-bit value.
         """
-        # Is it a bracket-like convenience symbol? Note that, just like the
-        # PAL-8 assembler, we do NOT check for balanced parentheses!
-        #if x in '()':
-        #    return self.R_FLAG
-        #elif x in '[]':
-        #    return self.I_FLAG
+        if len(tokens) < 2:
+            self.fail(".word expects at least one data field.")
+
+        pkt = self.PKT_WORD
+
+        value = self.assemble_single_field(tokens[1:])
+        if value is None:
+            # One or more values are undefined. In the final pass, a parse
+            # error will be thrown and we never get here.
+            self.poke(0xdead, poketype=self.PKT_UNRESOLVED)
+            self.inc_addr()
+        else:
+            self.poke(value, poketype=pkt)
+            self.inc_addr()
+
+
+    def maybe_parse_label(self, tokens):
+        """Parse a label or address definition."""
+
+        # Bail out early if there's no label here.
+        if not self.is_label(tokens[0]):
+            return tokens
+
+        # Consume the first token
+        token = tokens.pop(0)
+        no_colon = token[1].rstrip(':')
+
+        # Try to parse the specification. We don't use parse_fields because label syntax is very specific.
+        numeric_val = self.parse_literal(no_colon)
+        if numeric_val is not None:
+            self.set_addr(numeric_val)
+            self.debug_parser("Address {}".format(self.fmt_addr()))
+        else:
+            nssym = self.get_nsname(no_colon)
+            self.add_symbol(nssym, Label(self.filename, self.linenum, nssym, val=self.addr))
+            self.debug_parser("Label {} = {} ({})".format(no_colon, self.fmt_addr(), nssym))
+
+        # Return the rest of the tokens
+        return tokens
+
+
+    def pass_macro_discovery(self):
+        self.dots = dict()
+        self.prepare_for_parse()
+        self.expand_macros = False # Don't expand any macros here
+        macro_def = None
+        for filename in [ None ] + self.args.input_files:
+            if filename is None:
+                self.filename = '<builtins>'
+                token_generator = self.preprocessor(self.BUILTINS.split('\n'))
+            else:
+                token_generator = self.preprocess_file(filename)
             
-        # Is it in the symbol table?
-        try:
-            return self.getSymbol(x)
-        except KeyError:
-            if re.match('^[A-Za-z]', x):
-                #print "Failed to look up", x
-                # An undefined symbol was used during the macro or symbol
-                # discovery passes. Defer this symbol for another pass.
-                #if x not in self.deferred:
-                #    self.deferred.append(x)
-                #    print "Pass %d: deferring resolution of symbol '%s'" % (self.passnum, x)
-                if self.passnum == self.PSN_ASSEMBLY:
-                    self.fail("Unknown symbol '%s'." % x)
-                return 0xdead
+            for tokens in token_generator:
+                #self.debug_parser(tokens)
 
-            try:
-                # Does it start with a '@'? If so, check relative
-                # references, making sure they reference an address on
-                # the same page as the current one.
-                if x == '@':
-                    return self.addr
-                elif x.startswith('@-'):
-                    addr = (self.addr - self.parseInt(x[2:])) & 0xffff
-                    if pageboundary:
-                        if (addr & 0xfc00) != (self.addr & 0xfc00):
-                            self.fail("relative reference '%s' (%04x) crosses page boundary." % (x, addr))
-                    return addr
-                elif x.startswith('@+'):
-                    addr = (self.addr + self.parseInt(x[2:])) & 0xffff
-                    if pageboundary:
-                        if (addr & 0xfc00) != (self.addr & 0xfc00):
-                            self.fail("relative reference '%s' (%04x) crosses page boundary." % (x, addr))
-                    return addr
-                elif x.startswith('@'):
-                    # Attempt to parse @<token><op><token> syntax.
-                    try:
-                        left, op, right = re.findall('^@(.+?)([+*/&|^-]|<<|>>)(.+)$', x)[0]
-                        left = self.parseToken(left)
-                        right = self.parseToken(right)
-                    except IndexError:
-                        self.fail("unable to parse relative address '%s'." % x)
+                # Always allow a label as the first token.
+                tokens = self.maybe_parse_label(tokens)
 
-                    try:
-                        left = left.val
-                    except AttributeError:
-                        pass
-                    try:
-                        right = right.val
-                    except AttributeError:
-                        pass
-                    
-                    try:
-                        val = {
-                            '+': lambda a, b: a + b,
-                            '-': lambda a, b: a - b,
-                            '|': lambda a, b: a | b,
-                            '&': lambda a, b: a & b,
-                            '*': lambda a, b: a * b,
-                            '/': lambda a, b: a // b,
-                            '^': lambda a, b: a ^ b,
-                            '<<': lambda a, b: a << b,
-                            '>>': lambda a, b: a >> b,
-                            }[op](left, right) & 0xffff
-                        
-                        val = eval('%s %s %s' % (left, op, right)) & 0xffff
-                    except:
-                        self.fail("Failed to parse relative expression '%s'." % x)
-                    #self.fail("TEST: (%s) (%s) (%s) => %d" % (left, op, right, val))
-                    return val
-                else:
-                    return self.parseInt(x)
-            except ValueError:
-                self.fail("unable to parse literal value '%s'." % x)
+                # Nothing else left on this line
+                if not tokens:
+                    continue
+
+                # Parse namespaces. We need those to qualify any macro names we
+                # encounter.
+                if self.is_word(tokens[0], ".pushns"):
+                    self.parse_dot_pushns(tokens)
+
+                elif self.is_word(tokens[0], ".popns"):
+                    self.parse_dot_popns(tokens)
+
+                elif self.is_word(tokens[0], ".scope"):
+                    self.parse_dot_scope(tokens)
+                    self.debug_parser("scope now {}".format(self.ns[-1]))
+
+                elif self.is_word(tokens[0], ".endscope"):
+                    self.debug_parser("endscope {}".format(self.ns[-1]))
+                    self.parse_dot_endscope(tokens)
+
+                # Opportunistically parse .equs too, while we're at it
+                elif self.is_word(tokens[0], ".equ"):
+                    self.parse_dot_equ(tokens)
+
+                # Parse a macro definition
+                elif tokens[0] == (self.TKT_WORD, ".macro"):
+                    macro_name, macro_args, macro_start, macro_def = self.parse_dot_macro(tokens, macro_def)
+
+                elif tokens[0] in [ (self.TKT_WORD, '.end'), (self.TKT_WORD, '.endmacro') ]:
+                    if tokens[0][1] == '.end':
+                        self.warn(".end is deprecated. Change to .endmacro.")
+                    #print("***", tokens, macro_name, macro_args, macro_start, macro_def)
+                    self.parse_dot_endmacro(tokens, macro_name, macro_args, macro_start, macro_def)
+                    macro_def = None
+
+                elif macro_def is not None:
+                    # Append another line to the macro definition.
+                    macro_def += self.line
+
+                # We ignore all other directives and assembly code in this pass.
 
 
-    def parseField(self, tokens, allbits=False, pageboundary=True):
-        """Parse a whole field of tokens.
+            # Sanity checks at end of file.
+            if macro_def is not None:
+                self.fail("File ended before .endmacro was seen.")
+            if self.ns and self.ns[-1].startswith("_ns"):
+                self.fail("File ended before .endscope was seen.")
 
-        Works by parsing each token into an integer, and ORring all integers
-        together.
 
-        >>> x = CFTAssembler()
-        >>> x.addSymbol('spam', 0xef)
-        >>> x.addSymbol('eggs', 0xbe00)
-        >>> hex(x.parseField('spam eggs'))
-        '0xbeef'
-        >>> hex(x.parseField('eggs :101'))
-        '0xbe05'
-        >>> hex(x.parseField('&be00 #4 :1'))
-        '0xbe05'
-        >>> hex(x.parseField('foo'))
-        Traceback (most recent call last):
-        ValueError: unable to parse literal 'foo'
+    def pass_assembly(self, final_pass=False):
+        """Perform an Assembly pass. In this pass, macros are expanded, but labels and
+        .equs are still discovered if needded. If final_pass=True, this is the
+        final pass and all symbols are expected to be fully resolved into
+        values.
         """
-        if hasattr(tokens, 'split'):
-            tokens = tokens.split()
-        res = 0
-        for token in tokens:
-            val = self.parseToken(token, pageboundary=pageboundary)
-            if val is None:
-                return None
-            try:
-                #res |= val
-                if allbits:
-                    res |= val
-                else:
-                    res |= (val & 0x03ff)
-
-            except TypeError:
-                if allbits:
-                    res |= val.val
-
-                else:
-                    # Check if the symbol referenced is accessible
-                    relto = self.addr & 0xfc00
-                    if res & self.R_FLAG:
-                        relto = 0
-                    if val.inaccessible(relto):
-                        self.warn("%s '%s' on page %04x, but page %04x accessed instead." %
-                                  (val.__class__.__name__, token,
-                                   val.page, relto))
-                    res |= val.assembly_val
-        return res
-
-
-    def outsym(self):
-        """Print out the symbol table."""
-        # Open the symbol output file.
-        out = open(self.symbol_file, 'w')
         
-        maxnamelength = max(len(x) for x in list(self.symbols.keys()))
-        
-        fmt = "%%-%ds  %%04x  %%-6s  %%s:%%d\n" % maxnamelength
-        hdr = "%%-%ds  %%-4s  %%-6s  %%s\n" % maxnamelength
-        header = hdr % ('Name', 'Val', 'Type', 'Defined in')
+        self.dots = dict()
+        self.prepare_for_parse()
+        self.expand_macros = True
+        self.final_pass = final_pass
 
-        out.write(header + ('-' * 79) + '\n')
-        for sym in sorted(list(self.symbols.values()), key=lambda x: (x.filename, x.linenum)):
-            out.write(fmt % (sym.name, sym.val,
-                             sym.__class__.__name__.lower(),
-                             sym.filename, sym.linenum))
-
-        # Close it, just in case.
-        out.close()
+        macro_def = None
+        for filename in [ None ] + self.args.input_files:
+            if filename is None:
+                self.filename = '<builtins>'
+                token_generator = self.preprocessor(self.BUILTINS.split('\n'))
+            else:
+                token_generator = self.preprocess_file(filename)
             
+            for tokens in token_generator:
+                #self.debug_parser(tokens)
 
-    def outmap(self):
-        """Print out the map file."""
-        # Open the map output file.
-        out = open(self.map_file, 'w')
+                # Always allow a label as the first token.
+                tokens = self.maybe_parse_label(tokens)
 
-        def mapcmp(a,b):
-            return cmp(a.val, b.val) or cmp(a.filename, b.filename) or \
-                cmp(a.linenum, b.linenum) or cmp(a.name, b.name)
+                # Nothing else left on this line
+                if not tokens:
+                    continue
 
-        labels = [ x for x in list(self.symbols.values()) if isinstance(x, Label) ]
-        if not labels:
-            out.write('nothing  0000  <none>:0')
-            return
+                # Parse namespaces. We need those to qualify any macro names we
+                # encounter.
+                if self.is_word(tokens[0], ".pushns"):
+                    self.parse_dot_pushns(tokens)
 
-        fmt = '%%-%ds  %%04x  %%s:%%d\n' % max(len(x.name) for x in labels)
+                elif self.is_word(tokens[0], ".popns"):
+                    self.parse_dot_popns(tokens)
 
-        for sym in sorted(labels, key=lambda x: (x.val, x.filename, x.linenum, x.name)):
-            out.write(fmt % (sym.name, sym.val, sym.filename, sym.linenum))
+                elif self.is_word(tokens[0], ".scope"):
+                    self.parse_dot_scope(tokens)
+                    self.debug_parser("scope now {}".format(self.ns[-1]))
 
-        # Close it, just in case.
-        out.close()
-            
+                elif self.is_word(tokens[0], ".endscope"):
+                    self.debug_parser("endscope {}".format(self.ns[-1]))
+                    self.parse_dot_endscope(tokens)
 
-    def outxpm(self):
-        """Print out the xpm map file."""
-        # Open the map output file.
-        if not self.opts.xpm:
-            return
+                # Opportunistically parse .equs too, while we're at it
+                elif self.is_word(tokens[0], ".equ"):
+                    self.parse_dot_equ(tokens)
 
-        out = open(self.xpm_map_file, 'w')
-        out.write(XPMHEAD)
+                # Parse a macro definition
+                elif tokens[0] == (self.TKT_WORD, ".macro"):
+                    # .macro was parsed and verified on the previous pass. Just
+                    # update our state here, and temporarily suspend macro *expansion*.
+                    macro_def = True
+                    self.expand_macros = False
 
-        for ofs in range(0, 65536, 256):
-            out.write(',\n"%s"' % ''.join(chr(self.sentinel[ofs:ofs+256])))
+                elif tokens[0] in [ (self.TKT_WORD, '.end'), (self.TKT_WORD, '.endmacro') ]:
+                    # .endmacro was parsed and verified on the previous
+                    # pass. Just update our state here.
+                    macro_def = None
+                    self.expand_macros = True
 
-        out.write(XPMFOOT)
+                elif macro_def is not None:
+                    # Ignore macro definitions here.
+                    continue
 
-        # Close it, just in case.
-        out.close()
-            
+                elif self.is_directive(tokens[0]):
+                    # But report unknown directives
+                    directive_parser = self.check_valid_directive(tokens[0])
+                    if directive_parser is not None:
+                        directive_parser(tokens)
+                    else:
+                        self.warn("Unimplemented directive {}".format(tokens[0][1]))
 
-    def getSymbol(self, sym):
-        """Return the value of a symbol from the symbol table. Raise KeyError
-        if it doesn't exist."""
+                else:
+                    self.assemble(tokens)
 
-        if re.match('^[@#&0-9]', sym):
-            raise KeyError
+            # Sanity checks at end of file.
+            pass
 
-        #print "Looking up", sym
-        if re.match('^[^a-zA-Z_]', sym):
-            raise KeyError             # It's a literal, not a symbol
 
-        for x in range(len(self.ns), -1, -1):
-            try:
-                nssym = '.'.join(self.ns[0:x] + [sym])
-                #print "Pass", self.passnum, ", Looking up", nssym, self.ns
-                return self.symbols[nssym]
-            except KeyError:
-                continue
-        # Failed to find it.
-        raise KeyError
-            
+    def parse(self):
+        """Assemble the input files."""
 
-    def getMacro(self, name):
-        """Return the value of a macro from the macro table. Raise KeyError
-        if it doesn't exist."""
+        self.ctx = list()
+        self.filename = '<none>'
+        self.linenum = -1
+        self.preprocessor_depth = 0
+        self.final_pass = False
 
-        #print "Looking up macro", name
-        for x in range(len(self.ns), -1, -1):
-            try:
-                nsname = '.'.join(self.ns[0:x] + [name])
-                #print "Pass", self.passnum, ", Looking up", nsname, self.ns
-                return self.macros[nsname]
-            except KeyError:
-                continue
-        # Failed to find it.
-        raise KeyError
-            
+        # This is a three-pass assembler.
+        self.pass_macro_discovery()
+        self.pass_assembly()
+        self.pass_assembly(final_pass=True)
 
-    def addSymbol(self, sym, val, symtype=None):
-        """Add a symbol to the symbol table.
+        #pprint.pprint(self.macros, width=200)
+        #pprint.pprint(self.symbols, width=200)
+        # self.pass_symbol_discovery()
+        # self.pass_assembly()
 
-        >>> x = CFTAssembler()
-        >>> x.addSymbol('spam', 42)
-        >>> x.addSymbol('spam', 43)
-        <none>:1:warning: redefining symbol spam (#42) to different value (#43).
+        # Sanity checks
+        self.sanity_checks()
+
+        # Output stuff
+        self.write_symbol_table()
+        self.write_object()
+
+            # # First, parse the builtins.
+            # self.filename = '<builtins>'
+            # self.linenum = 0
+            # self.assembly_pass(self.BUILTINS.split('\n'))
+
+            # # Then, parse each input file in order.
+            # for filename in self.args:
+            #     self.filename = filename
+            #     self.linenum = 0
+            #     self.mcallno = 0
+
+            #     self.assembly_pass(open(filename))
+
+            # # Warn about unbalanced namespaces
+            # if len(self.ns):
+            #     self.warn("Namespace stack not empty at end of document (%s)" %
+            #               (', '.join(self.ns)))
+
+            # if self.deferred:
+            #     print("Deferred symbols:", self.deferred)
+            #     # Undefine any deferred symbols
+            #     for sym in self.deferred:
+            #         print("deleting", sym)
+            #         try:
+            #             del self.symbols[sym]
+            #         except KeyError:
+            #             continue
+                
+
+            # # Move on to the next pass. There can be multiple symbol discovery
+            # # passes, depending on whether there are deferred symbols (forward
+            # # definitions that couldn't be resolved in one pass).
+            # if self.passnum == self.PSN_MACRO_DISCOVERY:
+            #     self.passnum = self.PSN_SYMBOL_DISCOVERY
+            # elif self.passnum == self.PSN_SYMBOL_DISCOVERY:
+            #     if not self.deferred:
+            #         self.passnum = self.PSN_ASSEMBLY
+            #     else:
+            #         print("Deferred symbols:", self.deferred)
+            # elif self.passnum == self.PSN_ASSEMBLY:
+            #     # At the end of the last parse, print out the symbol table.
+            #     self.outmap()
+            #     self.outsym()
+            #     self.outxpm()
+            #     break
+
+
+    ###############################################################################
+    #
+    # THE ASSEMBLER PROPER
+    #
+    ###############################################################################
+    
+    def poke(self, val, addr=None, poketype=PKT_UNKNOWN):
+        """Store an value in the memory image. The optional address may be used to
+        override the current address.
         """
-        # Prefix the symbol with all namespaces
-        sym0 = sym
-        sym = '.'.join(self.ns + [sym])
-        
-        # Add local symbols to the current scope, if necessary
-        #if sym0.startswith('_') and len(self.scope) > 0:
-        #    self.scope[-1].append(sym)
-
-        #print "File", self.filename, "Pass", self.passnum, ", adding symbol", sym
-
-        # TODO: issue a warning if redefining a symbol.
-        if sym in self.symbols:
-            old = self.symbols[sym]
-            if val != old.val and self.passnum == self.PSN_SYMBOL_DISCOVERY \
-                    and (old.filename, old.linenum) != (self.filename, self.linenum):
-                self.warn('redefining symbol %s (#%d) to different value (#%d).' % \
-                              (sym, old.val, val))
-                self.warn('previous declaration of %s in file %s line %d.' % \
-                              (sym, old.filename, old.linenum))
-        cls = symtype or Symbol
-        if self.opts.debugging:
-            sys.stderr.write('D: %s:%d: %04x addSymbol %s = %d, type=%s\n' % \
-                                 (self.filename, self.linenum, self.addr, sym, val, str(cls)))
-        self.symbols[sym] = cls(sym, val, self.filename, self.linenum)
-
-        
-    def mkaddr21(self, addr):
-        """Make a full 21-bit physical address based on the current bank and an
-        address, or return just the address."""
-        if self.opts.banked:
-            return ((self.bank << 13) + (addr & 0x1fff)) & 0x1fffff
-        return addr & 0xffff
-
-
-    def mkaddr24(self, addr):
-        """Make a full 24-bit physical address based on the current bank and an
-        address, or return just the address."""
-        if self.opts.banked:
-            return (((self.bank & 0xff) << 16) + (addr & 0xffff)) & 0xffffff
-        return addr & 0xffff
-
-
-    def poke(self, val, addr=None, poketype="?"):
-        """Store an address in the memory image. The optional address may be
-        used to override the current address."""
         self.jumped = False
-        addr = addr or self.addr
 
-        if poketype not in 'R' and self.opts.banked and self.bank is None:
-            self.fail("assembling code before setting a bank (use .bank XX).")
+        # Write nothing before the final pass
+        if not self.final_pass:
+            return
+
+        # if poketype != self.PKT_REG and self.opts.banked and self.bank is None:
+        #     self.fail("assembling code before setting a bank (use .bank XX).")
 
         # Sanity check.
-        if poketype == 'I':
-            if (addr < self.opts.min_addr) and not self.boundwarn_low:
-                self.boundwarn_low = True
-                self.warn('Assembling code at address %06x, object file contains %06x-%06x' % \
-                              (addr, self.opts.min_addr, self.opts.max_addr))
-            elif (addr > self.opts.max_addr) and not self.boundwarn_high:
-                self.boundwarn_high = True
-                self.warn('Assembling code at address %06x, object file contains %06x-%06x' % \
-                              (addr, self.opts.min_addr, self.opts.max_addr))
+        # if poketype == self.PKT_INSTR:
+        #     if (addr < self.opts.min_addr) and not self.boundwarn_low:
+        #         self.boundwarn_low = True
+        #         self.warn('Assembling code at address %06x, object file contains %06x-%06x' % \
+        #                       (addr, self.opts.min_addr, self.opts.max_addr))
+        #     elif (addr > self.opts.max_addr) and not self.boundwarn_high:
+        #         self.boundwarn_high = True
+        #         self.warn('Assembling code at address %06x, object file contains %06x-%06x' % \
+        #                       (addr, self.opts.min_addr, self.opts.max_addr))
 
         self.minaddr = min(self.minaddr, self.addr)
         self.maxaddr = max(self.maxaddr, self.addr)
 
-        try:
-            poketype = chr(poketype)
-        except:
-            pass
+        # Okay, write it.
+        if addr is None:
+            addr = self.addr
+        addr = addr & self.addr_mask
 
-        #if self.passnum == self.PSN_ASSEMBLY:
-        #    if self.sentinel[addr] != '\0':
-        #        datatype = {
-        #            'I': 'instruction',
-        #            'W': '.word',
-        #            'S': 'string',
-        #            'F': '.fill',
-        #            }.get(self.sentinel[addr], '(unknown type)')
-        #        self.warn('Code at address %04x overrides previous %s data.' %
-        #                  (addr, datatype))
+        if self.final_pass and self.sentinel[addr] not in (self.PKT_UNUSED, self.PKT_FILL):
+            self.warn("Writing {} &{:>04x} to address {} overwrites previous {} &{:>04x}".format(
+                self.POKETYPES.get(poketype, 'unknown_data'),
+                val,
+                self.fmt_addr(addr),
+                self.POKETYPES.get(self.sentinel[addr], 'unknown data'),
+                self.mem[addr]))
 
-        self.mem[self.mkaddr24(addr or self.addr)] = val & 0xffff
-        self.sentinel[self.mkaddr24(addr)] = ord(poketype)
+        # Debug it
+        if self.args.debug_pokes:
+            self.debug_pokes("{}: {:>04x} ; type={} ({})".format(
+                self.fmt_addr(addr), val & 0xffff,
+                poketype, self.POKETYPES.get(poketype, "unknown data")))
 
-
-    def setaddr(self, a):
-        """Set the address."""
-        self.addr = a & 0xffff
-        self.jumped = True
-        self.wrap = False
+        self.logasm(addr, val, orgline=self.line)
+        
+        self.mem[addr] = val & 0xffff
+        self.sentinel[addr] = poketype
 
 
-    def incaddr(self, by=1):
-        """Increment the address."""
-        # If the address has just been set and no data has been written to
-        # memory, don't increment yet.
-        if self.jumped:
-            #print "JUMPED"
+    def poke_packed_string(self, ps):
+        """Assemble a packed string at the current address."""
+        # Do nothing if there's nothing to be done.
+        if len(ps) == 0:
             return
 
-        self.addr = (self.addr + by) & 0xffff
-        if self.addr == 0:
-            self.wrap = True
-        elif self.wrap and self.addr == 1:
-            # Warn the second time this gets here to avoid a spurious
-            # warning when 0xffff is written to (and no further).
-            self.wrap = False
-            self.warn('64KW bank boundary crossed.')
+        # Warning: minor acts of voodoo
+        wordval, shift = 0, 8
+        for char in ps:
+            wordval |= (char & 0xff) << shift
+            shift = shift ^ 8
+            if shift == 8:
+                self.poke(wordval, poketype=self.PKT_STRP)
+                self.inc_addr()
+                wordval = 0
+
+        # An odd number of characters were output.
+        if shift == 0:
+            self.poke(wordval, poketype=self.PKT_STRP)
+            self.inc_addr()
 
 
-    def yieldmem(self):
-        """Yield each word of memory (in the range specified on the
-        command line) as an (addr, data) tuple."""
-        a0 = self.opts.min_addr
-        a1 = self.opts.max_addr + 1
-        for addr in range(a0, a1):
-            yield (addr, self.mem[self.mkaddr24(addr)])
+    def assemble(self, tokens):
+        """Assemble a line."""
+
+        # The parser has already isolated and parsed label definitions. All we
+        # get here is assembly.
+        value = self.assemble_single_field(tokens)
+        if self.final_pass:
+            self.debug_assembly("Assemble: &{}: &{:>04x} ; {}".format(self.fmt_addr(), value, tokens))
+
+        if value is None:
+            # One or more values are undefined. In the final pass, a parse
+            # error will be thrown and we never get here.
+            self.poke(0xdead, poketype=self.PKT_UNRESOLVED)
+            self.inc_addr()
+        else:
+            self.poke(value, poketype=self.PKT_INSTR)
+            self.inc_addr()
 
 
-    def outobj(self):
-        """Write object code."""
-        a0 = self.opts.min_addr
-        a1 = self.opts.max_addr + 1
-        self.mem[a0:a1].tofile(open(self.opts.out_file, 'wb'))
+    ###############################################################################
+    #
+    # SANITY CHECKING THE PARSED ASSEMBLY
+    #
+    ###############################################################################
 
-        # In this version, we always output Verilog files.
-        if True or self.opts.verilog:
-            # Also write two Verilog ROM images (low and high half-words)
-            basename = os.path.splitext(self.opts.out_file)[0]
-            lo = open('%s-00.list' % basename, 'wt')
-            hi = open('%s-01.list' % basename, 'wt')
-            if self.opts.verbose:
-                for addr, val in self.yieldmem():
-                    lo.write("%s\t// %04x: %04x\n" % (bin(val & 0xff)[2:].zfill(8), addr, val))
-                    hi.write("%s\t// %04x: %04x\n" % (bin((val >> 8) & 0xff)[2:].zfill(8), addr, val))
-            else:
-                for addr, val in self.yieldmem():
-                    lo.write(bin(val & 0xff)[2:].zfill(8) + '\n')
-                    hi.write(bin((val >> 8) & 0xff)[2:].zfill(8) + '\n')
-
-            lo.close()
-            hi.close()
+    def sanity_checks(self):
+        unresolved_symbols = [ x for x in self.symbols.values() if x.unresolved ]
+        if unresolved_symbols:
+            tmp_filename, tmp_linenum = self.filename, self.linenum
+            for sym in unresolved_symbols:
+                self.filename, self.linenum = sym.filename, sym.linenum
+                self.error("Unresolved symbol: {} ({} undefined)".format(
+                    sym.name,
+                    ', '.join(x for x in sym.tokens if type(x) == str )))
+            sys.exit(1)
 
 
-    def logasm(self, val, msg=None, orgline=None):
-        """Logs an assembly message.
+    ###############################################################################
+    #
+    # OUTPUT FUNCTIONALITY
+    #
+    ###############################################################################
 
-        Assembly messages log the entire program
-        in a format that is human-readable but may be parsed by both the
-        assembler and other machine tools.
+    def logasm(self, addr, val, msg=None, orgline=None):
+        """Logs assembled data.
+
+        Assembly messages log the entire program in a format that is
+        human-readable but may be parsed by both the assembler and other
+        machine tools.
 
         If val is None, then no machine-code value is dumped for this
         line. This is used to log multi-word directives etc.
+
         """
+        # This only works for the final pass, where everything is fully
+        # resolved.
+        if not self.final_pass:
+            return
+        
         if val is not None and msg is not None:
             raise ValueError('Exactly one of val, msg may be set.')
 
-        msg = msg or ''
-        if orgline:
-            orgline = ' ; ' + orgline
-        else:
+        if msg is None:
+          msg = ''
+
+        orgline = orgline or ''
+        if self.logasm_state == (self.linenum, orgline):
             orgline = ''
-
-        if self.opts.banked:
-            fmt = "&{:>06x}:"
         else:
-            fmt = "&{:>04x}:"
-            
+            self.logasm_state = (self.linenum, orgline)
+
         if val is None:
-            line = (fmt + "      {}{}\n").format(self.addr, msg, orgline)
+            line = ("{}:      {} ;\t{}").format(self.fmt_addr(addr), msg, orgline.rstrip())
         else:
-            line = (fmt + " &{:>04x}{}\n").format(self.addr, val, orgline)
-        if self.opts.verbose:
-            sys.stdout.write(line)
-        self.pasm.write(line)
+            line = ("{}: &{:>04x} ;\t{}").format(self.fmt_addr(addr), val, orgline.rstrip())
+
+        # if self.args.debug_assembly:
+        #     print(line)
+        self.pasm.write(line + '\n')
 
 
-    def _msg(self, msg, filename=None, linenum=None):
-        """Output a message, along with file and line number info."""
-        sys.stderr.write('%s:%d:%s\n' % (filename or self.filename,
-                                         linenum or self.linenum,
-                                         msg))
+    def write_symbol_table(self):
+        """Print out the symbol table."""
+        # Open the symbol output file.
+        try:
+            with open(self.symbol_file, 'wt') as out:
+
+                maxnamelength = max(len(x) for x in list(self.symbols.keys()))
+
+                # TODO: make this more Python-3
+                fmt = "%%-%ds  %%04x  %%-6s  %%s:%%d\n" % maxnamelength
+                hdr = "%%-%ds  %%-4s  %%-6s  %%s\n" % maxnamelength
+                header = hdr % ('Name', 'Val', 'Type', 'Defined in')
+
+                out.write(header + ('-' * 79) + '\n')
+                for sym in sorted(list(self.symbols.values()), key=lambda x: (x.filename, x.linenum)):
+                    if sym.filename == '<builtins>':
+                        continue
+                    out.write(fmt % (sym.name, sym.val,
+                                     sym.__class__.__name__.lower(),
+                                     sym.filename, sym.linenum or '?'))
+
+        except Exception as e:
+            if self.args.debug:
+                raise
+            self.die("Whoops, failed to write symbol table: {}".format(e))
 
 
-    def warn(self, msg):
-        """Output a warning message."""
-        self._msg('warning: ' + msg)
+    def write_object(self):
+        """Write object code."""
+        with open(self.args.out_file, 'wb') as f:
+            self.mem[self.minaddr : self.maxaddr + 1].tofile(f)
 
 
-    def fail(self, msg):
-        """Output an error message and fail."""
-        # Is there a macro context we should print out?
-        for (n, f, ln, mdef) in self.ctx:
-            if mdef:
-                self._msg("error: (in macro '%s' invocation)" % n,
-                          filename=f, linenum=ln-1)
-            else:
-                self._msg("error: (included from %s on line %d)" % (f, ln),
-                          filename=f, linenum=ln)
-
-        self._msg('error: ' + msg)
-        sys.exit(1)
+        def yieldmem():
+            a0 = self.minaddr
+            a1 = self.maxaddr + 1
+            for addr in range(a0, a1):
+                yield (addr, self.mem[addr & self.addr_mask])
 
 
-    def die(self, msg):
-        """Output an interal, fatal error and fail."""
-        sys.stderr.write('%s: %s\n' % (sys.argv[0], msg))
-        sys.exit(1)
+        if self.args.verilog:
+            # Also write two Verilog ROM images (low and high half-words)
+            basename = os.path.splitext(self.args.out_file)[0]
+            lo = open('{}-00.list'.format(basename), 'wt')
+            hi = open('{}-01.list'.format(basename), 'wt')
+            for addr, val in yieldmem():
+                lo.write("{}\t// {:>04x}: {:>04x}\n".format(bin(val & 0xff)[2:].zfill(8), addr, val))
+                hi.write("{}\t// {:>04x}: {:>04x}\n".format(bin((val >> 8) & 0xff)[2:].zfill(8), addr, val))
+            # else:
+            #     for addr, val in self.yieldmem():
+            #         lo.write(bin(val & 0xff)[2:].zfill(8) + '\n')
+            #         hi.write(bin((val >> 8) & 0xff)[2:].zfill(8) + '\n')
+
+            lo.close()
+            hi.close()
             
 
-CFTAssembler()
+if __name__ == "__main__":
+    CFTAssembler().run()
 
 # End of file.
