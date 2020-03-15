@@ -40,11 +40,11 @@
 ;;; cause the emulator to terminate. This is so we can catch addresses which
 ;;; don't contain valid code. On the real CFT, there's no such safety net.
 
-&0000:		.fill 65535 SENTINEL
-&8000:          .data 0x1234 0x5678
-&a000:          .data 0x1234 0x5678
-&c000:          .data 0x1234 0x5678
-&e000:          .data 0x1234 0x5678
+; &0000:		.fill 65535 SENTINEL
+; &8000:          .data 0x1234 0x5678
+; &a000:          .data 0x1234 0x5678
+; &c000:          .data 0x1234 0x5678
+; &e000:          .data 0x1234 0x5678
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -157,8 +157,8 @@ done:
 		;; Set up the data and return stacks. These will later by used
 		;; by Forth too.
 .scope
-		RMOV(SP, LOAD d0)
-		RMOV(RP, LOAD @d0+1)
+		RMOV(SP, d0)
+		RMOV(RP, @d0+1)
 		JMP post_d0
 d0:		.data config.sp_start
 		.data config.rp_start
