@@ -109,24 +109,23 @@ def assemble(capsys, tmpdir, source, args=None):
     cmd = [cftasm]
     if args is not None:
         assert type(args) in [tuple, list], "args must be a tuple or list"
-        args += list(args)
+        cmd += list(args)
     cmd.append(fname)
 
     # Assemble
     code = subprocess.call(cmd, cwd=tmpdir)
     assert code == 0, "cftasm failed with exit code {}".format(code)
+    subprocess.call("ls -la", shell=True, cwd=tmpdir)
 
     # Make sure we have assembly output
     assert os.path.exists(tmpdir.join('a.bin')), \
         "cftasm did not generate {}/a.bin.".format(tmpdir)
 
     # Check that the assembly step produced the expected files.
-    dir_contents = ['a-00.list', 'a-01.list', 'a.asm',
-                    'a.bin', 'a.map', 'a.pasm', 'a.sym']
+    dir_contents = ['a.asm', 'a.bin', 'a.map', 'a.pasm', 'a.sym']
     for f in dir_contents:
         assert os.path.isfile(tmpdir.join(f)), "file {}/{} was not created".format(tmpdir, f)
 
-    #subprocess.call("ls -la", shell=True, cwd=tmpdir)
 
 
 def test_paths():

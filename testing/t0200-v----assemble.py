@@ -3,6 +3,7 @@
 import os
 import re
 import sys
+import array
 import pytest
 import inspect
 import subprocess
@@ -16,19 +17,25 @@ def test_assemble(capsys, tmpdir):
 
 
 @pytest.mark.cftasm
-def test_addrsize(capsys, tmpdir):
+def test_addrsize_large(capsys, tmpdir):
     assemble(capsys, tmpdir, """
-    .bank &00
-    &0:     .fill 65535 &1234
-    &ffff:  .data 0xbeef
+    &000000:     .fill 32768 &1234
+                 .fill 32768 &1234
+    &ff0000:     .fill 32768 &5678
+                 .fill 32768 &5678
+    """, args=["--model", "long"])
 
-    .bank &ff
-    &0:     .fill 65535 &5678
-    &ffff:  .data 0xbeef
-    """, args=["--banked"])
-
-    assert os.path.getsize(tmpdir.join("a.bin")) == 16777216, \
+    assert os.path.getsize(tmpdir.join("a.bin")) == 2*16777216, \
         "Wrong object size generated (16M expected)"
+
+    with open(tmpdir.join("a.bin"), "rb") as f:
+        assembled_data = array.array('H')
+        assembled_data.fromfile(f, 16777216)
+        # assert len(assembled_data) == 16777216
+        expected_data = array.array('H', [0x1234]) * 65536
+        expected_data += array.array('H', [0]) * (16777216 - 131072)
+        expected_data += array.array('H', [0x5678]) * 65536
+        assert assembled_data == expected_data
 
 if __name__ == "__main__":
     print("Run this with pytest-3!")
