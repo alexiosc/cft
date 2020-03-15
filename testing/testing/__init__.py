@@ -98,9 +98,10 @@ def assemble(capsys, tmpdir, source, args=None):
     instead.
     """
 
-    fname = 'a.asm'
-    
-    with open(tmpdir.join(fname), "wt") as f:
+    dirname = str(tmpdir)
+    fname = os.path.join(dirname, 'a.asm')
+
+    with open(fname, "wt") as f:
         f.write(source)
         
     cftasm = os.path.join(BASEDIR, "tools", "cftasm")

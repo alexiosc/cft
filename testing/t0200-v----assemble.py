@@ -13,7 +13,11 @@ from testing import *
 
 @pytest.mark.cftasm
 def test_assemble(capsys, tmpdir):
+    """Test that basic assembly works."""
     assemble(capsys, tmpdir, "&0: JMP @")
+
+    assert os.path.getsize(tmpdir.join("a.bin")) == 2, \
+        "Wrong object size generated (2 bytes expected)"
 
 
 @pytest.mark.cftasm
@@ -36,6 +40,7 @@ def test_addrsize_large(capsys, tmpdir):
         expected_data += array.array('H', [0]) * (16777216 - 131072)
         expected_data += array.array('H', [0x5678]) * 65536
         assert assembled_data == expected_data
+
 
 if __name__ == "__main__":
     print("Run this with pytest-3!")
