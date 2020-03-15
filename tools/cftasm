@@ -1429,6 +1429,8 @@ class CFTAssembler(object):
         count = self.parse_literal(tokens[1][1])
         if not count or count < 1:
             self.fail("{} expects a positive number as its first argument.".format(directive))
+        if count > 65535:
+            self.warn("fill count doesn't fit in 16 bits. (CFT-native assembler will balk)")
 
         addr = self.addr
         value = self.assemble_single_field(tokens[2:])
