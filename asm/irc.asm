@@ -68,6 +68,6 @@
 .equ ICR_IRQ6 #110'-			; IRQ6 in ICR
 .equ ICR_IRQ7 #111'-			; IRQ7 in ICR
 
-.popns
+.popns irc
 
 ;;; End of file.

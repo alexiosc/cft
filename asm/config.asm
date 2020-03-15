@@ -41,6 +41,6 @@
 
 .equ default_tty_speed tty.B115K	; Default TTY speed
 
-.popns
+.popns config
 
 ;;; End offile.

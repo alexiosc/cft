@@ -108,6 +108,6 @@
 		
 
 
-.popns
+.popns dfp
 	
 ;;; End of file.

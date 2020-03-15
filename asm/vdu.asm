@@ -293,6 +293,6 @@
 .equ KBD_KDP    #-------1--------	; Keyboard data parity mask
 .equ KBD_KDATA  #--------11111111	; Keyboard data mask (8 bits, ro)
 		
-.popns
+.popns vdu
 
 ;;; End of file.

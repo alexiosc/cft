@@ -406,6 +406,6 @@
 
 .reg IP R @                             ; Forth Instruction Pointer
 		
-.popns
+.popns p0
 	
 ;;; End of file.

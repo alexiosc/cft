@@ -154,6 +154,6 @@
 .equ DLL_INIT @B38400&&00ff		; Bit rate divisor, low
 .equ DLM_INIT @B38400>>8		; Bit rate divisor, high
 
-.popns
+.popns tty
 	
 ;;; End of file.

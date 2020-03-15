@@ -45,6 +45,6 @@
 .equ BNKE R #--------'1110		; Microcode Bank 14
 .equ BNKF R #--------'1111		; Microcode Bank 15
 
-.popns
+.popns ucb
 
 ;;; End of file.

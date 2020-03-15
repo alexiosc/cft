@@ -1,6 +1,12 @@
 ;;; Simplistic line editor.
 ;;; Based on echo.asm.
 
+.include "tty.asm"
+
+.equ TTY0 &beef
+.equ TTYDATA &cafe
+.equ TTYPOLL &cafe
+
 	;; Hardware registers
 
 	.equ SUBRET  R &0000
@@ -718,11 +724,11 @@ rom_vector_table:
 ///////////////////////////////////////////////////////////////////////////////
 
 	;; Reset vector
-&fff0:  JMP [@+1]
+&fff0:  JMP I @+1
 	.word reset
 
 	;; ISR vector
-&fff8:  JMP [@+1]
+&fff8:  JMP I @+1
 	.word isr
 
 ;;; End of file.

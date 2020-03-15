@@ -63,6 +63,6 @@
 .equ MBU_ENABLE  #----'---0'----'----	; Bit 8 clear to enable the MBU
 .equ MBU_DISABLE #----'---1'----'----	; Bit 8 set to disable the MBU
 
-.popns
+.popns mbu
 
 ;;; End of file.
