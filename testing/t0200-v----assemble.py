@@ -23,7 +23,7 @@ def test_assemble(capsys, tmpdir):
 @pytest.mark.cftasm
 def test_addrsize_short(capsys, tmpdir):
     assemble(capsys, tmpdir, """
-    &:     .fill 32768 &1234
+    &0:    .fill 32768 &1234
            .fill 32768 &5678
     """, args=["--model", "short"])
 
