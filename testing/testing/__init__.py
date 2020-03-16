@@ -123,9 +123,17 @@ def assemble(tmpdir, source, args=None):
     cmd.append(fname)
 
     # Assemble
-    code = subprocess.call(cmd, cwd=str(tmpdir), stderr=subprocess.STDOUT)
+    pipe = subprocess.Popen(cmd, cwd=str(tmpdir),
+                            stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    (out, err) = pipe.communicate()
+    code = pipe.wait()
+
+    sys.stdout.write(out.decode('utf-8'))
+    sys.stderr.write(err.decode('utf-8'))
+    
     assert code == 0, "cftasm failed with exit code {}".format(code)
-    subprocess.call("ls -la", shell=True, cwd=str(tmpdir))
+
+    # subprocess.call("ls -la", shell=True, cwd=str(tmpdir))
 
     # Make sure we have assembly output
     assert os.path.exists(str(tmpdir.join('a.bin'))), \
