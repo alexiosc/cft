@@ -114,19 +114,25 @@ def assemble(capsys, tmpdir, source, args=None):
     cmd.append(fname)
 
     # Assemble
-    code = subprocess.call(cmd, cwd=tmpdir)
+    code = subprocess.call(cmd, cwd=str(tmpdir))
     assert code == 0, "cftasm failed with exit code {}".format(code)
-    subprocess.call("ls -la", shell=True, cwd=tmpdir)
+    subprocess.call("ls -la", shell=True, cwd=str(tmpdir))
 
     # Make sure we have assembly output
-    assert os.path.exists(tmpdir.join('a.bin')), \
+    assert os.path.exists(str(tmpdir.join('a.bin'))), \
         "cftasm did not generate {}/a.bin.".format(tmpdir)
 
     # Check that the assembly step produced the expected files.
     dir_contents = ['a.asm', 'a.bin', 'a.map', 'a.pasm', 'a.sym']
     for f in dir_contents:
-        assert os.path.isfile(tmpdir.join(f)), "file {}/{} was not created".format(tmpdir, f)
+        assert os.path.isfile(str(tmpdir.join(f))), "file {}/{} was not created".format(tmpdir, f)
 
+
+def read_cft_bin_file(fname, size):
+    with open(fname, "rb") as f:
+        data = array.array('H')
+        data.fromfile(f, size)
+        return data
 
 
 def test_paths():

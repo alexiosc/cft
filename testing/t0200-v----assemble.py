@@ -16,30 +16,32 @@ def test_assemble(capsys, tmpdir):
     """Test that basic assembly works."""
     assemble(capsys, tmpdir, "&0: JMP @")
 
-    assert os.path.getsize(tmpdir.join("a.bin")) == 2, \
+    fname = str(tmpdir.join("a.bin"))
+    assert os.path.getsize(fname) == 2, \
         "Wrong object size generated (2 bytes expected)"
 
 
 @pytest.mark.cftasm
-def test_addrsize_short(capsys, tmpdir):
+def test_short_model(capsys, tmpdir):
     assemble(capsys, tmpdir, """
     &0:    .fill 32768 &1234
            .fill 32768 &5678
     """, args=["--model", "short"])
 
-    assert os.path.getsize(tmpdir.join("a.bin")) == 131072, \
+    fname = str(tmpdir.join("a.bin"))
+    assert os.path.getsize(fname) == 131072, \
         "Wrong object size generated (64K expected)"
 
-    with open(tmpdir.join("a.bin"), "rb") as f:
-        assembled_data = array.array('H')
-        assembled_data.fromfile(f, 65536)
-        expected_data = array.array('H', [0x1234]) * 32768
-        expected_data += array.array('H', [0x5678]) * 32768
-        assert assembled_data == expected_data
+    assembled_data = read_cft_bin_file(fname, 65536)
+
+    expected_data = array.array('H', [0x1234]) * 32768
+    expected_data += array.array('H', [0x5678]) * 32768
+
+    assert assembled_data == expected_data
 
 
 @pytest.mark.cftasm
-def test_addrsize_long(capsys, tmpdir):
+def test_long_model(capsys, tmpdir):
     assemble(capsys, tmpdir, """
     &000000:     .fill 32768 &1234
                  .fill 32768 &1234
@@ -47,17 +49,18 @@ def test_addrsize_long(capsys, tmpdir):
                  .fill 32768 &5678
     """, args=["--model", "long"])
 
-    assert os.path.getsize(tmpdir.join("a.bin")) == 2*16777216, \
+    fname = str(tmpdir.join("a.bin"))
+    assert os.path.getsize(fname) == 2*16777216, \
         "Wrong object size generated (16M expected)"
 
-    with open(tmpdir.join("a.bin"), "rb") as f:
-        assembled_data = array.array('H')
-        assembled_data.fromfile(f, 16777216)
-        # assert len(assembled_data) == 16777216
-        expected_data = array.array('H', [0x1234]) * 65536
-        expected_data += array.array('H', [0]) * (16777216 - 131072)
-        expected_data += array.array('H', [0x5678]) * 65536
-        assert assembled_data == expected_data
+    assembled_data = read_cft_bin_file(fname, 16777216)
+    assert len(assembled_data) == 16777216
+
+    # Expect 64KW of 0x1234, a gap of (16M-128K) full of zeroes, and
+    # 64KW of 0x5678 at the very end.
+    assert assembled_data[:65536] == array.array('H', [0x1234]) * 65536
+    assert assembled_data[65536:-65536] == array.array('H', [0]) * (16777216 - 131072)
+    assert assembled_data[-65536:] == array.array('H', [0x5678]) * 65536
 
 
 if __name__ == "__main__":
