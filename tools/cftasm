@@ -481,13 +481,33 @@ class CFTAssembler(object):
         if not self.args:
             self.die('an input file must be provided.')
 
+        # Initialise for assembly
         self.setup_address_space()
+        self.ctx = list()
+        self.filename = '<none>'
+        self.linenum = -1
+        self.preprocessor_depth = 0
+        self.final_pass = False
 
-        # Run the assembler.
-        self.parse()
+        # Make three passes through input files.
+        self.pass_macro_discovery()
+        self.pass_assembly()
+        self.pass_assembly(final_pass=True)
 
-        # # Output the object code.
-        # self.outobj()
+        #pprint.pprint(self.macros, width=200)
+        #pprint.pprint(self.symbols, width=200)
+        # self.pass_symbol_discovery()
+        # self.pass_assembly()
+
+        # Sanity checks
+        self.sanity_checks()
+
+        # Output stuff
+        self.write_symbol_table()
+        self.write_map_file()
+        self.write_object()
+
+        self.pasm.close()
 
 
     ###############################################################################
@@ -1459,7 +1479,7 @@ class CFTAssembler(object):
             self.fail("Filled past end of memory space.")
 
         self.minaddr = min(self.minaddr, addr)
-        self.maxaddr = max(self.maxaddr, self.addr)
+        self.maxaddr = max(self.maxaddr, self.addr - 1)
 
 
     def parse_dot_macro(self, tokens, macro_def):
@@ -1551,6 +1571,7 @@ class CFTAssembler(object):
         self.jumped = False
         nextpage = (self.addr + 0x400) & 0xfc00
         slack = nextpage - self.addr
+        self.addr = nextpage
         self.debug_assembly(".page transition: &{:>04x} to &{:>04x}, {} slack word(s)".format(self.addr, nextpage, slack))
         if slack == 0:
             # Already at the beginning of a page. Do nothing.
@@ -1799,80 +1820,6 @@ class CFTAssembler(object):
             pass
 
 
-    def parse(self):
-        """Assemble the input files."""
-
-        self.ctx = list()
-        self.filename = '<none>'
-        self.linenum = -1
-        self.preprocessor_depth = 0
-        self.final_pass = False
-
-        # This is a three-pass assembler.
-        self.pass_macro_discovery()
-        self.pass_assembly()
-        self.pass_assembly(final_pass=True)
-
-        #pprint.pprint(self.macros, width=200)
-        #pprint.pprint(self.symbols, width=200)
-        # self.pass_symbol_discovery()
-        # self.pass_assembly()
-
-        # Sanity checks
-        self.sanity_checks()
-
-        # Output stuff
-        self.write_symbol_table()
-        self.write_map_file()
-        self.write_object()
-
-            # # First, parse the builtins.
-            # self.filename = '<builtins>'
-            # self.linenum = 0
-            # self.assembly_pass(self.BUILTINS.split('\n'))
-
-            # # Then, parse each input file in order.
-            # for filename in self.args:
-            #     self.filename = filename
-            #     self.linenum = 0
-            #     self.mcallno = 0
-
-            #     self.assembly_pass(open(filename))
-
-            # # Warn about unbalanced namespaces
-            # if len(self.ns):
-            #     self.warn("Namespace stack not empty at end of document (%s)" %
-            #               (', '.join(self.ns)))
-
-            # if self.deferred:
-            #     print("Deferred symbols:", self.deferred)
-            #     # Undefine any deferred symbols
-            #     for sym in self.deferred:
-            #         print("deleting", sym)
-            #         try:
-            #             del self.symbols[sym]
-            #         except KeyError:
-            #             continue
-                
-
-            # # Move on to the next pass. There can be multiple symbol discovery
-            # # passes, depending on whether there are deferred symbols (forward
-            # # definitions that couldn't be resolved in one pass).
-            # if self.passnum == self.PSN_MACRO_DISCOVERY:
-            #     self.passnum = self.PSN_SYMBOL_DISCOVERY
-            # elif self.passnum == self.PSN_SYMBOL_DISCOVERY:
-            #     if not self.deferred:
-            #         self.passnum = self.PSN_ASSEMBLY
-            #     else:
-            #         print("Deferred symbols:", self.deferred)
-            # elif self.passnum == self.PSN_ASSEMBLY:
-            #     # At the end of the last parse, print out the symbol table.
-            #     self.outmap()
-            #     self.outsym()
-            #     self.outxpm()
-            #     break
-
-
     ###############################################################################
     #
     # THE ASSEMBLER PROPER
@@ -2068,7 +2015,7 @@ class CFTAssembler(object):
             labels = [ x for x in list(self.symbols.values())
                        if isinstance(x, Label) ]
             if not labels:
-                out.write('nothing  0000  <none>:0')
+                out.write('nothing  0000  <none>:0\n')
                 return
 
             fmt = '%%-%ds  %%04x  %%s:%%d\n' % max(len(x.name) for x in labels)
@@ -2082,6 +2029,7 @@ class CFTAssembler(object):
 
     def write_object(self):
         """Write object code."""
+        #print(self.minaddr, self.maxaddr, len(self.mem[self.minaddr : self.maxaddr + 1]))
         with open(self.args.out_file, 'wb') as f:
             self.mem[self.minaddr : self.maxaddr + 1].tofile(f)
 
