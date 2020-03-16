@@ -1,1 +1,1 @@
-pytest-3 "$@" *py
+pytest-3 -v "$@" *py

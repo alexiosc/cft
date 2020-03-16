@@ -55,6 +55,15 @@ def findBaseDir():
     raise RuntimeError('Base directory not found (looked for %s.' % ', '.join(lookFor))
 
 
+def get_capsys_outerr(capsys):
+    result = capsys.readouterr()
+    try:
+        return result.out, result.err
+    except:
+        # This is for older pytest installations
+        return result[0], result[1]
+
+
 def run_verilog_testbench(capsys, name, *args):
     m = re.match("^(.+?)(_tb)?(\.[ov])?$", name)
     testbench = m.group(0) + "_tb.v"
@@ -92,7 +101,7 @@ def run_verilog_testbench(capsys, name, *args):
         yield((int(code), state, comment))
 
 
-def assemble(capsys, tmpdir, source, args=None):
+def assemble(tmpdir, source, args=None):
     """Assemble some source (a string), and make it available to the CFT
     testbed. If source is not give, use the contents of self.source
     instead.
@@ -114,7 +123,7 @@ def assemble(capsys, tmpdir, source, args=None):
     cmd.append(fname)
 
     # Assemble
-    code = subprocess.call(cmd, cwd=str(tmpdir))
+    code = subprocess.call(cmd, cwd=str(tmpdir), stderr=subprocess.STDOUT)
     assert code == 0, "cftasm failed with exit code {}".format(code)
     subprocess.call("ls -la", shell=True, cwd=str(tmpdir))
 
