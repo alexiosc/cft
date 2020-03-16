@@ -118,6 +118,12 @@ K TTL MUX MUX2
 F http://www.ti.com/lit/gpn/sn74LS257
 $ENDCMP
 #
+$CMP 74AC259
+D 8-bit addressable latch
+K TTL REG DFF
+F http://www.ti.com/lit/gpn/sn74LS259
+$ENDCMP
+#
 $CMP 74AC283
 D 4-bit full Adder
 K TTL ADD Arith ALU
@@ -289,6 +295,12 @@ $CMP 74ACT257
 D Quad 2 to 1 Multiplexer
 K TTL MUX MUX2
 F http://www.ti.com/lit/gpn/sn74LS257
+$ENDCMP
+#
+$CMP 74ACT259
+D 8-bit addressable latch
+K TTL REG DFF
+F http://www.ti.com/lit/gpn/sn74LS259
 $ENDCMP
 #
 $CMP 74ACT32
@@ -740,6 +752,12 @@ K TTL MUX MUX2
 F https://assets.nexperia.com/documents/data-sheet/74HC_HCT257.pdf
 $ENDCMP
 #
+$CMP 74HC259
+D 8-bit addressable latch
+K TTL REG DFF
+F https://assets.nexperia.com/documents/data-sheet/74HC_HCT259.pdf
+$ENDCMP
+#
 $CMP 74HC32
 D Quad 2-input OR Gate
 K TTL Or2
@@ -914,6 +932,12 @@ K TTL MUX MUX2
 F http://www.ti.com/lit/gpn/sn74LS257
 $ENDCMP
 #
+$CMP 74HCT259
+D 8-bit addressable latch
+K TTL REG DFF
+F https://assets.nexperia.com/documents/data-sheet/74HC_HCT259.pdf
+$ENDCMP
+#
 $CMP 74HCT32
 D Quad 2-input OR Gate
 K TTL Or2
@@ -1080,6 +1104,12 @@ $CMP 74LS257
 D Quad 2 to 1 Multiplexer
 K TTL MUX MUX2
 F https://assets.nexperia.com/documents/data-sheet/74HC_HCT257.pdf
+$ENDCMP
+#
+$CMP 74LS259
+D 8-bit addressable latch
+K TTL REG DFF
+F http://www.ti.com/lit/gpn/sn74LS259
 $ENDCMP
 #
 $CMP 74LS283
@@ -1278,6 +1308,24 @@ $CMP 74hct112
 D dual JK Flip-Flop, Set & Reset
 K TTL JK
 F http://www.ti.com/lit/gpn/sn74LS112
+$ENDCMP
+#
+$CMP 8253
+D Programmable Interval Timer, PDIP-24
+K Timer Counter
+F http://www.cpcwiki.eu/imgs/e/e3/8253.pdf
+$ENDCMP
+#
+$CMP 8254
+D Programmable Interval Timer, PDIP-24
+K Timer Counter
+F http://www.scs.stanford.edu/10wi-cs140/pintos/specs/8254.pdf
+$ENDCMP
+#
+$CMP 82C54
+D CHMOS Programmable Interval Timer, PDIP-24
+K Timer Counter
+F http://download.intel.com/design/archives/periphrl/docs/23124406.pdf
 $ENDCMP
 #
 $CMP AS6C4008-55PCN
