@@ -836,7 +836,8 @@ class CFTAssembler(object):
                     if c in whitespace:
                         tokens.append((self.TKT_WORD, tmptoken))
                         state = self.TOK_SP
-                    elif c in comments:
+                    # elif c in comments:
+                    elif c == ';':
                         # Start of comment. Ignore rest of line.
                         if tmptoken:
                             tokens.append((self.TKT_WORD, tmptoken))
@@ -1169,7 +1170,7 @@ class CFTAssembler(object):
         # CFTASM3 only supported simple expressions. We'll cover those for now
         # and parse using a regexp.
 
-        m = re.match('@\s*(?:(\S+?)\s*)?(\+|-|\*|/|\||&|^|<<|>>)\s*(\S+?)\s*$', token)
+        m = re.match('@\s*(?:(\S+?)\s*)?(\+|-|\*|/|\||&|\^|<<|>>)\s*(\S+?)\s*$', token)
         if not m:
             self.fail("Invalid @-expression {}".format(token))
         else:
@@ -1208,7 +1209,6 @@ class CFTAssembler(object):
                 return val & 0xffff
                 
             except Exception as e:
-                raise
                 self.fail("Parse error.")
 
 
