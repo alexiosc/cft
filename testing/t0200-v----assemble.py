@@ -228,6 +228,45 @@ def test_macro(capsys, tmpdir):
 
 
 @pytest.mark.cftasm
+def test_equ_and_fields(capsys, tmpdir):
+
+    assemble(tmpdir, """
+    .equ foo2 foo1 1
+    .equ foo1 42
+    .equ foo3 foo2 0x100
+
+    &0:    .word 42             ; 42
+           .word &2a            ; 42 (hex)
+           .word #101010        ; 42 (bin)
+           .word #0010:1010     ; 42 (bin)
+           .word 0 42           ; 42
+           .word 0xff00 42      ; 65322
+           .word 0x100 42       ; 298
+           .word 42 1           ; 43
+           .word 42 #1          ; 43
+           .word 42 &f          ; 47
+           .word IRET           ; 0
+           .word IRET 42        ; 42
+           .word #101010 IRET   ; 42
+           .word foo1           ; 42
+           .word foo2           ; 43
+           .word foo3           ; 299
+    """)
+
+    # Expect 14 words
+    fname = str(tmpdir.join("a.bin"))
+    assert os.path.getsize(fname) == 32, \
+        "Wrong object size generated (16W expected)"
+
+    assembled_data = read_cft_bin_file(fname, 16)
+    print(assembled_data)
+    # Data is byte-swapped when Python reads it a 16-bit ints.
+    expected_data = array.array('H', [42, 42, 42, 42, 42, 65322, 298, 43, 43, 47, 0, 42, 42, 42, 43, 299])
+    assert len(assembled_data) == 16
+    assert assembled_data == expected_data, "Assembled string did not match"
+
+
+@pytest.mark.cftasm
 def test_at_expressions(capsys, tmpdir):
 
     assemble(tmpdir, """
@@ -255,6 +294,42 @@ def test_at_expressions(capsys, tmpdir):
     print(assembled_data)
     # Data is byte-swapped when Python reads it a 16-bit ints.
     expected_data = array.array('H', [0, 1, 2, 6, 5, 7, 3, 28, 52, 420, 6])
+    assert len(assembled_data) == 11
+    assert assembled_data == expected_data, "Assembled string did not match"
+
+
+@pytest.mark.cftasm
+def test_basic_assembly(capsys, tmpdir):
+
+    assemble(tmpdir, """
+    .equ    counter 0
+
+    &0:    JMP start
+
+    start: LI 0
+           OUT 8                 ; Set up MBPw
+           OUT 9                 ; Set up MBD
+           OUT 10                ; Set up MBS
+           OUT 11                ; Set up MBZ
+
+           LI 666
+           STORE R counter
+
+    loop:  DSZ R counter
+           JMP loop
+           
+    halt:  JMP @
+    """)
+
+    # Expect 14 words
+    fname = str(tmpdir.join("a.bin"))
+    assert os.path.getsize(fname) == 22, \
+        "Wrong object size generated (11W expected)"
+
+    assembled_data = read_cft_bin_file(fname, 11)
+    print(assembled_data)
+    # Data is byte-swapped when Python reads it a 16-bit ints.
+    expected_data = array.array('H', [0x4001, 0x1400, 0x6008, 0x6009, 0x600a, 0x600b, 0x169a, 0x9400, 0xa400, 0x4008, 0x400a])
     assert len(assembled_data) == 11
     assert assembled_data == expected_data, "Assembled string did not match"
 
