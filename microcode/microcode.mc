@@ -2243,7 +2243,7 @@ start JMP, I=1, R=1, IDX=IDX_SP;
 // This instruction interprets its operand as an address in memory. It loads a
 // value from that address into the AC, decrements it by one, and stores it
 // back. If the AC is zero, after decrementtion, the next instruction is
-// skipped. The ISZ instruction simplifies implementing loops.
+// skipped. The DSZ instruction simplifies implementing loops.
 //
 // DSZ used to be called ISZ when the CFT could only increment the AC, but
 // decrementation is more practical.
