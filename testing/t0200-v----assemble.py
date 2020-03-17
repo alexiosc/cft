@@ -307,10 +307,10 @@ def test_basic_assembly(capsys, tmpdir):
     &0:    JMP start
 
     start: LI 0
-           OUT 8                 ; Set up MBPw
-           OUT 9                 ; Set up MBD
-           OUT 10                ; Set up MBS
-           OUT 11                ; Set up MBZ
+           SMB MBP
+           SMB MBD
+           SMB MBS
+           SMB MBZ
 
            LI 666
            STORE R counter
@@ -329,7 +329,7 @@ def test_basic_assembly(capsys, tmpdir):
     assembled_data = read_cft_bin_file(fname, 11)
     print(assembled_data)
     # Data is byte-swapped when Python reads it a 16-bit ints.
-    expected_data = array.array('H', [0x4001, 0x1400, 0x6008, 0x6009, 0x600a, 0x600b, 0x169a, 0x9400, 0xa400, 0x4008, 0x400a])
+    expected_data = array.array('H', [0x4001, 0x1400, 0x6408, 0x6409, 0x640a, 0x640b, 0x169a, 0x9400, 0xa400, 0x4008, 0x400a])
     assert len(assembled_data) == 11
     assert assembled_data == expected_data, "Assembled string did not match"
 
