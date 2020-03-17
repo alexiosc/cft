@@ -106,6 +106,15 @@ _BUILTINS = """;;; CFT Assembler Built-ins, Microcode Version 7.x.
 .equ    R       &0400            ; Zero Page ('register') reference
 .equ    I       &0800            ; Indirection
 
+;;; Macros for built-in functionality.
+
+.equ    SMB     OUT R &8         ; Set a memory bank register
+.equ    RMB     IN R &8          ; Read a memory bank register
+.equ    MBP     0                ; MB0 is MBP, the Program bank
+.equ    MBD     1                ; MB1 is MBD, the Data bank
+.equ    MBS     2                ; MB2 is MBS, the Stack bank
+.equ    MBZ     3                ; MB3 is MBZ, the Page Zero bank
+
 ;;; End of file.
 """
 
