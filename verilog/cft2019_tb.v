@@ -3,6 +3,7 @@
 // BASIC TESTS OF THE CFT 2019 SIMULATED COMPUTER
 //
 // REDESIGNED IN 2019
+// USES OK/FAIL OUTPUT
 //
 // NOTES: 
 //
@@ -84,14 +85,14 @@ module cft2019_tb();
       nreset_drv = 1'b0;
       #1000 nreset_drv = 1'b1;
       
-      #20000 $finish;
+      #10000000 $finish;      // Terminate simulation after 100ms
    end
 
    assign nreset = nreset_drv;
 
    always @(cft.card_dfp.halting) begin
       //->cft.mem.dump_core;
-      #10000 $finish;      // Terminate simulation
+      #20000 $finish;
    end
 
    // Connect the DUT
