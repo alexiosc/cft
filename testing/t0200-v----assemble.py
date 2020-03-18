@@ -111,7 +111,7 @@ def test_page_directive(capsys, tmpdir):
         lines = pasm_file.readlines()
         assert len(lines) == 257, "Expected 257 lines in {}".format(fname)
 
-    cftasm_stderr = get_capsys_outerr(capsys)[0]
+    out, err = get_capsys_outerr(capsys)
     assert "generated 768 word" in err, "slack space warning not issued"
 
 

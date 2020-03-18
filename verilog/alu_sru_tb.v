@@ -134,13 +134,13 @@ module alu_sru_tb();
 
       // We'll use a custom task to test each operation.
 
-      test_sru_op(3'b000, "SHL");
-      test_sru_op(3'b001, "SHR");
-      test_sru_op(3'b011, "ASR");
+      // test_sru_op(3'b000, "SHL");
+      // test_sru_op(3'b001, "SHR");
+      // test_sru_op(3'b011, "ASR");
       test_sru_op(3'b100, "ROL");
-      test_sru_op(3'b101, "ROR");
-      test_sru_op(3'b110, "RLA");
-      test_sru_op(3'b111, "RRA");
+      // test_sru_op(3'b101, "ROR");
+      // test_sru_op(3'b110, "RLA");
+      // test_sru_op(3'b111, "RRA");
 
       #3000 $finish;      // Terminate simulation
    end // initial begin
@@ -232,8 +232,11 @@ module alu_sru_tb();
 
    always @(posedge alu_sru.nstart_sync) begin
       // Wait for 16 periods. 16×62.5ns=1µs.
-      fl0 = fl;
-      #1000 begin
+      fl0 <= fl;
+      $display("\nt: %7d | start %04h fl %b %b dist %d", $time, j[15:0], fl, fl0, op_dist);
+      #1100 begin
+	 $display("t: %7d | check fl=%b fl0=%b\n", $time, fl, fl0);
+	 
 	 if (tb_shift_ctr !== op_dist) begin
 	    $sformat(msg, "shift engine miscount, op_dist=%0d, but saw %0d shiftclk pulses.",
 		     op_dist, alu_sru.shiftclk);
@@ -244,7 +247,11 @@ module alu_sru_tb();
 	      3'b000: correct_b = (j << op_dist) & 16'hffff;  // Bitwise shift left
 	      3'b001: correct_b = (j >> op_dist) & 16'hffff;  // Bitwise shift right
 	      3'b011: correct_b = $signed(js >>> op_dist) & 16'hffff; // Arithmetic (sign extending) shift right
-	      3'b100: correct_b = op_dist == 0 ? j : (j << (op_dist)) | (fl0 << (op_dist - 1)) | (j >> (17 - op_dist));
+	      3'b100: 
+		begin
+		   $display("YES");
+		   correct_b = op_dist == 0 ? j : (j << (op_dist)) | (fl0 << (op_dist - 1)) | (j >> (17 - op_dist));
+		end
 	      3'b101: correct_b = op_dist == 0 ? j : (j >> (op_dist)) | (fl0 << (op_dist - 1)) | (j << (17 - op_dist));
 	      3'b110: correct_b = op_dist == 0 ? j : (j << (op_dist)) | (j >> (16 - op_dist));
 	      3'b111: correct_b = op_dist == 0 ? j : (j >> (op_dist)) | (j << (16 - op_dist));

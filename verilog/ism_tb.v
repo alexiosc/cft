@@ -40,7 +40,7 @@ module int_tb();
       		nreset, clk4, nend, nirq, action,
 		ibus15, nflagwe,
 		fi, nirqsuc, nirqs);
-      $dumpfile ("vcd/int_fsm_tb.vcd");
+      $dumpfile ("vcd/ism_tb.vcd");
       $dumpvars (0, int_tb);
 
       status = "reset";
@@ -136,7 +136,7 @@ module int_tb();
    reg [1023:0] msg;
 
    always @(action, clk4) begin
-      #30 begin
+      #40 begin
 	 if (clk4 !== 1'b0 && clk4 !== 1'b1) begin
 	    $sformat(msg, "testbench bug, clk4=%b", clk4);
 	 end

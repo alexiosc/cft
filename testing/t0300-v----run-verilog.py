@@ -19,9 +19,9 @@ def test_verilog_experiment(capsys, tmpdir):
             OUT R &11d     ; Halt immediately.
     """
 
-    halted = True
-    result = [ x[0] for x in run_on_verilog_emu(capsys, tmpdir, source) ]
-    assert result == [ OK, OK, HALTED ]
+    expected = ExpectedData([OK, OK, HALTED])
+    result = expected.prepare(run_on_verilog_emu(capsys, tmpdir, source))
+    assert expected == list(result)
 
     
 

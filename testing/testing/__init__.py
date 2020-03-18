@@ -11,6 +11,48 @@ import unittest
 import subprocess
 
 
+class ExpectedData(list):
+    """A class representing data expected from the output of a DFP-style test.
+    Results can be tested by three-digit code, three-digit code plus status
+    word, or code, status word and data.
+    """
+
+    def prepare(self, other):
+        """Pare down the result from a Verilog simulation run to match
+        the specificity of the Expected Data."""
+        for x, y in zip(self, other):
+            if type(x) == int:
+                yield y[0]
+            elif len(x) == 1:
+                yield [y[0]]
+            elif len(x) == 2:
+                yield [y[0], y[1]]
+            elif len(x) == 3:
+                yield [y[0], y[1], y[2]]
+
+        
+    # def xxx__eq__(self, other):
+    #     try:
+    #         if super().__eq__(self, other):
+    #             return True
+    #         if len(self) != len(other):
+    #             return False
+    #         for x, y in zip(self, other):
+    #             if type(x) == int and x != y[0]:
+    #                 return False
+    #             if len(x) == 1 and x[0] != y[0]:
+    #                 return False
+    #             elif len(x) == 2 and (x[0], x[1]) != (y[0], y[1]):
+    #                 return False
+    #             elif len(x) == 3 and x != y:
+    #                 return False
+
+    #     except TypeError:
+    #         return False
+
+    #     return True
+
+
 def pytest_configure(config):
     print("*** CONFIG ***")
     raise RuntimeError()
@@ -64,7 +106,7 @@ def get_capsys_outerr(capsys):
         return result[0], result[1]
 
 
-def run_verilog_testbench(capsys, name, args):
+def run_verilog_testbench(capsys, name, args=None):
     m = re.match("^(.+?)(_tb)?(\.[ov])?$", name)
     testbench = m.group(0) + "_tb.v"
     binary = m.group(0) + "_tb.o"
@@ -88,6 +130,9 @@ def run_verilog_testbench(capsys, name, args):
     #cmd = '{} {} -v -a "{}"'.format(RUN_VERILOG_TEST, testbench, ' '.join(args))
     #cmd = './{} {}'.format(binary, ' '.join(args))
 
+    if args is None:
+        args = []
+
     pipe = subprocess.Popen([os.path.abspath(binary)] + args, cwd=str(VERILOGDIR),
                             stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     (out, err) = pipe.communicate()
@@ -105,7 +150,7 @@ def run_verilog_testbench(capsys, name, args):
 
     for line in out.split('\n'):
         #print("*** Line:", line)
-        m = re.match('^(\d\d\d) (\S+)[:\s]*(.+)?$', line.strip())
+        m = re.match('^(\d\d\d) ([^: ]+)(?::?\s*(.+))?$', line.strip())
         if not m:
             #print("Ignored line:", line)
             continue
