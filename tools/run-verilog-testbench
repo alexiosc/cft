@@ -35,6 +35,9 @@ TESTING OPTIONS:
 
 GENERAL OPTIONS:
 
+-a, --args          Arguments to run the testbench with. Quote multiple
+		    arguments!
+
 -s, --skip-old      Skip tests earlier than CFT 2019.
 -S, --skip-bad      Skip any testbenches that don't fully support the new
                     testbench output format.
@@ -45,7 +48,7 @@ EOF
 }
 
 # Parse arguments
-ARGS=`getopt -o hlj:vsSrc --long help,list,jobs,verbose,skip-old,skip-bad,raw,continue -n "$PROGNAME" -- "$@"`
+ARGS=`getopt -o hlj:vsSrca: --long help,list,jobs,verbose,skip-old,skip-bad,raw,continue,args: -n "$PROGNAME" -- "$@"`
 if [ $? != 0 ] ; then
     #echo "${PROGNAME}: unrecognised option." >&2
     syntax
@@ -55,6 +58,7 @@ eval set -- "$ARGS"
 
 jobs=$(grep -c ^processor /proc/cpuinfo)
 mode="test"
+tb_args=""
 export mode verbose jobs cont
 
 while true; do
@@ -68,6 +72,7 @@ while true; do
 	-S|--skip-bad) skip_bad=1; shift;;
         -j|--jobs) jobs=$2; shift 2;;
         -c|--continue) cont=1; shift;;
+        -a|--args) tb_args+=" $2"; shift 2;;
         --) shift; break;;
         *) die "internal error ($1)!";;
     esac
@@ -173,9 +178,9 @@ runtest ()
     pushd $(dirname $real_tb) >&/dev/null
     local tmpfile=$(mktemp /tmp/$PROGNAME-XXXXXXXXXX)
     if [[ $verbose ]]; then
-	$real_tb | tee $tmpfile
+	$real_tb $tb_args | tee $tmpfile
     else
-        $real_tb &>$tmpfile
+        $real_tb $tb_args &>$tmpfile
     fi
     popd >&/dev/null
     
