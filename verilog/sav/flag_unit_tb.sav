@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Wed Mar  4 11:46:34 2020
+[*] Wed Mar 18 20:09:36 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/flag_unit_tb.vcd"
-[dumpfile_mtime] "Wed Mar  4 11:46:21 2020"
-[dumpfile_size] 12877
+[dumpfile_mtime] "Wed Mar 18 20:09:33 2020"
+[dumpfile_size] 12208
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/flag_unit_tb.sav"
-[timestart] 7259000
+[timestart] 0
 [size] 2048 1123
 [pos] 0 0
-*-20.111130 12194500 17530200 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-22.111130 12194500 17530200 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] flag_unit_tb.
 [treeopen] flag_unit_tb.flag_unit.
 [sst_width] 258

@@ -74,10 +74,17 @@ module reg_ar (nmem, nio, ibus, aext, nwrite_ar, ab,
    wire [7:0] 	 y;
 
    // Note: AR[10] is decoded TWICE here, to avoid a hazard that can cause spurious nsysdev strobes.
-   
+
+   // Note: the '688 is slow. We can bypass it entirely, in which case I/O
+   // space will always be 1,024 addresses. Partial decoding will mean the top
+   // 12 bits will be don't care values for I/O devices. But that's OK because
+   // all our devices are mapped at I/O addresses &3FF and below anyway. This
+   // is reminiscent of the Z80's behaviour with I/O addresses. (it only has
+   // 256 of them and you're supposed to ignore the upper 8 bits of the address
+   // bus).
    comparator_688 ioad_cmp (.a({ar[15:10], 2'b00}), .b(8'd0), .ng(naben),
 			    .neq(nar_high_0));
-   demux_138 ioad_dec (.g1(1'b1), .ng2a(nio), .ng2b(nar_high_0),
+   demux_138 ioad_dec (.g1(1'b1), .ng2a(nio), .ng2b(1'b0 & nar_high_0),
 		       .a({ar[10:8]}), .y(y));
    assign nsysdev = y[0];
    assign niodev1xx = y[1];

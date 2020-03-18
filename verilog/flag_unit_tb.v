@@ -132,7 +132,7 @@ module flag_unit_tb();
 
    // Test the reader (driving the IBus MBS with flag values)
    always @ (raddr) begin
-      #40 begin
+      #35 begin
    	 msg[7:0] = "";		// Use the msg as a flag.
 
 	 if (raddr === 5'b01101 || waddr === 5'b01110) begin

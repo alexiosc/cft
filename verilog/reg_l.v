@@ -137,8 +137,9 @@ module reg_l(nreset, clk4,
    assign #3 clkl = clkl0 & bcp;
 
    // Finally, the L flip flop. This runs in the Shift/Roll Unit's clock domain
-   // (which can be 4× the rest of the processor's)
-   flipflop_74h flfast_ff (.d(ld), .clk(clkl), .nset(nsetl), .nrst(nclrl), .q(flfast));
+   // (which can be 4× the rest of the processor's). Note: use AC family here,
+   // 10ns propagation delays at 5V.
+   flipflop_74h #(10,10) flfast_ff (.d(ld), .clk(clkl), .nset(nsetl), .nrst(nclrl), .q(flfast));
 
    // And this FF runs in the processor's clock domain, filtering out transient
    // FL changes and also drastically reducing the risk of metastability.

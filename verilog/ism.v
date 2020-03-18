@@ -50,19 +50,19 @@ module int_fsm (nreset, clk4, action, ibus15, nflagwe, nend, nirq,
    assign #6 endcp = nend | clk4;		   // nEND asserted during CLK4.
 
    // The Interrupt Flag.
-   flipflop_74h fi_ff    (.d(ibus15), .clk(nflagwe), .nset(naction_sti), .nrst(nreset_or_cli), .q(fi));
+   flipflop_74h #(5,5) fi_ff    (.d(ibus15), .clk(nflagwe), .nset(naction_sti), .nrst(nreset_or_cli), .q(fi));
    // Note: FI and nINH(IBIT) are the same signal.
 
    // Incoming interrupts go through a latch and flip-flop to reduce the chances of metastability.
    wire        nirq0, nirq1;
    latch_1g373 irq_latch (.noe(1'b0), .le(clk4), .d(nirq), .q(nirq0));
-   flipflop_74h irq_ff   (.d(nirq0), .clk(clk4), .nset(fi), .nrst(1'b1), .q(nirq1));
+   flipflop_74h #(5,5) irq_ff   (.d(nirq0), .clk(clk4), .nset(fi), .nrst(1'b1), .q(nirq1));
 
    // Once an IRQ has been registered, we wait until the end of the current
    // instruction before we signal the Control Unit. Signalling the CU is
    // always done on the rising edge of clk4, and signal endcp combines END and
    // CLK4 to do this.
-   flipflop_74h irqs_ff (.d(nirq1), .clk(endcp), .nset(nreset_or_cli), .nrst(1'b1), .q(nirqsuc));
+   flipflop_74h #(5,5) irqs_ff (.d(nirq1), .clk(endcp), .nset(nreset_or_cli), .nrst(1'b1), .q(nirqsuc));
 
    // IRQS and IRQµC are the same signal here. On the CFT, they're driven
    // separately, with IRQS driven from the inverted flipflop output, through

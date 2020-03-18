@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Wed Mar  4 20:06:42 2020
+[*] Wed Mar 18 19:41:08 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/alu_sru_tb.vcd"
-[dumpfile_mtime] "Wed Mar  4 20:06:18 2020"
-[dumpfile_size] 22770288
+[dumpfile_mtime] "Wed Mar 18 19:41:02 2020"
+[dumpfile_size] 12858905
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/alu_sru_tb.sav"
-[timestart] 534063000
+[timestart] 8708110000
 [size] 1920 1019
 [pos] 8188 30
-*-20.244892 8250000 49270812500 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-18.915924 8710201500 49270812500 8710201500 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] alu_sru_tb.
 [treeopen] alu_sru_tb.alu_sru.
 [sst_width] 258
@@ -88,7 +88,7 @@ alu_sru_tb.shift_op[2:0]
 @24
 [color] 3
 alu_sru_tb.alu_sru.op_dist[3:0]
-@421
+@420
 alu_sru_tb.cycle_ctr
 @200
 -
@@ -104,10 +104,6 @@ alu_sru_tb.alu_sru.shiftclk
 @c00022
 alu_sru_tb.alu_sru.b[15:0]
 @28
-[color] 5
-alu_sru_tb.fl
-[color] 5
-alu_sru_tb.alu_sru.msb
 [color] 7
 (0)alu_sru_tb.alu_sru.b[15:0]
 [color] 7
@@ -144,8 +140,87 @@ alu_sru_tb.alu_sru.msb
 -group_end
 @28
 [color] 5
+alu_sru_tb.alu_sru.msb
+[color] 5
+alu_sru_tb.fl
+@29
+[color] 5
 alu_sru_tb.alu_sru.lsb
 @200
 -
+@28
+alu_sru_tb.alu_sru.bcp_sru
+[color] 1
+alu_sru_tb.l_ff.clk
+[color] 2
+alu_sru_tb.l_ff.d
+[color] 3
+alu_sru_tb.l_ff.nq
+[color] 4
+alu_sru_tb.l_ff.nrst
+[color] 5
+alu_sru_tb.l_ff.nset
+[color] 6
+alu_sru_tb.l_ff.q
+@200
+-
+@28
+alu_sru_tb.l_ff.clk
+alu_sru_tb.l_ff.d
+alu_sru_tb.l_ff.q
+@200
+-
+@28
+alu_sru_tb.alu_sru.shiftclk
+alu_sru_tb.alu_sru.op_rotate
+alu_sru_tb.alu_sru.flcp_sru
+alu_sru_tb.alu_sru.flout_sru
+alu_sru_tb.fl
+alu_sru_tb.alu_sru.ctr_state.cp
+alu_sru_tb.alu_sru.ctr_state.down
+alu_sru_tb.alu_sru.ctr_state.nce
+alu_sru_tb.alu_sru.ctr_state.npl
+alu_sru_tb.alu_sru.ctr_state.nrc
+@22
+alu_sru_tb.alu_sru.ctr_state.p[3:0]
+alu_sru_tb.alu_sru.ctr_state.q[3:0]
+@28
+alu_sru_tb.alu_sru.ctr_state.tc
+@200
+-
+@c00022
+[color] 2
+alu_sru_tb.alu_sru.lsb_mux.i[3:0]
+@28
+[color] 2
+(0)alu_sru_tb.alu_sru.lsb_mux.i[3:0]
+[color] 2
+(1)alu_sru_tb.alu_sru.lsb_mux.i[3:0]
+[color] 2
+(2)alu_sru_tb.alu_sru.lsb_mux.i[3:0]
+[color] 2
+(3)alu_sru_tb.alu_sru.lsb_mux.i[3:0]
+@1401200
+-group_end
+@28
+[color] 2
+alu_sru_tb.alu_sru.lsb_mux.noe
+[color] 2
+alu_sru_tb.alu_sru.lsb_mux.sel[1:0]
+[color] 2
+alu_sru_tb.alu_sru.lsb_mux.y
+@200
+-
+@28
+[color] 5
+alu_sru_tb.alu_sru.l_mux.a
+[color] 5
+alu_sru_tb.alu_sru.l_mux.b
+[color] 5
+alu_sru_tb.alu_sru.l_mux.ng
+[color] 5
+alu_sru_tb.alu_sru.l_mux.sel
+[color] 5
+alu_sru_tb.alu_sru.l_mux.y
 [pattern_trace] 1
 [pattern_trace] 0

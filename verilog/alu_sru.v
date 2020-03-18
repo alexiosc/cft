@@ -114,7 +114,7 @@ module alu_sru(nreset, nrsthold,
 
    // Generate write pulses at every step.
    wire 	shiftclk;
-   assign #9 shiftclk = (nstart_sync & x4clk) | nen;
+   assign #9 shiftclk = (nstart_sync & x4clk) | tc;
    assign bcp_sru = shiftclk;
 
    // Generate the FL clock output
