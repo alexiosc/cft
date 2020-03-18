@@ -55,7 +55,7 @@ def findBaseDir():
     raise RuntimeError('Base directory not found (looked for %s.' % ', '.join(lookFor))
 
 
-def get_capsys_outerr(capsys):
+def get_capsys_outerr(capsys): 
     result = capsys.readouterr()
     try:
         return result.out, result.err
@@ -64,7 +64,7 @@ def get_capsys_outerr(capsys):
         return result[0], result[1]
 
 
-def run_verilog_testbench(capsys, name, *args):
+def run_verilog_testbench(capsys, name, args):
     m = re.match("^(.+?)(_tb)?(\.[ov])?$", name)
     testbench = m.group(0) + "_tb.v"
     binary = m.group(0) + "_tb.o"
@@ -84,8 +84,18 @@ def run_verilog_testbench(capsys, name, *args):
             assert False, "Testbench {}/{} does not exist!".format(os.getcwd(), binary)
         assert False
 
-    cmd = '{} {} -v {}'.format(RUN_VERILOG_TEST, testbench, ' '.join(args))
-    os.system(cmd)
+    # Note: the test tool (RUN_VERILOG_TEST) expects the .v file, not the .o file.
+    #cmd = '{} {} -v -a "{}"'.format(RUN_VERILOG_TEST, testbench, ' '.join(args))
+    #cmd = './{} {}'.format(binary, ' '.join(args))
+
+    pipe = subprocess.Popen([os.path.abspath(binary)] + args, cwd=str(VERILOGDIR),
+                            stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    (out, err) = pipe.communicate()
+    code = pipe.wait()
+
+    sys.stdout.write(out.decode('utf-8'))
+    sys.stderr.write(err.decode('utf-8'))
+
     result = capsys.readouterr()
     try:
         out = result.out
@@ -94,8 +104,10 @@ def run_verilog_testbench(capsys, name, *args):
         out = result[0]
 
     for line in out.split('\n'):
-        m = re.match('^(\d\d\d) (\S+):?(?: (.+))$', line.strip())
+        #print("*** Line:", line)
+        m = re.match('^(\d\d\d) (\S+)[:\s]*(.+)?$', line.strip())
         if not m:
+            #print("Ignored line:", line)
             continue
         code, state, comment = m.groups()
         yield((int(code), state, comment))
@@ -145,6 +157,31 @@ def assemble(tmpdir, source, args=None):
         assert os.path.isfile(str(tmpdir.join(f))), "file {}/{} was not created".format(tmpdir, f)
 
 
+def run_on_verilog_emu(capsys, tmpdir, source, cftasm_args=None, verilog_args=None):
+    """Assemble a program and run it using the verilog emulator."""
+
+    # First, assemble the script.
+    asm_args = ["--verilog"]
+    if cftasm_args is not None:
+        asm_args += cftasm_args
+    assemble(tmpdir, source, asm_args)
+
+    out, err = get_capsys_outerr(capsys)
+    sys.stdout.write(out)
+    sys.stderr.write(err)
+
+    # Ensure we have verilog output.
+    for f in ("a-00.list", "a-01.list"):
+        fname = str(tmpdir.join(f))
+        assert os.path.exists(fname), "Verilog image {} missing".format(fname)
+
+    # Okay, now run it with Verilog.
+    if verilog_args is None:
+        args = [ "+rom={}".format(tmpdir.join("a")) ]
+
+    return run_verilog_testbench(capsys, 'cft2019', args)
+
+
 def read_cft_bin_file(fname, size):
     with open(fname, "rb") as f:
         data = array.array('H')
@@ -165,7 +202,9 @@ BASEDIR = findBaseDir()
 VERILOGDIR = os.path.join(BASEDIR, "verilog")
 RUN_VERILOG_TEST = os.path.join(BASEDIR, "tools", "run-verilog-testbench")
 SUCCESS = 345
+OK = SUCCESS
 FAIL = 346
+HALTED = 305
 
 
 # End of file.
