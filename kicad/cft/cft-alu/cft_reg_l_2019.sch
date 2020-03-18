@@ -1101,6 +1101,6 @@ Text Label 6250 2750 1    50   ~ 0
 LD3
 Text HLabel 10350 2650 2    50   Output ~ 0
 FL
-Text Notes 7200 3350 0    50   ~ 10
-Warning: AC family!
+Text Notes 7100 2350 0    63   ~ 13
+Critical: AC family!
 $EndSCHEMATC

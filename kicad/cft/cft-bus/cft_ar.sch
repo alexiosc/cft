@@ -1,6 +1,5 @@
 EESchema Schematic File Version 4
-LIBS:cft-bus-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -1024,110 +1023,108 @@ Wire Notes Line
 $Comp
 L alexios:74HC688 U?
 U 1 1 5DF054F6
-P 7350 2800
+P 7350 2550
 AR Path="/5DF054F6" Ref="U?"  Part="1" 
 AR Path="/5CD91C88/5DF054F6" Ref="U?"  Part="1" 
 AR Path="/5CC06F10/5DF054F6" Ref="U34"  Part="1" 
-F 0 "U34" H 7350 3967 50  0000 C CNN
-F 1 "74HC688" H 7350 3876 50  0000 C CNN
-F 2 "alexios:SOIC-20W" H 7350 2800 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS688" H 7350 2800 50  0001 C CNN
-	1    7350 2800
+F 0 "U34" H 7350 3717 50  0000 C CNN
+F 1 "74HC688" H 7350 3626 50  0000 C CNN
+F 2 "alexios:SOIC-20W" H 7350 2550 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS688" H 7350 2550 50  0001 C CNN
+	1    7350 2550
 	1    0    0    -1  
 $EndComp
 $Comp
 L alexios:74HC138 U?
 U 1 1 5DF054FC
-P 8900 1500
+P 9150 1500
 AR Path="/5DF054FC" Ref="U?"  Part="1" 
 AR Path="/5CD91C88/5DF054FC" Ref="U?"  Part="1" 
 AR Path="/5CC06F10/5DF054FC" Ref="U30"  Part="1" 
-F 0 "U30" H 8900 2167 50  0000 C CNN
-F 1 "74HC138" H 8900 2076 50  0000 C CNN
-F 2 "alexios:SOIC-16" H 8900 1500 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 8900 1500 50  0001 C CNN
-	1    8900 1500
+F 0 "U30" H 9150 2167 50  0000 C CNN
+F 1 "74HC138" H 9150 2076 50  0000 C CNN
+F 2 "alexios:SOIC-16" H 9150 1500 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 9150 1500 50  0001 C CNN
+	1    9150 1500
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	6850 3500 6800 3500
+	6850 3250 6800 3250
 Wire Wire Line
-	6850 3400 6800 3400
-Connection ~ 6800 3400
+	6850 3150 6800 3150
+Connection ~ 6800 3150
 Wire Wire Line
-	6800 3400 6800 3500
+	6800 3150 6800 3250
 Wire Wire Line
-	6850 3300 6800 3300
-Connection ~ 6800 3300
+	6850 3050 6800 3050
+Connection ~ 6800 3050
 Wire Wire Line
-	6800 3300 6800 3400
+	6800 3050 6800 3150
 Wire Wire Line
-	6800 3200 6850 3200
-Connection ~ 6800 3200
+	6800 2950 6850 2950
+Connection ~ 6800 2950
 Wire Wire Line
-	6800 3200 6800 3300
+	6800 2950 6800 3050
 Wire Wire Line
-	6850 3100 6800 3100
-Connection ~ 6800 3100
+	6850 2850 6800 2850
+Connection ~ 6800 2850
 Wire Wire Line
-	6800 3100 6800 3200
+	6800 2850 6800 2950
 Wire Wire Line
-	6850 3000 6800 3000
-Connection ~ 6800 3000
+	6850 2750 6800 2750
+Connection ~ 6800 2750
 Wire Wire Line
-	6800 3000 6800 3100
+	6800 2750 6800 2850
 Wire Wire Line
-	6850 2900 6800 2900
-Connection ~ 6800 2900
+	6850 2650 6800 2650
+Connection ~ 6800 2650
 Wire Wire Line
-	6800 2900 6800 3000
+	6800 2650 6800 2750
 Wire Wire Line
-	6850 2800 6800 2800
-Connection ~ 6800 2800
+	6850 2550 6800 2550
+Connection ~ 6800 2550
 Wire Wire Line
-	6800 2800 6800 2900
+	6800 2550 6800 2650
 Wire Wire Line
-	6850 2500 6800 2500
+	6850 2250 6800 2250
 Wire Wire Line
-	6800 2500 6800 2600
+	6800 2250 6800 2350
 Wire Wire Line
-	6850 2600 6800 2600
-Connection ~ 6800 2600
+	6850 2350 6800 2350
+Connection ~ 6800 2350
 Wire Wire Line
-	6800 2600 6800 2800
+	6800 2350 6800 2550
 Wire Wire Line
-	6850 2000 6600 2000
+	6850 1750 6600 1750
 Wire Wire Line
-	6850 2100 6600 2100
+	6850 1850 6600 1850
 Wire Wire Line
-	6850 2200 6600 2200
+	6850 1950 6600 1950
 Wire Wire Line
-	6850 2300 6600 2300
+	6850 2050 6600 2050
 Wire Wire Line
-	6850 2400 6600 2400
+	6850 2150 6600 2150
 Wire Wire Line
-	8400 1100 6600 1100
+	8650 1100 6600 1100
 Wire Wire Line
-	8400 1200 6600 1200
+	8650 1200 6600 1200
 Wire Wire Line
-	8400 1300 6600 1300
-Wire Wire Line
-	7850 1900 8400 1900
-Text Label 8400 1100 2    50   ~ 0
+	8650 1300 6600 1300
+Text Label 8650 1100 2    50   ~ 0
 AR8
-Text Label 8400 1200 2    50   ~ 0
+Text Label 8650 1200 2    50   ~ 0
 AR9
-Text Label 8400 1300 2    50   ~ 0
+Text Label 8650 1300 2    50   ~ 0
 AR10
-Text Label 6850 2000 2    50   ~ 0
+Text Label 6850 1750 2    50   ~ 0
 AR11
-Text Label 6850 2100 2    50   ~ 0
+Text Label 6850 1850 2    50   ~ 0
 AR12
-Text Label 6850 2200 2    50   ~ 0
+Text Label 6850 1950 2    50   ~ 0
 AR13
-Text Label 6850 2400 2    50   ~ 0
+Text Label 6850 2150 2    50   ~ 0
 AR14
-Text Label 6850 2300 2    50   ~ 0
+Text Label 6850 2050 2    50   ~ 0
 AR15
 Entry Wire Line
 	6500 1000 6600 1100
@@ -1136,15 +1133,15 @@ Entry Wire Line
 Entry Wire Line
 	6500 1200 6600 1300
 Entry Wire Line
-	6500 1900 6600 2000
+	6500 1650 6600 1750
 Entry Wire Line
-	6500 2000 6600 2100
+	6500 1750 6600 1850
 Entry Wire Line
-	6500 2100 6600 2200
+	6500 1850 6600 1950
 Entry Wire Line
-	6500 2200 6600 2300
+	6500 1950 6600 2050
 Entry Wire Line
-	6500 2300 6600 2400
+	6500 2050 6600 2150
 Text Label 6850 1100 2    50   ~ 0
 AR8
 Text Label 6850 1200 2    50   ~ 0
@@ -1152,20 +1149,20 @@ AR9
 Text Label 6850 1300 2    50   ~ 0
 AR10
 Wire Wire Line
-	9400 1100 9750 1100
+	9650 1100 10000 1100
 Wire Wire Line
-	9400 1200 9750 1200
+	9650 1200 10000 1200
 Wire Wire Line
-	9400 1300 9750 1300
+	9650 1300 10000 1300
 Wire Wire Line
-	9400 1400 9750 1400
-Text HLabel 9750 1100 2    50   Output ~ 0
+	9650 1400 10000 1400
+Text HLabel 10000 1100 2    50   Output ~ 0
 ~SYSDEV
-Text HLabel 9750 1200 2    50   Output ~ 0
+Text HLabel 10000 1200 2    50   Output ~ 0
 ~IODEV1XX
-Text HLabel 9750 1300 2    50   Output ~ 0
+Text HLabel 10000 1300 2    50   Output ~ 0
 ~IODEV2XX
-Text HLabel 9750 1400 2    50   Output ~ 0
+Text HLabel 10000 1400 2    50   Output ~ 0
 ~IODEV3XX
 $Comp
 L power:+5V #PWR?
@@ -1232,10 +1229,10 @@ F 3 "~" H 9650 3250 50  0001 C CNN
 $EndComp
 Text Label 5150 850  0    50   ~ 0
 AR[8..15]
-NoConn ~ 9400 1500
-NoConn ~ 9400 1600
-NoConn ~ 9400 1700
-NoConn ~ 9400 1800
+NoConn ~ 9650 1500
+NoConn ~ 9650 1600
+NoConn ~ 9650 1700
+NoConn ~ 9650 1800
 $Comp
 L alexios:74HC688 U?
 U 2 1 5DF0556C
@@ -1304,17 +1301,17 @@ Connection ~ 8150 3350
 $Comp
 L power:GND #PWR?
 U 1 1 5DF0558E
-P 6800 3500
+P 6800 3250
 AR Path="/5DF0558E" Ref="#PWR?"  Part="1" 
 AR Path="/5CBF1647/5DF0558E" Ref="#PWR?"  Part="1" 
 AR Path="/5CC0D65F/5DF0558E" Ref="#PWR?"  Part="1" 
 AR Path="/5CD91C88/5DF0558E" Ref="#PWR?"  Part="1" 
 AR Path="/5CC06F10/5DF0558E" Ref="#PWR095"  Part="1" 
-F 0 "#PWR095" H 6800 3250 50  0001 C CNN
-F 1 "GND" H 6750 3350 50  0000 R CNN
-F 2 "" H 6800 3500 50  0001 C CNN
-F 3 "" H 6800 3500 50  0001 C CNN
-	1    6800 3500
+F 0 "#PWR095" H 6800 3000 50  0001 C CNN
+F 1 "GND" H 6750 3100 50  0000 R CNN
+F 2 "" H 6800 3250 50  0001 C CNN
+F 3 "" H 6800 3250 50  0001 C CNN
+	1    6800 3250
 	1    0    0    -1  
 $EndComp
 Entry Bus Bus
@@ -1326,41 +1323,37 @@ Wire Bus Line
 Connection ~ 1600 2550
 Wire Wire Line
 	1600 2550 1000 2550
-Text Label 6500 1600 1    50   ~ 0
+Text Label 6500 1350 1    50   ~ 0
 AR[8..15]
-Connection ~ 6800 3500
+Connection ~ 6800 3250
 Wire Wire Line
-	1600 600  7900 600 
+	1600 600  8350 600 
 Wire Wire Line
-	7900 600  7900 1800
-Wire Wire Line
-	7900 1800 8400 1800
-Text Label 8350 1800 2    50   ~ 0
+	8350 600  8350 1800
+Text Label 8600 1800 2    50   ~ 0
 ~IO
 Wire Wire Line
-	8350 1700 8400 1700
+	8600 1700 8650 1700
 $Comp
 L power:+5V #PWR?
 U 1 1 5DF05502
-P 8350 1650
+P 8600 1650
 AR Path="/5DF05502" Ref="#PWR?"  Part="1" 
 AR Path="/5CD3AC27/5DF05502" Ref="#PWR?"  Part="1" 
 AR Path="/5CD91C88/5DF05502" Ref="#PWR?"  Part="1" 
 AR Path="/5CC06F10/5DF05502" Ref="#PWR088"  Part="1" 
-F 0 "#PWR088" H 8350 1500 50  0001 C CNN
-F 1 "+5V" H 8292 1687 50  0000 R CNN
-F 2 "" H 8350 1650 50  0001 C CNN
-F 3 "" H 8350 1650 50  0001 C CNN
-	1    8350 1650
+F 0 "#PWR088" H 8600 1500 50  0001 C CNN
+F 1 "+5V" H 8650 1800 50  0000 R CNN
+F 2 "" H 8600 1650 50  0001 C CNN
+F 3 "" H 8600 1650 50  0001 C CNN
+	1    8600 1650
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	8350 1700 8350 1650
-Text Label 8350 1900 2    50   ~ 0
-~AR10-15=0
+	8600 1700 8600 1650
 Text Notes 7850 3800 0    63   ~ 13
 I/O Address Decoder
-Text Notes 8600 2100 0    50   ~ 0
+Text Notes 8850 2100 0    50   ~ 0
 Decodes I/O addresses AR=0000'00nn'nnnn
 Wire Notes Line
 	6300 700  6300 4150
@@ -1633,14 +1626,14 @@ FPD6
 Text Label 8750 5350 0    50   ~ 0
 FPD7
 Wire Wire Line
-	6600 4050 6350 4050
-Text Label 6350 4050 0    50   ~ 0
+	6600 3800 6350 3800
+Text Label 6350 3800 0    50   ~ 0
 ~ABEN1
 Wire Wire Line
-	6850 1900 6600 1900
+	6850 1650 6600 1650
 Entry Wire Line
-	6500 1800 6600 1900
-Text Label 6650 1900 0    50   ~ 0
+	6500 1550 6600 1650
+Text Label 6650 1650 0    50   ~ 0
 AR10
 Wire Wire Line
 	1300 2650 1000 2650
@@ -1657,28 +1650,28 @@ F 3 "" H 1300 3250 50  0001 C CNN
 	1    1300 3250
 	1    0    0    -1  
 $EndComp
-Text Notes 7900 2600 0    50   ~ 0
+Text Notes 7900 2800 0    50   ~ 0
 Note: AR10 is decoded TWICE in this setup, and the comparator is\nsuperfluously gated from ~ABEN1~ (or ~T34~). This is done to\navoid static hazards in the decoding. These manifest as spurious\n~SYSDEV~ strobes when the AB goes from e.g. &0000 to &0800.
 $Comp
 L Jumper:Jumper_3_Bridged12 JP?
 U 1 1 5E77C357
-P 6850 4050
+P 6850 3800
 AR Path="/61F95ACC/63C9F04D/5E77C357" Ref="JP?"  Part="1" 
 AR Path="/61F95ACC/5E77C357" Ref="JP?"  Part="1" 
 AR Path="/5CC06F10/5E77C357" Ref="JP14"  Part="1" 
-F 0 "JP14" H 6950 3900 50  0000 L CNN
-F 1 "Jumper_3_Bridged12" H 6850 4163 50  0001 C CNN
-F 2 "Jumper:SolderJumper-3_P1.3mm_Bridged12_RoundedPad1.0x1.5mm" H 6850 4050 50  0001 C CNN
-F 3 "~" H 6850 4050 50  0001 C CNN
-	1    6850 4050
+F 0 "JP14" H 6950 3650 50  0000 L CNN
+F 1 "Jumper_3_Bridged12" H 6850 3913 50  0001 C CNN
+F 2 "Jumper:SolderJumper-3_P1.3mm_Bridged12_RoundedPad1.0x1.5mm" H 6850 3800 50  0001 C CNN
+F 3 "~" H 6850 3800 50  0001 C CNN
+	1    6850 3800
 	1    0    0    1   
 $EndComp
 Wire Wire Line
-	7100 4050 7300 4050
-Text Label 7300 4050 2    50   ~ 0
+	7100 3800 7300 3800
+Text Label 7300 3800 2    50   ~ 0
 T34
 Wire Wire Line
-	6850 3900 6850 3700
+	6850 3650 6850 3450
 Text Label 1700 3000 2    50   ~ 0
 ~ABEN2
 Text HLabel 1000 2650 0    50   Input ~ 0
@@ -1861,7 +1854,7 @@ F 3 "http://www.ti.com/lit/gpn/sn74HC541" H 5500 7400 50  0001 C CNN
 	2    5500 7400
 	1    0    0    -1  
 $EndComp
-Text Notes 6450 3100 1    50   ~ 0
+Text Notes 6450 2850 1    50   ~ 0
 AR15 & AR14 purposefully swapped.
 $Comp
 L alexios:74AHC1G08 U?
@@ -1892,12 +1885,43 @@ F 3 "~" H 1300 3000 50  0001 C CNN
 $EndComp
 Text Label 3900 6000 2    50   ~ 0
 ~ABEN2
+$Comp
+L Jumper:Jumper_3_Bridged12 JP?
+U 1 1 5E8BAD05
+P 8150 1900
+AR Path="/61F95ACC/63C9F04D/5E8BAD05" Ref="JP?"  Part="1" 
+AR Path="/61F95ACC/5E8BAD05" Ref="JP?"  Part="1" 
+AR Path="/5CC06F10/5E8BAD05" Ref="JP1"  Part="1" 
+F 0 "JP1" V 8300 1650 50  0000 L CNN
+F 1 "Jumper_3_Bridged12" H 8150 2013 50  0001 C CNN
+F 2 "Jumper:SolderJumper-3_P1.3mm_Bridged12_RoundedPad1.0x1.5mm" H 8150 1900 50  0001 C CNN
+F 3 "~" H 8150 1900 50  0001 C CNN
+	1    8150 1900
+	0    -1   1    0   
+$EndComp
+Wire Wire Line
+	8350 1800 8650 1800
+Wire Wire Line
+	8300 1900 8650 1900
+$Comp
+L power:GND #PWR0148
+U 1 1 5E93BF5B
+P 8150 2150
+F 0 "#PWR0148" H 8150 1900 50  0001 C CNN
+F 1 "GND" H 8155 1977 50  0000 C CNN
+F 2 "" H 8150 2150 50  0001 C CNN
+F 3 "" H 8150 2150 50  0001 C CNN
+	1    8150 2150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7850 1650 8150 1650
 Wire Bus Line
 	7400 4550 7400 5250
 Wire Bus Line
 	9150 4750 9150 5500
 Wire Bus Line
-	6500 950  6500 2300
+	6500 950  6500 2050
 Wire Bus Line
 	2650 1600 2650 5200
 Wire Bus Line
@@ -1906,4 +1930,6 @@ Wire Bus Line
 	6200 1350 6200 5900
 Wire Bus Line
 	4550 950  4550 5200
+Text Notes 7600 3450 1    50   ~ 0
+TOD: Consider removing this entirely. It's\nslow, large, and not available as 74AC688.
 $EndSCHEMATC

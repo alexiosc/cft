@@ -1257,6 +1257,8 @@ Text Notes 550  400  0    197  ~ 39
 TODO: Clean up schematics, annotate and reassociate with PCB!
 Wire Wire Line
 	5400 3200 4900 3200
+Text Label 4900 3200 0    50   ~ 0
+~RSTHOLD
 Wire Bus Line
 	800  4100 2350 4100
 Wire Bus Line
@@ -1265,6 +1267,4 @@ Wire Bus Line
 	10100 1300 10100 1950
 Wire Bus Line
 	10100 3450 10100 5050
-Text Label 4900 3200 0    50   ~ 0
-~RSTHOLD
 $EndSCHEMATC

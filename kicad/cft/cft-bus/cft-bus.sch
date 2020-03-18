@@ -1,6 +1,5 @@
 EESchema Schematic File Version 4
-LIBS:cft-bus-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -715,8 +714,8 @@ F68 "C40" U R 9500 5500 50
 $EndSheet
 Wire Wire Line
 	2900 2750 4950 2750
-Wire Bus Line
-	9950 1450 9950 1700
 Text Notes 4900 1100 0    100  ~ 20
 Address Register
+Wire Bus Line
+	9950 1450 9950 1700
 $EndSCHEMATC
