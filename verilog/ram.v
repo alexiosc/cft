@@ -17,7 +17,7 @@
 
 module sram (a, d, nce, nwe, noe);
    parameter bits = 19;
-   parameter access_time = 70;
+   parameter access_time = 50;
    
    input [bits-1:0] a;          // Address
    input            nce;        // /CE (active low): chip enable

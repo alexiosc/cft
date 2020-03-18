@@ -140,14 +140,14 @@ module card_mem(
    assign #7 nmemw = nmem | nw;
 
    // 512K RAM
-   sram #(19) ramlo (.a(ab[18:0]), .d(db[7:0]), .nce(ncs[0]), .nwe(nmemw), .noe(nmemr));
-   sram #(19) ramhi (.a(ab[18:0]), .d(db[15:8]), .nce(ncs[0]), .nwe(nmemw), .noe(nmemr));
+   sram #(19, 10) ramlo (.a(ab[18:0]), .d(db[7:0]), .nce(ncs[0]), .nwe(nmemw), .noe(nmemr));
+   sram #(19, 10) ramhi (.a(ab[18:0]), .d(db[15:8]), .nce(ncs[0]), .nwe(nmemw), .noe(nmemr));
 
    // Another 512K RAM where the ROM should be is, so that individual
    // testbenches can load their own ROM images at will with
    // $readmemb(). Obviously, writing is disabled.
-   sram #(19) romlo (.a(ab[18:0]), .d(db[7:0]), .nce(nromcs[0]), .nwe(1'b1), .noe(nmemr));
-   sram #(19) romhi (.a(ab[18:0]), .d(db[15:8]), .nce(nromcs[0]), .nwe(1'b1), .noe(nmemr));
+   sram #(19, 45) romlo (.a(ab[18:0]), .d(db[7:0]), .nce(nromcs[0]), .nwe(1'b1), .noe(nmemr));
+   sram #(19, 45) romhi (.a(ab[18:0]), .d(db[15:8]), .nce(nromcs[0]), .nwe(1'b1), .noe(nmemr));
 
    // If instructed, load ROM and/or ROM images for simulation.
    reg [4096:0]  basename, imglo, imghi;
@@ -157,16 +157,17 @@ module card_mem(
 	 $sformat(imglo, "%-0s-00.list", basename);
 	 $sformat(imghi, "%-0s-01.list", basename);
 	 // We have two groups of srams, so read in two halves.
-	 $readmemb(imglo, ramlo);
-	 $readmemb(imghi, ramhi);
+	 $readmemb(imglo, ramlo.mem);
+	 $readmemb(imghi, ramhi.mem);
       end
       // Load a ROM image
       if ($value$plusargs("rom=%s", basename)) begin
 	 $sformat(imglo, "%-0s-00.list", basename);
 	 $sformat(imghi, "%-0s-01.list", basename);
 	 // We have two groups of srams, so read in two halves.
-	 $readmemb(imglo, romlo);
-	 $readmemb(imghi, romhi);
+	 $readmemb(imglo, romlo.mem);
+	 $readmemb(imghi, romhi.mem);
+	 $display("345 OK Loaded ROM image from base %-0s", basename);
       end
    end
 
