@@ -134,11 +134,11 @@ module ram_tb();
    
 
    // Connect DUT to test bench
-   sram #(8, 70) ram (.a(a), .d(d), .nce(nce), .nwe(nwe), .noe(noe));
+   sram #(8, 50) ram (.a(a), .d(d), .nce(nce), .nwe(nwe), .noe(noe));
 
    reg [8191:0] msg;
    always @(nce, noe, nwe, a) begin
-      begin
+      #70 begin
 	 msg[7:0] = "";		// Use the msg as a flag.
 	 
 	 if (d_write !== 8'bZ && noe === 0) begin
