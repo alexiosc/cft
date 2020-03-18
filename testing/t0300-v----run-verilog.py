@@ -11,7 +11,7 @@ import subprocess
 from testing import * 
 
 
-@
+@pytest.mark.verilog
 def test_verilog_experiment(capsys, tmpdir):
 
     source = """
