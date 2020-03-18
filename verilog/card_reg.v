@@ -226,6 +226,7 @@ module card_reg(
 		     .nwrite(nwrite_pc),
 		     .ninc(naction_incpc),
 		     .ndec(1'b1),
+		     .out(pc),	// Only PC[15:10] is used.
 		     .nfpl(nfppcl),
 		     .nfph(nfppch),
 		     .fpd(fpd));

@@ -334,6 +334,27 @@ def test_basic_assembly(capsys, tmpdir):
 
 
 @pytest.mark.cftasm
+def test_field_bits(capsys, tmpdir):
+
+    assemble(tmpdir, """
+    &1400     JMP I @+1
+              .word @0+&3c00
+    """)
+
+    # Expect 14 words
+    fname = str(tmpdir.join("a.bin"))
+    assert os.path.getsize(fname) == 4, \
+        "Wrong object size generated (2W expected)"
+
+    assembled_data = read_cft_bin_file(fname, 2)
+    print(assembled_data)
+    # Data is byte-swapped when Python reads it a 16-bit ints.
+    expected_data = array.array('H', [ 0x4801, 0x3c00 ])
+    assert len(assembled_data) == 2
+    assert assembled_data == expected_data, "Assembled string did not match"
+
+
+@pytest.mark.cftasm
 def test_namespaces(capsys, tmpdir):
 
     assemble(tmpdir, """

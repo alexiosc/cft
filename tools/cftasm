@@ -1191,13 +1191,13 @@ class CFTAssembler(object):
                 if tok_left is None or tok_left == '':
                     left = self.addr
                 else:
-                    lparsed = list(self.parse_fields([[ self.TKT_WORD, tok_left ]]))
+                    lparsed = list(self.parse_fields([[ self.TKT_WORD, tok_left ]], all_bits=True))
                     if len(lparsed) != 1:
                         self.fail("sanity check, expected a single lparsed result, not {}".format(lparsed))
                     left = lparsed[0]
 
                 # Parse the right operand
-                rparsed = list(self.parse_fields([[ self.TKT_WORD, tok_right ]]))
+                rparsed = list(self.parse_fields([[ self.TKT_WORD, tok_right ]], all_bits=True))
                 if len(rparsed) != 1:
                     self.fail("sanity check, expected a single rparsed result, not {}".format(rparsed))
                 right = rparsed[0]
@@ -1284,7 +1284,7 @@ class CFTAssembler(object):
         return None
         
 
-    def parse_fields(self, tokens, strings_too=False):
+    def parse_fields(self, tokens, all_bits=False, strings_too=False):
         """Parse tokens into numbers and return them. Tokens can be numeric literals in
         binary, decimal or hexadecimal, symbols that are resolved into numbers,
         symbolic @-expressions, or (if strings_too=True is specified)
@@ -1304,8 +1304,11 @@ class CFTAssembler(object):
                     self.debug_parser("Parse literal: {}".format(token))
                     parsed_literal = self.parse_literal(token)
                 if parsed_literal is not None:
-                    self.debug_parser("Yield as-is: {}".format(token))
-                    yield parsed_literal
+                    self.debug_parser("Yield as-is: {} -> {}".format(token, parsed_literal))
+                    if all_bits:
+                        yield parsed_literal
+                    else:
+                        yield parsed_literal & 0x3ff
                 else:
                     # Do we have a resolved symbol in the symbol table?
                     sym = self.get_symbol(token)
@@ -1326,9 +1329,9 @@ class CFTAssembler(object):
         self.debug_parser("End of token parse.")
 
 
-    def assemble_single_field(self, tokens):
+    def assemble_single_field(self, tokens, all_bits=False):
         value = 0
-        for token in self.parse_fields(tokens):
+        for token in self.parse_fields(tokens, all_bits=all_bits):
             if type(token) != int:
                 # In the final pass, parse_fields() throws a parse error on
                 # undefined fields. So we're safe to do this here.
@@ -1433,7 +1436,7 @@ class CFTAssembler(object):
         sym, definition = tokens[1][1], list(x[1] for x in tokens[2:])
         nssym = self.get_nsname(sym)
 
-        parsed = list(self.parse_fields(tokens[2:]))
+        parsed = list(self.parse_fields(tokens[2:], all_bits=True))
 
         # Has this symbol been resolved fully at this time?
         if all(type(x) == int for x in parsed):
@@ -1465,7 +1468,7 @@ class CFTAssembler(object):
             self.warn("fill count doesn't fit in 16 bits. (CFT-native assembler will balk)")
 
         addr = self.addr
-        value = self.assemble_single_field(tokens[2:])
+        value = self.assemble_single_field(tokens[2:], all_bits=True)
 
         self.debug_assembly("{} directive: count={} value=&{:>04x}".format(directive, count, value))
 
@@ -1539,7 +1542,8 @@ class CFTAssembler(object):
             self.fail("Unhandled directive {}".tokens[0][1])
 
         fields = tokens[1:]
-        for token in self.parse_fields(fields, strings_too=pkt == self.PKT_STR):
+        for token in self.parse_fields(fields, all_bits=True,
+                                       strings_too=pkt == self.PKT_STR):
             # Sanity check (parse_fields takes care of better error reporting)
             if type(token) != int:
                 assert not self.final_pass or type(token) == int, "undefined symbol"
@@ -1594,7 +1598,7 @@ class CFTAssembler(object):
         if len(tokens) < 2:
             self.fail("{} expects at least one string field.".format(tokens[0][1]))
 
-        s = list(self.parse_fields(tokens[1:], strings_too=True))
+        s = list(self.parse_fields(tokens[1:], all_bits=True, strings_too=True))
 
         if self.longstring is not None:
             self.longstring += s
@@ -1618,7 +1622,7 @@ class CFTAssembler(object):
         sym, definition = tokens[1][1], list(x[1] for x in tokens[2:])
         nssym = self.get_nsname(sym)
 
-        parsed = list(self.parse_fields(tokens[2:]))
+        parsed = list(self.parse_fields(tokens[2:], all_bits=True))
 
         # Has this symbol been resolved fully at this time?
         if all(type(x) == int for x in parsed):
@@ -1644,7 +1648,7 @@ class CFTAssembler(object):
 
         pkt = self.PKT_WORD
 
-        value = self.assemble_single_field(tokens[1:])
+        value = self.assemble_single_field(tokens[1:], all_bits=True)
         if value is None:
             # One or more values are undefined. In the final pass, a parse
             # error will be thrown and we never get here.

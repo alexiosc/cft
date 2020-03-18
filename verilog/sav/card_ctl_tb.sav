@@ -1,15 +1,15 @@
 [*]
-[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
-[*] Mon Mar  9 07:37:28 2020
+[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
+[*] Wed Mar 18 21:21:29 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/card_ctl_tb.vcd"
-[dumpfile_mtime] "Mon Mar  9 07:37:24 2020"
-[dumpfile_size] 726667
+[dumpfile_mtime] "Wed Mar 18 21:21:12 2020"
+[dumpfile_size] 746008
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/card_ctl_tb.sav"
 [timestart] 0
 [size] 1920 1019
 [pos] 2287 0
-*-23.457258 -1 24000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-25.457258 27290000 24000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] card_ctl_tb.
 [treeopen] card_ctl_tb.card_ctl.
 [sst_width] 258
@@ -30,6 +30,11 @@ card_ctl_tb.powerok
 card_ctl_tb.nfpreset
 @200
 -
+@22
+card_ctl_tb.card_ctl.pc[15:10]
+@201
+-
+@200
 -Clock
 @28
 [color] 1
@@ -125,10 +130,10 @@ card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
 @1401200
 -group_end
 -group_end
-@c04023
+@c04022
 ^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/uaddr
 card_ctl_tb.card_ctl.microcode_sequencer.uaddr[18:0]
-@4029
+@4028
 ^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/uaddr
 (0)card_ctl_tb.card_ctl.microcode_sequencer.uaddr[18:0]
 ^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/uaddr
@@ -167,10 +172,10 @@ card_ctl_tb.card_ctl.microcode_sequencer.uaddr[18:0]
 (17)card_ctl_tb.card_ctl.microcode_sequencer.uaddr[18:0]
 ^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/uaddr
 (18)card_ctl_tb.card_ctl.microcode_sequencer.uaddr[18:0]
-@c04023
+@c04022
 ^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/uaddr
 card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
-@4029
+@4028
 ^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/uaddr
 (0)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
 ^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/uaddr
@@ -221,7 +226,6 @@ card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
 (23)card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]
 @1401200
 -group_end
-@1401201
 -group_end
 @c00022
 card_ctl_tb.card_ctl.microcode_sequencer.ucontrol[23:0]

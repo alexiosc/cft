@@ -309,8 +309,8 @@ module card_ctl(
    ///////////////////////////////////////////////////////////////////////////////
 
    agl agl (
-	    .ir(ir[10:0]), 
-	    .pc(pc), 
+	    .ir(ir[10:0]),
+	    .pc(pc[15:10]),
 	    .nread_agl(nread_agl),
 	    .nend(nend), 
 	    .ibus(ibus)
