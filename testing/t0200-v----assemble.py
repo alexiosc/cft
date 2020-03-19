@@ -337,21 +337,34 @@ def test_basic_assembly(capsys, tmpdir):
 def test_field_bits(capsys, tmpdir):
 
     assemble(tmpdir, """
-    &1400     JMP I @+1
+    ; Note: this is NOT a working program, we only examine the
+    ; patterns output to verify how cftasm assembles instruction fields.
+
+    .equ      foo &ffff
+    .reg      bar &fff0
+
+    &1400:    JMP I @+1
               .word @0+&3c00
+
+    &3c00:    JMP I baz
+              JMP I foo
+              JMP I bar
+
+    &ff0f:    JMP @
+    baz:      JMP @
     """)
 
-    # Expect 14 words
-    fname = str(tmpdir.join("a.bin"))
-    assert os.path.getsize(fname) == 4, \
-        "Wrong object size generated (2W expected)"
-
-    assembled_data = read_cft_bin_file(fname, 2)
-    print(assembled_data)
-    # Data is byte-swapped when Python reads it a 16-bit ints.
-    expected_data = array.array('H', [ 0x4801, 0x3c00 ])
-    assert len(assembled_data) == 2
-    assert assembled_data == expected_data, "Assembled string did not match"
+    # For this program, we'll parse the a.pasm file.
+    pasm = read_pasm(tmpdir)
+    assert pasm == [
+        "&1400: &4801",
+        "&1401: &3c00",
+        "&3c00: &4b10",
+        "&3c01: &ffff",         # foo is an .equ. It's used unmasked.
+        "&3c02: &4bf0",         # this label is off-page.
+        "&ff0f: &430f",
+        "&ff10: &4310",
+    ], "unexpected assembled code"
 
 
 @pytest.mark.cftasm
