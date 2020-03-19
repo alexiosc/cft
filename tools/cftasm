@@ -145,6 +145,14 @@ class Symbol(object):
 
 
     @property
+    def masked_val(self):
+        """Return the lower 10 bits of a value, for use in instruction operands. In
+        generic symbols, this just returns the value.
+        """
+        return self.val
+
+
+    @property
     def unresolved(self):
         return self.val is None
 
@@ -184,12 +192,18 @@ class Symbol(object):
 
 
 class Label(Symbol):
-    pass
-
+    @property
+    def masked_val(self):
+        """Return the lower 10 bits of a value, for use in instruction operands."""
+        return self.val & 0x3ff
 
 
 class Register(Symbol):
-    pass
+    @property
+    def masked_val(self):
+        """Return the lower 10 bits of a value, for use in instruction operands."""
+        return self.val & 0x3ff
+
 
 
 
@@ -1191,13 +1205,13 @@ class CFTAssembler(object):
                 if tok_left is None or tok_left == '':
                     left = self.addr
                 else:
-                    lparsed = list(self.parse_fields([[ self.TKT_WORD, tok_left ]], all_bits=True))
+                    lparsed = list(self.parse_fields([[ self.TKT_WORD, tok_left ]], masked=False))
                     if len(lparsed) != 1:
                         self.fail("sanity check, expected a single lparsed result, not {}".format(lparsed))
                     left = lparsed[0]
 
                 # Parse the right operand
-                rparsed = list(self.parse_fields([[ self.TKT_WORD, tok_right ]], all_bits=True))
+                rparsed = list(self.parse_fields([[ self.TKT_WORD, tok_right ]], masked=False))
                 if len(rparsed) != 1:
                     self.fail("sanity check, expected a single rparsed result, not {}".format(rparsed))
                 right = rparsed[0]
@@ -1284,7 +1298,7 @@ class CFTAssembler(object):
         return None
         
 
-    def parse_fields(self, tokens, all_bits=False, strings_too=False):
+    def parse_fields(self, tokens, masked=None, strings_too=False):
         """Parse tokens into numbers and return them. Tokens can be numeric literals in
         binary, decimal or hexadecimal, symbols that are resolved into numbers,
         symbolic @-expressions, or (if strings_too=True is specified)
@@ -1293,6 +1307,7 @@ class CFTAssembler(object):
 
         If this is the final assembly pass, unresolved symbols cause a fatal error.
         """
+        assert masked is not None, "for sanity, always specify masked=True or masked=False"
         self.debug_parser("Parse tokens: {}".format(tokens))
         for tkt, token in tokens:
             self.debug_parser("Parse token: ({},{})".format(tkt, token))
@@ -1305,16 +1320,19 @@ class CFTAssembler(object):
                     parsed_literal = self.parse_literal(token)
                 if parsed_literal is not None:
                     self.debug_parser("Yield as-is: {} -> {}".format(token, parsed_literal))
-                    if all_bits:
-                        yield parsed_literal
-                    else:
+                    if masked:
                         yield parsed_literal & 0x3ff
+                    else:
+                        yield parsed_literal
                 else:
                     # Do we have a resolved symbol in the symbol table?
                     sym = self.get_symbol(token)
                     if sym is not None and sym.val is not None:
                         self.debug_parser("Looked up symbol {}: value {}".format(token, sym))
-                        yield sym.val
+                        if masked:
+                            yield sym.masked_val
+                        else:
+                            yield sym.val
                     else:
                         self.debug_parser("Looked up symbol {}: not found".format(token))
                         if self.final_pass:
@@ -1326,12 +1344,13 @@ class CFTAssembler(object):
                     self.fail("Strings are not allowed here")
                 for c in token:
                     yield(ord(c))
+
         self.debug_parser("End of token parse.")
 
 
-    def assemble_single_field(self, tokens, all_bits=False):
+    def assemble_single_field(self, tokens, masked=False):
         value = 0
-        for token in self.parse_fields(tokens, all_bits=all_bits):
+        for token in self.parse_fields(tokens, masked=masked):
             if type(token) != int:
                 # In the final pass, parse_fields() throws a parse error on
                 # undefined fields. So we're safe to do this here.
@@ -1436,7 +1455,7 @@ class CFTAssembler(object):
         sym, definition = tokens[1][1], list(x[1] for x in tokens[2:])
         nssym = self.get_nsname(sym)
 
-        parsed = list(self.parse_fields(tokens[2:], all_bits=True))
+        parsed = list(self.parse_fields(tokens[2:], masked=False))
 
         # Has this symbol been resolved fully at this time?
         if all(type(x) == int for x in parsed):
@@ -1468,7 +1487,7 @@ class CFTAssembler(object):
             self.warn("fill count doesn't fit in 16 bits. (CFT-native assembler will balk)")
 
         addr = self.addr
-        value = self.assemble_single_field(tokens[2:], all_bits=True)
+        value = self.assemble_single_field(tokens[2:], masked=False)
 
         self.debug_assembly("{} directive: count={} value=&{:>04x}".format(directive, count, value))
 
@@ -1542,7 +1561,7 @@ class CFTAssembler(object):
             self.fail("Unhandled directive {}".tokens[0][1])
 
         fields = tokens[1:]
-        for token in self.parse_fields(fields, all_bits=True,
+        for token in self.parse_fields(fields, masked=False,
                                        strings_too=pkt == self.PKT_STR):
             # Sanity check (parse_fields takes care of better error reporting)
             if type(token) != int:
@@ -1598,7 +1617,7 @@ class CFTAssembler(object):
         if len(tokens) < 2:
             self.fail("{} expects at least one string field.".format(tokens[0][1]))
 
-        s = list(self.parse_fields(tokens[1:], all_bits=True, strings_too=True))
+        s = list(self.parse_fields(tokens[1:], masked=False, strings_too=True))
 
         if self.longstring is not None:
             self.longstring += s
@@ -1622,7 +1641,7 @@ class CFTAssembler(object):
         sym, definition = tokens[1][1], list(x[1] for x in tokens[2:])
         nssym = self.get_nsname(sym)
 
-        parsed = list(self.parse_fields(tokens[2:], all_bits=True))
+        parsed = list(self.parse_fields(tokens[2:], masked=False))
 
         # Has this symbol been resolved fully at this time?
         if all(type(x) == int for x in parsed):
@@ -1634,8 +1653,10 @@ class CFTAssembler(object):
             self.add_symbol(nssym, Register(self.filename, self.linenum, nssym, tokens=parsed))
         self.debug_parser(".reg seen: sym={}, nssym={}, def={}, parsed={}".format(sym, nssym, definition, parsed))
 
-        # Unlike .equ, a .reg will also step the address and mark the memory map.
-        self.poke(0xdead, poketype=self.PKT_REG)
+        # Unlike .equ, a .reg will also step the address and mark the memory
+        # map, but like .equ, it doesn't store anything to the object file.
+        self.sentinel[self.addr] = self.PKT_REG
+        #self.poke(0xdead, poketype=self.PKT_REG)
         self.inc_addr()
         
 
@@ -1648,7 +1669,7 @@ class CFTAssembler(object):
 
         pkt = self.PKT_WORD
 
-        value = self.assemble_single_field(tokens[1:], all_bits=True)
+        value = self.assemble_single_field(tokens[1:], masked=False)
         if value is None:
             # One or more values are undefined. In the final pass, a parse
             # error will be thrown and we never get here.
@@ -1918,7 +1939,7 @@ class CFTAssembler(object):
 
         # The parser has already isolated and parsed label definitions. All we
         # get here is assembly.
-        value = self.assemble_single_field(tokens)
+        value = self.assemble_single_field(tokens, masked=True)
         if self.final_pass:
             self.debug_assembly("Assemble: &{}: &{:>04x} ; {}".format(self.fmt_addr(), value, tokens))
 
@@ -1985,9 +2006,9 @@ class CFTAssembler(object):
             self.logasm_state = (self.linenum, orgline)
 
         if val is None:
-            line = ("{}:      {} ;\t{}").format(self.fmt_addr(addr), msg, orgline.rstrip())
+            line = ("&{}:      {} ;\t{}").format(self.fmt_addr(addr), msg, orgline.rstrip())
         else:
-            line = ("{}: &{:>04x} ;\t{}").format(self.fmt_addr(addr), val, orgline.rstrip())
+            line = ("&{}: &{:>04x} ;\t{}").format(self.fmt_addr(addr), val, orgline.rstrip())
 
         # if self.args.debug_assembly:
         #     print(line)
