@@ -202,6 +202,18 @@ def assemble(tmpdir, source, args=None):
         assert os.path.isfile(str(tmpdir.join(f))), "file {}/{} was not created".format(tmpdir, f)
 
 
+def read_pasm(tmpdir):
+    """Read and return the a.pasm file of a completed assembly run. An
+    iterable of strings is returned, one per line.  Comments are
+    stripped out.
+    """
+    fname = str(tmpdir.join("a.pasm"))
+    assert os.path.exists(fname), "a.pasm file not generated"
+    with open(fname) as f:
+        pasm = re.findall("^&[0-9a-f]{4}: &[0-9a-f]{4}", f.read(), re.MULTILINE)
+    return pasm
+
+
 def run_on_verilog_emu(capsys, tmpdir, source, cftasm_args=None, verilog_args=None):
     """Assemble a program and run it using the verilog emulator."""
 
