@@ -101,8 +101,7 @@ def test_LOAD(capsys, tmpdir):
     source = "&0:\n"
     expected = ExpectedData([ SUCCESS ])
 
-    # These will be on page &1400
-    for x in range(2):
+    for x in range(1024):
         source += "LOAD  @+3\n"
         source += "OUT   R &113\n"
         source += "JMP   @+2\n"
