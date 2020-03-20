@@ -95,6 +95,29 @@ def test_LIA(capsys, tmpdir):
     assert result == expected
 
 
+@pytest.mark.verilog
+def test_LOAD(capsys, tmpdir):
+
+    source = "&0:\n"
+    expected = ExpectedData([ SUCCESS ])
+
+    # These will be on page &1400
+    for x in range(2):
+        source += "LOAD  @+3\n"
+        source += "OUT   R &113\n"
+        source += "JMP   @+2\n"
+        source += ".word &{:>x}\n".format(x)
+        expected.append([ 340, "PRINTU", str(x) ])
+
+    source += "OUT R &11d\n"
+    expected += [ HALTED ]
+    print(source)
+
+    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = list(expected.prepare(result))
+    assert result == expected
+
+
 if __name__ == "__main__":
     print("Run this with pytest-3!")
 
