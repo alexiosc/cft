@@ -77,6 +77,7 @@ module cft2019_tb();
    wire [4:1] 	 rsvd;
 
    reg 		 nreset_drv;
+   integer 	 timeout;
 
    initial begin
       $dumpfile ("vcd/cft2019_tb.vcd");
@@ -84,8 +85,12 @@ module cft2019_tb();
 
       nreset_drv = 1'b0;
       #1000 nreset_drv = 1'b1;
-      
-      #10000000 $finish;      // Terminate simulation after 100ms
+
+      if ($value$plusargs("timeout=%d", timeout)) begin
+	 #(timeout) $finish;
+      end else begin
+	 #1000000 $finish;      // Terminate simulation
+      end
    end
 
    assign nreset = nreset_drv;
