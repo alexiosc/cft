@@ -150,6 +150,36 @@ def test_LOAD_I_R(capsys, tmpdir):
     assert result == expected
 
 
+# @pytest.mark.verilog
+# def test_LOAD_I_R_autoinc(capsys, tmpdir):
+
+#     source = "&340:\n"
+#     source += "\t\t.word data"
+#     expected = ExpectedData([ SUCCESS ])
+
+#     MAX = 5                   # 1 to 255
+
+#     source = "&0:\n"
+#     for x in range(MAX):
+#         source += "\t\tLOAD  I R &340\n"
+#         source += "\t\tOUT   R &113\n"
+#         expected.append([ 340, "PRINTU", str(x) ])
+
+#     source += "\t\tOUT R &11d\n"
+#     expected += [ HALTED ]
+
+#     # The data table.
+#     source += "&1389:\n"
+#     source += "data:\n"
+
+#     for x in range(MAX):
+#         source += "\t\t.word {}\n".format(x)
+    
+#     result = run_on_verilog_emu(capsys, tmpdir, source)
+#     result = list(expected.prepare(result))
+#     assert result == expected
+
+
 if __name__ == "__main__":
     print("Run this with pytest-3!")
 
