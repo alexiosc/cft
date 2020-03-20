@@ -255,6 +255,30 @@ def test_paths():
         "tools/run-verilog-testbench not found or not executable"
 
 
+###############################################################################
+#
+# ASSEMBLER HELPERS
+#
+###############################################################################
+
+def asm_memory_banks(mbp=None, mbd=None, mbs=None, mbz=None,
+                     mb4=None, mb5=None, mb6=None, mb7=None):
+    """Generate CFT Assembly to set the specified memory banks."""
+    mbrs = [ [mbp, "MBP"], [mbd, "MBD"], [mbs, "MBS"], [mbz, "MBZ"],
+             [mb4, "4"],   [mb5, "5"],   [mb6, "6"],   [mb7, "7"] ]
+    source = ""
+    ac = None
+    for arg, name in mbrs:
+        if arg is not None:
+            if ac != arg:
+                ac = arg
+                source += "\t\tLI        &{:>02x}\n".format(arg)
+            source += "\t\tSMB       {}\n".format(name)
+
+    return source
+
+
+
 BASEDIR = findBaseDir()
 VERILOGDIR = os.path.join(BASEDIR, "verilog")
 RUN_VERILOG_TEST = os.path.join(BASEDIR, "tools", "run-verilog-testbench")

@@ -226,6 +226,24 @@ module mbu (nreset,
 
    // U15: The register file is a 32K×8 static RAM chip.
 
+   wire [7:0] 	mb0;
+   wire [7:0] 	mb1;
+   wire [7:0] 	mb2;
+   wire [7:0] 	mb3;
+   wire [7:0] 	mb4;
+   wire [7:0] 	mb5;
+   wire [7:0] 	mb6;
+   wire [7:0] 	mb7;
+
+   assign mb0 = regfile.mem[0];
+   assign mb1 = regfile.mem[1];
+   assign mb2 = regfile.mem[2];
+   assign mb3 = regfile.mem[3];
+   assign mb4 = regfile.mem[4];
+   assign mb5 = regfile.mem[5];
+   assign mb6 = regfile.mem[6];
+   assign mb7 = regfile.mem[7];
+
    sram #(13, 15) regfile (.a({10'd0, sel}), .d(aext),
 			   .nce(t34), .nwe(nwmbr), .noe(nrmbr));
 

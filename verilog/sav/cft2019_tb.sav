@@ -1,17 +1,19 @@
 [*]
 [*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Fri Mar 20 18:48:19 2020
+[*] Fri Mar 20 19:47:59 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/cft2019_tb.vcd"
-[dumpfile_mtime] "Fri Mar 20 18:44:24 2020"
-[dumpfile_size] 411480
+[dumpfile_mtime] "Fri Mar 20 19:27:21 2020"
+[dumpfile_size] 4848453
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/cft2019_tb.sav"
-[timestart] 13837000
+[timestart] 6899000
 [size] 1920 1019
 [pos] 117 15
-*-20.775652 19252750 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-17.775652 7409000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] cft2019_tb.
 [treeopen] cft2019_tb.cft.
+[treeopen] cft2019_tb.cft.card_bus.
+[treeopen] cft2019_tb.cft.card_bus.mbu.
 [treeopen] cft2019_tb.cft.card_ctl.
 [treeopen] cft2019_tb.cft.card_mem.romhi.
 [treeopen] cft2019_tb.cft.card_reg.
@@ -66,10 +68,9 @@ cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
 [color] 1
 ^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/disasm
 cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
-@23
+@22
 [color] 3
 +{dr[15:0]} cft2019_tb.cft.card_reg.reg_dr.out[15:0]
-@22
 [color] 4
 +{ac[15:0]} cft2019_tb.cft.card_reg.reg_ac.out[15:0]
 [color] 5
@@ -104,6 +105,24 @@ cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
 (23)cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
 @1401200
 -group_end
+@22
+[color] 2
+cft2019_tb.cft.card_bus.mbu.mb0[7:0]
+[color] 2
+cft2019_tb.cft.card_bus.mbu.mb1[7:0]
+[color] 2
+cft2019_tb.cft.card_bus.mbu.mb2[7:0]
+[color] 2
+cft2019_tb.cft.card_bus.mbu.mb3[7:0]
+cft2019_tb.cft.card_bus.mbu.mb4[7:0]
+cft2019_tb.cft.card_bus.mbu.mb5[7:0]
+cft2019_tb.cft.card_bus.mbu.mb6[7:0]
+cft2019_tb.cft.card_bus.mbu.mb7[7:0]
+@28
+cft2019_tb.cft.card_bus.mbu.ndis
+cft2019_tb.cft.card_bus.mbu.niombr
+@22
+cft2019_tb.cft.card_bus.mbu.regfile.a[12:0]
 @1000200
 -Registers
 @800200
