@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Fri Mar 20 19:47:59 2020
+[*] Fri Mar 20 20:23:00 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/cft2019_tb.vcd"
-[dumpfile_mtime] "Fri Mar 20 19:27:21 2020"
+[dumpfile_mtime] "Fri Mar 20 20:14:59 2020"
 [dumpfile_size] 4848453
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/cft2019_tb.sav"
-[timestart] 6899000
+[timestart] 1240000
 [size] 1920 1019
 [pos] 117 15
-*-17.775652 7409000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-21.075668 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] cft2019_tb.
 [treeopen] cft2019_tb.cft.
 [treeopen] cft2019_tb.cft.card_bus.
@@ -118,11 +118,6 @@ cft2019_tb.cft.card_bus.mbu.mb4[7:0]
 cft2019_tb.cft.card_bus.mbu.mb5[7:0]
 cft2019_tb.cft.card_bus.mbu.mb6[7:0]
 cft2019_tb.cft.card_bus.mbu.mb7[7:0]
-@28
-cft2019_tb.cft.card_bus.mbu.ndis
-cft2019_tb.cft.card_bus.mbu.niombr
-@22
-cft2019_tb.cft.card_bus.mbu.regfile.a[12:0]
 @1000200
 -Registers
 @800200
@@ -168,8 +163,10 @@ cft2019_tb.cft.db[15:0]
 cft2019_tb.cft.nmem
 [color] 3
 cft2019_tb.cft.nio
+@29
 [color] 4
 cft2019_tb.cft.nr
+@28
 [color] 2
 cft2019_tb.cft.nwen
 [color] 1
@@ -271,7 +268,7 @@ cft2019_tb.cft.nwen
 cft2019_tb.cft.card_ctl.microcode_sequencer.nend
 @1000200
 -Control Unit
-@800200
+@c00200
 -Addressing
 @22
 cft2019_tb.cft.card_ctl.agl.pc[15:10]
@@ -280,7 +277,7 @@ cft2019_tb.cft.card_ctl.agl.page[5:0]
 cft2019_tb.cft.card_ctl.agl.nread_agl
 cft2019_tb.cft.card_ctl.ail.idx[1:0]
 cft2019_tb.cft.card_ctl.ail.idxen
-@1000200
+@1401200
 -Addressing
 @c00200
 -Instruction Register
@@ -321,23 +318,26 @@ cft2019_tb.cft.card_ctl.ism.nirq
 cft2019_tb.cft.card_ctl.ism.nirqs
 @1401200
 -Interrupts
+@28
+cft2019_tb.cft.card_bus.mbu.ndis
+@24
+cft2019_tb.cft.card_bus.mbu.sel[2:0]
+@28
+cft2019_tb.cft.card_bus.mbu.idxen
+@22
+cft2019_tb.cft.card_bus.mbu.aext[7:0]
+@28
+cft2019_tb.cft.card_bus.mbu.niombr
+cft2019_tb.cft.card_bus.mbu.nrmbr
+cft2019_tb.cft.card_bus.mbu.nwmbr
 @200
 -
 -Peripherals
-@800200
+@c00200
 -DFP Card
 @22
 cft2019_tb.cft.card_dfp.OR[15:0]
-@1000200
+@1401200
 -DFP Card
-@28
-cft2019_tb.cft.card_ctl.reg_ir.ir_hi.clk
-@22
-cft2019_tb.cft.card_ctl.reg_ir.ir_hi.d[7:0]
-@28
-cft2019_tb.cft.card_ctl.reg_ir.ir_hi.noe
-@22
-cft2019_tb.cft.card_ctl.reg_ir.ir_hi.q0[7:0]
-cft2019_tb.cft.card_ctl.reg_ir.ir_hi.q[7:0]
 [pattern_trace] 1
 [pattern_trace] 0
