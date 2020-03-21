@@ -31,17 +31,6 @@ Wire Wire Line
 	7100 4550 7050 4550
 Wire Wire Line
 	7050 4550 7050 4650
-$Comp
-L power:GND #PWR061
-U 1 1 5EA872CC
-P 7050 5900
-F 0 "#PWR061" H 7050 5650 50  0001 C CNN
-F 1 "GND" H 7055 5727 50  0000 C CNN
-F 2 "" H 7050 5900 50  0001 C CNN
-F 3 "" H 7050 5900 50  0001 C CNN
-	1    7050 5900
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	7100 4650 7050 4650
 Connection ~ 7050 4650
@@ -1350,8 +1339,6 @@ Text Notes 5000 800  0    100  ~ 20
 Control ROM
 Text Notes 7650 800  0    100  ~ 20
 Strobe Synchronisation
-Text Notes 9500 3900 0    100  ~ 20
-IBus Transceiver
 Text Notes 5150 3900 0    100  ~ 20
 Address Multiplexer
 Wire Wire Line
@@ -1644,8 +1631,6 @@ Text Label 8250 6500 0    50   ~ 0
 IBUS[0..7]
 Wire Bus Line
 	8250 6500 8750 6500
-Text Notes 6700 6700 0    50   ~ 0
-Signals IBUS[8..15] are intentionally\nnot driven here! They are handled by\nthe flag unit.
 $Comp
 L alexios:74AHC1G125 U?
 U 1 1 60083AC7
@@ -2113,17 +2098,6 @@ Wire Wire Line
 	8100 4350 9000 4350
 Wire Wire Line
 	8100 4250 9100 4250
-$Comp
-L alexios:74HC541 U19
-U 1 1 61720F4D
-P 10150 6050
-F 0 "U19" H 10650 5700 50  0000 R CNN
-F 1 "74HC541" H 10850 5600 50  0000 R CNN
-F 2 "alexios:SOIC-20W" H 10150 6050 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 10150 6050 50  0001 C CNN
-	1    10150 6050
-	1    0    0    -1  
-$EndComp
 Text Label 9650 5550 2    50   ~ 0
 AEXT0
 Text Label 9650 5650 2    50   ~ 0
@@ -2172,8 +2146,6 @@ Wire Wire Line
 	9350 6150 9650 6150
 Wire Wire Line
 	9350 6250 9650 6250
-Wire Wire Line
-	9650 6450 9350 6450
 Text Label 10700 6250 0    50   ~ 0
 DB7
 Text Label 10700 6150 0    50   ~ 0
@@ -2222,12 +2194,6 @@ Wire Wire Line
 	10650 5650 10950 5650
 Wire Wire Line
 	10650 5550 10950 5550
-Wire Wire Line
-	9650 6550 9350 6550
-Text Label 9350 6550 0    50   ~ 0
-~R
-Text Label 9350 6450 0    50   ~ 0
-~USE_AB
 Text Label 8250 6700 0    50   ~ 0
 DB[0..7]
 Text HLabel 8750 6700 2    50   BiDi ~ 0
@@ -2236,21 +2202,6 @@ Wire Bus Line
 	8250 6700 8750 6700
 Text HLabel 8750 6500 2    50   BiDi ~ 0
 IBUS[0..7]
-Text Notes 9500 6750 0    50   ~ 0
-OUT (i.e. register write) transactions only!
-Text Notes 6750 6400 0    50   ~ 10
-Note
-$Comp
-L alexios:74HC541 U19
-U 2 1 61C1A65A
-P 8600 6050
-F 0 "U19" H 8780 6096 50  0000 L CNN
-F 1 "74HC541" H 8780 6005 50  0000 L CNN
-F 2 "alexios:SOIC-20W" H 8600 6050 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 8600 6050 50  0001 C CNN
-	2    8600 6050
-	1    0    0    -1  
-$EndComp
 $Comp
 L power:GND #PWR?
 U 1 1 61C3A7B4
@@ -2294,8 +2245,6 @@ F 3 "~" H 8250 6050 50  0001 C CNN
 	1    8250 6050
 	1    0    0    -1  
 $EndComp
-Connection ~ 8250 6150
-Connection ~ 8250 5950
 Text Label 9250 6050 1    50   ~ 0
 AEXT[0..7]
 Wire Wire Line
@@ -2692,20 +2641,71 @@ Text Label 1600 850  2    50   ~ 0
 CLK3
 NoConn ~ 3100 3200
 NoConn ~ 3100 4450
+Text Notes 9500 3900 0    100  ~ 20
+IBus Transceiver
+$Comp
+L power:GND #PWR061
+U 1 1 5EA872CC
+P 7050 5900
+F 0 "#PWR061" H 7050 5650 50  0001 C CNN
+F 1 "GND" H 7055 5727 50  0000 C CNN
+F 2 "" H 7050 5900 50  0001 C CNN
+F 3 "" H 7050 5900 50  0001 C CNN
+	1    7050 5900
+	1    0    0    -1  
+$EndComp
+Text Notes 6750 6400 0    50   ~ 10
+Note
+Text Notes 6700 6700 0    50   ~ 0
+Signals IBUS[8..15] are intentionally\nnot driven here! They are handled by\nthe flag unit.
+Text Notes 9500 6750 0    50   ~ 0
+IN (i.e. register read) transactions only!
+Connection ~ 8250 5950
+Connection ~ 8250 6150
+$Comp
+L alexios:74HC541 U19
+U 2 1 61C1A65A
+P 8600 6050
+F 0 "U19" H 8780 6096 50  0000 L CNN
+F 1 "74HC541" H 8780 6005 50  0000 L CNN
+F 2 "alexios:SOIC-20W" H 8600 6050 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 8600 6050 50  0001 C CNN
+	2    8600 6050
+	1    0    0    -1  
+$EndComp
+Text Label 9350 6450 0    50   ~ 0
+~USE_AB
+Wire Wire Line
+	9650 6450 9350 6450
+Wire Bus Line
+	11050 5650 11050 6350
+Wire Bus Line
+	11050 4350 11050 5050
+Wire Bus Line
+	9250 4350 9250 6150
 Wire Bus Line
 	4400 4950 4400 6200
 Wire Bus Line
 	1700 1150 1700 1950
 Wire Bus Line
-	1700 2450 1700 3200
-Wire Bus Line
-	11050 4350 11050 5050
-Wire Bus Line
-	11050 5650 11050 6350
+	6700 4350 6700 6200
 Wire Bus Line
 	1700 3700 1700 5200
 Wire Bus Line
-	6700 4350 6700 6200
-Wire Bus Line
-	9250 4350 9250 6150
+	1700 2450 1700 3200
+Text Label 9350 6550 0    50   ~ 0
+~R
+Wire Wire Line
+	9650 6550 9350 6550
+$Comp
+L alexios:74HC541 U19
+U 1 1 61720F4D
+P 10150 6050
+F 0 "U19" H 10500 5700 50  0000 L CNN
+F 1 "74HC541" H 10500 5600 50  0000 L CNN
+F 2 "alexios:SOIC-20W" H 10150 6050 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 10150 6050 50  0001 C CNN
+	1    10150 6050
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

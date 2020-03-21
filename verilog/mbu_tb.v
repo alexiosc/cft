@@ -350,7 +350,7 @@ module reg_mbr_tb();
 
    // Connect the DUT   
    mbu mbu (.nreset(nreset_real),
-	    .clk3(clk3), .t34(t34),
+	    .clk(clk1), .t34(t34),
 	    .waddr(waddr), .raddr(raddr),
 	    .ir(ir[2:0]),
 	    .idxen(idxen),

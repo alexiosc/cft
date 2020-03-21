@@ -172,7 +172,7 @@ module card_bus(
    ///////////////////////////////////////////////////////////////////////////////
 
    mbu mbu (.nreset(nreset),
-	    .clk3(clk3),
+	    .clk(clk1),
 	    .t34(t34),
 	    .waddr(waddr),
 	    .raddr(raddr),

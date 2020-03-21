@@ -96,7 +96,7 @@ class MbuRom(threading.Thread):
                                  range(4),       # WADDR[0:1]
                                  #range(16))      # IR[8:11]
                                  range(2))       # IDXEN (1 when IR[8:11] = 1111)
-        for ndis, nr, nw, niombr, nrmbp1, nrmbp2, nwmbx, nwmbp1, nwmbp2, waddr, idxen in prod:
+        for line, (ndis, nr, nw, niombr, nrmbp1, nrmbp2, nwmbx, nwmbp1, nwmbp2, waddr, idxen) in enumerate(prod):
             # Calculate the outputs (all default to unasserted, 1)
             nrmbr = 1
             nwmbr = 1
@@ -133,14 +133,24 @@ class MbuRom(threading.Thread):
                     nibusen, nibusw = 1, 1
                                         
                 elif nr == 0:
-                    # IN: read register
-                    nrmbr, nab = 0, 0
-                    nibusw = 0  # Reading from device involves *writing* to the IBUS
+                    # IN: read register. We drive the IBus with this value,
+                    # which the BUS board will use to drive the DB.
+                    nrmbr = 0   # Enable outputs from the register file
+                    nab = 0     # Select register from AB[2:0] & enable the DB driver.
+                    
+                    # The IBus transceiver should be disabled in the safest way
+                    # possible: chip disabled, and not driving the AEXT bus.
                     nibusen = 1
+                    nibusw = 1
+                    group = 'I'
                 elif nw == 0:
-                    # OUT: write register
-                    nwmbr, nab = 0, 0
-                    nibusen = 0 # We can't drive the DB. Drive the IBUS instead.
+                    # OUT: write register. We read from the IBus and write to
+                    # our register file using the address in AB[2:0].
+                    nwmbr = 0   # Enable register file writes
+                    nab = 0     # Select register from AB[2:0]
+                    nibusen = 0 # Enable the ibus transceiver.
+                    nibusw = 1  # Direction: IBUS→AEXT
+                    group = 'O'
 
             elif nrmbp1 == 0 or nrmbp2 == 0:
                 # Group 2: read the MBP (aka MB0, address is a constant zero)
@@ -198,15 +208,15 @@ class MbuRom(threading.Thread):
             tt.put(addr, data)
         
             if debug:
-                if (addr % 50) == 0:
+                if (line % 40) == 0:
                     print("                ___  _  _  _____  _____  _______  _____  _____  _______                  ____  ____  __  ____  _____  __  ______ _____")
-                    print("G  ADDR  DATA | DIS  R  W  IOMBR  R~MBP  R~MBP+F  R~MBx  W~MBP  W~MBP+F  WADDR   IDXEN | RMBR  WMBR  AB  ZERO  WADDR  IR  IBUSEN IBUSW")
+                    print("G  ADDR  DATA | DIS  R  W  IOMBR  R~MBP  R~MBP+F  W~MBx  W~MBP  W~MBP+F  WADDR   IDXEN | RMBR  WMBR  AB  ZERO  WADDR  IR  IBUSEN IBUSW")
             
                 #print("G  ADDR  DATA | DIS  R  W  IOMBR  R~MBP  R~MBP+F  R~MBx  W~MBP  W~MBP+F  WADDR  IR   | RMBR  WMBR  AB  ZERO  WADDR  IR")
-                print("{}  {:04x}   {:02x}  | {}    {}  {}    {}      {}       {}       {}      {}       {}       {:02b}    {}  |   {}     {}    {}    {}      {}    {}     {}     {}".format(
+                print("{}  {:04x}   {:02x}  | {}    {}  {}    {}      {}       {}       {}      {}       {}       {:02b}    {}     |   {}     {}    {}    {}      {}    {}     {}     {}".format(
                     group, addr, data,
                     ndis, nr, nw, niombr, nrmbp1, nrmbp2, nwmbx, nwmbp1, nwmbp2, waddr, idxen,
-                    ndis, nrmbr, nwmbr, nab, nzero, nwaddr, nir, nibusen, nibusw))
+                    nrmbr, nwmbr, nab, nzero, nwaddr, nir, nibusen, nibusw))
             else:
                 tt.progress(dt=5)
 

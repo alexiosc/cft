@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Thu Feb 27 17:37:29 2020
+[*] Sat Mar 21 10:39:21 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/mbu_tb.vcd"
-[dumpfile_mtime] "Thu Feb 27 17:36:56 2020"
-[dumpfile_size] 16229085
+[dumpfile_mtime] "Sat Mar 21 10:39:19 2020"
+[dumpfile_size] 17212985
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/mbu_tb.sav"
-[timestart] 1084256000
+[timestart] 0
 [size] 1920 1019
 [pos] 18336 64
-*-18.323507 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-30.323507 880000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] reg_mbr_tb.
 [treeopen] reg_mbr_tb.mbu.
 [sst_width] 258
@@ -97,8 +97,6 @@ reg_mbr_tb.nreset
 reg_mbr_tb.mbu.nenable
 [color] 3
 reg_mbr_tb.mbu.ndis
-[color] 4
-reg_mbr_tb.nfpram_fprom
 @200
 -
 -Control ROM
@@ -192,7 +190,7 @@ reg_mbr_tb.waddr[4:0]
 (4)reg_mbr_tb.waddr[4:0]
 @1401200
 -group_end
-@29
+@28
 reg_mbr_tb.nwrite_ar_mbx
 @c00200
 -reg_mbr_tb.mbu.ir
@@ -288,13 +286,11 @@ reg_mbr_tb.mbu.nuse_zero
 @28
 reg_mbr_tb.mbu.nread_mbp
 reg_mbr_tb.mbu.nread_mbp_flags
-reg_mbr_tb.mbu.nread_flags
 @200
 -
 @28
 reg_mbr_tb.mbu.nwrite_mbp
 reg_mbr_tb.mbu.nwrite_mbp_flags
-reg_mbr_tb.mbu.nwrite_flags
 @200
 -
 -
