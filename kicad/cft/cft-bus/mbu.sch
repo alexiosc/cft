@@ -2677,22 +2677,6 @@ Text Label 9350 6450 0    50   ~ 0
 ~USE_AB
 Wire Wire Line
 	9650 6450 9350 6450
-Wire Bus Line
-	11050 5650 11050 6350
-Wire Bus Line
-	11050 4350 11050 5050
-Wire Bus Line
-	9250 4350 9250 6150
-Wire Bus Line
-	4400 4950 4400 6200
-Wire Bus Line
-	1700 1150 1700 1950
-Wire Bus Line
-	6700 4350 6700 6200
-Wire Bus Line
-	1700 3700 1700 5200
-Wire Bus Line
-	1700 2450 1700 3200
 Text Label 9350 6550 0    50   ~ 0
 ~R
 Wire Wire Line
@@ -2708,4 +2692,366 @@ F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 10150 6
 	1    10150 6050
 	1    0    0    -1  
 $EndComp
+$Comp
+L alexios:74HC670 U?
+U 1 1 5E861E45
+P 5350 9950
+F 0 "U?" H 5350 10717 50  0000 C CNN
+F 1 "74HC670" H 5350 10626 50  0000 C CNN
+F 2 "" H 5650 10100 50  0001 C CNN
+F 3 "https://www.ti.com/lit/ds/symlink/cd74hc670.pdf" H 5650 10100 50  0001 C CNN
+	1    5350 9950
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC670 U?
+U 1 1 5E8627B4
+P 5350 11550
+F 0 "U?" H 5350 12317 50  0000 C CNN
+F 1 "74HC670" H 5350 12226 50  0000 C CNN
+F 2 "" H 5650 11700 50  0001 C CNN
+F 3 "https://www.ti.com/lit/ds/symlink/cd74hc670.pdf" H 5650 11700 50  0001 C CNN
+	1    5350 11550
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC670 U?
+U 1 1 5E8646A7
+P 7250 9950
+F 0 "U?" H 7250 10717 50  0000 C CNN
+F 1 "74HC670" H 7250 10626 50  0000 C CNN
+F 2 "" H 7550 10100 50  0001 C CNN
+F 3 "https://www.ti.com/lit/ds/symlink/cd74hc670.pdf" H 7550 10100 50  0001 C CNN
+	1    7250 9950
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC670 U?
+U 1 1 5E8646AD
+P 7250 11550
+F 0 "U?" H 7250 12317 50  0000 C CNN
+F 1 "74HC670" H 7250 12226 50  0000 C CNN
+F 2 "" H 7550 11700 50  0001 C CNN
+F 3 "https://www.ti.com/lit/ds/symlink/cd74hc670.pdf" H 7550 11700 50  0001 C CNN
+	1    7250 11550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4850 10550 4550 10550
+Text Label 4550 10550 0    50   ~ 0
+~REN0
+Wire Wire Line
+	6750 10550 6450 10550
+Text Label 6450 10550 0    50   ~ 0
+~REN0
+Wire Wire Line
+	4850 12150 4550 12150
+Text Label 4550 12150 0    50   ~ 0
+~REN1
+Wire Wire Line
+	6750 12150 6450 12150
+Text Label 6450 12150 0    50   ~ 0
+~REN1
+Wire Wire Line
+	4850 11950 4550 11950
+Wire Wire Line
+	4850 12050 4550 12050
+Text Label 4550 11950 0    50   ~ 0
+RA0
+Text Label 4550 12050 0    50   ~ 0
+RA1
+Wire Wire Line
+	4850 10350 4550 10350
+Wire Wire Line
+	4850 10450 4550 10450
+Text Label 4550 10350 0    50   ~ 0
+RA0
+Text Label 4550 10450 0    50   ~ 0
+RA1
+Wire Wire Line
+	6750 10350 6450 10350
+Wire Wire Line
+	6750 10450 6450 10450
+Text Label 6450 10450 0    50   ~ 0
+RA1
+Text Label 6450 10350 0    50   ~ 0
+RA0
+Wire Wire Line
+	6750 11950 6450 11950
+Wire Wire Line
+	6750 12050 6450 12050
+Text Label 6450 12050 0    50   ~ 0
+RA1
+Text Label 6450 11950 0    50   ~ 0
+RA0
+Wire Wire Line
+	4850 9950 4550 9950
+Wire Wire Line
+	4850 10050 4550 10050
+Wire Wire Line
+	4850 10150 4550 10150
+Text Label 4550 9950 0    50   ~ 0
+WA0
+Text Label 4550 10050 0    50   ~ 0
+WA1
+Text Label 4550 10150 0    50   ~ 0
+~WEN0
+Wire Wire Line
+	6750 9950 6450 9950
+Wire Wire Line
+	6750 10050 6450 10050
+Wire Wire Line
+	6750 10150 6450 10150
+Text Label 6450 9950 0    50   ~ 0
+WA0
+Text Label 6450 10050 0    50   ~ 0
+WA1
+Text Label 6450 10150 0    50   ~ 0
+~WEN0
+Wire Wire Line
+	4850 11550 4550 11550
+Wire Wire Line
+	4850 11650 4550 11650
+Wire Wire Line
+	4850 11750 4550 11750
+Text Label 4550 11550 0    50   ~ 0
+WA0
+Text Label 4550 11650 0    50   ~ 0
+WA1
+Text Label 4550 11750 0    50   ~ 0
+~WEN1
+Wire Wire Line
+	6750 11550 6450 11550
+Wire Wire Line
+	6750 11650 6450 11650
+Wire Wire Line
+	6750 11750 6450 11750
+Text Label 6450 11550 0    50   ~ 0
+WA0
+Text Label 6450 11650 0    50   ~ 0
+WA1
+Text Label 6450 11750 0    50   ~ 0
+~WEN1
+Wire Wire Line
+	5850 9450 6200 9450
+Wire Wire Line
+	5850 9550 6200 9550
+Wire Wire Line
+	5850 9650 6200 9650
+Wire Wire Line
+	5850 9750 6200 9750
+Text Label 6200 9450 2    50   ~ 0
+AEXT0
+Text Label 6200 9550 2    50   ~ 0
+AEXT1
+Text Label 6200 9650 2    50   ~ 0
+AEXT2
+Text Label 6200 9750 2    50   ~ 0
+AEXT3
+Wire Wire Line
+	5850 11050 6200 11050
+Wire Wire Line
+	5850 11150 6200 11150
+Wire Wire Line
+	5850 11250 6200 11250
+Wire Wire Line
+	5850 11350 6200 11350
+Text Label 6200 11050 2    50   ~ 0
+AEXT0
+Text Label 6200 11150 2    50   ~ 0
+AEXT1
+Text Label 6200 11250 2    50   ~ 0
+AEXT2
+Text Label 6200 11350 2    50   ~ 0
+AEXT3
+Wire Wire Line
+	7750 9450 8100 9450
+Wire Wire Line
+	7750 9550 8100 9550
+Wire Wire Line
+	7750 9650 8100 9650
+Wire Wire Line
+	7750 9750 8100 9750
+Wire Wire Line
+	7750 11050 8100 11050
+Wire Wire Line
+	7750 11150 8100 11150
+Wire Wire Line
+	7750 11250 8100 11250
+Wire Wire Line
+	7750 11350 8100 11350
+Text Label 8100 9450 2    50   ~ 0
+AEXT4
+Text Label 8100 9550 2    50   ~ 0
+AEXT5
+Text Label 8100 9650 2    50   ~ 0
+AEXT6
+Text Label 8100 9750 2    50   ~ 0
+AEXT7
+Text Label 8100 11050 2    50   ~ 0
+AEXT4
+Text Label 8100 11150 2    50   ~ 0
+AEXT5
+Text Label 8100 11250 2    50   ~ 0
+AEXT6
+Text Label 8100 11350 2    50   ~ 0
+AEXT7
+Wire Wire Line
+	4850 9450 4550 9450
+Wire Wire Line
+	4850 9550 4550 9550
+Wire Wire Line
+	4850 9650 4550 9650
+Wire Wire Line
+	4850 9750 4550 9750
+Text Label 4550 9450 0    50   ~ 0
+WD0
+Text Label 4550 9550 0    50   ~ 0
+WD1
+Text Label 4550 9650 0    50   ~ 0
+WD2
+Text Label 4550 9750 0    50   ~ 0
+WD3
+Wire Wire Line
+	4850 11050 4550 11050
+Wire Wire Line
+	4850 11150 4550 11150
+Wire Wire Line
+	4850 11250 4550 11250
+Wire Wire Line
+	4850 11350 4550 11350
+Text Label 4550 11050 0    50   ~ 0
+WD0
+Text Label 4550 11150 0    50   ~ 0
+WD1
+Text Label 4550 11250 0    50   ~ 0
+WD2
+Text Label 4550 11350 0    50   ~ 0
+WD3
+Wire Wire Line
+	6750 9450 6450 9450
+Wire Wire Line
+	6750 9550 6450 9550
+Wire Wire Line
+	6750 9650 6450 9650
+Wire Wire Line
+	6750 9750 6450 9750
+Text Label 6450 9450 0    50   ~ 0
+WD4
+Text Label 6450 9550 0    50   ~ 0
+WD5
+Text Label 6450 9650 0    50   ~ 0
+WD6
+Text Label 6450 9750 0    50   ~ 0
+WD7
+Wire Wire Line
+	6750 11050 6450 11050
+Wire Wire Line
+	6750 11150 6450 11150
+Wire Wire Line
+	6750 11250 6450 11250
+Wire Wire Line
+	6750 11350 6450 11350
+Text Label 6450 11050 0    50   ~ 0
+WD4
+Text Label 6450 11150 0    50   ~ 0
+WD5
+Text Label 6450 11250 0    50   ~ 0
+WD6
+Text Label 6450 11350 0    50   ~ 0
+WD7
+$Comp
+L alexios:74HC139 U?
+U 2 1 5E8A5770
+P 2900 10150
+F 0 "U?" H 2900 9775 50  0000 C CNN
+F 1 "74HC139" H 2900 9684 50  0000 C CNN
+F 2 "" H 2900 10150 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS139" H 2900 10150 50  0001 C CNN
+	2    2900 10150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2400 10050 2100 10050
+Text Label 2100 10050 0    50   ~ 0
+SEL2
+Wire Wire Line
+	2400 10350 2100 10350
+Text Label 2100 10350 0    50   ~ 0
+~REN
+Wire Wire Line
+	3400 10050 3750 10050
+Text Label 3750 10050 2    50   ~ 0
+~WEN0
+Text Label 3750 10150 2    50   ~ 0
+~WEN1
+Wire Wire Line
+	3400 10150 3750 10150
+NoConn ~ 3400 10250
+NoConn ~ 3400 10350
+$Comp
+L power:GND #PWR?
+U 1 1 5EA3CC8E
+P 2350 10450
+F 0 "#PWR?" H 2350 10200 50  0001 C CNN
+F 1 "GND" H 2355 10277 50  0000 C CNN
+F 2 "" H 2350 10450 50  0001 C CNN
+F 3 "" H 2350 10450 50  0001 C CNN
+	1    2350 10450
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2350 10450 2350 10150
+Wire Wire Line
+	2400 10150 2350 10150
+Connection ~ 2350 10150
+Wire Wire Line
+	2350 10150 2350 9550
+Wire Wire Line
+	2350 9550 2400 9550
+NoConn ~ 3400 9750
+NoConn ~ 3400 9650
+Text Label 2100 9750 0    50   ~ 0
+~REN
+Wire Wire Line
+	2400 9750 2100 9750
+Wire Wire Line
+	3400 9550 3750 9550
+Text Label 3750 9550 2    50   ~ 0
+~REN1
+Text Label 3750 9450 2    50   ~ 0
+~REN0
+Wire Wire Line
+	3400 9450 3750 9450
+Text Label 2100 9450 0    50   ~ 0
+SEL2
+Wire Wire Line
+	2400 9450 2100 9450
+$Comp
+L alexios:74HC139 U?
+U 1 1 5E8A4D7C
+P 2900 9550
+F 0 "U?" H 2900 9917 50  0000 C CNN
+F 1 "74HC139" H 2900 9826 50  0000 C CNN
+F 2 "" H 2900 9550 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS139" H 2900 9550 50  0001 C CNN
+	1    2900 9550
+	1    0    0    -1  
+$EndComp
+Wire Bus Line
+	4400 4950 4400 6200
+Wire Bus Line
+	1700 1150 1700 1950
+Wire Bus Line
+	1700 2450 1700 3200
+Wire Bus Line
+	11050 4350 11050 5050
+Wire Bus Line
+	11050 5650 11050 6350
+Wire Bus Line
+	1700 3700 1700 5200
+Wire Bus Line
+	6700 4350 6700 6200
+Wire Bus Line
+	9250 4350 9250 6150
 $EndSCHEMATC
