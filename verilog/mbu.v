@@ -23,9 +23,10 @@
 `define mbu_v
 
 `include "rom.v"
-`include "ram.v"
+`include "mux.v"
 `include "demux.v"
 `include "buffer.v"
+`include "regfile.v"
 `include "flipflop.v"
 
 `timescale 1ns/1ps
@@ -42,7 +43,7 @@ module mbu (nreset,
 	    aext,		//
 	    nr, nw,
 	    ab,	db, nsysdev,	// Only bits 0–7 of the AB and DB are used.
-	    nwrite_ar_mbx,	// Convenience output to the AR
+	    nwar,		// Convenience output to the AR
 	    nfpram_rom		// RAM/ROM switch from front panel
 	    );
 	    
@@ -62,7 +63,7 @@ module mbu (nreset,
    inout [7:0] 	db;
    
    output [7:0] aext;
-   output 	nwrite_ar_mbx;
+   output 	nwar;
 
    wire 	nreset;
    wire [4:0] 	waddr;
@@ -81,28 +82,27 @@ module mbu (nreset,
 
    wire [7:0] 	dec_ab, dec_raddr, dec_waddr1, dec_waddr2;
    wire 	niombr;
-   wire 	nread_mbp, nread_mbp_flags;
-   wire 	nwrite_mbp, nwrite_mbp_flags;
-   wire 	nwrite_ar_mbx;
+   wire 	nrmbp;
+   wire 	nwmbp;
+   wire 	nwar;
 
    // U10: This decodes I/O addresses &008–&00F.
    demux_138 demux_ab (.a(ab[6:4]), .g1(ab[3]), .ng2a(ab[7]), .ng2b(nsysdev), .y(dec_ab));
    assign niombr = dec_ab[0];
    
-   // U12: We decode RADDRs 01100, 01101, and 01110.
-   demux_138 demux_raddr (.a(raddr[2:0]), .g1(raddr[3]), .ng2a(raddr[4]), .ng2b(t34), .y(dec_raddr));
-   assign nread_mbp = dec_raddr[4];
-   assign nread_mbp_flags = dec_raddr[5];
+   // U12: We decode RADDRs 01100 and 01101, read_mbp and read_mbp+flags. Both
+   // addresses cause the MBU to put the MBP on the IBus, so we decode RADDR
+   // partially: 0110x.
+   demux_138 demux_raddr (.a(raddr[3:1]), .g1(1'b1), .ng2a(raddr[4]), .ng2b(t34), .y(dec_raddr));
+   assign nrmbp = dec_raddr[6];
 
    // U16: We decode WADDRs 01100, 01101, and 01110. Symmetric to the above '138.
-   demux_138 demux_waddr1 (.a(waddr[2:0]), .g1(waddr[3]), .ng2a(waddr[4]), .ng2b(1'b0), .y(dec_waddr1));
-   assign nwrite_mbp = dec_waddr1[4];
-   assign nwrite_mbp_flags = dec_waddr1[5];
+   demux_138 demux_waddr1 (.a(waddr[3:1]), .g1(1'b1), .ng2a(waddr[4]), .ng2b(1'b0), .y(dec_waddr1));
+   assign nwmbp = dec_waddr1[6];
 
-   // U17: decode WADDR to get nwrite_ar_mbx.
+   // U17: decode WADDR to get nwar.
    demux_138 demux_waddr2 (.a(waddr[4:2]), .g1(1'b1), .ng2a(1'b0), .ng2b(1'b0), .y(dec_waddr2));
-   assign nwrite_ar_mbx = dec_waddr2[1];
-
+   assign nwar = dec_waddr2[1];
 
    ///////////////////////////////////////////////////////////////////////////////
    // 
@@ -110,121 +110,23 @@ module mbu (nreset,
    //
    ///////////////////////////////////////////////////////////////////////////////
 
-   // Since the SRAM won't be reset to all zeroes, we disable its drivers after
-   // reset and rely on pull-down addresses to read all zeroes. The SRAM will
-   // be enabled on the first OUT instruction addressing it. Note that this
-   // will cause all other registers to change from &00 to random values, so if
-   // one register is configured, the first four (at least) must all be
-   // configured too.
+   // After reset, the outputs of all register files are tri-stated and a value
+   // of either &00 or &80 is imposed using pull-down resistors and a
+   // multiplexer. The first time the MBU is written to using an OUT
+   // instruction, it comes out of reset and starts driving values.
 
-   wire 	ndis;
-   wire 	nenable;
-
-   // This is to ease debugging.
-   assign nenable = niombr;
-
-   // U18: the MBU enable FF
-   flipflop_74h ff_init(.d(1'b1), .clk(1'b1), .nset(nreset),
-			.nrst(nenable /* == niombr */), .nq(ndis));
-
-   // U20: If the RAM/ROM switch is in the ROM position (high), default all MBx
-   // registers to &80 to address ROM.
-   buffer_125q buf_aext7 (.a(nfpram_rom), .noe(ndis), .y(aext[7]));
-
-
-   ///////////////////////////////////////////////////////////////////////////////
-   // 
-   // CONTROL ROM
-   //
-   ///////////////////////////////////////////////////////////////////////////////
-
-   // U9: The ROM saves us using a ‘more modern’ (cough) PAL device. If the ROM
-   // isn't fast enough, a 20V10 PAL will need to replace it.
-   
-   wire [11:0] 	addr;
-   wire [7:0] 	data;
-   wire 	nibusw;
-   wire 	nibusen;
-   wire 	nuse_ir;
-   wire 	nuse_waddr;
-   wire 	nuse_zero;
-   wire 	nuse_ab;
-   wire 	nwmbr0, nwmbr;
-   wire 	nrmbr0, nrmbr;
-
-
-   assign addr = { ndis,	      // A11
-		   idxen,	      // A10
-		   waddr[1:0],	      // A9–A8
-		   nwrite_ar_mbx,     // A7
-		   nwrite_mbp_flags,  // A6
-		   nwrite_mbp,	      // A5
-		   nread_mbp_flags,   // A4
-		   nread_mbp,	      // A3
-		   niombr,	      // A2
-		   nw,		      // A1
-		   nr		      // A0
-		   };
-
-   assign { nibusw,	      // D7
-            nibusen,	      // D6
-            nuse_ir,	      // D5
-            nuse_waddr,	      // D4
-            nuse_zero,	      // D3
-            nuse_ab,	      // D2
-            nwmbr0,	      // D1
-            nrmbr0	      // D0
-	    } = data;
-   
-   rom #(12, 45, "../microcode/build/mbu-rom.list") rom_ctl (.a(addr), .d(data), .nce(1'b0), .noe(1'b0));
-
-
-   // There are three OR gates of an 74AC32 delaying nRMBR. This is almost
-   // certainly not needed, but we have solder jumpers to configure the delay.
-   assign nrmbr = nrmbr0;	// Configuration 1
-   // assign #10 nrmbr = nrmbr0;	// Configuration 2
-   // assign #20 nrmbr = nrmbr0;	// Configuration 3
-   // assign #30 nrmbr = nrmbr0;	// Configuration 4
-
-   // Likewise, nWMBR can be gated by WSTB or not.
-   assign nwmbr = nwmbr0;	        // Direct drive
-   assign #10 nwmbr = nwmbr0 | clk3;	// Only asserted during WSTB
-
-
-   ///////////////////////////////////////////////////////////////////////////////
-   // 
-   // REGISTER ADDRESS MULTIPLEXER
-   //
-   ///////////////////////////////////////////////////////////////////////////////
-
-   // The ‘multiplexer’ is actually made from two '244 buffers controlling 3
-   // bits each, outputs wired together. We'll do it with direct assignments
-   // rather than the '244 module because they're a little cleaner to code.
-
-   // assign #7 sel = nuse_ab    ? 3'bzzz : ab[2:0];
-   // assign #7 sel = nuse_zero  ? 3'bzzz : 3'b000;
-   // assign #7 sel = nuse_waddr ? 3'bzzz : { 1'b0, waddr[1:0] };
-   // assign #7 sel = nuse_ir    ? 3'bzzz : ir[2:0];
-
-   // And now let's do it with '244s for better testing.
-
-   wire [3:0] 	sel_4bit;
-   assign sel = sel_4bit[2:0];
-
-   // U13: SEL multiplexer 1
-   buffer_244 #7 selmux1 (.oe1(nuse_ab),    .a1({1'b0, ab[2:0]}),     .y1(sel_4bit),
-		          .oe2(nuse_zero),  .a2(4'b0000),             .y2(sel_4bit));
-   // U11: SEL multiplexer 2
-   buffer_244 #7 selmux2 (.oe1(nuse_waddr), .a1({2'b0, waddr[1:0]}),  .y1(sel_4bit),
-			  .oe2(nuse_ir),    .a2({1'b0, ir[2:0]}),     .y2(sel_4bit));
+   // U18: the MBU enable FF. We output complementary active-low pair (nEN,
+   // nDIS). nEN is also connected to a LED, but there's a solder jumper to
+   // disconnect it if the current draw becomes too much.
+   wire 	nen, ndis;
+   flipflop_74h ff_init(.d(1'b1), .clk(1'b1), .nset(nreset), .nrst(niombr),
+			.q(nen), .nq(ndis));
 
    ///////////////////////////////////////////////////////////////////////////////
    // 
    // THE REGISTER FILE
    //
    ///////////////////////////////////////////////////////////////////////////////
-
-   // U15: The register file is a 32K×8 static RAM chip.
 
    wire [7:0] 	mb0;
    wire [7:0] 	mb1;
@@ -235,38 +137,131 @@ module mbu (nreset,
    wire [7:0] 	mb6;
    wire [7:0] 	mb7;
 
-   assign mb0 = regfile.mem[0];
-   assign mb1 = regfile.mem[1];
-   assign mb2 = regfile.mem[2];
-   assign mb3 = regfile.mem[3];
-   assign mb4 = regfile.mem[4];
-   assign mb5 = regfile.mem[5];
-   assign mb6 = regfile.mem[6];
-   assign mb7 = regfile.mem[7];
+   assign mb0 = { rf_0hi.q0[0], rf_0lo.q0[0] };
+   assign mb1 = { rf_0hi.q0[1], rf_0lo.q0[1] };
+   assign mb2 = { rf_0hi.q0[2], rf_0lo.q0[2] };
+   assign mb3 = { rf_0hi.q0[3], rf_0lo.q0[3] };
+   assign mb4 = { rf_1hi.q0[0], rf_1lo.q0[0] };
+   assign mb5 = { rf_1hi.q0[1], rf_1lo.q0[1] };
+   assign mb6 = { rf_1hi.q0[2], rf_1lo.q0[2] };
+   assign mb7 = { rf_1hi.q0[3], rf_1lo.q0[3] };
 
-   sram #(13, 15) regfile (.a({10'd0, sel}), .d(aext),
-			   .nce(t34), .nwe(nwmbr), .noe(nrmbr));
+   wire [1:0] 	ra, wa;
+   wire [7:0] 	rd;
+   wire 	nren0, nren1;
+   wire 	nwen0, nwen1;
 
-   // Note: AEXT is pulled low via its definition (tri0).
+   // 8 8-bit registers formed out of 4 4×4-bit '670 register files. These are
+   // sluggish chips compared to the SRAM of the previous design, but simpler
+   // to use.
+   regfile_670 rf_0lo (.d(ibus[3:0]), .nre(nren0), .nwe(nwen0), .ra(ra), .wa(wa), .q(rd[3:0]));
+   regfile_670 rf_0hi (.d(ibus[7:4]), .nre(nren0), .nwe(nwen0), .ra(ra), .wa(wa), .q(rd[7:4]));
 
-   // The SRAMs data bus can connect to the IBUS (register reads/writes), AR
-   // (register reads) or DB (register writes).
+   regfile_670 rf_1lo (.d(ibus[3:0]), .nre(nren1), .nwe(nwen1), .ra(ra), .wa(wa), .q(rd[3:0]));
+   regfile_670 rf_1hi (.d(ibus[7:4]), .nre(nren1), .nwe(nwen1), .ra(ra), .wa(wa), .q(rd[7:4]));
 
-   // IN instructions: Drive the DB ← AEXT to avoid bus contention.
-   // OUT instructions: read from the IBUS directly. (DB == IBUS)
-   // Control Unit reads: Drive the IBus.
-   // Writes to the AR: Drive the AEXT bus (which drives ar[23:16].
-   // Other writes: Drive the IBus.
+   // Connect the RD bus to AEXT when the MBU is enabled. We use a multiplexer
+   // (and no pull-down resistors) for bit 7 because it changes depending on
+   // the value of nfpram_rom.
+   wire [7:0] 	buf_aext_y;
+   buffer_541 buf_aext (.noe1(nen), .noe2(1'b0), .a({1'b0, rd[6:0]}), .y(buf_aext_y));
+   mux_2g157 mux_aext7 (.sel(nen), .a(rd[7]), .b(nfpram_rom), .ng(1'b0), .y(aext[7]));
+   assign aext[6:0] = buf_aext_y;
 
-   // U14: The IBus transceiver.
-   buffer_245 buf_ibus (.dir(nibusw), .nen(nibusen), .a(ibus[7:0]), .b(aext));
+   ///////////////////////////////////////////////////////////////////////////////
+   //
+   // WRITE ADDRESSING
+   //
+   ///////////////////////////////////////////////////////////////////////////////
 
-   // // U19: The DB Driver. Used in IN instructions (nr asserted).
-   // buffer_541 buf_db (.noe1(nuse_ab), .noe2(nr), .a(aext), .y(db[7:0]));
+   // The MBU registers are written to in response to two actions:
+   //
+   // (a) When the Control Unit asserts write_mbp or write_mbp+flags (decoded
+   //     as nwmbp here).
+   // (b) Programmatically, using the When the Control Unit asserts write_mbp
+   //     or write_mbp+flags (decoded as niowmbr).
+   //
+   // In case (a), the address is always 000 (MBP).
+   // In case (b), the address is AB[2:0].
+   // ____   ______                ____   ____
+   // WBMP   IOWMBR    WA0   WA1   WEN0   WEN1   What
+   // ------------------------------------------------------------------------
+   //   1      1        X     X     1       1    No write
+   //   0      1        0     0     0       1    Write to MBP
+   //   1      0       AB0   AB1   AB2    !AB2   Write to MB[AB[2:0]]
+   //
+   // To implement this, we use one stages of three multiplexers plus two
+   // 1g0832 AND/OR ICs.
 
-   // U19: The DB transceiver. Used in IN/OUT instructions. Note that
-   // the A and B ports are reversed compared to the IBus transceiver.
-   buffer_245 buf_db (.dir(nr), .nen(nuse_ab), .a(db[7:0]), .b(aext));
+   mux_2g157 wmux0 (.a(ab[0]), .b(1'b0), .sel(niombr), .ng(1'b0), .y(wa[0]));
+   mux_2g157 wmux1 (.a(ab[1]), .b(1'b0), .sel(niombr), .ng(1'b0), .y(wa[1]));
+
+   // The third mux selects the correct bank of 670s for writing.
+   wire 	nw0, nw1,  niowmbr;
+   mux_2g157 wmux2 (.a(ab[2]), .b(1'b0), .sel(niombr), .ng(1'b0), .y(nw0), .ny(nw1));
+
+   // And then generate write enables when (niombr and nw) or nmbp are asserted:
+   assign #4 niowmbr = niombr | nw;
+
+   // This uses two 74LVG1G0832 units:
+   assign #4 nwen0 = (niowmbr & nwmbp) | nw0;
+   assign #4 nwen1 = (niowmbr & nwmbp) | nw1;
+
+   // Timing note: the enables are delayed a little bit compared to the WA
+   // address multiplexing, but not enough for maintaining the '670s languid
+   // setup time (≥10ns). Luckily, IO addressing (and niombr) is decoded ~
+   // 62.5ns before the nw strobe (and thus ~64.5ns before niowmbr), so in
+   // practice this is no concern.
+
+   ///////////////////////////////////////////////////////////////////////////////
+   //
+   // READ ADDRESSING
+   //
+   ///////////////////////////////////////////////////////////////////////////////
+
+   // There are four ways to read MBU registers. The truth table is complex
+   // because it also implements auto-indexed addressing modes:
+   // ____  ___  ______  
+   // RMBP  WAR  IORMBR  WADDR  IDXEN  ADDR       What
+   // -------------------------------------------------------------------------
+   //  X     X    X          X    X        X      MBU disabled. AEXT=&00 or &80.
+   //  0     X    X          X    X      000      Reading MBP. AEXT drives IBus.
+   //  1     0    X      ...00    X      000      Indexing with MBP. Address: waddr[0:1]
+   //  1     0    X      ...01    X      001      Indexing with MBD.
+   //  1     0    X      ...10    X      010      Indexing with MBS.
+   //  1     0    X      ...11    0      011      Indexing with MBS.
+   //  1     0    X      ...11    1      ir[2:0]  Autoindexing, address is IR[2:0].
+   //  1     1    0          X    X      ab[2:0]  IN from MBR. AEXT drives DB.
+   // -----------------------------------------------------------------
+
+   wire 	nrg, use_ir, cur0, cur1, cur2;
+   assign #4 nrg = !nrmbp;
+   assign #5 use_ir = waddr[0] & waddr[1] & idxen;
+
+   // First stage mux, choose between IR and AB as source for AR indexing.
+   mux_2g157 rmux1_0 (.a(waddr[0]), .b(ir[0]), .sel(use_ir), .ng(1'b0), .y(cur0));
+   mux_2g157 rmux1_1 (.a(waddr[1]), .b(ir[1]), .sel(use_ir), .ng(1'b0), .y(cur1));
+   mux_2g157 rmux1_2 (.a(1'b0),     .b(ir[2]), .sel(use_ir), .ng(1'b0), .y(cur2));
+
+   // Second stage mux, choose between the previous stage and AB[2:0].
+   mux_2g157 rmux2_0 (.a(cur0), .b(ab[0]), .sel(nwar), .ng(nrg), .y(ra[0]));
+   mux_2g157 rmux2_1 (.a(cur1), .b(ab[1]), .sel(nwar), .ng(nrg), .y(ra[1]));
+   mux_2g157 rmux2_2 (.a(cur2), .b(ab[2]), .sel(nwar), .ng(nrg), .y(nren0), .ny(nren1));
+
+   ///////////////////////////////////////////////////////////////////////////////
+   //
+   // OUTPUT BUS INTERFACE
+   //
+   ///////////////////////////////////////////////////////////////////////////////
+
+   // There are three outputs:
+   //
+   // (a) AEXT (dedicated, always active, the MBU is the only driver)
+   // (b) IBUS[7:0] (we only drive bits 0–7 on Control Unit)
+   // (c) DB[7:0] (when an IN instruction is issued)
+
+   buffer_541 buf_ibus (.noe1(nrmbp), .noe2(1'b0), .a(aext), .y(ibus[7:0]));
+   buffer_541 buf_db   (.noe1(niombr), .noe2(nr), .a(aext), .y(db[7:0]));
 
 endmodule // mbu
 `endif //  `ifndef mbu_v

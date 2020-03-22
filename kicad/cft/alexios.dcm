@@ -25,7 +25,7 @@ $ENDCMP
 $CMP 74AC04
 D Hex inverter
 K not inverter
-F http://www.ti.com/lit/gpn/sn74LS14
+F http://www.ti.com/lit/gpn/sn74AC04
 $ENDCMP
 #
 $CMP 74AC08
@@ -641,7 +641,7 @@ $ENDCMP
 $CMP 74HC04
 D Hex inverter schmitt trigger
 K HCMOS not inverter
-F http://www.ti.com/lit/gpn/sn74HC14
+F http://www.ti.com/lit/gpn/sn74HC04
 $ENDCMP
 #
 $CMP 74HC08

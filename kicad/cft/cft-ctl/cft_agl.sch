@@ -1087,6 +1087,13 @@ Wire Wire Line
 	7750 6350 7750 6500
 Wire Wire Line
 	7750 6500 8950 6500
+Connection ~ 7750 6350
+Wire Wire Line
+	7750 6350 7450 6350
+Text HLabel 8950 6500 2    50   Output ~ 0
+IDXEN
+Text Label 8900 6500 2    50   ~ 0
+IDXEN
 Wire Bus Line
 	1200 2050 5350 2050
 Wire Bus Line
@@ -1099,11 +1106,4 @@ Wire Bus Line
 	5450 1050 5450 1950
 Wire Bus Line
 	7550 2150 7550 3100
-Connection ~ 7750 6350
-Wire Wire Line
-	7750 6350 7450 6350
-Text HLabel 8950 6500 2    50   Output ~ 0
-IDXEN
-Text Label 8900 6500 2    50   ~ 0
-IDXEN
 $EndSCHEMATC

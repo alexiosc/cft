@@ -117,7 +117,7 @@ endmodule // mux_157
 // The 74LVC2G157 is a 2:1 version of the '157 with a complementary
 // output.
 module mux_2g157 (sel, a, b, ng, y, ny);
-   parameter delay = 20;
+   parameter delay = 4;		// This thing is FAST at 5V!
 
    input        sel;		// The signal selector
    input 	a, b;		// Inputs
