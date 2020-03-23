@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 11 11
+Sheet 10 11
 Title "Interrupt State Machine"
 Date ""
 Rev ""
@@ -107,8 +107,6 @@ F 3 "~" H 2700 5050 50  0001 C CNN
 	1    2700 5050
 	1    0    0    -1  
 $EndComp
-Text Notes 5050 -1700 0    50   ~ 0
-This is the Interrupt Flag (interrupt handling enabled)\ndisplayed on the front panel.
 Text Notes 6850 2900 0    79   ~ 16
 Interrupt Flag
 Text HLabel 8850 5100 2    50   Output ~ 0
@@ -938,12 +936,14 @@ Wire Wire Line
 	5000 3500 5000 4200
 Wire Wire Line
 	5000 4200 8850 4200
-Wire Bus Line
-	3050 2850 3050 3600
 Text HLabel 8850 4200 2    50   Output ~ 0
 ~ACTION-IDX
 Text Label 4550 3500 0    50   ~ 0
 ~ACTION-IDX
-Text Notes 8350 4100 0    50   ~ 0
-This is output to the MBU.
+Text Notes 8400 4100 0    50   ~ 0
+This is used to select addressing modes.
+Wire Bus Line
+	3050 2850 3050 3600
+Text Notes 8400 3200 0    50   ~ 0
+This is output to the Flag Unit.
 $EndSCHEMATC
