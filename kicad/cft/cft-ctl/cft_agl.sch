@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 9 11
+Sheet 11 11
 Title "Addressing Modes"
 Date ""
 Rev ""
@@ -319,14 +319,6 @@ Text Label 5650 1050 0    50   ~ 0
 IR1
 Text Label 5650 950  0    50   ~ 0
 IR0
-Entry Wire Line
-	5450 2500 5550 2600
-Entry Wire Line
-	5450 2400 5550 2500
-Wire Wire Line
-	6050 2600 5550 2600
-Wire Wire Line
-	6050 2500 5550 2500
 Wire Wire Line
 	6050 1650 5550 1650
 Wire Wire Line
@@ -400,17 +392,6 @@ F 1 "74HC541" H 6550 2126 50  0000 C CNN
 F 2 "alexios:SOIC-20W" H 6550 1450 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74HC541" H 6550 1450 50  0001 C CNN
 	1    6550 1450
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74HC541 U19
-U 1 1 5CD2971E
-P 6550 3000
-F 0 "U19" H 6550 3767 50  0000 C CNN
-F 1 "74HC541" H 6550 3676 50  0000 C CNN
-F 2 "alexios:SOIC-20W" H 6550 3000 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74HC541" H 6550 3000 50  0001 C CNN
-	1    6550 3000
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
@@ -565,20 +546,6 @@ F 3 "" H 6000 7200 50  0001 C CNN
 $EndComp
 $Comp
 L Device:C_Small C?
-U 1 1 60D21D0A
-P 10200 6400
-AR Path="/5CC0D65F/60D21D0A" Ref="C?"  Part="1" 
-AR Path="/5CD3AC27/60D21D0A" Ref="C?"  Part="1" 
-AR Path="/5F3EA987/60D21D0A" Ref="C19"  Part="1" 
-F 0 "C19" H 10109 6446 50  0000 R CNN
-F 1 "100nF" H 10109 6355 50  0000 R CNN
-F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10200 6400 50  0001 C CNN
-F 3 "~" H 10200 6400 50  0001 C CNN
-	1    10200 6400
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
 U 1 1 60D21D10
 P 6000 7300
 AR Path="/5CC0D65F/60D21D10" Ref="C?"  Part="1" 
@@ -589,21 +556,6 @@ F 1 "100nF" H 5909 7255 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 6000 7300 50  0001 C CNN
 F 3 "~" H 6000 7300 50  0001 C CNN
 	1    6000 7300
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR?
-U 1 1 60D21D16
-P 10200 6300
-AR Path="/60D21D16" Ref="#PWR?"  Part="1" 
-AR Path="/5CC0D65F/60D21D16" Ref="#PWR?"  Part="1" 
-AR Path="/5CD3AC27/60D21D16" Ref="#PWR?"  Part="1" 
-AR Path="/5F3EA987/60D21D16" Ref="#PWR0123"  Part="1" 
-F 0 "#PWR0123" H 10200 6150 50  0001 C CNN
-F 1 "+5V" H 10215 6473 50  0000 C CNN
-F 2 "" H 10200 6300 50  0001 C CNN
-F 3 "" H 10200 6300 50  0001 C CNN
-	1    10200 6300
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -622,37 +574,6 @@ F 3 "" H 6000 7400 50  0001 C CNN
 	1    6000 7400
 	1    0    0    -1  
 $EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 60D21D22
-P 10200 6500
-AR Path="/60D21D22" Ref="#PWR?"  Part="1" 
-AR Path="/5CBF1647/60D21D22" Ref="#PWR?"  Part="1" 
-AR Path="/5CC0D65F/60D21D22" Ref="#PWR?"  Part="1" 
-AR Path="/5CD3AC27/60D21D22" Ref="#PWR?"  Part="1" 
-AR Path="/5F3EA987/60D21D22" Ref="#PWR0129"  Part="1" 
-F 0 "#PWR0129" H 10200 6250 50  0001 C CNN
-F 1 "GND" H 10205 6327 50  0000 C CNN
-F 2 "" H 10200 6500 50  0001 C CNN
-F 3 "" H 10200 6500 50  0001 C CNN
-	1    10200 6500
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74HC08 U?
-U 5 1 60D21D28
-P 10400 5850
-AR Path="/5CD3AC27/60D21D28" Ref="U?"  Part="5" 
-AR Path="/5F3EA987/60D21D28" Ref="U24"  Part="5" 
-F 0 "U24" H 10730 5346 50  0000 L CNN
-F 1 "74HC08" H 10730 5255 50  0000 L CNN
-F 2 "alexios:SOIC-14" H 10600 5400 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 10600 5400 50  0001 C CNN
-	5    10400 5850
-	1    0    0    -1  
-$EndComp
-Connection ~ 10200 6300
-Connection ~ 10200 6500
 $Comp
 L alexios:74HC238 U?
 U 2 1 60D21D31
@@ -673,8 +594,6 @@ Text Notes 800  1000 0    98   ~ 20
 Page Zero Address Generation Logic (AGL)
 Text Notes 12300 3700 0    98   ~ 20
 Auto-Indexing Logic (AIL)
-Text Notes 8000 5300 0    50   ~ 0
-IDX0 and IDX1 are not registered because they rely solely on the\ncurrent value of the IR. IR is latched during CLK4, so at worst\nIDX will be valid at CLK1 + ~20ns.
 Text Label 1350 4050 0    50   ~ 0
 ~READ-AGL
 Wire Bus Line
@@ -760,11 +679,7 @@ Wire Wire Line
 Wire Wire Line
 	5300 3300 5300 3200
 Connection ~ 4300 2700
-Wire Wire Line
-	4300 2700 6050 2700
 Connection ~ 4500 2800
-Wire Wire Line
-	4500 2800 6050 2800
 Connection ~ 4700 2900
 Wire Wire Line
 	4700 2900 6050 2900
@@ -839,162 +754,8 @@ Wire Notes Line width 24 style solid
 	10850 3150 7800 3150
 Text Notes 12300 4100 0    50   ~ 0
 The Auto-Index Unit decodes the instruction operand and indicates to the Control Unit which (if any) auto-index\naddressing mode should be used. IDX is usually 00 (no indexing), unless the instruction has fields I and R set,\nand the operand is in the range &300–&3FF, i.e. IR8 and IR9 are set. In that case, the vector IR[6..7] sets\nIDX[0..1].
-Text HLabel 8950 6300 2    50   Output ~ 0
-IDX1
-Text HLabel 8950 5850 2    50   Output ~ 0
+Text HLabel 6700 4650 2    50   Output ~ 0
 IDX0
-Text Notes 5800 5850 0    50   ~ 0
-(R)
-Text Notes 5850 6250 0    50   ~ 0
-(I)
-Entry Wire Line
-	5450 6150 5550 6250
-Entry Wire Line
-	5450 5750 5550 5850
-Entry Wire Line
-	5450 5650 5550 5750
-Entry Wire Line
-	5450 5550 5550 5650
-Entry Wire Line
-	5450 5100 5550 5200
-Entry Wire Line
-	5450 5000 5550 5100
-$Comp
-L alexios:74HC08 U?
-U 1 1 60D17A6C
-P 7950 5450
-AR Path="/5CD3AC27/60D17A6C" Ref="U?"  Part="1" 
-AR Path="/5F3EA987/60D17A6C" Ref="U24"  Part="1" 
-F 0 "U24" H 8075 5325 50  0000 C CNN
-F 1 "74HC08" H 8075 5234 50  0000 C CNN
-F 2 "alexios:SOIC-14" H 8150 5000 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 8150 5000 50  0001 C CNN
-	1    7950 5450
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	8300 5850 8950 5850
-Text Label 8900 5850 2    50   ~ 0
-IDX0
-Wire Wire Line
-	7450 5800 7850 5800
-Text Label 7750 5800 2    50   ~ 0
-IR6
-Wire Wire Line
-	7450 5100 7450 5800
-Wire Wire Line
-	5550 5100 7450 5100
-Wire Wire Line
-	7450 5900 7850 5900
-Wire Wire Line
-	7450 6350 7450 5900
-Wire Wire Line
-	5550 5200 7350 5200
-Text Label 5600 5200 0    50   ~ 0
-IR7
-Wire Wire Line
-	7350 5200 7350 6250
-Text Label 8900 6300 2    50   ~ 0
-IDX1
-Wire Wire Line
-	8300 6300 8950 6300
-Wire Wire Line
-	6000 5650 5550 5650
-Wire Wire Line
-	6000 5750 5550 5750
-Wire Wire Line
-	6000 5850 5550 5850
-Wire Wire Line
-	6000 6250 5550 6250
-Text Label 5600 5650 0    50   ~ 0
-IR8
-Text Label 5600 5750 0    50   ~ 0
-IR9
-Text Label 5600 5850 0    50   ~ 0
-IR10
-Text Label 5650 6250 0    50   ~ 0
-IR11
-$Comp
-L alexios:74HC08 U?
-U 2 1 60D17A4C
-P 7950 5900
-AR Path="/5CD3AC27/60D17A4C" Ref="U?"  Part="2" 
-AR Path="/5F3EA987/60D17A4C" Ref="U24"  Part="2" 
-F 0 "U24" H 8075 5775 50  0000 C CNN
-F 1 "74HC08" H 8075 5684 50  0000 C CNN
-F 2 "alexios:SOIC-14" H 8150 5450 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 8150 5450 50  0001 C CNN
-	2    7950 5900
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74HC238 U?
-U 1 1 60D17A46
-P 6500 6050
-AR Path="/5CD3AC27/60D17A46" Ref="U?"  Part="1" 
-AR Path="/5F3EA987/60D17A46" Ref="U25"  Part="1" 
-F 0 "U25" H 6500 6717 50  0000 C CNN
-F 1 "74HC238" H 6500 6626 50  0000 C CNN
-F 2 "alexios:SOIC-16" H 6500 6050 50  0001 C CNN
-F 3 "" H 6500 6050 50  0001 C CNN
-F 4 "Yes" H 6425 5225 50  0001 C CNN "Verified"
-	1    6500 6050
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	6000 6350 5950 6350
-Wire Wire Line
-	5950 6350 5950 6450
-$Comp
-L power:GND #PWR?
-U 1 1 60D17A3D
-P 5950 6500
-AR Path="/5CD3AC27/60D17A3D" Ref="#PWR?"  Part="1" 
-AR Path="/5F3EA987/60D17A3D" Ref="#PWR0106"  Part="1" 
-F 0 "#PWR0106" H 5950 6250 50  0001 C CNN
-F 1 "GND" H 5955 6327 50  0000 C CNN
-F 2 "" H 5950 6500 50  0001 C CNN
-F 3 "" H 5950 6500 50  0001 C CNN
-	1    5950 6500
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	6000 6450 5950 6450
-Connection ~ 5950 6450
-Wire Wire Line
-	5950 6450 5950 6500
-Wire Wire Line
-	7000 6350 7450 6350
-NoConn ~ 7000 5650
-NoConn ~ 7000 5750
-NoConn ~ 7000 5850
-NoConn ~ 7000 5950
-NoConn ~ 7000 6050
-NoConn ~ 7000 6150
-NoConn ~ 7000 6250
-Wire Wire Line
-	7850 6350 7750 6350
-Wire Wire Line
-	7350 6250 7850 6250
-Text Label 5600 5100 0    50   ~ 0
-IR6
-Text Label 7750 6250 2    50   ~ 0
-IR7
-Connection ~ 7450 6350
-Text Notes 7050 6450 0    50   ~ 0
-IR[11..8] = 1111
-Text Notes 8000 4950 0    63   ~ 13
-Note: IDX Registration
-Wire Notes Line width 24 style solid
-	7900 4700 7900 5400
-Wire Notes Line width 24 style solid
-	7900 4700 10700 4700
-Wire Notes Line width 24 style solid
-	10700 5400 10700 4700
-Wire Notes Line width 24 style solid
-	10700 5400 7900 5400
-Text Label 7050 6350 0    50   ~ 0
-IDXEN
 Text Notes 7900 1000 0    63   ~ 13
 Addressing Modes are only partly implemented here
 Text Notes 7900 1600 0    50   ~ 0
@@ -1007,74 +768,6 @@ Wire Notes Line width 24 style solid
 	10850 1700 10850 800 
 Wire Notes Line width 24 style solid
 	10850 1700 7800 1700
-$Comp
-L alexios:74HC08 U?
-U 3 1 5EE44F45
-P 9950 5400
-AR Path="/5CD3AC27/5EE44F45" Ref="U?"  Part="1" 
-AR Path="/5F3EA987/5EE44F45" Ref="U24"  Part="3" 
-F 0 "U24" H 10075 5275 50  0000 C CNN
-F 1 "74HC08" H 10075 5184 50  0000 C CNN
-F 2 "alexios:SOIC-14" H 10150 4950 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 10150 4950 50  0001 C CNN
-	3    9950 5400
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74HC08 U?
-U 4 1 5EE45013
-P 10600 5400
-AR Path="/5CD3AC27/5EE45013" Ref="U?"  Part="1" 
-AR Path="/5F3EA987/5EE45013" Ref="U24"  Part="4" 
-F 0 "U24" H 10725 5275 50  0000 C CNN
-F 1 "74HC08" H 10725 5184 50  0000 C CNN
-F 2 "alexios:SOIC-14" H 10800 4950 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 10800 4950 50  0001 C CNN
-	4    10600 5400
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	9850 5750 9800 5750
-Wire Wire Line
-	9800 5750 9800 5850
-$Comp
-L power:GND #PWR0183
-U 1 1 5EE49357
-P 9800 5900
-F 0 "#PWR0183" H 9800 5650 50  0001 C CNN
-F 1 "GND" H 9805 5727 50  0000 C CNN
-F 2 "" H 9800 5900 50  0001 C CNN
-F 3 "" H 9800 5900 50  0001 C CNN
-	1    9800 5900
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	9850 5850 9800 5850
-Connection ~ 9800 5850
-Wire Wire Line
-	9800 5850 9800 5900
-Wire Wire Line
-	10500 5750 10450 5750
-Wire Wire Line
-	10450 5750 10450 5850
-$Comp
-L power:GND #PWR0186
-U 1 1 5EE4ED6F
-P 10450 5900
-F 0 "#PWR0186" H 10450 5650 50  0001 C CNN
-F 1 "GND" H 10455 5727 50  0000 C CNN
-F 2 "" H 10450 5900 50  0001 C CNN
-F 3 "" H 10450 5900 50  0001 C CNN
-	1    10450 5900
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	10500 5850 10450 5850
-Connection ~ 10450 5850
-Wire Wire Line
-	10450 5850 10450 5900
-NoConn ~ 10300 5800
-NoConn ~ 10950 5800
 Wire Wire Line
 	1200 4050 5600 4050
 Text HLabel 1200 4050 0    50   Input ~ 0
@@ -1083,23 +776,318 @@ Text Notes 1400 4150 0    50   ~ 0
 This is decoded by the flag unit.
 Connection ~ 2300 7400
 Connection ~ 2300 7200
+$Comp
+L alexios:74HC541 U19
+U 1 1 5CD2971E
+P 6550 3000
+F 0 "U19" H 6550 3767 50  0000 C CNN
+F 1 "74HC541" H 6550 3676 50  0000 C CNN
+F 2 "alexios:SOIC-20W" H 6550 3000 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74HC541" H 6550 3000 50  0001 C CNN
+	1    6550 3000
+	1    0    0    -1  
+$EndComp
 Wire Wire Line
-	7750 6350 7750 6500
+	4300 2700 6050 2700
 Wire Wire Line
-	7750 6500 8950 6500
-Connection ~ 7750 6350
+	4500 2800 6050 2800
 Wire Wire Line
-	7750 6350 7450 6350
-Text HLabel 8950 6500 2    50   Output ~ 0
-IDXEN
-Text Label 8900 6500 2    50   ~ 0
-IDXEN
+	6050 2600 5550 2600
+Wire Wire Line
+	6050 2500 5550 2500
+Entry Wire Line
+	5450 2400 5550 2500
+Entry Wire Line
+	5450 2500 5550 2600
+$Comp
+L alexios:74LVC1G11 U23
+U 1 1 6C4E335D
+P 6150 4600
+F 0 "U23" H 6100 4864 50  0000 C CNN
+F 1 "74LVC1G11" H 6100 4773 50  0000 C CNN
+F 2 "" H 6050 4525 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G11.pdf" H 6050 4525 50  0001 C CNN
+	1    6150 4600
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74LVC1G11 U24
+U 1 1 6C4E3863
+P 6150 5200
+F 0 "U24" H 6100 5464 50  0000 C CNN
+F 1 "74LVC1G11" H 6100 5373 50  0000 C CNN
+F 2 "" H 6050 5125 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G11.pdf" H 6050 5125 50  0001 C CNN
+	1    6150 5200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5850 4550 5550 4550
+Wire Wire Line
+	5850 5150 5550 5150
+Text Label 5850 4550 2    50   ~ 0
+IR6
+Text Label 5850 4650 2    50   ~ 0
+IR8
+Text Label 5850 4750 2    50   ~ 0
+IR9
+Text Label 5850 5150 2    50   ~ 0
+IR7
+Wire Wire Line
+	6350 4650 6700 4650
+Text Label 6600 4650 2    50   ~ 0
+IDX0
+Text HLabel 6700 5250 2    50   Output ~ 0
+IDX1
+Wire Wire Line
+	6350 5250 6700 5250
+Text Label 6600 5250 2    50   ~ 0
+IDX1
+Text Label 5850 5250 2    50   ~ 0
+IR8
+Text Label 5850 5350 2    50   ~ 0
+IR9
+Text Label 5850 5700 2    50   ~ 0
+IR8
+Text Label 5850 5800 2    50   ~ 0
+IR9
+Entry Wire Line
+	5450 4450 5550 4550
+Entry Wire Line
+	5450 4550 5550 4650
+Entry Wire Line
+	5450 4650 5550 4750
+Entry Wire Line
+	5450 5050 5550 5150
+Wire Notes Line width 24 style solid
+	10500 4250 7700 4250
+Wire Notes Line width 24 style solid
+	10500 4250 10500 3550
+Wire Notes Line width 24 style solid
+	7700 3550 10500 3550
+Wire Notes Line width 24 style solid
+	7700 3550 7700 4250
+Text Notes 7800 3800 0    63   ~ 13
+Note: IDX Registration
+Text Notes 7800 4150 0    50   ~ 0
+IDX0 and IDX1 are not registered because they rely solely on the\ncurrent value of the IR. IR is latched during CLK4, so at worst\nIDX will be valid at CLK1 + ~20ns.
+$Comp
+L power:+5V #PWR?
+U 1 1 6C5B5C2E
+P 8050 4550
+AR Path="/6C5B5C2E" Ref="#PWR?"  Part="1" 
+AR Path="/5CC0D65F/6C5B5C2E" Ref="#PWR?"  Part="1" 
+AR Path="/5CD3AC27/6C5B5C2E" Ref="#PWR?"  Part="1" 
+AR Path="/5F3EA987/6C5B5C2E" Ref="#PWR0129"  Part="1" 
+F 0 "#PWR0129" H 8050 4400 50  0001 C CNN
+F 1 "+5V" H 8065 4723 50  0000 C CNN
+F 2 "" H 8050 4550 50  0001 C CNN
+F 3 "" H 8050 4550 50  0001 C CNN
+	1    8050 4550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 6C5B5C34
+P 8050 4650
+AR Path="/5CC0D65F/6C5B5C34" Ref="C?"  Part="1" 
+AR Path="/5CD3AC27/6C5B5C34" Ref="C?"  Part="1" 
+AR Path="/5F3EA987/6C5B5C34" Ref="C19"  Part="1" 
+F 0 "C19" H 7959 4696 50  0000 R CNN
+F 1 "100nF" H 7959 4605 50  0000 R CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 8050 4650 50  0001 C CNN
+F 3 "~" H 8050 4650 50  0001 C CNN
+	1    8050 4650
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 6C5B5C3A
+P 8050 4750
+AR Path="/6C5B5C3A" Ref="#PWR?"  Part="1" 
+AR Path="/5CBF1647/6C5B5C3A" Ref="#PWR?"  Part="1" 
+AR Path="/5CC0D65F/6C5B5C3A" Ref="#PWR?"  Part="1" 
+AR Path="/5CD3AC27/6C5B5C3A" Ref="#PWR?"  Part="1" 
+AR Path="/5F3EA987/6C5B5C3A" Ref="#PWR0175"  Part="1" 
+F 0 "#PWR0175" H 8050 4500 50  0001 C CNN
+F 1 "GND" H 8055 4577 50  0000 C CNN
+F 2 "" H 8050 4750 50  0001 C CNN
+F 3 "" H 8050 4750 50  0001 C CNN
+	1    8050 4750
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 6C5BB090
+P 8050 5250
+AR Path="/6C5BB090" Ref="#PWR?"  Part="1" 
+AR Path="/5CC0D65F/6C5BB090" Ref="#PWR?"  Part="1" 
+AR Path="/5CD3AC27/6C5BB090" Ref="#PWR?"  Part="1" 
+AR Path="/5F3EA987/6C5BB090" Ref="#PWR0183"  Part="1" 
+F 0 "#PWR0183" H 8050 5100 50  0001 C CNN
+F 1 "+5V" H 8065 5423 50  0000 C CNN
+F 2 "" H 8050 5250 50  0001 C CNN
+F 3 "" H 8050 5250 50  0001 C CNN
+	1    8050 5250
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 6C5BB096
+P 8050 5350
+AR Path="/5CC0D65F/6C5BB096" Ref="C?"  Part="1" 
+AR Path="/5CD3AC27/6C5BB096" Ref="C?"  Part="1" 
+AR Path="/5F3EA987/6C5BB096" Ref="C26"  Part="1" 
+F 0 "C26" H 7959 5396 50  0000 R CNN
+F 1 "100nF" H 7959 5305 50  0000 R CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 8050 5350 50  0001 C CNN
+F 3 "~" H 8050 5350 50  0001 C CNN
+	1    8050 5350
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 6C5BB09C
+P 8050 5450
+AR Path="/6C5BB09C" Ref="#PWR?"  Part="1" 
+AR Path="/5CBF1647/6C5BB09C" Ref="#PWR?"  Part="1" 
+AR Path="/5CC0D65F/6C5BB09C" Ref="#PWR?"  Part="1" 
+AR Path="/5CD3AC27/6C5BB09C" Ref="#PWR?"  Part="1" 
+AR Path="/5F3EA987/6C5BB09C" Ref="#PWR0186"  Part="1" 
+F 0 "#PWR0186" H 8050 5200 50  0001 C CNN
+F 1 "GND" H 8055 5277 50  0000 C CNN
+F 2 "" H 8050 5450 50  0001 C CNN
+F 3 "" H 8050 5450 50  0001 C CNN
+	1    8050 5450
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 6C5BF79C
+P 8050 5950
+AR Path="/6C5BF79C" Ref="#PWR?"  Part="1" 
+AR Path="/5CC0D65F/6C5BF79C" Ref="#PWR?"  Part="1" 
+AR Path="/5CD3AC27/6C5BF79C" Ref="#PWR?"  Part="1" 
+AR Path="/5F3EA987/6C5BF79C" Ref="#PWR0191"  Part="1" 
+F 0 "#PWR0191" H 8050 5800 50  0001 C CNN
+F 1 "+5V" H 8065 6123 50  0000 C CNN
+F 2 "" H 8050 5950 50  0001 C CNN
+F 3 "" H 8050 5950 50  0001 C CNN
+	1    8050 5950
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 6C5BF7A2
+P 8050 6050
+AR Path="/5CC0D65F/6C5BF7A2" Ref="C?"  Part="1" 
+AR Path="/5CD3AC27/6C5BF7A2" Ref="C?"  Part="1" 
+AR Path="/5F3EA987/6C5BF7A2" Ref="C27"  Part="1" 
+F 0 "C27" H 7959 6096 50  0000 R CNN
+F 1 "100nF" H 7959 6005 50  0000 R CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 8050 6050 50  0001 C CNN
+F 3 "~" H 8050 6050 50  0001 C CNN
+	1    8050 6050
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 6C5BF7A8
+P 8050 6150
+AR Path="/6C5BF7A8" Ref="#PWR?"  Part="1" 
+AR Path="/5CBF1647/6C5BF7A8" Ref="#PWR?"  Part="1" 
+AR Path="/5CC0D65F/6C5BF7A8" Ref="#PWR?"  Part="1" 
+AR Path="/5CD3AC27/6C5BF7A8" Ref="#PWR?"  Part="1" 
+AR Path="/5F3EA987/6C5BF7A8" Ref="#PWR0197"  Part="1" 
+F 0 "#PWR0197" H 8050 5900 50  0001 C CNN
+F 1 "GND" H 8055 5977 50  0000 C CNN
+F 2 "" H 8050 6150 50  0001 C CNN
+F 3 "" H 8050 6150 50  0001 C CNN
+	1    8050 6150
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74LVC1G11 U23
+U 2 1 6C5C41E2
+P 8500 4500
+F 0 "U23" H 8580 4396 50  0000 L CNN
+F 1 "74LVC1G11" H 8580 4305 50  0000 L CNN
+F 2 "" H 8400 4425 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G11.pdf" H 8400 4425 50  0001 C CNN
+	2    8500 4500
+	1    0    0    -1  
+$EndComp
+Connection ~ 8050 4750
+Connection ~ 8050 4550
+$Comp
+L alexios:74LVC1G11 U24
+U 2 1 6C5C4899
+P 8500 5200
+F 0 "U24" H 8580 5096 50  0000 L CNN
+F 1 "74LVC1G11" H 8580 5005 50  0000 L CNN
+F 2 "" H 8400 5125 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G11.pdf" H 8400 5125 50  0001 C CNN
+	2    8500 5200
+	1    0    0    -1  
+$EndComp
+Connection ~ 8050 5450
+Connection ~ 8050 5250
+Wire Wire Line
+	6300 5750 6700 5750
+Text Label 6350 5750 0    50   ~ 0
+~IDXEN
+Text HLabel 6700 5750 2    50   Output ~ 0
+~IDXEN
+$Comp
+L alexios:74LVC1G00 U26
+U 1 1 6C6E8007
+P 6150 5750
+F 0 "U26" H 6075 6017 50  0000 C CNN
+F 1 "74LVC1G00" H 6075 5926 50  0000 C CNN
+F 2 "" H 5800 5750 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G00.pdf" H 5800 5750 50  0001 C CNN
+	1    6150 5750
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74LVC1G00 U26
+U 2 1 6C6F3855
+P 8500 5950
+F 0 "U26" H 8580 5896 50  0000 L CNN
+F 1 "74LVC1G00" H 8580 5805 50  0000 L CNN
+F 2 "" H 8150 5950 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G00.pdf" H 8150 5950 50  0001 C CNN
+	2    8500 5950
+	1    0    0    -1  
+$EndComp
+Connection ~ 8050 6150
+Connection ~ 8050 5950
+Wire Wire Line
+	5550 4750 5850 4750
+Wire Wire Line
+	5550 4650 5850 4650
+Entry Wire Line
+	5450 5150 5550 5250
+Entry Wire Line
+	5450 5250 5550 5350
+Wire Wire Line
+	5550 5250 5850 5250
+Wire Wire Line
+	5550 5350 5850 5350
+Entry Wire Line
+	5450 5600 5550 5700
+Entry Wire Line
+	5450 5700 5550 5800
+Wire Wire Line
+	5550 5700 5850 5700
+Wire Wire Line
+	5550 5800 5850 5800
 Wire Bus Line
 	1200 2050 5350 2050
 Wire Bus Line
 	2750 2500 2750 3100
 Wire Bus Line
-	5450 2150 5450 6150
+	5450 2150 5450 5700
 Wire Bus Line
 	7550 1050 7550 1950
 Wire Bus Line

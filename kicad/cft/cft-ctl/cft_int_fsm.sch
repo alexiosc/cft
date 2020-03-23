@@ -206,9 +206,9 @@ F 3 "" H 3500 3600 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	4500 3400 5100 3400
-Text Label 5000 3300 2    50   ~ 0
+Text Label 4550 3300 0    50   ~ 0
 ~ACTION-STI
-Text Label 5000 3400 2    50   ~ 0
+Text Label 4550 3400 0    50   ~ 0
 ~ACTION-CLI
 NoConn ~ 4500 3000
 NoConn ~ 4500 3600
@@ -225,7 +225,6 @@ Wire Wire Line
 	3500 3000 3150 3000
 Text HLabel 2250 2750 0    50   Input ~ 0
 ACTION[0..3]
-NoConn ~ 4500 3500
 NoConn ~ 4500 3100
 NoConn ~ 4500 3200
 Text Label 3150 3800 0    50   ~ 0
@@ -933,6 +932,18 @@ F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G04.pdf" H 5900 7200
 $EndComp
 Connection ~ 5550 7300
 Connection ~ 5550 7100
+Wire Wire Line
+	4500 3500 5000 3500
+Wire Wire Line
+	5000 3500 5000 4200
+Wire Wire Line
+	5000 4200 8850 4200
 Wire Bus Line
 	3050 2850 3050 3600
+Text HLabel 8850 4200 2    50   Output ~ 0
+~ACTION-IDX
+Text Label 4550 3500 0    50   ~ 0
+~ACTION-IDX
+Text Notes 8350 4100 0    50   ~ 0
+This is output to the MBU.
 $EndSCHEMATC

@@ -1886,6 +1886,17 @@ F 3 "http://www.ti.com/lit/gpn/sn74LS157" H 10000 2650 50  0001 C CNN
 	2    10000 2650
 	1    0    0    -1  
 $EndComp
+$Comp
+L alexios:74AC157 U7
+U 1 1 5EF0EC27
+P 9950 3450
+F 0 "U7" H 9950 4317 50  0000 C CNN
+F 1 "74AC157" H 9950 4226 50  0000 C CNN
+F 2 "alexios:SOIC-16" H 9950 3450 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS157" H 9950 3450 50  0001 C CNN
+	1    9950 3450
+	1    0    0    -1  
+$EndComp
 Wire Bus Line
 	9000 1900 9000 4150
 Wire Bus Line
@@ -1898,15 +1909,4 @@ Wire Bus Line
 	1200 4350 1200 5350
 Wire Bus Line
 	3100 1900 3100 4150
-$Comp
-L alexios:74AC157 U7
-U 1 1 5EF0EC27
-P 9950 3450
-F 0 "U7" H 9950 4317 50  0000 C CNN
-F 1 "74AC157" H 9950 4226 50  0000 C CNN
-F 2 "alexios:SOIC-16" H 9950 3450 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS157" H 9950 3450 50  0001 C CNN
-	1    9950 3450
-	1    0    0    -1  
-$EndComp
 $EndSCHEMATC

@@ -766,31 +766,17 @@ Wire Wire Line
 Text Label 3600 2250 0    50   ~ 0
 CLK4
 Wire Wire Line
-	5350 3700 5950 3700
+	5350 3450 5950 3450
 Wire Wire Line
-	5350 3800 5950 3800
-Text Label 5950 3700 2    50   ~ 0
+	5350 3550 5950 3550
+Text Label 5950 3450 2    50   ~ 0
 IDX0
-Text Label 5950 3800 2    50   ~ 0
+Text Label 5950 3550 2    50   ~ 0
 IDX1
 Wire Bus Line
 	3600 3700 4200 3700
 Text Label 3600 3700 0    50   ~ 0
 IR[0..11]
-$Sheet
-S 4200 3200 1150 750 
-U 5F3EA987
-F0 "Addressing Modes" 50
-F1 "cft_agl.sch" 50
-F2 "IBUS[0..15]" T R 5350 3350 50 
-F3 "IR[0..11]" I L 4200 3700 50 
-F4 "PC[10..15]" I L 4200 3800 50 
-F5 "~END" I L 4200 3450 50 
-F6 "IDX0" O R 5350 3700 50 
-F7 "IDX1" O R 5350 3800 50 
-F8 "~READ-AGL" I L 4200 3350 50 
-F9 "IDXEN" O R 5350 3550 50 
-$EndSheet
 $Sheet
 S 1500 6200 1150 1300
 U 5D69F3FD
@@ -1136,6 +1122,7 @@ F8 "~IRQSµC" O R 5350 7200 50
 F9 "IBUS15" I L 4200 6850 50 
 F10 "~FLAGWE" I L 4200 6950 50 
 F11 "ACTION[0..3]" I L 4200 6650 50 
+F12 "~ACTION-IDX" O R 5350 6550 50 
 $EndSheet
 Text Label 3600 6350 0    50   ~ 0
 ~RESET
@@ -1157,12 +1144,6 @@ Wire Wire Line
 	2650 2950 3100 2950
 Text Label 3100 2950 2    50   ~ 0
 WSTB
-Wire Wire Line
-	5350 3550 5950 3550
-Text Label 5950 3550 2    50   ~ 0
-IDXEN
-Text Label 10100 5400 2    50   ~ 0
-IDXEN
 Text Notes 10150 2200 0    50   ~ 0
 → BUS.MBU
 Text Notes 10200 5400 0    50   ~ 0
@@ -1178,8 +1159,118 @@ F 3 "~" H 3750 5750 50  0001 C CNN
 	1    3550 5750
 	0    -1   -1   0   
 $EndComp
-Wire Bus Line
-	9950 1450 9950 2100
+Text Label 5950 6550 2    50   ~ 0
+~ACTION-IDX
+Text Label 10100 5400 2    50   ~ 0
+~IR-IDX
+Wire Wire Line
+	5350 6550 6250 6550
+Wire Wire Line
+	6250 6550 6250 5850
+Wire Wire Line
+	6250 5750 6850 5750
+Wire Wire Line
+	6250 5850 6850 5850
+$Comp
+L power:GND #PWR0106
+U 1 1 6C5C85C4
+P 6750 6350
+AR Path="/6C5C85C4" Ref="#PWR0106"  Part="1" 
+AR Path="/5CBF1647/6C5C85C4" Ref="#PWR?"  Part="1" 
+AR Path="/5CC0D65F/6C5C85C4" Ref="#PWR?"  Part="1" 
+AR Path="/5CD3AC27/6C5C85C4" Ref="#PWR?"  Part="1" 
+AR Path="/5F3EA987/6C5C85C4" Ref="#PWR?"  Part="1" 
+F 0 "#PWR0106" H 6750 6100 50  0001 C CNN
+F 1 "GND" H 6755 6177 50  0000 C CNN
+F 2 "" H 6750 6350 50  0001 C CNN
+F 3 "" H 6750 6350 50  0001 C CNN
+	1    6750 6350
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 6C5C85BE
+P 6750 6250
+AR Path="/5CC0D65F/6C5C85BE" Ref="C?"  Part="1" 
+AR Path="/5CD3AC27/6C5C85BE" Ref="C?"  Part="1" 
+AR Path="/5F3EA987/6C5C85BE" Ref="C?"  Part="1" 
+AR Path="/6C5C85BE" Ref="C13"  Part="1" 
+F 0 "C13" H 6659 6296 50  0000 R CNN
+F 1 "100nF" H 6659 6205 50  0000 R CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 6750 6250 50  0001 C CNN
+F 3 "~" H 6750 6250 50  0001 C CNN
+	1    6750 6250
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR0123
+U 1 1 6C5C85B8
+P 6750 6150
+AR Path="/6C5C85B8" Ref="#PWR0123"  Part="1" 
+AR Path="/5CC0D65F/6C5C85B8" Ref="#PWR?"  Part="1" 
+AR Path="/5CD3AC27/6C5C85B8" Ref="#PWR?"  Part="1" 
+AR Path="/5F3EA987/6C5C85B8" Ref="#PWR?"  Part="1" 
+F 0 "#PWR0123" H 6750 6000 50  0001 C CNN
+F 1 "+5V" H 6765 6323 50  0000 C CNN
+F 2 "" H 6750 6150 50  0001 C CNN
+F 3 "" H 6750 6150 50  0001 C CNN
+	1    6750 6150
+	1    0    0    -1  
+$EndComp
+Connection ~ 6750 6150
+Connection ~ 6750 6350
+$Comp
+L alexios:74LVC1G32 U9
+U 2 1 6C5AEB2D
+P 7150 6000
+F 0 "U9" H 7280 5796 50  0000 L CNN
+F 1 "74LVC1G32" H 7280 5705 50  0000 L CNN
+F 2 "" H 7260 5980 50  0001 C CNN
+F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 7260 5980 50  0001 C CNN
+	2    7150 6000
+	1    0    0    -1  
+$EndComp
+Text Label 7650 5800 2    50   ~ 0
+~IR-IDX
+Wire Wire Line
+	7350 5800 7650 5800
+Text Label 6400 5750 0    50   ~ 0
+~IDXEN
+Text Label 6400 5850 0    50   ~ 0
+~ACTION-IDX
+$Comp
+L alexios:74LVC1G32 U9
+U 1 1 6C570E28
+P 7050 5800
+F 0 "U9" H 7100 6067 50  0000 C CNN
+F 1 "74LVC1G32" H 7100 5976 50  0000 C CNN
+F 2 "" H 7160 5780 50  0001 C CNN
+F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 7160 5780 50  0001 C CNN
+	1    7050 5800
+	1    0    0    -1  
+$EndComp
+Text Label 5950 3750 2    50   ~ 0
+~IDXEN
+$Sheet
+S 4200 3200 1150 750 
+U 5F3EA987
+F0 "Addressing Modes" 50
+F1 "cft_agl.sch" 50
+F2 "IBUS[0..15]" T R 5350 3350 50 
+F3 "IR[0..11]" I L 4200 3700 50 
+F4 "PC[10..15]" I L 4200 3800 50 
+F5 "~END" I L 4200 3450 50 
+F6 "IDX0" O R 5350 3450 50 
+F7 "IDX1" O R 5350 3550 50 
+F8 "~READ-AGL" I L 4200 3350 50 
+F9 "~IDXEN" O R 5350 3750 50 
+$EndSheet
 Wire Bus Line
 	800  4850 800  5650
+Wire Bus Line
+	9950 1450 9950 2100
+Wire Wire Line
+	6250 3750 6250 5750
+Wire Wire Line
+	5350 3750 6250 3750
 $EndSCHEMATC
