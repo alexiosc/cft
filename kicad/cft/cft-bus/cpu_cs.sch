@@ -1,13 +1,12 @@
 EESchema Schematic File Version 4
-LIBS:cft-bus-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 5 6
+Sheet 4 8
 Title "Constant Store"
 Date ""
-Rev ""
+Rev "2006"
 Comp ""
 Comment1 "BUS"
 Comment2 ""
@@ -599,11 +598,11 @@ Wire Wire Line
 	3700 4800 3700 4900
 Wire Wire Line
 	3750 4900 3700 4900
+Connection ~ 3700 4900
+Wire Wire Line
+	3700 4900 3700 4950
 Wire Bus Line
 	2850 2350 2850 4200
 Wire Bus Line
 	8050 2250 8050 4700
-Connection ~ 3700 4900
-Wire Wire Line
-	3700 4900 3700 4950
 $EndSCHEMATC
