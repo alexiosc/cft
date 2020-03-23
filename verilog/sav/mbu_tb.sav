@@ -1,15 +1,15 @@
 [*]
-[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
-[*] Mon Mar 23 07:41:13 2020
+[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
+[*] Mon Mar 23 17:06:26 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/mbu_tb.vcd"
-[dumpfile_mtime] "Mon Mar 23 07:40:46 2020"
-[dumpfile_size] 57942
+[dumpfile_mtime] "Mon Mar 23 17:05:31 2020"
+[dumpfile_size] 16860626
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/mbu_tb.sav"
-[timestart] 13011000
+[timestart] 5213350000
 [size] 1920 1019
 [pos] 18336 64
-*-19.136911 16494750 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-21.136911 5228000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] reg_mbr_tb.
 [treeopen] reg_mbr_tb.mbu.
 [sst_width] 258

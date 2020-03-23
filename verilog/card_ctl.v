@@ -176,7 +176,7 @@ module card_ctl(
    assign cport[36:32] = cond[4:0];
    assign cport[37] = cext8;
    assign cport[38] = cext9;
-   assign cport[39] = idxen;
+   assign cport[39] = nir_idx;
    assign in_rsvd = cport[40];
 
    ///////////////////////////////////////////////////////////////////////////////
@@ -195,10 +195,12 @@ module card_ctl(
    wire 	 nwrite_ir;	// WADDR decoder output (flag unit): write to IR
    wire 	 nread_agl;	// RADDR decoder output: read from the AGL
    wire 	 fi;		// output to the flag unit
-   wire 	 idxen;		// → BUS.MBU, enables auto-index memory bank selection
    wire 	 cext8;
    wire 	 cext9;
    wire 	 cext10;	// testpoint on board, not on cport
+   wire 	 naction_idx;	// Maybe use IR[2:0] to select memory bank.
+   wire 	 nidxen;	// Operand is in the auto-indexing range
+   wire 	 nir_idx;       // → BUS.MBU, uses IR[2:0] to select memory bank
 
    ///////////////////////////////////////////////////////////////////////////////
    //
@@ -319,8 +321,11 @@ module card_ctl(
    ail ail (
 	    .ir(ir), 
 	    .idx(idx),
-	    .idxen(idxen));
-   
+	    .nidxen(nidxen));
+
+   // Generate the IR-IDX signal for the MBU.
+   assign #4 nir_idx = naction_idx | nidxen;
+
    ///////////////////////////////////////////////////////////////////////////////
    //
    // THE SKIP/BRANCH UNIT (SBU)
@@ -354,11 +359,12 @@ module card_ctl(
 		.nend(nend),
 		.ibus15(ibus[15]),
 		.nflagwe(nflagwe),
-		.action(action), 
+		.action(action),
 		.nirq(nirq),
 		.fi(fi),
 		.nirqs(nirqs),
-		.nirqsuc(nirqsuc));
+		.nirqsuc(nirqsuc),
+		.naction_idx(naction_idx));
 
 endmodule // card_ctl
 

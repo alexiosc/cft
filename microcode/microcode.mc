@@ -288,7 +288,7 @@ signal action_cpl      = .....0001...............; // Complement L
 signal action_cll      = .....0010...............; // Clear L flag
 signal action_sti      = .....0011...............; // Set I flag
 signal action_cli      = .....0100...............; // Clear I flag
-//signal action_???    = .....0101...............; // (possible ALU extension)
+signal action_idx      = .....0101...............; // Autoindexing; use IR to select MBn bank
 //signal action_???    = .....0110...............; // (possible ALU extension)
 signal action_sru      = .....0111...............; // Start the shift/roll engine
 
@@ -1850,6 +1850,8 @@ start JSA;
 
 // TODO: It's likely the DR←AC transfer isn't necessary and can save a cycle.
 
+// TODO: allow custom MBn banks to be used.
+
 // IND, MBD-Relative Accumulator Indirect 
 start IND, R=0;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
@@ -2443,14 +2445,14 @@ start LOAD, I=1, R=0, IDX=XX;
 start LOAD, I=1, R=1, IDX=XX;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBZ:AGL]
-      MEMREAD(mbd, dr, ac), END;                // 04 AC ← mem[MBD:DR]
+      MEMREAD_MBN(dr, ac), END;			// 04 AC ← mem[MBn:DR]
 
 // (6) LOAD, Auto-Increment
 // TODO: action_incdr might need to be in a processor cycle of its own!
 start LOAD, I=1, R=1, IDX=IDX_INC;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBZ:AGL]
-      MEMREAD(mbd, dr, ac), action_incdr;       // 04 AC ← mem[MBD:DR]; DR++;
+      MEMREAD_MBN(dr, ac), action_incdr;        // 04 AC ← mem[MBn:DR]; DR++;
       MEMWRITE(mbz, agl, dr), END;              // 06 mem[MBZ:AGL] ← DR
 
 // (7) LOAD, Auto-Decrement
@@ -2458,7 +2460,7 @@ start LOAD, I=1, R=1, IDX=IDX_INC;
 start LOAD, I=1, R=1, IDX=IDX_DEC;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBZ:AGL]
-      MEMREAD(mbd, dr, ac), action_decdr;       // 04 AC ← mem[MBD:DR]; DR--;
+      MEMREAD_MBN(dr, ac), action_decdr;        // 04 AC ← mem[MBn:DR]; DR--;
       MEMWRITE(mbz, agl, dr), END;              // 06 mem[MBZ:AGL] ← DR
 
 // (8) LOAD, Stack
@@ -2468,7 +2470,8 @@ start LOAD, I=1, R=1, IDX=IDX_SP;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBZ:AGL]
       action_decdr;                             // 04 DR--
-      MEMREAD(mbd, dr, ac);                     // 05 AC ← mem[MBD:DR];
+MEMREAD_MBN(dr, ac);                      // 05 AC ← mem[MBn:DR];
+soup
       MEMWRITE(mbz, agl, dr), END;              // 06 mem[MBZ:AGL] ← DR
 
 

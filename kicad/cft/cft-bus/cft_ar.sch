@@ -1916,6 +1916,8 @@ F 3 "" H 8150 2150 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	7850 1650 8150 1650
+Text Notes 7600 3450 1    50   ~ 0
+TOD: Consider removing this entirely. It's\nslow, large, and not available as 74AC688.
 Wire Bus Line
 	7400 4550 7400 5250
 Wire Bus Line
@@ -1930,6 +1932,4 @@ Wire Bus Line
 	6200 1350 6200 5900
 Wire Bus Line
 	4550 950  4550 5200
-Text Notes 7600 3450 1    50   ~ 0
-TOD: Consider removing this entirely. It's\nslow, large, and not available as 74AC688.
 $EndSCHEMATC

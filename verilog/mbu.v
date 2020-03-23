@@ -37,7 +37,7 @@ module mbu (nreset,
 	    clk, t34,
 	    raddr,
 	    waddr,
-	    idxen,		// 1 iff ir[11:8] == 1'b1111
+	    nir_idx,		// During nwar, CU wants ir[2:0] to select MBR
 	    ir,			// Only bits 0–2 are used.
 	    ibus,		// Only bits 0–7 of the IBUS are used.
 	    aext,		//
@@ -51,7 +51,7 @@ module mbu (nreset,
    input 	clk;
    input 	t34;
    input [4:0] 	waddr, raddr;
-   input 	idxen;
+   input 	nir_idx;
    input [2:0] ir;
    input 	nsysdev;
    input 	nr;
@@ -203,26 +203,25 @@ module mbu (nreset,
    // There are four ways to read MBU registers. The truth table is complex
    // because it also implements auto-indexed addressing modes:
    // ____  ___  ______  
-   // RMBP  WAR  IORMBR  WADDR  IDXEN  ADDR       What
+   // RMBP  WAR  IORMBR  WADDR  NIR_IDX  ADDR       What
    // -------------------------------------------------------------------------
-   //  X     X    X          X    X        X      MBU disabled. AEXT=&00 or &80.
-   //  0     X    X          X    X      000      Reading MBP. AEXT drives IBus.
-   //  1     0    X      ...00    X      000      Indexing with MBP. Address: waddr[0:1]
-   //  1     0    X      ...01    X      001      Indexing with MBD.
-   //  1     0    X      ...10    X      010      Indexing with MBS.
-   //  1     0    X      ...11    0      011      Indexing with MBS.
-   //  1     0    X      ...11    1      ir[2:0]  Autoindexing, address is IR[2:0].
-   //  1     1    0          X    X      ab[2:0]  IN from MBR. AEXT drives DB.
-   // -----------------------------------------------------------------
+   //  X     X    X          X    X         X      MBU disabled. AEXT=&00 or &80.
+   //  0     X    X          X    X       000      Reading MBP. AEXT drives IBus.
+   //  1     0    X      ...00    X       000      Indexing with MBP. Address: waddr[0:1]
+   //  1     0    X      ...01    X       001      Indexing with MBD.
+   //  1     0    X      ...10    X       010      Indexing with MBS.
+   //  1     0    X      ...11    0       011      Indexing with MBS.
+   //  1     0    X      ...11    1       ir[2:0]  Autoindexing, address is IR[2:0].
+   //  1     1    0          X    X       ab[1:0]  IN from MBR. AEXT drives DB.
+   // -------------------------------------------------------------------------
 
-   wire 	nrg, use_ir, cur0, cur1, cur2;
+   wire 	nrg, cur0, cur1, cur2;
    assign #4 nrg = !nrmbp;
-   assign #5 use_ir = waddr[0] & waddr[1] & idxen;
 
    // First stage mux, choose between IR and AB as source for AR indexing.
-   mux_2g157 rmux1_0 (.a(waddr[0]), .b(ir[0]), .sel(use_ir), .ng(1'b0), .y(cur0));
-   mux_2g157 rmux1_1 (.a(waddr[1]), .b(ir[1]), .sel(use_ir), .ng(1'b0), .y(cur1));
-   mux_2g157 rmux1_2 (.a(1'b0),     .b(ir[2]), .sel(use_ir), .ng(1'b0), .y(cur2));
+   mux_2g157 rmux1_0 (.a(ir[0]), .b(waddr[0]), .sel(nir_idx), .ng(1'b0), .y(cur0));
+   mux_2g157 rmux1_1 (.a(ir[1]), .b(waddr[1]), .sel(nir_idx), .ng(1'b0), .y(cur1));
+   mux_2g157 rmux1_2 (.a(ir[2]), .b(1'b0),     .sel(nir_idx), .ng(1'b0), .y(cur2));
 
    // Second stage mux, choose between the previous stage and AB[2:0].
    mux_2g157 rmux2_0 (.a(cur0), .b(ab[0]), .sel(nwar), .ng(nrg), .y(ra[0]));

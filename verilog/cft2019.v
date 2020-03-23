@@ -160,7 +160,7 @@ module cft2019(
    wire [40:1]   cport_bus;     // BUS BOARD
 
    wire          nfparh;        // FP request for ar[23:16]
-   wire          idxen;         // Input from AIL, auto-indexing enabled
+   wire          nir_idx;       // Input from AIL, auto-indexing enabled
    wire          nfpram_rom;    // Input from DFP to MBU. 0=RAM layout, 1=RAM/ROM
    wire          nfpaext;       // FP request for AEXT
 
@@ -196,7 +196,7 @@ module cft2019(
    assign cport_ctl[29] = nfpirh;
    assign cport_ctl[30] = nfpflags;
    assign cport_ctl[31] = powerok;
-   assign idxen = cport_ctl[39];
+   assign nir_idx = cport_ctl[39];
 
    // These are for expansion, and we can keep them commented out for now.
    // assign cport_ctl[36:32] = cond[4:0];
@@ -262,10 +262,10 @@ module cft2019(
    ///////////////////////////////////////////////////////////////////////////////
    
    assign cport_bus[3:1] = ir_6_0[2:0]; // IR[2:0] is needed here
-   assign cport_bus[4] = idxen;
    assign cport_bus[14] = nwen;
-   assign cport_bus[38] = nfpram_rom;
-   assign cport_bus[39] = nfpaext;
+   assign cport_bus[35] = nfpram_rom;
+   assign cport_bus[36] = nfpaext;
+   assign cport_bus[39] = nir_idx;
 
    card_bus card_bus(
                      .nreset(nreset), .nrsthold(nrsthold),

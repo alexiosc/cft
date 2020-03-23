@@ -153,14 +153,14 @@ def test_LOAD_I_R(capsys, tmpdir):
 @pytest.mark.verilog
 def test_LOAD_I_R_autoinc(capsys, tmpdir):
 
-    source = ".equ autoinc &341\n"
+    source = ".equ autoinc &340\n"
 
     expected = ExpectedData([ SUCCESS ])
 
     MAX = 2                   # 1 to 255
 
     source += "&0:\n"
-    source += asm_memory_banks(mbp=0x80, mbd=0, mbz=0)
+    source += asm_memory_banks(mbp=0x80, mbd=0, mbz=0x20)
     source += "\t\tLOAD      @+3\n"
     source += "\t\tSTORE R   autoinc\n"
     source += "\t\tJMP       @+2\n"

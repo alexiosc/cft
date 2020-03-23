@@ -43,7 +43,7 @@ module reg_mbr_tb();
    reg [4:0]  waddr;
    reg [4:0]  raddr;
    wire       nw;
-   wire       idxen;
+   wire       nir_idx;
 
    wire       nreset_real, nfpram_rom_real;
    wire [15:0] ibus_real, ab_real, db_real;
@@ -360,7 +360,7 @@ module reg_mbr_tb();
 	    .clk(clk1), .t34(t34),
 	    .waddr(waddr), .raddr(raddr),
 	    .ir(ir[2:0]),
-	    .idxen(idxen),
+	    .nir_idx(nir_idx),
 	    .ibus(ibus_real[7:0]),
 	    .aext(aext),
 	    .nr(nr), .nw(nw),
@@ -371,8 +371,8 @@ module reg_mbr_tb();
 	    .nfpram_rom(nfpram_rom_real)
 	    );
 
-   // Make the idxen signal work
-   assign #15 idxen = ir[11:8] === 4'b1111 ? 1'b1 : 1'b0;
+   // Make the nir_idx signal work
+   assign #15 nir_idx = ir[11:8] === 4'b1111 ? 1'b0 : 1'b1;
 
    // Use the actual clock generator to make testing more accurate.
    clock_generator clk (.nreset(nreset_real), .clk1(clk1), .clk2(clk2),

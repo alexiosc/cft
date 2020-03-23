@@ -126,13 +126,13 @@ module card_bus(
 
    wire 	 nfparh;	// FP request for ar[23:16]
    wire [2:0] 	 ir2_0;		// IR[2:0] from the Control Unit
-   wire 	 idxen;		// Input from AIL, auto-indexing enabled
+   wire 	 nir_idx;	// Input from AIL, use IR[2:0] to select MBn
    wire 	 nwen;		// Input from Control Unit, bus write enable
    wire 	 nfpram_rom;	// Input from DFP to MBU. 0=RAM layout, 1=RAM/ROM
    wire 	 nfpaext;	// FP request for AEXT
 
    assign ir2_0 = cport[3:1];
-   assign idxen = cport[4];
+   assign nir_idx = cport[39];
    assign nwen = cport[14];
    assign nfpram_rom = cport[38];
    assign nfpaext = cport[39];
@@ -177,7 +177,7 @@ module card_bus(
 	    .waddr(waddr),
 	    .raddr(raddr),
 	    .ir(ir2_0),
-	    .idxen(idxen),
+	    .nir_idx(nir_idx),
 	    .ibus(ibus[7:0]),
 	    .aext(aext),
 	    .nr(nr),
@@ -186,7 +186,7 @@ module card_bus(
 	    .db(db[7:0]),
 	    .nsysdev(nsysdev),
 	    .nfpram_rom(nfpram_rom),
-	    .nwrite_ar_mbx(nwrite_ar) // Note port naming difference
+	    .nwar(nwrite_ar) // Note port naming difference
 	    );
 
    ///////////////////////////////////////////////////////////////////////////////

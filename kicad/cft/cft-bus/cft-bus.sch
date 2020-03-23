@@ -261,7 +261,7 @@ Wire Bus Line
 	10050 1350 10350 1350
 Text Label 10350 1350 2    50   ~ 0
 IR[0..6]
-Text Notes 10050 1900 0    50   ~ 0
+Text Notes 10050 5400 0    50   ~ 0
 ← Control Unit
 Text Notes 10050 1800 0    50   ~ 0
 ← Control Unit
@@ -284,8 +284,8 @@ Wire Bus Line
 Text Label 3750 1500 2    50   ~ 0
 AEXT[0..7]
 Wire Bus Line
-	1750 2150 900  2150
-Text Label 900  2150 0    50   ~ 0
+	1750 2050 900  2050
+Text Label 900  2050 0    50   ~ 0
 IBUS[0..15]
 Text Label 6900 4450 2    50   ~ 0
 ~W
@@ -301,12 +301,8 @@ Wire Wire Line
 	6100 2600 6950 2600
 Text Label 6950 2600 2    50   ~ 0
 ~FPAEXT
-Wire Bus Line
-	1750 2050 900  2050
 Wire Wire Line
 	2900 1750 3750 1750
-Wire Wire Line
-	2900 1950 3750 1950
 Wire Wire Line
 	2900 2050 3750 2050
 Text Label 3750 1750 2    50   ~ 0
@@ -315,10 +311,6 @@ Wire Bus Line
 	2900 1850 3750 1850
 Text Label 3750 1850 2    50   ~ 0
 AB[0..23]
-Text Label 900  2050 0    50   ~ 0
-IR[0..15]
-Text Label 3750 1950 2    50   ~ 0
-~R
 Text Label 3750 2050 2    50   ~ 0
 ~W
 Wire Bus Line
@@ -330,7 +322,7 @@ Wire Wire Line
 Text Label 900  2750 0    50   ~ 0
 ~FPRAM~∕ROM
 Text Label 3000 2750 0    50   ~ 0
-~WRITE-AR-MBx
+~WAR
 Text Label 900  1950 0    50   ~ 0
 WADDR[0..4]
 Text Label 900  1850 0    50   ~ 0
@@ -512,9 +504,9 @@ Wire Wire Line
 Wire Wire Line
 	10000 4900 9500 4900
 Wire Wire Line
-	10000 5000 9500 5000
+	10000 5300 9500 5300
 Wire Wire Line
-	10000 5400 9500 5400
+	10000 5100 9500 5100
 Text Notes 10050 2900 0    50   ~ 0
 ← Control Unit
 Text Label 10000 2900 2    50   ~ 0
@@ -523,20 +515,20 @@ Text Notes 10050 3000 0    50   ~ 0
 ← Control Unit
 Wire Wire Line
 	10000 3100 9500 3100
-Text Label 10000 5300 2    50   ~ 0
+Text Label 10000 5000 2    50   ~ 0
 ~FPRAM~∕ROM
-Text Notes 10050 5400 0    50   ~ 0
+Text Notes 10050 5100 0    50   ~ 0
 ← Front Panel
 Wire Wire Line
-	9500 5300 10000 5300
-Text Notes 10050 5300 0    50   ~ 0
+	9500 5000 10000 5000
+Text Notes 10050 5000 0    50   ~ 0
 ← Front Panel
-Text Label 10000 5400 2    50   ~ 0
+Text Label 10000 5100 2    50   ~ 0
 ~FPAEXT
 Wire Wire Line
-	10000 5100 9500 5100
-Wire Wire Line
 	10000 1900 9500 1900
+Wire Wire Line
+	10000 5400 9500 5400
 NoConn ~ 10000 2700
 NoConn ~ 10000 2800
 $Sheet
@@ -567,8 +559,8 @@ Wire Wire Line
 	10000 2600 9500 2600
 Wire Wire Line
 	9500 2400 10000 2400
-Text Label 10000 1900 2    50   ~ 0
-IDXEN
+Text Label 10000 5400 2    50   ~ 0
+~IR-IDX
 NoConn ~ 10000 2200
 NoConn ~ 10000 2100
 NoConn ~ 10000 2000
@@ -597,19 +589,15 @@ NoConn ~ 10000 4600
 NoConn ~ 10000 4700
 NoConn ~ 10000 4800
 NoConn ~ 10000 4900
-NoConn ~ 10000 5000
-NoConn ~ 10000 5100
+NoConn ~ 10000 5300
+NoConn ~ 10000 1900
 NoConn ~ 10000 5200
 Wire Wire Line
 	9500 5200 10000 5200
 Wire Wire Line
-	1750 2250 900  2250
-Text Label 900  2250 0    50   ~ 0
-IDXEN
-Wire Wire Line
-	1750 1600 900  1600
-Text Label 900  1600 0    50   ~ 0
-CLK3
+	1750 2150 900  2150
+Text Label 900  2150 0    50   ~ 0
+~IR-IDX
 Wire Wire Line
 	10000 3000 9500 3000
 NoConn ~ 10000 3000
@@ -617,28 +605,6 @@ Wire Wire Line
 	10000 5500 9500 5500
 NoConn ~ 10000 5500
 NoConn ~ 7800 1900
-$Sheet
-S 1750 1350 1150 1550
-U 61F95ACC
-F0 "Memory Bank Unit (MBU)" 50
-F1 "mbu.sch" 50
-F2 "~RESET" I L 1750 1500 50 
-F3 "AEXT[0..7]" O R 2900 1500 50 
-F4 "WADDR[0..4]" I L 1750 1950 50 
-F5 "~FPRAM~∕ROM" I L 1750 2750 50 
-F6 "IBUS[0..7]" T L 1750 2150 50 
-F7 "RADDR[0..4]" I L 1750 1850 50 
-F8 "AB[0..7]" I R 2900 1850 50 
-F9 "~R" I R 2900 1950 50 
-F10 "~W" I R 2900 2050 50 
-F11 "~SYSDEV" I R 2900 1750 50 
-F12 "DB[0..7]" B R 2900 2150 50 
-F13 "T34" I L 1750 1700 50 
-F14 "~WRITE-AR" O R 2900 2750 50 
-F15 "IDXEN" I L 1750 2250 50 
-F16 "IR[0..2]" I L 1750 2050 50 
-F17 "CLK3" I L 1750 1600 50 
-$EndSheet
 $Sheet
 S 8350 1450 1150 4200
 U 5DF0FF3E
@@ -716,6 +682,45 @@ Wire Wire Line
 	2900 2750 4950 2750
 Text Notes 4900 1100 0    100  ~ 20
 Address Register
+Wire Wire Line
+	1750 2250 900  2250
+Wire Wire Line
+	1750 2350 900  2350
+Text Label 900  2250 0    50   ~ 0
+IR0
+Text Label 900  2350 0    50   ~ 0
+IR1
+$Sheet
+S 1750 1350 1150 1550
+U 61F95ACC
+F0 "Memory Bank Unit (MBU)" 50
+F1 "mbu.sch" 50
+F2 "~RESET" I L 1750 1500 50 
+F3 "AEXT[0..7]" O R 2900 1500 50 
+F4 "WADDR[0..4]" I L 1750 1950 50 
+F5 "~FPRAM~∕ROM" I L 1750 2750 50 
+F6 "IBUS[0..7]" T L 1750 2050 50 
+F7 "RADDR[0..4]" I L 1750 1850 50 
+F8 "AB[0..7]" I R 2900 1850 50 
+F9 "~W" I R 2900 2050 50 
+F10 "~SYSDEV" I R 2900 1750 50 
+F11 "DB[0..7]" B R 2900 2150 50 
+F12 "T34" I L 1750 1700 50 
+F13 "~IR-IDX" I L 1750 2150 50 
+F14 "~WAR" O R 2900 2750 50 
+F15 "IR0" I L 1750 2250 50 
+F16 "IR1" I L 1750 2350 50 
+F17 "~R" I R 2900 1950 50 
+F18 "IR2" I L 1750 2450 50 
+$EndSheet
+Wire Wire Line
+	2900 1950 3750 1950
+Text Label 3750 1950 2    50   ~ 0
+~R
+Wire Wire Line
+	1750 2450 900  2450
 Wire Bus Line
 	9950 1450 9950 1700
+Text Label 900  2450 0    50   ~ 0
+IR2
 $EndSCHEMATC

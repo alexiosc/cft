@@ -33,14 +33,14 @@
 module ail_tb();
    wire [15:0] ir;
    wire [1:0]  idx;
-   wire        idxen;
+   wire        nidxen;
    
    integer    i;
    
    // Initialize all variables
    initial begin        
       //$display ("time\t rst oe cs q");	
-      $monitor ("t: %7d | %b > %b %b", $time, ir, idx, idxen);
+      $monitor ("t: %7d | %b > %b %b", $time, ir, idx, nidxen);
       $dumpfile ("vcd/ail_tb.vcd");
       $dumpvars (0, ail_tb);
 
@@ -57,7 +57,7 @@ module ail_tb();
    assign ir = i[15:0];
    
    // Connect DUT to test bench
-   ail ail (.ir(ir), .idx(idx), .idxen(idxen));
+   ail ail (.ir(ir), .idx(idx), .nidxen(nidxen));
 
    // Verify our findings.
    reg [8191:0] msg;
@@ -67,26 +67,24 @@ module ail_tb();
 	 msg[7:0] = "";		// Use the msg as a flag.
 
 	 // Table is from schematics
-	 casex (ir[11:0])
-	   12'b0?_??????????: correct_idx = 2'b00;
-	   12'b10_??????????: correct_idx = 2'b00;
-	   12'b11_00????????: correct_idx = 2'b00;
-	   12'b11_01????????: correct_idx = 2'b00;
-	   12'b11_10????????: correct_idx = 2'b00;
-	   12'b11_1100??????: correct_idx = 2'b00;
-	   12'b11_1101??????: correct_idx = 2'b01;
-	   12'b11_1110??????: correct_idx = 2'b10;
-	   12'b11_1111??????: correct_idx = 2'b11;
+	 casex (ir[9:0])
+	   10'b00????????: correct_idx = 2'b00;
+	   10'b01????????: correct_idx = 2'b00;
+	   10'b10????????: correct_idx = 2'b00;
+	   10'b1100??????: correct_idx = 2'b00;
+	   10'b1101??????: correct_idx = 2'b01;
+	   10'b1110??????: correct_idx = 2'b10;
+	   10'b1111??????: correct_idx = 2'b11;
 	 endcase // casex (ir)
 
 	 if (idx !== correct_idx) begin
-	    $sformat(msg, "ir[11:0]=%b%b_%b but idx=%b (should be %b)",
-		     ir[11], ir[10], ir[9:0], idx, correct_idx);
+	    $sformat(msg, "ir[9:0]=%b (&%03x) but idx=%b (should be %b)",
+		     ir[9:0], ir[9:0], idx, correct_idx);
 	 end
 
-	 else if (idxen !== ir[11:8] === 4'b1111 ? 1'b1 : 1'b0) begin
-	    $sformat(msg, "idxen decoding failure: ir[11:8]=%b, but nindxen=%b",
-		     ir[11:8], idxen);
+	 else if (nidxen !== (ir[9:8] === 2'b11 ? 1'b0 : 1'b1)) begin
+	    $sformat(msg, "idxen decoding failure: ir[9:8]=%b (&%04x), but nindxen=%b",
+		     ir[9:8], ir[9:0], nidxen);
 	 end
 
 	 // Fail if we've logged an issue.

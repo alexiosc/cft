@@ -20,7 +20,7 @@
 `timescale 1ns/10ps
 
 module int_fsm (nreset, clk4, action, ibus15, nflagwe, nend, nirq,
-		fi, nirqs, nirqsuc);
+		fi, nirqs, nirqsuc, naction_idx);
 
    input       nreset;
    input       clk4;
@@ -33,6 +33,7 @@ module int_fsm (nreset, clk4, action, ibus15, nflagwe, nend, nirq,
    output      fi;
    output      nirqs;		// IRQS signal for the bus
    output      nirqsuc;		// Identical IRQµC signal for the Control Unit
+   output      naction_idx;	// Convenience output to the CTL board
 
    wire [7:0]  y;
    wire        naction_sti;
@@ -42,6 +43,7 @@ module int_fsm (nreset, clk4, action, ibus15, nflagwe, nend, nirq,
    demux_138 action_decoder (.g1(1'b1), .ng2a(action[3]), .ng2b(clk4), .a(action[2:0]), .y(y));
    assign naction_sti = y[3];
    assign naction_cli = y[4];
+   assign naction_idx = y[5];
 
    // Generate control strobes
    wire        nreset_or_cli;

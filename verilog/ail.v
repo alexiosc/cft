@@ -56,18 +56,24 @@
 // quite yet), so this isn't necessary and we save another IC, some
 // metastability risk, and plenty of propagation delay.
 
-module ail (ir, idx, idxen);
+module ail (ir, idx, nidxen);
    input [15:0]  ir;
    output [1:0]  idx;
-   output 	 idxen;
+   output 	 nidxen;
 
    wire [7:0] 	 y;
 	
-   demux_238 ail_demux (.g1(ir[11]), .ng2a(1'b0), .ng2b(1'b0), .a(ir[10:8]), .y(y));
-   assign idxen = y[7];
+   // demux_238 ail_demux (.g1(ir[11]), .ng2a(1'b0), .ng2b(1'b0), .a(ir[10:8]), .y(y));
+   // assign idxen = y[7];
 
-   assign #7 idx[0] = ir[6] & idxen;
-   assign #7 idx[1] = ir[7] & idxen;
+   // assign #7 idx[0] = ir[6] & idxen;
+   // assign #7 idx[1] = ir[7] & idxen;
+
+   // 2020-03-23: fixing the indexing bug in the Control Unit and
+   // making things smaller, faster and more flexible:
+   assign #5 idx[0] = ir[6] & ir[8] & ir[9];
+   assign #5 idx[1] = ir[7] & ir[8] & ir[9];
+   assign #4 nidxen = ~(ir[8] & ir[9]);
 
 endmodule // constant_store
 
