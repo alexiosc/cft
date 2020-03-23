@@ -34,7 +34,7 @@
 // The Memory Bank Register File
 
 module mbu (nreset,
-	    clk3, t34,
+	    clk, t34,
 	    raddr,
 	    waddr,
 	    idxen,		// 1 iff ir[11:8] == 1'b1111
@@ -48,7 +48,7 @@ module mbu (nreset,
 	    );
 	    
    input        nreset;
-   input 	clk3;
+   input 	clk;
    input 	t34;
    input [4:0] 	waddr, raddr;
    input 	idxen;
@@ -70,7 +70,6 @@ module mbu (nreset,
    wire [4:0] 	raddr;
    wire [7:0] 	ibus;
 
-   wire [2:0] 	sel;
    tri0 [7:0] 	aext;
    tri1 	nfpram_rom;
 
@@ -127,24 +126,6 @@ module mbu (nreset,
    // THE REGISTER FILE
    //
    ///////////////////////////////////////////////////////////////////////////////
-
-   wire [7:0] 	mb0;
-   wire [7:0] 	mb1;
-   wire [7:0] 	mb2;
-   wire [7:0] 	mb3;
-   wire [7:0] 	mb4;
-   wire [7:0] 	mb5;
-   wire [7:0] 	mb6;
-   wire [7:0] 	mb7;
-
-   assign mb0 = { rf_0hi.q0[0], rf_0lo.q0[0] };
-   assign mb1 = { rf_0hi.q0[1], rf_0lo.q0[1] };
-   assign mb2 = { rf_0hi.q0[2], rf_0lo.q0[2] };
-   assign mb3 = { rf_0hi.q0[3], rf_0lo.q0[3] };
-   assign mb4 = { rf_1hi.q0[0], rf_1lo.q0[0] };
-   assign mb5 = { rf_1hi.q0[1], rf_1lo.q0[1] };
-   assign mb6 = { rf_1hi.q0[2], rf_1lo.q0[2] };
-   assign mb7 = { rf_1hi.q0[3], rf_1lo.q0[3] };
 
    wire [1:0] 	ra, wa;
    wire [7:0] 	rd;
@@ -262,6 +243,35 @@ module mbu (nreset,
 
    buffer_541 buf_ibus (.noe1(nrmbp), .noe2(1'b0), .a(aext), .y(ibus[7:0]));
    buffer_541 buf_db   (.noe1(niombr), .noe2(nr), .a(aext), .y(db[7:0]));
+
+   ///////////////////////////////////////////////////////////////////////////////
+   //
+   // VERIFICATION CONVENIENCE
+   //
+   ///////////////////////////////////////////////////////////////////////////////
+
+   // These are used only for debuging.
+
+   wire [7:0] 	mb[7:0];
+   wire [7:0] 	mb0, mb1, mb2, mb3, mb4, mb5, mb6, mb7;
+
+   assign mb[0] = { rf_0hi.q0[0], rf_0lo.q0[0] };
+   assign mb[1] = { rf_0hi.q0[1], rf_0lo.q0[1] };
+   assign mb[2] = { rf_0hi.q0[2], rf_0lo.q0[2] };
+   assign mb[3] = { rf_0hi.q0[3], rf_0lo.q0[3] };
+   assign mb[4] = { rf_1hi.q0[0], rf_1lo.q0[0] };
+   assign mb[5] = { rf_1hi.q0[1], rf_1lo.q0[1] };
+   assign mb[6] = { rf_1hi.q0[2], rf_1lo.q0[2] };
+   assign mb[7] = { rf_1hi.q0[3], rf_1lo.q0[3] };
+
+   assign mb0 = mb[0];
+   assign mb1 = mb[1];
+   assign mb2 = mb[2];
+   assign mb3 = mb[3];
+   assign mb4 = mb[4];
+   assign mb5 = mb[5];
+   assign mb6 = mb[6];
+   assign mb7 = mb[7];
 
 endmodule // mbu
 `endif //  `ifndef mbu_v

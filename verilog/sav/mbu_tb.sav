@@ -1,15 +1,15 @@
 [*]
-[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Sat Mar 21 10:39:21 2020
+[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
+[*] Mon Mar 23 07:41:13 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/mbu_tb.vcd"
-[dumpfile_mtime] "Sat Mar 21 10:39:19 2020"
-[dumpfile_size] 17212985
+[dumpfile_mtime] "Mon Mar 23 07:40:46 2020"
+[dumpfile_size] 57942
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/mbu_tb.sav"
-[timestart] 0
+[timestart] 13011000
 [size] 1920 1019
 [pos] 18336 64
-*-30.323507 880000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-19.136911 16494750 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] reg_mbr_tb.
 [treeopen] reg_mbr_tb.mbu.
 [sst_width] 258
@@ -18,19 +18,6 @@
 [sst_vpaned_height] 331
 @820
 reg_mbr_tb.status[800:0]
-@200
--
-@28
-[color] 1
-reg_mbr_tb.nreset
-@c00028
-reg_mbr_tb.mbu.sel[2:0]
-@28
-(0)reg_mbr_tb.mbu.sel[2:0]
-(1)reg_mbr_tb.mbu.sel[2:0]
-(2)reg_mbr_tb.mbu.sel[2:0]
-@1401200
--group_end
 @200
 -
 @420
@@ -66,7 +53,7 @@ reg_mbr_tb.aext[7:0]
 @200
 -
 -Registers
-@c00200
+@800200
 -MBn Registers
 @22
 [color] 1
@@ -85,7 +72,7 @@ reg_mbr_tb.mb5[7:0]
 reg_mbr_tb.mb6[7:0]
 [color] 1
 reg_mbr_tb.mb7[7:0]
-@1401200
+@1000200
 -MBn Registers
 @200
 -
@@ -93,70 +80,26 @@ reg_mbr_tb.mb7[7:0]
 @28
 [color] 1
 reg_mbr_tb.nreset
-[color] 2
-reg_mbr_tb.mbu.nenable
 [color] 3
 reg_mbr_tb.mbu.ndis
+[color] 3
+reg_mbr_tb.mbu.nen
 @200
 -
--Control ROM
-@c00200
--Control ROM
-@c00022
-reg_mbr_tb.mbu.rom_ctl.d[7:0]
+@24
+reg_mbr_tb.mbu.wa[1:0]
 @28
-(0)reg_mbr_tb.mbu.rom_ctl.d[7:0]
-(1)reg_mbr_tb.mbu.rom_ctl.d[7:0]
-(2)reg_mbr_tb.mbu.rom_ctl.d[7:0]
-(3)reg_mbr_tb.mbu.rom_ctl.d[7:0]
-(4)reg_mbr_tb.mbu.rom_ctl.d[7:0]
-(5)reg_mbr_tb.mbu.rom_ctl.d[7:0]
-(6)reg_mbr_tb.mbu.rom_ctl.d[7:0]
-(7)reg_mbr_tb.mbu.rom_ctl.d[7:0]
-@1401200
--group_end
-@28
-[color] 1
-reg_mbr_tb.mbu.nr
-[color] 1
-reg_mbr_tb.mbu.nw
-[color] 1
-reg_mbr_tb.mbu.niombr
-[color] 2
-reg_mbr_tb.mbu.nread_mbp
-[color] 2
-reg_mbr_tb.mbu.nread_mbp_flags
-[color] 3
-reg_mbr_tb.mbu.nwrite_mbp
-[color] 3
-reg_mbr_tb.mbu.nwrite_mbp_flags
-[color] 4
-(4)reg_mbr_tb.mbu.waddr[4:0]
-[color] 4
-(3)reg_mbr_tb.mbu.waddr[4:0]
-[color] 6
-reg_mbr_tb.mbu.ndis
+reg_mbr_tb.mbu.nwen0
+reg_mbr_tb.mbu.nwen1
 @200
 -
+@24
+reg_mbr_tb.mbu.ra[1:0]
 @28
-[color] 1
-reg_mbr_tb.mbu.nrmbr0
-[color] 1
-reg_mbr_tb.mbu.nwmbr0
-[color] 2
-reg_mbr_tb.mbu.nuse_ab
-[color] 2
-reg_mbr_tb.mbu.nuse_zero
-[color] 2
-reg_mbr_tb.mbu.nuse_waddr
-[color] 2
-reg_mbr_tb.mbu.nuse_ir
-[color] 3
-reg_mbr_tb.mbu.nibusen
-[color] 3
-reg_mbr_tb.mbu.nibusw
-@1401200
--Control ROM
+reg_mbr_tb.mbu.nren0
+reg_mbr_tb.mbu.nren1
+@22
+reg_mbr_tb.mbu.aext[7:0]
 @200
 -
 -Control Unit Side
@@ -166,6 +109,10 @@ reg_mbr_tb.mbu.nibusw
 [color] 2
 ^1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/raddr
 reg_mbr_tb.raddr[4:0]
+@28
+reg_mbr_tb.mbu.nrmbp
+@200
+-
 @c02028
 [color] 3
 ^2 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/waddr
@@ -178,9 +125,8 @@ reg_mbr_tb.waddr[4:0]
 (4)reg_mbr_tb.waddr[4:0]
 @1401200
 -group_end
-@c02022
+@c00028
 [color] 3
-^2 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/waddr
 reg_mbr_tb.waddr[4:0]
 @28
 (0)reg_mbr_tb.waddr[4:0]
@@ -191,19 +137,11 @@ reg_mbr_tb.waddr[4:0]
 @1401200
 -group_end
 @28
-reg_mbr_tb.nwrite_ar_mbx
-@c00200
--reg_mbr_tb.mbu.ir
-@1401200
--group_end
-@c00028
-reg_mbr_tb.mbu.sel[2:0]
-@28
-(0)reg_mbr_tb.mbu.sel[2:0]
-(1)reg_mbr_tb.mbu.sel[2:0]
-(2)reg_mbr_tb.mbu.sel[2:0]
-@1401200
--group_end
+reg_mbr_tb.mbu.nwmbp
+@29
+reg_mbr_tb.mbu.nwar
+@200
+-
 @c00022
 reg_mbr_tb.ibus[15:0]
 @28
@@ -227,9 +165,6 @@ reg_mbr_tb.ibus[15:0]
 -group_end
 @22
 reg_mbr_tb.ibus_low[7:0]
-@28
-reg_mbr_tb.mbu.regfile.nce
-reg_mbr_tb.mbu.regfile.noe
 @c00022
 reg_mbr_tb.aext[7:0]
 @28
@@ -248,10 +183,18 @@ reg_mbr_tb.aext[7:0]
 @200
 -
 -Peripheral Side
-@c00200
+@800200
 -I/O Peripheral
+@28
+reg_mbr_tb.nsysdev
 @22
 reg_mbr_tb.ab[15:0]
+@28
+reg_mbr_tb.mbu.niombr
+reg_mbr_tb.mbu.niowmbr
+@200
+-
+@22
 reg_mbr_tb.db_low[7:0]
 @28
 [color] 4
@@ -260,8 +203,7 @@ reg_mbr_tb.nwen
 reg_mbr_tb.mbu.nw
 [color] 3
 reg_mbr_tb.mbu.niombr
-reg_mbr_tb.nsysdev
-@1401200
+@1000200
 -I/O Peripheral
 @200
 -
@@ -274,35 +216,11 @@ reg_mbr_tb.ir[15:0]
 @200
 -
 -Decoding
-@28
-reg_mbr_tb.mbu.nrmbr
-reg_mbr_tb.mbu.nwmbr
-reg_mbr_tb.mbu.nuse_ab
-reg_mbr_tb.mbu.nuse_ir
-reg_mbr_tb.mbu.nuse_waddr
-reg_mbr_tb.mbu.nuse_zero
-@200
 -
-@28
-reg_mbr_tb.mbu.nread_mbp
-reg_mbr_tb.mbu.nread_mbp_flags
-@200
 -
-@28
-reg_mbr_tb.mbu.nwrite_mbp
-reg_mbr_tb.mbu.nwrite_mbp_flags
-@200
 -
 -
 -Address Selection
-@28
-reg_mbr_tb.mbu.nuse_ab
-reg_mbr_tb.mbu.nuse_zero
-reg_mbr_tb.mbu.nuse_waddr
-reg_mbr_tb.mbu.nuse_ir
-@22
-reg_mbr_tb.mbu.rom_ctl.d[7:0]
-@200
 -
 -Temporary Debugging
 [pattern_trace] 1
