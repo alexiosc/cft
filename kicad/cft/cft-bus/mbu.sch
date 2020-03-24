@@ -1590,6 +1590,10 @@ Wire Wire Line
 	4050 3100 5300 3100
 Wire Wire Line
 	5300 3400 4500 3400
+Text HLabel 4500 3400 0    50   Input ~ 0
+IR2
+Text Label 4800 3400 0    50   ~ 0
+IR2
 Wire Bus Line
 	1700 1150 1700 1950
 Wire Bus Line
@@ -1604,8 +1608,4 @@ Wire Bus Line
 	10400 3600 10400 4750
 Wire Bus Line
 	8600 1500 8600 5550
-Text HLabel 4500 3400 0    50   Input ~ 0
-IR2
-Text Label 4800 3400 0    50   ~ 0
-IR2
 $EndSCHEMATC

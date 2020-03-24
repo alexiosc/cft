@@ -719,8 +719,8 @@ Text Label 3750 1950 2    50   ~ 0
 ~R
 Wire Wire Line
 	1750 2450 900  2450
-Wire Bus Line
-	9950 1450 9950 1700
 Text Label 900  2450 0    50   ~ 0
 IR2
+Wire Bus Line
+	9950 1450 9950 1700
 $EndSCHEMATC
