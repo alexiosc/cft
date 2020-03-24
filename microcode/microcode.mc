@@ -64,6 +64,11 @@
 //   Version 7g: (2019-12-26) removed RMB and SMB instructions. Memory banking
 //   configuration can be done using I/O space transactions. This releases one
 //   internal address.
+//
+//   Version 7h: (2020-03-23) added memory bank operand to the IND
+//   instruction. Removed IND R. Swapped some signal values around for decoding
+//   convenience. Fixed autoindex bug by adding an action and MEMREAD_IND,
+//   MEMWRITE_IND macros that use it.
 
 
 // ADDRESSING MODES
@@ -322,10 +327,17 @@ signal /END            = 1.......................; // Reset uaddr, go to fetch s
 // Note: the final ‘;’ is purposefully left out in the second cycle,
 // so these macros can be combined with other microinstructions.
 
-// This macros uses cpp's symbol concatenation, which is why it's extra ugly.
+// This macro uses cpp's symbol concatenation, which is why it's extra ugly.
 #define MEMREAD(mbr, addr, data)             \
     write_ar_##mbr, read_##addr;             \
     /MEM, /R, write_##data
+
+// This macro performs a read relative to memory bank register n,
+// where n is determined from IR[2:0]. This implements half of the
+// autoindexing register scheme usually selected with instructions
+// XXXX I R &3xx. Note that MBD is the implicit default here. Should
+// the operand be <&300, MBD will be used for indexing.
+#define MEMREAD_IDX(addr, data) /action_idx, MEMREAD(mbd, addr, data)
 
 // I/O space is 16 bits wide and ignores AB[16..23], so we can use any
 // old MBR to write to the AR, it doesn't matter.
@@ -343,6 +355,9 @@ signal /END            = 1.......................; // Reset uaddr, go to fetch s
 #define MEMWRITE(mbr, addr, data)  \
     write_ar_##mbr, read_##addr;   \
     /MEM, /WEN, read_##data
+
+// The MEMWRITE equivalent of MEMREAD_IDX
+#define MEMWRITE_IDX(addr, data) /action_idx, MEMWRITE(mbd, addr, data)
 
 // I/O space is 16 bits wide and ignores AB[16..23], so we can use any
 // old MBR to write to the AR, it doesn't matter.
@@ -546,7 +561,7 @@ start RST=1, INT=0, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 //#define      _INSTR(0000), I=1, R=0, SUBOP=100, COND=X, IDX=XX // This is available
 //#define      _INSTR(0000), I=1, R=0, SUBOP=101, COND=X, IDX=XX // This is available
 //#define      _INSTR(0000), I=1, R=0, SUBOP=110, COND=X, IDX=XX // This is available
-//#define IND  _INSTR(0000), I=1, R=0, SUBOP=111, COND=X, IDX=XX // THIS IS IND R (SEE BELOW)
+//#define      _INSTR(0000), I=1, R=0, SUBOP=111, COND=X, IDX=XX // This is available
 
 #define JPA    _INSTR(0000), I=1, R=1, SUBOP=000, COND=X, IDX=XX
 #define JSA    _INSTR(0000), I=1, R=1, SUBOP=001, COND=X, IDX=XX
@@ -555,7 +570,7 @@ start RST=1, INT=0, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 #define UOP    _INSTR(0000), I=1, R=1, SUBOP=100, COND=X, IDX=XX // ** SUBOP is not arbitrary!
 #define IFL    _INSTR(0000), I=1, R=1, SUBOP=101,         IDX=XX // ** SUBOP is not arbitrary!
 #define IFV    _INSTR(0000), I=1, R=1, SUBOP=110,         IDX=XX // ** SUBOP is not arbitrary!
-#define IND    _INSTR(0000), I=1,      SUBOP=111, COND=X, IDX=XX // THIS INCLUDES AN R VARIANT (ABOVE)
+#define IND    _INSTR(0000), I=1, R=1  SUBOP=111, COND=X, IDX=XX // Do not move! I=1, R=1, SUBOP=111!
 
 // PART II: INSTRUCTIONS 1–15, 10-bit operands
 
@@ -1736,6 +1751,8 @@ start SKP, COND=0;
 //
 ///////////////////////////////////////////////////////////////////////////////
 
+// NOTE: Removed in favour of using the MBU via I/O transactions.
+
 // xMNEMONIC: RMB
 // xNAME:     Read Memory Bank
 // xDESC:     Transfers a Memory Bank Register to AC.
@@ -1758,6 +1775,8 @@ start SKP, COND=0;
 // THE SMB INSTRUCTION
 //
 ///////////////////////////////////////////////////////////////////////////////
+
+// NOTE: Removed in favour of using the MBU via I/O transactions.
 
 // xMNEMONIC: SMB
 // xNAME:     Set Memory Bank
@@ -1832,12 +1851,14 @@ start JSA;
 // GROUP:    Flow Control
 // MODE:     Accumulator Indirect
 // FLAGS:    -----
-// FORMAT:   :-------
+// FORMAT:   :1---LLL
 //
-// Loads the value at the memory address held in the AC. The address is
-// interpreted as an offset relative to MBD if the R Field is clear, or
-// relative to MBZ if the R Field is set. The I Field must always be
-// set. Auto-indexing is not available!
+// Loads the value at the memory address held in the AC relative to the memory
+// bank register specified in the lower three bits of the operand. The address
+// is interpreted as a 16-bit offset relative to the Memory Bank Register
+// specified in LLL. Both I and R Fields must be set for this instruction. If
+// an auto-indexing location is accessed, it will not be incremented or
+// decremented.
 //
 // ---------------------------------------------------------------------------
 //
@@ -1845,26 +1866,17 @@ start JSA;
 //
 //  I   R   Operand   (*) (#) Addressing Mode
 // ---------------------------------------------------------------------------
-//  1   0   Any       *** (3) Accumulator Indirect (MBD-relative)
-//  1   1   Any       *** (4) Accumulator Indirect (MBZ-relative)
+//  1   1   Any       *** (4) Accumulator Indirect (MBn-relative)
 
 // TODO: It's likely the DR←AC transfer isn't necessary and can save a cycle.
 
-// TODO: allow custom MBn banks to be used.
-
-// IND, MBD-Relative Accumulator Indirect 
-start IND, R=0;
+// IND, MBn-Relative Accumulator Indirect 
+start IND;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       SET(dr, ac);                              // 02 DR ← AC
-      MEMREAD(mbd, ac, dr), END;                // 03 AC ← mem[MBD:DR]
+      MEMREAD_IND(mbd, ac, dr), END;		// 03 AC ← mem[MBD:DR]
 
-// IND, MBZ-Relative Accumulator Indirect 
-start IND, R=1;
-      FETCH_IR;                                 // 00 IR ← mem[PC++]
-      SET(dr, ac);                              // 02 DR ← AC
-      MEMREAD(mbz, ac, dr), END;                // 03 AC ← mem[MBZ:DR]
-
-
+soup
 ///////////////////////////////////////////////////////////////////////////////
 //
 // THE LIA/LI INSTRUCTIONS
