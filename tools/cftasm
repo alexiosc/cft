@@ -1489,7 +1489,11 @@ class CFTAssembler(object):
         addr = self.addr
         value = self.assemble_single_field(tokens[2:], masked=False)
 
-        self.debug_assembly("{} directive: count={} value=&{:>04x}".format(directive, count, value))
+        if value is None:
+            if self.final_pass:
+                self.fail("failed to assemble fill value. '{}'".format(' '.join(x[1] for x in tokens[2:])))
+        else:
+            self.debug_assembly("{} directive: count={} value=&{:>04x}".format(directive, count, value))
 
         # Quick sanity check
         if any(x != self.PKT_UNUSED for x in self.sentinel[addr:(addr+count)]):
