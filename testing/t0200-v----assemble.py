@@ -440,6 +440,51 @@ def test_scope(capsys, tmpdir):
     assert assembled_data == expected_data, "Assembled string did not match"
 
 
+@pytest.mark.cftasm
+def test_include(capsys, tmpdir):
+    """Also checks for the existence and sanity of dfp2.asm and mbu.asm,
+    which we really need to have for subsequent testing!"""
+
+    assemble(tmpdir, """
+    .include "mbu.asm"
+    .include "dfp2.asm"
+
+    &0:     mbu.BASE
+            mbu.MBP
+            mbu.MBD
+            mbu.MBS
+            mbu.MBZ
+            mbu.MB0
+            mbu.MB1
+            mbu.MB2
+            mbu.MB3
+            mbu.MB4
+            mbu.MB5
+            mbu.MB6
+            mbu.MB7
+
+            HALT
+            LSR
+            SOR
+            SENTINEL
+            SUCCESS
+            FAIL
+    """)
+
+    # Expect 14 words
+    fname = str(tmpdir.join("a.bin"))
+    assert os.path.getsize(fname) == 38, \
+        "Wrong object size generated (19W expected)"
+
+    assembled_data = read_cft_bin_file(fname, 19)
+    print(assembled_data)
+    # Data is byte-swapped when Python reads it a 16-bit ints.
+    expected_data = array.array('H', [ 0x408, 0, 1, 2, 3, 0, 1, 2, 3, 4, 5, 6, 7,
+                                       0x651d, 0x5500, 0x6500, 0x650f, 0x651e, 0x651f ])
+    assert len(assembled_data) == 19
+    assert assembled_data == expected_data, "Assembled string did not match"
+
+
 if __name__ == "__main__":
     print("Run this with pytest-3!")
 

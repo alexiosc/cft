@@ -171,9 +171,10 @@ def assemble(tmpdir, source, args=None):
         f.write(source)
         
     cftasm = os.path.join(BASEDIR, "tools", "cftasm")
+    asmdir = os.path.join(BASEDIR, "asm")
     assert os.path.exists(cftasm), "cftasm not found, can't assemble."
 
-    cmd = [cftasm]
+    cmd = [ cftasm, "-I", asmdir ]
     if args is not None:
         assert type(args) in [tuple, list], "args must be a tuple or list"
         cmd += list(args)
@@ -274,8 +275,8 @@ def asm_memory_banks(mbp=None, mbd=None, mbs=None, mbz=None,
         if arg is not None:
             if ac != arg:
                 ac = arg
-                source += "\t\tLI        &{:>02x}\n".format(arg)
-            source += "\t\tSMB       {}\n".format(name)
+                source += "        LI        &{:>02x}\n".format(arg)
+            source += "        SMB       {}\n".format(name)
 
     return source
 
@@ -284,10 +285,13 @@ def asm_memory_banks(mbp=None, mbd=None, mbs=None, mbz=None,
 BASEDIR = findBaseDir()
 VERILOGDIR = os.path.join(BASEDIR, "verilog")
 RUN_VERILOG_TEST = os.path.join(BASEDIR, "tools", "run-verilog-testbench")
+HALTED = 305
+SENTINEL = 341
 SUCCESS = 345
 OK = SUCCESS
 FAIL = 346
-HALTED = 305
+ROM_WP0 = [ 345, "ROM", "is writeable" ]
+ROM_WP1 = [ 345, "ROM", "is write protected" ]
 
 
 # End of file.

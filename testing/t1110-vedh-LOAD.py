@@ -15,20 +15,26 @@ from testing import *
 @pytest.mark.verilog
 def test_LOAD(capsys, tmpdir):
 
-    source = "&0:\n"
+    source = """
+    .include "mbu.asm"
+    .include "dfp2.asm"
+
+    &0:
+    """
+    
     expected = ExpectedData([ SUCCESS ])
 
     MAX = 255                   # 1 to 255
 
     # Only up to 255 can be tested using this particular program
     for x in range(MAX):
-        source += "LOAD  @+3\n"
-        source += "OUT   R &113\n"
-        source += "JMP   @+2\n" # This obviously fails at page boundaries
-        source += ".word &{:>x}\n".format(x)
+        source += "\t\tLOAD  @+3\n"
+        source += "\t\tdfp.PRINTU\n"
+        source += "\t\tJMP   @+2\n" # This obviously fails at page boundaries
+        source += "\t\t.word &{:>x}\n".format(x)
         expected.append([ 340, "PRINTU", str(x) ])
 
-    source += "OUT R &11d\n"
+    source += "\t\tHALT\n"
     expected += [ HALTED ]
     print(source)
 
@@ -204,10 +210,10 @@ def test_LOAD_I_R_autodec(capsys, tmpdir):
 
     for x in range(MAX):
         source += "\t\tLOAD I R  autodec\n"
-        source += "\t\tOUT R     &113\n"
+        source += "\t\tdfp.PRINTU\n"
         expected.append([ 340, "PRINTU", str(MAX - 1 - x) ])
 
-    source += "\t\tOUT R &11d\n"
+    source += "\t\tHALT\n"
     expected += [ HALTED ]
 
     # The data table.
