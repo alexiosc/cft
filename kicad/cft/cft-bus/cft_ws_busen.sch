@@ -1129,9 +1129,9 @@ Wire Wire Line
 Wire Wire Line
 	2100 1950 2600 1950
 Text HLabel 1650 2050 0    50   Input ~ 0
-T34
+~T34
 Text Label 1750 2050 0    50   ~ 0
-T34
+~T34
 Wire Wire Line
 	1650 2050 2600 2050
 $Comp

@@ -325,8 +325,6 @@ Wire Wire Line
 	8300 1850 7800 1850
 Wire Wire Line
 	7800 2600 8300 2600
-Text Label 8250 1850 2    50   ~ 0
-~IR-IDX
 Wire Wire Line
 	8300 3450 8250 3450
 $Comp
@@ -356,8 +354,6 @@ F 3 "http://www.ti.com/lit/ds/symlink/sn74lvc2g157.pdf" H 8550 3375 50  0001 C C
 	1    8650 3250
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	7800 3350 8300 3350
 Wire Wire Line
 	7800 2600 7800 3350
 Connection ~ 7800 2600
@@ -1325,15 +1321,7 @@ Wire Wire Line
 	6750 2500 8300 2500
 Wire Wire Line
 	7800 1850 7800 2600
-Wire Wire Line
-	7800 1850 6750 1850
 Connection ~ 7800 1850
-Text HLabel 6750 1850 0    50   Input ~ 0
-~IR-IDX
-Text Label 8250 2600 2    50   ~ 0
-~IR-IDX
-Text Label 8200 3350 2    50   ~ 0
-~IR-IDX
 Text HLabel 6750 3150 0    50   Input ~ 0
 IR2
 Text Label 7350 3150 2    50   ~ 0
@@ -1344,7 +1332,123 @@ Wire Wire Line
 	6750 3150 8300 3150
 Wire Wire Line
 	8300 3250 8250 3250
+Connection ~ 8250 3450
+NoConn ~ 6150 1550
+Wire Wire Line
+	6150 1850 7800 1850
+Text Label 8250 1850 2    50   ~ 0
+~IR-IDXR
+Text Label 8250 2600 2    50   ~ 0
+~IR-IDXR
+Text Label 7100 1850 2    50   ~ 0
+~IR-IDXR
+Wire Wire Line
+	5200 1650 5250 1650
+Text Label 4800 1750 0    50   ~ 0
+~T34
+Text Label 4800 1550 0    50   ~ 0
+~IR-IDX
+Text HLabel 4750 1850 0    50   Input ~ 0
+~RESET
+Text Label 4800 1850 0    50   ~ 0
+~RESET
+Wire Wire Line
+	5250 1850 4750 1850
+$Comp
+L power:+5V #PWR053
+U 1 1 5E838320
+P 5200 1400
+F 0 "#PWR053" H 5200 1250 50  0001 C CNN
+F 1 "+5V" H 5215 1573 50  0000 C CNN
+F 2 "" H 5200 1400 50  0001 C CNN
+F 3 "" H 5200 1400 50  0001 C CNN
+	1    5200 1400
+	1    0    0    -1  
+$EndComp
+Text HLabel 4750 1750 0    50   Input ~ 0
+~T34
+Wire Wire Line
+	5250 1750 4750 1750
+Wire Wire Line
+	4750 1550 5250 1550
+Text HLabel 4750 1550 0    50   Input ~ 0
+~IR-IDX
+Wire Wire Line
+	5200 1400 5200 1650
+$Comp
+L alexios:74LVC1G74 U18
+U 2 1 5E84B6CE
+P 5700 2300
+F 0 "U18" H 5880 2346 50  0000 L CNN
+F 1 "74LVC1G74" H 5880 2255 50  0000 L CNN
+F 2 "alexios:TSSOP-8_3x3mm_P0.65mm" H 6150 2300 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G74.pdf" H 6150 2300 50  0001 C CNN
+	2    5700 2300
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5E84D3C1
+P 5350 2400
+AR Path="/5E84D3C1" Ref="#PWR?"  Part="1" 
+AR Path="/5F3EA987/5E84D3C1" Ref="#PWR?"  Part="1" 
+AR Path="/61F95ACC/5E84D3C1" Ref="#PWR?"  Part="1" 
+AR Path="/61F95ACC/6AF25BF3/5E84D3C1" Ref="#PWR079"  Part="1" 
+F 0 "#PWR079" H 5350 2150 50  0001 C CNN
+F 1 "GND" H 5355 2227 50  0000 C CNN
+F 2 "" H 5350 2400 50  0001 C CNN
+F 3 "" H 5350 2400 50  0001 C CNN
+	1    5350 2400
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 5E84D3C7
+P 5350 2200
+AR Path="/5E84D3C7" Ref="#PWR?"  Part="1" 
+AR Path="/5F3EA987/5E84D3C7" Ref="#PWR?"  Part="1" 
+AR Path="/61F95ACC/5E84D3C7" Ref="#PWR?"  Part="1" 
+AR Path="/61F95ACC/6AF25BF3/5E84D3C7" Ref="#PWR057"  Part="1" 
+F 0 "#PWR057" H 5350 2050 50  0001 C CNN
+F 1 "+5V" H 5365 2373 50  0000 C CNN
+F 2 "" H 5350 2200 50  0001 C CNN
+F 3 "" H 5350 2200 50  0001 C CNN
+	1    5350 2200
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 5E84D3CD
+P 5350 2300
+AR Path="/5CC0D65F/5E84D3CD" Ref="C?"  Part="1" 
+AR Path="/5E84D3CD" Ref="C?"  Part="1" 
+AR Path="/5F3EA987/5E84D3CD" Ref="C?"  Part="1" 
+AR Path="/61F95ACC/5E84D3CD" Ref="C?"  Part="1" 
+AR Path="/61F95ACC/6AF25BF3/5E84D3CD" Ref="C25"  Part="1" 
+F 0 "C25" H 5259 2346 50  0000 R CNN
+F 1 "100nF" H 5259 2255 50  0000 R CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5350 2300 50  0001 C CNN
+F 3 "~" H 5350 2300 50  0001 C CNN
+	1    5350 2300
+	1    0    0    -1  
+$EndComp
+Connection ~ 5350 2200
+Connection ~ 5350 2400
+$Comp
+L alexios:74LVC1G74 U18
+U 1 1 5E80D2A8
+P 5700 1700
+F 0 "U18" H 5700 2117 50  0000 C CNN
+F 1 "74LVC1G74" H 5700 2026 50  0000 C CNN
+F 2 "alexios:TSSOP-8_3x3mm_P0.65mm" H 6150 1700 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G74.pdf" H 6150 1700 50  0001 C CNN
+	1    5700 1700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7800 3350 8300 3350
 Wire Wire Line
 	8250 3250 8250 3450
-Connection ~ 8250 3450
+Text Label 8200 3350 2    50   ~ 0
+~IR-IDXR
 $EndSCHEMATC

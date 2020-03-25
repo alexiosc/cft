@@ -154,7 +154,7 @@ CLK4
 Text Label 2150 2350 0    50   ~ 0
 WSTB
 Text Label 2150 2450 0    50   ~ 0
-T34
+~T34
 Text Label 2150 2550 0    50   ~ 0
 ~IRQ
 Text Label 2150 2650 0    50   ~ 0
@@ -568,7 +568,7 @@ CLK3
 Text HLabel 2150 2250 0    50   UnSpc ~ 0
 CLK4
 Text HLabel 2150 2450 0    50   UnSpc ~ 0
-T34
+~T34
 Text HLabel 2150 2550 0    50   UnSpc ~ 0
 ~IRQ
 Text HLabel 2150 2650 0    50   UnSpc ~ 0

@@ -292,13 +292,11 @@ NoConn ~ 3100 2600
 NoConn ~ 3100 2700
 NoConn ~ 3100 2800
 NoConn ~ 3100 2900
-Text Label 3550 3100 2    50   ~ 0
+Text Label 3550 3200 2    50   ~ 0
 ~RMBP
 Text Label 3550 4450 2    50   ~ 0
 ~WMBP
 NoConn ~ 3100 3300
-Wire Wire Line
-	3100 3200 3250 3200
 Wire Wire Line
 	2100 4650 2050 4650
 Wire Wire Line
@@ -315,7 +313,7 @@ F 3 "" H 2050 4700 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Text HLabel 1250 3400 0    50   Input ~ 0
-T34
+~T34
 Wire Wire Line
 	1250 3400 2100 3400
 Text Label 2100 3400 2    50   ~ 0
@@ -369,7 +367,7 @@ F 3 "~" H 6550 4100 50  0001 C CNN
 	1    6550 4100
 	-1   0    0    1   
 $EndComp
-Text HLabel 6100 4300 0    50   Input ~ 0
+Text HLabel 5550 4300 0    50   Input ~ 0
 ~FPRAM~∕ROM
 Wire Wire Line
 	8700 4200 9000 4200
@@ -680,14 +678,14 @@ Wire Wire Line
 	6450 4300 6550 4300
 Connection ~ 6550 4300
 Wire Wire Line
-	6100 4300 6150 4300
+	5550 4300 6150 4300
 $Comp
 L Device:D_ALT D1
 U 1 1 6553D07B
 P 6300 4300
 F 0 "D1" H 6300 4424 50  0000 C CNN
 F 1 "D_ALT" H 6300 4425 50  0001 C CNN
-F 2 "" H 6300 4300 50  0001 C CNN
+F 2 "alexios:SOD-323" H 6300 4300 50  0001 C CNN
 F 3 "~" H 6300 4300 50  0001 C CNN
 	1    6300 4300
 	1    0    0    -1  
@@ -695,12 +693,12 @@ $EndComp
 $Comp
 L alexios:74LVC1G04 U6
 U 1 1 6807A17E
-P 3850 3100
-F 0 "U6" H 3800 2925 50  0000 C CNN
-F 1 "74LVC1G04" H 3800 2834 50  0000 C CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 3850 3100 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G04.pdf" H 3850 3100 50  0001 C CNN
-	1    3850 3100
+P 3850 3200
+F 0 "U6" H 3800 3025 50  0000 C CNN
+F 1 "74LVC1G04" H 3800 2934 50  0000 C CNN
+F 2 "alexios:SOT-23-5_HandSoldering" H 3850 3200 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G04.pdf" H 3850 3200 50  0001 C CNN
+	1    3850 3200
 	1    0    0    -1  
 $EndComp
 $Sheet
@@ -725,7 +723,7 @@ F15 "RA1" I L 7050 2900 50
 F16 "~REN0" I L 7050 3000 50 
 F17 "~REN1" I L 7050 3100 50 
 F18 "~EN" I L 7050 3300 50 
-F19 "~FPRAM~∕ROM" I L 7050 3400 50 
+F19 "ROM" I L 7050 3400 50 
 F20 "AEXT7" O R 8200 2100 50 
 F21 "AEXT6" O R 8200 2000 50 
 F22 "AEXT5" O R 8200 1900 50 
@@ -818,7 +816,7 @@ Text Label 6600 3100 0    50   ~ 0
 Text Label 6600 3300 0    50   ~ 0
 ~EN
 Text Label 6950 3950 1    50   ~ 0
-~FPRAM~∕ROM
+ROM
 Wire Wire Line
 	6550 1400 7050 1400
 Wire Wire Line
@@ -942,9 +940,9 @@ Wire Wire Line
 Wire Wire Line
 	5300 2900 4800 2900
 Wire Wire Line
-	5300 3200 4500 3200
-Wire Wire Line
 	5300 3300 4500 3300
+Wire Wire Line
+	5300 3400 4500 3400
 Wire Wire Line
 	5300 3000 4500 3000
 Text Label 4800 2300 0    50   ~ 0
@@ -965,28 +963,28 @@ Text Label 4800 2800 0    50   ~ 0
 WADDR0
 Text Label 4800 2900 0    50   ~ 0
 WADDR1
-Text Label 4800 3500 0    50   ~ 0
+Text Label 4800 3600 0    50   ~ 0
 ~WMBP
-Text Label 4800 3100 0    50   ~ 0
-~RG
 Text Label 4800 3200 0    50   ~ 0
-IR0
+~RG
 Text Label 4800 3300 0    50   ~ 0
+IR0
+Text Label 4800 3400 0    50   ~ 0
 IR1
 Text Label 4800 3000 0    50   ~ 0
 ~IR-IDX
 Text HLabel 4500 3000 0    50   Input ~ 0
 ~IR-IDX
-Text HLabel 4500 3200 0    50   Input ~ 0
-IR0
 Text HLabel 4500 3300 0    50   Input ~ 0
+IR0
+Text HLabel 4500 3400 0    50   Input ~ 0
 IR1
 Wire Wire Line
-	4600 3500 5300 3500
+	4600 3600 5300 3600
 Wire Wire Line
 	3100 4450 4600 4450
 $Sheet
-S 5300 2200 1150 1500
+S 5300 2100 1150 1700
 U 6AF25BF3
 F0 "Control Logic" 50
 F1 "mbu_control.sch" 50
@@ -997,32 +995,34 @@ F5 "AB1" I L 5300 2400 50
 F6 "AB2" I L 5300 2500 50 
 F7 "~IOMBR" I L 5300 2600 50 
 F8 "~W" I L 5300 2700 50 
-F9 "~WMBP" I L 5300 3500 50 
+F9 "~WMBP" I L 5300 3600 50 
 F10 "WA0" O R 6450 2300 50 
 F11 "WA1" O R 6450 2400 50 
 F12 "WADDR0" I L 5300 2800 50 
 F13 "WADDR1" I L 5300 2900 50 
 F14 "~IR-IDX" I L 5300 3000 50 
-F15 "IR0" I L 5300 3200 50 
-F16 "IR1" I L 5300 3300 50 
-F17 "~RG" I L 5300 3100 50 
-F18 "~WAR" I L 5300 3600 50 
+F15 "IR0" I L 5300 3300 50 
+F16 "IR1" I L 5300 3400 50 
+F17 "~RG" I L 5300 3200 50 
+F18 "~WAR" I L 5300 3700 50 
 F19 "RA0" O R 6450 2800 50 
 F20 "RA1" O R 6450 2900 50 
 F21 "~REN0" O R 6450 3000 50 
 F22 "~REN1" O R 6450 3100 50 
 F23 "~IOWMBR" O R 6450 3600 50 
-F24 "IR2" I L 5300 3400 50 
+F24 "IR2" I L 5300 3500 50 
+F25 "~T34" I L 5300 3100 50 
+F26 "~RESET" I L 5300 2200 50 
 $EndSheet
 Wire Wire Line
-	4600 3500 4600 4450
+	4600 3600 4600 4450
 Wire Wire Line
-	5300 3600 4700 3600
+	5300 3700 4700 3700
 Wire Wire Line
-	4700 3600 4700 4550
+	4700 3700 4700 4550
 Wire Wire Line
 	3100 5200 3600 5200
-Text Label 4800 3600 0    50   ~ 0
+Text Label 4800 3700 0    50   ~ 0
 ~WAR
 Wire Wire Line
 	4500 2700 5300 2700
@@ -1098,7 +1098,7 @@ U 1 1 631AB2E9
 P 3250 6950
 F 0 "JP2" H 3250 7063 50  0000 C CNN
 F 1 "SolderJumper_2_Bridged" H 3250 7064 50  0001 C CNN
-F 2 "" H 3250 6950 50  0001 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 3250 6950 50  0001 C CNN
 F 3 "~" H 3250 6950 50  0001 C CNN
 	1    3250 6950
 	1    0    0    -1  
@@ -1583,17 +1583,23 @@ Wire Wire Line
 Text Label 1600 950  2    50   ~ 0
 ~R
 Wire Wire Line
-	3550 3100 3250 3100
+	4050 3200 5300 3200
 Wire Wire Line
-	3250 3100 3250 3200
-Wire Wire Line
-	4050 3100 5300 3100
-Wire Wire Line
-	5300 3400 4500 3400
-Text HLabel 4500 3400 0    50   Input ~ 0
+	5300 3500 4500 3500
+Text HLabel 4500 3500 0    50   Input ~ 0
 IR2
-Text Label 4800 3400 0    50   ~ 0
+Text Label 4800 3500 0    50   ~ 0
 IR2
+Wire Wire Line
+	3100 3200 3550 3200
+Wire Wire Line
+	5300 3100 4800 3100
+Text Label 4800 3100 0    50   ~ 0
+~T34
+Text Label 6100 4300 2    50   ~ 0
+~FPRAM~∕ROM
+Wire Wire Line
+	5300 2200 4800 2200
 Wire Bus Line
 	1700 1150 1700 1950
 Wire Bus Line
@@ -1608,4 +1614,6 @@ Wire Bus Line
 	10400 3600 10400 4750
 Wire Bus Line
 	8600 1500 8600 5550
+Text Label 4800 2200 0    50   ~ 0
+~RESET
 $EndSCHEMATC

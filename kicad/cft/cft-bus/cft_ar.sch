@@ -1470,9 +1470,9 @@ $EndComp
 Text Label 1700 3000 2    50   ~ 0
 ~ABEN2
 Text HLabel 1000 2650 0    50   Input ~ 0
-T34
+~T34
 Text Label 1100 2650 0    50   ~ 0
-T34
+~T34
 $Comp
 L power:GND #PWR?
 U 1 1 5CC20084

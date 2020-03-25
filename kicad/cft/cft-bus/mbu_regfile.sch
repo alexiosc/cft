@@ -314,7 +314,7 @@ Wire Wire Line
 Wire Wire Line
 	1250 5200 2400 5200
 Text HLabel 1250 5500 0    50   Input ~ 0
-~FPRAM~∕ROM
+ROM
 Wire Wire Line
 	2400 4250 2400 5200
 Wire Wire Line
@@ -826,7 +826,7 @@ Wire Wire Line
 Text Label 7200 3150 0    50   ~ 0
 RD7
 Text Label 7200 3250 0    50   ~ 0
-~FPRAM~∕ROM
+ROM
 Text Label 7200 3350 0    50   ~ 0
 ~EN
 Wire Wire Line
@@ -1248,7 +1248,7 @@ Text Label 1350 5300 0    50   ~ 0
 Text Label 1350 5400 0    50   ~ 0
 ~EN
 Text Label 1350 5500 0    50   ~ 0
-~FPRAM~∕ROM
+ROM
 Text Label 3900 4600 0    50   ~ 0
 WA0
 Text Label 3900 4700 0    50   ~ 0
@@ -1264,9 +1264,9 @@ Text Label 3900 5300 0    50   ~ 0
 Text Label 3900 5400 0    50   ~ 0
 ~EN
 Text Label 3900 5500 0    50   ~ 0
-~FPRAM~∕ROM
+ROM
 Text Label 7050 4900 1    50   ~ 0
-~FPRAM~∕ROM
+ROM
 Text Label 6950 4900 1    50   ~ 0
 ~EN
 Text Notes 7700 1000 0    100  ~ 20
