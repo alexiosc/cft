@@ -181,13 +181,6 @@ Text Label 1750 7250 0    50   ~ 0
 ~IOWMBR
 Wire Wire Line
 	2100 7150 2050 7150
-Wire Wire Line
-	2050 7150 2050 7050
-Wire Wire Line
-	2100 7050 2050 7050
-Connection ~ 2050 7050
-Wire Wire Line
-	2050 7050 2050 6850
 $Comp
 L power:+5V #PWR066
 U 1 1 6121EEB0
@@ -224,8 +217,6 @@ F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G74.pdf" H 3000 7100
 	1    2550 7100
 	1    0    0    -1  
 $EndComp
-Text Notes 1900 6550 0    50   ~ 0
-The MBU is disabled after reset and enabled\nwhen it's first written to.
 $Comp
 L power:+5V #PWR0145
 U 1 1 5E459A7C
@@ -1600,12 +1591,14 @@ Text Label 6100 4300 2    50   ~ 0
 ~FPRAM~∕ROM
 Wire Wire Line
 	5300 2200 4800 2200
-Wire Bus Line
-	1700 1150 1700 1950
-Wire Bus Line
-	1700 2350 1700 3200
+Text Label 4800 2200 0    50   ~ 0
+~RESET
+Text Notes 1900 6550 0    50   ~ 0
+The MBU is disabled after reset and enabled\nwhen it's first written to.
 Wire Bus Line
 	1700 3600 1700 5200
+Wire Bus Line
+	1700 2350 1700 3200
 Wire Bus Line
 	6450 1150 6450 2000
 Wire Bus Line
@@ -1614,6 +1607,13 @@ Wire Bus Line
 	10400 3600 10400 4750
 Wire Bus Line
 	8600 1500 8600 5550
-Text Label 4800 2200 0    50   ~ 0
-~RESET
+Wire Bus Line
+	1700 1150 1700 1950
+Wire Wire Line
+	2050 7050 2050 6850
+Wire Wire Line
+	2050 7150 2050 7050
+Connection ~ 2050 7050
+Wire Wire Line
+	2100 7050 2050 7050
 $EndSCHEMATC

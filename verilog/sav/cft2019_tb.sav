@@ -1,27 +1,25 @@
 [*]
 [*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Wed Mar 25 12:27:38 2020
+[*] Wed Mar 25 19:16:44 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/cft2019_tb.vcd"
-[dumpfile_mtime] "Wed Mar 25 12:27:06 2020"
-[dumpfile_size] 509771
+[dumpfile_mtime] "Wed Mar 25 18:56:08 2020"
+[dumpfile_size] 394491
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/cft2019_tb.sav"
-[timestart] 6480000
-[size] 1920 1019
-[pos] 2227 129
-*-21.845203 14190000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[timestart] 11367000
+[size] 1705 1014
+[pos] 2425 29
+*-18.949039 12743000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] cft2019_tb.
 [treeopen] cft2019_tb.cft.
-[treeopen] cft2019_tb.cft.card_bus.
-[treeopen] cft2019_tb.cft.card_bus.mbu.
 [treeopen] cft2019_tb.cft.card_bus.reg_ar.
-[treeopen] cft2019_tb.cft.card_ctl.
+[treeopen] cft2019_tb.cft.card_mem.
 [treeopen] cft2019_tb.cft.card_mem.romhi.
 [treeopen] cft2019_tb.cft.card_reg.
 [sst_width] 258
-[signals_width] 541
+[signals_width] 420
 [sst_expanded] 1
-[sst_vpaned_height] 284
+[sst_vpaned_height] 286
 @800200
 -Reset
 @28
@@ -106,7 +104,7 @@ cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
 (23)cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
 @1401200
 -group_end
-@c04022
+@c04023
 ^>2 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/control
 cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
 @28
@@ -134,7 +132,7 @@ cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
 (21)cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
 (22)cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
 (23)cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
-@1401200
+@1401201
 -group_end
 @22
 [color] 2
@@ -150,47 +148,20 @@ cft2019_tb.cft.card_bus.mbu.mb5[7:0]
 cft2019_tb.cft.card_bus.mbu.mb6[7:0]
 cft2019_tb.cft.card_bus.mbu.mb7[7:0]
 @28
-cft2019_tb.cft.card_bus.mbu.ra[1:0]
-cft2019_tb.cft.card_bus.mbu.nren0
-cft2019_tb.cft.card_bus.mbu.nren1
-cft2019_tb.cft.card_bus.mbu.nir_idx
-@29
-cft2019_tb.cft.card_bus.mbu.nir_idxreg
+cft2019_tb.cft.card_mem.nmemw
+cft2019_tb.cft.card_mem.wp
+@22
+cft2019_tb.cft.card_mem.ramhi.a[18:0]
+cft2019_tb.cft.card_mem.ramhi.d[7:0]
+@420
+cft2019_tb.cft.card_mem.ramhi.i
 @28
-[color] 5
-cft2019_tb.cft.card_ctl.t34
-@c00022
-[color] 6
-cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
-@28
-(0)cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
-(1)cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
-(2)cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
-(3)cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
-(4)cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
-(5)cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
-(6)cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
-(7)cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
-(8)cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
-(9)cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
-(10)cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
-(11)cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
-(12)cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
-(13)cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
-(14)cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
-(15)cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
-(16)cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
-(17)cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
-(18)cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
-(19)cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
-(20)cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
-(21)cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
-(22)cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
-(23)cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
-@1401200
--group_end
-@28
-cft2019_tb.cft.card_bus.reg_ar.nwrite_ar
+[color] 1
+cft2019_tb.cft.card_mem.ramhi.nce
+[color] 2
+cft2019_tb.cft.card_mem.ramhi.noe
+[color] 3
+cft2019_tb.cft.card_mem.ramhi.nwe
 @1000200
 -Registers
 @800200

@@ -146,8 +146,10 @@ module card_mem(
    // Another 512K RAM where the ROM should be is, so that individual
    // testbenches can load their own ROM images at will with
    // $readmemb(). Obviously, writing is disabled.
-   sram #(19, 45) romlo (.a(ab[18:0]), .d(db[7:0]), .nce(nromcs[0]), .nwe(1'b1), .noe(nmemr));
-   sram #(19, 45) romhi (.a(ab[18:0]), .d(db[15:8]), .nce(nromcs[0]), .nwe(1'b1), .noe(nmemr));
+   reg 		 wp;
+
+   sram #(19, 45) romlo (.a(ab[18:0]), .d(db[7:0]), .nce(nromcs[0]), .nwe(wp | nmemw), .noe(nmemr));
+   sram #(19, 45) romhi (.a(ab[18:0]), .d(db[15:8]), .nce(nromcs[0]), .nwe(wp | nmemw), .noe(nmemr));
 
    // If instructed, load ROM and/or ROM images for simulation.
    reg [4096:0]  basename, imglo, imghi;
@@ -168,6 +170,17 @@ module card_mem(
 	 $readmemb(imglo, romlo.mem);
 	 $readmemb(imghi, romhi.mem);
 	 $display("345 OK Loaded ROM image from base %-0s", basename);
+      end
+      // Implement ROM write protect (default to on, so ROM behaves like
+      // ROM). But sometimes (e.g STORE tests in page-local mode, we need a
+      // writeable memory image.)
+      wp = 1;
+      if ($value$plusargs("wp=%b", wp)) begin
+	 if (wp == 1'b0) $display("345 ROM is writeable");
+	 else begin
+	    wp = 1;
+	    $display("345 ROM is write protected");
+	 end
       end
    end
 

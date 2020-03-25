@@ -104,7 +104,8 @@ module cft2019_tb();
 
    always @(cft.card_dfp.halting) begin
       //->cft.mem.dump_core;
-      #20000 $finish;
+     //#20000 
+      $finish;
    end
 
    always @(db) begin

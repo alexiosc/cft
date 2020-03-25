@@ -166,13 +166,13 @@ module card_dfp (
 	   end
 	     
 	   8'h10: $display("340 PRINTA: %h", db);              // PRINTA
-	   8'h11: $display("340 PRINTc: %d", db);              // PRINTC
+	   8'h11: $display("340 PRINTC: %d", db[7:0]);         // PRINTC
 	   8'h12: $display("340 PRINTD: %d", $signed(db));     // PRINTD
 	   8'h13: $display("340 PRINTU: %d", db);              // PRINTU
 	   8'h14: $display("340 PRINTH: %x", db);              // PRINTH
 	   8'h15: $display("340 PRINTB: %b", db);              // PRINTB
-	   8'h16: $display("340 PRINTc: 32");                  // PRINTSP
-	   8'h17: $display("340 PRINTc: 10");                  // PRINTNL
+	   8'h16: $display("340 PRINTC: 32");                  // PRINTSP
+	   8'h17: $display("340 PRINTC: 10");                  // PRINTNL
 	   8'h18: $display("509 DEBUGON is not implemented");  // DEBUGON
 	   8'h19: $display("509 DEBUGOFF is not implemented"); // DEBUGOFF
 	   8'h1a: $display("509 DUMP is not implemented");     // DUMP
