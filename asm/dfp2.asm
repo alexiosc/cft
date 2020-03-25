@@ -1,4 +1,5 @@
 ;;; -*- cftasm -*-
+;;;
 ;;; Definitions for the all new DFP 2 (Debugging Front Panel) subsystem for
 ;;; the 2019 CFT.
 ;;;
@@ -8,9 +9,12 @@
 
 ;;; Extended Instructions (globally available)
 
-.equ SOR        dfp.SOR			; SOR: set Output Register
 .equ HALT       dfp.HALT		; Halt the system
 .equ LSR        dfp.LSR			; Load the value of the Switch Register
+.equ SOR        dfp.SOR			; SOR: set Output Register
+.equ SENTINEL   dfp.SENTINEL		; SENTINEL instruction
+.equ SUCCESS    dfp.SUCCESS		; Assert true
+.equ FAIL       dfp.FAIL		; Assert false
 		
 .pushns dfp
 
@@ -116,8 +120,6 @@
 		DISEF
 .endmacro
 		
-
-
-.popns
+.popns dfp
 	
 ;;; End of file.
