@@ -157,10 +157,10 @@ def test_LOAD_I_R_autoinc(capsys, tmpdir):
 
     expected = ExpectedData([ SUCCESS ])
 
-    MAX = 2                   # 1 to 255
+    MAX = 255                   # 1 to 255
 
     source += "&0:\n"
-    source += asm_memory_banks(mbp=0x80, mbd=0, mbz=0x20)
+    source += asm_memory_banks(mbp=0x80, mbd=0, mbz=0)
     source += "\t\tLOAD      @+3\n"
     source += "\t\tSTORE R   autoinc\n"
     source += "\t\tJMP       @+2\n"
@@ -183,7 +183,84 @@ def test_LOAD_I_R_autoinc(capsys, tmpdir):
     
     result = run_on_verilog_emu(capsys, tmpdir, source)
     result = list(expected.prepare(result))
-    print(source)
+    assert result == expected
+
+
+@pytest.mark.verilog
+def test_LOAD_I_R_autodec(capsys, tmpdir):
+
+    source = ".equ autodec &380\n"
+
+    expected = ExpectedData([ SUCCESS ])
+
+    MAX = 255                   # 1 to 255
+
+    source += "&0:\n"
+    source += asm_memory_banks(mbp=0x80, mbd=0, mbz=0)
+    source += "\t\tLOAD      @+3\n"
+    source += "\t\tSTORE R   autodec\n"
+    source += "\t\tJMP       @+2\n"
+    source += "\t\t.word     @data-1\n"
+
+    for x in range(MAX):
+        source += "\t\tLOAD I R  autodec\n"
+        source += "\t\tOUT R     &113\n"
+        expected.append([ 340, "PRINTU", str(MAX - 1 - x) ])
+
+    source += "\t\tOUT R &11d\n"
+    expected += [ HALTED ]
+
+    # The data table.
+    source += "&1389:\n"
+
+    for x in range(MAX):
+        source += "\t\t.word {}\n".format(x)
+    source += "data:\n"
+    
+    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = list(expected.prepare(result))
+    assert result == expected
+
+
+@pytest.mark.verilog
+def test_LOAD_I_R_stack(capsys, tmpdir):
+    """Test stack pointer autoindexing. For LOAD, this behaves just like
+    autodecrement except the register is decremented BEFORE use."""
+
+    source = ".equ stack &3c0\n"
+
+    expected = ExpectedData([ SUCCESS ])
+
+    MAX = 255                   # 1 to 255
+
+    source += "&0:\n"
+    source += asm_memory_banks(mbp=0x80, mbd=0, mbz=0)
+    source += "\t\tLOAD      @+3\n"
+    source += "\t\tSTORE R   stack\n"
+    source += "\t\tJMP       @+2\n"
+    source += "\t\t.word     data\n"
+
+    for x in range(MAX):
+        source += "\t\tLOAD I R  stack\n"
+        source += "\t\tOUT R     &113\n"
+        expected.append([ 340, "PRINTU", str(MAX - 1 - x) ])
+
+    source += "\t\tLOAD R    stack\n"
+    source += "\t\tOUT R     &114\n"
+    expected += [ [340, "PRINTH", "1389" ] ]
+
+    source += "\t\tOUT R &11d\n"
+    expected += [ HALTED ]
+
+    # The data table.
+    source += "&1389:\n"
+
+    for x in range(MAX):
+        source += "\t\t.word {}\n".format(x)
+    source += "data:\n"
+    
+    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = list(expected.prepare(result))
     assert result == expected
 
 
