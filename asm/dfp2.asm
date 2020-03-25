@@ -18,41 +18,41 @@
 		
 .pushns dfp
 
-.equ DFP_BASE R &100			; Base address of the DPF card
+.equ BASE R &100			; Base address of the DPF card
 
 ;;; I/O Registers 
 	
-.equ RX   DFP_BASE &11		        ; Last read byte from DFP console
-.equ TX   DFP_BASE &11		        ; Write to the DFP console
-.equ ICR  DFP_BASE &0a		        ; ICR: interrupt control register
-.equ ISR  DFP_BASE &0a		        ; ISR: interrupt status register
+.equ RX   BASE &11		        ; Last read byte from DFP console
+.equ TX   BASE &11		        ; Write to the DFP console
+.equ ICR  BASE &0a		        ; ICR: interrupt control register
+.equ ISR  BASE &0a		        ; ISR: interrupt status register
 
 ;;; Other extended instructions have been moved to the DFP namespace to keep the
 ;;; global namespace clean.
-.equ SOR	OUT DFP_BASE &00	; SOR: set Output Register
-.equ LSR        IN  DFP_BASE &00	; LSR: load Switch Register
-.equ LDSR       IN  DFP_BASE &01	; LDSR: load DIP switch register
-.equ ENEF	OUT DFP_BASE &08	; ENEF: enable feature
-.equ DISEF	OUT DFP_BASE &09	; DISEF: disable feature
-.equ SENTINEL	OUT DFP_BASE &0f	; SENTINEL instruction
-.equ PRINTA     OUT DFP_BASE &10	; Print out an address
+.equ SOR	OUT BASE &00		; SOR: set Output Register
+.equ LSR        IN  BASE &00		; LSR: load Switch Register
+.equ LDSR       IN  BASE &01		; LDSR: load DIP switch register
+.equ ENEF	OUT BASE &08		; ENEF: enable feature
+.equ DISEF	OUT BASE &09		; DISEF: disable feature
+.equ SENTINEL	OUT BASE &0f		; SENTINEL instruction
+.equ PRINTA     OUT BASE &10		; Print out an address
 .equ PRINTC     OUT TX			; Print out a character
-.equ PRINTD     OUT DFP_BASE &12	; Print AC in base 10, signed
-.equ PRINTU     OUT DFP_BASE &13	; Print AC in base 10, unsigned
-.equ PRINTH     OUT DFP_BASE &14	; Print AC in base 16
-.equ PRINTB     OUT DFP_BASE &15	; Print AC in base 2
-.equ PRINTSP    OUT DFP_BASE &16	; Print out a space
-.equ PRINTNL    OUT DFP_BASE &17	; Print out a newline
-.equ DEBUGON    OUT DFP_BASE &18	; Start tracing (slow)
-.equ DEBUGOFF   OUT DFP_BASE &19	; Stop tracing (slow)
-.equ DUMP       OUT DFP_BASE &1a	; Dump current state
-.equ PRINTHI    OUT DFP_BASE &1b	; Set a HI word for PRINTLO
-.equ PRINTLO    OUT DFP_BASE &1c	; Print out HI:LO words
-.equ SUCCESS    OUT DFP_BASE &1e	; Assert: true
-.equ HALT	OUT DFP_BASE &1d	; Halt the system
-.equ FAIL       OUT DFP_BASE &1f	; Assert: false
+.equ PRINTD     OUT BASE &12		; Print AC in base 10, signed
+.equ PRINTU     OUT BASE &13		; Print AC in base 10, unsigned
+.equ PRINTH     OUT BASE &14		; Print AC in base 16
+.equ PRINTB     OUT BASE &15		; Print AC in base 2
+.equ PRINTSP    OUT BASE &16		; Print out a space
+.equ PRINTNL    OUT BASE &17		; Print out a newline
+.equ DEBUGON    OUT BASE &18		; Start tracing (slow)
+.equ DEBUGOFF   OUT BASE &19		; Stop tracing (slow)
+.equ DUMP       OUT BASE &1a		; Dump current state
+.equ PRINTHI    OUT BASE &1b		; Set a HI word for PRINTLO
+.equ PRINTLO    OUT BASE &1c		; Print out HI:LO words
+.equ SUCCESS    OUT BASE &1e		; Assert: true
+.equ HALT	OUT BASE &1d		; Halt the system
+.equ FAIL       OUT BASE &1f		; Assert: false
 
-.equ QEF        IN dfp.DFP_BASE &08	; QEF: query features (see below)
+.equ QEF        IN dfp.BASE &08		; QEF: query features (see below)
 
 ;;; Flags for the QEF instruction
 
