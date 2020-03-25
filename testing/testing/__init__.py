@@ -214,7 +214,8 @@ def read_pasm(tmpdir):
     return pasm
 
 
-def run_on_verilog_emu(capsys, tmpdir, source, cftasm_args=None, verilog_args=None):
+def run_on_verilog_emu(capsys, tmpdir, source, timeout=20000000,
+                       cftasm_args=None, verilog_args=None):
     """Assemble a program and run it using the verilog emulator."""
 
     # First, assemble the script.
@@ -233,8 +234,9 @@ def run_on_verilog_emu(capsys, tmpdir, source, cftasm_args=None, verilog_args=No
         assert os.path.exists(fname), "Verilog image {} missing".format(fname)
 
     # Okay, now run it with Verilog.
-    if verilog_args is None:
-        args = [ "+rom={}".format(tmpdir.join("a")) ]
+    args = [ "+rom={}".format(tmpdir.join("a")), "+timeout={}".format(timeout) ]
+    if verilog_args is not None:
+        args += verilog_args
 
     return run_verilog_testbench(capsys, 'cft2019', args)
 
