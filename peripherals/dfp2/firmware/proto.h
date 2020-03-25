@@ -254,6 +254,7 @@ extern volatile uistate_t uistate;
 #define STR_IRERR   "924 IR mismatch. Wrote "
 
 #define STR_HLTTO   "930 Timeout waiting for processor halt.\n"
+#define STR_TIMEOUT "931 Timeout.\n" // This is currenly only used for Verilog testing
 
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
