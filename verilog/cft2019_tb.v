@@ -87,9 +87,16 @@ module cft2019_tb();
       #1000 nreset_drv = 1'b1;
 
       if ($value$plusargs("timeout=%d", timeout)) begin
-	 #(timeout) $finish;
+	 //$display("Timeout set to %0d.", timeout);
+	 #(timeout) begin
+	    $display("931 Set timeout expired");
+	    $finish;
+	 end
       end else begin
-	 #1000000 $finish;      // Terminate simulation
+	 #100000 begin
+	    $display("931 Default timeout expired");
+	    $finish;      // Terminate simulation
+	 end
       end
    end
 
@@ -98,6 +105,13 @@ module cft2019_tb();
    always @(cft.card_dfp.halting) begin
       //->cft.mem.dump_core;
       #20000 $finish;
+   end
+
+   always @(db) begin
+      #70 if (nmem == 1'b0 && db === 16'bZ) begin
+	 $display("346 Bus error");
+	 $finish;
+      end
    end
 
    // Connect the DUT

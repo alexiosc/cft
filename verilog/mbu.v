@@ -218,10 +218,14 @@ module mbu (nreset,
    wire 	nrg, cur0, cur1, cur2;
    assign #4 nrg = !nrmbp;
 
+   wire 	nir_idxreg;
+   flipflop_74h ff_idx(.d(1'b0), .clk(t34), .nset(nir_idx), .nrst(nreset),
+		       .nq(nir_idxreg));
+
    // First stage mux, choose between IR and AB as source for AR indexing.
-   mux_2g157 rmux1_0 (.a(ir[0]), .b(waddr[0]), .sel(nir_idx), .ng(1'b0), .y(cur0));
-   mux_2g157 rmux1_1 (.a(ir[1]), .b(waddr[1]), .sel(nir_idx), .ng(1'b0), .y(cur1));
-   mux_2g157 rmux1_2 (.a(ir[2]), .b(1'b0),     .sel(nir_idx), .ng(1'b0), .y(cur2));
+   mux_2g157 rmux1_0 (.a(ir[0]), .b(waddr[0]), .sel(nir_idxreg), .ng(1'b0), .y(cur0));
+   mux_2g157 rmux1_1 (.a(ir[1]), .b(waddr[1]), .sel(nir_idxreg), .ng(1'b0), .y(cur1));
+   mux_2g157 rmux1_2 (.a(ir[2]), .b(1'b0),     .sel(nir_idxreg), .ng(1'b0), .y(cur2));
 
    // Second stage mux, choose between the previous stage and AB[2:0].
    mux_2g157 rmux2_0 (.a(cur0), .b(ab[0]), .sel(nwar), .ng(nrg), .y(ra[0]));

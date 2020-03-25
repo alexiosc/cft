@@ -74,6 +74,7 @@ int main(int argc, char **argv)
 			if (IS_ACTION_CLL(hx)) add(buf2, "cll");
 			if (IS_ACTION_STI(hx)) add(buf2, "sti");
 			if (IS_ACTION_CLI(hx)) add(buf2, "cli");
+			if (IS_ACTION_IDX(hx)) add(buf2, "idx");
 			if (IS_ACTION_SRU(hx)) add(buf2, "sru");
 
 			if (IS_ACTION_INCPC(hx)) add(buf2, "pc++");
