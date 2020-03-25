@@ -2529,10 +2529,10 @@ start STORE, I=1, R=0, IDX=XX;
       MEMREAD(mbp, agl, dr);                    // 02 DR ← mem[MBP:AGL]
       MEMWRITE(mbd, dr, ac), END;               // 04 mem[MBD:DR] ← AC
 
-// (4) & (5) STORE, Register Indirect and Memory Nank-Relative Indirect
+// (4) & (5) STORE, Register Indirect and Memory Bank-Relative Indirect
 start STORE, I=1, R=1, IDX=XX;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
-      MEMREAD(mbp, agl, dr);                    // 02 DR ← mem[MBP:AGL]
+      MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBZ:AGL]
       MEMWRITE_IDX(mbz, dr, ac), END;           // 04 mem[MBZ:DR] ← AC
 
 // (6) STORE, Auto-Increment
@@ -2891,7 +2891,7 @@ start ADD, I=1, R=0, IDX=XX;
 start ADD, I=1, R=1, IDX=XX;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBZ:AGL]
-      MEMREAD_IDX(mbd, dr, alu_b);              // 04 B ← mem[MBP:DR]
+      MEMREAD_IDX(mbd, dr, alu_b);              // 04 B ← mem[MBD:DR]
       SET(ac, alu_add), END;                    // 06 AC ← AC + B
 
 // (6) ADD, Auto-Increment
