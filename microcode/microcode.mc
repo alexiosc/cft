@@ -509,12 +509,12 @@ start RST=0, INT=X, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 // Load MBP from interrupt vector address.
 // Load PC from interrupt vector address+1.
 //
-// The Interrupt handled is currently 10 cycles long, which gives 2.5µs
+// The Interrupt handler is currently 10 cycles long, which gives 2.5µs
 // latency. The Return process will probably be identical.
 
 start RST=1, INT=0, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
       STACK_PUSH(mbp_flags);                    // 00 mem[MBS:SP++] ← flags:MBP
-      action_cli, STACK_PUSH(pc);              // 02 mem[MBS:SP++] ← PC; CLI
+      action_cli, STACK_PUSH(pc);               // 02 mem[MBS:SP++] ← PC; CLI
       STACK_PUSH(ac);                           // 04 mem[MBS:SP++] ← AC
       SET(pc, cs_isrvec0);                      // 06 PC ← 0002
       SET(mbp, cs_isrvec1), END;                // 07 MBP ← 0003
@@ -772,7 +772,7 @@ start TDA;
 // custom software interrupts or traps.
 
 start ISR;
-      action_cli, STACK_PUSH(mbp_flags);       // 00 mem[MBS:SP++] ← flags:MBP; CLI
+      action_cli, STACK_PUSH(mbp_flags);        // 00 mem[MBS:SP++] ← flags:MBP; CLI
       STACK_PUSH(pc);                           // 02 mem[MBS:SP++] ← PC
       STACK_PUSH(ac);                           // 04 mem[MBS:SP++] ← AC
       SET(pc, cs_isrvec0);                      // 06 PC ← 0002
