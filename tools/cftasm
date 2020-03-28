@@ -2100,19 +2100,18 @@ class CFTAssembler(object):
         if self.args.verilog:
             basename = os.path.splitext(self.args.out_file)[0]
 
-            lo_ram = open('{}-00.list'.format(basename), 'wt')
-            hi_ram = open('{}-01.list'.format(basename), 'wt')
-
             if self.model == self.MODEL_LONG and \
                self.minaddr < 0x800000 and self.maxaddr > 0x80000:
+                lo_ram = open('{}-ram-00.list'.format(basename), 'wt')
+                hi_ram = open('{}-ram-01.list'.format(basename), 'wt')
                 for val in self.mem[self.minaddr : 0x800000]:
                     lo_ram.write("{:>08b}\n".format(val & 0xff))
                     hi_ram.write("{:>08b}\n".format(val >> 8))
                 lo_ram.close()
                 hi_ram.close()
 
-                lo_rom = open('{}-02.list'.format(basename), 'wt')
-                hi_rom = open('{}-03.list'.format(basename), 'wt')
+                lo_rom = open('{}-rom-00.list'.format(basename), 'wt')
+                hi_rom = open('{}-rom-00.list'.format(basename), 'wt')
                 for val in self.mem[0x800000 : self.maxaddr]:
                     lo_rom.write("{:>08b}\n".format(val & 0xff))
                     hi_rom.write("{:>08b}\n".format(val >> 8))
@@ -2120,6 +2119,8 @@ class CFTAssembler(object):
                 hi_rom.close()
 
             else:
+                lo_ram = open('{}-00.list'.format(basename), 'wt')
+                hi_ram = open('{}-01.list'.format(basename), 'wt')
                 for val in self.mem[self.minaddr : self.maxaddr + 1]:
                     lo_ram.write("{:>08b}\n".format(val & 0xff))
                     hi_ram.write("{:>08b}\n".format(val >> 8))
