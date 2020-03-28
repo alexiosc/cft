@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
-[*] Sat Mar 28 16:35:18 2020
+[*] Sat Mar 28 17:15:04 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/cft2019_tb.vcd"
-[dumpfile_mtime] "Sat Mar 28 16:34:58 2020"
-[dumpfile_size] 1427611
+[dumpfile_mtime] "Sat Mar 28 17:09:40 2020"
+[dumpfile_size] 301084741
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/cft2019_tb.sav"
-[timestart] 79360000
+[timestart] 2644000
 [size] 1920 1019
 [pos] 2425 29
-*-18.057100 80404000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-20.083572 6189750 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] cft2019_tb.
 [treeopen] cft2019_tb.cft.
 [treeopen] cft2019_tb.cft.card_bus.
@@ -182,6 +182,8 @@ cft2019_tb.cft.card_bus.mbu.mb4[7:0]
 cft2019_tb.cft.card_bus.mbu.mb5[7:0]
 cft2019_tb.cft.card_bus.mbu.mb6[7:0]
 cft2019_tb.cft.card_bus.mbu.mb7[7:0]
+@29
+cft2019_tb.cft.card_bus.mbu.ndis
 @28
 cft2019_tb.cft.card_bus.mbu.ra[1:0]
 cft2019_tb.cft.card_bus.mbu.nren0
@@ -224,13 +226,13 @@ cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
 -Registers
 @800200
 -Buses
-@23
+@22
 [color] 1
 cft2019_tb.cft.ibus[15:0]
-@c00023
+@c00022
 [color] 2
 cft2019_tb.cft.ab[23:0]
-@29
+@28
 (0)cft2019_tb.cft.ab[23:0]
 (1)cft2019_tb.cft.ab[23:0]
 (2)cft2019_tb.cft.ab[23:0]
@@ -255,12 +257,12 @@ cft2019_tb.cft.ab[23:0]
 (21)cft2019_tb.cft.ab[23:0]
 (22)cft2019_tb.cft.ab[23:0]
 (23)cft2019_tb.cft.ab[23:0]
-@1401201
+@1401200
 -group_end
-@23
+@22
 [color] 4
 cft2019_tb.cft.db[15:0]
-@29
+@28
 [color] 3
 cft2019_tb.cft.nmem
 [color] 3

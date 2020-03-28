@@ -117,8 +117,8 @@ module mbu (nreset,
    // U18: the MBU enable FF. We output complementary active-low pair (nEN,
    // nDIS). nEN is also connected to a LED, but there's a solder jumper to
    // disconnect it if the current draw becomes too much.
-   wire 	nen, ndis;
-   flipflop_74h ff_init(.d(1'b1), .clk(1'b1), .nset(nreset), .nrst(niombr),
+   wire 	nen, ndis, niowmbr;
+   flipflop_74h ff_init(.d(1'b1), .clk(1'b1), .nset(nreset), .nrst(niowmbr),
 			.q(nen), .nq(ndis));
 
    ///////////////////////////////////////////////////////////////////////////////
@@ -178,7 +178,7 @@ module mbu (nreset,
    mux_2g157 wmux1 (.a(ab[1]), .b(1'b0), .sel(niombr), .ng(1'b0), .y(wa[1]));
 
    // The third mux selects the correct bank of 670s for writing.
-   wire 	nw0, nw1,  niowmbr;
+   wire 	nw0, nw1;
    mux_2g157 wmux2 (.a(ab[2]), .b(1'b0), .sel(niombr), .ng(1'b0), .y(nw0), .ny(nw1));
 
    // And then generate write enables when (niombr and nw) or nmbp are asserted:

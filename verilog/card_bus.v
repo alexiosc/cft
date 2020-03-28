@@ -83,7 +83,7 @@ module card_bus(
    inout 	 nws;		// Open drain, handled by BUS board
 
    output [23:0] ab;		// 24-bit address bus
-   input [15:0]  db;		// 16-bit data bus
+   inout [15:0]  db;		// 16-bit data bus
 
    input [7:0] 	 nirqn;		// Open drain extended IRQs (INT board)
 
