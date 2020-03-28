@@ -41,6 +41,16 @@ def test_short_model(capsys, tmpdir):
 
 
 @pytest.mark.cftasm
+def test_short_model_memsize_warning(capsys, tmpdir):
+    assemble(tmpdir, """
+    &123456:    .data &feed &cafe
+    """, args=["--model", "short"])
+
+    out, err = get_capsys_outerr(capsys)
+    assert ":2: warning: Address &123456 is beyond the maximum address for this model (&ffff)" in err
+
+
+@pytest.mark.cftasm
 def test_verilog_output(capsys, tmpdir):
     assemble(tmpdir, """
     &0:    .fill 256 &1234
@@ -150,7 +160,7 @@ def test_packed_string(capsys, tmpdir):
         "Wrong object size generated (14W expected)"
 
     assembled_data = read_cft_bin_file(fname, 7)
-    print(assembled_data)
+
     # Data is byte-swapped when Python reads it a 16-bit ints.
     expected_data = array.array('H', [0x6548, 0x6c6c, 0x2c6f, 0x7720, 0x726f, 0x646c, 0x0a21])
     assert len(assembled_data) == 7
@@ -181,14 +191,13 @@ def test_longstring(capsys, tmpdir):
         "Wrong object size generated (14W expected)"
 
     assembled_data = read_cft_bin_file(fname, 7)
-    print(assembled_data)
+
     # Data is byte-swapped when Python reads it a 16-bit ints.
     expected_data = array.array('H', [0x6548, 0x6c6c, 0x2c6f, 0x7720, 0x726f, 0x646c, 0x0a21])
     assert len(assembled_data) == 7
     assert assembled_data == expected_data, "Assembled string did not match"
 
     # Try reading the file as a byte string too
-    print(fname)
     with open(fname, "rt") as fp:
         data = fp.read()
         assert data == test, "Byte stream output did not match."
@@ -213,14 +222,13 @@ def test_macro(capsys, tmpdir):
         "Wrong object size generated (14W expected)"
 
     assembled_data = read_cft_bin_file(fname, 7)
-    print(assembled_data)
+
     # Data is byte-swapped when Python reads it a 16-bit ints.
     expected_data = array.array('H', [0x6548, 0x6c6c, 0x2c6f, 0x7720, 0x726f, 0x646c, 0x0a21])
     assert len(assembled_data) == 7
     assert assembled_data == expected_data, "Assembled string did not match"
 
     # Try reading the file as a byte string too
-    print(fname)
     with open(fname, "rt") as fp:
         data = fp.read()
         assert data == test, "Byte stream output did not match."
@@ -258,7 +266,7 @@ def test_equ_and_fields(capsys, tmpdir):
         "Wrong object size generated (16W expected)"
 
     assembled_data = read_cft_bin_file(fname, 16)
-    print(assembled_data)
+
     # Data is byte-swapped when Python reads it a 16-bit ints.
     expected_data = array.array('H', [42, 42, 42, 42, 42, 65322, 298, 43, 43, 47, 0, 42, 42, 42, 43, 299])
     assert len(assembled_data) == 16
@@ -290,7 +298,7 @@ def test_at_expressions(capsys, tmpdir):
         "Wrong object size generated (11W expected)"
 
     assembled_data = read_cft_bin_file(fname, 11)
-    print(assembled_data)
+
     # Data is byte-swapped when Python reads it a 16-bit ints.
     expected_data = array.array('H', [0, 1, 2, 6, 5, 7, 3, 28, 52, 420, 6])
     assert len(assembled_data) == 11
@@ -326,7 +334,7 @@ def test_basic_assembly(capsys, tmpdir):
         "Wrong object size generated (11W expected)"
 
     assembled_data = read_cft_bin_file(fname, 11)
-    print(assembled_data)
+
     # Data is byte-swapped when Python reads it a 16-bit ints.
     expected_data = array.array('H', [0x4001, 0x1400, 0x6408, 0x6409, 0x640a, 0x640b, 0x169a, 0x9400, 0xa400, 0x4008, 0x400a])
     assert len(assembled_data) == 11
@@ -398,7 +406,7 @@ def test_namespaces(capsys, tmpdir):
         "Wrong object size generated (6W expected)"
 
     assembled_data = read_cft_bin_file(fname, 6)
-    print(assembled_data)
+
     # Data is byte-swapped when Python reads it a 16-bit ints.
     expected_data = array.array('H', [42, 43, 44, 42, 43, 44])
     assert len(assembled_data) == 6
@@ -433,7 +441,7 @@ def test_scope(capsys, tmpdir):
         "Wrong object size generated (4W expected)"
 
     assembled_data = read_cft_bin_file(fname, 4)
-    print(assembled_data)
+
     # Data is byte-swapped when Python reads it a 16-bit ints.
     expected_data = array.array('H', [42, 43, 44, 42])
     assert len(assembled_data) == 4
@@ -477,7 +485,7 @@ def test_include(capsys, tmpdir):
         "Wrong object size generated (19W expected)"
 
     assembled_data = read_cft_bin_file(fname, 19)
-    print(assembled_data)
+
     # Data is byte-swapped when Python reads it a 16-bit ints.
     expected_data = array.array('H', [ 0x408, 0, 1, 2, 3, 0, 1, 2, 3, 4, 5, 6, 7,
                                        0x651d, 0x5500, 0x6500, 0x650f, 0x651e, 0x651f ])
