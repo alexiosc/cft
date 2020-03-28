@@ -375,7 +375,11 @@ class CFTAssembler(object):
                        help='Set symbol file output (default: OUTPUT-FILE.sym).')
 
         p.add_argument('-V', '--verilog', action="store_true",
-                       help="""Output verilog .list files.""")
+                       help="""Output verilog .list files. If generating long model images, and the object
+                       file addresses span the RAM/ROM divide (&80:0000), two
+                       sets of Verilog list images will be generated. The first
+                       two will be MSB and LSB list files for low memory (RAM),
+                       the other two for ROM.""")
 
         # p.add_option('', '--xpm',
         #              help='Output an XPM file mapping the memory image. ' + 
@@ -2078,7 +2082,7 @@ class CFTAssembler(object):
 
             # Close it, just in case.
             out.close()
-            
+
 
     def write_object(self):
         """Write object code."""
@@ -2093,25 +2097,34 @@ class CFTAssembler(object):
             for addr in range(a0, a1):
                 yield (addr, self.mem[addr & self.addr_mask])
 
-
         if self.args.verilog:
-            # Also write two Verilog ROM images (low and high half-words)
             basename = os.path.splitext(self.args.out_file)[0]
-            lo = open('{}-00.list'.format(basename), 'wt')
-            hi = open('{}-01.list'.format(basename), 'wt')
-            # for addr, val in yieldmem():
-            #     lo.write("{}\t// {:>04x}: {:>04x}\n".format(bin(val & 0xff)[2:].zfill(8), addr, val))
-            #     hi.write("{}\t// {:>04x}: {:>04x}\n".format(bin((val >> 8) & 0xff)[2:].zfill(8), addr, val))
-            for val in self.mem[self.minaddr : self.maxaddr + 1]:
-                lo.write("{:>08b}\n".format(val & 0xff))
-                hi.write("{:>08b}\n".format(val >> 8))
-            # else:
-            #     for addr, val in self.yieldmem():
-            #         lo.write(bin(val & 0xff)[2:].zfill(8) + '\n')
-            #         hi.write(bin((val >> 8) & 0xff)[2:].zfill(8) + '\n')
 
-            lo.close()
-            hi.close()
+            lo_ram = open('{}-00.list'.format(basename), 'wt')
+            hi_ram = open('{}-01.list'.format(basename), 'wt')
+
+            if self.model == self.MODEL_LONG and \
+               self.minaddr < 0x800000 and self.maxaddr > 0x80000:
+                for val in self.mem[self.minaddr : 0x800000]:
+                    lo_ram.write("{:>08b}\n".format(val & 0xff))
+                    hi_ram.write("{:>08b}\n".format(val >> 8))
+                lo_ram.close()
+                hi_ram.close()
+
+                lo_rom = open('{}-02.list'.format(basename), 'wt')
+                hi_rom = open('{}-03.list'.format(basename), 'wt')
+                for val in self.mem[0x800000 : self.maxaddr]:
+                    lo_rom.write("{:>08b}\n".format(val & 0xff))
+                    hi_rom.write("{:>08b}\n".format(val >> 8))
+                lo_rom.close()
+                hi_rom.close()
+
+            else:
+                for val in self.mem[self.minaddr : self.maxaddr + 1]:
+                    lo_ram.write("{:>08b}\n".format(val & 0xff))
+                    hi_ram.write("{:>08b}\n".format(val >> 8))
+                lo_ram.close()
+                hi_ram.close()
             
 
 if __name__ == "__main__":
