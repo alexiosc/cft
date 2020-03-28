@@ -277,13 +277,25 @@ def run_on_verilog_emu(capsys, tmpdir, source, timeout=20000000,
     sys.stdout.write(out)
     sys.stderr.write(err)
 
-    # Ensure we have verilog output.
-    for f in ("a-00.list", "a-01.list"):
-        fname = str(tmpdir.join(f))
-        assert os.path.exists(fname), "Verilog image {} missing".format(fname)
+    # Check if we have -rom and -ram Verilog list files and use those automatically.
+    found_single = os.path.exists(os.path.join(str(tmpdir), "a-00.list")) and \
+        os.path.exists(os.path.join(str(tmpdir), "a-01.list"))
+
+    found_split = os.path.exists(os.path.join(str(tmpdir), "a-ram-00.list")) and \
+        os.path.exists(os.path.join(str(tmpdir), "a-ram-01.list")) and \
+        os.path.exists(os.path.join(str(tmpdir), "a-rom-00.list")) and \
+        os.path.exists(os.path.join(str(tmpdir), "a-rom-01.list"))
+
+    assert found_single or found_split, "Full Verilog .list images not found"
+
+    if found_single:
+        args = [ "+rom={}".format(tmpdir.join("a")) ]
+    elif found_split:
+        args = [ "+ram={}".format(tmpdir.join("a-ram")),
+                 "+rom={}".format(tmpdir.join("a-rom")) ]
 
     # Okay, now run it with Verilog.
-    args = [ "+rom={}".format(tmpdir.join("a")), "+timeout={}".format(timeout) ]
+    args += [ "+timeout={}".format(timeout) ]
     if verilog_args is not None:
         args += verilog_args
 
