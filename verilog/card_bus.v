@@ -183,7 +183,7 @@ module card_bus(
 	    .nr(nr),
 	    .nw(nw),
 	    .ab(ab[7:0]),
-	    .db(db[7:0]),
+	    .db(db),		// Real hardware only receives db[7:0]
 	    .nsysdev(nsysdev),
 	    .nfpram_rom(nfpram_rom),
 	    .nwar(nwrite_ar) // Note port naming difference

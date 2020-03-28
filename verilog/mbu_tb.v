@@ -365,7 +365,7 @@ module reg_mbr_tb();
 	    .aext(aext),
 	    .nr(nr), .nw(nw),
 	    .ab(ab_real[7:0]),
-	    .db(db_real[7:0]),
+	    .db(db_real),
 	    .nsysdev(nsysdev),
 	    .nwar(nwar),
 	    .nfpram_rom(nfpram_rom_real)

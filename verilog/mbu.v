@@ -60,7 +60,7 @@ module mbu (nreset,
    
    inout [7:0] 	ibus;
    inout [7:0] 	ab;
-   inout [7:0] 	db;
+   inout [15:0] db;		// Real hardware only uses 7:0.
    
    output [7:0] aext;
    output 	nwar;
@@ -246,6 +246,13 @@ module mbu (nreset,
 
    buffer_541 buf_ibus (.noe1(nrmbp), .noe2(1'b0), .a(aext), .y(ibus[7:0]));
    buffer_541 buf_db   (.noe1(niombr), .noe2(nr), .a(aext), .y(db[7:0]));
+
+   // Note that the RMB instruction only drives the lower 8 bits. On real
+   // hardware, Bus Hold would make the MSB equal to the last memory operation,
+   // which will almost certainly be an instruction fetch, so &54 would be
+   // returned. We do this here by adding an MSB buffer, which SHOULD NOT be
+   // present in real hardware.
+   buffer_541 buf_db_simulator_only (.noe1(niombr), .noe2(nr), .a(8'h54), .y(db[15:8]));
 
    ///////////////////////////////////////////////////////////////////////////////
    //
