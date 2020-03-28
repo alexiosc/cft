@@ -185,8 +185,6 @@ def test_SMB(capsys, tmpdir):
 
             HALT
     """
-
-    assemble(tmpdir, source, long=True)
     
     fname = str(tmpdir.join("a.bin"))
     assert os.path.getsize(fname) == 0x10e0202, \
@@ -249,8 +247,6 @@ def test_MBU_reset(capsys, tmpdir):
             HALT
     """
 
-    assemble(tmpdir, source, long=True)
-
     # Note that the RMB instruction only drives the lower 8 bits of the Data
     # Bus. On real hardware, Bus Hold would make the MSB equal to the last
     # memory operation, which will almost certainly be an instruction fetch, so
@@ -269,9 +265,8 @@ def test_MBU_reset(capsys, tmpdir):
         HALTED
     ])
 
-    result = run_on_verilog_emu(capsys, tmpdir, source, long=True)
+    result = run_on_verilog_emu(capsys, tmpdir, source)
     result = list(expected.prepare(result))
-    pprint.pprint(result)
     assert list(result) == expected
 
 
@@ -320,8 +315,6 @@ def test_RMB(capsys, tmpdir):
             HALT
     """
 
-    assemble(tmpdir, source, long=True)
-
     # Note that the RMB instruction only drives the lower 8 bits of the Data
     # Bus. On real hardware, Bus Hold would make the MSB equal to the last
     # memory operation, which will almost certainly be an instruction fetch, so
@@ -340,9 +333,8 @@ def test_RMB(capsys, tmpdir):
         HALTED
     ])
 
-    result = run_on_verilog_emu(capsys, tmpdir, source, long=True)
+    result = run_on_verilog_emu(capsys, tmpdir, source)
     result = list(expected.prepare(result))
-    pprint.pprint(result)
     assert list(result) == expected
 
 
