@@ -2111,7 +2111,7 @@ class CFTAssembler(object):
                 hi_ram.close()
 
                 lo_rom = open('{}-rom-00.list'.format(basename), 'wt')
-                hi_rom = open('{}-rom-00.list'.format(basename), 'wt')
+                hi_rom = open('{}-rom-01.list'.format(basename), 'wt')
                 for val in self.mem[0x800000 : self.maxaddr]:
                     lo_rom.write("{:>08b}\n".format(val & 0xff))
                     hi_rom.write("{:>08b}\n".format(val >> 8))
