@@ -381,6 +381,16 @@ class CFTAssembler(object):
                        two will be MSB and LSB list files for low memory (RAM),
                        the other two for ROM.""")
 
+        p.add_argument('--verilog-ram-size', metavar="KWORDS", default=512, type=int,
+                       help="""Set the maximum RAM size for Verilog image generation (long model only). The
+                       default is meant for faster image generation. (default:
+                       %(default)s)""")
+        
+        p.add_argument('--verilog-rom-size', metavar="KWORDS", default=512, type=int,
+                       help="""Set the maximum ROM size for Verilog image generation (long model only). The
+                       default is meant for faster image generation. (default:
+                       %(default)s)""")
+
         # p.add_option('', '--xpm',
         #              help='Output an XPM file mapping the memory image. ' + 
         #              'This is merely a visualisation toy. (default: output nothing).')
@@ -2090,13 +2100,6 @@ class CFTAssembler(object):
         with open(self.args.out_file, 'wb') as f:
             self.mem[self.minaddr : self.maxaddr + 1].tofile(f)
 
-
-        def yieldmem():
-            a0 = self.minaddr
-            a1 = self.maxaddr + 1
-            for addr in range(a0, a1):
-                yield (addr, self.mem[addr & self.addr_mask])
-
         if self.args.verilog:
             basename = os.path.splitext(self.args.out_file)[0]
 
@@ -2104,17 +2107,24 @@ class CFTAssembler(object):
                self.minaddr < 0x800000 and self.maxaddr > 0x80000:
                 lo_ram = open('{}-ram-00.list'.format(basename), 'wt')
                 hi_ram = open('{}-ram-01.list'.format(basename), 'wt')
-                for val in self.mem[self.minaddr : 0x800000]:
-                    lo_ram.write("{:>08b}\n".format(val & 0xff))
-                    hi_ram.write("{:>08b}\n".format(val >> 8))
+                maxaddr = min(0x800000, self.args.verilog_ram_size << 10)
+                lo_ram.write('\n'.join(hex(val & 0xff)[2:] for val in self.mem[self.minaddr : maxaddr]))
+                hi_ram.write('\n'.join(hex(val >> 8)[2:]   for val in self.mem[self.minaddr : maxaddr]))
+                # for val in self.mem[self.minaddr : 0x800000]:
+                #     lo_ram.write("{:>08b}\n".format(val & 0xff))
+                #     hi_ram.write("{:>08b}\n".format(val >> 8))
                 lo_ram.close()
                 hi_ram.close()
 
                 lo_rom = open('{}-rom-00.list'.format(basename), 'wt')
                 hi_rom = open('{}-rom-01.list'.format(basename), 'wt')
-                for val in self.mem[0x800000 : self.maxaddr]:
-                    lo_rom.write("{:>08b}\n".format(val & 0xff))
-                    hi_rom.write("{:>08b}\n".format(val >> 8))
+                maxaddr = min(0x800000, self.args.verilog_ram_size << 10)
+                lo_rom.write('\n'.join(hex(val & 0xff)[2:] for val in self.mem[0x800000 : self.maxaddr]))
+                hi_rom.write('\n'.join(hex(val >> 8)[2:]   for val in self.mem[0x800000 : self.maxaddr]))
+
+                # for val in self.mem[0x800000 : self.maxaddr]:
+                #     lo_rom.write("{:>08b}\n".format(val & 0xff))
+                #     hi_rom.write("{:>08b}\n".format(val >> 8))
                 lo_rom.close()
                 hi_rom.close()
 
