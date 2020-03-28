@@ -349,6 +349,8 @@ class CFTAssembler(object):
             '.endscope': None,
             }
 
+        self.one_off_warnings = dict()
+
         
 
 
@@ -549,6 +551,15 @@ class CFTAssembler(object):
     def warn(self, msg):
         """Output a warning message."""
         self._msg('warning: ' + msg)
+
+
+    def warn_once(self, key, msg):
+        """Warn once per job."""
+        if key in self.one_off_warnings:
+            return
+        self.warn(msg)
+        self.warn("The warning above will only be shown once.")
+        self.one_off_warnings[key] = 1
 
 
     def error(self, msg):
@@ -763,6 +774,10 @@ class CFTAssembler(object):
         self.addr = a & self.addr_mask
         self.jumped = True
         self.wrap = False
+        if a > self.memsize:
+            self.warn_once("memsize_warning",
+                           "Address &{:>x} is beyond the maximum address for this model (&{})".format(
+                               a, self.fmt_addr(self.memsize - 1)))
 
 
     def inc_addr(self, by=1):
