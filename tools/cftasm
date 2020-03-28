@@ -2107,9 +2107,9 @@ class CFTAssembler(object):
                self.minaddr < 0x800000 and self.maxaddr > 0x80000:
                 lo_ram = open('{}-ram-00.list'.format(basename), 'wt')
                 hi_ram = open('{}-ram-01.list'.format(basename), 'wt')
-                maxaddr = min(0x800000, self.args.verilog_ram_size << 10)
-                lo_ram.write('\n'.join(hex(val & 0xff)[2:] for val in self.mem[self.minaddr : maxaddr]))
-                hi_ram.write('\n'.join(hex(val >> 8)[2:]   for val in self.mem[self.minaddr : maxaddr]))
+                maxaddr = min(0x800000, (self.args.verilog_ram_size << 10) + 1)
+                lo_ram.write('\n'.join(bin(val & 0xff)[2:] for val in self.mem[self.minaddr : maxaddr]))
+                hi_ram.write('\n'.join(bin(val >> 8)[2:]   for val in self.mem[self.minaddr : maxaddr]))
                 # for val in self.mem[self.minaddr : 0x800000]:
                 #     lo_ram.write("{:>08b}\n".format(val & 0xff))
                 #     hi_ram.write("{:>08b}\n".format(val >> 8))
@@ -2118,9 +2118,9 @@ class CFTAssembler(object):
 
                 lo_rom = open('{}-rom-00.list'.format(basename), 'wt')
                 hi_rom = open('{}-rom-01.list'.format(basename), 'wt')
-                maxaddr = min(0x800000, self.args.verilog_ram_size << 10)
-                lo_rom.write('\n'.join(hex(val & 0xff)[2:] for val in self.mem[0x800000 : self.maxaddr]))
-                hi_rom.write('\n'.join(hex(val >> 8)[2:]   for val in self.mem[0x800000 : self.maxaddr]))
+                maxaddr = min(0x800000, (self.args.verilog_ram_size << 10) + 1)
+                lo_rom.write('\n'.join(bin(val & 0xff)[2:] for val in self.mem[0x800000 : self.maxaddr]))
+                hi_rom.write('\n'.join(bin(val >> 8)[2:]   for val in self.mem[0x800000 : self.maxaddr]))
 
                 # for val in self.mem[0x800000 : self.maxaddr]:
                 #     lo_rom.write("{:>08b}\n".format(val & 0xff))
