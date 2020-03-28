@@ -217,15 +217,61 @@ def read_pasm(tmpdir):
     return pasm
 
 
+def split_long_image(tmpdir):
+    soup
+    """Splits a single Verilog .list image into RAM and ROM parts to
+    simplify running in the Verilog emulator."""
+
+    dirname = str(tmpdir)
+    fname = os.path.join(dirname, 'a.asm')
+
+    with open(fname, "wt") as f:
+        f.write(source)
+        
+    cftasm = os.path.join(BASEDIR, "tools", "cftasm")
+    asmdir = os.path.join(BASEDIR, "asm")
+    assert os.path.exists(cftasm), "cftasm not found, can't assemble."
+
+    cmd = [ cftasm, "-I", asmdir ]
+    if long:
+        cmd += [ '--model', 'long' ]
+    if args is not None:
+        assert type(args) in [tuple, list], "args must be a tuple or list"
+        cmd += list(args)
+    cmd.append(fname)
+
+    # Assemble
+    pipe = subprocess.Popen(cmd, cwd=str(tmpdir),
+                            stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    (out, err) = pipe.communicate()
+    code = pipe.wait()
+
+    sys.stdout.write(out.decode('utf-8'))
+    sys.stderr.write(err.decode('utf-8'))
+    
+    assert code == 0, "cftasm failed with exit code {}".format(code)
+
+    # subprocess.call("ls -la", shell=True, cwd=str(tmpdir))
+
+    # Make sure we have assembly output
+    assert os.path.exists(str(tmpdir.join('a.bin'))), \
+        "cftasm did not generate {}/a.bin.".format(tmpdir)
+
+    # Check that the assembly step produced the expected files.
+    dir_contents = ['a.asm', 'a.bin', 'a.map', 'a.pasm', 'a.sym']
+    for f in dir_contents:
+        assert os.path.isfile(str(tmpdir.join(f))), "file {}/{} was not created".format(tmpdir, f)
+
+
 def run_on_verilog_emu(capsys, tmpdir, source, timeout=20000000,
-                       cftasm_args=None, verilog_args=None):
+                       long=False, cftasm_args=None, verilog_args=None):
     """Assemble a program and run it using the verilog emulator."""
 
     # First, assemble the script.
     asm_args = ["--verilog"]
     if cftasm_args is not None:
         asm_args += cftasm_args
-    assemble(tmpdir, source, asm_args)
+    assemble(tmpdir, source, long=long, args=asm_args)
 
     out, err = get_capsys_outerr(capsys)
     sys.stdout.write(out)
