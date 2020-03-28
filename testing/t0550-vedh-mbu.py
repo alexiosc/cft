@@ -223,8 +223,60 @@ def test_SMB(capsys, tmpdir):
 
 
 @pytest.mark.verilog
-def test_RMB(capsys, tmpdir):
+def test_MBU_reset(capsys, tmpdir):
+    source = """
+    .include "mbu.asm"
+    .include "dfp2.asm"
 
+    &0:
+            RMB mbu.MB0
+            dfp.PRINTH
+            RMB mbu.MB1
+            dfp.PRINTH
+            RMB mbu.MB2
+            dfp.PRINTH
+            RMB mbu.MB3
+            dfp.PRINTH
+            RMB mbu.MB4
+            dfp.PRINTH
+            RMB mbu.MB5
+            dfp.PRINTH
+            RMB mbu.MB6
+            dfp.PRINTH
+            RMB mbu.MB7
+            dfp.PRINTH
+
+            HALT
+    """
+
+    assemble(tmpdir, source, long=True)
+
+    # Note that the RMB instruction only drives the lower 8 bits of the Data
+    # Bus. On real hardware, Bus Hold would make the MSB equal to the last
+    # memory operation, which will almost certainly be an instruction fetch, so
+    # &54 would be returned. The Verilog version of the MBU simulates this by
+    # driving the DB.
+    expected = ExpectedData([
+        SUCCESS,
+        [ 340, "PRINTH", "5480" ],
+        [ 340, "PRINTH", "5480" ],
+        [ 340, "PRINTH", "5480" ],
+        [ 340, "PRINTH", "5480" ],
+        [ 340, "PRINTH", "5480" ],
+        [ 340, "PRINTH", "5480" ],
+        [ 340, "PRINTH", "5480" ],
+        [ 340, "PRINTH", "5480" ],
+        HALTED
+    ])
+
+    result = run_on_verilog_emu(capsys, tmpdir, source, long=True)
+    result = list(expected.prepare(result))
+    pprint.pprint(result)
+    assert list(result) == expected
+
+
+@pytest.mark.verilog
+def test_RMB(capsys, tmpdir):
     source = """
     .include "mbu.asm"
     .include "dfp2.asm"
