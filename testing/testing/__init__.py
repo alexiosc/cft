@@ -158,10 +158,10 @@ def run_verilog_testbench(capsys, name, args=None):
         yield((int(code), state, comment))
 
 
-def assemble(tmpdir, source, args=None):
+def assemble(tmpdir, source, long=False, args=None):
     """Assemble some source (a string), and make it available to the CFT
-    testbed. If source is not give, use the contents of self.source
-    instead.
+    testbed. If source is not given, use the contents of self.source
+    instead. If long is True, use the long model.
     """
 
     dirname = str(tmpdir)
@@ -175,6 +175,8 @@ def assemble(tmpdir, source, args=None):
     assert os.path.exists(cftasm), "cftasm not found, can't assemble."
 
     cmd = [ cftasm, "-I", asmdir ]
+    if long:
+        cmd += [ '--model', 'long' ]
     if args is not None:
         assert type(args) in [tuple, list], "args must be a tuple or list"
         cmd += list(args)
