@@ -195,7 +195,10 @@ def test_LOAD_I_R_autoinc(capsys, tmpdir):
 @pytest.mark.verilog
 def test_LOAD_I_R_autodec(capsys, tmpdir):
 
-    source = ".equ autodec &380\n"
+    source = """
+    .include "dfp2.asm"
+    .equ autodec &380
+    """
 
     expected = ExpectedData([ SUCCESS ])
 

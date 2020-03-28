@@ -186,10 +186,6 @@ def test_SMB(capsys, tmpdir):
             HALT
     """
     
-    fname = str(tmpdir.join("a.bin"))
-    assert os.path.getsize(fname) == 0x10e0202, \
-        "Wrong object size generated (1,7695,234B = 8,847,617W expected)"
-
     #sys.exit(0)
 
     #assembled_data = read_cft_bin_file(fname, 8847617)
@@ -218,6 +214,10 @@ def test_SMB(capsys, tmpdir):
     result = run_on_verilog_emu(capsys, tmpdir, source, long=True)
     result = list(expected.prepare(result))
     assert list(result) == expected
+
+    fname = str(tmpdir.join("a.bin"))
+    assert os.path.getsize(fname) == 0x10e0202, \
+        "Wrong object size generated (1,7695,234B = 8,847,617W expected)"
 
 
 @pytest.mark.verilog
