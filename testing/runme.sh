@@ -1,1 +1,1 @@
-pytest-3 -v "$@" *py
+pytest-3 --ff --strict -vv "$@" *py

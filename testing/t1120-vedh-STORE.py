@@ -13,6 +13,13 @@ from testing import *
 
 
 @pytest.mark.verilog
+@pytest.mark.emulator
+@pytest.mark.hardware
+@pytest.mark.LOAD
+@pytest.mark.LI
+@pytest.mark.OUT
+@pytest.mark.JMP
+@pytest.mark.STORE
 def test_STORE(capsys, tmpdir):
 
     source = """
@@ -53,6 +60,11 @@ def test_STORE(capsys, tmpdir):
 
 
 @pytest.mark.verilog
+@pytest.mark.emulator
+@pytest.mark.hardware
+@pytest.mark.LI
+@pytest.mark.OUT
+@pytest.mark.STORE
 def test_STORE_I(capsys, tmpdir):
 
     source = """
@@ -101,6 +113,12 @@ def test_STORE_I(capsys, tmpdir):
 
 
 @pytest.mark.verilog
+@pytest.mark.emulator
+@pytest.mark.hardware
+@pytest.mark.LI
+@pytest.mark.OUT
+@pytest.mark.STORE
+@pytest.mark.LOAD
 def test_STORE_R(capsys, tmpdir):
 
     source = """
@@ -147,6 +165,13 @@ def test_STORE_R(capsys, tmpdir):
 
 
 @pytest.mark.verilog
+@pytest.mark.emulator
+@pytest.mark.hardware
+@pytest.mark.LI
+@pytest.mark.OUT
+@pytest.mark.STORE
+@pytest.mark.LOAD
+@pytest.mark.JMP
 def test_STORE_I_R(capsys, tmpdir):
 
     source = """

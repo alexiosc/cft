@@ -13,6 +13,14 @@ from testing import *
 
 
 @pytest.mark.verilog
+@pytest.mark.emulator
+@pytest.mark.hardware
+@pytest.mark.cftasm
+@pytest.mark.MBU
+@pytest.mark.OUT
+@pytest.mark.IN
+@pytest.mark.SMB
+@pytest.mark.RMB
 def test_mbu_asm(capsys, tmpdir):
     """Verify the mbu.asm file is sane."""
 
@@ -74,153 +82,10 @@ def test_mbu_asm(capsys, tmpdir):
 
 
 @pytest.mark.verilog
-def test_SMB(capsys, tmpdir):
-
-    source = """
-    .include "mbu.asm"
-    .include "dfp2.asm"
-
-    &0: .word &dead
-    &000100: .word &0000
-    &010100: .word &1111
-    &020100: .word &2222
-    &030100: .word &3333
-    &040100: .word &4444
-    &050100: .word &5555
-    &060100: .word &6666
-    &070100: .word &7777
-
-    &800100: .word &8888
-    &810100: .word &9999
-    &820100: .word &aaaa
-    &830100: .word &bbbb
-    &840100: .word &cccc
-    &850100: .word &dddd
-    &860100: .word &eeee
-    &870100: .word &ffff
-
-    &800000:
-            LI &80        ; Configure essential MBRs and enable.
-            SMB mbu.MBP
-            LI &00
-            SMB mbu.MBZ
-
-            LI &100       ; Set up reading
-            STORE R &304
-            STORE R &305
-            STORE R &306
-            STORE R &307
-
-            LI &00
-            SMB mbu.MB4
-            LI &01
-            SMB mbu.MB5
-            LI &02
-            SMB mbu.MB6
-            LI &03
-            SMB mbu.MB7
- 
-            LOAD I R &304 ; Expect: 0000
-            dfp.PRINTH
-            LOAD I R &305 ; Expect: 1111
-            dfp.PRINTH
-            LOAD I R &306 ; Expect: 2222
-            dfp.PRINTH
-            LOAD I R &307 ; Expect: 3333
-            dfp.PRINTH
-
-            LI &04
-            SMB mbu.MB4
-            LI &05
-            SMB mbu.MB5
-            LI &06
-            SMB mbu.MB6
-            LI &07
-            SMB mbu.MB7
-
-            LOAD I R &304 ; Expect: 4444
-            dfp.PRINTH
-            LOAD I R &305 ; Expect: 5555
-            dfp.PRINTH
-            LOAD I R &306 ; Expect: 6666
-            dfp.PRINTH
-            LOAD I R &307 ; Expect: 7777
-            dfp.PRINTH
-
-            LI &80
-            SMB mbu.MB4
-            LI &81
-            SMB mbu.MB5
-            LI &82
-            SMB mbu.MB6
-            LI &83
-            SMB mbu.MB7
-
-            LOAD I R &304 ; Expect: 8888
-            dfp.PRINTH
-            LOAD I R &305 ; Expect: 9999
-            dfp.PRINTH
-            LOAD I R &306 ; Expect: aaaa
-            dfp.PRINTH
-            LOAD I R &307 ; Expect: bbbb
-            dfp.PRINTH
-
-            LI &84
-            SMB mbu.MB4
-            LI &85
-            SMB mbu.MB5
-            LI &86
-            SMB mbu.MB6
-            LI &87
-            SMB mbu.MB7
-
-            LOAD I R &304 ; Expect: cccc
-            dfp.PRINTH
-            LOAD I R &305 ; Expect: dddd
-            dfp.PRINTH
-            LOAD I R &306 ; Expect: eeee
-            dfp.PRINTH
-            LOAD I R &307 ; Expect: ffff
-            dfp.PRINTH
-
-            HALT
-    """
-    
-    #sys.exit(0)
-
-    #assembled_data = read_cft_bin_file(fname, 8847617)
-    
-    expected = ExpectedData([
-        SUCCESS,
-        [ 340, "PRINTH", "0000" ],
-        [ 340, "PRINTH", "1111" ],
-        [ 340, "PRINTH", "2222" ],
-        [ 340, "PRINTH", "3333" ],
-        [ 340, "PRINTH", "4444" ],
-        [ 340, "PRINTH", "5555" ],
-        [ 340, "PRINTH", "6666" ],
-        [ 340, "PRINTH", "7777" ],
-        [ 340, "PRINTH", "8888" ],
-        [ 340, "PRINTH", "9999" ],
-        [ 340, "PRINTH", "aaaa" ],
-        [ 340, "PRINTH", "bbbb" ],
-        [ 340, "PRINTH", "cccc" ],
-        [ 340, "PRINTH", "dddd" ],
-        [ 340, "PRINTH", "eeee" ],
-        [ 340, "PRINTH", "ffff" ],
-        HALTED
-    ])
-
-    result = run_on_verilog_emu(capsys, tmpdir, source, long=True)
-    result = list(expected.prepare(result))
-    assert list(result) == expected
-
-    fname = str(tmpdir.join("a.bin"))
-    assert os.path.getsize(fname) == 0x10e0202, \
-        "Wrong object size generated (1,7695,234B = 8,847,617W expected)"
-
-
-@pytest.mark.verilog
+@pytest.mark.emulator
+@pytest.mark.hardware
+@pytest.mark.RMB
+@pytest.mark.IN
 def test_MBU_reset(capsys, tmpdir):
     source = """
     .include "mbu.asm"
@@ -262,74 +127,6 @@ def test_MBU_reset(capsys, tmpdir):
         [ 340, "PRINTH", "5480" ],
         [ 340, "PRINTH", "5480" ],
         [ 340, "PRINTH", "5480" ],
-        HALTED
-    ])
-
-    result = run_on_verilog_emu(capsys, tmpdir, source)
-    result = list(expected.prepare(result))
-    assert list(result) == expected
-
-
-@pytest.mark.verilog
-def test_RMB(capsys, tmpdir):
-    source = """
-    .include "mbu.asm"
-    .include "dfp2.asm"
-
-    &0:
-            LI &80        ; Configure essential MBRs and enable.
-            SMB mbu.MB0
-            LI &ff
-            SMB mbu.MB1
-            LI &fe
-            SMB mbu.MB2
-            LI &fd
-            SMB mbu.MB3
-
-            LI &11
-            SMB mbu.MB4
-            LI &22
-            SMB mbu.MB5
-            LI &33
-            SMB mbu.MB6
-            LI &44
-            SMB mbu.MB7
-
-            RMB mbu.MB0
-            dfp.PRINTH
-            RMB mbu.MB1
-            dfp.PRINTH
-            RMB mbu.MB2
-            dfp.PRINTH
-            RMB mbu.MB3
-            dfp.PRINTH
-            RMB mbu.MB4
-            dfp.PRINTH
-            RMB mbu.MB5
-            dfp.PRINTH
-            RMB mbu.MB6
-            dfp.PRINTH
-            RMB mbu.MB7
-            dfp.PRINTH
-
-            HALT
-    """
-
-    # Note that the RMB instruction only drives the lower 8 bits of the Data
-    # Bus. On real hardware, Bus Hold would make the MSB equal to the last
-    # memory operation, which will almost certainly be an instruction fetch, so
-    # &54 would be returned. The Verilog version of the MBU simulates this by
-    # driving the DB.
-    expected = ExpectedData([
-        SUCCESS,
-        [ 340, "PRINTH", "5480" ],
-        [ 340, "PRINTH", "54ff" ],
-        [ 340, "PRINTH", "54fe" ],
-        [ 340, "PRINTH", "54fd" ],
-        [ 340, "PRINTH", "5411" ],
-        [ 340, "PRINTH", "5422" ],
-        [ 340, "PRINTH", "5433" ],
-        [ 340, "PRINTH", "5444" ],
         HALTED
     ])
 

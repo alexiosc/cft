@@ -13,6 +13,10 @@ from testing import *
 
 
 @pytest.mark.verilog
+@pytest.mark.emulator
+@pytest.mark.hardware
+@pytest.mark.LOAD
+@pytest.mark.JMP
 def test_LOAD(capsys, tmpdir):
 
     source = """
@@ -44,6 +48,10 @@ def test_LOAD(capsys, tmpdir):
 
 
 @pytest.mark.verilog
+@pytest.mark.emulator
+@pytest.mark.hardware
+@pytest.mark.LOAD
+@pytest.mark.OUT
 def test_LOAD_I(capsys, tmpdir):
 
     source = "&0:\n"
@@ -80,6 +88,10 @@ def test_LOAD_I(capsys, tmpdir):
 
 
 @pytest.mark.verilog
+@pytest.mark.emulator
+@pytest.mark.hardware
+@pytest.mark.LOAD
+@pytest.mark.OUT
 def test_LOAD_R(capsys, tmpdir):
 
     source = "&0:\n"
@@ -114,6 +126,11 @@ def test_LOAD_R(capsys, tmpdir):
 
 
 @pytest.mark.verilog
+@pytest.mark.emulator
+@pytest.mark.hardware
+@pytest.mark.LOAD
+@pytest.mark.OUT
+@pytest.mark.JMP
 def test_LOAD_I_R(capsys, tmpdir):
 
     source = "&0:\n"
@@ -157,6 +174,12 @@ def test_LOAD_I_R(capsys, tmpdir):
 
 
 @pytest.mark.verilog
+@pytest.mark.emulator
+@pytest.mark.hardware
+@pytest.mark.LOAD
+@pytest.mark.OUT
+@pytest.mark.JMP
+@pytest.mark.STORE
 def test_LOAD_I_R_autoinc(capsys, tmpdir):
 
     source = ".equ autoinc &340\n"
@@ -193,6 +216,12 @@ def test_LOAD_I_R_autoinc(capsys, tmpdir):
 
 
 @pytest.mark.verilog
+@pytest.mark.emulator
+@pytest.mark.hardware
+@pytest.mark.LOAD
+@pytest.mark.OUT
+@pytest.mark.JMP
+@pytest.mark.STORE
 def test_LOAD_I_R_autodec(capsys, tmpdir):
 
     source = """
@@ -232,6 +261,12 @@ def test_LOAD_I_R_autodec(capsys, tmpdir):
 
 
 @pytest.mark.verilog
+@pytest.mark.emulator
+@pytest.mark.hardware
+@pytest.mark.LOAD
+@pytest.mark.OUT
+@pytest.mark.JMP
+@pytest.mark.STORE
 def test_LOAD_I_R_stack(capsys, tmpdir):
     """Test stack pointer autoindexing. For LOAD, this behaves just like
     autodecrement except the register is decremented BEFORE use."""

@@ -7,6 +7,7 @@ import glob
 import time
 import array
 import random
+import pytest
 import unittest
 import subprocess
 
@@ -53,27 +54,34 @@ class ExpectedData(list):
     #     return True
 
 
-def pytest_configure(config):
-    print("*** CONFIG ***")
-    raise RuntimeError()
-    config.addinivalue_line(
-        "markers", "verilog: this test applies to Verilog emulation.")
-    config.addinivalue_line(
-        "markers", "emulator: this test applies to testing on the C emulator.")
-    config.addinivalue_line(
-        "markers", "hardware: this test applies to hardware testing.")
+# def pytest_configure(config):
+#     print("*** CONFIG ***")
+#     raise RuntimeError()
+#     config.addinivalue_line(
+#         "markers", "verilog: this test applies to Verilog emulation.")
+#     config.addinivalue_line(
+#         "markers", "emulator: this test applies to testing on the C emulator.")
+#     config.addinivalue_line(
+#         "markers", "hardware: this test applies to hardware testing.")
 
-    config.addinivalue_line(
-        "markers", "ctl: the CTL Board.")
-    config.addinivalue_line(
-        "markers", "reg: the REG Board.")
-    config.addinivalue_line(
-        "markers", "bus: the BUS Board.")
-    config.addinivalue_line(
-        "markers", "alu: the ALU Board.")
+#     config.addinivalue_line(
+#         "markers", "ctl: the CTL Board.")
+#     config.addinivalue_line(
+#         "markers", "reg: the REG Board.")
+#     config.addinivalue_line(
+#         "markers", "bus: the BUS Board.")
+#     config.addinivalue_line(
+#         "markers", "alu: the ALU Board.")
 
-    config.addinivalue_line(
-        "markers", "cftasm: the CFT Assembler.")
+#     config.addinivalue_line(
+#         "markers", "cftasm: the CFT Assembler.")
+
+#     # Instruction/unit exercises
+#     config.addinivalue_line("markers", "MBU: the Memory Banking Unit.")
+#     instrs = """IN OUT SMB RMB LI LIA LOAD STORE DSZ JMP"""
+#     for instr in instr.split():
+#         config.addinivalue_line("markers", instr + ": instruction exerciser.")
+#         "markers", "DSZ: instruction exerciser.")
 
 
 def findBaseDir():
@@ -307,15 +315,6 @@ def read_cft_bin_file(fname, size):
         data = array.array('H')
         data.fromfile(f, size)
         return data
-
-
-def test_paths():
-    assert os.path.exists(BASEDIR) and os.path.isdir(BASEDIR), \
-        "BASEDIR not found"
-    assert os.path.exists(VERILOGDIR) and os.path.isdir(VERILOGDIR), \
-        "VERILOGDIR not found"
-    assert os.path.exists(RUN_VERILOG_TEST) and os.access(RUN_VERILOG_TEST, os.X_OK), \
-        "tools/run-verilog-testbench not found or not executable"
 
 
 ###############################################################################

@@ -13,6 +13,9 @@ from testing import *
 
 
 @pytest.mark.verilog
+@pytest.mark.emulator
+@pytest.mark.hardware
+@pytest.mark.LIA
 def test_LIA_R(capsys, tmpdir):
 
     expected = ExpectedData([ SUCCESS ])
@@ -38,6 +41,9 @@ def test_LIA_R(capsys, tmpdir):
 
 
 @pytest.mark.verilog
+@pytest.mark.emulator
+@pytest.mark.hardware
+@pytest.mark.LIA
 def test_LIA(capsys, tmpdir):
 
     expected = ExpectedData([ SUCCESS ])

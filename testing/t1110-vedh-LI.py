@@ -13,6 +13,10 @@ from testing import *
 
 
 @pytest.mark.verilog
+@pytest.mark.emulator
+@pytest.mark.hardware
+@pytest.mark.MBU
+@pytest.mark.LI
 def test_LI(capsys, tmpdir):
 
     expected = ExpectedData([ SUCCESS ])
