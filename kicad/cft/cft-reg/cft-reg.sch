@@ -1,5 +1,6 @@
 EESchema Schematic File Version 4
-EELAYER 30 0
+LIBS:cft-reg-cache
+EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -382,12 +383,7 @@ F 3 "" H 1250 5850 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	1300 5700 1250 5700
-Wire Wire Line
-	1250 5700 1250 5800
-Wire Wire Line
 	1300 5800 1250 5800
-Connection ~ 1250 5800
 Wire Wire Line
 	1250 5800 1250 5850
 Entry Wire Line
@@ -1260,12 +1256,16 @@ Text Label 1000 4350 0    50   ~ 0
 CLK4
 Text Label 8700 2600 0    50   ~ 0
 CLK4
+Text Notes 10700 5800 2    50   ~ 0
+FN≡
+Text Label 1000 5700 0    50   ~ 0
+CLK3
+Wire Wire Line
+	1000 5700 1300 5700
 Wire Bus Line
 	850  3350 850  4150
 Wire Bus Line
 	850  1900 850  2700
 Wire Bus Line
 	850  4800 850  5500
-Text Notes 10700 5800 2    50   ~ 0
-FN≡
 $EndSCHEMATC
