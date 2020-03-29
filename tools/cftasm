@@ -61,10 +61,10 @@ _BUILTINS = """;;; CFT Assembler Built-ins, Microcode Version 7.x.
 .equ    SCL     SKP     #0010010 ; 0000:1:0:001:--1--1-  Skip on Link Clear
 .equ    SCV     SKP     #0010001 ; 0000:1:0:001:--1---1  Skip on Overflow
 
-.equ    IND     &0b80            ; 0000:1:0:111:-------  Indirect
 .equ    JPA     &0c00            ; 0000:1:1:000:-------  Jump to Accumulator
 .equ    JSA     &0c80            ; 0000:1:1:001:-------  Jump to Subroutine at Accumulator
 .equ    HCF     &0d80            ; 0000:1:1:011:-------  Halt and Catch Fire
+.equ    IND     &0fc0            ; 0000:1:1:111:1---LLL  Indirect
 
 ; Note: the sub-instructions here can be used either with UOP (in which case
 ; the UOP mnemonic can be left out) or with either the IFL or IFV bitmap
