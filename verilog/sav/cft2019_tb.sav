@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
-[*] Sun Mar 29 10:16:37 2020
+[*] Sun Mar 29 16:15:15 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/cft2019_tb.vcd"
-[dumpfile_mtime] "Sun Mar 29 10:11:54 2020"
-[dumpfile_size] 255135501
+[dumpfile_mtime] "Sun Mar 29 16:14:32 2020"
+[dumpfile_size] 1290284
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/cft2019_tb.sav"
-[timestart] 3360000
+[timestart] 56351000
 [size] 1920 1019
 [pos] 2425 29
-*-21.105267 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-17.817480 57233000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] cft2019_tb.
 [treeopen] cft2019_tb.cft.
 [treeopen] cft2019_tb.cft.card_bus.
@@ -17,7 +17,7 @@
 [treeopen] cft2019_tb.cft.card_reg.
 [treeopen] cft2019_tb.cft.card_reg.reg_ac.
 [sst_width] 258
-[signals_width] 420
+[signals_width] 569
 [sst_expanded] 1
 [sst_vpaned_height] 286
 @800200
@@ -110,10 +110,10 @@ cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
 +{ac[15:0]} cft2019_tb.cft.card_reg.reg_ac.out[15:0]
 [color] 5
 +{sp[15:0]} cft2019_tb.cft.card_reg.reg_sp.out[15:0]
-@c00022
+@c00023
 [color] 6
 cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
-@28
+@29
 (0)cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
 (1)cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
 (2)cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
@@ -138,7 +138,7 @@ cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
 (21)cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
 (22)cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
 (23)cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
-@1401200
+@1401201
 -group_end
 @c04022
 ^>2 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/control
@@ -331,7 +331,7 @@ cft2019_tb.cft.nwen
 cft2019_tb.cft.card_ctl.microcode_sequencer.nend
 @1000200
 -Control Unit
-@c00200
+@800200
 -Addressing
 @22
 cft2019_tb.cft.card_ctl.agl.pc[15:10]
@@ -339,7 +339,7 @@ cft2019_tb.cft.card_ctl.agl.page[5:0]
 @28
 cft2019_tb.cft.card_ctl.agl.nread_agl
 cft2019_tb.cft.card_ctl.ail.idx[1:0]
-@1401200
+@1000200
 -Addressing
 @c00200
 -Instruction Register
