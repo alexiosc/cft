@@ -70,6 +70,11 @@ int main(int argc, char **argv)
 								printf("%s\n", instr->mnemonic);
 								break;
 								
+							case 7:
+								// An MBR reference (e.g. IND)
+								printf("%s %d\n", instr->mnemonic, hx & 7);
+								break;
+								
 							case 0xf:
 								// Mostly used for rolls, so use integers
 								printf("%s %d\n", instr->mnemonic, hx & 0xf);
