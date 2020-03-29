@@ -220,126 +220,185 @@ def test_STORE_I_R(capsys, tmpdir):
     expected += [ HALTED ]
 
     result = run_on_verilog_emu(capsys, tmpdir, source)
-    result = list(expected.prepare(result))
-
     pprint.pprint(result)
+    result = list(expected.prepare(result))
 
     assert result == expected
 
 
-# @pytest.mark.verilog
-# def test_STORE_I_R_autoinc(capsys, tmpdir):
+@pytest.mark.verilog
+@pytest.mark.emulator
+@pytest.mark.hardware
+@pytest.mark.LOAD
+@pytest.mark.STORE
+def test_STORE_I_R_autoinc(capsys, tmpdir):
 
-#     source = ".equ autoinc &340\n"
+    reps = 20
 
-#     expected = ExpectedData([ SUCCESS ])
+    source = """
+    .include "mbu.asm"
+    .include "dfp2.asm"
 
-#     MAX = 255                   # 1 to 255
+    &0:     LI &80
+            SMB mbu.MBP
+            LI &0
+            SMB mbu.MBD
+            SMB mbu.MBS
+            SMB mbu.MBZ
 
-#     source += "&0:\n"
-#     source += asm_memory_banks(mbp=0x80, mbd=0, mbz=0)
-#     source += "\t\tLOAD      @+3\n"
-#     source += "\t\tSTORE R   autoinc\n"
-#     source += "\t\tJMP       @+2\n"
-#     source += "\t\t.word     data\n"
+            LOAD tgt 
+            STORE R &341  ; MBD-relative autoinc reg
+            LOAD value
+    """
 
-#     for x in range(MAX):
-#         source += "\t\tLOAD I R  autoinc\n"
-#         source += "\t\tOUT R     &113\n"
-#         expected.append([ 340, "PRINTU", str(x) ])
+    source += """
+            STORE I R &341      ; Instruction under test!
+    """.rstrip() * reps
 
-#     source += "\t\tOUT R &11d\n"
-#     expected += [ HALTED ]
+    source += """
+            LOAD tgt 
+            STORE R &341  ; MBD-relative autoinc reg
+    """
+    source += """
+            LOAD I R &341      ; Instruction under test!
+            dfp.PRINTH
+    """.rstrip() * reps
 
-#     # The data table.
-#     source += "&1389:\n"
-#     source += "data:\n"
+    source += """
+            LOAD R &341
+            dfp.PRINTD
+            HALT
 
-#     for x in range(MAX):
-#         source += "\t\t.word {}\n".format(x)
-    
-#     result = run_on_verilog_emu(capsys, tmpdir, source)
-#     result = list(expected.prepare(result))
-#     assert result == expected
+    max:    .word 10
+    value:  .word &cafe
+    tgt:    .word &7800
+    count:  .word 0
+    """
 
-
-# @pytest.mark.verilog
-# def test_STORE_I_R_autodec(capsys, tmpdir):
-
-#     source = ".equ autodec &380\n"
-
-#     expected = ExpectedData([ SUCCESS ])
-
-#     MAX = 255                   # 1 to 255
-
-#     source += "&0:\n"
-#     source += asm_memory_banks(mbp=0x80, mbd=0, mbz=0)
-#     source += "\t\tLOAD      @+3\n"
-#     source += "\t\tSTORE R   autodec\n"
-#     source += "\t\tJMP       @+2\n"
-#     source += "\t\t.word     @data-1\n"
-
-#     for x in range(MAX):
-#         source += "\t\tLOAD I R  autodec\n"
-#         source += "\t\tdfp.PRINTU\n"
-#         expected.append([ 340, "PRINTU", str(MAX - 1 - x) ])
-
-#     source += "\t\tHALT\n"
-#     expected += [ HALTED ]
-
-#     # The data table.
-#     source += "&1389:\n"
-
-#     for x in range(MAX):
-#         source += "\t\t.word {}\n".format(x)
-#     source += "data:\n"
-    
-#     result = run_on_verilog_emu(capsys, tmpdir, source)
-#     result = list(expected.prepare(result))
-#     assert result == expected
+    expected = ExpectedData([ SUCCESS ])
+    expected += [[ 340, "PRINTH", "cafe" ]] * reps
+    expected += [[ 340, "PRINTD", str(0x7800 + reps) ]]
+    expected += [ HALTED ]
+    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = list(expected.prepare(result))
+    assert result == expected
 
 
-# @pytest.mark.verilog
-# def test_STORE_I_R_stack(capsys, tmpdir):
-#     """Test stack pointer autoindexing. For LOAD, this behaves just like
-#     autodecrement except the register is decremented BEFORE use."""
+@pytest.mark.verilog
+@pytest.mark.emulator
+@pytest.mark.hardware
+@pytest.mark.LOAD
+@pytest.mark.STORE
+def test_STORE_I_R_autodec(capsys, tmpdir):
 
-#     source = ".equ stack &3c0\n"
+    reps = 20
 
-#     expected = ExpectedData([ SUCCESS ])
+    source = """
+    .include "mbu.asm"
+    .include "dfp2.asm"
 
-#     MAX = 255                   # 1 to 255
+    &0:     LI &80
+            SMB mbu.MBP
+            LI &0
+            SMB mbu.MBD
+            SMB mbu.MBS
+            SMB mbu.MBZ
 
-#     source += "&0:\n"
-#     source += asm_memory_banks(mbp=0x80, mbd=0, mbz=0)
-#     source += "\t\tLOAD      @+3\n"
-#     source += "\t\tSTORE R   stack\n"
-#     source += "\t\tJMP       @+2\n"
-#     source += "\t\t.word     data\n"
+            LOAD tgt 
+            STORE R &381  ; MBD-relative autoinc reg
+            LOAD value
+    """
 
-#     for x in range(MAX):
-#         source += "\t\tLOAD I R  stack\n"
-#         source += "\t\tOUT R     &113\n"
-#         expected.append([ 340, "PRINTU", str(MAX - 1 - x) ])
+    source += """
+            STORE I R &381      ; Instruction under test!
+    """.rstrip() * reps
 
-#     source += "\t\tLOAD R    stack\n"
-#     source += "\t\tOUT R     &114\n"
-#     expected += [ [340, "PRINTH", "1389" ] ]
+    source += """
+            LOAD tgt 
+            STORE R &381  ; MBD-relative autoinc reg
+    """
+    source += """
+            LOAD I R &381      ; Instruction under test!
+            dfp.PRINTH
+    """.rstrip() * reps
 
-#     source += "\t\tOUT R &11d\n"
-#     expected += [ HALTED ]
+    source += """
+            LOAD R &381
+            dfp.PRINTD
+            HALT
 
-#     # The data table.
-#     source += "&1389:\n"
+    max:    .word 10
+    value:  .word &cafe
+    tgt:    .word &7800
+    count:  .word 0
+    """
 
-#     for x in range(MAX):
-#         source += "\t\t.word {}\n".format(x)
-#     source += "data:\n"
-    
-#     result = run_on_verilog_emu(capsys, tmpdir, source)
-#     result = list(expected.prepare(result))
-#     assert result == expected
+    expected = ExpectedData([ SUCCESS ])
+    expected += [[ 340, "PRINTH", "cafe" ]] * reps
+    expected += [[ 340, "PRINTD", str(0x7800 - reps) ]]
+    expected += [ HALTED ]
+    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = list(expected.prepare(result))
+    assert result == expected
 
+
+@pytest.mark.verilog
+@pytest.mark.emulator
+@pytest.mark.hardware
+@pytest.mark.LOAD
+@pytest.mark.STORE
+def test_STORE_I_R_stack(capsys, tmpdir):
+
+    reps = 3
+
+    source = """
+    .include "mbu.asm"
+    .include "dfp2.asm"
+
+    &0:     LI &80
+            SMB mbu.MBP
+            LI &0
+            SMB mbu.MBD
+            SMB mbu.MBS
+            SMB mbu.MBZ
+
+            LOAD tgt 
+            STORE R &3c1  ; MBD-relative autoinc reg
+            LOAD value
+    """
+
+    source += """
+            STORE I R &3c1      ; Instruction under test!
+    """.rstrip() * reps
+
+    source += """
+            LOAD R &3c1
+            dfp.PRINTD
+    """
+    source += """
+            LOAD I R &3c1      ; Instruction under test!
+            dfp.PRINTH
+    """.rstrip() * reps
+
+    source += """
+            LOAD R &3c1
+            dfp.PRINTH
+            HALT
+
+    max:    .word 10
+    value:  .word &cafe
+    tgt:    .word &7800
+    count:  .word 0
+    """
+
+    expected = ExpectedData([ SUCCESS ])
+    expected += [[ 340, "PRINTD", str(0x7800 + reps) ]]
+    expected += [[ 340, "PRINTH", "cafe" ]] * reps
+    expected += [[ 340, "PRINTH", "7800" ]]
+    expected += [ HALTED ]
+    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = list(expected.prepare(result))
+    assert result == expected
 
 
 if __name__ == "__main__":
