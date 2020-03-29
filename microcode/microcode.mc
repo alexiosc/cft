@@ -89,7 +89,7 @@
 //  1   1   3C0–3FF   (8) Stack
 //
 // TODO: Go through all instructions, re-annotate them with the correct number
-// and name of addressing modes. For non-standard instrucitons, copy the table
+// and name of addressing modes. For non-standard instructions, copy the table
 // above there and change it as necessary.
 
 
@@ -2256,7 +2256,7 @@ start JMP, I=1, R=1, IDX=IDX_SP;
 //
 // This instruction interprets its operand as an address in memory. It loads a
 // value from that address into the AC, decrements it by one, and stores it
-// back. If the AC is zero, after decrementtion, the next instruction is
+// back. If the AC is zero before decrementation, the next instruction is
 // skipped. The DSZ instruction simplifies implementing loops.
 //
 // DSZ used to be called ISZ when the CFT could only increment the AC, but
@@ -2269,145 +2269,84 @@ start JMP, I=1, R=1, IDX=IDX_SP;
 //  0   1   Any           (2) Register
 //  1   0   Any           (3) Indirect
 //  1   1   000–2FF       (4) Register Indirect
-//  1   1   300–33F       (5) Memory Bank-Relative Indirect
-//  1   1   340–37F       (6) Auto-Increment
-//  1   1   380–3BF       (7) Auto-Decrement
-//  1   1   3C0–3FF       (8) Stack
+//  1   1   300–3FF       (5) Memory Bank-Relative Indirect
+//
 
-// TODO: Make DSZ honour auto-indexing (increments and decrements).
+// NOTE: Auto-indexing conflicts with DSZ behaviour. All operands between &300
+// and &3FF are interpreted using Memory Bank-Relative Indirect mode.
 
-// First, without skips. The last microinstruction is an END.
+// First, without skips.
 
 // (1) DSZ, Page-Local
 start DSZ, COND=1, I=0, R=0, IDX=XX;
-      FETCH_IR;                                 // 00 IR ← mem[PC++]
-      MEMREAD(mbp, agl, ac);                    // 02 AC ← mem[MBP:AGL]
-      action_decac;                             // 04 AC++
-      MEMWRITE(mbp, agl, ac), if_z;             // 05 mem[MBP:AGL] ← AC
-      END;                                      // 07
+      FETCH_IR;                                  // 00 IR ← mem[PC++]
+      MEMREAD(mbp, agl, ac), if_z;               // 02 AC ← mem[MBP:AGL]
+      -END;					 // 04 NOP (no skip)
+      action_decac, MEMWRITE(mbp, agl, ac), END; // 05 mem[MBP:AGL] ← --AC
 
 // (2) DSZ, Register
 start DSZ, COND=1, I=0, R=1, IDX=XX;
-      FETCH_IR;                                 // 00 IR ← mem[PC++]
-      MEMREAD(mbz, agl, ac);                    // 02 AC ← mem[MBZ:AGL]
-      action_decac;                             // 04 AC++
-      MEMWRITE(mbz, agl, ac), if_z;             // 05 mem[MBZ:AGL] ← AC
-      END;                                      // 07
+      FETCH_IR;                                  // 00 IR ← mem[PC++]
+      MEMREAD(mbz, agl, ac), if_z;               // 02 AC ← mem[MBZ:AGL]
+      -END;					 // 04 NOP (no skip)
+      action_decac, MEMWRITE(mbz, agl, ac), END; // 05 mem[MBZ:AGL] ← --AC
 
 // (3) DSZ, Indirect
 start DSZ, COND=1, I=1, R=0, IDX=XX;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       MEMREAD(mbp, agl, dr);                    // 02 DR ← mem[MBP:AGL]
-      MEMREAD(mbd, dr, ac);                     // 04 AC ← mem[MBD:DR]
-      action_decac;                             // 06 AC++
-      MEMWRITE(mbd, dr, ac), if_z;              // 07 mem[MBD:DR] ← AC
-      END;                                      // 09
+      MEMREAD(mbd, dr, ac), if_z;               // 04 AC ← mem[MBD:DR]
+      -END;					// 06 NOP (no skip)
+      action_decac, MEMWRITE(mbd, dr, ac), END; // 07 mem[MBD:DR] ← --AC
 
-// (4) & (5) DSZ, Register Indirect and Memory Bank-Relative Indirect
+// (4) & (5) DSZ, Register Indirect and Memory Bank-Relative Indirect.
+// NOTE: action_decac is on its own in autoindexing addressing modes. This is because
+// MEMWRITE_IDX action_idx in its first microstep, and ACTION is vertical.
 start DSZ, COND=1, I=1, R=1, IDX=XX;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBZ:AGL]
-      MEMREAD_IDX(mbd, dr, ac);                 // 04 AC ← mem[MBn:DR]
-      action_decac;                             // 06 AC++
-      MEMWRITE_IDX(mbd, dr, ac), if_z;          // 07 mem[MBn:DR] ← AC
-      END;                                      // 09
+      MEMREAD_IDX(mbd, dr, ac), if_z;           // 04 AC ← mem[MBn:DR]
+      -END;					// 06 NOP (no skip)
+      action_decac;                             // 07 AC--
+      MEMWRITE_IDX(mbd, dr, ac), END;           // 08 mem[MBn:DR] ← AC
 
-// (6) DSZ, Auto-Increment
-// NOTE: this has reduced usefulness!
-start DSZ, COND=1, I=1, R=1, IDX=IDX_INC;
-      FETCH_IR;                                 // 00 IR ← mem[PC++]
-      MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBZ:AGL]
-      MEMREAD_IDX(mbd, dr, ac);                 // 04 AC ← mem[MBn:DR]
-      action_incac;                             // 06 AC++
-      MEMWRITE_IDX(mbd, dr, ac), if_z;          // 07 mem[MBn:DR] ← AC
-      END;                                      // 09
-
-// (7) DSZ, Auto-Decrement
-// NOTE: this has reduced usefulness!
-start DSZ, COND=1, I=1, R=1, IDX=IDX_DEC;
-      FETCH_IR;                                 // 00 IR ← mem[PC++]
-      MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBZ:AGL]
-      MEMREAD_IDX(mbd, dr, ac);                 // 04 AC ← mem[MBn:DR]
-      action_decac;                             // 06 AC--;
-      MEMWRITE_IDX(mbd, dr, ac), if_z;          // 07 mem[MBn:DR] ← AC
-      END;                                      // 09
-
-// (8) DSZ, Stack.
-
-// NOTE: this technically pops a value from the stack and writes it back. With
-// no net change in the stack pointer register, we don't need to increment or
-// decrement.
-start DSZ, COND=1, I=1, R=1, IDX=IDX_SP;
-      FETCH_IR;                                 // 00 IR ← mem[PC++]
-      MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBZ:AGL]
-      MEMREAD_IDX(mbd, dr, ac);                 // 04 AC ← mem[MBn:DR]
-      action_decac;                             // 06 AC--
-      MEMWRITE_IDX(mbd, dr, ac), if_z;          // 07 mem[MBn:DR] ← AC
-      END;                                      // 09
 
 // And now the same, with skips taken: action_incpc is executed in
 // the last microstep.
 
 // (1) DSZ, Page-Local (with skip)
 start DSZ, COND=0, I=0, R=0, IDX=XX;
-      FETCH_IR;                                 // 00 IR ← mem[PC++]
-      MEMREAD(mbp, agl, ac);                    // 02 AC ← mem[MBP:AGL]
-      action_decac;                             // 04 AC++
-      MEMWRITE(mbp, agl, ac), if_z;             // 05 mem[MBP:AGL] ← AC
-      action_incpc, END;                        // 07 PC+
+      FETCH_IR;                                  // 00 IR ← mem[PC++]
+      MEMREAD(mbp, agl, ac), if_z;               // 02 AC ← mem[MBP:AGL]
+      action_incpc;				 // 04 PC++ (skip taken)
+      action_decac, MEMWRITE(mbp, agl, ac), END; // 05 mem[MBP:AGL] ← --AC
 
 // (2) DSZ, Register (with skip)
 start DSZ, COND=0, I=0, R=1, IDX=XX;
-      FETCH_IR;                                 // 00 IR ← mem[PC++]
-      MEMREAD(mbz, agl, ac);                    // 02 AC ← mem[MBZ:AGL]
-      action_decac;                             // 04 AC++;
-      MEMWRITE(mbz, agl, ac), if_z;             // 05 mem[MBZ:AGL] ← AC
-      action_incpc, END;                        // 07 PC++
+      FETCH_IR;                                  // 00 IR ← mem[PC++]
+      MEMREAD(mbz, agl, ac), if_z;               // 02 AC ← mem[MBZ:AGL]
+      action_incpc;				 // 04 PC++ (skip taken)
+      action_decac, MEMWRITE(mbz, agl, ac), END; // 05 mem[MBZ:AGL] ← --AC
 
 // (3) DSZ, Indirect (with skip)
 start DSZ, COND=0, I=1, R=0, IDX=XX;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       MEMREAD(mbp, agl, dr);                    // 02 DR ← mem[MBP:AGL]
-      MEMREAD(mbd, dr, ac);                     // 04 AC ← mem[MBD:DR]
-      action_decac;                             // 06 AC++
-      MEMWRITE(mbd, dr, ac), if_z;              // 07 mem[MBD:DR] ← AC
-      action_incpc, END;                        // 09 PC++
+      MEMREAD(mbd, dr, ac), if_z;               // 04 AC ← mem[MBD:DR]
+      action_incpc;				// 06 PC++ (skip taken)
+      action_decac, MEMWRITE(mbd, dr, ac), END; // 07 mem[MBD:DR] ← --AC
 
-// (4) & (5) DSZ, Register Indirect and Memory Bank-Relative Indirect (with skip)
+// (4) & (5) DSZ, Register Indirect and Memory Bank-Relative Indirect. (with skip)
+// NOTE: action_decac is on its own in autoindexing addressing modes. This is
+// because MEMWRITE_IDX action_idx in its first microstep, and ACTION is
+// vertical.
 start DSZ, COND=0, I=1, R=1, IDX=XX;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBZ:AGL]
-      MEMREAD_IDX(mbd, dr, ac);                 // 04 AC ← mem[MBD:DR]
-      action_decac;                             // 06 AC++
-      MEMWRITE_IDX(mbd, dr, ac), if_z;          // 07 mem[MBD:DR] ← AC
-      action_incpc, END;                        // 09 PC++
-
-// (6) DSZ, Auto-Increment (with skip)
-start DSZ, COND=0, I=1, R=1, IDX=IDX_INC;
-      FETCH_IR;                                 // 00 IR ← mem[PC++]
-      MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBZ:AGL]
-      MEMREAD_IDX(mbd, dr, ac);                 // 04 AC ← mem[MBD:DR]
-      action_incac;                             // 06 AC++
-      MEMWRITE_IDX(mbd, dr, ac), if_z;          // 07 mem[MBD:DR] ← AC
-      action_incpc, END;                        // 09 PC++
-
-// (7) DSZ, Auto-Decrement (with skip)
-start DSZ, COND=0, I=1, R=1, IDX=IDX_DEC;
-      FETCH_IR;                                 // 00 IR ← mem[PC++]
-      MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBZ:AGL]
-      MEMREAD_IDX(mbd, dr, ac);                 // 04 AC ← mem[MBD:DR]
-      action_decac;                             // 06 AC--
-      MEMWRITE_IDX(mbd, dr, ac), if_z;          // 07 mem[MBD:DR] ← AC
-      action_incpc, END;                        // 09 PC++
-
-// (7) DSZ, Stack (with skip)
-start DSZ, COND=0, I=1, R=1, IDX=IDX_SP;
-      FETCH_IR;                                 // 00 IR ← mem[PC++]
-      MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBZ:AGL]
-      MEMREAD_IDX(mbd, dr, ac);                 // 04 AC ← mem[MBn:DR]
-      action_decac;                             // 06 AC--
-      MEMWRITE_IDX(mbd, dr, ac), if_z;          // 07 mem[MBn:DR] ← AC
-      action_incpc, END;                        // 09 PC++
+      MEMREAD_IDX(mbd, dr, ac), if_z;           // 04 AC ← mem[MBn:DR]
+      action_incpc;				// 06 PC++ (skip taken)
+      action_decac;                             // 07 AC--
+      MEMWRITE_IDX(mbd, dr, ac), END;           // 08 mem[MBn:DR] ← AC
 
 
 ///////////////////////////////////////////////////////////////////////////////
