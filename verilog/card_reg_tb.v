@@ -319,6 +319,7 @@ module card_reg_tb(
    assign waddr = waddr_drv;
    assign action = action_drv;
    assign clk4 = clk4_drv;
+   assign clk3 = ~clk4_drv;	// A viable hack, given the way clk3 is used.
    
    // Connect the DUT and its many signals
 

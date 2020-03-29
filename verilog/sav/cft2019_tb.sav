@@ -1,20 +1,21 @@
 [*]
 [*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
-[*] Sat Mar 28 17:15:04 2020
+[*] Sun Mar 29 10:16:37 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/cft2019_tb.vcd"
-[dumpfile_mtime] "Sat Mar 28 17:09:40 2020"
-[dumpfile_size] 301084741
+[dumpfile_mtime] "Sun Mar 29 10:11:54 2020"
+[dumpfile_size] 255135501
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/cft2019_tb.sav"
-[timestart] 2644000
+[timestart] 3360000
 [size] 1920 1019
 [pos] 2425 29
-*-20.083572 6189750 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-21.105267 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] cft2019_tb.
 [treeopen] cft2019_tb.cft.
 [treeopen] cft2019_tb.cft.card_bus.
-[treeopen] cft2019_tb.cft.card_bus.reg_ar.
 [treeopen] cft2019_tb.cft.card_mem.romhi.
+[treeopen] cft2019_tb.cft.card_reg.
+[treeopen] cft2019_tb.cft.card_reg.reg_ac.
 [sst_width] 258
 [signals_width] 420
 [sst_expanded] 1
@@ -182,46 +183,6 @@ cft2019_tb.cft.card_bus.mbu.mb4[7:0]
 cft2019_tb.cft.card_bus.mbu.mb5[7:0]
 cft2019_tb.cft.card_bus.mbu.mb6[7:0]
 cft2019_tb.cft.card_bus.mbu.mb7[7:0]
-@29
-cft2019_tb.cft.card_bus.mbu.ndis
-@28
-cft2019_tb.cft.card_bus.mbu.ra[1:0]
-cft2019_tb.cft.card_bus.mbu.nren0
-cft2019_tb.cft.card_bus.mbu.nren1
-@22
-cft2019_tb.cft.card_bus.mbu.aext[7:0]
-@28
-cft2019_tb.cft.card_bus.reg_ar.nwrite_ar
-@c00022
-[color] 6
-cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
-@28
-(0)cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
-(1)cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
-(2)cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
-(3)cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
-(4)cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
-(5)cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
-(6)cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
-(7)cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
-(8)cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
-(9)cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
-(10)cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
-(11)cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
-(12)cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
-(13)cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
-(14)cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
-(15)cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
-(16)cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
-(17)cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
-(18)cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
-(19)cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
-(20)cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
-(21)cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
-(22)cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
-(23)cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
-@1401200
--group_end
 @1000200
 -Registers
 @800200
