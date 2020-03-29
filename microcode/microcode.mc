@@ -1874,7 +1874,7 @@ start JSA;
 start IND;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       SET(dr, ac);                              // 02 DR ← AC
-      MEMREAD_IDX(mbd, ac, dr), END;		// 03 AC ← mem[MBR[L]:DR]
+      MEMREAD_IDX(mbd, dr, ac), END;		// 03 AC ← mem[MBR[L]:DR]
 
 
 ///////////////////////////////////////////////////////////////////////////////
