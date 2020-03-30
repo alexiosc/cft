@@ -37,6 +37,7 @@ def test_DSZ(capsys, tmpdir):
            LI          19
            STORE       &100
     loop:  dfp.PRINTU
+           LI          0        ; This helps detect premature if-z
            DSZ         &100
            JMP         loop
            SUCCESS
@@ -87,6 +88,7 @@ def test_DSZ_R(capsys, tmpdir):
            LI          19
            STORE       R &100
     loop:  dfp.PRINTU
+           LI          0        ; This helps detect premature if-z
            DSZ         R &100
            JMP         loop
            SUCCESS
@@ -136,6 +138,7 @@ def test_DSZ_I(capsys, tmpdir):
            LI          19
            STORE       &100
     loop:  dfp.PRINTU
+           LI          0        ; This helps detect premature if-z
            DSZ         I &300
            JMP         loop
            SUCCESS
@@ -188,6 +191,7 @@ def test_DSZ_I_R(capsys, tmpdir):
            LI          19
            STORE       R &100
     loop:  dfp.PRINTU
+           LI          0        ; This helps detect premature if-z
            DSZ         I R &304
            JMP         loop
            SUCCESS
