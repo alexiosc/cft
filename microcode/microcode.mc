@@ -2275,19 +2275,27 @@ start JMP, I=1, R=1, IDX=IDX_SP;
 // NOTE: Auto-indexing conflicts with DSZ behaviour. All operands between &300
 // and &3FF are interpreted using Memory Bank-Relative Indirect mode.
 
+// TODO: clean this up.
+
+// TODO: is there any way to save that separate if_z step? (probably not, the
+// AC gets manipulated a lot in these microprograms, there might not be a
+// chance for it stay stable long enough for a comparison)
+
 // First, without skips.
 
 // (1) DSZ, Page-Local
 start DSZ, COND=1, I=0, R=0, IDX=XX;
       FETCH_IR;                                  // 00 IR ← mem[PC++]
-      MEMREAD(mbp, agl, ac), if_z;               // 02 AC ← mem[MBP:AGL]
+      MEMREAD(mbp, agl, ac);               // 02 AC ← mem[MBP:AGL]
+      if_z;               // 02 AC ← mem[MBP:AGL]
       -END;					 // 04 NOP (no skip)
       action_decac, MEMWRITE(mbp, agl, ac), END; // 05 mem[MBP:AGL] ← --AC
 
 // (2) DSZ, Register
 start DSZ, COND=1, I=0, R=1, IDX=XX;
       FETCH_IR;                                  // 00 IR ← mem[PC++]
-      MEMREAD(mbz, agl, ac), if_z;               // 02 AC ← mem[MBZ:AGL]
+      MEMREAD(mbz, agl, ac);               // 02 AC ← mem[MBZ:AGL]
+      if_z;               // 02 AC ← mem[MBP:AGL]
       -END;					 // 04 NOP (no skip)
       action_decac, MEMWRITE(mbz, agl, ac), END; // 05 mem[MBZ:AGL] ← --AC
 
@@ -2295,7 +2303,8 @@ start DSZ, COND=1, I=0, R=1, IDX=XX;
 start DSZ, COND=1, I=1, R=0, IDX=XX;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       MEMREAD(mbp, agl, dr);                    // 02 DR ← mem[MBP:AGL]
-      MEMREAD(mbd, dr, ac), if_z;               // 04 AC ← mem[MBD:DR]
+      MEMREAD(mbd, dr, ac);               // 04 AC ← mem[MBD:DR]
+      if_z;               // 02 AC ← mem[MBP:AGL]
       -END;					// 06 NOP (no skip)
       action_decac, MEMWRITE(mbd, dr, ac), END; // 07 mem[MBD:DR] ← --AC
 
@@ -2305,7 +2314,8 @@ start DSZ, COND=1, I=1, R=0, IDX=XX;
 start DSZ, COND=1, I=1, R=1, IDX=XX;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBZ:AGL]
-      MEMREAD_IDX(mbd, dr, ac), if_z;           // 04 AC ← mem[MBn:DR]
+      MEMREAD_IDX(mbd, dr, ac);           // 04 AC ← mem[MBn:DR]
+      if_z;               // 02 AC ← mem[MBP:AGL]
       -END;					// 06 NOP (no skip)
       action_decac;                             // 07 AC--
       MEMWRITE_IDX(mbd, dr, ac), END;           // 08 mem[MBn:DR] ← AC
@@ -2317,14 +2327,16 @@ start DSZ, COND=1, I=1, R=1, IDX=XX;
 // (1) DSZ, Page-Local (with skip)
 start DSZ, COND=0, I=0, R=0, IDX=XX;
       FETCH_IR;                                  // 00 IR ← mem[PC++]
-      MEMREAD(mbp, agl, ac), if_z;               // 02 AC ← mem[MBP:AGL]
+      MEMREAD(mbp, agl, ac);               // 02 AC ← mem[MBP:AGL]
+      if_z;               // 02 AC ← mem[MBP:AGL]
       action_incpc;				 // 04 PC++ (skip taken)
       action_decac, MEMWRITE(mbp, agl, ac), END; // 05 mem[MBP:AGL] ← --AC
 
 // (2) DSZ, Register (with skip)
 start DSZ, COND=0, I=0, R=1, IDX=XX;
       FETCH_IR;                                  // 00 IR ← mem[PC++]
-      MEMREAD(mbz, agl, ac), if_z;               // 02 AC ← mem[MBZ:AGL]
+      MEMREAD(mbz, agl, ac);               // 02 AC ← mem[MBZ:AGL]
+      if_z;               // 02 AC ← mem[MBP:AGL]
       action_incpc;				 // 04 PC++ (skip taken)
       action_decac, MEMWRITE(mbz, agl, ac), END; // 05 mem[MBZ:AGL] ← --AC
 
@@ -2332,7 +2344,8 @@ start DSZ, COND=0, I=0, R=1, IDX=XX;
 start DSZ, COND=0, I=1, R=0, IDX=XX;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       MEMREAD(mbp, agl, dr);                    // 02 DR ← mem[MBP:AGL]
-      MEMREAD(mbd, dr, ac), if_z;               // 04 AC ← mem[MBD:DR]
+      MEMREAD(mbd, dr, ac);               // 04 AC ← mem[MBD:DR]
+      if_z;               // 02 AC ← mem[MBP:AGL]
       action_incpc;				// 06 PC++ (skip taken)
       action_decac, MEMWRITE(mbd, dr, ac), END; // 07 mem[MBD:DR] ← --AC
 
@@ -2343,7 +2356,8 @@ start DSZ, COND=0, I=1, R=0, IDX=XX;
 start DSZ, COND=0, I=1, R=1, IDX=XX;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBZ:AGL]
-      MEMREAD_IDX(mbd, dr, ac), if_z;           // 04 AC ← mem[MBn:DR]
+      MEMREAD_IDX(mbd, dr, ac);           // 04 AC ← mem[MBn:DR]
+      if_z;               // 02 AC ← mem[MBP:AGL]
       action_incpc;				// 06 PC++ (skip taken)
       action_decac;                             // 07 AC--
       MEMWRITE_IDX(mbd, dr, ac), END;           // 08 mem[MBn:DR] ← AC
