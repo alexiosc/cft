@@ -143,9 +143,10 @@ module card_mem(
    sram #(19, 10) ramlo (.a(ab[18:0]), .d(db[7:0]), .nce(ncs[0]), .nwe(nmemw), .noe(nmemr));
    sram #(19, 10) ramhi (.a(ab[18:0]), .d(db[15:8]), .nce(ncs[0]), .nwe(nmemw), .noe(nmemr));
 
-   // Another 512K RAM where the ROM should be is, so that individual
-   // testbenches can load their own ROM images at will with
-   // $readmemb(). Obviously, writing is disabled.
+   // Another 512K RAM where the ROM should be, so that individual testbenches
+   // can load their own ROM images at will with $readmemb(). Obviously,
+   // writing is normally disabled (the +wp=0 flag can enable writing to the
+   // ‘ROM’ for testing purposes).
    reg 		 wp;
 
    sram #(19, 45) romlo (.a(ab[18:0]), .d(db[7:0]), .nce(nromcs[0]), .nwe(wp | nmemw), .noe(nmemr));
