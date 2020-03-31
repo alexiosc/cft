@@ -556,8 +556,8 @@ start RST=1, INT=0, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 
 #define SRU    _INSTR(0000), I=1, R=0, SUBOP=000, COND=X, IDX=XX // All shifts and rolls are here.
 #define SKP    _INSTR(0000), I=1, R=0, SUBOP=001, COND=X, IDX=XX // Skips
-//#define RMB  _INSTR(0000), I=1, R=0, SUBOP=010, COND=X, IDX=XX // Read a Memory Bank Register
-//#define SMB  _INSTR(0000), I=1, R=0, SUBOP=011, COND=X, IDX=XX // Set an Memory Bank Register
+//#define      _INSTR(0000), I=1, R=0, SUBOP=010, COND=X, IDX=XX // This is available
+//#define      _INSTR(0000), I=1, R=0, SUBOP=011, COND=X, IDX=XX // This is available
 //#define      _INSTR(0000), I=1, R=0, SUBOP=100, COND=X, IDX=XX // This is available
 //#define      _INSTR(0000), I=1, R=0, SUBOP=101, COND=X, IDX=XX // This is available
 //#define      _INSTR(0000), I=1, R=0, SUBOP=110, COND=X, IDX=XX // This is available
