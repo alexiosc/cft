@@ -943,11 +943,11 @@ AB1
 Text Label 4800 2500 0    50   ~ 0
 AB2
 Wire Wire Line
-	4700 1350 4700 2600
+	4650 1350 4650 2600
 Wire Wire Line
-	3100 1350 4700 1350
+	3100 1350 4650 1350
 Wire Wire Line
-	4700 2600 5300 2600
+	4650 2600 5300 2600
 Text Label 4800 2700 0    50   ~ 0
 ~W
 Text Label 4800 2800 0    50   ~ 0
@@ -1589,16 +1589,29 @@ Text Label 4800 3100 0    50   ~ 0
 ~T34
 Text Label 6100 4300 2    50   ~ 0
 ~FPRAM~∕ROM
-Wire Wire Line
-	5300 2200 4800 2200
 Text Label 4800 2200 0    50   ~ 0
 ~RESET
 Text Notes 1900 6550 0    50   ~ 0
 The MBU is disabled after reset and enabled\nwhen it's first written to.
+Wire Wire Line
+	2050 7050 2050 6850
+Wire Wire Line
+	2050 7150 2050 7050
+Connection ~ 2050 7050
+Wire Wire Line
+	2100 7050 2050 7050
+Wire Wire Line
+	4750 2200 4750 700 
+Wire Wire Line
+	4750 700  1250 700 
+Wire Wire Line
+	4750 2200 5300 2200
 Wire Bus Line
-	1700 3600 1700 5200
+	1700 1150 1700 1950
 Wire Bus Line
 	1700 2350 1700 3200
+Wire Bus Line
+	1700 3600 1700 5200
 Wire Bus Line
 	6450 1150 6450 2000
 Wire Bus Line
@@ -1607,13 +1620,6 @@ Wire Bus Line
 	10400 3600 10400 4750
 Wire Bus Line
 	8600 1500 8600 5550
-Wire Bus Line
-	1700 1150 1700 1950
-Wire Wire Line
-	2050 7050 2050 6850
-Wire Wire Line
-	2050 7150 2050 7050
-Connection ~ 2050 7050
-Wire Wire Line
-	2100 7050 2050 7050
+Text HLabel 1250 700  0    50   Input ~ 0
+~RESET
 $EndSCHEMATC
