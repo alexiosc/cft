@@ -1,15 +1,15 @@
 [*]
-[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
-[*] Mon Mar 30 07:59:29 2020
+[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
+[*] Fri Apr  3 06:50:05 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/cft2019_tb.vcd"
-[dumpfile_mtime] "Mon Mar 30 07:58:24 2020"
-[dumpfile_size] 355174
+[dumpfile_mtime] "Fri Apr  3 06:48:23 2020"
+[dumpfile_size] 532631800
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/cft2019_tb.sav"
-[timestart] 14532000
+[timestart] 14741000
 [size] 1920 1019
 [pos] 2425 29
-*-17.980980 15214250 15113750 15214250 15503750 15753750 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-19.597090 16801000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] cft2019_tb.
 [treeopen] cft2019_tb.cft.
 [treeopen] cft2019_tb.cft.card_ctl.
@@ -60,10 +60,10 @@ cft2019_tb.cft.card_ctl.nfpclk_or_clk
 @22
 [color] 2
 +{pc[15:0]} cft2019_tb.cft.card_reg.reg_pc.out[15:0]
-@c00022
+@c00023
 [color] 1
 cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
-@28
+@29
 [color] 1
 (0)cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
 [color] 1
@@ -96,7 +96,7 @@ cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
 (14)cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
 [color] 1
 (15)cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
-@1401200
+@1401201
 -group_end
 @4022
 [color] 1
@@ -253,7 +253,7 @@ cft2019_tb.cft.card_ctl.microcode_sequencer.upc[3:0]
 cft2019_tb.cft.card_ctl.microcode_sequencer.fpfetch
 @200
 -
-@29
+@28
 cft2019_tb.cft.card_ctl.microcode_sequencer.ncond
 @c04022
 ^>3 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/uaddr
