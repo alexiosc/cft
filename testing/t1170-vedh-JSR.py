@@ -48,6 +48,10 @@ def test_JSR(capsys, tmpdir):
     &0:    .fill 32768 SENTINEL
     &0:    LI &80
            SMB mbu.MBP
+           LI &1
+           SMB mbu.MBS
+           LI &0
+           TAS
     """
 
     # We need some space for our routine calling code, so leave out
@@ -58,8 +62,10 @@ def test_JSR(capsys, tmpdir):
     for value in values:
         source += "           JSR &{:>x}\n".format(value)
         
+    source += "           TSA\n"
+    source += "           dfp.PRINTD\n"
     source += "           HALT\n"
-    expected += [ HALTED ]
+    expected += [ [ 340, "PRINTD", str(len(values)) ], HALTED ]
 
 
     # Now the subroutines. Note, we don't use RET because we haven't
@@ -94,6 +100,10 @@ def test_JSR_R(capsys, tmpdir):
     &1000: LI &80
            SMB mbu.MBP
            SMB mbu.MBZ
+           LI &1
+           SMB mbu.MBS
+           LI &0
+           TAS
 
     """.rstrip(" ")
 
@@ -103,8 +113,10 @@ def test_JSR_R(capsys, tmpdir):
 
     for value in values:
         source += "           JSR R &{:>x}\n".format(value)
+    source += "           TSA\n"
+    source += "           dfp.PRINTD\n"
     source += "           HALT\n"
-    expected += [ HALTED ]
+    expected += [ [ 340, "PRINTD", str(len(values)) ], HALTED ]
 
     # Now the subroutines. Note, we don't use RET because we haven't
     # tested it yet. But we can use PPA and JPA to achieve the same
@@ -135,6 +147,11 @@ def test_JSR_I(capsys, tmpdir):
             .fill 32768 SENTINEL
     &0:     LI &80
             SMB mbu.MBP
+            LI &1
+            SMB mbu.MBS
+            LI &0
+            TAS
+
     """.rstrip(" ")
 
     for value in long_values:
@@ -142,6 +159,9 @@ def test_JSR_I(capsys, tmpdir):
         source += "             JSR I @+2\n".format(value)
         source += "             JMP @+2\n"
         source += "             .word &{:>04x}\n".format(value)
+
+    source += "            TSA\n"
+    source += "            dfp.PRINTD\n"
     source += "            HALT\n"
 
     for value in long_values:
@@ -151,54 +171,64 @@ def test_JSR_I(capsys, tmpdir):
         source += "           JSA\n"
 
     expected = ExpectedData([ SUCCESS ] * (len(long_values) + 1))
-    expected += [ HALTED ]
+    expected += [ [ 340, "PRINTD", str(len(long_values)) ], HALTED ]
 
     result = run_on_verilog_emu(capsys, tmpdir, source)
     result = list(expected.prepare(result))
     assert result == expected
 
 
-# @pytest.mark.verilog
-# @pytest.mark.emulator
-# @pytest.mark.hardware
-# @pytest.mark.LI
-# @pytest.mark.JSR
-# def test_JSR_I_R(capsys, tmpdir):
-#     """NOTE: when we're not using MBR-relative addressing, the address of the jump
-#     comes from Page Zero (relative to MBZ), but the jump itself is performed
-#     relative to MBP, as always!
-#     """
+@pytest.mark.verilog
+@pytest.mark.emulator
+@pytest.mark.hardware
+@pytest.mark.LI
+@pytest.mark.JSR
+def test_JSR_I_R(capsys, tmpdir):
+    """NOTE: when we're not using MBR-relative addressing, the address of the jump
+    comes from Page Zero (relative to MBZ), but the jump itself is performed
+    relative to MBP, as always!
+    """
 
-#     source =  """
-#     .include "mbu.asm"
-#     .include "dfp2.asm"
+    source =  """
+    .include "mbu.asm"
+    .include "dfp2.asm"
 
-#     &0:         SENTINEL   ; Easier debugging, and also forces start RAM address to zero.
-#     &800000:    .fill 32768 SENTINEL
-#     &800000:    LI &80
-#                 SMB mbu.MBP
-#                 LI &0
-#                 SMB mbu.MBZ
-#                 JMP I R &100
-#     &801234:    HALT
+    &0:         SENTINEL   ; Easier debugging, and also forces start RAM address to zero.
+    &800000:    .fill 32768 SENTINEL
+    &800000:    LI &80
+                SMB mbu.MBP
+                LI &0
+                SMB mbu.MBZ
+                LI &1
+                SMB mbu.MBS
+                LI &0
+                TAS
 
-#     """.rstrip(" ")
+    """.rstrip(" ")
 
-#     for i, value in enumerate(long_values, 0x100):
-#         source += "     &80{:>04x}:  SUCCESS\n".format(value)
-#         source += "               JMP I R &{:>x}\n".format(i + 1)
+    for i, value in enumerate(long_values, 0x100):
+        source += "                JSR I R &{:>x}\n".format(i)
 
-#     source += "               HALT\n"
-#     # 0x1234 allows us to jump to test termination at &80100
-#     for i, value in enumerate(long_values + [ 0x1234 ], 0x100):
-#         source += "     &{:>06x}:  .word &{:>04x}\n".format(i, value)
+    source += "                TSA\n"
+    source += "                dfp.PRINTD\n"
+    source += "                HALT\n"
+    # 0x1234 allows us to jump to test termination at &80100
+    for i, value in enumerate(long_values, 0x100):
+        source += "     &{:>06x}:  .word &{:>04x}\n".format(i, value)
 
-#     expected = ExpectedData([ SUCCESS ] * (len(long_values) + 1))
-#     expected += [ HALTED ]
+    # And now the subroutines themselves.
+    for i, value in enumerate(long_values, 0x100):
+        source += "     &80{:>04x}:\n".format(value, i)
+        source += "               SUCCESS\n"
+        source += "               PPA\n"
+        source += "               JSA\n"
 
-#     result = run_on_verilog_emu(capsys, tmpdir, source, long=True, timeout=30000000)
-#     result = list(expected.prepare(result))
-#     assert result == expected
+    expected = ExpectedData([ SUCCESS ] * (len(long_values) + 1))
+    expected += [ [ 340, "PRINTD", str(len(long_values)) ], HALTED ]
+
+    result = run_on_verilog_emu(capsys, tmpdir, source, long=True, timeout=30000000)
+    result = list(expected.prepare(result))
+    assert result == expected
 
 
 # @pytest.mark.verilog
