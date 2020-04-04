@@ -265,7 +265,9 @@ def test_JMP_I_R_autoinc_double_indirect(capsys, tmpdir):
                 LI &17
                 STORE R &341 ; Write MB1-relative autoinc register
                 JMP I R &341 ; And away we go
-    &801234:    HALT
+    &801234:    LOAD R &341
+                dfp.PRINTH
+                HALT
 
     """.rstrip(" ")
 
@@ -285,6 +287,118 @@ def test_JMP_I_R_autoinc_double_indirect(capsys, tmpdir):
         source += "    &{:>06x}:   .word &{:>04x}\n".format(i, value)
 
     expected = ExpectedData([ SUCCESS ] * (len(long_values) + 1))
+    expected += [ [ 340, "PRINTH", "{:>04x}".format(0x17 + len(long_values) + 1) ] ]
+    expected += [ HALTED ]
+
+    result = run_on_verilog_emu(capsys, tmpdir, source, long=True, timeout=30000000)
+    result = list(expected.prepare(result))
+    assert result == expected
+
+
+@pytest.mark.verilog
+@pytest.mark.emulator
+@pytest.mark.hardware
+@pytest.mark.LI
+@pytest.mark.JMP
+def test_JMP_I_R_autodec_double_indirect(capsys, tmpdir):
+    """Reminder: Autodecrement registers decrement after use, same as autoincrement
+    registers.
+    """
+
+    source =  """
+    .include "mbu.asm"
+    .include "dfp2.asm"
+
+    &0:         SENTINEL   ; Easier debugging, and also forces start RAM address to zero.
+    &800000:    .fill 32768 SENTINEL
+    &800000:    LI &80
+                SMB mbu.MBP
+                LI &0
+                SMB mbu.MBZ
+                LI &3
+                SMB mbu.MBD  ; We'll reference MBD (MB1) for this one.
+                LI &{:x}
+                STORE R &381 ; Write MB1-relative autoinc register
+                JMP I R &381 ; And away we go
+    &801234:    LOAD R &381
+                dfp.PRINTH
+                HALT
+
+    """.rstrip(" ").format(0x17 + len(long_values))
+
+    # The jumped-to code. This is very much like a Forth library, which
+    # makes sense since I made JMPII *for* Forth originally.
+    for value in long_values:
+        source += "    &80{:>04x}:    SUCCESS\n".format(value)
+        source += "                JMP I R &381\n"
+
+    source += "                HALT\n"
+
+    # Generate the jump table. Again, this is very much like a Forth compiled
+    # program.
+
+    # 0x1234 allows us to jump to test termination at &80100 source
+    for i, value in enumerate(reversed(long_values + [ 0x1234 ]), 0x30017):
+        source += "    &{:>06x}:   .word &{:>04x}\n".format(i, value)
+
+    expected = ExpectedData([ SUCCESS ] * (len(long_values) + 1))
+    expected += [ [ 340, "PRINTH", "0016" ] ]
+    expected += [ HALTED ]
+
+    result = run_on_verilog_emu(capsys, tmpdir, source, long=True, timeout=30000000)
+    result = list(expected.prepare(result))
+    assert result == expected
+
+
+@pytest.mark.verilog
+@pytest.mark.emulator
+@pytest.mark.hardware
+@pytest.mark.LI
+@pytest.mark.JMP
+def test_JMP_I_R_stack(capsys, tmpdir):
+    """Works just like autodecrement, but the value is decremented *before* use.
+    """
+
+    source =  """
+    .include "mbu.asm"
+    .include "dfp2.asm"
+
+    &0:         SENTINEL   ; Easier debugging, and also forces start RAM address to zero.
+    &800000:    .fill 32768 SENTINEL
+    &800000:    LI &80
+                SMB mbu.MBP
+                LI &0
+                SMB mbu.MBZ
+                LI &3
+                SMB mbu.MBD  ; We'll reference MBD (MB1) for this one.
+                LI &{:x}
+                STORE R &3c1 ; Write MB1-relative autoinc register
+                JMP I R &3c1 ; And away we go
+    &801234:    LOAD R &3c1
+                dfp.PRINTH
+                HALT
+
+    """.rstrip(" ").format(0x17 + len(long_values) + 1)
+    #                                              ^^^
+    # Adding one because a stack pointer is decremented before use.
+
+    # The jumped-to code. This is very much like a Forth library, which
+    # makes sense since I made JMPII *for* Forth originally.
+    for value in long_values:
+        source += "    &80{:>04x}:    SUCCESS\n".format(value)
+        source += "                JMP I R &3c1\n"
+
+    source += "                HALT\n"
+
+    # Generate the jump table. Again, this is very much like a Forth compiled
+    # program.
+
+    # 0x1234 allows us to jump to test termination at &80100 source
+    for i, value in enumerate(reversed(long_values + [ 0x1234 ]), 0x30017):
+        source += "    &{:>06x}:   .word &{:>04x}\n".format(i, value)
+
+    expected = ExpectedData([ SUCCESS ] * (len(long_values) + 1))
+    expected += [ [ 340, "PRINTH", "0017" ] ]
     expected += [ HALTED ]
 
     result = run_on_verilog_emu(capsys, tmpdir, source, long=True, timeout=30000000)
