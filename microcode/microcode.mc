@@ -2151,7 +2151,7 @@ start JSR, I=1, R=1, IDX=IDX_INC;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       STACK_PUSH(pc);                           // 02 mem[MBS:SP++] ← PC
       MEMREAD(mbz, agl, dr);                    // 04 DR ← mem[MBZ:AGL]
-      MEMREAD(mbp, dr, pc), action_incdr;       // 06 PC ← mem[MBP:DR]; DR++
+      MEMREAD_IDX(mbp, dr, pc), action_incdr;   // 06 PC ← mem[MBP:DR]; DR++
       MEMWRITE(mbz, agl, dr), END;              // 08 mem[MBZ:AGL] ← DR
 
 // NON-STANDARD: (7) JSR, Auto-Decrement Double Indirect
@@ -2159,7 +2159,7 @@ start JSR, I=1, R=1, IDX=IDX_DEC;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       STACK_PUSH(pc);                           // 02 mem[MBS:SP++] ← PC
       MEMREAD(mbz, agl, dr);                    // 04 DR ← mem[MBZ:AGL]
-      MEMREAD(mbp, dr, pc), action_decdr;       // 06 PC ← mem[MBP:DR]; DR--
+      MEMREAD_IDX(mbp, dr, pc), action_decdr;   // 06 PC ← mem[MBP:DR]; DR--
       MEMWRITE(mbz, agl, dr), END;              // 08 mem[MBZ:AGL] ← DR
 
 // (8) JSR, indirect stack addressing mode.
