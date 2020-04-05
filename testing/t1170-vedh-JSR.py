@@ -39,6 +39,10 @@ long_values = [ 5480, 35648, 60652, 33532, 11468, 28996, 14536, 60576, 52836,
 @pytest.mark.hardware
 @pytest.mark.LI
 @pytest.mark.JSR
+@pytest.mark.TSA
+@pytest.mark.TAS
+@pytest.mark.PPA
+@pytest.mark.JSA
 def test_JSR(capsys, tmpdir):
 
     source = """
@@ -67,10 +71,11 @@ def test_JSR(capsys, tmpdir):
     source += "           HALT\n"
     expected += [ [ 340, "PRINTD", str(len(values)) ], HALTED ]
 
-
     # Now the subroutines. Note, we don't use RET because we haven't
-    # tested it yet. But we can use PPA and JPA to achieve the same
-    # thing.
+    # tested it yet. But we can use PPA and JSA to achieve the same
+    # thing. Note: JSA is jump to subroutine, so the stack pointer is
+    # incremented TWICE per call, hence we expect it to be equal to
+    # len(values) at the end of execution.
     for value in values:
         source += "    &{:>04x}:\n".format(value)
         source += "           SUCCESS\n"
@@ -87,6 +92,10 @@ def test_JSR(capsys, tmpdir):
 @pytest.mark.hardware
 @pytest.mark.LI
 @pytest.mark.JSR
+@pytest.mark.TSA
+@pytest.mark.TAS
+@pytest.mark.PPA
+@pytest.mark.JSA
 def test_JSR_R(capsys, tmpdir):
 
     source = """
@@ -137,6 +146,10 @@ def test_JSR_R(capsys, tmpdir):
 @pytest.mark.hardware
 @pytest.mark.LI
 @pytest.mark.JSR
+@pytest.mark.TSA
+@pytest.mark.TAS
+@pytest.mark.PPA
+@pytest.mark.JSA
 def test_JSR_I(capsys, tmpdir):
 
     source = """
@@ -183,6 +196,10 @@ def test_JSR_I(capsys, tmpdir):
 @pytest.mark.hardware
 @pytest.mark.LI
 @pytest.mark.JSR
+@pytest.mark.TSA
+@pytest.mark.TAS
+@pytest.mark.PPA
+@pytest.mark.JSA
 def test_JSR_I_R(capsys, tmpdir):
     """NOTE: when we're not using MBR-relative addressing, the address of the jump
     comes from Page Zero (relative to MBZ), but the jump itself is performed
@@ -231,234 +248,272 @@ def test_JSR_I_R(capsys, tmpdir):
     assert result == expected
 
 
-# @pytest.mark.verilog
-# @pytest.mark.emulator
-# @pytest.mark.hardware
-# @pytest.mark.MBU
-# @pytest.mark.LI
-# @pytest.mark.JSR
-# def test_JSR_I_R_bank_relative(capsys, tmpdir):
-#     """Remember: JMP always jumps relative to MBP, no matter where the indirection
-#     happens from. In this test, we'll load jump addresses from different banks,
-#     but we'll always jump to MBP:<16-bit address>.
-#     """
+@pytest.mark.verilog
+@pytest.mark.emulator
+@pytest.mark.hardware
+@pytest.mark.MBU
+@pytest.mark.LI
+@pytest.mark.JSR
+@pytest.mark.TSA
+@pytest.mark.TAS
+@pytest.mark.PPA
+@pytest.mark.JSA
+def test_JSR_I_R_bank_relative(capsys, tmpdir):
+    """Remember: JMP always jumps relative to MBP, no matter where the indirection
+    happens from. In this test, we'll load jump addresses from different banks,
+    but we'll always jump to MBP:<16-bit address>.
+    """
 
-#     source =  """
-#     .include "mbu.asm"
-#     .include "dfp2.asm"
+    source =  """
+    .include "mbu.asm"
+    .include "dfp2.asm"
 
-#     &0:         SENTINEL   ; Easier debugging, and also forces start RAM address to zero.
-#     &800000:    .fill 32768 SENTINEL
-#     &800000:    LI &80
-#                 SMB mbu.MBP
-#                 LI &0
-#                 SMB mbu.MBZ
-#                 LI &4
-#                 SMB mbu.MB4
-#                 LI &5
-#                 SMB mbu.MB5
-#                 LI &6
-#                 SMB mbu.MB6
-#                 LI &7
-#                 SMB mbu.MB7
-#                 JMP I R &204
-#     &801234:    HALT
+    &0:         SENTINEL   ; Easier debugging, and also forces start RAM address to zero.
+    &800000:    .fill 32768 SENTINEL
+    &800000:    LI &80
+                SMB mbu.MBP
+                LI &0
+                SMB mbu.MBZ
+                LI &4
+                SMB mbu.MB4
+                LI &5
+                SMB mbu.MB5
+                LI &6
+                SMB mbu.MB6
+                LI &7
+                SMB mbu.MB7
 
-#     """.rstrip(" ")
+    """.rstrip(" ")
 
-#     i = 0x205
-#     for value in long_values:
-#         source += "     &80{:>04x}:  SUCCESS\n".format(value)
-#         source += "               JMP I R &{:>x}\n".format(i)
-#         i += 1
-#         if (i & 7) == 0:
-#             i += 4
+    # Note, the jump table is split among 4 MBRs: MB4-7. So for every eight
+    # auto-index MBR-relative addresses, we only use four (for a maximum of 128
+    # subroutines).
+    i = 0x204
+    for value in long_values:
+        source += "                JSR I R &{:>04x}\n".format(i)
+        i += 1
+        if (i & 7) == 0:
+            i += 4
 
+    source += "                TSA\n"
+    source += "                dfp.PRINTD\n"
+    source += "                HALT\n"
 
-#     source += "               HALT\n"
-#     # Note, the jump table is split among 4 MBRs: MB4-7. So for every eight
-#     # auto-index MBR-relative addresses, we only use four. 0x1234 allows us to
-#     # jump to test termination at &80100
-#     i = 0x204
-#     for value in long_values + [ 0x1234 ]:
-#         source += "     &{:>04x}:  .word &{:>04x}\n".format(i, value)
-#         i += 1
-#         if (i & 7) == 0:
-#             i += 4
+    # Now do the subroutine pointers
+    i = 0x204
+    for value in long_values:
+        source += "     &{:>06x}:  .word &{:>04x}\n".format(i, value)
+        i += 1
+        if (i & 7) == 0:
+            i += 4
 
-#     expected = ExpectedData([ SUCCESS ] * (len(long_values) + 1))
-#     expected += [ HALTED ]
+    # And the subroutines themselves
+    for value in long_values:
+        source += "     &80{:>04x}:\n".format(value)
+        source += "               SUCCESS\n"
+        source += "               PPA\n"
+        source += "               JSA\n"
 
-#     result = run_on_verilog_emu(capsys, tmpdir, source, long=True, timeout=30000000)
-#     result = list(expected.prepare(result))
-#     assert result == expected
+    expected = ExpectedData([ SUCCESS ] * (len(long_values) + 1))
+    expected += [ [ 340, "PRINTD", str(len(long_values)) ], HALTED ]
 
-
-# @pytest.mark.verilog
-# @pytest.mark.emulator
-# @pytest.mark.hardware
-# @pytest.mark.LI
-# @pytest.mark.JSR
-# def test_JSR_I_R_autoinc_double_indirect(capsys, tmpdir):
-#     """NOTE: when we're not using MBR-relative addressing, the address of the jump
-#     comes from Page Zero (relative to MBZ), but the jump itself is performed
-#     relative to MBP, as always!
-#     """
-
-#     source =  """
-#     .include "mbu.asm"
-#     .include "dfp2.asm"
-
-#     &0:         SENTINEL   ; Easier debugging, and also forces start RAM address to zero.
-#     &800000:    .fill 32768 SENTINEL
-#     &800000:    LI &80
-#                 SMB mbu.MBP
-#                 LI &0
-#                 SMB mbu.MBZ
-#                 LI &3
-#                 SMB mbu.MBD  ; We'll reference MBD (MB1) for this one.
-#                 LI &17
-#                 STORE R &341 ; Write MB1-relative autoinc register
-#                 JMP I R &341 ; And away we go
-#     &801234:    LOAD R &341
-#                 dfp.PRINTH
-#                 HALT
-
-#     """.rstrip(" ")
-
-#     # The jumped-to code. This is very much like a Forth library, which
-#     # makes sense since I made JMPII *for* Forth originally.
-#     for value in long_values:
-#         source += "    &80{:>04x}:    SUCCESS\n".format(value)
-#         source += "                JMP I R &341\n"
-
-#     source += "                HALT\n"
-
-#     # Generate the jump table. Again, this is very much like a Forth compiled
-#     # program.
-
-#     # 0x1234 allows us to jump to test termination at &80100 source
-#     for i, value in enumerate(long_values + [ 0x1234 ], 0x30017):
-#         source += "    &{:>06x}:   .word &{:>04x}\n".format(i, value)
-
-#     expected = ExpectedData([ SUCCESS ] * (len(long_values) + 1))
-#     expected += [ [ 340, "PRINTH", "{:>04x}".format(0x17 + len(long_values) + 1) ] ]
-#     expected += [ HALTED ]
-
-#     result = run_on_verilog_emu(capsys, tmpdir, source, long=True, timeout=30000000)
-#     result = list(expected.prepare(result))
-#     assert result == expected
+    result = run_on_verilog_emu(capsys, tmpdir, source, long=True, timeout=30000000)
+    result = list(expected.prepare(result))
+    assert result == expected
 
 
-# @pytest.mark.verilog
-# @pytest.mark.emulator
-# @pytest.mark.hardware
-# @pytest.mark.LI
-# @pytest.mark.JSR
-# def test_JSR_I_R_autodec_double_indirect(capsys, tmpdir):
-#     """Reminder: Autodecrement registers decrement after use, same as autoincrement
-#     registers.
-#     """
+@pytest.mark.verilog
+@pytest.mark.emulator
+@pytest.mark.hardware
+@pytest.mark.LI
+@pytest.mark.JSR
+@pytest.mark.TSA
+@pytest.mark.TAS
+@pytest.mark.PPA
+@pytest.mark.JSA
+def test_JSR_I_R_autoinc_double_indirect(capsys, tmpdir):
+    """NOTE: when we're not using MBR-relative addressing, the address of the jump
+    comes from Page Zero (relative to MBZ), but the jump itself is performed
+    relative to MBP, as always!
+    """
 
-#     source =  """
-#     .include "mbu.asm"
-#     .include "dfp2.asm"
+    source =  """
+    .include "mbu.asm"
+    .include "dfp2.asm"
 
-#     &0:         SENTINEL   ; Easier debugging, and also forces start RAM address to zero.
-#     &800000:    .fill 32768 SENTINEL
-#     &800000:    LI &80
-#                 SMB mbu.MBP
-#                 LI &0
-#                 SMB mbu.MBZ
-#                 LI &3
-#                 SMB mbu.MBD  ; We'll reference MBD (MB1) for this one.
-#                 LI &{:x}
-#                 STORE R &381 ; Write MB1-relative autoinc register
-#                 JMP I R &381 ; And away we go
-#     &801234:    LOAD R &381
-#                 dfp.PRINTH
-#                 HALT
+    &0:         SENTINEL   ; Easier debugging, and also forces start RAM address to zero.
+    &800000:    .fill 32768 SENTINEL
+    &800000:    LI &80
+                SMB mbu.MBP
+                LI &0
+                SMB mbu.MBZ
+                LI &3
+                SMB mbu.MBD  ; We'll reference MBD (MB1) for this one.
+                LI &117
+                STORE R &341 ; Write MB1-relative autoinc register
+    """.rstrip(" ")
 
-#     """.rstrip(" ").format(0x17 + len(long_values))
+    # The JSRs. It's just the same repeating instruction using &341 as an
+    # instruction pointer.
+    for value in long_values:
+        source += "                JSR I R &341\n"
 
-#     # The jumped-to code. This is very much like a Forth library, which
-#     # makes sense since I made JMPII *for* Forth originally.
-#     for value in long_values:
-#         source += "    &80{:>04x}:    SUCCESS\n".format(value)
-#         source += "                JMP I R &381\n"
+    source += """
+                LOAD R &341
+                dfp.PRINTH
+                TSA
+                dfp.PRINTD
+                HALT
+    """.strip(" ")
 
-#     source += "                HALT\n"
+    # The list of subroutines, stored in MBD (&03):
+    for i, value in enumerate(long_values, 0x30117):
+        source += "    &{:>06x}:   .word &{:>04x}\n".format(i, value)
 
-#     # Generate the jump table. Again, this is very much like a Forth compiled
-#     # program.
+    # The subroutines themselves.
+    for value in long_values:
+        source += "    &80{:>04x}:   SUCCESS\n".format(value)
+        source += "               PPA\n"
+        source += "               JSA\n"
 
-#     # 0x1234 allows us to jump to test termination at &80100 source
-#     for i, value in enumerate(reversed(long_values + [ 0x1234 ]), 0x30017):
-#         source += "    &{:>06x}:   .word &{:>04x}\n".format(i, value)
+    expected = ExpectedData([ SUCCESS ] * (len(long_values) + 1))
+    expected += [ [ 340, "PRINTH", "{:>04x}".format(0x117 + len(long_values)) ] ]
+    expected += [ [ 340, "PRINTD", str(len(long_values)) ] ]
+    expected += [ HALTED ]
 
-#     expected = ExpectedData([ SUCCESS ] * (len(long_values) + 1))
-#     expected += [ [ 340, "PRINTH", "0016" ] ]
-#     expected += [ HALTED ]
-
-#     result = run_on_verilog_emu(capsys, tmpdir, source, long=True, timeout=30000000)
-#     result = list(expected.prepare(result))
-#     assert result == expected
+    result = run_on_verilog_emu(capsys, tmpdir, source, long=True, timeout=30000000)
+    result = list(expected.prepare(result))
+    assert result == expected
 
 
-# @pytest.mark.verilog
-# @pytest.mark.emulator
-# @pytest.mark.hardware
-# @pytest.mark.LI
-# @pytest.mark.JSR
-# def test_JSR_I_R_stack(capsys, tmpdir):
-#     """Works just like autodecrement, but the value is decremented *before* use.
-#     """
+@pytest.mark.verilog
+@pytest.mark.emulator
+@pytest.mark.hardware
+@pytest.mark.LI
+@pytest.mark.JSR
+@pytest.mark.TSA
+@pytest.mark.TAS
+@pytest.mark.PPA
+@pytest.mark.JSA
+def test_JSR_I_R_autodec_double_indirect(capsys, tmpdir):
+    """NOTE: when we're not using MBR-relative addressing, the address of the jump
+    comes from Page Zero (relative to MBZ), but the jump itself is performed
+    relative to MBP, as always!
+    """
 
-#     source =  """
-#     .include "mbu.asm"
-#     .include "dfp2.asm"
+    source =  """
+    .include "mbu.asm"
+    .include "dfp2.asm"
 
-#     &0:         SENTINEL   ; Easier debugging, and also forces start RAM address to zero.
-#     &800000:    .fill 32768 SENTINEL
-#     &800000:    LI &80
-#                 SMB mbu.MBP
-#                 LI &0
-#                 SMB mbu.MBZ
-#                 LI &3
-#                 SMB mbu.MBD  ; We'll reference MBD (MB1) for this one.
-#                 LI &{:x}
-#                 STORE R &3c1 ; Write MB1-relative autoinc register
-#                 JMP I R &3c1 ; And away we go
-#     &801234:    LOAD R &3c1
-#                 dfp.PRINTH
-#                 HALT
+    &0:         SENTINEL   ; Easier debugging, and also forces start RAM address to zero.
+    &800000:    .fill 32768 SENTINEL
+    &800000:    LI &80
+                SMB mbu.MBP
+                LI &0
+                SMB mbu.MBZ
+                LI &3
+                SMB mbu.MBD  ; We'll reference MBD (MB1) for this one.
+                LI &{:x}
+                STORE R &381 ; Write MB1-relative autoinc register
+    """.rstrip(" ").format(0x117 + len(long_values) -1)
 
-#     """.rstrip(" ").format(0x17 + len(long_values) + 1)
-#     #                                              ^^^
-#     # Adding one because a stack pointer is decremented before use.
+    # The JSRs. It's just the same repeating instruction using &381 as an
+    # instruction pointer.
+    for value in long_values:
+        source += "                JSR I R &381\n"
 
-#     # The jumped-to code. This is very much like a Forth library, which
-#     # makes sense since I made JMPII *for* Forth originally.
-#     for value in long_values:
-#         source += "    &80{:>04x}:    SUCCESS\n".format(value)
-#         source += "                JMP I R &3c1\n"
+    source += """
+                LOAD R &381
+                dfp.PRINTH
+                TSA
+                dfp.PRINTD
+                HALT
+    """.strip(" ")
 
-#     source += "                HALT\n"
+    # The list of subroutines, stored in MBD (&03):
+    for i, value in enumerate(long_values, 0x30117):
+        source += "    &{:>06x}:   .word &{:>04x}\n".format(i, value)
 
-#     # Generate the jump table. Again, this is very much like a Forth compiled
-#     # program.
+    # The subroutines themselves.
+    for value in long_values:
+        source += "    &80{:>04x}:   SUCCESS\n".format(value)
+        source += "               PPA\n"
+        source += "               JSA\n"
 
-#     # 0x1234 allows us to jump to test termination at &80100 source
-#     for i, value in enumerate(reversed(long_values + [ 0x1234 ]), 0x30017):
-#         source += "    &{:>06x}:   .word &{:>04x}\n".format(i, value)
+    expected = ExpectedData([ SUCCESS ] * (len(long_values) + 1))
+    expected += [ [ 340, "PRINTH", "0116" ] ]
+    expected += [ [ 340, "PRINTD", str(len(long_values)) ] ]
+    expected += [ HALTED ]
 
-#     expected = ExpectedData([ SUCCESS ] * (len(long_values) + 1))
-#     expected += [ [ 340, "PRINTH", "0017" ] ]
-#     expected += [ HALTED ]
+    result = run_on_verilog_emu(capsys, tmpdir, source, long=True, timeout=30000000)
+    result = list(expected.prepare(result))
+    assert result == expected
 
-#     result = run_on_verilog_emu(capsys, tmpdir, source, long=True, timeout=30000000)
-#     result = list(expected.prepare(result))
-#     assert result == expected
+
+@pytest.mark.verilog
+@pytest.mark.emulator
+@pytest.mark.hardware
+@pytest.mark.LI
+@pytest.mark.JSR
+@pytest.mark.TSA
+@pytest.mark.TAS
+@pytest.mark.PPA
+@pytest.mark.JSA
+def test_JSR_I_R_stack(capsys, tmpdir):
+    """NOTE: when we're not using MBR-relative addressing, the address of the jump
+    comes from Page Zero (relative to MBZ), but the jump itself is performed
+    relative to MBP, as always!
+    """
+
+    source =  """
+    .include "mbu.asm"
+    .include "dfp2.asm"
+
+    &0:         SENTINEL   ; Easier debugging, and also forces start RAM address to zero.
+    &800000:    .fill 32768 SENTINEL
+    &800000:    LI &80
+                SMB mbu.MBP
+                LI &0
+                SMB mbu.MBZ
+                LI &3
+                SMB mbu.MBD  ; We'll reference MBD (MB1) for this one.
+                LI &{:x}
+                STORE R &3c1 ; Write MB1-relative autoinc register
+    """.rstrip(" ").format(0x117 + len(long_values) - 1 + 1)
+    #                                                   ^^^
+    # Adding one because a stack pointer is decremented before use.
+
+    # The JSRs. It's just the same repeating instruction using &3c1 as an
+    # instruction pointer.
+    for value in long_values:
+        source += "                JSR I R &3c1\n"
+
+    source += """
+                LOAD R &3c1
+                dfp.PRINTH
+                TSA
+                dfp.PRINTD
+                HALT
+    """.strip(" ")
+
+    # The list of subroutines, stored in MBD (&03):
+    for i, value in enumerate(long_values, 0x30117):
+        source += "    &{:>06x}:   .word &{:>04x}\n".format(i, value)
+
+    # The subroutines themselves.
+    for value in long_values:
+        source += "    &80{:>04x}:   SUCCESS\n".format(value)
+        source += "               PPA\n"
+        source += "               JSA\n"
+
+    expected = ExpectedData([ SUCCESS ] * (len(long_values) + 1))
+    expected += [ [ 340, "PRINTH", "0117" ] ]
+    expected += [ [ 340, "PRINTD", str(len(long_values)) ] ]
+    expected += [ HALTED ]
+
+    result = run_on_verilog_emu(capsys, tmpdir, source, long=True, timeout=30000000)
+    result = list(expected.prepare(result))
+    assert result == expected
 
 
 if __name__ == "__main__":
