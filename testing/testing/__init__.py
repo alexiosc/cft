@@ -306,6 +306,7 @@ def run_on_verilog_emu(capsys, tmpdir, source, timeout=20000000,
     args += [ "+timeout={}".format(timeout) ]
     if verilog_args is not None:
         args += verilog_args
+    #assert False, ' '.join(args)
 
     return run_verilog_testbench(capsys, 'cft2019', args)
 

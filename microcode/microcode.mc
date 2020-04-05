@@ -951,21 +951,21 @@ start CLI;
 
 start WAIT;
       SET(dr, agl), action_sti, END;  // 00 DR ← AGL; STI; loop forever
-      hold;                           // And keep on doing this.
-      hold;                           //
-      hold;                           //
-      hold;                           //
-      hold;                           //
-      hold;                           //
-      hold;                           //
-      hold;                           //
-      hold;                           //
-      hold;                           //
-      hold;                           //
-      hold;                           //
-      hold;                           //
-      hold;                           //
-      hold;                           //
+      hold;                           // 01   And keep on doing this.
+      hold;                           // 02 Instruction entry point.
+      hold;                           // 03 
+      hold;                           // 04 
+      hold;                           // 05 
+      hold;                           // 06 
+      hold;                           // 07 
+      hold;                           // 08 
+      hold;                           // 09 
+      hold;                           // 10 
+      hold;                           // 11 
+      hold;                           // 12 
+      hold;                           // 13 
+      hold;                           // 14 
+      hold;                           // 15 
 
 ///////////////////////////////////////////////////////////////////////////////
 //

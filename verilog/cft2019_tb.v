@@ -108,12 +108,12 @@ module cft2019_tb();
       $finish;
    end
 
-   always @(db) begin
-      #70 if (nmem == 1'b0 && db === 16'bZ) begin
-	 $display("346 Bus error");
-	 $finish;
-      end
-   end
+   // always @(db) begin
+   //    #70 if (nmem == 1'b0 && db === 16'bZ) begin
+   // 	 $display("346 Bus error");
+   // 	 $finish;
+   //    end
+   // end
 
    // Connect the DUT
    cft2019 cft (

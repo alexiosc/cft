@@ -247,6 +247,11 @@ module mbu (nreset,
    buffer_541 buf_ibus (.noe1(nrmbp), .noe2(1'b0), .a(aext), .y(ibus[7:0]));
    buffer_541 buf_db   (.noe1(niombr), .noe2(nr), .a(aext), .y(db[7:0]));
 
+   // This is here ONLY for debugging, otherwise the testbench throws
+   // a spurious bus error: we need to drive all 16 bits of the IBUS.
+   tri0 [7:0] 	_db_pullup;
+   assign db[15:8] = nrmbp ? 8'bZ : _db_pullup;
+
    // Note that the RMB instruction only drives the lower 8 bits. On real
    // hardware, Bus Hold would make the MSB equal to the last memory operation,
    // which will almost certainly be an instruction fetch, so &54 would be

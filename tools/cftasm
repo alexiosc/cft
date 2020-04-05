@@ -76,7 +76,7 @@ _BUILTINS = """;;; CFT Assembler Built-ins, Microcode Version 7.x.
 .equ    NOP9    UOP     #0000000 ; 0000:1:1:100:0000000  No Operation, 9 Cycles
 .equ    CLA     UOP     #0100000 ; 0000:1:1:100:-1-----  Clear Accumulator
 .equ    CLL     UOP     #0010000 ; 0000:1:1:100:--1----  Clear Link
-.equ    SEL     UOP     #0000001 ; 0000:1:1:100:--1---1  Set Link
+.equ    SEL     UOP     #0010001 ; 0000:1:1:100:--1---1  Set Link
 .equ    NOT     UOP     #0001000 ; 0000:1:1:100:---1---  Complement Accumulator
 .equ    NEG     UOP     #0001100 ; 0000:1:1:100:---11--  Negate Accumulator
 .equ    INC     UOP     #0000100 ; 0000:1:1:100:----1--  Increment Accumulator
