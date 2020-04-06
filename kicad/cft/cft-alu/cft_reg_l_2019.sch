@@ -549,13 +549,13 @@ Text Label 7400 1200 0    50   ~ 0
 Text Label 7400 1100 0    50   ~ 0
 CLK4
 Text Label 7400 1000 0    50   ~ 0
-~RESET
+~RSTHOLD
 Text Label 4150 2700 1    50   ~ 0
 ~FL
 Text Label 4350 1200 0    50   ~ 0
 ~FL
 Text Label 4050 2700 1    50   ~ 0
-~RESET
+~RSTHOLD
 Text Label 3850 4500 1    50   ~ 0
 ~SETL-ROM
 Text Label 3750 4500 1    50   ~ 0
@@ -563,7 +563,7 @@ Text Label 3750 4500 1    50   ~ 0
 Text Label 4350 1100 0    50   ~ 0
 CLK4
 Text Label 4350 1000 0    50   ~ 0
-~RESET
+~RSTHOLD
 Text Label 1500 1100 0    50   ~ 0
 CLK4
 Text Label 1500 4900 0    50   ~ 0
@@ -633,9 +633,9 @@ Wire Wire Line
 Wire Wire Line
 	4250 4600 4250 1750
 Text HLabel 1300 1000 0    50   Input ~ 0
-~RESET
+~RSTHOLD
 Text Label 1500 1000 0    50   ~ 0
-~RESET
+~RSTHOLD
 Text HLabel 1300 4800 0    50   Input ~ 0
 FLCP-SRU
 Text Label 1500 4800 0    50   ~ 0
@@ -795,7 +795,7 @@ F 3 "" H 8700 2600 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Text Label 8450 2950 0    50   ~ 0
-~RESET
+~RSTHOLD
 Wire Wire Line
 	8750 2950 8250 2950
 $Comp
@@ -851,7 +851,7 @@ FL
 Text Label 4450 4900 0    50   ~ 0
 ~ACTION-CLL
 Text Label 4450 4800 0    50   ~ 0
-~RESET
+~RSTHOLD
 Text Label 6750 4800 2    50   ~ 0
 ~CLRL
 Wire Wire Line

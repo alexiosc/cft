@@ -855,12 +855,6 @@ Wire Wire Line
 	6150 3050 7100 3050
 Wire Wire Line
 	6150 3850 7100 3850
-Wire Bus Line
-	8550 2000 8550 4450
-Wire Bus Line
-	6050 2450 6050 5200
-Wire Bus Line
-	4000 2000 4000 4450
 Wire Wire Line
 	6150 3950 7100 3950
 Wire Wire Line
@@ -875,4 +869,10 @@ Wire Wire Line
 	6150 4450 7100 4450
 Wire Wire Line
 	6150 4550 7100 4550
+Wire Bus Line
+	8550 2000 8550 4450
+Wire Bus Line
+	6050 2450 6050 5200
+Wire Bus Line
+	4000 2000 4000 4450
 $EndSCHEMATC
