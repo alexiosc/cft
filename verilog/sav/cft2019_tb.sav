@@ -1,18 +1,18 @@
 [*]
 [*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
-[*] Sun Apr  5 09:17:36 2020
+[*] Mon Apr  6 08:27:06 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/cft2019_tb.vcd"
-[dumpfile_mtime] "Sun Apr  5 09:16:40 2020"
-[dumpfile_size] 268641
+[dumpfile_mtime] "Mon Apr  6 08:22:09 2020"
+[dumpfile_size] 199379
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/cft2019_tb.sav"
-[timestart] 11616000
+[timestart] 0
 [size] 1920 1019
 [pos] 2425 29
-*-19.597090 14241000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-21.066673 5208250 9251750 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] cft2019_tb.
 [treeopen] cft2019_tb.cft.
-[treeopen] cft2019_tb.cft.card_ctl.
+[treeopen] cft2019_tb.cft.card_alu.
 [treeopen] cft2019_tb.cft.card_mem.romhi.
 [treeopen] cft2019_tb.cft.card_reg.reg_ac.
 [sst_width] 258
@@ -60,10 +60,10 @@ cft2019_tb.cft.card_ctl.nfpclk_or_clk
 @22
 [color] 2
 +{pc[15:0]} cft2019_tb.cft.card_reg.reg_pc.out[15:0]
-@c00023
+@c00022
 [color] 1
 cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
-@29
+@28
 [color] 1
 (0)cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
 [color] 1
@@ -96,7 +96,7 @@ cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
 (14)cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
 [color] 1
 (15)cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
-@1401201
+@1401200
 -group_end
 @4022
 [color] 1
@@ -360,6 +360,62 @@ cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
 cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
 @1401200
 -Instruction Register
+@200
+-
+@28
+cft2019_tb.cft.card_alu.alu_sru.nstart
+cft2019_tb.cft.card_alu.alu_sru.nstart_sync
+cft2019_tb.cft.card_alu.alu_sru.shiftclk
+@22
+cft2019_tb.cft.card_alu.alu_sru.b[15:0]
+@28
+cft2019_tb.cft.card_alu.alu_sru.bcp_sru
+cft2019_tb.cft.card_alu.alu_sru.flcp_sru
+cft2019_tb.cft.card_alu.alu_sru.fl
+cft2019_tb.cft.card_alu.alu_sru.flout_sru
+@22
+cft2019_tb.cft.card_alu.alu_sru.ibus[15:0]
+@28
+cft2019_tb.cft.card_alu.alu_sru.nleft
+cft2019_tb.cft.card_alu.alu_sru.nright
+cft2019_tb.cft.card_alu.alu_sru.op_arithmetic
+@22
+cft2019_tb.cft.card_alu.alu_sru.op_dist[3:0]
+@28
+cft2019_tb.cft.card_alu.alu_sru.op_right
+cft2019_tb.cft.card_alu.alu_sru.op_rotate
+@200
+-
+-
+@800200
+-L Register
+@29
+cft2019_tb.cft.nrsthold
+@28
+cft2019_tb.cft.card_alu.reg_l.nreset
+cft2019_tb.cft.card_alu.reg_l.clk4
+cft2019_tb.cft.card_alu.reg_l.bcp
+cft2019_tb.cft.card_alu.reg_l.clkl
+cft2019_tb.cft.card_alu.reg_l.clkl0
+cft2019_tb.cft.card_alu.reg_l.fl
+cft2019_tb.cft.card_alu.reg_l.flfast
+cft2019_tb.cft.card_alu.reg_l.flin_add
+cft2019_tb.cft.card_alu.reg_l.flin_sru
+cft2019_tb.cft.card_alu.reg_l.ibus12
+cft2019_tb.cft.card_alu.reg_l.ld
+cft2019_tb.cft.card_alu.reg_l.ld0
+cft2019_tb.cft.card_alu.reg_l.naction_cll
+cft2019_tb.cft.card_alu.reg_l.naction_cpl
+cft2019_tb.cft.card_alu.reg_l.nclrl
+cft2019_tb.cft.card_alu.reg_l.nclrl0
+cft2019_tb.cft.card_alu.reg_l.nfl
+cft2019_tb.cft.card_alu.reg_l.nflagwe
+cft2019_tb.cft.card_alu.reg_l.nread_alu_add
+cft2019_tb.cft.card_alu.reg_l.nsetl
+@1000200
+-L Register
+@200
+-
 @c00200
 -Flags
 @28
