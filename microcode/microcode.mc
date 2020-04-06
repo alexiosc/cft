@@ -243,7 +243,7 @@ signal write_mbp       = ..............01100.....; // Write MBP
 signal write_mbp_flags = ..............01101.....; // Read combination MBP+flags
 signal write_flags     = ..............01110.....; // Write flags (not all are written!)
 signal write_ir        = ..............01111.....; // Write to the Instruction Register
-signal write_alu_b     = ..............10000.....; // Write to ALU's B Port
+//signal               = ..............10000.....; // (Reserved for the ALU)
 //signal               = ..............10001.....; // (Reserved for the ALU)
 //signal               = ..............10010.....; // (Reserved for the ALU)
 //signal               = ..............10011.....; // (Reserved for the ALU)
@@ -251,7 +251,7 @@ signal write_alu_b     = ..............10000.....; // Write to ALU's B Port
 //signal               = ..............10101.....; // (Reserved for the ALU)
 //signal               = ..............10110.....; // (Reserved for the ALU)
 //signal               = ..............10111.....; // (Reserved for the ALU)
-//signal               = ..............11000.....; // (Available)
+signal write_alu_b     = ..............11000.....; // Write to ALU's B Port
 //signal               = ..............11001.....; // (Available)
 //signal               = ..............11010.....; // (Available)
 //signal               = ..............11011.....; // (Available)
@@ -1085,10 +1085,10 @@ start WAIT;
 start SRU;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       SET(alu_b, ac), action_sru;               // 02 B ← AC. (write B port, request SRU start)
-      ;                                         // 03 SRU cycle #2
-      ;                                         // 04 SRU cycle #3
-      ;                                         // 05 SRU cycle #4
-      ;                                         // 06 SRU cycle #5
+      -END;                                     // 03 SRU cycle #2
+      -END;                                     // 04 SRU cycle #3
+      -END;                                     // 05 SRU cycle #4
+      -END;                                     // 06 SRU cycle #5
       SET(ac, alu_b), END;                      // 07 AC ← ALU B Reg
 
 
