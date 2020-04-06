@@ -1,22 +1,25 @@
 [*]
-[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
-[*] Mon Apr  6 08:27:06 2020
+[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
+[*] Mon Apr  6 14:25:41 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/cft2019_tb.vcd"
-[dumpfile_mtime] "Mon Apr  6 08:22:09 2020"
-[dumpfile_size] 199379
+[dumpfile_mtime] "Mon Apr  6 14:24:37 2020"
+[dumpfile_size] 229023
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/cft2019_tb.sav"
-[timestart] 0
+[timestart] 8928000
 [size] 1920 1019
-[pos] 2425 29
-*-21.066673 5208250 9251750 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[pos] 2199 0
+*-20.188150 12863000 9251750 11644750 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] cft2019_tb.
 [treeopen] cft2019_tb.cft.
-[treeopen] cft2019_tb.cft.card_alu.
+[treeopen] cft2019_tb.cft.card_alu.decoder.
+[treeopen] cft2019_tb.cft.card_alu.port_b.
+[treeopen] cft2019_tb.cft.card_alu.reg_l.
+[treeopen] cft2019_tb.cft.card_ctl.
 [treeopen] cft2019_tb.cft.card_mem.romhi.
 [treeopen] cft2019_tb.cft.card_reg.reg_ac.
 [sst_width] 258
-[signals_width] 569
+[signals_width] 637
 [sst_expanded] 1
 [sst_vpaned_height] 286
 @800200
@@ -47,10 +50,10 @@ cft2019_tb.cft.card_ctl.clk2
 cft2019_tb.cft.card_ctl.clk3
 [color] 4
 cft2019_tb.cft.card_ctl.clk4
-[color] 5
-cft2019_tb.cft.card_ctl.t34
 [color] 6
 cft2019_tb.cft.card_ctl.fpclk
+[color] 5
+cft2019_tb.cft.card_ctl.t34
 [color] 7
 cft2019_tb.cft.card_ctl.nfpclk_or_clk
 @1000200
@@ -190,6 +193,38 @@ cft2019_tb.cft.fz
 cft2019_tb.cft.card_ctl.fi
 @1000200
 -Registers
+@c00200
+-Shifter/Rotator (SRU)
+@28
+cft2019_tb.cft.card_alu.alu_sru.nstart
+cft2019_tb.cft.card_alu.alu_sru.nstart_sync
+cft2019_tb.cft.card_alu.alu_sru.shiftclk
+cft2019_tb.cft.card_alu.alu_sru.clk2
+cft2019_tb.cft.card_alu.alu_sru.clk2_delay
+cft2019_tb.cft.card_alu.alu_sru.clk4
+cft2019_tb.cft.card_alu.alu_sru.clk4_delay
+cft2019_tb.cft.card_alu.flfast
+@200
+-
+@28
+cft2019_tb.cft.card_alu.port_b.bcp
+cft2019_tb.cft.card_alu.alu_sru.flcp_sru
+cft2019_tb.cft.card_alu.reg_l.fl
+cft2019_tb.cft.card_alu.alu_sru.fl
+cft2019_tb.cft.card_alu.alu_sru.flout_sru
+@22
+cft2019_tb.cft.card_alu.alu_sru.ibus[15:0]
+@28
+cft2019_tb.cft.card_alu.alu_sru.nleft
+cft2019_tb.cft.card_alu.alu_sru.nright
+cft2019_tb.cft.card_alu.alu_sru.op_arithmetic
+@22
+cft2019_tb.cft.card_alu.alu_sru.op_dist[3:0]
+@28
+cft2019_tb.cft.card_alu.alu_sru.op_right
+cft2019_tb.cft.card_alu.alu_sru.op_rotate
+@1401200
+-Shifter/Rotator (SRU)
 @800200
 -Buses
 @22
@@ -241,7 +276,7 @@ cft2019_tb.cft.nwen
 cft2019_tb.cft.nw
 @1000200
 -Buses
-@800200
+@c00200
 -Control Unit
 @820
 cft2019_tb.cft.card_ctl.clock_generator.state[15:0]
@@ -336,7 +371,7 @@ cft2019_tb.cft.nr
 [color] 2
 cft2019_tb.cft.nwen
 cft2019_tb.cft.card_ctl.microcode_sequencer.nend
-@1000200
+@1401200
 -Control Unit
 @c00200
 -Addressing
@@ -362,37 +397,10 @@ cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
 -Instruction Register
 @200
 -
-@28
-cft2019_tb.cft.card_alu.alu_sru.nstart
-cft2019_tb.cft.card_alu.alu_sru.nstart_sync
-cft2019_tb.cft.card_alu.alu_sru.shiftclk
-@22
-cft2019_tb.cft.card_alu.alu_sru.b[15:0]
-@28
-cft2019_tb.cft.card_alu.alu_sru.bcp_sru
-cft2019_tb.cft.card_alu.alu_sru.flcp_sru
-cft2019_tb.cft.card_alu.alu_sru.fl
-cft2019_tb.cft.card_alu.alu_sru.flout_sru
-@22
-cft2019_tb.cft.card_alu.alu_sru.ibus[15:0]
-@28
-cft2019_tb.cft.card_alu.alu_sru.nleft
-cft2019_tb.cft.card_alu.alu_sru.nright
-cft2019_tb.cft.card_alu.alu_sru.op_arithmetic
-@22
-cft2019_tb.cft.card_alu.alu_sru.op_dist[3:0]
-@28
-cft2019_tb.cft.card_alu.alu_sru.op_right
-cft2019_tb.cft.card_alu.alu_sru.op_rotate
-@200
--
--
-@800200
+@c00200
 -L Register
-@29
-cft2019_tb.cft.nrsthold
 @28
-cft2019_tb.cft.card_alu.reg_l.nreset
+cft2019_tb.cft.nrsthold
 cft2019_tb.cft.card_alu.reg_l.clk4
 cft2019_tb.cft.card_alu.reg_l.bcp
 cft2019_tb.cft.card_alu.reg_l.clkl
@@ -412,7 +420,7 @@ cft2019_tb.cft.card_alu.reg_l.nfl
 cft2019_tb.cft.card_alu.reg_l.nflagwe
 cft2019_tb.cft.card_alu.reg_l.nread_alu_add
 cft2019_tb.cft.card_alu.reg_l.nsetl
-@1000200
+@1401200
 -L Register
 @200
 -

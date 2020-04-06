@@ -266,7 +266,7 @@ module card_alu(
    //
    ///////////////////////////////////////////////////////////////////////////////
 
-   reg_l reg_l (.nreset(nreset),
+   reg_l reg_l (.nrsthold(nrsthold),
 		.clk4(clk4),
 		.naction_cpl(naction_cpl),
 		.ibus12(ibus[12]),

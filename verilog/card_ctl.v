@@ -157,7 +157,7 @@ module card_ctl(
    assign cport[8] = nwen;
    assign fl = cport[9];
    assign fv = cport[10];
-   assign nflagwe = cport[11];
+   assign cport[11] = nflagwe;
    assign fz = cport[12];
    assign fn = cport[13];
    assign pc[15:10] = cport[19:14];

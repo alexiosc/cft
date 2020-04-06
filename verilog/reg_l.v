@@ -81,13 +81,13 @@
 // (use a second FF that clocks on raising edge of CLK4?)
 
 
-module reg_l(nreset, clk4,
+module reg_l(nrsthold, clk4,
 	     naction_cpl, ibus12, 
 	     flin_add,  flin_sru,
 	     nread_alu_add, nflagwe, bcp, naction_cll,
 	     fl, flfast);
    // Declare inputs as regs and outputs as wires
-   input  nreset;
+   input  nrsthold;
    input  clk4;
    input  naction_cpl;
    input  ibus12;
@@ -100,7 +100,7 @@ module reg_l(nreset, clk4,
    
    output fl, flfast;
 
-   wire   nreset;
+   wire   nrsthold;
    wire   clk4;
    wire   naction_cpl;
    wire   ibus12;
@@ -128,8 +128,8 @@ module reg_l(nreset, clk4,
    assign #6 nsetl = fl | naction_cpl; // Mask #CPL when FL is 1.
    assign #6 nclrl0 = nfl | naction_cpl; // Mask #CPL when FL is 0.
 
-   // The FF is cleared when nreset, naction_cll, or nclrl0 are asserted (low).
-   assign #4 nclrl = nclrl0 & nreset & naction_cll;
+   // The FF is cleared when nrsthold, naction_cll, or nclrl0 are asserted (low).
+   assign #4 nclrl = nclrl0 & nrsthold & naction_cll;
 
    // The clock
    wire   clkl0, clkl;
@@ -143,7 +143,7 @@ module reg_l(nreset, clk4,
 
    // And this FF runs in the processor's clock domain, filtering out transient
    // FL changes and also drastically reducing the risk of metastability.
-   flipflop_74h fl_ff (.d(flfast), .clk(clk4), .nset(1'b1), .nrst(nreset), .q(fl), .nq(nfl));
+   flipflop_74h fl_ff (.d(flfast), .clk(clk4), .nset(1'b1), .nrst(nrsthold), .q(fl), .nq(nfl));
    
 endmodule // reg_l
 

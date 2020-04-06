@@ -33,7 +33,7 @@
 
 
 module reg_l_tb();
-   reg nreset;
+   reg nrsthold;
    reg clk;
    reg naction_cpl;
    reg naction_cll;
@@ -56,9 +56,9 @@ module reg_l_tb();
       $dumpfile ("vcd/reg_l_tb.vcd");
       $dumpvars (0, reg_l_tb);
 
-      $monitor ("t: %7d | %b %b %b > %b", $time, nreset, naction_cll, naction_cpl, fl);
+      $monitor ("t: %7d | %b %b %b > %b", $time, nrsthold, naction_cll, naction_cpl, fl);
 
-      nreset = 0;
+      nrsthold = 0;
       clk = 1;
       naction_cpl = 1;
       naction_cll = 1;
@@ -69,7 +69,7 @@ module reg_l_tb();
       nread_alu_add = 1;
       bcp = 1;
       clken = 0;
-      #1000 nreset = 1;
+      #1000 nrsthold = 1;
 
       // Try out the asynchronous signals
 
@@ -138,7 +138,7 @@ module reg_l_tb();
    assign clk4 = clken == 1 ? _clk4 : clk;
 
    // Instantiate the DUT.
-   reg_l reg_l (.nreset(nreset),
+   reg_l reg_l (.nrsthold(nrsthold),
 		.clk4(clk4),
 		.naction_cpl(naction_cpl), .ibus12(ibus12),
 		.flin_add(flin_add), .flin_sru(flin_sru),
@@ -152,22 +152,22 @@ module reg_l_tb();
 
    // Check against FLFAST because it's simpler. We'll then check if
    // FLFAST correctly updates FL synchronously with clk4.
-   always @ (nreset, naction_cll, naction_cpl) begin
+   always @ (nrsthold, naction_cll, naction_cpl) begin
       #30 begin
    	 msg[7:0] = "";		// Use the msg as a flag.
 
 	 // Reset
-	 if (nreset === 0) begin
-	    if (flfast !== 0) $sformat(msg, "nreset=%b, flfast=%b (should be 0)", nreset, flfast);
+	 if (nrsthold === 0) begin
+	    if (flfast !== 0) $sformat(msg, "nrsthold=%b, flfast=%b (should be 0)", nrsthold, flfast);
 	    old_fl = flfast;
 	 end
 	 
-	 else if (nreset !== 1) $sformat(msg, "testbench bug, nreset=%b", nreset);
+	 else if (nrsthold !== 1) $sformat(msg, "testbench bug, nrsthold=%b", nrsthold);
 
 	 // CLL
 	 if (naction_cll === 0) begin
-	    if (flfast !== 0) $sformat(msg, "nreset=%b, naction_cll=%b, flfast=%b (should be 0)",
-				   nreset, naction_cll, flfast, old_fl);
+	    if (flfast !== 0) $sformat(msg, "nrsthold=%b, naction_cll=%b, flfast=%b (should be 0)",
+				   nrsthold, naction_cll, flfast, old_fl);
 	    old_fl = flfast;
 	 end
 	 
@@ -176,8 +176,8 @@ module reg_l_tb();
 	 // CPL
 	 if (naction_cpl === 0) begin
 	    if (flfast !== ~old_fl) begin
-	       $sformat(msg, "nreset=%b, naction_cpl=%b, flfast=%b (should be %b)",
-			nreset, naction_cpl, flfast, ~old_fl);
+	       $sformat(msg, "nrsthold=%b, naction_cpl=%b, flfast=%b (should be %b)",
+			nrsthold, naction_cpl, flfast, ~old_fl);
 	    end
 	    old_fl = flfast;
 	 end
@@ -224,8 +224,8 @@ module reg_l_tb();
 
 	 // CLL
 	 if (naction_cll === 0) begin
-	    if (flfast !== 0) $sformat(msg, "nreset=%b, naction_cll=%b, flfast=%b (should be 0)",
-				   nreset, naction_cll, flfast, old_fl);
+	    if (flfast !== 0) $sformat(msg, "nrsthold=%b, naction_cll=%b, flfast=%b (should be 0)",
+				   nrsthold, naction_cll, flfast, old_fl);
 	    old_fl = flfast;
 	 end
 	 
@@ -234,8 +234,8 @@ module reg_l_tb();
 	 // CPL
 	 if (naction_cpl === 0) begin
 	    if (flfast !== ~old_fl) begin
-	       $sformat(msg, "nreset=%b, naction_cpl=%b, flfast=%b (should be %b)",
-			nreset, naction_cpl, flfast, ~old_fl);
+	       $sformat(msg, "nrsthold=%b, naction_cpl=%b, flfast=%b (should be %b)",
+			nrsthold, naction_cpl, flfast, ~old_fl);
 	    end
 	    old_fl = flfast;
 	 end
