@@ -122,17 +122,15 @@ $EndComp
 NoConn ~ 4350 2750
 NoConn ~ 4350 2850
 Entry Wire Line
-	2900 2750 3000 2850
-Entry Wire Line
 	2900 2650 3000 2750
-Text Label 3050 2950 0    50   ~ 0
-T34
 Text Label 3050 2850 0    50   ~ 0
+T34
+Text Label 3050 2950 0    50   ~ 0
 RADDR3
 Text Label 3050 2750 0    50   ~ 0
 RADDR4
 Wire Wire Line
-	3350 2850 3000 2850
+	3350 2950 3000 2950
 Wire Wire Line
 	3350 2750 3000 2750
 Entry Bus Bus
@@ -265,22 +263,15 @@ Wire Wire Line
 	4350 2150 5250 2150
 Text HLabel 5250 2150 2    50   Output ~ 0
 ~ROMOE
-Text HLabel 2200 2950 0    50   Input ~ 0
+Text HLabel 2200 2850 0    50   Input ~ 0
 T34
 Wire Wire Line
 	2800 4750 3350 4750
-Wire Wire Line
-	2200 2950 2800 2950
-Connection ~ 2800 2950
-Wire Wire Line
-	2800 2950 3350 2950
-Wire Wire Line
-	2800 2950 2800 4750
 Text Label 3050 4750 0    50   ~ 0
 T34
 Text Label 2800 3700 1    50   ~ 0
 ~RUEN
-Text Label 2300 2950 0    50   ~ 0
+Text Label 2300 2850 0    50   ~ 0
 T34
 Text Label 2900 3700 1    50   ~ 0
 RADDR[0..4]
@@ -689,10 +680,19 @@ Wire Wire Line
 	7350 2700 7350 2750
 Wire Wire Line
 	7350 2750 7400 2750
+Wire Wire Line
+	2200 2850 2800 2850
+Wire Wire Line
+	2800 2850 2800 4750
+Connection ~ 2800 2850
+Wire Wire Line
+	2800 2850 3350 2850
 Wire Bus Line
 	6950 2000 6950 2750
 Wire Bus Line
 	6950 3800 6950 4550
 Wire Bus Line
 	2900 2500 2900 4550
+Entry Wire Line
+	2900 3050 3000 2950
 $EndSCHEMATC

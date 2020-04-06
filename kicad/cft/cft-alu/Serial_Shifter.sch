@@ -2377,6 +2377,12 @@ F 3 "" H 6600 6500 50  0001 C CNN
 $EndComp
 Connection ~ 6600 6500
 Connection ~ 6600 6300
+Text HLabel 10650 5650 2    50   Output ~ 0
+~SRU-RUN
+Wire Wire Line
+	10650 5650 8450 5650
+Text Label 8450 5650 0    50   ~ 0
+TC
 Wire Bus Line
 	4400 1100 4400 1800
 Wire Bus Line

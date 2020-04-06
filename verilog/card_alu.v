@@ -237,7 +237,8 @@ module card_alu(
    wire 	 op_right;	// shift/rotate direction (0=left, 1=right)
    wire 	 op_arithmetic;	// right shift type (0=logic, 1=arithmetic)
    wire 	 op_rotate;	// operation (0=shift, 1=rotate)
-
+   wire 	 nsru_run;
+   
    // Map the SRU inputs to IR fields. This hardwires the fields in the operand
    // of the SRU instruction.
    assign op_dist = ir_6_0[3:0];
@@ -258,7 +259,8 @@ module card_alu(
 		    .ibus(ibus),
 		    .bcp_sru(bcp_sru),	// Set ALU B to temporary result of SRU
 		    .flout_sru(flout_sru),
-		    .flcp_sru(flcp_sru));
+		    .flcp_sru(flcp_sru),
+		    .nsru_run(nsru_run));
 
    ///////////////////////////////////////////////////////////////////////////////
    //
@@ -272,6 +274,7 @@ module card_alu(
 		.ibus12(ibus[12]),
 		.flin_add(flout_rom),
 		.flin_sru(flout_sru),
+		.nsru_run(nsru_run),
 		.nread_alu_add(nsetl_rom),
 		.nflagwe(nflagwe),
 		.bcp(bcp),

@@ -1,15 +1,15 @@
 [*]
-[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
-[*] Sat Oct 19 16:16:15 2019
+[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
+[*] Mon Apr  6 18:19:35 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/reg_l_tb.vcd"
-[dumpfile_mtime] "Sat Oct 19 16:16:03 2019"
-[dumpfile_size] 14350
+[dumpfile_mtime] "Mon Apr  6 18:18:17 2020"
+[dumpfile_size] 14442
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/reg_l_tb.sav"
-[timestart] 0
+[timestart] 10539000
 [size] 1920 1019
 [pos] 0 0
-*-22.283524 14547300 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-20.283524 15733000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] reg_l_tb.
 [treeopen] reg_l_tb.reg_l.
 [sst_width] 258
@@ -17,7 +17,6 @@
 [sst_expanded] 1
 [sst_vpaned_height] 280
 @28
-reg_l_tb.nreset
 reg_l_tb.clk4
 @200
 -
@@ -45,7 +44,10 @@ reg_l_tb.flin_add
 -
 -Shifter Output
 @28
+reg_l_tb.reg_l.nsru_run
+@29
 reg_l_tb.flin_sru
+@28
 reg_l_tb.reg_l.bcp
 @200
 -

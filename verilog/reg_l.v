@@ -84,7 +84,7 @@
 module reg_l(nrsthold, clk4,
 	     naction_cpl, ibus12, 
 	     flin_add,  flin_sru,
-	     nread_alu_add, nflagwe, bcp, naction_cll,
+	     nsru_run, nread_alu_add, nflagwe, bcp, naction_cll,
 	     fl, flfast);
    // Declare inputs as regs and outputs as wires
    input  nrsthold;
@@ -94,31 +94,28 @@ module reg_l(nrsthold, clk4,
    input  flin_add;
    input  flin_sru;
    input  nread_alu_add;
+   input  nsru_run;
    input  nflagwe;
    input  bcp;
    input  naction_cll;
    
    output fl, flfast;
 
-   wire   nrsthold;
-   wire   clk4;
-   wire   naction_cpl;
-   wire   ibus12;
-   wire   flin_add;
-   wire   flin_sru;
-   wire   nread_alu_add;
-   wire   nflagwe;
-   wire   bcp;
-   wire   naction_cll;
-   wire   fl, nfl, flfast;
+   wire   nfl;
    
-   // Source multiplexer for input data, with a 21ns delay line so
-   // flip flop hold times aren't violated.
-   wire   ld, ld0;
-   mux_253h ld_mux (.sel({nflagwe, nread_alu_add}),
-		    .i({flin_sru, flin_add, ibus12, ibus12}),
-		    .noe(1'b0), .y(ld0));
-   assign #21 ld = ld0;
+   // Cascaded 1-of-3 priotiry selector for input data, with a 21ns delay line
+   // so flip flop hold times aren't violated.
+   // wire   ld, ld0;
+   // mux_253h ld_mux (.sel({nflagwe, nread_alu_add}),
+   // 		    .i({flin_sru, flin_add, ibus12, ibus12}),
+   // 		    .noe(1'b0), .y(ld0));
+
+   wire   ld0, ld1, ld;
+   mux_2g157 ld_mux0 (.sel(nflagwe), .a(ibus12), .b(flin_add), .ng(1'b0), .y(ld0));
+   mux_2g157 ld_mux1 (.sel(nsru_run), .a(flin_sru), .b(ld0), .ng(1'b0), .y(ld1));
+
+   
+   assign #21 ld = ld1;
 
    wire   nsetl, nclrl0, nclrl;
 

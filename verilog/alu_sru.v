@@ -29,7 +29,7 @@ module alu_sru(nreset, nrsthold,
 	       nstart,
 	       b, fl,
 	       op_arithmetic, op_rotate, op_right, op_dist,
-	       ibus, bcp_sru, flout_sru, flcp_sru);
+	       ibus, bcp_sru, flout_sru, flcp_sru, nsru_run);
 
    input         nreset;
    input         nrsthold;
@@ -46,6 +46,7 @@ module alu_sru(nreset, nrsthold,
    output        bcp_sru;		// B register write clock;
    output 	 flout_sru;		// FL output
    output 	 flcp_sru;		// FL clock
+   output 	 nsru_run;		// Low while the SRU is running
 
    wire          nreset;
    wire          clk2, clk4;
@@ -65,6 +66,7 @@ module alu_sru(nreset, nrsthold,
    // Main state machine
    wire 	nstart_sync, tc;
    flipflop_74h ff_state(.d(nstart), .clk(clk2), .nset(nreset), .nrst(1'b1), .q(nstart_sync));
+   assign nsru_run = tc;
 
    // FIXME: during reset, the counter can run, driving the IBus and causing
    // bus contention. Potential solutions:

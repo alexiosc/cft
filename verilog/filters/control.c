@@ -100,7 +100,7 @@ int main(int argc, char **argv)
 				add(buf2, "end");
 			}
 			
-			if (!buf2[0]) add(buf2, "?red4?huh");
+			if (!buf2[0]) add(buf2, "?blue4?idle");
 			printf("%s%s\n", col, buf2);
 			fflush(stdout);
 		}

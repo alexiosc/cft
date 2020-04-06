@@ -15,10 +15,8 @@ from testing import *
 @pytest.mark.emulator
 @pytest.mark.hardware
 @pytest.mark.LI
-@pytest.mark.LJMP
-@pytest.mark.LJSR
-@pytest.mark.LRET
-def test_LRET(capsys, tmpdir):
+@pytest.mark.ROL
+def test_ROL(capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
@@ -26,19 +24,22 @@ def test_LRET(capsys, tmpdir):
 
     &800000:   LI &80
                SMB mbu.MBP
-
-
+               CLL CLA
+    
                LI &123
                dfp.PRINTH
-               SHL 1
+               ROL 15
                dfp.PRINTH
-
                HALT
     """.rstrip(" ")
 
     expected = ExpectedData([ SUCCESS ])
-    expected += [ [ 345, "PRINTH", "0123" ],
-                  [ 345, "PRINTH", "0091" ] ]
+    expected += [ [ 340, "PRINTH", "0123" ],
+                  [ 340, "PRINTH", "0246" ] ]
+    expected += [ [ 340, "PRINTH", "0123" ],
+                  [ 340, "PRINTH", "1230" ] ]
+    # expected += [ [ 340, "PRINTH", "0123" ],
+    #               [ 340, "PRINTH", "2300" ] ]
     expected += [ HALTED ]
 
     result = run_on_verilog_emu(capsys, tmpdir, source, long=True)

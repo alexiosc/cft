@@ -44,6 +44,7 @@ module reg_l_tb();
    reg nflagwe;
    reg bcp;
    reg clken;
+   reg nsru_run;
 
    wire fl;
    wire flfast;
@@ -67,6 +68,7 @@ module reg_l_tb();
       flin_add = 0;
       flin_sru = 0;
       nread_alu_add = 1;
+      nsru_run = 1;
       bcp = 1;
       clken = 0;
       #1000 nrsthold = 1;
@@ -116,7 +118,8 @@ module reg_l_tb();
       end
 
       // And also test fast toggling from the serial shifter.
-      #1000 for (i = 0; i < 32; i++) begin
+      #1000 nsru_run = 0;
+      #62.5 for (i = 0; i < 32; i++) begin
 	 #30 flin_sru = 0;
 	 bcp = 0;
 	 #30 bcp = 1;
@@ -125,6 +128,7 @@ module reg_l_tb();
 	 bcp = 0;
 	 #30 bcp = 1;
       end
+      #62.5 nsru_run = 1;
 
       #1000 $display("345 OK");
       $finish;
@@ -142,7 +146,7 @@ module reg_l_tb();
 		.clk4(clk4),
 		.naction_cpl(naction_cpl), .ibus12(ibus12),
 		.flin_add(flin_add), .flin_sru(flin_sru),
-		.nread_alu_add(nread_alu_add), .nflagwe(nflagwe),
+		.nsru_run(nsru_run), .nread_alu_add(nread_alu_add), .nflagwe(nflagwe),
 		.bcp(bcp), .naction_cll(naction_cll), 
 		.fl(fl), .flfast(flfast));
 

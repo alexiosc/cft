@@ -1089,7 +1089,8 @@ start SRU;
       -END;                                     // 04 SRU cycle #3
       -END;                                     // 05 SRU cycle #4
       -END;                                     // 06 SRU cycle #5
-      SET(ac, alu_b), END;                      // 07 AC ← ALU B Reg
+      -END;                                     // 07 SRU cycle #5
+      SET(ac, alu_b), END;                      // 08 AC ← ALU B Reg
 
 
 ///////////////////////////////////////////////////////////////////////////////
