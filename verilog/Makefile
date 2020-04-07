@@ -108,7 +108,7 @@ SRC += $(DFP2)
 OBJ =		$(SRC:.v=.o)
 
 VERILOG =	iverilog -Wall -Wno-implicit-dimensions -g2012
-GTKWAVE =	gtkwave
+GTKWAVE =	gtkwave --optimize
 SAVDIR	= 	sav
 VCDDIR	=	vcd
 
