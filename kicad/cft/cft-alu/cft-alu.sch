@@ -925,27 +925,6 @@ Text Label 4700 5350 1    50   ~ 0
 FL
 Text Label 4800 5350 1    50   ~ 0
 FLFAST
-$Comp
-L alexios:74LVC1G08 U?
-U 1 1 5DE1A94B
-P 1650 4250
-AR Path="/5DC89E19/5DE1A94B" Ref="U?"  Part="1" 
-AR Path="/5DE1A94B" Ref="U2"  Part="1" 
-F 0 "U2" H 1575 3983 50  0000 C CNN
-F 1 "74LVC1G08" H 1575 4074 50  0000 C CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 1300 4250 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 1300 4250 50  0001 C CNN
-	1    1650 4250
-	1    0    0    -1  
-$EndComp
-Text Label 800  4300 0    50   ~ 0
-BCP-SRU
-Wire Wire Line
-	800  4200 1350 4200
-Wire Wire Line
-	1350 4300 800  4300
-Text Label 800  4200 0    50   ~ 0
-~WRITE-ALU-B
 Wire Wire Line
 	2400 6000 1700 6000
 Wire Wire Line
@@ -1265,7 +1244,7 @@ Text Label 7050 4950 2    50   ~ 0
 Text Label 1700 6000 0    50   ~ 0
 ~SRU-RUN
 Wire Bus Line
-	800  4100 2350 4100
+	1700 4100 2350 4100
 Wire Bus Line
 	7150 1200 7150 4450
 Wire Bus Line

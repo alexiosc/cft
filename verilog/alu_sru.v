@@ -123,9 +123,12 @@ module alu_sru(nreset, nrsthold,
    // TODO: TEST THIS!
    assign #7 flcp_sru = shiftclk & op_rotate;
 
+   // wire 	flout;
+   // flipflop_74h #(5,5) fi_fl    (.d(flout), .clk(flcp_sru), .nset(1'b1), .nrst(nreset), .q(flout_sru));
+
    // Generate the L output
-   //wire 	lmuxout;
    mux_1g157 l_mux (.sel(nleft), .a(b[15]), .b(b[0]), .ng(1'b0), .y(flout_sru));
+   // mux_1g157 l_mux (.sel(nleft), .a(b[15]), .b(b[0]), .ng(1'b0), .y(flout));
 
 endmodule // alu_sru
 

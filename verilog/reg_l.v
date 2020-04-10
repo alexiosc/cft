@@ -105,17 +105,16 @@ module reg_l(nrsthold, clk4,
    
    // Cascaded 1-of-3 priotiry selector for input data, with a 21ns delay line
    // so flip flop hold times aren't violated.
-   // wire   ld, ld0;
-   // mux_253h ld_mux (.sel({nflagwe, nread_alu_add}),
-   // 		    .i({flin_sru, flin_add, ibus12, ibus12}),
-   // 		    .noe(1'b0), .y(ld0));
+   wire   ld, ld0;
+   mux_253h ld_mux (.sel({nflagwe, nread_alu_add}),
+   		    .i({flin_sru, flin_add, ibus12, ibus12}),
+   		    .noe(1'b0), .y(ld0));
+   assign #21 ld = ld0;
 
-   wire   ld0, ld1, ld;
-   mux_2g157 ld_mux0 (.sel(nflagwe), .a(ibus12), .b(flin_add), .ng(1'b0), .y(ld0));
-   mux_2g157 ld_mux1 (.sel(nsru_run), .a(flin_sru), .b(ld0), .ng(1'b0), .y(ld1));
-
-   
-   assign #21 ld = ld1;
+   // wire   ld0, ld1, ld;
+   // mux_2g157 ld_mux0 (.sel(nflagwe), .a(ibus12), .b(flin_add), .ng(1'b0), .y(ld0));
+   // mux_2g157 ld_mux1 (.sel(nsru_run), .a(flin_sru), .b(ld0), .ng(1'b0), .y(ld1));
+   // assign #21 ld = ld1;
 
    wire   nsetl, nclrl0, nclrl;
 

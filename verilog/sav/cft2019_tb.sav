@@ -1,19 +1,19 @@
 [*]
 [*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Mon Apr  6 18:33:18 2020
+[*] Fri Apr 10 06:53:34 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/cft2019_tb.vcd"
-[dumpfile_mtime] "Mon Apr  6 18:27:19 2020"
-[dumpfile_size] 244309
+[dumpfile_mtime] "Fri Apr 10 06:53:13 2020"
+[dumpfile_size] 275723
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/cft2019_tb.sav"
-[timestart] 10393000
+[timestart] 13847000
 [size] 1920 1019
 [pos] 2209 55
-*-19.850592 13857000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-19.483974 15038750 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] cft2019_tb.
 [treeopen] cft2019_tb.cft.
 [treeopen] cft2019_tb.cft.card_alu.
-[treeopen] cft2019_tb.cft.card_alu.reg_l.
+[treeopen] cft2019_tb.cft.card_alu.alu_sru.
 [treeopen] cft2019_tb.cft.card_mem.romhi.
 [treeopen] cft2019_tb.cft.card_reg.reg_ac.
 [sst_width] 258
@@ -241,7 +241,9 @@ cft2019_tb.cft.card_alu.alu_sru.op_rotate
 cft2019_tb.cft.card_alu.alu_sru.op_arithmetic
 [color] 2
 cft2019_tb.cft.card_alu.alu_sru.op_right
+@29
 cft2019_tb.cft.card_alu.alu_sru.lsb
+@28
 cft2019_tb.cft.card_alu.reg_l.fl
 cft2019_tb.cft.card_alu.alu_sru.shiftclk
 @c00022
@@ -284,6 +286,28 @@ cft2019_tb.cft.card_alu.alu_sru.tc
 cft2019_tb.cft.card_alu.alu_sru.flcp_sru
 cft2019_tb.cft.card_alu.alu_sru.flout_sru
 cft2019_tb.cft.card_alu.reg_l.flin_sru
+@200
+-
+@c00022
+cft2019_tb.cft.card_alu.alu_sru.lsb_mux.i[3:0]
+@28
+(0)cft2019_tb.cft.card_alu.alu_sru.lsb_mux.i[3:0]
+(1)cft2019_tb.cft.card_alu.alu_sru.lsb_mux.i[3:0]
+(2)cft2019_tb.cft.card_alu.alu_sru.lsb_mux.i[3:0]
+(3)cft2019_tb.cft.card_alu.alu_sru.lsb_mux.i[3:0]
+@1401200
+-group_end
+@28
+cft2019_tb.cft.card_alu.alu_sru.lsb_mux.noe
+@c00028
+cft2019_tb.cft.card_alu.alu_sru.lsb_mux.sel[1:0]
+@28
+(0)cft2019_tb.cft.card_alu.alu_sru.lsb_mux.sel[1:0]
+(1)cft2019_tb.cft.card_alu.alu_sru.lsb_mux.sel[1:0]
+@1401200
+-group_end
+@28
+cft2019_tb.cft.card_alu.alu_sru.lsb_mux.y
 @1000200
 -Shifter/Rotator (SRU)
 @800200
@@ -500,9 +524,7 @@ cft2019_tb.cft.nrsthold
 cft2019_tb.cft.card_alu.reg_l.nsru_run
 cft2019_tb.cft.card_alu.reg_l.clk4
 cft2019_tb.cft.card_alu.reg_l.bcp
-@29
 cft2019_tb.cft.card_alu.reg_l.clkl
-@28
 cft2019_tb.cft.card_alu.reg_l.clkl0
 cft2019_tb.cft.card_alu.reg_l.fl
 cft2019_tb.cft.card_alu.reg_l.flfast
@@ -512,7 +534,6 @@ cft2019_tb.cft.card_alu.reg_l.ibus12
 [color] 2
 cft2019_tb.cft.card_alu.reg_l.ld
 cft2019_tb.cft.card_alu.reg_l.ld0
-cft2019_tb.cft.card_alu.reg_l.ld1
 cft2019_tb.cft.card_alu.reg_l.naction_cll
 cft2019_tb.cft.card_alu.reg_l.naction_cpl
 cft2019_tb.cft.card_alu.reg_l.nclrl

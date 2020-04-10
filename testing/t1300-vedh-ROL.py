@@ -22,27 +22,32 @@ def test_ROL(capsys, tmpdir):
     .include "mbu.asm"
     .include "dfp2.asm"
 
-    &800000:   LI &80
+    &0:        LI &80
                SMB mbu.MBP
                CLL CLA
     
-               LI &123
+               LOAD data
                dfp.PRINTH
-               ROL 15
+               ROL 1
+               dfp.PRINTH
+               ROL 8
                dfp.PRINTH
                HALT
+
+    data:      .word &8000
     """.rstrip(" ")
 
     expected = ExpectedData([ SUCCESS ])
-    expected += [ [ 340, "PRINTH", "0123" ],
-                  [ 340, "PRINTH", "0246" ] ]
-    expected += [ [ 340, "PRINTH", "0123" ],
-                  [ 340, "PRINTH", "1230" ] ]
     # expected += [ [ 340, "PRINTH", "0123" ],
-    #               [ 340, "PRINTH", "2300" ] ]
+    #               [ 340, "PRINTH", "0246" ] ]
+    # expected += [ [ 340, "PRINTH", "0123" ],
+    #               [ 340, "PRINTH", "1230" ] ]
+    expected += [ [ 340, "PRINTH", "8000" ],
+                  [ 340, "PRINTH", "0000" ],
+                  [ 340, "PRINTH", "0001" ] ]
     expected += [ HALTED ]
 
-    result = run_on_verilog_emu(capsys, tmpdir, source, long=True)
+    result = run_on_verilog_emu(capsys, tmpdir, source)
     result = list(expected.prepare(result))
     assert result == expected
 

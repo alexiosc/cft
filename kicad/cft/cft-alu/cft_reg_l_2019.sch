@@ -1109,7 +1109,7 @@ U 1 1 5E9EEE1C
 P -2700 6150
 F 0 "U43" H -2700 6517 50  0000 C CNN
 F 1 "74LVC2G157" H -2700 6426 50  0000 C CNN
-F 2 "" H -2800 6275 50  0001 C CNN
+F 2 "alexios:TSSOP-8_3x3mm_P0.65mm" H -2800 6275 50  0001 C CNN
 F 3 "http://www.ti.com/lit/ds/symlink/sn74lvc2g157.pdf" H -2800 6275 50  0001 C CNN
 	1    -2700 6150
 	1    0    0    -1  
@@ -1120,7 +1120,7 @@ U 1 1 5E9EF93E
 P -2700 7200
 F 0 "U21" H -2700 7567 50  0000 C CNN
 F 1 "74LVC2G157" H -2700 7476 50  0000 C CNN
-F 2 "" H -2800 7325 50  0001 C CNN
+F 2 "alexios:TSSOP-8_3x3mm_P0.65mm" H -2800 7325 50  0001 C CNN
 F 3 "http://www.ti.com/lit/ds/symlink/sn74lvc2g157.pdf" H -2800 7325 50  0001 C CNN
 	1    -2700 7200
 	1    0    0    -1  
