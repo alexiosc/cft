@@ -29,7 +29,7 @@ module alu_sru(nreset, nrsthold,
 	       nstart,
 	       b, fl,
 	       op_arithmetic, op_rotate, op_right, op_dist,
-	       ibus, bcp_sru, flout_sru, flcp_sru, nsru_run);
+	       ibus, bcp_sru, flout_sru, nsru_run);
 
    input         nreset;
    input         nrsthold;
@@ -45,7 +45,6 @@ module alu_sru(nreset, nrsthold,
    output [15:0] ibus;
    output        bcp_sru;		// B register write clock;
    output 	 flout_sru;		// FL output
-   output 	 flcp_sru;		// FL clock
    output 	 nsru_run;		// Low while the SRU is running
 
    wire          nreset;
@@ -119,9 +118,8 @@ module alu_sru(nreset, nrsthold,
    assign #9 shiftclk = (nstart_sync & x4clk) | tc;
    assign bcp_sru = shiftclk;
 
-   // Generate the FL clock output
-   // TODO: TEST THIS!
-   assign #7 flcp_sru = shiftclk & op_rotate;
+   // // Generate the FL clock output
+   // assign #7 flcp_sru = op_rotate == 1 ? shiftclk : 1'b1;
 
    // wire 	flout;
    // flipflop_74h #(5,5) fi_fl    (.d(flout), .clk(flcp_sru), .nset(1'b1), .nrst(nreset), .q(flout_sru));

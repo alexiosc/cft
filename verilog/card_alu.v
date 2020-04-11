@@ -201,6 +201,7 @@ module card_alu(
 
    alu_porta port_a (.ac(ac), .clk4(clk4), .a(a));
 
+   // In the schematics, bcp is an AND gate inside the Port B schematics.
    assign #7 bcp = nwrite_alu_b & bcp_sru;
    alu_portb port_b (.ibus(ibus), .bcp(bcp), .nread_alu_b(nread_alu_b), .b(b));
 
@@ -257,9 +258,8 @@ module card_alu(
 		    .op_rotate(op_rotate),
 		    .nstart(naction_sru),
 		    .ibus(ibus),
-		    .bcp_sru(bcp_sru),	// Set ALU B to temporary result of SRU
+		    .bcp_sru(bcp_sru),	// Set ALU B (and L) to temporary result of SRU
 		    .flout_sru(flout_sru),
-		    .flcp_sru(flcp_sru),
 		    .nsru_run(nsru_run));
 
    ///////////////////////////////////////////////////////////////////////////////
@@ -277,7 +277,7 @@ module card_alu(
 		.nsru_run(nsru_run),
 		.nread_alu_add(nsetl_rom),
 		.nflagwe(nflagwe),
-		.bcp(bcp),
+		.bcp(flcp_sru),
 		.naction_cll(naction_cll), 
 		.fl(fl),
 		.flfast(flfast));
