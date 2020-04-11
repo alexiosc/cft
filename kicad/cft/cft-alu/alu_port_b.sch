@@ -1,5 +1,6 @@
 EESchema Schematic File Version 4
-EELAYER 30 0
+LIBS:cft-alu-cache
+EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -875,7 +876,8 @@ U 1 1 5EDE4D1C
 P 2150 2950
 AR Path="/5DC89E19/5EDE4D1C" Ref="U?"  Part="1" 
 AR Path="/5EDE4D1C" Ref="U?"  Part="1" 
-F 0 "U?" H 2075 2683 50  0000 C CNN
+AR Path="/5DEA5E6C/5EDE4D1C" Ref="U2"  Part="1" 
+F 0 "U2" H 2075 2683 50  0000 C CNN
 F 1 "74LVC1G08" H 2075 2774 50  0000 C CNN
 F 2 "alexios:SOT-23-5_HandSoldering" H 1800 2950 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 1800 2950 50  0001 C CNN
@@ -896,44 +898,6 @@ Wire Wire Line
 	2300 2950 2550 2950
 Wire Wire Line
 	2550 2950 2550 3500
-$Comp
-L alexios:74LVC1G74 U?
-U 1 1 5EDFB6F3
-P 5050 5800
-F 0 "U?" H 5050 6217 50  0000 C CNN
-F 1 "74LVC1G74" H 5050 6126 50  0000 C CNN
-F 2 "" H 5500 5800 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G74.pdf" H 5500 5800 50  0001 C CNN
-	1    5050 5800
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	5500 5650 9250 5650
-Text HLabel 9250 5650 2    50   Output ~ 0
-B16
-Text Label 5750 5650 0    50   ~ 0
-B16
-Wire Wire Line
-	4600 5950 1350 5950
-Text HLabel 1350 5950 0    50   Input ~ 0
-~RESET
-$Comp
-L power:+5V #PWR?
-U 1 1 5EE2085B
-P 4550 5600
-F 0 "#PWR?" H 4550 5450 50  0001 C CNN
-F 1 "+5V" H 4565 5773 50  0000 C CNN
-F 2 "" H 4550 5600 50  0001 C CNN
-F 3 "" H 4550 5600 50  0001 C CNN
-	1    4550 5600
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	4550 5600 4550 5650
-Wire Wire Line
-	4550 5650 4600 5650
-Wire Wire Line
-	4600 5750 1350 5750
 Wire Bus Line
 	8550 2000 8550 4450
 Wire Bus Line

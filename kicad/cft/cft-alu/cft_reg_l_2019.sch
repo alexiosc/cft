@@ -1,5 +1,6 @@
 EESchema Schematic File Version 4
-EELAYER 30 0
+LIBS:cft-alu-cache
+EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -585,7 +586,7 @@ Wire Wire Line
 Text Label 2800 4900 0    50   ~ 0
 ~ACTION-CLL
 Text Label 2800 4800 0    50   ~ 0
-FLCP-SRU
+BCP-SRU
 Text Label 2800 4600 0    50   ~ 0
 ~FLAGWE
 Text Label 2800 4700 0    50   ~ 0
@@ -637,9 +638,9 @@ Text HLabel 1300 1000 0    50   Input ~ 0
 Text Label 1500 1000 0    50   ~ 0
 ~RSTHOLD
 Text HLabel 1300 4800 0    50   Input ~ 0
-FLCP-SRU
+BCP-SRU
 Text Label 1500 4800 0    50   ~ 0
-FLCP-SRU
+BCP-SRU
 Text HLabel 1300 4900 0    50   Input ~ 0
 ~ACTION-CLL
 Wire Wire Line
@@ -1086,9 +1087,9 @@ Connection ~ 6250 2250
 Wire Wire Line
 	6250 2250 6550 2250
 Text Label 3950 4500 1    50   ~ 0
-FLCP-SRU
+BCP-SRU
 Text Label 4450 3950 0    50   ~ 0
-FLCP-SRU
+BCP-SRU
 Wire Wire Line
 	6650 2950 6650 3900
 Text Label 3650 2850 0    50   ~ 0
@@ -1103,103 +1104,6 @@ Text HLabel 10350 2650 2    50   Output ~ 0
 FL
 Text Notes 7100 2350 0    63   ~ 13
 Critical: AC family!
-$Comp
-L alexios:74LVC2G157 U43
-U 1 1 5E9EEE1C
-P -2700 6150
-F 0 "U43" H -2700 6517 50  0000 C CNN
-F 1 "74LVC2G157" H -2700 6426 50  0000 C CNN
-F 2 "alexios:TSSOP-8_3x3mm_P0.65mm" H -2800 6275 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/sn74lvc2g157.pdf" H -2800 6275 50  0001 C CNN
-	1    -2700 6150
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74LVC2G157 U21
-U 1 1 5E9EF93E
-P -2700 7200
-F 0 "U21" H -2700 7567 50  0000 C CNN
-F 1 "74LVC2G157" H -2700 7476 50  0000 C CNN
-F 2 "alexios:TSSOP-8_3x3mm_P0.65mm" H -2800 7325 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/sn74lvc2g157.pdf" H -2800 7325 50  0001 C CNN
-	1    -2700 7200
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	-3750 6250 -3050 6250
-Text HLabel -3750 6250 0    50   Input ~ 0
-~FLAGWE
-Text Label -3650 6250 0    50   ~ 0
-~FLAGWE
-Wire Wire Line
-	-3050 6350 -3100 6350
-Wire Wire Line
-	-3100 6350 -3100 6400
-$Comp
-L power:GND #PWR0220
-U 1 1 5E9FE077
-P -3100 6400
-F 0 "#PWR0220" H -3100 6150 50  0001 C CNN
-F 1 "GND" H -3095 6227 50  0000 C CNN
-F 2 "" H -3100 6400 50  0001 C CNN
-F 3 "" H -3100 6400 50  0001 C CNN
-	1    -3100 6400
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	-3750 6050 -3050 6050
-Text HLabel -3750 6050 0    50   Input ~ 0
-IBUS12
-Text Label -3650 6050 0    50   ~ 0
-IBUS12
-Wire Wire Line
-	-3050 6150 -3750 6150
-Text Label -3650 6150 0    50   ~ 0
-FLOUT-ROM
 Text HLabel 1300 3050 0    50   Input ~ 0
 FLOUT-ROM
-Text HLabel -3750 6150 0    50   Input ~ 0
-FLOUT-ROM
-Wire Wire Line
-	-3050 7400 -3150 7400
-Wire Wire Line
-	-3150 7400 -3150 7450
-$Comp
-L power:GND #PWR0221
-U 1 1 5EA1A215
-P -3150 7450
-F 0 "#PWR0221" H -3150 7200 50  0001 C CNN
-F 1 "GND" H -3145 7277 50  0000 C CNN
-F 2 "" H -3150 7450 50  0001 C CNN
-F 3 "" H -3150 7450 50  0001 C CNN
-	1    -3150 7450
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	-3050 7300 -3750 7300
-Text HLabel -3750 7300 0    50   Input ~ 0
-~SRU-RUN
-Text Label -3050 7300 2    50   ~ 0
-~SRU-RUN
-Wire Wire Line
-	-3750 7100 -3050 7100
-Text HLabel -3750 7100 0    50   Input ~ 0
-FLOUT-SRU
-Text Label -3050 7100 2    50   ~ 0
-FLOUT-SRU
-Wire Wire Line
-	-3600 7200 -3050 7200
-Wire Wire Line
-	-2350 7100 -2000 7100
-Text Label -2000 7100 2    50   ~ 0
-LD0
-Wire Wire Line
-	-3600 7200 -3600 6700
-Wire Wire Line
-	-3600 6700 -2250 6700
-Wire Wire Line
-	-2250 6700 -2250 6050
-Wire Wire Line
-	-2250 6050 -2350 6050
-NoConn ~ -2350 6350
 $EndSCHEMATC
