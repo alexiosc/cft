@@ -979,8 +979,6 @@ start WAIT;
 // ASR = SRU  0111'1'0'000'011'dddd    ; Arithmetic shift right by d bits
 // ROL = SRU  0111'1'0'000'100'dddd    ; Rotate <L,AC> left by d bits
 // ROR = SRU  0111'1'0'000'101'dddd    ; Rotate <L,AC> right by d bits
-// RLA = SRU  0111'1'0'000'110'dddd    ; Rotate AC left by d bits
-// RRA = SRU  0111'1'0'000'111'dddd    ; Rotate AC right by d bits
 //
 // This results in the following instructions:
 
@@ -1042,25 +1040,27 @@ start WAIT;
 // Treats the Link Register and the AC as a 17-bit vector (L being the most
 // significant bit) and rolls it right by the specified number of bits.
 
-// MNEMONIC: RLA
-// NAME:     Roll Left Accumulator
-// DESC:     Roll Accumulator left.
-// GROUP:    Arithmetic and Logic
-// MODE:     Literal (4 bits)
-// FLAGS:    *NZ--L
-// FORMAT:   :110:LLLL
+// Removed RLA and RRA instructions.
+
+// xMNEMONIC: RLA
+// xNAME:     Roll Left Accumulator
+// xDESC:     Roll Accumulator left.
+// xGROUP:    Arithmetic and Logic
+// xMODE:     Literal (4 bits)
+// xFLAGS:    *NZ--L
+// xFORMAT:   :110:LLLL
 //
 // Rotates the Accumulator left by the specified number of bits. This
 // is a 16-bit left rotation, where ROL is a 17-bit rotation. L is set
 // to the most significant bit of the AC prior to rotation.
 
-// MNEMONIC: RRA
-// NAME:     Roll Right Accumulator
-// DESC:     Roll Accumulator right.
-// GROUP:    Arithmetic and Logic
-// MODE:     Literal (4 bits)
-// FLAGS:    *NZ--L
-// FORMAT:   :111:LLLL
+// xMNEMONIC: RRA
+// xNAME:     Roll Right Accumulator
+// xDESC:     Roll Accumulator right.
+// xGROUP:    Arithmetic and Logic
+// xMODE:     Literal (4 bits)
+// xFLAGS:    *NZ--L
+// xFORMAT:   :111:LLLL
 //
 // Rotates the Accumulator right by the specified number of bits. This
 // is a 16-bit right rotation, where ROR is a 17-bit rotation. L is set
