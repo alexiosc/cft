@@ -166,7 +166,6 @@ module card_alu(
    wire 	 nsetl_rom;
 
    wire 	 flout_sru;
-   wire 	 flcp_sru;
    
    wire 	 fl;		// This is a local signal (fl_offboard is exported)
    wire 	 flfast;
@@ -277,7 +276,7 @@ module card_alu(
 		.nsru_run(nsru_run),
 		.nread_alu_add(nsetl_rom),
 		.nflagwe(nflagwe),
-		.bcp(flcp_sru),
+		.bcp(bcp_sru),
 		.naction_cll(naction_cll), 
 		.fl(fl),
 		.flfast(flfast));
