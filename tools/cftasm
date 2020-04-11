@@ -44,8 +44,8 @@ _BUILTINS = """;;; CFT Assembler Built-ins, Microcode Version 7.x.
 .equ    ASR     &0830            ; 0000:1:0:000:011LLLL  Arithmetic Shift Right
 .equ    ROL     &0840            ; 0000:1:0:000:100LLLL  Roll Left
 .equ    ROR     &0850            ; 0000:1:0:000:101LLLL  Roll Right
-.equ    RLA     &0860            ; 0000:1:0:000:110LLLL  Roll Left Accumulator
-.equ    RRA     &0870            ; 0000:1:0:000:111LLLL  Roll Right Accumulator
+;.equ   RLA     &0860            ; 0000:1:0:000:110LLLL  Roll Left Accumulator
+;.equ   RRA     &0870            ; 0000:1:0:000:111LLLL  Roll Right Accumulator
 
 .equ    SKP     &0880            ; SKP bitmap instruction
 .equ    NOP     SKP     #0000000 ; 0000:1:0:001:0000000  No Operation
