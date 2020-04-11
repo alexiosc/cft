@@ -1,23 +1,23 @@
 [*]
-[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Fri Apr 10 06:53:34 2020
+[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
+[*] Sat Apr 11 10:35:44 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/cft2019_tb.vcd"
-[dumpfile_mtime] "Fri Apr 10 06:53:13 2020"
-[dumpfile_size] 275723
+[dumpfile_mtime] "Sat Apr 11 10:30:42 2020"
+[dumpfile_size] 417430
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/cft2019_tb.sav"
-[timestart] 13847000
+[timestart] 8020000
 [size] 1920 1019
-[pos] 2209 55
-*-19.483974 15038750 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[pos] -1 -1
+*-21.787315 10980000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] cft2019_tb.
 [treeopen] cft2019_tb.cft.
 [treeopen] cft2019_tb.cft.card_alu.
-[treeopen] cft2019_tb.cft.card_alu.alu_sru.
+[treeopen] cft2019_tb.cft.card_alu.reg_l.
 [treeopen] cft2019_tb.cft.card_mem.romhi.
 [treeopen] cft2019_tb.cft.card_reg.reg_ac.
 [sst_width] 258
-[signals_width] 637
+[signals_width] 494
 [sst_expanded] 1
 [sst_vpaned_height] 286
 @800200
@@ -231,40 +231,55 @@ cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
 cft2019_tb.cft.card_alu.alu_sru.nstart
 cft2019_tb.cft.card_alu.alu_sru.nstart_sync
 cft2019_tb.cft.card_alu.alu_sru.shiftclk
-cft2019_tb.cft.card_alu.flfast
 @200
 -
 @28
 [color] 2
-cft2019_tb.cft.card_alu.alu_sru.op_rotate
-[color] 2
-cft2019_tb.cft.card_alu.alu_sru.op_arithmetic
-[color] 2
-cft2019_tb.cft.card_alu.alu_sru.op_right
-@29
-cft2019_tb.cft.card_alu.alu_sru.lsb
-@28
-cft2019_tb.cft.card_alu.reg_l.fl
-cft2019_tb.cft.card_alu.alu_sru.shiftclk
-@c00022
+cft2019_tb.cft.card_alu.flfast
+@800022
 cft2019_tb.cft.card_alu.port_b.b[15:0]
 @28
+[color] 3
 (0)cft2019_tb.cft.card_alu.port_b.b[15:0]
+[color] 3
 (1)cft2019_tb.cft.card_alu.port_b.b[15:0]
+[color] 3
 (2)cft2019_tb.cft.card_alu.port_b.b[15:0]
+[color] 3
 (3)cft2019_tb.cft.card_alu.port_b.b[15:0]
+[color] 3
 (4)cft2019_tb.cft.card_alu.port_b.b[15:0]
+[color] 3
 (5)cft2019_tb.cft.card_alu.port_b.b[15:0]
+[color] 3
 (6)cft2019_tb.cft.card_alu.port_b.b[15:0]
+[color] 3
 (7)cft2019_tb.cft.card_alu.port_b.b[15:0]
+[color] 3
 (8)cft2019_tb.cft.card_alu.port_b.b[15:0]
+[color] 3
 (9)cft2019_tb.cft.card_alu.port_b.b[15:0]
+[color] 3
 (10)cft2019_tb.cft.card_alu.port_b.b[15:0]
+[color] 3
 (11)cft2019_tb.cft.card_alu.port_b.b[15:0]
+[color] 3
 (12)cft2019_tb.cft.card_alu.port_b.b[15:0]
+[color] 3
 (13)cft2019_tb.cft.card_alu.port_b.b[15:0]
+[color] 3
 (14)cft2019_tb.cft.card_alu.port_b.b[15:0]
+[color] 3
 (15)cft2019_tb.cft.card_alu.port_b.b[15:0]
+[color] 2
+cft2019_tb.cft.card_alu.alu_sru.lsb
+cft2019_tb.cft.card_alu.alu_sru.bcp_sru
+cft2019_tb.cft.card_alu.reg_l.fl
+@29
+[color] 1
+cft2019_tb.cft.card_alu.reg_l.bcp
+@28
+cft2019_tb.cft.card_alu.nwrite_alu_b
 @200
 -
 @28
@@ -279,11 +294,20 @@ cft2019_tb.cft.card_alu.reg_l.clkl0
 cft2019_tb.cft.card_alu.reg_l.fl_ff.q
 @200
 -
-@1401200
+@1001200
 -group_end
+@200
+-
 @28
+[color] 2
+cft2019_tb.cft.card_alu.alu_sru.op_rotate
+[color] 2
+cft2019_tb.cft.card_alu.alu_sru.op_arithmetic
+[color] 2
+cft2019_tb.cft.card_alu.alu_sru.op_right
+cft2019_tb.cft.card_alu.reg_l.fl
+cft2019_tb.cft.card_alu.alu_sru.shiftclk
 cft2019_tb.cft.card_alu.alu_sru.tc
-cft2019_tb.cft.card_alu.alu_sru.flcp_sru
 cft2019_tb.cft.card_alu.alu_sru.flout_sru
 cft2019_tb.cft.card_alu.reg_l.flin_sru
 @200

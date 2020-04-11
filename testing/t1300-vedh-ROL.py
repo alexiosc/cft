@@ -30,11 +30,17 @@ def test_ROL(capsys, tmpdir):
                dfp.PRINTH
                ROL 1
                dfp.PRINTH
+               ROL 1
+               dfp.PRINTH
+               ROL 4
+               dfp.PRINTH
                ROL 8
+               dfp.PRINTH
+               ROL 3
                dfp.PRINTH
                HALT
 
-    data:      .word &8000
+    data:      .word &8080
     """.rstrip(" ")
 
     expected = ExpectedData([ SUCCESS ])
@@ -42,9 +48,14 @@ def test_ROL(capsys, tmpdir):
     #               [ 340, "PRINTH", "0246" ] ]
     # expected += [ [ 340, "PRINTH", "0123" ],
     #               [ 340, "PRINTH", "1230" ] ]
-    expected += [ [ 340, "PRINTH", "8000" ],
-                  [ 340, "PRINTH", "0000" ],
-                  [ 340, "PRINTH", "0001" ] ]
+    expected += [ [ 340, "PRINTH", "8080" ],
+                  [ 340, "PRINTH", "0100" ],
+                  [ 340, "PRINTH", "0201" ],
+                  [ 340, "PRINTH", "2010" ],
+                  [ 340, "PRINTH", "1010" ],
+                  [ 340, "PRINTH", "8080" ],
+
+    ]
     expected += [ HALTED ]
 
     result = run_on_verilog_emu(capsys, tmpdir, source)
