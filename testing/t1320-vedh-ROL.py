@@ -132,6 +132,17 @@ def calc_ROL(x, d):
     return int(xs, 2) & 0xffff
 
 
+
+def test_calc_ROL():
+    """Test the ROL calculation function itself, since it's not trivial."""
+    assert calc_ROL(0x8080, 0) == 0x8080
+    assert calc_ROL(0x8080, 1) == 0x0100
+    assert calc_ROL(0x8080, 2) == 0x0201
+    assert calc_ROL(0x8080, 6) == 0x2010
+    assert calc_ROL(0x8080, 14) == 0x1010
+    assert calc_ROL(0x8080, 17) == 0x8080
+
+
 @pytest.mark.verilog
 @pytest.mark.emulator
 @pytest.mark.hardware

@@ -1,10 +1,10 @@
 [*]
-[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
-[*] Sat Apr 11 10:35:44 2020
+[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
+[*] Sun Apr 12 06:27:42 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/cft2019_tb.vcd"
-[dumpfile_mtime] "Sat Apr 11 10:30:42 2020"
-[dumpfile_size] 417430
+[dumpfile_mtime] "Sun Apr 12 06:23:10 2020"
+[dumpfile_size] 417406
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/cft2019_tb.sav"
 [timestart] 8020000
 [size] 1920 1019
@@ -234,6 +234,7 @@ cft2019_tb.cft.card_alu.alu_sru.shiftclk
 @200
 -
 @28
+cft2019_tb.cft.card_alu.reg_l.fl
 [color] 2
 cft2019_tb.cft.card_alu.flfast
 @800022
@@ -273,13 +274,8 @@ cft2019_tb.cft.card_alu.port_b.b[15:0]
 (15)cft2019_tb.cft.card_alu.port_b.b[15:0]
 [color] 2
 cft2019_tb.cft.card_alu.alu_sru.lsb
-cft2019_tb.cft.card_alu.alu_sru.bcp_sru
-cft2019_tb.cft.card_alu.reg_l.fl
-@29
 [color] 1
 cft2019_tb.cft.card_alu.reg_l.bcp
-@28
-cft2019_tb.cft.card_alu.nwrite_alu_b
 @200
 -
 @28

@@ -140,6 +140,16 @@ def calc_ROR(x, d):
     return int(xs, 2) & 0xffff
 
 
+def test_calc_ROR():
+    """Test the ROR calculation function itself, since it's not trivial."""
+    assert calc_ROR(0x8089, 0) == 0x8089
+    assert calc_ROR(0x8089, 1) == 0x4044
+    assert calc_ROR(0x8089, 2) == 0xa022
+    assert calc_ROR(0x8089, 6) == 0x4a02
+    assert calc_ROR(0x8089, 14) == 0x044a
+    assert calc_ROR(0x8089, 17) == 0x8089
+
+
 @pytest.mark.verilog
 @pytest.mark.emulator
 @pytest.mark.hardware
