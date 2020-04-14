@@ -1,6 +1,5 @@
 EESchema Schematic File Version 4
-LIBS:cft-alu-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -134,22 +133,6 @@ Wire Wire Line
 	4800 3150 5300 3150
 Wire Wire Line
 	4800 3250 5300 3250
-Wire Wire Line
-	4900 3450 5300 3450
-Wire Wire Line
-	4900 3550 5300 3550
-Wire Wire Line
-	4900 3650 5300 3650
-Wire Wire Line
-	4900 3750 5300 3750
-Wire Wire Line
-	4900 3850 5300 3850
-Wire Wire Line
-	4900 3950 5300 3950
-Wire Wire Line
-	4900 4050 5300 4050
-Wire Wire Line
-	4900 4150 5300 4150
 Wire Wire Line
 	6500 2450 6850 2450
 Wire Wire Line
@@ -320,54 +303,6 @@ Wire Wire Line
 	6500 2950 7100 2950
 Wire Wire Line
 	6500 2850 7100 2850
-Wire Wire Line
-	2550 2750 2150 2750
-Wire Wire Line
-	2550 2850 2150 2850
-Wire Wire Line
-	2550 2950 2150 2950
-Wire Wire Line
-	2550 3050 2150 3050
-Wire Wire Line
-	2550 3150 2150 3150
-Wire Wire Line
-	2550 3250 2150 3250
-Wire Wire Line
-	2550 3350 2150 3350
-Wire Wire Line
-	2550 3450 2150 3450
-Wire Wire Line
-	2550 3550 2150 3550
-Wire Wire Line
-	2550 3650 2150 3650
-Wire Wire Line
-	2550 3750 2150 3750
-Wire Wire Line
-	2550 3850 2150 3850
-Wire Wire Line
-	2550 3950 2150 3950
-Wire Wire Line
-	2550 4050 2150 4050
-Wire Wire Line
-	2550 4150 2150 4150
-Wire Wire Line
-	2550 4250 2150 4250
-Wire Wire Line
-	2550 4350 2150 4350
-Wire Wire Line
-	2550 4450 2150 4450
-Wire Wire Line
-	2550 4550 2150 4550
-Wire Wire Line
-	2550 4650 2150 4650
-Wire Wire Line
-	2550 4750 2150 4750
-Wire Wire Line
-	2550 4850 2150 4850
-Wire Wire Line
-	2550 4950 2150 4950
-Wire Wire Line
-	2550 5050 2150 5050
 Text Label 2150 2750 0    50   ~ 0
 AB0
 Text Label 2150 2850 0    50   ~ 0
@@ -416,48 +351,6 @@ Text Label 2150 4950 0    50   ~ 0
 AB22
 Text Label 2150 5050 0    50   ~ 0
 AB23
-Wire Bus Line
-	1950 5350 1350 5350
-Wire Bus Line
-	1350 5450 4150 5450
-Text Label 1450 5450 0    50   ~ 0
-DB[0..15]
-Text HLabel 1350 5350 0    50   UnSpc ~ 0
-AB[0..23]
-Text HLabel 1350 5450 0    50   UnSpc ~ 0
-DB[0..15]
-Wire Wire Line
-	3750 3550 4150 3550
-Wire Wire Line
-	3750 3650 4150 3650
-Wire Wire Line
-	3750 3750 4150 3750
-Wire Wire Line
-	3750 3850 4150 3850
-Wire Wire Line
-	3750 3950 4150 3950
-Wire Wire Line
-	3750 4050 4150 4050
-Wire Wire Line
-	3750 4150 4150 4150
-Wire Wire Line
-	3750 4250 4150 4250
-Wire Wire Line
-	3750 4350 4150 4350
-Wire Wire Line
-	3750 4450 4150 4450
-Wire Wire Line
-	3750 4550 4150 4550
-Wire Wire Line
-	3750 4650 4150 4650
-Wire Wire Line
-	3750 4750 4150 4750
-Wire Wire Line
-	3750 4850 4150 4850
-Wire Wire Line
-	3750 4950 4150 4950
-Wire Wire Line
-	3750 5050 4150 5050
 Text Label 4150 3550 2    50   ~ 0
 DB0
 Text Label 4150 3650 2    50   ~ 0
@@ -490,64 +383,6 @@ Text Label 4150 4950 2    50   ~ 0
 DB14
 Text Label 4150 5050 2    50   ~ 0
 DB15
-Entry Wire Line
-	4250 3650 4150 3550
-Entry Wire Line
-	4250 3750 4150 3650
-Entry Wire Line
-	4250 3850 4150 3750
-Entry Wire Line
-	4250 3950 4150 3850
-Entry Wire Line
-	4250 4050 4150 3950
-Entry Wire Line
-	4250 4150 4150 4050
-Entry Wire Line
-	4250 4250 4150 4150
-Entry Wire Line
-	4250 4350 4150 4250
-Entry Wire Line
-	4250 4450 4150 4350
-Entry Wire Line
-	4250 4550 4150 4450
-Entry Wire Line
-	4250 4650 4150 4550
-Entry Wire Line
-	4250 4750 4150 4650
-Entry Wire Line
-	4250 4850 4150 4750
-Entry Wire Line
-	4250 4950 4150 4850
-Entry Wire Line
-	4250 5050 4150 4950
-Entry Wire Line
-	4250 5150 4150 5050
-Entry Bus Bus
-	4150 5450 4250 5350
-Entry Wire Line
-	4900 3450 4800 3550
-Entry Wire Line
-	4900 3550 4800 3650
-Entry Wire Line
-	4900 3650 4800 3750
-Entry Wire Line
-	4900 3750 4800 3850
-Entry Wire Line
-	4900 3850 4800 3950
-Entry Wire Line
-	4900 3950 4800 4050
-Entry Wire Line
-	4900 4050 4800 4150
-Entry Wire Line
-	4900 4150 4800 4250
-Wire Bus Line
-	1350 5750 4700 5750
-Entry Bus Bus
-	4700 5750 4800 5650
-Text HLabel 1350 5750 0    50   UnSpc ~ 0
-FPD[0..7]
-Text Label 1450 5750 0    50   ~ 0
-FPD[0..7]
 Entry Wire Line
 	4700 3350 4800 3250
 Entry Wire Line
@@ -604,30 +439,6 @@ Text HLabel 2150 2550 0    50   UnSpc ~ 0
 ~IRQ
 Text HLabel 2150 2650 0    50   UnSpc ~ 0
 ~IRQS
-Entry Wire Line
-	4250 2750 4350 2850
-Entry Wire Line
-	4250 2850 4350 2950
-Entry Wire Line
-	4250 2950 4350 3050
-Entry Wire Line
-	4250 3050 4350 3150
-Entry Wire Line
-	4250 3150 4350 3250
-Entry Wire Line
-	4250 3250 4350 3350
-Entry Wire Line
-	4250 3350 4350 3450
-Entry Wire Line
-	4250 3450 4350 3550
-Entry Bus Bus
-	4250 5550 4350 5450
-Wire Bus Line
-	4250 5550 1350 5550
-Text Label 1450 5550 0    50   ~ 0
-~IRQ[0..7]
-Text HLabel 1350 5550 0    50   UnSpc ~ 0
-~IRQ[0..7]
 Text HLabel 4150 1750 2    50   UnSpc ~ 0
 ~RSTHOLD
 Text HLabel 4150 1850 2    50   UnSpc ~ 0
@@ -968,22 +779,14 @@ Wire Wire Line
 	6500 2650 6850 2650
 Wire Wire Line
 	6500 2750 6850 2750
-Text Label 7200 2050 2    50   ~ 0
+Text Label 7000 2050 2    50   ~ 0
 RSVD1
-Text Label 7200 2150 2    50   ~ 0
+Text Label 7000 2150 2    50   ~ 0
 RSVD2
-Text Label 7200 2250 2    50   ~ 0
+Text Label 7000 2250 2    50   ~ 0
 RSVD3
-Text Label 7200 2350 2    50   ~ 0
+Text Label 7000 2350 2    50   ~ 0
 RSVD4
-Entry Wire Line
-	7200 2050 7300 2150
-Entry Wire Line
-	7200 2150 7300 2250
-Entry Wire Line
-	7200 2250 7300 2350
-Entry Wire Line
-	7200 2350 7300 2450
 Entry Bus Bus
 	7200 6150 7300 6050
 Wire Bus Line
@@ -1133,63 +936,7 @@ Text Label 6750 2650 2    50   ~ 0
 ~RUEN
 Text Label 6750 2750 2    50   ~ 0
 ~WUEN
-Text HLabel 6850 2650 2    50   UnSpc ~ 0
-~RUEN
-Text HLabel 6850 2750 2    50   UnSpc ~ 0
-~WUEN
 NoConn ~ 2150 2350
-Text Label 1450 5350 0    50   ~ 0
-AB[0..23]
-Entry Bus Bus
-	1950 5350 2050 5250
-Entry Wire Line
-	2050 5150 2150 5050
-Entry Wire Line
-	2050 5050 2150 4950
-Entry Wire Line
-	2050 4950 2150 4850
-Entry Wire Line
-	2050 4850 2150 4750
-Entry Wire Line
-	2050 4750 2150 4650
-Entry Wire Line
-	2050 4650 2150 4550
-Entry Wire Line
-	2050 4550 2150 4450
-Entry Wire Line
-	2050 4450 2150 4350
-Entry Wire Line
-	2050 4350 2150 4250
-Entry Wire Line
-	2050 4250 2150 4150
-Entry Wire Line
-	2050 4150 2150 4050
-Entry Wire Line
-	2050 4050 2150 3950
-Entry Wire Line
-	2050 3950 2150 3850
-Entry Wire Line
-	2050 3850 2150 3750
-Entry Wire Line
-	2050 3750 2150 3650
-Entry Wire Line
-	2050 3650 2150 3550
-Entry Wire Line
-	2050 3550 2150 3450
-Entry Wire Line
-	2050 3450 2150 3350
-Entry Wire Line
-	2050 3350 2150 3250
-Entry Wire Line
-	2050 3250 2150 3150
-Entry Wire Line
-	2050 3150 2150 3050
-Entry Wire Line
-	2050 3050 2150 2950
-Entry Wire Line
-	2050 2950 2150 2850
-Entry Wire Line
-	2050 2850 2150 2750
 $Comp
 L power:+5V #PWR?
 U 1 1 5D360869
@@ -1225,22 +972,181 @@ Wire Wire Line
 	9800 5200 9800 5300
 Connection ~ 9800 5200
 Connection ~ 9800 5300
-Wire Bus Line
-	7200 2950 7200 5950
-Wire Bus Line
-	7100 3450 7100 5850
+NoConn ~ 6850 2650
+NoConn ~ 6850 2750
+Wire Wire Line
+	2050 2750 2550 2750
+Wire Wire Line
+	2050 2850 2550 2850
+Wire Wire Line
+	2050 2950 2550 2950
+Wire Wire Line
+	2050 3050 2550 3050
+Wire Wire Line
+	2050 3150 2550 3150
+Wire Wire Line
+	2050 3250 2550 3250
+Wire Wire Line
+	2050 3350 2550 3350
+Wire Wire Line
+	2050 3450 2550 3450
+Wire Wire Line
+	2050 3550 2550 3550
+Wire Wire Line
+	2050 3650 2550 3650
+Wire Wire Line
+	2050 3750 2550 3750
+Wire Wire Line
+	2050 3850 2550 3850
+Wire Wire Line
+	2050 3950 2550 3950
+Wire Wire Line
+	2050 4050 2550 4050
+Wire Wire Line
+	2050 4150 2550 4150
+Wire Wire Line
+	2050 4250 2550 4250
+Wire Wire Line
+	2050 4350 2550 4350
+Wire Wire Line
+	2050 4450 2550 4450
+Wire Wire Line
+	2050 4550 2550 4550
+Wire Wire Line
+	2050 4650 2550 4650
+Wire Wire Line
+	2050 4750 2550 4750
+Wire Wire Line
+	2050 4850 2550 4850
+Wire Wire Line
+	2050 4950 2550 4950
+Wire Wire Line
+	2050 5050 2550 5050
+NoConn ~ 2050 2750
+NoConn ~ 2050 2850
+NoConn ~ 2050 2950
+NoConn ~ 2050 3050
+NoConn ~ 2050 3150
+NoConn ~ 2050 3250
+NoConn ~ 2050 3350
+NoConn ~ 2050 3450
+NoConn ~ 2050 3550
+NoConn ~ 2050 3650
+NoConn ~ 2050 3750
+NoConn ~ 2050 3850
+NoConn ~ 2050 3950
+NoConn ~ 2050 4050
+NoConn ~ 2050 4150
+NoConn ~ 2050 4250
+NoConn ~ 2050 4350
+NoConn ~ 2050 4450
+NoConn ~ 2050 4550
+NoConn ~ 2050 4650
+NoConn ~ 2050 4750
+NoConn ~ 2050 4850
+NoConn ~ 2050 4950
+NoConn ~ 2050 5050
+Wire Wire Line
+	3750 3550 4250 3550
+Wire Wire Line
+	3750 3650 4250 3650
+Wire Wire Line
+	3750 3750 4250 3750
+Wire Wire Line
+	3750 3850 4250 3850
+Wire Wire Line
+	3750 3950 4250 3950
+Wire Wire Line
+	3750 4050 4250 4050
+Wire Wire Line
+	3750 4150 4250 4150
+Wire Wire Line
+	3750 4250 4250 4250
+Wire Wire Line
+	3750 4350 4250 4350
+Wire Wire Line
+	3750 4450 4250 4450
+Wire Wire Line
+	3750 4550 4250 4550
+Wire Wire Line
+	3750 4650 4250 4650
+Wire Wire Line
+	3750 4750 4250 4750
+Wire Wire Line
+	3750 4850 4250 4850
+Wire Wire Line
+	3750 4950 4250 4950
+Wire Wire Line
+	3750 5050 4250 5050
+NoConn ~ 4250 3550
+NoConn ~ 4250 3650
+NoConn ~ 4250 3750
+NoConn ~ 4250 3850
+NoConn ~ 4250 3950
+NoConn ~ 4250 4050
+NoConn ~ 4250 4150
+NoConn ~ 4250 4250
+NoConn ~ 4250 4350
+NoConn ~ 4250 4450
+NoConn ~ 4250 4550
+NoConn ~ 4250 4650
+NoConn ~ 4250 4750
+NoConn ~ 4250 4850
+NoConn ~ 4250 4950
+NoConn ~ 4250 5050
+NoConn ~ 4250 2750
+NoConn ~ 4250 2850
+NoConn ~ 4250 2950
+NoConn ~ 4250 3050
+NoConn ~ 4250 3150
+NoConn ~ 4250 3250
+NoConn ~ 4250 3350
+NoConn ~ 4250 3450
+Wire Wire Line
+	4800 3450 5300 3450
+Wire Wire Line
+	4800 3550 5300 3550
+Wire Wire Line
+	4800 3650 5300 3650
+Wire Wire Line
+	4800 3750 5300 3750
+Wire Wire Line
+	4800 3850 5300 3850
+Wire Wire Line
+	4800 3950 5300 3950
+Wire Wire Line
+	4800 4050 5300 4050
+Wire Wire Line
+	4800 4150 5300 4150
+NoConn ~ 4800 3450
+NoConn ~ 4800 3550
+NoConn ~ 4800 3650
+NoConn ~ 4800 3750
+NoConn ~ 4800 3850
+NoConn ~ 4800 3950
+NoConn ~ 4800 4050
+NoConn ~ 4800 4150
+NoConn ~ 7200 2050
+NoConn ~ 7200 2150
+NoConn ~ 7200 2250
+NoConn ~ 7200 2350
+$Comp
+L power:PWR_FLAG #FLG01
+U 1 1 5F34B771
+P 8550 4800
+F 0 "#FLG01" H 8550 4875 50  0001 C CNN
+F 1 "PWR_FLAG" H 8550 4973 50  0000 C CNN
+F 2 "" H 8550 4800 50  0001 C CNN
+F 3 "~" H 8550 4800 50  0001 C CNN
+	1    8550 4800
+	1    0    0    -1  
+$EndComp
 Wire Bus Line
 	7000 3950 7000 5750
 Wire Bus Line
-	7300 2150 7300 6050
+	7100 3450 7100 5850
 Wire Bus Line
-	4800 3550 4800 5650
-Wire Bus Line
-	4350 2850 4350 5450
-Wire Bus Line
-	4250 3650 4250 5350
+	7200 2950 7200 5950
 Wire Bus Line
 	4700 1850 4700 5550
-Wire Bus Line
-	2050 2850 2050 5250
 $EndSCHEMATC
