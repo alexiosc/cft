@@ -72,10 +72,17 @@ module flag_unit (clk4, waddr, raddr,
    assign nwrite_ir = wy[7];
 
    // Decode the read signals, generate nflagoe.
-   wire 	  nread_mbp_flags, nread_flags, nflagoe;
-   assign nread_mbp_flags = ry[5];
-   assign nread_flags = ry[6];
-   assign #7 nflagoe = nread_mbp_flags & nread_flags;
+
+   // Note: (2020-01-05): removed nread_mbp and nread_flags, we just use
+   // nread_mbp_flags and use whichever part we need. This simplifies decoding,
+   // microcode and simulation and has no adverse effects.
+
+   // wire 	  nread_mbp_flags, nread_flags, nflagoe;
+   // assign nread_mbp_flags = ry[5];
+   // assign nread_flags = ry[6];
+   // assign #7 nflagoe = nread_mbp_flags & nread_flags;
+   wire 	  nflagoe;
+   assign nflagoe = ry[5];
    assign nread_agl = ry[7];
 
    // Note: (2019-01-06): the ALU decodes its own CPL/CLL signals. The

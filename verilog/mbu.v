@@ -89,11 +89,9 @@ module mbu (nreset,
    demux_138 demux_ab (.a(ab[6:4]), .g1(ab[3]), .ng2a(ab[7]), .ng2b(nsysdev), .y(dec_ab));
    assign niombr = dec_ab[0];
    
-   // U12: We decode RADDRs 01100 and 01101, read_mbp and read_mbp+flags. Both
-   // addresses cause the MBU to put the MBP on the IBus, so we decode RADDR
-   // partially: 0110x.
-   demux_138 demux_raddr (.a(raddr[3:1]), .g1(1'b1), .ng2a(raddr[4]), .ng2b(t34), .y(dec_raddr));
-   assign nrmbp = dec_raddr[6];
+   // U12: We decode RADDR 01101, read_mbp+flags.
+   demux_138 demux_raddr (.a(raddr[2:0]), .g1(raddr[3]), .ng2a(raddr[4]), .ng2b(t34), .y(dec_raddr));
+   assign nrmbp = dec_raddr[5];
 
    // U16: We decode WADDRs 01100, 01101, and 01110. Symmetric to the above '138.
    demux_138 demux_waddr1 (.a(waddr[3:1]), .g1(1'b1), .ng2a(waddr[4]), .ng2b(1'b0), .y(dec_waddr1));

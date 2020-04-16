@@ -135,10 +135,10 @@ module flag_unit_tb();
       #35 begin
    	 msg[7:0] = "";		// Use the msg as a flag.
 
-	 if (raddr === 5'b01101 || waddr === 5'b01110) begin
+	 if (raddr === 5'b01101) begin
 	    if (ibus[15:8] !== { fi, 1'b0, fv, fl, fz, fn, 2'b00 }) begin
 	       $sformat(msg, "raddr=%b but ibus[15:8]=%b (should be %b)",
-			waddr, ibus[15:8], { fi, 1'b0, fv, fl, fz, fn, 2'b00 });
+			raddr, ibus[15:8], { fi, 1'b0, fv, fl, fz, fn, 2'b00 });
 	    end
 	 end
 

@@ -247,7 +247,7 @@ module reg_mbr_tb();
 	 raddr = i[4:0];
 	 #250;
 
-	 if ((raddr === 5'b01100 || raddr === 5'b01101)) begin
+	 if (raddr === 5'b01101) begin
 	    // TODO: fix this.
 	    // The MBU responded here. It should put the value of MB0 on the IBUS. Check.
 	    // if (ibus_real[7:0] !== mbu.regfile.mem[0]) begin
@@ -467,7 +467,7 @@ module reg_mbr_tb();
 	    #100 $finish;
 	 end
 	 
-	 if (t34 === 1'b0 && mbu.nrmbp !== (raddr[4:1] === 4'b0110 ? 1'b0 : 1'b1)) begin
+	 if (t34 === 1'b0 && mbu.nrmbp !== (raddr[4:0] === 5'b01101 ? 1'b0 : 1'b1)) begin
 	    $display("346 FAIL raddr decoding failure, raddr=%b, nrmbp=%b (should be %b)",
 	 	     raddr, mbu.nrmbp, (raddr[4:1] === 4'b0110 ? 1'b0 : 1'b1));
 	    $error("assertion failure");

@@ -10,9 +10,9 @@
 01001 dr
 01010 ac
 01011 sp
-01100 ?blue4?mbp
+01100 ?red4?01100
 01101 ?blue4?mbp+flags
-01110 ?blue4?flags
+01110 ?red4?01110
 01111 ?magenta4?agl
 10000 alu_add
 10001 alu_and

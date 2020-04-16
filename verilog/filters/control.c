@@ -32,9 +32,9 @@ int main(int argc, char **argv)
 			if (IS_READ_DR(hx)) add(buf2, "read-dr");
 			if (IS_READ_AC(hx)) add(buf2, "read-ac");
 			if (IS_READ_SP(hx)) add(buf2, "read-sp");
-			if (IS_READ_MBP(hx)) add(buf2, "read-mbp");
+			//if (IS_READ_MBP(hx)) add(buf2, "read-mbp");
 			if (IS_READ_MBP_FLAGS(hx)) add(buf2, "read-mbp+flags");
-			if (IS_READ_FLAGS(hx)) add(buf2, "read-flags");
+			//if (IS_READ_FLAGS(hx)) add(buf2, "read-flags");
 			if (IS_READ_AGL(hx)) add(buf2, "read-agl");
 			if (IS_READ_ALU_ADD(hx)) add(buf2, "read-alu-add");
 			if (IS_READ_ALU_AND(hx)) add(buf2, "read-alu-and");
