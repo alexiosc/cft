@@ -267,16 +267,6 @@ Wire Wire Line
 	3150 4550 2800 4550
 Text Label 6250 3250 0    50   ~ 0
 ~FLAGWE
-Wire Wire Line
-	4150 4450 5000 4450
-Wire Wire Line
-	4150 4550 5000 4550
-Text Label 5000 4450 2    50   ~ 0
-~READ-MBP+FLAGS
-Text Label 5000 4550 2    50   ~ 0
-~READ-FLAGS
-Text Label 5750 4500 2    50   ~ 0
-~FLAGOE
 NoConn ~ 4150 4350
 NoConn ~ 4150 4250
 NoConn ~ 4150 4150
@@ -314,7 +304,7 @@ F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 3650 4350 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Text Notes 3700 4600 1    50   ~ 10
-RADDR=011xx
+RADDR=01xxx
 Text Label 4900 3250 2    50   ~ 0
 ~WRITE-FLAGS
 Text Label 4900 3150 2    50   ~ 0
@@ -381,8 +371,6 @@ Text HLabel 1900 5000 0    50   Input ~ 0
 FN
 Text HLabel 9800 3250 2    50   Output ~ 0
 ~FLAGWE
-Wire Wire Line
-	5450 4500 6650 4500
 Wire Wire Line
 	6650 2350 7600 2350
 Text Label 6650 2900 1    50   ~ 0
@@ -574,17 +562,6 @@ Text Label 5100 3400 0    50   ~ 0
 CLK4
 Text Notes 7500 4400 0    98   ~ 20
 Front Panel Buffer
-$Comp
-L alexios:74LVC1G08 U29
-U 1 1 610F934E
-P 5300 4500
-F 0 "U29" H 5225 4233 50  0000 C CNN
-F 1 "74LVC1G08" H 5225 4324 50  0000 C CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 4950 4500 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 4950 4500 50  0001 C CNN
-	1    5300 4500
-	1    0    0    1   
-$EndComp
 Wire Wire Line
 	8600 2050 8950 2050
 Wire Wire Line
@@ -745,14 +722,10 @@ F 3 "" H 3150 3450 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	6650 2350 6650 4500
+	4150 4650 7250 4650
 Wire Wire Line
-	4150 4650 6000 4650
-Wire Wire Line
-	6000 4650 6000 4050
-Wire Wire Line
-	6000 4050 9800 4050
-Text Label 5000 4650 2    50   ~ 0
+	7250 4050 9800 4050
+Text Label 4250 4650 0    50   ~ 0
 ~READ-AGL
 Text HLabel 9800 4050 2    50   Output ~ 0
 ~READ-AGL
@@ -805,64 +778,6 @@ F 3 "~" H 1050 7250 50  0001 C CNN
 	1    1050 7250
 	1    0    0    -1  
 $EndComp
-$Comp
-L power:+5V #PWR?
-U 1 1 5EF4D0EF
-P 2550 7150
-AR Path="/5F4B0011/5EF4D0EF" Ref="#PWR?"  Part="1" 
-AR Path="/5F63066B/5EF4D0EF" Ref="#PWR?"  Part="1" 
-AR Path="/5D69F3FD/5EF4D0EF" Ref="#PWR0189"  Part="1" 
-F 0 "#PWR0189" H 2550 7000 50  0001 C CNN
-F 1 "+5V" H 2565 7323 50  0000 C CNN
-F 2 "" H 2550 7150 50  0001 C CNN
-F 3 "" H 2550 7150 50  0001 C CNN
-	1    2550 7150
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5EF4D0F5
-P 2550 7350
-AR Path="/5EF4D0F5" Ref="#PWR?"  Part="1" 
-AR Path="/5F4B0011/5EF4D0F5" Ref="#PWR?"  Part="1" 
-AR Path="/5F63066B/5EF4D0F5" Ref="#PWR?"  Part="1" 
-AR Path="/5D69F3FD/5EF4D0F5" Ref="#PWR0190"  Part="1" 
-F 0 "#PWR0190" H 2550 7100 50  0001 C CNN
-F 1 "GND" H 2555 7177 50  0000 C CNN
-F 2 "" H 2550 7350 50  0001 C CNN
-F 3 "" H 2550 7350 50  0001 C CNN
-	1    2550 7350
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 5EF4D0FB
-P 2550 7250
-AR Path="/5CC0D65F/5EF4D0FB" Ref="C?"  Part="1" 
-AR Path="/5EF4D0FB" Ref="C?"  Part="1" 
-AR Path="/5F4B0011/5EF4D0FB" Ref="C?"  Part="1" 
-AR Path="/5F63066B/5EF4D0FB" Ref="C?"  Part="1" 
-AR Path="/5D69F3FD/5EF4D0FB" Ref="C4"  Part="1" 
-F 0 "C4" H 2459 7296 50  0000 R CNN
-F 1 "100nF" H 2459 7205 50  0000 R CNN
-F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2550 7250 50  0001 C CNN
-F 3 "~" H 2550 7250 50  0001 C CNN
-	1    2550 7250
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74LVC1G08 U29
-U 2 1 5EF5137E
-P 3000 7150
-F 0 "U29" H 3080 7096 50  0000 L CNN
-F 1 "74LVC1G08" H 3080 7005 50  0000 L CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 2650 7150 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 2650 7150 50  0001 C CNN
-	2    3000 7150
-	1    0    0    -1  
-$EndComp
-Connection ~ 2550 7350
-Connection ~ 2550 7150
 Wire Wire Line
 	4150 3350 4400 3350
 Wire Wire Line
@@ -964,6 +879,15 @@ F 3 "http://www.ti.com/lit/ds/symlink/sn74lvc1g0832.pdf" H 1400 7250 50  0001 C 
 $EndComp
 Connection ~ 1050 7150
 Connection ~ 1050 7350
+Text Label 4250 4450 0    50   ~ 0
+~FLAGOE
+Wire Wire Line
+	4150 4450 6650 4450
+Wire Wire Line
+	7250 4650 7250 4050
+Wire Wire Line
+	6650 2350 6650 4450
+NoConn ~ 4150 4550
 Wire Bus Line
 	2700 3800 2700 4550
 Wire Bus Line

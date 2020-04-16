@@ -1225,7 +1225,7 @@ U 2 1 6C5AEB2D
 P 7150 6000
 F 0 "U9" H 7280 5796 50  0000 L CNN
 F 1 "74LVC1G32" H 7280 5705 50  0000 L CNN
-F 2 "" H 7260 5980 50  0001 C CNN
+F 2 "alexios:SOT-23-5_HandSoldering" H 7260 5980 50  0001 C CNN
 F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 7260 5980 50  0001 C CNN
 	2    7150 6000
 	1    0    0    -1  
@@ -1244,7 +1244,7 @@ U 1 1 6C570E28
 P 7050 5800
 F 0 "U9" H 7100 6067 50  0000 C CNN
 F 1 "74LVC1G32" H 7100 5976 50  0000 C CNN
-F 2 "" H 7160 5780 50  0001 C CNN
+F 2 "alexios:SOT-23-5_HandSoldering" H 7160 5780 50  0001 C CNN
 F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 7160 5780 50  0001 C CNN
 	1    7050 5800
 	1    0    0    -1  

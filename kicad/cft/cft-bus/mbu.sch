@@ -250,11 +250,11 @@ $EndComp
 Wire Wire Line
 	2050 5800 2050 5900
 Connection ~ 2050 5900
-Text Label 2100 2600 2    50   ~ 0
-RADDR1
 Text Label 2100 2700 2    50   ~ 0
-RADDR2
+RADDR1
 Text Label 2100 2800 2    50   ~ 0
+RADDR2
+Text Label 2100 3200 2    50   ~ 0
 RADDR3
 Text Label 2100 3300 2    50   ~ 0
 RADDR4
@@ -283,7 +283,7 @@ NoConn ~ 3100 2600
 NoConn ~ 3100 2700
 NoConn ~ 3100 2800
 NoConn ~ 3100 2900
-Text Label 3550 3200 2    50   ~ 0
+Text Label 3550 3100 2    50   ~ 0
 ~RMBP
 Text Label 3550 4450 2    50   ~ 0
 ~WMBP
@@ -309,14 +309,11 @@ Wire Wire Line
 	1250 3400 2100 3400
 Text Label 2100 3400 2    50   ~ 0
 ~T34
-NoConn ~ 3100 3100
-Text Notes 3250 2700 0    50   ~ 0
-Asserted if CU addresses\nread_mbp (01100) or\nread_mbp_flags (01101),\nprovided the MBU has been\nprogrammed.
 Text Notes 3250 4300 0    50   ~ 0
 Asserted if CU addresses\nwrite_mbp (01100) or\nwrite_mbp_flags (01101).
 NoConn ~ 3100 3000
-Text Notes 3400 2950 0    50   ~ 0
-RADDR=0110x
+Text Notes 3250 2950 0    50   ~ 0
+RADDR=01101
 $Comp
 L alexios:74HC138 U?
 U 1 1 60A07F64
@@ -605,21 +602,6 @@ Text Label 8750 1400 0    50   ~ 0
 AEXT0
 Text Notes 3450 1200 2    50   ~ 0
 AB=&008–&00F
-Wire Wire Line
-	2100 3200 2050 3200
-Wire Wire Line
-	2050 3200 2050 3150
-$Comp
-L power:+5V #PWR010
-U 1 1 6467B62E
-P 2050 3150
-F 0 "#PWR010" H 2050 3000 50  0001 C CNN
-F 1 "+5V" H 2065 3323 50  0000 C CNN
-F 2 "" H 2050 3150 50  0001 C CNN
-F 3 "" H 2050 3150 50  0001 C CNN
-	1    2050 3150
-	1    0    0    -1  
-$EndComp
 Text Label 2100 3850 2    50   ~ 0
 WADDR1
 Text Label 2100 3950 2    50   ~ 0
@@ -684,12 +666,12 @@ $EndComp
 $Comp
 L alexios:74LVC1G04 U6
 U 1 1 6807A17E
-P 3850 3200
-F 0 "U6" H 3800 3025 50  0000 C CNN
-F 1 "74LVC1G04" H 3800 2934 50  0000 C CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 3850 3200 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G04.pdf" H 3850 3200 50  0001 C CNN
-	1    3850 3200
+P 3850 3100
+F 0 "U6" H 3800 2925 50  0000 C CNN
+F 1 "74LVC1G04" H 3800 2834 50  0000 C CNN
+F 2 "alexios:SOT-23-5_HandSoldering" H 3850 3100 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G04.pdf" H 3850 3100 50  0001 C CNN
+	1    3850 3100
 	1    0    0    -1  
 $EndComp
 $Sheet
@@ -846,14 +828,12 @@ Text HLabel 3800 5200 2    50   Output ~ 0
 ~WAR
 Wire Wire Line
 	1800 3300 2100 3300
-Text Label 2100 2500 2    50   ~ 0
+Text Label 2100 2600 2    50   ~ 0
 RADDR0
 Wire Wire Line
 	1800 4550 2100 4550
 Text Label 2100 3750 2    50   ~ 0
 WADDR0
-Wire Wire Line
-	2100 2500 1800 2500
 Wire Wire Line
 	2100 2600 1800 2600
 Wire Wire Line
@@ -869,13 +849,13 @@ Wire Bus Line
 Text HLabel 1250 2250 0    50   Input ~ 0
 RADDR[0..4]
 Entry Wire Line
+	1700 3100 1800 3200
+Entry Wire Line
 	1700 2700 1800 2800
 Entry Wire Line
 	1700 2600 1800 2700
 Entry Wire Line
 	1700 2500 1800 2600
-Entry Wire Line
-	1700 2400 1800 2500
 Wire Wire Line
 	2100 3850 1800 3850
 Wire Wire Line
@@ -956,7 +936,7 @@ Text Label 4800 2900 0    50   ~ 0
 WADDR1
 Text Label 4800 3600 0    50   ~ 0
 ~WMBP
-Text Label 4800 3200 0    50   ~ 0
+Text Label 4800 3100 0    50   ~ 0
 ~RG
 Text Label 4800 3300 0    50   ~ 0
 IR0
@@ -994,7 +974,7 @@ F13 "WADDR1" I L 5300 2900 50
 F14 "~IR-IDX" I L 5300 3000 50 
 F15 "IR0" I L 5300 3300 50 
 F16 "IR1" I L 5300 3400 50 
-F17 "~RG" I L 5300 3200 50 
+F17 "~RG" I L 5300 3100 50 
 F18 "~WAR" I L 5300 3700 50 
 F19 "RA0" O R 6450 2800 50 
 F20 "RA1" O R 6450 2900 50 
@@ -1002,7 +982,7 @@ F21 "~REN0" O R 6450 3000 50
 F22 "~REN1" O R 6450 3100 50 
 F23 "~IOWMBR" O R 6450 3600 50 
 F24 "IR2" I L 5300 3500 50 
-F25 "~T34" I L 5300 3100 50 
+F25 "~T34" I L 5300 3200 50 
 F26 "~RESET" I L 5300 2200 50 
 $EndSheet
 Wire Wire Line
@@ -1574,7 +1554,7 @@ Wire Wire Line
 Text Label 1600 950  2    50   ~ 0
 ~R
 Wire Wire Line
-	4050 3200 5300 3200
+	4050 3100 5300 3100
 Wire Wire Line
 	5300 3500 4500 3500
 Text HLabel 4500 3500 0    50   Input ~ 0
@@ -1582,10 +1562,10 @@ IR2
 Text Label 4800 3500 0    50   ~ 0
 IR2
 Wire Wire Line
-	3100 3200 3550 3200
+	3100 3100 3550 3100
 Wire Wire Line
-	5300 3100 4800 3100
-Text Label 4800 3100 0    50   ~ 0
+	5300 3200 4800 3200
+Text Label 4800 3200 0    50   ~ 0
 ~T34
 Text Label 6100 4300 2    50   ~ 0
 ~FPRAM~∕ROM
@@ -1606,6 +1586,11 @@ Wire Wire Line
 	4750 700  1250 700 
 Wire Wire Line
 	4750 2200 5300 2200
+Text HLabel 1250 700  0    50   Input ~ 0
+~RESET
+Wire Wire Line
+	1800 3200 2100 3200
+NoConn ~ 3100 3200
 Wire Bus Line
 	1700 1150 1700 1950
 Wire Bus Line
@@ -1620,6 +1605,4 @@ Wire Bus Line
 	10400 3600 10400 4750
 Wire Bus Line
 	8600 1500 8600 5550
-Text HLabel 1250 700  0    50   Input ~ 0
-~RESET
 $EndSCHEMATC

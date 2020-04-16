@@ -529,67 +529,6 @@ Text Notes 1850 5700 0    50   ~ 0
 IR Value\n\nI R 000–0FF\nI R 100–1FF\nI R 200–2FF\nI R 300–33F\nI R 340–37F\nI R 380–3BF\nI R 3C0–3FF
 Text Notes 3100 5700 0    50   ~ 0
 IDX\n\n00\n00\n00\n00\n01\n10\n11
-$Comp
-L power:+5V #PWR?
-U 1 1 60D21D04
-P 6000 7200
-AR Path="/60D21D04" Ref="#PWR?"  Part="1" 
-AR Path="/5CC0D65F/60D21D04" Ref="#PWR?"  Part="1" 
-AR Path="/5CD3AC27/60D21D04" Ref="#PWR?"  Part="1" 
-AR Path="/5F3EA987/60D21D04" Ref="#PWR0109"  Part="1" 
-F 0 "#PWR0109" H 6000 7050 50  0001 C CNN
-F 1 "+5V" H 6015 7373 50  0000 C CNN
-F 2 "" H 6000 7200 50  0001 C CNN
-F 3 "" H 6000 7200 50  0001 C CNN
-	1    6000 7200
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 60D21D10
-P 6000 7300
-AR Path="/5CC0D65F/60D21D10" Ref="C?"  Part="1" 
-AR Path="/5CD3AC27/60D21D10" Ref="C?"  Part="1" 
-AR Path="/5F3EA987/60D21D10" Ref="C18"  Part="1" 
-F 0 "C18" H 5909 7346 50  0000 R CNN
-F 1 "100nF" H 5909 7255 50  0000 R CNN
-F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 6000 7300 50  0001 C CNN
-F 3 "~" H 6000 7300 50  0001 C CNN
-	1    6000 7300
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 60D21D1C
-P 6000 7400
-AR Path="/60D21D1C" Ref="#PWR?"  Part="1" 
-AR Path="/5CBF1647/60D21D1C" Ref="#PWR?"  Part="1" 
-AR Path="/5CC0D65F/60D21D1C" Ref="#PWR?"  Part="1" 
-AR Path="/5CD3AC27/60D21D1C" Ref="#PWR?"  Part="1" 
-AR Path="/5F3EA987/60D21D1C" Ref="#PWR0124"  Part="1" 
-F 0 "#PWR0124" H 6000 7150 50  0001 C CNN
-F 1 "GND" H 6005 7227 50  0000 C CNN
-F 2 "" H 6000 7400 50  0001 C CNN
-F 3 "" H 6000 7400 50  0001 C CNN
-	1    6000 7400
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74HC238 U?
-U 2 1 60D21D31
-P 6350 7300
-AR Path="/5CD3AC27/60D21D31" Ref="U?"  Part="2" 
-AR Path="/5F3EA987/60D21D31" Ref="U25"  Part="2" 
-F 0 "U25" H 6529 7346 50  0000 L CNN
-F 1 "74HC238" H 6529 7255 50  0000 L CNN
-F 2 "alexios:SOIC-16" H 6350 7300 50  0001 C CNN
-F 3 "" H 6350 7300 50  0001 C CNN
-F 4 "Yes" H 6275 6475 50  0001 C CNN "Verified"
-	2    6350 7300
-	1    0    0    -1  
-$EndComp
-Connection ~ 6000 7200
-Connection ~ 6000 7400
 Text Notes 800  1000 0    98   ~ 20
 Page Zero Address Generation Logic (AGL)
 Text Notes 12300 3700 0    98   ~ 20
@@ -805,7 +744,7 @@ U 1 1 6C4E335D
 P 6150 4600
 F 0 "U23" H 6100 4864 50  0000 C CNN
 F 1 "74LVC1G11" H 6100 4773 50  0000 C CNN
-F 2 "" H 6050 4525 50  0001 C CNN
+F 2 "alexios:SOT-23-6_Handsoldering" H 6050 4525 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G11.pdf" H 6050 4525 50  0001 C CNN
 	1    6150 4600
 	1    0    0    -1  
@@ -816,7 +755,7 @@ U 1 1 6C4E3863
 P 6150 5200
 F 0 "U24" H 6100 5464 50  0000 C CNN
 F 1 "74LVC1G11" H 6100 5373 50  0000 C CNN
-F 2 "" H 6050 5125 50  0001 C CNN
+F 2 "alexios:SOT-23-6_Handsoldering" H 6050 5125 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G11.pdf" H 6050 5125 50  0001 C CNN
 	1    6150 5200
 	1    0    0    -1  
@@ -1012,7 +951,7 @@ U 2 1 6C5C41E2
 P 8500 4500
 F 0 "U23" H 8580 4396 50  0000 L CNN
 F 1 "74LVC1G11" H 8580 4305 50  0000 L CNN
-F 2 "" H 8400 4425 50  0001 C CNN
+F 2 "alexios:SOT-23-6_Handsoldering" H 8400 4425 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G11.pdf" H 8400 4425 50  0001 C CNN
 	2    8500 4500
 	1    0    0    -1  
@@ -1025,7 +964,7 @@ U 2 1 6C5C4899
 P 8500 5200
 F 0 "U24" H 8580 5096 50  0000 L CNN
 F 1 "74LVC1G11" H 8580 5005 50  0000 L CNN
-F 2 "" H 8400 5125 50  0001 C CNN
+F 2 "alexios:SOT-23-6_Handsoldering" H 8400 5125 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G11.pdf" H 8400 5125 50  0001 C CNN
 	2    8500 5200
 	1    0    0    -1  
@@ -1044,7 +983,7 @@ U 1 1 6C6E8007
 P 6150 5750
 F 0 "U26" H 6075 6017 50  0000 C CNN
 F 1 "74LVC1G00" H 6075 5926 50  0000 C CNN
-F 2 "" H 5800 5750 50  0001 C CNN
+F 2 "alexios:SOT-23-5_HandSoldering" H 5800 5750 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G00.pdf" H 5800 5750 50  0001 C CNN
 	1    6150 5750
 	1    0    0    -1  
@@ -1055,7 +994,7 @@ U 2 1 6C6F3855
 P 8500 5950
 F 0 "U26" H 8580 5896 50  0000 L CNN
 F 1 "74LVC1G00" H 8580 5805 50  0000 L CNN
-F 2 "" H 8150 5950 50  0001 C CNN
+F 2 "alexios:SOT-23-5_HandSoldering" H 8150 5950 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G00.pdf" H 8150 5950 50  0001 C CNN
 	2    8500 5950
 	1    0    0    -1  
