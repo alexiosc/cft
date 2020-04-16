@@ -166,9 +166,9 @@ cond uaddr:4;
 // 01001     DR          DR
 // 01010     AC          AC
 // 01011     SP          SP           The CFT is a big boy now, it has a Stack Pointer!
-// 01100     MBP         MBP          
-// 01101     MBP+flags   MBP+flags    Pushed onto stack as a single 16-bit velue (for speed)
-// 01110     flags       flags        Pushed onto stack as a single 16-bit velue (for speed)
+// 01100                 MBP          
+// 01101     MBP+flags   MBP+flags    Pushed onto stack as a single 16-bit value (for speed)
+// 01110                 flags        Pushed onto stack as a single 16-bit value (for speed)
 // 01111     AGL         IR           Read AGL; write IR.
 // -------------------------------------------------------------------------------
 // 10000     ALU:ADD                  Read ADD result.
@@ -204,9 +204,9 @@ signal read_pc         = ...................01000; // Read from PC
 signal read_dr         = ...................01001; // Read from DR
 signal read_ac         = ...................01010; // Read from AC
 signal read_sp         = ...................01011; // Read from SP
-signal read_mbp        = ...................01100; // Read MBP (MB0)
+//signal read_mbp      = ...................01100; // No longer used: Read MBP (MB0)
 signal read_mbp_flags  = ...................01101; // Read combination MBP+flags
-signal read_flags      = ...................01110; // Read flags
+//signal read_flags    = ...................01110; // No longer uesd: Read flags
 signal read_agl        = ...................01111; // Read from address generation logic
 signal read_alu_add    = ...................10000; // ALU: Read from ALU: AC + B + L
 signal read_alu_and    = ...................10001; // ALU: Read from ALU: AC AND B
@@ -513,7 +513,7 @@ start RST=0, INT=X, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 // latency. The Return process will probably be identical.
 
 start RST=1, INT=0, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
-      STACK_PUSH(mbp_flags);                    // 00 mem[MBS:SP++] ← flags:MBP
+      STACK_PUSH(mbp_flags);                    // 00 mem[MBS:SP++] ← <flags,MBP>
       action_cli, STACK_PUSH(pc);               // 02 mem[MBS:SP++] ← PC; CLI
       STACK_PUSH(ac);                           // 04 mem[MBS:SP++] ← AC
       SET(pc, cs_isrvec0);                      // 06 PC ← 0002
@@ -629,7 +629,7 @@ start IRET;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       STACK_POP(ac);                            // 02 AC ← mem[--SP]
       STACK_POP(pc);                            // 05 PC ← mem[--SP]
-      STACK_POP(mbp_flags), END;                // 08 flags:MBP ← mem[--SP]
+      STACK_POP(mbp_flags), END;                // 08 <flags,MBP> ← mem[--SP]
 
 
 
@@ -841,7 +841,7 @@ start PPA;
 
 start PHF;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
-      STACK_PUSH(flags), END;                   // 02 mem[MBS:SP++] ← flags
+      STACK_PUSH(mbp_flags), END;               // 02 mem[MBS:SP++] ← flags
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1962,7 +1962,7 @@ start LIA, I=0, R=1, IDX=XX;
 // (3) LJSR, Indirect
 start LJSR, I=1, R=0, IDX=XX;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
-      STACK_PUSH(mbp);                          // 02 mem[MBS:SP++] ← MBP
+      STACK_PUSH(mbp_flags);                    // 02 mem[MBS:SP++] ← <flags,MBP>
       STACK_PUSH(pc);                           // 04 mem[MBS:SP++] ← PC
       SET(dr, agl);                             // 06
       MEMREAD(mbp, agl, pc), action_incdr;      // 07 PC ← mem[MBP:AGL]
@@ -1971,7 +1971,7 @@ start LJSR, I=1, R=0, IDX=XX;
 // (4) & (5) LJSR, Register Indirect and Memory Bank-Relative Indirect
 start LJSR, I=1, R=1, IDX=IDX_REG;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
-      STACK_PUSH(mbp);                          // 02 mem[MBS:SP++] ← MBP
+      STACK_PUSH(mbp_flags);                    // 02 mem[MBS:SP++] ← <flags,MBP>
       STACK_PUSH(pc);                           // 04 mem[MBS:SP++] ← PC
       SET(dr, agl);                             // 06
       MEMREAD(mbz, agl, pc), action_incdr;      // 07 PC ← mem[MBZ:AGL]
@@ -1982,7 +1982,7 @@ start LJSR, I=1, R=1, IDX=IDX_REG;
 // TODO: Can't tell if this microprogram fails or not. Test before control unit is fabricated!
 start LJSR, I=1, R=1, IDX=IDX_INC;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
-      STACK_PUSH(mbp);                          // 02 mem[MBS:SP++] ← MBP
+      STACK_PUSH(mbp_flags);                    // 02 mem[MBS:SP++] ← <flags,MBP>
       STACK_PUSH(pc);                           // 04 mem[MBS:SP++] ← PC
       MEMREAD(mbz, agl, dr);                    // 06 DR ← mem[MBZ:AGL]
       MEMREAD_IDX(mbd, dr, pc);			// 08 PC ← mem[MBn:DR]
@@ -1994,7 +1994,7 @@ start LJSR, I=1, R=1, IDX=IDX_INC;
 // NON-STANDARD: (7) LJSR, Auto-Decrement Double Indirect.
 start LJSR, I=1, R=1, IDX=IDX_DEC;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
-      STACK_PUSH(mbp);                          // 02 mem[MBS:SP++] ← MBP
+      STACK_PUSH(mbp_flags);                    // 02 mem[MBS:SP++] ← <flags,MBP>
       STACK_PUSH(pc);                           // 04 mem[MBS:SP++] ← PC
       MEMREAD(mbz, agl, dr);                    // 06 DR ← mem[MBZ:AGL]
       MEMREAD_IDX(mbd, dr, mbp);                // 08 MBP ← mem[MBn:DR]
@@ -2008,7 +2008,7 @@ start LJSR, I=1, R=1, IDX=IDX_DEC;
 // them. Push MBP onto the stack FIRST.
 start LJSR, I=1, R=1, IDX=IDX_SP;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
-      STACK_PUSH(mbp);                          // 02 mem[MBS:SP++] ← MBP
+      STACK_PUSH(mbp_flags);                    // 02 mem[MBS:SP++] ← <flags,MBP>
       STACK_PUSH(pc);                           // 04 mem[MBS:SP++] ← PC
       MEMREAD(mbz, dr, pc);                     // 06 MBP ← mem[MBn:DR]
       MEMREAD_IDX(mbd, agl, dr);                // 08 DR ← mem[MBn:AGL]
