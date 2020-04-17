@@ -942,8 +942,8 @@ Text Label 4550 3500 0    50   ~ 0
 ~ACTION-IDX
 Text Notes 8400 4100 0    50   ~ 0
 This is used to select addressing modes.
-Wire Bus Line
-	3050 2850 3050 3600
 Text Notes 8400 3200 0    50   ~ 0
 This is output to the Flag Unit.
+Wire Bus Line
+	3050 2850 3050 3600
 $EndSCHEMATC

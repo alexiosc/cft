@@ -875,10 +875,8 @@ F 1 "74LVC1G0832" H 1580 7295 50  0000 L CNN
 F 2 "alexios:SOT-23-6_Handsoldering" H 1400 7250 50  0001 C CNN
 F 3 "http://www.ti.com/lit/ds/symlink/sn74lvc1g0832.pdf" H 1400 7250 50  0001 C CNN
 	2    1400 7250
-	1    0    0    1   
+	1    0    0    -1  
 $EndComp
-Connection ~ 1050 7150
-Connection ~ 1050 7350
 Text Label 4250 4450 0    50   ~ 0
 ~FLAGOE
 Wire Wire Line
@@ -888,6 +886,8 @@ Wire Wire Line
 Wire Wire Line
 	6650 2350 6650 4450
 NoConn ~ 4150 4550
+Connection ~ 1050 7150
+Connection ~ 1050 7350
 Wire Bus Line
 	2700 3800 2700 4550
 Wire Bus Line
