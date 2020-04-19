@@ -1,19 +1,19 @@
 [*]
-[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Sun Apr 12 06:27:42 2020
+[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
+[*] Sun Apr 19 07:35:22 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/cft2019_tb.vcd"
-[dumpfile_mtime] "Sun Apr 12 06:23:10 2020"
-[dumpfile_size] 417406
+[dumpfile_mtime] "Sun Apr 19 07:34:18 2020"
+[dumpfile_size] 621009
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/cft2019_tb.sav"
-[timestart] 8020000
+[timestart] 16033000
 [size] 1920 1019
 [pos] -1 -1
-*-21.787315 10980000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-19.379892 18002750 16002750 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] cft2019_tb.
 [treeopen] cft2019_tb.cft.
-[treeopen] cft2019_tb.cft.card_alu.
-[treeopen] cft2019_tb.cft.card_alu.reg_l.
+[treeopen] cft2019_tb.cft.card_ctl.
+[treeopen] cft2019_tb.cft.card_ctl.flag_unit.
 [treeopen] cft2019_tb.cft.card_mem.romhi.
 [treeopen] cft2019_tb.cft.card_reg.reg_ac.
 [sst_width] 258
@@ -189,9 +189,12 @@ cft2019_tb.cft.fn
 cft2019_tb.cft.fv
 cft2019_tb.cft.fz
 cft2019_tb.cft.card_ctl.fi
+cft2019_tb.cft.card_ctl.flag_unit.nflagoe
+@22
+cft2019_tb.cft.card_ctl.flag_unit.ibus[15:8]
 @1000200
 -Registers
-@800200
+@c00200
 -Shifter/Rotator (SRU)
 @4022
 [color] 1
@@ -328,7 +331,7 @@ cft2019_tb.cft.card_alu.alu_sru.lsb_mux.sel[1:0]
 -group_end
 @28
 cft2019_tb.cft.card_alu.alu_sru.lsb_mux.y
-@1000200
+@1401200
 -Shifter/Rotator (SRU)
 @800200
 -Buses
@@ -412,6 +415,7 @@ cft2019_tb.cft.nio
 cft2019_tb.cft.nr
 [color] 2
 cft2019_tb.cft.nwen
+@29
 [color] 1
 cft2019_tb.cft.nw
 @1000200
@@ -537,7 +541,7 @@ cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
 -Instruction Register
 @200
 -
-@800200
+@c00200
 -L Register
 @28
 cft2019_tb.cft.nrsthold
@@ -562,18 +566,18 @@ cft2019_tb.cft.card_alu.reg_l.nfl
 cft2019_tb.cft.card_alu.reg_l.nflagwe
 cft2019_tb.cft.card_alu.reg_l.nread_alu_add
 cft2019_tb.cft.card_alu.reg_l.nsetl
-@1000200
+@1401200
 -L Register
 @200
 -
-@c00200
+@800200
 -Flags
 @28
 cft2019_tb.cft.card_ctl.flag_unit.nflagwe
 cft2019_tb.cft.card_ctl.flag_unit.nwrite_flags
 cft2019_tb.cft.card_ctl.flag_unit.nwrite_mbp_flags
 cft2019_tb.cft.card_ctl.flag_unit.nwrite_ir
-@1401200
+@1000200
 -Flags
 @c00200
 -Interrupts
@@ -613,18 +617,5 @@ cft2019_tb.cft.card_ctl.sbu.ncond
 cft2019_tb.cft.card_dfp.OR[15:0]
 @1401200
 -DFP Card
-@800022
-cft2019_tb.cft.card_bus.mbu.aext[7:0]
-@28
-(0)cft2019_tb.cft.card_bus.mbu.aext[7:0]
-(1)cft2019_tb.cft.card_bus.mbu.aext[7:0]
-(2)cft2019_tb.cft.card_bus.mbu.aext[7:0]
-(3)cft2019_tb.cft.card_bus.mbu.aext[7:0]
-(4)cft2019_tb.cft.card_bus.mbu.aext[7:0]
-(5)cft2019_tb.cft.card_bus.mbu.aext[7:0]
-(6)cft2019_tb.cft.card_bus.mbu.aext[7:0]
-(7)cft2019_tb.cft.card_bus.mbu.aext[7:0]
-@1001200
--group_end
 [pattern_trace] 1
 [pattern_trace] 0

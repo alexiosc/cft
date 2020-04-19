@@ -247,8 +247,13 @@ module mbu (nreset,
 
    // This is here ONLY for debugging, otherwise the testbench throws
    // a spurious bus error: we need to drive all 16 bits of the IBUS.
-   tri0 [7:0] 	_db_pullup;
-   assign db[15:8] = nrmbp ? 8'bZ : _db_pullup;
+   //
+   // Note (2020-04-19): removed this, as read_bmp has been removed in
+   // favour of read_bmp+flags which always drives all 16 bits of the
+   // IBus.
+
+   // tri0 [7:0] 	_db_pullup;
+   // assign db[15:8] = nrmbp ? 8'bZ : _db_pullup;
 
    // Note that the RMB instruction only drives the lower 8 bits. On real
    // hardware, Bus Hold would make the MSB equal to the last memory operation,
