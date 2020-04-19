@@ -48,7 +48,7 @@ _BUILTINS = """;;; CFT Assembler Built-ins, Microcode Version 7.x.
 ;.equ   RRA     &0870            ; 0000:1:0:000:111LLLL  Roll Right Accumulator
 
 .equ    SKP     &0880            ; SKP bitmap instruction
-.equ    NOP     SKP     #0000000 ; 0000:1:0:001:0000000  No Operation
+.equ    NOP     SKP     #0000000 ; 0000:1:0:001:0000000  No Operation, 4 cycles
 .equ    SKIP    SKP     #0010000 ; 0000:1:0:001:--10000  Skip
 .equ    SNA     SKP     #0001000 ; 0000:1:0:001:--01---  Skip on Negative Accumulator
 .equ    SNP     SKP     #0001100 ; 0000:1:0:001:--011--  Skip on Non-Positive Accumulator
@@ -73,7 +73,7 @@ _BUILTINS = """;;; CFT Assembler Built-ins, Microcode Version 7.x.
 .equ    UOP     &0e00            ; UOP bitmap instruction
 .equ    IFL     &0e8c            ; IFL bitmap instruction
 .equ    IFV     &0f0c            ; IFV bitmap instruction
-.equ    NOP9    UOP     #0000000 ; 0000:1:1:100:0000000  No Operation, 9 Cycles
+.equ    NOP10   UOP     #0000000 ; 0000:1:1:100:0000000  No Operation, 10 Cycles
 .equ    CLA     UOP     #0100000 ; 0000:1:1:100:-1-----  Clear Accumulator
 .equ    CLL     UOP     #0010000 ; 0000:1:1:100:--1----  Clear Link
 .equ    SEL     UOP     #0010001 ; 0000:1:1:100:--1---1  Set Link
