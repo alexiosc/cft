@@ -21,9 +21,13 @@ from testing import *
 @pytest.mark.STI
 @pytest.mark.PHF
 @pytest.mark.PPA
+@pytest.mark.SHL
 @pytest.mark.TAS
 @pytest.mark.TSA
 def test_PPF(capsys, tmpdir):
+
+    maxval = 255
+    
     source = """
     .include "mbu.asm"
     .include "dfp2.asm"
@@ -40,163 +44,36 @@ def test_PPF(capsys, tmpdir):
             CLL           ; L = 0
             CLI           ; I = 0
 
-            LOAD @data+0
-            dfp.PRINTH
+            LI {maxval}
+            STORE R &200
+     loop:  dfp.PRINTD
+            SHL 8
             PHA
             PPF
             PHF
             PPA
             dfp.PRINTH
-
-            LOAD @data+1
-            dfp.PRINTH
-            PHA
-            PPF
-            PHF
-            PPA
-            dfp.PRINTH
-
-            LOAD @data+3
-            dfp.PRINTH
-            PHA
-            PPF
-            PHF
-            PPA
-            dfp.PRINTH
-
-            LOAD @data+4
-            dfp.PRINTH
-            PHA
-            PPF
-            PHF
-            PPA
-            dfp.PRINTH
-
-
-            PHF
-            LOAD @data+1
-            PHF
-            LOAD @data+2
-            PHF
-            LOAD @data+3
-            PHF
-
+            DSZ R &200
+            JMP loop
             SUCCESS
-            TSA
-            dfp.PRINTD
- 
-            PPA
-            dfp.PRINTH
-            PPA
-            dfp.PRINTH
-            PPA
-            dfp.PRINTH
-            PPA
-            dfp.PRINTH
-
-            SUCCESS
-            TSA
-            dfp.PRINTD
-
-            CLL CPL       ; L = 1
-
-            LOAD @data+0
-            PHF
-            LOAD @data+1
-            PHF
-            LOAD @data+2
-            PHF
-            LOAD @data+3
-            PHF
-
-            SUCCESS
-            TSA
-            dfp.PRINTD
- 
-            PPA
-            dfp.PRINTH
-            PPA
-            dfp.PRINTH
-            PPA
-            dfp.PRINTH
-            PPA
-            dfp.PRINTH
-
-            SUCCESS
-            TSA
-            dfp.PRINTD
-
-            STI           ; I = 1
-
-            LOAD @data+0
-            PHF
-            LOAD @data+1
-            PHF
-            LOAD @data+2
-            PHF
-            LOAD @data+3
-            PHF
-
-            SUCCESS
-            TSA
-            dfp.PRINTD
- 
-            PPA
-            dfp.PRINTH
-            PPA
-            dfp.PRINTH
-            PPA
-            dfp.PRINTH
-            PPA
-            dfp.PRINTH
-
-            SUCCESS
-            TSA
-            dfp.PRINTD
-
-            PPA           ; Pop from empty stack (wrap around to ffff!)
-            dfp.PRINTH
-            TSA
-            dfp.PRINTH
- 
             HALT
+    """.format(**locals())
 
-    data:   .data &0000 &7fff &8000 &ffff
-    """
-
-    expected = ExpectedData([
-        SUCCESS,
-        SUCCESS,
-        [ 340, "PRINTD", "4" ],
-        [ 340, "PRINTH", "0480" ], # FFFF Z=0 N=1
-        [ 340, "PRINTH", "0480" ], # 8000 Z=0 N=1
-        [ 340, "PRINTH", "0080" ], # 7FFF Z=0 N=0
-        [ 340, "PRINTH", "0880" ], # 0000 Z=1 N=0
-        SUCCESS,
-        [ 340, "PRINTD", "0" ],
-
-        SUCCESS,
-        [ 340, "PRINTD", "4" ],
-        [ 340, "PRINTH", "1480" ], # FFFF Z=0 N=1
-        [ 340, "PRINTH", "1480" ], # 8000 Z=0 N=1
-        [ 340, "PRINTH", "1080" ], # 7FFF Z=0 N=0
-        [ 340, "PRINTH", "1880" ], # 0000 Z=1 N=0
-        SUCCESS,
-        [ 340, "PRINTD", "0" ],
-
-        SUCCESS,
-        [ 340, "PRINTD", "4" ],
-        [ 340, "PRINTH", "9480" ], # FFFF Z=0 N=1
-        [ 340, "PRINTH", "9480" ], # 8000 Z=0 N=1
-        [ 340, "PRINTH", "9080" ], # 7FFF Z=0 N=0
-        [ 340, "PRINTH", "9880" ], # 0000 Z=1 N=0
-        SUCCESS,
-        [ 340, "PRINTD", "0" ],
-
-        [ 340, "PRINTH", "0f0f" ], # uninitialised memory
-        [ 340, "PRINTH", "ffff" ], # wrapped around stack
-        HALTED
-    ])
+    expected = ExpectedData([ SUCCESS ])
+    for x in range(maxval, -1, -1):
+        flags = ((x << 8) & 0xb000) | 0x80
+        # This is complex. FN and FZ are not modified by loading
+        # flags. They depend on the value of the AC. They *are* pushed
+        # to the stack by PHF though.
+        if x == 0:
+            flags |= 0x0800
+        if x & 0x80:
+            flags |= 0x0400
+        expected += [[ 340, "PRINTD", str(x) ],
+                     [ 340, "PRINTH", "{:>04x}".format(flags) ]]
+    expected += [ SUCCESS, HALTED ]
+    # pprint.pprint(expected)
+    # assert False
 
     result = run_on_verilog_emu(capsys, tmpdir, source)
     result = list(expected.prepare(result))
