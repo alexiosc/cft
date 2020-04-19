@@ -18,12 +18,14 @@ from testing import *
 @pytest.mark.LOAD
 @pytest.mark.UOP
 @pytest.mark.CLI
+@pytest.mark.CLL
 @pytest.mark.STI
-@pytest.mark.PHF
 @pytest.mark.PPA
+@pytest.mark.PPF
+@pytest.mark.PHF
+@pytest.mark.PHA
 @pytest.mark.SHL
 @pytest.mark.TAS
-@pytest.mark.TSA
 def test_PPF(capsys, tmpdir):
 
     maxval = 255

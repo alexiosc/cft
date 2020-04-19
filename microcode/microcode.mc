@@ -1735,15 +1735,16 @@ start UOP, COND=1;
 
 
 // First, the version where the skip isn't taken.
-start SKP, COND=0;
-      FETCH_IR, if_branch;                      // 00 IR ← mem[PC++]
-      END;                                      // 02 IF not skip: END
+start SKP, COND=1;
+      FETCH_IR;                                 // 00 IR ← mem[PC++]
+      if_branch;                                // 02 IF not skip:
+      END;                                      // 03 END
 
 // Next, the version where the skip is taken.
 start SKP, COND=0;
-      FETCH_IR, if_branch;                      // 00 IR ← mem[PC++]
-      action_incpc, END;                        // 02 If skip: PC++
-
+      FETCH_IR;                                 // 00 IR ← mem[PC++]
+      if_branch;                                // 02 IF skip:
+      action_incpc, END;                        // 03 PC++
 
 
 ///////////////////////////////////////////////////////////////////////////////
