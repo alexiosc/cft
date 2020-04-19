@@ -36,6 +36,8 @@
 `include "card_dfp.v"
 `include "card_mem.v"
 
+`include "card_verilog_test.v"	// This is a fake card to test interrupts and IOT
+
 `timescale 1ns/1ps
 
 // All cards start with card_ and have identical port definitions.
@@ -350,6 +352,28 @@ module cft2019(
 
    wire [40:1]   cport_mem;     // MEM board doesn't use local connections
    card_mem card_mem(
+                     .nreset(nreset), .nrsthold(nrsthold),
+                     .clk1(clk1), .clk2(clk2), .clk3(clk3), .clk4(clk4), .t34(t34),
+                     .nirq(nirq), .nirqs(nirqs),
+                     .nsysdev(nsysdev), .niodev1xx(niodev1xx),
+                     .niodev2xx(niodev2xx), .niodev3xx(niodev3xx),
+                     .nmem(nmem), .nio(nio), .nw(nw), .nr(nr), .nws(nws),
+                     .ab(ab), .db(db),
+                     .nirqn(nirqn),
+                     .nhalt(nhalt), .nendext(nendext), .nskipext(nskipext),
+                     .ibus(ibus), .raddr(raddr), .waddr(waddr), .action(action),
+                     .fpd(fpd),
+                     .cport(cport_mem),
+                     .rsvd(rsvd), .wstb(wstb), .nruen(nruen), .nwuen(nwuen)
+                     );
+
+   ///////////////////////////////////////////////////////////////////////////////
+   //
+   // THE VERILOG TEST CARD
+   //
+   ///////////////////////////////////////////////////////////////////////////////
+
+   card_verilog_test card_verilog_test(
                      .nreset(nreset), .nrsthold(nrsthold),
                      .clk1(clk1), .clk2(clk2), .clk3(clk3), .clk4(clk4), .t34(t34),
                      .nirq(nirq), .nirqs(nirqs),

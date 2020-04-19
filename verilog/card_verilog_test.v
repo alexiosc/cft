@@ -1,12 +1,12 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
-// BASIC DEBUGGING FUNCTIONALITY FROM THE DFP
+// A FAKE INTERRUPT/IOT BOARD FOR VERILOG TESTING
 //
 ///////////////////////////////////////////////////////////////////////////////
 //
 // REDESIGNED IN 2019
 //
-// dfp.v -- A very, very simple DFP used for verification
+// card_verilog_test.v -- A fake card
 //
 // Copyright © 2011–2020 Alexios Chouchoulas
 //
@@ -26,8 +26,8 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-`ifndef card_dfp_v
-`define card_dfp_v
+`ifndef card_verilog_test_v
+`define card_verilog_test_v
 
 `timescale 1ns/10ps
 
@@ -37,7 +37,7 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-module card_dfp (
+module card_verilog_test (
 		nreset, nrsthold,            // Reset
 		clk1, clk2, clk3, clk4, t34, // Clock
 		nirq, nirqs,                 // Unexpanded Interrupts
@@ -67,7 +67,7 @@ module card_dfp (
    input 	 clk4;		// Output by the clock unit.
    input 	 t34;		// Output by the clock unit.
 
-   input 	 nirq;		// Input to the ISM
+   inout 	 nirq;		// Input to the ISM
    input 	 nirqs;		// Interrupt acknowledge, driven by the ISM
 
    input 	 nsysdev;	// Driven by the I/O addr decoder (BUS board)
@@ -118,88 +118,61 @@ module card_dfp (
    wire [4:1] 	 rsvd;
 
 
-   reg 		 nhalt_drv;
-   assign nhalt = nhalt_drv;
+   reg [15:0] 	 ibus_drv;
+   reg 		 nirq_drv;
+   reg 		 nirq_en;
+   reg [15:0] 	 nirq_ctr;
+   reg [15:0] 	 iot_port_a, iot_port_b;
 
-   reg [15:0] 	 db_drv;
-   assign db = db_drv;
-
-   event 	 assertion_failed;
-   event 	 halting;
-
-   // We may not have much, but we have an Output Register.
-   reg [15:0] 	 OR;
-   reg [15:0] 	 hidb;
-
+   assign ibus = ibus_drv;
+   assign nirq = nirq_drv;
+   
    initial begin
-      nhalt_drv = 1'bz;
-      db_drv = 16'bZ;
-      OR = 16'd0;
-   end      
+      ibus_drv = 16'bz;
+      nirq_drv = 1'bz;
+      nirq_en = 1'b1;
+      nirq_ctr = 1;
+   end
 
-   // Testing and debugging.
+   always begin
+      // Keep the timer rate relatively prime to the clock speed.
+      #167 begin
+	 if (nirq_ctr == 0) begin
+	    nirq_drv = 1'b0;
+	 end else begin
+	   nirq_ctr = nirq_ctr - 1;
+	 end
+      end
+   end
+
    always @(posedge nw) begin
-
-      // Let's be realistic
-      if (niodev1xx == 1'b0) begin
+      // Map to 3FD-3FF, addresses we probably won't use.
+      if (niodev3xx == 1'b0) begin
 	 casex (ab[7:0])
-
-	   // Note: the three digit codes here are taken from
-	   // peripherals/dfp2/firmware/proto.h and are used so that the
-	   // verification framework can understand the output of both real and
-	   // virtual DFP the same way. This lets us run the same tests on
-	   // Verilog, C emulator and real hardware.
-
-	   8'h00: begin
-	      OR = db;
-	      $display("321 Output Register: %04x", OR);
+	   8'hfd: iot_port_a = db;
+	   8'hfe: iot_port_b = db;
+	   8'hff: begin
+	      nirq_drv = 1'b1;
+	      nirq_en = db === 0 ? 1'b1 : 1'b0;
+	      nirq_ctr = db;
 	   end
-
-	   8'h08: $display("509 ENEF not implemented");	              // ENEF
-	   8'h09: $display("509 DISEF not implemented");              // DISEF
-
-	   // SENTINEL
-	   8'h0f: begin
-	      $display("341 SENTINEL");
-	      -> assertion_failed;
-	      -> halting;
-	   end
-	     
-	   8'h10: $display("340 PRINTA: %h", db);              // PRINTA
-	   8'h11: $display("340 PRINTC: %d", db[7:0]);         // PRINTC
-	   8'h12: $display("340 PRINTD: %d", $signed(db));     // PRINTD
-	   8'h13: $display("340 PRINTU: %d", db);              // PRINTU
-	   8'h14: $display("340 PRINTH: %x", db);              // PRINTH
-	   8'h15: $display("340 PRINTB: %b", db);              // PRINTB
-	   8'h16: $display("340 PRINTC: 32");                  // PRINTSP
-	   8'h17: $display("340 PRINTC: 10");                  // PRINTNL
-	   8'h18: $display("509 DEBUGON is not implemented");  // DEBUGON
-	   8'h19: $display("509 DEBUGOFF is not implemented"); // DEBUGOFF
-	   8'h1a: $display("509 DUMP is not implemented");     // DUMP
-	   8'h1b: hidb = db;				       // PRINTHI
-	   8'h1c: $display("340 PRINTL: %h%04h", hidb, db);    // PRINTLO
-
-	   // HALT
-	   8'h1d: begin
-	      $display("305 Halted");
-	      //$display("D: TIME: %d ns", $time);
-	      nhalt_drv <= 1'b0;
-	      -> halting;
-	   end
-	     
-	   8'h1e: $display("345 SUCCESS");	               // SUCCESS
-	   8'h1f: $display("346 FAIL");                        // FAIL
-
-	   default: begin
-	      $display("509 Address &%03h not implemented", ab[9:0]);
-	      -> assertion_failed;
-	      -> halting;
-	   end
-	 endcase // casex (addr[7:0])
-      end // if (niodev1xx == 1'b0)
+	 endcase // casex (ab[7:0])
+      end
    end // always @ (posedge nw)
-endmodule // card_dfp
 
-`endif //  `ifndef card_dfp_v
+   always @(posedge nr) begin
+      // Map to 3FD-3FF, addresses we probably won't use.
+      if (niodev3xx == 1'b0) begin
+	 casex (ab[7:0])
+	   8'hfd: ibus_drv = iot_port_a * iot_port_b;
+	   8'hfe: ibus_drv = iot_port_a * iot_port_b;
+	   8'hff: ibus_drv = nirq_ctr;
+	   default: ibus_drv = 16'bzzzz;
+	 endcase // casex (ab[7:0])
+      end else ibus_drv = 16'bzzzz; // if (niodev3xx == 1'b0)
+   end // always @ (posedge nw)
+endmodule // debug_io
+
+`endif //  `ifndef card_verilog_test_v
 
 // End of file.

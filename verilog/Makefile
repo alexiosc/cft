@@ -90,6 +90,7 @@ CFT2019 = 	clock.v                 clock_tb.v \
 		card_alu.v		              \
 		card_mem.v		              \
 		card_dfp.v		              \
+		card_verilog_test.v	              \
 		cft2019.v               cft2019_tb.v \
 
 SRC += $(CFT2019)
