@@ -1492,64 +1492,69 @@ start HCF;
 
 // L=1 ⇒ COND=0, so IFL takes action.
 
-// TODO: it's likely FETCH_IR and if_l/if_v can't happen on the same cycle!
 start IFL, COND=0;
-      FETCH_IR, if_l;                           // 00 IR ← mem[PC++];
-      if_ir5;                                   // If L:
-      SET(ac, cs0), if_ir4;                     // If IR5: AC ← 0
-      action_cll, if_ir3;                       // If IR4: L ← 0
-      SET(ac, alu_not), if_ir2;                 // If IR3: AC ← ~AC
-      action_incac, if_ir1;                     // IF IR2: AC++
-      action_decac, if_ir0;                     // IF IR1: AC--
-      action_cpl, END;                          // IF IR0: L ← ¬L
+      FETCH_IR;                                 // 00 IR ← mem[PC++];
+      if_l;                                     // 02
+      if_ir5;                                   // 03 If L:
+      SET(ac, cs0), if_ir4;                     // 04 If IR5: AC ← 0
+      action_cll, if_ir3;                       // 05 If IR4: L ← 0
+      SET(ac, alu_not), if_ir2;                 // 06 If IR3: AC ← ~AC
+      action_incac, if_ir1;                     // 07 IF IR2: AC++
+      action_decac, if_ir0;                     // 08 IF IR1: AC--
+      action_cpl, END;                          // 09 IF IR0: L ← ¬L
 
 start IFL, COND=1;
-      FETCH_IR, if_l;                           // 00 IR ← mem[PC++];
-      END;
-      if_ir4;
-      if_ir3;
-      if_ir2;
-      if_ir1;
-      if_ir0;
-      END;
+      FETCH_IR;                                 // 00 IR ← mem[PC++];
+      if_l;                                     // 02
+      END;                                      // 03 If L:
+      if_ir4;                                   // 04 If IR5:
+      if_ir3;                                   // 05 If IR4:
+      if_ir2;                                   // 06 If IR3:
+      if_ir1;                                   // 07 IF IR2:
+      if_ir0;                                   // 08 IF IR1:
+      END;                                      // 09 IF IR0:
 
 start IFV, COND=0;
-      FETCH_IR, if_v;                           // 00 IR ← mem[PC++];
-      if_ir5;                                   // If V:
-      SET(ac, cs0), if_ir4;                     // If IR5: AC ← 0
-      action_cll, if_ir3;                       // If IR4: L ← 0
-      SET(ac, alu_not), if_ir2;                 // If IR3: AC ← ~AC
-      action_incac, if_ir1;                     // IF IR2: AC++
-      action_decac, if_ir0;                     // IF IR1: AC--
-      action_cpl, END;                          // IF IR0: L ← ¬L
+      FETCH_IR;                                 // 00 IR ← mem[PC++];
+      if_v;                                     // 02
+      if_ir5;                                   // 03 If V:
+      SET(ac, cs0), if_ir4;                     // 04 If IR5: AC ← 0
+      action_cll, if_ir3;                       // 05 If IR4: L ← 0
+      SET(ac, alu_not), if_ir2;                 // 06 If IR3: AC ← ~AC
+      action_incac, if_ir1;                     // 07 IF IR2: AC++
+      action_decac, if_ir0;                     // 08 IF IR1: AC--
+      action_cpl, END;                          // 09 IF IR0: L ← ¬L
 
 start IFV, COND=1;
-      FETCH_IR, if_v;                           // 00 IR ← mem[PC++];
-      END;
-      if_ir4;
-      if_ir3;
-      if_ir2;
-      if_ir1;
-      if_ir0;
-      END;
+      FETCH_IR;                                 // 00 IR ← mem[PC++];
+      if_v;                                     // 02
+      END;                                      // 03 If V:
+      if_ir4;                                   // 04 If IR5:
+      if_ir3;                                   // 05 If IR4:
+      if_ir2;                                   // 06 If IR3:
+      if_ir1;                                   // 07 IF IR2:
+      if_ir0;                                   // 08 IF IR1:
+      END;                                      // 09 IF IR0:
 
 start UOP, COND=0;
-      FETCH_IR, if_ir5;                         // 00 IR ← mem[PC++];
-      SET(ac, cs0), if_ir4;                     // If IR5: AC ← 0
-      action_cll, if_ir3;                       // If IR4: L ← 0
-      SET(ac, alu_not), if_ir2;                 // If IR3: AC ← ~AC
-      action_incac, if_ir1;                     // IF IR2: AC++
-      action_decac, if_ir0;                     // IF IR1: AC--
-      action_cpl, END;                          // IF IR0: L ← ¬L
+      FETCH_IR;                                 // 00 IR ← mem[PC++];
+      if_ir5;                                   // 02
+      SET(ac, cs0), if_ir4;                     // 03 If IR5: AC ← 0
+      action_cll, if_ir3;                       // 04 If IR4: L ← 0
+      SET(ac, alu_not), if_ir2;                 // 05 If IR3: AC ← ~AC
+      action_incac, if_ir1;                     // 06 IF IR2: AC++
+      action_decac, if_ir0;                     // 07 IF IR1: AC--
+      action_cpl, END;                          // 08 IF IR0: L ← ¬L
 
 start UOP, COND=1;
-      FETCH_IR, if_ir5;                         // 00 IR ← mem[PC++];
-      if_ir4;
-      if_ir3;
-      if_ir2;
-      if_ir1;
-      if_ir0;
-      END;
+      FETCH_IR;                                 // 00 IR ← mem[PC++];
+      if_ir5;                                   // 02
+      if_ir4;                                   // 03 If IR5:
+      if_ir3;                                   // 04 If IR4:
+      if_ir2;                                   // 05 If IR3:
+      if_ir1;                                   // 06 IF IR2:
+      if_ir0;                                   // 07 IF IR1:
+      END;                                      // 08 IF IR0:
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1872,11 +1877,11 @@ start JSA;
 
 // TODO: It's likely the DR←AC transfer isn't necessary and can save a cycle.
 
-// IND, MBn-Relative Accumulator Indirect 
+// IND, MBn-Relative Accumulator Indirect
 start IND;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       SET(dr, ac);                              // 02 DR ← AC
-      MEMREAD_IDX(mbd, dr, ac), END;		// 03 AC ← mem[MBR[L]:DR]
+      MEMREAD_IDX(mbd, dr, ac), END;            // 03 AC ← mem[MBR[L]:DR]
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1986,9 +1991,9 @@ start LJSR, I=1, R=1, IDX=IDX_INC;
       STACK_PUSH(mbp_flags);                    // 02 mem[MBS:SP++] ← <flags,MBP>
       STACK_PUSH(pc);                           // 04 mem[MBS:SP++] ← PC
       MEMREAD(mbz, agl, dr);                    // 06 DR ← mem[MBZ:AGL]
-      MEMREAD_IDX(mbd, dr, pc);			// 08 PC ← mem[MBn:DR]
+      MEMREAD_IDX(mbd, dr, pc);                 // 08 PC ← mem[MBn:DR]
       action_incdr;                             // 10 DR++
-      MEMREAD_IDX(mbd, dr, mbp);		// 11 MBP ← mem[MBn:DR]
+      MEMREAD_IDX(mbd, dr, mbp);                // 11 MBP ← mem[MBn:DR]
       action_incdr;                             // 13 DR++
       MEMWRITE(mbz, agl, dr), END;              // 14 mem[MBZ:AGL] ← DR
 
@@ -2288,9 +2293,9 @@ start JMP, I=1, R=1, IDX=IDX_SP;
 // (1) DSZ, Page-Local
 start DSZ, COND=1, I=0, R=0, IDX=XX;
       FETCH_IR;                                  // 00 IR ← mem[PC++]
-      MEMREAD(mbp, agl, ac);	                 // 02 AC ← mem[MBP:AGL]
+      MEMREAD(mbp, agl, ac);                     // 02 AC ← mem[MBP:AGL]
       if_z;                                      // 02 AC ← mem[MBP:AGL]
-      -END;					 // 04 NOP (no skip)
+      -END;                                      // 04 NOP (no skip)
       action_decac, MEMWRITE(mbp, agl, ac), END; // 05 mem[MBP:AGL] ← --AC
 
 // (2) DSZ, Register
@@ -2298,7 +2303,7 @@ start DSZ, COND=1, I=0, R=1, IDX=XX;
       FETCH_IR;                                  // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, ac);                     // 02 AC ← mem[MBZ:AGL]
       if_z;                                      // 02 AC ← mem[MBP:AGL]
-      -END;					 // 04 NOP (no skip)
+      -END;                                      // 04 NOP (no skip)
       action_decac, MEMWRITE(mbz, agl, ac), END; // 05 mem[MBZ:AGL] ← --AC
 
 // (3) DSZ, Indirect
@@ -2307,7 +2312,7 @@ start DSZ, COND=1, I=1, R=0, IDX=XX;
       MEMREAD(mbp, agl, dr);                     // 02 DR ← mem[MBP:AGL]
       MEMREAD(mbd, dr, ac);                      // 04 AC ← mem[MBD:DR]
       if_z;                                      // 02 AC ← mem[MBP:AGL]
-      -END;					 // 06 NOP (no skip)
+      -END;                                      // 06 NOP (no skip)
       action_decac, MEMWRITE(mbd, dr, ac), END;  // 07 mem[MBD:DR] ← --AC
 
 // (4) & (5) DSZ, Register Indirect and Memory Bank-Relative Indirect.
@@ -2318,7 +2323,7 @@ start DSZ, COND=1, I=1, R=1, IDX=XX;
       MEMREAD(mbz, agl, dr);                     // 02 DR ← mem[MBZ:AGL]
       MEMREAD_IDX(mbd, dr, ac);                  // 04 AC ← mem[MBn:DR]
       if_z;                                      // 02 AC ← mem[MBP:AGL]
-      -END;					 // 06 NOP (no skip)
+      -END;                                      // 06 NOP (no skip)
       action_decac;                              // 07 AC--
       MEMWRITE_IDX(mbd, dr, ac), END;            // 08 mem[MBn:DR] ← AC
 
@@ -2331,7 +2336,7 @@ start DSZ, COND=0, I=0, R=0, IDX=XX;
       FETCH_IR;                                  // 00 IR ← mem[PC++]
       MEMREAD(mbp, agl, ac);                     // 02 AC ← mem[MBP:AGL]
       if_z;                                      // 02 AC ← mem[MBP:AGL]
-      action_incpc;				 // 04 PC++ (skip taken)
+      action_incpc;                              // 04 PC++ (skip taken)
       action_decac, MEMWRITE(mbp, agl, ac), END; // 05 mem[MBP:AGL] ← --AC
 
 // (2) DSZ, Register (with skip)
@@ -2339,7 +2344,7 @@ start DSZ, COND=0, I=0, R=1, IDX=XX;
       FETCH_IR;                                  // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, ac);                     // 02 AC ← mem[MBZ:AGL]
       if_z;                                      // 02 AC ← mem[MBP:AGL]
-      action_incpc;				 // 04 PC++ (skip taken)
+      action_incpc;                              // 04 PC++ (skip taken)
       action_decac, MEMWRITE(mbz, agl, ac), END; // 05 mem[MBZ:AGL] ← --AC
 
 // (3) DSZ, Indirect (with skip)
@@ -2348,7 +2353,7 @@ start DSZ, COND=0, I=1, R=0, IDX=XX;
       MEMREAD(mbp, agl, dr);                     // 02 DR ← mem[MBP:AGL]
       MEMREAD(mbd, dr, ac);                      // 04 AC ← mem[MBD:DR]
       if_z;                                      // 02 AC ← mem[MBP:AGL]
-      action_incpc;				 // 06 PC++ (skip taken)
+      action_incpc;                              // 06 PC++ (skip taken)
       action_decac, MEMWRITE(mbd, dr, ac), END;  // 07 mem[MBD:DR] ← --AC
 
 // (4) & (5) DSZ, Register Indirect and Memory Bank-Relative Indirect. (with skip)
@@ -2360,7 +2365,7 @@ start DSZ, COND=0, I=1, R=1, IDX=XX;
       MEMREAD(mbz, agl, dr);                     // 02 DR ← mem[MBZ:AGL]
       MEMREAD_IDX(mbd, dr, ac);                  // 04 AC ← mem[MBn:DR]
       if_z;                                      // 02 AC ← mem[MBP:AGL]
-      action_incpc;				 // 06 PC++ (skip taken)
+      action_incpc;                              // 06 PC++ (skip taken)
       action_decac;                              // 07 AC--
       MEMWRITE_IDX(mbd, dr, ac), END;            // 08 mem[MBn:DR] ← AC
 
@@ -2412,14 +2417,14 @@ start LOAD, I=1, R=0, IDX=XX;
 start LOAD, I=1, R=1, IDX=XX;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBZ:AGL]
-      MEMREAD_IDX(mbz, dr, ac), END;		// 04 AC ← mem[MBn:DR]
+      MEMREAD_IDX(mbz, dr, ac), END;            // 04 AC ← mem[MBn:DR]
 
 // (6) LOAD, Auto-Increment
 // TODO: action_incdr might need to be in a processor cycle of its own!
 start LOAD, I=1, R=1, IDX=IDX_INC;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBZ:AGL]
-      MEMREAD_IDX(mbd, dr, ac), action_incdr;	// 04 AC ← mem[MBn:DR]; DR++;
+      MEMREAD_IDX(mbd, dr, ac), action_incdr;   // 04 AC ← mem[MBn:DR]; DR++;
       MEMWRITE(mbz, agl, dr), END;              // 06 mem[MBZ:AGL] ← DR
 
 // (7) LOAD, Auto-Decrement
@@ -2427,7 +2432,7 @@ start LOAD, I=1, R=1, IDX=IDX_INC;
 start LOAD, I=1, R=1, IDX=IDX_DEC;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBZ:AGL]
-      MEMREAD_IDX(mbd, dr, ac), action_decdr;	// 04 AC ← mem[MBn:DR]; DR--;
+      MEMREAD_IDX(mbd, dr, ac), action_decdr;   // 04 AC ← mem[MBn:DR]; DR--;
       MEMWRITE(mbz, agl, dr), END;              // 06 mem[MBZ:AGL] ← DR
 
 // (8) LOAD, Stack

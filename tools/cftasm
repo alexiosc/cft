@@ -73,7 +73,7 @@ _BUILTINS = """;;; CFT Assembler Built-ins, Microcode Version 7.x.
 .equ    UOP     &0e00            ; UOP bitmap instruction
 .equ    IFL     &0e8c            ; IFL bitmap instruction
 .equ    IFV     &0f0c            ; IFV bitmap instruction
-.equ    NOP10   UOP     #0000000 ; 0000:1:1:100:0000000  No Operation, 10 Cycles
+.equ    NOP9   UOP      #0000000 ; 0000:1:1:100:0000000  No Operation, 9 Cycles
 .equ    CLA     UOP     #0100000 ; 0000:1:1:100:-1-----  Clear Accumulator
 .equ    CLL     UOP     #0010000 ; 0000:1:1:100:--1----  Clear Link
 .equ    SEL     UOP     #0010001 ; 0000:1:1:100:--1---1  Set Link
