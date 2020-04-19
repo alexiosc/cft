@@ -50,13 +50,13 @@ _BUILTINS = """;;; CFT Assembler Built-ins, Microcode Version 7.x.
 .equ    SKP     &0880            ; SKP bitmap instruction
 .equ    NOP     SKP     #0000000 ; 0000:1:0:001:0000000  No Operation
 .equ    SKIP    SKP     #0010000 ; 0000:1:0:001:--10000  Skip
-.equ    SNP     SKP     #0001100 ; 0000:1:0:001:--011--  Skip on Non-Positive Accumulator
-.equ    SPA     SKP     #0011100 ; 0000:1:0:001:--111--  Skip on Positive Accumulator
 .equ    SNA     SKP     #0001000 ; 0000:1:0:001:--01---  Skip on Negative Accumulator
+.equ    SNP     SKP     #0001100 ; 0000:1:0:001:--011--  Skip on Non-Positive Accumulator
 .equ    SZA     SKP     #0000100 ; 0000:1:0:001:--0-1--  Skip on Zero Accumulator
 .equ    SSL     SKP     #0000010 ; 0000:1:0:001:--0--1-  Skip on Link
 .equ    SSV     SKP     #0000001 ; 0000:1:0:001:--0---1  Skip on Overflow
 .equ    SNN     SKP     #0011000 ; 0000:1:0:001:--11---  Skip on Non-Negative Accumulator
+.equ    SPA     SKP     #0011100 ; 0000:1:0:001:--111--  Skip on Positive Accumulator
 .equ    SNZ     SKP     #0010100 ; 0000:1:0:001:--1-1--  Skip on Non-Zero Accumulator
 .equ    SCL     SKP     #0010010 ; 0000:1:0:001:--1--1-  Skip on Link Clear
 .equ    SCV     SKP     #0010001 ; 0000:1:0:001:--1---1  Skip on Overflow
