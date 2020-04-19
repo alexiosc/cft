@@ -41,6 +41,38 @@ def test_PPF(capsys, tmpdir):
             CLI           ; I = 0
 
             LOAD @data+0
+            dfp.PRINTH
+            PHA
+            PPF
+            PHF
+            PPA
+            dfp.PRINTH
+
+            LOAD @data+1
+            dfp.PRINTH
+            PHA
+            PPF
+            PHF
+            PPA
+            dfp.PRINTH
+
+            LOAD @data+3
+            dfp.PRINTH
+            PHA
+            PPF
+            PHF
+            PPA
+            dfp.PRINTH
+
+            LOAD @data+4
+            dfp.PRINTH
+            PHA
+            PPF
+            PHF
+            PPA
+            dfp.PRINTH
+
+
             PHF
             LOAD @data+1
             PHF
