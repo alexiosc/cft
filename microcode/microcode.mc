@@ -2712,14 +2712,16 @@ start OUT, I=1, R=1, IDX=IDX_SP;
 start IOT, COND=1, I=0, R=X, IDX=XX;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       IOWRITE(agl, ac);                         // 02 io[AGL] ← AC
-      IOREAD(agl, ac), END;                     // 04 AC ← io[AGL]
+      IOREAD(agl, ac);                          // 03 AC ← io[AGL]
+      END;                                      // 05 END (no PC increment)
 
 // (3) & (4) & (5) IOT, Indirect
 start IOT, COND=1, I=1, R=X, IDX=XX;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       MEMREAD(mbp, agl, dr);                    // 02 DR ← mem[MBP:AGL]
       IOWRITE(dr, ac);                          // 04 io[DR] ← AC
-      IOREAD(dr, ac), END;                      // 06 AC ← io[DR]
+      IOREAD(dr, ac);                           // 06 AC ← io[DR]
+      END;                                      // 08 END (no PC increment)
 
 // (6) IOT, Auto-Increment
 start IOT, COND=1, I=1, R=1, IDX=IDX_INC;
@@ -2746,45 +2748,47 @@ start IOT, COND=1, I=1, R=1, IDX=IDX_SP;
       IOREAD(dr, ac);                           // 06 AC ← io[DR]
       MEMWRITE(mbz, agl, dr), END;              // 06 mem[MBZ:AGL] ← DR
 
-// And Now, with skips requested. Remember, SKIP is active low.
+// And Now, with skips requested. Remember, COND is active low.
 
 // (1) & (2) IOT, I/O
 start IOT, COND=0, I=0, R=X, IDX=XX;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       IOWRITE(agl, ac);                         // 02 io[AGL] ← AC
-      IOREAD(agl, ac), action_incpc, END;       // 04 AC ← io[AGL]; PC++
+      IOREAD(agl, ac);                          // 03 AC ← io[AGL]
+      action_incpc, END;                        // 05 PC++
 
 // (3) & (4) & (5) IOT, Indirect
-start IOT, COND=0, I=1, R=0, IDX=XX;
+start IOT, COND=0, I=1, R=X, IDX=XX;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       MEMREAD(mbp, agl, dr);                    // 02 DR ← mem[MBP:AGL]
       IOWRITE(dr, ac);                          // 04 io[DR] ← AC
-      IOREAD(dr, ac), action_incpc, END;        // 04 AC ← io[DR]; PC++
+      IOREAD(dr, ac);                           // 06 AC ← io[DR]
+      action_incpc, END;                        // 08 PC++
 
 // (6) IOT, Auto-Increment
-start IOT, COND=0, I=1, R=1, IDX=XX;
-      FETCH_IR;                                 // 00 IR ← mem[PC++]
-      MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBZ:AGL]
-      IOWRITE(dr, ac), action_incdr;            // 04 AC ← io[DR]; DR++
-      IOREAD(dr, ac), action_incpc;             // 06 AC ← io[DR]; PC++
-      MEMWRITE(mbz, agl, dr), END;              // 08 mem[MBZ:AGL] ← DR
-
-// (7) IOT, Auto-Decrement
 start IOT, COND=0, I=1, R=1, IDX=IDX_INC;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBZ:AGL]
       IOWRITE(dr, ac), action_incdr;            // 04 AC ← io[DR]; DR++
-      IOREAD(dr, ac), action_incpc;             // 06 AC ← io[DR]; PC++
-      MEMWRITE(mbz, agl, dr), END;              // 08 mem[MBZ:AGL] ← DR
+      IOREAD(dr, ac);                           // 06 AC ← io[DR]
+      action_incpc, MEMWRITE(mbz, agl, dr), END;// 08 mem[MBZ:AGL] ← DR; PC++
 
-// (8) IOT, Stack
-// TODO: the timing of decdr might not work here.
+// (7) IOT, Auto-Decrement
 start IOT, COND=0, I=1, R=1, IDX=IDX_DEC;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBZ:AGL]
+      IOWRITE(dr, ac), action_incdr;            // 04 AC ← io[DR]; DR++
+      IOREAD(dr, ac);                           // 06 AC ← io[DR]
+      action_incpc, MEMWRITE(mbz, agl, dr), END;// 08 mem[MBZ:AGL] ← DR; PC++
+
+// (8) IOT, Stack
+// TODO: the timing of decdr might not work here.
+start IOT, COND=0, I=1, R=1, IDX=IDX_SP;
+      FETCH_IR;                                 // 00 IR ← mem[PC++]
+      MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBZ:AGL]
       action_decdr, IOWRITE(dr, ac);            // 04 io[--DR] ← AC
-      IOREAD(dr, ac), action_incpc;             // 06 AC ← io[DR]; PC++
-      MEMWRITE(mbz, agl, dr), END;              // 06 mem[MBZ:AGL] ← DR
+      IOREAD(dr, ac);                           // 06 AC ← io[DR]
+      action_incpc, MEMWRITE(mbz, agl, dr), END;// 06 mem[MBZ:AGL] ← DR; PC++
 
 
 ///////////////////////////////////////////////////////////////////////////////
