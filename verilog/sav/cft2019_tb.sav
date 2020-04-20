@@ -1,18 +1,17 @@
 [*]
 [*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
-[*] Sun Apr 19 09:28:40 2020
+[*] Mon Apr 20 15:29:19 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/cft2019_tb.vcd"
-[dumpfile_mtime] "Sun Apr 19 09:22:26 2020"
-[dumpfile_size] 370005
+[dumpfile_mtime] "Mon Apr 20 15:21:56 2020"
+[dumpfile_size] 366707
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/cft2019_tb.sav"
-[timestart] 10652700
+[timestart] 17796300
 [size] 1920 1019
 [pos] -1 -1
-*-17.387465 10988750 11001750 11751750 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-17.545338 18299300 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] cft2019_tb.
 [treeopen] cft2019_tb.cft.
-[treeopen] cft2019_tb.cft.card_ctl.
 [treeopen] cft2019_tb.cft.card_ctl.sbu.
 [treeopen] cft2019_tb.cft.card_mem.romhi.
 [treeopen] cft2019_tb.cft.card_reg.reg_ac.
@@ -218,6 +217,17 @@ cft2019_tb.cft.card_ctl.flag_unit.nflagoe
 cft2019_tb.cft.card_ctl.flag_unit.ibus[15:8]
 @1000200
 -Registers
+@28
+cft2019_tb.cft.card_verilog_test.nr
+cft2019_tb.cft.card_verilog_test.niodev3xx
+@22
+cft2019_tb.cft.card_verilog_test.ab[23:0]
+cft2019_tb.cft.card_verilog_test.iot_port_a[15:0]
+@28
+cft2019_tb.cft.nskipext
+@22
+cft2019_tb.cft.card_verilog_test.iot_port_b[15:0]
+cft2019_tb.cft.card_verilog_test.ibus_drv[15:0]
 @c00200
 -Shifter/Rotator (SRU)
 @4022
@@ -482,7 +492,7 @@ cft2019_tb.cft.nw
 -Control Unit
 @820
 cft2019_tb.cft.card_ctl.clock_generator.state[15:0]
-@2022
+@2023
 ^1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/upc
 cft2019_tb.cft.card_ctl.microcode_sequencer.upc[3:0]
 @28
@@ -491,6 +501,7 @@ cft2019_tb.cft.card_ctl.microcode_sequencer.fpfetch
 @200
 -
 @28
+cft2019_tb.cft.nskipext
 cft2019_tb.cft.card_ctl.microcode_sequencer.ncond
 @c04022
 ^>3 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/uaddr
@@ -675,7 +686,7 @@ cft2019_tb.cft.card_ctl.sbu.cond[4:0]
 cft2019_tb.cft.card_ctl.sbu.ncen0
 cft2019_tb.cft.card_ctl.sbu.ncen1
 cft2019_tb.cft.card_ctl.sbu.ncond0
-@c00023
+@c00022
 cft2019_tb.cft.card_ctl.sbu.muxhi.d[7:0]
 @28
 (0)cft2019_tb.cft.card_ctl.sbu.muxhi.d[7:0]
@@ -686,7 +697,7 @@ cft2019_tb.cft.card_ctl.sbu.muxhi.d[7:0]
 (5)cft2019_tb.cft.card_ctl.sbu.muxhi.d[7:0]
 (6)cft2019_tb.cft.card_ctl.sbu.muxhi.d[7:0]
 (7)cft2019_tb.cft.card_ctl.sbu.muxhi.d[7:0]
-@1401201
+@1401200
 -group_end
 @28
 cft2019_tb.cft.card_ctl.sbu.muxhi.sel[2:0]

@@ -88,7 +88,7 @@ module card_verilog_test (
 
    inout 	 nhalt;		// Open drain, multiple readers
    input 	 nendext;	// Open drain, handled by the microcode sequencer
-   input 	 nskipext;	// Open drain, handled by SBU
+   inout 	 nskipext;	// Open drain, handled by SBU
 
    inout [15:0]  ibus;		// 16-bit processor bus
    input [4:0] 	 raddr;		// 5-bit IBus read address
@@ -160,12 +160,22 @@ module card_verilog_test (
       end
    end // always @ (posedge nw)
 
-   always @(posedge nr) begin
+   wire [15:0] 	 product;
+   assign product = iot_port_a * iot_port_b;
+
+   // When the device is selected for a multiplication result
+   // transaction, assert nSKIPEXT if the product is zero.
+   assign nskipext = nr === 1'b0 &&
+		     niodev3xx === 1'b0 &&
+		     ab[7:0] === 8'hfe &&
+		     product == 0 ? 1'b0 : 1'bz;
+
+   always @(nr, niodev3xx) begin
       // Map to 3FD-3FF, addresses we probably won't use.
-      if (niodev3xx == 1'b0) begin
+      if (nr === 1'b0 && niodev3xx === 1'b0) begin
 	 casex (ab[7:0])
-	   8'hfd: ibus_drv = iot_port_a * iot_port_b;
-	   8'hfe: ibus_drv = iot_port_a * iot_port_b;
+	   8'hfd: ibus_drv = product;
+	   8'hfe: ibus_drv = product;
 	   8'hff: ibus_drv = nirq_ctr;
 	   default: ibus_drv = 16'bzzzz;
 	 endcase // casex (ab[7:0])
@@ -176,3 +186,4 @@ endmodule // debug_io
 `endif //  `ifndef card_verilog_test_v
 
 // End of file.
+

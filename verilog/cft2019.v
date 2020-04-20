@@ -71,7 +71,7 @@ module cft2019(
    output        clk4;          // Output by the clock unit.
    output        t34;           // Output by the clock unit.
 
-   input         nirq;          // Input to the ISM
+   inout         nirq;          // Input to the ISM
    output        nirqs;         // Interrupt acknowledge, driven by the ISM
 
    output        nsysdev;       // Driven by the I/O addr decoder (BUS board)
