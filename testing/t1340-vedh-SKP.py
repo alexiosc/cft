@@ -12,6 +12,39 @@ import subprocess
 from testing import * 
 
 
+"""
+.equ    IRET    &0000            ; 0000:0:0:000:-------  Interrupt Return
+.equ    ISR     &0400            ; 0000:0:1:000:LLLLLLL  Software Interrupt
+.equ    STI     &0680            ; 0000:0:1:101:-------  Set Interrupt Flag
+.equ    CLI     &0700            ; 0000:0:1:110:-------  Clear Interrupt Flag
+.equ    WAIT    &0780            ; 0000:0:1:111:LLLLLLL  Wait for Interrupt
+.equ    HCF     &0d80            ; 0000:1:1:011:-------  Halt and Catch Fire
+
+.equ    UOP     &0e00            ; UOP bitmap instruction
+.equ    IFL     &0e8c            ; IFL bitmap instruction
+.equ    IFV     &0f0c            ; IFV bitmap instruction
+.equ    NOP9    UOP     #0000000 ; 0000:1:1:100:0000000  No Operation, 9 Cycles
+.equ    CLA     UOP     #0100000 ; 0000:1:1:100:-1-----  Clear Accumulator
+.equ    CLL     UOP     #0010000 ; 0000:1:1:100:--1----  Clear Link
+.equ    SEL     UOP     #0010001 ; 0000:1:1:100:--1---1  Set Link
+.equ    NOT     UOP     #0001000 ; 0000:1:1:100:---1---  Complement Accumulator
+.equ    NEG     UOP     #0001100 ; 0000:1:1:100:---11--  Negate Accumulator
+.equ    INC     UOP     #0000100 ; 0000:1:1:100:----1--  Increment Accumulator
+.equ    DEC     UOP     #0000010 ; 0000:1:1:100:-----1-  Decrement Accumulator
+.equ    CPL     UOP     #0000001 ; 0000:1:1:100:------1  Complement Link
+
+.equ    IN      &5000            ; 0101:I:R:mmmmmmmmmm   Input from I/O Space
+.equ    OUT     &6000            ; 0110:I:R:mmmmmmmmmm   Output to I/O Space
+.equ    IOT     &7000            ; 0111:I:R:mmmmmmmmmm   I/O Transaction
+
+.equ    ADD     &c000            ; 1100:I:R:mmmmmmmmmm   Add To Accumulator
+.equ    AND     &d000            ; 1101:I:R:mmmmmmmmmm   Bitwise AND With Accumulator
+.equ    OR      &e000            ; 1110:I:R:mmmmmmmmmm   Bitwise OR With Accumulator
+.equ    XOR     &f000            ; 1111:I:R:mmmmmmmmmm   Bitwise XOR With Accumulator
+"""
+
+
+
 @pytest.mark.verilog
 @pytest.mark.emulator
 @pytest.mark.hardware

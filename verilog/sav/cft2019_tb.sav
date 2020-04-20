@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
-[*] Mon Apr 20 15:29:19 2020
+[*] Mon Apr 20 16:23:05 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/cft2019_tb.vcd"
-[dumpfile_mtime] "Mon Apr 20 15:21:56 2020"
-[dumpfile_size] 366707
+[dumpfile_mtime] "Mon Apr 20 16:21:11 2020"
+[dumpfile_size] 426394
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/cft2019_tb.sav"
-[timestart] 17796300
+[timestart] 9588000
 [size] 1920 1019
 [pos] -1 -1
-*-17.545338 18299300 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-20.545338 14994000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] cft2019_tb.
 [treeopen] cft2019_tb.cft.
 [treeopen] cft2019_tb.cft.card_ctl.sbu.
