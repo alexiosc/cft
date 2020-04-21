@@ -2630,27 +2630,35 @@ start IN, I=1, R=1, IDX=IDX_SP;
 // ---------------------------------------------------------------------------
 //  I   R   Operand   (*) (#) Addressing Mode
 // ---------------------------------------------------------------------------
-//  0   1   Any           (2) I/O
-//  1   1   Any           (4) Indirect
-//  1   1   340–37F       (6) Auto-Increment
-//  1   1   380–3BF       (7) Auto-Decrement
-//  1   1   3C0–3FF       (8) Stack
+//  0   X   Any           (2) I/O
+//  1   0   Any       (*) (3) I/O Indirect
+//  1   1   000-33F   (*) (4) I/O Register Indirect
+//  1   1   340–37F       (6) I/O Auto-Increment
+//  1   1   380–3BF       (7) I/O Auto-Decrement
+//  1   1   3C0–3FF       (8) I/O Stack
 
 // (1) & (2) OUT, I/O
 start OUT, I=0, R=X, IDX=XX;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       IOWRITE(agl, ac), END;                    // 02 io[AGL] ← AC
 
-// (3) & (4) & (5) OUT, Indirect
+// (3) OUT, I/O Indirect
+start OUT, I=0, R=0, IDX=XX;
+      FETCH_IR;                                 // 00 IR ← mem[PC++]
+      MEMREAD(mbp, agl, dr);                    // 02 DR ← mem[MBP:AGL]
+      IOWRITE(dr, ac), END;                    // 02 io[dr] ← AC
+
+// (4) OUT, I/O Register Indirect
 start OUT, I=0, R=1, IDX=XX;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
-      IOWRITE(agl, ac), END;                    // 02 io[AGL] ← AC
+      MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBZ:AGL]
+      IOWRITE(dr, ac), END;                    // 02 io[AGL] ← AC
 
 // (6) OUT, Auto-Increment
 start OUT, I=1, R=1, IDX=IDX_INC;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBZ:AGL]
-      IOWRITE(dr, ac), action_incdr;            // 04 AC ← io[DR]; DR++;
+      IOWRITE(dr, ac), action_incdr;            // 04 AC ← io[DR]; DR++
       MEMWRITE(mbz, agl, dr), END;              // 06 mem[MBZ:AGL] ← DR
 
 // (7) OUT, Auto-Decrement
@@ -2664,8 +2672,9 @@ start OUT, I=1, R=1, IDX=IDX_DEC;
 start OUT, I=1, R=1, IDX=IDX_SP;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBZ:AGL]
-      IOWRITE(dr, ac), action_incdr;            // 04 AC ← io[DR]; DR++;
-      MEMWRITE(mbz, agl, dr), END;              // 06 mem[MBZ:AGL] ← DR
+      action_decdr;				// 04 DR--
+      IOWRITE(dr, ac), action_incdr;            // 05 AC ← io[DR]
+      MEMWRITE(mbz, agl, dr), END;              // 07 mem[MBZ:AGL] ← DR
 
 
 ///////////////////////////////////////////////////////////////////////////////
