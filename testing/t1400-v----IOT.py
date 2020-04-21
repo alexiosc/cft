@@ -118,6 +118,8 @@ def test_IOT_I(capsys, tmpdir):
 
 @pytest.mark.verilog
 @pytest.mark.LI
+@pytest.mark.LOAD
+@pytest.mark.STORE
 @pytest.mark.IOT
 def test_IOT_I_R(capsys, tmpdir):
     """This test makes use of a fake Verilog test card that provides a
@@ -177,6 +179,13 @@ def test_IOT_I_R(capsys, tmpdir):
 
 @pytest.mark.verilog
 @pytest.mark.LI
+@pytest.mark.LOAD
+@pytest.mark.STORE
+@pytest.mark.DSZ
+@pytest.mark.JSR
+@pytest.mark.RET
+@pytest.mark.JMP
+@pytest.mark.OUT
 @pytest.mark.IOT
 def test_IOT_I_R_autoinc(capsys, tmpdir):
     """This test makes use of a fake Verilog test card that provides a
@@ -247,6 +256,188 @@ def test_IOT_I_R_autoinc(capsys, tmpdir):
                               [ 340, "PRINTH", "4321" ],
                               [ 340, "PRINTH", "0666" ],
                               # [ 340, "PRINTH", "0000" ], # <-- this is skipped the second time!
+                              SUCCESS,
+                              SUCCESS,
+                              HALTED ])
+    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = list(expected.prepare(result))
+    # pprint.pprint(result)
+    # assert False
+
+    assert list(result) == expected
+
+
+@pytest.mark.verilog
+@pytest.mark.LI
+@pytest.mark.LOAD
+@pytest.mark.STORE
+@pytest.mark.DSZ
+@pytest.mark.JSR
+@pytest.mark.RET
+@pytest.mark.JMP
+@pytest.mark.OUT
+@pytest.mark.IOT
+def test_IOT_I_R_autodec(capsys, tmpdir):
+    """This test makes use of a fake Verilog test card that provides a
+    rudimentary timer interrupt and a ‘hardware’ multiplier that can
+    be used with the IOT instruction. This does not exist on actual
+    hardware, hence this test can only run on the Verilog framework.
+    """
+
+    source = """
+    .include "mbu.asm"
+    .include "dfp2.asm"
+
+    .equ PORTA R &3fd
+    .equ PORTB R &3fe
+    .equ TIMER R &3ff
+
+    &0:
+            LI &80        ; Configure essential MBRs and enable.
+            SMB mbu.MBP
+            LI &00        ; Configure essential MBRs and enable.
+            SMB mbu.MBZ   ; MBZ=MBS makes reading the stack easier
+            SMB mbu.MBS   ; MBZ=MBS makes reading the stack easier
+
+            LIA data1
+            JSR work
+
+            LIA data2
+            JSR work
+
+            SUCCESS
+            HALT
+
+    work:   STORE R &340  ; Source address, autoincrement
+            LI 1          ; Initialise the two test registers
+            OUT PORTA
+            OUT PORTB
+            LOAD addr     ; Destination I/O address, autoinc
+            STORE R &381
+            LI 6          ; 7 repetitions
+            STORE R &100  ; Loop counter
+    loop:   LOAD I R &340 ; Load from data table
+            IOT I R &381  ; IOT to test card
+            dfp.PRINTH    ; The test card skips this if the result is zero!
+            DSZ R &100
+            JMP loop
+            SUCCESS
+            RET
+
+    addr:   .data &3fe
+    data1:  .data &007b &0193 &dead &beef &dead &fa77 &beef
+    data2:  .data &0000 &0000 &dead &beef &dead &fa77 &beef
+
+    """.format(**locals())
+
+    expected = ExpectedData([ SUCCESS,
+                              [ 340, "PRINTH", "007b" ],
+                              [ 340, "PRINTH", "c1a1" ],
+                              [ 340, "PRINTH", "4321" ],
+                              [ 340, "PRINTH", "def0" ],
+                              [ 340, "PRINTH", "9abc" ],
+                              [ 340, "PRINTH", "5678" ],
+                              [ 340, "PRINTH", "1234" ],
+                              SUCCESS,
+                              # [ 340, "PRINTH", "0000" ], # <-- this is skipped the second time!
+                              [ 340, "PRINTH", "0000" ],
+                              [ 340, "PRINTH", "4321" ],
+                              [ 340, "PRINTH", "def0" ],
+                              [ 340, "PRINTH", "9abc" ],
+                              [ 340, "PRINTH", "5678" ],
+                              [ 340, "PRINTH", "1234" ],
+                              SUCCESS,
+                              SUCCESS,
+                              HALTED ])
+    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = list(expected.prepare(result))
+    # pprint.pprint(result)
+    # assert False
+
+    assert list(result) == expected
+
+
+
+
+@pytest.mark.verilog
+@pytest.mark.LI
+@pytest.mark.OUT
+@pytest.mark.LOAD
+@pytest.mark.STORE
+@pytest.mark.DSZ
+@pytest.mark.JSR
+@pytest.mark.RET
+@pytest.mark.JMP
+@pytest.mark.IOT
+def test_IOT_I_R_stack(capsys, tmpdir):
+    """This test makes use of a fake Verilog test card that provides a
+    rudimentary timer interrupt and a ‘hardware’ multiplier that can
+    be used with the IOT instruction. This does not exist on actual
+    hardware, hence this test can only run on the Verilog framework.
+    """
+
+    source = """
+    .include "mbu.asm"
+    .include "dfp2.asm"
+
+    .equ PORTA R &3fd
+    .equ PORTB R &3fe
+    .equ TIMER R &3ff
+
+    &0:
+            LI &80        ; Configure essential MBRs and enable.
+            SMB mbu.MBP
+            LI &00        ; Configure essential MBRs and enable.
+            SMB mbu.MBZ   ; MBZ=MBS makes reading the stack easier
+            SMB mbu.MBS   ; MBZ=MBS makes reading the stack easier
+
+            LIA data1
+            JSR work
+
+            LIA data2
+            JSR work
+
+            SUCCESS
+            HALT
+
+    work:   STORE R &340  ; Source address, autoincrement
+            LI 1          ; Initialise the two test registers
+            OUT PORTA
+            OUT PORTB
+            LOAD addr     ; Destination I/O address, autoinc
+            STORE R &3c1
+            LI 6          ; 7 repetitions
+            STORE R &100  ; Loop counter
+    loop:   LOAD I R &340 ; Load from data table
+            IOT I R &3c1  ; IOT to test card
+            dfp.PRINTH    ; The test card skips this if the result is zero!
+            DSZ R &100
+            JMP loop
+            SUCCESS
+            RET
+
+    addr:   .data &3ff    ; Stack addresses decrement before use
+    data1:  .data &007b &0193 &dead &beef &dead &fa77 &beef
+    data2:  .data &0000 &0000 &dead &beef &dead &fa77 &beef
+
+    """.format(**locals())
+
+    expected = ExpectedData([ SUCCESS,
+                              [ 340, "PRINTH", "007b" ],
+                              [ 340, "PRINTH", "c1a1" ],
+                              [ 340, "PRINTH", "4321" ],
+                              [ 340, "PRINTH", "def0" ],
+                              [ 340, "PRINTH", "9abc" ],
+                              [ 340, "PRINTH", "5678" ],
+                              [ 340, "PRINTH", "1234" ],
+                              SUCCESS,
+                              # [ 340, "PRINTH", "0000" ], # <-- this is skipped the second time!
+                              [ 340, "PRINTH", "0000" ],
+                              [ 340, "PRINTH", "4321" ],
+                              [ 340, "PRINTH", "def0" ],
+                              [ 340, "PRINTH", "9abc" ],
+                              [ 340, "PRINTH", "5678" ],
+                              [ 340, "PRINTH", "1234" ],
                               SUCCESS,
                               SUCCESS,
                               HALTED ])
