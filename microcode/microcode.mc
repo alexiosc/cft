@@ -2744,8 +2744,8 @@ start IOT, COND=1, I=1, R=1, IDX=IDX_INC;
 start IOT, COND=1, I=1, R=1, IDX=IDX_DEC;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBZ:AGL]
-      IOWRITE(dr, ac), action_decdr;            // 04 io[DR] ← AC; DR--;
-      IOREAD(dr, ac);                           // 06 AC ← io[DR]
+      IOWRITE(dr, ac);                          // 04 io[DR] ← AC
+      IOREAD(dr, ac),  action_decdr;            // 06 AC ← io[DR]; DR--
       MEMWRITE(mbz, agl, dr), END;              // 08 mem[MBZ:AGL] ← DR
 
 // (8) IOT, Stack
@@ -2753,9 +2753,10 @@ start IOT, COND=1, I=1, R=1, IDX=IDX_DEC;
 start IOT, COND=1, I=1, R=1, IDX=IDX_SP;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBZ:AGL]
-      action_decdr, IOWRITE(dr, ac);            // 04 io[--DR] ← AC
-      IOREAD(dr, ac);                           // 06 AC ← io[DR]
-      MEMWRITE(mbz, agl, dr), END;              // 06 mem[MBZ:AGL] ← DR
+      action_decdr;				// 04 DR--
+      IOWRITE(dr, ac);                          // 05 io[DR] ← AC
+      IOREAD(dr, ac);                           // 07 AC ← io[DR]
+      MEMWRITE(mbz, agl, dr), END;              // 09 mem[MBZ:AGL] ← DR
 
 // And Now, with skips requested. Remember, COND is active low.
 
@@ -2794,8 +2795,8 @@ start IOT, COND=0, I=1, R=1, IDX=IDX_INC;
 start IOT, COND=0, I=1, R=1, IDX=IDX_DEC;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBZ:AGL]
-      IOWRITE(dr, ac), action_incdr;            // 04 AC ← io[DR]; DR++
-      IOREAD(dr, ac);                           // 06 AC ← io[DR]
+      IOWRITE(dr, ac);                          // 04 io[DR] ← AC
+      IOREAD(dr, ac),  action_decdr;            // 06 AC ← io[DR]; DR--
       action_incpc, MEMWRITE(mbz, agl, dr), END;// 08 mem[MBZ:AGL] ← DR; PC++
 
 // (8) IOT, Stack
@@ -2803,8 +2804,9 @@ start IOT, COND=0, I=1, R=1, IDX=IDX_DEC;
 start IOT, COND=0, I=1, R=1, IDX=IDX_SP;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBZ:AGL]
-      action_decdr, IOWRITE(dr, ac);            // 04 io[--DR] ← AC
-      IOREAD(dr, ac);                           // 06 AC ← io[DR]
+      action_decdr;				// 04 DR--
+      IOWRITE(dr, ac);                          // 05 io[DR] ← AC
+      IOREAD(dr, ac);                           // 07 AC ← io[DR]
       action_incpc, MEMWRITE(mbz, agl, dr), END;// 06 mem[MBZ:AGL] ← DR; PC++
 
 
