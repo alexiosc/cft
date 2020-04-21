@@ -2545,11 +2545,12 @@ start STORE, I=1, R=1, IDX=IDX_SP;
 // ---------------------------------------------------------------------------
 //  I   R   Operand   (*) (#) Addressing Mode
 // ---------------------------------------------------------------------------
-//  0   1   Any           (2) I/O
-//  1   1   Any           (4) Indirect
-//  1   1   340–37F       (6) Auto-Increment
-//  1   1   380–3BF       (7) Auto-Decrement
-//  1   1   3C0–3FF       (8) Stack
+//  0   X   Any           (2) I/O
+//  1   0   Any       (*) (3) I/O Indirect
+//  1   1   000-33F   (*) (4) I/O Register Indirect
+//  1   1   340–37F       (6) I/O Auto-Increment
+//  1   1   380–3BF       (7) I/O Auto-Decrement
+//  1   1   3C0–3FF       (8) I/O Stack
 
 // I/O space is 16 bits wide. The first 10 bits of those are faster to use, and
 // these are all the CFT bothers with.
@@ -2566,16 +2567,22 @@ start IN, I=0, R=X, IDX=XX;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       IOREAD(agl, ac), END;                     // 02 AC ← io[AGL]
 
-// (3) & (4) & (5) IN, Indirect
-start IN, I=1, R=X, IDX=XX;
+// (3) IN, I/O Indirect
+start IN, I=1, R=0, IDX=XX;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       MEMREAD(mbp, agl, dr);                    // 02 DR ← mem[MBP:AGL]
+      IOREAD(dr, ac), END;                      // 04 AC ← io[DR]
+
+// (4) IN, I/O Register Indirect
+start IN, I=1, R=1, IDX=XX;
+      FETCH_IR;                                 // 00 IR ← mem[PC++]
+      MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBZ:AGL]
       IOREAD(dr, ac), END;                      // 04 AC ← io[DR]
 
 // (6) IN, Auto-Increment
 start IN, I=1, R=1, IDX=IDX_INC;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
-      MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBD:AGL]
+      MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBZ:AGL]
       IOREAD(dr, ac), action_incdr;             // 04 AC ← io[DR]; DR++
       MEMWRITE(mbz, agl, dr), END;              // 06 mem[MBD:AGL] ← DR
 
@@ -2590,8 +2597,9 @@ start IN, I=1, R=1, IDX=IDX_DEC;
 start IN, I=1, R=1, IDX=IDX_SP;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBZ:AGL]
-      action_decdr, IOREAD(dr, ac);             // 04 DR--; AC ← io[DR]
-      MEMWRITE(mbz, agl, dr), END;              // 06 mem[MBZ:AGL] ← DR
+      action_decdr;				// 04 DR--
+      IOREAD(dr, ac);		                // 05 AC ← io[DR]
+      MEMWRITE(mbz, agl, dr), END;              // 07 mem[MBZ:AGL] ← DR
 
 
 ///////////////////////////////////////////////////////////////////////////////
