@@ -170,15 +170,20 @@ module card_verilog_test (
 		     ab[7:0] === 8'hfe &&
 		     product == 0 ? 1'b0 : 1'bz;
 
-   always @(nr, niodev3xx) begin
-      // Map to 3FD-3FF, addresses we probably won't use.
+   always @(nr, niodev3xx, ab) begin
+      // Map to 3F8-3FF, addresses we probably won't use for anything else.
       if (nr === 1'b0 && niodev3xx === 1'b0) begin
-	 casex (ab[7:0])
+	 case (ab[7:0])
+	   8'hf8: ibus_drv = 16'h1234;
+	   8'hf9: ibus_drv = 16'h5678;
+	   8'hfa: ibus_drv = 16'h9abc;
+	   8'hfb: ibus_drv = 16'hdef0;
+	   8'hfc: ibus_drv = 16'h4321;
 	   8'hfd: ibus_drv = product;
 	   8'hfe: ibus_drv = product;
 	   8'hff: ibus_drv = nirq_ctr;
 	   default: ibus_drv = 16'bzzzz;
-	 endcase // casex (ab[7:0])
+	 endcase // case ([15:0])
       end else ibus_drv = 16'bzzzz; // if (niodev3xx == 1'b0)
    end // always @ (posedge nw)
 endmodule // debug_io
