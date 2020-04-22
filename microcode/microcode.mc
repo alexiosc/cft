@@ -261,9 +261,11 @@ signal write_alu_b     = ..............11000.....; // Write to ALU's B Port
 //signal               = ..............11111.....; // (Available)
 
 // Convenient aliases for the constants in the Constant Store
-#define read_cs_rstvec  read_cs0
-#define read_cs_isrvec0 read_cs2
-#define read_cs_isrvec1 read_cs3
+#define read_cs_rstvec     read_cs0 // We reset to XX:0000. XX is either 00 or 0x80.
+#define read_cs_isrvec_pc  read_cs3 // The ISR is at 00:0003
+#define read_cs_isrvec_mb  read_cs0
+#define read_cs_softisr_pc read_cs2 // The Soft ISR is at 00:0002
+#define read_cs_softisr_mb read_cs0
 
 // COND FIELD (UNDER REDESIGN)
 // TODO: Rearrange the upper eight ones?
@@ -516,11 +518,8 @@ start RST=1, INT=0, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
       STACK_PUSH(mbp_flags);                    // 00 mem[MBS:SP++] ← <flags,MBP>
       action_cli, STACK_PUSH(pc);               // 02 mem[MBS:SP++] ← PC; CLI
       STACK_PUSH(ac);                           // 04 mem[MBS:SP++] ← AC
-      SET(pc, cs_isrvec0);                      // 06 PC ← 0002
-      SET(mbp, cs_isrvec1), END;                // 07 MBP ← 0003
-
-// TODO: This jumps to [03:0002] which is a little inelegant. Rework
-// the constant source and jump to [00:0008] or something.
+      SET(pc, cs_isrvec_pc);			// 06 PC ← 0003
+      SET(mbp, cs_isrvec_mb), END;		// 07 MBP ← 00
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -772,12 +771,13 @@ start TDA;
 // custom software interrupts or traps.
 
 start ISR;
-      action_cli, STACK_PUSH(mbp_flags);        // 00 mem[MBS:SP++] ← flags:MBP; CLI
-      STACK_PUSH(pc);                           // 02 mem[MBS:SP++] ← PC
-      STACK_PUSH(ac);                           // 04 mem[MBS:SP++] ← AC
-      SET(pc, cs_isrvec0);                      // 06 PC ← 0002
-      SET(mbp, cs_isrvec1);                     // 07 MBP ← 0003
-      SET(dr, agl), END;                        // 08 DR ← AGL
+      FETCH_IR;                                 // 00 IR ← mem[PC++]
+      action_cli, STACK_PUSH(mbp_flags);        // 02 mem[MBS:SP++] ← flags:MBP; CLI
+      STACK_PUSH(pc);                           // 04 mem[MBS:SP++] ← PC
+      STACK_PUSH(ac);                           // 06 mem[MBS:SP++] ← AC
+      SET(pc, cs_softisr_pc);                   // 08 PC ← 0002
+      SET(mbp, cs_softisr_mb);                  // 09 MBP ← 00
+      SET(dr, agl), END;                        // 10 DR ← AGL
 
 
 ///////////////////////////////////////////////////////////////////////////////
