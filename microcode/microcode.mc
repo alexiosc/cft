@@ -544,7 +544,7 @@ start RST=1, INT=0, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 #define TDA    _INSTR(0000), I=0, R=0, SUBOP=110, COND=X, IDX=XX
 //#define      _INSTR(0000), I=0, R=0, SUBOP=111, COND=X, IDX=XX // This is available
 
-#define ISR    _INSTR(0000), I=0, R=1, SUBOP=000, COND=X, IDX=XX // ** SUBOP AND R are not arbitrary!
+#define TRAP   _INSTR(0000), I=0, R=1, SUBOP=000, COND=X, IDX=XX // ** SUBOP AND R are not arbitrary!
 #define PHA    _INSTR(0000), I=0, R=1, SUBOP=001, COND=X, IDX=XX
 #define PPA    _INSTR(0000), I=0, R=1, SUBOP=010, COND=X, IDX=XX
 #define PHF    _INSTR(0000), I=0, R=1, SUBOP=011, COND=X, IDX=XX
@@ -754,11 +754,11 @@ start TDA;
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-// THE ISR INSTRUCTION
+// THE TRAP INSTRUCTION
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-// MNEMONIC: ISR
+// MNEMONIC: TRAP
 // NAME:     Software Interrupt
 // DESC:     Call Interrupt Service Routine
 // GROUP:    Flow Control
@@ -766,11 +766,13 @@ start TDA;
 // FLAGS:    ---i-
 // FORMAT:   :LLLLLLL
 //
-// Calls the Interrupt Service Routine. The 7-bit value in the operand is
-// written to the DR. An ISR can transfer this value to the AC to implement
-// custom software interrupts or traps.
+// Calls the Interrupt Service Routine. The 7-bit value in the operand
+// is written to the DR. An ISR can transfer this value to the AC to
+// implement custom software interrupts or traps. The PC will jump to
+// long address 00:0002. Note that hardware interrupts jump to
+// 00:0003.
 
-start ISR;
+start TRAP;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       action_cli, STACK_PUSH(mbp_flags);        // 02 mem[MBS:SP++] ← flags:MBP; CLI
       STACK_PUSH(pc);                           // 04 mem[MBS:SP++] ← PC
