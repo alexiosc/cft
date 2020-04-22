@@ -2645,13 +2645,13 @@ start OUT, I=0, R=X, IDX=XX;
       IOWRITE(agl, ac), END;                    // 02 io[AGL] ← AC
 
 // (3) OUT, I/O Indirect
-start OUT, I=0, R=0, IDX=XX;
+start OUT, I=1, R=0, IDX=XX;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       MEMREAD(mbp, agl, dr);                    // 02 DR ← mem[MBP:AGL]
       IOWRITE(dr, ac), END;                    // 02 io[dr] ← AC
 
 // (4) OUT, I/O Register Indirect
-start OUT, I=0, R=1, IDX=XX;
+start OUT, I=1, R=1, IDX=XX;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBZ:AGL]
       IOWRITE(dr, ac), END;                    // 02 io[AGL] ← AC
