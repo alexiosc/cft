@@ -288,25 +288,10 @@ Text Label 3550 3100 2    50   ~ 0
 Text Label 3550 4450 2    50   ~ 0
 ~WMBP
 NoConn ~ 3100 3300
-Wire Wire Line
-	2100 4650 2050 4650
-Wire Wire Line
-	2050 4650 2050 4700
-$Comp
-L power:GND #PWR014
-U 1 1 6022A507
-P 2050 4700
-F 0 "#PWR014" H 2050 4450 50  0001 C CNN
-F 1 "GND" H 2055 4527 50  0000 C CNN
-F 2 "" H 2050 4700 50  0001 C CNN
-F 3 "" H 2050 4700 50  0001 C CNN
-	1    2050 4700
-	1    0    0    -1  
-$EndComp
 Text HLabel 1250 3400 0    50   Input ~ 0
 ~T34
 Wire Wire Line
-	1250 3400 2100 3400
+	1250 3400 1550 3400
 Text Label 2100 3400 2    50   ~ 0
 ~T34
 Text Notes 3250 4300 0    50   ~ 0
@@ -1591,6 +1576,12 @@ Text HLabel 1250 700  0    50   Input ~ 0
 Wire Wire Line
 	1800 3200 2100 3200
 NoConn ~ 3100 3200
+Wire Wire Line
+	1550 4650 2100 4650
+Text Label 2100 4650 2    50   ~ 0
+~T34
+Wire Wire Line
+	1550 3400 1550 4650
 Wire Bus Line
 	1700 1150 1700 1950
 Wire Bus Line
@@ -1605,4 +1596,7 @@ Wire Bus Line
 	10400 3600 10400 4750
 Wire Bus Line
 	8600 1500 8600 5550
+Connection ~ 1550 3400
+Wire Wire Line
+	1550 3400 2100 3400
 $EndSCHEMATC
