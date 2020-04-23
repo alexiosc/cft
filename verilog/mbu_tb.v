@@ -441,21 +441,32 @@ module reg_mbr_tb();
 
    always @(waddr) begin
       if ($time > 100) #30 begin
-	  if (nwar !== (waddr[4:2] === 3'b001 ? 1'b0 : 1'b1)) begin
+	 if (nwar !== (waddr[4:2] === 3'b001 ? 1'b0 : 1'b1)) begin
 	    $display("346 FAIL waddr decoding failure, waddr=%b, nwar=%b (should be %b)",
 		     waddr, mbu.nwar, (waddr[4:2] === 3'b001 ? 1'b0 : 1'b1));
 	    $error("assertion failure");
 	    #100 $finish;
-	  end
-
-	 else if (mbu.nwmbp !== ((waddr === 5'b01100 || waddr === 5'b01101) ? 1'b0 : 1'b1)) begin
+	 end
+      end
+   end
+   
+   always @(waddr, t34) begin
+      if ($time > 100) #40 begin
+	 if (t34 === 1'b0 && (mbu.nwmbp !== ((waddr === 5'b01100 || waddr === 5'b01101) ? 1'b0 : 1'b1))) begin
 	    $display("346 FAIL waddr decoding failure, waddr=%b, nwmbp=%b (should be %b)",
 	  	     waddr, mbu.nwmbp,
 		     ((waddr === 5'b01100 || waddr === 5'b01101) ? 1'b0 : 1'b1));
 	    $error("assertion failure");
 	    #100 $finish;
-	  end
-	  else $display("345 OK waddr");
+	 end
+
+	 else if (t34 !== 1'b0 && mbu.nwmbp !== 1'b1) begin
+	    $display("346 FAIL waddr decoding failure, nwbmp=%b during t34=%b (should not happen!)",
+	  	     mbu.nwmbp, t34);
+	    $error("assertion failure");
+	    #100 $finish;
+	 end
+	 else $display("345 OK waddr");
       end
    end
 

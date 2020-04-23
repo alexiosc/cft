@@ -94,7 +94,7 @@ module mbu (nreset,
    assign nrmbp = dec_raddr[5];
 
    // U16: We decode WADDRs 01100, 01101, and 01110. Symmetric to the above '138.
-   demux_138 demux_waddr1 (.a(waddr[3:1]), .g1(1'b1), .ng2a(waddr[4]), .ng2b(1'b0), .y(dec_waddr1));
+   demux_138 demux_waddr1 (.a(waddr[3:1]), .g1(1'b1), .ng2a(waddr[4]), .ng2b(t34), .y(dec_waddr1));
    assign nwmbp = dec_waddr1[6];
 
    // U17: decode WADDR to get nwar.
