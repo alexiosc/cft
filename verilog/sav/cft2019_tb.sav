@@ -1,24 +1,26 @@
 [*]
-[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
-[*] Tue Apr 21 09:02:56 2020
+[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
+[*] Thu Apr 23 11:11:08 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/cft2019_tb.vcd"
-[dumpfile_mtime] "Tue Apr 21 09:02:11 2020"
-[dumpfile_size] 2547551
+[dumpfile_mtime] "Thu Apr 23 11:10:24 2020"
+[dumpfile_size] 527498
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/cft2019_tb.sav"
-[timestart] 20818000
-[size] 1920 1019
-[pos] -1 -1
-*-18.596468 22339000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[timestart] 13191000
+[size] 1893 1010
+[pos] 2194 40
+*-19.362715 13743000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] cft2019_tb.
 [treeopen] cft2019_tb.cft.
+[treeopen] cft2019_tb.cft.card_bus.
+[treeopen] cft2019_tb.cft.card_bus.constant_store.
 [treeopen] cft2019_tb.cft.card_ctl.sbu.
 [treeopen] cft2019_tb.cft.card_mem.romhi.
 [treeopen] cft2019_tb.cft.card_reg.reg_ac.
 [sst_width] 258
 [signals_width] 494
 [sst_expanded] 1
-[sst_vpaned_height] 285
+[sst_vpaned_height] 283
 @800200
 -Reset
 @28
@@ -57,7 +59,7 @@ cft2019_tb.cft.card_ctl.nfpclk_or_clk
 -Clock
 @800200
 -Registers
-@23
+@22
 [color] 2
 +{pc[15:0]} cft2019_tb.cft.card_reg.reg_pc.out[15:0]
 @c00022
@@ -141,7 +143,7 @@ cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
 -group_end
 @22
 cft2019_tb.cft.card_verilog_test.ab[23:0]
-@28
+@29
 cft2019_tb.cft.card_verilog_test.niodev3xx
 @c04022
 ^>2 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/control
@@ -222,6 +224,15 @@ cft2019_tb.cft.card_ctl.flag_unit.ibus[15:8]
 @1000200
 -Registers
 @28
+cft2019_tb.cft.card_bus.constant_store.cs_demux.a[2:0]
+@22
+cft2019_tb.cft.card_bus.constant_store.cs_lo.y[7:0]
+@28
+cft2019_tb.cft.card_bus.t34
+cft2019_tb.cft.card_bus.mbu.nwmbp
+cft2019_tb.cft.card_bus.mbu.nwen0
+cft2019_tb.cft.card_bus.constant_store.cs_lo.noe1
+cft2019_tb.cft.card_bus.constant_store.cs_lo.noe2
 cft2019_tb.cft.card_verilog_test.nr
 cft2019_tb.cft.card_verilog_test.niodev3xx
 @22
@@ -489,7 +500,7 @@ cft2019_tb.cft.nwen
 cft2019_tb.cft.nw
 @1000200
 -Buses
-@c00200
+@800200
 -Control Unit
 @820
 cft2019_tb.cft.card_ctl.clock_generator.state[15:0]
@@ -585,7 +596,7 @@ cft2019_tb.cft.nr
 [color] 2
 cft2019_tb.cft.nwen
 cft2019_tb.cft.card_ctl.microcode_sequencer.nend
-@1401200
+@1000200
 -Control Unit
 @c00200
 -Addressing

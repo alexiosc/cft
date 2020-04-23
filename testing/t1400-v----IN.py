@@ -87,15 +87,15 @@ def test_IN_I(capsys, tmpdir):
             SMB mbu.MBP
             SMB mbu.MBZ   ; MBZ=MBS makes reading the stack easier
 
-            IN I R addr8
+            IN I addr8
             dfp.PRINTH
-            IN I R addr9
+            IN I addr9
             dfp.PRINTH
-            IN I R addra
+            IN I addra
             dfp.PRINTH
-            IN I R addrb
+            IN I addrb
             dfp.PRINTH
-            IN I R addrc
+            IN I addrc
             dfp.PRINTH
 
             HALT
@@ -125,7 +125,7 @@ def test_IN_I(capsys, tmpdir):
 @pytest.mark.LOAD
 @pytest.mark.STORE
 @pytest.mark.IN
-def test_IOT_I_R(capsys, tmpdir):
+def test_IN_I_R(capsys, tmpdir):
     """This test makes use of a fake Verilog test card that provides a
     rudimentary timer interrupt and a ‘hardware’ multiplier that can
     be used with the IOT instruction. This does not exist on actual

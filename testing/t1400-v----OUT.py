@@ -68,54 +68,53 @@ def test_OUT(capsys, tmpdir):
 
 @pytest.mark.verilog
 @pytest.mark.LI
-@pytest.mark.IN
-def test_IN_I(capsys, tmpdir):
-    """This test makes use of a fake Verilog test card that provides a
-    rudimentary timer interrupt and a ‘hardware’ multiplier that can
-    be used with the IOT instruction. This does not exist on actual
-    hardware, hence this test can only run on the Verilog framework.
-    """
-
+@pytest.mark.OUT
+def test_OUT_I(capsys, tmpdir):
     source = """
     .include "mbu.asm"
     .include "dfp2.asm"
-
-    .equ PORTA R &3fd
-    .equ PORTB R &3fe
-    .equ TIMER R &3ff
 
     &0:
             LI &80        ; Configure essential MBRs and enable.
             SMB mbu.MBP
             SMB mbu.MBZ   ; MBZ=MBS makes reading the stack easier
 
-            IN I R addr8
-            dfp.PRINTH
-            IN I R addr9
-            dfp.PRINTH
-            IN I R addra
-            dfp.PRINTH
-            IN I R addrb
-            dfp.PRINTH
-            IN I R addrc
-            dfp.PRINTH
-
+            LI 42
+            OUT I addr
+            OUT I @addr+1
+            OUT I @addr+2
+            OUT I @addr+3
+            OUT I @addr+4
+            OUT I @addr+5
+            OUT I @addr+6
+            OUT I @addr+7
+            OUT I @addr+8
+            SUCCESS
             HALT
 
-    addr8:  .data &3f8
-    addr9:  .data &3f9
-    addra:  .data &3fa
-    addrb:  .data &3fb
-    addrc:  .data &3fc
+    addr:   .data @dfp.PRINTA&0x3ff
+            .data @dfp.PRINTC&0x3ff
+            .data @dfp.PRINTD&0x3ff
+            .data @dfp.PRINTU&0x3ff
+            .data @dfp.PRINTH&0x3ff
+            .data @dfp.PRINTB&0x3ff
+            .data @dfp.PRINTSP&0x3ff
+            .data @dfp.PRINTNL&0x3ff
+            .data @dfp.PRINTH&0x3ff
 
     """.format(**locals())
 
     expected = ExpectedData([ SUCCESS,
-                              [ 340, "PRINTH", "1234" ],
-                              [ 340, "PRINTH", "5678" ],
-                              [ 340, "PRINTH", "9abc" ],
-                              [ 340, "PRINTH", "def0" ],
-                              [ 340, "PRINTH", "4321" ],
+                              [ 340, 'PRINTA', '002a' ],
+                              [ 340, 'PRINTC', '42' ],
+                              [ 340, 'PRINTD', '42' ],
+                              [ 340, 'PRINTU', '42' ],
+                              [ 340, 'PRINTH', '002a' ],
+                              [ 340, 'PRINTB', '0000000000101010' ],
+                              [ 340, 'PRINTC', '32' ],
+                              [ 340, 'PRINTC', '10' ],
+                              [ 340, 'PRINTH', '002a' ],
+                              SUCCESS,
                               HALTED ])
     result = run_on_verilog_emu(capsys, tmpdir, source)
     result = list(expected.prepare(result))
@@ -126,21 +125,12 @@ def test_IN_I(capsys, tmpdir):
 @pytest.mark.LI
 @pytest.mark.LOAD
 @pytest.mark.STORE
-@pytest.mark.IN
-def test_IOT_I_R(capsys, tmpdir):
-    """This test makes use of a fake Verilog test card that provides a
-    rudimentary timer interrupt and a ‘hardware’ multiplier that can
-    be used with the IOT instruction. This does not exist on actual
-    hardware, hence this test can only run on the Verilog framework.
-    """
+@pytest.mark.OUT
+def test_OUT_I_R(capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
     .include "dfp2.asm"
-
-    .equ PORTA R &3fd
-    .equ PORTB R &3fe
-    .equ TIMER R &3ff
 
     &0:
             LI &80        ; Configure essential MBRs and enable.
@@ -149,44 +139,61 @@ def test_IOT_I_R(capsys, tmpdir):
             SMB mbu.MBZ   ; MBZ=MBS makes reading the stack easier
             SMB mbu.MBS   ; MBZ=MBS makes reading the stack easier
 
-            LOAD addr8
+            LOAD addr
             STORE R &100
-            LOAD addr9
+            LOAD @addr+1
             STORE R &101
-            LOAD addra
+            LOAD @addr+2
             STORE R &102
-            LOAD addrb
+            LOAD @addr+3
             STORE R &103
-            LOAD addrc
+            LOAD @addr+4
             STORE R &104
+            LOAD @addr+5
+            STORE R &105
+            LOAD @addr+6
+            STORE R &106
+            LOAD @addr+7
+            STORE R &107
+            LOAD @addr+8
+            STORE R &108
 
-            IN I R &100
-            dfp.PRINTH
-            IN I R &101
-            dfp.PRINTH
-            IN I R &102
-            dfp.PRINTH
-            IN I R &103
-            dfp.PRINTH
-            IN I R &104
-            dfp.PRINTH
-
+            LI 42
+            OUT I R &100
+            OUT I R &101
+            OUT I R &102
+            OUT I R &103
+            OUT I R &104
+            OUT I R &105
+            OUT I R &106
+            OUT I R &107
+            OUT I R &108
+            SUCCESS
             HALT
 
-    addr8:  .data &3f8
-    addr9:  .data &3f9
-    addra:  .data &3fa
-    addrb:  .data &3fb
-    addrc:  .data &3fc
+    addr:   .data @dfp.PRINTA&0x3ff
+            .data @dfp.PRINTC&0x3ff
+            .data @dfp.PRINTD&0x3ff
+            .data @dfp.PRINTU&0x3ff
+            .data @dfp.PRINTH&0x3ff
+            .data @dfp.PRINTB&0x3ff
+            .data @dfp.PRINTSP&0x3ff
+            .data @dfp.PRINTNL&0x3ff
+            .data @dfp.PRINTH&0x3ff
 
     """.format(**locals())
 
     expected = ExpectedData([ SUCCESS,
-                              [ 340, "PRINTH", "1234" ],
-                              [ 340, "PRINTH", "5678" ],
-                              [ 340, "PRINTH", "9abc" ],
-                              [ 340, "PRINTH", "def0" ],
-                              [ 340, "PRINTH", "4321" ],
+                              [ 340, 'PRINTA', '002a' ],
+                              [ 340, 'PRINTC', '42' ],
+                              [ 340, 'PRINTD', '42' ],
+                              [ 340, 'PRINTU', '42' ],
+                              [ 340, 'PRINTH', '002a' ],
+                              [ 340, 'PRINTB', '0000000000101010' ],
+                              [ 340, 'PRINTC', '32' ],
+                              [ 340, 'PRINTC', '10' ],
+                              [ 340, 'PRINTH', '002a' ],
+                              SUCCESS,
                               HALTED ])
     result = run_on_verilog_emu(capsys, tmpdir, source)
     result = list(expected.prepare(result))
@@ -197,13 +204,8 @@ def test_IOT_I_R(capsys, tmpdir):
 @pytest.mark.LI
 @pytest.mark.LOAD
 @pytest.mark.STORE
-@pytest.mark.DSZ
-@pytest.mark.JSR
-@pytest.mark.RET
-@pytest.mark.JMP
 @pytest.mark.OUT
-@pytest.mark.IN
-def test_IN_I_R_autoinc(capsys, tmpdir):
+def test_OUT_I_R_autoinc(capsys, tmpdir):
     """This test makes use of a fake Verilog test card that provides a
     rudimentary timer interrupt and a ‘hardware’ multiplier that can
     be used with the IOT instruction. This does not exist on actual
@@ -228,29 +230,32 @@ def test_IN_I_R_autoinc(capsys, tmpdir):
             LOAD addr     ; Destination I/O address, autoinc
             STORE R &341
 
-            IN I R &341
-            dfp.PRINTH
-            IN I R &341
-            dfp.PRINTH
-            IN I R &341
-            dfp.PRINTH
-            IN I R &341
-            dfp.PRINTH
-            IN I R &341
-            dfp.PRINTH
-
+            LI 42
+            OUT I R &341
+            OUT I R &341
+            OUT I R &341
+            OUT I R &341
+            OUT I R &341
+            OUT I R &341
+            OUT I R &341
+            OUT I R &341
+            SUCCESS
             HALT
 
-    addr:   .data &3f8
+    addr:   .data @dfp.PRINTA&0x3ff
 
     """.format(**locals())
 
     expected = ExpectedData([ SUCCESS,
-                              [ 340, "PRINTH", "1234" ],
-                              [ 340, "PRINTH", "5678" ],
-                              [ 340, "PRINTH", "9abc" ],
-                              [ 340, "PRINTH", "def0" ],
-                              [ 340, "PRINTH", "4321" ],
+                              [ 340, 'PRINTA', '002a' ],
+                              [ 340, 'PRINTC', '42' ],
+                              [ 340, 'PRINTD', '42' ],
+                              [ 340, 'PRINTU', '42' ],
+                              [ 340, 'PRINTH', '002a' ],
+                              [ 340, 'PRINTB', '0000000000101010' ],
+                              [ 340, 'PRINTC', '32' ],
+                              [ 340, 'PRINTC', '10' ],
+                              SUCCESS,
                               HALTED ])
     result = run_on_verilog_emu(capsys, tmpdir, source)
     result = list(expected.prepare(result))
@@ -262,15 +267,9 @@ def test_IN_I_R_autoinc(capsys, tmpdir):
 
 @pytest.mark.verilog
 @pytest.mark.LI
-@pytest.mark.LOAD
 @pytest.mark.STORE
-@pytest.mark.DSZ
-@pytest.mark.JSR
-@pytest.mark.RET
-@pytest.mark.JMP
 @pytest.mark.OUT
-@pytest.mark.IN
-def test_IN_I_R_autodec(capsys, tmpdir):
+def test_OUT_I_R_autodec(capsys, tmpdir):
     """This test makes use of a fake Verilog test card that provides a
     rudimentary timer interrupt and a ‘hardware’ multiplier that can
     be used with the IOT instruction. This does not exist on actual
@@ -292,32 +291,33 @@ def test_IN_I_R_autodec(capsys, tmpdir):
             SMB mbu.MBZ   ; MBZ=MBS makes reading the stack easier
             SMB mbu.MBS   ; MBZ=MBS makes reading the stack easier
 
-            LOAD addr     ; Destination I/O address, autoinc
+            LI &117
             STORE R &381
 
-            IN I R &381
-            dfp.PRINTH
-            IN I R &381
-            dfp.PRINTH
-            IN I R &381
-            dfp.PRINTH
-            IN I R &381
-            dfp.PRINTH
-            IN I R &381
-            dfp.PRINTH
-
+            LI 42
+            OUT I R &381
+            OUT I R &381
+            OUT I R &381
+            OUT I R &381
+            OUT I R &381
+            OUT I R &381
+            OUT I R &381
+            OUT I R &381
+            SUCCESS
             HALT
-
-    addr:   .data &3fc
 
     """.format(**locals())
 
     expected = ExpectedData([ SUCCESS,
-                              [ 340, "PRINTH", "4321" ],
-                              [ 340, "PRINTH", "def0" ],
-                              [ 340, "PRINTH", "9abc" ],
-                              [ 340, "PRINTH", "5678" ],
-                              [ 340, "PRINTH", "1234" ],
+                              [ 340, 'PRINTC', '10' ],
+                              [ 340, 'PRINTC', '32' ],
+                              [ 340, 'PRINTB', '0000000000101010' ],
+                              [ 340, 'PRINTH', '002a' ],
+                              [ 340, 'PRINTU', '42' ],
+                              [ 340, 'PRINTD', '42' ],
+                              [ 340, 'PRINTC', '42' ],
+                              [ 340, 'PRINTA', '002a' ],
+                              SUCCESS,
                               HALTED ])
     result = run_on_verilog_emu(capsys, tmpdir, source)
     result = list(expected.prepare(result))
@@ -329,15 +329,9 @@ def test_IN_I_R_autodec(capsys, tmpdir):
 
 @pytest.mark.verilog
 @pytest.mark.LI
-@pytest.mark.LOAD
 @pytest.mark.STORE
-@pytest.mark.DSZ
-@pytest.mark.JSR
-@pytest.mark.RET
-@pytest.mark.JMP
 @pytest.mark.OUT
-@pytest.mark.IN
-def test_IN_I_R_autodec(capsys, tmpdir):
+def test_OUT_I_R_stack(capsys, tmpdir):
     """This test makes use of a fake Verilog test card that provides a
     rudimentary timer interrupt and a ‘hardware’ multiplier that can
     be used with the IOT instruction. This does not exist on actual
@@ -359,32 +353,33 @@ def test_IN_I_R_autodec(capsys, tmpdir):
             SMB mbu.MBZ   ; MBZ=MBS makes reading the stack easier
             SMB mbu.MBS   ; MBZ=MBS makes reading the stack easier
 
-            LOAD addr     ; Destination I/O address, autoinc
+            LI &118
             STORE R &3c1
 
-            IN I R &3c1
-            dfp.PRINTH
-            IN I R &3c1
-            dfp.PRINTH
-            IN I R &3c1
-            dfp.PRINTH
-            IN I R &3c1
-            dfp.PRINTH
-            IN I R &3c1
-            dfp.PRINTH
-
+            LI 42
+            OUT I R &3c1
+            OUT I R &3c1
+            OUT I R &3c1
+            OUT I R &3c1
+            OUT I R &3c1
+            OUT I R &3c1
+            OUT I R &3c1
+            OUT I R &3c1
+            SUCCESS
             HALT
-
-    addr:   .data &3fd
 
     """.format(**locals())
 
     expected = ExpectedData([ SUCCESS,
-                              [ 340, "PRINTH", "4321" ],
-                              [ 340, "PRINTH", "def0" ],
-                              [ 340, "PRINTH", "9abc" ],
-                              [ 340, "PRINTH", "5678" ],
-                              [ 340, "PRINTH", "1234" ],
+                              [ 340, 'PRINTC', '10' ],
+                              [ 340, 'PRINTC', '32' ],
+                              [ 340, 'PRINTB', '0000000000101010' ],
+                              [ 340, 'PRINTH', '002a' ],
+                              [ 340, 'PRINTU', '42' ],
+                              [ 340, 'PRINTD', '42' ],
+                              [ 340, 'PRINTC', '42' ],
+                              [ 340, 'PRINTA', '002a' ],
+                              SUCCESS,
                               HALTED ])
     result = run_on_verilog_emu(capsys, tmpdir, source)
     result = list(expected.prepare(result))

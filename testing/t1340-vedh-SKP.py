@@ -33,9 +33,7 @@ from testing import *
 .equ    DEC     UOP     #0000010 ; 0000:1:1:100:-----1-  Decrement Accumulator
 .equ    CPL     UOP     #0000001 ; 0000:1:1:100:------1  Complement Link
 
-.equ    IN      &5000            ; 0101:I:R:mmmmmmmmmm   Input from I/O Space
 .equ    OUT     &6000            ; 0110:I:R:mmmmmmmmmm   Output to I/O Space
-.equ    IOT     &7000            ; 0111:I:R:mmmmmmmmmm   I/O Transaction
 
 .equ    ADD     &c000            ; 1100:I:R:mmmmmmmmmm   Add To Accumulator
 .equ    AND     &d000            ; 1101:I:R:mmmmmmmmmm   Bitwise AND With Accumulator
