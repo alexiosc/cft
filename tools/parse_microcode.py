@@ -363,8 +363,8 @@ class ParseMicrocode(object):
             disasm_m = m
             is_bitmap = int(disasm_m != m or ' ' in disasm_m or '[' in disasm_m)
 
-            if is_bitmap and '[' not in m:
-                print("***", m, datum['split_mnemonic'])
+            # if is_bitmap and '[' not in m:
+            #     print("***", m, datum['split_mnemonic'])
 
             if '[' in m:
                 continue
