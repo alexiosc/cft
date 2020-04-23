@@ -564,7 +564,7 @@ start RST=1, INT=0, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 
 #define JPA    _INSTR(0000), I=1, R=1, SUBOP=000, COND=X, IDX=XX
 #define JSA    _INSTR(0000), I=1, R=1, SUBOP=001, COND=X, IDX=XX
-//#define      _INSTR(0000), I=1, R=1, SUBOP=010, COND=X, IDX=XX // This is available
+#define PEEK   _INSTR(0000), I=1, R=1, SUBOP=010, COND=X, IDX=XX
 #define HCF    _INSTR(0000), I=1, R=1, SUBOP=011, COND=X, IDX=XX // HCF instruction for commit #666! ;)
 #define UOP    _INSTR(0000), I=1, R=1, SUBOP=100, COND=X, IDX=XX // ** SUBOP is not arbitrary!
 #define IFL    _INSTR(0000), I=1, R=1, SUBOP=101,         IDX=XX // ** SUBOP is not arbitrary!
@@ -779,7 +779,7 @@ start TRAP;
       STACK_PUSH(ac);                           // 06 mem[MBS:SP++] ← AC
       SET(pc, cs_softisr_pc);                   // 08 PC ← 0002
       SET(mbp, cs_softisr_mb);                  // 09 MBP ← 00
-      SET(dr, agl), END;                        // 10 DR ← AGL
+      SET(ac, agl), END;                        // 10 AC ← AGL
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1846,6 +1846,28 @@ start JSA;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       STACK_PUSH(pc);                           // 02 mem[MBS:SP++] ← PC
       SET(pc, ac), END;                         // 04 PC ← AC
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// THE PEEK INSTRUCTION
+//
+///////////////////////////////////////////////////////////////////////////////
+
+// MNEMONIC: PEEK
+// NAME:     Peek top of Stack
+// DESC:     Set the AC to the value at the top of the hardware stack.
+// GROUP:    Stack
+// MODE:     Implied
+// FLAGS:    *NZ---
+// FORMAT:   :-------
+//
+// Sets the AC to the value at the top of the hardware stack without
+// modifying the stack pointer.
+
+start PEEK;
+      FETCH_IR;                                 // 00 IR ← mem[PC++]
+      STACK_POP(ac), action_incsp, END;         // 02 AC ← mem[SP-1]
 
 
 ///////////////////////////////////////////////////////////////////////////////
