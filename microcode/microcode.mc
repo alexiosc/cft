@@ -2697,7 +2697,7 @@ start OUT, I=1, R=1, IDX=IDX_SP;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBZ:AGL]
       action_decdr;				// 04 DR--
-      IOWRITE(dr, ac), action_incdr;            // 05 AC ← io[DR]
+      IOWRITE(dr, ac);                          // 05 AC ← io[DR]
       MEMWRITE(mbz, agl, dr), END;              // 07 mem[MBZ:AGL] ← DR
 
 
