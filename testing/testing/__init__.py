@@ -115,7 +115,7 @@ def get_capsys_outerr(capsys):
 
 
 def run_verilog_testbench(capsys, name, args=None):
-    m = re.match("^(.+?)(_tb)?(\.[ov])?$", name)
+    m = re.match(r"^(.+?)(_tb)?(\.[ov])?$", name)
     testbench = m.group(0) + "_tb.v"
     binary = m.group(0) + "_tb.o"
 
@@ -158,7 +158,7 @@ def run_verilog_testbench(capsys, name, args=None):
 
     for line in out.split('\n'):
         #print("*** Line:", line)
-        m = re.match('^(\d\d\d) ([^: ]+)(?::?\s*(.+))?$', line.strip())
+        m = re.match(r'^(\d\d\d) ([^: ]+)(?::?\s*(.+))?$', line.strip())
         if not m:
             #print("Ignored line:", line)
             continue
