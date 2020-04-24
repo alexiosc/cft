@@ -136,12 +136,14 @@ module card_verilog_test (
 
    always begin
       // Keep the timer rate relatively prime to the clock speed.
-      #167 begin
-	 if (nirq_ctr == 0) begin
-	    nirq_drv = 1'b0;
-	 end else begin
-	   nirq_ctr = nirq_ctr - 1;
-	 end
+      #277 begin
+	 if (nirq_en == 0) begin
+	    if (nirq_ctr == 0) begin
+	       nirq_drv = 1'b0;
+	    end else begin
+	       nirq_ctr = nirq_ctr - 1;
+	    end
+	 end else nirq_drv = 1'bz;
       end
    end
 

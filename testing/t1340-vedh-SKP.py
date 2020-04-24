@@ -13,8 +13,6 @@ from testing import *
 
 
 """
-.equ    IRET    &0000            ; 0000:0:0:000:-------  Interrupt Return
-.equ    ISR     &0400            ; 0000:0:1:000:LLLLLLL  Software Interrupt
 .equ    STI     &0680            ; 0000:0:1:101:-------  Set Interrupt Flag
 .equ    CLI     &0700            ; 0000:0:1:110:-------  Clear Interrupt Flag
 .equ    WAIT    &0780            ; 0000:0:1:111:LLLLLLL  Wait for Interrupt
