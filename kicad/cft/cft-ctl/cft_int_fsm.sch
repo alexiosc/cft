@@ -343,7 +343,7 @@ Wire Wire Line
 	6050 5700 6050 5300
 Text Label 6750 5300 2    50   ~ 0
 ENDCP
-Text Label 6750 5200 2    50   ~ 0
+Text Label 6500 5200 0    50   ~ 0
 ~IRQ1
 NoConn ~ 5850 5400
 Wire Wire Line
@@ -352,8 +352,6 @@ Wire Wire Line
 	6050 5100 6050 5200
 Wire Wire Line
 	5850 5100 6050 5100
-Text Label 6200 5100 0    50   ~ 0
-~RESET-OR-CLI
 Wire Wire Line
 	6050 5300 6800 5300
 $Comp
@@ -376,7 +374,7 @@ ENDCP
 Wire Wire Line
 	7750 5400 7700 5400
 Wire Wire Line
-	6150 5100 6800 5100
+	6500 5100 6800 5100
 Wire Wire Line
 	5200 2300 2250 2300
 Text Label 6800 3600 2    50   ~ 0
@@ -437,9 +435,7 @@ IBUS15
 Text Label 2350 2300 0    50   ~ 0
 ~RESET
 Wire Wire Line
-	4350 5100 4350 4300
-Wire Wire Line
-	4350 4300 8050 4300
+	4350 5100 4350 4400
 Wire Wire Line
 	4350 5100 4950 5100
 Wire Wire Line
@@ -448,8 +444,6 @@ Connection ~ 8050 3300
 Wire Wire Line
 	8050 3300 8150 3300
 NoConn ~ 7750 3600
-Text Label 7800 3300 0    50   ~ 0
-~INH
 $Comp
 L alexios:74LVC1G74 U13
 U 1 1 5ED47F01
@@ -461,7 +455,7 @@ F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G74.pdf" H 7750 3450
 	1    7300 3450
 	1    0    0    -1  
 $EndComp
-Text Label 4400 4300 0    50   ~ 0
+Text Label 4400 4400 0    50   ~ 0
 ~INH
 Text Label 4950 5100 2    50   ~ 0
 ~INH
@@ -485,8 +479,6 @@ $EndComp
 Wire Wire Line
 	8150 3500 8050 3500
 Connection ~ 8050 3500
-Wire Wire Line
-	8050 3500 8050 4300
 $Comp
 L Connector:TestPoint TP3
 U 1 1 5ED75C31
@@ -884,11 +876,8 @@ Wire Wire Line
 	5100 3400 5100 3900
 Wire Wire Line
 	6050 3850 6150 3850
-Connection ~ 6150 3850
 Wire Wire Line
 	6150 3850 6150 3600
-Wire Wire Line
-	6150 3850 6150 5100
 Text Label 5600 3900 2    50   ~ 0
 ~ACTION-CLI
 Text Notes 800  850  0    98   ~ 20
@@ -944,6 +933,85 @@ Text Notes 8400 4100 0    50   ~ 0
 This is used to select addressing modes.
 Text Notes 8400 3200 0    50   ~ 0
 This is output to the Flag Unit.
+Text Label 6500 5100 0    50   ~ 0
+~RESET
+Wire Wire Line
+	4550 4400 4350 4400
+$Comp
+L alexios:74LVC1G08 U25
+U 1 1 5ED6CD5B
+P 4700 4400
+F 0 "U25" H 4625 4575 50  0000 C CNN
+F 1 "74LVC1G08" H 4625 4666 50  0000 C CNN
+F 2 "alexios:SOT-23-5_HandSoldering" H 4350 4400 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 4350 4400 50  0001 C CNN
+	1    4700 4400
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	5000 4350 6150 4350
+Wire Wire Line
+	6150 4350 6150 3850
+Connection ~ 6150 3850
+Wire Wire Line
+	5000 4450 8050 4450
+Wire Wire Line
+	8050 3500 8050 4450
+Text Label 5100 4350 0    50   ~ 0
+~RESET-OR-CLI
+Text Label 7800 3300 0    50   ~ 0
+~INH₀
+Text Label 5100 4450 0    50   ~ 0
+~INH₀
+$Comp
+L Device:C_Small C?
+U 1 1 5ED8BD3E
+P 9950 5300
+AR Path="/5CC0D65F/5ED8BD3E" Ref="C?"  Part="1" 
+AR Path="/5ED8BD3E" Ref="C?"  Part="1" 
+AR Path="/5F67D4B5/5ED8BD3E" Ref="C4"  Part="1" 
+F 0 "C4" H 9859 5346 50  0000 R CNN
+F 1 "100nF" H 9859 5255 50  0000 R CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 9950 5300 50  0001 C CNN
+F 3 "~" H 9950 5300 50  0001 C CNN
+	1    9950 5300
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR0109
+U 1 1 5ED8BD44
+P 9950 5200
+F 0 "#PWR0109" H 9950 5050 50  0001 C CNN
+F 1 "+5V" H 9965 5373 50  0000 C CNN
+F 2 "" H 9950 5200 50  0001 C CNN
+F 3 "" H 9950 5200 50  0001 C CNN
+	1    9950 5200
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0124
+U 1 1 5ED8BD4A
+P 9950 5400
+F 0 "#PWR0124" H 9950 5150 50  0001 C CNN
+F 1 "GND" H 9955 5227 50  0000 C CNN
+F 2 "" H 9950 5400 50  0001 C CNN
+F 3 "" H 9950 5400 50  0001 C CNN
+	1    9950 5400
+	1    0    0    -1  
+$EndComp
 Wire Bus Line
 	3050 2850 3050 3600
+$Comp
+L alexios:74LVC1G08 U25
+U 2 1 5ED8D07D
+P 10400 5200
+F 0 "U25" H 10480 5146 50  0000 L CNN
+F 1 "74LVC1G08" H 10480 5055 50  0000 L CNN
+F 2 "alexios:SOT-23-5_HandSoldering" H 10050 5200 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 10050 5200 50  0001 C CNN
+	2    10400 5200
+	1    0    0    -1  
+$EndComp
+Connection ~ 9950 5400
+Connection ~ 9950 5200
 $EndSCHEMATC
