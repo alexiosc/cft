@@ -18,7 +18,8 @@ from testing import *
 @pytest.mark.STORE
 @pytest.mark.LJMP
 @pytest.mark.TRAP
-def test_TRAP(capsys, tmpdir):
+@pytest.mark.IRET
+def test_IRET(capsys, tmpdir):
     source = """
     .include "mbu.asm"
     .include "dfp2.asm"
@@ -42,9 +43,28 @@ def test_TRAP(capsys, tmpdir):
 
             LI &42
             dfp.PRINTH
-            TRAP 99
+            TRAP 0
             dfp.PRINTH
-            FAIL
+            SUCCESS
+
+            LI &42
+            dfp.PRINTH
+            TRAP 1
+            dfp.PRINTH
+            SUCCESS
+
+            LI &42
+            dfp.PRINTH
+            TRAP 2
+            dfp.PRINTH
+            SUCCESS
+
+            LI &42
+            dfp.PRINTH
+            TRAP 127
+            dfp.PRINTH
+            SUCCESS
+
             HALT
 
     isr0:   LJMP 4        ; 00:0002:
@@ -56,24 +76,42 @@ def test_TRAP(capsys, tmpdir):
     thr:    dfp.PRINTH
             PPA
             dfp.PRINTH
-            LI 1
-            PPA
-            SUCCESS
-            HALT
+            LI 666
+            PHA
+            IRET
 
     """.format(**locals())
 
     expected = ExpectedData([ SUCCESS,
                               [ 340, "PRINTH", "0042" ],
-                              [ 340, "PRINTH", "0063" ],
+                              [ 340, "PRINTH", "0000" ],
                               [ 340, "PRINTH", "0042" ],
+                              [ 340, "PRINTH", "029a" ],
                               SUCCESS,
+                              
+                              [ 340, "PRINTH", "0042" ],
+                              [ 340, "PRINTH", "0001" ],
+                              [ 340, "PRINTH", "0042" ],
+                              [ 340, "PRINTH", "029a" ],
+                              SUCCESS,
+                              
+                              [ 340, "PRINTH", "0042" ],
+                              [ 340, "PRINTH", "0002" ],
+                              [ 340, "PRINTH", "0042" ],
+                              [ 340, "PRINTH", "029a" ],
+                              SUCCESS,
+                              
+                              [ 340, "PRINTH", "0042" ],
+                              [ 340, "PRINTH", "007f" ],
+                              [ 340, "PRINTH", "0042" ],
+                              [ 340, "PRINTH", "029a" ],
+                              SUCCESS,
+
                               HALTED ])
     result = run_on_verilog_emu(capsys, tmpdir, source, long=True)
-    # pprint.pprint(list(result))
+    #pprint.pprint(list(result))
     # assert False
     result = list(expected.prepare(result))
-
     assert list(result) == expected
 
 
