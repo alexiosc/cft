@@ -102,7 +102,7 @@ def test_PPA(capsys, tmpdir):
 @pytest.mark.slow
 def test_PPA_long(capsys, tmpdir):
 
-    reps = 2
+    reps = 1024
     
     source = """
     .include "mbu.asm"

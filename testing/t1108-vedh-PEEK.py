@@ -117,9 +117,9 @@ def test_PEEK(capsys, tmpdir):
 @pytest.mark.TSA
 @pytest.mark.PEEK
 @pytest.mark.slow
-def test_PPA_long(capsys, tmpdir):
+def test_PEEK_long(capsys, tmpdir):
 
-    reps = 2
+    reps = 1024
     
     source = """
     .include "mbu.asm"

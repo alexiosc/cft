@@ -1,15 +1,15 @@
 [*]
-[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Fri Apr 24 16:27:12 2020
+[*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
+[*] Sat Apr 25 09:46:53 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/cft2019_tb.vcd"
-[dumpfile_mtime] "Fri Apr 24 16:16:05 2020"
-[dumpfile_size] 319469
+[dumpfile_mtime] "Sat Apr 25 09:45:53 2020"
+[dumpfile_size] 7343353
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/cft2019_tb.sav"
-[timestart] 8650000
-[size] 2048 1123
+[timestart] 399680000
+[size] 3686 1579
 [pos] -1 -1
-*-20.628899 18435000 21508750 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-21.362373 -1 21508750 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] cft2019_tb.
 [treeopen] cft2019_tb.cft.
 [treeopen] cft2019_tb.cft.card_bus.constant_store.
@@ -17,10 +17,10 @@
 [treeopen] cft2019_tb.cft.card_ctl.ism.
 [treeopen] cft2019_tb.cft.card_mem.romhi.
 [treeopen] cft2019_tb.cft.card_reg.reg_ac.
-[sst_width] 258
-[signals_width] 494
+[sst_width] 372
+[signals_width] 673
 [sst_expanded] 1
-[sst_vpaned_height] 322
+[sst_vpaned_height] 492
 @800200
 -Reset
 @28

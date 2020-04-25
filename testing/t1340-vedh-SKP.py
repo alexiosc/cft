@@ -13,8 +13,6 @@ from testing import *
 
 
 """
-.equ    STI     &0680            ; 0000:0:1:101:-------  Set Interrupt Flag
-.equ    CLI     &0700            ; 0000:0:1:110:-------  Clear Interrupt Flag
 .equ    WAIT    &0780            ; 0000:0:1:111:LLLLLLL  Wait for Interrupt
 .equ    HCF     &0d80            ; 0000:1:1:011:-------  Halt and Catch Fire
 
@@ -30,8 +28,6 @@ from testing import *
 .equ    INC     UOP     #0000100 ; 0000:1:1:100:----1--  Increment Accumulator
 .equ    DEC     UOP     #0000010 ; 0000:1:1:100:-----1-  Decrement Accumulator
 .equ    CPL     UOP     #0000001 ; 0000:1:1:100:------1  Complement Link
-
-.equ    OUT     &6000            ; 0110:I:R:mmmmmmmmmm   Output to I/O Space
 
 .equ    ADD     &c000            ; 1100:I:R:mmmmmmmmmm   Add To Accumulator
 .equ    AND     &d000            ; 1101:I:R:mmmmmmmmmm   Bitwise AND With Accumulator
