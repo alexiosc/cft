@@ -19,11 +19,22 @@ from testing import *
 @pytest.mark.LOAD
 @pytest.mark.STORE
 @pytest.mark.LJMP
-@pytest.mark.TRAP
-def test_TRAP(capsys, tmpdir):
+@pytest.mark.IRET
+@pytest.mark.STI
+@pytest.mark.WAIT
+def test_WAIT(capsys, tmpdir):
+    num_waits = 32
     source = """
     .include "mbu.asm"
     .include "dfp2.asm"
+
+    &000000:
+            SUCCESS
+            SUCCESS
+            HALT
+            LJMP 4
+            .data thr
+            .data &82
 
     &800000:
             LI &80        ; Configure essential MBRs and enable.
@@ -33,52 +44,45 @@ def test_TRAP(capsys, tmpdir):
             LI &01        ; Configure essential MBRs and enable.
             SMB mbu.MBS   ; MBZ=MBS makes reading the stack easier
 
-            LOAD isr0     ; Install the THR
+            LI 1023
+            STORE R 1
+            STI
+            LI &80
+            OUT &3ff
+
+            LI @{num_waits}-1
             STORE R 2
-            LOAD @isr0+1
-            STORE R 3
-            LOAD @isr0+2
-            STORE R 4
-            LOAD @isr0+3
-            STORE R 5
+    loop:   CLI
+            WAIT
+            SUCCESS
+            DSZ R 2
+            JMP loop
 
-            LI &42
-            dfp.PRINTH
-            TRAP 99
-            dfp.PRINTH
-            FAIL
             HALT
-
-    isr0:   LJMP 4        ; 00:0002:
-            HALT          ; 00:0003: Don't allow hardware interrupts.
-            .data thr     ; 00:0004: Trap Handler Routine Address
-            .data &82     ; 00:0005: THR memory bank
 
     &828000:
-    thr:    dfp.PRINTH
-            PPA
-            dfp.PRINTH
-            LI 1
-            PPA
-            SUCCESS
-            HALT
+    thr:    LOAD R 1
+            dfp.PRINTD
+            SNZ
+            IRET
+            DSZ R 1
+            NOP
+            LI &80
+            OUT &3ff
+            IRET
 
     """.format(**locals())
 
-    expected = ExpectedData([ SUCCESS,
-                              [ 340, "PRINTH", "0042" ],
-                              [ 340, "PRINTH", "0063" ],
-                              [ 340, "PRINTH", "0042" ],
-                              SUCCESS,
-                              HALTED ])
+    expected = ExpectedData([ SUCCESS ])
+    for x in range(num_waits):
+        expected += [ [ 340, 'PRINTD', str(1023 - x) ], SUCCESS ]
+    expected += [ HALTED ]
+
     result = run_on_verilog_emu(capsys, tmpdir, source, long=True)
     # pprint.pprint(list(result))
     # assert False
     result = list(expected.prepare(result))
-
     assert list(result) == expected
-
-
 if __name__ == "__main__":
     print("Run this with pytest-3!")
 

@@ -13,6 +13,8 @@ from testing import *
 
 
 @pytest.mark.verilog
+@pytest.mark.emulator
+@pytest.mark.hardware
 @pytest.mark.LI
 @pytest.mark.LOAD
 @pytest.mark.STORE
