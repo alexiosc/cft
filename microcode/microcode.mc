@@ -551,7 +551,9 @@ start RST=1, INT=0, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 #define PPF    _INSTR(0000), I=0, R=1, SUBOP=100, COND=X, IDX=XX
 #define STI    _INSTR(0000), I=0, R=1, SUBOP=101, COND=X, IDX=XX
 #define CLI    _INSTR(0000), I=0, R=1, SUBOP=110, COND=X, IDX=XX
-#define WAIT   _INSTR(0000), I=0, R=1, SUBOP=111, COND=X, IDX=XX
+
+// WAIT has its own interrupt handler.
+#define WAIT   OP=0000,      I=0, R=1, SUBOP=111, COND=X, IDX=XX, RST=1, IN_RESERVED=X
 
 #define SRU    _INSTR(0000), I=1, R=0, SUBOP=000, COND=X, IDX=XX // All shifts and rolls are here.
 #define SKP    _INSTR(0000), I=1, R=0, SUBOP=001, COND=X, IDX=XX // Skips
@@ -766,11 +768,10 @@ start TDA;
 // FLAGS:    ---i-
 // FORMAT:   :LLLLLLL
 //
-// Calls the Interrupt Service Routine. The 7-bit value in the operand
-// is written to the DR. An ISR can transfer this value to the AC to
-// implement custom software interrupts or traps. The PC will jump to
-// long address 00:0002. Note that hardware interrupts jump to
-// 00:0003.
+// Calls the Interrupt Service Routine. The 7-bit value in the operand is
+// written to the AC. An ISR can use this to implement custom software
+// interrupts or traps. The PC will jump to long address 00:0002. Note that
+// hardware interrupts jump to 00:0003.
 
 start TRAP;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
@@ -920,6 +921,8 @@ start CLI;
 //
 ///////////////////////////////////////////////////////////////////////////////
 
+// Removed, as it fails after IRET. JMP @ works just as well.
+
 // MNEMONIC: WAIT
 // NAME:     Wait for Interrupt
 // DESC:     Suspends program execution until an interrupt arrives.
@@ -933,9 +936,8 @@ start CLI;
 // jumps to the Interrupt Service Routine. When the interrupt has been
 // serviced, program execution resumes with the instruction after WAIT.
 //
-// Like the ISR instruction, the 7-bit value in the operand is written to the
-// DR. An ISR can transfer this value to the AC to implement custom software
-// interrupts or traps.
+// Like the TRAP instruction, the 7-bit value in the operand is written to the
+// AC. An ISR can use this to to implement custom software interrupts or traps.
 //
 // NOTES:
 //
@@ -948,11 +950,19 @@ start CLI;
 // interrupt handler microprogram gets executed. That can only happen when END
 // is asserted. Conveniently, we're asserting END on every processor cycle.
 //
+// A side-effect of this is that WAIT can't have a Fetch part, because control
+// never leaves it. Thus, it's necessary for the WAIT instruction to have its
+// own, custom ISR microprogram with a Fetch cycle at the end. That Fetch loads
+// the IR with the first instruction of the Interrupt service routine, which
+// exits both the WAIT microprogram *and* the WAIT ISR microprogram
+// simultaneously and allows execution to proceed.
+//
 // While WAIT is active, the front panel will appear to be stuck in the ‘Fetch’
-// state with the µPC stuck to zero and Interrupts enabled.
+// state with the µPC stuck to zero and Interrupts enabled. The fetch cycle at
+// the end of the WAIT ISR will never be indicated.
 
-start WAIT;
-      SET(dr, agl), action_sti, END;  // 00 DR ← AGL; STI; loop forever
+start WAIT, INT=1;
+      SET(ac, agl), action_sti, END;  // 00 DR ← AGL; STI; loop forever
       hold;                           // 01   And keep on doing this.
       hold;                           // 02 Instruction entry point.
       hold;                           // 03 
@@ -968,6 +978,16 @@ start WAIT;
       hold;                           // 13 
       hold;                           // 14 
       hold;                           // 15 
+
+// To make this work, WAIT needs its own interrupt service microprogram. It works exactly like the ps 
+start WAIT, INT=0;
+      STACK_PUSH(mbp_flags);                    // 00 mem[MBS:SP++] ← <flags,MBP>
+      action_cli, STACK_PUSH(pc);               // 02 mem[MBS:SP++] ← PC; CLI
+      STACK_PUSH(ac);                           // 04 mem[MBS:SP++] ← AC
+      SET(pc, cs_isrvec_pc);			// 06 PC ← 0003
+      SET(mbp, cs_isrvec_mb);                   // 07 MBP ← 00
+      MEMREAD(mbp, pc, ir), END;                // 08 IR ← [MBP:PC]
+
 
 ///////////////////////////////////////////////////////////////////////////////
 //
