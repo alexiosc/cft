@@ -203,7 +203,8 @@ class ParseMicrocode(object):
 
         # Sanity check what we have so far.
         try:
-            for f in ['RST', 'INT', 'RESERVED', 'OP']:
+            #for f in ['RST', 'INT', 'RESERVED', 'OP']:
+            for f in ['RST', 'RESERVED', 'OP']:
                 if len(set(x[f] for x in progs)) != 1:
                     values = ", ".join(set(x[f] for x in progs))
                     self.fail("{} fields are not all identical for this instruction. Values: {}".format(f, values))
