@@ -824,6 +824,12 @@ K TTL DFF
 F https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf
 $ENDCMP
 #
+$CMP 74HC75
+D Quad bistable transparent latch
+K quad latch 4-bit
+F https://assets.nexperia.com/documents/data-sheet/74HC75.pdf
+$ENDCMP
+#
 $CMP 74HC85
 D 4-bit Comparator
 K TTL COMP ARITH
@@ -984,6 +990,12 @@ $CMP 74HCT74
 D Dual D Flip-flop, Set & Reset
 K TTL DFF
 F 74xx/74hc_hct74.pdf
+$ENDCMP
+#
+$CMP 74HCT75
+D 4-bit Latch
+K quad latch 4-bit
+F https://assets.nexperia.com/documents/data-sheet/74HC75.pdf
 $ENDCMP
 #
 $CMP 74HCT85
@@ -1152,6 +1164,12 @@ $CMP 74LS670
 D 4 x 4 Register Files Open Collector
 K TTL Register OpenCol
 F http://www.ti.com/lit/gpn/sn74LS170
+$ENDCMP
+#
+$CMP 74LS75
+D 4-bit Latch
+K quad latch 4-bit
+F http://www.ti.com/lit/gpn/sn74LS75
 $ENDCMP
 #
 $CMP 74LS85

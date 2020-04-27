@@ -91,6 +91,7 @@ module reg_l(nrsthold, clk4,
    input  clk4;
    input  naction_cpl;
    input  ibus12;
+   input  flin_add_toggle;
    input  flin_add;
    input  flin_sru;
    input  nread_alu_add;
@@ -102,12 +103,18 @@ module reg_l(nrsthold, clk4,
    output fl, flfast;
 
    wire   nfl;
+
+   // TODO: ADD THIS BACK TO THE SCHEMATICS
+   assign flin_add_toggle = flin_add ^ fl;
    
    // Cascaded 1-of-3 priotiry selector for input data, with a 21ns delay line
    // so flip flop hold times aren't violated.
    wire   ld, ld0;
+   // mux_253h ld_mux (.sel({nflagwe, nread_alu_add}),
+   // 		    .i({flin_sru, flin_add, ibus12, ibus12}),
+   // 		    .noe(1'b0), .y(ld0));
    mux_253h ld_mux (.sel({nflagwe, nread_alu_add}),
-   		    .i({flin_sru, flin_add, ibus12, ibus12}),
+   		    .i({flin_sru, flin_add_toggle, ibus12, ibus12}),
    		    .noe(1'b0), .y(ld0));
    assign #21 ld = ld0;
 
