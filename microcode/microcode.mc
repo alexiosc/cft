@@ -3021,26 +3021,26 @@ start AND, I=1, R=1, IDX=XX;
 start AND, I=1, R=1, IDX=IDX_INC;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBZ:AGL]
-      MEMREAD_IDX(mbd, dr, alu_b), action_incdr;// 04 B ← mem[MBn:DR]; DR++;
-      MEMWRITE(mbz, agl, dr);                   // 06 mem[MBZ:AGL] ← DR
-      SET(ac, alu_and), END;                    // 08 AC ← AC & B
+      MEMREAD_IDX(mbd, dr, alu_b);		// 04 B ← mem[MBn:DR]
+      SET(ac, alu_and), action_incdr;		// 06 AC ← AC & B; DR++
+      MEMWRITE(mbz, agl, dr), END;              // 07 mem[MBZ:AGL] ← DR
 
 // (7) AND, Auto-Decrement
 start AND, I=1, R=1, IDX=IDX_DEC;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBZ:AGL]
-      MEMREAD_IDX(mbd, dr, alu_b), action_decdr;// 04 B ← mem[MBn:DR]; DR--;
-      MEMWRITE(mbz, agl, dr);                   // 06 mem[MBZ:AGL] ← DR
-      SET(ac, alu_and), END;                    // 08 AC ← AC & B
+      MEMREAD_IDX(mbd, dr, alu_b);		// 04 B ← mem[MBn:DR]
+      SET(ac, alu_and), action_decdr;		// 06 AC ← AC & B; DR--
+      MEMWRITE(mbz, agl, dr), END;              // 07 mem[MBZ:AGL] ← DR
 
 // (8) AND, Stack
 start AND, I=1, R=1, IDX=IDX_SP;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
-      MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBZ:AGL]
+      MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBD:AGL]
       action_decdr;                             // 04 DR--
       MEMREAD_IDX(mbd, dr, alu_b);              // 05 B ← mem[MBn:DR];
-      MEMWRITE(mbz, agl, dr);                   // 07 mem[MBZ:AGL] ← DR
-      SET(ac, alu_and), END;                    // 09 AC ← AC & B
+      SET(ac, alu_and);                         // 07 AC ← AC & B
+      MEMWRITE(mbz, agl, dr), END;              // 08 mem[MBD:AGL] ← DR
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -3100,26 +3100,26 @@ start OR, I=1, R=1, IDX=XX;
 start OR, I=1, R=1, IDX=IDX_INC;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBZ:AGL]
-      MEMREAD_IDX(mbd, dr, alu_b), action_incdr;// 04 B ← mem[MBn:DR]; DR++;
-      MEMWRITE(mbz, agl, dr);                   // 06 mem[MBZ:AGL] ← DR
-      SET(ac, alu_or), END;                     // 08 AC ← AC | B
+      MEMREAD_IDX(mbd, dr, alu_b);		// 04 B ← mem[MBn:DR]
+      SET(ac, alu_or), action_incdr;		// 06 AC ← AC | B; DR++
+      MEMWRITE(mbz, agl, dr), END;              // 07 mem[MBZ:AGL] ← DR
 
 // (7) OR, Auto-Decrement
 start OR, I=1, R=1, IDX=IDX_DEC;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBZ:AGL]
-      MEMREAD_IDX(mbd, dr, alu_b), action_decdr;// 04 B ← mem[MBn:DR]; DR--;
-      MEMWRITE(mbz, agl, dr);                   // 06 mem[MBZ:AGL] ← DR
-      SET(ac, alu_or), END;                     // 08 AC ← AC | B
+      MEMREAD_IDX(mbd, dr, alu_b);		// 04 B ← mem[MBn:DR]
+      SET(ac, alu_or), action_decdr;		// 06 AC ← AC | B; DR--
+      MEMWRITE(mbz, agl, dr), END;              // 07 mem[MBZ:AGL] ← DR
 
 // (8) OR, Stack
 start OR, I=1, R=1, IDX=IDX_SP;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
-      MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBZ:AGL]
-      action_decdr;                             // 04 DR--;
+      MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBD:AGL]
+      action_decdr;                             // 04 DR--
       MEMREAD_IDX(mbd, dr, alu_b);              // 05 B ← mem[MBn:DR];
-      MEMWRITE(mbz, agl, dr);                   // 07 mem[MBZ:AGL] ← DR
-      SET(ac, alu_or), END;                     // 09 AC ← AC | B
+      SET(ac, alu_or);                          // 07 AC ← AC | B
+      MEMWRITE(mbz, agl, dr), END;              // 08 mem[MBD:AGL] ← DR
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -3179,25 +3179,25 @@ start XOR, I=1, R=1, IDX=XX;
 start XOR, I=1, R=1, IDX=IDX_INC;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBZ:AGL]
-      MEMREAD_IDX(mbd, dr, alu_b), action_incdr;// 04 B ← mem[MBn:DR]; DR++;
-      MEMWRITE(mbz, agl, dr);                   // 06 mem[MBD:AGL] ← DR
-      SET(ac, alu_xor), END;                    // 08 AC ← AC ^ B
+      MEMREAD_IDX(mbd, dr, alu_b);		// 04 B ← mem[MBn:DR]
+      SET(ac, alu_xor), action_incdr;		// 06 AC ← AC ^ B; DR++
+      MEMWRITE(mbz, agl, dr), END;              // 07 mem[MBZ:AGL] ← DR
 
 // (7) XOR, Auto-Decrement
 start XOR, I=1, R=1, IDX=IDX_DEC;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBZ:AGL]
-      MEMREAD_IDX(mbd, dr, alu_b), action_decdr;// 04 B ← mem[MBn:DR]; DR--;
-      MEMWRITE(mbz, agl, dr);                   // 06 mem[MBD:AGL] ← DR
-      SET(ac, alu_xor), END;                    // 08 AC ← AC ^ B
+      MEMREAD_IDX(mbd, dr, alu_b);		// 04 B ← mem[MBn:DR]
+      SET(ac, alu_xor), action_decdr;		// 06 AC ← AC ^ B; DR--
+      MEMWRITE(mbz, agl, dr), END;              // 07 mem[MBZ:AGL] ← DR
 
 // (8) XOR, Stack
 start XOR, I=1, R=1, IDX=IDX_SP;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
-      MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBZ:AGL]
-      action_decdr;                             // 04 DR--;
+      MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBD:AGL]
+      action_decdr;                             // 04 DR--
       MEMREAD_IDX(mbd, dr, alu_b);              // 05 B ← mem[MBn:DR];
-      MEMWRITE(mbz, agl, dr);                   // 07 mem[MBD:AGL] ← DR
-      SET(ac, alu_xor), END;                    // 09 AC ← AC ^ B
+      SET(ac, alu_xor);                         // 07 AC ← AC ^ B
+      MEMWRITE(mbz, agl, dr), END;              // 08 mem[MBD:AGL] ← DR
 
 // End of file.
