@@ -2942,20 +2942,17 @@ start ADD, I=1, R=1, IDX=XX;
 start ADD, I=1, R=1, IDX=IDX_INC;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBZ:AGL]
-
-      MEMREAD_IDX(mbd, dr, alu_b);
-      SET(ac, alu_add), action_incdr;                    // 08 AC ← AC + B
-      MEMWRITE(mbz, agl, dr), END;                   // 06 mem[MBZ:AGL] ← DR
-
-// TODO: Figure out why the above ordering works, and the one below doesn't!
+      MEMREAD_IDX(mbd, dr, alu_b);		// 04 B ← mem[MBn:DR]
+      SET(ac, alu_add), action_incdr;		// 06 AC ← AC + B; DR++
+      MEMWRITE(mbz, agl, dr), END;              // 07 mem[MBZ:AGL] ← DR
 
 // (7) ADD, Auto-Decrement
 start ADD, I=1, R=1, IDX=IDX_DEC;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBZ:AGL]
-      MEMREAD_IDX(mbd, dr, alu_b), action_decdr;// 04 B ← mem[MBn:DR]; DR--;
-      MEMWRITE(mbz, agl, dr);                   // 06 mem[MBZ:AGL] ← DR
-      SET(ac, alu_add), END;                    // 08 AC ← AC + B
+      MEMREAD_IDX(mbd, dr, alu_b);		// 04 B ← mem[MBn:DR]
+      SET(ac, alu_add), action_decdr;		// 06 AC ← AC + B; DR--
+      MEMWRITE(mbz, agl, dr), END;              // 07 mem[MBZ:AGL] ← DR
 
 // (8) ADD, Stack
 start ADD, I=1, R=1, IDX=IDX_SP;

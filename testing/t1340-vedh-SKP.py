@@ -13,9 +13,6 @@ from testing import *
 
 
 """
-.equ    WAIT    &0780            ; 0000:0:1:111:LLLLLLL  Wait for Interrupt
-.equ    HCF     &0d80            ; 0000:1:1:011:-------  Halt and Catch Fire
-
 .equ    UOP     &0e00            ; UOP bitmap instruction
 .equ    IFL     &0e8c            ; IFL bitmap instruction
 .equ    IFV     &0f0c            ; IFV bitmap instruction

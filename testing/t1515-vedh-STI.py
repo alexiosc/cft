@@ -103,6 +103,8 @@ def test_STI(capsys, tmpdir):
     # assert False
     result = list(expected.prepare(result))
     assert list(result) == expected
+
+
 if __name__ == "__main__":
     print("Run this with pytest-3!")
 
