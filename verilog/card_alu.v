@@ -198,7 +198,7 @@ module card_alu(
    // TODO: check if clk4 is too early. The AC is set on the rising
    // edge of clk4 too. Maybe go for the rising edge of clk1?
 
-   alu_porta port_a (.ac(ac), .clk4(clk4), .a(a));
+   alu_porta port_a (.ac(ac), .clk4(nwrite_alu_b), .a(a));
 
    // In the schematics, bcp is an AND gate inside the Port B schematics.
    assign #7 bcp = nwrite_alu_b & bcp_sru;

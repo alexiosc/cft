@@ -1,20 +1,19 @@
 [*]
 [*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Mon Apr 27 08:07:51 2020
+[*] Wed Apr 29 13:09:33 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/cft2019_tb.vcd"
-[dumpfile_mtime] "Mon Apr 27 07:23:50 2020"
-[dumpfile_size] 2383606
+[dumpfile_mtime] "Wed Apr 29 13:03:06 2020"
+[dumpfile_size] 9099438
 [optimize_vcd]
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/cft2019_tb.sav"
-[timestart] 35546000
+[timestart] 8208000
 [size] 2048 1123
-[pos] 2047 -1
-*-19.018576 38262750 21508750 298714250 300214250 27251750 38753000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[pos] 6143 0
+*-20.558363 15071000 38120750 38370750 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] cft2019_tb.
 [treeopen] cft2019_tb.cft.
 [treeopen] cft2019_tb.cft.card_bus.constant_store.
-[treeopen] cft2019_tb.cft.card_ctl.
 [treeopen] cft2019_tb.cft.card_ctl.ism.
 [treeopen] cft2019_tb.cft.card_mem.romhi.
 [treeopen] cft2019_tb.cft.card_reg.reg_ac.
@@ -60,7 +59,7 @@ cft2019_tb.cft.card_ctl.nfpclk_or_clk
 -Clock
 @800200
 -Registers
-@23
+@22
 [color] 2
 +{pc[15:0]} cft2019_tb.cft.card_reg.reg_pc.out[15:0]
 @c00022
@@ -99,7 +98,7 @@ cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
 (14)cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
 [color] 1
 (15)cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
-@1401202
+@1401200
 -group_end
 @4022
 [color] 1
@@ -433,7 +432,7 @@ cft2019_tb.cft.card_alu.alu_sru.lsb_mux.sel[1:0]
 cft2019_tb.cft.card_alu.alu_sru.lsb_mux.y
 @1401200
 -Shifter/Rotator (SRU)
-@c00200
+@800200
 -Control Unit
 @820
 cft2019_tb.cft.card_ctl.clock_generator.state[15:0]
@@ -530,7 +529,7 @@ cft2019_tb.cft.nr
 [color] 2
 cft2019_tb.cft.nwen
 cft2019_tb.cft.card_ctl.microcode_sequencer.nend
-@1401200
+@1000200
 -Control Unit
 @c00200
 -Addressing
@@ -554,8 +553,39 @@ cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
 cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
 @1401200
 -Instruction Register
+@800200
+-ALU
 @200
 -
+@28
+cft2019_tb.cft.card_alu.nromoe
+cft2019_tb.cft.card_alu.nwrite_alu_b
+@24
+cft2019_tb.cft.card_alu.a[15:0]
+cft2019_tb.cft.card_alu.b[15:0]
+cft2019_tb.cft.card_alu.ibus[15:0]
+@28
+cft2019_tb.cft.card_alu.fl
+cft2019_tb.cft.card_alu.fv
+cft2019_tb.cft.card_reg.reg_ac.nwrite
+@22
+[color] 4
++{ac[15:0]} cft2019_tb.cft.card_reg.reg_ac.out[15:0]
+@25
+[color] 4
++{ac[15:0]} cft2019_tb.cft.card_reg.reg_ac.out[15:0]
+@2820
+^6 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/cycle_stage
+cft2019_tb.cft.card_ctl.clock_generator.state[15:0]
+@22
+cft2019_tb.cft.card_alu.alu_rom.ba0[16:0]
+cft2019_tb.cft.card_alu.alu_rom.ba1[16:0]
+cft2019_tb.cft.card_alu.alu_rom.ba2[12:0]
+cft2019_tb.cft.card_alu.alu_rom.bd0[7:0]
+cft2019_tb.cft.card_alu.alu_rom.bd1[7:0]
+cft2019_tb.cft.card_alu.alu_rom.bd2[7:0]
+@1000200
+-ALU
 @c00200
 -L Register
 @28

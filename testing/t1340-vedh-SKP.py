@@ -26,7 +26,6 @@ from testing import *
 .equ    DEC     UOP     #0000010 ; 0000:1:1:100:-----1-  Decrement Accumulator
 .equ    CPL     UOP     #0000001 ; 0000:1:1:100:------1  Complement Link
 
-.equ    ADD     &c000            ; 1100:I:R:mmmmmmmmmm   Add To Accumulator
 .equ    AND     &d000            ; 1101:I:R:mmmmmmmmmm   Bitwise AND With Accumulator
 .equ    OR      &e000            ; 1110:I:R:mmmmmmmmmm   Bitwise OR With Accumulator
 .equ    XOR     &f000            ; 1111:I:R:mmmmmmmmmm   Bitwise XOR With Accumulator

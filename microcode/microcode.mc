@@ -2960,8 +2960,8 @@ start ADD, I=1, R=1, IDX=IDX_SP;
       MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBD:AGL]
       action_decdr;                             // 04 DR--
       MEMREAD_IDX(mbd, dr, alu_b);              // 05 B ← mem[MBn:DR];
-      MEMWRITE(mbz, agl, dr);                   // 07 mem[MBD:AGL] ← DR
-      SET(ac, alu_add), END;                    // 09 AC ← AC + B
+      SET(ac, alu_add);                         // 07 AC ← AC + B
+      MEMWRITE(mbz, agl, dr), END;              // 08 mem[MBD:AGL] ← DR
 
 
 ///////////////////////////////////////////////////////////////////////////////
