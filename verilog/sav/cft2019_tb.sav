@@ -1,16 +1,16 @@
 [*]
-[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Wed Apr 29 13:09:33 2020
+[*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
+[*] Wed Apr 29 18:07:26 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/cft2019_tb.vcd"
-[dumpfile_mtime] "Wed Apr 29 13:03:06 2020"
-[dumpfile_size] 9099438
+[dumpfile_mtime] "Wed Apr 29 18:05:32 2020"
+[dumpfile_size] 9285255
 [optimize_vcd]
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/cft2019_tb.sav"
-[timestart] 8208000
-[size] 2048 1123
-[pos] 6143 0
-*-20.558363 15071000 38120750 38370750 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[timestart] 16874000
+[size] 3840 2032
+[pos] 4376 0
+*-16.305704 17235600 38120750 38370750 16501750 18751750 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] cft2019_tb.
 [treeopen] cft2019_tb.cft.
 [treeopen] cft2019_tb.cft.card_bus.constant_store.
@@ -18,9 +18,9 @@
 [treeopen] cft2019_tb.cft.card_mem.romhi.
 [treeopen] cft2019_tb.cft.card_reg.reg_ac.
 [sst_width] 372
-[signals_width] 319
+[signals_width] 825
 [sst_expanded] 1
-[sst_vpaned_height] 493
+[sst_vpaned_height] 890
 @800200
 -Reset
 @28
@@ -519,9 +519,10 @@ cft2019_tb.cft.card_ctl.waddr[4:0]
 cft2019_tb.cft.card_ctl.cond[4:0]
 ^5 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/action
 cft2019_tb.cft.card_ctl.action[3:0]
-@28
+@29
 [color] 3
 cft2019_tb.cft.nmem
+@28
 [color] 3
 cft2019_tb.cft.nio
 [color] 4
@@ -571,7 +572,7 @@ cft2019_tb.cft.card_reg.reg_ac.nwrite
 @22
 [color] 4
 +{ac[15:0]} cft2019_tb.cft.card_reg.reg_ac.out[15:0]
-@25
+@24
 [color] 4
 +{ac[15:0]} cft2019_tb.cft.card_reg.reg_ac.out[15:0]
 @2820
