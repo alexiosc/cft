@@ -11,28 +11,6 @@ import subprocess
 
 from testing import * 
 
-
-"""
-.equ    UOP     &0e00            ; UOP bitmap instruction
-.equ    IFL     &0e8c            ; IFL bitmap instruction
-.equ    IFV     &0f0c            ; IFV bitmap instruction
-.equ    NOP9    UOP     #0000000 ; 0000:1:1:100:0000000  No Operation, 9 Cycles
-.equ    CLA     UOP     #0100000 ; 0000:1:1:100:-1-----  Clear Accumulator
-.equ    CLL     UOP     #0010000 ; 0000:1:1:100:--1----  Clear Link
-.equ    SEL     UOP     #0010001 ; 0000:1:1:100:--1---1  Set Link
-.equ    NOT     UOP     #0001000 ; 0000:1:1:100:---1---  Complement Accumulator
-.equ    NEG     UOP     #0001100 ; 0000:1:1:100:---11--  Negate Accumulator
-.equ    INC     UOP     #0000100 ; 0000:1:1:100:----1--  Increment Accumulator
-.equ    DEC     UOP     #0000010 ; 0000:1:1:100:-----1-  Decrement Accumulator
-.equ    CPL     UOP     #0000001 ; 0000:1:1:100:------1  Complement Link
-
-.equ    AND     &d000            ; 1101:I:R:mmmmmmmmmm   Bitwise AND With Accumulator
-.equ    OR      &e000            ; 1110:I:R:mmmmmmmmmm   Bitwise OR With Accumulator
-.equ    XOR     &f000            ; 1111:I:R:mmmmmmmmmm   Bitwise XOR With Accumulator
-"""
-
-
-
 @pytest.mark.verilog
 @pytest.mark.emulator
 @pytest.mark.hardware
