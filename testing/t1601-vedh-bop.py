@@ -377,7 +377,7 @@ def _test_bool_I_R_autodec(capsys, tmpdir, instr, validator_fx):
             LI &01        ; Configure essential MBRs and enable.
             SMB mbu.MBS   ; MBZ=MBS makes reading the stack easier
 
-            LIA @data+128
+            LIA @data+127
             STORE R &380
             LI 63
             STORE R 0
@@ -398,6 +398,7 @@ def _test_bool_I_R_autodec(capsys, tmpdir, instr, validator_fx):
     data = list(make_data(validator_fx))
     for a, b, y in reversed(data):
         source += "\n            .data &{:>04x} &{:>04x} ; -> &{:>04x}".format(a, b, y)
+    source += "\n            .data &dead"
     for a, b, y in data:
         expected += [ [ 340, "PRINTH", "{:>04x}".format(y) ] ]
 
@@ -406,6 +407,8 @@ def _test_bool_I_R_autodec(capsys, tmpdir, instr, validator_fx):
 
     expected += [ HALTED ]
     result = run_on_verilog_emu(capsys, tmpdir, source)
+    # pprint.pprint(list(result))
+    # assert False
     result = list(expected.prepare(result))
     assert list(result) == expected
 
@@ -444,7 +447,8 @@ def _test_bool_I_R_stack(capsys, tmpdir, instr, validator_fx):
     total, fl = 0, 0
     data = list(make_data(validator_fx))
     for a, b, y in reversed(data):
-        source += "\n            .data &{:>04x} &{:>04x} ; -> &{:>04x}".format(a, b, y)
+        source += "\n            .data &{:>04x} &{:>04x} ; -> &{:>04x}".format(b, a, y)
+    source += "\n            .data &dead"
     for a, b, y in data:
         expected += [ [ 340, "PRINTH", "{:>04x}".format(y) ] ]
 
@@ -453,6 +457,8 @@ def _test_bool_I_R_stack(capsys, tmpdir, instr, validator_fx):
 
     expected += [ HALTED ]
     result = run_on_verilog_emu(capsys, tmpdir, source)
+    # pprint.pprint(list(result))
+    # assert False
     result = list(expected.prepare(result))
     assert list(result) == expected
 
@@ -460,6 +466,7 @@ def _test_bool_I_R_stack(capsys, tmpdir, instr, validator_fx):
 @pytest.mark.verilog
 @pytest.mark.emulator
 @pytest.mark.hardware
+@pytest.mark.alu
 @pytest.mark.LOAD
 @pytest.mark.AND
 def test_AND(capsys, tmpdir):
@@ -468,7 +475,9 @@ def test_AND(capsys, tmpdir):
 @pytest.mark.verilog
 @pytest.mark.emulator
 @pytest.mark.hardware
+@pytest.mark.alu
 @pytest.mark.LOAD
+@pytest.mark.STORE
 @pytest.mark.AND
 def test_AND_R(capsys, tmpdir):
     _test_bool_R(capsys, tmpdir, "AND", lambda a, b: a & b)
@@ -476,7 +485,9 @@ def test_AND_R(capsys, tmpdir):
 @pytest.mark.verilog
 @pytest.mark.emulator
 @pytest.mark.hardware
+@pytest.mark.alu
 @pytest.mark.LOAD
+@pytest.mark.STORE
 @pytest.mark.AND
 def test_AND_I(capsys, tmpdir):
     _test_bool_I(capsys, tmpdir, "AND", lambda a, b: a & b)
@@ -484,7 +495,9 @@ def test_AND_I(capsys, tmpdir):
 @pytest.mark.verilog
 @pytest.mark.emulator
 @pytest.mark.hardware
+@pytest.mark.alu
 @pytest.mark.LOAD
+@pytest.mark.STORE
 @pytest.mark.AND
 def test_AND_I_R(capsys, tmpdir):
     _test_bool_I_R(capsys, tmpdir, "AND", lambda a, b: a & b)
@@ -492,15 +505,24 @@ def test_AND_I_R(capsys, tmpdir):
 @pytest.mark.verilog
 @pytest.mark.emulator
 @pytest.mark.hardware
+@pytest.mark.alu
 @pytest.mark.LOAD
+@pytest.mark.STORE
+@pytest.mark.DSZ
+@pytest.mark.JMP
 @pytest.mark.AND
+@pytest.mark.STORE
 def test_AND_I_R_autoinc(capsys, tmpdir):
     _test_bool_I_R_autoinc(capsys, tmpdir, "AND", lambda a, b: a & b)
 
 @pytest.mark.verilog
 @pytest.mark.emulator
 @pytest.mark.hardware
+@pytest.mark.alu
 @pytest.mark.LOAD
+@pytest.mark.STORE
+@pytest.mark.DSZ
+@pytest.mark.JMP
 @pytest.mark.AND
 def test_AND_I_R_autodec(capsys, tmpdir):
     _test_bool_I_R_autodec(capsys, tmpdir, "AND", lambda a, b: a & b)
@@ -508,7 +530,11 @@ def test_AND_I_R_autodec(capsys, tmpdir):
 @pytest.mark.verilog
 @pytest.mark.emulator
 @pytest.mark.hardware
+@pytest.mark.alu
 @pytest.mark.LOAD
+@pytest.mark.STORE
+@pytest.mark.DSZ
+@pytest.mark.JMP
 @pytest.mark.AND
 def test_AND_I_R_stack(capsys, tmpdir):
     _test_bool_I_R_stack(capsys, tmpdir, "AND", lambda a, b: a & b)
@@ -518,6 +544,7 @@ def test_AND_I_R_stack(capsys, tmpdir):
 @pytest.mark.verilog
 @pytest.mark.emulator
 @pytest.mark.hardware
+@pytest.mark.alu
 @pytest.mark.LOAD
 @pytest.mark.OR
 def test_OR(capsys, tmpdir):
@@ -526,7 +553,9 @@ def test_OR(capsys, tmpdir):
 @pytest.mark.verilog
 @pytest.mark.emulator
 @pytest.mark.hardware
+@pytest.mark.alu
 @pytest.mark.LOAD
+@pytest.mark.STORE
 @pytest.mark.OR
 def test_OR_R(capsys, tmpdir):
     _test_bool_R(capsys, tmpdir, "OR", lambda a, b: a | b)
@@ -534,7 +563,9 @@ def test_OR_R(capsys, tmpdir):
 @pytest.mark.verilog
 @pytest.mark.emulator
 @pytest.mark.hardware
+@pytest.mark.alu
 @pytest.mark.LOAD
+@pytest.mark.STORE
 @pytest.mark.OR
 def test_OR_I(capsys, tmpdir):
     _test_bool_I(capsys, tmpdir, "OR", lambda a, b: a | b)
@@ -542,7 +573,9 @@ def test_OR_I(capsys, tmpdir):
 @pytest.mark.verilog
 @pytest.mark.emulator
 @pytest.mark.hardware
+@pytest.mark.alu
 @pytest.mark.LOAD
+@pytest.mark.STORE
 @pytest.mark.OR
 def test_OR_I_R(capsys, tmpdir):
     _test_bool_I_R(capsys, tmpdir, "OR", lambda a, b: a | b)
@@ -550,7 +583,11 @@ def test_OR_I_R(capsys, tmpdir):
 @pytest.mark.verilog
 @pytest.mark.emulator
 @pytest.mark.hardware
+@pytest.mark.alu
 @pytest.mark.LOAD
+@pytest.mark.STORE
+@pytest.mark.DSZ
+@pytest.mark.JMP
 @pytest.mark.OR
 def test_OR_I_R_autoinc(capsys, tmpdir):
     _test_bool_I_R_autoinc(capsys, tmpdir, "OR", lambda a, b: a | b)
@@ -558,7 +595,11 @@ def test_OR_I_R_autoinc(capsys, tmpdir):
 @pytest.mark.verilog
 @pytest.mark.emulator
 @pytest.mark.hardware
+@pytest.mark.alu
 @pytest.mark.LOAD
+@pytest.mark.STORE
+@pytest.mark.DSZ
+@pytest.mark.JMP
 @pytest.mark.OR
 def test_OR_I_R_autodec(capsys, tmpdir):
     _test_bool_I_R_autodec(capsys, tmpdir, "OR", lambda a, b: a | b)
@@ -566,7 +607,11 @@ def test_OR_I_R_autodec(capsys, tmpdir):
 @pytest.mark.verilog
 @pytest.mark.emulator
 @pytest.mark.hardware
+@pytest.mark.alu
 @pytest.mark.LOAD
+@pytest.mark.STORE
+@pytest.mark.DSZ
+@pytest.mark.JMP
 @pytest.mark.OR
 def test_OR_I_R_stack(capsys, tmpdir):
     _test_bool_I_R_stack(capsys, tmpdir, "OR", lambda a, b: a | b)
@@ -576,6 +621,7 @@ def test_OR_I_R_stack(capsys, tmpdir):
 @pytest.mark.verilog
 @pytest.mark.emulator
 @pytest.mark.hardware
+@pytest.mark.alu
 @pytest.mark.LOAD
 @pytest.mark.XOR
 def test_XOR(capsys, tmpdir):
@@ -584,7 +630,9 @@ def test_XOR(capsys, tmpdir):
 @pytest.mark.verilog
 @pytest.mark.emulator
 @pytest.mark.hardware
+@pytest.mark.alu
 @pytest.mark.LOAD
+@pytest.mark.STORE
 @pytest.mark.XOR
 def test_XOR_R(capsys, tmpdir):
     _test_bool_R(capsys, tmpdir, "XOR", lambda a, b: a ^ b)
@@ -592,7 +640,9 @@ def test_XOR_R(capsys, tmpdir):
 @pytest.mark.verilog
 @pytest.mark.emulator
 @pytest.mark.hardware
+@pytest.mark.alu
 @pytest.mark.LOAD
+@pytest.mark.STORE
 @pytest.mark.XOR
 def test_XOR_I(capsys, tmpdir):
     _test_bool_I(capsys, tmpdir, "XOR", lambda a, b: a ^ b)
@@ -600,7 +650,9 @@ def test_XOR_I(capsys, tmpdir):
 @pytest.mark.verilog
 @pytest.mark.emulator
 @pytest.mark.hardware
+@pytest.mark.alu
 @pytest.mark.LOAD
+@pytest.mark.STORE
 @pytest.mark.XOR
 def test_XOR_I_R(capsys, tmpdir):
     _test_bool_I_R(capsys, tmpdir, "XOR", lambda a, b: a ^ b)
@@ -608,7 +660,11 @@ def test_XOR_I_R(capsys, tmpdir):
 @pytest.mark.verilog
 @pytest.mark.emulator
 @pytest.mark.hardware
+@pytest.mark.alu
 @pytest.mark.LOAD
+@pytest.mark.STORE
+@pytest.mark.DSZ
+@pytest.mark.JMP
 @pytest.mark.XOR
 def test_XOR_I_R_autoinc(capsys, tmpdir):
     _test_bool_I_R_autoinc(capsys, tmpdir, "XOR", lambda a, b: a ^ b)
@@ -616,7 +672,9 @@ def test_XOR_I_R_autoinc(capsys, tmpdir):
 @pytest.mark.verilog
 @pytest.mark.emulator
 @pytest.mark.hardware
+@pytest.mark.alu
 @pytest.mark.LOAD
+@pytest.mark.STORE
 @pytest.mark.XOR
 def test_XOR_I_R_autodec(capsys, tmpdir):
     _test_bool_I_R_autodec(capsys, tmpdir, "XOR", lambda a, b: a ^ b)
@@ -624,7 +682,11 @@ def test_XOR_I_R_autodec(capsys, tmpdir):
 @pytest.mark.verilog
 @pytest.mark.emulator
 @pytest.mark.hardware
+@pytest.mark.alu
 @pytest.mark.LOAD
+@pytest.mark.STORE
+@pytest.mark.DSZ
+@pytest.mark.JMP
 @pytest.mark.XOR
 def test_XOR_I_R_stack(capsys, tmpdir):
     _test_bool_I_R_stack(capsys, tmpdir, "XOR", lambda a, b: a ^ b)
