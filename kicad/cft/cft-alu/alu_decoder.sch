@@ -222,19 +222,6 @@ Text Label 7100 2350 0    50   ~ 0
 ACTION2
 Text Label 7100 2250 0    50   ~ 0
 ACTION1
-$Comp
-L power:GND #PWR?
-U 1 1 5E1CEEB5
-P 7350 3000
-AR Path="/5E1CEEB5" Ref="#PWR?"  Part="1" 
-AR Path="/5E1C970B/5E1CEEB5" Ref="#PWR0208"  Part="1" 
-F 0 "#PWR0208" H 7350 2750 50  0001 C CNN
-F 1 "GND" H 7355 2827 50  0000 C CNN
-F 2 "" H 7350 3000 50  0001 C CNN
-F 3 "" H 7350 3000 50  0001 C CNN
-	1    7350 3000
-	1    0    0    -1  
-$EndComp
 Entry Wire Line
 	6950 4050 7050 4150
 Entry Wire Line
@@ -249,10 +236,6 @@ Text Label 6350 3700 0    50   ~ 0
 WADDR[0..4]
 Entry Bus Bus
 	6850 3700 6950 3800
-Wire Wire Line
-	7400 2950 7350 2950
-Wire Wire Line
-	7350 2950 7350 3000
 Entry Bus Bus
 	6850 1900 6950 2000
 Text Notes 9000 4850 0    50   ~ 0
@@ -323,17 +306,11 @@ Text HLabel 9450 2350 2    50   Output ~ 0
 NoConn ~ 8400 2450
 NoConn ~ 8400 2550
 Wire Wire Line
-	8400 2650 9450 2650
-Wire Wire Line
 	8400 2750 9450 2750
-Text HLabel 9450 2650 2    50   Output ~ 0
-~ACTION-101
 Text HLabel 9450 2750 2    50   Output ~ 0
 ~ACTION-110
 Text Label 8950 2750 2    50   ~ 0
 ~ACTION-110
-Text Label 8950 2650 2    50   ~ 0
-~ACTION-101
 $Comp
 L Device:C_Small C?
 U 1 1 5DD30D3D
@@ -687,12 +664,17 @@ Wire Wire Line
 Connection ~ 2800 2850
 Wire Wire Line
 	2800 2850 3350 2850
+Entry Wire Line
+	2900 3050 3000 2950
+Wire Wire Line
+	6800 2950 7400 2950
+Text Label 6800 2950 0    50   ~ 0
+T34
+NoConn ~ 8400 2650
 Wire Bus Line
 	6950 2000 6950 2750
 Wire Bus Line
 	6950 3800 6950 4550
 Wire Bus Line
 	2900 2500 2900 4550
-Entry Wire Line
-	2900 3050 3000 2950
 $EndSCHEMATC

@@ -129,20 +129,6 @@ Text Label 6200 1900 2    50   ~ 0
 Y10
 Text Label 6200 2000 2    50   ~ 0
 Y11
-$Comp
-L alexios:29W040 U?
-U 1 1 5E195D45
-P 7950 2300
-AR Path="/5DC89E19/5E195D45" Ref="U?"  Part="1" 
-AR Path="/5DC89E19/5E18A3E1/5E195D45" Ref="U?"  Part="1" 
-AR Path="/5DE3C078/5E195D45" Ref="U4"  Part="1" 
-F 0 "U4" H 7950 3367 50  0000 C CNN
-F 1 "29W040" H 7950 3276 50  0000 C CNN
-F 2 "alexios:PLCC32" H 7950 2300 50  0001 C CNN
-F 3 "" H 7950 2300 50  0001 C CNN
-	1    7950 2300
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	7400 1500 6950 1500
 Wire Wire Line
@@ -365,20 +351,6 @@ Text Label 8200 3700 0    50   ~ 0
 Y[0..15]
 Text HLabel 950  2700 0    50   Input ~ 0
 FL
-$Comp
-L alexios:29W040 U?
-U 1 1 5E195CA5
-P 2650 2300
-AR Path="/5DC89E19/5E195CA5" Ref="U?"  Part="1" 
-AR Path="/5DC89E19/5E18A3E1/5E195CA5" Ref="U?"  Part="1" 
-AR Path="/5DE3C078/5E195CA5" Ref="U1"  Part="1" 
-F 0 "U1" H 2650 3367 50  0000 C CNN
-F 1 "29W040" H 2650 3276 50  0000 C CNN
-F 2 "alexios:PLCC32" H 2650 2300 50  0001 C CNN
-F 3 "" H 2650 2300 50  0001 C CNN
-	1    2650 2300
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	4750 2900 4400 2900
 Wire Wire Line
@@ -386,11 +358,11 @@ Wire Wire Line
 Wire Wire Line
 	4750 3100 4400 3100
 Text Label 4400 2900 0    50   ~ 0
-OP0
+RADDR0
 Text Label 4400 3000 0    50   ~ 0
-OP1
+RADDR1
 Text Label 4400 3100 0    50   ~ 0
-OP2
+RADDR2
 Wire Wire Line
 	7400 2500 7050 2500
 Wire Wire Line
@@ -398,11 +370,11 @@ Wire Wire Line
 Wire Wire Line
 	7400 2700 7050 2700
 Text Label 7050 2500 0    50   ~ 0
-OP0
+RADDR0
 Text Label 7050 2600 0    50   ~ 0
-OP1
+RADDR1
 Text Label 7050 2700 0    50   ~ 0
-OP2
+RADDR2
 Text HLabel 1100 5500 0    50   Input ~ 0
 ~ROMOE
 Wire Wire Line
@@ -425,20 +397,6 @@ Text Label 9550 1900 0    50   ~ 0
 X1
 Wire Wire Line
 	8500 2200 8800 2200
-$Comp
-L alexios:29W040 U?
-U 2 1 5E426152
-P 1250 7350
-AR Path="/5DC89E19/5E426152" Ref="U?"  Part="1" 
-AR Path="/5DC89E19/5E18A3E1/5E426152" Ref="U?"  Part="2" 
-AR Path="/5DE3C078/5E426152" Ref="U1"  Part="2" 
-F 0 "U1" H 1430 7396 50  0000 L CNN
-F 1 "29W040" H 1430 7305 50  0000 L CNN
-F 2 "alexios:PLCC32" H 1250 7350 50  0001 C CNN
-F 3 "" H 1250 7350 50  0001 C CNN
-	2    1250 7350
-	1    0    0    -1  
-$EndComp
 $Comp
 L Device:C_Small C?
 U 1 1 5E42E1EE
@@ -492,22 +450,6 @@ F 1 "+5V" H 915 7423 50  0000 C CNN
 F 2 "" H 900 7250 50  0001 C CNN
 F 3 "" H 900 7250 50  0001 C CNN
 	1    900  7250
-	1    0    0    -1  
-$EndComp
-Connection ~ 900  7450
-Connection ~ 900  7250
-$Comp
-L alexios:29W040 U?
-U 2 1 5E434AC0
-P 2500 7350
-AR Path="/5DC89E19/5E434AC0" Ref="U?"  Part="1" 
-AR Path="/5DC89E19/5E18A3E1/5E434AC0" Ref="U?"  Part="2" 
-AR Path="/5DE3C078/5E434AC0" Ref="U3"  Part="2" 
-F 0 "U3" H 2680 7396 50  0000 L CNN
-F 1 "29W040" H 2680 7305 50  0000 L CNN
-F 2 "alexios:PLCC32" H 2500 7350 50  0001 C CNN
-F 3 "" H 2500 7350 50  0001 C CNN
-	2    2500 7350
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -565,22 +507,6 @@ F 3 "" H 2150 7250 50  0001 C CNN
 	1    2150 7250
 	1    0    0    -1  
 $EndComp
-Connection ~ 2150 7450
-Connection ~ 2150 7250
-$Comp
-L alexios:29W040 U?
-U 2 1 5E43A76F
-P 3800 7350
-AR Path="/5DC89E19/5E43A76F" Ref="U?"  Part="1" 
-AR Path="/5DC89E19/5E18A3E1/5E43A76F" Ref="U?"  Part="2" 
-AR Path="/5DE3C078/5E43A76F" Ref="U4"  Part="2" 
-F 0 "U4" H 3980 7396 50  0000 L CNN
-F 1 "29W040" H 3980 7305 50  0000 L CNN
-F 2 "alexios:PLCC32" H 3800 7350 50  0001 C CNN
-F 3 "" H 3800 7350 50  0001 C CNN
-	2    3800 7350
-	1    0    0    -1  
-$EndComp
 $Comp
 L Device:C_Small C?
 U 1 1 5E43A775
@@ -634,22 +560,6 @@ F 1 "+5V" H 3465 7423 50  0000 C CNN
 F 2 "" H 3450 7250 50  0001 C CNN
 F 3 "" H 3450 7250 50  0001 C CNN
 	1    3450 7250
-	1    0    0    -1  
-$EndComp
-Connection ~ 3450 7450
-Connection ~ 3450 7250
-$Comp
-L alexios:29W040 U?
-U 1 1 5E195CF4
-P 5300 2300
-AR Path="/5DC89E19/5E195CF4" Ref="U?"  Part="1" 
-AR Path="/5DC89E19/5E18A3E1/5E195CF4" Ref="U?"  Part="1" 
-AR Path="/5DE3C078/5E195CF4" Ref="U3"  Part="1" 
-F 0 "U3" H 5300 3367 50  0000 C CNN
-F 1 "29W040" H 5300 3276 50  0000 C CNN
-F 2 "alexios:PLCC32" H 5300 2300 50  0001 C CNN
-F 3 "" H 5300 2300 50  0001 C CNN
-	1    5300 2300
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
@@ -1091,8 +1001,6 @@ Wire Wire Line
 	8400 4800 8850 4800
 Entry Bus Bus
 	4300 3700 4400 3800
-Wire Wire Line
-	1100 5500 1200 5500
 Connection ~ 4500 5500
 $Comp
 L alexios:74HC541 U5
@@ -1247,60 +1155,7 @@ Text Label 8550 2000 0    50   ~ 0
 Text Label 8550 2200 0    50   ~ 0
 ~SETL
 Wire Wire Line
-	2000 3200 2100 3200
-Wire Wire Line
-	2000 3300 2100 3300
-$Comp
-L power:GND #PWR?
-U 1 1 5DC6A9F1
-P 4400 3350
-AR Path="/5DC89E19/5DC6A9F1" Ref="#PWR?"  Part="1" 
-AR Path="/5DC89E19/5E18A3E1/5DC6A9F1" Ref="#PWR?"  Part="1" 
-AR Path="/5DE3C078/5DC6A9F1" Ref="#PWR0125"  Part="1" 
-F 0 "#PWR0125" H 4400 3100 50  0001 C CNN
-F 1 "GND" H 4405 3177 50  0000 C CNN
-F 2 "" H 4400 3350 50  0001 C CNN
-F 3 "" H 4400 3350 50  0001 C CNN
-	1    4400 3350
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	4450 3200 4400 3200
-Wire Wire Line
-	4400 3200 4400 3300
-Wire Wire Line
-	4450 3300 4400 3300
-Connection ~ 4400 3300
-Wire Wire Line
-	4400 3300 4400 3350
-$Comp
-L power:GND #PWR?
-U 1 1 5DC750E4
-P 7050 3350
-AR Path="/5DC89E19/5DC750E4" Ref="#PWR?"  Part="1" 
-AR Path="/5DC89E19/5E18A3E1/5DC750E4" Ref="#PWR?"  Part="1" 
-AR Path="/5DE3C078/5DC750E4" Ref="#PWR0126"  Part="1" 
-F 0 "#PWR0126" H 7050 3100 50  0001 C CNN
-F 1 "GND" H 7055 3177 50  0000 C CNN
-F 2 "" H 7050 3350 50  0001 C CNN
-F 3 "" H 7050 3350 50  0001 C CNN
-	1    7050 3350
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	7100 3200 7050 3200
-Wire Wire Line
-	7050 3200 7050 3300
-Wire Wire Line
-	7100 3300 7050 3300
-Connection ~ 7050 3300
-Wire Wire Line
-	7050 3300 7050 3350
-Wire Wire Line
-	7050 3200 7050 3100
-Wire Wire Line
 	7050 2800 7100 2800
-Connection ~ 7050 3200
 Wire Wire Line
 	7100 2900 7050 2900
 Connection ~ 7050 2900
@@ -1313,33 +1168,10 @@ Wire Wire Line
 	7050 3000 7050 2900
 Wire Wire Line
 	7100 3100 7050 3100
-Connection ~ 7050 3100
 Wire Wire Line
 	7050 3100 7050 3000
-Text Notes 850  4000 0    50   ~ 0
+Text Notes 850  4100 0    50   ~ 0
 X-IN is reserved for future expansion, but wired to allow this. It can be\ncascaded like carry using X0 and X1, or independent of them.\n\nLikewise, the solder jumpers are for future expansion:\ncut the trace to disconnect from ground, patch to another signal.
-$Comp
-L Jumper:SolderJumper_2_Bridged JP7
-U 1 1 5DD4B2B6
-P 4600 3200
-F 0 "JP7" H 4350 3200 50  0000 R CNN
-F 1 "SolderJumper_2_Bridged" H 4600 3314 50  0001 C CNN
-F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 4600 3200 50  0001 C CNN
-F 3 "~" H 4600 3200 50  0001 C CNN
-	1    4600 3200
-	1    0    0    -1  
-$EndComp
-$Comp
-L Jumper:SolderJumper_2_Bridged JP10
-U 1 1 5DD4B50E
-P 4600 3300
-F 0 "JP10" H 4350 3300 50  0000 R CNN
-F 1 "SolderJumper_2_Bridged" H 4600 3414 50  0001 C CNN
-F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 4600 3300 50  0001 C CNN
-F 3 "~" H 4600 3300 50  0001 C CNN
-	1    4600 3300
-	1    0    0    -1  
-$EndComp
 $Comp
 L Jumper:SolderJumper_2_Bridged JP2
 U 1 1 5DD4D377
@@ -1382,28 +1214,6 @@ F 1 "SolderJumper_2_Bridged" H 7250 3214 50  0001 C CNN
 F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 7250 3100 50  0001 C CNN
 F 3 "~" H 7250 3100 50  0001 C CNN
 	1    7250 3100
-	1    0    0    -1  
-$EndComp
-$Comp
-L Jumper:SolderJumper_2_Bridged JP8
-U 1 1 5DD61519
-P 7250 3200
-F 0 "JP8" H 7000 3200 50  0000 R CNN
-F 1 "SolderJumper_2_Bridged" H 7250 3314 50  0001 C CNN
-F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 7250 3200 50  0001 C CNN
-F 3 "~" H 7250 3200 50  0001 C CNN
-	1    7250 3200
-	1    0    0    -1  
-$EndComp
-$Comp
-L Jumper:SolderJumper_2_Bridged JP11
-U 1 1 5DD6151F
-P 7250 3300
-F 0 "JP11" H 7000 3300 50  0000 R CNN
-F 1 "SolderJumper_2_Bridged" H 7250 3414 50  0001 C CNN
-F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 7250 3300 50  0001 C CNN
-F 3 "~" H 7250 3300 50  0001 C CNN
-	1    7250 3300
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
@@ -1695,130 +1505,123 @@ Text Label 9550 3350 0    50   ~ 0
 ~SETL
 Text Label 9550 3450 0    50   ~ 0
 ~ROMOE
-$Comp
-L Jumper:SolderJumper_2_Bridged JP6
-U 1 1 5DC249EA
-P 1850 3200
-F 0 "JP6" H 1600 3200 50  0000 R CNN
-F 1 "SolderJumper_2_Bridged" H 1850 3314 50  0001 C CNN
-F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 1850 3200 50  0001 C CNN
-F 3 "~" H 1850 3200 50  0001 C CNN
-	1    1850 3200
-	1    0    0    -1  
-$EndComp
-$Comp
-L Jumper:SolderJumper_2_Bridged JP9
-U 1 1 5DD4B079
-P 1850 3300
-F 0 "JP9" H 1600 3300 50  0000 R CNN
-F 1 "SolderJumper_2_Bridged" H 1850 3414 50  0001 C CNN
-F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 1850 3300 50  0001 C CNN
-F 3 "~" H 1850 3300 50  0001 C CNN
-	1    1850 3300
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	1650 3300 1650 3350
-Connection ~ 1650 3300
-Wire Wire Line
-	1700 3300 1650 3300
-Wire Wire Line
-	1650 3200 1650 3300
-Wire Wire Line
-	1700 3200 1650 3200
-Text HLabel 1100 6050 0    50   Input ~ 0
-RADDR2
-Text HLabel 1100 5950 0    50   Input ~ 0
-RADDR1
-Text HLabel 1100 5850 0    50   Input ~ 0
-RADDR0
 Text Label 1750 3100 0    50   ~ 0
-OP2
+RADDR2
 Text Label 1750 3000 0    50   ~ 0
-OP1
+RADDR1
 Text Label 1750 2900 0    50   ~ 0
-OP0
+RADDR0
+$Comp
+L alexios:29W010 U2
+U 1 1 5EB0EF1B
+P 5300 2300
+F 0 "U2" H 5300 3367 50  0000 C CNN
+F 1 "29W010" H 5300 3276 50  0000 C CNN
+F 2 "alexios:PLCC32" H 5300 2300 50  0001 C CNN
+F 3 "https://gr.mouser.com/datasheet/2/268/S71147-82452.pdf" H 5300 2300 50  0001 C CNN
+F 4 "579-39SF010A554CNHE; €1.10" H 5300 2300 50  0001 C CNN "Mouser"
+	1    5300 2300
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:29W010 U3
+U 1 1 5EB0FEA6
+P 7950 2300
+F 0 "U3" H 7950 3367 50  0000 C CNN
+F 1 "29W010" H 7950 3276 50  0000 C CNN
+F 2 "alexios:PLCC32" H 7950 2300 50  0001 C CNN
+F 3 "https://gr.mouser.com/datasheet/2/268/S71147-82452.pdf" H 7950 2300 50  0001 C CNN
+F 4 "579-39SF010A554CNHE; €1.10" H 7950 2300 50  0001 C CNN "Mouser"
+	1    7950 2300
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:29W010 U1
+U 2 1 5EB11557
+P 1250 7350
+F 0 "U1" H 1430 7396 50  0000 L CNN
+F 1 "29W010" H 1430 7305 50  0000 L CNN
+F 2 "alexios:PLCC32" H 1250 7350 50  0001 C CNN
+F 3 "https://gr.mouser.com/datasheet/2/268/S71147-82452.pdf" H 1250 7350 50  0001 C CNN
+F 4 "579-39SF010A554CNHE; €1.10" H 1250 7350 50  0001 C CNN "Mouser"
+	2    1250 7350
+	1    0    0    -1  
+$EndComp
+Connection ~ 900  7450
+Connection ~ 900  7250
+$Comp
+L alexios:29W010 U2
+U 2 1 5EB39402
+P 2500 7350
+F 0 "U2" H 2680 7396 50  0000 L CNN
+F 1 "29W010" H 2680 7305 50  0000 L CNN
+F 2 "alexios:PLCC32" H 2500 7350 50  0001 C CNN
+F 3 "https://gr.mouser.com/datasheet/2/268/S71147-82452.pdf" H 2500 7350 50  0001 C CNN
+F 4 "579-39SF010A554CNHE; €1.10" H 2500 7350 50  0001 C CNN "Mouser"
+	2    2500 7350
+	1    0    0    -1  
+$EndComp
+Connection ~ 2150 7450
+Connection ~ 2150 7250
+$Comp
+L alexios:29W010 U3
+U 2 1 5EB39CC1
+P 3800 7350
+F 0 "U3" H 3980 7396 50  0000 L CNN
+F 1 "29W010" H 3980 7305 50  0000 L CNN
+F 2 "alexios:PLCC32" H 3800 7350 50  0001 C CNN
+F 3 "https://gr.mouser.com/datasheet/2/268/S71147-82452.pdf" H 3800 7350 50  0001 C CNN
+F 4 "579-39SF010A554CNHE; €1.10" H 3800 7350 50  0001 C CNN "Mouser"
+	2    3800 7350
+	1    0    0    -1  
+$EndComp
+Connection ~ 3450 7450
+Connection ~ 3450 7250
 Wire Wire Line
-	1750 3100 2100 3100
+	1100 5500 4500 5500
+$Comp
+L alexios:29W010 U1
+U 1 1 5EB0B6DB
+P 2650 2300
+F 0 "U1" H 2650 3367 50  0000 C CNN
+F 1 "29W010" H 2650 3276 50  0000 C CNN
+F 2 "alexios:PLCC32" H 2650 2300 50  0001 C CNN
+F 3 "https://gr.mouser.com/datasheet/2/268/S71147-82452.pdf" H 2650 2300 50  0001 C CNN
+F 4 "579-39SF010A554CNHE; €1.10" H 2650 2300 50  0001 C CNN "Mouser"
+	1    2650 2300
+	1    0    0    -1  
+$EndComp
+Connection ~ 7050 3100
 $Comp
 L power:GND #PWR?
-U 1 1 5E195CBC
-P 1650 3350
-AR Path="/5DC89E19/5E195CBC" Ref="#PWR?"  Part="1" 
-AR Path="/5DC89E19/5E18A3E1/5E195CBC" Ref="#PWR?"  Part="1" 
-AR Path="/5DE3C078/5E195CBC" Ref="#PWR0105"  Part="1" 
-F 0 "#PWR0105" H 1650 3100 50  0001 C CNN
-F 1 "GND" H 1655 3177 50  0000 C CNN
-F 2 "" H 1650 3350 50  0001 C CNN
-F 3 "" H 1650 3350 50  0001 C CNN
-	1    1650 3350
+U 1 1 5DC750E4
+P 7050 3150
+AR Path="/5DC89E19/5DC750E4" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5E18A3E1/5DC750E4" Ref="#PWR?"  Part="1" 
+AR Path="/5DE3C078/5DC750E4" Ref="#PWR0126"  Part="1" 
+F 0 "#PWR0126" H 7050 2900 50  0001 C CNN
+F 1 "GND" H 7055 2977 50  0000 C CNN
+F 2 "" H 7050 3150 50  0001 C CNN
+F 3 "" H 7050 3150 50  0001 C CNN
+	1    7050 3150
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	2100 3000 1750 3000
+	7050 3100 7050 3150
+Text Notes 2200 3500 0    50   ~ 0
+55ns 128K×8 NOR Flash,\nPLCC32
+Text HLabel 950  2900 0    50   Input ~ 0
+RADDR0
+Text HLabel 950  3000 0    50   Input ~ 0
+RADDR1
+Text HLabel 950  3100 0    50   Input ~ 0
+RADDR2
 Wire Wire Line
-	2100 2900 1750 2900
-$Comp
-L alexios:74HC75 U?
-U 1 1 5EAE3F94
-P 1850 6150
-F 0 "U?" H 1850 6717 50  0000 C CNN
-F 1 "74HC75" H 1850 6626 50  0000 C CNN
-F 2 "" H 1850 6150 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74HC75.pdf" H 1850 6150 50  0001 C CNN
-	1    1850 6150
-	1    0    0    -1  
-$EndComp
+	950  2900 2100 2900
 Wire Wire Line
-	1100 5850 1350 5850
+	950  3000 2100 3000
 Wire Wire Line
-	1100 5950 1350 5950
-Wire Wire Line
-	1100 6050 1350 6050
-Wire Wire Line
-	1200 5500 1200 6350
-Wire Wire Line
-	1200 6350 1350 6350
-Connection ~ 1200 5500
-Wire Wire Line
-	1200 5500 4500 5500
-Wire Wire Line
-	1200 6350 1200 6450
-Wire Wire Line
-	1200 6450 1350 6450
-Connection ~ 1200 6350
-Wire Wire Line
-	1350 6150 1300 6150
-Wire Wire Line
-	1300 6150 1300 6500
-$Comp
-L power:GND #PWR?
-U 1 1 5EB5E44D
-P 1300 6500
-F 0 "#PWR?" H 1300 6250 50  0001 C CNN
-F 1 "GND" H 1305 6327 50  0000 C CNN
-F 2 "" H 1300 6500 50  0001 C CNN
-F 3 "" H 1300 6500 50  0001 C CNN
-	1    1300 6500
-	1    0    0    -1  
-$EndComp
-NoConn ~ 2350 6250
-NoConn ~ 2350 6350
-NoConn ~ 2350 6450
-NoConn ~ 2350 6550
-NoConn ~ 2350 6150
-Wire Wire Line
-	2350 6050 2650 6050
-Wire Wire Line
-	2350 5950 2650 5950
-Wire Wire Line
-	2350 5850 2650 5850
-Text Label 2650 5850 2    50   ~ 0
-OP0
-Text Label 2650 5950 2    50   ~ 0
-OP1
-Text Label 2650 6050 2    50   ~ 0
-OP2
+	950  3100 2100 3100
 Wire Bus Line
 	6400 5800 10200 5800
 Wire Bus Line
@@ -1853,6 +1656,4 @@ Wire Bus Line
 	6300 4200 6300 5700
 Wire Bus Line
 	4400 3800 4400 4700
-Text Notes 2850 5900 0    50   ~ 0
-TODO: THIS WON'T WORK.
 $EndSCHEMATC

@@ -210,9 +210,9 @@ Entry Wire Line
 Entry Wire Line
 	6750 4150 6650 4050
 Text Label 4900 3450 0    50   ~ 0
-CLK4
+~ACTION-WPA
 Text Label 4900 4950 0    50   ~ 0
-CLK4
+~ACTION-WPA
 Text Label 5000 2550 0    50   ~ 0
 AC0
 Text Label 5000 2650 0    50   ~ 0
@@ -305,9 +305,9 @@ ACP
 Text Label 4750 4350 1    50   ~ 0
 AC[0..15]
 Text Label 3600 3450 0    50   ~ 0
-CLK4
+~ACTION-WPA
 Text HLabel 3300 3450 0    50   Input ~ 0
-CLK4
+~ACTION-WPA
 Text HLabel 3300 2200 0    50   Input ~ 0
 AC[0..15]
 Text Notes 7100 7000 0    197  ~ 39

@@ -664,7 +664,7 @@ Wire Bus Line
 Text Label 1800 3350 0    50   ~ 0
 AC[0..15]
 Text Label 1800 3500 0    50   ~ 0
-CLK4
+CLK1
 Wire Wire Line
 	1800 3500 2350 3500
 Text Label 1800 4100 0    50   ~ 0
@@ -700,7 +700,7 @@ U 5DE6D8E0
 F0 "Port A" 50
 F1 "alu_port_a.sch" 50
 F2 "A[0..15]" T R 3500 3350 50 
-F3 "CLK4" I L 2350 3500 50 
+F3 "~ACTION-WPA" I L 2350 3500 50 
 F4 "AC[0..15]" I L 2350 3350 50 
 $EndSheet
 Text Notes 2450 2850 0    197  ~ 39
@@ -855,9 +855,8 @@ F7 "~WRITE-ALU-B" O R 3500 1650 50
 F8 "~ACTION-SRU" O R 3500 2150 50 
 F9 "~ACTION-CPL" O R 3500 1750 50 
 F10 "~ACTION-CLL" O R 3500 1850 50 
-F11 "~ACTION-101" O R 3500 1950 50 
+F11 "~READ-ALU-B" O R 3500 1550 50 
 F12 "~ACTION-110" O R 3500 2050 50 
-F13 "~READ-ALU-B" O R 3500 1550 50 
 $EndSheet
 Text Label 4350 2850 1    50   ~ 0
 A[0..15]
@@ -931,88 +930,8 @@ Wire Wire Line
 	3500 1750 4050 1750
 Wire Wire Line
 	2400 6800 1700 6800
-Wire Wire Line
-	3500 1950 4050 1950
-Wire Wire Line
-	3500 2050 4050 2050
-Text Label 4050 1950 2    50   ~ 0
-~ACTION-101
-Text Label 4050 2050 2    50   ~ 0
-~ACTION-110
 Text Label 4900 1650 0    50   ~ 0
 X-IN
-$Comp
-L alexios:74LVC1G08 U?
-U 2 1 5E2E7423
-P 6100 7250
-AR Path="/5DC89E19/5E2E7423" Ref="U?"  Part="1" 
-AR Path="/5DC89E19/5D98F946/5E2E7423" Ref="U?"  Part="2" 
-AR Path="/5D121AA3/5E2E7423" Ref="U?"  Part="2" 
-AR Path="/5E2E7423" Ref="U2"  Part="2" 
-F 0 "U2" H 6180 7196 50  0000 L CNN
-F 1 "74LVC1G08" H 6180 7105 50  0000 L CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 5750 7250 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 5750 7250 50  0001 C CNN
-	2    6100 7250
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 5E2E742A
-P 5650 7350
-AR Path="/5CC0D65F/5E2E742A" Ref="C?"  Part="1" 
-AR Path="/5E2E742A" Ref="C33"  Part="1" 
-AR Path="/5F597FD4/5E2E742A" Ref="C?"  Part="1" 
-AR Path="/5DC89E19/5CF23BD4/5E2E742A" Ref="C?"  Part="1" 
-AR Path="/5DC89E19/5CF5A95E/5E2E742A" Ref="C?"  Part="1" 
-AR Path="/5DC89E19/5E2E742A" Ref="C?"  Part="1" 
-AR Path="/5DC89E19/5D98F946/5E2E742A" Ref="C?"  Part="1" 
-AR Path="/5D121AA3/5E2E742A" Ref="C?"  Part="1" 
-F 0 "C33" H 5559 7396 50  0000 R CNN
-F 1 "100nF" H 5559 7305 50  0000 R CNN
-F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5650 7350 50  0001 C CNN
-F 3 "~" H 5650 7350 50  0001 C CNN
-	1    5650 7350
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR0185
-U 1 1 5E2E7431
-P 5650 7450
-AR Path="/5E2E7431" Ref="#PWR0185"  Part="1" 
-AR Path="/5F597FD4/5E2E7431" Ref="#PWR?"  Part="1" 
-AR Path="/5DC89E19/5CF23BD4/5E2E7431" Ref="#PWR?"  Part="1" 
-AR Path="/5DC89E19/5CF5A95E/5E2E7431" Ref="#PWR?"  Part="1" 
-AR Path="/5DC89E19/5E2E7431" Ref="#PWR?"  Part="1" 
-AR Path="/5DC89E19/5D98F946/5E2E7431" Ref="#PWR?"  Part="1" 
-AR Path="/5D121AA3/5E2E7431" Ref="#PWR?"  Part="1" 
-F 0 "#PWR0185" H 5650 7200 50  0001 C CNN
-F 1 "GND" H 5655 7277 50  0000 C CNN
-F 2 "" H 5650 7450 50  0001 C CNN
-F 3 "" H 5650 7450 50  0001 C CNN
-	1    5650 7450
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR0186
-U 1 1 5E2E7437
-P 5650 7250
-AR Path="/5E2E7437" Ref="#PWR0186"  Part="1" 
-AR Path="/5F597FD4/5E2E7437" Ref="#PWR?"  Part="1" 
-AR Path="/5DC89E19/5CF23BD4/5E2E7437" Ref="#PWR?"  Part="1" 
-AR Path="/5DC89E19/5CF5A95E/5E2E7437" Ref="#PWR?"  Part="1" 
-AR Path="/5DC89E19/5E2E7437" Ref="#PWR?"  Part="1" 
-AR Path="/5DC89E19/5D98F946/5E2E7437" Ref="#PWR?"  Part="1" 
-AR Path="/5D121AA3/5E2E7437" Ref="#PWR?"  Part="1" 
-F 0 "#PWR0186" H 5650 7100 50  0001 C CNN
-F 1 "+5V" H 5665 7423 50  0000 C CNN
-F 2 "" H 5650 7250 50  0001 C CNN
-F 3 "" H 5650 7250 50  0001 C CNN
-	1    5650 7250
-	1    0    0    -1  
-$EndComp
-Connection ~ 5650 7250
-Connection ~ 5650 7450
 Text Notes 10200 2350 0    50   ~ 0
 ← Control Unit
 Wire Wire Line
@@ -1203,6 +1122,10 @@ Text Label 1700 4200 0    50   ~ 0
 ~WRITE-ALU-B
 Text Label 7050 4950 2    50   ~ 0
 ~WS
+Wire Wire Line
+	3500 2050 4050 2050
+Text Label 4050 2050 2    50   ~ 0
+~ACTION-110
 Wire Bus Line
 	7150 1200 7150 4450
 Wire Bus Line
