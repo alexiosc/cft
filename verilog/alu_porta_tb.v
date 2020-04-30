@@ -32,7 +32,7 @@
 
 module alu_porta_tb();
    reg [15:0]  ac;
-   reg 	       clk4;
+   reg 	       acp;
    
    wire [15:0] a;
 
@@ -44,12 +44,12 @@ module alu_porta_tb();
       $dumpvars (0, alu_porta_tb);
 
       ac = 16'h5555;
-      clk4 = 0;
+      acp = 0;
 
       for (i = 0; i < 65536; i = i + 1) begin
 	 #125 ac = i;
-	 #62.5 clk4 = 0;
-	 #62.5 clk4 = 1;
+	 #62.5 acp = 0;
+	 #62.5 acp = 1;
       end
       
       #1000 $display("345 OK");
@@ -57,7 +57,7 @@ module alu_porta_tb();
    end
 
    // Connect DUT to test bench
-   alu_porta alu_porta (.ac(ac), .clk4(clk4),.a(a));
+   alu_porta alu_porta (.ac(ac), .acp(acp),.a(a));
 
    // Verify our findings.
    reg [8191:0] msg;
@@ -79,14 +79,14 @@ module alu_porta_tb();
       end 
    end
 
-   always @ (posedge clk4) begin
+   always @ (posedge acp) begin
       #30 begin
 	 msg[7:0] = "";		// Use the msg as a flag.
 
 	 // Check the Gate first. If it's high (previous result unequal), the
 	 // comparison should always be unequal.
 	 if (a !== ac) begin
-	    $sformat(msg, "ac=%b (%04h) but a=%b (%04h) on rising edge of clk4", ac, ac, a, a);
+	    $sformat(msg, "ac=%b (%04h) but a=%b (%04h) on rising edge of acp", ac, ac, a, a);
 	 end
 
 	 olda = a;

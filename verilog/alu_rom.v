@@ -43,13 +43,12 @@ module alu_rom (nromoe, fl, x_in, a, b, op,
    wire [7:0] 	  bd0, bd1, bd2;
    wire 	  c0, c1;
 
-   // All three ROMs are 512K×8 units. ROMs 00 & 01 only use 17 bits (the top
-   // two are tied to ground via solder jumpers). ROM 02 uses 13 bits (again,
-   // the top six bits are tied to groun). We declare smaller ROMs here to
-   // avoid warnings.
-   rom #(17, 70, "../microcode/build/alu-rom-00.list") romb0 (.a(ba0), .d(bd0), .nce(1'b0), .noe(1'b0));
-   rom #(17, 70, "../microcode/build/alu-rom-01.list") romb1 (.a(ba1), .d(bd1), .nce(1'b0), .noe(1'b0));
-   rom #(13, 70, "../microcode/build/alu-rom-02.list") romb2 (.a(ba2), .d(bd2), .nce(1'b0), .noe(1'b0));
+   // All three ROMs are 128K×8 55ns units. ROMs 00 & 01 use the full 17
+   // bits. ROM 02 uses 13 bits (the most significant four bits are tied to
+   // ground). We declare a smaller ROM here to avoid warnings.
+   rom #(17, 55, "../microcode/build/alu-rom-00.list") romb0 (.a(ba0), .d(bd0), .nce(1'b0), .noe(1'b0));
+   rom #(17, 55, "../microcode/build/alu-rom-01.list") romb1 (.a(ba1), .d(bd1), .nce(1'b0), .noe(1'b0));
+   rom #(13, 55, "../microcode/build/alu-rom-02.list") romb2 (.a(ba2), .d(bd2), .nce(1'b0), .noe(1'b0));
 
    // Connect address buses appropriately.
 

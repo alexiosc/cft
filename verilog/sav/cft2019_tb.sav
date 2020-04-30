@@ -1,26 +1,27 @@
 [*]
-[*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
-[*] Wed Apr 29 19:18:16 2020
+[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
+[*] Thu Apr 30 19:00:50 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/cft2019_tb.vcd"
-[dumpfile_mtime] "Wed Apr 29 19:17:55 2020"
-[dumpfile_size] 1660937
+[dumpfile_mtime] "Thu Apr 30 19:00:05 2020"
+[dumpfile_size] 2231173
 [optimize_vcd]
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/cft2019_tb.sav"
-[timestart] 74790000
-[size] 3840 2032
-[pos] 4376 0
-*-21.209610 104503750 38120750 38370750 16501750 18751750 103501750 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[timestart] 101330000
+[size] 2048 1123
+[pos] -1 -1
+*-22.501541 121501750 38120750 38370750 16501750 18751750 103501750 257501750 172501750 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] cft2019_tb.
 [treeopen] cft2019_tb.cft.
+[treeopen] cft2019_tb.cft.card_alu.
 [treeopen] cft2019_tb.cft.card_bus.constant_store.
 [treeopen] cft2019_tb.cft.card_ctl.ism.
 [treeopen] cft2019_tb.cft.card_mem.romhi.
 [treeopen] cft2019_tb.cft.card_reg.reg_ac.
 [sst_width] 372
-[signals_width] 825
+[signals_width] 332
 [sst_expanded] 1
-[sst_vpaned_height] 890
+[sst_vpaned_height] 513
 @800200
 -Reset
 @28
@@ -112,6 +113,7 @@ cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
 @24
 [color] 4
 +{ac[15:0]} cft2019_tb.cft.card_reg.reg_ac.out[15:0]
+cft2019_tb.cft.card_alu.b[15:0]
 @22
 [color] 5
 +{sp[15:0]} cft2019_tb.cft.card_reg.reg_sp.out[15:0]
@@ -171,7 +173,7 @@ cft2019_tb.cft.card_ctl.flag_unit.nflagoe
 cft2019_tb.cft.card_ctl.flag_unit.ibus[15:8]
 @1000200
 -Registers
-@800200
+@c00200
 -Buses
 @c00022
 [color] 1
@@ -290,10 +292,8 @@ cft2019_tb.cft.nr
 cft2019_tb.cft.nwen
 [color] 1
 cft2019_tb.cft.nw
-@1000200
+@1401200
 -Buses
-@200
--
 @c00200
 -Shifter/Rotator (SRU)
 @4022
@@ -433,7 +433,7 @@ cft2019_tb.cft.card_alu.alu_sru.lsb_mux.sel[1:0]
 cft2019_tb.cft.card_alu.alu_sru.lsb_mux.y
 @1401200
 -Shifter/Rotator (SRU)
-@800200
+@c00200
 -Control Unit
 @820
 cft2019_tb.cft.card_ctl.clock_generator.state[15:0]
@@ -530,7 +530,7 @@ cft2019_tb.cft.nr
 [color] 2
 cft2019_tb.cft.nwen
 cft2019_tb.cft.card_ctl.microcode_sequencer.nend
-@1000200
+@1401200
 -Control Unit
 @c00200
 -Addressing
@@ -559,9 +559,13 @@ cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
 @200
 -
 @28
+[color] 1
+cft2019_tb.cft.card_alu.alu_rom.op[2:0]
 cft2019_tb.cft.card_alu.nromoe
 cft2019_tb.cft.card_alu.nwrite_alu_b
 @24
+[color] 4
++{ac[15:0]} cft2019_tb.cft.card_reg.reg_ac.out[15:0]
 cft2019_tb.cft.card_alu.a[15:0]
 cft2019_tb.cft.card_alu.b[15:0]
 cft2019_tb.cft.card_alu.ibus[15:0]

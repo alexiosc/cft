@@ -44,8 +44,7 @@ module alu_decoder_tb();
    wire        naction_cpl;
    wire        naction_cll;
    wire        naction_sru;
-   wire        naction_101;
-   wire        naction_110;
+   //wire        naction_wpa;
 
    integer     i;
    reg [800:0] status;
@@ -106,9 +105,9 @@ module alu_decoder_tb();
 			    .nwrite_alu_b(nwrite_alu_b),
 			    .naction_cpl(naction_cpl), 
 			    .naction_cll(naction_cll),
-			    .naction_sru(naction_sru),
-			    .naction_101(naction_101),
-			    .naction_110(naction_110));
+			    .naction_sru(naction_sru)
+			    //.naction_wpa(naction_wpa)
+			    );
 
 
    // Verify our findings.
@@ -216,15 +215,10 @@ module alu_decoder_tb();
 		  action, naction_cll);
       end
 
-      if (naction_101 !== (action === 4'b0101 ? 1'b0 : 1'b1)) begin
-   	 $sformat(msg, "nACTION-101 decoding failure: action=%b, naction_101=%b",
-		  action, naction_101);
-      end
-
-      if (naction_110 !== (action === 4'b0110 ? 1'b0 : 1'b1)) begin
-   	 $sformat(msg, "nACTION-110 decoding failure: action=%b, naction_110=%b",
-		  action, naction_110);
-      end
+      // if (naction_wpa !== (action === 4'b0110 ? 1'b0 : 1'b1)) begin
+      // 	 $sformat(msg, "nACTION-WPA decoding failure: action=%b, naction_wpa=%b",
+      // 		  action, naction_wpa);
+      // end
 
       if (naction_sru !== (action === 4'b0111 ? 1'b0 : 1'b1)) begin
    	 $sformat(msg, "nACTION-SRU decoding failure: action=%b, naction_sru=%b",

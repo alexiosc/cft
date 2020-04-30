@@ -151,8 +151,6 @@ module card_alu(
    wire 	 naction_cpl;
    wire 	 naction_cll;
    wire 	 naction_sru;
-   wire 	 naction_101;	// For future expansion
-   wire 	 naction_110;	// For future expansion
 
    wire [15:0] 	 a;		// ALU Port A
    wire [15:0] 	 b;		// ALU Port B
@@ -185,9 +183,7 @@ module card_alu(
 		.nwrite_alu_b(nwrite_alu_b),
 		.naction_cpl(naction_cpl),
 		.naction_cll(naction_cll),
-		.naction_sru(naction_sru),
-		.naction_101(naction_101),
-		.naction_110(naction_110));
+		.naction_sru(naction_sru));
 
    ///////////////////////////////////////////////////////////////////////////////
    //
@@ -198,7 +194,7 @@ module card_alu(
    // TODO: check if clk4 is too early. The AC is set on the rising
    // edge of clk4 too. Maybe go for the rising edge of clk1?
 
-   alu_porta port_a (.ac(ac), .clk4(nwrite_alu_b), .a(a));
+   alu_porta port_a (.ac(ac), .acp(clk1), .a(a));
 
    // In the schematics, bcp is an AND gate inside the Port B schematics.
    assign #7 bcp = nwrite_alu_b & bcp_sru;
