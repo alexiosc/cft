@@ -323,7 +323,7 @@ try:
     ROM01.report()
     
     debug = False
-    #debug = True
+    debug = True
     print("Generating 4-bit ROM")
     ROM2 = romtables.FunctionTable('op:3 xn_in c b:4 a:4', 'setl l setv v y:4', singleROM=True)
     AluRom4(ROM2).run()

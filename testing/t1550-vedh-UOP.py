@@ -78,6 +78,7 @@ def test_UOP(capsys, tmpdir):
 
             NOT
             JSR output    ; 7
+            HALT
 
             INC
             JSR output    ; 8
@@ -121,6 +122,22 @@ def test_UOP(capsys, tmpdir):
     L1, L0 = [ 340, "PRINTU", '1' ], [ 340, "PRINTU", '0' ]
     
 
+    _ = [
+        (340, 'PRINTD', '1'),  (340, 'PRINTH', '0000'), (340, 'PRINTU', '0'),
+        (340, 'PRINTD', '2'),  (340, 'PRINTH', '0000'), (340, 'PRINTU', '0'),
+        (340, 'PRINTD', '3'),  (340, 'PRINTH', '0000'), (340, 'PRINTU', '1'),
+        (340, 'PRINTD', '4'),  (340, 'PRINTH', '0000'), (340, 'PRINTU', '1'),
+        (340, 'PRINTD', '5'),  (340, 'PRINTH', '0000'), (340, 'PRINTU', '0'),
+        (340, 'PRINTD', '6'),  (340, 'PRINTH', 'ffff'), (340, 'PRINTU', '0'),
+        (340, 'PRINTD', '7'),  (340, 'PRINTH', '0000'), (340, 'PRINTU', '0'),
+        (340, 'PRINTD', '8'),  (340, 'PRINTH', '0001'), (340, 'PRINTU', '0'),
+        (340, 'PRINTD', '9'),  (340, 'PRINTH', 'ffff'), (340, 'PRINTU', '0'),
+        (340, 'PRINTD', '10'), (340, 'PRINTH', '0001'), (340, 'PRINTU', '0'),
+        (340, 'PRINTD', '11'), (340, 'PRINTH', 'fffe'), (340, 'PRINTU', '0'),
+        (340, 'PRINTD', '12'), (340, 'PRINTH', 'fffd'), (340, 'PRINTU', '0'),
+        (305, 'Halted', None)]
+
+    
     expected = ExpectedData([ SUCCESS,
                               [ 340, "PRINTD", "1", ],  [ 340, "PRINTH", "0000" ], L0, # NOP
                               [ 340, "PRINTD", "2", ],  [ 340, "PRINTH", "0000" ], L0, # CLA
@@ -129,11 +146,11 @@ def test_UOP(capsys, tmpdir):
                               [ 340, "PRINTD", "5", ],  [ 340, "PRINTH", "0000" ], L1, # SEL
                               [ 340, "PRINTD", "6", ],  [ 340, "PRINTH", "ffff" ], L1, # NOT
                               [ 340, "PRINTD", "7", ],  [ 340, "PRINTH", "0000" ], L1, # NOT
-                              [ 340, "PRINTD", "8", ],  [ 340, "PRINTH", "0001" ], L0, # INC
-                              [ 340, "PRINTD", "9", ],  [ 340, "PRINTH", "ffff" ], L0, # NEG
-                              [ 340, "PRINTD", "10", ], [ 340, "PRINTH", "0001" ], L0, # NEG
-                              [ 340, "PRINTD", "11", ], [ 340, "PRINTH", "fffe" ], L0, # NOT
-                              [ 340, "PRINTD", "12", ], [ 340, "PRINTH", "fffd" ], L0, # DEC
+                              [ 340, "PRINTD", "8", ],  [ 340, "PRINTH", "0001" ], L1, # INC
+                              [ 340, "PRINTD", "9", ],  [ 340, "PRINTH", "ffff" ], L1, # NEG
+                              [ 340, "PRINTD", "10", ], [ 340, "PRINTH", "0001" ], L1, # NEG
+                              [ 340, "PRINTD", "11", ], [ 340, "PRINTH", "fffe" ], L1, # NOT
+                              [ 340, "PRINTD", "12", ], [ 340, "PRINTH", "fffd" ], L1, # DEC
                               HALTED ])
     result = run_on_verilog_emu(capsys, tmpdir, source, long=True)
     # pprint.pprint(list(result))

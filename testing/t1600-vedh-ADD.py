@@ -248,7 +248,7 @@ def test_ADD_R(capsys, tmpdir, max_test=10):
             SMB mbu.MBS   ; MBZ=MBS makes reading the stack easier
    
             CLL CLA       ; Start with <L,AC>=0
-            STORE tmp
+            STORE R 3
             STORE R 2
 
             LIA data
@@ -258,7 +258,7 @@ def test_ADD_R(capsys, tmpdir, max_test=10):
 
     loop:   LOAD I R &340
             dfp.PRINTU
-            STORE tmp
+            STORE R 3
             ADD R 2
             dfp.PRINTU
             STORE R 2

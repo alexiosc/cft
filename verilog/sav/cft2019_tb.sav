@@ -1,16 +1,16 @@
 [*]
 [*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Thu Apr 30 19:00:50 2020
+[*] Thu Apr 30 19:49:54 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/cft2019_tb.vcd"
-[dumpfile_mtime] "Thu Apr 30 19:00:05 2020"
-[dumpfile_size] 2231173
+[dumpfile_mtime] "Thu Apr 30 19:40:54 2020"
+[dumpfile_size] 2232371
 [optimize_vcd]
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/cft2019_tb.sav"
-[timestart] 101330000
-[size] 2048 1123
-[pos] -1 -1
-*-22.501541 121501750 38120750 38370750 16501750 18751750 103501750 257501750 172501750 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[timestart] 122145800
+[size] 1357 735
+[pos] 1251 209
+*-16.501541 122477400 38120750 38370750 16501750 18751750 103501750 257501750 172501750 122391750 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] cft2019_tb.
 [treeopen] cft2019_tb.cft.
 [treeopen] cft2019_tb.cft.card_alu.
@@ -21,7 +21,7 @@
 [sst_width] 372
 [signals_width] 332
 [sst_expanded] 1
-[sst_vpaned_height] 513
+[sst_vpaned_height] 299
 @800200
 -Reset
 @28
@@ -108,6 +108,9 @@ cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
 @22
 [color] 3
 +{dr[15:0]} cft2019_tb.cft.card_reg.reg_dr.out[15:0]
+@28
+cft2019_tb.cft.fl
+@22
 [color] 4
 +{ac[15:0]} cft2019_tb.cft.card_reg.reg_ac.out[15:0]
 @24
@@ -161,9 +164,8 @@ cft2019_tb.cft.card_bus.mbu.mb4[7:0]
 cft2019_tb.cft.card_bus.mbu.mb5[7:0]
 cft2019_tb.cft.card_bus.mbu.mb6[7:0]
 cft2019_tb.cft.card_bus.mbu.mb7[7:0]
-@29
-cft2019_tb.cft.fl
 @28
+cft2019_tb.cft.fl
 cft2019_tb.cft.fn
 cft2019_tb.cft.fv
 cft2019_tb.cft.fz
@@ -589,9 +591,11 @@ cft2019_tb.cft.card_alu.alu_rom.ba2[12:0]
 cft2019_tb.cft.card_alu.alu_rom.bd0[7:0]
 cft2019_tb.cft.card_alu.alu_rom.bd1[7:0]
 cft2019_tb.cft.card_alu.alu_rom.bd2[7:0]
+@29
+cft2019_tb.cft.card_alu.flout_rom
 @1000200
 -ALU
-@c00200
+@800200
 -L Register
 @28
 cft2019_tb.cft.nrsthold
@@ -616,7 +620,7 @@ cft2019_tb.cft.card_alu.reg_l.nfl
 cft2019_tb.cft.card_alu.reg_l.nflagwe
 cft2019_tb.cft.card_alu.reg_l.nread_alu_add
 cft2019_tb.cft.card_alu.reg_l.nsetl
-@1401200
+@1000200
 -L Register
 @200
 -

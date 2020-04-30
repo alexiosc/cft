@@ -296,7 +296,7 @@ signal action_cll      = .....0010...............; // Clear L flag
 signal action_sti      = .....0011...............; // Set I flag
 signal action_cli      = .....0100...............; // Clear I flag
 signal action_idx      = .....0101...............; // Autoindexing; use IR to select MBn bank
-//signal action_???    = .....0110...............; // (possible ALU extension)
+//signal action_wpa    = .....0110...............; // Register ALU port A from AC
 signal action_sru      = .....0111...............; // Start the shift/roll engine
 
 // ACTION 1XXX is decoded by the REG board and is just increments and
@@ -1516,10 +1516,10 @@ start HCF;
 
 start IFL, COND=0;
       FETCH_IR;                                 // 00 IR ← mem[PC++];
-      if_l;                                     // 02
+      if_l;                         // 02
       if_ir5;                                   // 03 If L:
       SET(ac, cs0), if_ir4;                     // 04 If IR5: AC ← 0
-      action_cll, if_ir3;                       // 05 If IR4: L ← 0
+      action_cll, if_ir3;                       // 05 If IR4: L ← 0; A ← AC
       SET(ac, alu_not), if_ir2;                 // 06 If IR3: AC ← ~AC
       action_incac, if_ir1;                     // 07 IF IR2: AC++
       action_decac, if_ir0;                     // 08 IF IR1: AC--
@@ -1541,7 +1541,7 @@ start IFV, COND=0;
       if_v;                                     // 02
       if_ir5;                                   // 03 If V:
       SET(ac, cs0), if_ir4;                     // 04 If IR5: AC ← 0
-      action_cll, if_ir3;                       // 05 If IR4: L ← 0
+      action_cll, if_ir3/*, action_wpa*/;           // 05 If IR4: L ← 0
       SET(ac, alu_not), if_ir2;                 // 06 If IR3: AC ← ~AC
       action_incac, if_ir1;                     // 07 IF IR2: AC++
       action_decac, if_ir0;                     // 08 IF IR1: AC--
@@ -1562,7 +1562,7 @@ start UOP, COND=0;
       FETCH_IR;                                 // 00 IR ← mem[PC++];
       if_ir5;                                   // 02
       SET(ac, cs0), if_ir4;                     // 03 If IR5: AC ← 0
-      action_cll, if_ir3;                       // 04 If IR4: L ← 0
+      action_cll, if_ir3/*, action_wpa*/;           // 04 If IR4: L ← 0
       SET(ac, alu_not), if_ir2;                 // 05 If IR3: AC ← ~AC
       action_incac, if_ir1;                     // 06 IF IR2: AC++
       action_decac, if_ir0;                     // 07 IF IR1: AC--
@@ -2915,34 +2915,34 @@ start IOT, COND=0, I=1, R=1, IDX=IDX_SP;
 // (1) ADD, Page-Local
 start ADD, I=0, R=0, IDX=XX;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
-      MEMREAD(mbp, agl, alu_b);                 // 02 B ← mem[MBP:AGL]
+      MEMREAD(mbp, agl, alu_b);                 // 02 B ← mem[MBP:AGL]; A ← AC
       SET(ac, alu_add), END;                    // 04 AC ← AC + B
 
 // (2) ADD, Register
 start ADD, I=0, R=1, IDX=XX;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
-      MEMREAD(mbz, agl, alu_b);                 // 02 B ← mem[MBZ:AGL]
+      MEMREAD(mbz, agl, alu_b);                 // 02 B ← mem[MBZ:AGL]; A ← AC
       SET(ac, alu_add), END;                    // 04 AC ← AC + B
 
 // (3) ADD, Indirect
 start ADD, I=1, R=0, IDX=XX;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       MEMREAD(mbp, agl, dr);                    // 02 DR ← mem[MBP:AGL]
-      MEMREAD(mbd, dr, alu_b);                  // 04 AC ← mem[MBD:DR]
+      MEMREAD(mbd, dr, alu_b);                  // 04 B ← mem[MBD:DR]; A ← AC
       SET(ac, alu_add), END;                    // 06 AC ← AC + B
 
 // (4) & (5) ADD, Register Indirect and Memory Bank-Relative Indirect
 start ADD, I=1, R=1, IDX=XX;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBZ:AGL]
-      MEMREAD_IDX(mbz, dr, alu_b);              // 04 B ← mem[MBZ:DR]
+      MEMREAD_IDX(mbz, dr, alu_b);              // 04 B ← mem[MBZ:DR]; A ← AC
       SET(ac, alu_add), END;                    // 06 AC ← AC + B
 
 // (6) ADD, Auto-Increment
 start ADD, I=1, R=1, IDX=IDX_INC;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBZ:AGL]
-      MEMREAD_IDX(mbd, dr, alu_b);		// 04 B ← mem[MBn:DR]
+      MEMREAD_IDX(mbd, dr, alu_b);              // 04 B ← mem[MBn:DR]; A ← AC
       SET(ac, alu_add), action_incdr;		// 06 AC ← AC + B; DR++
       MEMWRITE(mbz, agl, dr), END;              // 07 mem[MBZ:AGL] ← DR
 
@@ -2950,7 +2950,7 @@ start ADD, I=1, R=1, IDX=IDX_INC;
 start ADD, I=1, R=1, IDX=IDX_DEC;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBZ:AGL]
-      MEMREAD_IDX(mbd, dr, alu_b);		// 04 B ← mem[MBn:DR]
+      MEMREAD_IDX(mbd, dr, alu_b);              // 04 B ← mem[MBn:DR]; A ← AC
       SET(ac, alu_add), action_decdr;		// 06 AC ← AC + B; DR--
       MEMWRITE(mbz, agl, dr), END;              // 07 mem[MBZ:AGL] ← DR
 
@@ -2959,7 +2959,7 @@ start ADD, I=1, R=1, IDX=IDX_SP;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBD:AGL]
       action_decdr;                             // 04 DR--
-      MEMREAD_IDX(mbd, dr, alu_b);              // 05 B ← mem[MBn:DR];
+      MEMREAD_IDX(mbd, dr, alu_b);             	// 05 B ← mem[MBn:DR]; A ← AC
       SET(ac, alu_add);                         // 07 AC ← AC + B
       MEMWRITE(mbz, agl, dr), END;              // 08 mem[MBD:AGL] ← DR
 
@@ -3021,7 +3021,7 @@ start AND, I=1, R=1, IDX=XX;
 start AND, I=1, R=1, IDX=IDX_INC;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBZ:AGL]
-      MEMREAD_IDX(mbd, dr, alu_b);		// 04 B ← mem[MBn:DR]
+      MEMREAD_IDX(mbd, dr, alu_b);            	// 04 B ← mem[MBn:DR]
       SET(ac, alu_and), action_incdr;		// 06 AC ← AC & B; DR++
       MEMWRITE(mbz, agl, dr), END;              // 07 mem[MBZ:AGL] ← DR
 
@@ -3029,7 +3029,7 @@ start AND, I=1, R=1, IDX=IDX_INC;
 start AND, I=1, R=1, IDX=IDX_DEC;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBZ:AGL]
-      MEMREAD_IDX(mbd, dr, alu_b);		// 04 B ← mem[MBn:DR]
+      MEMREAD_IDX(mbd, dr, alu_b);            	// 04 B ← mem[MBn:DR]
       SET(ac, alu_and), action_decdr;		// 06 AC ← AC & B; DR--
       MEMWRITE(mbz, agl, dr), END;              // 07 mem[MBZ:AGL] ← DR
 
@@ -3100,7 +3100,7 @@ start OR, I=1, R=1, IDX=XX;
 start OR, I=1, R=1, IDX=IDX_INC;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBZ:AGL]
-      MEMREAD_IDX(mbd, dr, alu_b);		// 04 B ← mem[MBn:DR]
+      MEMREAD_IDX(mbd, dr, alu_b);            	// 04 B ← mem[MBn:DR]
       SET(ac, alu_or), action_incdr;		// 06 AC ← AC | B; DR++
       MEMWRITE(mbz, agl, dr), END;              // 07 mem[MBZ:AGL] ← DR
 
@@ -3108,7 +3108,7 @@ start OR, I=1, R=1, IDX=IDX_INC;
 start OR, I=1, R=1, IDX=IDX_DEC;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBZ:AGL]
-      MEMREAD_IDX(mbd, dr, alu_b);		// 04 B ← mem[MBn:DR]
+      MEMREAD_IDX(mbd, dr, alu_b);            	// 04 B ← mem[MBn:DR]
       SET(ac, alu_or), action_decdr;		// 06 AC ← AC | B; DR--
       MEMWRITE(mbz, agl, dr), END;              // 07 mem[MBZ:AGL] ← DR
 
@@ -3179,7 +3179,7 @@ start XOR, I=1, R=1, IDX=XX;
 start XOR, I=1, R=1, IDX=IDX_INC;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBZ:AGL]
-      MEMREAD_IDX(mbd, dr, alu_b);		// 04 B ← mem[MBn:DR]
+      MEMREAD_IDX(mbd, dr, alu_b);            	// 04 B ← mem[MBn:DR]
       SET(ac, alu_xor), action_incdr;		// 06 AC ← AC ^ B; DR++
       MEMWRITE(mbz, agl, dr), END;              // 07 mem[MBZ:AGL] ← DR
 
@@ -3187,7 +3187,7 @@ start XOR, I=1, R=1, IDX=IDX_INC;
 start XOR, I=1, R=1, IDX=IDX_DEC;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBZ:AGL]
-      MEMREAD_IDX(mbd, dr, alu_b);		// 04 B ← mem[MBn:DR]
+      MEMREAD_IDX(mbd, dr, alu_b);            	// 04 B ← mem[MBn:DR]
       SET(ac, alu_xor), action_decdr;		// 06 AC ← AC ^ B; DR--
       MEMWRITE(mbz, agl, dr), END;              // 07 mem[MBZ:AGL] ← DR
 
