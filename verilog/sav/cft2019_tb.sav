@@ -1,16 +1,16 @@
 [*]
 [*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Thu Apr 30 19:49:54 2020
+[*] Fri May  1 09:22:34 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/cft2019_tb.vcd"
-[dumpfile_mtime] "Thu Apr 30 19:40:54 2020"
-[dumpfile_size] 2232371
+[dumpfile_mtime] "Fri May  1 08:40:02 2020"
+[dumpfile_size] 506476
 [optimize_vcd]
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/cft2019_tb.sav"
-[timestart] 122145800
-[size] 1357 735
-[pos] 1251 209
-*-16.501541 122477400 38120750 38370750 16501750 18751750 103501750 257501750 172501750 122391750 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[timestart] 27799000
+[size] 2048 1123
+[pos] 6144 0
+*-18.456396 29252750 29253750 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] cft2019_tb.
 [treeopen] cft2019_tb.cft.
 [treeopen] cft2019_tb.cft.card_alu.
@@ -21,7 +21,7 @@
 [sst_width] 372
 [signals_width] 332
 [sst_expanded] 1
-[sst_vpaned_height] 299
+[sst_vpaned_height] 513
 @800200
 -Reset
 @28
@@ -563,7 +563,19 @@ cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
 @28
 [color] 1
 cft2019_tb.cft.card_alu.alu_rom.op[2:0]
+@820
+cft2019_tb.cft.card_ctl.clock_generator.state[15:0]
+@28
+[color] 1
+cft2019_tb.cft.card_alu.alu_rom.op[2:0]
+[color] 1
 cft2019_tb.cft.card_alu.nromoe
+@29
+[color] 1
+cft2019_tb.cft.card_alu.alu_rom.nsetl_rom
+@28
+[color] 1
+cft2019_tb.cft.card_alu.alu_rom.nsetl_rom_ung
 cft2019_tb.cft.card_alu.nwrite_alu_b
 @24
 [color] 4
@@ -591,7 +603,7 @@ cft2019_tb.cft.card_alu.alu_rom.ba2[12:0]
 cft2019_tb.cft.card_alu.alu_rom.bd0[7:0]
 cft2019_tb.cft.card_alu.alu_rom.bd1[7:0]
 cft2019_tb.cft.card_alu.alu_rom.bd2[7:0]
-@29
+@28
 cft2019_tb.cft.card_alu.flout_rom
 @1000200
 -ALU

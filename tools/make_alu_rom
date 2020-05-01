@@ -277,6 +277,43 @@ class AluRom4(AluRom6):
         self.ops[0] = op_add4
 
 
+    def run(self):
+        """
+        Run the thread.
+        """
+        bits = self.bits
+        mask = self.mask
+        tt = self.tt
+
+        if debug:
+            print(" ADDR   DATA  |   A   B  C  XN  OP        |   Y  FLAGS")
+
+        # Address format: op:3, cin:1, xn_in:1, b:6, a:6 (in bits)
+        maxval = 1 << bits
+        prod = itertools.product(range(8),       # OP
+                                 range(2),       # Xn_in (reserved, don't care for now)
+                                 range(2),       # C
+                                 range(4),       # unused_b
+                                 range(maxval),  # B
+                                 range(4),       # unused_a
+                                 range(maxval))  # A
+        for op, xn_in, c, pad_b, b, pad_a, a in prod:
+            # Calculate the address. xn_in isn't used yet and is a don't care value.
+            addr = tt.make_vector(tt.inputs, op=op, c=c, a=a, pad_a=pad_a, b=b, pad_b=pad_b, xn_in=xn_in)
+            data = self.calculate(a, b, c, 0, op, bits, mask, tt)
+            # if (a == 15 and b == 0 and c == 1):
+            #     print("ADDR={:x}, DATA={:b}".format(addr, data))
+            tt.put(addr, data)
+        
+            if debug:
+                print('{:>05x}     {:>02x}  |  {:>02x}  {:>02x}  {}   {}  {:>02x} ({:3.3})  |  {:>02x}  {}'.format(
+                    addr, data,
+                    a, b, c, xn_in, op, OPS[op],
+                    data & mask, self.getflags(data)))
+            else:
+                tt.progress(dt=5)
+
+
     def calculate(self, a, b, c, xn_in, op, bits, mask, tt):
         y, setl, l, setv, v, xn = self.ops[op](a & mask, b & mask, c, bits, mask)
         # if setl and l:
@@ -317,15 +354,15 @@ class AluRom4(AluRom6):
 try:
     debug = False
     #debug = True
-    print("Generating 6-bit ROM")
+    print("Generating ROM 0 & 1 (6-bit)")
     ROM01 = romtables.FunctionTable('op:3 xn_in c b:6 a:6', 'xn l y:6', singleROM=True)
     AluRom6(ROM01).run()
     ROM01.report()
     
     debug = False
-    debug = True
-    print("Generating 4-bit ROM")
-    ROM2 = romtables.FunctionTable('op:3 xn_in c b:4 a:4', 'setl l setv v y:4', singleROM=True)
+    #debug = True
+    print("Generating ROM 2 (4-bit)")
+    ROM2 = romtables.FunctionTable('op:3 xn_in c pad_b:2 b:4 pad_a:2 a:4', 'setl l setv v y:4', singleROM=True)
     AluRom4(ROM2).run()
     ROM2.report()
 

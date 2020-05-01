@@ -120,7 +120,7 @@ module alu_rom_tb();
    // Connect DUT to test bench
    alu_rom alu_rom (.nromoe(nromoe),
 		    .fl(fl), .x_in(x_in),
-		    .op(op), .a(a), .b(b),
+		    .raddr(op), .a(a), .b(b),
 		    .ibus(ibus),
 		    .fvout_rom(fvout_rom), .nsetv_rom(nsetv_rom),
 		    .flout_rom(flout_rom), .nsetl_rom(nsetl_rom));

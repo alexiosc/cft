@@ -213,7 +213,7 @@ module card_alu(
 		    .x_in(x_in),
 		    .a(a),
 		    .b(b),
-		    .op(raddr[2:0]),
+		    .raddr(raddr[2:0]),
 		    .ibus(ibus),
 		    .fvout_rom(fvout_rom),
 		    .nsetv_rom(nsetv_rom),

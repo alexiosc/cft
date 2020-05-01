@@ -14,18 +14,19 @@
 `define alu_rom_v
 
 `include "buffer.v"
+`include "mux.v"
 `include "rom.v"
 
 `timescale 1ns/1ps
 
-module alu_rom (nromoe, fl, x_in, a, b, op,
+module alu_rom (nromoe, fl, x_in, a, b, raddr,
 		ibus, x0, x1, fvout_rom, nsetv_rom, flout_rom, nsetl_rom);
    
    input 	  nromoe;
    input 	  fl;
    input 	  x_in;		// X in, for future expansion
    input [15:0]   a, b;
-   input [2:0] 	  op;
+   input [2:0] 	  raddr;
 
    output [15:0]  ibus, y;
    output 	  x0, x1;	// Cascaded X for future expansion
@@ -37,24 +38,31 @@ module alu_rom (nromoe, fl, x_in, a, b, op,
    // The three ROMs. Pretend they're much slower for testing. The
    // hardware uses 50ns units.
 
-   wire [16:0] 	  ba0;
-   wire [16:0] 	  ba1;
-   wire [12:0] 	  ba2;
+   wire [16:0] 	  ba0, ba1, ba2;
    wire [7:0] 	  bd0, bd1, bd2;
    wire 	  c0, c1;
+
+   wire [2:0] 	  op;
+
+   // Disable the operation by forcing it to 111 unless the ALU ROM. This is
+   // made to avoid glitching of the nsetl_rom signal when the RADDR is idle
+   // (00000). op=111 keeps all the strobes disabled.
+   assign #5 op[0] = raddr[0] | nromoe;
+   assign #5 op[1] = raddr[1] | nromoe;
+   assign #5 op[2] = raddr[2] | nromoe;
 
    // All three ROMs are 128K×8 55ns units. ROMs 00 & 01 use the full 17
    // bits. ROM 02 uses 13 bits (the most significant four bits are tied to
    // ground). We declare a smaller ROM here to avoid warnings.
    rom #(17, 55, "../microcode/build/alu-rom-00.list") romb0 (.a(ba0), .d(bd0), .nce(1'b0), .noe(1'b0));
    rom #(17, 55, "../microcode/build/alu-rom-01.list") romb1 (.a(ba1), .d(bd1), .nce(1'b0), .noe(1'b0));
-   rom #(13, 55, "../microcode/build/alu-rom-02.list") romb2 (.a(ba2), .d(bd2), .nce(1'b0), .noe(1'b0));
+   rom #(17, 55, "../microcode/build/alu-rom-02.list") romb2 (.a(ba2), .d(bd2), .nce(1'b0), .noe(1'b0));
 
    // Connect address buses appropriately.
 
-   assign ba0 = { 2'd0, op, x_in, fl, b[5:0],   a[5:0] };
-   assign ba1 = { 2'd0, op, x0,   c0, b[11:6],  a[11:6] };
-   assign ba2 = { 6'd0, op, x1,   c1, b[15:12], a[15:12] };
+   assign ba0 = { op, x_in, fl,       b[5:0],         a[5:0] };
+   assign ba1 = { op, x0,   c0,       b[11:6],        a[11:6] };
+   assign ba2 = { op, x1,   c1, 2'b0, b[15:12], 2'b0, a[15:12] };
 
    // Connect data buses.
    wire 	  nsetl_rom_ung;
