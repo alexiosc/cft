@@ -1,16 +1,16 @@
 [*]
 [*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Fri May  1 09:22:34 2020
+[*] Fri May  1 09:46:16 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/cft2019_tb.vcd"
-[dumpfile_mtime] "Fri May  1 08:40:02 2020"
-[dumpfile_size] 506476
+[dumpfile_mtime] "Fri May  1 09:44:13 2020"
+[dumpfile_size] 2758063
 [optimize_vcd]
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/cft2019_tb.sav"
-[timestart] 27799000
+[timestart] 38440700
 [size] 2048 1123
 [pos] 6144 0
-*-18.456396 29252750 29253750 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-16.653698 38812750 29253750 38001750 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] cft2019_tb.
 [treeopen] cft2019_tb.cft.
 [treeopen] cft2019_tb.cft.card_alu.
@@ -558,22 +558,23 @@ cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
 -Instruction Register
 @800200
 -ALU
+@820
+cft2019_tb.cft.card_ctl.clock_generator.state[15:0]
+@4022
+[color] 1
+^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/disasm
+cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
 @200
 -
 @28
 [color] 1
 cft2019_tb.cft.card_alu.alu_rom.op[2:0]
-@820
-cft2019_tb.cft.card_ctl.clock_generator.state[15:0]
-@28
 [color] 1
 cft2019_tb.cft.card_alu.alu_rom.op[2:0]
 [color] 1
 cft2019_tb.cft.card_alu.nromoe
-@29
 [color] 1
 cft2019_tb.cft.card_alu.alu_rom.nsetl_rom
-@28
 [color] 1
 cft2019_tb.cft.card_alu.alu_rom.nsetl_rom_ung
 cft2019_tb.cft.card_alu.nwrite_alu_b
@@ -581,7 +582,9 @@ cft2019_tb.cft.card_alu.nwrite_alu_b
 [color] 4
 +{ac[15:0]} cft2019_tb.cft.card_reg.reg_ac.out[15:0]
 cft2019_tb.cft.card_alu.a[15:0]
+@25
 cft2019_tb.cft.card_alu.b[15:0]
+@24
 cft2019_tb.cft.card_alu.ibus[15:0]
 @28
 cft2019_tb.cft.card_alu.fl
@@ -599,7 +602,6 @@ cft2019_tb.cft.card_ctl.clock_generator.state[15:0]
 @22
 cft2019_tb.cft.card_alu.alu_rom.ba0[16:0]
 cft2019_tb.cft.card_alu.alu_rom.ba1[16:0]
-cft2019_tb.cft.card_alu.alu_rom.ba2[12:0]
 cft2019_tb.cft.card_alu.alu_rom.bd0[7:0]
 cft2019_tb.cft.card_alu.alu_rom.bd1[7:0]
 cft2019_tb.cft.card_alu.alu_rom.bd2[7:0]
