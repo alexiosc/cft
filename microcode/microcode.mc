@@ -171,7 +171,7 @@ cond uaddr:4;
 // 01110                 flags        Pushed onto stack as a single 16-bit value (for speed)
 // 01111     AGL         IR           Read AGL; write IR.
 // -------------------------------------------------------------------------------
-// 10000     ALU:ADD                  Read ADD result.
+// 10000     ALU:ADD                  Start calculating addition (value will be incorrect)
 // 10001     ALU:AND                  Read AND result.
 // 10010     ALU:OR                   Read OR result.
 // 10011     ALU:XOR                  Read XOR result.
@@ -181,7 +181,7 @@ cond uaddr:4;
 // 10111                              Reserved for ALU.
 // -------------------------------------------------------------------------------
 // 11000     ALU:B       ALU:B        Currently only used by the SRU.                              
-// 11001                              
+// 11001     ALU:Y                    Read last addition result
 // 11010                              
 // 11011                              
 // 11100                              

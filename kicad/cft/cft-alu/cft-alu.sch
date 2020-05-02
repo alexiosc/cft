@@ -457,14 +457,14 @@ S 5400 1300 1150 1150
 U 5DE3C078
 F0 "sheet5DE3C026" 50
 F1 "cft_alu_rom.sch" 50
-F2 "A[0..15]" I L 5400 1800 50 
-F3 "B[0..15]" I L 5400 1950 50 
-F4 "FL" I L 5400 1550 50 
+F2 "A[0..15]" I L 5400 1900 50 
+F3 "B[0..15]" I L 5400 2000 50 
+F4 "FL" I L 5400 1650 50 
 F5 "RADDR0" I L 5400 2100 50 
 F6 "RADDR1" I L 5400 2200 50 
 F7 "RADDR2" I L 5400 2300 50 
-F8 "~ROMOE" I L 5400 1450 50 
-F9 "X-IN" I L 5400 1650 50 
+F8 "~ALU-OP" I L 5400 1450 50 
+F9 "X-IN" I L 5400 1750 50 
 F10 "IBUS[0..15]" T R 6550 1450 50 
 F11 "X1" O R 6550 1900 50 
 F12 "X0" O R 6550 1800 50 
@@ -477,12 +477,8 @@ Wire Bus Line
 	6550 1450 7050 1450
 Text Label 7050 1450 2    50   ~ 0
 IBUS[0..15]
-Text Label 4900 1800 0    50   ~ 0
-A[0..15]
-Text Label 4900 1950 0    50   ~ 0
-B[0..15]
-Text Label 4900 1450 0    50   ~ 0
-~ROMOE
+Text Label 5300 1450 2    50   ~ 0
+~ALU-OP
 Wire Wire Line
 	6550 1800 7050 1800
 Wire Wire Line
@@ -507,8 +503,6 @@ Text Label 4900 2200 0    50   ~ 0
 RADDR1
 Text Label 4900 2300 0    50   ~ 0
 RADDR2
-Text Label 4900 1550 0    50   ~ 0
-FL
 $Sheet
 S 5400 2950 1150 2100
 U 5DF75CDE
@@ -595,10 +589,10 @@ Wire Bus Line
 Wire Wire Line
 	3500 1550 4050 1550
 Wire Wire Line
-	3500 1650 4050 1650
+	3500 1750 4050 1750
 Text Label 4050 1550 2    50   ~ 0
 ~READ-ALU-B
-Text Label 4050 1650 2    50   ~ 0
+Text Label 4050 1750 2    50   ~ 0
 ~WRITE-ALU-B
 Wire Wire Line
 	4900 2200 5400 2200
@@ -746,7 +740,7 @@ Text Label 1700 6800 0    50   ~ 0
 Text Label 1700 6900 0    50   ~ 0
 ~ACTION-CLL
 Entry Bus Bus
-	4450 2050 4550 1950
+	4450 2100 4550 2000
 Entry Bus Bus
 	4450 4550 4550 4650
 Wire Bus Line
@@ -758,9 +752,9 @@ Entry Bus Bus
 Wire Bus Line
 	4450 4550 4450 4200
 Entry Bus Bus
-	4550 1800 4450 1900
+	4550 1900 4450 2000
 Wire Bus Line
-	4350 2000 4450 1900
+	4350 2100 4450 2000
 Entry Bus Bus
 	7050 1450 7150 1550
 Entry Bus Bus
@@ -832,13 +826,13 @@ Entry Bus Bus
 Wire Wire Line
 	4800 4750 5400 4750
 Text Label 4050 1450 2    50   ~ 0
-~ROMOE
-Text Label 4050 1850 2    50   ~ 0
+~ALU-OP
+Text Label 4050 1950 2    50   ~ 0
 ~ACTION-CLL
-Text Label 4050 1750 2    50   ~ 0
+Text Label 4050 1850 2    50   ~ 0
 ~ACTION-CPL
 Wire Wire Line
-	3500 1850 4050 1850
+	3500 1950 4050 1950
 Text Label 4050 2150 2    50   ~ 0
 ~ACTION-SRU
 $Sheet
@@ -848,28 +842,29 @@ F0 "Decoders" 50
 F1 "alu_decoder.sch" 50
 F2 "RADDR[0..4]" I L 2350 1550 50 
 F3 "WADDR[0..4]" I L 2350 1650 50 
-F4 "~ROMOE" O R 3500 1450 50 
-F5 "T34" I L 2350 1450 50 
-F6 "ACTION[0..4]" I L 2350 1750 50 
-F7 "~WRITE-ALU-B" O R 3500 1650 50 
-F8 "~ACTION-SRU" O R 3500 2150 50 
-F9 "~ACTION-CPL" O R 3500 1750 50 
-F10 "~ACTION-CLL" O R 3500 1850 50 
-F11 "~READ-ALU-B" O R 3500 1550 50 
-F12 "~ACTION-110" O R 3500 2050 50 
+F4 "T34" I L 2350 1450 50 
+F5 "ACTION[0..4]" I L 2350 1750 50 
+F6 "~WRITE-ALU-B" O R 3500 1750 50 
+F7 "~ACTION-SRU" O R 3500 2150 50 
+F8 "~ACTION-CPL" O R 3500 1850 50 
+F9 "~ACTION-CLL" O R 3500 1950 50 
+F10 "~READ-ALU-B" O R 3500 1550 50 
+F11 "~ACTION-110" O R 3500 2050 50 
+F12 "~READ-ALU-Y" O R 3500 1650 50 
+F13 "~ALU-OP" O R 3500 1450 50 
 $EndSheet
 Text Label 4350 2850 1    50   ~ 0
 A[0..15]
 Text Label 4250 2850 1    50   ~ 0
 IBUS[0..15]
 Wire Bus Line
-	4450 2050 4450 4000
+	4450 2100 4450 4000
 Wire Bus Line
 	3500 3350 4250 3350
 Entry Bus Bus
 	4350 3250 4250 3350
 Wire Bus Line
-	4350 2000 4350 3250
+	4350 2100 4350 3250
 Wire Wire Line
 	3500 1450 5400 1450
 Text Label 4450 4550 1    50   ~ 0
@@ -881,13 +876,11 @@ Wire Wire Line
 Wire Wire Line
 	3550 5600 3650 5600
 Wire Bus Line
-	4550 1800 5400 1800
+	4550 1900 5400 1900
 Wire Bus Line
-	4550 1950 5400 1950
+	4550 2000 5400 2000
 Wire Wire Line
-	5400 1550 4700 1550
-Wire Wire Line
-	4700 1550 4700 5600
+	5400 1650 4700 1650
 Text Label 4700 5350 1    50   ~ 0
 FL
 Text Label 4800 5350 1    50   ~ 0
@@ -927,11 +920,9 @@ B[0..15]
 Text Label 4700 2850 1    50   ~ 0
 FL
 Wire Wire Line
-	3500 1750 4050 1750
+	3500 1850 4050 1850
 Wire Wire Line
 	2400 6800 1700 6800
-Text Label 4900 1650 0    50   ~ 0
-X-IN
 Text Notes 10200 2350 0    50   ~ 0
 ← Control Unit
 Wire Wire Line
@@ -966,29 +957,29 @@ For ROM Expansion
 $Comp
 L Jumper:SolderJumper_2_Bridged JP?
 U 1 1 5DC7BFB4
-P 4500 1650
+P 4500 1750
 AR Path="/5DE3C078/5DC7BFB4" Ref="JP?"  Part="1" 
 AR Path="/5DC7BFB4" Ref="JP1"  Part="1" 
-F 0 "JP1" H 4500 1763 50  0000 C CNN
-F 1 "SolderJumper_2_Bridged" H 4500 1764 50  0001 C CNN
-F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 4500 1650 50  0001 C CNN
-F 3 "~" H 4500 1650 50  0001 C CNN
-	1    4500 1650
+F 0 "JP1" H 4500 1863 50  0000 C CNN
+F 1 "SolderJumper_2_Bridged" H 4500 1864 50  0001 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 4500 1750 50  0001 C CNN
+F 3 "~" H 4500 1750 50  0001 C CNN
+	1    4500 1750
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR0113
 U 1 1 5DC97446
-P 4350 1700
-F 0 "#PWR0113" H 4350 1450 50  0001 C CNN
-F 1 "GND" H 4355 1527 50  0000 C CNN
-F 2 "" H 4350 1700 50  0001 C CNN
-F 3 "" H 4350 1700 50  0001 C CNN
-	1    4350 1700
+P 4350 1800
+F 0 "#PWR0113" H 4350 1550 50  0001 C CNN
+F 1 "GND" H 4355 1627 50  0000 C CNN
+F 2 "" H 4350 1800 50  0001 C CNN
+F 3 "" H 4350 1800 50  0001 C CNN
+	1    4350 1800
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	4350 1650 4350 1700
+	4350 1750 4350 1800
 $Comp
 L Connector:TestPoint TP?
 U 1 1 5DCDEBA8
@@ -1026,7 +1017,7 @@ Wire Wire Line
 Text Notes 8500 5850 0    50   ~ 0
 Actions for future expansion
 Wire Wire Line
-	4650 1650 5400 1650
+	4650 1750 5400 1750
 $Comp
 L Connector:TestPoint TP3
 U 1 1 5DD216FF
@@ -1126,10 +1117,24 @@ Wire Wire Line
 	3500 2050 4050 2050
 Text Label 4050 2050 2    50   ~ 0
 ~ACTION-110
+Wire Wire Line
+	3500 1650 4050 1650
+Text Label 4050 1650 2    50   ~ 0
+~READ-ALU-Y
+Wire Wire Line
+	4700 1650 4700 5600
 Wire Bus Line
 	7150 1200 7150 4450
 Wire Bus Line
 	10100 1300 10100 1950
 Wire Bus Line
 	10100 3450 10100 5050
+Text Label 4900 2000 0    50   ~ 0
+B[0..15]
+Text Label 4900 1900 0    50   ~ 0
+A[0..15]
+Text Label 4900 1750 0    50   ~ 0
+X-IN
+Text Label 4900 1650 0    50   ~ 0
+FL
 $EndSCHEMATC

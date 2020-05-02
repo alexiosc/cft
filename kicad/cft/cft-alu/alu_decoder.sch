@@ -66,8 +66,8 @@ Text Label 8500 4350 0    50   ~ 0
 ~WRITE-ALU-B
 NoConn ~ 8400 3950
 NoConn ~ 8400 4450
-Text Label 4650 2150 2    50   ~ 0
-~ROMOE
+Text Label 4400 2150 0    50   ~ 0
+~ALU-OP
 Text Notes 3550 3150 0    50   ~ 0
 NOTE: Use 74AC!
 NoConn ~ 4350 2650
@@ -245,7 +245,7 @@ Base\n~Y4~\n\nFinal
 Wire Wire Line
 	4350 2150 5250 2150
 Text HLabel 5250 2150 2    50   Output ~ 0
-~ROMOE
+~ALU-OP
 Text HLabel 2200 2850 0    50   Input ~ 0
 T34
 Wire Wire Line
@@ -273,8 +273,6 @@ Wire Wire Line
 	4350 4350 5250 4350
 NoConn ~ 4350 4650
 NoConn ~ 4350 4550
-NoConn ~ 4350 4450
-NoConn ~ 4350 4250
 NoConn ~ 4350 4150
 NoConn ~ 4350 4050
 $Comp
@@ -671,6 +669,13 @@ Wire Wire Line
 Text Label 6800 2950 0    50   ~ 0
 T34
 NoConn ~ 8400 2650
+Wire Wire Line
+	4350 4450 5250 4450
+Text HLabel 5250 4450 2    50   Output ~ 0
+~READ-ALU-Y
+Text Label 4400 4450 0    50   ~ 0
+~READ-ALU-Y
+NoConn ~ 4350 4250
 Wire Bus Line
 	6950 2000 6950 2750
 Wire Bus Line

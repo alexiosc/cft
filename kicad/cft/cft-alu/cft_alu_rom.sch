@@ -349,8 +349,6 @@ Text Label 8200 3700 0    50   ~ 0
 Y[0..15]
 Text HLabel 950  2700 0    50   Input ~ 0
 FL
-Text HLabel 950  5500 0    50   Input ~ 0
-~ROMOE
 Wire Wire Line
 	5850 2200 6200 2200
 Text Label 6200 2200 2    50   ~ 0
@@ -787,8 +785,6 @@ Wire Wire Line
 Connection ~ 3250 2500
 Wire Wire Line
 	4750 5000 4500 5000
-Wire Wire Line
-	4500 5000 4500 5500
 Text Label 4550 5000 0    50   ~ 0
 ~ROMOE
 Entry Wire Line
@@ -975,7 +971,6 @@ Wire Wire Line
 	8400 4800 8850 4800
 Entry Bus Bus
 	4300 3700 4400 3800
-Connection ~ 4500 5500
 $Comp
 L alexios:74HC541 U5
 U 2 1 5E1F00D4
@@ -1177,7 +1172,7 @@ Wire Wire Line
 Text Label 9550 2150 0    50   ~ 0
 ~SETV
 Text Label 9550 2250 0    50   ~ 0
-~ROMOE
+~READ-ALU-Y
 Wire Wire Line
 	8800 3350 10000 3350
 Wire Wire Line
@@ -1418,7 +1413,7 @@ Connection ~ 9950 6250
 Text Label 9550 3350 0    50   ~ 0
 ~SETL
 Text Label 9550 3450 0    50   ~ 0
-~ROMOE
+~READ-ALU-Y
 $Comp
 L alexios:29W010 U2
 U 1 1 5EB0EF1B
@@ -1517,110 +1512,6 @@ Wire Wire Line
 	1750 3000 2100 3000
 Wire Wire Line
 	1750 3100 2100 3100
-$Comp
-L alexios:74AC157 U43
-U 1 1 5EAD0F69
-P 1800 4700
-F 0 "U43" H 1800 5567 50  0000 C CNN
-F 1 "74AC157" H 1800 5476 50  0000 C CNN
-F 2 "alexios:SOIC-16" H 1800 4700 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS157" H 1800 4700 50  0001 C CNN
-	1    1800 4700
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	1100 4400 1300 4400
-$Comp
-L power:GND #PWR0126
-U 1 1 5EB0ECEF
-P 1100 4400
-F 0 "#PWR0126" H 1100 4150 50  0001 C CNN
-F 1 "GND" V 1105 4272 50  0000 R CNN
-F 2 "" H 1100 4400 50  0001 C CNN
-F 3 "" H 1100 4400 50  0001 C CNN
-	1    1100 4400
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	950  4300 1300 4300
-Wire Wire Line
-	950  4200 1300 4200
-Wire Wire Line
-	950  4100 1300 4100
-Text HLabel 950  4300 0    50   Input ~ 0
-RADDR2
-Text HLabel 950  4200 0    50   Input ~ 0
-RADDR1
-Text HLabel 950  4100 0    50   Input ~ 0
-RADDR0
-Wire Wire Line
-	1300 4550 1250 4550
-Wire Wire Line
-	1250 4550 1250 4000
-Wire Wire Line
-	1250 4550 1250 4650
-Wire Wire Line
-	1250 4650 1300 4650
-Connection ~ 1250 4550
-Wire Wire Line
-	1250 4650 1250 4750
-Wire Wire Line
-	1250 4750 1300 4750
-Connection ~ 1250 4650
-$Comp
-L power:+5V #PWR0158
-U 1 1 5EB4E648
-P 1250 4000
-F 0 "#PWR0158" H 1250 3850 50  0001 C CNN
-F 1 "+5V" H 1265 4173 50  0000 C CNN
-F 2 "" H 1250 4000 50  0001 C CNN
-F 3 "" H 1250 4000 50  0001 C CNN
-	1    1250 4000
-	1    0    0    -1  
-$EndComp
-NoConn ~ 2300 4400
-Wire Wire Line
-	1100 4850 1300 4850
-$Comp
-L power:GND #PWR0159
-U 1 1 5EB5C176
-P 1100 4850
-F 0 "#PWR0159" H 1100 4600 50  0001 C CNN
-F 1 "GND" V 1105 4722 50  0000 R CNN
-F 2 "" H 1100 4850 50  0001 C CNN
-F 3 "" H 1100 4850 50  0001 C CNN
-	1    1100 4850
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	2300 4100 2500 4100
-Wire Wire Line
-	2300 4200 2500 4200
-Wire Wire Line
-	2300 4300 2500 4300
-Text Label 2500 4100 2    50   ~ 0
-OP0
-Text Label 2500 4200 2    50   ~ 0
-OP1
-Text Label 2500 4300 2    50   ~ 0
-OP2
-$Comp
-L power:GND #PWR0185
-U 1 1 5EBA2096
-P 1250 5150
-F 0 "#PWR0185" H 1250 4900 50  0001 C CNN
-F 1 "GND" H 1255 4977 50  0000 C CNN
-F 2 "" H 1250 5150 50  0001 C CNN
-F 3 "" H 1250 5150 50  0001 C CNN
-	1    1250 5150
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	1300 5100 1250 5100
-Wire Wire Line
-	1250 5100 1250 5150
-Text Label 1050 5000 0    50   ~ 0
-~ROMOE
 $Comp
 L alexios:74AC157 U43
 U 2 1 5EBBBBA6
@@ -1749,17 +1640,143 @@ Wire Wire Line
 Connection ~ 7350 2600
 Wire Wire Line
 	7350 2600 7350 3250
+$Comp
+L alexios:74HC374 U?
+U 1 1 5EBDD363
+P -1050 5500
+F 0 "U?" H -1050 6267 50  0000 C CNN
+F 1 "74HC374" H -1050 6176 50  0000 C CNN
+F 2 "" H -800 5725 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS374" H -800 5725 50  0001 C CNN
+	1    -1050 5500
+	1    0    0    -1  
+$EndComp
 Wire Wire Line
-	1050 5000 1050 5500
+	-1550 5000 -2700 5000
+Text Label -2650 5000 0    50   ~ 0
+FL
+Text HLabel -2700 5000 0    50   Input ~ 0
+FL
+Text HLabel -2700 5100 0    50   Input ~ 0
+X-IN
+Text Label -2650 5100 0    50   ~ 0
+X-IN
 Wire Wire Line
-	1050 5000 1300 5000
-Text Label 3000 5500 0    50   ~ 0
-~ROMOE
+	-2700 5100 -1550 5100
 Wire Wire Line
-	950  5500 1050 5500
-Connection ~ 1050 5500
+	-2700 5200 -1550 5200
 Wire Wire Line
-	1050 5500 4500 5500
+	-2700 5300 -1550 5300
+Wire Wire Line
+	-2700 5400 -1550 5400
+$Comp
+L power:GND #PWR?
+U 1 1 5EBEFCAB
+P -1600 6050
+F 0 "#PWR?" H -1600 5800 50  0001 C CNN
+F 1 "GND" H -1595 5877 50  0000 C CNN
+F 2 "" H -1600 6050 50  0001 C CNN
+F 3 "" H -1600 6050 50  0001 C CNN
+	1    -1600 6050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	-1550 6000 -1600 6000
+Wire Wire Line
+	-1600 6000 -1600 6050
+Wire Wire Line
+	-2200 5850 -3350 5850
+Wire Wire Line
+	-1550 5500 -1600 5500
+Wire Wire Line
+	-1600 5500 -1600 5600
+Connection ~ -1600 6000
+Wire Wire Line
+	-1550 5600 -1600 5600
+Connection ~ -1600 5600
+Wire Wire Line
+	-1600 5600 -1600 5700
+Wire Wire Line
+	-1550 5700 -1600 5700
+Connection ~ -1600 5700
+Wire Wire Line
+	-1600 5700 -1600 6000
+NoConn ~ -550 5500
+NoConn ~ -550 5600
+NoConn ~ -550 5700
+Wire Wire Line
+	-550 5000 -350 5000
+Wire Wire Line
+	-550 5100 -350 5100
+Wire Wire Line
+	-550 5200 -350 5200
+Wire Wire Line
+	-550 5300 -350 5300
+Wire Wire Line
+	-550 5400 -350 5400
+Text Label -2650 5200 0    50   ~ 0
+RADDR0
+Text Label -2650 5300 0    50   ~ 0
+RADDR1
+Text Label -2650 5400 0    50   ~ 0
+RADDR2
+Text HLabel -2700 5200 0    50   Input ~ 0
+RADDR0
+Text HLabel -2700 5300 0    50   Input ~ 0
+RADDR1
+Text HLabel -2700 5400 0    50   Input ~ 0
+RADDR2
+Text Label -3300 5850 0    50   ~ 0
+~ALU-OP
+$Comp
+L alexios:74LVC1G32 U?
+U 1 1 5ED316B7
+P -2000 5900
+F 0 "U?" H -1950 6167 50  0000 C CNN
+F 1 "74LVC1G32" H -1950 6076 50  0000 C CNN
+F 2 "" H -1890 5880 50  0001 C CNN
+F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H -1890 5880 50  0001 C CNN
+	1    -2000 5900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	-1700 5900 -1550 5900
+Wire Wire Line
+	-2200 5950 -3350 5950
+Text Label -3300 5950 0    50   ~ 0
+CLK4
+Text HLabel -3350 5950 0    50   Input ~ 0
+CLK4
+Text Label -350 5200 2    50   ~ 0
+OP0
+Text Label -350 5300 2    50   ~ 0
+OP1
+Text Label -350 5400 2    50   ~ 0
+OP2
+Wire Wire Line
+	2000 5500 4500 5500
+Text HLabel 1150 5450 0    50   Input ~ 0
+~READ-ALU-Y
+Wire Wire Line
+	1550 5450 1150 5450
+Wire Wire Line
+	1150 5550 1550 5550
+Text HLabel 1150 5550 0    50   Input ~ 0
+~ALU-OP
+$Comp
+L alexios:74LVC1G08 U?
+U 1 1 5EE5511B
+P 1850 5500
+F 0 "U?" H 1775 5767 50  0000 C CNN
+F 1 "74LVC1G08" H 1775 5676 50  0000 C CNN
+F 2 "" H 1500 5500 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 1500 5500 50  0001 C CNN
+	1    1850 5500
+	1    0    0    -1  
+$EndComp
+Connection ~ 4500 5500
+Wire Wire Line
+	4500 5000 4500 5500
 Wire Bus Line
 	6400 5800 10200 5800
 Wire Bus Line
@@ -1767,11 +1784,11 @@ Wire Bus Line
 Wire Bus Line
 	950  850  6750 850 
 Wire Bus Line
-	6650 1100 6650 2300
-Wire Bus Line
 	3900 3700 9200 3700
 Wire Bus Line
 	9300 1600 9300 3600
+Wire Bus Line
+	6650 1100 6650 2300
 Wire Bus Line
 	6850 950  6850 1700
 Wire Bus Line
@@ -1794,6 +1811,6 @@ Wire Bus Line
 	6300 4200 6300 5700
 Wire Bus Line
 	4400 3800 4400 4700
-Text Notes 600  4600 0    98   ~ 20
-TODO: switch to 3× single OR gates?
+Text Notes 10500 3100 0    79   ~ 16
+TODO: ~READ-ALU-Y~ might be enough here, i.e. forego gates\nand ~SETV~ & ~SETL~ signals. ! (it's only used for ADD)
 $EndSCHEMATC
