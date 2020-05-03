@@ -654,8 +654,8 @@ A
 Text Notes 3450 4450 2    79   ~ 16
 B
 Wire Bus Line
-	1800 3350 2350 3350
-Text Label 1800 3350 0    50   ~ 0
+	1800 3500 2350 3500
+Text Label 1800 3500 0    50   ~ 0
 AC[0..15]
 Text Label 1800 4100 0    50   ~ 0
 IBUS[0..15]
@@ -690,8 +690,8 @@ U 5DE6D8E0
 F0 "Port A" 50
 F1 "alu_port_a.sch" 50
 F2 "A[0..15]" T R 3500 3350 50 
-F3 "ACP" I L 2350 3500 50 
-F4 "AC[0..15]" I L 2350 3350 50 
+F3 "ACP" I L 2350 3350 50 
+F4 "AC[0..15]" I L 2350 3500 50 
 $EndSheet
 Text Notes 2450 2850 0    197  ~ 39
 Ports
@@ -1090,8 +1090,8 @@ Wire Wire Line
 	3900 5450 4550 5450
 Text Label 4550 5450 2    50   ~ 0
 FL-OFFBOARD
-Text Notes 550  400  0    197  ~ 39
-TODO: Clean up schematics, annotate and reassociate with PCB!
+Text Notes -3100 6350 0    197  ~ 39
+TODO: Update from Verilog, Clean up, annotate and reassociate with PCB!
 Wire Wire Line
 	5400 3200 4900 3200
 Text Label 4900 3200 0    50   ~ 0
@@ -1131,13 +1131,13 @@ FL
 Wire Wire Line
 	2350 2150 2200 2150
 Wire Wire Line
-	2200 2150 2200 3500
+	2200 2150 2200 3350
+Wire Wire Line
+	2200 3350 2350 3350
 Wire Bus Line
 	7150 1200 7150 4450
 Wire Bus Line
 	10100 1300 10100 1950
 Wire Bus Line
 	10100 3450 10100 5050
-Wire Wire Line
-	2200 3500 2350 3500
 $EndSCHEMATC
