@@ -48,8 +48,8 @@ module alu_decoder (nrsthold, clk3, t34, raddr, waddr, action,
    // These decode RADDR and WADDR 11000
    demux_138 demux_rb (.a({ raddr[3], raddr[1:0]}), .g1(raddr[4]), .ng2a(raddr[2]), .ng2b(t34), .y(y2));
    demux_138 demux_wb (.a({ waddr[3], waddr[1:0]}), .g1(waddr[4]), .ng2a(waddr[2]), .ng2b(t34), .y(y3));
-   assign nread_alu_b = y2[4];
-   assign nread_alu_y = y2[5];
+   assign nread_alu_y = y2[4]; // UPDATE THIS IN SCHEMATICS!!!
+   assign nread_alu_b = y2[5]; // UPDATE THIS IN SCHEMATICS!!!
    assign nwrite_alu_b = y3[4];
 
    // This decodes actions 0xxx.
@@ -70,18 +70,18 @@ module alu_decoder (nrsthold, clk3, t34, raddr, waddr, action,
    // wait state and resets the count to 0000₂, deasserting the wait state. The
    // count is also reset on RSTHOLD.
 
-   wire        wsen;
-   wire        ctr_ws_mr;
-   wire [3:0]  ctr_ws_q;
+   // wire        wsen;
+   // wire        ctr_ws_mr;
+   // wire [3:0]  ctr_ws_q;
    
-   assign #5 wsen = ~nalu_op;
-   assign #5 ctr_ws_mr = ~ctr_ws_q[1];
-   assign #5 nws = ctr_ws_q[0] == 1 ? 1'b0 : 1'bz;
+   // assign #5 wsen = ~nalu_op;
+   // assign #5 ctr_ws_mr = ~ctr_ws_q[1];
+   // assign #5 nws = ctr_ws_q[0] == 1 ? 1'b0 : 1'bz;
 
-   counter_161 ctr_ws (.mr(ctr_ws_mr),
-		       .pe(nrsthold), .p(4'b0000),
-		       .cp(clk3), .cet(wsen), .cep(wsen),
-		       .q(ctr_ws_q));
+   // counter_161 ctr_ws (.mr(ctr_ws_mr),
+   // 		       .pe(nrsthold), .p(4'b0000),
+   // 		       .cp(clk3), .cet(wsen), .cep(wsen),
+   // 		       .q(ctr_ws_q));
 
    
 endmodule // alu_rom

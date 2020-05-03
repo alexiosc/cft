@@ -1,29 +1,31 @@
 [*]
 [*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
-[*] Sun May  3 12:11:30 2020
+[*] Sun May  3 17:29:19 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/cft2019_tb.vcd"
-[dumpfile_mtime] "Sun May  3 12:10:52 2020"
-[dumpfile_size] 811402
+[dumpfile_mtime] "Sun May  3 17:27:54 2020"
+[dumpfile_size] 2744408
 [optimize_vcd]
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/cft2019_tb.sav"
-[timestart] 23483000
-[size] 2880 1505
-[pos] 3312 250
-*-17.795500 24701250 19751750 22001750 12001750 24451250 24701250 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[timestart] 37172000
+[size] 3840 2032
+[pos] -1 -1
+*-18.056459 39120750 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] cft2019_tb.
 [treeopen] cft2019_tb.cft.
 [treeopen] cft2019_tb.cft.card_alu.
-[treeopen] cft2019_tb.cft.card_alu.decoder.
+[treeopen] cft2019_tb.cft.card_alu.alu_rom.
 [treeopen] cft2019_tb.cft.card_bus.constant_store.
 [treeopen] cft2019_tb.cft.card_ctl.ism.
 [treeopen] cft2019_tb.cft.card_mem.romhi.
+[treeopen] cft2019_tb.cft.card_reg.
 [treeopen] cft2019_tb.cft.card_reg.reg_ac.
+[treeopen] cft2019_tb.cft.card_reg.reg_pc.
 [sst_width] 372
-[signals_width] 644
+[signals_width] 661
 [sst_expanded] 1
-[sst_vpaned_height] 652
-@800200
+[sst_vpaned_height] 847
+@c00200
 -Reset
 @28
 [color] 1
@@ -34,11 +36,9 @@ cft2019_tb.cft.nrsthold
 cft2019_tb.cft.nfpreset
 [color] 4
 cft2019_tb.cft.powerok
-@1000200
+@1401200
 -Reset
-@22
-cft2019_tb.cft.card_ctl.agl.pc[15:10]
-@800200
+@c00200
 -Clock
 @820
 cft2019_tb.cft.card_ctl.clock_generator.state[15:0]
@@ -51,13 +51,11 @@ cft2019_tb.cft.card_ctl.clk2
 cft2019_tb.cft.card_ctl.clk3
 [color] 4
 cft2019_tb.cft.card_ctl.clk4
-[color] 6
-cft2019_tb.cft.card_ctl.fpclk
 [color] 5
 cft2019_tb.cft.card_ctl.t34
 [color] 7
 cft2019_tb.cft.card_ctl.nfpclk_or_clk
-@1000200
+@1401200
 -Clock
 @800200
 -Registers
@@ -153,6 +151,9 @@ cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
 -group_end
 @22
 cft2019_tb.cft.card_verilog_test.ab[23:0]
+@c00200
+-MBR
+@22
 [color] 2
 cft2019_tb.cft.card_bus.mbu.mb0[7:0]
 [color] 2
@@ -165,18 +166,21 @@ cft2019_tb.cft.card_bus.mbu.mb4[7:0]
 cft2019_tb.cft.card_bus.mbu.mb5[7:0]
 cft2019_tb.cft.card_bus.mbu.mb6[7:0]
 cft2019_tb.cft.card_bus.mbu.mb7[7:0]
+@1401200
+-MBR
+@c00200
+-Flags
 @28
 cft2019_tb.cft.fl
 cft2019_tb.cft.fn
 cft2019_tb.cft.fv
 cft2019_tb.cft.fz
 cft2019_tb.cft.card_ctl.fi
-cft2019_tb.cft.card_ctl.flag_unit.nflagoe
-@22
-cft2019_tb.cft.card_ctl.flag_unit.ibus[15:8]
+@1401200
+-Flags
 @1000200
 -Registers
-@c00200
+@800200
 -Buses
 @c00022
 [color] 1
@@ -295,7 +299,7 @@ cft2019_tb.cft.nr
 cft2019_tb.cft.nwen
 [color] 1
 cft2019_tb.cft.nw
-@1401200
+@1000200
 -Buses
 @c00200
 -Shifter/Rotator (SRU)
@@ -438,6 +442,8 @@ cft2019_tb.cft.card_alu.alu_sru.lsb_mux.y
 -Shifter/Rotator (SRU)
 @800200
 -Control Unit
+@28
+cft2019_tb.cft.nws
 @820
 cft2019_tb.cft.card_ctl.clock_generator.state[15:0]
 @2022
@@ -446,6 +452,10 @@ cft2019_tb.cft.card_ctl.microcode_sequencer.upc[3:0]
 @28
 [color] 3
 cft2019_tb.cft.card_ctl.microcode_sequencer.fpfetch
+@4022
+[color] 1
+^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/disasm
+cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
 @200
 -
 @28
@@ -484,7 +494,7 @@ cft2019_tb.cft.nhalt
 cft2019_tb.cft.card_ctl.microcode_sequencer.control_store.clk
 @22
 cft2019_tb.cft.card_ctl.microcode_sequencer.control_store.ff1.q0[7:0]
-@c04023
+@c04022
 ^>2 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/control
 cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
 @28
@@ -512,7 +522,7 @@ cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
 (21)cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
 (22)cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
 (23)cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
-@1401201
+@1401200
 -group_end
 @2028
 ^2 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/raddr
@@ -559,402 +569,72 @@ cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
 -Instruction Register
 @800200
 -ALU
-@1000200
--ALU
-@200
--WS Generation
-@28
-cft2019_tb.cft.card_alu.decoder.nrsthold
-[color] 3
-cft2019_tb.cft.card_ctl.clk3
-@820
-cft2019_tb.cft.card_ctl.clock_generator.state[15:0]
-@28
-cft2019_tb.cft.card_alu.decoder.wsen
-cft2019_tb.cft.card_alu.decoder.ctr_ws_mr
-cft2019_tb.cft.card_alu.decoder.ctr_ws.mr
-@c00022
-cft2019_tb.cft.card_alu.decoder.ctr_ws.q[3:0]
-@28
-(0)cft2019_tb.cft.card_alu.decoder.ctr_ws.q[3:0]
-(1)cft2019_tb.cft.card_alu.decoder.ctr_ws.q[3:0]
-(2)cft2019_tb.cft.card_alu.decoder.ctr_ws.q[3:0]
-(3)cft2019_tb.cft.card_alu.decoder.ctr_ws.q[3:0]
-@1401200
--group_end
+-ROMs
 @22
-cft2019_tb.cft.card_alu.decoder.ctr_ws.p[3:0]
-@28
-cft2019_tb.cft.card_alu.decoder.ctr_ws.pe
-cft2019_tb.nws
-@200
--Port A
-@c00022
-cft2019_tb.cft.card_alu.port_a.a[15:0]
-@28
-(0)cft2019_tb.cft.card_alu.port_a.a[15:0]
-(1)cft2019_tb.cft.card_alu.port_a.a[15:0]
-(2)cft2019_tb.cft.card_alu.port_a.a[15:0]
-(3)cft2019_tb.cft.card_alu.port_a.a[15:0]
-(4)cft2019_tb.cft.card_alu.port_a.a[15:0]
-(5)cft2019_tb.cft.card_alu.port_a.a[15:0]
-(6)cft2019_tb.cft.card_alu.port_a.a[15:0]
-(7)cft2019_tb.cft.card_alu.port_a.a[15:0]
-(8)cft2019_tb.cft.card_alu.port_a.a[15:0]
-(9)cft2019_tb.cft.card_alu.port_a.a[15:0]
-(10)cft2019_tb.cft.card_alu.port_a.a[15:0]
-(11)cft2019_tb.cft.card_alu.port_a.a[15:0]
-(12)cft2019_tb.cft.card_alu.port_a.a[15:0]
-(13)cft2019_tb.cft.card_alu.port_a.a[15:0]
-(14)cft2019_tb.cft.card_alu.port_a.a[15:0]
-(15)cft2019_tb.cft.card_alu.port_a.a[15:0]
-@1401200
--group_end
-@c00024
-cft2019_tb.cft.card_alu.port_a.a[15:0]
-@28
-(0)cft2019_tb.cft.card_alu.port_a.a[15:0]
-(1)cft2019_tb.cft.card_alu.port_a.a[15:0]
-(2)cft2019_tb.cft.card_alu.port_a.a[15:0]
-(3)cft2019_tb.cft.card_alu.port_a.a[15:0]
-(4)cft2019_tb.cft.card_alu.port_a.a[15:0]
-(5)cft2019_tb.cft.card_alu.port_a.a[15:0]
-(6)cft2019_tb.cft.card_alu.port_a.a[15:0]
-(7)cft2019_tb.cft.card_alu.port_a.a[15:0]
-(8)cft2019_tb.cft.card_alu.port_a.a[15:0]
-(9)cft2019_tb.cft.card_alu.port_a.a[15:0]
-(10)cft2019_tb.cft.card_alu.port_a.a[15:0]
-(11)cft2019_tb.cft.card_alu.port_a.a[15:0]
-(12)cft2019_tb.cft.card_alu.port_a.a[15:0]
-(13)cft2019_tb.cft.card_alu.port_a.a[15:0]
-(14)cft2019_tb.cft.card_alu.port_a.a[15:0]
-(15)cft2019_tb.cft.card_alu.port_a.a[15:0]
-@1401200
--group_end
-@28
-cft2019_tb.cft.card_alu.port_a.acp
-@200
--Port B
-@28
-cft2019_tb.cft.card_alu.port_b.bcp
-@c00022
-cft2019_tb.cft.card_alu.port_b.b[15:0]
-@28
-(0)cft2019_tb.cft.card_alu.port_b.b[15:0]
-(1)cft2019_tb.cft.card_alu.port_b.b[15:0]
-(2)cft2019_tb.cft.card_alu.port_b.b[15:0]
-(3)cft2019_tb.cft.card_alu.port_b.b[15:0]
-(4)cft2019_tb.cft.card_alu.port_b.b[15:0]
-(5)cft2019_tb.cft.card_alu.port_b.b[15:0]
-(6)cft2019_tb.cft.card_alu.port_b.b[15:0]
-(7)cft2019_tb.cft.card_alu.port_b.b[15:0]
-(8)cft2019_tb.cft.card_alu.port_b.b[15:0]
-(9)cft2019_tb.cft.card_alu.port_b.b[15:0]
-(10)cft2019_tb.cft.card_alu.port_b.b[15:0]
-(11)cft2019_tb.cft.card_alu.port_b.b[15:0]
-(12)cft2019_tb.cft.card_alu.port_b.b[15:0]
-(13)cft2019_tb.cft.card_alu.port_b.b[15:0]
-(14)cft2019_tb.cft.card_alu.port_b.b[15:0]
-(15)cft2019_tb.cft.card_alu.port_b.b[15:0]
-@1401200
--group_end
-@24
-cft2019_tb.cft.card_alu.port_b.b[15:0]
-@200
--Op Reg
-@28
-cft2019_tb.cft.card_alu.alu_rom.alureg.le
-@22
-cft2019_tb.cft.card_alu.alu_rom.alureg.d[7:0]
-@28
-cft2019_tb.cft.card_alu.alu_rom.alureg.noe
-@c00022
-cft2019_tb.cft.card_alu.alu_rom.alureg.q[7:0]
-@28
-(0)cft2019_tb.cft.card_alu.alu_rom.alureg.q[7:0]
-(1)cft2019_tb.cft.card_alu.alu_rom.alureg.q[7:0]
-(2)cft2019_tb.cft.card_alu.alu_rom.alureg.q[7:0]
-(3)cft2019_tb.cft.card_alu.alu_rom.alureg.q[7:0]
-(4)cft2019_tb.cft.card_alu.alu_rom.alureg.q[7:0]
-(5)cft2019_tb.cft.card_alu.alu_rom.alureg.q[7:0]
-(6)cft2019_tb.cft.card_alu.alu_rom.alureg.q[7:0]
-(7)cft2019_tb.cft.card_alu.alu_rom.alureg.q[7:0]
-@1401200
--group_end
-@200
--ROM
-@28
-[color] 1
-cft2019_tb.cft.card_alu.alu_rom.nread_alu_y
-[color] 2
-cft2019_tb.cft.card_alu.alu_rom.nalu_op
-[color] 3
-cft2019_tb.cft.card_alu.alu_rom.naluoe
-@c00022
 cft2019_tb.cft.card_alu.alu_rom.ba0[16:0]
-@28
-(0)cft2019_tb.cft.card_alu.alu_rom.ba0[16:0]
-(1)cft2019_tb.cft.card_alu.alu_rom.ba0[16:0]
-(2)cft2019_tb.cft.card_alu.alu_rom.ba0[16:0]
-(3)cft2019_tb.cft.card_alu.alu_rom.ba0[16:0]
-(4)cft2019_tb.cft.card_alu.alu_rom.ba0[16:0]
-(5)cft2019_tb.cft.card_alu.alu_rom.ba0[16:0]
-(6)cft2019_tb.cft.card_alu.alu_rom.ba0[16:0]
-(7)cft2019_tb.cft.card_alu.alu_rom.ba0[16:0]
-(8)cft2019_tb.cft.card_alu.alu_rom.ba0[16:0]
-(9)cft2019_tb.cft.card_alu.alu_rom.ba0[16:0]
-(10)cft2019_tb.cft.card_alu.alu_rom.ba0[16:0]
-(11)cft2019_tb.cft.card_alu.alu_rom.ba0[16:0]
-(12)cft2019_tb.cft.card_alu.alu_rom.ba0[16:0]
-(13)cft2019_tb.cft.card_alu.alu_rom.ba0[16:0]
-(14)cft2019_tb.cft.card_alu.alu_rom.ba0[16:0]
-(15)cft2019_tb.cft.card_alu.alu_rom.ba0[16:0]
-(16)cft2019_tb.cft.card_alu.alu_rom.ba0[16:0]
-@1401200
--group_end
-@22
 cft2019_tb.cft.card_alu.alu_rom.ba1[16:0]
-@c00022
 cft2019_tb.cft.card_alu.alu_rom.ba2[16:0]
-@28
-(0)cft2019_tb.cft.card_alu.alu_rom.ba2[16:0]
-(1)cft2019_tb.cft.card_alu.alu_rom.ba2[16:0]
-(2)cft2019_tb.cft.card_alu.alu_rom.ba2[16:0]
-(3)cft2019_tb.cft.card_alu.alu_rom.ba2[16:0]
-(4)cft2019_tb.cft.card_alu.alu_rom.ba2[16:0]
-(5)cft2019_tb.cft.card_alu.alu_rom.ba2[16:0]
-(6)cft2019_tb.cft.card_alu.alu_rom.ba2[16:0]
-(7)cft2019_tb.cft.card_alu.alu_rom.ba2[16:0]
-(8)cft2019_tb.cft.card_alu.alu_rom.ba2[16:0]
-(9)cft2019_tb.cft.card_alu.alu_rom.ba2[16:0]
-(10)cft2019_tb.cft.card_alu.alu_rom.ba2[16:0]
-(11)cft2019_tb.cft.card_alu.alu_rom.ba2[16:0]
-(12)cft2019_tb.cft.card_alu.alu_rom.ba2[16:0]
-(13)cft2019_tb.cft.card_alu.alu_rom.ba2[16:0]
-(14)cft2019_tb.cft.card_alu.alu_rom.ba2[16:0]
-(15)cft2019_tb.cft.card_alu.alu_rom.ba2[16:0]
-(16)cft2019_tb.cft.card_alu.alu_rom.ba2[16:0]
-@1401200
--group_end
-@22
+[color] 2
 cft2019_tb.cft.card_alu.alu_rom.bd0[7:0]
+[color] 2
 cft2019_tb.cft.card_alu.alu_rom.bd1[7:0]
+[color] 2
 cft2019_tb.cft.card_alu.alu_rom.bd2[7:0]
-@200
--Calculation
+@1000200
+-ROMs
 @820
 cft2019_tb.cft.card_ctl.clock_generator.state[15:0]
-@2028
-^2 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/raddr
-cft2019_tb.cft.card_ctl.raddr[4:0]
-@c00028
-cft2019_tb.cft.card_alu.alu_rom.op[2:0]
-@28
-(0)cft2019_tb.cft.card_alu.alu_rom.op[2:0]
-(1)cft2019_tb.cft.card_alu.alu_rom.op[2:0]
-(2)cft2019_tb.cft.card_alu.alu_rom.op[2:0]
-@1401200
--group_end
-@22
-cft2019_tb.cft.card_alu.port_a.a[15:0]
-cft2019_tb.cft.card_alu.port_b.b[15:0]
-@c00022
-cft2019_tb.cft.card_alu.alu_rom.y[15:0]
-@28
-(0)cft2019_tb.cft.card_alu.alu_rom.y[15:0]
-(1)cft2019_tb.cft.card_alu.alu_rom.y[15:0]
-(2)cft2019_tb.cft.card_alu.alu_rom.y[15:0]
-(3)cft2019_tb.cft.card_alu.alu_rom.y[15:0]
-(4)cft2019_tb.cft.card_alu.alu_rom.y[15:0]
-(5)cft2019_tb.cft.card_alu.alu_rom.y[15:0]
-(6)cft2019_tb.cft.card_alu.alu_rom.y[15:0]
-(7)cft2019_tb.cft.card_alu.alu_rom.y[15:0]
-(8)cft2019_tb.cft.card_alu.alu_rom.y[15:0]
-(9)cft2019_tb.cft.card_alu.alu_rom.y[15:0]
-(10)cft2019_tb.cft.card_alu.alu_rom.y[15:0]
-(11)cft2019_tb.cft.card_alu.alu_rom.y[15:0]
-(12)cft2019_tb.cft.card_alu.alu_rom.y[15:0]
-(13)cft2019_tb.cft.card_alu.alu_rom.y[15:0]
-(14)cft2019_tb.cft.card_alu.alu_rom.y[15:0]
-(15)cft2019_tb.cft.card_alu.alu_rom.y[15:0]
-@1401200
--group_end
-@c00024
-cft2019_tb.cft.card_alu.alu_rom.y[15:0]
-@28
-(0)cft2019_tb.cft.card_alu.alu_rom.y[15:0]
-(1)cft2019_tb.cft.card_alu.alu_rom.y[15:0]
-(2)cft2019_tb.cft.card_alu.alu_rom.y[15:0]
-(3)cft2019_tb.cft.card_alu.alu_rom.y[15:0]
-(4)cft2019_tb.cft.card_alu.alu_rom.y[15:0]
-(5)cft2019_tb.cft.card_alu.alu_rom.y[15:0]
-(6)cft2019_tb.cft.card_alu.alu_rom.y[15:0]
-(7)cft2019_tb.cft.card_alu.alu_rom.y[15:0]
-(8)cft2019_tb.cft.card_alu.alu_rom.y[15:0]
-(9)cft2019_tb.cft.card_alu.alu_rom.y[15:0]
-(10)cft2019_tb.cft.card_alu.alu_rom.y[15:0]
-(11)cft2019_tb.cft.card_alu.alu_rom.y[15:0]
-(12)cft2019_tb.cft.card_alu.alu_rom.y[15:0]
-(13)cft2019_tb.cft.card_alu.alu_rom.y[15:0]
-(14)cft2019_tb.cft.card_alu.alu_rom.y[15:0]
-(15)cft2019_tb.cft.card_alu.alu_rom.y[15:0]
-@1401200
--group_end
-@28
-[color] 1
-cft2019_tb.cft.card_reg.nwrite_ac
-@c00200
--L Register
-@28
-cft2019_tb.cft.nrsthold
-cft2019_tb.cft.card_alu.reg_l.nsru_run
-cft2019_tb.cft.card_alu.reg_l.clk4
-cft2019_tb.cft.card_alu.reg_l.bcp
-cft2019_tb.cft.card_alu.reg_l.clkl
-cft2019_tb.cft.card_alu.reg_l.clkl0
-cft2019_tb.cft.card_alu.reg_l.fl
-cft2019_tb.cft.card_alu.reg_l.flfast
-cft2019_tb.cft.card_alu.reg_l.flin_add
-cft2019_tb.cft.card_alu.reg_l.flin_sru
-cft2019_tb.cft.card_alu.reg_l.ibus12
-[color] 2
-cft2019_tb.cft.card_alu.reg_l.ld
-cft2019_tb.cft.card_alu.reg_l.ld0
-cft2019_tb.cft.card_alu.reg_l.naction_cll
-cft2019_tb.cft.card_alu.reg_l.naction_cpl
-cft2019_tb.cft.card_alu.reg_l.nclrl
-cft2019_tb.cft.card_alu.reg_l.nclrl0
-cft2019_tb.cft.card_alu.reg_l.nfl
-cft2019_tb.cft.card_alu.reg_l.nflagwe
-cft2019_tb.cft.card_alu.reg_l.nread_alu_add
-cft2019_tb.cft.card_alu.reg_l.nsetl
-@1401200
--L Register
-@200
--
-@c00200
--Skip/Branch Unit
-@28
-cft2019_tb.cft.card_ctl.sbu.nreset
-cft2019_tb.cft.card_ctl.sbu.clk4
 @4022
 [color] 1
 ^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/disasm
 cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
-@c04022
-^>2 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/control
-cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
 @28
-(0)cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
-(1)cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
-(2)cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
-(3)cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
-(4)cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
-(5)cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
-(6)cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
-(7)cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
-(8)cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
-(9)cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
-(10)cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
-(11)cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
-(12)cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
-(13)cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
-(14)cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
-(15)cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
-(16)cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
-(17)cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
-(18)cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
-(19)cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
-(20)cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
-(21)cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
-(22)cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
-(23)cft2019_tb.cft.card_ctl.microcode_sequencer.ucontrol[23:0]
-@1401200
--group_end
+[color] 4
+cft2019_tb.cft.card_alu.port_a.acp
+[color] 5
+cft2019_tb.cft.card_ctl.t34
+cft2019_tb.cft.card_alu.alu_rom.nalu_op
 @200
 -
-@22
-cft2019_tb.cft.card_ctl.sbu.cond[4:0]
-@28
-cft2019_tb.cft.card_ctl.sbu.ncen0
-cft2019_tb.cft.card_ctl.sbu.ncen1
-cft2019_tb.cft.card_ctl.sbu.ncond0
-@c00022
-cft2019_tb.cft.card_ctl.sbu.muxhi.d[7:0]
-@28
-(0)cft2019_tb.cft.card_ctl.sbu.muxhi.d[7:0]
-(1)cft2019_tb.cft.card_ctl.sbu.muxhi.d[7:0]
-(2)cft2019_tb.cft.card_ctl.sbu.muxhi.d[7:0]
-(3)cft2019_tb.cft.card_ctl.sbu.muxhi.d[7:0]
-(4)cft2019_tb.cft.card_ctl.sbu.muxhi.d[7:0]
-(5)cft2019_tb.cft.card_ctl.sbu.muxhi.d[7:0]
-(6)cft2019_tb.cft.card_ctl.sbu.muxhi.d[7:0]
-(7)cft2019_tb.cft.card_ctl.sbu.muxhi.d[7:0]
-@1401200
--group_end
-@28
-cft2019_tb.cft.card_ctl.sbu.muxhi.sel[2:0]
-cft2019_tb.cft.card_ctl.sbu.muxhi.ny
+@29
+[color] 3
+cft2019_tb.cft.card_alu.alu_rom.regle
 @200
 -
-@28
-cft2019_tb.cft.card_ctl.sbu.skp
-cft2019_tb.cft.card_ctl.sbu.cext8
-cft2019_tb.cft.card_ctl.sbu.cext9
-cft2019_tb.cft.card_ctl.sbu.cext10
-cft2019_tb.cft.card_ctl.sbu.fl
-cft2019_tb.cft.card_ctl.sbu.fn
-cft2019_tb.cft.card_ctl.sbu.fv
-cft2019_tb.cft.card_ctl.sbu.fz
-cft2019_tb.cft.card_ctl.sbu.ncond
-cft2019_tb.cft.card_ctl.sbu.ncond00
-cft2019_tb.cft.card_ctl.sbu.ncond01
-cft2019_tb.cft.card_ctl.sbu.ncond1
-cft2019_tb.cft.card_ctl.sbu.nskipext
-@22
-cft2019_tb.cft.card_ctl.sbu.y[3:0]
-@1401200
--Skip/Brancu Unit
-@c00200
--Flags
-@28
-cft2019_tb.cft.card_ctl.flag_unit.nflagwe
-cft2019_tb.cft.card_ctl.flag_unit.nwrite_flags
-cft2019_tb.cft.card_ctl.flag_unit.nwrite_mbp_flags
-cft2019_tb.cft.card_ctl.flag_unit.nwrite_ir
-cft2019_tb.cft.card_alu.reg_l.nflagwe
-cft2019_tb.cft.card_alu.reg_l.ibus12
-cft2019_tb.cft.card_alu.reg_l.fl
-cft2019_tb.cft.card_alu.reg_l.clkl
-cft2019_tb.cft.card_alu.reg_l.clkl0
-cft2019_tb.cft.card_alu.reg_l.ld
-@1401200
--Flags
-@c00200
--Interrupts
-@28
-cft2019_tb.cft.card_ctl.ism.nflagwe
-cft2019_tb.cft.card_ctl.ism.naction_cli
-cft2019_tb.cft.card_ctl.ism.naction_sti
-cft2019_tb.cft.card_ctl.ism.nreset_or_cli
-cft2019_tb.cft.card_ctl.ism.endcp
 @2028
-^5 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/action
-cft2019_tb.cft.card_ctl.action[3:0]
+^2 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/raddr
+cft2019_tb.cft.card_ctl.raddr[4:0]
 @28
-cft2019_tb.cft.card_ctl.ism.ibus15
-cft2019_tb.cft.card_ctl.ism.fi
-cft2019_tb.cft.card_ctl.ism.nirq
-cft2019_tb.cft.card_ctl.ism.nirqs
-@1401200
--Interrupts
-@200
--Peripherals
-@c00200
--DFP Card
+cft2019_tb.cft.card_alu.alu_rom.naluoe
+@24
+[color] 2
+cft2019_tb.cft.card_alu.a[15:0]
+[color] 3
+cft2019_tb.cft.card_alu.b[15:0]
+@2028
+[color] 4
+^6 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/aluop
+cft2019_tb.cft.card_alu.alu_rom.op[2:0]
 @22
-cft2019_tb.cft.card_dfp.OR[15:0]
-@1401200
--DFP Card
+[color] 5
+cft2019_tb.cft.card_alu.alu_rom.y[15:0]
+[color] 6
+cft2019_tb.cft.card_alu.alu_rom.ibus[15:0]
+@24
+[color] 7
++{ac[15:0]} cft2019_tb.cft.card_reg.reg_ac.out[15:0]
+@28
+[color] 1
+cft2019_tb.cft.card_reg.nwrite_ac
+@1000200
+-ALU
+@200
+-
+-
+-
+-
+-
+-
+-
 [pattern_trace] 1
 [pattern_trace] 0

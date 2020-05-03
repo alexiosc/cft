@@ -421,12 +421,12 @@ Wire Wire Line
 	8150 3900 8250 3900
 Text Notes 3500 3000 0    50   ~ 0
 This decoder responds to RADDR=11000. It's used to retrieve\nthe result of an SRU (shift/rotate) operation after the SRU has\nfinished cranking. The microcode could also theoretically use\nthe B port as a very temporary scratch register of limited\nutility—since every ALU operation clobbers it.
-Text HLabel 4850 3800 2    50   Output ~ 0
-~READ-ALU-Y
 Text HLabel 4850 3700 2    50   Output ~ 0
+~READ-ALU-Y
+Text HLabel 4850 3800 2    50   Output ~ 0
 ~READ-ALU-B
 NoConn ~ 3700 3600
-Text Label 3750 3800 0    50   ~ 0
+Text Label 3750 3700 0    50   ~ 0
 ~READ-ALU-Y
 Wire Wire Line
 	3700 3800 4850 3800
@@ -520,7 +520,7 @@ NoConn ~ 3700 3900
 NoConn ~ 3700 4000
 Wire Wire Line
 	3700 3700 4850 3700
-Text Label 3750 3700 0    50   ~ 0
+Text Label 3750 3800 0    50   ~ 0
 ~READ-ALU-B
 NoConn ~ 3700 3300
 Text HLabel 10400 2200 2    50   Output ~ 0

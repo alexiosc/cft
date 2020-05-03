@@ -15,15 +15,16 @@
 
 `include "buffer.v"
 `include "latch.v"
+`include "flipflop.v"
 `include "rom.v"
 
 `timescale 1ns/1ps
 
-module alu_rom (clk4, t34, nalu_op, nread_alu_y,
+module alu_rom (t34, nalu_op, nread_alu_y,
 		fl, x_in, a, b, raddr,
 		ibus, x0, x1, fvout_rom, nsetv_rom, flout_rom, nsetl_rom);
 
-   input          clk4, t34;
+   input          t34;
    
    input 	  nalu_op;
    input 	  nread_alu_y;
@@ -50,11 +51,11 @@ module alu_rom (clk4, t34, nalu_op, nread_alu_y,
 
    wire 	  x_in_reg, fl_reg;
    wire [7:0] 	  alureg_q;
-   wire 	  regcp;
+   wire 	  regle;
 
-   assign #6 regcp = ~(nalu_op | clk4);
-
-   latch_573 alureg (.d({ 3'd0, raddr[2:0], x_in, fl }), .q(alureg_q), .le(regcp), .noe(1'b0));
+   // Generate a latch enable pulse
+   flipflop_74h #(5,5) fi_regle (.d(1'b0), .clk(t34), .nset(nalu_op), .nrst(1'b1), .q(regle));
+   latch_573 alureg (.d({ 3'd0, raddr[2:0], x_in, fl }), .q(alureg_q), .le(regle), .noe(1'b0));
    assign fl_reg = alureg_q[0];
    assign x_in_reg = alureg_q[1];
    assign op[2:0] = alureg_q[4:2];
@@ -89,10 +90,10 @@ module alu_rom (clk4, t34, nalu_op, nread_alu_y,
    wire 	  naluoe;
    assign #7 naluoe = nread_alu_y & nalu_op;
 
-   // buffer_541 buflo (.a(y[7:0]),  .y(ibus[7:0]),  .noe1(naluoe), .noe2(1'b0));
-   // buffer_541 bufhi (.a(y[15:8]), .y(ibus[15:8]), .noe1(naluoe), .noe2(1'b0));
-   buffer_541 buflo (.a(y[7:0]),  .y(ibus[7:0]),  .noe1(naluoe), .noe2(t34));
-   buffer_541 bufhi (.a(y[15:8]), .y(ibus[15:8]), .noe1(naluoe), .noe2(t34));
+   buffer_541 buflo (.a(y[7:0]),  .y(ibus[7:0]),  .noe1(naluoe), .noe2(1'b0));
+   buffer_541 bufhi (.a(y[15:8]), .y(ibus[15:8]), .noe1(naluoe), .noe2(1'b0));
+   // buffer_541 buflo (.a(y[7:0]),  .y(ibus[7:0]),  .noe1(naluoe), .noe2(t34));
+   // buffer_541 bufhi (.a(y[15:8]), .y(ibus[15:8]), .noe1(naluoe), .noe2(t34));
 
    // Gate the FV and FL enables so they're only enabled when the ALU store is
    // enabled.

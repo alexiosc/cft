@@ -201,7 +201,8 @@ module card_alu(
 
 // TODO: TRANSLATE THIS TO GATES
 // TODO: PERHAPS USE wsen as acp clock?
-   assign #7 acp = (nwrite_alu_b == 0) || (nalu_op == 1 && clk4 == 0) ? 1'b1 : 1'b0;
+// assign #7 acp = (nwrite_alu_b == 0) || (nalu_op == 1 && clk4 == 0) ? 1'b1 : 1'b0;
+assign #7 acp = ~nalu_op;
 
    //alu_porta port_a (.ac(ac), .acp(nwrite_alu_b), .a(a));
    alu_porta port_a (.ac(ac), .acp(acp), .a(a));
@@ -218,7 +219,7 @@ module card_alu(
    tri0 	 x_in;		// Spare Op ROM input
 
 // TODO: DECIDE ON CLOCK!   
-   alu_rom alu_rom (.clk4(clk1), .t34(t34), // TODO: DECIDE
+   alu_rom alu_rom (.t34(t34), // TODO: DECIDE
 		    .nalu_op(nalu_op),
 		    .nread_alu_y(nread_alu_y),
 		    .fl(fl),

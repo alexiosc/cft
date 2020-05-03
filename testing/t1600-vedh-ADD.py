@@ -155,7 +155,7 @@ def calc_addition(a, b, fl):
 @pytest.mark.hardware
 @pytest.mark.LOAD
 @pytest.mark.ADD
-def test_ADD(capsys, tmpdir, max_test=2):
+def test_ADD(capsys, tmpdir, max_test=10):
 
     source = """
     .include "mbu.asm"
