@@ -217,7 +217,7 @@ signal read_alu_not    = ...................10100; // ALU: Read from ALU: NOT AC
 //signal               = ...................10110; // ALU: reserved.
 //signal               = ...................10111; // ALU: reserved.
 signal read_alu_b      = ...................11000; // Read the ALU B Port (SRU result)
-//signal               = ...................11001; // (Available)
+signal read_alu_y      = ...................11001; // Read the ALU Y Port (ADD result)
 //signal               = ...................11010; // (Available)
 //signal               = ...................11011; // (Available)
 //signal               = ...................11100; // (Available)
@@ -1519,7 +1519,7 @@ start IFL, COND=0;
       if_l;                         // 02
       if_ir5;                                   // 03 If L:
       SET(ac, cs0), if_ir4;                     // 04 If IR5: AC ← 0
-      action_cll, if_ir3;                       // 05 If IR4: L ← 0; A ← AC
+      action_cll, SET(alu_b, alu_b), if_ir3;                       // 05 If IR4: L ← 0; A ← AC
       SET(ac, alu_not), if_ir2;                 // 06 If IR3: AC ← ~AC
       action_incac, if_ir1;                     // 07 IF IR2: AC++
       action_decac, if_ir0;                     // 08 IF IR1: AC--
@@ -1530,7 +1530,7 @@ start IFL, COND=1;
       if_l;                                     // 02
       END;                                      // 03 If L:
       if_ir4;                                   // 04 If IR5:
-      if_ir3;                                   // 05 If IR4:
+      SET(alu_b, alu_b), if_ir3;                                   // 05 If IR4:
       if_ir2;                                   // 06 If IR3:
       if_ir1;                                   // 07 IF IR2:
       if_ir0;                                   // 08 IF IR1:
@@ -1541,7 +1541,7 @@ start IFV, COND=0;
       if_v;                                     // 02
       if_ir5;                                   // 03 If V:
       SET(ac, cs0), if_ir4;                     // 04 If IR5: AC ← 0
-      action_cll, if_ir3/*, action_wpa*/;           // 05 If IR4: L ← 0
+      action_cll, if_ir3, SET(alu_b, alu_b);           // 05 If IR4: L ← 0
       SET(ac, alu_not), if_ir2;                 // 06 If IR3: AC ← ~AC
       action_incac, if_ir1;                     // 07 IF IR2: AC++
       action_decac, if_ir0;                     // 08 IF IR1: AC--
@@ -1552,7 +1552,7 @@ start IFV, COND=1;
       if_v;                                     // 02
       END;                                      // 03 If V:
       if_ir4;                                   // 04 If IR5:
-      if_ir3;                                   // 05 If IR4:
+      SET(alu_b, alu_b), if_ir3;                                   // 05 If IR4:
       if_ir2;                                   // 06 If IR3:
       if_ir1;                                   // 07 IF IR2:
       if_ir0;                                   // 08 IF IR1:
@@ -1562,7 +1562,7 @@ start UOP, COND=0;
       FETCH_IR;                                 // 00 IR ← mem[PC++];
       if_ir5;                                   // 02
       SET(ac, cs0), if_ir4;                     // 03 If IR5: AC ← 0
-      action_cll, if_ir3/*, action_wpa*/;           // 04 If IR4: L ← 0
+      action_cll, SET(alu_b, alu_b), if_ir3/*, action_wpa*/;           // 04 If IR4: L ← 0
       SET(ac, alu_not), if_ir2;                 // 05 If IR3: AC ← ~AC
       action_incac, if_ir1;                     // 06 IF IR2: AC++
       action_decac, if_ir0;                     // 07 IF IR1: AC--
@@ -1572,7 +1572,7 @@ start UOP, COND=1;
       FETCH_IR;                                 // 00 IR ← mem[PC++];
       if_ir5;                                   // 02
       if_ir4;                                   // 03 If IR5:
-      if_ir3;                                   // 04 If IR4:
+      SET(alu_b, alu_b), if_ir3;                                   // 04 If IR4:
       if_ir2;                                   // 05 If IR3:
       if_ir1;                                   // 06 IF IR2:
       if_ir0;                                   // 07 IF IR1:
@@ -2916,43 +2916,49 @@ start IOT, COND=0, I=1, R=1, IDX=IDX_SP;
 start ADD, I=0, R=0, IDX=XX;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       MEMREAD(mbp, agl, alu_b);                 // 02 B ← mem[MBP:AGL]; A ← AC
-      SET(ac, alu_add), END;                    // 04 AC ← AC + B
+      read_alu_add;				// 04 Y ← A + B + L
+      SET(ac, alu_y), END;			// 05 AC ← Y
 
 // (2) ADD, Register
 start ADD, I=0, R=1, IDX=XX;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, alu_b);                 // 02 B ← mem[MBZ:AGL]; A ← AC
-      SET(ac, alu_add), END;                    // 04 AC ← AC + B
+      read_alu_add;				// 04 Y ← A + B + L
+      SET(ac, alu_y), END;                      // 05 AC ← AC + B
 
 // (3) ADD, Indirect
 start ADD, I=1, R=0, IDX=XX;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       MEMREAD(mbp, agl, dr);                    // 02 DR ← mem[MBP:AGL]
       MEMREAD(mbd, dr, alu_b);                  // 04 B ← mem[MBD:DR]; A ← AC
-      SET(ac, alu_add), END;                    // 06 AC ← AC + B
+      read_alu_add;				// 06 Y ← A + B + L
+      SET(ac, alu_y), END;                      // 07 AC ← AC + B
 
 // (4) & (5) ADD, Register Indirect and Memory Bank-Relative Indirect
 start ADD, I=1, R=1, IDX=XX;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBZ:AGL]
       MEMREAD_IDX(mbz, dr, alu_b);              // 04 B ← mem[MBZ:DR]; A ← AC
-      SET(ac, alu_add), END;                    // 06 AC ← AC + B
+      read_alu_add;				// 06 Y ← A + B + L
+      SET(ac, alu_y), END;                      // 07 AC ← AC + B
 
 // (6) ADD, Auto-Increment
 start ADD, I=1, R=1, IDX=IDX_INC;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBZ:AGL]
       MEMREAD_IDX(mbd, dr, alu_b);              // 04 B ← mem[MBn:DR]; A ← AC
-      SET(ac, alu_add), action_incdr;		// 06 AC ← AC + B; DR++
-      MEMWRITE(mbz, agl, dr), END;              // 07 mem[MBZ:AGL] ← DR
+      read_alu_add;				// 06 Y ← A + B + L
+      SET(ac, alu_y), action_incdr;		// 08 AC ← AC + B; DR++
+      MEMWRITE(mbz, agl, dr), END;              // 09 mem[MBZ:AGL] ← DR
 
 // (7) ADD, Auto-Decrement
 start ADD, I=1, R=1, IDX=IDX_DEC;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBZ:AGL]
       MEMREAD_IDX(mbd, dr, alu_b);              // 04 B ← mem[MBn:DR]; A ← AC
-      SET(ac, alu_add), action_decdr;		// 06 AC ← AC + B; DR--
-      MEMWRITE(mbz, agl, dr), END;              // 07 mem[MBZ:AGL] ← DR
+      read_alu_add;				// 06 Y ← A + B + L
+      SET(ac, alu_y), action_decdr;		// 08 AC ← AC + B; DR--
+      MEMWRITE(mbz, agl, dr), END;              // 09 mem[MBZ:AGL] ← DR
 
 // (8) ADD, Stack
 start ADD, I=1, R=1, IDX=IDX_SP;
@@ -2960,8 +2966,9 @@ start ADD, I=1, R=1, IDX=IDX_SP;
       MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBD:AGL]
       action_decdr;                             // 04 DR--
       MEMREAD_IDX(mbd, dr, alu_b);             	// 05 B ← mem[MBn:DR]; A ← AC
-      SET(ac, alu_add);                         // 07 AC ← AC + B
-      MEMWRITE(mbz, agl, dr), END;              // 08 mem[MBD:AGL] ← DR
+      read_alu_add;				// 07 Y ← A + B + L
+      SET(ac, alu_y);                           // 08 AC ← AC + B
+      MEMWRITE(mbz, agl, dr), END;              // 09 mem[MBD:AGL] ← DR
 
 
 ///////////////////////////////////////////////////////////////////////////////

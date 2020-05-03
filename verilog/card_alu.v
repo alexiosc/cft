@@ -83,7 +83,7 @@ module card_alu(
    input 	 nio;		// Microcode store output
    input 	 nw;		// Driven by the BUS board.
    input 	 nr;		// Microcode store output
-   input 	 nws;		// Open drain, handled by BUS board
+   inout 	 nws;		// Open drain, handled by BUS board
 
    input [23:0]  ab;		// 24-bit address bus
    input [15:0]  db;		// 16-bit data bus
@@ -145,8 +145,9 @@ module card_alu(
    //
    ///////////////////////////////////////////////////////////////////////////////
 
-   wire 	 nromoe;
+   wire 	 nalu_op;
    wire 	 nread_alu_b;
+   wire 	 nread_alu_y;
    wire 	 nwrite_alu_b;
    wire 	 naction_cpl;
    wire 	 naction_cll;
@@ -174,16 +175,21 @@ module card_alu(
    //
    ///////////////////////////////////////////////////////////////////////////////
 
-   alu_decoder decoder (.t34(t34),
-		.raddr(raddr),
-		.waddr(waddr),
-		.action(action), 
-		.nromoe(nromoe),
-		.nread_alu_b(nread_alu_b),
-		.nwrite_alu_b(nwrite_alu_b),
-		.naction_cpl(naction_cpl),
-		.naction_cll(naction_cll),
-		.naction_sru(naction_sru));
+   alu_decoder decoder (
+			.nrsthold(nrsthold),
+			.clk3(clk3),
+			.t34(t34),
+			.raddr(raddr),
+			.waddr(waddr),
+			.action(action), 
+			.nalu_op(nalu_op),
+			.nread_alu_b(nread_alu_b),
+			.nread_alu_y(nread_alu_y),
+			.nwrite_alu_b(nwrite_alu_b),
+			.naction_cpl(naction_cpl),
+			.naction_cll(naction_cll),
+			.naction_sru(naction_sru),
+			.nws(nws));
 
    ///////////////////////////////////////////////////////////////////////////////
    //
@@ -191,12 +197,15 @@ module card_alu(
    //
    ///////////////////////////////////////////////////////////////////////////////
 
-   // TODO: check if clk4 is too early. The AC is set on the rising
-   // edge of clk4 too. Maybe go for the rising edge of clk1?
+   wire 	 acp;
 
-   alu_porta port_a (.ac(ac), .acp(clk1), .a(a));
+// TODO: TRANSLATE THIS TO GATES
+// TODO: PERHAPS USE wsen as acp clock?
+   assign #7 acp = (nwrite_alu_b == 0) || (nalu_op == 1 && clk4 == 0) ? 1'b1 : 1'b0;
 
-   // In the schematics, bcp is an AND gate inside the Port B schematics.
+   //alu_porta port_a (.ac(ac), .acp(nwrite_alu_b), .a(a));
+   alu_porta port_a (.ac(ac), .acp(acp), .a(a));
+
    assign #7 bcp = nwrite_alu_b & bcp_sru;
    alu_portb port_b (.ibus(ibus), .bcp(bcp), .nread_alu_b(nread_alu_b), .b(b));
 
@@ -208,7 +217,10 @@ module card_alu(
 
    tri0 	 x_in;		// Spare Op ROM input
 
-   alu_rom alu_rom (.nromoe(nromoe),
+// TODO: DECIDE ON CLOCK!   
+   alu_rom alu_rom (.clk4(clk1), .t34(t34), // TODO: DECIDE
+		    .nalu_op(nalu_op),
+		    .nread_alu_y(nread_alu_y),
 		    .fl(fl),
 		    .x_in(x_in),
 		    .a(a),

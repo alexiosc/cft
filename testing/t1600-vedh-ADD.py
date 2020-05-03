@@ -155,7 +155,7 @@ def calc_addition(a, b, fl):
 @pytest.mark.hardware
 @pytest.mark.LOAD
 @pytest.mark.ADD
-def test_ADD(capsys, tmpdir, max_test=10):
+def test_ADD(capsys, tmpdir, max_test=2):
 
     source = """
     .include "mbu.asm"
@@ -213,6 +213,7 @@ def test_ADD(capsys, tmpdir, max_test=10):
     result = run_on_verilog_emu(capsys, tmpdir, source,
                                 verilog_args=["+wp=0"])
     # pprint.pprint(list(result))
+    # pprint.pprint(list(expected))
     # assert False
     result = list(expected.prepare(result))
     assert list(result) == expected

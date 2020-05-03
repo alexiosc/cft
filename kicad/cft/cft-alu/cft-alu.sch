@@ -1123,12 +1123,6 @@ Text Label 4050 1650 2    50   ~ 0
 ~READ-ALU-Y
 Wire Wire Line
 	4700 1650 4700 5600
-Wire Bus Line
-	7150 1200 7150 4450
-Wire Bus Line
-	10100 1300 10100 1950
-Wire Bus Line
-	10100 3450 10100 5050
 Text Label 4900 2000 0    50   ~ 0
 B[0..15]
 Text Label 4900 1900 0    50   ~ 0
@@ -1137,4 +1131,10 @@ Text Label 4900 1750 0    50   ~ 0
 X-IN
 Text Label 4900 1650 0    50   ~ 0
 FL
+Wire Bus Line
+	7150 1200 7150 4450
+Wire Bus Line
+	10100 1300 10100 1950
+Wire Bus Line
+	10100 3450 10100 5050
 $EndSCHEMATC

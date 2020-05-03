@@ -46,6 +46,7 @@ module counter_161 (
 
    initial begin
       // $display("BOM: 74x161");
+      q = $random;
    end
 
    and #delay (tc, cet, q[0], q[1], q[2], q[3]);
