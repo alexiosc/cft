@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 3 9
+Sheet 9 9
 Title "Arithmetic & Logic Unit"
 Date "2019-11-17"
 Rev ""
@@ -1747,61 +1747,6 @@ F 3 "~" H 1000 5850 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+5V #PWR?
-U 1 1 5F96AA53
-P 1000 5050
-AR Path="/5F96AA53" Ref="#PWR?"  Part="1" 
-AR Path="/5F597FD4/5F96AA53" Ref="#PWR?"  Part="1" 
-AR Path="/5DC89E19/5CF23BD4/5F96AA53" Ref="#PWR?"  Part="1" 
-AR Path="/5DC89E19/5CF5A95E/5F96AA53" Ref="#PWR?"  Part="1" 
-AR Path="/5DC89E19/5F96AA53" Ref="#PWR?"  Part="1" 
-AR Path="/5DC89E19/5E18A3E1/5F96AA53" Ref="#PWR?"  Part="1" 
-AR Path="/5DE3C078/5F96AA53" Ref="#PWR0158"  Part="1" 
-F 0 "#PWR0158" H 1000 4900 50  0001 C CNN
-F 1 "+5V" H 1015 5223 50  0000 C CNN
-F 2 "" H 1000 5050 50  0001 C CNN
-F 3 "" H 1000 5050 50  0001 C CNN
-	1    1000 5050
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5F96AA59
-P 1000 5250
-AR Path="/5F96AA59" Ref="#PWR?"  Part="1" 
-AR Path="/5F597FD4/5F96AA59" Ref="#PWR?"  Part="1" 
-AR Path="/5DC89E19/5CF23BD4/5F96AA59" Ref="#PWR?"  Part="1" 
-AR Path="/5DC89E19/5CF5A95E/5F96AA59" Ref="#PWR?"  Part="1" 
-AR Path="/5DC89E19/5F96AA59" Ref="#PWR?"  Part="1" 
-AR Path="/5DC89E19/5E18A3E1/5F96AA59" Ref="#PWR?"  Part="1" 
-AR Path="/5DE3C078/5F96AA59" Ref="#PWR0159"  Part="1" 
-F 0 "#PWR0159" H 1000 5000 50  0001 C CNN
-F 1 "GND" H 1005 5077 50  0000 C CNN
-F 2 "" H 1000 5250 50  0001 C CNN
-F 3 "" H 1000 5250 50  0001 C CNN
-	1    1000 5250
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 5F96AA5F
-P 1000 5150
-AR Path="/5CC0D65F/5F96AA5F" Ref="C?"  Part="1" 
-AR Path="/5F96AA5F" Ref="C?"  Part="1" 
-AR Path="/5F597FD4/5F96AA5F" Ref="C?"  Part="1" 
-AR Path="/5DC89E19/5CF23BD4/5F96AA5F" Ref="C?"  Part="1" 
-AR Path="/5DC89E19/5CF5A95E/5F96AA5F" Ref="C?"  Part="1" 
-AR Path="/5DC89E19/5F96AA5F" Ref="C?"  Part="1" 
-AR Path="/5DC89E19/5E18A3E1/5F96AA5F" Ref="C?"  Part="1" 
-AR Path="/5DE3C078/5F96AA5F" Ref="C50"  Part="1" 
-F 0 "C50" H 909 5196 50  0000 R CNN
-F 1 "100nF" H 909 5105 50  0000 R CNN
-F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1000 5150 50  0001 C CNN
-F 3 "~" H 1000 5150 50  0001 C CNN
-	1    1000 5150
-	1    0    0    -1  
-$EndComp
-$Comp
 L alexios:74LVC1G08 U47
 U 2 1 5F9A24A9
 P 1450 6450
@@ -1896,19 +1841,6 @@ $EndComp
 Connection ~ 1000 5950
 Connection ~ 1000 5750
 $Comp
-L alexios:74LVC1G02 U46
-U 2 1 5FA8B960
-P 1300 5150
-F 0 "U46" H 1530 5196 50  0000 L CNN
-F 1 "74LVC1G02" H 1530 5105 50  0000 L CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 1250 5150 50  0001 C CNN
-F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 1250 5150 50  0001 C CNN
-	2    1300 5150
-	1    0    0    -1  
-$EndComp
-Connection ~ 1000 5250
-Connection ~ 1000 5050
-$Comp
 L alexios:74LVC1G74 U49
 U 1 1 5EDD7582
 P 2000 4100
@@ -1971,18 +1903,18 @@ REGCP
 $Comp
 L alexios:74LVC1G74 U49
 U 2 1 5EFA221D
-P 2800 5150
-F 0 "U49" H 2980 5196 50  0000 L CNN
-F 1 "74LVC1G74" H 2980 5105 50  0000 L CNN
-F 2 "alexios:TSSOP-8_3x3mm_P0.65mm" H 3250 5150 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G74.pdf" H 3250 5150 50  0001 C CNN
-	2    2800 5150
+P 1350 5150
+F 0 "U49" H 1530 5196 50  0000 L CNN
+F 1 "74LVC1G74" H 1530 5105 50  0000 L CNN
+F 2 "alexios:TSSOP-8_3x3mm_P0.65mm" H 1800 5150 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G74.pdf" H 1800 5150 50  0001 C CNN
+	2    1350 5150
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:+5V #PWR?
 U 1 1 5EFA3463
-P 2450 5050
+P 1000 5050
 AR Path="/5EFA3463" Ref="#PWR?"  Part="1" 
 AR Path="/5F597FD4/5EFA3463" Ref="#PWR?"  Part="1" 
 AR Path="/5DC89E19/5CF23BD4/5EFA3463" Ref="#PWR?"  Part="1" 
@@ -1990,17 +1922,17 @@ AR Path="/5DC89E19/5CF5A95E/5EFA3463" Ref="#PWR?"  Part="1"
 AR Path="/5DC89E19/5EFA3463" Ref="#PWR?"  Part="1" 
 AR Path="/5DC89E19/5E18A3E1/5EFA3463" Ref="#PWR?"  Part="1" 
 AR Path="/5DE3C078/5EFA3463" Ref="#PWR017"  Part="1" 
-F 0 "#PWR017" H 2450 4900 50  0001 C CNN
-F 1 "+5V" H 2465 5223 50  0000 C CNN
-F 2 "" H 2450 5050 50  0001 C CNN
-F 3 "" H 2450 5050 50  0001 C CNN
-	1    2450 5050
+F 0 "#PWR017" H 1000 4900 50  0001 C CNN
+F 1 "+5V" H 1015 5223 50  0000 C CNN
+F 2 "" H 1000 5050 50  0001 C CNN
+F 3 "" H 1000 5050 50  0001 C CNN
+	1    1000 5050
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR?
 U 1 1 5EFA3469
-P 2450 5250
+P 1000 5250
 AR Path="/5EFA3469" Ref="#PWR?"  Part="1" 
 AR Path="/5F597FD4/5EFA3469" Ref="#PWR?"  Part="1" 
 AR Path="/5DC89E19/5CF23BD4/5EFA3469" Ref="#PWR?"  Part="1" 
@@ -2008,17 +1940,17 @@ AR Path="/5DC89E19/5CF5A95E/5EFA3469" Ref="#PWR?"  Part="1"
 AR Path="/5DC89E19/5EFA3469" Ref="#PWR?"  Part="1" 
 AR Path="/5DC89E19/5E18A3E1/5EFA3469" Ref="#PWR?"  Part="1" 
 AR Path="/5DE3C078/5EFA3469" Ref="#PWR018"  Part="1" 
-F 0 "#PWR018" H 2450 5000 50  0001 C CNN
-F 1 "GND" H 2455 5077 50  0000 C CNN
-F 2 "" H 2450 5250 50  0001 C CNN
-F 3 "" H 2450 5250 50  0001 C CNN
-	1    2450 5250
+F 0 "#PWR018" H 1000 5000 50  0001 C CNN
+F 1 "GND" H 1005 5077 50  0000 C CNN
+F 2 "" H 1000 5250 50  0001 C CNN
+F 3 "" H 1000 5250 50  0001 C CNN
+	1    1000 5250
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:C_Small C?
 U 1 1 5EFA346F
-P 2450 5150
+P 1000 5150
 AR Path="/5CC0D65F/5EFA346F" Ref="C?"  Part="1" 
 AR Path="/5EFA346F" Ref="C?"  Part="1" 
 AR Path="/5F597FD4/5EFA346F" Ref="C?"  Part="1" 
@@ -2027,15 +1959,15 @@ AR Path="/5DC89E19/5CF5A95E/5EFA346F" Ref="C?"  Part="1"
 AR Path="/5DC89E19/5EFA346F" Ref="C?"  Part="1" 
 AR Path="/5DC89E19/5E18A3E1/5EFA346F" Ref="C?"  Part="1" 
 AR Path="/5DE3C078/5EFA346F" Ref="C52"  Part="1" 
-F 0 "C52" H 2359 5196 50  0000 R CNN
-F 1 "100nF" H 2359 5105 50  0000 R CNN
-F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2450 5150 50  0001 C CNN
-F 3 "~" H 2450 5150 50  0001 C CNN
-	1    2450 5150
+F 0 "C52" H 909 5196 50  0000 R CNN
+F 1 "100nF" H 909 5105 50  0000 R CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1000 5150 50  0001 C CNN
+F 3 "~" H 1000 5150 50  0001 C CNN
+	1    1000 5150
 	1    0    0    -1  
 $EndComp
-Connection ~ 2450 5050
-Connection ~ 2450 5250
+Connection ~ 1000 5050
+Connection ~ 1000 5250
 Wire Bus Line
 	8650 750  8650 3100
 Wire Bus Line

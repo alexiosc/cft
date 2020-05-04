@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 9 9
+Sheet 8 9
 Title "ALU Decoding & Control"
 Date "2019-11-17"
 Rev ""
@@ -697,18 +697,78 @@ $EndComp
 $Comp
 L alexios:74LVC1G04 U48
 U 2 1 5F03048C
-P 6700 2750
-F 0 "U48" H 6880 2796 50  0000 L CNN
-F 1 "74LVC1G04" H 6880 2705 50  0000 L CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 6700 2750 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G04.pdf" H 6700 2750 50  0001 C CNN
-	2    6700 2750
+P 5550 6450
+F 0 "U48" H 5730 6496 50  0000 L CNN
+F 1 "74LVC1G04" H 5730 6405 50  0000 L CNN
+F 2 "alexios:SOT-23-5_HandSoldering" H 5550 6450 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G04.pdf" H 5550 6450 50  0001 C CNN
+	2    5550 6450
 	1    0    0    -1  
 $EndComp
 Text HLabel 6800 2250 2    50   Output ~ 0
 ACP
 Text Label 6700 2250 2    50   ~ 0
 ACP
+$Comp
+L Device:C_Small C?
+U 1 1 5F1ED2C5
+P 5200 6450
+AR Path="/5CC0D65F/5F1ED2C5" Ref="C?"  Part="1" 
+AR Path="/5F1ED2C5" Ref="C?"  Part="1" 
+AR Path="/5F597FD4/5F1ED2C5" Ref="C?"  Part="1" 
+AR Path="/5DC89E19/5CF23BD4/5F1ED2C5" Ref="C?"  Part="1" 
+AR Path="/5DC89E19/5CF5A95E/5F1ED2C5" Ref="C?"  Part="1" 
+AR Path="/5DC89E19/5F1ED2C5" Ref="C?"  Part="1" 
+AR Path="/5DC89E19/5D98F946/5F1ED2C5" Ref="C?"  Part="1" 
+AR Path="/5D121AA3/5F1ED2C5" Ref="C?"  Part="1" 
+AR Path="/5E1C970B/5F1ED2C5" Ref="C50"  Part="1" 
+F 0 "C50" H 5109 6496 50  0000 R CNN
+F 1 "100nF" H 5109 6405 50  0000 R CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5200 6450 50  0001 C CNN
+F 3 "~" H 5200 6450 50  0001 C CNN
+	1    5200 6450
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5F1ED2CB
+P 5200 6550
+AR Path="/5F1ED2CB" Ref="#PWR?"  Part="1" 
+AR Path="/5F597FD4/5F1ED2CB" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5CF23BD4/5F1ED2CB" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5CF5A95E/5F1ED2CB" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5F1ED2CB" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5D98F946/5F1ED2CB" Ref="#PWR?"  Part="1" 
+AR Path="/5D121AA3/5F1ED2CB" Ref="#PWR?"  Part="1" 
+AR Path="/5E1C970B/5F1ED2CB" Ref="#PWR020"  Part="1" 
+F 0 "#PWR020" H 5200 6300 50  0001 C CNN
+F 1 "GND" H 5205 6377 50  0000 C CNN
+F 2 "" H 5200 6550 50  0001 C CNN
+F 3 "" H 5200 6550 50  0001 C CNN
+	1    5200 6550
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 5F1ED2D1
+P 5200 6350
+AR Path="/5F1ED2D1" Ref="#PWR?"  Part="1" 
+AR Path="/5F597FD4/5F1ED2D1" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5CF23BD4/5F1ED2D1" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5CF5A95E/5F1ED2D1" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5F1ED2D1" Ref="#PWR?"  Part="1" 
+AR Path="/5DC89E19/5D98F946/5F1ED2D1" Ref="#PWR?"  Part="1" 
+AR Path="/5D121AA3/5F1ED2D1" Ref="#PWR?"  Part="1" 
+AR Path="/5E1C970B/5F1ED2D1" Ref="#PWR019"  Part="1" 
+F 0 "#PWR019" H 5200 6200 50  0001 C CNN
+F 1 "+5V" H 5215 6523 50  0000 C CNN
+F 2 "" H 5200 6350 50  0001 C CNN
+F 3 "" H 5200 6350 50  0001 C CNN
+	1    5200 6350
+	1    0    0    -1  
+$EndComp
+Connection ~ 5200 6350
+Connection ~ 5200 6550
 Wire Bus Line
 	7900 1350 7900 2100
 Wire Bus Line
