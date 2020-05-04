@@ -38,8 +38,9 @@ module alu_decoder_tb();
    reg [4:0]   waddr;
    reg [3:0]   action;
 
-   wire        nromoe;
+   wire        nalu_op;
    wire        nread_alu_b;
+   wire        nread_alu_y;
    wire        nwrite_alu_b;
    wire        naction_cpl;
    wire        naction_cll;
@@ -100,8 +101,9 @@ module alu_decoder_tb();
    // Connect the DUT
    alu_decoder alu_decoder (
 			    .t34(t34), .raddr(raddr), .waddr(waddr), .action(action), 
-			    .nromoe(nromoe),
+			    .nalu_op(nalu_op),
 			    .nread_alu_b(nread_alu_b),
+			    .nread_alu_y(nread_alu_y),
 			    .nwrite_alu_b(nwrite_alu_b),
 			    .naction_cpl(naction_cpl), 
 			    .naction_cll(naction_cll),
@@ -125,16 +127,16 @@ module alu_decoder_tb();
    	 $sformat(msg, "testbench bug: raddr=%b", raddr);
       end
 
-      // Ensure nromoe is asserted for all ALU addresses during T34.
+      // Ensure nalu_op is asserted for all ALU addresses during T34.
       if (raddr[4:3] === 2'b10) begin
-   	 if (nromoe !== t34) begin
-   	    $sformat(msg, "nROMOE decoding failure 1: raddr=%b, t34=%b, but nromoe=%b (should be %b)",
-   		     raddr, t34, nromoe, t34);
+   	 if (nalu_op !== t34) begin
+   	    $sformat(msg, "nalu_op decoding failure 1: raddr=%b, t34=%b, but nalu_op=%b (should be %b)",
+   		     raddr, t34, nalu_op, t34);
    	 end
       end
-      else if (nromoe !== 1'b1) begin
-   	 $sformat(msg, "nROMOE decoding failure 2: raddr=%b, t34=%b, but nromoe=%b (should be 1)",
-   		  raddr, t34, nromoe);
+      else if (nalu_op !== 1'b1) begin
+   	 $sformat(msg, "nalu_op decoding failure 2: raddr=%b, t34=%b, but nalu_op=%b (should be 1)",
+   		  raddr, t34, nalu_op);
       end
 
       // Check nread_alu_b

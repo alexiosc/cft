@@ -25,7 +25,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 module alu_sru(nreset, nrsthold,
-	       clk2, clk4,
+	       clk2, clk3, clk4,
 	       nstart,
 	       b, fl,
 	       op_arithmetic, op_rotate, op_right, op_dist,
@@ -33,7 +33,7 @@ module alu_sru(nreset, nrsthold,
 
    input         nreset;
    input         nrsthold;
-   input         clk2, clk4;
+   input         clk2, clk3, clk4;
    input         nstart;
    input [15:0]  b;
    input 	 fl;
@@ -64,7 +64,7 @@ module alu_sru(nreset, nrsthold,
 
    // Main state machine
    wire 	nstart_sync, tc;
-   flipflop_74h ff_state(.d(nstart), .clk(clk2), .nset(nreset), .nrst(1'b1), .q(nstart_sync));
+   flipflop_74h ff_state(.d(nstart), .clk(clk3), .nset(nreset), .nrst(1'b1), .q(nstart_sync));
    assign nsru_run = tc;
 
    // FIXME: during reset, the counter can run, driving the IBus and causing

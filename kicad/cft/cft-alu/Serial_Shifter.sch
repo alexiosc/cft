@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 4 9
+Sheet 3 9
 Title "Arithmetic & Logic Unit"
 Date "2019-11-17"
 Rev ""
@@ -273,9 +273,7 @@ Text Label 3250 1350 2    50   ~ 0
 ~START-SYNC
 NoConn ~ 2750 1650
 Wire Wire Line
-	1250 1550 1250 2250
-Wire Wire Line
-	1250 1550 1850 1550
+	1150 1550 1850 1550
 Wire Wire Line
 	4750 2400 4500 2400
 Wire Wire Line
@@ -590,14 +588,13 @@ B[0..15]
 Text Label 1850 1450 2    50   ~ 0
 ~START
 Text Label 1850 1550 2    50   ~ 0
-CLK2
+CLK3
 Text Label 1300 1000 0    50   ~ 0
 DIST[0..3]
 Wire Wire Line
 	1250 2450 2700 2450
 Wire Wire Line
 	1250 2250 1700 2250
-Connection ~ 1250 2250
 Wire Wire Line
 	1250 2250 1250 2450
 Wire Wire Line
@@ -2383,6 +2380,8 @@ F 3 "~" H 9850 5700 50  0001 C CNN
 $EndComp
 Connection ~ 9850 5600
 Connection ~ 9850 5800
+Text HLabel 1150 1550 0    50   Input ~ 0
+CLK3
 Wire Bus Line
 	4400 1100 4400 1800
 Wire Bus Line

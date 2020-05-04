@@ -213,6 +213,7 @@ def test_ADD(capsys, tmpdir, max_test=10):
     result = run_on_verilog_emu(capsys, tmpdir, source,
                                 verilog_args=["+wp=0"])
     # pprint.pprint(list(result))
+    # pprint.pprint(list(expected))
     # assert False
     result = list(expected.prepare(result))
     assert list(result) == expected

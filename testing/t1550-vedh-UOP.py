@@ -195,7 +195,6 @@ def test_UOP(capsys, tmpdir):
 
             NOT
             JSR output    ; 7
-            HALT
 
             INC
             JSR output    ; 8
@@ -284,7 +283,7 @@ def test_UOP(capsys, tmpdir):
 @pytest.mark.LOAD
 @pytest.mark.STORE
 @pytest.mark.NOT
-def test_NOT(capsys, tmpdir, numtests=10):
+def test_NOT(capsys, tmpdir, numtests=4):
     source = """
     .include "mbu.asm"
     .include "dfp2.asm"
