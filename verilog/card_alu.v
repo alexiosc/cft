@@ -252,6 +252,7 @@ module card_alu(
 
    alu_sru alu_sru (.nreset(nreset), .nrsthold(nrsthold),
 		    .clk2(clk2),
+		    .clk3(clk3),
 		    .clk4(clk4),
 		    .b(b),
 		    .fl(flfast),

@@ -41,7 +41,7 @@
 
 module alu_sru_tb();
    // Declare inputs as regs and outputs as wires
-   reg           clk2, clk4;
+   reg           clk2, clk3, clk4;
    reg           nreset;
    reg           nrsthold;
    reg 	         op_rotate;
@@ -155,8 +155,8 @@ module alu_sru_tb();
    
    always begin
       #62.5 clk2 = 0;
-      #62.5 clk2 = 1;
-      #62.5 clk4 = 0;
+      #62.5 clk2 = 1; clk3 = 0;
+      #62.5 clk3 = 1; clk4 = 0;
       #62.5 clk4 = 1;
       cycle_ctr++;
    end
@@ -168,7 +168,7 @@ module alu_sru_tb();
 
    // Instantiate the DUT
    alu_sru alu_sru (.nreset(nreset), .nrsthold(nrsthold),
-		    .clk2(clk2), .clk4(clk4),
+		    .clk2(clk2), .clk3(clk3), .clk4(clk4),
 		    .b(b),
 		    .fl(fl),
 		    .nstart(nstart),

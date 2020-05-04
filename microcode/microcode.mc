@@ -1106,8 +1106,8 @@ start WAIT, INT=0;
 // of these instructions have the same microcode.
 start SRU;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
-      SET(alu_b, ac), action_sru;               // 02 B ← AC. (write B port, request SRU start)
-      -END;                                     // 03 SRU cycle #2
+      SET(alu_b, ac);                           // 02 B ← AC. (write B port, request SRU start)
+      action_sru;                               // 03 SRU cycle #2
       -END;                                     // 04 SRU cycle #3
       -END;                                     // 05 SRU cycle #4
       -END;                                     // 06 SRU cycle #5

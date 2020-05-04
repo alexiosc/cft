@@ -74,11 +74,14 @@ def test_PPF(capsys, tmpdir):
         expected += [[ 340, "PRINTD", str(x) ],
                      [ 340, "PRINTH", "{:>04x}".format(flags) ]]
     expected += [ SUCCESS, HALTED ]
-    # pprint.pprint(expected)
-    # assert False
 
     result = run_on_verilog_emu(capsys, tmpdir, source)
     result = list(expected.prepare(result))
+
+    # pprint.pprint(result)
+    # pprint.pprint(expected)
+    # assert False
+
     assert list(result) == expected
 
 

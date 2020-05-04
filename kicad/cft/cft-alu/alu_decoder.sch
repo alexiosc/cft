@@ -670,12 +670,6 @@ Wire Wire Line
 Connection ~ 2000 4100
 Wire Wire Line
 	2000 5600 2700 5600
-Wire Bus Line
-	7900 1350 7900 2100
-Wire Bus Line
-	2250 4650 2250 5400
-Wire Bus Line
-	2250 1850 2250 3900
 Wire Wire Line
 	6250 2250 6800 2250
 Wire Wire Line
@@ -715,4 +709,10 @@ Text HLabel 6800 2250 2    50   Output ~ 0
 ACP
 Text Label 6700 2250 2    50   ~ 0
 ACP
+Wire Bus Line
+	7900 1350 7900 2100
+Wire Bus Line
+	2250 4650 2250 5400
+Wire Bus Line
+	2250 1850 2250 3900
 $EndSCHEMATC
