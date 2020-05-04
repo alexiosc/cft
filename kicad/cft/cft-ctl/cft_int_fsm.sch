@@ -243,7 +243,7 @@ Text HLabel 2250 5200 0    50   Input ~ 0
 Text Label 3250 5200 2    50   ~ 0
 ~IRQ
 Wire Wire Line
-	4150 5650 3000 5650
+	4350 5650 3000 5650
 Text HLabel 2250 5650 0    50   Input ~ 0
 CLK4
 Text Label 3250 5300 2    50   ~ 0
@@ -278,7 +278,7 @@ F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G74.pdf" H 5850 5250
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	4950 5300 4150 5300
+	4950 5300 4350 5300
 Text Label 4950 5300 2    50   ~ 0
 CLK4
 Wire Wire Line
@@ -312,7 +312,7 @@ Interrupts are very prone to metastability. Using a latch\nhere greatly reduces 
 Wire Wire Line
 	4500 3300 6850 3300
 Wire Wire Line
-	4150 5300 4150 5650
+	4350 5300 4350 5650
 $Comp
 L alexios:74LVC1G74 U41
 U 1 1 5EC1D079
@@ -327,8 +327,8 @@ $EndComp
 Wire Wire Line
 	2250 5750 5150 5750
 Wire Wire Line
-	4150 5650 5150 5650
-Connection ~ 4150 5650
+	4350 5650 5150 5650
+Connection ~ 4350 5650
 Text HLabel 2250 5750 0    50   Input ~ 0
 ~END
 Text Label 2350 5750 0    50   ~ 0
@@ -399,7 +399,7 @@ F 3 "~" H 8250 3300 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 Wire Wire Line
-	8350 3300 8850 3300
+	8350 3300 8600 3300
 Text Label 6800 3500 2    50   ~ 0
 ~FLAGWE
 Text Label 6800 3400 2    50   ~ 0
@@ -438,8 +438,6 @@ Wire Wire Line
 	4350 5100 4350 4400
 Wire Wire Line
 	4350 5100 4950 5100
-Wire Wire Line
-	8050 3300 8050 3500
 Connection ~ 8050 3300
 Wire Wire Line
 	8050 3300 8150 3300
@@ -468,17 +466,14 @@ On the CFT, the semantics of FI (and thus, STI and CLI) are reversed!\nThe FI is
 $Comp
 L Connector:TestPoint TP2
 U 1 1 5ECB8174
-P 8150 3500
-F 0 "TP2" V 8150 3688 50  0000 L CNN
-F 1 "TestPoint" H 8208 3527 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Pad_1.0x1.0mm" H 8350 3500 50  0001 C CNN
-F 3 "~" H 8350 3500 50  0001 C CNN
-	1    8150 3500
-	0    1    1    0   
+P 8600 3300
+F 0 "TP2" H 8550 3550 50  0000 L CNN
+F 1 "TestPoint" H 8658 3327 50  0001 L CNN
+F 2 "TestPoint:TestPoint_Pad_1.0x1.0mm" H 8800 3300 50  0001 C CNN
+F 3 "~" H 8800 3300 50  0001 C CNN
+	1    8600 3300
+	-1   0    0    1   
 $EndComp
-Wire Wire Line
-	8150 3500 8050 3500
-Connection ~ 8050 3500
 $Comp
 L Connector:TestPoint TP3
 U 1 1 5ED75C31
@@ -955,8 +950,6 @@ Wire Wire Line
 Connection ~ 6150 3850
 Wire Wire Line
 	5000 4450 8050 4450
-Wire Wire Line
-	8050 3500 8050 4450
 Text Label 5100 4350 0    50   ~ 0
 ~RESET-OR-CLI
 Text Label 7800 3300 0    50   ~ 0
@@ -999,8 +992,6 @@ F 3 "" H 9950 5400 50  0001 C CNN
 	1    9950 5400
 	1    0    0    -1  
 $EndComp
-Wire Bus Line
-	3050 2850 3050 3600
 $Comp
 L alexios:74LVC1G08 U25
 U 2 1 5ED8D07D
@@ -1014,4 +1005,11 @@ F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 10050 520
 $EndComp
 Connection ~ 9950 5400
 Connection ~ 9950 5200
+Wire Bus Line
+	3050 2850 3050 3600
+Connection ~ 8600 3300
+Wire Wire Line
+	8600 3300 8850 3300
+Wire Wire Line
+	8050 3300 8050 4450
 $EndSCHEMATC
