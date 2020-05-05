@@ -3,8 +3,8 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 5 9
-Title "Arithmetic & Logic Unit"
+Sheet 4 9
+Title "The Overflow Register (V)"
 Date "2019-11-17"
 Rev ""
 Comp ""
@@ -87,8 +87,6 @@ Text HLabel 1700 4400 0    50   Input ~ 0
 ~SETV-ROM
 Wire Wire Line
 	8550 3250 8950 3250
-Text Notes 7100 7000 0    197  ~ 39
-The Overflow Register (V)
 $Comp
 L alexios:74LVC1G08 U?
 U 2 1 5D366A83
