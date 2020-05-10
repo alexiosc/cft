@@ -1,21 +1,22 @@
 [*]
-[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Mon Apr  6 18:21:46 2020
+[*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
+[*] Sun May 10 14:42:11 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/alu_sru_tb.vcd"
-[dumpfile_mtime] "Mon Apr  6 18:21:33 2020"
-[dumpfile_size] 37228514
+[dumpfile_mtime] "Sun May 10 14:38:14 2020"
+[dumpfile_size] 16735
+[optimize_vcd]
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/alu_sru_tb.sav"
-[timestart] 8708110000
-[size] 1920 1019
-[pos] 8188 30
-*-18.915924 8709902500 49270812500 8710201500 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[timestart] 1361000
+[size] 2660 1378
+[pos] 7448 30
+*-19.915924 9769000 49270812500 8710201500 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] alu_sru_tb.
 [treeopen] alu_sru_tb.alu_sru.
-[sst_width] 258
-[signals_width] 310
+[sst_width] 372
+[signals_width] 379
 [sst_expanded] 1
-[sst_vpaned_height] 314
+[sst_vpaned_height] 465
 @820
 alu_sru_tb.status[800:0]
 @28
@@ -24,6 +25,10 @@ alu_sru_tb.alu_sru.nreset
 alu_sru_tb.nrsthold
 [color] 2
 alu_sru_tb.alu_sru.clk2
+@29
+[color] 2
+alu_sru_tb.alu_sru.clk3
+@28
 [color] 2
 alu_sru_tb.alu_sru.clk4
 [color] 2
@@ -35,7 +40,6 @@ alu_sru_tb.alu_sru.x4clk
 alu_sru_tb.alu_sru.nstart
 [color] 4
 alu_sru_tb.alu_sru.nstart_sync
-@29
 alu_sru_tb.alu_sru.nsru_run
 @200
 -
@@ -174,7 +178,6 @@ alu_sru_tb.l_ff.q
 @28
 alu_sru_tb.alu_sru.shiftclk
 alu_sru_tb.alu_sru.op_rotate
-alu_sru_tb.alu_sru.flcp_sru
 alu_sru_tb.alu_sru.flout_sru
 alu_sru_tb.fl
 alu_sru_tb.alu_sru.ctr_state.cp

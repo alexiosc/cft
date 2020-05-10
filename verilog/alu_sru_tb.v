@@ -189,7 +189,7 @@ module alu_sru_tb();
    reg [8191:0]   msg;
 
    // Check for properly timed SRU activation
-   always @ (posedge clk2) begin
+   always @ (posedge clk3) begin
       #30 begin
    	 msg[7:0] = "";		// Use the msg as a flag.
 
@@ -234,7 +234,7 @@ module alu_sru_tb();
       // Wait for 16 periods. 16×62.5ns=1µs.
       fl0 <= fl;
       //$display("\nt: %7d | start %04h fl %b %b dist %d", $time, j[15:0], fl, fl0, op_dist);
-      #1100 begin
+      #1000 begin
 	 //$display("t: %7d | check fl=%b fl0=%b\n", $time, fl, fl0);
 	 
 	 if (tb_shift_ctr !== op_dist) begin
