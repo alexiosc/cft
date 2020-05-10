@@ -4,7 +4,7 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 6 9
-Title "Arithmetic & Logic Unit"
+Title "ALU Port A"
 Date "2019-11-17"
 Rev ""
 Comp ""
@@ -310,8 +310,6 @@ Text HLabel 3300 3450 0    50   Input ~ 0
 ACP
 Text HLabel 3300 2200 0    50   Input ~ 0
 AC[0..15]
-Text Notes 7100 7000 0    197  ~ 39
-ALU Port A
 $Comp
 L alexios:74HC574 U?
 U 2 1 5E6EEC61

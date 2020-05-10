@@ -4,7 +4,7 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 9 9
-Title "Arithmetic & Logic Unit"
+Title "ALU Operation Table"
 Date "2019-11-17"
 Rev ""
 Comp ""

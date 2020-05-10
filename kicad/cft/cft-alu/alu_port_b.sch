@@ -4,7 +4,7 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 5 9
-Title "Arithmetic & Logic Unit"
+Title "ALU B Register/Port"
 Date "2019-11-17"
 Rev ""
 Comp ""
@@ -831,8 +831,6 @@ Wire Wire Line
 	6400 3600 6400 3250
 Text Label 2650 3600 0    50   ~ 0
 ~READ-ALU-B
-Text Notes 7100 7000 0    197  ~ 39
-ALU Port B
 Text Label 7050 3250 2    50   ~ 0
 ~READ-ALU-B
 Text Label 7050 4750 2    50   ~ 0
