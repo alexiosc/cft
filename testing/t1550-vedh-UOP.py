@@ -283,7 +283,7 @@ def test_UOP(capsys, tmpdir):
 @pytest.mark.LOAD
 @pytest.mark.STORE
 @pytest.mark.NOT
-def test_NOT(capsys, tmpdir, numtests=4):
+def test_NOT(capsys, tmpdir, numtests=10):
     source = """
     .include "mbu.asm"
     .include "dfp2.asm"
@@ -358,6 +358,278 @@ def test_NOT(capsys, tmpdir, numtests=4):
 @pytest.mark.slow
 def test_NOT_long(capsys, tmpdir):
     test_NOT(capsys, tmpdir, numtests=1000)
+
+
+def neg(x):
+    """Two's Complement negation of 16-bit signed integer X"""
+    return ((x ^ 0xffff) + 1) & 0xffff
+
+
+@pytest.mark.verilog
+@pytest.mark.emulator
+@pytest.mark.hardware
+@pytest.mark.LI
+@pytest.mark.LOAD
+@pytest.mark.STORE
+@pytest.mark.NEG
+def test_NEG(capsys, tmpdir, numtests=10):
+    source = """
+    .include "mbu.asm"
+    .include "dfp2.asm"
+
+    &0:
+            LI &80        ; Configure essential MBRs and enable.
+            SMB mbu.MBP
+            LI &00        ;
+            SMB mbu.MBZ   ;
+            LI &01        ;
+            SMB mbu.MBS   ;
+
+            LIA data
+            STORE R &340
+            LI @{numtests}-1
+            STORE R 1
+
+    loop:   LOAD I R &340
+            STORE R 2
+            CLL
+            dfp.PRINTH
+            NEG
+            dfp.PRINTH
+
+            SEL
+            LOAD R 2
+            dfp.PRINTH
+            NEG
+            dfp.PRINTH
+
+            DSZ R 1
+            JMP loop
+            HALT
+
+    data:
+    """.format(**locals())
+
+    L1, L0 = [ 340, "PRINTU", '1' ], [ 340, "PRINTU", '0' ]
+
+    expected = ExpectedData([ SUCCESS ] )
+    for x in data[:numtests]:
+        source += "\n            .word &{:>04x}".format(x)
+        expected += [
+            [ 340, "PRINTH", "{:>04x}".format(x) ], 
+            [ 340, "PRINTH", "{:>04x}".format(neg(x)) ], 
+            [ 340, "PRINTH", "{:>04x}".format(x) ], 
+            [ 340, "PRINTH", "{:>04x}".format(neg(x)) ], 
+        ]
+    expected += [ HALTED ]
+    
+    result = run_on_verilog_emu(capsys, tmpdir, source, long=True, timeout=30000000)
+    # pprint.pprint(list(result))
+    # pprint.pprint(list(expected))
+    # assert False
+    result = list(expected.prepare(result))
+
+    assert list(result) == expected
+
+
+@pytest.mark.verilog
+@pytest.mark.emulator
+@pytest.mark.hardware
+@pytest.mark.LI
+@pytest.mark.LOAD
+@pytest.mark.STORE
+@pytest.mark.NEG
+@pytest.mark.slow
+def test_NEG_long(capsys, tmpdir):
+    test_NEG(capsys, tmpdir, numtests=1000)
+
+
+@pytest.mark.verilog
+@pytest.mark.emulator
+@pytest.mark.hardware
+@pytest.mark.LI
+@pytest.mark.LOAD
+@pytest.mark.STORE
+@pytest.mark.INC
+def test_INC(capsys, tmpdir, numtests=10, numops=5):
+
+    numops -= 1                 # We use DSZ, so it's off by one
+
+    source = """
+    .include "mbu.asm"
+    .include "dfp2.asm"
+
+    &0:
+            LI &80        ; Configure essential MBRs and enable.
+            SMB mbu.MBP
+            LI &00        ;
+            SMB mbu.MBZ   ;
+            LI &01        ;
+            SMB mbu.MBS   ;
+
+            LIA data
+            STORE R &340
+            LI @{numtests}-1
+            STORE R 1
+
+    loop:   LOAD I R &340
+            STORE R 2
+            CLL
+            dfp.PRINTH
+            STORE R 4
+
+            LI {numops}
+            STORE R 3
+    loop2:  LOAD R 4
+            INC
+            STORE R 4
+            dfp.PRINTH
+            DSZ R 3
+            JMP loop2
+
+            CLL
+            LI {numops}
+            STORE R 3
+    loop3:  LOAD R 4
+            INC
+            STORE R 4
+            dfp.PRINTH
+            DSZ R 3
+            JMP loop3
+            ;SUCCESS
+
+            DSZ R 1       ; outer loop
+            JMP loop
+            HALT
+
+    data:
+    """.format(**locals())
+
+    L1, L0 = [ 340, "PRINTU", '1' ], [ 340, "PRINTU", '0' ]
+
+    inc = lambda a, b: (a + b) & 0xffff
+
+    expected = ExpectedData([ SUCCESS ] )
+    for x in data[:numtests]:
+        source += "\n            .word &{:>04x}".format(x)
+        expected += [
+            [ 340, "PRINTH", "{:>04x}".format(x) ] ]
+        expected += [ [ 340, "PRINTH", "{:>04x}".format(inc(x, i)) ] for i in range(1, 2 * numops + 3) ]
+    expected += [ HALTED ]
+    
+    result = run_on_verilog_emu(capsys, tmpdir, source, long=True, timeout=300000000)
+    # pprint.pprint(list(result))
+    # pprint.pprint(list(expected))
+    # assert False
+    result = list(expected.prepare(result))
+
+    assert list(result) == expected
+
+
+@pytest.mark.verilog
+@pytest.mark.emulator
+@pytest.mark.hardware
+@pytest.mark.LI
+@pytest.mark.LOAD
+@pytest.mark.STORE
+@pytest.mark.INC
+@pytest.mark.slow
+def test_INC_long(capsys, tmpdir):
+    test_INC(capsys, tmpdir, numtests=200, numops=20)
+
+
+@pytest.mark.verilog
+@pytest.mark.emulator
+@pytest.mark.hardware
+@pytest.mark.LI
+@pytest.mark.LOAD
+@pytest.mark.STORE
+@pytest.mark.DEC
+def test_DEC(capsys, tmpdir, numtests=10, numops=5):
+
+    numops -= 1                 # We use DSZ, so it's off by one
+
+    source = """
+    .include "mbu.asm"
+    .include "dfp2.asm"
+
+    &0:
+            LI &80        ; Configure essential MBRs and enable.
+            SMB mbu.MBP
+            LI &00        ;
+            SMB mbu.MBZ   ;
+            LI &01        ;
+            SMB mbu.MBS   ;
+
+            LIA data
+            STORE R &340
+            LI @{numtests}-1
+            STORE R 1
+
+    loop:   LOAD I R &340
+            STORE R 2
+            CLL
+            dfp.PRINTH
+            STORE R 4
+
+            LI {numops}
+            STORE R 3
+    loop2:  LOAD R 4
+            DEC
+            STORE R 4
+            dfp.PRINTH
+            DSZ R 3
+            JMP loop2
+
+            CLL
+            LI {numops}
+            STORE R 3
+    loop3:  LOAD R 4
+            DEC
+            STORE R 4
+            dfp.PRINTH
+            DSZ R 3
+            JMP loop3
+            ;SUCCESS
+
+            DSZ R 1       ; outer loop
+            JMP loop
+            HALT
+
+    data:
+    """.format(**locals())
+
+    L1, L0 = [ 340, "PRINTU", '1' ], [ 340, "PRINTU", '0' ]
+
+    dec = lambda a, b: (a - b) & 0xffff
+
+    expected = ExpectedData([ SUCCESS ] )
+    for x in data[:numtests]:
+        source += "\n            .word &{:>04x}".format(x)
+        expected += [
+            [ 340, "PRINTH", "{:>04x}".format(x) ] ]
+        expected += [ [ 340, "PRINTH", "{:>04x}".format(dec(x, i)) ] for i in range(1, 2 * numops + 3) ]
+    expected += [ HALTED ]
+    
+    result = run_on_verilog_emu(capsys, tmpdir, source, long=True, timeout=300000000)
+    # pprint.pprint(list(result))
+    # pprint.pprint(list(expected))
+    # assert False
+    result = list(expected.prepare(result))
+
+    assert list(result) == expected
+
+
+@pytest.mark.verilog
+@pytest.mark.emulator
+@pytest.mark.hardware
+@pytest.mark.LI
+@pytest.mark.LOAD
+@pytest.mark.STORE
+@pytest.mark.DEC
+@pytest.mark.slow
+def test_DEC_long(capsys, tmpdir):
+    test_DEC(capsys, tmpdir, numtests=200, numops=20)
 
 
 if __name__ == "__main__":
