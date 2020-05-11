@@ -853,7 +853,7 @@ F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 2450 3250
 	1    0    0    -1  
 $EndComp
 Text Label 1850 3300 0    50   ~ 0
-BCP-SRU
+BCP
 Wire Wire Line
 	1800 3200 2500 3200
 Wire Wire Line
@@ -861,7 +861,7 @@ Wire Wire Line
 Text Label 1850 3200 0    50   ~ 0
 ~WRITE-ALU-B
 Text HLabel 1800 3300 0    50   Input ~ 0
-BCP-SRU
+BCP
 $Comp
 L alexios:74LVC1G08 U?
 U 2 1 5EBBC821
@@ -959,16 +959,16 @@ Text HLabel 1800 3600 0    50   Input ~ 0
 ~READ-ALU-B
 Wire Wire Line
 	1800 3600 6400 3600
-Wire Bus Line
-	8550 2000 8550 4450
-Wire Bus Line
-	6050 2450 6050 5200
-Wire Bus Line
-	4000 2000 4000 4450
 Text Label 4200 4750 0    50   ~ 0
 CP
 Text Label 4200 3250 0    50   ~ 0
 CP
 Text Label 3150 3250 0    50   ~ 0
 CP
+Wire Bus Line
+	8550 2000 8550 4450
+Wire Bus Line
+	6050 2450 6050 5200
+Wire Bus Line
+	4000 2000 4000 4450
 $EndSCHEMATC

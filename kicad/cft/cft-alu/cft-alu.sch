@@ -356,7 +356,6 @@ Wire Wire Line
 Wire Wire Line
 	9650 2350 10000 2350
 NoConn ~ 7950 1650
-NoConn ~ 7950 1850
 NoConn ~ 7950 2550
 NoConn ~ 7950 2650
 NoConn ~ 7950 2950
@@ -478,7 +477,7 @@ U 5DF75CDE
 F0 "sheet5DF75CCD" 50
 F1 "Serial_Shifter.sch" 50
 F2 "CLK2" I L 5400 3300 50 
-F3 "CLK4" I L 5400 3400 50 
+F3 "CLK4" I L 5400 3500 50 
 F4 "DIST[0..3]" I L 5400 3900 50 
 F5 "~SHIFT~∕ROTATE" I L 5400 4350 50 
 F6 "~LOGIC~∕ARITH" I L 5400 4200 50 
@@ -491,7 +490,7 @@ F12 "FLFAST" I L 5400 4750 50
 F13 "BCP" O R 6550 4650 50 
 F14 "~START" I L 5400 4500 50 
 F15 "~RSTHOLD" I L 5400 3200 50 
-F16 "~WS" O R 6550 4950 50 
+F16 "CLK3" I L 5400 3400 50 
 $EndSheet
 Text Label 4900 4650 0    50   ~ 0
 B[0..15]
@@ -514,15 +513,15 @@ IR6
 Wire Wire Line
 	4900 3100 5400 3100
 Wire Wire Line
-	5400 3400 4900 3400
+	5400 3500 4900 3500
 Wire Wire Line
 	5400 3300 4900 3300
-Text Label 4900 3400 0    50   ~ 0
+Text Label 4900 3500 0    50   ~ 0
 CLK4
 Wire Wire Line
 	6550 4650 7050 4650
 Text Label 7050 4650 2    50   ~ 0
-BCP-SRU
+BCP
 Text Label 4900 3100 0    50   ~ 0
 ~RESET
 Text Label 4900 3300 0    50   ~ 0
@@ -673,7 +672,7 @@ F6 "IBUS12" I L 2400 6600 50
 F7 "~RSTHOLD" I L 2400 5600 50 
 F8 "~ACTION-CLL" I L 2400 6900 50 
 F9 "~ACTION-CPL" I L 2400 6800 50 
-F10 "BCP-SRU" I L 2400 6250 50 
+F10 "BCP" I L 2400 6250 50 
 F11 "FLOUT-SRU" I L 2400 6350 50 
 F12 "FLFAST" O R 3550 5700 50 
 F13 "~SETL-ROM" I L 2400 6000 50 
@@ -683,7 +682,7 @@ FLFAST
 Wire Wire Line
 	2400 6250 1700 6250
 Text Label 1700 6250 0    50   ~ 0
-BCP-SRU
+BCP
 Wire Wire Line
 	2400 6350 1700 6350
 Text Label 1700 6350 0    50   ~ 0
@@ -1028,16 +1027,12 @@ Wire Wire Line
 	3900 5450 4550 5450
 Text Label 4550 5450 2    50   ~ 0
 FL-OFFBOARD
-Text Notes -2850 9050 0    197  ~ 39
-TODO: Update from Verilog, Clean up, annotate and reassociate with PCB!
 Wire Wire Line
 	5400 3200 4900 3200
 Text Label 4900 3200 0    50   ~ 0
 ~RSTHOLD
 Text Label 7950 2350 0    50   ~ 0
 T34
-Wire Wire Line
-	6550 4950 7050 4950
 Wire Bus Line
 	1700 4100 2350 4100
 Text Label 1700 6000 0    50   ~ 0
@@ -1046,8 +1041,6 @@ Wire Wire Line
 	2350 4200 1700 4200
 Text Label 1700 4200 0    50   ~ 0
 ~WRITE-ALU-B
-Text Label 7050 4950 2    50   ~ 0
-~WS
 Wire Wire Line
 	3500 2050 4050 2050
 Text Label 4050 2050 2    50   ~ 0
@@ -1124,6 +1117,10 @@ Text Notes 5300 950  0    197  ~ 39
 Operations
 Text Notes 2300 950  0    197  ~ 39
 Control
+Wire Wire Line
+	4900 3400 5400 3400
+Text Label 4900 3400 0    50   ~ 0
+CLK3
 Wire Bus Line
 	7150 1200 7150 4450
 Wire Bus Line

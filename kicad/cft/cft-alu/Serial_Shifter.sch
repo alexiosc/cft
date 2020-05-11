@@ -2273,6 +2273,8 @@ Text Label 7550 5500 0    50   ~ 0
 BCP
 Text Label 10550 4850 2    50   ~ 0
 BCP
+Text Notes -1450 2750 0    157  ~ 31
+TODO: Reavaluate quadruppler, add\nfootprints/pads for adjustments!\n
 Wire Bus Line
 	4400 1100 4400 1800
 Wire Bus Line
@@ -2283,6 +2285,4 @@ Wire Bus Line
 	10050 1100 10050 3800
 Wire Bus Line
 	6100 950  6100 4700
-Text Notes -1450 2750 0    157  ~ 31
-TODO: Reavaluate quadruppler, add\nfootprints/pads for adjustments!\n
 $EndSCHEMATC
