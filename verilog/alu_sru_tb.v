@@ -33,10 +33,10 @@
 `include "flipflop.v"
 `timescale 1ns/10ps
 
-`define DELTA 21
+//`define DELTA 21
 //`define DELTA 89
 //`define DELTA 941
-//`define DELTA 1543
+`define DELTA 1543
 
 
 module alu_sru_tb();
@@ -53,7 +53,7 @@ module alu_sru_tb();
    reg [15:0]    ibus;
    wire [15:0]   ibus_real;
    wire [15:0]   b;
-   wire          bcp_sru;
+   wire          bcp;
    wire          fl;
    wire [2:0]    shift_op;	// This simplified decoding in gtk_wave;
 
@@ -149,7 +149,7 @@ module alu_sru_tb();
 
    // A fake L register. This will reset to zero on every reset or SRU start.
    wire flout_sru;
-   flipflop_74h #(10,10) l_ff(.d(flout_sru), .clk(bcp_sru), .nset(1'b1), .nrst(nstart & nreset), .q(fl));
+   flipflop_74h #(10,10) l_ff(.d(flout_sru), .clk(bcp), .nset(1'b1), .nrst(nstart & nreset), .q(fl));
 
    assign shift_op = { op_rotate, op_arithmetic, op_right };
    
@@ -164,7 +164,7 @@ module alu_sru_tb();
    // Include the ALU's B register. (noe = 1 because for this test's purposes,
    // the B reg is never put on the Ibus. This is only needed by the
    // microcode).
-   alu_portb alu_b (.ibus(ibus_real), .bcp(nwrite_alu & bcp_sru), .nread_alu_b(1'b1), .b(b));
+   alu_portb alu_b (.ibus(ibus_real), .bcp(nwrite_alu & bcp), .nread_alu_b(1'b1), .b(b));
 
    // Instantiate the DUT
    alu_sru alu_sru (.nreset(nreset), .nrsthold(nrsthold),
@@ -177,7 +177,7 @@ module alu_sru_tb();
 		    .op_right(op_right),
 		    .op_dist(op_dist),
 		    .ibus(ibus_real),
-		    .bcp_sru(bcp_sru),
+		    .bcp(bcp),
 		    .flout_sru(flout_sru));
 
    ///////////////////////////////////////////////////////////////////////////////

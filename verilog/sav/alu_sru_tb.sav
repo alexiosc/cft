@@ -1,13 +1,13 @@
 [*]
 [*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
-[*] Sun May 10 14:42:11 2020
+[*] Mon May 11 08:26:16 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/alu_sru_tb.vcd"
-[dumpfile_mtime] "Sun May 10 14:38:14 2020"
-[dumpfile_size] 16735
+[dumpfile_mtime] "Mon May 11 08:26:13 2020"
+[dumpfile_size] 13579
 [optimize_vcd]
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/alu_sru_tb.sav"
-[timestart] 1361000
+[timestart] 0
 [size] 2660 1378
 [pos] 7448 30
 *-19.915924 9769000 49270812500 8710201500 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
@@ -154,7 +154,6 @@ alu_sru_tb.alu_sru.lsb
 @200
 -
 @28
-alu_sru_tb.alu_sru.bcp_sru
 [color] 1
 alu_sru_tb.l_ff.clk
 [color] 2

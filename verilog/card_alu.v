@@ -279,7 +279,7 @@ module card_alu(
 		.flin_add(flout_rom),
 		.flin_sru(flout_sru),
 		.nsru_run(nsru_run),
-		.nread_alu_add(nsetl_rom),
+		.nsetl_rom(nsetl_rom),
 		.nflagwe(nflagwe),
 		.bcp(bcp_sru),
 		.naction_cll(naction_cll), 

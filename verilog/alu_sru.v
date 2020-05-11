@@ -29,7 +29,7 @@ module alu_sru(nreset, nrsthold,
 	       nstart,
 	       b, fl,
 	       op_arithmetic, op_rotate, op_right, op_dist,
-	       ibus, bcp_sru, flout_sru, nsru_run);
+	       ibus, bcp, flout_sru, nsru_run);
 
    input         nreset;
    input         nrsthold;
@@ -43,7 +43,7 @@ module alu_sru(nreset, nrsthold,
    input [3:0] 	 op_dist;
 
    output [15:0] ibus;
-   output        bcp_sru;		// B register write clock;
+   output        bcp;		        // B register write clock;
    output 	 flout_sru;		// FL output
    output 	 nsru_run;		// Low while the SRU is running
 
@@ -57,10 +57,12 @@ module alu_sru(nreset, nrsthold,
    wire [3:0] 	 op_dist;
 
    // The clock quadruppler
-   wire 	 clk2_delay, clk4_delay, x4clk;
+   wire 	 clk2_delay, clk4_delay, clk2_xor, clk4_xor, x4clk;
    assign #14 clk2_delay = clk2;	// 2x7ns best case tPLH/tPHL for 74HC04)
    assign #14 clk4_delay = clk4;
-   assign #5 x4clk = (clk2 ^ clk2_delay) ^ (clk4 ^ clk4_delay);
+   assign #5 clk2_xor = clk2 ^ clk2_delay;
+   assign #5 clk4_xor = clk4 ^ clk4_delay;
+   assign #5 x4clk = clk2_xor ^ clk4_xor;
 
    // Main state machine
    wire 	nstart_sync, tc;
@@ -116,7 +118,7 @@ module alu_sru(nreset, nrsthold,
    // Generate write pulses at every step.
    wire 	shiftclk;
    assign #9 shiftclk = (nstart_sync & x4clk) | tc;
-   assign bcp_sru = shiftclk;
+   assign bcp = shiftclk;
 
    // // Generate the FL clock output
    // assign #7 flcp_sru = op_rotate == 1 ? shiftclk : 1'b1;

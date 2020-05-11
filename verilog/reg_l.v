@@ -84,7 +84,7 @@
 module reg_l(nrsthold, clk4,
 	     naction_cpl, ibus12, 
 	     flin_add,  flin_sru,
-	     nsru_run, nread_alu_add, nflagwe, bcp, naction_cll,
+	     nsru_run, nsetl_rom, nflagwe, bcp, naction_cll,
 	     fl, flfast);
    // Declare inputs as regs and outputs as wires
    input  nrsthold;
@@ -94,7 +94,7 @@ module reg_l(nrsthold, clk4,
    input  flin_add_toggle;
    input  flin_add;
    input  flin_sru;
-   input  nread_alu_add;
+   input  nsetl_rom;
    input  nsru_run;
    input  nflagwe;
    input  bcp;
@@ -104,16 +104,16 @@ module reg_l(nrsthold, clk4,
 
    wire   nfl;
 
-   // TODO: ADD THIS BACK TO THE SCHEMATICS
+   // U19: toggle FL when the ROM requests it.
    assign flin_add_toggle = flin_add ^ fl;
    
    // Cascaded 1-of-3 priotiry selector for input data, with a 21ns delay line
    // so flip flop hold times aren't violated.
    wire   ld, ld0;
-   // mux_253h ld_mux (.sel({nflagwe, nread_alu_add}),
+   // mux_253h ld_mux (.sel({nflagwe, nsetl_rom}),
    // 		    .i({flin_sru, flin_add, ibus12, ibus12}),
    // 		    .noe(1'b0), .y(ld0));
-   mux_253h ld_mux (.sel({nflagwe, nread_alu_add}),
+   mux_253h ld_mux (.sel({nflagwe, nsetl_rom}),
    		    .i({flin_sru, flin_add_toggle, ibus12, ibus12}),
    		    .noe(1'b0), .y(ld0));
    assign #21 ld = ld0;
@@ -128,7 +128,7 @@ module reg_l(nrsthold, clk4,
    // These implement CPL (toggle L. CPL is driven to both asynchronous SET and
    // CLR signals on the flip flop, but one of these is masked depending on the
    // FF state).
-   assign #6 nsetl = fl | naction_cpl; // Mask #CPL when FL is 1.
+   assign #6 nsetl = fl | naction_cpl;   // Mask #CPL when FL is 1.
    assign #6 nclrl0 = nfl | naction_cpl; // Mask #CPL when FL is 0.
 
    // The FF is cleared when nrsthold, naction_cll, or nclrl0 are asserted (low).
@@ -136,7 +136,7 @@ module reg_l(nrsthold, clk4,
 
    // The clock
    wire   clkl0, clkl;
-   assign #3 clkl0 = nflagwe & nread_alu_add;
+   assign #3 clkl0 = nflagwe & nsetl_rom;
    assign #3 clkl = clkl0 & bcp;
 
    // Finally, the L flip flop. This runs in the Shift/Roll Unit's clock domain
