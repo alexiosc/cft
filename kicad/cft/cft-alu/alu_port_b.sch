@@ -319,10 +319,6 @@ Entry Wire Line
 	6050 4050 5950 3950
 Entry Wire Line
 	6050 3950 5950 3850
-Text Label 4200 3250 0    50   ~ 0
-BCP
-Text Label 4200 4750 0    50   ~ 0
-BCP
 Text Label 4200 2350 0    50   ~ 0
 IBUS0
 Text Label 4200 2450 0    50   ~ 0
@@ -388,17 +384,9 @@ Wire Wire Line
 Wire Wire Line
 	5600 3050 5950 3050
 Entry Bus Bus
-	3900 1900 4000 2000
-Entry Bus Bus
 	6050 5200 6150 5300
 Wire Bus Line
-	3900 1900 2550 1900
-Wire Bus Line
 	6150 5300 9250 5300
-Wire Wire Line
-	2550 3500 3850 3500
-Wire Wire Line
-	3850 4750 3850 3500
 Wire Wire Line
 	3850 4750 4600 4750
 Wire Wire Line
@@ -407,13 +395,7 @@ Text Label 3850 4100 1    50   ~ 0
 CP
 Text Label 4000 4100 1    50   ~ 0
 IBUS[0..15]
-Text Label 2650 1900 0    50   ~ 0
-IBUS[0..15]
-Text HLabel 2550 1900 0    50   BiDi ~ 0
-IBUS[0..15]
-Text Label 2650 3500 0    50   ~ 0
-BCP
-Text HLabel 1300 2900 0    50   Input ~ 0
+Text HLabel 1800 3200 0    50   Input ~ 0
 ~WRITE-ALU-B
 Text Label 9150 5300 2    50   ~ 0
 B[0..15]
@@ -615,8 +597,6 @@ Text Label 8550 3650 1    50   ~ 0
 IBUS[0..15]
 Entry Bus Bus
 	4000 2000 4100 1900
-Wire Bus Line
-	4100 1900 8450 1900
 Entry Bus Bus
 	8450 1900 8550 2000
 Entry Wire Line
@@ -651,8 +631,6 @@ Entry Wire Line
 	8450 2450 8550 2350
 Entry Wire Line
 	8450 2350 8550 2250
-Text HLabel 1300 3600 0    50   Input ~ 0
-~READ-ALU-B
 $Comp
 L Device:C_Small C?
 U 1 1 5DEB8CDB
@@ -789,8 +767,6 @@ F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 4200 72
 $EndComp
 Connection ~ 3850 7350
 Connection ~ 3850 7150
-Wire Wire Line
-	3850 3250 3850 3500
 Text Label 5900 2350 2    50   ~ 0
 B0
 Text Label 5900 2450 2    50   ~ 0
@@ -823,14 +799,9 @@ Text Label 5900 4450 2    50   ~ 0
 B14
 Text Label 5900 4550 2    50   ~ 0
 B15
-Connection ~ 3850 3500
-Wire Wire Line
-	1300 3600 6400 3600
 Connection ~ 6400 3600
 Wire Wire Line
 	6400 3600 6400 3250
-Text Label 2650 3600 0    50   ~ 0
-~READ-ALU-B
 Text Label 7050 3250 2    50   ~ 0
 ~READ-ALU-B
 Text Label 7050 4750 2    50   ~ 0
@@ -870,31 +841,27 @@ Wire Wire Line
 $Comp
 L alexios:74LVC1G08 U?
 U 1 1 5EDE4D1C
-P 2150 2950
+P 2800 3250
 AR Path="/5DC89E19/5EDE4D1C" Ref="U?"  Part="1" 
 AR Path="/5EDE4D1C" Ref="U?"  Part="1" 
 AR Path="/5DEA5E6C/5EDE4D1C" Ref="U4"  Part="1" 
-F 0 "U4" H 2075 2683 50  0000 C CNN
-F 1 "74LVC1G08" H 2075 2774 50  0000 C CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 1800 2950 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 1800 2950 50  0001 C CNN
-	1    2150 2950
+F 0 "U4" H 2725 3517 50  0000 C CNN
+F 1 "74LVC1G08" H 2725 3426 50  0000 C CNN
+F 2 "alexios:SOT-23-5_HandSoldering" H 2450 3250 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 2450 3250 50  0001 C CNN
+	1    2800 3250
 	1    0    0    -1  
 $EndComp
-Text Label 1300 3000 0    50   ~ 0
+Text Label 1850 3300 0    50   ~ 0
 BCP-SRU
 Wire Wire Line
-	1300 2900 1850 2900
+	1800 3200 2500 3200
 Wire Wire Line
-	1850 3000 1300 3000
-Text Label 1300 2900 0    50   ~ 0
+	2500 3300 1800 3300
+Text Label 1850 3200 0    50   ~ 0
 ~WRITE-ALU-B
-Text HLabel 1300 3000 0    50   Input ~ 0
+Text HLabel 1800 3300 0    50   Input ~ 0
 BCP-SRU
-Wire Wire Line
-	2300 2950 2550 2950
-Wire Wire Line
-	2550 2950 2550 3500
 $Comp
 L alexios:74LVC1G08 U?
 U 2 1 5EBBC821
@@ -971,10 +938,37 @@ F 3 "" H 1000 7150 50  0001 C CNN
 $EndComp
 Connection ~ 1000 7150
 Connection ~ 1000 7350
+Connection ~ 3850 3250
+Wire Wire Line
+	3850 3250 3850 4750
+Wire Wire Line
+	2950 3250 3850 3250
+Text Label 1850 3600 0    50   ~ 0
+~READ-ALU-B
+Wire Bus Line
+	4100 1900 8450 1900
+Text HLabel 1800 1900 0    50   BiDi ~ 0
+IBUS[0..15]
+Entry Bus Bus
+	3900 1900 4000 2000
+Wire Bus Line
+	3900 1900 1800 1900
+Text Label 1850 1900 0    50   ~ 0
+IBUS[0..15]
+Text HLabel 1800 3600 0    50   Input ~ 0
+~READ-ALU-B
+Wire Wire Line
+	1800 3600 6400 3600
 Wire Bus Line
 	8550 2000 8550 4450
 Wire Bus Line
 	6050 2450 6050 5200
 Wire Bus Line
 	4000 2000 4000 4450
+Text Label 4200 4750 0    50   ~ 0
+CP
+Text Label 4200 3250 0    50   ~ 0
+CP
+Text Label 3150 3250 0    50   ~ 0
+CP
 $EndSCHEMATC

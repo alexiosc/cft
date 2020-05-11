@@ -289,8 +289,6 @@ F 3 "~" H 10550 6100 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	10550 6200 10550 6300
-Text Notes 8300 950  0    197  ~ 39
-Edge Connector
 Text Label 10000 3650 2    50   ~ 0
 AC0
 Text Label 10000 3750 2    50   ~ 0
@@ -490,7 +488,7 @@ F9 "~RESET" I L 5400 3100 50
 F10 "IBUS[0..15]" B R 6550 4550 50 
 F11 "FLOUT-SRU" O R 6550 4750 50 
 F12 "FLFAST" I L 5400 4750 50 
-F13 "BCP-SRU" O R 6550 4650 50 
+F13 "BCP" O R 6550 4650 50 
 F14 "~START" I L 5400 4500 50 
 F15 "~RSTHOLD" I L 5400 3200 50 
 F16 "~WS" O R 6550 4950 50 
@@ -563,14 +561,12 @@ Text Label 4050 1650 2    50   ~ 0
 ~READ-ALU-B
 Text Label 4050 1750 2    50   ~ 0
 ~WRITE-ALU-B
-Text Notes 2300 950  0    197  ~ 39
-Control
 Text Label 4900 6250 0    50   ~ 0
 ~FLAGWE
 Text Label 4900 5750 0    50   ~ 0
 CLK4
 Text Label 4900 5600 0    50   ~ 0
-~RESET
+~RSTHOLD
 Wire Wire Line
 	4900 6250 5400 6250
 Text Label 7100 5600 2    50   ~ 0
@@ -605,7 +601,7 @@ F1 "cft_reg_v_2019.sch" 50
 F2 "FV" O R 6550 5600 50 
 F3 "~SETV-ROM" I L 5400 5950 50 
 F4 "CLK4" I L 5400 5750 50 
-F5 "~RESET" I L 5400 5600 50 
+F5 "~RSTHOLD" I L 5400 5600 50 
 F6 "IBUS13" I L 5400 6350 50 
 F7 "FVOUT-ROM" I L 5400 6050 50 
 F8 "~FLAGWE" I L 5400 6250 50 
@@ -627,7 +623,7 @@ Wire Wire Line
 Text Label 1700 4400 0    50   ~ 0
 ~READ-ALU-B
 Text Label 1700 4300 0    50   ~ 0
-BCP-SRU
+BCP
 Wire Wire Line
 	2350 4400 1700 4400
 Text Label 4050 4100 2    50   ~ 0
@@ -643,7 +639,7 @@ F2 "IBUS[0..15]" B L 2350 4100 50
 F3 "B[0..15]" T R 3500 4100 50 
 F4 "~READ-ALU-B" I L 2350 4400 50 
 F5 "~WRITE-ALU-B" I L 2350 4200 50 
-F6 "BCP-SRU" I L 2350 4300 50 
+F6 "BCP" I L 2350 4300 50 
 $EndSheet
 Text Label 4050 3350 2    50   ~ 0
 A[0..15]
@@ -718,8 +714,6 @@ Entry Bus Bus
 	7050 1450 7150 1550
 Entry Bus Bus
 	7150 4450 7050 4550
-Text Notes 5300 950  0    197  ~ 39
-Operations
 Entry Bus Bus
 	1600 4000 1700 4100
 Wire Bus Line
@@ -1034,7 +1028,7 @@ Wire Wire Line
 	3900 5450 4550 5450
 Text Label 4550 5450 2    50   ~ 0
 FL-OFFBOARD
-Text Notes -3100 6350 0    197  ~ 39
+Text Notes -2850 9050 0    197  ~ 39
 TODO: Update from Verilog, Clean up, annotate and reassociate with PCB!
 Wire Wire Line
 	5400 3200 4900 3200
@@ -1124,6 +1118,12 @@ Wire Wire Line
 	5400 2150 4700 2150
 Wire Wire Line
 	4700 2150 4700 5600
+Text Notes 8300 950  0    197  ~ 39
+Edge Connector
+Text Notes 5300 950  0    197  ~ 39
+Operations
+Text Notes 2300 950  0    197  ~ 39
+Control
 Wire Bus Line
 	7150 1200 7150 4450
 Wire Bus Line

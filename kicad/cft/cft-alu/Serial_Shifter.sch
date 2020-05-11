@@ -998,8 +998,6 @@ F 3 "http://www.ti.com/lit/ds/symlink/sn74lvc1g0832.pdf" H 6950 5500 50  0001 C 
 $EndComp
 Wire Wire Line
 	6000 2400 6000 3900
-Text Label 7550 5500 0    50   ~ 0
-SHIFTCLK
 Text Label 6250 1400 0    50   ~ 0
 LSB
 Wire Wire Line
@@ -1936,8 +1934,8 @@ Entry Wire Line
 Entry Wire Line
 	7800 1400 7900 1300
 Connection ~ 1700 5000
-Text Notes 1900 3100 0    50   ~ 0
-Inverters are used as delays and\nare purposefully HC family.
+Text Notes 1300 3150 0    50   ~ 0
+Inverters are used as delays and are purposefully\nHC family. XORs are AC family though!
 $Comp
 L alexios:74AC86 U?
 U 4 1 5DD00E89
@@ -1997,7 +1995,7 @@ $Comp
 L Connector:TestPoint TP7
 U 1 1 5DCF509A
 P 3400 2750
-F 0 "TP7" H 3400 3000 50  0000 C CNN
+F 0 "TP7" H 3250 2900 50  0000 C CNN
 F 1 "TestPoint" H 3458 2777 50  0001 L CNN
 F 2 "TestPoint:TestPoint_Pad_1.0x1.0mm" H 3600 2750 50  0001 C CNN
 F 3 "~" H 3600 2750 50  0001 C CNN
@@ -2250,7 +2248,7 @@ FLOUT-SRU
 Wire Wire Line
 	7350 5500 7500 5500
 Text HLabel 10650 4850 2    50   Output ~ 0
-BCP-SRU
+BCP
 $Comp
 L Connector:TestPoint TP9
 U 1 1 5DCF567D
@@ -2262,8 +2260,6 @@ F 3 "~" H 7700 5500 50  0001 C CNN
 	1    7500 5500
 	-1   0    0    1   
 $EndComp
-Text Label 10550 4850 2    50   ~ 0
-SHIFTCLK
 Wire Wire Line
 	8200 5500 8200 4850
 Wire Wire Line
@@ -2273,6 +2269,10 @@ Wire Wire Line
 	7500 5500 8200 5500
 Text HLabel 1150 1550 0    50   Input ~ 0
 CLK3
+Text Label 7550 5500 0    50   ~ 0
+BCP
+Text Label 10550 4850 2    50   ~ 0
+BCP
 Wire Bus Line
 	4400 1100 4400 1800
 Wire Bus Line
