@@ -2283,4 +2283,6 @@ Wire Bus Line
 	10050 1100 10050 3800
 Wire Bus Line
 	6100 950  6100 4700
+Text Notes -1450 2750 0    157  ~ 31
+TODO: Reavaluate quadruppler, add\nfootprints/pads for adjustments!\n
 $EndSCHEMATC
