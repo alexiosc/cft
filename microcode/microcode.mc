@@ -180,8 +180,8 @@ cond uaddr:4;
 // 10110                              Reserved for ALU.
 // 10111                              Reserved for ALU.
 // -------------------------------------------------------------------------------
-// 11000     ALU:B       ALU:B        Currently only used by the SRU.                              
-// 11001     ALU:Y                    Read last addition result
+// 11000     ALU:Y                    Read result of last ALU operation
+// 11001     ALU:B       ALU:B        Currently only used by the SRU.                              
 // 11010                              
 // 11011                              
 // 11100                              
@@ -251,8 +251,8 @@ signal write_ir        = ..............01111.....; // Write to the Instruction R
 //signal               = ..............10101.....; // (Reserved for the ALU)
 //signal               = ..............10110.....; // (Reserved for the ALU)
 //signal               = ..............10111.....; // (Reserved for the ALU)
-signal write_alu_b     = ..............11000.....; // Write to ALU's B Port
-//signal               = ..............11001.....; // (Available)
+//signal               = ..............11000.....; // (Available)
+signal write_alu_b     = ..............11001.....; // Write to ALU's B Port
 //signal               = ..............11010.....; // (Available)
 //signal               = ..............11011.....; // (Available)
 //signal               = ..............11100.....; // (Available)

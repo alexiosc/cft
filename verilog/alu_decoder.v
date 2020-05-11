@@ -49,7 +49,7 @@ module alu_decoder (nrsthold, clk3, t34, raddr, waddr, action,
    demux_138 demux_wb (.a({ waddr[3], waddr[1:0]}), .g1(waddr[4]), .ng2a(waddr[2]), .ng2b(t34), .y(y3));
    assign nread_alu_y = y2[4];
    assign nread_alu_b = y2[5];
-   assign nwrite_alu_b = y3[4];
+   assign nwrite_alu_b = y3[5];
 
    // This decodes actions 0xxx.
    demux_138 demux_action (.a(action[2:0]), .g1(1'b1), .ng2a(action[3]), .ng2b(t34), .y(y4));
