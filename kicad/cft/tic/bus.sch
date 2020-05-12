@@ -3,12 +3,12 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 4 11
-Title "Foobar"
+Sheet 2 3
+Title "Timers, Interrupts & Clock "
 Date "2019-11-17"
 Rev ""
 Comp ""
-Comment1 "CTL"
+Comment1 "TIC"
 Comment2 ""
 Comment3 ""
 Comment4 ""
