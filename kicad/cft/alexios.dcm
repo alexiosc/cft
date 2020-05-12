@@ -1349,7 +1349,7 @@ $ENDCMP
 $CMP 82C54
 D CHMOS Programmable Interval Timer, PDIP-24
 K Timer Counter
-F http://download.intel.com/design/archives/periphrl/docs/23124406.pdf
+F https://www.renesas.com/cn/en/www/doc/datasheet/82c54.pdf
 $ENDCMP
 #
 $CMP AS6C4008-55PCN
