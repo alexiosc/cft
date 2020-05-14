@@ -1396,6 +1396,12 @@ $CMP FT231XS
 F https://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT231X.pdf
 $ENDCMP
 #
+$CMP ICS501
+D LOCO™ PLL Clock Multiplier
+K PLL Clock Multiplier
+F https://uk.mouser.com/datasheet/2/698/IDT__DST_20170331-1711217.pdf
+$ENDCMP
+#
 $CMP IS61C256AL
 D 32K × 8 High Speed CMOS RAM, SOJ-28
 K RAM SRAM CMOS MEMORY
