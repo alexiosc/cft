@@ -56,13 +56,34 @@ module alu_sru(nreset, nrsthold,
    wire	         op_right;
    wire [3:0] 	 op_dist;
 
-   // The clock quadruppler
-   wire 	 clk2_delay, clk4_delay, clk2_xor, clk4_xor, x4clk;
-   assign #14 clk2_delay = clk2;	// 2x7ns best case tPLH/tPHL for 74HC04)
-   assign #14 clk4_delay = clk4;
-   assign #5 clk2_xor = clk2 ^ clk2_delay;
-   assign #5 clk4_xor = clk4 ^ clk4_delay;
-   assign #5 x4clk = clk2_xor ^ clk4_xor;
+   // The clock quadruppler.
+   
+   // wire 	 clk2_delay, clk4_delay, clk2_xor, clk4_xor, x4clk;
+   // assign #14 clk2_delay = clk2;	// 2x7ns best case tPLH/tPHL for 74HC04)
+   // assign #14 clk4_delay = clk4;
+   // assign #8  clk2_xor = clk2 ^ clk2_delay;
+   // assign #8  clk4_xor = clk4 ^ clk4_delay;
+   // assign #8  x4clk = clk2_xor ^ clk4_xor;
+
+   reg 		 x4clk_pll;
+   wire 	 x4clk;
+   initial begin
+      x4clk_pll = 0;
+   end
+   always @(posedge clk4) begin
+      x4clk_pll = 1;
+      #31.25 x4clk_pll = 0;
+
+      #31.25 x4clk_pll = 1;
+      #31.25 x4clk_pll = 0;
+
+      #31.25 x4clk_pll = 1;
+      #31.25 x4clk_pll = 0;
+
+      #31.25 x4clk_pll = 1;
+      #31.25 x4clk_pll = 0;
+   end // always @ (posedge clk4)
+   assign #4 x4clk = ~x4clk_pll;
 
    // Main state machine
    wire 	nstart_sync, tc;
