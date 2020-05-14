@@ -450,291 +450,285 @@ Text Notes 10200 1550 0    50   ~ 0
 Text Notes 10200 1450 0    50   ~ 0
 ← Control Unit
 Wire Bus Line
-	6550 1450 7050 1450
-Text Label 7050 1450 2    50   ~ 0
+	6600 1700 7100 1700
+Text Label 7100 1700 2    50   ~ 0
 IBUS[0..15]
 Wire Wire Line
-	6550 1800 7050 1800
+	6600 2050 7100 2050
 Wire Wire Line
-	6550 1900 7050 1900
+	6600 2150 7100 2150
 Wire Wire Line
-	6550 2000 7050 2000
+	6600 2250 7100 2250
 Wire Wire Line
-	6550 2100 7050 2100
+	6600 2350 7100 2350
 Wire Wire Line
-	6550 2200 7050 2200
+	6600 2450 7100 2450
 Wire Wire Line
-	6550 2300 7050 2300
-Text Label 7050 1800 2    50   ~ 0
+	6600 2550 7100 2550
+Text Label 7100 2050 2    50   ~ 0
 X0
-Text Label 7050 1900 2    50   ~ 0
+Text Label 7100 2150 2    50   ~ 0
 X1
-Text Label 7050 2300 2    50   ~ 0
+Text Label 7100 2550 2    50   ~ 0
 ~SETL-ROM
 $Sheet
-S 5400 2950 1150 2100
+S 5450 3200 1150 2100
 U 5DF75CDE
 F0 "sheet5DF75CCD" 50
 F1 "Serial_Shifter.sch" 50
-F2 "CLK2" I L 5400 3300 50 
-F3 "CLK4" I L 5400 3500 50 
-F4 "DIST[0..3]" I L 5400 3900 50 
-F5 "~SHIFT~∕ROTATE" I L 5400 4350 50 
-F6 "~LOGIC~∕ARITH" I L 5400 4200 50 
-F7 "~LEFT~∕RIGHT" I L 5400 4050 50 
-F8 "B[0..15]" I L 5400 4650 50 
-F9 "~RESET" I L 5400 3100 50 
-F10 "IBUS[0..15]" B R 6550 4550 50 
-F11 "FLOUT-SRU" O R 6550 4750 50 
-F12 "FLFAST" I L 5400 4750 50 
-F13 "BCP" O R 6550 4650 50 
-F14 "~START" I L 5400 4500 50 
-F15 "~RSTHOLD" I L 5400 3200 50 
-F16 "CLK3" I L 5400 3400 50 
+F2 "CLK2" I L 5450 3550 50 
+F3 "CLK4" I L 5450 3750 50 
+F4 "DIST[0..3]" I L 5450 4150 50 
+F5 "~SHIFT~∕ROTATE" I L 5450 4600 50 
+F6 "~LOGIC~∕ARITH" I L 5450 4450 50 
+F7 "~LEFT~∕RIGHT" I L 5450 4300 50 
+F8 "B[0..15]" I L 5450 4900 50 
+F9 "~RESET" I L 5450 3350 50 
+F10 "IBUS[0..15]" B R 6600 4800 50 
+F11 "FLOUT-SRU" O R 6600 5000 50 
+F12 "FLFAST" I L 5450 5000 50 
+F13 "BCP" O R 6600 4900 50 
+F14 "~START" I L 5450 4750 50 
+F15 "~RSTHOLD" I L 5450 3450 50 
+F16 "CLK3" I L 5450 3650 50 
 $EndSheet
-Text Label 4900 4650 0    50   ~ 0
+Text Label 4950 4900 0    50   ~ 0
 B[0..15]
 Wire Wire Line
-	5400 4350 4900 4350
+	5450 4600 4950 4600
 Wire Wire Line
-	5400 4200 4900 4200
+	5450 4450 4950 4450
 Wire Wire Line
-	5400 4050 4900 4050
+	5450 4300 4950 4300
 Wire Bus Line
-	5400 3900 4900 3900
-Text Label 4900 3900 0    50   ~ 0
+	5450 4150 4950 4150
+Text Label 4950 4150 0    50   ~ 0
 IR[0..3]
-Text Label 4900 4050 0    50   ~ 0
+Text Label 4950 4300 0    50   ~ 0
 IR4
-Text Label 4900 4200 0    50   ~ 0
+Text Label 4950 4450 0    50   ~ 0
 IR5
-Text Label 4900 4350 0    50   ~ 0
+Text Label 4950 4600 0    50   ~ 0
 IR6
 Wire Wire Line
-	4900 3100 5400 3100
+	4950 3350 5450 3350
 Wire Wire Line
-	5400 3500 4900 3500
+	5450 3750 4950 3750
 Wire Wire Line
-	5400 3300 4900 3300
-Text Label 4900 3500 0    50   ~ 0
+	5450 3550 4950 3550
+Text Label 4950 3750 0    50   ~ 0
 CLK4
 Wire Wire Line
-	6550 4650 7050 4650
-Text Label 7050 4650 2    50   ~ 0
+	6600 4900 7100 4900
+Text Label 7100 4900 2    50   ~ 0
 BCP
-Text Label 4900 3100 0    50   ~ 0
+Text Label 4950 3350 0    50   ~ 0
 ~RESET
-Text Label 4900 3300 0    50   ~ 0
+Text Label 4950 3550 0    50   ~ 0
 CLK2
-Text Label 4900 4750 0    50   ~ 0
+Text Label 4950 5000 0    50   ~ 0
 FLFAST
 Wire Wire Line
-	6550 4750 7050 4750
+	6600 5000 7100 5000
 Wire Bus Line
-	6550 4550 7050 4550
-Text Label 7050 4550 2    50   ~ 0
+	6600 4800 7100 4800
+Text Label 7100 4800 2    50   ~ 0
 IBUS[0..15]
-Text Label 7050 4750 2    50   ~ 0
+Text Label 7100 5000 2    50   ~ 0
 FLOUT-SRU
-Text Notes 6500 3100 2    79   ~ 16
+Text Notes 6550 5250 2    79   ~ 16
 SRU
-Text Label 1800 1550 0    50   ~ 0
+Text Label 1850 2650 0    50   ~ 0
 RADDR[0..4]
 Wire Bus Line
-	2350 1550 1800 1550
+	2400 2650 1850 2650
 Wire Wire Line
-	1800 1450 2350 1450
-Text Label 1800 1450 0    50   ~ 0
+	1850 2550 2400 2550
+Text Label 1850 2550 0    50   ~ 0
 T34
-Text Label 1800 1650 0    50   ~ 0
+Text Label 1850 2750 0    50   ~ 0
 WADDR[0..4]
 Wire Bus Line
-	2350 1650 1800 1650
-Text Label 1800 1750 0    50   ~ 0
+	2400 2750 1850 2750
+Text Label 1850 2850 0    50   ~ 0
 ACTION[0..3]
 Wire Bus Line
-	2350 1750 1800 1750
+	2400 2850 1850 2850
 Wire Wire Line
-	3500 1750 4050 1750
-Text Label 4050 1650 2    50   ~ 0
+	3550 2850 4100 2850
+Text Label 4100 2750 2    50   ~ 0
 ~READ-ALU-B
-Text Label 4050 1750 2    50   ~ 0
+Text Label 4100 2850 2    50   ~ 0
 ~WRITE-ALU-B
-Text Label 4900 6250 0    50   ~ 0
+Text Label 4950 6500 0    50   ~ 0
 ~FLAGWE
-Text Label 4900 5750 0    50   ~ 0
+Text Label 4950 6000 0    50   ~ 0
 CLK4
-Text Label 4900 5600 0    50   ~ 0
+Text Label 4950 5850 0    50   ~ 0
 ~RSTHOLD
 Wire Wire Line
-	4900 6250 5400 6250
-Text Label 7100 5600 2    50   ~ 0
+	4950 6500 5450 6500
+Text Label 7150 5850 2    50   ~ 0
 FV
 Wire Wire Line
-	6550 5600 7100 5600
-Text Label 4550 5600 2    50   ~ 0
+	6600 5850 7150 5850
+Text Label 4600 5850 2    50   ~ 0
 FL
-Text Label 1700 6500 0    50   ~ 0
+Text Label 1750 6750 0    50   ~ 0
 ~FLAGWE
-Text Label 4900 6350 0    50   ~ 0
+Text Label 4950 6600 0    50   ~ 0
 IBUS13
 Wire Wire Line
-	5400 6350 4900 6350
-Text Label 1700 6600 0    50   ~ 0
+	5450 6600 4950 6600
+Text Label 1750 6850 0    50   ~ 0
 IBUS12
 Wire Wire Line
-	2400 6600 1700 6600
-Text Label 1700 5750 0    50   ~ 0
+	2450 6850 1750 6850
+Text Label 1750 6000 0    50   ~ 0
 CLK4
 Wire Wire Line
-	5400 5750 4900 5750
+	5450 6000 4950 6000
 Wire Wire Line
-	5400 5600 4900 5600
-Text Label 1700 5600 0    50   ~ 0
+	5450 5850 4950 5850
+Text Label 1750 5850 0    50   ~ 0
 ~RSTHOLD
 $Sheet
-S 5400 5450 1150 1100
+S 5450 5700 1150 1100
 U 5D35C694
 F0 "Overflow Register (V)" 50
 F1 "cft_reg_v_2019.sch" 50
-F2 "FV" O R 6550 5600 50 
-F3 "~SETV-ROM" I L 5400 5950 50 
-F4 "CLK4" I L 5400 5750 50 
-F5 "~RSTHOLD" I L 5400 5600 50 
-F6 "IBUS13" I L 5400 6350 50 
-F7 "FVOUT-ROM" I L 5400 6050 50 
-F8 "~FLAGWE" I L 5400 6250 50 
+F2 "FV" O R 6600 5850 50 
+F3 "~SETV-ROM" I L 5450 6200 50 
+F4 "CLK4" I L 5450 6000 50 
+F5 "~RSTHOLD" I L 5450 5850 50 
+F6 "IBUS13" I L 5450 6600 50 
+F7 "FVOUT-ROM" I L 5450 6300 50 
+F8 "~FLAGWE" I L 5450 6500 50 
 $EndSheet
-Text Notes 2350 5200 0    197  ~ 39
+Text Notes 800  5850 0    100  ~ 20
 Flags
-Text Notes 3450 3600 2    79   ~ 16
+Text Notes 3500 4450 2    79   ~ 16
 A
-Text Notes 3450 4450 2    79   ~ 16
+Text Notes 3500 5250 2    79   ~ 16
 B
 Wire Bus Line
-	1800 3500 2350 3500
-Text Label 1800 3500 0    50   ~ 0
+	1850 4350 2400 4350
+Text Label 1850 4350 0    50   ~ 0
 AC[0..15]
-Text Label 1800 4100 0    50   ~ 0
+Text Label 1850 4900 0    50   ~ 0
 IBUS[0..15]
 Wire Wire Line
-	1700 4300 2350 4300
-Text Label 1700 4400 0    50   ~ 0
+	1750 5100 2400 5100
+Text Label 1750 5200 0    50   ~ 0
 ~READ-ALU-B
-Text Label 1700 4300 0    50   ~ 0
+Text Label 1750 5100 0    50   ~ 0
 BCP
 Wire Wire Line
-	2350 4400 1700 4400
-Text Label 4050 4100 2    50   ~ 0
+	2400 5200 1750 5200
+Text Label 3650 4900 0    50   ~ 0
 B[0..15]
 Wire Bus Line
-	4350 4100 3500 4100
+	4400 4900 3550 4900
 $Sheet
-S 2350 3950 1150 550 
+S 2400 4750 1150 550 
 U 5DEA5E6C
 F0 "Port B" 50
 F1 "alu_port_b.sch" 50
-F2 "IBUS[0..15]" B L 2350 4100 50 
-F3 "B[0..15]" T R 3500 4100 50 
-F4 "~READ-ALU-B" I L 2350 4400 50 
-F5 "~WRITE-ALU-B" I L 2350 4200 50 
-F6 "BCP" I L 2350 4300 50 
+F2 "IBUS[0..15]" B L 2400 4900 50 
+F3 "B[0..15]" T R 3550 4900 50 
+F4 "~READ-ALU-B" I L 2400 5200 50 
+F5 "~WRITE-ALU-B" I L 2400 5000 50 
+F6 "BCP" I L 2400 5100 50 
 $EndSheet
-Text Label 4050 3350 2    50   ~ 0
+Text Label 3650 4200 0    50   ~ 0
 A[0..15]
 $Sheet
-S 2350 3200 1150 450 
+S 2400 4050 1150 450 
 U 5DE6D8E0
 F0 "Port A" 50
 F1 "alu_port_a.sch" 50
-F2 "A[0..15]" T R 3500 3350 50 
-F3 "ACP" I L 2350 3350 50 
-F4 "AC[0..15]" I L 2350 3500 50 
+F2 "A[0..15]" T R 3550 4200 50 
+F3 "ACP" I L 2400 4200 50 
+F4 "AC[0..15]" I L 2400 4350 50 
 $EndSheet
-Text Notes 2450 2850 0    197  ~ 39
+Text Notes 1250 4550 2    100  ~ 20
 Ports
 Wire Wire Line
-	1700 5600 2400 5600
+	1750 5850 2450 5850
 Wire Wire Line
-	1700 5750 2400 5750
+	1750 6000 2450 6000
 Wire Wire Line
-	1700 6500 2400 6500
+	1750 6750 2450 6750
 $Sheet
-S 2400 5450 1150 1650
+S 2450 5700 1150 1650
 U 5D121AA3
 F0 "Link Register (L)" 50
 F1 "cft_reg_l_2019.sch" 50
-F2 "FL" O R 3550 5600 50 
-F3 "CLK4" I L 2400 5750 50 
-F4 "~FLAGWE" I L 2400 6500 50 
-F5 "FLOUT-ROM" I L 2400 6100 50 
-F6 "IBUS12" I L 2400 6600 50 
-F7 "~RSTHOLD" I L 2400 5600 50 
-F8 "~ACTION-CLL" I L 2400 6900 50 
-F9 "~ACTION-CPL" I L 2400 6800 50 
-F10 "BCP" I L 2400 6250 50 
-F11 "FLOUT-SRU" I L 2400 6350 50 
-F12 "FLFAST" O R 3550 5700 50 
-F13 "~SETL-ROM" I L 2400 6000 50 
+F2 "FL" O R 3600 5850 50 
+F3 "CLK4" I L 2450 6000 50 
+F4 "~FLAGWE" I L 2450 6750 50 
+F5 "FLOUT-ROM" I L 2450 6350 50 
+F6 "IBUS12" I L 2450 6850 50 
+F7 "~RSTHOLD" I L 2450 5850 50 
+F8 "~ACTION-CLL" I L 2450 7150 50 
+F9 "~ACTION-CPL" I L 2450 7050 50 
+F10 "BCP" I L 2450 6500 50 
+F11 "FLOUT-SRU" I L 2450 6600 50 
+F12 "FLFAST" O R 3600 5950 50 
+F13 "~SETL-ROM" I L 2450 6250 50 
 $EndSheet
-Text Label 4550 5700 2    50   ~ 0
+Text Label 4600 5950 2    50   ~ 0
 FLFAST
 Wire Wire Line
-	2400 6250 1700 6250
-Text Label 1700 6250 0    50   ~ 0
+	2450 6500 1750 6500
+Text Label 1750 6500 0    50   ~ 0
 BCP
 Wire Wire Line
-	2400 6350 1700 6350
-Text Label 1700 6350 0    50   ~ 0
+	2450 6600 1750 6600
+Text Label 1750 6600 0    50   ~ 0
 FLOUT-SRU
 Wire Wire Line
-	2400 6900 1700 6900
-Text Label 1700 6800 0    50   ~ 0
+	2450 7150 1750 7150
+Text Label 1750 7050 0    50   ~ 0
 ~ACTION-CPL
-Text Label 1700 6900 0    50   ~ 0
+Text Label 1750 7150 0    50   ~ 0
 ~ACTION-CLL
 Entry Bus Bus
-	4450 2100 4550 2000
+	4500 2350 4600 2250
 Entry Bus Bus
-	4450 4550 4550 4650
+	4500 4800 4600 4900
 Wire Bus Line
-	4550 4650 5400 4650
+	4600 4900 5450 4900
 Entry Bus Bus
-	4450 4000 4350 4100
+	4400 4900 4500 4800
 Entry Bus Bus
-	4350 4100 4450 4200
+	4600 2150 4500 2250
 Wire Bus Line
-	4450 4550 4450 4200
+	4400 2350 4500 2250
 Entry Bus Bus
-	4550 1900 4450 2000
+	7100 1700 7200 1800
+Entry Bus Bus
+	7200 4700 7100 4800
+Entry Bus Bus
+	1650 4800 1750 4900
 Wire Bus Line
-	4350 2100 4450 2000
+	1650 4800 1650 3850
 Entry Bus Bus
-	7050 1450 7150 1550
-Entry Bus Bus
-	7150 4450 7050 4550
-Entry Bus Bus
-	1600 4000 1700 4100
+	1750 3750 1650 3850
 Wire Bus Line
-	1600 4000 1600 3150
+	1750 3750 4200 3750
 Entry Bus Bus
-	1700 3050 1600 3150
-Wire Bus Line
-	1700 3050 4150 3050
+	4300 3650 4200 3750
 Entry Bus Bus
-	4250 2950 4150 3050
+	7100 1350 7200 1450
 Entry Bus Bus
-	7050 1100 7150 1200
-Text Label 2750 3050 0    50   ~ 0
-IBUS[0..15]
-Entry Bus Bus
-	4550 1100 4450 1200
+	4600 1350 4500 1450
 Wire Bus Line
-	7050 1100 4550 1100
+	7100 1350 4600 1350
 Wire Bus Line
-	4250 2950 4250 1400
+	4300 3650 4300 1650
 Wire Bus Line
-	4250 1400 4450 1200
+	4300 1650 4500 1450
 Text Notes 10250 4500 1    50   ~ 0
 Input From REG Board
 Entry Wire Line
@@ -776,104 +770,94 @@ Wire Bus Line
 Entry Bus Bus
 	10100 3450 10200 3350
 Wire Wire Line
-	4800 4750 5400 4750
-Text Label 4050 1450 2    50   ~ 0
+	4850 5000 5450 5000
+Text Label 4100 2550 2    50   ~ 0
 ~ALU-OP
-Text Label 4050 1950 2    50   ~ 0
+Text Label 4100 3050 2    50   ~ 0
 ~ACTION-CLL
-Text Label 4050 1850 2    50   ~ 0
+Text Label 4100 2950 2    50   ~ 0
 ~ACTION-CPL
 Wire Wire Line
-	3500 1950 4050 1950
-Text Label 4050 2150 2    50   ~ 0
+	3550 3050 4100 3050
+Text Label 4100 3250 2    50   ~ 0
 ~ACTION-SRU
 $Sheet
-S 2350 1300 1150 1000
+S 2400 2400 1150 1000
 U 5E1C970B
 F0 "Decoders" 50
 F1 "alu_decoder.sch" 50
-F2 "RADDR[0..4]" I L 2350 1550 50 
-F3 "WADDR[0..4]" I L 2350 1650 50 
-F4 "T34" I L 2350 1450 50 
-F5 "ACTION[0..4]" I L 2350 1750 50 
-F6 "~WRITE-ALU-B" O R 3500 1750 50 
-F7 "~ACTION-SRU" O R 3500 2150 50 
-F8 "~ACTION-CPL" O R 3500 1850 50 
-F9 "~ACTION-CLL" O R 3500 1950 50 
-F10 "~READ-ALU-B" O R 3500 1650 50 
-F11 "~ACTION-110" O R 3500 2050 50 
-F12 "~READ-ALU-Y" O R 3500 1550 50 
-F13 "~ALU-OP" O R 3500 1450 50 
-F14 "ACP" O L 2350 2150 50 
+F2 "RADDR[0..4]" I L 2400 2650 50 
+F3 "WADDR[0..4]" I L 2400 2750 50 
+F4 "T34" I L 2400 2550 50 
+F5 "ACTION[0..4]" I L 2400 2850 50 
+F6 "~WRITE-ALU-B" O R 3550 2850 50 
+F7 "~ACTION-SRU" O R 3550 3250 50 
+F8 "~ACTION-CPL" O R 3550 2950 50 
+F9 "~ACTION-CLL" O R 3550 3050 50 
+F10 "~READ-ALU-B" O R 3550 2750 50 
+F11 "~ACTION-110" O R 3550 3150 50 
+F12 "~READ-ALU-Y" O R 3550 2650 50 
+F13 "~ALU-OP" O R 3550 2550 50 
+F14 "ACP" O L 2400 3250 50 
 $EndSheet
-Text Label 4350 2850 1    50   ~ 0
+Text Label 4400 3100 1    50   ~ 0
 A[0..15]
-Text Label 4250 2850 1    50   ~ 0
+Text Label 4300 3100 1    50   ~ 0
 IBUS[0..15]
 Wire Bus Line
-	4450 2100 4450 4000
-Wire Bus Line
-	3500 3350 4250 3350
+	3550 4200 4300 4200
 Entry Bus Bus
-	4350 3250 4250 3350
+	4400 4100 4300 4200
 Wire Bus Line
-	4350 2100 4350 3250
-Wire Wire Line
-	3500 1450 5400 1450
-Text Label 4450 4550 1    50   ~ 0
+	4400 2350 4400 4100
+Text Label 4500 4550 1    50   ~ 0
 B[0..15]
 Wire Wire Line
-	4800 4750 4800 5700
+	4850 5000 4850 5950
 Wire Wire Line
-	3550 5700 4800 5700
+	3600 5950 4850 5950
 Wire Wire Line
-	3550 5600 3650 5600
+	3600 5850 3700 5850
 Wire Bus Line
-	4550 1900 5400 1900
+	4600 2150 5450 2150
 Wire Bus Line
-	4550 2000 5400 2000
-Text Label 4700 5350 1    50   ~ 0
+	4600 2250 5450 2250
+Text Label 4750 5600 1    50   ~ 0
 FL
-Text Label 4800 5350 1    50   ~ 0
+Text Label 4850 5600 1    50   ~ 0
 FLFAST
 Wire Wire Line
-	2400 6000 1700 6000
+	2450 6250 1750 6250
 Wire Wire Line
-	2400 6100 1700 6100
-Text Label 1700 6100 0    50   ~ 0
+	2450 6350 1750 6350
+Text Label 1750 6350 0    50   ~ 0
 FLOUT-ROM
 Wire Wire Line
-	5400 5950 4900 5950
+	5450 6200 4950 6200
 Wire Wire Line
-	5400 6050 4900 6050
-Text Label 4900 5950 0    50   ~ 0
+	5450 6300 4950 6300
+Text Label 4950 6200 0    50   ~ 0
 ~SETV-ROM
-Text Label 4900 6050 0    50   ~ 0
+Text Label 4950 6300 0    50   ~ 0
 FVOUT-ROM
-Text Label 7050 2200 2    50   ~ 0
+Text Label 7100 2450 2    50   ~ 0
 FLOUT-ROM
-Text Label 7050 2100 2    50   ~ 0
+Text Label 7100 2350 2    50   ~ 0
 ~SETV-ROM
-Text Label 7050 2000 2    50   ~ 0
+Text Label 7100 2250 2    50   ~ 0
 FVOUT-ROM
 Wire Wire Line
-	4600 2150 4600 4500
-Wire Wire Line
-	4600 4500 5400 4500
-Wire Wire Line
-	3500 2150 4600 2150
-Text Label 4600 2850 1    50   ~ 0
+	4950 4750 5450 4750
+Text Label 4950 4750 0    50   ~ 0
 ~ACTION-SRU
-Text Label 4900 4500 0    50   ~ 0
-~ACTION-SRU
-Text Label 4450 2850 1    50   ~ 0
+Text Label 4500 3100 1    50   ~ 0
 B[0..15]
-Text Label 4700 2850 1    50   ~ 0
+Text Label 4750 3100 1    50   ~ 0
 FL
 Wire Wire Line
-	3500 1850 4050 1850
+	3550 2950 4100 2950
 Wire Wire Line
-	2400 6800 1700 6800
+	2450 7050 1750 7050
 Text Notes 10200 2350 0    50   ~ 0
 ← Control Unit
 Wire Wire Line
@@ -908,29 +892,29 @@ For ROM Expansion
 $Comp
 L Jumper:SolderJumper_2_Bridged JP?
 U 1 1 5DC7BFB4
-P 4500 1800
+P 4550 2050
 AR Path="/5DE3C078/5DC7BFB4" Ref="JP?"  Part="1" 
 AR Path="/5DC7BFB4" Ref="JP1"  Part="1" 
-F 0 "JP1" H 4500 1913 50  0000 C CNN
-F 1 "SolderJumper_2_Bridged" H 4500 1914 50  0001 C CNN
-F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 4500 1800 50  0001 C CNN
-F 3 "~" H 4500 1800 50  0001 C CNN
-	1    4500 1800
+F 0 "JP1" H 4550 2163 50  0000 C CNN
+F 1 "SolderJumper_2_Bridged" H 4550 2164 50  0001 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 4550 2050 50  0001 C CNN
+F 3 "~" H 4550 2050 50  0001 C CNN
+	1    4550 2050
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR0113
 U 1 1 5DC97446
-P 4350 1850
-F 0 "#PWR0113" H 4350 1600 50  0001 C CNN
-F 1 "GND" H 4350 1950 50  0000 C CNN
-F 2 "" H 4350 1850 50  0001 C CNN
-F 3 "" H 4350 1850 50  0001 C CNN
-	1    4350 1850
+P 4400 2100
+F 0 "#PWR0113" H 4400 1850 50  0001 C CNN
+F 1 "GND" H 4400 2200 50  0000 C CNN
+F 2 "" H 4400 2100 50  0001 C CNN
+F 3 "" H 4400 2100 50  0001 C CNN
+	1    4400 2100
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	4350 1800 4350 1850
+	4400 2050 4400 2100
 Text Label 8500 6100 0    50   ~ 0
 ~ACTION-110
 $Comp
@@ -948,10 +932,10 @@ F 3 "~" H 9450 6100 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	9250 6100 8500 6100
-Text Notes 8500 5850 0    50   ~ 0
+Text Notes 8500 5950 0    50   ~ 0
 Actions for future expansion
 Wire Wire Line
-	4650 1800 5400 1800
+	4700 2050 5450 2050
 $Comp
 L Connector:TestPoint TP3
 U 1 1 5DD216FF
@@ -1008,121 +992,155 @@ $EndComp
 $Comp
 L Device:R_Small R2
 U 1 1 5DCC470D
-P 3800 5450
-F 0 "R2" V 3604 5450 50  0000 C CNN
-F 1 "30Ω" V 3695 5450 50  0000 C CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3800 5450 50  0001 C CNN
-F 3 "~" H 3800 5450 50  0001 C CNN
-	1    3800 5450
+P 3850 5700
+F 0 "R2" V 3654 5700 50  0000 C CNN
+F 1 "30Ω" V 3745 5700 50  0000 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3850 5700 50  0001 C CNN
+F 3 "~" H 3850 5700 50  0001 C CNN
+	1    3850 5700
 	0    1    1    0   
 $EndComp
 Wire Wire Line
-	3700 5450 3650 5450
+	3750 5700 3700 5700
 Wire Wire Line
-	3650 5450 3650 5600
-Connection ~ 3650 5600
+	3700 5700 3700 5850
+Connection ~ 3700 5850
 Wire Wire Line
-	3650 5600 4700 5600
+	3700 5850 4750 5850
 Wire Wire Line
-	3900 5450 4550 5450
-Text Label 4550 5450 2    50   ~ 0
+	3950 5700 4600 5700
+Text Label 4600 5700 2    50   ~ 0
 FL-OFFBOARD
 Wire Wire Line
-	5400 3200 4900 3200
-Text Label 4900 3200 0    50   ~ 0
+	5450 3450 4950 3450
+Text Label 4950 3450 0    50   ~ 0
 ~RSTHOLD
 Text Label 7950 2350 0    50   ~ 0
 T34
 Wire Bus Line
-	1700 4100 2350 4100
-Text Label 1700 6000 0    50   ~ 0
+	1750 4900 2400 4900
+Text Label 1750 6250 0    50   ~ 0
 ~SETL-ROM
 Wire Wire Line
-	2350 4200 1700 4200
-Text Label 1700 4200 0    50   ~ 0
+	2400 5000 1750 5000
+Text Label 1750 5000 0    50   ~ 0
 ~WRITE-ALU-B
 Wire Wire Line
-	3500 2050 4050 2050
-Text Label 4050 2050 2    50   ~ 0
+	3550 3150 4100 3150
+Text Label 4100 3150 2    50   ~ 0
 ~ACTION-110
 Wire Wire Line
-	3500 1650 4050 1650
-Text Label 4050 1550 2    50   ~ 0
+	3550 2750 4100 2750
+Text Label 4100 2650 2    50   ~ 0
 ~READ-ALU-Y
-Text Label 4900 2000 0    50   ~ 0
+Text Label 4950 2250 0    50   ~ 0
 B[0..15]
-Text Label 4900 1900 0    50   ~ 0
+Text Label 4950 2150 0    50   ~ 0
 A[0..15]
-Text Label 4900 1800 0    50   ~ 0
+Text Label 4950 2050 0    50   ~ 0
 X-IN
-Text Label 4900 2150 0    50   ~ 0
+Text Label 4950 2400 0    50   ~ 0
 FL
 Wire Wire Line
-	2350 2150 2200 2150
+	2400 3250 2250 3250
 Wire Wire Line
-	2200 2150 2200 3350
+	2250 3250 2250 4200
 Wire Wire Line
-	2200 3350 2350 3350
+	2250 4200 2400 4200
 $Sheet
-S 5400 1300 1150 1300
+S 5450 1550 1150 1300
 U 5DE3C078
 F0 "sheet5DE3C026" 50
 F1 "cft_alu_rom.sch" 50
-F2 "A[0..15]" I L 5400 1900 50 
-F3 "B[0..15]" I L 5400 2000 50 
-F4 "FL" I L 5400 2150 50 
-F5 "RADDR0" I L 5400 2250 50 
-F6 "RADDR1" I L 5400 2350 50 
-F7 "RADDR2" I L 5400 2450 50 
-F8 "~ALU-OP" I L 5400 1450 50 
-F9 "X-IN" I L 5400 1800 50 
-F10 "IBUS[0..15]" T R 6550 1450 50 
-F11 "X1" O R 6550 1900 50 
-F12 "X0" O R 6550 1800 50 
-F13 "FVOUT-ROM" O R 6550 2000 50 
-F14 "~SETV-ROM" O R 6550 2100 50 
-F15 "FLOUT-ROM" O R 6550 2200 50 
-F16 "~SETL-ROM" O R 6550 2300 50 
-F17 "~READ-ALU-Y" I L 5400 1550 50 
-F18 "T34" I L 5400 1650 50 
+F2 "A[0..15]" I L 5450 2150 50 
+F3 "B[0..15]" I L 5450 2250 50 
+F4 "FL" I L 5450 2400 50 
+F5 "RADDR0" I L 5450 2500 50 
+F6 "RADDR1" I L 5450 2600 50 
+F7 "RADDR2" I L 5450 2700 50 
+F8 "~ALU-OP" I L 5450 1700 50 
+F9 "X-IN" I L 5450 2050 50 
+F10 "IBUS[0..15]" T R 6600 1700 50 
+F11 "X1" O R 6600 2150 50 
+F12 "X0" O R 6600 2050 50 
+F13 "FVOUT-ROM" O R 6600 2250 50 
+F14 "~SETV-ROM" O R 6600 2350 50 
+F15 "FLOUT-ROM" O R 6600 2450 50 
+F16 "~SETL-ROM" O R 6600 2550 50 
+F17 "~READ-ALU-Y" I L 5450 1800 50 
+F18 "T34" I L 5450 1900 50 
 $EndSheet
 Wire Wire Line
-	5400 1650 4900 1650
-Text Label 4900 1650 0    50   ~ 0
+	5450 1900 4950 1900
+Text Label 4950 1900 0    50   ~ 0
 T34
-Connection ~ 4700 5600
+Connection ~ 4750 5850
 Wire Wire Line
-	4700 5600 4700 5650
-Text Label 4900 2250 0    50   ~ 0
+	4750 5850 4750 5900
+Text Label 4950 2500 0    50   ~ 0
 RADDR0
-Text Label 4900 2350 0    50   ~ 0
+Text Label 4950 2600 0    50   ~ 0
 RADDR1
-Text Label 4900 2450 0    50   ~ 0
+Text Label 4950 2700 0    50   ~ 0
 RADDR2
 Wire Wire Line
-	4900 2350 5400 2350
+	4950 2600 5450 2600
 Wire Wire Line
-	4900 2250 5400 2250
+	4950 2500 5450 2500
 Wire Wire Line
-	5400 2450 4900 2450
+	5450 2700 4950 2700
 Wire Wire Line
-	3500 1550 5400 1550
+	5450 2400 4750 2400
 Wire Wire Line
-	5400 2150 4700 2150
-Wire Wire Line
-	4700 2150 4700 5600
+	4750 2400 4750 5850
 Text Notes 8300 950  0    197  ~ 39
 Edge Connector
-Text Notes 5300 950  0    197  ~ 39
+Text Notes 7450 3350 1    100  ~ 20
 Operations
-Text Notes 2300 950  0    197  ~ 39
+Text Notes 800  2800 0    100  ~ 20
 Control
 Wire Wire Line
-	4900 3400 5400 3400
-Text Label 4900 3400 0    50   ~ 0
+	4950 3650 5450 3650
+Text Label 4950 3650 0    50   ~ 0
 CLK3
 Wire Bus Line
-	7150 1200 7150 4450
+	4500 2350 4500 4800
+Text Label 3650 3750 0    50   ~ 0
+IBUS[0..15]
+Text Label 4950 1700 0    50   ~ 0
+~ALU-OP
+Text Label 4950 1800 0    50   ~ 0
+~READ-ALU-Y
+Wire Wire Line
+	3550 2550 4100 2550
+Wire Wire Line
+	3550 2650 4100 2650
+Wire Wire Line
+	4950 1700 5450 1700
+Wire Wire Line
+	4950 1800 5450 1800
+Wire Wire Line
+	3550 3250 4100 3250
+Text Notes 650  950  0    197  ~ 39
+The ALU
+Text Notes 700  2050 0    50   ~ 0
+The CFT's ALU is probably among the most complex units of the processor. The 2019\nedition uses three ROMs containing all binary and unary operations except shifts and\nrolls. (the original ALU used 6 larger ROMs). The ROMs can perform two's complement\naddition (with carry and overflow), and bitwise AND, OR, XOR and NOT. Three of the\neight possible operations are still undefined.\n\nA separate unit can perform rolls, bitwise shifts and sign-extending (arithmethic) right\nshifts. This is a serial unit, not a barrel shifter, so the longer the bit distance the\nlonger it takes to calculate it. It's still better tha having to wait several clock cycles for\na single bit though.\n\nAlso present here are the L register and V flag.
+Text Notes 3550 7300 2    79   ~ 16
+L
+Text Notes 6550 6750 2    79   ~ 16
+V
+Text Notes 6550 2800 2    79   ~ 16
+ROM
+Wire Notes Line
+	8400 5800 9700 5800
+Wire Notes Line
+	9700 5800 9700 6250
+Wire Notes Line
+	9700 6250 8400 6250
+Wire Notes Line
+	8400 6250 8400 5800
+Wire Bus Line
+	7200 1450 7200 4700
 Wire Bus Line
 	10100 1300 10100 1950
 Wire Bus Line

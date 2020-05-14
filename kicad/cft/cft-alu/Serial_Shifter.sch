@@ -1640,8 +1640,6 @@ F 3 "~" H 4550 6650 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	5800 2950 5800 5500
-Text Notes 2900 1700 0    100  ~ 20
-State Machine
 Text Label 5900 2750 1    50   ~ 0
 TC
 Wire Wire Line
@@ -1888,4 +1886,8 @@ Wire Bus Line
 	10050 1100 10050 3800
 Wire Bus Line
 	6100 950  6100 4700
+Text Notes 2900 1700 0    100  ~ 20
+State Machine
+Text Notes 6950 6650 0    50   ~ 0
+The Shift and Rotate Unit performs 16- and 17-bit rolls as well as arithmetic and bitwise shifts for\nbit distances 0–15. It does this serially, one bit at a time to reduce chip count. To speed things up,\nit runs on a quadruppled clock, performing 16 million operations per second. In practice, the\nControl Unit has to wait several cycles for the SRU to complete its operation. The SRU operates on\nthe ALU's B Register, which it uses as a scratch register, updating it on every step.
 $EndSCHEMATC
