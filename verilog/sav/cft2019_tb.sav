@@ -1,16 +1,16 @@
 [*]
-[*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
-[*] Mon May  4 07:12:30 2020
+[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
+[*] Wed May 13 08:06:48 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/cft2019_tb.vcd"
-[dumpfile_mtime] "Mon May  4 07:10:01 2020"
-[dumpfile_size] 211108098
+[dumpfile_mtime] "Wed May 13 08:06:02 2020"
+[dumpfile_size] 449939
 [optimize_vcd]
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/cft2019_tb.sav"
-[timestart] 38437000
-[size] 3840 2032
-[pos] -1 -1
-*-18.617998 40926250 15001750 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[timestart] 8518000
+[size] 2207 1123
+[pos] 1899 -1
+*-20.617998 14287000 15001750 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] cft2019_tb.
 [treeopen] cft2019_tb.cft.
 [treeopen] cft2019_tb.cft.card_alu.
@@ -24,7 +24,7 @@
 [sst_width] 372
 [signals_width] 661
 [sst_expanded] 1
-[sst_vpaned_height] 847
+[sst_vpaned_height] 819
 @c00200
 -Reset
 @28
@@ -523,7 +523,6 @@ cft2019_tb.cft.card_alu.reg_l.bcp
 @200
 -
 @28
-cft2019_tb.cft.card_alu.reg_l.nread_alu_add
 cft2019_tb.cft.card_alu.reg_l.flin_sru
 cft2019_tb.cft.card_alu.reg_l.bcp
 cft2019_tb.cft.card_alu.reg_l.ld

@@ -59,6 +59,8 @@ def test_SHL(capsys, tmpdir):
 
     result = run_on_verilog_emu(capsys, tmpdir, source)
     result = list(expected.prepare(result))
+    # pprint.pprint(result)
+    # assert False
     assert result == expected
 
 

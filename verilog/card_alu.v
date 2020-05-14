@@ -262,7 +262,7 @@ module card_alu(
 		    .op_rotate(op_rotate),
 		    .nstart(naction_sru),
 		    .ibus(ibus),
-		    .bcp_sru(bcp_sru),	// Set ALU B (and L) to temporary result of SRU
+		    .bcp(bcp_sru),	// Set ALU B (and L) to temporary result of SRU
 		    .flout_sru(flout_sru),
 		    .nsru_run(nsru_run));
 
