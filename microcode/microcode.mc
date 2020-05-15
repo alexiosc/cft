@@ -1516,10 +1516,10 @@ start HCF;
 
 start IFL, COND=0;
       FETCH_IR;                                 // 00 IR ← mem[PC++];
-      if_l;                         // 02
-      if_ir5;                                   // 03 If L:
+      if_l;                                     // 02
+      if_ir5;                                   // 03
       SET(ac, cs0), if_ir4;                     // 04 If IR5: AC ← 0
-      action_cll, SET(alu_b, alu_b), if_ir3;                       // 05 If IR4: L ← 0; A ← AC
+      action_cll, SET(alu_b, alu_b), if_ir3;    // 05 If IR4: L ← 0
       SET(ac, alu_not), if_ir2;                 // 06 If IR3: AC ← ~AC
       action_incac, if_ir1;                     // 07 IF IR2: AC++
       action_decac, if_ir0;                     // 08 IF IR1: AC--
@@ -1529,19 +1529,19 @@ start IFL, COND=1;
       FETCH_IR;                                 // 00 IR ← mem[PC++];
       if_l;                                     // 02
       END;                                      // 03 If L:
-      if_ir4;                                   // 04 If IR5:
-      SET(alu_b, alu_b), if_ir3;                                   // 05 If IR4:
-      if_ir2;                                   // 06 If IR3:
-      if_ir1;                                   // 07 IF IR2:
-      if_ir0;                                   // 08 IF IR1:
-      END;                                      // 09 IF IR0:
+      if_ir4;                                   // 03 If IR5:
+      SET(alu_b, alu_b), if_ir3;                // 04 If IR4:
+      if_ir2;                                   // 05 If IR3:
+      if_ir1;                                   // 06 IF IR2:
+      if_ir0;                                   // 07 IF IR1:
+      END;                                      // 08 IF IR0:
 
 start IFV, COND=0;
       FETCH_IR;                                 // 00 IR ← mem[PC++];
       if_v;                                     // 02
       if_ir5;                                   // 03 If V:
       SET(ac, cs0), if_ir4;                     // 04 If IR5: AC ← 0
-      action_cll, if_ir3, SET(alu_b, alu_b);           // 05 If IR4: L ← 0
+      action_cll, SET(alu_b, alu_b), if_ir3;    // 05 If IR4: L ← 0
       SET(ac, alu_not), if_ir2;                 // 06 If IR3: AC ← ~AC
       action_incac, if_ir1;                     // 07 IF IR2: AC++
       action_decac, if_ir0;                     // 08 IF IR1: AC--
@@ -1551,18 +1551,18 @@ start IFV, COND=1;
       FETCH_IR;                                 // 00 IR ← mem[PC++];
       if_v;                                     // 02
       END;                                      // 03 If V:
-      if_ir4;                                   // 04 If IR5:
-      SET(alu_b, alu_b), if_ir3;                                   // 05 If IR4:
-      if_ir2;                                   // 06 If IR3:
-      if_ir1;                                   // 07 IF IR2:
-      if_ir0;                                   // 08 IF IR1:
-      END;                                      // 09 IF IR0:
+      if_ir4;                                   // 03 If IR5:
+      SET(alu_b, alu_b), if_ir3;                // 04 If IR4:
+      if_ir2;                                   // 05 If IR3:
+      if_ir1;                                   // 06 IF IR2:
+      if_ir0;                                   // 07 IF IR1:
+      END;                                      // 08 IF IR0:
 
 start UOP, COND=0;
       FETCH_IR;                                 // 00 IR ← mem[PC++];
       if_ir5;                                   // 02
       SET(ac, cs0), if_ir4;                     // 03 If IR5: AC ← 0
-      action_cll, SET(alu_b, alu_b), if_ir3/*, action_wpa*/;           // 04 If IR4: L ← 0
+      action_cll, SET(alu_b, alu_b), if_ir3;    // 04 If IR4: L ← 0
       SET(ac, alu_not), if_ir2;                 // 05 If IR3: AC ← ~AC
       action_incac, if_ir1;                     // 06 IF IR2: AC++
       action_decac, if_ir0;                     // 07 IF IR1: AC--
@@ -1572,7 +1572,7 @@ start UOP, COND=1;
       FETCH_IR;                                 // 00 IR ← mem[PC++];
       if_ir5;                                   // 02
       if_ir4;                                   // 03 If IR5:
-      SET(alu_b, alu_b), if_ir3;                                   // 04 If IR4:
+      SET(alu_b, alu_b), if_ir3;                // 04 If IR4:
       if_ir2;                                   // 05 If IR3:
       if_ir1;                                   // 06 IF IR2:
       if_ir0;                                   // 07 IF IR1:
