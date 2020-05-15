@@ -18,13 +18,11 @@
 `timescale 1ns/1ps
 
 
-module alu_decoder (nrsthold, clk3, t34, raddr, waddr, action, 
+module alu_decoder (t34, raddr, waddr, action, 
 		    nalu_op, nread_alu_y,
 		    nread_alu_b, nwrite_alu_b,
 		    naction_cpl, naction_cll, naction_sru);
 
-   input       nrsthold;
-   input       clk3;
    input       t34;
    input [4:0] raddr;
    input [4:0] waddr;

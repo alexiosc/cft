@@ -129,18 +129,18 @@ module alu_decoder_tb();
 
       // Ensure nalu_op is asserted for all ALU addresses during T34.
       if (raddr[4:3] === 2'b10) begin
-   	 if (nalu_op !== t34) begin
-   	    $sformat(msg, "nalu_op decoding failure 1: raddr=%b, t34=%b, but nalu_op=%b (should be %b)",
-   		     raddr, t34, nalu_op, t34);
+   	 if (nalu_op !== 1'b0) begin
+   	    $sformat(msg, "nalu_op decoding failure 1: raddr=%b but nalu_op=%b (should be %b)",
+   		     raddr, nalu_op, t34);
    	 end
       end
       else if (nalu_op !== 1'b1) begin
-   	 $sformat(msg, "nalu_op decoding failure 2: raddr=%b, t34=%b, but nalu_op=%b (should be 1)",
-   		  raddr, t34, nalu_op);
+   	 $sformat(msg, "nalu_op decoding failure 2: raddr=%b but nalu_op=%b (should be 1)",
+   		  raddr, nalu_op);
       end
 
       // Check nread_alu_b
-      if (raddr === 5'b11000) begin
+      if (raddr === 5'b11001) begin
    	 if (nread_alu_b !== t34) begin
    	    $sformat(msg, "nREAD-ALU-B decoding failure: raddr=%b, t34=%b, but nread_alu_b=%b (should be %b)",
    		     raddr, t34, nread_alu_b, t34);
@@ -149,6 +149,18 @@ module alu_decoder_tb();
       else if (nread_alu_b !== 1'b1) begin
    	 $sformat(msg, "nREAD-ALU-B decoding failure 2: raddr=%b, t34=%b, but nread_alu_b=%b (should be 1)",
    		  raddr, t34, nread_alu_b);
+      end
+
+      // Check nread_alu_y
+      if (raddr === 5'b11000) begin
+   	 if (nread_alu_y !== t34) begin
+   	    $sformat(msg, "nREAD-ALU-Y decoding failure: raddr=%b, t34=%b, but nread_alu_y=%b (should be %b)",
+   		     raddr, t34, nread_alu_y, t34);
+   	 end
+      end
+      else if (nread_alu_y !== 1'b1) begin
+   	 $sformat(msg, "nREAD-ALU-Y decoding failure 2: raddr=%b, t34=%b, but nread_alu_y=%b (should be 1)",
+   		  raddr, t34, nread_alu_y);
       end
 
       // Fail if we've logged an issue.
@@ -175,7 +187,7 @@ module alu_decoder_tb();
       end
 
       // Check nwrite_alu_b
-      if (waddr[4:0] === 5'b11000) begin
+      if (waddr[4:0] === 5'b11001) begin
    	 if (nwrite_alu_b !== t34) begin
    	    $sformat(msg, "nWRITE-ALU-B decoding failure: waddr=%b, t34=%b, but nwrite_alu_b=%b (should be %b)",
    		     waddr, t34, nwrite_alu_b, t34);
@@ -207,24 +219,41 @@ module alu_decoder_tb();
    	 $sformat(msg, "testbench bug: action=%b", action);
       end
 
-      if (naction_cpl !== (action === 4'b0001 ? 1'b0 : 1'b1)) begin
-   	 $sformat(msg, "nACTION-CPL decoding failure: action=%b, naction_cpl=%b",
-		  action, naction_cpl);
-      end
-
-      if (naction_cll !== (action === 4'b0010 ? 1'b0 : 1'b1)) begin
-   	 $sformat(msg, "nACTION-CLL decoding failure: action=%b, naction_cll=%b",
-		  action, naction_cll);
-      end
-
-      // if (naction_wpa !== (action === 4'b0110 ? 1'b0 : 1'b1)) begin
-      // 	 $sformat(msg, "nACTION-WPA decoding failure: action=%b, naction_wpa=%b",
-      // 		  action, naction_wpa);
-      // end
-
-      if (naction_sru !== (action === 4'b0111 ? 1'b0 : 1'b1)) begin
-   	 $sformat(msg, "nACTION-SRU decoding failure: action=%b, naction_sru=%b",
-		  action, naction_sru);
+      if (t34 === 1'b0) begin
+	 if (naction_cpl !== (action === 4'b0001 ? 1'b0 : 1'b1)) begin
+   	    $sformat(msg, "nACTION-CPL decoding failure: action=%b, naction_cpl=%b",
+		     action, naction_cpl);
+	 end
+	 
+	 if (naction_cll !== (action === 4'b0010 ? 1'b0 : 1'b1)) begin
+   	    $sformat(msg, "nACTION-CLL decoding failure: action=%b, naction_cll=%b",
+		     action, naction_cll);
+	 end
+	 
+	 // if (naction_wpa !== (action === 4'b0110 ? 1'b0 : 1'b1)) begin
+	 // 	 $sformat(msg, "nACTION-WPA decoding failure: action=%b, naction_wpa=%b",
+	 // 		  action, naction_wpa);
+	 // end
+	 
+	 if (naction_sru !== (action === 4'b0111 ? 1'b0 : 1'b1)) begin
+   	    $sformat(msg, "nACTION-SRU decoding failure: action=%b, naction_sru=%b",
+		     action, naction_sru);
+	 end
+      end else begin // if (t34 === 1'b0)
+	 if (naction_cpl !== 1'b1) begin
+   	    $sformat(msg, "nACTION-CPL erroneously asserted: t34=%b, action=%b, naction_cpl=%b",
+		     t34, action, naction_cpl);
+	 end
+	 
+	 if (naction_cll !== 1'b1) begin
+   	    $sformat(msg, "nACTION-CLL erroneously asserted: t34=%b, action=%b, naction_cll=%b",
+		     t34, action, naction_cll);
+	 end
+	 
+	 if (naction_sru !== 1'b1) begin
+   	    $sformat(msg, "nACTION-SRU erroneously asserted: t34=%b, action=%b, naction_sru=%b",
+		     t34, action, naction_sru);
+	 end
       end
 
       // Fail if we've logged an issue.

@@ -40,11 +40,10 @@ module reg_l_tb();
    reg ibus12;
    reg flin_add;
    reg flin_sru;
-   reg nread_alu_add;
+   reg nsetl_rom;
    reg nflagwe;
    reg bcp;
    reg clken;
-   reg nsru_run;
 
    wire fl;
    wire flfast;
@@ -67,8 +66,7 @@ module reg_l_tb();
       nflagwe = 1;
       flin_add = 0;
       flin_sru = 0;
-      nread_alu_add = 1;
-      nsru_run = 1;
+      nsetl_rom = 1;
       bcp = 1;
       clken = 0;
       #1000 nrsthold = 1;
@@ -109,16 +107,16 @@ module reg_l_tb();
       // Test L loading from the ALU's adder
       #1000 for (i = 0; i < 4; i++) begin
 	 #400 flin_add = 0;
-	 #50 nread_alu_add = 0;
-	 #50 nread_alu_add = 1;
+	 #50 nsetl_rom = 0;
+	 #50 nsetl_rom = 1;
 	 
 	 #400 flin_add = 1;
-	 #50 nread_alu_add = 0;
-	 #50 nread_alu_add = 1;
+	 #50 nsetl_rom = 0;
+	 #50 nsetl_rom = 1;
       end
 
       // And also test fast toggling from the serial shifter.
-      #1000 nsru_run = 0;
+      #1000;
       #62.5 for (i = 0; i < 32; i++) begin
 	 #30 flin_sru = 0;
 	 bcp = 0;
@@ -128,7 +126,7 @@ module reg_l_tb();
 	 bcp = 0;
 	 #30 bcp = 1;
       end
-      #62.5 nsru_run = 1;
+      #62.5;
 
       #1000 $display("345 OK");
       $finish;
@@ -146,7 +144,7 @@ module reg_l_tb();
 		.clk4(clk4),
 		.naction_cpl(naction_cpl), .ibus12(ibus12),
 		.flin_add(flin_add), .flin_sru(flin_sru),
-		.nsru_run(nsru_run), .nread_alu_add(nread_alu_add), .nflagwe(nflagwe),
+		.nsetl_rom(nsetl_rom), .nflagwe(nflagwe),
 		.bcp(bcp), .naction_cll(naction_cll), 
 		.fl(fl), .flfast(flfast));
 
@@ -198,11 +196,11 @@ module reg_l_tb();
       end
    end // always @ (nmem, nio)
 
-   always @ (posedge nread_alu_add, posedge nflagwe) begin
+   always @ (posedge nsetl_rom, posedge nflagwe) begin
       #30 begin
    	 msg[7:0] = "";		// Use the msg as a flag.
 
-	 casex ({nflagwe, nread_alu_add})
+	 casex ({nflagwe, nsetl_rom})
 	   2'b00: correct_flfast = ibus12;
 	   2'b01: correct_flfast = ibus12;
 	   2'b10: correct_flfast = flin_add;
@@ -212,18 +210,18 @@ module reg_l_tb();
 	 // nflagwe (setting flag from IBUS)
 	 if (nflagwe === 0) begin
 	    if (flfast !== ibus12)
-	      $sformat(msg, "nflagwe=%b, nread_alu_add=%b, flfast=%b (should be %b)",
-		       nflagwe, nread_alu_add, flfast, ibus12);
+	      $sformat(msg, "nflagwe=%b, nsetl_rom=%b, flfast=%b (should be %b)",
+		       nflagwe, nsetl_rom, flfast, ibus12);
 	 end
 	 else if (nflagwe !== 1) $sformat(msg, "testbench bug, nflagwe=%b", nflagwe);
 	    
-	 // nread_alu_add (toggling flag as a result of addition)
-	 else if (nread_alu_add === 0) begin
+	 // nsetl_rom (toggling flag as a result of addition)
+	 else if (nsetl_rom === 0) begin
 	    if (flfast !== flin_add)
-	      $sformat(msg, "nflagwe=%b, nread_alu_add=%b, flfast=%b (should be %b)",
-		       nflagwe, nread_alu_add, flfast, flin_add);
+	      $sformat(msg, "nflagwe=%b, nsetl_rom=%b, flfast=%b (should be %b)",
+		       nflagwe, nsetl_rom, flfast, flin_add);
 	 end
-	 else if (nread_alu_add !== 1) $sformat(msg, "testbench bug, nread_alu_add=%b", nread_alu_add);
+	 else if (nsetl_rom !== 1) $sformat(msg, "testbench bug, nsetl_rom=%b", nsetl_rom);
 	    
 
 	 // CLL
@@ -262,7 +260,7 @@ module reg_l_tb();
       #50 begin
    	 msg[7:0] = "";		// Use the msg as a flag.
 
-	 casex ({nflagwe, nread_alu_add})
+	 casex ({nflagwe, nsetl_rom})
 	   2'b00: correct_flfast = ibus12;
 	   2'b01: correct_flfast = ibus12;
 	   2'b10: correct_flfast = flin_add;

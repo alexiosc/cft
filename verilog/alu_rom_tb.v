@@ -43,7 +43,9 @@
 
 module alu_rom_tb();
 
-   reg            nromoe;
+   reg            t34;
+   reg            nalu_op;
+   reg 		  nread_alu_y;
    reg 		  fl;
    reg 		  x_in;
    reg [2:0] 	  op;
@@ -80,7 +82,8 @@ module alu_rom_tb();
       // 		$time,
       // 		fl, a, a, b, b, op, curop, nsetv_rom, fvout_rom, nsetl_rom, flout_rom, ibus, ibus);
 
-      nromoe = 1;
+      nread_alu_y = 1;
+      nalu_op = 1;
       fl = 1;
       x_in = 0;
       op = 0;
@@ -100,16 +103,20 @@ module alu_rom_tb();
 	 #5000 for (j = 0; j <= 65535; j += db) begin
 	    for (i = 0; i <= 65535; i += da) begin
 	       fl = 0;
-	       #50 nromoe = 0;
+	       #50 nalu_op = 0;
 	       a = i;
 	       b = j;
-	       #450 nromoe = 1;
+	       #450 nalu_op = 1;
+	       #50 nread_alu_y = 0;
+	       #200 nread_alu_y = 1;
 
 	       fl = 1;
-	       #50 nromoe = 0;
+	       #50 nalu_op = 0;
 	       a = i;
 	       b = j;
-	       #450 nromoe = 1;
+	       #450 nalu_op = 1;
+	       #50 nread_alu_y = 0;
+	       #200 nread_alu_y = 1;
 	    end
 	 end
       end
@@ -117,11 +124,18 @@ module alu_rom_tb();
       #5000 $finish;      // Terminate simulation
    end // initial begin
 
+   always begin
+      #125 t34 = 0;
+      #125 t34 = 1;
+   end
+   
    // Connect DUT to test bench
-   alu_rom alu_rom (.nromoe(nromoe),
+   alu_rom alu_rom (.t34(t34),
+		    .nalu_op(nalu_op),
 		    .fl(fl), .x_in(x_in),
 		    .raddr(op), .a(a), .b(b),
 		    .ibus(ibus),
+		    .nread_alu_y(nread_alu_y),
 		    .fvout_rom(fvout_rom), .nsetv_rom(nsetv_rom),
 		    .flout_rom(flout_rom), .nsetl_rom(nsetl_rom));
 
@@ -131,17 +145,17 @@ module alu_rom_tb();
    reg 		  correct_nbusen;
 
    // Check tri-stating
-   always @ (nromoe) begin
-      #30 begin
+   always @ (nalu_op) begin
+      #50 begin
    	 msg[7:0] = "";		// Use the msg as a flag.
 
-	 if (nromoe === 1) begin
+	 if (nalu_op === 1) begin
 	   if (ibus !== 16'bZ) begin
-	      $sformat(msg, "nromoe=%b, but ibus=%b (should be Z)", nromoe, ibus);
+	      $sformat(msg, "nalu_op=%b, but ibus=%b (should be Z)", nalu_op, ibus);
 	   end
 	 end
 
-	 else if (nromoe !== 0) $sformat(msg, "testbench bug, nromoe=%b", nromoe);
+	 else if (nalu_op !== 0) $sformat(msg, "testbench bug, nalu_op=%b", nalu_op);
 
    	 // Fail if we've logged an issue.
    	 if (msg[7:0]) begin
@@ -149,9 +163,9 @@ module alu_rom_tb();
    	    $error("assertion failure");
    	    #100 $finish;
    	 end
-   	 else $display("345 OK nromoe");
+   	 else $display("345 OK nalu_op");
       end
-   end // always @ (nromoe)
+   end // always @ (nalu_op)
 
 
    // Check results
@@ -169,7 +183,7 @@ module alu_rom_tb();
       #350 begin
    	 msg[7:0] = "";		// Use the msg as a flag.
 
-	 if (nromoe === 0) begin
+	 if (nalu_op === 0) begin
 	    casex (op)
 	      3'b000: correct_y = a + b + fl;	// ADD
 	      3'b001: correct_y = a & b;	// AND
@@ -183,13 +197,14 @@ module alu_rom_tb();
 	    endcase // casex (op)
 
 	    if (ibus !== correct_y[15:0]) begin
-	       $sformat(msg, "nromoe=%b, a=%04x, b=%04x, op=%3b, but ibus=%04x (expecting %04x)",
-			nromoe, a, b, op, ibus, correct_y[15:0]);
+	       $sformat(msg, "nalu_op=%b, a=%04x, b=%04x, op=%3b, but ibus=%04x (expecting %04x)",
+			nalu_op, a, b, op, ibus, correct_y[15:0]);
 	    end
 
-	    // Only ADD should be setting L and V in this version of the
-	    // ALU ROMs. And ADD should ALWAYS set them.
-	    if (op === 3'b000) begin
+	    // Only ADD should be setting L and V in this version of the ALU
+	    // ROMs. And ADD should ALWAYS set them. This only happens during
+	    // nread_alu_y.
+	    if (op === 3'b000 && nread_alu_y == 1'b0) begin
 	       if (nsetl_rom === 1)      $sformat(msg, "op=%03b but nsetl_rom=%b (should be 0)", op, nsetl_rom);
 	       else if (nsetv_rom === 1) $sformat(msg, "op=%03b but nsetv_rom=%b (should be 0)", op, nsetv_rom);
 	       else if (nsetl_rom !== 0) $sformat(msg, "testbench bug, nsetl_rom=%b", nsetl_rom);
@@ -231,7 +246,7 @@ module alu_rom_tb();
    	 end
    	 else $display("345 OK %s", curop);
       end
-   end // always @ (nromoe)
+   end // always @ (nalu_op)
 
 
 endmodule // buffer_245_tb

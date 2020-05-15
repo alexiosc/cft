@@ -84,7 +84,7 @@
 module reg_l(nrsthold, clk4,
 	     naction_cpl, ibus12, 
 	     flin_add,  flin_sru,
-	     nsru_run, nsetl_rom, nflagwe, bcp, naction_cll,
+	     nsetl_rom, nflagwe, bcp, naction_cll,
 	     fl, flfast);
    // Declare inputs as regs and outputs as wires
    input  nrsthold;
@@ -95,7 +95,6 @@ module reg_l(nrsthold, clk4,
    input  flin_add;
    input  flin_sru;
    input  nsetl_rom;
-   input  nsru_run;
    input  nflagwe;
    input  bcp;
    input  naction_cll;
@@ -117,11 +116,6 @@ module reg_l(nrsthold, clk4,
    		    .i({flin_sru, flin_add_toggle, ibus12, ibus12}),
    		    .noe(1'b0), .y(ld0));
    assign #21 ld = ld0;
-
-   // wire   ld0, ld1, ld;
-   // mux_2g157 ld_mux0 (.sel(nflagwe), .a(ibus12), .b(flin_add), .ng(1'b0), .y(ld0));
-   // mux_2g157 ld_mux1 (.sel(nsru_run), .a(flin_sru), .b(ld0), .ng(1'b0), .y(ld1));
-   // assign #21 ld = ld1;
 
    wire   nsetl, nclrl0, nclrl;
 

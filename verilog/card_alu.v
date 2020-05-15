@@ -176,8 +176,6 @@ module card_alu(
    ///////////////////////////////////////////////////////////////////////////////
 
    alu_decoder decoder (
-			.nrsthold(nrsthold),
-			.clk3(clk3),
 			.t34(t34),
 			.raddr(raddr),
 			.waddr(waddr),
@@ -241,7 +239,6 @@ module card_alu(
    wire 	 op_right;	// shift/rotate direction (0=left, 1=right)
    wire 	 op_arithmetic;	// right shift type (0=logic, 1=arithmetic)
    wire 	 op_rotate;	// operation (0=shift, 1=rotate)
-   wire 	 nsru_run;
    
    // Map the SRU inputs to IR fields. This hardwires the fields in the operand
    // of the SRU instruction.
@@ -263,8 +260,7 @@ module card_alu(
 		    .nstart(naction_sru),
 		    .ibus(ibus),
 		    .bcp(bcp_sru),	// Set ALU B (and L) to temporary result of SRU
-		    .flout_sru(flout_sru),
-		    .nsru_run(nsru_run));
+		    .flout_sru(flout_sru));
 
    ///////////////////////////////////////////////////////////////////////////////
    //
@@ -278,7 +274,6 @@ module card_alu(
 		.ibus12(ibus[12]),
 		.flin_add(flout_rom),
 		.flin_sru(flout_sru),
-		.nsru_run(nsru_run),
 		.nsetl_rom(nsetl_rom),
 		.nflagwe(nflagwe),
 		.bcp(bcp_sru),
