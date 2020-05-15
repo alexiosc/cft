@@ -153,7 +153,7 @@ data = [
 @pytest.mark.LOAD
 @pytest.mark.STORE
 @pytest.mark.LJMP
-@pytest.mark.TRAP
+@pytest.mark.UOP
 def test_UOP(capsys, tmpdir):
     source = """
     .include "mbu.asm"
@@ -171,8 +171,10 @@ def test_UOP(capsys, tmpdir):
             STORE R &340
 
             LI 0
-            ROL 1         ; Initialise L without using UOP
+            ROR 1         ; Initialise L without using UOP
             LI 0
+            SCL           ; Make sure L is clear.
+            FAIL
 
             NOP9
             JSR output    ; 1
@@ -630,6 +632,322 @@ def test_DEC(capsys, tmpdir, numtests=10, numops=5):
 @pytest.mark.slow
 def test_DEC_long(capsys, tmpdir):
     test_DEC(capsys, tmpdir, numtests=200, numops=20)
+
+
+@pytest.mark.verilog
+@pytest.mark.emulator
+@pytest.mark.hardware
+@pytest.mark.LI
+@pytest.mark.LOAD
+@pytest.mark.STORE
+@pytest.mark.LJMP
+@pytest.mark.IFL
+def test_IFL(capsys, tmpdir):
+    source = """
+    .include "mbu.asm"
+    .include "dfp2.asm"
+
+    &0:
+            LI &80        ; Configure essential MBRs and enable.
+            SMB mbu.MBP
+            LI &00        ; Configure essential MBRs and enable.
+            SMB mbu.MBZ   ; MBZ=MBS makes reading the stack easier
+            LI &01        ; Configure essential MBRs and enable.
+            SMB mbu.MBS   ; MBZ=MBS makes reading the stack easier
+
+            LI 0
+            STORE R &340
+
+            LI 0
+            ROR 1         ; Clear L without using UOP
+            LI 0
+            SCL           ; Make sure L is clear.
+            HALT
+
+            LI &3ff
+            IFL CLA
+            JSR output    ; 2
+
+            IFL NOT
+            JSR output    ; 6
+
+            IFL NOT
+            JSR output    ; 7
+
+            IFL INC
+            JSR output    ; 8
+
+            IFL NEG
+            JSR output    ; 9
+
+            IFL NEG
+            JSR output    ; 10
+
+            IFL NOT
+            JSR output    ; 11
+
+            IFL DEC
+            JSR output    ; 12
+
+            ; Test 2, with L set.
+
+            LI 1
+            ROR 1         ; Set L without using UOP
+            LI 0
+            SSL           ; Make sure L is set
+            HALT
+
+            LI &3ff
+            IFL CLA
+            JSR output    ; 2
+
+            IFL NOT
+            JSR output    ; 6
+
+            IFL NOT
+            JSR output    ; 7
+
+            IFL INC
+            JSR output    ; 8
+
+            IFL NEG
+            JSR output    ; 9
+
+            IFL NEG
+            JSR output    ; 10
+
+            IFL NOT
+            JSR output    ; 11
+
+            IFL DEC
+            JSR output    ; 12
+
+
+            HALT
+
+    output: PHA 
+            LOAD I R &340
+            LOAD R &340
+            dfp.PRINTD
+
+            PPA
+            dfp.PRINTH
+            PHA
+            SSL
+            JMP no
+            LI 1
+            dfp.PRINTU   ; Use it to signify ‘yes’
+            PPA
+            RET
+
+    no:     LI 0
+            dfp.PRINTU   ; Use it to signify ‘yes’
+            PPA
+            RET
+
+    """.format(**locals())
+
+    L1, L0 = [ 340, "PRINTU", '1' ], [ 340, "PRINTU", '0' ]
+    
+    expected = ExpectedData([ SUCCESS,
+                              [ 340, "PRINTD", "1", ],  [ 340, "PRINTH", "03ff" ], L0, # CLA
+                              [ 340, "PRINTD", "2", ],  [ 340, "PRINTH", "03ff" ], L0, # NOT
+                              [ 340, "PRINTD", "3", ],  [ 340, "PRINTH", "03ff" ], L0, # NOT
+                              [ 340, "PRINTD", "4", ],  [ 340, "PRINTH", "03ff" ], L0, # INC
+                              [ 340, "PRINTD", "5", ],  [ 340, "PRINTH", "03ff" ], L0, # NEG
+                              [ 340, "PRINTD", "6", ],  [ 340, "PRINTH", "03ff" ], L0, # NEG
+                              [ 340, "PRINTD", "7", ],  [ 340, "PRINTH", "03ff" ], L0, # NOT
+                              [ 340, "PRINTD", "8", ],  [ 340, "PRINTH", "03ff" ], L0, # DEC
+
+                              [ 340, "PRINTD", "9", ],  [ 340, "PRINTH", "0000" ], L1, # CLA
+                              [ 340, "PRINTD", "10", ], [ 340, "PRINTH", "ffff" ], L1, # NOT
+                              [ 340, "PRINTD", "11", ], [ 340, "PRINTH", "0000" ], L1, # NOT
+                              [ 340, "PRINTD", "12", ], [ 340, "PRINTH", "0001" ], L1, # INC
+                              [ 340, "PRINTD", "13", ], [ 340, "PRINTH", "ffff" ], L1, # NEG
+                              [ 340, "PRINTD", "14", ], [ 340, "PRINTH", "0001" ], L1, # NEG
+                              [ 340, "PRINTD", "15", ], [ 340, "PRINTH", "fffe" ], L1, # NOT
+                              [ 340, "PRINTD", "16", ], [ 340, "PRINTH", "fffd" ], L1, # DEC
+                              HALTED ])
+    result = run_on_verilog_emu(capsys, tmpdir, source, long=True)
+    # pprint.pprint(list(result))
+    # assert False
+    result = list(expected.prepare(result))
+
+    assert list(result) == expected
+
+
+@pytest.mark.verilog
+@pytest.mark.emulator
+@pytest.mark.hardware
+@pytest.mark.LI
+@pytest.mark.LOAD
+@pytest.mark.STORE
+@pytest.mark.LJMP
+@pytest.mark.IFV
+def test_IFV(capsys, tmpdir):
+    source = """
+    .include "mbu.asm"
+    .include "dfp2.asm"
+
+
+    &0:
+            LI &80        ; Configure essential MBRs and enable.
+            SMB mbu.MBP
+            LI &00        ; Configure essential MBRs and enable.
+            SMB mbu.MBZ   ; MBZ=MBS makes reading the stack easier
+            LI &01        ; Configure essential MBRs and enable.
+            SMB mbu.MBS   ; MBZ=MBS makes reading the stack easier
+
+            LI 0
+            STORE R &340
+            
+            LI 0
+            ADD large     ; 0 + &7fff = &7fff, positive. No overflow.
+            SCV           ; Make sure V is clear.
+            HALT
+
+            LI &3ff
+            IFV CLA
+            JSR output    ; 2
+            SCV           ; Make sure V was not modified.
+            FAIL
+
+            IFV NOT
+            JSR output    ; 6
+            SCV           ; Make sure V was not modified.
+            FAIL
+
+            IFV NOT
+            JSR output    ; 7
+            SCV           ; Make sure V was not modified.
+            FAIL
+
+            IFV INC
+            JSR output    ; 8
+            SCV           ; Make sure V was not modified.
+            FAIL
+
+            IFV NEG
+            JSR output    ; 9
+            SCV           ; Make sure V was not modified.
+            FAIL
+
+            IFV NEG
+            JSR output    ; 10
+            SCV           ; Make sure V was not modified.
+            FAIL
+
+            IFV NOT
+            JSR output    ; 11
+            SCV           ; Make sure V was not modified.
+            FAIL
+
+            IFV DEC
+            JSR output    ; 12
+            SCV           ; Make sure V was not modified.
+            FAIL
+
+            ; Test 2, with L set.
+
+            LOAD large
+            ADD large     ; &7fff + &7fff = &fffe, negative. Overflow.
+            SSV           ; Make sure V is set
+            FAIL
+
+            LI &3ff
+            IFV CLA
+            JSR output    ; 2
+            SSV           ; Make sure V was not modified
+            FAIL
+
+            IFV NOT
+            JSR output    ; 6
+            SSV           ; Make sure V was not modified
+            FAIL
+
+            IFV NOT
+            JSR output    ; 7
+            SSV           ; Make sure V was not modified
+            FAIL
+
+            IFV INC
+            JSR output    ; 8
+            SSV           ; Make sure V was not modified
+            FAIL
+
+            IFV NEG
+            JSR output    ; 9
+            SSV           ; Make sure V was not modified
+            FAIL
+
+            IFV NEG
+            JSR output    ; 10
+            SSV           ; Make sure V was not modified
+            FAIL
+
+            IFV NOT
+            JSR output    ; 11
+            SSV           ; Make sure V was not modified
+            FAIL
+
+            IFV DEC
+            JSR output    ; 12
+            SSV           ; Make sure V was not modified
+            FAIL
+
+            HALT
+
+    large:  .data &7fff
+
+    output: PHA 
+            LOAD I R &340
+            LOAD R &340
+            dfp.PRINTD
+
+            PPA
+            dfp.PRINTH
+            PHA
+            SSL
+            JMP no
+            LI 1
+            dfp.PRINTU   ; Use it to signify ‘yes’
+            PPA
+            RET
+
+    no:     LI 0
+            dfp.PRINTU   ; Use it to signify ‘yes’
+            PPA
+            RET
+
+    """.format(**locals())
+
+    L1, L0 = [ 340, "PRINTU", '1' ], [ 340, "PRINTU", '0' ]
+    
+    expected = ExpectedData([ SUCCESS,
+                              [ 340, "PRINTD", "1", ],  [ 340, "PRINTH", "03ff" ], L0, # CLA
+                              [ 340, "PRINTD", "2", ],  [ 340, "PRINTH", "03ff" ], L0, # NOT
+                              [ 340, "PRINTD", "3", ],  [ 340, "PRINTH", "03ff" ], L0, # NOT
+                              [ 340, "PRINTD", "4", ],  [ 340, "PRINTH", "03ff" ], L0, # INC
+                              [ 340, "PRINTD", "5", ],  [ 340, "PRINTH", "03ff" ], L0, # NEG
+                              [ 340, "PRINTD", "6", ],  [ 340, "PRINTH", "03ff" ], L0, # NEG
+                              [ 340, "PRINTD", "7", ],  [ 340, "PRINTH", "03ff" ], L0, # NOT
+                              [ 340, "PRINTD", "8", ],  [ 340, "PRINTH", "03ff" ], L0, # DEC
+
+                              [ 340, "PRINTD", "9", ],  [ 340, "PRINTH", "0000" ], L0, # CLA
+                              [ 340, "PRINTD", "10", ], [ 340, "PRINTH", "ffff" ], L0, # NOT
+                              [ 340, "PRINTD", "11", ], [ 340, "PRINTH", "0000" ], L0, # NOT
+                              [ 340, "PRINTD", "12", ], [ 340, "PRINTH", "0001" ], L0, # INC
+                              [ 340, "PRINTD", "13", ], [ 340, "PRINTH", "ffff" ], L0, # NEG
+                              [ 340, "PRINTD", "14", ], [ 340, "PRINTH", "0001" ], L0, # NEG
+                              [ 340, "PRINTD", "15", ], [ 340, "PRINTH", "fffe" ], L0, # NOT
+                              [ 340, "PRINTD", "16", ], [ 340, "PRINTH", "fffd" ], L0, # DEC
+                              HALTED ])
+    result = run_on_verilog_emu(capsys, tmpdir, source, long=True)
+    # pprint.pprint(list(result))
+    # assert False
+    result = list(expected.prepare(result))
+
+    assert list(result) == expected
 
 
 if __name__ == "__main__":
