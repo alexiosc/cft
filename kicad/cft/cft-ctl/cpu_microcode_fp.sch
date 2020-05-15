@@ -6,7 +6,7 @@ encoding utf-8
 Sheet 7 11
 Title "Microcode Front Panel Buffers"
 Date ""
-Rev ""
+Rev "2020"
 Comp ""
 Comment1 "CTL"
 Comment2 ""

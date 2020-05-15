@@ -6,7 +6,7 @@ encoding utf-8
 Sheet 6 11
 Title "Control Store (24×512k ROM)"
 Date ""
-Rev ""
+Rev "2020"
 Comp ""
 Comment1 "CTL"
 Comment2 ""

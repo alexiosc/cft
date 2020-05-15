@@ -1,13 +1,12 @@
 EESchema Schematic File Version 4
-LIBS:cft-reg-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 6
 Title "4× Major Registers"
 Date ""
-Rev "1941"
+Rev "2007"
 Comp ""
 Comment1 "REG"
 Comment2 ""
@@ -1262,12 +1261,12 @@ Text Label 1000 5700 0    50   ~ 0
 CLK3
 Wire Wire Line
 	1000 5700 1300 5700
+Text Notes 1550 6600 0    50   ~ 0
+The '193 counters used here treat these as clocks\nand increment/decrement on the signals' rising edge.\nThis tends to be too late in the processor cycle. We can\nadvance the action by using CLK3. Current microcode\ndoesn't use it, but this also fixes a potential bug that\nwould prohibit incrementing a register twice in contiguous\nprocessor cycles.
 Wire Bus Line
 	850  3350 850  4150
 Wire Bus Line
 	850  1900 850  2700
 Wire Bus Line
 	850  4800 850  5500
-Text Notes 1550 6600 0    50   ~ 0
-The '193 counters used here treat these as clocks\nand increment/decrement on the signals' rising edge.\nThis tends to be too late in the processor cycle. We can\nadvance the action by using CLK3. Current microcode\ndoesn't use it, but this also fixes a potential bug that\nwould prohibit incrementing a register twice in contiguous\nprocessor cycles.
 $EndSCHEMATC

@@ -1,13 +1,12 @@
 EESchema Schematic File Version 4
-LIBS:cft-reg-cache
-EELAYER 26 0
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 3 6
 Title "Program Counter (PC)"
 Date ""
-Rev "1941"
+Rev "2007"
 Comp ""
 Comment1 "REG"
 Comment2 ""

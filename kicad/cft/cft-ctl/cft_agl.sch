@@ -3,10 +3,10 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 11 11
+Sheet 10 11
 Title "Addressing Modes"
 Date ""
-Rev ""
+Rev "2020"
 Comp ""
 Comment1 "CTL"
 Comment2 ""
@@ -503,35 +503,35 @@ Wire Wire Line
 	3050 2500 3050 2600
 Wire Wire Line
 	2450 3500 2450 2150
-Text Notes 4300 4850 2    100  ~ 20
+Text Notes 3350 4450 2    100  ~ 20
 Auto-Index Address Decoding
 Wire Notes Line width 20 style solid
-	1800 4950 4800 4950
+	850  4550 3850 4550
 Wire Notes Line width 20 style solid
-	4800 4950 4800 5750
+	3850 4550 3850 5350
 Wire Notes Line style solid
-	1800 5100 4800 5100
+	850  4700 3850 4700
 Wire Notes Line width 20 style solid
-	1800 5750 4800 5750
+	850  5350 3850 5350
 Wire Notes Line width 20 style solid
-	1800 4950 1800 5750
+	850  4550 850  5350
 Wire Notes Line
-	3050 4950 3050 5750
-Text Notes 1950 6150 0    50   ~ 0
+	2100 4550 2100 5350
+Text Notes 1000 5750 0    50   ~ 0
 When I and R are set, operands 300–33F generate addresses\nrelative to the bank register MBn, where n is taken from IR₂–IR₀.\nThis is implemented by the Address Generation Logic (AGL),\nnot here.
-Text Notes 1900 5900 2    50   ~ 0
+Text Notes 950  5500 2    50   ~ 0
 *
-Text Notes 3300 5700 0    50   ~ 0
+Text Notes 2350 5300 0    50   ~ 0
 Meaning\n\nNormal Registers/Page Zero values\nNormal Registers/Page Zero values\nNormal Registers/Page Zero values\nNormal Registers *\nAuto-increment Registers *\nAuto-decrement Registers *\nStack Pointers *
-Text Notes 2400 5700 0    50   ~ 0
+Text Notes 1450 5300 0    50   ~ 0
 Binary Pattern\n\n1 1 00xxxxxxxx\n1 1 01xxxxxxxx\n1 1 10xxxxxxxx\n1 1 1100xxxxxx\n1 1 1101xxxxxx\n1 1 1110xxxxxx\n1 1 1111xxxxxx
-Text Notes 1850 5700 0    50   ~ 0
+Text Notes 900  5300 0    50   ~ 0
 IR Value\n\nI R 000–0FF\nI R 100–1FF\nI R 200–2FF\nI R 300–33F\nI R 340–37F\nI R 380–3BF\nI R 3C0–3FF
-Text Notes 3100 5700 0    50   ~ 0
+Text Notes 2150 5300 0    50   ~ 0
 IDX\n\n00\n00\n00\n00\n01\n10\n11
 Text Notes 800  1000 0    98   ~ 20
 Page Zero Address Generation Logic (AGL)
-Text Notes 12300 3700 0    98   ~ 20
+Text Notes 1050 6150 0    63   ~ 13
 Auto-Indexing Logic (AIL)
 Text Label 1350 4050 0    50   ~ 0
 ~READ-AGL
@@ -691,8 +691,8 @@ Wire Notes Line width 24 style solid
 	10850 3150 10850 2550
 Wire Notes Line width 24 style solid
 	10850 3150 7800 3150
-Text Notes 12300 4100 0    50   ~ 0
-The Auto-Index Unit decodes the instruction operand and indicates to the Control Unit which (if any) auto-index\naddressing mode should be used. IDX is usually 00 (no indexing), unless the instruction has fields I and R set,\nand the operand is in the range &300–&3FF, i.e. IR8 and IR9 are set. In that case, the vector IR[6..7] sets\nIDX[0..1].
+Text Notes 1050 6550 0    50   ~ 0
+The Auto-Index Unit decodes the instruction operand and indicates to the Control Unit which (if any) auto-index\naddressing mode should be used. IDX is usually 00 (no indexing), unless the instruction has fields I and R set,\nand the operand is in the range &300–&3FF, i.e. IR8 and IR9 are set. In this case, the vector IR[6..7] sets\nIDX[0..1].
 Text HLabel 6700 4650 2    50   Output ~ 0
 IDX0
 Text Notes 7900 1000 0    63   ~ 13

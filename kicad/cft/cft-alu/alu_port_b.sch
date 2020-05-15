@@ -6,7 +6,7 @@ encoding utf-8
 Sheet 5 10
 Title "ALU B Register/Port"
 Date "2019-11-17"
-Rev ""
+Rev "2020"
 Comp ""
 Comment1 "ALU"
 Comment2 ""

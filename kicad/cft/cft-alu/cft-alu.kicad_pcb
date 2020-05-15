@@ -2,7 +2,7 @@
 
   (general
     (thickness 1.6)
-    (drawings 44)
+    (drawings 49)
     (tracks 3803)
     (zones 0)
     (modules 142)
@@ -34,7 +34,7 @@
   )
 
   (setup
-    (last_trace_width 0.6096)
+    (last_trace_width 0.1778)
     (user_trace_width 0.1778)
     (user_trace_width 0.6096)
     (user_trace_width 0.7874)
@@ -9431,6 +9431,13 @@
       ))
   )
 
+  (gr_line (start 174.022 184.404) (end 174.022 187.706) (layer F.SilkS) (width 0.3048) (tstamp 5EC34113))
+  (gr_line (start 174.022 187.706) (end 166.402 187.706) (layer F.SilkS) (width 0.3048) (tstamp 5EC34112))
+  (gr_line (start 166.402 187.706) (end 166.402 184.404) (layer F.SilkS) (width 0.3048) (tstamp 5EC35774))
+  (gr_line (start 166.402 184.404) (end 174.022 184.404) (layer F.SilkS) (width 0.3048))
+  (gr_text 2020 (at 170.212 186.055) (layer F.SilkS) (tstamp 5EC35777)
+    (effects (font (size 1.66 1.66) (thickness 0.3)))
+  )
   (gr_text "Address Latch" (at 99.219 134.112) (layer F.SilkS) (tstamp 5EC0FDA3)
     (effects (font (size 1.5 1.25) (thickness 0.3)))
   )

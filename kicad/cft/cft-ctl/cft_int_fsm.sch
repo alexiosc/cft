@@ -3,10 +3,10 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 10 11
+Sheet 9 11
 Title "Interrupt State Machine"
 Date ""
-Rev ""
+Rev "2020"
 Comp ""
 Comment1 "CTL"
 Comment2 ""
@@ -1005,11 +1005,11 @@ F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 10050 520
 $EndComp
 Connection ~ 9950 5400
 Connection ~ 9950 5200
-Wire Bus Line
-	3050 2850 3050 3600
 Connection ~ 8600 3300
 Wire Wire Line
 	8600 3300 8850 3300
 Wire Wire Line
 	8050 3300 8050 4450
+Wire Bus Line
+	3050 2850 3050 3600
 $EndSCHEMATC

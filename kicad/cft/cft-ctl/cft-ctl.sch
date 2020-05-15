@@ -6,7 +6,7 @@ encoding utf-8
 Sheet 1 11
 Title "Control Unit Board"
 Date ""
-Rev ""
+Rev "2020"
 Comp ""
 Comment1 "CTL"
 Comment2 ""
@@ -1162,10 +1162,6 @@ Wire Wire Line
 	6250 3750 6250 5750
 Wire Wire Line
 	5350 3750 6250 3750
-Wire Bus Line
-	9950 1450 9950 2100
-Wire Bus Line
-	800  4850 800  5650
 $Sheet
 S 8350 1450 1150 4200
 U 5DD5525C
@@ -1239,4 +1235,8 @@ F66 "C38" U R 9500 5300 50
 F67 "C39" U R 9500 5400 50 
 F68 "C40" U R 9500 5500 50 
 $EndSheet
+Wire Bus Line
+	9950 1450 9950 2100
+Wire Bus Line
+	800  4850 800  5650
 $EndSCHEMATC

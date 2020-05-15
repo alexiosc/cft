@@ -6,7 +6,7 @@ encoding utf-8
 Sheet 3 11
 Title "Clock Generator"
 Date ""
-Rev ""
+Rev "2020"
 Comp ""
 Comment1 "CTL"
 Comment2 ""
