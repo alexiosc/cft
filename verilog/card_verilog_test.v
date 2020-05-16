@@ -79,7 +79,7 @@ module card_verilog_test (
    input 	 nio;		// Microcode store output
    input 	 nw;		// Driven by the BUS board.
    input 	 nr;		// Microcode store output
-   input 	 nws;		// Open drain, handled by BUS board
+   inout 	 nws;		// Open drain, handled by BUS board
 
    input [23:0]  ab;		// 24-bit address bus
    inout [15:0]  db;		// 16-bit data bus
