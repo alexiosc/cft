@@ -122,16 +122,19 @@ module card_verilog_test (
    reg 		 nirq_drv;
    reg 		 nirq_en;
    reg [15:0] 	 nirq_ctr;
+   reg 		 nws_drv;
    reg [15:0] 	 iot_port_a, iot_port_b;
 
    assign ibus = ibus_drv;
    assign nirq = nirq_drv;
+   assign nws = nws_drv;
    
    initial begin
       ibus_drv = 16'bz;
       nirq_drv = 1'bz;
       nirq_en = 1'b1;
       nirq_ctr = 1;
+      nws_drv = 1'bz;
    end
 
    always begin
@@ -173,9 +176,17 @@ module card_verilog_test (
 		     product == 0 ? 1'b0 : 1'bz;
 
    always @(nr, niodev3xx, ab) begin
-      // Map to 3F8-3FF, addresses we probably won't use for anything else.
+      // Map to 3F0-3FF, addresses we probably won't use for anything else.
       if (nr === 1'b0 && niodev3xx === 1'b0) begin
 	 case (ab[7:0])
+	   8'hf0: ibus_drv = 16'h0000;
+	   8'hf1: ibus_drv = 16'h0000;
+	   8'hf2: ibus_drv = 16'h0000;
+	   8'hf3: ibus_drv = 16'h0000;
+	   8'hf4: ibus_drv = 16'h0000;
+	   8'hf5: ibus_drv = 16'h0000;
+	   8'hf6: ibus_drv = 16'h0000;
+	   8'hf7: ibus_drv = 16'h0000;
 	   8'hf8: ibus_drv = 16'h1234;
 	   8'hf9: ibus_drv = 16'h5678;
 	   8'hfa: ibus_drv = 16'h9abc;

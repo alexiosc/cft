@@ -1,21 +1,22 @@
 [*]
 [*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Wed Feb 26 18:06:26 2020
+[*] Sat May 16 10:59:37 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/databus_tb.vcd"
-[dumpfile_mtime] "Wed Feb 26 18:06:24 2020"
-[dumpfile_size] 1284391
+[dumpfile_mtime] "Sat May 16 10:58:55 2020"
+[dumpfile_size] 1616756
+[optimize_vcd]
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/databus_tb.sav"
-[timestart] 113500000
-[size] 1920 1019
-[pos] 2138 104
-*-25.775309 250300000 7510719 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[timestart] 431445000
+[size] 1526 975
+[pos] 2106 4
+*-20.449795 432812500 7510719 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] databus_tb.
 [treeopen] databus_tb.databus.
 [sst_width] 258
 [signals_width] 279
 [sst_expanded] 1
-[sst_vpaned_height] 266
+[sst_vpaned_height] 252
 @820
 databus_tb.status[800:0]
 @200
@@ -30,6 +31,8 @@ databus_tb.clk2
 databus_tb.clk3
 [color] 4
 databus_tb.clk4
+[color] 1
+databus_tb.databus.clk4x8
 [color] 4
 databus_tb.nw
 databus_tb.databus.nwen
@@ -46,6 +49,8 @@ databus_tb.i
 @28
 [color] 7
 databus_tb.clk4
+[color] 7
+databus_tb.databus.nwstb
 [color] 3
 databus_tb.nwen
 [color] 4
@@ -63,8 +68,10 @@ databus_tb.nreset
 databus_tb.nhalt
 [color] 3
 databus_tb.nmem
+@29
 [color] 4
 databus_tb.nio
+@28
 [color] 5
 databus_tb.nr
 [color] 6
