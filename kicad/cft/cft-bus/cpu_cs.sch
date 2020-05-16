@@ -139,7 +139,7 @@ F 3 "http://www.ti.com/lit/gpn/sn74AC541" H 7100 4600 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	3750 4100 2950 4100
-Text Label 3250 4100 2    50   ~ 0
+Text Label 3300 4100 2    50   ~ 0
 RADDR2
 Entry Wire Line
 	2850 4000 2950 4100
@@ -469,35 +469,31 @@ NoConn ~ 4750 4500
 NoConn ~ 4750 4600
 NoConn ~ 4750 4700
 NoConn ~ 4750 4800
-Text Notes 4000 6200 0    50   ~ 0
-~RUEN~\n\n  1\n  0\n  0\n  0\n  0\n  0\n  0\n  0
-Text Notes 4250 6200 0    50   ~ 0
+Text Notes 4350 6150 0    50   ~ 0
 RADDR\n\nXXXXX\n1XXXX\nX1XXX\nXX0XX\n00100\n00101\n00110\n00111
 Wire Wire Line
 	6050 3450 6050 4200
 Wire Notes Line width 20 style solid
-	3950 5350 5500 5350
+	4300 5300 5600 5300
 Wire Notes Line width 20 style solid
-	3950 6250 3950 5350
+	4300 6200 4300 5300
 Wire Notes Line style solid
-	3950 5500 5500 5500
+	4300 5450 5600 5450
 Wire Notes Line width 20 style solid
-	5500 6250 3950 6250
+	5600 6200 4300 6200
 Wire Notes Line
-	4550 5350 4550 6250
+	4650 5300 4650 6200
 Wire Notes Line width 20 style solid
-	5500 6250 5500 5350
+	5600 6200 5600 5300
 Text HLabel 8750 2150 2    50   BiDi ~ 0
 IBUS[0..15]
-Text Notes 8350 6350 0    50   ~ 0
-The constant store now needs to emit just three constants:\n0000, 0002 and 0003. We get 0001 for free because of the\ncombinational wiring. All of these are used as vector\naddresses, so it would be easy to change them to e.g.\n0000, 0001, 0008 and 0009 by moving the wiring around.\n\nUnlike the previous design, ~RSTHOLD~ does not drive the\nIBUS with a constant. The Reset microprogram is responsible\nfor that, and this is now possible because the Reset Vector\nis 0000 and it can be issued without wiring magic like on the\nprevious design.
-Text Notes 8350 5300 0    63   ~ 13
-2019 Design Update
+Text Notes 1100 1900 0    50   ~ 0
+The new constant store needs to emit just three constants: 0000, 0002 and 0003.\nWe get 0001 for free because of the combinational wiring. All of these are used\nas vector addresses, so it would be easy to change them to e.g. 0000, 0001, 0008\nand 0009 by moving the wiring around.\n\nUnlike the previous design, ~RSTHOLD~ does not drive the IBUS with a constant.\nThe Reset microprogram is responsible for that, and this is now possible because\nthe Reset Vector is 0000 and it can be issued without wiring magic like on the\nprevious design.
 Text Label 3050 2550 0    50   ~ 0
 RADDR0
 Text Label 3050 2650 0    50   ~ 0
 RADDR1
-Text Notes 4600 6200 0    50   ~ 0
+Text Notes 4700 6150 0    50   ~ 0
 Output to IBUS\n\nHigh Impendance\nHigh Impendance\nHigh Impendance\nHigh Impendance\n0000'0000'0000'0000\n0000'0000'0000'0001\n0000'0000'0000'0010\n0000'0000'0000'0011\n
 Wire Wire Line
 	6050 3450 6600 3450
@@ -543,13 +539,13 @@ F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 4250 4500 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	3750 4200 2950 4200
-Text Label 3250 4200 2    50   ~ 0
+Text Label 3300 4200 2    50   ~ 0
 RADDR3
 Entry Wire Line
 	2850 4100 2950 4200
 Wire Wire Line
 	3750 4300 2950 4300
-Text Label 3250 4300 2    50   ~ 0
+Text Label 3300 4300 2    50   ~ 0
 RADDR4
 Entry Wire Line
 	2850 4200 2950 4300
@@ -567,22 +563,14 @@ $EndComp
 $Comp
 L power:GND #PWR0144
 U 1 1 5E040054
-P 3700 4950
-F 0 "#PWR0144" H 3700 4700 50  0001 C CNN
-F 1 "GND" H 3705 4777 50  0000 C CNN
-F 2 "" H 3700 4950 50  0001 C CNN
-F 3 "" H 3700 4950 50  0001 C CNN
-	1    3700 4950
+P 3700 5100
+F 0 "#PWR0144" H 3700 4850 50  0001 C CNN
+F 1 "GND" H 3705 4927 50  0000 C CNN
+F 2 "" H 3700 5100 50  0001 C CNN
+F 3 "" H 3700 5100 50  0001 C CNN
+	1    3700 5100
 	1    0    0    -1  
 $EndComp
-Wire Notes Line width 20 style solid
-	8200 6550 8200 5050
-Wire Notes Line width 20 style solid
-	10950 6550 8200 6550
-Wire Notes Line width 20 style solid
-	10950 5050 10950 6550
-Wire Notes Line width 20 style solid
-	8200 5050 10950 5050
 Connection ~ 6050 4200
 Wire Wire Line
 	6050 4200 6050 5000
@@ -593,14 +581,51 @@ Wire Wire Line
 Wire Wire Line
 	2950 2650 6600 2650
 Wire Wire Line
-	3750 4800 3700 4800
-Wire Wire Line
-	3700 4800 3700 4900
-Wire Wire Line
 	3750 4900 3700 4900
-Connection ~ 3700 4900
 Wire Wire Line
-	3700 4900 3700 4950
+	3700 4900 3700 5100
+Text HLabel 2150 4450 0    50   Input ~ 0
+T34
+$Comp
+L Jumper:Jumper_3_Bridged12 JP?
+U 1 1 5FDA9E2A
+P 2750 4800
+AR Path="/61F95ACC/63C9F04D/5FDA9E2A" Ref="JP?"  Part="1" 
+AR Path="/61F95ACC/5FDA9E2A" Ref="JP?"  Part="1" 
+AR Path="/5CC06F10/5FDA9E2A" Ref="JP?"  Part="1" 
+AR Path="/5E25A7FA/5FDA9E2A" Ref="JP1"  Part="1" 
+F 0 "JP1" V 2750 4867 50  0000 L CNN
+F 1 "Jumper_3_Bridged12" H 2750 4913 50  0001 C CNN
+F 2 "Jumper:SolderJumper-3_P1.3mm_Bridged12_RoundedPad1.0x1.5mm" H 2750 4800 50  0001 C CNN
+F 3 "~" H 2750 4800 50  0001 C CNN
+	1    2750 4800
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	2150 4450 2750 4450
+Wire Wire Line
+	2750 4450 2750 4550
+Text Label 2200 4450 0    50   ~ 0
+T34
+$Comp
+L power:GND #PWR010
+U 1 1 5FDB5419
+P 2750 5100
+F 0 "#PWR010" H 2750 4850 50  0001 C CNN
+F 1 "GND" H 2755 4927 50  0000 C CNN
+F 2 "" H 2750 5100 50  0001 C CNN
+F 3 "" H 2750 5100 50  0001 C CNN
+	1    2750 5100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2750 5050 2750 5100
+Text Label 3000 4800 0    50   ~ 0
+~CSEN
+Wire Wire Line
+	2900 4800 3750 4800
+Text Notes 1100 1050 0    100  ~ 20
+The Constant Store
 Wire Bus Line
 	2850 2350 2850 4200
 Wire Bus Line

@@ -355,8 +355,6 @@ Text Label 6950 2200 2    50   ~ 0
 ~IODEV2xx
 Text Label 6950 2300 2    50   ~ 0
 ~IODEV3xx
-Text Notes 5550 2250 1    70   ~ 14
-Verilog
 $Sheet
 S 4950 1350 1150 1500
 U 5CC06F10
@@ -538,6 +536,7 @@ F0 "Constant Store" 50
 F1 "cpu_cs.sch" 50
 F2 "RADDR[0..4]" I L 1700 3700 50 
 F3 "IBUS[0..15]" B R 2850 3700 50 
+F4 "T34" I L 1700 3850 50 
 $EndSheet
 Wire Bus Line
 	2850 3700 3700 3700
@@ -721,6 +720,10 @@ Wire Wire Line
 	1750 2450 900  2450
 Text Label 900  2450 0    50   ~ 0
 IR2
+Text Label 850  3850 0    50   ~ 0
+~T34
+Wire Wire Line
+	1700 3850 850  3850
 Wire Bus Line
 	9950 1450 9950 1700
 $EndSCHEMATC

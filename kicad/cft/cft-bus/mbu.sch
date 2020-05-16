@@ -1480,7 +1480,7 @@ Text Notes 7150 900  0    100  ~ 20
 Register File
 Text Notes 9100 900  0    100  ~ 20
 Bus Drivers
-Text Notes 5300 2000 0    100  ~ 20
+Text Notes 5300 1900 0    100  ~ 20
 Address\nSelection
 Wire Wire Line
 	3600 5200 3600 4550
@@ -1582,6 +1582,9 @@ Text Label 2100 4650 2    50   ~ 0
 ~T34
 Wire Wire Line
 	1550 3400 1550 4650
+Connection ~ 1550 3400
+Wire Wire Line
+	1550 3400 2100 3400
 Wire Bus Line
 	1700 1150 1700 1950
 Wire Bus Line
@@ -1596,7 +1599,4 @@ Wire Bus Line
 	10400 3600 10400 4750
 Wire Bus Line
 	8600 1500 8600 5550
-Connection ~ 1550 3400
-Wire Wire Line
-	1550 3400 2100 3400
 $EndSCHEMATC
