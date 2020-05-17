@@ -100,6 +100,10 @@ K TTL CNT CNT4
 F http://www.ti.com/lit/gpn/sn74LS192
 $ENDCMP
 #
+$CMP 74AC238
+F https://www.ti.com/lit/ds/symlink/cd74ac238.pdf
+$ENDCMP
+#
 $CMP 74AC245
 D Octal BUS Transceivers, 3-State outputs
 K TTL BUS 3State
@@ -159,7 +163,7 @@ K TTL BUFFER 3State BUS
 F https://www.mouser.com/ds/2/149/74AC541-74146.pdf
 $ENDCMP
 #
-$CMP 74AC573
+$CMP 74AC573_copy
 D 8-bit Latch 3-state outputs
 K TTL DFF DFF8 LATCH 3State
 F https://assets.nexperia.com/documents/data-sheet/74HC_HCT573.pdf
@@ -279,6 +283,10 @@ K TTL CNT CNT4
 F http://www.ti.com/lit/gpn/sn74HC193
 $ENDCMP
 #
+$CMP 74ACT238
+F https://tz.infinity-electronic.hk/pdf/38b2114212/CD74ACT238E.pdf
+$ENDCMP
+#
 $CMP 74ACT245
 D Octal BUS Transceivers, 3-State outputs
 K TTL BUS 3State
@@ -332,7 +340,7 @@ K TTL BUFFER 3State BUS
 F https://www.mouser.com/ds/2/149/74AC541-74146.pdf
 $ENDCMP
 #
-$CMP 74ACT573
+$CMP 74ACT573_copy
 D 8-bit Latch 3-state outputs
 K TTL DFF DFF8 LATCH 3State
 F https://assets.nexperia.com/documents/data-sheet/74HC_HCT573.pdf
@@ -410,12 +418,6 @@ K Single Gate NOT Schmitt LVC CMOS
 F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
 $ENDCMP
 #
-$CMP 74AHC1G14_copy
-D Single Schmitt NOT Gate, Low-Voltage CMOS
-K Single Gate NOT Schmitt LVC CMOS
-F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
-$ENDCMP
-#
 $CMP 74AHC1G17
 D Single Schmitt NOT Gate, Low-Voltage CMOS
 K Single Gate NOT Schmitt LVC CMOS
@@ -471,12 +473,6 @@ F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
 $ENDCMP
 #
 $CMP 74AHCT1G14
-D Single Schmitt NOT Gate, Low-Voltage CMOS
-K Single Gate NOT Schmitt LVC CMOS
-F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
-$ENDCMP
-#
-$CMP 74AHCT1G14_copy
 D Single Schmitt NOT Gate, Low-Voltage CMOS
 K Single Gate NOT Schmitt LVC CMOS
 F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
@@ -549,12 +545,6 @@ F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
 $ENDCMP
 #
 $CMP 74AUC1G14
-D Single Schmitt NOT Gate, Low-Voltage CMOS
-K Single Gate NOT Schmitt LVC CMOS
-F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
-$ENDCMP
-#
-$CMP 74AUC1G14_copy
 D Single Schmitt NOT Gate, Low-Voltage CMOS
 K Single Gate NOT Schmitt LVC CMOS
 F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
@@ -638,12 +628,6 @@ K Single Gate NOT Schmitt LVC CMOS
 F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
 $ENDCMP
 #
-$CMP 74AUP1G14_copy
-D Single Schmitt NOT Gate, Low-Voltage CMOS
-K Single Gate NOT Schmitt LVC CMOS
-F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
-$ENDCMP
-#
 $CMP 74AUP1G17
 D Single Schmitt NOT Gate, Low-Voltage CMOS
 K Single Gate NOT Schmitt LVC CMOS
@@ -698,12 +682,6 @@ K TTL DECOD DECOD8
 F http://www.ti.com/lit/gpn/sn74LS138
 $ENDCMP
 #
-$CMP 74HC138_0
-D Decoder 3 to 8 active low outputs
-K TTL DECOD DECOD8
-F http://www.ti.com/lit/gpn/sn74LS138
-$ENDCMP
-#
 $CMP 74HC139
 D Dual Decoder 1 of 4, Active low outputs
 K TTL DECOD4
@@ -750,6 +728,10 @@ $CMP 74HC193
 D Synchronous 4-bit Up/Down (2 clk) counter
 K TTL CNT CNT4
 F http://www.ti.com/lit/gpn/sn74HC193
+$ENDCMP
+#
+$CMP 74HC238
+F https://assets.nexperia.com/documents/data-sheet/74HC_HCT238.pdf
 $ENDCMP
 #
 $CMP 74HC244
@@ -812,7 +794,7 @@ K TTL BUFFER 3State BUS
 F https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf
 $ENDCMP
 #
-$CMP 74HC573
+$CMP 74HC573_copy
 D 8-bit Latch 3-state outputs
 K TTL DFF DFF8 LATCH 3State
 F https://assets.nexperia.com/documents/data-sheet/74HC_HCT573.pdf
@@ -932,6 +914,10 @@ K TTL CNT CNT4
 F http://www.ti.com/lit/gpn/sn74HC193
 $ENDCMP
 #
+$CMP 74HCT238
+F https://assets.nexperia.com/documents/data-sheet/74HC_HCT238.pdf
+$ENDCMP
+#
 $CMP 74HCT244
 D 8-bit Buffer/Line Driver 3-state
 K TTL BUFFER 3State
@@ -998,7 +984,7 @@ K TTL BUFFER 3State BUS
 F https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf
 $ENDCMP
 #
-$CMP 74HCT573
+$CMP 74HCT573_copy
 D 8-bit Latch 3-state outputs
 K TTL DFF DFF8 LATCH 3State
 F https://assets.nexperia.com/documents/data-sheet/74HC_HCT573.pdf
@@ -1122,6 +1108,12 @@ $CMP 74LS21
 D Dual 4-input AND
 K TTL And4
 F http://www.ti.com/lit/gpn/sn74LS21
+$ENDCMP
+#
+$CMP 74LS238
+D Decoder 3 to 8 active high outputs
+K TTL DECOD DECOD8
+F http://www.ti.com/lit/gpn/sn74LS238
 $ENDCMP
 #
 $CMP 74LS245
@@ -1334,30 +1326,6 @@ K Single Mux CMOS
 F http://www.ti.com/lit/ds/symlink/sn74lvc2g157.pdf
 $ENDCMP
 #
-$CMP 74ac112
-D dual JK Flip-Flop, Set & Reset
-K TTL JK
-F http://www.ti.com/lit/gpn/sn74LS112
-$ENDCMP
-#
-$CMP 74act112
-D dual JK Flip-Flop, Set & Reset
-K TTL JK
-F http://www.ti.com/lit/gpn/sn74LS112
-$ENDCMP
-#
-$CMP 74hc112
-D dual JK Flip-Flop, Set & Reset
-K TTL JK
-F http://www.ti.com/lit/gpn/sn74LS112
-$ENDCMP
-#
-$CMP 74hct112
-D dual JK Flip-Flop, Set & Reset
-K TTL JK
-F http://www.ti.com/lit/gpn/sn74LS112
-$ENDCMP
-#
 $CMP 8253
 D Programmable Interval Timer, PDIP-24
 K Timer Counter
@@ -1414,6 +1382,18 @@ $CMP DS1023
 D Programmable Digital Delay Line
 K serial parallel digital delay programmable
 F https://gr.mouser.com/datasheet/2/256/DS1023-1291890.pdf
+$ENDCMP
+#
+$CMP DS12C887+
+D RTC with Constant-Voltage Trickle Charger
+K RTC real time clock
+F https://uk.mouser.com/datasheet/2/256/DS12CR887-DS12R887-1513597.pdf
+$ENDCMP
+#
+$CMP DS12R885
+D RTC with Constant-Voltage Trickle Charger
+K RTC real time clock
+F https://uk.mouser.com/datasheet/2/256/DS12CR887-DS12R887-1513597.pdf
 $ENDCMP
 #
 $CMP FT231XS
