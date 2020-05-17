@@ -819,17 +819,6 @@ Entry Wire Line
 	7700 10100 7800 10200
 Entry Wire Line
 	7700 10200 7800 10300
-$Comp
-L Device:Battery_Cell BT1
-U 1 1 5F93C39C
-P 8100 13350
-F 0 "BT1" H 8218 13446 50  0000 L CNN
-F 1 "Battery_Cell" H 8218 13355 50  0000 L CNN
-F 2 "Battery:Battery_Panasonic_CR2032-VS1N_Vertical_CircularHoles" V 8100 13410 50  0001 C CNN
-F 3 "~" V 8100 13410 50  0001 C CNN
-	1    8100 13350
-	1    0    0    -1  
-$EndComp
 Text Label -400 10400 0    50   ~ 0
 ~SYSDEV
 Text Label -400 10300 0    50   ~ 0
@@ -1490,16 +1479,1441 @@ Text Label 3850 13500 0    50   ~ 0
 IEN6
 Text Label 3850 13600 0    50   ~ 0
 IEN7
+$Comp
+L alexios:74HC193 U23
+U 1 1 60FDB493
+P -5650 2200
+F 0 "U23" H -5650 2867 50  0000 C CNN
+F 1 "74HC193" H -5650 2776 50  0000 C CNN
+F 2 "alexios:SOIC-16" H -5600 2200 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74HC193" H -5600 2200 50  0001 C CNN
+	1    -5650 2200
+	1    0    0    -1  
+$EndComp
+NoConn ~ -5150 1800
+NoConn ~ -5150 1900
+NoConn ~ -5150 2000
+NoConn ~ -5150 2100
+NoConn ~ -5150 2500
+Text Label -6750 1800 0    50   ~ 0
+DB0
+Text Label -6750 1900 0    50   ~ 0
+DB1
+Text Label -6750 2000 0    50   ~ 0
+DB2
+Text Label -6750 2100 0    50   ~ 0
+DB3
+Text Label -6750 3250 0    50   ~ 0
+DB4
+Text Label -6750 3350 0    50   ~ 0
+DB5
+Text Label -6750 3450 0    50   ~ 0
+DB6
+Text Label -6750 3550 0    50   ~ 0
+DB7
+Text Label -6750 4700 0    50   ~ 0
+DB8
+Text Label -6750 4800 0    50   ~ 0
+DB9
+Text Label -6750 4900 0    50   ~ 0
+DB10
+Text Label -6750 5000 0    50   ~ 0
+DB11
+Text Label -6750 6150 0    50   ~ 0
+DB12
+Text Label -6750 6250 0    50   ~ 0
+DB13
+Text Label -6750 6350 0    50   ~ 0
+DB14
+Text Label -6750 6450 0    50   ~ 0
+DB15
+Wire Wire Line
+	-5150 2600 -5050 2600
+Wire Wire Line
+	-5050 2600 -5050 2900
+Wire Wire Line
+	-5050 2900 -6450 2900
+Wire Wire Line
+	-6450 2900 -6450 4050
+Wire Wire Line
+	-6450 4050 -6150 4050
+Wire Wire Line
+	-6150 2300 -6350 2300
+Text Label -6350 2300 0    50   ~ 0
+~WT0
+$Comp
+L power:+5V #PWR0102
+U 1 1 61431B14
+P -6200 2450
+F 0 "#PWR0102" H -6200 2300 50  0001 C CNN
+F 1 "+5V" H -6258 2487 50  0000 R CNN
+F 2 "" H -6200 2450 50  0001 C CNN
+F 3 "" H -6200 2450 50  0001 C CNN
+	1    -6200 2450
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	-6200 2450 -6200 2500
+Wire Wire Line
+	-6200 2500 -6150 2500
+$Comp
+L power:GND #PWR0103
+U 1 1 6144D9CF
+P -6200 2750
+F 0 "#PWR0103" H -6200 2500 50  0001 C CNN
+F 1 "GND" H -6278 2713 50  0000 R CNN
+F 2 "" H -6200 2750 50  0001 C CNN
+F 3 "" H -6200 2750 50  0001 C CNN
+	1    -6200 2750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	-6150 2700 -6200 2700
+Wire Wire Line
+	-6200 2700 -6200 2750
+$Comp
+L alexios:74HC193 U24
+U 1 1 6146B611
+P -5650 3650
+F 0 "U24" H -5650 4317 50  0000 C CNN
+F 1 "74HC193" H -5650 4226 50  0000 C CNN
+F 2 "alexios:SOIC-16" H -5600 3650 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74HC193" H -5600 3650 50  0001 C CNN
+	1    -5650 3650
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR0104
+U 1 1 6146B617
+P -6200 3900
+F 0 "#PWR0104" H -6200 3750 50  0001 C CNN
+F 1 "+5V" H -6258 3937 50  0000 R CNN
+F 2 "" H -6200 3900 50  0001 C CNN
+F 3 "" H -6200 3900 50  0001 C CNN
+	1    -6200 3900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	-6200 3900 -6200 3950
+Wire Wire Line
+	-6200 3950 -6150 3950
+$Comp
+L power:GND #PWR0105
+U 1 1 6146B61F
+P -6200 4200
+F 0 "#PWR0105" H -6200 3950 50  0001 C CNN
+F 1 "GND" H -6278 4163 50  0000 R CNN
+F 2 "" H -6200 4200 50  0001 C CNN
+F 3 "" H -6200 4200 50  0001 C CNN
+	1    -6200 4200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	-6150 4150 -6200 4150
+Wire Wire Line
+	-6200 4150 -6200 4200
+Wire Wire Line
+	-5050 4050 -5050 4350
+Wire Wire Line
+	-5050 4350 -6450 4350
+Wire Wire Line
+	-6450 4350 -6450 5500
+Wire Wire Line
+	-6450 5500 -6150 5500
+$Comp
+L alexios:74HC193 U25
+U 1 1 6148B9F4
+P -5650 5100
+F 0 "U25" H -5650 5767 50  0000 C CNN
+F 1 "74HC193" H -5650 5676 50  0000 C CNN
+F 2 "alexios:SOIC-16" H -5600 5100 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74HC193" H -5600 5100 50  0001 C CNN
+	1    -5650 5100
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR0106
+U 1 1 6148B9FA
+P -6200 5350
+F 0 "#PWR0106" H -6200 5200 50  0001 C CNN
+F 1 "+5V" H -6258 5387 50  0000 R CNN
+F 2 "" H -6200 5350 50  0001 C CNN
+F 3 "" H -6200 5350 50  0001 C CNN
+	1    -6200 5350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	-6200 5350 -6200 5400
+Wire Wire Line
+	-6200 5400 -6150 5400
+$Comp
+L power:GND #PWR0107
+U 1 1 6148BA02
+P -6200 5650
+F 0 "#PWR0107" H -6200 5400 50  0001 C CNN
+F 1 "GND" H -6278 5613 50  0000 R CNN
+F 2 "" H -6200 5650 50  0001 C CNN
+F 3 "" H -6200 5650 50  0001 C CNN
+	1    -6200 5650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	-6150 5600 -6200 5600
+Wire Wire Line
+	-6200 5600 -6200 5650
+Wire Wire Line
+	-5050 5500 -5050 5800
+Wire Wire Line
+	-5050 5800 -6450 5800
+Wire Wire Line
+	-6450 5800 -6450 6950
+Wire Wire Line
+	-6450 6950 -6150 6950
+$Comp
+L alexios:74HC193 U27
+U 1 1 614A9CF2
+P -5650 6550
+F 0 "U27" H -5650 7217 50  0000 C CNN
+F 1 "74HC193" H -5650 7126 50  0000 C CNN
+F 2 "alexios:SOIC-16" H -5600 6550 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74HC193" H -5600 6550 50  0001 C CNN
+	1    -5650 6550
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR0108
+U 1 1 614A9CF8
+P -6200 6800
+F 0 "#PWR0108" H -6200 6650 50  0001 C CNN
+F 1 "+5V" H -6258 6837 50  0000 R CNN
+F 2 "" H -6200 6800 50  0001 C CNN
+F 3 "" H -6200 6800 50  0001 C CNN
+	1    -6200 6800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	-6200 6800 -6200 6850
+Wire Wire Line
+	-6200 6850 -6150 6850
+$Comp
+L power:GND #PWR0109
+U 1 1 614A9D00
+P -6200 7100
+F 0 "#PWR0109" H -6200 6850 50  0001 C CNN
+F 1 "GND" H -6278 7063 50  0000 R CNN
+F 2 "" H -6200 7100 50  0001 C CNN
+F 3 "" H -6200 7100 50  0001 C CNN
+	1    -6200 7100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	-6150 7050 -6200 7050
+Wire Wire Line
+	-6200 7050 -6200 7100
+Wire Wire Line
+	-5150 4050 -5050 4050
+Wire Wire Line
+	-5150 5500 -5050 5500
+NoConn ~ -5150 6850
+NoConn ~ -5150 5400
+NoConn ~ -5150 3950
+Wire Wire Line
+	-6150 2600 -6350 2600
+Text Label -6350 2600 0    50   ~ 0
+TCP0
+Wire Wire Line
+	-6150 3750 -6350 3750
+Wire Wire Line
+	-6150 5200 -6350 5200
+Text Label -6350 5200 0    50   ~ 0
+TCP0
+Wire Wire Line
+	-6150 6650 -6350 6650
+Text Label -6350 6650 0    50   ~ 0
+TCP0
+NoConn ~ -5150 3250
+NoConn ~ -5150 3350
+NoConn ~ -5150 3450
+NoConn ~ -5150 3550
+NoConn ~ -5150 4700
+NoConn ~ -5150 4800
+NoConn ~ -5150 4900
+NoConn ~ -5150 5000
+NoConn ~ -5150 6150
+NoConn ~ -5150 6250
+NoConn ~ -5150 6350
+NoConn ~ -5150 6450
+Wire Wire Line
+	-5150 6950 -4850 6950
+Text Label -4850 6950 2    50   ~ 0
+TTC0
+$Comp
+L alexios:74HC193 U28
+U 1 1 6186A687
+P -3500 2200
+F 0 "U28" H -3500 2867 50  0000 C CNN
+F 1 "74HC193" H -3500 2776 50  0000 C CNN
+F 2 "alexios:SOIC-16" H -3450 2200 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74HC193" H -3450 2200 50  0001 C CNN
+	1    -3500 2200
+	1    0    0    -1  
+$EndComp
+NoConn ~ -3000 1800
+NoConn ~ -3000 1900
+NoConn ~ -3000 2000
+NoConn ~ -3000 2100
+NoConn ~ -3000 2500
+Wire Wire Line
+	-3000 2600 -2900 2600
+Wire Wire Line
+	-2900 2600 -2900 2900
+Wire Wire Line
+	-2900 2900 -4300 2900
+Wire Wire Line
+	-4300 2900 -4300 4050
+Wire Wire Line
+	-4300 4050 -4000 4050
+Wire Wire Line
+	-4000 2300 -4200 2300
+Text Label -4200 2300 0    50   ~ 0
+~WT0
+$Comp
+L power:+5V #PWR0110
+U 1 1 6186A6B9
+P -4050 2450
+F 0 "#PWR0110" H -4050 2300 50  0001 C CNN
+F 1 "+5V" H -4108 2487 50  0000 R CNN
+F 2 "" H -4050 2450 50  0001 C CNN
+F 3 "" H -4050 2450 50  0001 C CNN
+	1    -4050 2450
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	-4050 2450 -4050 2500
+Wire Wire Line
+	-4050 2500 -4000 2500
+$Comp
+L power:GND #PWR0111
+U 1 1 6186A6C1
+P -4050 2750
+F 0 "#PWR0111" H -4050 2500 50  0001 C CNN
+F 1 "GND" H -4128 2713 50  0000 R CNN
+F 2 "" H -4050 2750 50  0001 C CNN
+F 3 "" H -4050 2750 50  0001 C CNN
+	1    -4050 2750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	-4000 2700 -4050 2700
+Wire Wire Line
+	-4050 2700 -4050 2750
+$Comp
+L alexios:74HC193 U29
+U 1 1 6186A6C9
+P -3500 3650
+F 0 "U29" H -3500 4317 50  0000 C CNN
+F 1 "74HC193" H -3500 4226 50  0000 C CNN
+F 2 "alexios:SOIC-16" H -3450 3650 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74HC193" H -3450 3650 50  0001 C CNN
+	1    -3500 3650
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR0112
+U 1 1 6186A6CF
+P -4050 3900
+F 0 "#PWR0112" H -4050 3750 50  0001 C CNN
+F 1 "+5V" H -4108 3937 50  0000 R CNN
+F 2 "" H -4050 3900 50  0001 C CNN
+F 3 "" H -4050 3900 50  0001 C CNN
+	1    -4050 3900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	-4050 3900 -4050 3950
+Wire Wire Line
+	-4050 3950 -4000 3950
+$Comp
+L power:GND #PWR0113
+U 1 1 6186A6D7
+P -4050 4200
+F 0 "#PWR0113" H -4050 3950 50  0001 C CNN
+F 1 "GND" H -4128 4163 50  0000 R CNN
+F 2 "" H -4050 4200 50  0001 C CNN
+F 3 "" H -4050 4200 50  0001 C CNN
+	1    -4050 4200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	-4000 4150 -4050 4150
+Wire Wire Line
+	-4050 4150 -4050 4200
+Wire Wire Line
+	-2900 4050 -2900 4350
+Wire Wire Line
+	-2900 4350 -4300 4350
+Wire Wire Line
+	-4300 4350 -4300 5500
+Wire Wire Line
+	-4300 5500 -4000 5500
+$Comp
+L alexios:74HC193 U30
+U 1 1 6186A6E3
+P -3500 5100
+F 0 "U30" H -3500 5767 50  0000 C CNN
+F 1 "74HC193" H -3500 5676 50  0000 C CNN
+F 2 "alexios:SOIC-16" H -3450 5100 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74HC193" H -3450 5100 50  0001 C CNN
+	1    -3500 5100
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR0114
+U 1 1 6186A6E9
+P -4050 5350
+F 0 "#PWR0114" H -4050 5200 50  0001 C CNN
+F 1 "+5V" H -4108 5387 50  0000 R CNN
+F 2 "" H -4050 5350 50  0001 C CNN
+F 3 "" H -4050 5350 50  0001 C CNN
+	1    -4050 5350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	-4050 5350 -4050 5400
+Wire Wire Line
+	-4050 5400 -4000 5400
+$Comp
+L power:GND #PWR0115
+U 1 1 6186A6F1
+P -4050 5650
+F 0 "#PWR0115" H -4050 5400 50  0001 C CNN
+F 1 "GND" H -4128 5613 50  0000 R CNN
+F 2 "" H -4050 5650 50  0001 C CNN
+F 3 "" H -4050 5650 50  0001 C CNN
+	1    -4050 5650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	-4000 5600 -4050 5600
+Wire Wire Line
+	-4050 5600 -4050 5650
+Wire Wire Line
+	-2900 5500 -2900 5800
+Wire Wire Line
+	-2900 5800 -4300 5800
+Wire Wire Line
+	-4300 5800 -4300 6950
+Wire Wire Line
+	-4300 6950 -4000 6950
+$Comp
+L alexios:74HC193 U32
+U 1 1 6186A6FD
+P -3500 6550
+F 0 "U32" H -3500 7217 50  0000 C CNN
+F 1 "74HC193" H -3500 7126 50  0000 C CNN
+F 2 "alexios:SOIC-16" H -3450 6550 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74HC193" H -3450 6550 50  0001 C CNN
+	1    -3500 6550
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR0116
+U 1 1 6186A703
+P -4050 6800
+F 0 "#PWR0116" H -4050 6650 50  0001 C CNN
+F 1 "+5V" H -4108 6837 50  0000 R CNN
+F 2 "" H -4050 6800 50  0001 C CNN
+F 3 "" H -4050 6800 50  0001 C CNN
+	1    -4050 6800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	-4050 6800 -4050 6850
+Wire Wire Line
+	-4050 6850 -4000 6850
+$Comp
+L power:GND #PWR0117
+U 1 1 6186A70B
+P -4050 7100
+F 0 "#PWR0117" H -4050 6850 50  0001 C CNN
+F 1 "GND" H -4128 7063 50  0000 R CNN
+F 2 "" H -4050 7100 50  0001 C CNN
+F 3 "" H -4050 7100 50  0001 C CNN
+	1    -4050 7100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	-4000 7050 -4050 7050
+Wire Wire Line
+	-4050 7050 -4050 7100
+Wire Wire Line
+	-3000 4050 -2900 4050
+Wire Wire Line
+	-3000 5500 -2900 5500
+NoConn ~ -3000 6850
+NoConn ~ -3000 5400
+NoConn ~ -3000 3950
+Wire Wire Line
+	-4000 2600 -4200 2600
+Text Label -4200 2600 0    50   ~ 0
+TCP1
+Wire Wire Line
+	-4000 3750 -4200 3750
+Wire Wire Line
+	-4000 5200 -4200 5200
+Wire Wire Line
+	-4000 6650 -4200 6650
+NoConn ~ -3000 3250
+NoConn ~ -3000 3350
+NoConn ~ -3000 3450
+NoConn ~ -3000 3550
+NoConn ~ -3000 4700
+NoConn ~ -3000 4800
+NoConn ~ -3000 4900
+NoConn ~ -3000 5000
+NoConn ~ -3000 6150
+NoConn ~ -3000 6250
+NoConn ~ -3000 6350
+NoConn ~ -3000 6450
+Wire Wire Line
+	-3000 6950 -2700 6950
+$Comp
+L alexios:74HC193 U33
+U 1 1 618A96E1
+P -1350 2200
+F 0 "U33" H -1350 2867 50  0000 C CNN
+F 1 "74HC193" H -1350 2776 50  0000 C CNN
+F 2 "alexios:SOIC-16" H -1300 2200 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74HC193" H -1300 2200 50  0001 C CNN
+	1    -1350 2200
+	1    0    0    -1  
+$EndComp
+NoConn ~ -850 1800
+NoConn ~ -850 1900
+NoConn ~ -850 2000
+NoConn ~ -850 2100
+NoConn ~ -850 2500
+Wire Wire Line
+	-850 2600 -750 2600
+Wire Wire Line
+	-750 2600 -750 2900
+Wire Wire Line
+	-750 2900 -2150 2900
+Wire Wire Line
+	-2150 2900 -2150 4050
+Wire Wire Line
+	-2150 4050 -1850 4050
+Wire Wire Line
+	-1850 2300 -2050 2300
+Text Label -2050 2300 0    50   ~ 0
+~WT0
+$Comp
+L power:+5V #PWR0118
+U 1 1 618A9713
+P -1900 2450
+F 0 "#PWR0118" H -1900 2300 50  0001 C CNN
+F 1 "+5V" H -1958 2487 50  0000 R CNN
+F 2 "" H -1900 2450 50  0001 C CNN
+F 3 "" H -1900 2450 50  0001 C CNN
+	1    -1900 2450
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	-1900 2450 -1900 2500
+Wire Wire Line
+	-1900 2500 -1850 2500
+$Comp
+L power:GND #PWR0119
+U 1 1 618A971B
+P -1900 2750
+F 0 "#PWR0119" H -1900 2500 50  0001 C CNN
+F 1 "GND" H -1978 2713 50  0000 R CNN
+F 2 "" H -1900 2750 50  0001 C CNN
+F 3 "" H -1900 2750 50  0001 C CNN
+	1    -1900 2750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	-1850 2700 -1900 2700
+Wire Wire Line
+	-1900 2700 -1900 2750
+$Comp
+L alexios:74HC193 U34
+U 1 1 618A9723
+P -1350 3650
+F 0 "U34" H -1350 4317 50  0000 C CNN
+F 1 "74HC193" H -1350 4226 50  0000 C CNN
+F 2 "alexios:SOIC-16" H -1300 3650 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74HC193" H -1300 3650 50  0001 C CNN
+	1    -1350 3650
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR0120
+U 1 1 618A9729
+P -1900 3900
+F 0 "#PWR0120" H -1900 3750 50  0001 C CNN
+F 1 "+5V" H -1958 3937 50  0000 R CNN
+F 2 "" H -1900 3900 50  0001 C CNN
+F 3 "" H -1900 3900 50  0001 C CNN
+	1    -1900 3900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	-1900 3900 -1900 3950
+Wire Wire Line
+	-1900 3950 -1850 3950
+$Comp
+L power:GND #PWR0121
+U 1 1 618A9731
+P -1900 4200
+F 0 "#PWR0121" H -1900 3950 50  0001 C CNN
+F 1 "GND" H -1978 4163 50  0000 R CNN
+F 2 "" H -1900 4200 50  0001 C CNN
+F 3 "" H -1900 4200 50  0001 C CNN
+	1    -1900 4200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	-1850 4150 -1900 4150
+Wire Wire Line
+	-1900 4150 -1900 4200
+Wire Wire Line
+	-750 4050 -750 4350
+Wire Wire Line
+	-750 4350 -2150 4350
+Wire Wire Line
+	-2150 4350 -2150 5500
+Wire Wire Line
+	-2150 5500 -1850 5500
+$Comp
+L alexios:74HC193 U35
+U 1 1 618A973D
+P -1350 5100
+F 0 "U35" H -1350 5767 50  0000 C CNN
+F 1 "74HC193" H -1350 5676 50  0000 C CNN
+F 2 "alexios:SOIC-16" H -1300 5100 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74HC193" H -1300 5100 50  0001 C CNN
+	1    -1350 5100
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR0123
+U 1 1 618A9743
+P -1900 5350
+F 0 "#PWR0123" H -1900 5200 50  0001 C CNN
+F 1 "+5V" H -1958 5387 50  0000 R CNN
+F 2 "" H -1900 5350 50  0001 C CNN
+F 3 "" H -1900 5350 50  0001 C CNN
+	1    -1900 5350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	-1900 5350 -1900 5400
+Wire Wire Line
+	-1900 5400 -1850 5400
+$Comp
+L power:GND #PWR0124
+U 1 1 618A974B
+P -1900 5650
+F 0 "#PWR0124" H -1900 5400 50  0001 C CNN
+F 1 "GND" H -1978 5613 50  0000 R CNN
+F 2 "" H -1900 5650 50  0001 C CNN
+F 3 "" H -1900 5650 50  0001 C CNN
+	1    -1900 5650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	-1850 5600 -1900 5600
+Wire Wire Line
+	-1900 5600 -1900 5650
+Wire Wire Line
+	-750 5500 -750 5800
+Wire Wire Line
+	-750 5800 -2150 5800
+Wire Wire Line
+	-2150 5800 -2150 6950
+Wire Wire Line
+	-2150 6950 -1850 6950
+$Comp
+L alexios:74HC193 U36
+U 1 1 618A9757
+P -1350 6550
+F 0 "U36" H -1350 7217 50  0000 C CNN
+F 1 "74HC193" H -1350 7126 50  0000 C CNN
+F 2 "alexios:SOIC-16" H -1300 6550 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74HC193" H -1300 6550 50  0001 C CNN
+	1    -1350 6550
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR0127
+U 1 1 618A975D
+P -1900 6800
+F 0 "#PWR0127" H -1900 6650 50  0001 C CNN
+F 1 "+5V" H -1958 6837 50  0000 R CNN
+F 2 "" H -1900 6800 50  0001 C CNN
+F 3 "" H -1900 6800 50  0001 C CNN
+	1    -1900 6800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	-1900 6800 -1900 6850
+Wire Wire Line
+	-1900 6850 -1850 6850
+$Comp
+L power:GND #PWR0129
+U 1 1 618A9765
+P -1900 7100
+F 0 "#PWR0129" H -1900 6850 50  0001 C CNN
+F 1 "GND" H -1978 7063 50  0000 R CNN
+F 2 "" H -1900 7100 50  0001 C CNN
+F 3 "" H -1900 7100 50  0001 C CNN
+	1    -1900 7100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	-1850 7050 -1900 7050
+Wire Wire Line
+	-1900 7050 -1900 7100
+Wire Wire Line
+	-850 4050 -750 4050
+Wire Wire Line
+	-850 5500 -750 5500
+NoConn ~ -850 6850
+NoConn ~ -850 5400
+NoConn ~ -850 3950
+Wire Wire Line
+	-1850 2600 -2050 2600
+Text Label -2050 2600 0    50   ~ 0
+TCP2
+Wire Wire Line
+	-1850 3750 -2050 3750
+Wire Wire Line
+	-1850 5200 -2050 5200
+Wire Wire Line
+	-1850 6650 -2050 6650
+NoConn ~ -850 3250
+NoConn ~ -850 3350
+NoConn ~ -850 3450
+NoConn ~ -850 3550
+NoConn ~ -850 4700
+NoConn ~ -850 4800
+NoConn ~ -850 4900
+NoConn ~ -850 5000
+NoConn ~ -850 6150
+NoConn ~ -850 6250
+NoConn ~ -850 6350
+NoConn ~ -850 6450
+Wire Wire Line
+	-850 6950 -550 6950
+Text Label -2700 6950 2    50   ~ 0
+TTC1
+Text Label -6350 3750 0    50   ~ 0
+TCP0
+Text Label -550 6950 2    50   ~ 0
+TTC2
+Text Label -4200 3750 0    50   ~ 0
+TCP1
+Text Label -4200 5200 0    50   ~ 0
+TCP1
+Text Label -4200 6650 0    50   ~ 0
+TCP1
+Text Label -2050 3750 0    50   ~ 0
+TCP2
+Text Label -2050 5200 0    50   ~ 0
+TCP2
+Text Label -2050 6650 0    50   ~ 0
+TCP2
+$Comp
+L alexios:74HC590 U37
+U 1 1 61B73812
+P 2700 3300
+F 0 "U37" H 2700 4067 50  0000 C CNN
+F 1 "74HC590" H 2700 3976 50  0000 C CNN
+F 2 "alexios:SOIC-16" H 3000 3650 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC590.pdf" H 3000 3650 50  0001 C CNN
+	1    2700 3300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2200 3000 2150 3000
+Wire Wire Line
+	2150 3000 2150 3100
+Wire Wire Line
+	2150 3100 2200 3100
+Connection ~ 2150 3000
+Wire Wire Line
+	2150 3000 1850 3000
+Text Label 1850 3000 0    50   ~ 0
+CLK1
+$Comp
+L power:+5V #PWR0130
+U 1 1 61C7F8F2
+P 2200 3300
+F 0 "#PWR0130" H 2200 3150 50  0001 C CNN
+F 1 "+5V" V 2215 3428 50  0000 L CNN
+F 2 "" H 2200 3300 50  0001 C CNN
+F 3 "" H 2200 3300 50  0001 C CNN
+	1    2200 3300
+	0    -1   -1   0   
+$EndComp
+$Comp
+L power:GND #PWR0132
+U 1 1 61D0CBEE
+P 2200 3700
+F 0 "#PWR0132" H 2200 3450 50  0001 C CNN
+F 1 "GND" V 2205 3572 50  0000 R CNN
+F 2 "" H 2200 3700 50  0001 C CNN
+F 3 "" H 2200 3700 50  0001 C CNN
+	1    2200 3700
+	0    1    1    0   
+$EndComp
+$Comp
+L power:GND #PWR0133
+U 1 1 61C8141F
+P 2200 2800
+F 0 "#PWR0133" H 2200 2550 50  0001 C CNN
+F 1 "GND" V 2205 2672 50  0000 R CNN
+F 2 "" H 2200 2800 50  0001 C CNN
+F 3 "" H 2200 2800 50  0001 C CNN
+	1    2200 2800
+	0    1    1    0   
+$EndComp
+NoConn ~ 3200 3700
+Text Label 3500 2800 2    50   ~ 0
+DIV2
+Text Label 3500 2900 2    50   ~ 0
+DIV4
+Text Label 3500 3000 2    50   ~ 0
+DIV8
+Text Label 3500 3100 2    50   ~ 0
+DIV16
+Text Label 3500 3200 2    50   ~ 0
+DIV32
+Text Label 3500 3300 2    50   ~ 0
+DIV64
+Text Label 3500 3400 2    50   ~ 0
+DIV128
+Text Label 3500 3500 2    50   ~ 0
+DIV256
+Text Notes 4000 2800 2    50   ~ 0
+1 MHz
+Text Notes 4000 2900 2    50   ~ 0
+500 KHz
+Text Notes 4000 3000 2    50   ~ 0
+250 KHz
+Text Notes 4000 3100 2    50   ~ 0
+125 KHz
+Text Notes 4000 3200 2    50   ~ 0
+62.5 KHz
+Text Notes 4000 3300 2    50   ~ 0
+31.25 KHz
+Text Notes 4000 3400 2    50   ~ 0
+15.625 KHz
+Text Notes 4000 3500 2    50   ~ 0
+7.8125 KHz
+Text Label -4600 1800 0    50   ~ 0
+DB0
+Text Label -4600 1900 0    50   ~ 0
+DB1
+Text Label -4600 2000 0    50   ~ 0
+DB2
+Text Label -4600 2100 0    50   ~ 0
+DB3
+Text Label -4600 3250 0    50   ~ 0
+DB4
+Text Label -4600 3350 0    50   ~ 0
+DB5
+Text Label -4600 3450 0    50   ~ 0
+DB6
+Text Label -4600 3550 0    50   ~ 0
+DB7
+Text Label -4600 4700 0    50   ~ 0
+DB8
+Text Label -4600 4800 0    50   ~ 0
+DB9
+Text Label -4600 4900 0    50   ~ 0
+DB10
+Text Label -4600 5000 0    50   ~ 0
+DB11
+Text Label -4600 6150 0    50   ~ 0
+DB12
+Text Label -4600 6250 0    50   ~ 0
+DB13
+Text Label -4600 6350 0    50   ~ 0
+DB14
+Text Label -4600 6450 0    50   ~ 0
+DB15
+Text Label -2450 1800 0    50   ~ 0
+DB0
+Text Label -2450 1900 0    50   ~ 0
+DB1
+Text Label -2450 2000 0    50   ~ 0
+DB2
+Text Label -2450 2100 0    50   ~ 0
+DB3
+Text Label -2450 3250 0    50   ~ 0
+DB4
+Text Label -2450 3350 0    50   ~ 0
+DB5
+Text Label -2450 3450 0    50   ~ 0
+DB6
+Text Label -2450 3550 0    50   ~ 0
+DB7
+Text Label -2450 4700 0    50   ~ 0
+DB8
+Text Label -2450 4800 0    50   ~ 0
+DB9
+Text Label -2450 4900 0    50   ~ 0
+DB10
+Text Label -2450 5000 0    50   ~ 0
+DB11
+Text Label -2450 6150 0    50   ~ 0
+DB12
+Text Label -2450 6250 0    50   ~ 0
+DB13
+Text Label -2450 6350 0    50   ~ 0
+DB14
+Text Label -2450 6450 0    50   ~ 0
+DB15
+Entry Wire Line
+	-6900 2200 -6800 2100
+Entry Wire Line
+	-6900 2100 -6800 2000
+Entry Wire Line
+	-6900 2000 -6800 1900
+Entry Wire Line
+	-6900 1900 -6800 1800
+Wire Wire Line
+	-6800 1800 -6150 1800
+Wire Wire Line
+	-6800 1900 -6150 1900
+Wire Wire Line
+	-6800 2000 -6150 2000
+Wire Wire Line
+	-6800 2100 -6150 2100
+Entry Wire Line
+	-6900 3650 -6800 3550
+Entry Wire Line
+	-6900 3550 -6800 3450
+Entry Wire Line
+	-6900 3450 -6800 3350
+Entry Wire Line
+	-6900 3350 -6800 3250
+Wire Wire Line
+	-6800 3250 -6150 3250
+Wire Wire Line
+	-6800 3350 -6150 3350
+Wire Wire Line
+	-6800 3450 -6150 3450
+Wire Wire Line
+	-6800 3550 -6150 3550
+Entry Wire Line
+	-6900 5100 -6800 5000
+Entry Wire Line
+	-6900 5000 -6800 4900
+Entry Wire Line
+	-6900 4900 -6800 4800
+Entry Wire Line
+	-6900 4800 -6800 4700
+Wire Wire Line
+	-6800 4700 -6150 4700
+Wire Wire Line
+	-6800 4800 -6150 4800
+Wire Wire Line
+	-6800 4900 -6150 4900
+Wire Wire Line
+	-6800 5000 -6150 5000
+Entry Wire Line
+	-6900 6550 -6800 6450
+Entry Wire Line
+	-6900 6450 -6800 6350
+Entry Wire Line
+	-6900 6350 -6800 6250
+Entry Wire Line
+	-6900 6250 -6800 6150
+Wire Wire Line
+	-6800 6150 -6150 6150
+Wire Wire Line
+	-6800 6250 -6150 6250
+Wire Wire Line
+	-6800 6350 -6150 6350
+Wire Wire Line
+	-6800 6450 -6150 6450
+Entry Wire Line
+	-4650 2100 -4750 2000
+Entry Wire Line
+	-4650 2000 -4750 1900
+Entry Wire Line
+	-4650 1900 -4750 1800
+Entry Wire Line
+	-4650 1800 -4750 1700
+Entry Wire Line
+	-4650 3550 -4750 3450
+Entry Wire Line
+	-4650 3450 -4750 3350
+Entry Wire Line
+	-4650 3350 -4750 3250
+Entry Wire Line
+	-4650 3250 -4750 3150
+Entry Wire Line
+	-4650 5000 -4750 4900
+Entry Wire Line
+	-4650 4900 -4750 4800
+Entry Wire Line
+	-4650 4800 -4750 4700
+Entry Wire Line
+	-4650 4700 -4750 4600
+Entry Wire Line
+	-4650 6450 -4750 6350
+Entry Wire Line
+	-4650 6350 -4750 6250
+Entry Wire Line
+	-4650 6250 -4750 6150
+Entry Wire Line
+	-4650 6150 -4750 6050
+Wire Wire Line
+	-4650 1800 -4000 1800
+Wire Wire Line
+	-4650 1900 -4000 1900
+Wire Wire Line
+	-4650 2000 -4000 2000
+Wire Wire Line
+	-4650 2100 -4000 2100
+Wire Wire Line
+	-4650 3250 -4000 3250
+Wire Wire Line
+	-4650 3350 -4000 3350
+Wire Wire Line
+	-4650 3450 -4000 3450
+Wire Wire Line
+	-4650 3550 -4000 3550
+Wire Wire Line
+	-4650 4700 -4000 4700
+Wire Wire Line
+	-4650 4800 -4000 4800
+Wire Wire Line
+	-4650 4900 -4000 4900
+Wire Wire Line
+	-4650 5000 -4000 5000
+Wire Wire Line
+	-4650 6150 -4000 6150
+Wire Wire Line
+	-4650 6250 -4000 6250
+Wire Wire Line
+	-4650 6350 -4000 6350
+Wire Wire Line
+	-4650 6450 -4000 6450
+Entry Wire Line
+	-2500 2100 -2600 2000
+Entry Wire Line
+	-2500 2000 -2600 1900
+Entry Wire Line
+	-2500 1900 -2600 1800
+Entry Wire Line
+	-2500 1800 -2600 1700
+Entry Wire Line
+	-2500 3550 -2600 3450
+Entry Wire Line
+	-2500 3450 -2600 3350
+Entry Wire Line
+	-2500 3350 -2600 3250
+Entry Wire Line
+	-2500 3250 -2600 3150
+Entry Wire Line
+	-2500 5000 -2600 4900
+Entry Wire Line
+	-2500 4900 -2600 4800
+Entry Wire Line
+	-2500 4800 -2600 4700
+Entry Wire Line
+	-2500 4700 -2600 4600
+Entry Wire Line
+	-2500 6450 -2600 6350
+Entry Wire Line
+	-2500 6350 -2600 6250
+Entry Wire Line
+	-2500 6250 -2600 6150
+Entry Wire Line
+	-2500 6150 -2600 6050
+Wire Wire Line
+	-2500 1800 -1850 1800
+Wire Wire Line
+	-2500 1900 -1850 1900
+Wire Wire Line
+	-2500 2000 -1850 2000
+Wire Wire Line
+	-2500 2100 -1850 2100
+Wire Wire Line
+	-2500 3250 -1850 3250
+Wire Wire Line
+	-2500 3350 -1850 3350
+Wire Wire Line
+	-2500 3450 -1850 3450
+Wire Wire Line
+	-2500 3550 -1850 3550
+Wire Wire Line
+	-2500 4700 -1850 4700
+Wire Wire Line
+	-2500 4800 -1850 4800
+Wire Wire Line
+	-2500 4900 -1850 4900
+Wire Wire Line
+	-2500 5000 -1850 5000
+Wire Wire Line
+	-2500 6150 -1850 6150
+Wire Wire Line
+	-2500 6250 -1850 6250
+Wire Wire Line
+	-2500 6350 -1850 6350
+Wire Wire Line
+	-2500 6450 -1850 6450
+Entry Bus Bus
+	-6900 6800 -7000 6900
+Entry Bus Bus
+	-2600 1500 -2700 1400
+Entry Bus Bus
+	-4750 1500 -4650 1400
+Wire Bus Line
+	-2700 1400 -4650 1400
+Entry Bus Bus
+	-4750 1500 -4850 1400
+Entry Bus Bus
+	-6900 1500 -6800 1400
+Wire Bus Line
+	-4850 1400 -6800 1400
+Wire Bus Line
+	-7000 6900 -7700 6900
+Text Label -7550 6900 0    50   ~ 0
+IBUS[0..15]
+Wire Wire Line
+	3200 2800 3500 2800
+Wire Wire Line
+	3200 2900 3500 2900
+Wire Wire Line
+	3200 3000 3500 3000
+Wire Wire Line
+	3200 3200 3500 3200
+Wire Wire Line
+	3200 3300 3500 3300
+Wire Wire Line
+	3200 3500 3500 3500
+Wire Wire Line
+	3200 3100 3500 3100
+$Comp
+L alexios:74AC251 U38
+U 1 1 6199F9AF
+P 5400 3400
+F 0 "U38" H 5400 4267 50  0000 C CNN
+F 1 "74AC251" H 5400 4176 50  0000 C CNN
+F 2 "alexios:SOIC-16" H 5400 3350 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS251" H 5400 3350 50  0001 C CNN
+	1    5400 3400
+	1    0    0    -1  
+$EndComp
+Text Notes 4100 3500 0    50   ~ 0
+128 µs
+Text Notes 4100 3400 0    50   ~ 0
+64 µs
+Text Notes 4100 3300 0    50   ~ 0
+32 µs
+Text Notes 4100 3200 0    50   ~ 0
+16 µs
+Text Notes 4100 3100 0    50   ~ 0
+8 µs
+Text Notes 4100 3000 0    50   ~ 0
+4 µs
+Text Notes 4100 2900 0    50   ~ 0
+2 µs
+Text Notes 4100 2800 0    50   ~ 0
+1 µs
+Wire Wire Line
+	3200 3400 3500 3400
+$Comp
+L alexios:DS12C887+ U39
+U 1 1 63A7247D
+P -5850 10400
+F 0 "U39" H -5850 11167 50  0000 C CNN
+F 1 "DS12C887+" H -5850 11076 50  0000 C CNN
+F 2 "alexios:eDIP-24-DS12x_W15.24mm" H -6850 8300 50  0001 L CNN
+F 3 "https://uk.mouser.com/datasheet/2/256/DS12CR887-DS12R887-1513597.pdf" H -5850 10400 50  0001 C CNN
+F 4 "Yes" H -6850 8225 50  0001 L CNN "Verified"
+F 5 "700-DS12R885S-5; €3.65" H -6850 8150 50  0001 L CNN "Mouser"
+	1    -5850 10400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3150 11300 2650 11300
+Wire Wire Line
+	3150 11400 2650 11400
+Wire Wire Line
+	3150 11500 2650 11500
+Wire Wire Line
+	3150 11600 2650 11600
+Wire Wire Line
+	3150 11700 2650 11700
+Wire Wire Line
+	3150 11800 2650 11800
+Wire Wire Line
+	3150 11900 2650 11900
+Wire Wire Line
+	3150 12000 2650 12000
+Text Label 3150 11300 2    50   ~ 0
+~IRQ0
+Text Label 3150 11400 2    50   ~ 0
+~IRQ1
+Text Label 3150 11500 2    50   ~ 0
+~IRQ2
+Text Label 3150 11600 2    50   ~ 0
+~IRQ3
+Text Label 3150 11700 2    50   ~ 0
+~IRQ4
+Text Label 3150 11800 2    50   ~ 0
+~IRQ5
+Text Label 3150 11900 2    50   ~ 0
+~IRQ6
+Text Label 3150 12000 2    50   ~ 0
+~IRQ7
+$Comp
+L power:+5V #PWR049
+U 1 1 640B8511
+P 2300 11250
+F 0 "#PWR049" H 2300 11100 50  0001 C CNN
+F 1 "+5V" H 2315 11423 50  0000 C CNN
+F 2 "" H 2300 11250 50  0001 C CNN
+F 3 "" H 2300 11250 50  0001 C CNN
+	1    2300 11250
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_Pack04_Split R1
+U 1 1 6410C739
+P 2500 11300
+F 0 "R1" V 2450 11500 50  0000 C CNN
+F 1 "4.7kΩ" V 2384 11300 50  0001 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x0603" V 2430 11300 50  0001 C CNN
+F 3 "~" H 2500 11300 50  0001 C CNN
+	1    2500 11300
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	2300 11250 2300 11300
+$Comp
+L Device:R_Pack04_Split R1
+U 2 1 641F10C7
+P 2500 11400
+F 0 "R1" V 2450 11600 50  0000 C CNN
+F 1 "4.7kΩ" V 2384 11400 50  0001 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x0603" V 2430 11400 50  0001 C CNN
+F 3 "~" H 2500 11400 50  0001 C CNN
+	2    2500 11400
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Pack04_Split R1
+U 3 1 641F14C6
+P 2500 11500
+F 0 "R1" V 2450 11700 50  0000 C CNN
+F 1 "4.7kΩ" V 2384 11500 50  0001 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x0603" V 2430 11500 50  0001 C CNN
+F 3 "~" H 2500 11500 50  0001 C CNN
+	3    2500 11500
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Pack04_Split R1
+U 4 1 641F1983
+P 2500 11600
+F 0 "R1" V 2450 11800 50  0000 C CNN
+F 1 "4.7kΩ" V 2384 11600 50  0001 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x0603" V 2430 11600 50  0001 C CNN
+F 3 "~" H 2500 11600 50  0001 C CNN
+	4    2500 11600
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Pack04_Split R2
+U 4 1 642409E3
+P 2500 12000
+F 0 "R2" V 2450 12200 50  0000 C CNN
+F 1 "4.7kΩ" V 2600 12000 50  0000 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x0603" V 2430 12000 50  0001 C CNN
+F 3 "~" H 2500 12000 50  0001 C CNN
+	4    2500 12000
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	2350 11300 2300 11300
+Connection ~ 2300 11300
+Wire Wire Line
+	2300 11300 2300 11400
+Wire Wire Line
+	2350 11400 2300 11400
+Connection ~ 2300 11400
+Wire Wire Line
+	2300 11400 2300 11500
+Wire Wire Line
+	2350 11500 2300 11500
+Connection ~ 2300 11500
+Wire Wire Line
+	2300 11500 2300 11600
+Wire Wire Line
+	2350 11600 2300 11600
+Connection ~ 2300 11600
+Wire Wire Line
+	2300 11600 2300 11700
+Wire Wire Line
+	2350 11700 2300 11700
+Connection ~ 2300 11700
+Wire Wire Line
+	2350 11800 2300 11800
+Wire Wire Line
+	2350 11900 2300 11900
+Wire Wire Line
+	2350 12000 2300 12000
+Connection ~ 2300 11800
+Wire Wire Line
+	2300 11800 2300 11900
+Connection ~ 2300 11900
+Wire Wire Line
+	2300 11900 2300 12000
+Wire Wire Line
+	2300 11700 2300 11800
+$Comp
+L Device:R_Pack04_Split R2
+U 3 1 646E1208
+P 2500 11900
+F 0 "R2" V 2450 12100 50  0000 C CNN
+F 1 "4.7kΩ" V 2600 11900 50  0001 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x0603" V 2430 11900 50  0001 C CNN
+F 3 "~" H 2500 11900 50  0001 C CNN
+	3    2500 11900
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Pack04_Split R2
+U 2 1 646E15F0
+P 2500 11800
+F 0 "R2" V 2450 12000 50  0000 C CNN
+F 1 "4.7kΩ" V 2600 11800 50  0001 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x0603" V 2430 11800 50  0001 C CNN
+F 3 "~" H 2500 11800 50  0001 C CNN
+	2    2500 11800
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Pack04_Split R2
+U 1 1 646E17AA
+P 2500 11700
+F 0 "R2" V 2450 11900 50  0000 C CNN
+F 1 "4.7kΩ" V 2600 11700 50  0001 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x0603" V 2430 11700 50  0001 C CNN
+F 3 "~" H 2500 11700 50  0001 C CNN
+	1    2500 11700
+	0    1    1    0   
+$EndComp
+$Comp
+L alexios:8254 U40
+U 1 1 64762EDE
+P -3450 9750
+F 0 "U40" H -3450 10767 50  0000 C CNN
+F 1 "8254" H -3450 10676 50  0000 C CNN
+F 2 "alexios:DIP-24_W15.24mm_socket" H -3450 8725 50  0001 C CNN
+F 3 "http://www.scs.stanford.edu/10wi-cs140/pintos/specs/8254.pdf" H -3900 10650 50  0001 C CNN
+	1    -3450 9750
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:8254 U41
+U 1 1 6480BEFF
+P -3500 12100
+F 0 "U41" H -3500 13117 50  0000 C CNN
+F 1 "8254" H -3500 13026 50  0000 C CNN
+F 2 "alexios:DIP-24_W15.24mm_socket" H -3500 11075 50  0001 C CNN
+F 3 "http://www.scs.stanford.edu/10wi-cs140/pintos/specs/8254.pdf" H -3950 13000 50  0001 C CNN
+	1    -3500 12100
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC112 U?
+U 1 1 64AF56F1
+P 14300 7550
+F 0 "U?" H 13975 7767 50  0000 C CNN
+F 1 "74HC112" H 13975 7676 50  0000 C CNN
+F 2 "" H 14000 7200 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT112.pdf" H 14000 7200 50  0001 C CNN
+F 4 "Yes" H 13700 6600 50  0001 C CNN "Verified"
+	1    14300 7550
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC112 U?
+U 2 1 64AF6974
+P 15650 7550
+F 0 "U?" H 15325 7767 50  0000 C CNN
+F 1 "74HC112" H 15325 7676 50  0000 C CNN
+F 2 "" H 15350 7200 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT112.pdf" H 15350 7200 50  0001 C CNN
+F 4 "Yes" H 15050 6600 50  0001 C CNN "Verified"
+	2    15650 7550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	13500 7800 12700 7800
+Text Label 12700 7800 0    50   ~ 0
+~SEL
+Wire Wire Line
+	13500 7900 13250 7900
+Wire Wire Line
+	13250 7900 13250 8150
+$Comp
+L power:GND #PWR?
+U 1 1 64B98EFC
+P 13250 8150
+F 0 "#PWR?" H 13250 7900 50  0001 C CNN
+F 1 "GND" H 13255 7977 50  0000 C CNN
+F 2 "" H 13250 8150 50  0001 C CNN
+F 3 "" H 13250 8150 50  0001 C CNN
+	1    13250 8150
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 64B999E3
+P 13400 7500
+F 0 "#PWR?" H 13400 7350 50  0001 C CNN
+F 1 "+5V" H 13415 7673 50  0000 C CNN
+F 2 "" H 13400 7500 50  0001 C CNN
+F 3 "" H 13400 7500 50  0001 C CNN
+	1    13400 7500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	13400 7500 13400 7600
+Wire Wire Line
+	13400 7700 13500 7700
+Wire Wire Line
+	13500 7600 13400 7600
+Connection ~ 13400 7600
+Wire Wire Line
+	13400 7600 13400 7700
 Wire Bus Line
 	9950 1450 9950 2100
 Wire Bus Line
-	7800 11300 7800 12250
+	5650 13000 5650 13950
 Wire Bus Line
-	7800 9600 7800 10550
+	7800 11300 7800 12250
 Wire Bus Line
 	5900 9600 5900 10400
 Wire Bus Line
-	5650 13000 5650 13950
+	7800 9600 7800 10550
+Wire Bus Line
+	-4750 1500 -4750 6350
+Wire Bus Line
+	-2600 1500 -2600 6350
 Wire Bus Line
 	11200 9550 11200 12300
+Wire Bus Line
+	-6900 1500 -6900 6800
 $EndSCHEMATC

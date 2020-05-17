@@ -58,8 +58,6 @@ Wire Wire Line
 	1650 1400 1650 1350
 NoConn ~ 2600 1700
 NoConn ~ 4050 1700
-Wire Wire Line
-	1050 1500 1700 1500
 Text Label 2900 1600 0    50   ~ 0
 CLK3
 Wire Wire Line
@@ -137,8 +135,6 @@ Wire Wire Line
 	1650 2300 1650 2250
 NoConn ~ 2600 2600
 NoConn ~ 4050 2600
-Wire Wire Line
-	1050 2400 1700 2400
 Text Label 2900 2500 0    50   ~ 0
 CLK3
 Wire Wire Line
@@ -218,8 +214,6 @@ Wire Wire Line
 	1650 3200 1650 3150
 NoConn ~ 2600 3500
 NoConn ~ 4050 3500
-Wire Wire Line
-	1050 3300 1700 3300
 Text Label 2900 3400 0    50   ~ 0
 CLK3
 Wire Wire Line
@@ -297,8 +291,6 @@ Wire Wire Line
 	1650 4100 1650 4050
 NoConn ~ 2600 4400
 NoConn ~ 4050 4400
-Wire Wire Line
-	1050 4200 1700 4200
 Text Label 2900 4300 0    50   ~ 0
 CLK3
 Wire Wire Line
@@ -377,8 +369,6 @@ Wire Wire Line
 NoConn ~ 7800 1700
 NoConn ~ 9250 1700
 Wire Wire Line
-	6450 1500 6900 1500
-Wire Wire Line
 	6900 1600 6550 1600
 Text Label 6550 1600 0    50   ~ 0
 CLK2
@@ -413,7 +403,7 @@ Wire Wire Line
 	6850 1900 7900 1900
 Connection ~ 6850 1900
 Wire Wire Line
-	6450 1900 6850 1900
+	6250 1900 6850 1900
 Text Label 6550 1900 0    50   ~ 0
 IEN4
 Text Label 8100 1700 0    50   ~ 0
@@ -460,8 +450,6 @@ Wire Wire Line
 NoConn ~ 7800 2600
 NoConn ~ 9250 2600
 Wire Wire Line
-	6450 2400 6900 2400
-Wire Wire Line
 	6900 2500 6550 2500
 Text Label 6550 2500 0    50   ~ 0
 CLK2
@@ -496,7 +484,7 @@ Wire Wire Line
 	6850 2800 7900 2800
 Connection ~ 6850 2800
 Wire Wire Line
-	6450 2800 6850 2800
+	6250 2800 6850 2800
 Text Label 6550 2800 0    50   ~ 0
 IEN5
 Text Label 8100 2600 0    50   ~ 0
@@ -543,8 +531,6 @@ Wire Wire Line
 NoConn ~ 7800 3500
 NoConn ~ 9250 3500
 Wire Wire Line
-	6450 3300 6900 3300
-Wire Wire Line
 	6900 3400 6550 3400
 Text Label 6550 3400 0    50   ~ 0
 CLK2
@@ -579,7 +565,7 @@ Wire Wire Line
 	6850 3700 7900 3700
 Connection ~ 6850 3700
 Wire Wire Line
-	6450 3700 6850 3700
+	6250 3700 6850 3700
 Text Label 6550 3700 0    50   ~ 0
 IEN6
 Text Label 8100 3500 0    50   ~ 0
@@ -626,8 +612,6 @@ Wire Wire Line
 NoConn ~ 7800 4400
 NoConn ~ 9250 4400
 Wire Wire Line
-	6450 4200 6900 4200
-Wire Wire Line
 	6900 4300 6550 4300
 Text Label 6550 4300 0    50   ~ 0
 CLK2
@@ -662,7 +646,7 @@ Wire Wire Line
 	6850 4600 7900 4600
 Connection ~ 6850 4600
 Wire Wire Line
-	6450 4600 6850 4600
+	6250 4600 6850 4600
 Text Label 6550 4600 0    50   ~ 0
 IEN7
 Text Label 8100 4400 0    50   ~ 0
@@ -797,21 +781,21 @@ Wire Wire Line
 Connection ~ 1350 1600
 Wire Wire Line
 	1350 1600 1350 2500
-Text HLabel 6450 1500 0    50   Input ~ 0
+Text HLabel 6250 1500 0    50   Input ~ 0
 ~IRQ4
-Text HLabel 6450 2400 0    50   Input ~ 0
+Text HLabel 6250 2400 0    50   Input ~ 0
 ~IRQ5
-Text HLabel 6450 3300 0    50   Input ~ 0
+Text HLabel 6250 3300 0    50   Input ~ 0
 ~IRQ6
-Text HLabel 6450 4200 0    50   Input ~ 0
+Text HLabel 6250 4200 0    50   Input ~ 0
 ~IRQ7
-Text HLabel 6450 1900 0    50   Input ~ 0
+Text HLabel 6250 1900 0    50   Input ~ 0
 IEN4
-Text HLabel 6450 2800 0    50   Input ~ 0
+Text HLabel 6250 2800 0    50   Input ~ 0
 IEN5
-Text HLabel 6450 3700 0    50   Input ~ 0
+Text HLabel 6250 3700 0    50   Input ~ 0
 IEN6
-Text HLabel 6450 4600 0    50   Input ~ 0
+Text HLabel 6250 4600 0    50   Input ~ 0
 IEN7
 $Comp
 L alexios:74HC74 U1
@@ -1960,4 +1944,20 @@ F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 9750 4600 50  0001 C CNN
 	1    9650 4600
 	1    0    0    -1  
 $EndComp
+Wire Wire Line
+	1050 1500 1700 1500
+Wire Wire Line
+	1050 2400 1700 2400
+Wire Wire Line
+	1050 3300 1700 3300
+Wire Wire Line
+	1050 4200 1700 4200
+Wire Wire Line
+	6250 4200 6900 4200
+Wire Wire Line
+	6250 3300 6900 3300
+Wire Wire Line
+	6250 2400 6900 2400
+Wire Wire Line
+	6250 1500 6900 1500
 $EndSCHEMATC
