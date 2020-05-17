@@ -416,6 +416,12 @@ K Single Gate NOT Schmitt LVC CMOS
 F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
 $ENDCMP
 #
+$CMP 74AHC1G17
+D Single Schmitt NOT Gate, Low-Voltage CMOS
+K Single Gate NOT Schmitt LVC CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
 $CMP 74AHC1G32
 D Single OR Gate, Low-Voltage CMOS
 K Single Gate OR LVC CMOS
@@ -471,6 +477,12 @@ F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
 $ENDCMP
 #
 $CMP 74AHCT1G14_copy
+D Single Schmitt NOT Gate, Low-Voltage CMOS
+K Single Gate NOT Schmitt LVC CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
+$CMP 74AHCT1G17
 D Single Schmitt NOT Gate, Low-Voltage CMOS
 K Single Gate NOT Schmitt LVC CMOS
 F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
@@ -543,6 +555,12 @@ F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
 $ENDCMP
 #
 $CMP 74AUC1G14_copy
+D Single Schmitt NOT Gate, Low-Voltage CMOS
+K Single Gate NOT Schmitt LVC CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
+$CMP 74AUC1G17
 D Single Schmitt NOT Gate, Low-Voltage CMOS
 K Single Gate NOT Schmitt LVC CMOS
 F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
@@ -621,6 +639,12 @@ F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
 $ENDCMP
 #
 $CMP 74AUP1G14_copy
+D Single Schmitt NOT Gate, Low-Voltage CMOS
+K Single Gate NOT Schmitt LVC CMOS
+F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+$ENDCMP
+#
+$CMP 74AUP1G17
 D Single Schmitt NOT Gate, Low-Voltage CMOS
 K Single Gate NOT Schmitt LVC CMOS
 F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
