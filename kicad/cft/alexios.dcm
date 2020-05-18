@@ -163,6 +163,12 @@ K TTL BUFFER 3State BUS
 F https://www.mouser.com/ds/2/149/74AC541-74146.pdf
 $ENDCMP
 #
+$CMP 74AC573
+D 8-bit Latch 3-state outputs
+K TTL DFF DFF8 LATCH 3State
+F https://assets.nexperia.com/documents/data-sheet/74HC_HCT573.pdf
+$ENDCMP
+#
 $CMP 74AC573_copy
 D 8-bit Latch 3-state outputs
 K TTL DFF DFF8 LATCH 3State
@@ -338,6 +344,12 @@ $CMP 74ACT541
 D 8-bit Buffer/Line Driver 3-state outputs
 K TTL BUFFER 3State BUS
 F https://www.mouser.com/ds/2/149/74AC541-74146.pdf
+$ENDCMP
+#
+$CMP 74ACT573
+D 8-bit Latch 3-state outputs
+K TTL DFF DFF8 LATCH 3State
+F https://assets.nexperia.com/documents/data-sheet/74HC_HCT573.pdf
 $ENDCMP
 #
 $CMP 74ACT573_copy
@@ -792,6 +804,12 @@ $CMP 74HC541
 D 8-bit Buffer/Line Driver 3-state outputs
 K TTL BUFFER 3State BUS
 F https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf
+$ENDCMP
+#
+$CMP 74HC573
+D 8-bit Latch 3-state outputs
+K TTL DFF DFF8 LATCH 3State
+F https://assets.nexperia.com/documents/data-sheet/74HC_HCT573.pdf
 $ENDCMP
 #
 $CMP 74HC573_copy

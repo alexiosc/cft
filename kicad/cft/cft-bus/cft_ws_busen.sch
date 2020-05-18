@@ -281,21 +281,21 @@ F 3 "" H 2450 7300 50  0001 C CNN
 	1    2450 7300
 	1    0    0    -1  
 $EndComp
-Text Notes 6050 2600 0    50   ~ 0
+Text Notes 6050 2800 0    50   ~ 0
 ~WEN~\n\n X\n X\n 1\n 0\n 0
 Wire Notes Line width 20 style solid
-	5275 1975 6800 1975
+	5275 2175 6800 2175
 Wire Notes Line style solid
-	5275 2150 6800 2150
+	5275 2350 6800 2350
 Wire Notes Line width 20 style solid
-	6800 2650 6800 1975
+	6800 2850 6800 2175
 Wire Notes Line width 20 style solid
-	5275 2650 5275 1975
+	5275 2850 5275 2175
 Wire Notes Line width 20 style solid
-	5275 2650 6800 2650
+	5275 2850 6800 2850
 Wire Notes Line
-	6550 1975 6550 2650
-Text Notes 5350 2600 0    50   ~ 0
+	6550 2175 6550 2850
+Text Notes 5350 2800 0    50   ~ 0
 ~HALT~\n\n 0\n 1\n 1\n 1\n 1
 $Comp
 L alexios:74AHC1G32 U?
@@ -361,7 +361,7 @@ Connection ~ 3900 7500
 Connection ~ 3900 7300
 Connection ~ 5350 7500
 Connection ~ 5350 7300
-Text Notes 5250 1900 0    50   ~ 0
+Text Notes 5250 2100 0    50   ~ 0
 Keep ~W~ low during a wait state.
 $Comp
 L alexios:74HC245 U50
@@ -448,9 +448,9 @@ F 3 "" H 5350 6600 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Connection ~ 5350 6600
-Text Notes 5600 2600 0    50   ~ 0
+Text Notes 5600 2800 0    50   ~ 0
 ~WAITING~\n\n  X\n  0\n  1\n  1\n  1
-Text Notes 6650 2600 0    50   ~ 0
+Text Notes 6650 2800 0    50   ~ 0
 ~W~\n\nZ\n0\n1\n1\n0
 $Comp
 L alexios:74LVC1G3208 U44
@@ -629,37 +629,12 @@ Wire Notes Line width 12 style solid
 	4400 2700 4450 2700
 Wire Notes Line width 12 style solid
 	4000 2600 4400 2600
-Text Notes 7250 1550 0    50   ~ 0
-Allow for impedance matching resistor if needed.
+Text Notes 7250 1650 0    50   ~ 0
+Allow for impedance matching resistors\nif needed.
 Text Label 1750 3850 0    50   ~ 0
 CLK3
 Wire Wire Line
-	1650 3850 3800 3850
-Text Label 3650 3850 2    50   ~ 0
-CLK3
-$Comp
-L alexios:74AHC1G32 U?
-U 1 1 5D33F5C7
-P 2800 3650
-AR Path="/5D33F5C7" Ref="U?"  Part="1" 
-AR Path="/5D30488D/5D33F5C7" Ref="U?"  Part="1" 
-AR Path="/5D44ECB5/5D33F5C7" Ref="U?"  Part="1" 
-AR Path="/5D46B22D/5D33F5C7" Ref="U46"  Part="1" 
-F 0 "U46" H 2750 3917 50  0000 C CNN
-F 1 "74AHC1G32" H 2750 3826 50  0000 C CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 2810 3630 50  0001 C CNN
-F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 2810 3630 50  0001 C CNN
-	1    2800 3650
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	1650 3700 2600 3700
-Text Label 1750 3700 0    50   ~ 0
-~T34
-Text HLabel 1650 3700 0    50   Input ~ 0
-~T34
-Wire Wire Line
-	2100 3600 2600 3600
+	1650 3850 2000 3850
 Wire Wire Line
 	3100 3650 3750 3650
 Connection ~ 3750 3650
@@ -1086,28 +1061,27 @@ F 3 "~" H 6850 950 50  0001 C CNN
 	1    6650 950 
 	1    0    0    -1  
 $EndComp
-Connection ~ 2100 3600
 Wire Wire Line
-	2100 3550 2100 3600
+	1950 3450 1950 3500
 Wire Wire Line
-	1650 3600 2100 3600
+	1650 3500 1950 3500
 $Comp
 L power:+5V #PWR?
 U 1 1 5D2DC653
-P 2100 3350
+P 1950 3250
 AR Path="/5F67D4B5/5D2DC653" Ref="#PWR?"  Part="1" 
 AR Path="/5D46B22D/5D2DC653" Ref="#PWR0112"  Part="1" 
-F 0 "#PWR0112" H 2100 3200 50  0001 C CNN
-F 1 "+5V" H 2115 3523 50  0000 C CNN
-F 2 "" H 2100 3350 50  0001 C CNN
-F 3 "" H 2100 3350 50  0001 C CNN
-	1    2100 3350
+F 0 "#PWR0112" H 1950 3100 50  0001 C CNN
+F 1 "+5V" H 1965 3423 50  0000 C CNN
+F 2 "" H 1950 3250 50  0001 C CNN
+F 3 "" H 1950 3250 50  0001 C CNN
+	1    1950 3250
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:R_Small R?
 U 1 1 5D2DC64D
-P 2100 3450
+P 1950 3350
 AR Path="/5D2DC64D" Ref="R?"  Part="1" 
 AR Path="/5CC0D65F/5D2DC64D" Ref="R?"  Part="1" 
 AR Path="/5D54E677/5D2DC64D" Ref="R?"  Part="1" 
@@ -1115,11 +1089,11 @@ AR Path="/5D62E1DC/5D2DC64D" Ref="R?"  Part="1"
 AR Path="/5DEAC282/5D2DC64D" Ref="R?"  Part="1" 
 AR Path="/5F67D4B5/5D2DC64D" Ref="R?"  Part="1" 
 AR Path="/5D46B22D/5D2DC64D" Ref="R14"  Part="1" 
-F 0 "R14" H 2159 3496 50  0000 L CNN
-F 1 "4.7kΩ" H 2159 3405 50  0000 L CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2100 3450 50  0001 C CNN
-F 3 "~" H 2100 3450 50  0001 C CNN
-	1    2100 3450
+F 0 "R14" H 2009 3396 50  0000 L CNN
+F 1 "4.7kΩ" H 2009 3305 50  0000 L CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1950 3350 50  0001 C CNN
+F 3 "~" H 1950 3350 50  0001 C CNN
+	1    1950 3350
 	1    0    0    -1  
 $EndComp
 Text Notes 6700 1000 0    50   ~ 0
@@ -1175,8 +1149,6 @@ F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 6750 1650 50  0001 C CNN
 	1    6600 1400
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	1650 3950 3800 3950
 Text Notes 5350 4300 0    50   ~ 0
 Keep the data bus enabled\nwhile waiting.
 Text HLabel 1650 950  0    50   Input ~ 0
@@ -1272,9 +1244,9 @@ F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 4700 3800 50  0001 C CNN
 	1    4250 3800
 	1    0    0    -1  
 $EndComp
-Text HLabel 1650 3600 0    50   Input ~ 0
+Text HLabel 1650 3500 0    50   Input ~ 0
 ~WS
-Text Label 1750 3600 0    50   ~ 0
+Text Label 1750 3500 0    50   ~ 0
 ~WS
 Text Label 4400 1650 2    50   ~ 0
 ~WSTB
@@ -1303,8 +1275,6 @@ NoConn ~ 2050 2100
 Connection ~ 5150 3950
 Wire Wire Line
 	5150 3950 5150 4500
-Wire Wire Line
-	5150 1500 5150 3950
 Connection ~ 2000 1400
 Wire Wire Line
 	2000 1400 3450 1400
@@ -1383,7 +1353,7 @@ Wire Notes Line width 20 style solid
 	5050 2800 3300 2800
 Wire Notes Line width 20 style solid
 	5050 2200 5050 2800
-Text Notes 6300 2600 0    50   ~ 0
+Text Notes 6300 2800 0    50   ~ 0
 ~WSTB~\n\n  X\n  X\n  X\n  1\n  0
 Text Notes 6950 1150 0    50   ~ 0
 ~W~ strobes come at most approximately 9ns after ~WSTB~.
@@ -1557,7 +1527,7 @@ Text HLabel 1650 4350 0    50   Input ~ 0
 Wire Notes Line width 20 style solid
 	800  5850 4500 5850
 Text Notes 900  6050 0    50   ~ 0
-Wait States must be asserted:\n\n    • In the first half of the processor cycle.\n    • At the latest one flip-flop setup time before CLK3 goes high.\n    • Remain low at least one hold time after CLK3 goes high.\n\nExecution of the current microinstruction will then be protracted by a whole number of\nprocessor cycles, ending on the cycle where ~WS~ was not asserted on the rising edge\nof CLK3.\n\nTo generate wait states for slow devices, assert ~WS~ asynchronously when the\ndevice is addressed, and clear it synchronously when CLK4 or WSTB go high *after* the\ndevice has finished its work. (CLK4 is the better choice)\n\n\n\n\n
+Wait States must be asserted:\n\n    • During CLK3.\n    • At the latest one flip-flop setup time before CLK3 goes high.\n    • Remain low at least one hold time after CLK3 goes high.\n\nExecution of the current microinstruction will then be protracted by a whole number of\nprocessor cycles, ending on the cycle where ~WS~ was not asserted on the rising edge\nof CLK3.\n\nTo generate wait states for slow devices, assert ~WS~ asynchronously when the\ndevice is addressed, and clear it synchronously when CLK4 or WSTB go high *after* the\ndevice has finished its work. (CLK4 is the better choice)\n\n\n\n\n
 Wire Notes Line width 20 style solid
 	800  5850 800  4600
 Wire Notes Line width 20 style solid
@@ -1586,8 +1556,101 @@ Wire Wire Line
 	4600 4700 5300 4700
 Text Label 4900 4400 0    50   ~ 0
 ~R
+Wire Notes Line
+	6950 1250 8850 1250
+Wire Notes Line
+	1950 1000 4050 1000
+Wire Notes Line
+	4050 1000 4050 1350
+Wire Notes Line
+	4050 1350 1950 1350
+Wire Notes Line
+	1950 1350 1950 1000
+Wire Wire Line
+	5150 1500 5150 1800
+$Comp
+L Device:R_Small R?
+U 1 1 5EEA0A36
+P 7100 1800
+AR Path="/5EEA0A36" Ref="R?"  Part="1" 
+AR Path="/5CC0D65F/5EEA0A36" Ref="R?"  Part="1" 
+AR Path="/5D54E677/5EEA0A36" Ref="R?"  Part="1" 
+AR Path="/5D62E1DC/5EEA0A36" Ref="R?"  Part="1" 
+AR Path="/5DEAC282/5EEA0A36" Ref="R?"  Part="1" 
+AR Path="/5F67D4B5/5EEA0A36" Ref="R?"  Part="1" 
+AR Path="/5D46B22D/5EEA0A36" Ref="R?"  Part="1" 
+F 0 "R?" V 7200 1800 50  0000 C CNN
+F 1 "0Ω" V 7200 1950 50  0000 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7100 1800 50  0001 C CNN
+F 3 "~" H 7100 1800 50  0001 C CNN
+	1    7100 1800
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	7200 1800 9550 1800
+Wire Wire Line
+	7000 1800 5150 1800
+Connection ~ 5150 1800
+Wire Wire Line
+	5150 1800 5150 3950
+Text HLabel 9550 1800 2    50   Output ~ 0
+~WAITING
+Text Label 9450 1800 2    50   ~ 0
+~WAITING
+Wire Notes Line
+	6950 2000 6950 1250
+Wire Notes Line
+	8850 2000 6950 2000
+Wire Notes Line
+	8850 1250 8850 2000
+$Comp
+L alexios:74LVC1G373 U?
+U 1 1 5EEE0250
+P 2600 3600
+F 0 "U?" H 2600 3967 50  0000 C CNN
+F 1 "74LVC1G373" H 2600 3876 50  0000 C CNN
+F 2 "" H 2500 3625 50  0001 C CNN
+F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 2500 3625 50  0001 C CNN
+	1    2600 3600
+	1    0    0    -1  
+$EndComp
+Connection ~ 1950 3500
+Wire Wire Line
+	1950 3500 2150 3500
+Wire Wire Line
+	1650 3950 3800 3950
+$Comp
+L power:GND #PWR?
+U 1 1 5EF06396
+P 2150 3700
+AR Path="/5EF06396" Ref="#PWR?"  Part="1" 
+AR Path="/5D30488D/5EF06396" Ref="#PWR?"  Part="1" 
+AR Path="/5D44ECB5/5EF06396" Ref="#PWR?"  Part="1" 
+AR Path="/5D46B22D/5EF06396" Ref="#PWR?"  Part="1" 
+F 0 "#PWR?" H 2150 3450 50  0001 C CNN
+F 1 "GND" V 2200 3850 50  0000 R CNN
+F 2 "" H 2150 3700 50  0001 C CNN
+F 3 "" H 2150 3700 50  0001 C CNN
+	1    2150 3700
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	2000 3850 2000 3600
+Connection ~ 2000 3850
+Wire Wire Line
+	2000 3850 3800 3850
+Wire Wire Line
+	2000 3600 2150 3600
+Wire Wire Line
+	3050 3500 3100 3500
+Wire Wire Line
+	3100 3500 3100 3650
 Wire Bus Line
 	8750 3250 8750 5600
 Wire Bus Line
 	6850 3600 6850 6050
+Text Label 3650 3850 2    50   ~ 0
+CLK3
+Text Notes 2550 3700 0    100  ~ 20
+TODO: REWORK THIS.
 $EndSCHEMATC

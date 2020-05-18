@@ -52,10 +52,13 @@ module upc(nreset, nrsthold, clk4, nend, nendext, nws, nhalt, upc);
    // Clear the µPC when ENDEXT# or END# are asserted by loading it with
    // 4'b0000. The reset sequence asserts END#, so it also clears the µPC
    // programmatically, but that's immaterial because RSTHOLD# is connected to
-   // the counter's reset input anyway.
+   // the counter's reset input anyway. Update: Don't clear if WS# is
+   // asserted. This solves a bug where wait states wouldn't be honoured if
+   // requested while END# is also asserted.
    
    wire 	nupcclr;	// Clear the µPC
-   assign #6 nupcclr = nend & nendext;
+   //assign #6 nupcclr = nend & nendext;
+   assign #6 nupcclr = (nend & nendext) | nws;
 
    // Note: we ignore the TC output
    counter_161 upc_ctr(.mr(nrsthold), // Async reset on RSTHOLD#

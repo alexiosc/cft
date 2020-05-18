@@ -410,6 +410,7 @@ F11 "~W" T R 6050 4450 50
 F12 "~R" I L 4900 4450 50 
 F13 "IBUS[0..15]" T L 4900 4900 50 
 F14 "DB[0..15]" T R 6050 4900 50 
+F15 "~WAITING" O R 6050 4550 50 
 $EndSheet
 Text Label 4050 4800 0    50   ~ 0
 ~WS
@@ -599,7 +600,6 @@ Text Label 900  2150 0    50   ~ 0
 ~IR-IDX
 Wire Wire Line
 	10000 3000 9500 3000
-NoConn ~ 10000 3000
 Wire Wire Line
 	10000 5500 9500 5500
 NoConn ~ 10000 5500
@@ -724,6 +724,12 @@ Text Label 850  3850 0    50   ~ 0
 ~T34
 Wire Wire Line
 	1700 3850 850  3850
+Wire Wire Line
+	6050 4550 6900 4550
 Wire Bus Line
 	9950 1450 9950 1700
+Text Label 6900 4550 2    50   ~ 0
+~WAITING
+Text Label 10000 3000 2    50   ~ 0
+~WAITING
 $EndSCHEMATC

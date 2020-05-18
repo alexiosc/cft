@@ -175,11 +175,21 @@ module card_verilog_test (
 		     ab[7:0] === 8'hfe &&
 		     product == 0 ? 1'b0 : 1'bz;
 
+   task ws_strobe;
+      nws_drv = 0;
+      #200 nws_drv = 1;
+   endtask // ws_strobe
+   
+
    always @(nr, niodev3xx, ab) begin
       // Map to 3F0-3FF, addresses we probably won't use for anything else.
       if (nr === 1'b0 && niodev3xx === 1'b0) begin
 	 case (ab[7:0])
-	   8'hf0: ibus_drv = 16'h0000;
+	   8'hf0: begin
+	      ws_strobe();
+	      ibus_drv = 16'hdead;
+	      #250 ibus_drv = 16'h5501;
+	   end
 	   8'hf1: ibus_drv = 16'h0000;
 	   8'hf2: ibus_drv = 16'h0000;
 	   8'hf3: ibus_drv = 16'h0000;

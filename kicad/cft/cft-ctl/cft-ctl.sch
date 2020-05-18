@@ -32,9 +32,9 @@ F12 "CEXT8" T L 4200 5550 50
 F13 "CEXT9" T L 4200 5650 50 
 F14 "CEXT10" T L 4200 5750 50 
 $EndSheet
-Text Label 900  4650 0    50   ~ 0
+Text Label 900  4750 0    50   ~ 0
 IN-RSVD
-Text Label 900  4550 0    50   ~ 0
+Text Label 900  4650 0    50   ~ 0
 ~COND
 Text Label 3250 5650 2    50   ~ 0
 FPD[0..7]
@@ -74,26 +74,20 @@ Wire Wire Line
 	2650 4150 3250 4150
 Wire Wire Line
 	2650 4050 3250 4050
-Text Label 900  4250 0    50   ~ 0
+Text Label 900  4350 0    50   ~ 0
 ~WS
-Text Label 900  4150 0    50   ~ 0
+Text Label 900  4250 0    50   ~ 0
 ~ENDEXT
-Wire Wire Line
-	900  4250 1500 4250
-Wire Wire Line
-	900  4150 1500 4150
 Text Label 900  3750 0    50   ~ 0
 ~RSTHOLD
 Wire Wire Line
 	900  3750 1500 3750
-Text Label 900  3950 0    50   ~ 0
+Text Label 900  4050 0    50   ~ 0
 CLK4
 Wire Wire Line
 	1500 3950 900  3950
-Text Label 900  4050 0    50   ~ 0
+Text Label 900  4150 0    50   ~ 0
 ~HALT
-Wire Wire Line
-	1500 4050 900  4050
 Text Label 3100 2850 2    50   ~ 0
 T34
 Text Label 3100 2700 2    50   ~ 0
@@ -220,8 +214,6 @@ Wire Wire Line
 	4200 5450 3600 5450
 Text Label 3600 5450 0    50   ~ 0
 ~SKIPEXT
-Wire Wire Line
-	900  4650 1500 4650
 Wire Bus Line
 	1500 6650 900  6650
 Text Label 900  6650 0    50   ~ 0
@@ -539,24 +531,20 @@ Text Notes 10150 2600 0    50   ~ 0
 → ALU
 Wire Wire Line
 	9500 5500 10100 5500
-Wire Wire Line
-	1500 4350 900  4350
-Wire Wire Line
-	1500 4450 900  4450
-Text Label 900  4350 0    50   ~ 0
-IDX0
 Text Label 900  4450 0    50   ~ 0
+IDX0
+Text Label 900  4550 0    50   ~ 0
 IDX1
 $Sheet
-S 1500 3500 1150 2300
+S 1500 3500 1150 2450
 U 5DEAC282
 F0 "Microprogram Sequencer" 50
 F1 "cft_microcode.sch" 50
-F2 "~ENDEXT" I L 1500 4150 50 
+F2 "~ENDEXT" I L 1500 4250 50 
 F3 "~RSTHOLD" I L 1500 3750 50 
-F4 "~WS" I L 1500 4250 50 
-F5 "~HALT" I L 1500 4050 50 
-F6 "CLK4" I L 1500 3950 50 
+F4 "~WS" I L 1500 4350 50 
+F5 "~HALT" I L 1500 4150 50 
+F6 "CLK4" I L 1500 4050 50 
 F7 "~RESET" I L 1500 3650 50 
 F8 "RADDR[0..4]" O R 2650 3650 50 
 F9 "WADDR[0..4]" O R 2650 3750 50 
@@ -567,78 +555,59 @@ F13 "~IO" O R 2650 4150 50
 F14 "~R" O R 2650 4250 50 
 F15 "~WEN" O R 2650 4350 50 
 F16 "~END" O R 2650 4450 50 
-F17 "~IRQSµC" I L 1500 5650 50 
-F18 "IN-RSVD" I L 1500 4650 50 
-F19 "~COND" I L 1500 4550 50 
+F17 "~IRQSµC" I L 1500 5750 50 
+F18 "IN-RSVD" I L 1500 4750 50 
+F19 "~COND" I L 1500 4650 50 
 F20 "FPD[0..7]" T R 2650 5650 50 
 F21 "~FPµA0" I R 2650 5250 50 
 F22 "~FPµC0" I R 2650 5350 50 
 F23 "~FPµC1" I R 2650 5450 50 
 F24 "~FPµC2" I R 2650 5550 50 
 F25 "FPFETCH" O R 2650 5150 50 
-F26 "IDX0" I L 1500 4350 50 
-F27 "IDX1" I L 1500 4450 50 
-F28 "IR7" I L 1500 4750 50 
-F29 "IR8" I L 1500 4850 50 
-F30 "IR9" I L 1500 4950 50 
-F31 "IR10" I L 1500 5050 50 
-F32 "IR11" I L 1500 5150 50 
-F33 "IR12" I L 1500 5250 50 
-F34 "IR13" I L 1500 5350 50 
-F35 "IR14" I L 1500 5450 50 
-F36 "IR15" I L 1500 5550 50 
+F26 "IDX0" I L 1500 4450 50 
+F27 "IDX1" I L 1500 4550 50 
+F28 "IR7" I L 1500 4850 50 
+F29 "IR8" I L 1500 4950 50 
+F30 "IR9" I L 1500 5050 50 
+F31 "IR10" I L 1500 5150 50 
+F32 "IR11" I L 1500 5250 50 
+F33 "IR12" I L 1500 5350 50 
+F34 "IR13" I L 1500 5450 50 
+F35 "IR14" I L 1500 5550 50 
+F36 "IR15" I L 1500 5650 50 
 F37 "CLK2" I L 1500 3850 50 
+F38 "CLK3" I L 1500 3950 50 
 $EndSheet
 Wire Wire Line
 	900  3850 1500 3850
 Text Label 900  3850 0    50   ~ 0
 CLK2
 Wire Wire Line
-	1500 4750 900  4750
-Wire Wire Line
-	1500 4850 900  4850
-Wire Wire Line
-	1500 4950 900  4950
-Wire Wire Line
-	1500 5050 900  5050
-Wire Wire Line
-	1500 5150 900  5150
-Wire Wire Line
-	1500 5250 900  5250
-Wire Wire Line
-	1500 5350 900  5350
-Wire Wire Line
-	1500 5450 900  5450
-Wire Wire Line
-	1500 5550 900  5550
-Wire Wire Line
-	1500 5650 1000 5650
-Text Label 900  4750 0    50   ~ 0
-IR7
+	1500 5750 1000 5750
 Text Label 900  4850 0    50   ~ 0
-IR8
+IR7
 Text Label 900  4950 0    50   ~ 0
-IR9
+IR8
 Text Label 900  5050 0    50   ~ 0
-IR10
+IR9
 Text Label 900  5150 0    50   ~ 0
-IR11
+IR10
 Text Label 900  5250 0    50   ~ 0
-IR12
+IR11
 Text Label 900  5350 0    50   ~ 0
-IR13
+IR12
 Text Label 900  5450 0    50   ~ 0
-IR14
+IR13
 Text Label 900  5550 0    50   ~ 0
+IR14
+Text Label 900  5650 0    50   ~ 0
 IR15
-Text Label 1000 5650 0    50   ~ 0
+Text Label 1000 5750 0    50   ~ 0
 ~IRQSµC
 Text Label 10100 5500 2    50   ~ 0
 IN-RSVD
 Text Notes 10200 5500 0    50   ~ 0
 For future expansion
-Wire Wire Line
-	1500 4550 900  4550
 Wire Bus Line
 	5350 2250 5950 2250
 $Sheet
@@ -855,6 +824,8 @@ Wire Wire Line
 Text Label 10100 4600 2    50   ~ 0
 POWEROK
 Entry Wire Line
+	800  5650 900  5550
+Entry Wire Line
 	800  5550 900  5450
 Entry Wire Line
 	800  5450 900  5350
@@ -869,9 +840,7 @@ Entry Wire Line
 Entry Wire Line
 	800  4950 900  4850
 Entry Wire Line
-	800  4850 900  4750
-Entry Wire Line
-	800  5650 900  5550
+	800  5750 900  5650
 Wire Bus Line
 	2650 3650 3250 3650
 Wire Bus Line
@@ -914,7 +883,7 @@ Wire Wire Line
 	900  2250 1500 2250
 Wire Wire Line
 	900  3650 1500 3650
-Text Label 800  5350 1    50   ~ 0
+Text Label 800  5450 1    50   ~ 0
 IR[0..15]
 Wire Wire Line
 	5350 6350 5950 6350
@@ -1235,8 +1204,44 @@ F66 "C38" U R 9500 5300 50
 F67 "C39" U R 9500 5400 50 
 F68 "C40" U R 9500 5500 50 
 $EndSheet
+Wire Wire Line
+	1500 4650 900  4650
+Wire Wire Line
+	1500 5650 900  5650
+Wire Wire Line
+	1500 5550 900  5550
+Wire Wire Line
+	1500 5450 900  5450
+Wire Wire Line
+	1500 5350 900  5350
+Wire Wire Line
+	1500 5250 900  5250
+Wire Wire Line
+	1500 5150 900  5150
+Wire Wire Line
+	1500 5050 900  5050
+Wire Wire Line
+	1500 4950 900  4950
+Wire Wire Line
+	1500 4850 900  4850
+Wire Wire Line
+	1500 4550 900  4550
+Wire Wire Line
+	1500 4450 900  4450
+Wire Wire Line
+	900  4750 1500 4750
+Wire Wire Line
+	1500 4150 900  4150
+Wire Wire Line
+	900  4250 1500 4250
+Wire Wire Line
+	900  4350 1500 4350
+Wire Wire Line
+	1500 4050 900  4050
+Text Label 900  3950 0    50   ~ 0
+CLK3
 Wire Bus Line
 	9950 1450 9950 2100
 Wire Bus Line
-	800  4850 800  5650
+	800  4950 800  5750
 $EndSCHEMATC

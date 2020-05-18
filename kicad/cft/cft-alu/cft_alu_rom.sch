@@ -1729,6 +1729,8 @@ $Comp
 L alexios:74HC573 U43
 U 1 1 5FA80993
 P 2850 2650
+AR Path="/5FA80993" Ref="U43"  Part="1" 
+AR Path="/5DE3C078/5FA80993" Ref="U43"  Part="1" 
 F 0 "U43" H 2850 3417 50  0000 C CNN
 F 1 "74HC573" H 2850 3326 50  0000 C CNN
 F 2 "alexios:SOIC-20W" H 2850 2650 50  0001 C CNN
@@ -1741,6 +1743,8 @@ $Comp
 L alexios:74HC573 U43
 U 2 1 5FA82BCD
 P 10500 5300
+AR Path="/5FA82BCD" Ref="U43"  Part="2" 
+AR Path="/5DE3C078/5FA82BCD" Ref="U43"  Part="2" 
 F 0 "U43" H 10530 5746 50  0000 L CNN
 F 1 "74HC573" H 10530 5655 50  0000 L CNN
 F 2 "alexios:SOIC-20W" H 10500 5300 50  0001 C CNN
@@ -1917,6 +1921,8 @@ Text Notes 900  6900 0    50   ~ 0
 55 ns ROMs must be used. These are the fastest 5V parallel\ndevices in existence, but carry propagation triples their access\ntime when calculationg addition.\n\nTo mitigate the problem, the circuit fully buffers the ROMs'\naddresses and separate buffers isolate them from the IBus.\n\nMicrocode is structured carefully to first perform a dummy read\nfrom the ALU. This latches the operation, and then a full\n250 ns cycle later the microcode reads the ALU Y port value to\ncomplete the operation. This is only necessary for ADD—bitwise\noperations cascade no bits and the result is available within\none cycle.
 Text Notes 900  5750 0    66   ~ 13
 Timing
+Text Notes 5900 750  2    63   ~ 13
+55 ns devices!
 Wire Bus Line
 	8650 750  8650 3100
 Wire Bus Line
@@ -1925,6 +1931,4 @@ Wire Bus Line
 	4450 750  4450 5450
 Wire Bus Line
 	6700 1050 6700 5450
-Text Notes 5900 750  2    63   ~ 13
-55 ns devices!
 $EndSCHEMATC

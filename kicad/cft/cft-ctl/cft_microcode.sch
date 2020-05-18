@@ -13,26 +13,13 @@ Comment2 ""
 Comment3 ""
 Comment4 "sequencer.v"
 $EndDescr
-$Comp
-L alexios:74AHC1G08 U?
-U 1 1 5DEB2D66
-P 2150 1950
-AR Path="/5DEB2D66" Ref="U?"  Part="1" 
-AR Path="/5DEAC282/5DEB2D66" Ref="U43"  Part="1" 
-F 0 "U43" H 2075 2217 50  0000 C CNN
-F 1 "74LVC1G08" H 2075 2126 50  0000 C CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 1800 1950 50  0001 C CNN
-F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 1800 1950 50  0001 C CNN
-	1    2150 1950
-	1    0    0    -1  
-$EndComp
-Text Label 1550 1900 0    50   ~ 0
+Text Label 1550 1850 0    50   ~ 0
 ~ENDEXT
 Wire Wire Line
-	1550 2000 1850 2000
-Text HLabel 1150 1900 0    50   Input ~ 0
+	1550 1950 1850 1950
+Text HLabel 1150 1850 0    50   Input ~ 0
 ~ENDEXT
-Text Label 1550 2000 0    50   ~ 0
+Text Label 1550 1950 0    50   ~ 0
 ~END
 Wire Wire Line
 	3750 1550 3650 1550
@@ -66,8 +53,6 @@ F 3 "" H 3650 1900 50  0001 C CNN
 	1    3650 1900
 	1    0    0    -1  
 $EndComp
-Text Label 2350 1950 0    50   ~ 0
-~µPCCLR
 Text HLabel 1150 2550 0    50   Input ~ 0
 ~RSTHOLD
 Text Label 3700 2550 2    50   ~ 0
@@ -80,10 +65,6 @@ Text HLabel 1150 2150 0    50   Input ~ 0
 ~WS
 Text Label 1550 2150 0    50   ~ 0
 ~WS
-Wire Wire Line
-	2300 1950 2700 1950
-Wire Wire Line
-	2700 1950 2700 2050
 Text Label 3700 2150 2    50   ~ 0
 ~WS
 Text Label 1550 2250 0    50   ~ 0
@@ -111,8 +92,6 @@ Text Label 5000 1750 2    50   ~ 0
 UPC2
 Text Label 5000 1850 2    50   ~ 0
 UPC3
-Wire Wire Line
-	1150 1900 1200 1900
 Text Label 3700 2250 2    50   ~ 0
 ~HALT
 Text Label 3700 2350 2    50   ~ 0
@@ -322,10 +301,6 @@ Text HLabel 1150 5400 0    50   Input ~ 0
 ~RSTHOLD
 Text HLabel 1150 4200 0    50   Input ~ 0
 ~COND
-Wire Wire Line
-	1150 2150 3750 2150
-Wire Wire Line
-	1150 2350 3750 2350
 Text HLabel 6650 6100 2    50   3State ~ 0
 FPD[0..7]
 $Comp
@@ -818,10 +793,9 @@ F 3 "~" H 1350 1600 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 Wire Wire Line
-	1200 1700 1200 1900
-Connection ~ 1200 1900
+	1200 1700 1200 1850
 Wire Wire Line
-	1200 1900 1850 1900
+	1200 1850 1850 1850
 Wire Wire Line
 	1350 1700 1350 2250
 Connection ~ 1350 2250
@@ -1503,21 +1477,6 @@ Wire Wire Line
 	2000 5900 2650 5900
 Wire Wire Line
 	1150 5650 2650 5650
-Connection ~ 2250 7300
-Connection ~ 2250 7500
-$Comp
-L alexios:74AHC1G08 U?
-U 2 1 5DEB32A6
-P 2700 7300
-AR Path="/5DEB32A6" Ref="U?"  Part="1" 
-AR Path="/5DEAC282/5DEB32A6" Ref="U43"  Part="2" 
-F 0 "U43" H 2780 7246 50  0000 L CNN
-F 1 "74LVC1G08" H 2780 7155 50  0000 L CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 2350 7300 50  0001 C CNN
-F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 2350 7300 50  0001 C CNN
-	2    2700 7300
-	1    0    0    -1  
-$EndComp
 $Comp
 L alexios:SN74ACT1071 U?
 U 1 1 5E1680B3
@@ -1571,6 +1530,73 @@ Wire Wire Line
 Connection ~ 1250 2250
 Wire Wire Line
 	1250 2250 1350 2250
+Connection ~ 1200 1850
+Wire Wire Line
+	1150 1850 1200 1850
+$Comp
+L alexios:74LVC1G0832 U29
+U 2 1 5ED0FCC2
+P 2600 7400
+F 0 "U29" H 2780 7446 50  0000 L CNN
+F 1 "74LVC1G0832" H 2780 7355 50  0000 L CNN
+F 2 "alexios:SOT-23-6_Handsoldering" H 2600 7400 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/sn74lvc1g0832.pdf" H 2600 7400 50  0001 C CNN
+	2    2600 7400
+	1    0    0    -1  
+$EndComp
+Connection ~ 2250 7500
+Connection ~ 2250 7300
+Text Notes -1900 2450 0    50   ~ 0
+~WS~\n\n 0\n 1\n 1
+Text Notes -1000 2450 0    50   ~ 0
+~µPCCLR~\n\n  1\n  1\n  0
+Wire Notes Line width 12 style solid
+	-1950 2000 -600 2000
+Wire Notes Line width 12 style solid
+	-600 2000 -600 2500
+Wire Notes Line width 12 style solid
+	-1950 2000 -1950 2500
+Wire Notes Line style solid
+	-1950 2160 -600 2160
+Wire Notes Line
+	-1060 2000 -1060 2500
+Wire Notes Line width 12 style solid
+	-1950 2500 -600 2500
+Text Notes -1350 2450 0    50   ~ 0
+~END~\n\n  X\n  X\n  0
+Text Notes -1700 2450 0    50   ~ 0
+~ENDEXT~\n\n   X\n   0\n   X
+Wire Wire Line
+	1150 2150 3750 2150
+$Comp
+L alexios:74LVC1G3208 U?
+U 1 1 5EDB6618
+P 2200 1950
+F 0 "U?" H 2225 2264 50  0000 C CNN
+F 1 "74LVC1G3208" H 2225 2173 50  0000 C CNN
+F 2 "" H 1875 1750 50  0001 C CNN
+F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 1875 1750 50  0001 C CNN
+	1    2200 1950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1150 2350 3750 2350
+Wire Wire Line
+	1150 2050 1850 2050
+Text Label 1550 2050 0    50   ~ 0
+CLK3
+Text HLabel 1150 2050 0    50   Input ~ 0
+CLK3
+Text Notes 1850 2000 0    100  ~ 20
+TODO: Rework This
+Wire Notes Line
+	1350 3050 2000 3050
+Wire Notes Line
+	2000 3050 2000 3950
+Wire Notes Line
+	2000 3950 1350 3950
+Wire Notes Line
+	1350 3950 1350 3050
 Wire Bus Line
 	4550 3050 4550 3800
 Wire Bus Line

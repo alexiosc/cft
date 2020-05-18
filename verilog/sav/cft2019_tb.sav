@@ -1,22 +1,23 @@
 [*]
-[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Fri May 15 16:07:28 2020
+[*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
+[*] Mon May 18 08:43:02 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/cft2019_tb.vcd"
-[dumpfile_mtime] "Fri May 15 16:06:05 2020"
-[dumpfile_size] 924957
+[dumpfile_mtime] "Mon May 18 08:39:56 2020"
+[dumpfile_size] 98807709
 [optimize_vcd]
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/cft2019_tb.sav"
-[timestart] 24240000
-[size] 2207 1123
-[pos] 1899 0
-*-21.709177 40920000 15001750 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[timestart] 8729000
+[size] 2928 1652
+[pos] 1178 0
+*-18.721136 10724000 15001750 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] cft2019_tb.
 [treeopen] cft2019_tb.cft.
-[treeopen] cft2019_tb.cft.card_alu.
-[treeopen] cft2019_tb.cft.card_alu.alu_sru.
 [treeopen] cft2019_tb.cft.card_bus.constant_store.
+[treeopen] cft2019_tb.cft.card_bus.databus.
+[treeopen] cft2019_tb.cft.card_ctl.
 [treeopen] cft2019_tb.cft.card_ctl.ism.
+[treeopen] cft2019_tb.cft.card_ctl.microcode_sequencer.
 [treeopen] cft2019_tb.cft.card_mem.romhi.
 [treeopen] cft2019_tb.cft.card_reg.
 [treeopen] cft2019_tb.cft.card_reg.reg_ac.
@@ -24,7 +25,7 @@
 [sst_width] 372
 [signals_width] 661
 [sst_expanded] 1
-[sst_vpaned_height] 819
+[sst_vpaned_height] 895
 @c00200
 -Reset
 @28
@@ -109,7 +110,7 @@ cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
 +{dr[15:0]} cft2019_tb.cft.card_reg.reg_dr.out[15:0]
 @28
 cft2019_tb.cft.fl
-@23
+@22
 [color] 4
 +{ac[15:0]} cft2019_tb.cft.card_reg.reg_ac.out[15:0]
 @24
@@ -179,7 +180,7 @@ cft2019_tb.cft.card_ctl.fi
 @1000200
 -Flags
 -Registers
-@c00200
+@800200
 -Buses
 @c00022
 [color] 1
@@ -298,12 +299,18 @@ cft2019_tb.cft.nr
 cft2019_tb.cft.nwen
 [color] 1
 cft2019_tb.cft.nw
-@1401200
+cft2019_tb.cft.card_bus.databus.nwaiting
+cft2019_tb.cft.card_bus.databus.nws
+@1000200
 -Buses
-@c00200
--Control Unit
 @28
-cft2019_tb.cft.nws
+cft2019_tb.cft.card_ctl.microcode_sequencer.ctr_upc.cep
+cft2019_tb.cft.card_ctl.microcode_sequencer.ctr_upc.cet
+cft2019_tb.cft.card_ctl.microcode_sequencer.ctr_upc.cp
+@23
+cft2019_tb.cft.card_ctl.microcode_sequencer.ctr_upc.q[3:0]
+@800200
+-Control Unit
 @820
 cft2019_tb.cft.card_ctl.clock_generator.state[15:0]
 @2022
@@ -403,7 +410,7 @@ cft2019_tb.cft.nr
 [color] 2
 cft2019_tb.cft.nwen
 cft2019_tb.cft.card_ctl.microcode_sequencer.nend
-@1401200
+@1000200
 -Control Unit
 @c00200
 -Addressing
@@ -429,6 +436,7 @@ cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
 -Instruction Register
 @800200
 -ALU
+@c00200
 -Shifter/Rotator (SRU)
 @4022
 [color] 1
@@ -569,7 +577,7 @@ cft2019_tb.cft.card_alu.alu_sru.lsb_mux.sel[1:0]
 -group_end
 @28
 cft2019_tb.cft.card_alu.alu_sru.lsb_mux.y
-@1000200
+@1401200
 -Shifter/Rotator (SRU)
 @c00200
 -ROMs

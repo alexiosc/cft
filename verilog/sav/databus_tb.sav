@@ -1,22 +1,22 @@
 [*]
-[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Sat May 16 10:59:37 2020
+[*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
+[*] Mon May 18 09:37:42 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/databus_tb.vcd"
-[dumpfile_mtime] "Sat May 16 10:58:55 2020"
+[dumpfile_mtime] "Mon May 18 09:37:26 2020"
 [dumpfile_size] 1616756
 [optimize_vcd]
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/databus_tb.sav"
-[timestart] 431445000
-[size] 1526 975
-[pos] 2106 4
-*-20.449795 432812500 7510719 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[timestart] 461309000
+[size] 3277 1065
+[pos] 355 4
+*-19.884405 -1 7510719 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] databus_tb.
 [treeopen] databus_tb.databus.
-[sst_width] 258
-[signals_width] 279
+[sst_width] 372
+[signals_width] 318
 [sst_expanded] 1
-[sst_vpaned_height] 252
+[sst_vpaned_height] 284
 @820
 databus_tb.status[800:0]
 @200
