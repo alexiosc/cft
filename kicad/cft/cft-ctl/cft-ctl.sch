@@ -13,25 +13,6 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-$Sheet
-S 4200 4300 1150 1600
-U 5EFCF155
-F0 "Skip/Branch Unit" 50
-F1 "cft_sbu.sch" 50
-F2 "~COND" O R 5350 4450 50 
-F3 "FN" I L 4200 5250 50 
-F4 "~SKIPEXT" T L 4200 5450 50 
-F5 "FV" I L 4200 4950 50 
-F6 "FL" I L 4200 5050 50 
-F7 "FZ" I L 4200 5150 50 
-F8 "CLK4" I L 4200 4550 50 
-F9 "COND[0..4]" I L 4200 4650 50 
-F10 "~RESET" I L 4200 4450 50 
-F11 "IR[0..6]" I L 4200 4750 50 
-F12 "CEXT8" T L 4200 5550 50 
-F13 "CEXT9" T L 4200 5650 50 
-F14 "CEXT10" T L 4200 5750 50 
-$EndSheet
 Text Label 900  4750 0    50   ~ 0
 IN-RSVD
 Text Label 900  4650 0    50   ~ 0
@@ -170,50 +151,12 @@ Wire Bus Line
 	5350 3350 5950 3350
 Text Label 5950 3350 2    50   ~ 0
 IBUS[0..15]
-Wire Wire Line
-	5350 4450 5950 4450
-Text Label 5950 4450 2    50   ~ 0
-~COND
-Text Label 3600 4450 0    50   ~ 0
-~RESET
-Wire Wire Line
-	4200 4450 3600 4450
-Text Label 3600 4550 0    50   ~ 0
-CLK4
-Wire Wire Line
-	4200 4550 3600 4550
-Wire Bus Line
-	3600 4750 4200 4750
 Wire Bus Line
 	4200 3800 3600 3800
 Text Label 3600 3800 0    50   ~ 0
 PC[10..15]
 Text Label 3600 3450 0    50   ~ 0
 ~END
-Wire Wire Line
-	4200 4950 3600 4950
-Wire Wire Line
-	4200 5050 3600 5050
-Wire Wire Line
-	4200 5150 3600 5150
-Wire Wire Line
-	4200 5250 3600 5250
-Text Label 3600 4950 0    50   ~ 0
-FV
-Text Label 3600 5050 0    50   ~ 0
-FL
-Text Label 3600 5150 0    50   ~ 0
-FZ
-Text Label 3600 5250 0    50   ~ 0
-FN
-Text Label 3600 4650 0    50   ~ 0
-COND[0..4]
-Text Label 3600 4750 0    50   ~ 0
-IR[0..6]
-Wire Wire Line
-	4200 5450 3600 5450
-Text Label 3600 5450 0    50   ~ 0
-~SKIPEXT
 Wire Bus Line
 	1500 6650 900  6650
 Text Label 900  6650 0    50   ~ 0
@@ -222,26 +165,6 @@ Text Label 3250 7350 2    50   ~ 0
 FPD[0..7]
 Wire Bus Line
 	2650 7350 3250 7350
-Wire Wire Line
-	4200 6350 3600 6350
-Wire Wire Line
-	4200 6450 3600 6450
-Wire Wire Line
-	4200 6850 3600 6850
-Wire Wire Line
-	4200 6950 3600 6950
-Wire Wire Line
-	4200 7200 3600 7200
-Text Label 3600 6450 0    50   ~ 0
-CLK4
-Text Label 3600 6850 0    50   ~ 0
-IBUS15
-Text Label 3600 6950 0    50   ~ 0
-~FLAGWE
-Text Label 3600 7050 0    50   ~ 0
-~END
-Text Label 3600 7200 0    50   ~ 0
-~IRQ
 Wire Bus Line
 	7800 2600 8350 2600
 Text Label 7800 2600 0    50   ~ 0
@@ -667,10 +590,6 @@ Wire Bus Line
 	1500 6550 900  6550
 Text Label 900  6550 0    50   ~ 0
 RADDR[4..0]
-Wire Bus Line
-	4200 6650 3600 6650
-Text Label 3600 6650 0    50   ~ 0
-ACTION[0..3]
 Wire Wire Line
 	1500 6350 900  6350
 Text Label 900  6350 0    50   ~ 0
@@ -687,18 +606,6 @@ Text Notes 10150 2100 0    50   ~ 0
 → BUS.MBU
 Text Notes 10150 2500 0    50   ~ 0
 ← ALU
-Wire Wire Line
-	4200 5550 3600 5550
-Wire Wire Line
-	4200 5650 3600 5650
-Wire Wire Line
-	4200 5750 3550 5750
-Text Label 3600 5550 0    50   ~ 0
-CEXT8
-Text Label 3600 5650 0    50   ~ 0
-CEXT9
-Text Label 3600 5750 0    50   ~ 0
-CEXT10
 Wire Wire Line
 	9500 5200 10100 5200
 Wire Wire Line
@@ -863,8 +770,6 @@ Text Notes 10150 4600 0    50   ~ 0
 ← PSU (backplane)
 Text Notes 10150 3800 0    50   ~ 0
 → DFP
-Wire Bus Line
-	4200 4650 3600 4650
 Wire Wire Line
 	2650 4450 3250 4450
 Wire Wire Line
@@ -885,18 +790,6 @@ Wire Wire Line
 	900  3650 1500 3650
 Text Label 800  5450 1    50   ~ 0
 IR[0..15]
-Wire Wire Line
-	5350 6350 5950 6350
-Text Label 5950 6350 2    50   ~ 0
-FI
-Wire Wire Line
-	5350 7100 5950 7100
-Wire Wire Line
-	5350 7200 5950 7200
-Text Label 5950 7100 2    50   ~ 0
-~IRQS
-Text Label 5950 7200 2    50   ~ 0
-~IRQSµC
 Text Notes 800  1000 0    100  ~ 20
 The Control Unit Board
 Text Notes 800  1800 0    50   ~ 0
@@ -964,30 +857,9 @@ Text Label 3600 2350 0    50   ~ 0
 Wire Wire Line
 	4200 2350 3600 2350
 Wire Wire Line
-	4200 7050 3600 7050
-Wire Wire Line
 	2650 6950 3250 6950
 Text Label 3250 6950 2    50   ~ 0
 ~WRITE-IR
-$Sheet
-S 4200 6250 1150 1050
-U 5F67D4B5
-F0 "Interrupt State Machine" 50
-F1 "cft_int_fsm.sch" 50
-F2 "~IRQ" I L 4200 7200 50 
-F3 "~RESET" I L 4200 6350 50 
-F4 "FI" O R 5350 6350 50 
-F5 "~IRQS" O R 5350 7100 50 
-F6 "~END" I L 4200 7050 50 
-F7 "CLK4" I L 4200 6450 50 
-F8 "~IRQSµC" O R 5350 7200 50 
-F9 "IBUS15" I L 4200 6850 50 
-F10 "~FLAGWE" I L 4200 6950 50 
-F11 "ACTION[0..3]" I L 4200 6650 50 
-F12 "~ACTION-IDX" O R 5350 6550 50 
-$EndSheet
-Text Label 3600 6350 0    50   ~ 0
-~RESET
 Text Label 900  2250 0    50   ~ 0
 ~RESET
 Wire Wire Line
@@ -1010,25 +882,8 @@ Text Notes 10150 2200 0    50   ~ 0
 → BUS.MBU
 Text Notes 10200 5400 0    50   ~ 0
 → BUS.MBU
-$Comp
-L Connector:TestPoint TP4
-U 1 1 5E9C8A8F
-P 3550 5750
-F 0 "TP4" V 3653 5822 50  0000 C CNN
-F 1 "TestPoint" V 3654 5822 50  0001 C CNN
-F 2 "TestPoint:TestPoint_Pad_1.0x1.0mm" H 3750 5750 50  0001 C CNN
-F 3 "~" H 3750 5750 50  0001 C CNN
-	1    3550 5750
-	0    -1   -1   0   
-$EndComp
-Text Label 5950 6550 2    50   ~ 0
-~ACTION-IDX
 Text Label 10100 5400 2    50   ~ 0
 ~IR-IDX
-Wire Wire Line
-	5350 6550 6250 6550
-Wire Wire Line
-	6250 6550 6250 5850
 Wire Wire Line
 	6250 5750 6850 5750
 Wire Wire Line
@@ -1127,8 +982,6 @@ F7 "IDX1" O R 5350 3550 50
 F8 "~READ-AGL" I L 4200 3350 50 
 F9 "~IDXEN" O R 5350 3750 50 
 $EndSheet
-Wire Wire Line
-	6250 3750 6250 5750
 Wire Wire Line
 	5350 3750 6250 3750
 $Sheet
@@ -1240,8 +1093,155 @@ Wire Wire Line
 	1500 4050 900  4050
 Text Label 900  3950 0    50   ~ 0
 CLK3
+Wire Wire Line
+	6250 6550 6250 5850
+Wire Wire Line
+	6250 3750 6250 5750
+Wire Wire Line
+	5350 6550 6250 6550
+Text Label 5950 6550 2    50   ~ 0
+~ACTION-IDX
+Text Label 3600 6350 0    50   ~ 0
+~RESET
+$Sheet
+S 4200 6250 1150 1050
+U 5F67D4B5
+F0 "Interrupt State Machine" 50
+F1 "cft_int_fsm.sch" 50
+F2 "~IRQ" I L 4200 7200 50 
+F3 "~RESET" I L 4200 6350 50 
+F4 "FI" O R 5350 6350 50 
+F5 "~IRQS" O R 5350 7100 50 
+F6 "~END" I L 4200 7050 50 
+F7 "CLK4" I L 4200 6450 50 
+F8 "~IRQSµC" O R 5350 7200 50 
+F9 "IBUS15" I L 4200 6850 50 
+F10 "~FLAGWE" I L 4200 6950 50 
+F11 "ACTION[0..3]" I L 4200 6650 50 
+F12 "~ACTION-IDX" O R 5350 6550 50 
+$EndSheet
+Wire Wire Line
+	4200 7050 3600 7050
+Text Label 5950 7200 2    50   ~ 0
+~IRQSµC
+Text Label 5950 7100 2    50   ~ 0
+~IRQS
+Wire Wire Line
+	5350 7200 5950 7200
+Wire Wire Line
+	5350 7100 5950 7100
+Text Label 5950 6350 2    50   ~ 0
+FI
+Wire Wire Line
+	5350 6350 5950 6350
+Text Label 3600 6650 0    50   ~ 0
+ACTION[0..3]
 Wire Bus Line
-	9950 1450 9950 2100
+	4200 6650 3600 6650
+Text Label 3600 7200 0    50   ~ 0
+~IRQ
+Text Label 3600 7050 0    50   ~ 0
+~END
+Text Label 3600 6950 0    50   ~ 0
+~FLAGWE
+Text Label 3600 6850 0    50   ~ 0
+IBUS15
+Text Label 3600 6450 0    50   ~ 0
+CLK4
+Wire Wire Line
+	4200 7200 3600 7200
+Wire Wire Line
+	4200 6950 3600 6950
+Wire Wire Line
+	4200 6850 3600 6850
+Wire Wire Line
+	4200 6450 3600 6450
+Wire Wire Line
+	4200 6350 3600 6350
 Wire Bus Line
 	800  4950 800  5750
+Wire Bus Line
+	9950 1450 9950 2100
+$Comp
+L Connector:TestPoint TP4
+U 1 1 5E9C8A8F
+P 3550 5750
+F 0 "TP4" V 3653 5822 50  0000 C CNN
+F 1 "TestPoint" V 3654 5822 50  0001 C CNN
+F 2 "TestPoint:TestPoint_Pad_1.0x1.0mm" H 3750 5750 50  0001 C CNN
+F 3 "~" H 3750 5750 50  0001 C CNN
+	1    3550 5750
+	0    -1   -1   0   
+$EndComp
+Wire Bus Line
+	4200 4650 3600 4650
+Text Label 3600 5750 0    50   ~ 0
+CEXT10
+Text Label 3600 5650 0    50   ~ 0
+CEXT9
+Text Label 3600 5550 0    50   ~ 0
+CEXT8
+Wire Wire Line
+	4200 5750 3550 5750
+Wire Wire Line
+	4200 5650 3600 5650
+Wire Wire Line
+	4200 5550 3600 5550
+Text Label 3600 5450 0    50   ~ 0
+~SKIPEXT
+Wire Wire Line
+	4200 5450 3600 5450
+Text Label 3600 4750 0    50   ~ 0
+IR[0..6]
+Text Label 3600 4650 0    50   ~ 0
+COND[0..4]
+Text Label 3600 5250 0    50   ~ 0
+FN
+Text Label 3600 5150 0    50   ~ 0
+FZ
+Text Label 3600 5050 0    50   ~ 0
+FL
+Text Label 3600 4950 0    50   ~ 0
+FV
+Wire Wire Line
+	4200 5250 3600 5250
+Wire Wire Line
+	4200 5150 3600 5150
+Wire Wire Line
+	4200 5050 3600 5050
+Wire Wire Line
+	4200 4950 3600 4950
+Wire Bus Line
+	3600 4750 4200 4750
+Wire Wire Line
+	4200 4550 3600 4550
+Text Label 3600 4550 0    50   ~ 0
+CLK4
+Wire Wire Line
+	4200 4450 3600 4450
+Text Label 3600 4450 0    50   ~ 0
+~RESET
+Text Label 5950 4450 2    50   ~ 0
+~COND
+Wire Wire Line
+	5350 4450 5950 4450
+$Sheet
+S 4200 4300 1150 1600
+U 5EFCF155
+F0 "Skip/Branch Unit" 50
+F1 "cft_sbu.sch" 50
+F2 "~COND" O R 5350 4450 50 
+F3 "FN" I L 4200 5250 50 
+F4 "~SKIPEXT" T L 4200 5450 50 
+F5 "FV" I L 4200 4950 50 
+F6 "FL" I L 4200 5050 50 
+F7 "FZ" I L 4200 5150 50 
+F8 "CLK4" I L 4200 4550 50 
+F9 "COND[0..4]" I L 4200 4650 50 
+F10 "~RESET" I L 4200 4450 50 
+F11 "IR[0..6]" I L 4200 4750 50 
+F12 "CEXT8" T L 4200 5550 50 
+F13 "CEXT9" T L 4200 5650 50 
+F14 "CEXT10" T L 4200 5750 50 
+$EndSheet
 $EndSCHEMATC

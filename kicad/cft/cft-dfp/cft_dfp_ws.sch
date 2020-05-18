@@ -1,5 +1,4 @@
 EESchema Schematic File Version 4
-LIBS:cft-dfp-cache
 EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
@@ -621,22 +620,20 @@ F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 3050 2500 50  0001 C CNN
 	1    3050 2500
 	1    0    0    -1  
 $EndComp
-Text Notes 8600 2750 0    50   ~ 0
+Text Notes 8600 2850 0    50   ~ 0
 When the DFP is addressed at I/O space &0100–&011F,\na flip flop is set, asserting a Wait State ~WS~.\nSimultaneously, the MCU is interrupted to service the\nbus request by asserting ~IOINT~.\n\nOnce the request has been service, the MCU strobes\nCLRWS, which clears the Wait State and the processor\ncan move on.\n\nThis is obviously very slow.
 Wire Notes Line width 12 style solid
 	10900 1650 8450 1650
 Wire Notes Line width 12 style solid
-	8450 1650 8450 2900
+	8450 1650 8450 3000
 Wire Notes Line width 12 style solid
-	8450 2900 10900 2900
+	8450 3000 10900 3000
 Wire Notes Line width 12 style solid
-	10900 2900 10900 1650
+	10900 3000 10900 1650
 Text Notes 2400 1500 0    100  ~ 20
 Address Decoder
 Text Notes 4350 1500 0    100  ~ 20
 Wait State Generation & Microcontroller Interrupts
-Text Notes 4200 -700 0    100  ~ 20
-Autonomic Data Bus Driver Enable
 Text Notes 5900 3050 0    100  ~ 20
 Autonomic Data Bus Driver
 Text Notes 7550 4250 0    100  ~ 20

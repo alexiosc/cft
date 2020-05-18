@@ -1568,17 +1568,6 @@ Text Notes -1700 2450 0    50   ~ 0
 ~ENDEXT~\n\n   X\n   0\n   X
 Wire Wire Line
 	1150 2150 3750 2150
-$Comp
-L alexios:74LVC1G3208 U?
-U 1 1 5EDB6618
-P 2200 1950
-F 0 "U?" H 2225 2264 50  0000 C CNN
-F 1 "74LVC1G3208" H 2225 2173 50  0000 C CNN
-F 2 "" H 1875 1750 50  0001 C CNN
-F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 1875 1750 50  0001 C CNN
-	1    2200 1950
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	1150 2350 3750 2350
 Wire Wire Line
@@ -1587,7 +1576,7 @@ Text Label 1550 2050 0    50   ~ 0
 CLK3
 Text HLabel 1150 2050 0    50   Input ~ 0
 CLK3
-Text Notes 1850 2000 0    100  ~ 20
+Text Notes 1900 1950 0    100  ~ 20
 TODO: Rework This
 Wire Notes Line
 	1350 3050 2000 3050
@@ -1611,4 +1600,15 @@ Wire Bus Line
 	9800 3700 9800 4150
 Wire Bus Line
 	9800 3000 9800 3450
+$Comp
+L alexios:74LVC1G3208 U?
+U 1 1 5EDB6618
+P -450 1400
+F 0 "U?" H -425 1714 50  0000 C CNN
+F 1 "74LVC1G3208" H -425 1623 50  0000 C CNN
+F 2 "" H -775 1200 50  0001 C CNN
+F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H -775 1200 50  0001 C CNN
+	1    -450 1400
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
