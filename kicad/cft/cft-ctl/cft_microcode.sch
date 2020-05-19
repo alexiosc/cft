@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 4 11
+Sheet 3 11
 Title "Microcode Sequencer"
 Date ""
 Rev "2020"
@@ -1586,6 +1586,173 @@ Wire Notes Line
 	2000 3950 1350 3950
 Wire Notes Line
 	1350 3950 1350 3050
+$Comp
+L alexios:74LVC1G373 U?
+U 1 1 5ECAD5C4
+P -5750 3400
+F 0 "U?" H -5750 3767 50  0000 C CNN
+F 1 "74LVC1G373" H -5750 3676 50  0000 C CNN
+F 2 "" H -5850 3425 50  0001 C CNN
+F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H -5850 3425 50  0001 C CNN
+	1    -5750 3400
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74LVC1G74 U?
+U 1 1 5ECAE60D
+P -4500 3450
+F 0 "U?" H -4500 3867 50  0000 C CNN
+F 1 "74LVC1G74" H -4500 3776 50  0000 C CNN
+F 2 "" H -4050 3450 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G74.pdf" H -4050 3450 50  0001 C CNN
+	1    -4500 3450
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5ECD0CBA
+P -6250 3550
+F 0 "#PWR?" H -6250 3300 50  0001 C CNN
+F 1 "GND" H -6150 3550 50  0000 C CNN
+F 2 "" H -6250 3550 50  0001 C CNN
+F 3 "" H -6250 3550 50  0001 C CNN
+	1    -6250 3550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	-6200 3500 -6250 3500
+Wire Wire Line
+	-6250 3500 -6250 3550
+Text Label -6800 3300 0    50   ~ 0
+~WS
+Wire Wire Line
+	-6800 3300 -6450 3300
+Text Label -6800 3700 0    50   ~ 0
+CLK3
+Wire Wire Line
+	-5300 3300 -4950 3300
+Wire Wire Line
+	-4950 3600 -5300 3600
+Text Label -5000 3600 2    50   ~ 0
+~RESET
+Text Label -5000 3500 2    50   ~ 0
+CLK3
+$Comp
+L Device:R_Small R?
+U 1 1 5EE87FE0
+P -6450 3050
+AR Path="/5EE87FE0" Ref="R?"  Part="1" 
+AR Path="/5CC0D65F/5EE87FE0" Ref="R?"  Part="1" 
+AR Path="/5D54E677/5EE87FE0" Ref="R?"  Part="1" 
+AR Path="/5D62E1DC/5EE87FE0" Ref="R?"  Part="1" 
+AR Path="/5DEAC282/5EE87FE0" Ref="R?"  Part="1" 
+AR Path="/5F67D4B5/5EE87FE0" Ref="R?"  Part="1" 
+AR Path="/5D46B22D/5EE87FE0" Ref="R?"  Part="1" 
+F 0 "R?" H -6500 2900 50  0000 R CNN
+F 1 "4.7kΩ" H -6500 3000 50  0000 R CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -6450 3050 50  0001 C CNN
+F 3 "~" H -6450 3050 50  0001 C CNN
+	1    -6450 3050
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	-6450 3150 -6450 3300
+Connection ~ -6450 3300
+Wire Wire Line
+	-6450 3300 -6200 3300
+Wire Wire Line
+	-6450 2900 -6450 2950
+$Comp
+L power:+5V #PWR?
+U 1 1 5EEAA993
+P -6450 2900
+F 0 "#PWR?" H -6450 2750 50  0001 C CNN
+F 1 "+5V" H -6435 3073 50  0000 C CNN
+F 2 "" H -6450 2900 50  0001 C CNN
+F 3 "" H -6450 2900 50  0001 C CNN
+	1    -6450 2900
+	1    0    0    -1  
+$EndComp
+Wire Notes Line
+	-6600 2650 -6100 2650
+Wire Notes Line
+	-6100 2650 -6100 3200
+Wire Notes Line
+	-6100 3200 -6600 3200
+Wire Notes Line
+	-6600 3200 -6600 2650
+$Comp
+L alexios:74LVC1G0832 U?
+U 1 1 5EF32D3C
+P -3500 4050
+F 0 "U?" H -3475 3769 50  0000 C CNN
+F 1 "74LVC1G0832" H -3475 3860 50  0000 C CNN
+F 2 "" H -3500 4050 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/sn74lvc1g0832.pdf" H -3500 4050 50  0001 C CNN
+	1    -3500 4050
+	1    0    0    1   
+$EndComp
+Wire Wire Line
+	-3850 4050 -6800 4050
+Wire Wire Line
+	-6800 4150 -3850 4150
+Wire Wire Line
+	-4950 3400 -5000 3400
+Wire Wire Line
+	-5000 3400 -5000 3250
+$Comp
+L power:+5V #PWR?
+U 1 1 5F0024CB
+P -5000 3250
+F 0 "#PWR?" H -5000 3100 50  0001 C CNN
+F 1 "+5V" H -4985 3423 50  0000 C CNN
+F 2 "" H -5000 3250 50  0001 C CNN
+F 3 "" H -5000 3250 50  0001 C CNN
+	1    -5000 3250
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	-4050 3300 -3900 3300
+Wire Wire Line
+	-3900 3300 -3900 3950
+Wire Wire Line
+	-3900 3950 -3850 3950
+Text Label -3900 3700 1    50   ~ 0
+~WAITING
+NoConn ~ -4050 3600
+Text Label -3950 4050 2    50   ~ 0
+~ENDEXT
+Text Label -3950 4150 2    50   ~ 0
+~END
+Text Label -2600 4050 2    50   ~ 0
+~µPCCLR
+Wire Wire Line
+	-3100 4050 -2600 4050
+Wire Wire Line
+	-5400 3700 -5400 3500
+Wire Wire Line
+	-6800 3700 -6450 3700
+Wire Wire Line
+	-5400 3500 -4950 3500
+Wire Wire Line
+	-6200 3400 -6450 3400
+Wire Wire Line
+	-6450 3400 -6450 3700
+Connection ~ -6450 3700
+Wire Wire Line
+	-6450 3700 -5400 3700
+Text Label -6800 4050 0    50   ~ 0
+~ENDEXT
+Text Label -6800 4150 0    50   ~ 0
+~END
+Wire Wire Line
+	-5300 3800 -6800 3800
+Wire Wire Line
+	-5300 3600 -5300 3800
+Text Label -6800 3800 0    50   ~ 0
+~RESET
+Text Notes -6050 2900 0    50   ~ 0
+Remove if BUS board is present!
 Wire Bus Line
 	4550 3050 4550 3800
 Wire Bus Line
@@ -1600,15 +1767,4 @@ Wire Bus Line
 	9800 3700 9800 4150
 Wire Bus Line
 	9800 3000 9800 3450
-$Comp
-L alexios:74LVC1G3208 U?
-U 1 1 5EDB6618
-P -450 1400
-F 0 "U?" H -425 1714 50  0000 C CNN
-F 1 "74LVC1G3208" H -425 1623 50  0000 C CNN
-F 2 "" H -775 1200 50  0001 C CNN
-F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H -775 1200 50  0001 C CNN
-	1    -450 1400
-	1    0    0    -1  
-$EndComp
 $EndSCHEMATC
