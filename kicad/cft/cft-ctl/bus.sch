@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 11 11
+Sheet 6 12
 Title "Foobar"
 Date "2019-11-17"
 Rev "2020"
@@ -14,7 +14,7 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L alexios:CFT-2019-Bus P?
+L cft-ctl-rescue:CFT-2019-Bus-alexios P?
 U 1 1 5D36087B
 P 3150 1600
 AR Path="/5D34E810/5D36087B" Ref="P?"  Part="1" 
@@ -31,7 +31,7 @@ F 3 "" H 3100 700 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L alexios:CFT-2019-Bus P?
+L cft-ctl-rescue:CFT-2019-Bus-alexios P?
 U 2 1 5D360881
 P 5900 1600
 AR Path="/5D34E810/5D360881" Ref="P?"  Part="2" 
@@ -524,7 +524,7 @@ WADDR[0..4]
 Text HLabel 1350 6050 0    50   UnSpc ~ 0
 RADDR[0..4]
 $Comp
-L alexios:CFT-2019-Bus P?
+L cft-ctl-rescue:CFT-2019-Bus-alexios P?
 U 4 1 5D360875
 P 9350 4650
 AR Path="/5D34E810/5D360875" Ref="P?"  Part="4" 
@@ -635,7 +635,7 @@ Wire Wire Line
 Wire Wire Line
 	8350 3700 8800 3700
 $Comp
-L alexios:CFT-2019-Bus P?
+L cft-ctl-rescue:CFT-2019-Bus-alexios P?
 U 3 1 5D3608F9
 P 9300 1650
 AR Path="/5D34E810/5D3608F9" Ref="P?"  Part="3" 
@@ -936,10 +936,10 @@ Wire Wire Line
 	9800 4900 9800 4800
 Wire Wire Line
 	9750 4900 9800 4900
-Text Label 6750 2650 2    50   ~ 0
+Text Label 6800 2650 2    50   ~ 0
 ~RUEN
-Text Label 6750 2750 2    50   ~ 0
-~WUEN
+Text Label 6800 2750 2    50   ~ 0
+~WAITING
 $Comp
 L power:+5V #PWR?
 U 1 1 5D360869
@@ -1177,11 +1177,12 @@ Text Label 1450 5650 0    50   ~ 0
 IBUS[0..15]
 NoConn ~ 4150 2550
 NoConn ~ 6850 2650
-NoConn ~ 6850 2750
 NoConn ~ 6850 2050
 NoConn ~ 6850 2150
 NoConn ~ 6850 2250
 NoConn ~ 6850 2350
+Text HLabel 6850 2750 2    50   Output ~ 0
+~WAITING
 Wire Bus Line
 	7000 3950 7000 5750
 Wire Bus Line

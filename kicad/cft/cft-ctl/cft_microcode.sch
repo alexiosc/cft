@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 3 11
+Sheet 9 12
 Title "Microcode Sequencer"
 Date ""
 Rev "2020"
@@ -13,91 +13,20 @@ Comment2 ""
 Comment3 ""
 Comment4 "sequencer.v"
 $EndDescr
-Text Label 1550 1850 0    50   ~ 0
+Text HLabel 1150 2300 0    50   Input ~ 0
 ~ENDEXT
-Wire Wire Line
-	1550 1950 1850 1950
-Text HLabel 1150 1850 0    50   Input ~ 0
-~ENDEXT
-Text Label 1550 1950 0    50   ~ 0
-~END
-Wire Wire Line
-	3750 1550 3650 1550
-Wire Wire Line
-	3650 1550 3650 1650
-Wire Wire Line
-	3750 1650 3650 1650
-Connection ~ 3650 1650
-Wire Wire Line
-	3650 1650 3650 1750
-Wire Wire Line
-	3750 1750 3650 1750
-Connection ~ 3650 1750
-Wire Wire Line
-	3650 1750 3650 1850
-Wire Wire Line
-	3750 1850 3650 1850
-Connection ~ 3650 1850
-Wire Wire Line
-	3650 1850 3650 1900
-$Comp
-L power:GND #PWR?
-U 1 1 5DEB2D82
-P 3650 1900
-AR Path="/5DEB2D82" Ref="#PWR?"  Part="1" 
-AR Path="/5DEAC282/5DEB2D82" Ref="#PWR0104"  Part="1" 
-F 0 "#PWR0104" H 3650 1650 50  0001 C CNN
-F 1 "GND" H 3550 1950 50  0000 R CNN
-F 2 "" H 3650 1900 50  0001 C CNN
-F 3 "" H 3650 1900 50  0001 C CNN
-	1    3650 1900
-	1    0    0    -1  
-$EndComp
-Text HLabel 1150 2550 0    50   Input ~ 0
-~RSTHOLD
-Text Label 3700 2550 2    50   ~ 0
-~RSTHOLD
-Text Label 3550 2050 2    50   ~ 0
-~µPCCLR
-Wire Wire Line
-	1150 2550 3750 2550
-Text HLabel 1150 2150 0    50   Input ~ 0
-~WS
-Text Label 1550 2150 0    50   ~ 0
-~WS
-Text Label 3700 2150 2    50   ~ 0
-~WS
-Text Label 1550 2250 0    50   ~ 0
+Text HLabel 1150 2100 0    50   Input ~ 0
 ~HALT
-Text HLabel 1150 2250 0    50   Input ~ 0
-~HALT
-Text Label 1550 2350 0    50   ~ 0
+Text HLabel 1150 2000 0    50   Input ~ 0
 CLK4
-Text HLabel 1150 2350 0    50   Input ~ 0
-CLK4
-NoConn ~ 4750 2050
-Wire Wire Line
-	4750 1550 5000 1550
-Wire Wire Line
-	4750 1650 5000 1650
-Wire Wire Line
-	4750 1750 5000 1750
-Wire Wire Line
-	4750 1850 5000 1850
-Text Label 5000 1550 2    50   ~ 0
+Text Label 5000 1900 2    50   ~ 0
 UPC0
-Text Label 5000 1650 2    50   ~ 0
+Text Label 5000 2000 2    50   ~ 0
 UPC1
-Text Label 5000 1750 2    50   ~ 0
+Text Label 5000 2100 2    50   ~ 0
 UPC2
-Text Label 5000 1850 2    50   ~ 0
+Text Label 5000 2200 2    50   ~ 0
 UPC3
-Text Label 3700 2250 2    50   ~ 0
-~HALT
-Text Label 3700 2350 2    50   ~ 0
-CLK4
-Text Notes 650  1200 0    50   ~ 0
-The µPC controls the running of the processor. It counts up to 16, so microprograms can only have\nup to 16 steps. It resets to 0000 when the Control Unit asserts ~END~ or a processor extension\ncard asserts ~ENDEXT~ on the bus.  It increments at the end of a processor cycle (rising edge of\nCLK4), and only when ~RSTHOLD~, ~HALT~ and ~WS~ are all deasserted.
 Text Label 10450 4300 2    50   ~ 0
 COND[0..4]
 Text Label 10450 3600 2    50   ~ 0
@@ -108,25 +37,10 @@ Text HLabel 10500 3600 2    50   Output ~ 0
 WADDR[0..4]
 Text HLabel 10500 4300 2    50   Output ~ 0
 COND[0..4]
-Text Notes 650  800  0    100  ~ 20
-Microprogram Counter (µPC)
 Text Label 10450 5000 2    50   ~ 0
 ACTION[0..3]
 Text HLabel 10500 5000 2    50   Output ~ 0
 ACTION[0..3]
-$Comp
-L alexios:74HC161 U?
-U 1 1 5DEB2D71
-P 4250 2050
-AR Path="/5DEB2D71" Ref="U?"  Part="1" 
-AR Path="/5DEAC282/5DEB2D71" Ref="U44"  Part="1" 
-F 0 "U44" H 4250 2817 50  0000 C CNN
-F 1 "74HC161" H 4250 2726 50  0000 C CNN
-F 2 "alexios:SOIC-16" H 4550 2300 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74HC161.pdf" H 4550 2300 50  0001 C CNN
-	1    4250 2050
-	1    0    0    -1  
-$EndComp
 Text Notes 6950 6700 0    50   ~ 0
 2019 Design Update: both micro-Address Vector and micro-Control Vector have changed significantly\nin this version. Fields are much more vertical now, but the processor is also much more capable.
 Text Notes 6950 6400 0    63   ~ 13
@@ -690,54 +604,54 @@ Bus Hold
 $Comp
 L alexios:74HC85 U45
 U 2 1 5F4A7223
-P 6250 7700
-F 0 "U45" H 6250 8367 50  0000 C CNN
-F 1 "74HC85" H 6250 8276 50  0000 C CNN
-F 2 "alexios:SOIC-16" H 6250 7725 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS85" H 6250 7725 50  0001 C CNN
-	2    6250 7700
+P 2950 7650
+F 0 "U45" H 2950 8317 50  0000 C CNN
+F 1 "74HC85" H 2950 8226 50  0000 C CNN
+F 2 "alexios:SOIC-16" H 2950 7675 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS85" H 2950 7675 50  0001 C CNN
+	2    2950 7650
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:C_Small C?
 U 1 1 5F4ADA60
-P 5900 7400
+P 2600 7350
 AR Path="/5CC0D65F/5F4ADA60" Ref="C?"  Part="1" 
 AR Path="/5F4ADA60" Ref="C?"  Part="1" 
 AR Path="/5DEAC282/5F4ADA60" Ref="C38"  Part="1" 
-F 0 "C38" H 5809 7446 50  0000 R CNN
-F 1 "100nF" H 5809 7355 50  0000 R CNN
-F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5900 7400 50  0001 C CNN
-F 3 "~" H 5900 7400 50  0001 C CNN
-	1    5900 7400
+F 0 "C38" H 2509 7396 50  0000 R CNN
+F 1 "100nF" H 2509 7305 50  0000 R CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2600 7350 50  0001 C CNN
+F 3 "~" H 2600 7350 50  0001 C CNN
+	1    2600 7350
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR0120
 U 1 1 5F4ADA67
-P 5900 7500
-F 0 "#PWR0120" H 5900 7250 50  0001 C CNN
-F 1 "GND" H 5905 7327 50  0000 C CNN
-F 2 "" H 5900 7500 50  0001 C CNN
-F 3 "" H 5900 7500 50  0001 C CNN
-	1    5900 7500
+P 2600 7450
+F 0 "#PWR0120" H 2600 7200 50  0001 C CNN
+F 1 "GND" H 2605 7277 50  0000 C CNN
+F 2 "" H 2600 7450 50  0001 C CNN
+F 3 "" H 2600 7450 50  0001 C CNN
+	1    2600 7450
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:+5V #PWR0116
 U 1 1 5F4ADA6D
-P 5900 7300
-F 0 "#PWR0116" H 5900 7150 50  0001 C CNN
-F 1 "+5V" H 5915 7473 50  0000 C CNN
-F 2 "" H 5900 7300 50  0001 C CNN
-F 3 "" H 5900 7300 50  0001 C CNN
-	1    5900 7300
+P 2600 7250
+F 0 "#PWR0116" H 2600 7100 50  0001 C CNN
+F 1 "+5V" H 2615 7423 50  0000 C CNN
+F 2 "" H 2600 7250 50  0001 C CNN
+F 3 "" H 2600 7250 50  0001 C CNN
+	1    2600 7250
 	1    0    0    -1  
 $EndComp
-Connection ~ 5900 7300
-Connection ~ 5900 7500
+Connection ~ 2600 7250
+Connection ~ 2600 7450
 Wire Wire Line
-	1150 2250 1250 2250
+	1150 2100 1250 2100
 $Comp
 L Device:R_Small R?
 U 1 1 5DB1C764
@@ -759,7 +673,7 @@ $EndComp
 $Comp
 L Device:R_Small R?
 U 1 1 5DD09005
-P 1200 1600
+P 1800 1600
 AR Path="/5DD09005" Ref="R?"  Part="1" 
 AR Path="/5CC0D65F/5DD09005" Ref="R?"  Part="1" 
 AR Path="/5D54E677/5DD09005" Ref="R?"  Part="1" 
@@ -767,11 +681,11 @@ AR Path="/5D62E1DC/5DD09005" Ref="R?"  Part="1"
 AR Path="/5DEAC282/5DD09005" Ref="R24"  Part="1" 
 AR Path="/5F67D4B5/5DD09005" Ref="R?"  Part="1" 
 AR Path="/5D46B22D/5DD09005" Ref="R?"  Part="1" 
-F 0 "R24" H 1259 1646 50  0000 L CNN
-F 1 "4.7kΩ" H 1259 1555 50  0000 L CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1200 1600 50  0001 C CNN
-F 3 "~" H 1200 1600 50  0001 C CNN
-	1    1200 1600
+F 0 "R24" H 1741 1554 50  0000 R CNN
+F 1 "4.7kΩ" H 1741 1645 50  0000 R CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1800 1600 50  0001 C CNN
+F 3 "~" H 1800 1600 50  0001 C CNN
+	1    1800 1600
 	-1   0    0    1   
 $EndComp
 $Comp
@@ -793,23 +707,16 @@ F 3 "~" H 1350 1600 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 Wire Wire Line
-	1200 1700 1200 1850
-Wire Wire Line
-	1200 1850 1850 1850
-Wire Wire Line
-	1350 1700 1350 2250
-Connection ~ 1350 2250
-Text Notes 1350 2700 0    50   ~ 0
-~WS~ is pulled up by the Wait State Handler circuitry.
+	1350 1700 1350 2100
 $Comp
 L power:+5V #PWR0101
 U 1 1 5DD4145D
-P 1200 1500
-F 0 "#PWR0101" H 1200 1350 50  0001 C CNN
-F 1 "+5V" H 1050 1600 50  0000 C CNN
-F 2 "" H 1200 1500 50  0001 C CNN
-F 3 "" H 1200 1500 50  0001 C CNN
-	1    1200 1500
+P 1800 1500
+F 0 "#PWR0101" H 1800 1350 50  0001 C CNN
+F 1 "+5V" H 1650 1550 50  0000 C CNN
+F 2 "" H 1800 1500 50  0001 C CNN
+F 3 "" H 1800 1500 50  0001 C CNN
+	1    1800 1500
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -817,7 +724,7 @@ L power:+5V #PWR0102
 U 1 1 5DD4162D
 P 1350 1500
 F 0 "#PWR0102" H 1350 1350 50  0001 C CNN
-F 1 "+5V" H 1450 1600 50  0000 C CNN
+F 1 "+5V" H 1200 1550 50  0000 C CNN
 F 2 "" H 1350 1500 50  0001 C CNN
 F 3 "" H 1350 1500 50  0001 C CNN
 	1    1350 1500
@@ -837,93 +744,6 @@ Text HLabel 4700 6000 0    50   Input ~ 0
 ~FPµC1
 Text HLabel 4700 5900 0    50   Input ~ 0
 ~FPµC0
-$Comp
-L power:GND #PWR0112
-U 1 1 5DEBA8B7
-P 2250 7500
-F 0 "#PWR0112" H 2250 7250 50  0001 C CNN
-F 1 "GND" H 2255 7327 50  0000 C CNN
-F 2 "" H 2250 7500 50  0001 C CNN
-F 3 "" H 2250 7500 50  0001 C CNN
-	1    2250 7500
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR0111
-U 1 1 5DEBA174
-P 2250 7300
-F 0 "#PWR0111" H 2250 7150 50  0001 C CNN
-F 1 "+5V" H 2265 7473 50  0000 C CNN
-F 2 "" H 2250 7300 50  0001 C CNN
-F 3 "" H 2250 7300 50  0001 C CNN
-	1    2250 7300
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 5DEB8F55
-P 2250 7400
-AR Path="/5CC0D65F/5DEB8F55" Ref="C?"  Part="1" 
-AR Path="/5DEB8F55" Ref="C?"  Part="1" 
-AR Path="/5DEAC282/5DEB8F55" Ref="C34"  Part="1" 
-F 0 "C34" H 2159 7446 50  0000 R CNN
-F 1 "100nF" H 2159 7355 50  0000 R CNN
-F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2250 7400 50  0001 C CNN
-F 3 "~" H 2250 7400 50  0001 C CNN
-	1    2250 7400
-	1    0    0    -1  
-$EndComp
-Connection ~ 900  7300
-$Comp
-L power:+5V #PWR0113
-U 1 1 5DEBC983
-P 900 7300
-F 0 "#PWR0113" H 900 7150 50  0001 C CNN
-F 1 "+5V" H 915 7473 50  0000 C CNN
-F 2 "" H 900 7300 50  0001 C CNN
-F 3 "" H 900 7300 50  0001 C CNN
-	1    900  7300
-	1    0    0    -1  
-$EndComp
-Connection ~ 900  7500
-$Comp
-L power:GND #PWR0117
-U 1 1 5DEBC032
-P 900 7500
-F 0 "#PWR0117" H 900 7250 50  0001 C CNN
-F 1 "GND" H 905 7327 50  0000 C CNN
-F 2 "" H 900 7500 50  0001 C CNN
-F 3 "" H 900 7500 50  0001 C CNN
-	1    900  7500
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 5DEB9AAE
-P 900 7400
-AR Path="/5CC0D65F/5DEB9AAE" Ref="C?"  Part="1" 
-AR Path="/5DEB9AAE" Ref="C?"  Part="1" 
-AR Path="/5DEAC282/5DEB9AAE" Ref="C35"  Part="1" 
-F 0 "C35" H 809 7446 50  0000 R CNN
-F 1 "100nF" H 809 7355 50  0000 R CNN
-F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 900 7400 50  0001 C CNN
-F 3 "~" H 900 7400 50  0001 C CNN
-	1    900  7400
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74HC161 U?
-U 2 1 5DEB3C99
-P 1250 7800
-AR Path="/5DEB3C99" Ref="U?"  Part="1" 
-AR Path="/5DEAC282/5DEB3C99" Ref="U44"  Part="2" 
-F 0 "U44" H 1430 8246 50  0000 L CNN
-F 1 "74HC161" H 1430 8155 50  0000 L CNN
-F 2 "alexios:SOIC-16" H 1550 8050 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS161" H 1550 8050 50  0001 C CNN
-	2    1250 7800
-	1    0    0    -1  
-$EndComp
 Text Notes 7000 4950 0    50   ~ 0
 Note: The DFP adds bus hold\nto all other control outputs.
 Connection ~ 7650 5300
@@ -979,52 +799,52 @@ $EndComp
 $Comp
 L alexios:74LVC1G00 U46
 U 2 1 5DF346BA
-P 4650 7300
-F 0 "U46" H 4730 7246 50  0000 L CNN
-F 1 "74LVC1G00" H 4730 7155 50  0000 L CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 4300 7300 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G00.pdf" H 4300 7300 50  0001 C CNN
-	2    4650 7300
+P 1350 7250
+F 0 "U46" H 1430 7196 50  0000 L CNN
+F 1 "74LVC1G00" H 1430 7105 50  0000 L CNN
+F 2 "alexios:SOT-23-5_HandSoldering" H 1000 7250 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G00.pdf" H 1000 7250 50  0001 C CNN
+	2    1350 7250
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:C_Small C?
 U 1 1 5DF3702C
-P 4200 7400
+P 900 7350
 AR Path="/5CC0D65F/5DF3702C" Ref="C?"  Part="1" 
 AR Path="/5DF3702C" Ref="C?"  Part="1" 
 AR Path="/5DEAC282/5DF3702C" Ref="C37"  Part="1" 
-F 0 "C37" H 4109 7446 50  0000 R CNN
-F 1 "100nF" H 4109 7355 50  0000 R CNN
-F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 4200 7400 50  0001 C CNN
-F 3 "~" H 4200 7400 50  0001 C CNN
-	1    4200 7400
+F 0 "C37" H 809 7396 50  0000 R CNN
+F 1 "100nF" H 809 7305 50  0000 R CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 900 7350 50  0001 C CNN
+F 3 "~" H 900 7350 50  0001 C CNN
+	1    900  7350
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR0119
 U 1 1 5DF37032
-P 4200 7500
-F 0 "#PWR0119" H 4200 7250 50  0001 C CNN
-F 1 "GND" H 4205 7327 50  0000 C CNN
-F 2 "" H 4200 7500 50  0001 C CNN
-F 3 "" H 4200 7500 50  0001 C CNN
-	1    4200 7500
+P 900 7450
+F 0 "#PWR0119" H 900 7200 50  0001 C CNN
+F 1 "GND" H 905 7277 50  0000 C CNN
+F 2 "" H 900 7450 50  0001 C CNN
+F 3 "" H 900 7450 50  0001 C CNN
+	1    900  7450
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:+5V #PWR0115
 U 1 1 5DF37038
-P 4200 7300
-F 0 "#PWR0115" H 4200 7150 50  0001 C CNN
-F 1 "+5V" H 4215 7473 50  0000 C CNN
-F 2 "" H 4200 7300 50  0001 C CNN
-F 3 "" H 4200 7300 50  0001 C CNN
-	1    4200 7300
+P 900 7250
+F 0 "#PWR0115" H 900 7100 50  0001 C CNN
+F 1 "+5V" H 915 7423 50  0000 C CNN
+F 2 "" H 900 7250 50  0001 C CNN
+F 3 "" H 900 7250 50  0001 C CNN
+	1    900  7250
 	1    0    0    -1  
 $EndComp
-Connection ~ 4200 7300
-Connection ~ 4200 7500
+Connection ~ 900  7250
+Connection ~ 900  7450
 $Comp
 L alexios:74LVC1G00 U46
 U 1 1 5DD994A9
@@ -1151,17 +971,15 @@ Wire Wire Line
 	1150 5300 2650 5300
 Text Label 1500 5850 2    50   ~ 0
 ~RESET
-Wire Wire Line
-	3750 2050 2700 2050
 Entry Wire Line
-	5000 1550 5100 1650
+	5000 1900 5100 2000
 Entry Wire Line
-	5000 1650 5100 1750
+	5000 2000 5100 2100
 Entry Wire Line
-	5000 1750 5100 1850
+	5000 2100 5100 2200
 Entry Wire Line
-	5000 1850 5100 1950
-Text Label 5100 2350 1    50   ~ 0
+	5000 2200 5100 2300
+Text Label 5100 2750 1    50   ~ 0
 UPC[0..3]
 Entry Wire Line
 	2150 3500 2250 3600
@@ -1524,60 +1342,10 @@ Wire Wire Line
 Wire Wire Line
 	1550 5950 1250 5950
 Wire Wire Line
-	1350 2250 3750 2250
+	1250 5950 1250 2100
+Connection ~ 1250 2100
 Wire Wire Line
-	1250 5950 1250 2250
-Connection ~ 1250 2250
-Wire Wire Line
-	1250 2250 1350 2250
-Connection ~ 1200 1850
-Wire Wire Line
-	1150 1850 1200 1850
-$Comp
-L alexios:74LVC1G0832 U29
-U 2 1 5ED0FCC2
-P 2600 7400
-F 0 "U29" H 2780 7446 50  0000 L CNN
-F 1 "74LVC1G0832" H 2780 7355 50  0000 L CNN
-F 2 "alexios:SOT-23-6_Handsoldering" H 2600 7400 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/sn74lvc1g0832.pdf" H 2600 7400 50  0001 C CNN
-	2    2600 7400
-	1    0    0    -1  
-$EndComp
-Connection ~ 2250 7500
-Connection ~ 2250 7300
-Text Notes -1900 2450 0    50   ~ 0
-~WS~\n\n 0\n 1\n 1
-Text Notes -1000 2450 0    50   ~ 0
-~µPCCLR~\n\n  1\n  1\n  0
-Wire Notes Line width 12 style solid
-	-1950 2000 -600 2000
-Wire Notes Line width 12 style solid
-	-600 2000 -600 2500
-Wire Notes Line width 12 style solid
-	-1950 2000 -1950 2500
-Wire Notes Line style solid
-	-1950 2160 -600 2160
-Wire Notes Line
-	-1060 2000 -1060 2500
-Wire Notes Line width 12 style solid
-	-1950 2500 -600 2500
-Text Notes -1350 2450 0    50   ~ 0
-~END~\n\n  X\n  X\n  0
-Text Notes -1700 2450 0    50   ~ 0
-~ENDEXT~\n\n   X\n   0\n   X
-Wire Wire Line
-	1150 2150 3750 2150
-Wire Wire Line
-	1150 2350 3750 2350
-Wire Wire Line
-	1150 2050 1850 2050
-Text Label 1550 2050 0    50   ~ 0
-CLK3
-Text HLabel 1150 2050 0    50   Input ~ 0
-CLK3
-Text Notes 1900 1950 0    100  ~ 20
-TODO: Rework This
+	1250 2100 1350 2100
 Wire Notes Line
 	1350 3050 2000 3050
 Wire Notes Line
@@ -1586,179 +1354,70 @@ Wire Notes Line
 	2000 3950 1350 3950
 Wire Notes Line
 	1350 3950 1350 3050
-$Comp
-L alexios:74LVC1G373 U?
-U 1 1 5ECAD5C4
-P -5750 3400
-F 0 "U?" H -5750 3767 50  0000 C CNN
-F 1 "74LVC1G373" H -5750 3676 50  0000 C CNN
-F 2 "" H -5850 3425 50  0001 C CNN
-F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H -5850 3425 50  0001 C CNN
-	1    -5750 3400
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74LVC1G74 U?
-U 1 1 5ECAE60D
-P -4500 3450
-F 0 "U?" H -4500 3867 50  0000 C CNN
-F 1 "74LVC1G74" H -4500 3776 50  0000 C CNN
-F 2 "" H -4050 3450 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G74.pdf" H -4050 3450 50  0001 C CNN
-	1    -4500 3450
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5ECD0CBA
-P -6250 3550
-F 0 "#PWR?" H -6250 3300 50  0001 C CNN
-F 1 "GND" H -6150 3550 50  0000 C CNN
-F 2 "" H -6250 3550 50  0001 C CNN
-F 3 "" H -6250 3550 50  0001 C CNN
-	1    -6250 3550
-	1    0    0    -1  
-$EndComp
+$Sheet
+S 3400 1750 1150 900 
+U 5F643CAF
+F0 "Micro-Program Counter" 50
+F1 "upc.sch" 50
+F2 "UPC0" O R 4550 1900 50 
+F3 "UPC1" O R 4550 2000 50 
+F4 "UPC2" O R 4550 2100 50 
+F5 "UPC3" O R 4550 2200 50 
+F6 "~WAITING" I L 3400 2400 50 
+F7 "CLK4" I L 3400 2000 50 
+F8 "~ENDEXT" I L 3400 2300 50 
+F9 "~END" I L 3400 2200 50 
+F10 "~HALT" I L 3400 2100 50 
+F11 "~RSTHOLD" I L 3400 1900 50 
+$EndSheet
 Wire Wire Line
-	-6200 3500 -6250 3500
+	4550 1900 5000 1900
 Wire Wire Line
-	-6250 3500 -6250 3550
-Text Label -6800 3300 0    50   ~ 0
-~WS
+	4550 2000 5000 2000
 Wire Wire Line
-	-6800 3300 -6450 3300
-Text Label -6800 3700 0    50   ~ 0
-CLK3
+	4550 2100 5000 2100
 Wire Wire Line
-	-5300 3300 -4950 3300
-Wire Wire Line
-	-4950 3600 -5300 3600
-Text Label -5000 3600 2    50   ~ 0
-~RESET
-Text Label -5000 3500 2    50   ~ 0
-CLK3
-$Comp
-L Device:R_Small R?
-U 1 1 5EE87FE0
-P -6450 3050
-AR Path="/5EE87FE0" Ref="R?"  Part="1" 
-AR Path="/5CC0D65F/5EE87FE0" Ref="R?"  Part="1" 
-AR Path="/5D54E677/5EE87FE0" Ref="R?"  Part="1" 
-AR Path="/5D62E1DC/5EE87FE0" Ref="R?"  Part="1" 
-AR Path="/5DEAC282/5EE87FE0" Ref="R?"  Part="1" 
-AR Path="/5F67D4B5/5EE87FE0" Ref="R?"  Part="1" 
-AR Path="/5D46B22D/5EE87FE0" Ref="R?"  Part="1" 
-F 0 "R?" H -6500 2900 50  0000 R CNN
-F 1 "4.7kΩ" H -6500 3000 50  0000 R CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -6450 3050 50  0001 C CNN
-F 3 "~" H -6450 3050 50  0001 C CNN
-	1    -6450 3050
-	-1   0    0    1   
-$EndComp
-Wire Wire Line
-	-6450 3150 -6450 3300
-Connection ~ -6450 3300
-Wire Wire Line
-	-6450 3300 -6200 3300
-Wire Wire Line
-	-6450 2900 -6450 2950
-$Comp
-L power:+5V #PWR?
-U 1 1 5EEAA993
-P -6450 2900
-F 0 "#PWR?" H -6450 2750 50  0001 C CNN
-F 1 "+5V" H -6435 3073 50  0000 C CNN
-F 2 "" H -6450 2900 50  0001 C CNN
-F 3 "" H -6450 2900 50  0001 C CNN
-	1    -6450 2900
-	1    0    0    -1  
-$EndComp
-Wire Notes Line
-	-6600 2650 -6100 2650
-Wire Notes Line
-	-6100 2650 -6100 3200
-Wire Notes Line
-	-6100 3200 -6600 3200
-Wire Notes Line
-	-6600 3200 -6600 2650
-$Comp
-L alexios:74LVC1G0832 U?
-U 1 1 5EF32D3C
-P -3500 4050
-F 0 "U?" H -3475 3769 50  0000 C CNN
-F 1 "74LVC1G0832" H -3475 3860 50  0000 C CNN
-F 2 "" H -3500 4050 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/sn74lvc1g0832.pdf" H -3500 4050 50  0001 C CNN
-	1    -3500 4050
-	1    0    0    1   
-$EndComp
-Wire Wire Line
-	-3850 4050 -6800 4050
-Wire Wire Line
-	-6800 4150 -3850 4150
-Wire Wire Line
-	-4950 3400 -5000 3400
-Wire Wire Line
-	-5000 3400 -5000 3250
-$Comp
-L power:+5V #PWR?
-U 1 1 5F0024CB
-P -5000 3250
-F 0 "#PWR?" H -5000 3100 50  0001 C CNN
-F 1 "+5V" H -4985 3423 50  0000 C CNN
-F 2 "" H -5000 3250 50  0001 C CNN
-F 3 "" H -5000 3250 50  0001 C CNN
-	1    -5000 3250
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	-4050 3300 -3900 3300
-Wire Wire Line
-	-3900 3300 -3900 3950
-Wire Wire Line
-	-3900 3950 -3850 3950
-Text Label -3900 3700 1    50   ~ 0
+	4550 2200 5000 2200
+Text Label 2150 2400 0    50   ~ 0
 ~WAITING
-NoConn ~ -4050 3600
-Text Label -3950 4050 2    50   ~ 0
-~ENDEXT
-Text Label -3950 4150 2    50   ~ 0
+Wire Wire Line
+	2100 2400 3400 2400
+Text HLabel 2100 2400 0    50   Input ~ 0
+~WAITING
+Wire Wire Line
+	3400 1900 2150 1900
+Text Label 2150 1900 0    50   ~ 0
+~RSTHOLD
+Text Label 2150 2000 0    50   ~ 0
+CLK4
+Text Label 2150 2100 0    50   ~ 0
+~HALT
+Text Label 2150 2200 0    50   ~ 0
 ~END
-Text Label -2600 4050 2    50   ~ 0
-~µPCCLR
-Wire Wire Line
-	-3100 4050 -2600 4050
-Wire Wire Line
-	-5400 3700 -5400 3500
-Wire Wire Line
-	-6800 3700 -6450 3700
-Wire Wire Line
-	-5400 3500 -4950 3500
-Wire Wire Line
-	-6200 3400 -6450 3400
-Wire Wire Line
-	-6450 3400 -6450 3700
-Connection ~ -6450 3700
-Wire Wire Line
-	-6450 3700 -5400 3700
-Text Label -6800 4050 0    50   ~ 0
+Text Label 2150 2300 0    50   ~ 0
 ~ENDEXT
-Text Label -6800 4150 0    50   ~ 0
-~END
 Wire Wire Line
-	-5300 3800 -6800 3800
+	1350 2100 3400 2100
+Connection ~ 1350 2100
 Wire Wire Line
-	-5300 3600 -5300 3800
-Text Label -6800 3800 0    50   ~ 0
-~RESET
-Text Notes -6050 2900 0    50   ~ 0
-Remove if BUS board is present!
+	1150 2000 3400 2000
+Wire Wire Line
+	1150 2300 1800 2300
+Wire Wire Line
+	1800 1700 1800 2300
+Connection ~ 1800 2300
+Wire Wire Line
+	1800 2300 3400 2300
+Wire Wire Line
+	2150 2200 3400 2200
+Text Notes 700  1150 0    50   ~ 0
+This is the inner sanctum of the control unit, reading, and decoding microprograms\ninto various fields.
+Text Notes 700  850  0    100  ~ 20
+The Microprogram Sequencer
 Wire Bus Line
 	4550 3050 4550 3800
 Wire Bus Line
 	2150 3050 2150 3800
-Wire Bus Line
-	5100 1650 5100 2850
 Wire Bus Line
 	9800 5100 9800 5450
 Wire Bus Line
@@ -1767,4 +1426,6 @@ Wire Bus Line
 	9800 3700 9800 4150
 Wire Bus Line
 	9800 3000 9800 3450
+Wire Bus Line
+	5100 1650 5100 2850
 $EndSCHEMATC

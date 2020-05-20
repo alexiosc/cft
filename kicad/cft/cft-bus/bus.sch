@@ -1049,10 +1049,10 @@ Wire Wire Line
 	9800 4900 9800 4800
 Wire Wire Line
 	9750 4900 9800 4900
-Text Label 6750 2650 2    50   ~ 0
+Text Label 6800 2650 2    50   ~ 0
 ~RUEN
-Text Label 6750 2750 2    50   ~ 0
-~WUEN
+Text Label 6800 2750 2    50   ~ 0
+~WAITING
 NoConn ~ 2150 2350
 Text Label 1450 5350 0    50   ~ 0
 AB[0..23]
@@ -1183,7 +1183,6 @@ NoConn ~ 6850 2150
 NoConn ~ 6850 2250
 NoConn ~ 6850 2350
 NoConn ~ 6850 2650
-NoConn ~ 6850 2750
 Text Label 4050 3450 2    50   ~ 0
 ~IRQ7
 Text Label 4050 3350 2    50   ~ 0
@@ -1240,4 +1239,6 @@ Wire Bus Line
 	4250 3650 4250 5350
 Wire Bus Line
 	2050 2850 2050 5250
+Text HLabel 6850 2750 2    50   UnSpc ~ 0
+~WAITING
 $EndSCHEMATC

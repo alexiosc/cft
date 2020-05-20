@@ -631,8 +631,6 @@ Wire Notes Line width 12 style solid
 	4000 2600 4400 2600
 Text Notes 7250 1650 0    50   ~ 0
 Allow for impedance matching resistors\nif needed.
-Text Label 1750 3850 0    50   ~ 0
-CLK3
 Wire Wire Line
 	1650 3850 2000 3850
 Wire Wire Line
@@ -1215,8 +1213,6 @@ Text Label 1750 1400 0    50   ~ 0
 CLK4
 Text HLabel 1650 3950 0    50   Input ~ 0
 ~RESET
-Text HLabel 1650 3850 0    50   Input ~ 0
-CLK3
 Wire Wire Line
 	4700 3950 5150 3950
 Text Label 5050 3950 2    50   ~ 0
@@ -1645,12 +1641,16 @@ Wire Wire Line
 	3050 3500 3100 3500
 Wire Wire Line
 	3100 3500 3100 3650
+Text Label 3650 3850 2    50   ~ 0
+CLK3
+Text Notes 2400 3800 0    100  ~ 20
+TODO: REWORK THIS.
 Wire Bus Line
 	8750 3250 8750 5600
 Wire Bus Line
 	6850 3600 6850 6050
-Text Label 3650 3850 2    50   ~ 0
+Text HLabel 1650 3850 0    50   Input ~ 0
 CLK3
-Text Notes 2550 3700 0    100  ~ 20
-TODO: REWORK THIS.
+Text Label 1750 3850 0    50   ~ 0
+CLK3
 $EndSCHEMATC

@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 1 11
+Sheet 1 12
 Title "Control Unit Board"
 Date ""
 Rev "2020"
@@ -13,10 +13,6 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-Text Label 900  4750 0    50   ~ 0
-IN-RSVD
-Text Label 900  4650 0    50   ~ 0
-~COND
 Text Label 3250 5650 2    50   ~ 0
 FPD[0..7]
 Wire Bus Line
@@ -198,11 +194,11 @@ Wire Wire Line
 Wire Wire Line
 	8350 3300 7800 3300
 Wire Wire Line
-	8350 4100 7800 4100
-Wire Wire Line
 	8350 4200 7800 4200
 Wire Wire Line
-	8350 4000 7800 4000
+	8350 4300 7800 4300
+Wire Wire Line
+	8350 4100 7800 4100
 Wire Wire Line
 	8350 3900 7800 3900
 Text Label 7800 2700 0    50   ~ 0
@@ -251,11 +247,11 @@ Text Label 7800 3700 0    50   ~ 0
 ~R
 Text Label 7800 3900 0    50   ~ 0
 ~WS
-Text Label 7800 4000 0    50   ~ 0
-~ENDEXT
 Text Label 7800 4100 0    50   ~ 0
-~SKIPEXT
+~ENDEXT
 Text Label 7800 4200 0    50   ~ 0
+~SKIPEXT
+Text Label 7800 4300 0    50   ~ 0
 ~HALT
 Text Label 7800 4500 0    50   ~ 0
 ACTION[0..3]
@@ -454,79 +450,10 @@ Text Notes 10150 2600 0    50   ~ 0
 → ALU
 Wire Wire Line
 	9500 5500 10100 5500
-Text Label 900  4450 0    50   ~ 0
-IDX0
-Text Label 900  4550 0    50   ~ 0
-IDX1
-$Sheet
-S 1500 3500 1150 2450
-U 5DEAC282
-F0 "Microprogram Sequencer" 50
-F1 "cft_microcode.sch" 50
-F2 "~ENDEXT" I L 1500 4250 50 
-F3 "~RSTHOLD" I L 1500 3750 50 
-F4 "~WS" I L 1500 4350 50 
-F5 "~HALT" I L 1500 4150 50 
-F6 "CLK4" I L 1500 4050 50 
-F7 "~RESET" I L 1500 3650 50 
-F8 "RADDR[0..4]" O R 2650 3650 50 
-F9 "WADDR[0..4]" O R 2650 3750 50 
-F10 "COND[0..4]" O R 2650 3850 50 
-F11 "ACTION[0..3]" O R 2650 3950 50 
-F12 "~MEM" O R 2650 4050 50 
-F13 "~IO" O R 2650 4150 50 
-F14 "~R" O R 2650 4250 50 
-F15 "~WEN" O R 2650 4350 50 
-F16 "~END" O R 2650 4450 50 
-F17 "~IRQSµC" I L 1500 5750 50 
-F18 "IN-RSVD" I L 1500 4750 50 
-F19 "~COND" I L 1500 4650 50 
-F20 "FPD[0..7]" T R 2650 5650 50 
-F21 "~FPµA0" I R 2650 5250 50 
-F22 "~FPµC0" I R 2650 5350 50 
-F23 "~FPµC1" I R 2650 5450 50 
-F24 "~FPµC2" I R 2650 5550 50 
-F25 "FPFETCH" O R 2650 5150 50 
-F26 "IDX0" I L 1500 4450 50 
-F27 "IDX1" I L 1500 4550 50 
-F28 "IR7" I L 1500 4850 50 
-F29 "IR8" I L 1500 4950 50 
-F30 "IR9" I L 1500 5050 50 
-F31 "IR10" I L 1500 5150 50 
-F32 "IR11" I L 1500 5250 50 
-F33 "IR12" I L 1500 5350 50 
-F34 "IR13" I L 1500 5450 50 
-F35 "IR14" I L 1500 5550 50 
-F36 "IR15" I L 1500 5650 50 
-F37 "CLK2" I L 1500 3850 50 
-F38 "CLK3" I L 1500 3950 50 
-$EndSheet
 Wire Wire Line
 	900  3850 1500 3850
 Text Label 900  3850 0    50   ~ 0
 CLK2
-Wire Wire Line
-	1500 5750 1000 5750
-Text Label 900  4850 0    50   ~ 0
-IR7
-Text Label 900  4950 0    50   ~ 0
-IR8
-Text Label 900  5050 0    50   ~ 0
-IR9
-Text Label 900  5150 0    50   ~ 0
-IR10
-Text Label 900  5250 0    50   ~ 0
-IR11
-Text Label 900  5350 0    50   ~ 0
-IR12
-Text Label 900  5450 0    50   ~ 0
-IR13
-Text Label 900  5550 0    50   ~ 0
-IR14
-Text Label 900  5650 0    50   ~ 0
-IR15
-Text Label 1000 5750 0    50   ~ 0
-~IRQSµC
 Text Label 10100 5500 2    50   ~ 0
 IN-RSVD
 Text Notes 10200 5500 0    50   ~ 0
@@ -730,24 +657,6 @@ Wire Wire Line
 	9500 4600 10100 4600
 Text Label 10100 4600 2    50   ~ 0
 POWEROK
-Entry Wire Line
-	800  5650 900  5550
-Entry Wire Line
-	800  5550 900  5450
-Entry Wire Line
-	800  5450 900  5350
-Entry Wire Line
-	800  5350 900  5250
-Entry Wire Line
-	800  5250 900  5150
-Entry Wire Line
-	800  5150 900  5050
-Entry Wire Line
-	800  5050 900  4950
-Entry Wire Line
-	800  4950 900  4850
-Entry Wire Line
-	800  5750 900  5650
 Wire Bus Line
 	2650 3650 3250 3650
 Wire Bus Line
@@ -788,8 +697,6 @@ Wire Wire Line
 	900  2250 1500 2250
 Wire Wire Line
 	900  3650 1500 3650
-Text Label 800  5450 1    50   ~ 0
-IR[0..15]
 Text Notes 800  1000 0    100  ~ 20
 The Control Unit Board
 Text Notes 800  1800 0    50   ~ 0
@@ -1009,9 +916,9 @@ F18 "~MEM" U L 8350 3500 50
 F19 "~IO" U L 8350 3600 50 
 F20 "~R" U L 8350 3700 50 
 F21 "~WS" U L 8350 3900 50 
-F22 "~ENDEXT" U L 8350 4000 50 
-F23 "~SKIPEXT" U L 8350 4100 50 
-F24 "~HALT" U L 8350 4200 50 
+F22 "~ENDEXT" U L 8350 4100 50 
+F23 "~SKIPEXT" U L 8350 4200 50 
+F24 "~HALT" U L 8350 4300 50 
 F25 "ACTION[0..3]" U L 8350 4500 50 
 F26 "WADDR[0..4]" U L 8350 4600 50 
 F27 "RADDR[0..4]" U L 8350 4700 50 
@@ -1056,33 +963,8 @@ F65 "C37" U R 9500 5200 50
 F66 "C38" U R 9500 5300 50 
 F67 "C39" U R 9500 5400 50 
 F68 "C40" U R 9500 5500 50 
+F69 "~WAITING" O L 8350 4000 50 
 $EndSheet
-Wire Wire Line
-	1500 4650 900  4650
-Wire Wire Line
-	1500 5650 900  5650
-Wire Wire Line
-	1500 5550 900  5550
-Wire Wire Line
-	1500 5450 900  5450
-Wire Wire Line
-	1500 5350 900  5350
-Wire Wire Line
-	1500 5250 900  5250
-Wire Wire Line
-	1500 5150 900  5150
-Wire Wire Line
-	1500 5050 900  5050
-Wire Wire Line
-	1500 4950 900  4950
-Wire Wire Line
-	1500 4850 900  4850
-Wire Wire Line
-	1500 4550 900  4550
-Wire Wire Line
-	1500 4450 900  4450
-Wire Wire Line
-	900  4750 1500 4750
 Wire Wire Line
 	1500 4150 900  4150
 Wire Wire Line
@@ -1240,6 +1122,134 @@ F12 "CEXT8" T L 4200 5550 50
 F13 "CEXT9" T L 4200 5650 50 
 F14 "CEXT10" T L 4200 5750 50 
 $EndSheet
+Wire Wire Line
+	8350 4000 7800 4000
+Text Label 7800 4000 0    50   ~ 0
+~WAITING
+$Sheet
+S 1500 3500 1150 2450
+U 5DEAC282
+F0 "Microprogram Sequencer" 50
+F1 "cft_microcode.sch" 50
+F2 "~ENDEXT" I L 1500 4250 50 
+F3 "~RSTHOLD" I L 1500 3750 50 
+F4 "~WS" I L 1500 4350 50 
+F5 "~HALT" I L 1500 4150 50 
+F6 "CLK4" I L 1500 4050 50 
+F7 "~RESET" I L 1500 3650 50 
+F8 "RADDR[0..4]" O R 2650 3650 50 
+F9 "WADDR[0..4]" O R 2650 3750 50 
+F10 "COND[0..4]" O R 2650 3850 50 
+F11 "ACTION[0..3]" O R 2650 3950 50 
+F12 "~MEM" O R 2650 4050 50 
+F13 "~IO" O R 2650 4150 50 
+F14 "~R" O R 2650 4250 50 
+F15 "~WEN" O R 2650 4350 50 
+F16 "~END" O R 2650 4450 50 
+F17 "~IRQSµC" I L 1500 5750 50 
+F18 "IN-RSVD" I L 1500 4750 50 
+F19 "~COND" I L 1500 4650 50 
+F20 "FPD[0..7]" T R 2650 5650 50 
+F21 "~FPµA0" I R 2650 5250 50 
+F22 "~FPµC0" I R 2650 5350 50 
+F23 "~FPµC1" I R 2650 5450 50 
+F24 "~FPµC2" I R 2650 5550 50 
+F25 "FPFETCH" O R 2650 5150 50 
+F26 "IDX0" I L 1500 4450 50 
+F27 "IDX1" I L 1500 4550 50 
+F28 "IR7" I L 1500 4850 50 
+F29 "IR8" I L 1500 4950 50 
+F30 "IR9" I L 1500 5050 50 
+F31 "IR10" I L 1500 5150 50 
+F32 "IR11" I L 1500 5250 50 
+F33 "IR12" I L 1500 5350 50 
+F34 "IR13" I L 1500 5450 50 
+F35 "IR14" I L 1500 5550 50 
+F36 "IR15" I L 1500 5650 50 
+F37 "CLK2" I L 1500 3850 50 
+F38 "CLK3" I L 1500 3950 50 
+F39 "~WAITING" I L 1500 5850 50 
+$EndSheet
+Wire Wire Line
+	900  4750 1500 4750
+Wire Wire Line
+	1500 4450 900  4450
+Wire Wire Line
+	1500 4550 900  4550
+Wire Wire Line
+	1500 4850 900  4850
+Wire Wire Line
+	1500 4950 900  4950
+Wire Wire Line
+	1500 5050 900  5050
+Wire Wire Line
+	1500 5150 900  5150
+Wire Wire Line
+	1500 5250 900  5250
+Wire Wire Line
+	1500 5350 900  5350
+Wire Wire Line
+	1500 5450 900  5450
+Wire Wire Line
+	1500 5550 900  5550
+Wire Wire Line
+	1500 5650 900  5650
+Wire Wire Line
+	1500 4650 900  4650
+Text Label 800  5450 1    50   ~ 0
+IR[0..15]
+Entry Wire Line
+	800  5750 900  5650
+Entry Wire Line
+	800  4950 900  4850
+Entry Wire Line
+	800  5050 900  4950
+Entry Wire Line
+	800  5150 900  5050
+Entry Wire Line
+	800  5250 900  5150
+Entry Wire Line
+	800  5350 900  5250
+Entry Wire Line
+	800  5450 900  5350
+Entry Wire Line
+	800  5550 900  5450
+Entry Wire Line
+	800  5650 900  5550
+Text Label 1000 5750 0    50   ~ 0
+~IRQSµC
+Text Label 900  5650 0    50   ~ 0
+IR15
+Text Label 900  5550 0    50   ~ 0
+IR14
+Text Label 900  5450 0    50   ~ 0
+IR13
+Text Label 900  5350 0    50   ~ 0
+IR12
+Text Label 900  5250 0    50   ~ 0
+IR11
+Text Label 900  5150 0    50   ~ 0
+IR10
+Text Label 900  5050 0    50   ~ 0
+IR9
+Text Label 900  4950 0    50   ~ 0
+IR8
+Text Label 900  4850 0    50   ~ 0
+IR7
+Wire Wire Line
+	1500 5750 1000 5750
+Text Label 900  4550 0    50   ~ 0
+IDX1
+Text Label 900  4450 0    50   ~ 0
+IDX0
+Text Label 900  4650 0    50   ~ 0
+~COND
+Text Label 900  4750 0    50   ~ 0
+IN-RSVD
+Wire Wire Line
+	1500 5850 1000 5850
+Text Label 1000 5850 0    50   ~ 0
+~WAITING
 Wire Bus Line
 	9950 1450 9950 2100
 Wire Bus Line
