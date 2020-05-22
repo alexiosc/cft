@@ -105,7 +105,7 @@ cond OP:4;                    // The opcode field of the IR.
 cond I:1;                     // The indirection field of the IR.
 cond R:1;                     // The register field of the IR.
 cond SUBOP:3;                 // Used to implement instructions without operands. (IR[9..7])
-cond IN_RESERVED:1;           // Reserved.
+//cond IN_RESERVED:1;           // Reserved.
 cond COND:1;                  // When low: SBL returned TRUE. (registered, reset on END)
 cond IDX:2;                   // Auto-index type (IR[7..6] if IR[9..8] == 01, otherwise 00)
 
@@ -427,7 +427,7 @@ signal /END            = 1.......................; // Reset uaddr, go to fetch s
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-start RST=X, INT=X, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
+start RST=X, INT=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
       END;
       END;
       END;
@@ -464,7 +464,7 @@ start RST=X, INT=X, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 // Assumption: the steps that fetch the IR from memory are identical for both
 // direct (I=0) and indirect mode (I=1).
 
-start RST=X, INT=X, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
+start RST=X, INT=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
       FETCH_IR;                // Just fetch an instruction.
 
 
@@ -477,7 +477,7 @@ start RST=X, INT=X, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 // The reset sequence is little more than a fetch sequence, but we pad
 // it with a few NOPs.
 
-start RST=0, INT=X, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
+start RST=0, INT=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
       SET(pc,cs_rstvec), action_cli, END;  // 00
       hold;                                // 01
       hold;                                // 02
@@ -514,7 +514,7 @@ start RST=0, INT=X, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 // The Interrupt handler is currently 10 cycles long, which gives 2.5µs
 // latency. The Return process will probably be identical.
 
-start RST=1, INT=0, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
+start RST=1, INT=0, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
       STACK_PUSH(mbp_flags);                    // 00 mem[MBS:SP++] ← <flags,MBP>
       action_cli, STACK_PUSH(pc);               // 02 mem[MBS:SP++] ← PC; CLI
       STACK_PUSH(ac);                           // 04 mem[MBS:SP++] ← AC
@@ -531,7 +531,7 @@ start RST=1, INT=0, IN_RESERVED=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 
 // Define the opcodes for convenience.
 
-#define _INSTR(x) RST=1, INT=1, IN_RESERVED=X, OP=x
+#define _INSTR(x) RST=1, INT=1, OP=x
 
 // PART I: INSTRUCTION 0 (maximum 7-bit operands)
 
