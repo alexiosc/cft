@@ -51,7 +51,7 @@ module card_ctl_tb(
 		raddr, waddr, action,        // Microcode fields
 		fpd,			     // 8-bit front panel bus
 		rsvd,                        // Reserved for bussed expansion
-		wstb, nruen, nwuen,          // Removed, kept for expansion
+		wstb, nruen                  // Removed, kept for expansion
                 );
 
    inout         nreset;	// Open drain, various drivers.
@@ -96,7 +96,6 @@ module card_ctl_tb(
    inout  [4:1]	 rsvd;		// Reserved bussed pins
    inout 	 wstb;		// Removed, kept for expansion
    inout 	 nruen;		// Removed, kept for expansion
-   inout 	 nwuen;		// Removed, kept for expansion
 
    // Wire definitions for the above.
 
@@ -104,7 +103,7 @@ module card_ctl_tb(
    wire 	 nirqs, nsysdev, niodev1xx, niodev2xx, niodev3xx;
    wire   	 nmem, nio, nw, nr;
    tri1 	 nws, nhalt, nendext, nskipext, nirq;
-   wire  	 wstb, nruen, nwuen;
+   wire  	 wstb, nruen;
    wire [23:0] 	 ab;
    wire [15:0] 	 db;
    wire [7:0] 	 nirqn;
@@ -147,7 +146,6 @@ module card_ctl_tb(
    reg [800:0] 	 status;
    integer 	 i, j;
    
-   
    // Simulate things
    assign nfpreset = 1'b1;
    assign nfpclk_or_clk = 1'b1;
@@ -158,6 +156,7 @@ module card_ctl_tb(
       $dumpvars (0, card_ctl_tb);
 
       status = "Reset";
+      nhalt_drv = 1'b1;
       nreset_drv = 0;
       ibus_drv = 16'hZZZZ;
       #1000 nreset_drv = 1;
@@ -229,13 +228,14 @@ module card_ctl_tb(
 		.nsysdev(nsysdev), .niodev1xx(niodev1xx),
 		.niodev2xx(niodev2xx), .niodev3xx(niodev3xx),
 		.nmem(nmem), .nio(nio), .nw(nw), .nr(nr), .nws(nws),
+		.nwaiting(1'b1),
 		.ab(ab), .db(db),
 		.nirqn(nirqn),
 		.nhalt(nhalt), .nendext(nendext), .nskipext(nskipext),
 		.ibus(ibus), .raddr(raddr), .waddr(waddr), .action(action),
 		.fpd(fpd),
 		.cport(cport_ctl),
-		.rsvd(rsvd), .wstb(wstb), .nruen(nruen), .nwuen(nwuen)
+		.rsvd(rsvd), .wstb(wstb), .nruen(nruen)
                 );
 
    ///////////////////////////////////////////////////////////////////////////////
@@ -355,7 +355,7 @@ module card_ctl_tb(
       if ($time > 100) #30 begin
    	 msg[7:0] = "";		// Use the msg as a flag.
 
-	 for (vi = 0; msg[7:0] == "" && vi < 19; vi++) begin
+	 for (vi = 0; msg[7:0] == "" && vi < 18; vi++) begin
 	    if (card_ctl.microcode_sequencer.uaddr[vi] !== 1'b1 &&
 		card_ctl.microcode_sequencer.uaddr[vi] !== 1'b0) begin
 	       $sformat(msg, "uAddr fault: uaddr=%b", card_ctl.microcode_sequencer.uaddr);

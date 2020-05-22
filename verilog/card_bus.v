@@ -47,6 +47,7 @@ module card_bus(
 		niodev2xx,		     // I/O space 200-2FF
 		niodev3xx,		     // I/O space 300-3FF
 		nmem, nio, nw, nr, nws,      // Bus transactions
+		nwaiting,		     // Wait State acknowledge from BUS board
 		ab,                          // 24-bit address bus
 		db,                          // 16-bit data bus
 		nirqn,                       // Expanded interrupts (nIRQ0–nIRQ7)
@@ -56,7 +57,7 @@ module card_bus(
 		fpd,			     // 8-bit front panel bus
 		cport,                       // C port, unbussed pins on backplane
 		rsvd,                        // Reserved for bussed expansion
-		wstb, nruen, nwuen,          // Removed, kept for expansion
+		wstb, nruen                  // Removed, kept for expansion
                 );
 
    input         nreset;	// Open drain, various drivers.
@@ -81,6 +82,7 @@ module card_bus(
    output 	 nw;		// Driven by the databus unit.
    input 	 nr;		// Microcode store output
    inout 	 nws;		// Open drain, handled by BUS board
+   output 	 nwaiting;	// Wait State Acknowledge from BUS Board
 
    output [23:0] ab;		// 24-bit address bus
    inout [15:0]  db;		// 16-bit data bus
@@ -215,6 +217,7 @@ module card_bus(
 		    .nr(nr),
 		    .nwen(nwen),
 		    .nws(nws),
+		    .nwaiting(nwaiting),
 		    .ibus(ibus),
 		    .nw(nw),
 		    .db(db));

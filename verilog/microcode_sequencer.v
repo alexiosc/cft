@@ -29,6 +29,8 @@
 `include "buffer.v"
 `include "counter.v"
 `include "mux.v"
+`include "latch.v"
+`include "flipflop.v"
 
 `timescale 1ns/1ps
 
@@ -44,30 +46,31 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-module microcode_sequencer(nreset, nrsthold, clk2, clk4,
+module microcode_sequencer(nreset, nrsthold, clk1, clk2, clk4,
 			   nhalt, nendext, nws,
-			   idx, ncond, in_rsvd, ir, nirqsuc,
+			   idx, ncond, ir, nirqsuc,
 			   raddr, waddr, cond, action,
+			   nwaiting,
 			   nmem, nio, nr, nwen, nend,
 			   fpfetch,
 			   nfpua0, nfpuc0, nfpuc1, nfpuc2, fpd);
 
    input        nreset;
    input 	nrsthold;
+   input 	clk1;
    input 	clk2;
    input 	clk4;
    inout 	nhalt;
    inout 	nendext;
    inout 	nws;
+   input 	nwaiting;
    input [1:0] 	idx;
    input 	ncond;
-   inout 	in_rsvd;
    input [15:7] ir;
    input 	nirqsuc;
 
    tri1 	nendext;
    tri1 	halt;
-   tri0 	in_rsvd;
 
    output [4:0] raddr;
    output [4:0] waddr;
@@ -89,13 +92,17 @@ module microcode_sequencer(nreset, nrsthold, clk2, clk4,
 
    ///////////////////////////////////////////////////////////////////////////////
    //
-   // THE MICRO-PROGRAM COUNTER (UPC)
+   // THE MICROPROGRAM COUNTER (UPC)
    //
    ///////////////////////////////////////////////////////////////////////////////
 
-   wire 	nupcclr;
    wire [3:0] 	upc;
-   assign #6 nupcclr = nendext & nend;
+   //wire 	nupcclr;
+   //assign #6 nupcclr = nendext & nend;
+
+   tri1 	nupcclr;
+   mux_251 endmux (.d(8'b10001111), .sel({nwaiting, nend, nendext}), .ne(clk4), .y(nupcclr));
+   
    counter_161 ctr_upc (.mr(nrsthold), .cp(clk4), .cet(nhalt), .cep(nws),
 			.pe(nupcclr), .p(4'b0000),
 			.q(upc));
@@ -107,15 +114,14 @@ module microcode_sequencer(nreset, nrsthold, clk2, clk4,
    //
    ///////////////////////////////////////////////////////////////////////////////
 
-   wire [18:0] uaddr;
+   wire [17:0] uaddr;
    wire [23:0] ucontrol;
 
    // Break out the Micro-Address Vector
    assign uaddr = {
-		   nrsthold,	   // bit 18
-		   nirqsuc,	   // bit 17
-		   ir[15:7],	   // bits 16-8
-		   in_rsvd,	   // bit 7
+		   nrsthold,	   // bit 17
+		   nirqsuc,	   // bit 16
+		   ir[15:7],	   // bits 15-7
 		   ncond,	   // bit 6
 		   idx[1:0],	   // bits 5-4
 		   upc[3:0]	   // bits 3-0
@@ -130,25 +136,36 @@ module microcode_sequencer(nreset, nrsthold, clk2, clk4,
 	   nr0,   	   // bit 21
 	   nio0,	   // bit 20
 	   nmem0,	   // bit 19
-	   action[3:0], // bits 18-15
-	   cond[4:0],   // bits 14-10
-	   waddr[4:0],  // bits 9-5
-	   raddr[4:0]   // bits 4-0
+	   action[3:0],	   // bits 18-15
+	   cond[4:0],	   // bits 14-10
+	   waddr[4:0],	   // bits 9-5
+	   raddr[4:0]	   // bits 4-0
 	   } = ucontrol;
 
    // Output enable for the Control Store
    wire        ncse;
-   assign #7 ncse = ~(nreset & nhalt);
-   
+   //assign #7 ncse = ~(nreset & nhalt);
+
+   // Add metastability protection for HALT. Also make sure it runs for a whole
+   // number of clock cycles, so the processor never resumes at the wrong clock
+   // phase. As a bonus, this also keeps ncse de-asserted during reset.
+
+   tri1        nhalt;
+   wire        nhalt0;
+   latch_1g373 halt_latch (.d(nhalt), .noe(1'b0), .le(clk1), .q(nhalt0));
+   flipflop_74h #(5, 5) halt_ff (.d(nhalt0), .clk(clk1), .nset(1'b1), .nrst(nreset), .nq(ncse));
+
+   // The control store.
    control_store control_store(.noe(ncse), .clk(clk2),
 			       .uaddr(uaddr),
 			       .ucontrol(ucontrol));
 
    // The reset interlock multiplexer disables bus transaction strobes during
-   // reset. This is to avoid glitches causing side-effects right after reset.
-   mux_157 reset_interlock (.sel(nrsthold), .a(4'b1111),
-			    .b({nio0, nwen0, nr0, nmem0}), .noe(1'b0),
-			    .y({nio, nwen, nr, nmem}));
+   // reset. This is to avoid glitches causing side-effects right after
+   // reset. Use AC family and assume worst case.
+   mux_157 #13.5 reset_interlock (.sel(nrsthold), .a(4'b1111),
+				  .b({nio0, nwen0, nr0, nmem0}), .noe(1'b0),
+				  .y({nio, nwen, nr, nmem}));
 
    ///////////////////////////////////////////////////////////////////////////////
    //

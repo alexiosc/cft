@@ -47,21 +47,22 @@ module control_store(noe, clk, uaddr, ucontrol);
 
    input         noe;
    input 	 clk;
-   input [18:0]  uaddr;
+   input [17:0]  uaddr;
 
    output [23:0] ucontrol;
 
    // Connect the microcode ROM/Flash devices
    wire [23:0] 	 udata;
 
-   rom #(19, 50) rom0 (.a(uaddr), .d(udata[7:0]),   .nce(1'b0), .noe(1'b0));
-   rom #(19, 50) rom1 (.a(uaddr), .d(udata[15:8]),  .nce(1'b0), .noe(1'b0));
-   rom #(19, 50) rom2 (.a(uaddr), .d(udata[23:16]), .nce(1'b0), .noe(1'b0));
+   rom #(18, 60) rom0 (.a(uaddr), .d(udata[7:0]),   .nce(1'b0), .noe(1'b0));
+   rom #(18, 60) rom1 (.a(uaddr), .d(udata[15:8]),  .nce(1'b0), .noe(1'b0));
+   rom #(18, 60) rom2 (.a(uaddr), .d(udata[23:16]), .nce(1'b0), .noe(1'b0));
 
    // The control vector is registered on the rising edge of clk.
-   flipflop_574 ff1 (.d(udata[7:0]),   .q(ucontrol[7:0]),   .clk(clk), .noe(noe));
-   flipflop_574 ff2 (.d(udata[15:8]),  .q(ucontrol[15:8]),  .clk(clk), .noe(noe));
-   flipflop_574 ff3 (.d(udata[23:16]), .q(ucontrol[23:16]), .clk(clk), .noe(noe));
+   // Note: using AC family here, and assume worst case delays.
+   flipflop_574 #11 ff1 (.d(udata[7:0]),   .q(ucontrol[7:0]),   .clk(clk), .noe(noe));
+   flipflop_574 #11 ff2 (.d(udata[15:8]),  .q(ucontrol[15:8]),  .clk(clk), .noe(noe));
+   flipflop_574 #11 ff3 (.d(udata[23:16]), .q(ucontrol[23:16]), .clk(clk), .noe(noe));
 
    initial begin
       #30 ff1.q0 <= $random;

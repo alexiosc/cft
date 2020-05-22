@@ -36,7 +36,7 @@
 `include "card_dfp.v"
 `include "card_mem.v"
 
-`include "card_verilog_test.v"	// This is a fake card to test interrupts and IOT
+`include "card_verilog_test.v"  // This is a fake card to test interrupts and IOT
 
 `timescale 1ns/1ps
 
@@ -58,8 +58,9 @@ module cft2019(
                 ibus,                        // Processor bus
                 raddr, waddr, action,        // Microcode fields
                 fpd,                         // 8-bit front panel bus
+                //cport,                     // This makes no sense for the computer as a whole
                 rsvd,                        // Reserved for bussed expansion
-                wstb, nruen, nwuen,          // Removed, kept for expansion
+                wstb, nruen                  // Removed, kept for expansion
                 );
 
    inout         nreset;        // Open drain, various drivers.
@@ -84,6 +85,7 @@ module cft2019(
    output        nw;            // Driven by the BUS board.
    output        nr;            // Microcode store output
    inout         nws;           // Open drain, handled by BUS board
+   inout         nwaiting;      // Wait State Acknowledge from BUS Board
 
    output [23:0] ab;            // 24-bit address bus
    inout  [15:0] db;            // 16-bit data bus
@@ -104,14 +106,13 @@ module cft2019(
    inout  [4:1]  rsvd;          // Reserved bussed pins
    inout         wstb;          // Removed, kept for expansion
    inout         nruen;         // Removed, kept for expansion
-   inout         nwuen;         // Removed, kept for expansion
 
    // Wire definitions for the above.
 
    wire          nreset, nrsthold, clk1, clk2, clk3, clk4, t34;
    wire          nirq, nirqs, nsysdev, niodev1xx, niodev2xx, niodev3xx;
    wire          nmem, nio, nw, nr, nws, nhalt, nendext, nskipext;
-   wire          wstb, nruen, nwuen;
+   wire          wstb, nruen;
    wire [23:0]   ab;
    wire [15:0]   db;
    wire [7:0]    nirqn;
@@ -213,13 +214,14 @@ module cft2019(
                      .nsysdev(nsysdev), .niodev1xx(niodev1xx),
                      .niodev2xx(niodev2xx), .niodev3xx(niodev3xx),
                      .nmem(nmem), .nio(nio), .nw(nw), .nr(nr), .nws(nws),
+                     .nwaiting(nwaiting),
                      .ab(ab), .db(db),
                      .nirqn(nirqn),
                      .nhalt(nhalt), .nendext(nendext), .nskipext(nskipext),
                      .ibus(ibus), .raddr(raddr), .waddr(waddr), .action(action),
                      .fpd(fpd),
                      .cport(cport_ctl),
-                     .rsvd(rsvd), .wstb(wstb), .nruen(nruen), .nwuen(nwuen)
+                     .rsvd(rsvd), .wstb(wstb), .nruen(nruen)
                      );
 
    ///////////////////////////////////////////////////////////////////////////////
@@ -248,13 +250,14 @@ module cft2019(
                      .nsysdev(nsysdev), .niodev1xx(niodev1xx),
                      .niodev2xx(niodev2xx), .niodev3xx(niodev3xx),
                      .nmem(nmem), .nio(nio), .nw(nw), .nr(nr), .nws(nws),
+                     .nwaiting(nwaiting),
                      .ab(ab), .db(db),
                      .nirqn(nirqn),
                      .nhalt(nhalt), .nendext(nendext), .nskipext(nskipext),
                      .ibus(ibus), .raddr(raddr), .waddr(waddr), .action(action),
                      .fpd(fpd),
                      .cport(cport_reg),
-                     .rsvd(rsvd), .wstb(wstb), .nruen(nruen), .nwuen(nwuen)
+                     .rsvd(rsvd), .wstb(wstb), .nruen(nruen)
                      );
 
    ///////////////////////////////////////////////////////////////////////////////
@@ -276,6 +279,7 @@ module cft2019(
                      .nsysdev(nsysdev), .niodev1xx(niodev1xx),
                      .niodev2xx(niodev2xx), .niodev3xx(niodev3xx),
                      .nmem(nmem), .nio(nio), .nw(nw), .nr(nr), .nws(nws),
+                     .nwaiting(nwaiting),
                      .ab(ab), .db(db),
                      .nirqn(nirqn),
                      .nhalt(nhalt), .nendext(nendext), .nskipext(nskipext),
@@ -283,7 +287,7 @@ module cft2019(
                      .raddr(raddr), .waddr(waddr), .action(action),
                      .fpd(fpd),
                      .cport(cport_bus),
-                     .rsvd(rsvd), .wstb(wstb), .nruen(nruen), .nwuen(nwuen)
+                     .rsvd(rsvd), .wstb(wstb), .nruen(nruen)
                      );
 
    ///////////////////////////////////////////////////////////////////////////////
@@ -305,14 +309,15 @@ module cft2019(
                      .nsysdev(nsysdev), .niodev1xx(niodev1xx),
                      .niodev2xx(niodev2xx), .niodev3xx(niodev3xx),
                      .nmem(nmem), .nio(nio), .nw(nw), .nr(nr), .nws(nws),
+                     .nwaiting(nwaiting),
                      .ab(ab), .db(db),
                      .nirqn(nirqn),
                      .nhalt(nhalt), .nendext(nendext), .nskipext(nskipext),
-		     .ibus(ibus),
+                     .ibus(ibus),
                      .raddr(raddr), .waddr(waddr), .action(action),
                      .fpd(fpd),
                      .cport(cport_alu),
-                     .rsvd(rsvd), .wstb(wstb), .nruen(nruen), .nwuen(nwuen)
+                     .rsvd(rsvd), .wstb(wstb), .nruen(nruen)
                      );
 
    ///////////////////////////////////////////////////////////////////////////////
@@ -327,7 +332,7 @@ module cft2019(
    assign fpclk = 1'b0;
    assign nfpram_rom = 1'b1;
 
-   wire [40:1] 	 cport_dfp;
+   wire [40:1]   cport_dfp;
    card_dfp card_dfp(
                      .nreset(nreset), .nrsthold(nrsthold),
                      .clk1(clk1), .clk2(clk2), .clk3(clk3), .clk4(clk4), .t34(t34),
@@ -335,13 +340,14 @@ module cft2019(
                      .nsysdev(nsysdev), .niodev1xx(niodev1xx),
                      .niodev2xx(niodev2xx), .niodev3xx(niodev3xx),
                      .nmem(nmem), .nio(nio), .nw(nw), .nr(nr), .nws(nws),
+                     .nwaiting(nwaiting),
                      .ab(ab), .db(db),
                      .nirqn(nirqn),
                      .nhalt(nhalt), .nendext(nendext), .nskipext(nskipext),
                      .ibus(ibus), .raddr(raddr), .waddr(waddr), .action(action),
                      .fpd(fpd),
                      .cport(cport_dfp),
-                     .rsvd(rsvd), .wstb(wstb), .nruen(nruen), .nwuen(nwuen)
+                     .rsvd(rsvd), .wstb(wstb), .nruen(nruen)
                      );
 
    ///////////////////////////////////////////////////////////////////////////////
@@ -358,13 +364,14 @@ module cft2019(
                      .nsysdev(nsysdev), .niodev1xx(niodev1xx),
                      .niodev2xx(niodev2xx), .niodev3xx(niodev3xx),
                      .nmem(nmem), .nio(nio), .nw(nw), .nr(nr), .nws(nws),
+                     .nwaiting(nwaiting),
                      .ab(ab), .db(db),
                      .nirqn(nirqn),
                      .nhalt(nhalt), .nendext(nendext), .nskipext(nskipext),
                      .ibus(ibus), .raddr(raddr), .waddr(waddr), .action(action),
                      .fpd(fpd),
                      .cport(cport_mem),
-                     .rsvd(rsvd), .wstb(wstb), .nruen(nruen), .nwuen(nwuen)
+                     .rsvd(rsvd), .wstb(wstb), .nruen(nruen)
                      );
 
    ///////////////////////////////////////////////////////////////////////////////
@@ -380,13 +387,14 @@ module cft2019(
                      .nsysdev(nsysdev), .niodev1xx(niodev1xx),
                      .niodev2xx(niodev2xx), .niodev3xx(niodev3xx),
                      .nmem(nmem), .nio(nio), .nw(nw), .nr(nr), .nws(nws),
+                     .nwaiting(nwaiting),
                      .ab(ab), .db(db),
                      .nirqn(nirqn),
                      .nhalt(nhalt), .nendext(nendext), .nskipext(nskipext),
                      .ibus(ibus), .raddr(raddr), .waddr(waddr), .action(action),
                      .fpd(fpd),
                      .cport(cport_mem),
-                     .rsvd(rsvd), .wstb(wstb), .nruen(nruen), .nwuen(nwuen)
+                     .rsvd(rsvd), .wstb(wstb), .nruen(nruen)
                      );
 
 endmodule // cft2019

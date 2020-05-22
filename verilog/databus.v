@@ -19,7 +19,8 @@
 
 module databus (nreset, nhalt, clk3, clk4, t34,
 		nmem, nio, nr, nwen,
-		nws, ibus,
+		nws, nwaiting,
+		ibus,
 		nw, db);
 
    input 	nreset;
@@ -32,6 +33,7 @@ module databus (nreset, nhalt, clk3, clk4, t34,
    input 	nr;
    input 	nwen;
    inout 	nws;
+   output 	nwaiting;
 
    inout [15:0] ibus;		// input & output!
 
@@ -95,11 +97,18 @@ module databus (nreset, nhalt, clk3, clk4, t34,
    assign #6 halt = ~nhalt;		      // 74LVC1G04
    //assign #8 nw0 = nwen | (wstb & nwaiting); // 74LVC1G0832
    // assign #8 nw0 = nwaiting & (nwen | clk4);
-   assign #8 nw0 = nwaiting & (nwen | nwstb);
+   assign #8 nw0 = nwaiting_delayed & (nwen | nwstb);
    assign #6 nw = halt ? 1'bz : nw0;	      // 74LVC1G125
 
    // The Wait State FF itself
-   flipflop_74h ff_ws (.nset(nws_in_t34), .d(1'b0), .clk(clk3), .nrst(nreset), .nq(nwaiting));
+   flipflop_74h #2.5 ff_ws (.nset(nws_in_t34), .d(1'b0), .clk(clk3), .nrst(nreset), .nq(nwaiting));
+
+   // nwaiting must be deasserted after nwstb, but the rising edge of
+   // nwstb can lead nwaiting's depending on jitter. If this condition
+   // isn't satisfied, W# may glitch during wait states.
+   wire nwaiting_delayed0, nwaiting_delayed;
+   assign #1 nwaiting_delayed0 = nwaiting;
+   assign #1 nwaiting_delayed = nwaiting & nwaiting_delayed0;
 
    assign #7 nbusen = nwaiting & nio & nmem; // 74LVC1G11
 

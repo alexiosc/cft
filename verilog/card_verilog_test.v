@@ -46,6 +46,7 @@ module card_verilog_test (
 		niodev2xx,		     // I/O space 200-2FF
 		niodev3xx,		     // I/O space 300-3FF
 		nmem, nio, nw, nr, nws,      // Bus transactions
+		nwaiting,		     // Wait State acknowledge from BUS board
 		ab,                          // 24-bit address bus
 		db,                          // 16-bit data bus
 		nirqn,                       // Expanded interrupts (nIRQ0–nIRQ7)
@@ -55,7 +56,7 @@ module card_verilog_test (
 		fpd,			     // 8-bit front panel bus
 		cport,                       // C port, unbussed pins on backplane
 		rsvd,                        // Reserved for bussed expansion
-		wstb, nruen, nwuen,          // Removed, kept for expansion
+		wstb, nruen                  // Removed, kept for expansion
                 );
 
    input         nreset;	// Open drain, various drivers.
@@ -80,6 +81,7 @@ module card_verilog_test (
    input 	 nw;		// Driven by the BUS board.
    input 	 nr;		// Microcode store output
    inout 	 nws;		// Open drain, handled by BUS board
+   input 	 nwaiting;	// Wait State Acknowledge from BUS Board
 
    input [23:0]  ab;		// 24-bit address bus
    inout [15:0]  db;		// 16-bit data bus
@@ -101,14 +103,13 @@ module card_verilog_test (
    inout  [4:1]	 rsvd;		// Reserved bussed pins
    inout 	 wstb;		// Removed, kept for expansion
    inout 	 nruen;		// Removed, kept for expansion
-   inout 	 nwuen;		// Removed, kept for expansion
 
    // Wire definitions for the above.
 
    wire          nreset, nrsthold, clk1, clk2, clk3, clk4, t34;
    wire 	 nirq, nirqs, nsysdev, niodev1xx, niodev2xx, niodev3xx;
    wire   	 nmem, nio, nw, nr, nws, nhalt, nendext, nskipext;
-   wire  	 wstb, nruen, nwuen;
+   wire  	 wstb, nruen;
    wire [23:0] 	 ab;
    wire [15:0] 	 db;
    wire [7:0] 	 nirqn;
@@ -147,6 +148,17 @@ module card_verilog_test (
 	       nirq_ctr = nirq_ctr - 1;
 	    end
 	 end else nirq_drv = 1'bz;
+      end
+   end // always
+
+   // Wait states happen combinationally, at decoding time.
+   always @(niodev3xx, nw) begin
+      if (niodev3xx == 1'b0 && nw == 1'b0) begin
+	 casex (ab[7:0])
+	   8'hf0: begin
+	      ws_strobe();
+	   end
+	 endcase // casex (ab[7:0])
       end
    end
 

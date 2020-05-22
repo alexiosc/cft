@@ -80,6 +80,10 @@ module latch_1g373 (d, noe, le, q);
    wire       	q;
    reg       	q0;
 
+   initial begin
+      q0 = $random;
+   end
+
    always @(le or d) begin
      if (le) begin
        #(delay-2) q0 = d;

@@ -51,6 +51,7 @@ module card_ctl(
 		niodev2xx,		     // I/O space 200-2FF
 		niodev3xx,		     // I/O space 300-3FF
 		nmem, nio, nw, nr, nws,      // Bus transactions
+		nwaiting,		     // Wait State acknowledge from BUS board
 		ab,                          // 24-bit address bus
 		db,                          // 16-bit data bus
 		nirqn,                       // Expanded interrupts (nIRQ0–nIRQ7)
@@ -60,7 +61,7 @@ module card_ctl(
 		fpd,			     // 8-bit front panel bus
 		cport,                       // C port, unbussed pins on backplane
 		rsvd,                        // Reserved for bussed expansion
-		wstb, nruen, nwuen,          // Removed, kept for expansion
+		wstb, nruen                  // Removed, kept for expansion
                 );
 
    inout         nreset;	// Open drain, various drivers.
@@ -85,6 +86,7 @@ module card_ctl(
    input 	 nw;		// Driven by the BUS board.
    output 	 nr;		// Microcode store output
    inout 	 nws;		// Open drain, handled by BUS board
+   input 	 nwaiting;	// Wait State Acknowledge from BUS Board
 
    inout  [23:0] ab;		// 24-bit address bus
    inout  [15:0] db;		// 16-bit data bus
@@ -231,6 +233,7 @@ module card_ctl(
    microcode_sequencer microcode_sequencer(
 					   .nreset(nreset),
 					   .nrsthold(nrsthold),
+					   .clk1(clk1),
 					   .clk2(clk2),
 					   .clk4(clk4),
 					   .nhalt(nhalt),
@@ -238,13 +241,13 @@ module card_ctl(
 					   .nws(nws),
 					   .idx(idx),
 					   .ncond(ncond),
-					   .in_rsvd(in_rsvd),
 					   .ir(ir[15:7]),
 					   .nirqsuc(nirqsuc),
 					   .raddr(raddr),
 					   .waddr(waddr),
 					   .cond(cond),
 					   .action(action),
+					   .nwaiting(nwaiting),
 					   .nmem(nmem),
 					   .nio(nio),
 					   .nr(nr),

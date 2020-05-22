@@ -1,17 +1,19 @@
 [*]
 [*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Wed Mar 18 21:21:29 2020
+[*] Fri May 22 17:23:47 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/card_ctl_tb.vcd"
-[dumpfile_mtime] "Wed Mar 18 21:21:12 2020"
-[dumpfile_size] 746008
+[dumpfile_mtime] "Fri May 22 17:22:53 2020"
+[dumpfile_size] 39591
+[optimize_vcd]
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/card_ctl_tb.sav"
 [timestart] 0
 [size] 1920 1019
-[pos] 2287 0
-*-25.457258 27290000 24000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[pos] -1 -1
+*-19.853188 5374750 24000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] card_ctl_tb.
 [treeopen] card_ctl_tb.card_ctl.
+[treeopen] card_ctl_tb.card_ctl.microcode_sequencer.
 [sst_width] 258
 [signals_width] 341
 [sst_expanded] 1
@@ -32,9 +34,8 @@ card_ctl_tb.nfpreset
 -
 @22
 card_ctl_tb.card_ctl.pc[15:10]
-@201
--
 @200
+-
 -Clock
 @28
 [color] 1
@@ -288,5 +289,13 @@ card_ctl_tb.card_ctl.microcode_sequencer.nend
 @200
 -
 -Debugging
+@28
+card_ctl_tb.card_ctl.microcode_sequencer.clk1
+@29
+card_ctl_tb.card_ctl.microcode_sequencer.nreset
+@28
+card_ctl_tb.card_ctl.microcode_sequencer.ncse
+card_ctl_tb.card_ctl.microcode_sequencer.nhalt
+card_ctl_tb.card_ctl.microcode_sequencer.nhalt0
 [pattern_trace] 1
 [pattern_trace] 0

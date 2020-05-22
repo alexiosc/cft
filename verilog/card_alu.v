@@ -50,6 +50,7 @@ module card_alu(
 		niodev2xx,		     // I/O space 200-2FF
 		niodev3xx,		     // I/O space 300-3FF
 		nmem, nio, nw, nr, nws,      // Bus transactions
+		nwaiting,		     // Wait State acknowledge from BUS board
 		ab,                          // 24-bit address bus
 		db,                          // 16-bit data bus
 		nirqn,                       // Expanded interrupts (nIRQ0–nIRQ7)
@@ -59,7 +60,7 @@ module card_alu(
 		fpd,			     // 8-bit front panel bus
 		cport,                       // C port, unbussed pins on backplane
 		rsvd,                        // Reserved for bussed expansion
-		wstb, nruen, nwuen,          // Removed, kept for expansion
+		wstb, nruen                  // Removed, kept for expansion
                 );
 
    input         nreset;	// Open drain, various drivers.
@@ -84,6 +85,7 @@ module card_alu(
    input 	 nw;		// Driven by the BUS board.
    input 	 nr;		// Microcode store output
    inout 	 nws;		// Open drain, handled by BUS board
+   input 	 nwaiting;	// Wait State Acknowledge from BUS Board
 
    input [23:0]  ab;		// 24-bit address bus
    input [15:0]  db;		// 16-bit data bus

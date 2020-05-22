@@ -37,6 +37,7 @@ module microcode_sequencer_tb();
    reg [800:0] status;
    reg         nreset;
    wire        nrsthold;	// Driven by the reset unit
+   wire        clk1;		// Driven by the clock generator
    wire        clk2;		// Driven by the clock generator
    wire        clk3;		// Driven by the clock generator (used for reset)
    wire        clk4;		// Driven by the clock generator
@@ -44,11 +45,11 @@ module microcode_sequencer_tb();
    reg 	       nhalt;
    reg 	       nendext;
    reg 	       nws;
+   reg 	       nwaiting;
 
    // Microaddress inputs
    reg [1:0]   idx;
    reg 	       ncond;
-   reg 	       in_rsvd;
    reg [15:0]  ir;
    reg 	       nirqsuc;
 
@@ -88,9 +89,9 @@ module microcode_sequencer_tb();
       nhalt = 1;
       nendext = 1;
       nws = 1;
+      nwaiting = 1;		// TODO: involve this in testing
       idx = 2'b00;
       ncond = 1;
-      in_rsvd = 0;
       ir = 0;
       nirqsuc = 1;
       expupc = 0;
@@ -134,29 +135,29 @@ module microcode_sequencer_tb();
    end // initial begin
 
    // Assign tristatable wires
-   wire nreset_real, nhalt_real, nws_real, nendext_real, in_rsvd_real;
+   wire nreset_real, nhalt_real, nws_real, nendext_real;
    assign nreset_real = nreset;
    assign nhalt_real = nhalt;
    assign nws_real = nws;
    assign nendext_real = nendext;
-   assign in_rsvd_real = in_rsvd;
 
    // Use the clock generator, configured to run without a DFP at full
    // speed. We only use clk2 and clk4 outputs here.
    clock_generator clock_generator(.nreset(nreset_real),
-				   .clk2(clk2), .clk3(clk3), .clk4(clk4));
+				   .clk1(clk1), .clk2(clk2), .clk3(clk3), .clk4(clk4));
 
    // Use the reset unit as it's an important part of the sequencer.
    reset_logic reset_logic(.nreset(nreset_real), .nrsthold(nrsthold), .clk3(clk3));
 
    // The DUT
    microcode_sequencer microcode_sequencer(.nreset(nreset), .nrsthold(nrsthold),
-		       .clk2(clk2), .clk4(clk4),
+		       .clk1(clk1), .clk2(clk2), .clk4(clk4),
 		       .nhalt(nhalt_real), .nendext(nendext_real), .nws(nws_real),
-		       .idx(idx), .ncond(ncond), .in_rsvd(in_rsvd_real),
+		       .idx(idx), .ncond(ncond),
 		       .ir(ir[15:7]), .nirqsuc(nirqsuc),
 		       .raddr(raddr), .waddr(waddr), .cond(cond), .action(action),
 		       .nmem(nmem), .nio(nio), .nr(nr), .nwen(nwen), .nend(nend),
+		       .nwaiting(nwaiting),
 		       .fpfetch(fpfetch),
 		       .nfpua0(nfpua0),
 		       .nfpuc0(nfpuc0), .nfpuc1(nfpuc1), .nfpuc2(nfpuc2), .fpd(fpd));

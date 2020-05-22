@@ -35,7 +35,7 @@ module control_store_tb();
    reg noe;
    reg clk;
    
-   reg [18:0] uaddr;
+   reg [17:0] uaddr;
 
    wire [23:0] ucontrol;
 

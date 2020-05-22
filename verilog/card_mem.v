@@ -46,6 +46,7 @@ module card_mem(
 		niodev2xx,		     // I/O space 200-2FF
 		niodev3xx,		     // I/O space 300-3FF
 		nmem, nio, nw, nr, nws,      // Bus transactions
+		nwaiting,		     // Wait State acknowledge from BUS board
 		ab,                          // 24-bit address bus
 		db,                          // 16-bit data bus
 		nirqn,                       // Expanded interrupts (nIRQ0–nIRQ7)
@@ -55,7 +56,7 @@ module card_mem(
 		fpd,			     // 8-bit front panel bus
 		cport,                       // C port, unbussed pins on backplane
 		rsvd,                        // Reserved for bussed expansion
-		wstb, nruen, nwuen,          // Removed, kept for expansion
+		wstb, nruen                  // Removed, kept for expansion
                 );
 
    input         nreset;	// Open drain, various drivers.
@@ -80,6 +81,7 @@ module card_mem(
    input 	 nw;		// Driven by the BUS board.
    input 	 nr;		// Microcode store output
    input 	 nws;		// Open drain, handled by BUS board
+   input 	 nwaiting;	// Wait State Acknowledge from BUS Board
 
    input [23:0]  ab;		// 24-bit address bus
    input [15:0]  db;		// 16-bit data bus
@@ -101,14 +103,13 @@ module card_mem(
    inout  [4:1]	 rsvd;		// Reserved bussed pins
    inout 	 wstb;		// Removed, kept for expansion
    inout 	 nruen;		// Removed, kept for expansion
-   inout 	 nwuen;		// Removed, kept for expansion
 
    // Wire definitions for the above.
 
    wire          nreset, nrsthold, clk1, clk2, clk3, clk4, t34;
    wire 	 nirq, nirqs, nsysdev, niodev1xx, niodev2xx, niodev3xx;
    wire   	 nmem, nio, nw, nr, nws, nhalt, nendext, nskipext;
-   wire  	 wstb, nruen, nwuen;
+   wire  	 wstb, nruen;
    wire [23:0] 	 ab;
    wire [15:0] 	 db;
    wire [7:0] 	 nirqn;

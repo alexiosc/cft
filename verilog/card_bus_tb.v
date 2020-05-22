@@ -57,7 +57,7 @@ module card_bus_tb(
 		raddr, waddr, action,        // Microcode fields
 		fpd,			     // 8-bit front panel bus
 		rsvd,                        // Reserved for bussed expansion
-		wstb, nruen, nwuen,          // Removed, kept for expansion
+		wstb, nruen                  // Removed, kept for expansion
                 );
 
    inout         nreset;	// Open drain, various drivers.
@@ -102,7 +102,6 @@ module card_bus_tb(
    inout  [4:1]	 rsvd;		// Reserved bussed pins
    inout 	 wstb;		// Removed, kept for expansion
    inout 	 nruen;		// Removed, kept for expansion
-   inout 	 nwuen;		// Removed, kept for expansion
 
    // Wire definitions for the above.
 
@@ -110,7 +109,7 @@ module card_bus_tb(
    wire 	 nirqs, nsysdev, niodev1xx, niodev2xx, niodev3xx;
    wire   	 nmem, nio, nw, nr;
    tri1 	 nws, nhalt, nendext, nskipext, nirq;
-   wire  	 wstb, nruen, nwuen;
+   wire  	 wstb, nruen;
    wire [23:0] 	 ab;
    wire [15:0] 	 db;
    wire [7:0] 	 nirqn;
@@ -189,7 +188,7 @@ module card_bus_tb(
                      .ibus(ibus), .raddr(raddr), .waddr(waddr), .action(action),
                      .fpd(fpd),
                      .cport(cport_bus),
-                     .rsvd(rsvd), .wstb(wstb), .nruen(nruen), .nwuen(nwuen)
+                     .rsvd(rsvd), .wstb(wstb), .nruen(nruen)
                      );
 
    reg [8191:0] msg;

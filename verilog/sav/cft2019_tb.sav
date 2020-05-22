@@ -1,31 +1,30 @@
 [*]
-[*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
-[*] Mon May 18 08:43:02 2020
+[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
+[*] Fri May 22 17:14:03 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/cft2019_tb.vcd"
-[dumpfile_mtime] "Mon May 18 08:39:56 2020"
-[dumpfile_size] 98807709
+[dumpfile_mtime] "Fri May 22 15:32:47 2020"
+[dumpfile_size] 395703
 [optimize_vcd]
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/cft2019_tb.sav"
-[timestart] 8729000
-[size] 2928 1652
-[pos] 1178 0
-*-18.721136 10724000 15001750 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[timestart] 10627100
+[size] 1771 1123
+[pos] 1884 -1
+*-17.577454 11144750 15001750 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] cft2019_tb.
 [treeopen] cft2019_tb.cft.
+[treeopen] cft2019_tb.cft.card_bus.
 [treeopen] cft2019_tb.cft.card_bus.constant_store.
 [treeopen] cft2019_tb.cft.card_bus.databus.
-[treeopen] cft2019_tb.cft.card_ctl.
 [treeopen] cft2019_tb.cft.card_ctl.ism.
 [treeopen] cft2019_tb.cft.card_ctl.microcode_sequencer.
 [treeopen] cft2019_tb.cft.card_mem.romhi.
-[treeopen] cft2019_tb.cft.card_reg.
 [treeopen] cft2019_tb.cft.card_reg.reg_ac.
 [treeopen] cft2019_tb.cft.card_reg.reg_pc.
 [sst_width] 372
-[signals_width] 661
+[signals_width] 319
 [sst_expanded] 1
-[sst_vpaned_height] 895
+[sst_vpaned_height] 438
 @c00200
 -Reset
 @28
@@ -58,7 +57,7 @@ cft2019_tb.cft.card_ctl.t34
 cft2019_tb.cft.card_ctl.nfpclk_or_clk
 @1000200
 -Clock
-@800200
+@c00200
 -Registers
 @22
 [color] 2
@@ -169,7 +168,7 @@ cft2019_tb.cft.card_bus.mbu.mb6[7:0]
 cft2019_tb.cft.card_bus.mbu.mb7[7:0]
 @1401200
 -MBR
-@800200
+@c00200
 -Flags
 @28
 cft2019_tb.cft.fl
@@ -177,10 +176,10 @@ cft2019_tb.cft.fn
 cft2019_tb.cft.fv
 cft2019_tb.cft.fz
 cft2019_tb.cft.card_ctl.fi
-@1000200
+@1401200
 -Flags
 -Registers
-@800200
+@c00200
 -Buses
 @c00022
 [color] 1
@@ -301,14 +300,8 @@ cft2019_tb.cft.nwen
 cft2019_tb.cft.nw
 cft2019_tb.cft.card_bus.databus.nwaiting
 cft2019_tb.cft.card_bus.databus.nws
-@1000200
+@1401200
 -Buses
-@28
-cft2019_tb.cft.card_ctl.microcode_sequencer.ctr_upc.cep
-cft2019_tb.cft.card_ctl.microcode_sequencer.ctr_upc.cet
-cft2019_tb.cft.card_ctl.microcode_sequencer.ctr_upc.cp
-@23
-cft2019_tb.cft.card_ctl.microcode_sequencer.ctr_upc.q[3:0]
 @800200
 -Control Unit
 @820
@@ -329,10 +322,10 @@ cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
 cft2019_tb.cft.nskipext
 cft2019_tb.cft.card_ctl.microcode_sequencer.ncond
 cft2019_tb.cft.card_ctl.nirqsuc
-@c04022
+@c04023
 ^>2 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/uaddr
 cft2019_tb.cft.card_ctl.microcode_sequencer.uaddr[18:0]
-@28
+@29
 (0)cft2019_tb.cft.card_ctl.microcode_sequencer.uaddr[18:0]
 (1)cft2019_tb.cft.card_ctl.microcode_sequencer.uaddr[18:0]
 (2)cft2019_tb.cft.card_ctl.microcode_sequencer.uaddr[18:0]
@@ -352,7 +345,7 @@ cft2019_tb.cft.card_ctl.microcode_sequencer.uaddr[18:0]
 (16)cft2019_tb.cft.card_ctl.microcode_sequencer.uaddr[18:0]
 (17)cft2019_tb.cft.card_ctl.microcode_sequencer.uaddr[18:0]
 (18)cft2019_tb.cft.card_ctl.microcode_sequencer.uaddr[18:0]
-@1401200
+@1401201
 -group_end
 @200
 -
@@ -434,9 +427,8 @@ cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
 cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
 @1401200
 -Instruction Register
-@800200
--ALU
 @c00200
+-ALU
 -Shifter/Rotator (SRU)
 @4022
 [color] 1
@@ -637,10 +629,30 @@ cft2019_tb.cft.card_alu.alu_rom.ibus[15:0]
 @28
 [color] 1
 cft2019_tb.cft.card_reg.nwrite_ac
-@1000200
+@1401200
 -ALU
+@800200
+-Wait States
+@4022
+^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/disasm
+cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
+@820
+cft2019_tb.cft.card_ctl.clock_generator.state[15:0]
+@28
+cft2019_tb.cft.card_ctl.clk4
+cft2019_tb.cft.nio
+[color] 1
+cft2019_tb.cft.card_bus.databus.nws
+cft2019_tb.cft.nwen
+cft2019_tb.cft.card_bus.databus.nwstb
+cft2019_tb.cft.nw
+cft2019_tb.cft.card_bus.databus.nwaiting
+cft2019_tb.cft.card_bus.databus.nwaiting_delayed0
+cft2019_tb.cft.card_bus.databus.nwaiting_delayed
+cft2019_tb.cft.card_verilog_test.niodev3xx
+@1000200
+-Wait States
 @200
--
 -
 -
 -

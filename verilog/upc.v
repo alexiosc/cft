@@ -25,6 +25,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 `include "counter.v"
+`include "mux.v"
 
 `timescale 1ns/1ps
 
@@ -56,9 +57,11 @@ module upc(nreset, nrsthold, clk4, nend, nendext, nws, nhalt, upc);
    // asserted. This solves a bug where wait states wouldn't be honoured if
    // requested while END# is also asserted.
    
-   wire 	nupcclr;	// Clear the µPC
+   tri1 	nupcclr;	// Clear the µPC (pulled up)
    //assign #6 nupcclr = nend & nendext;
-   assign #6 nupcclr = (nend & nendext) | nws;
+   //assign #6 nupcclr = (nend & nendext) | nws;
+
+   mux_251 endmux (.d(8'b1001111), .sel({nwaiting, nend, nendext}), .ne(clk4), .y(nupcclr));
 
    // Note: we ignore the TC output
    counter_161 upc_ctr(.mr(nrsthold), // Async reset on RSTHOLD#
