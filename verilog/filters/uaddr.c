@@ -24,38 +24,37 @@ int main(int argc, char **argv)
 			sscanf(buf, "%x", &hx);
 			buf2[0] = '\0';
 
-			//  0 0001: upc
-			//  1 0002: upc
-			//  2 0004: upc
-			//  3 0008: upc
-			//  4 0010: idx
-			//  5 0020: idx
-			//  6 0040: !cond
-			//  7 0080: in_rsvd
-			//  8 0100: ir7
-			//  9 0200: ir8
-			// 10 0400: ir9
-			// 11 0800: ir10
-			// 12 1000: ir11
-			// 13 2000: ir12
-			// 14 4000: ir13
-			// 15 8000: ir14
-			// 16 10000: ir15
-			// 17 20000: irq
-			// 18 40000: reset
+			//  0 00001: upc
+			//  1 00002: upc
+			//  2 00004: upc
+			//  3 00008: upc
+			//  4 00010: idx
+			//  5 00020: idx
+			//  6 00040: !cond
+			//  7 00080: ir7
+			//  8 00100: ir8
+			//  9 00200: ir9
+			// 10 00400: ir10
+			// 11 00800: ir11
+			// 12 01000: ir12
+			// 13 02000: ir13
+			// 14 04000: ir14
+			// 15 80000: ir15
+			// 16 10000: irq
+			// 17 20000: reset
 
-			if ((hx & 0x40000) == 0) {
+			if ((hx & 0x20000) == 0) {
 				strcpy(col, "?magenta4?");
 				add(buf2, "reset");
 			} else {
-				if ((hx & 0x20000) == 0) {
+				if ((hx & 0x10000) == 0) {
 					strcpy(col, "?orange4?");
 					add(buf2, "irq");
 				} else {
-					snprintf(buf3, sizeof(buf3), "IR=%03x-", (hx & 0x1ff00) >> 5);
+					snprintf(buf3, sizeof(buf3), "IR=%03x-", (hx & 0xff80) >> 4);
 					add(buf2, buf3);
 					
-					if ((hx & 0x80) != 0) add(buf2, "(in_rsvd)");
+					//if ((hx & 0x80) != 0) add(buf2, "(in_rsvd)");
 					if ((hx & 0x40) == 0) add(buf2, "cond=true");
 					
 					if ((hx & 0x30) == 3) add(buf2, "idx-stack");
