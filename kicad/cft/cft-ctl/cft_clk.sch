@@ -827,8 +827,8 @@ AR Path="/6A313729/5D805641" Ref="U?"  Part="1"
 AR Path="/5DC89E19/5D0A147D/5D805641" Ref="U?"  Part="1" 
 AR Path="/5DC89E19/5D396E91/5D805641" Ref="U?"  Part="1" 
 AR Path="/5E36D9C8/5D805641" Ref="U37"  Part="1" 
-F 0 "U37" H 6900 3325 50  0000 C CNN
-F 1 "74AC191" H 6900 3234 50  0000 C CNN
+F 0 "U37" H 6900 4667 50  0000 C CNN
+F 1 "74AC191" H 6900 4576 50  0000 C CNN
 F 2 "alexios:SOIC-16" H 6875 4000 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS190" H 6875 4000 50  0001 C CNN
 	1    6900 4000
@@ -837,15 +837,8 @@ $EndComp
 Wire Wire Line
 	6350 3900 6350 4200
 Wire Wire Line
-	6400 4400 6350 4400
-Connection ~ 6350 4400
-Wire Wire Line
-	6350 4400 6350 4600
-Wire Wire Line
 	6400 4200 6350 4200
 Connection ~ 6350 4200
-Wire Wire Line
-	6350 4200 6350 4400
 Wire Wire Line
 	4500 3300 4500 4500
 Wire Wire Line
@@ -1324,4 +1317,11 @@ Wire Wire Line
 	10250 4850 10800 4850
 Text Notes 9950 5100 0    50   ~ 0
 Just in case it's necessary\nfor future clock uses.
+Wire Wire Line
+	6350 4200 6350 4400
+Wire Wire Line
+	6350 4400 6350 4600
+Connection ~ 6350 4400
+Wire Wire Line
+	6400 4400 6350 4400
 $EndSCHEMATC

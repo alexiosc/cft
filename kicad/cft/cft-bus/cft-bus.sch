@@ -398,7 +398,7 @@ U 5D46B22D
 F0 "Wait States & Write Strobes" 50
 F1 "cft_ws_busen.sch" 50
 F2 "~T34" I L 4900 4100 50 
-F3 "~RESET" I L 4900 3700 50 
+F3 "~RSTHOLD" I L 4900 3700 50 
 F4 "CLK3" I L 4900 3900 50 
 F5 "CLK4" I L 4900 4000 50 
 F6 "~MEM" I L 4900 4250 50 
@@ -431,7 +431,7 @@ CLK3
 Text Label 4050 3800 0    50   ~ 0
 ~HALT
 Text Label 4050 3700 0    50   ~ 0
-~RESET
+~RSTHOLD
 Wire Wire Line
 	4900 4800 4050 4800
 Wire Wire Line

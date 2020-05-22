@@ -4,14 +4,14 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 12 12
-Title ""
+Title "Microprogram Counter"
 Date ""
 Rev "2020"
 Comp ""
 Comment1 "CTL"
 Comment2 ""
 Comment3 ""
-Comment4 ""
+Comment4 "microcode_sequencer.v"
 $EndDescr
 Text Label 9150 4000 2    50   ~ 0
 UPC0
@@ -85,7 +85,7 @@ AR Path="/5F65DB32" Ref="U?"  Part="1"
 AR Path="/5DEAC282/5F65DB32" Ref="U?"  Part="1" 
 AR Path="/5DEAC282/5F643CAF/5F65DB32" Ref="U44"  Part="1" 
 F 0 "U44" H 8150 5267 50  0000 C CNN
-F 1 "74HC161" H 8150 5176 50  0000 C CNN
+F 1 "74AC161" H 8150 5176 50  0000 C CNN
 F 2 "alexios:SOIC-16" H 8450 4750 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC161.pdf" H 8450 4750 50  0001 C CNN
 	1    8150 4500
@@ -154,7 +154,7 @@ AR Path="/5F6721C4" Ref="U?"  Part="1"
 AR Path="/5DEAC282/5F6721C4" Ref="U?"  Part="2" 
 AR Path="/5DEAC282/5F643CAF/5F6721C4" Ref="U44"  Part="2" 
 F 0 "U44" H 8330 6446 50  0000 L CNN
-F 1 "74HC161" H 8330 6355 50  0000 L CNN
+F 1 "74AC161" H 8330 6355 50  0000 L CNN
 F 2 "alexios:SOIC-16" H 8450 6250 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS161" H 8450 6250 50  0001 C CNN
 	2    8150 6000
@@ -274,28 +274,26 @@ Text Label 3450 3750 2    50   ~ 0
 ~END
 Text Label 3450 3650 2    50   ~ 0
 ~ENDEXT
-Text Notes 5650 2875 0    50   ~ 0
-~WAITING~\n\n   X\n   0\n   1\n   1
-Text Notes 6600 2875 0    50   ~ 0
-~µPCCLR~\n\n  1\n  1\n  0\n  0
+Text Notes 5650 2850 0    50   ~ 0
+~WAITING~\n\n   X\n   0\n   1\n   1\n   1
 Wire Notes Line width 12 style solid
-	5350 2350 7000 2350
+	5350 2250 7000 2250
 Wire Notes Line width 12 style solid
-	7000 2350 7000 2925
+	7000 2250 7000 2925
 Wire Notes Line width 12 style solid
-	5350 2350 5350 2925
+	5350 2250 5350 2925
 Wire Notes Line style solid
-	5350 2510 7000 2510
+	5350 2410 7000 2410
 Wire Notes Line
-	6540 2350 6540 2925
+	6540 2250 6540 2925
 Wire Notes Line width 12 style solid
 	5350 2925 7000 2925
-Text Notes 6000 2875 0    50   ~ 0
-~END~\n\n X\n X\n 0\n X
-Text Notes 6200 2875 0    50   ~ 0
-~ENDEXT~\n\n   X\n   X\n   X\n   0
-Text Notes 5400 2875 0    50   ~ 0
-CLK4\n\n   1\n   0\n   0\n   0
+Text Notes 6000 2850 0    50   ~ 0
+~END~\n\n X\n X\n 0\n X\n 1
+Text Notes 6200 2850 0    50   ~ 0
+~ENDEXT~\n\n   X\n   X\n   X\n   0\n   1
+Text Notes 5400 2850 0    50   ~ 0
+CLK4\n\n   1\n   0\n   0\n   0\n   0
 Connection ~ 3450 3050
 Wire Wire Line
 	3450 3450 3550 3450
@@ -487,4 +485,6 @@ F 3 "http://www.ti.com/lit/gpn/sn74LS251" H 3900 6050 50  0001 C CNN
 $EndComp
 Connection ~ 3550 5500
 Connection ~ 3550 5700
+Text Notes 6600 2850 0    50   ~ 0
+~µPCCLR~\n\n  1\n  1\n  0\n  0\n  1
 $EndSCHEMATC

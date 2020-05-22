@@ -14,76 +14,9 @@ Comment3 ""
 Comment4 "control_store.v"
 $EndDescr
 Wire Wire Line
-	4050 3600 4400 3600
-$Comp
-L power:GND #PWR?
-U 1 1 5E37FA6E
-P 2000 4000
-AR Path="/5DEAC282/5E37FA6E" Ref="#PWR?"  Part="1" 
-AR Path="/5DEAC282/5E34FD9B/5E37FA6E" Ref="#PWR0141"  Part="1" 
-F 0 "#PWR0141" H 2000 3750 50  0001 C CNN
-F 1 "GND" H 1850 3950 50  0000 C CNN
-F 2 "" H 2000 4000 50  0001 C CNN
-F 3 "" H 2000 4000 50  0001 C CNN
-	1    2000 4000
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR?
-U 1 1 5E37FA5A
-P 2400 4000
-AR Path="/5DEAC282/5E37FA5A" Ref="#PWR?"  Part="1" 
-AR Path="/5DEAC282/5E34FD9B/5E37FA5A" Ref="#PWR0142"  Part="1" 
-F 0 "#PWR0142" H 2400 3850 50  0001 C CNN
-F 1 "+5V" H 2415 4173 50  0000 C CNN
-F 2 "" H 2400 4000 50  0001 C CNN
-F 3 "" H 2400 4000 50  0001 C CNN
-	1    2400 4000
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	2300 4000 2400 4000
+	4050 3500 4400 3500
 Text Notes 8600 1150 0    50   ~ 0
 Microcode ROMs are wired as a 512K×24 bit\ntable, so all address lines are the same but\ndata out lines differ.
-$Comp
-L alexios:29F040 U?
-U 2 1 5E4A5D71
-P 1800 7350
-AR Path="/5DEAC282/5E4A5D71" Ref="U?"  Part="2" 
-AR Path="/5DEAC282/5E34FD9B/5E4A5D71" Ref="U52"  Part="2" 
-F 0 "U52" H 1980 8146 50  0000 L CNN
-F 1 "29F040" H 1980 8055 50  0000 L CNN
-F 2 "alexios:PLCC32" H 1800 7350 50  0001 C CNN
-F 3 "" H 1800 7350 50  0001 C CNN
-	2    1800 7350
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:29F040 U?
-U 2 1 5E4A5D77
-P 3800 7350
-AR Path="/5DEAC282/5E4A5D77" Ref="U?"  Part="2" 
-AR Path="/5DEAC282/5E34FD9B/5E4A5D77" Ref="U53"  Part="2" 
-F 0 "U53" H 3980 8146 50  0000 L CNN
-F 1 "29F040" H 3980 8055 50  0000 L CNN
-F 2 "alexios:PLCC32" H 3800 7350 50  0001 C CNN
-F 3 "" H 3800 7350 50  0001 C CNN
-	2    3800 7350
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:29F040 U?
-U 2 1 5E4A5D7D
-P 5800 7350
-AR Path="/5DEAC282/5E4A5D7D" Ref="U?"  Part="2" 
-AR Path="/5DEAC282/5E34FD9B/5E4A5D7D" Ref="U54"  Part="2" 
-F 0 "U54" H 5980 8146 50  0000 L CNN
-F 1 "29F040" H 5980 8055 50  0000 L CNN
-F 2 "alexios:PLCC32" H 5800 7350 50  0001 C CNN
-F 3 "" H 5800 7350 50  0001 C CNN
-	2    5800 7350
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	1450 6500 1350 6500
 Connection ~ 1350 6500
@@ -183,7 +116,6 @@ F 3 "" H 1450 6700 50  0001 C CNN
 	1    1450 6700
 	1    0    0    -1  
 $EndComp
-Connection ~ 1450 6700
 $Comp
 L power:GND #PWR?
 U 1 1 5E4A5DB2
@@ -197,7 +129,6 @@ F 3 "" H 3450 6700 50  0001 C CNN
 	1    3450 6700
 	1    0    0    -1  
 $EndComp
-Connection ~ 3450 6700
 $Comp
 L power:GND #PWR?
 U 1 1 5E4A5DB9
@@ -211,7 +142,6 @@ F 3 "" H 5450 6700 50  0001 C CNN
 	1    5450 6700
 	1    0    0    -1  
 $EndComp
-Connection ~ 5450 6700
 $Comp
 L power:+5V #PWR?
 U 1 1 5E4A5DC0
@@ -225,7 +155,6 @@ F 3 "" H 1450 6500 50  0001 C CNN
 	1    1450 6500
 	1    0    0    -1  
 $EndComp
-Connection ~ 1450 6500
 $Comp
 L power:+5V #PWR?
 U 1 1 5E4A5DC7
@@ -239,7 +168,6 @@ F 3 "" H 3450 6500 50  0001 C CNN
 	1    3450 6500
 	1    0    0    -1  
 $EndComp
-Connection ~ 3450 6500
 $Comp
 L power:+5V #PWR?
 U 1 1 5E4A5DCE
@@ -253,7 +181,6 @@ F 3 "" H 5450 6500 50  0001 C CNN
 	1    5450 6500
 	1    0    0    -1  
 $EndComp
-Connection ~ 5450 6500
 $Comp
 L Device:C_Small C?
 U 1 1 5E4A5DD5
@@ -307,61 +234,33 @@ IDX1
 Text HLabel 1000 2400 0    50   Input ~ 0
 ~COND
 Text HLabel 1000 2500 0    50   Input ~ 0
-IN-RSVD
-Text HLabel 1000 2600 0    50   Input ~ 0
 IR7
-Text HLabel 1000 2700 0    50   Input ~ 0
+Text HLabel 1000 2600 0    50   Input ~ 0
 IR8
-Text HLabel 1000 2800 0    50   Input ~ 0
+Text HLabel 1000 2700 0    50   Input ~ 0
 IR9
-Text HLabel 1000 2900 0    50   Input ~ 0
+Text HLabel 1000 2800 0    50   Input ~ 0
 IR10
-Text HLabel 1000 3000 0    50   Input ~ 0
+Text HLabel 1000 2900 0    50   Input ~ 0
 IR11
-Text HLabel 1000 3100 0    50   Input ~ 0
+Text HLabel 1000 3000 0    50   Input ~ 0
 IR12
-Text HLabel 1000 3200 0    50   Input ~ 0
+Text HLabel 1000 3100 0    50   Input ~ 0
 IR13
-Text HLabel 1000 3300 0    50   Input ~ 0
+Text HLabel 1000 3200 0    50   Input ~ 0
 IR14
-Text HLabel 1000 3400 0    50   Input ~ 0
+Text HLabel 1000 3300 0    50   Input ~ 0
 IR15
-Text HLabel 1000 3500 0    50   Input ~ 0
+Text HLabel 1000 3400 0    50   Input ~ 0
 ~IRQSµC
-Text HLabel 1000 3600 0    50   Input ~ 0
+Text HLabel 1000 3500 0    50   Input ~ 0
 ~RSTHOLD
-Text Notes 2000 3450 0    100  ~ 20
+Text Notes 1950 3450 0    100  ~ 20
 µ00
-$Comp
-L alexios:29F040 U?
-U 1 1 5E37FA15
-P 2100 2650
-AR Path="/5DEAC282/5E37FA15" Ref="U?"  Part="1" 
-AR Path="/5DEAC282/5E34FD9B/5E37FA15" Ref="U52"  Part="1" 
-F 0 "U52" H 2075 3767 50  0000 C CNN
-F 1 "29F040" H 2075 3676 50  0000 C CNN
-F 2 "alexios:PLCC32" H 2100 2650 50  0001 C CNN
-F 3 "" H 2100 2650 50  0001 C CNN
-	1    2100 2650
-	1    0    0    -1  
-$EndComp
 Text Label 1100 6000 0    50   ~ 0
 CLK
 Text Label 1100 6100 0    50   ~ 0
 ~OE
-$Comp
-L power:GND #PWR?
-U 1 1 5F0788AB
-P 2150 4000
-AR Path="/5DEAC282/5F0788AB" Ref="#PWR?"  Part="1" 
-AR Path="/5DEAC282/5E34FD9B/5F0788AB" Ref="#PWR056"  Part="1" 
-F 0 "#PWR056" H 2150 3750 50  0001 C CNN
-F 1 "GND" H 2300 3950 50  0000 C CNN
-F 2 "" H 2150 4000 50  0001 C CNN
-F 3 "" H 2150 4000 50  0001 C CNN
-	1    2150 4000
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	1450 1800 1000 1800
 Wire Wire Line
@@ -378,14 +277,16 @@ Text Label 1100 2000 0    50   ~ 0
 UPC2
 Text Label 1100 2100 0    50   ~ 0
 UPC3
-Text Label 1100 3500 0    50   ~ 0
+Text Label 1100 3400 0    50   ~ 0
 ~IRQSµC
-Text Label 1100 3600 0    50   ~ 0
+Text Label 1100 3500 0    50   ~ 0
 ~RSTHOLD
 Wire Wire Line
 	1000 2200 1450 2200
 Wire Wire Line
 	1000 2300 1450 2300
+Wire Wire Line
+	1000 2500 1450 2500
 Wire Wire Line
 	1000 2600 1450 2600
 Wire Wire Line
@@ -403,40 +304,34 @@ Wire Wire Line
 Wire Wire Line
 	1000 3300 1450 3300
 Wire Wire Line
-	1000 3400 1450 3400
-Wire Wire Line
 	1000 2400 1450 2400
 Wire Wire Line
-	1000 2500 1450 2500
+	1000 3400 1450 3400
 Wire Wire Line
 	1000 3500 1450 3500
-Wire Wire Line
-	1000 3600 1450 3600
 Text Label 1100 2200 0    50   ~ 0
 IDX0
 Text Label 1100 2300 0    50   ~ 0
 IDX1
-Text Label 1100 2700 0    50   ~ 0
+Text Label 1100 2600 0    50   ~ 0
 IR8
-Text Label 1100 2800 0    50   ~ 0
+Text Label 1100 2700 0    50   ~ 0
 IR9
-Text Label 1100 2900 0    50   ~ 0
+Text Label 1100 2800 0    50   ~ 0
 IR10
-Text Label 1100 3000 0    50   ~ 0
+Text Label 1100 2900 0    50   ~ 0
 IR11
-Text Label 1100 3100 0    50   ~ 0
+Text Label 1100 3000 0    50   ~ 0
 IR12
-Text Label 1100 3200 0    50   ~ 0
+Text Label 1100 3100 0    50   ~ 0
 IR13
-Text Label 1100 3300 0    50   ~ 0
+Text Label 1100 3200 0    50   ~ 0
 IR14
-Text Label 1100 3400 0    50   ~ 0
+Text Label 1100 3300 0    50   ~ 0
 IR15
-Text Label 1100 2500 0    50   ~ 0
-IN-RSVD
 Text Label 1100 2400 0    50   ~ 0
 ~COND
-Text Label 1100 2600 0    50   ~ 0
+Text Label 1100 2500 0    50   ~ 0
 IR7
 Text HLabel 3550 5450 2    50   Output ~ 0
 WADDR2
@@ -475,9 +370,9 @@ L alexios:74HC574 U58
 U 1 1 5F02A882
 P 2100 5250
 F 0 "U58" H 2100 6017 50  0000 C CNN
-F 1 "74HC574" H 2100 5926 50  0000 C CNN
+F 1 "74AC574" H 2100 5926 50  0000 C CNN
 F 2 "alexios:SOIC-20W" H 1800 5200 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS574" H 1800 5200 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/sn74hc574.pdf" H 1800 5200 50  0001 C CNN
 F 4 "Yes" H 1950 4300 50  0001 C CNN "Verified"
 	1    2100 5250
 	1    0    0    -1  
@@ -618,7 +513,7 @@ Wire Wire Line
 	2700 2400 3000 2400
 Wire Wire Line
 	2700 2500 3000 2500
-Text Notes 7950 3450 0    100  ~ 20
+Text Notes 7850 3450 0    100  ~ 20
 µ02
 Wire Wire Line
 	7350 1800 7000 1800
@@ -636,14 +531,16 @@ Text Label 7000 2000 0    50   ~ 0
 UPC2
 Text Label 7000 2100 0    50   ~ 0
 UPC3
-Text Label 7000 3500 0    50   ~ 0
+Text Label 7000 3400 0    50   ~ 0
 ~IRQSµC
-Text Label 7000 3600 0    50   ~ 0
+Text Label 7000 3500 0    50   ~ 0
 ~RSTHOLD
 Wire Wire Line
 	7000 2200 7350 2200
 Wire Wire Line
 	7000 2300 7350 2300
+Wire Wire Line
+	7000 2500 7350 2500
 Wire Wire Line
 	7000 2600 7350 2600
 Wire Wire Line
@@ -661,54 +558,35 @@ Wire Wire Line
 Wire Wire Line
 	7000 3300 7350 3300
 Wire Wire Line
-	7000 3400 7350 3400
-Wire Wire Line
 	7000 2400 7350 2400
 Wire Wire Line
-	7000 2500 7350 2500
+	7000 3400 7350 3400
 Wire Wire Line
 	7000 3500 7350 3500
-Wire Wire Line
-	7000 3600 7350 3600
 Text Label 7000 2200 0    50   ~ 0
 IDX0
 Text Label 7000 2300 0    50   ~ 0
 IDX1
-Text Label 7000 2700 0    50   ~ 0
+Text Label 7000 2600 0    50   ~ 0
 IR8
-Text Label 7000 2800 0    50   ~ 0
+Text Label 7000 2700 0    50   ~ 0
 IR9
-Text Label 7000 2900 0    50   ~ 0
+Text Label 7000 2800 0    50   ~ 0
 IR10
-Text Label 7000 3000 0    50   ~ 0
+Text Label 7000 2900 0    50   ~ 0
 IR11
-Text Label 7000 3100 0    50   ~ 0
+Text Label 7000 3000 0    50   ~ 0
 IR12
-Text Label 7000 3200 0    50   ~ 0
+Text Label 7000 3100 0    50   ~ 0
 IR13
-Text Label 7000 3300 0    50   ~ 0
+Text Label 7000 3200 0    50   ~ 0
 IR14
-Text Label 7000 3400 0    50   ~ 0
+Text Label 7000 3300 0    50   ~ 0
 IR15
-Text Label 7000 2500 0    50   ~ 0
-IN-RSVD
 Text Label 7000 2400 0    50   ~ 0
 ~COND
-Text Label 7000 2600 0    50   ~ 0
+Text Label 7000 2500 0    50   ~ 0
 IR7
-$Comp
-L alexios:29F040 U?
-U 1 1 5E3B5D62
-P 8000 2650
-AR Path="/5DEAC282/5E3B5D62" Ref="U?"  Part="1" 
-AR Path="/5DEAC282/5E34FD9B/5E3B5D62" Ref="U54"  Part="1" 
-F 0 "U54" H 7975 3767 50  0000 C CNN
-F 1 "29F040" H 7975 3676 50  0000 C CNN
-F 2 "alexios:PLCC32" H 8000 2650 50  0001 C CNN
-F 3 "" H 8000 2650 50  0001 C CNN
-	1    8000 2650
-	1    0    0    -1  
-$EndComp
 Text HLabel 6500 4850 2    50   Output ~ 0
 WADDR4
 Text HLabel 6500 4750 2    50   Output ~ 0
@@ -745,53 +623,34 @@ Text Label 6400 5350 2    50   ~ 0
 COND4
 Text Label 6400 5450 2    50   ~ 0
 ACTION0
-$Comp
-L alexios:29F040 U?
-U 1 1 5E3B6B58
-P 5050 2650
-AR Path="/5DEAC282/5E3B6B58" Ref="U?"  Part="1" 
-AR Path="/5DEAC282/5E34FD9B/5E3B6B58" Ref="U53"  Part="1" 
-F 0 "U53" H 5025 3767 50  0000 C CNN
-F 1 "29F040" H 5025 3676 50  0000 C CNN
-F 2 "alexios:PLCC32" H 5050 2650 50  0001 C CNN
-F 3 "" H 5050 2650 50  0001 C CNN
-	1    5050 2650
-	1    0    0    -1  
-$EndComp
-Text Label 4050 2600 0    50   ~ 0
+Text Label 4050 2500 0    50   ~ 0
 IR7
 Text Label 4050 2400 0    50   ~ 0
 ~COND
-Text Label 4050 2500 0    50   ~ 0
-IN-RSVD
-Text Label 4050 3400 0    50   ~ 0
-IR15
 Text Label 4050 3300 0    50   ~ 0
-IR14
+IR15
 Text Label 4050 3200 0    50   ~ 0
-IR13
+IR14
 Text Label 4050 3100 0    50   ~ 0
-IR12
+IR13
 Text Label 4050 3000 0    50   ~ 0
-IR11
+IR12
 Text Label 4050 2900 0    50   ~ 0
-IR10
+IR11
 Text Label 4050 2800 0    50   ~ 0
-IR9
+IR10
 Text Label 4050 2700 0    50   ~ 0
+IR9
+Text Label 4050 2600 0    50   ~ 0
 IR8
 Text Label 4050 2300 0    50   ~ 0
 IDX1
 Text Label 4050 2200 0    50   ~ 0
 IDX0
 Wire Wire Line
-	4050 3500 4400 3500
-Wire Wire Line
-	4050 2500 4400 2500
+	4050 3400 4400 3400
 Wire Wire Line
 	4050 2400 4400 2400
-Wire Wire Line
-	4050 3400 4400 3400
 Wire Wire Line
 	4050 3300 4400 3300
 Wire Wire Line
@@ -809,12 +668,14 @@ Wire Wire Line
 Wire Wire Line
 	4050 2600 4400 2600
 Wire Wire Line
+	4050 2500 4400 2500
+Wire Wire Line
 	4050 2300 4400 2300
 Wire Wire Line
 	4050 2200 4400 2200
-Text Label 4050 3600 0    50   ~ 0
-~RSTHOLD
 Text Label 4050 3500 0    50   ~ 0
+~RSTHOLD
+Text Label 4050 3400 0    50   ~ 0
 ~IRQSµC
 Text Label 4050 2100 0    50   ~ 0
 UPC3
@@ -832,7 +693,7 @@ Wire Wire Line
 	4400 1900 4050 1900
 Wire Wire Line
 	4400 1800 4050 1800
-Text Notes 5000 3450 0    100  ~ 20
+Text Notes 4900 3450 0    100  ~ 20
 µ01
 Entry Wire Line
 	3000 1800 3100 1900
@@ -915,11 +776,11 @@ Entry Wire Line
 Entry Wire Line
 	1300 4750 1200 4650
 Entry Bus Bus
-	3100 4150 3000 4250
+	3100 4050 3000 4150
 Wire Bus Line
-	3000 4250 1300 4250
+	3000 4150 1300 4150
 Entry Bus Bus
-	1200 4350 1300 4250
+	1200 4250 1300 4150
 Wire Wire Line
 	5650 1800 5950 1800
 Wire Wire Line
@@ -953,9 +814,9 @@ Entry Wire Line
 Entry Wire Line
 	5950 2500 6050 2600
 Entry Bus Bus
-	6050 4150 5950 4250
+	6050 4050 5950 4150
 Wire Bus Line
-	5950 4250 4250 4250
+	5950 4150 4250 4150
 Text Label 6050 3350 1    50   ~ 0
 µCV[8..15]
 Text Label 5700 1800 0    50   ~ 0
@@ -983,7 +844,7 @@ L alexios:74HC574 U59
 U 1 1 5F517073
 P 5050 5250
 F 0 "U59" H 5050 6017 50  0000 C CNN
-F 1 "74HC574" H 5050 5926 50  0000 C CNN
+F 1 "74AC574" H 5050 5926 50  0000 C CNN
 F 2 "alexios:SOIC-20W" H 4750 5200 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS574" H 4750 5200 50  0001 C CNN
 F 4 "Yes" H 4900 4300 50  0001 C CNN "Verified"
@@ -1113,9 +974,9 @@ Entry Wire Line
 Entry Wire Line
 	4250 4750 4150 4650
 Entry Bus Bus
-	4150 4350 4250 4250
+	4150 4250 4250 4150
 Wire Bus Line
-	8900 4250 7200 4250
+	8900 4150 7200 4150
 Text Label 7200 5650 0    50   ~ 0
 CLK
 Text Label 7200 5750 0    50   ~ 0
@@ -1125,9 +986,9 @@ L alexios:74HC574 U60
 U 1 1 5F5592A3
 P 8000 5250
 F 0 "U60" H 8000 6017 50  0000 C CNN
-F 1 "74HC574" H 8000 5926 50  0000 C CNN
+F 1 "74AC574" H 8000 5926 50  0000 C CNN
 F 2 "alexios:SOIC-20W" H 7700 5200 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS574" H 7700 5200 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/sn74hc574.pdf" H 7700 5200 50  0001 C CNN
 F 4 "Yes" H 7850 4300 50  0001 C CNN "Verified"
 	1    8000 5250
 	1    0    0    -1  
@@ -1201,7 +1062,7 @@ Entry Wire Line
 Entry Wire Line
 	7200 4750 7100 4650
 Entry Bus Bus
-	7100 4350 7200 4250
+	7100 4250 7200 4150
 Entry Wire Line
 	8900 1800 9000 1900
 Entry Wire Line
@@ -1257,95 +1118,13 @@ Wire Wire Line
 Wire Wire Line
 	8750 5450 10750 5450
 $Comp
-L power:GND #PWR?
-U 1 1 5F777533
-P 4950 4000
-AR Path="/5DEAC282/5F777533" Ref="#PWR?"  Part="1" 
-AR Path="/5DEAC282/5E34FD9B/5F777533" Ref="#PWR057"  Part="1" 
-F 0 "#PWR057" H 4950 3750 50  0001 C CNN
-F 1 "GND" H 4800 3950 50  0000 C CNN
-F 2 "" H 4950 4000 50  0001 C CNN
-F 3 "" H 4950 4000 50  0001 C CNN
-	1    4950 4000
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR?
-U 1 1 5F777539
-P 5350 4000
-AR Path="/5DEAC282/5F777539" Ref="#PWR?"  Part="1" 
-AR Path="/5DEAC282/5E34FD9B/5F777539" Ref="#PWR059"  Part="1" 
-F 0 "#PWR059" H 5350 3850 50  0001 C CNN
-F 1 "+5V" H 5365 4173 50  0000 C CNN
-F 2 "" H 5350 4000 50  0001 C CNN
-F 3 "" H 5350 4000 50  0001 C CNN
-	1    5350 4000
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	5250 4000 5350 4000
-$Comp
-L power:GND #PWR?
-U 1 1 5F777540
-P 5100 4000
-AR Path="/5DEAC282/5F777540" Ref="#PWR?"  Part="1" 
-AR Path="/5DEAC282/5E34FD9B/5F777540" Ref="#PWR058"  Part="1" 
-F 0 "#PWR058" H 5100 3750 50  0001 C CNN
-F 1 "GND" H 5250 3950 50  0000 C CNN
-F 2 "" H 5100 4000 50  0001 C CNN
-F 3 "" H 5100 4000 50  0001 C CNN
-	1    5100 4000
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5F78B738
-P 7900 4000
-AR Path="/5DEAC282/5F78B738" Ref="#PWR?"  Part="1" 
-AR Path="/5DEAC282/5E34FD9B/5F78B738" Ref="#PWR060"  Part="1" 
-F 0 "#PWR060" H 7900 3750 50  0001 C CNN
-F 1 "GND" H 7750 3950 50  0000 C CNN
-F 2 "" H 7900 4000 50  0001 C CNN
-F 3 "" H 7900 4000 50  0001 C CNN
-	1    7900 4000
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR?
-U 1 1 5F78B73E
-P 8300 4000
-AR Path="/5DEAC282/5F78B73E" Ref="#PWR?"  Part="1" 
-AR Path="/5DEAC282/5E34FD9B/5F78B73E" Ref="#PWR062"  Part="1" 
-F 0 "#PWR062" H 8300 3850 50  0001 C CNN
-F 1 "+5V" H 8315 4173 50  0000 C CNN
-F 2 "" H 8300 4000 50  0001 C CNN
-F 3 "" H 8300 4000 50  0001 C CNN
-	1    8300 4000
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	8200 4000 8300 4000
-$Comp
-L power:GND #PWR?
-U 1 1 5F78B745
-P 8050 4000
-AR Path="/5DEAC282/5F78B745" Ref="#PWR?"  Part="1" 
-AR Path="/5DEAC282/5E34FD9B/5F78B745" Ref="#PWR061"  Part="1" 
-F 0 "#PWR061" H 8050 3750 50  0001 C CNN
-F 1 "GND" H 8200 3950 50  0000 C CNN
-F 2 "" H 8050 4000 50  0001 C CNN
-F 3 "" H 8050 4000 50  0001 C CNN
-	1    8050 4000
-	1    0    0    -1  
-$EndComp
-$Comp
 L alexios:74HC574 U58
 U 2 1 5F7CB74C
 P 1800 7350
 F 0 "U58" H 1980 7396 50  0000 L CNN
-F 1 "74HC574" H 1980 7305 50  0000 L CNN
+F 1 "74AC574" H 1980 7305 50  0000 L CNN
 F 2 "alexios:SOIC-20W" H 1500 7300 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS574" H 1500 7300 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/sn74hc574.pdf" H 1500 7300 50  0001 C CNN
 F 4 "Yes" H 1650 6400 50  0001 C CNN "Verified"
 	2    1800 7350
 	1    0    0    -1  
@@ -1396,7 +1175,7 @@ L alexios:74HC574 U59
 U 2 1 5F82A383
 P 3800 7350
 F 0 "U59" H 3980 7396 50  0000 L CNN
-F 1 "74HC574" H 3980 7305 50  0000 L CNN
+F 1 "74AC574" H 3980 7305 50  0000 L CNN
 F 2 "alexios:SOIC-20W" H 3500 7300 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS574" H 3500 7300 50  0001 C CNN
 F 4 "Yes" H 3650 6400 50  0001 C CNN "Verified"
@@ -1449,9 +1228,9 @@ L alexios:74HC574 U60
 U 2 1 5F8510DD
 P 5800 7350
 F 0 "U60" H 5980 7396 50  0000 L CNN
-F 1 "74HC574" H 5980 7305 50  0000 L CNN
+F 1 "74AC574" H 5980 7305 50  0000 L CNN
 F 2 "alexios:SOIC-20W" H 5500 7300 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS574" H 5500 7300 50  0001 C CNN
+F 3 "http://www.ti.com/lit/ds/symlink/sn74hc574.pdf" H 5500 7300 50  0001 C CNN
 F 4 "Yes" H 5650 6400 50  0001 C CNN "Verified"
 	2    5800 7350
 	1    0    0    -1  
@@ -1565,11 +1344,11 @@ Wire Notes Line style solid
 	700  5975 750  5975
 Wire Notes Line style solid
 	700  6025 700  5975
-Text Notes 2575 3750 1    50   ~ 0
+Text Notes 2400 3750 2    50   ~ 0
 microcode-00.bin
-Text Notes 5525 3750 1    50   ~ 0
+Text Notes 5350 3750 2    50   ~ 0
 microcode-01.bin
-Text Notes 8475 3750 1    50   ~ 0
+Text Notes 8300 3750 2    50   ~ 0
 microcode-02.bin
 Text Notes 6000 1275 0    50   ~ 0
 NOT FOR MICROCODE VERSIONS < 7\n\nFor versions 8 and above, check microcode\ndocumentation for compatibility!
@@ -1766,7 +1545,7 @@ Wire Wire Line
 Text Notes 9200 4550 0    50   ~ 0
 The '157 mux disables bus transactions\nduring ~NRSTHOLD~ to ensure undefined\ncontrol signals don't have unforeseen\nside effects on peripherals.
 Entry Bus Bus
-	9000 4150 8900 4250
+	9000 4050 8900 4150
 $Comp
 L power:+5V #PWR?
 U 1 1 5F2CC361
@@ -1897,16 +1676,228 @@ F 3 "http://www.ti.com/lit/gpn/sn74LS157" H 9950 3450 50  0001 C CNN
 	1    9950 3450
 	1    0    0    -1  
 $EndComp
+$Comp
+L alexios:AT27C020 U52
+U 1 1 5F938C57
+P 2100 2650
+F 0 "U52" H 2075 3767 50  0000 C CNN
+F 1 "AT27C020" H 2075 3676 50  0000 C CNN
+F 2 "alexios:PLCC32" H 1475 875 50  0001 C CNN
+F 3 "https://gr.mouser.com/datasheet/2/268/atmel_doc0570-1280178.pdf" H 2100 2650 50  0001 C CNN
+F 4 "556-AT27C020-55JU; €3.02" H 1775 775 50  0001 C CNN "Mouser"
+	1    2100 2650
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 5F964C17
+P 2750 2850
+AR Path="/5DEAC282/5F964C17" Ref="#PWR?"  Part="1" 
+AR Path="/5DEAC282/5E34FD9B/5F964C17" Ref="#PWR0111"  Part="1" 
+F 0 "#PWR0111" H 2750 2700 50  0001 C CNN
+F 1 "+5V" H 2765 3023 50  0000 C CNN
+F 2 "" H 2750 2850 50  0001 C CNN
+F 3 "" H 2750 2850 50  0001 C CNN
+	1    2750 2850
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2750 2850 2750 2900
+Wire Wire Line
+	2750 3100 2700 3100
+Wire Wire Line
+	2700 2900 2750 2900
+Connection ~ 2750 2900
+Wire Wire Line
+	2750 2900 2750 3100
+Wire Wire Line
+	2700 3300 2750 3300
+Wire Wire Line
+	2750 3300 2750 3500
+Wire Wire Line
+	2700 3500 2750 3500
+Connection ~ 2750 3500
+Wire Wire Line
+	2750 3500 2750 3550
+$Comp
+L power:GND #PWR?
+U 1 1 5F9C1A62
+P 2750 3550
+AR Path="/5DEAC282/5F9C1A62" Ref="#PWR?"  Part="1" 
+AR Path="/5DEAC282/5E34FD9B/5F9C1A62" Ref="#PWR0112"  Part="1" 
+F 0 "#PWR0112" H 2750 3300 50  0001 C CNN
+F 1 "GND" H 2755 3377 50  0000 C CNN
+F 2 "" H 2750 3550 50  0001 C CNN
+F 3 "" H 2750 3550 50  0001 C CNN
+	1    2750 3550
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:AT27C020 U53
+U 1 1 5F9D536F
+P 5050 2650
+F 0 "U53" H 5025 3767 50  0000 C CNN
+F 1 "AT27C020" H 5025 3676 50  0000 C CNN
+F 2 "alexios:PLCC32" H 4425 875 50  0001 C CNN
+F 3 "https://gr.mouser.com/datasheet/2/268/atmel_doc0570-1280178.pdf" H 5050 2650 50  0001 C CNN
+F 4 "556-AT27C020-55JU; €3.02" H 4725 775 50  0001 C CNN "Mouser"
+	1    5050 2650
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 5F9EA638
+P 5700 2850
+AR Path="/5DEAC282/5F9EA638" Ref="#PWR?"  Part="1" 
+AR Path="/5DEAC282/5E34FD9B/5F9EA638" Ref="#PWR0141"  Part="1" 
+F 0 "#PWR0141" H 5700 2700 50  0001 C CNN
+F 1 "+5V" H 5715 3023 50  0000 C CNN
+F 2 "" H 5700 2850 50  0001 C CNN
+F 3 "" H 5700 2850 50  0001 C CNN
+	1    5700 2850
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5700 2850 5700 2900
+Wire Wire Line
+	5700 3100 5650 3100
+Wire Wire Line
+	5650 2900 5700 2900
+Connection ~ 5700 2900
+Wire Wire Line
+	5700 2900 5700 3100
+Wire Wire Line
+	5650 3300 5700 3300
+Wire Wire Line
+	5700 3300 5700 3500
+Wire Wire Line
+	5650 3500 5700 3500
+Connection ~ 5700 3500
+Wire Wire Line
+	5700 3500 5700 3550
+$Comp
+L power:GND #PWR?
+U 1 1 5F9EA648
+P 5700 3550
+AR Path="/5DEAC282/5F9EA648" Ref="#PWR?"  Part="1" 
+AR Path="/5DEAC282/5E34FD9B/5F9EA648" Ref="#PWR0142"  Part="1" 
+F 0 "#PWR0142" H 5700 3300 50  0001 C CNN
+F 1 "GND" H 5705 3377 50  0000 C CNN
+F 2 "" H 5700 3550 50  0001 C CNN
+F 3 "" H 5700 3550 50  0001 C CNN
+	1    5700 3550
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:AT27C020 U54
+U 1 1 5F9FE4FB
+P 8000 2650
+F 0 "U54" H 7975 3767 50  0000 C CNN
+F 1 "AT27C020" H 7975 3676 50  0000 C CNN
+F 2 "alexios:PLCC32" H 7375 875 50  0001 C CNN
+F 3 "https://gr.mouser.com/datasheet/2/268/atmel_doc0570-1280178.pdf" H 8000 2650 50  0001 C CNN
+F 4 "556-AT27C020-55JU; €3.02" H 7675 775 50  0001 C CNN "Mouser"
+	1    8000 2650
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 5FA02F58
+P 8650 2850
+AR Path="/5DEAC282/5FA02F58" Ref="#PWR?"  Part="1" 
+AR Path="/5DEAC282/5E34FD9B/5FA02F58" Ref="#PWR0203"  Part="1" 
+F 0 "#PWR0203" H 8650 2700 50  0001 C CNN
+F 1 "+5V" H 8665 3023 50  0000 C CNN
+F 2 "" H 8650 2850 50  0001 C CNN
+F 3 "" H 8650 2850 50  0001 C CNN
+	1    8650 2850
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8650 2850 8650 2900
+Wire Wire Line
+	8650 3100 8600 3100
+Wire Wire Line
+	8600 2900 8650 2900
+Connection ~ 8650 2900
+Wire Wire Line
+	8650 2900 8650 3100
+Wire Wire Line
+	8600 3300 8650 3300
+Wire Wire Line
+	8650 3300 8650 3500
+Wire Wire Line
+	8600 3500 8650 3500
+Connection ~ 8650 3500
+Wire Wire Line
+	8650 3500 8650 3550
+$Comp
+L power:GND #PWR?
+U 1 1 5FA02F68
+P 8650 3550
+AR Path="/5DEAC282/5FA02F68" Ref="#PWR?"  Part="1" 
+AR Path="/5DEAC282/5E34FD9B/5FA02F68" Ref="#PWR0204"  Part="1" 
+F 0 "#PWR0204" H 8650 3300 50  0001 C CNN
+F 1 "GND" H 8655 3377 50  0000 C CNN
+F 2 "" H 8650 3550 50  0001 C CNN
+F 3 "" H 8650 3550 50  0001 C CNN
+	1    8650 3550
+	1    0    0    -1  
+$EndComp
+Text Notes 2600 3900 2    50   ~ 10
+Atmel AT27C020 55ns parts.
+$Comp
+L alexios:AT27C020 U52
+U 2 1 5FA33B55
+P 1800 7350
+F 0 "U52" H 1980 8146 50  0000 L CNN
+F 1 "AT27C020" H 1980 8055 50  0000 L CNN
+F 2 "alexios:PLCC32" H 1175 5575 50  0001 C CNN
+F 3 "https://gr.mouser.com/datasheet/2/268/atmel_doc0570-1280178.pdf" H 1800 7350 50  0001 C CNN
+F 4 "556-AT27C020-55JU; €3.02" H 1475 5475 50  0001 C CNN "Mouser"
+	2    1800 7350
+	1    0    0    -1  
+$EndComp
+Connection ~ 1450 6700
+Connection ~ 1450 6500
+$Comp
+L alexios:AT27C020 U53
+U 2 1 5FA35738
+P 3800 7350
+F 0 "U53" H 3980 8146 50  0000 L CNN
+F 1 "AT27C020" H 3980 8055 50  0000 L CNN
+F 2 "alexios:PLCC32" H 3175 5575 50  0001 C CNN
+F 3 "https://gr.mouser.com/datasheet/2/268/atmel_doc0570-1280178.pdf" H 3800 7350 50  0001 C CNN
+F 4 "556-AT27C020-55JU; €3.02" H 3475 5475 50  0001 C CNN "Mouser"
+	2    3800 7350
+	1    0    0    -1  
+$EndComp
+Connection ~ 3450 6700
+Connection ~ 3450 6500
+$Comp
+L alexios:AT27C020 U54
+U 2 1 5FA36B3D
+P 5800 7350
+F 0 "U54" H 5980 8146 50  0000 L CNN
+F 1 "AT27C020" H 5980 8055 50  0000 L CNN
+F 2 "alexios:PLCC32" H 5175 5575 50  0001 C CNN
+F 3 "https://gr.mouser.com/datasheet/2/268/atmel_doc0570-1280178.pdf" H 5800 7350 50  0001 C CNN
+F 4 "556-AT27C020-55JU; €3.02" H 5475 5475 50  0001 C CNN "Mouser"
+	2    5800 7350
+	1    0    0    -1  
+$EndComp
+Connection ~ 5450 6700
+Connection ~ 5450 6500
 Wire Bus Line
-	9000 1900 9000 4150
+	9000 1900 9000 4050
 Wire Bus Line
-	7100 4350 7100 5350
+	7100 4250 7100 5350
 Wire Bus Line
-	4150 4350 4150 5350
+	4150 4250 4150 5350
 Wire Bus Line
-	6050 1900 6050 4150
+	6050 1900 6050 4050
 Wire Bus Line
-	1200 4350 1200 5350
+	1200 4250 1200 5350
 Wire Bus Line
-	3100 1900 3100 4150
+	3100 1900 3100 4050
 $EndSCHEMATC

@@ -1168,11 +1168,11 @@ Wire Wire Line
 Text Label 6800 2650 2    50   ~ 0
 ~RUEN
 Text Label 6800 2750 2    50   ~ 0
-~WUEN
+~WAITING
 Text HLabel 6850 2650 2    50   UnSpc ~ 0
 ~RUEN
 Text HLabel 6850 2750 2    50   UnSpc ~ 0
-~WUEN
+~WAITING
 Wire Wire Line
 	6500 2450 6850 2450
 Wire Wire Line

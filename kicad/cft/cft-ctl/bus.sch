@@ -14,7 +14,7 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L cft-ctl-rescue:CFT-2019-Bus-alexios P?
+L alexios:CFT-2019-Bus P?
 U 1 1 5D36087B
 P 3150 1600
 AR Path="/5D34E810/5D36087B" Ref="P?"  Part="1" 
@@ -31,7 +31,7 @@ F 3 "" H 3100 700 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L cft-ctl-rescue:CFT-2019-Bus-alexios P?
+L alexios:CFT-2019-Bus P?
 U 2 1 5D360881
 P 5900 1600
 AR Path="/5D34E810/5D360881" Ref="P?"  Part="2" 
@@ -524,7 +524,7 @@ WADDR[0..4]
 Text HLabel 1350 6050 0    50   UnSpc ~ 0
 RADDR[0..4]
 $Comp
-L cft-ctl-rescue:CFT-2019-Bus-alexios P?
+L cft-ctl-rescue:CFT-2019-Bus-alexios-cft-ctl-rescue P?
 U 4 1 5D360875
 P 9350 4650
 AR Path="/5D34E810/5D360875" Ref="P?"  Part="4" 
@@ -635,7 +635,7 @@ Wire Wire Line
 Wire Wire Line
 	8350 3700 8800 3700
 $Comp
-L cft-ctl-rescue:CFT-2019-Bus-alexios P?
+L cft-ctl-rescue:CFT-2019-Bus-alexios-cft-ctl-rescue P?
 U 3 1 5D3608F9
 P 9300 1650
 AR Path="/5D34E810/5D3608F9" Ref="P?"  Part="3" 

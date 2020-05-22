@@ -49,7 +49,7 @@ $ENDCMP
 $CMP 74AC138
 D Decoder 3 to 8 active low outputs
 K TTL DECOD DECOD8
-F http://www.ti.com/lit/gpn/sn74LS138
+F http://instrumentation.obs.carnegiescience.edu/ccd/parts/F74ACT138.pdf
 $ENDCMP
 #
 $CMP 74AC139
@@ -67,13 +67,13 @@ $ENDCMP
 $CMP 74AC157
 D Quad 2 to 1 line Multiplexer
 K TTL MUX MUX2
-F http://www.ti.com/lit/gpn/sn74LS157
+F https://www.ti.com/lit/ds/symlink/cd74ac157.pdf
 $ENDCMP
 #
 $CMP 74AC161
 D Synchronous 4-bit programmable binary Counter
 K TTL CNT CNT4
-F https://assets.nexperia.com/documents/data-sheet/74HC161.pdf
+F https://www.y-ic.es/datasheet/3b/74F569SC.pdf
 $ENDCMP
 #
 $CMP 74AC169
@@ -226,7 +226,7 @@ $ENDCMP
 $CMP 74ACT138
 D Decoder 3 to 8 active low outputs
 K TTL DECOD DECOD8
-F http://www.ti.com/lit/gpn/sn74LS138
+F http://instrumentation.obs.carnegiescience.edu/ccd/parts/F74ACT138.pdf
 $ENDCMP
 #
 $CMP 74ACT139
@@ -250,7 +250,7 @@ $ENDCMP
 $CMP 74ACT161
 D Synchronous 4-bit programmable binary Counter
 K TTL CNT CNT4
-F https://assets.nexperia.com/documents/data-sheet/74HC161.pdf
+F https://www.y-ic.es/datasheet/3b/74F569SC.pdf
 $ENDCMP
 #
 $CMP 74ACT16244
@@ -577,7 +577,7 @@ $ENDCMP
 $CMP 74AUC1G74
 D Single D Flip-Flop, Low-Voltage CMOS
 K Single D Flip-Flop D CMOS
-F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+F https://assets.nexperia.com/documents/data-sheet/74LVC1G74.pdf
 $ENDCMP
 #
 $CMP 74AUC1G86
@@ -691,7 +691,7 @@ $ENDCMP
 $CMP 74HC138
 D Decoder 3 to 8 active low outputs
 K TTL DECOD DECOD8
-F http://www.ti.com/lit/gpn/sn74LS138
+F https://assets.nexperia.com/documents/data-sheet/74HC_HCT138.pdf
 $ENDCMP
 #
 $CMP 74HC139
@@ -887,7 +887,7 @@ $ENDCMP
 $CMP 74HCT138
 D Decoder 3 to 8 active low outputs
 K TTL DECOD DECOD8
-F http://www.ti.com/lit/gpn/sn74LS138
+F https://assets.nexperia.com/documents/data-sheet/74HC_HCT138.pdf
 $ENDCMP
 #
 $CMP 74HCT139
@@ -1011,7 +1011,7 @@ $ENDCMP
 $CMP 74HCT574
 D 8-bit Register, 3-state outputs
 K TTL REG DFF DFF8 3State
-F http://www.ti.com/lit/gpn/sn74HCT574
+F https://assets.nexperia.com/documents/data-sheet/74HC_HCT574.pdf
 $ENDCMP
 #
 $CMP 74HCT688
@@ -1251,7 +1251,7 @@ $ENDCMP
 $CMP 74LVC1G07
 D Single Buffer Gate w/ Open Drain, Low-Voltage CMOS
 K Single Gate Buff LVC CMOS Open Drain
-F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+F https://www.ti.com/lit/ds/symlink/sn74lvc1g07.pdf
 $ENDCMP
 #
 $CMP 74LVC1G08
@@ -1305,7 +1305,7 @@ $ENDCMP
 $CMP 74LVC1G3208
 D Single OR-AND Gate, Low-Voltage CMOS
 K Single Gate OR-AND LVC CMOS
-F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+F https://www.ti.com/lit/ds/symlink/sn74lvc1g3208.pdf
 $ENDCMP
 #
 $CMP 74LVC1G332
@@ -1317,7 +1317,7 @@ $ENDCMP
 $CMP 74LVC1G373
 D Single D Latch, Low-Voltage CMOS
 K Single D Latch CMOS
-F http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf
+F https://www.ti.com/lit/ds/symlink/sn74lvc1g373.pdf
 $ENDCMP
 #
 $CMP 74LVC1G74
@@ -1372,6 +1372,12 @@ $CMP AS6C8008-55ZIN
 D 512K x 8 Low Power CMOS RAM, DIP-32
 K RAM SRAM CMOS MEMORY
 F https://uk.mouser.com/datasheet/2/12/AS6C8008-1288432.pdf
+$ENDCMP
+#
+$CMP AT27C020
+D 2Mbit (256K×8) OPT ROM, 5V, 55ns
+K EEPROM EPROM ROM FLASH 256KB OTP
+F https://gr.mouser.com/datasheet/2/268/atmel_doc0570-1280178.pdf
 $ENDCMP
 #
 $CMP ATmega64L-8AU

@@ -1030,7 +1030,8 @@ AR Path="/5CC06F10/5DF054FC" Ref="U30"  Part="1"
 F 0 "U30" H 7800 2167 50  0000 C CNN
 F 1 "74HC138" H 7800 2076 50  0000 C CNN
 F 2 "alexios:SOIC-16" H 7800 1500 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 7800 1500 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT138.pdf" H 7800 1500 50  0001 C CNN
+F 4 "Yes" H 7800 1500 50  0001 C CNN "Verified"
 	1    7800 1500
 	1    0    0    -1  
 $EndComp
@@ -1105,7 +1106,7 @@ AR Path="/5CC06F10/5DF05572" Ref="U30"  Part="2"
 F 0 "U30" H 10030 1346 50  0000 L CNN
 F 1 "74HC138" H 10030 1255 50  0000 L CNN
 F 2 "alexios:SOIC-16" H 9850 1300 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 9850 1300 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT138.pdf" H 9850 1300 50  0001 C CNN
 	2    9850 1300
 	1    0    0    -1  
 $EndComp
@@ -1543,8 +1544,8 @@ U 2 1 5E3EB456
 P 1400 6000
 AR Path="/5CC0D65F/5E3EB456" Ref="U?"  Part="1" 
 AR Path="/5CC06F10/5E3EB456" Ref="U33"  Part="2" 
-F 0 "U33" H 1325 6267 50  0000 C CNN
-F 1 "74AHC1G08" H 1325 6176 50  0000 C CNN
+F 0 "U33" H 1480 5946 50  0000 L CNN
+F 1 "74LVC1G08" H 1480 5855 50  0000 L CNN
 F 2 "alexios:SOT-23-5_HandSoldering" H 1050 6000 50  0001 C CNN
 F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 1050 6000 50  0001 C CNN
 	2    1400 6000
@@ -1656,7 +1657,7 @@ P 1950 2500
 AR Path="/5CC0D65F/5CC20189" Ref="U?"  Part="1" 
 AR Path="/5CC06F10/5CC20189" Ref="U33"  Part="1" 
 F 0 "U33" H 1875 2233 50  0000 C CNN
-F 1 "74AHC1G08" H 1875 2324 50  0000 C CNN
+F 1 "74LVC1G08" H 1875 2324 50  0000 C CNN
 F 2 "alexios:SOT-23-5_HandSoldering" H 1600 2500 50  0001 C CNN
 F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 1600 2500 50  0001 C CNN
 	1    1950 2500
