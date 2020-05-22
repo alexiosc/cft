@@ -27,19 +27,24 @@ def test_wait_states(capsys, tmpdir):
             SMB mbu.MBS
             SMB mbu.MBZ   ; MBZ=MBS makes reading the stack easier
 
-            IN &3F0;
+            LOAD a
+            OUT &3F0
+            LI 0
+            IN &3F0
             dfp.PRINTH
             HALT
+
+    a:      .word &9999
 
     """.format(**locals())
 
     expected = ExpectedData([ SUCCESS,
-                              [ 340, 'PRINTH', '5501' ],
+                              [ 340, 'PRINTH', '1234' ],
                               HALTED ])
     result = run_on_verilog_emu(capsys, tmpdir, source)
     result = list(expected.prepare(result))
-    pprint.pprint(result)
-    assert False
+    # pprint.pprint(result)
+    # assert False
     assert list(result) == expected
 
 

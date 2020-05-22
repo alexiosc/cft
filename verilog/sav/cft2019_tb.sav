@@ -1,28 +1,28 @@
 [*]
 [*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Fri May 22 17:14:03 2020
+[*] Fri May 22 18:18:45 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/cft2019_tb.vcd"
-[dumpfile_mtime] "Fri May 22 15:32:47 2020"
-[dumpfile_size] 395703
+[dumpfile_mtime] "Fri May 22 18:17:59 2020"
+[dumpfile_size] 290430
 [optimize_vcd]
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/cft2019_tb.sav"
-[timestart] 10627100
-[size] 1771 1123
-[pos] 1884 -1
-*-17.577454 11144750 15001750 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[timestart] 13381000
+[size] 2048 1123
+[pos] -1 -1
+*-18.711849 13755750 15001750 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] cft2019_tb.
 [treeopen] cft2019_tb.cft.
-[treeopen] cft2019_tb.cft.card_bus.
 [treeopen] cft2019_tb.cft.card_bus.constant_store.
 [treeopen] cft2019_tb.cft.card_bus.databus.
+[treeopen] cft2019_tb.cft.card_ctl.
 [treeopen] cft2019_tb.cft.card_ctl.ism.
 [treeopen] cft2019_tb.cft.card_ctl.microcode_sequencer.
 [treeopen] cft2019_tb.cft.card_mem.romhi.
 [treeopen] cft2019_tb.cft.card_reg.reg_ac.
 [treeopen] cft2019_tb.cft.card_reg.reg_pc.
 [sst_width] 372
-[signals_width] 319
+[signals_width] 534
 [sst_expanded] 1
 [sst_vpaned_height] 438
 @c00200
@@ -179,7 +179,7 @@ cft2019_tb.cft.card_ctl.fi
 @1401200
 -Flags
 -Registers
-@c00200
+@c00201
 -Buses
 @c00022
 [color] 1
@@ -300,7 +300,7 @@ cft2019_tb.cft.nwen
 cft2019_tb.cft.nw
 cft2019_tb.cft.card_bus.databus.nwaiting
 cft2019_tb.cft.card_bus.databus.nws
-@1401200
+@1401201
 -Buses
 @800200
 -Control Unit
@@ -322,33 +322,11 @@ cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
 cft2019_tb.cft.nskipext
 cft2019_tb.cft.card_ctl.microcode_sequencer.ncond
 cft2019_tb.cft.card_ctl.nirqsuc
-@c04023
-^>2 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/uaddr
-cft2019_tb.cft.card_ctl.microcode_sequencer.uaddr[18:0]
-@29
-(0)cft2019_tb.cft.card_ctl.microcode_sequencer.uaddr[18:0]
-(1)cft2019_tb.cft.card_ctl.microcode_sequencer.uaddr[18:0]
-(2)cft2019_tb.cft.card_ctl.microcode_sequencer.uaddr[18:0]
-(3)cft2019_tb.cft.card_ctl.microcode_sequencer.uaddr[18:0]
-(4)cft2019_tb.cft.card_ctl.microcode_sequencer.uaddr[18:0]
-(5)cft2019_tb.cft.card_ctl.microcode_sequencer.uaddr[18:0]
-(6)cft2019_tb.cft.card_ctl.microcode_sequencer.uaddr[18:0]
-(7)cft2019_tb.cft.card_ctl.microcode_sequencer.uaddr[18:0]
-(8)cft2019_tb.cft.card_ctl.microcode_sequencer.uaddr[18:0]
-(9)cft2019_tb.cft.card_ctl.microcode_sequencer.uaddr[18:0]
-(10)cft2019_tb.cft.card_ctl.microcode_sequencer.uaddr[18:0]
-(11)cft2019_tb.cft.card_ctl.microcode_sequencer.uaddr[18:0]
-(12)cft2019_tb.cft.card_ctl.microcode_sequencer.uaddr[18:0]
-(13)cft2019_tb.cft.card_ctl.microcode_sequencer.uaddr[18:0]
-(14)cft2019_tb.cft.card_ctl.microcode_sequencer.uaddr[18:0]
-(15)cft2019_tb.cft.card_ctl.microcode_sequencer.uaddr[18:0]
-(16)cft2019_tb.cft.card_ctl.microcode_sequencer.uaddr[18:0]
-(17)cft2019_tb.cft.card_ctl.microcode_sequencer.uaddr[18:0]
-(18)cft2019_tb.cft.card_ctl.microcode_sequencer.uaddr[18:0]
-@1401201
--group_end
 @200
 -
+@4022
+^>2 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/uaddr
+cft2019_tb.cft.card_ctl.microcode_sequencer.uaddr[17:0]
 @28
 cft2019_tb.cft.nhalt
 cft2019_tb.cft.card_ctl.microcode_sequencer.control_store.clk
@@ -640,16 +618,25 @@ cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
 cft2019_tb.cft.card_ctl.clock_generator.state[15:0]
 @28
 cft2019_tb.cft.card_ctl.clk4
+@2022
+^1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/upc
+cft2019_tb.cft.card_ctl.microcode_sequencer.upc[3:0]
+@28
 cft2019_tb.cft.nio
 [color] 1
 cft2019_tb.cft.card_bus.databus.nws
 cft2019_tb.cft.nwen
 cft2019_tb.cft.card_bus.databus.nwstb
 cft2019_tb.cft.nw
+[color] 4
+cft2019_tb.cft.nr
 cft2019_tb.cft.card_bus.databus.nwaiting
 cft2019_tb.cft.card_bus.databus.nwaiting_delayed0
 cft2019_tb.cft.card_bus.databus.nwaiting_delayed
 cft2019_tb.cft.card_verilog_test.niodev3xx
+@22
+cft2019_tb.cft.card_verilog_test.slow_port[15:0]
+cft2019_tb.cft.card_verilog_test.ibus_drv[15:0]
 @1000200
 -Wait States
 @200

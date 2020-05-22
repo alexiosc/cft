@@ -125,6 +125,7 @@ module card_verilog_test (
    reg [15:0] 	 nirq_ctr;
    reg 		 nws_drv;
    reg [15:0] 	 iot_port_a, iot_port_b;
+   reg [15:0] 	 slow_port;
 
    assign ibus = ibus_drv;
    assign nirq = nirq_drv;
@@ -156,7 +157,7 @@ module card_verilog_test (
       if (niodev3xx == 1'b0 && nw == 1'b0) begin
 	 casex (ab[7:0])
 	   8'hf0: begin
-	      ws_strobe();
+	      ws_strobe_write();
 	   end
 	 endcase // casex (ab[7:0])
       end
@@ -187,20 +188,39 @@ module card_verilog_test (
 		     ab[7:0] === 8'hfe &&
 		     product == 0 ? 1'b0 : 1'bz;
 
-   task ws_strobe;
+   task ws_strobe_write;
       nws_drv = 0;
       #200 nws_drv = 1;
-   endtask // ws_strobe
+      slow_port = ibus;
+      if (nwaiting != 1'b0) begin
+   	 $display("346 FAIL assertion failed at t=%0d: Wait State not acknowledged, nwaiting=%b", $time, nwaiting);
+   	 $error("assertion failure");
+   	 #100 $finish;
+      end
+   endtask // ws_strobe_write
    
 
-   always @(nr, niodev3xx, ab) begin
+   task ws_strobe_read;
+      nws_drv = 0;
+      #200 nws_drv = 1;
+      ibus_drv = slow_port;
+      if (nwaiting != 1'b0) begin
+   	 $display("346 FAIL assertion failed at t=%0d: Wait State not acknowledged, nwaiting=%b", $time, nwaiting);
+   	 $error("assertion failure");
+   	 #100 $finish;
+      end
+      #150 ibus_drv = 16'bzzzz;
+   endtask // ws_strobe_read
+   
+
+   always @(negedge nr, negedge niodev3xx, ab) begin
       // Map to 3F0-3FF, addresses we probably won't use for anything else.
       if (nr === 1'b0 && niodev3xx === 1'b0) begin
 	 case (ab[7:0])
 	   8'hf0: begin
-	      ws_strobe();
 	      ibus_drv = 16'hdead;
-	      #250 ibus_drv = 16'h5501;
+	      ws_strobe_read();
+	      #200 ibus_drv = slow_port;
 	   end
 	   8'hf1: ibus_drv = 16'h0000;
 	   8'hf2: ibus_drv = 16'h0000;
