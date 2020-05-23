@@ -107,8 +107,8 @@ module databus (nreset, nhalt, clk3, clk4, t34,
    // nwstb can lead nwaiting's depending on jitter. If this condition
    // isn't satisfied, W# may glitch during wait states.
    wire nwaiting_delayed0, nwaiting_delayed;
-   assign #1 nwaiting_delayed0 = nwaiting;
-   assign #1 nwaiting_delayed = nwaiting & nwaiting_delayed0;
+   assign #4 nwaiting_delayed0 = nwaiting & nwaiting;
+   assign #4 nwaiting_delayed = nwaiting & nwaiting_delayed0;
 
    assign #7 nbusen = nwaiting & nio & nmem; // 74LVC1G11
 

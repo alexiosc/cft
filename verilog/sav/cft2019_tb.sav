@@ -1,21 +1,20 @@
 [*]
 [*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Fri May 22 18:18:45 2020
+[*] Sat May 23 09:16:28 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/cft2019_tb.vcd"
-[dumpfile_mtime] "Fri May 22 18:17:59 2020"
-[dumpfile_size] 290430
+[dumpfile_mtime] "Sat May 23 09:10:25 2020"
+[dumpfile_size] 576980
 [optimize_vcd]
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/cft2019_tb.sav"
-[timestart] 13381000
+[timestart] 17227000
 [size] 2048 1123
 [pos] -1 -1
-*-18.711849 13755750 15001750 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-18.874498 18944750 15001750 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] cft2019_tb.
 [treeopen] cft2019_tb.cft.
 [treeopen] cft2019_tb.cft.card_bus.constant_store.
 [treeopen] cft2019_tb.cft.card_bus.databus.
-[treeopen] cft2019_tb.cft.card_ctl.
 [treeopen] cft2019_tb.cft.card_ctl.ism.
 [treeopen] cft2019_tb.cft.card_ctl.microcode_sequencer.
 [treeopen] cft2019_tb.cft.card_mem.romhi.
@@ -57,7 +56,7 @@ cft2019_tb.cft.card_ctl.t34
 cft2019_tb.cft.card_ctl.nfpclk_or_clk
 @1000200
 -Clock
-@c00200
+@800200
 -Registers
 @22
 [color] 2
@@ -178,8 +177,9 @@ cft2019_tb.cft.fz
 cft2019_tb.cft.card_ctl.fi
 @1401200
 -Flags
+@1000200
 -Registers
-@c00201
+@800200
 -Buses
 @c00022
 [color] 1
@@ -300,7 +300,7 @@ cft2019_tb.cft.nwen
 cft2019_tb.cft.nw
 cft2019_tb.cft.card_bus.databus.nwaiting
 cft2019_tb.cft.card_bus.databus.nws
-@1401201
+@1000200
 -Buses
 @800200
 -Control Unit
@@ -632,11 +632,8 @@ cft2019_tb.cft.nw
 cft2019_tb.cft.nr
 cft2019_tb.cft.card_bus.databus.nwaiting
 cft2019_tb.cft.card_bus.databus.nwaiting_delayed0
+@29
 cft2019_tb.cft.card_bus.databus.nwaiting_delayed
-cft2019_tb.cft.card_verilog_test.niodev3xx
-@22
-cft2019_tb.cft.card_verilog_test.slow_port[15:0]
-cft2019_tb.cft.card_verilog_test.ibus_drv[15:0]
 @1000200
 -Wait States
 @200

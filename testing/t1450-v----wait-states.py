@@ -32,14 +32,39 @@ def test_wait_states(capsys, tmpdir):
             LI 0
             IN &3F0
             dfp.PRINTH
+
+            LOAD b
+            OUT &3F0
+            LI 0
+            IN &3F1
+            dfp.PRINTH
+
+            LOAD c
+            OUT &3F0
+            LI 0
+            IN &3F2
+            dfp.PRINTH
+
+            LOAD d
+            OUT &3F0
+            LI 0
+            IN &3F3
+            dfp.PRINTH
+
             HALT
 
-    a:      .word &9999
+    a:      .word &1234
+    b:      .word &5678
+    c:      .word &9abc
+    d:      .word &def0
 
     """.format(**locals())
 
     expected = ExpectedData([ SUCCESS,
                               [ 340, 'PRINTH', '1234' ],
+                              [ 340, 'PRINTH', '5678' ],
+                              [ 340, 'PRINTH', '9abc' ],
+                              [ 340, 'PRINTH', 'def0' ],
                               HALTED ])
     result = run_on_verilog_emu(capsys, tmpdir, source)
     result = list(expected.prepare(result))

@@ -127,12 +127,15 @@ module card_verilog_test (
    reg [15:0] 	 iot_port_a, iot_port_b;
    reg [15:0] 	 slow_port;
 
-   assign ibus = ibus_drv;
+   wire 	 oe;
+
+   assign oe = (nr == 1'b0) && (niodev3xx == 1'b0) && (ab[7:0] >= 8'hf0) && (ab[7:0] <= 8'hff) ? 1'b1 : 1'b0;
+   assign ibus = oe ? ibus_drv : 16'hZ;
    assign nirq = nirq_drv;
    assign nws = nws_drv;
    
    initial begin
-      ibus_drv = 16'bz;
+      ibus_drv = 16'hdead;
       nirq_drv = 1'bz;
       nirq_en = 1'b1;
       nirq_ctr = 1;
@@ -201,15 +204,16 @@ module card_verilog_test (
    
 
    task ws_strobe_read;
+      input [31:0] delay;
       nws_drv = 0;
-      #200 nws_drv = 1;
-      ibus_drv = slow_port;
+      #200;
       if (nwaiting != 1'b0) begin
    	 $display("346 FAIL assertion failed at t=%0d: Wait State not acknowledged, nwaiting=%b", $time, nwaiting);
    	 $error("assertion failure");
    	 #100 $finish;
       end
-      #150 ibus_drv = 16'bzzzz;
+      #(250 * (delay-1)) nws_drv = 1;
+      ibus_drv = slow_port;
    endtask // ws_strobe_read
    
 
@@ -218,13 +222,21 @@ module card_verilog_test (
       if (nr === 1'b0 && niodev3xx === 1'b0) begin
 	 case (ab[7:0])
 	   8'hf0: begin
-	      ibus_drv = 16'hdead;
-	      ws_strobe_read();
-	      #200 ibus_drv = slow_port;
+	      ibus_drv = 16'h1111;
+	      ws_strobe_read(1);
 	   end
-	   8'hf1: ibus_drv = 16'h0000;
-	   8'hf2: ibus_drv = 16'h0000;
-	   8'hf3: ibus_drv = 16'h0000;
+	   8'hf1: begin
+	      ibus_drv = 16'h2222;
+	      ws_strobe_read(2);
+	   end
+	   8'hf2: begin
+	      ibus_drv = 16'h3333;
+	      ws_strobe_read(3);
+	   end
+	   8'hf3: begin
+	      ibus_drv = 16'h4444;
+	      ws_strobe_read(4);
+	   end
 	   8'hf4: ibus_drv = 16'h0000;
 	   8'hf5: ibus_drv = 16'h0000;
 	   8'hf6: ibus_drv = 16'h0000;
@@ -237,7 +249,6 @@ module card_verilog_test (
 	   8'hfd: ibus_drv = product;
 	   8'hfe: ibus_drv = product;
 	   8'hff: ibus_drv = nirq_ctr;
-	   default: ibus_drv = 16'bzzzz;
 	 endcase // case ([15:0])
       end else ibus_drv = 16'bzzzz; // if (niodev3xx == 1'b0)
    end // always @ (posedge nw)
