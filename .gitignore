@@ -356,6 +356,7 @@ testing/reports/
 testing/.cache/
 screenshots/
 testing/sandbox/
+testing/rerun-verilog-testbench.sh
 tmp/
 tools/pygment*
 verification/filters/control
