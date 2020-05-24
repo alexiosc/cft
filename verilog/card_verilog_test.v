@@ -142,6 +142,12 @@ module card_verilog_test (
       nws_drv = 1'bz;
    end
 
+   ///////////////////////////////////////////////////////////////////////////////
+   //
+   // TIMER INTERRUPTS
+   //
+   ///////////////////////////////////////////////////////////////////////////////
+
    always begin
       // Keep the timer rate relatively prime to the clock speed.
       #277 begin
@@ -155,35 +161,6 @@ module card_verilog_test (
       end
    end // always
 
-   // Wait states happen combinationally, at decoding time.
-   always @(niodev3xx, nw) begin
-      if (niodev3xx == 1'b0 && nw == 1'b0) begin
-	 casex (ab[7:0])
-	   8'hf0: begin
-	      ws_strobe_write();
-	   end
-	 endcase // casex (ab[7:0])
-      end
-   end
-
-   always @(posedge nw) begin
-      // Map to 3FD-3FF, addresses we probably won't use.
-      if (niodev3xx == 1'b0) begin
-	 casex (ab[7:0])
-	   8'hfd: iot_port_a = db;
-	   8'hfe: iot_port_b = db;
-	   8'hff: begin
-	      nirq_drv = 1'b1;
-	      nirq_en = db === 0 ? 1'b1 : 1'b0;
-	      nirq_ctr = db;
-	   end
-	 endcase // casex (ab[7:0])
-      end
-   end // always @ (posedge nw)
-
-   wire [15:0] 	 product;
-   assign product = iot_port_a * iot_port_b;
-
    // When the device is selected for a multiplication result
    // transaction, assert nSKIPEXT if the product is zero.
    assign nskipext = nr === 1'b0 &&
@@ -191,15 +168,25 @@ module card_verilog_test (
 		     ab[7:0] === 8'hfe &&
 		     product == 0 ? 1'b0 : 1'bz;
 
+
+   ///////////////////////////////////////////////////////////////////////////////
+   //
+   // WAIT STATE TASKS
+   //
+   ///////////////////////////////////////////////////////////////////////////////
+
    task ws_strobe_write;
+      input [31:0] delay;
       nws_drv = 0;
-      #200 nws_drv = 1;
-      slow_port = ibus;
+      #200;
       if (nwaiting != 1'b0) begin
-   	 $display("346 FAIL assertion failed at t=%0d: Wait State not acknowledged, nwaiting=%b", $time, nwaiting);
+   	 $display("346 FAIL assertion failed at t=%0d: Write Wait State not acknowledged, nwaiting=%b",
+		  $time, nwaiting);
    	 $error("assertion failure");
    	 #100 $finish;
       end
+      #(250 * (delay-1)) nws_drv = 1;
+      slow_port = ibus;
    endtask // ws_strobe_write
    
 
@@ -208,7 +195,8 @@ module card_verilog_test (
       nws_drv = 0;
       #200;
       if (nwaiting != 1'b0) begin
-   	 $display("346 FAIL assertion failed at t=%0d: Wait State not acknowledged, nwaiting=%b", $time, nwaiting);
+   	 $display("346 FAIL assertion failed at t=%0d: Read Wait State not acknowledged, nwaiting=%b",
+		  $time, nwaiting);
    	 $error("assertion failure");
    	 #100 $finish;
       end
@@ -217,6 +205,13 @@ module card_verilog_test (
    endtask // ws_strobe_read
    
 
+
+   ///////////////////////////////////////////////////////////////////////////////
+   //
+   // READ FROM THE CARD
+   //
+   ///////////////////////////////////////////////////////////////////////////////
+   
    always @(negedge nr, negedge niodev3xx, ab) begin
       // Map to 3F0-3FF, addresses we probably won't use for anything else.
       if (nr === 1'b0 && niodev3xx === 1'b0) begin
@@ -252,6 +247,52 @@ module card_verilog_test (
 	 endcase // case ([15:0])
       end else ibus_drv = 16'bzzzz; // if (niodev3xx == 1'b0)
    end // always @ (posedge nw)
+
+
+   ///////////////////////////////////////////////////////////////////////////////
+   //
+   // WRITE TO THE CARD
+   //
+   ///////////////////////////////////////////////////////////////////////////////
+
+   // Wait states happen combinationally, at decoding time.
+   always @(niodev3xx, nw) begin
+      if (niodev3xx == 1'b0 && nw == 1'b0) begin
+	 casex (ab[7:0])
+	   8'hf0: begin
+	      ws_strobe_write(1);
+	   end
+	   8'hf1: begin
+	      ws_strobe_write(2);
+	   end
+	   8'hf2: begin
+	      ws_strobe_write(3);
+	   end
+	   8'hf4: begin
+	      ws_strobe_write(4);
+	   end
+	 endcase // casex (ab[7:0])
+      end
+   end
+
+   always @(posedge nw) begin
+      // Map to 3FD-3FF, addresses we probably won't use.
+      if (niodev3xx == 1'b0) begin
+	 casex (ab[7:0])
+	   8'hfd: iot_port_a = db;
+	   8'hfe: iot_port_b = db;
+	   8'hff: begin
+	      nirq_drv = 1'b1;
+	      nirq_en = db === 0 ? 1'b1 : 1'b0;
+	      nirq_ctr = db;
+	   end
+	 endcase // casex (ab[7:0])
+      end
+   end // always @ (posedge nw)
+
+   wire [15:0] 	 product;
+   assign product = iot_port_a * iot_port_b;
+
 endmodule // debug_io
 
 `endif //  `ifndef card_verilog_test_v

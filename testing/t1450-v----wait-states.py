@@ -34,19 +34,19 @@ def test_wait_states(capsys, tmpdir):
             dfp.PRINTH
 
             LOAD b
-            OUT &3F0
+            OUT &3F1
             LI 0
             IN &3F1
             dfp.PRINTH
 
             LOAD c
-            OUT &3F0
+            OUT &3F2
             LI 0
             IN &3F2
             dfp.PRINTH
 
             LOAD d
-            OUT &3F0
+            OUT &3F3
             LI 0
             IN &3F3
             dfp.PRINTH

@@ -190,8 +190,8 @@ module card_reg(
 
    // Now, the three decoders
    demux_138 raddr_decoder (.g1(raddr[3]), .ng2a(raddr[4]), .ng2b(1'b0), .a(raddr[2:0]), .y(raddr_y));
-   demux_138 waddr_decoder (.g1(waddr[3]), .ng2a(waddr[4]), .ng2b(clk4), .a(waddr[2:0]), .y(waddr_y));
-   demux_138 action_decoder (.g1(action[3]), .ng2a(clk3), .ng2b(1'b0), .a(action[2:0]), .y(action_y));
+   demux_138 waddr_decoder (.g1(waddr[3]), .ng2a(waddr[4]), .ng2b(clk1), .a(waddr[2:0]), .y(waddr_y));
+   demux_138 action_decoder (.g1(action[3]), .ng2a(clk4), .ng2b(1'b0), .a(action[2:0]), .y(action_y));
 
    assign nread_pc = raddr_y[0];
    assign nread_dr = raddr_y[1];

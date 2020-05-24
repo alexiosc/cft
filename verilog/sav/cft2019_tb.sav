@@ -1,25 +1,27 @@
 [*]
 [*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Sat May 23 09:16:28 2020
+[*] Sun May 24 12:11:21 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/cft2019_tb.vcd"
-[dumpfile_mtime] "Sat May 23 09:10:25 2020"
-[dumpfile_size] 576980
+[dumpfile_mtime] "Sun May 24 12:05:46 2020"
+[dumpfile_size] 1561627
 [optimize_vcd]
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/cft2019_tb.sav"
-[timestart] 17227000
+[timestart] 38564000
 [size] 2048 1123
-[pos] -1 -1
-*-18.874498 18944750 15001750 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[pos] 6143 0
+*-17.241568 39113750 15001750 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] cft2019_tb.
 [treeopen] cft2019_tb.cft.
+[treeopen] cft2019_tb.cft.card_alu.
+[treeopen] cft2019_tb.cft.card_alu.decoder.
+[treeopen] cft2019_tb.cft.card_alu.reg_l.
 [treeopen] cft2019_tb.cft.card_bus.constant_store.
 [treeopen] cft2019_tb.cft.card_bus.databus.
 [treeopen] cft2019_tb.cft.card_ctl.ism.
 [treeopen] cft2019_tb.cft.card_ctl.microcode_sequencer.
+[treeopen] cft2019_tb.cft.card_mem.
 [treeopen] cft2019_tb.cft.card_mem.romhi.
-[treeopen] cft2019_tb.cft.card_reg.reg_ac.
-[treeopen] cft2019_tb.cft.card_reg.reg_pc.
 [sst_width] 372
 [signals_width] 534
 [sst_expanded] 1
@@ -150,7 +152,7 @@ cft2019_tb.cft.card_bus.reg_ar.ar[23:0]
 -group_end
 @22
 cft2019_tb.cft.card_verilog_test.ab[23:0]
-@c00200
+@800200
 -MBR
 @22
 [color] 2
@@ -165,22 +167,29 @@ cft2019_tb.cft.card_bus.mbu.mb4[7:0]
 cft2019_tb.cft.card_bus.mbu.mb5[7:0]
 cft2019_tb.cft.card_bus.mbu.mb6[7:0]
 cft2019_tb.cft.card_bus.mbu.mb7[7:0]
-@1401200
+@1000200
 -MBR
-@c00200
+@800200
 -Flags
+@29
+cft2019_tb.cft.card_alu.decoder.demux_action.ng2b
+@22
+cft2019_tb.cft.card_alu.action[3:0]
 @28
+cft2019_tb.cft.card_alu.reg_l.naction_cll
+cft2019_tb.cft.card_alu.reg_l.naction_cpl
 cft2019_tb.cft.fl
 cft2019_tb.cft.fn
 cft2019_tb.cft.fv
 cft2019_tb.cft.fz
 cft2019_tb.cft.card_ctl.fi
-@1401200
--Flags
 @1000200
+-Flags
 -Registers
-@800200
+@c00200
 -Buses
+@22
+cft2019_tb.cft.card_mem.dec_rom.y[7:0]
 @c00022
 [color] 1
 cft2019_tb.cft.ibus[15:0]
@@ -288,6 +297,7 @@ cft2019_tb.cft.db[15:0]
 @1401200
 -group_end
 @28
+cft2019_tb.cft.card_bus.databus.nbusen
 [color] 3
 cft2019_tb.cft.nmem
 [color] 3
@@ -300,9 +310,9 @@ cft2019_tb.cft.nwen
 cft2019_tb.cft.nw
 cft2019_tb.cft.card_bus.databus.nwaiting
 cft2019_tb.cft.card_bus.databus.nws
-@1000200
+@1401200
 -Buses
-@800200
+@c00200
 -Control Unit
 @820
 cft2019_tb.cft.card_ctl.clock_generator.state[15:0]
@@ -381,7 +391,7 @@ cft2019_tb.cft.nr
 [color] 2
 cft2019_tb.cft.nwen
 cft2019_tb.cft.card_ctl.microcode_sequencer.nend
-@1000200
+@1401200
 -Control Unit
 @c00200
 -Addressing
@@ -609,7 +619,7 @@ cft2019_tb.cft.card_alu.alu_rom.ibus[15:0]
 cft2019_tb.cft.card_reg.nwrite_ac
 @1401200
 -ALU
-@800200
+@c00200
 -Wait States
 @4022
 ^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/disasm
@@ -632,13 +642,58 @@ cft2019_tb.cft.nw
 cft2019_tb.cft.nr
 cft2019_tb.cft.card_bus.databus.nwaiting
 cft2019_tb.cft.card_bus.databus.nwaiting_delayed0
-@29
 cft2019_tb.cft.card_bus.databus.nwaiting_delayed
-@1000200
+@1401200
 -Wait States
+@c00200
+-MBU
+@28
+cft2019_tb.cft.card_ctl.t34
+cft2019_tb.cft.card_bus.mbu.ndis
+cft2019_tb.cft.card_bus.mbu.nen
+cft2019_tb.cft.card_bus.mbu.nfpram_rom
+cft2019_tb.cft.card_bus.mbu.niombr
+cft2019_tb.cft.card_bus.mbu.niowmbr
+cft2019_tb.cft.card_bus.mbu.nir_idx
+cft2019_tb.cft.card_bus.mbu.nsysdev
+cft2019_tb.cft.card_bus.mbu.wa[1:0]
+@22
+cft2019_tb.cft.card_bus.mbu.ab[7:0]
+cft2019_tb.cft.card_bus.mbu.db[15:0]
+[color] 2
+cft2019_tb.cft.card_bus.mbu.mb0[7:0]
+[color] 2
+cft2019_tb.cft.card_bus.mbu.mb1[7:0]
+[color] 2
+cft2019_tb.cft.card_bus.mbu.mb2[7:0]
+[color] 2
+cft2019_tb.cft.card_bus.mbu.mb3[7:0]
+[color] 2
+cft2019_tb.cft.card_bus.mbu.mb4[7:0]
+[color] 2
+cft2019_tb.cft.card_bus.mbu.mb5[7:0]
+[color] 2
+cft2019_tb.cft.card_bus.mbu.mb6[7:0]
+[color] 2
+cft2019_tb.cft.card_bus.mbu.mb7[7:0]
+cft2019_tb.cft.card_bus.mbu.aext[7:0]
 @200
 -
--
+@1401200
+-MBU
+@800200
+-DFP2
+@22
+cft2019_tb.cft.card_dfp.OR[15:0]
+@28
+cft2019_tb.cft.card_dfp.nw
+@22
+cft2019_tb.cft.card_dfp.ab[23:0]
+cft2019_tb.cft.card_dfp.db[15:0]
+cft2019_tb.cft.card_dfp.hidb[15:0]
+@1000200
+-DFP2
+@200
 -
 -
 -

@@ -30,6 +30,7 @@
 `ifndef cft2019_v
 `define cft2019_v
 
+`include "clock.v"
 `include "card_reg.v"
 
 `timescale 1ns/1ps
@@ -183,7 +184,11 @@ module card_reg_tb(
       mock_fl = 0;
       #1000 nreset_drv = 1;
 
-      #10000 status = "RADDR/ADDR";
+      // NOTE: switched to using the actual clock generator from the full CFT
+      // to test this. clk4_drv is still around, and we use it to synchronise
+      // our own test clock with the CFT's. The current δt is 51.25ns, hence
+      // the delay below.
+      #(10000+51.25) status = "RADDR/ADDR";
       // Scan through all RADDR/WADDR addresses
       for (j = 0; j < 32; j++) begin
 	 $sformat(status, "ADDR %05b", j[5:0]);
@@ -221,9 +226,9 @@ module card_reg_tb(
 	    oldsp = sp;
 
 	    mock_fl <= 0;
-	    #62.5 action_drv = j[3:0];
-	    #62.5 action_drv = 0;
-	    #125;		// Let changes propagate
+	    #250 action_drv = j[3:0];
+	    #250 action_drv = 0;
+	    #250;		// Let changes propagate
 
    	    msg[7:0] = "";	// Use the msg as an error flag.
 	    
@@ -317,9 +322,18 @@ module card_reg_tb(
    assign raddr = raddr_drv;
    assign waddr = waddr_drv;
    assign action = action_drv;
-   assign clk4 = clk4_drv;
-   assign clk3 = ~clk4_drv;	// A viable hack, given the way clk3 is used.
+   // assign clk4 = clk4_drv;
+   // assign clk2 = clk4_drv;	// May 2020 versions of the REG board use clk2 to generate write signals
+   // assign clk3 = ~clk4_drv;	// A viable hack, given the way clk3 is used.
    
+   clock_generator clock_generator (.nreset(nreset),
+				    .clk1(clk1),
+				    .clk2(clk2),
+				    .clk3(clk3),
+				    .clk4(clk4),
+				    .t34(t34),
+				    .nrsthold(nrsthold));
+
    // Connect the DUT and its many signals
 
    assign pc_15_10 = cport_reg[6:1];

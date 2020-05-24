@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 6 12
+Sheet 12 12
 Title "Foobar"
 Date "2019-11-17"
 Rev "2020"
@@ -937,7 +937,7 @@ Wire Wire Line
 Wire Wire Line
 	9750 4900 9800 4900
 Text Label 6800 2650 2    50   ~ 0
-~RUEN
+~WEN
 Text Label 6800 2750 2    50   ~ 0
 ~WAITING
 $Comp
@@ -1176,7 +1176,6 @@ NoConn ~ 4150 5050
 Text Label 1450 5650 0    50   ~ 0
 IBUS[0..15]
 NoConn ~ 4150 2550
-NoConn ~ 6850 2650
 NoConn ~ 6850 2050
 NoConn ~ 6850 2150
 NoConn ~ 6850 2250
@@ -1193,4 +1192,6 @@ Wire Bus Line
 	4800 3550 4800 5650
 Wire Bus Line
 	4700 1850 4700 5550
+Text HLabel 6850 2650 2    50   UnSpc ~ 0
+~WEN
 $EndSCHEMATC

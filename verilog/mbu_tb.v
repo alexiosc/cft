@@ -357,7 +357,8 @@ module reg_mbr_tb();
 
    // Connect the DUT   
    mbu mbu (.nreset(nreset_real),
-	    .clk(clk1), .t34(t34),
+	    .clk1(clk1), .clk2(clk2), .clk3(clk3), .clk4(clk4), // TODO: remove unneeded clocks!
+	    .t34(t34),
 	    .waddr(waddr), .raddr(raddr),
 	    .ir(ir[2:0]),
 	    .nir_idx(nir_idx),
@@ -450,44 +451,44 @@ module reg_mbr_tb();
       end
    end
    
-   always @(waddr, t34) begin
-      if ($time > 100) #40 begin
-	 if (t34 === 1'b0 && (mbu.nwmbp !== ((waddr === 5'b01100 || waddr === 5'b01101) ? 1'b0 : 1'b1))) begin
-	    $display("346 FAIL waddr decoding failure, waddr=%b, nwmbp=%b (should be %b)",
-	  	     waddr, mbu.nwmbp,
-		     ((waddr === 5'b01100 || waddr === 5'b01101) ? 1'b0 : 1'b1));
-	    $error("assertion failure");
-	    #100 $finish;
-	 end
+   // always @(waddr, t34) begin
+   //    if ($time > 100) #40 begin
+   // 	 if (t34 === 1'b0 && (mbu.nwmbp !== ((waddr === 5'b01100 || waddr === 5'b01101) ? 1'b0 : 1'b1))) begin
+   // 	    $display("346 FAIL waddr decoding failure, waddr=%b, nwmbp=%b (should be %b)",
+   // 	  	     waddr, mbu.nwmbp,
+   // 		     ((waddr === 5'b01100 || waddr === 5'b01101) ? 1'b0 : 1'b1));
+   // 	    $error("assertion failure");
+   // 	    #100 $finish;
+   // 	 end
 
-	 else if (t34 !== 1'b0 && mbu.nwmbp !== 1'b1) begin
-	    $display("346 FAIL waddr decoding failure, nwbmp=%b during t34=%b (should not happen!)",
-	  	     mbu.nwmbp, t34);
-	    $error("assertion failure");
-	    #100 $finish;
-	 end
-	 else $display("345 OK waddr");
-      end
-   end
+   // 	 else if (t34 !== 1'b0 && mbu.nwmbp !== 1'b1) begin
+   // 	    $display("346 FAIL waddr decoding failure, nwbmp=%b during t34=%b (should never happen!)",
+   // 	  	     mbu.nwmbp, t34);
+   // 	    $error("assertion failure");
+   // 	    #100 $finish;
+   // 	 end
+   // 	 else $display("345 OK waddr");
+   //    end
+   // end
 
-   always @(raddr, t34) begin
-      if ($time > 100) #30 begin
-	 if (t34 === 1'b1 && mbu.nrmbp !== 1'b1) begin
-	    $display("346 FAIL nrmbp went low outside of t34");
-	    $error("assertion failure");
-	    #100 $finish;
-	 end
+   // always @(raddr, t34) begin
+   //    if ($time > 100) #30 begin
+   // 	 if (t34 === 1'b1 && mbu.nrmbp !== 1'b1) begin
+   // 	    $display("346 FAIL nrmbp went low outside of t34");
+   // 	    $error("assertion failure");
+   // 	    #100 $finish;
+   // 	 end
 	 
-	 if (t34 === 1'b0 && mbu.nrmbp !== (raddr[4:0] === 5'b01101 ? 1'b0 : 1'b1)) begin
-	    $display("346 FAIL raddr decoding failure, raddr=%b, nrmbp=%b (should be %b)",
-	 	     raddr, mbu.nrmbp, (raddr[4:1] === 4'b0110 ? 1'b0 : 1'b1));
-	    $error("assertion failure");
-	    #100 $finish;
-	 end
+   // 	 if (t34 === 1'b0 && mbu.nrmbp !== (raddr[4:0] === 5'b01101 ? 1'b0 : 1'b1)) begin
+   // 	    $display("346 FAIL raddr decoding failure, raddr=%b, nrmbp=%b (should be %b)",
+   // 	 	     raddr, mbu.nrmbp, (raddr[4:1] === 4'b0110 ? 1'b0 : 1'b1));
+   // 	    $error("assertion failure");
+   // 	    #100 $finish;
+   // 	 end
 	 
-	 else $display("345 OK raddr");
-      end
-   end
+   // 	 else $display("345 OK raddr");
+   //    end
+   // end
 
    always @(ab) begin
       #30 begin

@@ -6,7 +6,7 @@ encoding utf-8
 Sheet 1 6
 Title "4× Major Registers"
 Date ""
-Rev "2007"
+Rev "2021"
 Comp ""
 Comment1 "REG"
 Comment2 ""
@@ -912,8 +912,6 @@ Connection ~ 3650 7400
 Connection ~ 5050 7200
 Connection ~ 5050 7400
 NoConn ~ 8700 2300
-NoConn ~ 8700 2400
-NoConn ~ 8700 2500
 NoConn ~ 8700 2700
 NoConn ~ 8700 2800
 NoConn ~ 8700 2900
@@ -1252,17 +1250,18 @@ $EndComp
 Wire Wire Line
 	1300 4350 1000 4350
 Text Label 1000 4350 0    50   ~ 0
-CLK4
+CLK2
 Text Label 8700 2600 0    50   ~ 0
 CLK4
 Text Notes 10700 5800 2    50   ~ 0
 FN≡
 Text Label 1000 5700 0    50   ~ 0
-CLK3
+CLK4
 Wire Wire Line
 	1000 5700 1300 5700
 Text Notes 1550 6600 0    50   ~ 0
 The '193 counters used here treat these as clocks\nand increment/decrement on the signals' rising edge.\nThis tends to be too late in the processor cycle. We can\nadvance the action by using CLK3. Current microcode\ndoesn't use it, but this also fixes a potential bug that\nwould prohibit incrementing a register twice in contiguous\nprocessor cycles.
+NoConn ~ 8700 2500
 Wire Bus Line
 	850  3350 850  4150
 Wire Bus Line

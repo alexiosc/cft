@@ -60,7 +60,7 @@ module cft2019(
                 fpd,                         // 8-bit front panel bus
                 //cport,                     // This makes no sense for the computer as a whole
                 rsvd,                        // Reserved for bussed expansion
-                wstb, nruen                  // Removed, kept for expansion
+                wstb                         // Removed, kept for expansion
                 );
 
    inout         nreset;        // Open drain, various drivers.
@@ -82,6 +82,7 @@ module cft2019(
 
    output        nmem;          // Microcode store output
    output        nio;           // Microcode store output
+   //output        nwen;          // Early write warning (for address decoding)
    output        nw;            // Driven by the BUS board.
    output        nr;            // Microcode store output
    inout         nws;           // Open drain, handled by BUS board
@@ -105,14 +106,13 @@ module cft2019(
 
    inout  [4:1]  rsvd;          // Reserved bussed pins
    inout         wstb;          // Removed, kept for expansion
-   inout         nruen;         // Removed, kept for expansion
 
    // Wire definitions for the above.
 
    wire          nreset, nrsthold, clk1, clk2, clk3, clk4, t34;
    wire          nirq, nirqs, nsysdev, niodev1xx, niodev2xx, niodev3xx;
    wire          nmem, nio, nw, nr, nws, nhalt, nendext, nskipext;
-   wire          wstb, nruen;
+   wire          wstb;
    wire [23:0]   ab;
    wire [15:0]   db;
    wire [7:0]    nirqn;
@@ -221,7 +221,7 @@ module cft2019(
                      .ibus(ibus), .raddr(raddr), .waddr(waddr), .action(action),
                      .fpd(fpd),
                      .cport(cport_ctl),
-                     .rsvd(rsvd), .wstb(wstb), .nruen(nruen)
+                     .rsvd(rsvd), .wstb(wstb)
                      );
 
    ///////////////////////////////////////////////////////////////////////////////
@@ -257,7 +257,7 @@ module cft2019(
                      .ibus(ibus), .raddr(raddr), .waddr(waddr), .action(action),
                      .fpd(fpd),
                      .cport(cport_reg),
-                     .rsvd(rsvd), .wstb(wstb), .nruen(nruen)
+                     .rsvd(rsvd), .wstb(wstb)
                      );
 
    ///////////////////////////////////////////////////////////////////////////////
@@ -287,7 +287,7 @@ module cft2019(
                      .raddr(raddr), .waddr(waddr), .action(action),
                      .fpd(fpd),
                      .cport(cport_bus),
-                     .rsvd(rsvd), .wstb(wstb), .nruen(nruen)
+                     .rsvd(rsvd), .wstb(wstb)
                      );
 
    ///////////////////////////////////////////////////////////////////////////////
@@ -317,7 +317,7 @@ module cft2019(
                      .raddr(raddr), .waddr(waddr), .action(action),
                      .fpd(fpd),
                      .cport(cport_alu),
-                     .rsvd(rsvd), .wstb(wstb), .nruen(nruen)
+                     .rsvd(rsvd), .wstb(wstb)
                      );
 
    ///////////////////////////////////////////////////////////////////////////////
@@ -347,7 +347,7 @@ module cft2019(
                      .ibus(ibus), .raddr(raddr), .waddr(waddr), .action(action),
                      .fpd(fpd),
                      .cport(cport_dfp),
-                     .rsvd(rsvd), .wstb(wstb), .nruen(nruen)
+                     .rsvd(rsvd), .wstb(wstb)
                      );
 
    ///////////////////////////////////////////////////////////////////////////////
@@ -371,7 +371,7 @@ module cft2019(
                      .ibus(ibus), .raddr(raddr), .waddr(waddr), .action(action),
                      .fpd(fpd),
                      .cport(cport_mem),
-                     .rsvd(rsvd), .wstb(wstb), .nruen(nruen)
+                     .rsvd(rsvd), .wstb(wstb)
                      );
 
    ///////////////////////////////////////////////////////////////////////////////
@@ -394,7 +394,7 @@ module cft2019(
                      .ibus(ibus), .raddr(raddr), .waddr(waddr), .action(action),
                      .fpd(fpd),
                      .cport(cport_mem),
-                     .rsvd(rsvd), .wstb(wstb), .nruen(nruen)
+                     .rsvd(rsvd), .wstb(wstb)
                      );
 
 endmodule // cft2019

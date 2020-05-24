@@ -165,7 +165,7 @@ module card_dfp (
 	      -> assertion_failed;
 	      -> halting;
 	   end
-	     
+
 	   8'h10: $display("340 PRINTA: %h", db);              // PRINTA
 	   8'h11: $display("340 PRINTC: %d", db[7:0]);         // PRINTC
 	   8'h12: $display("340 PRINTD: %d", $signed(db));     // PRINTD

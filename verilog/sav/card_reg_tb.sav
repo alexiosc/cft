@@ -1,27 +1,31 @@
 [*]
-[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
-[*] Sun Mar 29 09:55:59 2020
+[*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
+[*] Sun May 24 11:53:59 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/card_reg_tb.vcd"
-[dumpfile_mtime] "Sun Mar 29 09:55:53 2020"
-[dumpfile_size] 7450363
+[dumpfile_mtime] "Sun May 24 11:53:50 2020"
+[dumpfile_size] 49239084
+[optimize_vcd]
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/card_reg_tb.sav"
-[timestart] 0
-[size] 1920 1019
-[pos] 20 53
-*-30.194674 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[timestart] 8709500000
+[size] 2048 1123
+[pos] 4096 0
+*-27.130217 9341000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] card_reg_tb.
 [treeopen] card_reg_tb.card_reg.
 [sst_width] 258
 [signals_width] 222
 [sst_expanded] 1
-[sst_vpaned_height] 231
+[sst_vpaned_height] 259
 @820
 card_reg_tb.status[800:0]
 @28
 card_reg_tb.nreset
-@29
+card_reg_tb.card_reg.clk1
+card_reg_tb.card_reg.clk2
+card_reg_tb.card_reg.clk3
 card_reg_tb.card_reg.clk4
+card_reg_tb.clk4_drv
 @200
 -
 @2028
@@ -61,6 +65,8 @@ card_reg_tb.waddr[4:0]
 card_reg_tb.ibus_drv[15:0]
 @200
 -
+@29
+card_reg_tb.action[3:0]
 @2028
 ^3 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/action
 card_reg_tb.action[3:0]

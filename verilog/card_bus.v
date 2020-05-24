@@ -174,7 +174,7 @@ module card_bus(
    ///////////////////////////////////////////////////////////////////////////////
 
    mbu mbu (.nreset(nreset),
-	    .clk(clk1),
+	    .clk1(clk1), .clk2(clk2), .clk3(clk3), .clk4(clk4), // TODO: remove unneeded clocks!
 	    .t34(t34),
 	    .waddr(waddr),
 	    .raddr(raddr),

@@ -54,13 +54,13 @@ Wire Wire Line
 Wire Wire Line
 	8350 3300 7800 3300
 Wire Wire Line
-	8350 4200 7800 4200
-Wire Wire Line
 	8350 4300 7800 4300
 Wire Wire Line
-	8350 4100 7800 4100
+	8350 4400 7800 4400
 Wire Wire Line
-	8350 3900 7800 3900
+	8350 4200 7800 4200
+Wire Wire Line
+	8350 4000 7800 4000
 Text Label 7800 2700 0    50   ~ 0
 ~IRQ
 Wire Wire Line
@@ -101,13 +101,13 @@ Text Label 7800 3600 0    50   ~ 0
 ~IO
 Text Label 7800 3700 0    50   ~ 0
 ~R
-Text Label 7800 3900 0    50   ~ 0
+Text Label 7800 4000 0    50   ~ 0
 ~WS
-Text Label 7800 4100 0    50   ~ 0
-~ENDEXT
 Text Label 7800 4200 0    50   ~ 0
-~SKIPEXT
+~ENDEXT
 Text Label 7800 4300 0    50   ~ 0
+~SKIPEXT
+Text Label 7800 4400 0    50   ~ 0
 ~HALT
 Text Label 7800 4600 0    50   ~ 0
 WADDR[0..4]
@@ -233,8 +233,8 @@ NoConn ~ 7800 1800
 NoConn ~ 7800 2700
 NoConn ~ 7800 2800
 NoConn ~ 7800 3000
-NoConn ~ 7800 4100
 NoConn ~ 7800 4200
+NoConn ~ 7800 4300
 Wire Wire Line
 	9500 4800 10000 4800
 Wire Wire Line
@@ -471,8 +471,6 @@ Wire Wire Line
 Wire Wire Line
 	10000 2800 9500 2800
 Wire Wire Line
-	10000 2900 9500 2900
-Wire Wire Line
 	10000 3400 9500 3400
 Wire Wire Line
 	10000 3500 9500 3500
@@ -506,10 +504,6 @@ Wire Wire Line
 	10000 5300 9500 5300
 Wire Wire Line
 	10000 5100 9500 5100
-Text Notes 10050 2900 0    50   ~ 0
-← Control Unit
-Text Label 10000 2900 2    50   ~ 0
-~WEN
 Text Notes 10050 3000 0    50   ~ 0
 ← Control Unit
 Wire Wire Line
@@ -630,10 +624,10 @@ F19 "~MEM" U L 8350 3500 50
 F20 "~IO" U L 8350 3600 50 
 F21 "~R" U L 8350 3700 50 
 F22 "~W" U L 8350 3800 50 
-F23 "~WS" U L 8350 3900 50 
-F24 "~ENDEXT" U L 8350 4100 50 
-F25 "~SKIPEXT" U L 8350 4200 50 
-F26 "~HALT" U L 8350 4300 50 
+F23 "~WS" U L 8350 4000 50 
+F24 "~ENDEXT" U L 8350 4200 50 
+F25 "~SKIPEXT" U L 8350 4300 50 
+F26 "~HALT" U L 8350 4400 50 
 F27 "WADDR[0..4]" U L 8350 4600 50 
 F28 "RADDR[0..4]" U L 8350 4700 50 
 F29 "C1" U R 9500 1600 50 
@@ -676,7 +670,8 @@ F65 "C37" U R 9500 5200 50
 F66 "C38" U R 9500 5300 50 
 F67 "C39" U R 9500 5400 50 
 F68 "C40" U R 9500 5500 50 
-F69 "~WAITING" U L 8350 4000 50 
+F69 "~WAITING" U L 8350 4100 50 
+F70 "~WEN" U L 8350 3900 50 
 $EndSheet
 Wire Wire Line
 	2900 2750 4950 2750
@@ -732,9 +727,16 @@ Text Label 6900 4550 2    50   ~ 0
 Text Label 10000 3000 2    50   ~ 0
 ~WAITING
 Wire Wire Line
-	8350 4000 7800 4000
-Text Label 7800 4000 0    50   ~ 0
+	8350 4100 7800 4100
+Text Label 7800 4100 0    50   ~ 0
 ~WAITING
+Wire Wire Line
+	10000 2900 9500 2900
+NoConn ~ 10000 2900
+Wire Wire Line
+	7800 3900 8350 3900
+Text Label 7800 3900 0    50   ~ 0
+~WEN
 Wire Bus Line
 	9950 1450 9950 1700
 $EndSCHEMATC
