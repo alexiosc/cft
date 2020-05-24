@@ -100,6 +100,7 @@ module alu_decoder_tb();
 
    // Connect the DUT
    alu_decoder alu_decoder (
+			    .clk4(t34), // Note: this is only valid because of the way we test here.
 			    .t34(t34), .raddr(raddr), .waddr(waddr), .action(action), 
 			    .nalu_op(nalu_op),
 			    .nread_alu_b(nread_alu_b),

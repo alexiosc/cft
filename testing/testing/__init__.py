@@ -141,12 +141,12 @@ def run_verilog_testbench(capsys, name, args=None):
     if args is None:
         args = []
 
-    fname = os.path.abspath(os.path.join(curdir, "rerun-verilog-testbench.sh"))
-    with open(fname, "w") as f:
-        f.write("#!/bin/bash\n")
-        f.write("cd {}\n".format(VERILOGDIR))
-        f.write("{} {}\n".format(os.path.abspath(binary), ' '.join("'{}'".format(x) for x in args)))
-    os.chmod(fname, 0o755)
+    # fname = os.path.abspath(os.path.join(curdir, "rerun-verilog-testbench.sh"))
+    # with open(fname, "w") as f:
+    #     f.write("#!/bin/bash\n")
+    #     f.write("cd {}\n".format(VERILOGDIR))
+    #     f.write("{} {}\n".format(os.path.abspath(binary), ' '.join("'{}'".format(x) for x in args)))
+    # os.chmod(fname, 0o755)
                 
     #print(os.path.abspath(binary), args)
     pipe = subprocess.Popen([os.path.abspath(binary)] + args, cwd=str(VERILOGDIR),

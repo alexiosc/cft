@@ -322,9 +322,9 @@ Wire Wire Line
 	3900 3800 6050 3800
 NoConn ~ 9350 2000
 Text Label 7750 2300 0    50   ~ 0
-T34
+CLK4
 Wire Wire Line
-	7750 2300 8350 2300
+	7200 2300 8350 2300
 Wire Wire Line
 	2000 2200 2000 4100
 Wire Wire Line
@@ -610,8 +610,6 @@ NoConn ~ 3900 5400
 NoConn ~ 3900 5100
 NoConn ~ 3900 5000
 NoConn ~ 3900 4900
-Text Label 2400 5600 0    50   ~ 0
-T34
 Text Label 2400 5400 0    50   ~ 0
 WADDR4
 Text Label 2400 5500 0    50   ~ 0
@@ -656,11 +654,6 @@ Wire Bus Line
 	1200 1750 2150 1750
 Text Label 2000 3050 1    50   ~ 0
 T34
-Wire Wire Line
-	2000 4100 2000 5600
-Connection ~ 2000 4100
-Wire Wire Line
-	2000 5600 2900 5600
 Wire Wire Line
 	5750 2250 6050 2250
 Wire Wire Line
@@ -769,6 +762,17 @@ Wire Wire Line
 Connection ~ 2850 2200
 Wire Wire Line
 	2850 2200 2850 2400
+Wire Wire Line
+	2000 5600 2900 5600
+Text Notes 1250 5800 0    79   ~ 16
+TODO: T34 MIGHT NOT BE USABLE HERE
+Text Label 2400 5600 0    50   ~ 0
+T34
+Connection ~ 2000 4100
+Wire Wire Line
+	2000 4100 2000 5600
+Text HLabel 7200 2300 0    50   Input ~ 0
+CLK4
 Wire Bus Line
 	7900 1350 7900 2100
 Wire Bus Line

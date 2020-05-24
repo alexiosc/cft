@@ -178,6 +178,7 @@ module card_alu(
    ///////////////////////////////////////////////////////////////////////////////
 
    alu_decoder decoder (
+			.clk4(clk4),
 			.t34(t34),
 			.raddr(raddr),
 			.waddr(waddr),

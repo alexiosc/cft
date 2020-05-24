@@ -18,11 +18,12 @@
 `timescale 1ns/1ps
 
 
-module alu_decoder (t34, raddr, waddr, action, 
+module alu_decoder (clk4, t34, raddr, waddr, action, 
 		    nalu_op, nread_alu_y,
 		    nread_alu_b, nwrite_alu_b,
 		    naction_cpl, naction_cll, naction_sru);
 
+   input       clk4;
    input       t34;
    input [4:0] raddr;
    input [4:0] waddr;
@@ -43,8 +44,8 @@ module alu_decoder (t34, raddr, waddr, action,
    assign nalu_op = y1[0];
 
    // These decode RADDR and WADDR 11000
-   demux_138 demux_rb (.a({ raddr[3], raddr[1:0]}), .g1(raddr[4]), .ng2a(raddr[2]), .ng2b(t34), .y(y2));
-   demux_138 demux_wb (.a({ waddr[3], waddr[1:0]}), .g1(waddr[4]), .ng2a(waddr[2]), .ng2b(t34), .y(y3));
+   demux_138 demux_rb (.a({ raddr[3], raddr[1:0]}), .g1(raddr[4]), .ng2a(raddr[2]), .ng2b(1'b0), .y(y2));
+   demux_138 demux_wb (.a({ waddr[3], waddr[1:0]}), .g1(waddr[4]), .ng2a(waddr[2]), .ng2b(clk4), .y(y3));
    assign nread_alu_y = y2[4];
    assign nread_alu_b = y2[5];
    assign nwrite_alu_b = y3[5];
