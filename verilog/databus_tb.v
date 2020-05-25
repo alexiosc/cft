@@ -38,7 +38,7 @@ module databus_tb();
    reg          nreset_drv;
    reg 		nhalt;
 
-   reg 		nmem, nio, nr, nwen;
+   reg 		nmem, nio, nr, nwen_drv;
    reg 		nws_drv;
 
    wire 	clk1, clk2, clk3, clk4, t34;
@@ -65,7 +65,7 @@ module databus_tb();
       $dumpvars (0, databus_tb);
       $monitor ("t: %7d | %b %b %b %b %b  %b %b %b %b | %b | %04x %04x (%0s)",
 		$time, nreset, nhalt, clk3, clk4, t34,
-		nmem, nio, nr, nwen,
+		nmem, nio, nr, nwen_drv,
 		nws,
 		ibus, db,
 		status);
@@ -77,7 +77,7 @@ module databus_tb();
       nmem = 1;
       nio = 1;
       nr = 1;
-      nwen = 1;
+      nwen_drv = 1;
       nws_drv = 1'bz;
       ibus_drv = 16'bZ;
       db_drv = 16'bZ;
@@ -92,17 +92,17 @@ module databus_tb();
       // do.
       #125;
       for (i = 0; i < 16; i = i + 1) begin
-	 #250 nwen = i[0];
+	 #250 nwen_drv = i[0];
 	 nhalt = i[3];
       end
-      nwen = 1;
+      nwen_drv = 1;
       nhalt = 0;
       #187.5;			// This brings us back in phase with the clocks.
       
       for (j = 0; j < 2; j += 1) begin
 	 #5000 $sformat(status, "%0s", j == 0 ? "LOAD" : "IN");
 	 ibus_drv = 16'bZ;
-	 nwen = 1;
+	 nwen_drv = 1;
 	 nhalt = 1;
 	 for (i = 0; i < 65536; i += `DELTA) begin
 	    #62.5 if (j == 0) nmem = 0; else nio = 0;
@@ -121,14 +121,14 @@ module databus_tb();
 	 #5000 $sformat(status, "%0s", j == 0 ? "STORE" : "OUT");
 	 ibus_drv = 16'bZ;
 	 nr = 1;
-	 nwen = 1;
+	 nwen_drv = 1;
 	 nhalt = 1;
 	 for (i = 0; i < 65536; i += `DELTA) begin
 	    #62.5 if (j == 0) nmem = 0; else nio = 0;
-	    nwen = 0;
+	    nwen_drv = 0;
 	    ibus_drv = i;
 	    #187.5 if (j == 0) nmem = 1; else nio = 1;
-	    nwen = 1;
+	    nwen_drv = 1;
 	 end
 	 ibus_drv = 16'bZ;
 	 nmem = 1;
@@ -143,16 +143,16 @@ module databus_tb();
 	    #5000 $sformat(status, "%0s (%0d WS)", j == 0 ? "STORE" : "OUT", k);
 	    ibus_drv = 16'bZ;
 	    nr = 1;
-	    nwen = 1;
+	    nwen_drv = 1;
 	    nhalt = 1;
 	    nws_drv = 1'bz;
 	    for (i = 0; i < 65536; i += `DELTA) begin
 	       #62.5 if (j == 0) nmem = 0; else nio = 0;
-	       nwen = 0;
+	       nwen_drv = 0;
 	       ibus_drv = i;
 	       nws_drv = 0;
 	       #187.5 if (j == 0) nmem = 1; else nio = 1;
-	       nwen = 1;
+	       nwen_drv = 1;
 	       #((k - 1) * 250 + 12.5);	// 250 = 1 WS, 500 = 2 WS, etc.
 	       nws_drv = 1'bz;	// Two cycle delay
 	       #237.5;
@@ -175,6 +175,8 @@ module databus_tb();
 
    wire nreset;
    assign nreset = nreset_drv;
+   wire nwen;
+   assign nwen = nwen_drv;
 
    // Use the standard clock generator.
    clock_generator clock_generator (.nreset(nreset),

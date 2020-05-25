@@ -33,7 +33,7 @@ module databus (nrsthold, nhalt, clk1, clk2, clk3, clk4, t34,
    input 	nmem;
    input 	nio;
    input 	nr;
-   input 	nwen;
+   inout 	nwen;
    inout 	nws;
    output 	nwaiting;
 
@@ -76,8 +76,10 @@ module databus (nrsthold, nhalt, clk1, clk2, clk3, clk4, t34,
    //
    ///////////////////////////////////////////////////////////////////////////////
 
-   wire nstart_write, wstb;
-   assign #4 nstart_write = nwen | clk4;
+   wire 	nstart_write, wstb, nwen_delayed;
+   assign #4 nwen_delayed = ~nwen;
+   assign #4 nstart_write = nwen | nwen_delayed;
+   //   assign #4 nstart_write = nwen | clk3;
    flipflop_74h #2.5 ff_nw (.nset(nstart_write), .d(1'b1), .clk(1'b1), .nrst(clk2), .nq(wstb));
    assign #7 nw0 = (wstb & nwaiting) | nwen; // 74LVC1G0832
 
@@ -89,21 +91,11 @@ module databus (nrsthold, nhalt, clk1, clk2, clk3, clk4, t34,
    // The nW driver. The Microcode Sequencer can tri-state all its outputs when
    // nHALT is asserted, but we generate nW here, so we need to be able to tri-state it.
    assign #6 halt = ~nhalt;		      // 74LVC1G04
-   // //assign #8 nw0 = nwen | (wstb & nwaiting); // 74LVC1G0832
-   // // assign #8 nw0 = nwaiting & (nwen | clk4);
-   // assign #8 nw0 = nwaiting_delayed & (nwen | nwstb);
    assign #6 nw = halt ? 1'bz : nw0;	      // 74LVC1G125
 
    // The Wait State FF itself
-   flipflop_74h #2.5 ff_ws (.nset(nws_in_t34), .d(1'b0), .clk(clk3), .nrst(nrsthold), .nq(nwaiting));
-
-   // nwaiting must be deasserted after nwstb, but the rising edge of
-   // nwstb can lead nwaiting's depending on jitter. If this condition
-   // isn't satisfied, W# may glitch during wait states.
-   wire nwaiting_delayed0, nwaiting_delayed;
-   // assign #4 nwaiting_delayed0 = nwaiting & nwaiting;
-   // assign #4 nwaiting_delayed = nwaiting & nwaiting_delayed0;
-   assign nwaiting_delayed = nwaiting;
+   flipflop_74h #2.5 ff_ws (.nset(nws), .d(1'b0), .clk(clk3), .nrst(nrsthold), .nq(nwaiting));
+   //flipflop_74h #2.5 ff_ws (.nset(nws_in_t34), .d(1'b0), .clk(clk3), .nrst(nrsthold), .nq(nwaiting));
 
    assign #7 nbusen = nwaiting & nio & nmem; // 74LVC1G11
 

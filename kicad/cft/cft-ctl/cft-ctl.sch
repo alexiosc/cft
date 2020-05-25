@@ -904,8 +904,6 @@ CLK3
 Wire Wire Line
 	6250 6550 6250 5850
 Wire Wire Line
-	6250 3750 6250 5750
-Wire Wire Line
 	5350 6550 6250 6550
 Text Label 5950 6550 2    50   ~ 0
 ~ACTION-IDX
@@ -1025,10 +1023,6 @@ Wire Wire Line
 	4200 4450 3600 4450
 Text Label 3600 4450 0    50   ~ 0
 ~RESET
-Text Label 5950 4450 2    50   ~ 0
-~COND
-Wire Wire Line
-	5350 4450 5950 4450
 $Sheet
 S 4200 4300 1150 1600
 U 5EFCF155
@@ -1251,7 +1245,13 @@ Wire Wire Line
 Text Label 7800 3900 0    50   ~ 0
 ~WEN
 Wire Bus Line
-	9950 1450 9950 2100
-Wire Bus Line
 	800  4850 800  5650
+Wire Bus Line
+	9950 1450 9950 2100
+Wire Wire Line
+	6250 3750 6250 5750
+Wire Wire Line
+	5350 4450 5950 4450
+Text Label 5950 4450 2    50   ~ 0
+~COND
 $EndSCHEMATC

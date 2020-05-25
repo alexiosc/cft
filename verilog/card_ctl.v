@@ -51,6 +51,7 @@ module card_ctl(
 		niodev2xx,		     // I/O space 200-2FF
 		niodev3xx,		     // I/O space 300-3FF
 		nmem, nio, nw, nr, nws,      // Bus transactions
+	        nwen,	                     // Early write warning (for address decoding)
 		nwaiting,		     // Wait State acknowledge from BUS board
 		ab,                          // 24-bit address bus
 		db,                          // 16-bit data bus
@@ -83,6 +84,7 @@ module card_ctl(
 
    output 	 nmem;		// Microcode store output
    output 	 nio;		// Microcode store output
+   inout         nwen;          // Early write warning (for address decoding)
    input 	 nw;		// Driven by the BUS board.
    output 	 nr;		// Microcode store output
    inout 	 nws;		// Open drain, handled by BUS board
@@ -156,7 +158,7 @@ module card_ctl(
    wire 	 in_rsvd;	// microcode addrress vector spare input
 
    assign cport[7:1] = ir[6:0];
-   assign cport[8] = nwen;
+   //assign cport[8] = nwen;
    assign fl = cport[9];
    assign fv = cport[10];
    assign cport[11] = nflagwe;

@@ -164,7 +164,7 @@ module card_bus_tb(
 
    assign cport_bus[3:1] = ir_6_0[2:0]; // IR[2:0] is needed here
    assign cport_bus[4] = idxen;
-   assign cport_bus[14] = nwen;
+   //assign cport_bus[14] = nwen;
    assign cport_bus[38] = nfpram_rom;
    assign cport_bus[39] = nfpaext;
 

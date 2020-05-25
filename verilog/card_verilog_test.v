@@ -46,6 +46,7 @@ module card_verilog_test (
 		niodev2xx,		     // I/O space 200-2FF
 		niodev3xx,		     // I/O space 300-3FF
 		nmem, nio, nw, nr, nws,      // Bus transactions
+	        nwen,	                     // Early write warning (for address decoding)
 		nwaiting,		     // Wait State acknowledge from BUS board
 		ab,                          // 24-bit address bus
 		db,                          // 16-bit data bus
@@ -78,6 +79,7 @@ module card_verilog_test (
 
    input 	 nmem;		// Microcode store output
    input 	 nio;		// Microcode store output
+   inout         nwen;          // Early write warning (for address decoding)
    input 	 nw;		// Driven by the BUS board.
    input 	 nr;		// Microcode store output
    inout 	 nws;		// Open drain, handled by BUS board
@@ -268,7 +270,7 @@ module card_verilog_test (
 	   8'hf2: begin
 	      ws_strobe_write(3);
 	   end
-	   8'hf4: begin
+	   8'hf3: begin
 	      ws_strobe_write(4);
 	   end
 	 endcase // casex (ab[7:0])

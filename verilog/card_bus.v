@@ -47,6 +47,7 @@ module card_bus(
 		niodev2xx,		     // I/O space 200-2FF
 		niodev3xx,		     // I/O space 300-3FF
 		nmem, nio, nw, nr, nws,      // Bus transactions
+	        nwen,	                     // Early write warning (for address decoding)
 		nwaiting,		     // Wait State acknowledge from BUS board
 		ab,                          // 24-bit address bus
 		db,                          // 16-bit data bus
@@ -79,6 +80,7 @@ module card_bus(
 
    input 	 nmem;		// Microcode store output
    input 	 nio;		// Microcode store output
+   inout         nwen;          // Early write warning (for address decoding)
    output 	 nw;		// Driven by the databus unit.
    input 	 nr;		// Microcode store output
    inout 	 nws;		// Open drain, handled by BUS board
@@ -207,7 +209,7 @@ module card_bus(
    //
    ///////////////////////////////////////////////////////////////////////////////
 
-   databus databus (.nreset(nreset),
+   databus databus (.nrsthold(nrsthold),
 		    .nhalt(nhalt), 
 		    .clk1(clk1),
 		    .clk2(clk2),

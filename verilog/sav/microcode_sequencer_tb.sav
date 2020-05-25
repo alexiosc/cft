@@ -1,15 +1,16 @@
 [*]
 [*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Wed Feb 26 10:33:10 2020
+[*] Mon May 25 17:12:51 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/microcode_sequencer_tb.vcd"
-[dumpfile_mtime] "Wed Feb 26 10:32:57 2020"
-[dumpfile_size] 712582
+[dumpfile_mtime] "Mon May 25 17:12:36 2020"
+[dumpfile_size] 155098
+[optimize_vcd]
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/microcode_sequencer_tb.sav"
-[timestart] 141520000
+[timestart] 0
 [size] 1935 808
 [pos] 2090 185
-*-19.605625 116024750 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-25.605625 108500000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] microcode_sequencer_tb.
 [treeopen] microcode_sequencer_tb.microcode_sequencer.
 [treeopen] microcode_sequencer_tb.reset_logic.
@@ -43,13 +44,10 @@ microcode_sequencer_tb.nendext
 microcode_sequencer_tb.nws
 @200
 -
-@23
-microcode_sequencer_tb.expupc[3:0]
 @22
+microcode_sequencer_tb.expupc[3:0]
 [color] 1
 microcode_sequencer_tb.microcode_sequencer.upc[3:0]
-[color] 2
-microcode_sequencer_tb.microcode_sequencer.uaddr[18:0]
 @28
 [color] 4
 microcode_sequencer_tb.microcode_sequencer.fpfetch
@@ -72,5 +70,7 @@ microcode_sequencer_tb.microcode_sequencer.fpd[7:0]
 @28
 microcode_sequencer_tb.microcode_sequencer.ncse
 microcode_sequencer_tb.microcode_sequencer.control_store.noe
+@29
+microcode_sequencer_tb.microcode_sequencer.nwen
 [pattern_trace] 1
 [pattern_trace] 0

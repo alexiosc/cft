@@ -82,7 +82,7 @@ module cft2019(
 
    output        nmem;          // Microcode store output
    output        nio;           // Microcode store output
-   //output        nwen;          // Early write warning (for address decoding)
+   inout         nwen;          // Early write warning (for address decoding)
    output        nw;            // Driven by the BUS board.
    output        nr;            // Microcode store output
    inout         nws;           // Open drain, handled by BUS board
@@ -176,7 +176,7 @@ module cft2019(
    ///////////////////////////////////////////////////////////////////////////////
    
    assign ir_6_0[6:0] = cport_ctl[7:1];
-   assign nwen = cport_ctl[8];
+   //assign nwen = cport_ctl[8];
    assign cport_ctl[9] = fl;
    assign cport_ctl[10] = fv;
    assign nflagwe = cport_ctl[11];
@@ -213,7 +213,7 @@ module cft2019(
                      .nirq(nirq), .nirqs(nirqs),
                      .nsysdev(nsysdev), .niodev1xx(niodev1xx),
                      .niodev2xx(niodev2xx), .niodev3xx(niodev3xx),
-                     .nmem(nmem), .nio(nio), .nw(nw), .nr(nr), .nws(nws),
+                     .nmem(nmem), .nio(nio), .nwen(nwen), .nw(nw), .nr(nr), .nws(nws),
                      .nwaiting(nwaiting),
                      .ab(ab), .db(db),
                      .nirqn(nirqn),
@@ -249,7 +249,7 @@ module cft2019(
                      .nirq(nirq), .nirqs(nirqs),
                      .nsysdev(nsysdev), .niodev1xx(niodev1xx),
                      .niodev2xx(niodev2xx), .niodev3xx(niodev3xx),
-                     .nmem(nmem), .nio(nio), .nw(nw), .nr(nr), .nws(nws),
+                     .nmem(nmem), .nio(nio), .nwen(nwen), .nw(nw), .nr(nr), .nws(nws),
                      .nwaiting(nwaiting),
                      .ab(ab), .db(db),
                      .nirqn(nirqn),
@@ -267,7 +267,7 @@ module cft2019(
    ///////////////////////////////////////////////////////////////////////////////
    
    assign cport_bus[3:1] = ir_6_0[2:0]; // IR[2:0] is needed here
-   assign cport_bus[14] = nwen;
+   //assign cport_bus[14] = nwen;
    assign cport_bus[35] = nfpram_rom;
    assign cport_bus[36] = nfpaext;
    assign cport_bus[39] = nir_idx;
@@ -278,7 +278,7 @@ module cft2019(
                      .nirq(nirq), .nirqs(nirqs),
                      .nsysdev(nsysdev), .niodev1xx(niodev1xx),
                      .niodev2xx(niodev2xx), .niodev3xx(niodev3xx),
-                     .nmem(nmem), .nio(nio), .nw(nw), .nr(nr), .nws(nws),
+                     .nmem(nmem), .nio(nio), .nwen(nwen), .nw(nw), .nr(nr), .nws(nws),
                      .nwaiting(nwaiting),
                      .ab(ab), .db(db),
                      .nirqn(nirqn),
@@ -308,7 +308,7 @@ module cft2019(
                      .nirq(nirq), .nirqs(nirqs),
                      .nsysdev(nsysdev), .niodev1xx(niodev1xx),
                      .niodev2xx(niodev2xx), .niodev3xx(niodev3xx),
-                     .nmem(nmem), .nio(nio), .nw(nw), .nr(nr), .nws(nws),
+                     .nmem(nmem), .nio(nio), .nwen(nwen), .nw(nw), .nr(nr), .nws(nws),
                      .nwaiting(nwaiting),
                      .ab(ab), .db(db),
                      .nirqn(nirqn),
@@ -339,7 +339,7 @@ module cft2019(
                      .nirq(nirq), .nirqs(nirqs),
                      .nsysdev(nsysdev), .niodev1xx(niodev1xx),
                      .niodev2xx(niodev2xx), .niodev3xx(niodev3xx),
-                     .nmem(nmem), .nio(nio), .nw(nw), .nr(nr), .nws(nws),
+                     .nmem(nmem), .nio(nio), .nwen(nwen), .nw(nw), .nr(nr), .nws(nws),
                      .nwaiting(nwaiting),
                      .ab(ab), .db(db),
                      .nirqn(nirqn),
@@ -363,7 +363,7 @@ module cft2019(
                      .nirq(nirq), .nirqs(nirqs),
                      .nsysdev(nsysdev), .niodev1xx(niodev1xx),
                      .niodev2xx(niodev2xx), .niodev3xx(niodev3xx),
-                     .nmem(nmem), .nio(nio), .nw(nw), .nr(nr), .nws(nws),
+                     .nmem(nmem), .nio(nio), .nwen(nwen), .nw(nw), .nr(nr), .nws(nws),
                      .nwaiting(nwaiting),
                      .ab(ab), .db(db),
                      .nirqn(nirqn),
@@ -386,7 +386,7 @@ module cft2019(
                      .nirq(nirq), .nirqs(nirqs),
                      .nsysdev(nsysdev), .niodev1xx(niodev1xx),
                      .niodev2xx(niodev2xx), .niodev3xx(niodev3xx),
-                     .nmem(nmem), .nio(nio), .nw(nw), .nr(nr), .nws(nws),
+                     .nmem(nmem), .nio(nio), .nwen(nwen), .nw(nw), .nr(nr), .nws(nws),
                      .nwaiting(nwaiting),
                      .ab(ab), .db(db),
                      .nirqn(nirqn),

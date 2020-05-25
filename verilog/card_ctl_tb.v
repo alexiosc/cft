@@ -191,7 +191,7 @@ module card_ctl_tb(
    // Connect the DUT and its many signals
 
    assign cport_ctl[7:1] = ir_6_0[6:0];
-   assign cport_ctl[8] = nwen;
+   //assign cport_ctl[8] = nwen;
    assign fl = cport_ctl[9];
    assign fv = cport_ctl[10];
    assign nflagwe = cport_ctl[11];
@@ -228,6 +228,7 @@ module card_ctl_tb(
 		.nsysdev(nsysdev), .niodev1xx(niodev1xx),
 		.niodev2xx(niodev2xx), .niodev3xx(niodev3xx),
 		.nmem(nmem), .nio(nio), .nw(nw), .nr(nr), .nws(nws),
+       		.nwen(nwen),
 		.nwaiting(1'b1),
 		.ab(ab), .db(db),
 		.nirqn(nirqn),

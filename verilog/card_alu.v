@@ -50,6 +50,7 @@ module card_alu(
 		niodev2xx,		     // I/O space 200-2FF
 		niodev3xx,		     // I/O space 300-3FF
 		nmem, nio, nw, nr, nws,      // Bus transactions
+	        nwen,	                     // Early write warning (for address decoding)
 		nwaiting,		     // Wait State acknowledge from BUS board
 		ab,                          // 24-bit address bus
 		db,                          // 16-bit data bus
@@ -82,6 +83,7 @@ module card_alu(
 
    input 	 nmem;		// Microcode store output
    input 	 nio;		// Microcode store output
+   inout         nwen;          // Early write warning (for address decoding)
    input 	 nw;		// Driven by the BUS board.
    input 	 nr;		// Microcode store output
    inout 	 nws;		// Open drain, handled by BUS board

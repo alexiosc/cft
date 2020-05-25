@@ -524,23 +524,6 @@ WADDR[0..4]
 Text HLabel 1350 6050 0    50   UnSpc ~ 0
 RADDR[0..4]
 $Comp
-L cft-ctl-rescue:CFT-2019-Bus-alexios-cft-ctl-rescue P?
-U 4 1 5D360875
-P 9350 4650
-AR Path="/5D34E810/5D360875" Ref="P?"  Part="4" 
-AR Path="/5D36B851/5D360875" Ref="P?"  Part="4" 
-AR Path="/5F1DB2E8/5D360875" Ref="P?"  Part="4" 
-AR Path="/5D360875" Ref="P?"  Part="4" 
-AR Path="/5DD3D79F/5D34E810/5D360875" Ref="P?"  Part="4" 
-AR Path="/5DD5525C/5D360875" Ref="P1"  Part="4" 
-F 0 "P1" H 9350 4817 50  0000 C CNN
-F 1 "CFT-2019-Bus" H 9350 4726 50  0000 C CNN
-F 2 "alexios:CFT-2019-Card-Edge" H 9300 3750 50  0001 C CNN
-F 3 "" H 9300 3750 50  0001 C CNN
-	4    9350 4650
-	1    0    0    -1  
-$EndComp
-$Comp
 L power:GND #PWR?
 U 1 1 5D360863
 P 8900 5300
@@ -634,23 +617,6 @@ Wire Wire Line
 	8350 3600 8800 3600
 Wire Wire Line
 	8350 3700 8800 3700
-$Comp
-L cft-ctl-rescue:CFT-2019-Bus-alexios-cft-ctl-rescue P?
-U 3 1 5D3608F9
-P 9300 1650
-AR Path="/5D34E810/5D3608F9" Ref="P?"  Part="3" 
-AR Path="/5D36B851/5D3608F9" Ref="P?"  Part="3" 
-AR Path="/5F1DB2E8/5D3608F9" Ref="P?"  Part="3" 
-AR Path="/5D3608F9" Ref="P?"  Part="3" 
-AR Path="/5DD3D79F/5D34E810/5D3608F9" Ref="P?"  Part="3" 
-AR Path="/5DD5525C/5D3608F9" Ref="P1"  Part="3" 
-F 0 "P1" H 9300 1817 50  0000 C CNN
-F 1 "CFT-2019-Bus" H 9300 1726 50  0000 C CNN
-F 2 "alexios:CFT-2019-Card-Edge" H 9250 750 50  0001 C CNN
-F 3 "" H 9250 750 50  0001 C CNN
-	3    9300 1650
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	9800 1800 10250 1800
 Wire Wire Line
@@ -978,10 +944,10 @@ Connection ~ 9800 5300
 Text HLabel 2150 2350 0    50   UnSpc ~ 0
 WSTB
 $Comp
-L power:PWR_FLAG #FLG0101
+L power:PWR_FLAG #FLG?
 U 1 1 5EF5B53B
 P 8500 4800
-F 0 "#FLG0101" H 8500 4875 50  0001 C CNN
+F 0 "#FLG?" H 8500 4875 50  0001 C CNN
 F 1 "PWR_FLAG" H 8500 4973 50  0000 C CNN
 F 2 "" H 8500 4800 50  0001 C CNN
 F 3 "~" H 8500 4800 50  0001 C CNN
@@ -996,10 +962,10 @@ Connection ~ 8900 4850
 Wire Wire Line
 	8900 4850 8900 4800
 $Comp
-L power:PWR_FLAG #FLG0102
+L power:PWR_FLAG #FLG?
 U 1 1 5EF6988E
 P 8500 5300
-F 0 "#FLG0102" H 8500 5375 50  0001 C CNN
+F 0 "#FLG?" H 8500 5375 50  0001 C CNN
 F 1 "PWR_FLAG" H 8500 5473 50  0000 C CNN
 F 2 "" H 8500 5300 50  0001 C CNN
 F 3 "~" H 8500 5300 50  0001 C CNN
@@ -1182,6 +1148,8 @@ NoConn ~ 6850 2250
 NoConn ~ 6850 2350
 Text HLabel 6850 2750 2    50   Output ~ 0
 ~WAITING
+Text HLabel 6850 2650 2    50   UnSpc ~ 0
+~WEN
 Wire Bus Line
 	7000 3950 7000 5750
 Wire Bus Line
@@ -1192,6 +1160,38 @@ Wire Bus Line
 	4800 3550 4800 5650
 Wire Bus Line
 	4700 1850 4700 5550
-Text HLabel 6850 2650 2    50   UnSpc ~ 0
-~WEN
+$Comp
+L alexios:CFT-2019-Bus P?
+U 3 1 5FDDDE99
+P 9300 1650
+AR Path="/5D34E810/5FDDDE99" Ref="P?"  Part="2" 
+AR Path="/5D36B851/5FDDDE99" Ref="P?"  Part="2" 
+AR Path="/5F1DB2E8/5FDDDE99" Ref="P?"  Part="2" 
+AR Path="/5FDDDE99" Ref="P?"  Part="2" 
+AR Path="/5DD3D79F/5D34E810/5FDDDE99" Ref="P?"  Part="2" 
+AR Path="/5DD5525C/5FDDDE99" Ref="P1"  Part="3" 
+F 0 "P1" H 9300 1817 50  0000 C CNN
+F 1 "CFT-2019-Bus" H 9300 1726 50  0000 C CNN
+F 2 "alexios:CFT-2019-Card-Edge" H 9250 750 50  0001 C CNN
+F 3 "" H 9250 750 50  0001 C CNN
+	3    9300 1650
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:CFT-2019-Bus P?
+U 4 1 5FDE598E
+P 9350 4650
+AR Path="/5D34E810/5FDE598E" Ref="P?"  Part="2" 
+AR Path="/5D36B851/5FDE598E" Ref="P?"  Part="2" 
+AR Path="/5F1DB2E8/5FDE598E" Ref="P?"  Part="2" 
+AR Path="/5FDE598E" Ref="P?"  Part="2" 
+AR Path="/5DD3D79F/5D34E810/5FDE598E" Ref="P?"  Part="2" 
+AR Path="/5DD5525C/5FDE598E" Ref="P?"  Part="4" 
+F 0 "P?" H 9350 4817 50  0000 C CNN
+F 1 "CFT-2019-Bus" H 9350 4726 50  0000 C CNN
+F 2 "alexios:CFT-2019-Card-Edge" H 9300 3750 50  0001 C CNN
+F 3 "" H 9300 3750 50  0001 C CNN
+	4    9350 4650
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
