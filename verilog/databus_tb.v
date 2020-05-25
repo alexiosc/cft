@@ -185,7 +185,7 @@ module databus_tb();
 
    wire nreset_real;
    
-   databus databus (.nreset(nreset),
+   databus databus (.nrsthold(nreset), // This is okay for testing
 		    .nhalt(nhalt),
 		    .clk1(clk1), .clk2(clk2), .clk3(clk3), .clk4(clk4), .t34(t34),
 		    .nmem(nmem), .nio(nio), .nr(nr), .nwen(nwen),
