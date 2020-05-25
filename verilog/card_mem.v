@@ -130,7 +130,7 @@ module card_mem(
    demux_138 dec_hi (.a(ab[21:19]), .g1(ab[22]), .ng2a(ab[23]), .ng2b(1'b0), .y(ncs[15:8]));
 
    wire [7:0] 	 nromcs;
-   demux_138 dec_rom (.a(ab[21:19]), .g1(ab[23]), .ng2a(ab[22]), .ng2b(1'b0), .y(nromcs));
+   demux_138 #11 dec_rom (.a(ab[21:19]), .g1(ab[23]), .ng2a(ab[22]), .ng2b(1'b0), .y(nromcs));
 
    wire 	 nmemr, nmemw;
 
@@ -150,8 +150,8 @@ module card_mem(
    // ‘ROM’ for testing purposes).
    reg 		 wp;
 
-   sram #(19, 45) romlo (.a(ab[18:0]), .d(db[7:0]), .nce(nromcs[0]), .nwe(wp | nmemw), .noe(nmemr));
-   sram #(19, 45) romhi (.a(ab[18:0]), .d(db[15:8]), .nce(nromcs[0]), .nwe(wp | nmemw), .noe(nmemr));
+   sram #(19, 70) romlo (.a(ab[18:0]), .d(db[7:0]), .nce(nromcs[0]), .nwe(wp | nmemw), .noe(nmemr));
+   sram #(19, 70) romhi (.a(ab[18:0]), .d(db[15:8]), .nce(nromcs[0]), .nwe(wp | nmemw), .noe(nmemr));
 
    // If instructed, load ROM and/or ROM images for simulation.
    reg [4096:0]  basename, imglo, imghi;

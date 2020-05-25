@@ -364,28 +364,6 @@ Connection ~ 5350 7300
 Text Notes 4800 900  0    50   ~ 0
 Keep ~W~ low during a wait state.
 $Comp
-L alexios:74HC245 U50
-U 2 1 5E214BF4
-P 4250 7100
-F 0 "U50" H 4430 7546 50  0000 L CNN
-F 1 "74HC245" H 4430 7455 50  0000 L CNN
-F 2 "alexios:SOIC-20W" H 4250 7150 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74HC245" H 4250 7150 50  0001 C CNN
-	2    4250 7100
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74HC245 U48
-U 2 1 5E214BFA
-P 5700 7100
-F 0 "U48" H 5880 7546 50  0000 L CNN
-F 1 "74HC245" H 5880 7455 50  0000 L CNN
-F 2 "alexios:SOIC-20W" H 5700 7150 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74HC245" H 5700 7150 50  0001 C CNN
-	2    5700 7100
-	1    0    0    -1  
-$EndComp
-$Comp
 L Device:C_Small C?
 U 1 1 5E214C06
 P 5350 6700
@@ -411,7 +389,6 @@ F 3 "" H 5350 6800 50  0001 C CNN
 	1    5350 6800
 	1    0    0    -1  
 $EndComp
-Connection ~ 5350 6800
 $Comp
 L power:GND #PWR0121
 U 1 1 5E214C13
@@ -423,7 +400,6 @@ F 3 "" H 3900 6800 50  0001 C CNN
 	1    3900 6800
 	1    0    0    -1  
 $EndComp
-Connection ~ 3900 6800
 $Comp
 L power:+5V #PWR0117
 U 1 1 5E214C1A
@@ -435,7 +411,6 @@ F 3 "" H 3900 6600 50  0001 C CNN
 	1    3900 6600
 	1    0    0    -1  
 $EndComp
-Connection ~ 3900 6600
 $Comp
 L power:+5V #PWR0114
 U 1 1 5E214C21
@@ -447,7 +422,6 @@ F 3 "" H 5350 6600 50  0001 C CNN
 	1    5350 6600
 	1    0    0    -1  
 $EndComp
-Connection ~ 5350 6600
 Text Notes 8200 2450 0    50   ~ 0
 ~WAITING~\n\n  X\n  0\n  1\n  1\n  1
 Text Notes 9250 2450 0    50   ~ 0
@@ -909,28 +883,6 @@ Wire Wire Line
 	7300 3600 6950 3600
 Wire Wire Line
 	7300 3500 6950 3500
-$Comp
-L alexios:74HC245 U50
-U 1 1 5E214C7A
-P 7800 5500
-F 0 "U50" H 7800 6267 50  0000 C CNN
-F 1 "74HC245" H 7800 6176 50  0000 C CNN
-F 2 "alexios:SOIC-20W" H 7800 5550 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74HC245" H 7800 5550 50  0001 C CNN
-	1    7800 5500
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74HC245 U48
-U 1 1 5E214C80
-P 7800 4000
-F 0 "U48" H 7800 4767 50  0000 C CNN
-F 1 "74HC245" H 7800 4676 50  0000 C CNN
-F 2 "alexios:SOIC-20W" H 7800 4050 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74HC245" H 7800 4050 50  0001 C CNN
-	1    7800 4000
-	1    0    0    -1  
-$EndComp
 Wire Bus Line
 	6750 6150 1650 6150
 Wire Bus Line
@@ -1006,7 +958,7 @@ Entry Wire Line
 	8750 5600 8650 5700
 Wire Wire Line
 	5800 4600 6150 4600
-Text Notes 7100 6400 0    100  ~ 20
+Text Notes 7050 6600 0    100  ~ 20
 Data Bus Transceiver
 $Comp
 L Connector:TestPoint TP?
@@ -1887,7 +1839,7 @@ Text Notes 10000 6400 0    50   ~ 0
 $Comp
 L Device:R_Small R?
 U 1 1 5F271C82
-P 6500 2800
+P 6500 2900
 AR Path="/5F271C82" Ref="R?"  Part="1" 
 AR Path="/5CC0D65F/5F271C82" Ref="R?"  Part="1" 
 AR Path="/5D54E677/5F271C82" Ref="R?"  Part="1" 
@@ -1895,11 +1847,11 @@ AR Path="/5D62E1DC/5F271C82" Ref="R?"  Part="1"
 AR Path="/5DEAC282/5F271C82" Ref="R?"  Part="1" 
 AR Path="/5F67D4B5/5F271C82" Ref="R?"  Part="1" 
 AR Path="/5D46B22D/5F271C82" Ref="R10"  Part="1" 
-F 0 "R10" V 6696 2800 50  0000 C CNN
-F 1 "100Ω" V 6605 2800 50  0000 C CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 6500 2800 50  0001 C CNN
-F 3 "~" H 6500 2800 50  0001 C CNN
-	1    6500 2800
+F 0 "R10" V 6696 2900 50  0000 C CNN
+F 1 "100Ω" V 6605 2900 50  0000 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 6500 2900 50  0001 C CNN
+F 3 "~" H 6500 2900 50  0001 C CNN
+	1    6500 2900
 	0    -1   -1   0   
 $EndComp
 $Comp
@@ -1944,18 +1896,18 @@ Delay ~WAITING~ so its positive\nedge comes after ~WSTB~'s. Include\nfootprints 
 $Comp
 L Device:D_ALT D2
 U 1 1 5F359982
-P 6150 2800
-F 0 "D2" H 6150 2584 50  0000 C CNN
-F 1 "D_ALT" H 6150 2675 50  0000 C CNN
-F 2 "alexios:SOD-323" H 6150 2800 50  0001 C CNN
-F 3 "~" H 6150 2800 50  0001 C CNN
-	1    6150 2800
+P 6150 2900
+F 0 "D2" H 6150 2684 50  0000 C CNN
+F 1 "D_ALT" H 6150 2775 50  0000 C CNN
+F 2 "alexios:SOD-323" H 6150 2900 50  0001 C CNN
+F 3 "~" H 6150 2900 50  0001 C CNN
+	1    6150 2900
 	-1   0    0    1   
 $EndComp
 $Comp
 L Device:R_Small R?
 U 1 1 5F333A18
-P 6350 2950
+P 6250 3050
 AR Path="/5F333A18" Ref="R?"  Part="1" 
 AR Path="/5CC0D65F/5F333A18" Ref="R?"  Part="1" 
 AR Path="/5D54E677/5F333A18" Ref="R?"  Part="1" 
@@ -1963,45 +1915,43 @@ AR Path="/5D62E1DC/5F333A18" Ref="R?"  Part="1"
 AR Path="/5DEAC282/5F333A18" Ref="R?"  Part="1" 
 AR Path="/5F67D4B5/5F333A18" Ref="R?"  Part="1" 
 AR Path="/5D46B22D/5F333A18" Ref="R11"  Part="1" 
-F 0 "R11" H 6409 2904 50  0000 L CNN
-F 1 "4.7kΩ" H 6409 2995 50  0000 L CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 6350 2950 50  0001 C CNN
-F 3 "~" H 6350 2950 50  0001 C CNN
-	1    6350 2950
-	1    0    0    1   
+F 0 "R11" V 6250 2850 50  0000 C CNN
+F 1 "4.7kΩ" V 6350 2850 50  0000 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 6250 3050 50  0001 C CNN
+F 3 "~" H 6250 3050 50  0001 C CNN
+	1    6250 3050
+	0    -1   1    0   
 $EndComp
 $Comp
 L Connector:TestPoint TP?
 U 1 1 5F45ADC6
-P 6750 2800
+P 6750 2900
 AR Path="/5F67D4B5/5F45ADC6" Ref="TP?"  Part="1" 
 AR Path="/5F45ADC6" Ref="TP?"  Part="1" 
 AR Path="/5D30488D/5F45ADC6" Ref="TP?"  Part="1" 
 AR Path="/5D44ECB5/5F45ADC6" Ref="TP?"  Part="1" 
 AR Path="/5D46B22D/5F45ADC6" Ref="TP7"  Part="1" 
-F 0 "TP7" V 6750 2988 50  0000 L CNN
-F 1 "TestPoint" H 6808 2827 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Pad_1.0x1.0mm" H 6950 2800 50  0001 C CNN
-F 3 "~" H 6950 2800 50  0001 C CNN
-	1    6750 2800
+F 0 "TP7" V 6750 3088 50  0000 L CNN
+F 1 "TestPoint" H 6808 2927 50  0001 L CNN
+F 2 "TestPoint:TestPoint_Pad_1.0x1.0mm" H 6950 2900 50  0001 C CNN
+F 3 "~" H 6950 2900 50  0001 C CNN
+	1    6750 2900
 	0    1    1    0   
 $EndComp
 NoConn ~ 4700 3650
 Wire Wire Line
-	6300 2800 6350 2800
+	6300 2900 6350 2900
 $Comp
 L power:GND #PWR085
 U 1 1 5F4DF9D3
-P 6350 3100
-F 0 "#PWR085" H 6350 2850 50  0001 C CNN
-F 1 "GND" H 6438 3063 50  0000 L CNN
-F 2 "" H 6350 3100 50  0001 C CNN
-F 3 "" H 6350 3100 50  0001 C CNN
-	1    6350 3100
+P 6100 3100
+F 0 "#PWR085" H 6100 2850 50  0001 C CNN
+F 1 "GND" H 6188 3063 50  0000 L CNN
+F 2 "" H 6100 3100 50  0001 C CNN
+F 3 "" H 6100 3100 50  0001 C CNN
+	1    6100 3100
 	-1   0    0    -1  
 $EndComp
-Wire Wire Line
-	6350 3050 6350 3100
 Wire Wire Line
 	5150 3250 7450 3250
 Wire Wire Line
@@ -2010,60 +1960,58 @@ Connection ~ 5150 3250
 Wire Wire Line
 	5150 3250 5150 3950
 Wire Wire Line
-	6350 2800 6350 2850
-Wire Wire Line
-	6350 2800 6400 2800
-Connection ~ 6350 2800
-Text Label 5450 2100 0    50   ~ 0
+	6350 2900 6400 2900
+Connection ~ 6350 2900
+Text Label 5450 2200 0    50   ~ 0
 ~WAITING-DELAYED
 $Comp
 L alexios:74LVC1G17 U52
 U 1 1 5F5D6A1F
-P 6700 2350
-F 0 "U52" V 6696 2479 50  0000 L CNN
-F 1 "74LVC1G17" V 6605 2479 50  0000 L CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 6700 2350 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G17.pdf" H 6700 2350 50  0001 C CNN
-	1    6700 2350
+P 6700 2450
+F 0 "U52" V 6696 2579 50  0000 L CNN
+F 1 "74LVC1G17" V 6605 2579 50  0000 L CNN
+F 2 "alexios:SOT-23-5_HandSoldering" H 6700 2450 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G17.pdf" H 6700 2450 50  0001 C CNN
+	1    6700 2450
 	0    -1   -1   0   
 $EndComp
 Wire Wire Line
-	6600 2800 6700 2800
+	6600 2900 6700 2900
 Wire Wire Line
-	6700 2650 6700 2800
-Connection ~ 6700 2800
+	6700 2750 6700 2900
+Connection ~ 6700 2900
 Wire Wire Line
-	6700 2800 6750 2800
+	6700 2900 6750 2900
 $Comp
 L Connector:TestPoint TP?
 U 1 1 5D33F718
-P 5950 2750
+P 5950 2850
 AR Path="/5F67D4B5/5D33F718" Ref="TP?"  Part="1" 
 AR Path="/5D33F718" Ref="TP?"  Part="1" 
 AR Path="/5D30488D/5D33F718" Ref="TP?"  Part="1" 
 AR Path="/5D44ECB5/5D33F718" Ref="TP?"  Part="1" 
 AR Path="/5D46B22D/5D33F718" Ref="TP4"  Part="1" 
-F 0 "TP4" H 5900 3000 50  0000 L CNN
-F 1 "TestPoint" H 6008 2777 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Pad_1.0x1.0mm" H 6150 2750 50  0001 C CNN
-F 3 "~" H 6150 2750 50  0001 C CNN
-	1    5950 2750
+F 0 "TP4" H 5900 3100 50  0000 L CNN
+F 1 "TestPoint" H 6008 2877 50  0001 L CNN
+F 2 "TestPoint:TestPoint_Pad_1.0x1.0mm" H 6150 2850 50  0001 C CNN
+F 3 "~" H 6150 2850 50  0001 C CNN
+	1    5950 2850
 	1    0    0    -1  
 $EndComp
 $Comp
 L Connector:TestPoint TP?
 U 1 1 5F68B763
-P 5250 2100
+P 5250 2250
 AR Path="/5F67D4B5/5F68B763" Ref="TP?"  Part="1" 
 AR Path="/5F68B763" Ref="TP?"  Part="1" 
 AR Path="/5D30488D/5F68B763" Ref="TP?"  Part="1" 
 AR Path="/5D44ECB5/5F68B763" Ref="TP?"  Part="1" 
 AR Path="/5D46B22D/5F68B763" Ref="TP6"  Part="1" 
-F 0 "TP6" H 5192 2172 50  0000 R CNN
-F 1 "TestPoint" H 5308 2127 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Pad_1.0x1.0mm" H 5450 2100 50  0001 C CNN
-F 3 "~" H 5450 2100 50  0001 C CNN
-	1    5250 2100
+F 0 "TP6" H 5192 2322 50  0000 R CNN
+F 1 "TestPoint" H 5308 2277 50  0001 L CNN
+F 2 "TestPoint:TestPoint_Pad_1.0x1.0mm" H 5450 2250 50  0001 C CNN
+F 3 "~" H 5450 2250 50  0001 C CNN
+	1    5250 2250
 	-1   0    0    1   
 $EndComp
 $Comp
@@ -2133,70 +2081,62 @@ Write; One Wait State
 $Comp
 L alexios:74HC08 U42
 U 1 1 600C9BB1
-P 4800 1950
-F 0 "U42" V 4971 1420 50  0000 R CNN
-F 1 "74HC08" V 4880 1420 50  0000 R CNN
-F 2 "alexios:SOIC-14" H 5000 1500 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 5000 1500 50  0001 C CNN
-	1    4800 1950
+P 4800 2050
+F 0 "U42" V 4971 1520 50  0000 R CNN
+F 1 "74HC08" V 4880 1520 50  0000 R CNN
+F 2 "alexios:SOIC-14" H 5000 1600 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 5000 1600 50  0001 C CNN
+	1    4800 2050
 	0    -1   -1   0   
 $EndComp
 Wire Wire Line
-	6000 2800 5950 2800
+	6000 2900 5950 2900
 Wire Wire Line
-	5950 2750 5950 2800
+	5950 2850 5950 2900
 $Comp
 L alexios:74HC08 U42
 U 2 1 601035C0
-P 5350 2400
-F 0 "U42" H 5475 2275 50  0000 C CNN
-F 1 "74HC08" H 5475 2184 50  0000 C CNN
-F 2 "alexios:SOIC-14" H 5550 1950 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 5550 1950 50  0001 C CNN
-	2    5350 2400
+P 5350 2500
+F 0 "U42" H 5475 2375 50  0000 C CNN
+F 1 "74HC08" H 5475 2284 50  0000 C CNN
+F 2 "alexios:SOIC-14" H 5550 2050 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 5550 2050 50  0001 C CNN
+	2    5350 2500
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	5700 2800 5950 2800
-Connection ~ 5950 2800
+	5700 2900 5950 2900
+Connection ~ 5950 2900
 Wire Wire Line
-	5150 2750 5250 2750
+	5150 2850 5250 2850
 Wire Wire Line
-	5150 2750 5150 2850
+	5150 2850 5150 2950
 Wire Wire Line
-	5250 2850 5150 2850
+	5250 2950 5150 2950
+Connection ~ 5150 2950
+Wire Wire Line
+	5150 2950 5150 3250
+Wire Wire Line
+	6700 2250 6700 2200
+Wire Wire Line
+	5150 2150 5150 2200
 Connection ~ 5150 2850
-Wire Wire Line
-	5150 2850 5150 3250
-Wire Wire Line
-	5200 1600 5200 1500
-Wire Wire Line
-	5200 1500 5300 1500
-Wire Wire Line
-	6700 2150 6700 2100
-Wire Wire Line
-	5250 2050 5250 2100
-Wire Wire Line
-	5150 2050 5150 2750
-Connection ~ 5150 2750
-Connection ~ 5200 1500
 $Comp
 L Connector:TestPoint TP?
 U 1 1 601893F4
-P 5200 1500
+P 5250 1650
 AR Path="/5F67D4B5/601893F4" Ref="TP?"  Part="1" 
 AR Path="/601893F4" Ref="TP?"  Part="1" 
 AR Path="/5D30488D/601893F4" Ref="TP?"  Part="1" 
 AR Path="/5D44ECB5/601893F4" Ref="TP?"  Part="1" 
 AR Path="/5D46B22D/601893F4" Ref="TP8"  Part="1" 
-F 0 "TP8" V 5200 1688 50  0000 L CNN
-F 1 "TestPoint" H 5258 1527 50  0001 L CNN
-F 2 "TestPoint:TestPoint_Pad_1.0x1.0mm" H 5400 1500 50  0001 C CNN
-F 3 "~" H 5400 1500 50  0001 C CNN
-	1    5200 1500
-	0    -1   -1   0   
+F 0 "TP8" V 5250 1838 50  0000 L CNN
+F 1 "TestPoint" H 5308 1677 50  0001 L CNN
+F 2 "TestPoint:TestPoint_Pad_1.0x1.0mm" H 5450 1650 50  0001 C CNN
+F 3 "~" H 5450 1650 50  0001 C CNN
+	1    5250 1650
+	0    1    1    0   
 $EndComp
-Connection ~ 5250 2100
 $Comp
 L alexios:74HC08 U42
 U 5 1 6018E97D
@@ -2233,7 +2173,7 @@ F 3 "http://www.ti.com/lit/gpn/sn74LS08" H 10600 700 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	5250 2100 6700 2100
+	5250 2200 6700 2200
 Wire Wire Line
 	10300 1600 10200 1600
 Wire Wire Line
@@ -2266,8 +2206,106 @@ Wire Wire Line
 	10200 1500 10200 1100
 NoConn ~ 10750 1050
 NoConn ~ 10750 1550
+$Comp
+L Jumper:Jumper_3_Bridged12 JP?
+U 1 1 5F053F64
+P 4900 1650
+AR Path="/61F95ACC/63C9F04D/5F053F64" Ref="JP?"  Part="1" 
+AR Path="/61F95ACC/5F053F64" Ref="JP?"  Part="1" 
+AR Path="/5CC06F10/5F053F64" Ref="JP?"  Part="1" 
+AR Path="/5D46B22D/5F053F64" Ref="JP4"  Part="1" 
+F 0 "JP4" H 4900 1762 50  0000 C CNN
+F 1 "Jumper_3_Bridged12" H 4900 1763 50  0001 C CNN
+F 2 "Jumper:SolderJumper-3_P1.3mm_Bridged12_RoundedPad1.0x1.5mm" H 4900 1650 50  0001 C CNN
+F 3 "~" H 4900 1650 50  0001 C CNN
+	1    4900 1650
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	6350 2900 6350 3050
+Wire Wire Line
+	6150 3050 6100 3050
+Wire Wire Line
+	6100 3050 6100 3100
+Wire Wire Line
+	5250 2150 5250 2200
+Connection ~ 5250 2200
+Wire Wire Line
+	5250 2200 5250 2250
+Wire Wire Line
+	5150 1650 5200 1650
+Wire Wire Line
+	5200 1650 5200 1700
+Wire Wire Line
+	4900 1500 5300 1500
+Wire Wire Line
+	5200 1650 5250 1650
+Connection ~ 5200 1650
+Connection ~ 5150 2200
+Wire Wire Line
+	5150 2200 5150 2850
+Text Label 5150 2450 3    50   ~ 0
+~WAITING
+Text Label 4700 2200 0    50   ~ 0
+~WAITING
+Wire Wire Line
+	4650 1650 4600 1650
+Wire Wire Line
+	4600 1650 4600 2200
+Wire Wire Line
+	4600 2200 5150 2200
 Wire Bus Line
 	8750 3250 8750 5600
 Wire Bus Line
 	6850 3600 6850 6050
+Text Notes 7300 6300 0    50   ~ 10
+NOTE: HCT or ACT family!
+$Comp
+L alexios:74ACT245 U48
+U 1 1 5F15FE07
+P 7800 4000
+F 0 "U48" H 7800 4767 50  0000 C CNN
+F 1 "74ACT245" H 7800 4676 50  0000 C CNN
+F 2 "alexios:SOIC-20W" H 7800 4050 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS245" H 7800 4050 50  0001 C CNN
+	1    7800 4000
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74ACT245 U50
+U 1 1 5F1617BB
+P 7800 5500
+F 0 "U50" H 7800 6267 50  0000 C CNN
+F 1 "74ACT245" H 7800 6176 50  0000 C CNN
+F 2 "alexios:SOIC-20W" H 7800 5550 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS245" H 7800 5550 50  0001 C CNN
+	1    7800 5500
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74ACT245 U48
+U 2 1 5F16217F
+P 5700 7100
+F 0 "U48" H 5880 7546 50  0000 L CNN
+F 1 "74ACT245" H 5880 7455 50  0000 L CNN
+F 2 "alexios:SOIC-20W" H 5700 7150 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS245" H 5700 7150 50  0001 C CNN
+	2    5700 7100
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74ACT245 U50
+U 2 1 5F162E45
+P 4250 7100
+F 0 "U50" H 4430 7546 50  0000 L CNN
+F 1 "74ACT245" H 4430 7455 50  0000 L CNN
+F 2 "alexios:SOIC-20W" H 4250 7150 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS245" H 4250 7150 50  0001 C CNN
+	2    4250 7100
+	1    0    0    -1  
+$EndComp
+Connection ~ 5350 6800
+Connection ~ 5350 6600
+Connection ~ 3900 6800
+Connection ~ 3900 6600
 $EndSCHEMATC

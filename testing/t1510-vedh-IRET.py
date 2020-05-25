@@ -111,7 +111,7 @@ def test_IRET(capsys, tmpdir):
 
                               HALTED ])
     result = run_on_verilog_emu(capsys, tmpdir, source, long=True)
-    #pprint.pprint(list(result))
+    # pprint.pprint(list(result))
     # assert False
     result = list(expected.prepare(result))
     assert list(result) == expected

@@ -209,6 +209,8 @@ module card_bus(
 
    databus databus (.nreset(nreset),
 		    .nhalt(nhalt), 
+		    .clk1(clk1),
+		    .clk2(clk2),
 		    .clk3(clk3),
 		    .clk4(clk4),
 		    .t34(t34),

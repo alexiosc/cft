@@ -17,7 +17,7 @@
 
 `timescale 1ns/1ps
 
-module databus (nreset, nhalt, clk3, clk4, t34,
+module databus (nreset, nhalt, clk1, clk2, clk3, clk4, t34,
 		nmem, nio, nr, nwen,
 		nws, nwaiting,
 		ibus,
@@ -25,6 +25,8 @@ module databus (nreset, nhalt, clk3, clk4, t34,
 
    input 	nreset;
    input 	nhalt;
+   input 	clk1;
+   input 	clk2;
    input 	clk3;
    input 	clk4;
    input 	t34;
@@ -87,6 +89,11 @@ module databus (nreset, nhalt, clk3, clk4, t34,
       #31.25 clk4x8 = 1;
    end // always @ (negedge clk4)
 
+
+   wire nw_new, nwen_delayed;
+   assign #25 nwen_delayed = nwen;
+   flipflop_74h #2.5 ff_nw_new (.nset(nwen_delayed | clk4), .d(1'b1), .clk(1'b1), .nrst(clk2), .nq(nw_new));
+
    // Choose one assignment (JP3 on the BUS board).
    wire nwstb;
    //assign nwstb = clk4;
@@ -107,8 +114,9 @@ module databus (nreset, nhalt, clk3, clk4, t34,
    // nwstb can lead nwaiting's depending on jitter. If this condition
    // isn't satisfied, W# may glitch during wait states.
    wire nwaiting_delayed0, nwaiting_delayed;
-   assign #1 nwaiting_delayed0 = nwaiting & nwaiting;
-   assign #1 nwaiting_delayed = nwaiting & nwaiting_delayed0;
+   // assign #4 nwaiting_delayed0 = nwaiting & nwaiting;
+   // assign #4 nwaiting_delayed = nwaiting & nwaiting_delayed0;
+   assign nwaiting_delayed = nwaiting;
 
    assign #7 nbusen = nwaiting & nio & nmem; // 74LVC1G11
 

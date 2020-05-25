@@ -94,8 +94,7 @@ module mbu (nreset,
    assign nrmbp = dec_raddr[5];
 
    // U16: We decode WADDRs 01100, 01101, and 01110. Symmetric to the above '138.
-   //demux_138 demux_waddr1 (.a(waddr[3:1]), .g1(1'b1), .ng2a(waddr[4]), .ng2b(t34), .y(dec_waddr1));
-   demux_138 demux_waddr1 (.a(waddr[3:1]), .g1(1'b1), .ng2a(waddr[4]), .ng2b(1'b0), .y(dec_waddr1));
+   demux_138 demux_waddr1 (.a(waddr[3:1]), .g1(1'b1), .ng2a(waddr[4]), .ng2b(clk4), .y(dec_waddr1));
    assign nwmbp = dec_waddr1[6];
 
    // U17: decode WADDR to get nwar.
@@ -223,15 +222,28 @@ module mbu (nreset,
    flipflop_74h ff_idx(.d(1'b0), .clk(clk2), .nset(nir_idx), .nrst(nreset),
 		       .nq(nir_idxreg));
 
+   // FOR TESTING ONLY: when the MBU isn't being read from (RG# is high) and
+   // the AB is tri-stated, X values appear in Verilog waveforms because
+   // not(Z)=X.  On real hardware, the AB has Bus Hold circuitry so its values
+   // are never defined. The MBU would be driving AEXT with a bogus register,
+   // which isn't used anyway. On the simulator, we don't use Bus Hold on AB so
+   // that these problems are more obvious. So, to fix the X issue here, we
+   // treat AB[2:0] specially. To help locate this, we pull up the values to
+   // emit register 7.
+   wire [2:0] 	ab2_0;
+   assign ab2_0[0] = ab[0] === 1'bz ? 1 : ab[0];
+   assign ab2_0[1] = ab[1] === 1'bz ? 1 : ab[1];
+   assign ab2_0[2] = ab[2] === 1'bz ? 1 : ab[2];
+
    // First stage mux, choose between IR and AB as source for AR indexing.
    mux_2g157 rmux1_0 (.a(ir[0]), .b(waddr[0]), .sel(nir_idxreg), .ng(1'b0), .y(cur0));
    mux_2g157 rmux1_1 (.a(ir[1]), .b(waddr[1]), .sel(nir_idxreg), .ng(1'b0), .y(cur1));
    mux_2g157 rmux1_2 (.a(ir[2]), .b(1'b0),     .sel(nir_idxreg), .ng(1'b0), .y(cur2));
 
    // Second stage mux, choose between the previous stage and AB[2:0].
-   mux_2g157 rmux2_0 (.a(cur0), .b(ab[0]), .sel(nwar), .ng(nrg), .y(ra[0]));
-   mux_2g157 rmux2_1 (.a(cur1), .b(ab[1]), .sel(nwar), .ng(nrg), .y(ra[1]));
-   mux_2g157 rmux2_2 (.a(cur2), .b(ab[2]), .sel(nwar), .ng(nrg), .y(nren0), .ny(nren1));
+   mux_2g157 rmux2_0 (.a(cur0), .b(ab2_0[0]), .sel(nwar), .ng(nrg), .y(ra[0]));
+   mux_2g157 rmux2_1 (.a(cur1), .b(ab2_0[1]), .sel(nwar), .ng(nrg), .y(ra[1]));
+   mux_2g157 rmux2_2 (.a(cur2), .b(ab2_0[2]), .sel(nwar), .ng(nrg), .y(nren0), .ny(nren1));
 
    ///////////////////////////////////////////////////////////////////////////////
    //
