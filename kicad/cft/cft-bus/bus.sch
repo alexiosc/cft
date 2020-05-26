@@ -1228,6 +1228,8 @@ NoConn ~ 6850 4050
 NoConn ~ 6850 4150
 Text HLabel 6850 2750 2    50   UnSpc ~ 0
 ~WAITING
+Text HLabel 6850 2650 2    50   UnSpc ~ 0
+~WEN
 Wire Bus Line
 	7100 3450 7100 5850
 Wire Bus Line
@@ -1240,6 +1242,4 @@ Wire Bus Line
 	4250 3650 4250 5350
 Wire Bus Line
 	2050 2850 2050 5250
-Text HLabel 6850 2650 2    50   UnSpc ~ 0
-~WEN
 $EndSCHEMATC

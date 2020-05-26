@@ -68,7 +68,7 @@ module databus (nrsthold, nhalt, clk1, clk2, clk3, clk4, t34,
 
    // nws_in_t34 ensures wait states are only requested during the last 50% of
    // the clock cycle.
-   assign #7 nws_in_t34 = nws | t34;          // 74LVC1G32
+   // assign #7 nws_in_t34 = nws | t34;          // 74LVC1G32
 
    ///////////////////////////////////////////////////////////////////////////////
    //
@@ -99,7 +99,7 @@ module databus (nrsthold, nhalt, clk1, clk2, clk3, clk4, t34,
 
    assign #7 nbusen = nwaiting & nio & nmem; // 74LVC1G11
 
-   // Connect the buses.
+   // Connect the buses. Timing for 74ACT245
    buffer_245 buf_dblo (.a(ibus[7:0]),  .b(db[7:0]),  .dir(nr), .nen(nbusen));
    buffer_245 buf_dbhi (.a(ibus[15:8]), .b(db[15:8]), .dir(nr), .nen(nbusen));
    

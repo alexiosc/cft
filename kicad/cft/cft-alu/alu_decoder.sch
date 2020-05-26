@@ -309,7 +309,7 @@ F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 5550 7200 50  0001 C CNN
 $EndComp
 Connection ~ 5200 7100
 Connection ~ 5200 7300
-Text Notes 4050 2950 0    50   ~ 0
+Text Notes 4050 3050 0    50   ~ 0
 This decoder responds to RADDR=11000. It's used to retrieve\nthe result of an SRU (shift/rotate) operation after the SRU has\nfinished cranking. The microcode could also theoretically use\nthe B port as a very temporary scratch register of limited\nutility—since every ALU operation clobbers it.
 Text HLabel 6050 3700 2    50   Output ~ 0
 ~READ-ALU-Y
@@ -589,13 +589,12 @@ Wire Wire Line
 	2850 1600 2850 1700
 Wire Wire Line
 	2900 1700 2850 1700
-Connection ~ 2850 1700
 NoConn ~ 3900 1600
 NoConn ~ 3900 1700
 NoConn ~ 3900 1800
 NoConn ~ 3900 1900
 NoConn ~ 3900 2000
-Text Notes 3100 2500 0    50   ~ 0
+Text Notes 3100 2500 0    50   ~ 10
 NOTE: Use 74AC!
 Text Label 3950 1500 0    50   ~ 0
 ~ALU-OP
@@ -756,10 +755,7 @@ Connection ~ 5200 6550
 Entry Wire Line
 	2250 2200 2350 2300
 Wire Wire Line
-	2850 1700 2850 2200
-Wire Wire Line
 	2900 2200 2850 2200
-Connection ~ 2850 2200
 Wire Wire Line
 	2850 2200 2850 2400
 Wire Wire Line
@@ -773,10 +769,29 @@ Wire Wire Line
 	2000 4100 2000 5600
 Text HLabel 7200 2300 0    50   Input ~ 0
 CLK4
+Text Notes 5000 2450 0    50   ~ 0
+This inverter is in card_alu.v.
+$Comp
+L power:GND #PWR?
+U 1 1 601D5E09
+P 2850 1750
+AR Path="/5DC89E19/601D5E09" Ref="#PWR?"  Part="1" 
+AR Path="/601D5E09" Ref="#PWR?"  Part="1" 
+AR Path="/5E1C970B/601D5E09" Ref="#PWR?"  Part="1" 
+F 0 "#PWR?" H 2850 1500 50  0001 C CNN
+F 1 "GND" H 2855 1577 50  0000 C CNN
+F 2 "" H 2850 1750 50  0001 C CNN
+F 3 "" H 2850 1750 50  0001 C CNN
+	1    2850 1750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2850 1700 2850 1750
 Wire Bus Line
 	7900 1350 7900 2100
 Wire Bus Line
 	2250 4650 2250 5400
 Wire Bus Line
 	2250 1850 2250 3900
+Connection ~ 2850 1700
 $EndSCHEMATC
