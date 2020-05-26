@@ -44,9 +44,7 @@ module alu_decoder (clk4, t34, raddr, waddr, action,
    assign nalu_op = y1[0];
 
    // These decode RADDR and WADDR 11000
-   // TODO: Major registers write during T1 (CLK1 low) though! Check it and make allowances on board.
    demux_138 demux_rb (.a({ raddr[3], raddr[1:0]}), .g1(raddr[4]), .ng2a(raddr[2]), .ng2b(t34), .y(y2));
-   //demux_138 demux_rb (.a({ raddr[3], raddr[1:0]}), .g1(raddr[4]), .ng2a(raddr[2]), .ng2b(1'b0), .y(y2));
    demux_138 demux_wb (.a({ waddr[3], waddr[1:0]}), .g1(waddr[4]), .ng2a(waddr[2]), .ng2b(clk4), .y(y3));
    assign nread_alu_y = y2[4];
    assign nread_alu_b = y2[5];

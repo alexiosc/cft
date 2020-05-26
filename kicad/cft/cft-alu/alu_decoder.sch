@@ -424,7 +424,7 @@ T34
 Text Label 2400 4100 0    50   ~ 0
 T34
 Wire Wire Line
-	2000 4100 2900 4100
+	2000 4100 2600 4100
 Text HLabel 1200 2200 0    50   Input ~ 0
 T34
 Text HLabel 6050 1500 2    50   Output ~ 0
@@ -759,9 +759,7 @@ Wire Wire Line
 Wire Wire Line
 	2850 2200 2850 2400
 Wire Wire Line
-	2000 5600 2900 5600
-Text Notes 1250 5800 0    79   ~ 16
-TODO: T34 MIGHT NOT BE USABLE HERE
+	2000 5600 2650 5600
 Text Label 2400 5600 0    50   ~ 0
 T34
 Connection ~ 2000 4100
@@ -777,8 +775,8 @@ U 1 1 601D5E09
 P 2850 1750
 AR Path="/5DC89E19/601D5E09" Ref="#PWR?"  Part="1" 
 AR Path="/601D5E09" Ref="#PWR?"  Part="1" 
-AR Path="/5E1C970B/601D5E09" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 2850 1500 50  0001 C CNN
+AR Path="/5E1C970B/601D5E09" Ref="#PWR0228"  Part="1" 
+F 0 "#PWR0228" H 2850 1500 50  0001 C CNN
 F 1 "GND" H 2855 1577 50  0000 C CNN
 F 2 "" H 2850 1750 50  0001 C CNN
 F 3 "" H 2850 1750 50  0001 C CNN
@@ -787,11 +785,37 @@ F 3 "" H 2850 1750 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	2850 1700 2850 1750
+Connection ~ 2850 1700
 Wire Bus Line
 	7900 1350 7900 2100
 Wire Bus Line
 	2250 4650 2250 5400
 Wire Bus Line
 	2250 1850 2250 3900
-Connection ~ 2850 1700
+$Comp
+L Device:Jumper_NC_Small JP3
+U 1 1 602B2E13
+P 2700 4100
+F 0 "JP3" H 2700 4007 50  0000 C CNN
+F 1 "Jumper_NC_Small" H 2700 4221 50  0001 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 2700 4100 50  0001 C CNN
+F 3 "~" H 2700 4100 50  0001 C CNN
+	1    2700 4100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2800 4100 2900 4100
+$Comp
+L Device:Jumper_NC_Small JP4
+U 1 1 602B3B60
+P 2750 5600
+F 0 "JP4" H 2750 5507 50  0000 C CNN
+F 1 "Jumper_NC_Small" H 2750 5721 50  0001 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 2750 5600 50  0001 C CNN
+F 3 "~" H 2750 5600 50  0001 C CNN
+	1    2750 5600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2850 5600 2900 5600
 $EndSCHEMATC

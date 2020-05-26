@@ -370,21 +370,6 @@ Text Label 1000 5100 0    50   ~ 0
 ACTION1
 Text Label 1000 5200 0    50   ~ 0
 ACTION2
-$Comp
-L power:GND #PWR01
-U 1 1 5DA37617
-P 1250 5850
-F 0 "#PWR01" H 1250 5600 50  0001 C CNN
-F 1 "GND" H 1255 5677 50  0000 C CNN
-F 2 "" H 1250 5850 50  0001 C CNN
-F 3 "" H 1250 5850 50  0001 C CNN
-	1    1250 5850
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	1300 5800 1250 5800
-Wire Wire Line
-	1250 5800 1250 5850
 Entry Wire Line
 	850  4900 950  5000
 Entry Wire Line
@@ -441,17 +426,6 @@ Text Label 1000 2700 0    50   ~ 0
 RADDR3
 Text Label 1000 2800 0    50   ~ 0
 RADDR4
-$Comp
-L power:GND #PWR02
-U 1 1 5D9C912E
-P 1300 2900
-F 0 "#PWR02" H 1300 2650 50  0001 C CNN
-F 1 "GND" H 1305 2727 50  0000 C CNN
-F 2 "" H 1300 2900 50  0001 C CNN
-F 3 "" H 1300 2900 50  0001 C CNN
-	1    1300 2900
-	1    0    0    -1  
-$EndComp
 Text Label 1000 3550 0    50   ~ 0
 WADDR0
 Text Label 1000 3650 0    50   ~ 0
@@ -1248,9 +1222,9 @@ F 4 "Yes" H 1725 3125 50  0001 C CNN "Verified"
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	1300 4350 1000 4350
-Text Label 1000 4350 0    50   ~ 0
-CLK2
+	1050 4350 800  4350
+Text Label 800  4350 0    50   ~ 0
+CLK4
 Text Label 8700 2600 0    50   ~ 0
 CLK4
 Text Notes 10700 5800 2    50   ~ 0
@@ -1262,10 +1236,79 @@ Wire Wire Line
 Text Notes 1550 6600 0    50   ~ 0
 The '193 counters used here treat these as clocks\nand increment/decrement on the signals' rising edge.\nThis tends to be too late in the processor cycle. We can\nadvance the action by using CLK3. Current microcode\ndoesn't use it, but this also fixes a potential bug that\nwould prohibit incrementing a register twice in contiguous\nprocessor cycles.
 NoConn ~ 8700 2500
+Wire Wire Line
+	1050 2900 950  2900
+Wire Wire Line
+	950  2900 950  2950
+$Comp
+L power:GND #PWR02
+U 1 1 5D9C912E
+P 950 2950
+F 0 "#PWR02" H 950 2700 50  0001 C CNN
+F 1 "GND" H 955 2777 50  0000 C CNN
+F 2 "" H 950 2950 50  0001 C CNN
+F 3 "" H 950 2950 50  0001 C CNN
+	1    950  2950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1250 2900 1300 2900
+Wire Wire Line
+	1050 5800 950  5800
+Wire Wire Line
+	950  5800 950  5850
+$Comp
+L power:GND #PWR0115
+U 1 1 60249AD4
+P 950 5850
+F 0 "#PWR0115" H 950 5600 50  0001 C CNN
+F 1 "GND" H 955 5677 50  0000 C CNN
+F 2 "" H 950 5850 50  0001 C CNN
+F 3 "" H 950 5850 50  0001 C CNN
+	1    950  5850
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1250 5800 1300 5800
+Wire Wire Line
+	1250 4350 1300 4350
 Wire Bus Line
 	850  3350 850  4150
 Wire Bus Line
 	850  1900 850  2700
 Wire Bus Line
 	850  4800 850  5500
+$Comp
+L Device:Jumper_NC_Small JP3
+U 1 1 602831A6
+P 1150 5800
+F 0 "JP3" H 1150 5707 50  0000 C CNN
+F 1 "Jumper_NC_Small" H 1150 5921 50  0001 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 1150 5800 50  0001 C CNN
+F 3 "~" H 1150 5800 50  0001 C CNN
+	1    1150 5800
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:Jumper_NC_Small JP2
+U 1 1 602836FF
+P 1150 4350
+F 0 "JP2" H 1150 4257 50  0000 C CNN
+F 1 "Jumper_NC_Small" H 1150 4471 50  0001 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 1150 4350 50  0001 C CNN
+F 3 "~" H 1150 4350 50  0001 C CNN
+	1    1150 4350
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:Jumper_NC_Small JP1
+U 1 1 60284772
+P 1150 2900
+F 0 "JP1" H 1150 2807 50  0000 C CNN
+F 1 "Jumper_NC_Small" H 1150 3021 50  0001 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 1150 2900 50  0001 C CNN
+F 3 "~" H 1150 2900 50  0001 C CNN
+	1    1150 2900
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
