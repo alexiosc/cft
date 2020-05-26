@@ -63,12 +63,12 @@ module databus_tb();
    initial begin        
       $dumpfile ("vcd/databus_tb.vcd");
       $dumpvars (0, databus_tb);
-      $monitor ("t: %7d | %b %b %b %b %b  %b %b %b %b | %b | %04x %04x (%0s)",
-		$time, nreset, nhalt, clk3, clk4, t34,
-		nmem, nio, nr, nwen_drv,
-		nws,
-		ibus, db,
-		status);
+      // $monitor ("t: %7d | %b %b %b %b %b  %b %b %b %b | %b | %04x %04x (%0s)",
+      // 		$time, nreset, nhalt, clk3, clk4, t34,
+      // 		nmem, nio, nr, nwen_drv,
+      // 		nws,
+      // 		ibus, db,
+      // 		status);
 
       status = "reset";
       i = 0;
@@ -90,7 +90,7 @@ module databus_tb();
       // this is all done by the microcode sequencer, so it's *basically*
       // synchronous, but we're asynchronous in this testbed, so we have to make
       // do.
-      #125;
+      #75;
       for (i = 0; i < 16; i = i + 1) begin
 	 #250 nwen_drv = i[0];
 	 nhalt = i[3];
@@ -199,7 +199,7 @@ module databus_tb();
 
    // Make sure that the bus enables, compare bus values.
    always @ (nmem, nio, nwaiting, databus.nbusen) begin
-      #30 begin
+      #50 begin
    	 msg[7:0] = "";		// Use the msg as a flag.
 
 	 casex ({ nmem, nio, nwaiting })
@@ -228,7 +228,7 @@ module databus_tb();
    	 if (msg[7:0]) begin
    	    $display("346 FAIL assertion failed at t=%0d: %0s", $time, msg);
    	    $error("assertion failure");
-   	    #100 $finish;
+   	    #0 $finish;
    	 end
    	 else $display("345 OK busen");
       end
@@ -236,7 +236,7 @@ module databus_tb();
 
    // Check the Data Bus connection
    always @ (clk4, nmem, nio, nr, nwen, nw) begin
-      #30 begin
+      #50 begin
    	 msg[7:0] = "";		// Use the msg as a flag.
 
 	 // Note: nmem/nio validity and mutual exclusion is tested above. Also

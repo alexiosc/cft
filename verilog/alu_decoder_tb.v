@@ -142,7 +142,7 @@ module alu_decoder_tb();
 
       // Check nread_alu_b
       if (raddr === 5'b11001) begin
-   	 if (nread_alu_b !== t34) begin
+   	 if (nread_alu_b !== 0) begin
    	    $sformat(msg, "nREAD-ALU-B decoding failure: raddr=%b, t34=%b, but nread_alu_b=%b (should be %b)",
    		     raddr, t34, nread_alu_b, t34);
    	 end
@@ -154,7 +154,7 @@ module alu_decoder_tb();
 
       // Check nread_alu_y
       if (raddr === 5'b11000) begin
-   	 if (nread_alu_y !== t34) begin
+   	 if (nread_alu_y !== 0) begin
    	    $sformat(msg, "nREAD-ALU-Y decoding failure: raddr=%b, t34=%b, but nread_alu_y=%b (should be %b)",
    		     raddr, t34, nread_alu_y, t34);
    	 end
