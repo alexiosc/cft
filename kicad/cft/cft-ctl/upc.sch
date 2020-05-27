@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 12 12
+Sheet 11 12
 Title "Microprogram Counter"
 Date ""
 Rev "2020"
@@ -359,8 +359,8 @@ Connection ~ 3350 3350
 Wire Wire Line
 	3350 3350 3350 3400
 NoConn ~ 4550 2850
-Text Notes 5350 3500 0    50   ~ 0
-Use an HC family mux configured as a 4-variable\nfunction generator. The use of an HC IC, and\nfeeding CLK4 to the mux gate with a pull-up makes\nthe signal slow. Hopefully slow enough that it satisfies\nthe µPC counter's hold requirements for its ~PE~\ninput.
+Text Notes 5350 3600 0    50   ~ 0
+Use an HC family mux configured as a 4-variable\nfunction generator. The use of an HC IC, and\nfeeding CLK4 to the mux gate with a pull-up makes\nthe signal a little slower. Hopefully slow enough\nthat it satisfies the µPC counter's hold requirements\nfor its ~PE~ input.
 Wire Wire Line
 	1850 4050 2400 4050
 Text HLabel 1850 4050 0    50   Input ~ 0

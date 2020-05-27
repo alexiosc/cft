@@ -1,16 +1,16 @@
 [*]
 [*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Tue May 26 19:00:40 2020
+[*] Wed May 27 07:33:34 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/cft2019_tb.vcd"
-[dumpfile_mtime] "Tue May 26 18:57:13 2020"
-[dumpfile_size] 9720341
+[dumpfile_mtime] "Wed May 27 07:32:59 2020"
+[dumpfile_size] 397892
 [optimize_vcd]
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/cft2019_tb.sav"
-[timestart] 41849000
+[timestart] 5123000
 [size] 2048 1123
-[pos] 2047 -1
-*-19.029987 43315250 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[pos] -1 -1
+*-17.774845 5648750 5899250 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] cft2019_tb.
 [treeopen] cft2019_tb.cft.
 [treeopen] cft2019_tb.cft.card_alu.decoder.
@@ -19,6 +19,7 @@
 [treeopen] cft2019_tb.cft.card_bus.databus.
 [treeopen] cft2019_tb.cft.card_bus.mbu.
 [treeopen] cft2019_tb.cft.card_ctl.
+[treeopen] cft2019_tb.cft.card_ctl.reg_ir.
 [treeopen] cft2019_tb.cft.card_ctl.sbu.
 [treeopen] cft2019_tb.cft.card_mem.romhi.
 [treeopen] cft2019_tb.cft.card_reg.
@@ -39,11 +40,11 @@ cft2019_tb.cft.nfpreset
 cft2019_tb.cft.powerok
 @1401200
 -Reset
-@800201
+@800200
 -Clock
-@821
+@820
 cft2019_tb.cft.card_ctl.clock_generator.state[15:0]
-@29
+@28
 [color] 1
 cft2019_tb.cft.card_ctl.clk1
 [color] 2
@@ -56,7 +57,7 @@ cft2019_tb.cft.card_ctl.clk4
 cft2019_tb.cft.card_ctl.t34
 [color] 7
 cft2019_tb.cft.card_ctl.nfpclk_or_clk
-@1000201
+@1000200
 -Clock
 @800200
 -Registers
@@ -101,10 +102,45 @@ cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
 (15)cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
 @1401200
 -group_end
-@4022
+@804022
 [color] 1
 ^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/disasm
 cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
+@28
+[color] 1
+(0)cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
+[color] 1
+(1)cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
+[color] 1
+(2)cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
+[color] 1
+(3)cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
+[color] 1
+(4)cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
+[color] 1
+(5)cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
+[color] 1
+(6)cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
+[color] 1
+(7)cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
+[color] 1
+(8)cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
+[color] 1
+(9)cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
+[color] 1
+(10)cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
+[color] 1
+(11)cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
+[color] 1
+(12)cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
+[color] 1
+(13)cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
+[color] 1
+(14)cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
+[color] 1
+(15)cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
+@1001200
+-group_end
 @22
 [color] 3
 +{dr[15:0]} cft2019_tb.cft.card_reg.reg_dr.out[15:0]

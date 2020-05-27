@@ -156,7 +156,9 @@ module card_bus(
    //
    ///////////////////////////////////////////////////////////////////////////////
 
-   reg_ar reg_ar (.nmem(nmem),
+   wire 	 halt;
+   reg_ar reg_ar (.halt(halt),	// This comes from the databus driver.
+		  .nmem(nmem),
 		  .nio(nio),
 		  .ibus(ibus),
 		  .aext(aext),
@@ -224,7 +226,8 @@ module card_bus(
 		    .nwaiting(nwaiting),
 		    .ibus(ibus),
 		    .nw(nw),
-		    .db(db));
+		    .db(db),
+		    .halt(halt));
 
 endmodule // card_bus
 

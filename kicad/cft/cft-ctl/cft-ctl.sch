@@ -1087,7 +1087,7 @@ F34 "IR14" I L 1500 5450 50
 F35 "IR15" I L 1500 5550 50 
 F36 "CLK2" I L 1500 3850 50 
 F37 "CLK3" I L 1500 3950 50 
-F38 "~WAITING" I L 1500 5750 50 
+F38 "~µPC-INH" I L 1500 5750 50 
 $EndSheet
 Wire Wire Line
 	1500 4450 900  4450
@@ -1164,7 +1164,7 @@ Text Label 900  4650 0    50   ~ 0
 Wire Wire Line
 	1500 5750 1000 5750
 Text Label 1000 5750 0    50   ~ 0
-~WAITING
+~µPC-INH
 $Sheet
 S 8350 1450 1150 4200
 U 5DD5525C
@@ -1244,14 +1244,41 @@ Wire Wire Line
 	8350 3900 7800 3900
 Text Label 7800 3900 0    50   ~ 0
 ~WEN
-Wire Bus Line
-	800  4850 800  5650
-Wire Bus Line
-	9950 1450 9950 2100
 Wire Wire Line
 	6250 3750 6250 5750
 Wire Wire Line
 	5350 4450 5950 4450
 Text Label 5950 4450 2    50   ~ 0
 ~COND
+Wire Wire Line
+	7150 5100 7650 5100
+Text Label 7650 5100 2    50   ~ 0
+~µPC-INH
+$Comp
+L alexios:Jumper_3_Bridged12 JP1
+U 1 1 6091E201
+P 7000 5100
+F 0 "JP1" V 7000 5167 50  0000 L CNN
+F 1 "Jumper_3_Bridged12" H 7000 5210 50  0001 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 7000 5100 50  0001 C CNN
+F 3 "~" H 7000 5100 50  0001 C CNN
+	1    7000 5100
+	0    -1   1    0   
+$EndComp
+Wire Wire Line
+	7000 4850 7000 4800
+Wire Wire Line
+	7000 4800 6400 4800
+Wire Wire Line
+	7000 5350 7000 5400
+Wire Wire Line
+	7000 5400 6400 5400
+Text Label 6400 4800 0    50   ~ 0
+~WAITING
+Text Label 6400 5400 0    50   ~ 0
+~WS
+Wire Bus Line
+	9950 1450 9950 2100
+Wire Bus Line
+	800  4850 800  5650
 $EndSCHEMATC

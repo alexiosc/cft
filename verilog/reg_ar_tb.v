@@ -31,6 +31,7 @@
 `timescale 1ns/10ps
 
 module reg_ar_tb();
+   reg          halt;
    reg          nmem;
    reg          nio;
    reg [7:0]    aext;
@@ -60,8 +61,8 @@ module reg_ar_tb();
       $dumpfile ("vcd/reg_ar_tb.vcd");
       $dumpvars (0, reg_ar_tb);
 
-
       status = "reset";
+      halt = 0;
       aext = 8'd0;
       ibus = 16'h0000;
       nwrite_ar = 1;
@@ -117,7 +118,8 @@ module reg_ar_tb();
    end
 
    // Connect DUT to test bench
-   reg_ar reg_ar (.nmem(nmem),
+   reg_ar reg_ar (.halt(halt),
+		  .nmem(nmem),
 		  .nio(nio),
 		  .ibus(ibus_real),
 		  .aext(aext),
@@ -150,9 +152,15 @@ module reg_ar_tb();
 	 // Address bus driver checks
 	 casex ({nmem, nio})
 	   // Address bus idle
+	   // The AB is always driven now (unless HALTed, which we're not testing here)
+	   // 2'b11: begin
+	   //    if (ab !== 24'bzzzzzzzzzzzzzzzzzzzzzzzz) begin
+	   // 	 $sformat(msg, "nmem=%b, nio=%b, but AB is being driven with ab=%x", nmem, nio, ab);
+	   //    end
+	   // end
 	   2'b11: begin
-	      if (ab !== 24'bzzzzzzzzzzzzzzzzzzzzzzzz) begin
-		 $sformat(msg, "nmem=%b, nio=%b, but AB is being driven with ab=%x", nmem, nio, ab);
+	      if (ab === 24'bzzzzzzzzzzzzzzzzzzzzzzzz) begin
+	   	 $sformat(msg, "nmem=%b, nio=%b, but AB is not being driven (ab=%x)", nmem, nio, ab);
 	      end
 	   end
 

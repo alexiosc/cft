@@ -42,34 +42,6 @@ F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 2860 6330 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L alexios:74LVC1G08 U?
-U 2 1 5D9BCCC6
-P 4250 6500
-AR Path="/5DC89E19/5D9BCCC6" Ref="U?"  Part="1" 
-AR Path="/5DC89E19/5D98F946/5D9BCCC6" Ref="U?"  Part="2" 
-AR Path="/5D121AA3/5D9BCCC6" Ref="U35"  Part="2" 
-F 0 "U35" H 4330 6446 50  0000 L CNN
-F 1 "74LVC1G08" H 4330 6355 50  0000 L CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 3900 6500 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 3900 6500 50  0001 C CNN
-	2    4250 6500
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74LVC1G08 U?
-U 2 1 5D9BCDED
-P 2800 7250
-AR Path="/5DC89E19/5D9BCDED" Ref="U?"  Part="1" 
-AR Path="/5DC89E19/5D98F946/5D9BCDED" Ref="U?"  Part="2" 
-AR Path="/5D121AA3/5D9BCDED" Ref="U36"  Part="2" 
-F 0 "U36" H 2880 7196 50  0000 L CNN
-F 1 "74LVC1G08" H 2880 7105 50  0000 L CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 2450 7250 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 2450 7250 50  0001 C CNN
-	2    2800 7250
-	1    0    0    -1  
-$EndComp
-$Comp
 L alexios:74LVC1G11 U?
 U 2 1 5D9BCE39
 P 4250 7200
@@ -195,61 +167,6 @@ F 3 "" H 950 6500 50  0001 C CNN
 $EndComp
 $Comp
 L Device:C_Small C?
-U 1 1 5D9CBD11
-P 3800 6600
-AR Path="/5CC0D65F/5D9CBD11" Ref="C?"  Part="1" 
-AR Path="/5D9CBD11" Ref="C?"  Part="1" 
-AR Path="/5F597FD4/5D9CBD11" Ref="C?"  Part="1" 
-AR Path="/5DC89E19/5CF23BD4/5D9CBD11" Ref="C?"  Part="1" 
-AR Path="/5DC89E19/5CF5A95E/5D9CBD11" Ref="C?"  Part="1" 
-AR Path="/5DC89E19/5D9CBD11" Ref="C?"  Part="1" 
-AR Path="/5DC89E19/5D98F946/5D9CBD11" Ref="C?"  Part="1" 
-AR Path="/5D121AA3/5D9CBD11" Ref="C36"  Part="1" 
-F 0 "C36" H 3709 6646 50  0000 R CNN
-F 1 "100nF" H 3709 6555 50  0000 R CNN
-F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3800 6600 50  0001 C CNN
-F 3 "~" H 3800 6600 50  0001 C CNN
-	1    3800 6600
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5D9CBD18
-P 3800 6700
-AR Path="/5D9CBD18" Ref="#PWR?"  Part="1" 
-AR Path="/5F597FD4/5D9CBD18" Ref="#PWR?"  Part="1" 
-AR Path="/5DC89E19/5CF23BD4/5D9CBD18" Ref="#PWR?"  Part="1" 
-AR Path="/5DC89E19/5CF5A95E/5D9CBD18" Ref="#PWR?"  Part="1" 
-AR Path="/5DC89E19/5D9CBD18" Ref="#PWR?"  Part="1" 
-AR Path="/5DC89E19/5D98F946/5D9CBD18" Ref="#PWR?"  Part="1" 
-AR Path="/5D121AA3/5D9CBD18" Ref="#PWR0195"  Part="1" 
-F 0 "#PWR0195" H 3800 6450 50  0001 C CNN
-F 1 "GND" H 3805 6527 50  0000 C CNN
-F 2 "" H 3800 6700 50  0001 C CNN
-F 3 "" H 3800 6700 50  0001 C CNN
-	1    3800 6700
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR?
-U 1 1 5D9CBD1E
-P 3800 6500
-AR Path="/5D9CBD1E" Ref="#PWR?"  Part="1" 
-AR Path="/5F597FD4/5D9CBD1E" Ref="#PWR?"  Part="1" 
-AR Path="/5DC89E19/5CF23BD4/5D9CBD1E" Ref="#PWR?"  Part="1" 
-AR Path="/5DC89E19/5CF5A95E/5D9CBD1E" Ref="#PWR?"  Part="1" 
-AR Path="/5DC89E19/5D9CBD1E" Ref="#PWR?"  Part="1" 
-AR Path="/5DC89E19/5D98F946/5D9CBD1E" Ref="#PWR?"  Part="1" 
-AR Path="/5D121AA3/5D9CBD1E" Ref="#PWR0196"  Part="1" 
-F 0 "#PWR0196" H 3800 6350 50  0001 C CNN
-F 1 "+5V" H 3815 6673 50  0000 C CNN
-F 2 "" H 3800 6500 50  0001 C CNN
-F 3 "" H 3800 6500 50  0001 C CNN
-	1    3800 6500
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
 U 1 1 5D9CE0D0
 P 2350 7350
 AR Path="/5CC0D65F/5D9CE0D0" Ref="C?"  Part="1" 
@@ -362,10 +279,6 @@ Connection ~ 3800 7250
 Connection ~ 3800 7450
 Connection ~ 950  6500
 Connection ~ 950  6700
-Connection ~ 3800 6500
-Connection ~ 3800 6700
-Connection ~ 2350 7250
-Connection ~ 2350 7450
 Connection ~ 2350 6500
 Connection ~ 2350 6700
 $Comp
@@ -585,7 +498,7 @@ Text Label 3200 4900 0    50   ~ 0
 Text Label 3200 4600 0    50   ~ 0
 ~FLAGWE
 Wire Wire Line
-	4250 3850 5500 3850
+	4250 3850 6100 3850
 Wire Wire Line
 	2800 4250 2950 4250
 Connection ~ 2800 4250
@@ -596,7 +509,7 @@ Wire Wire Line
 Wire Wire Line
 	2800 4250 2800 4700
 Wire Wire Line
-	4150 3750 5500 3750
+	4150 3750 6100 3750
 Wire Wire Line
 	2900 4350 2950 4350
 Connection ~ 2900 4350
@@ -744,14 +657,6 @@ Text Label 4850 3750 0    50   ~ 0
 Wire Wire Line
 	7050 2950 7500 2950
 Wire Wire Line
-	6550 3900 7050 3900
-Wire Wire Line
-	6000 3850 6100 3850
-Wire Wire Line
-	6000 3800 6000 3850
-Wire Wire Line
-	5950 3800 6000 3800
-Wire Wire Line
 	7050 2750 7500 2750
 Wire Wire Line
 	7200 3050 7500 3050
@@ -781,20 +686,6 @@ Text Label 8850 2950 0    50   ~ 0
 ~RSTHOLD
 Wire Wire Line
 	9150 2950 8650 2950
-$Comp
-L alexios:74LVC1G08 U?
-U 1 1 5D995AB2
-P 5800 3800
-AR Path="/5DC89E19/5D995AB2" Ref="U?"  Part="1" 
-AR Path="/5DC89E19/5D98F946/5D995AB2" Ref="U?"  Part="1" 
-AR Path="/5D121AA3/5D995AB2" Ref="U35"  Part="1" 
-F 0 "U35" H 5725 4067 50  0000 C CNN
-F 1 "74LVC1G08" H 5725 3976 50  0000 C CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 5450 3800 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 5450 3800 50  0001 C CNN
-	1    5800 3800
-	1    0    0    -1  
-$EndComp
 Text Label 7500 2950 2    50   ~ 0
 CLKL
 Text Label 7500 2750 2    50   ~ 0
@@ -873,20 +764,6 @@ F 1 "GND" H 2750 4000 50  0000 C CNN
 F 2 "" H 2900 4050 50  0001 C CNN
 F 3 "" H 2900 4050 50  0001 C CNN
 	1    2900 4050
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74LVC1G08 U?
-U 1 1 5D995AB9
-P 6400 3900
-AR Path="/5DC89E19/5D995AB9" Ref="U?"  Part="1" 
-AR Path="/5DC89E19/5D98F946/5D995AB9" Ref="U?"  Part="1" 
-AR Path="/5D121AA3/5D995AB9" Ref="U36"  Part="1" 
-F 0 "U36" H 6325 4167 50  0000 C CNN
-F 1 "74LVC1G08" H 6325 4076 50  0000 C CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 6050 3900 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 6050 3900 50  0001 C CNN
-	1    6400 3900
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -1067,7 +944,7 @@ Connection ~ 6650 2250
 Wire Wire Line
 	6650 2250 6950 2250
 Wire Wire Line
-	7050 2950 7050 3900
+	7050 2950 7050 3850
 Text Label 4050 2850 0    50   ~ 0
 LD0
 Text Label 5400 2750 1    50   ~ 0
@@ -1204,8 +1081,42 @@ Text HLabel 1450 4800 0    50   Input ~ 0
 BCP
 Text Label 4850 3850 0    50   ~ 0
 ~SETL-ROM
-Text Label 6700 3900 0    50   ~ 0
+Text Label 6650 3850 0    50   ~ 0
 CLKL
 Text Label 3200 4800 0    50   ~ 0
 BCP
+Text Notes 5150 4150 0    50   ~ 0
+TODO: can we replace these with a single '11?
+$Comp
+L alexios:74LVC1G11 U?
+U 1 1 60973450
+P 6400 3800
+AR Path="/5DC89E19/60973450" Ref="U?"  Part="1" 
+AR Path="/5DC89E19/5D98F946/60973450" Ref="U?"  Part="1" 
+AR Path="/5D121AA3/60973450" Ref="U35"  Part="1" 
+F 0 "U35" H 6350 4064 50  0000 C CNN
+F 1 "74LVC1G11" H 6350 3973 50  0000 C CNN
+F 2 "alexios:SOT-23-6_Handsoldering" H 6300 3725 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G11.pdf" H 6300 3725 50  0001 C CNN
+	1    6400 3800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6600 3850 7050 3850
+$Comp
+L alexios:74LVC1G11 U?
+U 2 1 6097E38C
+P 2800 7200
+AR Path="/5DC89E19/6097E38C" Ref="U?"  Part="1" 
+AR Path="/5DC89E19/5D98F946/6097E38C" Ref="U?"  Part="1" 
+AR Path="/5D121AA3/6097E38C" Ref="U35"  Part="2" 
+F 0 "U35" H 2750 7464 50  0000 C CNN
+F 1 "74LVC1G11" H 2750 7373 50  0000 C CNN
+F 2 "alexios:SOT-23-6_Handsoldering" H 2700 7125 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G11.pdf" H 2700 7125 50  0001 C CNN
+	2    2800 7200
+	1    0    0    -1  
+$EndComp
+Connection ~ 2350 7450
+Connection ~ 2350 7250
 $EndSCHEMATC

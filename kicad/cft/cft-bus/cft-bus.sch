@@ -397,36 +397,38 @@ S 4900 3550 1150 1500
 U 5D46B22D
 F0 "Wait States & Write Strobes" 50
 F1 "cft_ws_busen.sch" 50
-F2 "~T34" I L 4900 4100 50 
+F2 "~T34" I L 4900 4200 50 
 F3 "~RSTHOLD" I L 4900 3700 50 
-F4 "CLK3" I L 4900 3900 50 
-F5 "CLK4" I L 4900 4000 50 
-F6 "~MEM" I L 4900 4250 50 
-F7 "~IO" I L 4900 4350 50 
+F4 "CLK3" I L 4900 4000 50 
+F5 "CLK4" I L 4900 4100 50 
+F6 "~MEM" I L 4900 4350 50 
+F7 "~IO" I L 4900 4450 50 
 F8 "~HALT" I L 4900 3800 50 
-F9 "~WEN" I L 4900 4550 50 
+F9 "~WEN" I L 4900 4650 50 
 F10 "~WS" I L 4900 4800 50 
 F11 "~W" T R 6050 4450 50 
-F12 "~R" I L 4900 4450 50 
+F12 "~R" I L 4900 4550 50 
 F13 "IBUS[0..15]" T L 4900 4900 50 
 F14 "DB[0..15]" T R 6050 4900 50 
 F15 "~WAITING" O R 6050 4550 50 
+F16 "CLK2" I L 4900 3900 50 
+F17 "HALT" O R 6050 3800 50 
 $EndSheet
 Text Label 4050 4800 0    50   ~ 0
 ~WS
-Text Label 4050 4550 0    50   ~ 0
+Text Label 4050 4650 0    50   ~ 0
 ~WEN
-Text Label 4050 4450 0    50   ~ 0
+Text Label 4050 4550 0    50   ~ 0
 ~R
-Text Label 4050 4350 0    50   ~ 0
+Text Label 4050 4450 0    50   ~ 0
 ~IO
-Text Label 4050 4250 0    50   ~ 0
+Text Label 4050 4350 0    50   ~ 0
 ~MEM
-Text Label 4050 4100 0    50   ~ 0
+Text Label 4050 4200 0    50   ~ 0
 ~T34
-Text Label 4050 4000 0    50   ~ 0
+Text Label 4050 4100 0    50   ~ 0
 CLK4
-Text Label 4050 3900 0    50   ~ 0
+Text Label 4050 4000 0    50   ~ 0
 CLK3
 Text Label 4050 3800 0    50   ~ 0
 ~HALT
@@ -435,19 +437,19 @@ Text Label 4050 3700 0    50   ~ 0
 Wire Wire Line
 	4900 4800 4050 4800
 Wire Wire Line
+	4900 4650 4050 4650
+Wire Wire Line
 	4900 4550 4050 4550
 Wire Wire Line
 	4900 4450 4050 4450
 Wire Wire Line
 	4900 4350 4050 4350
 Wire Wire Line
-	4900 4250 4050 4250
+	4900 4200 4050 4200
 Wire Wire Line
 	4900 4100 4050 4100
 Wire Wire Line
 	4900 4000 4050 4000
-Wire Wire Line
-	4900 3900 4050 3900
 Wire Wire Line
 	4900 3800 4050 3800
 Wire Wire Line
@@ -737,6 +739,14 @@ Wire Wire Line
 	7800 3900 8350 3900
 Text Label 7800 3900 0    50   ~ 0
 ~WEN
+Text Label 4050 3900 0    50   ~ 0
+CLK2
+Wire Wire Line
+	4900 3900 4050 3900
+Wire Wire Line
+	6050 3800 6900 3800
+Text Label 6900 3800 2    50   ~ 0
+HALT
 Wire Bus Line
 	9950 1450 9950 1700
 $EndSCHEMATC

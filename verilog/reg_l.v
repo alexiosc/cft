@@ -129,9 +129,11 @@ module reg_l(nrsthold, clk4,
    assign #4 nclrl = nclrl0 & nrsthold & naction_cll;
 
    // The clock
-   wire   clkl0, clkl;
-   assign #3 clkl0 = nflagwe & nsetl_rom;
-   assign #3 clkl = clkl0 & bcp;
+   // wire   clkl0, clkl;
+   // assign #0.5 clkl0 = nflagwe & nsetl_rom;
+   // assign #0.5 clkl = clkl0 & bcp;
+   wire   clkl;
+   assign #4 clkl = nflagwe & nsetl_rom & bcp;
 
    // Finally, the L flip flop. This runs in the Shift/Roll Unit's clock domain
    // (which can be 4× the rest of the processor's). Note: use AC family here,

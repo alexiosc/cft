@@ -102,7 +102,8 @@ module microcode_sequencer(nreset, nrsthold, clk1, clk2, clk4,
 
    tri1 	nupcclr;
    mux_251 endmux (.d(8'b10001111), .sel({nwaiting, nend, nendext}), .ne(clk4), .y(nupcclr));
-   
+
+   // WS# and WAITING# seem to work similarly for .cep() here. Decide which, or use a jumper.
    counter_161 ctr_upc (.mr(nrsthold), .cp(clk4), .cet(nhalt), .cep(nws),
 			.pe(nupcclr), .p(4'b0000),
 			.q(upc));

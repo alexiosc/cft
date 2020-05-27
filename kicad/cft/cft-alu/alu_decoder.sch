@@ -6,7 +6,7 @@ encoding utf-8
 Sheet 9 10
 Title "ALU Decoding & Control"
 Date "2019-11-17"
-Rev "2020"
+Rev "2022"
 Comp ""
 Comment1 "ALU"
 Comment2 ""
@@ -321,14 +321,10 @@ Text Label 3950 3700 0    50   ~ 0
 Wire Wire Line
 	3900 3800 6050 3800
 NoConn ~ 9350 2000
-Text Label 7750 2300 0    50   ~ 0
+Text Label 7200 2300 0    50   ~ 0
 CLK4
 Wire Wire Line
 	7200 2300 8350 2300
-Wire Wire Line
-	2000 2200 2000 4100
-Wire Wire Line
-	1200 2200 2000 2200
 Wire Wire Line
 	8300 2100 8350 2100
 Wire Wire Line
@@ -419,13 +415,11 @@ Text HLabel 7200 1250 0    50   Input ~ 0
 ACTION[0..4]
 Text Label 2250 3050 1    50   ~ 0
 RADDR[0..4]
-Text Label 1300 2200 0    50   ~ 0
+Text Label 1300 4100 0    50   ~ 0
 T34
 Text Label 2400 4100 0    50   ~ 0
 T34
-Wire Wire Line
-	2000 4100 2600 4100
-Text HLabel 1200 2200 0    50   Input ~ 0
+Text HLabel 1200 4100 0    50   Input ~ 0
 T34
 Text HLabel 6050 1500 2    50   Output ~ 0
 ~ALU-OP
@@ -758,14 +752,7 @@ Wire Wire Line
 	2900 2200 2850 2200
 Wire Wire Line
 	2850 2200 2850 2400
-Wire Wire Line
-	2000 5600 2650 5600
 Text Label 2400 5600 0    50   ~ 0
-T34
-Connection ~ 2000 4100
-Wire Wire Line
-	2000 4100 2000 5600
-Text HLabel 7200 2300 0    50   Input ~ 0
 CLK4
 Text Notes 5000 2450 0    50   ~ 0
 This inverter is in card_alu.v.
@@ -786,12 +773,6 @@ $EndComp
 Wire Wire Line
 	2850 1700 2850 1750
 Connection ~ 2850 1700
-Wire Bus Line
-	7900 1350 7900 2100
-Wire Bus Line
-	2250 4650 2250 5400
-Wire Bus Line
-	2250 1850 2250 3900
 $Comp
 L Device:Jumper_NC_Small JP3
 U 1 1 602B2E13
@@ -818,4 +799,18 @@ F 3 "~" H 2750 5600 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	2850 5600 2900 5600
+Wire Wire Line
+	1200 4100 2600 4100
+Text Label 1300 5600 0    50   ~ 0
+CLK4
+Text HLabel 1200 5600 0    50   Input ~ 0
+CLK4
+Wire Wire Line
+	1200 5600 2650 5600
+Wire Bus Line
+	7900 1350 7900 2100
+Wire Bus Line
+	2250 4650 2250 5400
+Wire Bus Line
+	2250 1850 2250 3900
 $EndSCHEMATC

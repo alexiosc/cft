@@ -152,8 +152,8 @@ module card_mem(
    // ‘ROM’ for testing purposes).
    reg 		 wp;
 
-   sram #(19, 70) romlo (.a(ab[18:0]), .d(db[7:0]), .nce(nromcs[0]), .nwe(wp | nmemw), .noe(nmemr));
-   sram #(19, 70) romhi (.a(ab[18:0]), .d(db[15:8]), .nce(nromcs[0]), .nwe(wp | nmemw), .noe(nmemr));
+   sram #(19, 55) romlo (.a(ab[18:0]), .d(db[7:0]), .nce(nromcs[0]), .nwe(wp | nmemw), .noe(nmemr));
+   sram #(19, 55) romhi (.a(ab[18:0]), .d(db[15:8]), .nce(nromcs[0]), .nwe(wp | nmemw), .noe(nmemr));
 
    // If instructed, load ROM and/or ROM images for simulation.
    reg [4096:0]  basename, imglo, imghi;

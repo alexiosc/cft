@@ -17,10 +17,11 @@
 `timescale 1ns/1ps
 
 // This models both the AR register and the I/O address decoder.
-module reg_ar (nmem, nio, ibus, aext, nwrite_ar, ab,
+module reg_ar (halt, nmem, nio, ibus, aext, nwrite_ar, ab,
 	       nsysdev, niodev1xx, niodev2xx, niodev3xx,
 	       nfparh, fpd);
 
+   input         halt;
    input         nmem;
    input 	 nio;
    inout [15:0]  ibus;
@@ -39,22 +40,29 @@ module reg_ar (nmem, nio, ibus, aext, nwrite_ar, ab,
    wire [15:0] 	 ibus;
    wire [23:0] 	 ar;
    wire [7:0] 	 fpd;
-   wire 	 naben;
+   wire 	 naben1, naben2;
 
-   // Drive the Address Bus during MEM and IO cycles.
-   assign #7 naben = nmem & nio;
+   // Drive the Address Bus during MEM and IO cycles. The commented out lines
+   // represent jumper settings. By default, the Address Bus is driven at all
+   // times except during HALT.
+
+   // assign #7 naben = nmem & nio;
+   assign naben1 = 1'b0;
+   //assign #7 naben2 = t34 | halt;
+   assign naben2 = halt;
 
    // The Address Register itself. The '574 has tri-state outputs, but we
-   // output the AR to both the Address Bus and the Front Panel, so we '574 FFs
-   // and separate buffers.
+   // output the AR to both the Address Bus and the Front Panel, so we use
+   // permanently driving '574 FFs for the register itself, and separate
+   // buffers, one set for the AB, one set for the FP.
    flipflop_574 ar_lo  (.d(ibus[7:0]),   .q(ar[7:0]),   .clk(nwrite_ar), .noe(1'b0));
    flipflop_574 ar_mid (.d(ibus[15:8]),  .q(ar[15:8]),  .clk(nwrite_ar), .noe(1'b0));
    flipflop_574 ar_hi  (.d(aext),        .q(ar[23:16]), .clk(nwrite_ar), .noe(1'b0));
 
    // The Address Bus buffers
-   buffer_541 ar_ab_lo  (.a(ar[7:0]),   .y(ab[7:0]),   .noe1(naben), .noe2(1'b0));
-   buffer_541 ar_ab_mid (.a(ar[15:8]),  .y(ab[15:8]),  .noe1(naben), .noe2(1'b0));
-   buffer_541 ar_ab_hi  (.a(ar[23:16]), .y(ab[23:16]), .noe1(naben), .noe2(1'b0));
+   buffer_541 ar_ab_lo  (.a(ar[7:0]),   .y(ab[7:0]),   .noe1(naben1), .noe2(naben2));
+   buffer_541 ar_ab_mid (.a(ar[15:8]),  .y(ab[15:8]),  .noe1(naben1), .noe2(naben2));
+   buffer_541 ar_ab_hi  (.a(ar[23:16]), .y(ab[23:16]), .noe1(naben1), .noe2(naben2));
 
    // The Front Panel buffers. Note: the DFP can sample the whole AB (and thus,
    // the AR) directly. It just needs to output the top 8 bits of the AR onto
@@ -87,7 +95,7 @@ module reg_ar (nmem, nio, ibus, aext, nwrite_ar, ab,
    // is reminiscent of the Z80's behaviour with I/O addresses. (it only has
    // 256 of them and you're supposed to ignore the upper 8 bits of the address
    // bus).
-   // comparator_688 ioad_cmp (.a({ar[15:10], 2'b00}), .b(8'd0), .ng(naben),
+   // comparator_688 ioad_cmp (.a({ar[15:10], 2'b00}), .b(8'd0), .ng(naben1),
    // 			    .neq(nar_high_0));
    demux_138 #8 ioad_dec (.g1(1'b1), .ng2a(nio), .ng2b(1'b0),
 			  .a({ar[10:8]}), .y(y));

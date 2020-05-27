@@ -170,33 +170,33 @@ $EndComp
 Connection ~ 950  1600
 Connection ~ 950  1800
 Wire Wire Line
-	1700 6950 2100 6950
-Text HLabel 1700 6950 0    50   Input ~ 0
+	1250 7100 1650 7100
+Text HLabel 1250 7100 0    50   Input ~ 0
 ~RESET
-Text Label 1750 6950 0    50   ~ 0
+Text Label 1300 7100 0    50   ~ 0
 ~RESET
-Text Notes 2250 6300 0    100  ~ 20
+Text Notes 1750 6450 0    100  ~ 20
 MBU Enable
-Text Label 1750 7250 0    50   ~ 0
+Text Label 1300 7400 0    50   ~ 0
 ~IOWMBR
 Wire Wire Line
-	2100 7150 2050 7150
+	1650 7300 1600 7300
 $Comp
 L power:+5V #PWR066
 U 1 1 6121EEB0
-P 2050 6850
-F 0 "#PWR066" H 2050 6700 50  0001 C CNN
-F 1 "+5V" H 2065 7023 50  0000 C CNN
-F 2 "" H 2050 6850 50  0001 C CNN
-F 3 "" H 2050 6850 50  0001 C CNN
-	1    2050 6850
+P 1600 7000
+F 0 "#PWR066" H 1600 6850 50  0001 C CNN
+F 1 "+5V" H 1615 7173 50  0000 C CNN
+F 2 "" H 1600 7000 50  0001 C CNN
+F 3 "" H 1600 7000 50  0001 C CNN
+	1    1600 7000
 	1    0    0    -1  
 $EndComp
 Text HLabel 1250 2150 0    50   Input ~ 0
 ~SYSDEV
 Wire Wire Line
-	3100 7250 3000 7250
-Text Label 3100 7250 2    50   ~ 0
+	2650 7400 2550 7400
+Text Label 2650 7400 2    50   ~ 0
 ~DIS
 Text Label 2100 5200 2    50   ~ 0
 WADDR3
@@ -207,14 +207,14 @@ NoConn ~ 3100 5100
 $Comp
 L alexios:74LVC1G74 U?
 U 1 1 60083AB7
-P 2550 7100
+P 2100 7250
 AR Path="/6005A9A5/60083AB7" Ref="U?"  Part="1" 
 AR Path="/61F95ACC/60083AB7" Ref="U8"  Part="1" 
-F 0 "U8" H 2550 7517 50  0000 C CNN
-F 1 "74LVC1G74" H 2550 7426 50  0000 C CNN
-F 2 "alexios:TSSOP-8_3x3mm_P0.65mm" H 3000 7100 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G74.pdf" H 3000 7100 50  0001 C CNN
-	1    2550 7100
+F 0 "U8" H 2100 7667 50  0000 C CNN
+F 1 "74LVC1G74" H 2100 7576 50  0000 C CNN
+F 2 "alexios:TSSOP-8_3x3mm_P0.65mm" H 2550 7250 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G74.pdf" H 2550 7250 50  0001 C CNN
+	1    2100 7250
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -229,27 +229,18 @@ F 3 "" H 2050 5650 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	2100 5800 2050 5800
-Wire Wire Line
 	2050 5700 2100 5700
-Wire Wire Line
-	2100 5900 2050 5900
-Wire Wire Line
-	2050 5900 2050 5950
 $Comp
 L power:GND #PWR0147
 U 1 1 5E8B7ED4
-P 2050 5950
-F 0 "#PWR0147" H 2050 5700 50  0001 C CNN
-F 1 "GND" H 2055 5777 50  0000 C CNN
-F 2 "" H 2050 5950 50  0001 C CNN
-F 3 "" H 2050 5950 50  0001 C CNN
-	1    2050 5950
+P 1700 5900
+F 0 "#PWR0147" H 1700 5650 50  0001 C CNN
+F 1 "GND" H 1705 5727 50  0000 C CNN
+F 2 "" H 1700 5900 50  0001 C CNN
+F 3 "" H 1700 5900 50  0001 C CNN
+	1    1700 5900
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	2050 5800 2050 5900
-Connection ~ 2050 5900
 Text Label 2100 2700 2    50   ~ 0
 RADDR1
 Text Label 2100 2800 2    50   ~ 0
@@ -260,21 +251,6 @@ Text Label 2100 3300 2    50   ~ 0
 RADDR4
 Text Notes 2650 3250 1    50   ~ 10
 RADDR=01XXX
-$Comp
-L alexios:74HC138 U?
-U 1 1 6022A4DB
-P 2600 4250
-AR Path="/5F3EA987/6022A4DB" Ref="U?"  Part="1" 
-AR Path="/6022A4DB" Ref="U?"  Part="1" 
-AR Path="/61F95ACC/6022A4DB" Ref="U7"  Part="1" 
-AR Path="/61F95ACC/63C9F04D/6022A4DB" Ref="U?"  Part="1" 
-F 0 "U7" H 2600 4917 50  0000 C CNN
-F 1 "74HC138" H 2600 4826 50  0000 C CNN
-F 2 "alexios:SOIC-16" H 2600 4250 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 2600 4250 50  0001 C CNN
-	1    2600 4250
-	1    0    0    -1  
-$EndComp
 Text Notes 2650 4500 1    50   ~ 10
 WADDR=01XXX
 Text Label 2100 4550 2    50   ~ 0
@@ -288,12 +264,6 @@ Text Label 3550 3100 2    50   ~ 0
 Text Label 3550 4450 2    50   ~ 0
 ~WMBP
 NoConn ~ 3100 3300
-Text HLabel 1250 3400 0    50   Input ~ 0
-~T34
-Wire Wire Line
-	1250 3400 1550 3400
-Text Label 2100 3400 2    50   ~ 0
-~T34
 Text Notes 3250 4300 0    50   ~ 0
 Asserted if CU addresses\nwrite_mbp (01100) or\nwrite_mbp_flags (01101).
 NoConn ~ 3100 3000
@@ -314,7 +284,7 @@ F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 2600 3000 50  0001 C CNN
 	1    2600 3000
 	1    0    0    -1  
 $EndComp
-Text Label 3100 6950 2    50   ~ 0
+Text Label 2650 7100 2    50   ~ 0
 ~EN
 Wire Wire Line
 	6550 4300 6950 4300
@@ -1019,62 +989,62 @@ Wire Wire Line
 Wire Wire Line
 	6600 3300 7050 3300
 Wire Wire Line
-	3000 6950 3100 6950
+	2550 7100 2650 7100
 Wire Wire Line
-	3650 6950 3700 6950
+	3200 7100 3250 7100
 Wire Wire Line
-	4000 6950 4050 6950
+	3550 7100 3600 7100
 $Comp
 L Device:LED_ALT D5
 U 1 1 5F7130AB
-P 3850 6950
-F 0 "D5" H 3843 6786 50  0000 C CNN
-F 1 "LED_ALT" H 3843 6786 50  0001 C CNN
-F 2 "alexios:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3850 6950 50  0001 C CNN
-F 3 "~" H 3850 6950 50  0001 C CNN
-	1    3850 6950
+P 3400 7100
+F 0 "D5" H 3393 6936 50  0000 C CNN
+F 1 "LED_ALT" H 3393 6936 50  0001 C CNN
+F 2 "alexios:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3400 7100 50  0001 C CNN
+F 3 "~" H 3400 7100 50  0001 C CNN
+	1    3400 7100
 	-1   0    0    1   
 $EndComp
 $Comp
 L Device:R_Small R23
 U 1 1 5F7130B1
-P 3550 6950
-F 0 "R23" V 3354 6950 50  0000 C CNN
-F 1 "680Ω" V 3445 6950 50  0000 C CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3550 6950 50  0001 C CNN
-F 3 "~" H 3550 6950 50  0001 C CNN
-	1    3550 6950
+P 3100 7100
+F 0 "R23" V 2904 7100 50  0000 C CNN
+F 1 "680Ω" V 2995 7100 50  0000 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3100 7100 50  0001 C CNN
+F 3 "~" H 3100 7100 50  0001 C CNN
+	1    3100 7100
 	0    -1   1    0   
 $EndComp
 Wire Wire Line
-	3400 6950 3450 6950
+	2950 7100 3000 7100
 $Comp
 L Jumper:SolderJumper_2_Bridged JP2
 U 1 1 631AB2E9
-P 3250 6950
-F 0 "JP2" H 3250 7063 50  0000 C CNN
-F 1 "SolderJumper_2_Bridged" H 3250 7064 50  0001 C CNN
-F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 3250 6950 50  0001 C CNN
-F 3 "~" H 3250 6950 50  0001 C CNN
-	1    3250 6950
+P 2800 7100
+F 0 "JP2" H 2800 7213 50  0000 C CNN
+F 1 "SolderJumper_2_Bridged" H 2800 7214 50  0001 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 2800 7100 50  0001 C CNN
+F 3 "~" H 2800 7100 50  0001 C CNN
+	1    2800 7100
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR?
 U 1 1 5F82AB65
-P 4050 7000
+P 3600 7150
 AR Path="/5F82AB65" Ref="#PWR?"  Part="1" 
 AR Path="/5F3EA987/5F82AB65" Ref="#PWR?"  Part="1" 
 AR Path="/61F95ACC/5F82AB65" Ref="#PWR0140"  Part="1" 
-F 0 "#PWR0140" H 4050 6750 50  0001 C CNN
-F 1 "GND" H 4055 6827 50  0000 C CNN
-F 2 "" H 4050 7000 50  0001 C CNN
-F 3 "" H 4050 7000 50  0001 C CNN
-	1    4050 7000
+F 0 "#PWR0140" H 3600 6900 50  0001 C CNN
+F 1 "GND" H 3605 6977 50  0000 C CNN
+F 2 "" H 3600 7150 50  0001 C CNN
+F 3 "" H 3600 7150 50  0001 C CNN
+	1    3600 7150
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	4050 6950 4050 7000
+	3600 7100 3600 7150
 Wire Wire Line
 	6950 4300 6950 3400
 Entry Bus Bus
@@ -1492,7 +1462,7 @@ Wire Wire Line
 Wire Notes Line width 20 style solid
 	7350 5550 7350 4900
 Wire Wire Line
-	1750 7250 2100 7250
+	1300 7400 1650 7400
 Wire Wire Line
 	6450 3600 6800 3600
 Text Label 6800 3600 2    50   ~ 0
@@ -1556,15 +1526,15 @@ Text Label 6100 4300 2    50   ~ 0
 ~FPRAM~∕ROM
 Text Label 4800 2200 0    50   ~ 0
 ~RESET
-Text Notes 1900 6550 0    50   ~ 0
+Text Notes 1400 6700 0    50   ~ 0
 The MBU is disabled after reset and enabled\nwhen it's first written to.
 Wire Wire Line
-	2050 7050 2050 6850
+	1600 7200 1600 7000
 Wire Wire Line
-	2050 7150 2050 7050
-Connection ~ 2050 7050
+	1600 7300 1600 7200
+Connection ~ 1600 7200
 Wire Wire Line
-	2100 7050 2050 7050
+	1650 7200 1600 7200
 Wire Wire Line
 	4750 2200 4750 700 
 Wire Wire Line
@@ -1577,14 +1547,141 @@ Wire Wire Line
 	1800 3200 2100 3200
 NoConn ~ 3100 3200
 Wire Wire Line
-	1550 4650 2100 4650
-Text Label 2100 4650 2    50   ~ 0
+	2100 3400 1800 3400
+Text Label 1800 3400 0    50   ~ 0
+~RDEN
+$Comp
+L alexios:74HC138 U?
+U 1 1 6022A4DB
+P 2600 4250
+AR Path="/5F3EA987/6022A4DB" Ref="U?"  Part="1" 
+AR Path="/6022A4DB" Ref="U?"  Part="1" 
+AR Path="/61F95ACC/6022A4DB" Ref="U7"  Part="1" 
+AR Path="/61F95ACC/63C9F04D/6022A4DB" Ref="U?"  Part="1" 
+F 0 "U7" H 2600 4917 50  0000 C CNN
+F 1 "74HC138" H 2600 4826 50  0000 C CNN
+F 2 "alexios:SOIC-16" H 2600 4250 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 2600 4250 50  0001 C CNN
+	1    2600 4250
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2100 4650 1800 4650
+Text Label 1800 4650 0    50   ~ 0
+~WD0EN
+$Comp
+L alexios:Jumper_3_Bridged12 JP8
+U 1 1 6078A0C9
+P 6100 7200
+F 0 "JP8" H 6100 7312 50  0000 C CNN
+F 1 "Jumper_3_Bridged12" H 6100 7310 50  0001 C CNN
+F 2 "Jumper:SolderJumper-3_P1.3mm_Bridged12_RoundedPad1.0x1.5mm" H 6100 7200 50  0001 C CNN
+F 3 "~" H 6100 7200 50  0001 C CNN
+	1    6100 7200
+	1    0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR0157
+U 1 1 6078A0CF
+P 6400 7250
+F 0 "#PWR0157" H 6400 7000 50  0001 C CNN
+F 1 "GND" H 6500 7250 50  0000 C CNN
+F 2 "" H 6400 7250 50  0001 C CNN
+F 3 "" H 6400 7250 50  0001 C CNN
+	1    6400 7250
+	1    0    0    -1  
+$EndComp
+Text Label 6450 7050 2    50   ~ 0
+~WD0EN
+Wire Wire Line
+	6350 7200 6400 7200
+Wire Wire Line
+	6400 7200 6400 7250
+Wire Wire Line
+	6100 7050 6450 7050
+$Comp
+L alexios:Jumper_3_Bridged12 JP6
+U 1 1 607966E4
+P 6100 6400
+F 0 "JP6" H 6100 6512 50  0000 C CNN
+F 1 "Jumper_3_Bridged12" H 6100 6510 50  0001 C CNN
+F 2 "Jumper:SolderJumper-3_P1.3mm_Bridged12_RoundedPad1.0x1.5mm" H 6100 6400 50  0001 C CNN
+F 3 "~" H 6100 6400 50  0001 C CNN
+	1    6100 6400
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR0158
+U 1 1 607966EA
+P 6400 6450
+F 0 "#PWR0158" H 6400 6200 50  0001 C CNN
+F 1 "GND" H 6500 6450 50  0000 C CNN
+F 2 "" H 6400 6450 50  0001 C CNN
+F 3 "" H 6400 6450 50  0001 C CNN
+	1    6400 6450
+	1    0    0    -1  
+$EndComp
+Text Label 6450 6250 2    50   ~ 0
+~RDEN
+Wire Wire Line
+	6350 6400 6400 6400
+Wire Wire Line
+	6400 6400 6400 6450
+Wire Wire Line
+	6100 6250 6450 6250
+Text HLabel 5700 6400 0    50   Input ~ 0
 ~T34
 Wire Wire Line
-	1550 3400 1550 4650
-Connection ~ 1550 3400
+	1700 5800 2100 5800
 Wire Wire Line
-	1550 3400 2100 3400
+	1700 5800 1700 5900
+Wire Wire Line
+	1800 5900 2100 5900
+Text Label 1800 5900 0    50   ~ 0
+~WD1EN
+Wire Wire Line
+	5700 6400 5800 6400
+Text HLabel 5700 7200 0    50   Input ~ 0
+CLK4
+Wire Wire Line
+	5700 7200 5850 7200
+Connection ~ 5800 6400
+Wire Wire Line
+	5800 6400 5850 6400
+Wire Wire Line
+	5800 6400 5800 6800
+Wire Wire Line
+	5800 6800 5850 6800
+Wire Wire Line
+	6100 6650 6450 6650
+Wire Wire Line
+	6400 6800 6400 6850
+Wire Wire Line
+	6350 6800 6400 6800
+Text Label 6450 6650 2    50   ~ 0
+~WD1EN
+$Comp
+L power:GND #PWR0159
+U 1 1 606C8CD3
+P 6400 6850
+F 0 "#PWR0159" H 6400 6600 50  0001 C CNN
+F 1 "GND" H 6500 6850 50  0000 C CNN
+F 2 "" H 6400 6850 50  0001 C CNN
+F 3 "" H 6400 6850 50  0001 C CNN
+	1    6400 6850
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:Jumper_3_Bridged12 JP7
+U 1 1 6069CAB1
+P 6100 6800
+F 0 "JP7" H 6100 6912 50  0000 C CNN
+F 1 "Jumper_3_Bridged12" H 6100 6910 50  0001 C CNN
+F 2 "Jumper:SolderJumper-3_P1.3mm_Bridged12_RoundedPad1.0x1.5mm" H 6100 6800 50  0001 C CNN
+F 3 "~" H 6100 6800 50  0001 C CNN
+	1    6100 6800
+	-1   0    0    1   
+$EndComp
 Wire Bus Line
 	1700 1150 1700 1950
 Wire Bus Line
