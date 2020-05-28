@@ -1918,7 +1918,7 @@ Wire Notes Line width 20 style solid
 Wire Notes Line width 20 style solid
 	800  5550 800  7000
 Text Notes 900  6900 0    50   ~ 0
-55 ns ROMs must be used. These are the fastest 5V parallel\ndevices in existence, but carry propagation triples their access\ntime when calculationg addition.\n\nTo mitigate the problem, the circuit fully buffers the ROMs'\naddresses and separate buffers isolate them from the IBus.\n\nMicrocode is structured carefully to first perform a dummy read\nfrom the ALU. This latches the operation, and then a full\n250 ns cycle later the microcode reads the ALU Y port value to\ncomplete the operation. This is only necessary for ADD—bitwise\noperations cascade no bits and the result is available within\none cycle.
+55 ns ROMs must be used. These are the fastest 1Mbit 5V\nparallel devices in existence, but carry propagation triples\ntheir access time when calculationg addition.\n\nTo mitigate the problem, the circuit fully buffers the ROMs'\naddresses and separate buffers isolate them from the IBus.\n\nMicrocode is structured carefully to first perform a dummy read\nfrom the ALU. This latches the operation, and then a full\n250 ns cycle later the microcode reads the ALU Y port value to\ncomplete the operation. This is only necessary for ADD—bitwise\noperations cascade no bits and the result is available within\none cycle.
 Text Notes 900  5750 0    66   ~ 13
 Timing
 Text Notes 5900 750  2    63   ~ 13
