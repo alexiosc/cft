@@ -912,25 +912,25 @@ Text Notes 7900 2650 0    50   ~ 0
 Optional impedance\nmatching resistors.
 Text Label 6400 2450 0    50   ~ 0
 ~W₀
-Text Notes 5500 2100 0    50   ~ 0
+Text Notes 5450 2100 0    50   ~ 0
 Pull-up  used to slow\ndown negative edge.\nMay be optional,\ntest first!
 $Comp
 L power:+5V #PWR?
 U 1 1 5E3DAB69
-P 5350 1900
+P 5050 1900
 AR Path="/5F67D4B5/5E3DAB69" Ref="#PWR?"  Part="1" 
 AR Path="/5D46B22D/5E3DAB69" Ref="#PWR0111"  Part="1" 
-F 0 "#PWR0111" H 5350 1750 50  0001 C CNN
-F 1 "+5V" H 5200 2000 50  0000 C CNN
-F 2 "" H 5350 1900 50  0001 C CNN
-F 3 "" H 5350 1900 50  0001 C CNN
-	1    5350 1900
+F 0 "#PWR0111" H 5050 1750 50  0001 C CNN
+F 1 "+5V" H 5138 1937 50  0000 L CNN
+F 2 "" H 5050 1900 50  0001 C CNN
+F 3 "" H 5050 1900 50  0001 C CNN
+	1    5050 1900
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:R_Small R?
 U 1 1 5E3D8531
-P 5350 2050
+P 5050 2050
 AR Path="/5E3D8531" Ref="R?"  Part="1" 
 AR Path="/5CC0D65F/5E3D8531" Ref="R?"  Part="1" 
 AR Path="/5D54E677/5E3D8531" Ref="R?"  Part="1" 
@@ -938,11 +938,11 @@ AR Path="/5D62E1DC/5E3D8531" Ref="R?"  Part="1"
 AR Path="/5DEAC282/5E3D8531" Ref="R?"  Part="1" 
 AR Path="/5F67D4B5/5E3D8531" Ref="R?"  Part="1" 
 AR Path="/5D46B22D/5E3D8531" Ref="R13"  Part="1" 
-F 0 "R13" H 5400 2000 50  0000 L CNN
-F 1 "4.7kΩ" H 5400 2100 50  0000 L CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5350 2050 50  0001 C CNN
-F 3 "~" H 5350 2050 50  0001 C CNN
-	1    5350 2050
+F 0 "R13" H 4991 2004 50  0000 R CNN
+F 1 "4.7kΩ" H 4991 2095 50  0000 R CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5050 2050 50  0001 C CNN
+F 3 "~" H 5050 2050 50  0001 C CNN
+	1    5050 2050
 	-1   0    0    1   
 $EndComp
 Text Notes 7150 2250 0    50   ~ 0
@@ -1060,19 +1060,19 @@ Wire Wire Line
 Wire Wire Line
 	4900 1600 4900 2350
 Text Label 5650 2350 2    50   ~ 0
-~WEN
+~WEN-DELAYED
 Wire Wire Line
-	5350 1900 5350 1950
+	5050 1900 5050 1950
 Wire Wire Line
-	5350 2150 5350 2350
+	5050 2150 5050 2350
 Wire Notes Line
-	5000 1700 6500 1700
+	4950 1700 6450 1700
 Wire Notes Line
-	6500 1700 6500 2200
+	6450 1700 6450 2200
 Wire Notes Line
-	6500 2200 5000 2200
+	6450 2200 4950 2200
 Wire Notes Line
-	5000 2200 5000 1700
+	4950 2200 4950 1700
 Text HLabel 1650 2450 0    50   Input ~ 0
 CLK2
 Wire Wire Line
@@ -1082,11 +1082,6 @@ Wire Wire Line
 Connection ~ 5150 3250
 Text Notes 8950 1300 0    50   ~ 0
 ~W~\n\nZ\n0\n1\n1\n0
-Connection ~ 5350 2350
-Wire Wire Line
-	5350 2350 5650 2350
-Wire Wire Line
-	4900 2350 5050 2350
 $Comp
 L Device:R_Small R?
 U 1 1 5F81417E
@@ -1674,24 +1669,6 @@ F 3 "~" H 2600 1600 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	2700 1600 3250 1600
-$Comp
-L Device:R_Small R?
-U 1 1 6006F086
-P 5150 2350
-AR Path="/6006F086" Ref="R?"  Part="1" 
-AR Path="/5CC0D65F/6006F086" Ref="R?"  Part="1" 
-AR Path="/5D54E677/6006F086" Ref="R?"  Part="1" 
-AR Path="/5D62E1DC/6006F086" Ref="R?"  Part="1" 
-AR Path="/5DEAC282/6006F086" Ref="R?"  Part="1" 
-AR Path="/5F67D4B5/6006F086" Ref="R?"  Part="1" 
-AR Path="/5D46B22D/6006F086" Ref="R16"  Part="1" 
-F 0 "R16" V 5225 2350 50  0000 C CNN
-F 1 "0Ω" V 5200 2500 50  0000 C CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5150 2350 50  0001 C CNN
-F 3 "~" H 5150 2350 50  0001 C CNN
-	1    5150 2350
-	0    -1   -1   0   
-$EndComp
 Text Notes 3900 1800 0    100  ~ 20
 Write Strobe
 $Comp
@@ -1866,9 +1843,7 @@ $EndComp
 Connection ~ 10350 1850
 Connection ~ 10350 2050
 Text Label 2700 1600 0    50   ~ 0
-~WEN-DELAYED
-Wire Wire Line
-	5250 2350 5350 2350
+~WEN1
 Wire Wire Line
 	3250 1600 4900 1600
 $Comp
@@ -1930,10 +1905,6 @@ Text HLabel 7200 1500 2    50   Output ~ 0
 HALT
 Text Notes 7200 1650 0    50   ~ 0
 Also used by the AR.
-Wire Bus Line
-	8750 3250 8750 5600
-Wire Bus Line
-	6850 3600 6850 6050
 Text Label 9450 3000 2    50   ~ 0
 ~WAITING
 Text Label 5650 2550 2    50   ~ 0
@@ -1942,4 +1913,13 @@ Text Label 5650 3250 2    50   ~ 0
 ~WAITING0
 Text Label 4750 3600 0    50   ~ 0
 ~WAITING0
+Wire Wire Line
+	4900 2350 5050 2350
+Connection ~ 5050 2350
+Wire Wire Line
+	5050 2350 5650 2350
+Wire Bus Line
+	8750 3250 8750 5600
+Wire Bus Line
+	6850 3600 6850 6050
 $EndSCHEMATC

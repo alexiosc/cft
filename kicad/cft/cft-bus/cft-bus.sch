@@ -750,8 +750,8 @@ Text Label 6900 3800 2    50   ~ 0
 HALT
 Wire Wire Line
 	4950 2100 4100 2100
-Wire Bus Line
-	9950 1450 9950 1700
 Text Label 4100 2100 0    50   ~ 0
 ~HALT
+Wire Bus Line
+	9950 1450 9950 1700
 $EndSCHEMATC

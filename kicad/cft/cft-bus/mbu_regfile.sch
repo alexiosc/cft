@@ -1278,124 +1278,148 @@ Registers 0–3\n
 Text Notes 8150 6350 0    50   ~ 0
 The Register file is made of of 2×2 array of 4×4-bit\n74HC670 register files. They can be read from and\nwritten to simultaneously, though this doesn't happen\non the CFT.\n\nA buffer allows the output of the register file to be\ntri-stated. Pull-down resistors and a multiplexer\nallow the register files to be disabled until needed.\n\nIn that case, AEXT will be hardwired to either &00\nor &80, depending on the state of the RAM/ROM\nswitch on the front panel.
 NoConn ~ 8350 3450
-$Comp
-L Connector_Generic:Conn_02x07_Counter_Clockwise J1
-U 1 1 6026A398
-P 8500 4550
-F 0 "J1" H 8550 4975 50  0000 C CNN
-F 1 "Conn_02x07_Counter_Clockwise" H 8550 4976 50  0001 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_2x07_P2.54mm_Vertical" H 8500 4550 50  0001 C CNN
-F 3 "~" H 8500 4550 50  0001 C CNN
-	1    8500 4550
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
-	8300 4250 8000 4250
-Wire Wire Line
-	8300 4350 8000 4350
-Wire Wire Line
-	8300 4450 8000 4450
-Wire Wire Line
-	9700 4550 9400 4550
-Wire Wire Line
-	8300 4650 8000 4650
-Wire Wire Line
-	8300 4750 8000 4750
-Wire Wire Line
-	8300 4850 8000 4850
-Wire Wire Line
-	9100 4250 8800 4250
-Wire Wire Line
-	9100 4350 8800 4350
+	9400 4650 9700 4650
 Wire Wire Line
 	10500 4450 10200 4450
 Wire Wire Line
-	9100 4550 8800 4550
-Wire Wire Line
-	10500 4650 10200 4650
-Wire Wire Line
-	9100 4750 8800 4750
-Wire Wire Line
-	9100 4850 8800 4850
-$Comp
-L Connector_Generic:Conn_02x07_Counter_Clockwise J2
-U 1 1 602A65DB
-P 9900 4550
-F 0 "J2" H 9950 4975 50  0000 C CNN
-F 1 "Conn_02x07_Counter_Clockwise" H 9950 4976 50  0001 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_2x07_P2.54mm_Vertical" H 9900 4550 50  0001 C CNN
-F 3 "~" H 9900 4550 50  0001 C CNN
-	1    9900 4550
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
 	9700 4250 9400 4250
 Wire Wire Line
-	9700 4350 9400 4350
+	9700 4550 9400 4550
+Wire Wire Line
+	10200 4750 10500 4750
+Wire Wire Line
+	9400 4350 9700 4350
+Wire Wire Line
+	10500 4550 10200 4550
+Wire Wire Line
+	10500 4350 10200 4350
+Text Label 9400 4350 0    50   ~ 0
+D4
+Text Label 9400 4250 0    50   ~ 0
+D5
+Text Label 9400 4450 0    50   ~ 0
+D6
+Text Label 9400 4550 0    50   ~ 0
+D7
+Text Label 9400 4650 0    50   ~ 0
+WA1
+Text Label 9400 4750 0    50   ~ 0
+RA1
+Text Label 10500 4450 2    50   ~ 0
+~REN0
+Text Label 10500 4750 2    50   ~ 0
+RD7
+Text Label 10500 4550 2    50   ~ 0
+RD4
+Text Label 10500 4350 2    50   ~ 0
+RD5
 Wire Wire Line
 	9700 4450 9400 4450
 Wire Wire Line
 	9700 4750 9400 4750
-Wire Wire Line
-	9700 4850 9400 4850
-Wire Wire Line
-	10500 4250 10200 4250
-Wire Wire Line
-	10500 4750 10200 4750
-Wire Wire Line
-	10500 4850 10200 4850
-Text Label 8000 4250 0    50   ~ 0
-D1
-Text Label 9100 4250 2    50   ~ 0
-D0
-Text Label 8000 4350 0    50   ~ 0
-D2
-Text Label 8000 4450 0    50   ~ 0
-D3
 Text Label 10500 4250 2    50   ~ 0
-D4
-Text Label 9400 4250 0    50   ~ 0
-D5
-Text Label 9400 4350 0    50   ~ 0
-D6
-Text Label 9400 4450 0    50   ~ 0
-D7
-Text Label 9100 4350 2    50   ~ 0
-WA0
-Text Label 10500 4450 2    50   ~ 0
-WA1
-Text Label 9400 4550 0    50   ~ 0
-RA1
-Text Label 8000 4650 0    50   ~ 0
-RA0
-Text Label 8000 4750 0    50   ~ 0
-RD3
-Text Label 8000 4850 0    50   ~ 0
-RD2
-Text Label 9100 4550 2    50   ~ 0
-~WEN0
-Text Label 10500 4650 2    50   ~ 0
-~REN0
-Text Label 9100 4750 2    50   ~ 0
-RD0
-Text Label 9100 4850 2    50   ~ 0
-RD1
-Text Label 9400 4750 0    50   ~ 0
-RD7
-Text Label 9400 4850 0    50   ~ 0
 RD6
-Text Label 10500 4750 2    50   ~ 0
-RD4
-Text Label 10500 4850 2    50   ~ 0
-RD5
-NoConn ~ 8800 4450
-NoConn ~ 8300 4550
-NoConn ~ 10200 4350
-NoConn ~ 10200 4550
-NoConn ~ 8800 4650
-NoConn ~ 9700 4650
+Wire Wire Line
+	10200 4250 10500 4250
+Text Label 9150 4350 2    50   ~ 0
+RD2
+Text Label 8050 4550 0    50   ~ 0
+D2
+Text Label 8050 4350 0    50   ~ 0
+D1
+Wire Wire Line
+	8850 4350 9150 4350
+Wire Wire Line
+	8350 4550 8050 4550
+Wire Wire Line
+	8350 4350 8050 4350
+Text Label 9150 4250 2    50   ~ 0
+RD1
+Text Label 8050 4650 0    50   ~ 0
+~WEN0
+Text Label 8050 4450 0    50   ~ 0
+WA0
+Text Label 8050 4250 0    50   ~ 0
+D0
+Wire Wire Line
+	9150 4250 8850 4250
+Wire Wire Line
+	8050 4650 8350 4650
+Wire Wire Line
+	8050 4450 8350 4450
+Wire Wire Line
+	8050 4250 8350 4250
+Wire Wire Line
+	8350 4750 8050 4750
+Wire Wire Line
+	8850 4650 9150 4650
+Text Label 8050 4750 0    50   ~ 0
+D3
+Text Label 9150 4650 2    50   ~ 0
+RA0
+Wire Wire Line
+	8850 4750 9150 4750
+Text Label 9150 4750 2    50   ~ 0
+RD3
+Text Label 9150 4450 2    50   ~ 0
+RD0
+Wire Wire Line
+	9150 4450 8850 4450
+$Comp
+L Connector_Generic:Conn_02x06_Counter_Clockwise J1
+U 1 1 60DE7914
+P 8550 4450
+F 0 "J1" H 8600 4775 50  0000 C CNN
+F 1 "Conn_02x06_Counter_Clockwise" H 8600 4776 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x06_P2.54mm_Vertical" H 8550 4450 50  0001 C CNN
+F 3 "~" H 8550 4450 50  0001 C CNN
+	1    8550 4450
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector_Generic:Conn_02x06_Counter_Clockwise J2
+U 1 1 60E5FDEB
+P 9900 4450
+F 0 "J2" H 9950 4775 50  0000 C CNN
+F 1 "Conn_02x06_Counter_Clockwise" H 9950 4776 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x06_P2.54mm_Vertical" H 9900 4450 50  0001 C CNN
+F 3 "~" H 9900 4450 50  0001 C CNN
+	1    9900 4450
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	10200 4650 10600 4650
+Wire Wire Line
+	10600 4650 10600 4750
+$Comp
+L power:GND #PWR0160
+U 1 1 60E9A285
+P 10600 4750
+F 0 "#PWR0160" H 10600 4500 50  0001 C CNN
+F 1 "GND" H 10605 4577 50  0000 C CNN
+F 2 "" H 10600 4750 50  0001 C CNN
+F 3 "" H 10600 4750 50  0001 C CNN
+	1    10600 4750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8850 4550 9250 4550
+Wire Wire Line
+	9250 4550 9250 4500
 Wire Bus Line
 	6750 1250 6750 3350
 Wire Bus Line
 	4250 1250 4250 3350
+$Comp
+L power:+5V #PWR0161
+U 1 1 60EA4931
+P 9250 4500
+F 0 "#PWR0161" H 9250 4350 50  0001 C CNN
+F 1 "+5V" H 9265 4673 50  0000 C CNN
+F 2 "" H 9250 4500 50  0001 C CNN
+F 3 "" H 9250 4500 50  0001 C CNN
+	1    9250 4500
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
