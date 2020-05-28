@@ -784,8 +784,6 @@ Text HLabel 1650 3600 0    50   Input ~ 0
 ~RSTHOLD
 Wire Wire Line
 	4750 3600 5150 3600
-Text Label 5050 3600 2    50   ~ 0
-~WAITING
 Wire Wire Line
 	3850 3400 3750 3400
 Text Label 1750 3600 0    50   ~ 0
@@ -850,8 +848,6 @@ Wire Wire Line
 Wire Wire Line
 	7600 3000 7450 3000
 Text HLabel 9550 3000 2    50   Output ~ 0
-~WAITING
-Text Label 9450 3000 2    50   ~ 0
 ~WAITING
 Wire Notes Line
 	8750 3100 7500 3100
@@ -1059,8 +1055,6 @@ Wire Wire Line
 	4800 2450 5650 2450
 Wire Wire Line
 	5650 2550 5150 2550
-Text Label 5650 2550 2    50   ~ 0
-~WAITING
 Wire Wire Line
 	2000 1600 2500 1600
 Wire Wire Line
@@ -1086,8 +1080,6 @@ Wire Wire Line
 Wire Wire Line
 	5150 3250 5150 2550
 Connection ~ 5150 3250
-Text Label 5650 3250 2    50   ~ 0
-~WAITING
 Text Notes 8950 1300 0    50   ~ 0
 ~W~\n\nZ\n0\n1\n1\n0
 Connection ~ 5350 2350
@@ -1936,10 +1928,18 @@ Wire Wire Line
 Connection ~ 7050 1500
 Text HLabel 7200 1500 2    50   Output ~ 0
 HALT
+Text Notes 7200 1650 0    50   ~ 0
+Also used by the AR.
 Wire Bus Line
 	8750 3250 8750 5600
 Wire Bus Line
 	6850 3600 6850 6050
-Text Notes 7200 1650 0    50   ~ 0
-Also used by the AR.
+Text Label 9450 3000 2    50   ~ 0
+~WAITING
+Text Label 5650 2550 2    50   ~ 0
+~WAITING0
+Text Label 5650 3250 2    50   ~ 0
+~WAITING0
+Text Label 4750 3600 0    50   ~ 0
+~WAITING0
 $EndSCHEMATC
