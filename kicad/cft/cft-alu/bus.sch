@@ -932,10 +932,6 @@ Wire Wire Line
 	9800 4900 9800 4800
 Wire Wire Line
 	9750 4900 9800 4900
-Text Label 6750 2650 2    50   ~ 0
-~RUEN
-Text Label 6750 2750 2    50   ~ 0
-~WUEN
 NoConn ~ 2150 2350
 $Comp
 L power:+5V #PWR?

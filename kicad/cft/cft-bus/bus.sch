@@ -1049,8 +1049,6 @@ Wire Wire Line
 	9800 4900 9800 4800
 Wire Wire Line
 	9750 4900 9800 4900
-Text Label 6800 2650 2    50   ~ 0
-~WEN
 Text Label 6800 2750 2    50   ~ 0
 ~WAITING
 NoConn ~ 2150 2350
@@ -1228,8 +1226,7 @@ NoConn ~ 6850 4050
 NoConn ~ 6850 4150
 Text HLabel 6850 2750 2    50   UnSpc ~ 0
 ~WAITING
-Text HLabel 6850 2650 2    50   UnSpc ~ 0
-~WEN
+NoConn ~ 6850 2650
 Wire Bus Line
 	7100 3450 7100 5850
 Wire Bus Line

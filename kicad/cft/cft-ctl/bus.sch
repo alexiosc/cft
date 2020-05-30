@@ -902,8 +902,6 @@ Wire Wire Line
 	9800 4900 9800 4800
 Wire Wire Line
 	9750 4900 9800 4900
-Text Label 6800 2650 2    50   ~ 0
-~WEN
 Text Label 6800 2750 2    50   ~ 0
 ~WAITING
 $Comp
@@ -1148,18 +1146,6 @@ NoConn ~ 6850 2250
 NoConn ~ 6850 2350
 Text HLabel 6850 2750 2    50   Output ~ 0
 ~WAITING
-Text HLabel 6850 2650 2    50   UnSpc ~ 0
-~WEN
-Wire Bus Line
-	7000 3950 7000 5750
-Wire Bus Line
-	7100 3450 7100 5850
-Wire Bus Line
-	7200 2950 7200 5950
-Wire Bus Line
-	4800 3550 4800 5650
-Wire Bus Line
-	4700 1850 4700 5550
 $Comp
 L alexios:CFT-2019-Bus P?
 U 3 1 5FDDDE99
@@ -1194,4 +1180,15 @@ F 3 "" H 9300 3750 50  0001 C CNN
 	4    9350 4650
 	1    0    0    -1  
 $EndComp
+NoConn ~ 6850 2650
+Wire Bus Line
+	7000 3950 7000 5750
+Wire Bus Line
+	7100 3450 7100 5850
+Wire Bus Line
+	7200 2950 7200 5950
+Wire Bus Line
+	4800 3550 4800 5650
+Wire Bus Line
+	4700 1850 4700 5550
 $EndSCHEMATC

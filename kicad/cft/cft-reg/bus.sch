@@ -947,10 +947,6 @@ Wire Wire Line
 	6500 2650 6900 2650
 Wire Wire Line
 	6500 2750 6900 2750
-Text Label 6850 2650 2    50   ~ 0
-~RUEN
-Text Label 6850 2750 2    50   ~ 0
-~WUEN
 Wire Wire Line
 	9750 4800 9800 4800
 Connection ~ 9800 4900

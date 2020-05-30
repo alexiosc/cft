@@ -1407,10 +1407,6 @@ Wire Wire Line
 	8850 4550 9250 4550
 Wire Wire Line
 	9250 4550 9250 4500
-Wire Bus Line
-	6750 1250 6750 3350
-Wire Bus Line
-	4250 1250 4250 3350
 $Comp
 L power:+5V #PWR0161
 U 1 1 60EA4931
@@ -1422,4 +1418,8 @@ F 3 "" H 9250 4500 50  0001 C CNN
 	1    9250 4500
 	1    0    0    -1  
 $EndComp
+Wire Bus Line
+	6750 1250 6750 3350
+Wire Bus Line
+	4250 1250 4250 3350
 $EndSCHEMATC

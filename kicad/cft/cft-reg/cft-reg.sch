@@ -1272,12 +1272,6 @@ Wire Wire Line
 	1250 5800 1300 5800
 Wire Wire Line
 	1250 4350 1300 4350
-Wire Bus Line
-	850  3350 850  4150
-Wire Bus Line
-	850  1900 850  2700
-Wire Bus Line
-	850  4800 850  5500
 $Comp
 L Device:Jumper_NC_Small JP3
 U 1 1 602831A6
@@ -1311,4 +1305,10 @@ F 3 "~" H 1150 2900 50  0001 C CNN
 	1    1150 2900
 	1    0    0    -1  
 $EndComp
+Wire Bus Line
+	850  3350 850  4150
+Wire Bus Line
+	850  1900 850  2700
+Wire Bus Line
+	850  4800 850  5500
 $EndSCHEMATC

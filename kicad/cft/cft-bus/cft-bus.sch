@@ -507,8 +507,6 @@ Wire Wire Line
 	10000 5300 9500 5300
 Wire Wire Line
 	10000 5100 9500 5100
-Text Notes 10050 3000 0    50   ~ 0
-← Control Unit
 Wire Wire Line
 	10000 3100 9500 3100
 Text Label 10000 5000 2    50   ~ 0
@@ -573,7 +571,6 @@ NoConn ~ 10000 3300
 NoConn ~ 10000 3400
 NoConn ~ 10000 3500
 NoConn ~ 10000 3600
-NoConn ~ 10000 3700
 NoConn ~ 10000 3800
 NoConn ~ 10000 3900
 NoConn ~ 10000 4000
@@ -674,7 +671,6 @@ F66 "C38" U R 9500 5300 50
 F67 "C39" U R 9500 5400 50 
 F68 "C40" U R 9500 5500 50 
 F69 "~WAITING" U L 8350 4100 50 
-F70 "~WEN" U L 8350 3900 50 
 $EndSheet
 Wire Wire Line
 	2900 2750 4950 2750
@@ -727,8 +723,6 @@ Wire Wire Line
 	6050 4550 6900 4550
 Text Label 6900 4550 2    50   ~ 0
 ~WAITING
-Text Label 10000 3000 2    50   ~ 0
-~WAITING
 Wire Wire Line
 	8350 4100 7800 4100
 Text Label 7800 4100 0    50   ~ 0
@@ -736,9 +730,7 @@ Text Label 7800 4100 0    50   ~ 0
 Wire Wire Line
 	10000 2900 9500 2900
 NoConn ~ 10000 2900
-Wire Wire Line
-	7800 3900 8350 3900
-Text Label 7800 3900 0    50   ~ 0
+Text Label 10000 3700 2    50   ~ 0
 ~WEN
 Text Label 4050 3900 0    50   ~ 0
 CLK2
@@ -752,6 +744,7 @@ Wire Wire Line
 	4950 2100 4100 2100
 Text Label 4100 2100 0    50   ~ 0
 ~HALT
+NoConn ~ 10000 3000
 Wire Bus Line
 	9950 1450 9950 1700
 $EndSCHEMATC
