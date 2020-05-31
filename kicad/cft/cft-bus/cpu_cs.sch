@@ -584,48 +584,38 @@ Wire Wire Line
 	3750 4900 3700 4900
 Wire Wire Line
 	3700 4900 3700 5100
-Text HLabel 2150 4450 0    50   Input ~ 0
-T34
-$Comp
-L Jumper:Jumper_3_Bridged12 JP?
-U 1 1 5FDA9E2A
-P 2750 4800
-AR Path="/61F95ACC/63C9F04D/5FDA9E2A" Ref="JP?"  Part="1" 
-AR Path="/61F95ACC/5FDA9E2A" Ref="JP?"  Part="1" 
-AR Path="/5CC06F10/5FDA9E2A" Ref="JP?"  Part="1" 
-AR Path="/5E25A7FA/5FDA9E2A" Ref="JP1"  Part="1" 
-F 0 "JP1" V 2750 4867 50  0000 L CNN
-F 1 "Jumper_3_Bridged12" H 2750 4913 50  0001 C CNN
-F 2 "Jumper:SolderJumper-3_P1.3mm_Bridged12_RoundedPad1.0x1.5mm" H 2750 4800 50  0001 C CNN
-F 3 "~" H 2750 4800 50  0001 C CNN
-	1    2750 4800
-	0    -1   -1   0   
-$EndComp
-Wire Wire Line
-	2150 4450 2750 4450
-Wire Wire Line
-	2750 4450 2750 4550
-Text Label 2200 4450 0    50   ~ 0
-T34
 $Comp
 L power:GND #PWR010
 U 1 1 5FDB5419
-P 2750 5100
-F 0 "#PWR010" H 2750 4850 50  0001 C CNN
-F 1 "GND" H 2755 4927 50  0000 C CNN
-F 2 "" H 2750 5100 50  0001 C CNN
-F 3 "" H 2750 5100 50  0001 C CNN
-	1    2750 5100
+P 3050 4850
+F 0 "#PWR010" H 3050 4600 50  0001 C CNN
+F 1 "GND" H 3055 4677 50  0000 C CNN
+F 2 "" H 3050 4850 50  0001 C CNN
+F 3 "" H 3050 4850 50  0001 C CNN
+	1    3050 4850
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	2750 5050 2750 5100
-Text Label 3000 4800 0    50   ~ 0
+	3050 4800 3050 4850
+Text Label 3450 4800 0    50   ~ 0
 ~CSEN
 Wire Wire Line
-	2900 4800 3750 4800
+	3400 4800 3750 4800
 Text Notes 1100 1050 0    100  ~ 20
 The Constant Store
+$Comp
+L Jumper:SolderJumper_2_Bridged JP1
+U 1 1 5F93915C
+P 3250 4800
+F 0 "JP1" H 3250 5005 50  0000 C CNN
+F 1 "SolderJumper_2_Bridged" H 3250 4914 50  0001 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 3250 4800 50  0001 C CNN
+F 3 "~" H 3250 4800 50  0001 C CNN
+	1    3250 4800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3100 4800 3050 4800
 Wire Bus Line
 	2850 2350 2850 4200
 Wire Bus Line

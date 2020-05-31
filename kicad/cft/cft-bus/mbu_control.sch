@@ -1345,7 +1345,7 @@ Text Label 7100 1850 2    50   ~ 0
 Wire Wire Line
 	5200 1650 5250 1650
 Text Label 4800 1750 0    50   ~ 0
-~T34
+CLK2
 Text Label 4800 1550 0    50   ~ 0
 ~IR-IDX
 Text HLabel 4750 1850 0    50   Input ~ 0
@@ -1366,7 +1366,7 @@ F 3 "" H 5200 1400 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Text HLabel 4750 1750 0    50   Input ~ 0
-~T34
+CLK2
 Wire Wire Line
 	5250 1750 4750 1750
 Wire Wire Line

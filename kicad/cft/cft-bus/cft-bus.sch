@@ -284,8 +284,8 @@ Wire Bus Line
 Text Label 3750 1500 2    50   ~ 0
 AEXT[0..7]
 Wire Bus Line
-	1750 2050 900  2050
-Text Label 900  2050 0    50   ~ 0
+	1750 2150 900  2150
+Text Label 900  2150 0    50   ~ 0
 IBUS[0..15]
 Text Label 6900 4450 2    50   ~ 0
 ~W
@@ -323,18 +323,18 @@ Text Label 900  2750 0    50   ~ 0
 ~FPRAM~∕ROM
 Text Label 3000 2750 0    50   ~ 0
 ~WAR
-Text Label 900  1950 0    50   ~ 0
+Text Label 900  2050 0    50   ~ 0
 WADDR[0..4]
-Text Label 900  1850 0    50   ~ 0
+Text Label 900  1950 0    50   ~ 0
 RADDR[0..4]
 Wire Bus Line
-	1750 1850 900  1850
-Wire Bus Line
 	1750 1950 900  1950
-Text Label 900  1700 0    50   ~ 0
+Wire Bus Line
+	1750 2050 900  2050
+Text Label 900  1800 0    50   ~ 0
 ~T34
 Wire Wire Line
-	1750 1700 900  1700
+	1750 1800 900  1800
 Text Label 900  1500 0    50   ~ 0
 ~RESET
 Wire Wire Line
@@ -589,8 +589,8 @@ NoConn ~ 10000 5200
 Wire Wire Line
 	9500 5200 10000 5200
 Wire Wire Line
-	1750 2150 900  2150
-Text Label 900  2150 0    50   ~ 0
+	1750 2250 900  2250
+Text Label 900  2250 0    50   ~ 0
 ~IR-IDX
 Wire Wire Line
 	10000 3000 9500 3000
@@ -677,12 +677,12 @@ Wire Wire Line
 Text Notes 4900 1100 0    100  ~ 20
 Address Register
 Wire Wire Line
-	1750 2250 900  2250
-Wire Wire Line
 	1750 2350 900  2350
-Text Label 900  2250 0    50   ~ 0
-IR0
+Wire Wire Line
+	1750 2450 900  2450
 Text Label 900  2350 0    50   ~ 0
+IR0
+Text Label 900  2450 0    50   ~ 0
 IR1
 $Sheet
 S 1750 1350 1150 1550
@@ -691,29 +691,31 @@ F0 "Memory Bank Unit (MBU)" 50
 F1 "mbu.sch" 50
 F2 "~RESET" I L 1750 1500 50 
 F3 "AEXT[0..7]" O R 2900 1500 50 
-F4 "WADDR[0..4]" I L 1750 1950 50 
+F4 "WADDR[0..4]" I L 1750 2050 50 
 F5 "~FPRAM~∕ROM" I L 1750 2750 50 
-F6 "IBUS[0..7]" T L 1750 2050 50 
-F7 "RADDR[0..4]" I L 1750 1850 50 
+F6 "IBUS[0..7]" T L 1750 2150 50 
+F7 "RADDR[0..4]" I L 1750 1950 50 
 F8 "AB[0..7]" I R 2900 1850 50 
 F9 "~W" I R 2900 2050 50 
 F10 "~SYSDEV" I R 2900 1750 50 
 F11 "DB[0..7]" B R 2900 2150 50 
-F12 "~T34" I L 1750 1700 50 
-F13 "~IR-IDX" I L 1750 2150 50 
+F12 "~T34" I L 1750 1800 50 
+F13 "~IR-IDX" I L 1750 2250 50 
 F14 "~WAR" O R 2900 2750 50 
-F15 "IR0" I L 1750 2250 50 
-F16 "IR1" I L 1750 2350 50 
+F15 "IR0" I L 1750 2350 50 
+F16 "IR1" I L 1750 2450 50 
 F17 "~R" I R 2900 1950 50 
-F18 "IR2" I L 1750 2450 50 
+F18 "IR2" I L 1750 2550 50 
+F19 "CLK4" I L 1750 1700 50 
+F20 "CLK2" I L 1750 1600 50 
 $EndSheet
 Wire Wire Line
 	2900 1950 3750 1950
 Text Label 3750 1950 2    50   ~ 0
 ~R
 Wire Wire Line
-	1750 2450 900  2450
-Text Label 900  2450 0    50   ~ 0
+	1750 2550 900  2550
+Text Label 900  2550 0    50   ~ 0
 IR2
 Text Label 850  3850 0    50   ~ 0
 ~T34
@@ -745,6 +747,14 @@ Wire Wire Line
 Text Label 4100 2100 0    50   ~ 0
 ~HALT
 NoConn ~ 10000 3000
+Wire Wire Line
+	1750 1600 900  1600
+Text Label 900  1600 0    50   ~ 0
+CLK2
+Wire Wire Line
+	1750 1700 900  1700
 Wire Bus Line
 	9950 1450 9950 1700
+Text Label 900  1700 0    50   ~ 0
+CLK4
 $EndSCHEMATC
