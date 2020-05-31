@@ -753,8 +753,8 @@ Text Label 900  1600 0    50   ~ 0
 CLK2
 Wire Wire Line
 	1750 1700 900  1700
-Wire Bus Line
-	9950 1450 9950 1700
 Text Label 900  1700 0    50   ~ 0
 CLK4
+Wire Bus Line
+	9950 1450 9950 1700
 $EndSCHEMATC

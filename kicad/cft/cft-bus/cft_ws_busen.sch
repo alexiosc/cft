@@ -1630,7 +1630,7 @@ Wire Wire Line
 $Comp
 L Device:R_Small R?
 U 1 1 600632BF
-P 3750 2450
+P 3350 2450
 AR Path="/600632BF" Ref="R?"  Part="1" 
 AR Path="/5CC0D65F/600632BF" Ref="R?"  Part="1" 
 AR Path="/5D54E677/600632BF" Ref="R?"  Part="1" 
@@ -1638,17 +1638,17 @@ AR Path="/5D62E1DC/600632BF" Ref="R?"  Part="1"
 AR Path="/5DEAC282/600632BF" Ref="R?"  Part="1" 
 AR Path="/5F67D4B5/600632BF" Ref="R?"  Part="1" 
 AR Path="/5D46B22D/600632BF" Ref="R17"  Part="1" 
-F 0 "R17" V 3946 2450 50  0000 C CNN
-F 1 "0Ω" V 3855 2450 50  0000 C CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3750 2450 50  0001 C CNN
-F 3 "~" H 3750 2450 50  0001 C CNN
-	1    3750 2450
+F 0 "R17" V 3450 2450 50  0000 C CNN
+F 1 "0Ω" V 3400 2300 50  0000 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3350 2450 50  0001 C CNN
+F 3 "~" H 3350 2450 50  0001 C CNN
+	1    3350 2450
 	0    -1   -1   0   
 $EndComp
 Wire Wire Line
-	3850 2450 3900 2450
+	3450 2450 3900 2450
 Wire Wire Line
-	1650 2450 3650 2450
+	1650 2450 3250 2450
 $Comp
 L Device:R_Small R?
 U 1 1 6006D390
@@ -1922,4 +1922,6 @@ Wire Bus Line
 	8750 3250 8750 5600
 Wire Bus Line
 	6850 3600 6850 6050
+Text Label 3650 2450 0    50   ~ 0
+CLK2'
 $EndSCHEMATC
