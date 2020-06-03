@@ -1368,18 +1368,6 @@ NoConn ~ 3250 5600
 NoConn ~ 3250 5700
 Text Notes 2800 5750 1    50   ~ 10
 WADDR=001XX
-Wire Wire Line
-	2250 1350 1950 1350
-Wire Wire Line
-	2250 1450 1950 1450
-Wire Wire Line
-	2250 1550 1950 1550
-Wire Wire Line
-	2250 1950 1950 1950
-Wire Wire Line
-	2250 2050 1950 2050
-Wire Wire Line
-	2250 2150 1400 2150
 Text Label 1950 2150 0    50   ~ 0
 ~SYSDEV
 $Comp
@@ -1596,6 +1584,20 @@ Wire Wire Line
 Connection ~ 2200 5900
 Wire Wire Line
 	2200 5900 2200 5950
+Text HLabel 2000 4550 0    50   Input ~ 0
+CLK4
+Wire Wire Line
+	1800 1350 2250 1350
+Wire Wire Line
+	1800 1450 2250 1450
+Wire Wire Line
+	1800 1550 2250 1550
+Wire Wire Line
+	1800 1950 2250 1950
+Wire Wire Line
+	1800 2050 2250 2050
+Wire Wire Line
+	1250 2150 2250 2150
 Wire Bus Line
 	1700 1150 1700 1950
 Wire Bus Line
@@ -1610,6 +1612,4 @@ Wire Bus Line
 	10400 3600 10400 4750
 Wire Bus Line
 	8600 1500 8600 5550
-Text HLabel 2000 4550 0    50   Input ~ 0
-CLK4
 $EndSCHEMATC

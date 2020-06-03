@@ -1451,6 +1451,4 @@ Wire Wire Line
 	8250 3250 8250 3450
 Text Label 8200 3350 2    50   ~ 0
 ~IR-IDXR
-Text Notes 4350 1000 0    79   ~ 16
-TODO: SWITCH TO CLK1 or CLK2.
 $EndSCHEMATC

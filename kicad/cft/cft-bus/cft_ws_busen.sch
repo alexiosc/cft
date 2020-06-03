@@ -1918,10 +1918,12 @@ Wire Wire Line
 Connection ~ 5050 2350
 Wire Wire Line
 	5050 2350 5650 2350
+Text Label 3650 2450 0    50   ~ 0
+CLK2'
 Wire Bus Line
 	8750 3250 8750 5600
 Wire Bus Line
 	6850 3600 6850 6050
-Text Label 3650 2450 0    50   ~ 0
-CLK2'
+Text Label 3750 3300 1    50   ~ 0
+~SETWS
 $EndSCHEMATC
