@@ -6,7 +6,7 @@ encoding utf-8
 Sheet 2 6
 Title "CFT Bus Connector"
 Date ""
-Rev "2007"
+Rev "2021"
 Comp ""
 Comment1 "REG"
 Comment2 ""

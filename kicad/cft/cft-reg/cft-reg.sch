@@ -328,153 +328,153 @@ F10 "PC[10..15]" O R 7050 1500 50
 $EndSheet
 Text Notes 5800 950  0    197  ~ 39
 Registers
-Text Notes 750  950  0    197  ~ 39
+Text Notes 1250 950  0    197  ~ 39
 Decoders
 $Comp
 L alexios:74HC138 U2
 U 1 1 5DA3111B
-P 1800 2500
-F 0 "U2" H 1800 3167 50  0000 C CNN
-F 1 "74HC138" H 1800 3076 50  0000 C CNN
-F 2 "alexios:SOIC-16" H 1800 2500 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 1800 2500 50  0001 C CNN
-F 4 "Yes" H 1725 1675 50  0001 C CNN "Verified"
-	1    1800 2500
+P 2300 2500
+F 0 "U2" H 2300 3167 50  0000 C CNN
+F 1 "74HC138" H 2300 3076 50  0000 C CNN
+F 2 "alexios:SOIC-16" H 2300 2500 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 2300 2500 50  0001 C CNN
+F 4 "Yes" H 2225 1675 50  0001 C CNN "Verified"
+	1    2300 2500
 	1    0    0    -1  
 $EndComp
 $Comp
 L alexios:74HC138 U4
 U 1 1 5DA3323E
-P 1800 5400
-F 0 "U4" H 1800 6067 50  0000 C CNN
-F 1 "74HC138" H 1800 5976 50  0000 C CNN
-F 2 "alexios:SOIC-16" H 1800 5400 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 1800 5400 50  0001 C CNN
-F 4 "Yes" H 1725 4575 50  0001 C CNN "Verified"
-	1    1800 5400
+P 2300 5600
+F 0 "U4" H 2300 6267 50  0000 C CNN
+F 1 "74HC138" H 2300 6176 50  0000 C CNN
+F 2 "alexios:SOIC-16" H 2300 5600 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 2300 5600 50  0001 C CNN
+F 4 "Yes" H 2225 4775 50  0001 C CNN "Verified"
+	1    2300 5600
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	1300 5000 950  5000
+	1800 5200 1450 5200
 Wire Wire Line
-	1300 5100 950  5100
+	1800 5300 1450 5300
 Wire Wire Line
-	1300 5200 950  5200
+	1800 5400 1450 5400
 Wire Wire Line
-	1300 5600 950  5600
-Text Label 1000 5600 0    50   ~ 0
+	1800 5800 1450 5800
+Text Label 1500 5800 0    50   ~ 0
 ACTION3
-Text Label 1000 5000 0    50   ~ 0
+Text Label 1500 5200 0    50   ~ 0
 ACTION0
-Text Label 1000 5100 0    50   ~ 0
+Text Label 1500 5300 0    50   ~ 0
 ACTION1
-Text Label 1000 5200 0    50   ~ 0
+Text Label 1500 5400 0    50   ~ 0
 ACTION2
 Entry Wire Line
-	850  4900 950  5000
+	1350 5100 1450 5200
 Entry Wire Line
-	850  5000 950  5100
+	1350 5200 1450 5300
 Entry Wire Line
-	850  5100 950  5200
+	1350 5300 1450 5400
 Entry Wire Line
-	850  5500 950  5600
-Text Label 2900 5000 2    50   ~ 0
+	1350 5700 1450 5800
+Text Label 3400 5200 2    50   ~ 0
 ~ACTION-INCPC
-Text Label 2900 5200 2    50   ~ 0
+Text Label 3400 5400 2    50   ~ 0
 ~ACTION-INCDR
-Text Label 2900 5400 2    50   ~ 0
+Text Label 3400 5600 2    50   ~ 0
 ~ACTION-INCAC
-Text Label 2900 5500 2    50   ~ 0
+Text Label 3400 5700 2    50   ~ 0
 ~ACTION-DECAC
-Text Label 2900 5600 2    50   ~ 0
+Text Label 3400 5800 2    50   ~ 0
 ~ACTION-INCSP
-Text Label 2900 5700 2    50   ~ 0
+Text Label 3400 5900 2    50   ~ 0
 ~ACTION-DECSP
 Wire Wire Line
-	2300 5000 2900 5000
-Text Notes 1850 2750 1    50   ~ 10
+	2800 5200 3400 5200
+Text Notes 2350 2750 1    50   ~ 10
 RADDR=010xx
 Wire Wire Line
-	1300 2700 950  2700
+	1800 2700 1450 2700
 Wire Wire Line
-	1300 2800 950  2800
+	1800 2800 1450 2800
 Wire Wire Line
-	1300 2100 950  2100
+	1800 2100 1450 2100
 Wire Wire Line
-	1300 2200 950  2200
+	1800 2200 1450 2200
 Wire Wire Line
-	1300 2300 950  2300
+	1800 2300 1450 2300
 Wire Wire Line
-	1300 4150 950  4150
+	1800 4150 1450 4150
 Wire Wire Line
-	1300 4250 950  4250
+	1800 4250 1450 4250
 Wire Wire Line
-	1300 3550 950  3550
+	1800 3550 1450 3550
 Wire Wire Line
-	1300 3650 950  3650
+	1800 3650 1450 3650
 Wire Wire Line
-	1300 3750 950  3750
-Text Notes 1850 4250 1    50   ~ 10
+	1800 3750 1450 3750
+Text Notes 2350 4250 1    50   ~ 10
 WADDR=010xx
-Text Label 1000 2100 0    50   ~ 0
+Text Label 1500 2100 0    50   ~ 0
 RADDR0
-Text Label 1000 2200 0    50   ~ 0
+Text Label 1500 2200 0    50   ~ 0
 RADDR1
-Text Label 1000 2300 0    50   ~ 0
+Text Label 1500 2300 0    50   ~ 0
 RADDR2
-Text Label 1000 2700 0    50   ~ 0
+Text Label 1500 2700 0    50   ~ 0
 RADDR3
-Text Label 1000 2800 0    50   ~ 0
+Text Label 1500 2800 0    50   ~ 0
 RADDR4
-Text Label 1000 3550 0    50   ~ 0
+Text Label 1500 3550 0    50   ~ 0
 WADDR0
-Text Label 1000 3650 0    50   ~ 0
+Text Label 1500 3650 0    50   ~ 0
 WADDR1
-Text Label 1000 3750 0    50   ~ 0
+Text Label 1500 3750 0    50   ~ 0
 WADDR2
-Text Label 1000 4250 0    50   ~ 0
+Text Label 1500 4250 0    50   ~ 0
 WADDR4
-Text Label 1000 4150 0    50   ~ 0
+Text Label 1500 4150 0    50   ~ 0
 WADDR3
 Entry Wire Line
-	850  2000 950  2100
+	1350 2000 1450 2100
 Entry Wire Line
-	850  2100 950  2200
+	1350 2100 1450 2200
 Entry Wire Line
-	850  2200 950  2300
+	1350 2200 1450 2300
 Entry Wire Line
-	850  2600 950  2700
+	1350 2600 1450 2700
 Entry Wire Line
-	850  2700 950  2800
+	1350 2700 1450 2800
 Entry Wire Line
-	850  3450 950  3550
+	1350 3450 1450 3550
 Entry Wire Line
-	850  3550 950  3650
+	1350 3550 1450 3650
 Entry Wire Line
-	850  3650 950  3750
+	1350 3650 1450 3750
 Entry Wire Line
-	850  4050 950  4150
+	1350 4050 1450 4150
 Entry Wire Line
-	850  4150 950  4250
-Text Label 2900 3650 2    50   ~ 0
+	1350 4150 1450 4250
+Text Label 3400 3650 2    50   ~ 0
 ~WRITE-DR
-Text Label 2900 3750 2    50   ~ 0
+Text Label 3400 3750 2    50   ~ 0
 ~WRITE-AC
-Text Label 2900 3850 2    50   ~ 0
+Text Label 3400 3850 2    50   ~ 0
 ~WRITE-SP
-NoConn ~ 2300 2500
-NoConn ~ 2300 2600
-NoConn ~ 2300 2700
-NoConn ~ 2300 2800
-NoConn ~ 2300 3950
-NoConn ~ 2300 4050
-NoConn ~ 2300 4150
-NoConn ~ 2300 4250
-Text Label 850  2600 1    50   ~ 0
+NoConn ~ 2800 2500
+NoConn ~ 2800 2600
+NoConn ~ 2800 2700
+NoConn ~ 2800 2800
+NoConn ~ 2800 3950
+NoConn ~ 2800 4050
+NoConn ~ 2800 4150
+NoConn ~ 2800 4250
+Text Label 1350 2600 1    50   ~ 0
 RADDR[4..0]
-Text Label 850  4050 1    50   ~ 0
+Text Label 1350 4050 1    50   ~ 0
 WADDR[4..0]
-Text Label 850  5450 1    50   ~ 0
+Text Label 1350 5650 1    50   ~ 0
 ACTION[3..0]
 Text Label 5050 1700 0    50   ~ 0
 IBUS[0..15]
@@ -1017,59 +1017,59 @@ F8 "IBUS[0..15]" I L 5900 5600 50
 F9 "~DEC" I L 5900 6100 50 
 F10 "FPD[0..7]" T R 7050 5900 50 
 $EndSheet
-Text Label 2900 5300 2    50   ~ 0
+Text Label 3400 5500 2    50   ~ 0
 ~ACTION-DECDR
 Wire Wire Line
-	2300 5200 2900 5200
+	2800 5400 3400 5400
 Wire Wire Line
-	2300 5300 2900 5300
+	2800 5500 3400 5500
 Wire Wire Line
-	2300 5400 2900 5400
+	2800 5600 3400 5600
 Wire Wire Line
-	2300 5500 2900 5500
+	2800 5700 3400 5700
 Wire Wire Line
-	2300 5600 2900 5600
+	2800 5800 3400 5800
 Wire Wire Line
-	2300 5700 2900 5700
+	2800 5900 3400 5900
 Wire Wire Line
-	2300 3550 2900 3550
+	2800 3550 3400 3550
 Wire Wire Line
-	2300 3650 2900 3650
+	2800 3650 3400 3650
 Wire Wire Line
-	2300 3750 2900 3750
+	2800 3750 3400 3750
 Wire Wire Line
-	2300 3850 2900 3850
-Text Label 2900 3550 2    50   ~ 0
+	2800 3850 3400 3850
+Text Label 3400 3550 2    50   ~ 0
 ~WRITE-PC
-Text Label 2900 2400 2    50   ~ 0
+Text Label 3400 2400 2    50   ~ 0
 ~READ-SP
-Text Label 2900 2300 2    50   ~ 0
+Text Label 3400 2300 2    50   ~ 0
 ~READ-AC
-Text Label 2900 2200 2    50   ~ 0
+Text Label 3400 2200 2    50   ~ 0
 ~READ-DR
-Text Label 2900 2100 2    50   ~ 0
+Text Label 3400 2100 2    50   ~ 0
 ~READ-PC
 Wire Wire Line
-	2300 2100 2900 2100
+	2800 2100 3400 2100
 Wire Wire Line
-	2300 2200 2900 2200
+	2800 2200 3400 2200
 Wire Wire Line
-	2300 2300 2900 2300
+	2800 2300 3400 2300
 Wire Wire Line
-	2300 2400 2900 2400
-Text Label 850  1450 0    50   ~ 0
+	2800 2400 3400 2400
+Text Label 1350 1450 0    50   ~ 0
 ~RESET
 Wire Wire Line
-	1400 1450 850  1450
+	1900 1450 1350 1450
 $Comp
 L alexios:74LVC1G04 U1
 U 1 1 5DAE39EC
-P 1700 1450
-F 0 "U1" H 1650 1717 50  0000 C CNN
-F 1 "74LVC1G04" H 1650 1626 50  0000 C CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 1700 1450 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G04.pdf" H 1700 1450 50  0001 C CNN
-	1    1700 1450
+P 2200 1450
+F 0 "U1" H 2150 1717 50  0000 C CNN
+F 1 "74LVC1G04" H 2150 1626 50  0000 C CNN
+F 2 "alexios:SOT-23-5_HandSoldering" H 2200 1450 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G04.pdf" H 2200 1450 50  0001 C CNN
+	1    2200 1450
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
@@ -1080,10 +1080,10 @@ Wire Wire Line
 	5050 4100 5900 4100
 Wire Wire Line
 	5050 5400 5900 5400
-Text Label 2400 1450 2    50   ~ 0
+Text Label 2900 1450 2    50   ~ 0
 RESET
 Wire Wire Line
-	1900 1450 2400 1450
+	2400 1450 2900 1450
 Wire Wire Line
 	5900 6000 5050 6000
 Text Label 5050 3500 0    50   ~ 0
@@ -1188,127 +1188,143 @@ NoConn ~ 10900 4100
 Wire Wire Line
 	10400 4200 10900 4200
 NoConn ~ 10900 4200
-NoConn ~ 2300 5100
-Text Notes 2950 5100 0    50   ~ 0
+NoConn ~ 2800 5300
+Text Notes 3450 5300 0    50   ~ 0
 The PC doesn't decrement
 Text Label 8700 5200 0    50   ~ 0
 RADDR[0..4]
-Text Notes 2600 3200 0    50   ~ 0
+Text Notes 3100 3200 0    50   ~ 0
 [RW]ADDR\n\n01000\n01001\n01010\n01011
-Text Notes 3150 3200 0    50   ~ 0
+Text Notes 3650 3200 0    50   ~ 0
 Reg\n\nPC\nDR\nAC\nSP
 Wire Notes Line width 12 style solid
-	2550 2675 3350 2675
+	3050 2675 3850 2675
 Wire Notes Line width 12 style solid
-	2550 3250 2550 2675
+	3050 3250 3050 2675
 Wire Notes Line width 12 style solid
-	3350 3250 2550 3250
+	3850 3250 3050 3250
 Wire Notes Line width 12 style solid
-	3350 2675 3350 3250
+	3850 2675 3850 3250
 Wire Notes Line style solid
-	2550 2850 3350 2850
+	3050 2850 3850 2850
 Wire Notes Line
-	3100 2675 3100 3250
+	3600 2675 3600 3250
 $Comp
 L alexios:74HC138 U3
 U 1 1 5DA31171
-P 1800 3950
-F 0 "U3" H 1800 4617 50  0000 C CNN
-F 1 "74HC138" H 1800 4526 50  0000 C CNN
-F 2 "alexios:SOIC-16" H 1800 3950 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 1800 3950 50  0001 C CNN
-F 4 "Yes" H 1725 3125 50  0001 C CNN "Verified"
-	1    1800 3950
+P 2300 3950
+F 0 "U3" H 2300 4617 50  0000 C CNN
+F 1 "74HC138" H 2300 4526 50  0000 C CNN
+F 2 "alexios:SOIC-16" H 2300 3950 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 2300 3950 50  0001 C CNN
+F 4 "Yes" H 2225 3125 50  0001 C CNN "Verified"
+	1    2300 3950
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	1050 4350 800  4350
-Text Label 800  4350 0    50   ~ 0
-CLK4
+Text Label 1800 4350 2    50   ~ 0
+CLK4'
 Text Label 8700 2600 0    50   ~ 0
 CLK4
 Text Notes 10700 5800 2    50   ~ 0
 FN≡
-Text Label 1000 5700 0    50   ~ 0
-CLK4
+Text Label 1500 6000 0    50   ~ 0
+CLK4'
 Wire Wire Line
-	1000 5700 1300 5700
-Text Notes 1550 6600 0    50   ~ 0
+	1500 6000 1800 6000
+Text Notes 2050 6800 0    50   ~ 0
 The '193 counters used here treat these as clocks\nand increment/decrement on the signals' rising edge.\nThis tends to be too late in the processor cycle. We can\nadvance the action by using CLK3. Current microcode\ndoesn't use it, but this also fixes a potential bug that\nwould prohibit incrementing a register twice in contiguous\nprocessor cycles.
 NoConn ~ 8700 2500
 Wire Wire Line
-	1050 2900 950  2900
+	1550 2900 1450 2900
 Wire Wire Line
-	950  2900 950  2950
+	1450 2900 1450 2950
 $Comp
 L power:GND #PWR02
 U 1 1 5D9C912E
-P 950 2950
-F 0 "#PWR02" H 950 2700 50  0001 C CNN
-F 1 "GND" H 955 2777 50  0000 C CNN
-F 2 "" H 950 2950 50  0001 C CNN
-F 3 "" H 950 2950 50  0001 C CNN
-	1    950  2950
+P 1450 2950
+F 0 "#PWR02" H 1450 2700 50  0001 C CNN
+F 1 "GND" H 1455 2777 50  0000 C CNN
+F 2 "" H 1450 2950 50  0001 C CNN
+F 3 "" H 1450 2950 50  0001 C CNN
+	1    1450 2950
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	1250 2900 1300 2900
+	1750 2900 1800 2900
 Wire Wire Line
-	1050 5800 950  5800
+	1550 5900 1300 5900
 Wire Wire Line
-	950  5800 950  5850
+	1300 5900 1300 5950
 $Comp
 L power:GND #PWR0115
 U 1 1 60249AD4
-P 950 5850
-F 0 "#PWR0115" H 950 5600 50  0001 C CNN
-F 1 "GND" H 955 5677 50  0000 C CNN
-F 2 "" H 950 5850 50  0001 C CNN
-F 3 "" H 950 5850 50  0001 C CNN
-	1    950  5850
+P 1300 5950
+F 0 "#PWR0115" H 1300 5700 50  0001 C CNN
+F 1 "GND" H 1305 5777 50  0000 C CNN
+F 2 "" H 1300 5950 50  0001 C CNN
+F 3 "" H 1300 5950 50  0001 C CNN
+	1    1300 5950
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	1250 5800 1300 5800
-Wire Wire Line
-	1250 4350 1300 4350
+	1750 5900 1800 5900
 $Comp
 L Device:Jumper_NC_Small JP3
 U 1 1 602831A6
-P 1150 5800
-F 0 "JP3" H 1150 5707 50  0000 C CNN
-F 1 "Jumper_NC_Small" H 1150 5921 50  0001 C CNN
-F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 1150 5800 50  0001 C CNN
-F 3 "~" H 1150 5800 50  0001 C CNN
-	1    1150 5800
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:Jumper_NC_Small JP2
-U 1 1 602836FF
-P 1150 4350
-F 0 "JP2" H 1150 4257 50  0000 C CNN
-F 1 "Jumper_NC_Small" H 1150 4471 50  0001 C CNN
-F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 1150 4350 50  0001 C CNN
-F 3 "~" H 1150 4350 50  0001 C CNN
-	1    1150 4350
+P 1650 5900
+F 0 "JP3" H 1500 5950 50  0000 C CNN
+F 1 "Jumper_NC_Small" H 1650 6021 50  0001 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 1650 5900 50  0001 C CNN
+F 3 "~" H 1650 5900 50  0001 C CNN
+	1    1650 5900
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:Jumper_NC_Small JP1
 U 1 1 60284772
-P 1150 2900
-F 0 "JP1" H 1150 2807 50  0000 C CNN
-F 1 "Jumper_NC_Small" H 1150 3021 50  0001 C CNN
-F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 1150 2900 50  0001 C CNN
-F 3 "~" H 1150 2900 50  0001 C CNN
-	1    1150 2900
+P 1650 2900
+F 0 "JP1" H 1650 2807 50  0000 C CNN
+F 1 "Jumper_NC_Small" H 1650 3021 50  0001 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 1650 2900 50  0001 C CNN
+F 3 "~" H 1650 2900 50  0001 C CNN
+	1    1650 2900
 	1    0    0    -1  
 $EndComp
+NoConn ~ 8700 2400
+Wire Wire Line
+	1200 4150 800  4150
+$Comp
+L power:GND #PWR0116
+U 1 1 5EEF256F
+P 1200 4550
+F 0 "#PWR0116" H 1200 4300 50  0001 C CNN
+F 1 "GND" H 1205 4377 50  0000 C CNN
+F 2 "" H 1200 4550 50  0001 C CNN
+F 3 "" H 1200 4550 50  0001 C CNN
+	1    1200 4550
+	1    0    0    -1  
+$EndComp
+Text Label 800  4150 0    50   ~ 0
+CLK4
+Text Notes 1400 4750 0    50   ~ 0
+1-2: Normal Operation\n2-3: Standalone REG Board Testing
+$Comp
+L Jumper:SolderJumper_3_Open JP2
+U 1 1 5EF00BEB
+P 1200 4350
+F 0 "JP2" V 1200 4418 50  0000 L CNN
+F 1 "SolderJumper_3_Open" V 1245 4417 50  0001 L CNN
+F 2 "Jumper:SolderJumper-3_P1.3mm_Open_RoundedPad1.0x1.5mm" H 1200 4350 50  0001 C CNN
+F 3 "~" H 1200 4350 50  0001 C CNN
+	1    1200 4350
+	0    -1   1    0   
+$EndComp
+Wire Wire Line
+	1350 4350 1800 4350
 Wire Bus Line
-	850  3350 850  4150
+	1350 3350 1350 4150
 Wire Bus Line
-	850  1900 850  2700
+	1350 1900 1350 2700
 Wire Bus Line
-	850  4800 850  5500
+	1350 5000 1350 5700
 $EndSCHEMATC
