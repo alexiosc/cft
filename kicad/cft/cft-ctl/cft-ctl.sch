@@ -453,7 +453,7 @@ Wire Wire Line
 Wire Wire Line
 	900  3850 1500 3850
 Text Label 900  3850 0    50   ~ 0
-CLK2
+CLK1
 Text Label 10100 5500 2    50   ~ 0
 IN-RSVD
 Text Notes 10200 5500 0    50   ~ 0
@@ -900,7 +900,7 @@ Wire Wire Line
 Wire Wire Line
 	1500 4050 900  4050
 Text Label 900  3950 0    50   ~ 0
-CLK3
+CLK2
 Wire Wire Line
 	6250 6550 6250 5850
 Wire Wire Line
@@ -1085,8 +1085,8 @@ F32 "IR12" I L 1500 5250 50
 F33 "IR13" I L 1500 5350 50 
 F34 "IR14" I L 1500 5450 50 
 F35 "IR15" I L 1500 5550 50 
-F36 "CLK2" I L 1500 3850 50 
-F37 "CLK3" I L 1500 3950 50 
+F36 "CLK1" I L 1500 3850 50 
+F37 "CLK2" I L 1500 3950 50 
 F38 "~µPC-INH" I L 1500 5750 50 
 $EndSheet
 Wire Wire Line

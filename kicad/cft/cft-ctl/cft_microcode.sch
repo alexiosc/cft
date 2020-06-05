@@ -1486,6 +1486,8 @@ F 3 "~" H 1350 1550 50  0001 C CNN
 	1    1350 1550
 	-1   0    0    1   
 $EndComp
+Text Label 2850 6850 2    50   ~ 0
+~HALT₀
 Wire Bus Line
 	4550 2750 4550 3500
 Wire Bus Line
@@ -1500,6 +1502,4 @@ Wire Bus Line
 	9800 2700 9800 3150
 Wire Bus Line
 	5100 1350 5100 2550
-Text Label 2850 6850 2    50   ~ 0
-~HALT₀
 $EndSCHEMATC
