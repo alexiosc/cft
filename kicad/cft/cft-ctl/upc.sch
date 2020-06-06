@@ -65,7 +65,7 @@ $EndComp
 Text Label 7600 5000 2    50   ~ 0
 ~RSTHOLD
 Text Label 7450 4500 2    50   ~ 0
-~µPCCLR
+~µPCCLR'
 Wire Wire Line
 	1850 5000 7650 5000
 Text Label 3450 4700 2    50   ~ 0
@@ -163,7 +163,7 @@ $EndComp
 Wire Notes Line
 	2150 2800 2650 2800
 Text Label 3450 3850 2    50   ~ 0
-~WAITING
+~µPC-INH
 Text Notes 1750 2750 0    50   ~ 0
 Remove if BUS board is present!
 Wire Notes Line
@@ -211,7 +211,7 @@ Wire Wire Line
 Wire Wire Line
 	2300 3300 2300 3850
 Text HLabel 1850 3850 0    50   Input ~ 0
-~WAITING
+~µPC-INH
 $Comp
 L alexios:74HC251 U?
 U 1 1 5F6F5927

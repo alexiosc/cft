@@ -1,5 +1,4 @@
 EESchema Schematic File Version 4
-LIBS:cft-front-panel-cache
 EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
@@ -937,8 +936,6 @@ $EndComp
 Connection ~ 3250 6700
 Text Label 950  6400 0    50   ~ 0
 SWD1
-Text Notes 1950 7350 0    50   ~ 0
-Note: SWD0-1 and SWD2-3 are swapped between the two connectors.\nThis allows Modules A and B to send data on SWD0-1 and\nModules B and C on SWD2-3, so we get a 64×4 switch matrix. This\nreduces component count.
 Text Notes 3500 4400 0    50   ~ 0
 SWSEL pulled down on purpose!\n(unplugging module disables switch decoder)
 Text Notes 2000 700  0    50   ~ 0
@@ -2414,4 +2411,12 @@ Wire Bus Line
 	8800 850  8800 4800
 Wire Bus Line
 	7000 2750 7000 5550
+Text Notes 1950 7450 0    50   ~ 0
+Note: SWD0-1 and SWD2-3 are swapped between the two connectors.\nThis allows Modules A and C to send data on SWD0-1 and\nModules B and D on SWD2-3, so we get a 64×4 switch matrix. This\nreduces component count.\n\nJP5/JP6 configure whether a module will drive SWD0–1 or SWD2–3.
+Text Notes 4100 5850 0    50   ~ 0
+Module\n\n   A\n   B\n   C\n   D
+Text Notes 4700 5850 0    50   ~ 0
+SWA\n\n0xxx\n0xxx\n1xxx\n1xxx
+Text Notes 4450 5850 0    50   ~ 0
+SWD\n\n0,1\n2,3\n0,1\n2,3
 $EndSCHEMATC

@@ -1255,7 +1255,7 @@ U 1 1 6091E201
 P 7000 5100
 F 0 "JP1" V 7000 5167 50  0000 L CNN
 F 1 "Jumper_3_Bridged12" H 7000 5210 50  0001 C CNN
-F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 7000 5100 50  0001 C CNN
+F 2 "Jumper:SolderJumper-3_P1.3mm_Bridged12_RoundedPad1.0x1.5mm" H 7000 5100 50  0001 C CNN
 F 3 "~" H 7000 5100 50  0001 C CNN
 	1    7000 5100
 	0    -1   1    0   
