@@ -114,51 +114,6 @@ X ~ 2 0 -100 30 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# Jumper_SolderJumper_2_Bridged
-#
-DEF Jumper_SolderJumper_2_Bridged JP 0 0 Y N 1 F N
-F0 "JP" 0 80 50 H V C CNN
-F1 "Jumper_SolderJumper_2_Bridged" 0 -100 50 H V C CNN
-F2 "" 0 0 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-$FPLIST
- SolderJumper*Bridged*
-$ENDFPLIST
-DRAW
-A -10 0 40 901 -901 0 1 0 N -10 40 -10 -40
-A -10 0 40 901 -901 0 1 0 F -10 40 -10 -40
-A 10 0 40 -899 899 0 1 0 N 10 -40 10 40
-A 10 0 40 -899 899 0 1 0 F 10 -40 10 40
-S -20 20 20 -20 0 1 0 F
-P 2 0 1 0 -10 40 -10 -40 N
-P 2 0 1 0 10 40 10 -40 N
-X A 1 -150 0 100 R 50 50 1 1 P
-X B 2 150 0 100 L 50 50 1 1 P
-ENDDRAW
-ENDDEF
-#
-# Jumper_SolderJumper_2_Open
-#
-DEF Jumper_SolderJumper_2_Open JP 0 0 Y N 1 F N
-F0 "JP" 0 80 50 H V C CNN
-F1 "Jumper_SolderJumper_2_Open" 0 -100 50 H V C CNN
-F2 "" 0 0 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-$FPLIST
- SolderJumper*Open*
-$ENDFPLIST
-DRAW
-A -10 0 40 901 -901 0 1 0 N -10 40 -10 -40
-A -10 0 40 901 -901 0 1 0 F -10 40 -10 -40
-A 10 0 40 -899 899 0 1 0 N 10 -40 10 40
-A 10 0 40 -899 899 0 1 0 F 10 -40 10 40
-P 2 0 1 0 -10 40 -10 -40 N
-P 2 0 1 0 10 40 10 -40 N
-X A 1 -150 0 100 R 50 50 1 1 P
-X B 2 150 0 100 L 50 50 1 1 P
-ENDDRAW
-ENDDEF
-#
 # alexios_74AC08
 #
 DEF alexios_74AC08 U 0 40 Y Y 5 L N
@@ -1272,6 +1227,62 @@ X VCC 10 -350 500 200 R 50 50 2 1 W
 X VCC 11 -350 400 200 R 50 50 2 1 W
 X GND 3 -350 200 200 R 50 50 2 1 W
 X GND 4 -350 100 200 R 50 50 2 1 W
+ENDDRAW
+ENDDEF
+#
+# alexios_SolderJumper_3_Bridged12
+#
+DEF alexios_SolderJumper_3_Bridged12 JP 0 0 Y N 1 F N
+F0 "JP" 0 100 50 H V C CNN
+F1 "alexios_SolderJumper_3_Bridged12" 0 110 50 H I C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+$FPLIST
+ SolderJumper*Bridged12*
+$ENDFPLIST
+DRAW
+A -40 0 40 901 -901 0 1 0 N -40 40 -40 -40
+A -40 0 40 901 -901 0 1 0 F -40 40 -40 -40
+A 40 0 40 -899 899 0 1 0 N 40 -40 40 40
+A 40 0 40 -899 899 0 1 0 F 40 -40 40 40
+S -40 20 -20 -20 0 1 0 F
+S -20 40 20 -40 0 1 0 F
+P 2 0 1 0 -100 0 -80 0 N
+P 2 0 1 0 -40 40 -40 -40 N
+P 2 0 1 0 0 -50 0 -40 N
+P 2 0 1 0 40 40 40 -40 N
+P 2 0 1 0 100 0 80 0 N
+X A 1 -150 0 50 R 50 50 1 1 P
+X C 2 0 -100 50 U 50 50 1 1 I
+X B 3 150 0 50 L 50 50 1 1 P
+ENDDRAW
+ENDDEF
+#
+# alexios_SolderJumper_3_Bridged23
+#
+DEF alexios_SolderJumper_3_Bridged23 JP 0 0 Y N 1 F N
+F0 "JP" 0 100 50 H V C CNN
+F1 "alexios_SolderJumper_3_Bridged23" 0 110 50 H I C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+$FPLIST
+ SolderJumper*Bridged12*
+$ENDFPLIST
+DRAW
+A -40 0 40 901 -901 0 1 0 N -40 40 -40 -40
+A -40 0 40 901 -901 0 1 0 F -40 40 -40 -40
+A 40 0 40 -899 899 0 1 0 N 40 -40 40 40
+A 40 0 40 -899 899 0 1 0 F 40 -40 40 40
+S -20 40 20 -40 0 1 0 F
+S 20 20 40 -20 0 1 0 F
+P 2 0 1 0 -100 0 -80 0 N
+P 2 0 1 0 -40 40 -40 -40 N
+P 2 0 1 0 0 -50 0 -40 N
+P 2 0 1 0 40 40 40 -40 N
+P 2 0 1 0 100 0 80 0 N
+X A 1 -150 0 50 R 50 50 1 1 P
+X C 2 0 -100 50 U 50 50 1 1 I
+X B 3 150 0 50 L 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #

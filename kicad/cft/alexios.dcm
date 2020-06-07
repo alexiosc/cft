@@ -1472,6 +1472,18 @@ K TTL REG DFF DFF8 3State
 F https://www.ti.com/lit/ds/symlink/sn74act1073.pdf
 $ENDCMP
 #
+$CMP SolderJumper_3_Bridged12
+D 3-pole Solder Jumper, pins 1+2 closed/bridged
+K Solder Jumper SPDT
+F ~
+$ENDCMP
+#
+$CMP SolderJumper_3_Bridged23
+D 3-pole Solder Jumper, pins 1+2 closed/bridged
+K Solder Jumper SPDT
+F ~
+$ENDCMP
+#
 $CMP TFT660
 D Crystal Clock Oscillator, DIP8-style metal package
 K Crystal Clock Oscillator

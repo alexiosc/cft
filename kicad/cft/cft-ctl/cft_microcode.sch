@@ -6,7 +6,7 @@ encoding utf-8
 Sheet 8 12
 Title "Microcode Sequencer"
 Date ""
-Rev "2020"
+Rev "2023"
 Comp ""
 Comment1 "CTL"
 Comment2 ""
@@ -881,139 +881,8 @@ Entry Bus Bus
 Text Label 2150 3100 1    50   ~ 0
 UPC[0..3]
 Wire Wire Line
-	6400 1950 6850 1950
-Connection ~ 6400 1950
-Wire Wire Line
-	6400 2000 6400 1950
-Wire Wire Line
-	6200 1850 6850 1850
-Connection ~ 6200 1850
-Wire Wire Line
-	6200 2000 6200 1850
-Wire Wire Line
-	6400 2200 6400 2300
-$Comp
-L power:GND #PWR041
-U 1 1 6047D252
-P 6400 2300
-F 0 "#PWR041" H 6400 2050 50  0001 C CNN
-F 1 "GND" H 6400 2150 50  0000 C CNN
-F 2 "" H 6400 2300 50  0001 C CNN
-F 3 "" H 6400 2300 50  0001 C CNN
-	1    6400 2300
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:R_Small R4
-U 1 1 6047D24C
-P 6400 2100
-F 0 "R4" H 6350 2250 50  0000 R CNN
-F 1 "4.7kΩ" H 6341 2145 50  0001 R CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 6400 2100 50  0001 C CNN
-F 3 "~" H 6400 2100 50  0001 C CNN
-	1    6400 2100
-	1    0    0    1   
-$EndComp
-Wire Wire Line
-	6200 2200 6200 2300
-$Comp
-L power:GND #PWR07
-U 1 1 6046CC8E
-P 6200 2300
-F 0 "#PWR07" H 6200 2050 50  0001 C CNN
-F 1 "GND" H 6200 2150 50  0000 C CNN
-F 2 "" H 6200 2300 50  0001 C CNN
-F 3 "" H 6200 2300 50  0001 C CNN
-	1    6200 2300
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:R_Small R3
-U 1 1 6046CC88
-P 6200 2100
-F 0 "R3" H 6150 2250 50  0000 R CNN
-F 1 "4.7kΩ" H 6141 2145 50  0001 R CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 6200 2100 50  0001 C CNN
-F 3 "~" H 6200 2100 50  0001 C CNN
-	1    6200 2100
-	1    0    0    1   
-$EndComp
-Wire Wire Line
-	6000 2200 6000 2300
-$Comp
-L power:GND #PWR04
-U 1 1 6044A2AC
-P 6000 2300
-F 0 "#PWR04" H 6000 2050 50  0001 C CNN
-F 1 "GND" H 6000 2150 50  0000 C CNN
-F 2 "" H 6000 2300 50  0001 C CNN
-F 3 "" H 6000 2300 50  0001 C CNN
-	1    6000 2300
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	6000 1750 6850 1750
-Connection ~ 6000 1750
-Wire Wire Line
-	6000 2000 6000 1750
-$Comp
-L Device:R_Small R1
-U 1 1 603FB559
-P 6000 2100
-F 0 "R1" H 5950 2250 50  0000 R CNN
-F 1 "4.7kΩ" H 5941 2145 50  0000 R CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 6000 2100 50  0001 C CNN
-F 3 "~" H 6000 2100 50  0001 C CNN
-	1    6000 2100
-	1    0    0    1   
-$EndComp
-$Comp
-L Jumper:SolderJumper_2_Open JP6
-U 1 1 602E0B7C
-P 6400 1050
-F 0 "JP6" V 6400 1150 50  0000 L CNN
-F 1 "SolderJumper_2_Bridged" H 6400 1164 50  0001 C CNN
-F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 6400 1050 50  0001 C CNN
-F 3 "~" H 6400 1050 50  0001 C CNN
-	1    6400 1050
-	0    1    1    0   
-$EndComp
-$Comp
-L Jumper:SolderJumper_2_Bridged JP5
-U 1 1 602E0974
-P 6200 1050
-F 0 "JP5" V 5900 1000 50  0000 L CNN
-F 1 "SolderJumper_2_Bridged" H 6200 1164 50  0001 C CNN
-F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 6200 1050 50  0001 C CNN
-F 3 "~" H 6200 1050 50  0001 C CNN
-	1    6200 1050
-	0    1    1    0   
-$EndComp
-$Comp
-L power:+5V #PWR01
-U 1 1 602660E1
-P 6000 850
-F 0 "#PWR01" H 6000 700 50  0001 C CNN
-F 1 "+5V" H 5850 900 50  0000 C CNN
-F 2 "" H 6000 850 50  0001 C CNN
-F 3 "" H 6000 850 50  0001 C CNN
-	1    6000 850 
-	1    0    0    -1  
-$EndComp
-$Comp
-L Jumper:SolderJumper_2_Open JP4
-U 1 1 6025524A
-P 6000 1050
-F 0 "JP4" V 6000 950 50  0000 R CNN
-F 1 "SolderJumper_2_Bridged" H 6000 1164 50  0001 C CNN
-F 2 "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 6000 1050 50  0001 C CNN
-F 3 "~" H 6000 1050 50  0001 C CNN
-	1    6000 1050
-	0    1    1    0   
-$EndComp
-Wire Wire Line
 	7850 2250 8300 2250
-Text Notes 7750 1250 0    50   ~ 10
+Text Notes 5250 750  0    50   ~ 10
 Set to 010 for Microcode v.7.
 Text Notes 7750 2100 0    50   ~ 0
 High = Fetch.\nLow = Execute.\nThis is for the benefit of the front panel only.
@@ -1104,30 +973,10 @@ Text Label 6800 1450 2    50   ~ 0
 UPC2
 Text Label 6800 1550 2    50   ~ 0
 UPC3
-Wire Wire Line
-	6000 1200 6000 1750
-Wire Wire Line
-	6200 1200 6200 1850
-Wire Wire Line
-	6400 1200 6400 1950
-Wire Wire Line
-	6000 850  6200 850 
-Wire Wire Line
-	6400 850  6400 900 
-Wire Wire Line
-	6200 900  6200 850 
-Connection ~ 6200 850 
-Wire Wire Line
-	6200 850  6400 850 
-Wire Wire Line
-	6000 900  6000 850 
-Connection ~ 6000 850 
-Text Notes 6100 2050 0    98   ~ 20
+Text Notes 5600 2100 0    98   ~ 20
 *
-Text Notes 7750 1450 0    98   ~ 20
-*
-Text Notes 7900 1450 0    50   ~ 0
-Do not install this resistor by default.\nPopulate resistors for open jumpers only.
+Text Notes 5400 1050 0    50   ~ 0
+JP4: short 2-3. (GND)\nJP5: short 1-2. (VCC)\nJP6: short 2-3. (GND)
 Text Notes 6750 1000 0    100  ~ 20
 Fetch/Execute State Decoder
 Wire Wire Line
@@ -1486,6 +1335,145 @@ F 3 "~" H 1350 1550 50  0001 C CNN
 $EndComp
 Text Label 2850 6850 2    50   ~ 0
 ~HALT₀
+Text Label 2150 2100 0    50   ~ 0
+~µPC-INH
+Wire Wire Line
+	5550 1850 5650 1850
+Wire Wire Line
+	5650 1850 5650 1750
+Wire Wire Line
+	5650 1750 6850 1750
+Wire Wire Line
+	5950 1850 6850 1850
+Wire Wire Line
+	6250 2100 6250 1950
+Wire Wire Line
+	6250 1950 6850 1950
+$Comp
+L power:+5V #PWR01
+U 1 1 5EF1BFFC
+P 5450 1700
+F 0 "#PWR01" H 5450 1550 50  0001 C CNN
+F 1 "+5V" H 5350 1700 50  0000 C CNN
+F 2 "" H 5450 1700 50  0001 C CNN
+F 3 "" H 5450 1700 50  0001 C CNN
+	1    5450 1700
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR04
+U 1 1 5EF1C719
+P 5750 1700
+F 0 "#PWR04" H 5750 1550 50  0001 C CNN
+F 1 "+5V" H 5650 1700 50  0000 C CNN
+F 2 "" H 5750 1700 50  0001 C CNN
+F 3 "" H 5750 1700 50  0001 C CNN
+	1    5750 1700
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR07
+U 1 1 5EF1C98A
+P 6050 1700
+F 0 "#PWR07" H 6050 1550 50  0001 C CNN
+F 1 "+5V" H 5950 1700 50  0000 C CNN
+F 2 "" H 6050 1700 50  0001 C CNN
+F 3 "" H 6050 1700 50  0001 C CNN
+	1    6050 1700
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR019
+U 1 1 5EF1D08A
+P 6050 2300
+F 0 "#PWR019" H 6050 2050 50  0001 C CNN
+F 1 "GND" H 6055 2127 50  0000 C CNN
+F 2 "" H 6050 2300 50  0001 C CNN
+F 3 "" H 6050 2300 50  0001 C CNN
+	1    6050 2300
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR015
+U 1 1 5EF2D562
+P 5750 2300
+F 0 "#PWR015" H 5750 2050 50  0001 C CNN
+F 1 "GND" H 5755 2127 50  0000 C CNN
+F 2 "" H 5750 2300 50  0001 C CNN
+F 3 "" H 5750 2300 50  0001 C CNN
+	1    5750 2300
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR011
+U 1 1 5EF2D6C0
+P 5450 2300
+F 0 "#PWR011" H 5450 2050 50  0001 C CNN
+F 1 "GND" H 5455 2127 50  0000 C CNN
+F 2 "" H 5450 2300 50  0001 C CNN
+F 3 "" H 5450 2300 50  0001 C CNN
+	1    5450 2300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5450 2000 5450 2300
+Wire Wire Line
+	6050 2250 6050 2300
+Wire Wire Line
+	6150 2100 6250 2100
+Wire Wire Line
+	5750 1800 5750 1700
+Wire Wire Line
+	5850 1950 5950 1950
+Wire Wire Line
+	5950 1950 5950 1850
+Wire Wire Line
+	5750 2100 5750 2300
+Wire Wire Line
+	6050 1950 6050 1700
+$Comp
+L alexios:SolderJumper_3_Bridged23 JP4
+U 1 1 5F125CF7
+P 5450 1850
+F 0 "JP4" V 5850 1900 50  0000 L CNN
+F 1 "SolderJumper_3_Bridged23" H 5450 1960 50  0001 C CNN
+F 2 "Jumper:SolderJumper-3_P1.3mm_Open_RoundedPad1.0x1.5mm" H 5450 1850 50  0001 C CNN
+F 3 "~" H 5450 1850 50  0001 C CNN
+	1    5450 1850
+	0    -1   1    0   
+$EndComp
+$Comp
+L alexios:SolderJumper_3_Bridged23 JP6
+U 1 1 5F129456
+P 6050 2100
+F 0 "JP6" V 6200 2150 50  0000 L CNN
+F 1 "SolderJumper_3_Bridged23" H 6050 2210 50  0001 C CNN
+F 2 "Jumper:SolderJumper-3_P1.3mm_Open_RoundedPad1.0x1.5mm" H 6050 2100 50  0001 C CNN
+F 3 "~" H 6050 2100 50  0001 C CNN
+	1    6050 2100
+	0    -1   1    0   
+$EndComp
+$Comp
+L alexios:SolderJumper_3_Bridged12 JP5
+U 1 1 5F12A1A9
+P 5750 1950
+F 0 "JP5" V 6050 2000 50  0000 L CNN
+F 1 "SolderJumper_3_Bridged12" H 5750 2060 50  0001 C CNN
+F 2 "Jumper:SolderJumper-3_P1.3mm_Open_RoundedPad1.0x1.5mm" H 5750 1950 50  0001 C CNN
+F 3 "~" H 5750 1950 50  0001 C CNN
+	1    5750 1950
+	0    -1   1    0   
+$EndComp
+Wire Notes Line width 20 style solid
+	5200 600  6450 600 
+Wire Notes Line width 20 style solid
+	5200 1100 5200 600 
+Text Notes 5250 950  0    98   ~ 20
+*
+Wire Notes Line width 20 style solid
+	6450 1100 5200 1100
+Wire Notes Line width 20 style solid
+	6450 600  6450 1100
 Wire Bus Line
 	4550 2750 4550 3500
 Wire Bus Line
@@ -1500,6 +1488,4 @@ Wire Bus Line
 	9800 2700 9800 3150
 Wire Bus Line
 	5100 1350 5100 2550
-Text Label 2150 2100 0    50   ~ 0
-~µPC-INH
 $EndSCHEMATC

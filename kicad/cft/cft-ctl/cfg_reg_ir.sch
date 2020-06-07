@@ -6,7 +6,7 @@ encoding utf-8
 Sheet 3 12
 Title "Instruction Register (IR)"
 Date ""
-Rev "2020"
+Rev "2023"
 Comp ""
 Comment1 "CTL"
 Comment2 ""

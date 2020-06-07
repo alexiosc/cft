@@ -6,7 +6,7 @@ encoding utf-8
 Sheet 6 12
 Title "Interrupt State Machine"
 Date ""
-Rev "2020"
+Rev "2023"
 Comp ""
 Comment1 "CTL"
 Comment2 ""
