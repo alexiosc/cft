@@ -454,10 +454,6 @@ Wire Wire Line
 	900  3850 1500 3850
 Text Label 900  3850 0    50   ~ 0
 CLK1
-Text Label 10100 5500 2    50   ~ 0
-IN-RSVD
-Text Notes 10200 5500 0    50   ~ 0
-For future expansion
 Wire Bus Line
 	5350 2250 5950 2250
 $Sheet
@@ -1272,6 +1268,7 @@ Text Label 6400 4800 0    50   ~ 0
 ~WAITING
 Text Label 6400 5400 0    50   ~ 0
 ~WS
+NoConn ~ 10100 5500
 Wire Bus Line
 	9950 1450 9950 2100
 Wire Bus Line

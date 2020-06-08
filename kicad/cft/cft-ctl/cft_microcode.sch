@@ -334,12 +334,8 @@ Text Label 4650 3700 0    50   ~ 0
 IDX0
 Text Label 4650 3800 0    50   ~ 0
 IDX1
-Text Label 4650 4000 0    50   ~ 0
-IN-RSVD
 Text Label 4650 3900 0    50   ~ 0
 ~COND
-Wire Wire Line
-	4650 4000 5050 4000
 Wire Wire Line
 	4650 3900 5050 3900
 Wire Wire Line
@@ -804,7 +800,7 @@ F34 "UPC3" I L 5050 3600 50
 F35 "IDX0" I L 5050 3700 50 
 F36 "IDX1" I L 5050 3800 50 
 F37 "~COND" I L 5050 3900 50 
-F38 "IN-RSVD" I L 5050 4000 50 
+F38 "RSVD" I L 5050 4000 50 
 $EndSheet
 Text Label 2250 5350 0    50   ~ 0
 CLK2
@@ -1474,6 +1470,21 @@ Wire Notes Line width 20 style solid
 	6450 1100 5200 1100
 Wire Notes Line width 20 style solid
 	6450 600  6450 1100
+Wire Wire Line
+	5050 4000 4650 4000
+$Comp
+L Connector:TestPoint TP?
+U 1 1 5F4495E5
+P 4650 4000
+AR Path="/5F4495E5" Ref="TP?"  Part="1" 
+AR Path="/5DEAC282/5F4495E5" Ref="TP5"  Part="1" 
+F 0 "TP5" V 4550 4100 50  0000 C CNN
+F 1 "TestPoint" V 4754 4072 50  0001 C CNN
+F 2 "TestPoint:TestPoint_Pad_1.0x1.0mm" H 4850 4000 50  0001 C CNN
+F 3 "~" H 4850 4000 50  0001 C CNN
+	1    4650 4000
+	0    -1   -1   0   
+$EndComp
 Wire Bus Line
 	4550 2750 4550 3500
 Wire Bus Line

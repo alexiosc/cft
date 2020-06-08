@@ -74,7 +74,7 @@ IDX0
 Text Label 3400 2300 0    50   ~ 0
 IDX1
 Text Label 3400 2500 0    50   ~ 0
-IN-RSVD
+RSVD
 Text Label 3400 2400 0    50   ~ 0
 ~COND
 Wire Wire Line
@@ -91,8 +91,6 @@ Wire Wire Line
 	3850 2300 3300 2300
 Wire Wire Line
 	3850 2400 3300 2400
-Wire Wire Line
-	3850 2500 3300 2500
 Text HLabel 3300 2700 0    50   Input ~ 0
 ~FPµA0
 Text HLabel 3300 4200 0    50   Input ~ 0
@@ -714,8 +712,6 @@ F 3 "" H 5350 6000 50  0001 C CNN
 $EndComp
 Connection ~ 5350 6000
 Connection ~ 5350 6200
-Text HLabel 3300 2500 0    50   Input ~ 0
-IN-RSVD
 Text HLabel 3300 2400 0    50   Input ~ 0
 ~COND
 Text HLabel 3300 2300 0    50   Input ~ 0
@@ -745,4 +741,8 @@ Wire Bus Line
 	8050 1900 8050 4600
 Wire Bus Line
 	5250 1900 5250 4600
+Wire Wire Line
+	3850 2500 3300 2500
+Text HLabel 3300 2500 0    50   Input ~ 0
+RSVD
 $EndSCHEMATC
