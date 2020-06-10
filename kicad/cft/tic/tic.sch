@@ -2827,12 +2827,12 @@ $EndComp
 $Comp
 L alexios:8254 U41
 U 1 1 6480BEFF
-P -3500 12100
-F 0 "U41" H -3500 13117 50  0000 C CNN
-F 1 "8254" H -3500 13026 50  0000 C CNN
-F 2 "alexios:DIP-24_W15.24mm_socket" H -3500 11075 50  0001 C CNN
-F 3 "http://www.scs.stanford.edu/10wi-cs140/pintos/specs/8254.pdf" H -3950 13000 50  0001 C CNN
-	1    -3500 12100
+P -3450 12100
+F 0 "U41" H -3450 13117 50  0000 C CNN
+F 1 "8254" H -3450 13026 50  0000 C CNN
+F 2 "alexios:DIP-24_W15.24mm_socket" H -3450 11075 50  0001 C CNN
+F 3 "http://www.scs.stanford.edu/10wi-cs140/pintos/specs/8254.pdf" H -3900 13000 50  0001 C CNN
+	1    -3450 12100
 	1    0    0    -1  
 $EndComp
 $Comp
