@@ -18,6 +18,7 @@ from __future__ import print_function
 
 # Import the KiCad python helper module and the csv formatter
 import re
+import os
 import sys
 import csv
 import pprint
@@ -45,10 +46,12 @@ except:
 # the command line option. If the file doesn't exist, execution will stop
 net = kicad_netlist_reader.netlist(sys.argv[1])
 
+outfile = os.path.splitext(outfile)[0] + '-bom.txt'
+
 # Open a file to write to, if the file cannot be opened output to stdout
 # instead
 try:
-    f = open(sys.argv[2], 'w')
+    f = open(outfile, 'w')
 except IOError:
     e = "Can't open output file for writing: " + sys.argv[2]
     print(__file__, ":", e, sys.stderr)
@@ -106,6 +109,8 @@ for item in bomlist:
 
     part = val or bom_what
     if not (bom_rs or bom_farnell or bom_mouser):
-        out.writerow(['', '', part, amount, '', '', '', refs])
+        out.writerow(['', '', part, "{}×".format(amount), '', '', '', " ".join(refs)])
 
-pprint.pprint(bomlist, width=200)
+print("Written to {}".format(outfile))
+
+#pprint.pprint(bomlist, width=200)
