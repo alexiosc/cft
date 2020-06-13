@@ -1460,6 +1460,12 @@ K Jumper SPDT
 F ~
 $ENDCMP
 #
+$CMP PCA9564
+D I2C Bus Controller, DIP/SOIC-20
+K I2C Bus
+F https://www.nxp.com/docs/en/data-sheet/PCA9564.pdf
+$ENDCMP
+#
 $CMP SN74ACT1071
 D 8-bit Register, 3-state outputs
 K TTL REG DFF DFF8 3State

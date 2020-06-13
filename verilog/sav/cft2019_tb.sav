@@ -1,16 +1,16 @@
 [*]
 [*] GTKWave Analyzer v3.3.86 (w)1999-2017 BSI
-[*] Wed May 27 07:33:34 2020
+[*] Fri Jun 12 06:55:03 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/cft2019_tb.vcd"
-[dumpfile_mtime] "Wed May 27 07:32:59 2020"
-[dumpfile_size] 397892
+[dumpfile_mtime] "Fri Jun 12 06:54:35 2020"
+[dumpfile_size] 14475256
 [optimize_vcd]
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/cft2019_tb.sav"
-[timestart] 5123000
+[timestart] 1190000000
 [size] 2048 1123
 [pos] -1 -1
-*-17.774845 5648750 5899250 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-22.774845 5648750 5899250 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] cft2019_tb.
 [treeopen] cft2019_tb.cft.
 [treeopen] cft2019_tb.cft.card_alu.decoder.
@@ -102,7 +102,7 @@ cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
 (15)cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
 @1401200
 -group_end
-@804022
+@c04022
 [color] 1
 ^>1 /home/alexios/PROJECTS/HARDWARE/cft/verilog/filters/disasm
 cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
@@ -139,7 +139,7 @@ cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
 (14)cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
 [color] 1
 (15)cft2019_tb.cft.card_ctl.reg_ir.ir[15:0]
-@1001200
+@1401200
 -group_end
 @22
 [color] 3
@@ -349,24 +349,6 @@ cft2019_tb.cft.card_bus.databus.nwaiting
 cft2019_tb.cft.card_bus.databus.nws
 @1000200
 -Buses
-@800022
-cft2019_tb.cft.card_ctl.sbu.muxhi.d[7:0]
-@28
-(0)cft2019_tb.cft.card_ctl.sbu.muxhi.d[7:0]
-(1)cft2019_tb.cft.card_ctl.sbu.muxhi.d[7:0]
-(2)cft2019_tb.cft.card_ctl.sbu.muxhi.d[7:0]
-(3)cft2019_tb.cft.card_ctl.sbu.muxhi.d[7:0]
-(4)cft2019_tb.cft.card_ctl.sbu.muxhi.d[7:0]
-(5)cft2019_tb.cft.card_ctl.sbu.muxhi.d[7:0]
-(6)cft2019_tb.cft.card_ctl.sbu.muxhi.d[7:0]
-(7)cft2019_tb.cft.card_ctl.sbu.muxhi.d[7:0]
-@1001200
--group_end
-@28
-cft2019_tb.cft.card_ctl.sbu.muxhi.ne
-cft2019_tb.cft.card_ctl.sbu.muxhi.ny
-cft2019_tb.cft.card_ctl.sbu.muxhi.sel[2:0]
-cft2019_tb.cft.card_ctl.sbu.muxhi.y
 @800200
 -Control Unit
 @820
@@ -571,7 +553,6 @@ cft2019_tb.cft.card_alu.reg_l.ld
 cft2019_tb.cft.card_alu.reg_l.ld0
 cft2019_tb.cft.card_alu.reg_l.fl_ff.clk
 cft2019_tb.cft.card_alu.reg_l.clkl
-cft2019_tb.cft.card_alu.reg_l.clkl0
 cft2019_tb.cft.card_alu.reg_l.fl_ff.q
 @200
 -
