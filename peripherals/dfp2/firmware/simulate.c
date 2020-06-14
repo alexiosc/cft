@@ -853,6 +853,7 @@ avr_special_deinit(avr_t * avr, void * data)
 	// 	perror(avr_flash_path);
 	// }
 	// close(avr_flash_fd);
+
 	uart_pty_stop(&uart_pty);
 }
 
