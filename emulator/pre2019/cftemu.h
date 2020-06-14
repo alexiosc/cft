@@ -1,24 +1,23 @@
-/* 
-
-cftemu.h - Interface file for CFT Emulator
-
-Copyright (C) 2011 Alexios Chouchoulas
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2, or (at your option)
-any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software Foundation,
-Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  
-
-*/
+// -*- mode: c; tab-width: 4; -*-
+// 
+// cftemu.h - Interface file for CFT Emulator
+// 
+// Copyright (C) 2011–2020 Alexios Chouchoulas
+// 
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2, or (at your option)
+// any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+// 
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software Foundation,
+// Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  
+// 
 
 #ifndef CFTEMU_H
 #define CFTEMU_H 1
@@ -27,7 +26,7 @@ Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 #include <stdio.h>
 #include <stdint.h>
 
-#include "../microcode/microcode.h"
+#include "../microcode/build/microcode.h"
 
 #include "memory.h"
 
@@ -42,7 +41,6 @@ Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
 #define min(a,b) ((a) < (b) ? (a) : (b))
 #define max(a,b) ((a) > (b) ? (a) : (b))
-
 
 /*
  * CPU REVISIONS
@@ -88,10 +86,13 @@ typedef unsigned char bit;
 #define microstate_t __microcode_conds_t_lsb_1st
 
 typedef struct {
-	word *ram;		/* RAM */
-	word *rom;		/* ROM */
+		
+		
+		
+	word *ram;		// RAM
+	word *rom;		// ROM
 
-	uint32_t mbusm[NBANKS];	/* MBU soft map: 8 8KW banks map to a 21-bit physical address space */
+	uint32_t mbusm[NBANKS];	// MBU soft map: 8 8KW banks map to a 21-bit physical address space
 	uint32_t mbuhm[NBANKS]; /* MBU hard map: memory map at reset */ 
 	uint8_t  mbuen;		/* MBU enable: is the MBU soft map selected? */
 	uint8_t  aext;		/* The output of the MBU */
