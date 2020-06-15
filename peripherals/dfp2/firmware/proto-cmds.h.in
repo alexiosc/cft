@@ -15,10 +15,14 @@ static const struct {
 	{"echo",    gs_echo,     "[ BOOL ] -- Get/set local echo."},
 	{"mesg",    gs_mesg,     "[ BOOL ] -- Get/set async messages."},
 
+	// Front panel functionality
+	{"fpr",     go_fpr,      "[ 00-FF ] -- Read from FP Bus Address"},
+	{"fpdump",  go_fpdump,   "-- Dump full FP address space"},
+       	// {"sws",     go_sws,      "-- Show Switch state"},
+
 #message "TODO: Evaluate and reinstate commands"
 	// {"s",       go_state,    "-- Current processor status"},
        	// {"us",      go_ustate,   "-- Microcode control state"},
-       	// {"sws",     go_sws,      "-- Show Switch state"},
        	{"ibus",    say_ibus,    "-- Read IBus"},
        	{"abus",    say_abus,    "-- Read Address bus"},
        	{"dbus",    say_dbus,    "-- Read Data bus"},

@@ -113,6 +113,9 @@ static void go_creep();
 
 static void gs_or();
 
+static void go_fpr();
+static void go_fpdump();
+
 
 // Include the pre-processed list of commands and help.
 #include "proto-cmds.h"
@@ -784,6 +787,61 @@ go_creep()
 {
 	report_pstr(PSTR(STR_CREEP));
 	clk_creep();
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// FRONT PANEL FUNCTIONALITY
+//
+///////////////////////////////////////////////////////////////////////////////
+
+
+static void
+go_fpr()
+{
+	// Parse addr
+	char * s = get_arg();
+	if (s == NULL) {
+		badsyntax();
+		return;
+	}
+	
+	uint16_t a = parse_hex(s);
+	if (uistate.is_error) {
+		badval();
+		return;
+	}
+
+	if (a < 0 || a > 0xff) {
+		style_error();
+		report_pstr(PSTR(STR_ERANGE));
+		return;
+
+	}
+
+	uint16_t v = read_dfp_address((xmem_addr_t) a);
+
+	report_pstr(PSTR(STR_FPR1));
+	report_hex(a, 2);
+	report_hex_value(PSTR(STR_FPR2), v, 2);
+}
+
+
+static void
+go_fpdump()
+{
+	for (uint8_t r = 0; r < 16; r++) {
+		report_hex(r << 4, 2);
+		report_pstr(PSTR("|"));
+		for (uint8_t c = 0; c < 16; c++) {
+			uint8_t v = read_dfp_address((xmem_addr_t) ((r << 4) | c));
+			report_pstr(PSTR(" "));
+			report_hex(v, 2);
+		}
+		report_nl();
+	}
+	report_pstr(PSTR(STR_DONE));
 }
 
 

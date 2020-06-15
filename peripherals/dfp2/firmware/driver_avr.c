@@ -45,7 +45,6 @@ hwstate_t state;
 
 ringbuf_t rb;
 
-
 ///////////////////////////////////////////////////////////////////////////////
 //
 // FORWARD DEFINITIONS (AS NEEDED)
@@ -280,6 +279,19 @@ const uint8_t state_addrs[] PROGMEM = {
 
 	XMEM_UCV_H, XMEM_UCV_M, XMEM_UCV_L, // The UCV
 };
+
+
+uint8_t
+read_dfp_address(xmem_addr_t a)
+{
+	fp_scanner_stop();
+	sample();		// Clock data into our own flip flops.
+
+	uint8_t val = xmem_read(a);
+	fp_scanner_start();
+
+	return val;
+}
 
 
 void
@@ -697,6 +709,7 @@ set_fpramrom(bool_t rom)
 inline static void
 fp_scanner_stop()
 {
+	state.fp_scanen = 0;
 	setbit(PORTD, D_NSCANEN);
 }
 
@@ -705,13 +718,17 @@ inline static void
 fp_scanner_start()
 {
 	clearbit(PORTD, D_NSCANEN);
+	state.fp_scanen = 1;
 }
 
 
 inline static void
 fp_grab()
 {
+	state.fp_scanen = 0;
+	state.fp_panelen = 0;
 	PORTD |= BV(D_NSCANEN) | BV(D_NPANELEN);
+	
 }
 
 
@@ -719,11 +736,13 @@ inline static void
 fp_release()
 {
 	PORTD &= ~(BV(D_NSCANEN) | BV(D_NPANELEN));
+	state.fp_scanen = 0;
+	state.fp_panelen = 0;
 }
 
 
-// FP addresses are in the range 0 to 19, first across then
-// down. Module A1 is top left (address 0), module D1 is top right
+// Front panel light addresses are in the range 0 to 19 (base 10), first across
+// then down. Module A1 is top left (address 0), module D1 is top right
 // (address 3), module D5 is bottom right (address 19).
 
 #define fp_coords(row, col) ((((row) & 3) << 2) | (col))
@@ -739,7 +758,7 @@ fp_write(uint8_t module, uint8_t row, uint8_t value)
 inline static void
 fp_write_addr(xmem_addr_t addr, uint8_t value)
 {
-	xmem_write(addr & 0x1f, value);
+	xmem_write(addr & 0xff, value);
 }
 
 

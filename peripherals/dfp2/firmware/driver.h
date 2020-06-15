@@ -52,17 +52,20 @@ typedef struct {
 	uint8_t   or_l, or_h;	     // Last set value of the OR
 
 	// Internal DFP State
-	uint16_t  clk_div;	   // The slow clock divider.
-	uint8_t   clk_prescaler:3; // The slow clock prescaler.
-	uint8_t   clk_fast:1;	   // Using the full speed clock of the CFT.
-	uint8_t   clk_stopped:1;   // The clock has been stopped.
+	uint16_t  clk_div;	     // The slow clock divider.
+	uint8_t   clk_prescaler:3;   // The slow clock prescaler.
+	uint8_t   clk_fast:1;	     // Using the full speed clock of the CFT.
+	uint8_t   clk_stopped:1;     // The clock has been stopped.
 
-	uint8_t   is_halted:1;	   // Set when the computer has been halted.
+	uint8_t   is_halted:1;	     // Set when the computer has been halted.
 
-	uint8_t   have_ctl:1;	   // The CTL processor board is present.
-	uint8_t   have_reg:1;	   // The REG processor board is present.
-	uint8_t   have_bus:1;	   // The BUS processor board is present.
-	uint8_t   have_alu:1;      // The ALU processor board is present.
+	uint8_t   have_ctl:1;	     // The CTL processor board is present.
+	uint8_t   have_reg:1;	     // The REG processor board is present.
+	uint8_t   have_bus:1;	     // The BUS processor board is present.
+	uint8_t   have_alu:1;        // The ALU processor board is present.
+
+	uint8_t   fp_scanen:1;       // The FP scanner is on
+	uint8_t   fp_panelen:1;      // Lights decode FPA data
 } hwstate_t;
 
 extern hwstate_t state;
@@ -87,6 +90,14 @@ void serial_write(unsigned char c);
 extern unsigned char proto_input(unsigned char c);
 
 
+///////////////////////////////////////////////////////////////////////////////
+//
+// LOW-LEVEL DFP FUNCTIONALITY
+//
+///////////////////////////////////////////////////////////////////////////////
+
+// Read an arbitrary address from the DFP bus.
+uint8_t read_dfp_address(xmem_addr_t a);
 
 
 ///////////////////////////////////////////////////////////////////////////////

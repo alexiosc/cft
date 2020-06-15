@@ -79,6 +79,10 @@ extern volatile uistate_t uistate;
 #define STR_READY   "200 Ready\n"
 #define STR_MACHINE "299 T0sgQ09NUFVURVI=\n"
 
+#define STR_FPR1    "240 FP Bus Address: "
+#define STR_FPR2         " Value: "
+
+
 // 3xx: Actions performed
 #define STR_DONE    "301 Done\n"
 #define STR_ABORT   "302 Aborted\n"
@@ -98,6 +102,7 @@ extern volatile uistate_t uistate;
 // 5xx: Errors.
 #define STR_BADCMD  "500 Unknown command\n"
 #define STR_BADVAL  "501 Bad value\n"
+#define STR_ERANGE  "502 Value out of range\n"
 #define STR_SYNTAX  "508 Syntax error\n"
 #define STR_NIMPL   "509 Not implemented\n"
 

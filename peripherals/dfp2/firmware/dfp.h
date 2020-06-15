@@ -14,6 +14,9 @@
 // We use this a lot, but it's ugly.
 #define MUST_CHECK __attribute__((warn_unused_result))
 
+// We use this to mark function we've ported to the DFP2 in full.
+#define UPDATED
+
 
 ///////////////////////////////////////////////////////////////////////////////
 //
