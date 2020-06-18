@@ -799,6 +799,31 @@ go_creep()
 ///////////////////////////////////////////////////////////////////////////////
 
 
+typedef struct {
+	uint8_t bit0:1;
+	uint8_t bit1:1;
+	uint8_t bit2:1;
+	uint8_t bit3:1;
+	uint8_t bit4:1;
+	uint8_t bit5:1;
+	uint8_t bit6:1;
+	uint8_t bit7:1;
+
+	uint8_t bit8:1;
+	uint8_t bit9:1;
+	uint8_t bita:1;
+	uint8_t bitb:1;
+	uint8_t bitc:1;
+	uint8_t bitd:1;
+	uint8_t bite:1;
+	uint8_t bitf:1;
+} foo1_t;
+
+typedef union {
+	uint8_t a[2];
+	foo1_t  bits;
+} foo2_t;
+
 static void
 go_fpr()
 {
@@ -827,6 +852,11 @@ go_fpr()
 	report_pstr(PSTR(STR_FPR1));
 	report_hex(a, 2);
 	report_hex_value(PSTR(STR_FPR2), v, 2);
+
+	foo2_t test;
+	test.a[0] = v;
+	test.a[1] = a;
+	report_hex_value(PSTR("TEST THIRD BIT:"), test.bits.bit2, 1);
 }
 
 
@@ -850,8 +880,8 @@ go_fpdump()
 static void
 go_sws()
 {
-	report_pstr(PSTR(STR_SWS));
-	read_switches();
+	/* report_pstr(PSTR(STR_SWS)); */
+	/* read_switches(); */
 
 #warning "TO DO"
 	/* uint16_t lsw = get_lsw(); */
