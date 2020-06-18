@@ -66,6 +66,10 @@ typedef struct {
 
 	uint8_t   fp_scanen:1;       // The FP scanner is on
 	uint8_t   fp_panelen:1;      // Lights decode FPA data
+
+	// Switches
+	uint8_t   swdata[8];         // 64 switch bits
+	uint16_t  sr		     // The value of the SR from swdata.
 } hwstate_t;
 
 extern hwstate_t state;

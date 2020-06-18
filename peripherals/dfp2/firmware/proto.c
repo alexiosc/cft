@@ -115,6 +115,8 @@ static void gs_or();
 
 static void go_fpr();
 static void go_fpdump();
+static void go_sws();
+
 
 
 // Include the pre-processed list of commands and help.
@@ -845,6 +847,33 @@ go_fpdump()
 }
 
 
+static void
+go_sws()
+{
+	report_pstr(PSTR(STR_SWS));
+	read_switches();
+
+#warning "TO DO"
+	/* uint16_t lsw = get_lsw(); */
+	/* uint16_t rsw = get_rsw(); */
+
+	/* report_bin_pad((lsw >> 8) & 0xff, 8); // Left switches */
+	/* report_c(32); */
+	/* report_bin_pad(get_sr(), 16); // Switch register */
+	/* report_c(32); */
+	/* report_bin_pad(rsw & 0xfff, 12); // Right switches */
+	/* report_c(32); */
+	/* report_bin_pad((rsw >> 12) & 0xf, 4); // MS DIP switches */
+	/* report_c(32); */
+	/* report_bin_pad(lsw & 0xff, 8); // LS DIP switches */
+	/* report_c(32); */
+	/* report_nl(); */
+}
+
+
+
+
+
 ///////////////////////////////////////////////////////////////////////////////
 //
 // MEMORY AND I/O TOOLSET
@@ -1519,28 +1548,6 @@ go_state()
 	virtual_panel_sample(0);
 	report_pstr(PSTR(STR_STATE));
 	_machine_state();
-	report_nl();
-}
-
-
-static
-void
-go_sws()
-{
-	report_pstr(PSTR(STR_SWS));
-	uint16_t lsw = get_lsw();
-	uint16_t rsw = get_rsw();
-
-	report_bin_pad((lsw >> 8) & 0xff, 8); // Left switches
-	report_c(32);
-	report_bin_pad(get_sr(), 16); // Switch register
-	report_c(32);
-	report_bin_pad(rsw & 0xfff, 12); // Right switches
-	report_c(32);
-	report_bin_pad((rsw >> 12) & 0xf, 4); // MS DIP switches
-	report_c(32);
-	report_bin_pad(lsw & 0xff, 8); // LS DIP switches
-	report_c(32);
 	report_nl();
 }
 

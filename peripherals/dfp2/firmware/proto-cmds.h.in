@@ -18,7 +18,8 @@ static const struct {
 	// Front panel functionality
 	{"fpr",     go_fpr,      "[ 00-FF ] -- Read from FP Bus Address"},
 	{"fpdump",  go_fpdump,   "-- Dump full FP address space"},
-       	// {"sws",     go_sws,      "-- Show Switch state"},
+       	{"dsr",     gs_dsr,      "[ 00-FF ] -- Get (or override) the DIP Switches"},
+       	{"sws",     go_sws,      "-- Show Switch state"},
 
 #message "TODO: Evaluate and reinstate commands"
 	// {"s",       go_state,    "-- Current processor status"},
