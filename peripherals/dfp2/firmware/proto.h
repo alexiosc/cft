@@ -35,7 +35,6 @@ typedef struct uistate {
 	uint8_t  is_echo:1;	    // Echo is on
 	uint8_t  is_term:1;	    // Terminal bells and whistles are on
 	uint8_t  is_mesg:1;	    // Allow async messages
-	uint8_t  is_busy:1;	    // The DFP is busy
 	uint8_t  is_hof:1;	    // Halt on FAIL (TODO: Move elsewhere!)
 	uint8_t  is_hos:1;	    // Halt on SENTINEL  (TODO: Move elsewhere!)
 	uint8_t  is_stopping:1;	    // Computer stopping

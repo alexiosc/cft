@@ -157,7 +157,7 @@ proto_input(unsigned char c)
 	// Allow breaks at all times.
 	if (c == CTRL('C') || c == CTRL('X')) {
 		// Cancel input or operation (ASCII 24, Ctrl-X or Ctrl-C)
-		if (uistate.is_busy) {
+		if (hwstate.is_busy) {
 			uistate.is_break = 1;
 		} else {
 			style_async();
@@ -169,7 +169,7 @@ proto_input(unsigned char c)
 	}
 	
 	// Don't echo characters if we're busy.
-	if (uistate.is_busy) return '\0';
+	if (hwstate.is_busy) return '\0';
 
 	// Is the buffer full?
 	if (buflen >= BUFSIZE) return ECHO_ON ? '<' : '\0';
@@ -280,13 +280,15 @@ proto_init()
 	uistate.is_mesg = 1;
 	uistate.is_term = 1;
 	uistate.is_echo = 1;
-	uistate.is_busy = 1;
+
+	hwstate.is_busy = 1;
+
 	say_version();
 	report_pstr(PSTR(BANNER));
 	say_bufsize();
 	say_proc();
 	buflen = 0;
-	uistate.is_busy = 0;
+	hwstate.is_busy = 0;
 	uistate.addr = 0;
 }
 
@@ -303,7 +305,7 @@ proto_prompt()
 
 	// TODO: Reinstate this.
 	// if ((flags & FL_PROC) == 0) report_pstr(PSTR(STR_PNOPROC));
-	if (state.is_halted) {
+	if (hwstate.is_halted) {
 		style_info();
 		report_pstr(PSTR(STR_PSTOP));
 		style_normal();
@@ -374,7 +376,7 @@ void proto_loop()
 #endif // CFTEMU			
 		}
 
-		uistate.is_busy = 1;
+		hwstate.is_busy = 1;
 		uistate.is_error = 0;
 		uistate.is_eol = 0;
 		uistate.is_break = 0;
@@ -426,7 +428,7 @@ void proto_loop()
 		// Clear the input okay and busy bits.
 		buflen = 0;
 		uistate.is_inpok = 0;
-		uistate.is_busy = 0;
+		hwstate.is_busy = 0;
 		uistate.is_break = 0;
 		
 		// Restore the state of the STOP light (which the ISR blinks
@@ -1598,7 +1600,7 @@ go_swtest()
 	// by the interrupt handler, effectively disabling the switch
 	// assembly. The in-console flag disables line buffering (but
 	// also normal output).
-	uistate.is_busy = 1;
+	hwstate.is_busy = 1;
 	uistate.in_console_busy = 1;
 	uistate.is_inpok = 0;
 	uistate.is_break = 0;

@@ -41,7 +41,7 @@
 // #include "panel.h"
 
 
-hwstate_t state;
+hwstate_t hwstate;
 
 ringbuf_t rb;
 
@@ -305,22 +305,22 @@ read_full_dfp_state()
 	sample();		// Clock data into our own flip flops.
 
 	// Read the buses directly.
-	state.ab_h = xmem_read(XMEM_AB_H);
-	state.ab_m = xmem_read(XMEM_AB_M);
-	state.ab_l = xmem_read(XMEM_AB_L);
+	hwstate.ab_h = xmem_read(XMEM_AB_H);
+	hwstate.ab_m = xmem_read(XMEM_AB_M);
+	hwstate.ab_l = xmem_read(XMEM_AB_L);
 
-	state.db_h = xmem_read(XMEM_DB_H);
-	state.db_l = xmem_read(XMEM_DB_L);
+	hwstate.db_h = xmem_read(XMEM_DB_H);
+	hwstate.db_l = xmem_read(XMEM_DB_L);
 
-	state.ibus_h = xmem_read(XMEM_DB_H);
-	state.ibus_l = xmem_read(XMEM_DB_L);
+	hwstate.ibus_h = xmem_read(XMEM_DB_H);
+	hwstate.ibus_l = xmem_read(XMEM_DB_L);
 
-	state.dsr = xmem_read(XMEM_DSR);
+	hwstate.dsr = xmem_read(XMEM_DSR);
 
 	// Read via buffers in the computer.
-	state.ucv_h = xmem_read(XMEM_UCV_H);
-	state.ucv_m = xmem_read(XMEM_UCV_M);
-	state.ucv_l = xmem_read(XMEM_UCV_L);
+	hwstate.ucv_h = xmem_read(XMEM_UCV_H);
+	hwstate.ucv_m = xmem_read(XMEM_UCV_M);
+	hwstate.ucv_l = xmem_read(XMEM_UCV_L);
 
 	fp_scanner_start();
 }
@@ -365,7 +365,7 @@ release_ucv()
 inline static MUST_CHECK errno_t
 drive_ibus()
 {
-	if (!state.is_halted) {
+	if (!hwstate.is_halted) {
 		return ERR_NHALTED;
 	}
 
@@ -377,7 +377,7 @@ drive_ibus()
 inline static MUST_CHECK errno_t
 drive_control()
 {
-	if (!state.is_halted) {
+	if (!hwstate.is_halted) {
 		return ERR_NHALTED;
 	}
 
@@ -404,7 +404,7 @@ drive_ab()
 {
 	// If the BUS board is present and the processor isn't halted, we can't
 	// drive the AB.
-	if (state.have_bus && !state.is_halted) {
+	if (hwstate.have_bus && !hwstate.is_halted) {
 		// Tristate the AB driver. Should already be tristated since
 		// drive_ab() is being called, but let's be safe.
 		tristate_ab();
@@ -422,7 +422,7 @@ write_ab(const uint16_t addr, const uint8_t aext)
 {
 	// If the BUS board is present and the processor isn't halted, we can't
 	// write to the AB.
-	if (state.have_bus && !state.is_halted) {
+	if (hwstate.have_bus && !hwstate.is_halted) {
 		tristate_ab();
 		return ERR_NMASTER;
 	}
@@ -452,7 +452,7 @@ drive_db()
 {
 	// If the BUS board is present and the processor isn't halted, we can't
 	// drive the DB.
-	if (state.have_bus && !state.is_halted) {
+	if (hwstate.have_bus && !hwstate.is_halted) {
 		// Tristate the DB driver. Should already be tristated since
 		// drive_db() is being called, but let's be safe.
 		tristate_db();
@@ -470,7 +470,7 @@ write_db(const word_t data)
 {
 	// If the BUS board is present and the processor isn't halted, we can't
 	// write to the DB.
-	if (state.have_bus && !state.is_halted) {
+	if (hwstate.have_bus && !hwstate.is_halted) {
 		tristate_db();
 		return ERR_NMASTER;
 	}
@@ -505,9 +505,9 @@ clk_fast()
 	// Note: we can't set the clock to fast mode without starting it. So if
 	// the clock is currently stopped, do nothing here.
 
-	if (state.clk_stopped) return;
+	if (hwstate.clk_stopped) return;
 
-	state.clk_fast = 1;
+	hwstate.clk_fast = 1;
 	TCCR1A = 0;		  // Disable the MCU slow clock timer
 	setbit(PORTB, B_FPCLKEN); // Enable the CFT's clock generator.
 }
@@ -516,8 +516,8 @@ clk_fast()
 void
 clk_setfreq(uint8_t prescaler, uint16_t div)
 {
-	state.clk_prescaler = prescaler;
-	state.clk_div = div;
+	hwstate.clk_prescaler = prescaler;
+	hwstate.clk_div = div;
 
 	clearbit(PORTB, B_FPCLKEN); // Disable the CFT's own clock;
 
@@ -543,7 +543,7 @@ clk_slow()
 	clk_setfreq(PSV_1024, 97);
 
 	// Enable the clock output unless the clock is stopped.
-	if (!state.clk_stopped) TCCR1A = _BV(COM1B0);
+	if (!hwstate.clk_stopped) TCCR1A = _BV(COM1B0);
 }
 
 
@@ -554,20 +554,20 @@ clk_creep()
 	clk_setfreq(PSV_1024, 976);
 
 	// Enable the clock output unless the clock is stopped.
-	if (!state.clk_stopped) TCCR1A = _BV(COM1B0);
+	if (!hwstate.clk_stopped) TCCR1A = _BV(COM1B0);
 }
 
 
 void
 clk_start()
 {
-	if (state.clk_fast) {
+	if (hwstate.clk_fast) {
 		clk_fast();
 	} else {
 		// Restart with a slow clock.
-		clk_setfreq(state.clk_prescaler, state.clk_div);
+		clk_setfreq(hwstate.clk_prescaler, hwstate.clk_div);
 		TCCR1A = _BV(COM1B0); // Start toggling OC1B (FPµSTEP).
-		state.clk_stopped = 0;
+		hwstate.clk_stopped = 0;
 	}
 }
 
@@ -576,13 +576,13 @@ void
 clk_stop()
 {
 	// Disconnect the FPUSTEP-IN pin from the timer. The pin will stay
-	// in its last state.
+	// in its last hwstate.
 	TCCR1A = 0;		// Disconnect FPUSTEP-IN pin, no pulses.
 
 	// And now disable the processor's full-speed clock too.
 	clearbit(PORTB, B_FPCLKEN);
 
-	state.clk_stopped = 1;
+	hwstate.clk_stopped = 1;
 }
 
 
@@ -631,7 +631,7 @@ rc_wait()
 errno_t
 rc_halt()
 {
-	if (state.is_halted) return ERR_HALTED;
+	if (hwstate.is_halted) return ERR_HALTED;
 	setbit(PORTD, D_NSTEP_RUN); // Stop running
 
 	// The FSM will stop at the next fetch→execute transition. We
@@ -643,7 +643,7 @@ rc_halt()
 errno_t
 rc_run()
 {
-	if (!state.is_halted) return ERR_NHALTED;
+	if (!hwstate.is_halted) return ERR_NHALTED;
 	clearbit(PORTD, D_NSTEP_RUN); // Start running.
 	return ERR_SUCCESS;
 }
@@ -652,7 +652,7 @@ rc_run()
 errno_t
 rc_step()
 {
-	if (!state.is_halted) return ERR_NHALTED;
+	if (!hwstate.is_halted) return ERR_NHALTED;
 
 	// The only way to perform a single step using the FSM is to very
 	// briefly strobe the STEP/RUN# signal. The strobe must be shorter than
@@ -674,7 +674,7 @@ rc_step()
 errno_t
 rc_ustep()
 {
-	if (!state.is_halted) return ERR_NHALTED;
+	if (!hwstate.is_halted) return ERR_NHALTED;
 
 	// Again, stop the clock while strobing the µSTEP# signal.
 
@@ -709,7 +709,7 @@ set_fpramrom(bool_t rom)
 inline static void
 fp_scanner_stop()
 {
-	state.fp_scanen = 0;
+	hwstate.fp_scanen = 0;
 	setbit(PORTD, D_NSCANEN);
 }
 
@@ -718,15 +718,15 @@ inline static void
 fp_scanner_start()
 {
 	clearbit(PORTD, D_NSCANEN);
-	state.fp_scanen = 1;
+	hwstate.fp_scanen = 1;
 }
 
 
 inline static void
 fp_grab()
 {
-	state.fp_scanen = 0;
-	state.fp_panelen = 0;
+	hwstate.fp_scanen = 0;
+	hwstate.fp_panelen = 0;
 	PORTD |= BV(D_NSCANEN) | BV(D_NPANELEN);
 	
 }
@@ -736,8 +736,8 @@ inline static void
 fp_release()
 {
 	PORTD &= ~(BV(D_NSCANEN) | BV(D_NPANELEN));
-	state.fp_scanen = 0;
-	state.fp_panelen = 0;
+	hwstate.fp_scanen = 0;
+	hwstate.fp_panelen = 0;
 }
 
 
@@ -774,7 +774,7 @@ set_mfd(mfd_t mfd)
 inline word_t
 get_or()
 {
-	return (state.or_h << 8) | state.or_l;
+	return (hwstate.or_h << 8) | hwstate.or_l;
 }
 
 
@@ -782,11 +782,11 @@ void
 set_or(word_t value)
 {
 	ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
-		state.or_l = value & 0xff;
-		state.or_h = (value >> 8) & 0xff;
+		hwstate.or_l = value & 0xff;
+		hwstate.or_h = (value >> 8) & 0xff;
 		fp_scanner_stop();
-		xmem_write(XMEM_OR_H, state.or_h);
-		xmem_write(XMEM_OR_L, state.or_l);
+		xmem_write(XMEM_OR_H, hwstate.or_h);
+		xmem_write(XMEM_OR_L, hwstate.or_l);
 		fp_scanner_start();
 	}
 }
@@ -1027,12 +1027,13 @@ hw_done()
 //
 ///////////////////////////////////////////////////////////////////////////////
 
+// Debounce map
 static uint8_t _switches[64];
 
 static inline void
 sw_init()
 {
-	// Initialise the switch state.
+	// Initialise the switch hwstate.
 	for (uint8_t i = 0; i < 64; i++) {
 		_switches[i] = 0;
 	}
@@ -1043,7 +1044,8 @@ sw_init()
 	TCCR3B = 0b00001101;    // CTC mode, CLK÷1024 prescaler
 
 	// Set the A count comparator and trigger an interrupt when it matches.
-	OCR3A = 259;		// CLKIO÷1024÷(259+1) MHz ≅ 60.09 Hz.
+	//OCR3A = 259;		// CLKIO÷1024÷(259+1) MHz ≅ 60.09 Hz.
+	OCR3A = 519;		// CLKIO÷1024÷(519+1) MHz ≅ 30.09 Hz.
 	ETIMSK = BV(OCIE3A);	// Interrupt on timer compare match
 }
 
@@ -1063,32 +1065,205 @@ sw_init()
 // | INPUTS                    | OUTPUTS                   |
 // +---------------------------+---------------------------+
 
-static inline void
-sw_scan()
-{
-	for (uint8_t swa = 0, i = 0; swa < 16; swa++) {
-		PORTF = (PORTF & 0xf0) | (swa & 0x0f);
-		_switches[i] = (_switches[i] << 1) | (PORTF & 0x10 ? 1 : 0); i++;
-		_switches[i] = (_switches[i] << 1) | (PORTF & 0x20 ? 1 : 0); i++;
-		_switches[i] = (_switches[i] << 1) | (PORTF & 0x40 ? 1 : 0); i++;
-		_switches[i] = (_switches[i] << 1) | (PORTF & 0x80 ? 1 : 0); i++;
-	}
-}
-
-
-ISR(TIMER3_COMPA_vect)
-{
-	//serial_write('.');
-	// TODO
-}
-
-
 // To test if a switch has been pressed, the last four samples (one bit per
 // sample, so 0b1111, 0xf) must agree. So each switch may be in three states:
 // SWITCH_PRESSED, SWITCH_RELEASED, and bouncing (any other value).
 #define SWITCH_DEBOUNCE_MASK  0xf
 #define SWITCH_PRESSED        SWITCH_DEBOUNCE_MASK
 #define SWITCH_RELEASED       0
+
+static inline void
+sw_scan()
+{
+	uint8_t i = 0;
+
+	for (uint8_t swa = 0; swa < 16; swa++) {
+		PORTF = (PORTF & 0xf0) | (swa & 0x0f);
+
+		for (uint8_t j = 0, mask = 0x10; j < 4; mask <<=1, j++, i++) {
+			_switches[i] = (_switches[i] << 1) | (PORTF & mask ? 1 : 0);
+
+			if ((_switches[i] & SWITCH_DEBOUNCE_MASK) == SWITCH_PRESSED) {
+				setbit(hwstate.switches[i >> 3], i & 7);
+			} else if ((_switches[i] & SWITCH_DEBOUNCE_MASK) == SWITCH_RELEASED) {
+				clearbit(hwstate.switches[i >> 3], i & 7);
+			}
+		}
+	}
+}
+
+
+ISR(TIMER3_COMPA_vect)
+{
+	static uint8_t pause = 0;
+
+	// Scan the switches.
+	sw_scan();
+
+	// Blink the STOP light at ~10Hz while busy, and ignore the front panel
+	// switches. Any routine working overtime here had better call
+	// wdt_reset() on its own, otherwise the Watchdog will reset the DFP.
+	if (hwstate.is_busy) {
+		pause = (pause + 1) & 3;
+		if (pause == 0) togglebit(PORTD, D_LED_STOP);
+		// No more switch processing carried out while busy.
+		return;
+	}
+
+	return;
+
+#if 0
+	static uint8_t autorepeat = 45;
+	static uint8_t accelerate = 0;
+
+	// We're still alive!
+	wdt_reset();
+	
+	// If software-locked, ignore switches.
+	if (flags & FL_SWLOCK) return;
+	
+	// Toggle switch handling
+	deb_sample(0);		// Read the switches
+	
+	// Print out the Switch Register to the debugging console, if it's
+	// changed (the decision is made in panel_sr()). The SR can't be
+	// locked, so we act on it before the panel lock check.
+	if (_sr0 != _sr) panel_sr(_sr);
+
+	// If the front panel is locked, bail out.
+	if (panel_lock(actuated(_swleft, SWL_NLOCK))) {
+		return;
+	}
+
+	// Ignore 'action' panel switches if we're busy
+	if (flags & FL_BUSY) return;
+
+	// Have the switches changed?
+	if (_swleft0 == _swleft && _swright0 == _swright && _sr0 == _sr) {
+		if (autorepeat > 1) autorepeat--;
+		if (autorepeat != 1) return;
+
+		if (((_swleft & SWL_AUTOREPEAT) != SWL_AUTOREPEAT) ||
+		    ((_swright & SWR_AUTOREPEAT) != SWR_AUTOREPEAT)) {
+			// Three levels of autorepeat acceleration: 2 Hz, 6 Hz
+			// and 30 Hz.
+			if (accelerate < 255) accelerate++;
+			if (accelerate > 30) autorepeat = 1;
+			else if (accelerate > 6) autorepeat = 5;
+			else autorepeat = 15;
+		}
+	} else {
+		// A new button that supports autorepeat has been pressed (reminder:
+		// switches are active low, hence the logic below), prepare for
+		// autorepeat. 45 = ~1.5 sec.
+		if (((_swleft & SWL_AUTOREPEAT) != SWL_AUTOREPEAT) ||
+		    ((_swright & SWR_AUTOREPEAT) != SWR_AUTOREPEAT)) {
+			// A switch with autorepeat enabled has been
+			// pressed. Arm for the first repeat event.
+			autorepeat = 45;
+		} else {
+			// All the auto-repeat switches have been
+			// released. Reset auto-repeat.
+			autorepeat = 0;
+			accelerate = 0;
+		}
+	}
+
+	// Set the clock speed.
+	panel_spd((_swleft & (SWL_SLOW|SWL_FAST)) >> SWL_SPD_SHIFT);
+
+	// The RAM switch is only acted on on reset (an edge action), and when
+	// the clock is halted (a level action or latch). Again, the decision
+	// is made in panel_rom().
+	panel_rom(_swright & SWR_ROM ? 1 : 0);
+
+	// Is the increment signal being asserted?
+	bool_t inc = actuated(_swright, SWR_INC) ? 1 : 0;
+
+	// Become insensitive to this switch configuration.
+	_swleft0 = _swleft;
+	_swright0 = _swright;
+	_sr0 = _sr;
+
+	// Check switches. Act on just one per timer interrupt.
+	if (actuated(_swleft, SWL_RESET|SWL_RUN)) {
+		// Start (reset + run)
+		panel_start();
+	}
+
+	else if (actuated(_swleft, SWL_RESET)) {
+		// Reset
+		panel_reset();
+	}
+
+	else if (actuated(_swleft, SWL_STOP)) {
+		// Stop
+		panel_stop();
+	}
+
+	else if (actuated(_swleft, SWL_RUN)) {
+		// Run
+		panel_run();
+	}
+
+	else if (actuated(_swleft, SWL_STEP)) {
+		// Step
+		panel_step();
+	}
+
+	else if (actuated(_swleft, SWL_USTEP)) {
+		// MicroStep
+		panel_ustep();
+	}
+
+	else if (actuated(_swright, SWR_LDADDR)) {
+		// Load address (PC)
+		panel_ldaddr();
+	}
+
+	else if (actuated(_swright, SWR_LDIR)) {
+		// Load instruction register
+		panel_ldir();
+	}
+
+	else if (actuated(_swright, SWR_LDAC)) {
+		// Load AC
+		panel_ldac();
+	}
+
+	else if (actuated(_swright, SWR_MEMW)) {
+		// Memory, write, inc?
+		panel_wmem(inc, _pc, _sr);
+	}
+
+	else if (actuated(_swright, SWR_MEMR)) {
+		// Memory, read, inc?
+		panel_rmem(inc, _pc);
+	}
+
+	else if (actuated(_swright, SWR_IOW)) {
+		// I/O, write, inc?
+		panel_wio(inc, _pc, _sr);
+	}
+
+	else if (actuated(_swright, SWR_IOR)) {
+		// Memory, read, inc?
+		panel_rio(inc, _pc);
+	}
+
+	else if (actuated(_swright, SWR_IFR1)) {
+		// Front panel interupt request, level 1
+		panel_ifr1();
+	}
+
+	else if (actuated(_swright, SWR_IFR6)) {
+		// Front panel interupt request, level 1
+		panel_ifr6();
+	}
+
+#endif
+}
+
 
 inline static uint8_t
 get_switch(uint8_t swidx)
@@ -2255,7 +2430,7 @@ wait_for_halt(bool_t reckless)
 	}
 
 	// When we have no CPU, go through the motions but don't fail because
-	// the state machine will never get tot he STOP state.
+	// the state machine will never get to the STOP state.
 	if ((flags & FL_PROC) == 0) return;
 
 	// Set the FL_HALT flag first because assert_halted() checks
@@ -2813,174 +2988,6 @@ _readcycle(bool_t is_io)
  */
 
   //static uint8_t _idle = 0;
-
-ISR(TIMER0_COMPA_vect)
-{
-
-
-	return;
-	
-	static uint8_t pause = 0;
-	static uint8_t autorepeat = 45;
-	static uint8_t accelerate = 0;
-
-	// Blink the STOP light at ~10Hz while busy, and ignore the front panel
-	// switches. Any routine working overtime here had better call
-	// wdt_reset() on its own, otherwise the Watchdog will reset the DFP.
-	if (flags & FL_BUSY) {
-		pause = (pause + 1) & 3;
-		  if (pause == 0) cb[2] ^= CB2_FPSTOP;
-		write_cb();
-		return;
-	}
-
-	// We're still alive!
-	wdt_reset();
-	
-	// If software-locked, ignore switches.
-	if (flags & FL_SWLOCK) return;
-	
-	// Toggle switch handling
-	deb_sample(0);		// Read the switches
-	
-	// Print out the Switch Register to the debugging console, if it's
-	// changed (the decision is made in panel_sr()). The SR can't be
-	// locked, so we act on it before the panel lock check.
-	if (_sr0 != _sr) panel_sr(_sr);
-
-	// If the front panel is locked, bail out.
-	if (panel_lock(actuated(_swleft, SWL_NLOCK))) {
-		return;
-	}
-
-	// Ignore 'action' panel switches if we're busy
-	if (flags & FL_BUSY) return;
-
-	// Have the switches changed?
-	if (_swleft0 == _swleft && _swright0 == _swright && _sr0 == _sr) {
-		if (autorepeat > 1) autorepeat--;
-		if (autorepeat != 1) return;
-
-		if (((_swleft & SWL_AUTOREPEAT) != SWL_AUTOREPEAT) ||
-		    ((_swright & SWR_AUTOREPEAT) != SWR_AUTOREPEAT)) {
-			// Three levels of autorepeat acceleration: 2 Hz, 6 Hz
-			// and 30 Hz.
-			if (accelerate < 255) accelerate++;
-			if (accelerate > 30) autorepeat = 1;
-			else if (accelerate > 6) autorepeat = 5;
-			else autorepeat = 15;
-		}
-	} else {
-		// A new button that supports autorepeat has been pressed (reminder:
-		// switches are active low, hence the logic below), prepare for
-		// autorepeat. 45 = ~1.5 sec.
-		if (((_swleft & SWL_AUTOREPEAT) != SWL_AUTOREPEAT) ||
-		    ((_swright & SWR_AUTOREPEAT) != SWR_AUTOREPEAT)) {
-			// A switch with autorepeat enabled has been
-			// pressed. Arm for the first repeat event.
-			autorepeat = 45;
-		} else {
-			// All the auto-repeat switches have been
-			// released. Reset auto-repeat.
-			autorepeat = 0;
-			accelerate = 0;
-		}
-	}
-
-	// Set the clock speed.
-	panel_spd((_swleft & (SWL_SLOW|SWL_FAST)) >> SWL_SPD_SHIFT);
-
-	// The RAM switch is only acted on on reset (an edge action), and when
-	// the clock is halted (a level action or latch). Again, the decision
-	// is made in panel_rom().
-	panel_rom(_swright & SWR_ROM ? 1 : 0);
-
-	// Is the increment signal being asserted?
-	bool_t inc = actuated(_swright, SWR_INC) ? 1 : 0;
-
-	// Become insensitive to this switch configuration.
-	_swleft0 = _swleft;
-	_swright0 = _swright;
-	_sr0 = _sr;
-
-	// Check switches. Act on just one per timer interrupt.
-	if (actuated(_swleft, SWL_RESET|SWL_RUN)) {
-		// Start (reset + run)
-		panel_start();
-	}
-
-	else if (actuated(_swleft, SWL_RESET)) {
-		// Reset
-		panel_reset();
-	}
-
-	else if (actuated(_swleft, SWL_STOP)) {
-		// Stop
-		panel_stop();
-	}
-
-	else if (actuated(_swleft, SWL_RUN)) {
-		// Run
-		panel_run();
-	}
-
-	else if (actuated(_swleft, SWL_STEP)) {
-		// Step
-		panel_step();
-	}
-
-	else if (actuated(_swleft, SWL_USTEP)) {
-		// MicroStep
-		panel_ustep();
-	}
-
-	else if (actuated(_swright, SWR_LDADDR)) {
-		// Load address (PC)
-		panel_ldaddr();
-	}
-
-	else if (actuated(_swright, SWR_LDIR)) {
-		// Load instruction register
-		panel_ldir();
-	}
-
-	else if (actuated(_swright, SWR_LDAC)) {
-		// Load AC
-		panel_ldac();
-	}
-
-	else if (actuated(_swright, SWR_MEMW)) {
-		// Memory, write, inc?
-		panel_wmem(inc, _pc, _sr);
-	}
-
-	else if (actuated(_swright, SWR_MEMR)) {
-		// Memory, read, inc?
-		panel_rmem(inc, _pc);
-	}
-
-	else if (actuated(_swright, SWR_IOW)) {
-		// I/O, write, inc?
-		panel_wio(inc, _pc, _sr);
-	}
-
-	else if (actuated(_swright, SWR_IOR)) {
-		// Memory, read, inc?
-		panel_rio(inc, _pc);
-	}
-
-	else if (actuated(_swright, SWR_IFR1)) {
-		// Front panel interupt request, level 1
-		panel_ifr1();
-	}
-
-	else if (actuated(_swright, SWR_IFR6)) {
-		// Front panel interupt request, level 1
-		panel_ifr6();
-	}
-}
-
-
 
 #endif // 0
 

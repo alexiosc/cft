@@ -39,7 +39,7 @@ typedef struct {
 	uint8_t   ab_l,  ab_m, ab_h; // Last sampled value of the Address Bus
 	uint8_t   db_l, db_h;        // Last sampled value of the Data Bus
 	uint8_t   ibus_l, ibus_h;    // Last sampled value from the IBUS
-	uint8_t   dsr;		     // The DIP switches (8 bits)
+	uint8_t   dsr;               // The DIP switches (or overridden value)
 
 	// Computer Inputs
 	uint8_t   pc_l, pc_h;
@@ -64,15 +64,19 @@ typedef struct {
 	uint8_t   have_bus:1;	     // The BUS processor board is present.
 	uint8_t   have_alu:1;        // The ALU processor board is present.
 
+	uint8_t   is_busy:1;         // The DFP is busy.
+
 	uint8_t   fp_scanen:1;       // The FP scanner is on
 	uint8_t   fp_panelen:1;      // Lights decode FPA data
 
+	uint8_t   swdata[8];         // Front Panel Switches
+
 	// Switches
-	uint8_t   swdata[8];         // 64 switch bits
+	uint8_t   switches[8];       // 64 switch bits
 	uint16_t  sr;		     // The value of the SR from swdata.
 } hwstate_t;
 
-extern hwstate_t state;
+extern hwstate_t hwstate;
 
 
 void hw_init();
