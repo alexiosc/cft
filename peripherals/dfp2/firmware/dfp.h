@@ -14,6 +14,9 @@
 // We use this a lot, but it's ugly.
 #define MUST_CHECK __attribute__((warn_unused_result))
 
+// We use this to mark function we've ported to the DFP2 in full.
+#define UPDATED
+
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -452,6 +455,11 @@ errno_t  ibus_write(addr_t waddr, word_t * buf);
 // CFT-ORIGINATED BUS TRANSCACTIONS
 //
 ///////////////////////////////////////////////////////////////////////////////
+
+// The DSR is 16 bits wide. The value of the 8 DIP switches is ORred
+// with this value, used for detection purposes. The value can be
+// overridden by the dsr command to the DFP.
+#define DSR_HIGH 0x5500
 
 // We only compare 8-bit addresses because our hardware address decoder has
 // already compared the most significant 8 bits. Receiving an bus command

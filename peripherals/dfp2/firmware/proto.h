@@ -35,7 +35,6 @@ typedef struct uistate {
 	uint8_t  is_echo:1;	    // Echo is on
 	uint8_t  is_term:1;	    // Terminal bells and whistles are on
 	uint8_t  is_mesg:1;	    // Allow async messages
-	uint8_t  is_busy:1;	    // The DFP is busy
 	uint8_t  is_hof:1;	    // Halt on FAIL (TODO: Move elsewhere!)
 	uint8_t  is_hos:1;	    // Halt on SENTINEL  (TODO: Move elsewhere!)
 	uint8_t  is_stopping:1;	    // Computer stopping
@@ -79,6 +78,14 @@ extern volatile uistate_t uistate;
 #define STR_READY   "200 Ready\n"
 #define STR_MACHINE "299 T0sgQ09NUFVURVI=\n"
 
+#define STR_FPR1    "240 FP Bus Address: "
+#define STR_FPR2         " Value: "
+
+#define STR_SWS     "251 Switch state: "
+#define STR_ABUS    "260 ABUS: "
+#define STR_DBUS    "261 DBUS: "
+#define STR_IBUS    "262 IBUS: "
+
 // 3xx: Actions performed
 #define STR_DONE    "301 Done\n"
 #define STR_ABORT   "302 Aborted\n"
@@ -94,10 +101,12 @@ extern volatile uistate_t uistate;
 #define STR_GSTERM   "12 Terminal: "
 #define STR_GSLOCK   "15 Front panel lock: "
 #define STR_GSOR     "21 Output Register: "
+#define STR_DSR      "22 DIP Switch Register: "
 
 // 5xx: Errors.
 #define STR_BADCMD  "500 Unknown command\n"
 #define STR_BADVAL  "501 Bad value\n"
+#define STR_ERANGE  "502 Value out of range\n"
 #define STR_SYNTAX  "508 Syntax error\n"
 #define STR_NIMPL   "509 Not implemented\n"
 
@@ -164,7 +173,6 @@ extern volatile uistate_t uistate;
 #define STR_IN2          " Value: "
 
 #define STR_STATE   "250 Machine state: "
-#define STR_SWS     "251 Switch state: "
 #define STR_USTATE  "252 Microcode control: "
 #define STR_GSAC     "53 AC: "
 #define STR_GSPC     "54 PC: "
@@ -175,24 +183,22 @@ extern volatile uistate_t uistate;
 #define STR_PC           " PC:"
 #define STR_IR           " IR:"
 
-#define STR_ABUS    "260 ABUS: "
-#define STR_DBUS    "261 DBUS: "
 
 
 #define STR_DUMP    "300 Dumping\n"
 
 #define STR_CKSUM   "303 Checksum: "
 
-//                   310-321 reserved
+//                   310-329 reserved
 #define STR_ARUN    "304 Host running\n"
 #define STR_AHALTED "305 Host halted\n"
 #define STR_RESET   "306 Host reset\n"
 #define STR_COLD    "307 Cold reset.\n"
-#define STR_BPOINT  "322 Breakpoint "
-#define STR_STEP    "323 Step. "
-#define STR_USTEP   "324 Microstep. "
-#define STR_TRACE   "325 Tracing.\n"
-#define STR_UTRACE  "326 Microtracing.\n"
+#define STR_BPOINT  "330 Breakpoint "
+#define STR_STEP    "331 Step. "
+#define STR_USTEP   "332 Microstep. "
+#define STR_TRACE   "333 Tracing.\n"
+#define STR_UTRACE  "334 Microtracing.\n"
 // #ifdef AVR
 // #define STR_CLKSET  "330 Clock set to " F_CPU_S " Hz / ("
 // #else
@@ -241,9 +247,12 @@ extern volatile uistate_t uistate;
 #define STR_CHATTER "504 Bus chatter\n"
 #define STR_ALRHALT "505 Already halted\n"
 #define STR_ALRRUN  "506 Already running\n"
-#define STR_NOPROC  "507 No processor\n"
+#define STR_NOCTL   "507 CTL board not installed or faulty\n"
+#define STR_NOREG   "508 REG board not installed or faulty\n"
+#define STR_NOALU   "509 REG board not installed or faulty\n"
+#define STR_NOBUS   "510 BUS board not installed or faulty\n"
 
-#define STR_NSELF   "510 You talkin' to me?\n"
+#define STR_NSELF   "511 You talkin' to me?\n"
 
 // Hardware Faults.
 #define STR_DIAGF   "901 Diagnostics failed.\n"

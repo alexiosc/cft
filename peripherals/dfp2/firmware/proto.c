@@ -113,6 +113,18 @@ static void go_creep();
 
 static void gs_or();
 
+static void go_fpr();
+static void go_fpdump();
+static void go_sws();
+static void gs_dsr();
+
+static void gs_ir();
+static void gs_pc();
+static void gs_dr();
+static void gs_ac();
+static void gs_sp();
+
+
 
 // Include the pre-processed list of commands and help.
 #include "proto-cmds.h"
@@ -152,7 +164,7 @@ proto_input(unsigned char c)
 	// Allow breaks at all times.
 	if (c == CTRL('C') || c == CTRL('X')) {
 		// Cancel input or operation (ASCII 24, Ctrl-X or Ctrl-C)
-		if (uistate.is_busy) {
+		if (hwstate.is_busy) {
 			uistate.is_break = 1;
 		} else {
 			style_async();
@@ -164,7 +176,7 @@ proto_input(unsigned char c)
 	}
 	
 	// Don't echo characters if we're busy.
-	if (uistate.is_busy) return '\0';
+	if (hwstate.is_busy) return '\0';
 
 	// Is the buffer full?
 	if (buflen >= BUFSIZE) return ECHO_ON ? '<' : '\0';
@@ -275,13 +287,15 @@ proto_init()
 	uistate.is_mesg = 1;
 	uistate.is_term = 1;
 	uistate.is_echo = 1;
-	uistate.is_busy = 1;
+
+	hwstate.is_busy = 1;
+
 	say_version();
 	report_pstr(PSTR(BANNER));
 	say_bufsize();
 	say_proc();
 	buflen = 0;
-	uistate.is_busy = 0;
+	hwstate.is_busy = 0;
 	uistate.addr = 0;
 }
 
@@ -298,7 +312,7 @@ proto_prompt()
 
 	// TODO: Reinstate this.
 	// if ((flags & FL_PROC) == 0) report_pstr(PSTR(STR_PNOPROC));
-	if (state.is_halted) {
+	if (hwstate.is_halted) {
 		style_info();
 		report_pstr(PSTR(STR_PSTOP));
 		style_normal();
@@ -369,7 +383,7 @@ void proto_loop()
 #endif // CFTEMU			
 		}
 
-		uistate.is_busy = 1;
+		hwstate.is_busy = 1;
 		uistate.is_error = 0;
 		uistate.is_eol = 0;
 		uistate.is_break = 0;
@@ -421,7 +435,7 @@ void proto_loop()
 		// Clear the input okay and busy bits.
 		buflen = 0;
 		uistate.is_inpok = 0;
-		uistate.is_busy = 0;
+		hwstate.is_busy = 0;
 		uistate.is_break = 0;
 		
 		// Restore the state of the STOP light (which the ISR blinks
@@ -693,6 +707,30 @@ optional_hex_val(uint16_t * word)
 
 ///////////////////////////////////////////////////////////////////////////////
 //
+// ASSERTIONS
+//
+///////////////////////////////////////////////////////////////////////////////
+
+static bool_t
+_assert_have_present(have_board, char * msg)
+{
+	if (have_board) return 1;
+	style_error();
+	report_pstr(msg);
+	return 0;
+}
+
+#define assert_ctl_present() _assert_board_present(hwstate.have_ctl, PSTR(STR_NOCTL))
+#define assert_reg_present() _assert_board_present(hwstate.have_reg, PSTR(STR_NOREG))
+#define assert_alu_present() _assert_board_present(hwstate.have_alu, PSTR(STR_NOALU))
+#define assert_bus_present() _assert_board_present(hwstate.have_bus, PSTR(STR_NOBUS))
+
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
 // GET AND SET ON/OFF SETTINGS
 //
 ///////////////////////////////////////////////////////////////////////////////
@@ -789,6 +827,103 @@ go_creep()
 
 ///////////////////////////////////////////////////////////////////////////////
 //
+// FRONT PANEL FUNCTIONALITY
+//
+///////////////////////////////////////////////////////////////////////////////
+
+
+static void
+go_fpr()
+{
+	// Parse addr
+	char * s = get_arg();
+	if (s == NULL) {
+		badsyntax();
+		return;
+	}
+	
+	uint16_t a = parse_hex(s);
+	if (uistate.is_error) {
+		badval();
+		return;
+	}
+
+	if (a < 0 || a > 0xff) {
+		style_error();
+		report_pstr(PSTR(STR_ERANGE));
+		return;
+
+	}
+
+	uint16_t v = read_dfp_address((xmem_addr_t) a);
+
+	report_pstr(PSTR(STR_FPR1));
+	report_hex(a, 2);
+	report_hex_value(PSTR(STR_FPR2), v, 2);
+}
+
+
+static void
+go_fpdump()
+{
+	for (uint8_t r = 0; r < 16; r++) {
+		report_hex(r << 4, 2);
+		report_pstr(PSTR("|"));
+		for (uint8_t c = 0; c < 16; c++) {
+			uint8_t v = read_dfp_address((xmem_addr_t) ((r << 4) | c));
+			report_pstr(PSTR(" "));
+			report_hex(v, 2);
+		}
+		report_nl();
+	}
+	report_pstr(PSTR(STR_DONE));
+}
+
+
+static void
+go_sws()
+{
+	// The AVR driver reads and debounces switches in an ISR that runs at
+	// 60Hz. But we also call this synchronous hook in case another drivers
+	// needs it.
+	sw_read();
+	report_pstr(PSTR(STR_SWS));
+
+	for (uint8_t i = 0; i < 8; i++) {
+		report_bin_pad(hwstate.switches[i], 8);
+		report_c(32);
+	}
+	report_nl();
+}
+
+// Get or set (override) the DIP Switch Register.
+void
+gs_dsr()
+{
+	char * s = get_arg();
+	if (s != NULL) {
+		if (s[0] == '-') {
+			// Read the DSR from the physical switches.
+			hwstate.dsr = DSR_HIGH | read_dfp_address(XMEM_DSR);
+		} else {
+			uint16_t x = parse_hex(s);
+			if (uistate.is_error == 0) {
+				hwstate.dsr = x;
+			} else {
+				badval();
+				return;
+			}
+		}
+		report_gs(1);
+	} else {
+		report_gs(0);
+	}
+	report_hex_value(PSTR(STR_DSR), hwstate.dsr, 4);
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
 // MEMORY AND I/O TOOLSET
 //
 ///////////////////////////////////////////////////////////////////////////////
@@ -840,22 +975,117 @@ gs_or()
 static void
 say_abus()
 {
-//	report_hex_value(PSTR(STR_ABUS), get_ab(), 4);
+	read_full_state();
+	report_pstr(PSTR(STR_ABUS));
+	report_hex(hwstate.ab_h, 2);
+	report_char(':');
+	report_hex((hwstate.ab_m << 8) | hwstate.ab_l, 4);
+	report_nl();
 }
 
 
 static void
 say_dbus()
 {
-//	report_hex_value(PSTR(STR_DBUS), get_db(), 4);
+	read_full_state();
+	report_pstr(PSTR(STR_DBUS));
+	report_hex((hwstate.db_h << 8) | hwstate.db_l, 4);
+	report_nl();
 }
 
 
 static void
 say_ibus()
 {
-//	report_hex_value(PSTR(STR_IBUS), get_ibus(), 4);
+	read_full_state();
+	report_pstr(PSTR(STR_IBUS));
+	report_hex((hwstate.ibus_h << 8) | hwstate.ibus_l, 4);
+	report_nl();
 }
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// REGISTERS
+//
+///////////////////////////////////////////////////////////////////////////////
+
+
+static void
+_reg(uint8_t reg)
+{
+	uint16_t w;
+	int8_t r;
+
+	r = optional_hex_val(&w);
+	if (r < 0) return;
+	else if (r > 0) {
+		// Ensure the bus is quiet. 
+		if (!assert_halted()) return;
+		if (set_reg(reg, w) == 0) return;
+	}
+	report_gs(r);
+	switch(reg) {
+	case REG_AC:
+		report_hex_value(PSTR(STR_GSAC), get_ac(), 4);
+		if (r) check_mismatch(w, get_ac());
+		return;
+	case REG_PC:
+		report_hex_value(PSTR(STR_GSPC), get_pc(), 4);
+		if (r) check_mismatch(w, get_pc());
+		return;
+	case REG_IR:
+		report_hex_value(PSTR(STR_GSIR), get_ir(), 4);
+		if (r) check_mismatch(w, get_ir());
+		return;
+	}
+}
+
+
+static void
+gs_ir()
+{
+	// Need a processor
+	if (!assert_ctl_present()) return;
+	_reg(REG_IR);
+}
+
+
+static void
+gs_pc()
+{
+	// Need a processor
+	if (!assert_reg_present()) return;
+	_reg(REG_PC);
+}
+
+
+static void
+gs_dr()
+{
+	// Need a processor
+	if (!assert_reg_present()) return;
+	_reg(REG_DR);
+}
+
+
+static void
+gs_ac()
+{
+	// Need a processor
+	if (!assert_reg_present()) return;
+	_reg(REG_AC);
+}
+
+
+static void
+gs_sp()
+{
+	// Need a processor
+	if (!assert_reg_present()) return;
+	_reg(REG_SP);
+}
+
 
 
 
@@ -1467,28 +1697,6 @@ go_state()
 
 static
 void
-go_sws()
-{
-	report_pstr(PSTR(STR_SWS));
-	uint16_t lsw = get_lsw();
-	uint16_t rsw = get_rsw();
-
-	report_bin_pad((lsw >> 8) & 0xff, 8); // Left switches
-	report_c(32);
-	report_bin_pad(get_sr(), 16); // Switch register
-	report_c(32);
-	report_bin_pad(rsw & 0xfff, 12); // Right switches
-	report_c(32);
-	report_bin_pad((rsw >> 12) & 0xf, 4); // MS DIP switches
-	report_c(32);
-	report_bin_pad(lsw & 0xff, 8); // LS DIP switches
-	report_c(32);
-	report_nl();
-}
-
-
-static
-void
 go_swtest()
 {
 	report_pstr(PSTR(STR_SWTEST));
@@ -1503,7 +1711,7 @@ go_swtest()
 	// by the interrupt handler, effectively disabling the switch
 	// assembly. The in-console flag disables line buffering (but
 	// also normal output).
-	uistate.is_busy = 1;
+	hwstate.is_busy = 1;
 	uistate.in_console_busy = 1;
 	uistate.is_inpok = 0;
 	uistate.is_break = 0;
@@ -1822,64 +2030,6 @@ go_utrace()
 // RIGHT SWITCH BANK AND BUS TRANSACTIONS
 //
 ///////////////////////////////////////////////////////////////////////////////
-
-
-static void
-_reg(uint8_t reg)
-{
-	uint16_t w;
-	int8_t r;
-
-	r = optional_hex_val(&w);
-	if (r < 0) return;
-	else if (r > 0) {
-		// Ensure the bus is quiet. 
-		if (!assert_halted()) return;
-		if (set_reg(reg, w) == 0) return;
-	}
-	report_gs(r);
-	switch(reg) {
-	case REG_AC:
-		report_hex_value(PSTR(STR_GSAC), get_ac(), 4);
-		if (r) check_mismatch(w, get_ac());
-		return;
-	case REG_PC:
-		report_hex_value(PSTR(STR_GSPC), get_pc(), 4);
-		if (r) check_mismatch(w, get_pc());
-		return;
-	case REG_IR:
-		report_hex_value(PSTR(STR_GSIR), get_ir(), 4);
-		if (r) check_mismatch(w, get_ir());
-		return;
-	}
-}
-
-
-static void
-gs_ac()
-{
-	// Need a processor
-	if (!assert_proc_present()) return;
-	_reg(REG_AC);
-}
-
-
-static void
-gs_pc()
-{
-	// Need a processor
-	if (!assert_proc_present()) return;
-	_reg(REG_PC);
-}
-
-
-static void
-gs_ir()
-{
-	// Need a processor
-	if (!assert_proc_present()) return;
-	_reg(REG_IR);
-}
 
 
 static void

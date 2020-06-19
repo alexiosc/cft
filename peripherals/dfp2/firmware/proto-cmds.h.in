@@ -1,6 +1,8 @@
 #ifndef __PROTO_CMDS_H
 #define __PROTO_CMDS_H
 
+#define NL "\n201"
+
 #define CMD_SIZE 8
 static const struct {
 	char cmd[CMD_SIZE];
@@ -15,17 +17,32 @@ static const struct {
 	{"echo",    gs_echo,     "[ BOOL ] -- Get/set local echo."},
 	{"mesg",    gs_mesg,     "[ BOOL ] -- Get/set async messages."},
 
+	// Front panel functionality
+	{"fpr",     go_fpr,      "[ BYTE ] -- Read from FP Bus Address"},
+	{"fpdump",  go_fpdump,   "-- Dump full FP address space"},
+       	{"dsr",     gs_dsr,      "[ WORD | - ] -- Get, read, or override the DIP Switches"},
+       	{"sws",     go_sws,      "-- Show Switch state" NL },
+
+	// Buses
+
+       	{"ibus",    say_ibus,    "-- Read IBus"},
+       	{"abus",    say_abus,    "-- Read Address bus"},
+       	{"dbus",    say_dbus,    "-- Read Data bus" NL},
+
+	// Registers
+	{"ir",      gs_ir,       "[ WORD ] -- Get/set IR"},
+	{"pc",      gs_pc,       "[ WORD ] -- Get/set Program Counter"},
+	{"dr",      gs_dr,       "[ WORD ] -- Get/set Data Register."},
+	{"ac",      gs_ac,       "[ WORD ] -- Get/set Accumulator."},
+	{"sp",      gs_sp,       "[ WORD ] -- Get/set Stack Pointer." NL },
+
 #message "TODO: Evaluate and reinstate commands"
 	// {"s",       go_state,    "-- Current processor status"},
        	// {"us",      go_ustate,   "-- Microcode control state"},
-       	// {"sws",     go_sws,      "-- Show Switch state"},
-       	{"ibus",    say_ibus,    "-- Read IBus"},
-       	{"abus",    say_abus,    "-- Read Address bus"},
-       	{"dbus",    say_dbus,    "-- Read Data bus"},
        	// {"swtest",  go_swtest,   "-- Test switch assembly and OR"},
        	// {"dfps",    go_dfps,     "-- Show DFP state"},
 	// {"cons",    go_cons,     "-- Virtual console (<Enter> # . to exit)."},
-	{"lock",    gs_lock,     "[ BOOL ] -- Get/set software switch lock.\n201"},
+	{"lock",    gs_lock,     "[ BOOL ] -- Get/set software switch lock." NL },
 
 	// // Left switch bank (computer control)
 
@@ -51,11 +68,6 @@ static const struct {
 	{"creep",   go_creep,  "-- CPU at creep speed"},
 	// {"clk",     go_clk,    "PS DIV -- Arbitrary clock speed (see docs).\n201"},
 
-	// // Right switch bank (cycle operations)
-	// {"ir",      gs_ir,     "[ WORD ] -- Get/set IR"},
-	// {"pc",      gs_pc,     "[ WORD ] -- Get/set PC"},
-	// {"ac",      gs_ac,     "[ WORD ] -- Get/set AC.\n201"},
-
 	{"a",       gs_addr,   "[ WORD ] -- Get/set address"},
 	// {"r",       go_read,   "-- Read mem[a++]"},
 	// {"d",       go_dump_text,   "[ C ] -- Dump C words (default: 80)"},
@@ -78,5 +90,7 @@ static const struct {
 
 	{"\0", (void*)-1}
 };
+
+#undef NL
 
 #endif // __PROTO_CMDS_H

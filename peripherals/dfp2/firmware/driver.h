@@ -39,7 +39,7 @@ typedef struct {
 	uint8_t   ab_l,  ab_m, ab_h; // Last sampled value of the Address Bus
 	uint8_t   db_l, db_h;        // Last sampled value of the Data Bus
 	uint8_t   ibus_l, ibus_h;    // Last sampled value from the IBUS
-	uint8_t   dsr;		     // The DIP switches (8 bits)
+	uint16_t  dsr;               // The DIP switches (or overridden value)
 
 	// Computer Inputs
 	uint8_t   pc_l, pc_h;
@@ -52,20 +52,31 @@ typedef struct {
 	uint8_t   or_l, or_h;	     // Last set value of the OR
 
 	// Internal DFP State
-	uint16_t  clk_div;	   // The slow clock divider.
-	uint8_t   clk_prescaler:3; // The slow clock prescaler.
-	uint8_t   clk_fast:1;	   // Using the full speed clock of the CFT.
-	uint8_t   clk_stopped:1;   // The clock has been stopped.
+	uint16_t  clk_div;	     // The slow clock divider.
+	uint8_t   clk_prescaler:3;   // The slow clock prescaler.
+	uint8_t   clk_fast:1;	     // Using the full speed clock of the CFT.
+	uint8_t   clk_stopped:1;     // The clock has been stopped.
 
-	uint8_t   is_halted:1;	   // Set when the computer has been halted.
+	uint8_t   is_halted:1;	     // Set when the computer has been halted.
 
-	uint8_t   have_ctl:1;	   // The CTL processor board is present.
-	uint8_t   have_reg:1;	   // The REG processor board is present.
-	uint8_t   have_bus:1;	   // The BUS processor board is present.
-	uint8_t   have_alu:1;      // The ALU processor board is present.
+	uint8_t   have_ctl:1;	     // The CTL processor board is present.
+	uint8_t   have_reg:1;	     // The REG processor board is present.
+	uint8_t   have_bus:1;	     // The BUS processor board is present.
+	uint8_t   have_alu:1;        // The ALU processor board is present.
+
+	uint8_t   is_busy:1;         // The DFP is busy.
+
+	uint8_t   fp_scanen:1;       // The FP scanner is on
+	uint8_t   fp_panelen:1;      // Lights decode FPA data
+
+	uint8_t   swdata[8];         // Front Panel Switches
+
+	// Switches
+	uint8_t   switches[8];       // 64 switch bits
+	uint16_t  sr;		     // The value of the SR from swdata.
 } hwstate_t;
 
-extern hwstate_t state;
+extern hwstate_t hwstate;
 
 
 void hw_init();
@@ -87,6 +98,14 @@ void serial_write(unsigned char c);
 extern unsigned char proto_input(unsigned char c);
 
 
+///////////////////////////////////////////////////////////////////////////////
+//
+// LOW-LEVEL DFP FUNCTIONALITY
+//
+///////////////////////////////////////////////////////////////////////////////
+
+// Read an arbitrary address from the DFP bus.
+uint8_t read_dfp_address(xmem_addr_t a);
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -113,6 +132,24 @@ typedef struct {
 #endif
 
 extern ringbuf_t ringbuf;
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// BUSES, COMPUTER STATE AND TRANSACTIONS
+//
+///////////////////////////////////////////////////////////////////////////////
+
+void read_full_state(); // Updates the entire virtual front panel synchronously
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// FRONT PANEL SWITCHES
+//
+///////////////////////////////////////////////////////////////////////////////
+
+void sw_read();
 
 
 ///////////////////////////////////////////////////////////////////////////////
