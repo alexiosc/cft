@@ -362,27 +362,76 @@ release_ucv()
 }
 
 
-inline static MUST_CHECK errno_t
-drive_ibus()
+// inline static MUST_CHECK errno_t
+// drive_ibus()
+// {
+// 	if (!hwstate.is_halted) {
+// 		return ERR_NHALTED;
+// 	}
+
+// 	clearbit(PORTC, C_NIBOE);
+// 	return ERR_SUCCESS;
+// }
+
+
+// inline static MUST_CHECK errno_t
+// drive_control()
+// {
+// 	if (!hwstate.is_halted) {
+// 		return ERR_NHALTED;
+// 	}
+
+// 	clearbit(PORTE, E_NMCVOE);
+// 	return ERR_SUCCESS;
+// }
+
+
+MUST_CHECK errno_t
+write_to_ibus_unit(uint8_t waddr, uint16_t val)
 {
 	if (!hwstate.is_halted) {
 		return ERR_NHALTED;
 	}
 
-	clearbit(PORTC, C_NIBOE);
-	return ERR_SUCCESS;
+	ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+		xmem_write(XMEM_RADDR, 0);
+		xmem_write(XMEM_WADDR, 0);
+		xmem_write(XMEM_ACTION, 0);
+
+		clearbit(PORTE, E_NMCVOE); // Drive the IBUS
+		xmem_write(XMEM_IBUS_H, (val >> 8) & 0xff);
+		xmem_write(XMEM_IBUS_L, (val & 0xff));
+		clearbit(PORTC, C_NIBOE);
+
+		xmem_write(XMEM_WADDR, waddr);
+		xmem_write(XMEM_WADDR, 0);
+
+		setbit(PORTE, E_NMCVOE);
+		setbit(PORTC, C_NIBOE);
+	}
 }
 
 
-inline static MUST_CHECK errno_t
-drive_control()
+MUST_CHECK errno_t
+read_from_ibus_unit(uint8_t raddr, uint16_t * val)
 {
 	if (!hwstate.is_halted) {
 		return ERR_NHALTED;
 	}
 
-	clearbit(PORTE, E_NMCVOE);
-	return ERR_SUCCESS;
+	ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+		xmem_write(XMEM_RADDR, 0);
+		xmem_write(XMEM_WADDR, 0);
+		xmem_write(XMEM_ACTION, 0);
+
+		clearbit(PORTE, E_NMCVOE);
+		xmem_write(XMEM_RADDR, raddr);
+
+		*val = xmem_read(XMEM_IBUS_H) << 8 | xmem_read(XMEM_IBUS_L);
+
+		xmem_write(XMEM_RADDR, 0);
+		setbit(PORTE, E_NMCVOE);
+	}
 }
 
 
@@ -447,7 +496,7 @@ tristate_db()
 }
 
 
-inline static errno_t
+inline static MUST_CHECK errno_t
 drive_db()
 {
 	// If the BUS board is present and the processor isn't halted, we can't
@@ -465,7 +514,7 @@ drive_db()
 }
 
 
-static errno_t
+static MUST_CHECK errno_t
 write_db(const word_t data)
 {
 	// If the BUS board is present and the processor isn't halted, we can't
@@ -1471,6 +1520,44 @@ ISR(BADISR_vect)
 
 
 
+///////////////////////////////////////////////////////////////////////////////
+//
+// REGISTERS
+//
+///////////////////////////////////////////////////////////////////////////////
+
+uint8_t
+set_reg(reg_t reg, uint16_t value)
+{
+	report_pstr(PSTR("set_reg() not implemented"));
+	return 1;
+	
+	// // Even with the processor halted, some control signals are
+	// // bus-held. Explicitly drive MEM#, IO#, R#, and WEN# high.
+
+	// write_ibus(value);
+	// drive_ibus();
+	// setup();
+	// switch (reg) {
+	// case reg_ir:
+	// 	strobe_wir();
+	// 	break;
+	// }
+	// hold();
+	// tristate_ibus();
+
+	// // Sample the bus after setting the reg. This can be used to
+	// // verify a correct write.
+	// virtual_panel_sample(0);
+
+	// return 1;
+}
+
+
+
+
+
+
 
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
@@ -1483,6 +1570,90 @@ ISR(BADISR_vect)
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

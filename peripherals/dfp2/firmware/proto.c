@@ -707,12 +707,50 @@ optional_hex_val(uint16_t * word)
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-// ASSERTIONS
+// ASSERTIONS AND SANITY CHECKS
 //
 ///////////////////////////////////////////////////////////////////////////////
 
+uint8_t
+assert_halted()
+{
+	report_pstr(PSTR("assert_halted() not implemented"));
+	return 1;
+
+// 	// Ensure it's stopped.
+// 	if ((flags & FL_HALT) == 0) {
+// 		style_error();
+// 		report_pstr(PSTR(STR_RUNNING));
+// 		flags |= FL_ERROR;
+// 		return 0;
+// 	} else {
+// 		// The ustep command leaves the processor with its clock
+// 		// stopped but NOT halted (so the microcode vectors can be
+// 		// examined). The FL_HALT flag is still set though, so whenever
+// 		// we're in FL_HALT mode and a command needs the processor to
+// 		// be halted by calling us, we halt it here. The clock should
+// 		// be stopped already, so no need to wait for a full
+// 		// halt. We're just tristating the control lines.
+// #ifdef AVR
+// 		defercb = 0;	// Force NHALT#.
+// #endif // AVR
+// 		set_halt(1);
+// 	}
+	
+// 	// Check for bus chatter.
+// 	if (buschatter()) {
+// 		style_error();
+// 		report_pstr(PSTR(STR_CHATTER));
+// 		flags |= FL_ERROR;
+// 		return 0;
+// 	}
+
+// 	return 1;
+}
+
+
 static bool_t
-_assert_have_present(have_board, char * msg)
+_assert_board_present(uint8_t have_board, char * msg)
 {
 	if (have_board) return 1;
 	style_error();
@@ -726,7 +764,13 @@ _assert_have_present(have_board, char * msg)
 #define assert_bus_present() _assert_board_present(hwstate.have_bus, PSTR(STR_NOBUS))
 
 
-
+uint8_t
+check_mismatch(uint16_t should_be, uint16_t was)
+{
+	if (should_be == was) return 0;
+	report_mismatch(PSTR(STR_NVMIS), should_be, was);
+	return 1;
+}
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1012,7 +1056,7 @@ say_ibus()
 
 
 static void
-_reg(uint8_t reg)
+_reg(reg_t reg)
 {
 	uint16_t w;
 	int8_t r;
@@ -1025,18 +1069,27 @@ _reg(uint8_t reg)
 		if (set_reg(reg, w) == 0) return;
 	}
 	report_gs(r);
+
 	switch(reg) {
-	case REG_AC:
-		report_hex_value(PSTR(STR_GSAC), get_ac(), 4);
-		if (r) check_mismatch(w, get_ac());
+	case reg_ir:
+		report_hex_value(PSTR(STR_GSIR), get_ir(), 4);
+		if (r) check_mismatch(w, get_ir());
 		return;
-	case REG_PC:
+	case reg_pc:
 		report_hex_value(PSTR(STR_GSPC), get_pc(), 4);
 		if (r) check_mismatch(w, get_pc());
 		return;
-	case REG_IR:
-		report_hex_value(PSTR(STR_GSIR), get_ir(), 4);
-		if (r) check_mismatch(w, get_ir());
+	case reg_dr:
+		report_hex_value(PSTR(STR_GSDR), get_dr(), 4);
+		if (r) check_mismatch(w, get_dr());
+		return;
+	case reg_ac:
+		report_hex_value(PSTR(STR_GSAC), get_ac(), 4);
+		if (r) check_mismatch(w, get_ac());
+		return;
+	case reg_sp:
+		report_hex_value(PSTR(STR_GSSP), get_sp(), 4);
+		if (r) check_mismatch(w, get_sp());
 		return;
 	}
 }
@@ -1045,45 +1098,45 @@ _reg(uint8_t reg)
 static void
 gs_ir()
 {
-	// Need a processor
+	// The IR is on the CTL board.
 	if (!assert_ctl_present()) return;
-	_reg(REG_IR);
+	_reg(reg_ir);
 }
 
 
 static void
 gs_pc()
 {
-	// Need a processor
+	// Need the REG board
 	if (!assert_reg_present()) return;
-	_reg(REG_PC);
+	_reg(reg_pc);
 }
 
 
 static void
 gs_dr()
 {
-	// Need a processor
+	// Need the REG board
 	if (!assert_reg_present()) return;
-	_reg(REG_DR);
+	_reg(reg_dr);
 }
 
 
 static void
 gs_ac()
 {
-	// Need a processor
+	// Need the REG board
 	if (!assert_reg_present()) return;
-	_reg(REG_AC);
+	_reg(reg_ac);
 }
 
 
 static void
 gs_sp()
 {
-	// Need a processor
+	// Need the REG board
 	if (!assert_reg_present()) return;
-	_reg(REG_SP);
+	_reg(reg_sp);
 }
 
 
@@ -2538,15 +2591,6 @@ go_dfps()
 // #endif // HOST
 // }
 // #define gs_nop go_nop
-
-
-uint8_t
-check_mismatch(uint16_t should_be, uint16_t was)
-{
-	if (should_be == was) return 0;
-	report_mismatch(PSTR(STR_NVMIS), should_be, was);
-	return 1;
-}
 
 
 #endif

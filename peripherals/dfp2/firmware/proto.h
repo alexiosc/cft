@@ -103,12 +103,23 @@ extern volatile uistate_t uistate;
 #define STR_GSOR     "21 Output Register: "
 #define STR_DSR      "22 DIP Switch Register: "
 
+#define STR_GSIR     "51 IR: "
+#define STR_GSPC     "52 PC: "
+#define STR_GSDR     "53 DR: "
+#define STR_GSAC     "54 AC: "
+#define STR_GSSP     "55 SP: "
+
 // 5xx: Errors.
 #define STR_BADCMD  "500 Unknown command\n"
 #define STR_BADVAL  "501 Bad value\n"
 #define STR_ERANGE  "502 Value out of range\n"
 #define STR_SYNTAX  "508 Syntax error\n"
 #define STR_NIMPL   "509 Not implemented\n"
+
+#define STR_NOCTL   "520 CTL board not installed or faulty\n"
+#define STR_NOREG   "521 REG board not installed or faulty\n"
+#define STR_NOALU   "522 REG board not installed or faulty\n"
+#define STR_NOBUS   "523 BUS board not installed or faulty\n"
 
 // 9xx: Diagnostic faults
 #define STR_NVMIS   "910 Value mismatch. Wrote "
@@ -174,9 +185,6 @@ extern volatile uistate_t uistate;
 
 #define STR_STATE   "250 Machine state: "
 #define STR_USTATE  "252 Microcode control: "
-#define STR_GSAC     "53 AC: "
-#define STR_GSPC     "54 PC: "
-#define STR_GSIR     "55 IR: "
 #define STR_GSBPT    "59 Breakpoint "
 
 #define STR_AC           " AC:"
@@ -247,10 +255,6 @@ extern volatile uistate_t uistate;
 #define STR_CHATTER "504 Bus chatter\n"
 #define STR_ALRHALT "505 Already halted\n"
 #define STR_ALRRUN  "506 Already running\n"
-#define STR_NOCTL   "507 CTL board not installed or faulty\n"
-#define STR_NOREG   "508 REG board not installed or faulty\n"
-#define STR_NOALU   "509 REG board not installed or faulty\n"
-#define STR_NOBUS   "510 BUS board not installed or faulty\n"
 
 #define STR_NSELF   "511 You talkin' to me?\n"
 

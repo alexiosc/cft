@@ -42,6 +42,7 @@ typedef struct {
 	uint16_t  dsr;               // The DIP switches (or overridden value)
 
 	// Computer Inputs
+	uint8_t   ir_l, ir_h;
 	uint8_t   pc_l, pc_h;
 	uint8_t   dr_l, dr_h;
 	uint8_t   ac_l, ac_h;
@@ -142,6 +143,10 @@ extern ringbuf_t ringbuf;
 
 void read_full_state(); // Updates the entire virtual front panel synchronously
 
+errno_t write_to_ibus_unit(uint8_t waddr, uint16_t val);
+
+errno_t read_from_ibus_unit(uint8_t raddr, uint16_t * val);
+
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -150,6 +155,27 @@ void read_full_state(); // Updates the entire virtual front panel synchronously
 ///////////////////////////////////////////////////////////////////////////////
 
 void sw_read();
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// REGISTERS
+//
+///////////////////////////////////////////////////////////////////////////////
+
+#define get_ar24() ((hwstate.ar_h << 16) | (hwstate.ar_m << 8) | hwstate.ar_l)
+#define get_ar16() ((hwstate.ar_m << 8) | hwstate.ar_l)
+
+#define get_ir() ((hwstate.ir_h << 8) | hwstate.ir_l)
+#define get_pc() ((hwstate.pc_h << 8) | hwstate.pc_l)
+#define get_dr() ((hwstate.dr_h << 8) | hwstate.dr_l)
+#define get_ac() ((hwstate.ac_h << 8) | hwstate.ac_l)
+#define get_sp() ((hwstate.sp_h << 8) | hwstate.sp_l)
+
+
+typedef enum { reg_ir, reg_pc, reg_dr, reg_ac, reg_sp } reg_t;
+
+uint8_t set_reg(reg_t reg, uint16_t value);
 
 
 ///////////////////////////////////////////////////////////////////////////////
