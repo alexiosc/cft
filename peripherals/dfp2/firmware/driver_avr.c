@@ -1161,7 +1161,8 @@ sw_scan()
 		PORTF = (PORTF & 0xf0) | (swa & 0x0f);
 
 		for (uint8_t j = 0, mask = 0x10; j < 4; mask <<=1, j++, i++) {
-			_switches[i] = (_switches[i] << 1) | (PORTF & mask ? 1 : 0);
+			// Switches are active low, so a high bit means ‘not actuated’.
+			_switches[i] = (_switches[i] << 1) | (PORTF & mask ? 0 : 1);
 
 			if ((_switches[i] & SWITCH_DEBOUNCE_MASK) == SWITCH_PRESSED) {
 				setbit(hwstate.switches[i >> 3], i & 7);

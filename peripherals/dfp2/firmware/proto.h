@@ -82,6 +82,9 @@ extern volatile uistate_t uistate;
 #define STR_FPR2         " Value: "
 
 #define STR_SWS     "251 Switch state: "
+#define STR_ABUS    "260 ABUS: "
+#define STR_DBUS    "261 DBUS: "
+#define STR_IBUS    "262 IBUS: "
 
 // 3xx: Actions performed
 #define STR_DONE    "301 Done\n"
@@ -180,8 +183,6 @@ extern volatile uistate_t uistate;
 #define STR_PC           " PC:"
 #define STR_IR           " IR:"
 
-#define STR_ABUS    "260 ABUS: "
-#define STR_DBUS    "261 DBUS: "
 
 
 #define STR_DUMP    "300 Dumping\n"

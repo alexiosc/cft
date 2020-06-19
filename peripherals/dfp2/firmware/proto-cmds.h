@@ -11,22 +11,21 @@
 // ofsdata[term] = (4, 69, 46) 
 // ofsdata[echo] = (5, 115, 31) 
 // ofsdata[mesg] = (6, 146, 35) 
-// ofsdata[fpr] = (7, 181, 37) 
-// ofsdata[fpdump] = (8, 218, 29) 
-// ofsdata[dsr] = (9, 247, 47) 
-// ofsdata[sws] = (10, 294, 20) 
-// ofsdata[ibus] = (11, 314, 12) 
-// ofsdata[abus] = (12, 326, 19) 
-// ofsdata[dbus] = (13, 345, 16) 
-// ofsdata[lock] = (14, 361, 46) 
-// ofsdata[fast] = (15, 407, 20) 
-// ofsdata[slow] = (16, 427, 20) 
-// ofsdata[creep] = (17, 447, 21) 
-// ofsdata[a] = (18, 468, 27) 
-// ofsdata[or] = (19, 495, 29) 
-// Total length of help before: 544
-// Total length of help after concat: 524
-// Final length of helpstr: 515
+// ofsdata[fpr] = (7, 181, 36) 
+// ofsdata[fpdump] = (8, 217, 29) 
+// ofsdata[dsr] = (9, 246, 55) 
+// ofsdata[sws] = (10, 301, 20) 
+// ofsdata[ibus] = (11, 321, 12) 
+// ofsdata[abus] = (12, 333, 19) 
+// ofsdata[dbus] = (13, 352, 16) 
+// ofsdata[fast] = (14, 368, 20) 
+// ofsdata[slow] = (15, 388, 20) 
+// ofsdata[creep] = (16, 408, 21) 
+// ofsdata[a] = (17, 429, 27) 
+// ofsdata[or] = (18, 456, 29) 
+// Total length of help before: 504
+// Total length of help after concat: 485
+// Final length of helpstr: 485
 
 #include "hwcompat.h"
 
@@ -41,7 +40,7 @@
 
 
 
-#define _HELPSTR "\001Show help\0\001Show help\0\001Show version\0\001Show size of command buffer\0[ BOOL\007terminal bells & whistles.\0[ BOOL\007local echo.\0[ BOOL\007async messages.\0[ 00-FF ] \001Read from FP Bus Address\0\001Dump full FP address space\0[ 00-FF ] \001Get (or override) the DIP Switches\0\001Show Switch state\0\001Read IBus\0\001Read Address bus\0\001Read Data bus\0[ BOOL\007software switch lock.\005\0\001CPU at full speed\0\001CPU at slow speed\0\001CPU at creep speed\0[ WORD\007address\0[ WORD\007OR lights";
+#define _HELPSTR "\001Show help\0\001Show help\0\001Show version\0\001Show size of command buffer\0[ BOOL\007terminal bells & whistles.\0[ BOOL\007local echo.\0[ BOOL\007async messages.\0[ BYTE ] \001Read from FP Bus Address\0\001Dump full FP address space\0[ WORD | - ] \001Get, read, or override the DIP Switches\0\001Show Switch state\0\001Read IBus\0\001Read Address bus\0\001Read Data bus\0\001CPU at full speed\0\001CPU at slow speed\0\001CPU at creep speed\0[ WORD\007address\0[ WORD\007OR lights";
 
 const static const struct {
 	char cmd[CMD_SIZE];
@@ -66,7 +65,6 @@ const static const struct {
         {"ibus", say_ibus},
         {"abus", say_abus},
         {"dbus", say_dbus},
-        {"lock", gs_lock},
         {"fast", go_fast},
         {"slow", go_slow},
         {"creep", go_creep},

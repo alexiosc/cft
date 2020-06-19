@@ -802,31 +802,6 @@ go_creep()
 ///////////////////////////////////////////////////////////////////////////////
 
 
-typedef struct {
-	uint8_t bit0:1;
-	uint8_t bit1:1;
-	uint8_t bit2:1;
-	uint8_t bit3:1;
-	uint8_t bit4:1;
-	uint8_t bit5:1;
-	uint8_t bit6:1;
-	uint8_t bit7:1;
-
-	uint8_t bit8:1;
-	uint8_t bit9:1;
-	uint8_t bita:1;
-	uint8_t bitb:1;
-	uint8_t bitc:1;
-	uint8_t bitd:1;
-	uint8_t bite:1;
-	uint8_t bitf:1;
-} foo1_t;
-
-typedef union {
-	uint8_t a[2];
-	foo1_t  bits;
-} foo2_t;
-
 static void
 go_fpr()
 {
@@ -855,11 +830,6 @@ go_fpr()
 	report_pstr(PSTR(STR_FPR1));
 	report_hex(a, 2);
 	report_hex_value(PSTR(STR_FPR2), v, 2);
-
-	foo2_t test;
-	test.a[0] = v;
-	test.a[1] = a;
-	report_hex_value(PSTR("TEST THIRD BIT:"), test.bits.bit2, 1);
 }
 
 
@@ -902,12 +872,17 @@ gs_dsr()
 {
 	char * s = get_arg();
 	if (s != NULL) {
-		uint16_t x = parse_hex(s);
-		if (uistate.is_error == 0) {
-			hwstate.dsr = x;
+		if (s[0] == '-') {
+			// Read the DSR from the physical switches.
+			hwstate.dsr = DSR_HIGH | read_dfp_address(XMEM_DSR);
 		} else {
-			badval();
-			return;
+			uint16_t x = parse_hex(s);
+			if (uistate.is_error == 0) {
+				hwstate.dsr = x;
+			} else {
+				badval();
+				return;
+			}
 		}
 		report_gs(1);
 	} else {
@@ -970,21 +945,35 @@ gs_or()
 static void
 say_abus()
 {
-//	report_hex_value(PSTR(STR_ABUS), get_ab(), 4);
+	read_full_dfp_state();
+	report_pstr(PSTR(STR_ABUS));
+	report_hex(hwstate.ab_h, 2);
+	report_char(':');
+	report_hex(hwstate.ab_m, 2);
+	report_hex(hwstate.ab_l, 2);
+	report_nl();
 }
 
 
 static void
 say_dbus()
 {
-//	report_hex_value(PSTR(STR_DBUS), get_db(), 4);
+	read_full_dfp_state();
+	report_pstr(PSTR(STR_DBUS));
+	report_hex(hwstate.db_h, 2);
+	report_hex(hwstate.db_l, 2);
+	report_nl();
 }
 
 
 static void
 say_ibus()
 {
-//	report_hex_value(PSTR(STR_IBUS), get_ibus(), 4);
+	read_full_dfp_state();
+	report_pstr(PSTR(STR_IBUS));
+	report_hex(hwstate.ibus_h, 2);
+	report_hex(hwstate.ibus_l, 2);
+	report_nl();
 }
 
 
