@@ -81,6 +81,7 @@ extern volatile uistate_t uistate;
 #define STR_FPR1    "240 FP Bus Address: "
 #define STR_FPR2         " Value: "
 
+#define STR_SWS     "251 Switch state: "
 
 // 3xx: Actions performed
 #define STR_DONE    "301 Done\n"
@@ -97,6 +98,7 @@ extern volatile uistate_t uistate;
 #define STR_GSTERM   "12 Terminal: "
 #define STR_GSLOCK   "15 Front panel lock: "
 #define STR_GSOR     "21 Output Register: "
+#define STR_DSR      "22 DIP Switch Register: "
 
 // 5xx: Errors.
 #define STR_BADCMD  "500 Unknown command\n"
@@ -168,7 +170,6 @@ extern volatile uistate_t uistate;
 #define STR_IN2          " Value: "
 
 #define STR_STATE   "250 Machine state: "
-#define STR_SWS     "251 Switch state: "
 #define STR_USTATE  "252 Microcode control: "
 #define STR_GSAC     "53 AC: "
 #define STR_GSPC     "54 PC: "
@@ -187,16 +188,16 @@ extern volatile uistate_t uistate;
 
 #define STR_CKSUM   "303 Checksum: "
 
-//                   310-321 reserved
+//                   310-329 reserved
 #define STR_ARUN    "304 Host running\n"
 #define STR_AHALTED "305 Host halted\n"
 #define STR_RESET   "306 Host reset\n"
 #define STR_COLD    "307 Cold reset.\n"
-#define STR_BPOINT  "322 Breakpoint "
-#define STR_STEP    "323 Step. "
-#define STR_USTEP   "324 Microstep. "
-#define STR_TRACE   "325 Tracing.\n"
-#define STR_UTRACE  "326 Microtracing.\n"
+#define STR_BPOINT  "330 Breakpoint "
+#define STR_STEP    "331 Step. "
+#define STR_USTEP   "332 Microstep. "
+#define STR_TRACE   "333 Tracing.\n"
+#define STR_UTRACE  "334 Microtracing.\n"
 // #ifdef AVR
 // #define STR_CLKSET  "330 Clock set to " F_CPU_S " Hz / ("
 // #else

@@ -116,6 +116,7 @@ static void gs_or();
 static void go_fpr();
 static void go_fpdump();
 static void go_sws();
+static void gs_dsr();
 
 
 
@@ -882,28 +883,38 @@ go_fpdump()
 static void
 go_sws()
 {
-	/* report_pstr(PSTR(STR_SWS)); */
-	/* read_switches(); */
+	// The AVR driver reads and debounces switches in an ISR that runs at
+	// 60Hz. But we also call this synchronous hook in case another drivers
+	// needs it.
+	sw_read();
+	report_pstr(PSTR(STR_SWS));
 
-#warning "TO DO"
-	/* uint16_t lsw = get_lsw(); */
-	/* uint16_t rsw = get_rsw(); */
-
-	/* report_bin_pad((lsw >> 8) & 0xff, 8); // Left switches */
-	/* report_c(32); */
-	/* report_bin_pad(get_sr(), 16); // Switch register */
-	/* report_c(32); */
-	/* report_bin_pad(rsw & 0xfff, 12); // Right switches */
-	/* report_c(32); */
-	/* report_bin_pad((rsw >> 12) & 0xf, 4); // MS DIP switches */
-	/* report_c(32); */
-	/* report_bin_pad(lsw & 0xff, 8); // LS DIP switches */
-	/* report_c(32); */
-	/* report_nl(); */
+	for (uint8_t i = 0; i < 8; i++) {
+		report_bin_pad(hwstate.switches[i], 8);
+		report_c(32);
+	}
+	report_nl();
 }
 
-
-
+// Get or set (override) the DIP Switch Register.
+void
+gs_dsr()
+{
+	char * s = get_arg();
+	if (s != NULL) {
+		uint16_t x = parse_hex(s);
+		if (uistate.is_error == 0) {
+			hwstate.dsr = x;
+		} else {
+			badval();
+			return;
+		}
+		report_gs(1);
+	} else {
+		report_gs(0);
+	}
+	report_hex_value(PSTR(STR_DSR), hwstate.dsr, 4);
+}
 
 
 ///////////////////////////////////////////////////////////////////////////////

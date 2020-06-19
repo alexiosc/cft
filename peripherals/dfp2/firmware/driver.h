@@ -39,7 +39,7 @@ typedef struct {
 	uint8_t   ab_l,  ab_m, ab_h; // Last sampled value of the Address Bus
 	uint8_t   db_l, db_h;        // Last sampled value of the Data Bus
 	uint8_t   ibus_l, ibus_h;    // Last sampled value from the IBUS
-	uint8_t   dsr;               // The DIP switches (or overridden value)
+	uint16_t  dsr;               // The DIP switches (or overridden value)
 
 	// Computer Inputs
 	uint8_t   pc_l, pc_h;
@@ -132,6 +132,15 @@ typedef struct {
 #endif
 
 extern ringbuf_t ringbuf;
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// FRONT PANEL SWITCHES
+//
+///////////////////////////////////////////////////////////////////////////////
+
+void sw_read();
 
 
 ///////////////////////////////////////////////////////////////////////////////

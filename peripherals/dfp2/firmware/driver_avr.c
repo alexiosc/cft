@@ -812,7 +812,6 @@ fp_stop_light_test()
 }
 
 
-
 ///////////////////////////////////////////////////////////////////////////////
 //
 // TRANSACTIONS ORIGINATED BY THE CFT
@@ -1050,6 +1049,14 @@ sw_init()
 }
 
 
+void
+sw_read()
+{
+	// The AVR driver reads and debounces the switches in an ISR
+	// below. We don't need to do anything here.
+}
+
+
 // There are 64 switch data lines in total arranged in an unusual (but
 // convenient) 16×4 matrix. We use 64 bytes (optimising for speed rather than
 // space) and this way we offer 8-sample debouncing. To software debounce, we
@@ -1064,10 +1071,83 @@ sw_init()
 // +------+------+------+------+------+------+------+------+
 // | INPUTS                    | OUTPUTS                   |
 // +---------------------------+---------------------------+
+//
+// | SW      | FPA | FPD | What |
+// |---------|-----|-----|------|
+// | A0 up   | 0   | 0   |      |
+// | A0 down | 0   | 1   |      |
+// | A1 up   | 1   | 0   |      |
+// | A1 down | 1   | 1   |      |
+// | A2 up   | 2   | 0   |      |
+// | A2 down | 2   | 1   |      |
+// | A3 up   | 3   | 0   |      |
+// | A3 down | 3   | 1   |      |
+// | A4 up   | 4   | 0   |      |
+// | A4 down | 4   | 1   |      |
+// | A5 up   | 5   | 0   |      |
+// | A5 down | 5   | 1   |      |
+// | A6 up   | 6   | 0   |      |
+// | A6 down | 6   | 1   |      |
+// | A7 up   | 7   | 0   |      |
+// | A7 down | 7   | 1   |      |
+// |---------|-----|-----|------|
+// | B0 up   | 0   | 2   | SR15 |
+// | B0 down | 0   | 3   |      |
+// | B1 up   | 1   | 2   | SR14 |
+// | B1 down | 1   | 3   |      |
+// | B2 up   | 2   | 2   | SR13 |
+// | B2 down | 2   | 3   |      |
+// | B3 up   | 3   | 2   | SR12 |
+// | B3 down | 3   | 3   |      |
+// | B4 up   | 4   | 2   | SR11 |
+// | B4 down | 4   | 3   |      |
+// | B5 up   | 5   | 2   | SR10 |
+// | B5 down | 5   | 3   |      |
+// | B6 up   | 6   | 2   | SR9  |
+// | B6 down | 6   | 3   |      |
+// | B7 up   | 7   | 2   | SR8  |
+// | B7 down | 7   | 3   |      |
+// |---------|-----|-----|------|
+// | C0 up   | 8   | 0   | SR7  |
+// | C0 down | 8   | 1   |      |
+// | C1 up   | 9   | 0   | SR6  |
+// | C1 down | 9   | 1   |      |
+// | C2 up   | a   | 0   | SR5  |
+// | C2 down | a   | 1   |      |
+// | C3 up   | b   | 0   | SR4  |
+// | C3 down | b   | 1   |      |
+// | C4 up   | c   | 0   | SR3  |
+// | C4 down | c   | 1   |      |
+// | C5 up   | d   | 0   | SR2  |
+// | C5 down | d   | 1   |      |
+// | C6 up   | e   | 0   | SR1  |
+// | C6 down | e   | 1   |      |
+// | C7 up   | f   | 0   | SR0  |
+// | C7 down | f   | 1   |      |
+// |---------|-----|-----|------|
+// | D0 up   | 8   | 2   |      |
+// | D0 down | 8   | 3   |      |
+// | D1 up   | 9   | 2   |      |
+// | D1 down | 9   | 3   |      |
+// | D2 up   | a   | 2   |      |
+// | D2 down | a   | 3   |      |
+// | D3 up   | b   | 2   |      |
+// | D3 down | b   | 3   |      |
+// | D4 up   | c   | 2   |      |
+// | D4 down | c   | 3   |      |
+// | D5 up   | d   | 2   |      |
+// | D5 down | d   | 3   |      |
+// | D6 up   | e   | 2   |      |
+// | D6 down | e   | 3   |      |
+// | D7 up   | f   | 2   |      |
+// | D7 down | f   | 3   |      |
+// |---------|-----|-----|------|
+
 
 // To test if a switch has been pressed, the last four samples (one bit per
 // sample, so 0b1111, 0xf) must agree. So each switch may be in three states:
 // SWITCH_PRESSED, SWITCH_RELEASED, and bouncing (any other value).
+
 #define SWITCH_DEBOUNCE_MASK  0xf
 #define SWITCH_PRESSED        SWITCH_DEBOUNCE_MASK
 #define SWITCH_RELEASED       0
