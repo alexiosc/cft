@@ -23,9 +23,18 @@ static const struct {
        	{"dsr",     gs_dsr,      "[ WORD | - ] -- Get, read, or override the DIP Switches"},
        	{"sws",     go_sws,      "-- Show Switch state" NL },
 
+	// Buses
+
        	{"ibus",    say_ibus,    "-- Read IBus"},
        	{"abus",    say_abus,    "-- Read Address bus"},
        	{"dbus",    say_dbus,    "-- Read Data bus" NL},
+
+	// Registers
+	{"ir",      gs_ir,       "[ WORD ] -- Get/set IR"},
+	{"pc",      gs_pc,       "[ WORD ] -- Get/set Program Counter"},
+	{"dr",      gs_dr,       "[ WORD ] -- Get/set Data Register."},
+	{"ac",      gs_ac,       "[ WORD ] -- Get/set Accumulator."},
+	{"sp",      gs_sp,       "[ WORD ] -- Get/set Stack Pointer." NL },
 
 #message "TODO: Evaluate and reinstate commands"
 	// {"s",       go_state,    "-- Current processor status"},
@@ -58,11 +67,6 @@ static const struct {
 	{"slow",    go_slow,   "-- CPU at slow speed"},
 	{"creep",   go_creep,  "-- CPU at creep speed"},
 	// {"clk",     go_clk,    "PS DIV -- Arbitrary clock speed (see docs).\n201"},
-
-	// // Right switch bank (cycle operations)
-	// {"ir",      gs_ir,     "[ WORD ] -- Get/set IR"},
-	// {"pc",      gs_pc,     "[ WORD ] -- Get/set PC"},
-	// {"ac",      gs_ac,     "[ WORD ] -- Get/set AC.\n201"},
 
 	{"a",       gs_addr,   "[ WORD ] -- Get/set address"},
 	// {"r",       go_read,   "-- Read mem[a++]"},

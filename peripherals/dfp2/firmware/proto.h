@@ -247,9 +247,12 @@ extern volatile uistate_t uistate;
 #define STR_CHATTER "504 Bus chatter\n"
 #define STR_ALRHALT "505 Already halted\n"
 #define STR_ALRRUN  "506 Already running\n"
-#define STR_NOPROC  "507 No processor\n"
+#define STR_NOCTL   "507 CTL board not installed or faulty\n"
+#define STR_NOREG   "508 REG board not installed or faulty\n"
+#define STR_NOALU   "509 REG board not installed or faulty\n"
+#define STR_NOBUS   "510 BUS board not installed or faulty\n"
 
-#define STR_NSELF   "510 You talkin' to me?\n"
+#define STR_NSELF   "511 You talkin' to me?\n"
 
 // Hardware Faults.
 #define STR_DIAGF   "901 Diagnostics failed.\n"

@@ -118,6 +118,12 @@ static void go_fpdump();
 static void go_sws();
 static void gs_dsr();
 
+static void gs_ir();
+static void gs_pc();
+static void gs_dr();
+static void gs_ac();
+static void gs_sp();
+
 
 
 // Include the pre-processed list of commands and help.
@@ -701,6 +707,30 @@ optional_hex_val(uint16_t * word)
 
 ///////////////////////////////////////////////////////////////////////////////
 //
+// ASSERTIONS
+//
+///////////////////////////////////////////////////////////////////////////////
+
+static bool_t
+_assert_have_present(have_board, char * msg)
+{
+	if (have_board) return 1;
+	style_error();
+	report_pstr(msg);
+	return 0;
+}
+
+#define assert_ctl_present() _assert_board_present(hwstate.have_ctl, PSTR(STR_NOCTL))
+#define assert_reg_present() _assert_board_present(hwstate.have_reg, PSTR(STR_NOREG))
+#define assert_alu_present() _assert_board_present(hwstate.have_alu, PSTR(STR_NOALU))
+#define assert_bus_present() _assert_board_present(hwstate.have_bus, PSTR(STR_NOBUS))
+
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
 // GET AND SET ON/OFF SETTINGS
 //
 ///////////////////////////////////////////////////////////////////////////////
@@ -945,12 +975,11 @@ gs_or()
 static void
 say_abus()
 {
-	read_full_dfp_state();
+	read_full_state();
 	report_pstr(PSTR(STR_ABUS));
 	report_hex(hwstate.ab_h, 2);
 	report_char(':');
-	report_hex(hwstate.ab_m, 2);
-	report_hex(hwstate.ab_l, 2);
+	report_hex((hwstate.ab_m << 8) | hwstate.ab_l, 4);
 	report_nl();
 }
 
@@ -958,10 +987,9 @@ say_abus()
 static void
 say_dbus()
 {
-	read_full_dfp_state();
+	read_full_state();
 	report_pstr(PSTR(STR_DBUS));
-	report_hex(hwstate.db_h, 2);
-	report_hex(hwstate.db_l, 2);
+	report_hex((hwstate.db_h << 8) | hwstate.db_l, 4);
 	report_nl();
 }
 
@@ -969,12 +997,95 @@ say_dbus()
 static void
 say_ibus()
 {
-	read_full_dfp_state();
+	read_full_state();
 	report_pstr(PSTR(STR_IBUS));
-	report_hex(hwstate.ibus_h, 2);
-	report_hex(hwstate.ibus_l, 2);
+	report_hex((hwstate.ibus_h << 8) | hwstate.ibus_l, 4);
 	report_nl();
 }
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// REGISTERS
+//
+///////////////////////////////////////////////////////////////////////////////
+
+
+static void
+_reg(uint8_t reg)
+{
+	uint16_t w;
+	int8_t r;
+
+	r = optional_hex_val(&w);
+	if (r < 0) return;
+	else if (r > 0) {
+		// Ensure the bus is quiet. 
+		if (!assert_halted()) return;
+		if (set_reg(reg, w) == 0) return;
+	}
+	report_gs(r);
+	switch(reg) {
+	case REG_AC:
+		report_hex_value(PSTR(STR_GSAC), get_ac(), 4);
+		if (r) check_mismatch(w, get_ac());
+		return;
+	case REG_PC:
+		report_hex_value(PSTR(STR_GSPC), get_pc(), 4);
+		if (r) check_mismatch(w, get_pc());
+		return;
+	case REG_IR:
+		report_hex_value(PSTR(STR_GSIR), get_ir(), 4);
+		if (r) check_mismatch(w, get_ir());
+		return;
+	}
+}
+
+
+static void
+gs_ir()
+{
+	// Need a processor
+	if (!assert_ctl_present()) return;
+	_reg(REG_IR);
+}
+
+
+static void
+gs_pc()
+{
+	// Need a processor
+	if (!assert_reg_present()) return;
+	_reg(REG_PC);
+}
+
+
+static void
+gs_dr()
+{
+	// Need a processor
+	if (!assert_reg_present()) return;
+	_reg(REG_DR);
+}
+
+
+static void
+gs_ac()
+{
+	// Need a processor
+	if (!assert_reg_present()) return;
+	_reg(REG_AC);
+}
+
+
+static void
+gs_sp()
+{
+	// Need a processor
+	if (!assert_reg_present()) return;
+	_reg(REG_SP);
+}
+
 
 
 
@@ -1919,64 +2030,6 @@ go_utrace()
 // RIGHT SWITCH BANK AND BUS TRANSACTIONS
 //
 ///////////////////////////////////////////////////////////////////////////////
-
-
-static void
-_reg(uint8_t reg)
-{
-	uint16_t w;
-	int8_t r;
-
-	r = optional_hex_val(&w);
-	if (r < 0) return;
-	else if (r > 0) {
-		// Ensure the bus is quiet. 
-		if (!assert_halted()) return;
-		if (set_reg(reg, w) == 0) return;
-	}
-	report_gs(r);
-	switch(reg) {
-	case REG_AC:
-		report_hex_value(PSTR(STR_GSAC), get_ac(), 4);
-		if (r) check_mismatch(w, get_ac());
-		return;
-	case REG_PC:
-		report_hex_value(PSTR(STR_GSPC), get_pc(), 4);
-		if (r) check_mismatch(w, get_pc());
-		return;
-	case REG_IR:
-		report_hex_value(PSTR(STR_GSIR), get_ir(), 4);
-		if (r) check_mismatch(w, get_ir());
-		return;
-	}
-}
-
-
-static void
-gs_ac()
-{
-	// Need a processor
-	if (!assert_proc_present()) return;
-	_reg(REG_AC);
-}
-
-
-static void
-gs_pc()
-{
-	// Need a processor
-	if (!assert_proc_present()) return;
-	_reg(REG_PC);
-}
-
-
-static void
-gs_ir()
-{
-	// Need a processor
-	if (!assert_proc_present()) return;
-	_reg(REG_IR);
-}
 
 
 static void

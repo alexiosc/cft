@@ -295,7 +295,7 @@ read_dfp_address(xmem_addr_t a)
 
 
 void
-read_full_dfp_state()
+read_full_state()
 {
 	// Note: we stop the scanner but don't deselect the front panel. Any
 	// reads we perform that also map to FP lights will update the FP. For
