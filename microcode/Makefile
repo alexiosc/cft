@@ -3,7 +3,8 @@
 BUILDDIR =		build
 TOOLDIR	=		../tools
 #MC =			$(TOOLDIR)/microcode.py
-MC =			/usr/bin/mcasm
+#MC ?=			/usr/bin/mcasm
+MC ?=			/home/alexios/PROJECTS/RELEASED/mcasm/mcasm/mcasm
 MCIN =			microcode.mc
 MCPARSER = 		$(TOOLDIR)/parse_microcode.py
 MKALUROM =		$(TOOLDIR)/make_alu_rom
