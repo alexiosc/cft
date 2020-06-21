@@ -9,7 +9,7 @@
 
 char * bin(int x, uint8_t numbits)
 {
-	static char res [16];
+	static char res [17];
 	char *cp = res;
 	for (int i = 0x8000; i; i>>=1) {
 		*cp++ = (x & i) ? '1': '0';
