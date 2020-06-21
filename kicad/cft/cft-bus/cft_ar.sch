@@ -1170,8 +1170,6 @@ Wire Notes Line
 	11050 700  6700 700 
 Text Notes 7300 2800 0    50   ~ 0
 The I/O address decoder simplifies building I/O devices by partially\ndecoding the most significant 8 bits of the I/O address.
-Text Label 4750 600  0    50   ~ 0
-~IO
 Entry Wire Line
 	4850 1950 4950 1850
 Entry Wire Line
