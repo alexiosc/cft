@@ -21,8 +21,6 @@
 
 typedef __microcode_conds_t_lsb_1st ustate_t; // microcode state
 
-typedef uint32_t longaddr_t;    // A full 24-bit address
-
 // The Machine State contains the processor and a bunch of other units.
 
 typedef struct {
@@ -59,10 +57,23 @@ typedef struct {
 
     bit        resetting;       // Simulated RSTHOLD
 
-    int        halt;            // Halted?
+    bit        halt;            // Halted?
+    bit        pause;           // Paused.
+    bit        wait;            // Wait states (not really implemented)
+    bit        quit;            // Quit requested
 
     int        rst_hold;        // Reset pulse (-1 = not resetting)
     uint32_t   tick;            // Emulator tick counter
+
+    // Callbacks
+
+    word (*memr)(longaddr_t);       // Read from memory
+    void (*memw)(longaddr_t, word); // Write to memory
+    word (*ior)(word);              // Input from I/O
+    void (*iow)(word, word);        // Output to I/O
+
+    void (*iotick)();               // I/O tick
+    void (*dfptick)();              // DFP tick
 } state_t;
 
 extern state_t cpu;
@@ -79,6 +90,19 @@ extern state_t cpu;
 #define MBR_MBD 1
 #define MBR_MBS 2
 #define MBR_MBZ 3
+
+
+void cpu_init();
+
+void cpu_run();
+
+void cpu_done();
+
+void cpu_start();
+
+void cpu_halt();
+
+void cpu_reset();
 
 
 #endif

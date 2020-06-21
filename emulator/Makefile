@@ -1,7 +1,7 @@
 #!/usr/bin/make -f
 
 CC = gcc
-CFLAGS = -g -Wall -Wno-switch -std=c99 -D_GNU_SOURCE -DUART16550 -fgnu89-inline -DCFTEMU
+CFLAGS = -g -Wall -Wno-switch -std=c99 -D_GNU_SOURCE -DUART16550 -fgnu89-inline -DCFTEMU -I..
 CFLAGS += -O2
 #CFLAGS += -O0
 LDFLAGS = -g
@@ -19,7 +19,7 @@ PROGRAMS = cftemu
 # 	fifo.o memory.o mbu.o irc.o nvram.o duart.o ide.o video.o dfp.o \
 # 	ui.o ui_panel.o ui_menu.o ui_dfp.o ui_vdu.o ui_tty.o uterm.o psg.o 8912.o \
 # 	ay8910.o
-OBJS = util.o cft.o
+OBJS = util.o cft.o cmdline.c
 GENERATED = romfont.h
 
 ASMINCLUDES = ../../asm/io.asm ../../asm/debugging.asm ../../asm/testing.asm 

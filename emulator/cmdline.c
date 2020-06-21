@@ -1,24 +1,14 @@
-/* 
+// -*- c -*-
+// 
+// cftemut.c — Command-line parsing
+// 
+// Copyright © 2011–2020 Alexios Chouchoulas
+// 
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2, or (at your option)
+// any later version.
 
-cmdline.c - Parse command line options
-
-Copyright (C) 2011 Alexios Chouchoulas
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2, or (at your option)
-any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software Foundation,
-Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  
-
-*/
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -26,16 +16,7 @@ Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 #include <sys/types.h>
 #include <argp.h>
 
-#include "cftemu.h"
-#include "mbu.h"
-#include "irc.h"
-#include "nvram.h"
-#include "duart.h"
-#include "ide.h"
-#include "video.h"
-#include "psg.h"
-#include "dfp.h"
-#include "duart.h"
+//x#include "cftemu.h"
 
 
 static error_t parse_opt (int key, char *arg, struct argp_state *state);
@@ -164,48 +145,48 @@ static struct argp_option options[] =
 
 	// NVRAM
 
-	{ "nvram",    KEY_NVRAM,  NULL,            0,
-	  "Enable a 2k TimeKeeper/NVRAM chip (offset at &090/&08x). "
-	  "The contents of the NVRAM are stored in file " NVRAM_FNAME, 0 },
+	// { "nvram",    KEY_NVRAM,  NULL,            0,
+	//   "Enable a 2k TimeKeeper/NVRAM chip (offset at &090/&08x). "
+	//   "The contents of the NVRAM are stored in file " NVRAM_FNAME, 0 },
 
         // IDE
 
-	{ "hd0",    KEY_HD0,  "DISK-IMAGE",            0,
-	  "Specify an image file for the first IDE disk (channel 1, disk 1). "
-	  "If unspecified, no disk is emulated.", 0 },
-	{ "hd1",    KEY_HD1,  "DISK-IMAGE",            0,
-	  "Specify an image file for the second IDE disk (channel 1, disk 2). "
-	  "If unspecified, no disk is emulated.", 0 },
-	{ "hd2",    KEY_HD2,  "DISK-IMAGE",            0,
-	  "Specify an image file for the third IDE disk (channel 2, disk 1). "
-	  "If unspecified, no disk is emulated.", 0 },
-	{ "hd3",    KEY_HD3,  "DISK-IMAGE",            0,
-	  "Specify an image file for the fourth IDE disk (channel 2, disk 2). "
-	  "If unspecified, no disk is emulated.", 0 },
-	{ "ide-speed",    KEY_IDE_SPEED, "FACTOR",            0,
-	  "Set IDE speed factor. The default is 10, which is normal speed. 20 is double speed, etc. Values below 10 slow down access for debugging.", 0 },
-	{ "debug-ide", KEY_DEBUG_IDE, NULL, 0,
-	  "Trace the operation of the IDE host adaptors.", 0 },
+	// { "hd0",    KEY_HD0,  "DISK-IMAGE",            0,
+	//   "Specify an image file for the first IDE disk (channel 1, disk 1). "
+	//   "If unspecified, no disk is emulated.", 0 },
+	// { "hd1",    KEY_HD1,  "DISK-IMAGE",            0,
+	//   "Specify an image file for the second IDE disk (channel 1, disk 2). "
+	//   "If unspecified, no disk is emulated.", 0 },
+	// { "hd2",    KEY_HD2,  "DISK-IMAGE",            0,
+	//   "Specify an image file for the third IDE disk (channel 2, disk 1). "
+	//   "If unspecified, no disk is emulated.", 0 },
+	// { "hd3",    KEY_HD3,  "DISK-IMAGE",            0,
+	//   "Specify an image file for the fourth IDE disk (channel 2, disk 2). "
+	//   "If unspecified, no disk is emulated.", 0 },
+	// { "ide-speed",    KEY_IDE_SPEED, "FACTOR",            0,
+	//   "Set IDE speed factor. The default is 10, which is normal speed. 20 is double speed, etc. Values below 10 slow down access for debugging.", 0 },
+	// { "debug-ide", KEY_DEBUG_IDE, NULL, 0,
+	//   "Trace the operation of the IDE host adaptors.", 0 },
 
         // Video
 
-	{ "video", 'V',  NULL, 0,
-	  "Enable the video card.", 0 },
-	{ "fs", 'f',  NULL, 0,
-	  "Full-screen video.", 0 },
-	{ "scale2", '2',  NULL, 0,
-	  "Double-sized display. Uses 1280x800 resolution.", 0 },
-	{ "debug-video", KEY_DEBUG_VIDEO,  NULL, 0,
-	  "Debug VDU card.", 0 },
+	// { "video", 'V',  NULL, 0,
+	//   "Enable the video card.", 0 },
+	// { "fs", 'f',  NULL, 0,
+	//   "Full-screen video.", 0 },
+	// { "scale2", '2',  NULL, 0,
+	//   "Double-sized display. Uses 1280x800 resolution.", 0 },
+	// { "debug-video", KEY_DEBUG_VIDEO,  NULL, 0,
+	//   "Debug VDU card.", 0 },
 
 	// AY-3-8910 PSG
 
-	{ "psg",    KEY_PSG,  NULL,            0,
-	  "Enable the General Instrument AY-3-8910 PSG audio chip (at &030-&03F).", 0 },
-	{ "no-psg", KEY_NO_PSG,  NULL,            0,
-	  "Disable the GI AY-3-8910 emulation.", 0 },
-	{ "debug-psg", KEY_DEBUG_PSG, NULL, 0,
-	  "Trace the operation of the GI AY-3-8910.", 0 },
+	// { "psg",    KEY_PSG,  NULL,            0,
+	//   "Enable the General Instrument AY-3-8910 PSG audio chip (at &030-&03F).", 0 },
+	// { "no-psg", KEY_NO_PSG,  NULL,            0,
+	//   "Disable the GI AY-3-8910 emulation.", 0 },
+	// { "debug-psg", KEY_DEBUG_PSG, NULL, 0,
+	//   "Trace the operation of the GI AY-3-8910.", 0 },
 
 	// Debugging Card
 
@@ -565,4 +546,10 @@ cmdline_parse(int argc, char **argv)
 	
 }
 
-/* End of file. */
+// End of file.
+// Local Variables:
+// eval: (c-set-style "K&R")
+// c-basic-offset: 4
+// indent-tabs-mode: nil
+// fill-column: 79
+// End:

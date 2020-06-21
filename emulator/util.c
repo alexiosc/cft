@@ -15,8 +15,11 @@
 #include <string.h>
 #include <sys/types.h>
 
-#include "cftemu.h"
+#include "util.h"
 
+#define __instruction_set_t instruction_t
+#define bool bit
+#include "microcode/build/disasm.h"
 
 char *
 format_longaddr(longaddr_t addr, char *buf)
@@ -28,18 +31,80 @@ format_longaddr(longaddr_t addr, char *buf)
 }
 
 
+char *
+format_bin(uint32_t x, int numbits)
+{
+    static char res[33];
+    char *cp = res;
+    for (int i = 0x80000000; i; i>>=1) {
+        *cp++ = (x & i) ? '1': '0';
+    }
+    *cp = 0;
+    if (numbits < 0 || numbits > 32) numbits = 32;
+    return &res[32 - numbits];
+}
 
-// char *
-// to_bin(uint32_t n, char *s, int slen)
-// {
-// 	uint32_t mask;
-// 	int i = 0;
-// 	s[slen] = 0;
-// 	for (i = 0, mask = 1<<(slen - 1); mask > 0; mask >>= 1) {
-// 		s[i++] = n & mask ? '1' : '0';
-// 	}
-// 	return s;
-// }
+char *
+disasm(word ir, int full_dis, char *buf)
+{
+    static char _buf[80];
+    char * s = buf ? buf : _buf;
+
+    static int offsets[16] = { -1, -1, -1, -1, -1, -1, -1, -1,
+                               -1, -1, -1, -1, -1, -1, -1, -1 };
+    if (offsets[0] < 0) {
+        for (int i = NUM_INSTRUCTIONS - 1; i >= 0; i--) {
+            offsets[(instruction_set[i].instr >> 12) & 0xf] = i;
+        }
+    }
+
+    int i = offsets[(ir >> 12) & 0xf];
+
+    // The easy work first
+    if (i < 0) {
+        return strcpy(s, "?");
+    }
+
+    // Okay, now we search.
+    while (instruction_set[i].mnemonic != NULL) {
+        instruction_t * instr = &instruction_set[i];
+        if ((ir & instr->instr_mask) ==  instr->instr) {
+            if (full_dis) {
+                if (instr->bitmap) {
+                    // Not really properly implemented yet
+                    snprintf("%s #%s", 80, instr->mnemonic, format_bin(ir, 7));
+                } else {
+                    switch (instr->operand_mask) {
+                    case 0:
+                        // No operand
+                        return strncpy(s, instr->mnemonic, 80);
+			
+                    case 7:
+                        // An MBR reference (e.g. IND)
+                        snprintf(s, 80, "%s %d", instr->mnemonic, ir & 7);
+                        return buf;
+			
+                    case 0xf:
+                        // Used mostly for rolls, so use integers
+                        snprintf(s, 80, "%s %d", instr->mnemonic, ir & 0xf);
+                        return buf;
+			
+                    default:
+                        snprintf(s, 80, "%s %x", instr->mnemonic, ir & instr->operand_mask);
+                        return buf;
+                    }
+                }
+            } else {
+                // Simple disassembly, just the instruction
+                return strncpy(s, instr->mnemonic, 80);
+            }
+        }
+    }
+
+    // Unknwown instruction
+    return strncpy(s, "?", 80);
+}
+
 
 // /* Dump state */
 // void
@@ -236,16 +301,17 @@ format_longaddr(longaddr_t addr, char *buf)
 // 	}
 // }
 
-// /* Dump all state */
-// void
-// dump()
-// {
-// 	dump_mini(0);
-// 	dump_state();
-// 	dump_ustate();
-// 	//dumpstack(0x500, 0x91, 0);
-// 	//dumpstack(0x600, 0x92, 1);
-// }
+//
+void
+dump()
+{
+    fprintf(stderr, "dump(): not implemented\n");
+    // dump_mini(0);
+    // dump_state();
+    // dump_ustate();
+    // //dumpstack(0x500, 0x91, 0);
+    // //dumpstack(0x600, 0x92, 1);
+}
 
 
 // void

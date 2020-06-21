@@ -22,6 +22,8 @@ typedef uint16_t word;          // We'll be using this a lot.
 
 typedef unsigned char bit;      // Faster than using bit fields.
 
+typedef uint32_t longaddr_t;    // A full 24-bit address
+
 
 #endif // TYPES_H
 
