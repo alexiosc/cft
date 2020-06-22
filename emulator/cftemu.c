@@ -31,6 +31,10 @@
 #define VERSION "0.9"
 #endif
 
+#ifndef AUTHOR
+#define AUTHOR "Alexios Chouchoulas"
+#endif
+
 ///////////////////////////////////////////////////////////////////////////////
 //
 // PARSE COMMAND LINE
@@ -323,12 +327,10 @@ static void
 show_version (FILE *stream, struct argp_state *state)
 {
     (void) state;
-    /* Print in small parts whose localizations can hopefully be copied
-       from other programs.  */
     fputs(PACKAGE" "VERSION"\n", stream);
-    fprintf(stream, "Written by %s.\n\n", "Alexios Chouchoulas");
+    fprintf(stream, "Written by %s.\n\n", AUTHOR);
     fprintf(stream, "Copyright (C) %s %s\n",
-            "2011", "Alexios Chouchoulas");
+            "2011-2020", "Alexios Chouchoulas");
     fputs("This program is free software; you may redistribute it "
           "under the terms of\n\the GNU General Public License.  "
           "This program has absolutely no warranty.\n",
@@ -359,8 +361,6 @@ cmdline_parse(int argc, char **argv)
 void
 init()
 {
-    setvbuf(stdout, (char *)NULL, _IONBF, 0); // Make stdout unbuffered. 
-
     // // Initialise the user interface.
     // sdl_init();
         
