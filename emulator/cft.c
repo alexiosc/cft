@@ -22,9 +22,13 @@
 
 #include "cft.h"
 #include "util.h"
+#include "log.h"
 
 
-/* The emulator state */
+static log_unit_t log_ctl;      // Logging unit for the Control Unit.
+static log_unit_t log_sbu;      // Logging unit for the the SBU.
+
+// The emulator state
 state_t cpu;
 
 char *log_name = "output";
@@ -41,6 +45,25 @@ int sentinel = 0;
 int nvram = 0;
 
 
+#define ctl_debug(msg, ...) log_msg (LOG_DEBUG, log_ctl, msg, ## __VA_ARGS__)
+#define sbu_debug(msg, ...) log_msg (LOG_DEBUG, log_sbu, msg, ## __VA_ARGS__)
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// FORWARD DEFINITIONS
+//
+///////////////////////////////////////////////////////////////////////////////
+
+static int _dummy_memr(longaddr_t ab, word * db);
+
+static int _dummy_memw(longaddr_t ab, word db);
+
+static int _dummy_ior(longaddr_t ab, word * db);
+
+static int _dummy_iow(longaddr_t ab, word db);
+
+
 ///////////////////////////////////////////////////////////////////////////////
 //
 // BASICS AND RUN CONTROL
@@ -52,6 +75,20 @@ int nvram = 0;
 void
 cpu_init()
 {
+    // Clear everything in the CPU state.
+    memset(&cpu, 0, sizeof(cpu));
+        
+    // Initialise logging
+    log_ctl = log_add_unit("CTL", LOG_NOTICE, 0);
+    log_sbu = log_add_unit("SBU", LOG_NOTICE, 0);
+
+    // Register dummy callbacks
+    cpu.memr = _dummy_memr;
+    cpu.memw = _dummy_memw;
+    cpu.ior = _dummy_ior;
+    cpu.iow = _dummy_iow;
+
+
     // CTL: Control Unit
     cpu.ir = rand() & 0xffff;
 
@@ -101,10 +138,10 @@ void
 cpu_reset()
 {
     // CTL
-    cpu.ustate.rst = 0;     // 0 = RESET# is ACTIVE */
-    cpu.ustate.int_ = 1;    // 1 = INT# is not active
-    cpu.ustate.uaddr = 0;   // The uPC resets to 0 on power on/reset
-    cpu.irq = 1;            // Clear IRQ (1 = no IRQ received)
+    cpu.uav.rst = 0;            // 0 = RESET# is ACTIVE */
+    cpu.uav.int_ = 1;           // 1 = INT# is not active
+    cpu.uav.uaddr = 0;          // The uPC resets to 0 on power on/reset
+    cpu.irq = 1;                // Clear IRQ (1 = no IRQ received)
     cpu.rst_hold = 128;
     cpu.ir = 0xdead;
     cpu.agl_page = GET_PAGE(cpu.pc);
@@ -125,7 +162,7 @@ cpu_reset()
 }
 
 
-// Simulates reset behaviour: the CFT's reset circuitry contains a counter
+// Simulate reset behaviour: the CFT's reset circuitry contains a counter
 // which, when triggered using /RESET, holds the internal reset signal
 // (/RST-HOLD) active for a number of cycles. The rising edge of /RST-HOLD, at
 // the end of the count, has side effects in the hardware (e.g. AR reads its
@@ -140,10 +177,10 @@ cpu_handle_reset()
     } else if (cpu.rst_hold == 0) {
         // When the counter runs out, de-assert the RST signal in the
         // microcode engine.
-        cpu.ustate.rst = 1;
+        cpu.uav.rst = 1;
         cpu.rst_hold = -1;
         cpu.resetting = 0;
-        ucdebug("*** RST_HOLD cleared ***\n");
+        ctl_debug("*** RST_HOLD cleared ***");
     }
 }
 
@@ -152,7 +189,7 @@ void
 cpu_halt()
 {
     cpu.halt = 1;
-    info("Halted\n");
+    info("Halted");
     // v.dirty++;
     // v.stdirty++;
 }
@@ -162,7 +199,7 @@ void
 cpu_start()
 {
     cpu.halt = 0;
-    info("Resumed\n");
+    info("Resumed");
     // v.dirty++;
     // v.stdirty++;
 }
@@ -175,7 +212,7 @@ quit(int quiet)
     // if (!quiet) {
     //     dump_state();
     //     dump_ustate();
-    //     info("*** QUIT PRESSED ***\n");
+    //     info("*** QUIT PRESSED ***");
     // }
 }
 
@@ -251,7 +288,136 @@ action_sru()
         break;
 
     default:
-        fail("Undefined SRU op %d", op);
+        fatal("Undefined SRU op %d", op);
+    }
+}
+
+
+/*
+
+        // Step the PC
+        if (incpc) {
+            cpu.pc = (cpu.pc + 1) & 0xffff;
+            ctl_debug("pc_inc: PC <- %04x", cpu.pc);
+            // Sanity check
+            if (sanity && (cpu.pc == 0)) {
+                fatal("PC AT 0000, SHOULD NEVER HAPPEN");
+            }
+        }
+                
+        // Increment A, if requested by an OPx instruction.
+        if (stpac) {
+            if (dec) {
+                set_a((cpu.a - 1) & 0xffff);
+                if (cpu.a == 0xffff) cpu.l = !cpu.l;
+            } else {
+                set_a((cpu.a + 1) & 0xffff);
+                if (cpu.a == 0) cpu.l = !cpu.l;
+            }
+            ctl_debug("inc_a: A <- %04x", cpu.a);
+        }
+
+        // Step the DR.
+        if (stpdr) {
+            cpu.dr = (dec ? cpu.dr - 1 : cpu.dr + 1) & 0xffff;
+            ctl_debug("step_dr: DR <- %04x", cpu.dr);
+        }
+
+        // Set other stuff
+        if (cpl) {
+            cpu.l = !cpu.l;
+        }
+        if (cll) {
+            cpu.l = 0;
+            ctl_debug("cpl: L <- %d", cpu.l);
+        }
+        if (sti) {
+            cpu.arm_sti = 1; // Arm STI.
+        }
+        if (cli) {
+            cpu.i = 1;
+            ctl_debug("CLI: PC=%04x, I <- %d", cpu.pc, cpu.i);
+        }
+
+*/
+
+
+static inline void
+handle_actions(int action)
+{
+    cpu.uav.cond = 1;        // COND=1 means ‘do not skip’
+
+    switch (action) {
+    case FIELD_ACTION_CPL:
+        cpu.fl ^= 1;
+        ctl_debug("action_cpl: L <- %d", cpu.fl);
+        return;
+
+    case FIELD_ACTION_CLL:
+        cpu.fl = 0;
+        ctl_debug("action_cll: L <- %d", cpu.fl);
+        return;
+
+    case FIELD_ACTION_STI:
+        cpu.fi = 1;
+        ctl_debug("action_sti: I <- %d", cpu.fi);
+        return;
+
+    case FIELD_ACTION_CLI:
+        cpu.fi = 0;
+        ctl_debug("action_cli: I <- %d", cpu.fi);
+        return;
+
+    case FIELD_ACTION_IDX:
+        // This is decoded when write_ar_mbz is handled.
+        return;
+
+    case FIELD_ACTION_SRU:
+        action_sru();
+        return;
+
+    case FIELD_ACTION_INCPC:
+        cpu.pc = (cpu.pc + 1) & 0xffff;
+        ctl_debug("action_incpc: PC <- %04x", cpu.pc);
+        // Sanity check
+        if (cpu.pc == 0) {
+            fatal("PC wrapped around to 0000. This is software bug.");
+        }
+        return;
+
+    case FIELD_ACTION_INCDR:
+        cpu.dr = (cpu.dr + 1) & 0xffff;
+        ctl_debug("action_incdr: DR <- %04x", cpu.dr);
+        return;
+        
+    case FIELD_ACTION_DECDR:
+        cpu.dr = (cpu.dr - 1) & 0xffff;
+        ctl_debug("action_decdr: DR <- %04x", cpu.dr);
+        return;
+
+    case FIELD_ACTION_INCAC:
+        if (cpu.ac == 0xffff) cpu.fl ^= 1;
+        cpu.ac = (cpu.ac + 1) & 0xffff;
+        ctl_debug("action_incac: AC <- %04x [L=%d]", cpu.ac, cpu.fl);
+        return;
+
+    case FIELD_ACTION_DECAC:
+        if (cpu.ac == 0) cpu.fl ^= 1;
+        cpu.ac = (cpu.ac - 1) & 0xffff;
+        ctl_debug("action_decac: AC <- %04x [L=%d]", cpu.ac, cpu.fl);
+
+    case FIELD_ACTION_INCSP:
+        cpu.sp = (cpu.sp + 1) & 0xffff;
+        ctl_debug("action_incsp: SP <- %04x", cpu.sp);
+        return;
+        
+    case FIELD_ACTION_DECSP:
+        cpu.sp = (cpu.sp - 1) & 0xffff;
+        ctl_debug("action_decsp: SP <- %04x", cpu.sp);
+        return;
+
+    default:
+        fatal("Unknown ACTION %x", action);
     }
 }
 
@@ -262,13 +428,51 @@ action_sru()
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-word
-unit_mem(int r, int w)
+// Load the Data Bus with data from a memory or I/O space device.
+inline void
+bus_reads(int mem, int io)
 {
-    if (r && !w) cpu.dbus = (*cpu.memr)(cpu.ar);
-    else if (w && !r) (*cpu.memw)(cpu.ar, cpu.dbus);
-    else fail("Invalid memory access r=%d, w=%d\n", r, w);
-    return cpu.dbus;
+    if (mem && io) {
+        fatal("MEM and IO asserted simultaneously during read. Microcode bug!");
+    }
+
+    if (mem) {
+        if ((*cpu.memr)(cpu.ar, &cpu.dbus) < 0) {
+            warning("Bus error: read from undecoded address %s",
+                    format_longaddr(cpu.ar, NULL));
+        }
+    }
+
+    if (io) {
+        if ((*cpu.ior)(cpu.ar, &cpu.dbus) < 0) {
+            warning("Bus error: read from undecoded I/O port %03x",
+                    format_longaddr(cpu.ar & 0xffff, NULL));
+        }
+    }
+}
+
+
+// Write the value on the Data Bus to a memory or I/O space device.
+inline void
+bus_writes(int mem, int io)
+{
+    if (mem && io) {
+        fatal("MEM and IO asserted simultaneously during write. Microcode bug!");
+    }
+
+    if (mem) {
+        if ((*cpu.memw)(cpu.ar, cpu.dbus) < 0) {
+            warning("Bus error: write to undecoded address %s",
+                    format_longaddr(cpu.ar, NULL));
+        }
+    }
+
+    if (io) {
+        if ((*cpu.iow)(cpu.ar, cpu.dbus) < 0) {
+            warning("Bus error: write to undecoded I/O port %03x",
+                    format_longaddr(cpu.ar & 0xffff, NULL));
+        }
+    }
 }
 
 
@@ -286,6 +490,40 @@ get_mbr(int mbr)
 }
 
 
+// These allow the CPU to run, but not very well.
+int
+_dummy_memr(longaddr_t ab, word * db)
+{
+    warning("dummy callback %s called", __func__);
+    return -1;
+}
+    
+
+int
+_dummy_memw(longaddr_t ab, word db)
+{
+    warning("dummy callback %s called", __func__);
+    return -1;
+}
+    
+
+int
+_dummy_ior(longaddr_t ab, word * db)
+{
+    warning("dummy callback %s called", __func__);
+    return -1;
+}
+    
+
+int
+_dummy_iow(longaddr_t ab, word db)
+{
+    warning("dummy callback %s called", __func__);
+    return -1;
+}
+
+
+
 ///////////////////////////////////////////////////////////////////////////////
 //
 // CONDITIONALS
@@ -295,72 +533,70 @@ get_mbr(int mbr)
 // Decode IFx signals, and update the SKIP flag in the uROM vector for the next
 // microinstruction.
 
-#define skipdebug(name)                                         \
-    ucdebug("SKIP: " name ": %d (%s)\n",                        \
-            cpu.ustate.cond,                                    \
-            cpu.ustate.cond == 0 ? "SKIP" : "don't skip")
-
 static inline void
-decode_ifx()
+decode_cond(int cond)
 {
-    cpu.ustate.cond = 1;        // COND=1 means ‘do not skip’
-    
-    int cond = GET_IF(cpu.control);
+    cpu.uav.cond = 1;        // COND=1 means ‘do not skip’
     
     switch (cond) {
+    case 0:
+        // Idle, always true
+        cpu.uav.cond = 1;
+        break;
+        
     case FIELD_IF_IR0:
-        cpu.ustate.cond = (cpu.ir & 0x1) ? 0 : 1;
-        skipdebug("IF0");
+        cpu.uav.cond = (cpu.ir & 0x1) ? 0 : 1;
+        sbu_debug("IF0");
         break;
         
     case FIELD_IF_IR1:
-        cpu.ustate.cond = (cpu.ir & 0x2) ? 0 : 1;
-        skipdebug("IF1");
+        cpu.uav.cond = (cpu.ir & 0x2) ? 0 : 1;
+        sbu_debug("IF1");
         break;
 
     case FIELD_IF_IR2:
-        cpu.ustate.cond = (cpu.ir & 0x4) ? 0 : 1;
-        skipdebug("IF2");
+        cpu.uav.cond = (cpu.ir & 0x4) ? 0 : 1;
+        sbu_debug("IF2");
         break;
 
     case FIELD_IF_IR3:
-        cpu.ustate.cond = (cpu.ir & 0x8) ? 0 : 1;
-        skipdebug("IF3");
+        cpu.uav.cond = (cpu.ir & 0x8) ? 0 : 1;
+        sbu_debug("IF3");
         break;
 
     case FIELD_IF_IR4:
-        cpu.ustate.cond = (cpu.ir & 0x10) ? 0 : 1;
-        skipdebug("IF4");
+        cpu.uav.cond = (cpu.ir & 0x10) ? 0 : 1;
+        sbu_debug("IF4");
         break;
 
     case FIELD_IF_IR5:
-        cpu.ustate.cond = (cpu.ir & 0x20) ? 0 : 1;
-        skipdebug("IF5");
+        cpu.uav.cond = (cpu.ir & 0x20) ? 0 : 1;
+        sbu_debug("IF5");
         break;
 
     case FIELD_IF_IR6:
-        cpu.ustate.cond = (cpu.ir & 0x40) ? 0 : 1;
-        skipdebug("IF6");
+        cpu.uav.cond = (cpu.ir & 0x40) ? 0 : 1;
+        sbu_debug("IF6");
         break;
 
     case FIELD_IF_V:
-        cpu.ustate.cond = cpu.fv ? 0 : 1;
-        skipdebug("IFV");
+        cpu.uav.cond = cpu.fv ? 0 : 1;
+        sbu_debug("IFV");
         break;
 
     case FIELD_IF_L:
-        cpu.ustate.cond = cpu.fl ? 0 : 1;
-        skipdebug("IFL");
+        cpu.uav.cond = cpu.fl ? 0 : 1;
+        sbu_debug("IFL");
         break;
 
     case FIELD_IF_Z:
-        cpu.ustate.cond = cpu.fz ? 0 : 1;
-        skipdebug("IFZ");
+        cpu.uav.cond = cpu.fz ? 0 : 1;
+        sbu_debug("IFZ");
         break;
 
     case FIELD_IF_N:
-        cpu.ustate.cond = cpu.fn ? 0 : 1;
-        skipdebug("IFN");
+        cpu.uav.cond = cpu.fn ? 0 : 1;
+        sbu_debug("IFN");
         break;
 
     case FIELD_IF_BRANCH:
@@ -385,17 +621,17 @@ decode_ifx()
         register int sx = sn || sz || sl || sv;
 
         // µCode signal COND is active low, so reverse it here.
-        cpu.ustate.cond = (sx ^ data[4]) ? 0 : 1;
+        cpu.uav.cond = (sx ^ data[4]) ? 0 : 1;
 
-        ucdebug("BRANCH: A=%04x, DATA=%d%d%d%d%d\n", cpu.ac, data[4], data[3], data[2], data[1], data[0]);
-        ucdebug("BRANCH: A=%04x, SV=%d, SL=%d, SZ=%d, SN=%d\n", cpu.ac, sv, sl, sz, sn);
-        ucdebug("BRANCH: A=%04x,  V=%d,  L=%d,  Z=%d,  N=%d\n", cpu.ac, cpu.fv, cpu.fl, cpu.fz, cpu.fn);
-        skipdebug("IFBRANCH");
+        sbu_debug("BRANCH: A=%04x, DATA=%d%d%d%d%d", cpu.ac, data[4], data[3], data[2], data[1], data[0]);
+        sbu_debug("BRANCH: A=%04x, SV=%d, SL=%d, SZ=%d, SN=%d", cpu.ac, sv, sl, sz, sn);
+        sbu_debug("BRANCH: A=%04x,  V=%d,  L=%d,  Z=%d,  N=%d", cpu.ac, cpu.fv, cpu.fl, cpu.fz, cpu.fn);
+        sbu_debug("IFBRANCH");
     }
     break;
     
     default:
-        fail("Unknown microcode conditional %x", cond);
+        fatal("Unknown microcode conditional %x", cond);
     }
 }
 
@@ -418,46 +654,46 @@ read_from_ibus_unit(int raddr)
 
     switch (raddr) {
     case FIELD_READ_CS0:
-        ucdebug("IBUS <- CS0 (0000)\n");
+        ctl_debug("IBUS <- CS0 (0000)");
         return 0;
 
     case FIELD_READ_CS1:
-        ucdebug("IBUS <- CS1 (0001)\n");
+        ctl_debug("IBUS <- CS1 (0001)");
         return 1;
 
     case FIELD_READ_CS2:
-        ucdebug("IBUS <- CS2 (0002)\n");
+        ctl_debug("IBUS <- CS2 (0002)");
         return 2;
 
     case FIELD_READ_CS3:
-        ucdebug("IBUS <- CS2 (0002)\n");
+        ctl_debug("IBUS <- CS2 (0002)");
         return 3;
 
     case FIELD_READ_PC:
-        ucdebug("IBUS <- PC (%04x)\n", cpu.pc);
+        ctl_debug("IBUS <- PC (%04x)", cpu.pc);
         return cpu.pc;
 
     case FIELD_READ_DR:
-        ucdebug("IBUS <- DR (%04x)\n", cpu.dr);
+        ctl_debug("IBUS <- DR (%04x)", cpu.dr);
         return cpu.dr;
 
     case FIELD_READ_AC:
-        ucdebug("IBUS <- AC (%04x)\n", cpu.ac);
+        ctl_debug("IBUS <- AC (%04x)", cpu.ac);
         return cpu.ac;
         
     case FIELD_READ_SP:
-        ucdebug("IBUS <- SP (%04x)\n", cpu.sp);
+        ctl_debug("IBUS <- SP (%04x)", cpu.sp);
         return cpu.sp;
 
     case FIELD_READ_MBP_FLAGS:
         tmp = get_mbr(MBR_MBP) | cpu.fn << 10 | cpu.fz << 11 |
             cpu.fl << 12 | cpu.fv << 13 | cpu.fi << 15;
-        ucdebug("IBUS <- BMP+FLAGS (%04x)\n", tmp);
+        ctl_debug("IBUS <- BMP+FLAGS (%04x)", tmp);
         return tmp;
 
     case FIELD_READ_AGL:
         tmp = MAKE_SHORT_ADDRESS(get_r(cpu.ir) ? 0 : cpu.agl_page, cpu.ir);
-        ucdebug("IBUS <- AGL (%04x)\n", tmp);
+        ctl_debug("IBUS <- AGL (%04x)", tmp);
         return tmp;
 
     case FIELD_READ_ALU_ADD:
@@ -467,40 +703,40 @@ read_from_ibus_unit(int raddr)
         if (sum & 0x10000) cpu.fl = !cpu.fl;
         cpu.fv = (cpu.alu_a & 0x8000) == (cpu.alu_b & 0x8000) && \
             (cpu.alu_a & 0x8000) != (cpu.ibus & 0x8000);
-        ucdebug("IBUS <- A + B (%04x), L <- %d, V <- %d\n", cpu.alu_y, cpu.fl, cpu.fl);
+        ctl_debug("IBUS <- A + B (%04x), L <- %d, V <- %d", cpu.alu_y, cpu.fl, cpu.fl);
         return 0;               // Pretend we need extra time for the addition
     }
         
     case FIELD_READ_ALU_AND:
         cpu.alu_y = cpu.alu_a & cpu.alu_b;
-        ucdebug("IBUS <- A AND B (%04x)\n", cpu.alu_y);
+        ctl_debug("IBUS <- A AND B (%04x)", cpu.alu_y);
         return cpu.alu_y;
         
     case FIELD_READ_ALU_OR:
         cpu.alu_y = cpu.alu_a | cpu.alu_b;
-        ucdebug("IBUS <- A OR B (%04x)\n", cpu.alu_y);
+        ctl_debug("IBUS <- A OR B (%04x)", cpu.alu_y);
         return cpu.alu_y;
         
     case FIELD_READ_ALU_XOR:
         cpu.alu_y = cpu.alu_a ^ cpu.alu_b;
-        ucdebug("IBUS <- A XOR B (%04x)\n", cpu.alu_y);
+        ctl_debug("IBUS <- A XOR B (%04x)", cpu.alu_y);
         return cpu.alu_y;
         
     case FIELD_READ_ALU_NOT:
         cpu.alu_y = cpu.alu_a ^ 0xffff;
-        ucdebug("IBUS <- NOT A (%04x)\n", cpu.alu_y);
+        ctl_debug("IBUS <- NOT A (%04x)", cpu.alu_y);
         return cpu.alu_y;
         
     case FIELD_READ_ALU_Y:
-        ucdebug("IBUS <- ALU Y (%04x)\n", cpu.alu_y);
+        ctl_debug("IBUS <- ALU Y (%04x)", cpu.alu_y);
         return cpu.alu_y;
 
     case FIELD_READ_ALU_B:
-        ucdebug("IBUS <- ALU B (%04x)\n", cpu.alu_b);
+        ctl_debug("IBUS <- ALU B (%04x)", cpu.alu_b);
         return cpu.alu_b;
         
     default:
-        fail("Unknown RADDR %x.", raddr)
+        fatal("Unknown RADDR %x.", raddr)
     }
 
     // We should never get here
@@ -527,17 +763,17 @@ write_to_ibus_unit(int waddr)
     switch(waddr){
     case FIELD_WRITE_AR_MBP:
         cpu.ar = get_mbr(MBR_MBP) | cpu.ibus;
-        ucdebug("AR <- MBP:IBUS (%s)\n", format_longaddr(cpu.ar, NULL));
+        ctl_debug("AR <- MBP:IBUS (%s)", format_longaddr(cpu.ar, NULL));
         return;
 
     case FIELD_WRITE_AR_MBD:
         cpu.ar = get_mbr(MBR_MBD) | cpu.ibus;
-        ucdebug("AR <- MBD:IBUS (%s)\n", format_longaddr(cpu.ar, NULL));
+        ctl_debug("AR <- MBD:IBUS (%s)", format_longaddr(cpu.ar, NULL));
         return;
 
     case FIELD_WRITE_AR_MBS:
         cpu.ar = get_mbr(MBR_MBS) | cpu.ibus;
-        ucdebug("AR <- MBS:IBUS (%s)\n", format_longaddr(cpu.ar, NULL));
+        ctl_debug("AR <- MBS:IBUS (%s)", format_longaddr(cpu.ar, NULL));
         return;
 
     case FIELD_WRITE_AR_MBZ:
@@ -557,39 +793,39 @@ write_to_ibus_unit(int waddr)
         }
 
         cpu.ar = get_mbr(mbr) | cpu.ibus;
-        ucdebug("AR <- MB%d:IBUS (%s)\n", format_longaddr(cpu.ar, NULL));
+        ctl_debug("AR <- MB%d:IBUS (%s)", format_longaddr(cpu.ar, NULL));
         return;
     }
 
     case FIELD_WRITE_PC:
         cpu.pc = cpu.ibus;
-        ucdebug("PC <- IBUS (%04x)\n", cpu.ibus);
+        ctl_debug("PC <- IBUS (%04x)", cpu.ibus);
         // // Sanity check
         // if (sanity && (cpu.pc == 0)) {
-        //     fail("PC at 0000. This is probably a CFT software error.\n");
+        //     fatal("PC at 0000. This is probably a CFT software error.");
         // }
         return;
 
     case FIELD_WRITE_DR:
         cpu.dr = cpu.ibus;
-        ucdebug("DR <- IBUS (%04x)\n", cpu.ibus);
+        ctl_debug("DR <- IBUS (%04x)", cpu.ibus);
         return;
 
     case FIELD_WRITE_AC:
         cpu.ac = cpu.ibus;
         cpu.fn = (cpu.ac & 0x8000) != 0;
         cpu.fz = cpu.ac == 0;
-        ucdebug("AC <- IBUS (%04x)\n", cpu.ibus);
+        ctl_debug("AC <- IBUS (%04x)", cpu.ibus);
         return;
 
     case FIELD_WRITE_SP:
         cpu.sp = cpu.ibus;
-        ucdebug("SP <- IBUS (%04x)\n", cpu.ibus);
+        ctl_debug("SP <- IBUS (%04x)", cpu.ibus);
         return;
 
     case FIELD_WRITE_MBP:
         cpu.mbr[MBR_MBP] = (cpu.ibus & 0xff) << 16;
-        ucdebug("MBP <- IBUS (%02x)\n", cpu.ibus & 0xff);
+        ctl_debug("MBP <- IBUS (%02x)", cpu.ibus & 0xff);
         return;
 
     case FIELD_WRITE_MBP_FLAGS:
@@ -597,33 +833,28 @@ write_to_ibus_unit(int waddr)
         cpu.fl = cpu.ibus && 0x1000 ? 1 : 0;
         cpu.fv = cpu.ibus && 0x2000 ? 1 : 0;
         cpu.fi = cpu.ibus && 0x8000 ? 1 : 0;
-        ucdebug("MBP+FLAGS <- IBUS (%04x) [L=%d V=%d I=%d]", cpu.ibus, cpu.fl, cpu.fv, cpu.fi);
+        ctl_debug("MBP+FLAGS <- IBUS (%04x) [L=%d V=%d I=%d]", cpu.ibus, cpu.fl, cpu.fv, cpu.fi);
         return;
         
     case FIELD_WRITE_FLAGS:
         cpu.fl = cpu.ibus && 0x1000 ? 1 : 0;
         cpu.fv = cpu.ibus && 0x2000 ? 1 : 0;
         cpu.fi = cpu.ibus && 0x8000 ? 1 : 0;
-        ucdebug("FLAGS <- IBUS (%04x) [L=%d V=%d I=%d]", cpu.ibus, cpu.fl, cpu.fv, cpu.fi);
+        ctl_debug("FLAGS <- IBUS (%04x) [L=%d V=%d I=%d]", cpu.ibus, cpu.fl, cpu.fv, cpu.fi);
         return;
 
     case FIELD_WRITE_IR:
         cpu.ir = cpu.ibus;
-        // 15  14  13  12  11  10   9   8   7   6   5   4   3   2   1   0
-        // OP------------  I   R    SUB------
-        //                 800 400 200 100  80  40  20  10  4   3   2   1
-        cpu.ustate.op = (cpu.ir >> 12) & 15;
-        cpu.ustate.i = cpu.ir & 0x800 ? 1 : 0;
-        cpu.ustate.r = cpu.ir & 0x400 ? 1 : 0;
-        cpu.ustate.subop = (cpu.ir >> 7) & 7;
-        ucdebug("IR <- IBUS (%04x): %s\n", cpu.ibus, disasm(cpu.ir, 1, NULL));
+        ctl_debug("IR <- IBUS (%04x): %s", cpu.ibus, disasm(cpu.ir, 1, NULL));
+        return;
         
     case FIELD_WRITE_ALU_B:
         cpu.alu_b = cpu.ibus;
-        ucdebug("ALU B <- IBUS (%04x)\n", cpu.ibus);
+        ctl_debug("ALU B <- IBUS (%04x)", cpu.ibus);
+        return;
         
     default:
-        fail("Unknown WADDR %x.", waddr)
+        fatal("Unknown WADDR %x.", waddr)
     }
 }
 
@@ -633,6 +864,41 @@ write_to_ibus_unit(int waddr)
 // MAIN LOOP
 //
 ///////////////////////////////////////////////////////////////////////////////
+
+// Implement the control store.
+static void
+cpu_control_store()
+{
+    // 15  14  13  12  11  10   9   8   7   6   5   4   3   2   1   0
+    // OP------------  I   R    SUB------
+    //                 800 400 200 100  80  40  20  10  4   3   2   1
+
+
+    // Much of the UAV comes from the IR, but it's split in four fields.
+    cpu.uav.op = (cpu.ir >> 12) & 15;
+    cpu.uav.i = (cpu.ir >> 11) & 1;
+    cpu.uav.r = (cpu.ir >> 10) & 1;
+    cpu.uav.subop = (cpu.ir >> 7) & 7;
+
+    // If an interrupt has been requested and interrupts are allowed, we jump
+    // to the IRQ microprogram when the previous instruction ends.
+    if (cpu.irq == 0 && cpu.fi == 0 && cpu.uav.uaddr == 0) {
+        cpu.uav.int_ = 0;       // Set the INT microcode condition 
+    }
+
+    // Update the uPC and read the microcode ROM.
+    cpu.uaddr = MAKE_ADDR(cpu.uav.rst,
+                          cpu.uav.int_,
+                          cpu.uav.op,
+                          cpu.uav.i,
+                          cpu.uav.r,
+                          cpu.uav.subop,
+                          cpu.uav.cond,
+                          cpu.uav.idx,
+                          cpu.uav.uaddr);
+    cpu.ucv = microcode[cpu.uaddr];
+}
+
 
 void
 cpu_run()
@@ -645,9 +911,8 @@ cpu_run()
     // cpu.pause = dfp_enabled ? 1 : 0;
     cpu_reset();
 
-    time_t t0 = time(NULL);
-    word oldpc = 0xbeef;
-    void dfp_tick();
+    // time_t t0 = time(NULL);
+    // word oldpc = 0xbeef;
         
     //word addr;
     //static struct timespec ts;
@@ -655,216 +920,114 @@ cpu_run()
     while(!cpu.quit) {
         volatile int p;
         for (p = 0; p < 50; p++);
-                
 
         // Do nothing if the emulation is paused. 
         if (cpu.pause || cpu.halt) {
-            ui_tick();
-            dfp_tick(); // the DFP always runs
+            // ui_tick();
+            // dfp_tick(); // the DFP always runs
             usleep(1000);
             continue;
         }
 
-        // Link the CPU state to the microcode ROM.
-        cpu.ustate.op = get_op(cpu.ir);
-        //ucdebug("VECTOR I = %x (%x, %x)\n", cpu.ustate.i, cpu.ir, get_i(cpu.ir));
-        //ucdebug("VECTOR R = (%x, %x)\n", cpu.ir, get_r(cpu.ir));
-        cpu.ustate.i = get_i(cpu.ir);
-        //cpu.ustate.skip = 1; // Active low: 1 == no skip 
-
-        //
-        // WARNING: HARDWARE BUG FOUND. (this has since been fixed)
-        //
-        // The (active hgh) INC flag in the microcode vector must not
-        // be de-asserted (cleared, 0) until the /end signal is
-        // encountered. If this is NOT done, depending on the value of
-        // AR (which is modified during the execution of an autoindex
-        // instruction), the INC signal can go low, and the microcode
-        // will jump to an undefined (/end) instruction mid-execution.
-        //
-        // On real hardware, a J-K flip-flop would be SET on autoindex,
-        // and RESET (cleared) by /end.
-        //
-        // FIX REVISION 2:
-        //
-        // To make sure the autoincrement isn't changed, it should only
-        // be set when IR is set.
-         
-        if (cpu.ustate.uaddr == 0) {
-            cpu.ustate.inc = 1;
-        } else {
-            //cpu.ustate.inc |= is_autoindex(cpu.ar);
-            // Moved to IR latching code.
-        }
-
-        //
-        // Likewise, buffer the IRQ requests. The hardware already does
-        // this (the internal IRQ line sets a flip-flop that stays
-        // active for the entire microprogram 
-        if (cpu.irq == 0) {
-            if ((cpu.ustate.uaddr == 0) && (cpu.i == 0)) {
-                //dump();
-                //info("Going to IRQ\n");
-                //exit(0);
-                cpu.irq = 1;         // Clear the IRQ signal 
-                cpu.ustate.int_ = 0; // Set the INT microcode condition 
-            }
-        }
-                
         // Handle the reset pulse
-        handle_reset();
+        cpu_handle_reset();
+
+        // Let the control store run.
+        cpu_control_store();
 
         // Print out current address and instruction.
-        if(debug_asm) {
-            if (cpu.ustate.uaddr == 0) {
-                oldpc = cpu.pc;
-            } else if (cpu.ustate.uaddr == 2) {
-                dump_mini(oldpc);
-            }
-        }
-
-        // Update the uPC and read the microcode ROM.
-        cpu.upc = MAKE_ADDR(0, // UCB extension offset: not implemented 
-                            cpu.ustate.rst,
-                            cpu.ustate.int_,
-                            cpu.v,
-                            cpu.l,
-                            cpu.ustate.op,
-                            cpu.ustate.i,
-                            cpu.ustate.skip,
-                            cpu.ustate.inc,
-                            cpu.ustate.uaddr);
-        cpu.control = microcode[cpu.upc];
+        // if(debug_asm) {
+        //     if (cpu.uav.uaddr == 0) {
+        //         oldpc = cpu.pc;
+        //     } else if (cpu.uav.uaddr == 2) {
+        //         dump_mini(oldpc);
+        //     }
+        // }
 
         // Decode the control vector from the uROM.
-        uint32_t cpl = IS_CPL(cpu.control);
-        uint32_t cll = IS_CLL(cpu.control);
-        uint32_t sti = IS_STI(cpu.control);
-        uint32_t cli = IS_CLI(cpu.control);
-        uint32_t incpc = IS_INCPC(cpu.control);
-        uint32_t stpac = IS_STPAC(cpu.control);
-        uint32_t stpdr = IS_STPDR(cpu.control);
-        uint32_t dec = IS_DEC(cpu.control);
-        uint32_t mem = IS_MEM(cpu.control);
-        uint32_t io = IS_IO(cpu.control);
-        uint32_t r = IS_R(cpu.control);
-        uint32_t w = IS_W(cpu.control);
-        uint32_t end = IS_END(cpu.control);
+
+        int raddr = GET_READ(cpu.ucv);
+        int waddr = GET_WRITE(cpu.ucv);
+        int cond = GET_IF(cpu.ucv);
+        int action = GET_ACTION(cpu.ucv);
+
+        int mem = IS_MEM(cpu.ucv);
+        int io = IS_IO(cpu.ucv);
+        int r = IS_R(cpu.ucv);
+        int w = IS_WEN(cpu.ucv);
+        int end = IS_END(cpu.ucv);
 
         // Print CPU state.
-        if(debug_microcode) {
-            printf("\n\n");
-            info("PC: %04x/%d\n", cpu.pc, cpu.ustate.uaddr);
-            dump_state();
-            dump_ustate();
-        }
+        // if (debug_microcode) {
+        //     printf("");
+        //     info("PC: %04x/%d", cpu.pc, cpu.uav.uaddr);
+        //     dump_state();
+        //     dump_ustate();
+        // }
 
         // Act on the signals of the control vector. All actions are
         // essentially level comparisons, edge-sensitive signals are
         // dealt with as if they too were level-sensitive. This could
         // give rise to a few bugs, which we'll kludge here.
 
-        // IFx flags are decoded late in the cycle and acted on in the
-        // next clock tick. This mirrors the behaviour of the hardware.
-        decode_ifx();
-
+        // Decode conditionals and set the SKIP signal for the next
+        // microinstruction.
+        decode_cond(cond);
+        
         // Handle memory and I/O *READS*
-        sanity_check (mem && io, "MEM and IO selected at once. Microcode bug.\n");
-        sanity_check (r && w, "R and W selected at once. Microcode bug.\n");
-        if (r && mem) cpu.dbus = unit_mem(r, w);
-        else if (r && io) cpu.dbus = unit_io(r, w);
+        if (r) bus_reads(mem, io);
 
         // Read from a unit.
-        decode_read_unit();
+        if (raddr) {
+            cpu.ibus = read_from_ibus_unit(raddr);
+        }
 
         // Write to a unit.
-        decode_write_unit();
+        if (waddr) {
+            write_to_ibus_unit(waddr);
+        }
 
         // Drive the data bus if needed
-        if (IS_W(cpu.control)) {
+        if (w) {
             cpu.dbus = cpu.ibus;
-            ucdebug("*** DBUS <- IBUS (%04x)\n", cpu.ibus);
+            ctl_debug("*** DBUS <- IBUS (%04x)", cpu.ibus);
         }
 
         // Handle memory and I/O *WRITES*
-        if (w && mem) cpu.dbus = unit_mem(r, w);
-        else if (w && io) cpu.dbus = unit_io(r, w);
+        if (w) bus_writes(mem, io);
 
-        // Step the PC
-        if (incpc) {
-            cpu.pc = (cpu.pc + 1) & 0xffff;
-            ucdebug("pc_inc: PC <- %04x\n", cpu.pc);
-            // Sanity check
-            if (sanity && (cpu.pc == 0)) {
-                fail("PC AT 0000, SHOULD NEVER HAPPEN\n");
-            }
-        }
-                
-        // Increment A, if requested by an OPx instruction.
-        if (stpac) {
-            if (dec) {
-                set_a((cpu.a - 1) & 0xffff);
-                if (cpu.a == 0xffff) cpu.l = !cpu.l;
-            } else {
-                set_a((cpu.a + 1) & 0xffff);
-                if (cpu.a == 0) cpu.l = !cpu.l;
-            }
-            ucdebug("inc_a: A <- %04x\n", cpu.a);
-        }
+        // Perform any decoded action.
+        if (action) handle_actions(action);
 
-        // Step the DR.
-        if (stpdr) {
-            cpu.dr = (dec ? cpu.dr - 1 : cpu.dr + 1) & 0xffff;
-            ucdebug("step_dr: DR <- %04x\n", cpu.dr);
-        }
-
-        // Set other stuff
-        if (cpl) {
-            cpu.l = !cpu.l;
-            ucdebug("cpl: L <- %d\n", cpu.l);
-        }
-        if (cll) {
-            cpu.l = 0;
-            ucdebug("cpl: L <- %d\n", cpu.l);
-        }
-        if (sti) {
-            cpu.arm_sti = 1; // Arm STI.
-        }
-        if (cli) {
-            cpu.i = 1;
-            ucdebug("CLI: PC=%04x, I <- %d\n", cpu.pc, cpu.i);
-        }
-
-        // Update the CPU microcode state
-        cpu.ustate.l = cpu.l;
-        cpu.ustate.v = cpu.v;
-
-        // Next!
+        // Next processor cycle!
         cpu.tick++;
 
         // End of the instruction?
         if (end) {
             //dump_state();
             cpu.agl_page = get_page(cpu.pc);
-            cpu.ustate.uaddr = 0;
-            cpu.ustate.int_ = 1; // Clear the INT microcode condition 
-            ucdebug("*** GO FETCH ***\n\n\n\n\n\n\n");
+            cpu.uav.uaddr = 0;
+            cpu.uav.int_ = 1; // Clear the INT microcode condition 
+            ctl_debug("*** GO FETCH ***");
         } else if (!cpu.wait) {
-            cpu.ustate.uaddr++;
-            sanity_check(cpu.ustate.uaddr == 0,
-                         "uADDR wrapped around! Microcode bug?\n");
+            // Support for wait states is present at this level, but nothing
+            // uses them (yet). All our emulated devices are super-fast.
+            cpu.uav.uaddr++;
+            if (cpu.uav.uaddr == 0) {
+                fatal("uPC wrapped around! Microcode bug?");
+            }
         }
 
         // Perform 'background' 'hardware' tasks.
-        if (cpu.iotick != NULL) (*cft.iotick)();
+        if (cpu.iotick != NULL) (*cpu.iotick)(&cpu);
     }
 
-    time_t t1 = time(NULL);
-    if (t1 != t0) {
-        info("Time: %s%lu%s s. Speed: %s%lu%s kHz\n",
-             COL_WHI, t1 - t0, COL_GRE,
-             COL_WHI, cpu.tick / (t1 - t0) / 1000, COL_GRE);
-    }
+    // time_t t1 = time(NULL);
+    // if (t1 != t0) {
+    //     info("Time: %s%lu%s s. Speed: %s%lu%s kHz",
+    //          COL_WHI, t1 - t0, COL_GRE,
+    //          COL_WHI, cpu.tick / (t1 - t0) / 1000, COL_GRE);
+    // }
 }
 
 

@@ -32,6 +32,8 @@
 
 #define get_i(ir) ((ir) & 0x800)
 
+#define get_op(ir) ((ir) & 0xf000)
+
 
 // Format long address addr. If buf is non-NULL, it will be written to. buf
 // must point to at least 8 writerable bytes. Otherwise, return a pointer to an
@@ -69,6 +71,7 @@ void dump();
 
 
 
+#if 0
 /*
  * Ugly debugging macros
  */
@@ -227,6 +230,8 @@ void dump();
 #define REG_IP 0x90
 #define REG_PFA 0x95
 
+
+#endif
 
 
 

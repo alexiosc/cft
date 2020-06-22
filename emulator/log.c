@@ -16,12 +16,13 @@
 #include <stdarg.h>
 #include <errno.h>
 #ifdef _POSIX_C_SOURCE
-#include <unistd.h>
+#  include <unistd.h>
 #endif
 #include <string.h>
 #include <assert.h>
 
 #include "util.h"
+#include "log.h"
 
 
 #define UNIT_NAME_LEN 32
@@ -32,15 +33,15 @@ typedef struct {
     int   colour;
     int   level;
     int   enabled:1;
-} log_unit_t;
+} log_unitdesc_t;
 
 
-static FILE *         log_fp = NULL;
-static int            log_have_colour;
-static int            log_level = 0;
-static char *         log_prefix = NULL;
-static log_unit_t *   log_units = NULL;
-static int            log_numunits;
+static FILE *              log_fp = NULL;
+static int                 log_have_colour;
+static int                 log_level = 0;
+static char *              log_prefix = NULL;
+static log_unitdesc_t *    log_units = NULL;
+static int                 log_numunits;
 
 
 int
@@ -70,16 +71,16 @@ log_init(char * filename)
 }
 
 
-int
-log_addunit(char *name, int level, int colour)
+log_unit_t
+log_add_unit(char *name, int level, int colour)
 {
     log_numunits++;
-    log_units = reallocarray(log_units, log_numunits, sizeof(log_unit_t));
+    log_units = reallocarray(log_units, log_numunits, sizeof(log_unitdesc_t));
 
     assert (log_units != NULL);
     assert (strlen(name) < UNIT_NAME_LEN);
 
-    log_unit_t * p = &log_units[log_numunits - 1];
+    log_unitdesc_t * p = &log_units[log_numunits - 1];
     strncpy(p->name, name, UNIT_NAME_LEN);
     p->colour = colour;
     p->level = 1;
@@ -91,21 +92,21 @@ log_addunit(char *name, int level, int colour)
 
 
 void
-log_setcolour(int on)
+log_set_colour(int on)
 {
     log_have_colour = on;
 }
 
 
 void
-log_setlevel(int level)
+log_set_level(int level)
 {
     log_level = level;
 }
 
 
 void
-log_setprefix(char *prefix)
+log_set_prefix(char *prefix)
 {
     maybe_free(log_prefix);
     log_prefix = strdup(prefix);
@@ -113,12 +114,8 @@ log_setprefix(char *prefix)
 
 
 void
-log_msg(int level, int unit, char * fmt, ...)
+log_msg(int level, log_unit_t unit, char * fmt, ...)
 {
-    assert (unit >= 0 && unit < log_numunits);
-    log_unit_t * up = &log_units[unit];
-    if (level < log_level || level < up->level) return;
-
     va_list ap;
     char * buf;
 
@@ -128,7 +125,16 @@ log_msg(int level, int unit, char * fmt, ...)
     assert (result >= 0);
     va_end(ap);
 
-    fprintf(log_fp, "%d [%s] %s%s\n", level, up->name, log_prefix, buf);
+    if (unit >= 0)
+    {
+        assert (unit < log_numunits);
+        log_unitdesc_t * up = &log_units[unit];
+        if (level < log_level || level < up->level) return;
+        fprintf(log_fp, "%d [%s] %s%s\n", level, up->name, log_prefix, buf);
+    } else {
+        if (level < log_level) return;
+        fprintf(log_fp, "%d %s%s\n", level, log_prefix, buf);
+    }
 
     free(buf);
 }
@@ -140,8 +146,6 @@ log_done()
     maybe_free(log_prefix);
     maybe_free(log_units);
 }
-
-
 
 
 // End of file.

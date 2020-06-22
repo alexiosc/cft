@@ -23,7 +23,7 @@ typedef __microcode_conds_t_lsb_1st ustate_t; // microcode state
 
 // The Machine State contains the processor and a bunch of other units.
 
-typedef struct {
+typedef struct state_t {
     longaddr_t ar;              // 24-bit Address Register
     word       ir;              // Instruction Register
     word       pc;              // Program Counter
@@ -52,8 +52,9 @@ typedef struct {
         
     bit        irq;             // Interrupt requested (0 = yes, 1 = no)
 
-    ustate_t   ustate;          // Microcode ROM state
-    uint32_t   control;         // Last control vector read from Microcode ROM
+    ustate_t   uav;             // Last Micro-address vector
+    uint32_t   uaddr;           // Microcode EPROM address for uAV above.
+    uint32_t   ucv;             // Last Micro-control vector read
 
     bit        resetting;       // Simulated RSTHOLD
 
@@ -65,15 +66,13 @@ typedef struct {
     int        rst_hold;        // Reset pulse (-1 = not resetting)
     uint32_t   tick;            // Emulator tick counter
 
-    // Callbacks
+    // Callbacks for bus transactions
 
-    word (*memr)(longaddr_t);       // Read from memory
-    void (*memw)(longaddr_t, word); // Write to memory
-    word (*ior)(word);              // Input from I/O
-    void (*iow)(word, word);        // Output to I/O
-
-    void (*iotick)();               // I/O tick
-    void (*dfptick)();              // DFP tick
+    int (*memr)(longaddr_t, word *);  // Read from memory
+    int (*memw)(longaddr_t, word);    // Write to memory
+    int (*ior)(longaddr_t,  word *);  // Input from I/O
+    int (*iow)(longaddr_t,  word);    // Output to I/O
+    void (*iotick)(struct state_t *); // I/O tick
 } state_t;
 
 extern state_t cpu;

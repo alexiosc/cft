@@ -15,6 +15,8 @@
 #include <sys/types.h>
 
 #include "cft.h"
+#include "log.h"
+#include "util.h"
 #include "cmdline.h"
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -361,6 +363,8 @@ cmdline_parse(int argc, char **argv)
 void
 init()
 {
+    log_init();
+    
     // // Initialise the user interface.
     // sdl_init();
         

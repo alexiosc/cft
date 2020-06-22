@@ -17,19 +17,54 @@
 #include <argp.h>
 
 
+#define LOG_FATAL   0
+#define LOG_ERROR   1
+#define LOG_WARN    2
+#define LOG_NOTICE  3
+#define LOG_INFO    4
+#define LOG_DEBUG   5
+#define LOG_DEBUG2  6
+#define LOG_DEBUG3  7
+#define LOG_DEBUG4  8
+#define LOG_DEBUG5  9
+
+#define LOG_NO_UNIT -1
+
+
+typedef int log_unit_t;         // A Unit handle.
+
+
 int log_init(char * filename);
 
-int log_addunit(char *name, uint8_t colour);
+log_unit_t log_add_unit(char *name, int level, int colour);
 
-void log_setcolour(int on);
+void log_set_colour(int on);
 
-void log_setlevel(int level);
+void log_set_level(int level);
 
-void log_setprefix(char *prefix);
+void log_set_prefix(char *prefix);
 
-void log_msg(int level, char * unit, char * fmt, ...);
+void log_msg(int level, log_unit_t unit, char * fmt, ...);
 
 void log_done();
+
+
+#define fatal(msg, ...) {                                        \
+        log_msg(LOG_FATAL, LOG_NO_UNIT, msg, ## __VA_ARGS__);    \
+        exit(1);                                                 \
+    }
+
+#define error(msg, ...) log_msg(LOG_ERROR, LOG_NO_UNIT, msg, ## __VA_ARGS__)
+
+#define warning(msg, ...) log_msg(LOG_WARN, LOG_NO_UNIT, msg, ## __VA_ARGS__)
+
+#define warn(msg, ...) log_msg(LOG_WARN, LOG_NO_UNIT, msg, ## __VA_ARGS__)
+
+#define notice(msg, ...) log_msg(LOG_NOTICE, LOG_NO_UNIT, msg, ## __VA_ARGS__)
+
+#define info(msg, ...) log_msg(LOG_INFO, LOG_NO_UNIT, msg, ## __VA_ARGS__)
+
+#define debug(msg, ...) log_msg(LOG_DEBUG, LOG_NO_UNIT, msg, ## __VA_ARGS__)
 
 
 // End of file.
