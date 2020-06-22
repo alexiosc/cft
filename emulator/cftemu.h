@@ -39,8 +39,6 @@ typedef struct cftemu_t {
     FILE *      map_file;       // Map file .pasm file pointer
 
     int         ram_size;       // RAM Size
-    int         ram_base;       // RAM Base address (in words)
-
     romspec_t * roms;           // ROMs to load
     int         num_roms;       // Number of ROMs specified.
 

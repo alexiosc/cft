@@ -13,12 +13,14 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/types.h>
+#include <assert.h>
 
 #include "cft.h"
 #include "log.h"
 #include "util.h"
 #include "cmdline.h"
 #include "cftemu.h"
+#include "mem.h"
 
 
 // Our global state
@@ -35,7 +37,6 @@ void
 init()
 {
     log_init(NULL);
-
     mem_init();
     
     // // Initialise the user interface.
@@ -61,6 +62,7 @@ init()
     //io_init();
         
     cpu_init();
+    assert (cpu.memr != NULL);
     // cpu.memr = memory_read;
     // cpu.memw = memory_write;
     // cpu.ior = io_read;
@@ -104,8 +106,8 @@ reset()
 int
 main (int argc, char **argv)
 {
-    init();
     cmdline_parse(argc, argv);
+    init();
     run();
     done();
     return 0;

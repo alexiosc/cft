@@ -88,7 +88,6 @@ cpu_init()
     cpu.ior = _dummy_ior;
     cpu.iow = _dummy_iow;
 
-
     // CTL: Control Unit
     cpu.ir = rand() & 0xffff;
 
@@ -119,9 +118,6 @@ cpu_init()
 
     cpu.rst_hold = -1;
     cpu.tick = 0;
-
-    cpu.memr = NULL;
-    cpu.memw = NULL;
 }
 
 
@@ -903,6 +899,8 @@ cpu_control_store()
 void
 cpu_run()
 {
+    assert (cpu.memr != NULL);
+    
     // Reset the emulation and CPU 
     cpu.tick = 0;
     cpu.wait = 0;
