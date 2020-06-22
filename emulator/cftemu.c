@@ -35,6 +35,8 @@ void
 init()
 {
     log_init(NULL);
+
+    mem_init();
     
     // // Initialise the user interface.
     // sdl_init();
@@ -72,7 +74,7 @@ run()
 {
     // Initialise memory (RAM and ROM). Done after I/O init so we have a
     // functioning MBU.
-    //memory_init();
+    mem_init();
 
     // And run the emulation.
     cpu_run();

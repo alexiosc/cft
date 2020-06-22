@@ -1,7 +1,11 @@
 #!/usr/bin/make -f
 
 CC = gcc
-CFLAGS = -g -Wall -Wno-switch -std=c99 -D_GNU_SOURCE -DUART16550 -fgnu89-inline -DCFTEMU -I..
+CFLAGS = -g -Wall -std=c99 -D_GNU_SOURCE -fgnu89-inline
+CFLAGS += -Wno-switch
+CFLAGS += -DUART16550
+CFLAGS += -DCFTEMU
+CFLAGS += -I..
 CFLAGS += -O2
 #CFLAGS += -O0
 LDFLAGS = -g

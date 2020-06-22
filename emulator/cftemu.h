@@ -18,25 +18,38 @@
 #include "types.h"
 
 
+typedef struct {
+    char * fname;
+    int    addr;                // Base address in KiW
+    int    size;                // Size in KiW
+} romspec_t;
+
+
 typedef struct cftemu_t {
-    int     loglevel;           // Logging level
-    int     sanity;             // Sanity checking level
+    int         loglevel;       // Logging level
+    int         sanity;         // Sanity checking level
 
-    char *  memimg_name;        // Memory image filename
-    FILE *  memimg_file;        // Memory Image file pointer
+    char *      memimg_name;    // Memory image filename
+    FILE *      memimg_file;    // Memory Image file pointer
 
-    char *  pasm_name;          // ROM .pasm filename
-    FILE *  pasm_file;          // ROM .pasm file pointer
+    char *      pasm_name;      // ROM .pasm filename
+    FILE *      pasm_file;      // ROM .pasm file pointer
 
-    char *  map_name;           // Map file .pasm filename
-    FILE *  map_file;           // Map file .pasm file pointer
+    char *      map_name;       // Map file .pasm filename
+    FILE *      map_file;       // Map file .pasm file pointer
 
-    int     sentinel:1;
-    int     debug_microcode:1;
-    int     debug_mem:1;
-    int     debug_io:1;
-    int     debug_asm:1;
-    int     debug_duart:1;
+    int         ram_size;       // RAM Size
+    int         ram_base;       // RAM Base address (in words)
+
+    romspec_t * roms;           // ROMs to load
+    int         num_roms;       // Number of ROMs specified.
+
+    int         sentinel:1;
+    int         debug_microcode:1;
+    int         debug_mem:1;
+    int         debug_io:1;
+    int         debug_asm:1;
+    int         debug_duart:1;
 } cftemu_t;
 
 extern cftemu_t emu;

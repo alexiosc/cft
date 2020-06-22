@@ -14,9 +14,13 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
+#include <assert.h>
 #include <argp.h>
 
 #include "cmdline.h"
+#include "util.h"
 #include "log.h"
 
 
@@ -34,9 +38,25 @@ static struct argp_option options[] =
     { "quiet",     'q',           NULL,            0,
       "Print less information (cumulative)", 0 },
 
-    { "map", 'M', "MAP-FILE", 0,
-      "Load a .map file. Where possible, use it to simplify listing of addresses.",
-      0 },
+    { "ram", 'm', "SIZE", 0,
+      "Set the size of RAM in KiW (1,024 16-bit Words). Between 0 and 16384 KiW "
+      "can be specified for SIZE. Any ROM images loaded will overlay this RAM "
+      "if their regions overlap. (default: 64)", 0 },
+
+    { "rom", 'r', "FILENAME[,BASE-ADDRESS[,SIZE]]", 0,
+      "Load the ROM in FILENAME.bin. If available, also load FILENAME.map "
+      "and FILENAME.pasm to aid in debugging. If specified, map the ROM to "
+      "BASE-ADDRESS, expressed in decimal KiW (1,024 16-bit Words). If SIZE "
+      "is specified, it must be a decimal number of KiW and smaller than "
+      "the size of the ROM image. Only the first SIZE KiW of the ROM image "
+      "will be loaded. The default BASE-ADDRESS is 8192 (bank &80). The "
+      "default SIZE is all of the ROM. The loaded ROM image may overlap "
+      "RAM. This option may be specified multiple times to map multiple "
+      "ROM images to the CFT's address space. (default: no ROM)", 0 },
+
+    // { "map", 'M', "MAP-FILE", 0,
+    //   "Load a .map file. Where possible, use it to simplify listing of addresses.",
+      // 0 },
 
     // { "arch", 'a', "ARCHITECTURE", 0,
     //   "Select machine revision to emulate. Revision 0: 64kW RAM "
@@ -180,6 +200,65 @@ static struct argp argp =
 };
 
 
+static romspec_t *
+parse_romspec(struct argp_state *state, char *spec)
+{
+    romspec_t * rs = (romspec_t *)malloc(sizeof(romspec_t));
+    assert (rs != NULL);
+
+    char *arg = NULL, *ctx = NULL;
+    arg = strtok_r(spec, ",", &ctx);
+    assert (arg != NULL);
+
+    struct stat st;
+    if (stat(arg, &st)) {
+        argp_failure (state, EXIT_FAILURE, errno, "Can't stat ROM file %s", arg);
+    }
+
+    if (st.st_size % 2048) {
+        argp_error (state, "ROM image %s is not a multiple of 1024 KiW. "
+                    "It's probably not a CFT ROM image.", arg);
+    }
+
+    rs->fname = strdup(arg);
+    rs->addr = 8192;
+    rs->size = st.st_size / 2048;
+
+    // Parse the optional BASE-ADDRESS
+    arg = strtok_r(NULL, ",", &ctx);
+    if (arg != NULL) {
+        if (!sscanf(arg, "%d", &rs->addr)) {
+            argp_error (state, "Invalid BASE-ADDRESS. Expecting 0 to 16384, got '%s'.", arg);
+        }
+        if (rs->addr < 0 || rs->addr > 16384) {
+            argp_error (state, "BASE-ADDRESS out of range. Expecting 0 to 16384, got '%s'.", arg);
+        }
+
+        // Parse the optional SIZE
+        int tmp;
+        int maxsize = min(16384 - rs->size, rs->size);
+        arg = strtok_r(NULL, ",", &ctx);
+        if (arg != NULL) {
+            if (!sscanf(arg, "%d", &tmp)) {
+                argp_error (state, "Invalid SIZE. Expecting 0 to 16384, got '%s'.", arg);
+            }
+            if (tmp < 0 || tmp > maxsize) {
+                argp_error (state, "SIZE out of range. Expecting 0 to %d, got '%d'.",
+                            maxsize, tmp);
+            }
+            rs->size = tmp;
+        }
+    }
+
+    // Add this to the list of ROMs.
+    emu.num_roms++;
+    emu.roms = reallocarray(emu.roms, emu.num_roms, sizeof(romspec_t));
+    memcpy(&emu.roms[emu.num_roms - 1], rs, sizeof(romspec_t));
+
+    return rs;
+}
+
+
 // static void
 // list_archs()
 // {
@@ -235,26 +314,30 @@ parse_opt (int key, char *arg, struct argp_state *state)
         emu.loglevel--;
         break;
 
-
-    case 'p':
-        emu.pasm_name = strdup (arg);
-        emu.pasm_file = fopen (emu.pasm_name, "r");
-        if (!emu.pasm_file) {
-            argp_failure (state, EXIT_FAILURE, errno,
-                          "Cannot open .pasm file %s for reading",
-                          emu.pasm_name);
+    case 'm':                   // RAM size in SIZE,BASE-ADDR format.
+    {
+        if (!sscanf(arg, "%d", &emu.ram_size)) {
+            argp_error (state, "Invalid SIZE. Expecting 0 to 16384, got '%s'.", arg);
         }
+        if (emu.ram_size < 0 || emu.ram_size > 16384) {
+            argp_error (state, "Invalid SIZE. Expecting 0 to 16384, got '%d'.", emu.ram_size);
+        }
+    }
+
+    case 'r':
+        // Parse a ROM spec.
+        parse_romspec(state, arg);
         break;
 
-    case 'M':
-        emu.map_name = strdup (arg);
-        emu.map_file = fopen (emu.map_name, "r");
-        if (!emu.map_file) {
-            argp_failure (state, EXIT_FAILURE, errno,
-                          "Cannot open .map file %s for reading",
-                          emu.map_name);
-        }
-        break;
+    // case 'p':
+    //     emu.pasm_name = strdup (arg);
+    //     emu.pasm_file = fopen (emu.pasm_name, "r");
+    //     if (!emu.pasm_file) {
+    //         argp_failure (state, EXIT_FAILURE, errno,
+    //                       "Cannot open .pasm file %s for reading",
+    //                       emu.pasm_name);
+    //     }
+    //     break;
 
     // case KEY_DEBUG_MICROCODE:
     //     emu.debug_microcode = 1;
@@ -486,13 +569,12 @@ cmdline_parse(int argc, char **argv)
 {
     argp_parse (&argp, argc, argv, 0, NULL, NULL);
 	
-    if (emu.memimg_name == NULL) {
+    if (emu.num_roms == 0) {
         fprintf (stderr,
-                 PACKAGE ": please specify a memory image to load.\n");
+                 PACKAGE ": please use --rom to specify at least one ROM image.\n");
         argp_help (&argp, stderr, ARGP_HELP_USAGE, PACKAGE);
         exit (1);
     }
-	
 }
 
 // End of file.
