@@ -16,63 +16,13 @@
 #include <sys/types.h>
 #include <argp.h>
 
-//x#include "cftemu.h"
+#include "cmdline.h"
+#include "log.h"
 
 
 static error_t parse_opt (int key, char *arg, struct argp_state *state);
+
 static void show_version (FILE *stream, struct argp_state *state);
-
-/* argp option keys */
-enum {
-    DUMMY_KEY=129
-    ,KEY_DEBUG_MICROCODE
-    ,KEY_DEBUG_MEM
-    ,KEY_DEBUG_IO
-    ,KEY_DEBUG_ASM
-    ,KEY_IMAGE_START
-    ,KEY_IMAGE_SIZE
-    ,KEY_NO_SANITY
-    ,KEY_SOME_SANITY
-    ,KEY_SENTINEL
-
-    ,KEY_MBU
-    ,KEY_NO_MBU
-    ,KEY_DEBUG_MBU
-
-    ,KEY_IRC
-    ,KEY_NO_IRC
-    ,KEY_DEBUG_IRC
-
-    ,KEY_NVRAM
-
-    ,KEY_DEBUG_DUART
-    ,KEY_DUART_STDIO
-
-    ,KEY_HD0
-    ,KEY_HD1
-    ,KEY_HD2
-    ,KEY_HD3
-    ,KEY_IDE_SPEED
-    ,KEY_DEBUG_IDE
-      
-    ,KEY_FS
-
-    // ,KEY_DEB_PTS
-    // ,KEY_DEB_TTY
-    // ,KEY_DEB_IN
-    // ,KEY_DEB_OUT
-    ,KEY_DFP_PTS
-    ,KEY_DFP_TTY
-    ,KEY_DFP_IN
-    ,KEY_DFP_OUT
-    ,KEY_DFP_TESTMODE
-
-    ,KEY_PSG
-    ,KEY_NO_PSG
-    ,KEY_DEBUG_PSG
-
-    ,KEY_DEBUG_VIDEO
-};
 
 
 static struct argp_option options[] =
@@ -84,65 +34,66 @@ static struct argp_option options[] =
     { "quiet",     'q',           NULL,            0,
       "Print less information (cumulative)", 0 },
 
-    { "arch", 'a', "ARCHITECTURE", 0,
-      "Select machine revision to emulate. Revision 0: 64kW RAM "
-      "image expected. Say -a list for a list of available machines.", 0 },
-
-    { "image-size", KEY_IMAGE_SIZE, "WORDS", 0,
-      "Set the expected size of the memory image in words (default: 65536).", 0 },
-    { "image-start", KEY_IMAGE_START, "ADDRESS", 0,
-      "Set the address in memory where the image will be loaded (default: 0).", 0 },
-
-    { "debug-microcode", KEY_DEBUG_MICROCODE, NULL, 0,
-      "Print out microcode-level information (insane amounts of output).", 0 },
-    { "debug-mem", KEY_DEBUG_MEM, NULL, 0,
-      "Print out memory reads/wrires.", 0 },
-    { "debug-io", KEY_DEBUG_IO, NULL, 0,
-      "Print out I/O debugging information.", 0 },
-    { "debug-asm", KEY_DEBUG_ASM, NULL, 0,
-      "Print out assembly instructions as they are executed.", 0 },
-    { "pasm", 'p', "PASM-FILE", 0,
-      "Load a .pasm file. Where available, use its contents when --debug-asm is "
-      "printing out assembly instructions.", 0 },
     { "map", 'M', "MAP-FILE", 0,
       "Load a .map file. Where possible, use it to simplify listing of addresses.",
       0 },
 
-    { "testing",     't',           NULL,            0,
-      "Enable test/debug device and testing output.", 0 },
-    { "no-sanity",   KEY_NO_SANITY,  NULL,            0,
-      "Inhibit sanity checks meant to catch common bugs.", 0 },
-    { "some-sanity",   KEY_SOME_SANITY,  NULL,            0,
-      "Only warn about failed sanity checks.", 0 },
-    { "sentinel",   KEY_SENTINEL,  NULL,            0,
-      "Fill unpopulated memory image with a sentinel instruction (OUT R &3EF) "
-      "that will halt the emulator if it executes an empty region of memory.", 0 },
+    // { "arch", 'a', "ARCHITECTURE", 0,
+    //   "Select machine revision to emulate. Revision 0: 64kW RAM "
+    //   "image expected. Say -a list for a list of available machines.", 0 },
+
+    // { "image-size", KEY_IMAGE_SIZE, "WORDS", 0,
+    //   "Set the expected size of the memory image in words (default: 65536).", 0 },
+    // { "image-start", KEY_IMAGE_START, "ADDRESS", 0,
+    //   "Set the address in memory where the image will be loaded (default: 0).", 0 },
+
+    // { "debug-microcode", KEY_DEBUG_MICROCODE, NULL, 0,
+    //   "Print out microcode-level information (insane amounts of output).", 0 },
+    // { "debug-mem", KEY_DEBUG_MEM, NULL, 0,
+    //   "Print out memory reads/wrires.", 0 },
+    // { "debug-io", KEY_DEBUG_IO, NULL, 0,
+    //   "Print out I/O debugging information.", 0 },
+    // { "debug-asm", KEY_DEBUG_ASM, NULL, 0,
+    //   "Print out assembly instructions as they are executed.", 0 },
+    // { "pasm", 'p', "PASM-FILE", 0,
+    //   "Load a .pasm file. Where available, use its contents when --debug-asm is "
+    //   "printing out assembly instructions.", 0 },
+
+    // { "testing",     't',           NULL,            0,
+    //   "Enable test/debug device and testing output.", 0 },
+    // { "no-sanity",   KEY_NO_SANITY,  NULL,            0,
+    //   "Inhibit sanity checks meant to catch common bugs.", 0 },
+    // { "some-sanity",   KEY_SOME_SANITY,  NULL,            0,
+    //   "Only warn about failed sanity checks.", 0 },
+    // { "sentinel",   KEY_SENTINEL,  NULL,            0,
+    //   "Fill unpopulated memory image with a sentinel instruction (OUT R &3EF) "
+    //   "that will halt the emulator if it executes an empty region of memory.", 0 },
 
     // MBU
 
-    { "mbu",    KEY_MBU,  NULL,            0,
-      "Enable the 21-bit memory banking unit (at &020-&02F).", 0 },
-    { "no-mbu", KEY_NO_MBU,  NULL,            0,
-      "Disable the 21-bit memory banking unit (at &020-&02F).", 0 },
-    { "debug-mbu", KEY_DEBUG_MBU, NULL, 0,
-      "Trace the operation of the Memory Banking Unit (MBU).", 0 },
+    // { "mbu",    KEY_MBU,  NULL,            0,
+    //   "Enable the 21-bit memory banking unit (at &020-&02F).", 0 },
+    // { "no-mbu", KEY_NO_MBU,  NULL,            0,
+    //   "Disable the 21-bit memory banking unit (at &020-&02F).", 0 },
+    // { "debug-mbu", KEY_DEBUG_MBU, NULL, 0,
+    //   "Trace the operation of the Memory Banking Unit (MBU).", 0 },
 
     // INTerrupt Controller
 
-    { "ird",    KEY_IRC,  NULL,            0,
-      "Enable the 8-line interrupt controller (at &030-&03F).", 0 },
-    { "no-irc", KEY_NO_IRC,  NULL,            0,
-      "Disable the 8-line interrupt controller (at &030-&03F).", 0 },
-    { "debug-irc", KEY_DEBUG_IRC, NULL, 0,
-      "Trace the operation of the INTerrupt controller.", 0 },
+    // { "irc",    KEY_IRC,  NULL,            0,
+    //   "Enable the 8-line interrupt controller (at &030-&03F).", 0 },
+    // { "no-irc", KEY_NO_IRC,  NULL,            0,
+    //   "Disable the 8-line interrupt controller (at &030-&03F).", 0 },
+    // { "debug-irc", KEY_DEBUG_IRC, NULL, 0,
+    //   "Trace the operation of the INTerrupt controller.", 0 },
 
     // DUART
 
-    { "debug-duart", KEY_DEBUG_DUART, NULL, 0,
-      "Trace the operation of the double DUART (console) board.", 0 },
-    { "stdio", KEY_DUART_STDIO, "UART-NUMBER", 0,
-      "Connect UART-NUMBER (0-3) to the emulator's stdin and stdout. "
-      "May be used multiple times, though this is of limited functionality.", 0 },
+    // { "debug-duart", KEY_DEBUG_DUART, NULL, 0,
+    //   "Trace the operation of the double DUART (console) board.", 0 },
+    // { "stdio", KEY_DUART_STDIO, "UART-NUMBER", 0,
+    //   "Connect UART-NUMBER (0-3) to the emulator's stdin and stdout. "
+    //   "May be used multiple times, though this is of limited functionality.", 0 },
 
     // NVRAM
 
@@ -191,28 +142,24 @@ static struct argp_option options[] =
 
     // Debugging Card
 
-    { "dfp-testmode", KEY_DFP_TESTMODE,  NULL, 0,
-      "Used for automated testing (the simulation ends on HALT, DFP is put in "
-      "testing mode immediately).", 0 },
+    // { "dfp-testmode", KEY_DFP_TESTMODE,  NULL, 0,
+    //   "Used for automated testing (the simulation ends on HALT, DFP is put in "
+    //   "testing mode immediately).", 0 },
 
-    { "dfp-pts", KEY_DFP_PTS,  NULL, 0,
-      "Allocate a new pseudo-terminal and let the DFP listen on it.", 0 },
+    // { "dfp-pts", KEY_DFP_PTS,  NULL, 0,
+    //   "Allocate a new pseudo-terminal and let the DFP listen on it.", 0 },
 
-    { "dfp-tty", KEY_DFP_TTY,  NULL, 0,
-      "The DFP will open this terminal for interactive debugging.", 0 },
+    // { "dfp-tty", KEY_DFP_TTY,  NULL, 0,
+    //   "The DFP will open this terminal for interactive debugging.", 0 },
 
-    { "dfp-in", KEY_DFP_IN,  NULL, 0,
-      "The DFP will open this file and read a debugging script from it.", 0 },
+    // { "dfp-in", KEY_DFP_IN,  NULL, 0,
+    //   "The DFP will open this file and read a debugging script from it.", 0 },
 
-    { "dfp-out", KEY_DFP_OUT,  "FILE", 0,
-      "The DFP will log its output to this file.", 0 },
+    // { "dfp-out", KEY_DFP_OUT,  "FILE", 0,
+    //   "The DFP will log its output to this file.", 0 },
 
-#if 0
-    { "microcode",     'm',           NULL,            0,
-      "Select microcode basename (cumulative)", 0 },
-#endif
-    { "log",     'l',           "FILE",            0,
-      "File to log output to (default: output)", 0 },
+    // { "log",     'l',           "FILE",            0,
+    //   "File to log output to (default: output)", 0 },
     { NULL, 0, NULL, 0, NULL, 0 }
 };
 
@@ -228,7 +175,7 @@ static struct argp argp =
 {
     options, parse_opt,
     "MEMORY-IMAGE",
-    "CFT CPU Emulator",
+    "CFT Emulator",
     NULL, NULL, NULL
 };
 
@@ -263,17 +210,16 @@ static struct argp argp =
 static error_t
 parse_opt (int key, char *arg, struct argp_state *state)
 {
-    int tmp;
+    //int tmp;
 
-    switch (key)
-    {
+    switch (key) {
     case ARGP_KEY_INIT:
         /* Set up default values.  */
-        verbose = 1;
-        sanity = 2;
-        sentinel = 0;
-        memimg_name = NULL;
-        memimg_file = NULL;
+        emu.loglevel = LOG_ERROR;
+        emu.sanity = 2;
+        emu.sentinel = 0;
+        emu.memimg_name = NULL;
+        emu.memimg_file = NULL;
         break;
 		
     case 'h':
@@ -282,227 +228,228 @@ parse_opt (int key, char *arg, struct argp_state *state)
         exit (0);
 		
     case 'v':
-        verbose++;
+        emu.loglevel++;
         break;
 
     case 'q':
-        verbose--;
+        emu.loglevel--;
         break;
 
-    case KEY_DEBUG_MICROCODE:
-        debug_microcode++;
-        break;
-		
-    case KEY_DEBUG_MEM:
-        debug_mem++;
-        break;
-		
-    case KEY_DEBUG_IO:
-        debug_io++;
-        break;
-		
-    case KEY_DEBUG_ASM:
-        debug_asm++;
-        break;
-
-    case KEY_DEBUG_DUART:
-        debug_duart++;
-        break;
-		
-    case KEY_DUART_STDIO:
-        if (!sscanf(arg, "%d", &tmp)) {
-            argp_error (state, "Invalid UART number. Expecting 0 to %d, got '%s'.",
-                        NUM_UARTS - 1, arg);
-        } else if (tmp < 0 || tmp >= NUM_UARTS) {
-            argp_error (state, "Invalid UART number. Expecting 0 to %d, got %d.",
-                        NUM_UARTS - 1, tmp);
-        }
-        uart_source[tmp] = UART_SOURCE_STDIO;
-        break;
-		
-    case 't':
-        testing++;
-        break;
-		
-    case 'l':
-        log_name = strdup (arg);
-        break;
 
     case 'p':
-        pasm_name = strdup (arg);
-        pasm_file = fopen (pasm_name, "r");
-        if (!pasm_file) {
+        emu.pasm_name = strdup (arg);
+        emu.pasm_file = fopen (emu.pasm_name, "r");
+        if (!emu.pasm_file) {
             argp_failure (state, EXIT_FAILURE, errno,
                           "Cannot open .pasm file %s for reading",
-                          pasm_name);
+                          emu.pasm_name);
         }
         break;
 
-    case 'a':
-        if (!strcmp(arg, "list")) {
-            list_archs();
-            exit(0);
-        } else {
-            mach_t * m = &mach_revisions[0];
-            while (m->code != NULL) {
-                if (!strcmp(m->code, arg)) {
-                    mach_set(m);
-                    break;
-                }
-                m++;
-				
-            }
+    case 'M':
+        emu.map_name = strdup (arg);
+        emu.map_file = fopen (emu.map_name, "r");
+        if (!emu.map_file) {
+            argp_failure (state, EXIT_FAILURE, errno,
+                          "Cannot open .map file %s for reading",
+                          emu.map_name);
         }
         break;
+
+    // case KEY_DEBUG_MICROCODE:
+    //     emu.debug_microcode = 1;
+    //     break;
 		
-    case KEY_IMAGE_START:
-        if (!sscanf(arg, "%d", &mach.image_start)) {
-            argp_error (state, "Unable to parse memory image start '%s'", arg);
-        } else if (mach.image_start < 0 || mach.image_start > mach.romsize) {
-            argp_error (state, "Memory image start '%ld' is out of bounds (0-%d)", mach.image_start, mach.romsize);
-        }
-        break;
+    // case KEY_DEBUG_MEM:
+    //     emu.debug_mem = 1;
+    //     break;
+		
+    // case KEY_DEBUG_IO:
+    //     emu.debug_io = 1;
+    //     break;
+		
+    // case KEY_DEBUG_ASM:
+    //     emu.debug_asm = 1;
+    //     break;
 
-    case KEY_IMAGE_SIZE:
-        if (!sscanf(arg, "%d", &mach.image_size)) {
-            argp_error (state, "Unable to parse memory image size '%s'", arg);
-        } else if (mach.image_size < 0 || mach.image_start > 65535) {
-            argp_error (state, "Memory image size '%ld' is out of bounds (0-65535)", mach.image_size);
-        }
-        break;
+    // case KEY_DEBUG_DUART:
+    //     emu.debug_duart = 1;
+    //     break;
+		
+    // case KEY_DUART_STDIO:
+    //     if (!sscanf(arg, "%d", &tmp)) {
+    //         argp_error (state, "Invalid UART number. Expecting 0 to %d, got '%s'.",
+    //                     NUM_UARTS - 1, arg);
+    //     } else if (tmp < 0 || tmp >= NUM_UARTS) {
+    //         argp_error (state, "Invalid UART number. Expecting 0 to %d, got %d.",
+    //                     NUM_UARTS - 1, tmp);
+    //     }
+    //     uart_source[tmp] = UART_SOURCE_STDIO;
+    //     break;
+		
+    // case 't':
+    //     testing++;
+    //     break;
+		
+    // case 'l':
+    //     log_name = strdup (arg);
+    //     break;
+
+    // case 'a':
+    //     if (!strcmp(arg, "list")) {
+    //         list_archs();
+    //         exit(0);
+    //     } else {
+    //         mach_t * m = &mach_revisions[0];
+    //         while (m->code != NULL) {
+    //             if (!strcmp(m->code, arg)) {
+    //                 mach_set(m);
+    //                 break;
+    //             }
+    //             m++;
+				
+    //         }
+    //     }
+    //     break;
+		
+    // case KEY_IMAGE_START:
+    //     if (!sscanf(arg, "%d", &emu.image_start)) {
+    //         argp_error (state, "Unable to parse memory image start '%s'", arg);
+    //     } else if (emu.image_start < 0 || emu.image_start > emu.romsize) {
+    //         argp_error (state, "Memory image start '%ld' is out of bounds (0-%d)", emu.image_start, emu.romsize);
+    //     }
+    //     break;
+
+    // case KEY_IMAGE_SIZE:
+    //     if (!sscanf(arg, "%d", &emu.image_size)) {
+    //         argp_error (state, "Unable to parse memory image size '%s'", arg);
+    //     } else if (emu.image_size < 0 || emu.image_start > 65535) {
+    //         argp_error (state, "Memory image size '%ld' is out of bounds (0-65535)", emu.image_size);
+    //     }
+    //     break;
 
     case KEY_NO_SANITY:
-        sanity = 0;
+        emu.sanity = 0;
         break;
 
     case KEY_SOME_SANITY:
-        sanity = 1;
+        emu.sanity = 1;
         break;
 
     case KEY_SENTINEL:
-        sentinel = 1;
+        emu.sentinel = 1;
         break;
 
-    case KEY_MBU:
-        mbu = 1;
-        break;
+    // case KEY_MBU:
+    //     mbu = 1;
+    //     break;
 
-    case KEY_NO_MBU:
-        mbu = 0;
-        break;
+    // case KEY_NO_MBU:
+    //     mbu = 0;
+    //     break;
 
-    case KEY_DEBUG_MBU:
-        debug_mbu++;
-        break;
+    // case KEY_DEBUG_MBU:
+    //     debug_mbu++;
+    //     break;
 		
-    case KEY_IRC:
-        have_irc = 1;
-        break;
+    // case KEY_IRC:
+    //     have_irc = 1;
+    //     break;
 
-    case KEY_NO_IRC:
-        have_irc = 0;
-        break;
+    // case KEY_NO_IRC:
+    //     have_irc = 0;
+    //     break;
 
-    case KEY_DEBUG_IRC:
-        debug_irc++;
-        break;
+    // case KEY_DEBUG_IRC:
+    //     debug_irc++;
+    //     break;
 
-    case KEY_PSG:
-        have_psg = 1;
-        break;
+    // case KEY_PSG:
+    //     have_psg = 1;
+    //     break;
 
-    case KEY_NO_PSG:
-        have_psg = 0;
-        break;
+    // case KEY_NO_PSG:
+    //     have_psg = 0;
+    //     break;
 
-    case KEY_DEBUG_PSG:
-        debug_psg++;
-        break;
+    // case KEY_DEBUG_PSG:
+    //     debug_psg++;
+    //     break;
 
-    case KEY_NVRAM:
-        nvram = 1;
-        break;
+    // case KEY_NVRAM:
+    //     nvram = 1;
+    //     break;
 
-    case KEY_HD0:
-    case KEY_HD1:
-    case KEY_HD2:
-    case KEY_HD3:
-        idehd_set(key - KEY_HD0, arg);
-        break;
+    // case KEY_HD0:
+    // case KEY_HD1:
+    // case KEY_HD2:
+    // case KEY_HD3:
+    //     idehd_set(key - KEY_HD0, arg);
+    //     break;
 
-    case KEY_IDE_SPEED:
-        if (!sscanf(arg, "%d", &ide_speed)) {
-            argp_error (state, "IDE speed should an integer >= 1.");
-        }
-        if (ide_speed < 1) {
-            argp_error (state, "IDE speed should an integer >= 1.");
-        }
-        break;
+    // case KEY_IDE_SPEED:
+    //     if (!sscanf(arg, "%d", &ide_speed)) {
+    //         argp_error (state, "IDE speed should an integer >= 1.");
+    //     }
+    //     if (ide_speed < 1) {
+    //         argp_error (state, "IDE speed should an integer >= 1.");
+    //     }
+    //     break;
 
-    case KEY_DEBUG_IDE:
-        debug_ide++;
-        break;
+    // case KEY_DEBUG_IDE:
+    //     debug_ide++;
+    //     break;
 		
-    case 'M':
-        map_name = strdup (arg);
-        map_file = fopen (map_name, "r");
-        if (!map_file) {
-            argp_failure (state, EXIT_FAILURE, errno,
-                          "Cannot open .map file %s for reading",
-                          map_name);
-        }
-        break;
+    // case 'V':
+    //     video = 1;
+    //     break;
 
-    case 'V':
-        video = 1;
-        break;
+    // case 'f':
+    //     video_fs = 1;
+    //     break;
 
-    case 'f':
-        video_fs = 1;
-        break;
-
-    case '2':
-        video_2x = 1;
-        break;
+    // case '2':
+    //     video_2x = 1;
+    //     break;
 		
-    case KEY_DEBUG_VIDEO:
-        debug_video = 1;
-        break;
+    // case KEY_DEBUG_VIDEO:
+    //     debug_video = 1;
+    //     break;
 
-    case KEY_DFP_PTS:
-        dfp_pts = 1;
-        break;
+    // case KEY_DFP_PTS:
+    //     dfp_pts = 1;
+    //     break;
 
-    case KEY_DFP_TTY:
-        fail("Not implemented.\n");
-        break;
+    // case KEY_DFP_TTY:
+    //     fail("Not implemented.\n");
+    //     break;
 
-    case KEY_DFP_IN:
-        fail("Not implemented.\n");
-        break;
+    // case KEY_DFP_IN:
+    //     fail("Not implemented.\n");
+    //     break;
 
-    case KEY_DFP_OUT:
-        dfp_out_name = strdup (arg);
-        dfp_out_fp = fopen (dfp_out_name, "w");
-        if (!dfp_out_fp) {
-            argp_failure (state, EXIT_FAILURE, errno,
-                          "Cannot open DFP output file %s for writing",
-                          dfp_out_name);
-        }
-        break;
+    // case KEY_DFP_OUT:
+    //     dfp_out_name = strdup (arg);
+    //     dfp_out_fp = fopen (dfp_out_name, "w");
+    //     if (!dfp_out_fp) {
+    //         argp_failure (state, EXIT_FAILURE, errno,
+    //                       "Cannot open DFP output file %s for writing",
+    //                       dfp_out_name);
+    //     }
+    //     break;
 
-    case KEY_DFP_TESTMODE:
-        dfp_testmode = 1;
-        break;
+    // case KEY_DFP_TESTMODE:
+    //     dfp_testmode = 1;
+    //     break;
 
     case ARGP_KEY_ARG:	// MEMORY-IMAGE (only one allowed)
-        if (memimg_name == NULL) {
-            memimg_name = strdup (arg);
-            memimg_file = fopen (memimg_name, "r");
-            if (!memimg_file)
+        if (emu.memimg_name == NULL) {
+            emu.memimg_name = strdup (arg);
+            emu.memimg_file = fopen (emu.memimg_name, "r");
+            if (!emu.memimg_file)
                 argp_failure (state, EXIT_FAILURE, errno,
                               "Cannot open %s for reading",
-                              memimg_name);
+                              emu.memimg_name);
         } else {
             argp_usage (state);
         }
@@ -539,7 +486,7 @@ cmdline_parse(int argc, char **argv)
 {
     argp_parse (&argp, argc, argv, 0, NULL, NULL);
 	
-    if (memimg_name == NULL) {
+    if (emu.memimg_name == NULL) {
         fprintf (stderr,
                  PACKAGE ": please specify a memory image to load.\n");
         argp_help (&argp, stderr, ARGP_HELP_USAGE, PACKAGE);

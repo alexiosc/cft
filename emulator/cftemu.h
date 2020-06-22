@@ -1,0 +1,72 @@
+// -*- c -*-
+// 
+// cftemu.h — Definitions for the CFT emulator
+// 
+// Copyright © 2011–2020 Alexios Chouchoulas
+// 
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2, or (at your option)
+// any later version.
+
+#ifndef CFTEMU_H
+#define CFTEMU_H 1
+
+#include <stdio.h>
+#include <stdint.h>
+
+#include "types.h"
+
+
+typedef struct cftemu_t {
+    int     loglevel;           // Logging level
+    int     sanity;             // Sanity checking level
+
+    char *  memimg_name;        // Memory image filename
+    FILE *  memimg_file;        // Memory Image file pointer
+
+    char *  pasm_name;          // ROM .pasm filename
+    FILE *  pasm_file;          // ROM .pasm file pointer
+
+    char *  map_name;           // Map file .pasm filename
+    FILE *  map_file;           // Map file .pasm file pointer
+
+    int     sentinel:1;
+    int     debug_microcode:1;
+    int     debug_mem:1;
+    int     debug_io:1;
+    int     debug_asm:1;
+    int     debug_duart:1;
+} cftemu_t;
+
+extern cftemu_t emu;
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// BOILERPLATE
+//
+///////////////////////////////////////////////////////////////////////////////
+
+#ifndef PACKAGE
+#define PACKAGE "cftemu"
+#endif
+
+#ifndef VERSION
+#define VERSION "0.9"
+#endif
+
+#ifndef AUTHOR
+#define AUTHOR "Alexios Chouchoulas"
+#endif
+
+
+#endif	// CFTEMU_H
+
+// End of file.
+// Local Variables:
+// eval: (c-set-style "K&R")
+// c-basic-offset: 4
+// indent-tabs-mode: nil
+// fill-column: 79
+// End:

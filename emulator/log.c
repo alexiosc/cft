@@ -129,10 +129,10 @@ log_msg(int level, log_unit_t unit, char * fmt, ...)
     {
         assert (unit < log_numunits);
         log_unitdesc_t * up = &log_units[unit];
-        if (level < log_level || level < up->level) return;
+        if (level > log_level || level > up->level) return;
         fprintf(log_fp, "%d [%s] %s%s\n", level, up->name, log_prefix, buf);
     } else {
-        if (level < log_level) return;
+        if (level > log_level) return;
         fprintf(log_fp, "%d %s%s\n", level, log_prefix, buf);
     }
 
