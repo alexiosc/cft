@@ -29,15 +29,6 @@ typedef struct cftemu_t {
     int         loglevel;       // Logging level
     int         sanity;         // Sanity checking level
 
-    char *      memimg_name;    // Memory image filename
-    FILE *      memimg_file;    // Memory Image file pointer
-
-    char *      pasm_name;      // ROM .pasm filename
-    FILE *      pasm_file;      // ROM .pasm file pointer
-
-    char *      map_name;       // Map file .pasm filename
-    FILE *      map_file;       // Map file .pasm file pointer
-
     int         ram_size;       // RAM Size
     romspec_t * roms;           // ROMs to load
     int         num_roms;       // Number of ROMs specified.

@@ -33,10 +33,16 @@ cftemu_t emu;
 //
 ///////////////////////////////////////////////////////////////////////////////
 
+// Note: command-line arguments have already been parsed here and the emu
+// struct has already been updated with options.
+
 void
 init()
 {
     log_init(NULL);
+    log_set_level(emu.loglevel);
+    log_set_colour(1);
+
     mem_init();
     
     // // Initialise the user interface.
@@ -106,7 +112,9 @@ reset()
 int
 main (int argc, char **argv)
 {
-    cmdline_parse(argc, argv);
+    memset(&emu, 0, sizeof(emu));
+    cmdline_parse(argc, argv);  // This also sets defaults in emu
+
     init();
     run();
     done();

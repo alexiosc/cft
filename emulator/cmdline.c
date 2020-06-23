@@ -294,11 +294,10 @@ parse_opt (int key, char *arg, struct argp_state *state)
     switch (key) {
     case ARGP_KEY_INIT:
         /* Set up default values.  */
-        emu.loglevel = LOG_ERROR;
+        emu.loglevel = LOG_NOTICE;
         emu.sanity = 2;
         emu.sentinel = 0;
-        emu.memimg_name = NULL;
-        emu.memimg_file = NULL;
+        emu.ram_size = 64;      // Default RAM size
         break;
 		
     case 'h':
@@ -525,19 +524,19 @@ parse_opt (int key, char *arg, struct argp_state *state)
     //     dfp_testmode = 1;
     //     break;
 
-    case ARGP_KEY_ARG:	// MEMORY-IMAGE (only one allowed)
-        if (emu.memimg_name == NULL) {
-            emu.memimg_name = strdup (arg);
-            emu.memimg_file = fopen (emu.memimg_name, "r");
-            if (!emu.memimg_file)
-                argp_failure (state, EXIT_FAILURE, errno,
-                              "Cannot open %s for reading",
-                              emu.memimg_name);
-        } else {
-            argp_usage (state);
-        }
+    // case ARGP_KEY_ARG:	// MEMORY-IMAGE (only one allowed)
+    //     if (emu.memimg_name == NULL) {
+    //         emu.memimg_name = strdup (arg);
+    //         emu.memimg_file = fopen (emu.memimg_name, "r");
+    //         if (!emu.memimg_file)
+    //             argp_failure (state, EXIT_FAILURE, errno,
+    //                           "Cannot open %s for reading",
+    //                           emu.memimg_name);
+    //     } else {
+    //         argp_usage (state);
+    //     }
 		
-        break;
+    //     break;
 		
     default:
         return ARGP_ERR_UNKNOWN;
