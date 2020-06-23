@@ -81,6 +81,32 @@ mem_init()
 	      memp->size >> 10,
 	      romp->fname);
 
+        // Read the ROM.
+	FILE *fp;
+	if ((fp = fopen(romp->fname, "rb")) == NULL) {
+            fatal("Unable to open %s: %m", romp->fname);
+	}
+        int num_read = fread(memp->mem, sizeof(word), memp->size, fp);
+        if (num_read != memp->size) {
+            fatal("Read %dW instead of %dW from ROM image file %s: %m\n",
+                  num_read, memp->size, romp->fname);
+        }
+
+        // Check for a MAP file.
+        char * map_fname = change_ext(romp->fname, ".map");
+        struct stat st;
+        if (stat(map_fname, &st) == 0) {
+            warning("TODO: Load map file %s", map_fname);
+        }
+        free(map_fname);
+
+        // Check for a PASM file.
+        char * pasm_fname = change_ext(romp->fname, ".pasm");
+        if (stat(pasm_fname, &st) == 0) {
+            warning("TODO: Load pasm file %s", pasm_fname);
+        }
+        free(pasm_fname);
+
         // TODO: Load ROM image, PASM and MAP
 
         memp->is_ram = 0;

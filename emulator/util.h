@@ -41,22 +41,28 @@ void * safe_malloc(size_t size);
 // Same as realloc(), but exits on failures.
 void * safe_realloc(void * ptr, size_t size);
 
+// Same as strdup(), but exists on failures.
+void * safe_strdup(char *s);
+
+// Strip the file ‘extension’ and replace it with ext (must include the
+// '.'). If the file has no extension, add ext to it. The string returned must
+// be deallocated after use!
+char *
+change_ext(char *s, char *ext);
+
 // Format long address addr. If buf is non-NULL, it will be written to. buf
 // must point to at least 8 writerable bytes. Otherwise, return a pointer to an
 // internal buffer (which will be overwritten every time the function is
 // called).
 char * format_longaddr(longaddr_t addr, char *buf);
 
-
 // Format a binary number up to 32 bits.
 char * format_bin(uint32_t x, int numbits);
-
 
 // Disassemble an instruction into the string buffer buf. If buf is
 // NULL, an internal static char buffer is used. Return a pointer to
 // the buffer used.
 char * disasm(word instr, int full_dis, char *buf);
-
 
 // char * to_bin(uint32_t n, char *s, int slen);
 

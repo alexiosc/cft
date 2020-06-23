@@ -14,6 +14,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/types.h>
+#include <assert.h>
 
 #include "util.h"
 #include "log.h"
@@ -41,6 +42,33 @@ safe_realloc(void * p, size_t size)
 }
 
 
+void *
+safe_strdup(char *s)
+{
+    void * res = strdup(s);
+    if (res == NULL) fatal("%s: Failed to duplicate %d-byte string.",
+                           __func__, strlen(s));
+    return res;
+}
+
+
+char *
+change_ext(char *s, char *ext)
+{
+    assert(s != NULL);
+    assert(ext != NULL);
+
+    char * dot = strrchr(s, '.');
+    if (dot != NULL) *dot = '\0'; 
+    char * res = (char*) safe_malloc(strlen(s) + strlen(ext));
+    *res = '\0';
+    strcpy(res, s);
+    strcat(res, ext);
+    if (dot != NULL) *dot = '.';
+    return res;
+}
+
+
 char *
 format_longaddr(longaddr_t addr, char *buf)
 {
@@ -63,6 +91,7 @@ format_bin(uint32_t x, int numbits)
     if (numbits < 0 || numbits > 32) numbits = 32;
     return &res[32 - numbits];
 }
+
 
 char *
 disasm(word ir, int full_dis, char *buf)
