@@ -23,6 +23,8 @@
 #include "memory.h"
 #include "util.h"
 #include "mem.h"
+
+#define LOG_MACROS_UNIT mem_log_unit
 #include "log.h"
 
 
@@ -31,33 +33,97 @@
 #define MEM_TYPE_NONE 255
 #define MEM_TYPE_RAM  254
 
-uint8_t mem_type[MAX_MEMORY];
-word    mem_space[MAX_MEMORY];
-
 typedef struct {
-	char * label;
-	char * pasm;
-} mem_info_t;
+    uint32_t    size;           // Size in Words
+    longaddr_t  start;          // Base address
+    longaddr_t  end;            // Last address +1
+    word *      mem;            // Memory
+    char *      pasm;           // PASM source (could be NULL);
+    char *      map;            // Map file (could be NULL);
+    int         is_ram;         // Writeable?
+} mem_t;
 
-mem_info_t mem_info[MAX_MEMORY];
+
+static mem_t *      mem_map;
+static int          mem_num_regions;
+static log_unit_t   mem_log_unit;
 
 
 void
 mem_init()
 {
-	notice("Mem init");
-	memset(mem_type, MEM_TYPE_NONE, sizeof(mem_type));
-	memset(mem_info, 0, sizeof(mem_info_t));
-	memset(mem_space, emu.sentinel ? SENTINEL : 0, sizeof(mem_space));
+    mem_num_regions = emu.num_roms + 1;
 
-	// Mark RAM.
-	memset(mem_type, MEM_TYPE_RAM, emu.ram_size << 10);
+    mem_log_unit = log_add_unit("MEM", -1, -1);
+    debug("Initialising memory");
+    info("%d memory region(s) defined", mem_num_regions);
 
-	// Initialise each of the ROMs.
-	for (int i = 0; i < emu.num_roms; i++) {
-		romspec_t *rom = &emu.roms[i];
-		memset(&mem_type[rom->addr << 10], (uint8_t)(i & 0xff), rom->size << 10);
-	}
+    mem_map = (mem_t *)safe_malloc(sizeof(mem_t) * mem_num_regions);
+
+    // Allocate ROM and RAM in the reverse order, so the last specified region
+    // takes precedence.
+    mem_t *memp = mem_map;
+    char start_addr[8], end_addr[8];
+    int kw_rom = 0;
+    for (int i = emu.num_roms - 1 ; i >= 0; i--, memp++) {
+        romspec_t * romp = &emu.roms[i];
+        memp->size = romp->size << 10;
+        memp->start = romp->addr << 10;
+        memp->end = memp->start + memp->size;
+
+        memp->mem = safe_malloc(sizeof(word) * memp->size);
+        memp->pasm = NULL;
+        memp->map = NULL;
+
+	debug("ROM: %s - %s (%dK) is %s",
+	      format_longaddr(memp->start, start_addr),
+	      format_longaddr(memp->end - 1, end_addr),
+	      memp->size >> 10,
+	      romp->fname);
+
+        // TODO: Load ROM image, PASM and MAP
+
+        memp->is_ram = 0;
+        kw_rom += memp->size;
+    }
+
+    // Finally, allocate RAM.
+    memp->size = emu.ram_size << 10;
+    memp->start = 0;
+    memp->end = memp->start + memp->size;
+    memp->mem = safe_malloc(sizeof(word) * memp->size);
+    memp->pasm = NULL;
+    memp->map = NULL;
+    memp->is_ram = 1;
+
+    debug("RAM: %s - %s (%dK)",
+	  format_longaddr(memp->start, start_addr),
+	  format_longaddr(memp->end - 1, end_addr),
+	  memp->size >> 10);
+
+    info("%dK RAM, %dK ROM", memp->size >> 10, kw_rom >> 10);
+
+    exit(0);
+
+        
+
+        
+	// // Allocate RAM.
+	// int ram_size = emu.ram_size << 10;
+	// mem_ramstart = 0;
+	// mem_ramend = emu.ram_size << 10;
+	// mem_ram = (word *)malloc((emu_ramend - emu_ramstart + 1) * sizeof(word));
+	// memset(mem_ram, MEM_TYPE_RAM, emu.ram_size << 10);
+
+	// memset(mem_type, MEM_TYPE_NONE, sizeof(mem_type));
+	// memset(mem_info, 0, sizeof(mem_info_t));
+	// memset(mem_space, emu.sentinel ? SENTINEL : 0, sizeof(mem_space));
+
+	// // Initialise each of the ROMs.
+	// for (int i = 0; i < emu.num_roms; i++) {
+	// 	romspec_t *rom = &emu.roms[i];
+	// 	memset(&mem_type[rom->addr << 10], (uint8_t)(i & 0xff), rom->size << 10);
+	// }
 }
 
 // inline uint16_t *
@@ -329,3 +395,9 @@ mem_init()
 
 
 // End of file.
+// Local Variables:
+// eval: (c-set-style "K&R")
+// c-basic-offset: 4
+// indent-tabs-mode: nil
+// fill-column: 79
+// End:
