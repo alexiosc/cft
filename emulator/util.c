@@ -16,10 +16,30 @@
 #include <sys/types.h>
 
 #include "util.h"
+#include "log.h"
 
 #define __instruction_set_t instruction_t
 #define bool bit
 #include "microcode/build/disasm.h"
+
+
+void *
+safe_malloc(size_t size)
+{
+    void * res = malloc(size);
+    if (res == NULL) fatal("%s: Failed to allocate %d bytes.", __func__, size);
+    return res;
+}
+
+
+void *
+safe_realloc(void * p, size_t size)
+{
+    void * res = realloc(p, size);
+    if (res == NULL) fatal("%s: Failed to (re)allocate %d bytes.", __func__, size);
+    return res;
+}
+
 
 char *
 format_longaddr(longaddr_t addr, char *buf)

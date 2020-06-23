@@ -35,6 +35,12 @@
 #define get_op(ir) ((ir) & 0xf000)
 
 
+// Same as malloc(), but exits on failures.
+void * safe_malloc(size_t size);
+
+// Same as realloc(), but exits on failures.
+void * safe_realloc(void * ptr, size_t size);
+
 // Format long address addr. If buf is non-NULL, it will be written to. buf
 // must point to at least 8 writerable bytes. Otherwise, return a pointer to an
 // internal buffer (which will be overwritten every time the function is
