@@ -83,7 +83,7 @@ log_add_unit(char *name, int level, int colour)
     log_unitdesc_t * p = &log_units[log_numunits - 1];
     strncpy(p->name, name, UNIT_NAME_LEN);
     p->colour = colour;
-    p->level = 1;
+    p->level = level >= 0 ? level : log_level;
     p->enabled = 1;
 
     // Return the index of this unit to be used as a handle.
@@ -113,12 +113,53 @@ log_set_prefix(char *prefix)
 }
 
 
+static char * sigils = SIGILS "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDD";
+
+#define NUM_COLOURS 30
+#define CSI "\033["
+static char * colours[NUM_COLOURS] = {
+    CSI "38;5;226;48;5;196;1m", // Fatal: yellow on red bg
+    CSI "38;5;196m",            // Errors: red
+    CSI "38;5;214m",            // Warnings: orange
+    CSI "38;5;226m",            // Notices: yellow
+    CSI "38;5;46m",             // Info: green
+    CSI "38;5;250m",            // Debug: grey
+    CSI "38;5;247m",            // Debug: grey
+    CSI "38;5;244m",            // Debug: grey
+    CSI "38;5;241m",            // Debug: grey
+    CSI "38;5;241m",            // Debug: grey
+
+    CSI "38;5;241m",            // Debug: grey
+    CSI "38;5;241m",            // Debug: grey
+    CSI "38;5;241m",            // Debug: grey
+    CSI "38;5;241m",            // Debug: grey
+    CSI "38;5;241m",            // Debug: grey
+    CSI "38;5;241m",            // Debug: grey
+    CSI "38;5;241m",            // Debug: grey
+    CSI "38;5;241m",            // Debug: grey
+    CSI "38;5;241m",            // Debug: grey
+    CSI "38;5;241m",            // Debug: grey
+
+    CSI "38;5;241m",            // Debug: grey
+    CSI "38;5;241m",            // Debug: grey
+    CSI "38;5;241m",            // Debug: grey
+    CSI "38;5;241m",            // Debug: grey
+    CSI "38;5;241m",            // Debug: grey
+    CSI "38;5;241m",            // Debug: grey
+    CSI "38;5;241m",            // Debug: grey
+    CSI "38;5;241m",            // Debug: grey
+    CSI "38;5;241m",            // Debug: grey
+    CSI "38;5;241m"             // Debug: grey
+};
+    
+
 void
 log_msg(int level, log_unit_t unit, char * fmt, ...)
 {
     va_list ap;
     char * buf;
 
+    assert (level < 30);
     assert (fmt != NULL);
     va_start(ap, fmt);
     int result = vasprintf(&buf, fmt, ap);
@@ -130,10 +171,25 @@ log_msg(int level, log_unit_t unit, char * fmt, ...)
         assert (unit < log_numunits);
         log_unitdesc_t * up = &log_units[unit];
         if (level > log_level || level > up->level) return;
-        fprintf(log_fp, "%d [%s] %s%s\n", level, up->name, log_prefix, buf);
+        fprintf(log_fp, "%s%c: L%d [%s] %s%s%s\n",
+                log_have_colour ? colours[level] : "",
+                sigils[level],
+                level,
+                up->name,
+                log_prefix ? log_prefix : "",
+                buf,
+                log_have_colour ? "\033[0m" : ""
+            );
     } else {
         if (level > log_level) return;
-        fprintf(log_fp, "%d %s%s\n", level, log_prefix, buf);
+        fprintf(log_fp, "%s%c: L%d %s%s%s\n",
+                log_have_colour ? colours[level] : "",
+                sigils[level],
+                level,
+                log_prefix ? log_prefix : "",
+                buf,
+                log_have_colour ? "\033[0m" : ""
+            );
     }
 
     free(buf);

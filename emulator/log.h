@@ -30,6 +30,9 @@
 
 #define LOG_NO_UNIT -1
 
+// Greppable log prefixes for each level.
+#define SIGILS "EEWNID"
+
 
 typedef int log_unit_t;         // A Unit handle.
 
@@ -49,22 +52,29 @@ void log_msg(int level, log_unit_t unit, char * fmt, ...);
 void log_done();
 
 
-#define fatal(msg, ...) {                                        \
-        log_msg(LOG_FATAL, LOG_NO_UNIT, msg, ## __VA_ARGS__);    \
-        exit(1);                                                 \
+#ifdef LOG_MACROS_UNIT
+#  define fatal(msg, ...) {                                             \
+        log_msg(LOG_FATAL, LOG_MACROS_UNIT, msg, ## __VA_ARGS__);       \
+        exit(1);                                                        \
     }
-
-#define error(msg, ...) log_msg(LOG_ERROR, LOG_NO_UNIT, msg, ## __VA_ARGS__)
-
-#define warning(msg, ...) log_msg(LOG_WARN, LOG_NO_UNIT, msg, ## __VA_ARGS__)
-
-#define warn(msg, ...) log_msg(LOG_WARN, LOG_NO_UNIT, msg, ## __VA_ARGS__)
-
-#define notice(msg, ...) log_msg(LOG_NOTICE, LOG_NO_UNIT, msg, ## __VA_ARGS__)
-
-#define info(msg, ...) log_msg(LOG_INFO, LOG_NO_UNIT, msg, ## __VA_ARGS__)
-
-#define debug(msg, ...) log_msg(LOG_DEBUG, LOG_NO_UNIT, msg, ## __VA_ARGS__)
+#  define error(msg, ...)   log_msg(LOG_ERROR, LOG_MACROS_UNIT, msg, ## __VA_ARGS__)
+#  define warning(msg, ...) log_msg(LOG_WARN, LOG_MACROS_UNIT, msg, ## __VA_ARGS__)
+#  define warn(msg, ...)    log_msg(LOG_WARN, LOG_MACROS_UNIT, msg, ## __VA_ARGS__)
+#  define notice(msg, ...)  log_msg(LOG_NOTICE, LOG_MACROS_UNIT, msg, ## __VA_ARGS__)
+#  define info(msg, ...)    log_msg(LOG_INFO, LOG_MACROS_UNIT, msg, ## __VA_ARGS__)
+#  define debug(msg, ...)   log_msg(LOG_DEBUG, LOG_MACROS_UNIT, msg, ## __VA_ARGS__)
+#else
+#  define fatal(msg, ...) {                                        \
+        log_msg(LOG_FATAL, LOG_NO_UNIT, msg, ## __VA_ARGS__);      \
+        exit(1);                                                   \
+    }
+#  define error(msg, ...)   log_msg(LOG_ERROR, LOG_NO_UNIT, msg, ## __VA_ARGS__)
+#  define warning(msg, ...) log_msg(LOG_WARN, LOG_NO_UNIT, msg, ## __VA_ARGS__)
+#  define warn(msg, ...)    log_msg(LOG_WARN, LOG_NO_UNIT, msg, ## __VA_ARGS__)
+#  define notice(msg, ...)  log_msg(LOG_NOTICE, LOG_NO_UNIT, msg, ## __VA_ARGS__)
+#  define info(msg, ...)    log_msg(LOG_INFO, LOG_NO_UNIT, msg, ## __VA_ARGS__)
+#  define debug(msg, ...)   log_msg(LOG_DEBUG, LOG_NO_UNIT, msg, ## __VA_ARGS__)
+#endif
 
 
 // End of file.
