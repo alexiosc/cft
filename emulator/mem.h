@@ -26,9 +26,9 @@ void mem_init();
 
 void mem_done();
 
-int mem_write(longaddr_t addr, word data);
+int mem_read(longaddr_t addr, word * data);
 
-word mem_read(longaddr_t addr);
+int mem_write(longaddr_t addr, word data);
 
 char * mem_get_map(longaddr_t addr);
 

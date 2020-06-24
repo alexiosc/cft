@@ -51,6 +51,11 @@ void log_msg(int level, log_unit_t unit, char * fmt, ...);
 
 void log_done();
 
+// Return non-zero if a message for that level and unit would be logged. Useful
+// in if() statements to avoid formatting something complicated that would then
+// be discarded.
+int log_enabled(int level, log_unit_t unit);
+
 
 #ifdef LOG_MACROS_UNIT
 #  define fatal(msg, ...) {                                             \
@@ -63,6 +68,7 @@ void log_done();
 #  define notice(msg, ...)  log_msg(LOG_NOTICE, LOG_MACROS_UNIT, msg, ## __VA_ARGS__)
 #  define info(msg, ...)    log_msg(LOG_INFO, LOG_MACROS_UNIT, msg, ## __VA_ARGS__)
 #  define debug(msg, ...)   log_msg(LOG_DEBUG, LOG_MACROS_UNIT, msg, ## __VA_ARGS__)
+#  define log_enabeld(l)    log_enabled(level, LOG_MACROS_UNIT)
 #else
 #  define fatal(msg, ...) {                                        \
         log_msg(LOG_FATAL, LOG_NO_UNIT, msg, ## __VA_ARGS__);      \

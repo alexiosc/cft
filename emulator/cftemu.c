@@ -69,7 +69,8 @@ init()
         
     cpu_init();
     assert (cpu.memr != NULL);
-    // cpu.memr = memory_read;
+    cpu.memr = mem_read;
+    cpu.memw = mem_write;
     // cpu.memw = memory_write;
     // cpu.ior = io_read;
     // cpu.iow = io_write;

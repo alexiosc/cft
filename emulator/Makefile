@@ -2,7 +2,7 @@
 
 CC = gcc
 CFLAGS = -g -Wall -std=c99 -D_GNU_SOURCE -fgnu89-inline
-CFLAGS += -Wno-switch
+CFLAGS += -Wall
 CFLAGS += -DUART16550
 CFLAGS += -DCFTEMU
 CFLAGS += -I..

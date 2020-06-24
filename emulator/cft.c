@@ -22,11 +22,12 @@
 
 #include "cft.h"
 #include "util.h"
+
+#define LOG_MACROS_UNIT ctl_log_unit
 #include "log.h"
 
 
-static log_unit_t log_ctl;      // Logging unit for the Control Unit.
-static log_unit_t log_sbu;      // Logging unit for the the SBU.
+static log_unit_t ctl_log_unit; // Logging unit for the Control Unit.
 
 // The emulator state
 state_t cpu;
@@ -45,8 +46,8 @@ int sentinel = 0;
 int nvram = 0;
 
 
-#define ctl_debug(msg, ...) log_msg (LOG_DEBUG, log_ctl, msg, ## __VA_ARGS__)
-#define sbu_debug(msg, ...) log_msg (LOG_DEBUG, log_sbu, msg, ## __VA_ARGS__)
+//#define ctl_debug(msg, ...) log_msg (LOG_DEBUG, log_ctl, msg, ## __VA_ARGS__)
+#define sbu_debug debug // (msg, ...) log_msg (LOG_DEBUG, log_sbu, msg, ## __VA_ARGS__)
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -79,8 +80,7 @@ cpu_init()
     memset(&cpu, 0, sizeof(cpu));
         
     // Initialise logging
-    log_ctl = log_add_unit("CTL", LOG_NOTICE, 0);
-    log_sbu = log_add_unit("SBU", LOG_NOTICE, 0);
+    ctl_log_unit = log_add_unit("CTL", -1, 0);
 
     // Register dummy callbacks
     cpu.memr = _dummy_memr;
@@ -138,7 +138,7 @@ cpu_reset()
     cpu.uav.int_ = 1;           // 1 = INT# is not active
     cpu.uav.uaddr = 0;          // The uPC resets to 0 on power on/reset
     cpu.irq = 1;                // Clear IRQ (1 = no IRQ received)
-    cpu.rst_hold = 128;
+    cpu.rst_hold = 2;           // We don't need to hold reset for long here
     cpu.ir = 0xdead;
     cpu.agl_page = GET_PAGE(cpu.pc);
 
@@ -176,7 +176,7 @@ cpu_handle_reset()
         cpu.uav.rst = 1;
         cpu.rst_hold = -1;
         cpu.resetting = 0;
-        ctl_debug("*** RST_HOLD cleared ***");
+        debug("*** RST_HOLD cleared ***");
     }
 }
 
@@ -294,7 +294,7 @@ action_sru()
         // Step the PC
         if (incpc) {
             cpu.pc = (cpu.pc + 1) & 0xffff;
-            ctl_debug("pc_inc: PC <- %04x", cpu.pc);
+            debug("pc_inc: PC <- %04x", cpu.pc);
             // Sanity check
             if (sanity && (cpu.pc == 0)) {
                 fatal("PC AT 0000, SHOULD NEVER HAPPEN");
@@ -310,13 +310,13 @@ action_sru()
                 set_a((cpu.a + 1) & 0xffff);
                 if (cpu.a == 0) cpu.l = !cpu.l;
             }
-            ctl_debug("inc_a: A <- %04x", cpu.a);
+            debug("inc_a: A <- %04x", cpu.a);
         }
 
         // Step the DR.
         if (stpdr) {
             cpu.dr = (dec ? cpu.dr - 1 : cpu.dr + 1) & 0xffff;
-            ctl_debug("step_dr: DR <- %04x", cpu.dr);
+            debug("step_dr: DR <- %04x", cpu.dr);
         }
 
         // Set other stuff
@@ -325,14 +325,14 @@ action_sru()
         }
         if (cll) {
             cpu.l = 0;
-            ctl_debug("cpl: L <- %d", cpu.l);
+            debug("cpl: L <- %d", cpu.l);
         }
         if (sti) {
             cpu.arm_sti = 1; // Arm STI.
         }
         if (cli) {
             cpu.i = 1;
-            ctl_debug("CLI: PC=%04x, I <- %d", cpu.pc, cpu.i);
+            debug("CLI: PC=%04x, I <- %d", cpu.pc, cpu.i);
         }
 
 */
@@ -346,22 +346,22 @@ handle_actions(int action)
     switch (action) {
     case FIELD_ACTION_CPL:
         cpu.fl ^= 1;
-        ctl_debug("action_cpl: L <- %d", cpu.fl);
+        debug("action_cpl: L <- %d", cpu.fl);
         return;
 
     case FIELD_ACTION_CLL:
         cpu.fl = 0;
-        ctl_debug("action_cll: L <- %d", cpu.fl);
+        debug("action_cll: L <- %d", cpu.fl);
         return;
 
     case FIELD_ACTION_STI:
         cpu.fi = 1;
-        ctl_debug("action_sti: I <- %d", cpu.fi);
+        debug("action_sti: I <- %d", cpu.fi);
         return;
 
     case FIELD_ACTION_CLI:
         cpu.fi = 0;
-        ctl_debug("action_cli: I <- %d", cpu.fi);
+        debug("action_cli: I <- %d", cpu.fi);
         return;
 
     case FIELD_ACTION_IDX:
@@ -374,7 +374,7 @@ handle_actions(int action)
 
     case FIELD_ACTION_INCPC:
         cpu.pc = (cpu.pc + 1) & 0xffff;
-        ctl_debug("action_incpc: PC <- %04x", cpu.pc);
+        debug("action_incpc: PC <- %04x", cpu.pc);
         // Sanity check
         if (cpu.pc == 0) {
             fatal("PC wrapped around to 0000. This is software bug.");
@@ -383,33 +383,33 @@ handle_actions(int action)
 
     case FIELD_ACTION_INCDR:
         cpu.dr = (cpu.dr + 1) & 0xffff;
-        ctl_debug("action_incdr: DR <- %04x", cpu.dr);
+        debug("action_incdr: DR <- %04x", cpu.dr);
         return;
         
     case FIELD_ACTION_DECDR:
         cpu.dr = (cpu.dr - 1) & 0xffff;
-        ctl_debug("action_decdr: DR <- %04x", cpu.dr);
+        debug("action_decdr: DR <- %04x", cpu.dr);
         return;
 
     case FIELD_ACTION_INCAC:
         if (cpu.ac == 0xffff) cpu.fl ^= 1;
         cpu.ac = (cpu.ac + 1) & 0xffff;
-        ctl_debug("action_incac: AC <- %04x [L=%d]", cpu.ac, cpu.fl);
+        debug("action_incac: AC <- %04x [L=%d]", cpu.ac, cpu.fl);
         return;
 
     case FIELD_ACTION_DECAC:
         if (cpu.ac == 0) cpu.fl ^= 1;
         cpu.ac = (cpu.ac - 1) & 0xffff;
-        ctl_debug("action_decac: AC <- %04x [L=%d]", cpu.ac, cpu.fl);
+        debug("action_decac: AC <- %04x [L=%d]", cpu.ac, cpu.fl);
 
     case FIELD_ACTION_INCSP:
         cpu.sp = (cpu.sp + 1) & 0xffff;
-        ctl_debug("action_incsp: SP <- %04x", cpu.sp);
+        debug("action_incsp: SP <- %04x", cpu.sp);
         return;
         
     case FIELD_ACTION_DECSP:
         cpu.sp = (cpu.sp - 1) & 0xffff;
-        ctl_debug("action_decsp: SP <- %04x", cpu.sp);
+        debug("action_decsp: SP <- %04x", cpu.sp);
         return;
 
     default:
@@ -650,46 +650,46 @@ read_from_ibus_unit(int raddr)
 
     switch (raddr) {
     case FIELD_READ_CS0:
-        ctl_debug("IBUS <- CS0 (0000)");
+        debug("IBUS <- CS0 (0000)");
         return 0;
 
     case FIELD_READ_CS1:
-        ctl_debug("IBUS <- CS1 (0001)");
+        debug("IBUS <- CS1 (0001)");
         return 1;
 
     case FIELD_READ_CS2:
-        ctl_debug("IBUS <- CS2 (0002)");
+        debug("IBUS <- CS2 (0002)");
         return 2;
 
     case FIELD_READ_CS3:
-        ctl_debug("IBUS <- CS2 (0002)");
+        debug("IBUS <- CS2 (0002)");
         return 3;
 
     case FIELD_READ_PC:
-        ctl_debug("IBUS <- PC (%04x)", cpu.pc);
+        debug("IBUS <- PC (%04x)", cpu.pc);
         return cpu.pc;
 
     case FIELD_READ_DR:
-        ctl_debug("IBUS <- DR (%04x)", cpu.dr);
+        debug("IBUS <- DR (%04x)", cpu.dr);
         return cpu.dr;
 
     case FIELD_READ_AC:
-        ctl_debug("IBUS <- AC (%04x)", cpu.ac);
+        debug("IBUS <- AC (%04x)", cpu.ac);
         return cpu.ac;
         
     case FIELD_READ_SP:
-        ctl_debug("IBUS <- SP (%04x)", cpu.sp);
+        debug("IBUS <- SP (%04x)", cpu.sp);
         return cpu.sp;
 
     case FIELD_READ_MBP_FLAGS:
         tmp = get_mbr(MBR_MBP) | cpu.fn << 10 | cpu.fz << 11 |
             cpu.fl << 12 | cpu.fv << 13 | cpu.fi << 15;
-        ctl_debug("IBUS <- BMP+FLAGS (%04x)", tmp);
+        debug("IBUS <- BMP+FLAGS (%04x)", tmp);
         return tmp;
 
     case FIELD_READ_AGL:
         tmp = MAKE_SHORT_ADDRESS(get_r(cpu.ir) ? 0 : cpu.agl_page, cpu.ir);
-        ctl_debug("IBUS <- AGL (%04x)", tmp);
+        debug("IBUS <- AGL (%04x)", tmp);
         return tmp;
 
     case FIELD_READ_ALU_ADD:
@@ -699,36 +699,36 @@ read_from_ibus_unit(int raddr)
         if (sum & 0x10000) cpu.fl = !cpu.fl;
         cpu.fv = (cpu.alu_a & 0x8000) == (cpu.alu_b & 0x8000) && \
             (cpu.alu_a & 0x8000) != (cpu.ibus & 0x8000);
-        ctl_debug("IBUS <- A + B (%04x), L <- %d, V <- %d", cpu.alu_y, cpu.fl, cpu.fl);
+        debug("IBUS <- A + B (%04x), L <- %d, V <- %d", cpu.alu_y, cpu.fl, cpu.fl);
         return 0;               // Pretend we need extra time for the addition
     }
         
     case FIELD_READ_ALU_AND:
         cpu.alu_y = cpu.alu_a & cpu.alu_b;
-        ctl_debug("IBUS <- A AND B (%04x)", cpu.alu_y);
+        debug("IBUS <- A AND B (%04x)", cpu.alu_y);
         return cpu.alu_y;
         
     case FIELD_READ_ALU_OR:
         cpu.alu_y = cpu.alu_a | cpu.alu_b;
-        ctl_debug("IBUS <- A OR B (%04x)", cpu.alu_y);
+        debug("IBUS <- A OR B (%04x)", cpu.alu_y);
         return cpu.alu_y;
         
     case FIELD_READ_ALU_XOR:
         cpu.alu_y = cpu.alu_a ^ cpu.alu_b;
-        ctl_debug("IBUS <- A XOR B (%04x)", cpu.alu_y);
+        debug("IBUS <- A XOR B (%04x)", cpu.alu_y);
         return cpu.alu_y;
         
     case FIELD_READ_ALU_NOT:
         cpu.alu_y = cpu.alu_a ^ 0xffff;
-        ctl_debug("IBUS <- NOT A (%04x)", cpu.alu_y);
+        debug("IBUS <- NOT A (%04x)", cpu.alu_y);
         return cpu.alu_y;
         
     case FIELD_READ_ALU_Y:
-        ctl_debug("IBUS <- ALU Y (%04x)", cpu.alu_y);
+        debug("IBUS <- ALU Y (%04x)", cpu.alu_y);
         return cpu.alu_y;
 
     case FIELD_READ_ALU_B:
-        ctl_debug("IBUS <- ALU B (%04x)", cpu.alu_b);
+        debug("IBUS <- ALU B (%04x)", cpu.alu_b);
         return cpu.alu_b;
         
     default:
@@ -759,17 +759,17 @@ write_to_ibus_unit(int waddr)
     switch(waddr){
     case FIELD_WRITE_AR_MBP:
         cpu.ar = get_mbr(MBR_MBP) | cpu.ibus;
-        ctl_debug("AR <- MBP:IBUS (%s)", format_longaddr(cpu.ar, NULL));
+        debug("AR <- MBP:IBUS (%s)", format_longaddr(cpu.ar, NULL));
         return;
 
     case FIELD_WRITE_AR_MBD:
         cpu.ar = get_mbr(MBR_MBD) | cpu.ibus;
-        ctl_debug("AR <- MBD:IBUS (%s)", format_longaddr(cpu.ar, NULL));
+        debug("AR <- MBD:IBUS (%s)", format_longaddr(cpu.ar, NULL));
         return;
 
     case FIELD_WRITE_AR_MBS:
         cpu.ar = get_mbr(MBR_MBS) | cpu.ibus;
-        ctl_debug("AR <- MBS:IBUS (%s)", format_longaddr(cpu.ar, NULL));
+        debug("AR <- MBS:IBUS (%s)", format_longaddr(cpu.ar, NULL));
         return;
 
     case FIELD_WRITE_AR_MBZ:
@@ -789,13 +789,13 @@ write_to_ibus_unit(int waddr)
         }
 
         cpu.ar = get_mbr(mbr) | cpu.ibus;
-        ctl_debug("AR <- MB%d:IBUS (%s)", format_longaddr(cpu.ar, NULL));
+        debug("AR <- MB%d:IBUS (%s)", mbr, format_longaddr(cpu.ar, NULL));
         return;
     }
 
     case FIELD_WRITE_PC:
         cpu.pc = cpu.ibus;
-        ctl_debug("PC <- IBUS (%04x)", cpu.ibus);
+        debug("PC <- IBUS (%04x)", cpu.ibus);
         // // Sanity check
         // if (sanity && (cpu.pc == 0)) {
         //     fatal("PC at 0000. This is probably a CFT software error.");
@@ -804,24 +804,24 @@ write_to_ibus_unit(int waddr)
 
     case FIELD_WRITE_DR:
         cpu.dr = cpu.ibus;
-        ctl_debug("DR <- IBUS (%04x)", cpu.ibus);
+        debug("DR <- IBUS (%04x)", cpu.ibus);
         return;
 
     case FIELD_WRITE_AC:
         cpu.ac = cpu.ibus;
         cpu.fn = (cpu.ac & 0x8000) != 0;
         cpu.fz = cpu.ac == 0;
-        ctl_debug("AC <- IBUS (%04x)", cpu.ibus);
+        debug("AC <- IBUS (%04x)", cpu.ibus);
         return;
 
     case FIELD_WRITE_SP:
         cpu.sp = cpu.ibus;
-        ctl_debug("SP <- IBUS (%04x)", cpu.ibus);
+        debug("SP <- IBUS (%04x)", cpu.ibus);
         return;
 
     case FIELD_WRITE_MBP:
         cpu.mbr[MBR_MBP] = (cpu.ibus & 0xff) << 16;
-        ctl_debug("MBP <- IBUS (%02x)", cpu.ibus & 0xff);
+        debug("MBP <- IBUS (%02x)", cpu.ibus & 0xff);
         return;
 
     case FIELD_WRITE_MBP_FLAGS:
@@ -829,24 +829,24 @@ write_to_ibus_unit(int waddr)
         cpu.fl = cpu.ibus && 0x1000 ? 1 : 0;
         cpu.fv = cpu.ibus && 0x2000 ? 1 : 0;
         cpu.fi = cpu.ibus && 0x8000 ? 1 : 0;
-        ctl_debug("MBP+FLAGS <- IBUS (%04x) [L=%d V=%d I=%d]", cpu.ibus, cpu.fl, cpu.fv, cpu.fi);
+        debug("MBP+FLAGS <- IBUS (%04x) [L=%d V=%d I=%d]", cpu.ibus, cpu.fl, cpu.fv, cpu.fi);
         return;
         
     case FIELD_WRITE_FLAGS:
         cpu.fl = cpu.ibus && 0x1000 ? 1 : 0;
         cpu.fv = cpu.ibus && 0x2000 ? 1 : 0;
         cpu.fi = cpu.ibus && 0x8000 ? 1 : 0;
-        ctl_debug("FLAGS <- IBUS (%04x) [L=%d V=%d I=%d]", cpu.ibus, cpu.fl, cpu.fv, cpu.fi);
+        debug("FLAGS <- IBUS (%04x) [L=%d V=%d I=%d]", cpu.ibus, cpu.fl, cpu.fv, cpu.fi);
         return;
 
     case FIELD_WRITE_IR:
         cpu.ir = cpu.ibus;
-        ctl_debug("IR <- IBUS (%04x): %s", cpu.ibus, disasm(cpu.ir, 1, NULL));
+        debug("IR <- IBUS (%04x): %s", cpu.ibus, disasm(cpu.ir, 1, NULL));
         return;
         
     case FIELD_WRITE_ALU_B:
         cpu.alu_b = cpu.ibus;
-        ctl_debug("ALU B <- IBUS (%04x)", cpu.ibus);
+        debug("ALU B <- IBUS (%04x)", cpu.ibus);
         return;
         
     default:
@@ -962,6 +962,9 @@ cpu_run()
         //     dump_state();
         //     dump_ustate();
         // }
+        debug("IR=%04x %-14.14s PC=%04x  AC=%04x  DR=%04x  SP=%04x  uAV=%06x uCV=%06x",
+              cpu.ir, disasm(cpu.ir, 1, NULL),
+              cpu.pc, cpu.ac, cpu.dr, cpu.sp, cpu.uaddr, cpu.ucv);
 
         // Act on the signals of the control vector. All actions are
         // essentially level comparisons, edge-sensitive signals are
@@ -988,7 +991,7 @@ cpu_run()
         // Drive the data bus if needed
         if (w) {
             cpu.dbus = cpu.ibus;
-            ctl_debug("*** DBUS <- IBUS (%04x)", cpu.ibus);
+            debug("*** DBUS <- IBUS (%04x)", cpu.ibus);
         }
 
         // Handle memory and I/O *WRITES*
@@ -1006,7 +1009,7 @@ cpu_run()
             cpu.agl_page = get_page(cpu.pc);
             cpu.uav.uaddr = 0;
             cpu.uav.int_ = 1; // Clear the INT microcode condition 
-            ctl_debug("*** GO FETCH ***");
+            debug("End of microprogram.");
         } else if (!cpu.wait) {
             // Support for wait states is present at this level, but nothing
             // uses them (yet). All our emulated devices are super-fast.

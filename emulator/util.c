@@ -117,6 +117,7 @@ disasm(word ir, int full_dis, char *buf)
     // Okay, now we search.
     while (instruction_set[i].mnemonic != NULL) {
         instruction_t * instr = &instruction_set[i];
+        i++;
         if ((ir & instr->instr_mask) ==  instr->instr) {
             if (full_dis) {
                 if (instr->bitmap) {
@@ -131,16 +132,16 @@ disasm(word ir, int full_dis, char *buf)
                     case 7:
                         // An MBR reference (e.g. IND)
                         snprintf(s, 80, "%s %d", instr->mnemonic, ir & 7);
-                        return buf;
+                        return s;
 			
                     case 0xf:
                         // Used mostly for rolls, so use integers
                         snprintf(s, 80, "%s %d", instr->mnemonic, ir & 0xf);
-                        return buf;
+                        return s;
 			
                     default:
                         snprintf(s, 80, "%s %x", instr->mnemonic, ir & instr->operand_mask);
-                        return buf;
+                        return s;
                     }
                 }
             } else {

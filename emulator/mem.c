@@ -19,6 +19,7 @@
 #include <sys/stat.h>
 #include <argp.h>
 
+#include "cft.h"
 #include "cftemu.h"
 #include "memory.h"
 #include "util.h"
@@ -38,8 +39,8 @@ typedef struct {
     longaddr_t  start;          // Base address
     longaddr_t  end;            // Last address +1
     word *      mem;            // Memory
-    char *      pasm;           // PASM source (could be NULL);
-    char *      map;            // Map file (could be NULL);
+    char *      pasm;           // PASM source (could be NULL)
+    char *      map;            // Map file (could be NULL)
     int         is_ram;         // Writeable?
 } mem_t;
 
@@ -128,29 +129,58 @@ mem_init()
 	  memp->size >> 10);
 
     info("%dK RAM, %dK ROM", memp->size >> 10, kw_rom >> 10);
-
-    exit(0);
-
-        
-
-        
-	// // Allocate RAM.
-	// int ram_size = emu.ram_size << 10;
-	// mem_ramstart = 0;
-	// mem_ramend = emu.ram_size << 10;
-	// mem_ram = (word *)malloc((emu_ramend - emu_ramstart + 1) * sizeof(word));
-	// memset(mem_ram, MEM_TYPE_RAM, emu.ram_size << 10);
-
-	// memset(mem_type, MEM_TYPE_NONE, sizeof(mem_type));
-	// memset(mem_info, 0, sizeof(mem_info_t));
-	// memset(mem_space, emu.sentinel ? SENTINEL : 0, sizeof(mem_space));
-
-	// // Initialise each of the ROMs.
-	// for (int i = 0; i < emu.num_roms; i++) {
-	// 	romspec_t *rom = &emu.roms[i];
-	// 	memset(&mem_type[rom->addr << 10], (uint8_t)(i & 0xff), rom->size << 10);
-	// }
 }
+
+
+int
+mem_read(longaddr_t a, word * d)
+{
+    assert (d != NULL);
+
+    int i;
+    mem_t * memp;
+    for (i = 0, memp = mem_map; i < mem_num_regions; i++, memp++) {
+        if (a >= memp->start && a < memp->end) {
+            // Get an address relative to the memory block start.
+            uint32_t ofs = a - memp->start;
+            *d = memp->mem[ofs];
+            if (log_enabled(LOG_DEBUG3, mem_log_unit)) {
+                log_msg(LOG_DEBUG3, mem_log_unit, "R %s[%s] -> %04x (region %d, ofs %06x)",
+                        memp->is_ram ? "RAM" : "ROM", format_longaddr(a, NULL), *d, i, ofs);
+            }
+            return 1;
+        }
+    }
+
+    log_msg(LOG_DEBUG3, mem_log_unit, "R MEM[%s]: no memory at this address",
+            format_longaddr(a, NULL));
+    return 0;
+}
+         
+
+int
+mem_write(longaddr_t a, word d)
+{
+    int i;
+    mem_t * memp;
+    for (i = 0, memp = mem_map; i < mem_num_regions; i++, memp++) {
+        if (a >= memp->start && a < memp->end) {
+            // Get an address relative to the memory block start.
+            uint32_t ofs = a - memp->start;
+            memp->mem[ofs] = d;
+            if (log_enabled(LOG_DEBUG3, mem_log_unit)) {
+                log_msg(LOG_DEBUG3, mem_log_unit, "W %s[%s] <- %04x (region %d, ofs %06x)",
+                        memp->is_ram ? "RAM" : "ROM", format_longaddr(a, NULL), d, i, ofs);
+            }
+            return 1;
+        }
+    }
+
+    log_msg(LOG_DEBUG3, mem_log_unit, "W MEM[%s]: no memory at this address",
+            format_longaddr(a, NULL));
+    return 0;
+}
+         
 
 // inline uint16_t *
 // l2ptr(uint16_t logical)

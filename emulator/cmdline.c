@@ -314,14 +314,13 @@ parse_opt (int key, char *arg, struct argp_state *state)
         break;
 
     case 'm':                   // RAM size in SIZE,BASE-ADDR format.
-    {
         if (!sscanf(arg, "%d", &emu.ram_size)) {
             argp_error (state, "Invalid SIZE. Expecting 0 to 16384, got '%s'.", arg);
         }
         if (emu.ram_size < 0 || emu.ram_size > 16384) {
             argp_error (state, "Invalid SIZE. Expecting 0 to 16384, got '%d'.", emu.ram_size);
         }
-    }
+        break;
 
     case 'r':
         // Parse a ROM spec.

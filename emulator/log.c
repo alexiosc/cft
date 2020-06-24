@@ -151,6 +151,20 @@ static char * colours[NUM_COLOURS] = {
     CSI "38;5;241m",            // Debug: grey
     CSI "38;5;241m"             // Debug: grey
 };
+
+
+int
+log_enabled(int level, log_unit_t unit)
+{
+    assert (level < 30);
+    assert (unit < log_numunits);
+    if (unit >= 0) {
+        if (level > log_level || level > log_units[unit].level) return 0;
+    } else {
+        if (level > log_level) return 0;
+    }
+    return 1;
+}
     
 
 void
