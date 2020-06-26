@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 4 8
+Sheet 8 8
 Title "Constant Store"
 Date ""
 Rev "2006"
@@ -616,8 +616,20 @@ F 3 "~" H 3250 4800 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	3100 4800 3050 4800
+Text Label 2450 4700 2    50   ~ 0
+T34
+Text HLabel 2150 4700 0    50   Input ~ 0
+T34
+Wire Wire Line
+	2150 4700 2450 4700
+Wire Notes Line
+	2500 4700 3400 4700
+Wire Notes Line
+	3400 4700 3400 4750
 Wire Bus Line
 	2850 2350 2850 4200
 Wire Bus Line
 	8050 2250 8050 4700
+Text Notes 2250 5350 0    50   ~ 0
+For testing, T34 may be\nconnected to ~CSEN~, or JP1\ncan be bridged to ground.
 $EndSCHEMATC

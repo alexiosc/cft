@@ -1576,20 +1576,6 @@ F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 1400 2250 50  0001 C CNN
 	1    1750 2250
 	1    0    0    1   
 $EndComp
-$Comp
-L Jumper:Jumper_3_Bridged12 JP?
-U 1 1 5E742AE8
-P 1300 2950
-AR Path="/61F95ACC/63C9F04D/5E742AE8" Ref="JP?"  Part="1" 
-AR Path="/61F95ACC/5E742AE8" Ref="JP?"  Part="1" 
-AR Path="/5CC06F10/5E742AE8" Ref="JP5"  Part="1" 
-F 0 "JP5" V 1300 3017 50  0000 L CNN
-F 1 "Jumper_3_Bridged12" H 1300 3063 50  0001 C CNN
-F 2 "Jumper:SolderJumper-3_P1.3mm_Bridged12_RoundedPad1.0x1.5mm" H 1300 2950 50  0001 C CNN
-F 3 "~" H 1300 2950 50  0001 C CNN
-	1    1300 2950
-	0    -1   -1   0   
-$EndComp
 Text Label 4300 6000 2    50   ~ 0
 ~ABEN2
 Wire Wire Line
@@ -1638,20 +1624,6 @@ Text HLabel 1000 3500 0    50   Input ~ 0
 HALT
 Wire Wire Line
 	1000 2300 1450 2300
-$Comp
-L Jumper:Jumper_3_Bridged12 JP?
-U 1 1 605E8861
-P 2250 2500
-AR Path="/61F95ACC/63C9F04D/605E8861" Ref="JP?"  Part="1" 
-AR Path="/61F95ACC/605E8861" Ref="JP?"  Part="1" 
-AR Path="/5CC06F10/605E8861" Ref="JP4"  Part="1" 
-F 0 "JP4" V 2250 2567 50  0000 L CNN
-F 1 "Jumper_3_Bridged12" H 2250 2613 50  0001 C CNN
-F 2 "Jumper:SolderJumper-3_P1.3mm_Bridged12_RoundedPad1.0x1.5mm" H 2250 2500 50  0001 C CNN
-F 3 "~" H 2250 2500 50  0001 C CNN
-	1    2250 2500
-	0    -1   -1   0   
-$EndComp
 $Comp
 L power:GND #PWR0156
 U 1 1 606299C6
@@ -1807,4 +1779,26 @@ Wire Bus Line
 	6600 1350 6600 5900
 Wire Bus Line
 	4950 950  4950 5200
+$Comp
+L alexios:Jumper_3_Bridged12 JP4
+U 1 1 5EFE936C
+P 2250 2500
+F 0 "JP4" V 2250 2567 50  0000 L CNN
+F 1 "Jumper_3_Bridged12" H 2250 2610 50  0001 C CNN
+F 2 "Jumper:SolderJumper-3_P1.3mm_Bridged12_RoundedPad1.0x1.5mm" H 2250 2500 50  0001 C CNN
+F 3 "~" H 2250 2500 50  0001 C CNN
+	1    2250 2500
+	0    -1   -1   0   
+$EndComp
+$Comp
+L alexios:Jumper_3_Bridged12 JP5
+U 1 1 5EFED9D4
+P 1300 2950
+F 0 "JP5" V 1300 3017 50  0000 L CNN
+F 1 "Jumper_3_Bridged12" H 1300 3060 50  0001 C CNN
+F 2 "Jumper:SolderJumper-3_P1.3mm_Bridged12_RoundedPad1.0x1.5mm" H 1300 2950 50  0001 C CNN
+F 3 "~" H 1300 2950 50  0001 C CNN
+	1    1300 2950
+	0    -1   -1   0   
+$EndComp
 $EndSCHEMATC

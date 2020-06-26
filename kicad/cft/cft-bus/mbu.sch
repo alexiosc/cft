@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 6 8
+Sheet 5 8
 Title "Memory Bank Unit"
 Date ""
 Rev "2006"
@@ -118,10 +118,6 @@ F 3 "" H 1600 7000 50  0001 C CNN
 $EndComp
 Text HLabel 1250 2150 0    50   Input ~ 0
 ~SYSDEV
-Wire Wire Line
-	2650 7400 2550 7400
-Text Label 2650 7400 2    50   ~ 0
-~DIS
 $Comp
 L alexios:74LVC1G74 U?
 U 1 1 60083AB7
@@ -735,9 +731,8 @@ F21 "~REN0" O R 6350 3000 50
 F22 "~REN1" O R 6350 3100 50 
 F23 "~IOWMBR" O R 6350 3600 50 
 F24 "IR2" I L 5200 3500 50 
-F25 "~T34" I L 5200 3200 50 
-F26 "~RESET" I L 5200 2100 50 
-F27 "CLK2" I L 5200 2200 50 
+F25 "~RESET" I L 5200 2100 50 
+F26 "CLK2" I L 5200 2200 50 
 $EndSheet
 Wire Wire Line
 	4500 3600 4500 4450
@@ -1313,10 +1308,6 @@ Text HLabel 4400 3500 0    50   Input ~ 0
 IR2
 Text Label 4800 3500 0    50   ~ 0
 IR2
-Wire Wire Line
-	5200 3200 4800 3200
-Text Label 4800 3200 0    50   ~ 0
-~T34
 Text Label 6100 4300 2    50   ~ 0
 ~FPRAM~∕ROM
 Text Label 4800 2100 0    50   ~ 0
@@ -1598,16 +1589,17 @@ Wire Wire Line
 	1800 2050 2250 2050
 Wire Wire Line
 	1250 2150 2250 2150
+NoConn ~ 2550 7400
+Wire Bus Line
+	1700 2350 1700 3200
 Wire Bus Line
 	1700 1150 1700 1950
 Wire Bus Line
-	1700 2350 1700 3200
+	10400 1150 10400 2000
 Wire Bus Line
 	1700 3600 1700 5200
 Wire Bus Line
 	6450 1150 6450 2000
-Wire Bus Line
-	10400 1150 10400 2000
 Wire Bus Line
 	10400 3600 10400 4750
 Wire Bus Line
