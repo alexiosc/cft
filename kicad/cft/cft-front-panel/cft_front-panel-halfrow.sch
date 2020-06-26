@@ -6,7 +6,7 @@ encoding utf-8
 Sheet 2 6
 Title "Single 8-LED Row"
 Date ""
-Rev "1938"
+Rev "2026"
 Comp ""
 Comment1 "FPM"
 Comment2 ""
@@ -37,32 +37,6 @@ Entry Wire Line
 	3000 3100 3100 3200
 Entry Wire Line
 	3000 3000 3100 3100
-Text Label 3150 3800 0    50   ~ 0
-D7
-Text Label 3150 3700 0    50   ~ 0
-D6
-Text Label 3150 3600 0    50   ~ 0
-D5
-Text Label 3150 3500 0    50   ~ 0
-D4
-Text Label 3150 3400 0    50   ~ 0
-D3
-Text Label 3150 3300 0    50   ~ 0
-D2
-Wire Wire Line
-	3700 3800 3100 3800
-Wire Wire Line
-	3700 3700 3100 3700
-Wire Wire Line
-	3700 3600 3100 3600
-Wire Wire Line
-	3700 3500 3100 3500
-Wire Wire Line
-	3700 3400 3100 3400
-Wire Wire Line
-	3700 3300 3100 3300
-Wire Wire Line
-	3700 3200 3100 3200
 $Comp
 L power:+5V #PWR?
 U 1 1 5CC30FA9
@@ -1003,12 +977,6 @@ Wire Wire Line
 	2650 3950 2900 3950
 Text HLabel 2650 3950 0    50   Input ~ 0
 ~LE1
-Wire Wire Line
-	3700 3100 3100 3100
-Text Label 3150 3100 0    50   ~ 0
-D0
-Text Label 3150 3200 0    50   ~ 0
-D1
 $Comp
 L power:GND #PWR?
 U 1 1 5CC30FC6
@@ -1198,8 +1166,6 @@ F 3 "~" H 4750 4250 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	3400 4000 3700 4000
-Wire Bus Line
-	3000 2900 3000 3700
 Connection ~ 4350 7350
 Connection ~ 4350 7150
 $Comp
@@ -1234,4 +1200,54 @@ F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 4860 6980 50  0001 C CNN
 	2    4750 7000
 	1    0    0    -1  
 $EndComp
+Text Label 3150 3700 0    50   ~ 0
+D1
+Text Label 3150 3800 0    50   ~ 0
+D0
+Wire Wire Line
+	3700 3800 3100 3800
+Wire Wire Line
+	3700 3700 3100 3700
+Wire Wire Line
+	3700 3600 3100 3600
+Wire Wire Line
+	3700 3500 3100 3500
+Wire Wire Line
+	3700 3400 3100 3400
+Wire Wire Line
+	3700 3300 3100 3300
+Wire Wire Line
+	3700 3200 3100 3200
+Wire Wire Line
+	3700 3100 3100 3100
+Text Label 3150 3600 0    50   ~ 0
+D2
+Text Label 3150 3500 0    50   ~ 0
+D3
+Text Label 3150 3400 0    50   ~ 0
+D4
+Text Label 3150 3300 0    50   ~ 0
+D5
+Text Label 3150 3200 0    50   ~ 0
+D6
+Text Label 3150 3100 0    50   ~ 0
+D7
+Text Notes 3250 1850 0    63   ~ 13
+Rev E Erratum
+Text Notes 3250 2400 0    50   ~ 0
+FPD₀–FPD₇ mapped to the LEDs the wrong way. This was\npatched on the constructed Rev E (1951) board by rewiring\nthe first connector of the first module.\n\nRev F (2026) fixes this issue.
+Wire Notes Line width 24 style solid
+	3100 1600 3100 2550
+Wire Notes Line width 24 style solid
+	5800 1600 3100 1600
+Wire Notes Line width 24 style solid
+	5800 2550 5800 1600
+Wire Notes Line width 24 style solid
+	3100 2550 5800 2550
+Wire Notes Line
+	3200 3000 3400 2550
+Wire Notes Line
+	3200 3000 3600 2550
+Wire Bus Line
+	3000 2900 3000 3700
 $EndSCHEMATC
