@@ -1765,20 +1765,6 @@ F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 1410 5830 50  0001 C CNN
 $EndComp
 Connection ~ 900  6200
 Connection ~ 900  6000
-Wire Bus Line
-	6900 950  6900 1200
-Wire Bus Line
-	7800 4550 7800 5250
-Wire Bus Line
-	9550 4750 9550 5500
-Wire Bus Line
-	3050 1600 3050 5200
-Wire Bus Line
-	3200 1050 3200 3500
-Wire Bus Line
-	6600 1350 6600 5900
-Wire Bus Line
-	4950 950  4950 5200
 $Comp
 L alexios:Jumper_3_Bridged12 JP4
 U 1 1 5EFE936C
@@ -1801,4 +1787,18 @@ F 3 "~" H 1300 2950 50  0001 C CNN
 	1    1300 2950
 	0    -1   -1   0   
 $EndComp
+Wire Bus Line
+	6900 950  6900 1200
+Wire Bus Line
+	7800 4550 7800 5250
+Wire Bus Line
+	9550 4750 9550 5500
+Wire Bus Line
+	3050 1600 3050 5200
+Wire Bus Line
+	3200 1050 3200 3500
+Wire Bus Line
+	6600 1350 6600 5900
+Wire Bus Line
+	4950 950  4950 5200
 $EndSCHEMATC

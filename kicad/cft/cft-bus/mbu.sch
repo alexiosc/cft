@@ -1591,9 +1591,9 @@ Wire Wire Line
 	1250 2150 2250 2150
 NoConn ~ 2550 7400
 Wire Bus Line
-	1700 2350 1700 3200
-Wire Bus Line
 	1700 1150 1700 1950
+Wire Bus Line
+	1700 2350 1700 3200
 Wire Bus Line
 	10400 1150 10400 2000
 Wire Bus Line
