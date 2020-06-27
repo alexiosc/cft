@@ -1,30 +1,69 @@
-/* 
-
-io.h - The I/O space map.
-
-Copyright (C) 2012 Alexios Chouchoulas
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2, or (at your option)
-any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software Foundation,
-Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  
-
-*/
+// -*- c -*-
+// 
+// io.h — I/O definitions
+// 
+// Copyright © 2012–2020 Alexios Chouchoulas
+// 
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2, or (at your option)
+// any later version.
 
 #ifndef IO_H
 #define IO_H 1
 
 #include "cftemu.h"
 
+
+typedef struct {
+	char *      name;		      // Name of the I/O device
+	char *      code;		      // 3-letter code of the I/O device
+	uint32_t    enabled;		      // Device enabled?
+
+	int         hits;		      // For UI activity indicators
+
+	void   (*init)();	              // Initialiser callback
+	void   (*reset)();		      // Reset callback
+	void   (*done)();                     // Teardown callback
+	void   (*tick)(int);                  // Timer tick callback
+	int    (*read)(longaddr_t, word *);   // Read from device
+	int    (*write)(longaddr_t, word);    // Read to device
+} iodev_t;
+
+extern iodev_t iodevs[];
+
+
+// Enable or device the specified device. ‘dev’ is the three-letter device
+// code. The function returns 0 if the device was not found.
+int io_set_enable(char *dev, int enabled);
+
+#define io_enable(dev) io_set_enable(dev, 1)
+#define io_disable(dev) io_set_enable(dev, 0)
+
+void io_init();
+
+void io_reset();
+
+void io_tick();
+
+void io_done();
+
+int io_read(longaddr_t addr, word * data);
+
+int io_write(longaddr_t addr, word data);
+
+// Print out table of devices and exit.
+void io_list_devs();
+
+
+
+extern iodev_t iodevs[];
+
+
+
+
+#if 0
+#warning "These are from the pre-2019 CFT, re-evaluate!"
 
 // Flags: r = readable register, w = writable register, h = hardware emulation,
 // e = emulator only, f = address fully decoded (register mapped to a
@@ -200,41 +239,16 @@ Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 #define IO_VIDEO_CPORT	   0x01fe //     1FE: rwhef CPORT (C Plane Port)
 #define IO_VIDEO_CMD	   0x01ff //     1FF: rwhef CMD (Command Register)
 
+#endif
 
-
-
-
-void io_init();
-
-void io_reset();
-
-void io_tick();
-
-void io_done();
-
-word unit_io(int r, int w);
-
-
-typedef struct {
-	char *name;
-	char *code;
-
-	int * flag;
-
-	void (*init)();
-	void (*reset)();
-	void (*done)();
-	void (*tick)(int);
-	int (*read)(word, word *);
-	int (*write)(word, word);
-
-	int   hits;
-} iodev_t;
-
-
-extern iodev_t iodevs[];
 
 
 #endif // IO_H
 
 // End of file.
+// Local Variables:
+// eval: (c-set-style "K&R")
+// c-basic-offset: 4
+// indent-tabs-mode: nil
+// fill-column: 79
+// End:

@@ -22,6 +22,7 @@
 #include "cmdline.h"
 #include "util.h"
 #include "log.h"
+#include "io.h"
 
 
 static error_t parse_opt (int key, char *arg, struct argp_state *state);
@@ -53,6 +54,19 @@ static struct argp_option options[] =
       "default SIZE is all of the ROM. The loaded ROM image may overlap "
       "RAM. This option may be specified multiple times to map multiple "
       "ROM images to the CFT's address space. (default: no ROM)", 0 },
+
+    { "list-devs", KEY_LIST_DEVS, NULL, 0,
+      "List known devices and exit.", 0},
+
+    { "enable", 'e', "DEV", 0,
+      "Enable the specified device given its three-letter code. For a list "
+      "of devices, run with --list-devs. You can specify this option "
+      "multiple times to enable as many devices as needed.", 0 },
+
+    { "disable", 'd', "DEV", 0,
+      "Disable the specified device given its three-letter code. For a list "
+      "of devices, run with --list-devs. You can specify this option "
+      "multiple times to enable as many devices as needed.", 0 },
 
     // { "map", 'M', "MAP-FILE", 0,
     //   "Load a .map file. Where possible, use it to simplify listing of addresses.",
@@ -215,10 +229,10 @@ parse_romspec(struct argp_state *state, char *spec)
         argp_failure (state, EXIT_FAILURE, errno, "Can't stat ROM file %s", arg);
     }
 
-    if (st.st_size % 2048) {
-        argp_error (state, "ROM image %s is not a multiple of 1024 KiW. "
-                    "It's probably not a CFT ROM image.", arg);
-    }
+    // if (st.st_size % 2048) {
+    //     argp_error (state, "ROM image %s is not a multiple of 1024 KiW. "
+    //                 "It's probably not a CFT ROM image.", arg);
+    // }
 
     rs->fname = strdup(arg);
     rs->addr = 8192;
@@ -327,6 +341,24 @@ parse_opt (int key, char *arg, struct argp_state *state)
         parse_romspec(state, arg);
         break;
 
+
+    case KEY_LIST_DEVS:
+        io_list_devs();
+        exit(0);
+        break;
+
+    case 'e':
+        if (!io_enable(arg)) {
+            argp_error (state, "Unknown device '%s'. Run with --list-devs for a list of devices.", arg);
+        }
+        break;
+        
+    case 'd':
+        if (!io_disable(arg)) {
+            argp_error (state, "Unknown device '%s'. Run with --list-devs for a list of devices.", arg);
+        }
+        break;
+
     // case 'p':
     //     emu.pasm_name = strdup (arg);
     //     emu.pasm_file = fopen (emu.pasm_name, "r");
@@ -409,17 +441,17 @@ parse_opt (int key, char *arg, struct argp_state *state)
     //     }
     //     break;
 
-    case KEY_NO_SANITY:
-        emu.sanity = 0;
-        break;
+    // case KEY_NO_SANITY:
+    //     emu.sanity = 0;
+    //     break;
 
-    case KEY_SOME_SANITY:
-        emu.sanity = 1;
-        break;
+    // case KEY_SOME_SANITY:
+    //     emu.sanity = 1;
+    //     break;
 
-    case KEY_SENTINEL:
-        emu.sentinel = 1;
-        break;
+    // case KEY_SENTINEL:
+    //     emu.sentinel = 1;
+    //     break;
 
     // case KEY_MBU:
     //     mbu = 1;

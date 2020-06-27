@@ -21,6 +21,7 @@
 #include "cmdline.h"
 #include "cftemu.h"
 #include "mem.h"
+#include "io.h"
 
 
 // Our global state
@@ -44,7 +45,8 @@ init()
     log_set_colour(1);
 
     mem_init();
-    
+    io_init();
+
     // // Initialise the user interface.
     // sdl_init();
         

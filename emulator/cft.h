@@ -103,6 +103,12 @@ void cpu_halt();
 
 void cpu_reset();
 
+// The MBU's I/O space interface
+
+int mbu_read(longaddr_t, word *);
+
+int mbu_write(longaddr_t, word);
+
 
 #endif
 

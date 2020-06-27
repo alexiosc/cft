@@ -100,8 +100,8 @@ cpu_init()
     // BUS: Bus control
     cpu.ar = rand() & 0xffffff;
     for (int i = 0; i < 8; i++) cpu.mbr[i] = (rand() & 0xff) << 16;
-    cpu.mbrdis = 0x80;
-    cpu.mbuen = rand() & 1;
+    cpu.mbrdis = 0x800000;
+    cpu.mbuen = 0;
 
     // ALU: Arithmetic & Logic
     cpu.alu_a = rand() & 0xffff;
@@ -153,7 +153,7 @@ cpu_reset()
     cpu.fv = 0;
 
     // MBU
-    cpu.mbrdis = 0x80;
+    cpu.mbrdis = 0x800000;
     cpu.mbuen = 0;
 }
 
@@ -472,20 +472,6 @@ bus_writes(int mem, int io)
 }
 
 
-void
-mbu_set_ram_rom(int have_rom)
-{
-    cpu.mbrdis = have_rom ? 0x80 : 0x00;
-}
-
-
-inline longaddr_t
-get_mbr(int mbr)
-{
-    return cpu.mbuen ? cpu.mbr[mbr & 7] : cpu.mbrdis;
-}
-
-
 // These allow the CPU to run, but not very well.
 int
 _dummy_memr(longaddr_t ab, word * db)
@@ -517,6 +503,58 @@ _dummy_iow(longaddr_t ab, word db)
     warning("dummy callback %s called", __func__);
     return -1;
 }
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// MEMORY BANKING UNIT
+//
+///////////////////////////////////////////////////////////////////////////////
+
+void
+mbu_set_ram_rom(int have_rom)
+{
+    cpu.mbrdis = have_rom ? 0x80 : 0x00;
+}
+
+
+inline longaddr_t
+get_mbr(int mbr)
+{
+    return cpu.mbuen ? cpu.mbr[mbr & 7] : cpu.mbrdis;
+}
+
+
+int
+mbu_read(longaddr_t a, word *d)
+{
+    assert(d != NULL);
+    a = a & 0x3ff;
+    if (a >= 0x008 && a <= 0x00f) {
+        cpu.mbuen = 1;
+        *d = cpu.mbr[a & 7];
+        return 1;
+    }
+    return 0;
+}
+
+
+int
+mbu_write(longaddr_t a, word d)
+{
+    a = a & 0x3ff;
+    if (a >= 0x008 && a <= 0x00f) {
+        cpu.mbuen = 1;
+        cpu.mbr[a & 7] = d & 0xff;
+        return 1;
+    }
+    return 0;
+}
+
+
+
+
+
 
 
 
@@ -962,9 +1000,12 @@ cpu_run()
         //     dump_state();
         //     dump_ustate();
         // }
-        debug("IR=%04x %-14.14s PC=%04x  AC=%04x  DR=%04x  SP=%04x  uAV=%06x uCV=%06x",
+        debug("IR=%04x %-14.14s PC=%04x  AC=%04x  DR=%04x  SP=%04x  MBP{P=%02x D=%02x S=%02x Z=%02x} uAV=%06x uCV=%06x",
               cpu.ir, disasm(cpu.ir, 1, NULL),
-              cpu.pc, cpu.ac, cpu.dr, cpu.sp, cpu.uaddr, cpu.ucv);
+              cpu.pc, cpu.ac, cpu.dr, cpu.sp,
+              cpu.mbrdis >> 16,
+              get_mbr(0) >> 16, get_mbr(1) >> 16, get_mbr(2) >> 16, get_mbr(3) >> 16,
+              cpu.uaddr, cpu.ucv);
 
         // Act on the signals of the control vector. All actions are
         // essentially level comparisons, edge-sensitive signals are
