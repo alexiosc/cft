@@ -306,7 +306,6 @@ int
 io_read(longaddr_t addr, word * data)
 {
     assert (data != NULL);
-
     word retval;
     for (iodev_t * io = iodevs; io->name != NULL; io++){
         // Is the device enabled?
@@ -324,7 +323,7 @@ io_read(longaddr_t addr, word * data)
     }
 
     // Unknown IO device.
-    warning("No device decoded read from I/O address %03x", addr);
+    warning("Read from from I/O address %03x: no device", addr);
     return 0;
 }
 
@@ -349,7 +348,7 @@ io_write(longaddr_t addr, word data)
     }
 
     // Unknown IO device.
-    warning("No device decoded read from I/O address %03x", addr);
+    warning("Write to I/O address %03x: no device", addr);
     return 0;
 }
 

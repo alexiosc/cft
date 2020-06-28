@@ -440,7 +440,7 @@ bus_reads(int mem, int io)
     }
 
     if (io) {
-        if ((*cpu.ior)(cpu.ar, &cpu.dbus) < 0) {
+        if ((*cpu.ior)(cpu.ar & 0x3ff, &cpu.dbus) < 0) {
             warning("Bus error: read from undecoded I/O port %03x",
                     format_longaddr(cpu.ar & 0xffff, NULL));
         }
@@ -464,7 +464,7 @@ bus_writes(int mem, int io)
     }
 
     if (io) {
-        if ((*cpu.iow)(cpu.ar, cpu.dbus) < 0) {
+        if ((*cpu.iow)(cpu.ar & 0x3ff, cpu.dbus) < 0) {
             warning("Bus error: write to undecoded I/O port %03x",
                     format_longaddr(cpu.ar & 0xffff, NULL));
         }
@@ -529,7 +529,6 @@ int
 mbu_read(longaddr_t a, word *d)
 {
     assert(d != NULL);
-    a = a & 0x3ff;
     if (a >= 0x008 && a <= 0x00f) {
         cpu.mbuen = 1;
         *d = cpu.mbr[a & 7];
@@ -542,7 +541,6 @@ mbu_read(longaddr_t a, word *d)
 int
 mbu_write(longaddr_t a, word d)
 {
-    a = a & 0x3ff;
     if (a >= 0x008 && a <= 0x00f) {
         cpu.mbuen = 1;
         cpu.mbr[a & 7] = d & 0xff;
@@ -1017,7 +1015,10 @@ cpu_run()
         decode_cond(cond);
         
         // Handle memory and I/O *READS*
-        if (r) bus_reads(mem, io);
+        if (r) {
+            bus_reads(mem, io);
+            cpu.ibus = cpu.dbus;
+        }
 
         // Read from a unit.
         if (raddr) {

@@ -42,7 +42,7 @@ init()
 {
     log_init(NULL);
     log_set_level(emu.loglevel);
-    log_set_colour(1);
+    //log_set_colour(1);
 
     mem_init();
     io_init();
@@ -73,6 +73,8 @@ init()
     assert (cpu.memr != NULL);
     cpu.memr = mem_read;
     cpu.memw = mem_write;
+    cpu.ior = io_read;
+    cpu.iow = io_write;
     // cpu.memw = memory_write;
     // cpu.ior = io_read;
     // cpu.iow = io_write;
