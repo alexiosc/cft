@@ -126,7 +126,8 @@ deb_write(longaddr_t addr, word data)
 
     case 0x11d:
         deb_out("305 Halted");
-        fatal("DEB board halted, ending emulation.");
+        //notice("DEB board halted, ending emulation.");
+        cpu.quit = 1;
         return 1;
         
     case 0x11e:

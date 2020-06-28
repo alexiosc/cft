@@ -174,6 +174,55 @@ def run_verilog_testbench(capsys, name, args=None):
         yield((int(code), state, comment))
 
 
+def run_c_emulator(capsys, name, args=None):
+    assert False, "THIS HAS NOT YET BEEN FULLY IMPLEMENTED"
+    if not os.path.exists(binary):
+        if os.path.exists(testbench):
+            assert False, "Source file {}/{} has not been compiled.".format(os.getcwd(), testbench)
+        else:
+            assert False, "Testbench {}/{} does not exist!".format(os.getcwd(), binary)
+        assert False
+
+    # Note: the test tool (RUN_VERILOG_TEST) expects the .v file, not the .o file.
+    #cmd = '{} {} -v -a "{}"'.format(RUN_VERILOG_TEST, testbench, ' '.join(args))
+    #cmd = './{} {}'.format(binary, ' '.join(args))
+
+    if args is None:
+        args = []
+
+    # fname = os.path.abspath(os.path.join(curdir, "rerun-verilog-testbench.sh"))
+    # with open(fname, "w") as f:
+    #     f.write("#!/bin/bash\n")
+    #     f.write("cd {}\n".format(VERILOGDIR))
+    #     f.write("{} {}\n".format(os.path.abspath(binary), ' '.join("'{}'".format(x) for x in args)))
+    # os.chmod(fname, 0o755)
+                
+    #print(os.path.abspath(binary), args)
+    pipe = subprocess.Popen([os.path.abspath(binary)] + args, cwd=str(VERILOGDIR),
+                            stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    (out, err) = pipe.communicate()
+    code = pipe.wait()
+
+    sys.stdout.write(out.decode('utf-8'))
+    sys.stderr.write(err.decode('utf-8'))
+
+    result = capsys.readouterr()
+    try:
+        out = result.out
+    except:
+        # This is for older pytest installations
+        out = result[0]
+
+    for line in out.split('\n'):
+        #print("*** Line:", line)
+        m = re.match(r'^(\d\d\d) ([^: ]+)(?::?\s*(.+))?$', line.strip())
+        if not m:
+            #print("Ignored line:", line)
+            continue
+        code, state, comment = m.groups()
+        yield((int(code), state, comment))
+
+
 def assemble(tmpdir, source, long=False, args=None):
     """Assemble some source (a string), and make it available to the CFT
     testbed. If source is not given, use the contents of self.source
@@ -279,11 +328,44 @@ def split_long_image(tmpdir):
         assert os.path.isfile(str(tmpdir.join(f))), "file {}/{} was not created".format(tmpdir, f)
 
 
+def run_on_framework(framework, capsys, tmpdir, source, *args, **kwargs):
+    if framework == "verilog":
+        return run_on_verilog_emu(capsys, tmpdir, source, *args, **kwargs)
+    elif framework == "emulator":
+        return run_on_emulator(capsys, tmpdir, source, *args, **kwargs)
+    else:
+        raise RuntimeError("Unknown framework '{}'".format(framework))
+
+
+def run_on_emulator(capsys, tmpdir, source, timeout=20000000,
+                    long=False, cftasm_args=None, cftemu_args=None,
+                    **kwargs):
+    """Assemble a program and run it using the C whole-system emulator."""
+    # First, assemble the code.
+    asm_args = []
+    if cftasm_args is not None:
+        asm_args += cftasm_args
+    assemble(tmpdir, source, long=long, args=asm_args)
+
+    out, err = get_capsys_outerr(capsys)
+    sys.stdout.write(out)
+    sys.stderr.write(err)
+
+    args = [ "--ram=512", "--enable DEB", "--rom=a.bin" ]
+
+    # Okay, now run it with the emulator
+    if cftemu_args is not None:
+        args += cftemu_args
+    #assert False, ' '.join(args)
+    soupreturn run_c_emulator(capsys, 'cft2019', args)
+
+
 def run_on_verilog_emu(capsys, tmpdir, source, timeout=20000000,
-                       long=False, cftasm_args=None, verilog_args=None):
+                       long=False, cftasm_args=None,
+                       verilog_args=None, **kwargs):
     """Assemble a program and run it using the verilog emulator."""
 
-    # First, assemble the script.
+    # First, assemble the code.
     asm_args = ["--verilog"]
     if cftasm_args is not None:
         asm_args += cftasm_args

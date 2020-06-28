@@ -9,15 +9,12 @@ import pytest
 import inspect
 import subprocess
 
-from testing import * 
+from testing import *
 
 
-@pytest.mark.verilog
-@pytest.mark.emulator
-@pytest.mark.hardware
 @pytest.mark.LOAD
 @pytest.mark.JMP
-def test_LOAD(capsys, tmpdir):
+def test_LOAD(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
@@ -42,17 +39,14 @@ def test_LOAD(capsys, tmpdir):
     expected += [ HALTED ]
     print(source)
 
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     result = list(expected.prepare(result))
     assert result == expected
 
 
-@pytest.mark.verilog
-@pytest.mark.emulator
-@pytest.mark.hardware
 @pytest.mark.LOAD
 @pytest.mark.OUT
-def test_LOAD_I(capsys, tmpdir):
+def test_LOAD_I(framework, capsys, tmpdir):
 
     source = "&0:\n"
     expected = ExpectedData([ SUCCESS ])
@@ -87,12 +81,9 @@ def test_LOAD_I(capsys, tmpdir):
     assert result == expected
 
 
-@pytest.mark.verilog
-@pytest.mark.emulator
-@pytest.mark.hardware
 @pytest.mark.LOAD
 @pytest.mark.OUT
-def test_LOAD_R(capsys, tmpdir):
+def test_LOAD_R(framework, capsys, tmpdir):
 
     source = "&0:\n"
     expected = ExpectedData([ SUCCESS ])
@@ -125,13 +116,10 @@ def test_LOAD_R(capsys, tmpdir):
     assert result == expected
 
 
-@pytest.mark.verilog
-@pytest.mark.emulator
-@pytest.mark.hardware
 @pytest.mark.LOAD
 @pytest.mark.OUT
 @pytest.mark.JMP
-def test_LOAD_I_R(capsys, tmpdir):
+def test_LOAD_I_R(framework, capsys, tmpdir):
 
     source = "&0:\n"
     expected = ExpectedData([ SUCCESS ])
@@ -173,14 +161,11 @@ def test_LOAD_I_R(capsys, tmpdir):
     assert result == expected
 
 
-@pytest.mark.verilog
-@pytest.mark.emulator
-@pytest.mark.hardware
 @pytest.mark.LOAD
 @pytest.mark.OUT
 @pytest.mark.JMP
 @pytest.mark.STORE
-def test_LOAD_I_R_autoinc(capsys, tmpdir):
+def test_LOAD_I_R_autoinc(framework, capsys, tmpdir):
 
     source = ".equ autoinc &340\n"
 
@@ -215,14 +200,11 @@ def test_LOAD_I_R_autoinc(capsys, tmpdir):
     assert result == expected
 
 
-@pytest.mark.verilog
-@pytest.mark.emulator
-@pytest.mark.hardware
 @pytest.mark.LOAD
 @pytest.mark.OUT
 @pytest.mark.JMP
 @pytest.mark.STORE
-def test_LOAD_I_R_autodec(capsys, tmpdir):
+def test_LOAD_I_R_autodec(framework, capsys, tmpdir):
 
     source = """
     .include "dfp2.asm"
@@ -260,14 +242,11 @@ def test_LOAD_I_R_autodec(capsys, tmpdir):
     assert result == expected
 
 
-@pytest.mark.verilog
-@pytest.mark.emulator
-@pytest.mark.hardware
 @pytest.mark.LOAD
 @pytest.mark.OUT
 @pytest.mark.JMP
 @pytest.mark.STORE
-def test_LOAD_I_R_stack(capsys, tmpdir):
+def test_LOAD_I_R_stack(framework, capsys, tmpdir):
     """Test stack pointer autoindexing. For LOAD, this behaves just like
     autodecrement except the register is decremented BEFORE use."""
 
