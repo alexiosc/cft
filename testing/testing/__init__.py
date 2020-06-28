@@ -174,14 +174,8 @@ def run_verilog_testbench(capsys, name, args=None):
         yield((int(code), state, comment))
 
 
-def run_c_emulator(capsys, name, args=None):
-    assert False, "THIS HAS NOT YET BEEN FULLY IMPLEMENTED"
-    if not os.path.exists(binary):
-        if os.path.exists(testbench):
-            assert False, "Source file {}/{} has not been compiled.".format(os.getcwd(), testbench)
-        else:
-            assert False, "Testbench {}/{} does not exist!".format(os.getcwd(), binary)
-        assert False
+def run_c_emulator(tmpdir, capsys, args=None):
+    assert os.path.exists(C_EMULATOR), "{} missing. Please compile it".format(C_EMULATOR)
 
     # Note: the test tool (RUN_VERILOG_TEST) expects the .v file, not the .o file.
     #cmd = '{} {} -v -a "{}"'.format(RUN_VERILOG_TEST, testbench, ' '.join(args))
@@ -190,18 +184,15 @@ def run_c_emulator(capsys, name, args=None):
     if args is None:
         args = []
 
-    # fname = os.path.abspath(os.path.join(curdir, "rerun-verilog-testbench.sh"))
-    # with open(fname, "w") as f:
-    #     f.write("#!/bin/bash\n")
-    #     f.write("cd {}\n".format(VERILOGDIR))
-    #     f.write("{} {}\n".format(os.path.abspath(binary), ' '.join("'{}'".format(x) for x in args)))
-    # os.chmod(fname, 0o755)
-                
-    #print(os.path.abspath(binary), args)
-    pipe = subprocess.Popen([os.path.abspath(binary)] + args, cwd=str(VERILOGDIR),
-                            stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    cmd = [os.path.abspath(C_EMULATOR)] + args
+    print(cmd)
+    pipe = subprocess.Popen(cmd, cwd=tmpdir, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     (out, err) = pipe.communicate()
     code = pipe.wait()
+
+    print(out)
+    print(err)
+    assert False
 
     sys.stdout.write(out.decode('utf-8'))
     sys.stderr.write(err.decode('utf-8'))
@@ -214,8 +205,8 @@ def run_c_emulator(capsys, name, args=None):
         out = result[0]
 
     for line in out.split('\n'):
-        #print("*** Line:", line)
-        m = re.match(r'^(\d\d\d) ([^: ]+)(?::?\s*(.+))?$', line.strip())
+        print("*** Line:", line)
+        m = re.match(r'^.*\[DEB\] (\d\d\d) ([^: ]+)(?::?\s*(.+))?$', line.strip())
         if not m:
             #print("Ignored line:", line)
             continue
@@ -283,7 +274,6 @@ def read_pasm(tmpdir):
 
 
 def split_long_image(tmpdir):
-    soup
     """Splits a single Verilog .list image into RAM and ROM parts to
     simplify running in the Verilog emulator."""
 
@@ -348,16 +338,15 @@ def run_on_emulator(capsys, tmpdir, source, timeout=20000000,
     assemble(tmpdir, source, long=long, args=asm_args)
 
     out, err = get_capsys_outerr(capsys)
-    sys.stdout.write(out)
-    sys.stderr.write(err)
-
-    args = [ "--ram=512", "--enable DEB", "--rom=a.bin" ]
+    args = [ "--ram=512", "--enable=DEB", "--rom=a.bin" ]
 
     # Okay, now run it with the emulator
     if cftemu_args is not None:
         args += cftemu_args
     #assert False, ' '.join(args)
-    soupreturn run_c_emulator(capsys, 'cft2019', args)
+
+    data = run_c_emulator(tmpdir, capsys, args)
+    return data
 
 
 def run_on_verilog_emu(capsys, tmpdir, source, timeout=20000000,
@@ -434,6 +423,7 @@ def asm_memory_banks(mbp=None, mbd=None, mbs=None, mbz=None,
 
 BASEDIR = findBaseDir()
 VERILOGDIR = os.path.join(BASEDIR, "verilog")
+C_EMULATOR = os.path.join(BASEDIR, "emulator", "cftemu")
 RUN_VERILOG_TEST = os.path.join(BASEDIR, "tools", "run-verilog-testbench")
 HALTED = 305
 SENTINEL = 341

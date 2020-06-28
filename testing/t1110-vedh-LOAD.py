@@ -37,7 +37,6 @@ def test_LOAD(framework, capsys, tmpdir):
 
     source += "\t\tHALT\n"
     expected += [ HALTED ]
-    print(source)
 
     result = run_on_framework(framework, capsys, tmpdir, source)
     result = list(expected.prepare(result))
