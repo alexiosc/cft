@@ -198,10 +198,10 @@ inline void
 irq()
 {
     if (cpu.fi) {
-        //info("***IRQ (masked, PC=%04x, INT RET ADDR=%04x)***\n", cpu.pc, cpu.mem[2]);
+        //info("***IRQ (masked, PC=%04x, INT RET ADDR=%04x)***", cpu.pc, cpu.mem[2]);
         //dump();
     } else {
-        //info("***IRQ***\n");
+        //info("***IRQ***");
         cpu.irq = 0;
     }
 }
@@ -233,7 +233,7 @@ io_init()
     int num_enabled = 0;
     for (iodev_t * io = iodevs; io->name != NULL; io++){
         num_devs++;
-        //printf("*** %s: init() (%p, %d)\n", io->name, io->flag, *io->flag);
+        //printf("*** %s: init() (%p, %d)", io->name, io->flag, *io->flag);
         // Is the device enabled?
         if (!io->enabled) continue;
         // Is there an initialiser?
@@ -316,7 +316,7 @@ io_read(longaddr_t addr, word * data)
             retval = (*io->read)(addr, data);
             if (retval) {
                 io->hits = 2000;
-                debug("IN (%s) io[%03x] -> %04x\n", io->code, addr, *data);
+                debug("IN (%s) io[%03x] -> %04x", io->code, addr, *data);
                 return retval;
             }
         }
@@ -341,7 +341,7 @@ io_write(longaddr_t addr, word data)
             retval = (*io->write)(addr, data);
             if (retval) {
                 io->hits = 2000;
-                debug("OUT (%s) io[%03x] <- %04x\n", io->code, addr, data);
+                debug("OUT (%s) io[%03x] ← %04x", io->code, addr, data);
                 return retval;
             }
         }

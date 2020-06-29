@@ -28,6 +28,7 @@
 
 
 static log_unit_t ctl_log_unit; // Logging unit for the Control Unit.
+static log_unit_t mbu_log_unit; // Logging unit for the Control Unit.
 
 // The emulator state
 state_t cpu;
@@ -81,6 +82,7 @@ cpu_init()
         
     // Initialise logging
     ctl_log_unit = log_add_unit("CTL", -1, 0);
+    mbu_log_unit = log_add_unit("MBU", -1, 0);
 
     // Register dummy callbacks
     cpu.memr = _dummy_memr;
@@ -530,8 +532,8 @@ mbu_read(longaddr_t a, word *d)
 {
     assert(d != NULL);
     if (a >= 0x008 && a <= 0x00f) {
-        cpu.mbuen = 1;
         *d = cpu.mbr[a & 7];
+        log_msg(LOG_DEBUG3, mbu_log_unit, "MBR[%d] → %02x (mbuen=%d)", a & 7, *d & 0xff, cpu.mbuen);
         return 1;
     }
     return 0;
@@ -542,8 +544,15 @@ int
 mbu_write(longaddr_t a, word d)
 {
     if (a >= 0x008 && a <= 0x00f) {
+        cpu.mbr[a & 7] = (d & 0xff) << 16;
+        int enabling = cpu.mbuen == 0;
         cpu.mbuen = 1;
-        cpu.mbr[a & 7] = d & 0xff;
+        log_msg(LOG_DEBUG3, mbu_log_unit, "MBR[%d] → %02x. "
+                "%sMBRs now %02x %02x %02x %02x %02x %02x %02x %02x",
+                a & 7, d & 0xff,
+                enabling == 0 ? "Enabling MBU. " : "",
+                get_mbr(0) >> 16, get_mbr(1) >> 16, get_mbr(2) >> 16, get_mbr(3) >> 16,
+                get_mbr(4) >> 16, get_mbr(5) >> 16, get_mbr(6) >> 16, get_mbr(7) >> 16);
         return 1;
     }
     return 0;
