@@ -14,7 +14,7 @@ from testing import *
 @pytest.mark.cftasm
 def test_assemble(capsys, tmpdir):
     """Test that basic assembly works."""
-    assemble(tmpdir, "&0: JMP @")
+    assemble(tmpdir, "&0: JMP @", args=["--blocksize", "0"])
 
     fname = str(tmpdir.join("a.bin"))
     assert os.path.getsize(fname) == 2, \
@@ -26,7 +26,7 @@ def test_short_model(capsys, tmpdir):
     assemble(tmpdir, """
     &0:    .fill 32768 &1234
            .fill 32768 &5678
-    """, args=["--model", "short"])
+    """, args=["--model", "short", "--blocksize", "0"])
 
     fname = str(tmpdir.join("a.bin"))
     assert os.path.getsize(fname) == 131072, \
@@ -44,7 +44,7 @@ def test_short_model(capsys, tmpdir):
 def test_short_model_memsize_warning(capsys, tmpdir):
     assemble(tmpdir, """
     &123456:    .data &feed &cafe
-    """, args=["--model", "short"])
+    """, args=["--model", "short", "--blocksize", "0"])
 
     out, err = get_capsys_outerr(capsys)
     assert ":2: warning: Address &123456 is beyond the maximum address for this model (&ffff)" in err
@@ -54,7 +54,7 @@ def test_short_model_memsize_warning(capsys, tmpdir):
 def test_verilog_output(capsys, tmpdir):
     assemble(tmpdir, """
     &0:    .fill 256 &1234
-    """, args=["--model", "short", "--verilog", "--debug-pokes"])
+    """, args=["--model", "short", "--verilog", "--debug-pokes", "--blocksize", "0"])
 
     fname = str(tmpdir.join("a.bin"))
     assert os.path.getsize(fname) == 512, \
@@ -79,7 +79,7 @@ def test_long_model(capsys, tmpdir):
                  .fill 32768 &1234
     &ff0000:     .fill 32768 &5678
                  .fill 32768 &5678
-    """, args=["--model", "long"])
+    """, args=["--model", "long", "--blocksize", "0"])
 
     fname = str(tmpdir.join("a.bin"))
     assert os.path.getsize(fname) == 2*16777216, \
@@ -102,7 +102,7 @@ def test_page_directive(capsys, tmpdir):
     &0:    .fill 256 &1234
            .page
            .word &5678
-    """, args=["-p", "512"])
+    """, args=["-p", "512", "--blocksize", "0"])
 
     # Expect 1025 words = 2050 bytes
     fname = str(tmpdir.join("a.bin"))
@@ -130,7 +130,7 @@ def test_unpacked_string(capsys, tmpdir):
 
     assemble(tmpdir, """
     &0:    .str "Hello, world!" 10
-    """)
+    """, args=["--blocksize", "0"])
 
     test = "Hello, world!\n"
 
@@ -150,7 +150,7 @@ def test_packed_string(capsys, tmpdir):
 
     assemble(tmpdir, """
     &0:    .strp "Hello, world!" 10
-    """)
+    """, args=["--blocksize", "0"])
 
     test = "Hello, world!\n"
 
@@ -181,7 +181,7 @@ def test_longstring(capsys, tmpdir):
            .strp       "ello, world!"
            .strp       10
            .endstring
-    """)
+    """, args=["--blocksize", "0"])
 
     test = "Hello, world!\n"
 
@@ -212,7 +212,7 @@ def test_macro(capsys, tmpdir):
     .endmacro
 
     &0:    foo(10)
-    """)
+    """, args=["--blocksize", "0"])
 
     test = "Hello, world!\n"
 
@@ -258,7 +258,7 @@ def test_equ_and_fields(capsys, tmpdir):
            .word foo1           ; 42
            .word foo2           ; 43
            .word foo3           ; 299
-    """)
+    """, args=["--blocksize", "0"])
 
     # Expect 14 words
     fname = str(tmpdir.join("a.bin"))
@@ -290,7 +290,7 @@ def test_at_expressions(capsys, tmpdir):
            .word @foo+10        ; 42->52
            .word @foo*10        ; 42->420
            .word @foo/7         ; 42->6
-    """)
+    """, args=["--blocksize", "0"])
 
     # Expect 14 words
     fname = str(tmpdir.join("a.bin"))
@@ -326,7 +326,7 @@ def test_basic_assembly(capsys, tmpdir):
            JMP loop
            
     halt:  JMP @
-    """)
+    """, args=["--blocksize", "0"])
 
     # Expect 14 words
     fname = str(tmpdir.join("a.bin"))
@@ -360,7 +360,7 @@ def test_field_bits(capsys, tmpdir):
 
     &ff0f:    JMP @
     baz:      JMP @
-    """)
+    """, args=["--blocksize", "0"])
 
     # For this program, we'll parse the a.pasm file.
     pasm = read_pasm(tmpdir)
@@ -398,7 +398,7 @@ def test_namespaces(capsys, tmpdir):
            .word foo
            .word ns1.foo
            .word ns1.ns2.foo
-    """)
+    """, args=["--blocksize", "0"])
 
     # Expect 14 words
     fname = str(tmpdir.join("a.bin"))
@@ -433,7 +433,7 @@ def test_scope(capsys, tmpdir):
     .endscope
 
            .word foo
-    """)
+    """, args=["--blocksize", "0"])
 
     # Expect 14 words
     fname = str(tmpdir.join("a.bin"))
@@ -477,7 +477,7 @@ def test_include(capsys, tmpdir):
             SENTINEL
             SUCCESS
             FAIL
-    """)
+    """, args=["--blocksize", "0"])
 
     # Expect 14 words
     fname = str(tmpdir.join("a.bin"))
@@ -491,6 +491,29 @@ def test_include(capsys, tmpdir):
                                        0x651d, 0x5500, 0x6500, 0x650f, 0x651e, 0x651f ])
     assert len(assembled_data) == 19
     assert assembled_data == expected_data, "Assembled string did not match"
+
+
+@pytest.mark.cftasm
+def test_assemble_bin_blocksize(capsys, tmpdir):
+    """Test that binary blocksizes work."""
+    for bs, size in [[0, 2], [1, 2048], [8, 16384], [64, 131072]]:
+        assemble(tmpdir, "&0: JMP @", args=["--blocksize", str(bs)])
+
+        fname = str(tmpdir.join("a.bin"))
+        assert os.path.getsize(fname) == size, \
+            "Wrong object size generated ({} bytes expected)".format(size)
+
+
+@pytest.mark.cftasm
+def test_assemble_bin_long_model_blocksize(capsys, tmpdir):
+    """Test that binary blocksizes work."""
+    for bs, size in [[0, 2], [1, 2048], [8, 16384], [64, 131072]]:
+        assemble(tmpdir, "&0: JMP @",
+                 args=["--model", "long", "--blocksize", str(bs)])
+
+        fname = str(tmpdir.join("a.bin"))
+        assert os.path.getsize(fname) == size, \
+            "Wrong object size generated ({} bytes expected)".format(size)
 
 
 if __name__ == "__main__":

@@ -12,15 +12,12 @@ import subprocess
 from testing import * 
 
 
-@pytest.mark.verilog
-@pytest.mark.emulator
-@pytest.mark.hardware
 @pytest.mark.LOAD
 @pytest.mark.LI
 @pytest.mark.OUT
 @pytest.mark.JMP
 @pytest.mark.STORE
-def test_STORE(capsys, tmpdir):
+def test_STORE(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
@@ -53,7 +50,7 @@ def test_STORE(capsys, tmpdir):
     source += "        HALT\n"
     expected += [ HALTED ]
 
-    result = run_on_verilog_emu(capsys, tmpdir, source,
+    result = run_on_framework(framework, capsys, tmpdir, source,
                                 verilog_args=["+wp=0"])
     result = list(expected.prepare(result))
     assert result == expected
@@ -65,7 +62,7 @@ def test_STORE(capsys, tmpdir):
 @pytest.mark.LI
 @pytest.mark.OUT
 @pytest.mark.STORE
-def test_STORE_I(capsys, tmpdir):
+def test_STORE_I(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
@@ -105,7 +102,7 @@ def test_STORE_I(capsys, tmpdir):
     # added the HALT instruction.
     expected += [ HALTED ]
 
-    result = run_on_verilog_emu(capsys, tmpdir, source,
+    result = run_on_framework(framework, capsys, tmpdir, source,
                                 verilog_args=["+wp=0"])
     result = list(expected.prepare(result))
 
@@ -119,7 +116,7 @@ def test_STORE_I(capsys, tmpdir):
 @pytest.mark.OUT
 @pytest.mark.STORE
 @pytest.mark.LOAD
-def test_STORE_R(capsys, tmpdir):
+def test_STORE_R(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
@@ -155,7 +152,7 @@ def test_STORE_R(capsys, tmpdir):
     source += "        HALT\n"
     expected += [ HALTED ]
 
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     result = list(expected.prepare(result))
 
     pprint.pprint(expected)
@@ -172,7 +169,7 @@ def test_STORE_R(capsys, tmpdir):
 @pytest.mark.STORE
 @pytest.mark.LOAD
 @pytest.mark.JMP
-def test_STORE_I_R(capsys, tmpdir):
+def test_STORE_I_R(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
@@ -219,7 +216,7 @@ def test_STORE_I_R(capsys, tmpdir):
     # added the HALT instruction.
     expected += [ HALTED ]
 
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     pprint.pprint(result)
     result = list(expected.prepare(result))
 
@@ -231,7 +228,7 @@ def test_STORE_I_R(capsys, tmpdir):
 @pytest.mark.hardware
 @pytest.mark.LOAD
 @pytest.mark.STORE
-def test_STORE_I_R_autoinc(capsys, tmpdir):
+def test_STORE_I_R_autoinc(framework, capsys, tmpdir):
 
     reps = 20
 
@@ -279,7 +276,7 @@ def test_STORE_I_R_autoinc(capsys, tmpdir):
     expected += [[ 340, "PRINTH", "cafe" ]] * reps
     expected += [[ 340, "PRINTD", str(0x7800 + reps) ]]
     expected += [ HALTED ]
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     result = list(expected.prepare(result))
     assert result == expected
 
@@ -289,7 +286,7 @@ def test_STORE_I_R_autoinc(capsys, tmpdir):
 @pytest.mark.hardware
 @pytest.mark.LOAD
 @pytest.mark.STORE
-def test_STORE_I_R_autodec(capsys, tmpdir):
+def test_STORE_I_R_autodec(framework, capsys, tmpdir):
 
     reps = 20
 
@@ -337,7 +334,7 @@ def test_STORE_I_R_autodec(capsys, tmpdir):
     expected += [[ 340, "PRINTH", "cafe" ]] * reps
     expected += [[ 340, "PRINTD", str(0x7800 - reps) ]]
     expected += [ HALTED ]
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     result = list(expected.prepare(result))
     assert result == expected
 
@@ -347,7 +344,7 @@ def test_STORE_I_R_autodec(capsys, tmpdir):
 @pytest.mark.hardware
 @pytest.mark.LOAD
 @pytest.mark.STORE
-def test_STORE_I_R_stack(capsys, tmpdir):
+def test_STORE_I_R_stack(framework, capsys, tmpdir):
 
     reps = 3
 
@@ -396,7 +393,7 @@ def test_STORE_I_R_stack(capsys, tmpdir):
     expected += [[ 340, "PRINTH", "cafe" ]] * reps
     expected += [[ 340, "PRINTH", "7800" ]]
     expected += [ HALTED ]
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     result = list(expected.prepare(result))
     assert result == expected
 

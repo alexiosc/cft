@@ -34,14 +34,16 @@
 static log_unit_t   deb_log_unit;
 static word         hidata;
 
+
+#define deb_out notice
+
+
 void deb_init()
 {
     deb_log_unit = log_add_unit("DEB", -1, -1);
     debug("Initialised basic DEB board");
+    deb_out("345 OK -- debugging subsystem available and ready");
 }
-
-
-#define deb_out notice
 
 
 int

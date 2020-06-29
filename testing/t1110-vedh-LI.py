@@ -12,12 +12,9 @@ import subprocess
 from testing import * 
 
 
-@pytest.mark.verilog
-@pytest.mark.emulator
-@pytest.mark.hardware
 @pytest.mark.MBU
 @pytest.mark.LI
-def test_LI(capsys, tmpdir):
+def test_LI(framework, capsys, tmpdir):
 
     expected = ExpectedData([ SUCCESS ])
 
@@ -36,7 +33,7 @@ def test_LI(capsys, tmpdir):
     source += "\t\tHALT\n"
     expected += [ HALTED ]
 
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     result = list(expected.prepare(result))
     assert result == expected
 

@@ -229,10 +229,10 @@ parse_romspec(struct argp_state *state, char *spec)
         argp_failure (state, EXIT_FAILURE, errno, "Can't stat ROM file %s", arg);
     }
 
-    // if (st.st_size % 2048) {
-    //     argp_error (state, "ROM image %s is not a multiple of 1024 KiW. "
-    //                 "It's probably not a CFT ROM image.", arg);
-    // }
+    if (st.st_size % 2048) {
+        argp_error (state, "ROM image %s is not a multiple of 1024 KiW. "
+                    "It's probably not a CFT ROM image.", arg);
+    }
 
     rs->fname = strdup(arg);
     rs->addr = 8192;

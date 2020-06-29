@@ -190,9 +190,9 @@ def run_c_emulator(tmpdir, capsys, args=None):
     (out, err) = pipe.communicate()
     code = pipe.wait()
 
-    print(out)
-    print(err)
-    assert False
+    # print(out)
+    # print(err)
+    # assert False
 
     sys.stdout.write(out.decode('utf-8'))
     sys.stderr.write(err.decode('utf-8'))
@@ -205,12 +205,13 @@ def run_c_emulator(tmpdir, capsys, args=None):
         out = result[0]
 
     for line in out.split('\n'):
-        print("*** Line:", line)
+        #print("*** Line:", line)
         m = re.match(r'^.*\[DEB\] (\d\d\d) ([^: ]+)(?::?\s*(.+))?$', line.strip())
         if not m:
             #print("Ignored line:", line)
             continue
         code, state, comment = m.groups()
+        #print("*** YIELDING", (int(code), state, comment))
         yield((int(code), state, comment))
 
 
@@ -252,8 +253,16 @@ def assemble(tmpdir, source, long=False, args=None):
     # subprocess.call("ls -la", shell=True, cwd=str(tmpdir))
 
     # Make sure we have assembly output
-    assert os.path.exists(str(tmpdir.join('a.bin'))), \
+    binfile = str(tmpdir.join('a.bin'))
+    assert os.path.exists(binfile), \
         "cftasm did not generate {}/a.bin.".format(tmpdir)
+
+    fsize = os.path.getsize(binfile)
+    if '--blocksize' in args:
+        assert (fsize % 2) == 0, "Assembler produced odd-sized binary object file."
+    else:
+        assert fsize > 0, "Assembler produced empty binary object file."
+        assert (fsize % 2048) == 0, "Assembler produced binary object file that is not a multiple of 1,024 Words."
 
     # Check that the assembly step produced the expected files.
     dir_contents = ['a.asm', 'a.bin', 'a.map', 'a.pasm', 'a.sym']
@@ -338,15 +347,15 @@ def run_on_emulator(capsys, tmpdir, source, timeout=20000000,
     assemble(tmpdir, source, long=long, args=asm_args)
 
     out, err = get_capsys_outerr(capsys)
-    args = [ "--ram=512", "--enable=DEB", "--rom=a.bin" ]
+    args = [ "--ram=512", "--enable=DEB",
+             "--rom={}".format(os.path.join(tmpdir, "a.bin")) ]
 
     # Okay, now run it with the emulator
     if cftemu_args is not None:
         args += cftemu_args
     #assert False, ' '.join(args)
 
-    data = run_c_emulator(tmpdir, capsys, args)
-    return data
+    return run_c_emulator(tmpdir, capsys, args)
 
 
 def run_on_verilog_emu(capsys, tmpdir, source, timeout=20000000,

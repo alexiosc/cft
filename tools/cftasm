@@ -364,9 +364,10 @@ class CFTAssembler(object):
 
         p.add_argument('-m', '--model', choices=["short", "long"],
                        default="short", help="""Choose an assembly model. --model=short produces
-                       relocatable images that can be a maximum of 64KW . --model=long allows the
-                       full 24-bit memory to be written to. This affects object code sizes,
-                       sanity checks, warnings and how addresses are printed. (default: %(default)s)""")
+                       relocatable images that can be a maximum of 64KW (65,536 Words).
+                       --model=long allows the full 24-bit memory to be written to.
+                       This affects object code sizes, sanity checks, warnings and how
+                       addresses are printed. (default: %(default)s)""")
 
         p.add_argument('-a', '--asm-file',
                        help='Set processed assembly file output (default: OUTPUT-FILE.pasm).')
@@ -391,6 +392,11 @@ class CFTAssembler(object):
                        help="""Set the maximum ROM size for Verilog image generation (long model only). The
                        default is meant for faster image generation. (default:
                        %(default)s)""")
+
+        p.add_argument('--blocksize', metavar="KWORDS", default=1, type=int,
+                       help="""Binary files will be generated in sizes that are multiples of this block size,
+                       expressed in Kilowords. Specify 0 to disable padding.
+                       (default: %(default)s)""")
 
         # p.add_option('', '--xpm',
         #              help='Output an XPM file mapping the memory image. ' + 
@@ -2100,6 +2106,10 @@ class CFTAssembler(object):
         #print(self.minaddr, self.maxaddr, len(self.mem[self.minaddr : self.maxaddr + 1]))
         with open(self.args.out_file, 'wb') as f:
             self.mem[self.minaddr : self.maxaddr + 1].tofile(f)
+            if self.args.blocksize > 0:
+                fs, bs = f.tell(), self.args.blocksize * 2048
+                pad = bs * ((fs + (bs - 1)) // bs) - fs
+                f.write(b"\0" * pad)
 
         if self.args.verilog:
             basename = os.path.splitext(self.args.out_file)[0]
