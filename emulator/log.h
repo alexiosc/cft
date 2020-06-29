@@ -68,6 +68,9 @@ int log_enabled(int level, log_unit_t unit);
 #  define notice(msg, ...)  log_msg(LOG_NOTICE, LOG_MACROS_UNIT, msg, ## __VA_ARGS__)
 #  define info(msg, ...)    log_msg(LOG_INFO, LOG_MACROS_UNIT, msg, ## __VA_ARGS__)
 #  define debug(msg, ...)   log_msg(LOG_DEBUG, LOG_MACROS_UNIT, msg, ## __VA_ARGS__)
+#  define debug2(msg, ...)  log_msg(LOG_DEBUG2, LOG_MACROS_UNIT, msg, ## __VA_ARGS__)
+#  define debug3(msg, ...)  log_msg(LOG_DEBUG3, LOG_MACROS_UNIT, msg, ## __VA_ARGS__)
+#  define debug4(msg, ...)  log_msg(LOG_DEBUG4, LOG_MACROS_UNIT, msg, ## __VA_ARGS__)
 #  define log_enabeld(l)    log_enabled(level, LOG_MACROS_UNIT)
 #else
 #  define fatal(msg, ...) {                                        \
@@ -80,6 +83,9 @@ int log_enabled(int level, log_unit_t unit);
 #  define notice(msg, ...)  log_msg(LOG_NOTICE, LOG_NO_UNIT, msg, ## __VA_ARGS__)
 #  define info(msg, ...)    log_msg(LOG_INFO, LOG_NO_UNIT, msg, ## __VA_ARGS__)
 #  define debug(msg, ...)   log_msg(LOG_DEBUG, LOG_NO_UNIT, msg, ## __VA_ARGS__)
+#  define debug2(msg, ...)  log_msg(LOG_DEBUG2, LOG_NO_UNIT, msg, ## __VA_ARGS__)
+#  define debug3(msg, ...)  log_msg(LOG_DEBUG3, LOG_NO_UNIT, msg, ## __VA_ARGS__)
+#  define debug4(msg, ...)  log_msg(LOG_DEBUG4, LOG_NO_UNIT, msg, ## __VA_ARGS__)
 #endif
 
 
