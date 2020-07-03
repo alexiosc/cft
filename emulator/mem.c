@@ -41,7 +41,8 @@ typedef struct {
     word *      mem;            // Memory
     char *      pasm;           // PASM source (could be NULL)
     char *      map;            // Map file (could be NULL)
-    int         is_ram;         // Writeable?
+    int         is_ram:1;       // Is it RAM?
+    int         is_wrom:1;      // Is it writeable ROM?
 } mem_t;
 
 
@@ -109,8 +110,8 @@ mem_init()
         free(pasm_fname);
 
         // TODO: Load ROM image, PASM and MAP
-
         memp->is_ram = 0;
+        memp->is_wrom = 0;
         kw_rom += memp->size;
     }
 
@@ -122,6 +123,7 @@ mem_init()
     memp->pasm = NULL;
     memp->map = NULL;
     memp->is_ram = 1;
+    memp->is_wrom = 0;
 
     debug("RAM: %s - %s (%dK)",
 	  format_longaddr(memp->start, start_addr),
@@ -129,6 +131,25 @@ mem_init()
 	  memp->size >> 10);
 
     info("%dK RAM, %dK ROM", memp->size >> 10, kw_rom >> 10);
+}
+
+
+void
+mem_done()
+{
+    // Nothing here for now.
+}
+
+
+// Change all loaded ROMs into RAM. This is used to simulate manually entered
+// programs during testing.
+void mem_writeable_rom()
+{
+    int i;
+    mem_t * memp;
+    for (i = 0, memp = mem_map; i < mem_num_regions; i++, memp++) {
+        if (!memp->is_ram) memp->is_wrom = 1;
+    }
 }
 
 
@@ -180,6 +201,12 @@ mem_write(longaddr_t a, word d)
             format_longaddr(a, NULL));
     return 0;
 }
+
+
+// Change all loaded ROMs into RAM. This is used to simulate manually entered
+// programs during testing.
+void mem_writeable_rom();
+
          
 
 // End of file.

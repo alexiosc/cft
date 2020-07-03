@@ -42,7 +42,7 @@ wait
 cp $base-bg.png $base-mask.png
 
 # Get the image dimensions.
-dimensions=$(file $base-bg.png | grep -oP '\d+ x \d+')
+dimensions=$(file $base-bg.png | grep -oP '\d+ x \d+')14
 w=${dimensions%% *}
 h=${dimensions##* }
 debug "Base geometry is ${w}x${h}."

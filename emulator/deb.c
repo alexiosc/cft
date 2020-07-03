@@ -43,6 +43,10 @@ void deb_init()
     deb_log_unit = log_add_unit("DEB", -1, -1);
     debug("Initialised basic DEB board");
     deb_out("345 OK -- debugging subsystem available and ready");
+    if (emu.writeable_rom) {
+        // This is not available on real hardware.
+        deb_out("345 ROM is writeable");
+    }
 }
 
 

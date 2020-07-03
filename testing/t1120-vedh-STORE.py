@@ -74,7 +74,9 @@ def test_STORE_I(framework, capsys, tmpdir):
     """
     source += asm_memory_banks(mbp=0x80, mbd=0, mbz=0)
 
-    expected = ExpectedData([ SUCCESS, ROM_WP0 ])
+    expected = ExpectedData([ SUCCESS ])
+    if framework in ["verilog", "emulator"]:
+        expected += [ SUCCESS, ROM_WP0 ]
 
     MAX=255                     # 1-255
 

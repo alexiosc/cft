@@ -22,6 +22,7 @@
 #include "cmdline.h"
 #include "util.h"
 #include "log.h"
+#include "mem.h"
 #include "io.h"
 
 
@@ -39,10 +40,14 @@ static struct argp_option options[] =
     { "quiet",     'q',           NULL,            0,
       "Print less information (cumulative)", 0 },
 
+    { "list-devs", KEY_LIST_DEVS, NULL, 0,
+      "List known devices and exit.", 0},
+
+    { NULL, 0, NULL, 0, "Memory\n", 10 },
     { "ram", 'm', "SIZE", 0,
       "Set the size of RAM in KiW (1,024 16-bit Words). Between 0 and 16384 KiW "
       "can be specified for SIZE. Any ROM images loaded will overlay this RAM "
-      "if their regions overlap. (default: 64)", 0 },
+      "if their regions overlap. (default: 64)"},
 
     { "rom", 'r', "FILENAME[,BASE-ADDRESS[,SIZE]]", 0,
       "Load the ROM in FILENAME.bin. If available, also load FILENAME.map "
@@ -53,11 +58,14 @@ static struct argp_option options[] =
       "will be loaded. The default BASE-ADDRESS is 8192 (bank &80). The "
       "default SIZE is all of the ROM. The loaded ROM image may overlap "
       "RAM. This option may be specified multiple times to map multiple "
-      "ROM images to the CFT's address space. (default: no ROM)", 0 },
+      "ROM images to the CFT's address space. (default: no ROM)"},
 
-    { "list-devs", KEY_LIST_DEVS, NULL, 0,
-      "List known devices and exit.", 0},
+    { "writeable-rom", KEY_WRITEABLE_ROM, NULL, 0,
+      "Make ROMs defined up to this point in the command line writeable. "
+      "This is used for some tests." },
+    
 
+    { NULL, 0, NULL, 0, "Input/Output\n", 20 },
     { "enable", 'e', "DEV", 0,
       "Enable the specified device given its three-letter code. For a list "
       "of devices, run with --list-devs. You can specify this option "
@@ -67,6 +75,8 @@ static struct argp_option options[] =
       "Disable the specified device given its three-letter code. For a list "
       "of devices, run with --list-devs. You can specify this option "
       "multiple times to enable as many devices as needed.", 0 },
+
+    { NULL, 0, NULL, 0, "Help", -1 },
 
     // { "map", 'M', "MAP-FILE", 0,
     //   "Load a .map file. Where possible, use it to simplify listing of addresses.",
@@ -341,6 +351,10 @@ parse_opt (int key, char *arg, struct argp_state *state)
         parse_romspec(state, arg);
         break;
 
+    case KEY_WRITEABLE_ROM:
+        mem_writeable_rom();
+        emu.writeable_rom = 1;
+        break;
 
     case KEY_LIST_DEVS:
         io_list_devs();

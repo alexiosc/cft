@@ -30,6 +30,8 @@ void cmdline_parse(int argc, char **argv);
 enum {DUMMY_KEY=129
       ,KEY_LIST_DEVS
 
+      ,KEY_WRITEABLE_ROM
+
       // These may not be used anymore.
 
       // ,KEY_DEBUG_MICROCODE

@@ -26,6 +26,10 @@ void mem_init();
 
 void mem_done();
 
+// Change all loaded ROMs into RAM. This is used to simulate manually entered
+// programs during testing.
+void mem_writeable_rom();
+
 int mem_read(longaddr_t addr, word * data);
 
 int mem_write(longaddr_t addr, word data);

@@ -33,6 +33,7 @@ typedef struct cftemu_t {
     romspec_t * roms;           // ROMs to load
     int         num_roms;       // Number of ROMs specified.
 
+    int         writeable_rom:1;
     int         sentinel:1;
     int         debug_microcode:1;
     int         debug_mem:1;
