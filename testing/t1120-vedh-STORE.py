@@ -76,7 +76,7 @@ def test_STORE_I(framework, capsys, tmpdir):
 
     expected = ExpectedData([ SUCCESS ])
     if framework in ["verilog", "emulator"]:
-        expected += [ SUCCESS, ROM_WP0 ]
+        expected += [ ROM_WP0 ]
 
     MAX=255                     # 1-255
 
@@ -259,7 +259,7 @@ def test_STORE_I_R_autoinc(framework, capsys, tmpdir):
             STORE R &341  ; MBD-relative autoinc reg
     """
     source += """
-            LOAD I R &341      ; Instruction under test!
+            LOAD I R &341
             dfp.PRINTH
     """.rstrip() * reps
 

@@ -921,6 +921,9 @@ cpu_control_store()
     cpu.uav.r = (cpu.ir >> 10) & 1;
     cpu.uav.subop = (cpu.ir >> 7) & 7;
 
+    // Set the indexing mode if the IR operand is 0x300 to 0x3ff.
+    cpu.uav.idx = ((cpu.ir & 0x0300) == 0x300) ? ((cpu.ir >> 6) & 3) : 0;
+
     // If an interrupt has been requested and interrupts are allowed, we jump
     // to the IRQ microprogram when the previous instruction ends.
     if (cpu.irq == 0 && cpu.fi == 0 && cpu.uav.uaddr == 0) {

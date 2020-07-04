@@ -90,6 +90,10 @@ extern state_t cpu;
 #define MBR_MBS 2
 #define MBR_MBZ 3
 
+// The I and R fields in the IR are used a lot.
+#define IR_I 0x0400
+#define IR_R 0x0800
+
 
 void cpu_init();
 
