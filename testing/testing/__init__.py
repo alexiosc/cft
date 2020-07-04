@@ -347,8 +347,9 @@ def run_on_emulator(capsys, tmpdir, source, timeout=20000000,
     assemble(tmpdir, source, long=long, args=asm_args)
 
     out, err = get_capsys_outerr(capsys)
-    args = [ "--ram=512", "--enable=DEB",
-             "--rom={}".format(os.path.join(tmpdir, "a.bin")) ]
+    args = [ "--ram=512", "--enable=DEB" ]
+    args += [ "--rom={},{}".format(os.path.join(tmpdir, "a.bin"),
+                                   kwargs.get("rom_addr", 8192)) ]
 
     # Translate the Verilog emulator +wp=0 to --writeable-rom for the C emulator
     if "+wp=0" in kwargs.get("verilog_args", ""):

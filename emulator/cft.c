@@ -178,7 +178,7 @@ cpu_handle_reset()
         cpu.uav.rst = 1;
         cpu.rst_hold = -1;
         cpu.resetting = 0;
-        debug("RSTHOLD de-assrted.");
+        debug("RSTHOLD de-asserted.");
     }
 }
 

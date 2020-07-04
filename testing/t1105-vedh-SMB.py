@@ -12,15 +12,12 @@ import subprocess
 from testing import * 
 
 
-@pytest.mark.verilog
-@pytest.mark.emulator
-@pytest.mark.hardware
 @pytest.mark.MBU
 @pytest.mark.LI
 @pytest.mark.SMB
 @pytest.mark.STORE
 @pytest.mark.LOAD
-def test_SMB(capsys, tmpdir):
+def test_SMB(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
@@ -157,7 +154,9 @@ def test_SMB(capsys, tmpdir):
         HALTED
     ])
 
-    result = run_on_verilog_emu(capsys, tmpdir, source, long=True)
+    result = run_on_framework(framework, capsys, tmpdir, source,
+                              rom_addr=0, # For the cftemu
+                              long=True)
     result = list(expected.prepare(result))
     assert list(result) == expected
 
