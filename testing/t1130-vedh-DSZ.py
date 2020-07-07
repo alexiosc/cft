@@ -20,7 +20,7 @@ from testing import *
 @pytest.mark.DSZ
 @pytest.mark.LOAD
 @pytest.mark.JMP
-def test_DSZ(capsys, tmpdir):
+def test_DSZ(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
@@ -56,7 +56,7 @@ def test_DSZ(capsys, tmpdir):
                   [ 340, "PRINTD", "-1" ], # The loop register location
                   HALTED ]
 
-    result = run_on_verilog_emu(capsys, tmpdir, source,
+    result = run_on_framework(framework, capsys, tmpdir, source,
                                 verilog_args=["+wp=0"])
     result = list(expected.prepare(result))
     pprint.pprint(result)
@@ -71,7 +71,7 @@ def test_DSZ(capsys, tmpdir):
 @pytest.mark.DSZ
 @pytest.mark.LOAD
 @pytest.mark.JMP
-def test_DSZ_R(capsys, tmpdir):
+def test_DSZ_R(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
@@ -107,7 +107,7 @@ def test_DSZ_R(capsys, tmpdir):
                   [ 340, "PRINTD", "-1" ], # The loop register location
                   HALTED ]
 
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     result = list(expected.prepare(result))
     assert result == expected
 
@@ -120,7 +120,7 @@ def test_DSZ_R(capsys, tmpdir):
 @pytest.mark.DSZ
 @pytest.mark.LOAD
 @pytest.mark.JMP
-def test_DSZ_I(capsys, tmpdir):
+def test_DSZ_I(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
@@ -157,7 +157,7 @@ def test_DSZ_I(capsys, tmpdir):
                   [ 340, "PRINTD", "-1" ], # The loop register location
                   HALTED ]
 
-    result = run_on_verilog_emu(capsys, tmpdir, source,
+    result = run_on_framework(framework, capsys, tmpdir, source,
                                 verilog_args=["+wp=0"])
     result = list(expected.prepare(result))
     pprint.pprint(result)
@@ -172,7 +172,7 @@ def test_DSZ_I(capsys, tmpdir):
 @pytest.mark.DSZ
 @pytest.mark.LOAD
 @pytest.mark.JMP
-def test_DSZ_I_R(capsys, tmpdir):
+def test_DSZ_I_R(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
@@ -210,7 +210,7 @@ def test_DSZ_I_R(capsys, tmpdir):
                   [ 340, "PRINTD", "-1" ], # The loop register location
                   HALTED ]
 
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     result = list(expected.prepare(result))
     pprint.pprint(result)
     assert result == expected

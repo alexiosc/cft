@@ -16,7 +16,7 @@ from testing import *
 @pytest.mark.hardware
 @pytest.mark.LI
 @pytest.mark.SHL
-def test_SHL(capsys, tmpdir):
+def test_SHL(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
@@ -57,7 +57,7 @@ def test_SHL(capsys, tmpdir):
     ]
     expected += [ HALTED ]
 
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     result = list(expected.prepare(result))
     # pprint.pprint(result)
     # assert False
@@ -140,7 +140,7 @@ def calc_SHL(x, d):
 @pytest.mark.RET
 @pytest.mark.SHL
 @pytest.mark.slow
-def test_SHL_slow(capsys, tmpdir):
+def test_SHL_slow(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
@@ -187,7 +187,7 @@ def test_SHL_slow(capsys, tmpdir):
         expected += [ SUCCESS ]
     expected += [ HALTED ]
 
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     result = list(expected.prepare(result))
     assert result == expected
 

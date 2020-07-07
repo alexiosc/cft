@@ -31,7 +31,7 @@ long_values = [ 5480, 35648, 60652, 33532, 11468, 28996, 14536, 60576, 52836,
 @pytest.mark.LJMP
 @pytest.mark.LJSR
 @pytest.mark.LRET
-def test_LRET(capsys, tmpdir):
+def test_LRET(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
@@ -89,7 +89,7 @@ def test_LRET(capsys, tmpdir):
     expected = ExpectedData([ SUCCESS ] * (len(long_values) + 1))
     expected += [ HALTED ]
 
-    result = run_on_verilog_emu(capsys, tmpdir, source, long=True)
+    result = run_on_framework(framework, capsys, tmpdir, source, long=True)
     result = list(expected.prepare(result))
     assert result == expected
 

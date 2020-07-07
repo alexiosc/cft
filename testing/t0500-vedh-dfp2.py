@@ -13,7 +13,7 @@ from testing import *
 
 
 @pytest.mark.verilog
-def test_sentinel(capsys, tmpdir):
+def test_sentinel(framework, capsys, tmpdir):
 
     source = """
     .include "dfp2.asm"
@@ -23,12 +23,12 @@ def test_sentinel(capsys, tmpdir):
     """
 
     expected = ExpectedData([ OK, SENTINEL ])
-    result = expected.prepare(run_on_verilog_emu(capsys, tmpdir, source))
+    result = expected.prepare(run_on_framework(framework, capsys, tmpdir, source))
     assert expected == list(result)
 
     
 @pytest.mark.verilog
-def test_halt(capsys, tmpdir):
+def test_halt(framework, capsys, tmpdir):
 
     source = """
     .include "dfp2.asm"
@@ -40,12 +40,12 @@ def test_halt(capsys, tmpdir):
     """
 
     expected = ExpectedData([ OK, HALTED ])
-    result = expected.prepare(run_on_verilog_emu(capsys, tmpdir, source))
+    result = expected.prepare(run_on_framework(framework, capsys, tmpdir, source))
     assert expected == list(result)
 
     
 @pytest.mark.verilog
-def test_success(capsys, tmpdir):
+def test_success(framework, capsys, tmpdir):
 
     source = """
     .include "dfp2.asm"
@@ -59,12 +59,12 @@ def test_success(capsys, tmpdir):
     """
 
     expected = ExpectedData([ OK, SUCCESS, SUCCESS, HALTED ])
-    result = expected.prepare(run_on_verilog_emu(capsys, tmpdir, source))
+    result = expected.prepare(run_on_framework(framework, capsys, tmpdir, source))
     assert expected == list(result)
 
     
 @pytest.mark.verilog
-def test_fail(capsys, tmpdir):
+def test_fail(framework, capsys, tmpdir):
 
     source = """
     .include "dfp2.asm"
@@ -78,12 +78,12 @@ def test_fail(capsys, tmpdir):
     """
 
     expected = ExpectedData([ OK, FAIL ])
-    result = expected.prepare(run_on_verilog_emu(capsys, tmpdir, source))
+    result = expected.prepare(run_on_framework(framework, capsys, tmpdir, source))
     assert expected == list(result)
 
     
 @pytest.mark.verilog
-def test_print(capsys, tmpdir):
+def test_print(framework, capsys, tmpdir):
     """We haven't formally checked the LI instruction yet, but we'll try
     it out here anyway. We've been informally testing the OUT instruction,
     after all!"""
@@ -121,7 +121,7 @@ def test_print(capsys, tmpdir):
         [ 340, "PRINTL", "03ff03ff" ],
         HALTED
     ])
-    result = expected.prepare(run_on_verilog_emu(capsys, tmpdir, source))
+    result = expected.prepare(run_on_framework(framework, capsys, tmpdir, source))
     assert expected == list(result)
 
     

@@ -28,7 +28,7 @@ page_values = [ 483, 681, 639, 561, 108, 183, 603, 81, 420, 453, 282, 51, 150,
 @pytest.mark.TSA
 @pytest.mark.TAS
 @pytest.mark.RET
-def test_RET(capsys, tmpdir):
+def test_RET(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
@@ -68,7 +68,7 @@ def test_RET(capsys, tmpdir):
         source += "           SUCCESS\n"
         source += "           RET\n"
 
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     result = list(expected.prepare(result))
     assert result == expected
 

@@ -13,7 +13,7 @@ from testing import *
 
 
 @pytest.mark.verilog
-def test_verilog_emu(capsys, tmpdir):
+def test_verilog_emu(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
@@ -24,7 +24,7 @@ def test_verilog_emu(capsys, tmpdir):
     """
 
     expected = ExpectedData([OK, OK, HALTED])
-    result = expected.prepare(run_on_verilog_emu(capsys, tmpdir, source))
+    result = expected.prepare(run_on_framework(framework, capsys, tmpdir, source))
     assert expected == list(result)
 
     

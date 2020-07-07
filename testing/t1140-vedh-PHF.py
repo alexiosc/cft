@@ -23,7 +23,7 @@ from testing import *
 @pytest.mark.PPA
 @pytest.mark.TAS
 @pytest.mark.TSA
-def test_PHF(capsys, tmpdir):
+def test_PHF(framework, capsys, tmpdir):
     source = """
     .include "mbu.asm"
     .include "dfp2.asm"
@@ -166,7 +166,7 @@ def test_PHF(capsys, tmpdir):
         HALTED
     ])
 
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     result = list(expected.prepare(result))
     # pprint.pprint(result)
     # assert False

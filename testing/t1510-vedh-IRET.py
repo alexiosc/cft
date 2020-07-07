@@ -21,7 +21,7 @@ from testing import *
 @pytest.mark.LJMP
 @pytest.mark.TRAP
 @pytest.mark.IRET
-def test_IRET(capsys, tmpdir):
+def test_IRET(framework, capsys, tmpdir):
     source = """
     .include "mbu.asm"
     .include "dfp2.asm"
@@ -110,7 +110,7 @@ def test_IRET(capsys, tmpdir):
                               SUCCESS,
 
                               HALTED ])
-    result = run_on_verilog_emu(capsys, tmpdir, source, long=True)
+    result = run_on_framework(framework, capsys, tmpdir, source, long=True)
     # pprint.pprint(list(result))
     # assert False
     result = list(expected.prepare(result))
@@ -126,7 +126,7 @@ def test_IRET(capsys, tmpdir):
 @pytest.mark.LJMP
 @pytest.mark.IRET
 @pytest.mark.STI
-def test_IRET_int(capsys, tmpdir):
+def test_IRET_int(framework, capsys, tmpdir):
     source = """
     .include "mbu.asm"
     .include "dfp2.asm"
@@ -203,7 +203,7 @@ def test_IRET_int(capsys, tmpdir):
                               [ 340, 'PRINTH', '0000' ],
                               SUCCESS,
                               HALTED ])
-    result = run_on_verilog_emu(capsys, tmpdir, source, long=True)
+    result = run_on_framework(framework, capsys, tmpdir, source, long=True)
     # pprint.pprint(list(result))
     # assert False
     result = list(expected.prepare(result))

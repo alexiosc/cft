@@ -29,7 +29,7 @@ long_values = [ 5480, 35648, 60652, 33532, 11468, 28996, 14536, 60576, 52836,
 @pytest.mark.hardware
 @pytest.mark.LI
 @pytest.mark.JPA
-def test_JPA(capsys, tmpdir):
+def test_JPA(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
@@ -55,7 +55,7 @@ def test_JPA(capsys, tmpdir):
     source += "           HALT\n"
     expected += [ HALTED ]
 
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     result = list(expected.prepare(result))
     assert result == expected
 

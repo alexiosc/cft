@@ -19,7 +19,7 @@ from testing import *
 @pytest.mark.PHA
 @pytest.mark.TAS
 @pytest.mark.TSA
-def test_TSA(capsys, tmpdir):
+def test_TSA(framework, capsys, tmpdir):
     source = """
     .include "mbu.asm"
     .include "dfp2.asm"
@@ -67,7 +67,7 @@ def test_TSA(capsys, tmpdir):
         HALTED
     ])
 
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     result = list(expected.prepare(result))
     assert list(result) == expected
 

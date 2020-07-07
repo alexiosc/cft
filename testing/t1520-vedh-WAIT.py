@@ -22,7 +22,7 @@ from testing import *
 @pytest.mark.IRET
 @pytest.mark.STI
 @pytest.mark.WAIT
-def test_WAIT(capsys, tmpdir):
+def test_WAIT(framework, capsys, tmpdir):
     num_waits = 32
     source = """
     .include "mbu.asm"
@@ -78,7 +78,7 @@ def test_WAIT(capsys, tmpdir):
         expected += [ [ 340, 'PRINTD', str(1023 - x) ], SUCCESS ]
     expected += [ HALTED ]
 
-    result = run_on_verilog_emu(capsys, tmpdir, source, long=True)
+    result = run_on_framework(framework, capsys, tmpdir, source, long=True)
     # pprint.pprint(list(result))
     # assert False
     result = list(expected.prepare(result))

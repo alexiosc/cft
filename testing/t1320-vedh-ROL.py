@@ -16,7 +16,7 @@ from testing import *
 @pytest.mark.hardware
 @pytest.mark.LI
 @pytest.mark.ROL
-def test_ROL(capsys, tmpdir):
+def test_ROL(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
@@ -57,7 +57,7 @@ def test_ROL(capsys, tmpdir):
     ]
     expected += [ HALTED ]
 
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     result = list(expected.prepare(result))
     assert result == expected
 
@@ -154,7 +154,7 @@ def test_calc_ROL():
 @pytest.mark.RET
 @pytest.mark.ROL
 @pytest.mark.slow
-def test_ROL_slow(capsys, tmpdir):
+def test_ROL_slow(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
@@ -203,7 +203,7 @@ def test_ROL_slow(capsys, tmpdir):
         expected += [ SUCCESS ]
     expected += [ HALTED ]
 
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     result = list(expected.prepare(result))
     assert result == expected
 

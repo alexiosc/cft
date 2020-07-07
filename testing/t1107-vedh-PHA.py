@@ -18,7 +18,7 @@ from testing import *
 @pytest.mark.LOAD
 @pytest.mark.PHA
 @pytest.mark.TAS
-def test_PHA(capsys, tmpdir):
+def test_PHA(framework, capsys, tmpdir):
     source = """
     .include "mbu.asm"
     .include "dfp2.asm"
@@ -65,7 +65,7 @@ def test_PHA(capsys, tmpdir):
         HALTED
     ])
 
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     result = list(expected.prepare(result))
     assert list(result) == expected
 
@@ -78,7 +78,7 @@ def test_PHA(capsys, tmpdir):
 @pytest.mark.TAS
 @pytest.mark.TSA
 @pytest.mark.slow
-def test_PHA_long(capsys, tmpdir):
+def test_PHA_long(framework, capsys, tmpdir):
 
     reps = 1024
     
@@ -135,7 +135,7 @@ def test_PHA_long(capsys, tmpdir):
     # be reps+1 at the end.
     expected += [ SUCCESS, [340, "PRINTD", str(reps + 1) ], HALTED ]
 
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     pprint.pprint(result, width=200)
     result = list(expected.prepare(result))
     assert list(result) == expected

@@ -174,7 +174,7 @@ def _test_bool(capsys, tmpdir, instr, validator_fx):
     # assert False
 
     expected += [ HALTED ]
-    result = run_on_verilog_emu(capsys, tmpdir, source,
+    result = run_on_framework(framework, capsys, tmpdir, source,
                                 verilog_args=["+wp=0"])
     # pprint.pprint(list(result))
     # assert False
@@ -217,7 +217,7 @@ def _test_bool_R(capsys, tmpdir, instr, validator_fx):
     # assert False
 
     expected += [ HALTED ]
-    result = run_on_verilog_emu(capsys, tmpdir, source, long=True)
+    result = run_on_framework(framework, capsys, tmpdir, source, long=True)
     # pprint.pprint(list(result))
     # assert False
     result = list(expected.prepare(result))
@@ -262,7 +262,7 @@ def _test_bool_I(capsys, tmpdir, instr, validator_fx):
     # assert False
 
     expected += [ HALTED ]
-    result = run_on_verilog_emu(capsys, tmpdir, source,
+    result = run_on_framework(framework, capsys, tmpdir, source,
                                 verilog_args=["+wp=0"])
     # pprint.pprint(list(result))
     # assert False
@@ -307,7 +307,7 @@ def _test_bool_I_R(capsys, tmpdir, instr, validator_fx):
     # assert False
 
     expected += [ HALTED ]
-    result = run_on_verilog_emu(capsys, tmpdir, source,
+    result = run_on_framework(framework, capsys, tmpdir, source,
                                 verilog_args=["+wp=0"])
     # pprint.pprint(list(result))
     # assert False
@@ -355,7 +355,7 @@ def _test_bool_I_R_autoinc(capsys, tmpdir, instr, validator_fx):
     # assert False
 
     expected += [ HALTED ]
-    result = run_on_verilog_emu(capsys, tmpdir, source,
+    result = run_on_framework(framework, capsys, tmpdir, source,
                                 verilog_args=["+wp=0"])
     # pprint.pprint(list(result))
     # assert False
@@ -406,7 +406,7 @@ def _test_bool_I_R_autodec(capsys, tmpdir, instr, validator_fx):
     # assert False
 
     expected += [ HALTED ]
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     # pprint.pprint(list(result))
     # assert False
     result = list(expected.prepare(result))
@@ -456,7 +456,7 @@ def _test_bool_I_R_stack(capsys, tmpdir, instr, validator_fx):
     # assert False
 
     expected += [ HALTED ]
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     # pprint.pprint(list(result))
     # assert False
     result = list(expected.prepare(result))
@@ -469,7 +469,7 @@ def _test_bool_I_R_stack(capsys, tmpdir, instr, validator_fx):
 @pytest.mark.alu
 @pytest.mark.LOAD
 @pytest.mark.AND
-def test_AND(capsys, tmpdir):
+def test_AND(framework, capsys, tmpdir):
     _test_bool(capsys, tmpdir, "AND", lambda a, b: a & b)
 
 @pytest.mark.verilog
@@ -479,7 +479,7 @@ def test_AND(capsys, tmpdir):
 @pytest.mark.LOAD
 @pytest.mark.STORE
 @pytest.mark.AND
-def test_AND_R(capsys, tmpdir):
+def test_AND_R(framework, capsys, tmpdir):
     _test_bool_R(capsys, tmpdir, "AND", lambda a, b: a & b)
 
 @pytest.mark.verilog
@@ -489,7 +489,7 @@ def test_AND_R(capsys, tmpdir):
 @pytest.mark.LOAD
 @pytest.mark.STORE
 @pytest.mark.AND
-def test_AND_I(capsys, tmpdir):
+def test_AND_I(framework, capsys, tmpdir):
     _test_bool_I(capsys, tmpdir, "AND", lambda a, b: a & b)
 
 @pytest.mark.verilog
@@ -499,7 +499,7 @@ def test_AND_I(capsys, tmpdir):
 @pytest.mark.LOAD
 @pytest.mark.STORE
 @pytest.mark.AND
-def test_AND_I_R(capsys, tmpdir):
+def test_AND_I_R(framework, capsys, tmpdir):
     _test_bool_I_R(capsys, tmpdir, "AND", lambda a, b: a & b)
 
 @pytest.mark.verilog
@@ -512,7 +512,7 @@ def test_AND_I_R(capsys, tmpdir):
 @pytest.mark.JMP
 @pytest.mark.AND
 @pytest.mark.STORE
-def test_AND_I_R_autoinc(capsys, tmpdir):
+def test_AND_I_R_autoinc(framework, capsys, tmpdir):
     _test_bool_I_R_autoinc(capsys, tmpdir, "AND", lambda a, b: a & b)
 
 @pytest.mark.verilog
@@ -524,7 +524,7 @@ def test_AND_I_R_autoinc(capsys, tmpdir):
 @pytest.mark.DSZ
 @pytest.mark.JMP
 @pytest.mark.AND
-def test_AND_I_R_autodec(capsys, tmpdir):
+def test_AND_I_R_autodec(framework, capsys, tmpdir):
     _test_bool_I_R_autodec(capsys, tmpdir, "AND", lambda a, b: a & b)
 
 @pytest.mark.verilog
@@ -536,7 +536,7 @@ def test_AND_I_R_autodec(capsys, tmpdir):
 @pytest.mark.DSZ
 @pytest.mark.JMP
 @pytest.mark.AND
-def test_AND_I_R_stack(capsys, tmpdir):
+def test_AND_I_R_stack(framework, capsys, tmpdir):
     _test_bool_I_R_stack(capsys, tmpdir, "AND", lambda a, b: a & b)
 
 
@@ -547,7 +547,7 @@ def test_AND_I_R_stack(capsys, tmpdir):
 @pytest.mark.alu
 @pytest.mark.LOAD
 @pytest.mark.OR
-def test_OR(capsys, tmpdir):
+def test_OR(framework, capsys, tmpdir):
     _test_bool(capsys, tmpdir, "OR", lambda a, b: a | b)
 
 @pytest.mark.verilog
@@ -557,7 +557,7 @@ def test_OR(capsys, tmpdir):
 @pytest.mark.LOAD
 @pytest.mark.STORE
 @pytest.mark.OR
-def test_OR_R(capsys, tmpdir):
+def test_OR_R(framework, capsys, tmpdir):
     _test_bool_R(capsys, tmpdir, "OR", lambda a, b: a | b)
 
 @pytest.mark.verilog
@@ -567,7 +567,7 @@ def test_OR_R(capsys, tmpdir):
 @pytest.mark.LOAD
 @pytest.mark.STORE
 @pytest.mark.OR
-def test_OR_I(capsys, tmpdir):
+def test_OR_I(framework, capsys, tmpdir):
     _test_bool_I(capsys, tmpdir, "OR", lambda a, b: a | b)
 
 @pytest.mark.verilog
@@ -577,7 +577,7 @@ def test_OR_I(capsys, tmpdir):
 @pytest.mark.LOAD
 @pytest.mark.STORE
 @pytest.mark.OR
-def test_OR_I_R(capsys, tmpdir):
+def test_OR_I_R(framework, capsys, tmpdir):
     _test_bool_I_R(capsys, tmpdir, "OR", lambda a, b: a | b)
 
 @pytest.mark.verilog
@@ -589,7 +589,7 @@ def test_OR_I_R(capsys, tmpdir):
 @pytest.mark.DSZ
 @pytest.mark.JMP
 @pytest.mark.OR
-def test_OR_I_R_autoinc(capsys, tmpdir):
+def test_OR_I_R_autoinc(framework, capsys, tmpdir):
     _test_bool_I_R_autoinc(capsys, tmpdir, "OR", lambda a, b: a | b)
 
 @pytest.mark.verilog
@@ -601,7 +601,7 @@ def test_OR_I_R_autoinc(capsys, tmpdir):
 @pytest.mark.DSZ
 @pytest.mark.JMP
 @pytest.mark.OR
-def test_OR_I_R_autodec(capsys, tmpdir):
+def test_OR_I_R_autodec(framework, capsys, tmpdir):
     _test_bool_I_R_autodec(capsys, tmpdir, "OR", lambda a, b: a | b)
 
 @pytest.mark.verilog
@@ -613,7 +613,7 @@ def test_OR_I_R_autodec(capsys, tmpdir):
 @pytest.mark.DSZ
 @pytest.mark.JMP
 @pytest.mark.OR
-def test_OR_I_R_stack(capsys, tmpdir):
+def test_OR_I_R_stack(framework, capsys, tmpdir):
     _test_bool_I_R_stack(capsys, tmpdir, "OR", lambda a, b: a | b)
 
 
@@ -624,7 +624,7 @@ def test_OR_I_R_stack(capsys, tmpdir):
 @pytest.mark.alu
 @pytest.mark.LOAD
 @pytest.mark.XOR
-def test_XOR(capsys, tmpdir):
+def test_XOR(framework, capsys, tmpdir):
     _test_bool(capsys, tmpdir, "XOR", lambda a, b: a ^ b)
 
 @pytest.mark.verilog
@@ -634,7 +634,7 @@ def test_XOR(capsys, tmpdir):
 @pytest.mark.LOAD
 @pytest.mark.STORE
 @pytest.mark.XOR
-def test_XOR_R(capsys, tmpdir):
+def test_XOR_R(framework, capsys, tmpdir):
     _test_bool_R(capsys, tmpdir, "XOR", lambda a, b: a ^ b)
 
 @pytest.mark.verilog
@@ -644,7 +644,7 @@ def test_XOR_R(capsys, tmpdir):
 @pytest.mark.LOAD
 @pytest.mark.STORE
 @pytest.mark.XOR
-def test_XOR_I(capsys, tmpdir):
+def test_XOR_I(framework, capsys, tmpdir):
     _test_bool_I(capsys, tmpdir, "XOR", lambda a, b: a ^ b)
 
 @pytest.mark.verilog
@@ -654,7 +654,7 @@ def test_XOR_I(capsys, tmpdir):
 @pytest.mark.LOAD
 @pytest.mark.STORE
 @pytest.mark.XOR
-def test_XOR_I_R(capsys, tmpdir):
+def test_XOR_I_R(framework, capsys, tmpdir):
     _test_bool_I_R(capsys, tmpdir, "XOR", lambda a, b: a ^ b)
 
 @pytest.mark.verilog
@@ -666,7 +666,7 @@ def test_XOR_I_R(capsys, tmpdir):
 @pytest.mark.DSZ
 @pytest.mark.JMP
 @pytest.mark.XOR
-def test_XOR_I_R_autoinc(capsys, tmpdir):
+def test_XOR_I_R_autoinc(framework, capsys, tmpdir):
     _test_bool_I_R_autoinc(capsys, tmpdir, "XOR", lambda a, b: a ^ b)
 
 @pytest.mark.verilog
@@ -676,7 +676,7 @@ def test_XOR_I_R_autoinc(capsys, tmpdir):
 @pytest.mark.LOAD
 @pytest.mark.STORE
 @pytest.mark.XOR
-def test_XOR_I_R_autodec(capsys, tmpdir):
+def test_XOR_I_R_autodec(framework, capsys, tmpdir):
     _test_bool_I_R_autodec(capsys, tmpdir, "XOR", lambda a, b: a ^ b)
 
 @pytest.mark.verilog
@@ -688,7 +688,7 @@ def test_XOR_I_R_autodec(capsys, tmpdir):
 @pytest.mark.DSZ
 @pytest.mark.JMP
 @pytest.mark.XOR
-def test_XOR_I_R_stack(capsys, tmpdir):
+def test_XOR_I_R_stack(framework, capsys, tmpdir):
     _test_bool_I_R_stack(capsys, tmpdir, "XOR", lambda a, b: a ^ b)
 
 if __name__ == "__main__":

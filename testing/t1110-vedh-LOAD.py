@@ -74,7 +74,7 @@ def test_LOAD_I(framework, capsys, tmpdir):
     # added the HALT instruction.
     expected += [ HALTED ]
 
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     result = list(expected.prepare(result))
 
     assert result == expected
@@ -106,7 +106,7 @@ def test_LOAD_R(framework, capsys, tmpdir):
     source += "\t\tOUT R &11d\n"
     expected += [ HALTED ]
 
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     result = list(expected.prepare(result))
 
     pprint.pprint(expected)
@@ -152,7 +152,7 @@ def test_LOAD_I_R(framework, capsys, tmpdir):
     # added the HALT instruction.
     expected += [ HALTED ]
 
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     result = list(expected.prepare(result))
 
     pprint.pprint(result)
@@ -194,7 +194,7 @@ def test_LOAD_I_R_autoinc(framework, capsys, tmpdir):
     for x in range(MAX):
         source += "\t\t.word {}\n".format(x)
     
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     result = list(expected.prepare(result))
     assert result == expected
 
@@ -236,7 +236,7 @@ def test_LOAD_I_R_autodec(framework, capsys, tmpdir):
         source += "\t\t.word {}\n".format(x)
     source += "data:\n"
     
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     result = list(expected.prepare(result))
     assert result == expected
 
@@ -281,7 +281,7 @@ def test_LOAD_I_R_stack(framework, capsys, tmpdir):
         source += "\t\t.word {}\n".format(x)
     source += "data:\n"
     
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     result = list(expected.prepare(result))
     assert result == expected
 

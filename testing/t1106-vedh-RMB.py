@@ -12,16 +12,13 @@ import subprocess
 from testing import * 
 
 
-@pytest.mark.verilog
-@pytest.mark.emulator
-@pytest.mark.hardware
 @pytest.mark.MBU
 @pytest.mark.LI
 @pytest.mark.SMB
 @pytest.mark.RMB
 @pytest.mark.STORE
 @pytest.mark.LOAD
-def test_RMB(capsys, tmpdir):
+def test_RMB(framework, capsys, tmpdir):
     source = """
     .include "mbu.asm"
     .include "dfp2.asm"
@@ -83,7 +80,7 @@ def test_RMB(capsys, tmpdir):
         HALTED
     ])
 
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     result = list(expected.prepare(result))
     assert list(result) == expected
 

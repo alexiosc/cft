@@ -26,7 +26,7 @@ from testing import *
 @pytest.mark.PHA
 @pytest.mark.SHL
 @pytest.mark.TAS
-def test_PPF(capsys, tmpdir):
+def test_PPF(framework, capsys, tmpdir):
 
     maxval = 255
     
@@ -75,7 +75,7 @@ def test_PPF(capsys, tmpdir):
                      [ 340, "PRINTH", "{:>04x}".format(flags) ]]
     expected += [ SUCCESS, HALTED ]
 
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     result = list(expected.prepare(result))
 
     # pprint.pprint(result)

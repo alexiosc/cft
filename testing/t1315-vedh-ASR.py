@@ -16,7 +16,7 @@ from testing import *
 @pytest.mark.hardware
 @pytest.mark.LI
 @pytest.mark.ASR
-def test_ASR(capsys, tmpdir):
+def test_ASR(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
@@ -82,7 +82,7 @@ def test_ASR(capsys, tmpdir):
     ]
     expected += [ HALTED ]
 
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     result = list(expected.prepare(result))
     assert result == expected
 
@@ -187,7 +187,7 @@ def test_calc_ASR():
 @pytest.mark.RET
 @pytest.mark.ASR
 @pytest.mark.slow
-def test_ASR_slow(capsys, tmpdir):
+def test_ASR_slow(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
@@ -234,7 +234,7 @@ def test_ASR_slow(capsys, tmpdir):
         expected += [ SUCCESS ]
     expected += [ HALTED ]
 
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     result = list(expected.prepare(result))
     assert result == expected
 

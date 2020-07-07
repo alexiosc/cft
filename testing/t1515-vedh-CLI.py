@@ -22,7 +22,7 @@ from testing import *
 @pytest.mark.STI
 @pytest.mark.CLI
 @pytest.mark.IRET
-def test_CLI_int(capsys, tmpdir):
+def test_CLI_int(framework, capsys, tmpdir):
     source = """
     .include "mbu.asm"
     .include "dfp2.asm"
@@ -113,7 +113,7 @@ def test_CLI_int(capsys, tmpdir):
     expected += [ [ 340, "PRINTD", str(x) ] for x in range(256, -1, -1) ]
     expected += [ SUCCESS,
                   HALTED ]
-    result = run_on_verilog_emu(capsys, tmpdir, source, long=True)
+    result = run_on_framework(framework, capsys, tmpdir, source, long=True)
     # pprint.pprint(list(result))
     # assert False
     result = list(expected.prepare(result))

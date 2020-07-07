@@ -174,7 +174,7 @@ def run_verilog_testbench(capsys, name, args=None):
         yield((int(code), state, comment))
 
 
-def run_c_emulator(tmpdir, capsys, args=None):
+def run_c_emulator(tmpdir, capsys, args=None, timeout=20):
     assert os.path.exists(C_EMULATOR), "{} missing. Please compile it".format(C_EMULATOR)
 
     # Note: the test tool (RUN_VERILOG_TEST) expects the .v file, not the .o file.
@@ -184,7 +184,8 @@ def run_c_emulator(tmpdir, capsys, args=None):
     if args is None:
         args = []
 
-    cmd = [os.path.abspath(C_EMULATOR)] + args
+    cmd = [ "/usr/bin/timeout", "-v", str(timeout),
+            os.path.abspath(C_EMULATOR) ] + args
     print(cmd)
     pipe = subprocess.Popen(cmd, cwd=tmpdir, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     (out, err) = pipe.communicate()
@@ -360,7 +361,7 @@ def run_on_emulator(capsys, tmpdir, source, timeout=20000000,
         args += cftemu_args
     #assert False, ' '.join(args)
 
-    return run_c_emulator(tmpdir, capsys, args)
+    return run_c_emulator(tmpdir, capsys, args, timeout=timeout//1000000)
 
 
 def run_on_verilog_emu(capsys, tmpdir, source, timeout=20000000,

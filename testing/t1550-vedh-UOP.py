@@ -154,7 +154,7 @@ data = [
 @pytest.mark.STORE
 @pytest.mark.LJMP
 @pytest.mark.UOP
-def test_UOP(capsys, tmpdir):
+def test_UOP(framework, capsys, tmpdir):
     source = """
     .include "mbu.asm"
     .include "dfp2.asm"
@@ -270,7 +270,7 @@ def test_UOP(capsys, tmpdir):
                               [ 340, "PRINTD", "11", ], [ 340, "PRINTH", "fffe" ], L1, # NOT
                               [ 340, "PRINTD", "12", ], [ 340, "PRINTH", "fffd" ], L1, # DEC
                               HALTED ])
-    result = run_on_verilog_emu(capsys, tmpdir, source, long=True)
+    result = run_on_framework(framework, capsys, tmpdir, source, long=True)
     # pprint.pprint(list(result))
     # assert False
     result = list(expected.prepare(result))
@@ -341,7 +341,7 @@ def test_NOT(capsys, tmpdir, numtests=10):
             SUCCESS ]
     expected += [ HALTED ]
     
-    result = run_on_verilog_emu(capsys, tmpdir, source, long=True, timeout=30000000)
+    result = run_on_framework(framework, capsys, tmpdir, source, long=True, timeout=30000000)
     # pprint.pprint(list(result))
     # pprint.pprint(list(expected))
     # assert False
@@ -358,7 +358,7 @@ def test_NOT(capsys, tmpdir, numtests=10):
 @pytest.mark.STORE
 @pytest.mark.NOT
 @pytest.mark.slow
-def test_NOT_long(capsys, tmpdir):
+def test_NOT_long(framework, capsys, tmpdir):
     test_NOT(capsys, tmpdir, numtests=1000)
 
 
@@ -425,7 +425,7 @@ def test_NEG(capsys, tmpdir, numtests=10):
         ]
     expected += [ HALTED ]
     
-    result = run_on_verilog_emu(capsys, tmpdir, source, long=True, timeout=30000000)
+    result = run_on_framework(framework, capsys, tmpdir, source, long=True, timeout=30000000)
     # pprint.pprint(list(result))
     # pprint.pprint(list(expected))
     # assert False
@@ -442,7 +442,7 @@ def test_NEG(capsys, tmpdir, numtests=10):
 @pytest.mark.STORE
 @pytest.mark.NEG
 @pytest.mark.slow
-def test_NEG_long(capsys, tmpdir):
+def test_NEG_long(framework, capsys, tmpdir):
     test_NEG(capsys, tmpdir, numtests=1000)
 
 
@@ -519,7 +519,7 @@ def test_INC(capsys, tmpdir, numtests=10, numops=5):
         expected += [ [ 340, "PRINTH", "{:>04x}".format(inc(x, i)) ] for i in range(1, 2 * numops + 3) ]
     expected += [ HALTED ]
     
-    result = run_on_verilog_emu(capsys, tmpdir, source, long=True, timeout=300000000)
+    result = run_on_framework(framework, capsys, tmpdir, source, long=True, timeout=300000000)
     # pprint.pprint(list(result))
     # pprint.pprint(list(expected))
     # assert False
@@ -536,7 +536,7 @@ def test_INC(capsys, tmpdir, numtests=10, numops=5):
 @pytest.mark.STORE
 @pytest.mark.INC
 @pytest.mark.slow
-def test_INC_long(capsys, tmpdir):
+def test_INC_long(framework, capsys, tmpdir):
     test_INC(capsys, tmpdir, numtests=200, numops=20)
 
 
@@ -613,7 +613,7 @@ def test_DEC(capsys, tmpdir, numtests=10, numops=5):
         expected += [ [ 340, "PRINTH", "{:>04x}".format(dec(x, i)) ] for i in range(1, 2 * numops + 3) ]
     expected += [ HALTED ]
     
-    result = run_on_verilog_emu(capsys, tmpdir, source, long=True, timeout=300000000)
+    result = run_on_framework(framework, capsys, tmpdir, source, long=True, timeout=300000000)
     # pprint.pprint(list(result))
     # pprint.pprint(list(expected))
     # assert False
@@ -630,7 +630,7 @@ def test_DEC(capsys, tmpdir, numtests=10, numops=5):
 @pytest.mark.STORE
 @pytest.mark.DEC
 @pytest.mark.slow
-def test_DEC_long(capsys, tmpdir):
+def test_DEC_long(framework, capsys, tmpdir):
     test_DEC(capsys, tmpdir, numtests=200, numops=20)
 
 
@@ -642,7 +642,7 @@ def test_DEC_long(capsys, tmpdir):
 @pytest.mark.STORE
 @pytest.mark.LJMP
 @pytest.mark.IFL
-def test_IFL(capsys, tmpdir):
+def test_IFL(framework, capsys, tmpdir):
     source = """
     .include "mbu.asm"
     .include "dfp2.asm"
@@ -768,7 +768,7 @@ def test_IFL(capsys, tmpdir):
                               [ 340, "PRINTD", "15", ], [ 340, "PRINTH", "fffe" ], L1, # NOT
                               [ 340, "PRINTD", "16", ], [ 340, "PRINTH", "fffd" ], L1, # DEC
                               HALTED ])
-    result = run_on_verilog_emu(capsys, tmpdir, source, long=True)
+    result = run_on_framework(framework, capsys, tmpdir, source, long=True)
     # pprint.pprint(list(result))
     # assert False
     result = list(expected.prepare(result))
@@ -784,7 +784,7 @@ def test_IFL(capsys, tmpdir):
 @pytest.mark.STORE
 @pytest.mark.LJMP
 @pytest.mark.IFV
-def test_IFV(capsys, tmpdir):
+def test_IFV(framework, capsys, tmpdir):
     source = """
     .include "mbu.asm"
     .include "dfp2.asm"
@@ -942,7 +942,7 @@ def test_IFV(capsys, tmpdir):
                               [ 340, "PRINTD", "15", ], [ 340, "PRINTH", "fffe" ], L0, # NOT
                               [ 340, "PRINTD", "16", ], [ 340, "PRINTH", "fffd" ], L0, # DEC
                               HALTED ])
-    result = run_on_verilog_emu(capsys, tmpdir, source, long=True)
+    result = run_on_framework(framework, capsys, tmpdir, source, long=True)
     # pprint.pprint(list(result))
     # assert False
     result = list(expected.prepare(result))

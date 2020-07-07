@@ -16,7 +16,7 @@ from testing import *
 @pytest.mark.hardware
 @pytest.mark.LI
 @pytest.mark.ROR
-def test_ROR(capsys, tmpdir):
+def test_ROR(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
@@ -65,7 +65,7 @@ def test_ROR(capsys, tmpdir):
     ]
     expected += [ HALTED ]
 
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     result = list(expected.prepare(result))
     assert result == expected
 
@@ -161,7 +161,7 @@ def test_calc_ROR():
 @pytest.mark.RET
 @pytest.mark.ROR
 @pytest.mark.slow
-def test_ROR_slow(capsys, tmpdir):
+def test_ROR_slow(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
@@ -210,7 +210,7 @@ def test_ROR_slow(capsys, tmpdir):
         expected += [ SUCCESS ]
     expected += [ HALTED ]
 
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     result = list(expected.prepare(result))
     assert result == expected
 

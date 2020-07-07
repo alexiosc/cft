@@ -21,7 +21,7 @@ from testing import *
 @pytest.mark.TAS
 @pytest.mark.TSA
 @pytest.mark.PEEK
-def test_PEEK(capsys, tmpdir):
+def test_PEEK(framework, capsys, tmpdir):
     source = """
     .include "mbu.asm"
     .include "dfp2.asm"
@@ -102,7 +102,7 @@ def test_PEEK(capsys, tmpdir):
         HALTED
     ])
 
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     result = list(expected.prepare(result))
     assert list(result) == expected
 
@@ -117,7 +117,7 @@ def test_PEEK(capsys, tmpdir):
 @pytest.mark.TSA
 @pytest.mark.PEEK
 @pytest.mark.slow
-def test_PEEK_long(capsys, tmpdir):
+def test_PEEK_long(framework, capsys, tmpdir):
 
     reps = 1024
     
@@ -184,7 +184,7 @@ def test_PEEK_long(capsys, tmpdir):
     expected += [ [340, "PRINTH", "ffff" ] ]
     expected += [ HALTED ]
 
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     # pprint.pprint(list(result), width=200)
     # assert False
     result = list(expected.prepare(result))

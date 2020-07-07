@@ -20,7 +20,7 @@ from testing import *
 @pytest.mark.DSZ
 @pytest.mark.TAD
 @pytest.mark.TDA
-def test_TAD(capsys, tmpdir):
+def test_TAD(framework, capsys, tmpdir):
 
     reps = 1024
     
@@ -53,7 +53,7 @@ def test_TAD(capsys, tmpdir):
     expected += [ [ 340, "PRINTD", str(x)] for x in range(reps, -1, -1) ]
     expected += [ HALTED ]
 
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     result = list(expected.prepare(result))
     assert list(result) == expected
 

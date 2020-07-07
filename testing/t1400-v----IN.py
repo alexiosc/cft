@@ -15,7 +15,7 @@ from testing import *
 @pytest.mark.verilog
 @pytest.mark.LI
 @pytest.mark.IN
-def test_IN(capsys, tmpdir):
+def test_IN(framework, capsys, tmpdir):
     """This test makes use of a fake Verilog test card that provides a
     rudimentary timer interrupt and a ‘hardware’ multiplier that can
     be used with the IOT instruction. This does not exist on actual
@@ -59,7 +59,7 @@ def test_IN(capsys, tmpdir):
                               [ 340, "PRINTH", "def0" ],
                               [ 340, "PRINTH", "4321" ],
                               HALTED ])
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     result = list(expected.prepare(result))
     assert list(result) == expected
 
@@ -67,7 +67,7 @@ def test_IN(capsys, tmpdir):
 @pytest.mark.verilog
 @pytest.mark.LI
 @pytest.mark.IN
-def test_IN_I(capsys, tmpdir):
+def test_IN_I(framework, capsys, tmpdir):
     """This test makes use of a fake Verilog test card that provides a
     rudimentary timer interrupt and a ‘hardware’ multiplier that can
     be used with the IOT instruction. This does not exist on actual
@@ -115,7 +115,7 @@ def test_IN_I(capsys, tmpdir):
                               [ 340, "PRINTH", "def0" ],
                               [ 340, "PRINTH", "4321" ],
                               HALTED ])
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     result = list(expected.prepare(result))
     assert list(result) == expected
 
@@ -125,7 +125,7 @@ def test_IN_I(capsys, tmpdir):
 @pytest.mark.LOAD
 @pytest.mark.STORE
 @pytest.mark.IN
-def test_IN_I_R(capsys, tmpdir):
+def test_IN_I_R(framework, capsys, tmpdir):
     """This test makes use of a fake Verilog test card that provides a
     rudimentary timer interrupt and a ‘hardware’ multiplier that can
     be used with the IOT instruction. This does not exist on actual
@@ -186,7 +186,7 @@ def test_IN_I_R(capsys, tmpdir):
                               [ 340, "PRINTH", "def0" ],
                               [ 340, "PRINTH", "4321" ],
                               HALTED ])
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     result = list(expected.prepare(result))
     assert list(result) == expected
 
@@ -201,7 +201,7 @@ def test_IN_I_R(capsys, tmpdir):
 @pytest.mark.JMP
 @pytest.mark.OUT
 @pytest.mark.IN
-def test_IN_I_R_autoinc(capsys, tmpdir):
+def test_IN_I_R_autoinc(framework, capsys, tmpdir):
     """This test makes use of a fake Verilog test card that provides a
     rudimentary timer interrupt and a ‘hardware’ multiplier that can
     be used with the IOT instruction. This does not exist on actual
@@ -250,7 +250,7 @@ def test_IN_I_R_autoinc(capsys, tmpdir):
                               [ 340, "PRINTH", "def0" ],
                               [ 340, "PRINTH", "4321" ],
                               HALTED ])
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     result = list(expected.prepare(result))
     # pprint.pprint(result)
     # assert False
@@ -268,7 +268,7 @@ def test_IN_I_R_autoinc(capsys, tmpdir):
 @pytest.mark.JMP
 @pytest.mark.OUT
 @pytest.mark.IN
-def test_IN_I_R_autodec(capsys, tmpdir):
+def test_IN_I_R_autodec(framework, capsys, tmpdir):
     """This test makes use of a fake Verilog test card that provides a
     rudimentary timer interrupt and a ‘hardware’ multiplier that can
     be used with the IOT instruction. This does not exist on actual
@@ -317,7 +317,7 @@ def test_IN_I_R_autodec(capsys, tmpdir):
                               [ 340, "PRINTH", "5678" ],
                               [ 340, "PRINTH", "1234" ],
                               HALTED ])
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     result = list(expected.prepare(result))
     # pprint.pprint(result)
     # assert False
@@ -335,7 +335,7 @@ def test_IN_I_R_autodec(capsys, tmpdir):
 @pytest.mark.JMP
 @pytest.mark.OUT
 @pytest.mark.IN
-def test_IN_I_R_autodec(capsys, tmpdir):
+def test_IN_I_R_autodec(framework, capsys, tmpdir):
     """This test makes use of a fake Verilog test card that provides a
     rudimentary timer interrupt and a ‘hardware’ multiplier that can
     be used with the IOT instruction. This does not exist on actual
@@ -384,7 +384,7 @@ def test_IN_I_R_autodec(capsys, tmpdir):
                               [ 340, "PRINTH", "5678" ],
                               [ 340, "PRINTH", "1234" ],
                               HALTED ])
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     result = list(expected.prepare(result))
     # pprint.pprint(result)
     # assert False

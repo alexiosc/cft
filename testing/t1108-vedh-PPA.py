@@ -20,7 +20,7 @@ from testing import *
 @pytest.mark.PPA
 @pytest.mark.TAS
 @pytest.mark.TSA
-def test_PPA(capsys, tmpdir):
+def test_PPA(framework, capsys, tmpdir):
     source = """
     .include "mbu.asm"
     .include "dfp2.asm"
@@ -86,7 +86,7 @@ def test_PPA(capsys, tmpdir):
         HALTED
     ])
 
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     result = list(expected.prepare(result))
     assert list(result) == expected
 
@@ -100,7 +100,7 @@ def test_PPA(capsys, tmpdir):
 @pytest.mark.TAS
 @pytest.mark.TSA
 @pytest.mark.slow
-def test_PPA_long(capsys, tmpdir):
+def test_PPA_long(framework, capsys, tmpdir):
 
     reps = 1024
     
@@ -164,7 +164,7 @@ def test_PPA_long(capsys, tmpdir):
     expected += [ [340, "PRINTH", "ffff" ] ]
     expected += [ HALTED ]
 
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     pprint.pprint(result, width=200)
     result = list(expected.prepare(result))
     assert list(result) == expected

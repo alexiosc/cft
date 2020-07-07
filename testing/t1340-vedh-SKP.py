@@ -16,7 +16,7 @@ from testing import *
 @pytest.mark.hardware
 @pytest.mark.LI
 @pytest.mark.NOP
-def test_NOP(capsys, tmpdir):
+def test_NOP(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
@@ -43,7 +43,7 @@ def test_NOP(capsys, tmpdir):
     expected = ExpectedData([ SUCCESS,
                               SUCCESS, SUCCESS, SUCCESS, SUCCESS,
                               HALTED ])
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     result = list(expected.prepare(result))
     assert list(result) == expected
 
@@ -53,7 +53,7 @@ def test_NOP(capsys, tmpdir):
 @pytest.mark.hardware
 @pytest.mark.LI
 @pytest.mark.SKIP
-def test_SKIP(capsys, tmpdir):
+def test_SKIP(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
@@ -88,7 +88,7 @@ def test_SKIP(capsys, tmpdir):
     expected = ExpectedData([ SUCCESS,
                               SUCCESS, SUCCESS, SUCCESS, SUCCESS,
                               HALTED ])
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     result = list(expected.prepare(result))
     assert list(result) == expected
 
@@ -141,7 +141,7 @@ def _test_SKP_subinstr(capsys, tmpdir, instr, skip_taken):
 
     expected += [ SUCCESS, HALTED ]
 
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     result = list(expected.prepare(result))
     # pprint.pprint(expected)
     # pprint.pprint(result)
@@ -156,7 +156,7 @@ def _test_SKP_subinstr(capsys, tmpdir, instr, skip_taken):
 @pytest.mark.SHL
 @pytest.mark.SKIP
 @pytest.mark.SNA
-def test_SNA(capsys, tmpdir):
+def test_SNA(framework, capsys, tmpdir):
     instr = "SNA"
     skip_taken = lambda x: x & 0x8000
     _test_SKP_subinstr(capsys, tmpdir, instr, skip_taken)
@@ -169,7 +169,7 @@ def test_SNA(capsys, tmpdir):
 @pytest.mark.SHL
 @pytest.mark.SKIP
 @pytest.mark.SZA
-def test_SZA(capsys, tmpdir):
+def test_SZA(framework, capsys, tmpdir):
     instr = "SZA"
     skip_taken = lambda x: x == 0
     _test_SKP_subinstr(capsys, tmpdir, instr, skip_taken)
@@ -182,7 +182,7 @@ def test_SZA(capsys, tmpdir):
 @pytest.mark.SHL
 @pytest.mark.SKIP
 @pytest.mark.SNP
-def test_SNP(capsys, tmpdir):
+def test_SNP(framework, capsys, tmpdir):
     instr = "SNP"
     skip_taken = lambda x: (x & 0x8000) or (x == 0)
     _test_SKP_subinstr(capsys, tmpdir, instr, skip_taken)
@@ -195,7 +195,7 @@ def test_SNP(capsys, tmpdir):
 @pytest.mark.SHL
 @pytest.mark.SKIP
 @pytest.mark.SNN
-def test_SNN(capsys, tmpdir):
+def test_SNN(framework, capsys, tmpdir):
     instr = "SNN"
     skip_taken = lambda x: not (x & 0x8000)
     _test_SKP_subinstr(capsys, tmpdir, instr, skip_taken)
@@ -208,7 +208,7 @@ def test_SNN(capsys, tmpdir):
 @pytest.mark.SHL
 @pytest.mark.SKIP
 @pytest.mark.SPA
-def test_SPA(capsys, tmpdir):
+def test_SPA(framework, capsys, tmpdir):
     instr = "SPA"
     skip_taken = lambda x: not ((x & 0x8000) or (x == 0))
     _test_SKP_subinstr(capsys, tmpdir, instr, skip_taken)
@@ -221,7 +221,7 @@ def test_SPA(capsys, tmpdir):
 @pytest.mark.SHL
 @pytest.mark.SKIP
 @pytest.mark.SNZ
-def test_SNZ(capsys, tmpdir):
+def test_SNZ(framework, capsys, tmpdir):
     instr = "SNZ"
     skip_taken = lambda x: not (x == 0)
     _test_SKP_subinstr(capsys, tmpdir, instr, skip_taken)
@@ -234,7 +234,7 @@ def test_SNZ(capsys, tmpdir):
 @pytest.mark.SHL
 @pytest.mark.SKIP
 @pytest.mark.SSL
-def test_SSL(capsys, tmpdir):
+def test_SSL(framework, capsys, tmpdir):
     # Trick: shift the AC's MSB into the L register to check this instruction.
     instr = "SHL 1\n    SSL"
     skip_taken = lambda x: x & 0x8000
@@ -248,7 +248,7 @@ def test_SSL(capsys, tmpdir):
 @pytest.mark.SHL
 @pytest.mark.SKIP
 @pytest.mark.SCL
-def test_SCL(capsys, tmpdir):
+def test_SCL(framework, capsys, tmpdir):
     # Trick: shift the AC's MSB into the L register to check this instruction.
     instr = "SHL 1\n    SCL"
     skip_taken = lambda x: not(x & 0x8000)
@@ -262,7 +262,7 @@ def test_SCL(capsys, tmpdir):
 @pytest.mark.SHL
 @pytest.mark.SKIP
 @pytest.mark.SSV
-def test_SSV(capsys, tmpdir):
+def test_SSV(framework, capsys, tmpdir):
     # Trick: transfer the AC to the Flags, and then FV = AC & 0x2000.
     instr = "PHA\n    PPF\n    SSV"
     skip_taken = lambda x: x & 0x2000
@@ -278,7 +278,7 @@ def test_SSV(capsys, tmpdir):
 @pytest.mark.SHL
 @pytest.mark.SKIP
 @pytest.mark.SCV
-def test_SCV(capsys, tmpdir):
+def test_SCV(framework, capsys, tmpdir):
     # Trick: transfer the AC to the Flags, and then FV = AC & 0x2000.
     instr = "PHA\n    PPF\n    SCV"
     skip_taken = lambda x: not(x & 0x2000)
@@ -300,7 +300,7 @@ def test_SCV(capsys, tmpdir):
 @pytest.mark.SKIP
 @pytest.mark.SNP
 @pytest.mark.slow
-def _test_SNP_long(capsys, tmpdir):
+def _test_SNP_long(framework, capsys, tmpdir):
 
     maxval = 65535
     instr = "SNP"
@@ -348,7 +348,7 @@ def _test_SNP_long(capsys, tmpdir):
 
     expected += [ SUCCESS, HALTED ]
 
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     result = list(expected.prepare(result))
     # pprint.pprint(result)
     # assert False

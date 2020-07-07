@@ -15,7 +15,7 @@ from testing import *
 @pytest.mark.verilog
 @pytest.mark.LI
 @pytest.mark.OUT
-def test_wait_states(capsys, tmpdir):
+def test_wait_states(framework, capsys, tmpdir):
     source = """
     .include "mbu.asm"
     .include "dfp2.asm"
@@ -66,7 +66,7 @@ def test_wait_states(capsys, tmpdir):
                               [ 340, 'PRINTH', '9abc' ],
                               [ 340, 'PRINTH', 'def0' ],
                               HALTED ])
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     result = list(expected.prepare(result))
     # pprint.pprint(result)
     # assert False

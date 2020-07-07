@@ -15,7 +15,7 @@ from testing import *
 @pytest.mark.verilog
 @pytest.mark.LI
 @pytest.mark.OUT
-def test_OUT(capsys, tmpdir):
+def test_OUT(framework, capsys, tmpdir):
     """We've already extensively tested the OUT instruction via DFP
     extended instructions, so this test can be trivial."""
     source = """
@@ -61,7 +61,7 @@ def test_OUT(capsys, tmpdir):
                               [ 340, 'PRINTH', '002a' ],
                               SUCCESS,
                               HALTED ])
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     result = list(expected.prepare(result))
     assert list(result) == expected
 
@@ -69,7 +69,7 @@ def test_OUT(capsys, tmpdir):
 @pytest.mark.verilog
 @pytest.mark.LI
 @pytest.mark.OUT
-def test_OUT_I(capsys, tmpdir):
+def test_OUT_I(framework, capsys, tmpdir):
     source = """
     .include "mbu.asm"
     .include "dfp2.asm"
@@ -116,7 +116,7 @@ def test_OUT_I(capsys, tmpdir):
                               [ 340, 'PRINTH', '002a' ],
                               SUCCESS,
                               HALTED ])
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     result = list(expected.prepare(result))
     assert list(result) == expected
 
@@ -126,7 +126,7 @@ def test_OUT_I(capsys, tmpdir):
 @pytest.mark.LOAD
 @pytest.mark.STORE
 @pytest.mark.OUT
-def test_OUT_I_R(capsys, tmpdir):
+def test_OUT_I_R(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
@@ -195,7 +195,7 @@ def test_OUT_I_R(capsys, tmpdir):
                               [ 340, 'PRINTH', '002a' ],
                               SUCCESS,
                               HALTED ])
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     result = list(expected.prepare(result))
     assert list(result) == expected
 
@@ -205,7 +205,7 @@ def test_OUT_I_R(capsys, tmpdir):
 @pytest.mark.LOAD
 @pytest.mark.STORE
 @pytest.mark.OUT
-def test_OUT_I_R_autoinc(capsys, tmpdir):
+def test_OUT_I_R_autoinc(framework, capsys, tmpdir):
     """This test makes use of a fake Verilog test card that provides a
     rudimentary timer interrupt and a ‘hardware’ multiplier that can
     be used with the IOT instruction. This does not exist on actual
@@ -257,7 +257,7 @@ def test_OUT_I_R_autoinc(capsys, tmpdir):
                               [ 340, 'PRINTC', '10' ],
                               SUCCESS,
                               HALTED ])
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     result = list(expected.prepare(result))
     # pprint.pprint(result)
     # assert False
@@ -269,7 +269,7 @@ def test_OUT_I_R_autoinc(capsys, tmpdir):
 @pytest.mark.LI
 @pytest.mark.STORE
 @pytest.mark.OUT
-def test_OUT_I_R_autodec(capsys, tmpdir):
+def test_OUT_I_R_autodec(framework, capsys, tmpdir):
     """This test makes use of a fake Verilog test card that provides a
     rudimentary timer interrupt and a ‘hardware’ multiplier that can
     be used with the IOT instruction. This does not exist on actual
@@ -319,7 +319,7 @@ def test_OUT_I_R_autodec(capsys, tmpdir):
                               [ 340, 'PRINTA', '002a' ],
                               SUCCESS,
                               HALTED ])
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     result = list(expected.prepare(result))
     # pprint.pprint(result)
     # assert False
@@ -331,7 +331,7 @@ def test_OUT_I_R_autodec(capsys, tmpdir):
 @pytest.mark.LI
 @pytest.mark.STORE
 @pytest.mark.OUT
-def test_OUT_I_R_stack(capsys, tmpdir):
+def test_OUT_I_R_stack(framework, capsys, tmpdir):
     """This test makes use of a fake Verilog test card that provides a
     rudimentary timer interrupt and a ‘hardware’ multiplier that can
     be used with the IOT instruction. This does not exist on actual
@@ -381,7 +381,7 @@ def test_OUT_I_R_stack(capsys, tmpdir):
                               [ 340, 'PRINTA', '002a' ],
                               SUCCESS,
                               HALTED ])
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     result = list(expected.prepare(result))
     # pprint.pprint(result)
     # assert False

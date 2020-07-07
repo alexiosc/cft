@@ -21,7 +21,7 @@ from testing import *
 @pytest.mark.LJMP
 @pytest.mark.IRET
 @pytest.mark.STI
-def test_STI(capsys, tmpdir):
+def test_STI(framework, capsys, tmpdir):
     source = """
     .include "mbu.asm"
     .include "dfp2.asm"
@@ -98,7 +98,7 @@ def test_STI(capsys, tmpdir):
                               [ 340, 'PRINTH', '0000' ],
                               SUCCESS,
                               HALTED ])
-    result = run_on_verilog_emu(capsys, tmpdir, source, long=True)
+    result = run_on_framework(framework, capsys, tmpdir, source, long=True)
     # pprint.pprint(list(result))
     # assert False
     result = list(expected.prepare(result))

@@ -210,7 +210,7 @@ def test_ADD(capsys, tmpdir, max_test=10):
         expected += [ [ 340, "PRINTH", "{:>04x}".format(flags) ] ]
 
     expected += [ HALTED ]
-    result = run_on_verilog_emu(capsys, tmpdir, source,
+    result = run_on_framework(framework, capsys, tmpdir, source,
                                 verilog_args=["+wp=0"])
     # pprint.pprint(list(result))
     # pprint.pprint(list(expected))
@@ -225,7 +225,7 @@ def test_ADD(capsys, tmpdir, max_test=10):
 @pytest.mark.LOAD
 @pytest.mark.ADD
 @pytest.mark.slow
-def test_ADD_long(capsys, tmpdir):
+def test_ADD_long(framework, capsys, tmpdir):
     test_ADD(capsys, tmpdir, max_test=1024)
 
     
@@ -288,7 +288,7 @@ def test_ADD_R(capsys, tmpdir, max_test=10):
         expected += [ [ 340, "PRINTH", "{:>04x}".format(flags) ] ]
 
     expected += [ HALTED ]
-    result = run_on_verilog_emu(capsys, tmpdir, source,
+    result = run_on_framework(framework, capsys, tmpdir, source,
                                 verilog_args=["+wp=0"])
     # pprint.pprint(list(result))
     # assert False
@@ -302,7 +302,7 @@ def test_ADD_R(capsys, tmpdir, max_test=10):
 @pytest.mark.LOAD
 @pytest.mark.ADD
 @pytest.mark.slow
-def test_ADD_R_long(capsys, tmpdir):
+def test_ADD_R_long(framework, capsys, tmpdir):
     test_ADD_R(capsys, tmpdir, max_test=1024)
 
     
@@ -370,7 +370,7 @@ def test_ADD_I(capsys, tmpdir, max_test=10):
         expected += [ [ 340, "PRINTH", "{:>04x}".format(flags) ] ]
 
     expected += [ HALTED ]
-    result = run_on_verilog_emu(capsys, tmpdir, source,
+    result = run_on_framework(framework, capsys, tmpdir, source,
                                 long=True, verilog_args=["+wp=0"])
     # pprint.pprint(list(result))
     # assert False
@@ -384,7 +384,7 @@ def test_ADD_I(capsys, tmpdir, max_test=10):
 @pytest.mark.LOAD
 @pytest.mark.ADD
 @pytest.mark.slow
-def test_ADD_I_long(capsys, tmpdir):
+def test_ADD_I_long(framework, capsys, tmpdir):
     test_ADD_I(capsys, tmpdir, max_test=1024)
 
     
@@ -457,7 +457,7 @@ def test_ADD_I_R(capsys, tmpdir, max_test=10):
         expected += [ [ 340, "PRINTH", "{:>04x}".format(flags) ] ]
 
     expected += [ HALTED ]
-    result = run_on_verilog_emu(capsys, tmpdir, source,
+    result = run_on_framework(framework, capsys, tmpdir, source,
                                 long=True, verilog_args=["+wp=0"])
     # pprint.pprint(list(result))
     # assert False
@@ -471,7 +471,7 @@ def test_ADD_I_R(capsys, tmpdir, max_test=10):
 @pytest.mark.LOAD
 @pytest.mark.ADD
 @pytest.mark.slow
-def test_ADD_I_R_long(capsys, tmpdir):
+def test_ADD_I_R_long(framework, capsys, tmpdir):
     test_ADD_I_R(capsys, tmpdir, max_test=1024)
 
     
@@ -540,7 +540,7 @@ def test_ADD_I_R_autoinc(capsys, tmpdir, max_test=10):
         expected += [ [ 340, "PRINTH", "{:>04x}".format(flags) ] ]
 
     expected += [ HALTED ]
-    result = run_on_verilog_emu(capsys, tmpdir, source,
+    result = run_on_framework(framework, capsys, tmpdir, source,
                                 long=True, verilog_args=["+wp=0"])
     # pprint.pprint(list(result))
     # assert False
@@ -554,7 +554,7 @@ def test_ADD_I_R_autoinc(capsys, tmpdir, max_test=10):
 @pytest.mark.LOAD
 @pytest.mark.ADD
 @pytest.mark.slow
-def test_ADD_I_R_autoinc_long(capsys, tmpdir):
+def test_ADD_I_R_autoinc_long(framework, capsys, tmpdir):
     test_ADD_I_R_autoinc(capsys, tmpdir, max_test=1024)
 
     
@@ -627,7 +627,7 @@ def test_ADD_I_R_autodec(capsys, tmpdir, max_test=10):
     source += "    data_end: .word 0\n"
 
     expected += [ HALTED ]
-    result = run_on_verilog_emu(capsys, tmpdir, source,
+    result = run_on_framework(framework, capsys, tmpdir, source,
                                 long=True, verilog_args=["+wp=0"])
     # pprint.pprint(list(result))
     # assert False
@@ -641,7 +641,7 @@ def test_ADD_I_R_autodec(capsys, tmpdir, max_test=10):
 @pytest.mark.LOAD
 @pytest.mark.ADD
 @pytest.mark.slow
-def test_ADD_I_R_autodec_long(capsys, tmpdir):
+def test_ADD_I_R_autodec_long(framework, capsys, tmpdir):
     test_ADD_I_R_autodec(capsys, tmpdir, max_test=800)
 
     
@@ -714,7 +714,7 @@ def test_ADD_I_R_stack(capsys, tmpdir, max_test=10):
     source += "    data_end: .word 0\n"
 
     expected += [ HALTED ]
-    result = run_on_verilog_emu(capsys, tmpdir, source,
+    result = run_on_framework(framework, capsys, tmpdir, source,
                                 long=True, verilog_args=["+wp=0"])
     #pprint.pprint(list(result))
     result = list(expected.prepare(result))
@@ -729,7 +729,7 @@ def test_ADD_I_R_stack(capsys, tmpdir, max_test=10):
 @pytest.mark.LOAD
 @pytest.mark.ADD
 @pytest.mark.slow
-def test_ADD_I_R_stack_long(capsys, tmpdir):
+def test_ADD_I_R_stack_long(framework, capsys, tmpdir):
     test_ADD_I_R_stack(capsys, tmpdir, max_test=1000)
 
     

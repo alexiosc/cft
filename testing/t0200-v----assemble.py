@@ -12,7 +12,7 @@ from testing import *
 
 
 @pytest.mark.cftasm
-def test_assemble(capsys, tmpdir):
+def test_assemble(framework, capsys, tmpdir):
     """Test that basic assembly works."""
     assemble(tmpdir, "&0: JMP @", args=["--blocksize", "0"])
 
@@ -22,7 +22,7 @@ def test_assemble(capsys, tmpdir):
 
 
 @pytest.mark.cftasm
-def test_short_model(capsys, tmpdir):
+def test_short_model(framework, capsys, tmpdir):
     assemble(tmpdir, """
     &0:    .fill 32768 &1234
            .fill 32768 &5678
@@ -41,7 +41,7 @@ def test_short_model(capsys, tmpdir):
 
 
 @pytest.mark.cftasm
-def test_short_model_memsize_warning(capsys, tmpdir):
+def test_short_model_memsize_warning(framework, capsys, tmpdir):
     assemble(tmpdir, """
     &123456:    .data &feed &cafe
     """, args=["--model", "short", "--blocksize", "0"])
@@ -51,7 +51,7 @@ def test_short_model_memsize_warning(capsys, tmpdir):
 
 
 @pytest.mark.cftasm
-def test_verilog_output(capsys, tmpdir):
+def test_verilog_output(framework, capsys, tmpdir):
     assemble(tmpdir, """
     &0:    .fill 256 &1234
     """, args=["--model", "short", "--verilog", "--debug-pokes", "--blocksize", "0"])
@@ -73,7 +73,7 @@ def test_verilog_output(capsys, tmpdir):
 
 
 @pytest.mark.cftasm
-def test_long_model(capsys, tmpdir):
+def test_long_model(framework, capsys, tmpdir):
     assemble(tmpdir, """
     &000000:     .fill 32768 &1234
                  .fill 32768 &1234
@@ -97,7 +97,7 @@ def test_long_model(capsys, tmpdir):
 
 
 @pytest.mark.cftasm
-def test_page_directive(capsys, tmpdir):
+def test_page_directive(framework, capsys, tmpdir):
     assemble(tmpdir, """
     &0:    .fill 256 &1234
            .page
@@ -126,7 +126,7 @@ def test_page_directive(capsys, tmpdir):
 
 
 @pytest.mark.cftasm
-def test_unpacked_string(capsys, tmpdir):
+def test_unpacked_string(framework, capsys, tmpdir):
 
     assemble(tmpdir, """
     &0:    .str "Hello, world!" 10
@@ -146,7 +146,7 @@ def test_unpacked_string(capsys, tmpdir):
 
 
 @pytest.mark.cftasm
-def test_packed_string(capsys, tmpdir):
+def test_packed_string(framework, capsys, tmpdir):
 
     assemble(tmpdir, """
     &0:    .strp "Hello, world!" 10
@@ -174,7 +174,7 @@ def test_packed_string(capsys, tmpdir):
 
 
 @pytest.mark.cftasm
-def test_longstring(capsys, tmpdir):
+def test_longstring(framework, capsys, tmpdir):
 
     assemble(tmpdir, """
     &0:    .longstring "H"
@@ -204,7 +204,7 @@ def test_longstring(capsys, tmpdir):
 
 
 @pytest.mark.cftasm
-def test_macro(capsys, tmpdir):
+def test_macro(framework, capsys, tmpdir):
 
     assemble(tmpdir, """
     .macro foo(bar)
@@ -235,7 +235,7 @@ def test_macro(capsys, tmpdir):
 
 
 @pytest.mark.cftasm
-def test_equ_and_fields(capsys, tmpdir):
+def test_equ_and_fields(framework, capsys, tmpdir):
 
     assemble(tmpdir, """
     .equ foo2 foo1 1
@@ -274,7 +274,7 @@ def test_equ_and_fields(capsys, tmpdir):
 
 
 @pytest.mark.cftasm
-def test_at_expressions(capsys, tmpdir):
+def test_at_expressions(framework, capsys, tmpdir):
 
     assemble(tmpdir, """
     .equ   foo 42
@@ -306,7 +306,7 @@ def test_at_expressions(capsys, tmpdir):
 
 
 @pytest.mark.cftasm
-def test_basic_assembly(capsys, tmpdir):
+def test_basic_assembly(framework, capsys, tmpdir):
 
     assemble(tmpdir, """
     .equ    counter 0
@@ -342,7 +342,7 @@ def test_basic_assembly(capsys, tmpdir):
 
 
 @pytest.mark.cftasm
-def test_field_bits(capsys, tmpdir):
+def test_field_bits(framework, capsys, tmpdir):
 
     assemble(tmpdir, """
     ; Note: this is NOT a working program, we only examine the
@@ -376,7 +376,7 @@ def test_field_bits(capsys, tmpdir):
 
 
 @pytest.mark.cftasm
-def test_namespaces(capsys, tmpdir):
+def test_namespaces(framework, capsys, tmpdir):
 
     assemble(tmpdir, """
     &0:
@@ -414,7 +414,7 @@ def test_namespaces(capsys, tmpdir):
 
 
 @pytest.mark.cftasm
-def test_scope(capsys, tmpdir):
+def test_scope(framework, capsys, tmpdir):
 
     assemble(tmpdir, """
     &0:
@@ -449,7 +449,7 @@ def test_scope(capsys, tmpdir):
 
 
 @pytest.mark.cftasm
-def test_include(capsys, tmpdir):
+def test_include(framework, capsys, tmpdir):
     """Also checks for the existence and sanity of dfp2.asm and mbu.asm,
     which we really need to have for subsequent testing!"""
 
@@ -494,7 +494,7 @@ def test_include(capsys, tmpdir):
 
 
 @pytest.mark.cftasm
-def test_assemble_bin_blocksize(capsys, tmpdir):
+def test_assemble_bin_blocksize(framework, capsys, tmpdir):
     """Test that binary blocksizes work."""
     for bs, size in [[0, 2], [1, 2048], [8, 16384], [64, 131072]]:
         assemble(tmpdir, "&0: JMP @", args=["--blocksize", str(bs)])
@@ -505,7 +505,7 @@ def test_assemble_bin_blocksize(capsys, tmpdir):
 
 
 @pytest.mark.cftasm
-def test_assemble_bin_long_model_blocksize(capsys, tmpdir):
+def test_assemble_bin_long_model_blocksize(framework, capsys, tmpdir):
     """Test that binary blocksizes work."""
     for bs, size in [[0, 2], [1, 2048], [8, 16384], [64, 131072]]:
         assemble(tmpdir, "&0: JMP @",

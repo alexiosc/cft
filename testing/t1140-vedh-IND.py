@@ -20,7 +20,7 @@ from testing import *
 @pytest.mark.DSZ
 @pytest.mark.LOAD
 @pytest.mark.JMP
-def test_IND(capsys, tmpdir):
+def test_IND(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
@@ -92,7 +92,7 @@ def test_IND(capsys, tmpdir):
                   [ 340, "PRINTH", "7777" ],
                   HALTED ]
 
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     result = list(expected.prepare(result))
     # print(source)
     # pprint.pprint(expected)

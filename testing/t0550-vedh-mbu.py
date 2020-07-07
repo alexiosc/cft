@@ -21,7 +21,7 @@ from testing import *
 @pytest.mark.IN
 @pytest.mark.SMB
 @pytest.mark.RMB
-def test_mbu_asm(capsys, tmpdir):
+def test_mbu_asm(framework, capsys, tmpdir):
     """Verify the mbu.asm file is sane."""
 
     source = """
@@ -86,7 +86,7 @@ def test_mbu_asm(capsys, tmpdir):
 @pytest.mark.hardware
 @pytest.mark.RMB
 @pytest.mark.IN
-def test_MBU_reset(capsys, tmpdir):
+def test_MBU_reset(framework, capsys, tmpdir):
     source = """
     .include "mbu.asm"
     .include "dfp2.asm"
@@ -130,7 +130,7 @@ def test_MBU_reset(capsys, tmpdir):
         HALTED
     ])
 
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     result = list(expected.prepare(result))
     assert list(result) == expected
 

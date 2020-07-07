@@ -39,7 +39,7 @@ long_values = [ 5480, 35648, 60652, 33532, 11468, 28996, 14536, 60576, 52836,
 @pytest.mark.hardware
 @pytest.mark.LI
 @pytest.mark.JMP
-def test_JMP(capsys, tmpdir):
+def test_JMP(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
@@ -59,7 +59,7 @@ def test_JMP(capsys, tmpdir):
     expected = ExpectedData([ SUCCESS ] * (len(page_values) + 1))
     expected += [ HALTED ]
 
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     result = list(expected.prepare(result))
     assert result == expected
 
@@ -69,7 +69,7 @@ def test_JMP(capsys, tmpdir):
 @pytest.mark.hardware
 @pytest.mark.LI
 @pytest.mark.JMP
-def test_JMP_R(capsys, tmpdir):
+def test_JMP_R(framework, capsys, tmpdir):
     """Test JMP R. NOTA BENE: JMP R is always relative to the MBP so 'R' here
     refers to page 0 of the current bank, not The Page Zero referenced to PBZ."""
 
@@ -96,7 +96,7 @@ def test_JMP_R(capsys, tmpdir):
     expected = ExpectedData([ SUCCESS ] * (len(page_values) + 1))
     expected += [ HALTED ]
 
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     result = list(expected.prepare(result))
     assert result == expected
 
@@ -106,7 +106,7 @@ def test_JMP_R(capsys, tmpdir):
 @pytest.mark.hardware
 @pytest.mark.LI
 @pytest.mark.JMP
-def test_JMP_I(capsys, tmpdir):
+def test_JMP_I(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
@@ -128,7 +128,7 @@ def test_JMP_I(capsys, tmpdir):
     expected = ExpectedData([ SUCCESS ] * (len(long_values) + 1))
     expected += [ HALTED ]
 
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     result = list(expected.prepare(result))
     assert result == expected
 
@@ -138,7 +138,7 @@ def test_JMP_I(capsys, tmpdir):
 @pytest.mark.hardware
 @pytest.mark.LI
 @pytest.mark.JMP
-def test_JMP_I_R(capsys, tmpdir):
+def test_JMP_I_R(framework, capsys, tmpdir):
     """NOTE: when we're not using MBR-relative addressing, the address of the jump
     comes from Page Zero (relative to MBZ), but the jump itself is performed
     relative to MBP, as always!
@@ -171,7 +171,7 @@ def test_JMP_I_R(capsys, tmpdir):
     expected = ExpectedData([ SUCCESS ] * (len(long_values) + 1))
     expected += [ HALTED ]
 
-    result = run_on_verilog_emu(capsys, tmpdir, source, long=True, timeout=30000000)
+    result = run_on_framework(framework, capsys, tmpdir, source, long=True, timeout=30000000)
     result = list(expected.prepare(result))
     assert result == expected
 
@@ -182,7 +182,7 @@ def test_JMP_I_R(capsys, tmpdir):
 @pytest.mark.MBU
 @pytest.mark.LI
 @pytest.mark.JMP
-def test_JMP_I_R_bank_relative(capsys, tmpdir):
+def test_JMP_I_R_bank_relative(framework, capsys, tmpdir):
     """Remember: JMP always jumps relative to MBP, no matter where the indirection
     happens from. In this test, we'll load jump addresses from different banks,
     but we'll always jump to MBP:<16-bit address>.
@@ -234,7 +234,7 @@ def test_JMP_I_R_bank_relative(capsys, tmpdir):
     expected = ExpectedData([ SUCCESS ] * (len(long_values) + 1))
     expected += [ HALTED ]
 
-    result = run_on_verilog_emu(capsys, tmpdir, source, long=True, timeout=30000000)
+    result = run_on_framework(framework, capsys, tmpdir, source, long=True, timeout=30000000)
     result = list(expected.prepare(result))
     assert result == expected
 
@@ -244,7 +244,7 @@ def test_JMP_I_R_bank_relative(capsys, tmpdir):
 @pytest.mark.hardware
 @pytest.mark.LI
 @pytest.mark.JMP
-def test_JMP_I_R_autoinc_double_indirect(capsys, tmpdir):
+def test_JMP_I_R_autoinc_double_indirect(framework, capsys, tmpdir):
     """NOTE: when we're not using MBR-relative addressing, the address of the jump
     comes from Page Zero (relative to MBZ), but the jump itself is performed
     relative to MBP, as always!
@@ -290,7 +290,7 @@ def test_JMP_I_R_autoinc_double_indirect(capsys, tmpdir):
     expected += [ [ 340, "PRINTH", "{:>04x}".format(0x17 + len(long_values) + 1) ] ]
     expected += [ HALTED ]
 
-    result = run_on_verilog_emu(capsys, tmpdir, source, long=True, timeout=30000000)
+    result = run_on_framework(framework, capsys, tmpdir, source, long=True, timeout=30000000)
     result = list(expected.prepare(result))
     assert result == expected
 
@@ -300,7 +300,7 @@ def test_JMP_I_R_autoinc_double_indirect(capsys, tmpdir):
 @pytest.mark.hardware
 @pytest.mark.LI
 @pytest.mark.JMP
-def test_JMP_I_R_autodec_double_indirect(capsys, tmpdir):
+def test_JMP_I_R_autodec_double_indirect(framework, capsys, tmpdir):
     """Reminder: Autodecrement registers decrement after use, same as autoincrement
     registers.
     """
@@ -345,7 +345,7 @@ def test_JMP_I_R_autodec_double_indirect(capsys, tmpdir):
     expected += [ [ 340, "PRINTH", "0016" ] ]
     expected += [ HALTED ]
 
-    result = run_on_verilog_emu(capsys, tmpdir, source, long=True, timeout=30000000)
+    result = run_on_framework(framework, capsys, tmpdir, source, long=True, timeout=30000000)
     result = list(expected.prepare(result))
     assert result == expected
 
@@ -355,7 +355,7 @@ def test_JMP_I_R_autodec_double_indirect(capsys, tmpdir):
 @pytest.mark.hardware
 @pytest.mark.LI
 @pytest.mark.JMP
-def test_JMP_I_R_stack(capsys, tmpdir):
+def test_JMP_I_R_stack(framework, capsys, tmpdir):
     """Works just like autodecrement, but the value is decremented *before* use.
     """
 
@@ -401,7 +401,7 @@ def test_JMP_I_R_stack(capsys, tmpdir):
     expected += [ [ 340, "PRINTH", "0017" ] ]
     expected += [ HALTED ]
 
-    result = run_on_verilog_emu(capsys, tmpdir, source, long=True, timeout=30000000)
+    result = run_on_framework(framework, capsys, tmpdir, source, long=True, timeout=30000000)
     result = list(expected.prepare(result))
     assert result == expected
 

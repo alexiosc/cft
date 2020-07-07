@@ -20,7 +20,7 @@ from testing import *
 @pytest.mark.STORE
 @pytest.mark.LJMP
 @pytest.mark.TRAP
-def test_TRAP(capsys, tmpdir):
+def test_TRAP(framework, capsys, tmpdir):
     source = """
     .include "mbu.asm"
     .include "dfp2.asm"
@@ -71,7 +71,7 @@ def test_TRAP(capsys, tmpdir):
                               [ 340, "PRINTH", "0042" ],
                               SUCCESS,
                               HALTED ])
-    result = run_on_verilog_emu(capsys, tmpdir, source, long=True)
+    result = run_on_framework(framework, capsys, tmpdir, source, long=True)
     # pprint.pprint(list(result))
     # assert False
     result = list(expected.prepare(result))

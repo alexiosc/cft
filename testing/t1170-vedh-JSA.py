@@ -30,7 +30,7 @@ long_values = [ 5480, 35648, 60652, 33532, 11468, 28996, 14536, 60576, 52836,
 @pytest.mark.LI
 @pytest.mark.TSA
 @pytest.mark.JSA
-def test_JSA(capsys, tmpdir):
+def test_JSA(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
@@ -59,7 +59,7 @@ def test_JSA(capsys, tmpdir):
     expected += [ [ 340, "PRINTD", str(len(long_values)) ] ]
     expected += [ HALTED ]
 
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     result = list(expected.prepare(result))
     assert result == expected
 

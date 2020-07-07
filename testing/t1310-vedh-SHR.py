@@ -16,7 +16,7 @@ from testing import *
 @pytest.mark.hardware
 @pytest.mark.LI
 @pytest.mark.SHR
-def test_SHR(capsys, tmpdir):
+def test_SHR(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
@@ -57,7 +57,7 @@ def test_SHR(capsys, tmpdir):
     ]
     expected += [ HALTED ]
 
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     result = list(expected.prepare(result))
     assert result == expected
 
@@ -138,7 +138,7 @@ def calc_SHR(x, d):
 @pytest.mark.RET
 @pytest.mark.SHR
 @pytest.mark.slow
-def test_SHR_slow(capsys, tmpdir):
+def test_SHR_slow(framework, capsys, tmpdir):
 
     source = """
     .include "mbu.asm"
@@ -185,7 +185,7 @@ def test_SHR_slow(capsys, tmpdir):
         expected += [ SUCCESS ]
     expected += [ HALTED ]
 
-    result = run_on_verilog_emu(capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     result = list(expected.prepare(result))
     assert result == expected
 
