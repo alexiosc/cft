@@ -101,6 +101,7 @@ cpu_init()
 
     // BUS: Bus control
     cpu.ar = rand() & 0xffffff;
+    srand(time(NULL));
     for (int i = 0; i < 8; i++) cpu.mbr[i] = (rand() & 0xff) << 16;
     cpu.mbrdis = 0x800000;
     cpu.mbuen = 0;
@@ -828,12 +829,15 @@ write_to_ibus_unit(int waddr)
         // select an MBR based on the least significant bits of the IR. It's
         // very simple in C, but this little fucker of a feature added several
         // ICs to the Memory Banking Unit!
-        if ((GET_ACTION(cpu.ir) == FIELD_ACTION_IDX) && 
+        if ((GET_ACTION(cpu.ucv) == FIELD_ACTION_IDX) && 
             (cpu.ir & 0x0f00) == 0x0f00) {
             mbr = cpu.ir & 7;
         }
 
-        cpu.ar = get_mbr(mbr) | cpu.ibus;
+        uint32_t mbr_value = get_mbr(mbr);
+        assert ((mbr_value & 0xffff) == 0);
+        
+        cpu.ar = mbr_value | cpu.ibus;
         debug3("AR ← MB%d:IBUS (%s)", mbr, format_longaddr(cpu.ar, NULL));
         return;
     }
@@ -1010,11 +1014,12 @@ cpu_run()
         //     dump_state();
         //     dump_ustate();
         // }
-        debug("IR=%04x %-14.14s PC=%04x  AC=%04x  DR=%04x  SP=%04x  MBP{P=%02x D=%02x S=%02x Z=%02x} uAV=%06x uCV=%06x",
+        debug("IR=%04x %-14.14s PC=%04x  AC=%04x  DR=%04x  SP=%04x  "
+              "MB{P=%02x D=%02x S=%02x Z=%02x 4=%02x 5=%02x 6=%02x 7=%02x} uAV=%06x uCV=%06x",
               cpu.ir, disasm(cpu.ir, 1, NULL),
               cpu.pc, cpu.ac, cpu.dr, cpu.sp,
-              cpu.mbrdis >> 16,
               get_mbr(0) >> 16, get_mbr(1) >> 16, get_mbr(2) >> 16, get_mbr(3) >> 16,
+              get_mbr(4) >> 16, get_mbr(5) >> 16, get_mbr(6) >> 16, get_mbr(7) >> 16,
               cpu.uaddr, cpu.ucv);
 
         // Act on the signals of the control vector. All actions are
