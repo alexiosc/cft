@@ -368,6 +368,7 @@ handle_actions(int action)
         return;
 
     case FIELD_ACTION_IDX:
+        debug3("action_idx");
         // This is decoded when write_ar_mbz is handled.
         return;
 
@@ -404,6 +405,7 @@ handle_actions(int action)
         if (cpu.ac == 0) cpu.fl ^= 1;
         cpu.ac = (cpu.ac - 1) & 0xffff;
         debug3("action_decac: AC ← %04x [L=%d]", cpu.ac, cpu.fl);
+        return;
 
     case FIELD_ACTION_INCSP:
         cpu.sp = (cpu.sp + 1) & 0xffff;
@@ -528,12 +530,18 @@ get_mbr(int mbr)
 }
 
 
+// Reading from the MBU 
 int
 mbu_read(longaddr_t a, word *d)
 {
+    // Note that the RMB instruction only drives the lower 8 bits. On real
+    // hardware, Bus Hold would make the MSB equal to the last memory operation,
+    // which will almost certainly be an instruction fetch, so &54 would be
+    // returned. We do this here by adding an MSB buffer, which SHOULD NOT be
+    // present in real hardware.
     assert(d != NULL);
     if (a >= 0x008 && a <= 0x00f) {
-        *d = cpu.mbr[a & 7];
+        *d = 0x5400 | (cpu.mbr[a & 7] >> 16);
         log_msg(LOG_DEBUG3, mbu_log_unit, "MBR[%d] → %02x (mbuen=%d)", a & 7, *d & 0xff, cpu.mbuen);
         return 1;
     }
@@ -551,7 +559,7 @@ mbu_write(longaddr_t a, word d)
         log_msg(LOG_DEBUG3, mbu_log_unit, "MBR[%d] → %02x. "
                 "%sMBRs now %02x %02x %02x %02x %02x %02x %02x %02x",
                 a & 7, d & 0xff,
-                enabling == 0 ? "Enabling MBU. " : "",
+                enabling ? "Enabling MBU. " : "",
                 get_mbr(0) >> 16, get_mbr(1) >> 16, get_mbr(2) >> 16, get_mbr(3) >> 16,
                 get_mbr(4) >> 16, get_mbr(5) >> 16, get_mbr(6) >> 16, get_mbr(7) >> 16);
         return 1;
@@ -788,9 +796,30 @@ read_from_ibus_unit(int raddr)
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-// WRITING TO IBUS UNIT
+// WRITING TO IBUS UNITS
 //
 ///////////////////////////////////////////////////////////////////////////////
+
+
+static inline void
+write_to_ar(int mbr) {
+    // If the microcode is requesting an MBR-relative indexing mode, and the
+    // instruction has I=1 and R=1 and an operand >= 0x300, then we select an
+    // MBR based on the least significant bits of the IR. It's very simple in
+    // C, but this little fucker of a feature added several ICs to the Memory
+    // Banking Unit!
+    if ((GET_ACTION(cpu.ucv) == FIELD_ACTION_IDX) && 
+        (cpu.ir & 0x0f00) == 0x0f00) {
+        mbr = cpu.ir & 7;
+    }
+
+    uint32_t mbr_value = get_mbr(mbr);
+    assert ((mbr_value & 0xffff) == 0);
+        
+    cpu.ar = mbr_value | cpu.ibus;
+    debug3("AR ← MB%d:IBUS (%s)", mbr, format_longaddr(cpu.ar, NULL));
+
+}
 
 // Decode the write unit and handle side effects: the selected unit gets its
 // value from the IBUS. This must run after a value has been put on the IBUS,
@@ -802,43 +831,26 @@ read_from_ibus_unit(int raddr)
 static inline void
 write_to_ibus_unit(int waddr)
 {
+    // MBZ-relative addressing as a more complicated special case for
+    // auto-index MBR-relative addressing modes.
+    word mbr = 65535;
+
     switch(waddr){
     case FIELD_WRITE_AR_MBP:
-        cpu.ar = get_mbr(MBR_MBP) | cpu.ibus;
-        debug3("AR ← MBP:IBUS (%s)", format_longaddr(cpu.ar, NULL));
+        write_to_ar(MBR_MBP);
         return;
 
     case FIELD_WRITE_AR_MBD:
-        cpu.ar = get_mbr(MBR_MBD) | cpu.ibus;
-        debug3("AR ← MBD:IBUS (%s)", format_longaddr(cpu.ar, NULL));
+        write_to_ar(MBR_MBD);
         return;
 
     case FIELD_WRITE_AR_MBS:
-        cpu.ar = get_mbr(MBR_MBS) | cpu.ibus;
-        debug3("AR ← MBS:IBUS (%s)", format_longaddr(cpu.ar, NULL));
+        write_to_ar(MBR_MBS);
         return;
 
     case FIELD_WRITE_AR_MBZ:
     {
-        // MBZ-relative addressing as a more complicated special case for
-        // auto-index MBR-relative addressing modes.
-        word mbr = MBR_MBZ;
-
-        // If the microcode is requesting an MBR-relative indexing mode, and
-        // the instruction has I=1 and R=1 and an operand >= 0x300, then we
-        // select an MBR based on the least significant bits of the IR. It's
-        // very simple in C, but this little fucker of a feature added several
-        // ICs to the Memory Banking Unit!
-        if ((GET_ACTION(cpu.ucv) == FIELD_ACTION_IDX) && 
-            (cpu.ir & 0x0f00) == 0x0f00) {
-            mbr = cpu.ir & 7;
-        }
-
-        uint32_t mbr_value = get_mbr(mbr);
-        assert ((mbr_value & 0xffff) == 0);
-        
-        cpu.ar = mbr_value | cpu.ibus;
-        debug3("AR ← MB%d:IBUS (%s)", mbr, format_longaddr(cpu.ar, NULL));
+        write_to_ar(MBR_MBZ);
         return;
     }
 
