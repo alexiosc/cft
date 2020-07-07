@@ -161,8 +161,8 @@ def test_SMB(framework, capsys, tmpdir):
     assert list(result) == expected
 
     fname = str(tmpdir.join("a.bin"))
-    assert os.path.getsize(fname) == 0x10e0202, \
-        "Wrong object size generated (1,7695,234B = 8,847,617W expected)"
+    assert os.path.getsize(fname) == 17696768, \
+        "Wrong object size generated (17,696,768B = 8,848,384W expected)"
 
 
 if __name__ == "__main__":
