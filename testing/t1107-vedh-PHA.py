@@ -80,7 +80,7 @@ def test_PHA(framework, capsys, tmpdir):
 @pytest.mark.slow
 def test_PHA_long(framework, capsys, tmpdir):
 
-    reps = 1024
+    reps = 10
     
     source = """
     .include "mbu.asm"
