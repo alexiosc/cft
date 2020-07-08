@@ -80,16 +80,21 @@ format_longaddr(longaddr_t addr, char *buf)
 
 
 char *
-format_bin(uint32_t x, int numbits)
+format_bin(uint32_t x, uint8_t numbits)
 {
     static char res[33];
     char *cp = res;
-    for (int i = 0x80000000; i; i>>=1) {
-        *cp++ = (x & i) ? '1': '0';
+
+    assert (numbits < 32);
+    x &= ((1 << numbits) - 1);  // Mask the 
+    
+    for (int i = numbits; i >= 0; i--) {
+        *(cp++) = (x & (1 << i)) ? '1': '0';
     }
     *cp = 0;
     if (numbits < 0 || numbits > 32) numbits = 32;
-    return &res[32 - numbits];
+    return res;
+    //return &res[32 - numbits];
 }
 
 
@@ -122,7 +127,8 @@ disasm(word ir, int full_dis, char *buf)
             if (full_dis) {
                 if (instr->bitmap) {
                     // Not really properly implemented yet
-                    snprintf("%s #%s", 80, instr->mnemonic, format_bin(ir, 7));
+                    snprintf(s, 80, "%s #%s", instr->mnemonic, format_bin(ir & 0x7f, 7));
+                    return s;
                 } else {
                     switch (instr->operand_mask) {
                     case 0:

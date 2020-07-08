@@ -175,16 +175,17 @@ log_msg(int level, log_unit_t unit, char * fmt, ...)
 
     assert (level < 30);
     assert (fmt != NULL);
-    va_start(ap, fmt);
-    int result = vasprintf(&buf, fmt, ap);
-    assert (result >= 0);
-    va_end(ap);
-
     if (unit >= 0)
     {
         assert (unit < log_numunits);
         log_unitdesc_t * up = &log_units[unit];
         if (level > log_level || level > up->level) return;
+
+        va_start(ap, fmt);
+        int result = vasprintf(&buf, fmt, ap);
+        assert (result >= 0);
+        va_end(ap);
+
         fprintf(log_fp, "%s%c: L%d [%s] %s%s%s\n",
                 log_have_colour ? colours[level] : "",
                 sigils[level],
@@ -196,6 +197,12 @@ log_msg(int level, log_unit_t unit, char * fmt, ...)
             );
     } else {
         if (level > log_level) return;
+
+        va_start(ap, fmt);
+        int result = vasprintf(&buf, fmt, ap);
+        assert (result >= 0);
+        va_end(ap);
+
         fprintf(log_fp, "%s%c: L%d %s%s%s\n",
                 log_have_colour ? colours[level] : "",
                 sigils[level],

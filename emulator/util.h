@@ -57,7 +57,7 @@ change_ext(char *s, char *ext);
 char * format_longaddr(longaddr_t addr, char *buf);
 
 // Format a binary number up to 32 bits.
-char * format_bin(uint32_t x, int numbits);
+char * format_bin(uint32_t x, uint8_t numbits);
 
 // Disassemble an instruction into the string buffer buf. If buf is
 // NULL, an internal static char buffer is used. Return a pointer to

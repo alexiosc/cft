@@ -125,6 +125,9 @@ mem_init()
     memp->is_ram = 1;
     memp->is_wrom = 0;
 
+    // Initialise the RAM with the sentinel value.
+    for (int i = 0; i < memp->size; i++) memp->mem[i] = emu.ram_sentinel;
+
     debug("RAM: %s - %s (%dK)",
 	  format_longaddr(memp->start, start_addr),
 	  format_longaddr(memp->end - 1, end_addr),

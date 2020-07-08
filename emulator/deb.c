@@ -89,10 +89,7 @@ deb_write(longaddr_t addr, word data)
         return 1;
             
     case 0x112:
-        if (data & 0x8000) {
-            data = -((data & 0x7fff) + 1);
-        }
-        deb_out("340 PRINTD: %d", data);
+        deb_out("340 PRINTD: %d", (int16_t)data);
         return 1;
             
     case 0x113:

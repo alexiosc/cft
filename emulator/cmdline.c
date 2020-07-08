@@ -60,6 +60,9 @@ static struct argp_option options[] =
       "RAM. This option may be specified multiple times to map multiple "
       "ROM images to the CFT's address space. (default: no ROM)"},
 
+    { "fill-ram", KEY_FILL_RAM, "WORD", 0,
+      "Fill RAM with this 16-bit value. This is used for some tests. (default: 0)" },
+    
     { "writeable-rom", KEY_WRITEABLE_ROM, NULL, 0,
       "Make ROMs defined up to this point in the command line writeable. "
       "This is used for some tests." },
@@ -224,7 +227,7 @@ static struct argp argp =
 };
 
 
-static romspec_t *
+static void
 parse_romspec(struct argp_state *state, char *spec)
 {
     romspec_t * rs = (romspec_t *)malloc(sizeof(romspec_t));
@@ -236,10 +239,12 @@ parse_romspec(struct argp_state *state, char *spec)
 
     struct stat st;
     if (stat(arg, &st)) {
+        free(rs);
         argp_failure (state, EXIT_FAILURE, errno, "Can't stat ROM file %s", arg);
     }
 
     if (st.st_size % 2048) {
+        free(rs);
         argp_error (state, "ROM image %s is not a multiple of 1024 KiW. "
                     "It's probably not a CFT ROM image.", arg);
     }
@@ -279,7 +284,7 @@ parse_romspec(struct argp_state *state, char *spec)
     emu.roms = reallocarray(emu.roms, emu.num_roms, sizeof(romspec_t));
     memcpy(&emu.roms[emu.num_roms - 1], rs, sizeof(romspec_t));
 
-    return rs;
+    free(rs);
 }
 
 
@@ -340,8 +345,7 @@ parse_opt (int key, char *arg, struct argp_state *state)
     case 'm':                   // RAM size in SIZE,BASE-ADDR format.
         if (!sscanf(arg, "%d", &emu.ram_size)) {
             argp_error (state, "Invalid SIZE. Expecting 0 to 16384, got '%s'.", arg);
-        }
-        if (emu.ram_size < 0 || emu.ram_size > 16384) {
+        } else if (emu.ram_size < 0 || emu.ram_size > 16384) {
             argp_error (state, "Invalid SIZE. Expecting 0 to 16384, got '%d'.", emu.ram_size);
         }
         break;
@@ -351,6 +355,19 @@ parse_opt (int key, char *arg, struct argp_state *state)
         parse_romspec(state, arg);
         break;
 
+    case KEY_FILL_RAM:
+    {
+        int val;
+        if (!sscanf(arg, "%d", &val)) {
+            argp_error (state, "Invalid WORD. Expecting 0 to 65535, got '%s'.", arg);
+        } else if (val < 0 || val > 65535) {
+            argp_error (state, "Invalid WORD. Expecting 0 to 65535, got '%d'.", emu.ram_size);
+        } else {
+            emu.ram_sentinel = val;
+        }
+        break;
+    }
+    
     case KEY_WRITEABLE_ROM:
         mem_writeable_rom();
         emu.writeable_rom = 1;

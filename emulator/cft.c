@@ -736,7 +736,7 @@ read_from_ibus_unit(int raddr)
         return cpu.sp;
 
     case FIELD_READ_MBP_FLAGS:
-        tmp = get_mbr(MBR_MBP) | cpu.fn << 10 | cpu.fz << 11 |
+        tmp = (get_mbr(MBR_MBP) >> 16) | cpu.fn << 10 | cpu.fz << 11 |
             cpu.fl << 12 | cpu.fv << 13 | cpu.fi << 15;
         debug3("IBUS ← BMP+FLAGS (%04x)", tmp);
         return tmp;
@@ -833,8 +833,6 @@ write_to_ibus_unit(int waddr)
 {
     // MBZ-relative addressing as a more complicated special case for
     // auto-index MBR-relative addressing modes.
-    word mbr = 65535;
-
     switch(waddr){
     case FIELD_WRITE_AR_MBP:
         write_to_ar(MBR_MBP);
