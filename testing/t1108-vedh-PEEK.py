@@ -102,7 +102,8 @@ def test_PEEK(framework, capsys, tmpdir):
         HALTED
     ])
 
-    result = run_on_framework(framework, capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source,
+                              cftemu_args=["--fill-ram", str(0x0f0f) ])
     result = list(expected.prepare(result))
     assert list(result) == expected
 
@@ -184,7 +185,8 @@ def test_PEEK_long(framework, capsys, tmpdir):
     expected += [ [340, "PRINTH", "ffff" ] ]
     expected += [ HALTED ]
 
-    result = run_on_framework(framework, capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source,
+                              cftemu_args=["--fill-ram", str(0x0f0f) ])
     # pprint.pprint(list(result), width=200)
     # assert False
     result = list(expected.prepare(result))

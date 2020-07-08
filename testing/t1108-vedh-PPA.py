@@ -86,7 +86,8 @@ def test_PPA(framework, capsys, tmpdir):
         HALTED
     ])
 
-    result = run_on_framework(framework, capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source,
+                              cftemu_args=["--fill-ram", str(0x0f0f) ])
     result = list(expected.prepare(result))
     assert list(result) == expected
 
@@ -164,7 +165,8 @@ def test_PPA_long(framework, capsys, tmpdir):
     expected += [ [340, "PRINTH", "ffff" ] ]
     expected += [ HALTED ]
 
-    result = run_on_framework(framework, capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source,
+                              cftemu_args=["--fill-ram", str(0x0f0f) ])
     pprint.pprint(result, width=200)
     result = list(expected.prepare(result))
     assert list(result) == expected

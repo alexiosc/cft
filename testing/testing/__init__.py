@@ -186,7 +186,7 @@ def run_c_emulator(tmpdir, capsys, args=None, timeout=20):
 
     cmd = [ "/usr/bin/timeout", "-v", str(timeout),
             os.path.abspath(C_EMULATOR) ] + args
-    print(cmd)
+    #print(cmd)
     pipe = subprocess.Popen(cmd, cwd=tmpdir, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     (out, err) = pipe.communicate()
     code = pipe.wait()
@@ -347,6 +347,12 @@ def run_on_emulator(capsys, tmpdir, source, timeout=20000000,
         asm_args += cftasm_args
     assemble(tmpdir, source, long=long, args=asm_args)
 
+    # If we're using a long model, we assume the ROM starts at address 0 unless
+    # the test specifies otherwise. This means it's basically RAM, but we won't
+    # make it writeable unless the test requests *that* explicitly.
+    if long and 'rom_addr' not in kwargs:
+        kwargs["rom_addr"] = 0
+    
     out, err = get_capsys_outerr(capsys)
     args = [ "--ram=512", "--enable=DEB" ]
     args += [ "--rom={},{}".format(os.path.join(tmpdir, "a.bin"),

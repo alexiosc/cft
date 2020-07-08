@@ -166,10 +166,9 @@ def test_PHF(framework, capsys, tmpdir):
         HALTED
     ])
 
-    result = run_on_framework(framework, capsys, tmpdir, source)
+    result = run_on_framework(framework, capsys, tmpdir, source,
+                              cftemu_args=["--fill-ram", str(0x0f0f) ])
     result = list(expected.prepare(result))
-    # pprint.pprint(result)
-    # assert False
     assert list(result) == expected
 
 

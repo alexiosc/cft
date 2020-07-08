@@ -92,7 +92,7 @@ def test_LJSR(framework, capsys, tmpdir):
     expected = ExpectedData([ SUCCESS ] * (len(long_values) + 1))
     expected += [ HALTED ]
 
-    result = run_on_framework(framework, capsys, tmpdir, source, long=True)
+    result = run_on_framework(framework, capsys, tmpdir, source, rom_addr=0, long=True)
     result = list(expected.prepare(result))
     assert result == expected
 

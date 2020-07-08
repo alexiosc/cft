@@ -110,7 +110,7 @@ def test_IRET(framework, capsys, tmpdir):
                               SUCCESS,
 
                               HALTED ])
-    result = run_on_framework(framework, capsys, tmpdir, source, long=True)
+    result = run_on_framework(framework, capsys, tmpdir, source, rom_addr=0, long=True)
     # pprint.pprint(list(result))
     # assert False
     result = list(expected.prepare(result))
