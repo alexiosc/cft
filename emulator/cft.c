@@ -808,17 +808,19 @@ write_to_ar(int mbr) {
     // MBR based on the least significant bits of the IR. It's very simple in
     // C, but this little fucker of a feature added several ICs to the Memory
     // Banking Unit!
+    int from_ir = 0;
     if ((GET_ACTION(cpu.ucv) == FIELD_ACTION_IDX) && 
         (cpu.ir & 0x0f00) == 0x0f00) {
         mbr = cpu.ir & 7;
+        from_ir = 1;
     }
 
     uint32_t mbr_value = get_mbr(mbr);
     assert ((mbr_value & 0xffff) == 0);
         
     cpu.ar = mbr_value | cpu.ibus;
-    debug3("AR ← MB%d:IBUS (%s)", mbr, format_longaddr(cpu.ar, NULL));
-
+    debug3("AR ← MB%d:IBUS (%s) [MBR selected by %s]", mbr, format_longaddr(cpu.ar, NULL),
+           from_ir ? "operand field" : "microcode");
 }
 
 // Decode the write unit and handle side effects: the selected unit gets its

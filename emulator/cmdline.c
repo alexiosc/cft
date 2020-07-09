@@ -79,6 +79,14 @@ static struct argp_option options[] =
       "of devices, run with --list-devs. You can specify this option "
       "multiple times to enable as many devices as needed.", 0 },
 
+    { NULL, 0, NULL, 0, "Miscellaneous", -2 },
+
+    { "color", KEY_COLOR, "1 | 0", 0,
+      "Control the use of terminal directives in log output. (default: on if stdout is a TTY)" },
+
+    { "colour", KEY_COLOUR, "1 | 0", 0,
+      "Same as --colour." },
+
     { NULL, 0, NULL, 0, "Help", -1 },
 
     // { "map", 'M', "MAP-FILE", 0,
@@ -389,6 +397,20 @@ parse_opt (int key, char *arg, struct argp_state *state)
             argp_error (state, "Unknown device '%s'. Run with --list-devs for a list of devices.", arg);
         }
         break;
+
+    case KEY_COLOUR:
+    case KEY_COLOR:
+    {
+        int val;
+        if (!sscanf(arg, "%d", &val)) {
+            argp_error (state, "Expecting 0 or 1, got '%s'.", arg);
+        } else if (val != 0 && val != 1) {
+            argp_error (state, "Expecting 0 or 1, got '%d'.", arg);
+        } else {
+            emu.force_colour = val == 0 ? -1 : 1;
+        }
+        break;
+    }
 
     // case 'p':
     //     emu.pasm_name = strdup (arg);

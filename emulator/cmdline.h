@@ -33,6 +33,9 @@ enum {DUMMY_KEY=129
       ,KEY_FILL_RAM
       ,KEY_WRITEABLE_ROM
 
+      ,KEY_COLOR
+      ,KEY_COLOUR
+
       // These may not be used anymore.
 
       // ,KEY_DEBUG_MICROCODE

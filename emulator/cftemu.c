@@ -42,7 +42,11 @@ init()
 {
     log_init(NULL);
     log_set_level(emu.loglevel);
-    //log_set_colour(1);
+    if (emu.force_colour == -1) {
+        log_set_colour(0);
+    } else if (emu.force_colour == 1) {
+        log_set_colour(1);
+    }
 
     mem_init();
     io_init();
