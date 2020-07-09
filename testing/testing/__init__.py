@@ -184,7 +184,7 @@ def run_c_emulator(tmpdir, capsys, args=None, timeout=5):
     if args is None:
         args = []
 
-    cmd = [ "/usr/bin/timeout", "--signal=9", "-v", str(timeout),
+    cmd = [ "/usr/bin/timeout", "--signal=9", str(timeout),
             os.path.abspath(C_EMULATOR) ] + args
     #assert False, ' '.join(cmd)
 

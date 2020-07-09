@@ -58,6 +58,14 @@ def test_ROL(framework, capsys, tmpdir):
     expected += [ HALTED ]
 
     result = run_on_framework(framework, capsys, tmpdir, source)
+
+    # print(">"*78)
+    # pprint.pprint(list(expected))
+    # print("-"*78)
+    # pprint.pprint(list(result))
+    # print("<"*78)
+    # assert False, "FOO"
+
     result = list(expected.prepare(result))
     assert result == expected
 

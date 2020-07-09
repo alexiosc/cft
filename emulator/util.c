@@ -146,7 +146,7 @@ disasm(word ir, int full_dis, char *buf)
                         return s;
 			
                     default:
-                        snprintf(s, 80, "%s %x", instr->mnemonic, ir & instr->operand_mask);
+                        snprintf(s, 80, "%s &%x", instr->mnemonic, ir & instr->operand_mask);
                         return s;
                     }
                 }

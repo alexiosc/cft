@@ -275,14 +275,14 @@ action_sru()
         break;
                 
     case 4:                     // ROL
-        l_ac = (cpu.alu_b & (1 << (16-dist)));
+        l_ac = (cpu.fl ? 0x10000 : 0) | (cpu.alu_b & 0xffff);
         l_ac = ((l_ac << dist) | (l_ac >> (17 - dist))) & 0x1ffff;
         cpu.fl = (l_ac & 0x10000) != 0;
         cpu.alu_b = l_ac & 0xffff;
         break;
                 
     case 5:                     // ROR
-        l_ac = (cpu.alu_b & (1 << (16-dist)));
+        l_ac = (cpu.fl ? 0x10000 : 0) | (cpu.alu_b & 0xffff);
         l_ac = ((l_ac >> dist) | (l_ac << (17 - dist))) & 0x1ffff;
         cpu.fl = (l_ac & 0x10000) != 0;
         cpu.alu_b = l_ac & 0xffff;
