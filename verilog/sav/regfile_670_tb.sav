@@ -1,18 +1,19 @@
 [*]
-[*] GTKWave Analyzer v3.3.79 (w)1999-2017 BSI
-[*] Thu Oct 17 16:44:31 2019
+[*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
+[*] Thu Jul  9 05:48:29 2020
 [*]
 [dumpfile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/vcd/regfile_670_tb.vcd"
-[dumpfile_mtime] "Thu Oct 17 16:44:07 2019"
-[dumpfile_size] 211054
+[dumpfile_mtime] "Thu Jul  9 05:48:06 2020"
+[dumpfile_size] 211042
+[optimize_vcd]
 [savefile] "/home/alexios/PROJECTS/HARDWARE/cft/verilog/sav/regfile_670_tb.sav"
 [timestart] 0
 [size] 1920 1019
 [pos] 3005 398
-*-26.055407 100075000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-18.045191 93000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] regfile_670_tb.
-[sst_width] 258
-[signals_width] 207
+[sst_width] 372
+[signals_width] 238
 [sst_expanded] 1
 [sst_vpaned_height] 237
 @820

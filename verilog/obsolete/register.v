@@ -42,10 +42,10 @@ module register_670 (d, wa, nwe, q, ra, nre);
    reg [3:0] 	r0, r1, r2, r3;
 
    initial begin
-      r0 <= 0;
-      r1 <= 0;
-      r2 <= 0;
-      r3 <= 0;
+      r0 <= $mti_random;
+      r1 <= $mti_random;
+      r2 <= $mti_random;
+      r3 <= $mti_random;
    end
 
    // Write port
