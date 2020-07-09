@@ -174,7 +174,7 @@ def run_verilog_testbench(capsys, name, args=None):
         yield((int(code), state, comment))
 
 
-def run_c_emulator(tmpdir, capsys, args=None, timeout=20):
+def run_c_emulator(tmpdir, capsys, args=None, timeout=5):
     assert os.path.exists(C_EMULATOR), "{} missing. Please compile it".format(C_EMULATOR)
 
     # Note: the test tool (RUN_VERILOG_TEST) expects the .v file, not the .o file.
@@ -184,9 +184,10 @@ def run_c_emulator(tmpdir, capsys, args=None, timeout=20):
     if args is None:
         args = []
 
-    cmd = [ "/usr/bin/timeout", "-v", str(timeout),
+    cmd = [ "/usr/bin/timeout", "--signal=9", "-v", str(timeout),
             os.path.abspath(C_EMULATOR) ] + args
-    #print(cmd)
+    #assert False, ' '.join(cmd)
+
     pipe = subprocess.Popen(cmd, cwd=tmpdir, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     (out, err) = pipe.communicate()
     code = pipe.wait()
