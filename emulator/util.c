@@ -60,7 +60,7 @@ change_ext(char *s, char *ext)
 
     char * dot = strrchr(s, '.');
     if (dot != NULL) *dot = '\0'; 
-    char * res = (char*) safe_malloc(strlen(s) + strlen(ext));
+    char * res = (char*) safe_malloc(strlen(s) + strlen(ext) + 1);
     *res = '\0';
     strcpy(res, s);
     strcat(res, ext);
