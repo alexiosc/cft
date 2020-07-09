@@ -58,11 +58,13 @@ iodev_t iodevs[] = {
     },
 
     {
-        .name = "Basic Debugging Unit",
+        .name = "Basic Debugging Unit (includes verilog TST board)",
         .code = "DEB",
         .enabled = 0,
         .init = deb_init,
-        .write = deb_write
+        .read = deb_read,
+        .write = deb_write,
+        .tick = deb_tick
     },
 	
 /*

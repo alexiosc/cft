@@ -16,7 +16,12 @@
 
 void deb_init();
 
+int deb_read(longaddr_t addr, word * data);
+
 int deb_write(longaddr_t addr, word data);
+
+void deb_tick();
+
 
 #endif // DEB_H
 

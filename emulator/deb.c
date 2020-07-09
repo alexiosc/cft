@@ -31,8 +31,22 @@
 #include "util.h"
 
 
+// Do we want the verilog_test functionality?
+#define TST
+
+
 static log_unit_t   deb_log_unit;
 static word         hidata;
+
+#ifdef TST
+static log_unit_t   tst_log_unit;
+static word         slow_port;  // In Verilog: WS emulation. Here, just a reg.
+static word         iot_port_a; // For IOT testing.
+static word         iot_port_b; // For IOT testing.
+static word         irq_ctr;    // IRQ counter
+static word         irqen;      // IRQs enabled?
+static word         mute_czi;   // Mute Count Zero Interrupt logs
+#endif // TST
 
 
 #define deb_out notice
@@ -41,12 +55,82 @@ static word         hidata;
 void deb_init()
 {
     deb_log_unit = log_add_unit("DEB", -1, -1);
+
     debug("Initialised basic DEB board");
     deb_out("345 OK -- debugging subsystem available and ready");
+
     if (emu.writeable_rom) {
         // This is not available on real hardware.
         deb_out("345 ROM is writeable");
     }
+
+#ifdef TST
+    tst_log_unit = log_add_unit("TST", -1, -1);
+    log_msg(LOG_DEBUG, tst_log_unit, "Temporary interrupt subsystem initialised.");
+    iot_port_a = 0;
+    iot_port_b = 0;
+    irq_ctr = 0;
+    irqen = 0;
+#endif // TST
+}
+
+
+int
+deb_read(longaddr_t addr, word * data)
+{
+    switch (addr & 0x3ff) {
+
+#ifdef TST
+    // The following is TST functionality, included here because both DEB and
+    // TST are temporary modules only used for early emulator testing
+
+    case 0x3f0:
+    case 0x3f1:
+    case 0x3f2:
+    case 0x3f3:
+        *data = slow_port;
+        return 1;
+        
+    case 0x3f4:
+    case 0x3f5:
+    case 0x3f6:
+    case 0x3f7:
+        *data = 0x0000;
+        return 1;
+        
+    case 0x3f8:
+        *data = 0x1234;
+        return 1;
+        
+    case 0x3f9:
+        *data = 0x5678;
+        return 1;
+        
+    case 0x3fa:
+        *data = 0x9abc;
+        return 1;
+        
+    case 0x3fb:
+        *data = 0xdef0;
+        return 1;
+        
+    case 0x3fc:
+        *data = 0x4321;
+        return 1;
+        
+    case 0x3fd:
+    case 0x3fe:
+        *data = (iot_port_a * iot_port_b) & 0xffff;
+        return 1;
+
+    case 0x3ff:
+        *data = irq_ctr;
+        return 1;
+    }
+
+#endif // TST
+
+    return 0;
 }
 
 
@@ -140,9 +224,54 @@ deb_write(longaddr_t addr, word data)
     case 0x11f:
         deb_out("346 Fail");
         return 1;
+
+#ifdef TST
+    // The following is TST functionality, included here because both DEB and
+    // TST are temporary modules only used for early emulator testing
+
+    case 0x3f0:
+    case 0x3f1:
+    case 0x3f2:
+    case 0x3f3:
+        // These should trigger wait states, but the emulator doesn't support them.
+
+    case 0x3fd:
+        iot_port_a = data;
+        return 1;
+        
+    case 0x3fe:
+        iot_port_b = data;
+        return 1;
+
+    case 0x3ff:
+        irqen = data == 0 ? 0 : 1;
+        irq_ctr = data;
+        log_msg(LOG_DEBUG3, tst_log_unit, "IRQ counter: en=%d, val=%04x", irqen, irq_ctr);
+        mute_czi = 0;
+        return 1;
+        
+#endif // TST
+        
     }
 
     return 0;
+}
+
+
+void deb_tick()
+{
+    //log_msg(LOG_DEBUG3, tst_log_unit, "tick");
+    if (irqen) {
+        if (irq_ctr == 0) {
+            cpu.irq = 0;        // Assert level interrupt
+            if (!mute_czi) {
+                log_msg(LOG_DEBUG3, tst_log_unit, "Count Zero Interrupt.");
+                mute_czi = 1;
+            }
+        } else {
+            irq_ctr--;          // Count
+        }
+    }
 }
 
 

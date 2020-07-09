@@ -942,7 +942,8 @@ cpu_control_store()
 
     // If an interrupt has been requested and interrupts are allowed, we jump
     // to the IRQ microprogram when the previous instruction ends.
-    if (cpu.irq == 0 && cpu.fi == 0 && cpu.uav.uaddr == 0) {
+    if (cpu.irq == 0 && cpu.fi == 1 && cpu.uav.uaddr == 0) {
+        notice("Interrupt");
         cpu.uav.int_ = 0;       // Set the INT microcode condition 
     }
 
@@ -1026,9 +1027,15 @@ cpu_run()
         //     dump_state();
         //     dump_ustate();
         // }
-        debug("IR=%04x %-14.14s PC=%04x  AC=%04x  DR=%04x  SP=%04x  "
+        debug("IR=%04x %-14.14s  FL=%c%c%c%c%c  %s  PC=%04x  AC=%04x  DR=%04x  SP=%04x  "
               "MB{P=%02x D=%02x S=%02x Z=%02x 4=%02x 5=%02x 6=%02x 7=%02x} uAV=%06x uCV=%06x",
               cpu.ir, disasm(cpu.ir, 1, NULL),
+              cpu.fn ? 'N' : '-',
+              cpu.fz ? 'Z' : '-',
+              cpu.fv ? 'V' : '-',
+              cpu.fi ? 'I' : '-',
+              cpu.fl ? 'L' : '-',
+              cpu.irq ? "   " : "IRQ",
               cpu.pc, cpu.ac, cpu.dr, cpu.sp,
               get_mbr(0) >> 16, get_mbr(1) >> 16, get_mbr(2) >> 16, get_mbr(3) >> 16,
               get_mbr(4) >> 16, get_mbr(5) >> 16, get_mbr(6) >> 16, get_mbr(7) >> 16,

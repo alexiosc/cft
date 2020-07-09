@@ -79,10 +79,7 @@ init()
     cpu.memw = mem_write;
     cpu.ior = io_read;
     cpu.iow = io_write;
-    // cpu.memw = memory_write;
-    // cpu.ior = io_read;
-    // cpu.iow = io_write;
-    // cpu.iotick = io_tick;
+    cpu.iotick = io_tick;
 }
 
 
