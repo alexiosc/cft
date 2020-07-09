@@ -274,6 +274,10 @@ def test_JSR_I_R_bank_relative(framework, capsys, tmpdir):
                 SMB mbu.MBP
                 LI &0
                 SMB mbu.MBZ
+                LI &1
+                SMB mbu.MBS
+                LI &2
+                SMB mbu.MBD
                 LI &4
                 SMB mbu.MB4
                 LI &5
@@ -347,6 +351,8 @@ def test_JSR_I_R_autoinc_double_indirect(framework, capsys, tmpdir):
                 SMB mbu.MBP
                 LI &0
                 SMB mbu.MBZ
+                LI &1
+                SMB mbu.MBS
                 LI &3
                 SMB mbu.MBD  ; We'll reference MBD (MB1) for this one.
                 LI &117
@@ -411,6 +417,8 @@ def test_JSR_I_R_autodec_double_indirect(framework, capsys, tmpdir):
                 SMB mbu.MBP
                 LI &0
                 SMB mbu.MBZ
+                LI &1
+                SMB mbu.MBS
                 LI &3
                 SMB mbu.MBD  ; We'll reference MBD (MB1) for this one.
                 LI &{:x}
@@ -475,6 +483,8 @@ def test_JSR_I_R_stack(framework, capsys, tmpdir):
                 SMB mbu.MBP
                 LI &0
                 SMB mbu.MBZ
+                LI &1
+                SMB mbu.MBS
                 LI &3
                 SMB mbu.MBD  ; We'll reference MBD (MB1) for this one.
                 LI &{:x}

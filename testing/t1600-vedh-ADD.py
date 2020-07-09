@@ -155,7 +155,7 @@ def calc_addition(a, b, fl):
 @pytest.mark.hardware
 @pytest.mark.LOAD
 @pytest.mark.ADD
-def test_ADD(capsys, tmpdir, max_test=10):
+def test_ADD(framework, capsys, tmpdir, max_test=10):
 
     source = """
     .include "mbu.asm"
@@ -226,7 +226,7 @@ def test_ADD(capsys, tmpdir, max_test=10):
 @pytest.mark.ADD
 @pytest.mark.slow
 def test_ADD_long(framework, capsys, tmpdir):
-    test_ADD(capsys, tmpdir, max_test=1024)
+    test_ADD(framework, capsys, tmpdir, max_test=1024)
 
     
 @pytest.mark.verilog
@@ -234,7 +234,7 @@ def test_ADD_long(framework, capsys, tmpdir):
 @pytest.mark.hardware
 @pytest.mark.LOAD
 @pytest.mark.ADD
-def test_ADD_R(capsys, tmpdir, max_test=10):
+def test_ADD_R(framework, capsys, tmpdir, max_test=10):
 
     source = """
     .include "mbu.asm"
@@ -303,7 +303,7 @@ def test_ADD_R(capsys, tmpdir, max_test=10):
 @pytest.mark.ADD
 @pytest.mark.slow
 def test_ADD_R_long(framework, capsys, tmpdir):
-    test_ADD_R(capsys, tmpdir, max_test=1024)
+    test_ADD_R(framework, capsys, tmpdir, max_test=1024)
 
     
 @pytest.mark.verilog
@@ -311,7 +311,7 @@ def test_ADD_R_long(framework, capsys, tmpdir):
 @pytest.mark.hardware
 @pytest.mark.LOAD
 @pytest.mark.ADD
-def test_ADD_I(capsys, tmpdir, max_test=10):
+def test_ADD_I(framework, capsys, tmpdir, max_test=10):
 
     source = """
     .include "mbu.asm"
@@ -385,7 +385,7 @@ def test_ADD_I(capsys, tmpdir, max_test=10):
 @pytest.mark.ADD
 @pytest.mark.slow
 def test_ADD_I_long(framework, capsys, tmpdir):
-    test_ADD_I(capsys, tmpdir, max_test=1024)
+    test_ADD_I(framework, capsys, tmpdir, max_test=1024)
 
     
 @pytest.mark.verilog
@@ -393,7 +393,7 @@ def test_ADD_I_long(framework, capsys, tmpdir):
 @pytest.mark.hardware
 @pytest.mark.LOAD
 @pytest.mark.ADD
-def test_ADD_I_R(capsys, tmpdir, max_test=10):
+def test_ADD_I_R(framework, capsys, tmpdir, max_test=10):
 
     source = """
     .include "mbu.asm"
@@ -472,7 +472,7 @@ def test_ADD_I_R(capsys, tmpdir, max_test=10):
 @pytest.mark.ADD
 @pytest.mark.slow
 def test_ADD_I_R_long(framework, capsys, tmpdir):
-    test_ADD_I_R(capsys, tmpdir, max_test=1024)
+    test_ADD_I_R(framework, capsys, tmpdir, max_test=1024)
 
     
 @pytest.mark.verilog
@@ -480,7 +480,7 @@ def test_ADD_I_R_long(framework, capsys, tmpdir):
 @pytest.mark.hardware
 @pytest.mark.LOAD
 @pytest.mark.ADD
-def test_ADD_I_R_autoinc(capsys, tmpdir, max_test=10):
+def test_ADD_I_R_autoinc(framework, capsys, tmpdir, max_test=10):
 
     source = """
     .include "mbu.asm"
@@ -555,7 +555,7 @@ def test_ADD_I_R_autoinc(capsys, tmpdir, max_test=10):
 @pytest.mark.ADD
 @pytest.mark.slow
 def test_ADD_I_R_autoinc_long(framework, capsys, tmpdir):
-    test_ADD_I_R_autoinc(capsys, tmpdir, max_test=1024)
+    test_ADD_I_R_autoinc(framework, capsys, tmpdir, max_test=1024)
 
     
 @pytest.mark.verilog
@@ -563,7 +563,7 @@ def test_ADD_I_R_autoinc_long(framework, capsys, tmpdir):
 @pytest.mark.hardware
 @pytest.mark.LOAD
 @pytest.mark.ADD
-def test_ADD_I_R_autodec(capsys, tmpdir, max_test=10):
+def test_ADD_I_R_autodec(framework, capsys, tmpdir, max_test=10):
 
     source = """
     .include "mbu.asm"
@@ -642,7 +642,7 @@ def test_ADD_I_R_autodec(capsys, tmpdir, max_test=10):
 @pytest.mark.ADD
 @pytest.mark.slow
 def test_ADD_I_R_autodec_long(framework, capsys, tmpdir):
-    test_ADD_I_R_autodec(capsys, tmpdir, max_test=800)
+    test_ADD_I_R_autodec(framework, capsys, tmpdir, max_test=800)
 
     
 @pytest.mark.verilog
@@ -650,7 +650,7 @@ def test_ADD_I_R_autodec_long(framework, capsys, tmpdir):
 @pytest.mark.hardware
 @pytest.mark.LOAD
 @pytest.mark.ADD
-def test_ADD_I_R_stack(capsys, tmpdir, max_test=10):
+def test_ADD_I_R_stack(framework, capsys, tmpdir, max_test=10):
 
     source = """
     .include "mbu.asm"
@@ -730,7 +730,7 @@ def test_ADD_I_R_stack(capsys, tmpdir, max_test=10):
 @pytest.mark.ADD
 @pytest.mark.slow
 def test_ADD_I_R_stack_long(framework, capsys, tmpdir):
-    test_ADD_I_R_stack(capsys, tmpdir, max_test=1000)
+    test_ADD_I_R_stack(framework, capsys, tmpdir, max_test=1000)
 
     
 if __name__ == "__main__":

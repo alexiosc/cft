@@ -178,25 +178,37 @@ def test_DSZ_I_R(framework, capsys, tmpdir):
     .include "mbu.asm"
     .include "dfp2.asm"
 
+    .equ LOOPREG R &303 ; Use an MBZ-relative register
+
     &0:
            LI           &80
            SMB          mbu.MBP
-           LI           &0
+           LI           1
            SMB          mbu.MBD
+           LI           2
            SMB          mbu.MBS
+           LI           3
            SMB          mbu.MBZ
+           LI           4
+           SMB          mbu.MB4
+           LI           5
+           SMB          mbu.MB5
+           LI           6
+           SMB          mbu.MB6
+           LI           7
+           SMB          mbu.MB7
 
            LI          &100
-           STORE       R &304 ; Use a MBP-relative register
+           STORE       LOOPREG
            LI          19
            STORE       R &100
     loop:  dfp.PRINTU
            LI          0        ; This helps detect premature if-z
-           DSZ         I R &304
+           DSZ         I LOOPREG
            JMP         loop
            SUCCESS
            dfp.PRINTD
-           LOAD        I R &304
+           LOAD        I LOOPREG
            dfp.PRINTD
            HALT
     """

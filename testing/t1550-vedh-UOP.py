@@ -285,7 +285,7 @@ def test_UOP(framework, capsys, tmpdir):
 @pytest.mark.LOAD
 @pytest.mark.STORE
 @pytest.mark.NOT
-def test_NOT(capsys, tmpdir, numtests=10):
+def test_NOT(framework, capsys, tmpdir, numtests=10):
     source = """
     .include "mbu.asm"
     .include "dfp2.asm"
@@ -359,7 +359,7 @@ def test_NOT(capsys, tmpdir, numtests=10):
 @pytest.mark.NOT
 @pytest.mark.slow
 def test_NOT_long(framework, capsys, tmpdir):
-    test_NOT(capsys, tmpdir, numtests=1000)
+    test_NOT(framework, capsys, tmpdir, numtests=1000)
 
 
 def neg(x):
@@ -374,7 +374,7 @@ def neg(x):
 @pytest.mark.LOAD
 @pytest.mark.STORE
 @pytest.mark.NEG
-def test_NEG(capsys, tmpdir, numtests=10):
+def test_NEG(framework, capsys, tmpdir, numtests=10):
     source = """
     .include "mbu.asm"
     .include "dfp2.asm"
@@ -443,7 +443,7 @@ def test_NEG(capsys, tmpdir, numtests=10):
 @pytest.mark.NEG
 @pytest.mark.slow
 def test_NEG_long(framework, capsys, tmpdir):
-    test_NEG(capsys, tmpdir, numtests=1000)
+    test_NEG(framework, capsys, tmpdir, numtests=1000)
 
 
 @pytest.mark.verilog
@@ -453,7 +453,7 @@ def test_NEG_long(framework, capsys, tmpdir):
 @pytest.mark.LOAD
 @pytest.mark.STORE
 @pytest.mark.INC
-def test_INC(capsys, tmpdir, numtests=10, numops=5):
+def test_INC(framework, capsys, tmpdir, numtests=10, numops=5):
 
     numops -= 1                 # We use DSZ, so it's off by one
 
@@ -537,7 +537,7 @@ def test_INC(capsys, tmpdir, numtests=10, numops=5):
 @pytest.mark.INC
 @pytest.mark.slow
 def test_INC_long(framework, capsys, tmpdir):
-    test_INC(capsys, tmpdir, numtests=200, numops=20)
+    test_INC(framework, capsys, tmpdir, numtests=200, numops=20)
 
 
 @pytest.mark.verilog
@@ -547,7 +547,7 @@ def test_INC_long(framework, capsys, tmpdir):
 @pytest.mark.LOAD
 @pytest.mark.STORE
 @pytest.mark.DEC
-def test_DEC(capsys, tmpdir, numtests=10, numops=5):
+def test_DEC(framework, capsys, tmpdir, numtests=10, numops=5):
 
     numops -= 1                 # We use DSZ, so it's off by one
 
@@ -631,7 +631,7 @@ def test_DEC(capsys, tmpdir, numtests=10, numops=5):
 @pytest.mark.DEC
 @pytest.mark.slow
 def test_DEC_long(framework, capsys, tmpdir):
-    test_DEC(capsys, tmpdir, numtests=200, numops=20)
+    test_DEC(framework, capsys, tmpdir, numtests=200, numops=20)
 
 
 @pytest.mark.verilog
