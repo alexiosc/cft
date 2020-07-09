@@ -71,7 +71,7 @@ def test_TRAP(framework, capsys, tmpdir):
                               [ 340, "PRINTH", "0042" ],
                               SUCCESS,
                               HALTED ])
-    result = run_on_framework(framework, capsys, tmpdir, source, long=True)
+    result = run_on_framework(framework, capsys, tmpdir, source, rom_addr=8192, long=True)
     # pprint.pprint(list(result))
     # assert False
     result = list(expected.prepare(result))

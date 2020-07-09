@@ -191,7 +191,12 @@ mem_write(longaddr_t a, word d)
         if (a >= memp->start && a < memp->end) {
             // Get an address relative to the memory block start.
             uint32_t ofs = a - memp->start;
-            memp->mem[ofs] = d;
+            if (memp->is_ram || memp->is_wrom) {
+                memp->mem[ofs] = d;
+            } else {
+                log_msg(LOG_WARN, mem_log_unit, "Attempt to write to non-writeable address %s (data %04x)",
+                        format_longaddr(a, NULL), d);
+            }
             if (log_enabled(LOG_DEBUG3, mem_log_unit)) {
                 log_msg(LOG_DEBUG3, mem_log_unit, "W %s[%s] ← %04x (region %d, ofs %06x)",
                         memp->is_ram ? "RAM" : "ROM", format_longaddr(a, NULL), d, i, ofs);

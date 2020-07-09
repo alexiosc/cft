@@ -110,7 +110,7 @@ def test_IRET(framework, capsys, tmpdir):
                               SUCCESS,
 
                               HALTED ])
-    result = run_on_framework(framework, capsys, tmpdir, source, rom_addr=0, long=True)
+    result = run_on_framework(framework, capsys, tmpdir, source, rom_addr=8192, long=True)
     # pprint.pprint(list(result))
     # assert False
     result = list(expected.prepare(result))
@@ -171,6 +171,7 @@ def test_IRET_int(framework, capsys, tmpdir):
     """.format(**locals())
 
     expected = ExpectedData([ SUCCESS,
+                              ROM_WP0,
                               [ 340, 'PRINTH', '001d' ],
                               [ 340, 'PRINTH', '001c' ],
                               [ 340, 'PRINTH', '001b' ],
@@ -203,7 +204,9 @@ def test_IRET_int(framework, capsys, tmpdir):
                               [ 340, 'PRINTH', '0000' ],
                               SUCCESS,
                               HALTED ])
-    result = run_on_framework(framework, capsys, tmpdir, source, long=True)
+    result = run_on_framework(framework, capsys, tmpdir, source, rom_addr=8192, long=True,
+                              verilog_args=["+wp=0"],
+                              cftemu_args=["--writeable-rom"])
     # pprint.pprint(list(result))
     # assert False
     result = list(expected.prepare(result))

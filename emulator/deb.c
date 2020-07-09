@@ -119,6 +119,9 @@ deb_read(longaddr_t addr, word * data)
         return 1;
         
     case 0x3fd:
+        *data = (iot_port_a * iot_port_b) & 0xffff;
+        return 1;
+        
     case 0x3fe:
         *data = (iot_port_a * iot_port_b) & 0xffff;
         
@@ -242,10 +245,12 @@ deb_write(longaddr_t addr, word data)
 
     case 0x3fd:
         iot_port_a = data;
+        log_msg(LOG_NOTICE, tst_log_unit, "PROD A=%d", iot_port_a);
         return 1;
         
     case 0x3fe:
         iot_port_b = data;
+        log_msg(LOG_NOTICE, tst_log_unit, "PROD B=%d", iot_port_b);
         return 1;
 
     case 0x3ff:

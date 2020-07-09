@@ -261,17 +261,26 @@ action_sru()
 
     switch (op) {
     case 0:                     // SHL
-        cpu.alu_b = (cpu.alu_b << dist) & 0xffff;
+        l_ac = (cpu.fl ? 0x10000 : 0) | (cpu.alu_b & 0xffff);
+        l_ac <<= dist;
+        cpu.fl = (l_ac & 0x10000) != 0;
+        cpu.alu_b = l_ac & 0xffff;
         break;
                 
     case 1:                     // SHR
-        cpu.alu_b = (cpu.alu_b >> dist) & 0xffff;
+        l_ac = (cpu.fl ? 0x10000 : 0) | (cpu.alu_b & 0xffff);
+        l_ac >>= dist;
+        cpu.fl = (l_ac & 0x10000) != 0;
+        cpu.alu_b = l_ac & 0xffff;
         break;
                 
     case 3:                     // ASR
-                                // Casting to a signed int makes C use the host platform's
-                                // arithmetic/sign-extending shift instruction.
-        cpu.alu_b = (word)((int16_t)cpu.alu_b >> dist) & 0xffff;
+        // ASR doesn't shifts AC, not <L,AC>. The Link is set to the last bit
+        // shifted off the AC. Casting to a signed int makes C use the host
+        // platform's arithmetic/sign-extending shift instruction.
+        l_ac = (word)((int16_t)cpu.alu_b >> dist);
+        cpu.fl = ((word)((int16_t)cpu.alu_b >> (dist - 1))) & 1;
+        cpu.alu_b = l_ac & 0xffff;
         break;
                 
     case 4:                     // ROL
@@ -568,12 +577,6 @@ mbu_write(longaddr_t a, word d)
 }
 
 
-
-
-
-
-
-
 ///////////////////////////////////////////////////////////////////////////////
 //
 // CONDITIONALS
@@ -590,7 +593,7 @@ decode_cond(int cond)
 
     switch (cond) {
     case 0:
-        // Idle, always true
+        // Idle, never skip
         cpu.uav.cond = 1;
         break;
         
@@ -684,11 +687,8 @@ decode_cond(int cond)
         fatal("Unknown microcode conditional %x", cond);
     }
 
-    // External SKIP?
-    if (cpu.skipext) {
-        debug("Skip requested externally.");
-        cpu.uav.cond = 0;
-        cpu.skipext = 0;
+    if (cpu.uav.cond == 0) {
+        debug3("Skip taken");
     }
 }
 
@@ -1046,7 +1046,7 @@ cpu_run()
         //     dump_ustate();
         // }
         debug("IR=%04x %-14.14s  FL=%c%c%c%c%c  %s  PC=%04x  AC=%04x  DR=%04x  SP=%04x  "
-              "MB{P=%02x D=%02x S=%02x Z=%02x 4=%02x 5=%02x 6=%02x 7=%02x} uAV=%06x uCV=%06x",
+              "MB{P=%02x D=%02x S=%02x Z=%02x 4=%02x 5=%02x 6=%02x 7=%02x} uAV=%06x uCV=%06x %s",
               cpu.ir, disasm(cpu.ir, 1, NULL),
               cpu.fn ? 'N' : '-',
               cpu.fz ? 'Z' : '-',
@@ -1057,7 +1057,9 @@ cpu_run()
               cpu.pc, cpu.ac, cpu.dr, cpu.sp,
               get_mbr(0) >> 16, get_mbr(1) >> 16, get_mbr(2) >> 16, get_mbr(3) >> 16,
               get_mbr(4) >> 16, get_mbr(5) >> 16, get_mbr(6) >> 16, get_mbr(7) >> 16,
-              cpu.uaddr, cpu.ucv);
+              cpu.uaddr, cpu.ucv,
+              cpu.uav.cond ? "----" : "COND"
+            );
 
         // Act on the signals of the control vector. All actions are
         // essentially level comparisons, edge-sensitive signals are
@@ -1095,6 +1097,14 @@ cpu_run()
         // Perform any decoded action.
         if (action) handle_actions(action);
 
+        // External SKIP? Test this late, so either bus transactions can
+        // trigger it.
+        if (cpu.skipext) {
+            debug("Skip requested externally.");
+            cpu.uav.cond = 0;
+            cpu.skipext = 0;
+        }
+
         // Next processor cycle!
         cpu.tick++;
 
@@ -1125,87 +1135,6 @@ cpu_run()
     //          COL_WHI, cpu.tick / (t1 - t0) / 1000, COL_GRE);
     // }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // End of file.
 // Local Variables:

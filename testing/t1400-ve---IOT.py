@@ -60,6 +60,9 @@ def test_IOT(framework, capsys, tmpdir):
                               [ 340, "PRINTU", "0" ],
                               HALTED ])
     result = run_on_framework(framework, capsys, tmpdir, source)
+    # pprint.pprint(list(expected))
+    # pprint.pprint(list(result))
+    # assert False, "foo"
     result = list(expected.prepare(result))
     assert list(result) == expected
 

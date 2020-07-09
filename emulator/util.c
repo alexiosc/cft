@@ -86,9 +86,9 @@ format_bin(uint32_t x, uint8_t numbits)
     char *cp = res;
 
     assert (numbits < 32);
-    x &= ((1 << numbits) - 1);  // Mask the 
+    x &= ((1 << numbits) - 1);  // Mask the operand
     
-    for (int i = numbits; i >= 0; i--) {
+    for (int i = numbits - 1; i >= 0; i--) {
         *(cp++) = (x & (1 << i)) ? '1': '0';
     }
     *cp = 0;
