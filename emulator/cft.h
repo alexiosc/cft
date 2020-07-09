@@ -57,6 +57,8 @@ typedef struct state_t {
     uint32_t   ucv;             // Last Micro-control vector read
 
     bit        resetting;       // Simulated RSTHOLD
+    bit        skipext;         // IOT skip
+    bit        endext;          // External END
 
     bit        halt;            // Halted?
     bit        pause;           // Paused.

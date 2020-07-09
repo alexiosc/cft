@@ -405,7 +405,7 @@ parse_opt (int key, char *arg, struct argp_state *state)
         if (!sscanf(arg, "%d", &val)) {
             argp_error (state, "Expecting 0 or 1, got '%s'.", arg);
         } else if (val != 0 && val != 1) {
-            argp_error (state, "Expecting 0 or 1, got '%d'.", arg);
+            argp_error (state, "Expecting 0 or 1, got '%s'.", arg);
         } else {
             emu.force_colour = val == 0 ? -1 : 1;
         }

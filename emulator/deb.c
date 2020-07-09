@@ -121,6 +121,11 @@ deb_read(longaddr_t addr, word * data)
     case 0x3fd:
     case 0x3fe:
         *data = (iot_port_a * iot_port_b) & 0xffff;
+        
+        if (*data == 0) {
+            cpu.skipext = 1;
+            log_msg(LOG_DEBUG3, tst_log_unit, "Zero product, asserting SKIPEXT.");
+        }
         return 1;
 
     case 0x3ff:
@@ -263,7 +268,7 @@ void deb_tick()
     //log_msg(LOG_DEBUG3, tst_log_unit, "tick");
     if (irqen) {
         if (irq_ctr == 0) {
-            cpu.irq = 0;        // Assert level interrupt
+            cpu.irq = 1;        // Assert level interrupt
             if (!mute_czi) {
                 log_msg(LOG_DEBUG3, tst_log_unit, "Count Zero Interrupt.");
                 mute_czi = 1;

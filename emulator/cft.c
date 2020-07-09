@@ -140,10 +140,12 @@ cpu_reset()
     cpu.uav.rst = 0;            // 0 = RESET# is ACTIVE */
     cpu.uav.int_ = 1;           // 1 = INT# is not active
     cpu.uav.uaddr = 0;          // The uPC resets to 0 on power on/reset
-    cpu.irq = 1;                // Clear IRQ (1 = no IRQ received)
+    cpu.irq = 0;                // Clear IRQ
     cpu.rst_hold = 2;           // We don't need to hold reset for long here
     cpu.ir = 0xdead;
     cpu.agl_page = GET_PAGE(cpu.pc);
+    cpu.endext = 0;
+    cpu.skipext = 0;
 
     // REG
     cpu.pc = 0;
@@ -344,8 +346,6 @@ action_sru()
 static inline void
 handle_actions(int action)
 {
-    cpu.uav.cond = 1;        // COND=1 means ‘do not skip’
-
     switch (action) {
     case FIELD_ACTION_CPL:
         cpu.fl ^= 1;
@@ -587,7 +587,7 @@ static inline void
 decode_cond(int cond)
 {
     cpu.uav.cond = 1;        // COND=1 means ‘do not skip’
-    
+
     switch (cond) {
     case 0:
         // Idle, always true
@@ -683,6 +683,13 @@ decode_cond(int cond)
     default:
         fatal("Unknown microcode conditional %x", cond);
     }
+
+    // External SKIP?
+    if (cpu.skipext) {
+        debug("Skip requested externally.");
+        cpu.uav.cond = 0;
+        cpu.skipext = 0;
+    }
 }
 
 
@@ -736,8 +743,12 @@ read_from_ibus_unit(int raddr)
         return cpu.sp;
 
     case FIELD_READ_MBP_FLAGS:
-        tmp = (get_mbr(MBR_MBP) >> 16) | cpu.fn << 10 | cpu.fz << 11 |
-            cpu.fl << 12 | cpu.fv << 13 | cpu.fi << 15;
+        tmp = (get_mbr(MBR_MBP) >> 16) | // bits 0-7: MBP
+            cpu.fn << 10 |               // bit 10 (0x0400): N
+            cpu.fz << 11 |               // bit 11 (0x0800): Z
+            cpu.fl << 12 |               // bit 12 (0x1000): L
+            cpu.fv << 13 |               // bit 13 (0x2000): V
+            cpu.fi << 15;                // bit 15 (0x8000): I
         debug3("IBUS ← BMP+FLAGS (%04x)", tmp);
         return tmp;
 
@@ -887,16 +898,16 @@ write_to_ibus_unit(int waddr)
 
     case FIELD_WRITE_MBP_FLAGS:
         cpu.mbr[MBR_MBP] = (cpu.ibus & 0xff) << 16;
-        cpu.fl = cpu.ibus && 0x1000 ? 1 : 0;
-        cpu.fv = cpu.ibus && 0x2000 ? 1 : 0;
-        cpu.fi = cpu.ibus && 0x8000 ? 1 : 0;
+        cpu.fl = cpu.ibus & 0x1000 ? 1 : 0;
+        cpu.fv = cpu.ibus & 0x2000 ? 1 : 0;
+        cpu.fi = cpu.ibus & 0x8000 ? 1 : 0;
         debug3("MBP+FLAGS ← IBUS (%04x) [L=%d V=%d I=%d]", cpu.ibus, cpu.fl, cpu.fv, cpu.fi);
         return;
         
     case FIELD_WRITE_FLAGS:
-        cpu.fl = cpu.ibus && 0x1000 ? 1 : 0;
-        cpu.fv = cpu.ibus && 0x2000 ? 1 : 0;
-        cpu.fi = cpu.ibus && 0x8000 ? 1 : 0;
+        cpu.fl = cpu.ibus & 0x1000 ? 1 : 0;
+        cpu.fv = cpu.ibus & 0x2000 ? 1 : 0;
+        cpu.fi = cpu.ibus & 0x8000 ? 1 : 0;
         debug3("FLAGS ← IBUS (%04x) [L=%d V=%d I=%d]", cpu.ibus, cpu.fl, cpu.fv, cpu.fi);
         return;
 
@@ -942,7 +953,7 @@ cpu_control_store()
 
     // If an interrupt has been requested and interrupts are allowed, we jump
     // to the IRQ microprogram when the previous instruction ends.
-    if (cpu.irq == 0 && cpu.fi == 1 && cpu.uav.uaddr == 0) {
+    if (cpu.irq == 1 && cpu.fi == 1 && cpu.uav.uaddr == 0) {
         notice("Interrupt");
         cpu.uav.int_ = 0;       // Set the INT microcode condition 
     }
@@ -1020,6 +1031,13 @@ cpu_run()
         int w = IS_WEN(cpu.ucv);
         int end = IS_END(cpu.ucv);
 
+        // External END?
+        if (cpu.endext) {
+            debug("End of instruction requested externally.");
+            end = 1;
+            cpu.endext = 0;
+        }
+
         // Print CPU state.
         // if (debug_microcode) {
         //     printf("");
@@ -1035,7 +1053,7 @@ cpu_run()
               cpu.fv ? 'V' : '-',
               cpu.fi ? 'I' : '-',
               cpu.fl ? 'L' : '-',
-              cpu.irq ? "   " : "IRQ",
+              cpu.irq ? "IRQ" : "   ",
               cpu.pc, cpu.ac, cpu.dr, cpu.sp,
               get_mbr(0) >> 16, get_mbr(1) >> 16, get_mbr(2) >> 16, get_mbr(3) >> 16,
               get_mbr(4) >> 16, get_mbr(5) >> 16, get_mbr(6) >> 16, get_mbr(7) >> 16,
