@@ -43,6 +43,8 @@ static char *              log_prefix = NULL;
 static log_unitdesc_t *    log_units = NULL;
 static int                 log_numunits;
 
+int                        log_strict_sanity;
+
 
 int
 log_init(char * filename)
@@ -92,6 +94,13 @@ log_add_unit(char *name, int level, int colour)
 
 
 void
+log_set_strict_sanity(int on)
+{
+    log_strict_sanity = on;
+}
+
+
+void
 log_set_colour(int on)
 {
     log_have_colour = on;
@@ -114,6 +123,8 @@ log_set_prefix(char *prefix)
 
 
 static char * sigils = SIGILS "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDD";
+//static char * codes[] = { "900", "800", "400", "200", "200", "200" };
+
 
 #define NUM_COLOURS 30
 #define CSI "\033["
@@ -191,6 +202,7 @@ log_msg(int level, log_unit_t unit, char * fmt, ...)
                 sigils[level],
                 level,
                 up->name,
+                //level < 2 ? codes[level] : "   ",
                 log_prefix ? log_prefix : "",
                 buf,
                 log_have_colour ? "\033[0m" : ""
@@ -207,6 +219,7 @@ log_msg(int level, log_unit_t unit, char * fmt, ...)
                 log_have_colour ? colours[level] : "",
                 sigils[level],
                 level,
+                //level < 2 ? codes[level] : "   ",
                 log_prefix ? log_prefix : "",
                 buf,
                 log_have_colour ? "\033[0m" : ""

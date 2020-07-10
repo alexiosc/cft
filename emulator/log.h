@@ -36,10 +36,14 @@
 
 typedef int log_unit_t;         // A Unit handle.
 
+extern int log_strict_sanity;   // Sanity failures are fatal.
+
 
 int log_init(char * filename);
 
 log_unit_t log_add_unit(char *name, int level, int colour);
+
+void log_set_strict_sanity(int on);
 
 void log_set_colour(int on);
 
@@ -56,6 +60,12 @@ void log_done();
 // be discarded.
 int log_enabled(int level, log_unit_t unit);
 
+
+// Sanity checking with strict sanity support.
+#define sanity(msg, ...) {                                      \
+        if (log_strict_sanity) { fatal(msg, ## __VA_ARGS__) }   \
+        else { error(msg, ## __VA_ARGS__); }                    \
+    }
 
 #ifdef LOG_MACROS_UNIT
 #  define fatal(msg, ...) {                                             \

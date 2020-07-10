@@ -36,6 +36,7 @@ typedef struct cftemu_t {
     word        ram_sentinel;   // Value RAM is initialised with.
     int         force_colour;   // -1 = disable colour, 1 = enable colour
 
+    int         strict_sanity:1;
     int         writeable_rom:1;
     int         sentinel:1;
     int         debug_microcode:1;

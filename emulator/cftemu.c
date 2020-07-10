@@ -47,6 +47,7 @@ init()
     } else if (emu.force_colour == 1) {
         log_set_colour(1);
     }
+    log_set_strict_sanity(emu.strict_sanity);
 
     mem_init();
     io_init();

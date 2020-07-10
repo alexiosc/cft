@@ -60,14 +60,6 @@ static struct argp_option options[] =
       "RAM. This option may be specified multiple times to map multiple "
       "ROM images to the CFT's address space. (default: no ROM)"},
 
-    { "fill-ram", KEY_FILL_RAM, "WORD", 0,
-      "Fill RAM with this 16-bit value. This is used for some tests. (default: 0)" },
-    
-    { "writeable-rom", KEY_WRITEABLE_ROM, NULL, 0,
-      "Make ROMs defined up to this point in the command line writeable. "
-      "This is used for some tests." },
-    
-
     { NULL, 0, NULL, 0, "Input/Output\n", 20 },
     { "enable", 'e', "DEV", 0,
       "Enable the specified device given its three-letter code. For a list "
@@ -78,6 +70,19 @@ static struct argp_option options[] =
       "Disable the specified device given its three-letter code. For a list "
       "of devices, run with --list-devs. You can specify this option "
       "multiple times to enable as many devices as needed.", 0 },
+
+    { NULL, 0, NULL, 0, "Testing", -3 },
+
+    { "fill-ram", KEY_FILL_RAM, "WORD", 0,
+      "Fill RAM with this 16-bit value. This is used for some tests. (default: 0)" },
+    
+    { "strict-sanity", KEY_STRICT_SANITY, NULL, 0,
+      "Runtie sanity check failures are fatal. (default: non-fatal)" },
+    
+    { "writeable-rom", KEY_WRITEABLE_ROM, NULL, 0,
+      "Make ROMs defined up to this point in the command line writeable. "
+      "This is used for some tests." },
+    
 
     { NULL, 0, NULL, 0, "Miscellaneous", -2 },
 
@@ -411,6 +416,10 @@ parse_opt (int key, char *arg, struct argp_state *state)
         }
         break;
     }
+
+    case KEY_STRICT_SANITY:
+        emu.strict_sanity = 1;
+        break;
 
     // case 'p':
     //     emu.pasm_name = strdup (arg);

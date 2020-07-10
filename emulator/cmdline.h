@@ -32,6 +32,7 @@ enum {DUMMY_KEY=129
 
       ,KEY_FILL_RAM
       ,KEY_WRITEABLE_ROM
+      ,KEY_STRICT_SANITY
 
       ,KEY_COLOR
       ,KEY_COLOUR
