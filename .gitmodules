@@ -1,3 +1,6 @@
 [submodule "external/simavr"]
 	path = external/simavr
 	url = git://github.com/buserror/simavr.git
+[submodule "external/sxsdiff"]
+	path = external/sxsdiff
+	url = git://github.com/timonwong/sxsdiff.git
