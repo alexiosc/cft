@@ -1,8 +1,45 @@
 #!/usr/bin/python3
 
 import re
+import os
+import sys
 import pprint
 import pytest
+import tempfile
+import subprocess
+
+import testing
+
+
+def convert_result(item):
+    if isinstance(item, list):
+        return " ".join(str(x) for x in item if x is not None)
+    return str(item)
+
+
+def pytest_assertrepr_compare(op, left, right):
+    if isinstance(left, list) and isinstance(right, testing.ExpectedData) and op == "==":
+        a_name, b_name = None, None
+
+        try:
+            with tempfile.NamedTemporaryFile(mode="wt", delete=False) as a:
+                a_name = a.name
+                a.write('\n'.join(convert_result(x) for x in left))
+            with tempfile.NamedTemporaryFile(mode="wt", delete=False) as b:
+                b_name = b.name
+                b.write('\n'.join(list(convert_result(x) for x in right)))
+
+            diff = subprocess.getoutput("diff -yt {} {}".format(a_name, b_name))
+
+        finally:
+            if a_name is not None:
+                os.unlink(a_name)
+            if b_name is not None:
+                os.unlink(b_name)
+
+        return [ "OUTPUT DIFF (RESULT/EXPECTED)" ] + \
+            diff.split('\n') + \
+            [ "", "TO RERUN:", testing.last_test_command_ran ]
 
 
 def pytest_collection_modifyitems(items):

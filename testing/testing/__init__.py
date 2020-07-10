@@ -12,6 +12,10 @@ import unittest
 import subprocess
 
 
+
+last_test_command_ran = "N/A"
+
+
 class ExpectedData(list):
     """A class representing data expected from the output of a DFP-style test.
     Results can be tested by three-digit code, three-digit code plus status
@@ -149,6 +153,8 @@ def run_verilog_testbench(capsys, name, args=None):
     # os.chmod(fname, 0o755)
                 
     #print(os.path.abspath(binary), args)
+    global last_test_command_ran
+    last_test_command_ran = os.path.abspath(binary) + " " + " ".join(args)
     pipe = subprocess.Popen([os.path.abspath(binary)] + args, cwd=str(VERILOGDIR),
                             stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     (out, err) = pipe.communicate()
@@ -183,9 +189,12 @@ def run_c_emulator(tmpdir, capsys, args=None, timeout=5):
 
     if args is None:
         args = []
+    args.append("--strict-sanity")
 
     cmd = [ "/usr/bin/timeout", "--signal=9", str(timeout),
             os.path.abspath(C_EMULATOR) ] + args
+    global last_test_command_ran
+    last_test_command_ran = " ".join(cmd)
     #assert False, ' '.join(cmd)
 
     pipe = subprocess.Popen(cmd, cwd=tmpdir, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -207,12 +216,18 @@ def run_c_emulator(tmpdir, capsys, args=None, timeout=5):
         out = result[0]
 
     for line in out.split('\n'):
-        #print("*** Line:", line)
-        m = re.match(r'^.*\[DEB\] (\d\d\d) ([^: ]+)(?::?\s*(.+))?$', line.strip())
+        m = re.match(r'^.*\[(...)] (\d\d\d) ([^: ]+)(?::?\s*(.+))?$', line.strip())
         if not m:
-            #print("Ignored line:", line)
-            continue
-        code, state, comment = m.groups()
+            m = re.match(r'^.*E: L\d \[(...)] ([^: ]+)(?::?\s*(.+))?$', line.strip())
+            continue            # TODO: process stuff here.
+            if not m:
+                #print("Ignored line:", line)
+                continue
+            print("*** Line:", line)
+            print(m.group())
+        unit, code, state, comment = m.groups()
+        if unit and unit != "DEBx":
+            comment = "[{}] {}".format(unit, comment)
         #print("*** YIELDING", (int(code), state, comment))
         yield((int(code), state, comment))
 
