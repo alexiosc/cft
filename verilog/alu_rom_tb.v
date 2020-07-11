@@ -185,7 +185,8 @@ module alu_rom_tb();
 
 	 if (nalu_op === 0) begin
 	    casex (op)
-	      3'b000: correct_y = a + b + fl;	// ADD
+	      3'b000: correct_y = a + b;	// ADD
+	      //3'b000: correct_y = a + b + fl;	// ADC
 	      3'b001: correct_y = a & b;	// AND
 	      3'b010: correct_y = a | b;	// OR
 	      3'b011: correct_y = a ^ b;	// XOR

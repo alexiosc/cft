@@ -69,7 +69,8 @@ module alu_rom (t34, nalu_op, nread_alu_y,
 
    // Connect address buses appropriately.
 
-   assign ba0 = { op, x_in_reg, fl_reg,   b[5:0],         a[5:0] };
+   assign ba0 = { op, x_in_reg, 1'b0  ,   b[5:0],         a[5:0] };    // ADD (JP5)
+   // assign ba0 = { op, x_in_reg, fl_reg,   b[5:0],         a[5:0] }; // ADC (JP5)
    assign ba1 = { op, x0,       c0,       b[11:6],        a[11:6] };
    assign ba2 = { op, x1,       c1,       2'b0, b[15:12], 2'b0, a[15:12] };
 
