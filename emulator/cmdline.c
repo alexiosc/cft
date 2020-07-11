@@ -80,8 +80,7 @@ static struct argp_option options[] =
       "Runtie sanity check failures are fatal. (default: non-fatal)" },
     
     { "writeable-rom", KEY_WRITEABLE_ROM, NULL, 0,
-      "Make ROMs defined up to this point in the command line writeable. "
-      "This is used for some tests." },
+      "Make all ROMs writeable. Suppresses fatal errors about writing to ROMs." },
     
 
     { NULL, 0, NULL, 0, "Miscellaneous", -2 },
@@ -382,7 +381,6 @@ parse_opt (int key, char *arg, struct argp_state *state)
     }
     
     case KEY_WRITEABLE_ROM:
-        mem_writeable_rom();
         emu.writeable_rom = 1;
         break;
 

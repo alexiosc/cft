@@ -49,7 +49,6 @@ init()
     }
     log_set_strict_sanity(emu.strict_sanity);
 
-    mem_init();
     io_init();
 
     // // Initialise the user interface.

@@ -373,6 +373,7 @@ handle_actions(int action)
 
     case FIELD_ACTION_CLI:
         cpu.fi = 0;
+        cpu.irq = 0;
         debug3("action_cli: I ← %d", cpu.fi);
         return;
 
@@ -749,7 +750,7 @@ read_from_ibus_unit(int raddr)
             cpu.fl << 12 |               // bit 12 (0x1000): L
             cpu.fv << 13 |               // bit 13 (0x2000): V
             cpu.fi << 15;                // bit 15 (0x8000): I
-        debug3("IBUS ← BMP+FLAGS (%04x)", tmp);
+        debug3("IBUS ← MBP+FLAGS (%04x)", tmp);
         return tmp;
 
     case FIELD_READ_AGL:
@@ -759,31 +760,36 @@ read_from_ibus_unit(int raddr)
 
     case FIELD_READ_ALU_ADD:
     {
+        cpu.alu_a = cpu.ac;
         uint32_t sum = (uint32_t) cpu.alu_a + (uint32_t) cpu.alu_b;
         cpu.alu_y = sum & 0xffff;
         if (sum & 0x10000) cpu.fl = !cpu.fl;
         cpu.fv = (cpu.alu_a & 0x8000) == (cpu.alu_b & 0x8000) && \
-            (cpu.alu_a & 0x8000) != (cpu.ibus & 0x8000);
-        debug3("IBUS ← A + B (%04x), L ← %d, V ← %d", cpu.alu_y, cpu.fl, cpu.fl);
+            (cpu.alu_a & 0x8000) != (cpu.alu_y & 0x8000);
+        debug3("IBUS ← A + B (%04x), L ← %d, V ← %d", cpu.alu_y, cpu.fl, cpu.fv);
         return 0;               // Pretend we need extra time for the addition
     }
         
     case FIELD_READ_ALU_AND:
+        cpu.alu_a = cpu.ac;
         cpu.alu_y = cpu.alu_a & cpu.alu_b;
         debug3("IBUS ← A AND B (%04x)", cpu.alu_y);
         return cpu.alu_y;
         
     case FIELD_READ_ALU_OR:
+        cpu.alu_a = cpu.ac;
         cpu.alu_y = cpu.alu_a | cpu.alu_b;
         debug3("IBUS ← A OR B (%04x)", cpu.alu_y);
         return cpu.alu_y;
         
     case FIELD_READ_ALU_XOR:
+        cpu.alu_a = cpu.ac;
         cpu.alu_y = cpu.alu_a ^ cpu.alu_b;
         debug3("IBUS ← A XOR B (%04x)", cpu.alu_y);
         return cpu.alu_y;
         
     case FIELD_READ_ALU_NOT:
+        cpu.alu_a = cpu.ac;
         cpu.alu_y = cpu.alu_a ^ 0xffff;
         debug3("IBUS ← NOT A (%04x)", cpu.alu_y);
         return cpu.alu_y;

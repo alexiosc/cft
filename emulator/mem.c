@@ -134,6 +134,8 @@ mem_init()
 	  memp->size >> 10);
 
     info("%dK RAM, %dK ROM", memp->size >> 10, kw_rom >> 10);
+
+    if (emu.writeable_rom) mem_writeable_rom();
 }
 
 
@@ -176,8 +178,7 @@ mem_read(longaddr_t a, word * d)
         }
     }
 
-    log_msg(LOG_DEBUG3, mem_log_unit, "R MEM[%s]: no memory at this address",
-            format_longaddr(a, NULL));
+    sanity("R MEM[%s]: no memory at this address", format_longaddr(a, NULL));
     return 0;
 }
          
@@ -194,8 +195,8 @@ mem_write(longaddr_t a, word d)
             if (memp->is_ram || memp->is_wrom) {
                 memp->mem[ofs] = d;
             } else {
-                sanity("Attempt to write to non-writeable address %s (data %04x)",
-                       format_longaddr(a, NULL), d);
+                sanity("Attempt to write to read-only %s[%s] ← %04x (region %d, ofs %06x)",
+                        memp->is_ram ? "RAM" : "ROM", format_longaddr(a, NULL), d, i, ofs);
             }
             if (log_enabled(LOG_DEBUG3, mem_log_unit)) {
                 log_msg(LOG_DEBUG3, mem_log_unit, "W %s[%s] ← %04x (region %d, ofs %06x)",
@@ -205,17 +206,10 @@ mem_write(longaddr_t a, word d)
         }
     }
 
-    log_msg(LOG_DEBUG3, mem_log_unit, "W MEM[%s]: no memory at this address",
-            format_longaddr(a, NULL));
+    sanity("W MEM[%s]: no memory at this address", format_longaddr(a, NULL));
     return 0;
 }
 
-
-// Change all loaded ROMs into RAM. This is used to simulate manually entered
-// programs during testing.
-void mem_writeable_rom();
-
-         
 
 // End of file.
 // Local Variables:

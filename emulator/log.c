@@ -226,7 +226,7 @@ log_msg(int level, log_unit_t unit, char * fmt, ...)
             );
     }
 
-    fflush(log_fp);
+    //fflush(log_fp);
     free(buf);
 }
 

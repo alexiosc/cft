@@ -45,6 +45,7 @@ static word         iot_port_a; // For IOT testing.
 static word         iot_port_b; // For IOT testing.
 static word         irq_ctr;    // IRQ counter
 static word         irqen;      // IRQs enabled?
+static int          irq;        // Our local IRQ has been triggered.
 static word         mute_czi;   // Mute Count Zero Interrupt logs
 #endif // TST
 
@@ -70,6 +71,7 @@ void deb_init()
     iot_port_a = 0;
     iot_port_b = 0;
     irq_ctr = 0;
+    irq = 0;
     irqen = 0;
 #endif // TST
 }
@@ -254,9 +256,13 @@ deb_write(longaddr_t addr, word data)
         return 1;
 
     case 0x3ff:
+        if (irq) {
+            log_msg(LOG_DEBUG3, tst_log_unit, "Interrupt acknowledged and cleared.");
+            irq = 0; 
+       }
         irqen = data == 0 ? 0 : 1;
         irq_ctr = data;
-        log_msg(LOG_DEBUG3, tst_log_unit, "IRQ counter: en=%d, val=%04x", irqen, irq_ctr);
+        log_msg(LOG_DEBUG3, tst_log_unit, "IRQ counter: en=%d, val=%04x", irqen, data);
         mute_czi = 0;
         return 1;
         
@@ -273,14 +279,22 @@ void deb_tick()
     //log_msg(LOG_DEBUG3, tst_log_unit, "tick");
     if (irqen) {
         if (irq_ctr == 0) {
+            irqen = 0;
+            irq = 1;
             cpu.irq = 1;        // Assert level interrupt
             if (!mute_czi) {
-                log_msg(LOG_DEBUG3, tst_log_unit, "Count Zero Interrupt.");
+                log_msg(LOG_DEBUG3, tst_log_unit, "Count reached zero.");
                 mute_czi = 1;
             }
         } else {
             irq_ctr--;          // Count
         }
+    }
+
+    // Trigger interrupts.
+    if (irq) {
+        log_msg(LOG_DEBUG3, tst_log_unit, "Interrupting.");
+        cpu.irq = 1;
     }
 }
 
