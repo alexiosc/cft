@@ -823,7 +823,7 @@ F 3 "" H 8650 6200 50  0001 C CNN
 $EndComp
 Connection ~ 8650 6400
 Connection ~ 8650 6200
-Text Notes 2250 1550 0    50   ~ 0
+Text Notes 1700 1700 0    50   ~ 0
 X-IN is reserved for future\nexpansion, and wired to\nallow this. It can be cascaded\nlike carry using X0 and X1, or\nindependent of them.
 $Comp
 L alexios:74LVC1G32 U44
@@ -1548,8 +1548,6 @@ Connection ~ 3650 4700
 Wire Wire Line
 	3650 4700 3650 6850
 Wire Wire Line
-	3350 2150 5000 2150
-Wire Wire Line
 	3350 2250 5000 2250
 Wire Wire Line
 	3350 2350 3850 2350
@@ -1598,8 +1596,6 @@ Wire Wire Line
 	1050 2450 2350 2450
 Wire Wire Line
 	1050 2550 2350 2550
-Text Label 3400 2150 0    50   ~ 0
-FL-REG
 Text Label 3400 2250 0    50   ~ 0
 X-IN-REG
 $Comp
@@ -1923,6 +1919,46 @@ Text Notes 900  5750 0    66   ~ 13
 Timing
 Text Notes 5900 750  2    63   ~ 13
 55 ns devices!
+Text Label 3750 2150 0    50   ~ 0
+FL-REG
+Wire Wire Line
+	3350 2150 3450 2150
+Wire Wire Line
+	3450 1800 3450 2150
+$Comp
+L power:GND #PWR011
+U 1 1 5F0DF581
+P 3900 1850
+F 0 "#PWR011" H 3900 1600 50  0001 C CNN
+F 1 "GND" H 4000 1700 50  0000 C CNN
+F 2 "" H 3900 1850 50  0001 C CNN
+F 3 "" H 3900 1850 50  0001 C CNN
+	1    3900 1850
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3900 1800 3900 1850
+Wire Wire Line
+	3700 2150 5000 2150
+Text Notes 3500 1600 0    50   ~ 0
+1-2 = ADD\n2-3 = ADC
+$Comp
+L alexios:SolderJumper_3_Bridged12 JP5
+U 1 1 5F119A09
+P 3700 1800
+F 0 "JP5" H 3700 1913 50  0000 C CNN
+F 1 "SolderJumper_3_Bridged12" H 3700 1910 50  0001 C CNN
+F 2 "Jumper:SolderJumper-3_P1.3mm_Bridged12_RoundedPad1.0x1.5mm_NumberLabels" H 3700 1800 50  0001 C CNN
+F 3 "~" H 3700 1800 50  0001 C CNN
+	1    3700 1800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3450 1800 3550 1800
+Wire Wire Line
+	3850 1800 3900 1800
+Wire Wire Line
+	3700 1900 3700 2150
 Wire Bus Line
 	8650 750  8650 3100
 Wire Bus Line
