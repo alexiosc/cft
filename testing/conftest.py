@@ -39,7 +39,7 @@ def pytest_assertrepr_compare(op, left, right):
 
         return [ "OUTPUT DIFF (RESULT/EXPECTED)" ] + \
             diff.split('\n') + \
-            [ "", "TO RERUN:", testing.last_test_command_ran ]
+            [ "", "TO RERUN:", testing.last_test_command_ran + " --color 1 -v" ]
 
 
 def pytest_collection_modifyitems(items):
