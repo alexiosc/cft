@@ -551,7 +551,7 @@ mbu_read(longaddr_t a, word *d)
     // present in real hardware.
     assert(d != NULL);
     if (a >= 0x008 && a <= 0x00f) {
-        *d = 0x5400 | (cpu.mbr[a & 7] >> 16);
+        *d = 0x5400 | (get_mbr(a & 7) >> 16);
         log_msg(LOG_DEBUG3, mbu_log_unit, "MBR[%d] → %02x (mbuen=%d)", a & 7, *d & 0xff, cpu.mbuen);
         return 1;
     }
