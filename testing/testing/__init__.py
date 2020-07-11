@@ -192,7 +192,7 @@ def run_c_emulator(tmpdir, capsys, args=None, timeout=5):
     args.append("--strict-sanity")
 
     cmd = [ "/usr/bin/timeout", "--signal=9", str(timeout),
-            os.path.abspath(C_EMULATOR) ] + args
+            os.path.normpath(C_EMULATOR) ] + args
     global last_test_command_ran
     last_test_command_ran = " ".join(cmd)
     #assert False, ' '.join(cmd)
@@ -217,18 +217,21 @@ def run_c_emulator(tmpdir, capsys, args=None, timeout=5):
 
     for line in out.split('\n'):
         m = re.match(r'^.*\[(...)] (\d\d\d) ([^: ]+)(?::?\s*(.+))?$', line.strip())
-        if not m:
+        if m:
+            unit, code, state, comment = m.groups()
+        else:
             m = re.match(r'^.*E: L\d \[(...)] ([^: ]+)(?::?\s*(.+))?$', line.strip())
-            continue            # TODO: process stuff here.
             if not m:
                 #print("Ignored line:", line)
                 continue
-            print("*** Line:", line)
-            print(m.group())
-        unit, code, state, comment = m.groups()
-        if unit and unit != "DEBx":
-            comment = "[{}] {}".format(unit, comment)
-        #print("*** YIELDING", (int(code), state, comment))
+
+            unit, state, comment = m.groups()
+            code = 900
+            # print("*** Line:", line)
+            # print(m.group())
+
+        # if unit and unit != "DEBx":
+        #     comment = "[{}] {}".format(unit, comment)
         yield((int(code), state, comment))
 
 
@@ -275,7 +278,7 @@ def assemble(tmpdir, source, long=False, args=None):
         "cftasm did not generate {}/a.bin.".format(tmpdir)
 
     fsize = os.path.getsize(binfile)
-    if '--blocksize' in args:
+    if args is not None and '--blocksize' in args:
         assert (fsize % 2) == 0, "Assembler produced odd-sized binary object file."
     else:
         assert fsize > 0, "Assembler produced empty binary object file."
@@ -371,7 +374,7 @@ def run_on_emulator(capsys, tmpdir, source, timeout=20000000,
     
     out, err = get_capsys_outerr(capsys)
     args = [ "--ram=512", "--enable=DEB" ]
-    args += [ "--rom={},{}".format(os.path.join(tmpdir, "a.bin"),
+    args += [ "--rom", "{},{}".format(os.path.join(tmpdir, "a.bin"),
                                    kwargs.get("rom_addr", 8192)) ]
 
     # Translate the Verilog emulator +wp=0 to --writeable-rom for the C emulator
