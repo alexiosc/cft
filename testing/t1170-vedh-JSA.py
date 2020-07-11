@@ -39,6 +39,10 @@ def test_JSA(framework, capsys, tmpdir):
     &0:    .fill 32768 SENTINEL
     &0:    LI &80
            SMB mbu.MBP
+           LI &0
+           SMB mbu.MBZ
+           LI &1
+           SMB mbu.MBS
     """.rstrip(" ")
 
     expected = ExpectedData([ SUCCESS ])

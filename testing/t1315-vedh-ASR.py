@@ -197,6 +197,8 @@ def test_ASR_slow(framework, capsys, tmpdir):
                SMB mbu.MBP
                LI 0
                SMB mbu.MBZ
+               LI 1
+               SMB mbu.MBS
                CLL CLA
     
                LIA data

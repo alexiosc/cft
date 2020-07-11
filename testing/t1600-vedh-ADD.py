@@ -133,7 +133,8 @@ def calc_addition(a, b, fl):
     flags = 0x80
 
     assert fl == 0 or fl == 1
-    new_ac = (a + b + fl) & 0xffff
+    new_ac = (a + b) & 0xffff        # ADD (JP5)
+    # new_ac = (a + b + fl) & 0xffff # ADC (JP5)
 
     if new_ac & 0x8000:
         flags |= 0x0400         # FN
@@ -330,8 +331,8 @@ def test_ADD_I(framework, capsys, tmpdir, max_test=10):
             CLL CLA       ; Start with <L,AC>=0
             STORE R 2
 
-            LIA data
-            STORE R &341
+            LIA data      ; Note: relative to bank &82 (MBD)
+            STORE R &341  ; MBR-relative autoincrement
             LI @{max_test}-1
             STORE R 1
 
@@ -353,6 +354,7 @@ def test_ADD_I(framework, capsys, tmpdir, max_test=10):
 
     tmp_i:  .data &9876
 
+    &82ffff: .data 0            ; Force ROM image to be at least this long.
     &820010:
     tmp:    .data 0
 
@@ -371,7 +373,8 @@ def test_ADD_I(framework, capsys, tmpdir, max_test=10):
 
     expected += [ HALTED ]
     result = run_on_framework(framework, capsys, tmpdir, source,
-                                long=True, verilog_args=["+wp=0"])
+                              rom_addr=8192,
+                              long=True, verilog_args=["+wp=0"])
     # pprint.pprint(list(result))
     # assert False
     result = list(expected.prepare(result))
@@ -458,7 +461,7 @@ def test_ADD_I_R(framework, capsys, tmpdir, max_test=10):
 
     expected += [ HALTED ]
     result = run_on_framework(framework, capsys, tmpdir, source,
-                                long=True, verilog_args=["+wp=0"])
+                                long=True, rom_addr=8192, verilog_args=["+wp=0"])
     # pprint.pprint(list(result))
     # assert False
     result = list(expected.prepare(result))
@@ -541,7 +544,8 @@ def test_ADD_I_R_autoinc(framework, capsys, tmpdir, max_test=10):
 
     expected += [ HALTED ]
     result = run_on_framework(framework, capsys, tmpdir, source,
-                                long=True, verilog_args=["+wp=0"])
+                              rom_addr=8192,
+                              long=True, verilog_args=["+wp=0"])
     # pprint.pprint(list(result))
     # assert False
     result = list(expected.prepare(result))
@@ -628,7 +632,8 @@ def test_ADD_I_R_autodec(framework, capsys, tmpdir, max_test=10):
 
     expected += [ HALTED ]
     result = run_on_framework(framework, capsys, tmpdir, source,
-                                long=True, verilog_args=["+wp=0"])
+                              rom_addr=8192,
+                              long=True, verilog_args=["+wp=0"])
     # pprint.pprint(list(result))
     # assert False
     result = list(expected.prepare(result))
@@ -715,7 +720,8 @@ def test_ADD_I_R_stack(framework, capsys, tmpdir, max_test=10):
 
     expected += [ HALTED ]
     result = run_on_framework(framework, capsys, tmpdir, source,
-                                long=True, verilog_args=["+wp=0"])
+                              rom_addr=8192,
+                              long=True, verilog_args=["+wp=0"])
     #pprint.pprint(list(result))
     result = list(expected.prepare(result))
     #pprint.pprint(expected)

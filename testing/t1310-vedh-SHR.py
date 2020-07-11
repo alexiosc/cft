@@ -149,6 +149,8 @@ def test_SHR_slow(framework, capsys, tmpdir):
                LI 0
                SMB mbu.MBZ
                CLL CLA
+               LI 1
+               SMB mbu.MBS
     
                LIA data
                STORE R &340 ; MBP-relative autoinc

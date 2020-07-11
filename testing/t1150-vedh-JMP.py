@@ -286,11 +286,14 @@ def test_JMP_I_R_autoinc_double_indirect(framework, capsys, tmpdir):
     for i, value in enumerate(long_values + [ 0x1234 ], 0x30017):
         source += "    &{:>06x}:   .word &{:>04x}\n".format(i, value)
 
-    expected = ExpectedData([ SUCCESS ] * (len(long_values) + 1))
+    expected = ExpectedData([ SUCCESS, ROM_WP0 ])
+    expected += [ SUCCESS ] * len(long_values)
     expected += [ [ 340, "PRINTH", "{:>04x}".format(0x17 + len(long_values) + 1) ] ]
     expected += [ HALTED ]
 
-    result = run_on_framework(framework, capsys, tmpdir, source, long=True, timeout=30000000)
+    result = run_on_framework(framework, capsys, tmpdir, source, long=True,
+                              verilog_args=[ "+wp=0" ],
+                              timeout=30000000)
     result = list(expected.prepare(result))
     assert result == expected
 
@@ -341,11 +344,14 @@ def test_JMP_I_R_autodec_double_indirect(framework, capsys, tmpdir):
     for i, value in enumerate(reversed(long_values + [ 0x1234 ]), 0x30017):
         source += "    &{:>06x}:   .word &{:>04x}\n".format(i, value)
 
-    expected = ExpectedData([ SUCCESS ] * (len(long_values) + 1))
+    expected = ExpectedData([ SUCCESS, ROM_WP0 ])
+    expected += [ SUCCESS ] * len(long_values)
     expected += [ [ 340, "PRINTH", "0016" ] ]
     expected += [ HALTED ]
 
-    result = run_on_framework(framework, capsys, tmpdir, source, long=True, timeout=30000000)
+    result = run_on_framework(framework, capsys, tmpdir, source, long=True,
+                              verilog_args=[ "+wp=0" ],
+                              timeout=30000000)
     result = list(expected.prepare(result))
     assert result == expected
 
@@ -397,11 +403,14 @@ def test_JMP_I_R_stack(framework, capsys, tmpdir):
     for i, value in enumerate(reversed(long_values + [ 0x1234 ]), 0x30017):
         source += "    &{:>06x}:   .word &{:>04x}\n".format(i, value)
 
-    expected = ExpectedData([ SUCCESS ] * (len(long_values) + 1))
+    expected = ExpectedData([ SUCCESS, ROM_WP0 ])
+    expected += [ SUCCESS ] * len(long_values)
     expected += [ [ 340, "PRINTH", "0017" ] ]
     expected += [ HALTED ]
 
-    result = run_on_framework(framework, capsys, tmpdir, source, long=True, timeout=30000000)
+    result = run_on_framework(framework, capsys, tmpdir, source, long=True,
+                              verilog_args=[ "+wp=0" ],
+                              timeout=30000000)
     result = list(expected.prepare(result))
     assert result == expected
 

@@ -65,7 +65,7 @@ def test_STI(framework, capsys, tmpdir):
 
     """.format(**locals())
 
-    expected = ExpectedData([ SUCCESS,
+    expected = ExpectedData([ SUCCESS, ROM_WP0,
                               [ 340, 'PRINTH', '001d' ],
                               [ 340, 'PRINTH', '001c' ],
                               [ 340, 'PRINTH', '001b' ],
@@ -98,7 +98,8 @@ def test_STI(framework, capsys, tmpdir):
                               [ 340, 'PRINTH', '0000' ],
                               SUCCESS,
                               HALTED ])
-    result = run_on_framework(framework, capsys, tmpdir, source, long=True)
+    result = run_on_framework(framework, capsys, tmpdir, source,
+                              long=True, verilog_args=[ "+wp=0" ])
     # pprint.pprint(list(result))
     # assert False
     result = list(expected.prepare(result))

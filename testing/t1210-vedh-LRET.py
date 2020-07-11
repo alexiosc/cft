@@ -86,10 +86,13 @@ def test_LRET(framework, capsys, tmpdir):
         source += "               SUCCESS\n"
         source += "               LRET\n"
 
-    expected = ExpectedData([ SUCCESS ] * (len(long_values) + 1))
+    expected = ExpectedData([ SUCCESS, ROM_WP0 ])
+    expected += [ SUCCESS ] * len(long_values)
     expected += [ HALTED ]
 
-    result = run_on_framework(framework, capsys, tmpdir, source, long=True)
+    result = run_on_framework(framework, capsys, tmpdir, source,
+                              verilog_args=[ "+wp=0" ],
+                              long=True)
     result = list(expected.prepare(result))
     assert result == expected
 

@@ -65,9 +65,10 @@ def test_mbu_asm(framework, capsys, tmpdir):
     
     # Expect 32 words
     fname = str(tmpdir.join("a.bin"))
-    assert os.path.getsize(fname) == 64, \
-        "Wrong object size generated (32W expected)"
+    assert os.path.getsize(fname) == 2048, \
+        "Wrong object size generated (2048W expected)"
 
+    # Only read the first 32W.
     assembled_data = read_cft_bin_file(fname, 32)
     
     # Data is byte-swapped when Python reads it a 16-bit ints.
@@ -77,7 +78,7 @@ def test_mbu_asm(framework, capsys, tmpdir):
         0x5408, 0x5409, 0x540a, 0x540b, 0x540c, 0x540d, 0x540e, 0x540f,
         0x5408, 0x5409, 0x540a, 0x540b, 0x540c, 0x540d, 0x540e, 0x540f,
         ])
-    assert len(assembled_data) == 32
+    # assert len(assembled_data) == 32
     assert assembled_data == expected_data, "Assembled string did not match"
 
 

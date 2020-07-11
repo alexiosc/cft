@@ -135,6 +135,7 @@ def test_SMB(framework, capsys, tmpdir):
     
     expected = ExpectedData([
         SUCCESS,
+        ROM_WP0,
         [ 340, "PRINTH", "0000" ],
         [ 340, "PRINTH", "1111" ],
         [ 340, "PRINTH", "2222" ],
@@ -156,6 +157,7 @@ def test_SMB(framework, capsys, tmpdir):
 
     result = run_on_framework(framework, capsys, tmpdir, source,
                               rom_addr=0, # For the cftemu
+                              verilog_args=["+wp=0"],
                               long=True)
     result = list(expected.prepare(result))
     assert list(result) == expected

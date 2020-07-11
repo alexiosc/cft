@@ -73,12 +73,13 @@ def test_WAIT(framework, capsys, tmpdir):
 
     """.format(**locals())
 
-    expected = ExpectedData([ SUCCESS ])
+    expected = ExpectedData([ SUCCESS, ROM_WP0 ])
     for x in range(num_waits):
         expected += [ [ 340, 'PRINTD', str(1023 - x) ], SUCCESS ]
     expected += [ HALTED ]
 
-    result = run_on_framework(framework, capsys, tmpdir, source, long=True)
+    result = run_on_framework(framework, capsys, tmpdir, source,
+                              verilog_args=[ "+wp=0" ], long=True)
     # pprint.pprint(list(result))
     # assert False
     result = list(expected.prepare(result))

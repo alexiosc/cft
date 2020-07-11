@@ -89,10 +89,12 @@ def test_LJSR(framework, capsys, tmpdir):
         source += "               STORE R &101\n"
         source += "               LJMP I R &100\n"
 
-    expected = ExpectedData([ SUCCESS ] * (len(long_values) + 1))
+    expected = ExpectedData([ SUCCESS, ROM_WP0 ])
+    expected += [ SUCCESS ] * len(long_values)
     expected += [ HALTED ]
 
-    result = run_on_framework(framework, capsys, tmpdir, source, rom_addr=0, long=True)
+    result = run_on_framework(framework, capsys, tmpdir, source, rom_addr=0,
+                              long=True, verilog_args=[ "+wp=0" ])
     result = list(expected.prepare(result))
     assert result == expected
 

@@ -270,7 +270,7 @@ def test_UOP(framework, capsys, tmpdir):
                               [ 340, "PRINTD", "11", ], [ 340, "PRINTH", "fffe" ], L1, # NOT
                               [ 340, "PRINTD", "12", ], [ 340, "PRINTH", "fffd" ], L1, # DEC
                               HALTED ])
-    result = run_on_framework(framework, capsys, tmpdir, source, long=True)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     # pprint.pprint(list(result))
     # assert False
     result = list(expected.prepare(result))
@@ -341,7 +341,7 @@ def test_NOT(framework, capsys, tmpdir, numtests=10):
             SUCCESS ]
     expected += [ HALTED ]
     
-    result = run_on_framework(framework, capsys, tmpdir, source, long=True, timeout=30000000)
+    result = run_on_framework(framework, capsys, tmpdir, source, timeout=30000000)
     # pprint.pprint(list(result))
     # pprint.pprint(list(expected))
     # assert False
@@ -425,7 +425,7 @@ def test_NEG(framework, capsys, tmpdir, numtests=10):
         ]
     expected += [ HALTED ]
     
-    result = run_on_framework(framework, capsys, tmpdir, source, long=True, timeout=30000000)
+    result = run_on_framework(framework, capsys, tmpdir, source, timeout=30000000)
     # pprint.pprint(list(result))
     # pprint.pprint(list(expected))
     # assert False
@@ -519,7 +519,7 @@ def test_INC(framework, capsys, tmpdir, numtests=10, numops=5):
         expected += [ [ 340, "PRINTH", "{:>04x}".format(inc(x, i)) ] for i in range(1, 2 * numops + 3) ]
     expected += [ HALTED ]
     
-    result = run_on_framework(framework, capsys, tmpdir, source, long=True, timeout=300000000)
+    result = run_on_framework(framework, capsys, tmpdir, source, timeout=300000000)
     # pprint.pprint(list(result))
     # pprint.pprint(list(expected))
     # assert False
@@ -613,7 +613,7 @@ def test_DEC(framework, capsys, tmpdir, numtests=10, numops=5):
         expected += [ [ 340, "PRINTH", "{:>04x}".format(dec(x, i)) ] for i in range(1, 2 * numops + 3) ]
     expected += [ HALTED ]
     
-    result = run_on_framework(framework, capsys, tmpdir, source, long=True, timeout=300000000)
+    result = run_on_framework(framework, capsys, tmpdir, source, timeout=300000000)
     # pprint.pprint(list(result))
     # pprint.pprint(list(expected))
     # assert False
@@ -768,7 +768,7 @@ def test_IFL(framework, capsys, tmpdir):
                               [ 340, "PRINTD", "15", ], [ 340, "PRINTH", "fffe" ], L1, # NOT
                               [ 340, "PRINTD", "16", ], [ 340, "PRINTH", "fffd" ], L1, # DEC
                               HALTED ])
-    result = run_on_framework(framework, capsys, tmpdir, source, long=True)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     # pprint.pprint(list(result))
     # assert False
     result = list(expected.prepare(result))
@@ -942,7 +942,7 @@ def test_IFV(framework, capsys, tmpdir):
                               [ 340, "PRINTD", "15", ], [ 340, "PRINTH", "fffe" ], L0, # NOT
                               [ 340, "PRINTD", "16", ], [ 340, "PRINTH", "fffd" ], L0, # DEC
                               HALTED ])
-    result = run_on_framework(framework, capsys, tmpdir, source, long=True)
+    result = run_on_framework(framework, capsys, tmpdir, source)
     # pprint.pprint(list(result))
     # assert False
     result = list(expected.prepare(result))

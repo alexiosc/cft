@@ -160,6 +160,7 @@ def test_JSR_I(framework, capsys, tmpdir):
             .fill 32768 SENTINEL
     &0:     LI &80
             SMB mbu.MBP
+            SMB mbu.MBD
             LI &1
             SMB mbu.MBS
             LI &0
@@ -240,10 +241,13 @@ def test_JSR_I_R(framework, capsys, tmpdir):
         source += "               PPA\n"
         source += "               JSA\n"
 
-    expected = ExpectedData([ SUCCESS ] * (len(long_values) + 1))
+    expected = ExpectedData([ SUCCESS, ROM_WP0 ])
+    expected += [ SUCCESS ] * len(long_values)
     expected += [ [ 340, "PRINTD", str(len(long_values)) ], HALTED ]
 
-    result = run_on_framework(framework, capsys, tmpdir, source, long=True, timeout=30000000)
+    result = run_on_framework(framework, capsys, tmpdir, source, long=True,
+                              verilog_args=[ "+wp=0" ],
+                              timeout=30000000)
     result = list(expected.prepare(result))
     assert result == expected
 
@@ -318,10 +322,13 @@ def test_JSR_I_R_bank_relative(framework, capsys, tmpdir):
         source += "               PPA\n"
         source += "               JSA\n"
 
-    expected = ExpectedData([ SUCCESS ] * (len(long_values) + 1))
+    expected = ExpectedData([ SUCCESS, ROM_WP0 ])
+    expected += [ SUCCESS] * len(long_values)
     expected += [ [ 340, "PRINTD", str(len(long_values)) ], HALTED ]
 
-    result = run_on_framework(framework, capsys, tmpdir, source, long=True, timeout=30000000)
+    result = run_on_framework(framework, capsys, tmpdir, source, long=True,
+                              verilog_args=[ "+wp=0" ],
+                              timeout=30000000)
     result = list(expected.prepare(result))
     assert result == expected
 
@@ -382,12 +389,15 @@ def test_JSR_I_R_autoinc_double_indirect(framework, capsys, tmpdir):
         source += "               PPA\n"
         source += "               JSA\n"
 
-    expected = ExpectedData([ SUCCESS ] * (len(long_values) + 1))
+    expected = ExpectedData([ SUCCESS, ROM_WP0 ])
+    expected += [ SUCCESS ] * len(long_values)
     expected += [ [ 340, "PRINTH", "{:>04x}".format(0x117 + len(long_values)) ] ]
     expected += [ [ 340, "PRINTD", str(len(long_values)) ] ]
     expected += [ HALTED ]
 
-    result = run_on_framework(framework, capsys, tmpdir, source, long=True, timeout=30000000)
+    result = run_on_framework(framework, capsys, tmpdir, source, long=True,
+                              verilog_args=[ "+wp=0" ],
+                              timeout=30000000)
     result = list(expected.prepare(result))
     assert result == expected
 
@@ -448,12 +458,15 @@ def test_JSR_I_R_autodec_double_indirect(framework, capsys, tmpdir):
         source += "               PPA\n"
         source += "               JSA\n"
 
-    expected = ExpectedData([ SUCCESS ] * (len(long_values) + 1))
+    expected = ExpectedData([ SUCCESS, ROM_WP0 ])
+    expected += [ SUCCESS ] * len(long_values)
     expected += [ [ 340, "PRINTH", "0116" ] ]
     expected += [ [ 340, "PRINTD", str(len(long_values)) ] ]
     expected += [ HALTED ]
 
-    result = run_on_framework(framework, capsys, tmpdir, source, long=True, timeout=30000000)
+    result = run_on_framework(framework, capsys, tmpdir, source, long=True,
+                              verilog_args=[ "+wp=0" ],
+                              timeout=30000000)
     result = list(expected.prepare(result))
     assert result == expected
 
@@ -516,12 +529,15 @@ def test_JSR_I_R_stack(framework, capsys, tmpdir):
         source += "               PPA\n"
         source += "               JSA\n"
 
-    expected = ExpectedData([ SUCCESS ] * (len(long_values) + 1))
+    expected = ExpectedData([ SUCCESS, ROM_WP0 ])
+    expected += [ SUCCESS ] * len(long_values)
     expected += [ [ 340, "PRINTH", "0117" ] ]
     expected += [ [ 340, "PRINTD", str(len(long_values)) ] ]
     expected += [ HALTED ]
 
-    result = run_on_framework(framework, capsys, tmpdir, source, long=True, timeout=30000000)
+    result = run_on_framework(framework, capsys, tmpdir, source, long=True,
+                              verilog_args=[ "+wp=0" ],
+                              timeout=30000000)
     result = list(expected.prepare(result))
     assert result == expected
 

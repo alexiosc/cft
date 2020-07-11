@@ -73,11 +73,13 @@ def test_CLI_int(framework, capsys, tmpdir):
             DSZ R 1
             NOP
             dfp.PRINTH
+            LI &10
+            OUT &3ff
             IRET
 
     """.format(**locals())
 
-    expected = ExpectedData([ SUCCESS,
+    expected = ExpectedData([ SUCCESS, ROM_WP0,
                               [ 340, 'PRINTH', '001d' ],
                               [ 340, 'PRINTH', '001c' ],
                               [ 340, 'PRINTH', '001b' ],
@@ -113,7 +115,8 @@ def test_CLI_int(framework, capsys, tmpdir):
     expected += [ [ 340, "PRINTD", str(x) ] for x in range(256, -1, -1) ]
     expected += [ SUCCESS,
                   HALTED ]
-    result = run_on_framework(framework, capsys, tmpdir, source, long=True)
+    result = run_on_framework(framework, capsys, tmpdir, source,
+                              long=True, verilog_args=[ "+wp=0" ])
     # pprint.pprint(list(result))
     # assert False
     result = list(expected.prepare(result))
