@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 1 3
+Sheet 1 4
 Title "Timers, Interrupts & Clock "
 Date ""
 Rev ""
@@ -341,47 +341,10 @@ Text Label 7800 4300 0    50   ~ 0
 ~RUEN
 Text Label 7800 4400 0    50   ~ 0
 ~WUEN
-Text Notes 800  1000 0    100  ~ 20
+Text Notes 700  850  0    100  ~ 20
 The INT, IRC and RTC boards
-Text Notes 800  1800 0    50   ~ 0
+Text Notes 700  1650 0    50   ~ 0
 This board contains a number of relatively simple units. The interconnections and feeback loops between these units\nmake this a Turing Complete design, and an actual processor at that. Nearly every unit here except the clock generator\nfeeds back into another one. The core of the design is the Microcode Sequencer unit. It outputs the correct sequence\nof 24 control signals to execute an instruction. The Instruction Register holds the instruction being executed. The\nSkip and Branch Unit can be queried by the Sequencer to make decisions. The two Addressing Modes sub-units\ninterpret parts of the IR to tell the Sequencer exactly how to interpret instruction operands. The Flag Unit is crucial\nin implemting subroutines, interrupts and re-entrancy by storing and retrieving flag values. And the Interrupt Unit\nnotifies the Sequencer about external interrupt requests.
-Text Notes 450  10250 1    50   ~ 10
-IO=&030–037
-$Comp
-L alexios:74HC138 U?
-U 1 1 5E74557E
-P 400 10000
-AR Path="/5F3EA987/5E74557E" Ref="U?"  Part="1" 
-AR Path="/5E74557E" Ref="U22"  Part="1" 
-AR Path="/61F95ACC/5E74557E" Ref="U?"  Part="1" 
-AR Path="/5D65F6EF/5E74557E" Ref="U?"  Part="1" 
-AR Path="/5D69F3FD/5E74557E" Ref="U?"  Part="1" 
-AR Path="/5F67D4B5/5E74557E" Ref="U?"  Part="1" 
-F 0 "U22" H 400 10667 50  0000 C CNN
-F 1 "74HC138" H 400 10576 50  0000 C CNN
-F 2 "alexios:SOIC-16" H 400 10000 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 400 10000 50  0001 C CNN
-	1    400  10000
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	-100 9600 -400 9600
-Wire Wire Line
-	-100 9700 -400 9700
-Wire Wire Line
-	-100 9800 -400 9800
-Text Label -400 9600 0    50   ~ 0
-AB3
-Text Label -400 9700 0    50   ~ 0
-AB4
-Text Label -400 10200 0    50   ~ 0
-AB5
-Wire Wire Line
-	-400 10200 -100 10200
-Wire Wire Line
-	-400 10300 -100 10300
-Wire Wire Line
-	-400 10400 -100 10400
 $Comp
 L alexios:74HC259 U26
 U 1 1 5EB924D3
@@ -394,21 +357,21 @@ F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT259.pdf" H 3200 99
 	1    0    0    -1  
 $EndComp
 Entry Wire Line
-	11100 11200 11200 11300
+	11100 11250 11200 11350
 Entry Wire Line
-	11100 11300 11200 11400
+	11100 11350 11200 11450
 Entry Wire Line
-	11100 11400 11200 11500
+	11100 11450 11200 11550
 Entry Wire Line
-	11100 11500 11200 11600
+	11100 11550 11200 11650
 Entry Wire Line
-	11100 11600 11200 11700
+	11100 11650 11200 11750
 Entry Wire Line
-	11100 11700 11200 11800
+	11100 11750 11200 11850
 Entry Wire Line
-	11100 11800 11200 11900
+	11100 11850 11200 11950
 Entry Wire Line
-	11100 11900 11200 12000
+	11100 11950 11200 12050
 Wire Wire Line
 	2700 10300 2400 10300
 Text Label 2400 10300 0    50   ~ 0
@@ -434,21 +397,21 @@ DB2
 Text Label 2400 9900 0    50   ~ 0
 DB3
 Entry Wire Line
-	11100 10150 11200 10250
+	11100 10200 11200 10300
 Entry Wire Line
-	11100 10050 11200 10150
+	11100 10100 11200 10200
 Entry Wire Line
-	11100 9950 11200 10050
+	11100 10000 11200 10100
 Entry Wire Line
-	11100 9850 11200 9950
+	11100 9900 11200 10000
 Entry Wire Line
-	11100 9750 11200 9850
+	11100 9800 11200 9900
 Entry Wire Line
-	11100 9650 11200 9750
+	11100 9700 11200 9800
 Entry Wire Line
-	11100 9550 11200 9650
+	11100 9600 11200 9700
 Entry Wire Line
-	11100 9450 11200 9550
+	11100 9500 11200 9600
 Text Label 7650 10200 2    50   ~ 0
 DB7
 Text Label 7650 10100 2    50   ~ 0
@@ -559,18 +522,6 @@ Entry Wire Line
 	7700 10100 7800 10200
 Entry Wire Line
 	7700 10200 7800 10300
-Text Label -400 10400 0    50   ~ 0
-~SYSDEV
-Text Label -400 10300 0    50   ~ 0
-~R
-Wire Wire Line
-	-900 11500 -1200 11500
-Text Label -1200 11500 0    50   ~ 0
-~R
-Text Label -1200 11600 0    50   ~ 0
-~SYSDEV
-Wire Wire Line
-	-1200 11600 -900 11600
 Wire Wire Line
 	4000 9200 4250 9200
 Wire Wire Line
@@ -739,100 +690,100 @@ Entry Wire Line
 	6000 10100 5900 10200
 Entry Wire Line
 	6000 10200 5900 10300
-Text Label 9400 11900 0    50   ~ 0
+Text Label 9400 11950 0    50   ~ 0
 IEN7
-Text Label 9400 11800 0    50   ~ 0
+Text Label 9400 11850 0    50   ~ 0
 IEN6
-Text Label 9400 11700 0    50   ~ 0
+Text Label 9400 11750 0    50   ~ 0
 IEN5
-Text Label 9400 11600 0    50   ~ 0
+Text Label 9400 11650 0    50   ~ 0
 IEN4
-Text Label 9400 11500 0    50   ~ 0
+Text Label 9400 11550 0    50   ~ 0
 IEN3
-Text Label 9400 11400 0    50   ~ 0
+Text Label 9400 11450 0    50   ~ 0
 IEN2
-Text Label 9400 11300 0    50   ~ 0
+Text Label 9400 11350 0    50   ~ 0
 IEN1
-Text Label 9400 11200 0    50   ~ 0
+Text Label 9400 11250 0    50   ~ 0
 IEN0
 Wire Wire Line
-	10750 11900 11100 11900
+	10750 11950 11100 11950
 Wire Wire Line
-	10750 11800 11100 11800
+	10750 11850 11100 11850
 Wire Wire Line
-	10750 11700 11100 11700
+	10750 11750 11100 11750
 Wire Wire Line
-	10750 11600 11100 11600
+	10750 11650 11100 11650
 Wire Wire Line
-	10750 11500 11100 11500
+	10750 11550 11100 11550
 Wire Wire Line
-	10750 11400 11100 11400
+	10750 11450 11100 11450
 Wire Wire Line
-	10750 11300 11100 11300
+	10750 11350 11100 11350
 Wire Wire Line
-	10750 11200 11100 11200
+	10750 11250 11100 11250
 $Comp
 L alexios:74HC541 U31
 U 1 1 5EEED7F8
-P 10250 11700
-F 0 "U31" H 10250 12467 50  0000 C CNN
-F 1 "74HC541" H 10250 12376 50  0000 C CNN
-F 2 "alexios:SOIC-20W" H 10250 11700 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 10250 11700 50  0001 C CNN
-	1    10250 11700
+P 10250 11750
+F 0 "U31" H 10250 12517 50  0000 C CNN
+F 1 "74HC541" H 10250 12426 50  0000 C CNN
+F 2 "alexios:SOIC-20W" H 10250 11750 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 10250 11750 50  0001 C CNN
+	1    10250 11750
 	1    0    0    -1  
 $EndComp
-Text Label 11050 11200 2    50   ~ 0
+Text Label 11050 11250 2    50   ~ 0
 FPD0
-Text Label 11050 11300 2    50   ~ 0
+Text Label 11050 11350 2    50   ~ 0
 FPD1
-Text Label 11050 11400 2    50   ~ 0
+Text Label 11050 11450 2    50   ~ 0
 FPD2
-Text Label 11050 11500 2    50   ~ 0
+Text Label 11050 11550 2    50   ~ 0
 FPD3
-Text Label 11050 11600 2    50   ~ 0
+Text Label 11050 11650 2    50   ~ 0
 FPD4
-Text Label 11050 11700 2    50   ~ 0
+Text Label 11050 11750 2    50   ~ 0
 FPD5
-Text Label 11050 11800 2    50   ~ 0
+Text Label 11050 11850 2    50   ~ 0
 FPD6
-Text Label 11050 11900 2    50   ~ 0
+Text Label 11050 11950 2    50   ~ 0
 FPD7
 $Comp
 L power:GND #PWR0122
 U 1 1 5EEED7EA
-P 9700 12250
-F 0 "#PWR0122" H 9700 12000 50  0001 C CNN
-F 1 "GND" H 9705 12077 50  0000 C CNN
-F 2 "" H 9700 12250 50  0001 C CNN
-F 3 "" H 9700 12250 50  0001 C CNN
-	1    9700 12250
+P 9700 12300
+F 0 "#PWR0122" H 9700 12050 50  0001 C CNN
+F 1 "GND" H 9705 12127 50  0000 C CNN
+F 2 "" H 9700 12300 50  0001 C CNN
+F 3 "" H 9700 12300 50  0001 C CNN
+	1    9700 12300
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	9750 12200 9700 12200
+	9750 12250 9700 12250
 Wire Wire Line
-	9700 12200 9700 12250
+	9700 12250 9700 12300
 Wire Wire Line
-	9750 12100 9400 12100
-Text Label 9400 12100 0    50   ~ 0
+	9750 12150 9400 12150
+Text Label 9400 12150 0    50   ~ 0
 ~FPIRF
 Wire Wire Line
-	9750 11200 9400 11200
+	9750 11250 9400 11250
 Wire Wire Line
-	9750 11300 9400 11300
+	9750 11350 9400 11350
 Wire Wire Line
-	9750 11400 9400 11400
+	9750 11450 9400 11450
 Wire Wire Line
-	9750 11500 9400 11500
+	9750 11550 9400 11550
 Wire Wire Line
-	9750 11600 9400 11600
+	9750 11650 9400 11650
 Wire Wire Line
-	9750 11700 9400 11700
+	9750 11750 9400 11750
 Wire Wire Line
-	9750 11800 9400 11800
+	9750 11850 9400 11850
 Wire Wire Line
-	9750 11900 9400 11900
+	9750 11950 9400 11950
 Wire Wire Line
 	6300 11900 6300 12200
 Connection ~ 6300 11900
@@ -957,104 +908,100 @@ Wire Wire Line
 	6350 12200 6300 12200
 Wire Wire Line
 	6300 12200 6300 12250
-Wire Wire Line
-	6350 12100 6000 12100
-Text Label 6000 12100 0    50   ~ 0
-~RISR
-Text Label 9400 10150 0    50   ~ 0
+Text Label 9400 10200 0    50   ~ 0
 IRF7
-Text Label 9400 10050 0    50   ~ 0
+Text Label 9400 10100 0    50   ~ 0
 IRF6
-Text Label 9400 9950 0    50   ~ 0
+Text Label 9400 10000 0    50   ~ 0
 IRF5
-Text Label 9400 9850 0    50   ~ 0
+Text Label 9400 9900 0    50   ~ 0
 IRF4
-Text Label 9400 9750 0    50   ~ 0
+Text Label 9400 9800 0    50   ~ 0
 IRF3
-Text Label 9400 9650 0    50   ~ 0
+Text Label 9400 9700 0    50   ~ 0
 IRF2
-Text Label 9400 9550 0    50   ~ 0
+Text Label 9400 9600 0    50   ~ 0
 IRF1
-Text Label 9400 9450 0    50   ~ 0
+Text Label 9400 9500 0    50   ~ 0
 IRF0
 Wire Wire Line
-	9750 10150 9400 10150
+	9750 10200 9400 10200
 Wire Wire Line
-	9750 10050 9400 10050
+	9750 10100 9400 10100
 Wire Wire Line
-	9750 9950 9400 9950
+	9750 10000 9400 10000
 Wire Wire Line
-	9750 9850 9400 9850
+	9750 9900 9400 9900
 Wire Wire Line
-	9750 9750 9400 9750
+	9750 9800 9400 9800
 Wire Wire Line
-	9750 9650 9400 9650
+	9750 9700 9400 9700
 Wire Wire Line
-	9750 9550 9400 9550
+	9750 9600 9400 9600
 Wire Wire Line
-	9750 9450 9400 9450
-Text Label 9400 10350 0    50   ~ 0
+	9750 9500 9400 9500
+Text Label 9400 10400 0    50   ~ 0
 ~FPIRF
 Wire Wire Line
-	9750 10350 9400 10350
+	9750 10400 9400 10400
 Wire Wire Line
-	9700 10450 9700 10500
+	9700 10500 9700 10550
 Wire Wire Line
-	9750 10450 9700 10450
+	9750 10500 9700 10500
 $Comp
 L power:GND #PWR0125
 U 1 1 5EC8C696
-P 9700 10500
-F 0 "#PWR0125" H 9700 10250 50  0001 C CNN
-F 1 "GND" H 9705 10327 50  0000 C CNN
-F 2 "" H 9700 10500 50  0001 C CNN
-F 3 "" H 9700 10500 50  0001 C CNN
-	1    9700 10500
+P 9700 10550
+F 0 "#PWR0125" H 9700 10300 50  0001 C CNN
+F 1 "GND" H 9705 10377 50  0000 C CNN
+F 2 "" H 9700 10550 50  0001 C CNN
+F 3 "" H 9700 10550 50  0001 C CNN
+	1    9700 10550
 	1    0    0    -1  
 $EndComp
-Text Label 11050 10150 2    50   ~ 0
+Text Label 11050 10200 2    50   ~ 0
 FPD7
-Text Label 11050 10050 2    50   ~ 0
+Text Label 11050 10100 2    50   ~ 0
 FPD6
-Text Label 11050 9950 2    50   ~ 0
+Text Label 11050 10000 2    50   ~ 0
 FPD5
-Text Label 11050 9850 2    50   ~ 0
+Text Label 11050 9900 2    50   ~ 0
 FPD4
-Text Label 11050 9750 2    50   ~ 0
+Text Label 11050 9800 2    50   ~ 0
 FPD3
-Text Label 11050 9650 2    50   ~ 0
+Text Label 11050 9700 2    50   ~ 0
 FPD2
-Text Label 11050 9550 2    50   ~ 0
+Text Label 11050 9600 2    50   ~ 0
 FPD1
-Text Label 11050 9450 2    50   ~ 0
+Text Label 11050 9500 2    50   ~ 0
 FPD0
 $Comp
 L alexios:74HC541 U21
 U 1 1 5EB94CCA
-P 10250 9950
-F 0 "U21" H 10250 10717 50  0000 C CNN
-F 1 "74HC541" H 10250 10626 50  0000 C CNN
-F 2 "alexios:SOIC-20W" H 10250 9950 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 10250 9950 50  0001 C CNN
-	1    10250 9950
+P 10250 10000
+F 0 "U21" H 10250 10767 50  0000 C CNN
+F 1 "74HC541" H 10250 10676 50  0000 C CNN
+F 2 "alexios:SOIC-20W" H 10250 10000 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 10250 10000 50  0001 C CNN
+	1    10250 10000
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	10750 9450 11100 9450
+	10750 9500 11100 9500
 Wire Wire Line
-	10750 9550 11100 9550
+	10750 9600 11100 9600
 Wire Wire Line
-	10750 9650 11100 9650
+	10750 9700 11100 9700
 Wire Wire Line
-	10750 9750 11100 9750
+	10750 9800 11100 9800
 Wire Wire Line
-	10750 9850 11100 9850
+	10750 9900 11100 9900
 Wire Wire Line
-	10750 9950 11100 9950
+	10750 10000 11100 10000
 Wire Wire Line
-	10750 10050 11100 10050
+	10750 10100 11100 10100
 Wire Wire Line
-	10750 10150 11100 10150
+	10750 10200 11100 10200
 Text Label 5500 13600 2    50   ~ 0
 DB7
 Text Label 5500 13500 2    50   ~ 0
@@ -1346,69 +1293,6 @@ F 3 "http://www.scs.stanford.edu/10wi-cs140/pintos/specs/8254.pdf" H -3100 9000 
 	1    -2650 8100
 	1    0    0    -1  
 $EndComp
-$Comp
-L alexios:74HC112 U42
-U 1 1 64AF56F1
-P 14300 7550
-F 0 "U42" H 13975 7767 50  0000 C CNN
-F 1 "74HC112" H 13975 7676 50  0000 C CNN
-F 2 "" H 14000 7200 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT112.pdf" H 14000 7200 50  0001 C CNN
-F 4 "Yes" H 13700 6600 50  0001 C CNN "Verified"
-	1    14300 7550
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74HC112 U42
-U 2 1 64AF6974
-P 15650 7550
-F 0 "U42" H 15325 7767 50  0000 C CNN
-F 1 "74HC112" H 15325 7676 50  0000 C CNN
-F 2 "" H 15350 7200 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT112.pdf" H 15350 7200 50  0001 C CNN
-F 4 "Yes" H 15050 6600 50  0001 C CNN "Verified"
-	2    15650 7550
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	13500 7800 12700 7800
-Text Label 12700 7800 0    50   ~ 0
-~SEL
-Wire Wire Line
-	13500 7900 13250 7900
-Wire Wire Line
-	13250 7900 13250 8150
-$Comp
-L power:GND #PWR0134
-U 1 1 64B98EFC
-P 13250 8150
-F 0 "#PWR0134" H 13250 7900 50  0001 C CNN
-F 1 "GND" H 13255 7977 50  0000 C CNN
-F 2 "" H 13250 8150 50  0001 C CNN
-F 3 "" H 13250 8150 50  0001 C CNN
-	1    13250 8150
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR0135
-U 1 1 64B999E3
-P 13400 7500
-F 0 "#PWR0135" H 13400 7350 50  0001 C CNN
-F 1 "+5V" H 13415 7673 50  0000 C CNN
-F 2 "" H 13400 7500 50  0001 C CNN
-F 3 "" H 13400 7500 50  0001 C CNN
-	1    13400 7500
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	13400 7500 13400 7600
-Wire Wire Line
-	13400 7700 13500 7700
-Wire Wire Line
-	13500 7600 13400 7600
-Connection ~ 13400 7600
-Wire Wire Line
-	13400 7600 13400 7700
 $Comp
 L Regulator_Linear:AMS1117-3.3 U24
 U 1 1 60833425
@@ -1744,64 +1628,261 @@ Wire Wire Line
 	-2050 8600 -1750 8600
 Wire Wire Line
 	-2050 8700 -1750 8700
-Text Label -3600 4200 0    50   ~ 0
-~IC2CS
 Text Label -3550 8800 0    50   ~ 0
-~TMCS
+~IO18
+Text Label -3550 7400 0    50   ~ 0
+D0
+Text Label -3550 7500 0    50   ~ 0
+D1
+Text Label -3550 7600 0    50   ~ 0
+D2
+Text Label -3550 7700 0    50   ~ 0
+D3
+Text Label -3550 7800 0    50   ~ 0
+D4
+Text Label -3550 7900 0    50   ~ 0
+D5
+Text Label -3550 8000 0    50   ~ 0
+D6
+Text Label -3550 8100 0    50   ~ 0
+D7
+Text Label -3550 8300 0    50   ~ 0
+~R
+Text Label -3550 8400 0    50   ~ 0
+~W
 $Comp
-L alexios:74HC138 U?
-U 1 1 5F455B9F
-P -2500 10600
-AR Path="/5F3EA987/5F455B9F" Ref="U?"  Part="1" 
-AR Path="/5F455B9F" Ref="U20"  Part="1" 
-AR Path="/61F95ACC/5F455B9F" Ref="U?"  Part="1" 
-AR Path="/5D65F6EF/5F455B9F" Ref="U?"  Part="1" 
-AR Path="/5D69F3FD/5F455B9F" Ref="U?"  Part="1" 
-AR Path="/5F67D4B5/5F455B9F" Ref="U?"  Part="1" 
-F 0 "U20" H -2500 11267 50  0000 C CNN
-F 1 "74HC138" H -2500 11176 50  0000 C CNN
-F 2 "alexios:SOIC-16" H -2500 10600 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS138" H -2500 10600 50  0001 C CNN
-	1    -2500 10600
+L alexios:74LVC1G08 U?
+U 1 1 60841C33
+P 6100 12100
+F 0 "U?" H 6025 12367 50  0000 C CNN
+F 1 "74LVC1G08" H 6025 12276 50  0000 C CNN
+F 2 "" H 5750 12100 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G08.pdf" H 5750 12100 50  0001 C CNN
+	1    6100 12100
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	-3000 10200 -3300 10200
+	6250 12100 6350 12100
+Text Label 5550 12150 0    50   ~ 0
+~RIER
 Wire Wire Line
-	-3000 10300 -3300 10300
+	5800 12150 5550 12150
+Text Label 5550 12050 0    50   ~ 0
+~RISR
 Wire Wire Line
-	-3000 10400 -3300 10400
-Wire Wire Line
-	-3000 10900 -3300 10900
-Wire Wire Line
-	-3000 11000 -3300 11000
-Wire Wire Line
-	-3000 10800 -3300 10800
-Text Notes -2450 10850 1    50   ~ 10
-IO=&030–037
-Wire Wire Line
-	-2000 10800 -1600 10800
+	5800 12050 5550 12050
+Text Label -3600 4200 0    50   ~ 0
+~IO14
+Text Label -3600 4300 0    50   ~ 0
+~R
+Text Label -3600 4400 0    50   ~ 0
+~W
 $Comp
-L alexios:74LVC1G02 U19
-U 1 1 5F4E1F97
-P -600 11550
-F 0 "U19" H -650 11817 50  0000 C CNN
-F 1 "74LVC1G02" H -650 11726 50  0000 C CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H -650 11550 50  0001 C CNN
-F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H -650 11550 50  0001 C CNN
-	1    -600 11550
+L Jumper:SolderJumper_2_Open JP?
+U 1 1 609A4445
+P -1800 5600
+F 0 "JP?" H -1800 5713 50  0000 C CNN
+F 1 "SolderJumper_2_Open" H -1800 5714 50  0001 C CNN
+F 2 "" H -1800 5600 50  0001 C CNN
+F 3 "~" H -1800 5600 50  0001 C CNN
+	1    -1800 5600
 	1    0    0    -1  
 $EndComp
-Text Label -3300 10200 0    50   ~ 0
+Wire Wire Line
+	-2000 5600 -1950 5600
+Wire Wire Line
+	-1650 5600 -1450 5600
+Text Label -1450 5600 2    50   ~ 0
+IRQ7
+Text Notes -2000 4450 0    50   ~ 0
+Adjust resistor\nvalues as required
+$Comp
+L alexios:8254 U?
+U 1 1 60A7222A
+P -2650 10150
+F 0 "U?" H -2650 11167 50  0000 C CNN
+F 1 "8254" H -2650 11076 50  0000 C CNN
+F 2 "alexios:DIP-24_W15.24mm_socket" H -2650 9125 50  0001 C CNN
+F 3 "http://www.scs.stanford.edu/10wi-cs140/pintos/specs/8254.pdf" H -3100 11050 50  0001 C CNN
+	1    -2650 10150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	-3250 10550 -3550 10550
+Wire Wire Line
+	-3250 10650 -3550 10650
+Text Label -3550 10550 0    50   ~ 0
+AB0
+Text Label -3550 10650 0    50   ~ 0
+AB1
+Wire Wire Line
+	-3550 9450 -3250 9450
+Wire Wire Line
+	-3550 9550 -3250 9550
+Wire Wire Line
+	-3550 9650 -3250 9650
+Wire Wire Line
+	-3550 9750 -3250 9750
+Wire Wire Line
+	-3550 9850 -3250 9850
+Wire Wire Line
+	-3550 9950 -3250 9950
+Wire Wire Line
+	-3550 10050 -3250 10050
+Wire Wire Line
+	-3550 10150 -3250 10150
+Wire Wire Line
+	-3550 10350 -3250 10350
+Wire Wire Line
+	-3550 10450 -3250 10450
+Wire Wire Line
+	-3550 10850 -3250 10850
+Wire Wire Line
+	-2050 9550 -1750 9550
+Wire Wire Line
+	-2050 9650 -1750 9650
+Wire Wire Line
+	-2050 9750 -1750 9750
+Wire Wire Line
+	-2050 10050 -1750 10050
+Wire Wire Line
+	-2050 10150 -1750 10150
+Wire Wire Line
+	-2050 10250 -1750 10250
+Wire Wire Line
+	-2050 10550 -1750 10550
+Wire Wire Line
+	-2050 10650 -1750 10650
+Wire Wire Line
+	-2050 10750 -1750 10750
+Text Label -3550 10850 0    50   ~ 0
+~IO1C
+Text Label -3550 9450 0    50   ~ 0
+D0
+Text Label -3550 9550 0    50   ~ 0
+D1
+Text Label -3550 9650 0    50   ~ 0
+D2
+Text Label -3550 9750 0    50   ~ 0
+D3
+Text Label -3550 9850 0    50   ~ 0
+D4
+Text Label -3550 9950 0    50   ~ 0
+D5
+Text Label -3550 10050 0    50   ~ 0
+D6
+Text Label -3550 10150 0    50   ~ 0
+D7
+Text Label -3550 10350 0    50   ~ 0
+~R
+Text Label -3550 10450 0    50   ~ 0
+~W
+$Sheet
+S 1100 2250 1150 1450
+U 60AA2B43
+F0 "Bus Interface" 50
+F1 "bus_interface.sch" 50
+F2 "AB1" I L 1100 2950 50 
+F3 "AB2" I L 1100 3050 50 
+F4 "AB3" I L 1100 3150 50 
+F5 "AB4" I L 1100 3250 50 
+F6 "AB5" I L 1100 3350 50 
+F7 "AB6" I L 1100 3450 50 
+F8 "AB7" I L 1100 3550 50 
+F9 "CLK3" I L 1100 2500 50 
+F10 "~RESET" I L 1100 2400 50 
+F11 "~SYSDEV" I L 1100 2600 50 
+F12 "~IO14" O R 2250 2400 50 
+F13 "~IO18" O R 2250 2500 50 
+F14 "~IO1C" O R 2250 2600 50 
+F15 "~WS" T R 2250 3550 50 
+F16 "~W" I L 1100 2800 50 
+F17 "~R" I L 1100 2700 50 
+F18 "~WIO11" O R 2250 3200 50 
+F19 "~WIO10" O R 2250 3100 50 
+F20 "~RIO11" O R 2250 2900 50 
+F21 "~RIO10" O R 2250 2800 50 
+$EndSheet
+Wire Wire Line
+	1100 2400 750  2400
+Wire Wire Line
+	1100 2500 750  2500
+Wire Wire Line
+	1100 2600 750  2600
+Wire Wire Line
+	1100 2700 750  2700
+Wire Wire Line
+	1100 2800 750  2800
+Wire Wire Line
+	750  2950 1100 2950
+Wire Wire Line
+	750  3050 1100 3050
+Wire Wire Line
+	750  3150 1100 3150
+Wire Wire Line
+	750  3250 1100 3250
+Wire Wire Line
+	750  3350 1100 3350
+Wire Wire Line
+	750  3450 1100 3450
+Wire Wire Line
+	750  3550 1100 3550
+Wire Wire Line
+	2550 2400 2250 2400
+Wire Wire Line
+	2550 2500 2250 2500
+Wire Wire Line
+	2550 2600 2250 2600
+Wire Wire Line
+	2550 2800 2250 2800
+Wire Wire Line
+	2250 2900 2550 2900
+Wire Wire Line
+	2250 3100 2550 3100
+Wire Wire Line
+	2250 3200 2550 3200
+Wire Wire Line
+	2250 3550 2550 3550
+Text Notes 700  2000 0    100  ~ 20
+Address Decoding & Wait States
+Text Label 750  2400 0    50   ~ 0
+~RESET
+Text Label 750  2500 0    50   ~ 0
+CLK3
+Text Label 750  2600 0    50   ~ 0
+~SYSDEV
+Text Label 750  2700 0    50   ~ 0
+~R
+Text Label 750  2800 0    50   ~ 0
+~W
+Text Label 750  2950 0    50   ~ 0
+AB1
+Text Label 750  3050 0    50   ~ 0
+AB2
+Text Label 750  3150 0    50   ~ 0
 AB3
-Text Label -3300 11000 0    50   ~ 0
-AB7
-Text Label -3300 10900 0    50   ~ 0
-AB6
-Text Label -3300 10400 0    50   ~ 0
-AB5
-Text Label -3300 10300 0    50   ~ 0
+Text Label 750  3250 0    50   ~ 0
 AB4
+Text Label 750  3350 0    50   ~ 0
+AB5
+Text Label 750  3450 0    50   ~ 0
+AB6
+Text Label 750  3550 0    50   ~ 0
+AB7
+Text Label 2550 2400 2    50   ~ 0
+~IO14
+Text Label 2550 2500 2    50   ~ 0
+~IO18
+Text Label 2550 2600 2    50   ~ 0
+~IO1C
+Text Label 2550 2800 2    50   ~ 0
+~RIO10
+Text Label 2550 2900 2    50   ~ 0
+~RIO11
+Text Label 2550 3100 2    50   ~ 0
+~WIO10
+Text Label 2550 3200 2    50   ~ 0
+~WIO11
 Wire Bus Line
 	5650 13000 5650 13950
 Wire Bus Line
@@ -1811,5 +1892,7 @@ Wire Bus Line
 Wire Bus Line
 	7800 9600 7800 10550
 Wire Bus Line
-	11200 9550 11200 12300
+	11200 9600 11200 12350
+Text Label 2550 3550 2    50   ~ 0
+~WS
 $EndSCHEMATC
