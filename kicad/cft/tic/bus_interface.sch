@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 4 4
+Sheet 3 5
 Title ""
 Date ""
 Rev ""
@@ -109,6 +109,7 @@ U 1 1 60AF29CE
 P 7950 5250
 AR Path="/600C0F8F/60AF29CE" Ref="U?"  Part="1" 
 AR Path="/60AF29CE" Ref="U?"  Part="1" 
+AR Path="/60AA2B43/60AF29CE" Ref="U?"  Part="1" 
 F 0 "U?" H 7850 5150 50  0000 R CNN
 F 1 "74LVC1G07" H 8050 5150 50  0000 L CNN
 F 2 "alexios:SOT-23-5_HandSoldering" H 8050 5250 50  0001 C CNN
@@ -132,6 +133,7 @@ U 1 1 60AF29DA
 P 7900 5050
 AR Path="/600C0F8F/60AF29DA" Ref="D?"  Part="1" 
 AR Path="/60AF29DA" Ref="D?"  Part="1" 
+AR Path="/60AA2B43/60AF29DA" Ref="D?"  Part="1" 
 F 0 "D?" H 7900 5266 50  0000 C CNN
 F 1 "CUS520" H 7900 5175 50  0000 C CNN
 F 2 "alexios:SOD-323" H 7900 5050 50  0001 C CNN
@@ -186,6 +188,7 @@ AR Path="/61F95ACC/60AF29F4" Ref="U?"  Part="1"
 AR Path="/5D65F6EF/60AF29F4" Ref="U?"  Part="1" 
 AR Path="/5D69F3FD/60AF29F4" Ref="U?"  Part="1" 
 AR Path="/5F67D4B5/60AF29F4" Ref="U?"  Part="1" 
+AR Path="/60AA2B43/60AF29F4" Ref="U?"  Part="1" 
 F 0 "U?" H 3050 3817 50  0000 C CNN
 F 1 "74HC138" H 3050 3726 50  0000 C CNN
 F 2 "alexios:SOIC-16" H 3050 3150 50  0001 C CNN
@@ -260,6 +263,7 @@ AR Path="/61F95ACC/60AF2A23" Ref="U?"  Part="1"
 AR Path="/5D65F6EF/60AF2A23" Ref="U?"  Part="1" 
 AR Path="/5D69F3FD/60AF2A23" Ref="U?"  Part="1" 
 AR Path="/5F67D4B5/60AF2A23" Ref="U?"  Part="1" 
+AR Path="/60AA2B43/60AF2A23" Ref="U?"  Part="1" 
 F 0 "U?" H 5100 3817 50  0000 C CNN
 F 1 "74HC138" H 5100 3726 50  0000 C CNN
 F 2 "alexios:SOIC-16" H 5100 3150 50  0001 C CNN

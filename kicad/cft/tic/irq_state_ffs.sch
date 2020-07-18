@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 3 4
+Sheet 5 5
 Title "Interrupt Request Registers"
 Date ""
 Rev ""
@@ -14,10 +14,10 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L alexios:74HC74 U1
+L alexios:74HC74 U?
 U 1 1 60129CF3
 P 2150 1550
-F 0 "U1" H 2150 1967 50  0000 C CNN
+F 0 "U?" H 2150 1967 50  0000 C CNN
 F 1 "74HC74" H 2150 1876 50  0000 C CNN
 F 2 "alexios:SOIC-14" H 2100 1700 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf" H 2100 1700 50  0001 C CNN
@@ -25,10 +25,10 @@ F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf" H 2100 170
 	1    0    0    -1  
 $EndComp
 $Comp
-L alexios:74HC74 U1
+L alexios:74HC74 U?
 U 2 1 60129CF9
 P 3600 1550
-F 0 "U1" H 3600 1967 50  0000 C CNN
+F 0 "U?" H 3600 1967 50  0000 C CNN
 F 1 "74HC74" H 3600 1876 50  0000 C CNN
 F 2 "alexios:SOIC-14" H 3550 1700 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf" H 3550 1700 50  0001 C CNN
@@ -42,10 +42,10 @@ Wire Wire Line
 Text Label 4650 1400 2    50   ~ 0
 IRF0
 $Comp
-L power:+5V #PWR01
+L power:+5V #PWR?
 U 1 1 60129D02
 P 1650 1350
-F 0 "#PWR01" H 1650 1200 50  0001 C CNN
+F 0 "#PWR?" H 1650 1200 50  0001 C CNN
 F 1 "+5V" H 1665 1523 50  0000 C CNN
 F 2 "" H 1650 1350 50  0001 C CNN
 F 3 "" H 1650 1350 50  0001 C CNN
@@ -65,10 +65,10 @@ Wire Wire Line
 Wire Wire Line
 	2700 1400 2700 1500
 $Comp
-L power:+5V #PWR05
+L power:+5V #PWR?
 U 1 1 60129D14
 P 3100 1350
-F 0 "#PWR05" H 3100 1200 50  0001 C CNN
+F 0 "#PWR?" H 3100 1200 50  0001 C CNN
 F 1 "+5V" H 3115 1523 50  0000 C CNN
 F 2 "" H 3100 1350 50  0001 C CNN
 F 3 "" H 3100 1350 50  0001 C CNN
@@ -95,10 +95,10 @@ IEN0
 Text Label 2900 1700 0    50   ~ 0
 IEN0
 $Comp
-L alexios:74HC74 U2
+L alexios:74HC74 U?
 U 1 1 60129D3F
 P 2150 2450
-F 0 "U2" H 2150 2867 50  0000 C CNN
+F 0 "U?" H 2150 2867 50  0000 C CNN
 F 1 "74HC74" H 2150 2776 50  0000 C CNN
 F 2 "alexios:SOIC-14" H 2100 2600 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf" H 2100 2600 50  0001 C CNN
@@ -106,10 +106,10 @@ F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf" H 2100 260
 	1    0    0    -1  
 $EndComp
 $Comp
-L alexios:74HC74 U2
+L alexios:74HC74 U?
 U 2 1 60129D45
 P 3600 2450
-F 0 "U2" H 3600 2867 50  0000 C CNN
+F 0 "U?" H 3600 2867 50  0000 C CNN
 F 1 "74HC74" H 3600 2776 50  0000 C CNN
 F 2 "alexios:SOIC-14" H 3550 2600 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf" H 3550 2600 50  0001 C CNN
@@ -119,10 +119,10 @@ $EndComp
 Text Label 1400 2400 0    50   ~ 0
 ~IRQ1
 $Comp
-L power:+5V #PWR02
+L power:+5V #PWR?
 U 1 1 60129D4E
 P 1650 2250
-F 0 "#PWR02" H 1650 2100 50  0001 C CNN
+F 0 "#PWR?" H 1650 2100 50  0001 C CNN
 F 1 "+5V" H 1665 2423 50  0000 C CNN
 F 2 "" H 1650 2250 50  0001 C CNN
 F 3 "" H 1650 2250 50  0001 C CNN
@@ -142,10 +142,10 @@ Wire Wire Line
 Wire Wire Line
 	2700 2300 2700 2400
 $Comp
-L power:+5V #PWR06
+L power:+5V #PWR?
 U 1 1 60129D60
 P 3100 2250
-F 0 "#PWR06" H 3100 2100 50  0001 C CNN
+F 0 "#PWR?" H 3100 2100 50  0001 C CNN
 F 1 "+5V" H 3115 2423 50  0000 C CNN
 F 2 "" H 3100 2250 50  0001 C CNN
 F 3 "" H 3100 2250 50  0001 C CNN
@@ -172,10 +172,10 @@ IEN1
 Text Label 2900 2600 0    50   ~ 0
 IEN1
 $Comp
-L alexios:74HC74 U3
+L alexios:74HC74 U?
 U 1 1 60129D8B
 P 2150 3350
-F 0 "U3" H 2150 3767 50  0000 C CNN
+F 0 "U?" H 2150 3767 50  0000 C CNN
 F 1 "74HC74" H 2150 3676 50  0000 C CNN
 F 2 "alexios:SOIC-14" H 2100 3500 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf" H 2100 3500 50  0001 C CNN
@@ -183,10 +183,10 @@ F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf" H 2100 350
 	1    0    0    -1  
 $EndComp
 $Comp
-L alexios:74HC74 U3
+L alexios:74HC74 U?
 U 2 1 60129D91
 P 3600 3350
-F 0 "U3" H 3600 3767 50  0000 C CNN
+F 0 "U?" H 3600 3767 50  0000 C CNN
 F 1 "74HC74" H 3600 3676 50  0000 C CNN
 F 2 "alexios:SOIC-14" H 3550 3500 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf" H 3550 3500 50  0001 C CNN
@@ -198,10 +198,10 @@ Text Label 1400 3300 0    50   ~ 0
 Text Label 4650 3200 2    50   ~ 0
 IRF2
 $Comp
-L power:+5V #PWR03
+L power:+5V #PWR?
 U 1 1 60129D9A
 P 1650 3150
-F 0 "#PWR03" H 1650 3000 50  0001 C CNN
+F 0 "#PWR?" H 1650 3000 50  0001 C CNN
 F 1 "+5V" H 1665 3323 50  0000 C CNN
 F 2 "" H 1650 3150 50  0001 C CNN
 F 3 "" H 1650 3150 50  0001 C CNN
@@ -221,10 +221,10 @@ Wire Wire Line
 Wire Wire Line
 	2700 3200 2700 3300
 $Comp
-L power:+5V #PWR07
+L power:+5V #PWR?
 U 1 1 60129DAC
 P 3100 3150
-F 0 "#PWR07" H 3100 3000 50  0001 C CNN
+F 0 "#PWR?" H 3100 3000 50  0001 C CNN
 F 1 "+5V" H 3115 3323 50  0000 C CNN
 F 2 "" H 3100 3150 50  0001 C CNN
 F 3 "" H 3100 3150 50  0001 C CNN
@@ -251,10 +251,10 @@ IEN2
 Text Label 2900 3500 0    50   ~ 0
 IEN2
 $Comp
-L alexios:74HC74 U4
+L alexios:74HC74 U?
 U 1 1 60129DD7
 P 2150 4250
-F 0 "U4" H 2150 4667 50  0000 C CNN
+F 0 "U?" H 2150 4667 50  0000 C CNN
 F 1 "74HC74" H 2150 4576 50  0000 C CNN
 F 2 "alexios:SOIC-14" H 2100 4400 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf" H 2100 4400 50  0001 C CNN
@@ -262,10 +262,10 @@ F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf" H 2100 440
 	1    0    0    -1  
 $EndComp
 $Comp
-L alexios:74HC74 U4
+L alexios:74HC74 U?
 U 2 1 60129DDD
 P 3600 4250
-F 0 "U4" H 3600 4667 50  0000 C CNN
+F 0 "U?" H 3600 4667 50  0000 C CNN
 F 1 "74HC74" H 3600 4576 50  0000 C CNN
 F 2 "alexios:SOIC-14" H 3550 4400 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf" H 3550 4400 50  0001 C CNN
@@ -275,10 +275,10 @@ $EndComp
 Text Label 1400 4200 0    50   ~ 0
 ~IRQ3
 $Comp
-L power:+5V #PWR04
+L power:+5V #PWR?
 U 1 1 60129DE6
 P 1650 4050
-F 0 "#PWR04" H 1650 3900 50  0001 C CNN
+F 0 "#PWR?" H 1650 3900 50  0001 C CNN
 F 1 "+5V" H 1665 4223 50  0000 C CNN
 F 2 "" H 1650 4050 50  0001 C CNN
 F 3 "" H 1650 4050 50  0001 C CNN
@@ -298,10 +298,10 @@ Wire Wire Line
 Wire Wire Line
 	2700 4100 2700 4200
 $Comp
-L power:+5V #PWR08
+L power:+5V #PWR?
 U 1 1 60129DF8
 P 3100 4050
-F 0 "#PWR08" H 3100 3900 50  0001 C CNN
+F 0 "#PWR?" H 3100 3900 50  0001 C CNN
 F 1 "+5V" H 3115 4223 50  0000 C CNN
 F 2 "" H 3100 4050 50  0001 C CNN
 F 3 "" H 3100 4050 50  0001 C CNN
@@ -328,10 +328,10 @@ IEN3
 Text Label 2900 4400 0    50   ~ 0
 IEN3
 $Comp
-L alexios:74HC74 U5
+L alexios:74HC74 U?
 U 1 1 60129E23
 P 7350 1550
-F 0 "U5" H 7350 1967 50  0000 C CNN
+F 0 "U?" H 7350 1967 50  0000 C CNN
 F 1 "74HC74" H 7350 1876 50  0000 C CNN
 F 2 "alexios:SOIC-14" H 7300 1700 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf" H 7300 1700 50  0001 C CNN
@@ -339,10 +339,10 @@ F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf" H 7300 170
 	1    0    0    -1  
 $EndComp
 $Comp
-L alexios:74HC74 U5
+L alexios:74HC74 U?
 U 2 1 60129E29
 P 8800 1550
-F 0 "U5" H 8800 1967 50  0000 C CNN
+F 0 "U?" H 8800 1967 50  0000 C CNN
 F 1 "74HC74" H 8800 1876 50  0000 C CNN
 F 2 "alexios:SOIC-14" H 8750 1700 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf" H 8750 1700 50  0001 C CNN
@@ -352,10 +352,10 @@ $EndComp
 Text Label 6550 1500 0    50   ~ 0
 ~IRQ4
 $Comp
-L power:+5V #PWR09
+L power:+5V #PWR?
 U 1 1 60129E32
 P 6850 1350
-F 0 "#PWR09" H 6850 1200 50  0001 C CNN
+F 0 "#PWR?" H 6850 1200 50  0001 C CNN
 F 1 "+5V" H 6865 1523 50  0000 C CNN
 F 2 "" H 6850 1350 50  0001 C CNN
 F 3 "" H 6850 1350 50  0001 C CNN
@@ -379,10 +379,10 @@ Wire Wire Line
 Wire Wire Line
 	7900 1400 7900 1500
 $Comp
-L power:+5V #PWR013
+L power:+5V #PWR?
 U 1 1 60129E44
 P 8300 1350
-F 0 "#PWR013" H 8300 1200 50  0001 C CNN
+F 0 "#PWR?" H 8300 1200 50  0001 C CNN
 F 1 "+5V" H 8315 1523 50  0000 C CNN
 F 2 "" H 8300 1350 50  0001 C CNN
 F 3 "" H 8300 1350 50  0001 C CNN
@@ -409,10 +409,10 @@ IEN4
 Text Label 8100 1700 0    50   ~ 0
 IEN4
 $Comp
-L alexios:74HC74 U6
+L alexios:74HC74 U?
 U 1 1 60129E6F
 P 7350 2450
-F 0 "U6" H 7350 2867 50  0000 C CNN
+F 0 "U?" H 7350 2867 50  0000 C CNN
 F 1 "74HC74" H 7350 2776 50  0000 C CNN
 F 2 "alexios:SOIC-14" H 7300 2600 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf" H 7300 2600 50  0001 C CNN
@@ -420,10 +420,10 @@ F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf" H 7300 260
 	1    0    0    -1  
 $EndComp
 $Comp
-L alexios:74HC74 U6
+L alexios:74HC74 U?
 U 2 1 60129E75
 P 8800 2450
-F 0 "U6" H 8800 2867 50  0000 C CNN
+F 0 "U?" H 8800 2867 50  0000 C CNN
 F 1 "74HC74" H 8800 2776 50  0000 C CNN
 F 2 "alexios:SOIC-14" H 8750 2600 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf" H 8750 2600 50  0001 C CNN
@@ -433,10 +433,10 @@ $EndComp
 Text Label 6550 2400 0    50   ~ 0
 ~IRQ5
 $Comp
-L power:+5V #PWR010
+L power:+5V #PWR?
 U 1 1 60129E7E
 P 6850 2250
-F 0 "#PWR010" H 6850 2100 50  0001 C CNN
+F 0 "#PWR?" H 6850 2100 50  0001 C CNN
 F 1 "+5V" H 6865 2423 50  0000 C CNN
 F 2 "" H 6850 2250 50  0001 C CNN
 F 3 "" H 6850 2250 50  0001 C CNN
@@ -460,10 +460,10 @@ Wire Wire Line
 Wire Wire Line
 	7900 2300 7900 2400
 $Comp
-L power:+5V #PWR014
+L power:+5V #PWR?
 U 1 1 60129E90
 P 8300 2250
-F 0 "#PWR014" H 8300 2100 50  0001 C CNN
+F 0 "#PWR?" H 8300 2100 50  0001 C CNN
 F 1 "+5V" H 8315 2423 50  0000 C CNN
 F 2 "" H 8300 2250 50  0001 C CNN
 F 3 "" H 8300 2250 50  0001 C CNN
@@ -490,10 +490,10 @@ IEN5
 Text Label 8100 2600 0    50   ~ 0
 IEN5
 $Comp
-L alexios:74HC74 U7
+L alexios:74HC74 U?
 U 1 1 60129EBB
 P 7350 3350
-F 0 "U7" H 7350 3767 50  0000 C CNN
+F 0 "U?" H 7350 3767 50  0000 C CNN
 F 1 "74HC74" H 7350 3676 50  0000 C CNN
 F 2 "alexios:SOIC-14" H 7300 3500 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf" H 7300 3500 50  0001 C CNN
@@ -501,10 +501,10 @@ F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf" H 7300 350
 	1    0    0    -1  
 $EndComp
 $Comp
-L alexios:74HC74 U7
+L alexios:74HC74 U?
 U 2 1 60129EC1
 P 8800 3350
-F 0 "U7" H 8800 3767 50  0000 C CNN
+F 0 "U?" H 8800 3767 50  0000 C CNN
 F 1 "74HC74" H 8800 3676 50  0000 C CNN
 F 2 "alexios:SOIC-14" H 8750 3500 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf" H 8750 3500 50  0001 C CNN
@@ -514,10 +514,10 @@ $EndComp
 Text Label 6550 3300 0    50   ~ 0
 ~IRQ6
 $Comp
-L power:+5V #PWR011
+L power:+5V #PWR?
 U 1 1 60129ECA
 P 6850 3150
-F 0 "#PWR011" H 6850 3000 50  0001 C CNN
+F 0 "#PWR?" H 6850 3000 50  0001 C CNN
 F 1 "+5V" H 6865 3323 50  0000 C CNN
 F 2 "" H 6850 3150 50  0001 C CNN
 F 3 "" H 6850 3150 50  0001 C CNN
@@ -541,10 +541,10 @@ Wire Wire Line
 Wire Wire Line
 	7900 3200 7900 3300
 $Comp
-L power:+5V #PWR015
+L power:+5V #PWR?
 U 1 1 60129EDC
 P 8300 3150
-F 0 "#PWR015" H 8300 3000 50  0001 C CNN
+F 0 "#PWR?" H 8300 3000 50  0001 C CNN
 F 1 "+5V" H 8315 3323 50  0000 C CNN
 F 2 "" H 8300 3150 50  0001 C CNN
 F 3 "" H 8300 3150 50  0001 C CNN
@@ -571,10 +571,10 @@ IEN6
 Text Label 8100 3500 0    50   ~ 0
 IEN6
 $Comp
-L alexios:74HC74 U8
+L alexios:74HC74 U?
 U 1 1 60129F07
 P 7350 4250
-F 0 "U8" H 7350 4667 50  0000 C CNN
+F 0 "U?" H 7350 4667 50  0000 C CNN
 F 1 "74HC74" H 7350 4576 50  0000 C CNN
 F 2 "alexios:SOIC-14" H 7300 4400 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf" H 7300 4400 50  0001 C CNN
@@ -582,10 +582,10 @@ F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf" H 7300 440
 	1    0    0    -1  
 $EndComp
 $Comp
-L alexios:74HC74 U8
+L alexios:74HC74 U?
 U 2 1 60129F0D
 P 8800 4250
-F 0 "U8" H 8800 4667 50  0000 C CNN
+F 0 "U?" H 8800 4667 50  0000 C CNN
 F 1 "74HC74" H 8800 4576 50  0000 C CNN
 F 2 "alexios:SOIC-14" H 8750 4400 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf" H 8750 4400 50  0001 C CNN
@@ -595,10 +595,10 @@ $EndComp
 Text Label 6550 4200 0    50   ~ 0
 ~IRQ7
 $Comp
-L power:+5V #PWR012
+L power:+5V #PWR?
 U 1 1 60129F16
 P 6850 4050
-F 0 "#PWR012" H 6850 3900 50  0001 C CNN
+F 0 "#PWR?" H 6850 3900 50  0001 C CNN
 F 1 "+5V" H 6865 4223 50  0000 C CNN
 F 2 "" H 6850 4050 50  0001 C CNN
 F 3 "" H 6850 4050 50  0001 C CNN
@@ -622,10 +622,10 @@ Wire Wire Line
 Wire Wire Line
 	7900 4100 7900 4200
 $Comp
-L power:+5V #PWR016
+L power:+5V #PWR?
 U 1 1 60129F28
 P 8300 4050
-F 0 "#PWR016" H 8300 3900 50  0001 C CNN
+F 0 "#PWR?" H 8300 3900 50  0001 C CNN
 F 1 "+5V" H 8315 4223 50  0000 C CNN
 F 2 "" H 8300 4050 50  0001 C CNN
 F 3 "" H 8300 4050 50  0001 C CNN
@@ -798,10 +798,10 @@ IEN6
 Text HLabel 6250 4600 0    50   Input ~ 0
 IEN7
 $Comp
-L alexios:74HC74 U1
+L alexios:74HC74 U?
 U 3 1 60129D25
 P 1350 5550
-F 0 "U1" H 1530 5596 50  0000 L CNN
+F 0 "U?" H 1530 5596 50  0000 L CNN
 F 1 "74HC74" H 1530 5505 50  0000 L CNN
 F 2 "alexios:SOIC-14" H 1300 5700 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf" H 1300 5700 50  0001 C CNN
@@ -809,10 +809,10 @@ F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf" H 1300 570
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C_Small C1
+L Device:C_Small C?
 U 1 1 60129D2B
 P 1000 5550
-F 0 "C1" H 908 5596 50  0000 R CNN
+F 0 "C?" H 908 5596 50  0000 R CNN
 F 1 "100n" H 908 5505 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1000 5550 50  0001 C CNN
 F 3 "~" H 1000 5550 50  0001 C CNN
@@ -820,10 +820,10 @@ F 3 "~" H 1000 5550 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+5V #PWR017
+L power:+5V #PWR?
 U 1 1 60129D31
 P 1000 5450
-F 0 "#PWR017" H 1000 5300 50  0001 C CNN
+F 0 "#PWR?" H 1000 5300 50  0001 C CNN
 F 1 "+5V" H 1015 5623 50  0000 C CNN
 F 2 "" H 1000 5450 50  0001 C CNN
 F 3 "" H 1000 5450 50  0001 C CNN
@@ -832,10 +832,10 @@ F 3 "" H 1000 5450 50  0001 C CNN
 $EndComp
 Connection ~ 1000 5450
 $Comp
-L power:GND #PWR018
+L power:GND #PWR?
 U 1 1 60129D38
 P 1000 5650
-F 0 "#PWR018" H 1000 5400 50  0001 C CNN
+F 0 "#PWR?" H 1000 5400 50  0001 C CNN
 F 1 "GND" H 1005 5477 50  0000 C CNN
 F 2 "" H 1000 5650 50  0001 C CNN
 F 3 "" H 1000 5650 50  0001 C CNN
@@ -844,10 +844,10 @@ F 3 "" H 1000 5650 50  0001 C CNN
 $EndComp
 Connection ~ 1000 5650
 $Comp
-L alexios:74HC74 U2
+L alexios:74HC74 U?
 U 3 1 60129D71
 P 2650 5550
-F 0 "U2" H 2830 5596 50  0000 L CNN
+F 0 "U?" H 2830 5596 50  0000 L CNN
 F 1 "74HC74" H 2830 5505 50  0000 L CNN
 F 2 "alexios:SOIC-14" H 2600 5700 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf" H 2600 5700 50  0001 C CNN
@@ -855,10 +855,10 @@ F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf" H 2600 570
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C_Small C3
+L Device:C_Small C?
 U 1 1 60129D77
 P 2300 5550
-F 0 "C3" H 2208 5596 50  0000 R CNN
+F 0 "C?" H 2208 5596 50  0000 R CNN
 F 1 "100n" H 2208 5505 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2300 5550 50  0001 C CNN
 F 3 "~" H 2300 5550 50  0001 C CNN
@@ -866,10 +866,10 @@ F 3 "~" H 2300 5550 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+5V #PWR021
+L power:+5V #PWR?
 U 1 1 60129D7D
 P 2300 5450
-F 0 "#PWR021" H 2300 5300 50  0001 C CNN
+F 0 "#PWR?" H 2300 5300 50  0001 C CNN
 F 1 "+5V" H 2315 5623 50  0000 C CNN
 F 2 "" H 2300 5450 50  0001 C CNN
 F 3 "" H 2300 5450 50  0001 C CNN
@@ -878,10 +878,10 @@ F 3 "" H 2300 5450 50  0001 C CNN
 $EndComp
 Connection ~ 2300 5450
 $Comp
-L power:GND #PWR022
+L power:GND #PWR?
 U 1 1 60129D84
 P 2300 5650
-F 0 "#PWR022" H 2300 5400 50  0001 C CNN
+F 0 "#PWR?" H 2300 5400 50  0001 C CNN
 F 1 "GND" H 2305 5477 50  0000 C CNN
 F 2 "" H 2300 5650 50  0001 C CNN
 F 3 "" H 2300 5650 50  0001 C CNN
@@ -890,10 +890,10 @@ F 3 "" H 2300 5650 50  0001 C CNN
 $EndComp
 Connection ~ 2300 5650
 $Comp
-L alexios:74HC74 U3
+L alexios:74HC74 U?
 U 3 1 60129DBD
 P 3950 5550
-F 0 "U3" H 4130 5596 50  0000 L CNN
+F 0 "U?" H 4130 5596 50  0000 L CNN
 F 1 "74HC74" H 4130 5505 50  0000 L CNN
 F 2 "alexios:SOIC-14" H 3900 5700 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf" H 3900 5700 50  0001 C CNN
@@ -901,10 +901,10 @@ F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf" H 3900 570
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C_Small C5
+L Device:C_Small C?
 U 1 1 60129DC3
 P 3600 5550
-F 0 "C5" H 3508 5596 50  0000 R CNN
+F 0 "C?" H 3508 5596 50  0000 R CNN
 F 1 "100n" H 3508 5505 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3600 5550 50  0001 C CNN
 F 3 "~" H 3600 5550 50  0001 C CNN
@@ -912,10 +912,10 @@ F 3 "~" H 3600 5550 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+5V #PWR025
+L power:+5V #PWR?
 U 1 1 60129DC9
 P 3600 5450
-F 0 "#PWR025" H 3600 5300 50  0001 C CNN
+F 0 "#PWR?" H 3600 5300 50  0001 C CNN
 F 1 "+5V" H 3615 5623 50  0000 C CNN
 F 2 "" H 3600 5450 50  0001 C CNN
 F 3 "" H 3600 5450 50  0001 C CNN
@@ -924,10 +924,10 @@ F 3 "" H 3600 5450 50  0001 C CNN
 $EndComp
 Connection ~ 3600 5450
 $Comp
-L power:GND #PWR026
+L power:GND #PWR?
 U 1 1 60129DD0
 P 3600 5650
-F 0 "#PWR026" H 3600 5400 50  0001 C CNN
+F 0 "#PWR?" H 3600 5400 50  0001 C CNN
 F 1 "GND" H 3605 5477 50  0000 C CNN
 F 2 "" H 3600 5650 50  0001 C CNN
 F 3 "" H 3600 5650 50  0001 C CNN
@@ -936,10 +936,10 @@ F 3 "" H 3600 5650 50  0001 C CNN
 $EndComp
 Connection ~ 3600 5650
 $Comp
-L alexios:74HC74 U4
+L alexios:74HC74 U?
 U 3 1 60129E09
 P 5250 5550
-F 0 "U4" H 5430 5596 50  0000 L CNN
+F 0 "U?" H 5430 5596 50  0000 L CNN
 F 1 "74HC74" H 5430 5505 50  0000 L CNN
 F 2 "alexios:SOIC-14" H 5200 5700 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf" H 5200 5700 50  0001 C CNN
@@ -947,10 +947,10 @@ F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf" H 5200 570
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C_Small C7
+L Device:C_Small C?
 U 1 1 60129E0F
 P 4900 5550
-F 0 "C7" H 4808 5596 50  0000 R CNN
+F 0 "C?" H 4808 5596 50  0000 R CNN
 F 1 "100n" H 4808 5505 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 4900 5550 50  0001 C CNN
 F 3 "~" H 4900 5550 50  0001 C CNN
@@ -958,10 +958,10 @@ F 3 "~" H 4900 5550 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+5V #PWR029
+L power:+5V #PWR?
 U 1 1 60129E15
 P 4900 5450
-F 0 "#PWR029" H 4900 5300 50  0001 C CNN
+F 0 "#PWR?" H 4900 5300 50  0001 C CNN
 F 1 "+5V" H 4915 5623 50  0000 C CNN
 F 2 "" H 4900 5450 50  0001 C CNN
 F 3 "" H 4900 5450 50  0001 C CNN
@@ -970,10 +970,10 @@ F 3 "" H 4900 5450 50  0001 C CNN
 $EndComp
 Connection ~ 4900 5450
 $Comp
-L power:GND #PWR030
+L power:GND #PWR?
 U 1 1 60129E1C
 P 4900 5650
-F 0 "#PWR030" H 4900 5400 50  0001 C CNN
+F 0 "#PWR?" H 4900 5400 50  0001 C CNN
 F 1 "GND" H 4905 5477 50  0000 C CNN
 F 2 "" H 4900 5650 50  0001 C CNN
 F 3 "" H 4900 5650 50  0001 C CNN
@@ -982,10 +982,10 @@ F 3 "" H 4900 5650 50  0001 C CNN
 $EndComp
 Connection ~ 4900 5650
 $Comp
-L alexios:74HC74 U5
+L alexios:74HC74 U?
 U 3 1 606B1A5D
 P 6550 5550
-F 0 "U5" H 6730 5596 50  0000 L CNN
+F 0 "U?" H 6730 5596 50  0000 L CNN
 F 1 "74HC74" H 6730 5505 50  0000 L CNN
 F 2 "alexios:SOIC-14" H 6500 5700 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf" H 6500 5700 50  0001 C CNN
@@ -993,10 +993,10 @@ F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf" H 6500 570
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C_Small C2
+L Device:C_Small C?
 U 1 1 606B1A63
 P 6200 5550
-F 0 "C2" H 6108 5596 50  0000 R CNN
+F 0 "C?" H 6108 5596 50  0000 R CNN
 F 1 "100n" H 6108 5505 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 6200 5550 50  0001 C CNN
 F 3 "~" H 6200 5550 50  0001 C CNN
@@ -1004,10 +1004,10 @@ F 3 "~" H 6200 5550 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+5V #PWR019
+L power:+5V #PWR?
 U 1 1 606B1A69
 P 6200 5450
-F 0 "#PWR019" H 6200 5300 50  0001 C CNN
+F 0 "#PWR?" H 6200 5300 50  0001 C CNN
 F 1 "+5V" H 6215 5623 50  0000 C CNN
 F 2 "" H 6200 5450 50  0001 C CNN
 F 3 "" H 6200 5450 50  0001 C CNN
@@ -1016,10 +1016,10 @@ F 3 "" H 6200 5450 50  0001 C CNN
 $EndComp
 Connection ~ 6200 5450
 $Comp
-L power:GND #PWR020
+L power:GND #PWR?
 U 1 1 606B1A70
 P 6200 5650
-F 0 "#PWR020" H 6200 5400 50  0001 C CNN
+F 0 "#PWR?" H 6200 5400 50  0001 C CNN
 F 1 "GND" H 6205 5477 50  0000 C CNN
 F 2 "" H 6200 5650 50  0001 C CNN
 F 3 "" H 6200 5650 50  0001 C CNN
@@ -1028,10 +1028,10 @@ F 3 "" H 6200 5650 50  0001 C CNN
 $EndComp
 Connection ~ 6200 5650
 $Comp
-L alexios:74HC74 U6
+L alexios:74HC74 U?
 U 3 1 606B1A77
 P 7800 5550
-F 0 "U6" H 7980 5596 50  0000 L CNN
+F 0 "U?" H 7980 5596 50  0000 L CNN
 F 1 "74HC74" H 7980 5505 50  0000 L CNN
 F 2 "alexios:SOIC-14" H 7750 5700 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf" H 7750 5700 50  0001 C CNN
@@ -1039,10 +1039,10 @@ F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf" H 7750 570
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C_Small C4
+L Device:C_Small C?
 U 1 1 606B1A7D
 P 7450 5550
-F 0 "C4" H 7358 5596 50  0000 R CNN
+F 0 "C?" H 7358 5596 50  0000 R CNN
 F 1 "100n" H 7358 5505 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7450 5550 50  0001 C CNN
 F 3 "~" H 7450 5550 50  0001 C CNN
@@ -1050,10 +1050,10 @@ F 3 "~" H 7450 5550 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+5V #PWR023
+L power:+5V #PWR?
 U 1 1 606B1A83
 P 7450 5450
-F 0 "#PWR023" H 7450 5300 50  0001 C CNN
+F 0 "#PWR?" H 7450 5300 50  0001 C CNN
 F 1 "+5V" H 7465 5623 50  0000 C CNN
 F 2 "" H 7450 5450 50  0001 C CNN
 F 3 "" H 7450 5450 50  0001 C CNN
@@ -1062,10 +1062,10 @@ F 3 "" H 7450 5450 50  0001 C CNN
 $EndComp
 Connection ~ 7450 5450
 $Comp
-L power:GND #PWR024
+L power:GND #PWR?
 U 1 1 606B1A8A
 P 7450 5650
-F 0 "#PWR024" H 7450 5400 50  0001 C CNN
+F 0 "#PWR?" H 7450 5400 50  0001 C CNN
 F 1 "GND" H 7455 5477 50  0000 C CNN
 F 2 "" H 7450 5650 50  0001 C CNN
 F 3 "" H 7450 5650 50  0001 C CNN
@@ -1074,10 +1074,10 @@ F 3 "" H 7450 5650 50  0001 C CNN
 $EndComp
 Connection ~ 7450 5650
 $Comp
-L alexios:74HC74 U7
+L alexios:74HC74 U?
 U 3 1 606B1A91
 P 9100 5550
-F 0 "U7" H 9280 5596 50  0000 L CNN
+F 0 "U?" H 9280 5596 50  0000 L CNN
 F 1 "74HC74" H 9280 5505 50  0000 L CNN
 F 2 "alexios:SOIC-14" H 9050 5700 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf" H 9050 5700 50  0001 C CNN
@@ -1085,10 +1085,10 @@ F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf" H 9050 570
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C_Small C6
+L Device:C_Small C?
 U 1 1 606B1A97
 P 8750 5550
-F 0 "C6" H 8658 5596 50  0000 R CNN
+F 0 "C?" H 8658 5596 50  0000 R CNN
 F 1 "100n" H 8658 5505 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 8750 5550 50  0001 C CNN
 F 3 "~" H 8750 5550 50  0001 C CNN
@@ -1096,10 +1096,10 @@ F 3 "~" H 8750 5550 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+5V #PWR027
+L power:+5V #PWR?
 U 1 1 606B1A9D
 P 8750 5450
-F 0 "#PWR027" H 8750 5300 50  0001 C CNN
+F 0 "#PWR?" H 8750 5300 50  0001 C CNN
 F 1 "+5V" H 8765 5623 50  0000 C CNN
 F 2 "" H 8750 5450 50  0001 C CNN
 F 3 "" H 8750 5450 50  0001 C CNN
@@ -1108,10 +1108,10 @@ F 3 "" H 8750 5450 50  0001 C CNN
 $EndComp
 Connection ~ 8750 5450
 $Comp
-L power:GND #PWR028
+L power:GND #PWR?
 U 1 1 606B1AA4
 P 8750 5650
-F 0 "#PWR028" H 8750 5400 50  0001 C CNN
+F 0 "#PWR?" H 8750 5400 50  0001 C CNN
 F 1 "GND" H 8755 5477 50  0000 C CNN
 F 2 "" H 8750 5650 50  0001 C CNN
 F 3 "" H 8750 5650 50  0001 C CNN
@@ -1120,10 +1120,10 @@ F 3 "" H 8750 5650 50  0001 C CNN
 $EndComp
 Connection ~ 8750 5650
 $Comp
-L alexios:74HC74 U8
+L alexios:74HC74 U?
 U 3 1 606B1AAB
 P 10450 5550
-F 0 "U8" H 10630 5596 50  0000 L CNN
+F 0 "U?" H 10630 5596 50  0000 L CNN
 F 1 "74HC74" H 10630 5505 50  0000 L CNN
 F 2 "alexios:SOIC-14" H 10400 5700 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf" H 10400 5700 50  0001 C CNN
@@ -1131,10 +1131,10 @@ F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf" H 10400 57
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C_Small C8
+L Device:C_Small C?
 U 1 1 606B1AB1
 P 10100 5550
-F 0 "C8" H 10008 5596 50  0000 R CNN
+F 0 "C?" H 10008 5596 50  0000 R CNN
 F 1 "100n" H 10008 5505 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10100 5550 50  0001 C CNN
 F 3 "~" H 10100 5550 50  0001 C CNN
@@ -1142,10 +1142,10 @@ F 3 "~" H 10100 5550 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+5V #PWR031
+L power:+5V #PWR?
 U 1 1 606B1AB7
 P 10100 5450
-F 0 "#PWR031" H 10100 5300 50  0001 C CNN
+F 0 "#PWR?" H 10100 5300 50  0001 C CNN
 F 1 "+5V" H 10115 5623 50  0000 C CNN
 F 2 "" H 10100 5450 50  0001 C CNN
 F 3 "" H 10100 5450 50  0001 C CNN
@@ -1154,10 +1154,10 @@ F 3 "" H 10100 5450 50  0001 C CNN
 $EndComp
 Connection ~ 10100 5450
 $Comp
-L power:GND #PWR032
+L power:GND #PWR?
 U 1 1 606B1ABE
 P 10100 5650
-F 0 "#PWR032" H 10100 5400 50  0001 C CNN
+F 0 "#PWR?" H 10100 5400 50  0001 C CNN
 F 1 "GND" H 10105 5477 50  0000 C CNN
 F 2 "" H 10100 5650 50  0001 C CNN
 F 3 "" H 10100 5650 50  0001 C CNN
@@ -1166,10 +1166,10 @@ F 3 "" H 10100 5650 50  0001 C CNN
 $EndComp
 Connection ~ 10100 5650
 $Comp
-L alexios:74LVC1G07 U9
+L alexios:74LVC1G07 U?
 U 1 1 60715FFE
 P 4450 1900
-F 0 "U9" H 4350 1800 50  0000 R CNN
+F 0 "U?" H 4350 1800 50  0000 R CNN
 F 1 "74LVC1G07" H 4550 1800 50  0000 L CNN
 F 2 "alexios:SOT-23-5_HandSoldering" H 4550 1900 50  0001 C CNN
 F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 4550 1900 50  0001 C CNN
@@ -1177,10 +1177,10 @@ F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 4550 1900 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:D_Schottky_ALT D1
+L Device:D_Schottky_ALT D?
 U 1 1 60717F78
 P 4500 1700
-F 0 "D1" H 4500 1916 50  0000 C CNN
+F 0 "D?" H 4500 1916 50  0000 C CNN
 F 1 "CUS520" H 4500 1825 50  0000 C CNN
 F 2 "alexios:SOD-323" H 4500 1700 50  0001 C CNN
 F 3 "~" H 4500 1700 50  0001 C CNN
@@ -1205,10 +1205,10 @@ Wire Wire Line
 Text Label 4650 2300 2    50   ~ 0
 IRF1
 $Comp
-L Device:D_Schottky_ALT D2
+L Device:D_Schottky_ALT D?
 U 1 1 60796AC2
 P 4500 2600
-F 0 "D2" H 4500 2816 50  0000 C CNN
+F 0 "D?" H 4500 2816 50  0000 C CNN
 F 1 "CUS520" H 4500 2725 50  0000 C CNN
 F 2 "alexios:SOD-323" H 4500 2600 50  0001 C CNN
 F 3 "~" H 4500 2600 50  0001 C CNN
@@ -1231,10 +1231,10 @@ Connection ~ 4150 2600
 Wire Wire Line
 	4050 3200 4150 3200
 $Comp
-L Device:D_Schottky_ALT D3
+L Device:D_Schottky_ALT D?
 U 1 1 6079E2A6
 P 4500 3500
-F 0 "D3" H 4500 3716 50  0000 C CNN
+F 0 "D?" H 4500 3716 50  0000 C CNN
 F 1 "CUS520" H 4500 3625 50  0000 C CNN
 F 2 "alexios:SOD-323" H 4500 3500 50  0001 C CNN
 F 3 "~" H 4500 3500 50  0001 C CNN
@@ -1259,10 +1259,10 @@ Wire Wire Line
 Text Label 4650 4100 2    50   ~ 0
 IRF3
 $Comp
-L Device:D_Schottky_ALT D4
+L Device:D_Schottky_ALT D?
 U 1 1 607A6B89
 P 4500 4400
-F 0 "D4" H 4500 4616 50  0000 C CNN
+F 0 "D?" H 4500 4616 50  0000 C CNN
 F 1 "CUS520" H 4500 4525 50  0000 C CNN
 F 2 "alexios:SOD-323" H 4500 4400 50  0001 C CNN
 F 3 "~" H 4500 4400 50  0001 C CNN
@@ -1285,10 +1285,10 @@ Connection ~ 4150 4400
 Wire Wire Line
 	9250 1400 9350 1400
 $Comp
-L Device:D_Schottky_ALT D5
+L Device:D_Schottky_ALT D?
 U 1 1 607CD99C
 P 9700 1700
-F 0 "D5" H 9700 1916 50  0000 C CNN
+F 0 "D?" H 9700 1916 50  0000 C CNN
 F 1 "CUS520" H 9700 1825 50  0000 C CNN
 F 2 "alexios:SOD-323" H 9700 1700 50  0001 C CNN
 F 3 "~" H 9700 1700 50  0001 C CNN
@@ -1311,10 +1311,10 @@ Connection ~ 9350 1700
 Wire Wire Line
 	9250 2300 9350 2300
 $Comp
-L Device:D_Schottky_ALT D6
+L Device:D_Schottky_ALT D?
 U 1 1 607CD9B6
 P 9700 2600
-F 0 "D6" H 9700 2816 50  0000 C CNN
+F 0 "D?" H 9700 2816 50  0000 C CNN
 F 1 "CUS520" H 9700 2725 50  0000 C CNN
 F 2 "alexios:SOD-323" H 9700 2600 50  0001 C CNN
 F 3 "~" H 9700 2600 50  0001 C CNN
@@ -1337,10 +1337,10 @@ Connection ~ 9350 2600
 Wire Wire Line
 	9250 3200 9350 3200
 $Comp
-L Device:D_Schottky_ALT D7
+L Device:D_Schottky_ALT D?
 U 1 1 607CD9CF
 P 9700 3500
-F 0 "D7" H 9700 3716 50  0000 C CNN
+F 0 "D?" H 9700 3716 50  0000 C CNN
 F 1 "CUS520" H 9700 3625 50  0000 C CNN
 F 2 "alexios:SOD-323" H 9700 3500 50  0001 C CNN
 F 3 "~" H 9700 3500 50  0001 C CNN
@@ -1363,10 +1363,10 @@ Connection ~ 9350 3500
 Wire Wire Line
 	9250 4100 9350 4100
 $Comp
-L Device:D_Schottky_ALT D8
+L Device:D_Schottky_ALT D?
 U 1 1 607CD9E9
 P 9700 4400
-F 0 "D8" H 9700 4616 50  0000 C CNN
+F 0 "D?" H 9700 4616 50  0000 C CNN
 F 1 "CUS520" H 9700 4525 50  0000 C CNN
 F 2 "alexios:SOD-323" H 9700 4400 50  0001 C CNN
 F 3 "~" H 9700 4400 50  0001 C CNN
@@ -1500,10 +1500,10 @@ Wire Wire Line
 Text HLabel 10700 4950 2    50   Output ~ 0
 ~IRQ
 $Comp
-L Device:C_Small C9
+L Device:C_Small C?
 U 1 1 608D69D5
 P 1000 6300
-F 0 "C9" H 908 6346 50  0000 R CNN
+F 0 "C?" H 908 6346 50  0000 R CNN
 F 1 "100n" H 908 6255 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1000 6300 50  0001 C CNN
 F 3 "~" H 1000 6300 50  0001 C CNN
@@ -1511,10 +1511,10 @@ F 3 "~" H 1000 6300 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+5V #PWR033
+L power:+5V #PWR?
 U 1 1 608D69DB
 P 1000 6200
-F 0 "#PWR033" H 1000 6050 50  0001 C CNN
+F 0 "#PWR?" H 1000 6050 50  0001 C CNN
 F 1 "+5V" H 1015 6373 50  0000 C CNN
 F 2 "" H 1000 6200 50  0001 C CNN
 F 3 "" H 1000 6200 50  0001 C CNN
@@ -1522,10 +1522,10 @@ F 3 "" H 1000 6200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR034
+L power:GND #PWR?
 U 1 1 608D69E2
 P 1000 6400
-F 0 "#PWR034" H 1000 6150 50  0001 C CNN
+F 0 "#PWR?" H 1000 6150 50  0001 C CNN
 F 1 "GND" H 1005 6227 50  0000 C CNN
 F 2 "" H 1000 6400 50  0001 C CNN
 F 3 "" H 1000 6400 50  0001 C CNN
@@ -1535,10 +1535,10 @@ $EndComp
 Connection ~ 1000 6400
 Connection ~ 1000 6200
 $Comp
-L Device:C_Small C10
+L Device:C_Small C?
 U 1 1 6091C40D
 P 2300 6300
-F 0 "C10" H 2208 6346 50  0000 R CNN
+F 0 "C?" H 2208 6346 50  0000 R CNN
 F 1 "100n" H 2208 6255 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2300 6300 50  0001 C CNN
 F 3 "~" H 2300 6300 50  0001 C CNN
@@ -1546,10 +1546,10 @@ F 3 "~" H 2300 6300 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+5V #PWR035
+L power:+5V #PWR?
 U 1 1 6091C413
 P 2300 6200
-F 0 "#PWR035" H 2300 6050 50  0001 C CNN
+F 0 "#PWR?" H 2300 6050 50  0001 C CNN
 F 1 "+5V" H 2315 6373 50  0000 C CNN
 F 2 "" H 2300 6200 50  0001 C CNN
 F 3 "" H 2300 6200 50  0001 C CNN
@@ -1557,10 +1557,10 @@ F 3 "" H 2300 6200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR036
+L power:GND #PWR?
 U 1 1 6091C419
 P 2300 6400
-F 0 "#PWR036" H 2300 6150 50  0001 C CNN
+F 0 "#PWR?" H 2300 6150 50  0001 C CNN
 F 1 "GND" H 2305 6227 50  0000 C CNN
 F 2 "" H 2300 6400 50  0001 C CNN
 F 3 "" H 2300 6400 50  0001 C CNN
@@ -1570,10 +1570,10 @@ $EndComp
 Connection ~ 2300 6400
 Connection ~ 2300 6200
 $Comp
-L alexios:74LVC1G07 U11
+L alexios:74LVC1G07 U?
 U 2 1 6092DF2E
 P 3950 6200
-F 0 "U11" H 4130 6146 50  0000 L CNN
+F 0 "U?" H 4130 6146 50  0000 L CNN
 F 1 "74LVC1G07" H 4130 6055 50  0000 L CNN
 F 2 "alexios:SOT-23-5_HandSoldering" H 4050 6200 50  0001 C CNN
 F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 4050 6200 50  0001 C CNN
@@ -1581,10 +1581,10 @@ F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 4050 6200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C_Small C11
+L Device:C_Small C?
 U 1 1 6092DF34
 P 3600 6300
-F 0 "C11" H 3508 6346 50  0000 R CNN
+F 0 "C?" H 3508 6346 50  0000 R CNN
 F 1 "100n" H 3508 6255 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3600 6300 50  0001 C CNN
 F 3 "~" H 3600 6300 50  0001 C CNN
@@ -1592,10 +1592,10 @@ F 3 "~" H 3600 6300 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+5V #PWR037
+L power:+5V #PWR?
 U 1 1 6092DF3A
 P 3600 6200
-F 0 "#PWR037" H 3600 6050 50  0001 C CNN
+F 0 "#PWR?" H 3600 6050 50  0001 C CNN
 F 1 "+5V" H 3615 6373 50  0000 C CNN
 F 2 "" H 3600 6200 50  0001 C CNN
 F 3 "" H 3600 6200 50  0001 C CNN
@@ -1603,10 +1603,10 @@ F 3 "" H 3600 6200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR038
+L power:GND #PWR?
 U 1 1 6092DF40
 P 3600 6400
-F 0 "#PWR038" H 3600 6150 50  0001 C CNN
+F 0 "#PWR?" H 3600 6150 50  0001 C CNN
 F 1 "GND" H 3605 6227 50  0000 C CNN
 F 2 "" H 3600 6400 50  0001 C CNN
 F 3 "" H 3600 6400 50  0001 C CNN
@@ -1616,10 +1616,10 @@ $EndComp
 Connection ~ 3600 6400
 Connection ~ 3600 6200
 $Comp
-L alexios:74LVC1G07 U12
+L alexios:74LVC1G07 U?
 U 2 1 6092DF48
 P 5250 6200
-F 0 "U12" H 5430 6146 50  0000 L CNN
+F 0 "U?" H 5430 6146 50  0000 L CNN
 F 1 "74LVC1G07" H 5430 6055 50  0000 L CNN
 F 2 "alexios:SOT-23-5_HandSoldering" H 5350 6200 50  0001 C CNN
 F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 5350 6200 50  0001 C CNN
@@ -1627,10 +1627,10 @@ F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 5350 6200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C_Small C12
+L Device:C_Small C?
 U 1 1 6092DF4E
 P 4900 6300
-F 0 "C12" H 4808 6346 50  0000 R CNN
+F 0 "C?" H 4808 6346 50  0000 R CNN
 F 1 "100n" H 4808 6255 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 4900 6300 50  0001 C CNN
 F 3 "~" H 4900 6300 50  0001 C CNN
@@ -1638,10 +1638,10 @@ F 3 "~" H 4900 6300 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+5V #PWR039
+L power:+5V #PWR?
 U 1 1 6092DF54
 P 4900 6200
-F 0 "#PWR039" H 4900 6050 50  0001 C CNN
+F 0 "#PWR?" H 4900 6050 50  0001 C CNN
 F 1 "+5V" H 4915 6373 50  0000 C CNN
 F 2 "" H 4900 6200 50  0001 C CNN
 F 3 "" H 4900 6200 50  0001 C CNN
@@ -1649,10 +1649,10 @@ F 3 "" H 4900 6200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR040
+L power:GND #PWR?
 U 1 1 6092DF5A
 P 4900 6400
-F 0 "#PWR040" H 4900 6150 50  0001 C CNN
+F 0 "#PWR?" H 4900 6150 50  0001 C CNN
 F 1 "GND" H 4905 6227 50  0000 C CNN
 F 2 "" H 4900 6400 50  0001 C CNN
 F 3 "" H 4900 6400 50  0001 C CNN
@@ -1662,10 +1662,10 @@ $EndComp
 Connection ~ 4900 6400
 Connection ~ 4900 6200
 $Comp
-L alexios:74LVC1G07 U13
+L alexios:74LVC1G07 U?
 U 2 1 609505A5
 P 6550 6200
-F 0 "U13" H 6730 6146 50  0000 L CNN
+F 0 "U?" H 6730 6146 50  0000 L CNN
 F 1 "74LVC1G07" H 6730 6055 50  0000 L CNN
 F 2 "alexios:SOT-23-5_HandSoldering" H 6650 6200 50  0001 C CNN
 F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 6650 6200 50  0001 C CNN
@@ -1673,10 +1673,10 @@ F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 6650 6200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C_Small C13
+L Device:C_Small C?
 U 1 1 609505AB
 P 6200 6300
-F 0 "C13" H 6108 6346 50  0000 R CNN
+F 0 "C?" H 6108 6346 50  0000 R CNN
 F 1 "100n" H 6108 6255 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 6200 6300 50  0001 C CNN
 F 3 "~" H 6200 6300 50  0001 C CNN
@@ -1684,10 +1684,10 @@ F 3 "~" H 6200 6300 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+5V #PWR041
+L power:+5V #PWR?
 U 1 1 609505B1
 P 6200 6200
-F 0 "#PWR041" H 6200 6050 50  0001 C CNN
+F 0 "#PWR?" H 6200 6050 50  0001 C CNN
 F 1 "+5V" H 6215 6373 50  0000 C CNN
 F 2 "" H 6200 6200 50  0001 C CNN
 F 3 "" H 6200 6200 50  0001 C CNN
@@ -1695,10 +1695,10 @@ F 3 "" H 6200 6200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR042
+L power:GND #PWR?
 U 1 1 609505B7
 P 6200 6400
-F 0 "#PWR042" H 6200 6150 50  0001 C CNN
+F 0 "#PWR?" H 6200 6150 50  0001 C CNN
 F 1 "GND" H 6205 6227 50  0000 C CNN
 F 2 "" H 6200 6400 50  0001 C CNN
 F 3 "" H 6200 6400 50  0001 C CNN
@@ -1708,10 +1708,10 @@ $EndComp
 Connection ~ 6200 6400
 Connection ~ 6200 6200
 $Comp
-L alexios:74LVC1G07 U14
+L alexios:74LVC1G07 U?
 U 2 1 609505BF
 P 7850 6200
-F 0 "U14" H 8030 6146 50  0000 L CNN
+F 0 "U?" H 8030 6146 50  0000 L CNN
 F 1 "74LVC1G07" H 8030 6055 50  0000 L CNN
 F 2 "alexios:SOT-23-5_HandSoldering" H 7950 6200 50  0001 C CNN
 F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 7950 6200 50  0001 C CNN
@@ -1719,10 +1719,10 @@ F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 7950 6200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C_Small C14
+L Device:C_Small C?
 U 1 1 609505C5
 P 7500 6300
-F 0 "C14" H 7408 6346 50  0000 R CNN
+F 0 "C?" H 7408 6346 50  0000 R CNN
 F 1 "100n" H 7408 6255 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7500 6300 50  0001 C CNN
 F 3 "~" H 7500 6300 50  0001 C CNN
@@ -1730,10 +1730,10 @@ F 3 "~" H 7500 6300 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+5V #PWR043
+L power:+5V #PWR?
 U 1 1 609505CB
 P 7500 6200
-F 0 "#PWR043" H 7500 6050 50  0001 C CNN
+F 0 "#PWR?" H 7500 6050 50  0001 C CNN
 F 1 "+5V" H 7515 6373 50  0000 C CNN
 F 2 "" H 7500 6200 50  0001 C CNN
 F 3 "" H 7500 6200 50  0001 C CNN
@@ -1741,10 +1741,10 @@ F 3 "" H 7500 6200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR044
+L power:GND #PWR?
 U 1 1 609505D1
 P 7500 6400
-F 0 "#PWR044" H 7500 6150 50  0001 C CNN
+F 0 "#PWR?" H 7500 6150 50  0001 C CNN
 F 1 "GND" H 7505 6227 50  0000 C CNN
 F 2 "" H 7500 6400 50  0001 C CNN
 F 3 "" H 7500 6400 50  0001 C CNN
@@ -1754,10 +1754,10 @@ $EndComp
 Connection ~ 7500 6400
 Connection ~ 7500 6200
 $Comp
-L alexios:74LVC1G07 U15
+L alexios:74LVC1G07 U?
 U 2 1 609505D9
 P 9150 6200
-F 0 "U15" H 9330 6146 50  0000 L CNN
+F 0 "U?" H 9330 6146 50  0000 L CNN
 F 1 "74LVC1G07" H 9330 6055 50  0000 L CNN
 F 2 "alexios:SOT-23-5_HandSoldering" H 9250 6200 50  0001 C CNN
 F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 9250 6200 50  0001 C CNN
@@ -1765,10 +1765,10 @@ F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 9250 6200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C_Small C15
+L Device:C_Small C?
 U 1 1 609505DF
 P 8800 6300
-F 0 "C15" H 8708 6346 50  0000 R CNN
+F 0 "C?" H 8708 6346 50  0000 R CNN
 F 1 "100n" H 8708 6255 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 8800 6300 50  0001 C CNN
 F 3 "~" H 8800 6300 50  0001 C CNN
@@ -1776,10 +1776,10 @@ F 3 "~" H 8800 6300 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+5V #PWR045
+L power:+5V #PWR?
 U 1 1 609505E5
 P 8800 6200
-F 0 "#PWR045" H 8800 6050 50  0001 C CNN
+F 0 "#PWR?" H 8800 6050 50  0001 C CNN
 F 1 "+5V" H 8815 6373 50  0000 C CNN
 F 2 "" H 8800 6200 50  0001 C CNN
 F 3 "" H 8800 6200 50  0001 C CNN
@@ -1787,10 +1787,10 @@ F 3 "" H 8800 6200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR046
+L power:GND #PWR?
 U 1 1 609505EB
 P 8800 6400
-F 0 "#PWR046" H 8800 6150 50  0001 C CNN
+F 0 "#PWR?" H 8800 6150 50  0001 C CNN
 F 1 "GND" H 8805 6227 50  0000 C CNN
 F 2 "" H 8800 6400 50  0001 C CNN
 F 3 "" H 8800 6400 50  0001 C CNN
@@ -1800,10 +1800,10 @@ $EndComp
 Connection ~ 8800 6400
 Connection ~ 8800 6200
 $Comp
-L alexios:74LVC1G07 U16
+L alexios:74LVC1G07 U?
 U 2 1 609505F3
 P 10450 6200
-F 0 "U16" H 10630 6146 50  0000 L CNN
+F 0 "U?" H 10630 6146 50  0000 L CNN
 F 1 "74LVC1G07" H 10630 6055 50  0000 L CNN
 F 2 "alexios:SOT-23-5_HandSoldering" H 10550 6200 50  0001 C CNN
 F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 10550 6200 50  0001 C CNN
@@ -1811,10 +1811,10 @@ F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 10550 6200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C_Small C16
+L Device:C_Small C?
 U 1 1 609505F9
 P 10100 6300
-F 0 "C16" H 10008 6346 50  0000 R CNN
+F 0 "C?" H 10008 6346 50  0000 R CNN
 F 1 "100n" H 10008 6255 50  0000 R CNN
 F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10100 6300 50  0001 C CNN
 F 3 "~" H 10100 6300 50  0001 C CNN
@@ -1822,10 +1822,10 @@ F 3 "~" H 10100 6300 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+5V #PWR047
+L power:+5V #PWR?
 U 1 1 609505FF
 P 10100 6200
-F 0 "#PWR047" H 10100 6050 50  0001 C CNN
+F 0 "#PWR?" H 10100 6050 50  0001 C CNN
 F 1 "+5V" H 10115 6373 50  0000 C CNN
 F 2 "" H 10100 6200 50  0001 C CNN
 F 3 "" H 10100 6200 50  0001 C CNN
@@ -1833,10 +1833,10 @@ F 3 "" H 10100 6200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR048
+L power:GND #PWR?
 U 1 1 60950605
 P 10100 6400
-F 0 "#PWR048" H 10100 6150 50  0001 C CNN
+F 0 "#PWR?" H 10100 6150 50  0001 C CNN
 F 1 "GND" H 10105 6227 50  0000 C CNN
 F 2 "" H 10100 6400 50  0001 C CNN
 F 3 "" H 10100 6400 50  0001 C CNN
@@ -1846,10 +1846,10 @@ $EndComp
 Connection ~ 10100 6400
 Connection ~ 10100 6200
 $Comp
-L alexios:74LVC1G07 U10
+L alexios:74LVC1G07 U?
 U 1 1 60796ABB
 P 4450 2800
-F 0 "U10" H 4350 2700 50  0000 R CNN
+F 0 "U?" H 4350 2700 50  0000 R CNN
 F 1 "74LVC1G07" H 4550 2700 50  0000 L CNN
 F 2 "alexios:SOT-23-5_HandSoldering" H 4550 2800 50  0001 C CNN
 F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 4550 2800 50  0001 C CNN
@@ -1857,10 +1857,10 @@ F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 4550 2800 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L alexios:74LVC1G07 U10
+L alexios:74LVC1G07 U?
 U 2 1 6091C407
 P 2650 6200
-F 0 "U10" H 2830 6146 50  0000 L CNN
+F 0 "U?" H 2830 6146 50  0000 L CNN
 F 1 "74LVC1G07" H 2830 6055 50  0000 L CNN
 F 2 "alexios:SOT-23-5_HandSoldering" H 2750 6200 50  0001 C CNN
 F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 2750 6200 50  0001 C CNN
@@ -1868,10 +1868,10 @@ F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 2750 6200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L alexios:74LVC1G07 U11
+L alexios:74LVC1G07 U?
 U 1 1 6079E29F
 P 4450 3700
-F 0 "U11" H 4350 3600 50  0000 R CNN
+F 0 "U?" H 4350 3600 50  0000 R CNN
 F 1 "74LVC1G07" H 4550 3600 50  0000 L CNN
 F 2 "alexios:SOT-23-5_HandSoldering" H 4550 3700 50  0001 C CNN
 F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 4550 3700 50  0001 C CNN
@@ -1879,10 +1879,10 @@ F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 4550 3700 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L alexios:74LVC1G07 U12
+L alexios:74LVC1G07 U?
 U 1 1 607A6B82
 P 4450 4600
-F 0 "U12" H 4350 4500 50  0000 R CNN
+F 0 "U?" H 4350 4500 50  0000 R CNN
 F 1 "74LVC1G07" H 4550 4500 50  0000 L CNN
 F 2 "alexios:SOT-23-5_HandSoldering" H 4550 4600 50  0001 C CNN
 F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 4550 4600 50  0001 C CNN
@@ -1890,10 +1890,10 @@ F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 4550 4600 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L alexios:74LVC1G07 U13
+L alexios:74LVC1G07 U?
 U 1 1 607CD995
 P 9650 1900
-F 0 "U13" H 9550 1800 50  0000 R CNN
+F 0 "U?" H 9550 1800 50  0000 R CNN
 F 1 "74LVC1G07" H 9750 1800 50  0000 L CNN
 F 2 "alexios:SOT-23-5_HandSoldering" H 9750 1900 50  0001 C CNN
 F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 9750 1900 50  0001 C CNN
@@ -1901,10 +1901,10 @@ F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 9750 1900 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L alexios:74LVC1G07 U14
+L alexios:74LVC1G07 U?
 U 1 1 607CD9AF
 P 9650 2800
-F 0 "U14" H 9550 2700 50  0000 R CNN
+F 0 "U?" H 9550 2700 50  0000 R CNN
 F 1 "74LVC1G07" H 9750 2700 50  0000 L CNN
 F 2 "alexios:SOT-23-5_HandSoldering" H 9750 2800 50  0001 C CNN
 F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 9750 2800 50  0001 C CNN
@@ -1912,10 +1912,10 @@ F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 9750 2800 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L alexios:74LVC1G07 U15
+L alexios:74LVC1G07 U?
 U 1 1 607CD9C8
 P 9650 3700
-F 0 "U15" H 9550 3600 50  0000 R CNN
+F 0 "U?" H 9550 3600 50  0000 R CNN
 F 1 "74LVC1G07" H 9750 3600 50  0000 L CNN
 F 2 "alexios:SOT-23-5_HandSoldering" H 9750 3700 50  0001 C CNN
 F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 9750 3700 50  0001 C CNN
@@ -1923,10 +1923,10 @@ F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 9750 3700 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L alexios:74LVC1G07 U9
+L alexios:74LVC1G07 U?
 U 2 1 608D572B
 P 1350 6200
-F 0 "U9" H 1530 6146 50  0000 L CNN
+F 0 "U?" H 1530 6146 50  0000 L CNN
 F 1 "74LVC1G07" H 1530 6055 50  0000 L CNN
 F 2 "alexios:SOT-23-5_HandSoldering" H 1450 6200 50  0001 C CNN
 F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 1450 6200 50  0001 C CNN
@@ -1934,10 +1934,10 @@ F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 1450 6200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L alexios:74LVC1G07 U16
+L alexios:74LVC1G07 U?
 U 1 1 607CD9E2
 P 9650 4600
-F 0 "U16" H 9550 4500 50  0000 R CNN
+F 0 "U?" H 9550 4500 50  0000 R CNN
 F 1 "74LVC1G07" H 9750 4500 50  0000 L CNN
 F 2 "alexios:SOT-23-5_HandSoldering" H 9750 4600 50  0001 C CNN
 F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 9750 4600 50  0001 C CNN
