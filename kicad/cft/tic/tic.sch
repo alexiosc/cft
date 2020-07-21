@@ -846,102 +846,146 @@ F20 "~RIO11" O R 2250 2900 50
 F21 "~RIO10" O R 2250 2800 50 
 $EndSheet
 Wire Wire Line
-	1100 2400 750  2400
+	1100 2400 650  2400
 Wire Wire Line
-	1100 2500 750  2500
+	1100 2500 650  2500
 Wire Wire Line
-	1100 2600 750  2600
+	1100 2600 650  2600
 Wire Wire Line
-	1100 2700 750  2700
+	1100 2700 650  2700
 Wire Wire Line
-	1100 2800 750  2800
+	1100 2800 650  2800
 Wire Wire Line
-	750  2950 1100 2950
+	650  2950 1100 2950
 Wire Wire Line
-	750  3050 1100 3050
+	650  3050 1100 3050
 Wire Wire Line
-	750  3150 1100 3150
+	650  3150 1100 3150
 Wire Wire Line
-	750  3250 1100 3250
+	650  3250 1100 3250
 Wire Wire Line
-	750  3350 1100 3350
+	650  3350 1100 3350
 Wire Wire Line
-	750  3450 1100 3450
+	650  3450 1100 3450
 Wire Wire Line
-	750  3550 1100 3550
+	650  3550 1100 3550
 Wire Wire Line
-	2550 2400 2250 2400
+	2700 2400 2250 2400
 Wire Wire Line
-	2550 2500 2250 2500
+	2700 2500 2250 2500
 Wire Wire Line
-	2550 2600 2250 2600
+	2700 2600 2250 2600
 Wire Wire Line
-	2550 2800 2250 2800
+	2700 2800 2250 2800
 Wire Wire Line
-	2250 2900 2550 2900
+	2250 2900 2700 2900
 Wire Wire Line
-	2250 3100 2550 3100
+	2250 3100 2700 3100
 Wire Wire Line
-	2250 3200 2550 3200
+	2250 3200 2700 3200
 Wire Wire Line
-	2250 3550 2550 3550
+	2250 3550 2700 3550
 Text Notes 700  2000 0    100  ~ 20
 Address Decoding & Wait States
-Text Label 750  2400 0    50   ~ 0
+Text Label 650  2400 0    50   ~ 0
 ~RESET
-Text Label 750  2500 0    50   ~ 0
+Text Label 650  2500 0    50   ~ 0
 CLK3
-Text Label 750  2600 0    50   ~ 0
+Text Label 650  2600 0    50   ~ 0
 ~SYSDEV
-Text Label 750  2700 0    50   ~ 0
+Text Label 650  2700 0    50   ~ 0
 ~R
-Text Label 750  2800 0    50   ~ 0
+Text Label 650  2800 0    50   ~ 0
 ~W
-Text Label 750  2950 0    50   ~ 0
+Text Label 650  2950 0    50   ~ 0
 AB1
-Text Label 750  3050 0    50   ~ 0
+Text Label 650  3050 0    50   ~ 0
 AB2
-Text Label 750  3150 0    50   ~ 0
+Text Label 650  3150 0    50   ~ 0
 AB3
-Text Label 750  3250 0    50   ~ 0
+Text Label 650  3250 0    50   ~ 0
 AB4
-Text Label 750  3350 0    50   ~ 0
+Text Label 650  3350 0    50   ~ 0
 AB5
-Text Label 750  3450 0    50   ~ 0
+Text Label 650  3450 0    50   ~ 0
 AB6
-Text Label 750  3550 0    50   ~ 0
+Text Label 650  3550 0    50   ~ 0
 AB7
-Text Label 2550 2400 2    50   ~ 0
+Text Label 2700 2400 2    50   ~ 0
 ~IO14
-Text Label 2550 2500 2    50   ~ 0
+Text Label 2700 2500 2    50   ~ 0
 ~IO18
-Text Label 2550 2600 2    50   ~ 0
+Text Label 2700 2600 2    50   ~ 0
 ~IO1C
-Text Label 2550 2800 2    50   ~ 0
+Text Label 2700 2800 2    50   ~ 0
 ~RIO10
-Text Label 2550 2900 2    50   ~ 0
+Text Label 2700 2900 2    50   ~ 0
 ~RIO11
-Text Label 2550 3100 2    50   ~ 0
+Text Label 2700 3100 2    50   ~ 0
 ~WIO10
-Text Label 2550 3200 2    50   ~ 0
+Text Label 2700 3200 2    50   ~ 0
 ~WIO11
-Text Label 2550 3550 2    50   ~ 0
+Text Label 2700 3550 2    50   ~ 0
 ~WS
 $Sheet
-S 1100 4050 1150 2200
+S 1100 4050 1150 1250
 U 5F160E7C
 F0 "Interrupt Controller" 50
 F1 "irc.sch" 50
-F2 "DB[0..15]" T L 1100 4850 50 
-F3 "~RIER" I R 2250 4950 50 
-F4 "FPD[0..7]" T L 1100 4700 50 
+F2 "DB[0..15]" T L 1100 4600 50 
+F3 "~RIER" I L 1100 4750 50 
+F4 "FPD[0..7]" T R 2250 5150 50 
 F5 "CLK3" I L 1100 4450 50 
 F6 "CLK2" I L 1100 4350 50 
 F7 "~RESET" I L 1100 4200 50 
-F8 "~WIER" I R 2250 4800 50 
-F9 "~IRQ[0..7]" I L 1100 5100 50 
-F10 "~RISR" I R 2250 4600 50 
-F11 "~FPIEN" I R 2250 4500 50 
-F12 "~FPIRF" I R 2250 4400 50 
+F8 "~WIER" I L 1100 4850 50 
+F9 "~IRQ[0..7]" I L 1100 5150 50 
+F10 "~RISR" I L 1100 5000 50 
+F11 "~FPIEN" I R 2250 4950 50 
+F12 "~FPIRF" I R 2250 5050 50 
 $EndSheet
+Wire Bus Line
+	1100 5150 650  5150
+Wire Wire Line
+	1100 4200 650  4200
+Wire Wire Line
+	1100 4350 650  4350
+Wire Wire Line
+	1100 4450 650  4450
+Wire Wire Line
+	1100 4600 650  4600
+Wire Wire Line
+	1100 4750 650  4750
+Wire Wire Line
+	1100 4850 650  4850
+Wire Wire Line
+	1100 5000 650  5000
+Wire Wire Line
+	2250 4950 2700 4950
+Wire Wire Line
+	2250 5050 2700 5050
+Wire Bus Line
+	2700 5150 2250 5150
+Text Label 2700 4950 2    50   ~ 0
+~FPIEN
+Text Label 2700 5050 2    50   ~ 0
+~FPIRF
+Text Label 650  5150 0    50   ~ 0
+~IRQ[0..7]
+Text Label 650  4200 0    50   ~ 0
+~RESET
+Text Label 650  4350 0    50   ~ 0
+CLK2
+Text Label 650  4450 0    50   ~ 0
+CLK3
+Text Label 650  4600 0    50   ~ 0
+DB[0..15]
+Text Label 650  4750 0    50   ~ 0
+~RIER
+Text Label 650  4850 0    50   ~ 0
+~WIER
+Text Label 650  5000 0    50   ~ 0
+~RISR
+Text Label 2700 5150 2    50   ~ 0
+FPD[0..7]
 $EndSCHEMATC
