@@ -6,7 +6,7 @@ encoding utf-8
 Sheet 2 8
 Title "24-bit Address Register (AR)"
 Date ""
-Rev "2022"
+Rev "2023"
 Comp ""
 Comment1 "BUS"
 Comment2 ""

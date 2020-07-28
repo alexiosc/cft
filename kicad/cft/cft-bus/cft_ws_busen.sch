@@ -6,7 +6,7 @@ encoding utf-8
 Sheet 8 8
 Title "Data Bus & Wait States"
 Date ""
-Rev "2022"
+Rev "2023"
 Comp ""
 Comment1 "BUS"
 Comment2 ""

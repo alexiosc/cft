@@ -6,7 +6,7 @@ encoding utf-8
 Sheet 1 8
 Title "Peripheral Bus Interface etc."
 Date ""
-Rev "2006"
+Rev "2023"
 Comp ""
 Comment1 "BUS"
 Comment2 ""

@@ -6,7 +6,7 @@ encoding utf-8
 Sheet 5 8
 Title "Memory Bank Unit"
 Date ""
-Rev "2006"
+Rev "2023"
 Comp ""
 Comment1 "BUS"
 Comment2 ""

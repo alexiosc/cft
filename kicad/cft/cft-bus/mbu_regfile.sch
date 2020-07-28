@@ -6,7 +6,7 @@ encoding utf-8
 Sheet 6 8
 Title "MBU 8×8 Register File"
 Date ""
-Rev "2006"
+Rev "2023"
 Comp ""
 Comment1 "BUS"
 Comment2 ""
