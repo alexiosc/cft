@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 8 8
+Sheet 4 8
 Title "Constant Store"
 Date ""
 Rev "2023"
@@ -626,10 +626,10 @@ Wire Notes Line
 	2500 4700 3400 4700
 Wire Notes Line
 	3400 4700 3400 4750
+Text Notes 2250 5350 0    50   ~ 0
+For testing, T34 may be\nconnected to ~CSEN~, or JP1\ncan be bridged to ground.
 Wire Bus Line
 	2850 2350 2850 4200
 Wire Bus Line
 	8050 2250 8050 4700
-Text Notes 2250 5350 0    50   ~ 0
-For testing, T34 may be\nconnected to ~CSEN~, or JP1\ncan be bridged to ground.
 $EndSCHEMATC

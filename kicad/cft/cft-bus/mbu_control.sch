@@ -29,7 +29,7 @@ $EndComp
 Text Notes 2250 5100 0    50   ~ 0
 MBRs are written by:\n\n1. ~WRITE_MBP~ (address 0 always selected)\n2. ~WRITE_MBP+FLAGS~ (address 0 always selected)\n3. I/O Space writes (address is in AB[2:0])\n\nLogic here: select address 0 unless ~IOWMBR~\nasserted.
 Text Notes 8000 5550 0    50   ~ 0
-MBRs are read by:\n\n1. ~READ_MBP~ (address 0 always selected)\n2. ~READ_MBP+FLAGS~ (address 0 always selected)\n3. ~WRITE_AR_MBx~ (address in IR[2:0])\n    if IDXEN is low, address is 3 (011)\n    if IDXEN is high, address is IR[1:0] (range 0-3 only)\n4. I/O Space reads (address is in AB[1:0])\n\nValue should always be &00 or &80 if ~DIS~ is\nasserted.
+MBRs are read by:\n\n1. ~READ_MBP~ (address 0 always selected)\n2. ~READ_MBP+FLAGS~ (address 0 always selected)\n3. ~WRITE_AR_MBx~ (address in IR[2:0])\n    if IDXEN is low, address is 3 (011)\n    if IDXEN is high, address is IR[1:0] (range 0-3 only)\n4. I/O Space reads (address is in AB[2:0])\n\nValue should always be &00 or &80 if ~DIS~ is\nasserted.
 Text Notes 8000 6300 0    50   ~ 0
 ~DIS~\n\n0\n1\n1\n1\n
 Text Notes 8150 6300 0    50   ~ 0
