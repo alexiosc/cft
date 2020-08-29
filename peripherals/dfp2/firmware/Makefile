@@ -54,6 +54,7 @@ AVRCFLAGS	+=	-ffreestanding
 AVRCFLAGS	+=	-finline-limit=5
 #AVRCFLAGS	+=	-flto -fwhole-program
 AVRCFLAGS	+=	-fverbose-asm
+AVRCFLAGS	+=	$(DEFINES)
 
 AVRLDFLAGS	+=	-Wl,-static -Wl,--gc-sections
 #AVRLDFLAGS	+=	-Wl,-s
