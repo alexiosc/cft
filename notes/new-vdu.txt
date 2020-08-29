@@ -1,0 +1,31 @@
+# New VDU Notes
+
+* Can we memory map it?
+* 640×480 top resolution
+* Keep to 64 colours
+* Planar setup (bitmap + colour planes, CG plane)
+* Use display lists for modes
+
+
+## Intrinsic mods
+
+Vertical resolutions: 480, 240, 120, 60, 30.
+
+Horizontal resolution: 640, 320, 160, 80, 40.
+
+
+## Display Lists
+
+Enterprise 64/128 display lists read/interpreted at start of scan line.
+
+Each DP line contains:
+
+* Row start address.
+* Repetition counter (font height)
+* Mode setting bits.
+* Smooth scrolling?
+
+
+## Problems to solve
+
+* Cheap character cell scrolling
