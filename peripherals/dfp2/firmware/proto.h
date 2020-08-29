@@ -1,4 +1,4 @@
-// -*- indent-c -*-
+// -*- c -*-
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -338,3 +338,9 @@ uint8_t check_mismatch(uint16_t, uint16_t);
 #endif // _PROTO_H__
 
 // End of file.
+// Local Variables:
+// eval: (c-set-style "K&R")
+// c-basic-offset: 8
+// indent-tabs-mode: nil
+// fill-column: 79
+// End:

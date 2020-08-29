@@ -1,4 +1,13 @@
-// -*- indent-c -*-
+// -*- c -*-
+// 
+// proto.c — The DFP 2 protocol (command language etc.)
+// 
+// Copyright © 2012–2020 Alexios Chouchoulas
+// 
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2, or (at your option)
+// any later version.
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -160,7 +169,7 @@ proto_input(unsigned char c)
 	}
 
 #endif // AVR
-
+	
 	// Allow breaks at all times.
 	if (c == CTRL('C') || c == CTRL('X')) {
 		// Cancel input or operation (ASCII 24, Ctrl-X or Ctrl-C)
@@ -2599,3 +2608,9 @@ go_dfps()
 #endif // 0
 
 // End of file.
+// Local Variables:
+// eval: (c-set-style "K&R")
+// c-basic-offset: 8
+// indent-tabs-mode: nil
+// fill-column: 79
+// End:

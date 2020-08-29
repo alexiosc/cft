@@ -1,4 +1,4 @@
-// -*- indent-c -*-
+// -*- c -*-
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -54,3 +54,9 @@ extern const char hex[16];
 #endif // _UTILS_H__
 
 // End of file.
+// Local Variables:
+// eval: (c-set-style "K&R")
+// c-basic-offset: 8
+// indent-tabs-mode: nil
+// fill-column: 79
+// End:

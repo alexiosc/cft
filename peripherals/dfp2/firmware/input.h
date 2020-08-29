@@ -26,3 +26,9 @@ int8_t optional_hex_val(uint16_t * word);
 #endif // __INPUT_H__
 
 // End of file.
+// Local Variables:
+// eval: (c-set-style "K&R")
+// c-basic-offset: 8
+// indent-tabs-mode: nil
+// fill-column: 79
+// End:

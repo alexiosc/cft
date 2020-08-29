@@ -1,4 +1,4 @@
-// -*- indent-c -*-
+// -*- c -*-
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -18,3 +18,9 @@
 #endif // __SERIAL_H__
 
 // End of file.
+// Local Variables:
+// eval: (c-set-style "K&R")
+// c-basic-offset: 8
+// indent-tabs-mode: nil
+// fill-column: 79
+// End:

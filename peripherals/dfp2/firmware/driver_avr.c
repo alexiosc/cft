@@ -1,4 +1,13 @@
-// -*- indent-c++ -*-
+// -*- c -*-
+// 
+// driver_avr.c — AVR-specific DFP functionality
+// 
+// Copyright © 2012–2020 Alexios Chouchoulas
+// 
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2, or (at your option)
+// any later version.
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -36,7 +45,7 @@
 // #include "buscmd.h"
 // #include "utils.h"
 // #include "serial.h"
-// #include "output.h"
+#include "output.h"
 // #include "switches.h"
 // #include "panel.h"
 
@@ -191,33 +200,33 @@ ringbuf_init()
 errno_t
 ringbuf_add(uint8_t c)
 {
-	uint8_t retval = ERR_SUCCESS;
-	ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
-		// Bail out if the buffer is full
-		uint8_t new_ip = (rb.ip + 1) & RBMASK;
-		if (new_ip == rb.op) {
-			serial_write('\t');
-			retval = ERR_RBFULL;
-		} else {
-			//serial_write('\t');
-			rb.b[rb.ip] = c;
-			rb.ip = new_ip;
-		}
-		// TODO: Move this back to the CFT console handler
-		//if (icr & ICR_TTY) set_irq6(1, 0);
-	}
-	return retval;
+    uint8_t retval = ERR_SUCCESS;
+    ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+        // Bail out if the buffer is full
+        uint8_t new_ip = (rb.ip + 1) & RBMASK;
+        if (new_ip == rb.op) {
+            serial_write('\t');
+            retval = ERR_RBFULL;
+        } else {
+            //serial_write('\t');
+            rb.b[rb.ip] = c;
+            rb.ip = new_ip;
+        }
+        // TODO: Move this back to the CFT console handler
+        //if (icr & ICR_TTY) set_irq6(1, 0);
+    }
+    return retval;
 }
 
 
 errno_t
 ringbuf_get(uint8_t *c)
 {
-	// Is it empty?
-	if (rb.ip == rb.op) return ERR_RBEMPTY;
-	*c = rb.b[rb.op];
-	rb.op = (rb.op + 1) & RBMASK;
-	return ERR_SUCCESS;
+    // Is it empty?
+    if (rb.ip == rb.op) return ERR_RBEMPTY;
+    *c = rb.b[rb.op];
+    rb.op = (rb.op + 1) & RBMASK;
+    return ERR_SUCCESS;
 }
 
 
@@ -244,14 +253,14 @@ ringbuf_get(uint8_t *c)
 inline static void
 xmem_write(const xmem_addr_t addr, const uint8_t val)
 {
-	*((uint8_t *)(XMEM_BASE + addr)) = val;
+    *((uint8_t *)(XMEM_BASE + addr)) = val;
 }
 
 
 inline static uint8_t
 xmem_read(const xmem_addr_t addr)
 {
-	return *((uint8_t *)(XMEM_BASE + addr));
+    return *((uint8_t *)(XMEM_BASE + addr));
 }
 
 
@@ -265,100 +274,100 @@ xmem_read(const xmem_addr_t addr)
 inline static void
 sample()
 {
-	// Strobe the BUSCP signal, which causes all the input flip-flops to
-	// simultaneously sample their respective buses.
-	clearbit(PORTB, B_BUSCP);
-	setbit(PORTB, B_BUSCP);
+    // Strobe the BUSCP signal, which causes all the input flip-flops to
+    // simultaneously sample their respective buses.
+    clearbit(PORTB, B_BUSCP);
+    setbit(PORTB, B_BUSCP);
 }
 
 
 const uint8_t state_addrs[] PROGMEM = {
-	XMEM_AB_H, XMEM_AB_M, XMEM_AB_L,    // The Address Bus
-	XMEM_DB_H, XMEM_DB_L,		    // The Data Bus
-	XMEM_IBUS_H, XMEM_IBUS_L,	    // The IBUS
-
-	XMEM_UCV_H, XMEM_UCV_M, XMEM_UCV_L, // The UCV
+    XMEM_AB_H, XMEM_AB_M, XMEM_AB_L,    // The Address Bus
+    XMEM_DB_H, XMEM_DB_L,		    // The Data Bus
+    XMEM_IBUS_H, XMEM_IBUS_L,	    // The IBUS
+    
+    XMEM_UCV_H, XMEM_UCV_M, XMEM_UCV_L, // The UCV
 };
 
 
 uint8_t
 read_dfp_address(xmem_addr_t a)
 {
-	fp_scanner_stop();
-	sample();		// Clock data into our own flip flops.
-
-	uint8_t val = xmem_read(a);
-	fp_scanner_start();
-
-	return val;
+    fp_scanner_stop();
+    sample();		// Clock data into our own flip flops.
+    
+    uint8_t val = xmem_read(a);
+    fp_scanner_start();
+    
+    return val;
 }
 
 
 void
 read_full_state()
 {
-	// Note: we stop the scanner but don't deselect the front panel. Any
-	// reads we perform that also map to FP lights will update the FP. For
-	// example, as we read the AC, the front panel's Accumulator lights
-	// will also update to the current value on the FPD bus.
-	fp_scanner_stop();
-	sample();		// Clock data into our own flip flops.
+    // Note: we stop the scanner but don't deselect the front panel. Any
+    // reads we perform that also map to FP lights will update the FP. For
+    // example, as we read the AC, the front panel's Accumulator lights
+    // will also update to the current value on the FPD bus.
+    fp_scanner_stop();
+    sample();		// Clock data into our own flip flops.
 
-	// Read the buses directly.
-	hwstate.ab_h = xmem_read(XMEM_AB_H);
-	hwstate.ab_m = xmem_read(XMEM_AB_M);
-	hwstate.ab_l = xmem_read(XMEM_AB_L);
+    // Read the buses directly.
+    hwstate.ab_h = xmem_read(XMEM_AB_H);
+    hwstate.ab_m = xmem_read(XMEM_AB_M);
+    hwstate.ab_l = xmem_read(XMEM_AB_L);
 
-	hwstate.db_h = xmem_read(XMEM_DB_H);
-	hwstate.db_l = xmem_read(XMEM_DB_L);
+    hwstate.db_h = xmem_read(XMEM_DB_H);
+    hwstate.db_l = xmem_read(XMEM_DB_L);
 
-	hwstate.ibus_h = xmem_read(XMEM_DB_H);
-	hwstate.ibus_l = xmem_read(XMEM_DB_L);
+    hwstate.ibus_h = xmem_read(XMEM_DB_H);
+    hwstate.ibus_l = xmem_read(XMEM_DB_L);
 
-	hwstate.dsr = xmem_read(XMEM_DSR);
+    hwstate.dsr = xmem_read(XMEM_DSR);
 
-	// Read via buffers in the computer.
-	hwstate.ucv_h = xmem_read(XMEM_UCV_H);
-	hwstate.ucv_m = xmem_read(XMEM_UCV_M);
-	hwstate.ucv_l = xmem_read(XMEM_UCV_L);
+    // Read via buffers in the computer.
+    hwstate.ucv_h = xmem_read(XMEM_UCV_H);
+    hwstate.ucv_m = xmem_read(XMEM_UCV_M);
+    hwstate.ucv_l = xmem_read(XMEM_UCV_L);
 
-	fp_scanner_start();
+    fp_scanner_start();
 }
 
 
 inline static void
 release_buses()
 {
-	// Release IBus, AB and DB and deassert bus control signals by setting
-	// all of their bits. They're active low.
-	PORTC |= BV(C_NIBOE) | BV(C_NABOE) | BV(C_NDBOE) |
-		BV(C_NMEM) | BV(C_NIO) | BV(C_NR) | BV(C_NW);
+    // Release IBus, AB and DB and deassert bus control signals by setting
+    // all of their bits. They're active low.
+    PORTC |= BV(C_NIBOE) | BV(C_NABOE) | BV(C_NDBOE) |
+        BV(C_NMEM) | BV(C_NIO) | BV(C_NR) | BV(C_NW);
 
-	// Tristate bus control signals and the rest of control bus by clearing
-	// their NMEM, NIO, NR, NW and NMCVOE bits in the DDRC and 
-	DDRC &= ~(BV(C_NMEM) | BV(C_NIO) | BV(C_NR) | BV(C_NW));
+    // Tristate bus control signals and the rest of control bus by clearing
+    // their NMEM, NIO, NR, NW and NMCVOE bits in the DDRC and 
+    DDRC &= ~(BV(C_NMEM) | BV(C_NIO) | BV(C_NR) | BV(C_NW));
 
-	// Tristate the µCV (control vector) outputs too.
-	PORTE |= BV(E_NMCVOE);
+    // Tristate the µCV (control vector) outputs too.
+    PORTE |= BV(E_NMCVOE);
 }
 
 
 inline static void
 release_ibus()
 {
-	setbit(PORTC, C_NIBOE);
+    setbit(PORTC, C_NIBOE);
 }
 
 
 inline static void
 release_ucv()
 {
-	// Tristate bus control signals and the rest of control bus by clearing
-	// their NMEM, NIO, NR, NW and NMCVOE bits in the DDRC and 
-	DDRC &= ~(BV(C_NMEM) | BV(C_NIO) | BV(C_NR) | BV(C_NW));
+    // Tristate bus control signals and the rest of control bus by clearing
+    // their NMEM, NIO, NR, NW and NMCVOE bits in the DDRC and 
+    DDRC &= ~(BV(C_NMEM) | BV(C_NIO) | BV(C_NR) | BV(C_NW));
 
-	// Tristate the µCV (control vector) outputs too.
-	PORTE |= BV(E_NMCVOE);
+    // Tristate the µCV (control vector) outputs too.
+    PORTE |= BV(E_NMCVOE);
 }
 
 
@@ -389,49 +398,49 @@ release_ucv()
 MUST_CHECK errno_t
 write_to_ibus_unit(uint8_t waddr, uint16_t val)
 {
-	if (!hwstate.is_halted) {
-		return ERR_NHALTED;
-	}
+    if (!hwstate.is_halted) {
+        return ERR_NHALTED;
+    }
 
-	ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
-		xmem_write(XMEM_RADDR, 0);
-		xmem_write(XMEM_WADDR, 0);
-		xmem_write(XMEM_ACTION, 0);
+    ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+        xmem_write(XMEM_RADDR, 0);
+        xmem_write(XMEM_WADDR, 0);
+        xmem_write(XMEM_ACTION, 0);
 
-		clearbit(PORTE, E_NMCVOE); // Drive the IBUS
-		xmem_write(XMEM_IBUS_H, (val >> 8) & 0xff);
-		xmem_write(XMEM_IBUS_L, (val & 0xff));
-		clearbit(PORTC, C_NIBOE);
+        clearbit(PORTE, E_NMCVOE); // Drive the IBUS
+        xmem_write(XMEM_IBUS_H, (val >> 8) & 0xff);
+        xmem_write(XMEM_IBUS_L, (val & 0xff));
+        clearbit(PORTC, C_NIBOE);
 
-		xmem_write(XMEM_WADDR, waddr);
-		xmem_write(XMEM_WADDR, 0);
+        xmem_write(XMEM_WADDR, waddr);
+        xmem_write(XMEM_WADDR, 0);
 
-		setbit(PORTE, E_NMCVOE);
-		setbit(PORTC, C_NIBOE);
-	}
+        setbit(PORTE, E_NMCVOE);
+        setbit(PORTC, C_NIBOE);
+    }
 }
 
 
 MUST_CHECK errno_t
 read_from_ibus_unit(uint8_t raddr, uint16_t * val)
 {
-	if (!hwstate.is_halted) {
-		return ERR_NHALTED;
-	}
+    if (!hwstate.is_halted) {
+        return ERR_NHALTED;
+    }
 
-	ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
-		xmem_write(XMEM_RADDR, 0);
-		xmem_write(XMEM_WADDR, 0);
-		xmem_write(XMEM_ACTION, 0);
+    ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+        xmem_write(XMEM_RADDR, 0);
+        xmem_write(XMEM_WADDR, 0);
+        xmem_write(XMEM_ACTION, 0);
 
-		clearbit(PORTE, E_NMCVOE);
-		xmem_write(XMEM_RADDR, raddr);
+        clearbit(PORTE, E_NMCVOE);
+        xmem_write(XMEM_RADDR, raddr);
 
-		*val = xmem_read(XMEM_IBUS_H) << 8 | xmem_read(XMEM_IBUS_L);
+        *val = xmem_read(XMEM_IBUS_H) << 8 | xmem_read(XMEM_IBUS_L);
 
-		xmem_write(XMEM_RADDR, 0);
-		setbit(PORTE, E_NMCVOE);
-	}
+        xmem_write(XMEM_RADDR, 0);
+        setbit(PORTE, E_NMCVOE);
+    }
 }
 
 
@@ -444,42 +453,42 @@ read_from_ibus_unit(uint8_t raddr, uint16_t * val)
 inline void
 tristate_ab()
 {
-	setbit(PORTC, C_NABOE);
+    setbit(PORTC, C_NABOE);
 }
 
 
 inline static MUST_CHECK errno_t
 drive_ab()
 {
-	// If the BUS board is present and the processor isn't halted, we can't
-	// drive the AB.
-	if (hwstate.have_bus && !hwstate.is_halted) {
-		// Tristate the AB driver. Should already be tristated since
-		// drive_ab() is being called, but let's be safe.
-		tristate_ab();
-		return ERR_NMASTER;
-	}
+    // If the BUS board is present and the processor isn't halted, we can't
+    // drive the AB.
+    if (hwstate.have_bus && !hwstate.is_halted) {
+        // Tristate the AB driver. Should already be tristated since
+        // drive_ab() is being called, but let's be safe.
+        tristate_ab();
+        return ERR_NMASTER;
+    }
 
-	// Enable the AB drivers. This will enable all three AB drivers.
-	clearbit(PORTC, C_NABOE);
-	return ERR_SUCCESS;
+    // Enable the AB drivers. This will enable all three AB drivers.
+    clearbit(PORTC, C_NABOE);
+    return ERR_SUCCESS;
 }
 
 
 inline static MUST_CHECK errno_t
 write_ab(const uint16_t addr, const uint8_t aext)
 {
-	// If the BUS board is present and the processor isn't halted, we can't
-	// write to the AB.
-	if (hwstate.have_bus && !hwstate.is_halted) {
-		tristate_ab();
-		return ERR_NMASTER;
-	}
+    // If the BUS board is present and the processor isn't halted, we can't
+    // write to the AB.
+    if (hwstate.have_bus && !hwstate.is_halted) {
+        tristate_ab();
+        return ERR_NMASTER;
+    }
 
-	// Drive the Address Bus ourselves.
-	xmem_write(XMEM_AB_L, addr & 0xff);
-	xmem_write(XMEM_AB_M, (addr >> 8) & 0xff);
-	xmem_write(XMEM_AB_H, aext);
+    // Drive the Address Bus ourselves.
+    xmem_write(XMEM_AB_L, addr & 0xff);
+    xmem_write(XMEM_AB_M, (addr >> 8) & 0xff);
+    xmem_write(XMEM_AB_H, aext);
 }
 
 
@@ -492,41 +501,41 @@ write_ab(const uint16_t addr, const uint8_t aext)
 inline static void
 tristate_db()
 {
-	setbit(PORTC, C_NDBOE);
+    setbit(PORTC, C_NDBOE);
 }
 
 
 inline static MUST_CHECK errno_t
 drive_db()
 {
-	// If the BUS board is present and the processor isn't halted, we can't
-	// drive the DB.
-	if (hwstate.have_bus && !hwstate.is_halted) {
-		// Tristate the DB driver. Should already be tristated since
-		// drive_db() is being called, but let's be safe.
-		tristate_db();
-		return ERR_NMASTER;
-	}
+    // If the BUS board is present and the processor isn't halted, we can't
+    // drive the DB.
+    if (hwstate.have_bus && !hwstate.is_halted) {
+        // Tristate the DB driver. Should already be tristated since
+        // drive_db() is being called, but let's be safe.
+        tristate_db();
+        return ERR_NMASTER;
+    }
 
-	// Enable the DB drivers. This will enable both DB buffers.
-	clearbit(PORTC, C_NDBOE);
-	return ERR_SUCCESS;
+    // Enable the DB drivers. This will enable both DB buffers.
+    clearbit(PORTC, C_NDBOE);
+    return ERR_SUCCESS;
 }
 
 
 static MUST_CHECK errno_t
 write_db(const word_t data)
 {
-	// If the BUS board is present and the processor isn't halted, we can't
-	// write to the DB.
-	if (hwstate.have_bus && !hwstate.is_halted) {
-		tristate_db();
-		return ERR_NMASTER;
-	}
+    // If the BUS board is present and the processor isn't halted, we can't
+    // write to the DB.
+    if (hwstate.have_bus && !hwstate.is_halted) {
+        tristate_db();
+        return ERR_NMASTER;
+    }
 
-	// Drive the Data Bus ourselves.
-	xmem_write(XMEM_DB_L, data & 0xff);
-	xmem_write(XMEM_DB_H, (data >> 8) & 0xff);
+    // Drive the Data Bus ourselves.
+    xmem_write(XMEM_DB_L, data & 0xff);
+    xmem_write(XMEM_DB_H, (data >> 8) & 0xff);
 }
 
 
@@ -551,87 +560,87 @@ write_db(const word_t data)
 void
 clk_fast()
 {
-	// Note: we can't set the clock to fast mode without starting it. So if
-	// the clock is currently stopped, do nothing here.
+    // Note: we can't set the clock to fast mode without starting it. So if
+    // the clock is currently stopped, do nothing here.
 
-	if (hwstate.clk_stopped) return;
+    if (hwstate.clk_stopped) return;
 
-	hwstate.clk_fast = 1;
-	TCCR1A = 0;		  // Disable the MCU slow clock timer
-	setbit(PORTB, B_FPCLKEN); // Enable the CFT's clock generator.
+    hwstate.clk_fast = 1;
+    TCCR1A = 0;		  // Disable the MCU slow clock timer
+    setbit(PORTB, B_FPCLKEN); // Enable the CFT's clock generator.
 }
 
 
 void
 clk_setfreq(uint8_t prescaler, uint16_t div)
 {
-	hwstate.clk_prescaler = prescaler;
-	hwstate.clk_div = div;
+    hwstate.clk_prescaler = prescaler;
+    hwstate.clk_div = div;
 
-	clearbit(PORTB, B_FPCLKEN); // Disable the CFT's own clock;
+    clearbit(PORTB, B_FPCLKEN); // Disable the CFT's own clock;
 
-	// COM1A = 00
-	// COM1B = 01 (toggle OC1B on compare match)
-	// WGM   = 0100 (CTC mode)
+    // COM1A = 00
+    // COM1B = 01 (toggle OC1B on compare match)
+    // WGM   = 0100 (CTC mode)
 
-	// TCCR1A = 0x10;			       // Toggle OC1B on compare match
-	// TCCR1B = 8 | (prescaler & 7);	       // CTC, prescaler
-	// TIMSK1 = 2;
-	// OCR1B = div;
+    // TCCR1A = 0x10;			       // Toggle OC1B on compare match
+    // TCCR1B = 8 | (prescaler & 7);	       // CTC, prescaler
+    // TIMSK1 = 2;
+    // OCR1B = div;
 
-	// Program the timer to generate the requested rate.
-	TCCR1B = BV(WGM12) | (prescaler & 7); // Select CTC, set prescaler
-	OCR1A = div;			      // Note: automagic 16-bit register write!
+    // Program the timer to generate the requested rate.
+    TCCR1B = BV(WGM12) | (prescaler & 7); // Select CTC, set prescaler
+    OCR1A = div;			  // Note: automagic 16-bit register write!
 }
 
 
 void
 clk_slow()
 {
-	// 16000000 / (2 * 1024 * (1 + 97)) ≅ 79.72 Hz.
-	clk_setfreq(PSV_1024, 97);
+    // 16000000 / (2 * 1024 * (1 + 97)) ≅ 79.72 Hz.
+    clk_setfreq(PSV_1024, 97);
 
-	// Enable the clock output unless the clock is stopped.
-	if (!hwstate.clk_stopped) TCCR1A = _BV(COM1B0);
+    // Enable the clock output unless the clock is stopped.
+    if (!hwstate.clk_stopped) TCCR1A = _BV(COM1B0);
 }
 
 
 void
 clk_creep()
 {
-	// 16000000 / (2 * 1024 * (1 + 976)) ≅ 8 Hz.
-	clk_setfreq(PSV_1024, 976);
+    // 16000000 / (2 * 1024 * (1 + 976)) ≅ 8 Hz.
+    clk_setfreq(PSV_1024, 976);
 
-	// Enable the clock output unless the clock is stopped.
-	if (!hwstate.clk_stopped) TCCR1A = _BV(COM1B0);
+    // Enable the clock output unless the clock is stopped.
+    if (!hwstate.clk_stopped) TCCR1A = _BV(COM1B0);
 }
 
 
 void
 clk_start()
 {
-	if (hwstate.clk_fast) {
-		clk_fast();
-	} else {
-		// Restart with a slow clock.
-		clk_setfreq(hwstate.clk_prescaler, hwstate.clk_div);
-		TCCR1A = _BV(COM1B0); // Start toggling OC1B (FPµSTEP).
-		hwstate.clk_stopped = 0;
-	}
+    if (hwstate.clk_fast) {
+        clk_fast();
+    } else {
+        // Restart with a slow clock.
+        clk_setfreq(hwstate.clk_prescaler, hwstate.clk_div);
+        TCCR1A = _BV(COM1B0); // Start toggling OC1B (FPµSTEP).
+        hwstate.clk_stopped = 0;
+    }
 }
 
 
 void
 clk_stop()
 {
-	// Disconnect the FPUSTEP-IN pin from the timer. The pin will stay
-	// in its last hwstate.
-	TCCR1A = 0;		// Disconnect FPUSTEP-IN pin, no pulses.
+    // Disconnect the FPUSTEP-IN pin from the timer. The pin will stay
+    // in its last hwstate.
+    TCCR1A = 0;		// Disconnect FPUSTEP-IN pin, no pulses.
 
-	// And now disable the processor's full-speed clock too.
-	clearbit(PORTB, B_FPCLKEN);
+    // And now disable the processor's full-speed clock too.
+    clearbit(PORTB, B_FPCLKEN);
 
-	hwstate.clk_stopped = 1;
+    hwstate.clk_stopped = 1;
 }
 
 
@@ -644,97 +653,97 @@ clk_stop()
 inline static void
 rc_freeze()
 {
-	clearbit(PORTB, B_NCLR);
+    clearbit(PORTB, B_NCLR);
 }
 
 
 inline static void
 rc_thaw()
 {
-	setbit(PORTB, B_NCLR);
+    setbit(PORTB, B_NCLR);
 }
 
 
 inline static void
 rc_reset()
 {
-	clearbit(PORTB, B_NCLR);
-	setbit(PORTB, B_NCLR);
+    clearbit(PORTB, B_NCLR);
+    setbit(PORTB, B_NCLR);
 }
 
 
 static errno_t
 rc_wait()
 {
-	for(;;) {
-		if (PIND & BV(D_NWAIT)) {
-			return ERR_SUCCESS;
-		}
-	}
+    for(;;) {
+        if (PIND & BV(D_NWAIT)) {
+            return ERR_SUCCESS;
+        }
+    }
 
-	// TODO: implement actual timeout
-	return ERR_TIMEOUT;
+    // TODO: implement actual timeout
+    return ERR_TIMEOUT;
 }
 
 
 errno_t
 rc_halt()
 {
-	if (hwstate.is_halted) return ERR_HALTED;
-	setbit(PORTD, D_NSTEP_RUN); // Stop running
+    if (hwstate.is_halted) return ERR_HALTED;
+    setbit(PORTD, D_NSTEP_RUN); // Stop running
 
-	// The FSM will stop at the next fetch→execute transition. We
-	// should wait for that.
-	return rc_wait();
+    // The FSM will stop at the next fetch→execute transition. We
+    // should wait for that.
+    return rc_wait();
 }
 
 
 errno_t
 rc_run()
 {
-	if (!hwstate.is_halted) return ERR_NHALTED;
-	clearbit(PORTD, D_NSTEP_RUN); // Start running.
-	return ERR_SUCCESS;
+    if (!hwstate.is_halted) return ERR_NHALTED;
+    clearbit(PORTD, D_NSTEP_RUN); // Start running.
+    return ERR_SUCCESS;
 }
 
 
 errno_t
 rc_step()
 {
-	if (!hwstate.is_halted) return ERR_NHALTED;
+    if (!hwstate.is_halted) return ERR_NHALTED;
 
-	// The only way to perform a single step using the FSM is to very
-	// briefly strobe the STEP/RUN# signal. The strobe must be shorter than
-	// a single CFT instruction. We cheat by stopping the clock while
-	// strobing. The CFT is a fully static design and doesn't mind clock
-	// variations.
+    // The only way to perform a single step using the FSM is to very
+    // briefly strobe the STEP/RUN# signal. The strobe must be shorter than
+    // a single CFT instruction. We cheat by stopping the clock while
+    // strobing. The CFT is a fully static design and doesn't mind clock
+    // variations.
 	
-	ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
-		clk_stop();
-		clearbit(PORTD, D_NSTEP_RUN); // Start of strobe
-		setbit(PORTD, D_NSTEP_RUN);   // End of strobe
-		clk_start();
-	}
+    ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+        clk_stop();
+        clearbit(PORTD, D_NSTEP_RUN); // Start of strobe
+        setbit(PORTD, D_NSTEP_RUN);   // End of strobe
+        clk_start();
+    }
 
-	return rc_wait();
+    return rc_wait();
 }
 
 
 errno_t
 rc_ustep()
 {
-	if (!hwstate.is_halted) return ERR_NHALTED;
+    if (!hwstate.is_halted) return ERR_NHALTED;
 
-	// Again, stop the clock while strobing the µSTEP# signal.
+    // Again, stop the clock while strobing the µSTEP# signal.
 
-	ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
-		clk_stop();
-		clearbit(PORTD, D_NMSTEP); // Start of strobe
-		setbit(PORTD, D_NMSTEP);   // End of strobe
-		clk_start();
-	}
+    ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+        clk_stop();
+        clearbit(PORTD, D_NMSTEP); // Start of strobe
+        setbit(PORTD, D_NMSTEP);   // End of strobe
+        clk_start();
+    }
 
-	return rc_wait();
+    return rc_wait();
 }
 
 
@@ -747,36 +756,36 @@ rc_ustep()
 void
 set_fpramrom(bool_t rom)
 {
-	// Controls the FPRAM/ROM signal to the memory manager. High
-	// maps RAM+ROM on reset, Low maps RAM only.
+    // Controls the FPRAM/ROM signal to the memory manager. High
+    // maps RAM+ROM on reset, Low maps RAM only.
 
-	if (rom) setbit(PORTB, B_FPROM);
-	else clearbit(PORTB, B_FPROM);
+    if (rom) setbit(PORTB, B_FPROM);
+    else clearbit(PORTB, B_FPROM);
 }
 
 
 inline static void
 fp_scanner_stop()
 {
-	hwstate.fp_scanen = 0;
-	setbit(PORTD, D_NSCANEN);
+    hwstate.fp_scanen = 0;
+    setbit(PORTD, D_NSCANEN);
 }
 
 
 inline static void
 fp_scanner_start()
 {
-	clearbit(PORTD, D_NSCANEN);
-	hwstate.fp_scanen = 1;
+    clearbit(PORTD, D_NSCANEN);
+    hwstate.fp_scanen = 1;
 }
 
 
 inline static void
 fp_grab()
 {
-	hwstate.fp_scanen = 0;
-	hwstate.fp_panelen = 0;
-	PORTD |= BV(D_NSCANEN) | BV(D_NPANELEN);
+    hwstate.fp_scanen = 0;
+    hwstate.fp_panelen = 0;
+    PORTD |= BV(D_NSCANEN) | BV(D_NPANELEN);
 	
 }
 
@@ -784,9 +793,9 @@ fp_grab()
 inline static void
 fp_release()
 {
-	PORTD &= ~(BV(D_NSCANEN) | BV(D_NPANELEN));
-	hwstate.fp_scanen = 0;
-	hwstate.fp_panelen = 0;
+    PORTD &= ~(BV(D_NSCANEN) | BV(D_NPANELEN));
+    hwstate.fp_scanen = 0;
+    hwstate.fp_panelen = 0;
 }
 
 
@@ -800,44 +809,44 @@ fp_release()
 inline static void
 fp_write(uint8_t module, uint8_t row, uint8_t value)
 {
-	xmem_write((row << 2) | (module & 3), value);
+    xmem_write((row << 2) | (module & 3), value);
 }
 
 
 inline static void
 fp_write_addr(xmem_addr_t addr, uint8_t value)
 {
-	xmem_write(addr & 0xff, value);
+    xmem_write(addr & 0xff, value);
 }
 
 
 void
 set_mfd(mfd_t mfd)
 {
-	// The two MFD bits (MFD0 & MFD1) are mapped to PE3 and PE4
-	// respectively, so this task is relatively simple.
-	PORTE = (PORTE & (~E_MFDMASK)) | ((mfd & 3) << E_MFD0);
+    // The two MFD bits (MFD0 & MFD1) are mapped to PE3 and PE4
+    // respectively, so this task is relatively simple.
+    PORTE = (PORTE & (~E_MFDMASK)) | ((mfd & 3) << E_MFD0);
 }
 
 
 inline word_t
 get_or()
 {
-	return (hwstate.or_h << 8) | hwstate.or_l;
+    return (hwstate.or_h << 8) | hwstate.or_l;
 }
 
 
 void
 set_or(word_t value)
 {
-	ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
-		hwstate.or_l = value & 0xff;
-		hwstate.or_h = (value >> 8) & 0xff;
-		fp_scanner_stop();
-		xmem_write(XMEM_OR_H, hwstate.or_h);
-		xmem_write(XMEM_OR_L, hwstate.or_l);
-		fp_scanner_start();
-	}
+    ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+        hwstate.or_l = value & 0xff;
+        hwstate.or_h = (value >> 8) & 0xff;
+        fp_scanner_stop();
+        xmem_write(XMEM_OR_H, hwstate.or_h);
+        xmem_write(XMEM_OR_L, hwstate.or_l);
+        fp_scanner_start();
+    }
 }
 
 
@@ -847,17 +856,17 @@ set_or(word_t value)
 void
 fp_start_light_test()
 {
-	ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
-		fp_grab();
-		for (xmem_addr_t a = 0; a < 20; a++) fp_write_addr(a, 0xff);
-	}
+    ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+        fp_grab();
+        for (xmem_addr_t a = 0; a < 20; a++) fp_write_addr(a, 0xff);
+    }
 }
 
 
 void
 fp_stop_light_test()
 {
-	fp_release();
+    fp_release();
 }
 
 
@@ -870,8 +879,8 @@ fp_stop_light_test()
 inline static void
 clear_ws()
 {
-	clearbit(PORTC, C_CLRWS);
-	setbit(PORTC, C_CLRWS);
+    clearbit(PORTC, C_CLRWS);
+    setbit(PORTC, C_CLRWS);
 }
 
 
@@ -885,78 +894,78 @@ clear_ws()
 inline static void
 avr_init()
 {
-	MCUCSR = BV(JTD);	//  Disable JTAG
+    MCUCSR = BV(JTD);	//  Disable JTAG
 
-	XMCRA = 0;		// No wait states
-	XMCRB = BV(XMBK) | 	// Enable Bus Keeper (hold) on Port A (FPA/FPD)
-		BV(XMM0) |	// 8-bit Address bus, recover all of Port C
-		BV(XMM1) |
-		BV(XMM2);
+    XMCRA = 0;		// No wait states
+    XMCRB = BV(XMBK) | 	// Enable Bus Keeper (hold) on Port A (FPA/FPD)
+        BV(XMM0) |	// 8-bit Address bus, recover all of Port C
+        BV(XMM1) |
+        BV(XMM2);
 
-	MCUCR =  BV(SRE);	// *NOW* we can enable XMEM.
+    MCUCR =  BV(SRE);	// *NOW* we can enable XMEM.
 
-	// XMEM overrides our settings for Port A.
+    // XMEM overrides our settings for Port A.
 
-	// Configure other ports. Use binary for brevity.
+    // Configure other ports. Use binary for brevity.
 
-	//         76543210
-	DDRB =   0b11110001; // PB1–3 left as inputs.
-	PORTB =  0b10000000; // Init, step 1.
-	PORTB =  0b10001000; // Init, step 2, CLR# rising edge
+    //         76543210
+    DDRB =   0b11110001; // PB1–3 left as inputs.
+    PORTB =  0b10000000; // Init, step 1.
+    PORTB =  0b10001000; // Init, step 2, CLR# rising edge
 
-	DDRC =   0b00001111; // Port C direction, bus control tristated
-	PORTC =  0b00001110; // Init, step 1. Disable pull-ups on bus control
-	PORTC =  0b00001111; // Init, step 2, CLRWS raising edge
+    DDRC =   0b00001111; // Port C direction, bus control tristated
+    PORTC =  0b00001110; // Init, step 1. Disable pull-ups on bus control
+    PORTC =  0b00001111; // Init, step 2, CLRWS raising edge
 
-	DDRD =   0b11111100; // Port D direction
-	PORTD =  0b11011000; // Port D init. (Lights on, FP scan disabled, FPOE disabled)
+    DDRD =   0b11111100; // Port D direction
+    PORTD =  0b11011000; // Port D init. (Lights on, FP scan disabled, FPOE disabled)
 
-	DDRE =   0b11111100; // Port E direction
-	PORTE =  0b10100100; // Port E init, assert FPRESET#, deassert others.
+    DDRE =   0b11111100; // Port E direction
+    PORTE =  0b10100100; // Port E init, assert FPRESET#, deassert others.
 
-	DDRF =   0b00001111; // Port F direction (SWA/SWD)
-	PORTF =  0b11110000; // Enable pull-ups on inputs.
+    DDRF =   0b00001111; // Port F direction (SWA/SWD)
+    PORTF =  0b11110000; // Enable pull-ups on inputs.
 
-	//         ---43210
-	DDRG =   0b00000000; // Port G direction, XMEM control pins
-	PORTG =  0b00000000; // Disable pull-ups.
+    //         ---43210
+    DDRG =   0b00000000; // Port G direction, XMEM control pins
+    PORTG =  0b00000000; // Disable pull-ups.
 }
 
 
 static inline void
 enable_cft_interrupts()
 {
-	// Disable INT0
-	clearbit(EIMSK, INT0);
-	// Set falling edge sensitivity (ISC01=1, ISC00=0)
-	EICRA = (EICRA & 0b11111100) | BV(ISC01);
-	// Enable INT0
-	setbit(EIMSK, INT0);
+    // Disable INT0
+    clearbit(EIMSK, INT0);
+    // Set falling edge sensitivity (ISC01=1, ISC00=0)
+    EICRA = (EICRA & 0b11111100) | BV(ISC01);
+    // Enable INT0
+    setbit(EIMSK, INT0);
 }
 
 
 void
 hw_init()
 {
-	avr_init();
-	release_buses();
-	rc_freeze();
-	clear_ws();
+    avr_init();
+    release_buses();
+    rc_freeze();
+    clear_ws();
 
-	// Enable interrupts for CFT-originated transactions
-	enable_cft_interrupts();
+    // Enable interrupts for CFT-originated transactions
+    enable_cft_interrupts();
 
-	// Initialise switch debouncing and enable switch timer ISR
-	sw_init();
+    // Initialise switch debouncing and enable switch timer ISR
+    sw_init();
 	
-	// Enable the watchdog.
-	wdt_enable(WATCHDOG_TIMEOUT);
+    // Enable the watchdog.
+    wdt_enable(WATCHDOG_TIMEOUT);
 
-	// Initialise serial port and interrupts
-	serial_init();
+    // Initialise serial port and interrupts
+    serial_init();
 
-	// Wait for signals to stabilise.
-	_delay_ms(100);
+    // Wait for signals to stabilise.
+    _delay_ms(100);
 
 
 #warning "PORTED TO THIS POINT"
@@ -1680,7 +1689,7 @@ addr_inc()
 
 
 
-
+/*
 
 // #define C_DEBIN     PC0
 // #define C_VPIN      PC1
@@ -1714,7 +1723,7 @@ addr_inc()
 // #define B_IDLE      (_BV(B_CLRWS))
 // #define B_IOADDR    (_BV(B_IOADDR0) | _BV(B_IOADDR1) | _BV(B_IOADDR2))
 // #define B_OUTPUTS   (_BV(B_CLRWS) | _BV(B_FPCLKEN) | _BV(B_FPUSTEP) | B_IOADDR)
-
+*/
 
 /*
 
@@ -3243,5 +3252,10 @@ _readcycle(bool_t is_io)
 
 #endif // 0
 
-
 // End of file.
+// Local Variables:
+// eval: (c-set-style "K&R")
+// c-basic-offset: 8
+// indent-tabs-mode: nil
+// fill-column: 79
+// End:

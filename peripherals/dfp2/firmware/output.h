@@ -1,4 +1,4 @@
-// -*- indent-c -*-
+// -*- c -*-
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -72,3 +72,9 @@ void report_mismatch(const char *msg, uint16_t should_be, uint16_t was);
 #endif // __OUTPUT_H__
 
 // End of file.
+// Local Variables:
+// eval: (c-set-style "K&R")
+// c-basic-offset: 8
+// indent-tabs-mode: nil
+// fill-column: 79
+// End:
