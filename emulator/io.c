@@ -29,6 +29,7 @@
 
 #include "io.h"
 #include "deb.h"
+#include "dfp.h"
 
 // #include "io.h"
 // #include "mbu.h"
@@ -74,7 +75,8 @@ iodev_t iodevs[] = {
         .init = dfp_init,
         .read = dfp_read,
         .write = dfp_write,
-        .tick = dfp_tick
+        .tick = dfp_tick,
+        .done = dfp_done
     },
 	
 /*
@@ -382,7 +384,7 @@ void io_list_devs()
 // End of file.
 // Local Variables:
 // eval: (c-set-style "K&R")
-// c-basic-offset: 4
+// c-basic-offset: 8
 // indent-tabs-mode: nil
 // fill-column: 79
 // End:

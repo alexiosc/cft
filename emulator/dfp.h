@@ -1,24 +1,13 @@
-/* 
-
-dfp.h - Emulate the Debugging Front Panel subsystem
-
-Copyright (C) 2014 Alexios Chouchoulas
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2, or (at your option)
-any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software Foundation,
-Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.  
-
-*/
+// -*- c -*-
+// 
+// io.h — I/O definitions
+// 
+// Copyright © 2012–2020 Alexios Chouchoulas
+// 
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2, or (at your option)
+// any later version.
 
 #ifndef DFP_H
 #define DFP_H 1
@@ -27,6 +16,12 @@ Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 #include <stdint.h>
 #include <sys/types.h>
 
+#include "cftemu.h"
+
+
+#if 0
+
+// UNPORTED CODE BELOW
 
 extern int      dfp_enabled;
 extern int      dfp_testmode;
@@ -75,13 +70,17 @@ extern FILE *   dfp_out_fp;
 #define ISR_IFR6 4
 #define ISR_TTY  8
 
+#endif
+
+
+
 void dfp_init();
 
-int dfp_write(uint16_t addr, uint16_t data);
+int dfp_read(longaddr_t addr, word * data);
 
-int dfp_read(uint16_t addr, uint16_t * data);
+int dfp_write(longaddr_t addr, word data);
 
-void dfp_tick(int tick);
+void dfp_tick();
 
 void dfp_done();
 
@@ -91,4 +90,10 @@ void dfp_sr_changed(uint16_t sr);
 
 #endif /* DFP_H */
 
-/* End of file. */
+// End of file.
+// Local Variables:
+// eval: (c-set-style "K&R")
+// c-basic-offset: 8
+// indent-tabs-mode: nil
+// fill-column: 79
+// End:

@@ -30,7 +30,7 @@ typedef uint32_t longaddr_t;    // A full 24-bit address
 // End of file.
 // Local Variables:
 // eval: (c-set-style "K&R")
-// c-basic-offset: 4
+// c-basic-offset: 8
 // indent-tabs-mode: nil
 // fill-column: 79
 // End:

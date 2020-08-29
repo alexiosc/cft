@@ -32,17 +32,18 @@ Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 #include <sys/types.h>
 #include <pthread.h>
 
+#include "cft.h"
 #include "cftemu.h"
 #include "io.h"
-#include "mbu.h"
-#include "debug.h"
+// #include "mbu.h"
+// #include "debug.h"
 #include "util.h"
 #include "uterm.h"
 #include "dfp.h"
-#include "ui_panel.h"
+// #include "ui_panel.h"
 
-#include "../front-panel/lib/iface.h"
-#include "../front-panel/lib/switches.h"
+// #include "../front-panel/lib/iface.h"
+// #include "../front-panel/lib/switches.h"
 
 int dfp_enabled = 1;
 int dfp_testmode = 0;

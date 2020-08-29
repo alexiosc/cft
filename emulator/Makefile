@@ -23,7 +23,8 @@ PROGRAMS = cftemu
 # 	fifo.o memory.o mbu.o irc.o nvram.o duart.o ide.o video.o dfp.o \
 # 	ui.o ui_panel.o ui_menu.o ui_dfp.o ui_vdu.o ui_tty.o uterm.o psg.o 8912.o \
 # 	ay8910.o
-OBJS = util.o log.o cft.o cmdline.o cftemu.o microcode.o mem.o io.o deb.o dfp.o
+OBJS = 	cftemu.o cmdline.o uterm.o util.o log.o cft.o microcode.o \
+	mem.o io.o deb.o dfp.o
 GENERATED = romfont.h
 
 ASMINCLUDES = ../../asm/io.asm ../../asm/debugging.asm ../../asm/testing.asm 
