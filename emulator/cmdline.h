@@ -27,65 +27,66 @@ void cmdline_parse(int argc, char **argv);
 
 
 /* argp option keys */
-enum {DUMMY_KEY=129
-      ,KEY_LIST_DEVS
+enum {
+        DUMMY_KEY=129
+        ,KEY_LIST_DEVS
+        
+        ,KEY_FILL_RAM
+        ,KEY_WRITEABLE_ROM
+        ,KEY_STRICT_SANITY
+        
+        ,KEY_COLOR
+        ,KEY_COLOUR
+        
+        // These may not be used anymore.
+        
+        // ,KEY_DEBUG_MICROCODE
+        // ,KEY_DEBUG_MEM
+        // ,KEY_DEBUG_IO
+        // ,KEY_DEBUG_ASM
+        // ,KEY_IMAGE_START
+        // ,KEY_IMAGE_SIZE
+        // ,KEY_NO_SANITY
+        // ,KEY_SOME_SANITY
+        // ,KEY_SENTINEL
 
-      ,KEY_FILL_RAM
-      ,KEY_WRITEABLE_ROM
-      ,KEY_STRICT_SANITY
+        // ,KEY_MBU
+        // ,KEY_NO_MBU
+        // ,KEY_DEBUG_MBU
 
-      ,KEY_COLOR
-      ,KEY_COLOUR
+        // ,KEY_IRC
+        // ,KEY_NO_IRC
+        // ,KEY_DEBUG_IRC
 
-      // These may not be used anymore.
+        // ,KEY_NVRAM
 
-      // ,KEY_DEBUG_MICROCODE
-      // ,KEY_DEBUG_MEM
-      // ,KEY_DEBUG_IO
-      // ,KEY_DEBUG_ASM
-      // ,KEY_IMAGE_START
-      // ,KEY_IMAGE_SIZE
-      // ,KEY_NO_SANITY
-      // ,KEY_SOME_SANITY
-      // ,KEY_SENTINEL
+        // ,KEY_DEBUG_DUART
+        // ,KEY_DUART_STDIO
 
-      // ,KEY_MBU
-      // ,KEY_NO_MBU
-      // ,KEY_DEBUG_MBU
-
-      // ,KEY_IRC
-      // ,KEY_NO_IRC
-      // ,KEY_DEBUG_IRC
-
-      // ,KEY_NVRAM
-
-      // ,KEY_DEBUG_DUART
-      // ,KEY_DUART_STDIO
-
-      // ,KEY_HD0
-      // ,KEY_HD1
-      // ,KEY_HD2
-      // ,KEY_HD3
-      // ,KEY_IDE_SPEED
-      // ,KEY_DEBUG_IDE
+        // ,KEY_HD0
+        // ,KEY_HD1
+        // ,KEY_HD2
+        // ,KEY_HD3
+        // ,KEY_IDE_SPEED
+        // ,KEY_DEBUG_IDE
       
-      // ,KEY_FS
+        // ,KEY_FS
 
-      // // ,KEY_DEB_PTS
-      // // ,KEY_DEB_TTY
-      // // ,KEY_DEB_IN
-      // // ,KEY_DEB_OUT
-      // ,KEY_DFP_PTS
-      // ,KEY_DFP_TTY
-      // ,KEY_DFP_IN
-      // ,KEY_DFP_OUT
-      // ,KEY_DFP_TESTMODE
+        // // ,KEY_DEB_PTS
+        // // ,KEY_DEB_TTY
+        // // ,KEY_DEB_IN
+        // // ,KEY_DEB_OUT
+        // ,KEY_DFP_PTS
+        // ,KEY_DFP_TTY
+        // ,KEY_DFP_IN
+        // ,KEY_DFP_OUT
+        // ,KEY_DFP_TESTMODE
 
-      // ,KEY_PSG
-      // ,KEY_NO_PSG
-      // ,KEY_DEBUG_PSG
+        // ,KEY_PSG
+        // ,KEY_NO_PSG
+        // ,KEY_DEBUG_PSG
 
-      // ,KEY_DEBUG_VIDEO
+        // ,KEY_DEBUG_VIDEO
 };
 
 

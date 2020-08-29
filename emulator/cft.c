@@ -77,57 +77,57 @@ static int _dummy_iow(longaddr_t ab, word db);
 void
 cpu_init()
 {
-    // Clear everything in the CPU state.
-    memset(&cpu, 0, sizeof(cpu));
+        // Clear everything in the CPU state.
+        memset(&cpu, 0, sizeof(cpu));
         
-    // Initialise logging
-    ctl_log_unit = log_add_unit("CTL", -1, 0);
-    mbu_log_unit = log_add_unit("MBU", -1, 0);
+        // Initialise logging
+        ctl_log_unit = log_add_unit("CTL", -1, 0);
+        mbu_log_unit = log_add_unit("MBU", -1, 0);
 
-    // Register dummy callbacks
-    cpu.memr = _dummy_memr;
-    cpu.memw = _dummy_memw;
-    cpu.ior = _dummy_ior;
-    cpu.iow = _dummy_iow;
+        // Register dummy callbacks
+        cpu.memr = _dummy_memr;
+        cpu.memw = _dummy_memw;
+        cpu.ior = _dummy_ior;
+        cpu.iow = _dummy_iow;
 
-    // CTL: Control Unit
-    cpu.ir = rand() & 0xffff;
+        // CTL: Control Unit
+        cpu.ir = rand() & 0xffff;
 
-    // REG: register file
-    cpu.pc = rand() & 0xffff;
-    cpu.dr = rand() & 0xffff;
-    cpu.ac = rand() & 0xffff;
-    cpu.sp = rand() & 0xffff;
+        // REG: register file
+        cpu.pc = rand() & 0xffff;
+        cpu.dr = rand() & 0xffff;
+        cpu.ac = rand() & 0xffff;
+        cpu.sp = rand() & 0xffff;
 
-    // BUS: Bus control
-    cpu.ar = rand() & 0xffffff;
-    srand(time(NULL));
-    for (int i = 0; i < 8; i++) cpu.mbr[i] = (rand() & 0xff) << 16;
-    cpu.mbrdis = 0x800000;
-    cpu.mbuen = 0;
+        // BUS: Bus control
+        cpu.ar = rand() & 0xffffff;
+        srand(time(NULL));
+        for (int i = 0; i < 8; i++) cpu.mbr[i] = (rand() & 0xff) << 16;
+        cpu.mbrdis = 0x800000;
+        cpu.mbuen = 0;
 
-    // ALU: Arithmetic & Logic
-    cpu.alu_a = rand() & 0xffff;
-    cpu.alu_b = rand() & 0xffff;
+        // ALU: Arithmetic & Logic
+        cpu.alu_a = rand() & 0xffff;
+        cpu.alu_b = rand() & 0xffff;
 
-    // Flags
-    cpu.fl = rand() & 1;
-    cpu.fi = rand() & 1;
-    cpu.fv = rand() & 1;
-    cpu.fz = cpu.ac == 0;
-    cpu.fn = (cpu.ac >> 15) & 1;
+        // Flags
+        cpu.fl = rand() & 1;
+        cpu.fi = rand() & 1;
+        cpu.fv = rand() & 1;
+        cpu.fz = cpu.ac == 0;
+        cpu.fn = (cpu.ac >> 15) & 1;
     
-    cpu.irq = rand() & 1;
+        cpu.irq = rand() & 1;
 
-    cpu.rst_hold = -1;
-    cpu.tick = 0;
+        cpu.rst_hold = -1;
+        cpu.tick = 0;
 }
 
 
 void
 cpu_done()
 {
-    // Nothing to deallocate yet.
+        // Nothing to deallocate yet.
 }
 
 
@@ -136,30 +136,30 @@ cpu_done()
 void
 cpu_reset()
 {
-    // CTL
-    cpu.uav.rst = 0;            // 0 = RESET# is ACTIVE */
-    cpu.uav.int_ = 1;           // 1 = INT# is not active
-    cpu.uav.uaddr = 0;          // The uPC resets to 0 on power on/reset
-    cpu.irq = 0;                // Clear IRQ
-    cpu.rst_hold = 2;           // We don't need to hold reset for long here
-    cpu.ir = 0xdead;
-    cpu.agl_page = GET_PAGE(cpu.pc);
-    cpu.endext = 0;
-    cpu.skipext = 0;
+        // CTL
+        cpu.uav.rst = 0;            // 0 = RESET# is ACTIVE */
+        cpu.uav.int_ = 1;           // 1 = INT# is not active
+        cpu.uav.uaddr = 0;          // The uPC resets to 0 on power on/reset
+        cpu.irq = 0;                // Clear IRQ
+        cpu.rst_hold = 2;           // We don't need to hold reset for long here
+        cpu.ir = 0xdead;
+        cpu.agl_page = GET_PAGE(cpu.pc);
+        cpu.endext = 0;
+        cpu.skipext = 0;
 
-    // REG
-    cpu.pc = 0;
-    cpu.dr = 0;
-    cpu.ac = 0;
-    cpu.sp = 0;
+        // REG
+        cpu.pc = 0;
+        cpu.dr = 0;
+        cpu.ac = 0;
+        cpu.sp = 0;
 
-    // ALU
-    cpu.fl = 0;
-    cpu.fv = 0;
+        // ALU
+        cpu.fl = 0;
+        cpu.fv = 0;
 
-    // MBU
-    cpu.mbrdis = 0x800000;
-    cpu.mbuen = 0;
+        // MBU
+        cpu.mbrdis = 0x800000;
+        cpu.mbuen = 0;
 }
 
 
@@ -172,49 +172,49 @@ cpu_reset()
 static inline void
 cpu_handle_reset()
 {
-    if (cpu.rst_hold > 0) {
-        cpu.rst_hold--;
-        cpu.resetting = 1;
-    } else if (cpu.rst_hold == 0) {
-        // When the counter runs out, de-assert the RST signal in the
-        // microcode engine.
-        cpu.uav.rst = 1;
-        cpu.rst_hold = -1;
-        cpu.resetting = 0;
-        debug("RSTHOLD de-asserted.");
-    }
+        if (cpu.rst_hold > 0) {
+                cpu.rst_hold--;
+                cpu.resetting = 1;
+        } else if (cpu.rst_hold == 0) {
+                // When the counter runs out, de-assert the RST signal in the
+                // microcode engine.
+                cpu.uav.rst = 1;
+                cpu.rst_hold = -1;
+                cpu.resetting = 0;
+                debug("RSTHOLD de-asserted.");
+        }
 }
 
 
 void
 cpu_halt()
 {
-    cpu.halt = 1;
-    info("Halted");
-    // v.dirty++;
-    // v.stdirty++;
+        cpu.halt = 1;
+        info("Halted");
+        // v.dirty++;
+        // v.stdirty++;
 }
 
 
 void
 cpu_start()
 {
-    cpu.halt = 0;
-    info("Resumed");
-    // v.dirty++;
-    // v.stdirty++;
+        cpu.halt = 0;
+        info("Resumed");
+        // v.dirty++;
+        // v.stdirty++;
 }
 
 
 void
 quit(int quiet)
 {
-    cpu.quit = 1;
-    // if (!quiet) {
-    //     dump_state();
-    //     dump_ustate();
-    //     info("*** QUIT PRESSED ***");
-    // }
+        cpu.quit = 1;
+        // if (!quiet) {
+        //     dump_state();
+        //     dump_ustate();
+        //     info("*** QUIT PRESSED ***");
+        // }
 }
 
 
@@ -229,7 +229,7 @@ quit(int quiet)
 static inline word
 read_cs(int raddr)
 {
-    return raddr & 3;
+        return raddr & 3;
 }
 
 
@@ -246,60 +246,60 @@ read_cs(int raddr)
 static inline void
 action_sru()
 {
-    //            OP   I R 987 654 3210
-    // SHL = SRU  0111'1'0'000'000'dddd    ; Bitwise shift left by d bits
-    // SHR = SRU  0111'1'0'000'001'dddd    ; Bitwise shift right by d bits
-    // ASR = SRU  0111'1'0'000'011'dddd    ; Arithmetic shift right by d bits
-    // ROL = SRU  0111'1'0'000'100'dddd    ; Rotate <L,AC> left by d bits
-    // ROR = SRU  0111'1'0'000'101'dddd    ; Rotate <L,AC> right by d bits
+        //            OP   I R 987 654 3210
+        // SHL = SRU  0111'1'0'000'000'dddd    ; Bitwise shift left by d bits
+        // SHR = SRU  0111'1'0'000'001'dddd    ; Bitwise shift right by d bits
+        // ASR = SRU  0111'1'0'000'011'dddd    ; Arithmetic shift right by d bits
+        // ROL = SRU  0111'1'0'000'100'dddd    ; Rotate <L,AC> left by d bits
+        // ROR = SRU  0111'1'0'000'101'dddd    ; Rotate <L,AC> right by d bits
 
-    int dist = cpu.ir & 15;
-    if (dist == 0) return;
+        int dist = cpu.ir & 15;
+        if (dist == 0) return;
 
-    int op = (cpu.ir >> 4) & 7;
-    int l_ac;
+        int op = (cpu.ir >> 4) & 7;
+        int l_ac;
 
-    switch (op) {
-    case 0:                     // SHL
-        l_ac = (cpu.fl ? 0x10000 : 0) | (cpu.alu_b & 0xffff);
-        l_ac <<= dist;
-        cpu.fl = (l_ac & 0x10000) != 0;
-        cpu.alu_b = l_ac & 0xffff;
-        break;
+        switch (op) {
+        case 0:                     // SHL
+                l_ac = (cpu.fl ? 0x10000 : 0) | (cpu.alu_b & 0xffff);
+                l_ac <<= dist;
+                cpu.fl = (l_ac & 0x10000) != 0;
+                cpu.alu_b = l_ac & 0xffff;
+                break;
                 
-    case 1:                     // SHR
-        l_ac = (cpu.fl ? 0x10000 : 0) | (cpu.alu_b & 0xffff);
-        l_ac >>= dist;
-        cpu.fl = (l_ac & 0x10000) != 0;
-        cpu.alu_b = l_ac & 0xffff;
-        break;
+        case 1:                     // SHR
+                l_ac = (cpu.fl ? 0x10000 : 0) | (cpu.alu_b & 0xffff);
+                l_ac >>= dist;
+                cpu.fl = (l_ac & 0x10000) != 0;
+                cpu.alu_b = l_ac & 0xffff;
+                break;
                 
-    case 3:                     // ASR
-        // ASR doesn't shifts AC, not <L,AC>. The Link is set to the last bit
-        // shifted off the AC. Casting to a signed int makes C use the host
-        // platform's arithmetic/sign-extending shift instruction.
-        l_ac = (word)((int16_t)cpu.alu_b >> dist);
-        cpu.fl = ((word)((int16_t)cpu.alu_b >> (dist - 1))) & 1;
-        cpu.alu_b = l_ac & 0xffff;
-        break;
+        case 3:                     // ASR
+                // ASR doesn't shifts AC, not <L,AC>. The Link is set to the last bit
+                // shifted off the AC. Casting to a signed int makes C use the host
+                // platform's arithmetic/sign-extending shift instruction.
+                l_ac = (word)((int16_t)cpu.alu_b >> dist);
+                cpu.fl = ((word)((int16_t)cpu.alu_b >> (dist - 1))) & 1;
+                cpu.alu_b = l_ac & 0xffff;
+                break;
                 
-    case 4:                     // ROL
-        l_ac = (cpu.fl ? 0x10000 : 0) | (cpu.alu_b & 0xffff);
-        l_ac = ((l_ac << dist) | (l_ac >> (17 - dist))) & 0x1ffff;
-        cpu.fl = (l_ac & 0x10000) != 0;
-        cpu.alu_b = l_ac & 0xffff;
-        break;
+        case 4:                     // ROL
+                l_ac = (cpu.fl ? 0x10000 : 0) | (cpu.alu_b & 0xffff);
+                l_ac = ((l_ac << dist) | (l_ac >> (17 - dist))) & 0x1ffff;
+                cpu.fl = (l_ac & 0x10000) != 0;
+                cpu.alu_b = l_ac & 0xffff;
+                break;
                 
-    case 5:                     // ROR
-        l_ac = (cpu.fl ? 0x10000 : 0) | (cpu.alu_b & 0xffff);
-        l_ac = ((l_ac >> dist) | (l_ac << (17 - dist))) & 0x1ffff;
-        cpu.fl = (l_ac & 0x10000) != 0;
-        cpu.alu_b = l_ac & 0xffff;
-        break;
+        case 5:                     // ROR
+                l_ac = (cpu.fl ? 0x10000 : 0) | (cpu.alu_b & 0xffff);
+                l_ac = ((l_ac >> dist) | (l_ac << (17 - dist))) & 0x1ffff;
+                cpu.fl = (l_ac & 0x10000) != 0;
+                cpu.alu_b = l_ac & 0xffff;
+                break;
 
-    default:
-        fatal("Undefined SRU op %d", op);
-    }
+        default:
+                fatal("Undefined SRU op %d", op);
+        }
 }
 
 
@@ -355,81 +355,81 @@ action_sru()
 static inline void
 handle_actions(int action)
 {
-    switch (action) {
-    case FIELD_ACTION_CPL:
-        cpu.fl ^= 1;
-        debug3("action_cpl: L ← %d", cpu.fl);
-        return;
+        switch (action) {
+        case FIELD_ACTION_CPL:
+                cpu.fl ^= 1;
+                debug3("action_cpl: L ← %d", cpu.fl);
+                return;
 
-    case FIELD_ACTION_CLL:
-        cpu.fl = 0;
-        debug3("action_cll: L ← %d", cpu.fl);
-        return;
+        case FIELD_ACTION_CLL:
+                cpu.fl = 0;
+                debug3("action_cll: L ← %d", cpu.fl);
+                return;
 
-    case FIELD_ACTION_STI:
-        cpu.fi = 1;
-        debug3("action_sti: I ← %d", cpu.fi);
-        return;
+        case FIELD_ACTION_STI:
+                cpu.fi = 1;
+                debug3("action_sti: I ← %d", cpu.fi);
+                return;
 
-    case FIELD_ACTION_CLI:
-        cpu.fi = 0;
-        cpu.irq = 0;
-        debug3("action_cli: I ← %d", cpu.fi);
-        return;
+        case FIELD_ACTION_CLI:
+                cpu.fi = 0;
+                cpu.irq = 0;
+                debug3("action_cli: I ← %d", cpu.fi);
+                return;
 
-    case FIELD_ACTION_IDX:
-        debug3("action_idx");
-        // This is decoded when write_ar_mbz is handled.
-        return;
+        case FIELD_ACTION_IDX:
+                debug3("action_idx");
+                // This is decoded when write_ar_mbz is handled.
+                return;
 
-    case FIELD_ACTION_SRU:
-        action_sru();
-        return;
+        case FIELD_ACTION_SRU:
+                action_sru();
+                return;
 
-    case FIELD_ACTION_INCPC:
-        cpu.pc = (cpu.pc + 1) & 0xffff;
-        debug3("action_incpc: PC ← %04x", cpu.pc);
-        // Sanity check
-        if (cpu.pc == 0) {
-            fatal("PC wrapped around to 0000. This is software bug.");
+        case FIELD_ACTION_INCPC:
+                cpu.pc = (cpu.pc + 1) & 0xffff;
+                debug3("action_incpc: PC ← %04x", cpu.pc);
+                // Sanity check
+                if (cpu.pc == 0) {
+                        fatal("PC wrapped around to 0000. This is software bug.");
+                }
+                return;
+
+        case FIELD_ACTION_INCDR:
+                cpu.dr = (cpu.dr + 1) & 0xffff;
+                debug3("action_incdr: DR ← %04x", cpu.dr);
+                return;
+        
+        case FIELD_ACTION_DECDR:
+                cpu.dr = (cpu.dr - 1) & 0xffff;
+                debug3("action_decdr: DR ← %04x", cpu.dr);
+                return;
+
+        case FIELD_ACTION_INCAC:
+                if (cpu.ac == 0xffff) cpu.fl ^= 1;
+                cpu.ac = (cpu.ac + 1) & 0xffff;
+                debug3("action_incac: AC ← %04x [L=%d]", cpu.ac, cpu.fl);
+                return;
+
+        case FIELD_ACTION_DECAC:
+                if (cpu.ac == 0) cpu.fl ^= 1;
+                cpu.ac = (cpu.ac - 1) & 0xffff;
+                debug3("action_decac: AC ← %04x [L=%d]", cpu.ac, cpu.fl);
+                return;
+
+        case FIELD_ACTION_INCSP:
+                cpu.sp = (cpu.sp + 1) & 0xffff;
+                debug3("action_incsp: SP ← %04x", cpu.sp);
+                return;
+        
+        case FIELD_ACTION_DECSP:
+                cpu.sp = (cpu.sp - 1) & 0xffff;
+                debug3("action_decsp: SP ← %04x", cpu.sp);
+                return;
+
+        default:
+                fatal("Unknown ACTION %x", action);
         }
-        return;
-
-    case FIELD_ACTION_INCDR:
-        cpu.dr = (cpu.dr + 1) & 0xffff;
-        debug3("action_incdr: DR ← %04x", cpu.dr);
-        return;
-        
-    case FIELD_ACTION_DECDR:
-        cpu.dr = (cpu.dr - 1) & 0xffff;
-        debug3("action_decdr: DR ← %04x", cpu.dr);
-        return;
-
-    case FIELD_ACTION_INCAC:
-        if (cpu.ac == 0xffff) cpu.fl ^= 1;
-        cpu.ac = (cpu.ac + 1) & 0xffff;
-        debug3("action_incac: AC ← %04x [L=%d]", cpu.ac, cpu.fl);
-        return;
-
-    case FIELD_ACTION_DECAC:
-        if (cpu.ac == 0) cpu.fl ^= 1;
-        cpu.ac = (cpu.ac - 1) & 0xffff;
-        debug3("action_decac: AC ← %04x [L=%d]", cpu.ac, cpu.fl);
-        return;
-
-    case FIELD_ACTION_INCSP:
-        cpu.sp = (cpu.sp + 1) & 0xffff;
-        debug3("action_incsp: SP ← %04x", cpu.sp);
-        return;
-        
-    case FIELD_ACTION_DECSP:
-        cpu.sp = (cpu.sp - 1) & 0xffff;
-        debug3("action_decsp: SP ← %04x", cpu.sp);
-        return;
-
-    default:
-        fatal("Unknown ACTION %x", action);
-    }
 }
 
 
@@ -443,23 +443,23 @@ handle_actions(int action)
 inline void
 bus_reads(int mem, int io)
 {
-    if (mem && io) {
-        fatal("MEM and IO asserted simultaneously during read. Microcode bug!");
-    }
-
-    if (mem) {
-        if ((*cpu.memr)(cpu.ar, &cpu.dbus) < 0) {
-            warning("Bus error: read from undecoded address %s",
-                    format_longaddr(cpu.ar, NULL));
+        if (mem && io) {
+                fatal("MEM and IO asserted simultaneously during read. Microcode bug!");
         }
-    }
 
-    if (io) {
-        if ((*cpu.ior)(cpu.ar & 0x3ff, &cpu.dbus) < 0) {
-            warning("Bus error: read from undecoded I/O port %03x",
-                    format_longaddr(cpu.ar & 0xffff, NULL));
+        if (mem) {
+                if ((*cpu.memr)(cpu.ar, &cpu.dbus) < 0) {
+                        warning("Bus error: read from undecoded address %s",
+                                format_longaddr(cpu.ar, NULL));
+                }
         }
-    }
+
+        if (io) {
+                if ((*cpu.ior)(cpu.ar & 0x3ff, &cpu.dbus) < 0) {
+                        warning("Bus error: read from undecoded I/O port %03x",
+                                format_longaddr(cpu.ar & 0xffff, NULL));
+                }
+        }
 }
 
 
@@ -467,23 +467,23 @@ bus_reads(int mem, int io)
 inline void
 bus_writes(int mem, int io)
 {
-    if (mem && io) {
-        fatal("MEM and IO asserted simultaneously during write. Microcode bug!");
-    }
-
-    if (mem) {
-        if ((*cpu.memw)(cpu.ar, cpu.dbus) < 0) {
-            warning("Bus error: write to undecoded address %s",
-                    format_longaddr(cpu.ar, NULL));
+        if (mem && io) {
+                fatal("MEM and IO asserted simultaneously during write. Microcode bug!");
         }
-    }
 
-    if (io) {
-        if ((*cpu.iow)(cpu.ar & 0x3ff, cpu.dbus) < 0) {
-            warning("Bus error: write to undecoded I/O port %03x",
-                    format_longaddr(cpu.ar & 0xffff, NULL));
+        if (mem) {
+                if ((*cpu.memw)(cpu.ar, cpu.dbus) < 0) {
+                        warning("Bus error: write to undecoded address %s",
+                                format_longaddr(cpu.ar, NULL));
+                }
         }
-    }
+
+        if (io) {
+                if ((*cpu.iow)(cpu.ar & 0x3ff, cpu.dbus) < 0) {
+                        warning("Bus error: write to undecoded I/O port %03x",
+                                format_longaddr(cpu.ar & 0xffff, NULL));
+                }
+        }
 }
 
 
@@ -491,32 +491,32 @@ bus_writes(int mem, int io)
 int
 _dummy_memr(longaddr_t ab, word * db)
 {
-    warning("dummy callback %s called", __func__);
-    return -1;
+        warning("dummy callback %s called", __func__);
+        return -1;
 }
     
 
 int
 _dummy_memw(longaddr_t ab, word db)
 {
-    warning("dummy callback %s called", __func__);
-    return -1;
+        warning("dummy callback %s called", __func__);
+        return -1;
 }
     
 
 int
 _dummy_ior(longaddr_t ab, word * db)
 {
-    warning("dummy callback %s called", __func__);
-    return -1;
+        warning("dummy callback %s called", __func__);
+        return -1;
 }
     
 
 int
 _dummy_iow(longaddr_t ab, word db)
 {
-    warning("dummy callback %s called", __func__);
-    return -1;
+        warning("dummy callback %s called", __func__);
+        return -1;
 }
 
 
@@ -529,14 +529,14 @@ _dummy_iow(longaddr_t ab, word db)
 void
 mbu_set_ram_rom(int have_rom)
 {
-    cpu.mbrdis = have_rom ? 0x80 : 0x00;
+        cpu.mbrdis = have_rom ? 0x80 : 0x00;
 }
 
 
 inline longaddr_t
 get_mbr(int mbr)
 {
-    return cpu.mbuen ? cpu.mbr[mbr & 7] : cpu.mbrdis;
+        return cpu.mbuen ? cpu.mbr[mbr & 7] : cpu.mbrdis;
 }
 
 
@@ -544,37 +544,37 @@ get_mbr(int mbr)
 int
 mbu_read(longaddr_t a, word *d)
 {
-    // Note that the RMB instruction only drives the lower 8 bits. On real
-    // hardware, Bus Hold would make the MSB equal to the last memory operation,
-    // which will almost certainly be an instruction fetch, so &54 would be
-    // returned. We do this here by adding an MSB buffer, which SHOULD NOT be
-    // present in real hardware.
-    assert(d != NULL);
-    if (a >= 0x008 && a <= 0x00f) {
-        *d = 0x5400 | (get_mbr(a & 7) >> 16);
-        log_msg(LOG_DEBUG3, mbu_log_unit, "MBR[%d] → %02x (mbuen=%d)", a & 7, *d & 0xff, cpu.mbuen);
-        return 1;
-    }
-    return 0;
+        // Note that the RMB instruction only drives the lower 8 bits. On real
+        // hardware, Bus Hold would make the MSB equal to the last memory operation,
+        // which will almost certainly be an instruction fetch, so &54 would be
+        // returned. We do this here by adding an MSB buffer, which SHOULD NOT be
+        // present in real hardware.
+        assert(d != NULL);
+        if (a >= 0x008 && a <= 0x00f) {
+                *d = 0x5400 | (get_mbr(a & 7) >> 16);
+                log_msg(LOG_DEBUG3, mbu_log_unit, "MBR[%d] → %02x (mbuen=%d)", a & 7, *d & 0xff, cpu.mbuen);
+                return 1;
+        }
+        return 0;
 }
 
 
 int
 mbu_write(longaddr_t a, word d)
 {
-    if (a >= 0x008 && a <= 0x00f) {
-        cpu.mbr[a & 7] = (d & 0xff) << 16;
-        int enabling = cpu.mbuen == 0;
-        cpu.mbuen = 1;
-        log_msg(LOG_DEBUG3, mbu_log_unit, "MBR[%d] → %02x. "
-                "%sMBRs now %02x %02x %02x %02x %02x %02x %02x %02x",
-                a & 7, d & 0xff,
-                enabling ? "Enabling MBU. " : "",
-                get_mbr(0) >> 16, get_mbr(1) >> 16, get_mbr(2) >> 16, get_mbr(3) >> 16,
-                get_mbr(4) >> 16, get_mbr(5) >> 16, get_mbr(6) >> 16, get_mbr(7) >> 16);
-        return 1;
-    }
-    return 0;
+        if (a >= 0x008 && a <= 0x00f) {
+                cpu.mbr[a & 7] = (d & 0xff) << 16;
+                int enabling = cpu.mbuen == 0;
+                cpu.mbuen = 1;
+                log_msg(LOG_DEBUG3, mbu_log_unit, "MBR[%d] → %02x. "
+                        "%sMBRs now %02x %02x %02x %02x %02x %02x %02x %02x",
+                        a & 7, d & 0xff,
+                        enabling ? "Enabling MBU. " : "",
+                        get_mbr(0) >> 16, get_mbr(1) >> 16, get_mbr(2) >> 16, get_mbr(3) >> 16,
+                        get_mbr(4) >> 16, get_mbr(5) >> 16, get_mbr(6) >> 16, get_mbr(7) >> 16);
+                return 1;
+        }
+        return 0;
 }
 
 
@@ -590,107 +590,107 @@ mbu_write(longaddr_t a, word d)
 static inline void
 decode_cond(int cond)
 {
-    cpu.uav.cond = 1;        // COND=1 means ‘do not skip’
+        cpu.uav.cond = 1;        // COND=1 means ‘do not skip’
 
-    switch (cond) {
-    case 0:
-        // Idle, never skip
-        cpu.uav.cond = 1;
-        break;
+        switch (cond) {
+        case 0:
+                // Idle, never skip
+                cpu.uav.cond = 1;
+                break;
         
-    case FIELD_IF_IR0:
-        cpu.uav.cond = (cpu.ir & 0x1) ? 0 : 1;
-        debug3("IF0");
-        break;
+        case FIELD_IF_IR0:
+                cpu.uav.cond = (cpu.ir & 0x1) ? 0 : 1;
+                debug3("IF0");
+                break;
         
-    case FIELD_IF_IR1:
-        cpu.uav.cond = (cpu.ir & 0x2) ? 0 : 1;
-        debug3("IF1");
+        case FIELD_IF_IR1:
+                cpu.uav.cond = (cpu.ir & 0x2) ? 0 : 1;
+                debug3("IF1");
+                break;
+
+        case FIELD_IF_IR2:
+                cpu.uav.cond = (cpu.ir & 0x4) ? 0 : 1;
+                debug3("IF2");
+                break;
+
+        case FIELD_IF_IR3:
+                cpu.uav.cond = (cpu.ir & 0x8) ? 0 : 1;
+                debug3("IF3");
+                break;
+
+        case FIELD_IF_IR4:
+                cpu.uav.cond = (cpu.ir & 0x10) ? 0 : 1;
+                debug3("IF4");
+                break;
+
+        case FIELD_IF_IR5:
+                cpu.uav.cond = (cpu.ir & 0x20) ? 0 : 1;
+                debug3("IF5");
+                break;
+
+        case FIELD_IF_IR6:
+                cpu.uav.cond = (cpu.ir & 0x40) ? 0 : 1;
+                debug3("IF6");
+                break;
+
+        case FIELD_IF_V:
+                cpu.uav.cond = cpu.fv ? 0 : 1;
+                debug3("IFV");
+                break;
+
+        case FIELD_IF_L:
+                cpu.uav.cond = cpu.fl ? 0 : 1;
+                debug3("IFL");
+                break;
+
+        case FIELD_IF_Z:
+                cpu.uav.cond = cpu.fz ? 0 : 1;
+                debug3("IFZ");
+                break;
+
+        case FIELD_IF_N:
+                cpu.uav.cond = cpu.fn ? 0 : 1;
+                debug3("IFN");
+                break;
+
+        case FIELD_IF_BRANCH:
+        {
+                // Simulate the hardware exactly.
+                word data[5] = {
+                        cpu.ir & 1,
+                        (cpu.ir & 2) >> 1,
+                        (cpu.ir & 4) >> 2,
+                        (cpu.ir & 8) >> 3,
+                        (cpu.ir & 16) >> 4
+                };
+
+                // This looks like a waste of space, but gcc optimises it to
+                // the same assembly code as if we used one long, hard to read
+                // expression.
+                register int sn = cpu.fn & data[3];
+                register int sz = cpu.fz & data[2];
+                register int sl = cpu.fl & data[1];
+                register int sv = cpu.fv & data[0];
+
+                register int sx = sn || sz || sl || sv;
+
+                // µCode signal COND is active low, so reverse it here.
+                cpu.uav.cond = (sx ^ data[4]) ? 0 : 1;
+
+                debug4("BRANCH: A=%04x, DATA=%d%d%d%d%d", cpu.ac, data[4], data[3], data[2], data[1], data[0]);
+                debug4("BRANCH: A=%04x, SV=%d, SL=%d, SZ=%d, SN=%d", cpu.ac, sv, sl, sz, sn);
+                debug4("BRANCH: A=%04x,  V=%d,  L=%d,  Z=%d,  N=%d", cpu.ac, cpu.fv, cpu.fl, cpu.fz, cpu.fn);
+                debug4("IFBRANCH");
+        }
         break;
-
-    case FIELD_IF_IR2:
-        cpu.uav.cond = (cpu.ir & 0x4) ? 0 : 1;
-        debug3("IF2");
-        break;
-
-    case FIELD_IF_IR3:
-        cpu.uav.cond = (cpu.ir & 0x8) ? 0 : 1;
-        debug3("IF3");
-        break;
-
-    case FIELD_IF_IR4:
-        cpu.uav.cond = (cpu.ir & 0x10) ? 0 : 1;
-        debug3("IF4");
-        break;
-
-    case FIELD_IF_IR5:
-        cpu.uav.cond = (cpu.ir & 0x20) ? 0 : 1;
-        debug3("IF5");
-        break;
-
-    case FIELD_IF_IR6:
-        cpu.uav.cond = (cpu.ir & 0x40) ? 0 : 1;
-        debug3("IF6");
-        break;
-
-    case FIELD_IF_V:
-        cpu.uav.cond = cpu.fv ? 0 : 1;
-        debug3("IFV");
-        break;
-
-    case FIELD_IF_L:
-        cpu.uav.cond = cpu.fl ? 0 : 1;
-        debug3("IFL");
-        break;
-
-    case FIELD_IF_Z:
-        cpu.uav.cond = cpu.fz ? 0 : 1;
-        debug3("IFZ");
-        break;
-
-    case FIELD_IF_N:
-        cpu.uav.cond = cpu.fn ? 0 : 1;
-        debug3("IFN");
-        break;
-
-    case FIELD_IF_BRANCH:
-    {
-        // Simulate the hardware exactly.
-        word data[5] = {
-            cpu.ir & 1,
-            (cpu.ir & 2) >> 1,
-            (cpu.ir & 4) >> 2,
-            (cpu.ir & 8) >> 3,
-            (cpu.ir & 16) >> 4
-        };
-
-        // This looks like a waste of space, but gcc optimises it to
-        // the same assembly code as if we used one long, hard to read
-        // expression.
-        register int sn = cpu.fn & data[3];
-        register int sz = cpu.fz & data[2];
-        register int sl = cpu.fl & data[1];
-        register int sv = cpu.fv & data[0];
-
-        register int sx = sn || sz || sl || sv;
-
-        // µCode signal COND is active low, so reverse it here.
-        cpu.uav.cond = (sx ^ data[4]) ? 0 : 1;
-
-        debug4("BRANCH: A=%04x, DATA=%d%d%d%d%d", cpu.ac, data[4], data[3], data[2], data[1], data[0]);
-        debug4("BRANCH: A=%04x, SV=%d, SL=%d, SZ=%d, SN=%d", cpu.ac, sv, sl, sz, sn);
-        debug4("BRANCH: A=%04x,  V=%d,  L=%d,  Z=%d,  N=%d", cpu.ac, cpu.fv, cpu.fl, cpu.fz, cpu.fn);
-        debug4("IFBRANCH");
-    }
-    break;
     
-    default:
-        fatal("Unknown microcode conditional %x", cond);
-    }
+        default:
+                fatal("Unknown microcode conditional %x", cond);
+        }
 
-    if (cpu.uav.cond == 0) {
-        debug3("Skip taken");
-    }
+        if (cpu.uav.cond == 0) {
+                debug3("Skip taken");
+        }
 }
 
 
@@ -708,106 +708,106 @@ decode_cond(int cond)
 static inline word
 read_from_ibus_unit(int raddr)
 {
-    word tmp;
+        word tmp;
 
-    switch (raddr) {
-    case FIELD_READ_CS0:
-        debug3("IBUS ← CS0 (0000)");
-        return 0;
+        switch (raddr) {
+        case FIELD_READ_CS0:
+                debug3("IBUS ← CS0 (0000)");
+                return 0;
 
-    case FIELD_READ_CS1:
-        debug3("IBUS ← CS1 (0001)");
-        return 1;
+        case FIELD_READ_CS1:
+                debug3("IBUS ← CS1 (0001)");
+                return 1;
 
-    case FIELD_READ_CS2:
-        debug3("IBUS ← CS2 (0002)");
-        return 2;
+        case FIELD_READ_CS2:
+                debug3("IBUS ← CS2 (0002)");
+                return 2;
 
-    case FIELD_READ_CS3:
-        debug3("IBUS ← CS2 (0002)");
-        return 3;
+        case FIELD_READ_CS3:
+                debug3("IBUS ← CS2 (0002)");
+                return 3;
 
-    case FIELD_READ_PC:
-        debug3("IBUS ← PC (%04x)", cpu.pc);
-        return cpu.pc;
+        case FIELD_READ_PC:
+                debug3("IBUS ← PC (%04x)", cpu.pc);
+                return cpu.pc;
 
-    case FIELD_READ_DR:
-        debug3("IBUS ← DR (%04x)", cpu.dr);
-        return cpu.dr;
+        case FIELD_READ_DR:
+                debug3("IBUS ← DR (%04x)", cpu.dr);
+                return cpu.dr;
 
-    case FIELD_READ_AC:
-        debug3("IBUS ← AC (%04x)", cpu.ac);
-        return cpu.ac;
+        case FIELD_READ_AC:
+                debug3("IBUS ← AC (%04x)", cpu.ac);
+                return cpu.ac;
         
-    case FIELD_READ_SP:
-        debug3("IBUS ← SP (%04x)", cpu.sp);
-        return cpu.sp;
+        case FIELD_READ_SP:
+                debug3("IBUS ← SP (%04x)", cpu.sp);
+                return cpu.sp;
 
-    case FIELD_READ_MBP_FLAGS:
-        tmp = (get_mbr(MBR_MBP) >> 16) | // bits 0-7: MBP
-            cpu.fn << 10 |               // bit 10 (0x0400): N
-            cpu.fz << 11 |               // bit 11 (0x0800): Z
-            cpu.fl << 12 |               // bit 12 (0x1000): L
-            cpu.fv << 13 |               // bit 13 (0x2000): V
-            cpu.fi << 15;                // bit 15 (0x8000): I
-        debug3("IBUS ← MBP+FLAGS (%04x)", tmp);
-        return tmp;
+        case FIELD_READ_MBP_FLAGS:
+                tmp = (get_mbr(MBR_MBP) >> 16) | // bits 0-7: MBP
+                        cpu.fn << 10 |               // bit 10 (0x0400): N
+                        cpu.fz << 11 |               // bit 11 (0x0800): Z
+                        cpu.fl << 12 |               // bit 12 (0x1000): L
+                        cpu.fv << 13 |               // bit 13 (0x2000): V
+                        cpu.fi << 15;                // bit 15 (0x8000): I
+                debug3("IBUS ← MBP+FLAGS (%04x)", tmp);
+                return tmp;
 
-    case FIELD_READ_AGL:
-        tmp = MAKE_SHORT_ADDRESS(get_r(cpu.ir) ? 0 : cpu.agl_page, cpu.ir);
-        debug3("IBUS ← AGL (%04x)", tmp);
-        return tmp;
+        case FIELD_READ_AGL:
+                tmp = MAKE_SHORT_ADDRESS(get_r(cpu.ir) ? 0 : cpu.agl_page, cpu.ir);
+                debug3("IBUS ← AGL (%04x)", tmp);
+                return tmp;
 
-    case FIELD_READ_ALU_ADD:
-    {
-        cpu.alu_a = cpu.ac;
-        uint32_t sum = (uint32_t) cpu.alu_a + (uint32_t) cpu.alu_b;
-        cpu.alu_y = sum & 0xffff;
-        if (sum & 0x10000) cpu.fl = !cpu.fl;
-        cpu.fv = (cpu.alu_a & 0x8000) == (cpu.alu_b & 0x8000) && \
-            (cpu.alu_a & 0x8000) != (cpu.alu_y & 0x8000);
-        debug3("IBUS ← A + B (%04x), L ← %d, V ← %d", cpu.alu_y, cpu.fl, cpu.fv);
-        return 0;               // Pretend we need extra time for the addition
-    }
+        case FIELD_READ_ALU_ADD:
+        {
+                cpu.alu_a = cpu.ac;
+                uint32_t sum = (uint32_t) cpu.alu_a + (uint32_t) cpu.alu_b;
+                cpu.alu_y = sum & 0xffff;
+                if (sum & 0x10000) cpu.fl = !cpu.fl;
+                cpu.fv = (cpu.alu_a & 0x8000) == (cpu.alu_b & 0x8000) && \
+                        (cpu.alu_a & 0x8000) != (cpu.alu_y & 0x8000);
+                debug3("IBUS ← A + B (%04x), L ← %d, V ← %d", cpu.alu_y, cpu.fl, cpu.fv);
+                return 0;               // Pretend we need extra time for the addition
+        }
         
-    case FIELD_READ_ALU_AND:
-        cpu.alu_a = cpu.ac;
-        cpu.alu_y = cpu.alu_a & cpu.alu_b;
-        debug3("IBUS ← A AND B (%04x)", cpu.alu_y);
-        return cpu.alu_y;
+        case FIELD_READ_ALU_AND:
+                cpu.alu_a = cpu.ac;
+                cpu.alu_y = cpu.alu_a & cpu.alu_b;
+                debug3("IBUS ← A AND B (%04x)", cpu.alu_y);
+                return cpu.alu_y;
         
-    case FIELD_READ_ALU_OR:
-        cpu.alu_a = cpu.ac;
-        cpu.alu_y = cpu.alu_a | cpu.alu_b;
-        debug3("IBUS ← A OR B (%04x)", cpu.alu_y);
-        return cpu.alu_y;
+        case FIELD_READ_ALU_OR:
+                cpu.alu_a = cpu.ac;
+                cpu.alu_y = cpu.alu_a | cpu.alu_b;
+                debug3("IBUS ← A OR B (%04x)", cpu.alu_y);
+                return cpu.alu_y;
         
-    case FIELD_READ_ALU_XOR:
-        cpu.alu_a = cpu.ac;
-        cpu.alu_y = cpu.alu_a ^ cpu.alu_b;
-        debug3("IBUS ← A XOR B (%04x)", cpu.alu_y);
-        return cpu.alu_y;
+        case FIELD_READ_ALU_XOR:
+                cpu.alu_a = cpu.ac;
+                cpu.alu_y = cpu.alu_a ^ cpu.alu_b;
+                debug3("IBUS ← A XOR B (%04x)", cpu.alu_y);
+                return cpu.alu_y;
         
-    case FIELD_READ_ALU_NOT:
-        cpu.alu_a = cpu.ac;
-        cpu.alu_y = cpu.alu_a ^ 0xffff;
-        debug3("IBUS ← NOT A (%04x)", cpu.alu_y);
-        return cpu.alu_y;
+        case FIELD_READ_ALU_NOT:
+                cpu.alu_a = cpu.ac;
+                cpu.alu_y = cpu.alu_a ^ 0xffff;
+                debug3("IBUS ← NOT A (%04x)", cpu.alu_y);
+                return cpu.alu_y;
         
-    case FIELD_READ_ALU_Y:
-        debug3("IBUS ← ALU Y (%04x)", cpu.alu_y);
-        return cpu.alu_y;
+        case FIELD_READ_ALU_Y:
+                debug3("IBUS ← ALU Y (%04x)", cpu.alu_y);
+                return cpu.alu_y;
 
-    case FIELD_READ_ALU_B:
-        debug3("IBUS ← ALU B (%04x)", cpu.alu_b);
-        return cpu.alu_b;
+        case FIELD_READ_ALU_B:
+                debug3("IBUS ← ALU B (%04x)", cpu.alu_b);
+                return cpu.alu_b;
         
-    default:
-        fatal("Unknown RADDR %x.", raddr)
-    }
+        default:
+                fatal("Unknown RADDR %x.", raddr)
+                        }
 
-    // We should never get here
-    return cpu.ibus;
+        // We should never get here
+        return cpu.ibus;
 }
 
 
@@ -820,24 +820,24 @@ read_from_ibus_unit(int raddr)
 
 static inline void
 write_to_ar(int mbr) {
-    // If the microcode is requesting an MBR-relative indexing mode, and the
-    // instruction has I=1 and R=1 and an operand >= 0x300, then we select an
-    // MBR based on the least significant bits of the IR. It's very simple in
-    // C, but this little fucker of a feature added several ICs to the Memory
-    // Banking Unit!
-    int from_ir = 0;
-    if ((GET_ACTION(cpu.ucv) == FIELD_ACTION_IDX) && 
-        (cpu.ir & 0x0f00) == 0x0f00) {
-        mbr = cpu.ir & 7;
-        from_ir = 1;
-    }
+        // If the microcode is requesting an MBR-relative indexing mode, and the
+        // instruction has I=1 and R=1 and an operand >= 0x300, then we select an
+        // MBR based on the least significant bits of the IR. It's very simple in
+        // C, but this little fucker of a feature added several ICs to the Memory
+        // Banking Unit!
+        int from_ir = 0;
+        if ((GET_ACTION(cpu.ucv) == FIELD_ACTION_IDX) && 
+            (cpu.ir & 0x0f00) == 0x0f00) {
+                mbr = cpu.ir & 7;
+                from_ir = 1;
+        }
 
-    uint32_t mbr_value = get_mbr(mbr);
-    assert ((mbr_value & 0xffff) == 0);
+        uint32_t mbr_value = get_mbr(mbr);
+        assert ((mbr_value & 0xffff) == 0);
         
-    cpu.ar = mbr_value | cpu.ibus;
-    debug3("AR ← MB%d:IBUS (%s) [MBR selected by %s]", mbr, format_longaddr(cpu.ar, NULL),
-           from_ir ? "operand field" : "microcode");
+        cpu.ar = mbr_value | cpu.ibus;
+        debug3("AR ← MB%d:IBUS (%s) [MBR selected by %s]", mbr, format_longaddr(cpu.ar, NULL),
+               from_ir ? "operand field" : "microcode");
 }
 
 // Decode the write unit and handle side effects: the selected unit gets its
@@ -850,86 +850,84 @@ write_to_ar(int mbr) {
 static inline void
 write_to_ibus_unit(int waddr)
 {
-    // MBZ-relative addressing as a more complicated special case for
-    // auto-index MBR-relative addressing modes.
-    switch(waddr){
-    case FIELD_WRITE_AR_MBP:
-        write_to_ar(MBR_MBP);
-        return;
+        // MBZ-relative addressing as a more complicated special case for
+        // auto-index MBR-relative addressing modes.
+        switch(waddr){
+        case FIELD_WRITE_AR_MBP:
+                write_to_ar(MBR_MBP);
+                return;
 
-    case FIELD_WRITE_AR_MBD:
-        write_to_ar(MBR_MBD);
-        return;
+        case FIELD_WRITE_AR_MBD:
+                write_to_ar(MBR_MBD);
+                return;
 
-    case FIELD_WRITE_AR_MBS:
-        write_to_ar(MBR_MBS);
-        return;
+        case FIELD_WRITE_AR_MBS:
+                write_to_ar(MBR_MBS);
+                return;
 
-    case FIELD_WRITE_AR_MBZ:
-    {
-        write_to_ar(MBR_MBZ);
-        return;
-    }
+        case FIELD_WRITE_AR_MBZ:
+                write_to_ar(MBR_MBZ);
+                return;
 
-    case FIELD_WRITE_PC:
-        cpu.pc = cpu.ibus;
-        debug3("PC ← IBUS (%04x)", cpu.ibus);
-        // // Sanity check
-        // if (sanity && (cpu.pc == 0)) {
-        //     fatal("PC at 0000. This is probably a CFT software error.");
-        // }
-        return;
+        case FIELD_WRITE_PC:
+                cpu.pc = cpu.ibus;
+                debug3("PC ← IBUS (%04x)", cpu.ibus);
+                // // Sanity check
+                // if (sanity && (cpu.pc == 0)) {
+                //     fatal("PC at 0000. This is probably a CFT software error.");
+                // }
+                return;
 
-    case FIELD_WRITE_DR:
-        cpu.dr = cpu.ibus;
-        debug3("DR ← IBUS (%04x)", cpu.ibus);
-        return;
+        case FIELD_WRITE_DR:
+                cpu.dr = cpu.ibus;
+                debug3("DR ← IBUS (%04x)", cpu.ibus);
+                return;
 
-    case FIELD_WRITE_AC:
-        cpu.ac = cpu.ibus;
-        cpu.fn = (cpu.ac & 0x8000) != 0;
-        cpu.fz = cpu.ac == 0;
-        debug3("AC ← IBUS (%04x)", cpu.ibus);
-        return;
+        case FIELD_WRITE_AC:
+                cpu.ac = cpu.ibus;
+                cpu.fn = (cpu.ac & 0x8000) != 0;
+                cpu.fz = cpu.ac == 0;
+                debug3("AC ← IBUS (%04x)", cpu.ibus);
+                return;
 
-    case FIELD_WRITE_SP:
-        cpu.sp = cpu.ibus;
-        debug3("SP ← IBUS (%04x)", cpu.ibus);
-        return;
+        case FIELD_WRITE_SP:
+                cpu.sp = cpu.ibus;
+                debug3("SP ← IBUS (%04x)", cpu.ibus);
+                return;
 
-    case FIELD_WRITE_MBP:
-        cpu.mbr[MBR_MBP] = (cpu.ibus & 0xff) << 16;
-        debug3("MBP ← IBUS (%02x)", cpu.ibus & 0xff);
-        return;
+        case FIELD_WRITE_MBP:
+                cpu.mbr[MBR_MBP] = (cpu.ibus & 0xff) << 16;
+                debug3("MBP ← IBUS (%02x)", cpu.ibus & 0xff);
+                return;
 
-    case FIELD_WRITE_MBP_FLAGS:
-        cpu.mbr[MBR_MBP] = (cpu.ibus & 0xff) << 16;
-        cpu.fl = cpu.ibus & 0x1000 ? 1 : 0;
-        cpu.fv = cpu.ibus & 0x2000 ? 1 : 0;
-        cpu.fi = cpu.ibus & 0x8000 ? 1 : 0;
-        debug3("MBP+FLAGS ← IBUS (%04x) [L=%d V=%d I=%d]", cpu.ibus, cpu.fl, cpu.fv, cpu.fi);
-        return;
+        case FIELD_WRITE_MBP_FLAGS:
+                cpu.mbr[MBR_MBP] = (cpu.ibus & 0xff) << 16;
+                cpu.fl = cpu.ibus & 0x1000 ? 1 : 0;
+                cpu.fv = cpu.ibus & 0x2000 ? 1 : 0;
+                cpu.fi = cpu.ibus & 0x8000 ? 1 : 0;
+                debug3("MBP+FLAGS ← IBUS (%04x) [L=%d V=%d I=%d]", cpu.ibus, cpu.fl, cpu.fv, cpu.fi);
+                return;
         
-    case FIELD_WRITE_FLAGS:
-        cpu.fl = cpu.ibus & 0x1000 ? 1 : 0;
-        cpu.fv = cpu.ibus & 0x2000 ? 1 : 0;
-        cpu.fi = cpu.ibus & 0x8000 ? 1 : 0;
-        debug3("FLAGS ← IBUS (%04x) [L=%d V=%d I=%d]", cpu.ibus, cpu.fl, cpu.fv, cpu.fi);
-        return;
+        case FIELD_WRITE_FLAGS:
+                cpu.fl = cpu.ibus & 0x1000 ? 1 : 0;
+                cpu.fv = cpu.ibus & 0x2000 ? 1 : 0;
+                cpu.fi = cpu.ibus & 0x8000 ? 1 : 0;
+                debug3("FLAGS ← IBUS (%04x) [L=%d V=%d I=%d]", cpu.ibus, cpu.fl, cpu.fv, cpu.fi);
+                return;
 
-    case FIELD_WRITE_IR:
-        cpu.ir = cpu.ibus;
-        debug3("IR ← IBUS (%04x): %s", cpu.ibus, disasm(cpu.ir, 1, NULL));
-        return;
+        case FIELD_WRITE_IR:
+                cpu.ir = cpu.ibus;
+                debug3("IR ← IBUS (%04x): %s", cpu.ibus, disasm(cpu.ir, 1, NULL));
+                return;
         
-    case FIELD_WRITE_ALU_B:
-        cpu.alu_b = cpu.ibus;
-        debug3("ALU B ← IBUS (%04x)", cpu.ibus);
-        return;
+        case FIELD_WRITE_ALU_B:
+                cpu.alu_b = cpu.ibus;
+                debug3("ALU B ← IBUS (%04x)", cpu.ibus);
+                return;
         
-    default:
-        fatal("Unknown WADDR %x.", waddr)
-    }
+        default:
+                fatal("Unknown WADDR %x.", waddr);
+        }
 }
 
 
@@ -943,203 +941,202 @@ write_to_ibus_unit(int waddr)
 static void
 cpu_control_store()
 {
-    // 15  14  13  12  11  10   9   8   7   6   5   4   3   2   1   0
-    // OP------------  I   R    SUB------
-    //                 800 400 200 100  80  40  20  10  4   3   2   1
+        // 15  14  13  12  11  10   9   8   7   6   5   4   3   2   1   0
+        // OP------------  I   R    SUB------
+        //                 800 400 200 100  80  40  20  10  4   3   2   1
 
 
-    // Much of the UAV comes from the IR, but it's split in four fields.
-    cpu.uav.op = (cpu.ir >> 12) & 15;
-    cpu.uav.i = (cpu.ir >> 11) & 1;
-    cpu.uav.r = (cpu.ir >> 10) & 1;
-    cpu.uav.subop = (cpu.ir >> 7) & 7;
+        // Much of the UAV comes from the IR, but it's split in four fields.
+        cpu.uav.op = (cpu.ir >> 12) & 15;
+        cpu.uav.i = (cpu.ir >> 11) & 1;
+        cpu.uav.r = (cpu.ir >> 10) & 1;
+        cpu.uav.subop = (cpu.ir >> 7) & 7;
 
-    // Set the indexing mode if the IR operand is 0x300 to 0x3ff.
-    cpu.uav.idx = ((cpu.ir & 0x0300) == 0x300) ? ((cpu.ir >> 6) & 3) : 0;
+        // Set the indexing mode if the IR operand is 0x300 to 0x3ff.
+        cpu.uav.idx = ((cpu.ir & 0x0300) == 0x300) ? ((cpu.ir >> 6) & 3) : 0;
 
-    // If an interrupt has been requested and interrupts are allowed, we jump
-    // to the IRQ microprogram when the previous instruction ends.
-    if (cpu.irq == 1 && cpu.fi == 1 && cpu.uav.uaddr == 0) {
-        notice("Interrupt");
-        cpu.uav.int_ = 0;       // Set the INT microcode condition 
-    }
+        // If an interrupt has been requested and interrupts are allowed, we jump
+        // to the IRQ microprogram when the previous instruction ends.
+        if (cpu.irq == 1 && cpu.fi == 1 && cpu.uav.uaddr == 0) {
+                notice("Interrupt");
+                cpu.uav.int_ = 0;       // Set the INT microcode condition 
+        }
 
-    // Update the uPC and read the microcode ROM.
-    cpu.uaddr = MAKE_ADDR(cpu.uav.rst,
-                          cpu.uav.int_,
-                          cpu.uav.op,
-                          cpu.uav.i,
-                          cpu.uav.r,
-                          cpu.uav.subop,
-                          cpu.uav.cond,
-                          cpu.uav.idx,
-                          cpu.uav.uaddr);
-    cpu.ucv = microcode[cpu.uaddr];
+        // Update the uPC and read the microcode ROM.
+        cpu.uaddr = MAKE_ADDR(cpu.uav.rst,
+                              cpu.uav.int_,
+                              cpu.uav.op,
+                              cpu.uav.i,
+                              cpu.uav.r,
+                              cpu.uav.subop,
+                              cpu.uav.cond,
+                              cpu.uav.idx,
+                              cpu.uav.uaddr);
+        cpu.ucv = microcode[cpu.uaddr];
 }
 
 
 void
 cpu_run()
 {
-    assert (cpu.memr != NULL);
+        assert (cpu.memr != NULL);
     
-    // Reset the emulation and CPU 
-    cpu.tick = 0;
-    cpu.wait = 0;
-    cpu.halt = 0;
-    // extern int dfp_enabled;
-    // cpu.pause = dfp_enabled ? 1 : 0;
-    cpu_reset();
+        // Reset the emulation and CPU 
+        cpu.tick = 0;
+        cpu.wait = 0;
+        cpu.halt = 0;
+        // extern int dfp_enabled;
+        // cpu.pause = dfp_enabled ? 1 : 0;
+        cpu_reset();
 
-    // time_t t0 = time(NULL);
-    // word oldpc = 0xbeef;
+        // time_t t0 = time(NULL);
+        // word oldpc = 0xbeef;
         
-    //word addr;
-    //static struct timespec ts;
-    cpu.quit = 0;
-    while(!cpu.quit) {
-        volatile int p;
-        for (p = 0; p < 50; p++);
+        //word addr;
+        //static struct timespec ts;
+        cpu.quit = 0;
+        while(!cpu.quit) {
+                volatile int p;
+                for (p = 0; p < 50; p++);
 
-        // Do nothing if the emulation is paused. 
-        if (cpu.pause || cpu.halt) {
-            // ui_tick();
-            // dfp_tick(); // the DFP always runs
-            usleep(1000);
-            continue;
+                // Do nothing if the emulation is paused. 
+                if (cpu.pause || cpu.halt) {
+                        // ui_tick();
+                        // dfp_tick(); // the DFP always runs
+                        usleep(1000);
+                        continue;
+                }
+
+                // Handle the reset pulse
+                cpu_handle_reset();
+
+                // Let the control store run.
+                cpu_control_store();
+
+                // Print out current address and instruction.
+                // if(debug_asm) {
+                //     if (cpu.uav.uaddr == 0) {
+                //         oldpc = cpu.pc;
+                //     } else if (cpu.uav.uaddr == 2) {
+                //         dump_mini(oldpc);
+                //     }
+                // }
+
+                // Decode the control vector from the uROM.
+
+                int raddr = GET_READ(cpu.ucv);
+                int waddr = GET_WRITE(cpu.ucv);
+                int cond = GET_IF(cpu.ucv);
+                int action = GET_ACTION(cpu.ucv);
+
+                int mem = IS_MEM(cpu.ucv);
+                int io = IS_IO(cpu.ucv);
+                int r = IS_R(cpu.ucv);
+                int w = IS_WEN(cpu.ucv);
+                int end = IS_END(cpu.ucv);
+
+                // External END?
+                if (cpu.endext) {
+                        debug("End of instruction requested externally.");
+                        end = 1;
+                        cpu.endext = 0;
+                }
+
+                // Print CPU state.
+                // if (debug_microcode) {
+                //     printf("");
+                //     info("PC: %04x/%d", cpu.pc, cpu.uav.uaddr);
+                //     dump_state();
+                //     dump_ustate();
+                // }
+                debug("IR=%04x %-14.14s  FL=%c%c%c%c%c  %s  PC=%04x  AC=%04x  DR=%04x  SP=%04x  "
+                      "MB{P=%02x D=%02x S=%02x Z=%02x 4=%02x 5=%02x 6=%02x 7=%02x} uAV=%06x uCV=%06x %s",
+                      cpu.ir, disasm(cpu.ir, 1, NULL),
+                      cpu.fn ? 'N' : '-',
+                      cpu.fz ? 'Z' : '-',
+                      cpu.fv ? 'V' : '-',
+                      cpu.fi ? 'I' : '-',
+                      cpu.fl ? 'L' : '-',
+                      cpu.irq ? "IRQ" : "   ",
+                      cpu.pc, cpu.ac, cpu.dr, cpu.sp,
+                      get_mbr(0) >> 16, get_mbr(1) >> 16, get_mbr(2) >> 16, get_mbr(3) >> 16,
+                      get_mbr(4) >> 16, get_mbr(5) >> 16, get_mbr(6) >> 16, get_mbr(7) >> 16,
+                      cpu.uaddr, cpu.ucv,
+                      cpu.uav.cond ? "----" : "COND");
+
+                // Act on the signals of the control vector. All actions are
+                // essentially level comparisons, edge-sensitive signals are
+                // dealt with as if they too were level-sensitive. This could
+                // give rise to a few bugs, which we'll kludge here.
+                
+                // Decode conditionals and set the SKIP signal for the next
+                // microinstruction.
+                decode_cond(cond);
+                
+                // Handle memory and I/O *READS*
+                if (r) {
+                        bus_reads(mem, io);
+                        cpu.ibus = cpu.dbus;
+                }
+                
+                // Read from a unit.
+                if (raddr) {
+                        cpu.ibus = read_from_ibus_unit(raddr);
+                }
+
+                // Write to a unit.
+                if (waddr) {
+                        write_to_ibus_unit(waddr);
+                }
+
+                // Drive the data bus if needed
+                if (w) {
+                        cpu.dbus = cpu.ibus;
+                }
+
+                // Handle memory and I/O *WRITES*
+                if (w) bus_writes(mem, io);
+
+                // Perform any decoded action.
+                if (action) handle_actions(action);
+
+                // External SKIP? Test this late, so either bus transactions can
+                // trigger it.
+                if (cpu.skipext) {
+                        debug("Skip requested externally.");
+                        cpu.uav.cond = 0;
+                        cpu.skipext = 0;
+                }
+
+                // Next processor cycle!
+                cpu.tick++;
+
+                // End of the instruction?
+                if (end) {
+                        //dump_state();
+                        cpu.agl_page = get_page(cpu.pc);
+                        cpu.uav.uaddr = 0;
+                        cpu.uav.int_ = 1; // Clear the INT microcode condition 
+                        debug("End of microprogram.");
+                } else if (!cpu.wait) {
+                        // Support for wait states is present at this level, but nothing
+                        // uses them (yet). All our emulated devices are super-fast.
+                        cpu.uav.uaddr++;
+                        if (cpu.uav.uaddr == 0) {
+                                fatal("uPC wrapped around! Microcode bug?");
+                        }
+                }
+
+                // Perform 'background' 'hardware' tasks.
+                if (cpu.iotick != NULL) (*cpu.iotick)(&cpu);
         }
 
-        // Handle the reset pulse
-        cpu_handle_reset();
-
-        // Let the control store run.
-        cpu_control_store();
-
-        // Print out current address and instruction.
-        // if(debug_asm) {
-        //     if (cpu.uav.uaddr == 0) {
-        //         oldpc = cpu.pc;
-        //     } else if (cpu.uav.uaddr == 2) {
-        //         dump_mini(oldpc);
-        //     }
+        // time_t t1 = time(NULL);
+        // if (t1 != t0) {
+        //     info("Time: %s%lu%s s. Speed: %s%lu%s kHz",
+        //          COL_WHI, t1 - t0, COL_GRE,
+        //          COL_WHI, cpu.tick / (t1 - t0) / 1000, COL_GRE);
         // }
-
-        // Decode the control vector from the uROM.
-
-        int raddr = GET_READ(cpu.ucv);
-        int waddr = GET_WRITE(cpu.ucv);
-        int cond = GET_IF(cpu.ucv);
-        int action = GET_ACTION(cpu.ucv);
-
-        int mem = IS_MEM(cpu.ucv);
-        int io = IS_IO(cpu.ucv);
-        int r = IS_R(cpu.ucv);
-        int w = IS_WEN(cpu.ucv);
-        int end = IS_END(cpu.ucv);
-
-        // External END?
-        if (cpu.endext) {
-            debug("End of instruction requested externally.");
-            end = 1;
-            cpu.endext = 0;
-        }
-
-        // Print CPU state.
-        // if (debug_microcode) {
-        //     printf("");
-        //     info("PC: %04x/%d", cpu.pc, cpu.uav.uaddr);
-        //     dump_state();
-        //     dump_ustate();
-        // }
-        debug("IR=%04x %-14.14s  FL=%c%c%c%c%c  %s  PC=%04x  AC=%04x  DR=%04x  SP=%04x  "
-              "MB{P=%02x D=%02x S=%02x Z=%02x 4=%02x 5=%02x 6=%02x 7=%02x} uAV=%06x uCV=%06x %s",
-              cpu.ir, disasm(cpu.ir, 1, NULL),
-              cpu.fn ? 'N' : '-',
-              cpu.fz ? 'Z' : '-',
-              cpu.fv ? 'V' : '-',
-              cpu.fi ? 'I' : '-',
-              cpu.fl ? 'L' : '-',
-              cpu.irq ? "IRQ" : "   ",
-              cpu.pc, cpu.ac, cpu.dr, cpu.sp,
-              get_mbr(0) >> 16, get_mbr(1) >> 16, get_mbr(2) >> 16, get_mbr(3) >> 16,
-              get_mbr(4) >> 16, get_mbr(5) >> 16, get_mbr(6) >> 16, get_mbr(7) >> 16,
-              cpu.uaddr, cpu.ucv,
-              cpu.uav.cond ? "----" : "COND"
-            );
-
-        // Act on the signals of the control vector. All actions are
-        // essentially level comparisons, edge-sensitive signals are
-        // dealt with as if they too were level-sensitive. This could
-        // give rise to a few bugs, which we'll kludge here.
-
-        // Decode conditionals and set the SKIP signal for the next
-        // microinstruction.
-        decode_cond(cond);
-        
-        // Handle memory and I/O *READS*
-        if (r) {
-            bus_reads(mem, io);
-            cpu.ibus = cpu.dbus;
-        }
-
-        // Read from a unit.
-        if (raddr) {
-            cpu.ibus = read_from_ibus_unit(raddr);
-        }
-
-        // Write to a unit.
-        if (waddr) {
-            write_to_ibus_unit(waddr);
-        }
-
-        // Drive the data bus if needed
-        if (w) {
-            cpu.dbus = cpu.ibus;
-        }
-
-        // Handle memory and I/O *WRITES*
-        if (w) bus_writes(mem, io);
-
-        // Perform any decoded action.
-        if (action) handle_actions(action);
-
-        // External SKIP? Test this late, so either bus transactions can
-        // trigger it.
-        if (cpu.skipext) {
-            debug("Skip requested externally.");
-            cpu.uav.cond = 0;
-            cpu.skipext = 0;
-        }
-
-        // Next processor cycle!
-        cpu.tick++;
-
-        // End of the instruction?
-        if (end) {
-            //dump_state();
-            cpu.agl_page = get_page(cpu.pc);
-            cpu.uav.uaddr = 0;
-            cpu.uav.int_ = 1; // Clear the INT microcode condition 
-            debug("End of microprogram.");
-        } else if (!cpu.wait) {
-            // Support for wait states is present at this level, but nothing
-            // uses them (yet). All our emulated devices are super-fast.
-            cpu.uav.uaddr++;
-            if (cpu.uav.uaddr == 0) {
-                fatal("uPC wrapped around! Microcode bug?");
-            }
-        }
-
-        // Perform 'background' 'hardware' tasks.
-        if (cpu.iotick != NULL) (*cpu.iotick)(&cpu);
-    }
-
-    // time_t t1 = time(NULL);
-    // if (t1 != t0) {
-    //     info("Time: %s%lu%s s. Speed: %s%lu%s kHz",
-    //          COL_WHI, t1 - t0, COL_GRE,
-    //          COL_WHI, cpu.tick / (t1 - t0) / 1000, COL_GRE);
-    // }
 }
 
 // End of file.

@@ -19,31 +19,31 @@
 
 
 typedef struct {
-    char * fname;
-    int    addr;                // Base address in KiW
-    int    size;                // Size in KiW
+        char * fname;
+        int    addr;                // Base address in KiW
+        int    size;                // Size in KiW
 } romspec_t;
 
 
 typedef struct cftemu_t {
-    int         loglevel;       // Logging level
-    int         sanity;         // Sanity checking level
+        int         loglevel;       // Logging level
+        int         sanity;         // Sanity checking level
 
-    int         ram_size;       // RAM Size
-    romspec_t * roms;           // ROMs to load
-    int         num_roms;       // Number of ROMs specified.
+        int         ram_size;       // RAM Size
+        romspec_t * roms;           // ROMs to load
+        int         num_roms;       // Number of ROMs specified.
 
-    word        ram_sentinel;   // Value RAM is initialised with.
-    int         force_colour;   // -1 = disable colour, 1 = enable colour
+        word        ram_sentinel;   // Value RAM is initialised with.
+        int         force_colour;   // -1 = disable colour, 1 = enable colour
 
-    int         strict_sanity:1;
-    int         writeable_rom:1;
-    int         sentinel:1;
-    int         debug_microcode:1;
-    int         debug_mem:1;
-    int         debug_io:1;
-    int         debug_asm:1;
-    int         debug_duart:1;
+        int         strict_sanity:1;
+        int         writeable_rom:1;
+        int         sentinel:1;
+        int         debug_microcode:1;
+        int         debug_mem:1;
+        int         debug_io:1;
+        int         debug_asm:1;
+        int         debug_duart:1;
 } cftemu_t;
 
 extern cftemu_t emu;

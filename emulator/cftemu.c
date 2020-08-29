@@ -40,91 +40,91 @@ cftemu_t emu;
 void
 init()
 {
-    log_init(NULL);
-    log_set_level(emu.loglevel);
-    if (emu.force_colour == -1) {
-        log_set_colour(0);
-    } else if (emu.force_colour == 1) {
-        log_set_colour(1);
-    }
-    log_set_strict_sanity(emu.strict_sanity);
+        log_init(NULL);
+        log_set_level(emu.loglevel);
+        if (emu.force_colour == -1) {
+                log_set_colour(0);
+        } else if (emu.force_colour == 1) {
+                log_set_colour(1);
+        }
+        log_set_strict_sanity(emu.strict_sanity);
 
-    io_init();
+        io_init();
 
-    // // Initialise the user interface.
-    // sdl_init();
+        // // Initialise the user interface.
+        // sdl_init();
         
-    // // Read the source code, if available 
-    // pasm_load();
+        // // Read the source code, if available 
+        // pasm_load();
 
-    // // Read the map file, if available 
-    // map_load();
+        // // Read the map file, if available 
+        // map_load();
 
-    // // Open the log file 
-    // if ((log_file = fopen(log_name, "w")) == NULL) {
-    //     perror("Opening log file");
-    //     exit(1);
-    // }
-    // setbuf(log_file, NULL);
+        // // Open the log file 
+        // if ((log_file = fopen(log_name, "w")) == NULL) {
+        //     perror("Opening log file");
+        //     exit(1);
+        // }
+        // setbuf(log_file, NULL);
         
-    // // Initialise the menuing system 
-    // ui_init();
+        // // Initialise the menuing system 
+        // ui_init();
 
-    // Initialise I/O 
-    //io_init();
+        // Initialise I/O 
+        //io_init();
         
-    cpu_init();
-    assert (cpu.memr != NULL);
-    cpu.memr = mem_read;
-    cpu.memw = mem_write;
-    cpu.ior = io_read;
-    cpu.iow = io_write;
-    cpu.iotick = io_tick;
+        cpu_init();
+        assert (cpu.memr != NULL);
+        cpu.memr = mem_read;
+        cpu.memw = mem_write;
+        cpu.ior = io_read;
+        cpu.iow = io_write;
+        cpu.iotick = io_tick;
 }
 
 
 void
 run()
 {
-    // Initialise memory (RAM and ROM). Done after I/O init so we have a
-    // functioning MBU.
-    mem_init();
+        // Initialise memory (RAM and ROM). Done after I/O init so we have a
+        // functioning MBU.
+        mem_init();
 
-    // And run the emulation.
-    cpu_run();
+        // And run the emulation.
+        cpu_run();
 }
 
 
 void
 done()
 {
-    cpu_done();
-    // memory_done();
-    // io_done();
-    // sdl_done();
+        cpu_done();
+        // memory_done();
+        // io_done();
+        // sdl_done();
 }
 
 
 void
 reset()
 {
-    printf("Resetting...\n");
-    //io_reset();
-    cpu_start();
-    cpu_reset();
+        printf("Resetting...\n");
+        //io_reset();
+        cpu_start();
+        cpu_reset();
 }
 
 
 int
 main (int argc, char **argv)
 {
-    memset(&emu, 0, sizeof(emu));
-    cmdline_parse(argc, argv);  // This also sets defaults in emu
+        memset(&emu, 0, sizeof(emu));
+        cmdline_parse(argc, argv);  // This also sets defaults in emu
 
-    init();
-    run();
-    done();
-    return 0;
+        init();
+        run();
+        done();
+        return 0;
 }
 
 // End of file.

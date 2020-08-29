@@ -29,10 +29,10 @@
 
 
 typedef struct {
-    char  name[UNIT_NAME_LEN];
-    int   colour;
-    int   level;
-    int   enabled:1;
+        char  name[UNIT_NAME_LEN];
+        int   colour;
+        int   level;
+        int   enabled:1;
 } log_unitdesc_t;
 
 
@@ -49,76 +49,76 @@ int                        log_strict_sanity;
 int
 log_init(char * filename)
 {
-    assert(log_fp == NULL);
+        assert(log_fp == NULL);
 
-    log_numunits = 0;
+        log_numunits = 0;
     
-    if (filename == NULL) {
+        if (filename == NULL) {
 #ifdef _POSIX_C_SOURCE
-        // Log to standard output
-        log_have_colour = isatty(fileno(stdout));
+                // Log to standard output
+                log_have_colour = isatty(fileno(stdout));
 #else
-        log_have_colour = 0;
+                log_have_colour = 0;
 #endif
-        log_fp = stdout;
-        // TODO: Do we need stdout to be unbuffered?
-        setvbuf(stdout, (char *)NULL, _IONBF, 0); // Make stdout unbuffered. 
-    } else {
-        log_fp = fopen(filename, "a");
-        log_have_colour = 0;
-        return errno;
-    }
+                log_fp = stdout;
+                // TODO: Do we need stdout to be unbuffered?
+                setvbuf(stdout, (char *)NULL, _IONBF, 0); // Make stdout unbuffered. 
+        } else {
+                log_fp = fopen(filename, "a");
+                log_have_colour = 0;
+                return errno;
+        }
 
-    return 0;
+        return 0;
 }
 
 
 log_unit_t
 log_add_unit(char *name, int level, int colour)
 {
-    log_numunits++;
-    log_units = reallocarray(log_units, log_numunits, sizeof(log_unitdesc_t));
+        log_numunits++;
+        log_units = reallocarray(log_units, log_numunits, sizeof(log_unitdesc_t));
 
-    assert (log_units != NULL);
-    assert (strlen(name) < UNIT_NAME_LEN);
+        assert (log_units != NULL);
+        assert (strlen(name) < UNIT_NAME_LEN);
 
-    log_unitdesc_t * p = &log_units[log_numunits - 1];
-    strncpy(p->name, name, UNIT_NAME_LEN);
-    p->colour = colour;
-    p->level = level >= 0 ? level : log_level;
-    p->enabled = 1;
+        log_unitdesc_t * p = &log_units[log_numunits - 1];
+        strncpy(p->name, name, UNIT_NAME_LEN);
+        p->colour = colour;
+        p->level = level >= 0 ? level : log_level;
+        p->enabled = 1;
 
-    // Return the index of this unit to be used as a handle.
-    return log_numunits - 1;
+        // Return the index of this unit to be used as a handle.
+        return log_numunits - 1;
 }
 
 
 void
 log_set_strict_sanity(int on)
 {
-    log_strict_sanity = on;
+        log_strict_sanity = on;
 }
 
 
 void
 log_set_colour(int on)
 {
-    log_have_colour = on;
+        log_have_colour = on;
 }
 
 
 void
 log_set_level(int level)
 {
-    log_level = level;
+        log_level = level;
 }
 
 
 void
 log_set_prefix(char *prefix)
 {
-    maybe_free(log_prefix);
-    log_prefix = strdup(prefix);
+        maybe_free(log_prefix);
+        log_prefix = strdup(prefix);
 }
 
 
@@ -129,113 +129,113 @@ static char * sigils = SIGILS "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDD";
 #define NUM_COLOURS 30
 #define CSI "\033["
 static char * colours[NUM_COLOURS] = {
-    CSI "38;5;226;48;5;196;1m", // Fatal: yellow on red bg
-    CSI "38;5;196m",            // Errors: red
-    CSI "38;5;214m",            // Warnings: orange
-    CSI "38;5;226m",            // Notices: yellow
-    CSI "38;5;46m",             // Info: green
-    CSI "38;5;250m",            // Debug: grey
-    CSI "38;5;247m",            // Debug: grey
-    CSI "38;5;244m",            // Debug: grey
-    CSI "38;5;241m",            // Debug: grey
-    CSI "38;5;241m",            // Debug: grey
+        CSI "38;5;226;48;5;196;1m", // Fatal: yellow on red bg
+        CSI "38;5;196m",            // Errors: red
+        CSI "38;5;214m",            // Warnings: orange
+        CSI "38;5;226m",            // Notices: yellow
+        CSI "38;5;46m",             // Info: green
+        CSI "38;5;250m",            // Debug: grey
+        CSI "38;5;247m",            // Debug: grey
+        CSI "38;5;244m",            // Debug: grey
+        CSI "38;5;241m",            // Debug: grey
+        CSI "38;5;241m",            // Debug: grey
 
-    CSI "38;5;241m",            // Debug: grey
-    CSI "38;5;241m",            // Debug: grey
-    CSI "38;5;241m",            // Debug: grey
-    CSI "38;5;241m",            // Debug: grey
-    CSI "38;5;241m",            // Debug: grey
-    CSI "38;5;241m",            // Debug: grey
-    CSI "38;5;241m",            // Debug: grey
-    CSI "38;5;241m",            // Debug: grey
-    CSI "38;5;241m",            // Debug: grey
-    CSI "38;5;241m",            // Debug: grey
+        CSI "38;5;241m",            // Debug: grey
+        CSI "38;5;241m",            // Debug: grey
+        CSI "38;5;241m",            // Debug: grey
+        CSI "38;5;241m",            // Debug: grey
+        CSI "38;5;241m",            // Debug: grey
+        CSI "38;5;241m",            // Debug: grey
+        CSI "38;5;241m",            // Debug: grey
+        CSI "38;5;241m",            // Debug: grey
+        CSI "38;5;241m",            // Debug: grey
+        CSI "38;5;241m",            // Debug: grey
 
-    CSI "38;5;241m",            // Debug: grey
-    CSI "38;5;241m",            // Debug: grey
-    CSI "38;5;241m",            // Debug: grey
-    CSI "38;5;241m",            // Debug: grey
-    CSI "38;5;241m",            // Debug: grey
-    CSI "38;5;241m",            // Debug: grey
-    CSI "38;5;241m",            // Debug: grey
-    CSI "38;5;241m",            // Debug: grey
-    CSI "38;5;241m",            // Debug: grey
-    CSI "38;5;241m"             // Debug: grey
+        CSI "38;5;241m",            // Debug: grey
+        CSI "38;5;241m",            // Debug: grey
+        CSI "38;5;241m",            // Debug: grey
+        CSI "38;5;241m",            // Debug: grey
+        CSI "38;5;241m",            // Debug: grey
+        CSI "38;5;241m",            // Debug: grey
+        CSI "38;5;241m",            // Debug: grey
+        CSI "38;5;241m",            // Debug: grey
+        CSI "38;5;241m",            // Debug: grey
+        CSI "38;5;241m"             // Debug: grey
 };
 
 
 int
 log_enabled(int level, log_unit_t unit)
 {
-    assert (level < 30);
-    assert (unit < log_numunits);
-    if (unit >= 0) {
-        if (level > log_level || level > log_units[unit].level) return 0;
-    } else {
-        if (level > log_level) return 0;
-    }
-    return 1;
+        assert (level < 30);
+        assert (unit < log_numunits);
+        if (unit >= 0) {
+                if (level > log_level || level > log_units[unit].level) return 0;
+        } else {
+                if (level > log_level) return 0;
+        }
+        return 1;
 }
     
 
 void
 log_msg(int level, log_unit_t unit, char * fmt, ...)
 {
-    va_list ap;
-    char * buf;
+        va_list ap;
+        char * buf;
 
-    assert (level < 30);
-    assert (fmt != NULL);
-    if (unit >= 0)
-    {
-        assert (unit < log_numunits);
-        log_unitdesc_t * up = &log_units[unit];
-        if (level > log_level || level > up->level) return;
+        assert (level < 30);
+        assert (fmt != NULL);
+        if (unit >= 0)
+        {
+                assert (unit < log_numunits);
+                log_unitdesc_t * up = &log_units[unit];
+                if (level > log_level || level > up->level) return;
 
-        va_start(ap, fmt);
-        int result = vasprintf(&buf, fmt, ap);
-        assert (result >= 0);
-        va_end(ap);
+                va_start(ap, fmt);
+                int result = vasprintf(&buf, fmt, ap);
+                assert (result >= 0);
+                va_end(ap);
 
-        fprintf(log_fp, "%s%c: L%d [%s] %s%s%s\n",
-                log_have_colour ? colours[level] : "",
-                sigils[level],
-                level,
-                up->name,
-                //level < 2 ? codes[level] : "   ",
-                log_prefix ? log_prefix : "",
-                buf,
-                log_have_colour ? "\033[0m" : ""
-            );
-    } else {
-        if (level > log_level) return;
+                fprintf(log_fp, "%s%c: L%d [%s] %s%s%s\n",
+                        log_have_colour ? colours[level] : "",
+                        sigils[level],
+                        level,
+                        up->name,
+                        //level < 2 ? codes[level] : "   ",
+                        log_prefix ? log_prefix : "",
+                        buf,
+                        log_have_colour ? "\033[0m" : ""
+                        );
+        } else {
+                if (level > log_level) return;
 
-        va_start(ap, fmt);
-        int result = vasprintf(&buf, fmt, ap);
-        assert (result >= 0);
-        va_end(ap);
+                va_start(ap, fmt);
+                int result = vasprintf(&buf, fmt, ap);
+                assert (result >= 0);
+                va_end(ap);
 
-        fprintf(log_fp, "%s%c: L%d %s%s%s\n",
-                log_have_colour ? colours[level] : "",
-                sigils[level],
-                level,
-                //level < 2 ? codes[level] : "   ",
-                log_prefix ? log_prefix : "",
-                buf,
-                log_have_colour ? "\033[0m" : ""
-            );
-    }
+                fprintf(log_fp, "%s%c: L%d %s%s%s\n",
+                        log_have_colour ? colours[level] : "",
+                        sigils[level],
+                        level,
+                        //level < 2 ? codes[level] : "   ",
+                        log_prefix ? log_prefix : "",
+                        buf,
+                        log_have_colour ? "\033[0m" : ""
+                        );
+        }
 
-    //fflush(log_fp);
-    free(buf);
+        //fflush(log_fp);
+        free(buf);
 }
 
 
 void
 log_done()
 {
-    maybe_free(log_prefix);
-    maybe_free(log_units);
+        maybe_free(log_prefix);
+        maybe_free(log_units);
 }
 
 

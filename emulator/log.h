@@ -62,16 +62,16 @@ int log_enabled(int level, log_unit_t unit);
 
 
 // Sanity checking with strict sanity support.
-#define sanity(msg, ...) {                                      \
-        if (log_strict_sanity) { fatal(msg, ## __VA_ARGS__) }   \
-        else { error(msg, ## __VA_ARGS__); }                    \
-    }
+#define sanity(msg, ...) {                                              \
+                if (log_strict_sanity) { fatal(msg, ## __VA_ARGS__) }   \
+                else { error(msg, ## __VA_ARGS__); }                    \
+        }
 
 #ifdef LOG_MACROS_UNIT
-#  define fatal(msg, ...) {                                             \
-        log_msg(LOG_FATAL, LOG_MACROS_UNIT, msg, ## __VA_ARGS__);       \
-        exit(1);                                                        \
-    }
+#  define fatal(msg, ...) {                                               \
+                log_msg(LOG_FATAL, LOG_MACROS_UNIT, msg, ## __VA_ARGS__); \
+                exit(1);                                                  \
+        }
 #  define error(msg, ...)   log_msg(LOG_ERROR, LOG_MACROS_UNIT, msg, ## __VA_ARGS__)
 #  define warning(msg, ...) log_msg(LOG_WARN, LOG_MACROS_UNIT, msg, ## __VA_ARGS__)
 #  define warn(msg, ...)    log_msg(LOG_WARN, LOG_MACROS_UNIT, msg, ## __VA_ARGS__)
@@ -83,10 +83,10 @@ int log_enabled(int level, log_unit_t unit);
 #  define debug4(msg, ...)  log_msg(LOG_DEBUG4, LOG_MACROS_UNIT, msg, ## __VA_ARGS__)
 #  define log_enabeld(l)    log_enabled(level, LOG_MACROS_UNIT)
 #else
-#  define fatal(msg, ...) {                                        \
-        log_msg(LOG_FATAL, LOG_NO_UNIT, msg, ## __VA_ARGS__);      \
-        exit(1);                                                   \
-    }
+#  define fatal(msg, ...) {                                             \
+                log_msg(LOG_FATAL, LOG_NO_UNIT, msg, ## __VA_ARGS__);   \
+                exit(1);                                                \
+        }
 #  define error(msg, ...)   log_msg(LOG_ERROR, LOG_NO_UNIT, msg, ## __VA_ARGS__)
 #  define warning(msg, ...) log_msg(LOG_WARN, LOG_NO_UNIT, msg, ## __VA_ARGS__)
 #  define warn(msg, ...)    log_msg(LOG_WARN, LOG_NO_UNIT, msg, ## __VA_ARGS__)

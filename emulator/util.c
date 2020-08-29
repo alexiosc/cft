@@ -27,138 +27,138 @@
 void *
 safe_malloc(size_t size)
 {
-    void * res = malloc(size);
-    if (res == NULL) fatal("%s: Failed to allocate %d bytes.", __func__, size);
-    return res;
+        void * res = malloc(size);
+        if (res == NULL) fatal("%s: Failed to allocate %d bytes.", __func__, size);
+        return res;
 }
 
 
 void *
 safe_realloc(void * p, size_t size)
 {
-    void * res = realloc(p, size);
-    if (res == NULL) fatal("%s: Failed to (re)allocate %d bytes.", __func__, size);
-    return res;
+        void * res = realloc(p, size);
+        if (res == NULL) fatal("%s: Failed to (re)allocate %d bytes.", __func__, size);
+        return res;
 }
 
 
 void *
 safe_strdup(char *s)
 {
-    void * res = strdup(s);
-    if (res == NULL) fatal("%s: Failed to duplicate %d-byte string.",
-                           __func__, strlen(s));
-    return res;
+        void * res = strdup(s);
+        if (res == NULL) fatal("%s: Failed to duplicate %d-byte string.",
+                               __func__, strlen(s));
+        return res;
 }
 
 
 char *
 change_ext(char *s, char *ext)
 {
-    assert(s != NULL);
-    assert(ext != NULL);
+        assert(s != NULL);
+        assert(ext != NULL);
 
-    char * dot = strrchr(s, '.');
-    if (dot != NULL) *dot = '\0'; 
-    char * res = (char*) safe_malloc(strlen(s) + strlen(ext) + 1);
-    *res = '\0';
-    strcpy(res, s);
-    strcat(res, ext);
-    if (dot != NULL) *dot = '.';
-    return res;
+        char * dot = strrchr(s, '.');
+        if (dot != NULL) *dot = '\0'; 
+        char * res = (char*) safe_malloc(strlen(s) + strlen(ext) + 1);
+        *res = '\0';
+        strcpy(res, s);
+        strcat(res, ext);
+        if (dot != NULL) *dot = '.';
+        return res;
 }
 
 
 char *
 format_longaddr(longaddr_t addr, char *buf)
 {
-    static char _buf[8];
-    char * s = buf ? buf : _buf;
-    snprintf(s, 8, "%02x:%04x", (addr >> 16) & 0xff, (addr & 0xffff));
-    return s;
+        static char _buf[8];
+        char * s = buf ? buf : _buf;
+        snprintf(s, 8, "%02x:%04x", (addr >> 16) & 0xff, (addr & 0xffff));
+        return s;
 }
 
 
 char *
 format_bin(uint32_t x, uint8_t numbits)
 {
-    static char res[33];
-    char *cp = res;
+        static char res[33];
+        char *cp = res;
 
-    assert (numbits < 32);
-    x &= ((1 << numbits) - 1);  // Mask the operand
+        assert (numbits < 32);
+        x &= ((1 << numbits) - 1);  // Mask the operand
     
-    for (int i = numbits - 1; i >= 0; i--) {
-        *(cp++) = (x & (1 << i)) ? '1': '0';
-    }
-    *cp = 0;
-    if (numbits < 0 || numbits > 32) numbits = 32;
-    return res;
-    //return &res[32 - numbits];
+        for (int i = numbits - 1; i >= 0; i--) {
+                *(cp++) = (x & (1 << i)) ? '1': '0';
+        }
+        *cp = 0;
+        if (numbits < 0 || numbits > 32) numbits = 32;
+        return res;
+        //return &res[32 - numbits];
 }
 
 
 char *
 disasm(word ir, int full_dis, char *buf)
 {
-    static char _buf[80];
-    char * s = buf ? buf : _buf;
+        static char _buf[80];
+        char * s = buf ? buf : _buf;
 
-    static int offsets[16] = { -1, -1, -1, -1, -1, -1, -1, -1,
-                               -1, -1, -1, -1, -1, -1, -1, -1 };
-    if (offsets[0] < 0) {
-        for (int i = NUM_INSTRUCTIONS - 1; i >= 0; i--) {
-            offsets[(instruction_set[i].instr >> 12) & 0xf] = i;
-        }
-    }
-
-    int i = offsets[(ir >> 12) & 0xf];
-
-    // The easy work first
-    if (i < 0) {
-        return strcpy(s, "?");
-    }
-
-    // Okay, now we search.
-    while (instruction_set[i].mnemonic != NULL) {
-        instruction_t * instr = &instruction_set[i];
-        i++;
-        if ((ir & instr->instr_mask) ==  instr->instr) {
-            if (full_dis) {
-                if (instr->bitmap) {
-                    // Not really properly implemented yet
-                    snprintf(s, 80, "%s #%s", instr->mnemonic, format_bin(ir & 0x7f, 7));
-                    return s;
-                } else {
-                    switch (instr->operand_mask) {
-                    case 0:
-                        // No operand
-                        return strncpy(s, instr->mnemonic, 80);
-			
-                    case 7:
-                        // An MBR reference (e.g. IND)
-                        snprintf(s, 80, "%s %d", instr->mnemonic, ir & 7);
-                        return s;
-			
-                    case 0xf:
-                        // Used mostly for rolls, so use integers
-                        snprintf(s, 80, "%s %d", instr->mnemonic, ir & 0xf);
-                        return s;
-			
-                    default:
-                        snprintf(s, 80, "%s &%x", instr->mnemonic, ir & instr->operand_mask);
-                        return s;
-                    }
+        static int offsets[16] = { -1, -1, -1, -1, -1, -1, -1, -1,
+                                   -1, -1, -1, -1, -1, -1, -1, -1 };
+        if (offsets[0] < 0) {
+                for (int i = NUM_INSTRUCTIONS - 1; i >= 0; i--) {
+                        offsets[(instruction_set[i].instr >> 12) & 0xf] = i;
                 }
-            } else {
-                // Simple disassembly, just the instruction
-                return strncpy(s, instr->mnemonic, 80);
-            }
         }
-    }
 
-    // Unknwown instruction
-    return strncpy(s, "?", 80);
+        int i = offsets[(ir >> 12) & 0xf];
+
+        // The easy work first
+        if (i < 0) {
+                return strcpy(s, "?");
+        }
+
+        // Okay, now we search.
+        while (instruction_set[i].mnemonic != NULL) {
+                instruction_t * instr = &instruction_set[i];
+                i++;
+                if ((ir & instr->instr_mask) ==  instr->instr) {
+                        if (full_dis) {
+                                if (instr->bitmap) {
+                                        // Not really properly implemented yet
+                                        snprintf(s, 80, "%s #%s", instr->mnemonic, format_bin(ir & 0x7f, 7));
+                                        return s;
+                                } else {
+                                        switch (instr->operand_mask) {
+                                        case 0:
+                                                // No operand
+                                                return strncpy(s, instr->mnemonic, 80);
+			
+                                        case 7:
+                                                // An MBR reference (e.g. IND)
+                                                snprintf(s, 80, "%s %d", instr->mnemonic, ir & 7);
+                                                return s;
+			
+                                        case 0xf:
+                                                // Used mostly for rolls, so use integers
+                                                snprintf(s, 80, "%s %d", instr->mnemonic, ir & 0xf);
+                                                return s;
+			
+                                        default:
+                                                snprintf(s, 80, "%s &%x", instr->mnemonic, ir & instr->operand_mask);
+                                                return s;
+                                        }
+                                }
+                        } else {
+                                // Simple disassembly, just the instruction
+                                return strncpy(s, instr->mnemonic, 80);
+                        }
+                }
+        }
+
+        // Unknwown instruction
+        return strncpy(s, "?", 80);
 }
 
 
@@ -361,12 +361,12 @@ disasm(word ir, int full_dis, char *buf)
 void
 dump()
 {
-    fprintf(stderr, "dump(): not implemented\n");
-    // dump_mini(0);
-    // dump_state();
-    // dump_ustate();
-    // //dumpstack(0x500, 0x91, 0);
-    // //dumpstack(0x600, 0x92, 1);
+        fprintf(stderr, "dump(): not implemented\n");
+        // dump_mini(0);
+        // dump_state();
+        // dump_ustate();
+        // //dumpstack(0x500, 0x91, 0);
+        // //dumpstack(0x600, 0x92, 1);
 }
 
 

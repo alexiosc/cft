@@ -28,8 +28,8 @@
 
 
 typedef struct {
-    uint16_t c[UTERM_WIDTH];
-    uint8_t  b[UTERM_WIDTH];
+        uint16_t c[UTERM_WIDTH];
+        uint8_t  b[UTERM_WIDTH];
 } uterm_line_t;
 
 
@@ -38,32 +38,32 @@ typedef struct {
 #define ATTR_DEFAULT 42
 
 typedef struct {
-    uint32_t       magic;
-    uterm_line_t * screen;
-    uint32_t       numlines;    // Size of screen.
+        uint32_t       magic;
+        uterm_line_t * screen;
+        uint32_t       numlines;    // Size of screen.
 
-    int            bs;          // Backscroll flag
-    uint32_t       topline0;    // Pre-scrollback top line
-    uint32_t       topline;     // Top line last drawn
+        int            bs;          // Backscroll flag
+        uint32_t       topline0;    // Pre-scrollback top line
+        uint32_t       topline;     // Top line last drawn
 
-    uint32_t       cursline;    // Cursor line in the ring buffer
-    uint8_t        cursofs;     // Cursor X position (0..79)
+        uint32_t       cursline;    // Cursor line in the ring buffer
+        uint8_t        cursofs;     // Cursor X position (0..79)
 	
-    int            dirty;       // Terminal written to since last draw.
+        int            dirty;       // Terminal written to since last draw.
 	
-    int            wrapped;     // Has the terminal just wrapped around?
+        int            wrapped;     // Has the terminal just wrapped around?
 
-    int            state;       // Directive parser state
-    char           buf[256];    // Directive argument buffer
-    int            bp;          // Buffer pointer
+        int            state;       // Directive parser state
+        char           buf[256];    // Directive argument buffer
+        int            bp;          // Buffer pointer
 
-    int            fg;          // Current foreground
-    int            bg;          // Current background
-    int            bold;        // Bold state
-    int            blink;       // Blink state
-    int            inv;         // Inverse state
+        int            fg;          // Current foreground
+        int            bg;          // Current background
+        int            bold;        // Bold state
+        int            blink;       // Blink state
+        int            inv;         // Inverse state
 
-    word           attr;        // Current attribute
+        word           attr;        // Current attribute
 	
 } uterm_t;
 
