@@ -67,6 +67,16 @@ iodev_t iodevs[] = {
         .tick = deb_tick
     },
 	
+    {
+        .name = "Debugging Front Panel 2",
+        .code = "DFP",
+        .enabled = 0,
+        .init = dfp_init,
+        .read = dfp_read,
+        .write = dfp_write,
+        .tick = dfp_tick
+    },
+	
 /*
     {
         .name = "Interrupt Controller",
