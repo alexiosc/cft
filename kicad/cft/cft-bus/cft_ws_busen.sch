@@ -851,7 +851,6 @@ Text HLabel 9550 3000 2    50   Output ~ 0
 ~WAITING
 Wire Notes Line
 	8750 3100 7500 3100
-NoConn ~ 4750 3300
 Wire Wire Line
 	5150 3250 7450 3250
 Wire Wire Line
@@ -1922,8 +1921,71 @@ Text Label 3650 2450 0    50   ~ 0
 CLK2'
 Text Label 3750 3300 1    50   ~ 0
 ~SETWS
+$Comp
+L power:GND #PWR?
+U 1 1 5F579E6F
+P 5000 2700
+AR Path="/5F579E6F" Ref="#PWR?"  Part="1" 
+AR Path="/5F3EA987/5F579E6F" Ref="#PWR?"  Part="1" 
+AR Path="/61F95ACC/5F579E6F" Ref="#PWR?"  Part="1" 
+AR Path="/5D46B22D/5F579E6F" Ref="#PWR080"  Part="1" 
+F 0 "#PWR080" H 5000 2450 50  0001 C CNN
+F 1 "GND" H 5005 2527 50  0000 C CNN
+F 2 "" H 5000 2700 50  0001 C CNN
+F 3 "" H 5000 2700 50  0001 C CNN
+	1    5000 2700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4850 2700 4850 2650
+Wire Wire Line
+	4850 2650 5000 2650
+Wire Wire Line
+	5000 2650 5000 2700
+Wire Wire Line
+	4750 3300 4850 3300
+Wire Wire Line
+	4850 3300 4850 3250
+Wire Wire Line
+	4850 3000 4850 3050
+Wire Notes Line
+	4600 2600 5100 2600
+Wire Notes Line
+	4600 3450 4600 2600
+Wire Notes Line
+	5100 3450 4600 3450
+Text Notes 4750 3400 0    50   ~ 0
+Optional
+Wire Notes Line
+	5100 2600 5100 3450
 Wire Bus Line
 	8750 3250 8750 5600
 Wire Bus Line
 	6850 3600 6850 6050
+$Comp
+L Device:LED_ALT D?
+U 1 1 5F579E63
+P 4850 2850
+AR Path="/61F95ACC/5F579E63" Ref="D?"  Part="1" 
+AR Path="/5D46B22D/5F579E63" Ref="D2"  Part="1" 
+F 0 "D2" V 4950 2900 50  0000 L CNN
+F 1 "LED_ALT" H 4843 2686 50  0001 C CNN
+F 2 "alexios:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 4850 2850 50  0001 C CNN
+F 3 "~" H 4850 2850 50  0001 C CNN
+	1    4850 2850
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Small R?
+U 1 1 5F579E69
+P 4850 3150
+AR Path="/61F95ACC/5F579E69" Ref="R?"  Part="1" 
+AR Path="/5D46B22D/5F579E69" Ref="R16"  Part="1" 
+F 0 "R16" H 5050 3250 50  0000 R CNN
+F 1 "680Ω" V 4750 3250 50  0000 R CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 4850 3150 50  0001 C CNN
+F 3 "~" H 4850 3150 50  0001 C CNN
+	1    4850 3150
+	-1   0    0    -1  
+$EndComp
 $EndSCHEMATC

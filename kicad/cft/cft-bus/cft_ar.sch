@@ -1595,8 +1595,8 @@ Wire Wire Line
 	7650 1900 7650 2000
 Wire Wire Line
 	7650 1900 7700 1900
-Text Notes 650  4200 0    50   ~ 0
-The CFT has no bus sharing features normally,\nand it uses slow ROMs, so it helps to drive the\nAB continuously (expect when HALTed).\n\nThese jumpers can set the AB tri-stating when\nnot in use, but the feature is highly\nexperimental.
+Text Notes 650  4450 0    50   ~ 0
+The CFT has no bus sharing features normally,\nand it uses slow ROMs, so it helps to drive the\nAB continuously (expect when HALTed).\n\nThese jumpers can set the AB tri-stating when\nnot in use, but the feature is highly\nexperimental.\n\nCurrently, the CPU only passes tests with the\ndefault configuration here.
 $Comp
 L alexios:74LVC1G32 U51
 U 1 1 604BFBBC
@@ -1787,6 +1787,14 @@ F 3 "~" H 1300 2950 50  0001 C CNN
 	1    1300 2950
 	0    -1   -1   0   
 $EndComp
+Wire Notes Line
+	1400 1850 1400 2500
+Wire Notes Line
+	1400 2500 2000 2500
+Wire Notes Line
+	2000 2500 2000 1850
+Wire Notes Line
+	2000 1850 1400 1850
 Wire Bus Line
 	6900 950  6900 1200
 Wire Bus Line
@@ -1801,4 +1809,6 @@ Wire Bus Line
 	6600 1350 6600 5900
 Wire Bus Line
 	4950 950  4950 5200
+Text Notes 1450 2450 0    50   ~ 0
+Optional
 $EndSCHEMATC
