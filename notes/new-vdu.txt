@@ -14,18 +14,58 @@ Vertical resolutions: 480, 240, 120, 60, 30.
 Horizontal resolution: 640, 320, 160, 80, 40.
 
 
+## Addressing
+
+Even though the 2019 improvements to the CFT include a relatively fast
+arbitrary distance shift/rotate unit, it helps if the row pitch (in
+words) is a power of 2. So, like on the previous VDU, the new VDU's
+address is also its co-ordinate system:
+
+* 7 bits: column (0–127)
+* 9 bits: row (0–511)
+
+
 ## Display Lists
 
-Enterprise 64/128 display lists read/interpreted at start of scan line.
+The VDU uses an Enterprise 64/128-style display list system where an
+entry is read and interpreted at the beginning of every scanline. Like
+the Enterprise (and unlike Atari), there are no jump operations here
+and we have fewer modes, but more combinations.
 
-Each DP line contains:
+* 2 bits: Register bank bit (4 banks of start registers etc.)
+* 18 bits:  Row start address.
+* 1 bit:    Row start X relative bit
+* 1 bit:    Row start Y relative bit
+* 4-6 bits: Repetition counter (font height)
+* 2-4 bits: Clock select bits (e.g. 2× horizontal/vertical)
+* 2 bits:   Mode setting bit: character/bitmap/blank/end
+* 2 bits:   Future expansion: palette selection bits.
+* 1 bit:    Interrupt.
 
-* Row start address.
-* Repetition counter (font height)
-* Mode setting bits.
-* Smooth scrolling?
+Let's allow for 48 bits, which is three reads from the video RAM, or
+30–45ns depending. The horizontal porches are nearly 5µs wide, so we
+definitely have the time.
+
+WORD 0:
++----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+|    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |
++----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+
+WORD 1:
++----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+|    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |
++----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+
+WORD 2:
++----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+
+|    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |    |
++----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+----+
 
 
 ## Problems to solve
 
 * Cheap character cell scrolling
+
+
+
+
