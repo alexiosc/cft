@@ -1144,6 +1144,56 @@ Wire Wire Line
 	1850 2550 2400 2550
 Text Label 1850 2550 0    50   ~ 0
 CLK4
+$Comp
+L power:+5V #PWR?
+U 1 1 5F91D04D
+P 10100 5900
+AR Path="/5F67D4B5/5F91D04D" Ref="#PWR?"  Part="1" 
+AR Path="/5F91D04D" Ref="#PWR012"  Part="1" 
+AR Path="/5D34E810/5F91D04D" Ref="#PWR?"  Part="1" 
+AR Path="/5D36B851/5F91D04D" Ref="#PWR?"  Part="1" 
+AR Path="/5F1DB2E8/5F91D04D" Ref="#PWR?"  Part="1" 
+F 0 "#PWR012" H 10100 5750 50  0001 C CNN
+F 1 "+5V" H 10042 5937 50  0000 R CNN
+F 2 "" H 10100 5900 50  0001 C CNN
+F 3 "" H 10100 5900 50  0001 C CNN
+	1    10100 5900
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5F91D053
+P 10100 6300
+AR Path="/5F67D4B5/5F91D053" Ref="#PWR?"  Part="1" 
+AR Path="/5F91D053" Ref="#PWR013"  Part="1" 
+AR Path="/5D34E810/5F91D053" Ref="#PWR?"  Part="1" 
+AR Path="/5D36B851/5F91D053" Ref="#PWR?"  Part="1" 
+AR Path="/5F1DB2E8/5F91D053" Ref="#PWR?"  Part="1" 
+F 0 "#PWR013" H 10100 6050 50  0001 C CNN
+F 1 "GND" H 10022 6263 50  0000 R CNN
+F 2 "" H 10100 6300 50  0001 C CNN
+F 3 "" H 10100 6300 50  0001 C CNN
+	1    10100 6300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	10100 5900 10100 6000
+$Comp
+L Device:CP_Small C36
+U 1 1 5F91D05A
+P 10100 6100
+AR Path="/5F91D05A" Ref="C36"  Part="1" 
+AR Path="/5D34E810/5F91D05A" Ref="C?"  Part="1" 
+AR Path="/5F1DB2E8/5F91D05A" Ref="C?"  Part="1" 
+F 0 "C36" H 10012 6146 50  0000 R CNN
+F 1 "47µF" H 10012 6055 50  0000 R CNN
+F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 10100 6100 50  0001 C CNN
+F 3 "~" H 10100 6100 50  0001 C CNN
+	1    10100 6100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	10100 6200 10100 6300
 Wire Bus Line
 	7200 1450 7200 4700
 Wire Bus Line

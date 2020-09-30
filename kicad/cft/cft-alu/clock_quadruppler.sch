@@ -506,18 +506,18 @@ NoConn ~ 4800 5000
 $Comp
 L alexios:74LVC1G04 U?
 U 1 1 5F0A251C
-P 6350 4500
+P 6600 4350
 AR Path="/5DF75CDE/5F0A251C" Ref="U?"  Part="1" 
 AR Path="/5DF75CDE/5EF12B5A/5F0A251C" Ref="U21"  Part="1" 
-F 0 "U21" H 6300 4767 50  0000 C CNN
-F 1 "74LVC1G04" H 6300 4676 50  0000 C CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 6350 4500 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G04.pdf" H 6350 4500 50  0001 C CNN
-	1    6350 4500
+F 0 "U21" H 6550 4617 50  0000 C CNN
+F 1 "74LVC1G04" H 6550 4526 50  0000 C CNN
+F 2 "alexios:SOT-23-5_HandSoldering" H 6600 4350 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G04.pdf" H 6600 4350 50  0001 C CNN
+	1    6600 4350
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	5800 4500 6050 4500
+	5800 4500 6250 4500
 $Comp
 L Device:R_Small R?
 U 1 1 5F0A2523
@@ -531,8 +531,6 @@ F 3 "~" H 7250 4500 50  0001 C CNN
 	1    7250 4500
 	0    1    1    0   
 $EndComp
-Wire Wire Line
-	6550 4500 7150 4500
 $Comp
 L Jumper:SolderJumper_2_Open JP?
 U 1 1 5F0A252B
@@ -1107,16 +1105,16 @@ Wire Notes Line
 	7250 1750 7250 2600
 Wire Notes Line
 	7250 3600 7250 4250
-Text Notes 5950 4150 0    50   ~ 0
-Bridge pins 2 & 4 if\nU21 is not needed.
+Text Notes 6200 4000 0    50   ~ 0
+Bridge JP6 if U21\nis not needed.
 Wire Notes Line
-	5850 3900 5850 4700
+	6150 3750 6150 4800
 Wire Notes Line
-	5850 4700 6850 4700
+	6150 4800 7050 4800
 Wire Notes Line
-	6850 4700 6850 3900
+	7050 4800 7050 3750
 Wire Notes Line
-	6850 3900 5850 3900
+	7050 3750 6150 3750
 Wire Notes Line
 	4050 800  4050 2350
 Wire Notes Line
@@ -1283,4 +1281,35 @@ Wire Notes Line width 10 style solid
 	8900 3900 8900 4000
 Text Notes 8400 4000 0    50   ~ 0
 CLK4
+Wire Wire Line
+	6250 4500 6250 4650
+Wire Wire Line
+	6250 4650 6400 4650
+Connection ~ 6250 4500
+Wire Wire Line
+	6700 4650 6950 4650
+Wire Wire Line
+	6950 4650 6950 4500
+Connection ~ 6950 4500
+Wire Wire Line
+	6950 4500 7150 4500
+Wire Wire Line
+	6250 4350 6300 4350
+Wire Wire Line
+	6800 4350 6950 4350
+Wire Wire Line
+	6950 4350 6950 4500
+Wire Wire Line
+	6250 4350 6250 4500
+$Comp
+L Jumper:SolderJumper_2_Bridged JP6
+U 1 1 5F834555
+P 6550 4650
+F 0 "JP6" H 6550 4763 50  0000 C CNN
+F 1 "SolderJumper_2_Bridged" H 6550 4764 50  0001 C CNN
+F 2 "alexios:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 6550 4650 50  0001 C CNN
+F 3 "~" H 6550 4650 50  0001 C CNN
+	1    6550 4650
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
