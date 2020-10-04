@@ -22,6 +22,7 @@ static const struct {
 	{"fpdump",  go_fpdump,   "-- Dump full FP address space"},
        	{"dsr",     gs_dsr,      "[ WORD | - ] -- Get, read, or override the DIP Switches"},
        	{"sws",     go_sws,      "-- Show Switch state" NL },
+       	{"ltest",   go_ltest,    "-- Light test" NL },
 
 	// Buses
 

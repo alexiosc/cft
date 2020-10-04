@@ -124,8 +124,9 @@ static void gs_or();
 
 static void go_fpr();
 static void go_fpdump();
-static void go_sws();
 static void gs_dsr();
+static void go_sws();
+static void go_ltest();
 
 static void gs_ir();
 static void gs_pc();
@@ -972,6 +973,39 @@ gs_dsr()
 		report_gs(0);
 	}
 	report_hex_value(PSTR(STR_DSR), hwstate.dsr, 4);
+}
+
+
+static void
+go_ltest()
+{
+        fp_grab();
+
+        hwstate.is_busy = 1;
+	uistate.is_inpok = 0;
+	uistate.is_break = 0;
+
+        uint8_t fpaddr = 0;
+        uint8_t val = 0;
+
+	while (!uistate.is_inpok && !uistate.is_break) {
+		wdt_reset();
+		_delay_ms(20);
+
+                xmem_write(fpaddr++, val);
+                if (fpaddr == XMEM_SCANCLR) {
+                        fpaddr = 0;
+                        val++;
+                }
+        }
+        
+        fp_release();
+
+        hwstate.is_busy = 0;
+	uistate.is_inpok = 0;
+	uistate.is_break = 0;
+
+	report_pstr(PSTR(STR_DONE));
 }
 
 

@@ -79,9 +79,3 @@ const static const struct {
 
 
 #endif // __PROTO_CMDS_H
-// Local Variables:
-// eval: (c-set-style "K&R")
-// c-basic-offset: 8
-// indent-tabs-mode: nil
-// fill-column: 79
-// End:

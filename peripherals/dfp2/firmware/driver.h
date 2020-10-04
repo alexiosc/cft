@@ -108,6 +108,13 @@ extern unsigned char proto_input(unsigned char c);
 // Read an arbitrary address from the DFP bus.
 uint8_t read_dfp_address(xmem_addr_t a);
 
+// Obtain full control of the front panel lights.
+void fp_grab();
+
+// Release the front panel lights to the CFT.
+void fp_release();
+
+
 
 ///////////////////////////////////////////////////////////////////////////////
 //

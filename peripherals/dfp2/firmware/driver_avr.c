@@ -780,7 +780,7 @@ fp_scanner_start()
 }
 
 
-inline static void
+inline void
 fp_grab()
 {
     hwstate.fp_scanen = 0;
@@ -790,7 +790,7 @@ fp_grab()
 }
 
 
-inline static void
+inline void
 fp_release()
 {
     PORTD &= ~(BV(D_NSCANEN) | BV(D_NPANELEN));
