@@ -534,55 +534,44 @@ $EndComp
 $Comp
 L Jumper:SolderJumper_2_Open JP?
 U 1 1 5F0A252B
-P 6050 4950
+P 6050 5150
 AR Path="/5DF75CDE/5F0A252B" Ref="JP?"  Part="1" 
 AR Path="/5DF75CDE/5EF12B5A/5F0A252B" Ref="JP2"  Part="1" 
-F 0 "JP2" V 6050 5100 50  0000 C CNN
-F 1 "SolderJumper_2_Open" H 6050 5064 50  0001 C CNN
-F 2 "Jumper:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm" H 6050 4950 50  0001 C CNN
-F 3 "~" H 6050 4950 50  0001 C CNN
-	1    6050 4950
+F 0 "JP2" V 6150 5300 50  0000 C CNN
+F 1 "SolderJumper_2_Open" H 6050 5264 50  0001 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm" H 6050 5150 50  0001 C CNN
+F 3 "~" H 6050 5150 50  0001 C CNN
+	1    6050 5150
 	0    1    1    0   
 $EndComp
 $Comp
 L power:GND #PWR?
 U 1 1 5F0A2531
-P 5850 5150
+P 5850 5350
 AR Path="/5DF75CDE/5F0A2531" Ref="#PWR?"  Part="1" 
 AR Path="/5DF75CDE/5EF12B5A/5F0A2531" Ref="#PWR0156"  Part="1" 
-F 0 "#PWR0156" H 5850 4900 50  0001 C CNN
-F 1 "GND" H 5855 4977 50  0000 C CNN
-F 2 "" H 5850 5150 50  0001 C CNN
-F 3 "" H 5850 5150 50  0001 C CNN
-	1    5850 5150
+F 0 "#PWR0156" H 5850 5100 50  0001 C CNN
+F 1 "GND" H 5855 5177 50  0000 C CNN
+F 2 "" H 5850 5350 50  0001 C CNN
+F 3 "" H 5850 5350 50  0001 C CNN
+	1    5850 5350
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	5800 4900 5850 4900
-Wire Wire Line
-	5850 5150 5850 5000
 Wire Wire Line
 	5800 4800 6050 4800
 $Comp
 L power:GND #PWR?
 U 1 1 5F0A253A
-P 6050 5150
+P 6050 5350
 AR Path="/5DF75CDE/5F0A253A" Ref="#PWR?"  Part="1" 
 AR Path="/5DF75CDE/5EF12B5A/5F0A253A" Ref="#PWR0222"  Part="1" 
-F 0 "#PWR0222" H 6050 4900 50  0001 C CNN
-F 1 "GND" H 6055 4977 50  0000 C CNN
-F 2 "" H 6050 5150 50  0001 C CNN
-F 3 "" H 6050 5150 50  0001 C CNN
-	1    6050 5150
+F 0 "#PWR0222" H 6050 5100 50  0001 C CNN
+F 1 "GND" H 6055 5177 50  0000 C CNN
+F 2 "" H 6050 5350 50  0001 C CNN
+F 3 "" H 6050 5350 50  0001 C CNN
+	1    6050 5350
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	6050 5100 6050 5150
-Wire Wire Line
-	5800 5000 5850 5000
-Connection ~ 5850 5000
-Wire Wire Line
-	5850 5000 5850 4900
 Text Label 7650 4500 2    50   ~ 0
 x4CLK
 Connection ~ 4800 7050
@@ -1124,13 +1113,7 @@ Wire Notes Line
 Wire Notes Line
 	8000 800  4050 800 
 Wire Notes Line
-	8000 5450 8000 2450
-Wire Notes Line
 	8000 2450 4050 2450
-Wire Notes Line
-	4050 2450 4050 5450
-Wire Notes Line
-	4050 5450 8000 5450
 Wire Notes Line width 20 style solid
 	1250 5450 1250 3950
 Wire Notes Line width 20 style solid
@@ -1312,4 +1295,38 @@ F 3 "~" H 6550 4650 50  0001 C CNN
 	1    6550 4650
 	1    0    0    -1  
 $EndComp
+Wire Wire Line
+	6050 4800 6050 5000
+Wire Wire Line
+	6050 5300 6050 5350
+Wire Wire Line
+	5800 4900 5850 4900
+Wire Wire Line
+	5850 4900 5850 5000
+Wire Wire Line
+	5800 5000 5850 5000
+Wire Wire Line
+	5850 5300 5850 5350
+Text Notes 5600 5450 2    50   ~ 0
+JP7 is bridged by\ndefault (×4 clock).\nBreak for ×2.
+$Comp
+L Jumper:SolderJumper_2_Bridged JP7
+U 1 1 5F94173F
+P 5850 5150
+F 0 "JP7" V 5950 4950 50  0000 L CNN
+F 1 "SolderJumper_2_Bridged" H 5850 5264 50  0001 C CNN
+F 2 "alexios:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" H 5850 5150 50  0001 C CNN
+F 3 "~" H 5850 5150 50  0001 C CNN
+	1    5850 5150
+	0    1    1    0   
+$EndComp
+Connection ~ 5850 5000
+Text Notes 6350 5350 0    50   ~ 0
+Bridge JP2 to disable\nclock output.
+Wire Notes Line
+	4050 5700 8000 5700
+Wire Notes Line
+	4050 2450 4050 5700
+Wire Notes Line
+	8000 5700 8000 2450
 $EndSCHEMATC
