@@ -278,7 +278,7 @@ sample()
     // simultaneously sample their respective buses.
     clearbit(PORTB, B_BUSCP);
     setbit(PORTB, B_BUSCP);
-}
+} 
 
 
 const uint8_t state_addrs[] PROGMEM = {
@@ -324,7 +324,7 @@ read_full_state()
     hwstate.ibus_h = xmem_read(XMEM_DB_H);
     hwstate.ibus_l = xmem_read(XMEM_DB_L);
 
-    hwstate.dsr = xmem_read(XMEM_DSR);
+    hwstate.dsr = DSR_HIGH | xmem_read(XMEM_DSR);
 
     // Read via buffers in the computer.
     hwstate.ucv_h = xmem_read(XMEM_UCV_H);

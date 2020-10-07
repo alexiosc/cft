@@ -24,7 +24,7 @@ static const struct {
        	{"sws",     go_sws,      "-- Show Switch state" NL },
        	{"ltest",   go_ltest,    "-- Light test" NL },
 
-	// Buses
+ 	// Buses
 
        	{"ibus",    say_ibus,    "-- Read IBus"},
        	{"abus",    say_abus,    "-- Read Address bus"},

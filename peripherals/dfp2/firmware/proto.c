@@ -992,7 +992,7 @@ go_ltest()
 		wdt_reset();
 		_delay_ms(20);
 
-                xmem_write(fpaddr++, val);
+                //xmem_write(fpaddr++, val);
                 if (fpaddr == XMEM_SCANCLR) {
                         fpaddr = 0;
                         val++;
