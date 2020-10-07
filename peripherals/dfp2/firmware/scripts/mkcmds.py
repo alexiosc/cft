@@ -11,7 +11,7 @@ print("""// -*- c -*-
 """)
 
 source = sys.stdin.read()
-data = re.findall('\n\s*\{"(.+?)",\s*(\w+),\s*\"(.+?)\"\}', source)
+data = re.findall('\n\s*\{"(.+?)",\s*(\w+),\s*\"(.+?)\".*\}', source)
 #pprint.pprint(data)
 
 source = source.split('\n')
