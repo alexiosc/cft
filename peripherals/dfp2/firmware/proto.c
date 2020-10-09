@@ -990,9 +990,23 @@ go_ltest()
 
 	while (!uistate.is_inpok && !uistate.is_break) {
 		wdt_reset();
-		_delay_ms(20);
 
-                //xmem_write(fpaddr++, val);
+                fp_write(0, 0, ++val);
+		_delay_ms(100);
+                report_char('.');
+                fp_write(0, 1, ++val);
+		_delay_ms(100);
+                report_char('.');
+                fp_write(0, 2, ++val);
+		_delay_ms(100);
+                report_char('.');
+                fp_write(0, 3, ++val);
+		_delay_ms(100);
+                report_char('.');
+                fp_write(0, 4, ++val);
+		_delay_ms(100);
+                report_char('\n');
+
                 if (fpaddr == XMEM_SCANCLR) {
                         fpaddr = 0;
                         val++;

@@ -783,6 +783,7 @@ fp_scanner_start()
 inline void
 fp_grab()
 {
+        MCUCR = 0; // Disable XMEM, release Porta A
     hwstate.fp_scanen = 0;
     hwstate.fp_panelen = 0;
     PORTD |= BV(D_NSCANEN) | BV(D_NPANELEN);
@@ -796,6 +797,7 @@ fp_release()
     PORTD &= ~(BV(D_NSCANEN) | BV(D_NPANELEN));
     hwstate.fp_scanen = 0;
     hwstate.fp_panelen = 0;
+    MCUCR = BV(SRE);  // Enable XMEM.
 }
 
 
@@ -806,7 +808,7 @@ fp_release()
 #define fp_coords(row, col) ((((row) & 3) << 2) | (col))
 
 // PRECONDITION: call fp_grab() first.
-inline static void
+void
 fp_write(uint8_t module, uint8_t row, uint8_t value)
 {
     xmem_write((row << 2) | (module & 3), value);
@@ -902,7 +904,7 @@ avr_init()
         BV(XMM1) |
         BV(XMM2);
 
-    MCUCR =  BV(SRE);	// *NOW* we can enable XMEM.
+    //MCUCR =  BV(SRE);	// *NOW* we can enable XMEM.
 
     // XMEM overrides our settings for Port A.
 

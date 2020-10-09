@@ -114,6 +114,13 @@ void fp_grab();
 // Release the front panel lights to the CFT.
 void fp_release();
 
+// Front panel light addresses are in the range 0 to 19 (base 10), first across
+// then down. Module A1 is top left (address 0), module D1 is top right
+// (address 3), module D5 is bottom right (address 19).
+//
+// PRECONDITION: call fp_grab() first.
+void
+fp_write(uint8_t module, uint8_t row, uint8_t value);
 
 
 ///////////////////////////////////////////////////////////////////////////////
