@@ -650,21 +650,6 @@ Text Label 2450 2500 0    50   ~ 0
 FPA3
 Text Label 2450 2600 0    50   ~ 0
 FPA4
-$Comp
-L power:+5V #PWR?
-U 1 1 5F0F1103
-P 2600 3000
-AR Path="/5F0F1103" Ref="#PWR?"  Part="1" 
-AR Path="/6233F88C/5F0F1103" Ref="#PWR01211"  Part="1" 
-F 0 "#PWR01211" H 2600 2850 50  0001 C CNN
-F 1 "+5V" H 2615 3173 50  0000 C CNN
-F 2 "" H 2600 3000 50  0001 C CNN
-F 3 "" H 2600 3000 50  0001 C CNN
-	1    2600 3000
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	2650 3000 2600 3000
 Wire Wire Line
 	3650 1500 4150 1500
 Wire Wire Line
@@ -805,10 +790,6 @@ Wire Wire Line
 	2600 1650 2600 1700
 Wire Wire Line
 	2600 1700 2650 1700
-Wire Wire Line
-	2650 1900 2600 1900
-Wire Wire Line
-	2600 1900 2600 1950
 $Comp
 L power:GND #PWR01210
 U 1 1 5E6791E0
@@ -2413,9 +2394,9 @@ Text Label 2450 3200 0    50   ~ 0
 FPA7
 Text Label 2450 3100 0    50   ~ 0
 FPA6
-Text Notes 2000 3950 0    50   ~ 0
-ROW₁ to ROW₅ are decoded strobes for the front\npanel modules. The appropriate module is enabled\nfor writing using address FA₀–FA₁ and the desired\n8-bit register on that module is clocked using\nthe ROW strobes.
-Text Notes 750  2550 0    50   ~ 0
+Text Notes 2500 4050 0    50   ~ 0
+ROW₁ to ROW₅ are decoded strobes\nfor the front panel modules. The\nappropriate module is enabled for\nwriting using address FA₀–FA₁ and\nthe desired 8-bit register on that\nmodule is clocked using the ROW\nstrobes.
+Text Notes 750  1600 0    50   ~ 0
 When ~PANELEN~ is de-asserted,\nthe MCU can control the front panel\nlights directly.\n\n~PANELEN~ should ALWAYS be\nde-asserted when writing to MCU\naddresses &00–&03F.
 $Comp
 L alexios:74HC138 U?
@@ -2436,8 +2417,8 @@ U 2 1 5E296CDE
 P 1250 7400
 AR Path="/5E296CDE" Ref="U?"  Part="1" 
 AR Path="/6233F88C/5E296CDE" Ref="U1202"  Part="2" 
-F 0 "U1202" H 1250 8067 50  0000 C CNN
-F 1 "74HC138" H 1250 7976 50  0000 C CNN
+F 0 "U1202" H 1430 7446 50  0000 L CNN
+F 1 "74HC138" H 1430 7355 50  0000 L CNN
 F 2 "alexios:SOIC-16" H 1250 7400 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 1250 7400 50  0001 C CNN
 	2    1250 7400
@@ -2447,6 +2428,111 @@ Connection ~ 900  7300
 Connection ~ 900  7500
 Wire Wire Line
 	4850 5400 4850 5450
+Wire Wire Line
+	2650 1900 2600 1900
+Wire Wire Line
+	1600 4750 1150 4750
+Wire Wire Line
+	1600 4850 1150 4850
+Text HLabel 1150 4750 0    50   Input ~ 0
+~WR
+Text HLabel 1150 4850 0    50   Input ~ 0
+~SCANEN
+Text Label 1250 4750 0    50   ~ 0
+~WR
+Text Label 1250 4850 0    50   ~ 0
+~SCANEN
+Wire Notes Line width 24 style solid
+	650  6100 650  4150
+Text Notes 750  5250 0    63   ~ 13
+Erratum, rev. A (1930)
+$Comp
+L alexios:74LVC1G00 U1207
+U 1 1 5FBBC9C6
+P 1900 4800
+F 0 "U1207" H 1825 5067 50  0000 C CNN
+F 1 "74LVC1G00" H 1825 4976 50  0000 C CNN
+F 2 "" H 1550 4800 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G00.pdf" H 1550 4800 50  0001 C CNN
+	1    1900 4800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2650 3000 2400 3000
+Wire Wire Line
+	2400 3000 2300 2900
+Wire Wire Line
+	2300 2900 2100 2900
+Text Label 2450 3000 0    50   ~ 0
+FPGATE
+Text Label 2150 4800 0    50   ~ 0
+FPGATE
+Wire Notes Line width 24 style solid
+	650  4150 3950 4150
+Wire Wire Line
+	2600 1950 2600 1900
+Wire Wire Line
+	2100 2900 2100 4250
+Wire Wire Line
+	2500 4250 2100 4250
+Wire Wire Line
+	2500 4800 2500 4250
+Wire Wire Line
+	2050 4800 2500 4800
+$Comp
+L alexios:74LVC1G00 U1207
+U 2 1 601121D9
+P 3300 4700
+F 0 "U1207" H 3380 4646 50  0000 L CNN
+F 1 "74LVC1G00" H 3380 4555 50  0000 L CNN
+F 2 "" H 2950 4700 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G00.pdf" H 2950 4700 50  0001 C CNN
+	2    3300 4700
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 6011422E
+P 2850 4800
+AR Path="/6011422E" Ref="C?"  Part="1" 
+AR Path="/6233F88C/6011422E" Ref="C1"  Part="1" 
+F 0 "C1" H 2759 4846 50  0000 R CNN
+F 1 "100nF" H 2759 4755 50  0000 R CNN
+F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2850 4800 50  0001 C CNN
+F 3 "~" H 2850 4800 50  0001 C CNN
+	1    2850 4800
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR01
+U 1 1 60114234
+P 2850 4700
+F 0 "#PWR01" H 2850 4550 50  0001 C CNN
+F 1 "+5V" H 2865 4873 50  0000 C CNN
+F 2 "" H 2850 4700 50  0001 C CNN
+F 3 "" H 2850 4700 50  0001 C CNN
+	1    2850 4700
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR02
+U 1 1 6011423A
+P 2850 4900
+F 0 "#PWR02" H 2850 4650 50  0001 C CNN
+F 1 "GND" H 2855 4727 50  0000 C CNN
+F 2 "" H 2850 4900 50  0001 C CNN
+F 3 "" H 2850 4900 50  0001 C CNN
+	1    2850 4900
+	1    0    0    -1  
+$EndComp
+Connection ~ 2850 4900
+Connection ~ 2850 4700
+Text Notes 750  6000 0    50   ~ 0
+In XMem mode, the Atmega writes to its address bus all the time, but the '138\ndecoder in Rev. A of the board isn't gated, so the front panel shows the inner\nworkings of the Atmega instead of the CFT!\n\nU1202 should be gated such that it strobes ~ROWx~ when either ~SCANEN~\nor the Atmega's ~WR~ signal is asserted.\n\nNote: this removes the (unused) ‘snoop-update’ mode of the FP.
+Wire Notes Line width 24 style solid
+	3950 4150 3950 6100
+Wire Notes Line width 24 style solid
+	3950 6100 650  6100
 Wire Bus Line
 	4150 2500 4150 6250
 Wire Bus Line
