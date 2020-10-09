@@ -930,7 +930,7 @@ avr_init()
 
     //         ---43210
     DDRG =   0b00000000; // Port G direction, XMEM control pins
-    PORTG =  0b00000000; // Disable pull-ups.
+    PORTG =  0b00000011; // ~RD and ~WR pull-ups.
 }
 
 
