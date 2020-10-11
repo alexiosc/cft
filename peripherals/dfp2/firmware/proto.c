@@ -938,7 +938,7 @@ static void
 go_sws()
 {
 	// The AVR driver reads and debounces switches in an ISR that runs at
-	// 60Hz. But we also call this synchronous hook in case another drivers
+	// 60Hz. But we also call this synchronous hook in case another driver
 	// needs it.
 	sw_read();
 	report_pstr(PSTR(STR_SWS));
