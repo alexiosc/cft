@@ -2452,7 +2452,7 @@ U 1 1 5FBBC9C6
 P 1900 4800
 F 0 "U1207" H 1825 5067 50  0000 C CNN
 F 1 "74LVC1G00" H 1825 4976 50  0000 C CNN
-F 2 "" H 1550 4800 50  0001 C CNN
+F 2 "alexios:SOT-23-5_HandSoldering" H 1550 4800 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G00.pdf" H 1550 4800 50  0001 C CNN
 	1    1900 4800
 	1    0    0    -1  
@@ -2485,7 +2485,7 @@ U 2 1 601121D9
 P 3300 4700
 F 0 "U1207" H 3380 4646 50  0000 L CNN
 F 1 "74LVC1G00" H 3380 4555 50  0000 L CNN
-F 2 "" H 2950 4700 50  0001 C CNN
+F 2 "alexios:SOT-23-5_HandSoldering" H 2950 4700 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G00.pdf" H 2950 4700 50  0001 C CNN
 	2    3300 4700
 	1    0    0    -1  
