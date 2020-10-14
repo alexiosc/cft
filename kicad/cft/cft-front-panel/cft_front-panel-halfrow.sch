@@ -969,13 +969,13 @@ Text Label 2750 4450 0    50   ~ 0
 ~LTSON
 Text HLabel 2650 4450 0    50   Input ~ 0
 ~LTSON
-Text HLabel 2650 4050 0    50   Input ~ 0
+Text HLabel 1500 4050 0    50   Input ~ 0
 ~LE2
 Wire Wire Line
-	2900 4050 2650 4050
+	1750 4050 1500 4050
 Wire Wire Line
-	2650 3950 2900 3950
-Text HLabel 2650 3950 0    50   Input ~ 0
+	1500 3950 1750 3950
+Text HLabel 1500 3950 0    50   Input ~ 0
 ~LE1
 $Comp
 L power:GND #PWR?
@@ -1165,39 +1165,37 @@ F 3 "~" H 4750 4250 50  0001 C CNN
 	0    -1   -1   0   
 $EndComp
 Wire Wire Line
-	3400 4000 3700 4000
-Connection ~ 4350 7350
-Connection ~ 4350 7150
+	2250 4000 3700 4000
 $Comp
-L alexios:74LVC1G32 U4
+L alexios:74LVC1G02 U4
 U 1 1 5EF6B0CB
-P 3100 4000
+P 2050 4000
 AR Path="/5CC37D0C/5EF6B0CB" Ref="U4"  Part="1" 
 AR Path="/5CC382A2/5EF6B0CB" Ref="U6"  Part="1" 
 AR Path="/5CC382AC/5EF6B0CB" Ref="U8"  Part="1" 
 AR Path="/5CC38618/5EF6B0CB" Ref="U10"  Part="1" 
 AR Path="/5CC02B94/5EF6B0CB" Ref="U12"  Part="1" 
-F 0 "U4" H 3150 3825 50  0000 C CNN
-F 1 "74LVC1G32" H 3150 3734 50  0000 C CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 3210 3980 50  0001 C CNN
-F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 3210 3980 50  0001 C CNN
-	1    3100 4000
+F 0 "U4" H 2100 3825 50  0000 C CNN
+F 1 "74LVC1G02" H 2100 3734 50  0000 C CNN
+F 2 "alexios:SOT-23-5_HandSoldering" H 2160 3980 50  0001 C CNN
+F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 2160 3980 50  0001 C CNN
+	1    2050 4000
 	1    0    0    -1  
 $EndComp
 $Comp
-L alexios:74LVC1G32 U4
+L alexios:74LVC1G02 U4
 U 2 1 5EF6BA9F
-P 4750 7000
+P 4650 7250
 AR Path="/5CC37D0C/5EF6BA9F" Ref="U4"  Part="2" 
 AR Path="/5CC382A2/5EF6BA9F" Ref="U6"  Part="2" 
 AR Path="/5CC382AC/5EF6BA9F" Ref="U8"  Part="2" 
 AR Path="/5CC38618/5EF6BA9F" Ref="U10"  Part="2" 
 AR Path="/5CC02B94/5EF6BA9F" Ref="U12"  Part="2" 
-F 0 "U4" H 4880 6796 50  0000 L CNN
-F 1 "74LVC1G32" H 4880 6705 50  0000 L CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 4860 6980 50  0001 C CNN
-F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 4860 6980 50  0001 C CNN
-	2    4750 7000
+F 0 "U4" H 4880 7296 50  0000 L CNN
+F 1 "74LVC1G02" H 4880 7205 50  0000 L CNN
+F 2 "alexios:SOT-23-5_HandSoldering" H 4760 7230 50  0001 C CNN
+F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 4760 7230 50  0001 C CNN
+	2    4650 7250
 	1    0    0    -1  
 $EndComp
 Text Label 3150 3700 0    50   ~ 0
@@ -1248,6 +1246,44 @@ Wire Notes Line
 	3200 3000 3400 2550
 Wire Notes Line
 	3200 3000 3600 2550
+Text Notes 1550 3700 0    50   ~ 0
+~LE1~\n\n 0\n 0\n 1\n 1
+Text Notes 1750 3700 0    50   ~ 0
+~LE2~\n\n 0\n 1\n 0\n 1
+Text Notes 2000 3700 0    50   ~ 0
+LE\n\n 1\n 0\n 0\n 0
+Text Label 3450 4000 0    50   ~ 0
+LE
+Wire Notes Line width 16 style solid
+	1500 3750 1500 3150
+Wire Notes Line width 16 style solid
+	1500 3150 2150 3150
+Wire Notes Line width 16 style solid
+	2150 3150 2150 3750
+Wire Notes Line width 16 style solid
+	2150 3750 1500 3750
+Wire Notes Line width 16 style solid
+	1500 3350 2150 3350
+Wire Notes Line style solid
+	1950 3150 1950 3750
+Connection ~ 4350 7350
+Connection ~ 4350 7150
+Text Notes 1350 5300 0    63   ~ 13
+Rev E Erratum
+Text Notes 1350 5800 0    50   ~ 0
+The gate was listed as 74LVC1G08 (AND), when a NOR gate\nwas neeed: LE is active high and must be high when both\n~LE1~ and ~LE2~ are low.\n\nRev F (2026) fixes this issue.
+Wire Notes Line width 24 style solid
+	1200 5050 1200 5900
+Wire Notes Line width 24 style solid
+	3900 5050 1200 5050
+Wire Notes Line width 24 style solid
+	3900 5900 3900 5050
+Wire Notes Line width 24 style solid
+	1200 5900 3900 5900
+Wire Notes Line
+	2150 4350 1900 5050
+Wire Notes Line
+	2150 4350 1700 5050
 Wire Bus Line
 	3000 2900 3000 3700
 $EndSCHEMATC
