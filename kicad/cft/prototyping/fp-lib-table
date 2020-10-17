@@ -1,0 +1,4 @@
+(fp_lib_table
+  (lib (name alexios)(type KiCad)(uri /home/alexios/PROJECTS/HARDWARE/cft/kicad/alexios.pretty)(options "")(descr ""))
+  (lib (name w_pth_plcc)(type KiCad)(uri /home/alexios/PROJECTS/HARDWARE/kicad/libraries/walter/w_pth_plcc.pretty)(options "")(descr ""))
+)
