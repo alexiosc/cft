@@ -1460,6 +1460,12 @@ K Jumper SPDT
 F ~
 $ENDCMP
 #
+$CMP M48T02-70PC1
+D 5.0 V, 16 Kbit (2 Kb x 8) TIMEKEEPER® SRAM
+K RTC NVRAM SRAM
+F https://uk.mouser.com/datasheet/2/389/m48t02-1849963.pdf
+$ENDCMP
+#
 $CMP PCA9564
 D I2C Bus Controller, DIP/SOIC-20
 K I2C Bus
