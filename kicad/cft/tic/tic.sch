@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 1 12
+Sheet 1 13
 Title "Timers, Interrupts & Clock "
 Date ""
 Rev ""
@@ -683,265 +683,6 @@ Text Label 650  5200 0    50   ~ 0
 ~RISR
 Text Label 2700 5350 2    50   ~ 0
 FPD[0..7]
-$Comp
-L alexios:M48T02-70PC1 U2
-U 1 1 5FD14A01
-P -5950 5600
-F 0 "U2" H -5950 6367 50  0000 C CNN
-F 1 "M48T02-70PC1" H -5950 6276 50  0000 C CNN
-F 2 "alexios:eDIP-24_W15.24mm" H -6425 4425 50  0001 L CNN
-F 3 "https://uk.mouser.com/datasheet/2/389/m48t02-1849963.pdf" H -5950 5600 50  0001 C CNN
-F 4 "Yes" H -6425 4350 50  0001 L CNN "Verified"
-F 5 "511-M48T0270PC1; €11.81" H -6425 4275 50  0001 L CNN "Mouser"
-	1    -5950 5600
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C4
-U 1 1 5FD21DAA
-P -6250 7000
-F 0 "C4" H -6341 7046 50  0000 R CNN
-F 1 "100nF" H -6341 6955 50  0000 R CNN
-F 2 "" H -6250 7000 50  0001 C CNN
-F 3 "~" H -6250 7000 50  0001 C CNN
-	1    -6250 7000
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	-6250 6850 -6250 6900
-Wire Wire Line
-	-6250 7100 -6250 7150
-$Comp
-L power:GND #PWR09
-U 1 1 5FD21DBA
-P -6250 7150
-F 0 "#PWR09" H -6250 6900 50  0001 C CNN
-F 1 "GND" H -6245 6977 50  0000 C CNN
-F 2 "" H -6250 7150 50  0001 C CNN
-F 3 "" H -6250 7150 50  0001 C CNN
-	1    -6250 7150
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:M48T02-70PC1 U2
-U 2 1 5FD1FE58
-P -5900 7000
-F 0 "U2" H -5695 7046 50  0000 L CNN
-F 1 "M48T02-70PC1" H -5695 6955 50  0000 L CNN
-F 2 "alexios:eDIP-24_W15.24mm" H -6375 5825 50  0001 L CNN
-F 3 "https://uk.mouser.com/datasheet/2/389/m48t02-1849963.pdf" H -5900 7000 50  0001 C CNN
-F 4 "Yes" H -6375 5750 50  0001 L CNN "Verified"
-F 5 "511-M48T0270PC1; €11.81" H -6375 5675 50  0001 L CNN "Mouser"
-	2    -5900 7000
-	1    0    0    -1  
-$EndComp
-Connection ~ -6250 7100
-Connection ~ -6250 6900
-Wire Wire Line
-	-5150 5100 -5450 5100
-Wire Wire Line
-	-5150 5200 -5450 5200
-Wire Wire Line
-	-5150 5300 -5450 5300
-Wire Wire Line
-	-5150 5400 -5450 5400
-Wire Wire Line
-	-5150 5500 -5450 5500
-Wire Wire Line
-	-5150 5600 -5450 5600
-Wire Wire Line
-	-5150 5700 -5450 5700
-Wire Wire Line
-	-5150 5800 -5450 5800
-Text Label -5150 5100 2    50   ~ 0
-D0
-Text Label -5150 5200 2    50   ~ 0
-D1
-Text Label -5150 5300 2    50   ~ 0
-D2
-Text Label -5150 5400 2    50   ~ 0
-D3
-Text Label -5150 5500 2    50   ~ 0
-D4
-Text Label -5150 5600 2    50   ~ 0
-D5
-Text Label -5150 5700 2    50   ~ 0
-D6
-Text Label -5150 5800 2    50   ~ 0
-D7
-Wire Wire Line
-	-6850 6400 -6450 6400
-Wire Wire Line
-	-6850 6500 -6450 6500
-Text Label -6850 6400 0    50   ~ 0
-~RTCR
-Text Label -6850 6500 0    50   ~ 0
-~RTCW
-Wire Wire Line
-	-6450 6300 -6850 6300
-Text Label -6850 6300 0    50   ~ 0
-~RTCCS
-Text Label -7000 5100 0    50   ~ 0
-RTCA0
-Text Label -7000 5200 0    50   ~ 0
-RTCA1
-Text Label -7000 5300 0    50   ~ 0
-RTCA2
-Text Label -7000 5400 0    50   ~ 0
-RTCA3
-Text Label -7000 5500 0    50   ~ 0
-RTCA4
-Text Label -7000 5600 0    50   ~ 0
-RTCA5
-Text Label -7000 5700 0    50   ~ 0
-RTCA6
-Text Label -7000 5800 0    50   ~ 0
-RTCA7
-Wire Wire Line
-	-6450 5900 -6500 5900
-Wire Wire Line
-	-6500 5900 -6500 6000
-Wire Wire Line
-	-6500 6100 -6450 6100
-Wire Wire Line
-	-6450 6000 -6500 6000
-Connection ~ -6500 6000
-Wire Wire Line
-	-6500 6000 -6500 6100
-Wire Wire Line
-	-6500 6100 -6600 6100
-Connection ~ -6500 6100
-$Comp
-L power:+5V #PWR?
-U 1 1 5FA98934
-P -6250 6850
-AR Path="/5F67D4B5/5FA98934" Ref="#PWR?"  Part="1" 
-AR Path="/5FA98934" Ref="#PWR03"  Part="1" 
-AR Path="/5D34E810/5FA98934" Ref="#PWR?"  Part="1" 
-AR Path="/5D36B851/5FA98934" Ref="#PWR?"  Part="1" 
-AR Path="/5F1DB2E8/5FA98934" Ref="#PWR?"  Part="1" 
-AR Path="/5DD3D79F/5FA98934" Ref="#PWR?"  Part="1" 
-F 0 "#PWR03" H -6250 6700 50  0001 C CNN
-F 1 "+5V" H -6308 6887 50  0000 R CNN
-F 2 "" H -6250 6850 50  0001 C CNN
-F 3 "" H -6250 6850 50  0001 C CNN
-	1    -6250 6850
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR?
-U 1 1 5FA99B8A
-P -6600 6000
-AR Path="/5F67D4B5/5FA99B8A" Ref="#PWR?"  Part="1" 
-AR Path="/5FA99B8A" Ref="#PWR01"  Part="1" 
-AR Path="/5D34E810/5FA99B8A" Ref="#PWR?"  Part="1" 
-AR Path="/5D36B851/5FA99B8A" Ref="#PWR?"  Part="1" 
-AR Path="/5F1DB2E8/5FA99B8A" Ref="#PWR?"  Part="1" 
-AR Path="/5DD3D79F/5FA99B8A" Ref="#PWR?"  Part="1" 
-F 0 "#PWR01" H -6600 5850 50  0001 C CNN
-F 1 "+5V" H -6658 6037 50  0000 R CNN
-F 2 "" H -6600 6000 50  0001 C CNN
-F 3 "" H -6600 6000 50  0001 C CNN
-	1    -6600 6000
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	-6600 6000 -6600 6100
-Wire Wire Line
-	-7050 5100 -6450 5100
-Wire Wire Line
-	-7050 5200 -6450 5200
-Wire Wire Line
-	-7050 5300 -6450 5300
-Wire Wire Line
-	-7050 5400 -6450 5400
-Wire Wire Line
-	-7050 5500 -6450 5500
-Wire Wire Line
-	-7050 5600 -6450 5600
-Wire Wire Line
-	-7050 5700 -6450 5700
-Wire Wire Line
-	-7050 5800 -6450 5800
-$Comp
-L alexios:74HC574 U1
-U 1 1 5F8C47F7
-P -7550 5600
-F 0 "U1" H -7550 6367 50  0000 C CNN
-F 1 "74HC574" H -7550 6276 50  0000 C CNN
-F 2 "" H -7850 5550 50  0001 C CNN
-F 3 "http://www.ti.com/lit/ds/symlink/sn74hc574.pdf" H -7850 5550 50  0001 C CNN
-F 4 "Yes" H -7700 4650 50  0001 C CNN "Verified"
-	1    -7550 5600
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	-8050 5100 -8350 5100
-Wire Wire Line
-	-8050 5200 -8350 5200
-Wire Wire Line
-	-8050 5300 -8350 5300
-Wire Wire Line
-	-8050 5400 -8350 5400
-Wire Wire Line
-	-8050 5500 -8350 5500
-Wire Wire Line
-	-8050 5600 -8350 5600
-Wire Wire Line
-	-8050 5700 -8350 5700
-Wire Wire Line
-	-8050 5800 -8350 5800
-Wire Wire Line
-	-8050 6000 -8350 6000
-Text Label -8300 5100 0    50   ~ 0
-D0
-Text Label -8300 5200 0    50   ~ 0
-D1
-Text Label -8300 5300 0    50   ~ 0
-D2
-Text Label -8300 5400 0    50   ~ 0
-D3
-Text Label -8300 5500 0    50   ~ 0
-D4
-Text Label -8300 5600 0    50   ~ 0
-D5
-Text Label -8300 5700 0    50   ~ 0
-D6
-Text Label -8300 5800 0    50   ~ 0
-D7
-Entry Wire Line
-	-8450 5000 -8350 5100
-Entry Wire Line
-	-8450 5100 -8350 5200
-Entry Wire Line
-	-8450 5200 -8350 5300
-Entry Wire Line
-	-8450 5300 -8350 5400
-Entry Wire Line
-	-8450 5400 -8350 5500
-Entry Wire Line
-	-8450 5500 -8350 5600
-Entry Wire Line
-	-8450 5600 -8350 5700
-Entry Wire Line
-	-8450 5700 -8350 5800
-Wire Wire Line
-	-8050 6100 -8100 6100
-Wire Wire Line
-	-8100 6100 -8100 6150
-$Comp
-L power:GND #PWR02
-U 1 1 5F9D975F
-P -8100 6150
-F 0 "#PWR02" H -8100 5900 50  0001 C CNN
-F 1 "GND" H -8095 5977 50  0000 C CNN
-F 2 "" H -8100 6150 50  0001 C CNN
-F 3 "" H -8100 6150 50  0001 C CNN
-	1    -8100 6150
-	1    0    0    -1  
-$EndComp
-Text Label -8350 6000 0    50   ~ 0
-~RTCAW
 $Sheet
 S 1100 2250 1150 1650
 U 60AA2B43
@@ -1005,4 +746,15 @@ Wire Wire Line
 	2250 4400 2700 4400
 Text Label 2700 4400 2    50   ~ 0
 ~IRQ
+$Sheet
+S 1100 5850 1150 600 
+U 5FD01D67
+F0 "Real Time Clock" 50
+F1 "rtc.sch" 50
+F2 "~DB[0..15]" B L 1100 5950 50 
+F3 "~RTCAW" I R 2250 6050 50 
+F4 "~RTCW" I R 2250 6350 50 
+F5 "~RTCR" I R 2250 6250 50 
+F6 "~RTCCS" I R 2250 5950 50 
+$EndSheet
 $EndSCHEMATC

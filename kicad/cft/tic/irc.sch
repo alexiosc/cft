@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 4 12
+Sheet 4 13
 Title ""
 Date ""
 Rev ""
@@ -1778,6 +1778,8 @@ F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 4650 61
 	1    4650 6100
 	1    0    0    -1  
 $EndComp
+Text Notes 3250 2350 0    50   ~ 0
+OUT IER xxxxxxxx:xxxxaaab aaa = 3bits, IRQ#, b=1 to enable\nIN IER  → 00111101:eeeeeee (e = IRQs enabled, DB0 = IRQ0)\nIN ISR  → 00111110:ssssssss (s = IRQs received)
 Wire Bus Line
 	8300 1200 8300 4050
 Wire Bus Line
@@ -1796,6 +1798,4 @@ Wire Bus Line
 	3350 3650 3350 6300
 Wire Bus Line
 	5550 4200 5550 6500
-Text Notes 3250 2350 0    50   ~ 0
-OUT IER xxxxxxxx:xxxxaaab aaa = 3bits, IRQ#, b=1 to enable\nIN IER  → 00111101:eeeeeee (e = IRQs enabled, DB0 = IRQ0)\nIN ISR  → 00111110:ssssssss (s = IRQs received)
 $EndSCHEMATC
