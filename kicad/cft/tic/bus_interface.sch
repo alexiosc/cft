@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 6 13
+Sheet 13 13
 Title ""
 Date ""
 Rev ""
@@ -187,18 +187,12 @@ F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G11.pdf" H 2150 5525
 	1    2250 5600
 	1    0    0    -1  
 $EndComp
-Text Label 1250 5750 0    50   ~ 0
-~IO1C
-Text Label 1250 5650 0    50   ~ 0
-~IO18
-Text Label 1250 5550 0    50   ~ 0
-~IO14
 Wire Wire Line
-	1600 5750 1250 5750
+	1600 5750 1100 5750
 Wire Wire Line
-	1600 5650 1250 5650
+	1600 5650 1100 5650
 Wire Wire Line
-	1600 5550 1250 5550
+	1600 5550 1100 5550
 $Comp
 L Jumper:SolderJumper_2_Open JP3
 U 1 1 60AF2A71
@@ -248,7 +242,7 @@ Text HLabel 6400 5800 2    50   3State ~ 0
 ~WS
 Wire Wire Line
 	3250 5550 3900 5550
-Text Notes 1350 6400 0    100  ~ 20
+Text Notes 1050 5200 0    100  ~ 20
 Wait State Generator
 Text Notes 1800 1050 0    100  ~ 20
 Address Decoder
@@ -468,9 +462,9 @@ Text Label 6500 1550 0    50   ~ 0
 Wire Wire Line
 	6700 1550 5900 1550
 Text HLabel 8050 1550 2    50   Output ~ 0
-~RIO11
+~RISR
 Text HLabel 8050 1450 2    50   Output ~ 0
-~RIO10
+~RIER
 Wire Wire Line
 	7700 1550 8050 1550
 Wire Wire Line
@@ -478,9 +472,9 @@ Wire Wire Line
 Wire Wire Line
 	6000 1750 6700 1750
 Text Label 7950 1550 2    50   ~ 0
-~RIO11
+~RISR
 Text Label 7950 1450 2    50   ~ 0
-~RIO10
+~RIER
 NoConn ~ 7700 1750
 NoConn ~ 7700 1650
 Text Label 6500 1750 0    50   ~ 0
@@ -498,31 +492,14 @@ F 3 "http://www.ti.com/lit/gpn/sn74LS139" H 7200 1550 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	6000 1750 6000 3450
-Text HLabel 8050 2150 2    50   Output ~ 0
-~WIO11
 Text HLabel 8050 2050 2    50   Output ~ 0
-~WIO10
-Wire Wire Line
-	7700 2150 8050 2150
+~WIER
 Wire Wire Line
 	7700 2050 8050 2050
-Text Label 7950 2150 2    50   ~ 0
-~WIO11
 Text Label 7950 2050 2    50   ~ 0
-~WIO10
+~WIER
 NoConn ~ 7700 2350
 NoConn ~ 7700 2250
-$Comp
-L alexios:74HC139 U5
-U 2 1 60AF2A3E
-P 7200 2150
-F 0 "U5" H 7850 2000 50  0000 L CNN
-F 1 "74HC139" H 7850 1900 50  0000 L CNN
-F 2 "" H 7200 2150 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS139" H 7200 2150 50  0001 C CNN
-	2    7200 2150
-	1    0    0    -1  
-$EndComp
 Text Label 6500 2050 0    50   ~ 0
 AB1
 Wire Wire Line
@@ -615,4 +592,26 @@ Text Label 6500 3550 0    50   ~ 0
 ~RTCCS
 Text Label 6500 4150 0    50   ~ 0
 ~RTCCS
+Text Notes 6650 1050 0    100  ~ 20
+IRC Address Decoder
+Text Notes 6650 4950 0    100  ~ 20
+RTC Address Decoder
+Text Label 1100 5550 0    50   ~ 0
+~T0CS
+Text Label 1100 5650 0    50   ~ 0
+~T1CS
+Text Label 1100 5750 0    50   ~ 0
+~RTCCS
+NoConn ~ 7700 2150
+$Comp
+L alexios:74HC139 U5
+U 2 1 60AF2A3E
+P 7200 2150
+F 0 "U5" H 7850 2000 50  0000 L CNN
+F 1 "74HC139" H 7850 1900 50  0000 L CNN
+F 2 "" H 7200 2150 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS139" H 7200 2150 50  0001 C CNN
+	2    7200 2150
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
