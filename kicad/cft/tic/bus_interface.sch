@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 13 13
+Sheet 13 14
 Title ""
 Date ""
 Rev ""
@@ -14,25 +14,25 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L alexios:74HC74 U10
+L alexios:74HC74 U41
 U 1 1 60AF299A
 P 4500 5700
-F 0 "U10" H 4500 6117 50  0000 C CNN
+F 0 "U41" H 4500 6117 50  0000 C CNN
 F 1 "74HC74" H 4500 6026 50  0000 C CNN
-F 2 "" H 4450 5850 50  0001 C CNN
+F 2 "alexios:SOIC-14" H 4450 5850 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf" H 4450 5850 50  0001 C CNN
 	1    4500 5700
 	1    0    0    -1  
 $EndComp
 $Comp
-L alexios:74HC74 U12
-U 1 1 60AF29A0
+L alexios:74HC74 U41
+U 2 1 60AF29A0
 P 4500 6400
-F 0 "U12" H 4500 6075 50  0000 C CNN
+F 0 "U41" H 4500 6075 50  0000 C CNN
 F 1 "74HC74" H 4500 5984 50  0000 C CNN
-F 2 "" H 4450 6550 50  0001 C CNN
+F 2 "alexios:SOIC-14" H 4450 6550 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf" H 4450 6550 50  0001 C CNN
-	1    4500 6400
+	2    4500 6400
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
@@ -72,10 +72,10 @@ Connection ~ 3900 5550
 Wire Wire Line
 	3900 6250 4050 6250
 $Comp
-L power:+5V #PWR012
+L power:+5V #PWR0107
 U 1 1 60AF29BB
 P 4050 5850
-F 0 "#PWR012" H 4050 5700 50  0001 C CNN
+F 0 "#PWR0107" H 4050 5700 50  0001 C CNN
 F 1 "+5V" V 4000 5750 50  0000 L CNN
 F 2 "" H 4050 5850 50  0001 C CNN
 F 3 "" H 4050 5850 50  0001 C CNN
@@ -83,10 +83,10 @@ F 3 "" H 4050 5850 50  0001 C CNN
 	0    -1   -1   0   
 $EndComp
 $Comp
-L power:+5V #PWR013
+L power:+5V #PWR0108
 U 1 1 60AF29C1
 P 4050 6550
-F 0 "#PWR013" H 4050 6400 50  0001 C CNN
+F 0 "#PWR0108" H 4050 6400 50  0001 C CNN
 F 1 "+5V" V 4000 6450 50  0000 L CNN
 F 2 "" H 4050 6550 50  0001 C CNN
 F 3 "" H 4050 6550 50  0001 C CNN
@@ -109,8 +109,8 @@ U 1 1 60AF29CE
 P 5750 5900
 AR Path="/600C0F8F/60AF29CE" Ref="U?"  Part="1" 
 AR Path="/60AF29CE" Ref="U?"  Part="1" 
-AR Path="/60AA2B43/60AF29CE" Ref="U11"  Part="1" 
-F 0 "U11" H 5650 5800 50  0000 R CNN
+AR Path="/60AA2B43/60AF29CE" Ref="U42"  Part="1" 
+F 0 "U42" H 5650 5800 50  0000 R CNN
 F 1 "74LVC1G07" H 5850 5800 50  0000 L CNN
 F 2 "alexios:SOT-23-5_HandSoldering" H 5850 5900 50  0001 C CNN
 F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 5850 5900 50  0001 C CNN
@@ -133,8 +133,8 @@ U 1 1 60AF29DA
 P 5700 5700
 AR Path="/600C0F8F/60AF29DA" Ref="D?"  Part="1" 
 AR Path="/60AF29DA" Ref="D?"  Part="1" 
-AR Path="/60AA2B43/60AF29DA" Ref="D1"  Part="1" 
-F 0 "D1" H 5700 5916 50  0000 C CNN
+AR Path="/60AA2B43/60AF29DA" Ref="D11"  Part="1" 
+F 0 "D11" H 5700 5916 50  0000 C CNN
 F 1 "CUS520" H 5700 5825 50  0000 C CNN
 F 2 "alexios:SOD-323" H 5700 5700 50  0001 C CNN
 F 3 "~" H 5700 5700 50  0001 C CNN
@@ -150,7 +150,7 @@ U 1 1 60AF29E1
 P 5200 5800
 F 0 "JP6" V 5300 5550 50  0000 L CNN
 F 1 "SolderJumper_3_Open" V 5155 5867 50  0001 L CNN
-F 2 "" H 5200 5800 50  0001 C CNN
+F 2 "alexios:SolderJumper-3_P1.3mm_Bridged12_RoundedPad1.0x1.5mm" H 5200 5800 50  0001 C CNN
 F 3 "~" H 5200 5800 50  0001 C CNN
 	1    5200 5800
 	0    -1   1    0   
@@ -177,12 +177,12 @@ Wire Notes Line width 18 style solid
 Wire Notes Line width 18 style solid
 	5350 6500 5350 6175
 $Comp
-L alexios:74LVC1G11 U9
+L alexios:74LVC1G11 U40
 U 1 1 60AF2A65
 P 2250 5600
-F 0 "U9" H 2200 5864 50  0000 C CNN
+F 0 "U40" H 2200 5864 50  0000 C CNN
 F 1 "74LVC1G11" H 2200 5773 50  0000 C CNN
-F 2 "" H 2150 5525 50  0001 C CNN
+F 2 "alexios:SOT-23-6_Handsoldering" H 2150 5525 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G11.pdf" H 2150 5525 50  0001 C CNN
 	1    2250 5600
 	1    0    0    -1  
@@ -199,7 +199,7 @@ U 1 1 60AF2A71
 P 1750 5550
 F 0 "JP3" H 1550 5600 50  0000 C CNN
 F 1 "SolderJumper_2_Open" H 1750 5664 50  0001 C CNN
-F 2 "" H 1750 5550 50  0001 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm" H 1750 5550 50  0001 C CNN
 F 3 "~" H 1750 5550 50  0001 C CNN
 	1    1750 5550
 	1    0    0    -1  
@@ -216,7 +216,7 @@ U 1 1 60AF2A7A
 P 1750 5650
 F 0 "JP4" H 1550 5700 50  0000 C CNN
 F 1 "SolderJumper_2_Open" H 1750 5764 50  0001 C CNN
-F 2 "" H 1750 5650 50  0001 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm" H 1750 5650 50  0001 C CNN
 F 3 "~" H 1750 5650 50  0001 C CNN
 	1    1750 5650
 	1    0    0    -1  
@@ -227,7 +227,7 @@ U 1 1 60AF2A80
 P 1750 5750
 F 0 "JP5" H 1550 5800 50  0000 C CNN
 F 1 "SolderJumper_2_Open" H 1750 5864 50  0001 C CNN
-F 2 "" H 1750 5750 50  0001 C CNN
+F 2 "Jumper:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm" H 1750 5750 50  0001 C CNN
 F 3 "~" H 1750 5750 50  0001 C CNN
 	1    1750 5750
 	1    0    0    -1  
@@ -256,8 +256,8 @@ AR Path="/61F95ACC/60AF29F4" Ref="U?"  Part="1"
 AR Path="/5D65F6EF/60AF29F4" Ref="U?"  Part="1" 
 AR Path="/5D69F3FD/60AF29F4" Ref="U?"  Part="1" 
 AR Path="/5F67D4B5/60AF29F4" Ref="U?"  Part="1" 
-AR Path="/60AA2B43/60AF29F4" Ref="U6"  Part="1" 
-F 0 "U6" H 2500 3217 50  0000 C CNN
+AR Path="/60AA2B43/60AF29F4" Ref="U37"  Part="1" 
+F 0 "U37" H 2500 3217 50  0000 C CNN
 F 1 "74HC138" H 2500 3126 50  0000 C CNN
 F 2 "alexios:SOIC-16" H 2500 2550 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 2500 2550 50  0001 C CNN
@@ -277,10 +277,10 @@ AB4
 Text Label 1700 2150 0    50   ~ 0
 AB6
 $Comp
-L power:GND #PWR010
+L power:GND #PWR0105
 U 1 1 60AF2A05
 P 1950 2400
-F 0 "#PWR010" H 1950 2150 50  0001 C CNN
+F 0 "#PWR0105" H 1950 2150 50  0001 C CNN
 F 1 "GND" H 1955 2227 50  0000 C CNN
 F 2 "" H 1950 2400 50  0001 C CNN
 F 3 "" H 1950 2400 50  0001 C CNN
@@ -307,10 +307,10 @@ NoConn ~ 3000 2850
 Text Label 3750 2950 0    50   ~ 0
 ~SYSDEV
 $Comp
-L power:+5V #PWR011
+L power:+5V #PWR0106
 U 1 1 60AF2A19
 P 4000 2700
-F 0 "#PWR011" H 4000 2550 50  0001 C CNN
+F 0 "#PWR0106" H 4000 2550 50  0001 C CNN
 F 1 "+5V" H 4100 2800 50  0000 C CNN
 F 2 "" H 4000 2700 50  0001 C CNN
 F 3 "" H 4000 2700 50  0001 C CNN
@@ -331,8 +331,8 @@ AR Path="/61F95ACC/60AF2A23" Ref="U?"  Part="1"
 AR Path="/5D65F6EF/60AF2A23" Ref="U?"  Part="1" 
 AR Path="/5D69F3FD/60AF2A23" Ref="U?"  Part="1" 
 AR Path="/5F67D4B5/60AF2A23" Ref="U?"  Part="1" 
-AR Path="/60AA2B43/60AF2A23" Ref="U7"  Part="1" 
-F 0 "U7" H 4550 3217 50  0000 C CNN
+AR Path="/60AA2B43/60AF2A23" Ref="U38"  Part="1" 
+F 0 "U38" H 4550 3217 50  0000 C CNN
 F 1 "74HC138" H 4550 3126 50  0000 C CNN
 F 2 "alexios:SOIC-16" H 4550 2550 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 4550 2550 50  0001 C CNN
@@ -353,8 +353,6 @@ Text Label 5150 2550 0    50   ~ 0
 ~IRCCS
 Text Label 5150 2650 0    50   ~ 0
 ~T0CS
-Text Label 5150 2750 0    50   ~ 0
-~T1CS
 Text Label 5150 2850 0    50   ~ 0
 ~RTCCS
 Wire Wire Line
@@ -400,7 +398,7 @@ Wire Wire Line
 	5050 2850 6200 2850
 Text HLabel 8050 2650 2    50   Output ~ 0
 ~T0CS
-Text HLabel 8050 2750 2    50   Output ~ 0
+Text HLabel 8100 2750 2    50   Output ~ 0
 ~T1CS
 Text HLabel 8050 2850 2    50   Output ~ 0
 ~RTCCS
@@ -480,12 +478,12 @@ NoConn ~ 7700 1650
 Text Label 6500 1750 0    50   ~ 0
 ~R
 $Comp
-L alexios:74HC139 U5
+L alexios:74HC139 U36
 U 1 1 60AF2A38
 P 7200 1550
-F 0 "U5" H 7200 1917 50  0000 C CNN
+F 0 "U36" H 7200 1917 50  0000 C CNN
 F 1 "74HC139" H 7200 1826 50  0000 C CNN
-F 2 "" H 7200 1550 50  0001 C CNN
+F 2 "alexios:SOIC-16" H 7200 1550 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS139" H 7200 1550 50  0001 C CNN
 	1    7200 1550
 	1    0    0    -1  
@@ -518,12 +516,12 @@ Wire Wire Line
 NoConn ~ 7700 3750
 NoConn ~ 7700 3650
 $Comp
-L alexios:74HC139 U8
+L alexios:74HC139 U39
 U 1 1 5FA291D7
 P 7200 3550
-F 0 "U8" H 7200 3917 50  0000 C CNN
+F 0 "U39" H 7200 3917 50  0000 C CNN
 F 1 "74HC139" H 7200 3826 50  0000 C CNN
-F 2 "" H 7200 3550 50  0001 C CNN
+F 2 "alexios:SOIC-16" H 7200 3550 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS139" H 7200 3550 50  0001 C CNN
 	1    7200 3550
 	1    0    0    -1  
@@ -531,12 +529,12 @@ $EndComp
 NoConn ~ 7700 4350
 NoConn ~ 7700 4250
 $Comp
-L alexios:74HC139 U8
+L alexios:74HC139 U39
 U 2 1 5FA291E5
 P 7200 4150
-F 0 "U8" H 7200 3775 50  0000 C CNN
+F 0 "U39" H 7200 3775 50  0000 C CNN
 F 1 "74HC139" H 7200 3684 50  0000 C CNN
-F 2 "" H 7200 4150 50  0001 C CNN
+F 2 "alexios:SOIC-16" H 7200 4150 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS139" H 7200 4150 50  0001 C CNN
 	2    7200 4150
 	1    0    0    -1  
@@ -598,20 +596,22 @@ Text Notes 6650 4950 0    100  ~ 20
 RTC Address Decoder
 Text Label 1100 5550 0    50   ~ 0
 ~T0CS
-Text Label 1100 5650 0    50   ~ 0
-~T1CS
 Text Label 1100 5750 0    50   ~ 0
 ~RTCCS
 NoConn ~ 7700 2150
 $Comp
-L alexios:74HC139 U5
+L alexios:74HC139 U36
 U 2 1 60AF2A3E
 P 7200 2150
-F 0 "U5" H 7850 2000 50  0000 L CNN
+F 0 "U36" H 7850 2000 50  0000 L CNN
 F 1 "74HC139" H 7850 1900 50  0000 L CNN
-F 2 "" H 7200 2150 50  0001 C CNN
+F 2 "alexios:SOIC-16" H 7200 2150 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS139" H 7200 2150 50  0001 C CNN
 	2    7200 2150
 	1    0    0    -1  
 $EndComp
+Text Label 1100 5650 0    50   ~ 0
+~T1CS
+Text Label 5150 2750 0    50   ~ 0
+~T1CS
 $EndSCHEMATC
