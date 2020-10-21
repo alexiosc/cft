@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 14 14
+Sheet 13 14
 Title ""
 Date ""
 Rev ""
@@ -324,7 +324,7 @@ AR Path="/60844329" Ref="U?"  Part="1"
 AR Path="/607E2CF3/60844329" Ref="U1"  Part="1" 
 F 0 "U1" H 2450 2917 50  0000 C CNN
 F 1 "74HCT245" H 2450 2826 50  0000 C CNN
-F 2 "alexios:SOIC-20W" H 2450 2200 50  0001 C CNN
+F 2 "Package_DIP:DIP-20_W7.62mm_Socket" H 2450 2200 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS245" H 2450 2200 50  0001 C CNN
 	1    2450 2150
 	1    0    0    -1  
@@ -891,8 +891,8 @@ AR Path="/5F160E7C/5FD81D0D/6084442D" Ref="U?"  Part="2"
 AR Path="/5F160E7C/5FD81D21/6084442D" Ref="U?"  Part="2" 
 AR Path="/6084442D" Ref="U?"  Part="1" 
 AR Path="/607E2CF3/6084442D" Ref="U8"  Part="1" 
-F 0 "U8" H 6830 4696 50  0000 L CNN
-F 1 "74LVC1G07" H 6830 4605 50  0000 L CNN
+F 0 "U8" H 6700 4575 50  0000 C CNN
+F 1 "74LVC1G07" H 6700 4484 50  0000 C CNN
 F 2 "alexios:SOT-23-5_HandSoldering" H 6750 4750 50  0001 C CNN
 F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 6750 4750 50  0001 C CNN
 	1    6650 4750
@@ -919,7 +919,7 @@ AR Path="/6084443F" Ref="U?"  Part="2"
 AR Path="/607E2CF3/6084443F" Ref="U1"  Part="2" 
 F 0 "U1" H 2180 8096 50  0000 L CNN
 F 1 "74HCT245" H 2180 8005 50  0000 L CNN
-F 2 "alexios:SOIC-20W" H 2000 7700 50  0001 C CNN
+F 2 "Package_DIP:DIP-20_W7.62mm_Socket" H 2000 7700 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS245" H 2000 7700 50  0001 C CNN
 	2    2000 7650
 	1    0    0    -1  
@@ -1698,190 +1698,190 @@ $EndComp
 Connection ~ 5800 6350
 Connection ~ 5800 6150
 Wire Wire Line
-	9200 6000 9500 6000
+	6600 1450 6900 1450
 $Comp
 L power:+5V #PWR?
 U 1 1 6084458A
-P 9500 5600
+P 6900 1050
 AR Path="/6084458A" Ref="#PWR?"  Part="1" 
 AR Path="/607E2CF3/6084458A" Ref="#PWR01"  Part="1" 
-F 0 "#PWR01" H 9500 5450 50  0001 C CNN
-F 1 "+5V" H 9650 5650 50  0000 C CNN
-F 2 "" H 9500 5600 50  0001 C CNN
-F 3 "" H 9500 5600 50  0001 C CNN
-	1    9500 5600
+F 0 "#PWR01" H 6900 900 50  0001 C CNN
+F 1 "+5V" H 7050 1100 50  0000 C CNN
+F 2 "" H 6900 1050 50  0001 C CNN
+F 3 "" H 6900 1050 50  0001 C CNN
+	1    6900 1050
 	-1   0    0    -1  
 $EndComp
 Wire Wire Line
-	9500 5600 9500 5650
+	6900 1050 6900 1100
 $Comp
 L Device:R_Small R?
 U 1 1 60844591
-P 9500 5800
+P 6900 1250
 AR Path="/60844591" Ref="R?"  Part="1" 
 AR Path="/607E2CF3/60844591" Ref="R1"  Part="1" 
-F 0 "R1" H 9350 5650 50  0000 L CNN
-F 1 "4.7kΩ" H 9559 5755 50  0000 L CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 9500 5800 50  0001 C CNN
-F 3 "~" H 9500 5800 50  0001 C CNN
-	1    9500 5800
+F 0 "R1" H 6750 1100 50  0000 L CNN
+F 1 "4.7kΩ" H 6959 1205 50  0000 L CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 6900 1250 50  0001 C CNN
+F 3 "~" H 6900 1250 50  0001 C CNN
+	1    6900 1250
 	-1   0    0    -1  
 $EndComp
 $Comp
 L Device:R_Small R?
 U 1 1 60844597
-P 9900 5800
+P 7300 1250
 AR Path="/60844597" Ref="R?"  Part="1" 
 AR Path="/607E2CF3/60844597" Ref="R3"  Part="1" 
-F 0 "R3" H 9950 5650 50  0000 L CNN
-F 1 "4.7kΩ" H 9959 5755 50  0001 L CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 9900 5800 50  0001 C CNN
-F 3 "~" H 9900 5800 50  0001 C CNN
-	1    9900 5800
+F 0 "R3" H 7350 1100 50  0000 L CNN
+F 1 "4.7kΩ" H 7359 1205 50  0001 L CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7300 1250 50  0001 C CNN
+F 3 "~" H 7300 1250 50  0001 C CNN
+	1    7300 1250
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:R_Small R?
 U 1 1 6084459D
-P 10100 5800
+P 7500 1250
 AR Path="/6084459D" Ref="R?"  Part="1" 
 AR Path="/607E2CF3/6084459D" Ref="R4"  Part="1" 
-F 0 "R4" H 10150 5650 50  0000 L CNN
-F 1 "4.7kΩ" H 10159 5755 50  0001 L CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10100 5800 50  0001 C CNN
-F 3 "~" H 10100 5800 50  0001 C CNN
-	1    10100 5800
+F 0 "R4" H 7550 1100 50  0000 L CNN
+F 1 "4.7kΩ" H 7559 1205 50  0001 L CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7500 1250 50  0001 C CNN
+F 3 "~" H 7500 1250 50  0001 C CNN
+	1    7500 1250
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:R_Small R?
 U 1 1 608445A3
-P 10300 5800
+P 7700 1250
 AR Path="/608445A3" Ref="R?"  Part="1" 
 AR Path="/607E2CF3/608445A3" Ref="R5"  Part="1" 
-F 0 "R5" H 10350 5650 50  0000 L CNN
-F 1 "4.7kΩ" H 10359 5755 50  0001 L CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10300 5800 50  0001 C CNN
-F 3 "~" H 10300 5800 50  0001 C CNN
-	1    10300 5800
+F 0 "R5" H 7750 1100 50  0000 L CNN
+F 1 "4.7kΩ" H 7759 1205 50  0001 L CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7700 1250 50  0001 C CNN
+F 3 "~" H 7700 1250 50  0001 C CNN
+	1    7700 1250
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:R_Small R?
 U 1 1 608445A9
-P 10500 5800
+P 7900 1250
 AR Path="/608445A9" Ref="R?"  Part="1" 
 AR Path="/607E2CF3/608445A9" Ref="R6"  Part="1" 
-F 0 "R6" H 10550 5650 50  0000 L CNN
-F 1 "4.7kΩ" H 10559 5755 50  0001 L CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10500 5800 50  0001 C CNN
-F 3 "~" H 10500 5800 50  0001 C CNN
-	1    10500 5800
+F 0 "R6" H 7950 1100 50  0000 L CNN
+F 1 "4.7kΩ" H 7959 1205 50  0001 L CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7900 1250 50  0001 C CNN
+F 3 "~" H 7900 1250 50  0001 C CNN
+	1    7900 1250
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	9500 5900 9500 6000
-Connection ~ 9500 6000
+	6900 1350 6900 1450
+Connection ~ 6900 1450
 Wire Wire Line
-	9500 6000 10700 6000
+	6900 1450 8100 1450
 Wire Wire Line
-	9700 5900 9700 6100
+	7100 1350 7100 1550
 Wire Wire Line
-	9900 5900 9900 6200
+	7300 1350 7300 1650
 Wire Wire Line
-	10100 5900 10100 6300
+	7500 1350 7500 1750
 Wire Wire Line
-	10300 5900 10300 6400
+	7700 1350 7700 1850
 Wire Wire Line
-	10500 5900 10500 6500
+	7900 1350 7900 1950
 $Comp
 L Device:R_Small R?
 U 1 1 608445B7
-P 9700 5800
+P 7100 1250
 AR Path="/608445B7" Ref="R?"  Part="1" 
 AR Path="/607E2CF3/608445B7" Ref="R2"  Part="1" 
-F 0 "R2" H 9750 5650 50  0000 L CNN
-F 1 "4.7kΩ" H 9759 5755 50  0001 L CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 9700 5800 50  0001 C CNN
-F 3 "~" H 9700 5800 50  0001 C CNN
-	1    9700 5800
+F 0 "R2" H 7150 1100 50  0000 L CNN
+F 1 "4.7kΩ" H 7159 1205 50  0001 L CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7100 1250 50  0001 C CNN
+F 3 "~" H 7100 1250 50  0001 C CNN
+	1    7100 1250
 	1    0    0    -1  
 $EndComp
-Connection ~ 9700 6100
+Connection ~ 7100 1550
 Wire Wire Line
-	9700 6100 10700 6100
+	7100 1550 8100 1550
 Wire Wire Line
-	9200 6100 9700 6100
-Connection ~ 9900 6200
+	6600 1550 7100 1550
+Connection ~ 7300 1650
 Wire Wire Line
-	9900 6200 10700 6200
+	7300 1650 8100 1650
 Wire Wire Line
-	9200 6200 9900 6200
-Connection ~ 10100 6300
+	6600 1650 7300 1650
+Connection ~ 7500 1750
 Wire Wire Line
-	10100 6300 10700 6300
+	7500 1750 8100 1750
 Wire Wire Line
-	9200 6300 10100 6300
-Connection ~ 10300 6400
+	6600 1750 7500 1750
+Connection ~ 7700 1850
 Wire Wire Line
-	10300 6400 10700 6400
+	7700 1850 8100 1850
 Wire Wire Line
-	9200 6400 10300 6400
-Connection ~ 10500 6500
+	6600 1850 7700 1850
+Connection ~ 7900 1950
 Wire Wire Line
-	10500 6500 10700 6500
+	7900 1950 8100 1950
 Wire Wire Line
-	9200 6500 10500 6500
+	6600 1950 7900 1950
 Wire Wire Line
-	9500 5650 9700 5650
+	6900 1100 7100 1100
 Wire Wire Line
-	10500 5650 10500 5700
-Connection ~ 9500 5650
+	7900 1100 7900 1150
+Connection ~ 6900 1100
 Wire Wire Line
-	9500 5650 9500 5700
+	6900 1100 6900 1150
 Wire Wire Line
-	9700 5700 9700 5650
-Connection ~ 9700 5650
+	7100 1150 7100 1100
+Connection ~ 7100 1100
 Wire Wire Line
-	9700 5650 9900 5650
+	7100 1100 7300 1100
 Wire Wire Line
-	9900 5700 9900 5650
-Connection ~ 9900 5650
+	7300 1150 7300 1100
+Connection ~ 7300 1100
 Wire Wire Line
-	9900 5650 10100 5650
+	7300 1100 7500 1100
 Wire Wire Line
-	10100 5700 10100 5650
-Connection ~ 10100 5650
+	7500 1150 7500 1100
+Connection ~ 7500 1100
 Wire Wire Line
-	10100 5650 10300 5650
+	7500 1100 7700 1100
 Wire Wire Line
-	10300 5700 10300 5650
-Connection ~ 10300 5650
+	7700 1150 7700 1100
+Connection ~ 7700 1100
 Wire Wire Line
-	10300 5650 10500 5650
-Text Label 9200 6100 0    50   ~ 0
+	7700 1100 7900 1100
+Text Label 6600 1550 0    50   ~ 0
 G0-1
-Text Label 9200 6200 0    50   ~ 0
+Text Label 6600 1650 0    50   ~ 0
 G0-2
-Text Label 9200 6300 0    50   ~ 0
+Text Label 6600 1750 0    50   ~ 0
 G1-0
-Text Label 9200 6400 0    50   ~ 0
+Text Label 6600 1850 0    50   ~ 0
 G1-1
-Text Label 9200 6500 0    50   ~ 0
+Text Label 6600 1950 0    50   ~ 0
 G1-2
-Text HLabel 10700 6000 2    50   Output ~ 0
+Text HLabel 8100 1450 2    50   Output ~ 0
 G0-0
-Text HLabel 10700 6100 2    50   Output ~ 0
+Text HLabel 8100 1550 2    50   Output ~ 0
 G0-1
-Text HLabel 10700 6200 2    50   Output ~ 0
+Text HLabel 8100 1650 2    50   Output ~ 0
 G0-2
-Text HLabel 10700 6300 2    50   Output ~ 0
+Text HLabel 8100 1750 2    50   Output ~ 0
 G1-0
-Text HLabel 10700 6400 2    50   Output ~ 0
+Text HLabel 8100 1850 2    50   Output ~ 0
 G1-1
-Text HLabel 10700 6500 2    50   Output ~ 0
+Text HLabel 8100 1950 2    50   Output ~ 0
 G1-2
-Text Label 9200 6000 0    50   ~ 0
+Text Label 6600 1450 0    50   ~ 0
 G0-0
 Text HLabel 8100 2350 2    50   3State ~ 0
 ~IRQ0
@@ -1917,12 +1917,12 @@ Wire Notes Line width 24 style solid rgb(255, 64, 64)
 	3025 1375 2875 1125
 Wire Notes Line width 24 style solid rgb(255, 64, 64)
 	2725 1375 3025 1375
-Wire Notes Line width 24 style solid rgb(255, 32, 32)
+Wire Notes Line width 24 style solid rgb(255, 64, 64)
 	2875 1125 2725 1375
 Text Notes 2915 1345 2    100  ~ 20
 !
 Text Notes 3050 1275 0    50   ~ 0
-Bus order is 7 to 0 to\nmatch 8254 pin-out!
+Bus order is REVERSED\nto match 8254 pin-out!
 Wire Bus Line
 	1050 4850 1500 4850
 Wire Wire Line
@@ -2116,12 +2116,22 @@ Text Label 3700 4450 0    50   ~ 0
 TD6
 Text Label 3700 4550 0    50   ~ 0
 TD7
+Wire Notes Line
+	6300 4250 7100 4250
+Wire Notes Line
+	7100 4250 7100 5400
+Wire Notes Line
+	7100 5400 6300 5400
+Wire Notes Line
+	6300 5400 6300 4250
+Text Notes 6400 5300 0    50   ~ 0
+Install either IC\nor diode.
 Wire Bus Line
 	1600 1750 1600 4750
 Wire Bus Line
 	1600 4950 1600 6100
 Wire Bus Line
-	3250 1450 3250 2250
-Wire Bus Line
 	3550 1450 3550 4450
+Wire Bus Line
+	3250 1450 3250 2250
 $EndSCHEMATC

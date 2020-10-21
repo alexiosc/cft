@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 12 14
+Sheet 11 14
 Title ""
 Date ""
 Rev ""
@@ -159,7 +159,7 @@ AR Path="/5FD18062" Ref="U?"  Part="1"
 AR Path="/5FD01D67/5FD18062" Ref="U32"  Part="1" 
 F 0 "U32" H 4650 4417 50  0000 C CNN
 F 1 "74HC574" H 4650 4326 50  0000 C CNN
-F 2 "alexios:SOIC-20W" H 4350 3600 50  0001 C CNN
+F 2 "Package_DIP:DIP-20_W7.62mm_Socket" H 4350 3600 50  0001 C CNN
 F 3 "http://www.ti.com/lit/ds/symlink/sn74hc574.pdf" H 4350 3600 50  0001 C CNN
 F 4 "Yes" H 4500 2700 50  0001 C CNN "Verified"
 	1    4650 3650
@@ -498,7 +498,7 @@ AR Path="/5FD1810B" Ref="U?"  Part="2"
 AR Path="/5FD01D67/5FD1810B" Ref="U32"  Part="2" 
 F 0 "U32" H 3230 7096 50  0000 L CNN
 F 1 "74HC574" H 3230 7005 50  0000 L CNN
-F 2 "alexios:SOIC-20W" H 2750 7000 50  0001 C CNN
+F 2 "Package_DIP:DIP-20_W7.62mm_Socket" H 2750 7000 50  0001 C CNN
 F 3 "http://www.ti.com/lit/ds/symlink/sn74hc574.pdf" H 2750 7000 50  0001 C CNN
 F 4 "Yes" H 2900 6100 50  0001 C CNN "Verified"
 	2    3050 7050

@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 3 14
+Sheet 2 14
 Title ""
 Date ""
 Rev ""
@@ -843,192 +843,192 @@ Connection ~ 10300 4550
 Text HLabel 10850 4550 2    50   3State ~ 0
 ~IRQ
 Wire Wire Line
-	4850 1150 4350 1150
+	4500 1150 5000 1150
 Wire Wire Line
-	4850 1250 4350 1250
+	4500 1250 5000 1250
 Wire Wire Line
-	4850 1350 4350 1350
+	4500 1350 5000 1350
 Wire Wire Line
-	4850 1450 4350 1450
+	4500 1450 5000 1450
 Wire Wire Line
-	4850 1550 4350 1550
+	4500 1550 5000 1550
 Wire Wire Line
-	4850 1650 4350 1650
+	4500 1650 5000 1650
 Wire Wire Line
-	4850 1750 4350 1750
+	4500 1750 5000 1750
 Wire Wire Line
-	4850 1850 4350 1850
-Text Label 4850 1150 2    50   ~ 0
+	4500 1850 5000 1850
+Text Label 4500 1150 0    50   ~ 0
 ~IRQ0
-Text Label 4850 1250 2    50   ~ 0
+Text Label 4500 1250 0    50   ~ 0
 ~IRQ1
-Text Label 4850 1350 2    50   ~ 0
+Text Label 4500 1350 0    50   ~ 0
 ~IRQ2
-Text Label 4850 1450 2    50   ~ 0
+Text Label 4500 1450 0    50   ~ 0
 ~IRQ3
-Text Label 4850 1550 2    50   ~ 0
+Text Label 4500 1550 0    50   ~ 0
 ~IRQ4
-Text Label 4850 1650 2    50   ~ 0
+Text Label 4500 1650 0    50   ~ 0
 ~IRQ5
-Text Label 4850 1750 2    50   ~ 0
+Text Label 4500 1750 0    50   ~ 0
 ~IRQ6
-Text Label 4850 1850 2    50   ~ 0
+Text Label 4500 1850 0    50   ~ 0
 ~IRQ7
 $Comp
 L power:+5V #PWR?
 U 1 1 5F173A6B
-P 3900 1100
+P 5450 1100
 AR Path="/5F173A6B" Ref="#PWR?"  Part="1" 
 AR Path="/5F160E7C/5F173A6B" Ref="#PWR026"  Part="1" 
-F 0 "#PWR026" H 3900 950 50  0001 C CNN
-F 1 "+5V" H 3915 1273 50  0000 C CNN
-F 2 "" H 3900 1100 50  0001 C CNN
-F 3 "" H 3900 1100 50  0001 C CNN
-	1    3900 1100
-	1    0    0    -1  
+F 0 "#PWR026" H 5450 950 50  0001 C CNN
+F 1 "+5V" H 5465 1273 50  0000 C CNN
+F 2 "" H 5450 1100 50  0001 C CNN
+F 3 "" H 5450 1100 50  0001 C CNN
+	1    5450 1100
+	-1   0    0    -1  
 $EndComp
 $Comp
 L Device:R_Pack04_Split R?
 U 1 1 5F173A71
-P 4200 1150
+P 5150 1150
 AR Path="/5F173A71" Ref="R?"  Part="1" 
 AR Path="/5F160E7C/5F173A71" Ref="R7"  Part="1" 
-F 0 "R7" V 4150 1350 50  0000 L CNN
-F 1 "4.7kΩ" V 4084 1150 50  0001 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" V 4130 1150 50  0001 C CNN
-F 3 "~" H 4200 1150 50  0001 C CNN
-	1    4200 1150
-	0    1    1    0   
+F 0 "R7" V 5100 1350 50  0000 L CNN
+F 1 "4.7kΩ" V 5034 1150 50  0001 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x0603" V 5080 1150 50  0001 C CNN
+F 3 "~" H 5150 1150 50  0001 C CNN
+	1    5150 1150
+	0    -1   1    0   
 $EndComp
 Wire Wire Line
-	3900 1100 3900 1150
+	5450 1100 5450 1150
 $Comp
 L Device:R_Pack04_Split R?
 U 2 1 5F173A78
-P 4200 1250
+P 5150 1250
 AR Path="/5F173A78" Ref="R?"  Part="2" 
 AR Path="/5F160E7C/5F173A78" Ref="R7"  Part="2" 
-F 0 "R7" V 4150 1450 50  0000 L CNN
-F 1 "4.7kΩ" V 4084 1250 50  0001 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" V 4130 1250 50  0001 C CNN
-F 3 "~" H 4200 1250 50  0001 C CNN
-	2    4200 1250
-	0    1    1    0   
+F 0 "R7" V 5100 1450 50  0000 L CNN
+F 1 "4.7kΩ" V 5034 1250 50  0001 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x0603" V 5080 1250 50  0001 C CNN
+F 3 "~" H 5150 1250 50  0001 C CNN
+	2    5150 1250
+	0    -1   1    0   
 $EndComp
 $Comp
 L Device:R_Pack04_Split R?
 U 3 1 5F173A7E
-P 4200 1350
+P 5150 1350
 AR Path="/5F173A7E" Ref="R?"  Part="3" 
 AR Path="/5F160E7C/5F173A7E" Ref="R7"  Part="3" 
-F 0 "R7" V 4150 1550 50  0000 L CNN
-F 1 "4.7kΩ" V 4084 1350 50  0001 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" V 4130 1350 50  0001 C CNN
-F 3 "~" H 4200 1350 50  0001 C CNN
-	3    4200 1350
-	0    1    1    0   
+F 0 "R7" V 5100 1550 50  0000 L CNN
+F 1 "4.7kΩ" V 5034 1350 50  0001 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x0603" V 5080 1350 50  0001 C CNN
+F 3 "~" H 5150 1350 50  0001 C CNN
+	3    5150 1350
+	0    -1   1    0   
 $EndComp
 $Comp
 L Device:R_Pack04_Split R?
 U 4 1 5F173A84
-P 4200 1450
+P 5150 1450
 AR Path="/5F173A84" Ref="R?"  Part="4" 
 AR Path="/5F160E7C/5F173A84" Ref="R7"  Part="4" 
-F 0 "R7" V 4150 1650 50  0000 L CNN
-F 1 "4.7kΩ" V 4084 1450 50  0001 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" V 4130 1450 50  0001 C CNN
-F 3 "~" H 4200 1450 50  0001 C CNN
-	4    4200 1450
-	0    1    1    0   
+F 0 "R7" V 5100 1650 50  0000 L CNN
+F 1 "4.7kΩ" V 5034 1450 50  0001 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x0603" V 5080 1450 50  0001 C CNN
+F 3 "~" H 5150 1450 50  0001 C CNN
+	4    5150 1450
+	0    -1   1    0   
 $EndComp
 $Comp
 L Device:R_Pack04_Split R?
 U 4 1 5F173A8A
-P 4200 1850
+P 5150 1850
 AR Path="/5F173A8A" Ref="R?"  Part="4" 
 AR Path="/5F160E7C/5F173A8A" Ref="R8"  Part="4" 
-F 0 "R8" V 4150 2050 50  0000 L CNN
-F 1 "4.7kΩ" V 4300 1850 50  0000 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" V 4130 1850 50  0001 C CNN
-F 3 "~" H 4200 1850 50  0001 C CNN
-	4    4200 1850
-	0    1    1    0   
+F 0 "R8" V 5100 2050 50  0000 L CNN
+F 1 "4.7kΩ" V 5250 1850 50  0000 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x0603" V 5080 1850 50  0001 C CNN
+F 3 "~" H 5150 1850 50  0001 C CNN
+	4    5150 1850
+	0    -1   1    0   
 $EndComp
 Wire Wire Line
-	4050 1150 3900 1150
-Connection ~ 3900 1150
+	5300 1150 5450 1150
+Connection ~ 5450 1150
 Wire Wire Line
-	3900 1150 3900 1250
+	5450 1150 5450 1250
 Wire Wire Line
-	4050 1250 3900 1250
-Connection ~ 3900 1250
+	5300 1250 5450 1250
+Connection ~ 5450 1250
 Wire Wire Line
-	3900 1250 3900 1350
+	5450 1250 5450 1350
 Wire Wire Line
-	4050 1350 3900 1350
-Connection ~ 3900 1350
+	5300 1350 5450 1350
+Connection ~ 5450 1350
 Wire Wire Line
-	3900 1350 3900 1450
+	5450 1350 5450 1450
 Wire Wire Line
-	4050 1450 3900 1450
-Connection ~ 3900 1450
+	5300 1450 5450 1450
+Connection ~ 5450 1450
 Wire Wire Line
-	3900 1450 3900 1550
+	5450 1450 5450 1550
 Wire Wire Line
-	4050 1550 3900 1550
-Connection ~ 3900 1550
+	5300 1550 5450 1550
+Connection ~ 5450 1550
 Wire Wire Line
-	4050 1650 3900 1650
+	5300 1650 5450 1650
 Wire Wire Line
-	4050 1750 3900 1750
+	5300 1750 5450 1750
 Wire Wire Line
-	4050 1850 3900 1850
-Connection ~ 3900 1650
+	5300 1850 5450 1850
+Connection ~ 5450 1650
 Wire Wire Line
-	3900 1650 3900 1750
-Connection ~ 3900 1750
+	5450 1650 5450 1750
+Connection ~ 5450 1750
 Wire Wire Line
-	3900 1750 3900 1850
+	5450 1750 5450 1850
 Wire Wire Line
-	3900 1550 3900 1650
+	5450 1550 5450 1650
 $Comp
 L Device:R_Pack04_Split R?
 U 3 1 5F173AA6
-P 4200 1750
+P 5150 1750
 AR Path="/5F173AA6" Ref="R?"  Part="3" 
 AR Path="/5F160E7C/5F173AA6" Ref="R8"  Part="3" 
-F 0 "R8" V 4150 1950 50  0000 L CNN
-F 1 "4.7kΩ" V 4300 1750 50  0001 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" V 4130 1750 50  0001 C CNN
-F 3 "~" H 4200 1750 50  0001 C CNN
-	3    4200 1750
-	0    1    1    0   
+F 0 "R8" V 5100 1950 50  0000 L CNN
+F 1 "4.7kΩ" V 5250 1750 50  0001 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x0603" V 5080 1750 50  0001 C CNN
+F 3 "~" H 5150 1750 50  0001 C CNN
+	3    5150 1750
+	0    -1   1    0   
 $EndComp
 $Comp
 L Device:R_Pack04_Split R?
 U 2 1 5F173AAC
-P 4200 1650
+P 5150 1650
 AR Path="/5F173AAC" Ref="R?"  Part="2" 
 AR Path="/5F160E7C/5F173AAC" Ref="R8"  Part="2" 
-F 0 "R8" V 4150 1850 50  0000 L CNN
-F 1 "4.7kΩ" V 4300 1650 50  0001 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" V 4130 1650 50  0001 C CNN
-F 3 "~" H 4200 1650 50  0001 C CNN
-	2    4200 1650
-	0    1    1    0   
+F 0 "R8" V 5100 1850 50  0000 L CNN
+F 1 "4.7kΩ" V 5250 1650 50  0001 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x0603" V 5080 1650 50  0001 C CNN
+F 3 "~" H 5150 1650 50  0001 C CNN
+	2    5150 1650
+	0    -1   1    0   
 $EndComp
 $Comp
 L Device:R_Pack04_Split R?
 U 1 1 5F173AB2
-P 4200 1550
+P 5150 1550
 AR Path="/5F173AB2" Ref="R?"  Part="1" 
 AR Path="/5F160E7C/5F173AB2" Ref="R8"  Part="1" 
-F 0 "R8" V 4150 1750 50  0000 L CNN
-F 1 "4.7kΩ" V 4300 1550 50  0001 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" V 4130 1550 50  0001 C CNN
-F 3 "~" H 4200 1550 50  0001 C CNN
-	1    4200 1550
-	0    1    1    0   
+F 0 "R8" V 5100 1750 50  0000 L CNN
+F 1 "4.7kΩ" V 5250 1550 50  0001 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x0603" V 5080 1550 50  0001 C CNN
+F 3 "~" H 5150 1550 50  0001 C CNN
+	1    5150 1550
+	0    -1   1    0   
 $EndComp
 Text Label 9500 4700 2    50   ~ 0
 IRF[0..7]
@@ -1269,7 +1269,7 @@ Entry Wire Line
 	3250 3150 3350 3250
 Entry Wire Line
 	3250 3250 3350 3350
-Text Notes 3750 800  0    100  ~ 20
+Text Notes 4400 800  0    100  ~ 20
 ~IRQn~ Pull-Ups
 Text Notes 2200 750  0    100  ~ 20
 Registers
@@ -1728,6 +1728,48 @@ Wire Wire Line
 	8800 1850 8500 1850
 Wire Bus Line
 	8400 1150 8400 4050
+Text Label 8400 2150 1    50   ~ 0
+IEN[0..7]
+Text Label 8300 2150 1    50   ~ 0
+~IRQ[0..7]
+Text Label 6050 2150 1    50   ~ 0
+IEN[0..7]
+Text Label 3900 900  0    50   ~ 0
+~IRQ[0..7]
+Text HLabel 3800 900  0    50   3State ~ 0
+~IRQ[0..7]
+Entry Wire Line
+	4400 1050 4500 1150
+Entry Wire Line
+	4400 1150 4500 1250
+Entry Wire Line
+	4400 1250 4500 1350
+Entry Wire Line
+	4400 1350 4500 1450
+Entry Wire Line
+	4400 1450 4500 1550
+Entry Wire Line
+	4400 1550 4500 1650
+Entry Wire Line
+	4400 1650 4500 1750
+Entry Wire Line
+	4400 1750 4500 1850
+Entry Bus Bus
+	4300 900  4400 1000
+Wire Bus Line
+	4300 900  3800 900 
+Wire Wire Line
+	1350 750  1050 750 
+Wire Wire Line
+	1350 850  1050 850 
+Text Label 1350 750  2    50   ~ 0
+CLK2
+Text Label 1350 850  2    50   ~ 0
+CLK3
+Text HLabel 1050 750  0    50   Input ~ 0
+CLK2
+Text HLabel 1050 850  0    50   Input ~ 0
+CLK3
 Wire Bus Line
 	10450 1550 10450 4600
 Wire Bus Line
@@ -1735,15 +1777,9 @@ Wire Bus Line
 Wire Bus Line
 	3350 2650 3350 3450
 Wire Bus Line
+	4400 1000 4400 1750
+Wire Bus Line
 	3350 3650 3350 6300
 Wire Bus Line
 	5550 4200 5550 6500
-Text Label 8400 2150 1    50   ~ 0
-IEN[0..7]
-Text Label 8300 2150 1    50   ~ 0
-~IRQ[0..7]
-Text Label 6050 2150 1    50   ~ 0
-IEN[0..7]
-Text Label 6150 2150 1    50   ~ 0
-~IRQ[0..7]
 $EndSCHEMATC
