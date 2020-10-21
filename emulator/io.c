@@ -58,6 +58,7 @@ iodev_t iodevs[] = {
                 .write = mbu_write
         },
 
+#ifdef HAVE_DEB        
         {
                 .name = "Basic Debugging Unit (includes verilog TST board)",
                 .code = "DEB",
@@ -67,7 +68,9 @@ iodev_t iodevs[] = {
                 .write = deb_write,
                 .tick = deb_tick
         },
-	
+#endif // HAVE_DEB
+
+#ifdef HAVE_DFP
         {
                 .name = "Debugging Front Panel 2",
                 .code = "DFP",
@@ -78,6 +81,7 @@ iodev_t iodevs[] = {
                 .tick = dfp_tick,
                 .done = dfp_done
         },
+#endif // HAVE_DEFP
 	
 /*
   {

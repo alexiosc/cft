@@ -1,3 +1,14 @@
+// -*- c -*-
+// 
+// dfp.c — Emulate the Debugging Front Panel subsystem (DFP), version 2
+// 
+// Copyright © 2011–2020 Alexios Chouchoulas
+// 
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2, or (at your option)
+// any later version.
+
 /* 
    
    dfp.c - Emulate the Debugging Front Panel subsystem
@@ -669,4 +680,10 @@ dfp_cb_putc(unsigned char c)
 	pthread_mutex_unlock(&dfp_cb.tx_lock);
 }
 
-/* End of file. */
+// End of file.
+// Local Variables:
+// eval: (c-set-style "K&R")
+// c-basic-offset: 8
+// indent-tabs-mode: nil
+// fill-column: 79
+// End:
