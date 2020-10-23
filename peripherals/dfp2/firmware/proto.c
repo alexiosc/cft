@@ -987,25 +987,31 @@ go_ltest()
 
         uint8_t fpaddr = 0;
         uint8_t val = 0;
+        uint8_t reps = 10;
 
 	while (!uistate.is_inpok && !uistate.is_break) {
 		wdt_reset();
 
-                fp_write(0, 0, ++val);
+                if (--reps == 0) break;
+
+                fp_write(0, 0, 0);
+		_delay_ms(100);
+                fp_write(0, 0, 0xff);
 		_delay_ms(100);
                 report_char('.');
-                fp_write(0, 1, ++val);
-		_delay_ms(100);
-                report_char('.');
-                fp_write(0, 2, ++val);
-		_delay_ms(100);
-                report_char('.');
-                fp_write(0, 3, ++val);
-		_delay_ms(100);
-                report_char('.');
-                fp_write(0, 4, ++val);
-		_delay_ms(100);
+                // fp_write(0, 1, ++val);
+		// _delay_ms(100);
+                // report_char('.');
+                // fp_write(0, 2, ++val);
+		// _delay_ms(100);
+                // report_char('.');
+                // fp_write(0, 3, ++val);
+		// _delay_ms(100);
+                // report_char('.');
+                // fp_write(0, 4, ++val);
+		// _delay_ms(100);
                 report_char('\n');
+                report_char('\r');
 
                 if (fpaddr == XMEM_SCANCLR) {
                         fpaddr = 0;

@@ -67,8 +67,8 @@ typedef struct {
 
 	uint8_t   is_busy:1;         // The DFP is busy.
 
-	uint8_t   fp_scanen:1;       // The FP scanner is on
-	uint8_t   fp_panelen:1;      // Lights decode FPA data
+	uint8_t   fp_scanen:1;       // The FP scanner is on (SCANEN# asserted)
+	uint8_t   fp_panelen:1;      // The panel is working autonomously (PANELEN# asserted)
 
 	uint8_t   swdata[8];         // Front Panel Switches
 
