@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 7 14
+Sheet 3 14
 Title "Interrupt State Machine"
 Date ""
 Rev ""
@@ -49,13 +49,13 @@ Wire Wire Line
 	5000 4050 5600 4050
 Text Label 2300 4150 0    50   ~ 0
 CLK2
-Text HLabel 9350 5850 2    50   Output ~ 0
+Text HLabel 7800 4250 2    50   Output ~ 0
 IRF
 Text HLabel 2250 4150 0    50   Input ~ 0
 CLK2
 Text HLabel 2250 4500 0    50   Input ~ 0
 CLK3
-Text HLabel 9350 3950 2    50   3State ~ 0
+Text HLabel 7800 3950 2    50   3State ~ 0
 ~IRQ
 Text Label 2350 3500 0    50   ~ 0
 IEN
@@ -90,18 +90,10 @@ F 3 "" H 5550 4250 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	5600 4250 5550 4250
-Wire Wire Line
-	7900 4150 8100 4150
-Wire Wire Line
-	7800 3750 8100 3750
-Wire Wire Line
-	7200 4150 7400 4150
-Wire Wire Line
-	7200 3750 7500 3750
 $Comp
 L Device:D_Schottky_ALT D?
 U 1 1 5FBD10EF
-P 7650 3750
+P 7100 3950
 AR Path="/5F160E7C/5F173948/5FBD10EF" Ref="D?"  Part="1" 
 AR Path="/5F160E7C/5F173948/5FBB5EDB/5FBD10EF" Ref="D?"  Part="1" 
 AR Path="/5F160E7C/5FC1EA75/5FBD10EF" Ref="D3"  Part="1" 
@@ -114,38 +106,15 @@ AR Path="/5F160E7C/5FD81CE5/5FBD10EF" Ref="D7"  Part="1"
 AR Path="/5F160E7C/5FD81CF9/5FBD10EF" Ref="D8"  Part="1" 
 AR Path="/5F160E7C/5FD81D0D/5FBD10EF" Ref="D9"  Part="1" 
 AR Path="/5F160E7C/5FD81D21/5FBD10EF" Ref="D10"  Part="1" 
-F 0 "D10" H 7650 3966 50  0000 C CNN
-F 1 "CUS520" H 7650 3875 50  0000 C CNN
-F 2 "alexios:SOD-323" H 7650 3750 50  0001 C CNN
-F 3 "~" H 7650 3750 50  0001 C CNN
-F 4 "757-CUS520H3F; £0.043/100" H 7650 3750 50  0001 C CNN "Mouser"
-	1    7650 3750
+F 0 "D10" H 7100 4166 50  0000 C CNN
+F 1 "CUS520" H 7100 4075 50  0000 C CNN
+F 2 "alexios:SOD-323" H 7100 3950 50  0001 C CNN
+F 3 "~" H 7100 3950 50  0001 C CNN
+F 4 "757-CUS520H3F; £0.043/100" H 7100 3950 50  0001 C CNN "Mouser"
+	1    7100 3950
 	1    0    0    -1  
 $EndComp
-$Comp
-L alexios:74LVC1G07 U?
-U 1 1 5FBD10E8
-P 7600 4150
-AR Path="/5F160E7C/5F173948/5FBD10E8" Ref="U?"  Part="1" 
-AR Path="/5F160E7C/5F173948/5FBB5EDB/5FBD10E8" Ref="U?"  Part="1" 
-AR Path="/5F160E7C/5FC1EA75/5FBD10E8" Ref="U17"  Part="1" 
-AR Path="/5F160E7C/5FD4BB81/5FBD10E8" Ref="U19"  Part="1" 
-AR Path="/5F160E7C/5FD5B522/5FBD10E8" Ref="U?"  Part="1" 
-AR Path="/5F160E7C/5FD5B536/5FBD10E8" Ref="U?"  Part="1" 
-AR Path="/5F160E7C/5FD6EACB/5FBD10E8" Ref="U21"  Part="1" 
-AR Path="/5F160E7C/5FD6EADF/5FBD10E8" Ref="U23"  Part="1" 
-AR Path="/5F160E7C/5FD81CE5/5FBD10E8" Ref="U25"  Part="1" 
-AR Path="/5F160E7C/5FD81CF9/5FBD10E8" Ref="U27"  Part="1" 
-AR Path="/5F160E7C/5FD81D0D/5FBD10E8" Ref="U29"  Part="1" 
-AR Path="/5F160E7C/5FD81D21/5FBD10E8" Ref="U31"  Part="1" 
-F 0 "U31" H 7500 4050 50  0000 R CNN
-F 1 "74LVC1G07" H 7700 4050 50  0000 L CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 7700 4150 50  0001 C CNN
-F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 7700 4150 50  0001 C CNN
-	1    7600 4150
-	1    0    0    -1  
-$EndComp
-Text Label 9300 3950 2    50   ~ 0
+Text Label 7750 3950 2    50   ~ 0
 ~IRQ
 Wire Wire Line
 	5000 4150 5000 4500
@@ -176,25 +145,6 @@ Text Label 3700 4150 2    50   ~ 0
 CLK2
 Wire Wire Line
 	2250 4500 5000 4500
-Wire Notes Line
-	7000 3450 8500 3450
-Wire Notes Line
-	8500 3450 8500 5650
-Wire Notes Line
-	8500 5650 7000 5650
-Wire Notes Line
-	7000 5650 7000 3450
-Text Notes 7100 5250 0    59   ~ 12
-Optional Parts
-Text Notes 7100 5550 0    50   ~ 0
-Depending on testing, either the\ndiode or the open drain buffer\nshould be used. Not both.
-Wire Wire Line
-	8100 3750 8100 3950
-Wire Wire Line
-	8100 3950 9350 3950
-Connection ~ 8100 3950
-Wire Wire Line
-	8100 3950 8100 4150
 $Comp
 L alexios:74HC74 U?
 U 3 1 5FC30665
@@ -285,96 +235,6 @@ F 3 "" H 5750 5100 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Connection ~ 5750 5100
-$Comp
-L Device:C_Small C?
-U 1 1 5FC3067F
-P 7400 4700
-AR Path="/5F160E7C/5F173948/5FC3067F" Ref="C?"  Part="1" 
-AR Path="/5F160E7C/5FC1EA75/5FC3067F" Ref="C17"  Part="1" 
-AR Path="/5F160E7C/5FD4BB81/5FC3067F" Ref="C19"  Part="1" 
-AR Path="/5F160E7C/5FD5B522/5FC3067F" Ref="C?"  Part="1" 
-AR Path="/5F160E7C/5FD5B536/5FC3067F" Ref="C?"  Part="1" 
-AR Path="/5F160E7C/5FD6EACB/5FC3067F" Ref="C21"  Part="1" 
-AR Path="/5F160E7C/5FD6EADF/5FC3067F" Ref="C23"  Part="1" 
-AR Path="/5F160E7C/5FD81CE5/5FC3067F" Ref="C25"  Part="1" 
-AR Path="/5F160E7C/5FD81CF9/5FC3067F" Ref="C27"  Part="1" 
-AR Path="/5F160E7C/5FD81D0D/5FC3067F" Ref="C29"  Part="1" 
-AR Path="/5F160E7C/5FD81D21/5FC3067F" Ref="C31"  Part="1" 
-F 0 "C31" H 7308 4746 50  0000 R CNN
-F 1 "100n" H 7308 4655 50  0000 R CNN
-F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7400 4700 50  0001 C CNN
-F 3 "~" H 7400 4700 50  0001 C CNN
-	1    7400 4700
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR?
-U 1 1 5FC30685
-P 7400 4600
-AR Path="/5F160E7C/5F173948/5FC30685" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FC1EA75/5FC30685" Ref="#PWR049"  Part="1" 
-AR Path="/5F160E7C/5FD4BB81/5FC30685" Ref="#PWR055"  Part="1" 
-AR Path="/5F160E7C/5FD5B522/5FC30685" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FD5B536/5FC30685" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FD6EACB/5FC30685" Ref="#PWR061"  Part="1" 
-AR Path="/5F160E7C/5FD6EADF/5FC30685" Ref="#PWR067"  Part="1" 
-AR Path="/5F160E7C/5FD81CE5/5FC30685" Ref="#PWR073"  Part="1" 
-AR Path="/5F160E7C/5FD81CF9/5FC30685" Ref="#PWR079"  Part="1" 
-AR Path="/5F160E7C/5FD81D0D/5FC30685" Ref="#PWR085"  Part="1" 
-AR Path="/5F160E7C/5FD81D21/5FC30685" Ref="#PWR091"  Part="1" 
-F 0 "#PWR091" H 7400 4450 50  0001 C CNN
-F 1 "+5V" H 7415 4773 50  0000 C CNN
-F 2 "" H 7400 4600 50  0001 C CNN
-F 3 "" H 7400 4600 50  0001 C CNN
-	1    7400 4600
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 5FC3068B
-P 7400 4800
-AR Path="/5F160E7C/5F173948/5FC3068B" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FC1EA75/5FC3068B" Ref="#PWR050"  Part="1" 
-AR Path="/5F160E7C/5FD4BB81/5FC3068B" Ref="#PWR056"  Part="1" 
-AR Path="/5F160E7C/5FD5B522/5FC3068B" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FD5B536/5FC3068B" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FD6EACB/5FC3068B" Ref="#PWR062"  Part="1" 
-AR Path="/5F160E7C/5FD6EADF/5FC3068B" Ref="#PWR068"  Part="1" 
-AR Path="/5F160E7C/5FD81CE5/5FC3068B" Ref="#PWR074"  Part="1" 
-AR Path="/5F160E7C/5FD81CF9/5FC3068B" Ref="#PWR080"  Part="1" 
-AR Path="/5F160E7C/5FD81D0D/5FC3068B" Ref="#PWR086"  Part="1" 
-AR Path="/5F160E7C/5FD81D21/5FC3068B" Ref="#PWR092"  Part="1" 
-F 0 "#PWR092" H 7400 4550 50  0001 C CNN
-F 1 "GND" H 7405 4627 50  0000 C CNN
-F 2 "" H 7400 4800 50  0001 C CNN
-F 3 "" H 7400 4800 50  0001 C CNN
-	1    7400 4800
-	1    0    0    -1  
-$EndComp
-Connection ~ 7400 4800
-Connection ~ 7400 4600
-$Comp
-L alexios:74LVC1G07 U?
-U 2 1 5FC30693
-P 7750 4600
-AR Path="/5F160E7C/5F173948/5FC30693" Ref="U?"  Part="2" 
-AR Path="/5F160E7C/5FC1EA75/5FC30693" Ref="U17"  Part="2" 
-AR Path="/5F160E7C/5FD4BB81/5FC30693" Ref="U19"  Part="2" 
-AR Path="/5F160E7C/5FD5B522/5FC30693" Ref="U?"  Part="2" 
-AR Path="/5F160E7C/5FD5B536/5FC30693" Ref="U?"  Part="2" 
-AR Path="/5F160E7C/5FD6EACB/5FC30693" Ref="U21"  Part="2" 
-AR Path="/5F160E7C/5FD6EADF/5FC30693" Ref="U23"  Part="2" 
-AR Path="/5F160E7C/5FD81CE5/5FC30693" Ref="U25"  Part="2" 
-AR Path="/5F160E7C/5FD81CF9/5FC30693" Ref="U27"  Part="2" 
-AR Path="/5F160E7C/5FD81D0D/5FC30693" Ref="U29"  Part="2" 
-AR Path="/5F160E7C/5FD81D21/5FC30693" Ref="U31"  Part="2" 
-F 0 "U31" H 7930 4546 50  0000 L CNN
-F 1 "74LVC1G07" H 7930 4455 50  0000 L CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 7850 4600 50  0001 C CNN
-F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 7850 4600 50  0001 C CNN
-	2    7750 4600
-	1    0    0    -1  
-$EndComp
 Text HLabel 2250 4050 0    50   Input ~ 0
 ~IRQn
 Text Label 3700 4050 2    50   ~ 0
@@ -499,11 +359,6 @@ Text Notes 5150 2650 0    50   ~ 0
 Interrupt\ndisabled again
 Text Notes 3350 1200 0    63   ~ 13
 Interrupt State Machine Waveforms
-Wire Wire Line
-	7200 3750 7200 3950
-Connection ~ 7200 3950
-Wire Wire Line
-	7200 3950 7200 4150
 Text Notes 6150 2750 0    63   ~ 0
 IEN is the interrupt enable signal. It is low on reset, so\ninterrupts are disabled on power-on. It is set low to disable an\ninterrupt. It is set high to enable an interrupt. Clearing a\nserviced interrupt is performed by a high-low-high transition of IEN.\n\nWhile IEN is low, the '74 FFs' ~SET~ input is asserted, and both FFs\noutput a high Q, and thus a deasserted (low) interrupt flag IRF\nand deasserted (high) ~IRQ~.\n\nWhen IEN is high, a low ~IRQn~ level crossing the CLK2 positive edge\nwill be output to the processor on the next positive edge of CLK3.\nIFR, which is active high, is driven by the FF's ~Q~ output to invert the\nsemnatics.\n\nCLK2 and CLK3 are in the same clock domain and the two FFs work to\ncross the interrupt signal into the processor's clock domain and\navoid metastability.
 Wire Notes Line width 12 style solid
@@ -574,20 +429,12 @@ Wire Notes Line width 12 style solid
 	4500 1400 5250 1400
 Wire Notes Line width 12 style solid
 	5500 1400 5650 1400
-Wire Wire Line
-	6500 3950 7200 3950
-Wire Wire Line
-	6850 5850 6850 4250
-Wire Wire Line
-	6850 4250 6500 4250
 Text Label 6550 4250 0    50   ~ 0
 IRF
-Text Label 9250 5850 2    50   ~ 0
+Text Label 7700 4250 2    50   ~ 0
 IRF
 Text Label 6550 3950 0    50   ~ 0
 ~IRQTP
-Wire Wire Line
-	6850 5850 9350 5850
 Wire Wire Line
 	4600 3950 5000 3950
 $Comp
@@ -636,4 +483,10 @@ F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT74.pdf" H 6000 425
 	2    6050 4100
 	1    0    0    -1  
 $EndComp
+Wire Wire Line
+	6500 3950 6950 3950
+Wire Wire Line
+	7250 3950 7800 3950
+Wire Wire Line
+	6500 4250 7800 4250
 $EndSCHEMATC

@@ -370,12 +370,7 @@ Wire Wire Line
 	6250 5750 6250 6100
 Wire Wire Line
 	6300 6050 6050 6050
-Wire Wire Line
-	6050 4350 6050 4750
-Connection ~ 6050 4750
 Connection ~ 6150 4650
-Wire Wire Line
-	6050 4750 6050 6050
 Wire Wire Line
 	6150 4650 6150 5950
 $Comp
@@ -562,8 +557,6 @@ Text HLabel 3100 4050 0    50   Input ~ 0
 ~RTCAW
 Wire Wire Line
 	3100 4650 6150 4650
-Wire Wire Line
-	3100 4750 6050 4750
 Text HLabel 3100 4550 0    50   Input ~ 0
 ~RTCW
 Text HLabel 3100 4650 0    50   Input ~ 0
@@ -676,6 +669,8 @@ Entry Wire Line
 	3850 3650 3950 3750
 Entry Wire Line
 	3850 3750 3950 3850
+Wire Wire Line
+	6050 4350 6050 6050
 Wire Bus Line
 	3850 2800 3850 3750
 Wire Bus Line

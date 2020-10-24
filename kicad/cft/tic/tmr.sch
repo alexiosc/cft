@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 13 14
+Sheet 14 14
 Title ""
 Date ""
 Rev ""
@@ -138,44 +138,6 @@ Wire Wire Line
 	5650 2550 5750 2550
 Wire Wire Line
 	5100 3050 5650 3050
-Wire Wire Line
-	6400 2550 6450 2550
-Wire Wire Line
-	6950 2550 7000 2550
-Wire Wire Line
-	6750 2350 7000 2350
-Wire Wire Line
-	6400 2350 6450 2350
-$Comp
-L Device:D_Schottky_ALT D?
-U 1 1 608442D4
-P 6600 2350
-AR Path="/600C0F8F/608442D4" Ref="D?"  Part="1" 
-AR Path="/608442D4" Ref="D?"  Part="1" 
-AR Path="/60AA2B43/608442D4" Ref="D?"  Part="1" 
-AR Path="/607E2CF3/608442D4" Ref="D1"  Part="1" 
-F 0 "D1" H 6600 2567 50  0000 C CNN
-F 1 "CUS520" H 6600 2476 50  0000 C CNN
-F 2 "alexios:SOD-323" H 6600 2350 50  0001 C CNN
-F 3 "~" H 6600 2350 50  0001 C CNN
-F 4 "757-CUS520H3F; £0.043/100" H 6600 2350 50  0001 C CNN "Mouser"
-	1    6600 2350
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	6400 2350 6400 2450
-Wire Wire Line
-	7000 2350 7000 2450
-Wire Wire Line
-	6250 2450 6400 2450
-Connection ~ 6400 2450
-Wire Wire Line
-	6400 2450 6400 2550
-Wire Wire Line
-	7000 2450 7200 2450
-Connection ~ 7000 2450
-Wire Wire Line
-	7000 2450 7000 2550
 $Comp
 L Connector_Generic:Conn_02x03_Odd_Even JP?
 U 1 1 608442E2
@@ -263,44 +225,22 @@ F 3 "~" H 7500 4650 50  0001 C CNN
 	1    7500 4650
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	7000 4650 7000 4750
-Connection ~ 7000 4650
-Wire Wire Line
-	7000 4650 7200 4650
-Wire Wire Line
-	6400 4650 6400 4750
-Connection ~ 6400 4650
-Wire Wire Line
-	6250 4650 6400 4650
-Wire Wire Line
-	7000 4550 7000 4650
-Wire Wire Line
-	6400 4550 6400 4650
 $Comp
 L Device:D_Schottky_ALT D?
 U 1 1 60844317
-P 6600 4550
+P 6600 4650
 AR Path="/600C0F8F/60844317" Ref="D?"  Part="1" 
 AR Path="/60844317" Ref="D?"  Part="1" 
 AR Path="/60AA2B43/60844317" Ref="D?"  Part="1" 
 AR Path="/607E2CF3/60844317" Ref="D2"  Part="1" 
-F 0 "D2" H 6600 4767 50  0000 C CNN
-F 1 "CUS520" H 6600 4676 50  0000 C CNN
-F 2 "alexios:SOD-323" H 6600 4550 50  0001 C CNN
-F 3 "~" H 6600 4550 50  0001 C CNN
-F 4 "757-CUS520H3F; £0.043/100" H 6600 4550 50  0001 C CNN "Mouser"
-	1    6600 4550
+F 0 "D2" H 6600 4867 50  0000 C CNN
+F 1 "CUS520" H 6600 4776 50  0000 C CNN
+F 2 "alexios:SOD-323" H 6600 4650 50  0001 C CNN
+F 3 "~" H 6600 4650 50  0001 C CNN
+F 4 "757-CUS520H3F; £0.043/100" H 6600 4650 50  0001 C CNN "Mouser"
+	1    6600 4650
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	6400 4550 6450 4550
-Wire Wire Line
-	6750 4550 7000 4550
-Wire Wire Line
-	6950 4750 7000 4750
-Wire Wire Line
-	6400 4750 6450 4750
 Wire Wire Line
 	5650 4750 5750 4750
 Wire Wire Line
@@ -481,313 +421,6 @@ F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G11.pdf" H 5950 4525
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C_Small C?
-U 1 1 608443BF
-P 7400 3100
-AR Path="/5F160E7C/5F173948/608443BF" Ref="C?"  Part="1" 
-AR Path="/5F160E7C/5FC1EA75/608443BF" Ref="C?"  Part="1" 
-AR Path="/5F160E7C/5FD4BB81/608443BF" Ref="C?"  Part="1" 
-AR Path="/5F160E7C/5FD5B522/608443BF" Ref="C?"  Part="1" 
-AR Path="/5F160E7C/5FD5B536/608443BF" Ref="C?"  Part="1" 
-AR Path="/5F160E7C/5FD6EACB/608443BF" Ref="C?"  Part="1" 
-AR Path="/5F160E7C/5FD6EADF/608443BF" Ref="C?"  Part="1" 
-AR Path="/5F160E7C/5FD81CE5/608443BF" Ref="C?"  Part="1" 
-AR Path="/5F160E7C/5FD81CF9/608443BF" Ref="C?"  Part="1" 
-AR Path="/5F160E7C/5FD81D0D/608443BF" Ref="C?"  Part="1" 
-AR Path="/5F160E7C/5FD81D21/608443BF" Ref="C?"  Part="1" 
-AR Path="/608443BF" Ref="C?"  Part="1" 
-AR Path="/607E2CF3/608443BF" Ref="C2"  Part="1" 
-F 0 "C2" H 7308 3146 50  0000 R CNN
-F 1 "100nF" H 7308 3055 50  0000 R CNN
-F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7400 3100 50  0001 C CNN
-F 3 "~" H 7400 3100 50  0001 C CNN
-	1    7400 3100
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR?
-U 1 1 608443C5
-P 7400 3000
-AR Path="/5F160E7C/5F173948/608443C5" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FC1EA75/608443C5" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FD4BB81/608443C5" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FD5B522/608443C5" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FD5B536/608443C5" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FD6EACB/608443C5" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FD6EADF/608443C5" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FD81CE5/608443C5" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FD81CF9/608443C5" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FD81D0D/608443C5" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FD81D21/608443C5" Ref="#PWR?"  Part="1" 
-AR Path="/608443C5" Ref="#PWR?"  Part="1" 
-AR Path="/607E2CF3/608443C5" Ref="#PWR03"  Part="1" 
-F 0 "#PWR03" H 7400 2850 50  0001 C CNN
-F 1 "+5V" H 7415 3173 50  0000 C CNN
-F 2 "" H 7400 3000 50  0001 C CNN
-F 3 "" H 7400 3000 50  0001 C CNN
-	1    7400 3000
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 608443CB
-P 7400 3200
-AR Path="/5F160E7C/5F173948/608443CB" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FC1EA75/608443CB" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FD4BB81/608443CB" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FD5B522/608443CB" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FD5B536/608443CB" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FD6EACB/608443CB" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FD6EADF/608443CB" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FD81CE5/608443CB" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FD81CF9/608443CB" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FD81D0D/608443CB" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FD81D21/608443CB" Ref="#PWR?"  Part="1" 
-AR Path="/608443CB" Ref="#PWR?"  Part="1" 
-AR Path="/607E2CF3/608443CB" Ref="#PWR07"  Part="1" 
-F 0 "#PWR07" H 7400 2950 50  0001 C CNN
-F 1 "GND" H 7405 3027 50  0000 C CNN
-F 2 "" H 7400 3200 50  0001 C CNN
-F 3 "" H 7400 3200 50  0001 C CNN
-	1    7400 3200
-	1    0    0    -1  
-$EndComp
-Connection ~ 7400 3200
-Connection ~ 7400 3000
-$Comp
-L alexios:74LVC1G07 U?
-U 2 1 608443D3
-P 7750 3000
-AR Path="/5F160E7C/5F173948/608443D3" Ref="U?"  Part="2" 
-AR Path="/5F160E7C/5FC1EA75/608443D3" Ref="U?"  Part="2" 
-AR Path="/5F160E7C/5FD4BB81/608443D3" Ref="U?"  Part="2" 
-AR Path="/5F160E7C/5FD5B522/608443D3" Ref="U?"  Part="2" 
-AR Path="/5F160E7C/5FD5B536/608443D3" Ref="U?"  Part="2" 
-AR Path="/5F160E7C/5FD6EACB/608443D3" Ref="U?"  Part="2" 
-AR Path="/5F160E7C/5FD6EADF/608443D3" Ref="U?"  Part="2" 
-AR Path="/5F160E7C/5FD81CE5/608443D3" Ref="U?"  Part="2" 
-AR Path="/5F160E7C/5FD81CF9/608443D3" Ref="U?"  Part="2" 
-AR Path="/5F160E7C/5FD81D0D/608443D3" Ref="U?"  Part="2" 
-AR Path="/5F160E7C/5FD81D21/608443D3" Ref="U?"  Part="2" 
-AR Path="/608443D3" Ref="U?"  Part="2" 
-AR Path="/607E2CF3/608443D3" Ref="U4"  Part="2" 
-F 0 "U4" H 7930 2946 50  0000 L CNN
-F 1 "74LVC1G07" H 7930 2855 50  0000 L CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 7850 3000 50  0001 C CNN
-F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 7850 3000 50  0001 C CNN
-	2    7750 3000
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74LVC1G11 U?
-U 2 1 608443D9
-P 6450 2950
-AR Path="/608443D9" Ref="U?"  Part="2" 
-AR Path="/607E2CF3/608443D9" Ref="U3"  Part="2" 
-F 0 "U3" H 6530 2846 50  0000 L CNN
-F 1 "74LVC1G11" H 6530 2755 50  0000 L CNN
-F 2 "alexios:SOT-23-6_Handsoldering" H 6350 2875 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G11.pdf" H 6350 2875 50  0001 C CNN
-	2    6450 2950
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 608443DF
-P 6000 3100
-AR Path="/5F160E7C/5F173948/608443DF" Ref="C?"  Part="1" 
-AR Path="/5F160E7C/5FC1EA75/608443DF" Ref="C?"  Part="1" 
-AR Path="/5F160E7C/5FD4BB81/608443DF" Ref="C?"  Part="1" 
-AR Path="/5F160E7C/5FD5B522/608443DF" Ref="C?"  Part="1" 
-AR Path="/5F160E7C/5FD5B536/608443DF" Ref="C?"  Part="1" 
-AR Path="/5F160E7C/5FD6EACB/608443DF" Ref="C?"  Part="1" 
-AR Path="/5F160E7C/5FD6EADF/608443DF" Ref="C?"  Part="1" 
-AR Path="/5F160E7C/5FD81CE5/608443DF" Ref="C?"  Part="1" 
-AR Path="/5F160E7C/5FD81CF9/608443DF" Ref="C?"  Part="1" 
-AR Path="/5F160E7C/5FD81D0D/608443DF" Ref="C?"  Part="1" 
-AR Path="/5F160E7C/5FD81D21/608443DF" Ref="C?"  Part="1" 
-AR Path="/608443DF" Ref="C?"  Part="1" 
-AR Path="/607E2CF3/608443DF" Ref="C1"  Part="1" 
-F 0 "C1" H 5908 3146 50  0000 R CNN
-F 1 "100nF" H 5908 3055 50  0000 R CNN
-F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 6000 3100 50  0001 C CNN
-F 3 "~" H 6000 3100 50  0001 C CNN
-	1    6000 3100
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR?
-U 1 1 608443E5
-P 6000 3000
-AR Path="/5F160E7C/5F173948/608443E5" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FC1EA75/608443E5" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FD4BB81/608443E5" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FD5B522/608443E5" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FD5B536/608443E5" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FD6EACB/608443E5" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FD6EADF/608443E5" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FD81CE5/608443E5" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FD81CF9/608443E5" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FD81D0D/608443E5" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FD81D21/608443E5" Ref="#PWR?"  Part="1" 
-AR Path="/608443E5" Ref="#PWR?"  Part="1" 
-AR Path="/607E2CF3/608443E5" Ref="#PWR02"  Part="1" 
-F 0 "#PWR02" H 6000 2850 50  0001 C CNN
-F 1 "+5V" H 6015 3173 50  0000 C CNN
-F 2 "" H 6000 3000 50  0001 C CNN
-F 3 "" H 6000 3000 50  0001 C CNN
-	1    6000 3000
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 608443EB
-P 6000 3200
-AR Path="/5F160E7C/5F173948/608443EB" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FC1EA75/608443EB" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FD4BB81/608443EB" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FD5B522/608443EB" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FD5B536/608443EB" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FD6EACB/608443EB" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FD6EADF/608443EB" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FD81CE5/608443EB" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FD81CF9/608443EB" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FD81D0D/608443EB" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FD81D21/608443EB" Ref="#PWR?"  Part="1" 
-AR Path="/608443EB" Ref="#PWR?"  Part="1" 
-AR Path="/607E2CF3/608443EB" Ref="#PWR06"  Part="1" 
-F 0 "#PWR06" H 6000 2950 50  0001 C CNN
-F 1 "GND" H 6005 3027 50  0000 C CNN
-F 2 "" H 6000 3200 50  0001 C CNN
-F 3 "" H 6000 3200 50  0001 C CNN
-	1    6000 3200
-	1    0    0    -1  
-$EndComp
-Connection ~ 6000 3000
-Connection ~ 6000 3200
-$Comp
-L alexios:74LVC1G07 U?
-U 1 1 608443F3
-P 6650 2550
-AR Path="/5F160E7C/5F173948/608443F3" Ref="U?"  Part="2" 
-AR Path="/5F160E7C/5FC1EA75/608443F3" Ref="U?"  Part="2" 
-AR Path="/5F160E7C/5FD4BB81/608443F3" Ref="U?"  Part="2" 
-AR Path="/5F160E7C/5FD5B522/608443F3" Ref="U?"  Part="2" 
-AR Path="/5F160E7C/5FD5B536/608443F3" Ref="U?"  Part="2" 
-AR Path="/5F160E7C/5FD6EACB/608443F3" Ref="U?"  Part="2" 
-AR Path="/5F160E7C/5FD6EADF/608443F3" Ref="U?"  Part="2" 
-AR Path="/5F160E7C/5FD81CE5/608443F3" Ref="U?"  Part="2" 
-AR Path="/5F160E7C/5FD81CF9/608443F3" Ref="U?"  Part="2" 
-AR Path="/5F160E7C/5FD81D0D/608443F3" Ref="U?"  Part="2" 
-AR Path="/5F160E7C/5FD81D21/608443F3" Ref="U?"  Part="2" 
-AR Path="/608443F3" Ref="U?"  Part="1" 
-AR Path="/607E2CF3/608443F3" Ref="U4"  Part="1" 
-F 0 "U4" H 6830 2496 50  0000 L CNN
-F 1 "74LVC1G07" H 6830 2405 50  0000 L CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 6750 2550 50  0001 C CNN
-F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 6750 2550 50  0001 C CNN
-	1    6650 2550
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 608443F9
-P 7400 3900
-AR Path="/5F160E7C/5F173948/608443F9" Ref="C?"  Part="1" 
-AR Path="/5F160E7C/5FC1EA75/608443F9" Ref="C?"  Part="1" 
-AR Path="/5F160E7C/5FD4BB81/608443F9" Ref="C?"  Part="1" 
-AR Path="/5F160E7C/5FD5B522/608443F9" Ref="C?"  Part="1" 
-AR Path="/5F160E7C/5FD5B536/608443F9" Ref="C?"  Part="1" 
-AR Path="/5F160E7C/5FD6EACB/608443F9" Ref="C?"  Part="1" 
-AR Path="/5F160E7C/5FD6EADF/608443F9" Ref="C?"  Part="1" 
-AR Path="/5F160E7C/5FD81CE5/608443F9" Ref="C?"  Part="1" 
-AR Path="/5F160E7C/5FD81CF9/608443F9" Ref="C?"  Part="1" 
-AR Path="/5F160E7C/5FD81D0D/608443F9" Ref="C?"  Part="1" 
-AR Path="/5F160E7C/5FD81D21/608443F9" Ref="C?"  Part="1" 
-AR Path="/608443F9" Ref="C?"  Part="1" 
-AR Path="/607E2CF3/608443F9" Ref="C7"  Part="1" 
-F 0 "C7" H 7308 3946 50  0000 R CNN
-F 1 "100nF" H 7308 3855 50  0000 R CNN
-F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7400 3900 50  0001 C CNN
-F 3 "~" H 7400 3900 50  0001 C CNN
-	1    7400 3900
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR?
-U 1 1 608443FF
-P 7400 3800
-AR Path="/5F160E7C/5F173948/608443FF" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FC1EA75/608443FF" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FD4BB81/608443FF" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FD5B522/608443FF" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FD5B536/608443FF" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FD6EACB/608443FF" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FD6EADF/608443FF" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FD81CE5/608443FF" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FD81CF9/608443FF" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FD81D0D/608443FF" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FD81D21/608443FF" Ref="#PWR?"  Part="1" 
-AR Path="/608443FF" Ref="#PWR?"  Part="1" 
-AR Path="/607E2CF3/608443FF" Ref="#PWR013"  Part="1" 
-F 0 "#PWR013" H 7400 3650 50  0001 C CNN
-F 1 "+5V" H 7415 3973 50  0000 C CNN
-F 2 "" H 7400 3800 50  0001 C CNN
-F 3 "" H 7400 3800 50  0001 C CNN
-	1    7400 3800
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 60844405
-P 7400 4000
-AR Path="/5F160E7C/5F173948/60844405" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FC1EA75/60844405" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FD4BB81/60844405" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FD5B522/60844405" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FD5B536/60844405" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FD6EACB/60844405" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FD6EADF/60844405" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FD81CE5/60844405" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FD81CF9/60844405" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FD81D0D/60844405" Ref="#PWR?"  Part="1" 
-AR Path="/5F160E7C/5FD81D21/60844405" Ref="#PWR?"  Part="1" 
-AR Path="/60844405" Ref="#PWR?"  Part="1" 
-AR Path="/607E2CF3/60844405" Ref="#PWR017"  Part="1" 
-F 0 "#PWR017" H 7400 3750 50  0001 C CNN
-F 1 "GND" H 7405 3827 50  0000 C CNN
-F 2 "" H 7400 4000 50  0001 C CNN
-F 3 "" H 7400 4000 50  0001 C CNN
-	1    7400 4000
-	1    0    0    -1  
-$EndComp
-Connection ~ 7400 4000
-Connection ~ 7400 3800
-$Comp
-L alexios:74LVC1G07 U?
-U 2 1 6084440D
-P 7750 3800
-AR Path="/5F160E7C/5F173948/6084440D" Ref="U?"  Part="2" 
-AR Path="/5F160E7C/5FC1EA75/6084440D" Ref="U?"  Part="2" 
-AR Path="/5F160E7C/5FD4BB81/6084440D" Ref="U?"  Part="2" 
-AR Path="/5F160E7C/5FD5B522/6084440D" Ref="U?"  Part="2" 
-AR Path="/5F160E7C/5FD5B536/6084440D" Ref="U?"  Part="2" 
-AR Path="/5F160E7C/5FD6EACB/6084440D" Ref="U?"  Part="2" 
-AR Path="/5F160E7C/5FD6EADF/6084440D" Ref="U?"  Part="2" 
-AR Path="/5F160E7C/5FD81CE5/6084440D" Ref="U?"  Part="2" 
-AR Path="/5F160E7C/5FD81CF9/6084440D" Ref="U?"  Part="2" 
-AR Path="/5F160E7C/5FD81D0D/6084440D" Ref="U?"  Part="2" 
-AR Path="/5F160E7C/5FD81D21/6084440D" Ref="U?"  Part="2" 
-AR Path="/6084440D" Ref="U?"  Part="2" 
-AR Path="/607E2CF3/6084440D" Ref="U8"  Part="2" 
-F 0 "U8" H 7930 3746 50  0000 L CNN
-F 1 "74LVC1G07" H 7930 3655 50  0000 L CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 7850 3800 50  0001 C CNN
-F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 7850 3800 50  0001 C CNN
-	2    7750 3800
-	1    0    0    -1  
-$EndComp
-$Comp
 L alexios:74LVC1G11 U?
 U 2 1 60844413
 P 6500 3750
@@ -874,30 +507,6 @@ F 3 "" H 6050 4000 50  0001 C CNN
 $EndComp
 Connection ~ 6050 3800
 Connection ~ 6050 4000
-$Comp
-L alexios:74LVC1G07 U?
-U 1 1 6084442D
-P 6650 4750
-AR Path="/5F160E7C/5F173948/6084442D" Ref="U?"  Part="2" 
-AR Path="/5F160E7C/5FC1EA75/6084442D" Ref="U?"  Part="2" 
-AR Path="/5F160E7C/5FD4BB81/6084442D" Ref="U?"  Part="2" 
-AR Path="/5F160E7C/5FD5B522/6084442D" Ref="U?"  Part="2" 
-AR Path="/5F160E7C/5FD5B536/6084442D" Ref="U?"  Part="2" 
-AR Path="/5F160E7C/5FD6EACB/6084442D" Ref="U?"  Part="2" 
-AR Path="/5F160E7C/5FD6EADF/6084442D" Ref="U?"  Part="2" 
-AR Path="/5F160E7C/5FD81CE5/6084442D" Ref="U?"  Part="2" 
-AR Path="/5F160E7C/5FD81CF9/6084442D" Ref="U?"  Part="2" 
-AR Path="/5F160E7C/5FD81D0D/6084442D" Ref="U?"  Part="2" 
-AR Path="/5F160E7C/5FD81D21/6084442D" Ref="U?"  Part="2" 
-AR Path="/6084442D" Ref="U?"  Part="1" 
-AR Path="/607E2CF3/6084442D" Ref="U8"  Part="1" 
-F 0 "U8" H 6700 4575 50  0000 C CNN
-F 1 "74LVC1G07" H 6700 4484 50  0000 C CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 6750 4750 50  0001 C CNN
-F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 6750 4750 50  0001 C CNN
-	1    6650 4750
-	1    0    0    -1  
-$EndComp
 $Comp
 L alexios:8254 U?
 U 1 1 60844439
@@ -1697,191 +1306,27 @@ F 3 "" H 5800 6350 50  0001 C CNN
 $EndComp
 Connection ~ 5800 6350
 Connection ~ 5800 6150
-Wire Wire Line
-	6600 1450 6900 1450
-$Comp
-L power:+5V #PWR?
-U 1 1 6084458A
-P 6900 1050
-AR Path="/6084458A" Ref="#PWR?"  Part="1" 
-AR Path="/607E2CF3/6084458A" Ref="#PWR01"  Part="1" 
-F 0 "#PWR01" H 6900 900 50  0001 C CNN
-F 1 "+5V" H 7050 1100 50  0000 C CNN
-F 2 "" H 6900 1050 50  0001 C CNN
-F 3 "" H 6900 1050 50  0001 C CNN
-	1    6900 1050
-	-1   0    0    -1  
-$EndComp
-Wire Wire Line
-	6900 1050 6900 1100
-$Comp
-L Device:R_Small R?
-U 1 1 60844591
-P 6900 1250
-AR Path="/60844591" Ref="R?"  Part="1" 
-AR Path="/607E2CF3/60844591" Ref="R1"  Part="1" 
-F 0 "R1" H 6750 1100 50  0000 L CNN
-F 1 "4.7kΩ" H 6959 1205 50  0000 L CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 6900 1250 50  0001 C CNN
-F 3 "~" H 6900 1250 50  0001 C CNN
-	1    6900 1250
-	-1   0    0    -1  
-$EndComp
-$Comp
-L Device:R_Small R?
-U 1 1 60844597
-P 7300 1250
-AR Path="/60844597" Ref="R?"  Part="1" 
-AR Path="/607E2CF3/60844597" Ref="R3"  Part="1" 
-F 0 "R3" H 7350 1100 50  0000 L CNN
-F 1 "4.7kΩ" H 7359 1205 50  0001 L CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7300 1250 50  0001 C CNN
-F 3 "~" H 7300 1250 50  0001 C CNN
-	1    7300 1250
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:R_Small R?
-U 1 1 6084459D
-P 7500 1250
-AR Path="/6084459D" Ref="R?"  Part="1" 
-AR Path="/607E2CF3/6084459D" Ref="R4"  Part="1" 
-F 0 "R4" H 7550 1100 50  0000 L CNN
-F 1 "4.7kΩ" H 7559 1205 50  0001 L CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7500 1250 50  0001 C CNN
-F 3 "~" H 7500 1250 50  0001 C CNN
-	1    7500 1250
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:R_Small R?
-U 1 1 608445A3
-P 7700 1250
-AR Path="/608445A3" Ref="R?"  Part="1" 
-AR Path="/607E2CF3/608445A3" Ref="R5"  Part="1" 
-F 0 "R5" H 7750 1100 50  0000 L CNN
-F 1 "4.7kΩ" H 7759 1205 50  0001 L CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7700 1250 50  0001 C CNN
-F 3 "~" H 7700 1250 50  0001 C CNN
-	1    7700 1250
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:R_Small R?
-U 1 1 608445A9
-P 7900 1250
-AR Path="/608445A9" Ref="R?"  Part="1" 
-AR Path="/607E2CF3/608445A9" Ref="R6"  Part="1" 
-F 0 "R6" H 7950 1100 50  0000 L CNN
-F 1 "4.7kΩ" H 7959 1205 50  0001 L CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7900 1250 50  0001 C CNN
-F 3 "~" H 7900 1250 50  0001 C CNN
-	1    7900 1250
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	6900 1350 6900 1450
-Connection ~ 6900 1450
-Wire Wire Line
-	6900 1450 8100 1450
-Wire Wire Line
-	7100 1350 7100 1550
-Wire Wire Line
-	7300 1350 7300 1650
-Wire Wire Line
-	7500 1350 7500 1750
-Wire Wire Line
-	7700 1350 7700 1850
-Wire Wire Line
-	7900 1350 7900 1950
-$Comp
-L Device:R_Small R?
-U 1 1 608445B7
-P 7100 1250
-AR Path="/608445B7" Ref="R?"  Part="1" 
-AR Path="/607E2CF3/608445B7" Ref="R2"  Part="1" 
-F 0 "R2" H 7150 1100 50  0000 L CNN
-F 1 "4.7kΩ" H 7159 1205 50  0001 L CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7100 1250 50  0001 C CNN
-F 3 "~" H 7100 1250 50  0001 C CNN
-	1    7100 1250
-	1    0    0    -1  
-$EndComp
-Connection ~ 7100 1550
-Wire Wire Line
-	7100 1550 8100 1550
-Wire Wire Line
-	6600 1550 7100 1550
-Connection ~ 7300 1650
-Wire Wire Line
-	7300 1650 8100 1650
-Wire Wire Line
-	6600 1650 7300 1650
-Connection ~ 7500 1750
-Wire Wire Line
-	7500 1750 8100 1750
-Wire Wire Line
-	6600 1750 7500 1750
-Connection ~ 7700 1850
-Wire Wire Line
-	7700 1850 8100 1850
-Wire Wire Line
-	6600 1850 7700 1850
-Connection ~ 7900 1950
-Wire Wire Line
-	7900 1950 8100 1950
-Wire Wire Line
-	6600 1950 7900 1950
-Wire Wire Line
-	6900 1100 7100 1100
-Wire Wire Line
-	7900 1100 7900 1150
-Connection ~ 6900 1100
-Wire Wire Line
-	6900 1100 6900 1150
-Wire Wire Line
-	7100 1150 7100 1100
-Connection ~ 7100 1100
-Wire Wire Line
-	7100 1100 7300 1100
-Wire Wire Line
-	7300 1150 7300 1100
-Connection ~ 7300 1100
-Wire Wire Line
-	7300 1100 7500 1100
-Wire Wire Line
-	7500 1150 7500 1100
-Connection ~ 7500 1100
-Wire Wire Line
-	7500 1100 7700 1100
-Wire Wire Line
-	7700 1150 7700 1100
-Connection ~ 7700 1100
-Wire Wire Line
-	7700 1100 7900 1100
-Text Label 6600 1550 0    50   ~ 0
+Text Label 8950 1550 0    50   ~ 0
 G0-1
-Text Label 6600 1650 0    50   ~ 0
+Text Label 8950 2300 0    50   ~ 0
 G0-2
-Text Label 6600 1750 0    50   ~ 0
+Text Label 8950 2400 0    50   ~ 0
 G1-0
-Text Label 6600 1850 0    50   ~ 0
+Text Label 8950 3150 0    50   ~ 0
 G1-1
-Text Label 6600 1950 0    50   ~ 0
+Text Label 8950 3250 0    50   ~ 0
 G1-2
-Text HLabel 8100 1450 2    50   Output ~ 0
-G0-0
-Text HLabel 8100 1550 2    50   Output ~ 0
-G0-1
-Text HLabel 8100 1650 2    50   Output ~ 0
-G0-2
-Text HLabel 8100 1750 2    50   Output ~ 0
-G1-0
-Text HLabel 8100 1850 2    50   Output ~ 0
-G1-1
-Text HLabel 8100 1950 2    50   Output ~ 0
-G1-2
-Text Label 6600 1450 0    50   ~ 0
+Text HLabel 10300 1450 2    50   Output ~ 0
+OUT-G0-0
+Text HLabel 10300 1550 2    50   Output ~ 0
+OUT-G0-1
+Text HLabel 10300 2300 2    50   Output ~ 0
+OUT-G0-2
+Text HLabel 10300 3150 2    50   Output ~ 0
+OUT-G1-1
+Text HLabel 10300 3250 2    50   Output ~ 0
+OUT-G1-2
+Text Label 8950 1450 0    50   ~ 0
 G0-0
 Text HLabel 8100 2350 2    50   3State ~ 0
 ~IRQ0
@@ -2116,22 +1561,287 @@ Text Label 3700 4450 0    50   ~ 0
 TD6
 Text Label 3700 4550 0    50   ~ 0
 TD7
+$Comp
+L Device:D_Schottky_ALT D?
+U 1 1 608442D4
+P 6600 2450
+AR Path="/600C0F8F/608442D4" Ref="D?"  Part="1" 
+AR Path="/608442D4" Ref="D?"  Part="1" 
+AR Path="/60AA2B43/608442D4" Ref="D?"  Part="1" 
+AR Path="/607E2CF3/608442D4" Ref="D1"  Part="1" 
+F 0 "D1" H 6600 2667 50  0000 C CNN
+F 1 "CUS520" H 6600 2576 50  0000 C CNN
+F 2 "alexios:SOD-323" H 6600 2450 50  0001 C CNN
+F 3 "~" H 6600 2450 50  0001 C CNN
+F 4 "757-CUS520H3F; £0.043/100" H 6600 2450 50  0001 C CNN "Mouser"
+	1    6600 2450
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 608443EB
+P 6000 3200
+AR Path="/5F160E7C/5F173948/608443EB" Ref="#PWR?"  Part="1" 
+AR Path="/5F160E7C/5FC1EA75/608443EB" Ref="#PWR?"  Part="1" 
+AR Path="/5F160E7C/5FD4BB81/608443EB" Ref="#PWR?"  Part="1" 
+AR Path="/5F160E7C/5FD5B522/608443EB" Ref="#PWR?"  Part="1" 
+AR Path="/5F160E7C/5FD5B536/608443EB" Ref="#PWR?"  Part="1" 
+AR Path="/5F160E7C/5FD6EACB/608443EB" Ref="#PWR?"  Part="1" 
+AR Path="/5F160E7C/5FD6EADF/608443EB" Ref="#PWR?"  Part="1" 
+AR Path="/5F160E7C/5FD81CE5/608443EB" Ref="#PWR?"  Part="1" 
+AR Path="/5F160E7C/5FD81CF9/608443EB" Ref="#PWR?"  Part="1" 
+AR Path="/5F160E7C/5FD81D0D/608443EB" Ref="#PWR?"  Part="1" 
+AR Path="/5F160E7C/5FD81D21/608443EB" Ref="#PWR?"  Part="1" 
+AR Path="/608443EB" Ref="#PWR?"  Part="1" 
+AR Path="/607E2CF3/608443EB" Ref="#PWR06"  Part="1" 
+F 0 "#PWR06" H 6000 2950 50  0001 C CNN
+F 1 "GND" H 6005 3027 50  0000 C CNN
+F 2 "" H 6000 3200 50  0001 C CNN
+F 3 "" H 6000 3200 50  0001 C CNN
+	1    6000 3200
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 608443E5
+P 6000 3000
+AR Path="/5F160E7C/5F173948/608443E5" Ref="#PWR?"  Part="1" 
+AR Path="/5F160E7C/5FC1EA75/608443E5" Ref="#PWR?"  Part="1" 
+AR Path="/5F160E7C/5FD4BB81/608443E5" Ref="#PWR?"  Part="1" 
+AR Path="/5F160E7C/5FD5B522/608443E5" Ref="#PWR?"  Part="1" 
+AR Path="/5F160E7C/5FD5B536/608443E5" Ref="#PWR?"  Part="1" 
+AR Path="/5F160E7C/5FD6EACB/608443E5" Ref="#PWR?"  Part="1" 
+AR Path="/5F160E7C/5FD6EADF/608443E5" Ref="#PWR?"  Part="1" 
+AR Path="/5F160E7C/5FD81CE5/608443E5" Ref="#PWR?"  Part="1" 
+AR Path="/5F160E7C/5FD81CF9/608443E5" Ref="#PWR?"  Part="1" 
+AR Path="/5F160E7C/5FD81D0D/608443E5" Ref="#PWR?"  Part="1" 
+AR Path="/5F160E7C/5FD81D21/608443E5" Ref="#PWR?"  Part="1" 
+AR Path="/608443E5" Ref="#PWR?"  Part="1" 
+AR Path="/607E2CF3/608443E5" Ref="#PWR02"  Part="1" 
+F 0 "#PWR02" H 6000 2850 50  0001 C CNN
+F 1 "+5V" H 6015 3173 50  0000 C CNN
+F 2 "" H 6000 3000 50  0001 C CNN
+F 3 "" H 6000 3000 50  0001 C CNN
+	1    6000 3000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 608443DF
+P 6000 3100
+AR Path="/5F160E7C/5F173948/608443DF" Ref="C?"  Part="1" 
+AR Path="/5F160E7C/5FC1EA75/608443DF" Ref="C?"  Part="1" 
+AR Path="/5F160E7C/5FD4BB81/608443DF" Ref="C?"  Part="1" 
+AR Path="/5F160E7C/5FD5B522/608443DF" Ref="C?"  Part="1" 
+AR Path="/5F160E7C/5FD5B536/608443DF" Ref="C?"  Part="1" 
+AR Path="/5F160E7C/5FD6EACB/608443DF" Ref="C?"  Part="1" 
+AR Path="/5F160E7C/5FD6EADF/608443DF" Ref="C?"  Part="1" 
+AR Path="/5F160E7C/5FD81CE5/608443DF" Ref="C?"  Part="1" 
+AR Path="/5F160E7C/5FD81CF9/608443DF" Ref="C?"  Part="1" 
+AR Path="/5F160E7C/5FD81D0D/608443DF" Ref="C?"  Part="1" 
+AR Path="/5F160E7C/5FD81D21/608443DF" Ref="C?"  Part="1" 
+AR Path="/608443DF" Ref="C?"  Part="1" 
+AR Path="/607E2CF3/608443DF" Ref="C1"  Part="1" 
+F 0 "C1" H 5908 3146 50  0000 R CNN
+F 1 "100nF" H 5908 3055 50  0000 R CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 6000 3100 50  0001 C CNN
+F 3 "~" H 6000 3100 50  0001 C CNN
+	1    6000 3100
+	1    0    0    -1  
+$EndComp
+Connection ~ 6000 3000
+Connection ~ 6000 3200
+$Comp
+L alexios:74LVC1G11 U?
+U 2 1 608443D9
+P 6450 2950
+AR Path="/608443D9" Ref="U?"  Part="2" 
+AR Path="/607E2CF3/608443D9" Ref="U3"  Part="2" 
+F 0 "U3" H 6530 2846 50  0000 L CNN
+F 1 "74LVC1G11" H 6530 2755 50  0000 L CNN
+F 2 "alexios:SOT-23-6_Handsoldering" H 6350 2875 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G11.pdf" H 6350 2875 50  0001 C CNN
+	2    6450 2950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6250 2450 6450 2450
+Wire Wire Line
+	6750 2450 7200 2450
+Wire Wire Line
+	6750 4650 7200 4650
+Wire Wire Line
+	6250 4650 6450 4650
+Wire Wire Line
+	8950 1450 9300 1450
+Wire Wire Line
+	8950 1550 9300 1550
+Wire Wire Line
+	8950 2300 9300 2300
+Wire Wire Line
+	8950 2400 9300 2400
+Wire Wire Line
+	8950 3150 9300 3150
+Wire Wire Line
+	8950 3250 9300 3250
+Wire Wire Line
+	10100 1450 10300 1450
+Wire Wire Line
+	10100 1550 10300 1550
+Wire Wire Line
+	10100 2300 10300 2300
+Wire Wire Line
+	10100 2400 10300 2400
+Wire Wire Line
+	10100 3150 10300 3150
+Wire Wire Line
+	10100 3250 10300 3250
+Text HLabel 10300 2400 2    50   Output ~ 0
+OUT-G1-0
+$Comp
+L alexios:USB6B1 U4
+U 1 1 5FC50E82
+P 9700 1500
+F 0 "U4" H 9700 1917 50  0000 C CNN
+F 1 "USB6B1" H 9700 1826 50  0000 C CNN
+F 2 "alexios:SOIC-8" H 9675 850 50  0001 C CNN
+F 3 "http://www.st.com/content/ccc/resource/technical/document/datasheet/3e/ec/b2/54/b2/76/47/90/CD00001361.pdf/files/CD00001361.pdf/jcr:content/translations/en.CD00001361.pdf" H 8750 1400 50  0001 C CNN
+F 4 "511-USB6B1RL; €1.08" H 9700 750 50  0001 C CNN "Mouser"
+	1    9700 1500
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0134
+U 1 1 5FCAFEF2
+P 9250 1700
+F 0 "#PWR0134" H 9250 1450 50  0001 C CNN
+F 1 "GND" H 9255 1527 50  0000 C CNN
+F 2 "" H 9250 1700 50  0001 C CNN
+F 3 "" H 9250 1700 50  0001 C CNN
+	1    9250 1700
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:USB6B1 U8
+U 1 1 5FCB16B7
+P 9700 2350
+F 0 "U8" H 9700 2767 50  0000 C CNN
+F 1 "USB6B1" H 9700 2676 50  0000 C CNN
+F 2 "alexios:SOIC-8" H 9675 1700 50  0001 C CNN
+F 3 "http://www.st.com/content/ccc/resource/technical/document/datasheet/3e/ec/b2/54/b2/76/47/90/CD00001361.pdf/files/CD00001361.pdf/jcr:content/translations/en.CD00001361.pdf" H 8750 2250 50  0001 C CNN
+F 4 "511-USB6B1RL; €1.08" H 9700 1600 50  0001 C CNN "Mouser"
+	1    9700 2350
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:USB6B1 U17
+U 1 1 5FCB1A66
+P 9700 3200
+F 0 "U17" H 9700 3617 50  0000 C CNN
+F 1 "USB6B1" H 9700 3526 50  0000 C CNN
+F 2 "alexios:SOIC-8" H 9675 2550 50  0001 C CNN
+F 3 "http://www.st.com/content/ccc/resource/technical/document/datasheet/3e/ec/b2/54/b2/76/47/90/CD00001361.pdf/files/CD00001361.pdf/jcr:content/translations/en.CD00001361.pdf" H 8750 3100 50  0001 C CNN
+F 4 "511-USB6B1RL; €1.08" H 9700 2450 50  0001 C CNN "Mouser"
+	1    9700 3200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9300 1650 9250 1650
+Wire Wire Line
+	9250 1650 9250 1700
+$Comp
+L power:GND #PWR0135
+U 1 1 5FCBB2EA
+P 9250 2550
+F 0 "#PWR0135" H 9250 2300 50  0001 C CNN
+F 1 "GND" H 9255 2377 50  0000 C CNN
+F 2 "" H 9250 2550 50  0001 C CNN
+F 3 "" H 9250 2550 50  0001 C CNN
+	1    9250 2550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9300 2500 9250 2500
+Wire Wire Line
+	9250 2500 9250 2550
+$Comp
+L power:GND #PWR0136
+U 1 1 5FCC434A
+P 9250 3400
+F 0 "#PWR0136" H 9250 3150 50  0001 C CNN
+F 1 "GND" H 9255 3227 50  0000 C CNN
+F 2 "" H 9250 3400 50  0001 C CNN
+F 3 "" H 9250 3400 50  0001 C CNN
+	1    9250 3400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9300 3350 9250 3350
+Wire Wire Line
+	9250 3350 9250 3400
+$Comp
+L power:+5V #PWR0137
+U 1 1 5FCCD98C
+P 9250 1300
+F 0 "#PWR0137" H 9250 1150 50  0001 C CNN
+F 1 "+5V" H 9265 1473 50  0000 C CNN
+F 2 "" H 9250 1300 50  0001 C CNN
+F 3 "" H 9250 1300 50  0001 C CNN
+	1    9250 1300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9250 1300 9250 1350
+Wire Wire Line
+	9250 1350 9300 1350
+$Comp
+L power:+5V #PWR0138
+U 1 1 5FCE1734
+P 9250 2150
+F 0 "#PWR0138" H 9250 2000 50  0001 C CNN
+F 1 "+5V" H 9265 2323 50  0000 C CNN
+F 2 "" H 9250 2150 50  0001 C CNN
+F 3 "" H 9250 2150 50  0001 C CNN
+	1    9250 2150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9250 2150 9250 2200
+Wire Wire Line
+	9250 2200 9300 2200
+$Comp
+L power:+5V #PWR0139
+U 1 1 5FCEADF2
+P 9250 3000
+F 0 "#PWR0139" H 9250 2850 50  0001 C CNN
+F 1 "+5V" H 9265 3173 50  0000 C CNN
+F 2 "" H 9250 3000 50  0001 C CNN
+F 3 "" H 9250 3000 50  0001 C CNN
+	1    9250 3000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9250 3000 9250 3050
+Wire Wire Line
+	9250 3050 9300 3050
 Wire Notes Line
-	6300 4250 7100 4250
+	8750 850  11000 850 
 Wire Notes Line
-	7100 4250 7100 5400
+	11000 850  11000 4200
 Wire Notes Line
-	7100 5400 6300 5400
+	11000 4200 8750 4200
 Wire Notes Line
-	6300 5400 6300 4250
-Text Notes 6400 5300 0    50   ~ 0
-Install either IC\nor diode.
+	8750 4200 8750 850 
+Text Notes 9250 3800 2    63   ~ 13
+Optional
+Text Notes 8850 4100 0    50   ~ 0
+Install only if OUT signals will be used off-board,\nand only for signals used off-board.
 Wire Bus Line
 	1600 1750 1600 4750
 Wire Bus Line
 	1600 4950 1600 6100
 Wire Bus Line
-	3550 1450 3550 4450
-Wire Bus Line
 	3250 1450 3250 2250
+Wire Bus Line
+	3550 1450 3550 4450
 $EndSCHEMATC
