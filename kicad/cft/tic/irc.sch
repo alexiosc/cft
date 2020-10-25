@@ -484,12 +484,13 @@ S 6550 1350 1150 600
 U 5FC1EA75
 F0 "sheet5FC1EA73" 50
 F1 "irq_ff.sch" 50
-F2 "IEN" I L 6550 1750 50 
+F2 "IEN" I L 6550 1650 50 
 F3 "IRF" O R 7700 1450 50 
 F4 "CLK2" I L 6550 1450 50 
 F5 "CLK3" I L 6550 1550 50 
 F6 "~IRQ" T R 7700 1850 50 
-F7 "~IRQn" I L 6550 1850 50 
+F7 "~IRQn" I L 6550 1750 50 
+F8 "~IRQni" I L 6550 1850 50 
 $EndSheet
 Wire Wire Line
 	6250 1450 6550 1450
@@ -500,20 +501,19 @@ CLK2
 Text Label 6250 1550 0    50   ~ 0
 CLK3
 Wire Wire Line
-	6550 1850 6250 1850
-Wire Wire Line
 	7700 1450 8100 1450
 $Sheet
 S 6550 2150 1150 600 
 U 5FD4BB81
 F0 "sheet5FD4BB79" 50
 F1 "irq_ff.sch" 50
-F2 "IEN" I L 6550 2550 50 
+F2 "IEN" I L 6550 2450 50 
 F3 "IRF" O R 7700 2250 50 
 F4 "CLK2" I L 6550 2250 50 
 F5 "CLK3" I L 6550 2350 50 
 F6 "~IRQ" T R 7700 2650 50 
-F7 "~IRQn" I L 6550 2650 50 
+F7 "~IRQn" I L 6550 2550 50 
+F8 "~IRQni" I L 6550 2650 50 
 $EndSheet
 Wire Wire Line
 	6250 2250 6550 2250
@@ -524,21 +524,9 @@ CLK2
 Text Label 6250 2350 0    50   ~ 0
 CLK3
 Wire Wire Line
-	6550 2650 6250 2650
+	6550 2550 6250 2550
 Wire Wire Line
 	7700 2250 8100 2250
-$Sheet
-S 6550 2950 1150 600 
-U 5FD6EACB
-F0 "sheet5FD6EAC2" 50
-F1 "irq_ff.sch" 50
-F2 "IEN" I L 6550 3350 50 
-F3 "IRF" O R 7700 3050 50 
-F4 "CLK2" I L 6550 3050 50 
-F5 "CLK3" I L 6550 3150 50 
-F6 "~IRQ" T R 7700 3450 50 
-F7 "~IRQn" I L 6550 3450 50 
-$EndSheet
 Wire Wire Line
 	6250 3050 6550 3050
 Wire Wire Line
@@ -548,21 +536,9 @@ CLK2
 Text Label 6250 3150 0    50   ~ 0
 CLK3
 Wire Wire Line
-	6550 3450 6250 3450
+	6550 3350 6250 3350
 Wire Wire Line
 	7700 3050 8100 3050
-$Sheet
-S 6550 3750 1150 600 
-U 5FD6EADF
-F0 "sheet5FD6EAC3" 50
-F1 "irq_ff.sch" 50
-F2 "IEN" I L 6550 4150 50 
-F3 "IRF" O R 7700 3850 50 
-F4 "CLK2" I L 6550 3850 50 
-F5 "CLK3" I L 6550 3950 50 
-F6 "~IRQ" T R 7700 4250 50 
-F7 "~IRQn" I L 6550 4250 50 
-$EndSheet
 Wire Wire Line
 	6250 3850 6550 3850
 Wire Wire Line
@@ -572,56 +548,60 @@ CLK2
 Text Label 6250 3950 0    50   ~ 0
 CLK3
 Wire Wire Line
-	6550 4250 6250 4250
+	6550 4150 6250 4150
 Wire Wire Line
 	7700 3850 8100 3850
 $Sheet
-S 8800 1350 1150 600 
+S 8850 1350 1150 600 
 U 5FD81CE5
 F0 "sheet5FD81CDA" 50
 F1 "irq_ff.sch" 50
-F2 "IEN" I L 8800 1750 50 
-F3 "IRF" O R 9950 1450 50 
-F4 "CLK2" I L 8800 1450 50 
-F5 "CLK3" I L 8800 1550 50 
-F6 "~IRQ" T R 9950 1850 50 
-F7 "~IRQn" I L 8800 1850 50 
+F2 "IEN" I L 8850 1650 50 
+F3 "IRF" O R 10000 1450 50 
+F4 "CLK2" I L 8850 1450 50 
+F5 "CLK3" I L 8850 1550 50 
+F6 "~IRQ" T R 10000 1850 50 
+F7 "~IRQn" I L 8850 1750 50 
+F8 "~IRQni" I L 8850 1850 50 
 $EndSheet
 $Sheet
-S 8800 2150 1150 600 
+S 8850 2150 1150 600 
 U 5FD81CF9
 F0 "sheet5FD81CDB" 50
 F1 "irq_ff.sch" 50
-F2 "IEN" I L 8800 2550 50 
-F3 "IRF" O R 9950 2250 50 
-F4 "CLK2" I L 8800 2250 50 
-F5 "CLK3" I L 8800 2350 50 
-F6 "~IRQ" T R 9950 2650 50 
-F7 "~IRQn" I L 8800 2650 50 
+F2 "IEN" I L 8850 2450 50 
+F3 "IRF" O R 10000 2250 50 
+F4 "CLK2" I L 8850 2250 50 
+F5 "CLK3" I L 8850 2350 50 
+F6 "~IRQ" T R 10000 2650 50 
+F7 "~IRQn" I L 8850 2550 50 
+F8 "~IRQni" I L 8850 2650 50 
 $EndSheet
 $Sheet
-S 8800 2950 1150 600 
+S 8850 2950 1150 600 
 U 5FD81D0D
 F0 "sheet5FD81CDC" 50
 F1 "irq_ff.sch" 50
-F2 "IEN" I L 8800 3350 50 
-F3 "IRF" O R 9950 3050 50 
-F4 "CLK2" I L 8800 3050 50 
-F5 "CLK3" I L 8800 3150 50 
-F6 "~IRQ" T R 9950 3450 50 
-F7 "~IRQn" I L 8800 3450 50 
+F2 "IEN" I L 8850 3250 50 
+F3 "IRF" O R 10000 3050 50 
+F4 "CLK2" I L 8850 3050 50 
+F5 "CLK3" I L 8850 3150 50 
+F6 "~IRQ" T R 10000 3450 50 
+F7 "~IRQn" I L 8850 3350 50 
+F8 "~IRQni" I L 8850 3450 50 
 $EndSheet
 $Sheet
-S 8800 3750 1150 600 
+S 8850 3750 1150 600 
 U 5FD81D21
 F0 "sheet5FD81CDD" 50
 F1 "irq_ff.sch" 50
-F2 "IEN" I L 8800 4150 50 
-F3 "IRF" O R 9950 3850 50 
-F4 "CLK2" I L 8800 3850 50 
-F5 "CLK3" I L 8800 3950 50 
-F6 "~IRQ" T R 9950 4250 50 
-F7 "~IRQn" I L 8800 4250 50 
+F2 "IEN" I L 8850 4050 50 
+F3 "IRF" O R 10000 3850 50 
+F4 "CLK2" I L 8850 3850 50 
+F5 "CLK3" I L 8850 3950 50 
+F6 "~IRQ" T R 10000 4250 50 
+F7 "~IRQn" I L 8850 4150 50 
+F8 "~IRQni" I L 8850 4250 50 
 $EndSheet
 Entry Wire Line
 	8100 1450 8200 1550
@@ -647,86 +627,76 @@ Text Label 8000 3050 2    50   ~ 0
 IRF2
 Text Label 8000 3850 2    50   ~ 0
 IRF3
-Text Label 6250 1750 0    50   ~ 0
-IEN0
-Text Label 6250 2550 0    50   ~ 0
+Text Label 6250 2450 0    50   ~ 0
 IEN1
-Text Label 6250 3350 0    50   ~ 0
+Text Label 6250 3250 0    50   ~ 0
 IEN2
-Text Label 6250 4150 0    50   ~ 0
+Text Label 6250 4050 0    50   ~ 0
 IEN3
-Text Label 6250 1850 0    50   ~ 0
-~IRQ0
-Text Label 6250 2650 0    50   ~ 0
+Text Label 6250 2550 0    50   ~ 0
 ~IRQ1
-Text Label 6250 3450 0    50   ~ 0
+Text Label 6250 3350 0    50   ~ 0
 ~IRQ2
-Text Label 6250 4250 0    50   ~ 0
+Text Label 6250 4150 0    50   ~ 0
 ~IRQ3
 Wire Wire Line
-	6550 1750 6250 1750
+	6550 4050 6250 4050
 Wire Wire Line
-	6550 4150 6250 4150
+	6550 3250 6250 3250
 Wire Wire Line
-	6550 3350 6250 3350
+	6550 2450 6250 2450
 Wire Wire Line
-	6550 2550 6250 2550
+	8550 1450 8850 1450
 Wire Wire Line
-	8500 1450 8800 1450
-Wire Wire Line
-	8500 1550 8800 1550
-Text Label 8500 1450 0    50   ~ 0
+	8550 1550 8850 1550
+Text Label 8550 1450 0    50   ~ 0
 CLK2
-Text Label 8500 1550 0    50   ~ 0
+Text Label 8550 1550 0    50   ~ 0
 CLK3
 Wire Wire Line
-	8500 2250 8800 2250
+	8550 2250 8850 2250
 Wire Wire Line
-	8500 2350 8800 2350
-Text Label 8500 2250 0    50   ~ 0
+	8550 2350 8850 2350
+Text Label 8550 2250 0    50   ~ 0
 CLK2
-Text Label 8500 2350 0    50   ~ 0
+Text Label 8550 2350 0    50   ~ 0
 CLK3
 Wire Wire Line
-	8800 2650 8500 2650
+	8850 2550 8550 2550
 Wire Wire Line
-	8500 3050 8800 3050
+	8550 3050 8850 3050
 Wire Wire Line
-	8500 3150 8800 3150
-Text Label 8500 3050 0    50   ~ 0
+	8550 3150 8850 3150
+Text Label 8550 3050 0    50   ~ 0
 CLK2
-Text Label 8500 3150 0    50   ~ 0
+Text Label 8550 3150 0    50   ~ 0
 CLK3
 Wire Wire Line
-	8800 3450 8500 3450
+	8850 3350 8550 3350
 Wire Wire Line
-	8500 3850 8800 3850
+	8550 3850 8850 3850
 Wire Wire Line
-	8500 3950 8800 3950
-Text Label 8500 3850 0    50   ~ 0
+	8550 3950 8850 3950
+Text Label 8550 3850 0    50   ~ 0
 CLK2
-Text Label 8500 3950 0    50   ~ 0
+Text Label 8550 3950 0    50   ~ 0
 CLK3
-Wire Wire Line
-	8800 4250 8500 4250
-Text Label 8500 2550 0    50   ~ 0
+Text Label 8550 2450 0    50   ~ 0
 IEN5
-Text Label 8500 3350 0    50   ~ 0
+Text Label 8550 3250 0    50   ~ 0
 IEN6
-Text Label 8500 4150 0    50   ~ 0
+Text Label 8550 4050 0    50   ~ 0
 IEN7
-Text Label 8500 2650 0    50   ~ 0
+Text Label 8550 2550 0    50   ~ 0
 ~IRQ5
-Text Label 8500 3450 0    50   ~ 0
+Text Label 8550 3350 0    50   ~ 0
 ~IRQ6
-Text Label 8500 4250 0    50   ~ 0
-~IRQ7
 Wire Wire Line
-	8800 4150 8500 4150
+	8850 4050 8550 4050
 Wire Wire Line
-	8800 3350 8500 3350
+	8850 3250 8550 3250
 Wire Wire Line
-	8800 2550 8500 2550
+	8850 2450 8550 2450
 Text Label 8200 2150 1    50   ~ 0
 IRF[0..7]
 Wire Wire Line
@@ -749,7 +719,7 @@ Connection ~ 8050 4250
 Wire Wire Line
 	8050 4250 8050 4550
 Wire Wire Line
-	8050 4550 10300 4550
+	8050 4550 10350 4550
 Wire Bus Line
 	8300 1200 8200 1100
 Wire Bus Line
@@ -763,58 +733,58 @@ Wire Bus Line
 Wire Bus Line
 	6200 1000 8250 1000
 Wire Wire Line
-	9950 1450 10350 1450
+	10000 1450 10400 1450
 Wire Wire Line
-	9950 2250 10350 2250
+	10000 2250 10400 2250
 Wire Wire Line
-	9950 3050 10350 3050
+	10000 3050 10400 3050
 Wire Wire Line
-	9950 3850 10350 3850
+	10000 3850 10400 3850
 Entry Wire Line
-	10350 1450 10450 1550
+	10400 1450 10500 1550
 Entry Wire Line
-	10350 2250 10450 2350
+	10400 2250 10500 2350
 Entry Wire Line
-	10350 3050 10450 3150
+	10400 3050 10500 3150
 Entry Wire Line
-	10350 3850 10450 3950
-Text Label 10250 1850 2    50   ~ 0
+	10400 3850 10500 3950
+Text Label 10300 1850 2    50   ~ 0
 ~IRQ
-Text Label 10250 2650 2    50   ~ 0
+Text Label 10300 2650 2    50   ~ 0
 ~IRQ
-Text Label 10250 3450 2    50   ~ 0
+Text Label 10300 3450 2    50   ~ 0
 ~IRQ
-Text Label 10250 4250 2    50   ~ 0
+Text Label 10300 4250 2    50   ~ 0
 ~IRQ
-Text Label 10250 1450 2    50   ~ 0
+Text Label 10300 1450 2    50   ~ 0
 IRF4
-Text Label 10250 2250 2    50   ~ 0
+Text Label 10300 2250 2    50   ~ 0
 IRF5
-Text Label 10250 3050 2    50   ~ 0
+Text Label 10300 3050 2    50   ~ 0
 IRF6
-Text Label 10250 3850 2    50   ~ 0
+Text Label 10300 3850 2    50   ~ 0
 IRF7
-Text Label 10450 2150 1    50   ~ 0
+Text Label 10500 2150 1    50   ~ 0
 IRF[0..7]
 Wire Wire Line
-	10300 1850 10300 2650
+	10350 1850 10350 2650
 Wire Wire Line
-	9950 1850 10300 1850
+	10000 1850 10350 1850
 Wire Wire Line
-	9950 2650 10300 2650
-Connection ~ 10300 2650
+	10000 2650 10350 2650
+Connection ~ 10350 2650
 Wire Wire Line
-	10300 2650 10300 3450
+	10350 2650 10350 3450
 Wire Wire Line
-	9950 3450 10300 3450
-Connection ~ 10300 3450
+	10000 3450 10350 3450
+Connection ~ 10350 3450
 Wire Wire Line
-	10300 3450 10300 4250
+	10350 3450 10350 4250
 Wire Wire Line
-	9950 4250 10300 4250
-Connection ~ 10300 4250
+	10000 4250 10350 4250
+Connection ~ 10350 4250
 Wire Wire Line
-	10300 4250 10300 4550
+	10350 4250 10350 4550
 Text Notes 7050 1700 0    100  ~ 20
 0
 Text Notes 7050 2550 0    100  ~ 20
@@ -823,23 +793,23 @@ Text Notes 7050 3300 0    100  ~ 20
 2
 Text Notes 7050 4150 0    100  ~ 20
 3
-Text Notes 9300 1700 0    100  ~ 20
+Text Notes 9350 1700 0    100  ~ 20
 4
-Text Notes 9300 2550 0    100  ~ 20
+Text Notes 9350 2550 0    100  ~ 20
 5
-Text Notes 9300 3300 0    100  ~ 20
+Text Notes 9350 3300 0    100  ~ 20
 6
-Text Notes 9300 4150 0    100  ~ 20
+Text Notes 9350 4150 0    100  ~ 20
 7
 Wire Bus Line
 	8200 4600 8300 4700
 Wire Bus Line
-	8300 4700 10350 4700
+	8300 4700 10400 4700
 Wire Bus Line
-	10350 4700 10450 4600
+	10400 4700 10500 4600
 Wire Wire Line
-	10300 4550 10850 4550
-Connection ~ 10300 4550
+	10350 4550 10850 4550
+Connection ~ 10350 4550
 Text HLabel 10850 4550 2    50   3State ~ 0
 ~IRQ
 Wire Wire Line
@@ -887,102 +857,21 @@ F 3 "" H 5450 1100 50  0001 C CNN
 	1    5450 1100
 	-1   0    0    -1  
 $EndComp
-$Comp
-L Device:R_Pack04_Split R?
-U 1 1 5F173A71
-P 5150 1150
-AR Path="/5F173A71" Ref="R?"  Part="1" 
-AR Path="/5F160E7C/5F173A71" Ref="R7"  Part="1" 
-F 0 "R7" V 5100 1350 50  0000 L CNN
-F 1 "4.7kΩ" V 5034 1150 50  0001 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" V 5080 1150 50  0001 C CNN
-F 3 "~" H 5150 1150 50  0001 C CNN
-	1    5150 1150
-	0    -1   1    0   
-$EndComp
 Wire Wire Line
 	5450 1100 5450 1150
-$Comp
-L Device:R_Pack04_Split R?
-U 2 1 5F173A78
-P 5150 1250
-AR Path="/5F173A78" Ref="R?"  Part="2" 
-AR Path="/5F160E7C/5F173A78" Ref="R7"  Part="2" 
-F 0 "R7" V 5100 1450 50  0000 L CNN
-F 1 "4.7kΩ" V 5034 1250 50  0001 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" V 5080 1250 50  0001 C CNN
-F 3 "~" H 5150 1250 50  0001 C CNN
-	2    5150 1250
-	0    -1   1    0   
-$EndComp
-$Comp
-L Device:R_Pack04_Split R?
-U 3 1 5F173A7E
-P 5150 1350
-AR Path="/5F173A7E" Ref="R?"  Part="3" 
-AR Path="/5F160E7C/5F173A7E" Ref="R7"  Part="3" 
-F 0 "R7" V 5100 1550 50  0000 L CNN
-F 1 "4.7kΩ" V 5034 1350 50  0001 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" V 5080 1350 50  0001 C CNN
-F 3 "~" H 5150 1350 50  0001 C CNN
-	3    5150 1350
-	0    -1   1    0   
-$EndComp
-$Comp
-L Device:R_Pack04_Split R?
-U 4 1 5F173A84
-P 5150 1450
-AR Path="/5F173A84" Ref="R?"  Part="4" 
-AR Path="/5F160E7C/5F173A84" Ref="R7"  Part="4" 
-F 0 "R7" V 5100 1650 50  0000 L CNN
-F 1 "4.7kΩ" V 5034 1450 50  0001 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" V 5080 1450 50  0001 C CNN
-F 3 "~" H 5150 1450 50  0001 C CNN
-	4    5150 1450
-	0    -1   1    0   
-$EndComp
-$Comp
-L Device:R_Pack04_Split R?
-U 4 1 5F173A8A
-P 5150 1850
-AR Path="/5F173A8A" Ref="R?"  Part="4" 
-AR Path="/5F160E7C/5F173A8A" Ref="R8"  Part="4" 
-F 0 "R8" V 5100 2050 50  0000 L CNN
-F 1 "4.7kΩ" V 5250 1850 50  0000 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" V 5080 1850 50  0001 C CNN
-F 3 "~" H 5150 1850 50  0001 C CNN
-	4    5150 1850
-	0    -1   1    0   
-$EndComp
-Wire Wire Line
-	5300 1150 5450 1150
 Connection ~ 5450 1150
 Wire Wire Line
 	5450 1150 5450 1250
-Wire Wire Line
-	5300 1250 5450 1250
 Connection ~ 5450 1250
 Wire Wire Line
 	5450 1250 5450 1350
-Wire Wire Line
-	5300 1350 5450 1350
 Connection ~ 5450 1350
 Wire Wire Line
 	5450 1350 5450 1450
-Wire Wire Line
-	5300 1450 5450 1450
 Connection ~ 5450 1450
 Wire Wire Line
 	5450 1450 5450 1550
-Wire Wire Line
-	5300 1550 5450 1550
 Connection ~ 5450 1550
-Wire Wire Line
-	5300 1650 5450 1650
-Wire Wire Line
-	5300 1750 5450 1750
-Wire Wire Line
-	5300 1850 5450 1850
 Connection ~ 5450 1650
 Wire Wire Line
 	5450 1650 5450 1750
@@ -991,46 +880,7 @@ Wire Wire Line
 	5450 1750 5450 1850
 Wire Wire Line
 	5450 1550 5450 1650
-$Comp
-L Device:R_Pack04_Split R?
-U 3 1 5F173AA6
-P 5150 1750
-AR Path="/5F173AA6" Ref="R?"  Part="3" 
-AR Path="/5F160E7C/5F173AA6" Ref="R8"  Part="3" 
-F 0 "R8" V 5100 1950 50  0000 L CNN
-F 1 "4.7kΩ" V 5250 1750 50  0001 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" V 5080 1750 50  0001 C CNN
-F 3 "~" H 5150 1750 50  0001 C CNN
-	3    5150 1750
-	0    -1   1    0   
-$EndComp
-$Comp
-L Device:R_Pack04_Split R?
-U 2 1 5F173AAC
-P 5150 1650
-AR Path="/5F173AAC" Ref="R?"  Part="2" 
-AR Path="/5F160E7C/5F173AAC" Ref="R8"  Part="2" 
-F 0 "R8" V 5100 1850 50  0000 L CNN
-F 1 "4.7kΩ" V 5250 1650 50  0001 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" V 5080 1650 50  0001 C CNN
-F 3 "~" H 5150 1650 50  0001 C CNN
-	2    5150 1650
-	0    -1   1    0   
-$EndComp
-$Comp
-L Device:R_Pack04_Split R?
-U 1 1 5F173AB2
-P 5150 1550
-AR Path="/5F173AB2" Ref="R?"  Part="1" 
-AR Path="/5F160E7C/5F173AB2" Ref="R8"  Part="1" 
-F 0 "R8" V 5100 1750 50  0000 L CNN
-F 1 "4.7kΩ" V 5250 1550 50  0001 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" V 5080 1550 50  0001 C CNN
-F 3 "~" H 5150 1550 50  0001 C CNN
-	1    5150 1550
-	0    -1   1    0   
-$EndComp
-Text Label 9500 4700 2    50   ~ 0
+Text Label 9550 4700 2    50   ~ 0
 IRF[0..7]
 Text Label 1850 4750 0    50   ~ 0
 IEN7
@@ -1719,20 +1569,20 @@ Wire Bus Line
 Wire Bus Line
 	8300 1200 8300 4050
 Wire Wire Line
-	8800 1750 8500 1750
-Text Label 8500 1850 0    50   ~ 0
+	8850 1650 8550 1650
+Text Label 8550 1750 0    50   ~ 0
 ~IRQ4
-Text Label 8500 1750 0    50   ~ 0
+Text Label 8550 1650 0    50   ~ 0
 IEN4
 Wire Wire Line
-	8800 1850 8500 1850
+	8850 1750 8550 1750
 Wire Bus Line
 	8400 1150 8400 4050
 Text Label 8400 2150 1    50   ~ 0
 IEN[0..7]
 Text Label 8300 2150 1    50   ~ 0
 ~IRQ[0..7]
-Text Label 6050 2150 1    50   ~ 0
+Text Label 6050 2400 1    50   ~ 0
 IEN[0..7]
 Text Label 3900 900  0    50   ~ 0
 ~IRQ[0..7]
@@ -1770,14 +1620,188 @@ Text HLabel 1050 750  0    50   Input ~ 0
 CLK2
 Text HLabel 1050 850  0    50   Input ~ 0
 CLK3
+$Comp
+L Device:R_Small R1
+U 1 1 5F999C06
+P 5100 1150
+F 0 "R1" V 5050 1300 50  0000 C CNN
+F 1 "4.7kΩ" V 5000 1100 50  0000 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5100 1150 50  0001 C CNN
+F 3 "~" H 5100 1150 50  0001 C CNN
+	1    5100 1150
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	5200 1150 5450 1150
+Wire Wire Line
+	5200 1250 5450 1250
+Wire Wire Line
+	5200 1350 5450 1350
+Wire Wire Line
+	5200 1450 5450 1450
+Wire Wire Line
+	5200 1550 5450 1550
+Wire Wire Line
+	5200 1650 5450 1650
+Wire Wire Line
+	5200 1750 5450 1750
+Wire Wire Line
+	5200 1850 5450 1850
+$Comp
+L Device:R_Small R2
+U 1 1 5FA2402A
+P 5100 1250
+F 0 "R2" V 5050 1400 50  0000 C CNN
+F 1 "4.7kΩ" V 5000 1050 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5100 1250 50  0001 C CNN
+F 3 "~" H 5100 1250 50  0001 C CNN
+	1    5100 1250
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Small R3
+U 1 1 5FA24CD5
+P 5100 1350
+F 0 "R3" V 5050 1500 50  0000 C CNN
+F 1 "4.7kΩ" V 5000 1150 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5100 1350 50  0001 C CNN
+F 3 "~" H 5100 1350 50  0001 C CNN
+	1    5100 1350
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Small R4
+U 1 1 5FA24E45
+P 5100 1450
+F 0 "R4" V 5050 1600 50  0000 C CNN
+F 1 "4.7kΩ" V 5000 1250 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5100 1450 50  0001 C CNN
+F 3 "~" H 5100 1450 50  0001 C CNN
+	1    5100 1450
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Small R5
+U 1 1 5FA24FC4
+P 5100 1550
+F 0 "R5" V 5050 1700 50  0000 C CNN
+F 1 "4.7kΩ" V 5000 1350 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5100 1550 50  0001 C CNN
+F 3 "~" H 5100 1550 50  0001 C CNN
+	1    5100 1550
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Small R6
+U 1 1 5FA25138
+P 5100 1650
+F 0 "R6" V 5050 1800 50  0000 C CNN
+F 1 "4.7kΩ" V 5000 1450 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5100 1650 50  0001 C CNN
+F 3 "~" H 5100 1650 50  0001 C CNN
+	1    5100 1650
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Small R7
+U 1 1 5FA2524B
+P 5100 1750
+F 0 "R7" V 5050 1900 50  0000 C CNN
+F 1 "4.7kΩ" V 5000 1550 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5100 1750 50  0001 C CNN
+F 3 "~" H 5100 1750 50  0001 C CNN
+	1    5100 1750
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Small R8
+U 1 1 5FA253BF
+P 5100 1850
+F 0 "R8" V 5050 2000 50  0000 C CNN
+F 1 "4.7kΩ" V 5000 1650 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5100 1850 50  0001 C CNN
+F 3 "~" H 5100 1850 50  0001 C CNN
+	1    5100 1850
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	6550 1650 6250 1650
+Text Label 6250 1750 0    50   ~ 0
+~IRQ0
+Text Label 6250 1650 0    50   ~ 0
+IEN0
+Wire Wire Line
+	6550 1750 6250 1750
+Wire Wire Line
+	5950 1850 6550 1850
+Text HLabel 5950 1850 0    50   Input ~ 0
+~IRQ0i
+Wire Wire Line
+	6550 2650 5950 2650
+Text HLabel 5950 2650 0    50   Input ~ 0
+~IRQ1i
+$Sheet
+S 6550 2950 1150 600 
+U 5FD6EACB
+F0 "sheet5FD6EAC2" 50
+F1 "irq_ff.sch" 50
+F2 "IEN" I L 6550 3250 50 
+F3 "IRF" O R 7700 3050 50 
+F4 "CLK2" I L 6550 3050 50 
+F5 "CLK3" I L 6550 3150 50 
+F6 "~IRQ" T R 7700 3450 50 
+F7 "~IRQn" I L 6550 3350 50 
+F8 "~IRQni" I L 6550 3450 50 
+$EndSheet
+Wire Wire Line
+	6550 3450 5950 3450
+Text HLabel 5950 3450 0    50   Input ~ 0
+~IRQ2i
+$Sheet
+S 6550 3750 1150 600 
+U 5FD6EADF
+F0 "sheet5FD6EAC3" 50
+F1 "irq_ff.sch" 50
+F2 "IEN" I L 6550 4050 50 
+F3 "IRF" O R 7700 3850 50 
+F4 "CLK2" I L 6550 3850 50 
+F5 "CLK3" I L 6550 3950 50 
+F6 "~IRQ" T R 7700 4250 50 
+F7 "~IRQn" I L 6550 4150 50 
+F8 "~IRQni" I L 6550 4250 50 
+$EndSheet
+Text Label 8550 1850 0    50   ~ 0
+~IRQ4i
+Text Label 8550 2650 0    50   ~ 0
+~IRQ5i
+Text Label 8550 3450 0    50   ~ 0
+~IRQ6i
+Text Label 8550 4150 0    50   ~ 0
+~IRQ7
+Wire Wire Line
+	8850 4150 8550 4150
+Text Label 8550 4250 0    50   ~ 0
+~IRQ7i
+Wire Wire Line
+	8550 1850 8850 1850
+Wire Wire Line
+	8550 2650 8850 2650
+Wire Wire Line
+	8550 3450 8850 3450
+Wire Wire Line
+	8550 4250 8850 4250
+Wire Wire Line
+	6250 4250 6550 4250
+Text Label 6250 4250 0    50   ~ 0
+~IRQ3i
 Wire Bus Line
-	10450 1550 10450 4600
+	10500 1550 10500 4600
 Wire Bus Line
 	8200 1550 8200 4600
 Wire Bus Line
-	3350 2650 3350 3450
-Wire Bus Line
 	4400 1000 4400 1750
+Wire Bus Line
+	3350 2650 3350 3450
 Wire Bus Line
 	3350 3650 3350 6300
 Wire Bus Line

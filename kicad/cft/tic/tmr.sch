@@ -169,11 +169,11 @@ Wire Wire Line
 Wire Wire Line
 	7800 2550 8100 2550
 Text Label 8050 2350 2    50   ~ 0
-~IRQ0
+~IRQ0i
 Text Label 8050 2450 2    50   ~ 0
-~IRQ1
+~IRQ1i
 Text Label 8050 2550 2    50   ~ 0
-~IRQ2
+~IRQ2i
 Wire Wire Line
 	5100 1650 5550 1650
 Wire Wire Line
@@ -189,18 +189,6 @@ Wire Wire Line
 	5100 4650 5750 4650
 Wire Wire Line
 	5100 5250 5650 5250
-Text Label 8050 4750 2    50   ~ 0
-~IRQ2
-Text Label 8050 4650 2    50   ~ 0
-~IRQ1
-Text Label 8050 4550 2    50   ~ 0
-~IRQ0
-Wire Wire Line
-	7800 4750 8050 4750
-Wire Wire Line
-	7800 4650 8050 4650
-Wire Wire Line
-	7800 4550 8050 4550
 Wire Wire Line
 	7200 4750 7300 4750
 Wire Wire Line
@@ -1257,11 +1245,11 @@ OUT-G1-2
 Text Label 8950 1450 0    50   ~ 0
 G0-0
 Text HLabel 8100 2350 2    50   3State ~ 0
-~IRQ0
+~IRQ0i
 Text HLabel 8100 2450 2    50   3State ~ 0
-~IRQ1
+~IRQ1i
 Text HLabel 8100 2550 2    50   3State ~ 0
-~IRQ2
+~IRQ2i
 Entry Bus Bus
 	1500 4850 1600 4950
 Entry Bus Bus
@@ -1764,6 +1752,18 @@ Text Notes 9250 3800 2    63   ~ 13
 Optional
 Text Notes 8850 4100 0    50   ~ 0
 Install only if OUT signals will be used off-board,\nand only for signals used off-board.
+Wire Wire Line
+	7800 4550 8100 4550
+Wire Wire Line
+	7800 4650 8100 4650
+Wire Wire Line
+	7800 4750 8100 4750
+Text Label 8050 4550 2    50   ~ 0
+~IRQ0i
+Text Label 8050 4650 2    50   ~ 0
+~IRQ1i
+Text Label 8050 4750 2    50   ~ 0
+~IRQ2i
 Wire Bus Line
 	1600 1750 1600 4750
 Wire Bus Line
