@@ -80,7 +80,13 @@ typedef struct {
 extern hwstate_t hwstate;
 
 
-void hw_init();
+// These functions are driver entry points. They don't make sense for all
+// drivers. E.g the AVR doesn't need hw_tick() and never de-initialises so it
+// doesn't need hw_done() either.
+
+void hw_init();                 // Initialise the driver
+void hw_tick();                 // Handle periodic tasks (emulator only)
+void hw_done();                 // Free resources
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -189,6 +195,8 @@ void sw_read();
 
 typedef enum { reg_ir, reg_pc, reg_dr, reg_ac, reg_sp } reg_t;
 
+// Higher-leve function to set a subset of computer registers.
+// FIXME: this should probably not be here! (not even implemented in driver_avr)
 uint8_t set_reg(reg_t reg, uint16_t value);
 
 
@@ -222,10 +230,6 @@ uint8_t set_reg(reg_t reg, uint16_t value);
 // #define ISR_IRQ1 2
 // #define ISR_IFR6 4
 // #define ISR_TTY  8
-
-void hw_init();
-void hw_tick();
-void hw_done();
 
 // // DEB Console I/O
 // unsigned char query_char(int timeout_usec);

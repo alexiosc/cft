@@ -80,15 +80,18 @@ HFILES		=	dfp.h driver.h hwcompat.h proto.h output.h input.h \
 # 			panel.c bus.c buscmd.c serial.c
 
 # TODO: Adapt sources from above one by one.
-CFILES		=	dfp.c driver_avr.c serial.c proto.c output.c
+CFILES		=	dfp.c serial.c proto.c output.c
 
 #HFILES		=	serial.h hw.h proto.h utils.h
 #CFILES		=	dfp.c serial.c hw.c proto.c utils.c
 SOURCES		=	$(CFILES) $(HFILES)
 
+DRIVER_AVR      =       driver_avr.c
+DRIVER_CFTEMU   =       driver_cftemu.c
+
 #TESTS		=	test_$(PROG)
 
-CC		=	avr-gcc
+AVRCC		=	avr-gcc
 HOSTCC		=	gcc
 HOSTDEFS	=	-DHOST -D_GNU_SOURCE
 HOSTCFLAGS	=	-O2 -g -Wall $(HOSTDEFS) $(DEFINES) -fpack-struct=1 -std=c99 -Dasm=__asm
@@ -123,10 +126,10 @@ all: 		sim_$(PROG) $(PROG).elf lst text eeprom $(TESTS)
 dep .depends:   $(GENERATED)
 		$(HOSTCC) $(HOSTCFLAGS) -M $(CFILES) >.depends
 
-$(PROG).elf:	$(SOURCES)
+$(PROG).elf:	$(SOURCES) $(DRIVER_AVR)
 		@/bin/echo -e "\n\n***  Compiling AVR Firmware  ***\n"
-		-@$(CC) -S $(INCLUDES) $(CFLAGS) $(DEFINES) $(LDFLAGS) $(CFILES) $(LIBS) 2>/dev/null
-		$(CC) $(INCLUDES) $(CFLAGS) $(DEFINES) $(LDFLAGS) -o $@ $(CFILES) $(LIBS)
+		-@$(AVRCC) -S $(INCLUDES) $(CFLAGS) $(DEFINES) $(LDFLAGS) $(CFILES) $(DRIVER_AVR) $(LIBS) 2>/dev/null
+		$(AVRCC) $(INCLUDES) $(CFLAGS) $(DEFINES) $(LDFLAGS) -o $@ $(CFILES) $(DRIVER_AVR) $(LIBS)
 		@echo; avr-size -C --mcu=$(MCU_TARGET) $(PROG).elf
 
 fuses:		.stamp-fuses
@@ -230,8 +233,16 @@ esrec: $(PROG)_eeprom.srec
 	$(OBJCOPY) -j .eeprom --change-section-lma .eeprom=0 -O binary $< $@ \
 	|| { echo empty $@ not generated; exit 0; }
 
-# Every thing below here is used by avr-libc's build system and can be ignored
-# by the casual user.
+
+###############################################################################
+#
+# THE CFTEMU VERSION
+#
+###############################################################################
+
+# We build this as a library so cftemu doesn't have to deal with the minutiae.
+
+
 
 include .depends
 
