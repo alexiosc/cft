@@ -55,7 +55,15 @@ iodev_t iodevs[] = {
                 .code = "MBU",
                 .enabled = 1,
                 .read = mbu_read,
-                .write = mbu_write
+                .write = mbu_write,
+                .nttys = 1,
+                .ttys = {
+                        {
+                                .magic = MAGIC_TTY_T,
+                                .name = "DFP debugging/diagnostics user interface",
+                                .dev = "dfp2"
+                        },
+                }
         },
 
 #ifdef HAVE_DEB        
@@ -251,13 +259,20 @@ io_init()
         int num_enabled = 0;
         for (iodev_t * io = iodevs; io->name != NULL; io++){
                 num_devs++;
+                io->magic = MAGIC_DEV_T;
+
+                // Initialise ttys.
+                for (int i = 0; i < io->nttys; i++) {
+                        io_tty_init(&io->ttys[i]);
+                }
+
                 //printf("*** %s: init() (%p, %d)", io->name, io->flag, *io->flag);
                 // Is the device enabled?
                 if (!io->enabled) continue;
                 // Is there an initialiser?
                 num_enabled++;
                 if (io->init != NULL) {
-                        (*io->init)();
+                        (*io->init)(io);
                 }
         }
 
@@ -371,7 +386,8 @@ io_write(longaddr_t addr, word data)
 }
 
 
-void io_list_devs()
+void
+io_list_devs()
 {
         iodev_t * io;
         printf("DEV  ENABLED   NAME\n");
@@ -384,6 +400,107 @@ void io_list_devs()
         exit(0);
 }
 
+
+void
+io_list_ttys()
+{
+        iodev_t * io;
+        printf("DEV  TTY   ENABLED   NAME\n");
+        printf("-------------------------------------------------------------------------------\n");
+        for (io = iodevs; io->name != NULL; io++){
+                for (int i = 0; i < io->nttys; i++) {
+                        tty_t * tty = &io->ttys[i];
+
+                        printf("%3.3s  %4.4s  %s  %s\n",
+                               io->code, tty->dev, io->enabled ? "enabled " : "disabled", tty->name);
+                }
+        }
+        printf("-------------------------------------------------------------------------------\n");
+        exit(0);
+}
+
+
+tty_t *
+io_find_tty(char *code)
+{
+        iodev_t * io;
+        for (io = iodevs; io->name != NULL; io++){
+                for (int i = 0; i < io->nttys; i++) {
+                        if (!strcmp(code, io->ttys[i].dev)) {
+                                return &io->ttys[i];
+                        }
+                }
+        }
+        return NULL;
+}
+
+
+void
+io_tty_init(tty_t *tty)
+{
+        tty->magic = MAGIC_TTY_T;
+
+        // Unless assigned to somethng, mute this TTY.
+        if (tty->mode == TTM_UNASSIGNED) {
+                tty->mode = TTM_NONE;
+        }
+
+        // Only create ring buffers if we'll be using them.
+        if (tty->mode != TTM_NONE) {
+                int bufbits = tty->bufbits ? tty->bufbits : DEFAULT_BUFBITS;
+                debug("bufbits=%d", bufbits);
+                tty->input = ringbuf_init(bufbits);
+                tty->output = ringbuf_init(bufbits);
+        }
+
+        // File output?
+        if (tty->mode == TTM_FILE) {
+                assert(tty->fname != NULL);
+                if (tty->fp != NULL) {
+                        fatal("Device %s has already been assigned to a file.");
+                }
+                if ((tty->fp = fopen(tty->fname, "a")) == NULL) {
+                        fatal("Failed to open %s for appending: %s", tty->fname, strerror(errno));
+                }
+                info("Output from device '%s' appended to file '%s'", tty->dev, tty->fname);
+        }
+
+        // Nothing to do for file descriptor I/O.
+}
+
+
+void
+io_tty_set_term(tty_t *tty)
+{
+        assert(tty != NULL);
+        assert(tty->magic == MAGIC_TTY_T);
+        tty->mode = TTM_FD;
+        tty->in_fd = 0;
+        tty->out_fd = 1;
+}
+      
+
+void
+io_tty_set_fname(tty_t *tty, char *fname)
+{
+        assert(tty != NULL);
+        assert(tty->magic == MAGIC_TTY_T);
+        tty->mode = TTM_FILE;
+        tty->fname = strdup(fname);
+}
+      
+
+void
+io_tty_write(tty_t *tty, char *data)
+{
+        assert(tty != NULL);
+        assert(tty->magic == MAGIC_TTY_T);
+
+        if (tty->fp != NULL) {
+                fwrite(data, strlen(data), 1, tty->fp);
+        }
+}
+      
 
 // End of file.
 // Local Variables:

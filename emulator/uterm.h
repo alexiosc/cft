@@ -14,6 +14,11 @@
 #define UTERM_H 1
 
 
+#ifndef GUI
+#error "GUI not defined, but uterm.h included."
+#endif // GUI
+
+
 #include <stdint.h>
 #include <sys/types.h>
 

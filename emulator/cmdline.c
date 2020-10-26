@@ -43,6 +43,9 @@ static struct argp_option options[] =
         { "list-devs", KEY_LIST_DEVS, NULL, 0,
           "List known devices and exit.", 0},
 
+        { "list-ttys", KEY_LIST_TTYS, NULL, 0,
+          "List TTY-like (character) devices.", 0},
+
         { NULL, 0, NULL, 0, "Memory\n", 10 },
         { "ram", 'm', "SIZE", 0,
           "Set the size of RAM in KiW (1,024 16-bit Words). Between 0 and 16384 KiW "
@@ -71,13 +74,19 @@ static struct argp_option options[] =
           "of devices, run with --list-devs. You can specify this option "
           "multiple times to enable as many devices as needed.", 0 },
 
+        { "tty", 't', "TTY,TARGET[,OPTIONS[,...]]", 0,
+          "-t TTY,term connects the specified TTY to the standard input and "
+          "standard output. "
+          "-t TTY,file,FILENAME connects the specified TTY to the specified filename. "
+          "This will handle output only.", 0},
+
         { NULL, 0, NULL, 0, "Testing", -3 },
 
         { "fill-ram", KEY_FILL_RAM, "WORD", 0,
           "Fill RAM with this 16-bit value. This is used for some tests. (default: 0)" },
     
         { "strict-sanity", KEY_STRICT_SANITY, NULL, 0,
-          "Runtie sanity check failures are fatal. (default: non-fatal)" },
+          "Runtime sanity check failures are fatal. (default: non-fatal)" },
     
         { "writeable-rom", KEY_WRITEABLE_ROM, NULL, 0,
           "Make all ROMs writeable. Suppresses fatal errors about writing to ROMs." },
@@ -389,6 +398,11 @@ parse_opt (int key, char *arg, struct argp_state *state)
                 exit(0);
                 break;
 
+        case KEY_LIST_TTYS:
+                io_list_ttys();
+                exit(0);
+                break;
+
         case 'e':
                 if (!io_enable(arg)) {
                         argp_error (state, "Unknown device '%s'. Run with --list-devs for a list of devices.", arg);
@@ -400,6 +414,33 @@ parse_opt (int key, char *arg, struct argp_state *state)
                         argp_error (state, "Unknown device '%s'. Run with --list-devs for a list of devices.", arg);
                 }
                 break;
+
+        case 't':
+        {
+                char * ctx;
+                char * dev = strtok_r(arg, ",", &ctx);
+                char * tgt = strtok_r(NULL, ",", &ctx);
+                char * args = strtok_r(NULL, ",", &ctx);
+
+                if (strlen(dev) == 0) {
+                        argp_error (state, "Please specify TTY,term or TTY,file,FILENAME for -t/--tty.");
+                }
+                tty_t * tty = io_find_tty(dev);
+                if (tty == NULL) {
+                        argp_error (state, "Device '%s' not found.", dev);
+                }
+                if (!strcmp(tgt, "term")) {
+                        io_tty_set_term(tty);
+                } else if (!strcmp(tgt, "file")) {
+                        if (args == NULL || strlen(args) == 0) {
+                                argp_error (state, "Missing filename for -t TTY,file,FILENAME.");
+                        }
+                        io_tty_set_fname(tty, args);
+                } else {
+                        argp_error (state, "Please specify TTY,term or TTY,file,FILENAME for -t/--tty.");
+                }
+                break;
+        }
 
         case KEY_COLOUR:
         case KEY_COLOR:

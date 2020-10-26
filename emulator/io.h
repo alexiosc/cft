@@ -13,16 +13,71 @@
 #define IO_H 1
 
 #include "cftemu.h"
+#include "ringbuf.h"
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// TTY-LIKE DEVICES
+//
+///////////////////////////////////////////////////////////////////////////////
+
+#define MAGIC_TTY_T 0x54545954  // "TTYT"
+#define DEFAULT_BUFBITS 8       // 256-byte buffers
+
+typedef enum {
+        TTM_UNASSIGNED = 0,
+        TTM_NONE,
+        TTM_FD,
+        TTM_FILE
+} tty_mode_t;
 
 
 typedef struct {
+        uint32_t    magic;
+
+	char *      name;		      // Explanatory name of this device
+	char *      dev;		      // 4-letter code of the I/O device
+
+	int         hits;		      // For UI activity indicators
+
+        tty_mode_t  mode;                     // TTY mode
+        int         in_fd;                    // Unix file descriptor, input
+        int         out_fd;                   // Unix file descriptor, output
+        FILE *      fp;                       // C library file (may be NULL)
+        char *      fname;                    // Filename (may be NULL)
+
+        uint8_t     bufbits;                  // log₂ of ringbuf buffer size
+        ringbuf_t * input;                    // Data from the outside world
+        ringbuf_t * output;                   // Data to the outside world
+
+	// void   (*init)();	              // Initialiser callback
+	// void   (*reset)();		      // Reset callback
+	// void   (*done)();                  // Teardown callback
+} tty_t;
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// I/O DEVICES
+//
+///////////////////////////////////////////////////////////////////////////////
+
+#define MAGIC_DEV_T 0x44455654  // "DEVT"
+
+typedef struct iodev_t {
+        uint32_t    magic;
+
 	char *      name;		      // Name of the I/O device
 	char *      code;		      // 3-letter code of the I/O device
 	uint32_t    enabled;		      // Device enabled?
 
 	int         hits;		      // For UI activity indicators
 
-	void   (*init)();	              // Initialiser callback
+        int         nttys;                    // Number of tty_t devices below
+        tty_t       ttys[8];                  // Up to 8 TTYs per device
+
+	void   (*init)(struct iodev_t *);     // Initialiser callback
 	void   (*reset)();		      // Reset callback
 	void   (*done)();                     // Teardown callback
 	void   (*tick)(int);                  // Timer tick callback
@@ -55,10 +110,17 @@ int io_write(longaddr_t addr, word data);
 // Print out table of devices and exit.
 void io_list_devs();
 
+// Print out table of TTY-like devices and exit.
+void io_list_ttys();
 
+// Find a TTY by name (naively, but there aren't many)
+tty_t * io_find_tty(char *);
 
-extern iodev_t iodevs[];
+void io_tty_init(tty_t *);
 
+void io_tty_set_term(tty_t *);
+
+void io_tty_set_fname(tty_t *, char *);
 
 
 

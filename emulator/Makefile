@@ -6,13 +6,10 @@ CFLAGS += -Wall
 CFLAGS += -DUART16550
 CFLAGS += -DCFTEMU
 CFLAGS += -I..
-#CFLAGS += -O2
-CFLAGS += -O0
+CFLAGS += -O2
+#CFLAGS += -O0
 LDFLAGS = -g
 
-CFLAGS  += $(shell pkg-config --cflags sdl)
-LDFLAGS += $(shell pkg-config --libs sdl)
-LDFLAGS += -lX11
 LDFLAGS += -lpthread
 
 LDPATH	= $(shell readlink -f ../front-panel/lib)
@@ -23,12 +20,35 @@ PROGRAMS = cftemu
 # 	fifo.o memory.o mbu.o irc.o nvram.o duart.o ide.o video.o dfp.o \
 # 	ui.o ui_panel.o ui_menu.o ui_dfp.o ui_vdu.o ui_tty.o uterm.o psg.o 8912.o \
 # 	ay8910.o
-OBJS = 	cftemu.o cmdline.o uterm.o util.o log.o cft.o microcode.o \
-	mem.o io.o
+OBJS = 	cftemu.o cmdline.o util.o ringbuf.o log.o cft.o microcode.o \
+	io.o
+OBJS += mem.o
 
 # DEB board
 OBJS += deb.o
 CFLAGS += -DHAVE_DEB
+
+# DFP board
+OBJS += dfp.o
+CFLAGS += -DHAVE_DFP
+
+
+###############################################################################
+#
+# GUI SUPPORT
+#
+###############################################################################
+
+# Uncomment these to enable the GUI
+
+#OBJS		+= uterm.o
+#CFLAGS		+= -DGUI
+#CFLAGS		+= $(shell pkg-config --cflags sdl)
+#LDFLAGS	+= $(shell pkg-config --libs sdl)
+#LDFLAGS	+= -lX11
+
+
+
 
 # DFP board
 #OBJS += dfp.o

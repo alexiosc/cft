@@ -31,6 +31,7 @@
 
 */
 
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <termios.h>
@@ -49,14 +50,59 @@
 // #include "mbu.h"
 // #include "debug.h"
 #include "util.h"
+
+#ifdef GUI
 #include "uterm.h"
+#include "ui_panel.h"
+#endif // GUI
+
 #include "dfp.h"
-// #include "ui_panel.h"
 
-// #include "../front-panel/lib/iface.h"
-// #include "../front-panel/lib/switches.h"
 
-int dfp_enabled = 1;
+void
+dfp_init(iodev_t *dev)
+{
+        printf("TODO: Implement this.\n");
+}
+
+
+void
+dfp_done()
+{
+        printf("TODO: Implement this.\n");
+}
+
+
+void
+dfp_tick()
+{
+        printf("TODO: Implement this.\n");
+}
+
+
+int
+dfp_read(longaddr_t addr, word * data)
+{
+        printf("TODO: Implement this.\n");
+        return 0;
+}
+
+
+int
+dfp_write(longaddr_t addr, word data)
+{
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// UNPORTED CODE BELOW
+//
+///////////////////////////////////////////////////////////////////////////////
+
+#if 0
+
+
+
 int dfp_testmode = 0;
 int dfp_pts = 0;
 
@@ -679,6 +725,10 @@ dfp_cb_putc(unsigned char c)
 	dfp_putc(c);
 	pthread_mutex_unlock(&dfp_cb.tx_lock);
 }
+
+
+#endif
+
 
 // End of file.
 // Local Variables:
