@@ -43,9 +43,11 @@ CFLAGS += -DHAVE_DFP
 
 #OBJS		+= uterm.o
 #CFLAGS		+= -DGUI
-#CFLAGS		+= $(shell pkg-config --cflags sdl)
 #LDFLAGS	+= $(shell pkg-config --libs sdl)
 #LDFLAGS	+= -lX11
+
+# This is necessary to build dependencies at the moment.
+CFLAGS		+= $(shell pkg-config --cflags sdl)
 
 
 

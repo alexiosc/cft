@@ -13,11 +13,7 @@
 #ifndef UTERM_H
 #define UTERM_H 1
 
-
-#ifndef GUI
-#error "GUI not defined, but uterm.h included."
-#endif // GUI
-
+#ifdef GUI
 
 #include <stdint.h>
 #include <sys/types.h>
@@ -94,6 +90,8 @@ void uterm_home(uterm_t *ut);
 void uterm_clrscr(uterm_t *ut);
 
 void uterm_clreol(uterm_t *ut);
+
+#endif // GUI
 
 #endif // UTERM_H
 
