@@ -1,24 +1,52 @@
 // -*- c -*-
-//
+// 
+// driver_cftemu.c — Functionality for emulating the DFP
+// 
+// Copyright © 2012–2020 Alexios Chouchoulas
+// 
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2, or (at your option)
+// any later version.
 
-#warning "TODO: Review this file for DFP2"
+///////////////////////////////////////////////////////////////////////////////
+//
+// HARDWARE DRIVER FOR DFP ON CFT EMULATOR
+//
+///////////////////////////////////////////////////////////////////////////////
 
 // This 'driver' is only available on the CFTEMU target.
-
 #ifdef CFTEMU
 
 #include "hwcompat.h"
-#include "panel.h"
+//#include "panel.h"
 #include "proto.h"
-#include "abstract.h"
-#include "bus.h"
-#include "utils.h"
-#include "serial.h"
-#include "output.h"
+//#include "abstract.h"
+//#include "bus.h"
+//#include "utils.h"
+//#include "serial.h"
+//#include "output.h"
 #include "iface.h"
-#include "switches.h"
+//#include "switches.h"
 
 dfp_cb_t dfp_cb;
+
+
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+//
+// UNPORTED CODE BELOW
+//
+///////////////////////////////////////////////////////////////////////////////
+
+#if 0
 
 static uint16_t _ibus;
 static uint16_t _ab;
@@ -1571,6 +1599,8 @@ run_timer_interrupt()
 	// }
 
 }
+
+#endif // 0 (unported code)
 
 #endif	// CFTEMU
 

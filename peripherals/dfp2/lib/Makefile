@@ -4,7 +4,8 @@ LIBV2	=	0
 LIBV3	=	1
 LIBVERS	=	$(LIBV1).$(LIBV2).$(LIBV3)
 OUT	=	$(NAME).so.$(LIBVERS)
-OBJS	=	proto.o input.o output.o driver_cftemu.o buscmd.o
+#OBJS	=	proto.o input.o output.o driver_cftemu.o buscmd.o
+#OBJS	=	driver_cftemu.o
 
 VERSION	=	1.2
 BUFSIZE =	512

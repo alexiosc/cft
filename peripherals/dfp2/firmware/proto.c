@@ -15,14 +15,14 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
+#include <stdlib.h>
+#include <inttypes.h>
+#include <string.h>
+
 #ifdef HOST
 #  include <stdio.h>
 #  include <unistd.h>
 #endif // HOST
-
-#include <stdlib.h>
-#include <inttypes.h>
-#include <string.h>
 
 #ifdef AVR
 #  include <avr/io.h>
@@ -37,7 +37,7 @@
 #include "driver.h"
 //#include "input.h"
 #include "output.h"
-//#include "hwcompat.h"
+#include "hwcompat.h"
 //#include "panel.h"
 //#include "bus.h"
 //#include "utils.h"
@@ -48,10 +48,6 @@
 #define ATOMIC_BLOCK(x)
 #endif
 
-
-#ifdef HOST
-#define PROGMEM
-#endif // HOST
 
 #ifdef CFTEMU
 #include <pthread.h>
@@ -362,8 +358,10 @@ void proto_loop()
 
 		// Wait for input to be complete.
 		while(!uistate.is_inpok) {
-			wdt_reset();
 #ifdef AVR
+                        // Beat our heart for the watchdog.
+			wdt_reset();
+
 			uint8_t c;
 			//unsigned char cn = '0' + ringbuf_get(&c);
 			//serial_write(cn);
@@ -379,6 +377,7 @@ void proto_loop()
 			// The standalone version can't receive characters
 			// asynchronously via interrupts, so we must block and
 			// read/process characters synchronously, here.
+                        unsigned char read_next_char();
 			unsigned char c = read_next_char();
 			if (c) c = proto_input(c);
 #endif // HOST
@@ -389,6 +388,10 @@ void proto_loop()
 			// between sending the DFP a command and it responding,
 			// though.
 			usleep(35560);
+
+                        // Declare extern run_timer_interrupt() here to silence
+                        // warning.
+                        void run_timer_interrupt();
 			run_timer_interrupt();
 #endif // CFTEMU			
 		}
@@ -991,7 +994,6 @@ go_ltest()
 
 	while (!uistate.is_inpok && !uistate.is_break) {
 		wdt_reset();
-
                 if (--reps == 0) break;
 
                 fp_write(0, 0, 0);

@@ -6,6 +6,8 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
+#ifdef AVR
+
 #include <inttypes.h>
 #include <string.h>
 
@@ -36,6 +38,7 @@
 #  define UDRE0 UDRE
 #endif // UCSR0
 
+#endif // AVR
 
 // End of file.
 // Local Variables:

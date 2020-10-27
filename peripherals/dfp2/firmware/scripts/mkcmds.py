@@ -105,7 +105,7 @@ print("""
 
 #define _HELPSTR "%(helpstr)s";
 
-const static const struct {
+static const struct {
 	char cmd[CMD_SIZE];
 	void (*handler)();
 //#ifdef AVR

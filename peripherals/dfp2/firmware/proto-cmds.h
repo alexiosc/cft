@@ -49,7 +49,7 @@
 
 #define _HELPSTR "\001Show help\0\001Show help\0\001Show version\0\001Show size of command buffer\0[ BOOL\007terminal bells & whistles.\0[ BOOL\007local echo.\0[ BOOL\007async messages.\0[ BYTE ] \001Read from FP Bus Address\0\001Dump full FP address space\0[ WORD | - ] \001Get, read, or override the DIP Switches\0\001Show Switch state\0\001Light test\0\001Read IBus\0\001Read Address bus\0\001Read Data bus\0[ WORD\007IR\0[ WORD\007Program Counter\0[ WORD\007Data Register.\0[ WORD\007Accumulator.\0[ WORD\007Stack Pointer.\0[ BOOL\007software switch lock.\0\001CPU at full speed\0\001CPU at slow speed\0\001CPU at creep speed\0[ WORD\007address\0[ WORD\007OR lights";
 
-const static const struct {
+static const struct {
 	char cmd[CMD_SIZE];
 	void (*handler)();
 //#ifdef AVR

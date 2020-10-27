@@ -141,7 +141,12 @@ fp_write(uint8_t module, uint8_t row, uint8_t value);
 // the Atmega.
 
 // Ring buffer size in bits (we do not use modulo)
-#define RBSIZE_BITS 4
+#ifdef HOST
+#define RBSIZE_BITS 8
+#endif
+#ifdef AVR
+#define RBSIZE_BITS 5
+#endif // AVR
 #define RBMASK ((1 << RBSIZE_BITS) - 1)
 typedef struct {
 	uint8_t ip, op;
