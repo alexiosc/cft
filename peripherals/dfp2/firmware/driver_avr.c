@@ -991,7 +991,7 @@ hw_init()
 
 #ifdef LIGHT_MODULE_TESTING
         report_pstr(PSTR("BOOTED\n"));
-        uint8_t val = 1;
+        uint8_t val = 0;
         uint16_t a = 0;
 
         volatile uint8_t * dsr = (uint8_t *)0x1147;
@@ -1000,33 +1000,18 @@ hw_init()
 
                 // report_char('0');
                 // xmem_write(0, val);
-		// _delay_ms(100);g
+		// _delay_ms(100);
 
-                *((volatile uint8_t *)(0x1100 + 0)) = ++val;
-                _delay_ms(*dsr);
-                *((volatile uint8_t *)(0x1100 + 4)) = ++val;
-                _delay_ms(*dsr);
-                *((volatile uint8_t *)(0x1100 + 8)) = ++val;
-                _delay_ms(*dsr);
-                *((volatile uint8_t *)(0x1100 + 12)) = ++val;
-                _delay_ms(*dsr);
-                *((volatile uint8_t *)(0x1100 + 16)) = ++val;
+                for (uint8_t i = 0; i < 5; i++) {
+                        *((volatile uint8_t *)(0x1100 + (i << 2))) = (val + i) & 0xff;
+                        *((volatile uint8_t *)(0x1101 + (i << 2))) = (val + i + 5) & 0xff;
+                        *((volatile uint8_t *)(0x1102 + (i << 2))) = (val + i + 10) & 0xff;
+                        *((volatile uint8_t *)(0x1103 + (i << 2))) = (val + i + 15) & 0xff;
+                }
                 _delay_ms(*dsr);
                 wdt_reset();
-                _delay_ms(*dsr);
-                wdt_reset();
-                _delay_ms(*dsr);
-                wdt_reset();
-                _delay_ms(*dsr);
-                wdt_reset();
-                _delay_ms(*dsr);
-                wdt_reset();
-                _delay_ms(*dsr);
-                wdt_reset();
-                _delay_ms(*dsr);
-                wdt_reset();
-                _delay_ms(*dsr);
-                wdt_reset();
+
+                val++;
                 /* for (a = 0x1100; a < 0x1100 + 20; a++) { */
                 /*         *((volatile uint8_t *)(0x1100 + a)) = val; */
                 /*         _delay_ms(50); */
