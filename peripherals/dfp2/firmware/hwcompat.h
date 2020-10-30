@@ -72,7 +72,9 @@
 #define short_delay() usleep(100);
 
 #define setup() 
-#define hold() 
+#define hold()
+
+#define wdt_reset()
 
 #endif // ! AVR
 

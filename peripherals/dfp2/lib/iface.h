@@ -25,34 +25,34 @@
 typedef struct {
 
 	void            (*putc)(uint8_t c);
-	uint16_t        (*unit_mem)(int r, int w);
-	uint16_t        (*unit_io)(int r, int w);
+	// uint16_t        (*unit_mem)(int r, int w);
+	// uint16_t        (*unit_io)(int r, int w);
 
-	int             request_testmode;
-	int             request_unpause;
-	int             request_reset;
-	int             request_halt;
-	int             request_run;
-	int             changed_sr;
+	// int             request_testmode;
+	// int             request_unpause;
+	// int             request_reset;
+	// int             request_halt;
+	// int             request_run;
+	// int             changed_sr;
 
-	uint16_t  * ir;
-	uint16_t  * pc;
-	uint16_t  * ac;
+	// uint16_t  * ir;
+	// uint16_t  * pc;
+	// uint16_t  * ac;
 
-	uint8_t   * l;		// A single uint8_t for the L register
-	uint8_t   * i;		// A single uint8_t for the I register
+	// uint8_t   * l;		// A single uint8_t for the L register
+	// uint8_t   * i;		// A single uint8_t for the I register
 	
-	uint8_t   * v;		// V flag
-	uint8_t   * n;		// N flag
-	uint8_t   * z;		// Z flag
+	// uint8_t   * v;		// V flag
+	// uint8_t   * n;		// N flag
+	// uint8_t   * z;		// Z flag
 
-	uint16_t  * ab;
-	uint16_t  * db;
-	uint16_t  * swright;
-	uint16_t  * swleft;
-	uint16_t  * sr;
+	// uint16_t  * ab;
+	// uint16_t  * db;
+	// uint16_t  * swright;
+	// uint16_t  * swleft;
+	// uint16_t  * sr;
 
-	uint32_t  * uvec;	// Microcode control vector
+	// uint32_t  * uvec;	// Microcode control vector
 
 	pthread_mutex_t lock;
 	pthread_mutex_t rx_lock;
@@ -78,3 +78,9 @@ void dfp_fw_iocmd(uint8_t is_write);
 #endif // __IFACE_H__
 
 // End of file.
+// Local Variables:
+// eval: (c-set-style "K&R")
+// c-basic-offset: 8
+// indent-tabs-mode: nil
+// fill-column: 79
+// End:
