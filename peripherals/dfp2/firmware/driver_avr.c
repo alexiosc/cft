@@ -994,24 +994,70 @@ hw_init()
         uint8_t val = 0;
         uint16_t a = 0;
 
+        uint32_t pattern[8] =
+        {
+                //........|.......|.......|.......
+                0b01111100111111101111110000001100,
+                0b11000110110000000011000000011000,
+                0b11000000111110000011000000110000,
+                0b11000110110000000011000000000000,
+                0b01111100110000000011000011000000,
+                0b00000000000000000000000000000000,
+                0b00000000000000000000000000000000,
+                0b00000000000000000000000000000000,
+        };
+
         volatile uint8_t * dsr = (uint8_t *)0x1147;
         for(;;) {
-                wdt_reset();
+                for (int reps = 0; reps < 64; reps++) {
+                        wdt_reset();
 
-                // report_char('0');
-                // xmem_write(0, val);
-		// _delay_ms(100);
+                        // report_char('0');
+                        // xmem_write(0, val);
+                        // _delay_ms(100);
 
-                for (uint8_t i = 0; i < 5; i++) {
-                        *((volatile uint8_t *)(0x1100 + (i << 2))) = (val + i) & 0xff;
-                        *((volatile uint8_t *)(0x1101 + (i << 2))) = (val + i + 5) & 0xff;
-                        *((volatile uint8_t *)(0x1102 + (i << 2))) = (val + i + 10) & 0xff;
-                        *((volatile uint8_t *)(0x1103 + (i << 2))) = (val + i + 15) & 0xff;
+                        for (uint8_t j = 0; j < *dsr; j++) {
+                                for (uint8_t i = 0; i < 5; i++) {
+                                        *((volatile uint8_t *)(0x1100 + (i << 2))) = 0;
+                                        *((volatile uint8_t *)(0x1101 + (i << 2))) = 0;
+                                        *((volatile uint8_t *)(0x1102 + (i << 2))) = 0;
+                                        *((volatile uint8_t *)(0x1103 + (i << 2))) = 0;
+                                        _delay_ms(3);
+                                        *((volatile uint8_t *)(0x1100 + (i << 2))) = (val + i) & 0xff;
+                                        *((volatile uint8_t *)(0x1101 + (i << 2))) = (val + i + 5) & 0xff;
+                                        *((volatile uint8_t *)(0x1102 + (i << 2))) = (val + i + 10) & 0xff;
+                                        *((volatile uint8_t *)(0x1103 + (i << 2))) = (val + i + 15) & 0xff;
+                                        _delay_ms(1);
+                                }
+                        }
+                        wdt_reset();
+
+                        //_delay_ms(*dsr);
+
+                        val++;
                 }
-                _delay_ms(*dsr);
-                wdt_reset();
 
-                val++;
+                /* *((volatile uint8_t *)(0x1100 + (i << 2))) = 0; */
+                /* *((volatile uint8_t *)(0x1101 + (i << 2))) = 0; */
+                /* *((volatile uint8_t *)(0x1102 + (i << 2))) = 0; */
+                /* *((volatile uint8_t *)(0x1103 + (i << 2))) = 0; */
+                for (int j = 0; j < *dsr * 64; j++) {
+                        for (int i = 0; i < 5; i++) {
+                                *((volatile uint8_t *)(0x1100 + (i << 2))) = 0;
+                                *((volatile uint8_t *)(0x1101 + (i << 2))) = 0;
+                                *((volatile uint8_t *)(0x1102 + (i << 2))) = 0;
+                                *((volatile uint8_t *)(0x1103 + (i << 2))) = 0;
+                                _delay_ms(3);
+                                *((volatile uint8_t *)(0x1100 + (i << 2))) = (pattern[i] >> 24) & 0xff;
+                                *((volatile uint8_t *)(0x1101 + (i << 2))) = (pattern[i] >> 16) & 0xff;
+                                *((volatile uint8_t *)(0x1102 + (i << 2))) = (pattern[i] >> 8) & 0xff;
+                                *((volatile uint8_t *)(0x1103 + (i << 2))) = pattern[i] & 0xff;
+                                _delay_ms(1);
+                        }
+                        wdt_reset();
+                }
+
+                
                 /* for (a = 0x1100; a < 0x1100 + 20; a++) { */
                 /*         *((volatile uint8_t *)(0x1100 + a)) = val; */
                 /*         _delay_ms(50); */
