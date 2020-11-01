@@ -1228,9 +1228,9 @@ Text Label 8950 2300 0    50   ~ 0
 G0-2
 Text Label 8950 2400 0    50   ~ 0
 G1-0
-Text Label 8950 3150 0    50   ~ 0
-G1-1
 Text Label 8950 3250 0    50   ~ 0
+G1-1
+Text Label 8950 3150 0    50   ~ 0
 G1-2
 Text HLabel 10300 1450 2    50   Output ~ 0
 OUT-G0-0
@@ -1238,10 +1238,6 @@ Text HLabel 10300 1550 2    50   Output ~ 0
 OUT-G0-1
 Text HLabel 10300 2300 2    50   Output ~ 0
 OUT-G0-2
-Text HLabel 10300 3150 2    50   Output ~ 0
-OUT-G1-1
-Text HLabel 10300 3250 2    50   Output ~ 0
-OUT-G1-2
 Text Label 8950 1450 0    50   ~ 0
 G0-0
 Text HLabel 8100 2350 2    50   3State ~ 0
@@ -1597,9 +1593,9 @@ Wire Wire Line
 Wire Wire Line
 	8950 2400 9300 2400
 Wire Wire Line
-	8950 3150 9300 3150
-Wire Wire Line
 	8950 3250 9300 3250
+Wire Wire Line
+	8950 3150 9300 3150
 Wire Wire Line
 	10100 1450 10300 1450
 Wire Wire Line
@@ -1608,10 +1604,6 @@ Wire Wire Line
 	10100 2300 10300 2300
 Wire Wire Line
 	10100 2400 10300 2400
-Wire Wire Line
-	10100 3150 10300 3150
-Wire Wire Line
-	10100 3250 10300 3250
 Text HLabel 10300 2400 2    50   Output ~ 0
 OUT-G1-0
 $Comp
@@ -1647,18 +1639,6 @@ F 2 "alexios:SOIC-8" H 9675 1700 50  0001 C CNN
 F 3 "http://www.st.com/content/ccc/resource/technical/document/datasheet/3e/ec/b2/54/b2/76/47/90/CD00001361.pdf/files/CD00001361.pdf/jcr:content/translations/en.CD00001361.pdf" H 8750 2250 50  0001 C CNN
 F 4 "511-USB6B1RL; €1.08" H 9700 1600 50  0001 C CNN "Mouser"
 	1    9700 2350
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:USB6B1 U17
-U 1 1 5FCB1A66
-P 9700 3200
-F 0 "U17" H 9700 3617 50  0000 C CNN
-F 1 "USB6B1" H 9700 3526 50  0000 C CNN
-F 2 "alexios:SOIC-8" H 9675 2550 50  0001 C CNN
-F 3 "http://www.st.com/content/ccc/resource/technical/document/datasheet/3e/ec/b2/54/b2/76/47/90/CD00001361.pdf/files/CD00001361.pdf/jcr:content/translations/en.CD00001361.pdf" H 8750 3100 50  0001 C CNN
-F 4 "511-USB6B1RL; €1.08" H 9700 2450 50  0001 C CNN "Mouser"
-	1    9700 3200
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
@@ -1743,7 +1723,7 @@ Wire Wire Line
 Wire Notes Line
 	8750 850  11000 850 
 Wire Notes Line
-	11000 850  11000 4200
+	11000 5550 11000 2200
 Wire Notes Line
 	11000 4200 8750 4200
 Wire Notes Line
@@ -1764,6 +1744,26 @@ Text Label 8050 4650 2    50   ~ 0
 ~IRQ1i
 Text Label 8050 4750 2    50   ~ 0
 ~IRQ2i
+Text HLabel 10300 3250 2    50   Output ~ 0
+OUT-G1-1
+Text HLabel 10300 3150 2    50   Output ~ 0
+OUT-G1-2
+Wire Wire Line
+	10100 3250 10300 3250
+Wire Wire Line
+	10100 3150 10300 3150
+$Comp
+L alexios:USB6B1 U17
+U 1 1 5FCB1A66
+P 9700 3200
+F 0 "U17" H 9700 3617 50  0000 C CNN
+F 1 "USB6B1" H 9700 3526 50  0000 C CNN
+F 2 "alexios:SOIC-8" H 9675 2550 50  0001 C CNN
+F 3 "http://www.st.com/content/ccc/resource/technical/document/datasheet/3e/ec/b2/54/b2/76/47/90/CD00001361.pdf/files/CD00001361.pdf/jcr:content/translations/en.CD00001361.pdf" H 8750 3100 50  0001 C CNN
+F 4 "511-USB6B1RL; €1.08" H 9700 2450 50  0001 C CNN "Mouser"
+	1    9700 3200
+	1    0    0    -1  
+$EndComp
 Wire Bus Line
 	1600 1750 1600 4750
 Wire Bus Line

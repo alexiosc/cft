@@ -482,16 +482,16 @@ Wire Wire Line
 Wire Wire Line
 	5950 4800 6400 4800
 Wire Wire Line
-	9800 2100 9500 2100
+	9800 2000 9500 2000
 Text Label 9800 1700 2    50   ~ 0
 G0-1
 Text Label 9800 1800 2    50   ~ 0
 G0-2
 Text Label 9800 1900 2    50   ~ 0
 G1-0
-Text Label 9800 2000 2    50   ~ 0
-G1-1
 Text Label 9800 2100 2    50   ~ 0
+G1-1
+Text Label 9800 2000 2    50   ~ 0
 G1-2
 Text Label 9800 1600 2    50   ~ 0
 G0-0
@@ -504,7 +504,7 @@ Wire Wire Line
 Wire Wire Line
 	9500 1900 9800 1900
 Wire Wire Line
-	9500 2000 9800 2000
+	9500 2100 9800 2100
 Text Label 2700 2400 2    50   ~ 0
 ~RIER
 Text Label 2700 2500 2    50   ~ 0
