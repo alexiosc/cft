@@ -27,7 +27,7 @@
 
 ;;; Definitions
 
-.equ IRC R &10				; Base address
+.equ IRC &10				; Base address
 	
 .equ IER IRC				; IRC IER (read/write)
 .equ ISR IRC 2				; IRC ISR (read-only)

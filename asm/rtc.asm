@@ -37,7 +37,7 @@
 
 ;;; Definitions
 
-.equ RTC R &1C				; Base address
+.equ RTC &1C				; Base address
 	
 .equ ADDR RTC				; RTC ADDR (write-only)
 .equ DATA RTC 2				; RTC DATA (read-write)

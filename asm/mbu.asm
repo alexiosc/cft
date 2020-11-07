@@ -54,7 +54,7 @@
 
 ;;; ;;; Definitions
 
-.equ BASE R &008			; Base address
+.equ BASE &008				; Base address
 
 .equ MB0  0
 .equ MB1  1
