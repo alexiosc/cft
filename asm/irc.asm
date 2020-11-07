@@ -1,4 +1,5 @@
 ;;; -*- cftasm -*-
+;;; 
 ;;; Definitions for the IRC (Interrupt Controller) board.
 
 ;;; The IRC card has a single I/O space address providing access to one
@@ -26,15 +27,17 @@
 
 ;;; Definitions
 
-.equ IRC R &30				; Base address
+.equ IRC R &10				; Base address
 	
-.equ ICR IRC				; IRC ICR (OUT only)
-.equ ISR IRC				; IRC ISR (IN only)
+.equ IER IRC				; IRC IER (read/write)
+.equ ISR IRC 2				; IRC ISR (read-only)
 
-;;; To detect the IRC, read the ISR. The top eight bits should be as
+;;; To detect the IRC, read the IER and/or ISR. The top eight bits should be as
 ;;; follows:
-	
-.equ ISR_DETECT #00001111'--------
+
+.equ DET_MASK   #11111111'00000000
+.equ ISR_DETECT #00111110'--------
+.equ IER_DETECT #00111101'--------
 	
 ;; To test for an interrupt, read from the ISR and test one of the
 ;; following bits.
