@@ -449,8 +449,6 @@ Text Label 6500 1450 0    50   ~ 0
 AB1
 Wire Wire Line
 	1250 1450 6700 1450
-Text Label 6500 1550 0    50   ~ 0
-~IO10
 Wire Wire Line
 	6700 1550 5900 1550
 Text HLabel 8050 1550 2    50   Output ~ 0
@@ -498,8 +496,6 @@ Wire Wire Line
 	6700 2050 6500 2050
 Wire Wire Line
 	5900 2150 6700 2150
-Text Label 6500 2150 0    50   ~ 0
-~IO10
 Wire Wire Line
 	5900 1550 5900 2150
 Wire Wire Line
@@ -1054,4 +1050,24 @@ Wire Wire Line
 	1600 5300 1100 5300
 Text Label 1100 5300 0    50   ~ 0
 ~T0CS
+Text Label 6500 1550 0    50   ~ 0
+~IRCCS
+Text Label 6500 2150 0    50   ~ 0
+~IRCCS
+Wire Notes Line width 18 style solid
+	10200 1950 8900 1950
+Wire Notes Line width 18 style solid
+	8900 2850 8900 1950
+Text Notes 8950 2800 0    50   ~ 0
+Address\n\n010–011\n012–013\n\n014–017\n018–01C\n\n01C–01E\n01E–01F
+Text Notes 9350 2800 0    50   ~ 0
+Device\n\nIRC.IER\nIRC.ISR\n\nTMR0\nTMR1\n\nRTC.ADDR\nRTC.DATA
+Text Notes 9800 2800 0    50   ~ 0
+Direction\n\nrw\nr-\n\nrw\nrw\n\n-w\nrw
+Wire Notes Line width 18 style solid
+	8900 2850 10200 2850
+Wire Notes Line width 18 style solid
+	10200 1950 10200 2850
+Wire Notes Line style solid
+	8900 2100 10200 2100
 $EndSCHEMATC

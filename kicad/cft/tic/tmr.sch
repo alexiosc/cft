@@ -1764,6 +1764,158 @@ F 4 "511-USB6B1RL; €1.08" H 9700 2450 50  0001 C CNN "Mouser"
 	1    9700 3200
 	1    0    0    -1  
 $EndComp
+Text Label 7200 1850 0    50   ~ 0
+G0-0
+Wire Wire Line
+	7550 1850 7200 1850
+Text Label 7200 1950 0    50   ~ 0
+G0-1
+Wire Wire Line
+	7550 1950 7200 1950
+Text Label 7200 2050 0    50   ~ 0
+G0-2
+Wire Wire Line
+	7550 2050 7200 2050
+$Comp
+L Device:R_Small R?
+U 1 1 5FC591AC
+P 7650 1850
+AR Path="/5F160E7C/5FC591AC" Ref="R?"  Part="1" 
+AR Path="/607E2CF3/5FC591AC" Ref="R17"  Part="1" 
+F 0 "R17" V 7600 2000 50  0000 C CNN
+F 1 "4.7kΩ" V 7550 1800 50  0000 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7650 1850 50  0001 C CNN
+F 3 "~" H 7650 1850 50  0001 C CNN
+	1    7650 1850
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	7750 1850 8000 1850
+Wire Wire Line
+	7750 1950 8000 1950
+Wire Wire Line
+	7750 2050 8000 2050
+$Comp
+L Device:R_Small R?
+U 1 1 5FC591B5
+P 7650 1950
+AR Path="/5F160E7C/5FC591B5" Ref="R?"  Part="1" 
+AR Path="/607E2CF3/5FC591B5" Ref="R18"  Part="1" 
+F 0 "R18" V 7600 2100 50  0000 C CNN
+F 1 "4.7kΩ" V 7550 1750 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7650 1950 50  0001 C CNN
+F 3 "~" H 7650 1950 50  0001 C CNN
+	1    7650 1950
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Small R?
+U 1 1 5FC591BB
+P 7650 2050
+AR Path="/5F160E7C/5FC591BB" Ref="R?"  Part="1" 
+AR Path="/607E2CF3/5FC591BB" Ref="R19"  Part="1" 
+F 0 "R19" V 7600 2200 50  0000 C CNN
+F 1 "4.7kΩ" V 7550 1850 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7650 2050 50  0001 C CNN
+F 3 "~" H 7650 2050 50  0001 C CNN
+	1    7650 2050
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	8000 2050 8000 1950
+Connection ~ 8000 1850
+Wire Wire Line
+	8000 1850 8000 1800
+Connection ~ 8000 1950
+Wire Wire Line
+	8000 1950 8000 1850
+$Comp
+L power:+5V #PWR01
+U 1 1 5FC6E7C1
+P 8000 1800
+F 0 "#PWR01" H 8000 1650 50  0001 C CNN
+F 1 "+5V" H 8015 1973 50  0000 C CNN
+F 2 "" H 8000 1800 50  0001 C CNN
+F 3 "" H 8000 1800 50  0001 C CNN
+	1    8000 1800
+	1    0    0    -1  
+$EndComp
+Text Label 7150 4050 0    50   ~ 0
+G1-0
+Wire Wire Line
+	7500 4050 7150 4050
+Text Label 7150 4150 0    50   ~ 0
+G1-1
+Wire Wire Line
+	7500 4150 7150 4150
+Text Label 7150 4250 0    50   ~ 0
+G1-2
+Wire Wire Line
+	7500 4250 7150 4250
+$Comp
+L Device:R_Small R?
+U 1 1 5FC884D0
+P 7600 4050
+AR Path="/5F160E7C/5FC884D0" Ref="R?"  Part="1" 
+AR Path="/607E2CF3/5FC884D0" Ref="R20"  Part="1" 
+F 0 "R20" V 7550 4200 50  0000 C CNN
+F 1 "4.7kΩ" V 7500 4000 50  0000 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7600 4050 50  0001 C CNN
+F 3 "~" H 7600 4050 50  0001 C CNN
+	1    7600 4050
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	7700 4050 7950 4050
+Wire Wire Line
+	7700 4150 7950 4150
+Wire Wire Line
+	7700 4250 7950 4250
+$Comp
+L Device:R_Small R?
+U 1 1 5FC884D9
+P 7600 4150
+AR Path="/5F160E7C/5FC884D9" Ref="R?"  Part="1" 
+AR Path="/607E2CF3/5FC884D9" Ref="R21"  Part="1" 
+F 0 "R21" V 7550 4300 50  0000 C CNN
+F 1 "4.7kΩ" V 7500 3950 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7600 4150 50  0001 C CNN
+F 3 "~" H 7600 4150 50  0001 C CNN
+	1    7600 4150
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Small R?
+U 1 1 5FC884DF
+P 7600 4250
+AR Path="/5F160E7C/5FC884DF" Ref="R?"  Part="1" 
+AR Path="/607E2CF3/5FC884DF" Ref="R22"  Part="1" 
+F 0 "R22" V 7550 4400 50  0000 C CNN
+F 1 "4.7kΩ" V 7500 4050 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7600 4250 50  0001 C CNN
+F 3 "~" H 7600 4250 50  0001 C CNN
+	1    7600 4250
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	7950 4250 7950 4150
+Connection ~ 7950 4050
+Wire Wire Line
+	7950 4050 7950 4000
+Connection ~ 7950 4150
+Wire Wire Line
+	7950 4150 7950 4050
+$Comp
+L power:+5V #PWR03
+U 1 1 5FC884EA
+P 7950 4000
+F 0 "#PWR03" H 7950 3850 50  0001 C CNN
+F 1 "+5V" H 7965 4173 50  0000 C CNN
+F 2 "" H 7950 4000 50  0001 C CNN
+F 3 "" H 7950 4000 50  0001 C CNN
+	1    7950 4000
+	1    0    0    -1  
+$EndComp
 Wire Bus Line
 	1600 1750 1600 4750
 Wire Bus Line
