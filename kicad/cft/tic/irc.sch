@@ -808,7 +808,7 @@ Wire Bus Line
 Wire Bus Line
 	10400 4700 10500 4600
 Wire Wire Line
-	10350 4550 10850 4550
+	10350 4550 10650 4550
 Connection ~ 10350 4550
 Text HLabel 10850 4550 2    50   3State ~ 0
 ~IRQ
@@ -1794,6 +1794,21 @@ Wire Wire Line
 	6250 4250 6550 4250
 Text Label 6250 4250 0    50   ~ 0
 ~IRQ3i
+$Comp
+L Connector:TestPoint TP1
+U 1 1 5FD736F3
+P 10700 4350
+F 0 "TP1" V 10700 4538 50  0000 L CNN
+F 1 "TestPoint" V 10745 4538 50  0001 L CNN
+F 2 "" H 10900 4350 50  0001 C CNN
+F 3 "~" H 10900 4350 50  0001 C CNN
+	1    10700 4350
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	10700 4350 10650 4350
+Wire Wire Line
+	10650 4350 10650 4550
 Wire Bus Line
 	10500 1550 10500 4600
 Wire Bus Line
@@ -1806,4 +1821,7 @@ Wire Bus Line
 	3350 3650 3350 6300
 Wire Bus Line
 	5550 4200 5550 6500
+Connection ~ 10650 4550
+Wire Wire Line
+	10650 4550 10850 4550
 $EndSCHEMATC
