@@ -13,33 +13,24 @@
 
 .pushns tmr
 
-;;; Useful macros.
-
-.macro read(addr)
-		LI %addr		; macro: TMR.read(addr)
-		OUT irc.ADDR		; Set the read address
-		IN  irc.DATA		; Read data
-.endmacro
-
-.macro write(addr, data)
-		TAD			; macro: TMR.write(addr, data)
-		LI %addr		; 
-		OUT irc.ADDR		; Set the read address
-		TDA
-		OUT irc.DATA		; Read data
-.endmacro
-
+;;; How to set timer 1 counter 0 to mode 2 and set a count rate:
+;;;
+;;; LI tmr.CTR0 tmr.RWB tmr.MODE2   ; Counter 0, write LSB & MSB, set mode 2
+;;; OUT tmr.TMR1 tmr.CW             ; Send to Timer 1 Control Word
+;;; LOAD RATE                       ; Load 16 bit rate
+;;; OUT tmr.TMR1 tmr.CTR0           ; Write LSB to timer 1 counter 0
+;;; SHL 8
+;;; OUT tmr.TMR1 tmr.CTR0           ; Write MSB to timer 1 counter 0
 
 ;;; Definitions
 
 .equ TMR0 &14				; Base address of Timer 0
-.equ TMR0 &18				; Base address of Timer 1
+.equ TMR1 &18				; Base address of Timer 1
 
-.equ T0 0				; Timer 0 address offset
-.equ T1 1				; Timer 1 address offset
-.equ T2 2				; Timer 2 address offset
+.equ C0 0				; Counter 0 address offset
+.equ C1 1				; Counter 1 address offset
+.equ C2 2				; Counter 2 address offset
 .equ CW 3				; Control Word
-
 
 ;;; Control Word format
 
@@ -61,7 +52,6 @@
 .equ MODE5 #----101-			; Mode 5: Hardware Triggered Strobe
 
 .equ BCD  #-------1			; Count in BCD (4 decades only)
-		
 .popns cw
 
 ;;; To detect the TMR, read TMR.DATA. The top eight bits should be as
@@ -69,19 +59,6 @@
 
 .equ DET_MASK   #11111111'00000000
 .equ TMR_DETECT #11110000'--------
-
-;;; The TMR stores data in BCD format.
-
-.equ YEAR  &FF
-.equ MONTH &FE
-.equ DATE  &FD
-.equ DOW   &FC				; Also FT bit
-.equ HOUR  &FB
-.equ MIN   &FA
-.equ SEC   &F9				; Zero in the high bit stops the clock
-.equ CLBR  &F8				; Clock calibration
-
-.equ STOP  &8000
 
 .popns tmr
 
