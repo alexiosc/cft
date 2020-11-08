@@ -129,13 +129,7 @@ TCLK
 Text Label 5450 3850 2    50   ~ 0
 TCLK
 Wire Wire Line
-	5650 2350 5750 2350
-Wire Wire Line
 	5100 1850 5650 1850
-Wire Wire Line
-	5100 2450 5750 2450
-Wire Wire Line
-	5650 2550 5750 2550
 Wire Wire Line
 	5100 3050 5650 3050
 $Comp
@@ -186,8 +180,6 @@ Connection ~ 5550 2250
 Wire Wire Line
 	5100 4050 5650 4050
 Wire Wire Line
-	5100 4650 5750 4650
-Wire Wire Line
 	5100 5250 5650 5250
 Wire Wire Line
 	7200 4750 7300 4750
@@ -213,26 +205,6 @@ F 3 "~" H 7500 4650 50  0001 C CNN
 	1    7500 4650
 	1    0    0    -1  
 $EndComp
-$Comp
-L Device:D_Schottky_ALT D?
-U 1 1 60844317
-P 6600 4650
-AR Path="/600C0F8F/60844317" Ref="D?"  Part="1" 
-AR Path="/60844317" Ref="D?"  Part="1" 
-AR Path="/60AA2B43/60844317" Ref="D?"  Part="1" 
-AR Path="/607E2CF3/60844317" Ref="D2"  Part="1" 
-F 0 "D2" H 6600 4867 50  0000 C CNN
-F 1 "CUS520" H 6600 4776 50  0000 C CNN
-F 2 "alexios:SOD-323" H 6600 4650 50  0001 C CNN
-F 3 "~" H 6600 4650 50  0001 C CNN
-F 4 "757-CUS520H3F; £0.043/100" H 6600 4650 50  0001 C CNN "Mouser"
-	1    6600 4650
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	5650 4750 5750 4750
-Wire Wire Line
-	5650 4550 5750 4550
 Wire Wire Line
 	5550 1650 5550 2250
 Wire Wire Line
@@ -383,45 +355,6 @@ F 3 "http://www.scs.stanford.edu/10wi-cs140/pintos/specs/8254.pdf" H 4350 7150 5
 	1    0    0    -1  
 $EndComp
 $Comp
-L alexios:74LVC1G11 U?
-U 1 1 608443B3
-P 6050 2400
-AR Path="/608443B3" Ref="U?"  Part="1" 
-AR Path="/607E2CF3/608443B3" Ref="U3"  Part="1" 
-F 0 "U3" H 6000 2664 50  0000 C CNN
-F 1 "74LVC1G11" H 6000 2573 50  0000 C CNN
-F 2 "alexios:SOT-23-6_Handsoldering" H 5950 2325 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G11.pdf" H 5950 2325 50  0001 C CNN
-	1    6050 2400
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74LVC1G11 U?
-U 1 1 608443B9
-P 6050 4600
-AR Path="/608443B9" Ref="U?"  Part="1" 
-AR Path="/607E2CF3/608443B9" Ref="U7"  Part="1" 
-F 0 "U7" H 6000 4864 50  0000 C CNN
-F 1 "74LVC1G11" H 6000 4773 50  0000 C CNN
-F 2 "alexios:SOT-23-6_Handsoldering" H 5950 4525 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G11.pdf" H 5950 4525 50  0001 C CNN
-	1    6050 4600
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74LVC1G11 U?
-U 2 1 60844413
-P 6500 3750
-AR Path="/60844413" Ref="U?"  Part="2" 
-AR Path="/607E2CF3/60844413" Ref="U7"  Part="2" 
-F 0 "U7" H 6580 3646 50  0000 L CNN
-F 1 "74LVC1G11" H 6580 3555 50  0000 L CNN
-F 2 "alexios:SOT-23-6_Handsoldering" H 6400 3675 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G11.pdf" H 6400 3675 50  0001 C CNN
-	2    6500 3750
-	1    0    0    -1  
-$EndComp
-$Comp
 L Device:C_Small C?
 U 1 1 60844419
 P 6050 3900
@@ -493,8 +426,6 @@ F 3 "" H 6050 4000 50  0001 C CNN
 	1    6050 4000
 	1    0    0    -1  
 $EndComp
-Connection ~ 6050 3800
-Connection ~ 6050 4000
 $Comp
 L alexios:8254 U?
 U 1 1 60844439
@@ -1474,22 +1405,6 @@ TD6
 Text Label 3700 4550 0    50   ~ 0
 TD7
 $Comp
-L Device:D_Schottky_ALT D?
-U 1 1 608442D4
-P 6600 2450
-AR Path="/600C0F8F/608442D4" Ref="D?"  Part="1" 
-AR Path="/608442D4" Ref="D?"  Part="1" 
-AR Path="/60AA2B43/608442D4" Ref="D?"  Part="1" 
-AR Path="/607E2CF3/608442D4" Ref="D1"  Part="1" 
-F 0 "D1" H 6600 2667 50  0000 C CNN
-F 1 "CUS520" H 6600 2576 50  0000 C CNN
-F 2 "alexios:SOD-323" H 6600 2450 50  0001 C CNN
-F 3 "~" H 6600 2450 50  0001 C CNN
-F 4 "757-CUS520H3F; £0.043/100" H 6600 2450 50  0001 C CNN "Mouser"
-	1    6600 2450
-	1    0    0    -1  
-$EndComp
-$Comp
 L power:GND #PWR?
 U 1 1 608443EB
 P 6000 3200
@@ -1561,29 +1476,6 @@ F 3 "~" H 6000 3100 50  0001 C CNN
 	1    6000 3100
 	1    0    0    -1  
 $EndComp
-Connection ~ 6000 3000
-Connection ~ 6000 3200
-$Comp
-L alexios:74LVC1G11 U?
-U 2 1 608443D9
-P 6450 2950
-AR Path="/608443D9" Ref="U?"  Part="2" 
-AR Path="/607E2CF3/608443D9" Ref="U3"  Part="2" 
-F 0 "U3" H 6530 2846 50  0000 L CNN
-F 1 "74LVC1G11" H 6530 2755 50  0000 L CNN
-F 2 "alexios:SOT-23-6_Handsoldering" H 6350 2875 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G11.pdf" H 6350 2875 50  0001 C CNN
-	2    6450 2950
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	6250 2450 6450 2450
-Wire Wire Line
-	6750 2450 7200 2450
-Wire Wire Line
-	6750 4650 7200 4650
-Wire Wire Line
-	6250 4650 6450 4650
 Wire Wire Line
 	8950 1450 9300 1450
 Wire Wire Line
@@ -1723,7 +1615,7 @@ Wire Wire Line
 Wire Notes Line
 	8750 850  11000 850 
 Wire Notes Line
-	11000 5550 11000 2200
+	11000 4200 11000 850 
 Wire Notes Line
 	11000 4200 8750 4200
 Wire Notes Line
@@ -1732,12 +1624,6 @@ Text Notes 9250 3800 2    63   ~ 13
 Optional
 Text Notes 8850 4100 0    50   ~ 0
 Install only if OUT signals will be used off-board,\nand only for signals used off-board.
-Wire Wire Line
-	7800 4550 8100 4550
-Wire Wire Line
-	7800 4650 8100 4650
-Wire Wire Line
-	7800 4750 8100 4750
 Text Label 8050 4550 2    50   ~ 0
 ~IRQ0i
 Text Label 8050 4650 2    50   ~ 0
@@ -1916,12 +1802,118 @@ F 3 "" H 7950 4000 50  0001 C CNN
 	1    7950 4000
 	1    0    0    -1  
 $EndComp
+$Comp
+L alexios:74LVC1G10 U7
+U 2 1 5FA96022
+P 6500 3750
+F 0 "U7" H 6580 3646 50  0000 L CNN
+F 1 "74LVC1G10" H 6580 3555 50  0000 L CNN
+F 2 "alexios:SOT-23-6_Handsoldering" H 6400 3675 50  0001 C CNN
+F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 6400 3675 50  0001 C CNN
+	2    6500 3750
+	1    0    0    -1  
+$EndComp
+Connection ~ 6050 4000
+Connection ~ 6050 3800
+$Comp
+L alexios:74LVC1G10 U3
+U 2 1 5FA96931
+P 6450 2950
+F 0 "U3" H 6530 2846 50  0000 L CNN
+F 1 "74LVC1G10" H 6530 2755 50  0000 L CNN
+F 2 "alexios:SOT-23-6_Handsoldering" H 6350 2875 50  0001 C CNN
+F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 6350 2875 50  0001 C CNN
+	2    6450 2950
+	1    0    0    -1  
+$EndComp
+Connection ~ 6000 3200
+Connection ~ 6000 3000
+Wire Wire Line
+	7800 4750 8100 4750
+Wire Wire Line
+	7800 4650 8100 4650
+Wire Wire Line
+	7800 4550 8100 4550
+Wire Wire Line
+	5650 4550 5750 4550
+Wire Wire Line
+	5100 4650 5750 4650
+Wire Wire Line
+	5650 4750 5750 4750
+$Comp
+L alexios:74LVC1G10 U7
+U 1 1 5FA93A97
+P 6050 4600
+F 0 "U7" H 6000 4864 50  0000 C CNN
+F 1 "74LVC1G10" H 6000 4773 50  0000 C CNN
+F 2 "alexios:SOT-23-6_Handsoldering" H 5950 4525 50  0001 C CNN
+F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 5950 4525 50  0001 C CNN
+	1    6050 4600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6750 4650 7200 4650
+Wire Wire Line
+	6250 4650 6450 4650
+$Comp
+L Device:D_Schottky_ALT D?
+U 1 1 60844317
+P 6600 4650
+AR Path="/600C0F8F/60844317" Ref="D?"  Part="1" 
+AR Path="/60844317" Ref="D?"  Part="1" 
+AR Path="/60AA2B43/60844317" Ref="D?"  Part="1" 
+AR Path="/607E2CF3/60844317" Ref="D2"  Part="1" 
+F 0 "D2" H 6600 4867 50  0000 C CNN
+F 1 "CUS520" H 6600 4776 50  0000 C CNN
+F 2 "alexios:SOD-323" H 6600 4650 50  0001 C CNN
+F 3 "~" H 6600 4650 50  0001 C CNN
+F 4 "757-CUS520H3F; £0.043/100" H 6600 4650 50  0001 C CNN "Mouser"
+	1    6600 4650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5650 2350 5750 2350
+Wire Wire Line
+	5100 2450 5750 2450
+Wire Wire Line
+	5650 2550 5750 2550
+$Comp
+L alexios:74LVC1G10 U3
+U 1 1 5FA94417
+P 6050 2400
+F 0 "U3" H 6000 2664 50  0000 C CNN
+F 1 "74LVC1G10" H 6000 2573 50  0000 C CNN
+F 2 "alexios:SOT-23-6_Handsoldering" H 5950 2325 50  0001 C CNN
+F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 5950 2325 50  0001 C CNN
+	1    6050 2400
+	1    0    0    -1  
+$EndComp
 Wire Bus Line
 	1600 1750 1600 4750
 Wire Bus Line
 	1600 4950 1600 6100
 Wire Bus Line
-	3250 1450 3250 2250
-Wire Bus Line
 	3550 1450 3550 4450
+Wire Bus Line
+	3250 1450 3250 2250
+Wire Wire Line
+	6750 2450 7200 2450
+Wire Wire Line
+	6250 2450 6450 2450
+$Comp
+L Device:D_Schottky_ALT D?
+U 1 1 608442D4
+P 6600 2450
+AR Path="/600C0F8F/608442D4" Ref="D?"  Part="1" 
+AR Path="/608442D4" Ref="D?"  Part="1" 
+AR Path="/60AA2B43/608442D4" Ref="D?"  Part="1" 
+AR Path="/607E2CF3/608442D4" Ref="D1"  Part="1" 
+F 0 "D1" H 6600 2667 50  0000 C CNN
+F 1 "CUS520" H 6600 2576 50  0000 C CNN
+F 2 "alexios:SOD-323" H 6600 2450 50  0001 C CNN
+F 3 "~" H 6600 2450 50  0001 C CNN
+F 4 "757-CUS520H3F; £0.043/100" H 6600 2450 50  0001 C CNN "Mouser"
+	1    6600 2450
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
