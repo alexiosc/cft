@@ -1018,16 +1018,11 @@ hw_init()
 
                         for (uint8_t j = 0; j < *dsr; j++) {
                                 for (uint8_t i = 0; i < 5; i++) {
-                                        *((volatile uint8_t *)(0x1100 + (i << 2))) = 0;
-                                        *((volatile uint8_t *)(0x1101 + (i << 2))) = 0;
-                                        *((volatile uint8_t *)(0x1102 + (i << 2))) = 0;
-                                        *((volatile uint8_t *)(0x1103 + (i << 2))) = 0;
-                                        _delay_ms(3);
                                         *((volatile uint8_t *)(0x1100 + (i << 2))) = (val + i) & 0xff;
                                         *((volatile uint8_t *)(0x1101 + (i << 2))) = (val + i + 5) & 0xff;
                                         *((volatile uint8_t *)(0x1102 + (i << 2))) = (val + i + 10) & 0xff;
                                         *((volatile uint8_t *)(0x1103 + (i << 2))) = (val + i + 15) & 0xff;
-                                        _delay_ms(1);
+                                        _delay_ms(4);
                                 }
                         }
                         wdt_reset();
@@ -1043,16 +1038,11 @@ hw_init()
                 /* *((volatile uint8_t *)(0x1103 + (i << 2))) = 0; */
                 for (int j = 0; j < *dsr * 64; j++) {
                         for (int i = 0; i < 5; i++) {
-                                *((volatile uint8_t *)(0x1100 + (i << 2))) = 0;
-                                *((volatile uint8_t *)(0x1101 + (i << 2))) = 0;
-                                *((volatile uint8_t *)(0x1102 + (i << 2))) = 0;
-                                *((volatile uint8_t *)(0x1103 + (i << 2))) = 0;
-                                _delay_ms(3);
                                 *((volatile uint8_t *)(0x1100 + (i << 2))) = (pattern[i] >> 24) & 0xff;
                                 *((volatile uint8_t *)(0x1101 + (i << 2))) = (pattern[i] >> 16) & 0xff;
                                 *((volatile uint8_t *)(0x1102 + (i << 2))) = (pattern[i] >> 8) & 0xff;
                                 *((volatile uint8_t *)(0x1103 + (i << 2))) = pattern[i] & 0xff;
-                                _delay_ms(1);
+                                _delay_ms(4);
                         }
                         wdt_reset();
                 }
