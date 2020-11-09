@@ -51,6 +51,8 @@
 // #include "debug.h"
 #include "util.h"
 
+#include <peripherals/dfp2/lib/iface.h>
+
 #ifdef GUI
 #include "uterm.h"
 #include "ui_panel.h"
@@ -112,69 +114,69 @@ void dfp_firmware_init()
 	void perform_reset();
 
 	// Initialise the DFP firmware
-	dfp_cb.putc = dfp_cb_putc;
-	dfp_cb.unit_mem = unit_mem;
-	dfp_cb.unit_io = unit_io;
+	// dfp_cb.putc = dfp_cb_putc;
+	// dfp_cb.unit_mem = unit_mem;
+	// dfp_cb.unit_io = unit_io;
 
-	dfp_cb.request_reset = 0;
+	// dfp_cb.request_reset = 0;
 
-	dfp_cb.ir = &cpu.ir;
-	dfp_cb.pc = &cpu.pc;
-	dfp_cb.ac = &cpu.a;
+	// dfp_cb.ir = &cpu.ir;
+	// dfp_cb.pc = &cpu.pc;
+	// dfp_cb.ac = &cpu.a;
 
-	dfp_cb.l = &cpu.l;	// The flags
-	dfp_cb.i = &cpu.i;
-	dfp_cb.v = &cpu.v;
-	dfp_cb.n = &cpu.n;
-	dfp_cb.z = &cpu.z;
+	// dfp_cb.l = &cpu.l;	// The flags
+	// dfp_cb.i = &cpu.i;
+	// dfp_cb.v = &cpu.v;
+	// dfp_cb.n = &cpu.n;
+	// dfp_cb.z = &cpu.z;
 
-	dfp_cb.ab = &cpu.ar;	// The ABUS is the same as the AR
-	dfp_cb.db = &cpu.dbus;
-	dfp_cb.swright = &reg_swright;
-	dfp_cb.swleft = &reg_swleft;
-	dfp_cb.sr = &pd.sr;
+	// dfp_cb.ab = &cpu.ar;	// The ABUS is the same as the AR
+	// dfp_cb.db = &cpu.dbus;
+	// dfp_cb.swright = &reg_swright;
+	// dfp_cb.swleft = &reg_swleft;
+	// dfp_cb.sr = &pd.sr;
 
-	dfp_cb.uvec = &cpu.control;
+	// dfp_cb.uvec = &cpu.control;
 
 	pthread_mutex_init(&dfp_cb.lock, NULL);
 	pthread_mutex_init(&dfp_cb.rx_lock, NULL);
 	pthread_mutex_init(&dfp_cb.tx_lock, NULL);
 
-	if (dfp_testmode) {
-		dfp_cb.request_testmode = 1;
-	}
+	// if (dfp_testmode) {
+	// 	dfp_cb.request_testmode = 1;
+	// }
 
-	// Initialise the firmare thread.
-	void * dfp_firmware_run(void*);
-	int res = pthread_create(&thread_fw, NULL, dfp_firmware_run, NULL);
+	// // Initialise the firmare thread.
+	// void * dfp_firmware_run(void*);
+	// int res = pthread_create(&thread_fw, NULL, dfp_firmware_run, NULL);
 	
-	if (res) {
-		fail("Failed to create firmware thread: %s", strerror(errno));
-	}
+	// if (res) {
+	// 	fail("Failed to create firmware thread: %s", strerror(errno));
+	// }
 
 }
 
 void *
 dfp_firmware_run(void * arg)
 {
-	info("DFP Firmware thread started.\n");
-	dfp_fw_init();		// Call the shared object init
+	// info("DFP Firmware thread started.\n");
+	// dfp_fw_init();		// Call the shared object init
 
-	dfp_fw_run();
+	// dfp_fw_run();
 	
-	info("DFP Firmware thread ended.\n");
-	return NULL;
+	// info("DFP Firmware thread ended.\n");
+	// return NULL;
 }
 
 void
 dfp_cb_putc(unsigned char c)
 {
-	// There are occasional concurrency issues when printing out. Symptom:
-	// the newline character is sent *after* the firmware responds to a
-	// command, splitting the response in two.
-	pthread_mutex_lock(&dfp_cb.tx_lock);
-	dfp_putc(c);
-	pthread_mutex_unlock(&dfp_cb.tx_lock);
+	// // There are occasional concurrency issues when printing out. Symptom:
+	// // the newline character is sent *after* the firmware responds to a
+	// // command, splitting the response in two.
+	// pthread_mutex_lock(&dfp_cb.tx_lock);
+	// dfp_putc(c);
+	// pthread_mutex_unlock(&dfp_cb.tx_lock);
 }
 
 

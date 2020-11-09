@@ -25,6 +25,26 @@
 typedef struct {
 
 	void            (*putc)(uint8_t c);
+
+        // Callbacks to simulate Buses
+        uint8_t         (*ibus_r)(uint8_t raddr);
+        void            (*ibus_w)(uint8_t waddr, uint16_t ibus);
+
+        uint8_t         (*mem_r)(uint32_t ab);
+        void            (*mem_w)(uint32_t ab, uint16_t db);
+
+        uint8_t         (*io_r)(uint32_t ab);
+        void            (*io_w)(uint32_t ab, uint16_t db);
+
+        // Simulate Front Panel Bus
+        uint8_t         (*fpd_r)(uint8_t fpaddr);
+
+        // The Front Panel Lights (set the DFP, displayed by the emulator)
+        uint8_t         lights[20];
+
+        // The Front Panel Switches (set the emulator, used by the DFP)
+        uint8_t         switches[8];
+
 	// uint16_t        (*unit_mem)(int r, int w);
 	// uint16_t        (*unit_io)(int r, int w);
 

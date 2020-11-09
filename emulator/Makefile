@@ -12,7 +12,7 @@ LDFLAGS = -g
 
 LDFLAGS += -lpthread
 
-LDPATH	= $(shell readlink -f ../front-panel/lib)
+LDPATH	= $(shell readlink -f ../peripherals/dfp2/firmware)
 LDFLAGS	+= -L$(LDPATH) -Wl,-rpath=$(LDPATH) -ldfp
 
 PROGRAMS = cftemu
