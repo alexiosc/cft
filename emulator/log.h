@@ -10,6 +10,9 @@
 // any later version.
 
 
+#ifndef __LOG_H__
+#define __LOG_H__
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -98,6 +101,8 @@ int log_enabled(int level, log_unit_t unit);
 #  define debug4(msg, ...)  log_msg(LOG_DEBUG4, LOG_NO_UNIT, msg, ## __VA_ARGS__)
 #endif
 
+
+#endif // __LOG_H__
 
 // End of file.
 // Local Variables:
