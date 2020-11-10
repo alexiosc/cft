@@ -17,8 +17,12 @@
 // such a simple thing. :)
 
 #ifdef HOST
-#define PSTR(x) x
-#define wdt_reset() ;
+#  ifndef PSTR
+#    define PSTR(x) x
+#  endif
+#  ifndef wdt_reset
+#    define wdt_reset() ;
+#  endif
 #endif // HOST
 
 // Convert a pin (bit) number to byte.

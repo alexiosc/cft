@@ -74,7 +74,9 @@
 #define setup() 
 #define hold()
 
-#define wdt_reset()
+#ifndef wdt_reset
+#  define wdt_reset()
+#endif
 
 #endif // ! AVR
 

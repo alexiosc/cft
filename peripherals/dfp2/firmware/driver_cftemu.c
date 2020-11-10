@@ -16,24 +16,245 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 // This 'driver' is only available on the CFTEMU target.
-#ifdef CFTEMU
+#ifndef CFTEMU
+#  error "This driver is meant for the CFT Emulator only."
+#endif // AVR
 
-#include "hwcompat.h"
-//#include "panel.h"
-#include "proto.h"
-//#include "abstract.h"
-//#include "bus.h"
-//#include "utils.h"
-//#include "serial.h"
-//#include "output.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdarg.h>
+#include <assert.h>
+
+#include "dfp.h"
+#include "utils.h"
+#include "driver.h"
 #include "iface.h"
-//#include "switches.h"
-
-dfp_cb_t dfp_cb;
 
 
+hwstate_t  hwstate;             // Hardware state on the DFP side
+
+dfp_cb_t   dfp_cb;              // Interface to the CFT emulator
+
+// Values written to buses by the DFP are held here.
+
+static uint16_t   ibus;         // The DFP-driven value of the IBUS
+static uint32_t   ab;           // The DFP-driven value of the Address Bus
+static uint16_t   db;           // The DB
+static uint16_t   or;           // The Output Register
+static uint8_t    raddr;        // The Processor read address field
+static uint8_t    waddr;        // The Processor write address field
+static uint8_t    action;       // The Processor action field
+static uint8_t    fpd;          // The FPD bus
 
 
+///////////////////////////////////////////////////////////////////////////////
+//
+// LOGGING TO THE EMULATOR
+//
+///////////////////////////////////////////////////////////////////////////////
+
+#define fatal(s, ...)    logger(LOG_FATAL,   s, ## __VA_ARGS__)
+#define error(s, ...)    logger(LOG_ERROR,   s, ## __VA_ARGS__)
+#define warning(s, ...)  logger(LOG_WARNING, s, ## __VA_ARGS__)
+#define notice(s, ...)   logger(LOG_NOTICE,  s, ## __VA_ARGS__)
+#define info(s, ...)     logger(LOG_INFO,    s, ## __VA_ARGS__)
+#define debug(s, ...)    logger(LOG_DEBUG,   s, ## __VA_ARGS__)
+
+#define not_implemented() fatal("Not implemented.")
+
+void
+logger(int level, char *fmt, ...)
+{
+        va_list ap;
+        char * buf;
+
+        assert (level >= 0 && level < 5);
+        assert (fmt != NULL);
+
+        va_start(ap, fmt);
+        int result = vasprintf(&buf, fmt, ap);
+        assert (result >= 0);
+        va_end(ap);
+
+        (*dfp_cb.log)(level, buf);
+        free(buf);
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// AVR XMEM BUS I/O
+//
+///////////////////////////////////////////////////////////////////////////////
+
+// !!! IMPORTANT !!! BUS CONTENTION !!!
+//
+// PRECONDITIONS:
+//
+//   * Call fp_scanner_stop() before using one of these functions!
+//
+//   * Wrap fp_scanner_stop() and any xmem_read() or xmem_write() calls in an
+//     ATOMIC_BLOCK or disable interrupts.
+//
+// The autonomic FP Scanner controls the FPD bus otherwise and bus contention
+// will occur.
+
+#define XMEM_BASE 0x8000
+inline static void
+xmem_write(const xmem_addr_t addr, const uint8_t val)
+{
+        not_implemented();
+
+        fpd = val;              // Pretend we have bus hold circuitry
+
+        // Only a few of the 256 XMEM addresses have write registers on the DFP2.
+
+        switch (addr) {
+	case XMEM_AB_L:	// Write to AB bits 0-7
+                ab = (ab & 0xffff00) | val;
+                break;
+                
+	case XMEM_AB_M:	// Write to AB bits 8-15
+                ab = (ab & 0xff00ff) | (val << 8);
+                break;
+                
+	case XMEM_AB_H:	// Write to AB bits 16-23
+                ab = (ab & 0x00ffff) | (val << 16);
+                break;
+
+	case XMEM_DB_L:	// Write to DB bits 0-7
+                db = (db & 0xff00) | val;
+                break;
+                
+	case XMEM_DB_H:	// Write to DB bits 8-15
+                db = (db & 0x00ff) | (val << 8);
+                break;
+                
+	case XMEM_IBUS_L:	// Write to IBUS bits 0-7
+                ibus = (ibus & 0xff00) | val;
+                break;
+                
+	case XMEM_IBUS_H:	// Write to IBUS bits 8-15
+                ibus = (ibus & 0x00ff) | (val << 8);
+                break;
+                
+	case XMEM_OR_L:	// (write-only) Write to OR, bits 0-7
+                or = (or & 0xff00) | val;
+                break;
+                
+	case XMEM_OR_H:	// Write to OR, bits 8-15
+                or = (or & 0x00ff) | (val << 8);
+                break;
+                
+	case XMEM_RADDR:	// output to µCV RADDR field
+                raddr = val & 0x1f;
+                break;
+                
+	case XMEM_WADDR:	// output to µCV WADDR field
+                waddr = val & 0x1f;
+                break;
+                
+	case XMEM_ACTION:	// output to µCV ACTION field
+                action = val & 0x0f;
+                break;
+                
+        default:
+                error("XMEM write(%02x, %02x): address not implemented.", addr, val);
+        }
+}
+
+
+inline static uint8_t
+xmem_read(const xmem_addr_t addr)
+{
+        switch (addr)
+        {
+	case XMEM_UCV_H:	//  0 A1 C16: µCV bits 16–23
+                break;
+	case XMEM_UCV_M:	//  1 B1 C22: µCV bits 8–15
+                break;
+	case XMEM_UCV_L:	//  2 C1 C30: µCV bits 0–7
+                break;
+	case XMEM_IRQ_ACT:	//  3 D1 C39: IRQs active
+                break;
+
+	case XMEM_AEXT:         //  4 A2  C4: AEXT
+                break;
+	case XMEM_PC_HI:	//  5 B2 C21: PC bits 8–15
+                break;
+	case XMEM_PC_LO:	//  6 C2 C27: PC bits 0–7
+                break;
+	case XMEM_IRQ_EN:	//  7 D2 C40: IRQs enabled
+
+	case XMEM_FLAGS:	//  8 A3 C13: flags
+                break;
+	case XMEM_AC_HI:	//  9 B3 C20: AC bits 8–15
+                break;
+	case XMEM_AC_LO:	// 10 C3 C28: AC bits 0–7
+                break;
+	case XMEM_FP_D3:	// 11 D3 C37: TBD, for expansion
+
+	case XMEM_FP_A4:	// 12 A4 C12: (TBD)
+                break;
+	case XMEM_MFD_HI:       // 13 B4 C32/C34: DR/SP hi → MFD bits 8–15 (*)
+                break;
+	case XMEM_MFD_LO:       // 14 C4 C29/C31: DR/SP lo → MFD bits 0–7  (*)
+                break;
+	case XMEM_FP_D4:        // 15 D4 C38: TBD, for expansion
+
+	case XMEM_STATE:	// 16 A5 Cxx: state (run/stop etc)
+                break;
+	case XMEM_IR_HI:	// 17 B5 C19: IR bits 8–15
+                break;
+	case XMEM_IR_LO:	// 18 C5 C25: IR bits 0–7
+                break;
+	case XMEM_UAV_LO:	// 19 D5 C35: micro-address low bits
+                break;
+
+	case XMEM_DSR:          // (read-only) Read DIP switches
+                return fpd = dfp_cb.dip_switches;
+
+        default:
+                error("XMEM read(%02x): address not implemented, returning %02x (bus hold).", addr, fpd);
+        }
+        (*dfp_cb.fatal)("Not implemented.");
+        return *((uint8_t *)(XMEM_BASE + addr));
+}
+
+
+
+
+
+
+void
+hw_init()
+{
+        assert(dfp_cb.fatal != NULL);
+        assert(dfp_cb.error != NULL);
+        assert(dfp_cb.warning != NULL);
+        assert(dfp_cb.notice != NULL);
+        assert(dfp_cb.info != NULL);
+        assert(dfp_cb.debug != NULL);
+
+        (*dfp_cb.fatal)("Not implemented.");
+
+        ab = 0;
+        ibus = 0;
+        or = 0;
+}
+
+
+void
+hw_tick()
+{
+        (*dfp_cb.fatal)("Not implemented.");
+}
+
+
+void
+hw_done()
+{
+}
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -170,10 +391,6 @@ void dfp_fw_run()
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-void
-wdt_reset()
-{
-}
 
 
 ///////////////////////////////////////////////////////////////////////////////

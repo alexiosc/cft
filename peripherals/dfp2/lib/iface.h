@@ -36,6 +36,9 @@ typedef struct {
         uint8_t         (*io_r)(uint32_t ab);
         void            (*io_w)(uint32_t ab, uint16_t db);
 
+        // Logging callbacks
+        void            (*log)(int level, char *msg);
+
         // Simulate Front Panel Bus
         uint8_t         fpd[256];
 
@@ -44,6 +47,9 @@ typedef struct {
 
         // The Front Panel Switches (set the emulator, used by the DFP)
         uint8_t         switches[8];
+
+        // The DIP switches on the DFP2
+        uint8_t         dip_switches;
 
 	// int             request_testmode;
 	// int             request_unpause;
@@ -57,6 +63,18 @@ typedef struct {
 	pthread_mutex_t tx_lock;
 
 } dfp_cb_t;
+
+
+// Log levels for the emulator driver. The logging callback on the emulator
+// side will translate these to the log levels for the emulator itself.
+
+#define LOG_FATAL   0
+#define LOG_ERROR   1
+#define LOG_WARN    2
+#define LOG_NOTICE  3
+#define LOG_INFO    4
+#define LOG_DEBUG   5
+
 
 
 
