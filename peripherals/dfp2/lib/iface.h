@@ -36,6 +36,8 @@ typedef struct {
         uint8_t         (*io_r)(uint32_t ab);
         void            (*io_w)(uint32_t ab, uint16_t db);
 
+        void            (*action)(uint8_t action, uint16_t ibus);
+
         // Logging callbacks
         void            (*log)(int level, char *msg);
 
@@ -61,6 +63,12 @@ typedef struct {
 	pthread_mutex_t lock;
 	pthread_mutex_t rx_lock;
 	pthread_mutex_t tx_lock;
+
+        // Pointers to values in the CFT emulator
+        uint32_t * ucv;         // The µControl Vector (24 bits)
+
+        uint8_t * irq_act;      // IRQ active bitmap (may be NULL)
+        uint8_t * irq_en;       // IRQ enabled bitmap (may be NULL)
 
 } dfp_cb_t;
 
