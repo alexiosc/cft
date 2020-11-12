@@ -35,12 +35,15 @@ hwstate_t  hwstate;             // Hardware state on the DFP side
 
 dfp_cb_t   dfp_cb;              // Interface to the CFT emulator
 
-// Values written to buses by the DFP are held here.
+// Values written to buses by the DFP are held here. These simulate the latches
+// present on the DFP2 board.
 
 static uint16_t   ibus;         // The DFP-driven value of the IBUS
 static uint32_t   ab;           // The DFP-driven value of the Address Bus
 static uint16_t   db;           // The DB
 static uint16_t   or;           // The Output Register
+static uint16_t   dsr;          // The Local DIP switches
+
 static uint8_t    raddr;        // The Processor read address field
 static uint8_t    waddr;        // The Processor write address field
 static uint8_t    action;       // The Processor action field
@@ -150,7 +153,7 @@ xmem_write(const xmem_addr_t addr, const uint8_t val)
                 
 	case XMEM_RADDR:	// output to µCV RADDR field
                 raddr = val & 0x1f;
-                ibus = (*dfp_cb.ibus_r)(raddr);
+                (*dfp_cb.ibus_r)(raddr, &ibus);
                 break;
                 
 	case XMEM_WADDR:	// output to µCV WADDR field
@@ -160,7 +163,7 @@ xmem_write(const xmem_addr_t addr, const uint8_t val)
                 
 	case XMEM_ACTION:	// output to µCV ACTION field
                 action = val & 0x0f;
-                (*dfp_cb.action)(action, ibus);
+                (*dfp_cb.action)(action, &ibus);
                 break;
                 
         default:
@@ -284,7 +287,14 @@ xmem_read(const xmem_addr_t addr)
 inline static void
 sample()
 {
-        // Nothing to do for this.
+        // This samples the CFT buses into our simulated latches.
+	pthread_mutex_lock(&dfp_cb.lock);
+
+        ab = *dfp_cb.ab;
+        db = *dfp_cb.db;
+        ibus = *dfp_cb.ibus;
+        
+	pthread_mutex_unlock(&dfp_cb.lock);
 }
 
 
@@ -350,23 +360,49 @@ write_to_ibus_unit(uint8_t waddr, uint16_t val)
                 return ERR_NHALTED;
         }
 
-
         xmem_write(XMEM_RADDR, 0);
         xmem_write(XMEM_WADDR, 0);
         xmem_write(XMEM_ACTION, 0);
 
-                clearbit(PORTE, E_NMCVOE); // Drive the IBUS
-                xmem_write(XMEM_IBUS_H, (val >> 8) & 0xff);
-                xmem_write(XMEM_IBUS_L, (val & 0xff));
-                clearbit(PORTC, C_NIBOE);
+        #error "Complete this"
 
-                xmem_write(XMEM_WADDR, waddr);
+        clearbit(PORTE, E_NMCVOE); // Drive the IBUS
+        xmem_write(XMEM_IBUS_H, (val >> 8) & 0xff);
+        xmem_write(XMEM_IBUS_L, (val & 0xff));
+        clearbit(PORTC, C_NIBOE);
+        
+        xmem_write(XMEM_WADDR, waddr);
+        xmem_write(XMEM_WADDR, 0);
+        
+        setbit(PORTE, E_NMCVOE);
+        setbit(PORTC, C_NIBOE);
+}
+
+
+MUST_CHECK errno_t
+read_from_ibus_unit(uint8_t raddr, uint16_t * val)
+{
+        if (!hwstate.is_halted) {
+                return ERR_NHALTED;
+        }
+
+        ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+                xmem_write(XMEM_RADDR, 0);
                 xmem_write(XMEM_WADDR, 0);
+                xmem_write(XMEM_ACTION, 0);
 
+                clearbit(PORTE, E_NMCVOE);
+                xmem_write(XMEM_RADDR, raddr);
+
+                *val = xmem_read(XMEM_IBUS_H) << 8 | xmem_read(XMEM_IBUS_L);
+
+                xmem_write(XMEM_RADDR, 0);
                 setbit(PORTE, E_NMCVOE);
-                setbit(PORTC, C_NIBOE);
         }
 }
+
+
+
 
 
 

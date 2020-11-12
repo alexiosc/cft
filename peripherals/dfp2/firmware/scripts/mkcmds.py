@@ -86,13 +86,17 @@ helpstr_len = len(helpstr) + 1
 #    .replace('\004', '\033[7mGet/set \033[0m') \
 #    .replace('\005', '\033[7m201   \033[0m') \
 
+
+#maxlen = max(len(x[0]) + 1 for x in data)
+maxlen = 8
+
 helpstr = helpstr.replace('\n', '\\n').replace('\0', '\\0')
 print("// Final length of helpstr:", len(helpstr))
 
 print("""
 #include "hwcompat.h"
 
-#define CMD_SIZE 8
+#define CMD_SIZE %(maxlen)d
 
 #ifdef AVR
 #define helpstring_t static const char

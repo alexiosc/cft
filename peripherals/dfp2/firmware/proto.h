@@ -137,9 +137,67 @@ extern volatile uistate_t uistate;
 
 #define DIVIDER "|"
 
-// Warning: any more than 8 and the bpflag data type will have to
-// change!
+// Number of breakpoints. Warning: any more than 8 and the bpflag data type
+// will have to change!
 #define NUM_BP 8
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// PROCESSOR UNITS
+//
+///////////////////////////////////////////////////////////////////////////////
+
+#define RU_HELP                                 \
+        "201 04: BUS: Constant 0000" NL         \
+        "201 05: BUS: Constant 0001" NL         \
+        "201 06: BUS: Constant 0002" NL         \
+        "201 07: BUS: Constant 0003" NL         \
+        "201 08: REG: PC" NL                    \
+        "201 09: REG: DR" NL                    \
+        "201 0A: REG: AC" NL                    \
+        "201 0B: REG: SP" NL                    \
+        "201 0D: BUS: MBP+Flags" NL             \
+        "201 0F: CTL: AGL" NL                   \
+        "201 10: ALU: ADD" NL                   \
+        "201 11: ALU: AND" NL                   \
+        "201 12: ALU: OR" NL                    \
+        "201 13: ALU: XOR" NL                   \
+        "201 14: ALU: NOT" NL                   \
+        "201 18: ALU: Y" NL                     \
+        "201 19: ALU: B" NL                     \
+
+#define WU_HELP                                 \
+        "201 04: BUS: MBP:AR" NL                \
+        "201 05: BUS: MBD:AR" NL                \
+        "201 06: BUS: MBS:AR" NL                \
+        "201 07: BUS: MBZ:AR" NL                \
+        "201 08: REG: PC" NL                    \
+        "201 09: REG: DR" NL                    \
+        "201 0A: REG: AC" NL                    \
+        "201 0B: REG: SP" NL                    \
+        "201 0C: BUS: MBP" NL                   \
+        "201 0D: BUS: MBP+Flags" NL             \
+        "201 0E: CTL: Flags" NL                 \
+        "201 0F: CTL: IR" NL                    \
+        "201 19: ALU: B" NL                     \
+
+#define ACT_HELP                                \
+        "201 1: ALU: CPL" NL                    \
+        "201 2: ALU: CLL" NL                    \
+        "201 3: BUS: STI" NL                    \
+        "201 4: BUS: CLI" NL                    \
+        "201 5: REG: IDX" NL                    \
+        "201 7: REG: SRU" NL                    \
+        "201 8: REG: PC++" NL                   \
+        "201 A: REG: DR++" NL                   \
+        "201 B: BUS: DR--" NL                   \
+        "201 C: BUS: AC++" NL                   \
+        "201 D: BUS: AC--" NL                   \
+        "201 E: CTL: SP++" NL                   \
+        "201 F: CTL: SP--" NL                   \
+
+
 
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
