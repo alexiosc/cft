@@ -33,14 +33,15 @@
 #  include <avr/pgmspace.h>
 #endif // AVR
 
+#include "hwcompat.h" // Include before proto.h!
 #include "proto.h"
 #include "driver.h"
 //#include "input.h"
 #include "output.h"
-#include "hwcompat.h"
 //#include "panel.h"
 //#include "bus.h"
 //#include "utils.h"
+#include "microcode_disassembly.h"
 
 #ifdef AVR
 #include <util/atomic.h>
@@ -767,7 +768,7 @@ assert_halted()
 
 
 static bool_t
-_assert_board_present(uint8_t have_board, char * msg)
+_assert_board_present(uint8_t have_board, const char * msg)
 {
 	if (have_board) return 1;
 	style_error();
@@ -1219,19 +1220,44 @@ gs_sp()
 static void
 go_ru()
 {
-	uint8_t v;
+	uint16_t v;
 	int8_t res;
 	res = optional_hex_val(&v);
 	if (res < 0) {
+                report_pstr("201 RADDR value cheat sheet:\005");
+                // Print out a list of all RADDR units.
+                for (uint8_t i = 0; i < 32; i++) {
+                        uint8_t ofs = pgm_read_word(&(disasm_raddr_ofs[i]));
+                        // Offsets 0 (idle) and 1 (unused): skip this line.
+                        if (ofs < 2) continue;
 
+                        // Otherwise, print a row.
+                        report_pstr(PSTR("\005 "));
+                        report_hex(i, 2);
+                        report_pstr(PSTR(" \001"));
+                        switch (pgm_read_word(&(disasm_raddr[i].board))) {
+                        case BRD_CTL:
+                                report_pstr(PSTR(" \001\020: "));
+                                break;
+                        case BRD_REG:
+                                report_pstr(PSTR(" \001\021: "));
+                                break;
+                        case BRD_ALU:
+                                report_pstr(PSTR(" \001\022: "));
+                                break;
+                        case BRD_BUS:
+                                report_pstr(PSTR(" \001\023: "));
+                                break;
+                        default:
+                                // An invalid board means this is an invalid RADDR.
+                                continue;
+                        }
+                        report_pstr(disasm_raddr[i].desc);
+                }
+                report_nl();
         }
 	if (res > 0) {
-		if (v) flags |= FL_HOF;
-		else flags &= ~FL_HOF;
 	}
-	
-	report_gs(res);
-	report_bool_value(PSTR(STR_GSHOF), (flags & FL_HOF) != 0);
 }
 
 

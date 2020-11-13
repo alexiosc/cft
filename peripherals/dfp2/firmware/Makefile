@@ -26,7 +26,7 @@ DEFINES		+=	-DSERIAL_BPS=$(SERIAL_BPS) -DSERIAL_BPS_S='"$(SERIAL_BPS)"'
 DEFINES		+=	-D__DELAY_BACKWARD_COMPATIBLE__
 DEFINES		+=	-DDISASSEMBLE
 DEFINES		+=	-DDUMP_TEXT
-DEFINES		+=	-DLIGHT_MODULE_TESTING
+#DEFINES	+=	-DLIGHT_MODULE_TESTING
 
 
 ###############################################################################
@@ -109,7 +109,7 @@ HFILES		=	dfp.h driver.h hwcompat.h proto.h output.h input.h \
 # 			panel.c bus.c buscmd.c serial.c
 
 # TODO: Adapt sources from above one by one.
-CFILES		=	dfp.c serial.c proto.c output.c
+CFILES		=	dfp.c serial.c proto.c output.c microcode_disassembly.c
 
 #HFILES		=	serial.h hw.h proto.h utils.h
 #CFILES		=	dfp.c serial.c hw.c proto.c utils.c

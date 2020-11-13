@@ -77,6 +77,11 @@ helpstr = helpstr.replace('[ WORD ] ', '\\002')
 helpstr = helpstr.replace('-- ', '\\001')
 helpstr = helpstr.replace('\n201', '\\005')
 helpstr = helpstr.replace(' (default: ', '\\006')
+helpstr = helpstr.replace('CTL', '\\020')
+helpstr = helpstr.replace('REG', '\\021')
+helpstr = helpstr.replace('ALU', '\\022')
+helpstr = helpstr.replace('BUS', '\\023')
+helpstr = helpstr.replace(': ', '\\024')
 helpstr_len = len(helpstr) + 1
 
 #print helpstr \

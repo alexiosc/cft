@@ -52,7 +52,7 @@ void report_hex(uint32_t val, uint8_t pad);
 
 void report_uint(uint16_t val);
 
-oid report_int(int16_t val);
+void report_int(int16_t val);
 
 #define report_bin(v) report_bin_pad((v), 16)
 

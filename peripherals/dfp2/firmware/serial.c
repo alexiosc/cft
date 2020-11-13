@@ -16,6 +16,8 @@
 #include <avr/sleep.h>
 #include <util/delay.h>
 
+#include "hwcompat.h" // Include before proto.h!
+
 //#include "iocompat.h"
 #include "serial.h"
 #include "utils.h"

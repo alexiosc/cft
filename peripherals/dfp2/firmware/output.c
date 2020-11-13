@@ -158,7 +158,7 @@ report_pstr(const char *msg)
 		// 	report_pstr(PSTR("Get/set "));
 		// 	break;
 		case 5:
-			report_pstr(PSTR("\n201"));
+			report_pstr(PSTR("\n201 "));
 			break;
 		case 6:
 			report_pstr(PSTR(" (default: "));
@@ -168,6 +168,21 @@ report_pstr(const char *msg)
 			break;
 		case 3:
 			report_pstr(PSTR(" [ BOOL ] -- Get/set "));
+			break;
+                case 16:
+			report_pstr(PSTR("CTL"));
+			break;
+                case 17:
+			report_pstr(PSTR("REG"));
+			break;
+                case 18:
+			report_pstr(PSTR("ALU"));
+			break;
+                case 19:
+			report_pstr(PSTR("BUS"));
+			break;
+                case 20:
+			report_pstr(PSTR(": "));
 			break;
 		case '\n':
 			// Convert \n to \r\n, which is fairly standard practice on

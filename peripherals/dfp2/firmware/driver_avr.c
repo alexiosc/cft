@@ -418,6 +418,8 @@ write_to_ibus_unit(uint8_t waddr, uint16_t val)
                 setbit(PORTE, E_NMCVOE);
                 setbit(PORTC, C_NIBOE);
         }
+
+        return ERR_SUCCESS;
 }
 
 
@@ -441,6 +443,8 @@ read_from_ibus_unit(uint8_t raddr, uint16_t * val)
                 xmem_write(XMEM_RADDR, 0);
                 setbit(PORTE, E_NMCVOE);
         }
+
+        return ERR_SUCCESS;
 }
 
 
@@ -992,7 +996,6 @@ hw_init()
 #ifdef LIGHT_MODULE_TESTING
         report_pstr(PSTR("BOOTED\n"));
         uint8_t val = 0;
-        uint16_t a = 0;
 
         uint32_t pattern[8] =
         {
