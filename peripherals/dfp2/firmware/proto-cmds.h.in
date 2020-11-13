@@ -15,13 +15,14 @@ static const struct {
 	{"buf",     say_bufsize, "-- Show size of command buffer"},
 	{"term",    gs_term,     "[ BOOL ] -- Get/set terminal bells & whistles."},
 	{"echo",    gs_echo,     "[ BOOL ] -- Get/set local echo."},
-	{"mesg",    gs_mesg,     "[ BOOL ] -- Get/set async messages."},
+	{"mesg",    gs_mesg,     "[ BOOL ] -- Get/set async messages." NL },
 
 	// Front panel functionality
+
 	{"fpr",     go_fpr,      "[ BYTE ] -- Read from FP Bus Address"},
 	{"fpdump",  go_fpdump,   "-- Dump full FP address space"},
        	{"dsr",     gs_dsr,      "[ WORD | - ] -- Get, read, or override the DIP Switches"},
-       	{"sws",     go_sws,      "-- Show Switch state" NL },
+       	{"sws",     go_sws,      "-- Show Switch state"},
        	{"ltest",   go_ltest,    "-- Light test" NL },
 
  	// Buses
@@ -36,6 +37,11 @@ static const struct {
 	{"dr",      gs_dr,       "[ WORD ] -- Get/set Data Register."},
 	{"ac",      gs_ac,       "[ WORD ] -- Get/set Accumulator."},
 	{"sp",      gs_sp,       "[ WORD ] -- Get/set Stack Pointer." NL },
+
+	// Low level processor functionality
+	{"ru",      go_ru,       "[ RADDR ] -- Read from processor unit by RADDR"},
+	{"wu",      go_wu,       "[ WADDR WORD ] -- Write WORD to processor unit WADDR"},
+	{"act",     go_act,      "[ ACTION ] -- Execute processor action"},
 
 #message "TODO: Evaluate and reinstate commands"
 	// {"s",       go_state,    "-- Current processor status"},

@@ -74,8 +74,8 @@ typedef enum {
 // These enums match the hardware and should not be changed.
 typedef enum {
 	MFD_OR = 0,		// The MFD displays the OR
-	MFD_DR = 1,		// The MFD displays the DR
-	MFD_SP = 1,		// The MFD displays the SP
+	MFD_DR,                 // The MFD displays the DR
+	MFD_SP,                 // The MFD displays the SP
 } mfd_t;
 
 

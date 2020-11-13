@@ -27,14 +27,17 @@ typedef struct {
 	void            (*putc)(uint8_t c);
 
         // Callbacks to simulate Buses
-        uint8_t         (*ibus_r)(uint8_t raddr);
+
+        void            (*ibus_r)(uint8_t raddr, uint16_t *ibus);
         void            (*ibus_w)(uint8_t waddr, uint16_t ibus);
 
-        uint8_t         (*mem_r)(uint32_t ab);
+        void            (*mem_r)(uint32_t ab, uint16_t *db);
         void            (*mem_w)(uint32_t ab, uint16_t db);
 
-        uint8_t         (*io_r)(uint32_t ab);
+        void            (*io_r)(uint32_t ab, uint16_t *db);
         void            (*io_w)(uint32_t ab, uint16_t db);
+
+        void            (*action)(uint8_t action, uint16_t *ibus);
 
         // Logging callbacks
         void            (*log)(int level, char *msg);
@@ -61,6 +64,16 @@ typedef struct {
 	pthread_mutex_t lock;
 	pthread_mutex_t rx_lock;
 	pthread_mutex_t tx_lock;
+
+        // Pointers to values in the CFT emulator
+        uint32_t * ucv;         // The µControl Vector (24 bits)
+
+        uint16_t * ibus;        // Pointer to the IBus
+        uint32_t * ab;          // Pointer to the Address Bus
+        uint16_t * db;          // Pointer to the Data Bus
+
+        uint8_t * irq_act;      // IRQ active bitmap (may be NULL)
+        uint8_t * irq_en;       // IRQ enabled bitmap (may be NULL)
 
 } dfp_cb_t;
 

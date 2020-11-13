@@ -24,15 +24,18 @@
 // ofsdata[dr] = (17, 438, 34) 
 // ofsdata[ac] = (18, 472, 32) 
 // ofsdata[sp] = (19, 504, 34) 
-// ofsdata[lock] = (20, 538, 41) 
-// ofsdata[fast] = (21, 579, 20) 
-// ofsdata[slow] = (22, 599, 20) 
-// ofsdata[creep] = (23, 619, 21) 
-// ofsdata[a] = (24, 640, 27) 
-// ofsdata[or] = (25, 667, 29) 
-// Total length of help before: 722
-// Total length of help after concat: 696
-// Final length of helpstr: 651
+// ofsdata[ru] = (20, 538, 46) 
+// ofsdata[wu] = (21, 584, 52) 
+// ofsdata[act] = (22, 636, 38) 
+// ofsdata[lock] = (23, 674, 41) 
+// ofsdata[fast] = (24, 715, 20) 
+// ofsdata[slow] = (25, 735, 20) 
+// ofsdata[creep] = (26, 755, 21) 
+// ofsdata[a] = (27, 776, 27) 
+// ofsdata[or] = (28, 803, 29) 
+// Total length of help before: 861
+// Total length of help after concat: 832
+// Final length of helpstr: 796
 
 #include "hwcompat.h"
 
@@ -47,7 +50,7 @@
 
 
 
-#define _HELPSTR "\001Show help\0\001Show help\0\001Show version\0\001Show size of command buffer\0[ BOOL\007terminal bells & whistles.\0[ BOOL\007local echo.\0[ BOOL\007async messages.\0[ BYTE ] \001Read from FP Bus Address\0\001Dump full FP address space\0[ WORD | - ] \001Get, read, or override the DIP Switches\0\001Show Switch state\0\001Light test\0\001Read IBus\0\001Read Address bus\0\001Read Data bus\0[ WORD\007IR\0[ WORD\007Program Counter\0[ WORD\007Data Register.\0[ WORD\007Accumulator.\0[ WORD\007Stack Pointer.\0[ BOOL\007software switch lock.\0\001CPU at full speed\0\001CPU at slow speed\0\001CPU at creep speed\0[ WORD\007address\0[ WORD\007OR lights";
+#define _HELPSTR "\001Show help\0\001Show help\0\001Show version\0\001Show size of command buffer\0[ BOOL\007terminal bells & whistles.\0[ BOOL\007local echo.\0[ BOOL\007async messages.\0[ BYTE ] \001Read from FP Bus Address\0\001Dump full FP address space\0[ WORD | - ] \001Get, read, or override the DIP Switches\0\001Show Switch state\0\001Light test\0\001Read IBus\0\001Read Address bus\0\001Read Data bus\0[ WORD\007IR\0[ WORD\007Program Counter\0[ WORD\007Data Register.\0[ WORD\007Accumulator.\0[ WORD\007Stack Pointer.\0[ RADDR ] \001Read from processor unit by RADDR\0[ WADDR WORD ] \001Write WORD to processor unit WADDR\0[ ACTION ] \001Execute processor action\0[ BOOL\007software switch lock.\0\001CPU at full speed\0\001CPU at slow speed\0\001CPU at creep speed\0[ WORD\007address\0[ WORD\007OR lights";
 
 static const struct {
 	char cmd[CMD_SIZE];
@@ -78,6 +81,9 @@ static const struct {
         {"dr", gs_dr},
         {"ac", gs_ac},
         {"sp", gs_sp},
+        {"ru", go_ru},
+        {"wu", go_wu},
+        {"act", go_act},
         {"lock", gs_lock},
         {"fast", go_fast},
         {"slow", go_slow},

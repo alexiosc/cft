@@ -35,16 +35,21 @@ hwstate_t  hwstate;             // Hardware state on the DFP side
 
 dfp_cb_t   dfp_cb;              // Interface to the CFT emulator
 
-// Values written to buses by the DFP are held here.
+// Values written to buses by the DFP are held here. These simulate the latches
+// present on the DFP2 board.
 
 static uint16_t   ibus;         // The DFP-driven value of the IBUS
 static uint32_t   ab;           // The DFP-driven value of the Address Bus
 static uint16_t   db;           // The DB
 static uint16_t   or;           // The Output Register
+static uint16_t   dsr;          // The Local DIP switches
+
 static uint8_t    raddr;        // The Processor read address field
 static uint8_t    waddr;        // The Processor write address field
 static uint8_t    action;       // The Processor action field
 static uint8_t    fpd;          // The FPD bus
+static mfd_t      mfd_setting;  // The current MFD switch setting
+static uint8_t    state_leds;   // The CFT/DFP state LEDs
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -110,23 +115,23 @@ xmem_write(const xmem_addr_t addr, const uint8_t val)
         // Only a few of the 256 XMEM addresses have write registers on the DFP2.
 
         switch (addr) {
-	case XMEM_AB_L:	// Write to AB bits 0-7
+	case XMEM_AB_L:         // Write to AB bits 0-7
                 ab = (ab & 0xffff00) | val;
                 break;
                 
-	case XMEM_AB_M:	// Write to AB bits 8-15
+	case XMEM_AB_M:         // Write to AB bits 8-15
                 ab = (ab & 0xff00ff) | (val << 8);
                 break;
                 
-	case XMEM_AB_H:	// Write to AB bits 16-23
+	case XMEM_AB_H:         // Write to AB bits 16-23
                 ab = (ab & 0x00ffff) | (val << 16);
                 break;
 
-	case XMEM_DB_L:	// Write to DB bits 0-7
+	case XMEM_DB_L:         // Write to DB bits 0-7
                 db = (db & 0xff00) | val;
                 break;
                 
-	case XMEM_DB_H:	// Write to DB bits 8-15
+	case XMEM_DB_H:         // Write to DB bits 8-15
                 db = (db & 0x00ff) | (val << 8);
                 break;
                 
@@ -138,24 +143,27 @@ xmem_write(const xmem_addr_t addr, const uint8_t val)
                 ibus = (ibus & 0x00ff) | (val << 8);
                 break;
                 
-	case XMEM_OR_L:	// (write-only) Write to OR, bits 0-7
+	case XMEM_OR_L:         // (write-only) Write to OR, bits 0-7
                 or = (or & 0xff00) | val;
                 break;
                 
-	case XMEM_OR_H:	// Write to OR, bits 8-15
+	case XMEM_OR_H:         // Write to OR, bits 8-15
                 or = (or & 0x00ff) | (val << 8);
                 break;
                 
 	case XMEM_RADDR:	// output to µCV RADDR field
                 raddr = val & 0x1f;
+                (*dfp_cb.ibus_r)(raddr, &ibus);
                 break;
                 
 	case XMEM_WADDR:	// output to µCV WADDR field
                 waddr = val & 0x1f;
+                (*dfp_cb.ibus_w)(waddr, ibus);
                 break;
                 
 	case XMEM_ACTION:	// output to µCV ACTION field
                 action = val & 0x0f;
+                (*dfp_cb.action)(action, &ibus);
                 break;
                 
         default:
@@ -167,60 +175,244 @@ xmem_write(const xmem_addr_t addr, const uint8_t val)
 inline static uint8_t
 xmem_read(const xmem_addr_t addr)
 {
-        switch (addr)
-        {
+        switch (addr) {
 	case XMEM_UCV_H:	//  0 A1 C16: µCV bits 16–23
-                break;
+                if (dfp_cb.ucv == NULL) return 0;
+                return (uint8_t)((*dfp_cb.ucv >> 24) & 0xff);
+
 	case XMEM_UCV_M:	//  1 B1 C22: µCV bits 8–15
-                break;
+                if (dfp_cb.ucv == NULL) return 0;
+                return (uint8_t)((*dfp_cb.ucv >> 16) & 0xff);
+
 	case XMEM_UCV_L:	//  2 C1 C30: µCV bits 0–7
-                break;
+                if (dfp_cb.ucv == NULL) return 0;
+                return (uint8_t)(*dfp_cb.ucv & 0xff);
+
 	case XMEM_IRQ_ACT:	//  3 D1 C39: IRQs active
-                break;
+                if (dfp_cb.irq_act == NULL) return 0;
+                return *dfp_cb.irq_act;
 
 	case XMEM_AEXT:         //  4 A2  C4: AEXT
-                break;
+                if (dfp_cb.ab == NULL) return 0;
+                return (uint8_t)((*dfp_cb.ab >> 16) & 0xff);
+
 	case XMEM_PC_HI:	//  5 B2 C21: PC bits 8–15
-                break;
+                if (dfp_cb.pc == NULL) return 0;
+                return (uint8_t)((*dfp_cb.pc >> 8) & 0xff);
+
 	case XMEM_PC_LO:	//  6 C2 C27: PC bits 0–7
-                break;
+                if (dfp_cb.pc == NULL) return 0;
+                return (uint8_t)(*dfp_cb.pc && 0xff);
+
 	case XMEM_IRQ_EN:	//  7 D2 C40: IRQs enabled
+                if (dfp_cb.irq_act == NULL) return 0;
+                return *dfp_cb.irq_act;
 
 	case XMEM_FLAGS:	//  8 A3 C13: flags
-                break;
+                if (dfp_cb.flags == NULL) return 0;
+                return (uint8_t)(*dfp_cb.flags);
+
 	case XMEM_AC_HI:	//  9 B3 C20: AC bits 8–15
-                break;
+                if (dfp_cb.ac == NULL) return 0;
+                return (uint8_t)((*dfp_cb.ac >> 8) & 0xff);
+
 	case XMEM_AC_LO:	// 10 C3 C28: AC bits 0–7
-                break;
+                if (dfp_cb.ac == NULL) return 0;
+                return (uint8_t)(*dfp_cb.ac && 0xff);
+
 	case XMEM_FP_D3:	// 11 D3 C37: TBD, for expansion
+                return 0;
 
 	case XMEM_FP_A4:	// 12 A4 C12: (TBD)
-                break;
+                return 0;
+
 	case XMEM_MFD_HI:       // 13 B4 C32/C34: DR/SP hi → MFD bits 8–15 (*)
+                switch (mfd_setting) {
+                case MFD_OR:
+                        return (uint8_t)((or >> 8) & 0xff);
+
+                case MFD_DR:
+                        if (dfp_cb.dr == NULL) return 0;
+                        return (uint8_t)((*dfp_cb.dr >> 8) & 0xff);
+
+                case MFD_SP:
+                        if (dfp_cb.sp == NULL) return 0;
+                        return (uint8_t)((*dfp_cb.sp >> 8) & 0xff);
+                }
                 break;
+
 	case XMEM_MFD_LO:       // 14 C4 C29/C31: DR/SP lo → MFD bits 0–7  (*)
+                switch (mfd_setting) {
+                case MFD_OR:
+                        return (uint8_t)(or & 0xff);
+
+                case MFD_DR:
+                        if (dfp_cb.dr == NULL) return 0;
+                        return (uint8_t)(*dfp_cb.dr & 0xff);
+
+                case MFD_SP:
+                        if (dfp_cb.sp == NULL) return 0;
+                        return (uint8_t)(*dfp_cb.sp & 0xff);
+                }
                 break;
+
 	case XMEM_FP_D4:        // 15 D4 C38: TBD, for expansion
+                return 0;
 
 	case XMEM_STATE:	// 16 A5 Cxx: state (run/stop etc)
-                break;
+                return state_leds;
+
 	case XMEM_IR_HI:	// 17 B5 C19: IR bits 8–15
-                break;
-	case XMEM_IR_LO:	// 18 C5 C25: IR bits 0–7
-                break;
-	case XMEM_UAV_LO:	// 19 D5 C35: micro-address low bits
+                if (dfp_cb.ir == NULL) return 0;
+                return (uint8_t)((*dfp_cb.ir >> 8) & 0xff);
                 break;
 
+	case XMEM_IR_LO:	// 18 C5 C25: IR bits 0–7
+                if (dfp_cb.ir == NULL) return 0;
+                return (uint8_t)(*dfp_cb.ir & 0xff);
+
+	case XMEM_UAV_LO:	// 19 D5 C35: micro-address low bits
+                if (dfp_cb.uav == NULL) return 0;
+                return (uint8_t)(*dfp_cb.uav & 0xff);
+
 	case XMEM_DSR:          // (read-only) Read DIP switches
-                return fpd = dfp_cb.dip_switches;
+                return dfp_cb.dip_switches;
 
         default:
                 error("XMEM read(%02x): address not implemented, returning %02x (bus hold).", addr, fpd);
         }
-        (*dfp_cb.fatal)("Not implemented.");
-        return *((uint8_t *)(XMEM_BASE + addr));
 }
 
+
+inline static void
+sample()
+{
+        // This samples the CFT buses into our simulated latches.
+	pthread_mutex_lock(&dfp_cb.lock);
+
+        ab = *dfp_cb.ab;
+        db = *dfp_cb.db;
+        ibus = *dfp_cb.ibus;
+        
+	pthread_mutex_unlock(&dfp_cb.lock);
+}
+
+
+uint8_t
+read_dfp_address(xmem_addr_t a)
+{
+        // This is simple on the emulator
+        return xmem_read(a);
+}
+
+
+#warning "Move this function to a lever above the drivers."
+void
+read_full_state()
+{
+        // Read the buses directly.
+        hwstate.ab_h = xmem_read(XMEM_AB_H);
+        hwstate.ab_m = xmem_read(XMEM_AB_M);
+        hwstate.ab_l = xmem_read(XMEM_AB_L);
+
+        hwstate.db_h = xmem_read(XMEM_DB_H);
+        hwstate.db_l = xmem_read(XMEM_DB_L);
+
+        hwstate.ibus_h = xmem_read(XMEM_DB_H);
+        hwstate.ibus_l = xmem_read(XMEM_DB_L);
+
+        hwstate.dsr = DSR_HIGH | xmem_read(XMEM_DSR);
+
+        // Read via buffers in the computer.
+        hwstate.ucv_h = xmem_read(XMEM_UCV_H);
+        hwstate.ucv_m = xmem_read(XMEM_UCV_M);
+        hwstate.ucv_l = xmem_read(XMEM_UCV_L);
+
+        fp_scanner_start();
+}
+
+
+inline static void
+release_buses()
+{
+        // Nothing to do here.
+}
+
+
+inline static void
+release_ibus()
+{
+        // Nothing to do here.
+}
+
+
+inline static void
+release_ucv()
+{
+        // Nothing to do here.
+}
+
+
+MUST_CHECK errno_t
+write_to_ibus_unit(uint8_t waddr, uint16_t val)
+{
+        if (!hwstate.is_halted) {
+                return ERR_NHALTED;
+        }
+
+        xmem_write(XMEM_RADDR, 0);
+        xmem_write(XMEM_WADDR, 0);
+        xmem_write(XMEM_ACTION, 0);
+
+        #error "Complete this"
+
+        clearbit(PORTE, E_NMCVOE); // Drive the IBUS
+        xmem_write(XMEM_IBUS_H, (val >> 8) & 0xff);
+        xmem_write(XMEM_IBUS_L, (val & 0xff));
+        clearbit(PORTC, C_NIBOE);
+        
+        xmem_write(XMEM_WADDR, waddr);
+        xmem_write(XMEM_WADDR, 0);
+        
+        setbit(PORTE, E_NMCVOE);
+        setbit(PORTC, C_NIBOE);
+}
+
+
+MUST_CHECK errno_t
+read_from_ibus_unit(uint8_t raddr, uint16_t * val)
+{
+        if (!hwstate.is_halted) {
+                return ERR_NHALTED;
+        }
+
+        ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+                xmem_write(XMEM_RADDR, 0);
+                xmem_write(XMEM_WADDR, 0);
+                xmem_write(XMEM_ACTION, 0);
+
+                clearbit(PORTE, E_NMCVOE);
+                xmem_write(XMEM_RADDR, raddr);
+
+                *val = xmem_read(XMEM_IBUS_H) << 8 | xmem_read(XMEM_IBUS_L);
+
+                xmem_write(XMEM_RADDR, 0);
+                setbit(PORTE, E_NMCVOE);
+        }
+}
+
+
+
+
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// TO PORT
+//
+///////////////////////////////////////////////////////////////////////////////
 
 
 
@@ -241,6 +433,8 @@ hw_init()
         ab = 0;
         ibus = 0;
         or = 0;
+        fpd = 0;
+        mfd_setting = MFD_OR;
 }
 
 

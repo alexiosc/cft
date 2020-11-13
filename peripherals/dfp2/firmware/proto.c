@@ -130,6 +130,10 @@ static void gs_dr();
 static void gs_ac();
 static void gs_sp();
 
+static void go_ru();
+static void go_wu();
+static void go_act();
+
 
 
 // Include the pre-processed list of commands and help.
@@ -953,6 +957,7 @@ go_sws()
 	report_nl();
 }
 
+
 // Get or set (override) the DIP Switch Register.
 void
 gs_dsr()
@@ -1205,6 +1210,41 @@ gs_sp()
 }
 
 
+///////////////////////////////////////////////////////////////////////////////
+//
+// LOW LEVEL PROCESSOR FUNCTIONALIT
+//
+///////////////////////////////////////////////////////////////////////////////
+
+static void
+go_ru()
+{
+	uint8_t v;
+	int8_t res;
+	res = optional_hex_val(&v);
+	if (res < 0) {
+
+        }
+	if (res > 0) {
+		if (v) flags |= FL_HOF;
+		else flags &= ~FL_HOF;
+	}
+	
+	report_gs(res);
+	report_bool_value(PSTR(STR_GSHOF), (flags & FL_HOF) != 0);
+}
+
+
+static void
+go_wu()
+{
+}
+
+
+static void
+go_act()
+{
+}
 
 
 
