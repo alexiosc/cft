@@ -12,6 +12,8 @@
 
 #include <stdint.h>
 
+#include "dfp.h"
+
 // Terminal 'bells and whistles' functionality
 
 void style_normal();
@@ -65,6 +67,8 @@ void report_error(char *msg);
 void report_hex_value(const char *msg, uint32_t val, uint8_t pad);
 
 void report_bool_value(const char *msg, char val);
+
+void report_errno(errno_t err);
 
 void report_mismatch(const char *msg, uint16_t should_be, uint16_t was);
 

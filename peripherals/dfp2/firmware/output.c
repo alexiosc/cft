@@ -229,7 +229,8 @@ report_nl() {
 
 // Send a hexadecimal number to the serial port.
 void
-report_hex(uint32_t val, uint8_t pad)
+
+        report_hex(uint32_t val, uint8_t pad)
 {
 	if (uistate.in_console) return;
 
@@ -352,6 +353,29 @@ report_bool_value(const char *msg, char val)
 		report_pstr(PSTR("off"));
 	}
 	report_nl();
+}
+
+
+#define case_err(name)                                    \
+        case ERR_ ## name:                              \
+                report_pstr(PSTR(STR_ ## name));        \
+                break;
+void
+report_errno(errno_t err)
+{
+        style_error();
+        switch (err) {
+                case_err(SUCCESS)
+                case_err(NMASTER)
+                case_err(NHALTED)
+                case_err(HALTED)
+                case_err(TIMEOUT)
+                case_err(RBFULL)
+                case_err(RBEMPTY)
+        default:
+                report_pstr(PSTR(STR_UNKERR));
+        }
+        report_nl();
 }
 
 

@@ -823,7 +823,7 @@ fp_release()
 void
 fp_write(uint8_t module, uint8_t row, uint8_t value)
 {
-        xmem_write(0, value); // row << 2) | (module & 3), value);
+        xmem_write((row << 2) | (module & 3), value);
 }
 
 

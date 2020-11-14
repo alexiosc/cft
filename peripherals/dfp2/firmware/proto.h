@@ -85,6 +85,8 @@ extern volatile uistate_t uistate;
 #define STR_ABUS    "260 ABUS: "
 #define STR_DBUS    "261 DBUS: "
 #define STR_IBUS    "262 IBUS: "
+#define STR_RU      "263 Read from IBUS Address: "
+#define STR_RU2          " Value: "
 
 // 3xx: Actions performed
 #define STR_DONE    "301 Done\n"
@@ -120,6 +122,16 @@ extern volatile uistate_t uistate;
 #define STR_NOREG   "521 REG board not installed or faulty\n"
 #define STR_NOALU   "522 REG board not installed or faulty\n"
 #define STR_NOBUS   "523 BUS board not installed or faulty\n"
+
+#define STR_SUCCESS "600 Success. (huh?)\n"
+#define STR_NMASTER "601 We are not the bus master\n"
+#define STR_NHALTED "602 System is not halted\n"
+#define STR_HALTED  "603 System is halted\n"
+#define STR_TIMEOUT "605 Timeout\n"
+#define STR_RBFULL  "606 Ring buffer full"
+#define STR_RBEMPTY "607 Ring buffer empty"
+// ...
+#define STR_UNKERR  "699 Unknown error"
 
 // 9xx: Diagnostic faults
 #define STR_NVMIS   "910 Value mismatch. Wrote "

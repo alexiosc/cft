@@ -732,7 +732,7 @@ optional_hex_val(uint16_t * word)
 uint8_t
 assert_halted()
 {
-	report_pstr(PSTR("assert_halted() not implemented"));
+	report_pstr(PSTR("assert_halted() not implemented\n"));
 	return 1;
 
 // 	// Ensure it's stopped.
@@ -994,37 +994,25 @@ go_ltest()
 	uistate.is_inpok = 0;
 	uistate.is_break = 0;
 
-        uint8_t fpaddr = 0;
-        uint8_t val = 0;
-        uint8_t reps = 10;
+        uint8_t i;
 
-	while (!uistate.is_inpok && !uistate.is_break) {
-		wdt_reset();
-                if (--reps == 0) break;
-
-                fp_write(0, 0, 0);
-		_delay_ms(100);
-                fp_write(0, 0, 0xff);
-		_delay_ms(100);
-                report_char('.');
-                // fp_write(0, 1, ++val);
-		// _delay_ms(100);
-                // report_char('.');
-                // fp_write(0, 2, ++val);
-		// _delay_ms(100);
-                // report_char('.');
-                // fp_write(0, 3, ++val);
-		// _delay_ms(100);
-                // report_char('.');
-                // fp_write(0, 4, ++val);
-		// _delay_ms(100);
-                report_char('\n');
-                report_char('\r');
-
-                if (fpaddr == XMEM_SCANCLR) {
-                        fpaddr = 0;
-                        val++;
-                }
+        for(i = 0; i < 5; i++) {
+                fp_write(0, i, 0xff);
+                fp_write(1, i, 0xff);
+                fp_write(2, i, 0xff);
+                fp_write(3, i, 0xff);
+        }
+        
+        for(i = 0; i < 10; i++) {
+                _delay_ms(100);
+                wdt_reset();
+        }
+        
+        for(i = 0; i < 5; i++) {
+                fp_write(0, i, 0);
+                fp_write(1, i, 0);
+                fp_write(2, i, 0);
+                fp_write(3, i, 0);
         }
         
         fp_release();
@@ -1220,10 +1208,12 @@ gs_sp()
 static void
 go_ru()
 {
-	uint16_t v;
+	uint16_t raddr;
 	int8_t res;
-	res = optional_hex_val(&v);
-	if (res < 0) {
+	res = optional_hex_val(&raddr);
+	if (res == 0) {
+                // No input, list addresses.
+                
                 report_pstr("201 RADDR value cheat sheet:\005");
                 // Print out a list of all RADDR units.
                 for (uint8_t i = 0; i < 32; i++) {
@@ -1232,10 +1222,10 @@ go_ru()
                         if (ofs < 2) continue;
 
                         // Otherwise, print a row.
-                        report_pstr(PSTR("\005 "));
+                        report_pstr(PSTR("\005"));
                         report_hex(i, 2);
                         report_pstr(PSTR(" \001"));
-                        switch (pgm_read_word(&(disasm_raddr[i].board))) {
+                        switch (pgm_read_word(&(disasm_raddr[ofs].board))) {
                         case BRD_CTL:
                                 report_pstr(PSTR(" \001\020: "));
                                 break;
@@ -1248,15 +1238,34 @@ go_ru()
                         case BRD_BUS:
                                 report_pstr(PSTR(" \001\023: "));
                                 break;
-                        default:
-                                // An invalid board means this is an invalid RADDR.
-                                continue;
                         }
-                        report_pstr(disasm_raddr[i].desc);
+                        report_pstr(disasm_raddr[ofs].desc);
                 }
                 report_nl();
         }
 	if (res > 0) {
+                // Is it out of range?
+                if (raddr > 31) {
+                        style_error();
+                        report_pstr(PSTR(STR_ERANGE));
+                        return;
+                }
+
+                #warning "Reinstate"
+		//if (!assert_halted()) return;
+
+                uint16_t readval;
+                errno_t errno = read_from_ibus_unit(raddr, &readval);
+
+                if (errno == SUCCESS) {
+                        report_pstr(PSTR(STR_RU));
+                        report_hex(raddr, 2);
+                        report_pstr(PSTR(STR_RU2));
+                        report_hex(readval, 4);
+                } else {
+                        report_errno(errno);
+                        return;
+                }
 	}
 }
 
