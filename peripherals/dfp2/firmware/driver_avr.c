@@ -974,7 +974,8 @@ hw_init()
         clear_ws();
 
         // Enable interrupts for CFT-originated transactions
-        enable_cft_interrupts();
+        // Wait for the CFT to be able to use these before enabling.
+        // enable_cft_interrupts();
 
         // Initialise switch debouncing and enable switch timer ISR
         sw_init();
@@ -992,75 +993,6 @@ hw_init()
 
         // Make Panel work
         fp_release();
-
-#ifdef LIGHT_MODULE_TESTING
-        report_pstr(PSTR("BOOTED\n"));
-        uint8_t val = 0;
-
-        uint32_t pattern[8] =
-        {
-                //........|.......|.......|.......
-                0b01111100111111101111110000001100,
-                0b11000110110000000011000000011000,
-                0b11000000111110000011000000110000,
-                0b11000110110000000011000000000000,
-                0b01111100110000000011000011000000,
-                0b00000000000000000000000000000000,
-                0b00000000000000000000000000000000,
-                0b00000000000000000000000000000000,
-        };
-
-        volatile uint8_t * dsr = (uint8_t *)0x1147;
-        for(;;) {
-                for (int reps = 0; reps < 64; reps++) {
-                        wdt_reset();
-
-                        // report_char('0');
-                        // xmem_write(0, val);
-                        // _delay_ms(100);
-
-                        for (uint8_t j = 0; j < *dsr; j++) {
-                                for (uint8_t i = 0; i < 5; i++) {
-                                        *((volatile uint8_t *)(0x1100 + (i << 2))) = (val + i) & 0xff;
-                                        *((volatile uint8_t *)(0x1101 + (i << 2))) = (val + i + 5) & 0xff;
-                                        *((volatile uint8_t *)(0x1102 + (i << 2))) = (val + i + 10) & 0xff;
-                                        *((volatile uint8_t *)(0x1103 + (i << 2))) = (val + i + 15) & 0xff;
-                                        _delay_ms(4);
-                                }
-                        }
-                        wdt_reset();
-
-                        //_delay_ms(*dsr);
-
-                        val++;
-                }
-
-                /* *((volatile uint8_t *)(0x1100 + (i << 2))) = 0; */
-                /* *((volatile uint8_t *)(0x1101 + (i << 2))) = 0; */
-                /* *((volatile uint8_t *)(0x1102 + (i << 2))) = 0; */
-                /* *((volatile uint8_t *)(0x1103 + (i << 2))) = 0; */
-                for (int j = 0; j < *dsr * 64; j++) {
-                        for (int i = 0; i < 5; i++) {
-                                *((volatile uint8_t *)(0x1100 + (i << 2))) = (pattern[i] >> 24) & 0xff;
-                                *((volatile uint8_t *)(0x1101 + (i << 2))) = (pattern[i] >> 16) & 0xff;
-                                *((volatile uint8_t *)(0x1102 + (i << 2))) = (pattern[i] >> 8) & 0xff;
-                                *((volatile uint8_t *)(0x1103 + (i << 2))) = pattern[i] & 0xff;
-                                _delay_ms(4);
-                        }
-                        wdt_reset();
-                }
-
-                
-                /* for (a = 0x1100; a < 0x1100 + 20; a++) { */
-                /*         *((volatile uint8_t *)(0x1100 + a)) = val; */
-                /*         _delay_ms(50); */
-                /*         report_char('A' + (a & 0xff)); */
-                /* } */
-                report_char('\n');
-                report_char('\r');
-        }
-#endif
-
 
 #warning "PORTED TO THIS POINT"
 #if 0
@@ -1307,22 +1239,38 @@ sw_read()
 static inline void
 sw_scan()
 {
-	uint8_t i = 0;
-
+	uint8_t i = 0, a =0;
 	for (uint8_t swa = 0; swa < 16; swa++) {
-		PORTF = (PORTF & 0xf0) | (swa & 0x0f);
+                // Set PORTF to pull-ups in MS nibble, and set switch address
+                // in LS nibble.
+                PORTF = 0xf0 | (swa & 0x0f);
+                report_bin_pad(PINF >> 4, 4);
+                serial_write(' ');
 
 		for (uint8_t j = 0, mask = 0x10; j < 4; mask <<=1, j++, i++) {
-			// Switches are active low, so a high bit means ‘not actuated’.
-			_switches[i] = (_switches[i] << 1) | (PORTF & mask ? 0 : 1);
+			// Switches are active low, so a high bit means ‘not
+			// actuated’. We invert these semantics here.
+			_switches[i] = (_switches[i] << 1) | (PINF & mask ? 0 : 1);
 
 			if ((_switches[i] & SWITCH_DEBOUNCE_MASK) == SWITCH_PRESSED) {
+                                if (getbit(hwstate.switches[i >> 3], i & 7) == 0) a = 1;
 				setbit(hwstate.switches[i >> 3], i & 7);
 			} else if ((_switches[i] & SWITCH_DEBOUNCE_MASK) == SWITCH_RELEASED) {
+                                if (getbit(hwstate.switches[i >> 3], i & 7) == 1) a = 1;
 				clearbit(hwstate.switches[i >> 3], i & 7);
 			}
 		}
 	}
+
+        /* if (a > 0) { */
+        /*         for (uint8_t i = 0; i < 8; i++) { */
+        /*                 report_bin_pad(hwstate.switches[i], 8); */
+        /*                 report_c(32); */
+        /*         } */
+        /*         report_nl(); */
+        /* } */
+
+        report_nl();
 }
 
 

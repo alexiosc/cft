@@ -23,6 +23,7 @@ static const struct {
 	{"fpdump",  go_fpdump,   "-- Dump full FP address space"},
        	{"dsr",     gs_dsr,      "[ WORD | - ] -- Get, read, or override the DIP Switches"},
        	{"sws",     go_sws,      "-- Show Switch state"},
+       	{"swtest",  go_swtest,   "-- Test switch assembly and OR"},
        	{"ltest",   go_ltest,    "-- Light test" NL },
 
  	// Buses
@@ -46,7 +47,6 @@ static const struct {
 #message "TODO: Evaluate and reinstate commands"
 	// {"s",       go_state,    "-- Current processor status"},
        	// {"us",      go_ustate,   "-- Microcode control state"},
-       	// {"swtest",  go_swtest,   "-- Test switch assembly and OR"},
        	// {"dfps",    go_dfps,     "-- Show DFP state"},
 	// {"cons",    go_cons,     "-- Virtual console (<Enter> # . to exit)."},
 	{"lock",    gs_lock,     "[ BOOL ] -- Get/set software switch lock." NL },

@@ -33,9 +33,10 @@
 
 // Bit operations
 
-#define clearbit(port, bit) ((port) &= ~(1<<(bit)))
+#define clearbit(port, bit)  ((port) &= ~(1<<(bit)))
 #define togglebit(port, bit) ((port) ^= (1<<(bit)))
-#define setbit(port, bit)   ((port) |=  (1<<(bit)))
+#define setbit(port, bit)    ((port) |=  (1<<(bit)))
+#define getbit(port, bit)    ((port) & (1<<(bit)) ? 1 : 0)
 
 #define bit(port, bit, yesno) \
 	((port) = (yesno)? (port) | _BV(bit) : (port) & ~_BV(bit))

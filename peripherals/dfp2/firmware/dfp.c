@@ -23,7 +23,11 @@
 inline void
 init()
 {
+        // Initialise hardware. Also run diagnostics at appropriate points
+        // during the initialisation process.
 	hw_init();
+
+        // Initialise the serial/debugging UI/protocol.
 	proto_init();
 }
 
@@ -31,6 +35,7 @@ init()
 inline void
 run()
 {
+        // Read and react to serial/debugging input.
 	proto_loop();
 }
 

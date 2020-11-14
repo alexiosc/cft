@@ -92,6 +92,8 @@ extern volatile uistate_t uistate;
 #define STR_DONE    "301 Done\n"
 #define STR_ABORT   "302 Aborted\n"
 
+#define STR_SWTEST  "334 Operate toggles/DIP switches. Ctrl-C ends.\n"
+
 #define STR_FAST    "327 Full speed clock.\n"
 #define STR_SLOW    "328 Slow clock.\n"
 #define STR_CREEP   "329 Very slow clock.\n"
@@ -231,7 +233,6 @@ extern volatile uistate_t uistate;
 #define STR_FPRAM   "333 ROM/RAM# switch: "
 #define STR_FPRAM0       "RAM\n"
 #define STR_FPRAM1       "ROM\n"
-#define STR_SWTEST  "334 Operate toggles/DIP switches. Ctrl-C ends.\n"
 
 #define STR_DEBPRN  "340 PRINT"
 #define STR_DEBSENT "341 SENTINEL\n"

@@ -123,6 +123,7 @@ static void go_fpr();
 static void go_fpdump();
 static void gs_dsr();
 static void go_sws();
+static void go_swtest();
 static void go_ltest();
 
 static void gs_ir();
@@ -959,6 +960,53 @@ go_sws()
 }
 
 
+static
+void
+go_swtest()
+{
+	report_pstr(PSTR(STR_SWTEST));
+
+	// uint16_t sr0 = get_sr();
+	// uint16_t or0 = get_or();
+	// uint16_t lsw0 = get_lsw();
+	// uint16_t rsw0 = get_rsw();
+	// go_sws();
+
+	// // Setting the busy flag will cause all switches to be ignored
+	// // by the interrupt handler, effectively disabling the switch
+	// // assembly. The in-console flag disables line buffering (but
+	// // also normal output).
+	// hwstate.is_busy = 1;
+	// uistate.in_console_busy = 1;
+	// uistate.is_inpok = 0;
+	// uistate.is_break = 0;
+
+	// while ((flags & (FL_INPOK | FL_BREAK)) == 0) {
+	// 	wdt_reset();
+	// 	_delay_ms(100);
+	// 	deb_sample(0);	// Read the switches
+
+	// 	// Set the OR from the SR
+	// 	set_or(get_sr());
+
+	// 	if (sr0 != get_sr() || lsw0 != get_lsw() || rsw0 != get_rsw()) {
+	// 		sr0 = get_sr();
+	// 		lsw0 = get_lsw();
+	// 		rsw0 = get_rsw();
+	// 		// Console mode suppresses normal debugging
+	// 		// output, so disable it temporarily.
+	// 		flags &= ~FL_CONS;
+	// 		go_sws();
+	// 		flags |= FL_CONS;
+	// 	}
+	// }
+	// flags &= ~(FL_BUSY | FL_CONS | FL_INPOK | FL_BREAK);
+	// set_or(or0);
+
+	report_pstr(PSTR(STR_DONE));
+}
+
+
 // Get or set (override) the DIP Switch Register.
 void
 gs_dsr()
@@ -984,6 +1032,61 @@ gs_dsr()
 	report_hex_value(PSTR(STR_DSR), hwstate.dsr, 4);
 }
 
+
+/* 
+        report_pstr(PSTR("BOOTED\n"));
+        uint8_t val = 0;
+
+        uint32_t pattern[8] =
+        {
+                //........|.......|.......|.......
+                0b01111100111111101111110000001100,
+                0b11000110110000000011000000011000,
+                0b11000000111110000011000000110000,
+                0b11000110110000000011000000000000,
+                0b01111100110000000011000011000000,
+                0b00000000000000000000000000000000,
+                0b00000000000000000000000000000000,
+                0b00000000000000000000000000000000,
+        };
+
+        volatile uint8_t * dsr = (uint8_t *)0x1147;
+        for(;;) {
+                for (int reps = 0; reps < 64; reps++) {
+                        wdt_reset();
+
+                        // report_char('0');
+                        // xmem_write(0, val);
+                        // _delay_ms(100);
+
+                        for (uint8_t j = 0; j < *dsr; j++) {
+                                for (uint8_t i = 0; i < 5; i++) {
+                                        *((volatile uint8_t *)(0x1100 + (i << 2))) = (val + i) & 0xff;
+                                        *((volatile uint8_t *)(0x1101 + (i << 2))) = (val + i + 5) & 0xff;
+                                        *((volatile uint8_t *)(0x1102 + (i << 2))) = (val + i + 10) & 0xff;
+                                        *((volatile uint8_t *)(0x1103 + (i << 2))) = (val + i + 15) & 0xff;
+                                        _delay_ms(4);
+                                }
+                        }
+                        wdt_reset();
+
+                        //_delay_ms(*dsr);
+
+                        val++;
+                }
+
+                for (int j = 0; j < *dsr * 64; j++) {
+                        for (int i = 0; i < 5; i++) {
+                                *((volatile uint8_t *)(0x1100 + (i << 2))) = (pattern[i] >> 24) & 0xff;
+                                *((volatile uint8_t *)(0x1101 + (i << 2))) = (pattern[i] >> 16) & 0xff;
+                                *((volatile uint8_t *)(0x1102 + (i << 2))) = (pattern[i] >> 8) & 0xff;
+                                *((volatile uint8_t *)(0x1103 + (i << 2))) = pattern[i] & 0xff;
+                                _delay_ms(4);
+                        }
+                        wdt_reset();
+                }
+        }
+*/
 
 static void
 go_ltest()
@@ -1888,50 +1991,6 @@ go_state()
 }
 
 
-static
-void
-go_swtest()
-{
-	report_pstr(PSTR(STR_SWTEST));
-
-	uint16_t sr0 = get_sr();
-	uint16_t or0 = get_or();
-	uint16_t lsw0 = get_lsw();
-	uint16_t rsw0 = get_rsw();
-	go_sws();
-
-	// Setting the busy flag will cause all switches to be ignored
-	// by the interrupt handler, effectively disabling the switch
-	// assembly. The in-console flag disables line buffering (but
-	// also normal output).
-	hwstate.is_busy = 1;
-	uistate.in_console_busy = 1;
-	uistate.is_inpok = 0;
-	uistate.is_break = 0;
-
-	while ((flags & (FL_INPOK | FL_BREAK)) == 0) {
-		wdt_reset();
-		_delay_ms(100);
-		deb_sample(0);	// Read the switches
-
-		// Set the OR from the SR
-		set_or(get_sr());
-
-		if (sr0 != get_sr() || lsw0 != get_lsw() || rsw0 != get_rsw()) {
-			sr0 = get_sr();
-			lsw0 = get_lsw();
-			rsw0 = get_rsw();
-			// Console mode suppresses normal debugging
-			// output, so disable it temporarily.
-			flags &= ~FL_CONS;
-			go_sws();
-			flags |= FL_CONS;
-		}
-	}
-	flags &= ~(FL_BUSY | FL_CONS | FL_INPOK | FL_BREAK);
-	set_or(or0);
-	report_pstr(PSTR(STR_DONE));
-}
 static void
 go_ustate()
 {
