@@ -172,7 +172,7 @@ fuses:		.stamp-fuses
 # 		$(AVRDUDE) -s -u -v -U lfuse:w:0xff:m -U hfuse:w:0x99:m -U efuse:w:0xff:m
 
 .stamp-fuses:
-		$(AVRDUDE) -s -u -v -U lfuse:w:0xe0:m -U hfuse:w:0x99:m -U efuse:w:0xff:m
+		$(AVRDUDE) -s -u -v -U lfuse:w:0xe0:m -U hfuse:w:0xd9:m -U efuse:w:0xff:m
 
 # Fuses for 168
 #.stamp-fuses:
