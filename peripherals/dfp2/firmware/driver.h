@@ -74,7 +74,8 @@ typedef struct {
 
 	// Switches
 	uint8_t   switches[8];       // 64 switch bits
-	uint16_t  sr;		     // The value of the SR from swdata.
+	uint8_t   swchange[8];       // 64 switch bits
+	uint16_t  sr;                // The value of the SR from swdata.
 } hwstate_t;
 
 extern hwstate_t hwstate;
@@ -178,6 +179,9 @@ errno_t read_from_ibus_unit(uint8_t raddr, uint16_t * val);
 // FRONT PANEL SWITCHES
 //
 ///////////////////////////////////////////////////////////////////////////////
+
+
+void sw_clear_changed();
 
 void sw_read();
 

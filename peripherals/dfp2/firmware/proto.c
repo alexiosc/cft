@@ -949,6 +949,7 @@ go_sws()
 	// The AVR driver reads and debounces switches in an ISR that runs at
 	// 60Hz. But we also call this synchronous hook in case another driver
 	// needs it.
+        sw_clear_changed();
 	sw_read();
 	report_pstr(PSTR(STR_SWS));
 
@@ -1354,8 +1355,7 @@ go_ru()
                         return;
                 }
 
-                #warning "Reinstate"
-		//if (!assert_halted()) return;
+		if (!assert_halted()) return;
 
                 uint16_t readval;
                 errno_t errno = read_from_ibus_unit(raddr, &readval);

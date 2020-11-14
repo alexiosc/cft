@@ -1134,6 +1134,27 @@ sw_init()
 
 
 void
+sw_clear_changed()
+{
+        // Clear the map of changed switches. Do this atomically on the AVR,
+        // because the timer interrupt may change them while we're clearing
+        // bits here.
+
+	ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+                // Unroll the loop because it's only 8 STO instructions anyway.
+                hwstate.swchange[0] = 0;
+                hwstate.swchange[1] = 0;
+                hwstate.swchange[2] = 0;
+                hwstate.swchange[3] = 0;
+                hwstate.swchange[4] = 0;
+                hwstate.swchange[5] = 0;
+                hwstate.swchange[6] = 0;
+                hwstate.swchange[7] = 0;
+        }
+}
+
+
+void
 sw_read()
 {
 	// The AVR driver reads and debounces the switches in an ISR
@@ -1248,16 +1269,25 @@ sw_scan()
                 serial_write(' ');
 
 		for (uint8_t j = 0, mask = 0x10; j < 4; mask <<=1, j++, i++) {
+                        uint8_t ofs = i >> 3;
+                        uint8_t mask = 1 << (i & 7);
+
 			// Switches are active low, so a high bit means ‘not
 			// actuated’. We invert these semantics here.
 			_switches[i] = (_switches[i] << 1) | (PINF & mask ? 0 : 1);
 
+                        uint8_t laststate = hwstate.switches[ofs] & mask;
+
 			if ((_switches[i] & SWITCH_DEBOUNCE_MASK) == SWITCH_PRESSED) {
-                                if (getbit(hwstate.switches[i >> 3], i & 7) == 0) a = 1;
-				setbit(hwstate.switches[i >> 3], i & 7);
+                                // The switch is on. Set the relevant bit in the switch array.
+                                hwstate.switches[ofs] |= mask;
+                                // The switch was off before. Mark it as changed!
+                                if (!laststate) hwstate.swchange[ofs] |= mask;
 			} else if ((_switches[i] & SWITCH_DEBOUNCE_MASK) == SWITCH_RELEASED) {
-                                if (getbit(hwstate.switches[i >> 3], i & 7) == 1) a = 1;
-				clearbit(hwstate.switches[i >> 3], i & 7);
+                                // The switch is off. Clear the relevant bit in the switch array.
+                                hwstate.switches[ofs] &= ~mask;
+                                // The switch was on before. Mark it as changed!
+                                if (laststate) hwstate.swchange[ofs] |= mask;
 			}
 		}
 	}
