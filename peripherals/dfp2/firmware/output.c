@@ -78,8 +78,8 @@ style_error()
 }
 
 
-// Send a string message to the serial port. The message must be in
-// RAM, not Flash (program space).
+// Send a string message to the serial port. The message must be in RAM, not
+// Flash (program space). Special characters are not interpreted.
 void
 report(const char *msg)
 {
@@ -94,8 +94,9 @@ report(const char *msg)
 }
 
 
-// Send a string message to the serial port. Print up to n
-// characters. The buffer must be in RAM, not Flash (program space).
+// Send a string message to the serial port. Print up to n characters. The
+// buffer must be in RAM, not Flash (program space). Special characters are not
+// interpreted.
 void
 report_n(const char *msg, uint16_t n)
 {
@@ -129,9 +130,11 @@ report_pstr_in_console(const char *msg)
 }
 
 
-// Send a string message to the serial port, when the string resides in program
-// memory. Naturally, this is only available on the microcontroller. On the
-// host, we fall back to the simple report() function.
+// Send to the serial port a string message residing in program memory. (for
+// AVR only; on non-Harvard platforms, this soup  like everything else, 
+
+// WARNING: this function recurses. Keep it reentrant!
+
 char *
 report_pstr(const char *msg)
 {
@@ -358,20 +361,22 @@ report_bool_value(const char *msg, char val)
 
 #define case_err(name)                                    \
         case ERR_ ## name:                              \
-                report_pstr(PSTR(STR_ ## name));        \
+                report_pstr(PSTR(STR_ERR_ ## name));        \
                 break;
 void
 report_errno(errno_t err)
 {
         style_error();
+
+        // NOTE: not syntax error, look at case_err macro above
         switch (err) {
-                case_err(SUCCESS)
-                case_err(NMASTER)
-                case_err(NHALTED)
-                case_err(HALTED)
-                case_err(TIMEOUT)
-                case_err(RBFULL)
-                case_err(RBEMPTY)
+        case_err(SUCCESS)
+        case_err(NMASTER)
+        case_err(NHALTED)
+        case_err(HALTED)
+        case_err(TIMEOUT)
+        case_err(RBFULL)
+        case_err(BADVAL)
         default:
                 report_pstr(PSTR(STR_UNKERR));
         }

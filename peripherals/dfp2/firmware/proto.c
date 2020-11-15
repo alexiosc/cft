@@ -40,7 +40,7 @@
 #include "output.h"
 //#include "panel.h"
 //#include "bus.h"
-//#include "utils.h"
+#include "utils.h"
 #include "microcode_disassembly.h"
 
 #ifdef AVR
@@ -1305,9 +1305,112 @@ gs_sp()
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-// LOW LEVEL PROCESSOR FUNCTIONALIT
+// LOW LEVEL PROCESSOR FUNCTIONALITY
 //
 ///////////////////////////////////////////////////////////////////////////////
+
+static void
+list_processor_units(const microcode_disassembly_t *disasm,
+                     const uint8_t *ofs_array, const uint32_t n)
+{
+        // Print out a list of all RADDR units.
+        for (uint8_t i = 0; i < n; i++) {
+                uint8_t ofs = pgm_read_byte(&(ofs_array[i]));
+                // Offsets 0 (idle) and 1 (unused): skip this line.
+                if (ofs < 2) continue;
+
+                // Otherwise, print a row.
+                report_pstr(PSTR("\005"));
+                report_hex(i, 2);
+                report_pstr(PSTR(" \001"));
+                switch (pgm_read_byte(&(disasm[ofs].board))) {
+                case BRD_CTL:
+                        report_pstr(PSTR(" \001\020: "));
+                        break;
+                case BRD_REG:
+                        report_pstr(PSTR(" \001\021: "));
+                        break;
+                case BRD_ALU:
+                        report_pstr(PSTR(" \001\022: "));
+                        break;
+                case BRD_BUS:
+                        report_pstr(PSTR(" \001\023: "));
+                        break;
+                }
+                report_pstr(disasm[ofs].desc);
+        }
+        report_nl();
+}
+
+
+static void
+explain_processor_unit(uint8_t unit,
+                       uint8_t show_board_name,
+                       const microcode_disassembly_t *disasm,
+                       const uint8_t *ofs_array, const uint32_t n)
+{
+        uint8_t ofs = pgm_read_word(&(ofs_array[unit]));
+
+        // Print out the board name if required. This will show nothing if the
+        // board name is not defined (e.g. idle or undefined address)
+        if (show_board_name) {
+                switch (pgm_read_byte(&(disasm[ofs].board))) {
+                case BRD_CTL:
+                        report_pstr(PSTR("\020: "));
+                        break;
+                case BRD_REG:
+                        report_pstr(PSTR("\021: "));
+                        break;
+                case BRD_ALU:
+                        report_pstr(PSTR("\022: "));
+                        break;
+                case BRD_BUS:
+                        report_pstr(PSTR("\023: "));
+                        break;
+                }
+        }
+
+        // Print out the description of the 
+        if (!strnlen_P(disasm[ofs].desc, 1)) {
+                report_pstr(disasm[ofs].desc);
+        } else {
+                report_pstr(PSTR("undefined"));
+        }
+}
+
+
+static void
+maybe_board_warning(uint8_t unit,
+                    const microcode_disassembly_t *disasm,
+                    const uint8_t *ofs_array)
+{
+
+        // Print out a list of all RADDR units.
+        uint8_t ofs = pgm_read_word(&(ofs_array[unit]));
+        switch (pgm_read_word(&(disasm[ofs].board))) {
+        case BRD_CTL:
+                if (!hwstate.have_ctl) {
+                        report_pstr(PSTR(STR_WNOCTL));
+                }
+                return;
+        case BRD_REG:
+                if (!hwstate.have_reg) {
+                        report_pstr(PSTR(STR_WNOREG));
+                }
+                return;
+        case BRD_ALU:
+                if (!hwstate.have_alu) {
+                        report_pstr(PSTR(STR_WNOALU));
+                }
+                return;
+        case BRD_BUS:
+                if (!hwstate.have_alu) {
+                        report_pstr(PSTR(STR_WNOBUS));
+                }
+                return;
+        }
+}
+
 
 static void
 go_ru()
@@ -1316,36 +1419,9 @@ go_ru()
 	int8_t res;
 	res = optional_hex_val(&raddr);
 	if (res == 0) {
-                // No input, list addresses.
-                
+                // No argument given. List addresses.
                 report_pstr("201 RADDR value cheat sheet:\005");
-                // Print out a list of all RADDR units.
-                for (uint8_t i = 0; i < 32; i++) {
-                        uint8_t ofs = pgm_read_word(&(disasm_raddr_ofs[i]));
-                        // Offsets 0 (idle) and 1 (unused): skip this line.
-                        if (ofs < 2) continue;
-
-                        // Otherwise, print a row.
-                        report_pstr(PSTR("\005"));
-                        report_hex(i, 2);
-                        report_pstr(PSTR(" \001"));
-                        switch (pgm_read_word(&(disasm_raddr[ofs].board))) {
-                        case BRD_CTL:
-                                report_pstr(PSTR(" \001\020: "));
-                                break;
-                        case BRD_REG:
-                                report_pstr(PSTR(" \001\021: "));
-                                break;
-                        case BRD_ALU:
-                                report_pstr(PSTR(" \001\022: "));
-                                break;
-                        case BRD_BUS:
-                                report_pstr(PSTR(" \001\023: "));
-                                break;
-                        }
-                        report_pstr(disasm_raddr[ofs].desc);
-                }
-                report_nl();
+                list_processor_units(disasm_raddr, disasm_raddr_ofs, 32);
         }
 	if (res > 0) {
                 // Is it out of range?
@@ -1365,6 +1441,8 @@ go_ru()
                         report_hex(raddr, 2);
                         report_pstr(PSTR(STR_RU2));
                         report_hex(readval, 4);
+                        report_nl();
+                        maybe_board_warning(raddr, disasm_raddr, disasm_raddr_ofs);
                 } else {
                         report_errno(errno);
                         return;
@@ -1373,15 +1451,117 @@ go_ru()
 }
 
 
+/*
+	// Parse addr
+	char * s = get_arg();
+	if (s == NULL) {
+		badsyntax();
+		return;
+	}
+	
+	uint16_t a = parse_hex(s);
+	if (flags & FL_ERROR) {
+		badval();
+		return;
+	}
+
+	if (a >= 0x0100 && a < 0x120) {
+		style_error();
+		report_pstr(PSTR(STR_NSELF));
+		return;
+
+	}
+
+	// Parse word
+
+	s = get_arg();
+	if (s == NULL) {
+		badsyntax();
+		return;
+	}
+	
+	uint16_t v = parse_hex(s);
+	if (flags & FL_ERROR) {
+		badval();
+		return;
+	}
+*/
+
 static void
 go_wu()
 {
+	uint16_t waddr;
+	int8_t res;
+	res = optional_hex_val(&waddr);
+	if (res == 0) {
+                // No argument given. List addresses.
+                report_pstr("201 WADDR value cheat sheet:\005");
+                list_processor_units(disasm_waddr, disasm_waddr_ofs, 32);
+        }
+	// if (res > 0) {
+        //         // Is it out of range?
+        //         if (raddr > 31) {
+        //                 style_error();
+        //                 report_pstr(PSTR(STR_ERANGE));
+        //                 return;
+        //         }
+
+	// 	if (!assert_halted()) return;
+
+        //         uint16_t readval;
+        //         errno_t errno = read_from_ibus_unit(raddr, &readval);
+
+        //         if (errno == SUCCESS) {
+        //                 report_pstr(PSTR(STR_RU));
+        //                 report_hex(raddr, 2);
+        //                 report_pstr(PSTR(STR_RU2));
+        //                 report_hex(readval, 4);
+        //                 report_nl();
+        //                 maybe_board_warning(raddr, disasm_raddr, disasm_raddr_ofs);
+        //         } else {
+        //                 report_errno(errno);
+        //                 return;
+        //         }
+	// }
 }
 
 
 static void
 go_act()
 {
+	uint16_t action;
+	int8_t res;
+	res = optional_hex_val(&action);
+	if (res == 0) {
+                // No argument given. List addresses.
+                report_pstr("201 ACTION value cheat sheet:\005");
+                list_processor_units(disasm_action, disasm_action_ofs, 16);
+        }
+	if (res > 0) {
+                // Is it out of range?
+                if (action > 15) {
+                        style_error();
+                        report_pstr(PSTR(STR_ERANGE));
+                        return;
+                }
+
+		if (!assert_halted()) return;
+
+                errno_t errno = processor_action(action);
+
+                if (errno == SUCCESS) {
+                        report_pstr(PSTR(STR_ACT));
+                        report_hex(action, 1);
+                        report_pstr(" (");
+                        explain_processor_unit(action, TRUE,
+                                               disasm_action, disasm_action_ofs, 16);
+                        report_pstr(")\n");
+                        maybe_board_warning(action, disasm_action, disasm_action_ofs);
+                } else {
+                        report_errno(errno);
+                        return;
+                }
+	}
 }
 
 

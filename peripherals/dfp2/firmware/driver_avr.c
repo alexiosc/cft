@@ -253,14 +253,14 @@ ringbuf_get(uint8_t *c)
 inline static void
 xmem_write(const xmem_addr_t addr, const uint8_t val)
 {
-        *((uint8_t *)(XMEM_BASE + addr)) = val;
+        *((volatile uint8_t *)(XMEM_BASE + addr)) = val;
 }
 
 
 inline static uint8_t
 xmem_read(const xmem_addr_t addr)
 {
-        return *((uint8_t *)(XMEM_BASE + addr));
+        return *((volatile uint8_t *)(XMEM_BASE + addr));
 }
 
 
@@ -395,6 +395,12 @@ release_ucv()
 // }
 
 
+///////////////////////////////////////////////////////////////////////////////
+//
+// INTERNAL PROECSSOR CONTROL (MICROCODE, IBUS)
+//
+///////////////////////////////////////////////////////////////////////////////
+
 MUST_CHECK errno_t
 write_to_ibus_unit(uint8_t waddr, uint16_t val)
 {
@@ -402,21 +408,28 @@ write_to_ibus_unit(uint8_t waddr, uint16_t val)
                 return ERR_NHALTED;
         }
 
-        ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
-                xmem_write(XMEM_RADDR, 0);
-                xmem_write(XMEM_WADDR, 0);
-                xmem_write(XMEM_ACTION, 0);
+        if (waddr > 0x31) {
+                return ERR_BADVAL;
+        }
 
-                clearbit(PORTE, E_NMCVOE); // Drive the IBUS
+        ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+                xmem_write(XMEM_RADDR, 0);     // Idle RADDR
+                xmem_write(XMEM_WADDR, 0);     // Idle WADDR
+                xmem_write(XMEM_ACTION, 0);    // Idle ACTION
+                clearbit(PORTE, E_NMCVOE);     // Drive the idle control bus
+
+                // Write to our IBUS buffers and then drive it
                 xmem_write(XMEM_IBUS_H, (val >> 8) & 0xff);
                 xmem_write(XMEM_IBUS_L, (val & 0xff));
                 clearbit(PORTC, C_NIBOE);
 
+                // Now, strobe the WADDR address
                 xmem_write(XMEM_WADDR, waddr);
                 xmem_write(XMEM_WADDR, 0);
 
-                setbit(PORTE, E_NMCVOE);
+                // Tri-state the IBUS and Control Bus
                 setbit(PORTC, C_NIBOE);
+                setbit(PORTE, E_NMCVOE);
         }
 
         return ERR_SUCCESS;
@@ -430,24 +443,70 @@ read_from_ibus_unit(uint8_t raddr, uint16_t * val)
                 return ERR_NHALTED;
         }
 
+        if (raddr > 0x31) {
+                return ERR_BADVAL;
+        }
+
         ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
-                xmem_write(XMEM_RADDR, 0);
-                xmem_write(XMEM_WADDR, 0);
-                xmem_write(XMEM_ACTION, 0);
+                xmem_write(XMEM_RADDR, 0);     // Idle RADDR
+                xmem_write(XMEM_WADDR, 0);     // Idle WADDR
+                xmem_write(XMEM_ACTION, 0);    // Idle ACTION
+                clearbit(PORTE, E_NMCVOE);     // Drive the idle control bus
 
-                clearbit(PORTE, E_NMCVOE);
-                xmem_write(XMEM_RADDR, raddr);
+                xmem_write(XMEM_RADDR, raddr); // Set RADDR
 
+                // Read from the IBUS
                 *val = xmem_read(XMEM_IBUS_H) << 8 | xmem_read(XMEM_IBUS_L);
 
-                xmem_write(XMEM_RADDR, 0);
-                setbit(PORTE, E_NMCVOE);
+                xmem_write(XMEM_RADDR, 0);     // Idle RADDR again
+                setbit(PORTE, E_NMCVOE);       // Tristate the bus
+
+                // Bus hold should now leave all control unit buses, but we
+                // don't have a direct way to read RADDR, WADDR or ACTION so we
+                // can't verify this.
         }
 
         return ERR_SUCCESS;
 }
 
 
+MUST_CHECK errno_t
+processor_action(uint8_t action)
+{
+        if (!hwstate.is_halted) {
+                return ERR_NHALTED;
+        }
+
+        if (action > 0xf) {
+                return ERR_BADVAL;
+        }
+
+        ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+                // Idle other fields, set action.
+                xmem_write(XMEM_RADDR, 0);       // Idle RADDR
+                xmem_write(XMEM_WADDR, 0);       // Idle WADDR
+                xmem_write(XMEM_ACTION, 0);      // Idle ACTION
+                clearbit(PORTE, E_NMCVOE);       // Drive the idle control bus
+
+                xmem_write(XMEM_ACTION, action & 0x1f); // Set action
+                xmem_write(XMEM_ACTION, 0);      // Reset action to idle (strobe)
+                setbit(PORTE, E_NMCVOE);         // Tristate the control bus
+
+                // Bus hold should now leave all control unit buses, but we
+                // don't have a direct way to read RADDR, WADDR or ACTION so we
+                // can't verify this.
+        }
+
+        return ERR_SUCCESS;
+}
+
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// COMPUTER CONTROL (ADDRESS, DATA, BUS TRANSACTIONS)
+//
+///////////////////////////////////////////////////////////////////////////////
 
 // The Address Bus is a 24-bit bus driven by three '574 registers. They are
 // tristated directly by controlling the MCU's pin C_NABOE. To put a 24-bit
@@ -1260,7 +1319,8 @@ sw_read()
 static inline void
 sw_scan()
 {
-	uint8_t i = 0, a =0;
+	uint8_t i = 0; // Index 0..63 into the debouncing array
+
 	for (uint8_t swa = 0; swa < 16; swa++) {
                 // Set PORTF to pull-ups in MS nibble, and set switch address
                 // in LS nibble.
@@ -1268,14 +1328,18 @@ sw_scan()
                 report_bin_pad(PINF >> 4, 4);
                 serial_write(' ');
 
-		for (uint8_t j = 0, mask = 0x10; j < 4; mask <<=1, j++, i++) {
-                        uint8_t ofs = i >> 3;
-                        uint8_t mask = 1 << (i & 7);
+		for (uint8_t j = 0; j < 4; j++, i++) {
+			// Input from AVR pin, stick the value in the
+			// debouncing array. Switches are active low, so a high
+			// bit means ‘not actuated’. We invert these semantics
+			// here.
+                        uint8_t pin_bit = 0x10 << j; // AVR Port F input pin mask
+			_switches[i] = (_switches[i] << 1) | (PINF & pin_bit ? 0 : 1);
 
-			// Switches are active low, so a high bit means ‘not
-			// actuated’. We invert these semantics here.
-			_switches[i] = (_switches[i] << 1) | (PINF & mask ? 0 : 1);
+                        uint8_t ofs = i >> 3;        // Byte in switch array 
+                        uint8_t mask = 1 << (i & 7); // Bit in byte
 
+                        // Last state of this switch
                         uint8_t laststate = hwstate.switches[ofs] & mask;
 
 			if ((_switches[i] & SWITCH_DEBOUNCE_MASK) == SWITCH_PRESSED) {

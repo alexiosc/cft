@@ -50,7 +50,8 @@ typedef enum {
 	ERR_HALTED,			// System is halted
 	ERR_TIMEOUT,			// Timeout waiting for state machine
 	ERR_RBFULL,			// Ring buffer is full
-	ERR_RBEMPTY			// Ring buffer is empty
+	ERR_RBEMPTY,			// Ring buffer is empty
+	ERR_BADVAL			// Invalid parameter
 } errno_t;
 
 

@@ -169,9 +169,14 @@ extern ringbuf_t ringbuf;
 
 void read_full_state(); // Updates the entire virtual front panel synchronously
 
+
+// Control Unit functionality
+
 errno_t write_to_ibus_unit(uint8_t waddr, uint16_t val);
 
 errno_t read_from_ibus_unit(uint8_t raddr, uint16_t * val);
+
+errno_t processor_action(uint8_t action);
 
 
 ///////////////////////////////////////////////////////////////////////////////

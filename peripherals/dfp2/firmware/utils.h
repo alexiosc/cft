@@ -25,6 +25,10 @@
 #  endif
 #endif // HOST
 
+// Sometimes this makes things clearer
+#define FALSE 0
+#define TRUE 1
+
 // Convert a pin (bit) number to byte.
 
 #ifndef BV

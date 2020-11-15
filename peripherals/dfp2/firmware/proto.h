@@ -87,6 +87,9 @@ extern volatile uistate_t uistate;
 #define STR_IBUS    "262 IBUS: "
 #define STR_RU      "263 Read from IBUS Address: "
 #define STR_RU2          " Value: "
+#define STR_WU      "264 Write value: "
+#define STR_WU2          " to IBUS Address: "
+#define STR_ACT     "265 Kicked off action: "
 
 // 3xx: Actions performed
 #define STR_DONE    "301 Done\n"
@@ -113,6 +116,12 @@ extern volatile uistate_t uistate;
 #define STR_GSAC     "54 AC: "
 #define STR_GSSP     "55 SP: "
 
+// 4xx: Warnings.
+#define STR_WNOCTL   "420 CTL board not detected\n"
+#define STR_WNOREG   "421 REG board not detected\n"
+#define STR_WNOALU   "422 ALU board not detected\n"
+#define STR_WNOBUS   "423 BUS board not detected\n"
+
 // 5xx: Errors.
 #define STR_BADCMD  "500 Unknown command\n"
 #define STR_BADVAL  "501 Bad value\n"
@@ -122,16 +131,18 @@ extern volatile uistate_t uistate;
 
 #define STR_NOCTL   "520 CTL board not installed or faulty\n"
 #define STR_NOREG   "521 REG board not installed or faulty\n"
-#define STR_NOALU   "522 REG board not installed or faulty\n"
+#define STR_NOALU   "522 ALU board not installed or faulty\n"
 #define STR_NOBUS   "523 BUS board not installed or faulty\n"
 
-#define STR_SUCCESS "600 Success. (huh?)\n"
-#define STR_NMASTER "601 We are not the bus master\n"
-#define STR_NHALTED "602 System is not halted\n"
-#define STR_HALTED  "603 System is halted\n"
-#define STR_TIMEOUT "605 Timeout\n"
-#define STR_RBFULL  "606 Ring buffer full"
-#define STR_RBEMPTY "607 Ring buffer empty"
+// 6xx: errno_t errors
+#define STR_ERR_SUCCESS "600 Success. (huh?)\n"
+#define STR_ERR_NMASTER "601 We are not the bus master\n"
+#define STR_ERR_NHALTED "602 System is not halted\n"
+#define STR_ERR_HALTED  "603 System is halted\n"
+#define STR_ERR_TIMEOUT "605 Timeout\n"
+#define STR_ERR_RBFULL  "606 Ring buffer full"
+#define STR_ERR_RBEMPTY "607 Ring buffer empty"
+#define STR_ERR_BADVAL  "608 Bad value"
 // ...
 #define STR_UNKERR  "699 Unknown error"
 

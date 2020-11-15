@@ -31,8 +31,15 @@ typedef struct {
 } microcode_disassembly_t;
 
 extern const uint8_t disasm_raddr_ofs[32];
+
 extern const microcode_disassembly_t disasm_raddr[];
+
+extern const uint8_t disasm_waddr_ofs[32];
+
 extern const microcode_disassembly_t disasm_waddr[];
+
+extern const uint8_t disasm_action_ofs[16];
+
 extern const microcode_disassembly_t disasm_action[];
 
 
