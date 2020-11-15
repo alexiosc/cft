@@ -293,11 +293,14 @@ const uint8_t state_addrs[] PROGMEM = {
 uint8_t
 read_dfp_address(xmem_addr_t a)
 {
-        fp_scanner_stop();
-        sample();		// Clock data into our own flip flops.
-    
-        uint8_t val = xmem_read(a);
-        fp_scanner_start();
+        uint8_t val;
+        
+        ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+                fp_scanner_stop();
+                sample();		// Clock data into our own flip flops.
+                val = xmem_read(a);
+                fp_scanner_start();
+        }
     
         return val;
 }
@@ -310,33 +313,35 @@ read_full_state()
         // reads we perform that also map to FP lights will update the FP. For
         // example, as we read the AC, the front panel's Accumulator lights
         // will also update to the current value on the FPD bus.
-        fp_scanner_stop();
-        sample();		// Clock data into our own flip flops.
-
-        // Read the buses directly.
-        hwstate.ab_h = xmem_read(XMEM_AB_H);
-        hwstate.ab_m = xmem_read(XMEM_AB_M);
-        hwstate.ab_l = xmem_read(XMEM_AB_L);
-
-        hwstate.db_h = xmem_read(XMEM_DB_H);
-        hwstate.db_l = xmem_read(XMEM_DB_L);
-
-        hwstate.ibus_h = xmem_read(XMEM_DB_H);
-        hwstate.ibus_l = xmem_read(XMEM_DB_L);
-
-        hwstate.dsr = DSR_HIGH | xmem_read(XMEM_DSR);
-
-        // Read via buffers in the computer.
-        hwstate.ucv_h = xmem_read(XMEM_UCV_H);
-        hwstate.ucv_m = xmem_read(XMEM_UCV_M);
-        hwstate.ucv_l = xmem_read(XMEM_UCV_L);
-
-        fp_scanner_start();
+        ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+                fp_scanner_stop();
+                sample();		// Clock data into our own flip flops.
+                
+                // Read the buses directly.
+                hwstate.ab_h = xmem_read(XMEM_AB_H);
+                hwstate.ab_m = xmem_read(XMEM_AB_M);
+                hwstate.ab_l = xmem_read(XMEM_AB_L);
+                
+                hwstate.db_h = xmem_read(XMEM_DB_H);
+                hwstate.db_l = xmem_read(XMEM_DB_L);
+                
+                hwstate.ibus_h = xmem_read(XMEM_DB_H);
+                hwstate.ibus_l = xmem_read(XMEM_DB_L);
+                
+                hwstate.dsr = DSR_HIGH | xmem_read(XMEM_DSR);
+                
+                // Read via buffers in the computer.
+                hwstate.ucv_h = xmem_read(XMEM_UCV_H);
+                hwstate.ucv_m = xmem_read(XMEM_UCV_M);
+                hwstate.ucv_l = xmem_read(XMEM_UCV_L);
+                
+                fp_scanner_start();
+        }
 }
 
 
 inline static void
-release_buses()
+tristate_buses()
 {
         // Release IBus, AB and DB and deassert bus control signals by setting
         // all of their bits. They're active low.
@@ -353,14 +358,14 @@ release_buses()
 
 
 inline static void
-release_ibus()
+tristate_ibus()
 {
         setbit(PORTC, C_NIBOE);
 }
 
 
 inline static void
-release_ucv()
+tristate_ucv()
 {
         // Tristate bus control signals and the rest of control bus by clearing
         // their NMEM, NIO, NR, NW and NMCVOE bits in the DDRC and 
@@ -413,6 +418,8 @@ write_to_ibus_unit(uint8_t waddr, uint16_t val)
         }
 
         ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+                tristate_buses();              // Tristate everything
+                
                 xmem_write(XMEM_RADDR, 0);     // Idle RADDR
                 xmem_write(XMEM_WADDR, 0);     // Idle WADDR
                 xmem_write(XMEM_ACTION, 0);    // Idle ACTION
@@ -427,9 +434,8 @@ write_to_ibus_unit(uint8_t waddr, uint16_t val)
                 xmem_write(XMEM_WADDR, waddr);
                 xmem_write(XMEM_WADDR, 0);
 
-                // Tri-state the IBUS and Control Bus
-                setbit(PORTC, C_NIBOE);
-                setbit(PORTE, E_NMCVOE);
+                // Tri-state everything again
+                tristate_buses();
         }
 
         return ERR_SUCCESS;
@@ -448,10 +454,12 @@ read_from_ibus_unit(uint8_t raddr, uint16_t * val)
         }
 
         ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+                tristate_buses();              // Tristate everything
+                
                 xmem_write(XMEM_RADDR, 0);     // Idle RADDR
                 xmem_write(XMEM_WADDR, 0);     // Idle WADDR
                 xmem_write(XMEM_ACTION, 0);    // Idle ACTION
-                clearbit(PORTE, E_NMCVOE);     // Drive the idle control bus
+                clearbit(PORTE, E_NMCVOE);     // Drive the control bus
 
                 xmem_write(XMEM_RADDR, raddr); // Set RADDR
 
@@ -459,9 +467,11 @@ read_from_ibus_unit(uint8_t raddr, uint16_t * val)
                 *val = xmem_read(XMEM_IBUS_H) << 8 | xmem_read(XMEM_IBUS_L);
 
                 xmem_write(XMEM_RADDR, 0);     // Idle RADDR again
-                setbit(PORTE, E_NMCVOE);       // Tristate the bus
 
-                // Bus hold should now leave all control unit buses, but we
+                // Tri-state everything again
+                tristate_buses();
+
+                // Bus hold keep now leave all control unit buses idle, but we
                 // don't have a direct way to read RADDR, WADDR or ACTION so we
                 // can't verify this.
         }
@@ -482,19 +492,21 @@ processor_action(uint8_t action)
         }
 
         ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
-                // Idle other fields, set action.
-                xmem_write(XMEM_RADDR, 0);       // Idle RADDR
-                xmem_write(XMEM_WADDR, 0);       // Idle WADDR
-                xmem_write(XMEM_ACTION, 0);      // Idle ACTION
-                clearbit(PORTE, E_NMCVOE);       // Drive the idle control bus
+                tristate_buses();           // Tristate everything
+                xmem_write(XMEM_RADDR, 0);  // Idle RADDR
+                xmem_write(XMEM_WADDR, 0);  // Idle WADDR
+                xmem_write(XMEM_ACTION, 0); // Idle ACTION
+                clearbit(PORTE, E_NMCVOE);  // Drive the control bus
 
                 xmem_write(XMEM_ACTION, action & 0x1f); // Set action
-                xmem_write(XMEM_ACTION, 0);      // Reset action to idle (strobe)
-                setbit(PORTE, E_NMCVOE);         // Tristate the control bus
+                xmem_write(XMEM_ACTION, 0); // Reset action to idle (strobe)
 
-                // Bus hold should now leave all control unit buses, but we
-                // don't have a direct way to read RADDR, WADDR or ACTION so we
-                // can't verify this.
+                // Tri-state everything again
+                tristate_buses();
+
+                // Bus hold should now leave all control unit buses idle, but
+                // we don't have a direct way to read RADDR, WADDR or ACTION so
+                // we can't verify this.
         }
 
         return ERR_SUCCESS;
@@ -998,8 +1010,6 @@ avr_init()
         PORTD |= BV(D_NLTSON);  // Start with LTS switch set to off
 #endif
 
-        
-
         DDRE =   0b11111100; // Port E direction
         PORTE =  0b10100100; // Port E init, assert FPRESET#, deassert others.
 
@@ -1028,7 +1038,7 @@ void
 hw_init()
 {
         avr_init();
-        release_buses();
+        tristate_buses();
         rc_freeze();
         clear_ws();
 
@@ -1052,6 +1062,71 @@ hw_init()
 
         // Make Panel work
         fp_release();
+
+
+        
+
+        
+
+        fp_grab();
+
+        hwstate.is_halted = 1;
+        report_pstr(PSTR("\n\r\n\rBOOTED\n\r"));
+        uint16_t val = 0;
+        uint16_t checkval = 0;
+
+        for(;;){
+                wdt_reset();
+
+                val += 1;
+
+                for (uint8_t a = 0 ; a < 32; a++) {
+                        report_pstr(PSTR("VAL="));
+                        report_hex(val, 4);
+                        report_pstr(PSTR(" ADDR="));
+                        report_hex(a, 2);
+                        report_pstr(PSTR(" write "));
+                        report_hex(val, 4);
+                        errno_t res = write_to_ibus_unit(a, val);
+                        if (res != 0) {
+                                report_errno(res);
+                                continue;
+                        }
+
+                        res = read_from_ibus_unit(a, &checkval);
+                        if (res != 0) {
+                                report_errno(res);
+                                continue;
+                        }
+
+                        report_pstr(PSTR(" read back "));
+                        report_hex(checkval, 4);
+
+                        if (val == checkval) report_pstr(PSTR("  MATCH\n"));
+                        else report_nl();
+                        wdt_reset();
+
+                        res = processor_action(1);
+                        if (res != 0){ 
+                                report_errno(res);
+                                continue;
+                        }
+                }
+                report_nl();
+
+                wdt_reset();
+                _delay_ms(500);
+                // wdt_reset();
+                // _delay_ms(500);
+                // wdt_reset();
+                // _delay_ms(500);
+                // wdt_reset();
+                // _delay_ms(500);
+                wdt_reset();
+        }
+
+
+        
 
 #warning "PORTED TO THIS POINT"
 #if 0
