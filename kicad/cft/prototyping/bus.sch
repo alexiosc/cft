@@ -81,54 +81,6 @@ Wire Wire Line
 	3750 2550 4150 2550
 Wire Wire Line
 	3750 2650 4150 2650
-Wire Wire Line
-	4900 1750 5300 1750
-Wire Wire Line
-	4900 1850 5300 1850
-Wire Wire Line
-	4900 1950 5300 1950
-Wire Wire Line
-	4900 2050 5300 2050
-Wire Wire Line
-	4900 2150 5300 2150
-Wire Wire Line
-	4900 2250 5300 2250
-Wire Wire Line
-	4900 2350 5300 2350
-Wire Wire Line
-	4900 2450 5300 2450
-Wire Wire Line
-	4900 2550 5300 2550
-Wire Wire Line
-	4900 2650 5300 2650
-Wire Wire Line
-	4900 2750 5300 2750
-Wire Wire Line
-	4900 2850 5300 2850
-Wire Wire Line
-	4900 2950 5300 2950
-Wire Wire Line
-	4900 3050 5300 3050
-Wire Wire Line
-	4900 3150 5300 3150
-Wire Wire Line
-	4900 3250 5300 3250
-Wire Wire Line
-	4900 3450 5300 3450
-Wire Wire Line
-	4900 3550 5300 3550
-Wire Wire Line
-	4900 3650 5300 3650
-Wire Wire Line
-	4900 3750 5300 3750
-Wire Wire Line
-	4900 3850 5300 3850
-Wire Wire Line
-	4900 3950 5300 3950
-Wire Wire Line
-	4900 4050 5300 4050
-Wire Wire Line
-	4900 4150 5300 4150
 Text Label 2150 1750 0    50   ~ 0
 ~RESET
 Text Label 2150 1950 0    50   ~ 0
@@ -183,54 +135,6 @@ Text Label 4150 3350 2    50   ~ 0
 ~IRQ6
 Text Label 4150 3450 2    50   ~ 0
 ~IRQ7
-Text Label 4900 1750 0    50   ~ 0
-IBUS0
-Text Label 4900 1850 0    50   ~ 0
-IBUS1
-Text Label 4900 1950 0    50   ~ 0
-IBUS2
-Text Label 4900 2050 0    50   ~ 0
-IBUS3
-Text Label 4900 2150 0    50   ~ 0
-IBUS4
-Text Label 4900 2250 0    50   ~ 0
-IBUS5
-Text Label 4900 2350 0    50   ~ 0
-IBUS6
-Text Label 4900 2450 0    50   ~ 0
-IBUS7
-Text Label 4900 2550 0    50   ~ 0
-IBUS8
-Text Label 4900 2650 0    50   ~ 0
-IBUS9
-Text Label 4900 2750 0    50   ~ 0
-IBUS10
-Text Label 4900 2850 0    50   ~ 0
-IBUS11
-Text Label 4900 2950 0    50   ~ 0
-IBUS12
-Text Label 4900 3050 0    50   ~ 0
-IBUS13
-Text Label 4900 3150 0    50   ~ 0
-IBUS14
-Text Label 4900 3250 0    50   ~ 0
-IBUS15
-Text Label 4900 3450 0    50   ~ 0
-FPD0
-Text Label 4900 3550 0    50   ~ 0
-FPD1
-Text Label 4900 3650 0    50   ~ 0
-FPD2
-Text Label 4900 3750 0    50   ~ 0
-FPD3
-Text Label 4900 3850 0    50   ~ 0
-FPD4
-Text Label 4900 3950 0    50   ~ 0
-FPD5
-Text Label 4900 4050 0    50   ~ 0
-FPD6
-Text Label 4900 4150 0    50   ~ 0
-FPD7
 Wire Wire Line
 	2550 2750 2150 2750
 Wire Wire Line
@@ -960,48 +864,6 @@ $EndComp
 Connection ~ 9850 5250
 Wire Wire Line
 	9850 5250 9850 5200
-NoConn ~ 4900 1750
-NoConn ~ 4900 1850
-NoConn ~ 4900 1950
-NoConn ~ 4900 2050
-NoConn ~ 4900 2150
-NoConn ~ 4900 2250
-NoConn ~ 4900 2350
-NoConn ~ 4900 2450
-NoConn ~ 4900 2550
-NoConn ~ 4900 2650
-NoConn ~ 4900 2750
-NoConn ~ 4900 2850
-NoConn ~ 4900 2950
-NoConn ~ 4900 3050
-NoConn ~ 4900 3150
-NoConn ~ 4900 3250
-NoConn ~ 4900 3450
-NoConn ~ 4900 3550
-NoConn ~ 4900 3650
-NoConn ~ 4900 3750
-NoConn ~ 4900 3850
-NoConn ~ 4900 3950
-NoConn ~ 4900 4050
-NoConn ~ 4900 4150
-NoConn ~ 6950 4150
-NoConn ~ 6950 4050
-NoConn ~ 6950 3950
-NoConn ~ 6950 3850
-NoConn ~ 6950 3750
-NoConn ~ 6950 3650
-NoConn ~ 6950 3550
-NoConn ~ 6950 3450
-NoConn ~ 6950 3350
-NoConn ~ 6950 3250
-NoConn ~ 6950 3150
-NoConn ~ 6950 3050
-NoConn ~ 6950 2950
-NoConn ~ 6950 2850
-NoConn ~ 6950 2350
-NoConn ~ 6950 2250
-NoConn ~ 6950 2150
-NoConn ~ 6950 2050
 Text HLabel 6950 2750 2    50   UnSpc ~ 0
 ~WUEN
 Text HLabel 6950 2650 2    50   UnSpc ~ 0
@@ -1037,31 +899,31 @@ Text HLabel 6950 2550 2    50   UnSpc ~ 0
 Text HLabel 6950 2450 2    50   UnSpc ~ 0
 ~ENDEXT
 Wire Wire Line
-	6500 2950 6950 2950
+	6500 2950 6900 2950
 Wire Wire Line
-	6500 3050 6950 3050
+	6500 3050 6900 3050
 Wire Wire Line
-	6500 3150 6950 3150
+	6500 3150 6900 3150
 Wire Wire Line
-	6500 3250 6950 3250
+	6500 3250 6900 3250
 Wire Wire Line
-	6500 3350 6950 3350
+	6500 3350 6900 3350
 Wire Wire Line
-	6500 3450 6950 3450
+	6500 3450 6900 3450
 Wire Wire Line
-	6500 3550 6950 3550
+	6500 3550 6900 3550
 Wire Wire Line
-	6500 3650 6950 3650
+	6500 3650 6900 3650
 Wire Wire Line
-	6500 3750 6950 3750
+	6500 3750 6900 3750
 Wire Wire Line
-	6500 3850 6950 3850
+	6500 3850 6900 3850
 Wire Wire Line
-	6500 3950 6950 3950
+	6500 3950 6900 3950
 Wire Wire Line
-	6500 4050 6950 4050
+	6500 4050 6900 4050
 Wire Wire Line
-	6500 4150 6950 4150
+	6500 4150 6900 4150
 Text Label 6900 2850 2    50   ~ 0
 RADDR0
 Text Label 6900 2950 2    50   ~ 0
@@ -1103,23 +965,171 @@ Wire Wire Line
 Wire Wire Line
 	6500 2450 6950 2450
 Wire Wire Line
-	6500 2850 6950 2850
+	6500 2850 6900 2850
+Entry Wire Line
+	4250 2750 4350 2850
+Entry Wire Line
+	4250 2850 4350 2950
+Entry Wire Line
+	4250 2950 4350 3050
+Entry Wire Line
+	4250 3050 4350 3150
+Entry Wire Line
+	4250 3150 4350 3250
+Entry Wire Line
+	4250 3250 4350 3350
+Entry Wire Line
+	4250 3350 4350 3450
+Entry Wire Line
+	4250 3450 4350 3550
 Wire Wire Line
-	3750 2750 4150 2750
+	3750 2750 4250 2750
 Wire Wire Line
-	3750 2850 4150 2850
+	3750 2850 4250 2850
 Wire Wire Line
-	3750 2950 4150 2950
+	3750 2950 4250 2950
 Wire Wire Line
-	3750 3050 4150 3050
+	3750 3050 4250 3050
 Wire Wire Line
-	3750 3150 4150 3150
+	3750 3150 4250 3150
 Wire Wire Line
-	3750 3250 4150 3250
+	3750 3250 4250 3250
 Wire Wire Line
-	3750 3350 4150 3350
+	3750 3350 4250 3350
 Wire Wire Line
-	3750 3450 4150 3450
+	3750 3450 4250 3450
+Wire Bus Line
+	4350 5400 4200 5550
+Wire Bus Line
+	4200 5550 1350 5550
+Text HLabel 1350 5550 0    50   UnSpc ~ 0
+~IRQ[0..7]
+Text Label 1450 5550 0    50   ~ 0
+~IRQ[0..7]
+Text Label 4900 4150 0    50   ~ 0
+FPD7
+Text Label 4900 4050 0    50   ~ 0
+FPD6
+Text Label 4900 3950 0    50   ~ 0
+FPD5
+Text Label 4900 3850 0    50   ~ 0
+FPD4
+Text Label 4900 3750 0    50   ~ 0
+FPD3
+Text Label 4900 3650 0    50   ~ 0
+FPD2
+Text Label 4900 3550 0    50   ~ 0
+FPD1
+Text Label 4900 3450 0    50   ~ 0
+FPD0
+Text Label 4900 3250 0    50   ~ 0
+IBUS15
+Text Label 4900 3150 0    50   ~ 0
+IBUS14
+Text Label 4900 3050 0    50   ~ 0
+IBUS13
+Text Label 4900 2950 0    50   ~ 0
+IBUS12
+Text Label 4900 2850 0    50   ~ 0
+IBUS11
+Text Label 4900 2750 0    50   ~ 0
+IBUS10
+Text Label 4900 2650 0    50   ~ 0
+IBUS9
+Text Label 4900 2550 0    50   ~ 0
+IBUS8
+Text Label 4900 2450 0    50   ~ 0
+IBUS7
+Text Label 4900 2350 0    50   ~ 0
+IBUS6
+Text Label 4900 2250 0    50   ~ 0
+IBUS5
+Text Label 4900 2150 0    50   ~ 0
+IBUS4
+Text Label 4900 2050 0    50   ~ 0
+IBUS3
+Text Label 4900 1950 0    50   ~ 0
+IBUS2
+Text Label 4900 1850 0    50   ~ 0
+IBUS1
+Text Label 4900 1750 0    50   ~ 0
+IBUS0
+Wire Wire Line
+	4900 4150 5300 4150
+Wire Wire Line
+	4900 4050 5300 4050
+Wire Wire Line
+	4900 3950 5300 3950
+Wire Wire Line
+	4900 3850 5300 3850
+Wire Wire Line
+	4900 3750 5300 3750
+Wire Wire Line
+	4900 3650 5300 3650
+Wire Wire Line
+	4900 3550 5300 3550
+Wire Wire Line
+	4900 3450 5300 3450
+Wire Wire Line
+	4900 3250 5300 3250
+Wire Wire Line
+	4900 3150 5300 3150
+Wire Wire Line
+	4900 3050 5300 3050
+Wire Wire Line
+	4900 2950 5300 2950
+Wire Wire Line
+	4900 2850 5300 2850
+Wire Wire Line
+	4900 2750 5300 2750
+Wire Wire Line
+	4900 2650 5300 2650
+Wire Wire Line
+	4900 2550 5300 2550
+Wire Wire Line
+	4900 2450 5300 2450
+Wire Wire Line
+	4900 2350 5300 2350
+Wire Wire Line
+	4900 2250 5300 2250
+Wire Wire Line
+	4900 2150 5300 2150
+Wire Wire Line
+	4900 2050 5300 2050
+Wire Wire Line
+	4900 1950 5300 1950
+Wire Wire Line
+	4900 1850 5300 1850
+Wire Wire Line
+	4900 1750 5300 1750
+Text HLabel 6950 2050 2    50   UnSpc ~ 0
+RSVD1
+Text HLabel 6950 2150 2    50   UnSpc ~ 0
+RSVD2
+Text HLabel 6950 2250 2    50   UnSpc ~ 0
+RSVD3
+Text HLabel 6950 2350 2    50   UnSpc ~ 0
+RSVD4
+Text HLabel 1350 5650 0    50   UnSpc ~ 0
+RADDR[0..4]
+Text HLabel 1350 5750 0    50   UnSpc ~ 0
+WADDR[0..4]
+Text HLabel 1350 5850 0    50   UnSpc ~ 0
+ACTION[0..3]
+Wire Bus Line
+	1350 5650 1900 5650
+Text Label 1900 5650 2    50   ~ 0
+RADDR[0..4]
+Wire Bus Line
+	1350 5750 1900 5750
+Text Label 1900 5750 2    50   ~ 0
+WADDR[0..4]
+Wire Bus Line
+	1350 5850 1900 5850
+Text Label 1900 5850 2    50   ~ 0
+ACTION[0..3]
+Wire Bus Line
+	4350 2850 4350 5400
 Wire Bus Line
 	4250 3650 4250 5350
 Wire Bus Line
