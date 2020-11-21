@@ -1980,7 +1980,7 @@ _dfp_diags_pod(const char *msg, uint8_t addr_h, uint8_t addr_l)
 }
 
 
-static void
+static inline void
 dfp_diags_ibus_pod()
 {
         clearbit(PORTC, C_NIBOE);
@@ -1989,7 +1989,7 @@ dfp_diags_ibus_pod()
 }
 
 
-static void
+static inline void
 dfp_diags_ab_pod()
 {
         clearbit(PORTC, C_NABOE);
@@ -1998,7 +1998,7 @@ dfp_diags_ab_pod()
 }
 
 
-static void
+static inline void
 dfp_diags_db_pod()
 {
         clearbit(PORTC, C_NDBOE);
