@@ -64,6 +64,7 @@ AVRCFLAGS	+=	-std=gnu99
 #AVCRFLAGS	+=	-gstabs
 #AVRCFLAGS	+=	-Wl,-static
 AVRCFLAGS	+=	-fdata-sections
+AVRCFLAGS	+=	-fmerge-all-constants
 AVRCFLAGS	+=	-ffunction-sections
 AVRCFLAGS	+=	-funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums
 AVRCFLAGS	+=	-fno-inline-small-functions -fno-tree-scev-cprop -fno-split-wide-types
