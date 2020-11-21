@@ -73,6 +73,14 @@ extern volatile uistate_t uistate;
 ///////////////////////////////////////////////////////////////////////////////
 
 // 1xx: Boot-time Diagnostics
+#define STR_BOOTUP  "\n\r\n\r100 DFP reset\n"
+#define STR_D_FPDQ  "101 DFP Quiescence: "
+#define STR_D_IBUSQ "102 IBUS Bus Hold & Quiescence: "
+#define STR_D_ABQ   "103 AB Bus Hold & Quiescence: "
+#define STR_D_DBQ   "104 DB Bus Hold & Quiescence: "
+#define STR_D_IBUSP "105 IBUS Pod: "
+#define STR_D_ABP   "106 AB Pod: "
+#define STR_D_DBP   "107 DB Pod: "
 
 // 2xx: Information retrieved
 #define STR_READY   "200 Ready\n"
@@ -147,8 +155,10 @@ extern volatile uistate_t uistate;
 #define STR_UNKERR  "699 Unknown error"
 
 // 9xx: Diagnostic faults
+#define STR_DIAGF   "901 Diagnostics failed.\n"
 #define STR_NVMIS   "910 Value mismatch. Wrote "
-#define STR_WAS          ", was "
+
+#define STR_WAS          ", read back "
 
 #define STR_PROMPT  "> "
 #define STR_PRUN    "[running]" STR_PROMPT
@@ -156,6 +166,8 @@ extern volatile uistate_t uistate;
 // #define STR_PNOPROC "[no processor]"
 #define STR_ON      "on"
 #define STR_OFF     "off"
+#define STR_D_PASS  "pass\n"
+#define STR_D_FAIL  "FAIL!\n"
 
 // The blocksize for block-oriented writes.
 #define BLOCKSIZE ((BUFSIZE - 3) / 5)
@@ -191,10 +203,6 @@ extern volatile uistate_t uistate;
 // #define STR_D_ACCHK "109 AC: "
 // #define STR_D_PCCHK "110 PC: "
 // #define STR_D_IRCHK "111 IR: "
-
-#define STR_D_OK    "OK\n"
-#define STR_D_FAIL  "faulty\n"
-
 
 // #define STR_PROC1   "205 Processor found.\n"
 // #define STR_PROC0   "206 No processor.\n"
