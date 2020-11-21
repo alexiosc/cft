@@ -385,10 +385,6 @@ NoConn ~ 7800 3300
 NoConn ~ 7800 3400
 NoConn ~ 7800 4800
 Wire Wire Line
-	9500 2500 10100 2500
-Wire Wire Line
-	9500 2400 10100 2400
-Wire Wire Line
 	9500 1600 9850 1600
 Wire Wire Line
 	9500 1700 9850 1700
@@ -587,10 +583,6 @@ Text Label 900  7100 0    50   ~ 0
 FZ
 Text Label 900  7200 0    50   ~ 0
 FN
-Wire Wire Line
-	9500 2700 10100 2700
-Wire Wire Line
-	9500 2800 10100 2800
 Text Label 10100 2700 2    50   ~ 0
 FZ
 Text Label 10100 2800 2    50   ~ 0
@@ -599,18 +591,6 @@ Text Notes 10150 2700 0    50   ~ 0
 ← REG
 Text Notes 10150 2800 0    50   ~ 0
 ← REG
-Wire Wire Line
-	9500 2900 10100 2900
-Wire Wire Line
-	9500 3000 10100 3000
-Wire Wire Line
-	9500 3100 10100 3100
-Wire Wire Line
-	9500 3200 10100 3200
-Wire Wire Line
-	9500 3300 10100 3300
-Wire Wire Line
-	9500 3400 10100 3400
 Text Label 10100 2900 2    50   ~ 0
 PC10
 Text Label 10100 3000 2    50   ~ 0
@@ -697,20 +677,8 @@ Text Notes 800  1000 0    100  ~ 20
 The Control Unit Board
 Text Notes 800  1800 0    50   ~ 0
 This board contains a number of relatively simple units. The interconnections and feeback loops between these units\nmake this a Turing Complete design, and an actual processor at that. Nearly every unit here except the clock generator\nfeeds back into another one. The core of the design is the Microcode Sequencer unit. It outputs the correct sequence\nof 24 control signals to execute an instruction. The Instruction Register holds the instruction being executed. The\nSkip and Branch Unit can be queried by the Sequencer to make decisions. The two Addressing Modes sub-units\ninterpret parts of the IR to tell the Sequencer exactly how to interpret instruction operands. The Flag Unit is crucial\nin implemting subroutines, interrupts and re-entrancy by storing and retrieving flag values. And the Interrupt Unit\nnotifies the Sequencer about external interrupt requests.
-Text Notes 10200 5200 0    50   ~ 0
-For future expansion
-Text Notes 10200 5300 0    50   ~ 0
-For future expansion
-Text Notes 10200 5100 0    50   ~ 0
-For future expansion
-Text Notes 10200 4800 0    50   ~ 0
-For future expansion
-Text Notes 10200 4900 0    50   ~ 0
-For future expansion
-Text Notes 10200 5000 0    50   ~ 0
-For future expansion
-Text Notes 10200 4700 0    50   ~ 0
-For future expansion
+Text Notes 10150 4700 0    50   ~ 0
+Future expansion
 Text Label 10100 4200 2    50   ~ 0
 ~FPµC2
 Text Label 10100 4100 2    50   ~ 0
@@ -719,14 +687,6 @@ Text Label 10100 4000 2    50   ~ 0
 ~FPµC0
 Text Label 10100 3900 2    50   ~ 0
 ~FPµA0
-Wire Wire Line
-	9500 4200 10100 4200
-Wire Wire Line
-	9500 4100 10100 4100
-Wire Wire Line
-	9500 4000 10100 4000
-Wire Wire Line
-	9500 3900 10100 3900
 Text Notes 10150 3900 0    50   ~ 0
 ← DFP
 Text Notes 10150 4000 0    50   ~ 0
@@ -735,10 +695,6 @@ Text Notes 10150 4100 0    50   ~ 0
 ← DFP
 Text Notes 10150 4200 0    50   ~ 0
 ← DFP
-Wire Wire Line
-	9500 4300 10100 4300
-Wire Wire Line
-	9500 4400 10100 4400
 Text Label 10100 4300 2    50   ~ 0
 ~FPIRL
 Text Label 10100 4400 2    50   ~ 0
@@ -765,14 +721,10 @@ Text Label 3250 6950 2    50   ~ 0
 ~WRITE-IR
 Text Label 900  2250 0    50   ~ 0
 ~RESET
-Wire Wire Line
-	9500 2300 10100 2300
 Text Label 10100 2300 2    50   ~ 0
 ~WEN
 Text Notes 10150 2300 0    50   ~ 0
-← BUS
-Wire Wire Line
-	9500 4500 10100 4500
+→ BUS
 Text Notes 10150 4500 0    50   ~ 0
 ← DFP
 Text Label 10100 4500 2    50   ~ 0
@@ -1269,6 +1221,338 @@ Text Label 6400 4800 0    50   ~ 0
 Text Label 6400 5400 0    50   ~ 0
 ~WS
 NoConn ~ 10100 5500
+Text Notes 9750 5800 0    50   ~ 0
+Pull-downs above are for testing\nCTL board without other boards.
+$Comp
+L power:GND #PWR024
+U 1 1 60407157
+P 11050 4550
+F 0 "#PWR024" H 11050 4300 50  0001 C CNN
+F 1 "GND" H 11055 4377 50  0000 C CNN
+F 2 "" H 11050 4550 50  0001 C CNN
+F 3 "" H 11050 4550 50  0001 C CNN
+	1    11050 4550
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	11050 4500 11050 4550
+Connection ~ 11050 4500
+Wire Wire Line
+	10950 4500 11050 4500
+Wire Wire Line
+	11050 4400 11050 4500
+Connection ~ 11050 4400
+Wire Wire Line
+	10950 4400 11050 4400
+Wire Wire Line
+	11050 4300 11050 4400
+Connection ~ 11050 4300
+Wire Wire Line
+	10950 4300 11050 4300
+Wire Wire Line
+	11050 4200 11050 4300
+Connection ~ 11050 4200
+Wire Wire Line
+	10950 4200 11050 4200
+Wire Wire Line
+	11050 4100 11050 4200
+Connection ~ 11050 4100
+Wire Wire Line
+	10950 4100 11050 4100
+Wire Wire Line
+	11050 4000 11050 4100
+Connection ~ 11050 4000
+Wire Wire Line
+	10950 4000 11050 4000
+Wire Wire Line
+	11050 3900 11050 4000
+Connection ~ 11050 3900
+Wire Wire Line
+	10950 3900 11050 3900
+Wire Wire Line
+	10950 3400 11050 3400
+Wire Wire Line
+	11050 3300 11050 3400
+Connection ~ 11050 3300
+Wire Wire Line
+	10950 3300 11050 3300
+Wire Wire Line
+	11050 3200 11050 3300
+Connection ~ 11050 3200
+Wire Wire Line
+	10950 3200 11050 3200
+Wire Wire Line
+	11050 3100 11050 3200
+Connection ~ 11050 3100
+Wire Wire Line
+	10950 3100 11050 3100
+Wire Wire Line
+	11050 3000 11050 3100
+Connection ~ 11050 3000
+Wire Wire Line
+	10950 3000 11050 3000
+Wire Wire Line
+	11050 2900 11050 3000
+Connection ~ 11050 2900
+Wire Wire Line
+	10950 2900 11050 2900
+Wire Wire Line
+	11050 2800 11050 2900
+Connection ~ 11050 2800
+Wire Wire Line
+	10950 2800 11050 2800
+Wire Wire Line
+	11050 2700 11050 2800
+Connection ~ 11050 2700
+Wire Wire Line
+	10950 2700 11050 2700
+Wire Wire Line
+	11050 2500 11050 2700
+Connection ~ 11050 2500
+Wire Wire Line
+	10950 2500 11050 2500
+Wire Wire Line
+	11050 2400 11050 2500
+Wire Wire Line
+	10950 2400 11050 2400
+$Comp
+L Device:R_Small R70
+U 1 1 60247920
+P 10850 4500
+F 0 "R70" V 10800 4650 50  0000 C CNN
+F 1 "4.7kΩ" V 10750 4350 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10850 4500 50  0001 C CNN
+F 3 "~" H 10850 4500 50  0001 C CNN
+	1    10850 4500
+	0    -1   1    0   
+$EndComp
+$Comp
+L Device:R_Small R69
+U 1 1 60237976
+P 10850 4400
+F 0 "R69" V 10800 4550 50  0000 C CNN
+F 1 "4.7kΩ" V 10750 4250 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10850 4400 50  0001 C CNN
+F 3 "~" H 10850 4400 50  0001 C CNN
+	1    10850 4400
+	0    -1   1    0   
+$EndComp
+$Comp
+L Device:R_Small R68
+U 1 1 60237970
+P 10850 4300
+F 0 "R68" V 10800 4450 50  0000 C CNN
+F 1 "4.7kΩ" V 10750 4150 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10850 4300 50  0001 C CNN
+F 3 "~" H 10850 4300 50  0001 C CNN
+	1    10850 4300
+	0    -1   1    0   
+$EndComp
+$Comp
+L Device:R_Small R67
+U 1 1 60227976
+P 10850 4200
+F 0 "R67" V 10800 4350 50  0000 C CNN
+F 1 "4.7kΩ" V 10750 4050 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10850 4200 50  0001 C CNN
+F 3 "~" H 10850 4200 50  0001 C CNN
+	1    10850 4200
+	0    -1   1    0   
+$EndComp
+$Comp
+L Device:R_Small R66
+U 1 1 60227970
+P 10850 4100
+F 0 "R66" V 10800 4250 50  0000 C CNN
+F 1 "4.7kΩ" V 10750 3950 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10850 4100 50  0001 C CNN
+F 3 "~" H 10850 4100 50  0001 C CNN
+	1    10850 4100
+	0    -1   1    0   
+$EndComp
+$Comp
+L Device:R_Small R65
+U 1 1 601F7737
+P 10850 4000
+F 0 "R65" V 10800 4150 50  0000 C CNN
+F 1 "4.7kΩ" V 10750 3850 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10850 4000 50  0001 C CNN
+F 3 "~" H 10850 4000 50  0001 C CNN
+	1    10850 4000
+	0    -1   1    0   
+$EndComp
+$Comp
+L Device:R_Small R64
+U 1 1 601F7731
+P 10850 3900
+F 0 "R64" V 10800 4050 50  0000 C CNN
+F 1 "4.7kΩ" V 10750 3750 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10850 3900 50  0001 C CNN
+F 3 "~" H 10850 3900 50  0001 C CNN
+	1    10850 3900
+	0    -1   1    0   
+$EndComp
+$Comp
+L Device:R_Small R63
+U 1 1 601C6ACC
+P 10850 3400
+F 0 "R63" V 10800 3550 50  0000 C CNN
+F 1 "4.7kΩ" V 10750 3250 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10850 3400 50  0001 C CNN
+F 3 "~" H 10850 3400 50  0001 C CNN
+	1    10850 3400
+	0    -1   1    0   
+$EndComp
+$Comp
+L Device:R_Small R62
+U 1 1 601C6AC6
+P 10850 3300
+F 0 "R62" V 10800 3450 50  0000 C CNN
+F 1 "4.7kΩ" V 10750 3150 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10850 3300 50  0001 C CNN
+F 3 "~" H 10850 3300 50  0001 C CNN
+	1    10850 3300
+	0    -1   1    0   
+$EndComp
+$Comp
+L Device:R_Small R61
+U 1 1 601B696E
+P 10850 3200
+F 0 "R61" V 10800 3350 50  0000 C CNN
+F 1 "4.7kΩ" V 10750 3050 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10850 3200 50  0001 C CNN
+F 3 "~" H 10850 3200 50  0001 C CNN
+	1    10850 3200
+	0    -1   1    0   
+$EndComp
+$Comp
+L Device:R_Small R60
+U 1 1 601B6968
+P 10850 3100
+F 0 "R60" V 10800 3250 50  0000 C CNN
+F 1 "4.7kΩ" V 10750 2950 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10850 3100 50  0001 C CNN
+F 3 "~" H 10850 3100 50  0001 C CNN
+	1    10850 3100
+	0    -1   1    0   
+$EndComp
+$Comp
+L Device:R_Small R59
+U 1 1 601A6784
+P 10850 3000
+F 0 "R59" V 10800 3150 50  0000 C CNN
+F 1 "4.7kΩ" V 10750 2850 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10850 3000 50  0001 C CNN
+F 3 "~" H 10850 3000 50  0001 C CNN
+	1    10850 3000
+	0    -1   1    0   
+$EndComp
+$Comp
+L Device:R_Small R58
+U 1 1 601A677E
+P 10850 2900
+F 0 "R58" V 10800 3050 50  0000 C CNN
+F 1 "4.7kΩ" V 10750 2750 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10850 2900 50  0001 C CNN
+F 3 "~" H 10850 2900 50  0001 C CNN
+	1    10850 2900
+	0    -1   1    0   
+$EndComp
+$Comp
+L Device:R_Small R57
+U 1 1 60196662
+P 10850 2800
+F 0 "R57" V 10800 2950 50  0000 C CNN
+F 1 "4.7kΩ" V 10750 2650 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10850 2800 50  0001 C CNN
+F 3 "~" H 10850 2800 50  0001 C CNN
+	1    10850 2800
+	0    -1   1    0   
+$EndComp
+$Comp
+L Device:R_Small R26
+U 1 1 6019665C
+P 10850 2700
+F 0 "R26" V 10800 2850 50  0000 C CNN
+F 1 "4.7kΩ" V 10750 2550 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10850 2700 50  0001 C CNN
+F 3 "~" H 10850 2700 50  0001 C CNN
+	1    10850 2700
+	0    -1   1    0   
+$EndComp
+$Comp
+L Device:R_Small R4
+U 1 1 60185C13
+P 10850 2500
+F 0 "R4" V 10800 2650 50  0000 C CNN
+F 1 "4.7kΩ" V 10750 2350 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10850 2500 50  0001 C CNN
+F 3 "~" H 10850 2500 50  0001 C CNN
+	1    10850 2500
+	0    -1   1    0   
+$EndComp
+$Comp
+L Device:R_Small R3
+U 1 1 6018580D
+P 10850 2400
+F 0 "R3" V 10800 2550 50  0000 C CNN
+F 1 "4.7kΩ" V 10750 2250 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10850 2400 50  0001 C CNN
+F 3 "~" H 10850 2400 50  0001 C CNN
+	1    10850 2400
+	0    -1   1    0   
+$EndComp
+Wire Wire Line
+	9500 2500 10750 2500
+Wire Wire Line
+	9500 2400 10750 2400
+Wire Wire Line
+	9500 2700 10750 2700
+Wire Wire Line
+	9500 2800 10750 2800
+Wire Wire Line
+	9500 2900 10750 2900
+Wire Wire Line
+	9500 3000 10750 3000
+Wire Wire Line
+	9500 3100 10750 3100
+Wire Wire Line
+	9500 3200 10750 3200
+Wire Wire Line
+	9500 3300 10750 3300
+Wire Wire Line
+	9500 3400 10750 3400
+Wire Wire Line
+	9500 2300 10100 2300
+Wire Wire Line
+	9500 4200 10750 4200
+Wire Wire Line
+	9500 4100 10750 4100
+Wire Wire Line
+	9500 4000 10750 4000
+Wire Wire Line
+	9500 3900 10750 3900
+Wire Wire Line
+	9500 4300 10750 4300
+Wire Wire Line
+	9500 4400 10750 4400
+Wire Wire Line
+	9500 4500 10750 4500
+Text Notes 10150 4800 0    50   ~ 0
+Future expansion
+Text Notes 10150 4900 0    50   ~ 0
+Future expansion
+Text Notes 10150 5000 0    50   ~ 0
+Future expansion
+Text Notes 10150 5100 0    50   ~ 0
+Future expansion
+Text Notes 10150 5200 0    50   ~ 0
+Future expansion
+Text Notes 10150 5300 0    50   ~ 0
+Future expansion
+Wire Wire Line
+	11050 3400 11050 3900
+Connection ~ 11050 3400
 Wire Bus Line
 	9950 1450 9950 2100
 Wire Bus Line
