@@ -22,6 +22,7 @@
 #include <avr/interrupt.h>
 #include <avr/pgmspace.h>
 #include <avr/wdt.h>
+#include <avr/cpufunc.h>
 
 #include "dfp.h"
 #include "utils.h"
@@ -34,6 +35,8 @@
 #else
 #define ATOMIC_BLOCK(x)
 #endif
+
+#define setuptime() { _NOP(); _NOP(); _NOP(); } 
 
 // This 'driver' is only available on the AVR target.
 
@@ -277,6 +280,7 @@ sample()
         // Strobe the BUSCP signal, which causes all the input flip-flops to
         // simultaneously sample their respective buses.
         clearbit(PORTB, B_BUSCP);
+        setuptime();
         setbit(PORTB, B_BUSCP);
 } 
 
@@ -353,7 +357,8 @@ tristate_buses()
         DDRC &= ~(BV(C_NMEM) | BV(C_NIO) | BV(C_NR) | BV(C_NW));
 
         // Tristate the µCV (control vector) outputs too.
-        PORTE |= BV(E_NMCVOE);
+        //PORTE |= BV(E_NMCVOE);
+        PORTE &= ~BV(E_NMCVOE); /* FIXME: DEBUG ONLY!!! This drives constantly to test REG decoders */
 }
 
 
@@ -372,7 +377,8 @@ tristate_ucv()
         DDRC &= ~(BV(C_NMEM) | BV(C_NIO) | BV(C_NR) | BV(C_NW));
 
         // Tristate the µCV (control vector) outputs too.
-        PORTE |= BV(E_NMCVOE);
+        //PORTE |= BV(E_NMCVOE);
+        PORTE &= ~BV(E_NMCVOE); /* FIXME: DEBUG ONLY!!! This drives constantly to test REG decoders */
 }
 
 
@@ -424,15 +430,19 @@ write_to_ibus_unit(uint8_t waddr, uint16_t val)
                 xmem_write(XMEM_WADDR, 0);     // Idle WADDR
                 xmem_write(XMEM_ACTION, 0);    // Idle ACTION
                 clearbit(PORTE, E_NMCVOE);     // Drive the idle control bus
+                setuptime();
 
                 // Write to our IBUS buffers and then drive it
                 xmem_write(XMEM_IBUS_H, (val >> 8) & 0xff);
                 xmem_write(XMEM_IBUS_L, (val & 0xff));
                 clearbit(PORTC, C_NIBOE);
+                setuptime();
 
                 // Now, strobe the WADDR address
                 xmem_write(XMEM_WADDR, waddr);
+                setuptime();
                 xmem_write(XMEM_WADDR, 0);
+                setuptime();
 
                 // Tri-state everything again
                 tristate_buses();
@@ -460,13 +470,16 @@ read_from_ibus_unit(uint8_t raddr, uint16_t * val)
                 xmem_write(XMEM_WADDR, 0);     // Idle WADDR
                 xmem_write(XMEM_ACTION, 0);    // Idle ACTION
                 clearbit(PORTE, E_NMCVOE);     // Drive the control bus
+                setuptime();
 
                 xmem_write(XMEM_RADDR, raddr); // Set RADDR
+                setuptime();
 
                 // Read from the IBUS
+                sample();
                 *val = xmem_read(XMEM_IBUS_H) << 8 | xmem_read(XMEM_IBUS_L);
-
                 xmem_write(XMEM_RADDR, 0);     // Idle RADDR again
+                setuptime();
 
                 // Tri-state everything again
                 tristate_buses();
@@ -1075,24 +1088,43 @@ hw_init()
         uint16_t val = 0;
         uint16_t checkval = 0;
 
+        // Deassert FP-RESET (FOR TESTING)
+        setbit(PORTE, E_NMCVOE);     // Drive the control bus
+        setbit(PORTE, E_NFPRESET);   /* TEST */
+
         for(;;){
                 wdt_reset();
 
                 val += 1;
 
-                for (uint8_t a = 0 ; a < 32; a++) {
+                for (uint8_t a = 8 ; a <= 11; a++) {
                         report_pstr(PSTR("VAL="));
                         report_hex(val, 4);
                         report_pstr(PSTR(" ADDR="));
                         report_hex(a, 2);
-                        report_pstr(PSTR(" write "));
-                        report_hex(val, 4);
-                        errno_t res = write_to_ibus_unit(a, val);
+                        errno_t res;
+
+                        res = write_to_ibus_unit(a, val);
                         if (res != 0) {
                                 report_errno(res);
                                 continue;
                         }
+                        report_pstr(PSTR(" write "));
+                        report_hex(val, 4);
 
+                        // Increment the registers so we know that their value
+                        // isn't the value we've put on the IBUS. (via bus hold)
+
+                        xmem_write(XMEM_ACTION, 0);    // Idle ACTION
+                        xmem_write(XMEM_ACTION, 8);    // Idle ACTION
+                        xmem_write(XMEM_ACTION, 10);    // Idle ACTION
+                        xmem_write(XMEM_ACTION, 12);    // Idle ACTION
+                        xmem_write(XMEM_ACTION, 14);    // Idle ACTION
+                        xmem_write(XMEM_ACTION, 0);    // Idle ACTION
+
+                        setuptime();
+
+                        res = write_to_ibus_unit(0, 0xffff);
                         res = read_from_ibus_unit(a, &checkval);
                         if (res != 0) {
                                 report_errno(res);
@@ -1102,7 +1134,7 @@ hw_init()
                         report_pstr(PSTR(" read back "));
                         report_hex(checkval, 4);
 
-                        if (val == checkval) report_pstr(PSTR("  MATCH\n"));
+                        if ((val + 1) == checkval) report_pstr(PSTR("  MATCH\n"));
                         else report_nl();
                         wdt_reset();
 
@@ -1116,13 +1148,17 @@ hw_init()
 
                 wdt_reset();
                 _delay_ms(500);
-                // wdt_reset();
-                // _delay_ms(500);
-                // wdt_reset();
-                // _delay_ms(500);
-                // wdt_reset();
-                // _delay_ms(500);
                 wdt_reset();
+                _delay_ms(500);
+                wdt_reset();
+                _delay_ms(500);
+                wdt_reset();
+                /* _delay_ms(500); */
+                /* wdt_reset(); */
+                /* _delay_ms(500); */
+                /* wdt_reset(); */
+                /* _delay_ms(500); */
+                /* wdt_reset(); */
         }
 
 
