@@ -19,6 +19,8 @@
 #  error "This driver is meant for an AVR only."
 #endif // AVR
 
+#include <stdlib.h>
+
 #include <avr/interrupt.h>
 #include <avr/pgmspace.h>
 #include <avr/wdt.h>
@@ -42,7 +44,7 @@
 
 // #include "hwcompat.h"
 // #include "panel.h"
-// #include "proto.h"
+#include "proto.h"
 // #include "abstract.h"
 // #include "bus.h"
 // #include "buscmd.h"
@@ -69,6 +71,7 @@ inline static void fp_scanner_start();
 
 static inline void sw_init();
 
+static void dfp_diags();
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -357,8 +360,7 @@ tristate_buses()
         DDRC &= ~(BV(C_NMEM) | BV(C_NIO) | BV(C_NR) | BV(C_NW));
 
         // Tristate the µCV (control vector) outputs too.
-        //PORTE |= BV(E_NMCVOE);
-        PORTE &= ~BV(E_NMCVOE); /* FIXME: DEBUG ONLY!!! This drives constantly to test REG decoders */
+        PORTE |= BV(E_NMCVOE);
 }
 
 
@@ -377,8 +379,7 @@ tristate_ucv()
         DDRC &= ~(BV(C_NMEM) | BV(C_NIO) | BV(C_NR) | BV(C_NW));
 
         // Tristate the µCV (control vector) outputs too.
-        //PORTE |= BV(E_NMCVOE);
-        PORTE &= ~BV(E_NMCVOE); /* FIXME: DEBUG ONLY!!! This drives constantly to test REG decoders */
+        PORTE |= BV(E_NMCVOE);
 }
 
 
@@ -1071,18 +1072,25 @@ hw_init()
         // Wait for signals to stabilise.
         _delay_ms(100);
 
+        // We're booting. Let'em know.
+        report_pstr(PSTR(STR_BOOTUP));
+        
         // ...
 
         // Make Panel work
         fp_release();
 
-
         
 
-        
+
+	// Run diagnostics
+	dfp_diags();
+
+
+
+#if 0
 
         fp_grab();
-
         hwstate.is_halted = 1;
         report_pstr(PSTR("\n\r\n\rBOOTED\n\r"));
         uint16_t val = 0;
@@ -1134,7 +1142,7 @@ hw_init()
                         report_pstr(PSTR(" read back "));
                         report_hex(checkval, 4);
 
-                        if ((val + 1) == checkval) report_pstr(PSTR("  MATCH\n"));
+                        if (val == checkval) report_pstr(PSTR("  MATCH\n"));
                         else report_nl();
                         wdt_reset();
 
@@ -1161,7 +1169,10 @@ hw_init()
                 /* wdt_reset(); */
         }
 
+#endif
 
+
+        
         
 
 #warning "PORTED TO THIS POINT"
@@ -1193,8 +1204,6 @@ hw_init()
 		set_buspu(0);
 	}
 
-	// Run diagnostics
-	dfp_diags();
 
 	// Read the initial state of the front panel switches.
 	deb_sample(0);
@@ -1436,8 +1445,6 @@ sw_scan()
                 // Set PORTF to pull-ups in MS nibble, and set switch address
                 // in LS nibble.
                 PORTF = 0xf0 | (swa & 0x0f);
-                report_bin_pad(PINF >> 4, 4);
-                serial_write(' ');
 
 		for (uint8_t j = 0; j < 4; j++, i++) {
 			// Input from AVR pin, stick the value in the
@@ -1466,16 +1473,6 @@ sw_scan()
 			}
 		}
 	}
-
-        /* if (a > 0) { */
-        /*         for (uint8_t i = 0; i < 8; i++) { */
-        /*                 report_bin_pad(hwstate.switches[i], 8); */
-        /*                 report_c(32); */
-        /*         } */
-        /*         report_nl(); */
-        /* } */
-
-        report_nl();
 }
 
 
@@ -1810,6 +1807,219 @@ set_reg(reg_t reg, uint16_t value)
 }
 
 
+///////////////////////////////////////////////////////////////////////////////
+//
+// DIAGNOSTICS
+//
+///////////////////////////////////////////////////////////////////////////////
+
+// #define NUM_8BIT_PATTERNS 32
+// static const uint8_t _8bit_patterns[NUM_PATTERNS] PROGMEM = {
+//         0x80, 0x40, 0x20, 0x10, 0x08, 0x04, 0x02, 0x01,
+//         0x7f, 0xbf, 0xdf, 0xef, 0xf7, 0xfb, 0xfd, 0xfe,
+//         0x01, 0x03, 0x07, 0x0f, 0x1f, 0x3f, 0x7f, 0xff,
+//         0xfe, 0xfc, 0xf8, 0xf0, 0xe0, 0xc0, 0x80, 0x00
+// };
+
+
+#define NUM_16BIT_PATTERNS 64
+static const uint16_t _16bit_patterns[NUM_16BIT_PATTERNS] PROGMEM = {
+        0x8000, 0x4000, 0x2000, 0x1000, 0x0800, 0x0400, 0x0200, 0x0100,
+        0x0080, 0x0040, 0x0020, 0x0010, 0x0008, 0x0004, 0x0002, 0x0001,
+
+        0x7fff, 0xbfff, 0xdfff, 0xefff, 0xf7ff, 0xfbff, 0xfdff, 0xfeff,
+        0xff7f, 0xffbf, 0xffdf, 0xffef, 0xfff7, 0xfffb, 0xfffd, 0xfffe,
+
+        0x0001, 0x0003, 0x0007, 0x000f, 0x001f, 0x003f, 0x007f, 0x00ff,
+        0x01ff, 0x03ff, 0x07ff, 0x0fff, 0x1fff, 0x3fff, 0x7fff, 0xffff,
+
+        0xfffe, 0xfffc, 0xfff8, 0xfff0, 0xffe0, 0xffc0, 0xff80, 0xff00,
+        0xfe00, 0xfc00, 0xf800, 0xf000, 0xe000, 0xc000, 0x8000, 0x0000
+};
+
+
+// Crash. Repeat the last failure message for 10 seconds, then allow the
+// watchdog to reset the DFP.
+static void
+diag_failure()
+{
+	cli();
+        report_pstr(PSTR(STR_DIAGF));
+	for (uint8_t i = 0; ; i++) {
+		// Blink the STOP light slowly. Hopefully this will work.
+                PORTD ^= _BV(D_LED_STOP);
+                _delay_ms(500);
+                if (i < 20) wdt_reset();
+	}
+
+        // We never get to this point.
+}
+
+
+
+// The FPD bus is used for a great many things: it carries addresses to be
+// latched by the address latch, it carries all data from input or output pods
+// to the Atmega, and it also carries data from the CFT to the front panel. We
+// need to make sure it's healthy.
+//
+// Test strategy:
+//
+// Read data from DFP addresses 0x80 to 0xff, which are undecoded. Bus hold
+// should retrieve the address, and repeated reads shouldn't change this.
+
+static void
+dfp_diags_fpd_quiescence()
+{
+        report_pstr(PSTR(STR_D_FPDQ));
+        for (uint8_t addr = 0xff; addr > 0x80; addr--) {
+                volatile uint8_t data = xmem_read(addr);
+                setuptime();
+                if (data != addr) {
+                        report_pstr(PSTR(STR_D_FAIL));
+                        report_mismatch(PSTR(STR_NVMIS), addr, data);
+                        diag_failure();
+                }
+
+                // Repeat 255 times (around 16µs), check FPD for stability.
+                for (uint8_t reps = 0; reps < 0xff; reps++) {
+                        setuptime();
+                        volatile uint8_t data = xmem_read(addr);
+                        if (data != addr) {
+                                report_pstr(PSTR(STR_D_FAIL));
+                                report_mismatch(PSTR(STR_NVMIS), addr, data);
+                                diag_failure();
+                        }
+                }
+        }
+
+        report_pstr(PSTR(STR_D_PASS));
+}
+
+
+static void
+_dfp_diags_quiescence(const char *diagmsg, uint8_t addr_h, uint8_t addr_l)
+{
+        report_pstr(diagmsg);
+        // for (uint8_t i = 0; i < NUM_16BIT_PATTERNS; i++) {
+        //         uint16_t pattern = (uint16_t) pgm_read_word(&(_16bit_patterns[i]));
+        
+        // Sample the IBUS to begin with.
+        setuptime();
+        sample();
+        uint16_t val = xmem_read(addr_h) << 8 | xmem_read(addr_l);
+
+        // Repeat 65535 times (around 4ms).
+        for (uint16_t reps = 0; reps < 0xffff; reps++) {
+                setuptime();
+                sample();
+
+                uint16_t checkval = 
+                        xmem_read(addr_h) << 8 | xmem_read(addr_l);
+
+                if (val != checkval) {
+                        report_pstr(PSTR(STR_D_FAIL));
+                        report_mismatch(PSTR(STR_NVMIS), val, checkval);
+                        diag_failure();
+                }
+        }
+        report_pstr(PSTR(STR_D_PASS));
+}
+
+
+static inline void
+dfp_diags_ibus_quiescence()
+{
+        _dfp_diags_quiescence(PSTR(STR_D_IBUSQ), XMEM_IBUS_H, XMEM_IBUS_L);
+}
+
+
+static inline void
+dfp_diags_ab_quiescence()
+{
+        _dfp_diags_quiescence(PSTR(STR_D_ABQ), XMEM_AB_H, XMEM_AB_L);
+}
+
+
+static inline void
+dfp_diags_db_quiescence()
+{
+        _dfp_diags_quiescence(PSTR(STR_D_DBQ), XMEM_AB_H, XMEM_DB_L);
+}
+
+
+
+// Test strategy: write values to the pod and read them back. This will verify
+// that pod is driving the relevant bus.
+
+static void
+_dfp_diags_pod(const char *msg, uint8_t addr_h, uint8_t addr_l)
+{
+        report_pstr(msg);
+        uint8_t failures = 0;
+        for (uint8_t i = 0; i < NUM_16BIT_PATTERNS; i++) {
+                uint16_t pattern = (uint16_t) pgm_read_word(&(_16bit_patterns[i]));
+
+                xmem_write(addr_h, (pattern >> 8) & 0xff);
+                xmem_write(addr_l, (pattern & 0xff));
+                setuptime();
+                sample();
+                uint16_t checkval = xmem_read(addr_h) << 8 | xmem_read(addr_l);
+
+                if (pattern != checkval) {
+                        if (failures++ == 0) {
+                                report_pstr(PSTR(STR_D_FAIL));
+                        }
+                        report_mismatch(PSTR(STR_NVMIS), pattern, checkval);
+                }
+        }
+        if (failures) {
+                diag_failure();
+        } else {
+                report_pstr(PSTR(STR_D_PASS));
+        }
+}
+
+
+static void
+dfp_diags_ibus_pod()
+{
+        clearbit(PORTC, C_NIBOE);
+        _dfp_diags_pod(PSTR(STR_D_IBUSP), XMEM_IBUS_H, XMEM_IBUS_L);
+        setbit(PORTC, C_NIBOE);
+}
+
+
+static void
+dfp_diags_ab_pod()
+{
+        clearbit(PORTC, C_NABOE);
+        _dfp_diags_pod(PSTR(STR_D_ABP), XMEM_AB_H, XMEM_AB_L);
+        setbit(PORTC, C_NABOE);
+}
+
+
+static void
+dfp_diags_db_pod()
+{
+        clearbit(PORTC, C_NDBOE);
+        _dfp_diags_pod(PSTR(STR_D_DBP), XMEM_DB_H, XMEM_DB_L);
+        setbit(PORTC, C_NDBOE);
+}
+
+
+static void
+dfp_diags()
+{
+        fp_grab();
+        dfp_diags_fpd_quiescence();
+        dfp_diags_ibus_quiescence();
+        dfp_diags_ab_quiescence();
+        dfp_diags_db_quiescence();
+        dfp_diags_ibus_pod();
+        dfp_diags_ab_pod();
+        dfp_diags_db_pod();
+        fp_release();
+}
 
 
 
@@ -2070,25 +2280,6 @@ test_bushold(uint16_t val)
 // * Test if asserting MEM# or IO# drives AB#.
 // * Test if bus hold is present (values written to AB/DB are sticky over a
 //   long-ish period of time).
-
-#define NUM_PATTERNS 46
-static const uint16_t _diag_patterns[NUM_PATTERNS] = {
-	0x8000, 0x4000, 0x2000, 0x1000,
-	0x0800, 0x0400, 0x0200, 0x0100,
-	0x0080, 0x0040, 0x0020, 0x0010,
-	0x0008, 0x0004, 0x0002, 0x0001,
-
-	0x7fff, 0xbfff, 0xdfff, 0xefff,
-	0xf7ff, 0xfbff, 0xfdff, 0xfeff,
-	0xff7f, 0xffbf, 0xffdf, 0xffef,
-	0xfff7, 0xfffb, 0xfffd, 0xfffe,
-
-	0x1111, 0x3333, 0x7777,
-	0xeeee, 0xcccc, 0x8888,
-
-	0xff00, 0x00ff, 0xf0f0, 0x0f0f, 0xaaaa,
-	0x5555, 0xffff, 0x0000,
-};
 
 inline static bool_t
 detect_cpu()

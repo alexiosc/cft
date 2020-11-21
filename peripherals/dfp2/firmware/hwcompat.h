@@ -69,7 +69,9 @@
 #define strncmp_P strncmp
 #define _delay_us(us) usleep(us)
 #define _delay_ms(us) usleep((us) * 1000)
-#define short_delay() usleep(100);
+#define short_delay() usleep(100)
+#define strlen_P(s) strlen(s)
+#define strnlen_P(s, n) strnlen(s, n)
 
 #define setup() 
 #define hold()

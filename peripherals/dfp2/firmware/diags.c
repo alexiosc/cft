@@ -49,11 +49,7 @@
 
  */
 
-errno_t
-run_diags()
-{
-	
-}
+
 
 
 // End of file.
