@@ -76,15 +76,25 @@ extern volatile uistate_t uistate;
 #define STR_BOOTUP  "\n\r\n\r100 DFP reset\n"
 #define STR_D_FPDQ  "101 DFP Quiescence: "
 #define STR_D_IBUSQ "102 IBUS Bus Hold & Quiescence: "
-#define STR_D_ABQ   "103 AB Bus Hold & Quiescence: "
-#define STR_D_DBQ   "104 DB Bus Hold & Quiescence: "
-#define STR_D_IBUSP "105 IBUS Pod: "
-#define STR_D_ABP   "106 AB Pod: "
-#define STR_D_DBP   "107 DB Pod: "
+#define STR_D_ABLQ  "103 AB LSW Bus Hold & Quiescence: "
+#define STR_D_ABMQ  "104 AB MSW Bus Hold & Quiescence: "
+#define STR_D_DBQ   "105 DB Bus Hold & Quiescence: "
+#define STR_D_IBUSP "106 IBUS Pod: "
+#define STR_D_ABLP  "107 AB LSW Pod: "
+#define STR_D_ABMP  "108 AB MSW Pod: "
+#define STR_D_DBP   "109 DB Pod: "
+#define STR_D_RADDQ "110 RADDR idle: "
+#define STR_D_RADDR "111 RADDR decoding: "
 
 // 2xx: Information retrieved
 #define STR_READY   "200 Ready\n"
-#define STR_MACHINE "299 T0sgQ09NUFVURVI=\n"
+#define STR_HAVECTL "210 CTL"
+#define STR_BRDRESP      " board responded\n"
+#define STR_HAVEREG "211 REG"
+#define STR_HAVEALU "212 ALU"
+#define STR_HAVEBUS "213 BUS"
+
+#define STR_MACHINE "256 T0sgQ09NUFVURVI=\n"
 
 #define STR_FPR1    "240 FP Bus Address: "
 #define STR_FPR2         " Value: "
@@ -125,10 +135,10 @@ extern volatile uistate_t uistate;
 #define STR_GSSP     "55 SP: "
 
 // 4xx: Warnings.
-#define STR_WNOCTL   "420 CTL board not detected\n"
-#define STR_WNOREG   "421 REG board not detected\n"
-#define STR_WNOALU   "422 ALU board not detected\n"
-#define STR_WNOBUS   "423 BUS board not detected\n"
+#define STR_WNOCTL   "410 CTL board not detected\n"
+#define STR_WNOREG   "411 REG board not detected\n"
+#define STR_WNOALU   "412 ALU board not detected\n"
+#define STR_WNOBUS   "413 BUS board not detected\n"
 
 // 5xx: Errors.
 #define STR_BADCMD  "500 Unknown command\n"
@@ -156,6 +166,8 @@ extern volatile uistate_t uistate;
 
 // 9xx: Diagnostic faults
 #define STR_DIAGF   "901 Diagnostics failed.\n"
+#define STR_URRESP1 "902 Unassigned RADDR "
+#define STR_URRESP2      ": wrote "
 #define STR_NVMIS   "910 Value mismatch. Wrote "
 
 #define STR_WAS          ", read back "
@@ -212,7 +224,7 @@ extern volatile uistate_t uistate;
 #define STR_HOF_I        "Ignore\n"
 #define STR_HOF_J        "Jump to: "
 
-#define STR_SR      "220 Switch Register: "
+#define STR_SR      "2xx Switch Register: "
 
 #define STR_IN1     "234 IN Address: "
 #define STR_IN2          " Value: "

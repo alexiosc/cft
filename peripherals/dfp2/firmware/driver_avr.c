@@ -53,6 +53,7 @@
 #include "output.h"
 // #include "switches.h"
 // #include "panel.h"
+#include "microcode_disassembly.h"
 
 
 hwstate_t hwstate;
@@ -1083,7 +1084,7 @@ hw_init()
         
 
 
-	// Run diagnostics
+	// Run diagnostics and detects processor boards.
 	dfp_diags();
 
 
@@ -1903,7 +1904,7 @@ _dfp_diags_quiescence(const char *diagmsg, uint8_t addr_h, uint8_t addr_l)
         // for (uint8_t i = 0; i < NUM_16BIT_PATTERNS; i++) {
         //         uint16_t pattern = (uint16_t) pgm_read_word(&(_16bit_patterns[i]));
         
-        // Sample the IBUS to begin with.
+        // Sample the bus to begin with.
         setuptime();
         sample();
         uint16_t val = xmem_read(addr_h) << 8 | xmem_read(addr_l);
@@ -1934,9 +1935,16 @@ dfp_diags_ibus_quiescence()
 
 
 static inline void
-dfp_diags_ab_quiescence()
+dfp_diags_ab_lsw_quiescence()
 {
-        _dfp_diags_quiescence(PSTR(STR_D_ABQ), XMEM_AB_H, XMEM_AB_L);
+        _dfp_diags_quiescence(PSTR(STR_D_ABLQ), XMEM_AB_M, XMEM_AB_L);
+}
+
+
+static inline void
+dfp_diags_ab_msw_quiescence()
+{
+        _dfp_diags_quiescence(PSTR(STR_D_ABMQ), XMEM_AB_H, XMEM_AB_M);
 }
 
 
@@ -1954,8 +1962,9 @@ dfp_diags_db_quiescence()
 static void
 _dfp_diags_pod(const char *msg, uint8_t addr_h, uint8_t addr_l)
 {
-        report_pstr(msg);
         uint8_t failures = 0;
+
+        report_pstr(msg);
         for (uint8_t i = 0; i < NUM_16BIT_PATTERNS; i++) {
                 uint16_t pattern = (uint16_t) pgm_read_word(&(_16bit_patterns[i]));
 
@@ -1972,6 +1981,7 @@ _dfp_diags_pod(const char *msg, uint8_t addr_h, uint8_t addr_l)
                         report_mismatch(PSTR(STR_NVMIS), pattern, checkval);
                 }
         }
+
         if (failures) {
                 diag_failure();
         } else {
@@ -1990,10 +2000,19 @@ dfp_diags_ibus_pod()
 
 
 static inline void
-dfp_diags_ab_pod()
+dfp_diags_ab_lsw_pod()
 {
         clearbit(PORTC, C_NABOE);
-        _dfp_diags_pod(PSTR(STR_D_ABP), XMEM_AB_H, XMEM_AB_L);
+        _dfp_diags_pod(PSTR(STR_D_ABLP), XMEM_AB_M, XMEM_AB_L);
+        setbit(PORTC, C_NABOE);
+}
+
+
+static inline void
+dfp_diags_ab_msw_pod()
+{
+        clearbit(PORTC, C_NABOE);
+        _dfp_diags_pod(PSTR(STR_D_ABMP), XMEM_AB_H, XMEM_AB_M);
         setbit(PORTC, C_NABOE);
 }
 
@@ -2007,17 +2026,207 @@ dfp_diags_db_pod()
 }
 
 
+// Test strategy: drive the Control Bus, set RADDR = 0 and read from IBUS. The
+// (bus held) value should not change unless a unit is driving the IBUS when
+// RADDR == 0 (no unit should).
+static inline void
+dfp_diags_raddr_quiescence()
+{
+        report_pstr(PSTR(STR_D_RADDQ));
+        for (uint8_t reps = 0; reps < 255; reps++) {
+                uint8_t failures = 0;
+
+                for (uint8_t i = 0; i < NUM_16BIT_PATTERNS; i++) {
+                        uint16_t pattern = (uint16_t) pgm_read_word(&(_16bit_patterns[i]));
+                        
+                        xmem_write(XMEM_IBUS_H, (pattern >> 8) & 0xff);
+                        xmem_write(XMEM_IBUS_L, (pattern & 0xff));
+                        
+                        xmem_write(XMEM_RADDR, 0);     // Idle RADDR
+                        xmem_write(XMEM_WADDR, 0);     // Idle WADDR
+                        xmem_write(XMEM_ACTION, 0);    // Idle ACTION
+                        
+                        clearbit(PORTE, E_NMCVOE);     // Drive the control bus
+                        setuptime();
+                        sample();
+                        uint16_t checkval = xmem_read(XMEM_IBUS_H) << 8 | xmem_read(XMEM_IBUS_L);
+                        setuptime();
+                        setbit(PORTE, E_NMCVOE);       // Release the control bus
+                        
+                        if (pattern != checkval) {
+                                if (failures++ == 0) {
+                                        report_pstr(PSTR(STR_D_FAIL));
+                                }
+                                report_mismatch(PSTR(STR_NVMIS), pattern, checkval);
+                        }
+                }
+
+                // Abandon testing at any failure.
+                if (failures) {
+                        diag_failure();
+                }
+        }
+
+        report_pstr(PSTR(STR_D_PASS));
+}
+
+// Test strategy:
+//
+// * Write a random value to the IBUS.
+// * Set RADDR and attempt a read from the IBUS.
+//
+// If an address we know to be idle or unallocated responded, we've failed
+// diagnostics.
+//
+// If an address responded and it's for a known board, count it. We'll use it
+// to detect installed boards.
+//
+// Repeat the above for various patterns.
+// Repeat the above for all RADDR addresses.
+// Repeat the above a number of times for good measure.
+// Finally, notice that this is pretty complicated!
+
+static inline void
+dfp_diags_raddr()
+{
+        const uint8_t num_reps = 255; // avr-gcc should optimise the variable away.
+
+        // We only have four boards, but valid board numbers are in the range
+        // 1-4. This wastes a byte of stack space while this function is
+        // running. Whatevs.
+        uint16_t detcounts[5] = {0, 0, 0, 0, 0};
+
+        report_pstr(PSTR(STR_D_RADDR));
+
+        for (uint8_t reps = 0; reps < num_reps; reps++) {
+                uint8_t failures = 0;
+
+                // We've already tested RADDR 0, so start with 1.
+                for (uint8_t raddr = 1; raddr < 32; raddr++) {
+
+                        // What board should respond at this address?
+                        uint8_t ofs = pgm_read_byte(&(disasm_raddr_ofs[raddr]));
+                        uint8_t board = pgm_read_byte(&(disasm_raddr[ofs].board));
+                
+                        for (uint8_t i = 0; i < NUM_16BIT_PATTERNS; i++) {
+                                uint16_t pattern = (uint16_t) pgm_read_word(&(_16bit_patterns[i]));
+                        
+                                xmem_write(XMEM_IBUS_H, (pattern >> 8) & 0xff);
+                                xmem_write(XMEM_IBUS_L, (pattern & 0xff));
+                        
+                                xmem_write(XMEM_RADDR, raddr); // Set RADDR
+                                xmem_write(XMEM_WADDR, 0);     // Idle WADDR
+                                xmem_write(XMEM_ACTION, 0);    // Idle ACTION
+                        
+                                clearbit(PORTE, E_NMCVOE);     // Drive the control bus
+                                setuptime();
+                                sample();
+                                uint16_t checkval = xmem_read(XMEM_IBUS_H) << 8 | xmem_read(XMEM_IBUS_L);
+                                setuptime();
+                                setbit(PORTE, E_NMCVOE);       // Release the control bus
+                                xmem_write(XMEM_RADDR, 0);     // Idle RADDR
+
+                                if (pattern != checkval) {
+                                        if (board == 0) {
+                                                // There should be nothing here, but something
+                                                // responded.
+                                                if (failures++ == 0) {
+                                                        report_pstr(PSTR(STR_D_FAIL));
+                                                }
+                                                style_error();
+                                                report_pstr(PSTR(STR_URRESP1));
+                                                style_info();
+                                                report_hex(raddr, 2);
+                                                report_mismatch(PSTR(STR_URRESP2), pattern, checkval);
+                                        } else {
+                                                // A unit we expected to see has
+                                                // responded! Mark this piece of
+                                                // evidence.
+                                                detcounts[board]++;
+                                        }
+                                }
+                        }
+                }
+
+                // Stop after failures in any repetition of the test.
+                if (failures) {
+                        diag_failure();
+                }
+        }
+
+        report_pstr(PSTR(STR_D_PASS));
+
+        // For a board to be detected, it must have responded on all
+        // repetitions on at least one RADDR. Since we don't quite know what
+        // the unit does, and it might output a value we've already put on the
+        // IBUS, we assmut it's driving a constant value and require it to
+        // drive values different from all but one of our test patterns.
+        const uint16_t expected = num_reps * (NUM_16BIT_PATTERNS - 1);
+
+        // Now let's print out detection messages, and update our data structures.
+        if (detcounts[BRD_CTL] >= expected) {
+                hwstate.have_ctl = 1;
+                report_pstr(PSTR(STR_HAVECTL));
+                report_pstr(PSTR(STR_BRDRESP));
+        } else hwstate.have_ctl = 0;
+
+        // For REG, we should have 4*expected, but maybe we have a bad register, and
+        // we'll test soon.
+        if (detcounts[BRD_REG] >= expected) {
+                hwstate.have_reg = 1;
+                report_pstr(PSTR(STR_HAVEREG));
+                report_pstr(PSTR(STR_BRDRESP));
+        } else hwstate.have_reg = 0;
+                
+        if (detcounts[BRD_ALU] >= expected) {
+                hwstate.have_alu = 1;
+                report_pstr(PSTR(STR_HAVEALU));
+                report_pstr(PSTR(STR_BRDRESP));
+        } else hwstate.have_alu = 0;
+                
+        if (detcounts[BRD_BUS] >= expected) {
+                hwstate.have_bus = 1;
+                report_pstr(PSTR(STR_HAVEBUS));
+                report_pstr(PSTR(STR_BRDRESP));
+        } else hwstate.have_bus = 0;
+}
+
+
 static void
 dfp_diags()
 {
+        // Grab full control of the FPD bus and front panel. Also, stop the
+        // processor clock ad de-assert RESET# and RSTHOLD#. Keep the clock
+        // running.
+
         fp_grab();
+        clearbit(PORTG, G_NFPHALT);
+        setbit(PORTE, E_NMCVOE);
+        setbit(PORTE, E_NFPRESET);
+
         dfp_diags_fpd_quiescence();
         dfp_diags_ibus_quiescence();
-        dfp_diags_ab_quiescence();
+        dfp_diags_ab_lsw_quiescence();
+        dfp_diags_ab_msw_quiescence();
         dfp_diags_db_quiescence();
         dfp_diags_ibus_pod();
-        dfp_diags_ab_pod();
+        dfp_diags_ab_lsw_pod();
+        dfp_diags_ab_msw_pod();
         dfp_diags_db_pod();
+        
+        // We don't have direct read access of the addresses on the control bus
+        // (RADDR, WADDR and ACTION), but we can check them indirectly. Any
+        // device that decodes a RADDR address will put a value on the
+        // IBUS. This will also detect processor components.
+
+        dfp_diags_raddr_quiescence();
+        dfp_diags_raddr();
+
+        // dfp_det_ctl();      // Detect CTL and run basic diags
+        // dfp_det_reg();      // Detect REG and run basic diags
+        // dfp_det_alu();
+        // dfp_detdfp_diagdet_bus();      // Detect BUS and run basic diags
+
         fp_release();
 }
 
