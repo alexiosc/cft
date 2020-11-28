@@ -1883,6 +1883,7 @@ dfp_diags_fpd_quiescence()
 
                 // Repeat 255 times (around 16µs), check FPD for stability.
                 for (uint8_t reps = 0; reps < 0xff; reps++) {
+                        wdt_reset();
                         setuptime();
                         volatile uint8_t data = xmem_read(addr);
                         if (data != addr) {
@@ -1911,6 +1912,7 @@ _dfp_diags_quiescence(const char *diagmsg, uint8_t addr_h, uint8_t addr_l)
 
         // Repeat 65535 times (around 4ms).
         for (uint16_t reps = 0; reps < 0xffff; reps++) {
+                wdt_reset();
                 setuptime();
                 sample();
 
@@ -1964,8 +1966,10 @@ _dfp_diags_pod(const char *msg, uint8_t addr_h, uint8_t addr_l)
 {
         uint8_t failures = 0;
 
+again:
         report_pstr(msg);
         for (uint8_t i = 0; i < NUM_16BIT_PATTERNS; i++) {
+                wdt_reset();
                 uint16_t pattern = (uint16_t) pgm_read_word(&(_16bit_patterns[i]));
 
                 xmem_write(addr_h, (pattern >> 8) & 0xff);
@@ -1983,16 +1987,20 @@ _dfp_diags_pod(const char *msg, uint8_t addr_h, uint8_t addr_l)
         }
 
         if (failures) {
+                goto again;
                 diag_failure();
         } else {
                 report_pstr(PSTR(STR_D_PASS));
         }
+
+        tristate_buses();
 }
 
 
 static inline void
 dfp_diags_ibus_pod()
 {
+        tristate_buses();
         clearbit(PORTC, C_NIBOE);
         _dfp_diags_pod(PSTR(STR_D_IBUSP), XMEM_IBUS_H, XMEM_IBUS_L);
         setbit(PORTC, C_NIBOE);
@@ -2002,6 +2010,7 @@ dfp_diags_ibus_pod()
 static inline void
 dfp_diags_ab_lsw_pod()
 {
+        tristate_buses();
         clearbit(PORTC, C_NABOE);
         _dfp_diags_pod(PSTR(STR_D_ABLP), XMEM_AB_M, XMEM_AB_L);
         setbit(PORTC, C_NABOE);
@@ -2011,6 +2020,7 @@ dfp_diags_ab_lsw_pod()
 static inline void
 dfp_diags_ab_msw_pod()
 {
+        tristate_buses();
         clearbit(PORTC, C_NABOE);
         _dfp_diags_pod(PSTR(STR_D_ABMP), XMEM_AB_H, XMEM_AB_M);
         setbit(PORTC, C_NABOE);
@@ -2039,19 +2049,26 @@ dfp_diags_raddr_quiescence()
                 for (uint8_t i = 0; i < NUM_16BIT_PATTERNS; i++) {
                         uint16_t pattern = (uint16_t) pgm_read_word(&(_16bit_patterns[i]));
                         
+                        wdt_reset();
                         xmem_write(XMEM_IBUS_H, (pattern >> 8) & 0xff);
                         xmem_write(XMEM_IBUS_L, (pattern & 0xff));
+                        setuptime();
+                        setbit(PORTC, C_NIBOE);
                         
                         xmem_write(XMEM_RADDR, 0);     // Idle RADDR
                         xmem_write(XMEM_WADDR, 0);     // Idle WADDR
                         xmem_write(XMEM_ACTION, 0);    // Idle ACTION
                         
+                        clearbit(PORTC, C_NIBOE);      // Drive the IBUS
+                        setuptime();
                         clearbit(PORTE, E_NMCVOE);     // Drive the control bus
                         setuptime();
                         sample();
                         uint16_t checkval = xmem_read(XMEM_IBUS_H) << 8 | xmem_read(XMEM_IBUS_L);
                         setuptime();
                         setbit(PORTE, E_NMCVOE);       // Release the control bus
+                        setuptime();
+                        clearbit(PORTC, C_NIBOE);      // Release the IBUS
                         
                         if (pattern != checkval) {
                                 if (failures++ == 0) {
@@ -2089,7 +2106,7 @@ dfp_diags_raddr_quiescence()
 static inline void
 dfp_diags_raddr()
 {
-        const uint8_t num_reps = 255; // avr-gcc should optimise the variable away.
+        const uint8_t num_reps = 64; // avr-gcc should optimise the variable away.
 
         // We only have four boards, but valid board numbers are in the range
         // 1-4. This wastes a byte of stack space while this function is
@@ -2109,6 +2126,7 @@ dfp_diags_raddr()
                         uint8_t board = pgm_read_byte(&(disasm_raddr[ofs].board));
                 
                         for (uint8_t i = 0; i < NUM_16BIT_PATTERNS; i++) {
+                                wdt_reset();
                                 uint16_t pattern = (uint16_t) pgm_read_word(&(_16bit_patterns[i]));
                         
                                 xmem_write(XMEM_IBUS_H, (pattern >> 8) & 0xff);
