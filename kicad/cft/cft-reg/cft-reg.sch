@@ -6,109 +6,119 @@ encoding utf-8
 Sheet 1 6
 Title "4× Major Registers"
 Date ""
-Rev "2021"
+Rev "2047"
 Comp ""
 Comment1 "REG"
-Comment2 ""
+Comment2 "Erratum in 2021: PC.~DEC~ left floating"
 Comment3 ""
 Comment4 ""
 $EndDescr
 $Sheet
-S 9250 1950 1150 4200
+S 9250 1350 1150 4200
 U 5D34E810
 F0 "Left Edge Connector" 50
 F1 "bus.sch" 50
-F2 "FPD[0..7]" U L 9250 3100 50 
-F3 "IBUS[0..15]" U L 9250 2100 50 
-F4 "~RESET" U L 9250 2200 50 
-F5 "CLK1" U L 9250 2300 50 
-F6 "CLK2" U L 9250 2400 50 
-F7 "CLK3" U L 9250 2500 50 
-F8 "CLK4" U L 9250 2600 50 
-F9 "WSTB" U L 9250 2900 50 
-F10 "T34" U L 9250 3000 50 
-F11 "~IRQ" U L 9250 3200 50 
-F12 "~IRQS" U L 9250 3300 50 
-F13 "~RSTHOLD" U L 9250 3500 50 
-F14 "~SYSDEV" U L 9250 3600 50 
-F15 "~IODEV1xx" U L 9250 3700 50 
-F16 "~IODEV2xx" U L 9250 3800 50 
-F17 "~IODEV3xx" U L 9250 3900 50 
-F18 "~MEM" U L 9250 4000 50 
-F19 "~IO" U L 9250 4100 50 
-F20 "~R" U L 9250 4200 50 
-F21 "~W" U L 9250 4300 50 
-F22 "~WS" U L 9250 4400 50 
-F23 "~ENDEXT" U L 9250 4500 50 
-F24 "~SKIPEXT" U L 9250 4600 50 
-F25 "~HALT" U L 9250 4700 50 
-F26 "ACTION[0..3]" U L 9250 5000 50 
-F27 "WADDR[0..4]" U L 9250 5100 50 
-F28 "RADDR[0..4]" U L 9250 5200 50 
-F29 "RSVD[1..4]" U L 9250 5300 50 
-F30 "C1" U R 10400 2100 50 
-F31 "C2" U R 10400 2200 50 
-F32 "C3" U R 10400 2300 50 
-F33 "C4" U R 10400 2400 50 
-F34 "C5" U R 10400 2500 50 
-F35 "C6" U R 10400 2600 50 
-F36 "C7" U R 10400 2700 50 
-F37 "C8" U R 10400 2800 50 
-F38 "C9" U R 10400 2900 50 
-F39 "C10" U R 10400 3000 50 
-F40 "C11" U R 10400 3100 50 
-F41 "C12" U R 10400 3200 50 
-F42 "C13" U R 10400 3300 50 
-F43 "C14" U R 10400 3400 50 
-F44 "C15" U R 10400 3500 50 
-F45 "C16" U R 10400 3600 50 
-F46 "C17" U R 10400 3700 50 
-F47 "C18" U R 10400 3800 50 
-F48 "C19" U R 10400 3900 50 
-F49 "C20" U R 10400 4000 50 
-F50 "C21" U R 10400 4100 50 
-F51 "C22" U R 10400 4200 50 
-F52 "C23" U R 10400 4300 50 
-F53 "C24" U R 10400 4400 50 
-F54 "C25" U R 10400 4500 50 
-F55 "C26" U R 10400 4600 50 
-F56 "C27" U R 10400 4700 50 
-F57 "C28" U R 10400 4800 50 
-F58 "C29" U R 10400 4900 50 
-F59 "C30" U R 10400 5000 50 
-F60 "C31" U R 10400 5100 50 
-F61 "C32" U R 10400 5200 50 
-F62 "C33" U R 10400 5300 50 
-F63 "C34" U R 10400 5400 50 
-F64 "C35" U R 10400 5500 50 
-F65 "C36" U R 10400 5600 50 
-F66 "C37" U R 10400 5700 50 
-F67 "C38" U R 10400 5800 50 
-F68 "C39" U R 10400 5900 50 
-F69 "C40" U R 10400 6000 50 
+F2 "FPD[0..7]" U L 9250 2500 50 
+F3 "IBUS[0..15]" U L 9250 1500 50 
+F4 "~RESET" U L 9250 1600 50 
+F5 "CLK1" U L 9250 1700 50 
+F6 "CLK2" U L 9250 1800 50 
+F7 "CLK3" U L 9250 1900 50 
+F8 "CLK4" U L 9250 2000 50 
+F9 "WSTB" U L 9250 2300 50 
+F10 "T34" U L 9250 2400 50 
+F11 "~IRQ" U L 9250 2600 50 
+F12 "~IRQS" U L 9250 2700 50 
+F13 "~RSTHOLD" U L 9250 2900 50 
+F14 "~SYSDEV" U L 9250 3000 50 
+F15 "~IODEV1xx" U L 9250 3100 50 
+F16 "~IODEV2xx" U L 9250 3200 50 
+F17 "~IODEV3xx" U L 9250 3300 50 
+F18 "~MEM" U L 9250 3400 50 
+F19 "~IO" U L 9250 3500 50 
+F20 "~R" U L 9250 3600 50 
+F21 "~W" U L 9250 3700 50 
+F22 "~WS" U L 9250 3800 50 
+F23 "~ENDEXT" U L 9250 3900 50 
+F24 "~SKIPEXT" U L 9250 4000 50 
+F25 "~HALT" U L 9250 4100 50 
+F26 "ACTION[0..3]" U L 9250 4400 50 
+F27 "WADDR[0..4]" U L 9250 4500 50 
+F28 "RADDR[0..4]" U L 9250 4600 50 
+F29 "RSVD[1..4]" U L 9250 4700 50 
+F30 "C1" U R 10400 1500 50 
+F31 "C2" U R 10400 1600 50 
+F32 "C3" U R 10400 1700 50 
+F33 "C4" U R 10400 1800 50 
+F34 "C5" U R 10400 1900 50 
+F35 "C6" U R 10400 2000 50 
+F36 "C7" U R 10400 2100 50 
+F37 "C8" U R 10400 2200 50 
+F38 "C9" U R 10400 2300 50 
+F39 "C10" U R 10400 2400 50 
+F40 "C11" U R 10400 2500 50 
+F41 "C12" U R 10400 2600 50 
+F42 "C13" U R 10400 2700 50 
+F43 "C14" U R 10400 2800 50 
+F44 "C15" U R 10400 2900 50 
+F45 "C16" U R 10400 3000 50 
+F46 "C17" U R 10400 3100 50 
+F47 "C18" U R 10400 3200 50 
+F48 "C19" U R 10400 3300 50 
+F49 "C20" U R 10400 3400 50 
+F50 "C21" U R 10400 3500 50 
+F51 "C22" U R 10400 3600 50 
+F52 "C23" U R 10400 3700 50 
+F53 "C24" U R 10400 3800 50 
+F54 "C25" U R 10400 3900 50 
+F55 "C26" U R 10400 4000 50 
+F56 "C27" U R 10400 4100 50 
+F57 "C28" U R 10400 4200 50 
+F58 "C29" U R 10400 4300 50 
+F59 "C30" U R 10400 4400 50 
+F60 "C31" U R 10400 4500 50 
+F61 "C32" U R 10400 4600 50 
+F62 "C33" U R 10400 4700 50 
+F63 "C34" U R 10400 4800 50 
+F64 "C35" U R 10400 4900 50 
+F65 "C36" U R 10400 5000 50 
+F66 "C37" U R 10400 5100 50 
+F67 "C38" U R 10400 5200 50 
+F68 "C39" U R 10400 5300 50 
+F69 "C40" U R 10400 5400 50 
 $EndSheet
 Wire Bus Line
-	9250 2700 8700 2700
+	9250 2100 8700 2100
 Wire Bus Line
-	9250 2800 8700 2800
-Text Label 8700 2700 0    50   ~ 0
+	9250 2200 8700 2200
+Text Label 8700 2100 0    50   ~ 0
 AB[0..23]
-Text Label 8700 2800 0    50   ~ 0
+Text Label 8700 2200 0    50   ~ 0
 DB[0..15]
 Wire Bus Line
-	8700 3100 9250 3100
-Text Label 8700 3100 0    50   ~ 0
+	8700 2500 9250 2500
+Text Label 8700 2500 0    50   ~ 0
 FPD[0..7]
 Wire Wire Line
-	9250 2300 8700 2300
+	9250 1700 8700 1700
 Wire Wire Line
-	9250 2400 8700 2400
+	9250 1800 8700 1800
 Wire Wire Line
-	9250 2500 8700 2500
+	9250 1900 8700 1900
+Wire Wire Line
+	9250 2000 8700 2000
+Wire Wire Line
+	9250 1600 8700 1600
+Wire Wire Line
+	9250 2900 8700 2900
+Wire Wire Line
+	9250 3000 8700 3000
+Wire Wire Line
+	9250 3100 8700 3100
 Wire Wire Line
 	9250 2600 8700 2600
 Wire Wire Line
-	9250 2200 8700 2200
+	9250 3400 8700 3400
 Wire Wire Line
 	9250 3500 8700 3500
 Wire Wire Line
@@ -116,98 +126,88 @@ Wire Wire Line
 Wire Wire Line
 	9250 3700 8700 3700
 Wire Wire Line
+	9250 3300 8700 3300
+Wire Wire Line
 	9250 3200 8700 3200
 Wire Wire Line
 	9250 4000 8700 4000
 Wire Wire Line
 	9250 4100 8700 4100
 Wire Wire Line
-	9250 4200 8700 4200
-Wire Wire Line
-	9250 4300 8700 4300
-Wire Wire Line
 	9250 3900 8700 3900
 Wire Wire Line
 	9250 3800 8700 3800
-Wire Wire Line
-	9250 4600 8700 4600
-Wire Wire Line
-	9250 4700 8700 4700
-Wire Wire Line
-	9250 4500 8700 4500
-Wire Wire Line
-	9250 4400 8700 4400
 Wire Bus Line
-	8700 3400 9250 3400
-Text Label 8700 3400 0    50   ~ 0
+	8700 2800 9250 2800
+Text Label 8700 2800 0    50   ~ 0
 ~IRQ[0..7]
-Text Label 8700 3200 0    50   ~ 0
+Text Label 8700 2600 0    50   ~ 0
 ~IRQ
 Wire Wire Line
-	9250 2900 8700 2900
+	9250 2300 8700 2300
 Wire Wire Line
-	9250 3000 8700 3000
+	9250 2400 8700 2400
 Wire Bus Line
-	8700 2100 9250 2100
-Text Label 8700 2100 0    50   ~ 0
+	8700 1500 9250 1500
+Text Label 8700 1500 0    50   ~ 0
 IBUS[0..15]
-Text Label 8700 2200 0    50   ~ 0
+Text Label 8700 1600 0    50   ~ 0
 ~RESET
-Text Label 8700 2300 0    50   ~ 0
+Text Label 8700 1700 0    50   ~ 0
 CLK1
-Text Label 8700 2400 0    50   ~ 0
+Text Label 8700 1800 0    50   ~ 0
 CLK2
-Text Label 8700 2500 0    50   ~ 0
+Text Label 8700 1900 0    50   ~ 0
 CLK3
-Text Label 8700 2900 0    50   ~ 0
+Text Label 8700 2300 0    50   ~ 0
 WSTB
-Text Label 8700 3000 0    50   ~ 0
+Text Label 8700 2400 0    50   ~ 0
 T34
 Wire Wire Line
-	9250 3300 8700 3300
-Text Label 8700 3300 0    50   ~ 0
+	9250 2700 8700 2700
+Text Label 8700 2700 0    50   ~ 0
 ~IRQS
-Text Label 8700 3500 0    50   ~ 0
+Text Label 8700 2900 0    50   ~ 0
 ~RSTHOLD
-Text Label 8700 3600 0    50   ~ 0
+Text Label 8700 3000 0    50   ~ 0
 ~SYSDEV
-Text Label 8700 3700 0    50   ~ 0
+Text Label 8700 3100 0    50   ~ 0
 ~IODEV1xx
-Text Label 8700 3800 0    50   ~ 0
+Text Label 8700 3200 0    50   ~ 0
 ~IODEV2xx
-Text Label 8700 3900 0    50   ~ 0
+Text Label 8700 3300 0    50   ~ 0
 ~IODEV3xx
-Text Label 8700 4000 0    50   ~ 0
+Text Label 8700 3400 0    50   ~ 0
 ~MEM
-Text Label 8700 4100 0    50   ~ 0
+Text Label 8700 3500 0    50   ~ 0
 ~IO
-Text Label 8700 4200 0    50   ~ 0
+Text Label 8700 3600 0    50   ~ 0
 ~R
-Text Label 8700 4400 0    50   ~ 0
+Text Label 8700 3800 0    50   ~ 0
 ~WS
-Text Label 8700 4500 0    50   ~ 0
+Text Label 8700 3900 0    50   ~ 0
 ~ENDEXT
-Text Label 8700 4600 0    50   ~ 0
+Text Label 8700 4000 0    50   ~ 0
 ~SKIPEXT
-Text Label 8700 4700 0    50   ~ 0
+Text Label 8700 4100 0    50   ~ 0
 ~HALT
-Text Label 8700 5000 0    50   ~ 0
+Text Label 8700 4400 0    50   ~ 0
 ACTION[0..3]
-Text Label 8700 5100 0    50   ~ 0
+Text Label 8700 4500 0    50   ~ 0
 WADDR[0..4]
 Wire Bus Line
-	9250 5000 8700 5000
+	9250 4400 8700 4400
 Wire Bus Line
-	9250 5100 8700 5100
+	9250 4500 8700 4500
 Wire Bus Line
-	9250 5200 8700 5200
+	9250 4600 8700 4600
 Wire Bus Line
-	8700 5300 9250 5300
-Text Label 8700 5300 0    50   ~ 0
+	8700 4700 9250 4700
+Text Label 8700 4700 0    50   ~ 0
 RSVD[1..4]
-Text Notes 10000 3950 1    100  ~ 20
+Text Notes 10000 3350 1    100  ~ 20
 Left Slot
-Text Label 8700 4300 0    50   ~ 0
+Text Label 8700 3700 0    50   ~ 0
 ~W
 $Comp
 L power:+5V #PWR?
@@ -309,7 +309,7 @@ F 3 "~" H 6300 7250 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	6300 7350 6300 7450
-Text Notes 8900 1000 0    197  ~ 39
+Text Notes 8900 1050 0    197  ~ 39
 Card Edge
 $Sheet
 S 5900 1350 1150 1000
@@ -530,42 +530,54 @@ Wire Bus Line
 	7050 1500 7550 1500
 Text Label 7550 1500 2    50   ~ 0
 PC[10..15]
-Text Label 10900 4300 2    50   ~ 0
+Text Label 10900 3700 2    50   ~ 0
 AC0
-Text Label 10900 4400 2    50   ~ 0
+Text Label 10900 3800 2    50   ~ 0
 AC1
-Text Label 10900 4500 2    50   ~ 0
+Text Label 10900 3900 2    50   ~ 0
 AC2
-Text Label 10900 4600 2    50   ~ 0
+Text Label 10900 4000 2    50   ~ 0
 AC3
-Text Label 10900 4700 2    50   ~ 0
+Text Label 10900 4100 2    50   ~ 0
 AC4
-Text Label 10900 4800 2    50   ~ 0
+Text Label 10900 4200 2    50   ~ 0
 AC5
-Text Label 10900 4900 2    50   ~ 0
+Text Label 10900 4300 2    50   ~ 0
 AC6
-Text Label 10900 5000 2    50   ~ 0
+Text Label 10900 4400 2    50   ~ 0
 AC7
-Text Label 10900 5100 2    50   ~ 0
+Text Label 10900 4500 2    50   ~ 0
 AC8
-Text Label 10900 5200 2    50   ~ 0
+Text Label 10900 4600 2    50   ~ 0
 AC9
-Text Label 10900 5300 2    50   ~ 0
+Text Label 10900 4700 2    50   ~ 0
 AC10
-Text Label 10900 5400 2    50   ~ 0
+Text Label 10900 4800 2    50   ~ 0
 AC11
-Text Label 10900 5500 2    50   ~ 0
+Text Label 10900 4900 2    50   ~ 0
 AC12
-Text Label 10900 5600 2    50   ~ 0
+Text Label 10900 5000 2    50   ~ 0
 AC13
-Text Label 10900 5700 2    50   ~ 0
+Text Label 10900 5100 2    50   ~ 0
 AC14
-Text Label 10900 5800 2    50   ~ 0
+Text Label 10900 5200 2    50   ~ 0
 AC15
-Text Label 10900 5900 2    50   ~ 0
+Text Label 10900 5300 2    50   ~ 0
 FZ
-Text Label 10900 6000 2    50   ~ 0
+Text Label 10900 5400 2    50   ~ 0
 ~ACCPL
+Wire Wire Line
+	10400 3700 10900 3700
+Wire Wire Line
+	10400 3800 10900 3800
+Wire Wire Line
+	10400 3900 10900 3900
+Wire Wire Line
+	10400 4000 10900 4000
+Wire Wire Line
+	10400 4100 10900 4100
+Wire Wire Line
+	10400 4200 10900 4200
 Wire Wire Line
 	10400 4300 10900 4300
 Wire Wire Line
@@ -590,18 +602,6 @@ Wire Wire Line
 	10400 5300 10900 5300
 Wire Wire Line
 	10400 5400 10900 5400
-Wire Wire Line
-	10400 5500 10900 5500
-Wire Wire Line
-	10400 5600 10900 5600
-Wire Wire Line
-	10400 5700 10900 5700
-Wire Wire Line
-	10400 5800 10900 5800
-Wire Wire Line
-	10400 5900 10900 5900
-Wire Wire Line
-	10400 6000 10900 6000
 Wire Wire Line
 	5900 2100 5050 2100
 Wire Wire Line
@@ -885,28 +885,28 @@ Connection ~ 3650 7200
 Connection ~ 3650 7400
 Connection ~ 5050 7200
 Connection ~ 5050 7400
-NoConn ~ 8700 2300
-NoConn ~ 8700 2700
-NoConn ~ 8700 2800
-NoConn ~ 8700 2900
-NoConn ~ 8700 3000
-NoConn ~ 8700 3200
-NoConn ~ 8700 3300
-NoConn ~ 8700 3400
-NoConn ~ 8700 3500
-NoConn ~ 8700 3600
-NoConn ~ 8700 3700
-NoConn ~ 8700 3800
-NoConn ~ 8700 3900
-NoConn ~ 8700 4000
-NoConn ~ 8700 4100
-NoConn ~ 8700 4200
-NoConn ~ 8700 4300
-NoConn ~ 8700 4400
-NoConn ~ 8700 4500
-NoConn ~ 8700 4600
-NoConn ~ 8700 4700
-NoConn ~ 8700 5300
+NoConn ~ 8700 1650
+NoConn ~ 8700 2050
+NoConn ~ 8700 2150
+NoConn ~ 8700 2250
+NoConn ~ 8700 2350
+NoConn ~ 8700 2550
+NoConn ~ 8700 2650
+NoConn ~ 8700 2750
+NoConn ~ 8700 2850
+NoConn ~ 8700 2950
+NoConn ~ 8700 3050
+NoConn ~ 8700 3150
+NoConn ~ 8700 3250
+NoConn ~ 8700 3350
+NoConn ~ 8700 3450
+NoConn ~ 8700 3550
+NoConn ~ 8700 3650
+NoConn ~ 8700 3750
+NoConn ~ 8700 3850
+NoConn ~ 8700 3950
+NoConn ~ 8700 4050
+NoConn ~ 8700 4650
 $Sheet
 S 5900 3950 1150 1000
 U 5D9746C5
@@ -1107,91 +1107,91 @@ Text Label 5050 6000 0    50   ~ 0
 Text Label 5050 6100 0    50   ~ 0
 ~ACTION-DECSP
 Wire Wire Line
-	10400 2100 10900 2100
+	10400 1500 10900 1500
 Wire Wire Line
-	10400 2200 10900 2200
+	10400 1600 10900 1600
 Wire Wire Line
-	10400 2300 10900 2300
+	10400 1700 10900 1700
 Wire Wire Line
-	10400 2400 10900 2400
+	10400 1800 10900 1800
+Wire Wire Line
+	10400 1900 10900 1900
+Wire Wire Line
+	10400 2000 10900 2000
 Wire Wire Line
 	10400 2500 10900 2500
 Wire Wire Line
 	10400 2600 10900 2600
 Wire Wire Line
-	10400 3100 10900 3100
-Wire Wire Line
-	10400 3200 10900 3200
-Wire Wire Line
-	10400 3300 10900 3300
-Wire Wire Line
-	10400 3400 10900 3400
-Wire Wire Line
-	10400 3500 10900 3500
-Wire Wire Line
-	10400 3600 10900 3600
-Wire Wire Line
-	10400 3700 10900 3700
-Wire Wire Line
-	10400 3800 10900 3800
-Text Label 10900 3700 2    50   ~ 0
-~FPSPH
-Text Label 10900 3800 2    50   ~ 0
-~FPSPL
-Text Label 10900 3500 2    50   ~ 0
-~FPACH
-Text Label 10900 3600 2    50   ~ 0
-~FPACL
-Text Label 10900 3300 2    50   ~ 0
-~FPDRH
-Text Label 10900 3400 2    50   ~ 0
-~FPDRL
-Text Label 10900 3100 2    50   ~ 0
-~FPPCH
-Text Label 10900 3200 2    50   ~ 0
-~FPPCL
-Text Label 10900 2100 2    50   ~ 0
-PC10
-Text Label 10900 2200 2    50   ~ 0
-PC11
-Text Label 10900 2300 2    50   ~ 0
-PC12
-Text Label 10900 2400 2    50   ~ 0
-PC13
-Text Label 10900 2500 2    50   ~ 0
-PC14
-Text Label 10900 2600 2    50   ~ 0
-PC15
-Text Label 5050 2100 0    50   ~ 0
-~ACTION-INCPC
-NoConn ~ 10900 4000
-NoConn ~ 10900 3900
-NoConn ~ 10900 3000
-NoConn ~ 10900 2900
-NoConn ~ 10900 2800
-NoConn ~ 10900 2700
-Wire Wire Line
-	10400 4100 10900 4100
-Wire Wire Line
-	10400 4000 10900 4000
-Wire Wire Line
-	10400 3900 10900 3900
-Wire Wire Line
-	10400 3000 10900 3000
-Wire Wire Line
-	10400 2900 10900 2900
+	10400 2700 10900 2700
 Wire Wire Line
 	10400 2800 10900 2800
 Wire Wire Line
-	10400 2700 10900 2700
-NoConn ~ 10900 4100
+	10400 2900 10900 2900
 Wire Wire Line
-	10400 4200 10900 4200
-NoConn ~ 10900 4200
+	10400 3000 10900 3000
+Wire Wire Line
+	10400 3100 10900 3100
+Wire Wire Line
+	10400 3200 10900 3200
+Text Label 10900 3100 2    50   ~ 0
+~FPSPH
+Text Label 10900 3200 2    50   ~ 0
+~FPSPL
+Text Label 10900 2900 2    50   ~ 0
+~FPACH
+Text Label 10900 3000 2    50   ~ 0
+~FPACL
+Text Label 10900 2700 2    50   ~ 0
+~FPDRH
+Text Label 10900 2800 2    50   ~ 0
+~FPDRL
+Text Label 10900 2500 2    50   ~ 0
+~FPPCH
+Text Label 10900 2600 2    50   ~ 0
+~FPPCL
+Text Label 10900 1500 2    50   ~ 0
+PC10
+Text Label 10900 1600 2    50   ~ 0
+PC11
+Text Label 10900 1700 2    50   ~ 0
+PC12
+Text Label 10900 1800 2    50   ~ 0
+PC13
+Text Label 10900 1900 2    50   ~ 0
+PC14
+Text Label 10900 2000 2    50   ~ 0
+PC15
+Text Label 5050 2100 0    50   ~ 0
+~ACTION-INCPC
+NoConn ~ 10900 3400
+NoConn ~ 10900 3300
+NoConn ~ 10900 2400
+NoConn ~ 10900 2300
+NoConn ~ 10900 2200
+NoConn ~ 10900 2100
+Wire Wire Line
+	10400 3500 10900 3500
+Wire Wire Line
+	10400 3400 10900 3400
+Wire Wire Line
+	10400 3300 10900 3300
+Wire Wire Line
+	10400 2400 10900 2400
+Wire Wire Line
+	10400 2300 10900 2300
+Wire Wire Line
+	10400 2200 10900 2200
+Wire Wire Line
+	10400 2100 10900 2100
+NoConn ~ 10900 3500
+Wire Wire Line
+	10400 3600 10900 3600
+NoConn ~ 10900 3600
 NoConn ~ 2800 5300
 Text Notes 3450 5300 0    50   ~ 0
 The PC doesn't decrement
-Text Label 8700 5200 0    50   ~ 0
+Text Label 8700 4600 0    50   ~ 0
 RADDR[0..4]
 Text Notes 3100 3200 0    50   ~ 0
 [RW]ADDR\n\n01000\n01001\n01010\n01011
@@ -1223,9 +1223,9 @@ F 4 "Yes" H 2225 3125 50  0001 C CNN "Verified"
 $EndComp
 Text Label 1800 4350 2    50   ~ 0
 CLK4'
-Text Label 8700 2600 0    50   ~ 0
+Text Label 8700 2000 0    50   ~ 0
 CLK4
-Text Notes 10700 5800 2    50   ~ 0
+Text Notes 10700 5200 2    50   ~ 0
 FN≡
 Text Label 1500 6000 0    50   ~ 0
 CLK4'
@@ -1233,7 +1233,7 @@ Wire Wire Line
 	1500 6000 1800 6000
 Text Notes 2050 6800 0    50   ~ 0
 The '193 counters used here treat these as clocks\nand increment/decrement on the signals' rising edge.\nThis tends to be too late in the processor cycle. We can\nadvance the action by using CLK3. Current microcode\ndoesn't use it, but this also fixes a potential bug that\nwould prohibit incrementing a register twice in contiguous\nprocessor cycles.
-NoConn ~ 8700 2500
+NoConn ~ 8700 1850
 Wire Wire Line
 	1550 2900 1450 2900
 Wire Wire Line
@@ -1290,7 +1290,7 @@ F 3 "~" H 1650 2900 50  0001 C CNN
 	1    1650 2900
 	1    0    0    -1  
 $EndComp
-NoConn ~ 8700 2400
+NoConn ~ 8700 1750
 Wire Wire Line
 	1200 4150 800  4150
 $Comp
@@ -1321,6 +1321,18 @@ F 3 "~" H 1200 4350 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	1350 4350 1800 4350
+Text Notes 9600 6250 0    63   ~ 13
+Errata
+Text Notes 9600 6400 0    50   ~ 0
+2021: PC.~DEC~ left floating.
+Wire Notes Line width 12 style solid
+	9500 6050 11100 6050
+Wire Notes Line width 12 style solid
+	11100 6050 11100 6700
+Wire Notes Line width 12 style solid
+	11100 6700 9500 6700
+Wire Notes Line width 12 style solid
+	9500 6700 9500 6050
 Wire Bus Line
 	1350 3350 1350 4150
 Wire Bus Line

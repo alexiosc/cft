@@ -62,8 +62,8 @@ typedef struct {
 
 	uint8_t   have_ctl:1;	     // The CTL processor board is present.
 	uint8_t   have_reg:1;	     // The REG processor board is present.
-	uint8_t   have_bus:1;	     // The BUS processor board is present.
 	uint8_t   have_alu:1;        // The ALU processor board is present.
+	uint8_t   have_bus:1;	     // The BUS processor board is present.
 
 	uint8_t   is_busy:1;         // The DFP is busy.
 

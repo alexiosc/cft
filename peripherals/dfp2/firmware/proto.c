@@ -1420,7 +1420,7 @@ go_ru()
 	res = optional_hex_val(&raddr);
 	if (res == 0) {
                 // No argument given. List addresses.
-                report_pstr("201 RADDR value cheat sheet:\005");
+                report_pstr(PSTR("201 RADDR value cheat sheet:\005"));
                 list_processor_units(disasm_raddr, disasm_raddr_ofs, 32);
         }
 	if (res > 0) {
@@ -1495,7 +1495,7 @@ go_wu()
 	res = optional_hex_val(&waddr);
 	if (res == 0) {
                 // No argument given. List addresses.
-                report_pstr("201 WADDR value cheat sheet:\005");
+                report_pstr(PSTR("201 WADDR value cheat sheet:\005"));
                 list_processor_units(disasm_waddr, disasm_waddr_ofs, 32);
         }
 	// if (res > 0) {
@@ -1534,7 +1534,7 @@ go_act()
 	res = optional_hex_val(&action);
 	if (res == 0) {
                 // No argument given. List addresses.
-                report_pstr("201 ACTION value cheat sheet:\005");
+                report_pstr(PSTR("201 ACTION value cheat sheet:\005"));
                 list_processor_units(disasm_action, disasm_action_ofs, 16);
         }
 	if (res > 0) {
@@ -1552,10 +1552,10 @@ go_act()
                 if (errno == SUCCESS) {
                         report_pstr(PSTR(STR_ACT));
                         report_hex(action, 1);
-                        report_pstr(" (");
+                        report_pstr(PSTR(" ("));
                         explain_processor_unit(action, TRUE,
                                                disasm_action, disasm_action_ofs, 16);
-                        report_pstr(")\n");
+                        report_pstr(PSTR(")\n"));
                         maybe_board_warning(action, disasm_action, disasm_action_ofs);
                 } else {
                         report_errno(errno);

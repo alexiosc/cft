@@ -6,7 +6,7 @@ encoding utf-8
 Sheet 3 6
 Title "Program Counter (PC)"
 Date ""
-Rev "2021"
+Rev "2047"
 Comp ""
 Comment1 "REG"
 Comment2 ""
@@ -1627,7 +1627,37 @@ Text Label 4350 6350 0    50   ~ 0
 PC14
 Text Label 4350 6450 0    50   ~ 0
 PC15
-NoConn ~ 2250 1850
+Text Label 7850 2450 2    50   ~ 0
+~DEC
+$Comp
+L power:+5V #PWR?
+U 1 1 5FC13793
+P 7600 2400
+F 0 "#PWR?" H 7600 2250 50  0001 C CNN
+F 1 "+5V" H 7615 2573 50  0000 C CNN
+F 2 "" H 7600 2400 50  0001 C CNN
+F 3 "" H 7600 2400 50  0001 C CNN
+	1    7600 2400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7600 2400 7600 2450
+Wire Wire Line
+	7600 2450 7850 2450
+Text Notes 7050 1700 0    63   ~ 13
+* Erratum, Revision A (2021)
+Text Notes 7050 2050 0    50   ~ 0
+The ~DEC~ pin on the least significant\ncounter was left floating, making PC\nincrements fail.
+Wire Notes Line width 12 style solid
+	6950 1500 8550 1500
+Wire Notes Line width 12 style solid
+	8550 1500 8550 2600
+Wire Notes Line width 12 style solid
+	8550 2600 6950 2600
+Wire Notes Line width 12 style solid
+	6950 2600 6950 1500
+Text Notes 2200 1850 2    50   ~ 10
+ERRATUM *
 Wire Bus Line
 	1100 650  6250 650 
 Wire Bus Line
