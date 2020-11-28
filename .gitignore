@@ -293,6 +293,9 @@ experiments/**
 **/lib*.so
 **/libdfp.so.[0-9]*
 
+# There is a proto.h.in that generates proto.h via a script.
+**/dfp*/firmware/proto.h
+
 
 ###############################################################################
 #
