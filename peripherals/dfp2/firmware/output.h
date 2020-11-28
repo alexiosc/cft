@@ -62,7 +62,7 @@ void report_bin_pad(uint16_t val, uint8_t bits);
 
 void report_ok(char *msg);
 
-void report_error(char *msg);
+#define report_error(msg) { style_error(); report_pstr(msg); }
 
 void report_hex_value(const char *msg, uint32_t val, uint8_t pad);
 
