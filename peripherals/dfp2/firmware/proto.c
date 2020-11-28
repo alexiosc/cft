@@ -111,6 +111,8 @@ static void gs_echo();
 static void gs_mesg();
 static void gs_lock();
 
+static void go_dfprst();
+
 static void gs_addr();
 
 static void go_fast();
@@ -854,6 +856,41 @@ gs_lock()
 	// Report current setting.
 	report_gs(res);
 	report_bool_value(PSTR(STR_GSLOCK), uistate.is_locked != 0);
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// DFP CONTROL
+//
+///////////////////////////////////////////////////////////////////////////////
+
+void
+go_dfprst()
+{
+	uint8_t v;
+	int8_t res;
+	res = optional_bool_val(&v);
+	if (res <= 0) {
+                report_error(PSTR(STR_NCONF));
+                return;
+        }
+	if (res > 0) {
+		if (v) {
+#ifdef AVR
+			// The optional argument has been specified. Perform a
+			// cold boot using the AVR watchdog.
+			report_pstr(PSTR(STR_DFPRST));
+			wdt_enable(0);
+			cli();
+			for(;;) hold();
+#else
+			printf("*** DFP RESET ONLY WORKS ON AVR ***\n");
+#endif
+		}
+	}
+
+        // We never return
 }
 
 
@@ -1638,7 +1675,10 @@ go_reset()
 	uint8_t v;
 	int8_t res;
 	res = optional_bool_val(&v);
-	if (res < 0) return;
+	if (res < 0) {
+                report_error(PSTR(STR_NOPROC));
+                return;
+        }
 	if (res > 0) {
 		if (v) {
 #ifdef AVR
