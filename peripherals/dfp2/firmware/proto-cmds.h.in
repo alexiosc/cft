@@ -17,6 +17,9 @@ static const struct {
 	{"echo",    gs_echo,     "[ BOOL ] -- Get/set local echo."},
 	{"mesg",    gs_mesg,     "[ BOOL ] -- Get/set async messages." NL },
 
+	// DFP functionality
+	{"dfprst",  go_dfprst,   "[ BOOL ] -- Say dfprst y to cold reset the DFP." NL },
+
 	// Front panel functionality
 
 	{"fpr",     go_fpr,      "[ BYTE ] -- Read from FP Bus Address"},
