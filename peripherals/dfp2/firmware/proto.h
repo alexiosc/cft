@@ -113,6 +113,8 @@ extern volatile uistate_t uistate;
 #define STR_DONE    "301 Done\n"
 #define STR_ABORT   "302 Aborted\n"
 
+#define STR_DFPRST  "307 Cold reset.\n"
+
 #define STR_SWTEST  "334 Operate toggles/DIP switches. Ctrl-C ends.\n"
 
 #define STR_FAST    "327 Full speed clock.\n"
@@ -146,6 +148,7 @@ extern volatile uistate_t uistate;
 #define STR_ERANGE  "502 Value out of range\n"
 #define STR_SYNTAX  "508 Syntax error\n"
 #define STR_NIMPL   "509 Not implemented\n"
+#define STR_NCONF   "510 No action. Append 'y' to confirm.\n"
 
 #define STR_NOCTL   "520 CTL board not installed or faulty\n"
 #define STR_NOREG   "521 REG board not installed or faulty\n"
@@ -247,7 +250,6 @@ extern volatile uistate_t uistate;
 #define STR_ARUN    "304 Host running\n"
 #define STR_AHALTED "305 Host halted\n"
 #define STR_RESET   "306 Host reset\n"
-#define STR_COLD    "307 Cold reset.\n"
 #define STR_BPOINT  "330 Breakpoint "
 #define STR_STEP    "331 Step. "
 #define STR_USTEP   "332 Microstep. "
