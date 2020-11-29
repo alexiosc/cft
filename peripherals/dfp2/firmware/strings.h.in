@@ -120,6 +120,8 @@
 #define STR_URRESP1 "902 Unassigned RADDR "
 #define STR_URRESP2      ": wrote "
 #define STR_NVMIS   "910 Value mismatch. Wrote "
+#define STR_INCMIS  "911 Reg inc failure. Inc'ed to "
+#define STR_DECMIS  "912 Reg dec failure. Dec'ed to "
 
 #define STR_WAS          ", read back "
 
