@@ -38,13 +38,12 @@
 #define ATOMIC_BLOCK(x)
 #endif
 
-#define setuptime() { _NOP(); _NOP(); _NOP(); } 
-
 // This 'driver' is only available on the AVR target.
 
 // #include "hwcompat.h"
 // #include "panel.h"
 #include "proto.h"
+#include "strings.h"
 // #include "abstract.h"
 // #include "bus.h"
 // #include "buscmd.h"
@@ -188,6 +187,18 @@ static void dfp_diags();
 #define PORT_NNO(bit)  (0)
 
 #define PORT_PUP(bit)  (BV(BIT))
+
+
+static void NEVER_INLINE
+setuptime()
+{
+        // This was a macro expanding to three NOP instructions, but if you add
+        // the call and ret instructions, it takes the same time. Three NOPs
+        // take 6 bytes. The routine is four bytes (NOP, RET) and we use it so
+        // much we end up saving two bytes per call this way.
+
+        _NOP();
+}
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -2108,9 +2119,9 @@ dfp_diags_raddr()
 {
         const uint8_t num_reps = 64; // avr-gcc should optimise the variable away.
 
-        // We only have four boards, but valid board numbers are in the range
-        // 1-4. This wastes a byte of stack space while this function is
-        // running. Whatevs.
+        // We only have four processor boards, but valid board numbers are in
+        // the range 1-4. This wastes a byte of stack space while this function
+        // is running. Whatevs.
         uint16_t detcounts[5] = {0, 0, 0, 0, 0};
 
         report_pstr(PSTR(STR_D_RADDR));
@@ -2210,6 +2221,102 @@ dfp_diags_raddr()
 }
 
 
+// Strategy: try writing and reading values back. Also try incrementing and
+// decrementing a large number of times (enough to wrap around fully!).
+
+static void
+_dfp_diags_reg_xx(uint8_t addr, uint8_t action_inc, uint8_t action_dec)
+{
+        const uint8_t num_reps = 255; // avr-gcc should optimise the variable away.
+
+        // The caller has set up a message, and we're completing it here:
+        report_pstr(PSTR("\024")); // 024 = 20, expanding to ": "
+
+        for (uint8_t reps = 0; reps < num_reps; reps++) {
+                uint8_t failures = 0;
+
+                for (uint8_t i = 0; i < NUM_16BIT_PATTERNS; i++) {
+                        wdt_reset();
+                        uint16_t pattern = (uint16_t) pgm_read_word(&(_16bit_patterns[i]));
+
+                        // Write the pattern to the register
+                        
+                        xmem_write(XMEM_IBUS_H, (pattern >> 8) & 0xff);
+                        xmem_write(XMEM_IBUS_L, (pattern & 0xff));
+                        xmem_write(XMEM_RADDR, 0);
+                        xmem_write(XMEM_WADDR, addr);
+                        xmem_write(XMEM_ACTION, 0);
+
+                        setuptime(); clearbit(PORTC, C_NIBOE);  // Drive IBUS
+                        setuptime(); clearbit(PORTE, E_NMCVOE); // Drive ctl bus
+                        setuptime(); setbit(PORTE, E_NMCVOE);
+                        setuptime(); setbit(PORTC, C_NIBOE);
+
+                        // Read the pattern back
+                        xmem_write(XMEM_RADDR, addr);
+                        xmem_write(XMEM_WADDR, 0);
+                        xmem_write(XMEM_ACTION, 0);
+
+                        setuptime(); clearbit(PORTE, E_NMCVOE); // Drive ctl bus
+                        setuptime(); sample();                  // Read state
+                        setuptime(); setbit(PORTE, E_NMCVOE);
+
+                        uint16_t checkval = xmem_read(XMEM_IBUS_H) << 8 | xmem_read(XMEM_IBUS_L);
+
+                        if (pattern != checkval) {
+                                if (failures++ == 0) {
+                                        report_pstr(PSTR(STR_D_FAIL));
+                                }
+                                report_mismatch(PSTR(STR_NVMIS), pattern, checkval);
+                        }
+                }
+
+                // Stop after failures in any repetition of the test.
+                if (failures) {
+                        diag_failure();
+                }
+        }
+
+        report_pstr(PSTR(STR_D_PASS));
+}
+
+
+static inline void
+dfp_diags_reg_pc()
+{
+        report_pstr(PSTR(STR_D_REGPC));
+        // PC RADDR/WADDR: 8; pc++ action: 8. (no pc-- action)
+        _dfp_diags_reg_xx(8, 8, 0); // The PC cant't decrement
+}
+
+
+static inline void
+dfp_diags_reg_dr()
+{
+        report_pstr(PSTR(STR_D_REGDR));
+        // DR RADDR/WADDR: 9; dr++ action: 10. dr-- action: 11
+        _dfp_diags_reg_xx(9, 10, 11);
+}
+
+
+static inline void
+dfp_diags_reg_ac()
+{
+        report_pstr(PSTR(STR_D_REGAC));
+        // AC RADDR/WADDR: 10; ac++ action: 12. ac-- action: 13
+        _dfp_diags_reg_xx(10, 12, 13);
+}
+
+
+static inline void
+dfp_diags_reg_sp()
+{
+        report_pstr(PSTR(STR_D_REGSP));
+        // SP RADDR/WADDR: 11; sp++ action: 14. sp-- action: 15
+        _dfp_diags_reg_xx(11, 14, 15);
+}
+
+
 static void
 dfp_diags()
 {
@@ -2239,6 +2346,15 @@ dfp_diags()
 
         dfp_diags_raddr_quiescence();
         dfp_diags_raddr();
+
+        // Diagnose boards that responded to the RADDR test.
+        if (hwstate.have_reg) {
+                dfp_diags_reg_pc();
+                dfp_diags_reg_dr();
+                dfp_diags_reg_ac();
+                dfp_diags_reg_sp();
+        }
+
 
         // dfp_det_ctl();      // Detect CTL and run basic diags
         // dfp_det_reg();      // Detect REG and run basic diags

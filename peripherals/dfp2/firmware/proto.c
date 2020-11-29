@@ -35,6 +35,7 @@
 
 #include "hwcompat.h" // Include before proto.h!
 #include "proto.h"
+#include "strings.h"
 #include "driver.h"
 //#include "input.h"
 #include "output.h"

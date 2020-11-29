@@ -11,8 +11,10 @@
 
 #include <stdint.h>
 
-// We use this a lot, but it's ugly.
+// We use these a lot, but they're ugly. They're nicer as macros
 #define MUST_CHECK __attribute__((warn_unused_result))
+
+#define NEVER_INLINE __attribute__((noinline))
 
 // We use this to mark function we've ported to the DFP2 in full.
 #define UPDATED

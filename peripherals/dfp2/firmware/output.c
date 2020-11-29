@@ -20,6 +20,7 @@
 #include "driver.h"
 #include "hwcompat.h"
 #include "proto.h"
+#include "strings.h"
 
 
 void
