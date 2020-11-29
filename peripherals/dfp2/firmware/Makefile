@@ -193,12 +193,12 @@ reset:
 
 # Special source files
 proto-cmds.h:	proto-cmds.h.in scripts/mkcmds.py
-		chmod +w proto-cmds.h
+		chmod +w proto-cmds.h || true
 		scripts/mkcmds.py <proto-cmds.h.in >proto-cmds.h
 		chmod a-w proto-cmds.h
 
 strings.h:	strings.h.in scripts/mkstrings.py
-		chmod +w strings.h
+		chmod +w strings.h || true
 		scripts/mkstrings.py <strings.h.in >strings.h
 		chmod a-w strings.h
 
