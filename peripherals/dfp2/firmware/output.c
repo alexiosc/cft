@@ -360,10 +360,11 @@ report_bool_value(const char *msg, char val)
 }
 
 
-#define case_err(name)                                    \
+#define case_err(name)                                  \
         case ERR_ ## name:                              \
-                report_pstr(PSTR(STR_ERR_ ## name));        \
+                report_pstr(PSTR(STR_ERR_ ## name));    \
                 break;
+
 void
 report_errno(errno_t err)
 {

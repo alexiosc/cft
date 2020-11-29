@@ -522,6 +522,27 @@ read_from_ibus_unit(uint8_t raddr, uint16_t * val)
 }
 
 
+void static
+_bare_processor_action(uint8_t action)
+{
+        tristate_buses();           // Tristate everything
+        xmem_write(XMEM_RADDR, 0);  // Idle RADDR
+        xmem_write(XMEM_WADDR, 0);  // Idle WADDR
+        xmem_write(XMEM_ACTION, 0); // Idle ACTION
+        clearbit(PORTE, E_NMCVOE);  // Drive the control bus
+
+        xmem_write(XMEM_ACTION, action & 0x1f); // Set action
+        xmem_write(XMEM_ACTION, 0); // Reset action to idle (strobe)
+
+        // Tri-state everything again
+        tristate_buses();
+
+        // Bus hold should now leave all control unit buses idle, but
+        // we don't have a direct way to read RADDR, WADDR or ACTION so
+        // we can't verify this.
+}
+
+
 MUST_CHECK errno_t
 processor_action(uint8_t action)
 {
@@ -534,21 +555,7 @@ processor_action(uint8_t action)
         }
 
         ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
-                tristate_buses();           // Tristate everything
-                xmem_write(XMEM_RADDR, 0);  // Idle RADDR
-                xmem_write(XMEM_WADDR, 0);  // Idle WADDR
-                xmem_write(XMEM_ACTION, 0); // Idle ACTION
-                clearbit(PORTE, E_NMCVOE);  // Drive the control bus
-
-                xmem_write(XMEM_ACTION, action & 0x1f); // Set action
-                xmem_write(XMEM_ACTION, 0); // Reset action to idle (strobe)
-
-                // Tri-state everything again
-                tristate_buses();
-
-                // Bus hold should now leave all control unit buses idle, but
-                // we don't have a direct way to read RADDR, WADDR or ACTION so
-                // we can't verify this.
+                _bare_processor_action(action);
         }
 
         return ERR_SUCCESS;
@@ -1986,7 +1993,8 @@ dfp_diags_db_quiescence()
 
 
 // Test strategy: write values to the pod and read them back. This will verify
-// that pod is driving the relevant bus.
+// that pod is driving the relevant bus. The caller should have already enabled
+// the output drivers of the pod under test.
 
 static void
 _dfp_diags_pod(const char *msg, uint8_t addr_h, uint8_t addr_l)
@@ -2077,23 +2085,10 @@ dfp_diags_raddr_quiescence()
                         wdt_reset();
                         xmem_write(XMEM_IBUS_H, (pattern >> 8) & 0xff);
                         xmem_write(XMEM_IBUS_L, (pattern & 0xff));
-                        setuptime();
-                        setbit(PORTC, C_NIBOE);
-                        
-                        xmem_write(XMEM_RADDR, 0);     // Idle RADDR
-                        xmem_write(XMEM_WADDR, 0);     // Idle WADDR
-                        xmem_write(XMEM_ACTION, 0);    // Idle ACTION
-                        
-                        clearbit(PORTC, C_NIBOE);      // Drive the IBUS
-                        setuptime();
-                        clearbit(PORTE, E_NMCVOE);     // Drive the control bus
-                        setuptime();
-                        sample();
-                        uint16_t checkval = xmem_read(XMEM_IBUS_H) << 8 | xmem_read(XMEM_IBUS_L);
-                        setuptime();
-                        setbit(PORTE, E_NMCVOE);       // Release the control bus
-                        setuptime();
-                        clearbit(PORTC, C_NIBOE);      // Release the IBUS
+                        setuptime(); clearbit(PORTC, C_NIBOE);
+                        setuptime(); setbit(PORTC, C_NIBOE);
+
+                        uint16_t checkval = _bare_ibus_read(0);
                         
                         if (pattern != checkval) {
                                 if (failures++ == 0) {
@@ -2153,7 +2148,8 @@ dfp_diags_raddr()
                         for (uint8_t i = 0; i < NUM_16BIT_PATTERNS; i++) {
                                 wdt_reset();
                                 uint16_t pattern = (uint16_t) pgm_read_word(&(_16bit_patterns[i]));
-                        
+
+                                // Write the pattern to the IBUS registers.
                                 xmem_write(XMEM_IBUS_H, (pattern >> 8) & 0xff);
                                 xmem_write(XMEM_IBUS_L, (pattern & 0xff));
                         
@@ -2272,16 +2268,7 @@ _dfp_diags_reg_xx(const char *msg, uint8_t addr, uint8_t action_inc, uint8_t act
                 // all four 4-bit counters get exercised, including
                 // carry out/in lines.
                 for (int32_t incs = 70000; incs >= 0; incs--) {
-                        wdt_reset();
-                        xmem_write(XMEM_RADDR, 0);
-                        xmem_write(XMEM_WADDR, 0);
-                        xmem_write(XMEM_ACTION, action_inc);
-
-                        setuptime(); clearbit(PORTE, E_NMCVOE);
-                        setuptime(); xmem_write(XMEM_ACTION, 0);
-                        setuptime(); setbit(PORTE, E_NMCVOE);
-
-                        // Read the pattern back
+                        _bare_processor_action(action_inc);
                         uint16_t checkval = _bare_ibus_read(addr);
                         last_read++;
 
@@ -2291,6 +2278,7 @@ _dfp_diags_reg_xx(const char *msg, uint8_t addr, uint8_t action_inc, uint8_t act
                                 }
                                 report_mismatch(PSTR(STR_INCMIS), last_read, checkval);
                         }
+                        wdt_reset();
                 }
 
                 // Don't test decrementation if it's not supported (PC)
@@ -2302,16 +2290,7 @@ _dfp_diags_reg_xx(const char *msg, uint8_t addr, uint8_t action_inc, uint8_t act
                 // all four 4-bit counters get exercised, including
                 // carry out/in lines.
                 for (int32_t decs = 70000; decs > 0; decs--) {
-                        wdt_reset();
-                        xmem_write(XMEM_RADDR, 0);
-                        xmem_write(XMEM_WADDR, 0);
-                        xmem_write(XMEM_ACTION, action_dec);
-
-                        setuptime(); clearbit(PORTE, E_NMCVOE);
-                        setuptime(); xmem_write(XMEM_ACTION, 0);
-                        setuptime(); setbit(PORTE, E_NMCVOE);
-
-                        // Read the pattern back
+                        _bare_processor_action(action_dec);
                         uint16_t checkval = _bare_ibus_read(addr);
                         last_read--;
 
@@ -2319,8 +2298,9 @@ _dfp_diags_reg_xx(const char *msg, uint8_t addr, uint8_t action_inc, uint8_t act
                                 if (failures++ == 0) {
                                         report_pstr(PSTR(STR_D_FAIL));
                                 }
-                                report_mismatch(PSTR(STR_INCMIS), last_read, checkval);
+                                report_mismatch(PSTR(STR_DECMIS), last_read, checkval);
                         }
+                        wdt_reset();
                 }
 
                 // Just in case
