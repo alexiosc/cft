@@ -1,0 +1,279 @@
+// -*- c -*-
+
+// NOTE: this file is postprocessed automatically to generate strings.h, which
+// has common character sequences compressed into single characters to save
+// space.
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// STRINGS OUTPUT BY THE PROTOCOL (STORED IN FLASH)
+//
+///////////////////////////////////////////////////////////////////////////////
+
+#ifndef __STRINGS_H__
+#define __STRINGS_H__
+
+// 1xx: Boot-time Diagnostics
+#define STR_BOOTUP  "\n\r\n\r100 DFP reset\n"
+#define STR_D_FPDQ  "101 DFP Quiescence: "
+#define STR_D_IBUSQ "102 IBUS Bus Hold & Quiescence: "
+#define STR_D_ABLQ  "103 AB LSW Bus Hold & Quiescence: "
+#define STR_D_ABMQ  "104 AB MSW Bus Hold & Quiescence: "
+#define STR_D_DBQ   "105 DB Bus Hold & Quiescence: "
+#define STR_D_IBUSP "106 IBUS Pod: "
+#define STR_D_ABLP  "107 AB LSW Pod: "
+#define STR_D_ABMP  "108 AB MSW Pod: "
+#define STR_D_DBP   "109 DB Pod: "
+#define STR_D_RADDQ "110 RADDR idle: "
+#define STR_D_RADDR "111 RADDR decoding: "
+#define STR_D_CTL   "110 CTL board: "
+#define STR_D_REGPC "120 REG board, PC"
+#define STR_D_REGDR "121 REG board, DR"
+#define STR_D_REGAC "122 REG board, AC"
+#define STR_D_REGSP "123 REG board, SP"
+#define STR_D_ALU   "130 ALU board: "
+#define STR_D_BUS   "140 BUS board: "
+
+// 2xx: Information retrieved
+#define STR_READY   "200 Ready\n"
+#define STR_HAVECTL "210 CTL"
+#define STR_BRDRESP      " board responded\n"
+#define STR_HAVEREG "211 REG"
+#define STR_HAVEALU "212 ALU"
+#define STR_HAVEBUS "213 BUS"
+
+#define STR_MACHINE "256 T0sgQ09NUFVURVI=\n"
+
+#define STR_FPR1    "240 FP Bus Address: "
+#define STR_FPR2         " Value: "
+
+#define STR_SWS     "251 Switch state: "
+#define STR_ABUS    "260 ABUS: "
+#define STR_DBUS    "261 DBUS: "
+#define STR_IBUS    "262 IBUS: "
+#define STR_RU      "263 Read from IBUS Address: "
+#define STR_RU2          " Value: "
+#define STR_WU      "264 Write value: "
+#define STR_WU2          " to IBUS Address: "
+#define STR_ACT     "265 Kicked off action: "
+
+// 3xx: Actions performed
+#define STR_DONE    "301 Done\n"
+#define STR_ABORT   "302 Aborted\n"
+
+#define STR_DFPRST  "307 Cold reset.\n"
+
+#define STR_SWTEST  "334 Operate toggles/DIP switches. Ctrl-C ends.\n"
+
+#define STR_FAST    "327 Full speed clock.\n"
+#define STR_SLOW    "328 Slow clock.\n"
+#define STR_CREEP   "329 Very slow clock.\n"
+
+// These are get/set variants, and they can be either 2xx (get) or 3xx (set).
+#define STR_ADDR     "03 Address: "
+#define STR_GSECHO   "10 Echo: "
+#define STR_GSMESG   "11 Async messages: "
+#define STR_GSTERM   "12 Terminal: "
+#define STR_GSLOCK   "15 Front panel lock: "
+#define STR_GSOR     "21 Output Register: "
+#define STR_DSR      "22 DIP Switch Register: "
+
+#define STR_GSIR     "51 IR: "
+#define STR_GSPC     "52 PC: "
+#define STR_GSDR     "53 DR: "
+#define STR_GSAC     "54 AC: "
+#define STR_GSSP     "55 SP: "
+
+// 4xx: Warnings.
+#define STR_WNOCTL   "410 CTL board not detected\n"
+#define STR_WNOREG   "411 REG board not detected\n"
+#define STR_WNOALU   "412 ALU board not detected\n"
+#define STR_WNOBUS   "413 BUS board not detected\n"
+
+// 5xx: Errors.
+#define STR_BADCMD  "500 Unknown command\n"
+#define STR_BADVAL  "501 Bad value\n"
+#define STR_ERANGE  "502 Value out of range\n"
+#define STR_SYNTAX  "508 Syntax error\n"
+#define STR_NIMPL   "509 Not implemented\n"
+#define STR_NCONF   "510 No action. Append 'y' to confirm.\n"
+
+#define STR_NOCTL   "520 CTL board not installed or faulty\n"
+#define STR_NOREG   "521 REG board not installed or faulty\n"
+#define STR_NOALU   "522 ALU board not installed or faulty\n"
+#define STR_NOBUS   "523 BUS board not installed or faulty\n"
+
+// 6xx: errno_t errors
+#define STR_ERR_SUCCESS "600 Success. (huh?)\n"
+#define STR_ERR_NMASTER "601 We are not the bus master\n"
+#define STR_ERR_NHALTED "602 System is not halted\n"
+#define STR_ERR_HALTED  "603 System is halted\n"
+#define STR_ERR_TIMEOUT "605 Timeout\n"
+#define STR_ERR_RBFULL  "606 Ring buffer full"
+#define STR_ERR_RBEMPTY "607 Ring buffer empty"
+#define STR_ERR_BADVAL  "608 Bad value"
+// ...
+#define STR_UNKERR  "699 Unknown error"
+
+// 9xx: Diagnostic faults
+#define STR_DIAGF   "901 Diagnostics failed.\n"
+#define STR_URRESP1 "902 Unassigned RADDR "
+#define STR_URRESP2      ": wrote "
+#define STR_NVMIS   "910 Value mismatch. Wrote "
+
+#define STR_WAS          ", read back "
+
+#define STR_PROMPT  "> "
+#define STR_PRUN    "[running]" STR_PROMPT
+#define STR_PSTOP   "[halted] "
+// #define STR_PNOPROC "[no processor]"
+#define STR_ON      "on"
+#define STR_OFF     "off"
+#define STR_D_PASS  "pass\n"
+#define STR_D_FAIL  "FAIL!\n"
+
+// The blocksize for block-oriented writes.
+#define BLOCKSIZE ((BUFSIZE - 3) / 5)
+
+#define DIVIDER "|"
+
+// Number of breakpoints. Warning: any more than 8 and the bpflag data type
+// will have to change!
+#define NUM_BP 8
+
+
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
+#if 0
+#warning "TODO: Review and potentially change these."
+
+// #define STR_DETPROC "101 Processor: "
+// #define STR_DETPROC0     "not found\n"
+// #define STR_DETPROC1     "found\n"
+
+// #define STR_D_VPIN  "102 VP Shift Reg chain: "
+// #define STR_D_DEBIN "103 DEB Shift Reg chain: "
+// #define STR_D_ABDRV "104 ABUS driver: "
+// #define STR_D_ABTRI "105 ABUS tristate: "
+// #define STR_D_DBDRV "106 DBUS driver: "
+// #define STR_D_DBTRI "107 DBUS tristate: "
+// #define STR_D_RSTBQ "108 Bus quiet during reset: "
+// #define STR_D_ACCHK "109 AC: "
+// #define STR_D_PCCHK "110 PC: "
+// #define STR_D_IRCHK "111 IR: "
+
+// #define STR_PROC1   "205 Processor found.\n"
+// #define STR_PROC0   "206 No processor.\n"
+#define STR_GSHOF    "13 On FAIL: "
+#define STR_GSHOS    "14 On SENTINEL: "
+#define STR_HOF_H        "HALT\n"
+#define STR_HOF_I        "Ignore\n"
+#define STR_HOF_J        "Jump to: "
+
+#define STR_SR      "2xx Switch Register: "
+
+#define STR_IN1     "234 IN Address: "
+#define STR_IN2          " Value: "
+
+#define STR_STATE   "250 Machine state: "
+#define STR_USTATE  "252 Microcode control: "
+#define STR_GSBPT    "59 Breakpoint "
+
+#define STR_AC           " AC:"
+#define STR_PC           " PC:"
+#define STR_IR           " IR:"
+
+
+
+#define STR_DUMP    "300 Dumping\n"
+
+#define STR_CKSUM   "303 Checksum: "
+
+//                   310-329 reserved
+#define STR_ARUN    "304 Host running\n"
+#define STR_AHALTED "305 Host halted\n"
+#define STR_RESET   "306 Host reset\n"
+#define STR_BPOINT  "330 Breakpoint "
+#define STR_STEP    "331 Step. "
+#define STR_USTEP   "332 Microstep. "
+#define STR_TRACE   "333 Tracing.\n"
+#define STR_UTRACE  "334 Microtracing.\n"
+// #ifdef AVR
+// #define STR_CLKSET  "330 Clock set to " F_CPU_S " Hz / ("
+// #else
+// #define STR_CLKSET  "330 Clock set to 14745600 Hz / ("
+// #endif // VAR
+// #define STR_CLKSET2      "*(1+"
+#define STR_CONSBEG "331 Virtual console (press Enter # . to exit).\n"
+#define STR_CONSEND "332 Left virtual console.\n"
+#define STR_FPRAM   "333 ROM/RAM# switch: "
+#define STR_FPRAM0       "RAM\n"
+#define STR_FPRAM1       "ROM\n"
+
+#define STR_DEBPRN  "340 PRINT"
+#define STR_DEBSENT "341 SENTINEL\n"
+#define STR_DEBON   "342 DEBUGON\n"
+#define STR_DEBOFF  "343 DEBUGOFF\n"
+//#define STR_FAIL    "344 HAL\n"
+#define STR_SUCCESS "345 SUCCESS\n"
+#define STR_FAIL    "346 FAIL\n"
+
+//                   350-355 reserved
+#define STR_READ    "356 Read: "
+#define STR_OUT1    "357 OUT Address: "
+#define STR_OUT2    " Value: "
+// #define STR_IFR1    "358 IRQ1 signaled\n"
+// #define STR_IFR6    "359 IRQ6 signaled\n"
+
+// #define STR_IFR1M   "458 IRQ1 masked by CFT\n"
+// #define STR_IFR6M   "459 IRQ6 masked by CFT\n"
+
+#define STR_WMEM    "370 Write mem["
+#define STR_RMEM    "371 Read mem["
+#define STR_WIO     "372 Write I/O["
+#define STR_RIO     "373 Read I/O["
+
+#define STR_WDATA        "] <- "
+#define STR_RDATA        "] -> "
+#define STR_PLOCK   "374 Panel lock: "
+
+#define STR_WRAP    "401 Warning: write will wrap around.\n"
+#define STR_CLKWRN  "430 Warning: stopping/stepping will be REALLY slow.\n"
+
+// #define STR_COUNT8  "502 Count must be multiple of 8\n"
+#define STR_RUNNING "503 Halt host first\n"
+#define STR_CHATTER "504 Bus chatter\n"
+#define STR_ALRHALT "505 Already halted\n"
+#define STR_ALRRUN  "506 Already running\n"
+
+#define STR_NSELF   "511 You talkin' to me?\n"
+
+// Hardware Faults.
+#define STR_DIAGF   "901 Diagnostics failed.\n"
+#define STR_ABERR   "920 ABUS error. Wrote "
+#define STR_DBERR   "921 DBUS error. Wrote "
+#define STR_ACERR   "922 AC mismatch. Wrote "
+#define STR_PCERR   "923 PC mismatch. Wrote "
+#define STR_IRERR   "924 IR mismatch. Wrote "
+
+#define STR_HLTTO   "930 Timeout waiting for processor halt.\n"
+#define STR_TIMEOUT "931 Timeout.\n" // This is currenly only used for Verilog testing
+
+#endif // 0
+
+
+
+#endif // _PROTO_H__
+
+// End of file.
+// Local Variables:
+// eval: (c-set-style "K&R")
+// c-basic-offset: 8
+// indent-tabs-mode: nil
+// fill-column: 79
+// End:

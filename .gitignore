@@ -293,8 +293,11 @@ experiments/**
 **/lib*.so
 **/libdfp.so.[0-9]*
 
-# There is a proto.h.in that generates proto.h via a script.
-**/dfp*/firmware/proto.h
+# There is a proto-cmds.h.in that generates proto-cmds.h via a script.
+**/dfp*/firmware/proto-cmds.h
+
+# There is a strings.h.in that generates strings.h via a script.
+**/dfp2/firmware/strings.h
 
 
 ###############################################################################

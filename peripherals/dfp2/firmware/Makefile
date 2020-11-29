@@ -105,7 +105,7 @@ EMULIBOUT	=	$(EMULIBNAME).so.$(EMULIBVERS)
 LIBS		=
 
 HFILES		=	dfp.h driver.h hwcompat.h proto.h output.h input.h \
-			panel.h buscmd.h proto-cmds.h
+			panel.h buscmd.h proto-cmds.h strings.h
 # CFILES		=	dfp.c driver_test.c driver_avr.c proto.c output.c input.c \
 # 			panel.c bus.c buscmd.c serial.c
 
@@ -196,6 +196,11 @@ proto-cmds.h:	proto-cmds.h.in scripts/mkcmds.py
 		chmod +w proto-cmds.h
 		scripts/mkcmds.py <proto-cmds.h.in >proto-cmds.h
 		chmod a-w proto-cmds.h
+
+strings.h:	strings.h.in scripts/mkstrings.py
+		chmod +w strings.h
+		scripts/mkstrings.py <strings.h.in >strings.h
+		chmod a-w strings.h
 
 # dependency:
 #$(PROG).o: $(SOURCES)
