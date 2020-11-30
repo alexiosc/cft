@@ -196,27 +196,37 @@ proto_input(unsigned char c)
 	// Is the buffer full?
 	if (buflen >= BUFSIZE) return ECHO_ON ? '<' : '\0';
 
-	// Allow an old buffer to be repeated, but only if the repeat
-	// character is the first character received on the new
-	// line. Use Control N and Control P.
-	if ((c == CTRL('N') || c == CTRL('P')) && oldbuflen) {
-		buflen = oldbuflen;
+	// Allow an old buffer to be repeated, but only if the repeat character
+	// is the first character received on the new line. Use Control N and
+	// Control P (a la emacs and GNU readline) to bring up the previous
+	// line for editing. Ctrl-R repeats it immediately.
+        if ((c == CTRL('R') || c == CTRL('N') || c == CTRL('P')) && oldbuflen) {
+
+                buflen = oldbuflen;
 
 		// Change nulls before the end of the buffer back to spaces.
 		for (bp = 0; bp < oldbuflen; bp++) {
 			if (buf[bp] == '\0') buf[bp] = 32;
 		}
 
-		style_info();
-		report_pstr(PSTR("(repeat) "));
-		style_input();
-		report((char*)buf);
+                if (c == CTRL('R')) {
+                        // For Ctrl-R, repeat the last command immediately
+                        style_info();
+                        report_pstr(PSTR("(repeat) "));
+                        style_input();
+                        report((char*)buf);
 
-		goto char_enter;
+                        goto char_enter;
+                } else {
+                        // For Ctrl-N or Ctrl-P, just retrieve the last command
+                        // for editing.
+                        style_input();
+                        report((char*)buf);
+                }
 	}
 
 	// End of line? (ignore multiple ones and blank lines)
-	if (c == CTRL('J') || c == CTRL('M')) {
+	else if (c == CTRL('J') || c == CTRL('M')) {
 	char_enter:
 		uistate.is_inpok = 1;
 		oldbuflen = buflen;
@@ -226,22 +236,29 @@ proto_input(unsigned char c)
 			return '\n';
 		}
 		return 0;
-	} else if ((c == CTRL('H')) || (c == 127)) {
+	}
+
+        // Backspace?
+        else if ((c == CTRL('H')) || (c == 127)) {
 		if (buflen) {
 			buflen--;
 			oldbuflen = 0; // Invalidate the previous line.
 			if (ECHO_ON) report_pstr(PSTR("\b \b"));
 		}
 		return 0;
+	}
 
-	} else if (c == CTRL('L')) {
+        // Redraw
+        else if (c == CTRL('L')) {
                 // Resend the pending command line to the terminal (redraw)
 		say_break();
 		style_normal();
 		proto_prompt();
 		return 0;
-	} else if (c == CTRL('T')) {
-		// Toggle the terminal bells and whistles.
+	}
+
+        // Toggle terminal bells and whistles (colours, etc).
+        else if (c == CTRL('T')) {
 		say_break();
 		style_normal();
 		uistate.is_term = !uistate.is_term;
@@ -249,8 +266,10 @@ proto_input(unsigned char c)
 		report_bool_value(PSTR(STR_GSTERM), uistate.is_term);
 		proto_prompt();
 		return 0;
-	} else if (c == 30) {
-		// Controlling entity is a computer: disable human features
+	}
+
+        // Controlling entity is a computer: disable human interface
+        else if (c == 30) {
 		say_break();
 		style_normal();
 		uistate.is_term = 0;
@@ -270,9 +289,9 @@ proto_input(unsigned char c)
 		exit(0);
 	}
 #endif // HOST
-	
+
+        // Ignore remaining control and unprintable characters
 	else if (c < 32 || c > 127) {
-		// Ignore unprintable/control characters
 		return 0;
 	}
 
