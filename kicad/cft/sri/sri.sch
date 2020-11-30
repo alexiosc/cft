@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 1 14
+Sheet 1 3
 Title "Timers, Interrupts & Clock "
 Date ""
 Rev ""
@@ -19,8 +19,6 @@ Wire Bus Line
 	8350 2300 7800 2300
 Text Label 7800 2300 0    50   ~ 0
 DB[0..15]
-Wire Bus Line
-	5950 2600 8350 2600
 Text Label 7800 2600 0    50   ~ 0
 FPD[0..7]
 Wire Wire Line
@@ -229,8 +227,6 @@ Text Label 7800 2200 0    50   ~ 0
 AB[0..23]
 Text Notes 700  850  0    100  ~ 20
 The INT, IRC and RTC boards
-Text Notes 700  1650 0    50   ~ 0
-This board contains a number of relatively simple units. The interconnections and feeback loops between these units\nmake this a Turing Complete design, and an actual processor at that. Nearly every unit here except the clock generator\nfeeds back into another one. The core of the design is the Microcode Sequencer unit. It outputs the correct sequence\nof 24 control signals to execute an instruction. The Instruction Register holds the instruction being executed. The\nSkip and Branch Unit can be queried by the Sequencer to make decisions. The two Addressing Modes sub-units\ninterpret parts of the IR to tell the Sequencer exactly how to interpret instruction operands. The Flag Unit is crucial\nin implemting subroutines, interrupts and re-entrancy by storing and retrieving flag values. And the Interrupt Unit\nnotifies the Sequencer about external interrupt requests.
 Wire Wire Line
 	1100 2400 650  2400
 Wire Wire Line
@@ -255,8 +251,6 @@ Wire Wire Line
 	650  3450 1100 3450
 Wire Wire Line
 	650  3550 1100 3550
-Wire Wire Line
-	2250 3800 2700 3800
 Text Notes 700  2000 0    100  ~ 20
 Address Decoding & Wait States
 Text Label 650  2400 0    50   ~ 0
@@ -283,86 +277,6 @@ Text Label 650  3450 0    50   ~ 0
 AB6
 Text Label 650  3550 0    50   ~ 0
 AB7
-Text Label 2700 3800 2    50   ~ 0
-~WS
-Wire Wire Line
-	4800 2400 4350 2400
-Wire Wire Line
-	4800 2550 4350 2550
-Wire Wire Line
-	4800 2650 4350 2650
-Wire Wire Line
-	5950 3150 6400 3150
-Wire Wire Line
-	5950 3250 6400 3250
-Text Label 6400 3150 2    50   ~ 0
-~FPIEN
-Text Label 6400 3250 2    50   ~ 0
-~FPIRF
-Text Label 6400 2900 2    50   ~ 0
-~IRQ[0..7]
-Text Label 4350 2400 0    50   ~ 0
-~RESET
-Text Label 4350 2550 0    50   ~ 0
-CLK2
-Text Label 4350 2650 0    50   ~ 0
-CLK3
-Text Label 4350 2950 0    50   ~ 0
-~RIER
-Text Label 4350 3050 0    50   ~ 0
-~WIER
-Text Label 4350 3200 0    50   ~ 0
-~RISR
-Text Label 6400 2600 2    50   ~ 0
-FPD[0..7]
-Text Label 2700 3500 2    50   ~ 0
-~RTCW
-Text Label 2700 3400 2    50   ~ 0
-~RTCR
-Text Label 2700 3300 2    50   ~ 0
-~RTCAW
-$Sheet
-S 4800 2250 1150 1550
-U 5F160E7C
-F0 "Interrupt Controller" 50
-F1 "irc.sch" 50
-F2 "DB[0..15]" T L 4800 2800 50 
-F3 "~RIER" I L 4800 2950 50 
-F4 "FPD[0..7]" T R 5950 2600 50 
-F5 "CLK3" I L 4800 2650 50 
-F6 "CLK2" I L 4800 2550 50 
-F7 "~RESET" I L 4800 2400 50 
-F8 "~WIER" I L 4800 3050 50 
-F9 "~RISR" I L 4800 3200 50 
-F10 "~FPIEN" I R 5950 3150 50 
-F11 "~FPIRF" I R 5950 3250 50 
-F12 "~IRQ[0..7]" T R 5950 2900 50 
-F13 "~IRQ" T R 5950 2700 50 
-F14 "~IRQ0i" I R 5950 3400 50 
-F15 "~IRQ1i" I R 5950 3500 50 
-F16 "~IRQ2i" I R 5950 3600 50 
-$EndSheet
-Text Label 6400 2700 2    50   ~ 0
-~IRQ
-Text Label 4350 6400 0    50   ~ 0
-~RTCW
-Text Label 4350 6300 0    50   ~ 0
-~RTCR
-Text Label 4350 6200 0    50   ~ 0
-~RTCAW
-Text Label 4350 6100 0    50   ~ 0
-~RTCCS
-$Sheet
-S 4800 5900 1150 600 
-U 5FD01D67
-F0 "Real Time Clock" 50
-F1 "rtc.sch" 50
-F2 "~DB[0..15]" B L 4800 6000 50 
-F3 "~RTCAW" I L 4800 6200 50 
-F4 "~RTCW" I L 4800 6400 50 
-F5 "~RTCR" I L 4800 6300 50 
-F6 "~RTCCS" I L 4800 6100 50 
-$EndSheet
 $Sheet
 S 1100 2250 1150 1650
 U 60AA2B43
@@ -392,96 +306,6 @@ F22 "~T1CS" O R 2250 2900 50
 F23 "~RTCCS" O R 2250 3100 50 
 $EndSheet
 Wire Wire Line
-	2250 2400 3950 2400
-Wire Wire Line
-	3950 2400 3950 2950
-Wire Wire Line
-	3950 2950 4800 2950
-Wire Wire Line
-	2250 2500 3850 2500
-Wire Wire Line
-	3850 2500 3850 3050
-Wire Wire Line
-	3850 3050 4800 3050
-Wire Wire Line
-	2250 2600 3750 2600
-Wire Wire Line
-	3750 2600 3750 3200
-Wire Wire Line
-	3750 3200 4800 3200
-Text Notes 4600 2000 0    100  ~ 20
-Interrupt Controller
-Wire Wire Line
-	2250 2800 3650 2800
-Wire Wire Line
-	3650 2800 3650 5100
-Wire Wire Line
-	3650 5100 4800 5100
-Wire Wire Line
-	2250 2900 3550 2900
-Wire Wire Line
-	3550 2900 3550 5200
-Wire Wire Line
-	3550 5200 4800 5200
-Wire Bus Line
-	4800 4800 4350 4800
-Text Label 4350 4800 0    50   ~ 0
-DB[0..15]
-Wire Bus Line
-	4800 6000 4350 6000
-Text Label 4350 6000 0    50   ~ 0
-DB[0..15]
-Wire Bus Line
-	4800 2800 4350 2800
-Text Label 4350 2800 0    50   ~ 0
-DB[0..15]
-Wire Wire Line
-	4800 4400 4350 4400
-Wire Wire Line
-	4800 4500 4350 4500
-Text Label 4350 4400 0    50   ~ 0
-~R
-Text Label 4350 4500 0    50   ~ 0
-~W
-Wire Wire Line
-	4350 4700 4800 4700
-Text Label 4350 4700 0    50   ~ 0
-AB1
-Wire Wire Line
-	4350 4600 4800 4600
-Text Label 4350 4600 0    50   ~ 0
-AB0
-Text Label 6400 5300 2    50   ~ 0
-~IRQ2i
-Text Label 6400 5200 2    50   ~ 0
-~IRQ1i
-Text Label 6400 5100 2    50   ~ 0
-~IRQ0i
-Wire Wire Line
-	6400 4900 5950 4900
-Text Label 6400 4500 2    50   ~ 0
-G0-1
-Text Label 6400 4600 2    50   ~ 0
-G0-2
-Text Label 6400 4700 2    50   ~ 0
-G1-0
-Text Label 6400 4800 2    50   ~ 0
-G1-1
-Text Label 6400 4900 2    50   ~ 0
-G1-2
-Text Label 6400 4400 2    50   ~ 0
-G0-0
-Wire Wire Line
-	5950 4400 6400 4400
-Wire Wire Line
-	5950 4500 6400 4500
-Wire Wire Line
-	5950 4600 6400 4600
-Wire Wire Line
-	5950 4700 6400 4700
-Wire Wire Line
-	5950 4800 6400 4800
-Wire Wire Line
 	9800 2000 9500 2000
 Text Label 9800 1700 2    50   ~ 0
 G0-1
@@ -505,44 +329,6 @@ Wire Wire Line
 	9500 1900 9800 1900
 Wire Wire Line
 	9500 2100 9800 2100
-Text Label 2700 2400 2    50   ~ 0
-~RIER
-Text Label 2700 2500 2    50   ~ 0
-~WIER
-Text Label 2700 2600 2    50   ~ 0
-~RISR
-Text Label 4350 5100 0    50   ~ 0
-~T0CS
-Text Label 4350 5200 0    50   ~ 0
-~T1CS
-Text Label 2700 2800 2    50   ~ 0
-~T0CS
-Text Label 2700 2900 2    50   ~ 0
-~T1CS
-Wire Wire Line
-	2250 3100 3450 3100
-Wire Wire Line
-	3450 6100 4800 6100
-Wire Wire Line
-	2250 3300 3350 3300
-Wire Wire Line
-	3350 6200 4800 6200
-Wire Wire Line
-	2250 3400 3250 3400
-Wire Wire Line
-	3250 6300 4800 6300
-Wire Wire Line
-	2250 3500 3150 3500
-Wire Wire Line
-	3150 6400 4800 6400
-Wire Wire Line
-	3450 3100 3450 6100
-Wire Wire Line
-	3350 3300 3350 6200
-Wire Wire Line
-	3250 3400 3250 6300
-Wire Wire Line
-	3150 3500 3150 6400
 $Sheet
 S 8350 1450 1150 4200
 U 5DD5525C
@@ -715,8 +501,6 @@ NoConn ~ 9800 5000
 NoConn ~ 9800 5100
 NoConn ~ 9800 5200
 NoConn ~ 9800 5300
-Wire Wire Line
-	5950 2700 8350 2700
 Text Label 9800 5400 2    50   ~ 0
 ~FPIEN
 Text Label 9800 5500 2    50   ~ 0
@@ -731,58 +515,8 @@ NoConn ~ 7800 2500
 NoConn ~ 7800 2100
 NoConn ~ 7800 1800
 NoConn ~ 7800 3600
-Text Notes 5250 3750 0    100  ~ 20
-IRC
-Text Notes 5250 5400 0    100  ~ 20
-TMR
-Text Notes 5250 6450 0    100  ~ 20
-RTC
-$Sheet
-S 4800 4250 1150 1200
-U 607E2CF3
-F0 "Timers" 50
-F1 "tmr.sch" 50
-F2 "~IRQ0i" T R 5950 5100 50 
-F3 "~IRQ1i" T R 5950 5200 50 
-F4 "~IRQ2i" T R 5950 5300 50 
-F5 "DB[0..15]" B L 4800 4800 50 
-F6 "~R" I L 4800 4400 50 
-F7 "~T0CS" I L 4800 5100 50 
-F8 "~T1CS" I L 4800 5200 50 
-F9 "~W" I L 4800 4500 50 
-F10 "AB0" I L 4800 4600 50 
-F11 "AB1" I L 4800 4700 50 
-F12 "OUT-G0-0" O R 5950 4400 50 
-F13 "OUT-G0-1" O R 5950 4500 50 
-F14 "OUT-G0-2" O R 5950 4600 50 
-F15 "OUT-G1-1" O R 5950 4800 50 
-F16 "OUT-G1-2" O R 5950 4900 50 
-F17 "OUT-G1-0" O R 5950 4700 50 
-$EndSheet
-Wire Bus Line
-	5950 2900 8350 2900
-Text Label 6400 3600 2    50   ~ 0
-~IRQ2i
-Text Label 6400 3500 2    50   ~ 0
-~IRQ1i
-Text Label 6400 3400 2    50   ~ 0
-~IRQ0i
-Wire Wire Line
-	6500 3600 6500 5300
-Wire Wire Line
-	5950 5300 6500 5300
-Wire Wire Line
-	5950 3600 6500 3600
-Wire Wire Line
-	6600 3500 6600 5200
-Wire Wire Line
-	5950 5200 6600 5200
-Wire Wire Line
-	5950 3500 6600 3500
-Wire Wire Line
-	6700 3400 6700 5100
-Wire Wire Line
-	5950 5100 6700 5100
-Wire Wire Line
-	5950 3400 6700 3400
+Text Notes 4600 2000 0    100  ~ 20
+Interrupt Controller
+Text Notes 700  1650 0    50   ~ 0
+This board contains a number of relatively simple units. The interconnections and feeback loops between these units\nmake this a Turing Complete design, and an actual processor at that. Nearly every unit here except the clock generator\nfeeds back into another one. The core of the design is the Microcode Sequencer unit. It outputs the correct sequence\nof 24 control signals to execute an instruction. The Instruction Register holds the instruction being executed. The\nSkip and Branch Unit can be queried by the Sequencer to make decisions. The two Addressing Modes sub-units\ninterpret parts of the IR to tell the Sequencer exactly how to interpret instruction operands. The Flag Unit is crucial\nin implemting subroutines, interrupts and re-entrancy by storing and retrieving flag values. And the Interrupt Unit\nnotifies the Sequencer about external interrupt requests.
 $EndSCHEMATC
