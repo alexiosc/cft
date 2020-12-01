@@ -2069,6 +2069,22 @@ dfp_diags_db_pod()
 }
 
 
+static void
+_dfp_diags_set_ibus_via_bus_hold(uint16_t value)
+{
+        // Write the value to the IBUS.
+        xmem_write(XMEM_IBUS_H, (value >> 8) & 0xff);
+        xmem_write(XMEM_IBUS_L, (value & 0xff));
+
+        // And strobe the IBOE pin on the Atmega, which will drive the IBUS
+        // temporarily.
+        setuptime();
+        clearbit(PORTC, C_NIBOE);
+        setuptime();
+        setbit(PORTC, C_NIBOE);
+}
+
+
 // Test strategy: drive the Control Bus, set RADDR = 0 and read from IBUS. The
 // (bus held) value should not change unless a unit is driving the IBUS when
 // RADDR == 0 (no unit should).
@@ -2083,11 +2099,7 @@ dfp_diags_raddr_quiescence()
                         uint16_t pattern = (uint16_t) pgm_read_word(&(_16bit_patterns[i]));
                         
                         wdt_reset();
-                        xmem_write(XMEM_IBUS_H, (pattern >> 8) & 0xff);
-                        xmem_write(XMEM_IBUS_L, (pattern & 0xff));
-                        setuptime(); clearbit(PORTC, C_NIBOE);
-                        setuptime(); setbit(PORTC, C_NIBOE);
-
+                        _dfp_diags_set_ibus_via_bus_hold(pattern);
                         uint16_t checkval = _bare_ibus_read(0);
                         
                         if (pattern != checkval) {
@@ -2126,6 +2138,7 @@ dfp_diags_raddr_quiescence()
 static inline void
 dfp_diags_raddr()
 {
+        tristate_buses();
         const uint8_t num_reps = 64; // avr-gcc should optimise the variable away.
 
         // We only have four processor boards, but valid board numbers are in
@@ -2149,21 +2162,12 @@ dfp_diags_raddr()
                                 wdt_reset();
                                 uint16_t pattern = (uint16_t) pgm_read_word(&(_16bit_patterns[i]));
 
-                                // Write the pattern to the IBUS registers.
-                                xmem_write(XMEM_IBUS_H, (pattern >> 8) & 0xff);
-                                xmem_write(XMEM_IBUS_L, (pattern & 0xff));
-                        
-                                xmem_write(XMEM_RADDR, raddr); // Set RADDR
-                                xmem_write(XMEM_WADDR, 0);     // Idle WADDR
-                                xmem_write(XMEM_ACTION, 0);    // Idle ACTION
-                        
-                                clearbit(PORTE, E_NMCVOE);     // Drive the control bus
-                                setuptime();
-                                sample();
-                                uint16_t checkval = xmem_read(XMEM_IBUS_H) << 8 | xmem_read(XMEM_IBUS_L);
-                                setuptime();
-                                setbit(PORTE, E_NMCVOE);       // Release the control bus
-                                xmem_write(XMEM_RADDR, 0);     // Idle RADDR
+                                // Write the pattern to the IBUS, but strobe
+                                // nothing on the bus. Bus hold will keep the
+                                // value there.
+                                _dfp_diags_set_ibus_via_bus_hold(pattern);
+
+                                uint16_t checkval = _bare_ibus_read(raddr);
 
                                 if (pattern != checkval) {
                                         if (board == 0) {

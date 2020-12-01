@@ -222,6 +222,7 @@ proto_input(unsigned char c)
                         // for editing.
                         style_input();
                         report((char*)buf);
+                        return 0;
                 }
 	}
 
