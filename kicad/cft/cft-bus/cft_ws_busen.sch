@@ -821,7 +821,7 @@ Wire Notes Line width 20 style solid
 	5850 6000 5850 5000
 Wire Notes Line width 20 style solid
 	1150 5000 5850 5000
-Text Notes 3950 2950 0    100  ~ 20
+Text Notes 3950 3950 0    100  ~ 20
 Wait State
 Text Label 4900 4400 0    50   ~ 0
 ~R
@@ -1958,10 +1958,6 @@ Text Notes 4750 3400 0    50   ~ 0
 Optional
 Wire Notes Line
 	5100 2600 5100 3450
-Wire Bus Line
-	8750 3250 8750 5600
-Wire Bus Line
-	6850 3600 6850 6050
 $Comp
 L Device:LED_ALT D?
 U 1 1 5F579E63
@@ -1988,4 +1984,8 @@ F 3 "~" H 4850 3150 50  0001 C CNN
 	1    4850 3150
 	-1   0    0    -1  
 $EndComp
+Wire Bus Line
+	8750 3250 8750 5600
+Wire Bus Line
+	6850 3600 6850 6050
 $EndSCHEMATC
