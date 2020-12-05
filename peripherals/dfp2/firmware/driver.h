@@ -181,7 +181,7 @@ errno_t processor_action(uint8_t action);
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-// FRONT PANEL SWITCHES
+// FRONT PANEL SWITCHES AND FUNCTIONALITY
 //
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -189,6 +189,12 @@ errno_t processor_action(uint8_t action);
 void sw_clear_changed();
 
 void sw_read();
+
+void set_mfd(mfd_t mfd);
+
+word_t get_or();
+
+void set_or(const word_t);	// Output (lights) register
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -282,9 +288,6 @@ uint8_t set_reg(reg_t reg, uint16_t value);
 
 // // Output
 // void write_leds(const uint8_t);   // Set the diagnostic LEDs
-
-word_t get_or();
-void set_or(const word_t);	// Output (lights) register
 
 // void drive_ibus();		// Drive IBUS
 // void write_ibus(const uint16_t); // Output to IBUS

@@ -132,7 +132,7 @@ report_pstr_in_console(const char *msg)
 
 
 // Send to the serial port a string message residing in program memory. (for
-// AVR only; on non-Harvard platforms, this soup  like everything else, 
+// AVR only; on non-Harvard platforms, strings don't need special treatment)
 
 // WARNING: this function recurses. Keep it reentrant!
 

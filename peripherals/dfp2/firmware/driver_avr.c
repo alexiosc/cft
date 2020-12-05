@@ -1098,9 +1098,6 @@ hw_init()
         // Initialise switch debouncing and enable switch timer ISR
         sw_init();
 	
-        // Enable the watchdog.
-        wdt_enable(WATCHDOG_TIMEOUT);
-
         // Initialise serial port and interrupts
         serial_init();
 
@@ -1109,8 +1106,17 @@ hw_init()
 
         // We're booting. Let'em know.
         report_pstr(PSTR(STR_BOOTUP));
-        
-        // ...
+
+        fp_grab();
+        fp_start_light_test();
+        _delay_ms(500);
+        fp_stop_light_test();
+
+        // Enable the watchdog.
+        wdt_enable(WATCHDOG_TIMEOUT);
+
+	// Run diagnostics and detects processor boards.
+	dfp_diags();
 
         // Make Panel work
         fp_release();
@@ -1118,8 +1124,6 @@ hw_init()
         
 
 
-	// Run diagnostics and detects processor boards.
-	dfp_diags();
 
 
 
@@ -1891,6 +1895,35 @@ diag_failure()
 }
 
 
+// Report the start of a diagnostic test. Also display this on the OR in BCD.
+static void
+report_diags(const char *msg)
+{
+        report_pstr(msg);
+
+        uint16_t test_num = (((pgm_read_byte(msg++) - '0') & 0xf) << 8) |
+                (((pgm_read_byte(msg++) - '0') & 0xf) << 4) |
+                ((pgm_read_byte(msg++) - '0') & 0xf);
+        
+        if (hwstate.fp_scanen == 0 && hwstate.fp_panelen == 0) {
+                // During early diagnostics, the panel is grabbed so we need to
+                // write to it directly, but we also write to the OR (even
+                // though it's not displayed yet)
+                xmem_write(XMEM_OR_H, test_num >> 8);
+                xmem_write(XMEM_OR_L, test_num & 0xff);
+                xmem_write(XMEM_MFD_H, test_num >> 8);
+                xmem_write(XMEM_MFD_L, test_num & 0xff);
+
+        } else {
+                // If the panel is fully enabled, we go through the proper
+                // channels: display the OR on the MFD, and set set the OR to
+                // the value we want.
+                set_or(test_num);
+                set_mfd(MFD_OR);
+        }
+}
+
+
 
 // The FPD bus is used for a great many things: it carries addresses to be
 // latched by the address latch, it carries all data from input or output pods
@@ -1905,7 +1938,7 @@ diag_failure()
 static void
 dfp_diags_fpd_quiescence()
 {
-        report_pstr(PSTR(STR_D_FPDQ));
+        report_diags(PSTR(STR_D_FPDQ));
         for (uint8_t addr = 0xff; addr > 0x80; addr--) {
                 volatile uint8_t data = xmem_read(addr);
                 setuptime();
@@ -1935,7 +1968,7 @@ dfp_diags_fpd_quiescence()
 static void
 _dfp_diags_quiescence(const char *diagmsg, uint8_t addr_h, uint8_t addr_l)
 {
-        report_pstr(diagmsg);
+        report_diags(diagmsg);
         // for (uint8_t i = 0; i < NUM_16BIT_PATTERNS; i++) {
         //         uint16_t pattern = (uint16_t) pgm_read_word(&(_16bit_patterns[i]));
         
@@ -2001,7 +2034,7 @@ _dfp_diags_pod(const char *msg, uint8_t addr_h, uint8_t addr_l)
 {
         uint8_t failures = 0;
 
-        report_pstr(msg);
+        report_diags(msg);
         for (uint8_t i = 0; i < NUM_16BIT_PATTERNS; i++) {
                 wdt_reset();
                 uint16_t pattern = (uint16_t) pgm_read_word(&(_16bit_patterns[i]));
@@ -2091,7 +2124,7 @@ _dfp_diags_set_ibus_via_bus_hold(uint16_t value)
 static inline void
 dfp_diags_raddr_quiescence()
 {
-        report_pstr(PSTR(STR_D_RADDQ));
+        report_diags(PSTR(STR_D_RADDQ));
         for (uint8_t reps = 0; reps < 255; reps++) {
                 uint8_t failures = 0;
 
@@ -2146,7 +2179,7 @@ dfp_diags_raddr()
         // is running. Whatevs.
         uint16_t detcounts[5] = {0, 0, 0, 0, 0};
 
-        report_pstr(PSTR(STR_D_RADDR));
+        report_diags(PSTR(STR_D_RADDR));
 
         for (uint8_t reps = 0; reps < num_reps; reps++) {
                 uint8_t failures = 0;
@@ -2244,7 +2277,7 @@ _dfp_diags_reg_xx(const char *msg, uint8_t addr, uint8_t action_inc, uint8_t act
         const uint8_t num_reps = 2; // avr-gcc should optimise the variable away.
         uint16_t last_read;
 
-        report_pstr(msg);
+        report_diags(msg);
         report_pstr(PSTR("\024")); // 024 = 20, expanding to ": "
 
         for (uint8_t reps = 0; reps < num_reps; reps++) {
