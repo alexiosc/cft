@@ -3,7 +3,7 @@
   (general
     (thickness 1.6)
     (drawings 58)
-    (tracks 0)
+    (tracks 10)
     (zones 0)
     (modules 79)
     (nets 348)
@@ -9652,6 +9652,17 @@
   (gr_text TIC (at -73.406 230.886) (layer F.SilkS) (tstamp 5F9D5C67)
     (effects (font (size 6.000001 6.000001) (thickness 1.5)) (justify left))
   )
+
+  (segment (start 346.71 141.01) (end 350.48 141.01) (width 0.1778) (layer F.Cu) (net 133))
+  (segment (start 350.48 141.01) (end 351.79 139.7) (width 0.1778) (layer F.Cu) (net 133))
+  (segment (start 346.71 135.89) (end 349.25 138.43) (width 0.1778) (layer F.Cu) (net 137))
+  (segment (start 349.25 138.43) (end 353.06 138.43) (width 0.1778) (layer F.Cu) (net 137))
+  (segment (start 353.06 138.43) (end 354.33 139.7) (width 0.1778) (layer F.Cu) (net 137))
+  (segment (start 354.33 139.7) (end 354.33 140.97) (width 0.1778) (layer F.Cu) (net 137))
+  (segment (start 354.33 140.97) (end 353.06 142.24) (width 0.1778) (layer F.Cu) (net 137))
+  (segment (start 353.06 142.24) (end 351.79 142.24) (width 0.1778) (layer F.Cu) (net 137))
+  (segment (start 346.71 133.39) (end 348.02 133.39) (width 0.1778) (layer F.Cu) (net 138))
+  (segment (start 348.02 133.39) (end 351.79 137.16) (width 0.1778) (layer F.Cu) (net 138))
 
   (zone (net 1) (net_name +5V) (layer F.Cu) (tstamp 0) (hatch edge 0.508)
     (priority 2)
