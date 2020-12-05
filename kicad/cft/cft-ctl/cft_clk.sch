@@ -1049,7 +1049,7 @@ $EndComp
 Wire Wire Line
 	9250 1550 9300 1550
 Wire Wire Line
-	9500 1550 10600 1550
+	9500 1550 9650 1550
 NoConn ~ 8750 1750
 $Comp
 L Device:D_Schottky_ALT D3
@@ -1324,4 +1324,31 @@ Wire Wire Line
 Connection ~ 6350 4400
 Wire Wire Line
 	6400 4400 6350 4400
+$Comp
+L Device:R_Small R1
+U 1 1 5FF6EE09
+P 9650 1300
+F 0 "R1" H 9591 1254 50  0000 R CNN
+F 1 "4.7kΩ" H 9591 1345 50  0000 R CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 9650 1300 50  0001 C CNN
+F 3 "~" H 9650 1300 50  0001 C CNN
+	1    9650 1300
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	9650 1400 9650 1550
+Connection ~ 9650 1550
+Wire Wire Line
+	9650 1550 10600 1550
+$Comp
+L power:+5V #PWR030
+U 1 1 5FF762EA
+P 9650 1200
+F 0 "#PWR030" H 9650 1050 50  0001 C CNN
+F 1 "+5V" H 9665 1373 50  0000 C CNN
+F 2 "" H 9650 1200 50  0001 C CNN
+F 3 "" H 9650 1200 50  0001 C CNN
+	1    9650 1200
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

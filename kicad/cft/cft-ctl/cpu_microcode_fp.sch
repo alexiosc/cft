@@ -737,12 +737,12 @@ F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 7150 23
 	1    7150 2300
 	1    0    0    -1  
 $EndComp
-Wire Bus Line
-	8050 1900 8050 4600
-Wire Bus Line
-	5250 1900 5250 4600
 Wire Wire Line
 	3850 2500 3300 2500
 Text HLabel 3300 2500 0    50   Input ~ 0
 RSVD
+Wire Bus Line
+	8050 1900 8050 4600
+Wire Bus Line
+	5250 1900 5250 4600
 $EndSCHEMATC

@@ -1235,41 +1235,6 @@ F 3 "" H 11050 4550 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 Wire Wire Line
-	11050 4500 11050 4550
-Connection ~ 11050 4500
-Wire Wire Line
-	10950 4500 11050 4500
-Wire Wire Line
-	11050 4400 11050 4500
-Connection ~ 11050 4400
-Wire Wire Line
-	10950 4400 11050 4400
-Wire Wire Line
-	11050 4300 11050 4400
-Connection ~ 11050 4300
-Wire Wire Line
-	10950 4300 11050 4300
-Wire Wire Line
-	11050 4200 11050 4300
-Connection ~ 11050 4200
-Wire Wire Line
-	10950 4200 11050 4200
-Wire Wire Line
-	11050 4100 11050 4200
-Connection ~ 11050 4100
-Wire Wire Line
-	10950 4100 11050 4100
-Wire Wire Line
-	11050 4000 11050 4100
-Connection ~ 11050 4000
-Wire Wire Line
-	10950 4000 11050 4000
-Wire Wire Line
-	11050 3900 11050 4000
-Connection ~ 11050 3900
-Wire Wire Line
-	10950 3900 11050 3900
-Wire Wire Line
 	10950 3400 11050 3400
 Wire Wire Line
 	11050 3300 11050 3400
@@ -1315,83 +1280,6 @@ Wire Wire Line
 	11050 2400 11050 2500
 Wire Wire Line
 	10950 2400 11050 2400
-$Comp
-L Device:R_Small R70
-U 1 1 60247920
-P 10850 4500
-F 0 "R70" V 10800 4650 50  0000 C CNN
-F 1 "4.7kΩ" V 10750 4350 50  0001 C CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10850 4500 50  0001 C CNN
-F 3 "~" H 10850 4500 50  0001 C CNN
-	1    10850 4500
-	0    -1   1    0   
-$EndComp
-$Comp
-L Device:R_Small R69
-U 1 1 60237976
-P 10850 4400
-F 0 "R69" V 10800 4550 50  0000 C CNN
-F 1 "4.7kΩ" V 10750 4250 50  0001 C CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10850 4400 50  0001 C CNN
-F 3 "~" H 10850 4400 50  0001 C CNN
-	1    10850 4400
-	0    -1   1    0   
-$EndComp
-$Comp
-L Device:R_Small R68
-U 1 1 60237970
-P 10850 4300
-F 0 "R68" V 10800 4450 50  0000 C CNN
-F 1 "4.7kΩ" V 10750 4150 50  0001 C CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10850 4300 50  0001 C CNN
-F 3 "~" H 10850 4300 50  0001 C CNN
-	1    10850 4300
-	0    -1   1    0   
-$EndComp
-$Comp
-L Device:R_Small R67
-U 1 1 60227976
-P 10850 4200
-F 0 "R67" V 10800 4350 50  0000 C CNN
-F 1 "4.7kΩ" V 10750 4050 50  0001 C CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10850 4200 50  0001 C CNN
-F 3 "~" H 10850 4200 50  0001 C CNN
-	1    10850 4200
-	0    -1   1    0   
-$EndComp
-$Comp
-L Device:R_Small R66
-U 1 1 60227970
-P 10850 4100
-F 0 "R66" V 10800 4250 50  0000 C CNN
-F 1 "4.7kΩ" V 10750 3950 50  0001 C CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10850 4100 50  0001 C CNN
-F 3 "~" H 10850 4100 50  0001 C CNN
-	1    10850 4100
-	0    -1   1    0   
-$EndComp
-$Comp
-L Device:R_Small R65
-U 1 1 601F7737
-P 10850 4000
-F 0 "R65" V 10800 4150 50  0000 C CNN
-F 1 "4.7kΩ" V 10750 3850 50  0001 C CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10850 4000 50  0001 C CNN
-F 3 "~" H 10850 4000 50  0001 C CNN
-	1    10850 4000
-	0    -1   1    0   
-$EndComp
-$Comp
-L Device:R_Small R64
-U 1 1 601F7731
-P 10850 3900
-F 0 "R64" V 10800 4050 50  0000 C CNN
-F 1 "4.7kΩ" V 10750 3750 50  0001 C CNN
-F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10850 3900 50  0001 C CNN
-F 3 "~" H 10850 3900 50  0001 C CNN
-	1    10850 3900
-	0    -1   1    0   
-$EndComp
 $Comp
 L Device:R_Small R63
 U 1 1 601C6ACC
@@ -1524,20 +1412,6 @@ Wire Wire Line
 	9500 3400 10750 3400
 Wire Wire Line
 	9500 2300 10100 2300
-Wire Wire Line
-	9500 4200 10750 4200
-Wire Wire Line
-	9500 4100 10750 4100
-Wire Wire Line
-	9500 4000 10750 4000
-Wire Wire Line
-	9500 3900 10750 3900
-Wire Wire Line
-	9500 4300 10750 4300
-Wire Wire Line
-	9500 4400 10750 4400
-Wire Wire Line
-	9500 4500 10750 4500
 Text Notes 10150 4800 0    50   ~ 0
 Future expansion
 Text Notes 10150 4900 0    50   ~ 0
@@ -1550,9 +1424,23 @@ Text Notes 10150 5200 0    50   ~ 0
 Future expansion
 Text Notes 10150 5300 0    50   ~ 0
 Future expansion
-Wire Wire Line
-	11050 3400 11050 3900
 Connection ~ 11050 3400
+Wire Wire Line
+	9500 4500 10100 4500
+Wire Wire Line
+	9500 4400 10100 4400
+Wire Wire Line
+	9500 4300 10100 4300
+Wire Wire Line
+	9500 4200 10100 4200
+Wire Wire Line
+	9500 4100 10100 4100
+Wire Wire Line
+	9500 4000 10100 4000
+Wire Wire Line
+	9500 3900 10100 3900
+Wire Wire Line
+	11050 3400 11050 4550
 Wire Bus Line
 	9950 1450 9950 2100
 Wire Bus Line
