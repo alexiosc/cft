@@ -1,5 +1,17 @@
 EESchema-DOCLIB  Version 2.0
 #
+$CMP 16550
+D PC16550D, Universal Asynchronous Receiver/Transmitter with FIFOs, PDIP-40
+K 1ch UART FIFO
+F http://www.ti.com/lit/ds/symlink/pc16550d.pdf
+$ENDCMP
+#
+$CMP 16C2550
+D SC16C2550, Dual Universal Asynchronous Receiver/Transmitter with FIFOs, PLCC-44
+K 2ch UART FIFO
+F https://www.nxp.com/docs/en/data-sheet/SC16C2550.pdf
+$ENDCMP
+#
 $CMP 27C256
 D OTP EPROM 256 KiBit
 K OTP EPROM 256 KiBit
@@ -1466,10 +1478,52 @@ K RTC NVRAM SRAM
 F https://uk.mouser.com/datasheet/2/389/m48t02-1849963.pdf
 $ENDCMP
 #
+$CMP MAX232
+D Dual RS232 driver/receiver, 5V supply, 120kb/s, 0C-70C
+K rs232 uart transceiver line-driver
+F http://www.ti.com/lit/ds/symlink/max232.pdf
+$ENDCMP
+#
 $CMP PCA9564
 D I2C Bus Controller, DIP/SOIC-20
 K I2C Bus
 F https://www.nxp.com/docs/en/data-sheet/PCA9564.pdf
+$ENDCMP
+#
+$CMP PESD12VS2UT
+D Low capacitance doubleESD protection diode, 12V, Common Anode, SOT-23
+K diode
+F https://assets.nexperia.com/documents/data-sheet/PESDXS2UT_SERIES.pdf
+$ENDCMP
+#
+$CMP PESD15VS2UT
+D Low capacitance doubleESD protection diode, 15V, Common Anode, SOT-23
+K diode, esd, rs232,eia232, rs-232, eia-232
+F https://assets.nexperia.com/documents/data-sheet/PESDXS2UT_SERIES.pdf
+$ENDCMP
+#
+$CMP PESD24VS2UT
+D Low capacitance doubleESD protection diode, 24V, Common Anode, SOT-23
+K diode
+F https://assets.nexperia.com/documents/data-sheet/PESDXS2UT_SERIES.pdf
+$ENDCMP
+#
+$CMP PESD3V3S2UT
+D Low capacitance doubleESD protection diode, 3.3V, Common Anode, SOT-23
+K diode
+F https://assets.nexperia.com/documents/data-sheet/PESDXS2UT_SERIES.pdf
+$ENDCMP
+#
+$CMP PESD5V0L5UY
+D Low capacitance unidirectional fivefold ESD protection diode array, 5.0V, Common Anode, SOT-363
+K diode
+F https://assets.nexperia.com/documents/data-sheet/PESDXL5UF_V_Y.pdf
+$ENDCMP
+#
+$CMP PESD5V2S2UT
+D Low capacitance doubleESD protection diode, 5.2V, Common Anode, SOT-23
+K diode
+F https://assets.nexperia.com/documents/data-sheet/PESDXS2UT_SERIES.pdf
 $ENDCMP
 #
 $CMP SN74ACT1071
