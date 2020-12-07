@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 13 13
+Sheet 13 14
 Title "Bus Hold"
 Date "2019-11-17"
 Rev "2049"
@@ -1139,4 +1139,6 @@ Connection ~ 7550 5650
 Connection ~ 7550 5750
 Wire Wire Line
 	7550 5750 7550 5800
+Text Notes 5550 5000 2    98   ~ 20
+TODO: Remove signals dealt with by bus pods.
 $EndSCHEMATC

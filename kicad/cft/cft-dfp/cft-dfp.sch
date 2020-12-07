@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 1 13
+Sheet 1 14
 Title "Debugging Front Panel"
 Date "2019-11-17"
 Rev "2049"
@@ -505,140 +505,74 @@ Text Label -12650 3500 2    50   ~ 0
 ~IOINT
 Text Label -12650 2600 2    50   ~ 0
 CLRWS
-$Comp
-L alexios:74HC138 U111
-U 1 1 5E1EADC6
-P -9050 1200
-F 0 "U111" H -9050 1867 50  0000 C CNN
-F 1 "74HC138" H -9050 1776 50  0000 C CNN
-F 2 "alexios:SOIC-16" H -9050 1200 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS138" H -9050 1200 50  0001 C CNN
-F 4 "Yes" H -16250 -450 50  0001 C CNN "Verified"
-	1    -9050 1200
-	1    0    0    -1  
-$EndComp
-Text Label -8150 800  2    50   ~ 0
-~WABL
-Wire Wire Line
-	-9550 1500 -9900 1500
+Text Label 9400 -1950 2    50   ~ 0
+~WAB0
 Text Label -9900 1500 0    50   ~ 0
 ~WR
-Text Label -8150 1000 2    50   ~ 0
-~WABH
-Text Label -8150 1100 2    50   ~ 0
-~WDBL
-Text Label -8150 1200 2    50   ~ 0
-~WDBH
-Text Label -8150 1300 2    50   ~ 0
-~WIBL
-Text Label -8150 1400 2    50   ~ 0
-~WIBH
-Text Label -8150 1500 2    50   ~ 0
-~WORL
-Text Label -8150 2100 2    50   ~ 0
-~WORH
-Wire Wire Line
-	-9550 800  -9900 800 
-Wire Wire Line
-	-9550 900  -9900 900 
-Wire Wire Line
-	-9550 1000 -9900 1000
+Text Label 9400 -1750 2    50   ~ 0
+~WAB2
+Text Label 9400 -1650 2    50   ~ 0
+~WDB0
+Text Label 9400 -1550 2    50   ~ 0
+~WDB1
+Text Label 9400 -1450 2    50   ~ 0
+~WIB0
+Text Label 9400 -1350 2    50   ~ 0
+~WIB1
+Text Label 9400 -1250 2    50   ~ 0
+~WOR0
+Text Label 9400 -1150 2    50   ~ 0
+~WOR1
 Text Label -9900 800  0    50   ~ 0
 FPA0
 Text Label -9900 900  0    50   ~ 0
 FPA1
 Text Label -9900 1000 0    50   ~ 0
 FPA2
-Wire Wire Line
-	-9550 1600 -9900 1600
-Wire Wire Line
-	-9550 1400 -9900 1400
 Text Label -9900 1600 0    50   ~ 0
 FPA7
 Text Label -9900 1400 0    50   ~ 0
 FPA6
-$Comp
-L alexios:74HC138 U113
-U 1 1 5E44CDF5
-P -9050 3800
-F 0 "U113" H -9050 4467 50  0000 C CNN
-F 1 "74HC138" H -9050 4376 50  0000 C CNN
-F 2 "alexios:SOIC-16" H -9050 3800 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS138" H -9050 3800 50  0001 C CNN
-F 4 "Yes" H -16250 -450 50  0001 C CNN "Verified"
-	1    -9050 3800
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
-	-8550 3400 -8150 3400
+	11000 -1950 11400 -1950
 Wire Wire Line
-	-8550 3600 -8150 3600
+	11000 -1750 11400 -1750
 Wire Wire Line
-	-8550 3700 -8150 3700
+	11000 -1650 11400 -1650
 Wire Wire Line
-	-8550 3800 -8150 3800
+	11000 -1550 11400 -1550
 Wire Wire Line
-	-8550 3900 -8150 3900
+	11000 -1450 11400 -1450
 Wire Wire Line
-	-8550 4000 -8150 4000
-Text Label -8150 3400 2    50   ~ 0
-~RABL
-Wire Wire Line
-	-9550 4100 -9900 4100
+	11000 -1350 11400 -1350
+Text Label 11400 -1950 2    50   ~ 0
+~RAB0
 Text Label -9900 4100 0    50   ~ 0
 ~RD
-Text Label -8150 3600 2    50   ~ 0
-~RABH
-Text Label -8150 3700 2    50   ~ 0
-~RDBL
-Text Label -8150 3800 2    50   ~ 0
-~RDBH
-Text Label -8150 3900 2    50   ~ 0
-~RIBL
-Text Label -8150 4000 2    50   ~ 0
-~RIBH
-Wire Wire Line
-	-9550 3400 -9900 3400
-Wire Wire Line
-	-9550 3500 -9900 3500
-Wire Wire Line
-	-9550 3600 -9900 3600
+Text Label 11400 -1750 2    50   ~ 0
+~RAB2
+Text Label 11400 -1650 2    50   ~ 0
+~RDB0
+Text Label 11400 -1550 2    50   ~ 0
+~RDB1
+Text Label 11400 -1450 2    50   ~ 0
+~RIB0
+Text Label 11400 -1350 2    50   ~ 0
+~RIB1
 Text Label -9900 3400 0    50   ~ 0
 FPA0
 Text Label -9900 3500 0    50   ~ 0
 FPA1
 Text Label -9900 3600 0    50   ~ 0
 FPA2
-Wire Wire Line
-	-9550 4000 -9900 4000
-Wire Wire Line
-	-9550 4200 -9900 4200
 Text Label -9900 4000 0    50   ~ 0
 FPA6
 Text Label -9900 4200 0    50   ~ 0
 FPA7
-Text Label -8150 4100 2    50   ~ 0
-~RDSR
+Text Label 11400 -1250 2    50   ~ 0
+~RDSR0
 Wire Wire Line
-	-8550 4100 -8150 4100
-$Comp
-L alexios:74HC138 U112
-U 1 1 5E9697CD
-P -9050 2500
-F 0 "U112" H -9050 3167 50  0000 C CNN
-F 1 "74HC138" H -9050 3076 50  0000 C CNN
-F 2 "alexios:SOIC-16" H -9050 2500 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS138" H -9050 2500 50  0001 C CNN
-F 4 "Yes" H -16250 -450 50  0001 C CNN "Verified"
-	1    -9050 2500
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	-9550 2100 -9900 2100
-Wire Wire Line
-	-9550 2200 -9900 2200
-Wire Wire Line
-	-9550 2300 -9900 2300
+	11000 -1250 11400 -1250
 Text Label -9900 2100 0    50   ~ 0
 FPA0
 Text Label -9900 2200 0    50   ~ 0
@@ -942,7 +876,7 @@ F0 "Address Decoder & Wait States" 50
 F1 "cft_dfp_ws.sch" 50
 F2 "~WS" T R -13500 9800 50 
 F3 "~IOINT" O R -13500 9950 50 
-F4 "~DBOE1" O R -13500 10100 50 
+F4 "~DBOE" O R -13500 10100 50 
 F5 "~R" T L -14650 9800 50 
 F6 "~DBOE" I L -14650 10400 50 
 F7 "CLRWS" I L -14650 10250 50 
@@ -980,7 +914,7 @@ Text Label -13000 9950 2    50   ~ 0
 Wire Wire Line
 	-13500 10100 -13000 10100
 Text Label -13000 10100 2    50   ~ 0
-~DBOE1
+~DBOE
 Connection ~ -11650 8800
 $Sheet
 S -6600 5050 1150 650 
@@ -1017,15 +951,15 @@ AB[0..23]
 Text Label -4950 5350 2    50   ~ 0
 BUSCP
 Text Label -4950 5450 2    50   ~ 0
-~RABL
+~RAB0
 Text Label -4950 5550 2    50   ~ 0
-~RABM
+~RAB1
 Text Label -7200 5350 0    50   ~ 0
 ~ABOE
 Text Label -7200 5450 0    50   ~ 0
-~WABL
+~WAB0
 Text Label -7200 5550 0    50   ~ 0
-~WABM
+~WAB1
 $Sheet
 S -6600 5900 1150 650 
 U 5D363063
@@ -1059,15 +993,15 @@ DB[0..15]
 Text Label -4950 6200 2    50   ~ 0
 BUSCP
 Text Label -4950 6350 2    50   ~ 0
-~RDBL
+~RDB0
 Text Label -4950 6450 2    50   ~ 0
-~RDBH
+~RDB1
 Text Label -7200 6200 0    50   ~ 0
-~DBOE1
+~DBOE
 Text Label -7200 6350 0    50   ~ 0
-~WDBL
+~WDB0
 Text Label -7200 6450 0    50   ~ 0
-~WDBH
+~WDB1
 $Sheet
 S -6600 6750 1150 650 
 U 5D42FF4D
@@ -1101,15 +1035,15 @@ IBUS[0..15]
 Text Label -4950 7050 2    50   ~ 0
 BUSCP
 Text Label -4950 7200 2    50   ~ 0
-~RIBL
+~RIB0
 Text Label -4950 7300 2    50   ~ 0
-~RIBH
+~RIB1
 Text Label -7200 7050 0    50   ~ 0
 ~IBOE
 Text Label -7200 7200 0    50   ~ 0
-~WIBL
+~WIB0
 Text Label -7200 7300 0    50   ~ 0
-~WIBH
+~WIB1
 $Comp
 L power:+5V #PWR0131
 U 1 1 5D61E85C
@@ -1250,7 +1184,7 @@ F1 "cft_dsp_ucvpod.sch" 50
 F2 "WADDR[0..4]" T R -5450 8700 50 
 F3 "RADDR[0..4]" I R -5450 8600 50 
 F4 "FPD[0..7]" T L -6600 8600 50 
-F5 "~µCVOE" I R -5450 8950 50 
+F5 "~CVOE" I R -5450 8950 50 
 F6 "µCVCPH" I L -6600 8950 50 
 F7 "µCVCPM" I L -6600 8850 50 
 F8 "µCVCPL" I L -6600 8750 50 
@@ -1273,13 +1207,13 @@ Wire Wire Line
 Wire Wire Line
 	-5450 8950 -4950 8950
 Text Label -4950 8950 2    50   ~ 0
-~µCVOE
+~CVOE
 Text Label -7200 8750 0    50   ~ 0
-~µCVCPL
+~WCV0
 Text Label -7200 8850 0    50   ~ 0
-~µCVCPM
+~WCV1
 Text Label -7200 8950 0    50   ~ 0
-~µCVCPH
+~WCV2
 Text Label -4950 8600 2    50   ~ 0
 RADDR[0..4]
 Text Label -4950 8700 2    50   ~ 0
@@ -1287,9 +1221,9 @@ WADDR[0..4]
 Wire Wire Line
 	-4950 5650 -5450 5650
 Text Label -4950 5650 2    50   ~ 0
-~RABH
+~RAB2
 Text Label -7200 5650 0    50   ~ 0
-~WABH
+~WAB2
 $Comp
 L Device:C_Small C104
 U 1 1 5EBDFC03
@@ -1733,26 +1667,16 @@ Text Label -4950 7800 2    50   ~ 0
 ~ORHOE
 Wire Wire Line
 	-15600 1000 -14950 1000
-Text Label -8150 900  2    50   ~ 0
-~WABM
-Wire Wire Line
-	-9550 2800 -9900 2800
+Text Label 9400 -1850 2    50   ~ 0
+~WAB1
 Text Label -9900 2800 0    50   ~ 0
 ~WR
-Wire Wire Line
-	-9550 2700 -9900 2700
-Wire Wire Line
-	-9550 2900 -9900 2900
 Text Label -9900 2700 0    50   ~ 0
 FPA7
 Text Label -9900 2900 0    50   ~ 0
 FPA6
-Text Notes -9000 1450 1    50   ~ 0
-FPA=01xxxAAA
-Text Notes -9000 2750 1    50   ~ 0
-FPA=10xxxAAA
-Text Notes -9000 4050 1    50   ~ 0
-FPA=01xxxAAA
+Text Notes 8550 -950 1    50   ~ 0
+FPA=x0xxAAAA
 Wire Bus Line
 	-8200 4800 -7550 4800
 Text Label -8000 4800 0    50   ~ 0
@@ -1997,17 +1921,6 @@ Entry Wire Line
 	-10100 3800 -10000 3900
 Entry Wire Line
 	-10100 3900 -10000 4000
-$Comp
-L power:GND #PWR0113
-U 1 1 5D91EC93
-P -10800 3950
-F 0 "#PWR0113" H -10800 3700 50  0001 C CNN
-F 1 "GND" H -10795 3777 50  0000 C CNN
-F 2 "" H -10800 3950 50  0001 C CNN
-F 3 "" H -10800 3950 50  0001 C CNN
-	1    -10800 3950
-	1    0    0    -1  
-$EndComp
 Entry Wire Line
 	-9900 2100 -10000 2200
 Entry Wire Line
@@ -2095,41 +2008,41 @@ Entry Wire Line
 Entry Wire Line
 	-9900 1000 -10000 1100
 Wire Wire Line
-	-8550 2100 -8150 2100
+	9000 -1150 9400 -1150
 Wire Wire Line
 	-6600 8100 -7200 8100
 Wire Wire Line
 	-6600 8000 -7200 8000
 Wire Wire Line
-	-8550 1500 -8150 1500
+	9000 -1250 9400 -1250
 Wire Wire Line
 	-6600 7300 -7200 7300
 Wire Wire Line
-	-8550 1400 -8150 1400
+	9000 -1350 9400 -1350
 Wire Wire Line
 	-6600 7200 -7200 7200
 Wire Wire Line
-	-8550 1300 -8150 1300
+	9000 -1450 9400 -1450
 Wire Wire Line
 	-6600 6450 -7200 6450
 Wire Wire Line
-	-8550 1200 -8150 1200
+	9000 -1550 9400 -1550
 Wire Wire Line
 	-6600 6350 -7200 6350
 Wire Wire Line
-	-8550 1100 -8150 1100
+	9000 -1650 9400 -1650
 Wire Wire Line
 	-6600 5650 -7200 5650
 Wire Wire Line
-	-8550 1000 -8150 1000
+	9000 -1750 9400 -1750
 Wire Wire Line
-	-8550 900  -8150 900 
+	9000 -1850 9400 -1850
 Wire Wire Line
 	-6600 5550 -7200 5550
 Wire Wire Line
 	-6600 5450 -7200 5450
 Wire Wire Line
-	-8550 800  -8150 800 
+	9000 -1950 9400 -1950
 $Comp
 L Device:C_Small C108
 U 1 1 5D43AADB
@@ -2597,17 +2510,17 @@ Wire Wire Line
 Text Label -7550 4950 2    50   ~ 0
 ~SCANCLR
 Wire Wire Line
-	-8550 2200 -8150 2200
+	9000 -650 9400 -650
 Wire Wire Line
-	-8550 2300 -8150 2300
+	9000 -550 9400 -550
 Wire Wire Line
-	-8550 2400 -8150 2400
-Text Label -8150 2200 2    50   ~ 0
-~µCVCPL
-Text Label -8150 2300 2    50   ~ 0
-~µCVCPM
-Text Label -8150 2400 2    50   ~ 0
-~µCVCPH
+	9000 -450 9400 -450
+Text Label 9400 -650 2    50   ~ 0
+~WCV0
+Text Label 9400 -550 2    50   ~ 0
+~WCV1
+Text Label 9400 -450 2    50   ~ 0
+~WCV2
 $Comp
 L power:+5V #PWR0101
 U 1 1 63AFEA70
@@ -3050,20 +2963,6 @@ F 3 "~" H -10450 3800 50  0001 C CNN
 	1    -10450 3800
 	0    1    1    0   
 $EndComp
-Wire Wire Line
-	-10550 3800 -10800 3800
-Wire Wire Line
-	-10800 3800 -10800 3900
-Wire Wire Line
-	-10750 3900 -10800 3900
-Connection ~ -10800 3900
-Wire Wire Line
-	-10800 3900 -10800 3950
-Wire Wire Line
-	-10750 3700 -10800 3700
-Wire Wire Line
-	-10800 3700 -10800 3800
-Connection ~ -10800 3800
 Text Label -15600 1000 0    50   ~ 0
 ~FPHALT
 Text Label -12100 9250 0    50   ~ 0
@@ -3732,42 +3631,9 @@ $EndComp
 Wire Wire Line
 	-11050 9000 -10750 9000
 Wire Wire Line
-	-8550 3500 -8150 3500
-Text Label -8150 3500 2    50   ~ 0
-~RABM
-$Comp
-L Connector:TestPoint TP104
-U 1 1 5E1CECBF
-P -8550 2500
-F 0 "TP104" V -8550 2688 50  0000 L CNN
-F 1 "TestPoint" V -8446 2572 50  0001 C CNN
-F 2 "TestPoint:TestPoint_THTPad_D1.0mm_Drill0.5mm" H -8350 2500 50  0001 C CNN
-F 3 "~" H -8350 2500 50  0001 C CNN
-	1    -8550 2500
-	0    1    1    0   
-$EndComp
-$Comp
-L Connector:TestPoint TP105
-U 1 1 5E1D07F8
-P -8550 2600
-F 0 "TP105" V -8550 2788 50  0000 L CNN
-F 1 "TestPoint" V -8446 2672 50  0001 C CNN
-F 2 "TestPoint:TestPoint_THTPad_D1.0mm_Drill0.5mm" H -8350 2600 50  0001 C CNN
-F 3 "~" H -8350 2600 50  0001 C CNN
-	1    -8550 2600
-	0    1    1    0   
-$EndComp
-$Comp
-L Connector:TestPoint TP106
-U 1 1 5E1D0949
-P -8550 2700
-F 0 "TP106" V -8550 2888 50  0000 L CNN
-F 1 "TestPoint" V -8446 2772 50  0001 C CNN
-F 2 "TestPoint:TestPoint_THTPad_D1.0mm_Drill0.5mm" H -8350 2700 50  0001 C CNN
-F 3 "~" H -8350 2700 50  0001 C CNN
-	1    -8550 2700
-	0    1    1    0   
-$EndComp
+	11000 -1850 11400 -1850
+Text Label 11400 -1850 2    50   ~ 0
+~RAB1
 $Sheet
 S -3300 4950 1150 4200
 U 5D36B851
@@ -3850,17 +3716,6 @@ $EndSheet
 NoConn ~ -10450 3100
 NoConn ~ -10450 3000
 NoConn ~ -10450 2900
-$Comp
-L Connector:TestPoint TP107
-U 1 1 5E1D0B1C
-P -8550 2800
-F 0 "TP107" V -8550 2988 50  0000 L CNN
-F 1 "TestPoint" V -8446 2872 50  0001 C CNN
-F 2 "TestPoint:TestPoint_THTPad_D1.0mm_Drill0.5mm" H -8350 2800 50  0001 C CNN
-F 3 "~" H -8350 2800 50  0001 C CNN
-	1    -8550 2800
-	0    1    1    0   
-$EndComp
 $Comp
 L Device:R_Small R101
 U 1 1 66C6F4B2
@@ -4071,7 +3926,7 @@ $EndComp
 Text Notes -15700 2550 0    50   ~ 0
 Pulled up\ninternally
 Text Label -15250 3300 0    50   ~ 0
-~µCVOE
+~CVOE
 Wire Wire Line
 	-15250 3300 -14750 3300
 $Comp
@@ -4164,6 +4019,380 @@ F 5 "Yes" H -13950 2500 50  0001 C CNN "Verified"
 $EndComp
 Wire Wire Line
 	-13250 2000 -12800 2000
+$Sheet
+S 9100 1250 1150 2600
+U 66CDCD87
+F0 "Bus Pods" 50
+F1 "pods.sch" 50
+F2 "FPD[0..7]" B L 9100 1400 50 
+F3 "BUSCP" I L 9100 1600 50 
+F4 "~RAB0" I R 10250 2500 50 
+F5 "~RAB1" I R 10250 2600 50 
+F6 "~RAB2" I R 10250 2700 50 
+F7 "~WAB0" I L 9100 2500 50 
+F8 "~WAB1" I L 9100 2600 50 
+F9 "~WAB2" I L 9100 2700 50 
+F10 "~RCV0" I R 10250 2900 50 
+F11 "~RCV1" I R 10250 3000 50 
+F12 "~RCV2" I R 10250 3100 50 
+F13 "~WCV0" I L 9100 2900 50 
+F14 "~WCV1" I L 9100 3000 50 
+F15 "~WCV2" I L 9100 3100 50 
+F16 "~RDB0" I R 10250 3300 50 
+F17 "~RDB1" I R 10250 3400 50 
+F18 "~WDB0" I L 9100 3300 50 
+F19 "~WDB1" I L 9100 3400 50 
+F20 "~RIB0" I R 10250 3600 50 
+F21 "~RIB1" I R 10250 3700 50 
+F22 "~WIB0" I L 9100 3600 50 
+F23 "~WIB1" I L 9100 3700 50 
+F24 "AB[0..23]" B R 10250 1400 50 
+F25 "RADDR[0..4]" B R 10250 1600 50 
+F26 "WADDR[0..4]" B R 10250 1700 50 
+F27 "ACTION[0..3]" B R 10250 1800 50 
+F28 "COND[0..3]" B R 10250 1900 50 
+F29 "DB[0..15]" B R 10250 2100 50 
+F30 "IBUS[0..15]" B R 10250 2300 50 
+F31 "~ABOE" I L 9100 1800 50 
+F32 "~CVOE" I L 9100 1900 50 
+F33 "~DBOE" I L 9100 2000 50 
+F34 "~IBOE" I L 9100 2100 50 
+$EndSheet
+Wire Bus Line
+	9100 1400 8600 1400
+Text Label 8600 1400 0    50   ~ 0
+FPD[0..7]
+Wire Wire Line
+	9100 1800 8600 1800
+Text Label 8600 1800 0    50   ~ 0
+~ABOE
+Text Label 8600 2500 0    50   ~ 0
+~WAB0
+Text Label 8600 2600 0    50   ~ 0
+~WAB1
+Text Label 8600 2700 0    50   ~ 0
+~WAB2
+Wire Wire Line
+	9100 2700 8600 2700
+Wire Wire Line
+	9100 2600 8600 2600
+Wire Wire Line
+	9100 2500 8600 2500
+Wire Wire Line
+	10750 2500 10250 2500
+Wire Wire Line
+	10750 2600 10250 2600
+Text Label 10750 2500 2    50   ~ 0
+~RAB0
+Text Label 10750 2600 2    50   ~ 0
+~RAB1
+Wire Wire Line
+	10750 2700 10250 2700
+Text Label 10750 2700 2    50   ~ 0
+~RAB2
+Wire Bus Line
+	10750 2100 10250 2100
+Wire Wire Line
+	8600 1600 9100 1600
+Text Label 10750 2100 2    50   ~ 0
+DB[0..15]
+Text Label 8600 1600 0    50   ~ 0
+BUSCP
+Wire Wire Line
+	9100 2000 8600 2000
+Text Label 8600 2000 0    50   ~ 0
+~DBOE
+Text Label 8600 3300 0    50   ~ 0
+~WDB0
+Text Label 8600 3400 0    50   ~ 0
+~WDB1
+Wire Wire Line
+	9100 3400 8600 3400
+Wire Wire Line
+	9100 3300 8600 3300
+Wire Bus Line
+	10750 1400 10250 1400
+Text Label 10750 1400 2    50   ~ 0
+AB[0..23]
+Wire Bus Line
+	10250 1600 10750 1600
+Wire Bus Line
+	10250 1700 10750 1700
+Text Label 10750 1600 2    50   ~ 0
+RADDR[0..4]
+Text Label 10750 1700 2    50   ~ 0
+WADDR[0..4]
+Wire Bus Line
+	10250 1800 10750 1800
+Text Label 10750 1800 2    50   ~ 0
+ACTION[0..3]
+Wire Bus Line
+	10250 1900 10750 1900
+Text Label 10750 1900 2    50   ~ 0
+COND[0..3]
+Wire Wire Line
+	9100 2900 8600 2900
+Wire Wire Line
+	9100 3000 8600 3000
+Wire Wire Line
+	9100 3100 8600 3100
+Text Label 8600 2900 0    50   ~ 0
+~WCV0
+Text Label 8600 3000 0    50   ~ 0
+~WCV1
+Text Label 8600 3100 0    50   ~ 0
+~WCV2
+Text Label 8600 3600 0    50   ~ 0
+~WIB0
+Text Label 8600 3700 0    50   ~ 0
+~WIB1
+Wire Wire Line
+	9100 3700 8600 3700
+Wire Wire Line
+	9100 3600 8600 3600
+Wire Wire Line
+	9100 1900 8600 1900
+Wire Wire Line
+	9100 2100 8600 2100
+Text Label 8600 1900 0    50   ~ 0
+~CVOE
+Text Label 8600 2100 0    50   ~ 0
+~IBOE
+Wire Bus Line
+	10750 2300 10250 2300
+Text Label 10750 2300 2    50   ~ 0
+IBUS[0..15]
+Wire Wire Line
+	10750 3600 10250 3600
+Wire Wire Line
+	10750 3700 10250 3700
+Text Label 10750 3600 2    50   ~ 0
+~RIB0
+Text Label 10750 3700 2    50   ~ 0
+~RIB1
+Wire Wire Line
+	10750 3300 10250 3300
+Wire Wire Line
+	10750 3400 10250 3400
+Text Label 10750 3300 2    50   ~ 0
+~RDB0
+Text Label 10750 3400 2    50   ~ 0
+~RDB1
+Wire Wire Line
+	10250 2900 10750 2900
+Wire Wire Line
+	10250 3000 10750 3000
+Wire Wire Line
+	10250 3100 10750 3100
+Text Label 10750 2900 2    50   ~ 0
+~RCV0
+Text Label 10750 3000 2    50   ~ 0
+~RCV1
+Text Label 10750 3100 2    50   ~ 0
+~RCV2
+$Comp
+L alexios:74HC154 U?
+U 1 1 683DA963
+P 8500 -1250
+F 0 "U?" H 8500 -283 50  0000 C CNN
+F 1 "74HC154" H 8500 -374 50  0000 C CNN
+F 2 "" H 8500 -1250 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT154.pdf" H 8500 -1250 50  0001 C CNN
+	1    8500 -1250
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8000 -1950 7650 -1950
+Wire Wire Line
+	8000 -1850 7650 -1850
+Wire Wire Line
+	8000 -1750 7650 -1750
+Text Label 7650 -1950 0    50   ~ 0
+FPA0
+Text Label 7650 -1850 0    50   ~ 0
+FPA1
+Text Label 7650 -1750 0    50   ~ 0
+FPA2
+$Comp
+L alexios:74HC154 U?
+U 1 1 684AE7DA
+P 10500 -1250
+F 0 "U?" H 10500 -283 50  0000 C CNN
+F 1 "74HC154" H 10500 -374 50  0000 C CNN
+F 2 "" H 10500 -1250 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT154.pdf" H 10500 -1250 50  0001 C CNN
+	1    10500 -1250
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	10000 -1950 9650 -1950
+Wire Wire Line
+	10000 -1850 9650 -1850
+Wire Wire Line
+	10000 -1750 9650 -1750
+Text Label 9650 -1950 0    50   ~ 0
+FPA0
+Text Label 9650 -1850 0    50   ~ 0
+FPA1
+Text Label 9650 -1750 0    50   ~ 0
+FPA2
+Wire Wire Line
+	8000 -1350 7650 -1350
+Text Label 7650 -1350 0    50   ~ 0
+~WR
+Wire Wire Line
+	10000 -1350 9650 -1350
+Text Label 9650 -1350 0    50   ~ 0
+~RD
+Wire Wire Line
+	8000 -1650 7650 -1650
+Text Label 7650 -1650 0    50   ~ 0
+FPA3
+Wire Wire Line
+	10000 -1650 9650 -1650
+Text Label 9650 -1650 0    50   ~ 0
+FPA3
+Wire Wire Line
+	8000 -1450 7650 -1450
+Text Label 7650 -1450 0    50   ~ 0
+FPA6
+Wire Wire Line
+	10000 -1450 9650 -1450
+Text Label 9650 -1450 0    50   ~ 0
+FPA6
+Text Notes -10750 4150 2    50   ~ 0
+pull these up!
+Text Label 11400 -1150 2    50   ~ 0
+~RDSR1
+Wire Wire Line
+	11000 -1150 11400 -1150
+Wire Wire Line
+	11000 -650 11400 -650
+Wire Wire Line
+	11000 -550 11400 -550
+Wire Wire Line
+	11000 -450 11400 -450
+Text Label 11400 -650 2    50   ~ 0
+~RCV0
+Text Label 11400 -550 2    50   ~ 0
+~RCV1
+Text Label 11400 -450 2    50   ~ 0
+~RCV2
+Wire Wire Line
+	11000 -1050 11400 -1050
+Wire Wire Line
+	11000 -950 11400 -950
+Wire Wire Line
+	11000 -850 11400 -850
+Wire Wire Line
+	11000 -750 11400 -750
+Wire Wire Line
+	9000 -1050 9400 -1050
+Wire Wire Line
+	9000 -950 9400 -950
+Wire Wire Line
+	9000 -850 9400 -850
+Wire Wire Line
+	9000 -750 9400 -750
+Text Label 11400 -1050 2    50   ~ 0
+~RDSR2
+Text Notes 11950 -1050 2    50   ~ 0
+If necessary!
+Text Notes 10150 -350 2    50   ~ 0
+Reads from\n&00–0F
+Text Notes 8150 -350 2    50   ~ 0
+Writes to\n&00–0F
+Text Notes 10550 -950 1    50   ~ 0
+FPA=x0xxAAAA
+Text Notes 750  900  0    63   ~ 13
+TO DO:
+Text Notes 750  2350 0    50   ~ 0
+Add replaceable pods for buses and MCU/clock.\nIsolate front panel connector from rest of FPD.\nDisable front panel during programming.\nDisable serial port during programming.\nAdd configurable pull-ups on various signals.\nFix FTDI cable pin-out (swap RX/TX; likely ALREADY SWAPPED in R1943).\nAdd reset switch.\nAdd 1-2 more banks of DIP switches.\nLeft bus for peripherals.\nRight bus for processor, memory and memory-mapped I/O.\nFix TTYD LED.\nFix activity LED.\nAdd front-panel switch LED.\nAdd PANELEN LED.\nAdd CFT IRQ LED.\nWeakly pull-up ALL MCU outputs!!!\nPull-up MCU ~RESET~
+Wire Wire Line
+	700  2950 850  2950
+Text Label 1700 2950 2    50   ~ 0
+~uCRESET
+$Comp
+L Device:C_Small C?
+U 1 1 6900ED2F
+P 1150 3100
+F 0 "C?" H 1059 3146 50  0000 R CNN
+F 1 "100nF" H 1059 3055 50  0000 R CNN
+F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1150 3100 50  0001 C CNN
+F 3 "~" H 1150 3100 50  0001 C CNN
+	1    1150 3100
+	1    0    0    -1  
+$EndComp
+Connection ~ 1150 2950
+Wire Wire Line
+	1150 2950 1250 2950
+Wire Wire Line
+	1150 2950 1150 3000
+$Comp
+L power:GND #PWR?
+U 1 1 69076747
+P 1150 3200
+F 0 "#PWR?" H 1150 2950 50  0001 C CNN
+F 1 "GND" H 1155 3027 50  0000 C CNN
+F 2 "" H 1150 3200 50  0001 C CNN
+F 3 "" H 1150 3200 50  0001 C CNN
+	1    1150 3200
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_Small R?
+U 1 1 690DC918
+P 1250 2800
+F 0 "R?" H 1308 2754 50  0000 L CNN
+F 1 "10kΩ" H 1308 2845 50  0000 L CNN
+F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1250 2800 50  0001 C CNN
+F 3 "~" H 1250 2800 50  0001 C CNN
+	1    1250 2800
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	1250 2900 1250 2950
+Connection ~ 1250 2950
+Wire Wire Line
+	1250 2950 1700 2950
+$Comp
+L power:+5V #PWR?
+U 1 1 69143384
+P 1250 2650
+F 0 "#PWR?" H 1250 2500 50  0001 C CNN
+F 1 "+5V" H 1265 2823 50  0000 C CNN
+F 2 "" H 1250 2650 50  0001 C CNN
+F 3 "" H 1250 2650 50  0001 C CNN
+	1    1250 2650
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:D_ALT D?
+U 1 1 691AAD4F
+P 850 2800
+F 0 "D?" V 804 2720 50  0000 R CNN
+F 1 "D_ALT" V 895 2720 50  0000 R CNN
+F 2 "" H 850 2800 50  0001 C CNN
+F 3 "~" H 850 2800 50  0001 C CNN
+	1    850  2800
+	0    1    1    0   
+$EndComp
+Connection ~ 850  2950
+Wire Wire Line
+	850  2950 1150 2950
+$Comp
+L power:+5V #PWR?
+U 1 1 691AB36E
+P 850 2650
+F 0 "#PWR?" H 850 2500 50  0001 C CNN
+F 1 "+5V" H 865 2823 50  0000 C CNN
+F 2 "" H 850 2650 50  0001 C CNN
+F 3 "" H 850 2650 50  0001 C CNN
+	1    850  2650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1250 2650 1250 2700
 Wire Bus Line
 	-7400 4750 -7400 6800
 Wire Bus Line
@@ -4182,4 +4411,6 @@ Wire Bus Line
 	-7300 550  -7300 8500
 Wire Bus Line
 	-10000 900  -10000 4550
+Text Notes 3450 3600 2    50   ~ 0
+https://www.arduino.cc/en/uploads/Main/Arduino_Uno_Rev3-schematic.pdf
 $EndSCHEMATC

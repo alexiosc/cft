@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 4 13
+Sheet 4 14
 Title "Wait State & MCU Interrupts"
 Date "2019-11-17"
 Rev "2049"
@@ -300,7 +300,7 @@ Text Label 1450 4500 0    50   ~ 0
 Text Label 1450 4400 0    50   ~ 0
 ~DBOE
 Text HLabel 8200 3500 2    50   Output ~ 0
-~DBOE1
+~DBOE
 Text HLabel 8000 1700 2    50   Output ~ 0
 ~IOINT
 Connection ~ 5500 2100
@@ -311,7 +311,7 @@ Wire Wire Line
 Text Label 1450 3500 0    50   ~ 0
 CLRWS
 Text Label 7900 3500 2    50   ~ 0
-~DBOE1
+~DBOE
 Wire Wire Line
 	7000 3500 8200 3500
 NoConn ~ 7000 3600

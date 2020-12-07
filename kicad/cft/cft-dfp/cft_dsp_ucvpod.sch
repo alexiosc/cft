@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 9 13
+Sheet 9 14
 Title "Control Unit Pod"
 Date "2019-11-17"
 Rev "2049"
@@ -38,7 +38,7 @@ Entry Wire Line
 Text HLabel 3400 2850 0    50   Input ~ 0
 µCVCPL
 Text HLabel 3400 2950 0    50   Input ~ 0
-~µCVOE
+~CVOE
 Wire Wire Line
 	4600 2950 3400 2950
 Connection ~ 4600 2950
@@ -55,7 +55,7 @@ Text Label 3500 2850 0    50   ~ 0
 Wire Wire Line
 	5000 4400 4600 4400
 Text Label 3500 2950 0    50   ~ 0
-~µCVOE
+~CVOE
 Wire Wire Line
 	5000 2950 4600 2950
 $Comp
@@ -207,11 +207,11 @@ Wire Wire Line
 Text Label 4950 5750 2    50   ~ 0
 µCVCPH
 Text Label 4950 2950 2    50   ~ 0
-~µCVOE
+~CVOE
 Text Label 4950 4400 2    50   ~ 0
-~µCVOE
+~CVOE
 Text Label 4950 5850 2    50   ~ 0
-~µCVOE
+~CVOE
 Entry Wire Line
 	4500 4850 4400 4750
 Entry Wire Line
