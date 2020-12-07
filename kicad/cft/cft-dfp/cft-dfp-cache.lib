@@ -1158,7 +1158,7 @@ F0 "X" 50 350 50 H V L CNN
 F1 "alexios_CXO" -100 250 50 H V L CNN
 F2 "alexios:Crystal_SMD_7050-4Pin_7.0x5.0mm" 150 -600 50 H I C CNN
 F3 "" 100 -50 50 H I C CNN
-F4 "Yes" 0 0 50 H V C CNN "Verified"
+F4 "Yes" 0 0 50 H I C CNN "Verified"
 F5 "449-LFSPXO022296BULK" -200 -700 50 H I C CNN "BOM-Mouser"
 ALIAS TFT660_copy
 $FPLIST
