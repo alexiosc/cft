@@ -76,6 +76,12 @@ K HCTMOS not inverter
 F https://assets.nexperia.com/documents/data-sheet/74HC_HCT04.pdf
 $ENDCMP
 #
+$CMP 74AC154
+D Decoder 4 to 16
+K TTL DECOD16 DECOD
+F https://assets.nexperia.com/documents/data-sheet/74HC_HCT154.pdf
+$ENDCMP
+#
 $CMP 74AC157
 D Quad 2 to 1 line Multiplexer
 K TTL MUX MUX2
@@ -716,6 +722,12 @@ $CMP 74HC14
 D Hex inverter Schmitt trigger
 K HCMOS not inverter
 F http://www.ti.com/lit/gpn/sn74HC14
+$ENDCMP
+#
+$CMP 74HC154
+D Decoder 4 to 16
+K TTL DECOD16 DECOD
+F https://gr.mouser.com/datasheet/2/916/74HC_HCT154-1319613.pdf
 $ENDCMP
 #
 $CMP 74HC157
@@ -1526,6 +1538,18 @@ K diode
 F https://assets.nexperia.com/documents/data-sheet/PESDXS2UT_SERIES.pdf
 $ENDCMP
 #
+$CMP R_Pack04
+D 4 resistor network, parallel topology, split
+K R network parallel topology isolated
+F ~
+$ENDCMP
+#
+$CMP R_Pack04_Split
+D 4 resistor network, parallel topology, split
+K R network parallel topology isolated
+F ~
+$ENDCMP
+#
 $CMP SN74ACT1071
 D 8-bit Register, 3-state outputs
 K TTL REG DFF DFF8 3State
@@ -1566,6 +1590,10 @@ $CMP USB6B1
 D 5V Data line protection
 K ESD USB
 F http://www.st.com/content/ccc/resource/technical/document/datasheet/3e/ec/b2/54/b2/76/47/90/CD00001361.pdf/files/CD00001361.pdf/jcr:content/translations/en.CD00001361.pdf
+$ENDCMP
+#
+$CMP cft-dfp-pod
+D Symbol for a bus pod for the CFT's revision B DFP
 $ENDCMP
 #
 $CMP momentary_switch

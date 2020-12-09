@@ -1505,16 +1505,6 @@ Wire Wire Line
 	1250 2150 1250 2250
 Wire Wire Line
 	10000 2350 10000 2250
-Wire Bus Line
-	4750 850  8350 850 
-Wire Bus Line
-	4650 950  4650 3400
-Wire Bus Line
-	7500 950  7500 2800
-Wire Bus Line
-	7350 1400 7350 4050
-Wire Bus Line
-	2800 950  2800 4050
 Connection ~ 10000 2250
 Wire Wire Line
 	10000 2250 9750 2250
@@ -1528,4 +1518,49 @@ Wire Wire Line
 Connection ~ 10000 2450
 Wire Wire Line
 	10000 2450 10000 2550
+Wire Wire Line
+	10100 3450 10000 3450
+Wire Wire Line
+	10000 3450 10000 3550
+Wire Wire Line
+	10100 3550 10000 3550
+Connection ~ 10000 3550
+Wire Wire Line
+	10000 3550 10000 3650
+Wire Wire Line
+	10100 3650 10000 3650
+Connection ~ 10000 3650
+Wire Wire Line
+	10000 3650 10000 3750
+Wire Wire Line
+	10100 3750 10000 3750
+Wire Wire Line
+	10000 3750 10000 3800
+Wire Bus Line
+	4750 850  8350 850 
+Wire Bus Line
+	4650 950  4650 3400
+Wire Bus Line
+	7500 950  7500 2800
+Wire Bus Line
+	7350 1400 7350 4050
+Wire Bus Line
+	2800 950  2800 4050
+Connection ~ 10000 3750
+$Comp
+L power:GND #PWR?
+U 1 1 5FD3F36D
+P 10000 3800
+AR Path="/5D78E680/5FD3F36D" Ref="#PWR?"  Part="1" 
+AR Path="/5D363063/5FD3F36D" Ref="#PWR?"  Part="1" 
+AR Path="/5D42FF4D/5FD3F36D" Ref="#PWR?"  Part="1" 
+AR Path="/5F1DB2E8/5FD3F36D" Ref="#PWR?"  Part="1" 
+AR Path="/5FD3F36D" Ref="#PWR?"  Part="1" 
+F 0 "#PWR?" H 10000 3550 50  0001 C CNN
+F 1 "GND" H 10005 3627 50  0000 C CNN
+F 2 "" H 10000 3800 50  0001 C CNN
+F 3 "" H 10000 3800 50  0001 C CNN
+	1    10000 3800
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

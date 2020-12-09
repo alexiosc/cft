@@ -738,22 +738,22 @@ Wire Wire Line
 Text Label -12650 3600 2    50   ~ 0
 ~WAIT
 $Sheet
-S -14650 7550 1150 1500
+S 3850 9350 1150 1500
 U 5ED99F01
 F0 "Run Control State Machine" 50
 F1 "cft_dfp_rc_fsm.sch" 50
-F2 "~WAIT" O R -13500 8600 50 
-F3 "FPCLKEN" T R -13500 8750 50 
-F4 "FPµSTEP" T R -13500 8900 50 
-F5 "FPCLKEN-IN" I L -14650 8750 50 
-F6 "FPµSTEP-IN" I L -14650 8900 50 
-F7 "STEP∕~RUN" I L -14650 8450 50 
-F8 "FPFETCH∕~EXEC" I L -14650 8150 50 
-F9 "~CLR" I L -14650 8300 50 
-F10 "~µSTEP" I L -14650 8600 50 
-F11 "CLK4" I L -14650 8000 50 
-F12 "~RESET" I L -14650 7700 50 
-F13 "~RSTHOLD" I L -14650 7850 50 
+F2 "~WAIT" O R 5000 10400 50 
+F3 "FPCLKEN" T R 5000 10550 50 
+F4 "FPµSTEP" T R 5000 10700 50 
+F5 "FPCLKEN-IN" I L 3850 10550 50 
+F6 "FPµSTEP-IN" I L 3850 10700 50 
+F7 "STEP∕~RUN" I L 3850 10250 50 
+F8 "FPFETCH∕~EXEC" I L 3850 9950 50 
+F9 "~CLR" I L 3850 10100 50 
+F10 "~µSTEP" I L 3850 10400 50 
+F11 "CLK4" I L 3850 9800 50 
+F12 "~RESET" I L 3850 9500 50 
+F13 "~RSTHOLD" I L 3850 9650 50 
 $EndSheet
 Wire Wire Line
 	-13250 2900 -12650 2900
@@ -822,98 +822,98 @@ Text Label -7550 4650 2    50   ~ 0
 Text Label -9800 4800 0    50   ~ 0
 ~PANELEN
 Wire Wire Line
-	-13500 8600 -13000 8600
-Text Label -13000 8600 2    50   ~ 0
+	5000 10400 5500 10400
+Text Label 5500 10400 2    50   ~ 0
 ~WAIT
 Wire Wire Line
-	-13500 8750 -13000 8750
-Text Label -13000 8750 2    50   ~ 0
+	5000 10550 5500 10550
+Text Label 5500 10550 2    50   ~ 0
 FPCLKEN
 Wire Wire Line
-	-13500 8900 -13000 8900
-Text Label -13000 8900 2    50   ~ 0
+	5000 10700 5500 10700
+Text Label 5500 10700 2    50   ~ 0
 FPµSTEP
 Wire Wire Line
-	-14650 8600 -15250 8600
-Text Label -15250 8600 0    50   ~ 0
+	3850 10400 3250 10400
+Text Label 3250 10400 0    50   ~ 0
 ~µSTEP
 Wire Wire Line
-	-14650 8750 -15250 8750
-Text Label -15250 8750 0    50   ~ 0
+	3850 10550 3250 10550
+Text Label 3250 10550 0    50   ~ 0
 FPCLKEN-IN
 Wire Wire Line
-	-14650 8900 -15250 8900
-Text Label -15250 8900 0    50   ~ 0
+	3850 10700 3250 10700
+Text Label 3250 10700 0    50   ~ 0
 FPµSTEP-IN
 Wire Wire Line
-	-14650 8450 -15250 8450
-Text Label -15250 8450 0    50   ~ 0
+	3850 10250 3250 10250
+Text Label 3250 10250 0    50   ~ 0
 STEP∕~RUN
 Wire Wire Line
-	-14650 8300 -15250 8300
-Text Label -15250 8300 0    50   ~ 0
+	3850 10100 3250 10100
+Text Label 3250 10100 0    50   ~ 0
 ~CLR
 Wire Wire Line
-	-14650 8150 -15250 8150
-Text Label -15250 8150 0    50   ~ 0
+	3850 9950 3250 9950
+Text Label 3250 9950 0    50   ~ 0
 FPFETCH∕~EXEC
 Wire Wire Line
-	-14650 8000 -15250 8000
-Text Label -15250 8000 0    50   ~ 0
+	3850 9800 3250 9800
+Text Label 3250 9800 0    50   ~ 0
 CLK4
 Wire Wire Line
-	-14650 7850 -15250 7850
-Text Label -15250 7850 0    50   ~ 0
+	3850 9650 3250 9650
+Text Label 3250 9650 0    50   ~ 0
 ~RSTHOLD
 Wire Wire Line
-	-14650 7700 -15250 7700
-Text Label -15250 7700 0    50   ~ 0
+	3850 9500 3250 9500
+Text Label 3250 9500 0    50   ~ 0
 ~RESET
 $Sheet
-S -14650 9650 1150 900 
+S 3850 11450 1150 900 
 U 614F5B8D
 F0 "Address Decoder & Wait States" 50
 F1 "cft_dfp_ws.sch" 50
-F2 "~WS" T R -13500 9800 50 
-F3 "~IOINT" O R -13500 9950 50 
-F4 "~DBOE" O R -13500 10100 50 
-F5 "~R" T L -14650 9800 50 
-F6 "~DBOE" I L -14650 10400 50 
-F7 "CLRWS" I L -14650 10250 50 
-F8 "~IODEV1xx" I L -14650 9950 50 
-F9 "AB[5..7]" I L -14650 10100 50 
+F2 "~WS" T R 5000 11600 50 
+F3 "~IOINT" O R 5000 11750 50 
+F4 "~DBOE" O R 5000 11900 50 
+F5 "~R" T L 3850 11600 50 
+F6 "~DBOE" I L 3850 12200 50 
+F7 "CLRWS" I L 3850 12050 50 
+F8 "~IODEV1xx" I L 3850 11750 50 
+F9 "AB[5..7]" I L 3850 11900 50 
 $EndSheet
 Wire Wire Line
-	-14650 9800 -15250 9800
-Text Label -15250 9800 0    50   ~ 0
+	3850 11600 3250 11600
+Text Label 3250 11600 0    50   ~ 0
 ~R
 Wire Wire Line
-	-14650 9950 -15250 9950
-Text Label -15250 9950 0    50   ~ 0
+	3850 11750 3250 11750
+Text Label 3250 11750 0    50   ~ 0
 ~IODEV1xx
 Wire Bus Line
-	-14650 10100 -15250 10100
-Text Label -15250 10100 0    50   ~ 0
+	3850 11900 3250 11900
+Text Label 3250 11900 0    50   ~ 0
 AB[0..23]
 Wire Wire Line
-	-14650 10250 -15250 10250
-Text Label -15250 10250 0    50   ~ 0
+	3850 12050 3250 12050
+Text Label 3250 12050 0    50   ~ 0
 CLRWS
 Wire Wire Line
-	-14650 10400 -15250 10400
-Text Label -15250 10400 0    50   ~ 0
+	3850 12200 3250 12200
+Text Label 3250 12200 0    50   ~ 0
 ~DBOE
 Wire Wire Line
-	-13500 9800 -13000 9800
-Text Label -13000 9800 2    50   ~ 0
+	5000 11600 5500 11600
+Text Label 5500 11600 2    50   ~ 0
 ~WS
 Wire Wire Line
-	-13500 9950 -13000 9950
-Text Label -13000 9950 2    50   ~ 0
+	5000 11750 5500 11750
+Text Label 5500 11750 2    50   ~ 0
 ~IOINT
 Wire Wire Line
-	-13500 10100 -13000 10100
-Text Label -13000 10100 2    50   ~ 0
+	5000 11900 5500 11900
+Text Label 5500 11900 2    50   ~ 0
 ~DBOE
 Connection ~ -11650 8800
 $Sheet
@@ -1981,9 +1981,9 @@ Wire Wire Line
 	-13250 3900 -11600 3900
 Wire Wire Line
 	-11600 4800 -9350 4800
-Text Notes -15050 7400 0    100  ~ 20
+Text Notes 3450 9200 0    100  ~ 20
 Run/Step/Stop Control FSM
-Text Notes -15050 9450 0    100  ~ 20
+Text Notes 3450 11250 0    100  ~ 20
 CFT Bus Address Decoder
 Entry Bus Bus
 	-7500 4650 -7400 4750
@@ -2401,33 +2401,33 @@ Wire Wire Line
 $Comp
 L Connector_Generic:Conn_01x06 J102
 U 1 1 62B44059
-P -6250 3350
-F 0 "J102" H -6332 2917 50  0000 C CNN
-F 1 "Conn_01x06" H -6170 3251 50  0001 L CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Horizontal" H -6250 3350 50  0001 C CNN
-F 3 "~" H -6250 3350 50  0001 C CNN
-	1    -6250 3350
+P 2350 4550
+F 0 "J102" H 2268 4117 50  0000 C CNN
+F 1 "Conn_01x06" H 2430 4451 50  0001 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Horizontal" H 2350 4550 50  0001 C CNN
+F 3 "~" H 2350 4550 50  0001 C CNN
+	1    2350 4550
 	1    0    0    1   
 $EndComp
 Wire Wire Line
-	-6450 3150 -7200 3150
+	2150 4450 1900 4450
 $Comp
 L power:GND #PWR0129
 U 1 1 62BEF3BC
-P -6450 3550
-F 0 "#PWR0129" H -6450 3300 50  0001 C CNN
-F 1 "GND" H -6445 3377 50  0000 C CNN
-F 2 "" H -6450 3550 50  0001 C CNN
-F 3 "" H -6450 3550 50  0001 C CNN
-	1    -6450 3550
+P 2150 4750
+F 0 "#PWR0129" H 2150 4500 50  0001 C CNN
+F 1 "GND" H 2155 4577 50  0000 C CNN
+F 2 "" H 2150 4750 50  0001 C CNN
+F 3 "" H 2150 4750 50  0001 C CNN
+	1    2150 4750
 	-1   0    0    -1  
 $EndComp
-NoConn ~ -6450 3450
-Text Label -7200 3150 0    50   ~ 0
+NoConn ~ 2150 4650
+Text Label 1900 4450 0    50   ~ 0
 RXD
-NoConn ~ -6450 3050
-NoConn ~ -6450 3350
-Text Notes -6300 2800 2    100  ~ 20
+NoConn ~ 2150 4250
+NoConn ~ 2150 4550
+Text Notes 2300 4000 2    100  ~ 20
 TTY
 Text Notes -6550 4850 0    100  ~ 20
 Input/Output
@@ -3730,25 +3730,19 @@ $EndComp
 $Comp
 L Device:R_Small R108
 U 1 1 5E696068
-P -6850 3250
-F 0 "R108" V -6746 3250 50  0000 C CNN
-F 1 "30Ω" V -6655 3250 50  0000 C CNN
-F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -6850 3250 50  0001 C CNN
-F 3 "~" H -6850 3250 50  0001 C CNN
-	1    -6850 3250
+P 1700 4350
+F 0 "R108" V 1804 4350 50  0000 C CNN
+F 1 "30Ω" V 1895 4350 50  0000 C CNN
+F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1700 4350 50  0001 C CNN
+F 3 "~" H 1700 4350 50  0001 C CNN
+	1    1700 4350
 	0    1    1    0   
 $EndComp
 Text Label -15250 2900 0    50   ~ 0
 TXD
 Wire Wire Line
 	-14750 2900 -15250 2900
-Text Label -7200 3250 0    50   ~ 0
-TXD
-Wire Wire Line
-	-6950 3250 -7200 3250
-Wire Wire Line
-	-6750 3250 -6450 3250
-Text Label -6700 3250 0    50   ~ 0
+Text Label 1900 4350 0    50   ~ 0
 TXD1
 Text Label -3950 2700 2    50   ~ 0
 ~R
@@ -4195,9 +4189,9 @@ L alexios:74HC154 U?
 U 1 1 683DA963
 P 8500 -1250
 F 0 "U?" H 8500 -283 50  0000 C CNN
-F 1 "74HC154" H 8500 -374 50  0000 C CNN
+F 1 "74HC139" H 8500 -374 50  0000 C CNN
 F 2 "" H 8500 -1250 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT154.pdf" H 8500 -1250 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS139" H 8500 -1250 50  0001 C CNN
 	1    8500 -1250
 	1    0    0    -1  
 $EndComp
@@ -4218,9 +4212,9 @@ L alexios:74HC154 U?
 U 1 1 684AE7DA
 P 10500 -1250
 F 0 "U?" H 10500 -283 50  0000 C CNN
-F 1 "74HC154" H 10500 -374 50  0000 C CNN
+F 1 "74HC139" H 10500 -374 50  0000 C CNN
 F 2 "" H 10500 -1250 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT154.pdf" H 10500 -1250 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS139" H 10500 -1250 50  0001 C CNN
 	1    10500 -1250
 	1    0    0    -1  
 $EndComp
@@ -4344,7 +4338,7 @@ L Device:R_Small R?
 U 1 1 690DC918
 P 1250 2800
 F 0 "R?" H 1308 2754 50  0000 L CNN
-F 1 "10kΩ" H 1308 2845 50  0000 L CNN
+F 1 "4.7kΩ" H 1308 2845 50  0000 L CNN
 F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1250 2800 50  0001 C CNN
 F 3 "~" H 1250 2800 50  0001 C CNN
 	1    1250 2800
@@ -4393,6 +4387,430 @@ F 3 "" H 850 2650 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	1250 2650 1250 2700
+Text Notes 3450 3600 2    50   ~ 0
+https://www.arduino.cc/en/uploads/Main/Arduino_Uno_Rev3-schematic.pdf
+Wire Wire Line
+	1150 4250 800  4250
+Wire Wire Line
+	1150 4450 800  4450
+Text Label 800  4250 0    50   ~ 0
+~uCRESET
+Text Label 800  4450 0    50   ~ 0
+TXD
+$Comp
+L Device:R_Small R?
+U 1 1 5FE67E81
+P 1550 4100
+F 0 "R?" H 1491 4054 50  0000 R CNN
+F 1 "4.7kΩ" H 1491 4145 50  0000 R CNN
+F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1550 4100 50  0001 C CNN
+F 3 "~" H 1550 4100 50  0001 C CNN
+	1    1550 4100
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 5FE686AD
+P 1550 4000
+F 0 "#PWR?" H 1550 3850 50  0001 C CNN
+F 1 "+5V" H 1565 4173 50  0000 C CNN
+F 2 "" H 1550 4000 50  0001 C CNN
+F 3 "" H 1550 4000 50  0001 C CNN
+	1    1550 4000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1450 4250 1550 4250
+Wire Wire Line
+	1550 4250 1550 4350
+Wire Wire Line
+	1550 4450 1450 4450
+Wire Wire Line
+	1550 4200 1550 4250
+Connection ~ 1550 4250
+Wire Wire Line
+	1550 4350 1600 4350
+Connection ~ 1550 4350
+Wire Wire Line
+	1550 4350 1550 4450
+Wire Wire Line
+	1800 4350 2150 4350
+Text Notes 2450 4250 0    50   ~ 0
+~RTS
+Text Notes 2450 4350 0    50   ~ 0
+RXD
+Text Notes 2450 4450 0    50   ~ 0
+TXD
+Text Notes 2450 4550 0    50   ~ 0
+Vcc
+Text Notes 2450 4750 0    50   ~ 0
+GND
+Text Notes 2450 4650 0    50   ~ 0
+~CTS
+$Comp
+L Device:D_Schottky_ALT D?
+U 1 1 60517A7A
+P 1300 4250
+F 0 "D?" H 1300 4467 50  0000 C CNN
+F 1 "?" H 1300 4376 50  0000 C CNN
+F 2 "" H 1300 4250 50  0001 C CNN
+F 3 "~" H 1300 4250 50  0001 C CNN
+	1    1300 4250
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:D_Schottky_ALT D?
+U 1 1 6051C433
+P 1300 4450
+F 0 "D?" H 1300 4325 50  0000 C CNN
+F 1 "?" H 1300 4234 50  0000 C CNN
+F 2 "" H 1300 4450 50  0001 C CNN
+F 3 "~" H 1300 4450 50  0001 C CNN
+	1    1300 4450
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC590 U?
+U 1 1 6057B648
+P 8700 -3750
+F 0 "U?" H 8700 -2983 50  0000 C CNN
+F 1 "74HC139" H 8700 -3074 50  0000 C CNN
+F 2 "" H 9000 -3400 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS139" H 9000 -3400 50  0001 C CNN
+	1    8700 -3750
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC139 U?
+U 1 1 6058149A
+P 9950 -4150
+F 0 "U?" H 9950 -3783 50  0000 C CNN
+F 1 "74HC139" H 9950 -3874 50  0000 C CNN
+F 2 "" H 9950 -4150 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS139" H 9950 -4150 50  0001 C CNN
+	1    9950 -4150
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC139 U?
+U 2 1 6058247F
+P 9950 -3550
+F 0 "U?" H 9950 -3925 50  0000 C CNN
+F 1 "74HC139" H 9950 -4016 50  0001 C CNN
+F 2 "" H 9950 -3550 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS139" H 9950 -3550 50  0001 C CNN
+	2    9950 -3550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	10450 -3650 10500 -3650
+Wire Wire Line
+	9200 -4150 9300 -4150
+Wire Wire Line
+	9300 -4150 9300 -3650
+Wire Wire Line
+	9300 -3650 9450 -3650
+Connection ~ 9300 -4150
+Wire Wire Line
+	9300 -4150 9450 -4150
+$Comp
+L power:GND #PWR?
+U 1 1 609B98D5
+P 9400 -3300
+F 0 "#PWR?" H 9400 -3550 50  0001 C CNN
+F 1 "GND" H 9405 -3473 50  0000 C CNN
+F 2 "" H 9400 -3300 50  0001 C CNN
+F 3 "" H 9400 -3300 50  0001 C CNN
+	1    9400 -3300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9450 -3350 9400 -3350
+Wire Wire Line
+	9400 -3350 9400 -3300
+NoConn ~ 9200 -4050
+NoConn ~ 9200 -3950
+NoConn ~ 9200 -3850
+NoConn ~ 9200 -3750
+NoConn ~ 9200 -3650
+NoConn ~ 9200 -3550
+NoConn ~ 9200 -3350
+$Comp
+L power:GND #PWR?
+U 1 1 60EF35E9
+P 8100 -3300
+F 0 "#PWR?" H 8100 -3550 50  0001 C CNN
+F 1 "GND" H 8105 -3473 50  0000 C CNN
+F 2 "" H 8100 -3300 50  0001 C CNN
+F 3 "" H 8100 -3300 50  0001 C CNN
+	1    8100 -3300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8200 -3350 8100 -3350
+Wire Wire Line
+	8100 -3350 8100 -3300
+Wire Wire Line
+	8200 -4250 8100 -4250
+Wire Wire Line
+	8100 -4250 8100 -4200
+Wire Wire Line
+	8200 -4050 8150 -4050
+Wire Wire Line
+	8200 -3950 8150 -3950
+Wire Wire Line
+	8150 -3950 8150 -4050
+Wire Wire Line
+	8150 -3950 7600 -3950
+$Comp
+L power:GND #PWR?
+U 1 1 61125FE4
+P 8100 -4200
+F 0 "#PWR?" H 8100 -4450 50  0001 C CNN
+F 1 "GND" H 7950 -4200 50  0000 C CNN
+F 2 "" H 8100 -4200 50  0001 C CNN
+F 3 "" H 8100 -4200 50  0001 C CNN
+	1    8100 -4200
+	1    0    0    -1  
+$EndComp
+Connection ~ 8150 -3950
+Text Label 7600 -3950 0    50   ~ 0
+FPµSTEP-IN
+Wire Wire Line
+	10600 -3550 10600 -3750
+Wire Wire Line
+	10450 -3550 10600 -3550
+Wire Wire Line
+	10600 -3750 10900 -3750
+Wire Wire Line
+	10500 -3850 10900 -3850
+Wire Wire Line
+	10450 -3950 10900 -3950
+Wire Wire Line
+	10450 -4050 10900 -4050
+Wire Wire Line
+	10450 -4150 10900 -4150
+Wire Wire Line
+	10450 -4250 10900 -4250
+Wire Wire Line
+	12200 -3550 12500 -3550
+Wire Wire Line
+	12200 -3650 12500 -3650
+Wire Wire Line
+	12200 -3750 12500 -3750
+Wire Wire Line
+	12200 -3850 12500 -3850
+Wire Wire Line
+	12200 -3950 12500 -3950
+Wire Wire Line
+	12200 -4050 12500 -4050
+Wire Wire Line
+	12200 -4150 12500 -4150
+Wire Wire Line
+	12200 -4250 12500 -4250
+$Comp
+L alexios:R_Pack04_Split RN?
+U 4 1 61862867
+P 12100 -3550
+F 0 "RN?" H 11900 -3650 50  0000 L CNN
+F 1 "30Ω" H 12300 -3600 50  0000 C CNN
+F 2 "" H 12100 -3470 50  0001 C CNN
+F 3 "~" V 12100 -3550 50  0001 C CNN
+	4    12100 -3550
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:R_Pack04_Split RN?
+U 3 1 61862861
+P 12100 -3650
+F 0 "RN?" H 12200 -3600 50  0001 L CNN
+F 1 "30Ω" H 12075 -3544 50  0001 C CNN
+F 2 "" H 12100 -3570 50  0001 C CNN
+F 3 "~" V 12100 -3650 50  0001 C CNN
+	3    12100 -3650
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:R_Pack04_Split RN?
+U 2 1 6186285B
+P 12100 -3750
+F 0 "RN?" H 12200 -3700 50  0001 L CNN
+F 1 "30Ω" H 12075 -3644 50  0001 C CNN
+F 2 "" H 12100 -3670 50  0001 C CNN
+F 3 "~" V 12100 -3750 50  0001 C CNN
+	2    12100 -3750
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:R_Pack04_Split RN?
+U 1 1 61862855
+P 12100 -3850
+F 0 "RN?" H 12200 -3800 50  0001 L CNN
+F 1 "30Ω" H 12300 -4250 50  0001 C CNN
+F 2 "" H 12100 -3770 50  0001 C CNN
+F 3 "~" V 12100 -3850 50  0001 C CNN
+	1    12100 -3850
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:R_Pack04_Split RN?
+U 4 1 6185C9FB
+P 12100 -3950
+F 0 "RN?" H 12200 -3900 50  0001 L CNN
+F 1 "30Ω" H 12075 -3844 50  0001 C CNN
+F 2 "" H 12100 -3870 50  0001 C CNN
+F 3 "~" V 12100 -3950 50  0001 C CNN
+	4    12100 -3950
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:R_Pack04_Split RN?
+U 3 1 6185C75F
+P 12100 -4050
+F 0 "RN?" H 12200 -4000 50  0001 L CNN
+F 1 "30Ω" H 12075 -3944 50  0001 C CNN
+F 2 "" H 12100 -3970 50  0001 C CNN
+F 3 "~" V 12100 -4050 50  0001 C CNN
+	3    12100 -4050
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:R_Pack04_Split RN?
+U 2 1 6185B607
+P 12100 -4150
+F 0 "RN?" H 12200 -4100 50  0001 L CNN
+F 1 "30Ω" H 12075 -4044 50  0001 C CNN
+F 2 "" H 12100 -4070 50  0001 C CNN
+F 3 "~" V 12100 -4150 50  0001 C CNN
+	2    12100 -4150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	11900 -3550 11950 -3550
+Wire Wire Line
+	11900 -3650 11950 -3650
+Wire Wire Line
+	11900 -3750 11950 -3750
+Wire Wire Line
+	11900 -3850 11950 -3850
+Wire Wire Line
+	11900 -3950 11950 -3950
+Wire Wire Line
+	11900 -4050 11950 -4050
+Wire Wire Line
+	11900 -4150 11950 -4150
+Wire Wire Line
+	11900 -4250 11950 -4250
+$Comp
+L alexios:R_Pack04_Split RN?
+U 1 1 614517E5
+P 12100 -4250
+F 0 "RN?" H 11950 -4150 50  0000 L CNN
+F 1 "30Ω" H 12250 -4200 50  0000 C CNN
+F 2 "" H 12100 -4170 50  0001 C CNN
+F 3 "~" V 12100 -4250 50  0001 C CNN
+	1    12100 -4250
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC541 U?
+U 1 1 6144C589
+P 11400 -3750
+F 0 "U?" H 11400 -2983 50  0000 C CNN
+F 1 "74HC541" H 11400 -3074 50  0000 C CNN
+F 2 "" H 11400 -3750 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 11400 -3750 50  0001 C CNN
+	1    11400 -3750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	10900 -3350 10850 -3350
+Wire Wire Line
+	10850 -3350 10850 -3250
+Wire Wire Line
+	10850 -3000 7600 -3000
+Wire Wire Line
+	10900 -3250 10850 -3250
+Connection ~ 10850 -3250
+Wire Wire Line
+	10850 -3250 10850 -3000
+Wire Wire Line
+	9200 -4250 9450 -4250
+Wire Wire Line
+	9450 -3550 9400 -3550
+Wire Wire Line
+	9400 -3550 9400 -3350
+Connection ~ 9400 -3350
+$Comp
+L power:GND #PWR?
+U 1 1 626F8918
+P 9400 -3900
+F 0 "#PWR?" H 9400 -4150 50  0001 C CNN
+F 1 "GND" H 9405 -4073 50  0000 C CNN
+F 2 "" H 9400 -3900 50  0001 C CNN
+F 3 "" H 9400 -3900 50  0001 C CNN
+	1    9400 -3900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9400 -3900 9400 -3950
+Wire Wire Line
+	9400 -3950 9450 -3950
+Wire Wire Line
+	10500 -3650 10500 -3850
+Text Label 10700 -4250 0    50   ~ 0
+LCLK1
+Text Label 10700 -4150 0    50   ~ 0
+LCLK2
+Text Label 10700 -4050 0    50   ~ 0
+LCLK3
+Text Label 10700 -3950 0    50   ~ 0
+LCLK4
+Text Label 10700 -3850 0    50   ~ 0
+LT12
+Text Label 10700 -3750 0    50   ~ 0
+LT34
+$Comp
+L power:GND #PWR?
+U 1 1 5FF89A74
+P 10850 -3500
+F 0 "#PWR?" H 10850 -3750 50  0001 C CNN
+F 1 "GND" H 10700 -3600 50  0000 C CNN
+F 2 "" H 10850 -3500 50  0001 C CNN
+F 3 "" H 10850 -3500 50  0001 C CNN
+	1    10850 -3500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	10900 -3650 10850 -3650
+Wire Wire Line
+	10850 -3650 10850 -3550
+Wire Wire Line
+	10900 -3550 10850 -3550
+Connection ~ 10850 -3550
+Wire Wire Line
+	10850 -3550 10850 -3500
+NoConn ~ 10450 -3450
+NoConn ~ 10450 -3350
+Text Label 7600 -3000 0    50   ~ 0
+~LCLKEN
+Text Notes 8200 -2400 0    100  ~ 20
+DFP Address Decoders
+Text Notes 8250 -4700 0    100  ~ 20
+CFT Clock Generator
+$Comp
+L power:+5V #PWR?
+U 1 1 60365E6C
+P 8150 -3750
+F 0 "#PWR?" H 8150 -3900 50  0001 C CNN
+F 1 "+5V" H 8150 -3800 50  0000 C CNN
+F 2 "" H 8150 -3750 50  0001 C CNN
+F 3 "" H 8150 -3750 50  0001 C CNN
+	1    8150 -3750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8150 -3750 8200 -3750
 Wire Bus Line
 	-7400 4750 -7400 6800
 Wire Bus Line
@@ -4411,6 +4829,4 @@ Wire Bus Line
 	-7300 550  -7300 8500
 Wire Bus Line
 	-10000 900  -10000 4550
-Text Notes 3450 3600 2    50   ~ 0
-https://www.arduino.cc/en/uploads/Main/Arduino_Uno_Rev3-schematic.pdf
 $EndSCHEMATC
