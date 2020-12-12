@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 11 11
+Sheet 9 11
 Title "Front Panel Light Scanner"
 Date "2019-11-17"
 Rev "2049"
@@ -21,6 +21,7 @@ AR Path="/624FF3FA" Ref="U?"  Part="1"
 AR Path="/6233F88C/624FF3FA" Ref="U1203"  Part="1" 
 AR Path="/60757845/607964B6/624FF3FA" Ref="U?"  Part="1" 
 AR Path="/64FC7999/650046D0/624FF3FA" Ref="U?"  Part="1" 
+AR Path="/65BD1B6F/624FF3FA" Ref="U?"  Part="1" 
 F 0 "U?" H 5350 2167 50  0000 C CNN
 F 1 "74HC138" H 5350 2076 50  0000 C CNN
 F 2 "alexios:SOIC-16" H 5350 1500 50  0001 C CNN
@@ -36,6 +37,7 @@ AR Path="/624FF400" Ref="U?"  Part="1"
 AR Path="/6233F88C/624FF400" Ref="U1204"  Part="1" 
 AR Path="/60757845/607964B6/624FF400" Ref="U?"  Part="1" 
 AR Path="/64FC7999/650046D0/624FF400" Ref="U?"  Part="1" 
+AR Path="/65BD1B6F/624FF400" Ref="U?"  Part="1" 
 F 0 "U?" H 5350 3417 50  0000 C CNN
 F 1 "74HC138" H 5350 3326 50  0000 C CNN
 F 2 "alexios:SOIC-16" H 5350 2750 50  0001 C CNN
@@ -51,6 +53,7 @@ AR Path="/624FF406" Ref="U?"  Part="1"
 AR Path="/6233F88C/624FF406" Ref="U1205"  Part="1" 
 AR Path="/60757845/607964B6/624FF406" Ref="U?"  Part="1" 
 AR Path="/64FC7999/650046D0/624FF406" Ref="U?"  Part="1" 
+AR Path="/65BD1B6F/624FF406" Ref="U?"  Part="1" 
 F 0 "U?" H 5350 4667 50  0000 C CNN
 F 1 "74HC138" H 5350 4576 50  0000 C CNN
 F 2 "alexios:SOIC-16" H 5350 4000 50  0001 C CNN
@@ -67,6 +70,7 @@ AR Path="/624FF429" Ref="#PWR?"  Part="1"
 AR Path="/6233F88C/624FF429" Ref="#PWR01216"  Part="1" 
 AR Path="/60757845/607964B6/624FF429" Ref="#PWR?"  Part="1" 
 AR Path="/64FC7999/650046D0/624FF429" Ref="#PWR?"  Part="1" 
+AR Path="/65BD1B6F/624FF429" Ref="#PWR?"  Part="1" 
 F 0 "#PWR?" H 4850 1550 50  0001 C CNN
 F 1 "+5V" H 4865 1873 50  0000 C CNN
 F 2 "" H 4850 1700 50  0001 C CNN
@@ -82,6 +86,7 @@ AR Path="/624FF42F" Ref="#PWR?"  Part="1"
 AR Path="/6233F88C/624FF42F" Ref="#PWR01218"  Part="1" 
 AR Path="/60757845/607964B6/624FF42F" Ref="#PWR?"  Part="1" 
 AR Path="/64FC7999/650046D0/624FF42F" Ref="#PWR?"  Part="1" 
+AR Path="/65BD1B6F/624FF42F" Ref="#PWR?"  Part="1" 
 F 0 "#PWR?" H 4850 2800 50  0001 C CNN
 F 1 "+5V" H 4865 3123 50  0000 C CNN
 F 2 "" H 4850 2950 50  0001 C CNN
@@ -97,6 +102,7 @@ AR Path="/624FF435" Ref="#PWR?"  Part="1"
 AR Path="/6233F88C/624FF435" Ref="#PWR01220"  Part="1" 
 AR Path="/60757845/607964B6/624FF435" Ref="#PWR?"  Part="1" 
 AR Path="/64FC7999/650046D0/624FF435" Ref="#PWR?"  Part="1" 
+AR Path="/65BD1B6F/624FF435" Ref="#PWR?"  Part="1" 
 F 0 "#PWR?" H 4850 4050 50  0001 C CNN
 F 1 "+5V" H 4865 4373 50  0000 C CNN
 F 2 "" H 4850 4200 50  0001 C CNN
@@ -273,6 +279,7 @@ AR Path="/62DEA5A1" Ref="U?"  Part="1"
 AR Path="/6233F88C/62DEA5A1" Ref="U1206"  Part="2" 
 AR Path="/60757845/607964B6/62DEA5A1" Ref="U?"  Part="2" 
 AR Path="/64FC7999/650046D0/62DEA5A1" Ref="U?"  Part="2" 
+AR Path="/65BD1B6F/62DEA5A1" Ref="U?"  Part="2" 
 F 0 "U?" H 5430 7446 50  0000 L CNN
 F 1 "74HC138" H 5430 7355 50  0000 L CNN
 F 2 "alexios:SOIC-16" H 5250 7400 50  0001 C CNN
@@ -288,6 +295,7 @@ AR Path="/62ECDEB3" Ref="C?"  Part="1"
 AR Path="/6233F88C/62ECDEB3" Ref="C1201"  Part="1" 
 AR Path="/60757845/607964B6/62ECDEB3" Ref="C?"  Part="1" 
 AR Path="/64FC7999/650046D0/62ECDEB3" Ref="C?"  Part="1" 
+AR Path="/65BD1B6F/62ECDEB3" Ref="C?"  Part="1" 
 F 0 "C?" H 809 6696 50  0000 R CNN
 F 1 "100nF" H 809 6605 50  0000 R CNN
 F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 900 6650 50  0001 C CNN
@@ -325,6 +333,7 @@ AR Path="/62ED6833" Ref="C?"  Part="1"
 AR Path="/6233F88C/62ED6833" Ref="C1203"  Part="1" 
 AR Path="/60757845/607964B6/62ED6833" Ref="C?"  Part="1" 
 AR Path="/64FC7999/650046D0/62ED6833" Ref="C?"  Part="1" 
+AR Path="/65BD1B6F/62ED6833" Ref="C?"  Part="1" 
 F 0 "C?" H 2059 6696 50  0000 R CNN
 F 1 "100nF" H 2059 6605 50  0000 R CNN
 F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2150 6650 50  0001 C CNN
@@ -362,6 +371,7 @@ AR Path="/62ED9CF3" Ref="C?"  Part="1"
 AR Path="/6233F88C/62ED9CF3" Ref="C1206"  Part="1" 
 AR Path="/60757845/607964B6/62ED9CF3" Ref="C?"  Part="1" 
 AR Path="/64FC7999/650046D0/62ED9CF3" Ref="C?"  Part="1" 
+AR Path="/65BD1B6F/62ED9CF3" Ref="C?"  Part="1" 
 F 0 "C?" H 4809 7446 50  0000 R CNN
 F 1 "100nF" H 4809 7355 50  0000 R CNN
 F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 4900 7400 50  0001 C CNN
@@ -399,6 +409,7 @@ AR Path="/62EDD3ED" Ref="C?"  Part="1"
 AR Path="/6233F88C/62EDD3ED" Ref="C1202"  Part="1" 
 AR Path="/60757845/607964B6/62EDD3ED" Ref="C?"  Part="1" 
 AR Path="/64FC7999/650046D0/62EDD3ED" Ref="C?"  Part="1" 
+AR Path="/65BD1B6F/62EDD3ED" Ref="C?"  Part="1" 
 F 0 "C?" H 809 7446 50  0000 R CNN
 F 1 "100nF" H 809 7355 50  0000 R CNN
 F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 900 7400 50  0001 C CNN
@@ -438,6 +449,7 @@ AR Path="/62EF736E" Ref="U?"  Part="1"
 AR Path="/6233F88C/62EF736E" Ref="U1204"  Part="2" 
 AR Path="/60757845/607964B6/62EF736E" Ref="U?"  Part="2" 
 AR Path="/64FC7999/650046D0/62EF736E" Ref="U?"  Part="2" 
+AR Path="/65BD1B6F/62EF736E" Ref="U?"  Part="2" 
 F 0 "U?" H 2680 7446 50  0000 L CNN
 F 1 "74HC138" H 2680 7355 50  0000 L CNN
 F 2 "alexios:SOIC-16" H 2500 7400 50  0001 C CNN
@@ -453,6 +465,7 @@ AR Path="/62EF7374" Ref="C?"  Part="1"
 AR Path="/6233F88C/62EF7374" Ref="C1204"  Part="1" 
 AR Path="/60757845/607964B6/62EF7374" Ref="C?"  Part="1" 
 AR Path="/64FC7999/650046D0/62EF7374" Ref="C?"  Part="1" 
+AR Path="/65BD1B6F/62EF7374" Ref="C?"  Part="1" 
 F 0 "C?" H 2059 7446 50  0000 R CNN
 F 1 "100nF" H 2059 7355 50  0000 R CNN
 F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2150 7400 50  0001 C CNN
@@ -492,6 +505,7 @@ AR Path="/62EFBBE4" Ref="U?"  Part="1"
 AR Path="/6233F88C/62EFBBE4" Ref="U1205"  Part="2" 
 AR Path="/60757845/607964B6/62EFBBE4" Ref="U?"  Part="2" 
 AR Path="/64FC7999/650046D0/62EFBBE4" Ref="U?"  Part="2" 
+AR Path="/65BD1B6F/62EFBBE4" Ref="U?"  Part="2" 
 F 0 "U?" H 3980 7446 50  0000 L CNN
 F 1 "74HC138" H 3980 7355 50  0000 L CNN
 F 2 "alexios:SOIC-16" H 3800 7400 50  0001 C CNN
@@ -507,6 +521,7 @@ AR Path="/62EFBBEA" Ref="C?"  Part="1"
 AR Path="/6233F88C/62EFBBEA" Ref="C1205"  Part="1" 
 AR Path="/60757845/607964B6/62EFBBEA" Ref="C?"  Part="1" 
 AR Path="/64FC7999/650046D0/62EFBBEA" Ref="C?"  Part="1" 
+AR Path="/65BD1B6F/62EFBBEA" Ref="C?"  Part="1" 
 F 0 "C?" H 3359 7446 50  0000 R CNN
 F 1 "100nF" H 3359 7355 50  0000 R CNN
 F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3450 7400 50  0001 C CNN
@@ -764,6 +779,7 @@ AR Path="/624FF43B" Ref="#PWR?"  Part="1"
 AR Path="/6233F88C/624FF43B" Ref="#PWR01222"  Part="1" 
 AR Path="/60757845/607964B6/624FF43B" Ref="#PWR?"  Part="1" 
 AR Path="/64FC7999/650046D0/624FF43B" Ref="#PWR?"  Part="1" 
+AR Path="/65BD1B6F/624FF43B" Ref="#PWR?"  Part="1" 
 F 0 "#PWR?" H 4850 5250 50  0001 C CNN
 F 1 "+5V" H 4865 5573 50  0000 C CNN
 F 2 "" H 4850 5400 50  0001 C CNN
@@ -789,6 +805,7 @@ AR Path="/624FF40C" Ref="U?"  Part="1"
 AR Path="/6233F88C/624FF40C" Ref="U1206"  Part="1" 
 AR Path="/60757845/607964B6/624FF40C" Ref="U?"  Part="1" 
 AR Path="/64FC7999/650046D0/624FF40C" Ref="U?"  Part="1" 
+AR Path="/65BD1B6F/624FF40C" Ref="U?"  Part="1" 
 F 0 "U?" H 5350 5917 50  0000 C CNN
 F 1 "74HC138" H 5350 5826 50  0000 C CNN
 F 2 "alexios:SOIC-16" H 5350 5250 50  0001 C CNN
@@ -804,6 +821,7 @@ AR Path="/5E660FE9" Ref="U?"  Part="1"
 AR Path="/6233F88C/5E660FE9" Ref="U1201"  Part="1" 
 AR Path="/60757845/607964B6/5E660FE9" Ref="U?"  Part="1" 
 AR Path="/64FC7999/650046D0/5E660FE9" Ref="U?"  Part="1" 
+AR Path="/65BD1B6F/5E660FE9" Ref="U?"  Part="1" 
 F 0 "U?" H 3150 2167 50  0000 C CNN
 F 1 "74HC138" H 3150 2076 50  0000 C CNN
 F 2 "alexios:SOIC-16" H 3150 1500 50  0001 C CNN
@@ -2210,6 +2228,7 @@ AR Path="/5D448D60" Ref="U?"  Part="1"
 AR Path="/6233F88C/5D448D60" Ref="U1203"  Part="2" 
 AR Path="/60757845/607964B6/5D448D60" Ref="U?"  Part="2" 
 AR Path="/64FC7999/650046D0/5D448D60" Ref="U?"  Part="2" 
+AR Path="/65BD1B6F/5D448D60" Ref="U?"  Part="2" 
 F 0 "U?" H 2680 6696 50  0000 L CNN
 F 1 "74HC138" H 2680 6605 50  0000 L CNN
 F 2 "alexios:SOIC-16" H 2500 6650 50  0001 C CNN
@@ -2227,6 +2246,7 @@ AR Path="/5D502AA8" Ref="U?"  Part="1"
 AR Path="/6233F88C/5D502AA8" Ref="U1201"  Part="2" 
 AR Path="/60757845/607964B6/5D502AA8" Ref="U?"  Part="2" 
 AR Path="/64FC7999/650046D0/5D502AA8" Ref="U?"  Part="2" 
+AR Path="/65BD1B6F/5D502AA8" Ref="U?"  Part="2" 
 F 0 "U?" H 1430 6696 50  0000 L CNN
 F 1 "74HC138" H 1430 6605 50  0000 L CNN
 F 2 "alexios:SOIC-16" H 1250 6650 50  0001 C CNN
@@ -2436,7 +2456,7 @@ Text Label 2450 3100 0    50   ~ 0
 FPA6
 Text Notes 2500 4050 0    50   ~ 0
 ROW₁ to ROW₅ are decoded strobes\nfor the front panel modules. The\nappropriate module is enabled for\nwriting using address FA₀–FA₁ and\nthe desired 8-bit register on that\nmodule is clocked using the ROW\nstrobes.
-Text Notes 750  1600 0    50   ~ 0
+Text Notes 750  1450 0    50   ~ 0
 When ~PANELEN~ is de-asserted,\nthe MCU can control the front panel\nlights directly.\n\n~PANELEN~ should ALWAYS be\nde-asserted when writing to MCU\naddresses &00–&03F.
 $Comp
 L alexios:74HC138 U?
@@ -2446,6 +2466,7 @@ AR Path="/5E2960BD" Ref="U?"  Part="1"
 AR Path="/6233F88C/5E2960BD" Ref="U1202"  Part="1" 
 AR Path="/60757845/607964B6/5E2960BD" Ref="U?"  Part="1" 
 AR Path="/64FC7999/650046D0/5E2960BD" Ref="U?"  Part="1" 
+AR Path="/65BD1B6F/5E2960BD" Ref="U?"  Part="1" 
 F 0 "U?" H 3150 3467 50  0000 C CNN
 F 1 "74HC138" H 3150 3376 50  0000 C CNN
 F 2 "alexios:SOIC-16" H 3150 2800 50  0001 C CNN
@@ -2461,6 +2482,7 @@ AR Path="/5E296CDE" Ref="U?"  Part="1"
 AR Path="/6233F88C/5E296CDE" Ref="U1202"  Part="2" 
 AR Path="/60757845/607964B6/5E296CDE" Ref="U?"  Part="2" 
 AR Path="/64FC7999/650046D0/5E296CDE" Ref="U?"  Part="2" 
+AR Path="/65BD1B6F/5E296CDE" Ref="U?"  Part="2" 
 F 0 "U?" H 1430 7446 50  0000 L CNN
 F 1 "74HC138" H 1430 7355 50  0000 L CNN
 F 2 "alexios:SOIC-16" H 1250 7400 50  0001 C CNN
@@ -2542,6 +2564,7 @@ AR Path="/6011422E" Ref="C?"  Part="1"
 AR Path="/6233F88C/6011422E" Ref="C1"  Part="1" 
 AR Path="/60757845/607964B6/6011422E" Ref="C?"  Part="1" 
 AR Path="/64FC7999/650046D0/6011422E" Ref="C?"  Part="1" 
+AR Path="/65BD1B6F/6011422E" Ref="C?"  Part="1" 
 F 0 "C?" H 2759 4846 50  0000 R CNN
 F 1 "100nF" H 2759 4755 50  0000 R CNN
 F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2850 4800 50  0001 C CNN

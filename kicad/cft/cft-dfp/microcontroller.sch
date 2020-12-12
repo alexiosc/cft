@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 5 11
+Sheet 11 11
 Title ""
 Date ""
 Rev ""
@@ -171,9 +171,9 @@ Text Label 4550 4550 2    50   ~ 0
 Text Label 4650 3650 2    50   ~ 0
 CLRWS
 Text Label 4300 4250 2    50   ~ 0
-~R
+~µCR
 Text Label 4300 4350 2    50   ~ 0
-~W
+~µCW
 Wire Wire Line
 	2450 3850 1950 3850
 Text Label 1950 3850 0    50   ~ 0
@@ -182,10 +182,6 @@ Text Label 1250 4050 0    50   ~ 0
 ~FPIRQ
 Wire Wire Line
 	3950 2750 4200 2750
-Text Label 4300 4050 2    50   ~ 0
-~MEM
-Text Label 4300 4150 2    50   ~ 0
-~IO
 Text Label 4200 2750 2    50   ~ 0
 ~CLR
 Text Label 1750 2950 0    50   ~ 0
@@ -1707,8 +1703,6 @@ Text HLabel 4850 4750 2    50   Output ~ 0
 ~LTSON
 Wire Wire Line
 	4200 4750 4850 4750
-Wire Wire Line
-	3950 4950 4850 4950
 Text HLabel 4850 4950 2    50   Output ~ 0
 ~PANELEN
 Wire Wire Line
@@ -2330,10 +2324,14 @@ Text HLabel 1100 2150 0    50   Output ~ 0
 ~WR
 Text HLabel 1100 2250 0    50   Output ~ 0
 ~RD
+Text Label 4300 4150 2    50   ~ 0
+~µCIO
+Text Label 4300 4050 2    50   ~ 0
+~µCMEM
+Wire Wire Line
+	3950 4950 4850 4950
 Wire Bus Line
 	1600 2750 1600 3150
-Wire Bus Line
-	1600 3450 1600 3850
 Wire Bus Line
 	8700 3550 8700 4350
 Wire Bus Line
@@ -2343,9 +2341,11 @@ Wire Bus Line
 Wire Bus Line
 	7700 1600 7700 2450
 Wire Bus Line
+	1600 3450 1600 3850
+Wire Bus Line
+	7600 1950 7600 4350
+Wire Bus Line
 	5600 1600 5600 2450
 Wire Bus Line
 	4500 1600 4500 2450
-Wire Bus Line
-	7600 1950 7600 4350
 $EndSCHEMATC

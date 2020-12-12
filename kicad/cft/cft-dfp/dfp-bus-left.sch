@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 2 11
+Sheet 4 11
 Title "Left Expansion Slot"
 Date "2019-11-17"
 Rev "2049"
@@ -643,8 +643,6 @@ Text HLabel 2150 2150 0    50   UnSpc ~ 0
 CLK3
 Text HLabel 2150 2250 0    50   UnSpc ~ 0
 CLK4
-Text HLabel 2150 2350 0    50   UnSpc ~ 0
-WSTB
 Text HLabel 2150 2450 0    50   UnSpc ~ 0
 T34
 Text HLabel 2150 2550 0    50   UnSpc ~ 0
@@ -1231,6 +1229,7 @@ Wire Wire Line
 Wire Wire Line
 	9800 4800 9800 4900
 NoConn ~ 6850 2650
+NoConn ~ 2150 2350
 Wire Bus Line
 	7000 3950 7000 5750
 Wire Bus Line

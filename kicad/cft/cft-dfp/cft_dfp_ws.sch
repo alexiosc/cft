@@ -292,15 +292,15 @@ Text HLabel 1400 2800 0    50   Input ~ 0
 Text HLabel 1400 3500 0    50   Input ~ 0
 CLRWS
 Text HLabel 1400 4400 0    50   Input ~ 0
-~DBOE
+~DBOE0
 Text HLabel 1400 4500 0    50   3State ~ 0
 ~R
 Text Label 1450 4500 0    50   ~ 0
 ~R
 Text Label 1450 4400 0    50   ~ 0
-~DBOE
+~DBOE0
 Text HLabel 8200 3500 2    50   Output ~ 0
-~DBOE
+~DBOE1
 Text HLabel 8000 1700 2    50   Output ~ 0
 ~IOINT
 Connection ~ 5500 2100
@@ -311,7 +311,7 @@ Wire Wire Line
 Text Label 1450 3500 0    50   ~ 0
 CLRWS
 Text Label 7900 3500 2    50   ~ 0
-~DBOE
+~DBOE1
 Wire Wire Line
 	7000 3500 8200 3500
 NoConn ~ 7000 3600
@@ -376,7 +376,7 @@ Text Label 5600 4600 0    50   ~ 0
 Text Label 5600 4500 0    50   ~ 0
 ~R
 Text Label 5600 4400 0    50   ~ 0
-~DBOE
+~DBOE0
 Wire Wire Line
 	5950 4800 5950 4100
 Connection ~ 5950 4800
