@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 4 14
+Sheet 3 11
 Title "Wait State & MCU Interrupts"
 Date "2019-11-17"
 Rev "2049"
