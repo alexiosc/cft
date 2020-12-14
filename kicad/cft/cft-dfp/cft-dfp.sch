@@ -616,106 +616,6 @@ Text HLabel -3300 9500 0    50   Input ~ 0
 FPCLKEN
 Text HLabel -3300 10400 0    50   Input ~ 0
 ~LCLKEN
-Text Notes -2650 7800 0    50   ~ 0
-Socket this and try frequencies that\naren't harmonics of the CPU clock, 4 MHz to\navoid strobe effects on the front panel lights.\n\nThe panel will update at 1/21 the crystal frequency.
-$Comp
-L power:+5V #PWR?
-U 1 1 60976AEC
-P -2450 6750
-F 0 "#PWR?" H -2450 6600 50  0001 C CNN
-F 1 "+5V" H -2435 6923 50  0000 C CNN
-F 2 "" H -2450 6750 50  0001 C CNN
-F 3 "" H -2450 6750 50  0001 C CNN
-	1    -2450 6750
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 60976AF2
-P -2250 6950
-F 0 "C?" H -2200 7200 50  0000 R CNN
-F 1 "100nF" H -2100 6700 50  0000 R CNN
-F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -2250 6950 50  0001 C CNN
-F 3 "~" H -2250 6950 50  0001 C CNN
-	1    -2250 6950
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 60976AF8
-P -2450 7150
-F 0 "#PWR?" H -2450 6900 50  0001 C CNN
-F 1 "GND" H -2445 6977 50  0000 C CNN
-F 2 "" H -2450 7150 50  0001 C CNN
-F 3 "" H -2450 7150 50  0001 C CNN
-	1    -2450 7150
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	-2150 6800 -2250 6800
-Wire Wire Line
-	-2450 6800 -2450 6750
-Wire Wire Line
-	-2250 6850 -2250 6800
-Connection ~ -2250 6800
-$Comp
-L Device:C_Small C?
-U 1 1 60976B02
-P -2450 6950
-F 0 "C?" H -2550 7200 50  0000 R CNN
-F 1 "1µF" H -2550 6950 50  0000 R CNN
-F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -2450 6950 50  0001 C CNN
-F 3 "~" H -2450 6950 50  0001 C CNN
-	1    -2450 6950
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	-2450 6800 -2450 6850
-Connection ~ -2450 6800
-Wire Wire Line
-	-2450 6800 -2250 6800
-$Comp
-L alexios:CXO_DIP8 X?
-U 1 1 60976B0B
-P -1850 6900
-F 0 "X?" H -1750 7267 50  0000 C CNN
-F 1 "33 MHz?" H -1750 7176 50  0000 C CNN
-F 2 "alexios:Oscillator_DIP-8-socket" H -1700 6500 50  0001 C CNN
-F 3 "http://cdn-reichelt.de/documents/datenblatt/B400/OSZI.pdf" H -1750 6850 50  0001 C CNN
-	1    -1850 6900
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR?
-U 1 1 60976B11
-P -1300 6750
-F 0 "#PWR?" H -1300 6600 50  0001 C CNN
-F 1 "+5V" H -1285 6923 50  0000 C CNN
-F 2 "" H -1300 6750 50  0001 C CNN
-F 3 "" H -1300 6750 50  0001 C CNN
-	1    -1300 6750
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	-1350 6800 -1300 6800
-Wire Wire Line
-	-1300 6800 -1300 6750
-Wire Wire Line
-	-2450 7050 -2450 7100
-Wire Wire Line
-	-2450 7100 -2250 7100
-Connection ~ -2450 7100
-Wire Wire Line
-	-2450 7100 -2450 7150
-Wire Wire Line
-	-2250 7050 -2250 7100
-Connection ~ -2250 7100
-Wire Wire Line
-	-2250 7100 -2150 7100
-Text Label -950 6950 2    50   ~ 0
-SCANCLK
-Wire Wire Line
-	-1350 6950 -950 6950
 $Comp
 L Device:CP_Small C?
 U 1 1 609CAF2E
@@ -3044,36 +2944,6 @@ Text Label 9400 2200 2    50   ~ 0
 Text Label 6000 2400 2    50   ~ 0
 ~DBOE0
 Wire Wire Line
-	4950 -4250 5500 -4250
-Wire Wire Line
-	4950 -4150 5500 -4150
-Wire Wire Line
-	4950 -4050 5500 -4050
-Wire Wire Line
-	4950 -3950 5500 -3950
-Wire Wire Line
-	4950 -3850 5500 -3850
-Wire Wire Line
-	4950 -3750 5500 -3750
-Wire Wire Line
-	4950 -3650 5500 -3650
-Text Label 5500 -4350 2    50   ~ 0
-FP-FPD0
-Text Label 5500 -4250 2    50   ~ 0
-FP-FPD1
-Text Label 5500 -4150 2    50   ~ 0
-FP-FPD2
-Text Label 5500 -4050 2    50   ~ 0
-FP-FPD3
-Text Label 5500 -3950 2    50   ~ 0
-FP-FPD4
-Text Label 5500 -3850 2    50   ~ 0
-FP-FPD5
-Text Label 5500 -3750 2    50   ~ 0
-FP-FPD6
-Text Label 5500 -3650 2    50   ~ 0
-FP-FPD7
-Wire Wire Line
 	2600 -3250 3150 -3250
 Text Label 3150 -3250 2    50   ~ 0
 ~SYSDEV
@@ -3137,7 +3007,39 @@ Text Label 3150 -1750 2    50   ~ 0
 Wire Wire Line
 	-2950 -1700 -2400 -1700
 Wire Wire Line
+	4950 -3750 5500 -3750
+Wire Wire Line
+	4950 -3850 5500 -3850
+Wire Wire Line
+	4950 -3950 5500 -3950
+Wire Wire Line
+	4950 -4050 5500 -4050
+Wire Wire Line
+	4950 -4150 5500 -4150
+Wire Wire Line
+	4950 -4250 5500 -4250
+Wire Wire Line
 	4950 -4350 5500 -4350
+Text Label 5500 -3650 2    50   ~ 0
+FP-FPD0
+Text Label 5500 -3750 2    50   ~ 0
+FP-FPD1
+Text Label 5500 -3850 2    50   ~ 0
+FP-FPD2
+Text Label 5500 -3950 2    50   ~ 0
+FP-FPD3
+Text Label 5500 -4050 2    50   ~ 0
+FP-FPD4
+Text Label 5500 -4150 2    50   ~ 0
+FP-FPD5
+Text Label 5500 -4250 2    50   ~ 0
+FP-FPD6
+Text Label 5500 -4350 2    50   ~ 0
+FP-FPD7
+Wire Wire Line
+	4950 -3650 5500 -3650
+Text Notes 5550 -4000 0    50   ~ 0
+Flipped to account for\nFront Panel Module\nlayout.
 Wire Bus Line
 	-450 -1750 -450 300 
 Wire Bus Line

@@ -911,14 +911,6 @@ F 3 "~" V -550 2450 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Bus Line
-	4150 1950 4150 4400
-Wire Bus Line
-	1350 1650 1350 4200
-Wire Bus Line
-	5950 1550 5950 4400
-Wire Bus Line
-	9350 1550 9350 5700
-Wire Bus Line
 	5850 4500 4250 4500
 Entry Bus Bus
 	5950 4400 5850 4500
@@ -1943,4 +1935,12 @@ F 3 "" H 9850 5250 50  0001 C CNN
 	1    9850 5250
 	1    0    0    -1  
 $EndComp
+Wire Bus Line
+	1350 1650 1350 4200
+Wire Bus Line
+	4150 1950 4150 4400
+Wire Bus Line
+	5950 1550 5950 4400
+Wire Bus Line
+	9350 1550 9350 5700
 $EndSCHEMATC
