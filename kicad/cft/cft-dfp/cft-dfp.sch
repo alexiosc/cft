@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 1 11
+Sheet 1 15
 Title "Debugging Front Panel"
 Date "2019-11-17"
 Rev "2049"
@@ -222,7 +222,7 @@ Text Label 7500 3300 2    50   ~ 0
 Text Notes 750  900  0    63   ~ 13
 TO DO:
 Text Notes 750  2350 0    50   ~ 0
-Add replaceable pods for buses and MCU/clock.\nIsolate front panel connector from rest of FPD.\nDisable front panel during programming.\nDisable serial port during programming.\nAdd configurable pull-ups on various signals.\nFix FTDI cable pin-out (swap RX/TX; likely ALREADY SWAPPED in R1943).\nAdd reset switch.\nAdd 1-2 more banks of DIP switches.\nLeft bus for peripherals.\nRight bus for processor, memory and memory-mapped I/O.\nFix TTYD LED.\nFix activity LED.\nAdd front-panel switch LED.\nAdd PANELEN LED.\nAdd CFT IRQ LED.\nWeakly pull-up ALL MCU outputs!!!\nPull-up MCU ~RESET~
+Done: Add replaceable pods for buses and MCU/clock.\nDone: Isolate front panel connector from rest of FPD.\nDone: Disable front panel during programming.\nDone: Disable serial port during programming.\nAdd configurable pull-ups on various signals.\nFix FTDI cable pin-out (swap RX/TX; likely ALREADY SWAPPED in R1943).\nAdd reset switch.\nAdd 1-2 more banks of DIP switches.\nLeft bus for peripherals.\nRight bus for processor, memory and memory-mapped I/O.\nFix TTYD LED.\nFix activity LED.\nAdd front-panel switch LED.\nAdd PANELEN LED.\nAdd CFT IRQ LED.\nWeakly pull-up ALL MCU outputs!!!\nPull-up MCU ~RESET~
 $Comp
 L alexios:74HC590 U?
 U 1 1 6057B648
@@ -464,8 +464,6 @@ Wire Wire Line
 	100  10200 50   10200
 Connection ~ 50   10200
 Wire Wire Line
-	50   10200 50   10300
-Wire Wire Line
 	-1600 9200 -1350 9200
 Wire Wire Line
 	-1350 9900 -1400 9900
@@ -510,7 +508,7 @@ Wire Wire Line
 Connection ~ 50   9900
 NoConn ~ -350 10000
 NoConn ~ -350 10100
-Text Label -3200 10400 0    50   ~ 0
+Text Label -3200 10650 0    50   ~ 0
 ~LCLKEN
 Text Notes -2550 8750 0    100  ~ 20
 CFT Clock Generator
@@ -527,17 +525,6 @@ F 3 "" H -2650 9700 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	-2650 9700 -2600 9700
-$Comp
-L alexios:SolderJumper_3_Bridged12 JP?
-U 1 1 5FDC3F20
-P 50 10400
-F 0 "JP?" H 50  10513 50  0000 C CNN
-F 1 "SolderJumper_3_Bridged12" H 50  10510 50  0001 C CNN
-F 2 "" H 50  10400 50  0001 C CNN
-F 3 "~" H 50  10400 50  0001 C CNN
-	1    50   10400
-	1    0    0    1   
-$EndComp
 Text Label -3200 9500 0    50   ~ 0
 FPCLKEN
 Text Label 1800 9200 2    50   ~ 0
@@ -614,7 +601,7 @@ Wire Wire Line
 	1400 9700 2100 9700
 Text HLabel -3300 9500 0    50   Input ~ 0
 FPCLKEN
-Text HLabel -3300 10400 0    50   Input ~ 0
+Text HLabel -3300 10650 0    50   Input ~ 0
 ~LCLKEN
 $Comp
 L Device:CP_Small C?
@@ -2311,17 +2298,15 @@ Text Label 3900 3100 0    50   ~ 0
 STEP∕~RUN
 Text Label 3900 3200 0    50   ~ 0
 ~µSTEP
-Wire Wire Line
-	-3300 10400 -100 10400
 $Comp
 L power:+5V #PWR?
 U 1 1 64D66638
-P 200 10400
-F 0 "#PWR?" H 200 10250 50  0001 C CNN
-F 1 "+5V" H 300 10400 50  0000 C CNN
-F 2 "" H 200 10400 50  0001 C CNN
-F 3 "" H 200 10400 50  0001 C CNN
-	1    200  10400
+P 250 10600
+F 0 "#PWR?" H 250 10450 50  0001 C CNN
+F 1 "+5V" H 350 10600 50  0000 C CNN
+F 2 "" H 250 10600 50  0001 C CNN
+F 3 "" H 250 10600 50  0001 C CNN
+	1    250  10600
 	1    0    0    -1  
 $EndComp
 $Sheet
@@ -3040,6 +3025,89 @@ Wire Wire Line
 	4950 -3650 5500 -3650
 Text Notes 5550 -4000 0    50   ~ 0
 Flipped to account for\nFront Panel Module\nlayout.
+$Comp
+L power:+5V #PWR?
+U 1 1 6117460D
+P -500 10400
+AR Path="/66CDCD87/6117460D" Ref="#PWR?"  Part="1" 
+AR Path="/60A2F394/6117460D" Ref="#PWR?"  Part="1" 
+AR Path="/66CDCD87/60FF3530/6117460D" Ref="#PWR?"  Part="1" 
+AR Path="/66CDCD87/6100D438/6117460D" Ref="#PWR?"  Part="1" 
+AR Path="/66CDCD87/610E2BBB/6117460D" Ref="#PWR?"  Part="1" 
+AR Path="/60757845/611019EB/6117460D" Ref="#PWR?"  Part="1" 
+AR Path="/60757845/611243B5/6117460D" Ref="#PWR?"  Part="1" 
+AR Path="/6117460D" Ref="#PWR?"  Part="1" 
+F 0 "#PWR?" H -500 10250 50  0001 C CNN
+F 1 "+5V" H -650 10400 50  0000 C CNN
+F 2 "" H -500 10400 50  0001 C CNN
+F 3 "" H -500 10400 50  0001 C CNN
+	1    -500 10400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:LED_ALT D?
+U 1 1 61174613
+P -350 10400
+AR Path="/61174613" Ref="D?"  Part="1" 
+AR Path="/64C48268/61174613" Ref="D?"  Part="1" 
+AR Path="/60757845/607965DD/61174613" Ref="D?"  Part="1" 
+AR Path="/60A2F394/61174613" Ref="D?"  Part="1" 
+AR Path="/66CDCD87/60FF3530/61174613" Ref="D?"  Part="1" 
+AR Path="/66CDCD87/6100D438/61174613" Ref="D?"  Part="1" 
+AR Path="/66CDCD87/610E2BBB/61174613" Ref="D?"  Part="1" 
+AR Path="/60757845/611019EB/61174613" Ref="D?"  Part="1" 
+AR Path="/60757845/611243B5/61174613" Ref="D?"  Part="1" 
+F 0 "D?" H -350 10500 50  0000 C CNN
+F 1 "LED_ALT" H -357 10236 50  0001 C CNN
+F 2 "alexios:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -350 10400 50  0001 C CNN
+F 3 "~" H -350 10400 50  0001 C CNN
+	1    -350 10400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_Small R?
+U 1 1 61174619
+P -100 10400
+AR Path="/61174619" Ref="R?"  Part="1" 
+AR Path="/64C48268/61174619" Ref="R?"  Part="1" 
+AR Path="/60757845/607965DD/61174619" Ref="R?"  Part="1" 
+AR Path="/60A2F394/61174619" Ref="R?"  Part="1" 
+AR Path="/66CDCD87/60FF3530/61174619" Ref="R?"  Part="1" 
+AR Path="/66CDCD87/6100D438/61174619" Ref="R?"  Part="1" 
+AR Path="/66CDCD87/610E2BBB/61174619" Ref="R?"  Part="1" 
+AR Path="/60757845/611019EB/61174619" Ref="R?"  Part="1" 
+AR Path="/60757845/611243B5/61174619" Ref="R?"  Part="1" 
+F 0 "R?" V -296 10400 50  0000 C CNN
+F 1 "680Ω" V -205 10400 50  0000 C CNN
+F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H -100 10400 50  0001 C CNN
+F 3 "~" H -100 10400 50  0001 C CNN
+	1    -100 10400
+	0    1    1    0   
+$EndComp
+$Comp
+L alexios:SolderJumper_3_Bridged12 JP?
+U 1 1 5FDC3F20
+P 50 10650
+F 0 "JP?" H 50  10763 50  0000 C CNN
+F 1 "SolderJumper_3_Bridged12" H 50  10760 50  0001 C CNN
+F 2 "" H 50  10650 50  0001 C CNN
+F 3 "~" H 50  10650 50  0001 C CNN
+	1    50   10650
+	1    0    0    1   
+$EndComp
+Wire Wire Line
+	200  10650 250  10650
+Wire Wire Line
+	250  10650 250  10600
+Wire Wire Line
+	50   10200 50   10400
+Wire Wire Line
+	-100 10650 -3300 10650
+Wire Wire Line
+	0    10400 50   10400
+Connection ~ 50   10400
+Wire Wire Line
+	50   10400 50   10550
 Wire Bus Line
 	-450 -1750 -450 300 
 Wire Bus Line
