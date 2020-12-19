@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 4 15
+Sheet 15 16
 Title "Left Expansion Slot"
 Date "2019-11-17"
 Rev "2049"
@@ -22,6 +22,7 @@ AR Path="/5D36B851/5D36087B" Ref="P?"  Part="1"
 AR Path="/5F1DB2E8/5D36087B" Ref="P?"  Part="1" 
 AR Path="/5D36087B" Ref="P1"  Part="1" 
 AR Path="/60A2F2E0/5D36087B" Ref="P?"  Part="1" 
+AR Path="/5FE640D1/5FE9C100/5D36087B" Ref="P?"  Part="1" 
 F 0 "P?" H 3150 1767 50  0000 C CNN
 F 1 "CFT-2019-Bus" H 3150 1676 50  0000 C CNN
 F 2 "alexios:CFT-2019-Card-Edge-Double-Width" H 3100 700 50  0001 C CNN
@@ -38,6 +39,7 @@ AR Path="/5D36B851/5D360881" Ref="P?"  Part="2"
 AR Path="/5F1DB2E8/5D360881" Ref="P?"  Part="2" 
 AR Path="/5D360881" Ref="P1"  Part="2" 
 AR Path="/60A2F2E0/5D360881" Ref="P?"  Part="2" 
+AR Path="/5FE640D1/5FE9C100/5D360881" Ref="P?"  Part="2" 
 F 0 "P?" H 5900 1767 50  0000 C CNN
 F 1 "CFT-2019-Bus" H 5900 1676 50  0000 C CNN
 F 2 "alexios:CFT-2019-Card-Edge-Double-Width" H 5850 700 50  0001 C CNN
@@ -762,6 +764,7 @@ AR Path="/5D36B851/5D360875" Ref="P?"  Part="4"
 AR Path="/5F1DB2E8/5D360875" Ref="P?"  Part="4" 
 AR Path="/5D360875" Ref="P1"  Part="4" 
 AR Path="/60A2F2E0/5D360875" Ref="P?"  Part="4" 
+AR Path="/5FE640D1/5FE9C100/5D360875" Ref="P?"  Part="4" 
 F 0 "P?" H 9350 4817 50  0000 C CNN
 F 1 "CFT-2019-Bus" H 9350 4726 50  0000 C CNN
 F 2 "alexios:CFT-2019-Card-Edge-Double-Width" H 9300 3750 50  0001 C CNN
@@ -779,6 +782,7 @@ AR Path="/5D34E810/5D360863" Ref="#PWR0202"  Part="1"
 AR Path="/5D36B851/5D360863" Ref="#PWR?"  Part="1" 
 AR Path="/5F1DB2E8/5D360863" Ref="#PWR?"  Part="1" 
 AR Path="/60A2F2E0/5D360863" Ref="#PWR?"  Part="1" 
+AR Path="/5FE640D1/5FE9C100/5D360863" Ref="#PWR?"  Part="1" 
 F 0 "#PWR?" H 8900 5100 50  0001 C CNN
 F 1 "GND" H 8822 5313 50  0000 R CNN
 F 2 "" H 8900 5350 50  0001 C CNN
@@ -796,6 +800,7 @@ AR Path="/5D34E810/5D360855" Ref="#PWR0203"  Part="1"
 AR Path="/5D36B851/5D360855" Ref="#PWR?"  Part="1" 
 AR Path="/5F1DB2E8/5D360855" Ref="#PWR?"  Part="1" 
 AR Path="/60A2F2E0/5D360855" Ref="#PWR?"  Part="1" 
+AR Path="/5FE640D1/5FE9C100/5D360855" Ref="#PWR?"  Part="1" 
 F 0 "#PWR?" H 9800 4650 50  0001 C CNN
 F 1 "+5V" H 9815 4973 50  0000 C CNN
 F 2 "" H 9800 4800 50  0001 C CNN
@@ -813,6 +818,7 @@ AR Path="/5D34E810/5D36084F" Ref="#PWR0204"  Part="1"
 AR Path="/5D36B851/5D36084F" Ref="#PWR?"  Part="1" 
 AR Path="/5F1DB2E8/5D36084F" Ref="#PWR?"  Part="1" 
 AR Path="/60A2F2E0/5D36084F" Ref="#PWR?"  Part="1" 
+AR Path="/5FE640D1/5FE9C100/5D36084F" Ref="#PWR?"  Part="1" 
 F 0 "#PWR?" H 9800 5100 50  0001 C CNN
 F 1 "GND" H 9805 5177 50  0000 C CNN
 F 2 "" H 9800 5350 50  0001 C CNN
@@ -871,6 +877,7 @@ AR Path="/5D36B851/5D3608F9" Ref="P?"  Part="3"
 AR Path="/5F1DB2E8/5D3608F9" Ref="P?"  Part="3" 
 AR Path="/5D3608F9" Ref="P1"  Part="3" 
 AR Path="/60A2F2E0/5D3608F9" Ref="P?"  Part="3" 
+AR Path="/5FE640D1/5FE9C100/5D3608F9" Ref="P?"  Part="3" 
 F 0 "P?" H 9300 1817 50  0000 C CNN
 F 1 "CFT-2019-Bus" H 9300 1726 50  0000 C CNN
 F 2 "alexios:CFT-2019-Card-Edge-Double-Width" H 9250 750 50  0001 C CNN
@@ -1038,6 +1045,7 @@ AR Path="/5D8FC46B" Ref="C?"  Part="1"
 AR Path="/5D34E810/5D8FC46B" Ref="C201"  Part="1" 
 AR Path="/5F1DB2E8/5D8FC46B" Ref="C?"  Part="1" 
 AR Path="/60A2F2E0/5D8FC46B" Ref="C?"  Part="1" 
+AR Path="/5FE640D1/5FE9C100/5D8FC46B" Ref="C?"  Part="1" 
 F 0 "C?" H 8812 5046 50  0000 R CNN
 F 1 "47µF" H 8812 4955 50  0000 R CNN
 F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 8900 5000 50  0001 C CNN
@@ -1053,6 +1061,7 @@ AR Path="/5D908E0A" Ref="C?"  Part="1"
 AR Path="/5D34E810/5D908E0A" Ref="C202"  Part="1" 
 AR Path="/5F1DB2E8/5D908E0A" Ref="C?"  Part="1" 
 AR Path="/60A2F2E0/5D908E0A" Ref="C?"  Part="1" 
+AR Path="/5FE640D1/5FE9C100/5D908E0A" Ref="C?"  Part="1" 
 F 0 "C?" H 9888 5046 50  0000 L CNN
 F 1 "47µF" H 9888 4955 50  0000 L CNN
 F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 9800 5000 50  0001 C CNN
@@ -1151,6 +1160,7 @@ AR Path="/5D34E810/5D360869" Ref="#PWR0201"  Part="1"
 AR Path="/5D36B851/5D360869" Ref="#PWR?"  Part="1" 
 AR Path="/5F1DB2E8/5D360869" Ref="#PWR?"  Part="1" 
 AR Path="/60A2F2E0/5D360869" Ref="#PWR?"  Part="1" 
+AR Path="/5FE640D1/5FE9C100/5D360869" Ref="#PWR?"  Part="1" 
 F 0 "#PWR?" H 8900 4650 50  0001 C CNN
 F 1 "+5V" H 8842 4837 50  0000 R CNN
 F 2 "" H 8900 4800 50  0001 C CNN

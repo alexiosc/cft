@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 10 15
+Sheet 7 16
 Title ""
 Date ""
 Rev ""
@@ -367,22 +367,6 @@ Text Label 9350 2700 2    50   ~ 0
 ACTION2
 Text Label 9350 2800 2    50   ~ 0
 ACTION3
-Wire Wire Line
-	9000 2900 9350 2900
-Wire Wire Line
-	9000 3000 9350 3000
-Wire Wire Line
-	9000 3100 9350 3100
-Wire Wire Line
-	9000 3200 9350 3200
-Text Label 9350 2900 2    50   ~ 0
-COND0
-Text Label 9350 3000 2    50   ~ 0
-COND1
-Text Label 9350 3100 2    50   ~ 0
-COND2
-Text Label 9350 3200 2    50   ~ 0
-COND3
 Text Label 5100 2700 0    50   ~ 0
 ~RCV0
 Wire Wire Line
@@ -827,14 +811,14 @@ WADDR3
 Text Label 9350 2000 2    50   ~ 0
 WADDR4
 Wire Wire Line
-	9000 2100 9050 2100
+	9000 2900 9050 2900
 Wire Wire Line
-	9000 2200 9050 2200
+	9000 3000 9050 3000
 Wire Wire Line
-	9000 2300 9050 2300
-NoConn ~ 9050 2100
-NoConn ~ 9050 2200
-NoConn ~ 9050 2300
+	9000 3100 9050 3100
+NoConn ~ 9050 2900
+NoConn ~ 9050 3000
+NoConn ~ 9050 3100
 Text Label 7600 2600 0    50   ~ 0
 ~RCV1
 Wire Wire Line
@@ -900,8 +884,6 @@ Text HLabel 10300 1250 2    50   BiDi ~ 0
 WADDR[0..4]
 Text HLabel 10300 1350 2    50   BiDi ~ 0
 ACTION[0..3]
-Text HLabel 10300 1450 2    50   BiDi ~ 0
-COND[0..3]
 Text HLabel 10300 1650 2    50   BiDi ~ 0
 DB[0..15]
 Text HLabel 10300 1850 2    50   BiDi ~ 0
@@ -915,8 +897,6 @@ Wire Bus Line
 Wire Bus Line
 	10300 1350 9800 1350
 Wire Bus Line
-	10300 1450 9800 1450
-Wire Bus Line
 	10300 1650 9800 1650
 Wire Bus Line
 	10300 1850 9800 1850
@@ -928,8 +908,6 @@ Text Label 9800 1250 0    50   ~ 0
 WADDR[0..4]
 Text Label 9800 1350 0    50   ~ 0
 ACTION[0..3]
-Text Label 9800 1450 0    50   ~ 0
-COND[0..3]
 Text Label 9800 1650 0    50   ~ 0
 DB[0..15]
 Text Label 9800 1850 0    50   ~ 0
@@ -1267,6 +1245,11 @@ Text Label 8300 4850 0    50   ~ 0
 ~DBOE
 Text Label 8300 4950 0    50   ~ 0
 ~IBOE
+Wire Wire Line
+	9000 3200 9050 3200
+NoConn ~ 9050 3200
 Wire Bus Line
 	2500 1400 2500 2200
+Text Notes 9200 3200 0    50   ~ 0
+There is no COND[0..3] I/O because that\nfield is local to the CTL board.
 $EndSCHEMATC

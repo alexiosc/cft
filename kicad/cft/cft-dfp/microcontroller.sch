@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 13 15
+Sheet 10 16
 Title "Microcontroller and DFP Bus"
 Date ""
 Rev ""
@@ -2864,22 +2864,6 @@ Wire Wire Line
 	12450 5850 12150 5850
 Wire Wire Line
 	12450 5950 12150 5950
-Wire Bus Line
-	10100 3700 10100 4550
-Wire Bus Line
-	1550 2750 1550 3150
-Wire Bus Line
-	10100 1600 10100 2450
-Wire Bus Line
-	7700 1600 7700 2450
-Wire Bus Line
-	1550 3450 1550 3850
-Wire Bus Line
-	7600 1950 7600 4550
-Wire Bus Line
-	5600 1600 5600 2450
-Wire Bus Line
-	4450 1600 4450 2450
 Wire Wire Line
 	12450 5200 12150 5200
 Wire Wire Line
@@ -2888,4 +2872,36 @@ Text Label 4500 4550 2    50   ~ 0
 ~IOINT
 Text Label 12150 5200 0    50   ~ 0
 ~IOINT
+$Sheet
+S 12450 6400 500  400 
+U 5FED7B4A
+F0 "sheet5FED7B46" 50
+F1 "cft_boardled.sch" 50
+F2 "LED1" I L 12450 6550 50 
+F3 "LED2" I L 12450 6650 50 
+$EndSheet
+Wire Wire Line
+	12450 6550 12200 6550
+Wire Wire Line
+	12450 6650 12200 6650
+Text Label 12200 6650 0    50   ~ 0
+TXD
+Text Label 12200 6550 0    50   ~ 0
+RXD
+Wire Bus Line
+	1550 2750 1550 3150
+Wire Bus Line
+	1550 3450 1550 3850
+Wire Bus Line
+	10100 3700 10100 4550
+Wire Bus Line
+	10100 1600 10100 2450
+Wire Bus Line
+	7700 1600 7700 2450
+Wire Bus Line
+	5600 1600 5600 2450
+Wire Bus Line
+	4450 1600 4450 2450
+Wire Bus Line
+	7600 1950 7600 4550
 $EndSCHEMATC
