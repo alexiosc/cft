@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 2 16
+Sheet 2 17
 Title "Run/Step/Stop Control"
 Date "2019-11-17"
 Rev "2049"
@@ -551,12 +551,6 @@ Text HLabel 3250 4600 0    50   Input ~ 0
 Text HLabel 3250 4800 0    50   Input ~ 0
 ~RSTHOLD
 Wire Wire Line
-	3250 2550 6550 2550
-Wire Wire Line
-	6100 2650 3250 2650
-Wire Wire Line
-	4150 3100 3250 3100
-Wire Wire Line
 	4150 3300 3250 3300
 Wire Wire Line
 	4000 3400 3250 3400
@@ -609,4 +603,10 @@ Wire Wire Line
 	5250 4700 5350 4700
 Text Notes 6300 4600 0    50   ~ 0
 The Clock Generator pulls FPCLKEN and FPµSTEP up, so when the '253's\noutputs are tri-stated, the processor runs at full speed. This allows\nresetting to run at the full clock speed, rather than whatever slow clock\nwe have set on the DFP.
+Wire Wire Line
+	4150 3100 3250 3100
+Wire Wire Line
+	6100 2650 3250 2650
+Wire Wire Line
+	3250 2550 6550 2550
 $EndSCHEMATC

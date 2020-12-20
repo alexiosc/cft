@@ -3,12 +3,12 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 7 16
+Sheet 6 17
 Title ""
 Date ""
-Rev ""
+Rev "2049"
 Comp ""
-Comment1 ""
+Comment1 "DFP"
 Comment2 ""
 Comment3 ""
 Comment4 ""
@@ -1248,8 +1248,8 @@ Text Label 8300 4950 0    50   ~ 0
 Wire Wire Line
 	9000 3200 9050 3200
 NoConn ~ 9050 3200
-Wire Bus Line
-	2500 1400 2500 2200
 Text Notes 9200 3200 0    50   ~ 0
 There is no COND[0..3] I/O because that\nfield is local to the CTL board.
+Wire Bus Line
+	2500 1400 2500 2200
 $EndSCHEMATC
