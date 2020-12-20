@@ -551,7 +551,7 @@ Text HLabel 3250 4600 0    50   Input ~ 0
 Text HLabel 3250 4800 0    50   Input ~ 0
 ~RSTHOLD
 Wire Wire Line
-	4150 3300 3250 3300
+	4150 3300 4000 3300
 Wire Wire Line
 	4000 3400 3250 3400
 Wire Wire Line
@@ -609,4 +609,44 @@ Wire Wire Line
 	6100 2650 3250 2650
 Wire Wire Line
 	3250 2550 6550 2550
+Text Label 5700 1850 2    50   ~ 0
+~LED-FETCH
+Wire Wire Line
+	4750 1600 8600 1600
+Connection ~ 4750 1600
+Wire Wire Line
+	4750 1850 4800 1850
+Wire Wire Line
+	4750 1600 4750 1850
+$Comp
+L alexios:74LVC1G04 U?
+U 1 1 6B23C6BE
+P 5100 1850
+AR Path="/6B23C6BE" Ref="U?"  Part="1" 
+AR Path="/60757845/6B23C6BE" Ref="U?"  Part="1" 
+AR Path="/5ED99F01/6B23C6BE" Ref="U?"  Part="1" 
+F 0 "U?" H 5200 1750 50  0000 C CNN
+F 1 "74LVC1G04" H 5250 1650 50  0000 C CNN
+F 2 "alexios:SOT-23-5_HandSoldering" H 5100 1850 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G04.pdf" H 5100 1850 50  0001 C CNN
+	1    5100 1850
+	1    0    0    -1  
+$EndComp
+Text Label 5700 1600 2    50   ~ 0
+~LED-EXEC
+Text Label 4150 1600 0    50   ~ 0
+FPFETCH∕~EXEC
+Wire Wire Line
+	4000 3300 4000 1600
+Wire Wire Line
+	4000 1600 4750 1600
+Connection ~ 4000 3300
+Wire Wire Line
+	4000 3300 3250 3300
+Text HLabel 8600 1600 2    50   Output ~ 0
+~LED-EXEC
+Wire Wire Line
+	5300 1850 8600 1850
+Text HLabel 8600 1850 2    50   Output ~ 0
+~LED-FETCH
 $EndSCHEMATC

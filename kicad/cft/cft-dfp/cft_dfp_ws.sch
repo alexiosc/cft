@@ -299,7 +299,7 @@ Text Label 1450 4500 0    50   ~ 0
 ~R
 Text Label 1450 4400 0    50   ~ 0
 ~DBOE0
-Text HLabel 8200 3500 2    50   Output ~ 0
+Text HLabel 8000 3500 2    50   Output ~ 0
 ~DBOE1
 Text HLabel 8000 1700 2    50   Output ~ 0
 ~IOINT
@@ -313,7 +313,7 @@ CLRWS
 Text Label 7900 3500 2    50   ~ 0
 ~DBOE1
 Wire Wire Line
-	7000 3500 8200 3500
+	7000 3500 8000 3500
 NoConn ~ 7000 3600
 Wire Wire Line
 	5850 4200 6000 4200

@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 9 17
+Sheet 17 17
 Title "Front Panel Light Scanner"
 Date "2019-11-17"
 Rev "2049"
@@ -13,2603 +13,2423 @@ Comment2 ""
 Comment3 ""
 Comment4 "dfp_scan.v"
 $EndDescr
-$Comp
-L alexios:74HC138 U?
-U 1 1 624FF3FA
-P 5350 1500
-AR Path="/624FF3FA" Ref="U?"  Part="1" 
-AR Path="/6233F88C/624FF3FA" Ref="U1203"  Part="1" 
-AR Path="/60757845/607964B6/624FF3FA" Ref="U?"  Part="1" 
-AR Path="/64FC7999/650046D0/624FF3FA" Ref="U?"  Part="1" 
-AR Path="/65BD1B6F/624FF3FA" Ref="U?"  Part="1" 
-F 0 "U?" H 5350 2167 50  0000 C CNN
-F 1 "74HC138" H 5350 2076 50  0000 C CNN
-F 2 "alexios:SOIC-16" H 5350 1500 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 5350 1500 50  0001 C CNN
-	1    5350 1500
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74HC138 U?
-U 1 1 624FF400
-P 5350 2750
-AR Path="/624FF400" Ref="U?"  Part="1" 
-AR Path="/6233F88C/624FF400" Ref="U1204"  Part="1" 
-AR Path="/60757845/607964B6/624FF400" Ref="U?"  Part="1" 
-AR Path="/64FC7999/650046D0/624FF400" Ref="U?"  Part="1" 
-AR Path="/65BD1B6F/624FF400" Ref="U?"  Part="1" 
-F 0 "U?" H 5350 3417 50  0000 C CNN
-F 1 "74HC138" H 5350 3326 50  0000 C CNN
-F 2 "alexios:SOIC-16" H 5350 2750 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 5350 2750 50  0001 C CNN
-	1    5350 2750
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74HC138 U?
-U 1 1 624FF406
-P 5350 4000
-AR Path="/624FF406" Ref="U?"  Part="1" 
-AR Path="/6233F88C/624FF406" Ref="U1205"  Part="1" 
-AR Path="/60757845/607964B6/624FF406" Ref="U?"  Part="1" 
-AR Path="/64FC7999/650046D0/624FF406" Ref="U?"  Part="1" 
-AR Path="/65BD1B6F/624FF406" Ref="U?"  Part="1" 
-F 0 "U?" H 5350 4667 50  0000 C CNN
-F 1 "74HC138" H 5350 4576 50  0000 C CNN
-F 2 "alexios:SOIC-16" H 5350 4000 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 5350 4000 50  0001 C CNN
-F 4 "Yes" H 5350 4000 50  0001 C CNN "Verified"
-	1    5350 4000
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR?
-U 1 1 624FF429
-P 4850 1700
-AR Path="/624FF429" Ref="#PWR?"  Part="1" 
-AR Path="/6233F88C/624FF429" Ref="#PWR01216"  Part="1" 
-AR Path="/60757845/607964B6/624FF429" Ref="#PWR?"  Part="1" 
-AR Path="/64FC7999/650046D0/624FF429" Ref="#PWR?"  Part="1" 
-AR Path="/65BD1B6F/624FF429" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 4850 1550 50  0001 C CNN
-F 1 "+5V" H 4865 1873 50  0000 C CNN
-F 2 "" H 4850 1700 50  0001 C CNN
-F 3 "" H 4850 1700 50  0001 C CNN
-	1    4850 1700
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR?
-U 1 1 624FF42F
-P 4850 2950
-AR Path="/624FF42F" Ref="#PWR?"  Part="1" 
-AR Path="/6233F88C/624FF42F" Ref="#PWR01218"  Part="1" 
-AR Path="/60757845/607964B6/624FF42F" Ref="#PWR?"  Part="1" 
-AR Path="/64FC7999/650046D0/624FF42F" Ref="#PWR?"  Part="1" 
-AR Path="/65BD1B6F/624FF42F" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 4850 2800 50  0001 C CNN
-F 1 "+5V" H 4865 3123 50  0000 C CNN
-F 2 "" H 4850 2950 50  0001 C CNN
-F 3 "" H 4850 2950 50  0001 C CNN
-	1    4850 2950
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR?
-U 1 1 624FF435
-P 4850 4200
-AR Path="/624FF435" Ref="#PWR?"  Part="1" 
-AR Path="/6233F88C/624FF435" Ref="#PWR01220"  Part="1" 
-AR Path="/60757845/607964B6/624FF435" Ref="#PWR?"  Part="1" 
-AR Path="/64FC7999/650046D0/624FF435" Ref="#PWR?"  Part="1" 
-AR Path="/65BD1B6F/624FF435" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 4850 4050 50  0001 C CNN
-F 1 "+5V" H 4865 4373 50  0000 C CNN
-F 2 "" H 4850 4200 50  0001 C CNN
-F 3 "" H 4850 4200 50  0001 C CNN
-	1    4850 4200
-	1    0    0    -1  
-$EndComp
-Text Label 6200 2350 2    50   ~ 0
+Text Notes 8650 3100 0    50   ~ 0
+The front panel scanner synchronises two groups of\nsignals: the front panel output enables on various\nprocessor boards (using the ~FPOExx~ enables), and\nthe enables of the 8-bit latches on the front panel\nboards.\n\nThe front panel boards are organised in four modules\ntimes five rows. The module is enabled for writing by\nthe two-bit address FPA₀₋₁ and a specific row on that\nmodule is enabled for latching using ~ROW₁₋₅~. There\nis a separate FPA decoder on each light module; the ROW\ndecoding happens here.\n\nThese are in phase with the ~FPOExx~ enables, so the\nsame row on each module will always receive data from\nthe same processor board output buffer.\n\nThe addresses are scanned in increasing order,\nmodulo 21: ~FPOE20~ enables nothing, but is used to\nreset the count.\n\nAddresses over 20 are never reached by the autonomic\ncounter, but they may be put on the bus by the MCU to\nenable future units for debugging output (which however\nwon't appear on the front panel).\n\nAddresses are decoded across modules first, then down\nby row numbers: so the enables are interleaved across\n'138 decoders. (each decoder is responsible for one\nfront panel module)
+Text Notes 8650 3550 0    100  ~ 20
+Front Panel Light Modules
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10300 3900 10325 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10300 3925 10325 3925
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10300 3925 10300 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10325 3925 10325 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10350 3900 10375 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10350 3925 10375 3925
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10350 3925 10350 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10375 3925 10375 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10400 3900 10425 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10400 3925 10425 3925
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10400 3925 10400 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10425 3925 10425 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10450 3900 10475 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10450 3925 10475 3925
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10450 3925 10450 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10475 3925 10475 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10500 3900 10525 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10500 3925 10525 3925
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10500 3925 10500 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10525 3925 10525 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10550 3900 10575 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10550 3925 10575 3925
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10550 3925 10550 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10575 3925 10575 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10600 3900 10625 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10600 3925 10625 3925
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10600 3925 10600 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10625 3925 10625 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10650 3900 10675 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10650 3925 10675 3925
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10650 3925 10650 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10675 3925 10675 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10300 4200 10325 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10300 4225 10325 4225
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10300 4225 10300 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10325 4225 10325 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10350 4200 10375 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10350 4225 10375 4225
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10350 4225 10350 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10375 4225 10375 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10400 4200 10425 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10400 4225 10425 4225
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10400 4225 10400 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10425 4225 10425 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10450 4200 10475 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10450 4225 10475 4225
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10450 4225 10450 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10475 4225 10475 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10500 4200 10525 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10500 4225 10525 4225
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10500 4225 10500 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10525 4225 10525 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10550 4200 10575 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10550 4225 10575 4225
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10550 4225 10550 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10575 4225 10575 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10600 4200 10625 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10600 4225 10625 4225
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10600 4225 10600 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10625 4225 10625 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10650 4200 10675 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10650 4225 10675 4225
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10650 4225 10650 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10675 4225 10675 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10300 4050 10325 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10300 4075 10325 4075
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10300 4075 10300 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10325 4075 10325 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10350 4050 10375 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10350 4075 10375 4075
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10350 4075 10350 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10375 4075 10375 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10400 4050 10425 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10400 4075 10425 4075
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10400 4075 10400 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10425 4075 10425 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10450 4050 10475 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10450 4075 10475 4075
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10450 4075 10450 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10475 4075 10475 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10500 4050 10525 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10500 4075 10525 4075
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10500 4075 10500 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10525 4075 10525 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10550 4050 10575 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10550 4075 10575 4075
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10550 4075 10550 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10575 4075 10575 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10600 4050 10625 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10600 4075 10625 4075
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10600 4075 10600 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10625 4075 10625 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10650 4050 10675 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10650 4075 10675 4075
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10650 4075 10650 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10675 4075 10675 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10300 4350 10325 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10300 4375 10325 4375
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10300 4375 10300 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10325 4375 10325 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10350 4350 10375 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10350 4375 10375 4375
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10350 4375 10350 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10375 4375 10375 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10400 4350 10425 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10400 4375 10425 4375
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10400 4375 10400 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10425 4375 10425 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10450 4350 10475 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10450 4375 10475 4375
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10450 4375 10450 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10475 4375 10475 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10500 4350 10525 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10500 4375 10525 4375
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10500 4375 10500 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10525 4375 10525 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10550 4350 10575 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10550 4375 10575 4375
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10550 4375 10550 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10575 4375 10575 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10600 4350 10625 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10600 4375 10625 4375
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10600 4375 10600 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10625 4375 10625 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10650 4350 10675 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10650 4375 10675 4375
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10650 4375 10650 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10675 4375 10675 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10300 4500 10325 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10300 4525 10325 4525
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10300 4525 10300 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10325 4525 10325 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10350 4500 10375 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10350 4525 10375 4525
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10350 4525 10350 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10375 4525 10375 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10400 4500 10425 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10400 4525 10425 4525
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10400 4525 10400 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10425 4525 10425 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10450 4500 10475 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10450 4525 10475 4525
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10450 4525 10450 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10475 4525 10475 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10500 4500 10525 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10500 4525 10525 4525
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10500 4525 10500 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10525 4525 10525 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10550 4500 10575 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10550 4525 10575 4525
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10550 4525 10550 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10575 4525 10575 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10600 4500 10625 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10600 4525 10625 4525
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10600 4525 10600 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10625 4525 10625 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10650 4500 10675 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10650 4525 10675 4525
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10650 4525 10650 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10675 4525 10675 4500
+Text Notes 10800 3950 0    50   ~ 0
+Row 1
+Text Notes 10800 4100 0    50   ~ 0
+Row 2
+Text Notes 10800 4250 0    50   ~ 0
+Row 3
+Text Notes 10800 4400 0    50   ~ 0
+Row 4
+Text Notes 10800 4550 0    50   ~ 0
+Row 5
+Wire Notes Line style solid rgb(255, 255, 0)
+	10250 3800 10750 3800
+Wire Notes Line style solid rgb(255, 255, 0)
+	10750 3800 10750 4600
+Wire Notes Line style solid rgb(255, 255, 0)
+	10750 4600 10250 4600
+Wire Notes Line style solid rgb(255, 255, 0)
+	10250 4600 10250 3800
+Text Notes 10250 3750 0    60   ~ 12
+Module D
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9750 3900 9775 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9750 3925 9775 3925
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9750 3925 9750 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9775 3925 9775 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9800 3900 9825 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9800 3925 9825 3925
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9800 3925 9800 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9825 3925 9825 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9850 3900 9875 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9850 3925 9875 3925
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9850 3925 9850 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9875 3925 9875 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9900 3900 9925 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9900 3925 9925 3925
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9900 3925 9900 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9925 3925 9925 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9950 3900 9975 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9950 3925 9975 3925
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9950 3925 9950 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9975 3925 9975 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10000 3900 10025 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10000 3925 10025 3925
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10000 3925 10000 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10025 3925 10025 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10050 3900 10075 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10050 3925 10075 3925
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10050 3925 10050 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10075 3925 10075 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10100 3900 10125 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10100 3925 10125 3925
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10100 3925 10100 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10125 3925 10125 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9750 4200 9775 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9750 4225 9775 4225
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9750 4225 9750 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9775 4225 9775 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9800 4200 9825 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9800 4225 9825 4225
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9800 4225 9800 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9825 4225 9825 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9850 4200 9875 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9850 4225 9875 4225
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9850 4225 9850 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9875 4225 9875 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9900 4200 9925 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9900 4225 9925 4225
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9900 4225 9900 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9925 4225 9925 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9950 4200 9975 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9950 4225 9975 4225
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9950 4225 9950 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9975 4225 9975 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10000 4200 10025 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10000 4225 10025 4225
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10000 4225 10000 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10025 4225 10025 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10050 4200 10075 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10050 4225 10075 4225
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10050 4225 10050 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10075 4225 10075 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10100 4200 10125 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10100 4225 10125 4225
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10100 4225 10100 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10125 4225 10125 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9750 4050 9775 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9750 4075 9775 4075
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9750 4075 9750 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9775 4075 9775 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9800 4050 9825 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9800 4075 9825 4075
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9800 4075 9800 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9825 4075 9825 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9850 4050 9875 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9850 4075 9875 4075
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9850 4075 9850 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9875 4075 9875 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9900 4050 9925 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9900 4075 9925 4075
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9900 4075 9900 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9925 4075 9925 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9950 4050 9975 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9950 4075 9975 4075
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9950 4075 9950 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9975 4075 9975 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10000 4050 10025 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10000 4075 10025 4075
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10000 4075 10000 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10025 4075 10025 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10050 4050 10075 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10050 4075 10075 4075
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10050 4075 10050 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10075 4075 10075 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10100 4050 10125 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10100 4075 10125 4075
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10100 4075 10100 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10125 4075 10125 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9750 4350 9775 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9750 4375 9775 4375
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9750 4375 9750 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9775 4375 9775 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9800 4350 9825 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9800 4375 9825 4375
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9800 4375 9800 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9825 4375 9825 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9850 4350 9875 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9850 4375 9875 4375
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9850 4375 9850 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9875 4375 9875 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9900 4350 9925 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9900 4375 9925 4375
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9900 4375 9900 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9925 4375 9925 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9950 4350 9975 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9950 4375 9975 4375
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9950 4375 9950 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9975 4375 9975 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10000 4350 10025 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10000 4375 10025 4375
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10000 4375 10000 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10025 4375 10025 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10050 4350 10075 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10050 4375 10075 4375
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10050 4375 10050 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10075 4375 10075 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10100 4350 10125 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10100 4375 10125 4375
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10100 4375 10100 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10125 4375 10125 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9750 4500 9775 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9750 4525 9775 4525
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9750 4525 9750 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9775 4525 9775 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9800 4500 9825 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9800 4525 9825 4525
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9800 4525 9800 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9825 4525 9825 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9850 4500 9875 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9850 4525 9875 4525
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9850 4525 9850 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9875 4525 9875 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9900 4500 9925 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9900 4525 9925 4525
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9900 4525 9900 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9925 4525 9925 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9950 4500 9975 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9950 4525 9975 4525
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9950 4525 9950 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9975 4525 9975 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10000 4500 10025 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10000 4525 10025 4525
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10000 4525 10000 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10025 4525 10025 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10050 4500 10075 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10050 4525 10075 4525
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10050 4525 10050 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10075 4525 10075 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10100 4500 10125 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10100 4525 10125 4525
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10100 4525 10100 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	10125 4525 10125 4500
+Wire Notes Line style solid rgb(255, 255, 0)
+	9700 3800 10200 3800
+Wire Notes Line style solid rgb(255, 255, 0)
+	10200 3800 10200 4600
+Wire Notes Line style solid rgb(255, 255, 0)
+	10200 4600 9700 4600
+Wire Notes Line style solid rgb(255, 255, 0)
+	9700 4600 9700 3800
+Text Notes 9700 3750 0    60   ~ 12
+Module C
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9200 3900 9225 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9200 3925 9225 3925
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9200 3925 9200 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9225 3925 9225 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9250 3900 9275 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9250 3925 9275 3925
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9250 3925 9250 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9275 3925 9275 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9300 3900 9325 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9300 3925 9325 3925
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9300 3925 9300 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9325 3925 9325 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9350 3900 9375 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9350 3925 9375 3925
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9350 3925 9350 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9375 3925 9375 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9400 3900 9425 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9400 3925 9425 3925
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9400 3925 9400 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9425 3925 9425 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9450 3900 9475 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9450 3925 9475 3925
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9450 3925 9450 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9475 3925 9475 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9500 3900 9525 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9500 3925 9525 3925
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9500 3925 9500 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9525 3925 9525 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9550 3900 9575 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9550 3925 9575 3925
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9550 3925 9550 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9575 3925 9575 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9200 4200 9225 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9200 4225 9225 4225
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9200 4225 9200 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9225 4225 9225 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9250 4200 9275 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9250 4225 9275 4225
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9250 4225 9250 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9275 4225 9275 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9300 4200 9325 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9300 4225 9325 4225
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9300 4225 9300 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9325 4225 9325 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9350 4200 9375 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9350 4225 9375 4225
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9350 4225 9350 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9375 4225 9375 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9400 4200 9425 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9400 4225 9425 4225
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9400 4225 9400 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9425 4225 9425 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9450 4200 9475 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9450 4225 9475 4225
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9450 4225 9450 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9475 4225 9475 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9500 4200 9525 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9500 4225 9525 4225
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9500 4225 9500 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9525 4225 9525 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9550 4200 9575 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9550 4225 9575 4225
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9550 4225 9550 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9575 4225 9575 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9200 4050 9225 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9200 4075 9225 4075
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9200 4075 9200 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9225 4075 9225 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9250 4050 9275 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9250 4075 9275 4075
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9250 4075 9250 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9275 4075 9275 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9300 4050 9325 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9300 4075 9325 4075
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9300 4075 9300 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9325 4075 9325 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9350 4050 9375 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9350 4075 9375 4075
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9350 4075 9350 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9375 4075 9375 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9400 4050 9425 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9400 4075 9425 4075
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9400 4075 9400 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9425 4075 9425 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9450 4050 9475 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9450 4075 9475 4075
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9450 4075 9450 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9475 4075 9475 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9500 4050 9525 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9500 4075 9525 4075
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9500 4075 9500 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9525 4075 9525 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9550 4050 9575 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9550 4075 9575 4075
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9550 4075 9550 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9575 4075 9575 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9200 4350 9225 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9200 4375 9225 4375
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9200 4375 9200 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9225 4375 9225 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9250 4350 9275 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9250 4375 9275 4375
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9250 4375 9250 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9275 4375 9275 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9300 4350 9325 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9300 4375 9325 4375
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9300 4375 9300 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9325 4375 9325 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9350 4350 9375 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9350 4375 9375 4375
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9350 4375 9350 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9375 4375 9375 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9400 4350 9425 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9400 4375 9425 4375
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9400 4375 9400 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9425 4375 9425 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9450 4350 9475 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9450 4375 9475 4375
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9450 4375 9450 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9475 4375 9475 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9500 4350 9525 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9500 4375 9525 4375
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9500 4375 9500 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9525 4375 9525 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9550 4350 9575 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9550 4375 9575 4375
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9550 4375 9550 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9575 4375 9575 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9200 4500 9225 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9200 4525 9225 4525
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9200 4525 9200 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9225 4525 9225 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9250 4500 9275 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9250 4525 9275 4525
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9250 4525 9250 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9275 4525 9275 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9300 4500 9325 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9300 4525 9325 4525
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9300 4525 9300 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9325 4525 9325 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9350 4500 9375 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9350 4525 9375 4525
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9350 4525 9350 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9375 4525 9375 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9400 4500 9425 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9400 4525 9425 4525
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9400 4525 9400 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9425 4525 9425 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9450 4500 9475 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9450 4525 9475 4525
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9450 4525 9450 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9475 4525 9475 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9500 4500 9525 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9500 4525 9525 4525
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9500 4525 9500 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9525 4525 9525 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9550 4500 9575 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9550 4525 9575 4525
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9550 4525 9550 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9575 4525 9575 4500
+Wire Notes Line style solid rgb(255, 255, 0)
+	9150 3800 9650 3800
+Wire Notes Line style solid rgb(255, 255, 0)
+	9650 3800 9650 4600
+Wire Notes Line style solid rgb(255, 255, 0)
+	9650 4600 9150 4600
+Wire Notes Line style solid rgb(255, 255, 0)
+	9150 4600 9150 3800
+Text Notes 9150 3750 0    60   ~ 12
+Module B
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8650 3900 8675 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8650 3925 8675 3925
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8650 3925 8650 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8675 3925 8675 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8700 3900 8725 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8700 3925 8725 3925
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8700 3925 8700 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8725 3925 8725 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8750 3900 8775 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8750 3925 8775 3925
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8750 3925 8750 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8775 3925 8775 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8800 3900 8825 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8800 3925 8825 3925
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8800 3925 8800 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8825 3925 8825 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8850 3900 8875 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8850 3925 8875 3925
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8850 3925 8850 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8875 3925 8875 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8900 3900 8925 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8900 3925 8925 3925
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8900 3925 8900 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8925 3925 8925 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8950 3900 8975 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8950 3925 8975 3925
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8950 3925 8950 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8975 3925 8975 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9000 3900 9025 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9000 3925 9025 3925
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9000 3925 9000 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9025 3925 9025 3900
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8650 4200 8675 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8650 4225 8675 4225
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8650 4225 8650 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8675 4225 8675 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8700 4200 8725 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8700 4225 8725 4225
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8700 4225 8700 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8725 4225 8725 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8750 4200 8775 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8750 4225 8775 4225
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8750 4225 8750 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8775 4225 8775 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8800 4200 8825 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8800 4225 8825 4225
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8800 4225 8800 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8825 4225 8825 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8850 4200 8875 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8850 4225 8875 4225
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8850 4225 8850 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8875 4225 8875 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8900 4200 8925 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8900 4225 8925 4225
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8900 4225 8900 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8925 4225 8925 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8950 4200 8975 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8950 4225 8975 4225
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8950 4225 8950 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8975 4225 8975 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9000 4200 9025 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9000 4225 9025 4225
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9000 4225 9000 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9025 4225 9025 4200
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8650 4050 8675 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8650 4075 8675 4075
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8650 4075 8650 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8675 4075 8675 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8700 4050 8725 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8700 4075 8725 4075
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8700 4075 8700 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8725 4075 8725 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8750 4050 8775 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8750 4075 8775 4075
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8750 4075 8750 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8775 4075 8775 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8800 4050 8825 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8800 4075 8825 4075
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8800 4075 8800 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8825 4075 8825 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8850 4050 8875 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8850 4075 8875 4075
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8850 4075 8850 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8875 4075 8875 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8900 4050 8925 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8900 4075 8925 4075
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8900 4075 8900 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8925 4075 8925 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8950 4050 8975 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8950 4075 8975 4075
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8950 4075 8950 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8975 4075 8975 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9000 4050 9025 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9000 4075 9025 4075
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9000 4075 9000 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9025 4075 9025 4050
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8650 4350 8675 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8650 4375 8675 4375
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8650 4375 8650 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8675 4375 8675 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8700 4350 8725 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8700 4375 8725 4375
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8700 4375 8700 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8725 4375 8725 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8750 4350 8775 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8750 4375 8775 4375
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8750 4375 8750 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8775 4375 8775 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8800 4350 8825 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8800 4375 8825 4375
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8800 4375 8800 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8825 4375 8825 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8850 4350 8875 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8850 4375 8875 4375
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8850 4375 8850 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8875 4375 8875 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8900 4350 8925 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8900 4375 8925 4375
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8900 4375 8900 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8925 4375 8925 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8950 4350 8975 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8950 4375 8975 4375
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8950 4375 8950 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8975 4375 8975 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9000 4350 9025 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9000 4375 9025 4375
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9000 4375 9000 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9025 4375 9025 4350
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8650 4500 8675 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8650 4525 8675 4525
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8650 4525 8650 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8675 4525 8675 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8700 4500 8725 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8700 4525 8725 4525
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8700 4525 8700 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8725 4525 8725 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8750 4500 8775 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8750 4525 8775 4525
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8750 4525 8750 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8775 4525 8775 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8800 4500 8825 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8800 4525 8825 4525
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8800 4525 8800 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8825 4525 8825 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8850 4500 8875 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8850 4525 8875 4525
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8850 4525 8850 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8875 4525 8875 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8900 4500 8925 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8900 4525 8925 4525
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8900 4525 8900 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8925 4525 8925 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8950 4500 8975 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8950 4525 8975 4525
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8950 4525 8950 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	8975 4525 8975 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9000 4500 9025 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9000 4525 9025 4525
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9000 4525 9000 4500
+Wire Notes Line width 10 rgb(253, 26, 0)
+	9025 4525 9025 4500
+Wire Notes Line style solid rgb(255, 255, 0)
+	8600 3800 9100 3800
+Wire Notes Line style solid rgb(255, 255, 0)
+	9100 3800 9100 4600
+Wire Notes Line style solid rgb(255, 255, 0)
+	9100 4600 8600 4600
+Wire Notes Line style solid rgb(255, 255, 0)
+	8600 4600 8600 3800
+Text Notes 8600 3750 0    60   ~ 12
+Module A
+Text Notes 8500 4700 0    50   ~ 0
+FPA=xxxxxx00
+Text Notes 9250 4700 0    50   ~ 0
+xxxxxx01
+Text Notes 9800 4700 0    50   ~ 0
+xxxxxx10
+Text Notes 10350 4700 0    50   ~ 0
+xxxxxx11\n
+Text Label 4700 1600 0    50   ~ 0
+FPA4
+Text Label 4700 1400 0    50   ~ 0
+FPA3
+Text Label 4700 1300 0    50   ~ 0
+FPA2
+Wire Wire Line
+	4700 1300 5250 1300
+Wire Wire Line
+	4700 1400 5250 1400
+Wire Wire Line
+	4700 1600 5250 1600
+Text Label 4950 1700 0    50   ~ 0
+~PANELEN
+Wire Wire Line
+	5250 1200 4700 1200
+Wire Wire Line
+	5250 1100 4700 1100
+Text Label 4700 1100 0    50   ~ 0
+FPA0
+Text Label 4700 1200 0    50   ~ 0
+FPA1
+Text Label 6600 1100 2    50   ~ 0
+~FPOE0
+Text Label 6600 1200 2    50   ~ 0
 ~FPOE1
-Text Label 6200 3600 2    50   ~ 0
+Text Label 6600 1300 2    50   ~ 0
 ~FPOE2
-Text Label 6200 4850 2    50   ~ 0
+Text Label 6600 1400 2    50   ~ 0
 ~FPOE3
-Text Label 6200 2450 2    50   ~ 0
+Text Label 6600 1500 2    50   ~ 0
+~FPOE4
+Text Label 6600 1600 2    50   ~ 0
 ~FPOE5
-Text Label 6200 3700 2    50   ~ 0
+Text Label 6600 1700 2    50   ~ 0
 ~FPOE6
-Text Label 6200 4950 2    50   ~ 0
+Text Label 6600 1800 2    50   ~ 0
 ~FPOE7
-Text Label 6200 2550 2    50   ~ 0
+Text Label 6600 1900 2    50   ~ 0
+~FPOE8
+Text Label 6600 2000 2    50   ~ 0
 ~FPOE9
-Text Label 6200 3800 2    50   ~ 0
+Text Label 6600 2100 2    50   ~ 0
 ~FPOE10
-Text Label 6200 5050 2    50   ~ 0
+Text Label 6600 2200 2    50   ~ 0
 ~FPOE11
-Text Label 6200 2650 2    50   ~ 0
+Text Label 6600 2300 2    50   ~ 0
+~FPOE12
+Text Label 6600 2400 2    50   ~ 0
 ~FPOE13
-Text Label 6200 3900 2    50   ~ 0
+Text Label 6600 2500 2    50   ~ 0
 ~FPOE14
-Text Label 6200 5150 2    50   ~ 0
+Text Label 6600 2600 2    50   ~ 0
 ~FPOE15
-Text Label 6200 2750 2    50   ~ 0
+Text Label 4700 3350 0    50   ~ 0
+FPA3
+Text Label 4700 3250 0    50   ~ 0
+FPA2
+Wire Wire Line
+	4700 3250 5250 3250
+Wire Wire Line
+	4700 3350 5250 3350
+Text Label 4950 3650 0    50   ~ 0
+~PANELEN
+Wire Wire Line
+	5250 3150 4700 3150
+Wire Wire Line
+	5250 3050 4700 3050
+Text Label 4700 3050 0    50   ~ 0
+FPA0
+Text Label 4700 3150 0    50   ~ 0
+FPA1
+Text Label 6600 3050 2    50   ~ 0
+~FPOE16
+Text Label 6600 3150 2    50   ~ 0
 ~FPOE17
-Text Label 6200 4000 2    50   ~ 0
+Text Label 6600 3250 2    50   ~ 0
 ~FPOE18
-Text Label 6200 5250 2    50   ~ 0
+Text Label 6600 3350 2    50   ~ 0
 ~FPOE19
-Text Label 6200 2850 2    50   ~ 0
+Text Label 6600 3450 2    50   ~ 0
+~FPOE20
+Text Label 6600 3550 2    50   ~ 0
 ~FPOE21
-Text Label 6200 4100 2    50   ~ 0
+Text Label 6600 3650 2    50   ~ 0
 ~FPOE22
-Text Label 6200 5350 2    50   ~ 0
+Text Label 6600 3750 2    50   ~ 0
 ~FPOE23
-Entry Wire Line
-	6250 1100 6350 1200
-Entry Wire Line
-	6250 1200 6350 1300
-Entry Wire Line
-	6250 1300 6350 1400
-Entry Wire Line
-	6250 1400 6350 1500
-Entry Wire Line
-	6250 1500 6350 1600
-Entry Wire Line
-	6250 1600 6350 1700
-Entry Wire Line
-	6250 1700 6350 1800
-Entry Wire Line
-	6250 1800 6350 1900
-Entry Wire Line
-	6250 2350 6350 2450
-Entry Wire Line
-	6250 2450 6350 2550
-Entry Wire Line
-	6250 2550 6350 2650
-Entry Wire Line
-	6250 2650 6350 2750
-Entry Wire Line
-	6250 2750 6350 2850
-Entry Wire Line
-	6250 2850 6350 2950
-Entry Wire Line
-	6250 2950 6350 3050
-Entry Wire Line
-	6250 3050 6350 3150
-Entry Wire Line
-	6250 3600 6350 3700
-Entry Wire Line
-	6250 3700 6350 3800
-Entry Wire Line
-	6250 3800 6350 3900
-Entry Wire Line
-	6250 3900 6350 4000
-Entry Wire Line
-	6250 4000 6350 4100
-Entry Wire Line
-	6250 4100 6350 4200
-Entry Wire Line
-	6250 4200 6350 4300
-Entry Wire Line
-	6250 4300 6350 4400
-Entry Bus Bus
-	6350 6150 6450 6250
-Wire Bus Line
-	6450 6250 7200 6250
-Text Label 7100 6250 2    50   ~ 0
+Text Label 6600 3850 2    50   ~ 0
+~FPOE24
+Text Label 6600 3950 2    50   ~ 0
+~FPOE25
+Text Label 6600 4050 2    50   ~ 0
+~FPOE26
+Text Label 6600 4150 2    50   ~ 0
+~FPOE27
+Text Label 6600 4250 2    50   ~ 0
+~FPOE28
+Text Label 6600 4350 2    50   ~ 0
+~FPOE29
+Text Label 6600 4450 2    50   ~ 0
+~FPOE30
+Text Label 6600 4550 2    50   ~ 0
+~FPOE31
+Text Label 7500 4950 2    50   ~ 0
 ~FPOE[0..31]
-Entry Bus Bus
-	2250 800  2350 700 
-Wire Wire Line
-	4550 1300 4850 1300
-Wire Wire Line
-	4550 1200 4850 1200
-Wire Wire Line
-	4550 1100 4850 1100
-Entry Wire Line
-	4450 1200 4550 1300
-Entry Wire Line
-	4450 1100 4550 1200
-Entry Wire Line
-	4450 1000 4550 1100
-Entry Bus Bus
-	4350 700  4450 800 
-Entry Wire Line
-	4450 2450 4550 2550
-Entry Wire Line
-	4450 2350 4550 2450
-Entry Wire Line
-	4450 2250 4550 2350
-Entry Wire Line
-	4450 3700 4550 3800
-Entry Wire Line
-	4450 3600 4550 3700
-Entry Wire Line
-	4450 3500 4550 3600
-Entry Wire Line
-	4450 4950 4550 5050
-Entry Wire Line
-	4450 4850 4550 4950
-Entry Wire Line
-	4450 4750 4550 4850
-Entry Bus Bus
-	2150 700  2250 800 
-Text HLabel 1150 700  0    50   Input ~ 0
-FPA[0..7]
-Text Label 1250 700  0    50   ~ 0
-FPA[0..7]
-Text HLabel 7200 6250 2    50   Output ~ 0
+Text HLabel 7600 4950 2    50   Output ~ 0
 ~FPOE[0..31]
-Entry Wire Line
-	6250 5550 6350 5650
-Entry Wire Line
-	6250 5450 6350 5550
-Entry Wire Line
-	6250 5350 6350 5450
-Entry Wire Line
-	6250 5250 6350 5350
-Entry Wire Line
-	6250 5150 6350 5250
-Entry Wire Line
-	6250 5050 6350 5150
-Entry Wire Line
-	6250 4950 6350 5050
-Entry Wire Line
-	6250 4850 6350 4950
-Wire Wire Line
-	4350 3050 4850 3050
-$Comp
-L power:GND #PWR?
-U 1 1 62DDFB7C
-P 4850 4400
-F 0 "#PWR?" H 4850 4150 50  0001 C CNN
-F 1 "GND" H 4855 4227 50  0000 C CNN
-F 2 "" H 4850 4400 50  0001 C CNN
-F 3 "" H 4850 4400 50  0001 C CNN
-	1    4850 4400
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74HC138 U?
-U 2 1 62DEA5A1
-P 5250 7400
-AR Path="/62DEA5A1" Ref="U?"  Part="1" 
-AR Path="/6233F88C/62DEA5A1" Ref="U1206"  Part="2" 
-AR Path="/60757845/607964B6/62DEA5A1" Ref="U?"  Part="2" 
-AR Path="/64FC7999/650046D0/62DEA5A1" Ref="U?"  Part="2" 
-AR Path="/65BD1B6F/62DEA5A1" Ref="U?"  Part="2" 
-F 0 "U?" H 5430 7446 50  0000 L CNN
-F 1 "74HC138" H 5430 7355 50  0000 L CNN
-F 2 "alexios:SOIC-16" H 5250 7400 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 5250 7400 50  0001 C CNN
-	2    5250 7400
-	1    0    0    -1  
-$EndComp
 $Comp
 L Device:C_Small C?
 U 1 1 62ECDEB3
-P 900 6650
+P 1100 6450
 AR Path="/62ECDEB3" Ref="C?"  Part="1" 
 AR Path="/6233F88C/62ECDEB3" Ref="C1201"  Part="1" 
 AR Path="/60757845/607964B6/62ECDEB3" Ref="C?"  Part="1" 
 AR Path="/64FC7999/650046D0/62ECDEB3" Ref="C?"  Part="1" 
 AR Path="/65BD1B6F/62ECDEB3" Ref="C?"  Part="1" 
-F 0 "C?" H 809 6696 50  0000 R CNN
-F 1 "100nF" H 809 6605 50  0000 R CNN
-F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 900 6650 50  0001 C CNN
-F 3 "~" H 900 6650 50  0001 C CNN
-	1    900  6650
+F 0 "C?" H 1009 6496 50  0000 R CNN
+F 1 "100nF" H 1009 6405 50  0000 R CNN
+F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1100 6450 50  0001 C CNN
+F 3 "~" H 1100 6450 50  0001 C CNN
+	1    1100 6450
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:+5V #PWR?
 U 1 1 62ED49B6
-P 900 6550
-F 0 "#PWR?" H 900 6400 50  0001 C CNN
-F 1 "+5V" H 915 6723 50  0000 C CNN
-F 2 "" H 900 6550 50  0001 C CNN
-F 3 "" H 900 6550 50  0001 C CNN
-	1    900  6550
+P 1100 6350
+F 0 "#PWR?" H 1100 6200 50  0001 C CNN
+F 1 "+5V" H 1115 6523 50  0000 C CNN
+F 2 "" H 1100 6350 50  0001 C CNN
+F 3 "" H 1100 6350 50  0001 C CNN
+	1    1100 6350
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR?
 U 1 1 62ED540F
-P 900 6750
-F 0 "#PWR?" H 900 6500 50  0001 C CNN
-F 1 "GND" H 905 6577 50  0000 C CNN
-F 2 "" H 900 6750 50  0001 C CNN
-F 3 "" H 900 6750 50  0001 C CNN
-	1    900  6750
+P 1100 6550
+F 0 "#PWR?" H 1100 6300 50  0001 C CNN
+F 1 "GND" H 1105 6377 50  0000 C CNN
+F 2 "" H 1100 6550 50  0001 C CNN
+F 3 "" H 1100 6550 50  0001 C CNN
+	1    1100 6550
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:C_Small C?
 U 1 1 62ED6833
-P 2150 6650
+P 2500 6450
 AR Path="/62ED6833" Ref="C?"  Part="1" 
 AR Path="/6233F88C/62ED6833" Ref="C1203"  Part="1" 
 AR Path="/60757845/607964B6/62ED6833" Ref="C?"  Part="1" 
 AR Path="/64FC7999/650046D0/62ED6833" Ref="C?"  Part="1" 
 AR Path="/65BD1B6F/62ED6833" Ref="C?"  Part="1" 
-F 0 "C?" H 2059 6696 50  0000 R CNN
-F 1 "100nF" H 2059 6605 50  0000 R CNN
-F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2150 6650 50  0001 C CNN
-F 3 "~" H 2150 6650 50  0001 C CNN
-	1    2150 6650
+F 0 "C?" H 2409 6496 50  0000 R CNN
+F 1 "100nF" H 2409 6405 50  0000 R CNN
+F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2500 6450 50  0001 C CNN
+F 3 "~" H 2500 6450 50  0001 C CNN
+	1    2500 6450
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:+5V #PWR?
 U 1 1 62ED6839
-P 2150 6550
-F 0 "#PWR?" H 2150 6400 50  0001 C CNN
-F 1 "+5V" H 2165 6723 50  0000 C CNN
-F 2 "" H 2150 6550 50  0001 C CNN
-F 3 "" H 2150 6550 50  0001 C CNN
-	1    2150 6550
+P 2500 6350
+F 0 "#PWR?" H 2500 6200 50  0001 C CNN
+F 1 "+5V" H 2515 6523 50  0000 C CNN
+F 2 "" H 2500 6350 50  0001 C CNN
+F 3 "" H 2500 6350 50  0001 C CNN
+	1    2500 6350
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR?
 U 1 1 62ED683F
-P 2150 6750
-F 0 "#PWR?" H 2150 6500 50  0001 C CNN
-F 1 "GND" H 2155 6577 50  0000 C CNN
-F 2 "" H 2150 6750 50  0001 C CNN
-F 3 "" H 2150 6750 50  0001 C CNN
-	1    2150 6750
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 62ED9CF3
-P 4900 7400
-AR Path="/62ED9CF3" Ref="C?"  Part="1" 
-AR Path="/6233F88C/62ED9CF3" Ref="C1206"  Part="1" 
-AR Path="/60757845/607964B6/62ED9CF3" Ref="C?"  Part="1" 
-AR Path="/64FC7999/650046D0/62ED9CF3" Ref="C?"  Part="1" 
-AR Path="/65BD1B6F/62ED9CF3" Ref="C?"  Part="1" 
-F 0 "C?" H 4809 7446 50  0000 R CNN
-F 1 "100nF" H 4809 7355 50  0000 R CNN
-F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 4900 7400 50  0001 C CNN
-F 3 "~" H 4900 7400 50  0001 C CNN
-	1    4900 7400
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR?
-U 1 1 62ED9CF9
-P 4900 7300
-F 0 "#PWR?" H 4900 7150 50  0001 C CNN
-F 1 "+5V" H 4915 7473 50  0000 C CNN
-F 2 "" H 4900 7300 50  0001 C CNN
-F 3 "" H 4900 7300 50  0001 C CNN
-	1    4900 7300
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 62ED9CFF
-P 4900 7500
-F 0 "#PWR?" H 4900 7250 50  0001 C CNN
-F 1 "GND" H 4905 7327 50  0000 C CNN
-F 2 "" H 4900 7500 50  0001 C CNN
-F 3 "" H 4900 7500 50  0001 C CNN
-	1    4900 7500
+P 2500 6550
+F 0 "#PWR?" H 2500 6300 50  0001 C CNN
+F 1 "GND" H 2505 6377 50  0000 C CNN
+F 2 "" H 2500 6550 50  0001 C CNN
+F 3 "" H 2500 6550 50  0001 C CNN
+	1    2500 6550
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:C_Small C?
 U 1 1 62EDD3ED
-P 900 7400
+P 1100 7200
 AR Path="/62EDD3ED" Ref="C?"  Part="1" 
 AR Path="/6233F88C/62EDD3ED" Ref="C1202"  Part="1" 
 AR Path="/60757845/607964B6/62EDD3ED" Ref="C?"  Part="1" 
 AR Path="/64FC7999/650046D0/62EDD3ED" Ref="C?"  Part="1" 
 AR Path="/65BD1B6F/62EDD3ED" Ref="C?"  Part="1" 
-F 0 "C?" H 809 7446 50  0000 R CNN
-F 1 "100nF" H 809 7355 50  0000 R CNN
-F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 900 7400 50  0001 C CNN
-F 3 "~" H 900 7400 50  0001 C CNN
-	1    900  7400
+F 0 "C?" H 1009 7246 50  0000 R CNN
+F 1 "100nF" H 1009 7155 50  0000 R CNN
+F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1100 7200 50  0001 C CNN
+F 3 "~" H 1100 7200 50  0001 C CNN
+	1    1100 7200
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:+5V #PWR?
 U 1 1 62EDD3F3
-P 900 7300
-F 0 "#PWR?" H 900 7150 50  0001 C CNN
-F 1 "+5V" H 915 7473 50  0000 C CNN
-F 2 "" H 900 7300 50  0001 C CNN
-F 3 "" H 900 7300 50  0001 C CNN
-	1    900  7300
+P 1100 7100
+F 0 "#PWR?" H 1100 6950 50  0001 C CNN
+F 1 "+5V" H 1115 7273 50  0000 C CNN
+F 2 "" H 1100 7100 50  0001 C CNN
+F 3 "" H 1100 7100 50  0001 C CNN
+	1    1100 7100
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR?
 U 1 1 62EDD3F9
-P 900 7500
-F 0 "#PWR?" H 900 7250 50  0001 C CNN
-F 1 "GND" H 905 7327 50  0000 C CNN
-F 2 "" H 900 7500 50  0001 C CNN
-F 3 "" H 900 7500 50  0001 C CNN
-	1    900  7500
-	1    0    0    -1  
-$EndComp
-Connection ~ 4900 7300
-Connection ~ 4900 7500
-$Comp
-L alexios:74HC138 U?
-U 2 1 62EF736E
-P 2500 7400
-AR Path="/62EF736E" Ref="U?"  Part="1" 
-AR Path="/6233F88C/62EF736E" Ref="U1204"  Part="2" 
-AR Path="/60757845/607964B6/62EF736E" Ref="U?"  Part="2" 
-AR Path="/64FC7999/650046D0/62EF736E" Ref="U?"  Part="2" 
-AR Path="/65BD1B6F/62EF736E" Ref="U?"  Part="2" 
-F 0 "U?" H 2680 7446 50  0000 L CNN
-F 1 "74HC138" H 2680 7355 50  0000 L CNN
-F 2 "alexios:SOIC-16" H 2500 7400 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 2500 7400 50  0001 C CNN
-	2    2500 7400
+P 1100 7300
+F 0 "#PWR?" H 1100 7050 50  0001 C CNN
+F 1 "GND" H 1105 7127 50  0000 C CNN
+F 2 "" H 1100 7300 50  0001 C CNN
+F 3 "" H 1100 7300 50  0001 C CNN
+	1    1100 7300
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:C_Small C?
 U 1 1 62EF7374
-P 2150 7400
+P 2500 7200
 AR Path="/62EF7374" Ref="C?"  Part="1" 
 AR Path="/6233F88C/62EF7374" Ref="C1204"  Part="1" 
 AR Path="/60757845/607964B6/62EF7374" Ref="C?"  Part="1" 
 AR Path="/64FC7999/650046D0/62EF7374" Ref="C?"  Part="1" 
 AR Path="/65BD1B6F/62EF7374" Ref="C?"  Part="1" 
-F 0 "C?" H 2059 7446 50  0000 R CNN
-F 1 "100nF" H 2059 7355 50  0000 R CNN
-F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2150 7400 50  0001 C CNN
-F 3 "~" H 2150 7400 50  0001 C CNN
-	1    2150 7400
+F 0 "C?" H 2409 7246 50  0000 R CNN
+F 1 "100nF" H 2409 7155 50  0000 R CNN
+F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2500 7200 50  0001 C CNN
+F 3 "~" H 2500 7200 50  0001 C CNN
+	1    2500 7200
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:+5V #PWR?
 U 1 1 62EF737A
-P 2150 7300
-F 0 "#PWR?" H 2150 7150 50  0001 C CNN
-F 1 "+5V" H 2165 7473 50  0000 C CNN
-F 2 "" H 2150 7300 50  0001 C CNN
-F 3 "" H 2150 7300 50  0001 C CNN
-	1    2150 7300
+P 2500 7100
+F 0 "#PWR?" H 2500 6950 50  0001 C CNN
+F 1 "+5V" H 2515 7273 50  0000 C CNN
+F 2 "" H 2500 7100 50  0001 C CNN
+F 3 "" H 2500 7100 50  0001 C CNN
+	1    2500 7100
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR?
 U 1 1 62EF7380
-P 2150 7500
-F 0 "#PWR?" H 2150 7250 50  0001 C CNN
-F 1 "GND" H 2155 7327 50  0000 C CNN
-F 2 "" H 2150 7500 50  0001 C CNN
-F 3 "" H 2150 7500 50  0001 C CNN
-	1    2150 7500
+P 2500 7300
+F 0 "#PWR?" H 2500 7050 50  0001 C CNN
+F 1 "GND" H 2505 7127 50  0000 C CNN
+F 2 "" H 2500 7300 50  0001 C CNN
+F 3 "" H 2500 7300 50  0001 C CNN
+	1    2500 7300
 	1    0    0    -1  
 $EndComp
-Connection ~ 2150 7300
-Connection ~ 2150 7500
-$Comp
-L alexios:74HC138 U?
-U 2 1 62EFBBE4
-P 3800 7400
-AR Path="/62EFBBE4" Ref="U?"  Part="1" 
-AR Path="/6233F88C/62EFBBE4" Ref="U1205"  Part="2" 
-AR Path="/60757845/607964B6/62EFBBE4" Ref="U?"  Part="2" 
-AR Path="/64FC7999/650046D0/62EFBBE4" Ref="U?"  Part="2" 
-AR Path="/65BD1B6F/62EFBBE4" Ref="U?"  Part="2" 
-F 0 "U?" H 3980 7446 50  0000 L CNN
-F 1 "74HC138" H 3980 7355 50  0000 L CNN
-F 2 "alexios:SOIC-16" H 3800 7400 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 3800 7400 50  0001 C CNN
-	2    3800 7400
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C?
-U 1 1 62EFBBEA
-P 3450 7400
-AR Path="/62EFBBEA" Ref="C?"  Part="1" 
-AR Path="/6233F88C/62EFBBEA" Ref="C1205"  Part="1" 
-AR Path="/60757845/607964B6/62EFBBEA" Ref="C?"  Part="1" 
-AR Path="/64FC7999/650046D0/62EFBBEA" Ref="C?"  Part="1" 
-AR Path="/65BD1B6F/62EFBBEA" Ref="C?"  Part="1" 
-F 0 "C?" H 3359 7446 50  0000 R CNN
-F 1 "100nF" H 3359 7355 50  0000 R CNN
-F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3450 7400 50  0001 C CNN
-F 3 "~" H 3450 7400 50  0001 C CNN
-	1    3450 7400
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR?
-U 1 1 62EFBBF0
-P 3450 7300
-F 0 "#PWR?" H 3450 7150 50  0001 C CNN
-F 1 "+5V" H 3465 7473 50  0000 C CNN
-F 2 "" H 3450 7300 50  0001 C CNN
-F 3 "" H 3450 7300 50  0001 C CNN
-	1    3450 7300
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 62EFBBF6
-P 3450 7500
-F 0 "#PWR?" H 3450 7250 50  0001 C CNN
-F 1 "GND" H 3455 7327 50  0000 C CNN
-F 2 "" H 3450 7500 50  0001 C CNN
-F 3 "" H 3450 7500 50  0001 C CNN
-	1    3450 7500
-	1    0    0    -1  
-$EndComp
-Connection ~ 3450 7300
-Connection ~ 3450 7500
-Text Notes 6650 1600 0    50   ~ 0
+Text Notes 7000 3450 0    50   ~ 0
 ~FPOE20~ triggers a counter reset.
-Wire Wire Line
-	2350 1200 2650 1200
-Entry Wire Line
-	2250 1000 2350 1100
-Entry Wire Line
-	2250 1100 2350 1200
-Wire Wire Line
-	2350 1100 2650 1100
-Wire Bus Line
-	1150 700  2150 700 
-Wire Bus Line
-	2350 700  4350 700 
-Entry Wire Line
-	4150 1500 4250 1600
-Entry Wire Line
-	4150 1600 4250 1700
-Entry Wire Line
-	4150 1700 4250 1800
-Entry Wire Line
-	4150 1800 4250 1900
-Wire Wire Line
-	4350 4300 4850 4300
-Wire Wire Line
-	4850 1800 4350 1800
-Entry Wire Line
-	4250 2950 4350 3050
-Entry Wire Line
-	4350 5550 4250 5450
-Entry Wire Line
-	4350 4300 4250 4200
-Text Label 4250 4150 1    50   ~ 0
-~LMOE[0..3]
-Text Label 4450 4150 1    50   ~ 0
-~FPOE[0..31]
-Text Label 3750 1600 0    50   ~ 0
-~LMOE1
-Text Label 3750 1700 0    50   ~ 0
-~LMOE2
-Text Label 3750 1800 0    50   ~ 0
-~LMOE3
-Text Label 3750 1500 0    50   ~ 0
-~LMOE0
-Text Label 4550 1800 0    50   ~ 0
-~LMOE0
-Text Label 4550 3050 0    50   ~ 0
-~LMOE1
-Text Label 4550 4300 0    50   ~ 0
-~LMOE2
-Text Label 2650 1100 2    50   ~ 0
-FPA0
-Text Label 2650 1200 2    50   ~ 0
-FPA1
-Text Label 4600 1100 0    50   ~ 0
-FPA2
-Text Label 4600 1200 0    50   ~ 0
-FPA3
-Text Label 4600 1300 0    50   ~ 0
-FPA4
-Wire Wire Line
-	4550 2550 4850 2550
-Wire Wire Line
-	4550 2450 4850 2450
-Wire Wire Line
-	4550 2350 4850 2350
-Text Label 4600 2350 0    50   ~ 0
-FPA2
-Text Label 4600 2450 0    50   ~ 0
-FPA3
-Text Label 4600 2550 0    50   ~ 0
-FPA4
-Wire Wire Line
-	4550 3800 4850 3800
-Wire Wire Line
-	4550 3700 4850 3700
-Wire Wire Line
-	4550 3600 4850 3600
-Text Label 4600 3600 0    50   ~ 0
-FPA2
-Text Label 4600 3700 0    50   ~ 0
-FPA3
-Text Label 4600 3800 0    50   ~ 0
-FPA4
-Text Notes 6650 5250 0    50   ~ 0
+Text Notes 7000 3350 0    50   ~ 0
 Module D, Row 5 (µCA low)
-Text Notes 6650 5150 0    50   ~ 0
+Text Notes 7000 2600 0    50   ~ 0
 Module D, Row 4 (TBD)
-Text Notes 6650 5050 0    50   ~ 0
+Text Notes 7000 2200 0    50   ~ 0
 Module D, Row 3 (for expansion)
-Text Notes 6650 4950 0    50   ~ 0
+Text Notes 7000 1800 0    50   ~ 0
 Module D, Row 2 (IRQs enabled)
-Text Notes 6650 4850 0    50   ~ 0
+Text Notes 7000 1400 0    50   ~ 0
 Module D, Row 1 (IRQs active)
-Text Notes 6650 4000 0    50   ~ 0
+Text Notes 7000 3250 0    50   ~ 0
 Module C, Row 5 (IR low)
-Text Notes 6650 3900 0    50   ~ 0
+Text Notes 7000 2500 0    50   ~ 0
 Module C, Row 4 (MFD low)
-Text Notes 6650 3800 0    50   ~ 0
+Text Notes 7000 2100 0    50   ~ 0
 Module C, Row 3 (AC low)
-Text Notes 6650 3700 0    50   ~ 0
+Text Notes 7000 1700 0    50   ~ 0
 Module C, Row 2 (PC low)
-Text Notes 6650 3600 0    50   ~ 0
+Text Notes 7000 1300 0    50   ~ 0
 Module C, Row 1 (µCV low)
-Text Notes 6650 2800 0    50   ~ 0
+Text Notes 7000 3150 0    50   ~ 0
 Module B, Row 5 (IR high)
-Text Notes 6650 2700 0    50   ~ 0
+Text Notes 7000 2400 0    50   ~ 0
 Module B, Row 4 (MFD high)
-Text Notes 6650 2600 0    50   ~ 0
+Text Notes 7000 2000 0    50   ~ 0
 Module B, Row 3 (AC high)
-Text Notes 6650 2500 0    50   ~ 0
+Text Notes 7000 1600 0    50   ~ 0
 Module B, Row 2 (PC high)
-Text Notes 6650 2400 0    50   ~ 0
+Text Notes 7000 1200 0    50   ~ 0
 Module B, Row 1 (µCV medium)
-Text Notes 6650 1500 0    50   ~ 0
+Text Notes 7000 3050 0    50   ~ 0
 Module A, Row 5 (state)
-Text Notes 6650 1400 0    50   ~ 0
+Text Notes 7000 2300 0    50   ~ 0
 Module A, Row 4 (TBD)
-Text Notes 6650 1300 0    50   ~ 0
+Text Notes 7000 1900 0    50   ~ 0
 Module A, Row 3 (flags)
-Text Notes 6650 1200 0    50   ~ 0
+Text Notes 7000 1500 0    50   ~ 0
 Module A, Row 2 (AEXT)
-Text Notes 6650 1100 0    50   ~ 0
+Text Notes 7000 1100 0    50   ~ 0
 Module A, Row 1 (µCV high)
 Wire Wire Line
-	2350 2500 2650 2500
+	2800 1200 3100 1200
 Entry Wire Line
-	2250 2300 2350 2400
+	2700 1000 2800 1100
 Entry Wire Line
-	2250 2400 2350 2500
+	2700 1100 2800 1200
 Wire Wire Line
-	2350 2400 2650 2400
+	2800 1100 3100 1100
 Wire Wire Line
-	2350 2600 2650 2600
+	2800 1300 3100 1300
 Entry Wire Line
-	2250 2500 2350 2600
-Text Label 2450 2400 0    50   ~ 0
+	2700 1200 2800 1300
+Text Label 2900 1100 0    50   ~ 0
 FPA2
-Text Label 2450 2500 0    50   ~ 0
+Text Label 2900 1200 0    50   ~ 0
 FPA3
-Text Label 2450 2600 0    50   ~ 0
+Text Label 2900 1300 0    50   ~ 0
 FPA4
-Wire Wire Line
-	3650 1500 4150 1500
-Wire Wire Line
-	3650 1600 4150 1600
-Wire Wire Line
-	3650 1700 4150 1700
-Wire Wire Line
-	3650 1800 4150 1800
 Entry Wire Line
-	4050 2400 4150 2500
+	4600 1000 4500 1100
 Entry Wire Line
-	4050 2500 4150 2600
+	4600 1100 4500 1200
 Entry Wire Line
-	4050 2600 4150 2700
+	4600 1200 4500 1300
 Entry Wire Line
-	4050 2700 4150 2800
+	4600 1300 4500 1400
 Entry Wire Line
-	4050 2800 4150 2900
-NoConn ~ 3650 2900
-NoConn ~ 3650 3000
-NoConn ~ 3650 3100
+	4600 1400 4500 1500
 Wire Wire Line
-	3650 2400 4050 2400
+	4100 1100 4500 1100
 Wire Wire Line
-	3650 2500 4050 2500
+	4100 1200 4500 1200
 Wire Wire Line
-	3650 2600 4050 2600
+	4100 1300 4500 1300
 Wire Wire Line
-	3650 2700 4050 2700
+	4100 1400 4500 1400
 Wire Wire Line
-	3650 2800 4050 2800
-Text Label 3750 2400 0    50   ~ 0
+	4100 1500 4500 1500
+Text Label 4200 1100 0    50   ~ 0
 ~ROW1
-Text Label 3750 2500 0    50   ~ 0
+Text Label 4200 1200 0    50   ~ 0
 ~ROW2
-Text Label 3750 2600 0    50   ~ 0
+Text Label 4200 1300 0    50   ~ 0
 ~ROW3
-Text Label 3750 2700 0    50   ~ 0
+Text Label 4200 1400 0    50   ~ 0
 ~ROW4
-Text Label 3750 2800 0    50   ~ 0
+Text Label 4200 1500 0    50   ~ 0
 ~ROW5
-Text Label 4150 3700 1    50   ~ 0
+Text Label 4600 3150 1    50   ~ 0
 ~ROW[1..5]
-Entry Bus Bus
-	4150 6250 4250 6350
-Text Label 7100 6350 2    50   ~ 0
+Text Label 7500 5050 2    50   ~ 0
 ~ROW[1..5]
-Text HLabel 7200 6350 2    50   Output ~ 0
+Text HLabel 7600 5050 2    50   Output ~ 0
 ~ROW[1..5]
-Text Label 4600 5050 0    50   ~ 0
-FPA4
-Text Label 4600 4950 0    50   ~ 0
-FPA3
-Text Label 4600 4850 0    50   ~ 0
-FPA2
 Wire Wire Line
-	4550 4850 4850 4850
-Wire Wire Line
-	4550 4950 4850 4950
-Wire Wire Line
-	4550 5050 4850 5050
-Text Label 4550 5550 0    50   ~ 0
-~LMOE3
-Wire Wire Line
-	4350 5550 4850 5550
-$Comp
-L power:GND #PWR?
-U 1 1 62DDFEE8
-P 4850 5650
-F 0 "#PWR?" H 4850 5400 50  0001 C CNN
-F 1 "GND" H 4855 5477 50  0000 C CNN
-F 2 "" H 4850 5650 50  0001 C CNN
-F 3 "" H 4850 5650 50  0001 C CNN
-	1    4850 5650
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR?
-U 1 1 624FF43B
-P 4850 5400
-AR Path="/624FF43B" Ref="#PWR?"  Part="1" 
-AR Path="/6233F88C/624FF43B" Ref="#PWR01222"  Part="1" 
-AR Path="/60757845/607964B6/624FF43B" Ref="#PWR?"  Part="1" 
-AR Path="/64FC7999/650046D0/624FF43B" Ref="#PWR?"  Part="1" 
-AR Path="/65BD1B6F/624FF43B" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 4850 5250 50  0001 C CNN
-F 1 "+5V" H 4865 5573 50  0000 C CNN
-F 2 "" H 4850 5400 50  0001 C CNN
-F 3 "" H 4850 5400 50  0001 C CNN
-	1    4850 5400
-	1    0    0    -1  
-$EndComp
-Text Label 6200 4200 2    50   ~ 0
-~FPOE26
-Text Label 6200 5450 2    50   ~ 0
-~FPOE27
-Text Label 6200 3050 2    50   ~ 0
-~FPOE29
-Text Label 6200 4300 2    50   ~ 0
-~FPOE30
-Text Label 6200 5550 2    50   ~ 0
-~FPOE31
-$Comp
-L alexios:74HC138 U?
-U 1 1 624FF40C
-P 5350 5250
-AR Path="/624FF40C" Ref="U?"  Part="1" 
-AR Path="/6233F88C/624FF40C" Ref="U1206"  Part="1" 
-AR Path="/60757845/607964B6/624FF40C" Ref="U?"  Part="1" 
-AR Path="/64FC7999/650046D0/624FF40C" Ref="U?"  Part="1" 
-AR Path="/65BD1B6F/624FF40C" Ref="U?"  Part="1" 
-F 0 "U?" H 5350 5917 50  0000 C CNN
-F 1 "74HC138" H 5350 5826 50  0000 C CNN
-F 2 "alexios:SOIC-16" H 5350 5250 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 5350 5250 50  0001 C CNN
-	1    5350 5250
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74HC138 U?
-U 1 1 5E660FE9
-P 3150 1500
-AR Path="/5E660FE9" Ref="U?"  Part="1" 
-AR Path="/6233F88C/5E660FE9" Ref="U1201"  Part="1" 
-AR Path="/60757845/607964B6/5E660FE9" Ref="U?"  Part="1" 
-AR Path="/64FC7999/650046D0/5E660FE9" Ref="U?"  Part="1" 
-AR Path="/65BD1B6F/5E660FE9" Ref="U?"  Part="1" 
-F 0 "U?" H 3150 2167 50  0000 C CNN
-F 1 "74HC138" H 3150 2076 50  0000 C CNN
-F 2 "alexios:SOIC-16" H 3150 1500 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 3150 1500 50  0001 C CNN
-	1    3150 1500
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR?
-U 1 1 5E670DB6
-P 2600 1650
-F 0 "#PWR?" H 2600 1500 50  0001 C CNN
-F 1 "+5V" H 2615 1823 50  0000 C CNN
-F 2 "" H 2600 1650 50  0001 C CNN
-F 3 "" H 2600 1650 50  0001 C CNN
-	1    2600 1650
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	2600 1650 2600 1700
-Wire Wire Line
-	2600 1700 2650 1700
-$Comp
-L power:GND #PWR?
-U 1 1 5E6791E0
-P 2600 1950
-F 0 "#PWR?" H 2600 1700 50  0001 C CNN
-F 1 "GND" H 2605 1777 50  0000 C CNN
-F 2 "" H 2600 1950 50  0001 C CNN
-F 3 "" H 2600 1950 50  0001 C CNN
-	1    2600 1950
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR?
-U 1 1 5E67A6FE
-P 2650 1300
-F 0 "#PWR?" H 2650 1150 50  0001 C CNN
-F 1 "+5V" V 2665 1428 50  0000 L CNN
-F 2 "" H 2650 1300 50  0001 C CNN
-F 3 "" H 2650 1300 50  0001 C CNN
-	1    2650 1300
-	0    -1   -1   0   
-$EndComp
+	7600 4650 6850 4650
 Entry Wire Line
-	4250 1900 4350 1800
-NoConn ~ 3650 1100
-NoConn ~ 3650 1200
-NoConn ~ 3650 1300
-NoConn ~ 3650 1400
-Wire Wire Line
-	7200 5950 6450 5950
-Entry Wire Line
-	6350 5850 6450 5950
-Text HLabel 7200 5950 2    50   Input ~ 0
+	6850 4650 6750 4750
+Text HLabel 7600 4650 2    50   Input ~ 0
 ~SCANCLR
-Text Notes 10250 5050 0    50   ~ 0
-xxxxxx11\n
-Text Notes 9700 5050 0    50   ~ 0
-xxxxxx10
-Text Notes 9150 5050 0    50   ~ 0
-xxxxxx01
-Text Notes 8400 5050 0    50   ~ 0
-FPA=xxxxxx00
-Text Notes 8500 4100 0    60   ~ 12
-Module A
-Wire Notes Line style solid rgb(255, 255, 0)
-	8500 4950 8500 4150
-Wire Notes Line style solid rgb(255, 255, 0)
-	9000 4950 8500 4950
-Wire Notes Line style solid rgb(255, 255, 0)
-	9000 4150 9000 4950
-Wire Notes Line style solid rgb(255, 255, 0)
-	8500 4150 9000 4150
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8925 4875 8925 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8900 4875 8900 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8900 4875 8925 4875
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8900 4850 8925 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8875 4875 8875 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8850 4875 8850 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8850 4875 8875 4875
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8850 4850 8875 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8825 4875 8825 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8800 4875 8800 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8800 4875 8825 4875
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8800 4850 8825 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8775 4875 8775 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8750 4875 8750 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8750 4875 8775 4875
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8750 4850 8775 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8725 4875 8725 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8700 4875 8700 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8700 4875 8725 4875
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8700 4850 8725 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8675 4875 8675 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8650 4875 8650 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8650 4875 8675 4875
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8650 4850 8675 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8625 4875 8625 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8600 4875 8600 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8600 4875 8625 4875
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8600 4850 8625 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8575 4875 8575 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8550 4875 8550 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8550 4875 8575 4875
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8550 4850 8575 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8925 4725 8925 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8900 4725 8900 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8900 4725 8925 4725
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8900 4700 8925 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8875 4725 8875 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8850 4725 8850 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8850 4725 8875 4725
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8850 4700 8875 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8825 4725 8825 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8800 4725 8800 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8800 4725 8825 4725
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8800 4700 8825 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8775 4725 8775 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8750 4725 8750 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8750 4725 8775 4725
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8750 4700 8775 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8725 4725 8725 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8700 4725 8700 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8700 4725 8725 4725
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8700 4700 8725 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8675 4725 8675 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8650 4725 8650 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8650 4725 8675 4725
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8650 4700 8675 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8625 4725 8625 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8600 4725 8600 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8600 4725 8625 4725
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8600 4700 8625 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8575 4725 8575 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8550 4725 8550 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8550 4725 8575 4725
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8550 4700 8575 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8925 4425 8925 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8900 4425 8900 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8900 4425 8925 4425
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8900 4400 8925 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8875 4425 8875 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8850 4425 8850 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8850 4425 8875 4425
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8850 4400 8875 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8825 4425 8825 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8800 4425 8800 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8800 4425 8825 4425
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8800 4400 8825 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8775 4425 8775 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8750 4425 8750 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8750 4425 8775 4425
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8750 4400 8775 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8725 4425 8725 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8700 4425 8700 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8700 4425 8725 4425
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8700 4400 8725 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8675 4425 8675 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8650 4425 8650 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8650 4425 8675 4425
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8650 4400 8675 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8625 4425 8625 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8600 4425 8600 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8600 4425 8625 4425
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8600 4400 8625 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8575 4425 8575 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8550 4425 8550 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8550 4425 8575 4425
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8550 4400 8575 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8925 4575 8925 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8900 4575 8900 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8900 4575 8925 4575
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8900 4550 8925 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8875 4575 8875 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8850 4575 8850 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8850 4575 8875 4575
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8850 4550 8875 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8825 4575 8825 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8800 4575 8800 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8800 4575 8825 4575
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8800 4550 8825 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8775 4575 8775 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8750 4575 8750 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8750 4575 8775 4575
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8750 4550 8775 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8725 4575 8725 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8700 4575 8700 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8700 4575 8725 4575
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8700 4550 8725 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8675 4575 8675 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8650 4575 8650 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8650 4575 8675 4575
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8650 4550 8675 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8625 4575 8625 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8600 4575 8600 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8600 4575 8625 4575
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8600 4550 8625 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8575 4575 8575 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8550 4575 8550 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8550 4575 8575 4575
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8550 4550 8575 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8925 4275 8925 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8900 4275 8900 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8900 4275 8925 4275
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8900 4250 8925 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8875 4275 8875 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8850 4275 8850 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8850 4275 8875 4275
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8850 4250 8875 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8825 4275 8825 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8800 4275 8800 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8800 4275 8825 4275
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8800 4250 8825 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8775 4275 8775 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8750 4275 8750 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8750 4275 8775 4275
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8750 4250 8775 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8725 4275 8725 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8700 4275 8700 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8700 4275 8725 4275
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8700 4250 8725 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8675 4275 8675 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8650 4275 8650 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8650 4275 8675 4275
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8650 4250 8675 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8625 4275 8625 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8600 4275 8600 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8600 4275 8625 4275
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8600 4250 8625 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8575 4275 8575 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8550 4275 8550 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8550 4275 8575 4275
-Wire Notes Line width 10 rgb(253, 26, 0)
-	8550 4250 8575 4250
-Text Notes 9050 4100 0    60   ~ 12
-Module B
-Wire Notes Line style solid rgb(255, 255, 0)
-	9050 4950 9050 4150
-Wire Notes Line style solid rgb(255, 255, 0)
-	9550 4950 9050 4950
-Wire Notes Line style solid rgb(255, 255, 0)
-	9550 4150 9550 4950
-Wire Notes Line style solid rgb(255, 255, 0)
-	9050 4150 9550 4150
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9475 4875 9475 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9450 4875 9450 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9450 4875 9475 4875
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9450 4850 9475 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9425 4875 9425 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9400 4875 9400 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9400 4875 9425 4875
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9400 4850 9425 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9375 4875 9375 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9350 4875 9350 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9350 4875 9375 4875
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9350 4850 9375 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9325 4875 9325 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9300 4875 9300 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9300 4875 9325 4875
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9300 4850 9325 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9275 4875 9275 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9250 4875 9250 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9250 4875 9275 4875
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9250 4850 9275 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9225 4875 9225 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9200 4875 9200 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9200 4875 9225 4875
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9200 4850 9225 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9175 4875 9175 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9150 4875 9150 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9150 4875 9175 4875
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9150 4850 9175 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9125 4875 9125 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9100 4875 9100 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9100 4875 9125 4875
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9100 4850 9125 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9475 4725 9475 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9450 4725 9450 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9450 4725 9475 4725
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9450 4700 9475 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9425 4725 9425 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9400 4725 9400 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9400 4725 9425 4725
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9400 4700 9425 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9375 4725 9375 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9350 4725 9350 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9350 4725 9375 4725
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9350 4700 9375 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9325 4725 9325 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9300 4725 9300 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9300 4725 9325 4725
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9300 4700 9325 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9275 4725 9275 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9250 4725 9250 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9250 4725 9275 4725
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9250 4700 9275 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9225 4725 9225 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9200 4725 9200 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9200 4725 9225 4725
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9200 4700 9225 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9175 4725 9175 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9150 4725 9150 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9150 4725 9175 4725
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9150 4700 9175 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9125 4725 9125 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9100 4725 9100 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9100 4725 9125 4725
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9100 4700 9125 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9475 4425 9475 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9450 4425 9450 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9450 4425 9475 4425
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9450 4400 9475 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9425 4425 9425 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9400 4425 9400 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9400 4425 9425 4425
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9400 4400 9425 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9375 4425 9375 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9350 4425 9350 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9350 4425 9375 4425
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9350 4400 9375 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9325 4425 9325 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9300 4425 9300 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9300 4425 9325 4425
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9300 4400 9325 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9275 4425 9275 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9250 4425 9250 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9250 4425 9275 4425
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9250 4400 9275 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9225 4425 9225 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9200 4425 9200 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9200 4425 9225 4425
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9200 4400 9225 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9175 4425 9175 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9150 4425 9150 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9150 4425 9175 4425
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9150 4400 9175 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9125 4425 9125 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9100 4425 9100 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9100 4425 9125 4425
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9100 4400 9125 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9475 4575 9475 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9450 4575 9450 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9450 4575 9475 4575
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9450 4550 9475 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9425 4575 9425 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9400 4575 9400 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9400 4575 9425 4575
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9400 4550 9425 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9375 4575 9375 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9350 4575 9350 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9350 4575 9375 4575
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9350 4550 9375 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9325 4575 9325 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9300 4575 9300 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9300 4575 9325 4575
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9300 4550 9325 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9275 4575 9275 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9250 4575 9250 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9250 4575 9275 4575
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9250 4550 9275 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9225 4575 9225 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9200 4575 9200 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9200 4575 9225 4575
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9200 4550 9225 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9175 4575 9175 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9150 4575 9150 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9150 4575 9175 4575
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9150 4550 9175 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9125 4575 9125 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9100 4575 9100 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9100 4575 9125 4575
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9100 4550 9125 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9475 4275 9475 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9450 4275 9450 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9450 4275 9475 4275
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9450 4250 9475 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9425 4275 9425 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9400 4275 9400 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9400 4275 9425 4275
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9400 4250 9425 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9375 4275 9375 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9350 4275 9350 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9350 4275 9375 4275
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9350 4250 9375 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9325 4275 9325 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9300 4275 9300 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9300 4275 9325 4275
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9300 4250 9325 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9275 4275 9275 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9250 4275 9250 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9250 4275 9275 4275
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9250 4250 9275 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9225 4275 9225 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9200 4275 9200 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9200 4275 9225 4275
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9200 4250 9225 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9175 4275 9175 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9150 4275 9150 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9150 4275 9175 4275
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9150 4250 9175 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9125 4275 9125 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9100 4275 9100 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9100 4275 9125 4275
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9100 4250 9125 4250
-Text Notes 9600 4100 0    60   ~ 12
-Module C
-Wire Notes Line style solid rgb(255, 255, 0)
-	9600 4950 9600 4150
-Wire Notes Line style solid rgb(255, 255, 0)
-	10100 4950 9600 4950
-Wire Notes Line style solid rgb(255, 255, 0)
-	10100 4150 10100 4950
-Wire Notes Line style solid rgb(255, 255, 0)
-	9600 4150 10100 4150
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10025 4875 10025 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10000 4875 10000 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10000 4875 10025 4875
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10000 4850 10025 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9975 4875 9975 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9950 4875 9950 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9950 4875 9975 4875
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9950 4850 9975 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9925 4875 9925 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9900 4875 9900 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9900 4875 9925 4875
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9900 4850 9925 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9875 4875 9875 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9850 4875 9850 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9850 4875 9875 4875
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9850 4850 9875 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9825 4875 9825 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9800 4875 9800 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9800 4875 9825 4875
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9800 4850 9825 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9775 4875 9775 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9750 4875 9750 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9750 4875 9775 4875
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9750 4850 9775 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9725 4875 9725 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9700 4875 9700 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9700 4875 9725 4875
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9700 4850 9725 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9675 4875 9675 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9650 4875 9650 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9650 4875 9675 4875
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9650 4850 9675 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10025 4725 10025 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10000 4725 10000 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10000 4725 10025 4725
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10000 4700 10025 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9975 4725 9975 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9950 4725 9950 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9950 4725 9975 4725
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9950 4700 9975 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9925 4725 9925 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9900 4725 9900 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9900 4725 9925 4725
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9900 4700 9925 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9875 4725 9875 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9850 4725 9850 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9850 4725 9875 4725
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9850 4700 9875 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9825 4725 9825 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9800 4725 9800 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9800 4725 9825 4725
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9800 4700 9825 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9775 4725 9775 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9750 4725 9750 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9750 4725 9775 4725
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9750 4700 9775 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9725 4725 9725 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9700 4725 9700 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9700 4725 9725 4725
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9700 4700 9725 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9675 4725 9675 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9650 4725 9650 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9650 4725 9675 4725
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9650 4700 9675 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10025 4425 10025 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10000 4425 10000 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10000 4425 10025 4425
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10000 4400 10025 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9975 4425 9975 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9950 4425 9950 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9950 4425 9975 4425
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9950 4400 9975 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9925 4425 9925 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9900 4425 9900 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9900 4425 9925 4425
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9900 4400 9925 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9875 4425 9875 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9850 4425 9850 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9850 4425 9875 4425
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9850 4400 9875 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9825 4425 9825 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9800 4425 9800 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9800 4425 9825 4425
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9800 4400 9825 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9775 4425 9775 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9750 4425 9750 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9750 4425 9775 4425
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9750 4400 9775 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9725 4425 9725 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9700 4425 9700 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9700 4425 9725 4425
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9700 4400 9725 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9675 4425 9675 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9650 4425 9650 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9650 4425 9675 4425
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9650 4400 9675 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10025 4575 10025 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10000 4575 10000 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10000 4575 10025 4575
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10000 4550 10025 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9975 4575 9975 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9950 4575 9950 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9950 4575 9975 4575
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9950 4550 9975 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9925 4575 9925 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9900 4575 9900 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9900 4575 9925 4575
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9900 4550 9925 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9875 4575 9875 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9850 4575 9850 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9850 4575 9875 4575
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9850 4550 9875 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9825 4575 9825 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9800 4575 9800 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9800 4575 9825 4575
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9800 4550 9825 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9775 4575 9775 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9750 4575 9750 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9750 4575 9775 4575
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9750 4550 9775 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9725 4575 9725 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9700 4575 9700 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9700 4575 9725 4575
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9700 4550 9725 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9675 4575 9675 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9650 4575 9650 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9650 4575 9675 4575
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9650 4550 9675 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10025 4275 10025 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10000 4275 10000 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10000 4275 10025 4275
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10000 4250 10025 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9975 4275 9975 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9950 4275 9950 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9950 4275 9975 4275
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9950 4250 9975 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9925 4275 9925 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9900 4275 9900 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9900 4275 9925 4275
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9900 4250 9925 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9875 4275 9875 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9850 4275 9850 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9850 4275 9875 4275
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9850 4250 9875 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9825 4275 9825 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9800 4275 9800 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9800 4275 9825 4275
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9800 4250 9825 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9775 4275 9775 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9750 4275 9750 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9750 4275 9775 4275
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9750 4250 9775 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9725 4275 9725 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9700 4275 9700 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9700 4275 9725 4275
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9700 4250 9725 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9675 4275 9675 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9650 4275 9650 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9650 4275 9675 4275
-Wire Notes Line width 10 rgb(253, 26, 0)
-	9650 4250 9675 4250
-Text Notes 10150 4100 0    60   ~ 12
-Module D
-Wire Notes Line style solid rgb(255, 255, 0)
-	10150 4950 10150 4150
-Wire Notes Line style solid rgb(255, 255, 0)
-	10650 4950 10150 4950
-Wire Notes Line style solid rgb(255, 255, 0)
-	10650 4150 10650 4950
-Wire Notes Line style solid rgb(255, 255, 0)
-	10150 4150 10650 4150
-Text Notes 10700 4900 0    50   ~ 0
-Row 5
-Text Notes 10700 4750 0    50   ~ 0
-Row 4
-Text Notes 10700 4600 0    50   ~ 0
-Row 3
-Text Notes 10700 4450 0    50   ~ 0
-Row 2
-Text Notes 10700 4300 0    50   ~ 0
-Row 1
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10575 4875 10575 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10550 4875 10550 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10550 4875 10575 4875
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10550 4850 10575 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10525 4875 10525 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10500 4875 10500 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10500 4875 10525 4875
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10500 4850 10525 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10475 4875 10475 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10450 4875 10450 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10450 4875 10475 4875
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10450 4850 10475 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10425 4875 10425 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10400 4875 10400 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10400 4875 10425 4875
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10400 4850 10425 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10375 4875 10375 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10350 4875 10350 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10350 4875 10375 4875
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10350 4850 10375 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10325 4875 10325 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10300 4875 10300 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10300 4875 10325 4875
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10300 4850 10325 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10275 4875 10275 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10250 4875 10250 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10250 4875 10275 4875
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10250 4850 10275 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10225 4875 10225 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10200 4875 10200 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10200 4875 10225 4875
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10200 4850 10225 4850
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10575 4725 10575 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10550 4725 10550 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10550 4725 10575 4725
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10550 4700 10575 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10525 4725 10525 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10500 4725 10500 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10500 4725 10525 4725
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10500 4700 10525 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10475 4725 10475 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10450 4725 10450 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10450 4725 10475 4725
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10450 4700 10475 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10425 4725 10425 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10400 4725 10400 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10400 4725 10425 4725
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10400 4700 10425 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10375 4725 10375 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10350 4725 10350 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10350 4725 10375 4725
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10350 4700 10375 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10325 4725 10325 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10300 4725 10300 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10300 4725 10325 4725
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10300 4700 10325 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10275 4725 10275 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10250 4725 10250 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10250 4725 10275 4725
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10250 4700 10275 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10225 4725 10225 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10200 4725 10200 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10200 4725 10225 4725
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10200 4700 10225 4700
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10575 4425 10575 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10550 4425 10550 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10550 4425 10575 4425
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10550 4400 10575 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10525 4425 10525 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10500 4425 10500 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10500 4425 10525 4425
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10500 4400 10525 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10475 4425 10475 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10450 4425 10450 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10450 4425 10475 4425
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10450 4400 10475 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10425 4425 10425 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10400 4425 10400 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10400 4425 10425 4425
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10400 4400 10425 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10375 4425 10375 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10350 4425 10350 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10350 4425 10375 4425
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10350 4400 10375 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10325 4425 10325 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10300 4425 10300 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10300 4425 10325 4425
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10300 4400 10325 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10275 4425 10275 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10250 4425 10250 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10250 4425 10275 4425
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10250 4400 10275 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10225 4425 10225 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10200 4425 10200 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10200 4425 10225 4425
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10200 4400 10225 4400
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10575 4575 10575 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10550 4575 10550 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10550 4575 10575 4575
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10550 4550 10575 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10525 4575 10525 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10500 4575 10500 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10500 4575 10525 4575
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10500 4550 10525 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10475 4575 10475 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10450 4575 10450 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10450 4575 10475 4575
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10450 4550 10475 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10425 4575 10425 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10400 4575 10400 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10400 4575 10425 4575
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10400 4550 10425 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10375 4575 10375 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10350 4575 10350 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10350 4575 10375 4575
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10350 4550 10375 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10325 4575 10325 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10300 4575 10300 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10300 4575 10325 4575
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10300 4550 10325 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10275 4575 10275 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10250 4575 10250 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10250 4575 10275 4575
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10250 4550 10275 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10225 4575 10225 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10200 4575 10200 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10200 4575 10225 4575
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10200 4550 10225 4550
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10575 4275 10575 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10550 4275 10550 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10550 4275 10575 4275
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10550 4250 10575 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10525 4275 10525 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10500 4275 10500 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10500 4275 10525 4275
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10500 4250 10525 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10475 4275 10475 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10450 4275 10450 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10450 4275 10475 4275
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10450 4250 10475 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10425 4275 10425 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10400 4275 10400 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10400 4275 10425 4275
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10400 4250 10425 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10375 4275 10375 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10350 4275 10350 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10350 4275 10375 4275
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10350 4250 10375 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10325 4275 10325 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10300 4275 10300 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10300 4275 10325 4275
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10300 4250 10325 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10275 4275 10275 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10250 4275 10250 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10250 4275 10275 4275
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10250 4250 10275 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10225 4275 10225 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10200 4275 10200 4250
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10200 4275 10225 4275
-Wire Notes Line width 10 rgb(253, 26, 0)
-	10200 4250 10225 4250
-Text Notes 8550 3900 0    100  ~ 20
-Front Panel Light Modules
-Text Notes 8550 3450 0    50   ~ 0
-The front panel scanner synchronises two groups of\nsignals: the front panel output enables on various\nprocessor boards (using the ~FPOExx~ enables), and\nthe enables of the 8-bit latches on the front panel\nboards.\n\nThe front panel boards are organised in four modules\ntimes five rows. The module is enabled for writing by\nthe two-bit address FPA₀₋₁ and a specific row on that\nmodule is enabled for latching using ~ROW₁₋₅~.\n\nThese are in phase with the ~FPOExx~ enables, so the\nsame row on each module will always receive data from\nthe same processor board output buffer.\n\nThe addresses are scanned in increasing order,\nmodulo 21: ~FPOE20~ enables nothing, but is used to\nreset the count.\n\nAddresses over 20 are never reached by the autonomic\ncounter, but they may be put on the bus by the MCU to\nenable future units for debugging output (which however\nwon't appear on the front panel).\n\nAddresses are decoded across modules first, then down\nby row numbers: so the enables are interleaved across\n'138 decoders. (each decoder is responsible for one\nfront panel module)
-$Comp
-L alexios:74HC138 U?
-U 2 1 5D448D60
-P 2500 6650
-AR Path="/5D448D60" Ref="U?"  Part="1" 
-AR Path="/6233F88C/5D448D60" Ref="U1203"  Part="2" 
-AR Path="/60757845/607964B6/5D448D60" Ref="U?"  Part="2" 
-AR Path="/64FC7999/650046D0/5D448D60" Ref="U?"  Part="2" 
-AR Path="/65BD1B6F/5D448D60" Ref="U?"  Part="2" 
-F 0 "U?" H 2680 6696 50  0000 L CNN
-F 1 "74HC138" H 2680 6605 50  0000 L CNN
-F 2 "alexios:SOIC-16" H 2500 6650 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 2500 6650 50  0001 C CNN
-	2    2500 6650
-	1    0    0    -1  
-$EndComp
-Connection ~ 2150 6550
-Connection ~ 2150 6750
-$Comp
-L alexios:74HC138 U?
-U 2 1 5D502AA8
-P 1250 6650
-AR Path="/5D502AA8" Ref="U?"  Part="1" 
-AR Path="/6233F88C/5D502AA8" Ref="U1201"  Part="2" 
-AR Path="/60757845/607964B6/5D502AA8" Ref="U?"  Part="2" 
-AR Path="/64FC7999/650046D0/5D502AA8" Ref="U?"  Part="2" 
-AR Path="/65BD1B6F/5D502AA8" Ref="U?"  Part="2" 
-F 0 "U?" H 1430 6696 50  0000 L CNN
-F 1 "74HC138" H 1430 6605 50  0000 L CNN
-F 2 "alexios:SOIC-16" H 1250 6650 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 1250 6650 50  0001 C CNN
-	2    1250 6650
-	1    0    0    -1  
-$EndComp
-Connection ~ 900  6550
-Connection ~ 900  6750
-Text Notes 6450 900  0    50   ~ 10
-FPA
-Text Notes 6600 1100 2    50   ~ 10
-00
-Text Notes 6600 2400 2    50   ~ 10
+Text Notes 6950 1200 2    50   ~ 10
 01
-Text Notes 6600 3600 2    50   ~ 10
+Text Notes 6950 1300 2    50   ~ 10
 02
-Text Notes 6600 4850 2    50   ~ 10
+Text Notes 6950 1400 2    50   ~ 10
 03
-Text Notes 6600 1200 2    50   ~ 10
+Text Notes 6950 1500 2    50   ~ 10
 04
-Text Notes 6600 2500 2    50   ~ 10
+Text Notes 6950 1600 2    50   ~ 10
 05
-Text Notes 6600 3700 2    50   ~ 10
+Text Notes 6950 1700 2    50   ~ 10
 06\n
-Text Notes 6600 4950 2    50   ~ 10
+Text Notes 6950 1800 2    50   ~ 10
 07\n
-Text Notes 6600 1300 2    50   ~ 10
+Text Notes 6950 1900 2    50   ~ 10
 08
-Text Notes 6600 2600 2    50   ~ 10
+Text Notes 6950 2000 2    50   ~ 10
 09
-Text Notes 6600 3800 2    50   ~ 10
+Text Notes 6950 2100 2    50   ~ 10
 0A
-Text Notes 6600 5050 2    50   ~ 10
+Text Notes 6950 2200 2    50   ~ 10
 0B\n
-Text Notes 6600 1400 2    50   ~ 10
+Text Notes 6950 2300 2    50   ~ 10
 0C
-Text Notes 6600 2700 2    50   ~ 10
+Text Notes 6950 2400 2    50   ~ 10
 0D
-Text Notes 6600 3900 2    50   ~ 10
+Text Notes 6950 2500 2    50   ~ 10
 0E
-Text Notes 6600 5150 2    50   ~ 10
+Text Notes 6950 2600 2    50   ~ 10
 0F
-Text Notes 6600 1500 2    50   ~ 10
+Text Notes 6950 3050 2    50   ~ 10
 10
-Text Notes 6600 2800 2    50   ~ 10
+Text Notes 6950 3150 2    50   ~ 10
 11
-Text Notes 6600 4000 2    50   ~ 10
+Text Notes 6950 3250 2    50   ~ 10
 12
-Text Notes 6600 5250 2    50   ~ 10
+Text Notes 6950 3350 2    50   ~ 10
 13
-Text Notes 6600 1600 2    50   ~ 10
+Text Notes 6950 3450 2    50   ~ 10
 14
-Text Notes 6600 2900 2    50   ~ 10
+Text Notes 6950 3550 2    50   ~ 10
 15
-Text Notes 6600 4100 2    50   ~ 10
+Text Notes 6950 3650 2    50   ~ 10
 16
-Text Notes 6600 5350 2    50   ~ 10
+Text Notes 6950 3750 2    50   ~ 10
 17
-Text Notes 6600 1700 2    50   ~ 10
-18
-Text Notes 6600 3000 2    50   ~ 10
+Text Notes 6950 3950 2    50   ~ 10
 19
-Text Notes 6600 4200 2    50   ~ 10
+Text Notes 6950 4050 2    50   ~ 10
 1A
-Text Notes 6600 5450 2    50   ~ 10
+Text Notes 6950 4150 2    50   ~ 10
 1B
-Text Notes 6600 1800 2    50   ~ 10
+Text Notes 6950 4250 2    50   ~ 10
 1C
-Text Notes 6600 3100 2    50   ~ 10
+Text Notes 6950 4350 2    50   ~ 10
 1D
-Text Notes 6600 4300 2    50   ~ 10
+Text Notes 6950 4450 2    50   ~ 10
 1E
-Text Notes 6600 5550 2    50   ~ 10
+Text Notes 6950 4550 2    50   ~ 10
 1F
-Wire Bus Line
-	4250 6350 7200 6350
-Text Notes 6650 900  0    50   ~ 0
-Front Panel Coords & Meaning
-Text Notes 6850 5800 0    50   ~ 0
-~FPOE20~ resets the autonomic counter after\nit's scanned 20 modules
-Text Label 7100 5950 2    50   ~ 0
+Text Label 7500 4650 2    50   ~ 0
 ~FPOE20
-Text Label 6200 1800 2    50   ~ 0
-~FPOE28
-Text Label 6200 1700 2    50   ~ 0
-~FPOE24
-Text Label 6200 1600 2    50   ~ 0
-~FPOE20
-Text Label 6200 1500 2    50   ~ 0
-~FPOE16
-Text Label 6200 1400 2    50   ~ 0
-~FPOE12
-Text Label 6200 1300 2    50   ~ 0
-~FPOE8
-Text Label 6200 1200 2    50   ~ 0
-~FPOE4
-Text Label 6200 1100 2    50   ~ 0
-~FPOE0
-Wire Wire Line
-	5850 1100 6250 1100
-Wire Wire Line
-	5850 1800 6250 1800
-Wire Wire Line
-	5850 1700 6250 1700
-Wire Wire Line
-	5850 1600 6250 1600
-Wire Wire Line
-	5850 1500 6250 1500
-Wire Wire Line
-	5850 1400 6250 1400
-Wire Wire Line
-	5850 1300 6250 1300
-Wire Wire Line
-	5850 1200 6250 1200
-Wire Wire Line
-	5850 2350 6250 2350
-Text Label 6200 2950 2    50   ~ 0
-~FPOE25
-Wire Wire Line
-	5850 2450 6250 2450
-Wire Wire Line
-	5850 2550 6250 2550
-Wire Wire Line
-	5850 2750 6250 2750
-Wire Wire Line
-	5850 2850 6250 2850
-Wire Wire Line
-	5850 2650 6250 2650
-Wire Wire Line
-	5850 2950 6250 2950
-Wire Wire Line
-	5850 3050 6250 3050
-Wire Wire Line
-	5850 3600 6250 3600
-Wire Wire Line
-	5850 3700 6250 3700
-Wire Wire Line
-	5850 3800 6250 3800
-Wire Wire Line
-	5850 3900 6250 3900
-Wire Wire Line
-	5850 4000 6250 4000
-Wire Wire Line
-	5850 4100 6250 4100
-Wire Wire Line
-	5850 4200 6250 4200
-Wire Wire Line
-	5850 4300 6250 4300
-Wire Wire Line
-	5850 4850 6250 4850
-Wire Wire Line
-	5850 4950 6250 4950
-Wire Wire Line
-	5850 5050 6250 5050
-Wire Wire Line
-	5850 5150 6250 5150
-Wire Wire Line
-	5850 5250 6250 5250
-Wire Wire Line
-	5850 5350 6250 5350
-Wire Wire Line
-	5850 5450 6250 5450
-Wire Wire Line
-	5850 5550 6250 5550
-$Comp
-L power:GND #PWR?
-U 1 1 63A3A1CC
-P 4850 3150
-F 0 "#PWR?" H 4850 2900 50  0001 C CNN
-F 1 "GND" H 4855 2977 50  0000 C CNN
-F 2 "" H 4850 3150 50  0001 C CNN
-F 3 "" H 4850 3150 50  0001 C CNN
-	1    4850 3150
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 62DDF4E6
-P 4850 1900
-F 0 "#PWR?" H 4850 1650 50  0001 C CNN
-F 1 "GND" H 4855 1727 50  0000 C CNN
-F 2 "" H 4850 1900 50  0001 C CNN
-F 3 "" H 4850 1900 50  0001 C CNN
-	1    4850 1900
-	1    0    0    -1  
-$EndComp
-Text Label 2650 1800 2    50   ~ 0
+Text Label 1550 3150 2    50   ~ 0
 ~PANELEN
-Wire Wire Line
-	1150 1800 2650 1800
-Text Label 1250 1800 0    50   ~ 0
-~PANELEN
-Text HLabel 1150 1800 0    50   Input ~ 0
+Text HLabel 1100 3150 0    50   Input ~ 0
 ~PANELEN
 Entry Wire Line
-	2250 3000 2350 3100
+	2700 1700 2800 1800
 Entry Wire Line
-	2250 3100 2350 3200
+	2700 1800 2800 1900
 Wire Wire Line
-	2350 3100 2650 3100
+	2800 1800 3100 1800
 Wire Wire Line
-	2350 3200 2650 3200
-Text Label 2450 3200 0    50   ~ 0
+	2800 1900 3100 1900
+Text Label 2900 1900 0    50   ~ 0
 FPA7
-Text Label 2450 3100 0    50   ~ 0
+Text Label 2900 1800 0    50   ~ 0
 FPA6
-Text Notes 2500 4050 0    50   ~ 0
-ROW₁ to ROW₅ are decoded strobes\nfor the front panel modules. The\nappropriate module is enabled for\nwriting using address FA₀–FA₁ and\nthe desired 8-bit register on that\nmodule is clocked using the ROW\nstrobes.
-Text Notes 750  1450 0    50   ~ 0
+Text Notes 2950 2750 0    50   ~ 0
+ROW₁ to ROW₅ are decoded strobes\nfor the front panel modules. The\nappropriate module is enabled for\nwriting using address FA₀–FA₁ and\nthe desired 8-bit register on that\nmodule is clocked using the ~ROW~\nstrobes.
+Text Notes 2950 3800 0    50   ~ 0
 When ~PANELEN~ is de-asserted,\nthe MCU can control the front panel\nlights directly.\n\n~PANELEN~ should ALWAYS be\nde-asserted when writing to MCU\naddresses &00–&03F.
-$Comp
-L alexios:74HC138 U?
-U 1 1 5E2960BD
-P 3150 2800
-AR Path="/5E2960BD" Ref="U?"  Part="1" 
-AR Path="/6233F88C/5E2960BD" Ref="U1202"  Part="1" 
-AR Path="/60757845/607964B6/5E2960BD" Ref="U?"  Part="1" 
-AR Path="/64FC7999/650046D0/5E2960BD" Ref="U?"  Part="1" 
-AR Path="/65BD1B6F/5E2960BD" Ref="U?"  Part="1" 
-F 0 "U?" H 3150 3467 50  0000 C CNN
-F 1 "74HC138" H 3150 3376 50  0000 C CNN
-F 2 "alexios:SOIC-16" H 3150 2800 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 3150 2800 50  0001 C CNN
-	1    3150 2800
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:74HC138 U?
-U 2 1 5E296CDE
-P 1250 7400
-AR Path="/5E296CDE" Ref="U?"  Part="1" 
-AR Path="/6233F88C/5E296CDE" Ref="U1202"  Part="2" 
-AR Path="/60757845/607964B6/5E296CDE" Ref="U?"  Part="2" 
-AR Path="/64FC7999/650046D0/5E296CDE" Ref="U?"  Part="2" 
-AR Path="/65BD1B6F/5E296CDE" Ref="U?"  Part="2" 
-F 0 "U?" H 1430 7446 50  0000 L CNN
-F 1 "74HC138" H 1430 7355 50  0000 L CNN
-F 2 "alexios:SOIC-16" H 1250 7400 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS138" H 1250 7400 50  0001 C CNN
-	2    1250 7400
-	1    0    0    -1  
-$EndComp
-Connection ~ 900  7300
-Connection ~ 900  7500
 Wire Wire Line
-	4850 5400 4850 5450
-Wire Wire Line
-	2650 1900 2600 1900
-Wire Wire Line
-	1600 4750 1150 4750
-Wire Wire Line
-	1600 4850 1150 4850
-Text HLabel 1150 4750 0    50   Input ~ 0
-~WR
-Text HLabel 1150 4850 0    50   Input ~ 0
-~SCANEN
-Text Label 1250 4750 0    50   ~ 0
-~WR
-Text Label 1250 4850 0    50   ~ 0
-~SCANEN
+	3100 1700 3050 1700
 Wire Notes Line width 24 style solid
-	650  6100 650  4150
-Text Notes 750  5250 0    63   ~ 13
+	2850 3000 1100 3000
+Wire Notes Line width 24 style solid
+	1100 900  2850 900 
+Text Notes 1200 1750 0    63   ~ 13
 Erratum, rev. A (1930)
-$Comp
-L alexios:74LVC1G00 U?
-U 1 1 5FBBC9C6
-P 1900 4800
-F 0 "U?" H 1825 5067 50  0000 C CNN
-F 1 "74LVC1G00" H 1825 4976 50  0000 C CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 1550 4800 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G00.pdf" H 1550 4800 50  0001 C CNN
-	1    1900 4800
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	2650 3000 2400 3000
-Wire Wire Line
-	2400 3000 2300 2900
-Wire Wire Line
-	2300 2900 2100 2900
-Text Label 2450 3000 0    50   ~ 0
-FPGATE
-Text Label 2150 4800 0    50   ~ 0
-FPGATE
 Wire Notes Line width 24 style solid
-	650  4150 3950 4150
+	1100 3000 1100 900 
+Text Label 1750 1450 0    50   ~ 0
+~SCANEN
+Text Label 1750 1350 0    50   ~ 0
+~WR
+Text HLabel 1650 1450 0    50   Input ~ 0
+~SCANEN
+Text HLabel 1650 1350 0    50   Input ~ 0
+~WR
 Wire Wire Line
-	2600 1950 2600 1900
+	2100 1450 1650 1450
 Wire Wire Line
-	2100 2900 2100 4250
+	2100 1350 1650 1350
+Wire Notes Line width 24 style solid
+	2850 3000 2850 900 
+Text Notes 1200 2900 0    50   ~ 0
+In XMem mode, the Atmega drives its\naddress bus all the time, but the '138\ndecoder in Rev. A of the board isn't\ngated, so the front panel shows the\ninner workings of the Atmega instead\nof the CFT!\n\nU1202 should be gated such that it\nstrobes ~ROWx~ when either ~SCANEN~ or\nthe Atmega's ~WR~ signal is asserted.\n\nNote: this removes the (unused)\n‘snoop-update’ mode of the FP.
+Text Notes 6950 1100 2    50   ~ 10
+00
 Wire Wire Line
-	2500 4250 2100 4250
+	6250 1100 6650 1100
 Wire Wire Line
-	2500 4800 2500 4250
+	6250 1200 6650 1200
 Wire Wire Line
-	2050 4800 2500 4800
+	6250 1300 6650 1300
+Wire Wire Line
+	6250 1400 6650 1400
+Wire Wire Line
+	6250 1500 6650 1500
+Wire Wire Line
+	6250 1600 6650 1600
+Wire Wire Line
+	6250 1700 6650 1700
+Wire Wire Line
+	6250 1800 6650 1800
+Wire Wire Line
+	6250 1900 6650 1900
+Wire Wire Line
+	6250 2000 6650 2000
+Wire Wire Line
+	6250 2100 6650 2100
+Wire Wire Line
+	6250 2200 6650 2200
+Wire Wire Line
+	6250 2300 6650 2300
+Wire Wire Line
+	6250 2400 6650 2400
+Wire Wire Line
+	6250 2500 6650 2500
+Wire Wire Line
+	6250 2600 6650 2600
+Wire Wire Line
+	6250 3050 6650 3050
+Wire Wire Line
+	6250 3150 6650 3150
+Wire Wire Line
+	6250 3250 6650 3250
+Wire Wire Line
+	6250 3350 6650 3350
+Wire Wire Line
+	6250 3450 6650 3450
+Wire Wire Line
+	6250 3550 6650 3550
+Wire Wire Line
+	6250 3650 6650 3650
+Wire Wire Line
+	6250 3750 6650 3750
+Wire Wire Line
+	6250 3850 6650 3850
+Wire Wire Line
+	6250 3950 6650 3950
+Wire Wire Line
+	6250 4050 6650 4050
+Wire Wire Line
+	6250 4150 6650 4150
+Wire Wire Line
+	6250 4250 6650 4250
+Wire Wire Line
+	6250 4350 6650 4350
+Wire Wire Line
+	6250 4450 6650 4450
+Wire Wire Line
+	6250 4550 6650 4550
+Entry Wire Line
+	6650 1100 6750 1200
+Entry Wire Line
+	6650 1200 6750 1300
+Entry Wire Line
+	6650 1300 6750 1400
+Entry Wire Line
+	6650 1400 6750 1500
+Entry Wire Line
+	6650 1500 6750 1600
+Entry Wire Line
+	6650 1600 6750 1700
+Entry Wire Line
+	6650 1700 6750 1800
+Entry Wire Line
+	6650 1800 6750 1900
+Entry Wire Line
+	6650 1900 6750 2000
+Entry Wire Line
+	6650 2000 6750 2100
+Entry Wire Line
+	6650 2100 6750 2200
+Entry Wire Line
+	6650 2200 6750 2300
+Entry Wire Line
+	6650 2300 6750 2400
+Entry Wire Line
+	6650 2400 6750 2500
+Entry Wire Line
+	6650 2500 6750 2600
+Entry Wire Line
+	6650 2600 6750 2700
+Entry Wire Line
+	6650 3050 6750 3150
+Entry Wire Line
+	6650 3150 6750 3250
+Entry Wire Line
+	6650 3250 6750 3350
+Entry Wire Line
+	6650 3350 6750 3450
+Entry Wire Line
+	6650 3450 6750 3550
+Entry Wire Line
+	6650 3550 6750 3650
+Entry Wire Line
+	6650 3650 6750 3750
+Entry Wire Line
+	6650 3750 6750 3850
+Entry Wire Line
+	6650 3850 6750 3950
+Entry Wire Line
+	6650 3950 6750 4050
+Entry Wire Line
+	6650 4050 6750 4150
+Entry Wire Line
+	6650 4150 6750 4250
+Entry Wire Line
+	6650 4250 6750 4350
+Entry Wire Line
+	6650 4350 6750 4450
+Entry Wire Line
+	6650 4450 6750 4550
+Entry Wire Line
+	6650 4550 6750 4650
+Text Notes 6950 3850 2    50   ~ 10
+18
+Wire Bus Line
+	6850 4950 7600 4950
+Entry Bus Bus
+	6750 4850 6850 4950
+Entry Wire Line
+	4600 1000 4700 1100
+Entry Wire Line
+	4600 1100 4700 1200
+Entry Wire Line
+	4600 1200 4700 1300
+Entry Wire Line
+	4600 1300 4700 1400
+Entry Wire Line
+	4600 1500 4700 1600
+Entry Wire Line
+	4600 2950 4700 3050
+Entry Wire Line
+	4600 3050 4700 3150
+Entry Wire Line
+	4600 3150 4700 3250
+Entry Wire Line
+	4600 3250 4700 3350
+Entry Bus Bus
+	4500 700  4600 800 
+Wire Bus Line
+	2800 700  4500 700 
+Entry Bus Bus
+	2600 700  2700 800 
+Text Label 1500 700  2    50   ~ 0
+FPA[0..7]
+Entry Bus Bus
+	2800 700  2700 800 
+Wire Bus Line
+	1100 700  2600 700 
+Text HLabel 1100 700  0    50   Input ~ 0
+FPA[0..7]
+Text Label 4700 2150 0    50   ~ 0
+FPA4
+Wire Wire Line
+	4700 2150 5200 2150
+Entry Wire Line
+	4600 2050 4700 2150
+Wire Wire Line
+	5200 2150 5200 2200
+Wire Wire Line
+	5200 2700 5200 3550
+Wire Wire Line
+	5200 3550 5250 3550
 $Comp
-L alexios:74LVC1G00 U?
-U 2 1 601121D9
-P 3300 4700
-F 0 "U?" H 3380 4646 50  0000 L CNN
-F 1 "74LVC1G00" H 3380 4555 50  0000 L CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 2950 4700 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G00.pdf" H 2950 4700 50  0001 C CNN
-	2    3300 4700
-	1    0    0    -1  
+L alexios:74LVC1G04 U?
+U 1 1 663C7347
+P 5200 2500
+F 0 "U?" V 4650 2550 50  0000 R CNN
+F 1 "74HC139" V 4750 2700 50  0000 R CNN
+F 2 "alexios:SOIC-16" H 5200 2500 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS139" H 5200 2500 50  0001 C CNN
+	1    5200 2500
+	0    1    1    0   
 $EndComp
+Entry Bus Bus
+	4600 4950 4700 5050
+Wire Bus Line
+	4700 5050 7600 5050
+Wire Wire Line
+	1100 3150 4450 3150
+Wire Wire Line
+	4450 3650 4450 3150
+Wire Wire Line
+	4450 3650 5250 3650
+Wire Wire Line
+	4450 1950 4700 1700
+Wire Wire Line
+	4700 1700 5250 1700
+Text Label 4450 3050 1    50   ~ 0
+~PANELEN
+NoConn ~ 4100 1600
+NoConn ~ 4100 1700
+NoConn ~ 4100 1800
+Wire Wire Line
+	2550 1400 3050 1400
+Wire Wire Line
+	3050 1400 3050 1700
 $Comp
 L Device:C_Small C?
-U 1 1 6011422E
-P 2850 4800
-AR Path="/6011422E" Ref="C?"  Part="1" 
-AR Path="/6233F88C/6011422E" Ref="C1"  Part="1" 
-AR Path="/60757845/607964B6/6011422E" Ref="C?"  Part="1" 
-AR Path="/64FC7999/650046D0/6011422E" Ref="C?"  Part="1" 
-AR Path="/65BD1B6F/6011422E" Ref="C?"  Part="1" 
-F 0 "C?" H 2759 4846 50  0000 R CNN
-F 1 "100nF" H 2759 4755 50  0000 R CNN
-F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2850 4800 50  0001 C CNN
-F 3 "~" H 2850 4800 50  0001 C CNN
-	1    2850 4800
+U 1 1 69938991
+P 3850 7200
+AR Path="/69938991" Ref="C?"  Part="1" 
+AR Path="/6233F88C/69938991" Ref="C?"  Part="1" 
+AR Path="/60757845/607964B6/69938991" Ref="C?"  Part="1" 
+AR Path="/64FC7999/650046D0/69938991" Ref="C?"  Part="1" 
+AR Path="/65BD1B6F/69938991" Ref="C?"  Part="1" 
+F 0 "C?" H 3759 7246 50  0000 R CNN
+F 1 "100nF" H 3759 7155 50  0000 R CNN
+F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3850 7200 50  0001 C CNN
+F 3 "~" H 3850 7200 50  0001 C CNN
+	1    3850 7200
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:+5V #PWR?
-U 1 1 60114234
-P 2850 4700
-F 0 "#PWR?" H 2850 4550 50  0001 C CNN
-F 1 "+5V" H 2865 4873 50  0000 C CNN
-F 2 "" H 2850 4700 50  0001 C CNN
-F 3 "" H 2850 4700 50  0001 C CNN
-	1    2850 4700
+U 1 1 69938997
+P 3850 7100
+F 0 "#PWR?" H 3850 6950 50  0001 C CNN
+F 1 "+5V" H 3865 7273 50  0000 C CNN
+F 2 "" H 3850 7100 50  0001 C CNN
+F 3 "" H 3850 7100 50  0001 C CNN
+	1    3850 7100
 	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR?
-U 1 1 6011423A
-P 2850 4900
-F 0 "#PWR?" H 2850 4650 50  0001 C CNN
-F 1 "GND" H 2855 4727 50  0000 C CNN
-F 2 "" H 2850 4900 50  0001 C CNN
-F 3 "" H 2850 4900 50  0001 C CNN
-	1    2850 4900
+U 1 1 6993899D
+P 3850 7300
+F 0 "#PWR?" H 3850 7050 50  0001 C CNN
+F 1 "GND" H 3855 7127 50  0000 C CNN
+F 2 "" H 3850 7300 50  0001 C CNN
+F 3 "" H 3850 7300 50  0001 C CNN
+	1    3850 7300
 	1    0    0    -1  
 $EndComp
-Connection ~ 2850 4900
-Connection ~ 2850 4700
-Text Notes 750  6000 0    50   ~ 0
-In XMem mode, the Atmega writes to its address bus all the time, but the '138\ndecoder in Rev. A of the board isn't gated, so the front panel shows the inner\nworkings of the Atmega instead of the CFT!\n\nU1202 should be gated such that it strobes ~ROWx~ when either ~SCANEN~\nor the Atmega's ~WR~ signal is asserted.\n\nNote: this removes the (unused) ‘snoop-update’ mode of the FP.
-Wire Notes Line width 24 style solid
-	3950 4150 3950 6100
-Wire Notes Line width 24 style solid
-	3950 6100 650  6100
+Text HLabel 8650 5600 0    50   Input ~ 0
+MFD1
+Text HLabel 8650 5500 0    50   Input ~ 0
+MFD0
+Text Notes 9050 5150 0    100  ~ 20
+Multi-Function Display
+Text Label 10650 6300 2    50   ~ 0
+~FPSPLOE
+Text Label 10650 6200 2    50   ~ 0
+~FPDRLOE
+Text Label 10650 6100 2    50   ~ 0
+~ORLOE
+Text Label 10650 5700 2    50   ~ 0
+~FPSPHOE
+Text Label 10650 5600 2    50   ~ 0
+~FPDRHOE
+Text Label 10650 5500 2    50   ~ 0
+~ORHOE
+NoConn ~ 10250 6400
+Wire Wire Line
+	10250 6300 10700 6300
+Wire Wire Line
+	10250 6200 10700 6200
+Wire Wire Line
+	10250 6100 10700 6100
+NoConn ~ 10250 5800
+Wire Wire Line
+	10250 5700 10700 5700
+Wire Wire Line
+	10250 5600 10700 5600
+Wire Wire Line
+	10250 5500 10700 5500
+Text Label 8950 6400 0    50   ~ 0
+~FPOE14
+Wire Wire Line
+	9250 6400 8950 6400
+Text Label 8950 5800 0    50   ~ 0
+~FPOE13
+Text Label 8950 6200 0    50   ~ 0
+MFD1
+Text Label 8950 6100 0    50   ~ 0
+MFD0
+Text Label 8950 5600 0    50   ~ 0
+MFD1
+Text Label 8950 5500 0    50   ~ 0
+MFD0
+Wire Wire Line
+	9250 5800 8950 5800
+$Comp
+L alexios:74HC139 U?
+U 2 1 69B0F3D3
+P 9750 6200
+AR Path="/69B0F3D3" Ref="U?"  Part="2" 
+AR Path="/60757845/69B0F3D3" Ref="U?"  Part="2" 
+AR Path="/64FC7999/69B0F3D3" Ref="U?"  Part="2" 
+AR Path="/65BD1B6F/69B0F3D3" Ref="U?"  Part="2" 
+F 0 "U?" H 9750 5825 50  0000 C CNN
+F 1 "74HC139" H 9750 5734 50  0000 C CNN
+F 2 "alexios:SOIC-16" H 9750 6200 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS139" H 9750 6200 50  0001 C CNN
+	2    9750 6200
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC139 U?
+U 1 1 69B0F3D9
+P 9750 5600
+AR Path="/69B0F3D9" Ref="U?"  Part="1" 
+AR Path="/60757845/69B0F3D9" Ref="U?"  Part="1" 
+AR Path="/64FC7999/69B0F3D9" Ref="U?"  Part="1" 
+AR Path="/65BD1B6F/69B0F3D9" Ref="U?"  Part="1" 
+F 0 "U?" H 9750 5967 50  0000 C CNN
+F 1 "74HC139" H 9750 5876 50  0000 C CNN
+F 2 "alexios:SOIC-16" H 9750 5600 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS139" H 9750 5600 50  0001 C CNN
+	1    9750 5600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8650 5500 8750 5500
+Wire Wire Line
+	8650 5600 9250 5600
+Text HLabel 10700 5500 2    50   Output ~ 0
+~ORHOE
+Text HLabel 10700 5600 2    50   Output ~ 0
+~FPDRHOE~
+Text HLabel 10700 5700 2    50   Output ~ 0
+~FPSPHOE~
+Text HLabel 10700 6100 2    50   Output ~ 0
+~ORLOE
+Text HLabel 10700 6200 2    50   Output ~ 0
+~FPDRLOE~
+Text HLabel 10700 6300 2    50   Output ~ 0
+~FPSPLOE~
+Wire Wire Line
+	8850 5500 8850 6100
+Wire Wire Line
+	8850 6100 9250 6100
+Connection ~ 8850 5500
+Wire Wire Line
+	8850 5500 9250 5500
+Wire Wire Line
+	8750 5500 8750 6200
+Wire Wire Line
+	8750 6200 9250 6200
+Connection ~ 8750 5500
+Wire Wire Line
+	8750 5500 8850 5500
+$Comp
+L Device:C_Small C?
+U 1 1 6A2EC315
+P 7450 6350
+AR Path="/6A2EC315" Ref="C?"  Part="1" 
+AR Path="/6233F88C/6A2EC315" Ref="C?"  Part="1" 
+AR Path="/60757845/607964B6/6A2EC315" Ref="C?"  Part="1" 
+AR Path="/64FC7999/650046D0/6A2EC315" Ref="C?"  Part="1" 
+AR Path="/65BD1B6F/6A2EC315" Ref="C?"  Part="1" 
+F 0 "C?" H 7359 6396 50  0000 R CNN
+F 1 "100nF" H 7359 6305 50  0000 R CNN
+F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7450 6350 50  0001 C CNN
+F 3 "~" H 7450 6350 50  0001 C CNN
+	1    7450 6350
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 6A2EC31B
+P 7450 6250
+F 0 "#PWR?" H 7450 6100 50  0001 C CNN
+F 1 "+5V" H 7465 6423 50  0000 C CNN
+F 2 "" H 7450 6250 50  0001 C CNN
+F 3 "" H 7450 6250 50  0001 C CNN
+	1    7450 6250
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 6A2EC321
+P 7450 6450
+F 0 "#PWR?" H 7450 6200 50  0001 C CNN
+F 1 "GND" H 7455 6277 50  0000 C CNN
+F 2 "" H 7450 6450 50  0001 C CNN
+F 3 "" H 7450 6450 50  0001 C CNN
+	1    7450 6450
+	1    0    0    -1  
+$EndComp
+Text Notes 6100 800  0    100  ~ 20
+Front-Panel Address Decoder
+Connection ~ 4450 3150
+Wire Wire Line
+	4450 3150 4450 1950
+Wire Wire Line
+	5100 6650 5500 6650
+Text Label 5100 5950 0    50   ~ 0
+~LED-STOP
+Text Label 5100 5750 0    50   ~ 0
+~RSTHOLD
+Text Label 5100 6350 0    50   ~ 0
+~IRQS
+Text Label 5100 5850 0    50   ~ 0
+STEP∕~RUN
+Wire Wire Line
+	5450 6750 5450 6450
+Wire Wire Line
+	5500 6750 5450 6750
+Wire Wire Line
+	5450 6450 5500 6450
+Connection ~ 5450 6750
+Wire Wire Line
+	5450 6800 5450 6750
+$Comp
+L power:GND #PWR?
+U 1 1 6A5C4772
+P 5450 6800
+AR Path="/6A5C4772" Ref="#PWR?"  Part="1" 
+AR Path="/60757845/6A5C4772" Ref="#PWR?"  Part="1" 
+AR Path="/64FC7999/6A5C4772" Ref="#PWR?"  Part="1" 
+AR Path="/65BD1B6F/6A5C4772" Ref="#PWR?"  Part="1" 
+F 0 "#PWR?" H 5450 6550 50  0001 C CNN
+F 1 "GND" H 5455 6627 50  0000 C CNN
+F 2 "" H 5450 6800 50  0001 C CNN
+F 3 "" H 5450 6800 50  0001 C CNN
+	1    5450 6800
+	1    0    0    -1  
+$EndComp
+Text Label 5100 6250 0    50   ~ 0
+~LED-EXEC
+Text Label 5100 6150 0    50   ~ 0
+~LED-FETCH
+Text Label 5100 6050 0    50   ~ 0
+~WS
+Text Label 6700 6450 2    50   ~ 0
+FPD7
+Text Label 6700 6350 2    50   ~ 0
+FPD6
+Text Label 6700 6250 2    50   ~ 0
+FPD5
+Text Label 6700 6150 2    50   ~ 0
+FPD4
+Text Label 6700 6050 2    50   ~ 0
+FPD3
+Text Label 6700 5950 2    50   ~ 0
+FPD2
+Text Label 6700 5850 2    50   ~ 0
+FPD1
+Text Label 6700 5750 2    50   ~ 0
+FPD0
+Wire Wire Line
+	6500 6450 6700 6450
+Wire Wire Line
+	6500 6350 6700 6350
+Wire Wire Line
+	6500 6250 6700 6250
+Wire Wire Line
+	6500 6150 6700 6150
+Wire Wire Line
+	6500 6050 6700 6050
+Wire Wire Line
+	6500 5950 6700 5950
+Wire Wire Line
+	6500 5850 6700 5850
+Wire Wire Line
+	6500 5750 6700 5750
+Text Label 5100 6650 0    50   ~ 0
+~FPOE16
+Text Notes 5200 5400 0    100  ~ 20
+State Lights (~FPOE16~)
+Wire Wire Line
+	5000 5750 5500 5750
+Wire Wire Line
+	5000 5850 5500 5850
+Wire Wire Line
+	5000 5950 5500 5950
+Wire Wire Line
+	5000 6050 5500 6050
+Wire Wire Line
+	5000 6150 5500 6150
+Wire Wire Line
+	5000 6250 5500 6250
+Wire Wire Line
+	5000 6350 5500 6350
+Text HLabel 5000 5750 0    50   Input ~ 0
+~RSTHOLD
+Text HLabel 5000 5850 0    50   Input ~ 0
+STEP∕~RUN
+Text HLabel 5000 5950 0    50   Input ~ 0
+~LED-STOP
+Text HLabel 5000 6050 0    50   Input ~ 0
+~WS
+Text HLabel 5000 6150 0    50   Input ~ 0
+~LED-FETCH
+Text HLabel 5000 6250 0    50   Input ~ 0
+~LED-EXEC
+Text HLabel 5000 6350 0    50   Input ~ 0
+~IRQS
+$Comp
+L Device:C_Small C?
+U 1 1 6AEB8989
+P 7450 5650
+AR Path="/6AEB8989" Ref="C?"  Part="1" 
+AR Path="/6233F88C/6AEB8989" Ref="C?"  Part="1" 
+AR Path="/60757845/607964B6/6AEB8989" Ref="C?"  Part="1" 
+AR Path="/64FC7999/650046D0/6AEB8989" Ref="C?"  Part="1" 
+AR Path="/65BD1B6F/6AEB8989" Ref="C?"  Part="1" 
+F 0 "C?" H 7359 5696 50  0000 R CNN
+F 1 "100nF" H 7359 5605 50  0000 R CNN
+F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7450 5650 50  0001 C CNN
+F 3 "~" H 7450 5650 50  0001 C CNN
+	1    7450 5650
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 6AEB898F
+P 7450 5550
+F 0 "#PWR?" H 7450 5400 50  0001 C CNN
+F 1 "+5V" H 7465 5723 50  0000 C CNN
+F 2 "" H 7450 5550 50  0001 C CNN
+F 3 "" H 7450 5550 50  0001 C CNN
+	1    7450 5550
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 6AEB8995
+P 7450 5750
+F 0 "#PWR?" H 7450 5500 50  0001 C CNN
+F 1 "GND" H 7455 5577 50  0000 C CNN
+F 2 "" H 7450 5750 50  0001 C CNN
+F 3 "" H 7450 5750 50  0001 C CNN
+	1    7450 5750
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74LVC1G00 U?
+U 1 1 6AFE1F5D
+P 2400 1400
+F 0 "U?" H 2325 1667 50  0000 C CNN
+F 1 "74LVC1G00" H 2325 1576 50  0000 C CNN
+F 2 "" H 2050 1400 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G00.pdf" H 2050 1400 50  0001 C CNN
+	1    2400 1400
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC138 U?
+U 1 1 6AFE3EEE
+P 3600 1500
+F 0 "U?" H 3600 2167 50  0000 C CNN
+F 1 "74HC138" H 3600 2076 50  0000 C CNN
+F 2 "" H 3600 1500 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT138.pdf" H 3600 1500 50  0001 C CNN
+F 4 "Yes" H 3525 675 50  0001 C CNN "Verified"
+	1    3600 1500
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC154 U?
+U 1 1 6AFE55D4
+P 5750 1800
+F 0 "U?" H 5750 2767 50  0000 C CNN
+F 1 "74HC154" H 5750 2676 50  0000 C CNN
+F 2 "" H 5750 1800 50  0001 C CNN
+F 3 "https://gr.mouser.com/datasheet/2/916/74HC_HCT154-1319613.pdf" H 5750 1800 50  0001 C CNN
+	1    5750 1800
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC154 U?
+U 1 1 6AFE5DF3
+P 5750 3750
+F 0 "U?" H 5750 4717 50  0000 C CNN
+F 1 "74HC154" H 5750 4626 50  0000 C CNN
+F 2 "" H 5750 3750 50  0001 C CNN
+F 3 "https://gr.mouser.com/datasheet/2/916/74HC_HCT154-1319613.pdf" H 5750 3750 50  0001 C CNN
+	1    5750 3750
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:74HC540 U?
+U 1 1 6AFE7216
+P 6000 6250
+F 0 "U?" H 6000 7017 50  0000 C CNN
+F 1 "74HC540" H 6000 6926 50  0000 C CNN
+F 2 "" H 6000 6250 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74HC540" H 6000 6250 50  0001 C CNN
+	1    6000 6250
+	1    0    0    -1  
+$EndComp
 Wire Bus Line
-	4150 2500 4150 6250
+	2700 800  2700 1800
 Wire Bus Line
-	4250 1600 4250 5450
+	4600 800  4600 4950
 Wire Bus Line
-	2250 800  2250 3100
-Wire Bus Line
-	4450 800  4450 4950
-Wire Bus Line
-	6350 1200 6350 6150
+	6750 1200 6750 4850
 $EndSCHEMATC
