@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 1 17
+Sheet 1 15
 Title "Debugging Front Panel"
 Date "2019-11-17"
 Rev "2049"
@@ -162,14 +162,14 @@ TO DO:
 Text Notes 1650 -400 0    50   ~ 0
 Done: Add replaceable pods for buses and MCU/clock.\nDone: Isolate front panel connector from rest of FPD.\nDone: Disable front panel during programming.\nDone: Disable serial port during programming.\nDone: Add configurable pull-ups on various signals.\nDone: Fix FTDI cable pin-out (swap RX/TX; likely ALREADY SWAPPED in R1943).\nDone: Add reset switch.\nDone: Add 1-2 more banks of DIP switches.\nDone: Left bus for peripherals.\nDone: Right bus for processor, memory and memory-mapped I/O.\nFix TTYD LED.\nFix activity LED.\nAdd front-panel switch LED.\nAdd PANELEN LED.\nAdd CFT IRQ LED.\nWeakly pull-up ALL MCU outputs!!!\nDone: Pull-up MCU ~RESET~
 $Comp
-L Device:CP_Small C?
+L Device:CP_Small C17
 U 1 1 609CAF2E
 P 1150 7100
-AR Path="/609CAF2E" Ref="C?"  Part="1" 
+AR Path="/609CAF2E" Ref="C17"  Part="1" 
 AR Path="/5D34E810/609CAF2E" Ref="C?"  Part="1" 
 AR Path="/5F1DB2E8/609CAF2E" Ref="C?"  Part="1" 
 AR Path="/60757845/609CAF2E" Ref="C?"  Part="1" 
-F 0 "C?" H 1062 7146 50  0000 R CNN
+F 0 "C17" H 1062 7146 50  0000 R CNN
 F 1 "47µF" H 1062 7055 50  0000 R CNN
 F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 1150 7100 50  0001 C CNN
 F 3 "~" H 1150 7100 50  0001 C CNN
@@ -181,12 +181,12 @@ L power:GND #PWR?
 U 1 1 609CAF34
 P 1150 7300
 AR Path="/5F67D4B5/609CAF34" Ref="#PWR?"  Part="1" 
-AR Path="/609CAF34" Ref="#PWR?"  Part="1" 
+AR Path="/609CAF34" Ref="#PWR033"  Part="1" 
 AR Path="/5D34E810/609CAF34" Ref="#PWR?"  Part="1" 
 AR Path="/5D36B851/609CAF34" Ref="#PWR?"  Part="1" 
 AR Path="/5F1DB2E8/609CAF34" Ref="#PWR?"  Part="1" 
 AR Path="/60757845/609CAF34" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 1150 7050 50  0001 C CNN
+F 0 "#PWR033" H 1150 7050 50  0001 C CNN
 F 1 "GND" H 1072 7263 50  0000 R CNN
 F 2 "" H 1150 7300 50  0001 C CNN
 F 3 "" H 1150 7300 50  0001 C CNN
@@ -198,12 +198,12 @@ L power:+5V #PWR?
 U 1 1 609CAF3A
 P 1150 6900
 AR Path="/5F67D4B5/609CAF3A" Ref="#PWR?"  Part="1" 
-AR Path="/609CAF3A" Ref="#PWR?"  Part="1" 
+AR Path="/609CAF3A" Ref="#PWR032"  Part="1" 
 AR Path="/5D34E810/609CAF3A" Ref="#PWR?"  Part="1" 
 AR Path="/5D36B851/609CAF3A" Ref="#PWR?"  Part="1" 
 AR Path="/5F1DB2E8/609CAF3A" Ref="#PWR?"  Part="1" 
 AR Path="/60757845/609CAF3A" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 1150 6750 50  0001 C CNN
+F 0 "#PWR032" H 1150 6750 50  0001 C CNN
 F 1 "+5V" H 1092 6937 50  0000 R CNN
 F 2 "" H 1150 6900 50  0001 C CNN
 F 3 "" H 1150 6900 50  0001 C CNN
@@ -215,14 +215,14 @@ Wire Wire Line
 Wire Wire Line
 	1150 7200 1150 7300
 $Comp
-L Device:CP_Small C?
+L Device:CP_Small C18
 U 1 1 609CAF42
 P 1550 7100
-AR Path="/609CAF42" Ref="C?"  Part="1" 
+AR Path="/609CAF42" Ref="C18"  Part="1" 
 AR Path="/5D34E810/609CAF42" Ref="C?"  Part="1" 
 AR Path="/5F1DB2E8/609CAF42" Ref="C?"  Part="1" 
 AR Path="/60757845/609CAF42" Ref="C?"  Part="1" 
-F 0 "C?" H 1462 7146 50  0000 R CNN
+F 0 "C18" H 1462 7146 50  0000 R CNN
 F 1 "47µF" H 1462 7055 50  0000 R CNN
 F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 1550 7100 50  0001 C CNN
 F 3 "~" H 1550 7100 50  0001 C CNN
@@ -234,12 +234,12 @@ L power:GND #PWR?
 U 1 1 609CAF48
 P 1550 7300
 AR Path="/5F67D4B5/609CAF48" Ref="#PWR?"  Part="1" 
-AR Path="/609CAF48" Ref="#PWR?"  Part="1" 
+AR Path="/609CAF48" Ref="#PWR035"  Part="1" 
 AR Path="/5D34E810/609CAF48" Ref="#PWR?"  Part="1" 
 AR Path="/5D36B851/609CAF48" Ref="#PWR?"  Part="1" 
 AR Path="/5F1DB2E8/609CAF48" Ref="#PWR?"  Part="1" 
 AR Path="/60757845/609CAF48" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 1550 7050 50  0001 C CNN
+F 0 "#PWR035" H 1550 7050 50  0001 C CNN
 F 1 "GND" H 1472 7263 50  0000 R CNN
 F 2 "" H 1550 7300 50  0001 C CNN
 F 3 "" H 1550 7300 50  0001 C CNN
@@ -251,12 +251,12 @@ L power:+5V #PWR?
 U 1 1 609CAF4E
 P 1550 6900
 AR Path="/5F67D4B5/609CAF4E" Ref="#PWR?"  Part="1" 
-AR Path="/609CAF4E" Ref="#PWR?"  Part="1" 
+AR Path="/609CAF4E" Ref="#PWR034"  Part="1" 
 AR Path="/5D34E810/609CAF4E" Ref="#PWR?"  Part="1" 
 AR Path="/5D36B851/609CAF4E" Ref="#PWR?"  Part="1" 
 AR Path="/5F1DB2E8/609CAF4E" Ref="#PWR?"  Part="1" 
 AR Path="/60757845/609CAF4E" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 1550 6750 50  0001 C CNN
+F 0 "#PWR034" H 1550 6750 50  0001 C CNN
 F 1 "+5V" H 1492 6937 50  0000 R CNN
 F 2 "" H 1550 6900 50  0001 C CNN
 F 3 "" H 1550 6900 50  0001 C CNN
@@ -268,14 +268,14 @@ Wire Wire Line
 Wire Wire Line
 	1550 7200 1550 7300
 $Comp
-L Device:CP_Small C?
+L Device:CP_Small C19
 U 1 1 609CAF56
 P 2000 7100
-AR Path="/609CAF56" Ref="C?"  Part="1" 
+AR Path="/609CAF56" Ref="C19"  Part="1" 
 AR Path="/5D34E810/609CAF56" Ref="C?"  Part="1" 
 AR Path="/5F1DB2E8/609CAF56" Ref="C?"  Part="1" 
 AR Path="/60757845/609CAF56" Ref="C?"  Part="1" 
-F 0 "C?" H 1912 7146 50  0000 R CNN
+F 0 "C19" H 1912 7146 50  0000 R CNN
 F 1 "47µF" H 1912 7055 50  0000 R CNN
 F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 2000 7100 50  0001 C CNN
 F 3 "~" H 2000 7100 50  0001 C CNN
@@ -287,12 +287,12 @@ L power:GND #PWR?
 U 1 1 609CAF5C
 P 2000 7300
 AR Path="/5F67D4B5/609CAF5C" Ref="#PWR?"  Part="1" 
-AR Path="/609CAF5C" Ref="#PWR?"  Part="1" 
+AR Path="/609CAF5C" Ref="#PWR037"  Part="1" 
 AR Path="/5D34E810/609CAF5C" Ref="#PWR?"  Part="1" 
 AR Path="/5D36B851/609CAF5C" Ref="#PWR?"  Part="1" 
 AR Path="/5F1DB2E8/609CAF5C" Ref="#PWR?"  Part="1" 
 AR Path="/60757845/609CAF5C" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 2000 7050 50  0001 C CNN
+F 0 "#PWR037" H 2000 7050 50  0001 C CNN
 F 1 "GND" H 1922 7263 50  0000 R CNN
 F 2 "" H 2000 7300 50  0001 C CNN
 F 3 "" H 2000 7300 50  0001 C CNN
@@ -304,12 +304,12 @@ L power:+5V #PWR?
 U 1 1 609CAF62
 P 2000 6900
 AR Path="/5F67D4B5/609CAF62" Ref="#PWR?"  Part="1" 
-AR Path="/609CAF62" Ref="#PWR?"  Part="1" 
+AR Path="/609CAF62" Ref="#PWR036"  Part="1" 
 AR Path="/5D34E810/609CAF62" Ref="#PWR?"  Part="1" 
 AR Path="/5D36B851/609CAF62" Ref="#PWR?"  Part="1" 
 AR Path="/5F1DB2E8/609CAF62" Ref="#PWR?"  Part="1" 
 AR Path="/60757845/609CAF62" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 2000 6750 50  0001 C CNN
+F 0 "#PWR036" H 2000 6750 50  0001 C CNN
 F 1 "+5V" H 1942 6937 50  0000 R CNN
 F 2 "" H 2000 6900 50  0001 C CNN
 F 3 "" H 2000 6900 50  0001 C CNN
@@ -321,14 +321,14 @@ Wire Wire Line
 Wire Wire Line
 	2000 7200 2000 7300
 $Comp
-L Device:CP_Small C?
+L Device:CP_Small C20
 U 1 1 609CAF6A
 P 2400 7100
-AR Path="/609CAF6A" Ref="C?"  Part="1" 
+AR Path="/609CAF6A" Ref="C20"  Part="1" 
 AR Path="/5D34E810/609CAF6A" Ref="C?"  Part="1" 
 AR Path="/5F1DB2E8/609CAF6A" Ref="C?"  Part="1" 
 AR Path="/60757845/609CAF6A" Ref="C?"  Part="1" 
-F 0 "C?" H 2312 7146 50  0000 R CNN
+F 0 "C20" H 2312 7146 50  0000 R CNN
 F 1 "47µF" H 2312 7055 50  0000 R CNN
 F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 2400 7100 50  0001 C CNN
 F 3 "~" H 2400 7100 50  0001 C CNN
@@ -340,12 +340,12 @@ L power:GND #PWR?
 U 1 1 609CAF70
 P 2400 7300
 AR Path="/5F67D4B5/609CAF70" Ref="#PWR?"  Part="1" 
-AR Path="/609CAF70" Ref="#PWR?"  Part="1" 
+AR Path="/609CAF70" Ref="#PWR039"  Part="1" 
 AR Path="/5D34E810/609CAF70" Ref="#PWR?"  Part="1" 
 AR Path="/5D36B851/609CAF70" Ref="#PWR?"  Part="1" 
 AR Path="/5F1DB2E8/609CAF70" Ref="#PWR?"  Part="1" 
 AR Path="/60757845/609CAF70" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 2400 7050 50  0001 C CNN
+F 0 "#PWR039" H 2400 7050 50  0001 C CNN
 F 1 "GND" H 2322 7263 50  0000 R CNN
 F 2 "" H 2400 7300 50  0001 C CNN
 F 3 "" H 2400 7300 50  0001 C CNN
@@ -357,12 +357,12 @@ L power:+5V #PWR?
 U 1 1 609CAF76
 P 2400 6900
 AR Path="/5F67D4B5/609CAF76" Ref="#PWR?"  Part="1" 
-AR Path="/609CAF76" Ref="#PWR?"  Part="1" 
+AR Path="/609CAF76" Ref="#PWR038"  Part="1" 
 AR Path="/5D34E810/609CAF76" Ref="#PWR?"  Part="1" 
 AR Path="/5D36B851/609CAF76" Ref="#PWR?"  Part="1" 
 AR Path="/5F1DB2E8/609CAF76" Ref="#PWR?"  Part="1" 
 AR Path="/60757845/609CAF76" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 2400 6750 50  0001 C CNN
+F 0 "#PWR038" H 2400 6750 50  0001 C CNN
 F 1 "+5V" H 2342 6937 50  0000 R CNN
 F 2 "" H 2400 6900 50  0001 C CNN
 F 3 "" H 2400 6900 50  0001 C CNN
@@ -374,14 +374,14 @@ Wire Wire Line
 Wire Wire Line
 	2400 7200 2400 7300
 $Comp
-L Device:CP_Small C?
+L Device:CP_Small C21
 U 1 1 609CAF7E
 P 2850 7100
-AR Path="/609CAF7E" Ref="C?"  Part="1" 
+AR Path="/609CAF7E" Ref="C21"  Part="1" 
 AR Path="/5D34E810/609CAF7E" Ref="C?"  Part="1" 
 AR Path="/5F1DB2E8/609CAF7E" Ref="C?"  Part="1" 
 AR Path="/60757845/609CAF7E" Ref="C?"  Part="1" 
-F 0 "C?" H 2762 7146 50  0000 R CNN
+F 0 "C21" H 2762 7146 50  0000 R CNN
 F 1 "47µF" H 2762 7055 50  0000 R CNN
 F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 2850 7100 50  0001 C CNN
 F 3 "~" H 2850 7100 50  0001 C CNN
@@ -393,12 +393,12 @@ L power:GND #PWR?
 U 1 1 609CAF84
 P 2850 7300
 AR Path="/5F67D4B5/609CAF84" Ref="#PWR?"  Part="1" 
-AR Path="/609CAF84" Ref="#PWR?"  Part="1" 
+AR Path="/609CAF84" Ref="#PWR041"  Part="1" 
 AR Path="/5D34E810/609CAF84" Ref="#PWR?"  Part="1" 
 AR Path="/5D36B851/609CAF84" Ref="#PWR?"  Part="1" 
 AR Path="/5F1DB2E8/609CAF84" Ref="#PWR?"  Part="1" 
 AR Path="/60757845/609CAF84" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 2850 7050 50  0001 C CNN
+F 0 "#PWR041" H 2850 7050 50  0001 C CNN
 F 1 "GND" H 2772 7263 50  0000 R CNN
 F 2 "" H 2850 7300 50  0001 C CNN
 F 3 "" H 2850 7300 50  0001 C CNN
@@ -410,12 +410,12 @@ L power:+5V #PWR?
 U 1 1 609CAF8A
 P 2850 6900
 AR Path="/5F67D4B5/609CAF8A" Ref="#PWR?"  Part="1" 
-AR Path="/609CAF8A" Ref="#PWR?"  Part="1" 
+AR Path="/609CAF8A" Ref="#PWR040"  Part="1" 
 AR Path="/5D34E810/609CAF8A" Ref="#PWR?"  Part="1" 
 AR Path="/5D36B851/609CAF8A" Ref="#PWR?"  Part="1" 
 AR Path="/5F1DB2E8/609CAF8A" Ref="#PWR?"  Part="1" 
 AR Path="/60757845/609CAF8A" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 2850 6750 50  0001 C CNN
+F 0 "#PWR040" H 2850 6750 50  0001 C CNN
 F 1 "+5V" H 2792 6937 50  0000 R CNN
 F 2 "" H 2850 6900 50  0001 C CNN
 F 3 "" H 2850 6900 50  0001 C CNN
@@ -427,14 +427,14 @@ Wire Wire Line
 Wire Wire Line
 	2850 7200 2850 7300
 $Comp
-L Device:CP_Small C?
+L Device:CP_Small C22
 U 1 1 609CAF92
 P 3250 7100
-AR Path="/609CAF92" Ref="C?"  Part="1" 
+AR Path="/609CAF92" Ref="C22"  Part="1" 
 AR Path="/5D34E810/609CAF92" Ref="C?"  Part="1" 
 AR Path="/5F1DB2E8/609CAF92" Ref="C?"  Part="1" 
 AR Path="/60757845/609CAF92" Ref="C?"  Part="1" 
-F 0 "C?" H 3162 7146 50  0000 R CNN
+F 0 "C22" H 3162 7146 50  0000 R CNN
 F 1 "47µF" H 3162 7055 50  0000 R CNN
 F 2 "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm" H 3250 7100 50  0001 C CNN
 F 3 "~" H 3250 7100 50  0001 C CNN
@@ -446,12 +446,12 @@ L power:GND #PWR?
 U 1 1 609CAF98
 P 3250 7300
 AR Path="/5F67D4B5/609CAF98" Ref="#PWR?"  Part="1" 
-AR Path="/609CAF98" Ref="#PWR?"  Part="1" 
+AR Path="/609CAF98" Ref="#PWR043"  Part="1" 
 AR Path="/5D34E810/609CAF98" Ref="#PWR?"  Part="1" 
 AR Path="/5D36B851/609CAF98" Ref="#PWR?"  Part="1" 
 AR Path="/5F1DB2E8/609CAF98" Ref="#PWR?"  Part="1" 
 AR Path="/60757845/609CAF98" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 3250 7050 50  0001 C CNN
+F 0 "#PWR043" H 3250 7050 50  0001 C CNN
 F 1 "GND" H 3172 7263 50  0000 R CNN
 F 2 "" H 3250 7300 50  0001 C CNN
 F 3 "" H 3250 7300 50  0001 C CNN
@@ -463,12 +463,12 @@ L power:+5V #PWR?
 U 1 1 609CAF9E
 P 3250 6900
 AR Path="/5F67D4B5/609CAF9E" Ref="#PWR?"  Part="1" 
-AR Path="/609CAF9E" Ref="#PWR?"  Part="1" 
+AR Path="/609CAF9E" Ref="#PWR042"  Part="1" 
 AR Path="/5D34E810/609CAF9E" Ref="#PWR?"  Part="1" 
 AR Path="/5D36B851/609CAF9E" Ref="#PWR?"  Part="1" 
 AR Path="/5F1DB2E8/609CAF9E" Ref="#PWR?"  Part="1" 
 AR Path="/60757845/609CAF9E" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 3250 6750 50  0001 C CNN
+F 0 "#PWR042" H 3250 6750 50  0001 C CNN
 F 1 "+5V" H 3192 6937 50  0000 R CNN
 F 2 "" H 3250 6900 50  0001 C CNN
 F 3 "" H 3250 6900 50  0001 C CNN
@@ -500,12 +500,12 @@ Text Label 8450 2000 2    50   ~ 0
 Text Label 5100 7250 0    50   ~ 0
 ~FPIRQ
 $Comp
-L power:GND #PWR?
+L power:GND #PWR045
 U 1 1 64333D1D
 P 9500 9300
-AR Path="/64333D1D" Ref="#PWR?"  Part="1" 
+AR Path="/64333D1D" Ref="#PWR045"  Part="1" 
 AR Path="/60757845/64333D1D" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 9500 9050 50  0001 C CNN
+F 0 "#PWR045" H 9500 9050 50  0001 C CNN
 F 1 "GND" H 9505 9127 50  0000 C CNN
 F 2 "" H 9500 9300 50  0001 C CNN
 F 3 "" H 9500 9300 50  0001 C CNN
@@ -513,12 +513,12 @@ F 3 "" H 9500 9300 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+5V #PWR?
+L power:+5V #PWR044
 U 1 1 64333D23
 P 9500 9100
-AR Path="/64333D23" Ref="#PWR?"  Part="1" 
+AR Path="/64333D23" Ref="#PWR044"  Part="1" 
 AR Path="/60757845/64333D23" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 9500 8950 50  0001 C CNN
+F 0 "#PWR044" H 9500 8950 50  0001 C CNN
 F 1 "+5V" H 9515 9273 50  0000 C CNN
 F 2 "" H 9500 9100 50  0001 C CNN
 F 3 "" H 9500 9100 50  0001 C CNN
@@ -526,12 +526,12 @@ F 3 "" H 9500 9100 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C_Small C?
+L Device:C_Small C23
 U 1 1 64333D29
 P 9500 9200
-AR Path="/64333D29" Ref="C?"  Part="1" 
+AR Path="/64333D29" Ref="C23"  Part="1" 
 AR Path="/60757845/64333D29" Ref="C?"  Part="1" 
-F 0 "C?" H 9409 9246 50  0000 R CNN
+F 0 "C23" H 9409 9246 50  0000 R CNN
 F 1 "100nF" H 9409 9155 50  0000 R CNN
 F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 9500 9200 50  0001 C CNN
 F 3 "~" H 9500 9200 50  0001 C CNN
@@ -539,12 +539,12 @@ F 3 "~" H 9500 9200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L alexios:74LVC1G07 U?
+L alexios:74LVC1G07 U7
 U 2 1 64333D2F
 P 9850 9800
-AR Path="/64333D2F" Ref="U?"  Part="2" 
+AR Path="/64333D2F" Ref="U7"  Part="2" 
 AR Path="/60757845/64333D2F" Ref="U?"  Part="2" 
-F 0 "U?" H 10030 9746 50  0000 L CNN
+F 0 "U7" H 10030 9746 50  0000 L CNN
 F 1 "74LVC1G07" H 10030 9655 50  0000 L CNN
 F 2 "alexios:SOT-23-5_HandSoldering" H 9950 9800 50  0001 C CNN
 F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 9950 9800 50  0001 C CNN
@@ -554,12 +554,12 @@ $EndComp
 Connection ~ 9500 9300
 Connection ~ 9500 9100
 $Comp
-L power:GND #PWR?
+L power:GND #PWR047
 U 1 1 64333D37
 P 9500 10000
-AR Path="/64333D37" Ref="#PWR?"  Part="1" 
+AR Path="/64333D37" Ref="#PWR047"  Part="1" 
 AR Path="/60757845/64333D37" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 9500 9750 50  0001 C CNN
+F 0 "#PWR047" H 9500 9750 50  0001 C CNN
 F 1 "GND" H 9505 9827 50  0000 C CNN
 F 2 "" H 9500 10000 50  0001 C CNN
 F 3 "" H 9500 10000 50  0001 C CNN
@@ -567,12 +567,12 @@ F 3 "" H 9500 10000 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+5V #PWR?
+L power:+5V #PWR046
 U 1 1 64333D3D
 P 9500 9800
-AR Path="/64333D3D" Ref="#PWR?"  Part="1" 
+AR Path="/64333D3D" Ref="#PWR046"  Part="1" 
 AR Path="/60757845/64333D3D" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 9500 9650 50  0001 C CNN
+F 0 "#PWR046" H 9500 9650 50  0001 C CNN
 F 1 "+5V" H 9515 9973 50  0000 C CNN
 F 2 "" H 9500 9800 50  0001 C CNN
 F 3 "" H 9500 9800 50  0001 C CNN
@@ -580,12 +580,12 @@ F 3 "" H 9500 9800 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C_Small C?
+L Device:C_Small C24
 U 1 1 64333D43
 P 9500 9900
-AR Path="/64333D43" Ref="C?"  Part="1" 
+AR Path="/64333D43" Ref="C24"  Part="1" 
 AR Path="/60757845/64333D43" Ref="C?"  Part="1" 
-F 0 "C?" H 9409 9946 50  0000 R CNN
+F 0 "C24" H 9409 9946 50  0000 R CNN
 F 1 "100nF" H 9409 9855 50  0000 R CNN
 F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 9500 9900 50  0001 C CNN
 F 3 "~" H 9500 9900 50  0001 C CNN
@@ -593,12 +593,12 @@ F 3 "~" H 9500 9900 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L alexios:74LVC1G07 U?
+L alexios:74LVC1G07 U8
 U 2 1 64333D49
 P 11300 9100
-AR Path="/64333D49" Ref="U?"  Part="2" 
+AR Path="/64333D49" Ref="U8"  Part="2" 
 AR Path="/60757845/64333D49" Ref="U?"  Part="2" 
-F 0 "U?" H 11480 9046 50  0000 L CNN
+F 0 "U8" H 11480 9046 50  0000 L CNN
 F 1 "74LVC1G07" H 11480 8955 50  0000 L CNN
 F 2 "alexios:SOT-23-5_HandSoldering" H 11400 9100 50  0001 C CNN
 F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 11400 9100 50  0001 C CNN
@@ -608,12 +608,12 @@ $EndComp
 Connection ~ 9500 10000
 Connection ~ 9500 9800
 $Comp
-L power:GND #PWR?
+L power:GND #PWR049
 U 1 1 64333D51
 P 10950 9300
-AR Path="/64333D51" Ref="#PWR?"  Part="1" 
+AR Path="/64333D51" Ref="#PWR049"  Part="1" 
 AR Path="/60757845/64333D51" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 10950 9050 50  0001 C CNN
+F 0 "#PWR049" H 10950 9050 50  0001 C CNN
 F 1 "GND" H 10955 9127 50  0000 C CNN
 F 2 "" H 10950 9300 50  0001 C CNN
 F 3 "" H 10950 9300 50  0001 C CNN
@@ -621,12 +621,12 @@ F 3 "" H 10950 9300 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+5V #PWR?
+L power:+5V #PWR048
 U 1 1 64333D57
 P 10950 9100
-AR Path="/64333D57" Ref="#PWR?"  Part="1" 
+AR Path="/64333D57" Ref="#PWR048"  Part="1" 
 AR Path="/60757845/64333D57" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 10950 8950 50  0001 C CNN
+F 0 "#PWR048" H 10950 8950 50  0001 C CNN
 F 1 "+5V" H 10965 9273 50  0000 C CNN
 F 2 "" H 10950 9100 50  0001 C CNN
 F 3 "" H 10950 9100 50  0001 C CNN
@@ -634,12 +634,12 @@ F 3 "" H 10950 9100 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C_Small C?
+L Device:C_Small C25
 U 1 1 64333D5D
 P 10950 9200
-AR Path="/64333D5D" Ref="C?"  Part="1" 
+AR Path="/64333D5D" Ref="C25"  Part="1" 
 AR Path="/60757845/64333D5D" Ref="C?"  Part="1" 
-F 0 "C?" H 10859 9246 50  0000 R CNN
+F 0 "C25" H 10859 9246 50  0000 R CNN
 F 1 "100nF" H 10859 9155 50  0000 R CNN
 F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10950 9200 50  0001 C CNN
 F 3 "~" H 10950 9200 50  0001 C CNN
@@ -647,12 +647,12 @@ F 3 "~" H 10950 9200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L alexios:74LVC1G07 U?
+L alexios:74LVC1G07 U10
 U 2 1 64333D63
 P 12750 9800
-AR Path="/64333D63" Ref="U?"  Part="2" 
+AR Path="/64333D63" Ref="U10"  Part="2" 
 AR Path="/60757845/64333D63" Ref="U?"  Part="2" 
-F 0 "U?" H 12930 9746 50  0000 L CNN
+F 0 "U10" H 12930 9746 50  0000 L CNN
 F 1 "74LVC1G07" H 12930 9655 50  0000 L CNN
 F 2 "alexios:SOT-23-5_HandSoldering" H 12850 9800 50  0001 C CNN
 F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 12850 9800 50  0001 C CNN
@@ -662,12 +662,12 @@ $EndComp
 Connection ~ 10950 9300
 Connection ~ 10950 9100
 $Comp
-L alexios:74LVC1G04 U?
+L alexios:74LVC1G04 U9
 U 2 1 64333D6B
 P 11300 9900
-AR Path="/64333D6B" Ref="U?"  Part="2" 
+AR Path="/64333D6B" Ref="U9"  Part="2" 
 AR Path="/60757845/64333D6B" Ref="U?"  Part="2" 
-F 0 "U?" H 11480 9946 50  0000 L CNN
+F 0 "U9" H 11480 9946 50  0000 L CNN
 F 1 "74LVC1G04" H 11480 9855 50  0000 L CNN
 F 2 "alexios:SOT-23-5_HandSoldering" H 11300 9900 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G04.pdf" H 11300 9900 50  0001 C CNN
@@ -675,12 +675,12 @@ F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G04.pdf" H 11300 990
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C_Small C?
+L Device:C_Small C26
 U 1 1 64333D71
 P 10950 9900
-AR Path="/64333D71" Ref="C?"  Part="1" 
+AR Path="/64333D71" Ref="C26"  Part="1" 
 AR Path="/60757845/64333D71" Ref="C?"  Part="1" 
-F 0 "C?" H 10859 9946 50  0000 R CNN
+F 0 "C26" H 10859 9946 50  0000 R CNN
 F 1 "100nF" H 10859 9855 50  0000 R CNN
 F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10950 9900 50  0001 C CNN
 F 3 "~" H 10950 9900 50  0001 C CNN
@@ -688,12 +688,12 @@ F 3 "~" H 10950 9900 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+5V #PWR?
+L power:+5V #PWR050
 U 1 1 64333D77
 P 10950 9800
-AR Path="/64333D77" Ref="#PWR?"  Part="1" 
+AR Path="/64333D77" Ref="#PWR050"  Part="1" 
 AR Path="/60757845/64333D77" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 10950 9650 50  0001 C CNN
+F 0 "#PWR050" H 10950 9650 50  0001 C CNN
 F 1 "+5V" H 10965 9973 50  0000 C CNN
 F 2 "" H 10950 9800 50  0001 C CNN
 F 3 "" H 10950 9800 50  0001 C CNN
@@ -702,12 +702,12 @@ F 3 "" H 10950 9800 50  0001 C CNN
 $EndComp
 Connection ~ 10950 9800
 $Comp
-L power:GND #PWR?
+L power:GND #PWR051
 U 1 1 64333D7E
 P 10950 10000
-AR Path="/64333D7E" Ref="#PWR?"  Part="1" 
+AR Path="/64333D7E" Ref="#PWR051"  Part="1" 
 AR Path="/60757845/64333D7E" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 10950 9750 50  0001 C CNN
+F 0 "#PWR051" H 10950 9750 50  0001 C CNN
 F 1 "GND" H 10955 9827 50  0000 C CNN
 F 2 "" H 10950 10000 50  0001 C CNN
 F 3 "" H 10950 10000 50  0001 C CNN
@@ -716,12 +716,12 @@ F 3 "" H 10950 10000 50  0001 C CNN
 $EndComp
 Connection ~ 10950 10000
 $Comp
-L power:GND #PWR?
+L power:GND #PWR053
 U 1 1 64333DBB
 P 12400 10000
-AR Path="/64333DBB" Ref="#PWR?"  Part="1" 
+AR Path="/64333DBB" Ref="#PWR053"  Part="1" 
 AR Path="/60757845/64333DBB" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 12400 9750 50  0001 C CNN
+F 0 "#PWR053" H 12400 9750 50  0001 C CNN
 F 1 "GND" H 12405 9827 50  0000 C CNN
 F 2 "" H 12400 10000 50  0001 C CNN
 F 3 "" H 12400 10000 50  0001 C CNN
@@ -729,12 +729,12 @@ F 3 "" H 12400 10000 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+5V #PWR?
+L power:+5V #PWR052
 U 1 1 64333DC1
 P 12400 9800
-AR Path="/64333DC1" Ref="#PWR?"  Part="1" 
+AR Path="/64333DC1" Ref="#PWR052"  Part="1" 
 AR Path="/60757845/64333DC1" Ref="#PWR?"  Part="1" 
-F 0 "#PWR?" H 12400 9650 50  0001 C CNN
+F 0 "#PWR052" H 12400 9650 50  0001 C CNN
 F 1 "+5V" H 12415 9973 50  0000 C CNN
 F 2 "" H 12400 9800 50  0001 C CNN
 F 3 "" H 12400 9800 50  0001 C CNN
@@ -742,12 +742,12 @@ F 3 "" H 12400 9800 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:C_Small C?
+L Device:C_Small C27
 U 1 1 64333DC7
 P 12400 9900
-AR Path="/64333DC7" Ref="C?"  Part="1" 
+AR Path="/64333DC7" Ref="C27"  Part="1" 
 AR Path="/60757845/64333DC7" Ref="C?"  Part="1" 
-F 0 "C?" H 12491 9854 50  0000 L CNN
+F 0 "C27" H 12491 9854 50  0000 L CNN
 F 1 "100nF" H 12491 9945 50  0000 L CNN
 F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 12400 9900 50  0001 C CNN
 F 3 "~" H 12400 9900 50  0001 C CNN
@@ -755,12 +755,12 @@ F 3 "~" H 12400 9900 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L alexios:74LVC1G07 U?
+L alexios:74LVC1G07 U6
 U 2 1 64333DCD
 P 9850 9100
-AR Path="/64333DCD" Ref="U?"  Part="2" 
+AR Path="/64333DCD" Ref="U6"  Part="2" 
 AR Path="/60757845/64333DCD" Ref="U?"  Part="2" 
-F 0 "U?" H 10030 9046 50  0000 L CNN
+F 0 "U6" H 10030 9046 50  0000 L CNN
 F 1 "74LVC1G07" H 10030 8955 50  0000 L CNN
 F 2 "alexios:SOT-23-5_HandSoldering" H 9950 9100 50  0001 C CNN
 F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 9950 9100 50  0001 C CNN
@@ -908,13 +908,13 @@ Wire Wire Line
 Text Label 10350 5400 2    50   ~ 0
 ~SCANCLR
 $Comp
-L Connector:TestPoint TP?
+L Connector:TestPoint TP2
 U 1 1 65BD1BBF
 P 9900 5400
-AR Path="/65BD1BBF" Ref="TP?"  Part="1" 
+AR Path="/65BD1BBF" Ref="TP2"  Part="1" 
 AR Path="/60757845/65BD1BBF" Ref="TP?"  Part="1" 
 AR Path="/64FC7999/65BD1BBF" Ref="TP?"  Part="1" 
-F 0 "TP?" H 9700 5550 50  0000 L CNN
+F 0 "TP2" H 9700 5550 50  0000 L CNN
 F 1 "TestPoint" V 10004 5472 50  0001 C CNN
 F 2 "TestPoint:TestPoint_THTPad_D1.0mm_Drill0.5mm" H 10100 5400 50  0001 C CNN
 F 3 "~" H 10100 5400 50  0001 C CNN
@@ -1059,12 +1059,12 @@ Wire Wire Line
 	5550 7250 5700 7250
 Connection ~ 5550 7250
 $Comp
-L Connector:TestPoint TP?
+L Connector:TestPoint TP1
 U 1 1 64333DF6
 P 5550 7250
-AR Path="/64333DF6" Ref="TP?"  Part="1" 
+AR Path="/64333DF6" Ref="TP1"  Part="1" 
 AR Path="/60757845/64333DF6" Ref="TP?"  Part="1" 
-F 0 "TP?" H 5450 7150 50  0000 L CNN
+F 0 "TP1" H 5450 7150 50  0000 L CNN
 F 1 "TestPoint" V 5654 7322 50  0001 C CNN
 F 2 "TestPoint:TestPoint_THTPad_D1.0mm_Drill0.5mm" H 5750 7250 50  0001 C CNN
 F 3 "~" H 5750 7250 50  0001 C CNN
@@ -1096,12 +1096,12 @@ Wire Wire Line
 Wire Wire Line
 	5700 7250 5700 7350
 $Comp
-L Connector_Generic:Conn_02x03_Odd_Even JP?
+L Connector_Generic:Conn_02x03_Odd_Even JP3
 U 1 1 64333C29
 P 5950 7350
-AR Path="/64333C29" Ref="JP?"  Part="1" 
+AR Path="/64333C29" Ref="JP3"  Part="1" 
 AR Path="/60757845/64333C29" Ref="JP?"  Part="1" 
-F 0 "JP?" H 6000 7575 50  0000 C CNN
+F 0 "JP3" H 6000 7575 50  0000 C CNN
 F 1 "Conn_02x03_Odd_Even" H 6000 7576 50  0001 C CNN
 F 2 "Connector_PinHeader_2.54mm:PinHeader_2x03_P2.54mm_Vertical" H 5950 7350 50  0001 C CNN
 F 3 "~" H 5950 7350 50  0001 C CNN
@@ -1550,20 +1550,6 @@ Text Label 3050 6300 2    50   ~ 0
 ~LED-FETCH
 Text Label 3050 6400 2    50   ~ 0
 ~LED-EXEC
-$Sheet
-S 4450 5000 1150 900 
-U 614F5B8D
-F0 "Address Decoder & Wait States" 50
-F1 "cft_dfp_ws.sch" 50
-F2 "~WS" T R 5600 5150 50 
-F3 "~IOINT" O R 5600 5300 50 
-F4 "~DBOE1" O R 5600 5750 50 
-F5 "~R" T L 4450 5150 50 
-F6 "~DBOE0" I L 4450 5750 50 
-F7 "CLRWS" I L 4450 5600 50 
-F8 "~IODEV1xx" I L 4450 5300 50 
-F9 "AB[5..7]" I L 4450 5450 50 
-$EndSheet
 Wire Wire Line
 	4450 5150 3950 5150
 Text Label 3950 5150 0    50   ~ 0
@@ -1598,4 +1584,18 @@ Text Label 6100 5750 2    50   ~ 0
 ~DBOE1
 Text Notes 4050 4850 0    100  ~ 20
 CFT Bus Address Decoder
+$Sheet
+S 4450 5000 1150 900 
+U 614F5B8D
+F0 "Address Decoder & Wait States" 50
+F1 "cft_dfp_ws.sch" 50
+F2 "~WS" T R 5600 5150 50 
+F3 "~IOINT" O R 5600 5300 50 
+F4 "~DBOE1" O R 5600 5750 50 
+F5 "~R" T L 4450 5150 50 
+F6 "~DBOE0" I L 4450 5750 50 
+F7 "CLRWS" I L 4450 5600 50 
+F8 "~IODEV1xx" I L 4450 5300 50 
+F9 "AB[5..7]" I L 4450 5450 50 
+$EndSheet
 $EndSCHEMATC
