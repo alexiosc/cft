@@ -533,7 +533,7 @@ AR Path="/64333D29" Ref="C23"  Part="1"
 AR Path="/60757845/64333D29" Ref="C?"  Part="1" 
 F 0 "C23" H 9409 9246 50  0000 R CNN
 F 1 "100nF" H 9409 9155 50  0000 R CNN
-F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 9500 9200 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 9500 9200 50  0001 C CNN
 F 3 "~" H 9500 9200 50  0001 C CNN
 	1    9500 9200
 	1    0    0    -1  
@@ -587,7 +587,7 @@ AR Path="/64333D43" Ref="C24"  Part="1"
 AR Path="/60757845/64333D43" Ref="C?"  Part="1" 
 F 0 "C24" H 9409 9946 50  0000 R CNN
 F 1 "100nF" H 9409 9855 50  0000 R CNN
-F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 9500 9900 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 9500 9900 50  0001 C CNN
 F 3 "~" H 9500 9900 50  0001 C CNN
 	1    9500 9900
 	1    0    0    -1  
@@ -641,7 +641,7 @@ AR Path="/64333D5D" Ref="C25"  Part="1"
 AR Path="/60757845/64333D5D" Ref="C?"  Part="1" 
 F 0 "C25" H 10859 9246 50  0000 R CNN
 F 1 "100nF" H 10859 9155 50  0000 R CNN
-F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10950 9200 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10950 9200 50  0001 C CNN
 F 3 "~" H 10950 9200 50  0001 C CNN
 	1    10950 9200
 	1    0    0    -1  
@@ -682,7 +682,7 @@ AR Path="/64333D71" Ref="C26"  Part="1"
 AR Path="/60757845/64333D71" Ref="C?"  Part="1" 
 F 0 "C26" H 10859 9946 50  0000 R CNN
 F 1 "100nF" H 10859 9855 50  0000 R CNN
-F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10950 9900 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 10950 9900 50  0001 C CNN
 F 3 "~" H 10950 9900 50  0001 C CNN
 	1    10950 9900
 	1    0    0    -1  
@@ -749,7 +749,7 @@ AR Path="/64333DC7" Ref="C27"  Part="1"
 AR Path="/60757845/64333DC7" Ref="C?"  Part="1" 
 F 0 "C27" H 12491 9854 50  0000 L CNN
 F 1 "100nF" H 12491 9945 50  0000 L CNN
-F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 12400 9900 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 12400 9900 50  0001 C CNN
 F 3 "~" H 12400 9900 50  0001 C CNN
 	1    12400 9900
 	-1   0    0    1   
@@ -916,7 +916,7 @@ AR Path="/60757845/65BD1BBF" Ref="TP?"  Part="1"
 AR Path="/64FC7999/65BD1BBF" Ref="TP?"  Part="1" 
 F 0 "TP2" H 9700 5550 50  0000 L CNN
 F 1 "TestPoint" V 10004 5472 50  0001 C CNN
-F 2 "TestPoint:TestPoint_THTPad_D1.0mm_Drill0.5mm" H 10100 5400 50  0001 C CNN
+F 2 "TestPoint:TestPoint_Pad_1.5x1.5mm" H 10100 5400 50  0001 C CNN
 F 3 "~" H 10100 5400 50  0001 C CNN
 	1    9900 5400
 	-1   0    0    1   
@@ -1066,7 +1066,7 @@ AR Path="/64333DF6" Ref="TP1"  Part="1"
 AR Path="/60757845/64333DF6" Ref="TP?"  Part="1" 
 F 0 "TP1" H 5450 7150 50  0000 L CNN
 F 1 "TestPoint" V 5654 7322 50  0001 C CNN
-F 2 "TestPoint:TestPoint_THTPad_D1.0mm_Drill0.5mm" H 5750 7250 50  0001 C CNN
+F 2 "TestPoint:TestPoint_Pad_1.5x1.5mm" H 5750 7250 50  0001 C CNN
 F 3 "~" H 5750 7250 50  0001 C CNN
 	1    5550 7250
 	-1   0    0    1   

@@ -47,7 +47,7 @@ AR Path="/61638480" Ref="C?"  Part="1"
 AR Path="/614F5B8D/61638480" Ref="C64"  Part="1" 
 F 0 "C64" H 5359 7146 50  0000 R CNN
 F 1 "100nF" H 5359 7055 50  0000 R CNN
-F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5450 7100 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5450 7100 50  0001 C CNN
 F 3 "~" H 5450 7100 50  0001 C CNN
 	1    5450 7100
 	1    0    0    -1  
@@ -86,7 +86,7 @@ AR Path="/61638492" Ref="C?"  Part="1"
 AR Path="/614F5B8D/61638492" Ref="C61"  Part="1" 
 F 0 "C61" H 1291 7054 50  0000 L CNN
 F 1 "100nF" H 1291 7145 50  0000 L CNN
-F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1200 7100 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1200 7100 50  0001 C CNN
 F 3 "~" H 1200 7100 50  0001 C CNN
 	1    1200 7100
 	-1   0    0    1   
@@ -125,7 +125,7 @@ AR Path="/616384A4" Ref="C?"  Part="1"
 AR Path="/614F5B8D/616384A4" Ref="C62"  Part="1" 
 F 0 "C62" H 2641 7054 50  0000 L CNN
 F 1 "100nF" H 2641 7145 50  0000 L CNN
-F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2550 7100 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2550 7100 50  0001 C CNN
 F 3 "~" H 2550 7100 50  0001 C CNN
 	1    2550 7100
 	-1   0    0    1   
@@ -194,7 +194,7 @@ AR Path="/660AEB8F" Ref="C?"  Part="1"
 AR Path="/614F5B8D/660AEB8F" Ref="C63"  Part="1" 
 F 0 "C63" H 4091 7054 50  0000 L CNN
 F 1 "100nF" H 4091 7145 50  0000 L CNN
-F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 4000 7100 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 4000 7100 50  0001 C CNN
 F 3 "~" H 4000 7100 50  0001 C CNN
 	1    4000 7100
 	-1   0    0    1   
@@ -241,7 +241,7 @@ U 1 1 5DB1351D
 P 7650 2500
 F 0 "R36" V 7454 2500 50  0000 C CNN
 F 1 "30Ω" V 7545 2500 50  0000 C CNN
-F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7650 2500 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7650 2500 50  0001 C CNN
 F 3 "~" H 7650 2500 50  0001 C CNN
 	1    7650 2500
 	0    1    1    0   

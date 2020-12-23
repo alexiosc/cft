@@ -21,7 +21,7 @@ AR Path="/6119F170" Ref="U?"  Part="1"
 AR Path="/61175D3B/6119F170" Ref="U30"  Part="1" 
 F 0 "U30" H 4350 4417 50  0000 C CNN
 F 1 "74HC139" H 4350 4326 50  0000 C CNN
-F 2 "" H 4650 4000 50  0001 C CNN
+F 2 "alexios:SOIC-16" H 4650 4000 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS139" H 4650 4000 50  0001 C CNN
 	1    4350 3650
 	1    0    0    -1  
@@ -34,7 +34,7 @@ AR Path="/6119F176" Ref="U?"  Part="1"
 AR Path="/61175D3B/6119F176" Ref="U31"  Part="1" 
 F 0 "U31" H 5600 3617 50  0000 C CNN
 F 1 "74HC139" H 5600 3526 50  0000 C CNN
-F 2 "" H 5600 3250 50  0001 C CNN
+F 2 "alexios:SOIC-16" H 5600 3250 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS139" H 5600 3250 50  0001 C CNN
 	1    5600 3250
 	1    0    0    -1  
@@ -47,7 +47,7 @@ AR Path="/6119F17C" Ref="U?"  Part="2"
 AR Path="/61175D3B/6119F17C" Ref="U31"  Part="2" 
 F 0 "U31" H 5600 3475 50  0000 C CNN
 F 1 "74HC139" H 5600 3384 50  0001 C CNN
-F 2 "" H 5600 3850 50  0001 C CNN
+F 2 "alexios:SOIC-16" H 5600 3850 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS139" H 5600 3850 50  0001 C CNN
 	2    5600 3850
 	1    0    0    -1  
@@ -145,7 +145,7 @@ AR Path="/6119F1B8" Ref="RN?"  Part="4"
 AR Path="/61175D3B/6119F1B8" Ref="RN30"  Part="2" 
 F 0 "RN30" H 7650 3700 50  0000 L CNN
 F 1 "30Ω" H 7950 3800 50  0000 C CNN
-F 2 "" H 7750 3930 50  0001 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 7750 3930 50  0001 C CNN
 F 3 "~" V 7750 3850 50  0001 C CNN
 	2    7750 3850
 	1    0    0    -1  
@@ -158,7 +158,7 @@ AR Path="/6119F1BE" Ref="RN?"  Part="3"
 AR Path="/61175D3B/6119F1BE" Ref="RN30"  Part="1" 
 F 0 "RN30" H 7850 3800 50  0001 L CNN
 F 1 "30Ω" H 7725 3856 50  0001 C CNN
-F 2 "" H 7750 3830 50  0001 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 7750 3830 50  0001 C CNN
 F 3 "~" V 7750 3750 50  0001 C CNN
 	1    7750 3750
 	1    0    0    -1  
@@ -171,7 +171,7 @@ AR Path="/6119F1C4" Ref="RN?"  Part="2"
 AR Path="/61175D3B/6119F1C4" Ref="RN29"  Part="4" 
 F 0 "RN29" H 7850 3700 50  0001 L CNN
 F 1 "30Ω" H 7725 3756 50  0001 C CNN
-F 2 "" H 7750 3730 50  0001 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 7750 3730 50  0001 C CNN
 F 3 "~" V 7750 3650 50  0001 C CNN
 	4    7750 3650
 	1    0    0    -1  
@@ -184,7 +184,7 @@ AR Path="/6119F1CA" Ref="RN?"  Part="4"
 AR Path="/61175D3B/6119F1CA" Ref="RN29"  Part="2" 
 F 0 "RN29" H 7850 3500 50  0001 L CNN
 F 1 "30Ω" H 7725 3556 50  0001 C CNN
-F 2 "" H 7750 3530 50  0001 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 7750 3530 50  0001 C CNN
 F 3 "~" V 7750 3450 50  0001 C CNN
 	2    7750 3450
 	1    0    0    -1  
@@ -197,7 +197,7 @@ AR Path="/6119F1D0" Ref="RN?"  Part="3"
 AR Path="/61175D3B/6119F1D0" Ref="RN29"  Part="1" 
 F 0 "RN29" H 7850 3400 50  0001 L CNN
 F 1 "30Ω" H 7725 3456 50  0001 C CNN
-F 2 "" H 7750 3430 50  0001 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 7750 3430 50  0001 C CNN
 F 3 "~" V 7750 3350 50  0001 C CNN
 	1    7750 3350
 	1    0    0    -1  
@@ -210,7 +210,7 @@ AR Path="/6119F1D6" Ref="RN?"  Part="2"
 AR Path="/61175D3B/6119F1D6" Ref="RN28"  Part="4" 
 F 0 "RN28" H 7850 3300 50  0001 L CNN
 F 1 "30Ω" H 7725 3356 50  0001 C CNN
-F 2 "" H 7750 3330 50  0001 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 7750 3330 50  0001 C CNN
 F 3 "~" V 7750 3250 50  0001 C CNN
 	4    7750 3250
 	1    0    0    -1  
@@ -239,7 +239,7 @@ AR Path="/6119F1E4" Ref="RN?"  Part="1"
 AR Path="/61175D3B/6119F1E4" Ref="RN28"  Part="3" 
 F 0 "RN28" H 7650 3300 50  0000 L CNN
 F 1 "30Ω" H 7900 3200 50  0000 C CNN
-F 2 "" H 7750 3230 50  0001 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 7750 3230 50  0001 C CNN
 F 3 "~" V 7750 3150 50  0001 C CNN
 	3    7750 3150
 	1    0    0    -1  
@@ -252,7 +252,7 @@ AR Path="/6119F1EA" Ref="U?"  Part="1"
 AR Path="/61175D3B/6119F1EA" Ref="U32"  Part="1" 
 F 0 "U32" H 7050 4417 50  0000 C CNN
 F 1 "74HC541" H 7050 4326 50  0000 C CNN
-F 2 "" H 7050 3650 50  0001 C CNN
+F 2 "alexios:SOIC-20W" H 7050 3650 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 7050 3650 50  0001 C CNN
 	1    7050 3650
 	1    0    0    -1  
@@ -348,7 +348,7 @@ AR Path="/6119F21C" Ref="RN?"  Part="1"
 AR Path="/61175D3B/6119F21C" Ref="RN29"  Part="3" 
 F 0 "RN29" H 7850 3600 50  0001 L CNN
 F 1 "30Ω" H 7950 3150 50  0001 C CNN
-F 2 "" H 7750 3630 50  0001 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 7750 3630 50  0001 C CNN
 F 3 "~" V 7750 3550 50  0001 C CNN
 	3    7750 3550
 	1    0    0    -1  
@@ -361,7 +361,7 @@ AR Path="/6119F222" Ref="TP?"  Part="1"
 AR Path="/61175D3B/6119F222" Ref="TP10"  Part="1" 
 F 0 "TP10" V 8150 3738 50  0000 L CNN
 F 1 "TestPoint" V 8195 3738 50  0001 L CNN
-F 2 "" H 8350 3550 50  0001 C CNN
+F 2 "TestPoint:TestPoint_Pad_1.5x1.5mm" H 8350 3550 50  0001 C CNN
 F 3 "~" H 8350 3550 50  0001 C CNN
 	1    8150 3550
 	0    1    1    0   
@@ -376,7 +376,7 @@ AR Path="/6119F229" Ref="TP?"  Part="1"
 AR Path="/61175D3B/6119F229" Ref="TP11"  Part="1" 
 F 0 "TP11" V 8150 3938 50  0000 L CNN
 F 1 "TestPoint" V 8195 3938 50  0001 L CNN
-F 2 "" H 8350 3750 50  0001 C CNN
+F 2 "TestPoint:TestPoint_Pad_1.5x1.5mm" H 8350 3750 50  0001 C CNN
 F 3 "~" H 8350 3750 50  0001 C CNN
 	1    8150 3750
 	0    1    1    0   
@@ -391,7 +391,7 @@ AR Path="/6119F230" Ref="TP?"  Part="1"
 AR Path="/61175D3B/6119F230" Ref="TP12"  Part="1" 
 F 0 "TP12" V 8150 4038 50  0000 L CNN
 F 1 "TestPoint" V 8195 4038 50  0001 L CNN
-F 2 "" H 8350 3850 50  0001 C CNN
+F 2 "TestPoint:TestPoint_Pad_1.5x1.5mm" H 8350 3850 50  0001 C CNN
 F 3 "~" H 8350 3850 50  0001 C CNN
 	1    8150 3850
 	0    1    1    0   
@@ -499,7 +499,7 @@ AR Path="/60757845/611243B5/6119F258" Ref="R?"  Part="1"
 AR Path="/61175D3B/6119F258" Ref="R35"  Part="1" 
 F 0 "R35" V 6654 4650 50  0000 C CNN
 F 1 "680Ω" V 6745 4650 50  0000 C CNN
-F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 6850 4650 50  0001 C CNN
+F 2 "alexios:R_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 6850 4650 50  0001 C CNN
 F 3 "~" H 6850 4650 50  0001 C CNN
 	1    6850 4650
 	0    -1   1    0   
@@ -520,7 +520,7 @@ AR Path="/6119F25E" Ref="JP?"  Part="1"
 AR Path="/61175D3B/6119F25E" Ref="JP9"  Part="1" 
 F 0 "JP9" V 6300 4800 50  0000 C CNN
 F 1 "SolderJumper_3_Bridged12" H 6300 4760 50  0001 C CNN
-F 2 "" H 6300 4650 50  0001 C CNN
+F 2 "alexios:SolderJumper-3_P1.3mm_Bridged12_RoundedPad1.0x1.5mm" H 6300 4650 50  0001 C CNN
 F 3 "~" H 6300 4650 50  0001 C CNN
 	1    6300 4650
 	0    -1   -1   0   
@@ -551,7 +551,7 @@ AR Path="/60757845/6B624E6B" Ref="C?"  Part="1"
 AR Path="/61175D3B/6B624E6B" Ref="C65"  Part="1" 
 F 0 "C65" H 3959 7296 50  0000 R CNN
 F 1 "100nF" H 3959 7205 50  0000 R CNN
-F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 4050 7250 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 4050 7250 50  0001 C CNN
 F 3 "~" H 4050 7250 50  0001 C CNN
 	1    4050 7250
 	1    0    0    -1  
@@ -593,7 +593,7 @@ AR Path="/60757845/6B624E7F" Ref="C?"  Part="1"
 AR Path="/61175D3B/6B624E7F" Ref="C58"  Part="1" 
 F 0 "C58" H 2709 7296 50  0000 R CNN
 F 1 "100nF" H 2709 7205 50  0000 R CNN
-F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2800 7250 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 2800 7250 50  0001 C CNN
 F 3 "~" H 2800 7250 50  0001 C CNN
 	1    2800 7250
 	1    0    0    -1  
@@ -634,7 +634,7 @@ AR Path="/6B626203" Ref="U?"  Part="1"
 AR Path="/61175D3B/6B626203" Ref="U30"  Part="2" 
 F 0 "U30" H 3330 7996 50  0000 L CNN
 F 1 "74HC139" H 3330 7905 50  0000 L CNN
-F 2 "" H 3450 7950 50  0001 C CNN
+F 2 "alexios:SOIC-16" H 3450 7950 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS139" H 3450 7950 50  0001 C CNN
 	2    3150 7600
 	1    0    0    -1  
@@ -649,7 +649,7 @@ AR Path="/6B628B09" Ref="U?"  Part="1"
 AR Path="/61175D3B/6B628B09" Ref="U25"  Part="3" 
 F 0 "U25" H 4580 7296 50  0000 L CNN
 F 1 "74HC139" H 4580 7205 50  0000 L CNN
-F 2 "" H 4400 7250 50  0001 C CNN
+F 2 "alexios:SOIC-16" H 4400 7250 50  0001 C CNN
 F 3 "http://www.ti.com/lit/gpn/sn74LS139" H 4400 7250 50  0001 C CNN
 	3    4400 7250
 	1    0    0    -1  
@@ -664,7 +664,7 @@ AR Path="/6B629A7A" Ref="U?"  Part="1"
 AR Path="/61175D3B/6B629A7A" Ref="U32"  Part="2" 
 F 0 "U32" H 5880 7296 50  0000 L CNN
 F 1 "74HC541" H 5880 7205 50  0000 L CNN
-F 2 "" H 5700 7250 50  0001 C CNN
+F 2 "alexios:SOIC-20W" H 5700 7250 50  0001 C CNN
 F 3 "https://assets.nexperia.com/documents/data-sheet/74HC_HCT541.pdf" H 5700 7250 50  0001 C CNN
 	2    5700 7250
 	1    0    0    -1  
@@ -678,7 +678,7 @@ AR Path="/60757845/6B62AAFE" Ref="C?"  Part="1"
 AR Path="/61175D3B/6B62AAFE" Ref="C66"  Part="1" 
 F 0 "C66" H 5259 7296 50  0000 R CNN
 F 1 "100nF" H 5259 7205 50  0000 R CNN
-F 2 "alexios:SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5350 7250 50  0001 C CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 5350 7250 50  0001 C CNN
 F 3 "~" H 5350 7250 50  0001 C CNN
 	1    5350 7250
 	1    0    0    -1  
