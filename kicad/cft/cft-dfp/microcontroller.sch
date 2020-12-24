@@ -1621,58 +1621,6 @@ Wire Wire Line
 	3900 3900 4400 3900
 Wire Wire Line
 	3900 3800 4400 3800
-$Comp
-L alexios:R_Pack04_Split RN?
-U 4 1 623E1F2F
-P 4550 4100
-AR Path="/623E1F2F" Ref="RN?"  Part="4" 
-AR Path="/60757845/623E1F2F" Ref="RN4"  Part="4" 
-F 0 "RN4" H 4650 4150 50  0001 L CNN
-F 1 "30Ω" H 4525 4206 50  0001 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 4550 4180 50  0001 C CNN
-F 3 "~" V 4550 4100 50  0001 C CNN
-	4    4550 4100
-	1    0    0    1   
-$EndComp
-$Comp
-L alexios:R_Pack04_Split RN?
-U 3 1 623E1F29
-P 4550 4000
-AR Path="/623E1F29" Ref="RN?"  Part="3" 
-AR Path="/60757845/623E1F29" Ref="RN4"  Part="3" 
-F 0 "RN4" H 4650 4050 50  0001 L CNN
-F 1 "30Ω" H 4525 4106 50  0001 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 4550 4080 50  0001 C CNN
-F 3 "~" V 4550 4000 50  0001 C CNN
-	3    4550 4000
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:R_Pack04_Split RN?
-U 2 1 623E1F23
-P 4550 3900
-AR Path="/623E1F23" Ref="RN?"  Part="2" 
-AR Path="/60757845/623E1F23" Ref="RN4"  Part="2" 
-F 0 "RN4" H 4650 3950 50  0001 L CNN
-F 1 "30Ω" H 4525 4006 50  0001 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 4550 3980 50  0001 C CNN
-F 3 "~" V 4550 3900 50  0001 C CNN
-	2    4550 3900
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:R_Pack04_Split RN?
-U 1 1 623E1F1D
-P 4550 3800
-AR Path="/623E1F1D" Ref="RN?"  Part="1" 
-AR Path="/60757845/623E1F1D" Ref="RN4"  Part="1" 
-F 0 "RN4" H 4650 3400 50  0000 L CNN
-F 1 "30Ω" H 4300 3450 50  0000 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 4550 3880 50  0001 C CNN
-F 3 "~" V 4550 3800 50  0001 C CNN
-	1    4550 3800
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	3900 3700 4700 3700
 Wire Wire Line
@@ -2958,4 +2906,56 @@ Wire Bus Line
 	5600 1350 5600 2200
 Wire Bus Line
 	7600 1700 7600 4300
+$Comp
+L alexios:R_Pack04_Split RN?
+U 3 1 623E1F29
+P 4550 3900
+AR Path="/623E1F29" Ref="RN?"  Part="3" 
+AR Path="/60757845/623E1F29" Ref="RN4"  Part="3" 
+F 0 "RN4" H 4650 3950 50  0001 L CNN
+F 1 "30Ω" H 4525 4006 50  0001 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 4550 3980 50  0001 C CNN
+F 3 "~" V 4550 3900 50  0001 C CNN
+	3    4550 3900
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:R_Pack04_Split RN?
+U 2 1 623E1F23
+P 4550 4000
+AR Path="/623E1F23" Ref="RN?"  Part="2" 
+AR Path="/60757845/623E1F23" Ref="RN4"  Part="2" 
+F 0 "RN4" H 4650 4050 50  0001 L CNN
+F 1 "30Ω" H 4525 4106 50  0001 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 4550 4080 50  0001 C CNN
+F 3 "~" V 4550 4000 50  0001 C CNN
+	2    4550 4000
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:R_Pack04_Split RN?
+U 4 1 623E1F2F
+P 4550 3800
+AR Path="/623E1F2F" Ref="RN?"  Part="4" 
+AR Path="/60757845/623E1F2F" Ref="RN4"  Part="4" 
+F 0 "RN4" H 4650 3850 50  0001 L CNN
+F 1 "30Ω" H 4525 3906 50  0001 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 4550 3880 50  0001 C CNN
+F 3 "~" V 4550 3800 50  0001 C CNN
+	4    4550 3800
+	1    0    0    1   
+$EndComp
+$Comp
+L alexios:R_Pack04_Split RN?
+U 1 1 623E1F1D
+P 4550 4100
+AR Path="/623E1F1D" Ref="RN?"  Part="1" 
+AR Path="/60757845/623E1F1D" Ref="RN4"  Part="1" 
+F 0 "RN4" H 4650 4000 50  0000 L CNN
+F 1 "30Ω" H 4300 4050 50  0000 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 4550 4180 50  0001 C CNN
+F 3 "~" V 4550 4100 50  0001 C CNN
+	1    4550 4100
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
