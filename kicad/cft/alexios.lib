@@ -3946,7 +3946,7 @@ ENDDEF
 DEF cft-dfp-pod P 0 40 Y Y 1 F N
 F0 "P" 0 1225 50 H V C CNN
 F1 "cft-dfp-pod" 0 1125 50 H I C CNN
-F2 "Package_LCC:PLCC-44_THT-Socket" 0 -1350 50 H I C CNN
+F2 "alexios:CFT-2020-DFP-RevB-Bus-Pod-44pin" 0 -1350 50 H I C CNN
 F3 "" 0 -100 50 H I C CNN
 $FPLIST
  DIP*40*

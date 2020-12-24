@@ -1755,14 +1755,6 @@ F 3 "" H 9850 5250 50  0001 C CNN
 	1    9850 5250
 	1    0    0    -1  
 $EndComp
-Wire Bus Line
-	1350 1650 1350 4200
-Wire Bus Line
-	4150 1950 4150 4400
-Wire Bus Line
-	5950 1550 5950 4400
-Wire Bus Line
-	9350 1550 9350 5700
 $Comp
 L alexios:74HC574 U?
 U 2 1 6B515ACE
@@ -1831,4 +1823,12 @@ F 3 "https://gr.mouser.com/datasheet/2/916/74HC_HCT154-1319613.pdf" H 3550 5800 
 	2    3550 5800
 	1    0    0    -1  
 $EndComp
+Wire Bus Line
+	1350 1650 1350 4200
+Wire Bus Line
+	4150 1950 4150 4400
+Wire Bus Line
+	5950 1550 5950 4400
+Wire Bus Line
+	9350 1550 9350 5700
 $EndSCHEMATC

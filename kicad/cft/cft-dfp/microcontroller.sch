@@ -1469,7 +1469,7 @@ U 1 1 62B45C36
 P 4950 6150
 F 0 "JP2" V 4700 6150 50  0000 C CNN
 F 1 "SolderJumper_3_Bridged23" H 4950 6260 50  0001 C CNN
-F 2 "" H 4950 6150 50  0001 C CNN
+F 2 "alexios:SolderJumper-3_P1.3mm_Bridged23_RoundedPad1.0x1.5mm" H 4950 6150 50  0001 C CNN
 F 3 "~" H 4950 6150 50  0001 C CNN
 	1    4950 6150
 	0    1    1    0   
