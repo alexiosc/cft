@@ -1004,7 +1004,7 @@ Wire Wire Line
 	4600 4700 4750 4700
 Wire Bus Line
 	3700 5900 4300 5900
-Text HLabel 4300 5900 2    50   Input ~ 0
+Text HLabel 4300 5900 2    50   Output ~ 0
 FP-FPD[0..7]
 Text Label 3700 5900 0    50   ~ 0
 FP-FPD[0..7]

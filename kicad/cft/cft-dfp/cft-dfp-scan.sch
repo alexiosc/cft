@@ -1675,39 +1675,7 @@ Text Label 2900 1200 0    50   ~ 0
 FPA3
 Text Label 2900 1300 0    50   ~ 0
 FPA4
-Entry Wire Line
-	4600 1000 4500 1100
-Entry Wire Line
-	4600 1100 4500 1200
-Entry Wire Line
-	4600 1200 4500 1300
-Entry Wire Line
-	4600 1300 4500 1400
-Entry Wire Line
-	4600 1400 4500 1500
-Wire Wire Line
-	4100 1100 4500 1100
-Wire Wire Line
-	4100 1200 4500 1200
-Wire Wire Line
-	4100 1300 4500 1300
-Wire Wire Line
-	4100 1400 4500 1400
-Wire Wire Line
-	4100 1500 4500 1500
-Text Label 4200 1100 0    50   ~ 0
-~ROW1
-Text Label 4200 1200 0    50   ~ 0
-~ROW2
-Text Label 4200 1300 0    50   ~ 0
-~ROW3
-Text Label 4200 1400 0    50   ~ 0
-~ROW4
-Text Label 4200 1500 0    50   ~ 0
-~ROW5
-Text Label 4600 3150 1    50   ~ 0
-~ROW[1..5]
-Text Label 7500 5050 2    50   ~ 0
+Text Label 7050 5050 0    50   ~ 0
 ~ROW[1..5]
 Text HLabel 7600 5050 2    50   Output ~ 0
 ~ROW[1..5]
@@ -2005,10 +1973,8 @@ Wire Wire Line
 	5200 2700 5200 3550
 Wire Wire Line
 	5200 3550 5250 3550
-Entry Bus Bus
-	4600 4950 4700 5050
 Wire Bus Line
-	4700 5050 7600 5050
+	7050 5050 7600 5050
 Wire Wire Line
 	1100 3150 4450 3150
 Wire Wire Line
@@ -2197,22 +2163,6 @@ Text Label 3000 4700 2    50   ~ 0
 FPD1
 Text Label 3000 4600 2    50   ~ 0
 FPD0
-Wire Wire Line
-	2800 5300 3000 5300
-Wire Wire Line
-	2800 5200 3000 5200
-Wire Wire Line
-	2800 5100 3000 5100
-Wire Wire Line
-	2800 5000 3000 5000
-Wire Wire Line
-	2800 4900 3000 4900
-Wire Wire Line
-	2800 4800 3000 4800
-Wire Wire Line
-	2800 4700 3000 4700
-Wire Wire Line
-	2800 4600 3000 4600
 Text Label 1400 5500 0    50   ~ 0
 ~FPOE16
 Text Notes 1500 4250 0    100  ~ 20
@@ -2467,12 +2417,6 @@ F 3 "https://assets.nexperia.com/documents/data-sheet/74LVC1G04.pdf" H 7550 6150
 $EndComp
 Connection ~ 7200 6250
 Connection ~ 7200 6050
-Wire Bus Line
-	6750 1200 6750 4850
-Wire Bus Line
-	4600 800  4600 4950
-Wire Bus Line
-	2700 800  2700 1800
 $Comp
 L alexios:74HC139 U?
 U 3 1 6B7FFD82
@@ -2528,4 +2472,72 @@ F 3 "~" H 4400 6900 50  0001 C CNN
 	1    4400 6900
 	1    0    0    -1  
 $EndComp
+Wire Wire Line
+	2800 4600 3050 4600
+Wire Wire Line
+	2800 4700 3050 4700
+Wire Wire Line
+	2800 4800 3050 4800
+Wire Wire Line
+	2800 4900 3050 4900
+Wire Wire Line
+	2800 5000 3050 5000
+Wire Wire Line
+	2800 5100 3050 5100
+Wire Wire Line
+	2800 5200 3050 5200
+Wire Wire Line
+	2800 5300 3050 5300
+Entry Wire Line
+	3050 4600 3150 4700
+Entry Wire Line
+	3050 4700 3150 4800
+Entry Wire Line
+	3050 4800 3150 4900
+Entry Wire Line
+	3050 4900 3150 5000
+Entry Wire Line
+	3050 5000 3150 5100
+Entry Wire Line
+	3050 5100 3150 5200
+Entry Wire Line
+	3050 5200 3150 5300
+Entry Wire Line
+	3050 5300 3150 5400
+Entry Bus Bus
+	3150 5450 3250 5550
+Wire Bus Line
+	3250 5550 7600 5500
+Text HLabel 7600 5500 2    50   Output ~ 0
+FPD[0..7]
+Text Label 7500 5500 2    50   ~ 0
+FPD[0..7]
+Wire Wire Line
+	4100 1100 4400 1100
+Wire Wire Line
+	4100 1200 4400 1200
+Wire Wire Line
+	4100 1300 4400 1300
+Wire Wire Line
+	4100 1400 4400 1400
+Wire Wire Line
+	4100 1500 4400 1500
+Text Label 4400 1100 2    50   ~ 0
+~ROW1
+Text Label 4400 1200 2    50   ~ 0
+~ROW2
+Text Label 4400 1300 2    50   ~ 0
+~ROW3
+Text Label 4400 1400 2    50   ~ 0
+~ROW4
+Text Label 4400 1500 2    50   ~ 0
+~ROW5
+Wire Bus Line
+	2700 800  2700 1800
+Wire Bus Line
+	3150 4700 3150 5450
+Wire Bus Line
+	4600 800  4600 3250
+Wire Bus Line
+	6750 1200 6750 4850
 $EndSCHEMATC
