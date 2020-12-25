@@ -2136,44 +2136,6 @@ Wire Wire Line
 Connection ~ 1300 6450
 Wire Wire Line
 	1300 6450 1400 6450
-$Comp
-L Device:C_Small C?
-U 1 1 6A2EC315
-P 4400 6900
-AR Path="/6A2EC315" Ref="C?"  Part="1" 
-AR Path="/6233F88C/6A2EC315" Ref="C?"  Part="1" 
-AR Path="/60757845/607964B6/6A2EC315" Ref="C?"  Part="1" 
-AR Path="/64FC7999/650046D0/6A2EC315" Ref="C?"  Part="1" 
-AR Path="/65BD1B6F/6A2EC315" Ref="C60"  Part="1" 
-F 0 "C60" H 4309 6946 50  0000 R CNN
-F 1 "100nF" H 4309 6855 50  0000 R CNN
-F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 4400 6900 50  0001 C CNN
-F 3 "~" H 4400 6900 50  0001 C CNN
-	1    4400 6900
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR0185
-U 1 1 6A2EC31B
-P 4400 6800
-F 0 "#PWR0185" H 4400 6650 50  0001 C CNN
-F 1 "+5V" H 4415 6973 50  0000 C CNN
-F 2 "" H 4400 6800 50  0001 C CNN
-F 3 "" H 4400 6800 50  0001 C CNN
-	1    4400 6800
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR0186
-U 1 1 6A2EC321
-P 4400 7000
-F 0 "#PWR0186" H 4400 6750 50  0001 C CNN
-F 1 "GND" H 4405 6827 50  0000 C CNN
-F 2 "" H 4400 7000 50  0001 C CNN
-F 3 "" H 4400 7000 50  0001 C CNN
-	1    4400 7000
-	1    0    0    -1  
-$EndComp
 Text Notes 6100 800  0    100  ~ 20
 Front-Panel Address Decoder
 Connection ~ 4450 3150
@@ -2444,23 +2406,6 @@ $EndComp
 Connection ~ 4400 6200
 Connection ~ 4400 6000
 $Comp
-L alexios:74HC139 U?
-U 3 1 6B7FFD82
-P 4750 6900
-AR Path="/6B7FFD82" Ref="U?"  Part="1" 
-AR Path="/60757845/6B7FFD82" Ref="U?"  Part="1" 
-AR Path="/64FC7999/6B7FFD82" Ref="U?"  Part="1" 
-AR Path="/65BD1B6F/6B7FFD82" Ref="U39"  Part="3" 
-F 0 "U39" H 4930 6946 50  0000 L CNN
-F 1 "74HC139" H 4930 6855 50  0000 L CNN
-F 2 "alexios:SOIC-16" H 4750 6900 50  0001 C CNN
-F 3 "http://www.ti.com/lit/gpn/sn74LS139" H 4750 6900 50  0001 C CNN
-	3    4750 6900
-	1    0    0    -1  
-$EndComp
-Connection ~ 4400 6800
-Connection ~ 4400 7000
-$Comp
 L Device:C_Small C?
 U 1 1 6BA49249
 P 7200 6150
@@ -2523,9 +2468,64 @@ $EndComp
 Connection ~ 7200 6250
 Connection ~ 7200 6050
 Wire Bus Line
-	2700 800  2700 1800
+	6750 1200 6750 4850
 Wire Bus Line
 	4600 800  4600 4950
 Wire Bus Line
-	6750 1200 6750 4850
+	2700 800  2700 1800
+$Comp
+L alexios:74HC139 U?
+U 3 1 6B7FFD82
+P 4750 6900
+AR Path="/6B7FFD82" Ref="U?"  Part="1" 
+AR Path="/60757845/6B7FFD82" Ref="U?"  Part="1" 
+AR Path="/64FC7999/6B7FFD82" Ref="U?"  Part="1" 
+AR Path="/65BD1B6F/6B7FFD82" Ref="U39"  Part="3" 
+F 0 "U39" H 4930 6946 50  0000 L CNN
+F 1 "74HC139" H 4930 6855 50  0000 L CNN
+F 2 "alexios:SOIC-16" H 4750 6900 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn74LS139" H 4750 6900 50  0001 C CNN
+	3    4750 6900
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0186
+U 1 1 6A2EC321
+P 4400 7000
+F 0 "#PWR0186" H 4400 6750 50  0001 C CNN
+F 1 "GND" H 4405 6827 50  0000 C CNN
+F 2 "" H 4400 7000 50  0001 C CNN
+F 3 "" H 4400 7000 50  0001 C CNN
+	1    4400 7000
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR0185
+U 1 1 6A2EC31B
+P 4400 6800
+F 0 "#PWR0185" H 4400 6650 50  0001 C CNN
+F 1 "+5V" H 4415 6973 50  0000 C CNN
+F 2 "" H 4400 6800 50  0001 C CNN
+F 3 "" H 4400 6800 50  0001 C CNN
+	1    4400 6800
+	1    0    0    -1  
+$EndComp
+Connection ~ 4400 7000
+Connection ~ 4400 6800
+$Comp
+L Device:C_Small C?
+U 1 1 6A2EC315
+P 4400 6900
+AR Path="/6A2EC315" Ref="C?"  Part="1" 
+AR Path="/6233F88C/6A2EC315" Ref="C?"  Part="1" 
+AR Path="/60757845/607964B6/6A2EC315" Ref="C?"  Part="1" 
+AR Path="/64FC7999/650046D0/6A2EC315" Ref="C?"  Part="1" 
+AR Path="/65BD1B6F/6A2EC315" Ref="C60"  Part="1" 
+F 0 "C60" H 4309 6946 50  0000 R CNN
+F 1 "100nF" H 4309 6855 50  0000 R CNN
+F 2 "alexios:C_SMD_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 4400 6900 50  0001 C CNN
+F 3 "~" H 4400 6900 50  0001 C CNN
+	1    4400 6900
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
