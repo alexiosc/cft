@@ -1250,6 +1250,9 @@ Wire Wire Line
 NoConn ~ 9050 3200
 Text Notes 9200 3200 0    50   ~ 0
 There is no COND[0..3] I/O because that\nfield is local to the CTL board.
+NoConn ~ 9000 2100
+NoConn ~ 9000 2200
+NoConn ~ 9000 2300
 Wire Bus Line
 	2500 1400 2500 2200
 $EndSCHEMATC
