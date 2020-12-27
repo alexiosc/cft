@@ -719,17 +719,17 @@ F 3 "~" V 4000 4650 50  0001 C CNN
 $EndComp
 $Comp
 L alexios:R_Pack04_Split RN?
-U 1 1 6096B7FC
+U 4 1 6096B7FC
 P 4000 4750
 AR Path="/6096B7FC" Ref="RN?"  Part="4" 
 AR Path="/60757845/6096B7FC" Ref="RN?"  Part="4" 
 AR Path="/64FC7999/6096B7FC" Ref="RN?"  Part="4" 
-AR Path="/60A2F3C0/6096B7FC" Ref="RN@@1"  Part="1" 
-F 0 "RN@@1" H 4100 4800 50  0001 L CNN
+AR Path="/60A2F3C0/6096B7FC" Ref="RN22"  Part="4" 
+F 0 "RN22" H 4100 4800 50  0001 L CNN
 F 1 "30Ω" H 3975 4856 50  0001 C CNN
 F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 4000 4830 50  0001 C CNN
 F 3 "~" V 4000 4750 50  0001 C CNN
-	1    4000 4750
+	4    4000 4750
 	-1   0    0    -1  
 $EndComp
 $Comp
@@ -1187,17 +1187,6 @@ F 3 "" H 7950 5500 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L alexios:PESD5V2S2UT D18
-U 1 1 5FDFD084
-P 8350 5400
-F 0 "D18" H 8250 5250 50  0000 R CNN
-F 1 "PESD5V2S2UT" H 8250 5150 50  0001 R CNN
-F 2 "Package_TO_SOT_SMD:SOT-23" H 8350 4800 50  0001 C CNN
-F 3 "https://assets.nexperia.com/documents/data-sheet/PESDXS2UT_SERIES.pdf" V 8250 5425 50  0001 C CNN
-	1    8350 5400
-	1    0    0    -1  
-$EndComp
-$Comp
 L alexios:PESD5V2S2UT D19
 U 1 1 5FE16E3D
 P 8750 5400
@@ -1507,19 +1496,17 @@ $EndComp
 Wire Wire Line
 	7300 4450 8050 4450
 Wire Wire Line
-	7300 4550 9350 4550
+	7300 4550 8450 4550
 Wire Wire Line
 	7300 4650 7850 4650
 Wire Wire Line
-	7300 4750 9350 4750
+	7300 4750 8250 4750
 Wire Wire Line
-	7300 4850 9350 4850
+	7300 4950 9250 4950
 Wire Wire Line
-	7300 4950 9350 4950
+	7300 5050 8650 5050
 Wire Wire Line
-	7300 5050 9350 5050
-Wire Wire Line
-	7300 5150 9350 5150
+	7300 5150 9050 5150
 $Comp
 L alexios:PESD5V2S2UT D17
 U 1 1 5FDE6D00
@@ -1557,6 +1544,46 @@ Text Label 7400 5050 0    50   ~ 0
 FP-FDP1
 Text Label 7400 5150 0    50   ~ 0
 FP-FDP0
+$Comp
+L alexios:PESD5V2S2UT D18
+U 1 1 5FDFD084
+P 8350 5400
+F 0 "D18" H 8250 5250 50  0000 R CNN
+F 1 "PESD5V2S2UT" H 8250 5150 50  0001 R CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 8350 4800 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/PESDXS2UT_SERIES.pdf" V 8250 5425 50  0001 C CNN
+	1    8350 5400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8250 5250 8250 4750
+Connection ~ 8250 4750
+Wire Wire Line
+	8250 4750 9350 4750
+Wire Wire Line
+	8450 5250 8450 4550
+Connection ~ 8450 4550
+Wire Wire Line
+	8450 4550 9350 4550
+Wire Wire Line
+	7300 4850 8850 4850
+Wire Wire Line
+	8650 5250 8650 5050
+Connection ~ 8650 5050
+Wire Wire Line
+	8650 5050 9350 5050
+Wire Wire Line
+	8850 5250 8850 4850
+Connection ~ 8850 4850
+Wire Wire Line
+	8850 4850 9350 4850
+Wire Wire Line
+	9050 5250 9050 5150
+Connection ~ 9050 5150
+Wire Wire Line
+	9050 5150 9350 5150
+Wire Wire Line
+	9250 5250 9250 4950
 Wire Bus Line
 	3100 4100 3100 5050
 Wire Bus Line
@@ -1565,4 +1592,7 @@ Wire Bus Line
 	9500 1100 9500 1900
 Wire Bus Line
 	5600 4100 5600 5050
+Connection ~ 9250 4950
+Wire Wire Line
+	9250 4950 9350 4950
 $EndSCHEMATC
