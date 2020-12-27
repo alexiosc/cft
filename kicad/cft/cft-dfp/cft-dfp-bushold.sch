@@ -1100,22 +1100,6 @@ F 3 "" H 6000 5500 50  0001 C CNN
 	1    6000 5500
 	1    0    0    -1  
 $EndComp
-Text Label 7750 4450 2    50   ~ 0
-FP-FPD0
-Text Label 7750 4550 2    50   ~ 0
-FP-FPD1
-Text Label 7750 4650 2    50   ~ 0
-FP-FPD2
-Text Label 7750 4750 2    50   ~ 0
-FP-FPD3
-Text Label 7750 4850 2    50   ~ 0
-FP-FPD4
-Text Label 7750 4950 2    50   ~ 0
-FP-FPD5
-Text Label 7750 5050 2    50   ~ 0
-FP-FPD6
-Text Label 7750 5150 2    50   ~ 0
-FP-FPD7
 Entry Wire Line
 	9450 4350 9350 4450
 Entry Wire Line
@@ -1148,38 +1132,38 @@ Entry Wire Line
 	5600 4950 5700 5050
 Entry Wire Line
 	5600 5050 5700 5150
-Text Label 6000 4750 2    50   ~ 0
+Text Label 6000 4850 2    50   ~ 0
 FPD3
-Text Label 6000 4650 2    50   ~ 0
+Text Label 6000 4950 2    50   ~ 0
 FPD2
-Text Label 6000 4550 2    50   ~ 0
+Text Label 6000 5050 2    50   ~ 0
 FPD1
-Text Label 6000 4450 2    50   ~ 0
+Text Label 6000 5150 2    50   ~ 0
 FPD0
 Wire Wire Line
-	6050 4750 5700 4750
-Wire Wire Line
-	6050 4650 5700 4650
-Wire Wire Line
-	6050 4550 5700 4550
-Wire Wire Line
-	6050 4450 5700 4450
-Text Label 6000 5150 2    50   ~ 0
-FPD7
-Text Label 6000 5050 2    50   ~ 0
-FPD6
-Text Label 6000 4950 2    50   ~ 0
-FPD5
-Text Label 6000 4850 2    50   ~ 0
-FPD4
-Wire Wire Line
-	6050 5150 5700 5150
-Wire Wire Line
-	6050 5050 5700 5050
+	6050 4850 5700 4850
 Wire Wire Line
 	6050 4950 5700 4950
 Wire Wire Line
-	6050 4850 5700 4850
+	6050 5050 5700 5050
+Wire Wire Line
+	6050 5150 5700 5150
+Text Label 6000 4450 2    50   ~ 0
+FPD7
+Text Label 6000 4550 2    50   ~ 0
+FPD6
+Text Label 6000 4650 2    50   ~ 0
+FPD5
+Text Label 6000 4750 2    50   ~ 0
+FPD4
+Wire Wire Line
+	6050 4450 5700 4450
+Wire Wire Line
+	6050 4550 5700 4550
+Wire Wire Line
+	6050 4650 5700 4650
+Wire Wire Line
+	6050 4750 5700 4750
 Text HLabel 9750 4150 2    50   UnSpc ~ 0
 FP-FPD[0..7]
 Wire Bus Line
@@ -1554,6 +1538,25 @@ Wire Wire Line
 	8050 4450 9350 4450
 Wire Wire Line
 	7850 5250 7850 4650
+Connection ~ 7850 4650
+Wire Wire Line
+	7850 4650 9350 4650
+Text Label 7400 4450 0    50   ~ 0
+FP-FDP7
+Text Label 7400 4550 0    50   ~ 0
+FP-FDP6
+Text Label 7400 4650 0    50   ~ 0
+FP-FDP5
+Text Label 7400 4750 0    50   ~ 0
+FP-FDP4
+Text Label 7400 4850 0    50   ~ 0
+FP-FDP3
+Text Label 7400 4950 0    50   ~ 0
+FP-FDP2
+Text Label 7400 5050 0    50   ~ 0
+FP-FDP1
+Text Label 7400 5150 0    50   ~ 0
+FP-FDP0
 Wire Bus Line
 	3100 4100 3100 5050
 Wire Bus Line
@@ -1562,7 +1565,4 @@ Wire Bus Line
 	9500 1100 9500 1900
 Wire Bus Line
 	5600 4100 5600 5050
-Connection ~ 7850 4650
-Wire Wire Line
-	7850 4650 9350 4650
 $EndSCHEMATC

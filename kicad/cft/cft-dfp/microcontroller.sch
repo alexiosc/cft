@@ -2903,22 +2903,6 @@ F 3 "~" V 4550 4100 50  0001 C CNN
 	1    4550 4100
 	1    0    0    -1  
 $EndComp
-Wire Bus Line
-	1550 2500 1550 2900
-Wire Bus Line
-	1550 3200 1550 3600
-Wire Bus Line
-	4450 1350 4450 2200
-Wire Bus Line
-	10100 3450 10100 4300
-Wire Bus Line
-	10100 1350 10100 2200
-Wire Bus Line
-	7700 1350 7700 2200
-Wire Bus Line
-	5600 1350 5600 2200
-Wire Bus Line
-	7600 1700 7600 4300
 $Comp
 L alexios:R_Pack04_Split RN?
 U 4 1 613FD65A
@@ -2958,4 +2942,20 @@ F 3 "~" V 8950 3400 50  0001 C CNN
 	2    8950 3400
 	0    -1   -1   0   
 $EndComp
+Wire Bus Line
+	1550 2500 1550 2900
+Wire Bus Line
+	1550 3200 1550 3600
+Wire Bus Line
+	4450 1350 4450 2200
+Wire Bus Line
+	10100 3450 10100 4300
+Wire Bus Line
+	10100 1350 10100 2200
+Wire Bus Line
+	7700 1350 7700 2200
+Wire Bus Line
+	5600 1350 5600 2200
+Wire Bus Line
+	7600 1700 7600 4300
 $EndSCHEMATC
