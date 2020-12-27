@@ -1059,12 +1059,12 @@ Wire Wire Line
 	5550 7250 5700 7250
 Connection ~ 5550 7250
 $Comp
-L Connector:TestPoint TP1
+L Connector:TestPoint TP13
 U 1 1 64333DF6
 P 5550 7250
-AR Path="/64333DF6" Ref="TP1"  Part="1" 
+AR Path="/64333DF6" Ref="TP13"  Part="1" 
 AR Path="/60757845/64333DF6" Ref="TP?"  Part="1" 
-F 0 "TP1" H 5450 7150 50  0000 L CNN
+F 0 "TP13" H 5450 7150 50  0000 L CNN
 F 1 "TestPoint" V 5654 7322 50  0001 C CNN
 F 2 "TestPoint:TestPoint_Pad_1.5x1.5mm" H 5750 7250 50  0001 C CNN
 F 3 "~" H 5750 7250 50  0001 C CNN

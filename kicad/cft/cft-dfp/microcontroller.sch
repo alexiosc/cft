@@ -997,9 +997,9 @@ Wire Wire Line
 	7700 3800 8150 3800
 Wire Wire Line
 	7700 3700 8150 3700
-Text Label 4250 3800 2    50   ~ 0
+Text Label 4250 4100 2    50   ~ 0
 ~µCMEM
-Text Label 4250 3900 2    50   ~ 0
+Text Label 4250 4000 2    50   ~ 0
 ~µCIO
 Text HLabel 1050 2000 0    50   Output ~ 0
 ~RD
@@ -1295,54 +1295,15 @@ F 3 "~" H 2150 2200 50  0001 C CNN
 $EndComp
 $Comp
 L alexios:R_Pack04_Split RN?
-U 4 1 63C465C3
-P 4550 3200
-AR Path="/63C465C3" Ref="RN?"  Part="4" 
-AR Path="/60757845/63C465C3" Ref="RN3"  Part="4" 
-F 0 "RN3" H 4650 3250 50  0001 L CNN
-F 1 "30Ω" H 4525 3306 50  0001 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 4550 3280 50  0001 C CNN
-F 3 "~" V 4550 3200 50  0001 C CNN
-	4    4550 3200
-	1    0    0    1   
-$EndComp
-$Comp
-L alexios:R_Pack04_Split RN?
-U 3 1 63C465BD
-P 4550 3100
-AR Path="/63C465BD" Ref="RN?"  Part="3" 
-AR Path="/60757845/63C465BD" Ref="RN3"  Part="3" 
-F 0 "RN3" H 4650 3150 50  0001 L CNN
-F 1 "30Ω" H 4525 3206 50  0001 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 4550 3180 50  0001 C CNN
-F 3 "~" V 4550 3100 50  0001 C CNN
-	3    4550 3100
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:R_Pack04_Split RN?
-U 2 1 63C465B7
-P 4550 3000
-AR Path="/63C465B7" Ref="RN?"  Part="2" 
-AR Path="/60757845/63C465B7" Ref="RN3"  Part="2" 
-F 0 "RN3" H 4650 3050 50  0001 L CNN
-F 1 "30Ω" H 4525 3106 50  0001 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 4550 3080 50  0001 C CNN
-F 3 "~" V 4550 3000 50  0001 C CNN
-	2    4550 3000
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:R_Pack04_Split RN?
-U 1 1 63C465B1
+U 4 1 63C465B1
 P 4550 2900
 AR Path="/63C465B1" Ref="RN?"  Part="1" 
-AR Path="/60757845/63C465B1" Ref="RN3"  Part="1" 
+AR Path="/60757845/63C465B1" Ref="RN3"  Part="4" 
 F 0 "RN3" H 4500 3000 50  0000 L CNN
 F 1 "30Ω" H 4300 2550 50  0000 C CNN
 F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 4550 2980 50  0001 C CNN
 F 3 "~" V 4550 2900 50  0001 C CNN
-	1    4550 2900
+	4    4550 2900
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
@@ -1558,13 +1519,13 @@ Text HLabel 4700 3500 2    50   Output ~ 0
 ~IBOE
 Text HLabel 4700 3400 2    50   Output ~ 0
 CLRWS
-Text HLabel 4700 4100 2    50   3State ~ 0
-~W
-Text HLabel 4700 4000 2    50   3State ~ 0
-~R
-Text HLabel 4700 3900 2    50   3State ~ 0
-~IO
 Text HLabel 4700 3800 2    50   3State ~ 0
+~W
+Text HLabel 4700 3900 2    50   3State ~ 0
+~R
+Text HLabel 4700 4000 2    50   3State ~ 0
+~IO
+Text HLabel 4700 4100 2    50   3State ~ 0
 ~MEM
 Wire Wire Line
 	4650 4100 4700 4100
@@ -1575,13 +1536,13 @@ Wire Wire Line
 Wire Wire Line
 	4650 3800 4700 3800
 Wire Wire Line
-	3900 4100 4400 4100
-Wire Wire Line
-	3900 4000 4400 4000
+	3900 3800 4400 3800
 Wire Wire Line
 	3900 3900 4400 3900
 Wire Wire Line
-	3900 3800 4400 3800
+	3900 4000 4400 4000
+Wire Wire Line
+	3900 4100 4400 4100
 Wire Wire Line
 	3900 3700 4700 3700
 Wire Wire Line
@@ -1593,7 +1554,7 @@ Wire Wire Line
 Text Label 4000 3200 0    50   ~ 0
 µCBUSCP
 Text Label 4000 3100 0    50   ~ 0
-µUCSTEP
+µCµSTEP
 Text Label 4000 3000 0    50   ~ 0
 µCCLKEN
 Wire Wire Line
@@ -1694,7 +1655,7 @@ U 1 1 61CAFDFF
 P 1250 1250
 F 0 "SW1" V 1250 1403 50  0000 L CNN
 F 1 "momentary_switch" H 1250 1190 50  0001 C CNN
-F 2 "alexios:SOT-23-5_HandSoldering" H 1250 1450 50  0001 C CNN
+F 2 "Button_Switch_THT:SW_Tactile_SPST_Angled_PTS645Vx31-2LFS" H 1250 1450 50  0001 C CNN
 F 3 "" H 1250 1450 50  0001 C CNN
 	1    1250 1250
 	0    -1   1    0   
@@ -2249,7 +2210,6 @@ Text Label 2150 3700 0    50   ~ 0
 MISO
 Text Label 2150 3600 0    50   ~ 0
 MOSI
-NoConn ~ 3900 2700
 NoConn ~ 2350 1800
 Wire Wire Line
 	2400 1800 2350 1800
@@ -2653,9 +2613,9 @@ Text Label 1900 3600 0    50   ~ 0
 RXD
 Wire Wire Line
 	2400 3600 1900 3600
-Text Label 4250 4100 2    50   ~ 0
+Text Label 4250 3800 2    50   ~ 0
 ~µCW
-Text Label 4250 4000 2    50   ~ 0
+Text Label 4250 3900 2    50   ~ 0
 ~µCR
 Text Label 4600 3400 2    50   ~ 0
 CLRWS
@@ -2834,21 +2794,6 @@ F 4 "Yes" H 1350 350 50  0001 C CNN "Verified"
 	1    6650 2100
 	1    0    0    -1  
 $EndComp
-$Comp
-L alexios:ATmega64-16AU U?
-U 1 1 607968E0
-P 3200 3300
-AR Path="/607968E0" Ref="U?"  Part="1" 
-AR Path="/60757845/607968E0" Ref="U1"  Part="1" 
-F 0 "U1" H 3600 5350 50  0000 C CNN
-F 1 "ATmega64-16AU" H 3650 5250 50  0000 C CNN
-F 2 "alexios:TQFP-64" H 1225 4975 50  0001 C CIN
-F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2490-8-bit-avr-microcontroller-atmega64-l_datasheet.pdf" H 2950 3300 50  0001 C CNN
-F 4 "556-ATMEGA64L-8AU" H 3200 3300 50  0001 C CNN "BOM-Mouser"
-F 5 "Yes" H 3200 3300 50  0001 C CNN "Verified"
-	1    3200 3300
-	1    0    0    -1  
-$EndComp
 Text HLabel 4450 2500 2    50   Output ~ 0
 ~CLR
 $Comp
@@ -2942,20 +2887,85 @@ F 3 "~" V 8950 3400 50  0001 C CNN
 	2    8950 3400
 	0    -1   -1   0   
 $EndComp
-Wire Bus Line
-	1550 2500 1550 2900
+$Comp
+L alexios:ATmega64-16AU U?
+U 1 1 607968E0
+P 3200 3300
+AR Path="/607968E0" Ref="U?"  Part="1" 
+AR Path="/60757845/607968E0" Ref="U1"  Part="1" 
+F 0 "U1" H 3600 5350 50  0000 C CNN
+F 1 "ATmega64-16AU" H 3650 5250 50  0000 C CNN
+F 2 "alexios:TQFP-64" H 1225 4975 50  0001 C CIN
+F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/atmel-2490-8-bit-avr-microcontroller-atmega64-l_datasheet.pdf" H 2950 3300 50  0001 C CNN
+F 4 "556-ATMEGA64L-8AU" H 3200 3300 50  0001 C CNN "BOM-Mouser"
+F 5 "Yes" H 3200 3300 50  0001 C CNN "Verified"
+	1    3200 3300
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:TestPoint TP1
+U 1 1 6C5C0C4C
+P 3900 2700
+F 0 "TP1" V 3850 2850 50  0000 L CNN
+F 1 "TestPoint" V 3945 2888 50  0001 L CNN
+F 2 "TestPoint:TestPoint_Pad_1.5x1.5mm" H 4100 2700 50  0001 C CNN
+F 3 "~" H 4100 2700 50  0001 C CNN
+	1    3900 2700
+	0    1    1    0   
+$EndComp
+$Comp
+L alexios:R_Pack04_Split RN?
+U 3 1 63C465B7
+P 4550 3000
+AR Path="/63C465B7" Ref="RN?"  Part="2" 
+AR Path="/60757845/63C465B7" Ref="RN3"  Part="3" 
+F 0 "RN3" H 4650 3050 50  0001 L CNN
+F 1 "30Ω" H 4525 3106 50  0001 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 4550 3080 50  0001 C CNN
+F 3 "~" V 4550 3000 50  0001 C CNN
+	3    4550 3000
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:R_Pack04_Split RN?
+U 2 1 63C465BD
+P 4550 3100
+AR Path="/63C465BD" Ref="RN?"  Part="3" 
+AR Path="/60757845/63C465BD" Ref="RN3"  Part="2" 
+F 0 "RN3" H 4650 3150 50  0001 L CNN
+F 1 "30Ω" H 4525 3206 50  0001 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 4550 3180 50  0001 C CNN
+F 3 "~" V 4550 3100 50  0001 C CNN
+	2    4550 3100
+	1    0    0    -1  
+$EndComp
+$Comp
+L alexios:R_Pack04_Split RN?
+U 1 1 63C465C3
+P 4550 3200
+AR Path="/63C465C3" Ref="RN?"  Part="4" 
+AR Path="/60757845/63C465C3" Ref="RN3"  Part="1" 
+F 0 "RN3" H 4650 3250 50  0001 L CNN
+F 1 "30Ω" H 4525 3306 50  0001 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 4550 3280 50  0001 C CNN
+F 3 "~" V 4550 3200 50  0001 C CNN
+	1    4550 3200
+	1    0    0    1   
+$EndComp
 Wire Bus Line
 	1550 3200 1550 3600
 Wire Bus Line
-	4450 1350 4450 2200
+	1550 2500 1550 2900
 Wire Bus Line
-	10100 3450 10100 4300
-Wire Bus Line
-	10100 1350 10100 2200
+	5600 1350 5600 2200
 Wire Bus Line
 	7700 1350 7700 2200
 Wire Bus Line
-	5600 1350 5600 2200
+	10100 1350 10100 2200
+Wire Bus Line
+	10100 3450 10100 4300
+Wire Bus Line
+	4450 1350 4450 2200
 Wire Bus Line
 	7600 1700 7600 4300
 $EndSCHEMATC
