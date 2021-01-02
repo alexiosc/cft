@@ -911,9 +911,9 @@ Entry Bus Bus
 Wire Bus Line
 	2100 3800 1500 3800
 Text Label 1600 3800 0    50   ~ 0
-AB[0..23]
+AB[0..7]
 Text HLabel 1500 3800 0    50   UnSpc ~ 0
-AB[0..23]
+AB[0..7]
 Wire Wire Line
 	5450 1800 5250 1800
 Wire Wire Line
@@ -1025,12 +1025,6 @@ NoConn ~ 6850 2300
 Wire Wire Line
 	6650 2100 6850 2100
 NoConn ~ 6850 2100
-Wire Wire Line
-	3900 2300 4100 2300
-NoConn ~ 4100 2300
-Wire Wire Line
-	3900 2400 4100 2400
-NoConn ~ 4100 2400
 $Comp
 L power:PWR_FLAG #FLG0102
 U 1 1 6C038D98
@@ -1045,6 +1039,20 @@ $EndComp
 Connection ~ 9900 4950
 Wire Wire Line
 	9900 4950 9900 4900
+Wire Wire Line
+	3900 2300 4300 2300
+Wire Wire Line
+	3900 2400 4300 2400
+Text Label 4300 2300 2    50   ~ 0
+~MEM
+Text Label 4300 2400 2    50   ~ 0
+~IO
+Text Label 4300 2300 2    50   ~ 0
+~MEM
+Text HLabel 4300 2300 2    50   UnSpc ~ 0
+~MEM
+Text HLabel 4300 2400 2    50   UnSpc ~ 0
+~IO
 Wire Bus Line
 	4500 2900 4500 5500
 Wire Bus Line

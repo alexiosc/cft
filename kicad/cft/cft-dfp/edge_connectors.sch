@@ -809,6 +809,8 @@ F60 "C38" U R 8600 5100 50
 F61 "C39" U R 8600 5200 50 
 F62 "C40" U R 8600 5300 50 
 F63 "~WAITING" U L 7450 4200 50 
+F64 "~MEM" U L 7450 3300 50 
+F65 "~IO" U L 7450 3400 50 
 $EndSheet
 Text Label 2900 4200 0    50   ~ 0
 ~WAITING
@@ -1008,6 +1010,14 @@ Text HLabel 4300 5900 2    50   Output ~ 0
 FP-FPD[0..7]
 Text Label 3700 5900 0    50   ~ 0
 FP-FPD[0..7]
+Wire Wire Line
+	7450 3300 6900 3300
+Wire Wire Line
+	7450 3400 6900 3400
+Text Label 6900 3300 0    50   ~ 0
+~MEM
+Text Label 6900 3400 0    50   ~ 0
+~IO
 Wire Bus Line
 	5250 3200 5250 3500
 Wire Bus Line
