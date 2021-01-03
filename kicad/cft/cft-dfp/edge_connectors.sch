@@ -533,11 +533,11 @@ Text Label 9200 1400 2    50   ~ 0
 POWER
 Text Notes 9400 1400 0    50   ~ 0
 Power enable → backplane
-Text Label 9200 2800 2    50   ~ 0
+Text Label 9200 3400 2    50   ~ 0
 ~FPOE29
 Text Label 9200 3100 2    50   ~ 0
 ~FPOE25
-Text Label 9200 3000 2    50   ~ 0
+Text Label 9200 2600 2    50   ~ 0
 ~FPOE21
 Wire Wire Line
 	8600 2800 9200 2800
@@ -545,51 +545,39 @@ Wire Wire Line
 	8600 3100 9200 3100
 Wire Wire Line
 	8600 3000 9200 3000
-Text Notes 9250 3200 0    50   ~ 0
-IR high
-Text Label 9200 3200 2    50   ~ 0
-~FPOE17
 Wire Wire Line
 	8600 3200 9200 3200
-Text Notes 9250 3300 0    50   ~ 0
-AC high
-Text Notes 9250 3400 0    50   ~ 0
+Text Notes 9250 4000 0    50   ~ 0
 PC high
-Text Notes 9250 3500 0    50   ~ 0
-µCV mid
-Text Label 9200 3300 2    50   ~ 0
-~FPOE9
-Text Label 9200 3400 2    50   ~ 0
+Text Label 9200 4000 2    50   ~ 0
 ~FPOE5
-Text Label 9200 3500 2    50   ~ 0
-~FPOE1
 Wire Wire Line
 	8600 3300 9200 3300
 Wire Wire Line
 	8600 3400 9200 3400
 Wire Wire Line
 	8600 3500 9200 3500
-Text Label 9200 3600 2    50   ~ 0
+Text Label 9200 3300 2    50   ~ 0
 ~FPOE30
 Wire Wire Line
 	8600 3900 9200 3900
-Text Label 9200 3700 2    50   ~ 0
+Text Label 9200 3000 2    50   ~ 0
 ~FPOE26
 Wire Wire Line
 	8600 3700 9200 3700
-Text Notes 9250 3800 0    50   ~ 0
+Text Notes 9250 2400 0    50   ~ 0
 IR low\n
-Text Notes 9250 4100 0    50   ~ 0
+Text Notes 9250 5100 0    50   ~ 0
 AC low
-Text Notes 9250 4000 0    50   ~ 0
-PC low
 Text Notes 9250 4300 0    50   ~ 0
+PC low
+Text Notes 9250 3900 0    50   ~ 0
 µCV low
-Text Label 9200 4100 2    50   ~ 0
+Text Label 9200 5100 2    50   ~ 0
 ~FPOE10
-Text Label 9200 4000 2    50   ~ 0
-~FPOE6
 Text Label 9200 4300 2    50   ~ 0
+~FPOE6
+Text Label 9200 3900 2    50   ~ 0
 ~FPOE2
 Wire Wire Line
 	8600 4100 9200 4100
@@ -597,33 +585,33 @@ Wire Wire Line
 	8600 4000 9200 4000
 Wire Wire Line
 	8600 4300 9200 4300
-Text Label 9200 4900 2    50   ~ 0
+Text Label 9200 2900 2    50   ~ 0
 ~FPOE23
 Wire Wire Line
 	8600 4900 9200 4900
-Text Label 9200 4800 2    50   ~ 0
+Text Label 9200 2500 2    50   ~ 0
 ~FPOE19
 Wire Wire Line
 	8600 4800 9200 4800
-Text Notes 9250 4900 0    50   ~ 0
+Text Notes 9250 2900 0    50   ~ 0
 µAddress low
 Text Notes 9250 5000 0    50   ~ 0
 (reserved)
-Text Label 9200 5100 2    50   ~ 0
+Text Label 9200 5200 2    50   ~ 0
 ~FPOE15
 Wire Wire Line
 	8600 5100 9200 5100
-Text Notes 9250 5100 0    50   ~ 0
-(reserved)
-Text Notes 9250 5300 0    50   ~ 0
-IRQs enabled
 Text Notes 9250 5200 0    50   ~ 0
+(reserved)
+Text Notes 9250 4600 0    50   ~ 0
+IRQs enabled
+Text Notes 9250 3800 0    50   ~ 0
 IRQ requests
 Text Label 9200 5000 2    50   ~ 0
 ~FPOE11
-Text Label 9200 5300 2    50   ~ 0
+Text Label 9200 4600 2    50   ~ 0
 ~FPOE7
-Text Label 9200 5200 2    50   ~ 0
+Text Label 9200 3800 2    50   ~ 0
 ~FPOE3
 Wire Wire Line
 	8600 5000 9200 5000
@@ -653,51 +641,45 @@ Text Notes 9250 4200 0    50   ~ 0
 MFD: SP low
 Wire Wire Line
 	8600 2900 9200 2900
-Text Label 9200 2900 2    50   ~ 0
+Text Label 9200 3700 2    50   ~ 0
 ~FPOE0
-Text Notes 9250 2900 0    50   ~ 0
+Text Notes 9250 3700 0    50   ~ 0
 µCV high
 Wire Wire Line
 	8600 2700 9200 2700
 Wire Wire Line
 	8600 2600 9200 2600
-Text Label 9200 2700 2    50   ~ 0
-~FPOE4
-Text Label 9200 2600 2    50   ~ 0
+Text Label 9200 4900 2    50   ~ 0
 ~FPOE8
-Text Notes 9250 2700 0    50   ~ 0
-AEXT
-Text Notes 9250 2600 0    50   ~ 0
+Text Notes 9250 4900 0    50   ~ 0
 Flags
 Wire Wire Line
 	8600 2500 9200 2500
-Text Label 9200 2500 2    50   ~ 0
+Text Label 9700 5800 2    50   ~ 0
 ~FPOE12
-Text Notes 9250 2500 0    50   ~ 0
+Text Notes 9750 5800 0    50   ~ 0
 (reserved)
 Wire Wire Line
 	8600 2400 9200 2400
-Text Label 9200 2400 2    50   ~ 0
+Text Label 9200 2800 2    50   ~ 0
 ~FPOE24
 Wire Wire Line
 	8600 4600 9200 4600
-Text Label 9200 4600 2    50   ~ 0
+Text Label 9200 3600 2    50   ~ 0
 ~FPOE27
 Wire Wire Line
 	8600 2300 9200 2300
-Text Label 9200 2300 2    50   ~ 0
-~FPOE28
 Text Label 9200 4700 2    50   ~ 0
 ~FPDRHOE
 Text Label 9200 4400 2    50   ~ 0
 ~FPDRLOE
 Wire Wire Line
 	8600 3800 9200 3800
-Text Label 9200 3800 2    50   ~ 0
+Text Label 9200 2400 2    50   ~ 0
 ~FPOE18
 Wire Wire Line
 	8600 3600 9200 3600
-Text Label 9200 3900 2    50   ~ 0
+Text Label 9200 2700 2    50   ~ 0
 ~FPOE22
 Wire Wire Line
 	8600 1500 9200 1500
@@ -1018,6 +1000,24 @@ Text Label 6900 3300 0    50   ~ 0
 ~MEM
 Text Label 6900 3400 0    50   ~ 0
 ~IO
+Text Label 9200 2300 2    50   ~ 0
+~FPOE17
+Text Notes 9250 2300 0    50   ~ 0
+IR high
+Text Label 9200 3500 2    50   ~ 0
+~FPOE28
+Text Label 9200 3200 2    50   ~ 0
+~FPOE1
+Text Notes 9250 3200 0    50   ~ 0
+µCV mid
+Text Notes 9250 4100 0    50   ~ 0
+AEXT
+Text Label 9200 4100 2    50   ~ 0
+~FPOE4
+Text Label 9200 4800 2    50   ~ 0
+~FPOE9
+Text Notes 9250 4800 0    50   ~ 0
+AC high
 Wire Bus Line
 	5250 3200 5250 3500
 Wire Bus Line
