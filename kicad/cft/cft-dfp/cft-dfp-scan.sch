@@ -1994,8 +1994,6 @@ Wire Wire Line
 	2550 1400 3050 1400
 Wire Wire Line
 	3050 1400 3050 1700
-Text HLabel 1200 6550 0    50   Input ~ 0
-MFD1
 Text HLabel 1200 6450 0    50   Input ~ 0
 MFD0
 Text Notes 1600 6100 0    100  ~ 20
@@ -2073,9 +2071,7 @@ F 3 "http://www.ti.com/lit/gpn/sn74LS139" H 2300 6550 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	1200 6450 1300 6450
-Wire Wire Line
-	1200 6550 1800 6550
+	1200 6550 1300 6550
 Text HLabel 3250 6450 2    50   Output ~ 0
 ~ORHOE
 Text HLabel 3250 6550 2    50   Output ~ 0
@@ -2096,12 +2092,7 @@ Connection ~ 1400 6450
 Wire Wire Line
 	1400 6450 1800 6450
 Wire Wire Line
-	1300 6450 1300 7150
-Wire Wire Line
 	1300 7150 1800 7150
-Connection ~ 1300 6450
-Wire Wire Line
-	1300 6450 1400 6450
 Text Notes 6100 800  0    100  ~ 20
 Front-Panel Address Decoder
 Connection ~ 4450 3150
@@ -2532,6 +2523,12 @@ Text Label 4400 1400 2    50   ~ 0
 ~ROW4
 Text Label 4400 1500 2    50   ~ 0
 ~ROW5
+Text HLabel 1200 6550 0    50   Input ~ 0
+MFD1
+Wire Wire Line
+	1200 6450 1400 6450
+Wire Wire Line
+	1300 6550 1300 7150
 Wire Bus Line
 	2700 800  2700 1800
 Wire Bus Line
@@ -2540,4 +2537,7 @@ Wire Bus Line
 	4600 800  4600 3250
 Wire Bus Line
 	6750 1200 6750 4850
+Connection ~ 1300 6550
+Wire Wire Line
+	1300 6550 1800 6550
 $EndSCHEMATC

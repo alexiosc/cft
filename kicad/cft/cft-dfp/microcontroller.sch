@@ -521,14 +521,14 @@ Wire Wire Line
 $Comp
 L alexios:R_Pack04_Split RN?
 U 1 1 613FD660
-P 8850 3400
+P 9150 3400
 AR Path="/613FD660" Ref="RN?"  Part="1" 
 AR Path="/60757845/613FD660" Ref="RN7"  Part="1" 
-F 0 "RN7" V 8900 3500 50  0000 L CNN
-F 1 "30Ω" V 8800 3500 50  0000 L CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 8850 3480 50  0001 C CNN
-F 3 "~" V 8850 3400 50  0001 C CNN
-	1    8850 3400
+F 0 "RN7" V 9200 3800 50  0000 L CNN
+F 1 "30Ω" V 9100 3800 50  0000 L CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 9150 3480 50  0001 C CNN
+F 3 "~" V 9150 3400 50  0001 C CNN
+	1    9150 3400
 	0    -1   -1   0   
 $EndComp
 Wire Wire Line
@@ -808,106 +808,106 @@ Wire Wire Line
 $Comp
 L alexios:R_Pack04_Split RN?
 U 1 1 610F1C6F
-P 8300 4100
+P 8300 4400
 AR Path="/610F1C6F" Ref="RN?"  Part="1" 
 AR Path="/60757845/610F1C6F" Ref="RN6"  Part="1" 
-F 0 "RN6" H 8400 4150 50  0001 L CNN
-F 1 "30Ω" H 8500 3700 50  0001 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 8300 4180 50  0001 C CNN
-F 3 "~" V 8300 4100 50  0001 C CNN
-	1    8300 4100
-	1    0    0    -1  
+F 0 "RN6" H 8400 4450 50  0001 L CNN
+F 1 "30Ω" H 8500 4000 50  0001 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 8300 4480 50  0001 C CNN
+F 3 "~" V 8300 4400 50  0001 C CNN
+	1    8300 4400
+	1    0    0    1   
 $EndComp
 $Comp
 L alexios:R_Pack04_Split RN?
 U 1 1 610F1C75
-P 8300 3700
+P 8300 4000
 AR Path="/610F1C75" Ref="RN?"  Part="1" 
 AR Path="/60757845/610F1C75" Ref="RN5"  Part="1" 
-F 0 "RN5" H 8000 3800 50  0000 L CNN
-F 1 "30Ω" H 8450 3750 50  0000 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 8300 3780 50  0001 C CNN
-F 3 "~" V 8300 3700 50  0001 C CNN
-	1    8300 3700
-	1    0    0    -1  
+F 0 "RN5" H 8150 3600 50  0000 L CNN
+F 1 "30Ω" H 8450 3650 50  0000 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 8300 4080 50  0001 C CNN
+F 3 "~" V 8300 4000 50  0001 C CNN
+	1    8300 4000
+	1    0    0    1   
 $EndComp
 $Comp
 L alexios:R_Pack04_Split RN?
 U 2 1 610F1C7B
-P 8300 3800
+P 8300 3900
 AR Path="/610F1C7B" Ref="RN?"  Part="2" 
 AR Path="/60757845/610F1C7B" Ref="RN5"  Part="2" 
-F 0 "RN5" H 8400 3850 50  0001 L CNN
-F 1 "30Ω" H 8275 3906 50  0001 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 8300 3880 50  0001 C CNN
-F 3 "~" V 8300 3800 50  0001 C CNN
-	2    8300 3800
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:R_Pack04_Split RN?
-U 3 1 610F1C81
-P 8300 3900
-AR Path="/610F1C81" Ref="RN?"  Part="3" 
-AR Path="/60757845/610F1C81" Ref="RN5"  Part="3" 
 F 0 "RN5" H 8400 3950 50  0001 L CNN
 F 1 "30Ω" H 8275 4006 50  0001 C CNN
 F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 8300 3980 50  0001 C CNN
 F 3 "~" V 8300 3900 50  0001 C CNN
-	3    8300 3900
-	1    0    0    -1  
+	2    8300 3900
+	1    0    0    1   
+$EndComp
+$Comp
+L alexios:R_Pack04_Split RN?
+U 3 1 610F1C81
+P 8300 3800
+AR Path="/610F1C81" Ref="RN?"  Part="3" 
+AR Path="/60757845/610F1C81" Ref="RN5"  Part="3" 
+F 0 "RN5" H 8400 3850 50  0001 L CNN
+F 1 "30Ω" H 8275 3906 50  0001 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 8300 3880 50  0001 C CNN
+F 3 "~" V 8300 3800 50  0001 C CNN
+	3    8300 3800
+	1    0    0    1   
 $EndComp
 $Comp
 L alexios:R_Pack04_Split RN?
 U 4 1 610F1C87
-P 8300 4000
+P 8300 3700
 AR Path="/610F1C87" Ref="RN?"  Part="4" 
 AR Path="/60757845/610F1C87" Ref="RN5"  Part="4" 
-F 0 "RN5" H 8400 4050 50  0001 L CNN
-F 1 "30Ω" H 8275 4106 50  0001 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 8300 4080 50  0001 C CNN
-F 3 "~" V 8300 4000 50  0001 C CNN
-	4    8300 4000
-	1    0    0    -1  
+F 0 "RN5" H 8400 3750 50  0001 L CNN
+F 1 "30Ω" H 8275 3806 50  0001 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 8300 3780 50  0001 C CNN
+F 3 "~" V 8300 3700 50  0001 C CNN
+	4    8300 3700
+	1    0    0    1   
 $EndComp
 $Comp
 L alexios:R_Pack04_Split RN?
 U 2 1 610F1C8D
-P 8300 4200
+P 8300 4300
 AR Path="/610F1C8D" Ref="RN?"  Part="2" 
 AR Path="/60757845/610F1C8D" Ref="RN6"  Part="2" 
-F 0 "RN6" H 8400 4250 50  0001 L CNN
-F 1 "30Ω" H 8275 4306 50  0001 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 8300 4280 50  0001 C CNN
-F 3 "~" V 8300 4200 50  0001 C CNN
-	2    8300 4200
-	1    0    0    -1  
-$EndComp
-$Comp
-L alexios:R_Pack04_Split RN?
-U 3 1 610F1C93
-P 8300 4300
-AR Path="/610F1C93" Ref="RN?"  Part="3" 
-AR Path="/60757845/610F1C93" Ref="RN6"  Part="3" 
 F 0 "RN6" H 8400 4350 50  0001 L CNN
 F 1 "30Ω" H 8275 4406 50  0001 C CNN
 F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 8300 4380 50  0001 C CNN
 F 3 "~" V 8300 4300 50  0001 C CNN
-	3    8300 4300
-	1    0    0    -1  
+	2    8300 4300
+	1    0    0    1   
+$EndComp
+$Comp
+L alexios:R_Pack04_Split RN?
+U 3 1 610F1C93
+P 8300 4200
+AR Path="/610F1C93" Ref="RN?"  Part="3" 
+AR Path="/60757845/610F1C93" Ref="RN6"  Part="3" 
+F 0 "RN6" H 8400 4250 50  0001 L CNN
+F 1 "30Ω" H 8275 4306 50  0001 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 8300 4280 50  0001 C CNN
+F 3 "~" V 8300 4200 50  0001 C CNN
+	3    8300 4200
+	1    0    0    1   
 $EndComp
 $Comp
 L alexios:R_Pack04_Split RN?
 U 4 1 610F1C99
-P 8300 4400
+P 8300 4100
 AR Path="/610F1C99" Ref="RN?"  Part="4" 
 AR Path="/60757845/610F1C99" Ref="RN6"  Part="4" 
-F 0 "RN6" H 8200 4250 50  0000 L CNN
-F 1 "30Ω" H 8500 4350 50  0000 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 8300 4480 50  0001 C CNN
-F 3 "~" V 8300 4400 50  0001 C CNN
-	4    8300 4400
-	1    0    0    -1  
+F 0 "RN6" H 8150 4500 50  0000 L CNN
+F 1 "30Ω" H 8500 4450 50  0000 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 8300 4180 50  0001 C CNN
+F 3 "~" V 8300 4100 50  0001 C CNN
+	4    8300 4100
+	1    0    0    1   
 $EndComp
 Entry Wire Line
 	10000 3700 10100 3600
@@ -1038,8 +1038,6 @@ Text HLabel 1050 4300 0    50   Output ~ 0
 ~FPRSTHOLD
 Text Label 1200 4300 0    50   ~ 0
 ~FPRSTHOLD
-Text HLabel 1050 4000 0    50   Output ~ 0
-MFD1
 Text HLabel 1050 3900 0    50   Output ~ 0
 MFD0
 Wire Wire Line
@@ -2370,9 +2368,7 @@ Wire Wire Line
 Wire Wire Line
 	7150 4100 7500 4100
 NoConn ~ 7150 4600
-Wire Wire Line
-	5700 4200 6150 4200
-Text Label 5700 4200 0    50   ~ 0
+Text Label 5750 4200 0    50   ~ 0
 ~SCANCLR
 Wire Wire Line
 	6100 4000 6150 4000
@@ -2851,40 +2847,40 @@ $EndComp
 $Comp
 L alexios:R_Pack04_Split RN?
 U 4 1 613FD65A
-P 9150 3400
+P 8850 3400
 AR Path="/613FD65A" Ref="RN?"  Part="4" 
 AR Path="/60757845/613FD65A" Ref="RN7"  Part="4" 
-F 0 "RN7" H 9250 3450 50  0001 L CNN
-F 1 "30Ω" H 9125 3506 50  0001 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 9150 3480 50  0001 C CNN
-F 3 "~" V 9150 3400 50  0001 C CNN
-	4    9150 3400
+F 0 "RN7" H 8950 3450 50  0001 L CNN
+F 1 "30Ω" H 8825 3506 50  0001 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 8850 3480 50  0001 C CNN
+F 3 "~" V 8850 3400 50  0001 C CNN
+	4    8850 3400
 	0    1    -1   0   
 $EndComp
 $Comp
 L alexios:R_Pack04_Split RN?
 U 3 1 613FD654
-P 9050 3400
+P 8950 3400
 AR Path="/613FD654" Ref="RN?"  Part="3" 
 AR Path="/60757845/613FD654" Ref="RN7"  Part="3" 
-F 0 "RN7" H 9150 3450 50  0001 L CNN
-F 1 "30Ω" H 9025 3506 50  0001 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 9050 3480 50  0001 C CNN
-F 3 "~" V 9050 3400 50  0001 C CNN
-	3    9050 3400
+F 0 "RN7" H 9050 3450 50  0001 L CNN
+F 1 "30Ω" H 8925 3506 50  0001 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 8950 3480 50  0001 C CNN
+F 3 "~" V 8950 3400 50  0001 C CNN
+	3    8950 3400
 	0    -1   -1   0   
 $EndComp
 $Comp
 L alexios:R_Pack04_Split RN?
 U 2 1 613FD64E
-P 8950 3400
+P 9050 3400
 AR Path="/613FD64E" Ref="RN?"  Part="2" 
 AR Path="/60757845/613FD64E" Ref="RN7"  Part="2" 
-F 0 "RN7" H 9050 3450 50  0001 L CNN
-F 1 "30Ω" H 8925 3506 50  0001 C CNN
-F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 8950 3480 50  0001 C CNN
-F 3 "~" V 8950 3400 50  0001 C CNN
-	2    8950 3400
+F 0 "RN7" H 9150 3450 50  0001 L CNN
+F 1 "30Ω" H 9025 3506 50  0001 C CNN
+F 2 "Resistor_SMD:R_Array_Convex_4x0603" H 9050 3480 50  0001 C CNN
+F 3 "~" V 9050 3400 50  0001 C CNN
+	2    9050 3400
 	0    -1   -1   0   
 $EndComp
 $Comp
@@ -2952,6 +2948,10 @@ F 3 "~" V 4550 3200 50  0001 C CNN
 	1    4550 3200
 	1    0    0    1   
 $EndComp
+Wire Wire Line
+	5500 4200 6150 4200
+Text HLabel 5500 4200 0    50   Input ~ 0
+~SCANCLR
 Wire Bus Line
 	1550 3200 1550 3600
 Wire Bus Line
@@ -2968,4 +2968,6 @@ Wire Bus Line
 	4450 1350 4450 2200
 Wire Bus Line
 	7600 1700 7600 4300
+Text HLabel 1050 4000 0    50   Output ~ 0
+MFD1
 $EndSCHEMATC

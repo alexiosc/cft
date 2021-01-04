@@ -655,9 +655,9 @@ Text Notes 9250 4900 0    50   ~ 0
 Flags
 Wire Wire Line
 	8600 2500 9200 2500
-Text Label 9700 5800 2    50   ~ 0
+Text Label 9200 5300 2    50   ~ 0
 ~FPOE12
-Text Notes 9750 5800 0    50   ~ 0
+Text Notes 9250 5300 0    50   ~ 0
 (reserved)
 Wire Wire Line
 	8600 2400 9200 2400
