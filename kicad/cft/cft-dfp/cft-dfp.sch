@@ -1076,16 +1076,16 @@ $EndComp
 Connection ~ 5700 7250
 Text Label 6650 7350 2    50   ~ 0
 ~IRQ6
-Text Label 6650 7250 2    50   ~ 0
-~IRQ7
 Text Label 6650 7450 2    50   ~ 0
+~IRQ7
+Text Label 6650 7250 2    50   ~ 0
 ~IRQ
 Wire Wire Line
 	6250 7350 6650 7350
 Wire Wire Line
-	6250 7250 6650 7250
-Wire Wire Line
 	6250 7450 6650 7450
+Wire Wire Line
+	6250 7250 6650 7250
 Wire Wire Line
 	5700 7350 5700 7450
 Connection ~ 5700 7350

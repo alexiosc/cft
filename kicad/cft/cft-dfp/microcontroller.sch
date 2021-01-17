@@ -2952,6 +2952,8 @@ Wire Wire Line
 	5500 4200 6150 4200
 Text HLabel 5500 4200 0    50   Input ~ 0
 ~SCANCLR
+Text HLabel 1050 4000 0    50   Output ~ 0
+MFD1
 Wire Bus Line
 	1550 3200 1550 3600
 Wire Bus Line
@@ -2968,6 +2970,4 @@ Wire Bus Line
 	4450 1350 4450 2200
 Wire Bus Line
 	7600 1700 7600 4300
-Text HLabel 1050 4000 0    50   Output ~ 0
-MFD1
 $EndSCHEMATC
