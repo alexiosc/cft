@@ -1,4 +1,4 @@
-(module DIP-24_W15.24mm (layer F.Cu) (tedit 5EC124D1)
+(module DIP-24_W15.24mm (layer F.Cu) (tedit 60231FA0)
   (descr "28-lead though-hole mounted DIP package, row spacing 15.24 mm (600 mils)")
   (tags "THT DIP DIL PDIP 2.54mm 15.24mm 600mil")
   (fp_text reference REF** (at -1.27 -3.175 180) (layer F.SilkS)
@@ -50,7 +50,7 @@
   (pad 26 thru_hole oval (at 15.24 5.08) (size 1.6 1.6) (drill 0.8) (layers *.Cu *.Mask))
   (pad 27 thru_hole oval (at 15.24 2.54) (size 1.6 1.6) (drill 0.8) (layers *.Cu *.Mask))
   (pad 28 thru_hole oval (at 15.24 0) (size 1.6 1.6) (drill 0.8) (layers *.Cu *.Mask))
-  (model ${KISYS3DMOD}/Package_DIP.3dshapes/DIP-28_W15.24mm.wrl
+  (model ${KISYS3DMOD}/Package_DIP.3dshapes/DIP-24_W15.24mm.wrl
     (at (xyz 0 0 0))
     (scale (xyz 1 1 1))
     (rotate (xyz 0 0 0))
