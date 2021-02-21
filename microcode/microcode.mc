@@ -69,6 +69,9 @@
 //   instruction. Removed IND R. Swapped some signal values around for decoding
 //   convenience. Fixed autoindex bug by adding an action and MEMREAD_IDX,
 //   MEMWRITE_IDX macros that use it.
+//
+//   Version 7g: (2021-02-21) added context register. Moved RADDRs and WADDRs
+//   around to fit.
 
 
 // ADDRESSING MODES
@@ -166,9 +169,9 @@ cond uaddr:4;
 // 01001     DR          DR
 // 01010     AC          AC
 // 01011     SP          SP           The CFT is a big boy now, it has a Stack Pointer!
-// 01100                 MBP          
-// 01101     MBP+flags   MBP+flags    Pushed onto stack as a single 16-bit value (for speed)
-// 01110                 flags        Pushed onto stack as a single 16-bit value (for speed)
+// 01100
+// 01101
+// 01110
 // 01111     AGL         IR           Read AGL; write IR.
 // -------------------------------------------------------------------------------
 // 10000     ALU:ADD                  Start calculating addition (value will be incorrect)
@@ -184,10 +187,10 @@ cond uaddr:4;
 // 11001     ALU:B       ALU:B        Currently only used by the SRU.                              
 // 11010                              
 // 11011                              
-// 11100                              
-// 11101                              
-// 11110                              
-// 11111                              
+// 11100     MBP         MBP          Read/write  Access to the MBP for long jumps
+// 11101     CTX         CTX          Context register access
+// 11110     CTX+flags   CTX+flags    Pushed onto stack as a single 16-bit value (for speed)
+// 11111                 flags        Writes to just the flags (ignores CTX)
 // -------------------------------------------------------------------------------
 
 // RADDR FIELD
@@ -204,9 +207,8 @@ signal read_pc         = ...................01000; // Read from PC
 signal read_dr         = ...................01001; // Read from DR
 signal read_ac         = ...................01010; // Read from AC
 signal read_sp         = ...................01011; // Read from SP
-//signal read_mbp      = ...................01100; // No longer used: Read MBP (MB0)
-signal read_mbp_flags  = ...................01101; // Read combination MBP+flags
-//signal read_flags    = ...................01110; // No longer uesd: Read flags
+//signal               = ...................01100; // (Available)
+//signal               = ...................01101; // (Available)
 signal read_agl        = ...................01111; // Read from address generation logic
 signal read_alu_add    = ...................10000; // ALU: Read from ALU: AC + B + L
 signal read_alu_and    = ...................10001; // ALU: Read from ALU: AC AND B
@@ -220,9 +222,9 @@ signal read_alu_y      = ...................11000; // Read the ALU Y Port (ADD r
 signal read_alu_b      = ...................11001; // Read the ALU B Port (SRU result)
 //signal               = ...................11010; // (Available)
 //signal               = ...................11011; // (Available)
-//signal               = ...................11100; // (Available)
-//signal               = ...................11101; // (Available)
-//signal               = ...................11110; // (Available)
+signal read_mbp_new    = ...................11100; // Read the MBP (_new added temporarily to avoid bugs)
+signal read_ctx        = ...................11101; // Read the context register
+signal read_ctx_flags  = ...................11110; // Read CTX & flags vector
 //signal               = ...................11111; // (Available)
 
 // WADDR FIELD
@@ -239,9 +241,9 @@ signal write_pc        = ..............01000.....; // Write to PC
 signal write_dr        = ..............01001.....; // Write to DR
 signal write_ac        = ..............01010.....; // Write to AC
 signal write_sp        = ..............01011.....; // Write to AC
-signal write_mbp       = ..............01100.....; // Write MBP
-signal write_mbp_flags = ..............01101.....; // Read combination MBP+flags
-signal write_flags     = ..............01110.....; // Write flags (not all are written!)
+//signal               = ..............01100.....; // (Available)
+//signal               = ..............01101.....; // (Available)
+//signal               = ..............01110.....; // (Available)
 signal write_ir        = ..............01111.....; // Write to the Instruction Register
 //signal               = ..............10000.....; // (Reserved for the ALU)
 //signal               = ..............10001.....; // (Reserved for the ALU)
@@ -255,10 +257,10 @@ signal write_ir        = ..............01111.....; // Write to the Instruction R
 signal write_alu_b     = ..............11001.....; // Write to ALU's B Port
 //signal               = ..............11010.....; // (Available)
 //signal               = ..............11011.....; // (Available)
-//signal               = ..............11100.....; // (Available)
-//signal               = ..............11101.....; // (Available)
-//signal               = ..............11110.....; // (Available)
-//signal               = ..............11111.....; // (Available)
+signal write_mbp_new   = ..............11100.....; // Write the MBP (_new added temporarily to avoid bugs)
+signal write_ctx       = ..............11101.....; // Write the context register
+signal write_ctx_flags = ..............11110.....; // Write CTX & flags vector
+signal write_flags     = ..............11111.....; // Write flags
 
 // Convenient aliases for the constants in the Constant Store
 #define read_cs_rstvec     read_cs0 // We reset to XX:0000. XX is either 00 or 0x80.
@@ -515,11 +517,11 @@ start RST=0, INT=X, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 // latency. The Return process will probably be identical.
 
 start RST=1, INT=0, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
-      STACK_PUSH(mbp_flags);                    // 00 mem[MBS:SP++] ← <flags,MBP>
+      STACK_PUSH(ctx_flags);                    // 00 mem[MBS:SP++] ← <flags,CTX>
       action_cli, STACK_PUSH(pc);               // 02 mem[MBS:SP++] ← PC; CLI
       STACK_PUSH(ac);                           // 04 mem[MBS:SP++] ← AC
       SET(pc, cs_isrvec_pc);			// 06 PC ← 0003
-      SET(mbp, cs_isrvec_mb), END;		// 07 MBP ← 00
+      SET(ctx, cs_isrvec_mb), END;		// 07 CTX ← 00
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -621,7 +623,7 @@ start RST=1, INT=0, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 // FLAGS:    *NZVIL
 // FORMAT:   :-------
 //
-// Pops the AC, PC, MBP and flags from the Hardware Stack to return
+// Pops the AC, PC, CTX and flags from the Hardware Stack to return
 // from an Interrupt Service Routine. Flags include the I flag, so
 // interrupts are re-enabled atomically during this command if they
 // were enabled when the ISR was called.
@@ -630,7 +632,7 @@ start IRET;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       STACK_POP(ac);                            // 02 AC ← mem[--SP]
       STACK_POP(pc);                            // 05 PC ← mem[--SP]
-      STACK_POP(mbp_flags), END;                // 08 <flags,MBP> ← mem[--SP]
+      STACK_POP(ctx_flags), END;                // 08 <flags,CTX> ← mem[--SP]
 
 
 
@@ -654,7 +656,7 @@ start IRET;
 start LRET;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       STACK_POP(pc);                            // 02 PC ← mem[--SP]
-      STACK_POP(mbp), END;                      // 05 MBP ← mem[--SP]
+      STACK_POP(mbp_new), END;                  // 05 MBP ← mem[--SP]
 
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -773,13 +775,15 @@ start TDA;
 // interrupts or traps. The PC will jump to long address 00:0002. Note that
 // hardware interrupts jump to 00:0003.
 
+
+// TODO: now we have a context register, this can be rewritten to be more efficient.
 start TRAP;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
-      action_cli, STACK_PUSH(mbp_flags);        // 02 mem[MBS:SP++] ← flags:MBP; CLI
+      action_cli, STACK_PUSH(ctx_flags);        // 02 mem[MBS:SP++] ← <flags,CTX>; CLI
       STACK_PUSH(pc);                           // 04 mem[MBS:SP++] ← PC
       STACK_PUSH(ac);                           // 06 mem[MBS:SP++] ← AC
       SET(pc, cs_softisr_pc);                   // 08 PC ← 0002
-      SET(mbp, cs_softisr_mb);                  // 09 MBP ← 00
+      SET(ctx, cs_softisr_mb);                  // 09 CTX ← 00
       SET(ac, agl), END;                        // 10 AC ← AGL
 
 
@@ -840,11 +844,11 @@ start PPA;
 // FLAGS:    -----
 // FORMAT:   :-------
 //
-// Pushes the Flags onto the Hardware Stack and increments the SP.
+// Pushes the <flags, CTX> vector onto the Hardware Stack and increments the SP.
 
 start PHF;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
-      STACK_PUSH(mbp_flags), END;               // 02 mem[MBS:SP++] ← flags
+      STACK_PUSH(ctx_flags), END;               // 02 mem[MBS:SP++] ← <flags,CTX>
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -862,7 +866,7 @@ start PHF;
 // FORMAT:   :-------
 //
 // Decrements the SP and loads the Flags from the memory location pointed to by
-// the SP. The Z and N flags will not be updated.
+// the SP. The Z and N flags will not be updated. The lower 8 bits are ignored soup.
 
 start PPF;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
@@ -923,6 +927,8 @@ start CLI;
 
 // Removed, as it fails after IRET. JMP @ works just as well.
 
+// TODO: Test claim above.
+
 // MNEMONIC: WAIT
 // NAME:     Wait for Interrupt
 // DESC:     Suspends program execution until an interrupt arrives.
@@ -955,11 +961,14 @@ start CLI;
 // own, custom ISR microprogram with a Fetch cycle at the end. That Fetch loads
 // the IR with the first instruction of the Interrupt service routine, which
 // exits both the WAIT microprogram *and* the WAIT ISR microprogram
-// simultaneously and allows execution to proceed.
+// simultaneously and allows execution to proceed. Note, the IR will be read
+// twice! Once to break out of WAIT (where the PC isn't incremented), and once
+// again during the fetch cycle of the first instruction of the ISR (which
+// rereads the same address but increments the PC)
 //
 // While WAIT is active, the front panel will appear to be stuck in the ‘Fetch’
 // state with the µPC stuck to zero and Interrupts enabled. The fetch cycle at
-// the end of the WAIT ISR will never be indicated.
+// the end of the WAIT ISR will never be indicated on the front panel.
 
 start WAIT, INT=1;
       SET(ac, agl), action_sti, END;  // 00 DR ← AGL; STI; loop forever
@@ -979,13 +988,14 @@ start WAIT, INT=1;
       hold;                           // 14 
       hold;                           // 15 
 
-// To make this work, WAIT needs its own interrupt service microprogram. It works exactly like the ps 
+// To make this work, WAIT needs its own interrupt service microprogram. (see
+// note above)
 start WAIT, INT=0;
-      STACK_PUSH(mbp_flags);                    // 00 mem[MBS:SP++] ← <flags,MBP>
+      STACK_PUSH(ctx_flags);                    // 00 mem[MBS:SP++] ← <flags,CTX>
       action_cli, STACK_PUSH(pc);               // 02 mem[MBS:SP++] ← PC; CLI
       STACK_PUSH(ac);                           // 04 mem[MBS:SP++] ← AC
       SET(pc, cs_isrvec_pc);			// 06 PC ← 0003
-      SET(mbp, cs_isrvec_mb);                   // 07 MBP ← 00
+      SET(ctx, cs_isrvec_mb);                   // 07 CTX ← 00
       MEMREAD(mbp, pc, ir), END;                // 08 IR ← [MBP:PC]
 
 
@@ -2012,42 +2022,42 @@ start LIA, I=0, R=1, IDX=XX;
 // (3) LJSR, Indirect
 start LJSR, I=1, R=0, IDX=XX;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
-      STACK_PUSH(mbp_flags);                    // 02 mem[MBS:SP++] ← <flags,MBP>
+      STACK_PUSH(mbp_new);                      // 02 mem[MBS:SP++] ← MBP
       STACK_PUSH(pc);                           // 04 mem[MBS:SP++] ← PC
       SET(dr, agl);                             // 06
       MEMREAD(mbp, agl, pc), action_incdr;      // 07 PC ← mem[MBP:AGL]
-      MEMREAD(mbp, dr, mbp), END;               // 09 MBP ← mem[MBP:AGL+1]
+      MEMREAD(mbp, dr, mbp_new), END;           // 09 MBP ← mem[MBP:AGL+1]
 
 // (4) & (5) LJSR, Register Indirect and Memory Bank-Relative Indirect
 start LJSR, I=1, R=1, IDX=IDX_REG;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
-      STACK_PUSH(mbp_flags);                    // 02 mem[MBS:SP++] ← <flags,MBP>
+      STACK_PUSH(mbp_new);                      // 02 mem[MBS:SP++] ← MBP
       STACK_PUSH(pc);                           // 04 mem[MBS:SP++] ← PC
       SET(dr, agl);                             // 06
       MEMREAD(mbz, agl, pc), action_incdr;      // 07 PC ← mem[MBZ:AGL]
-      MEMREAD(mbz, dr, mbp), END;               // 09 MBP ← mem[MBZ:AGL+1]
+      MEMREAD(mbz, dr, mbp_new), END;           // 09 MBP ← mem[MBZ:AGL+1]
 
 // NON-STANDARD: (6) LJSR, Auto-Increment Double Indirect
 // TODO: If action_incdr can happen fast enough, we can shave off two cycles here.
 // TODO: Can't tell if this microprogram fails or not. Test before control unit is fabricated!
 start LJSR, I=1, R=1, IDX=IDX_INC;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
-      STACK_PUSH(mbp_flags);                    // 02 mem[MBS:SP++] ← <flags,MBP>
+      STACK_PUSH(mbp_new);                      // 02 mem[MBS:SP++] ← MBP
       STACK_PUSH(pc);                           // 04 mem[MBS:SP++] ← PC
       MEMREAD(mbz, agl, dr);                    // 06 DR ← mem[MBZ:AGL]
       MEMREAD_IDX(mbd, dr, pc);                 // 08 PC ← mem[MBn:DR]
       action_incdr;                             // 10 DR++
-      MEMREAD_IDX(mbd, dr, mbp);                // 11 MBP ← mem[MBn:DR]
+      MEMREAD_IDX(mbd, dr, mbp_new);            // 11 MBP ← mem[MBn:DR]
       action_incdr;                             // 13 DR++
       MEMWRITE(mbz, agl, dr), END;              // 14 mem[MBZ:AGL] ← DR
 
 // NON-STANDARD: (7) LJSR, Auto-Decrement Double Indirect.
 start LJSR, I=1, R=1, IDX=IDX_DEC;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
-      STACK_PUSH(mbp_flags);                    // 02 mem[MBS:SP++] ← <flags,MBP>
+      STACK_PUSH(mbp_new);                      // 02 mem[MBS:SP++] ← MBP
       STACK_PUSH(pc);                           // 04 mem[MBS:SP++] ← PC
       MEMREAD(mbz, agl, dr);                    // 06 DR ← mem[MBZ:AGL]
-      MEMREAD_IDX(mbd, dr, mbp);                // 08 MBP ← mem[MBn:DR]
+      MEMREAD_IDX(mbd, dr, mbp_new);            // 08 MBP ← mem[MBn:DR]
       action_decdr;                             // 10 DR--
       MEMREAD_IDX(mbd, dr, pc);                 // 11 PC ← mem[MBn:DR]
       action_decdr;                             // 13 DR--
@@ -2058,12 +2068,12 @@ start LJSR, I=1, R=1, IDX=IDX_DEC;
 // them. Push MBP onto the stack FIRST.
 start LJSR, I=1, R=1, IDX=IDX_SP;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
-      STACK_PUSH(mbp_flags);                    // 02 mem[MBS:SP++] ← <flags,MBP>
+      STACK_PUSH(mbp_new);                      // 02 mem[MBS:SP++] ← MBP
       STACK_PUSH(pc);                           // 04 mem[MBS:SP++] ← PC
-      MEMREAD(mbz, dr, pc);                     // 06 MBP ← mem[MBn:DR]
+      MEMREAD(mbz, dr, pc);                     // 06 PC ← mem[MBn:DR]
       MEMREAD_IDX(mbd, agl, dr);                // 08 DR ← mem[MBn:AGL]
       action_decdr;                             // 10 DR--
-      MEMREAD_IDX(mbd, dr, mbp);                // 11 PC ← mem[MBn:DR]
+      MEMREAD_IDX(mbd, dr, mbp_new);            // 11 MBP ← mem[MBn:DR]
       action_decdr;                             // 13 DR--
       MEMWRITE(mbz, agl, dr), END;              // 14 mem[MBD:AGL] ← DR
 
@@ -2107,14 +2117,14 @@ start LJMP, I=1, R=0, IDX=XX;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       SET(dr, agl);                             // 02 DR ← AGL
       MEMREAD(mbp, agl, pc), action_incdr;      // 03 PC ← mem[MBP:AGL]; DR++
-      MEMREAD(mbp, dr, mbp), END;               // 05 MBP ← mem[MBP:AGL+1]
+      MEMREAD(mbp, dr, mbp_new), END;           // 05 MBP ← mem[MBP:AGL+1]
 
 // (4) & (5) LJMP, Register Indirect and Memory Bank-Relative Indirect
 start LJMP, I=1, R=1, IDX=XX;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       SET(dr, agl);                             // 02 DR ← AGL
       MEMREAD(mbz, agl, pc), action_incdr;      // 03 PC ← mem[MBZ:AGL]; DR++
-      MEMREAD(mbz, dr, mbp), END;               // 05 MBP ← mem[MBZ:AGL+1]
+      MEMREAD(mbz, dr, mbp_new), END;           // 05 MBP ← mem[MBZ:AGL+1]
 
 // NON-STANDARD: (6) LJMP, Auto-Increment Double Indirect
 // NOTE: If action_incdr can happen fast enough, we can shave off two cycles here.
@@ -2123,7 +2133,7 @@ start LJMP, I=1, R=1, IDX=IDX_INC;
       MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBZ:AGL]
       MEMREAD_IDX(mbd, dr, pc);                 // 04 PC ← mem[MBn:DR]
       action_incdr;                             // 06 DR++
-      MEMREAD_IDX(mbd, dr, mbp);                // 07 MBP ← mem[MBn:DR]
+      MEMREAD_IDX(mbd, dr, mbp_new);            // 07 MBP ← mem[MBn:DR]
       action_incdr;                             // 09 DR++
       MEMWRITE(mbz, agl, dr), END;              // 10 mem[MBZ:AGL] ← DR
 
@@ -2131,7 +2141,7 @@ start LJMP, I=1, R=1, IDX=IDX_INC;
 start LJMP, I=1, R=1, IDX=IDX_DEC;
       FETCH_IR;                                 // 00 IR ← mem[PC++]
       MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBD:AGL]
-      MEMREAD_IDX(mbd, dr, mbp);                // 04 MBP ← mem[MBn:DR]
+      MEMREAD_IDX(mbd, dr, mbp_new);            // 04 MBP ← mem[MBn:DR]
       action_decdr;                             // 06 DR--
       MEMREAD_IDX(mbd, dr, pc);                 // 07 PC ← mem[MBn:DR]
       action_decdr;                             // 09 DR--
@@ -2145,7 +2155,7 @@ start LJMP, I=1, R=1, IDX=IDX_SP;
       MEMREAD(mbz, agl, dr);                    // 02 DR ← mem[MBD:AGL]
       MEMREAD_IDX(mbd, dr, pc);                 // 04 PC ← mem[MBn:DR]
       action_decdr;                             // 06 DR--
-      MEMREAD_IDX(mbd, dr, mbp);                // 07 MBP ← mem[MBn:DR]
+      MEMREAD_IDX(mbd, dr, mbp_new);            // 07 MBP ← mem[MBn:DR]
       action_decdr;                             // 09 DR--
       MEMWRITE(mbz, agl, dr), END;              // 10 mem[MBD:AGL] ← DR
 
