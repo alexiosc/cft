@@ -1,0 +1,127 @@
+GAL16V8         ; this is the GAL type
+MBUCTL00        ; this is the signature
+
+NC1 DIS RMBP WAR IDXEN WMBP WMBn RA0 RA1 GND
+IR0  IR1 IR2   A0   A1   A2  OE  WE  NC2 VCC
+
+; Abridged Espresso output from mbu-control.espresso
+
+; .i 11
+; .o 5
+; .p 13
+; DIS RMBP WAR IDXEN WMBP WMBn RADDR IR  A   OE WE What
+; -------------------------------------------------------------------------------
+;  -    -   0    -     -    -   --  --- 000   0  1 Write AR.
+;  -    0   -    -     -    -   --  --- 000   0  1 Read RMBP
+;  -    1   -    -     1    1   --  --- 000   0  1
+;  -    1   1    -     -    -   --  --- 000   1  0
+;  0    -   -    -     -    -   --  --- 000   1  1
+;  1    1   0    0     -    -   --  --1 001   0  0
+;  1    1   0    1     -    -   -1  --- 001   0  0
+;  1    1   1    -     1    0   --  --1 001   0  0
+;  1    1   0    0     -    -   --  -1- 010   0  0
+;  1    1   0    1     -    -   1-  --- 010   0  0
+;  1    1   1    -     1    0   --  -1- 010   0  0
+;  1    1   0    0     -    -   --  1-- 100   0  0
+;  1    1   1    -     1    0   --  1-- 100   0  0
+
+;  -    -   -    -     1    1   --  ---       0  1
+;  -    1   1    -     -    -   --  ---       1  0
+;  -    -   0    -     -    -   --  ---       0  1
+;  0    -   -    -     -    -   --  ---       1  1
+;  -    0   -    -     -    -   --  ---       0  1
+
+; .e
+
+; DIS RMBP WAR IDXEN WMBP WMBn RADDR IR  A   OE WE What
+; -------------------------------------------------------------------------------
+; 0     -   -    -     -    -   --  ---         1  WE
+; -     0   -    -     -    -   --  ---         1  WE
+; -     -   0    -     -    -   --  ---         1  WE
+; -     -   -    -     1    1   --  ---         1  WE
+
+WE = /DIS  +  /RMBP  +  /WAR  +  WMBP * WMBn
+
+; DIS RMBP WAR IDXEN WMBP WMBn RADDR IR  A   OE WE What
+; -------------------------------------------------------------------------------
+; 0     -   -    -     -    -   --  ---       1
+; -     0   -    -     0    -   --  ---       1
+; -     0   -    -     -    0   --  ---       1    
+; -     1   1    -     -    -   --  ---       1
+   
+OE = /DIS  +  /RMBP * /WMBP  +  /RMBP * /WMBn  +  RMBP * WAR
+
+; DIS RMBP WAR IDXEN WMBP WMBn RADDR IR  A   What
+; -------------------------------------------------------------------------------
+;  1    -   1    -     1    0   --  --1  001 write_mbn (bit 0 from IR)
+;  1    1   0    0     -    -   --  --1  001 write_ar,  Pg. 0 index reg (bit 0 from IR)
+;  1    1   0    1     -    -   -1  ---  001 write_ar (bit 0 from RADDR)
+;  1    -   1    -     1    0   --  -1-  010 write_mbn (bit 1 from IR)
+;  1    1   0    0     -    -   --  -1-  010 write_ar,  Pg. 0 index reg (bit 1 from IR)
+;  1    1   0    1     -    -   1-  ---  010 write_ar (bit 0 from RADDR)
+;  1    -   1    -     1    0   --  1--  100 write_mbn (bit 2 from IR)
+;  1    1   0    0     -    -   --  1--  100 write_ar,  Pg. 0 index reg (bit 1 from IR)
+
+;    MUX: use IR (write_mb{n,p})          MUX: use IR (write_ar_mb*)             MUX: use RADDR (write_ar_mb*)
+; ---------------------------------       --------------------------------       -------------------------------
+A0 = IR0 * DIS * WAR * WMBP * /WMBn   +   IR0 * DIS * RMBP * /WAR * /IDXEN   +   RA0 * DIS * RMBP * /WAR * IDXEN
+A1 = IR1 * DIS * WAR * WMBP * /WMBn   +   IR1 * DIS * RMBP * /WAR * /IDXEN   +   RA1 * DIS * RMBP * /WAR * IDXEN
+A2 = IR2 * DIS * WAR * WMBP * /WMBn   +   IR2 * DIS * RMBP * /WAR * /IDXEN
+
+
+DESCRIPTION
+
+MBU GAL EQUATIONS
+
+Inputs: (active low unless otherwise stated)
+
+DIS      -- Disable MBU register file.
+RBMP     -- Read the MBP (MB0, address 000) register
+WAR      -- Read from MBU
+IDXEN    -- if WAR asserted, IR[1:0] selects register, not RADDR[2:0]
+WBMP     -- Write to MBP (MB0, address 000) register
+WBMn     -- Write to any MBn register, IR[2:0] selects.
+ADDR0-1  -- RADDR[1:0]
+IR0-2    -- IR[2:0]
+
+Outputs:
+
+A0-2     -- Address of MBx register in register file RAM.
+OE       -- Active low output enable signal to the register file RAM.
+WE       -- Active low write enable signal to the register file RAM.
+
+___  ____  ___  _____  ____   ____
+DIS  RMBP  WAR  IDXEN  WMBP   WMBn  ADDR0-1  IR0-2  |  A0-2  OE  WE  What
+----------------------------------------------------|-----------------------------------------
+ 0     -    -     -     -      -     --       ---   |   000   1   1  MBU disabled
+ 1     1    1     -     1      1     --       ---   |   000   1   1  MBU disabled
+----------------------------------------------------|-----------------------------------------
+ 1     0    -     -     -      -     --       ---   |   000   0   1  Read MBP
+----------------------------------------------------|-----------------------------------------
+ 1     1    0     0     -      -     --       000   |   000   0   1  Read MBP index register
+ 1     1    0     0     -      -     --       001   |   001   0   1  Read MBD index register
+ 1     1    0     0     -      -     --       010   |   010   0   1  Read MBS index register
+ 1     1    0     0     -      -     --       011   |   011   0   1  Read MBZ index register
+ 1     1    0     0     -      -     --       100   |   100   0   1  Read MB4 index register
+ 1     1    0     0     -      -     --       101   |   101   0   1  Read MB5 index register
+ 1     1    0     0     -      -     --       110   |   110   0   1  Read MB6 index register
+ 1     1    0     0     -      -     --       111   |   111   0   1  Read MB7 index register
+----------------------------------------------------|-----------------------------------------
+ 1     1    0     1     -      -     00       ---   |   000   0   1  write_ar_mbp
+ 1     1    0     1     -      -     01       ---   |   001   0   1  write_ar_mbd
+ 1     1    0     1     -      -     10       ---   |   010   0   1  write_ar_mbs
+ 1     1    0     1     -      -     11       ---   |   011   0   1  write_ar_mbz
+----------------------------------------------------|-----------------------------------------
+ 1     1    1     -     0      -     --       ---   |   000   1   0  Write BMP
+----------------------------------------------------|-----------------------------------------
+ 1     1    1     -     1      0     --       000   |   000   1   0  Write MBP index register
+ 1     1    1     -     1      0     --       001   |   001   1   0  Write MBD index register
+ 1     1    1     -     1      0     --       010   |   010   1   0  Write MBS index register
+ 1     1    1     -     1      0     --       011   |   011   1   0  Write MBZ index register
+ 1     1    1     -     1      0     --       100   |   100   1   0  Write MB4 index register
+ 1     1    1     -     1      0     --       101   |   101   1   0  Write MB5 index register
+ 1     1    1     -     1      0     --       110   |   110   1   0  Write MB6 index register
+ 1     1    1     -     1      0     --       111   |   111   1   0  Write MB7 index register
+----------------------------------------------------|-----------------------------------------
+
+; End of file.
