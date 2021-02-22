@@ -8,6 +8,7 @@ MC ?=			/home/alexios/PROJECTS/RELEASED/mcasm/mcasm/mcasm
 MCIN =			microcode.mc
 MCPARSER = 		$(TOOLDIR)/parse_microcode.py
 MKALUROM =		$(TOOLDIR)/make_alu_rom
+GALASM = 		$(TOOLDIR)/galasm
 # MKMBUROM =		$(TOOLDIR)/make_mbu_rom
 MCFLAGS += 		-ecsa
 #MCFLAGS += 		-r
@@ -36,12 +37,14 @@ ALUBB =			$(ALUB)-4bit-00.bin $(ALUB)-6bit-00.bin
 BINS =			$(BASE)-00.bin $(BASE)-01.bin $(BASE)-02.bin $(ALUBB) $(ALUUB)
 LISTS =			$(BASE)-00.list $(BASE)-01.list $(BASE)-02.list $(ALUBL) $(ALUUL)
 
+PLDS =			$(BUILDDIR)/mbu-control.jed
+
 
 #.PHONY: 		all clean microcode alu-binary alu-unary
 .PHONY: 		all clean microcode json disasm alu-rom
 
 #all:			microcode $(ALUUL) $(ALUUB) $(ALUBL) $(ALUBB) $(JSON) $(DISASM) $(CFTASM)
-all:			$(MCOUT) $(HDROUT) $(MIFOUT) $(VOUT) $(JSON) $(DISASM) $(CFTASM) $(ALUROMLIST) $(ALUROMBIN)
+all:			$(MCOUT) $(HDROUT) $(MIFOUT) $(VOUT) $(JSON) $(DISASM) $(CFTASM) $(ALUROMLIST) $(ALUROMBIN) $(PLDS)
 
 clean:
 			rm -f *.h *.json
@@ -54,6 +57,10 @@ $(BASE)%:		$(MC) $(MCIN)
 
 $(BUILDDIR)/alu-rom%list $(BUILDDIR)/alu-rom%bin:
 			cd $(BUILDDIR); ../$(MKALUROM)
+
+$(BUILDDIR)/%.jed:	%.pld
+			$(GALASM) $<
+			mv *.chp *.fus *.jed *.pin $(BUILDDIR)
 
 # $(BUILDDIR)/mbu-rom%list $(BUILDDIR)/mbu-rom%bin:
 # 			cd $(BUILDDIR); ../$(MKMBUROM)
