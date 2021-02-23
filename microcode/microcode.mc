@@ -186,7 +186,7 @@ cond uaddr:4;
 // 11000     ALU:Y                    Read result of last ALU operation
 // 11001     ALU:B       ALU:B        Currently only used by the SRU.                              
 // 11010                              
-// 11011                              
+// 11011     MBn         MBn          Write to MBn (n = IR[0..2])
 // 11100     MBP         MBP          Read/write  Access to the MBP for long jumps
 // 11101     CTX         CTX          Context register access
 // 11110     CTX+flags   CTX+flags    Pushed onto stack as a single 16-bit value (for speed)
@@ -197,7 +197,7 @@ cond uaddr:4;
 field  READ            = ___________________XXXXX; // Read unit field
 //signal read_idle     = ...................00000; // No read
 //signal               = ...................00001; // (Available)
-//signal read_agl        = ...................00010; // Read from address generation logic
+//signal read_agl      = ...................00010; // Read from address generation logic
 //signal               = ...................00011; // (Available)
 signal read_cs0        = ...................00100; // Constant Store: 0000 (Zero; Reset)
 signal read_cs1        = ...................00101; // Constant Store: 0001 (Unused)
@@ -221,7 +221,7 @@ signal read_alu_not    = ...................10100; // ALU: Read from ALU: NOT AC
 signal read_alu_y      = ...................11000; // Read the ALU Y Port (ADD result): DO NOT CHANGE VALUE!
 signal read_alu_b      = ...................11001; // Read the ALU B Port (SRU result)
 //signal               = ...................11010; // (Available)
-//signal               = ...................11011; // (Available)
+signal read_mbn        = ...................11011; // Read an MBn register
 signal read_mbp_new    = ...................11100; // Read the MBP (_new added temporarily to avoid bugs)
 signal read_ctx        = ...................11101; // Read the context register
 signal read_ctx_flags  = ...................11110; // Read CTX & flags vector
@@ -256,7 +256,7 @@ signal write_ir        = ..............01111.....; // Write to the Instruction R
 //signal               = ..............11000.....; // (Available)
 signal write_alu_b     = ..............11001.....; // Write to ALU's B Port
 //signal               = ..............11010.....; // (Available)
-//signal               = ..............11011.....; // (Available)
+signal write_mbn       = ..............11011.....; // Write an MBn register
 signal write_mbp_new   = ..............11100.....; // Write the MBP (_new added temporarily to avoid bugs)
 signal write_ctx       = ..............11101.....; // Write the context register
 signal write_ctx_flags = ..............11110.....; // Write CTX & flags vector
@@ -559,10 +559,10 @@ start RST=1, INT=0, COND=X, OP=XXXX, I=X, R=X, SUBOP=XXX, IDX=XX;
 
 #define SRU    _INSTR(0000), I=1, R=0, SUBOP=000, COND=X, IDX=XX // All shifts and rolls are here.
 #define SKP    _INSTR(0000), I=1, R=0, SUBOP=001, COND=X, IDX=XX // Skips
-//#define      _INSTR(0000), I=1, R=0, SUBOP=010, COND=X, IDX=XX // This is available
-//#define      _INSTR(0000), I=1, R=0, SUBOP=011, COND=X, IDX=XX // This is available
-//#define      _INSTR(0000), I=1, R=0, SUBOP=100, COND=X, IDX=XX // This is available
-//#define      _INSTR(0000), I=1, R=0, SUBOP=101, COND=X, IDX=XX // This is available
+#define LCT    _INSTR(0000), I=1, R=0, SUBOP=010, COND=X, IDX=XX // Load CTX into AC
+#define SCT    _INSTR(0000), I=1, R=0, SUBOP=011, COND=X, IDX=XX // Store AC into CTX
+#define LMB    _INSTR(0000), I=1, R=0, SUBOP=100, COND=X, IDX=XX // Load MBn into AC
+#define SMB    _INSTR(0000), I=1, R=0, SUBOP=101, COND=X, IDX=XX // Write MBn into AC
 //#define      _INSTR(0000), I=1, R=0, SUBOP=110, COND=X, IDX=XX // This is available
 //#define      _INSTR(0000), I=1, R=0, SUBOP=111, COND=X, IDX=XX // This is available
 
@@ -1783,30 +1783,79 @@ start SKP, COND=0;
       if_branch;                                // 02 IF skip:
       action_incpc, END;                        // 03 PC++
 
+///////////////////////////////////////////////////////////////////////////////
+//
+// THE LCT INSTRUCTION
+//
+///////////////////////////////////////////////////////////////////////////////
+
+// MNEMONIC: LCT
+// NAME:     Load Context Register
+// DESC:     Transfers the 8-bit CTX register to AC.
+// GROUP:    Memory Management
+// MODE:     Implied
+// FLAGS:    *NZ---
+// FORMAT:   :-------
+//
+// Loads the CTX into the Accumulator. The CTX is eight bits long. The value of
+// the AC's most significant 8 bits is undefined.
+
+start LCT;
+      FETCH_IR;                                 // 00 IR ← mem[PC++]
+      SET(ac, ctx), END;                        // 02 AC ← CTX
+
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-// THE RMB INSTRUCTION
+// THE SCT INSTRUCTION
+//
+///////////////////////////////////////////////////////////////////////////////
+
+// MNEMONIC: SCT
+// NAME:     Set Context Register
+// DESC:     Transfers the AC to the 8-bit CTX register.
+// GROUP:    Memory Management
+// MODE:     Implied
+// FLAGS:    *NZ---
+// FORMAT:   :-------
+//
+// Transfers the least significant eight bits of the AC into the CTX
+// register. All subsequent instructions (including instruction fetches) will
+// now use this context.
+//
+// TODO: this instruction has really limited usefulness. Replace it with a CJMP
+// (set context and jump) long-jump instruction, or abuse e.g. IRET for the
+// same reason.
+
+start SCT;
+      FETCH_IR;                                 // 00 IR ← mem[PC++]
+      SET(ctx, ac), END;                        // 02 AC ← CTX
+
+
+///////////////////////////////////////////////////////////////////////////////
+//
+// THE LMB INSTRUCTION
 //
 ///////////////////////////////////////////////////////////////////////////////
 
 // NOTE: Removed in favour of using the MBU via I/O transactions.
+// NOTE 2: Reinstated, remaned from RMB to LMB to match load/store terminology.
 
-// xMNEMONIC: RMB
-// xNAME:     Read Memory Bank
-// xDESC:     Transfers a Memory Bank Register to AC.
-// xGROUP:    Transfers
-// xMODE:     Literal (3-bit)
-// xFLAGS:    *NZ---
-// xFORMAT:   :----LLL
+// MNEMONIC: RMB
+// NAME:     Read Memory Bank
+// DESC:     Transfers a Memory Bank Register to AC.
+// GROUP:    Memory Management
+// MODE:     Literal (3-bit)
+// FLAGS:    *NZ---
+// FORMAT:   :----LLL
 //
 // Sets the AC to the value of the MBx register specified in the three least
 // significant bits of the operand. The value of the top eight bits is
 // currently undefined and should not be relied on.
 
-// start RMB;
-//       FETCH_IR;                                 // 00 IR ← mem[PC++]
-//       SET(ac, mbn), END;                     // 02 AC ← MB[IR0..IR2]
+start LMB;
+      FETCH_IR;                                 // 00 IR ← mem[PC++]
+      SET(ac, mbn), END;			// 02 AC ← MB[IR0..IR2]
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1816,22 +1865,23 @@ start SKP, COND=0;
 ///////////////////////////////////////////////////////////////////////////////
 
 // NOTE: Removed in favour of using the MBU via I/O transactions.
+// NOTE 2: Reinstated.
 
-// xMNEMONIC: SMB
-// xNAME:     Set Memory Bank
-// xDESC:     Transfers the AC to a Memory Bank Register.
-// xGROUP:    Transfers
-// xMODE:     Literal (3-bit)
-// xFLAGS:    -----
-// xFORMAT:   :----LLL
+// MNEMONIC: SMB
+// NAME:     Set Memory Bank
+// DESC:     Transfers the AC to a Memory Bank Register.
+// GROUP:    Transfers
+// MODE:     Literal (3-bit)
+// FLAGS:    -----
+// FORMAT:   :----LLL
 //
 // Sets the MBx register specified by the three least significant bits of the
 // operand to the value of AC, configuring a memory bank. The top 8 bits of the
 // AC are ignored.
 
-// start SMB;
-//       FETCH_IR;                                 // 00 IR ← mem[PC++]
-//       SET(mbn, ac), END;                     // 02 MB[IR0..02] ← AC
+start SMB;
+      FETCH_IR;                                 // 00 IR ← mem[PC++]
+      SET(mbn, ac), END;			// 02 MB[IR0..02] ← AC
 
 
 ///////////////////////////////////////////////////////////////////////////////
