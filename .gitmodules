@@ -4,3 +4,6 @@
 [submodule "external/sxsdiff"]
 	path = external/sxsdiff
 	url = git://github.com/timonwong/sxsdiff.git
+[submodule "external/galasm"]
+	path = external/galasm
+	url = https://github.com/daveho/GALasm.git

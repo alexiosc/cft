@@ -4,52 +4,23 @@ MBUCTL00        ; this is the signature
 NC1 DIS RMBP WAR IDXEN WMBP WMBn RA0 RA1 GND
 IR0  IR1 IR2   A0   A1   A2  OE  WE  NC2 VCC
 
-; Abridged Espresso output from mbu-control.espresso
+; Memory Output Enable
 
-; .i 11
-; .o 5
-; .p 13
-; DIS RMBP WAR IDXEN WMBP WMBn RADDR IR  A   OE WE What
-; -------------------------------------------------------------------------------
-;  -    -   0    -     -    -   --  --- 000   0  1 Write AR.
-;  -    0   -    -     -    -   --  --- 000   0  1 Read RMBP
-;  -    1   -    -     1    1   --  --- 000   0  1
-;  -    1   1    -     -    -   --  --- 000   1  0
-;  0    -   -    -     -    -   --  --- 000   1  1
-;  1    1   0    0     -    -   --  --1 001   0  0
-;  1    1   0    1     -    -   -1  --- 001   0  0
-;  1    1   1    -     1    0   --  --1 001   0  0
-;  1    1   0    0     -    -   --  -1- 010   0  0
-;  1    1   0    1     -    -   1-  --- 010   0  0
-;  1    1   1    -     1    0   --  -1- 010   0  0
-;  1    1   0    0     -    -   --  1-- 100   0  0
-;  1    1   1    -     1    0   --  1-- 100   0  0
+OE =            /DIS  + \
+                RMBP * RMBN * WAR * WMBP * WMBN  + \
+                /RMBP * /WMBP  + \
+                RMBN * /WMBP  + \
+                /WAR * /WMBP  + \
+                /WMBN
 
-;  -    -   -    -     1    1   --  ---       0  1
-;  -    1   1    -     -    -   --  ---       1  0
-;  -    -   0    -     -    -   --  ---       0  1
-;  0    -   -    -     -    -   --  ---       1  1
-;  -    0   -    -     -    -   --  ---       0  1
+; Memory Write Enable
 
-; .e
+WE =            /DIS  + \
+                RMBP * RMBN * WAR * WMBP * WMBN  + \
+                /RMBP  + \
+                /RMBN  + \
+                /WAR
 
-; DIS RMBP WAR IDXEN WMBP WMBn RADDR IR  A   OE WE What
-; -------------------------------------------------------------------------------
-; 0     -   -    -     -    -   --  ---         1  WE
-; -     0   -    -     -    -   --  ---         1  WE
-; -     -   0    -     -    -   --  ---         1  WE
-; -     -   -    -     1    1   --  ---         1  WE
-
-WE = /DIS  +  /RMBP  +  /WAR  +  WMBP * WMBn
-
-; DIS RMBP WAR IDXEN WMBP WMBn RADDR IR  A   OE WE What
-; -------------------------------------------------------------------------------
-; 0     -   -    -     -    -   --  ---       1
-; -     0   -    -     0    -   --  ---       1
-; -     0   -    -     -    0   --  ---       1    
-; -     1   1    -     -    -   --  ---       1
-   
-OE = /DIS  +  /RMBP * /WMBP  +  /RMBP * /WMBn  +  RMBP * WAR
 
 ; DIS RMBP WAR IDXEN WMBP WMBn RADDR IR  A   What
 ; -------------------------------------------------------------------------------
@@ -67,6 +38,12 @@ OE = /DIS  +  /RMBP * /WMBP  +  /RMBP * /WMBn  +  RMBP * WAR
 A0 = IR0 * DIS * WAR * WMBP * /WMBn   +   IR0 * DIS * RMBP * /WAR * /IDXEN   +   RA0 * DIS * RMBP * /WAR * IDXEN
 A1 = IR1 * DIS * WAR * WMBP * /WMBn   +   IR1 * DIS * RMBP * /WAR * /IDXEN   +   RA1 * DIS * RMBP * /WAR * IDXEN
 A2 = IR2 * DIS * WAR * WMBP * /WMBn   +   IR2 * DIS * RMBP * /WAR * /IDXEN
+
+
+A0 = DIS * RMBP * RMBN * /WAR * IDEN * ADDR0  +  DIS * RMBP * /RMBN * IR0  +  DIS * RMBP * WAR * /WMBN * IR0  +   DIS * RMBP * /WAR * /IDEN * IR0
+A1 = DIS * RMBP * RMBN * /WAR * IDEN * ADDR1  +  DIS * RMBP * /RMBN * IR1  +  DIS * RMBP * WAR * /WMBN * IR1  +   DIS * RMBP * /WAR * /IDEN * IR1
+A2 =                                             DIS * RMBP * /RMBN * IR2  +  DIS * RMBP * WAR * /WMBN * IR2  +   DIS * RMBP * /WAR * /IDEN * IR2
+
 
 
 DESCRIPTION

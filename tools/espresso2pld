@@ -1,0 +1,53 @@
+#!/usr/bin/python3
+
+import os
+import sys
+import re
+import pprint
+
+def minterm(vec, names):
+    assert len(vec) == len(names)
+    for c, n in zip(vec, names):
+        if c == "0":
+            yield "/" + n.upper()
+        if c == "1":
+            yield n.upper()
+
+res = []
+vecmap = []
+for line in sys.stdin:
+    line = line.strip()
+    print(line)
+    if "(warning)" in line:
+        line = re.sub(r".*\(warning\): ", "Error: ", line)
+        print("\n" + line)
+        sys.exit(1)
+
+    if ".ilb" in line:
+        data = line.split()
+        inlabels = data[1:]
+        num_inputs = len(inlabels)
+        #print(vars)
+
+    if ".olb" in line:
+        data = line.split()
+        outlabels = data[1:]
+        num_outputs = len(outlabels)
+        #print(vars)
+
+    m = re.match("^([01-]+) ([01-]+)", line)
+    if not m:
+        continue
+    invec, outvec = m.groups()
+    mts = " * ".join(minterm(invec, inlabels))
+    res.append([ invec, outvec, mts ])
+
+res.sort(reverse=True)
+pprint.pprint(res)
+
+#pprint.pprint(res)
+for i, n in enumerate(outlabels):
+    print("{} = \t\t".format(n.upper()), end="")
+    vecs = "  + \\\n\t\t".join(minterms for invec, outvec, minterms in res if outvec[i] == "1" )
+    print(vecs)
+
